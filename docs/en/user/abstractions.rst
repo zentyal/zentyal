@@ -1,162 +1,161 @@
 .. _abs-ref:
 
-Abstracciones de red a alto nivel de eBox
-*****************************************
+High-level eBox network abstractions
+************************************
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
-                   Isaac Clerencia <iclerencia@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
-                   Víctor Jímenez <vjimenez@warp.es>,
-                   Javier Uruen <juruen@ebox-platform.com>,
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
+                   Isaac Clerencia <iclerencia@ebox-platform.com>
+                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
+                   Víctor Jímenez <vjimenez@warp.es>
+                   Javier Uruen <juruen@ebox-platform.com>
 
-Objetos de red
-==============
+Network objects
+===============
 
-Los **objetos de red** son una manera de dar un nombre a un elemento
-de una red o a un conjunto de ellos. Sirven para simplificar y
-consecuentemente facilitar la gestión de la configuración de la red,
-pudiendo elegir comportamientos para dichos objetos.
+**Network objects** are a way of giving a name to a network
+element or a group of elements. They are used to simplify and
+subsequently facilitate network configuration management by being
+able to select behavior for these objects.
 
-Por ejemplo, pueden servir para dar un nombre significativo a
-una dirección IP o a un grupo de ellas. Si es el segundo caso, en
-lugar de definir reglas de acceso de cada una de las direcciones,
-bastaría simplemente con definirlas para el objeto de red. Así,
-todas las direcciones pertenecientes al objeto adquirirían dicha
-configuración.
+To give an example, they can be used to give a significant name to
+an IP address or a group of IP addresses. In the case of the latter, instead
+of defining access rules for each of the addresses,
+they merely have to be defined for the network object so that all
+the addresses belonging to the object take on this
+configuration.
 
 .. figure:: images/abstractions/objects-schema.png
    :scale: 70
    :align: center
-   :alt: Representación de objetos de red
+   :alt: representation of network objects
 
-   *GRAPHIC:  Representación de objetos de red*
+   *GRAPHIC:  representation of network objects*
 
 
-Gestión de los objetos de red con eBox
---------------------------------------
+Management of network objects with eBox
+---------------------------------------
 
-Para su gestión en eBox se debe ir al menú :menuselection:`Objetos`
-y ahí se crean nuevos objetos, que tendrán asociado un
-:guilabel:`nombre`, y una serie de miembros.
+For object management in eBox, go to the submenu :menuselection:`Objects`
+and create new objects with an associated
+:guilabel:`name` and a series of members.
 
 .. figure:: images/abstractions/01-objects.png
-   :alt: Aspecto general del módulo de objetos de red
+   :alt: general appearance of the network object module
 
-   Aspecto general del módulo de objetos de red
+   General appearance of the network object module
 
-Se puede crear, editar y borrar objetos. Estos objetos serán usados
-más tarde por otros módulos como por ejemplo en el cortafuegos, el *Web
-caché proxy* o en el correo.
+Objects can be created, modified and deleted. These objects will be used
+later by other modules, such as the firewall, the *Web
+cache proxy* or the mail service.
 
-Cada uno de ellos tendrá al menos los siguientes valores:
-:guilabel:`nombre`, :guilabel:`dirección IP` y :guilabel:`máscara de
-red` utilizando notación CIDR. La dirección física sólo tendrá sentido
-para miembros que representen una única máquina.
+Each one will have at least the following values:
+:guilabel:`name`, :guilabel:`IP address` and :guilabel:`network
+mask` using CIDR notation. The physical address will only make sense
+for members with a single physical machine.
 
 .. image:: images/abstractions/06-object-member.png
    :scale: 70
-   :alt: Añadiendo un miembro
+   :alt: adding a member
 
-Los miembros de un objeto pueden solaparse con miembros de otros, con lo cual
-hay que tener mucho cuidado al usarlos en el resto de módulos para
-obtener la configuración deseada y no tener problemas de seguridad.
+The members of an object can overlap the members of another; therefore,
+great care must be taken when using them in the remaining modules to
+obtain the desired configuration and avoid security problems.
 
-Servicios de red
+Network services
 ================
 
-Un **servicio de red** es la abstracción de uno o más protocolos de
-aplicación que pueden ser usados en otros módulos como el cortafuegos
-o el módulo de moldeado de tráfico.
+A **network service** is the abstraction of one or more applicable
+protocols that can be used in other modules, such as the firewall
+or the traffic-shaping module.
 
-La utilidad de los servicios es similar a la de los objetos. Si
-veíamos que con los objetos podíamos hacer referencia fácilmente a un
-conjunto de direcciones IP usando un nombre significativo, podemos así
-mismo identificar un conjunto de puertos numéricos, difíciles de
-recordar y engorrosos de teclear varias veces en distintas
-configuraciones, con un nombre acorde a su función (típicamente el
-nombre del protocolo de nivel 7 o aplicación que usa esos puertos).
+The use of the services is similar to that of the objects. It
+was seen that with the objects it was possible to make an easy reference to a
+group of IP addresses using a significant name. It is also possible to
+identify a group of numerical ports that are difficult to remember
+and time-consuming to enter several times in different
+configurations, with a name in line with its function (more typically, the
+name of the level-7 protocol or application using these ports).
 
 .. figure:: images/abstractions/services-schema.png
-   :alt: Conexión de un cliente a un servidor
+   :alt: client connection to a server
 
-   *GRAPHIC: Conexión de un cliente a un servidor*
+   *GRAPHIC: client connection to a server*
 
-Gestión de los servicios de red con eBox
+Management of network services with eBox
 ----------------------------------------
 
-Para su gestión en eBox se debe ir al menú
-:menuselection:`Servicios` donde es posible crear nuevos servicios,
-que tendrán asociado un nombre, una descripción y un indicador de si
-el servicio es externo o interno. Un servicio es interno si los
-puertos configurados para dicho servicio se están usando en la máquina
-en la que está eBox instalado. Además cada servicio tendrá una serie
-de miembros. Cada uno de ellos tendrá los siguientes valores:
-:guilabel:`protocolo`, :guilabel:`puerto origen` y :guilabel:`puerto
-destino`.
+For management in eBox, go to the submenu
+:menuselection:`Services`, where it is possible to create new services,
+which will have an associated name, description and a flag indicating whether
+the service is external or internal. A service is internal if the
+ports configured for that service are being used in the machine in
+which eBox is installed. Furthermore, each service has a series of
+members. Each one will have the following values:
+:guilabel:`protocol`, :guilabel:`source port` and :guilabel:`destination
+port`.
 
-En todos estos campos podemos introducir el valor *cualquiera*, por
-ejemplo para especificar servicios en los que sea indiferente el
-puerto origen.
+The value *any* can be entered in all of these fields, e.g.
+to specify services in which the source port is
+indifferent.
 
-Hay que tener en cuenta que los servicios de red basados en el modelo
-cliente/servidor que más se utilizan el cliente suelen utilizar un
-puerto cualquiera aleatorio para conectarse a un puerto destino
-conocido. Los puertos del 1 al 1023 se llaman puertos "bien conocidos" y
-en sistemas operativos tipo Unix enlazar con uno de estos puertos
-requiere acceso como superusuario. Del 1024 al 49.151 son puertos
-registrados. Y del 49.152 al 65.535 son puertos efímeros y son utilizados
-como puertos temporales, sobre todo por los clientes al comunicarse con
-los servidores. Existe una lista de servicios de red conocidos
-aprobada por la IANA [#]_ para los protocolos UDP y TCP en el fichero
-`/etc/services`.
+Bear in mind that in network services based on the
+most commonly-used client/server model, clients often use any random
+port to connect to a known destination
+port. Well-known ports are considered those located between 0 and 1023,
+registered ports the ones located between 1024 and 49151
+and private or dynamic ports are those located between 49152 and 65535.
 
-.. [#] La IANA (*Internet Assigned Numbers Authority*) es la entidad
-       encargada de establecer los servicios asociados a puertos bien
-       conocidos. La lista completa se encuentra en
-       http://www.iana.org/assignments/port-numbers
+A list of known network services
+approved by the IANA [#]_ for UDP and TCP protocols can be found in the
+`/etc/services` file.
 
-El protocolo puede ser TCP, UDP, ESP, GRE o ICMP. También existe un
-valor TCP/UDP para evitar tener que añadir dos veces un mismo puerto
-que se use para ambos protocolos.
+.. [#] The IANA (*Internet Assigned Numbers Authority*) is responsible
+       for establishing the services associated with well-known
+       ports. The full list can be found at
+       http://www.iana.org/assignments/port-numbers.
+
+The protocol can be TCP, UDP, ESP, GRE or ICMP. There is also a
+TCP/UDP value to avoid having to add the same port used for
+both protocols twice.
 
 .. figure:: images/abstractions/services.png
-   :alt: Aspecto general del módulo de servicios de red
+   :alt: general appearance of the network service module
    :scale: 80
 
-   Aspecto general del módulo de servicios de red
+   General appearance of the network service module
 
-Se puede crear, editar y borrar servicios. Estos servicios serán usados más
-adelante en el cortafuegos o el moldeado de tráfico haciendo referencia
-simplemente al nombre significativo.
+Services can be created, modified and deleted. These services will be used
+later on in the firewall or traffic shaping by merely referring to
+the significant name.
 
-Ejemplo práctico
-^^^^^^^^^^^^^^^^
-Crear un objeto y añadir lo siguiente: una máquina sin dirección MAC, una
-máquina con dirección MAC y una dirección de red.
+Practical example
+^^^^^^^^^^^^^^^^^
+Create an object and add the following: a host with no MAC address, a
+host with a MAC address and a network address.
 
-Para ello:
+To do so:
 
-#. **Acción:**
-   Acceder a :menuselection:`Objetos`. Añadir **máquinas de
-   contabilidad**.
+#. **Action:**
+   Access :menuselection:`Objects`. Add **accountancy
+   hosts**.
 
-   Efecto:
-     El objeto **máquinas de contabilidad** se ha creado.
+   Effect:
+     The **accountancy hosts** object has been created.
 
-#. **Acción:**
-   Acceder a :guilabel:`Miembros` del objeto **máquinas de
-   contabilidad**. Crear miembro **servidor contable** con una dirección IP
-   de la red, por ejemplo, *192.168.0.12/32*. Crear otro miembro
-   **servidor contable respaldo** con otra dirección IP, por ejemplo,
-   *192.168.0.13/32* y una dirección MAC válida, por ejemplo,
-   *00:0c:29:7f:05:7d*. Finalmente, crea el miembro **red de
-   ordenadores contables** con dirección IP una subred de tu red
-   local, como por ejemplo, *192.168.0.64/26*. Finalmente, ir a
-   :guilabel:`Guardar cambios` para confirmar la configuración creada.
+#. **Action:**
+   Access :guilabel:`Members` of the **accountancy
+   hosts** object. Create **accountancy server** member with a network IP
+   address, e.g. *192.168.0.12/32*. Create another member
+   **backup accountancy server** with another IP address, e.g.
+   *192.168.0.13/32*, and a valid MAC address, e.g.
+   *00:0c:29:7f:05:7d*. Finally, create the **accountancy
+   PC network** member with the IP address of a subnet of your local
+   network, e.g. *192.168.0.64/26*. Finally, go to
+   :guilabel:`Save changes` to confirm the configuration created.
 
-   Efecto:
-     El objeto **máquinas de contabilidad** contendrá tres miembros
-     **servidor contable**, **servidor contable respaldo** y **red de
-     ordenadores contables** de forma permanente.
+   Effect:
+     The **accountancy hosts** object will contain three permanent members, i.e.
+     **accountancy server**, **backup accountancy server** and **accountancy
+     PC network**.
 
 .. include:: abstractions-exercises.rst

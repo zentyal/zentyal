@@ -1,159 +1,158 @@
 .. _filesharing-chapter-ref:
 
-Servicio de compartición de ficheros y de autenticación
-*******************************************************
+File sharing service and remote authentication
+**********************************************
 
 .. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
                    Enrique J. Hernández <ejhernandez@ebox-platform.com>,
                    Javier Uruen <juruen@ebox-platform.com>
 
-Compartición de ficheros
-========================
+File sharing
+============
 
-La **compartición de ficheros** se realiza a través de un sistema de ficheros en
-red. Los principales sistemas existentes para ello son *Network File
-System* (NFS), de Sun Microsystems, que fue el primero en crearse, *Andrew File
-System* (AFS) y *Common Internet File System* (CIFS) también conocido como
-*Server Message Block* (SMB).
+The **file sharing** takes place through a network file system. The
+systems more widely used are: NFS (*Network File System*) by Sun
+Microsystems, which was the first one, AFS (*Andrew File System*) and
+CIFS (*Common Internet File System*), also known as SMB (*Server
+Message Block*).
 
-A los clientes se les da la abstracción de estar haciendo operaciones
-(creación, lectura, escritura) sobre ficheros en un medio de
-almacenamiento de la misma máquina. Sin embargo, esta información puede estar
-dispersa en diferentes lugares, siendo por tanto transparente en cuanto a su
-localización. Idealmente, el cliente no debería saber si el fichero se almacena en
-la propia máquina o se dispersa por la red. En realidad, eso no es posible
-debido a los retardos de la red y las cuestiones relacionadas con la
-actualización concurrente de ficheros comunes y que no deberían interferir
-entre ellas.
+The clients operate on files (opening, reading or
+writing files) as if they were locally stored in the machine,
+but the information can in fact be stored in different places, location
+being completely transparent to the end user.
+Ideally, the client should not know whether the file is
+stored in the host itself or whether it is spread all over the
+network. However, this is not possible due to the network delays and
+the issues related to concurrent file updates which should not
+interfere among them.
 
-SMB/CIFS y su implementación Linux Samba
-----------------------------------------
+SMB/CIFS and its Linux Samba implementation
+===========================================
 
-El SMB (*Server Message Block*) o CIFS (*Common Internet File System*) se usa
-para compartir el acceso a ficheros, impresoras, puertos serie y otra serie de
-comunicaciones entre nodos en una red local. También ofrece mecanismos de
-autenticación entre procesos. Se usa principalmente entre ordenadores
-*Windows*, sin embargo, existen implementaciones en otros sistemas operativos
-como GNU/Linux a través de Samba que implementa los protocolos de los
-sistemas *Windows* utilizando ingeniería inversa [#]_.
+SMB (*Server Message Block*) or CIFS (*Common Internet File System*)
+is used to share the access to: files, printers, serial ports
+and any other series of communications between nodes in a local
+network. It also offers authentication mechanisms between
+processes. It is mainly used among computers with Windows. However,
+there are also some implementations in other operating systems such
+as GNU/Linux using Samba, which implements Windows system protocols
+using reverse engineering [#]_.
 
-.. [#] La ingeniería inversa trata de averiguar los protocolos de
-       comunicación usando para ello únicamente sus mensajes.
+.. [#] Reverse engineering tries to figure out the communication
+       protocols just through observation of their messages.
 
-Ante el auge de otros sistemas de compartición de ficheros, Microsoft decidió
-renombrar SMB a CIFS añadiendo nuevas características como enlaces simbólicos y
-fuertes, mayores tamaños para los ficheros y evitar el uso de NetBIOS [#]_
-sobre el que SMB se basa.
+Given the success of some file sharing systems, Microsoft decided to
+rename SMB as CIFS, adding new features to it, such as: symbolic and
+hard links and bigger file sizes, as well as avoiding the use of
+NetBIOS [#]_ in which SMB is based.
 
-.. [#] **NetBIOS** (*Network Basic Input/Output System*): API que permite la
-         comunicación en una red de área local entre ordenadores diferentes
-         dando a cada máquina un nombre NetBIOS y una dirección IP
-         correspondiente a un (posiblemente diferente) nombre de máquina.
+.. [#] **NetBIOS** (*Network Basic Input/Output System*): API that
+       allows communication among different computers in a local area
+       network. It gives a NetBIOS name and IP address to each one of the
+       hosts.
 
 Primary Domain Controller (PDC)
--------------------------------
+===============================
 
-Un **PDC** es un servidor de dominios de versiones *Windows NT* previas a
-*Windows 2000*. Un dominio, según este entorno, es un sistema que permite el
-acceso restringido a una serie de recursos con el uso de un única combinación
-nombre de usuario y contraseña. Por tanto, es posible utilizarlo para permitir
-la entrada en el sistema con control de acceso remoto. PDC también ha sido
-recreado por Samba dentro del sistema de autenticación de SMB. En las versiones
-más modernas de *Windows* ha pasado a denominarse simplemente *Domain Controller*.
+A **Primary Domain Controller** (PDC) is a domain server for *Windows NT*
+versions previous to the *Windows 2000* version. In this
+environment, a domain is a system which allows restricted
+access to a series of resources with a username and
+password. Therefore, it can be used to log in in the system through
+remote access control. PDC has also been recreated by Samba inside the SMB
+authentication system. In modern *Windows* versions it is denominated
+**Domain Controller**.
 
 .. _ebox-samba-ref:
 
-eBox como servidor de ficheros
-------------------------------
+eBox as file server
+===================
 
-Nosotros nos vamos a aprovechar de la implementación de SMB/CIFS para Linux
-usando **Samba** como servidor de ficheros y de autenticación de sistemas
-operativos *Windows* en eBox.
+eBox uses **Samba** SMB/CIFS implementation for Linux as a file server
+and *Windows* operative system authentication.
 
-A través de :menuselection:`Compartir Ficheros --> Configuración
-general`, podemos configurar eBox como servidor de ficheros
-desmarcando :guilabel:`Habilitar PDC`.
-Con eBox la compartición de ficheros está integrada con los
-usuarios y grupos. De tal manera que cada usuario puede tener su
-directorio personal y cada grupo un directorio compartido para todos
-sus usuarios.
+You will be able to configure eBox as a file server going to:
+:menuselection:`File Sharing --> General Settings` unchecking
+the :guilabel:`Enable PDC` option. The file sharing in eBox is
+integrated with the users and groups. As a result, each user can
+have a personal directory and each group can have a shared directory
+for all its users.
 
 .. image:: images/filesharing/06-sharing.png
    :scale: 60
 
-Establecemos como :guilabel:`dominio` dónde se trabajará dentro de la red local
-dentro de *Windows*, y como :guilabel:`nombre NetBIOS` el nombre que
-identificará a eBox dentro de la red *Windows*. Se le puede dar una
-:guilabel:`descripción` larga para describir el dominio. Además se
-puede establecer de manera opcional un :guilabel:`límite de cuota`.
+:guilabel:`Domain` will refer to the Windows local network name
+whereas :guilabel:`NetBIOS Name` will identify eBox inside the
+*Windows* network. You can also give a
+:guilabel:`Description` with the domain characteristics. Apart from
+that, and as an optional feature, a :guilabel:`Quota Limit` can be
+established.
 
-Para crear un directorio compartido, se accede a
-:menuselection:`Compartir Ficheros --> Directorios compartidos`
-y se pulsa :guilabel:`Añadir nuevo`.
+To add a new shared directory, go to
+:menuselection:`File Sharing --> Shared Directories` and
+click :guilabel:`Add new`.
 
 .. image:: images/filesharing/07-share-add.png
    :scale: 60
 
-Habilitado:
-  Lo dejaremos marcado si queremos que este directorio esté
-  compartido. Podemos deshabilitarlo para dejar de compartirlo
-  manteniendo la configuración.
+Enabled:
+  This option has to be marked whenever the directory needs to be
+  shared. Unmarking the option will cause the directory to no longer
+  be shared, while keeping the settings.
 
-Nombre del directorio compartido:
-  El nombre por el que será conocido el directorio compartido.
+Shared directory name:
+  This refers to the name of the shared directory.
 
-Ruta del directorio compartido:
-  Ruta del directorio a compartir. Se puede crear un subdirectorio dentro del
-  directorio de eBox */home/samba/shares*, o usar directamente una
-  ruta existente del sistema.
+Shared directory path:
+  A path can be created either in the eBox directory
+  */home/samba/shares* or using an already existing directory path.
 
-Comentario:
-  Una descripción más extensa del directorio compartido para facilitar
-  la gestión de los elementos compartidos.
+Comment:
+  A more detailed description of the shared directory can be
+  provided in this field.
 
 .. image:: images/filesharing/08-shares.png
 
-Desde la lista de directorios compartidos podemos editar el
-:guilabel:`control de acceso`. Allí, pulsando en :guilabel:`Añadir
-nuevo`, podemos asignar permisos de lectura, lectura y escritura o
-administración a un usuario o a un grupo. Si un usuario es
-administrador de un directorio compartido podrá leer, escribir y
-borrar ficheros de cualquier otro usuario dentro de dicho directorio.
+:guilabel:`Access Control` can be configured from the shared directory
+list. You can go to :guilabel:`Add New` in order to give reading,
+writing and administration permissions to a given user or group. If a
+user has administratiOn permission over a shared directory they will
+be granted all the permissions over the files created by other
+users in this directory.
 
 .. image:: images/filesharing/09-share-acl.png
 
-También se puede crear un directorio compartido para un grupo desde
-:menuselection:`Grupos --> Editar grupo`. Todos los miembros del grupo
-tendrán acceso a ese directorio y podrán leer o escribir los ficheros y
-directorios dentro de dicho directorio compartido.
+Going to :menuselection:`Groups --> Edit Group` a shared directory for
+a group can also be created. Every member of this group will have
+access to this directory, being able to read and write all the files.
 
 .. image:: images/filesharing/10-share-group.png
 
-Configuración de clientes SMB/CIFS
-----------------------------------
+SMB/CIFS clients configuration
+==============================
 
-Una vez tenemos el servicio ejecutándose podemos compartir ficheros a través de
-*Windows* o GNU/Linux.
+Files can be shared between *Windows* and GNU/Linux once the file
+sharing service is running.
 
-Cliente Windows
-^^^^^^^^^^^^^^^
+Windows client
+--------------
 
-  A través de :menuselection:`Mis sitios de red --> Toda la
-  red`. Encontramos el dominio que hemos elegido y después aparecerá
-  la máquina servidora con el nombre seleccionado y podremos ver sus
-  recursos compartidos:
+  The selected domain will be found in :menuselection:`Network Places
+  --> All the Network`. The server host with the selected name will
+  show the shared resources it has.
 
   .. image:: images/filesharing/14-windows-shares.png
      :scale: 70
      :align: center
 
-Cliente Linux
-^^^^^^^^^^^^^
+Linux client
+------------
 
   1. Konqueror (KDE)
 
-     En Konqueror basta con poner en la barra de búsqueda ``smb://`` para ver
-     la red de *Windows* en la que podemos encontrar el dominio especificado:
+     When using Konqueror ``smb://`` should be introduced in the location
+     bar in order to see the Windows network, where you will be able to
+     find the specified domain.
 
      .. image:: images/filesharing/14-kde-shares.png
         :scale: 70
@@ -161,29 +160,29 @@ Cliente Linux
 
   2. Nautilus (Gnome)
 
-     En Nautilus vamos a :menuselection:`Servidores de Red --> Red de
-     Windows`, ahí encontramos nuestro dominio y dentro del mismo el
-     servidor eBox donde compartir los recursos.
+     When using Nautilus (Gnome) go to :menuselection:`Network
+     Server --> Windows Network` in order to find the specified
+     domain and the eBox server inside.
 
      .. image:: images/filesharing/14-gnome-shares.png
         :scale: 70
         :align: center
 
-     Hay que tener en cuenta que los directorios personales de los
-     usuarios no se muestran en la navegación y para entrar en ellos
-     se debe hacer directamente escribiendo la dirección en la barra
-     de búsqueda. Por ejemplo, para acceder al directorio personal del
-     usuario *pedro*, debería introducir la siguiente dirección::
+     Taking into account that the personal directories are not shown
+     when browsing the server resources, those will need to be
+     introduced in the location bar. For example, if you need to have
+     access to Peter's personal directory, you will have to introduce
+     the following address::
 
-       smb://<ip_de_ebox>/pedro
+       smb://<ip_de_ebox>/peter
 
   3. Smbclient
 
-     Además de las interfaces gráficas, disponemos un cliente de línea de
-     comandos que funciona de manera similar a un cliente FTP, con manejo de
-     sesiones. Permite la descarga y subida de ficheros, recoger información
-     sobre ficheros y directorios, etc. Un ejemplo de sesión puede ser el
-     siguiente::
+     Besides the graphical interfaces, there is a command line
+     client which works in a similar way to FTP clients. Smbclient
+     allows actions such as: file downloading and uploading or file
+     and directory information gathering among others. This could be
+     an example of a session::
 
        $ smbclient -U joe //192.168.45.90/joe
        > get ejemplo
@@ -215,76 +214,65 @@ Cliente Linux
        MSHOME               SHINNER
        WARP                 WARP-JIMBO
 
-eBox como servidor de autenticación
------------------------------------
+eBox as authentication server
+=============================
 
-Para aprovechar las posibilidades del PDC como servidor de
-autenticación y su implementación **Samba** para GNU/Linux debemos
-marcar la casilla :guilabel:`Habilitar PDC` a través de
-:menuselection:`Compartir ficheros --> Configuración General`.
+You have to go to :menuselection:`File Sharing --> General Configuration`
+and check the :guilabel:`Enable PDC` option in order to have eBox
+working as an authentication server (PDC).
 
 .. image:: images/filesharing/06-pdc-enabled.png
    :scale: 60
 
-Si la opción :guilabel:`Perfiles Móviles` está activada, el servidor PDC no
-sólo realizará la autenticación, sino que también almacenará los
-perfiles de cada usuario. Estos perfiles contienen toda la información
-del usuario, como sus preferencias de *Windows*, sus cuentas de correo
-de *Outlook*, o sus documentos.  Cuando un usuario inicie sesión,
-recibirá del servidor PDC su perfil. De esta manera, el usuario
-dispondrá de su entorno de trabajo en varios ordenadores. Hay que
-tener en cuenta antes de activar esta opción que la información de los
-usuarios puede ocupar varios GiB de información, el servidor PDC
-necesitará espacio de disco suficiente. Adicionalmente, se puede
-configurar la :guilabel:`letra del disco` con la que aparecerá el
-directorio personal del usuario tras autenticar contra el PDC en
-Windows.
+If the option :guilabel:`Roaming Profiles` is enabled, the PDC server
+will store all the user profiles. Any user profile will contain
+general information such as: *Windows* settings, *Outlook* e-mail accounts
+or its documents. Every time a user logs in an updated profile will be
+sent to them by the PDC server. The user can have access to his
+profile information from any computer. Please take into account the size of the
+users information when setting up your server in order to make sure
+there is enough space. In addition to that, the :guilabel:`Disk
+Letter` for the personal directory can be redefined.
 
-Adicionalmente, se pueden definir políticas para las contraseñas de
-los usuarios a través de :menuselection:`Compartir ficheros --> PDC`
+Finally, you can define user policy passwords through :menuselection:`File Sharing --> PDC`.
 
-* :guilabel:`Longitud mínima de contraseña`.
-* :guilabel:`Edad máxima de contraseña`. Dicha contraseña deberá
-  renovarse tras superar los días configurados.
-* :guilabel:`Forzar historial de contraseñas`. Esta opción forzará a
-  almacenar un máximo de contraseñas tras modificarlas.
+* :guilabel:`Minimum Password Length`
+* :guilabel:`Maximum Password Age`. The password has to be changed
+  after this period.
+* :guilabel:`Enforce Password History`. Stores a number of 
+  passwords once modified.
 
-Estas políticas son únicamente aplicables cuando se cambia la
-contraseña desde Windows con una máquina que está conectada a nuestro
-dominio. De hecho, Windows forzará el cumplimiento de dicha política
-al entrar en una máquina registrada en el dominio.
+This policy only applies when a password is changed from
+Windows. Actually Windows will enforce the policy when a user logs in in
+a machine registered in the domain.
 
 .. image:: images/filesharing/06-pdc-settings.png
    :scale: 60
 
-Configuración de clientes PDC
------------------------------
+PDC Client Configuration
+========================
 
-Para poder configurar la autenticación PDC en una máquina, se necesita
-utilizar una cuenta que tenga privilegios de administrador en el
-servidor PDC. Esto se configura en :menuselection:`Usuarios --> Editar
-Usuario --> Cuenta de compartición de ficheros o de
-PDC`. Adicionalmente, se puede establecer una :guilabel:`Cuota de
-disco`.
+An account with administration rights will be needed in order to
+configure a PDC client, this can be done going to
+:menuselection:`Users --> Edit User --> File Sharing or PDC
+Account`. You can also establish a :guilabel:`Disk Quota`.
 
 .. image:: images/filesharing/11-share-user.png
 
-Ahora vamos a otra máquina dentro de la misma red de área local (hay
-que tener en cuenta que el protocolo SMB/CIFS funciona en modo
-difusión total) con un *Windows* capaz de trabajar con CIFS
-(Ej. *Windows XP Professional*). Allí, en :menuselection:`Mi PC -->
-Propiedades`, lanzamos el asistente para asignar una *Id de red* a la
-máquina. En cada pregunta se le da como nombre de usuario y contraseña
-la de aquel usuario al que hemos dado privilegios de administrador, y
-como dominio el nombre de dominio escrito en la configuración de
-:menuselection:`Compartir Ficheros`. El nombre de la máquina puede ser
-el mismo que estaba, siempre y cuando no colisione con el resto de
-equipos a añadir al dominio. Tras finalizar el asistente, se debe
-reiniciar la máquina.
+Now, go to a different machine in the same LAN (keep in mind that
+the SMB/CIFS protocol works using broadcast) that has a CIFS-capable
+*Windows* (i.e., *Windows XP Professional*).
 
-Una vez hemos entrado con uno de los usuarios, podemos entrar en
-:menuselection:`Mi PC` y aparecerá una partición de red con una cuota
-determinada en la configuración de eBox.
+Click on :menuselection:`My PC --> Properties`. This will launch
+the *Network Id* wizard. We will reboot the server after entering the
+administratiion user name and password as well as the domain name
+given in the :menuselection:`File Sharing` configuration. The machine
+name can be the one already set, as long as it does not collide with
+an existing one already in the domain. After finishing the process,
+you need to reboot the machine.
+
+Every user can see their disk usage and quota in :menuselection:`My
+PC`.
 
 .. image:: images/filesharing/15-windows-partition.png
    :scale: 70

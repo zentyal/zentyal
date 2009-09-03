@@ -1,369 +1,342 @@
 ﻿.. _proxy-http-ref:
 
-Servicio Proxy HTTP
-*******************
+HTTP Proxy Service
+******************
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
-                   Isaac Clerencia <iclerencia@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-technologies.com>,
+                   Isaac Clerencia <iclerencia@ebox-technologies.com>,
+                   Enrique J. Hernández <ejhernandez@ebox-technologies.com>,
                    Víctor Jímenez <vjimenez@warp.es>,
-                   Javier Uruen <juruen@ebox-platform.com>,
-                   Javier Amor García <javier.amor.garcia@ebox-platform.com>,
+                   Javier Uruen <juruen@ebox-technologies.com>,
+                   Javier Amor García <javier.amor.garcia@ebox-technologies.com>
 
-Un servidor **Proxy Caché Web** se utiliza para reducir el consumo de
-ancho de banda en una conexión HTTP (Web) [#]_, controlar su acceso,
-mejorar la seguridad en la navegación e incrementar la velocidad de
-recepción de páginas de la red.
+A *Web Proxy Cache* server is used to reduce the bandwidth used in HTTP (Web)
+[#]_ connections, control access and improve the browsing security and
+browsing speed.
 
-.. [#] Para más información sobre el servicio HTTP, ir a la sección
+
+
+.. [#] For more information about  HTTP service, see the section
       :ref:`web-section-ref`.
 
-Un *proxy* es un programa que actúa de intermediario en la conexión a
-un protocolo, en este caso el protocolo HTTP.  Al intermediar puede
-modificar el comportamiento del protocolo, por ejemplo actuando de
-*caché* o modificando los datos recibidos.
+
+A *proxy* is a program that acts as intermediary in a connection, in this case a
+connection using the HTTP protocol. In this intermediation it can change the
+behaviour of the protocol, for example adding a *cache* or mangling the received
+data.
+
 
 .. figure:: images/proxy/proxy-schema.png
    :scale: 60
-   :alt:  Servidor Web - LAN - Cache - Internet - Cache - Servidor Web
+   :alt:  Web Server - LAN - Cache - Internet - Cache - Web Server
 
-El servicio de proxy HTTP suministrado por eBox ofrece las siguientes
-funcionalidades:
+The HTTP proxy service available in eBox has the following features:
 
- * Actúa de *caché* de contenidos acelerando la navegación y
-   reduciendo el consumo de ancho de banda.
- * Restricción de acceso dependiendo de la dirección de red de origen,
-   de usuario o de horario.
- * Anti-virus, bloqueando el acceso a contenidos infectados.
- * Restricción de acceso a determinados dominios y tipos de fichero.
- * Filtrado de contenidos.
+    * Web content cache. It speeds up the browsing and reduces the bandwidth
+      consumption.
+    * Access restriction. It can be restricted by source address, user or using
+      a time table criteria.
+    * Antivirus. It blocks infected files.
+    * Content access restriction for given domains or file types.
+    * Content filter.
 
-eBox utiliza Squid [#]_ como *proxy*, apoyándose en Dansguardian [#]_ para
-el control de contenidos.
+eBox uses Squid [#]_ as *proxy*, and draws on Dansguardian [#]_ for content control.
 
 .. [#] Squid: http://www.squid-cache.org *Squid Web Proxy Cache*
 .. [#] Dansguardian: http://www.dansguardian.org *Web content filtering*
 
-Configuración de política de acceso
-===================================
 
-La parte más importante de configurar el *proxy HTTP* es establecer la política
-de acceso al contenido web a través de él. La política
-determina si se puede acceder a la web y si se aplica
-del filtro de contenidos.
+Access policy configuration
+===========================
 
-El primer paso a realizar es definir una política global de
-acceso. Podemos establecerla en la sección :menuselection:`Proxy HTTP
---> General`, seleccionando una de las seis políticas disponibles:
+The most important task when configuring the *HTTP Proxy*, is to set the access
+policy to the web content trough it. The policy determines whether the access to
+the web is allowed and whether the content filter is applied.
 
+The first step to do is to define a default police. We set it in the page
+:menuselection:`HTTP Proxy --> General`, choosing one of the six available policies:
 
-Permitir todo:
-  Con esta política se permite a los usuarios navegar sin
-  restricciones. Esta falta de restricciones no significa que no
-  puedan disfrutar de las ventajas de la *caché* de páginas web.
+Allow all:
+  This policy allows to browse without restriction. However it does not mean
+  that the *cache* is not used.
 
-Denegar todo:
-  Esta política deniega el acceso web. A primera vista podría parecer
-  poco útil ya que el mismo efecto se puede conseguir más fácilmente con
-  una regla de cortafuegos. Sin embargo, como explicaremos
-  posteriormente podemos establecer políticas particulares para cada
-  *objeto de red*, pudiendo usar esta política para denegar por
-  defecto y luego aceptar las peticiones web para determinados
-  objetos.
+Deny all:
+  This policy denies the web access. At first, it could seem not useful because
+  you could too deny access with a firewall rule. However, as we will see later,
+  we can define particular policies for each *network object*, so we could use
+  this policy to deny as default and then override it in some objects.
 
-Filtrar:
-  Esta política permite el acceso y activa el filtrado de contenidos que puede
-  denegar el acceso web según el contenido solicitado por los
-  usuarios.
+Filter:
+  This policy allows the access and also enables the content filtering, so the
+  access could be denied depending on the requested content.
 
-Autorizar y Filtrar, Autorizar y permitir todo, Autorizar y denegar todo:
-  Estas políticas son versiones de las políticas anteriores que
-  incluyen autorización. La autorización se explicará en la sección
+Authorize and allow, Authorize and deny, Authorize and filter:
+  These policies are derived from the previous policies but with authorization
+  added. The authorization will be explained in the section
   :ref:`advanced-proxy-ref`.
 
 .. image:: images/proxy/general.png
    :align: center
    :scale: 80
 
+After setting the default policy, we can refine our policy setting particular
+policies for each network object. To set them we must enter in the section
+:menuselection:`HTTP Proxy --> Objects policy`.
 
-Tras establecer la política global, podemos refinar nuestra política
-asignando políticas particulares a objetos de red. Para asignarlas
-entraremos en la sección :menuselection:`Proxy HTTP --> Política de
-objetos`.
-
-Podremos elegir cualquiera de las seis políticas para cada objeto;
-cuando se acceda al *proxy* desde cualquier miembro del objeto esta
-política tendrá preferencia sobre la política global. Una dirección
-de red puede estar contenida en varios objetos distintos por lo que es
-posible ordenar los objetos para reflejar la prioridad. Se aplicará la
-política del objeto de mayor prioridad que contenga la dirección de
-red. Además existe la posibilidad de definir un rango horario fuera
-del cual no se permitira acceso al objeto de red.
+We can choose any of the six policies for each object; when accessing the
+*proxy* from an object this policy will override the default policy.
+A network address can be contained in various objects so we can establish the
+priority rearranging the objects in the list. In this case, the policy with
+greater priority will be applied. It is also possible to define a timetable for
+each object, access outside the specified time will be denied.
 
 .. warning::
 
-   La opción de rango horario no es compatible para políticas que usen filtrado de
-   contenidos.
+   The timetable option is not compatible with policies that use the content
+   filter.
 
 .. figure:: images/proxy/03-proxy.png
-   :alt: Políticas de acceso web para objetos de red
+   :alt: Network objects' web access policies
    :scale: 80
 
+   Network objects' web access policies
 
-   Políticas de acceso web para objetos de red
 
-Conexión al proxy y modo transparente
-=====================================
 
-Para conectar al *proxy* HTTP, los usuarios deben configurar su
-navegador estableciendo eBox como *proxy web*. El método específico
-depende del navegador, pero la información necesaria es la dirección
-del servidor de eBox y el puerto donde acepta peticiones el *proxy*.
+Client connection to the proxy and transparent mode
+===================================================
 
-El *proxy* de eBox Platform únicamente acepta conexiones provenientes
-de sus interfaces de red internas, por tanto, se debe usar una
-dirección interna en la configuración del navegador.
+In order to connect to the *HTTP proxy* the users must configure their
+browser. The exact configuration method depends on the used browser but the
+information required is the eBox server's address and the port used by the proxy.
 
-El puerto por defecto es el 3128, pero se puede configurar desde la
-sección :menuselection:`Proxy HTTP --> General`. Otros puertos típicos
-para servicios de proxy web son el 8000 y el 8080.
+The eBox proxy only accepts connections received on its internal
+interfaces so an internal address must be used in the browser's configuration.
 
-Para evitar que los usuarios se salten cualquier control de usuario
-sin pasar por el *proxy*, deberíamos tener denegado el tráfico HTTP en
-nuestro cortafuegos.
+The default port is 3128 but it can be changed through the
+:menuselection:`HTTP Proxy --> General` page. Other popular ports for HTTP proxy
+services are 8000 and 8080.
 
-Una manera de evitar la necesidad de configurar cada navegador es usar
-el **modo transparente**. En este modo, eBox debe ser establecido como
-puerta de enlace y las conexiones HTTP hacia las redes externas
-(Internet) a eBox serán redirigidas al *proxy*.  Para activar este
-modo debemos ir a la página :menuselection:`Proxy HTTP --> General` y
-marcar la opción :guilabel:`proxy transparente`. Como veremos en
-:ref:`advanced-proxy-ref`, el modo transparente es incompatible con
-políticas que requieran autorización.
+To avoid that users could bypass the proxy and access directly to the web, you
+should deny the HTTP traffic in the firewall.
 
-Por último, hay que tener en cuenta que el tráfico *Web* seguro
-(HTTPS) no puede ser filtrado al estar cifrado. Si se quiere usar el
-**proxy transparente** se debe establecer una regla en el cortafuegos
-para las redes internas hacia Internet dando acceso garantizado al
-tráfico HTTPS.
+One way to avoid the need to configure each browser is to use the
+*transparent mode*. In this mode, eBox should be the network gateway and the
+HTTP connections toward external servers (for example, Internet) will be
+redirected to the *proxy*. To activate this mode we should go to the
+:menuselection:`HTTP Proxy --> General` and enable the
+:guilabel:`Transparent Proxy` checkbox. As we will see in
+:ref:`advanced-proxy-ref`, the transparent mode is incompatible with
+policies with authorization.
 
-Control de parámetros de la *caché*
-===================================
+Finally, it must be kept in mind that the secure web traffic (HTTPS) cannot be
+used in *transparent mode*. If you want to allow it, you must set a firewall
+rule that allows it. This traffic will not be managed by the proxy.
 
-En el apartado :menuselection:`Proxy HTTP --> General` es posible
-definir el tamaño de la *caché* en disco y qué direcciones están exentas
-de su uso.
+*Cache* parameters
+==================
 
-El tamaño de la *caché* controla el máximo de espacio usado para almacenar
-los elementos web cacheados. El tamaño se establece en el campo
-:guilabel:`Tamaño de ficheros de caché` que se puede
-encontrar bajo el encabezado :guilabel:`Configuración General`.
+In the section :menuselection:`HTTP Proxy --> General`, is possible to define
+the disk *cache* size and which addresses are exempted from it.
 
-Con un mayor tamaño se aumentará la probabilidad de que se pueda recuperar un
-elemento desde la *caché*, pudiendo incrementar la velocidad de
-navegación y reducir el uso de ancho de banda. Sin embargo, el
-aumento de tamaño tiene como consecuencias negativas no sólo el
-aumento de espacio usado en el disco duro sino también un aumento en
-el uso de la memoria RAM, ya que la *caché* debe mantener índices a los
-elementos almacenados en el disco duro.
+The *cache* size controls the maximum disk space used to store the cached web
+elements. This maximum size is set in the field :guilabel:`Cache file size` that
+we find under the heading :guilabel:`General Settings`.
 
-Corresponde a cada administrador decidir cual es el tamaño óptimo para
-la *caché* teniendo en cuenta las características de la máquina y el
-tráfico web esperado.
+With a bigger size, the probability of recovering a web element from the cache
+increases, and as result the browsing speed could be increased and the bandwidth
+use could be reduced. In the other hand, the increase of size not only comes
+with a greater disk usage but also with a increase in the use of RAM memory
+because the *cache* must maintain in memory an index of the stored elements.
 
-Es posible indicar dominios que estén exentos del uso de la *caché*. Por
-ejemplo, si tenemos servidores web locales no se acelerará su
-funcionamiento usando la *caché* HTTP y se malgastaría memoria que
-podría ser usada por elementos de servidores remotos. Si un dominio
-está exento de la *caché*, cuando se reciba una petición con destino dicho
-dominio se ignorará la *caché* y se devolverán directamente los datos
-recibidos desde el servidor sin almacenarlos.
+It is the job of each system administrator to choose a size according to the
+server characteristics and the traffic profile.
 
-Dichos dominios se definen bajo el encabezado :guilabel:`Excepciones a
-la caché` que podemos encontrar en la sección :menuselection:`Proxy
-HTTP --> General`.
+It is possible to establish domains that are exempted from cache usage. For
+example, you may have local web servers that a cache will not speed up and you
+will waste cache space with them. When a domain exempted from cache is
+requested, it will be contacted directly without any cache lookup and the
+response will be returned without being stored.
 
-Filtrado de contenidos web
-==========================
+The exempted domains are managed under the heading :guilabel:`Cache Exemptions`
+that we find at the page :menuselection:`HTTP Proxy --> General`.
 
-eBox permite el filtrado de páginas web según su contenido.  Para que
-el filtrado tenga lugar la política global o la particular de cada
-objeto desde que se accede deberá ser de :guilabel:`Filtrar` o
-:guilabel:`Autorizar y Filtrar`.
 
-Con eBox se pueden definir múltiples perfiles de filtrado pero sólo
-trataremos en esta sección el perfil por defecto, dejando la discusión
-de múltiples perfiles para la sección :ref:`advanced-proxy-ref`. Para
-configurar las opciones de filtrado, iremos a :menuselection:`Proxy
-HTTP --> Perfiles de Filtrado` y seleccionaremos la configuración del
-perfil *por defecto*
+
+Web content filter
+==================
+
+eBox allows to filter web pages according to their contents. To enable the
+filter, the default policy or the object policy of a given object should be
+either :guilabel:`Filter` or :guilabel:`Authorize and Filter`.
+
+With eBox, we can define multiple filter profiles but in this section we will
+only talk about the default profile, leaving the discussion of multiple
+profiles to the section :ref:`advanced-proxy-ref`. In order to configure the
+filter settings you have to go to the page
+:menuselection:`HTTP Proxy --> Filter Profiles` and select the configuration
+of the *default* profile.
+
 
 .. image:: images/proxy/proxy-filter-profiles-list.png
    :scale: 80
    :align: center
 
 
-El filtrado de contenidos de la páginas *Web* se basa en diferentes
-métodos incluyendo marcado de frases clave, filtrado heurístico y
-otros filtros más sencillos. La conclusión final es determinar si una
-página puede ser visitada o no.
+The content filtering is based in various test including virus filtering,
+heuristic word filter and simpler things like banned domains. The end result is
+the decision about whether to allow or deny the browsing of the page under
+analysis.
 
-El primer filtro es el anti-virus. Para poder utilizarlo debemos tener el
-módulo de **antivirus** instalado y activado. Podemos configurar si deseamos
-activarlo o no. Si está activado se bloqueará el tráfico HTTP en el que
-sean detectados virus.
+The first filter is the virus filtering. To use it you should have the
+*antivirus* module installed and enabled. Then you can configure in the filter
+profile whether you want to use it or not. When enabled it will block HTTP
+traffic with infected contents.
 
-El filtro de contenidos principalmente consiste en el análisis de los
-textos presentes en las paginas web, si se considera que el contenido
-no es apropiado (pornografía, violencia, etc) se bloqueará el acceso a la
-página.
+The text content filter analyzes the text contained in the web page, if
+it is considered not appropriate according to the rules (for example is
+considered a text of a pornographic page) the request will be blocked.
 
-Para controlar este proceso se puede establecer un umbral más o menos
-restrictivo, siendo este el valor que se comparará con la puntuación
-asignada a la página para decidir si se bloquea o no.  El lugar donde
-establecer el umbral es la sección :guilabel:`Umbral de filtrado de
-contenido`.  También se puede desactivar este filtro eligiendo el
-valor :guilabel:`Desactivado`. Hay que tener en cuenta que con este
-análisis se puede llegar a bloquear paginas inocuas, este problema se
-puede remediar añadiendo dominios a una lista blanca, pero siempre
-existirá el riesgo de un falso positivo con páginas desconocidas.
+To control this process we can establish a threshold that will be compared to
+the score assigned to the page by the filter, if the score is above the
+threshold, the page will be blocked. The threshold is set in the
+filter profile, at the section :guilabel:`Content filtering threshold`. This
+filter can also be disabled by choosing the value :guilabel:`Disabled`. Itx
+should be noted that the text analysis could result either in false positives
+or false negatives, blocking innocent pages or letting pass inappropriate ones;
+this problems can be mitigated using domain policies but it could happen again
+with unknown pages.
 
-Existen otro tipo de filtros de carácter explícito:
+There are more explicit filters:
+* By domain. For example, denying the access to a sport newspaper domain
+* By file extension. For example, forbidding the download of .EXE files.
+* By file MIME type. For example, forbidding the download of video files.
 
-* Por dominio: Prohibiendo el acceso a la página de un diario deportivo en una
-  empresa.
-* Por extensión del fichero a descargar.
-* Por tipo de contenidos MIME: Denegando la descarga de todos los ficheros de audio o
-  vídeo.
+These filters are presented in the filter profile configuration by means of
+three tabs, :guilabel:`Files extension filter`, :guilabel:`MIME types filtering`
+and :guilabel:`Domains filtering`.
 
-Estos filtros están dispuestos en la interfaz por medio de las
-pestañas :guilabel:`Filtro de extensiones de fichero`,
-:guilabel:`Filtro de tipos MIME` y :guilabel:`Filtro de dominios`,
+
 
 .. image:: images/proxy/04-proxy-mime.png
    :scale: 80
    :align: center
 
+In the :guilabel:`Files extension filter` table you can configure which file
+extensions should be blocked.
 
-En la pestaña de :guilabel:`Filtro de extensiones de fichero` se puede
-seleccionar que extensiones serán bloqueadas.
+Likewise, in the :guilabel:`MIME types filtering` table you can establish which
+MIME types should be blocked.
+The MIME types (*Multipurpose Internet Mail Extensions*) are a standard,
+originally conceived to extend the contents of email, which define the
+type of the content. They are used too by other protocols, HTTP among them, to
+determine the content of transfered files. An example of MIME type is
+*text/html*, which is the type for web pages. The first part of the type
+informs about the type of content stored (text, video, images, executables, ...)
+and the second about the format used (HTML, MPEG, gzip, .. ).
 
-De manera similar en :guilabel:`Filtro de tipos
-MIME` se puede indicar qué tipos MIME se quieren bloquear y añadir
-otros nuevos si es necesario.
-Los tipos MIME (*Multipurpose Internet Mail Extensions*) son un
-estándar, concebido para extender las capacidades del correo
-electrónico, que define los tipos de contenidos. Estos también se usan
-en otros protocolos como el HTTP para determinar el contenido de los
-ficheros que se transmiten. Un ejemplo de tipo MIME es **text/html**
-que son las páginas *Web*. El primero de los elementos determina el
-tipo de contenido que almacena (texto, vídeo, audio, imagen, binario,
-...) y el segundo el formato específico para representar dicho
-contenido (HTML, MPEG, gzip, ...).  
+In the :guilabel:`Domains filtering` section, you will found the parameters
+related to filtering websites according to its domain. They are two global
+settings:
 
-En la pestaña de :guilabel:`Filtro de dominios` encontraremos los parametros que
-controlan el filtrado de paginas en base al dominio al que pertenecen. Existen dos opciones de carácter general:
+* :guilabel:`Block not listed domains`. This option will block  domains
+   that are not present in :guilabel:`Domain rules` or in the
+   categories in :guilabel:`Domain lists files`. In this last case, the
+   domains in a category with the policy of *Ignore* are considered not listed.
 
-* :guilabel:`Bloquear dominios especificados sólo como IP`, esta opción bloquea
-  cualquier dominio especificado únicamente por su IP asegurándonos así que no es
-  posible encontrar una manera de saltarse nuestras reglas mediante el
-  uso de direcciones IP.
-* :guilabel:`Bloquear dominios no listados`, esta opción bloquea todos los
-  dominios que no estén presentes en la seccion :guilabel:`Reglas de dominios` o
-  en las categorias presentes en  :guilabel:`Archivos de listas de dominios`. En
-  este último caso, las categorias con una política de *Ignorar* no son
-  consideradas como listadas. 
+* :guilabel:`Block sites specified only as IP`. This option blocks pages
+  requested using their IP address instead of their domain name. The purpose
+  of this option is to avoid attempts to bypass domain rules using IP
+  addresses.
 
-A continuación tenemos, la lista de dominios, donde podemos introducir nombres de
-dominio y seleccionar una política para ellos entre las siguientes:
+Next we have :guilabel:`Domain rules`, where you can introduce domains and
+assign them one of the following policies:
 
-Permitir siempre:
-  El acceso a los contenidos del dominio será siempre permitido, todos los filtros
-  del filtro de contenido son ignorados.
+Always allow:
+ The access to the content of this domain is always allowed. All
+ the content filters are ignored.
 
-Denegar siempre:
-  El acceso nunca se permitirá a los contenidos de este dominio.
+Always deny:
+ The access to the contents of this domains will be always blocked.
 
-Filtrar:
-  Se aplicarán las reglas usuales a este dominio. Resulta útil
-  si está activada la opción :guilabel:`Bloquear dominios no
-  listados`.
+Filter:
+ The filters will be applied to this domain as usual. However it will not be
+ automatically blocked if the :guilabel:`Block not listed domains` option is
+ active.
+
+
 
 .. image:: images/proxy/05-proxy-domains.png
    :align: center
    :scale: 80
 
-En el encabezado :guilabel:`Archivos de listas de dominios` podemos simplificar
-el trabajo del administrador usando listas clasificadas de
-dominios. Estas listas son normalmente mantenidas por terceras partes y tienen la
-ventaja de que los dominios están clasificados por categorías, permitiéndonos
-seleccionar una política para una categoría entera de dominios.
-eBox soporta las listas distribuidas por *urlblacklist* [#]_,
-*shalla's blacklists* [#]_ y cualquiera que use el mismo formato.
+In :guilabel:`Domain list files`, you can simplify the management of domains
+using classified lists of domains. These lists are usually maintained by third
+parties and they have the advantage that the domains are classified in
+categories, allowing to define policies for a full domain category.
+eBox supports the lists distributed by *urlblacklist* [#]_,
+*shalla's blacklists* [#]_ and any other that uses the same format.
 
 .. [#] URLBlacklist: http://www.urlblacklist.com
 .. [#] Shalla's blacklist: http://www.shallalist.de
 
-Estas listas son distribuidas en forma de archivo comprimido. Una vez
-descargado el archivo, podemos incorporarlo a nuestra configuración y
-establecer políticas para las distintas categorías de dominios.
+This lists are distributed as compressed archives. Once downloaded, you can add
+the archive to your configuration and set policies for each category.
 
-Las políticas que se pueden establecer en cada categoría son las
-mismas que se pueden asignar a dominios y se aplican a todos los
-dominios presentes en dicha categoría.  Existe una política adicional
-:guilabel:`Ignorar` que, como su nombre indica, simplemente ignora la
-existencia de la categoría a la hora de filtrar. Dicha política es la
-elegida por defecto para todas las categorías.
+The policies that can be set for each category are the same polices that can be
+applied to individual domains, and they will be enforced to all domains in the
+category. There is an additional policy called :guilabel:`ignore`, its effect
+is to ignore completely the presence of a category. This is the default policy
+for all categories.
 
 
 .. image:: images/proxy/domain-list-categories.png
    :align: center
    :scale: 80
 
-Ejemplo práctico
-^^^^^^^^^^^^^^^^
-Activar el modo transparente del *proxy*. Comprobar usando los comandos de
-**iptables** las reglas de *NAT* que ha añadido eBox para activar este
-modo
 
-Para ello:
+Practical example
+^^^^^^^^^^^^^^^^^
+Enable the transparent mode in the proxy. Check with the **iptables** command
+the added *NAT* rules which should have been added to enable this feature.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del
-   módulo` y activar el módulo :guilabel:`Proxy HTTP`, para ello
-   marcar su casilla en la columna :guilabel:`Estado`.
 
-   Efecto:
-     eBox solicita permiso para sobreescribir algunos ficheros.
+#. **Action:**
+   Log into eBox, enter :menuselection:`Module status` and enable the
+   :guilabel:`HTTP Proxy` module, to do this check its box in the column :guilabel:`Status`.
 
-#. **Acción:**
-   Leer los cambios de cada uno de los ficheros que van a ser modificados y
-   otorgar permiso a eBox para sobreescribirlos.
+   Effect:
+     eBox will ask for permission to overwrite some files.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+#. **Action:**
+   Read the reason for the changes on each file and grant permission to eBox to
+   overwrite them.
 
-#. **Acción:**
-   Ir a :menuselection:`Proxy HTTP --> General`, activar
-   la casilla de :guilabel:`Modo transparente`. Asegurarnos que eBox
-   puede actuar como *router*, es decir, que haya al menos una interfaz de red
-   externa y otra interna.
+   Effect:
+     The :guilabel:`Save changes` button is highlighted.
 
-   Efecto:
-     El **modo transparente** está configurado
+#. **Action:**
+   Go to :menuselection:`HTTP Proxy --> General`, check
+   the :guilabel:`Transparent proxy` checkbox. Make sure that eBox can act as
+   router, for this at least one internal and one external interfaces are
+   required.
 
-#. **Acción:**
-   :guilabel:`Guardar cambios` para confirmar la configuración
+   Effect:
+     The transparent mode is configured.
 
-   Efecto:
-     Se reiniciarán los servicios de cortafuegos y *proxy HTTP*.
+#. **Action:**
+    Click into :guilabel:`Save changes` to enforce the new configuration.
 
-#. **Acción:**
-   Desde la consola en la máquina en la que está eBox, ejecutar el
-   comando ``iptables -t nat -vL``.
+   Effect:
+     The firewall and HTTP proxy services will be restarted.
 
-   Efecto:
-     La salida de dicho comando debe ser algo parecido a esto::
+#. **Action:**
+   In the console of the eBox computer, execute the command
+   `iptables -t nat -vL`.
+
+   Effect:
+     The command output must be similar to this:
+
 
        Chain PREROUTING (policy ACCEPT 7289 packets, 1222K bytes)
         pkts bytes target     prot opt in    out     source     destination

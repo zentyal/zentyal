@@ -1,183 +1,164 @@
 .. _advanced-proxy-ref:
 
-Configuración Avanzada para el proxy HTTP
-*****************************************
+HTTP Proxy advanced configuration
+*********************************
 
-.. sectionauthor:: Javier Amor García <javier.amor.garcia@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
+.. sectionauthor:: Javier Amor García <javier.amor.garcia@ebox-technologies.com>,
+                   Enrique J. Hernández <ejhernandez@ebox-technologies.com>,
+                   Javier Uruen Val <juruen@ebox-technologies.com>,
 
-Filtrado basado en grupos de usuarios
-=====================================
+Group based filtering
+=====================
 
-Es posible usar los grupos de usuarios en el control de acceso y en el
-filtrado. Para ello primero debemos usar como política global o del
-objeto de red desde el cuál accedemos al *proxy*, una de las siguientes:
-**Autorizar y permitir todo**, **Autorizar y denegar todo** o
-**Autorizar y filtrar**.
+You can use user groups as a way to control access and to apply different
+filtering profiles. The first step is to either set a global or a network
+object policy to any of these policies: **Authorize and allow all**,
+**Authorize and deny all** or **Authorize and filter**.
 
-Estas políticas hacen que el *proxy* pida identificación de usuario y
-de no ser satisfactoria se bloqueará el acceso.
+If any of these policies is set, users will have to provide credentials to
+be able to use the HTTP proxy.
 
 .. warning::
-  Hay que tener en cuenta que, por una limitación técnica de la
-  autenticación HTTP, las políticas de filtrado son incompatibles con
-  el modo transparente.
+  Please note that you cannot use HTTP authentication with the transparent proxy
+  mode enabled due to protocol limitations.
 
-Si tenemos establecida una política global con autorización podremos
-también establecer políticas globales de grupo, la política nos
-permitirá controlar el acceso a los miembros del grupo y asignarle un
-perfil de filtrado distinto del perfil por defecto.
+If you set a global policy that uses authentication you will also be able
+to use this global policy for any group. This policy allows you to control the
+access of group members and apply a custom filtering profile.
 
-Las políticas de grupo se gestionan en la sección
-:menuselection:`Proxy HTTP --> Política de Grupo`.  El acceso del
-grupo puede ser permitir o denegar. Esto sólo afecta al acceso a la
-web, la activación del filtrado de contenidos no depende de esto sino
-de que tengamos una política global o de objeto de filtrar.  A la
-política de grupo se le puede asignar un horario, fuera del horario el
-acceso será denegado.
+Group policies are managed in the menu entry named
+:menuselection:`HTTP Proxy --> Group Policy`. You can allow or deny the access
+for a given group. Note that this only affects the browsing. The use of the
+content filter for the group depends on whether you have a global policy or
+group policy that is set to filter. You can schedule when the group is allowed
+to browse. If a group member tries to use the proxy out of the set schedule they
+will be denied access.
 
 .. image:: images/proxy/global-group-policy.png
    :align: center
    :scale: 80
 
-Cada política de grupo tiene una prioridad reflejada en su posición en
-la lista (primero en la lista, mayor prioridad). La prioridad es
-importante ya que hay usuarios que pueden pertenecer a varios
-grupos, en cuyo caso le afectarán únicamente las políticas adoptadas al
-grupo de mayor prioridad.
+Each group policy has a priority given by its position in the list (top-bottom
+priority). Priority is important because users can be members of several groups.
+The policy applied to the user will depend on the priority.
 
-También aquí se le puede asignar un perfil de filtrado para ser usado
-cuando se realice filtrado de contenidos a miembros del grupo de
-usuarios. En la próxima sección se explica el uso de los perfiles de
-filtrado.
+You can also select which filtering profile will be applied to the group.
 
-Filtrado basado en grupos de usuarios para objetos
-==================================================
 
-Recordamos que es posible configurar políticas por objeto de
-red. Dichas políticas tienen prioridad sobre la política general del
-*proxy* y sobre las políticas globales de grupo.
+Group-based filtering for objects
+=================================
 
-Además en caso de que hayamos elegido una política con autorización,
-es posible también definir políticas por grupo. Las políticas de grupo
-en este caso sólo influyen en el acceso y no en el filtrado que vendrá
-determinado por la política de objeto. Al igual que en la política
-general, las políticas con autorización son incompatibles con el
-filtrado transparente.
+Remember that you can configure custom policies for network objects that will
+override the global policy.
 
-Por último, cabe destacar que no podemos asignar perfiles de filtrado a los
-grupos en las políticas de objeto. Por tanto, un grupo usará el perfil de
-filtrado establecido en su política global de grupo, sea cual sea el objeto de
-red desde el que se acceda al *proxy*.
+Likewise, in case you pick a policy that enforces authorization, you can also set custom
+policies for a group. In this case, group policies only affect to the
+permissions for browsing and not to the content filtering. The content filtering
+policy is determined by the object policy. Authorization policies are
+incompatible with the transparent mode.
+
+Finally, you also have to take into account that you cannot set filtering
+profiles to groups in an object policy. This means a group will use the
+filtering profile that is set in its group global policy.
 
 .. image:: images/proxy/object-group-policy.png
    :align: center
    :scale: 80
 
-Configuración de perfiles de filtrado
-=====================================
+Filter profiles configuration
+=============================
 
-La configuración de perfiles de filtrado se realiza en la sección
-:menuselection:`Proxy HTTP --> Perfiles de Filtrado`.
+You can configure filter profiles in
+:menuselection:`Proxy HTTP --> Filter Profiles`.
 
 .. image:: images/proxy/filter-profiles.png
    :align: center
    :scale: 80
 
-Se pueden crear nuevos perfiles de filtrado y configurarlos.  Las
-opciones de configuración son idénticas a las explicadas en la
-configuración del perfil por defecto, con una importante salvedad: es
-posible usar la misma configuración del perfil por defecto en las
-distintas áreas de configuración. Para ello basta con marcar la
-opción :guilabel:`Usar configuración por defecto`.
 
-Ejemplo práctico
-^^^^^^^^^^^^^^^^
+You can configure and create new profiles. The configuration options are
+exactly the same as the ones we explained for the default profile. There is
+just one thing that you have to take into account: it is possible to use
+the default profile values in other profiles. To do so, you only need to
+click on :guilabel:`Use default configuration`.
 
-Tenemos que crear una política de acceso para dos grupos: **IT** y
-**Contabilidad**.  Los miembros del grupo de contabilidad sólo podrán
-acceder en horario de trabajo y tendrán el contenido filtrado con
-mayor umbral que el resto de la empresa. Los miembros de IT podrán
-entrar a cualquier hora, no tendrán filtrado pero tendrán denegada la
-misma listas de dominios que el resto de la empresa. Asumimos que los
-grupos y sus usuarios ya están creados.
+Practical Example
+^^^^^^^^^^^^^^^^^
 
-Para ello, podemos seguir estos pasos:
+The goal of this exercise is to set access policies for two groups: **IT**
+and **Accounting**. Members of the **Accounting** group will only be able
+to access the Internet during work time, and its filtering profile
+threshold will be set to **very strict**. On the other hand, members of the
+**IT** group will be able to use the Internet at any time. They will also
+skip the censorship of the content filter. However, they will not be able
+to access those domains that are explicitly denied to all the
+workers. For the sake of clarity, the needed users and groups are already
+created.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activar el módulo :guilabel:`Proxy`, para ello marcar su casilla en
-   la columna :guilabel:`Estado`.
+These are steps you have to take:
 
-   Efecto:
-     Una vez los cambios guardados, se pedirá autenticación a todo el
-     que trate de acceder al contenido web y de acceder el filtrado
-     de contenidos estará activado.
+#. **Action:**
+   Go to eBox, click on :menuselection:`Module Status` and enable
+   the :guilabel:`HTTP Proxy`.
 
-#. **Acción:**
-   Entrar a la gestión de perfiles de filtrado, situada en
-   :menuselection:`Proxy HTTP --> Perfiles de Filtrado`.  Primero,
-   agregar al perfil por defecto la lista de dominios prohibidos
-   por la empresa. Entrar por medio del icono en la columna de
-   :guilabel:`Configuración` a los parámetros del perfil por defecto.
-   Seleccionar la pestaña :guilabel:`Filtrado de dominios` y en la
-   lista de dominios añadir *marca.es* y *youtube.com*.
+   Effect:
+    Once changes have been saved, users will need to authenticate with
+    their login and password in order to surf the Internet.
 
-   A continuación, volver a :menuselection:`Proxy HTTP --> Perfiles
-   de Filtrado`, y crear dos nuevos perfiles de filtrado para
-   nuestros grupos, con los nombres *Perfil IT* y *Perfil
-   contabilidad*. Seguidamente configuraremos ambos.
+#. **Action:**
 
-   El *Perfil contabilidad* tan sólo debe distinguirse por la poca
-   tolerancia de su umbral, así que en umbral de filtrado lo
-   estableceremos al valor *muy estricto*, el resto de configuración
-   debe seguir la política por defecto de la empresa así que tanto en
-   :guilabel:`Filtro de dominios`, como en :guilabel:`Filtro de
-   extensiones de fichero` y en :guilabel:`Filtro de tipos MIME`
-   marcaremos la opción :guilabel:`Usar configuración por defecto`
-   asegurándonos así que el comportamiento para estos elementos no
-   diferirá de la política por defecto.
+   Go to `HTTP proxy -> Filter profiles`. Add a list of forbidden domains
+   to the default profile. You can do this by clicking on the
+   :guilabel:`Configuration` cell of the default profile, and then,
+   clicking on the tab labeled :guilabel:`Domains filtering`. You
+   can now add *youtube.com* and *popidol.com* to the :guilabel:`Domains rules`
+   section.
 
-   En el *Perfil IT* debemos dejar libre acceso a todo menos a los
-   dominios prohibidos, para los que debemos seguir la política
-   habitual.  En consecuencia iremos a :guilabel:`Filtro de dominios`
-   y marcaremos la opción :guilabel:`Usar configuración por defecto`,
-   el nivel de umbral lo dejaremos en *Desactivado* y las listas de
-   filtrado de extensiones de fichero y tipos MIME, vacías.
 
-   Efecto:
-     Tendremos definidos los perfiles de filtrado necesarios para
-     nuestros grupos de usuarios.
+   Go back to `HTTP proxy -> Filter Profiles`. Add two new profiles for your
+   groups, **IT** and **Accounting**.
 
-#. **Acción:**
-   Ahora asignaremos los horarios y los perfiles de filtrado a los
-   grupos. Para ello entraremos en :menuselection:`Proxy HTTP -->
-   Política de grupo`.
+   The **Accounting** profile must enforce a very strict threshold on the
+   content filter. We will stick to the defaults for the other options.
+   To do so, you have to check the :guilabel:`Use default profile
+   configuration` field  in :guilabel:`Domains Filtering` and
+   :guilabel:`File Extensions filtering`.
 
-   Pulsaremos sobre :guilabel:`Añadir nueva`, seleccionaremos
-   *Contabilidad* como grupo, estableceremos el horario de lunes a
-   viernes de 9:00 a 18:00 y seleccionaremos el perfil de filtrado
-   *Perfil de contabilidad*.
 
-   De igual manera crearemos una política para el grupo IT. Para este
-   grupo seleccionaremos el *Perfil IT* y no pondremos ninguna
-   restricción en cuanto horario.
+   The **IT** profile will allow unfiltered access to everything but
+   the forbidden domains. To enforce this policy, you need to check the
+   :guilabel:`Use default profile configuration` field in :guilabel:`Domains
+   Filtering`. You can grant free access for everything else by setting the
+   content filter threshold to *Disabled*.
 
-   Efecto:
-     Una vez guardados los cambios, habremos finalizado la
-     configuración para este caso. Entrando con usuarios
-     pertenecientes a uno u otro grupo podremos comprobar de las dos
-     políticas. Algunas cosas que podemos comprobar:
+   Effect:
+    We will enforce the required policy.
 
-     * Entrar como miembro de contabilidad en *www.playboy.com* y
-       comprobar que es denegada por el análisis de contenidos. A
-       continuación entrar como miembro de IT y comprobar que el
-       análisis esta desactivado entrando en dicha página.
+#. **Action:**
 
-     * Tratar de entrar en alguno de los dominios prohibidos,
-       comprobando que la lista está en vigor para ambos grupos.
+   Now you have to set a schedule and a filtering profile for groups. You can
+   go to :menuselection:`HTTP Proxy --> Group Policy`.
 
-     * Cambiar la fecha a un día no laborable, comprobar que los
-       miembros de IT pueden acceder pero los de Contabilidad, no.
+   Click on :guilabel:`Add new`, select the *Accounting* group. Set the schedule
+   from Monday to Friday, from 9:00 to 18:00. And select the *Accounting*
+   profile.
+
+   Likewise, you have to set a policy for the **IT** group. In this case, you
+   don't have to add any restriction to the schedule.
+
+   Effect:
+     Once the changes have been saved, you can test if the configuration works
+     as expected. You can use the proxy authentication with a user from each
+     group. You will know that it is working properly if:
+
+    * You can actually access *www.playboy.com* using the credentials
+      of an *IT* user . However, if you use the credentials of an *Accounting*
+      user, you are denied access.
+
+    * You are not allowed to access any of the banned domains from any of the
+      groups.
+
+    * If you set the date in eBox to weekend, and you cannnot surf the Internet
+      with an *Accounting** user, but you can with an *IT* user.
 
 .. include:: advancedproxy-exercises.rst

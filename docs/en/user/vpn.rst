@@ -1,100 +1,92 @@
-****************************************
-Interconexión segura entre redes locales
-****************************************
+*********************************************
+Secure interconnection between local networks
+*********************************************
 
-.. sectionauthor:: Javier Amor García <javier.amor.garcia@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
+.. sectionauthor:: Javier Amor García <javier.amor.garcia@ebox-technologies.com>,
+                   Enrique J. Hernández <ejhernandez@ebox-technologies.com>,
+                   José A. Calvo <jacalvo@ebox-technologies.com>
 
 .. _vpn-ref:
 
-Redes privadas virtuales (VPN)
-==============================
+Virtual Private Network (VPN)
+=============================
+The **Virtual Private Networks** were designed both to allow secure access
+to remote users to the corporate network and secure interconnection of
+geographically distant networks.
 
-Las **redes privadas virtuales** se idearon tanto para permitir el acceso
-a la red corporativa por usuarios remotos a través de *Internet* como
-para unir redes dispersas geográficamente.
+A frequent situation is were remote users need to access resources located in
+the company local network, but those users are outside the facilities and cannot
+connect directly.  The obvious solution is to allow the connection through the
+Internet. This would create security and configuration problems, which can be
+resolved through the use of **virtual private networks**.
 
-Es frecuente que haya recursos necesarios para nuestros usuarios en
-nuestra red, pero que dichos usuarios, al encontrarse fuera de nuestras
-instalaciones no puedan conectarse directamente a ella. La
-solución obvia es permitir la conexión a través de Internet. Esto nos
-puede crear problemas de seguridad y configuración, los cuales se
-tratan de resolver mediante el uso de las **redes privadas virtuales**.
+The solution offered by a VPN (*Virtual Private Network*) to this problem is
+the use of encryption to only allow  access to authorized users (hence the
+private adjective). And to facilitate the use and configuration, connections
+seem to be as if there were a network between the users and the local network
+(hence the virtual).
 
-La solución que ofrece una VPN (*Virtual Private Network*) a este
-problema es el uso de cifrado para permitir sólo el acceso a los
-usuarios autorizados (de ahí el adjetivo privada). Para facilitar el
-uso y la configuración, las conexiones aparecen como si existiese una
-red entre los usuarios (de ahí lo de virtual).
+The VPN's usefulness is not limited to the access of remote users; a
+organization may wish to interconnect networks that are located in different
+places. For example, networks located in differents cities. Some time ago, to
+solve this problem dedicated data lines were hired, but this service was
+expensive and slow to deploy. Later, the advance of the Internet provided a
+ubiquitous and cheap, but insecure, medium. And again, the security and
+virtualization features of the VPN were an appropriate response to this problem.
 
-La utilidad de las VPN no se limita al acceso remoto de los usuarios;
-una organización puede desear conectar entre sí redes que se
-encuentran en sitios distintos. Por ejemplo, oficinas en distintas
-ciudades. Antes, la solución a este problema estaba en la contratación
-de líneas dedicadas para conectar dichas redes, este servicio es
-costoso y lento de desplegar. Sin embargo, el avance de Internet
-proporcionó un medio barato y ubicuo, pero inseguro. De nuevo las
-características de autorización y virtualización de las VPN resultaron la
-respuesta adecuada a dicho problema.
+In this regard, eBox Platform provides two modes of operation. It can work as
+a server for remote users and as a server and client for the connection between
+two networks.
 
-A este respecto, **eBox** ofrece dos modos de funcionamiento. Permite funcionar
-como servidor para usuarios individuales y también como
-conexión entre dos o más redes gestionadas con eBox.
 
-Infraestructura de clave pública (PKI) con una autoridad de certificación (CA)
-==============================================================================
+Public Key Infrastructure (PKI) with a Certification Authority (CA)
+===================================================================
 
-La VPN que usa eBox para garantizar la privacidad e integridad de los datos
-transmitidos utiliza cifrado proporcionado por tecnología SSL. La
-tecnología SSL está extendida y lleva largo tiempo en uso, así que
-podemos estar razonablemente seguros de su eficacia. Sin embargo, todo
-mecanismo de cifrado tiene el problema de cómo distribuir las claves
-necesarias a los usuarios, sin que estas puedan ser interceptadas por
-terceros. En el caso de las VPN, este paso es necesario cuando un
-nuevo participante ingresa en la red privada virtual.
-La solución adoptada es el uso de una infraestructura de clave
-pública (*Public Key Infraestructure* - PKI). Esta tecnología nos
-permite la utilización de claves en un medio inseguro, como es el caso
-de *Internet*, sin que sea posible la interceptación de la clave por
-observadores de la comunicación.
+The VPN used by eBox to ensure data privacy and integrity uses SSL as cypher
+technology. The SSL technology is used widely since a long time so we could
+reasonably trust its security. However, all cypher schemas have the problem
+of how to distribute the keys to their users without interception by third
+parties.
+In the VPN case this step is required when a new participant joins the virtual
+network.
+The adopted solution is the use of a public key infrastructure (PKI). This
+technology allows the use of the key in a insecure medium, like the Internet,
+without allowing the interception of keys by anyone who snoops the
+communication.
 
-La **PKI** se basa en que cada participante genera un par de
-claves: una *pública* y una *privada*. La *pública* es distribuida y la
-*privada* guardada en secreto. Cualquier participante que quiera cifrar
-un mensaje puede hacerlo con la *clave pública* del destinatario, pero
-el mensaje sólo puede ser descifrado con la *clave privada* del
-mismo. Como esta última no debe ser comunicada a nadie nos
-aseguramos que el mensaje sólo pueda ser descifrado por el
-destinatario. No obstante, esta solución engendra un nuevo
-problema. ¿Si cualquiera puede presentar una *clave pública*, cómo
-garantizamos que un participante es realmente quien dice ser y no está
-suplantando una identidad que no le corresponde?. Para resolver este
-problema, se crearon los **certificados**. [#]_
+**PKI** is based in that each participant generates two keys: a *public key*
+and a *private key*. The *public* one can be distributed publicly and
+the *private* one must remain secret. Any participant who  wants to cypher a
+message can do it with the *public key* of the recipient but the message can
+only be deciphered with the *private key* of the recipient. As this key is kept
+secret, it is ensured that only the recipient can read the message. However,
+this solution creates a new problem. If anyone could present a *public key*,
+how we can guarantee that a participant is really who he claims to be and is not
+impersonating another identity?. To solve this problem, **certificates**
+were created. [#]_
 
-.. [#] Existe mucha documentación sobre el cifrado basado en clave
-       pública. Este enlace puede ser un comienzo:
-       http://en.wikipedia.org/wiki/Public-key_encryption
+.. [#] There is a lot of information about public key encryption. You can begin
+       here: http://en.wikipedia.org/wiki/Public-key_encryption
+
 
 .. figure:: images/vpn/public-key-encryption.png
-   :alt: Cifrado con clave pública
+   :alt: Public key encryption
    :scale: 40
 
-   *GRAPHIC: Cifrado con clave pública*
+   *GRAPHIC: Public key encryption*
 
 .. figure:: images/vpn/public-key-signing.png
-   :alt: Firmado con clave pública
+   :alt: Public key signature
    :scale: 40
 
-   *GRAPHIC: Firmado con clave pública*
+   *GRAPHIC: Public key signature*
 
-Los **certificados** aprovechan otra capacidad de la **PKI**: la
-posibilidad de firmar ficheros. Para firmar ficheros se usa la propia
-*clave privada* del firmante y para verificar la firma cualquiera puede
-usar la *clave pública*. Un **certificado** es un fichero que contiene una
-*clave pública*, firmada por un participante en el que confiamos. A este
-participante en el que depositamos la confianza de verificar las
-identidades se le denomina **autoridad de certificación**
-(*Certification Authority* - CA).
+The *certificates* use another **PKI** feature: the possibility of signing
+files. To sign a file, the *private key* is used. The signature can be checked
+by anyone using the *public key*. A *certificate* is a file that contains a
+*public key*, signed for someone that is trusted. This trusted participant is
+used to verify identities and is called **Certification Authority** (CA).
+
 
 .. figure:: images/vpn/public-key-certificate.png
    :scale: 60
@@ -102,569 +94,536 @@ identidades se le denomina **autoridad de certificación**
 
    *GRAPHIC: Diagram to issue a certificate*
 
-Configuración de una CA con eBox
-================================
 
-eBox tiene integrada la gestión de autoridad de certificación y del
-ciclo de vida de los certificados expedidos por esta. Lo hace a través
-de las herramienta de consola que ofrece **OpenSSL** [#]_.
+CA configuration with eBox Platform
+===================================
+
+eBox Platform has integrated management of the Certification Authority and 
+the life cycle of the certificates. It uses the **OpenSSL** [#]_ tools for this.
+
 
 .. [#] **OpenSSL**: *The open source toolkit for SSL/TLS*
    http://www.openssl.org/.
 
-Primero, es necesario expedir el certificado de la *CA*, que es firmado
-por sí mismo. El certificado de la *CA* es necesario para expedir nuevos
-certificados, así que el resto de funcionalidad del módulo no estará
-disponible hasta que ésta sea creada.
+First, you need to issue the certificate of the *CA* itself, which is
+autosigned. The *CA* certificate is needed to issue new certificates, so the
+remaining features of the module will not be available until the CA
+certificate is issued.
 
-Para crearlo simplemente entraremos en la página del módulo a través
-de :menuselection:`Autoridad de Certificación` y nos encontraremos
-ante el formulario para crear el certificado de la *CA*. Se requerirá
-el :guilabel:`Nombre de la organización` y el :guilabel:`número de
-días` que transcurrirán antes de la expiración del certificado. A la
-hora de establecer la duración del certificado hay que tener en cuenta
-que su expiración revocará todos los certificados expedidos por él,
-resultando en la parada de todos los servicios que dependan de
-ellos. También es posible dar los siguientes datos de manera opcional:
+To issue it, go to :menuselection:`Certification Authority -> General` and you
+will find a form to issue the CA certificate. It is required to fill the
+:guilabel:`Organization Name` and :guilabel:`Days to expire` fields. When
+setting the duration of the certificate you have to take in account that its
+expiration will revoke all certificates issued by it, stopping all services
+depending on those certificates. It is possible to add this optional fields to
+the CA certificate:
+- :guilabel:`Country Code`
+- :guilabel:`City`
+- :guilabel:`State`
 
-- :guilabel:`Código de País`
-- :guilabel:`Ciudad`
-- :guilabel:`País`
+Once the CA certificate is issued, you will be able to issue certificates
+signed by it. To issue them, use the form available at
+:menuselection:`Certification Authority -> General`. The required data are the
+:guilabel:`common name` of the certificate and the :guilabel:`Days to
+expire`. This last field sets the number of days that the certificate will
+remain valid and the duration cannot surpass the duration of the CA certificate.
 
-Una vez creado el certificado de la *CA*, seremos capaces de generar
-certificados con él. Para generarlos tan sólo tendremos que usar el
-formulario que aparece en la parte superior de la página de la
-autoridad de certificación. Los datos necesarios son el
-:guilabel:`nombre común` del certificado y los :guilabel:`días` que
-permanecerá activo antes de expirar. Este último dato está limitado
-por el hecho de que ningún certificado puede ser válido durante más tiempo
-que el certificado de la *CA*.
+When the certificate is issued, it will appear in the list of certificates and
+it will be available to eBox services that use certificates and to external
+applications. Furthermore, several actions can be applied to the certificates
+through the certificate list. The available actions are the following:
 
-Una vez el certificado haya sido creado, aparecerá en la lista de
-certificados y estará disponible para los módulos de eBox que usen
-certificados y para las demás aplicaciones externas. Además, a través de la
-lista de certificados podemos realizar distintas acciones con ellos.
-Las acciones disponibles son las siguientes:
+- Download an archive containing the public key, private key and the
+  certificate.
+- Revoke the certificate.
+- Renew the certificate.
 
-- Descargar las claves pública, privada y el certificado de un nombre
-  común.
-- Revocar un certificado.
-- Renovar un certificado.
 
 .. image:: images/vpn/01-ca.png
    :align: center
    :scale: 80
 
-Si se renueva el certificado del *CA*, entonces todos los certificados
-se renovarán con la nueva clave pública del *CA* tratando de mantener
-la antigua fecha de expiración, si esto no es posible debido a que es
-superior a la fecha de expiración del certificado del *CA*, entonces
-se establecerá la fecha de expiración del certificado del *CA*. Si un
-certificado expira, se informará al resto de módulos sobre su
-expiración. Esta se comprueba cada noche y cada vez que se visualiza
-la lista de certificados.
+If you renew the CA certificate then all the certificates will be renewed with
+the new public key of the CA. The old expiration date will be kept, if this is
+not possible it means that the old expiration date is a later date than the new
+CA expiration date, in this case the expiration date of the certificate will be
+set to the expiration date of the CA. When a certificate expires all the modules
+are notified. The expiration date of each certificate is checked every night and
+also whenever the certificate list is shown.
 
-Ejemplo práctico A
-^^^^^^^^^^^^^^^^^^
 
-Creación de una autoridad de certificación y certificados.
 
-Este ejercicio tiene los siguientes objetivos: crear una autoridad de
-certificación válida durante un año, crear un certificado
-llamado *servidor* y crear dos certificados para clientes llamados
-*cliente1* y *cliente2*.
+Practical example A
+^^^^^^^^^^^^^^^^^^^
 
-Para ello:
+Creation of a Certification Authority and certificates.
 
-#. **Acción:**
-   Acceder a la interfaz de eBox, entrar en :menuselection:`Autoridad
-   de Certificación`, en el formulario :guilabel:`Expedir el
-   certificado de la Autoridad de Certificación` rellenamos los campos
-   :guilabel:`Nombre de Organización` y :guilabel:`Días para expirar`
-   con valores razonables. Pulsamos :guilabel:`Expedir` para expedir
-   el certificado de la Autoridad de Certificación.
+This example has the following objective: to create a certification
+authority which will be valid for a year, to create a certificate called
+*server* and to create two certificates for clients called *client1* and
+*client2*.
 
-   Efecto:
-    Se expedirá el certificado de la Autoridad de Certificación
-    y se mostrará en la lista de certificados expedidos.  El
-    formulario para expedir el certificado de la autoridad de
-    certificación será sustituido por uno para expedir certificados
-    normales.
+To do so:
 
-#. **Acción:**
-    Vamos a usar el formulario :guilabel:`Expedir un nuevo
-    certificado` para expedir certificados. Para ello en
-    :guilabel:`Nombre común` escribiremos *servidor* y en
-    :guilabel:`Días para expirar` un número de días menor o igual que
-    el puesto en el certificado de la Autoridad de
-    Certificación. Repetiremos estos pasos con los nombres *cliente1*
-    y *cliente2*.
+#. **Action:**
 
-   Efecto:
-    Los nuevos certificados aparecerán en la lista de certificados,
-    listos para su uso.
+    Access eBox interface and go to :menuselection:`Certification Authority
+    --> General`. In the form called :guilabel:`Issue certificate of the
+    Certification Authority`, fill in the fields
+    :guilabel:`Organization name` and :guilabel:`Days to expire`
+    with reasonable values. Press :guilabel:`Issue` to issue
+    the certificate of the Certification Authority.
 
-Configuración de una VPN con eBox
-=================================
+    Effect:
+     The certificate of the Certification Authority will be issued and displayed
+     in the list of certificates. The form for issuing the CA certificate will
+     be replaced by another one intended to issue normal certificates.
 
-El producto seleccionado por eBox para crear las VPN es
-**OpenVPN** [#]_. OpenVPN posee las siguientes ventajas:
+#. **Action:**
+     Use the form :guilabel:`Issue a new certificate` to issue certificates. To
+     do this you have to enter *server* as :guilabel:`Common Name` and then, in
+     :guilabel:`Days to expire`, a number of days less than or equal to the one
+     you entered for the CA certificate.  Repeat these steps with the names
+     *client1* and *client2*.
 
- - Autenticación mediante infraestructura de clave pública.
- - Cifrado basado en tecnología SSL.
- - Clientes disponibles para Windows, MacOS y Linux.
- - Código que se ejecuta en espacio de usuario, no hace falta
-   modificación de la pila de red (al contrario que con **IPSec**).
- - Posibilidad de usar programas de red de forma transparente.
+    Effect:
+     The new certificates will appear in the list of certificates, ready to be
+     used.
+
+Configuring a VPN with eBox
+===========================
+
+The software selected by eBox to create VPNs is **OpenVPN** [#]_. OpenVPN has
+the following advantages:
+
+  - Authentication using public key infrastructure.
+  - Encryption based on SSL technology.
+  - Clients available for Windows, MacOS X and Linux.
+  - Code that runs in user space, without the need to modify the network stack
+    (as opposed to **IPSec**).
+  - Possibility to use network applications in a transparent way.
 
 .. [#] **OpenVPN**: *An open source SSL VPN Solution by James
-       Yonan* http://openvpn.net.
+        Yonan* http://openvpn.net.
 
-Cliente remoto con VPN
-^^^^^^^^^^^^^^^^^^^^^^
+Remote VPN Client
+^^^^^^^^^^^^^^^^^
 
-Se puede configurar eBox para dar soporte a clientes remotos
-(conocidos familiarmente como *Road Warriors*). Esto es, una máquina
-eBox trabajando como puerta de enlace y como servidor OpenVPN, que
-tiene una red de área local (LAN) detrás, permitiendo a clientes en
-*Internet* (los *road warriors*) conectarse a dicha red local vía
-servicio VPN.
+eBox can be configured to support remote clients (familiarly known as road
+warriors). That is, an eBox machine can work as a gateway and OpenVPN server,
+allowing clients on the Internet (the road warriors) to connect to the network
+via the VPN service and access the local area network.
 
-La siguiente figura puede dar una visión más ajustada:
+The following figure can give a more accurate view of the scenario:
 
 .. figure:: images/vpn/road-warrior.png
    :scale: 70
-   :alt: eBox y clientes remotos de VPN
+   :alt: eBox and remote VPN clients
 
-   eBox y clientes remotos de VPN
+   eBox and remote VPN clients
 
-Nuestro objetivo es conectar al cliente 3 con los otros 2 clientes
-lejanos (1 y 2) y estos últimos entre sí.
+The goal is to connect the client number 3 with the other two remote clients
+(1 and 2) and also connect these two among themselves.
 
-Para ello, necesitamos crear una **Autoridad de Certificación** y
-certificados para todos los elementos presentes en el sistema, el
-servidor OpenVPN y los dos clientes lejanos. Aquí, la máquina eBox
-actúa también como **autoridad de certificación**.
+To do this, we need to create a **Certification Authority** and certificates for
+all the elements present in the system, the OpenVPN server and the two remote
+clients. Here, the eBox machine also acts as a CA.
 
-Una vez tenemos los certificados, deberíamos poner a punto el servidor
-OpenVPN en eBox mediante :guilabel:`Crear un nuevo servidor`. Se debe dar
-un *nombre*, un par *protocolo/puerto*, un *certificado* (aquel que
-acabamos de crear en el ejercicio anterior) y una *dirección de red* para
-la VPN. Tanto al servidor como a los clientes que se conecten se les
-asignarán direcciones pertenecientes a la red de VPN. Para evitar
-conflictos debemos asegurarnos de que la dirección de red no se usa en
-ninguna otra parte de nuestra red.
+Once we have the certificates, we should configure the OpenVPN server
+in eBox using :guilabel:`Create a new server`. You should enter
+a *name*, a *port/protocol* pair, a *certificate* (the one you
+have just created in the previous example) and a *network address* for
+the VPN. Addresses belonging to the VPN network are assigned to the
+server and the clients. To avoid conflicts, you have to make sure that the
+network address is not used in any other part of your network.
 
-Como vemos, el servidor OpenVPN estará escuchando en todas las
-interfaces externas. Por tanto, debemos poner al menos una de nuestras
-interfaces como externa vía :menuselection:`Red --> Interfaces`. En
-nuestro escenario sólo se necesitan dos interfaces, una interna para
-la LAN y otra externa para el lado colocado hacia Internet. Es posible
-configurar nuestro servidor para escuchar en las interfaces internas,
-activando la opción de *Network Address Translation* (NAT), pero de momento
-la vamos a ignorar.
+The OpenVPN server will be listening on all the external interfaces. Therefore,
+we have to mark at least one of our interfaces as external via
+:menuselection:`Network -> Interfaces`. In this scenario only two interfaces are
+needed, the internal one for the LAN and the external one for the Internet. You
+can configure the server to listen also on internal interfaces, activating the
+option *Network Address Translation* (NAT), but for the moment you can ignore
+it.
 
-Si queremos que los clientes puedan conectarse entre sí usando su
-dirección de VPN, debemos activar la opción :guilabel:`Permitir
-conexiones entre clientes`.
+If you want the clients to connect to each other using their VPN addresses, you
+have to activate the option :guilabel:`Allow connections between clients`.
 
-El resto de opciones de configuración las podemos dejar con sus
-valores por defecto.
+You can leave the rest of the options with their defaults.
 
 .. image:: images/vpn/02-vpn-server.png
    :scale: 80
    :align: center
 
-Tras crear el servidor OpenVPN, debemos habilitar el servicio y
-guardar los cambios. Posteriormente, se debe comprobar en
-:menuselection:`Dashboard` que un servidor OpenVPN está funcionando.
+After creating the OpenVPN server you have to enable the service and
+save the changes. Subsequently, you should check in
+:menuselection:`Dashboard` that the VPN service is running.
 
-Tras ello, debemos anunciar redes, dichas redes serán accesibles por
-los clientes OpenVPN autorizados. Para conseguirlo, necesitamos redes
-que sean accesibles desde la máquina eBox. En nuestro escenario,
-deberemos añadir la red local para hacer visible el cliente 3 a los
-otros dos clientes.
+After that, you have to advertise networks. These networks will be accessible by
+OpenVPN authorized clients. To achieve this, you need networks that are
+accessible from the eBox machine. In our example scenario, you have to add the
+local network to make visible the client number 3 to the two other clients.
 
-Una vez hecho esto, es momento de configurar los clientes.
-La forma más sencilla de configurar un cliente OpenVPN es utilizando
-nuestros *bundles*. Estos están disponibles en la tabla que aparece en
-:menuselection:`VPN --> Servidores`, pulsando el icono de la
-columna :guilabel:`Descargar bundle del cliente`. Se han creado dos
-*bundles* para dos tipos de sistema operativo. Si se usa un entorno
-como MacOS™ o GNU/Linux, se debe elegir el sistema Linux. Al crear un
-*bundle* se seleccionan aquellos certificados que se van dar al
-cliente y se establece la dirección IP externa a la cual los clientes
-VPN se deben conectar. Si el sistema seleccionado es Windows™, se
-incluye también un instalador de OpenVPN para *Win32*. Los *bundles*
-de configuración los descargará el administrador de eBox para
-distribuirlos a los clientes de la manera que crea más oportuna.
+Once done, it's time to configure the clients.
+The easiest way to configure an OpenVPN client is using
+the bundles provided by eBox. These are available in the table in
+:menuselection:`VPN -> Servers`, by clicking the icon on the
+:guilabel:`Download client bundle` column. There are bundles
+for two types of operating system. If you are using
+MacOS X or GNU/Linux, you have to choose *Linux* as type.
+When a bundle is created, the certificates that will be given to the
+client are included, and the external IP address to which VPN clients
+have to connect is set. If the selected system is Windows, an
+OpenVPN for *Win32* installer is also included. The configuration bundles
+should be downloaded by the eBox administrator and he is responsible for
+distributing them to the clients in a proper and secure way.
 
 .. image:: images/vpn/03-vpn-client.png
    :scale: 80
    :align: center
 
-Un *bundle* incluye el fichero de configuración y los ficheros
-necesarios para comenzar una conexión VPN. Por ejemplo, en Linux,
-simplemente se descomprime el archivo y se ejecuta, dentro del
-recientemente creado directorio, el siguiente comando::
+A bundle includes the configuration file and other necessary files
+to start a VPN connection. For example, in Linux,
+simply extract the archive and execute it, within the
+newly created directory, using the following command::
 
-   openvpn --config filename
+    openvpn --config filename
 
-Ahora tenemos acceso al cliente 3 desde los dos clientes remotos. Hay
-que tener en cuenta que el servicio local de DNS de eBox no funciona a
-través de la red privada a no ser que se configuren los clientes remotos
-para que usen eBox como servidor de nombres. Es por ello que no
-podremos acceder a los servicios de las máquinas de la LAN por nombre,
-únicamente podremos hacerlo por dirección IP. Eso mismo ocurre con el
-servicio de NetBIOS [#]_ para acceder a recursos compartidos por
-Windows.
+Now you have access to the client number 3 from the two remote clients.
+Bear in mind that the eBox DNS service will not work
+through the private network unless you configure the remote clients
+to use eBox as name resolver. That is why you
+cannot access the services of the hosts on the LAN by name,
+you have to do it by IP address. That also applies to the
+NetBIOS [#]_ service when accessing Windows shared resources.
 
-.. [#] Para más información sobre compartición de ficheros ir a la
-       sección :ref:`filesharing-chapter-ref`
+.. [#] For more information about file sharing, see section
+       :ref:`filesharing-chapter-ref`
 
-Para conectar entre sí los clientes remotos, necesitamos activar la
-opción :guilabel:`Habilitar conexiones cliente-a-cliente` dentro de la
-configuración del servidor OpenVPN. Para comprobar que la
-configuración es correcta, observar en la tabla de rutas del cliente
-donde las nuevas redes anunciadas se han añadido al interfaz virtual
-**tapX**.
+To enable the remote clients to connect between themselves, you need to activate
+the :guilabel:`Enable client-to-client connections` option in the VPN server
+configuration. To verify that the configuration is correct, look at the routing
+table of the client and check that the new networks were added to the **tapX**
+virtual interface.
 
 .. _vpn-example-b-ref:
 
-Ejemplo práctico B
-^^^^^^^^^^^^^^^^^^
+Practical example B
+^^^^^^^^^^^^^^^^^^^
 
-En este ejercicio vamos a configurar un servidor de VPN. Configuraremos un
-cliente en un ordenador residente en una red externa, conectaremos a la VPN y a
-través de ella accederemos a una máquina residente en una red local a la que
-solo tiene acceso el servidor por medio de una interfaz interna.
+This example will configure a VPN server. A client on a computer located
+on a external network is going to be configured. Once connected it to the VPN,
+it will access another host in the local network, which is only accessible
+from the server through an internal interface.
 
-Para ello:
+To do this:
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activar el módulo :guilabel:`OpenVPN`, para ello marcar su casilla
-   en la columna *Estado*.
+#. **Action:**
+    Access the eBox interface, go to :menuselection:`Module Status` and
+    activate the :guilabel:`VPN` module by checking the box on the
+    :guilabel:`Status` column.
 
-   Efecto:
-     eBox solicita permiso para realizar algunas acciones.
+    Effect:
+      eBox requests permission to perform certain actions.
 
-#. **Acción:**
-   Leer las acciones que se van a realizar y otorgar permiso a eBox
-   para hacerlo.
+#. **Action:**
+    Read about the actions that are going to be performed and grant permission
+    to do them.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar cambios`.
+    Effect:
+      :guilabel:`Save Changes` button is activated.
 
-#. **Acción:**
-   Acceder a la interfaz de eBox, entrar en la sección
-   :menuselection:`VPN --> Servidores`, pulsar sobre :guilabel:`Añadir
-   nuevo`, aparecerá un formulario con los campos
-   :guilabel:`Habilitado` y :guilabel:`Nombre`. Introduciremos un
-   nombre para el servidor y lo dejaremos deshabilitado hasta que esté
-   configurado correctamente.
+#. **Action:**
+    Access the eBox web interface, enter the :menuselection:`VPN -> Server`
+    section, click on :guilabel:`Add new`. A form with the fields
+    :guilabel:`Enabled` and :guilabel:`Name` will appear. Enter a name for the
+    server and leave it disabled until it is configured correctly.
 
-   Efecto:
-     El nuevo servidor aparecerá en la lista de servidores.
+    Effect:
+      The new server appears in the list of servers.
 
-#. **Acción:**
-   En la lista de servidores pulsar en el apartado
-   :guilabel:`Configuración` de nuestro servidor. Cambiar los siguientes
-   parámetros:
+#. **Action:**
+    In the server list, click on the :guilabel:`Configuration` section
+    corresponding to your server. Change the following parameters:
 
-      * :guilabel:`Puerto`: poner un puerto que no este en eso como el 7777.
-      * :guilabel:`Dirección de la VPN`: introducir una dirección
-        privada de red que no esté en uso. Por ejemplo, la
-        192.168.68.0.
-      * :guilabel:`Certificado del servidor`: seleccionar el
-        certificado con el nombre *servidor*. Si no existe, se crea como
-        se indica en el ejercicio anterior.
-      * :guilabel:`Interfaz donde escuchar`: seleccionar la
-        interfaz externa conectada a la red donde se encuentra el
-        computador donde vamos a montar el cliente.
+      * :guilabel:`Server port`: select a port that is not in use, e.g. 7777.
+      * :guilabel:`VPN Address`: enter a private network address that is not in
+        use. For example, 192.168.68.0.
+      * :guilabel:`Server Certificate`: select the certificate called *server*.
+        If it does not exist, you can create it as indicated in the previous
+        example.
+      * :guilabel:`Interface to listen on`: Select the external interface
+        connected to the network where the computer that you are going to use
+        as client is located.
 
-   Una vez realizados los cambios pulsaremos sobre *Cambiar*.
+    Once you have made the changes click on :guilabel:`Change`.
 
-   Efecto:
-     Se guardarán los cambios en la configuración del servidor.
+    Effect: Changes will be saved in the server configuration.
 
-#. **Acción:**
-   Volvemos a la lista de servidores y entramos en la sección
-   :guilabel:`Redes anunciadas` de nuestro servidor. En la lista de
-   redes pulsamos sobre :guilabel:`Añadir nueva`.  Añadiremos la
-   dirección de la red privada a la lista de redes anunciadas.  A
-   continuación volveremos a la lista de servidores y pulsaremos en
-   :guilabel:`editar` en la columna :guilabel:`Acción`, como ya tenemos el
-   servidor configurado, marcaremos la casilla *Habilitado*.
+#. **Action:**
+    Go back to the server list and enter the :guilabel:`Advertised networks`
+    section for your server. In the list of networks, click :guilabel:`Add new`.
+    Add the private network address to the list of advertised networks.
+    Then come back to the server list and click on :guilabel:`edit` in
+    the :guilabel:`Action` column, as the server is already configured, tick
+    :guilabel:`Enabled`.
 
-   Efecto:
-     Ya tenemos el servidor completamente configurado, solo nos resta
-     guardar los cambios para que esté activo.
+    Effect:
+      You already have the server fully configured.
+      It will be active when saving changes.
 
-#. **Acción:**
-   Pulsar en :guilabel:`Guardar cambios` y aceptar todos los cambios.
+#. **Action:**
+    Click on :guilabel:`Save Changes` and accept all the changes.
 
-   Efecto:
-     El servidor está activo, podemos comprobar su estado en la
-     sección :menuselection:`Dashboard`.
+    Effect:
+      The server is active, you can verify its status in the
+      :menuselection:`Dashboard`.
 
-#. **Acción:**
-     Para facilitar la configuración del cliente, descargar el
-     *bundle* de configuración para el cliente. Para ello, pulsar en
-     el icono de la columna :guilabel:`Descargar bundle de cliente` y
-     rellenar el formulario de configuración. Introducir las
-     siguientes opciones:
+#. **Action:**
+      To simplify the configuration of the client, download the
+      configuration bundle. To do this, click the icon on the
+      :guilabel:`Download client bundle` column.
+      Fill in the configuration form with the following options:
 
-       * :guilabel:`Tipo de cliente`: seleccionar *Linux*, ya que
-         es el SO del cliente.
-       * :guilabel:`Certificado del cliente`: elegir  *cliente1*. Si
-         no está creado este certificado, crearlo siguiendo las
-         instrucciones del ejercicio anterior.
-       * :guilabel:`Dirección del servidor`: aquí introducir la
-         dirección por la que el cliente puede alcanzar al servidor
-         VPN. En nuestro escenario coincide con la dirección de la
-         interfaz externa conectada a la misma red que el ordenador
-         cliente.
+       * :guilabel:`Client type`: select *Linux*, as it is the client OS.
+       * :guilabel:`Client certificate`: select *client1*. If
+          This certificate is not created, create it following
+          the instructions from the previous example.
+       * :guilabel:`Server address`: enter here
+          the address that the client has to use to reach the VPN server.
+          In this scenario, this address will be the one for the
+          external interface connected to the same network as the computer
+          client.
 
-     Efecto:
-      Al cumplimentar el formulario, bajaremos un archivo con el *bundle* para
-      el cliente. Será un archivo en formato comprimido *.tar.gz*.
+      Effect:
+       Once the form is completed, a bundle file for the client will be
+       downloaded. It will be a compressed file in *.tar.gz* format.
 
 
-#. **Acción:**
-     Configurar el ordenador del cliente. Para ello descomprimir
-     el *bundle* en un directorio. Observar que el *bundle* contenía los
-     ficheros con los certificados necesarios y un fichero de configuración con
-     la extensión '.conf'. Si no han existido equivocaciones en los pasos
-     anteriores ya tenemos toda la configuración necesaria y no nos queda más
-     que lanzar el programa.
+#. **Action:**
+      Configure the client computer. For this, decompress the
+      bundle in a directory. Note that the bundle contains
+      files with the necessary certificates and a configuration file with
+      the *.conf* extension. If there have been no mistakes in the steps
+      earlier, you have all the necessary configuration and you only have to
+      launch the program.
 
-     Para lanzar el cliente ejecutar el siguiente
-     comando dentro del directorio::
+      To launch the client run the following command within the directory::
 
-        openvpn --config  [ nombre_del_fichero.conf ]
+         openvpn --config [ filename.conf ]
 
-     Efecto:
-      Al lanzar el comando en la ventana de terminal se irán imprimiendo las
-      acciones realizadas por el programa. Si todo es correcto, cuando la
-      conexión esté lista se leerá en la pantalla
-      *Initialization Sequence Completed*; en caso contrario se leerán mensajes
-      de error que ayudarán a diagnosticar el problema.
+      Effect:
+       When launching the command in a terminal window the actions
+       will be printed on it. If everything is correct, once the
+       connection is ready *Initialization Sequence Completed* will appear
+       on the terminal; otherwise error messages will appear to help you
+       diagnose the problem.
 
-#. **Acción:**
-     Antes de  comprobar que existe conexión entre el cliente y el ordenador
-     de la red privada, debemos estar seguros que este último tiene ruta de
-     retorno al cliente VPN. Si estamos usando eBox como puerta de enlace
-     por defecto, no habrá problema, en caso contrario necesitaremos añadir una
-     ruta al cliente.
+#. **Action:**
+      Before checking if there is a connection between the client and the
+      computer on the private network, you have to be sure that the latter has
+      a return route to the VPN client. If you are using eBox as the default
+      gateway, there will be no problem. Otherwise you will need to add a
+      route to the client.
 
-     Primero comprobaremos que existe la conexión con el comando **ping**,
-     para ello ejecutaremos el siguiente comando::
+      First you have to check if there is connection by using the **ping**
+      command. Run the following command::
 
-        ping -c 3  [ dirección_ip_del_otro_ordenador ]
+         ping -c 3 [ another_computer_ip_address ]
 
-     Para comprobar que no sólo hay comunicación sino que podemos acceder a los
-     recursos del otro ordenador, iniciar una sesión de consola remota, para
-     ello usamos el siguiente comando desde el ordenador del cliente::
+      To verify that there is not only communication, but also access to the
+      resources of another computer, launch a remote console session.
+      You can do it with the following command from the client computer::
 
-        ssh  [ dirección_ip_del_otro_ordenador ]
+         ssh [ another_computer_ip_address ]
 
-     Después de aceptar la identidad del ordenador e introducir usuario
-     y contraseña, accederemos a la consola del otro ordenador.
+      After accepting the identity of the computer and entering the user
+      and the password, you will access the console of the remote computer
+      as if it were physically on your local network.
 
-.. _client-NAT-VPN-ref:
+.. _clients-NAT-VPN-ref:
 
-Cliente remoto NAT con VPN
+Remote VPN Client with NAT
 --------------------------
 
-Si queremos tener un servidor VPN que no sea la puerta de enlace de la
-red local, es decir, la máquina no posee interfaces externos, entonces
-necesitaremos activar la opción de :guilabel:`Network Address
-Translation`. Como es una opción del cortafuegos, tendremos que
-asegurarnos que el módulo de **cortafuegos** está activo, de lo
-contrario no podremos activar esta opción. Con dicha opción, el
-servidor VPN se encargará de actuar como representante de los clientes
-VPN dentro de la red local. En realidad, lo será de todas las redes
-anunciadas, para asegurarse que recibe los paquetes de respuesta que
-posteriormente reenviará a través de la red privada a sus
-clientes. Esta situación se explica mejor con el siguiente gráfico:
+If you want to have a VPN server that is not the gateway of your LAN, i.e. the
+machine has no external interfaces, then you need to activate the
+:guilabel:`Network Address Translation` option. As this is a firewall feature,
+you have to make sure that the **firewall** module is active, otherwise you will
+not be able to activate this option. With this option, the VPN server will act
+as a representative of VPN clients within the network. In fact, it will be a
+representative of all the advertised networks, and it will receive the response
+packets and subsequently forward them through the private network to the
+clients. This situation is best explained with the following figure:
 
 .. figure:: images/vpn/vpn-nat.png
-   :alt: Conexión desde un cliente VPN a la LAN con VPN usando NAT
+   :alt: VPN connection from a client to the LAN using NAT with VPN
    :scale: 80
 
-   *GRAPHIC: Conexión desde un cliente VPN a la LAN con VPN usando NAT*
+   *GRAPHIC: VPN connection from a client to the LAN using NAT with VPN*
 
-Interconexión segura entre redes locales
-----------------------------------------
 
-En este escenario tenemos dos oficinas en diferentes redes que necesitan
-estar conectadas a través de una red privada. Para hacerlo, usaremos
-eBox en ambas como puertas de enlace. Una actuará como cliente OpenVPN
-y otra como servidora. La siguiente imagen trata de aclarar la
-situación:
+Secure interconnection between local networks
+---------------------------------------------
+
+In this scenario there are two offices in different networks that need to
+be connected via a private network. To do this, eBox is
+used as gateway in both networks. One eBox will act as OpenVPN client
+and another as server. The following figure attempts to clarify the
+situation:
 
 .. figure:: images/vpn/two-offices.png
    :scale: 70
-   :alt: eBox como servidor OpenVPN vs. eBox como cliente OpenVPN
+   :alt: eBox vs OpenVPN as a server. eBox OpenVPN as a client
 
-   eBox como servidor OpenVPN vs. eBox como cliente OpenVPN
+   eBox vs OpenVPN as a server. eBox OpenVPN as a client
 
-Nuestro objetivo es conectar al cliente 1 en la LAN 1 con el cliente 2
-en la LAN 2 como si estuviesen en la misma red local. Por tanto,
-debemos configurar un servidor OpenVPN como hacemos en el
-:ref:`vpn-example-b-ref`.
+The goal is to connect the client on the LAN 1 with client 2
+on the LAN 2, as if they were in the same local network. Therefore,
+you have to configure an OpenVPN server as done in :ref:`vpn-example-b-ref`.
 
-Sin embargo, se necesita hacer dos pequeños cambios habilitando la
-opción :guilabel:`Permitir túneles eBox a eBox` para intercambiar
-rutas entre máquinas eBox y :guilabel:`contraseña túnel eBox a eBox`
-para establecer la conexión en un entorno más seguro entre las dos
-oficinas. Hay que tener en cuenta que deberemos anunciar la red LAN 1
-en :guilabel:`Redes anunciadas`.
+However, you need to make two small changes. First, enable
+the :guilabel:`Allow eBox-to-eBox tunnels` option to exchange
+routes between eBox machines. Then enable
+:guilabel:`password for the eBox-to-eBox tunnel` to have a more secure
+connection environment.  You have to bear in mind that you have to add the
+address of the LAN 1 in :guilabel:`Advertised networks`.
 
-Para configurar eBox como un cliente OpenVPN, podemos hacerlo a través
-de :menuselection:`VPN --> Clientes`. Debes dar un :guilabel:`nombre`
-al cliente y activar el :guilabel:`servicio`. Se puede establecer la
-configuración del cliente manualmente o automáticamente usando el
-*bundle* dado por el servidor VPN, como hemos hecho en el
-:ref:`vpn-example-b-ref`. Si no se usa el *bundle*, se tendrá que dar la
-:guilabel:`dirección IP` y el par :guilabel:`protocolo-puerto` donde
-estará aceptando peticiones el servidor. También será necesaria la
-:guilabel:`contraseña del túnel` y los :guilabel:`certificados` usados
-por el cliente. Estos certificados deberán haber sido creados por la
-misma **autoridad de certificación** que use el servidor.
+To configure eBox as an OpenVPN client, you can do it through
+:menuselection:`VPN -> Clients`. You must give a :guilabel:`name`
+to activate the client and activate the :guilabel:`service`. You can set the
+client configuration manually or automatically using the
+bundle from the VPN server, as done in the :ref:`vpn-example-b-ref`.
+If not using the bundle, you will have to enter the
+:guilabel:`IP address` and the :guilabel:`protocol-port` pair where
+the server is listening. A :guilabel:`tunnel password` and the
+:guilabel:`certificates` used by the client are also required. These
+certificates should have been issued by the same CA that is using the server.
 
 .. image:: images/vpn/04-vpn-eBox-client.png
    :scale: 70
    :align: center
 
-Cuando se guardan los cambios, en el :menuselection:`Dashboard`, se puede
-ver un nuevo demonio OpenVPN en la red 2 ejecutándose como cliente con
-la conexión objetivo dirigida a la otra eBox dentro de la LAN 1.
+When changes are saved, you can see in :menuselection:`Dashboard`
+a new OpenVPN daemon on the network 2 running as a client,
+connected to the other eBox in the LAN 1.
 
 .. image:: images/vpn/05-vpn-dashboard.png
    :scale: 80
    :align: center
 
-Cuando la conexión esté completa, la máquina que tiene el papel de
-servidor tendrá acceso a todas las rutas de las maquinas clientes a
-través de la VPN. Sin embargo, aquellas cuyo papel sea de cliente
-sólo tendrán acceso a aquellas rutas que el servidor haya anunciado
-explícitamente.
+When the connection is complete, the server machine
+will have access to all routes of the client machines
+through the VPN. However, the client machines will have
+access only to the routes that the server has advertised explicitly.
 
-Ejemplo práctico C
-^^^^^^^^^^^^^^^^^^
+Practical example C
+^^^^^^^^^^^^^^^^^^^
 
-El objetivo de este ejercicio es montar un túnel entre dos redes que usan
-servidores eBox como puerta de enlace hacia una red externa, de forma que los
-miembros de ambas redes se puedan conectar entre sí.
+The objective of this example is to set up a tunnel between two networks that
+use eBox servers as gateways to an external network, so that members of both
+networks can connect with each other.
 
-#. **Acción:**
-   Acceder a la interfaz *Web* de eBox que va a tener el papel de servidor en
-   el túnel. Asegurarse de que el módulo de **VPN** está activado y activarlo si
-   es necesario.
-   Una vez en la sección :menuselection:`VPN --> Servidores`, crear
-   un nuevo servidor.
-   Usar los siguientes parámetros de configuración:
+#. **Action:**
+    Access the web interface of the eBox which is going to act as server in
+    the tunnel. Make sure the **VPN** module is enabled and activate it if
+    necessary.
+    Once you are in the :menuselection:`VPN -> Servers` section, create
+    a new server with the following settings:
 
-      * :guilabel:`Puerto`: elegir un puerto que no esté en uso, como el 7766.
-      * :guilabel:`Dirección de VPN`: introducir una dirección privada de red
-        que no esté en uso en ninguna parte de nuestra infraestructura, por
-        ejemplo 192.168.77.0/24.
-      * Habilitar :guilabel:`Permitir túneles eBox-a-eBox`. Esta es la opción
-        que indica que va a ser un servidor de túneles.
-      * Introducir una :guilabel:`contraseña para túneles eBox-a-eBox`.
-      * Finalmente, en el apartado :guilabel:`Interfaces donde escuchará el
-        servidor`, elegir la interfaz externa con la que podrá conectar la eBox
-        cliente.
+       * :guilabel:`Port`: choose a port that is not in use, such as 7766.
+       * :guilabel:`VPN address`: enter a private network address
+         not used in any part of your infrastructure, e.g. 192.168.77.0/24.
+       * Enable :guilabel:`Allow eBox-to-eBox tunnels`. This is the option
+         indicating that it will be a tunnel server.
+       * Enter a :guilabel:`Password for eBox-to-eBox tunnel`.
+       * Finally, in the :guilabel:`Interfaces where the server will listen`
+         section, choose the external interface that the eBox client will
+         connect to.
 
-   Para concluir la configuración del servidor se deben anunciar redes
-   siguiendo los mismos pasos que en ejemplos anteriores. Anunciar la red
-   privada a la que se quiere que tenga acceso el cliente.
-   Conviene recordar que este paso no va a ser necesario en el cliente, el
-   cliente suministrará todas sus rutas automáticamente al servidor.
-   Nos resta habilitar el servidor y guardar cambios.
+    To complete the configuration of the server the networks have to be
+    advertised following the same steps as in the previous examples. Advertise
+    the private network you want to give access from the client.
+    Remember that this step is not necessary on the client, it
+    will supply all its routes to the server automatically.
+    The only step left is enabling the server and save changes.
 
-   Efecto:
-     Una vez realizados todos los pasos anteriores tendremos al servidor
-     corriendo, podemos comprobar su estado en el
-     :menuselection:`Dashboard`.
+    Effect:
+      Once all the above steps are done you have the server running. You can
+      verify its status in the :menuselection:`Dashboard`.
 
-#. **Acción:**
-   Para facilitar el proceso de configuración del cliente, obtener
-   un *bundle* de configuración del cliente, descargándolo del servidor.
-   Para descargarlo, acceder de nuevo a la interfaz *Web* de eBox y en la
-   sección  :menuselection:`VPN --> Servidores`, pulsar en
-   :guilabel:`Descargar bundle de configuración del cliente` en
-   nuestro servidor. Antes de poder descargar el *bundle* se deben
-   establecer algunos parámetros en el formulario de descarga:
+#. **Action:**
+    To ease the process of configuring the client, you can obtain
+    a configuration bundle. To download it from the server,
+    log back into the eBox web interface and go to
+    :menuselection:`VPN -> Servers`, click on
+    :guilabel:`Download bundle client configuration` in
+    our server's row. Before the download starts you have to
+    enter some parameters in the form:
 
-      * :guilabel:`Tipo de cliente`: elegir *Túnel eBox a eBox*.
-      * :guilabel:`Certificado del cliente`: elegir un certificado que no sea
-        el del servidor ni esté en uso por ningún cliente más. Sino se
-        tienen suficientes certificados, seguir los pasos de ejercicios
-        anteriores para crear un certificado que pueda usar el cliente.
-      * :guilabel:`Dirección del servidor`: aquí se debe introducir la
-        dirección por la que el cliente pueda conectar con el servidor, en
-        nuestro escenario la dirección de la interfaz externa conectada a la
-        red visible tanto por el servidor como el cliente será la dirección
-        adecuada.
+       * :guilabel:`Client type`: choose *eBox-to-eBox tunnel*.
+       * :guilabel:`Client certificate`: choose a certificate different
+         to the server one that is not in use in any other client either.
+         If you do not have enough certificates, follow the steps of above
+         examples to create a certificate that you can use for the client.
+       * :guilabel:`Server address`: you have to enter the
+         address which the client will use to connect to the server. In this
+         case, the address of the external interface connected to the network
+         visible by both server and client will be the appropriate one.
 
-   Una vez introducidos todos los datos pulsamos el botón de
-   :guilabel:`Descargar`.
+    After entering all the data press the :guilabel:`Download` button.
 
-   Efecto:
-     Descargamos un archivo *tar.gz* con los datos de configuración necesarios
-     para el cliente.
+    Effect:
+      You download a *tar.gz* file containing the configuration data required
+      for the client.
 
-#. **Acción:**
-   Acceder a la interfaz *Web* del servidor eBox que va a tener el papel de
-   cliente. Ccomprobar que el módulo **VPN** está activo, ir a la sección
-   :menuselection:`VPN --> Clientes`. En esta sección se ve una lista
-   vacía de clientes, para crear uno pulsar sobre :guilabel:`Añadir
-   cliente` e introducir un *nombre* para él. Como no está configurado
-   no se podrá habilitar, así que se debe volver a la lista de clientes y
-   pulsar en el apartado de configuración correspondiente a nuestro
-   cliente. Dado que se tiene un *bundle* de configuración de cliente,
-   no se necesita rellenar las secciones a mano. Usaremos la opción
-   :guilabel:`Subir bundle de configuración del cliente`, seleccionar
-   el archivo obtenido en el paso anterior y pulsar sobre
-   :guilabel:`Cambiar`. Una vez cargada la configuración, se puede
-   retornar a la lista de clientes y habilitar nuestro cliente. Para
-   habilitarlo, pulsar en el icono de :guilabel:`Editar`, que se
-   encuentra en la columna de :guilabel:`Acciones`. Aparecerá un
-   formulario donde podremos marcar la opción de *Habilitado*.  Ahora
-   tenemos el cliente totalmente configurado y sólo nos resta guardar
-   los cambios.
+#. **Action:**
+    Access the eBox server web interface that will take the role of
+    client. Check that the **VPN** module is active, go to the
+    :menuselection:`VPN -> Clients` section. This section is an empty list
+    of clients. To create one, click :guilabel:`Add client`
+    and enter a *name* for it. As it is unset, it
+    cannot be enabled, so you have to return to the list of clients and
+    configure it. Since you have a client configuration bundle you do
+    not need to complete the data in the section by hand. Using the
+    :guilabel:`Upload bundle with client configuration` option, you can select
+    the file obtained in the previous step and click on
+    :guilabel:`Change`. Once the configuration is loaded, you can
+    return to the list of clients and enable it.
+    For this, click the :guilabel:`Edit` icon in the
+    :guilabel:`Action` column. A form where you can tick the
+    :guilabel:`Enable` option will appear. Now
+    you have a fully configured client and the only thing left
+    is saving changes.
 
-   Efecto:
-     Una vez guardados los cambios, tendremos el cliente activo como
-     podremos comprobar en el :menuselection:`Dashboard`. Si tanto la
-     configuración del servidor como del cliente son correctas, el
-     cliente iniciará la conexión y en un instante tendremos el túnel
-     listo.
+    Effect:
+      Once the changes are saved, the client will be active.
+      You can check this in the :menuselection:`Dashboard`. If both client
+      and server configurations are correct, the
+      client will start the connection and the tunnel will be ready in
+      a few seconds.
 
-#. **Acción:**
-   Ahora se comprobará que los ordenadores en las redes internas del servidor y
-   del cliente pueden verse entre sí. Además de la existencia del túnel serán
-   necesarios los siguientes requisitos:
+#. **Action:**
+    Now you have to check if the hosts in the server's internal networks and
+    in the client ones can see each other. Besides the existence of the tunnel,
+    there are the following requirements:
 
-     * Los ordenadores deberán conocer la ruta de retorno a la otra red
-       privada. Si, como en nuestro escenario, eBox está siendo utilizado como
-       puerta de enlace no habrá necesidad de introducir rutas adicionales.
-     * El cortafuegos deberá permitir conexiones entre las rutas para los
-       servicios que utilicemos.
+      * The hosts must know the return route to the other private network
+        If, as in this case, eBox is being used as
+        gateway, there is no need to setup additional routes.
+      * The firewall must allow connections between the routes for the
+        services you want to use.
 
-   Una vez comprobados estos requisitos podremos pasar a comprobar la conexión,
-   para ello entraremos en uno de los ordenadores de la red privada del
-   servidor VPN y haremos las siguientes comprobaciones:
+    Once these requirements are met, you can test the connection.
+    From one of the hosts on the private network of the VPN server
+    do the following:
 
-      * **Ping** a un ordenador en la red del cliente VPN.
-      * Tratar de iniciar una sesión SSH en un ordenador de la red del cliente
-        VPN.
+       * **Ping** a host on the network of the VPN client.
+       * Attempt to initiate an SSH session on a host of the VPN client
+         network.
 
-   Terminadas estas comprobaciones, las repetiremos desde un ordenador
-   de la red del cliente VPN, eligiendo como objetivo un ordenador
-   residente en la red del servidor VPN.
+    Once you have checked this, repeat it from a host on
+    the network of the VPN client, choosing as target a host
+    located in the network of the VPN server.
 
 .. include:: vpn-exercises.rst
+

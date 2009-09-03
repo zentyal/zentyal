@@ -1,25 +1,14 @@
-.. sectionauthor:: Enrique J. Hernández <ejhernandez@ebox-platform.com>,
+.. sectionauthor:: Enrique J. Hernández <ejhernandez@ebox-platform.com>
 
-Uno de los fundamentos de la creación de las redes de computadores,
-fue la compartición de recursos y de información [#]_. A lo largo de
-todo este capítulo, se van a ir explorando los diferentes recursos y
-información disponibles en una red de área local dispuesta en casa o
-en la oficina.
+One of the fundamentals for the creation of computer networks
+was the sharing of resources and data [#]_. This issue is particularly
+emphasized here and is possibly the most useful section for the daily
+operations of many local area networks in offices or at home.
 
-La gestión de usuarios y grupos a través de un servicio de directorio
-para todos los servicios de la red de forma unificada, el empleo de
-ficheros e impresoras compartidas, además de todos los servicios de
-grupo como calendarios, contactos, tareas, etc, se van a ver dentro de
-este apartado.
+Unified user and group management through a directory service for all network
+services, the use of shared files and printers and all groupware services,
+such as calendars, contacts and tasks, are discussed in this
+section.
 
-.. manual
+.. [#] See :ref:`net-intro-ref` for further information.
 
-.. [#] Para más información, ver :ref:`net-intro-ref`
-
-.. endmanual
-
-.. web
-
-.. [#] De hecho, se considera la motivación principal de su creación.
-
-.. endweb

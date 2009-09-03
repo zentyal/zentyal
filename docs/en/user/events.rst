@@ -1,148 +1,139 @@
-Incidencias (eventos y alertas)
-*******************************
+Events and alerts
+*****************
 
-Aunque la posibilidad de hacer consultas personalizadas a los registros, o
-la visualización de los resúmenes son opciones muy útiles. Se
-complementan mejor todavía con las posibilidades de monitorización de
-**eventos** a través de la notificación.
+The **events** module is a convenient service that allows you to receive
+notifications of certain events and alerts that happen in your eBox
+machine.
 
-Disponemos de los siguientes mecanismos emisores para la notificación de
-incidencias:
+eBox allows you to receive these alerts and events through the following
+dispatchers:
 
-- Correo [#]_
+- Mail [#]_
 - Jabber
-- Registro
+- Logs
 - RSS
 
-.. [#] Teniendo instalado y configuración el módulo de **correo**
+.. [#] The **mail** module needs to be installed and configured.
    (:ref:`mail-service-ref`).
 
-Antes de activar los eventos debemos asegurarnos de que el módulo se
-encuentra habilitado. Para habilitarlo, como de costumbre, debemos ir
-a :menuselection:`Estado del módulo` y seleccionar la casilla
-:guilabel:`eventos`.
+Before enabling any event watcher you have to make sure that the events module
+is enabled. Go to :menuselection `Module status` and check the
+:guilabel:`events` module.
 
-A diferencia de los registros, que salvo en el caso del **cortafuegos**, se
-encuentran activados por defecto, para los eventos tendremos que activar
-explícitamente aquellos que nos interesen.
+Unlike in the Logs module, where all services are enabled by default except
+the **firewall**, you have to enable those events that might be of your interest.
 
-Para activar cualquiera de ellos accederemos al menú
-:menuselection:`Eventos --> Configurar eventos`. Podemos editar el
-estado de cada uno mediante el icono del lápiz. Para ello marcaremos
-la casilla :guilabel:`Habilitado` y pulsaremos el botón
-:guilabel:`Cambiar`.
+To enable any events, you have to click on the menu entry 
+:menuselection:`Events --> Configure Events`. You can edit an event state by
+clicking on the pencil icon. Tick the :guilabel: `Enabled` box and click on
+the :guilabel:`Change` button.
+
 
 .. figure:: images/events/05-config-events.png
    :scale: 80
-   :alt: Configurar eventos
+   :alt: Configure events
 
-   Pantalla de configurar eventos
+   Configure events page
 
-Además, algunos eventos como el observador de registros o el observador de
-espacio restante en disco tienen sus propios parámetros de configuración.
+There are some events that need further configuration to work properly. This is
+the case for the log and free storage space observers.
 
-La configuración para el observador de espacio en disco libre es sencilla. Sólo
-debemos especificar el porcentaje mínimo de espacio libre con el que
-queremos ser notificados (cuando sea menor de ese valor).
+The configuration of the free storage observer is pretty straightforward.
+The only required parameter is the free space percentage that will
+trigger the event when its actual value goes under it.
 
-En el caso del observador de registros, podemos elegir en primer lugar qué
-dominios de registro queremos observar. Después, por cada uno de ellos,
-podemos añadir reglas de filtrado específicas dependientes del dominio. Por
-ejemplo: peticiones denegadas en el proxy HTTP, concesiones DHCP a una
-determinada IP, trabajos de cola de impresión cancelados, etc. La
-creación de alertas para monitorizar también se puede hacer mediante
-el botón :guilabel:`Guardar como evento` a través de
-:menuselection:`Registros --> Consultar registros --> Informe completo`.
+For the log observer, the first step is to select which domains you want to
+generate events from. For every domain, you can add filtering rules that depend
+on the domain. Some examples are: denied HTTP requests by the proxy, DHCP leases
+for a giving IP, canceled printer jobs, and so on. You can also create an event
+filter from an existing log query by clicking on the :guilabel:`Save as an
+event button` through :menuselection:`Logs --> Query Logs --> Full Report`.
 
 .. figure:: images/events/06-config-log-observers.png
-   :alt: Configurar observadores de registros
+   :alt: Configure log observer
 
-   Pantalla de configurar observadores de registros
+   Configure Log Observer page
 
-Respecto a la selección de medios para la notificación de los eventos,
-podemos seleccionar los emisores que deseemos en la pestaña
-:menuselection:`Configurar emisores`.
+So far, you know how to enable the generation of events and alerts. However,
+you also need these events and alerts to be sent to you in order to be read.
+That is what event dispatchers are for.
+Go to the :menuselection:`Configure dispatchers` tab.
 
 .. figure:: images/events/07-config-dispatchers.png
-   :alt: Configurar emisores
+   :alt: Configure dispatchers
 
-   Pantalla de configurar emisores
+   Configure dispatchers page 
 
-De idéntica forma a la activación de eventos, debemos editarlos y
-seleccionar la casilla :guilabel:`Habilitado`. Excepto en el caso del
-fichero de registro (que escribirá implícitamente los eventos
-recibidos al fichero */var/log/ebox/ebox.log*), el resto de emisores
-requieren una configuración adicional que detallamos a continuación:
+The procedure to enable event dispatchers is similar to enabling event watchers.
+You have to configure all the watchers except the log watcher. The latter will
+write its output to */var/log/ebox/ebox.log*. The other dispatchers
+require further configuration.
 
-Correo:
- Debemos especificar la dirección de correo destino (típicamente la
- del administrador de eBox), además podemos personalizar el asunto de los
- mensajes.
+Mail:
+ You have to set the email address of the recipient (usually the eBox
+ administrator). You can also set the subject of the messages.
 
 Jabber:
- Debemos especificar el nombre y puerto del servidor Jabber, el
- nombre de usuario y contraseña del usuario que nos notificará los eventos,
- y la cuenta Jabber del administrador que recibirá dichas notificaciones.
+ You have to set the Jabber server address and port that will be used to send
+ the messages. You also have to set the username and password of the user that
+ will send the messages. Finally, you have to set the Jabber address of the
+ recipient.
 
 RSS:
- Nos permite seleccionar una política de lectores permitidos, así como
- el enlace del canal. Podemos hacer que el canal sea público, que no sea
- accesible para nadie, o autorizar sólo a una dirección IP u objeto
- determinado.
+ You have to decide who will be able to read the RSS feed, and the feed link
+ itself. You can make the channel public, private, or authorized by a source IP
+ address-based policy. Note that you can also use objects instead of IP
+ addresses.
 
 .. _event-exercise-ref:
 
-Ejemplo práctico
-----------------
+Practical Example
+-----------------
 
-Usar el módulo **eventos** para hacer aparecer el mensaje *"eBox is up
-and running"* en el fichero ``/var/log/ebox/ebox.log``. Dicho mensaje
-se generará cada vez que se reinicie el módulo de **eventos**.
+Configure the **events** module to make it show the message *"eBox is up and
+running* in ``/var/log/ebox/ebox.log``. This message will be generated
+periodically, and every time the **events** module is restarted.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activar el módulo :guilabel:`eventos`, para ello marcar su casilla en la
-   columna :guilabel:`Estado`.
+#. **Action:**
+   Access the eBox web interface, go to :menuselection:`Module Status` and 
+   enable :guilabel:`events`.  
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+   Effect:
+     The :guilabel:`Save Changes` button has turned red.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Eventos` y a la pestaña
-   :menuselection:`Configurar eventos`. Pulsar el icono del lápiz
-   sobre la fila :guilabel:`Estado`. Marcar la casilla
-   :guilabel:`Habilitado` y pulsar el botón :guilabel:`Cambiar`.
+#. **Action:**
+   Go to :menuselection:`Events` and click on the tab labeled 
+   :menuselection:`Configure Events`. Click on the pencil icon that is placed
+   in the  :guilabel:`Status` column. Check the  
+   :guilabel:`Enabled` field and click on:`Change`.
 
-   Efecto:
-     Veremos que en la tabla de eventos aparece como habilitado el evento de
-     Estado.
+   Effect:
+     The events table shows the event as enabled.
 
-#. **Acción:**
-   Acceder a la pestaña :menuselection:`Configurar emisores`.
-   Pulsar el icono del lápiz sobre la fila :guilabel:`Registro`.
-   Marcar la casilla :guilabel:`Habilitado` y pulsar el botón
-   :guilabel:`Cambiar`.
+#. **Action:**
+   Go to the tab labeled :menuselection:`Configure dispatchers`.
+   Click on the pencil icon of the row that contains the :guilabel:`Log` event.
+   Enable it and click on :guilabel:`Change`.
 
-   Efecto:
-     Veremos que en la tabla de emisores aparece como habilitado el emisor de
-     Registro.
+   Effect:
+     The event disptacher table shows the log dispatcher as enabled.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+   Effect:
+    eBox shows the progress of the saving changes process until it displays a
+    message to let you know it is done.
 
-     En el fichero de registro `/var/log/ebox/ebox.log` aparecerá un evento
-     con el mensaje *'eBox is up and running'*.
+    An event with the message *'eBox is up and running'* will be written in
+    `/var/log/ebox/ebox.log`.
 
-#. **Acción:**
-   Desde la consola de la máquina eBox, ejecutar el comando
+#. **Action:**
+   From the console on the eBox machine run: 
    `sudo /etc/init.d/ebox events restart`.
 
-   Efecto:
-     En el fichero de registro `/var/log/ebox/ebox.log` volverá a aparecer
-     un nuevo evento con el mensaje *'eBox is up and running'*.
+   Effect:
+     An event with the message *'eBox is up and running'* will be written again in
+     `/var/log/ebox/ebox.log`.
 
 .. include:: events-exercises.rst

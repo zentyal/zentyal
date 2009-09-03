@@ -1,145 +1,141 @@
 .. _ids-ref:
 
-Sistema de Detección de Intrusos (IDS)
-**************************************
+Intrusion Detection System (IDS)
+********************************
 
 .. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
 
-Un **Sistema de Detección de Intrusos (IDS)** es una aplicación diseñada para evitar
-accesos no deseados a nuestras máquinas, principalmente ataques provenientes de
-*Internet*.
+An **intrusion detection system (IDS)** is an application designed to prevent
+unwanted access to our machines, mainly attacks coming from the Internet.
 
-Las dos funciones principales de un IDS es **detectar** los posibles ataques o
-intrusiones, lo cual se realiza mediante un conjunto de reglas que se aplican
-sobre los paquetes del tráfico entrante. Además de **registrar** todos los eventos
-sospechosos, añadiendo información útil (como puede ser la dirección IP de origen
-del ataque), a una base de datos o fichero de registro; algunos IDS combinados con
-el cortafuegos también son capaces de **bloquear** los intentos de intrusión.
+The two main functions of an IDS are to **detect** potential attacks or
+intrusions, what is done through a set of rules that are matched
+against packets of inbound traffic. In addition to **recording** all suspicious
+events, it records useful information (such as the source IP address of the
+attacker) in a database or file. Combined with the firewall, some IDS
+can also **block** intrusion attempts.
 
-Existen distintos tipos de IDS, el más común de ellos es el Sistema de Detección
-de Intrusos de Red (NIDS), se encarga de examinar todo el tráfico de una red
-local. Uno de los NIDS más populares es Snort [#]_, que es la
-herramienta que integra eBox para realizar dicha tarea.
+There are different types of IDS, the most common one is the Network
+Intrusion Detection System (NIDS), which is responsible for checking all the
+traffic on a local network. One of the most popular NIDS is Snort [#]_,
+which is the tool that eBox integrates to perform this task.
 
-.. [#] **Snort**: *A free lightweight network intrusion detection
-       system for UNIX and Windows* http://www.snort.org
+.. [#] **Snort**: A free lightweight network intrusion detection
+        system for UNIX and Windows * http://www.snort.org
 
-Configuración de un IDS con eBox
-================================
+Setting up an IDS with eBox
+===========================
 
-La configuración del Sistema de Detección de Intrusos en eBox es muy sencilla.
-Solamente necesitamos activar o desactivar una serie de elementos. En primer lugar,
-tendremos que especificar en qué interfaces de red queremos habilitar la escucha
-del IDS. Tras ello, podemos seleccionar distintos conjuntos de reglas a aplicar
-sobre los paquetes capturados, con el objetivo de disparar alertas en caso de
-resultados positivos.
+The configuration of the IDS in eBox is very simple.
+You only need to activate or deactivate a number of elements. First,
+you have to specify which network interfaces you want the IDS to listen on.
+After that, you can select different sets of rules to match
+with the captured packets. Alerts will be fired in case of positive results.
 
-A ambas opciones de configuración se accede a través del menú
-:menuselection:`IDS`. En la pestaña :guilabel:`Interfaces` aparecerá
-una tabla con la lista de todas las interfaces de red que tengamos
-configuradas. Por defecto, todas ellas se encuentran deshabilitadas
-debido al incremento en la latencia de red y consumo de CPU que genera
-la inspección de tráfico. Para habilitar alguna de ellas podemos
-pulsar en el icono del lápiz, marcar la casilla :guilabel:`Habilitada`
-y pulsar el botón :guilabel:`Cambiar`.
+Both settings are accessed via the :menuselection:`IDS` menu.
+On the :guilabel:`Interfaces` tab a table with a list of all network
+interfaces that are configured is shown.
+By default, all of them are disabled due to the increased network latency
+and CPU consumption caused by the traffic inspection.
+To enable any of them you can click the pencil icon, check :guilabel:`Enabled`
+and press the button :guilabel:`Change`.
 
 .. image:: images/ids/ids-01-interfaces.png
    :scale: 80
    :align: center
 
-En la pestaña :guilabel:`Reglas` tenemos una tabla en la que se encuentran
-precargados todos los conjuntos de reglas de *Snort* instaladas en nuestro sistema
-(ficheros bajo el directorio `/etc/snort/rules`). Por defecto, para una mayor
-seguridad, todas ellas se encuentran habilitadas. Pero para ahorrar tiempo de CPU
-es recomendable que desactivemos aquellas que no nos interesen, por ejemplo, las
-relativas a servicios que no existen en nuestra red. El procedimiento para activar
-o desactivar una regla es el mismo que para las interfaces.
+On the :guilabel:`Rules` tab you can see a table that is
+preloaded with all the Snort rulesets installed on your system
+(files under the directory `/etc/snort/rules`). By default, for increased
+security, all of them are enabled. But if you want to save CPU time,
+it is advisable to disable those that are not of interest, for example, the
+ones related to services not available in your network.
+The procedure for activating or disabling a rule is the same as for the
+interfaces.
 
 .. image:: images/ids/ids-02-rules.png
    :scale: 80
    :align: center
 
-Alertas del IDS
-===============
+IDS Alerts
+==========
 
-Con lo que hemos visto hasta ahora podemos tener funcionando el módulo IDS, pero
-su única utilidad sería que podríamos observar manualmente las distintas alertas
-en el fichero `/var/log/snort/alert`. Como vamos a ver, gracias al sistema de
-registros y eventos de eBox podemos hacer que esta tarea sea más sencilla y
-eficiente.
+Now you have the IDS module running. At this point, the only thing you can
+do is observe alerts manually in the `/var/log/snort/alert` file.
+We are going to see how eBox can make this task easier and more efficient
+thanks to its logs and events subsystem.
 
-El módulo IDS se encuentra integrado con el módulo de registros de eBox, así que
-si este último se encuentra habilitado, podremos consultar las distintas alertas
-del IDS mediante el procedimiento habitual. Así mismo, podemos configurar un evento
-para que cualquiera de estas alertas sea notificada al administrador del sistema
-por alguno de los distintos medios disponibles.
+The IDS module is integrated with the eBox logs, so
+if it is enabled, you can query different IDS alerts
+through the usual procedure. Likewise, we can configure an event
+for any of these alerts in order to notify the system administrator
+by any of the different means available.
 
-Para más información al respecto, consultar el capítulo :ref:`logs-ref`.
+For more information, see the :ref:`logs-ref` chapter.
 
-Ejemplo práctico
-^^^^^^^^^^^^^^^^
+Practical example
+^^^^^^^^^^^^^^^^^
 
-Habilitar módulo **IDS** y lanzar un "ataque" basado en el escaneo de
-puertos contra la máquina eBox.
+Enable the *IDS* module and launch a port scanning "attack"
+against the eBox machine.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activar el módulo :guilabel:`IDS`, para ello marcar su casilla en la
-   columna :guilabel:`Estado`. Nos informa de que se modificará la
-   configuración de Snort. Permitir la operación pulsando el botón
-   :guilabel:`Aceptar`.
+#. **Action:**
+    Access the eBox web interface, go to :menuselection:`Module Status` and
+    activate the :guilabel:`IDS` module by checking the box in the
+    :guilabel:`Status` column. You will be notified of eBox wanting to
+    modify the Snort configuration. Allow the operation by pressing the
+    :guilabel:`Accept` button.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+    Effect:
+      :guilabel:`Save Changes` is activated.
 
-#. **Acción:**
-   Del mismo modo, activar el módulo :guilabel:`registros`, en caso de que
-   no se encontrase activado previamente.
+#. **Action:**
+    Similarly, activate the :guilabel:`Logs` module if it is not
+    already activated.
 
-   Efecto:
-     Cuando el IDS entre en funcionamiento podrá registrar sus alertas.
+    Effect:
+      When the IDS is started, it will be ready to record its alerts.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`IDS` y en la pestaña
-   :guilabel:`Interfaces` activar una interfaz que sea alcanzable desde la
-   máquina en la que lanzaremos el ataque.
+#. **Action:**
+    Access the :menuselection:`IDS` menu and select the :guilabel:`Interfaces`
+    tab.
+    Enable an interface that is reachable from the
+    machine that will launch the attack.
 
-   Efecto:
-     El cambio se ha guardado temporalmente pero no será efectivo hasta que
-     se guarden los cambios.
+    Effect:
+      The change is saved temporarily but it will not be effective until
+      changes are saved.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+    Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+    Effect:
+      eBox shows the progress while it is applying the changes. Once the
+      process is completed you are notified.
 
-     A partir de ahora el IDS se encuentra analizando el tráfico de la
-     interfaz seleccionada.
+      From now on, the IDS is analyzing the traffic on
+      the selected interface.
 
-#. **Acción:**
-   Instalar el paquete **nmap** en otra máquina mediante el comando
-   `aptitude install nmap`.
+#. **Action:**
+    Install the **nmap** package on another machine using
+    `aptitude install nmap`.
 
-   Efecto:
-     La herramienta **nmap** se encuentra instalada en el sistema.
+    Effect:
+      The **nmap** tool is installed on the system.
 
-#. **Acción:**
-   Desde la misma máquina ejecutar el comando `nmap` pasándole como único
-   argumento de línea de comandos la dirección IP de la interfaz de eBox
-   seleccionada anteriormente.
+#. **Action:**
+    From the same machine run the `nmap` command passing only
+    the IP address of the interface eBox previously selected as parameter.
 
-   Efecto:
-     Se efectuarán intentos de conexión a distintos puertos de la máquina
-     eBox. Se puede interrumpir el proceso pulsando :kbd:`Ctrl-c`.
+    Effect:
+      It will make attempts to connect to several ports on the eBox machine.
+      You can interrupt the process at any moment by pressing: kbd: `Ctrl-c`.
 
-#. **Acción:**
-   Acceder a :menuselection:`Registros --> Consulta Registros` y seleccionar
-   :menuselection:`Informe completo` para el dominio :guilabel:`IDS`.
+#. **Action:**
+    Access :menuselection:`Logs -> Query logs` and select
+    :guilabel:`Full report` for the domain :guilabel:`IDS`.
 
-   Efecto:
-     Aparecen en la tabla entradas relativas al ataque que acabamos de
-     efectuar.
+    Effect:
+      Entries related to the attack just performed are listed on the table.
 
 .. include:: ids-exercises.rst

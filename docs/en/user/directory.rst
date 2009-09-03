@@ -1,200 +1,193 @@
-Servicio de directorio (LDAP)
-*****************************
+Directory service (LDAP)
+************************
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
+                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
                    Javier Uruen <juruen@ebox-platform.com>
 
-Para almacenar y organizar la información relativa a organizaciones (en nuestro
-caso, usuarios y grupos) se utilizan los **servicios de directorio**. Estos
-permiten a los administradores de la red manejar el acceso a los recursos por
-parte de los usuarios añadiendo una capa de abstracción entre ambos.
-Este servicio da una interfaz de acceso a la información. También
-actúa como una autoridad central y común a través de la cual los usuarios se
-pueden autenticar de manera segura.
+**Directory services** are used to store and sort the data relating to
+organizations (in this case, users and groups). They
+enable network administrators to handle access to resources by
+users by adding an abstraction layer between the resources and their
+users. This service gives a data access interface. It also
+acts as a central, common authority through which users can be
+securely authenticated.
 
-Se podría hacer la analogía entre un servicio de directorio y las páginas
-amarillas. Entre sus características destacan:
+A directory service can be considered similar to the yellow
+pages. Its characteristics include:
 
-* La información es muchas más veces leída que escrita.
-* Estructura jerárquica que simula la arquitectura de las organizaciones.
-* A cada clase de objeto, estandarizada por la IANA [#]_, se le definen unas
-  propiedades sobre las cuales se pueden definir listas de control de acceso
-  (ACLs).
+* The data is much more often read than written.
+* Hierarchical structure that simulates organisational architecture.
+* Properties are defined for each type of object, standardized by the IANA [#]_,
+  on which access control lists (ACLs) can be defined.
 
-.. [#] *Internet Assigned Numbers Authority* (IANA) es una
-   organización que se encarga de la asignación de direcciones IP públicas,
-   nombres de dominio de máximo nivel (TLD), etc. http://www.iana.org/
+.. [#] *Internet Assigned Numbers Authority* (IANA) is responsible
+   for assigning public IP addresses,
+   top level domain (TLD) names, etc. http://www.iana.org/
 
-Existen múltiples implementaciones del servicio de directorio entre
-las que destacamos NIS, OpenLDAP, ActiveDirectory, etc. eBox usa
-**OpenLDAP** como servicio de directorio con tecnología *Samba* para
-controlador de dominios *Windows* además de para compartir ficheros e
-impresoras.
+There are many different implementations of the directory service,
+including NIS, OpenLDAP, ActiveDirectory, etc. eBox uses
+**OpenLDAP** as its directory service with *Samba* technology for
+*Windows* domain controller and to share files and printers.
 
-Usuarios y grupos
-=================
+Users and groups
+================
 
-Normalmente, en la gestión de una organización de mayor o menor tamaño
-existe la concepción de **usuario** o **grupo**. Para facilitar la
-tarea de administración de recursos compartidos se diferencia entre
-entre usuarios y grupos de ellos. Cada uno de los cuales puede tener
-diferentes privilegios con respecto a los recursos de la organización.
+Normally, in the management of any size of organization there is
+the concept of **user** or **group**. For easier shared
+resource administration, the difference is made between
+users and their groups. Each one may have different
+privileges in relation to the resources of the organization.
 
-Gestión de los usuarios y grupos en eBox
-----------------------------------------
+Management of users and groups in eBox
+--------------------------------------
 
-Se puede crear un grupo desde el menú :menuselection:`Grupos -->
-Añadir grupo`. Un grupo se identifica por su nombre, y puede contener
-una descripción.
+A group can be created from the :menuselection:`Groups -->
+Add group` menu. A group is identified by its name and can contain
+a description.
 
 .. image:: images/directory/01-groupadd.png
 
-A través de :menuselection:`Grupos --> Editar grupo` se pueden ver
-todos los grupos existentes para poder editarlos o borrarlos.
+Through :menuselection:`Groups --> Edit group`, the existing groups
+are displayed for edition or deletion.
 
-Mientras se edita un grupo, se pueden elegir los usuarios que pertenecen al
-grupo, además de la información que tiene que ver con aquellos módulos de eBox
-instalados que poseen alguna configuración específica para los grupos de
-usuarios.
+While a group is being edited, the users belonging to the group can be
+chosen. Some options belonging to the installed eBox modules with some
+specific configuration for the user groups can be changed too.
 
 .. image:: images/directory/02-groupedit.png
 
-Entre otras cosas con grupos de usuarios es posible:
+The following are possible with user groups, among others:
 
-* Disponer de un directorio compartido entre los usuarios de un grupo.
-* Dar permisos sobre una impresora a todos los usuarios de un grupo.
-* Crear un alias de cuenta de correo que redirija a todos los usuarios de un
-  grupo.
-* Asignar permisos de acceso a las distintas aplicaciones de eGroupware a
-  todos los usuarios de un grupo.
+* Provide a directory to be shared between users of a group.
+* Provide permission for a printer to all users of a group.
+* Create an alias for an e-mail account that redirects to all users of a
+  group.
+* Assign access permission to the different eGroupware applications for
+  all users of a group.
 
-Los usuarios se crean desde el menú :menuselection:`Usuarios -->
-Añadir Usuario`, donde tendremos que rellenar la siguiente
-información:
+The users are created from the :menuselection:`Users -->
+Add user` menu, where the following data must be
+completed:
 
 .. image:: images/directory/03-useradd.png
 
-Nombre de usuario:
-  Nombre que tendrá el usuario en el sistema, será el nombre que use para
-  identificarse en los procesos de autenticación.
-Nombre:
-  Nombre del usuario.
-Apellidos:
-  Apellidos del usuario.
-Comentario:
-  Información adicional sobre el usuario.
-Contraseña:
-  Contraseña que empleará el usuario en los procesos de autenticación.
-Grupo:
-  Es posible añadir el usuario a un grupo en el momento de su creación.
+User name:
+  Name of the user in the system, which will be the name used for
+  identification in the authentication processes.
+Name:
+  User's name.
+Surnames:
+  User's surnames.
+Comments:
+  Additional data on the user.
+Password:
+  Password to be used by the user in the authentication processes.
+Group:
+  The user can be added to a group during its creation.
 
-Desde :menuselection:`Usuarios --> Editar Usuario` se puede obtener un
-listado de los usuarios, editarlos o eliminarlos.
+From :menuselection:`Users --> Edit user`, a list of users can be
+obtained, edited or deleted.
 
 .. image:: images/directory/04-users.png
 
-Mientras se edita un usuario se pueden cambiar todos los datos
-anteriores exceptuando el nombre del usuario, además de la información
-que tiene que ver con aquellos módulos de eBox instalados que poseen
-alguna configuración específica para los usuarios. También se puede
-modificar la lista de grupos a los que pertenece.
+While a user is being edited, all the previous data can be changed,
+except for the user name. The data regarding the installed eBox modules
+that have some specific configuration for users can also be changed, as
+well as the list of groups to which the user belongs.
 
 .. image:: images/directory/05-useredit.png
 
-Editando un usuario es posible:
+It is possible to edit a user to:
 
-* Crear una cuenta para el servidor Jabber.
-* Crear una cuenta para la compartición de ficheros o de PDC con una
-  cuota personalizada.
-* Dar permisos al usuario para usar una impresora.
-* Crear una cuenta de correo electrónico para el usuario y *aliases*
-  para la misma.
-* Asignar permisos de acceso a las distintas aplicaciones de eGroupware.
-* Habilitar y asignar una extensión telefónica a dicho usuario.
+* Create an account for the Jabber server.
+* Create an account for file or PDC sharing with a customized quota.
+* Provide permission for the user to use a printer.
+* Create an e-mail account for the user and *aliases* for it.
+* Assign access permission to the different eGroupware applications.
+* Enable and assign a telephone extension to the user.
 
 .. _usercorner-ref:
 
-Rincón del Usuario
-------------------
+User Corner
+-----------
 
-Los datos del usuario sólo pueden ser modificados por el administrador
-de eBox lo cual comienza a ser no escalable cuando el número de
-usuarios que se gestiona comienza a ser grande. Tareas de
-administración como cambiar la contraseña de un usuario puede hacer
-perder la mayoría del tiempo del encargado de dicha labor. De ahí
-surge la necesidad del nacimiento del **rincón del usuario**. Dicho
-rincón es un servicio de eBox para permitir cambiar a los usuarios sus
-datos. Esta funcionalidad debe ser habilitada como el resto de
-módulos. El rincón del usuario se encuentra escuchando en otro puerto
-por otro proceso para aumentar la seguridad del sistema.
+The user data can only be modified by the eBox
+administrator, which becomes non-scalable when the number of
+users managed becomes large. Administration
+tasks, such as changing a user's password, may cause the person
+responsible to waste a lot of time. Hence
+the need for the **user corner**. This
+corner is an eBox service that allows users to change their own data.
+This function must be enabled like the other
+modules. The user corner is listening in another port
+through another process to increase system security.
 
 .. image:: images/directory/06-usercorner-server.png
    :scale: 50
 
-El usuario puede entrar en el rincón del usuario a través de:
+Users can enter the user corner through:
 
-  https://<ip_de_eBox>:<puerto_rincon_usuario>/
+  https://<eBox_ip>:<user_corner_port>/
 
-Una vez el usuario introduce su nombre y su contraseña puede realizar
-cambios en su configuración personal. Por ahora, la funcionalidad que
-se presenta es la siguiente:
+Once users have entered their user name and password, changes can be made
+to their personal configuration. For now, the functions provided
+are:
 
-* Cambiar la contraseña actual.
-* Configuración del buzón de voz del usuario.
+* Change current password
+* User voicemail configuration
 
 .. image:: images/directory/07-usercorner-user.png
    :scale: 50
 
+Practical example A
+^^^^^^^^^^^^^^^^^^^
 
-Ejemplo práctico A
-^^^^^^^^^^^^^^^^^^
+Create a group in eBox called **accountancy**.
 
-Crear un grupo en eBox llamado **contabilidad**.
+To do so:
 
-Para ello:
+#. **Action:** Enable the **users and groups** module. Enter
+   :menuselection:`Module status` and enable the module if it is
+   not enabled.
 
-#. **Acción:** Activar el módulo **usuarios y grupos**. Entrar en
-   :menuselection:`Estado de los módulos` y activar el módulo en caso
-   de que no esté habilitado.
+   Effect:
+     The module is enabled and ready for use.
 
-   Efecto:
-     El módulo está activado y listo para ser usado.
+#. **Action:**
+   Access :menuselection:`Groups`. Add **accountancy** as a group. The
+   **comments** parameter is optional.
 
-#. **Acción:**
-   Acceder a :menuselection:`Grupos`. Añadir **contabilidad** como grupo. El parámetro
-   **comentario** es opcional.
+   Effect:
+     The **accountancy** group has been created. The changes do not have
+     to be saved, as any action on LDAP is instant.
 
-   Efecto:
-     El grupo **contabilidad** ha sido creado. No es necesario que se
-     guarden los cambios ya que las acciones sobre LDAP tienen efecto inmediato.
+Practical example B
+^^^^^^^^^^^^^^^^^^^
 
-Ejemplo práctico B
-^^^^^^^^^^^^^^^^^^
+Create the user **peter** and add him to the **accountancy** group.
 
-Crear el usuario **pedro** y añadirlo al grupo **contabilidad**.
+To do so:
 
-Para ello:
+#. **Action:**
+   Access :menuselection:`Users --> Add user`. Complete
+   the different fields for the new user. The user
+   **peter** can be added to the **accountancy** group from this screen.
 
-#. **Acción:**
-   Acceder a :menuselection:`Usuarios --> Añadir usuario`. Rellenar
-   los distintos campos para nuestro nuevo usuario. Se puede añadir al
-   usuario **pedro** al grupo **contabilidad** desde esta pantalla.
+   Effect:
+     The user has been added to the system and to the **accountancy** group.
 
-   Efecto:
-     El usuario ha sido añadido al sistema y al grupo **contabilidad**.
+Check from the console that the user has been correctly added:
 
-Comprobar desde consola que hemos añadido a nuestro usuario correctamente:
+#. **Action:**
+   In the console, run the command::
 
-#. **Acción:**
-   Ejecutar en la consola el comando::
+    # id peter
 
-    # id pedro
-
-   Efecto:
-    El resultado debería de ser algo como esto::
+   Effect:
+    The result should be something like this::
 
      uid=2003(pedro) gid=1901(__USERS__)
-     groups=1901(__USERS__) ,2004(contabilidad)
+     groups=1901(__USERS__) ,2004(accountancy)
 
 .. include:: directory-exercises.rst

@@ -1,6 +1,6 @@
-####################################################
- eBox Platform: servidor unificado de red para PYMEs
-####################################################
+#######################################
+ eBox Platform: unified server for SMEs
+#######################################
 
 .. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
                    Isaac Clerencia <iclerencia@ebox-platform.com>,
@@ -9,424 +9,417 @@
                    Jorge Salamero <jsalamero@ebox-platform.com>,
                    Javier Uruen <juruen@ebox-platform.com>,
 
-Presentación
+Presentation
 ************
 
-**eBox Platform** (<http://ebox-platform.com/>) es un servidor unificado de
-red que ofrece una administración sencilla y eficiente de
-las redes de ordenadores para la pequeña y mediana empresa
-(PYME). Puede actuar gestionando la infraestructura de red, como puerta de enlace a Internet,
-gestionando las amenazas de seguridad (UTM) [#]_, como servidor de oficina, como
-servidor de comunicaciones o una combinación de estas. Este
-manual está escrito para la versión |version| de eBox Platform.
+**eBox Platform** (<http://ebox-platform.com/>) is a unified network server that
+offers easy and efficient computer network management for small and medium
+enterprises (SMEs). eBox Platform can act as a Network Gateway, a Unified Threat
+Manager (UTM) [#]_, an Office Server, an Infrastructure Manager, a Unified
+Communications Server or a combination of them. This manual is written for the
+|version| version of eBox Platform.
 
-.. [#] **UTM** (*Unified Threat Management*): Término que agrupa una
-       serie de funcionalidades relacionadas con la seguridad de las
-       redes informáticas: cortafuegos, detección de intrusos, antivirus, etc.
+.. [#] **UTM** (*Unified Threat Management*): Term that groups a series of
+	functionalities related to computer network security: firewall,
+	intrusion detection, antivirus, etc.
 
-Todas estas funcionalidades están profundamente integradas,
-automatizando la mayoría de tareas, evitando errores y ahorrando tiempo para el
-administrador de sistemas. Esta amplia gama de servicios de
-red son administrados a través de una cómoda e intuitiva interfaz web.
-eBox Platform tiene un diseño modular pensado para poder ser extendido
-fácilmente, pudiendo instalar sólamente los módulos que se necesiten en
-cada servidor. Además está publicado bajo una licencia de Software Libre (GPL) [#f1]_. Sus
-principales características son:
-
-.. [#f1] **GPL** (*GNU General Public License*): Licencia de software que
-         permite la libertad de redistribución, adaptación, uso y creación de
-         obras derivadas con la misma licencia.
-
-* Gestión unificada y eficiente de los servicios:
-
-  * Automatización de tareas.
-  * Integración de servicios.
-
-* Interfaz cómoda e intuitiva.
-* Extensible y adaptable a necesidades específicas.
-* Independiente del hardware.
-* Software Libre.
-
-Los servicios que actualmente ofrece son:
-
-* **Gestión de redes:**
-
-  * Cortafuegos y encaminador
-
-    * Filtrado de tráfico
-    * NAT y redirección de puertos
-    * Redes locales virtuales (VLAN 802.1Q)
-    * Soporte para múltiples puertas de enlace, balanceo de carga y
-      auto-adaptación ante la pérdida de conectividad.
-    * Moldeado de tráfico (soportando filtrado a nivel de aplicación)
-    * Monitorización de tráfico
-    * Soporte de DNS dinámico
-
-  * Objetos y servicios de red de alto nivel
-
-  * Infraestructura de red
-
-    * Servidor DHCP
-    * Servidor DNS
-    * Servidor NTP
-
-  * Redes privadas virtuales (VPN)
-
-    * Auto-configuración dinámica de rutas
-
-  * Proxy HTTP
-
-    * Caché
-    * Autenticación de usuarios
-    * Filtrado de contenido (con listas categorizadas)
-    * Antivirus transparente
-
-  * Servidor de correo
-
-    * Filtro de Spam y Antivirus
-    * Filtro transparente de POP3
-    * Listas blancas, negras y grises
-
-  * Servidor web
-
-    * Dominios virtuales
-
-  * Sistema de Detección de Intrusos (IDS)
-  * Autoridad de Certificación
+All these functionalities are fully integrated and therefore automate most
+tasks, prevent manual errors and save time for system administrators. This
+wide range of network services is managed through an easy and intuitive web
+interface. As eBox Platform has a modular design, you can install in each
+server only the necessary modules and easily extend the functionality
+according to your needs. Besides, eBox Platform is released under a free
+software license (GPL) [#f1]_. The main features are:
 
 
-* **Trabajo en grupo:**
+.. [#f1] **GPL** (*GNU General Public License*): Software license that
+	allows free redistribution, adaptation, use and creation of derivative works
+	with the same license.
 
-  * Directorio compartido usando LDAP (Windows/Linux/Mac)
+* Unified and efficient management of the services:
 
-    * Autenticación compartida (incluyendo PDC de Windows)
+  * Task automation.
+  * Service integration.
 
-  * Almacenamiento compartido actuando como NAS (almacenamiento pegado a la
-    red)
-  * Impresoras compartidas
-  * Servidor de *Groupware*: calendarios, agendas, ...
-  * Servidor de VozIP
+* Easy and intuitive interface.
+* Extendable and adaptable to specific needs.
+* Hardware independent.
+* Open source software.
 
-    * Buzón de voz
-    * Conferencias
-    * Llamadas a través de proveedor externo
-  * Servidor de mensajería instantánea (Jabber/XMPP)
+The services currently offered are:
 
-    * Conferencias
-  * Rincón del usuario para que estos puedan modificar sus datos
+* **Network management:**
 
-* **Informes y monitorización**
+  * Firewall and router
 
-  * *Dashboard* para tener la información de los servicios centralizada
-  * Monitorización de disco, memoria, carga, temperatura y CPU de la máquina
-  * Estado del RAID por software e información del uso de disco duro
-  * Registros de los servicios de red en BBDD, permitiendo la
-    realización de informes diarios, semanales, mensuales y anuales
-  * Sistema de monitorización a través de eventos
+    * Traffic filtering
+    * NAT and port redirection
+    * Virtual local networks (VLAN 802.1Q)
+    * Support for multiple gateways, load balancing and
+      self-adaptation in case of loss of connectivity
+    * Traffic shaping (with application-level filtering support)
+    * Traffic monitoring
+    * Dynamic DNS support
 
-    * Notificación vía Jabber, correo y subscripción de noticias (RSS)
+  * High-level network objects and services
 
-* **Gestión de la máquina:**
+  * Network infrastructure
 
-  * Copia de seguridad de configuración y datos
-  * Actualizaciones
+    * DHCP server
+    * DNS server
+    * NTP server
 
-  * Centro de control para administrar y monitorizar fácilmente varias máquinas
-    eBox desde un único punto [#]_
+  * Virtual private networks (VPN)
 
-.. [#] Para más información sobre este servicio ir a
+    * Dynamic auto-configuration of network paths
+
+  * HTTP proxy
+
+    * Cache
+    * User authentication
+    * Content filtering (with categorized lists)
+    * Transparent antivirus
+
+  * Mail server
+
+    * Spam filtering and antivirus
+    * Transparent POP3 filter
+    * White-, black- and grey-listing
+
+  * Web server
+
+    * Virtual domains
+
+  * Intrusion Detection System (IDS)
+  * Certification Authority
+
+
+* **Groupware:**
+
+  * Shared directory using LDAP (Windows/Linux/Mac)
+
+    * Shared authentication (including Windows PDC)
+
+  * Shared storage as NAS (Network-attached storage)
+  * Shared printers
+  * *Groupware* server: calendars, address books, ...
+  * VoIP server
+
+    * Voicemail
+    * Meetings
+    * Calls through outside vendor
+  * Instant messaging server (Jabber/XMPP)
+
+    * Meetings
+  * User corner to allow users to modify their data
+
+* **Reports and monitoring**
+
+  * *Dashboard* to centralize the information
+  * Disk, memory, load, temperature and host CPU monitoring
+  * Software RAID status and information regarding the hard drive use
+  * Network service logs in databases, allowing you to have daily, weekly
+    monthly and annual reports
+  * Event-based system monitoring
+
+    * Notification via Jabber, mail and RSS
+
+* **Host management:**
+
+  * Configuration and data backup
+  * Updates
+
+  * Control Center to easily administer and monitor multiple eBox hosts from
+    one central point [#]_
+
+.. [#] For additional information regarding the Control Center, please visit:
        http://www.ebox-technologies.com/products/controlcenter/
-       empresa encargada del desarrollo de eBox Platform.
+       the company behind eBox Platform development.
 
-Instalación
-***********
+Installation
+************
 
-eBox Platform está pensada para su instalación en una máquina
-(real o virtual) de forma, en principio, exclusiva. Esto no impide que se puedan
-instalar otros servicios no gestionados a través de la interfaz que deberán ser
-configurados manualmente.
+In principle, eBox Platform is designed to be installed exclusively on
+one (real or virtual) machine. This does not prevent you from
+installing other unmanaged services, but these must be manually
+configured.
 
-Funciona sobre el sistema operativo *GNU/Linux* con la distribución
-*Ubuntu Server Edition* [#]_ versión estable *Long Term Support* (LTS)
-[#]_.  La instalación puede realizarse de dos maneras diferentes:
+eBox Platform runs on *GNU/Linux* operating system with the
+*Long Term Support* (LTS) release of *Ubuntu Server Edition* distribution [#]_.
+The installation can be done in two different ways:
 
-.. [#] *Ubuntu* es una distribución de *GNU/Linux*
-       desarrollada por *Canonical* y la comunidad orientada a ordenadores
-       portátiles, sobremesa y servidores <http://www.ubuntu.com/>.
+.. [#] *Ubuntu* is a *GNU/Linux* distribution
+       developed by *Canonical* and the community oriented to laptops, desktops
+       and servers <http://www.ubuntu.com/>.
 
 .. manual
 
-.. [#] En el ":ref:`ubuntu-console-ref`" en la sección
-       ":ref:`ubuntu-version-ref`" existe una breve
-       descripción sobre la publicación de versiones de *Ubuntu*.
+.. [#] In the ":ref:`ubuntu-console-ref`" section of
+       ":ref:`ubuntu-version-ref`" you can find a brief
+       description regarding the versioning policy of *Ubuntu*.
 
-* Usando el instalador de eBox Platform (opción recomendada).
-* A partir de una instalación de *Ubuntu Server
-  Edition* existente. En el ":ref:`ubuntu-console-ref`" existe una
-  explicación del proceso de instalación de *Ubuntu*.
+* Using the eBox Platform Installer (recommended).
+* From an existing *Ubuntu Server Edition* installation. In the
+  ":ref:`ubuntu-console-ref`" you can find a description
+  of the *Ubuntu* installation process.
 
-En el segundo caso es necesario añadir los repositorios oficiales
-de eBox Platform y proceder a instalar tal como se explica en el
-:ref:`ebox-install-ref` del ":ref:`ubuntu-console-ref`".
+In the second case, you need to add the official eBox Platform
+repositories and make the installation as explained in
+:ref:`ebox-install-ref` of ":ref:`ubuntu-console-ref`".
 
 .. endmanual
 
 .. web
 
-.. [#] Cuyo soporte es mayor que en una versión normal y para la
-       versión para servidores llega a los 5 años.
+.. [#] You get longer support than on the normal version. With the
+       LTS version you get 5 years of support on the server.
 
-* Usando el instalador de eBox Platform (opción recomendada).
-* Instalando a partir de una instalación de *Ubuntu Server
-  Edition*.
+* Using the eBox Platform Installer (recommended).
+* Installing from an existing *Ubuntu Server Edition* installation.
 
-En el segundo caso es necesario añadir los repositorios oficiales
-de eBox Platform y proceder a instalar eBox con aquellos paquetes que
-se deseen.
+In the second case, you need to add the official eBox Platform
+repositories and to install the packages you are interested in.
 
 .. endweb
 
-Sin embargo, en el primer caso se facilita la instalación y
-despliegue de eBox Platform ya que se encuentran todas las dependencias
-en un sólo CD y además se realizan algunas preconfiguraciones durante el
-proceso de instalación.
+Nevertheless, in the first case eBox Platform installation and
+deployment is easy as all the dependencies are in a single CD and
+in addition, some pre-configuration is made during the
+installation process.
 
-El instalador de eBox Platform
-==============================
+eBox Platform installer
+=======================
 
-El instalador de eBox Platform está basado en el instalador de *Ubuntu* así
-que el proceso de instalación resultará muy familiar a quien ya lo conozca.
+The eBox Platform installer is based on the *Ubuntu* installer and
+therefore those who are already familiar with it will find the
+installation process very similar.
 
 .. figure:: images/intro/eBox-installer.png
    :scale: 50
-   :alt: Pantalla de inicio del instalador
+   :alt: Installer home screen
    :align: center
 
-   Pantalla de inicio del instalador
+   Installer home screen
 
-Tras instalar el sistema base y reiniciar, comenzará la
-instalación de eBox Platform. Existen dos métodos para la selección de
-funcionalidades a incluir en nuestro sistema.
+After installing the base system and rebooting, you can start installing
+eBox Platform. There are two methods for selecting the functionalities
+you want to include in your system.
 
 .. figure:: images/intro/package-selection-method.png
    :scale: 50
-   :alt: Selección del método de instalación
+   :alt: Selection of the installation method
    :align: center
 
-   Selección del método de instalación
+   Selection of the installation method
 
 Simple:
-  Se instalarán un conjunto de paquetes que agrupan una serie de
-  funcionalidades según la tarea que vaya a desempeñar el servidor.
-Avanzado:
-  Se seleccionarán los paquetes de manera individualizada. Si
-  algún paquete tiene como dependencia otro, posteriormente se
-  seleccionará automáticamente.
+  Depending on the task the server will be dedicated to, you
+  can install a set of packages that provides several
+  functionalities.
+Advanced:
+  You can select the packages individually. If a package has
+  dependencies on other packages, these will be automatically
+  selected later.
 
-Si la selección es simple, aparecerá la lista de perfiles
-disponibles. Como se puede observar en la figura
-:ref:`profiles-img-ref` dicha lista concuerda con los apartados
-siguientes de este manual.
+If you select the simple installation method, you get a list of
+available profiles. As shown in the figure :ref:`profiles-img-ref`,
+the mentioned list matches the following paragraphs of this
+manual.
 
 .. _profiles-img-ref:
 
 .. figure:: images/intro/profiles.png
    :scale: 50
-   :alt: Selección de perfiles
+   :alt: Selection of the profiles
    :align: center
 
-   Selección de perfiles
+   Selection of the profiles
 
 :ref:`ebox-gateway-ref`:
-   eBox es la puerta de enlace de la red local ofreciendo un acceso
-   a Internet seguro y controlado.
+   eBox is the local network gateway that provides secure and
+   controlled Internet access.
 :ref:`ebox-utm-ref`:
-   eBox protege la red local contra ataques externos, intrusiones,
-   amenazas en la seguridad interna y posibilita la interconexión
-   segura entre redes locales a través de Internet u otra red externa.
+   eBox protects the local network against external attacks,
+   intrusions, internal security threats and enables secure
+   interconnection between local networks via Internet or via
+   other external networks.
 :ref:`ebox-infrastructure-ref`:
-   eBox gestiona la infraestructura de la red local con los servicios
-   básicos: DHCP, DNS, NTP, servidor HTTP, etc.
+   eBox manages the local network infrastructure including the
+   following basic services: DHCP, DNS, NTP, HTTP server, etc.
 :ref:`ebox-office-ref`:
-   eBox es el servidor de recursos compartidos de la red local: ficheros,
-   impresoras, calendarios y contactos, autenticación y perfiles de
-   usuarios y grupos, etc.
+   eBox is an office server that allows sharing the following
+   resources through the local network: files, printers, calendars,
+   contacts, authentication, users and groups profiles, etc.
 :ref:`ebox-comm-ref`:
-   eBox se convierte en el centro de comunicaciones de
-   tu organización incluyendo el correo, mensajería instántanea y voz
-   sobre IP.
+   eBox becomes the unified communications server of your
+   organization, including mail, instant messaging and voice over IP.
 
-Podemos seleccionar varios perfiles para combinar sus funcionalidades.
-Además la selección no es definitiva, pudiendo posteriormente instalar y
-desinstalar paquetes según se necesite.
+You can select several profiles to combine different functionalities.
+In addition, the selection is not final and later you can install and
+remove packages according to your needs.
 
-Sin embargo, si el método seleccionado es avanzado, entonces aparecerá
-la larga lista de módulos de eBox Platform y se podrán seleccionar
-individualmente aquellos que se necesiten. Al terminar la selección,
-es posible que se instalen también paquetes del resto ya que
-dependencias de alguno de los seleccionados.
+However, if you select the advanced installation method, you get the
+complete list of eBox Platform modules and you can select individually
+the modules you are interested in. Once you have completed the
+selection, also the necessary additional packages will be installed.
 
 .. figure:: images/intro/module-selection.png
    :scale: 70
-   :alt: Selección de módulos
+   :alt: Selection of the modules
    :align: center
 
-   Selección de módulos
+   Selection of the modules
 
-Una vez seleccionados los componentes a instalar, comenzará la
-instalación que irá informando de su estado con una barra de progreso:
+After you have selected the components to install, the installation
+process will begin and you will be shown a progress bar with the
+installation status.
 
 .. figure:: images/intro/installing-eBox.png
    :scale: 70
-   :alt: Instalando eBox Platform
+   :alt: Installing eBox Platform
    :align: center
 
-   Instalando eBox Platform
+   Installing eBox Platform
 
-Tras la instalación, se pide la contraseña para acceder a la interfaz web de
-administración de eBox Platform:
+Once the installation is completed, you are requested to enter a password to
+access the eBox Platform web administration interface:
 
 .. image:: images/intro/password.png
    :scale: 70
-   :alt: Introducir contraseña de acceso a la interfaz web
+   :alt: Enter password to access the web interface
    :align: center
 
-Se tiene que confirmar la contraseña anterior:
+You need to confirm the inserted password:
 
 .. image:: images/intro/repassword.png
    :scale: 70
-   :alt: Confirmar contraseña de acceso a la interfaz web
+   :alt: Confirm password to access the web interface
    :align: center
 
-El instalador tratará de preconfigurar algunos parámetros
-importantes dentro de la configuración. En primer lugar, si alguna de las
-interfaces de red es externa a la red local, es decir, si va a ser utilizada
-para conectarse a Internet. Se aplicarán políticas estrictas para todo el
-tráfico entrante a través de interfaces de red externas. Puede no haber
-ninguna interfaz externa dependiendo del papel que desempeñe servidor.
+The installer will try to pre-configure some important configuration
+parameters. First, it will ask if some of the network interfaces are external
+(not within the local network), i.e., used to connect to the Internet. Strict
+policies for all incoming traffic through external network interfaces
+will be applied. Depending on the role the server plays, there might be
+no external interfaces at all.
 
 .. figure:: images/intro/select-external-iface.png
    :scale: 70
-   :alt: Selección de la interfaz de red externa
+   :alt: Selection of the external interface
    :align: center
 
-   Selección de la interfaz de red externa
+   Selection of the external interface
 
-En segundo lugar, si se ha instalado el módulo de correo, se
-solicitará que se introduzca el dominio virtual por defecto que será
-el principal del sistema.
+Second, if you installed the mail module, you will be requested
+to enter the default virtual domain that will be the main virtual
+domain of the system.
 
 .. figure:: images/intro/vmaildomain.png
    :scale: 70
-   :alt: Dominio virtual de correo principal
+   :alt: Primary virtual mail domain
    :align: center
 
-   Dominio virtual de correo principal
+   Primary virtual mail domain
 
-Una vez hayan sido respondidas estas preguntas, se realizará la
-preconfiguración de cada uno de los módulos instalados preparados para
-su utilización desde la interfaz web.
+Once you have answered these questions, each module you installed
+will be pre-configured and ready to be used via the web interface.
 
 .. figure:: images/intro/preconfiguring-ebox.png
    :scale: 50
-   :alt: Progreso de la configuración
+   :alt: Configuration progress
    :align: center
 
-   Progreso de la configuración
+   Configuration progress
 
-Una vez terminado este proceso, aparecerá un mensaje informando como
-conectarse a la interfaz web de eBox Platform.
+After this process is completed, a message informs you about how to connect
+to the web interface of eBox Platform.
 
 .. figure:: images/intro/ebox-ready-to-use.png
    :scale: 50
-   :alt: Instalación finalizada
+   :alt: Installation completed
    :align: center
 
-   Instalación finalizada
+   Installation completed
 
-El proceso de instalación de eBox Platform ha finalizado y aparecerá
-la consola del sistema donde podremos autenticarnos con el usuario
-creado durante la instalación de *Ubuntu*. La contraseña de eBox
-Platform es exclusiva de la interfaz web y no tiene nada que ver con
-la de este usuario administrador de la máquina. Al iniciar sesión en la consola,
-se ofrece un mensaje informativo específico de eBox Platform como el
-que aparece en la imagen.
+Once the eBox Platform installation process is completed you get a system
+console to authenticate with the user created during the *Ubuntu* installation.
+eBox Platform password is exclusive to the web interface and it has nothing
+to do with the administrator user password of the host. When you log in to
+the console, you will get the following eBox Platform specific message:
 
 .. image:: images/intro/motd.png
    :scale: 50
    :align: center
-   :alt: Mensaje de entrada a la consola
+   :alt: Console access message
 
-La interfaz web de administración
-*********************************
+Administration web interface
+****************************
 
-Una vez instalado eBox Platform, la dirección para acceder a la
-interfaz web de administración es:
+Once you have installed eBox Platform, you can access the administration
+web interface at the following URL:
 
-  https://direccion_de_red/ebox/
+  https://network_address/ebox/
 
-Donde *direccion_de_red* es la dirección IP o el nombre de la máquina donde está
-instalado eBox que resuelve a esa dirección.
+Here *network_address* is the IP address or a host name that resolves to
+the address where eBox is running.
 
-La primera pantalla solicita la contraseña del administrador:
+The first screen will ask for the administrator password:
 
 .. image:: images/intro/01-login.png
    :scale: 50
-   :alt: Entrada a la interfaz
+   :alt: Login to the interface
    :align: center
 
-Tras autenticarse aparece la interfaz de administración que se encuentra dividida en
-tres partes fundamentales:
+After authentication you get the administration interface that is divided
+into three main sections:
 
 .. figure:: images/intro/02-homepage.png
    :scale: 50
-   :alt: Pantalla principal
+   :alt: Main screen
    :align: center
 
-   Pantalla principal
+   Main screen
 
-Menú lateral izquierdo:
-  Contiene los enlaces a todos los **servicios** que se pueden configurar
-  mediante eBox Platform, separados por categorías. Cuando se ha seleccionado
-  algún servicio en este menú puede aparecer un submenú para configurar
-  cuestiones particulares de dicho servicio.
+Left side menu:
+  Contains links to all **services**, separated by categories, that can
+  be configured using eBox. When you select a service, you might get a
+  submenu to configure specific details of the selected service.
 
   .. figure:: images/intro/03-sidebar.png
      :scale: 50
-     :alt: Menú lateral izquierdo
+     :alt: Left side menu
      :align: center
 
-     Menú lateral izquierdo
+     Left side menu
 
-Menú superior:
-  Contiene las **acciones** para guardar los cambios realizados en el
-  contenido y hacerlos efectivos, así como para el cierre de sesión.
+Top menu:
+  Contains **actions** to save the changes made to the content, make
+  the changes effective and close the session.
 
   .. figure:: images/intro/04-topbar.png
-     :alt: Menú superior
+     :alt: Top menu
      :align: center
 
-     Menú superior
+     Top menu
 
-Contenido principal:
-  El contenido, que ocupa la parte central, comprende uno o varios formularios o
-  tablas con información acerca de la **configuración del servicio**
-  seleccionado a través del menú lateral izquierdo y sus submenús. En
-  ocasiones, en la parte superior, aparecerá una barra de pestañas en la que
-  cada pestaña representará una subsección diferente dentro de la sección a la
-  que hemos accedido.
+Main content:
+  The main content is composed of one or several forms or tables with
+  information about the **service configuration** and depends on the
+  selection made in the left side menu and submenus. Sometimes you will get
+  a tab bar at the top of the page: each tab represents a different
+  subsection within the section you have accessed.
 
   .. figure:: images/intro/05-center-configure.png
      :scale: 50
-     :alt: Formulario de configuración
+     :alt: Configuration form
      :align: center
 
-     Formulario de configuración
+     Configuration form
 
 *Dashboard*:
-  El *dashboard* es la pantalla inicial de la interfaz. Contiene una serie de *widgets*
-  configurables. En todo momento se pueden reorganizar pulsando en los títulos y
-  arrastrándolos.
+  The *dashboard* is the initial screen of the web interface. It contains a
+  number of configurable *widgets*. You can reorganize them at any moment simply
+  by clicking and dragging the titles.
 
   .. figure:: images/intro/05-center-dashboard.png
      :scale: 70
@@ -435,300 +428,293 @@ Contenido principal:
 
      *Dashboard*
 
-  Pulsando en :guilabel:`Configurar Widgets` la interfaz cambia, permitiendo retirar
-  y añadir nuevos *widgets*. Para añadir uno nuevo, se busca en el menú
-  superior y se arrastra a la parte central.
+  By clicking on :guilabel:`Configure Widgets` the interface changes, allowing
+  you to remove and add new *widgets*. To add a new widget, you search for it in
+  the top menu and drag it to the main part of the page.
 
   .. figure:: images/intro/05-center-dashboard-configure.png
      :scale: 90
-     :alt: Configuración del *dashboard*
+     :alt: *Dashboard* configuration
      :align: center
 
-     Configuración del *dashboard*
+     *Dashboard* configuration
 
-Una particularidad importante del funcionamiento de eBox Platform es su forma
-de hacer efectivas las configuraciones que hagamos en la interfaz. Para ello, primero
-se tendrán que aceptar los cambios en el formulario actual, pero para
-que estos cambios sean efectivos y se apliquen de forma permanente se
-tendrá que presionar :guilabel:`Guardar Cambios` del menú
-superior. Este botón cambiará a color rojo para indicarnos que hay
-cambios sin guardar. Si no se sigue este procedimiento se perderán
-todos los cambios que se hayan realizado a lo largo de la sesión al
-finalizar ésta. Existen algunos casos especiales en los que no es
-necesario guardar los cambios pero se avisa adecuadamente.
+An important detail to take into account is the method eBox uses to
+apply the configuration changes made through the interface. First of all,
+you have to accept changes in the current form, but, once this is done,
+to make these changes effective and apply them on a permanent basis, you must
+click on :guilabel:`Save Changes` from the top menu. This button will change to
+red if there are unsaved changes. Failure to follow this procedure will result
+in the loss of all changes you have made throughout the session once you log
+out. There are some special cases when you don't need to save the changes,
+but in these cases you will receive a notification.
 
 .. figure:: images/intro/06-savechanges.png
    :scale: 70
-   :alt: Guardar Cambios
+   :alt: Save changes
    :align: center
 
-   Guardar Cambios
+   Save changes
 
-¿Cómo funciona eBox Platform?
-*****************************
+How does eBox Platform work?
+****************************
 
-EBox Platform no es sólo una interfaz web que sirve para administrar
-los servicios de red más comunes [#]_. Entre sus principales funciones
-destaca el dar cohesión y unicidad a un conjunto de servicios de red
-que de lo contrario funcionarían de forma independiente.
+eBox Platform is not just a simple web interface to manage the most
+common network services [#]_. One of the main goals of eBox Platform
+is to unify a set of network services that otherwise would work
+independently.
 
-.. [#] Para mostrar la magnitud del proyecto, podemos consultar el
-       sitio independiente **ohloh.net**, donde se hace un análisis
-       extenso al código de eBox Platform en
+.. [#] In order to understand the magnitude of the project, you can
+       visit the independent site **ohloh.net**, where you can find
+       an extensive analysis of the eBox Platform code base
        <http://www.ohloh.net/p/ebox/analyses/latest>.
 
 .. figure:: images/intro/integration.png
    :scale: 70
-   :alt: Integración de eBox Platform
+   :alt: Integration of eBox Platform
    :align: center
 
-Toda la configuración de cada uno de los servicios es escrita por eBox
-de manera automática. Para ello utiliza un sistema de plantillas.
-Con esta automatización se evitan los posibles errores cometidos de forma
-manual y ahorra a los administradores el tener que conocer los
-detalles de cada uno de los formatos de los ficheros de configuración
-de cada servicio. Por tanto, no se deben editar los ficheros de
-configuración originales del sistema ya que se sobreescribirían al
-guardar cambios al estar gestionados automáticamente por eBox.
+All configuration of individual services is handled automatically by
+eBox. To do this eBox uses a template system. This automation prevents
+manual errors and saves administrators from having to know the details
+of each configuration file format. As eBox manages automatically these
+configuration files, you must not edit the original files as these will
+be overwritten as soon you save any configuration changes.
 
 .. manual
 
-En el apartado :ref:`ebox-internals-ref` existe una explicación más extensa acerca
-del funcionamiento interno.
+In the section :ref:`ebox-internals-ref` you can find a more detailed
+explanation of how eBox Platform works internally.
 
 .. endmanual
 
-Los informes de los eventos y posibles errores de eBox se
-almacenan en el directorio `/var/log/ebox/` y se distribuyen en los
-siguientes ficheros:
+Reports of events and possible errors of eBox are stored in the
+directory `/var/log/ebox/` and are divided in the following files:
 
 `/var/log/ebox/ebox.log`:
-  Los errores relacionados con eBox Platform.
+  Errors related to eBox Platform.
 `/var/log/ebox/error.log`:
-  Los errores relacionados con el servidor web de la interfaz.
+  Errors related to the web server.
 `/var/log/ebox/access.log`:
-  Los accesos al servidor web de la interfaz.
+  Every access to the web server.
 
-Si se quiere aumentar la información sobre algún error que se haya
-producido, se puede habilitar el modo de depuración de errores a través
-de la opción *debug* en el fichero `/etc/ebox/99ebox.conf`. Tras
-habilitar esta opción se deberá reiniciar el servidor web de la
-interfaz mediante `sudo /etc/init.d/ebox apache restart`.
 
-Emplazamiento en la red
-***********************
+If you want more information about an error that has occurred, you can
+enable the debugging mode by selecting the *debug* option in the
+`/etc/ebox/99ebox.conf` file. Once you have enabled this option, you
+should restart the web server of the interface by using
+`sudo /etc/init.d/ebox apache restart`.
 
-Configuración de la red local
-=============================
+Location within the network
+***************************
 
-eBox Platform puede utilizarse de dos maneras fundamentales:
+Local network configuration
+===========================
 
-* **Encaminador** y **filtro** de la conexión a internet.
-* Servidor de los distintos servicios de red.
+eBox Platform can be used in two different ways:
 
-Ambas funcionalidades pueden combinars en una misma máquina o
-separarse en varias.
+* **Router** and **filter** of the Internet connection.
+* Server of different network services.
 
-La figura :ref:`ebox-net-img-ref` escenifica las distintas ubicaciones que
-puede tomar el servidor con eBox Platform dentro de la red, tanto
-haciendo nexo de unión entre redes como un servidor dentro de la
-propia red.
+Both functionalities can be combined in a single host or
+divided among several hosts.
+
+The figure :ref:`ebox-net-img-ref` displays the different locations eBox
+Platform server can take in the network, either as a link between
+networks or a server within the network.
 
 .. _ebox-net-img-ref:
 
 .. figure:: images/intro/multiple.png
    :scale: 60
-   :alt: Distintas ubicaciones en la red
+   :alt: Different locations within the network
    :align: center
 
-   Distintas ubicaciones en la red
+   Different locations within the network
 
-A lo largo de esta documentación se verá cómo configurar eBox Platform para
-desempeñar un papel de puerta de enlace y encaminador. Y por supuesto también
-veremos la configuración en los casos que actúe como un servidor más dentro de
-la red.
+Throughout this documentation you will find out how to configure eBox
+Platform as a router and gateway. You will also learn how to configure
+eBox Platform in the case it acts as just another server within the network.
 
-Configuración de red con eBox Platform
-======================================
+Network configuration with eBox Platform
+========================================
 
-Si colocamos el servidor en el interior de una red, lo más probable es que se nos
-asigne una dirección IP a través del protocolo DHCP. A través de
-:menuselection:`Red --> Interfaces` se puede acceder a cada una de las tarjetas de
-red detectadas por el sistema y se puede configurar de manera estática (dirección
-configurada manualmente), dinámica (dirección configurada por DHCP) o como
-*Trunk 802.1Q*, para la creación de redes VLAN.
+If you place a server within a network, you will most likely be assigned an IP
+address via DHCP protocol. Through :menuselection:`Network --> Interfaces` you
+can access each network card detected by the system and you can select between
+a static configuration (address configured manually), dynamic configuration
+(address configured via DHCP) or a *Trunk 802.1Q* to create VLANs.
 
 .. figure:: images/intro/07-networkinterfaces.png
    :scale: 60
-   :alt: Configuración de interfaces de red
+   :alt: Network interface configuration
    :align: center
 
-   Configuración de interfaces de red
+   Network interface configuration
 
-Si configuramos la interfaz como estática podemos asociar una o más
-:guilabel:`Interfaces Virtuales` a dicha interfaz real para servir direcciones IP
-adicionales con lo que se podría atender a diferentes redes o a la misma con diferente
-dirección.
+If you configure a static interface, you can associate one or more
+:guilabel:`Virtual Interfaces` to this real interface to serve additional IP
+addresses. These can be used to serve different networks or the same network with
+different address.
 
 .. figure:: images/intro/08-networkstatic.png
    :scale: 60
-   :alt: Configuración estática de interfaces de red
+   :alt: Static configuration of network interfaces
    :align: center
 
-   Configuración estática de interfaces de red
+   Static configuration of network interfaces
 
-Para que eBox sea capaz de resolver nombres de dominio debemos indicarle la dirección de uno
-o varios servidores de nombres en :menuselection:`Red --> DNS`.
+To enable eBox to resolve domain names, you must indicate the address of one or
+several domain name servers in :menuselection:`Network --> DNS`.
 
 .. figure:: images/intro/09-dns.png
    :scale: 80
-   :alt: Configuración de servidores DNS
+   :alt: Configuration of DNS servers
    :align: center
 
-   Configuración de servidores DNS
+   Configuration of DNS servers
 
-Diagnóstico de redes
-====================
+Network diagnosis
+=================
 
-Para ver si hemos configurado bien nuestra red podemos utilizar las herramientas
-de :menuselection:`Red --> Diagnóstico`.
+To check if you have configured the network correctly, you can use the
+tools available in :menuselection:`Network --> Diagnosis`.
 
 .. figure:: images/intro/10-diagnotics.png
    :scale: 50
-   :alt: Herramientas de diagnóstico de redes
+   :alt: Network diagnosis tools
    :align: center
 
-   Herramientas de diagnóstico de redes
+   Network diagnosis tools
 
-**ping** es una herramienta que utiliza el protocolo de diagnóstico de redes ICMP
-para observar la conectividad hasta una máquina remota mediante una sencilla
-conversación entre ambas.
+**Ping** is a tool that uses the ICMP network diagnosis protocol to observe
+whether a particular remote host is reachable by means of a simple "echo
+request".
 
 .. figure:: images/intro/10-diagnotics-ping.png
    :scale: 80
-   :alt: Herramienta ping
+   :alt: **Ping** tool
    :align: center
 
-   Herramienta **ping**
+   **Ping** tool
 
-Adicionalmente disponemos de la herramienta **traceroute** que se encarga
-de trazar los paquetes encaminados a través de las distintas redes hasta
-llegar a una máquina remota determinada. Con esta herramienta podemos ver
-el camino que siguen los paquetes para diagnósticos más avanzados.
+Additionally you can use the **traceroute** tool that is used to determine
+the route taken by packages across different networks until reaching a
+given remote host. This tool allows to trace the route the packages
+follow in order to carry out more advanced diagnosis.
 
 .. figure:: images/intro/10-diagnostics-trace.png
    :scale: 80
-   :alt: Herramienta traceroute
+   :alt: Traceroute tool
    :align: center
 
-   Herramienta **traceroute**
+   **Traceroute** tool
 
-Y también contamos con la herramienta **dig** que se utiliza para comprobar
-el correcto funcionamiento del servicio de resolución de nombres.
+Besides, you can use the **dig** tool, which is used to verify the correct
+functioning of the name service resolution.
 
 .. figure:: images/intro/10-diagnotics-dig.png
    :scale: 80
-   :alt: Herramienta dig
+   :alt: Dig tool
    :align: center
 
-   Herramienta **dig**
+   **Dig** tool
 
 
-Ejemplo práctico A
-------------------
+Practical example A
+-------------------
 
-Vamos a configurar eBox para que obtenga la configuración de la red mediante
-DHCP.
+Let's configure eBox so that it obtains the network configuration via DHCP.
 
-Para ello:
+Therefore:
 
-#. **Acción:**
-   Acceder a la interfaz de eBox, entrar en :menuselection:`Red --> Interfaces` y
-   seleccionar para la interfaz de red *eth0* el Método *DHCP*.
-   Pulsar el botón :guilabel:`Cambiar`.
+#. **Action:**
+   Access the eBox interface, go to :menuselection:`Network --> Interfaces` and,
+   as network interface, select *eth0*. Then choose the *DHCP* method.
+   Click on :guilabel:`Change`.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios` y la interfaz de red mantiene
-     los datos introducidos.
+   Effect:
+     You have enabled the button :guilabel:`Save Changes` and the network
+     interface maintains the entered data.
 
-#. **Acción:**
-   Entrar en :menuselection:`Estado del módulo` y
-   activar el módulo **Red**, para ello marcar su casilla en la columna
-   :guilabel:`Estado`.
+#. **Action:**
+   Go to :menuselection:`Module status` and enable the **Network** module,
+   in order to do this, check the box in the :guilabel:`Status` column.
 
-   Efecto:
-     eBox solicita permiso para sobreescribir algunos ficheros.
+   Effect:
+     eBox asks for permission to overwrite some files.
 
-#. **Acción:**
-   Leer los cambios de cada uno de los ficheros que van a ser modificados y
-   otorgar permiso a eBox para sobreescribirlos.
+#. **Action:**
+   Read the changes that are going to be made in each modified file and grant
+   eBox the permission to overwrite them.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios` y algunos módulos que dependen
-     de Network ahora pueden ser activados.
+   Effect:
+   You have enabled the button :guilabel:`Save Changes` and you can enable
+   some of the modules that depend on Network.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+   Effect:
+     eBox displays the progress while the changes are implemented. Once it
+     has finished, you are notified.
 
-     Ahora eBox gestiona la configuración de la red.
+     Now eBox manages the network configuration.
 
-#. **Acción:**
-   Acceder a :menuselection:`Red --> Herramientas de
-   Diagnóstico`. Hacer ping a ebox-platform.com.
+#. **Action:**
+   Access :menuselection:`Network --> Diagnosis
+   tools`. Ping ebox-platform.com.
 
-   Efecto:
-     Se muestran como resultado tres intentos satisfactorios de conexión con
-     el servidor de internet.
+   Effect:
+     As a result, you are shown three successful connection attempts to
+     the Internet server.
 
-#. **Acción:**
-   Acceder a :menuselection:`Red --> Herramientas de
-   Diagnóstico`. Hacer ping a una eBox de un compañero de aula.
+#. **Action:**
+   Access :menuselection:`Network --> Diagnosis
+   tools`. Ping the eBox of a fellow classmate.
 
-   Efecto:
-     Se muestran como resultado tres intentos satisfactorios de conexión con
-     la máquina.
+   Effect:
+     As a result, you are shown three successful connection attempts to
+     the host.
 
-#. **Acción:**
-   Acceder a :menuselection:`Red --> Herramientas Diagnóstico`. Ejecutar
-   traceroute hacia ebox-technologies.com.
+#. **Action:**
+   Access :menuselection:`Network --> Diagnosis tools`. Run a traceroute
+   to ebox-technologies.com.
 
-   Efecto:
-     Se muestra como resultado la serie de máquinas que un paquete recorre
-     hasta llegar a la máquina destino.
+   Effect:
+     As a result, you are shown a route of all the intermediate routers
+     a packet traverses until it reaches the destination host.
 
-Ejemplo práctico B
-------------------
+Practical example B
+-------------------
 
-Para el resto de ejercicios del manual es una buena práctica habilitar
-los registros.
+For the rest of the exercises of the manual, it is a good practice to
+enable the logs.
 
-Para ello:
+Therefore:
 
-#. **Acción:**
-   Acceder a la interfaz de eBox, entrar en :menuselection:`Estado del módulo` y
-   activar el módulo **Registros**, para ello marcar su casilla en la columna
-   :guilabel:`Estado`.
+#. **Action:**
+   Access the eBox interface, go to :menuselection:`Module status` and enable
+   the **Logs** module. In order to do this, check the box in the
+   :guilabel:`Status` column.
 
-   Efecto:
-     eBox solicita permiso para realizar una serie de acciones.
+   Effect:
+     eBox asks for permission to carry out a series of actions.
 
-#. **Acción:**
-   Leer los acciones que va a realizar eBox y aceptarlas.
+#. **Action:**
+   Read the actions that are going to be made and accept them.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+   Effect:
+     You have enabled the button :guilabel:`Save Changes`.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+   Effect:
 
-     Ahora eBox tiene los registros activados. Puedes echar un vistazo
-     en :menuselection:`Registros --> Consultar registros`. De todas
-     maneras, en la sección :ref:`logs-ref`.
+     eBox displays the progress while the changes are implemented. Once it
+     has finished, you are notified.
+
+     Now eBox has enabled the logs. You can check them at
+     :menuselection:`Logs --> Query logs` in the section
+     :ref:`logs-ref`.

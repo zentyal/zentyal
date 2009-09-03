@@ -1,91 +1,90 @@
-Servicio de sincronización de hora (NTP)
-****************************************
+Time synchronization service (NTP)
+**********************************
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
+                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
                    Víctor Jiménez <vjimenez@warp.es>
 
-El protocolo **NTP** (*Network Time Protocol*) fue diseñado para sincronizar
-los relojes de las computadoras sobre una red no fiable, con latencia variable.
-Este servicio escucha en el puerto 123 del protocolo UDP. Está diseñado para
-resistir los efectos de la latencia variable (*jitter*).
+The **NTP** (*Network Time Protocol*) protocol was designed to synchronize
+the clocks in PCs in an unreliable network with jitter.
+This service listens on port 123 of the UDP protocol. It is designed to
+withstand the effects of *jitter*.
 
-Es uno de los protocolos más antiguos de Internet (desde antes de 1985). NTP
-versión 4 puede alcanzar una exactitud de hasta 200 µs o incluso mejor si el reloj
-está en la red local. Existen diferentes estratos que definen la distancia del
-reloj de referencia y su asociada exactitud. Existen hasta 16 niveles. El
-estrato 0 es para los relojes atómicos que no se conectan a la red sino a otro
-ordenador con conexión serie RS-232 y estos son los de estrato 1. Los de
-estrato 2 son los ordenadores que se conectan, ya por NTP a los de estrato
-superior y normalmente son los que se ofrecen por defecto en los sistemas
-operativos más conocidos como GNU/Linux, Windows, o MacOS.
+It is one of the oldest protocols of the Internet still in use (since before
+1985). NTP version 4 can reach a precision of up to 200 µs or greater if the
+clock is in the local network. There are up to 16 levels defining the distance
+of the reference clock and its associated precision.
+Level 0 is for atomic clocks that are not connected to the network but to
+another level 1 computer with RS-232 serial connection. Level 2
+are the computers connected via NTP to those of a higher level
+and are normally offered by default in the most common
+operating systems, such as GNU/Linux, Windows or MacOS.
 
-Configuración de un servidor NTP con eBox
-=========================================
+NTP server configuration with eBox
+==================================
 
-Para configurar eBox dentro de la arquitectura NTP [#]_, en primer lugar
-eBox tiene que sincronizarse con algún servidor externo de estrato
-superior (normalmente 2) que se ofrecen a través de
-:menuselection:`Sistema --> Fecha/hora`. Una lista de los mismos se
-puede encontrar en el *pool* NTP (*pool.ntp.org*) que son una
-colección dinámica de servidores NTP que voluntariamente dan un tiempo
-bastante exacto a sus clientes a través de Internet.
+To configure eBox to use the NTP architecture [#]_, eBox
+must first be synchronized with an external server of a higher
+level (normally 2) offered via
+:menuselection:`System --> Date/Time`. A list of these can be found
+in the NTP *pool* (*pool.ntp.org*), which is a dynamic
+collection of NTP servers that voluntarily give their clients a
+relatively precise time over the Internet.
 
-.. [#] Proyecto del servicio público NTP
+.. [#] NTP public service project
    http://support.ntp.org/bin/view/Main/WebHome.
 
 .. image:: images/ntp/01-ntp.png
    :scale: 60
    :align: center
 
-Una vez que eBox se haya sincronizado como cliente NTP [#]_, el propio eBox podrá
-actuar también como servidor NTP, con una hora sincronizada
-mundialmente.
+Once eBox has been synchronized as an NTP client [#]_, eBox can also
+act as an NTP server with a globally synchronized time.
 
-.. [#] eBox usa como cliente NTP **ntpdate**
+.. [#] eBox uses **ntpdate** as its NTP client.
    http://www.ece.udel.edu/~mills/ntp/html/ntpdate.html.
 
-Ejemplo práctico
-^^^^^^^^^^^^^^^^
-Habilitar el servicio NTP y sincronizar la hora de nuestra máquina
-utilizando el comando **ntpdate**. Comprobar que tanto eBox como la máquina
-cliente tienen la misma hora.
+Practical example
+^^^^^^^^^^^^^^^^^
+Enable the NTP service and synchronize the time of your host
+using the command '**ntpdate**'. Check that both eBox and the client
+host are set to the same time.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activa el módulo :guilabel:`ntp`, para ello marca su casilla en la
-   columna :guilabel:`Estado`. Nos informa de los cambios que va a realizar
-   en el sistema. Permitir la operación pulsando el botón
-   :guilabel:`Aceptar`.
+#. **Action:**
+   Access eBox, enter :menuselection:`Module status` and
+   enable the :guilabel:`ntp` module by marking the checkbox in the
+   :guilabel:`Status` column. This will show the changes to be made
+   to the system. Allow the operations by clicking on the
+   :guilabel:`Accept` button.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+   Effect:
+     The :guilabel:`Save changes` button has been enabled.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Sistema --> Fecha/Hora`.
-   En la sección :guilabel:`Sincronización con servidores NTP` seleccionar
-   :guilabel:`Activado` y pulsar :guilabel:`Cambiar`.
+#. **Action:**
+   Access the :menuselection:`System --> Date/Time` menu.
+   In the :guilabel:`Synchronization with NTP servers` section, select
+   :guilabel:`Enabled` and click on :guilabel:`Change`.
 
-   Efecto:
-     Desaparece la opción de cambiar manualmente la fecha y hora y en su
-     lugar aparecen campos para introducir los servidores NTP con los que se
-     sincronizará.
+   Effect:
+     The option to manually change the date and time is replaced by
+     fields to enter the NTP servers with which to synchronize.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+   Effect:
+     eBox displays the progress while the changes are being applied. Once this
+     is completed, it notifies the user.
 
-     Nuestra máquina eBox actuará como servidor NTP.
+     Your eBox host will act as an NTP server.
 
-#. **Acción:**
-   Instalar el paquete **ntpdate** en nuestra máquina cliente. Ejecutar el
-   comando `ntpdate <ip_de_eBox>`.
+#. **Action:**
+   Install the **ntpdate** package in your client host. Run the
+   command `ntpdate <eBox_ip>`.
 
-   Efecto:
-     La hora de nuestra máquina habrá quedado sincronizada con la de la
-     máquina eBox.
+   Effect:
+     The time on the host will have been synchronized with that of the
+     eBox host.
 
-     Podemos comprobarlo ejecutando el comando **date** en ambas máquinas.
+     You can check this by running the **date** command on both hosts.
+

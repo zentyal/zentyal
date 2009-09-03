@@ -1,13 +1,13 @@
 .. sectionauthor:: Enrique J. Hernández <ejhernandez@ebox-platform.com>,
+                   José A. Calvo <jacalvo@ebox-platform.com>
 
-En eBox no sólo se configuran los servicios de red de manera
-integrada. Sino que además ofrece una serie de características que
-facilitan y hacen más eficiente la administración de eBox. Este
-conjunto de características es lo que denominamos el **núcleo** del
-sistema eBox.
+The target of eBox is not only the configuration of the integrated
+network services. It also offers a number of features that
+facilitate and make more efficient the administration of eBox itself. This
+feature set is what we call the eBox **core**.
 
-Las copias de seguridad para restaurar un estado anterior, registros
-de los servicios para saber qué ha pasado y cuándo, notificaciones
-ante incidencias o determinados eventos, monitorización de la máquina
-o las actualizaciones de seguridad de *software* son cuestiones que se
-van a explicar en este apartado.
+Backups to restore a previous state, logs
+of services to find out what happened and when, notifications
+for certain events or incidents, monitoring of the machine
+or security updates of the software are issues that
+will be explained in this section.

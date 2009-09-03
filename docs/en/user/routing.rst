@@ -1,354 +1,385 @@
-Encaminamiento
-**************
+Routing
+*******
 
-.. sectionauthor:: Isaac Clerencia <iclerencia@ebox-platform.com>,
+.. sectionauthor:: Isaac Clerencia <iclerencia@ebox-platform.com>
                    Enrique J. Hernández <ejhernandez@ebox-platform.com>
-                   Víctor Jímenez <vjimenez@warp.es>,
+                   Víctor Jiménez <vjimenez@warp.es>
 
-Tablas de encaminamiento
-========================
+Routing tables
+==============
 
-El término **encaminamiento** hace referencia a la acción de decidir
-a través de qué interfaz debe ser enviado un determinado paquete que va a
-salir desde una máquina. El sistema operativo cuenta con una tabla de
-encaminamiento con un conjunto de reglas para tomar esta decisión.
+The term **routing** refers to the action of deciding through which interface
+a certain packet must be sent from a host.  The operating system has a routing
+table with a set of rules to make this decision.
 
-Cada una de estas reglas cuenta con diversos campos, pero los tres más
-importantes son: :guilabel:`dirección de destino`,
-:guilabel:`interfaz` y :guilabel:`router`. Se deben de leer como
-sigue: para llegar a una :guilabel:`dirección de destino` dada,
-tenemos que dirigir el paquete a través de un :guilabel:`router`,
-el cual es accesible a través de una determinada :guilabel:`interfaz`.
+Each of these rules has different fields, although the three most
+important ones are: :guilabel:`destination address`,
+:guilabel:`interface` and :guilabel:`router`. These must be read as
+follows: to reach a certain :guilabel:`destination address`,
+the packet must be directed through a :guilabel:`router`,
+which is accessible through a certain :guilabel:`interface`.
 
-Cuando llega un mensaje, se compara su dirección destino con las entradas en la
-tabla y se envía por la interfaz indicada en la regla cuya dirección mejor
-coincide con el destino del paquete, es decir, aquella regla que es
-más específica. Por ejemplo, si se especifica una regla en la que
-para alcanzar la red A (10.15.0.0/16) debe ir por el *router* A y otra
-regla en la que para alcanzar la red B (10.15.23.0/24), la cual es una
-subred de A, debe ir por el *router* B; si llega un paquete con destino
-10.15.23.23/32, entonces el sistema operativo decidirá que se envíe al
-*router B* ya que existe una regla más específica.
+When the message arrives, its destination address is compared to the entries in
+the table and is sent through the interface indicated in the rule that matches.
+The best match is considered the most specific rule. For example, if a rule is
+specified indicating that to reach network A (10.15.0.0/16), *router* A must be
+used and another rule indicates that to reach network B (10.15.23.0/24), which
+is a subnet of A, *router* B must be used. If a packet arrives with destination
+10.15.23.23/32, then the operating system will decide to send it to *router B*,
+as there is a more specific rule.
 
-Todas las máquinas tienen al menos una regla de encaminamiento para la
-interfaz de *loopback*, o interfaz local, y reglas adicionales para
-otras interfaces que la conectan con otras redes internas o con
-Internet.
+All hosts have at least one routing rule for the *loopback* interface, or local
+interface, and additional rules for other interfaces that connect it to other
+internal networks or to Internet.
 
-Para realizar la configuración manual de una tabla de rutas estáticas
-se utiliza :menuselection:`Red --> Rutas` (interfaz para el comando
-**route** o **ip route**). Estas rutas pueden ser sobreescritas si se
-utiliza el protocolo DHCP.
+To manually configure a static route table, :menuselection:`Network --> Routes`
+is used (basically it is an interface for the **route** or **ip route**
+commands). These routes may be overwritten if the DHCP protocol is used.
 
 .. figure:: images/routing/11-routing.png
    :scale: 60
-   :alt: Configuración de rutas
+   :alt: route configuration
    :align: center
 
-   Configuración de rutas
+   Route configuration
 
-Puerta de enlace
-----------------
+Gateway
+-------
 
-A la hora de enviar un paquete, si ninguna ruta coincide y hay una puerta de
-enlace configurada, éste se enviará a través de la puerta de enlace.
+When sending a packet, if no route matches and there is a gateway
+configured, it will be sent through the gateway.
 
-La **puerta de enlace** (*gateway*) es la ruta por omisión para los paquetes que
-se envían a otras redes.
+The *gateway* is the route by default for packets sent to other networks.
 
-Para configurar una puerta de enlace se utiliza :menuselection:`Red
---> Routers`.
+To configure a gateway, use :menuselection:`Network --> Routers`.
 
 .. image:: images/routing/11-routing-gateways.png
    :scale: 80
-   :alt: Configuración de puertas de enlace
+   :alt: gateway configuration
    :align: center
 
-Nombre:
-  Nombre por el que identificaremos a la puerta de enlace.
-Dirección IP:
-  Dirección IP de la puerta de enlace. Esta dirección debe ser accesible desde
-  la máquina que contiene eBox.
-Interfaz:
-  Interfaz de red conectada a la puerta de enlace. Los paquetes que se envíen a
-  la puerta de enlace se enviarán a través de esta interfaz.
-Upload / Download:
-  Tasa de subida y descarga que soporta la puerta de enlace. Estas medidas son
-  utilizadas por el módulo de moldeado de tráfico.
-Peso:
-  Cuanto mayor sea el peso, más tráfico absorberá esa puerta de enlace cuando
-  esté activado el balanceo de carga.
+Name:
+  Name identifying the gateway.
+IP address:
+  IP address of the gateway. This address must be accessible from
+  the host containing eBox.
+Interface:
+  Network interface connected to the gateway. Packages sent to the
+  gateway will be sent through this interface.
+Upload/Download:
+  Upload and download rates supported by the gateway. These values are
+  used by the traffic shaping module.
+Weight:
+  The heavier the weight, the more traffic will be directed to this gateway
+  when load balancing is enabled.
 Default:
-  Si está activado, se toma esta como la puerta de enlace por omisión.
+  Indicates if this gateway should be used as the default one.
 
-Ejemplo práctico A
-^^^^^^^^^^^^^^^^^^
+Subnets and subnet routing
+--------------------------
 
-Vamos a configurar la interfaz de red de manera estática. La clase quedará
-dividida en dos subredes.
+As indicated above, initially there were classes of networks with associated
+fixed network masks, which were 8-bit multiples. Due to the lack of scalability
+of this approach, CIDR *(Classless Inter-Domain Routing)* was created to allow
+for network masks of a variable size to be used, allowing, for example, for a
+class C network to be divided into several subnets of a smaller size or to
+aggregate several class C subnets into one of a larger size. This allows:
 
-Para ello:
+* A more effective use of the scarce IPv4 address space.
+* Better use of the hierarchy in address assignment (adding of
+  prefixes), decreasing routing overload throughout the
+  Internet.
 
-#. **Acción:**
-   Acceder a la interfaz de eBox, entrar en :menuselection:`Red -->
-   Interfaces` y seleccionar para el :guilabel:`interfaz de red`
-   *eth0* el :guilabel:`método` *Estático*.  Como :guilabel:`dirección
-   IP` introducir la que indique el instructor.  Como
-   :guilabel:`Máscara de red` 255.255.255.255.0. Pulsar el botón
-   :guilabel:`Cambiar`.
+The number of bits interpreted as the subnet identifier is given by a *netmask*
+that is of the same length as the IP address. To find the network of an IP
+address with its mask, proceed as follows:
 
-   La dirección de red tendrá la forma 10.1.X.Y, dónde 10.1.X corresponde con
-   la red e Y con la máquina. En adelante usaremos estos valores.
++-----------------+-------------------------+-------------------------------------+
+|                 | Address with full stops | Binary                              |
++=================+=========================+=====================================+
+| IP address      | 192.168.5.10            | 11000000.10101000.00000101.00001010 |
++-----------------+-------------------------+-------------------------------------+
+| Netmask         | 255.255.255.0           | 11111111.11111111.11111111.00000000 |
++-----------------+-------------------------+-------------------------------------+
+| Network portion | 192.168.5.0             | 11000000.10101000.00000101.00000000 |
++-----------------+-------------------------+-------------------------------------+
 
-   Entrar en :menuselection:`Red --> DNS` y seleccionar :guilabel:`Añadir`. Introducir como
-   :guilabel:`Servidor de nombres` 10.1.X.1. Pulsar :guilabel:`Añadir`.
+CIDR also introduced a new nomenclature that can be seen compared to
+the above in the following table:
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios` y la interfaz de red mantiene
-     los datos introducidos. Ha aparecido una lista con los servidores de
-     nombres en la que aparece el servidor recién creado.
++------+---------+------------+-----------------+
+| CIDR | Class   | N Hosts    | Mask            |
++======+=========+============+=================+
+| /32  | 1/256 C | 1          | 255.255.255.255 |
++------+---------+------------+-----------------+
+| /31  | 1/128 C | 2          | 255.255.255.254 |
++------+---------+------------+-----------------+
+| /25  | 1/2 C   | 128        | 255.255.255.128 |
++------+---------+------------+-----------------+
+| /24  | 1 C     | 256        | 255.255.255.0   |
++------+---------+------------+-----------------+
+| /21  | 8 C     | 2048       | 255.255.248.0   |
++------+---------+------------+-----------------+
 
-#. **Acción:**
-   Guardar los cambios.
+Practical example A
+^^^^^^^^^^^^^^^^^^^
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios.
+You will now configure the network interface statically. The class will be
+divided into two subnets.
 
-#. **Acción:**
-   Acceder a :menuselection:`Red --> Diagnóstico`. Hacer ping a ebox-platform.com.
+To do so:
 
-   Efecto:
-     Se muestra como resultado::
+#. **Action:**
+   Access the eBox interface, enter :menuselection:`Network --> Interfaces` and,
+   for the :guilabel:`network interface` *eth0*, select the :guilabel:*Static*
+   `method`. As the :guilabel:`IP address`, enter that indicated by the
+   instructor.  As the :guilabel:`Netmask`, use 255.255.255.255.0. Click on the
+   :guilabel:`Change` button.
 
-       connect: Network is unreachable
+   The network address will be of the form 10.1.X.Y, where 10.1.X corresponds to
+   the network and Y to the host. These values will be used from now on.
 
-#. **Acción:**
-   Acceder a :menuselection:`Red --> Diagnóstico`. Hacer ping a una eBox de un compañero de
-   aula que forme parte de la misma subred.
+   Enter :menuselection:`Network --> DNS` and click on :guilabel:`Add`. As the
+   :guilabel:`Name server` enter 10.1.X.1. Click on :guilabel:`Add`.
 
-   Efecto:
-     Se muestran como resultado tres intentos satisfactorios de conexión con
-     la máquina.
+   Effect:
+     The :guilabel:`Save changes` button has been enabled and the network
+     interface keeps the data entered. A list is displayed containing the name
+     servers, including the recently created server.
 
-#. **Acción:**
-   Acceder a :menuselection:`Red --> Diagnóstico`. Hacer ping a una
-   eBox de un compañero de aula que esté en la otra subred.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     Se muestra como resultado::
+   Effect:
+     eBox displays the progress while the changes are being applied.
 
-       connect: Network is unreachable
+#. **Action:**
+   Access :menuselection:`Network --> Diagnosis`. Ping ebox-platform.com.
 
-Ejemplo práctico B
-^^^^^^^^^^^^^^^^^^
+   Effect:
+     The following is given as the result::
 
-Vamos a configurar una ruta para poder acceder a máquinas de otras subredes.
+       connect: network is unreachable
 
-Para ello:
+#. **Action:**
+   Access :menuselection:`Network --> Diagnosis`. Ping to an eBox of a classmate
+   part of the same subnet.
 
-#. **Acción:**
-   Acceder a la interfaz de eBox, entrar en :menuselection:`Red --> Rutas` y seleccionar
-   :guilabel:`Añadir nuevo`. Rellenar el formulario con los siguientes valores:
+   Effect:
+     Three satisfactory connection attempts to the host are displayed as
+     the result.
+
+#. **Action:**
+   Access :menuselection:`Network --> Diagnosis`. Ping to the
+   eBox of a classmate in the other subnet.
+
+   Effect:
+     The following is given as the result::
+
+       connect: network is unreachable
+
+Practical example B
+^^^^^^^^^^^^^^^^^^^
+
+You will now configure a route to access hosts in other subnets.
+
+To do so:
+
+#. **Action:**
+   Access the eBox interface, enter :menuselection:`Network --> Routes` and
+   select :guilabel:`Add new`. Complete the form with the following values:
 
    :Network:     10.1.X.0 / 24
    :Gateway:     10.1.1.1
-   :Description: Ruta a la otra subred
+   :Description: route to the other subnet
 
-   Pulsar el botón :guilabel:`Añadir`.
+   Click on the :guilabel:`Add` button.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`. Ha aparecido una lista de
-     rutas en la que se incluye la ruta recién creada.
+   Effect:
+     The :guilabel:`Save changes` button has been enabled. A list is displayed
+     containing the routes, including the recently created one.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios.
+   Effect:
+     eBox displays the progress while the changes are being applied.
 
 
-#. **Acción:**
-   Acceder a :menuselection:`Red --> Diagnóstico`. Hacer ping a ebox-platform.com.
+#. **Action:**
+   Access :menuselection:`Network --> Diagnosis`. Ping ebox-platform.com.
 
-   Efecto:
-     Se muestra como resultado::
+   Effect:
+     The following is given as the result::
 
-       connect: Network is unreachable
+       connect: network is unreachable
 
-#. **Acción:**
-   Acceder a :menuselection:`Red --> Diagnóstico`. Hacer ping a una eBox de un compañero de
-   aula que esté en la otra subred.
+#. **Action:**
+   Access :menuselection:`Network --> Diagnosis`. Ping to the eBox of a
+   classmate in the other subnet.
 
-   Efecto:
-     Se muestran como resultado tres intentos satisfactorios de conexión con
-     la máquina.
+   Effect:
+     Three satisfactory connection attempts to the host are displayed as
+     the result.
 
-Ejemplo práctico C
-^^^^^^^^^^^^^^^^^^
+Practical example C
+^^^^^^^^^^^^^^^^^^^
 
-Vamos a configurar una puerta de enlace que nos conecte con el resto de redes.
+You will now configure a gateway to connect to the remaining networks.
 
-Para ello:
+To do so:
 
-#. **Acción:**
-   Acceder a la interfaz de eBox, entrar en :menuselection:`Red --> Rutas` y eliminar la ruta
-   creada en el ejercicio anterior.
+#. **Action:**
+   Access the eBox interface, enter :menuselection:`Network --> Routes` and
+   delete the route created during the previous exercise.
 
-   Entrar en :menuselection:`Red --> Routers` y selecciona
-   :guilabel:`Añadir nuevo`. Rellenar con los siguientes datos:
+   Enter :menuselection:`Network --> Routers` and select
+   :guilabel:`Add new`. Complete with the following data:
 
-   :Nombre:     Default Gateway
-   :IP Address: 10.1.X.1
+   :Name:     Default Gateway
+   :IP address: 10.1.X.1
    :Interface:  eth0
    :Upload:     0
    :Download:   0
    :Weight:     1
-   :Default:    sí
+   :Default:    yes
 
-   Pulsar el botón :guilabel:`Añadir`.
+   Click on the :guilabel:`Add` button.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`. Ha
-     desaparecido la lista de rutas. Ha aparecido una lista de puertas
-     de enlace con la puerta de enlace recién creada.
+   Effect:
+     The :guilabel:`Save changes` button has been enabled. The list of routes
+     has disappeared. A list of gateways is displayed containing the recently
+     created gateway.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios.
+   Effect:
+     eBox displays the progress while the changes are being applied.
 
 
-#. **Acción:**
-   Acceder a :menuselection:`Red --> Diagnóstico`. Hacer ping a
-   ebox-platform.com.
+#. **Action:**
+   Access :menuselection:`Network --> Diagnosis`. Ping ebox-platform.com.
 
-   Efecto:
-     Se muestran como resultado tres intentos satisfactorios de conexión con
-     la máquina.
+   Effect:
+     Three satisfactory connection attempts to the host are displayed as
+     the result.
 
-#. **Acción:**
-   Acceder a :menuselection:`Red --> Diagnóstico`. Hacer ping a una
-   eBox de un compañero de aula que esté en la otra subred.
+#. **Action:**
+   Access :menuselection:`Network --> Diagnosis`. Ping to the eBox of a
+   classmate in the other subnet.
 
-   Efecto:
-     Se muestran como resultado tres intentos satisfactorios de conexión con
-     la máquina.
+   Effect:
+     Three satisfactory connection attempts to the host are displayed as
+     the result.
 
-Reglas multirouter y balanceo de carga
-======================================
+Multirouter rules and load balancing
+====================================
 
-Las **reglas multirouter** son una herramienta que permite a los
-computadores de una red utilizar varias conexiones a *Internet* de una
-manera transparente. Esto es útil si, por ejemplo, una oficina dispone
-de varias conexiones ADSL y queremos poder utilizar la totalidad del
-ancho de banda disponible sin tener que preocuparnos de repartir el
-trabajo manualmente de las máquinas entre ambos *routers*, de tal manera
-que la carga se distribuya automáticamente entre ellos.
+**Multirouter rules** are a tool that enables PCs in a network to use several
+*Internet* connections transparently. This is useful if, for example, an office
+has several ADSL connections and the entire bandwidth available is to be used
+without having to worry about distributing the work of the hosts manually
+between both *routers*, so that the load is shared automatically between them.
 
-El **balanceo de carga** básico reparte de manera equitativa los paquetes que salen
-de eBox hacia *Internet*. La forma más simple de configuración es establecer
-diferentes **pesos** para cada *router*, de manera que si las conexiones de las que
-se dispone tienen diferentes capacidades podemos hacer un uso óptimo
-de ellas.
+Basic **load balancing** evenly distributes the packets transferred from
+eBox to the *Internet*. The simplest form of configuration involves establishing
+different **weights** for each *router* so that, if the connections available
+have different capacities, they can be used optimally.
 
-Las reglas *multirouter* permiten hacer que determinado tipo de tráfico se envíe
-siempre por el mismo *router* en caso de que sea necesario. Ejemplos comunes son
-enviar siempre el correo electrónico por un determinado *router* o hacer que una
-determinada subred siempre salga a Internet por el mismo *router*.
+*Multirouter* rules allow for certain traffic types to be sent permanently by
+the same *router*, where required. Common examples include sending emails
+through a certain *router* or ensuring that a certain subnet is always routed
+from the Internet through the same *router*.
 
-eBox utiliza las herramientas **iproute2** e **iptables** para llevar
-a cabo la configuración necesaria para la funcionalidad de
-*multirouter*. Mediante **iproute2** se informa al *kernel* de la
-disponibilidad de varios *routers*. Para las reglas *multirouter* se
-usa **iptables** para marcar los paquetes que nos interesan.  Estas
-marcas pueden ser utilizadas desde **iproute2** para determinar el
-*router* por el que un paquete dado debe ser enviado.
+eBox uses the **iproute2** and **iptables** tools for the configuration required
+for the *multirouter* function. **iproute2** informs the *kernel* of the
+availability of several *routers*. For *multirouter* rules, **iptables** is used
+to mark the packets of interest. These marks can be used from **iproute2** to
+determine the *router* through which a packet must be sent.
 
-Hay varios posibles problemas que hay que tener en cuenta. En primer lugar en
-**iproute2** no existe el concepto de conexión, por lo que sin ningún otro
-tipo de configuración los paquetes pertenecientes a una misma conexión podrían
-acabar siendo enviados por diferentes *routers*, imposibilitando
-la comunicación. Para solucionar esto se utiliza **iptables** para identificar
-las diferentes conexiones y asegurarnos que todos los paquetes de una conexión
-se envían por el mismo *router*.
+There are several possible problems that must be considered. Firstly, the
+connection concept does not exist in **iproute2**. Therefore, with no other
+type of configuration, the packets belonging to the same connection could
+end up being sent by different *routers*, making communications impossible.
+To solve this, **iptables** is used to identify the different connections and
+ensure that all the packets of a connection are sent via the same *router*.
 
-Lo mismo ocurre con las conexiones entrantes que se establecen, todos los
-paquetes de respuesta a una conexión deben ser enviados por el mismo
-*router* por el cual se recibió esa conexión.
+The same applies to any incoming connections established. All response
+packets for a connection must be sent using the same *router* through which
+that connection was received.
 
-Para establecer una configuración *multirouter* con balanceo de carga
-en eBox debemos definir tantos *routers* como sean necesarios en
-:menuselection:`Red --> Routers`.  Utilizando el parámetro
-:guilabel:`peso` en la configuración de un *router* podemos determinar
-la proporción de paquetes que cada uno de ellos enviará. Si se dispone
-de dos *routers* y establecemos unos pesos de 5 y 10 respectivamente,
-por el primer *router* se enviarán 5 de cada 15 paquetes mientras que
-los otros 10 restantes se enviarán a través del segundo.
+To establish a *multirouter* configuration with load balancing in eBox, as many
+*routers* as required must be defined in :menuselection:`Network --> Routers`.
+Using the :guilabel:`weight` parameter when configuring a *router*, it is
+possible to determine the proportion of packets that each one will send. Where
+two *routers* are available and weights of 5 and 10, respectively, are
+established, 5 of every 15 packets will be sent through the first router,
+while the the remaining 10 will be sent via the second.
 
 .. image:: images/routing/01-gateways.png
    :scale: 80
    :align: center
 
-Las reglas *multirouter* y el balanceo de tráfico se establecen en la
-sección :menuselection:`Red --> Balanceo de tráfico`. En esta sección
-podemos añadir reglas para enviar ciertos paquetes a un determinado
-*router* dependiendo de la :guilabel:`interfaz` de entrada, la
-:guilabel:`fuente` (puede ser una dirección IP, un objeto, eBox o
-cualquiera), el :guilabel:`destino` (una dirección IP o un objeto de
-red), el :guilabel:`servicio` al que se quiere asociar esta regla y
-por cual de los :guilabel:`routers` queremos direccionar el tipo de
-tráfico especificado.
+*Multirouter* rules and traffic balancing are established in the
+:menuselection:`Network --> Traffic balancing` section. In this section,
+it is possible to add rules to send certain packets to a specific
+*router*, depending on the input :guilabel:`interface`, the
+:guilabel:`source` (this could be an IP address, an object, eBox or
+any), the :guilabel:`destination` (an IP address or a network
+object), the :guilabel:`service` with which this rule is to be associated and
+via which :guilabel:`routers` the traffic type specified is to be
+directed.
 
 .. image:: images/routing/02-gateway-rules.png
    :scale: 80
    :align: center
 
-Ejemplo práctico D
-------------------
+Practical example D
+-------------------
 
-Configurar un escenario *multirouter* con varios *routers* con diferentes pesos
-y comprobar que funciona utilizando la herramienta **traceroute**.
+Configure a *multirouter* scenario with several *routers* with different weights
+and check that it works using the **traceroute** tool.
 
-Para ello:
+To do so:
 
-#. **Acción:**
-   Ponerse por parejas, dejando una eBox con la configuración actual y añadiendo
-   en la otra un nuevo *gateway*, accediendo a través del interfaz a
-   :menuselection:`Red --> Routers` y pulsando en :guilabel:`Añadir nuevo`,
-   con los siguientes datos:
+#. **Action:**
+   In pairs, leave one eBox with the current configuration and add
+   a new *gateway* in the other, accessing
+   :menuselection:`Network --> Routers` via the interface and clicking on
+   :guilabel:`Add new`, with the following data:
 
-   :Nombre:         Gateway 2
-   :Dirección IP:   <IP eBox compañero>
-   :Interfaz:       eth0
-   :Subida:         0
-   :Bajada:         0
-   :Peso:           1
-   :Predeterminado: sí
+   :Name:         Gateway 2
+   :IP address:   <classmate's eBox IP>
+   :Interface:       eth0
+   :Upload:         0
+   :Download:         0
+   :Weight:           1
+   :Default: yes
 
-   Pulsar el botón :guilabel:`Añadir`.
+   Click on the :guilabel:`Add` button.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`. Ha aparecido una
-     lista de puertas de enlace con la puerta de enlace recién creada y la
-     puerta de enlace anterior.
+   Effect:
+     The :guilabel:`Save changes` button has been enabled. A list of gateways
+     is displayed containing the recently created gateway and the previous
+     gateway.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios.
+   Effect:
+     eBox displays the progress while the changes are being applied.
 
-#. **Acción:**
-   Ir a una consola y ejecutar el siguiente *script*::
+#. **Action:**
+   Go to a console and run the following *script*::
 
       for i in $(seq 1 254); do sudo traceroute -I -n 155.210.33.$i -m 6; done
 
-   Efecto:
-     El resultado de una ejecución de **traceroute** muestra los
-     diferentes *routers* por los que un paquete pasa para llegar a su
-     destino. Al ejecutarlo en una máquina con configuración
-     *multirouter* el resultado de los primeros saltos entre *routers*
-     debería ser diferente dependiendo del *router* elegido.
+   Effect:
+     The result of running **traceroute** shows the
+     different *routers* through which a packet passes to reach its
+     destination. On running it in a host with *multirouter*
+     configuration, the result of the first leaps between *routers*
+     should be different depending on the *router* chosen.
 
 .. include:: routing-exercises.rst

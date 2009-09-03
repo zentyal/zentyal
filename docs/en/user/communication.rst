@@ -1,21 +1,20 @@
 .. sectionauthor:: Enrique J. Hernández <ejhernandez@ebox-platform.com>,
+                   José A. Calvo <jacalvo@ebox-platform.com>,
 
-En este apartado se van a ver los diferentes métodos de comunicación
-para compartir información centralizados en eBox y pudiendo acceder a
-todos ellos usando el mismo usuario y contraseña.
+In this section we will see the different communication methods for
+sharing information that are centralized in eBox and are all accessible
+using the same username and password.
 
-En primer lugar, se explica el servicio de correo electrónico,
-que permite su integración rápida y sencilla con el cliente de correo
-habitual de los usuarios de la red, ofreciendo las últimas técnicas
-disponibles para la prevención del correo basura.
+First, the mail service is explained. It allows a quick and easy integration
+with the preferred mail client of the users of the network, offering also
+the latest techniques available to prevent spam.
 
-En segundo lugar, el servicio de mensajería instántanea a través del estándar
-Jabber/XMPP. Este nos evita depender de empresas externas o de la conexión
-a *Internet*. Ofrece salas de conferencia comunes y permite, mediante la
-utilización de cualquiera de los múltiples clientes disponibles,
-una comunicación más rápida para los casos en que el correo no es suficiente.
+Second, the instant messaging service through the Jabber / XMPP protocol.
+It provides an internal IM service without having to rely on external companies
+or an Internet connection. It also offers conference rooms and can be used with any of the many clients available. It allows faster communication in the cases
+where the mail is not enough.
 
-Finalmente, veremos una introducción a la voz sobre IP, con la que cada
-persona puede tener una extensión a la que llamar o hacer conferencias
-fácilmente. Adicionalmente, con un proveedor externo, eBox es capaz de
-configurarse para conectarse a la red telefónica tradicional.
+Finally, we will see an introduction to voice over IP, which enables each
+person to have an extension to make calls or participate in conferences
+easily. Additionally, with an external provider, eBox can be
+configured to connect to the traditional telephone network.

@@ -1,299 +1,284 @@
 .. _web-section-ref:
 
-Servicio de publicación de información web (HTTP)
-*************************************************
+Web data publication service (HTTP)
+***********************************
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
+                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
                    Víctor Jiménez <vjimenez@warp.es>
 
-La *Web* es uno de los servicios más comunes en Internet, tanto que se ha
-convertido en su cara visible para la mayoría de los usuarios.
+The *Web* is one of the most common services on the Internet, so much that
+it has become its visible face for most users.
 
-Una página *Web* empezó siendo la manera más cómoda de publicar información en
-una red. Para acceder basta con un navegador *Web*, que se encuentra instalado
-de serie en las plataformas de escritorio actuales. Una página *Web* es fácil
-de crear y se puede visualizar desde cualquier ordenador.
+A website started to become the most convenient way of publishing data on
+a network. All that was needed was a web browser, which is installed as
+standard in current desktop platforms. A website is easy to create
+and can be viewed from any computer.
 
-Con el tiempo las posibilidades de las interfaces *Web* han mejorado y
-ahora disponemos de verdaderas aplicaciones que no tienen nada que envidiar a
-las de escritorio.
+Over time, the possibilities of web interfaces have improved and
+true applications are now available that have nothing to envy of
+desktop applications.
 
-En este capítulo veremos una introducción al funcionamiento interno de la *Web*,
-así como la configuración de un servidor *Web* con eBox.
+But... what is behind the web?
 
 Hyper Text Transfer Protocol
 ============================
 
-Una de las claves del éxito de la *Web* ha sido el protocolo de capa
-de Aplicación empleado, **HTTP** (*Hyper Text Transfer Protocol*), y es
-que HTTP es muy sencillo a la vez que flexible.
+One of the keys to the success of the web has been the application
+layer protocol used, **HTTP** (*Hyper Text Transfer Protocol*), as
+it is extremely simple yet flexible.
 
-HTTP es un protocolo orientado a peticiones y respuestas. Un cliente, también
-llamado *User Agent*, realiza una solicitud a un servidor. El servidor la
-procesa y devuelve una respuesta.
+HTTP is a request and response protocol. A client, also known as a *User Agent*,
+makes a request to a server. The server processes it and gives a response.
 
 .. figure:: images/web/http.png
-   :alt: Esquema de solicitud con cabeceras GET entre un cliente, y la
-         respuesta 200 OK del servidor. Encaminadores y *proxies* en medio.
+   :alt: Request schema with GET headers between a client and the
+         200 OK response from the server. Routers and *proxies* in between.
 
-   Esquema de solicitud con cabeceras GET entre un cliente, y la
-   respuesta 200 OK del servidor. Encaminadores y *proxies* en medio.
+   Request schema with GET headers between a client and the
+   200 OK response from the server. Routers and *proxies* in between.
 
-Por defecto HTTP usa el puerto TCP 80 para conexiones sin cifrar, y el 443 para
-conexiones cifradas (HTTPS). Una de las tecnologías más usadas para el cifrado
-es TLS [#]_.
+By default, HTTP uses TCP port 80 for unencrypted connections and 443 for
+encrypted connections (HTTPS) using TLS technology [#]_.
 
-.. [#] TLS (*Transport Layer Security*) y su predecesor SSL (*Secure
-       Sockets Layer*) son protocolos de cifrado que aportan seguridad
-       e integridad de datos para las comunicaciones en Internet. En
-       la sección :ref:`vpn-ref` se ahondará en el tema.
+.. [#] TLS (*Transport Layer Security*) and its predecessor SSL (*Secure
+       Sockets Layer*) are encryption protocols that provide data
+       security and integrity for Internet communications. The
+       subject is discussed in further detail in section :ref:`vpn-ref`.
 
-Una solicitud del cliente contiene los siguientes elementos:
+A client request contains the following elements:
 
-* Una primera línea conteniendo *<método> <recurso solicitado> <versión HTTP>*.
-  Por ejemplo *GET /index.html HTTP/1.1* solicita el recurso */index.html*
-  mediante GET y usando el protocolo HTTP/1.1.
-* Cabeceras, como *User-Agent: Mozilla/5.0 ... Firefox/3.0.6* que identifican el
-  tipo de cliente que solicita la información.
-* Una línea en blanco.
-* Un cuerpo del mensaje opcional. Se utiliza, por ejemplo, para enviar ficheros
-  al servidor usando el método POST.
+* An initial line containing *<method> <resource requested> <HTTP version>*.
+  For example, *GET /index.html HTTP/1.1* requests the resource */index.html*
+  through GET and using protocol HTTP/1.1.
+* Headers, such as *User-Agent: Mozilla/5.0 ... Firefox/3.0.6*, which identify
+  the type of client requesting the data.
+* A blank line.
+* An optional message. This is used, for example, to send files
+  to the server using the POST method.
 
-Hay varios métodos [#]_ con los que el cliente puede pedir información. Los más
-comunes son GET y POST:
+There are several methods [#]_ with which clients can request data. The most
+common ones are GET and POST:
 
-.. [#] Una explicación más detallada se puede encontrar en la sección 9
+.. [#] A more detailed explanation can be found in section 9.
        :RFC:`2616`
 
 GET:
-  Se utiliza GET para solicitar un recurso. Es un método inocuo para el
-  servidor, ya que no se debe modificar ningún fichero en el servidor
-  si se hace una solicitud mediante GET.
+  GET is used to request a resource. It is a harmless method for the
+  server, as no file has to be modified in the server if a request is made via
+  GET.
 
 POST:
-  Se utiliza POST para enviar una información que debe procesar el servidor.
-  Por ejemplo en un *webmail* cuando pulsamos *Enviar Mensaje*, se envía al
-  servidor la información del correo electrónico a enviar. El servidor debe
-  procesar esa información y enviar el correo electrónico.
+  POST is used to send data to be processed by the server.
+  For example, when *Send message* is clicked in a *webmail*, the server is
+  given the email data to be sent. The server must process this information
+  and send the email.
 
 OPTIONS:
-  Sirve para solicitar qué métodos se pueden emplear sobre un recurso.
-
+  This is used to request the methods that can be used on a resource.
 HEAD:
-  Solicita información igual que **GET**, pero la respuesta no
-  incluirá el cuerpo, sólo la cabecera. De esta forma se puede obtener
-  la meta-información del recurso sin descargarlo.
-
+  Requests the same data as **GET**, although the response will
+  not include the text, only the header. Hence, it is possible to obtain
+  the metadata of the resource without downloading it.
 PUT:
-  Solicita que la información del cuerpo sea almacenada y accesible desde la
-  ruta indicada.
-
+  Requests the text data to be stored and accessible from the
+  path indicated.
 DELETE:
-  Solicita la eliminación del recurso indicado
-
+  Requests the deletion of the resource indicated.
 TRACE:
-  Indica al servidor que debe devolver la cabecera que envía el cliente.
-  Es útil para ver cómo modifican la solicitud los *proxies* intermedios.
-
+  This informs the server that it must return the header sent by the client.
+  It is useful to see how the request is modified by the intermediate *proxies*.
 CONNECT:
-  La especificación se reserva este método para realizar túneles.
+  The specification reserves this method for tunnels.
 
-La respuesta del servidor tiene la misma estructura que la solicitud
-del cliente cambiando la primera fila. En este caso la primera fila
-sigue la forma *<status code> <text reason>*, que corresponden al código de
-respuesta y a un texto con la explicación respectivamente.
+The server response has the same structure as the client request,
+changing the first row. In this case, the first row
+is *<status code> <text reason>*, which corresponds to the response code
+and a text with the explanation, respectively.
 
-Los códigos de respuesta [#]_ más comunes son:
+The most common response codes [#]_ are:
 
-.. [#] En la sección 10 de :RFC:`2616` se pueden encontrar el listado
-       completo de códigos de respuesta del servidor HTTP.
+.. [#] The full list of response codes for the HTTP server can be found
+       in section 10 of :RFC:`2616`.
 
 200 OK:
-  La solicitud ha sido procesada correctamente.
+  The request has been processed correctly.
 403 Forbidden:
-  Cuando el cliente se ha autenticado pero no tiene permisos para
-  operar con el recurso solicitado.
+  When the client has been authenticated, but does not have permission to
+  operate on the resource requested.
 404 Not Found:
-  Si el recurso solicitado no se ha encontrado.
+  When the resource requested has not been found.
 500 Internal Server Error:
-  Si ha ocurrido un error en el servidor que ha impedido la correcta ejecución
-  de la solicitud.
+  When an error has occurred in the server that has prevented the request from
+  being correctly run.
 
-HTTP tiene algunas **limitaciones** dada su simplicidad. Es un
-protocolo sin estado, por tanto el servidor no puede recordar a los
-clientes entre conexiones. Una solución para este problema es el uso de
-*cookies*. Por otro lado, el servidor no puede iniciar una
-conversación con el cliente. Si el cliente quiere alguna notificación
-del servidor, deberá solicitarla periódicamente.
+HTTP has some **limitations** given its simplicity. It is a
+protocol with no state; therefore, the server is unable to remember the
+clients between connections. This can be avoided by using
+*cookies*. Moreover, the server cannot start a conversation
+with the client. Should the client want to be notified by the server
+of something, this must be periodically requested.
 
-El servicio HTTP puede ofrecer dinámicamente los
-resultados de aplicaciones *software*. Para ello, el cliente realiza una
-petición a una determinada URL con unos parámetros y el *software* se encarga
-gestionar la petición para devolver un resultado. El primer método utilizado fue
-conocido como CGI (*Common Gateway Interface*) que se ejecuta un
-comando por URL. Este mecanismo ha sido superado
-debido a su sobrecarga en memoria y bajo rendimiento por otras
-soluciones:
+The HTTP service can offer dynamic data produced by different software
+applications. The client requests a certain URL with specific parameters
+and the software manages the request to return a result. The first method used
+was known as CGI (*Common Gateway Interface*), which runs one command per URL.
+This mechanism has mainly been deprecated due to its memory overload and low
+performance when compared to other solutions:
 
 *FastCGI*:
-  Un protocolo de comunicación entre las aplicaciones
-  *software* y el servidor HTTP, teniendo un único proceso para
-  resolver las peticiones realizadas por el servidor HTTP.
+  A communication protocol between software applications and the HTTP server,
+  with a single process to resolve requests made by the HTTP server.
 SCGI (*Simple Common Gateway Interface*):
-  Es una versión simplificada del protocolo de *FastCGI*
-Otros mecanismos de expansión:
-  Estos mecanismos dependerán del servidor HTTP utilizado y pueden permitir
-  la ejecución de *software* dentro del propio servidor.
+  This is a simplified version of the *FastCGI* protocol.
+Other expansion mechanisms:
+  Dependent on the HTTP server allowing the software to be run
+  within the server, this solution depends on the HTTP server used.
 
 
-El servidor HTTP Apache
-=======================
+The Apache Web server
+=====================
 
-El **servidor HTTP Apache** [#]_ es el programa más popular para
-servir páginas *Web* desde abril de 1996. EBox usa dicho servidor
-tanto para su interfaz *Web* de administración como para el módulo *Web*.
-Su objetivo es ofrecer un sistema seguro, eficiente y extensible siguiendo
-los estándares HTTP. Ofrece la posibilidad de extender las funcionalidades
-del núcleo (*core*), utilizando módulos adicionales para incluir nuevas
-características. Es decir, una de sus principales ventajas es la
-extensibilidad.
+The **Apache HTTP server** [#]_ has been the most popular program for
+serving websites since April 1996. eBox uses this server for both
+its web interface and the web server module. Its aim is to
+offer a secure, efficient and extendible system in line with
+HTTP standards. Its capacity to be extensible is based on adding
+features using modules that extend the *core*.
 
 .. [#] Apache HTTP Server project http://httpd.apache.org.
 
-Algunos de los módulos nos ofrecen interfaces para lenguajes de *script*.
-Ejemplos de ello son *mod_perl*, *mod_python*, *TCL* ó *PHP*, lo que
-permite crear páginas *Web* usando los lenguajes de programación Perl,
-Python, TCL o PHP. También tenemos módulos para varios sistemas de
-autenticación como *mod_access*, *mod_auth*, entre otros. Además,
-permite el uso de SSL y TLS con *mod_ssl*, módulo de proxy con
-*mod_proxy* o un potente sistema de reescritura de URL con
-*mod_rewrite*. En definitiva, disponemos de una gran cantidad de módulos
-de Apache [#]_ para añadir diversas funcionalidades.
+Other programming interfaces include *mod_perl*, *mod_python*,
+*TCL* or *PHP*, which allows for websites to be created using programming
+languages such as Perl, Python, TCL or PHP. It has several authentication
+systems such as *mod_access* and *mod_auth*, among others. Furthermore,
+it allows the use of SSL and TLS with *mod_ssl* and provides a proxy module with
+*mod_proxy* and a powerful URL rewriting system with
+*mod_rewrite*. It has a total of 57 officially documented modules
+that add functionality, although this number increases to 168 if you include
+those registered for the 2.2 version of Apache [#]_.
 
-.. [#] Podemos consultar la lista completa en http://modules.apache.org.
+.. [#] There is a full list at http://modules.apache.org.
 
 .. _vhost-ref:
 
-Dominios virtuales
-==================
+Virtual domains
+===============
 
-El objetivo de los **dominios virtuales** (*Virtual Hosts*) es alojar varios
-sitios *Web* en un mismo servidor.
+The purpose of a **virtual domain** is to host websites for several domain
+names in the same server.
 
-Si el servidor dispone de una dirección IP pública por cada sitio *Web*,
-se puede realizar una configuración por cada interfaz de red. Vistos desde
-fuera dará la impresión de que son varios *Hosts* en la misma red. El servidor
-redirigirá el tráfico de cada interfaz a su sitio *Web* correspondiente.
+If the server has a public IP address for each website,
+a configuration can be made for every network interface. When seen from
+outside, they look like several hosts in the same network. The server
+will redirect the traffic from each interface to its corresponding website.
 
-Sin embargo, lo más normal es disponer de una o dos IPs por máquina. En ese
-caso habrá que asociar cada sitio *Web* con su dominio. El servidor *Web*
-leerá las cabeceras de los clientes y dependiendo del dominio de la solicitud
-lo redirigirá a un sitio *Web* u otro. A cada una de estas configuraciones se
-le llama *Virtual Host*, ya que sólo hay un *Host* en la red, pero se simula
-que existen varios.
+However, it is more common to have one or two IPs per host. In this
+case, each website will have to be associated with its domain. The web server
+will read the headers sent in the client request and, depending on the domain of
+the request, will redirect it to one website or another. Each of these
+configurations is known as *Virtual Host*, as there is only one host in the network, but the existence of several is simulated.
 
-Configuración de un servidor HTTP con eBox
-===========================================
+HTTP server configuration with eBox
+===================================
 
-A través del menú :menuselection:`Web` podemos acceder a la configuración
-del servicio.
+Through :menuselection:`Web`, it is possible to access the web
+service configuration.
 
 .. figure:: images/web/02-webserver.png
    :scale: 70
    :align: center
-   :alt: Aspecto de la configuración del módulo **Web**
+   :alt: appearance of the **Web** module configuration
 
-   Aspecto de la configuración del módulo **Web**
+   Appearance of the **Web** module configuration
 
-En el primer formulario podemos modificar los siguientes parámetros:
+In the first form, it is possible to modify the following parameters:
 
-Puerto de escucha
-  Dónde va a escuchar peticiones HTTP el demonio.
+Listening port
+  Where the daemon is to listen to HTTP requests.
 
-Habilitar el *public_html* por usuario
-  Con esta opción, si está habilitado el módulo **Samba**
-  (:ref:`ebox-samba-ref`) los usuarios pueden crear un subdirectorio
-  llamado *public_html* en su directorio personal dentro de **samba**
-  que será expuesto por el servidor *Web* a través de la URL
-  *http://<eboxIP>/~<username>/* donde *username* es el nombre del
-  usuario que quiere publicar contenido.
+Enable *public_html* per user
+  Through this option, if the **Samba** module
+  (:ref:`ebox-samba-ref`) is enabled, users can create a subdirectory
+  known as *public_html* in their private directory within **samba**
+  that will be displayed by the web server via the URL
+  *http://<eboxIP>/~<username>/*, where *username* is the name of the
+  user that published contents.
 
-Respecto a los :ref:`vhost-ref`, simplemente se introducirá el
-nombre que se desea para el dominio y si está habilitado o no. Cuando
-se crea un nuevo dominio, se trata de crear una entrada en el módulo
-**DNS** (si está instalado) de tal manera que si se añade el dominio
-*www.company.com*, se creará el dominio *company.com* con el nombre de
-máquina *www* cuya dirección IP será la dirección de la primera
-interfaz de red que sea estática.
+With regard to the :ref:`vhost-ref`, the only configuration needed is the name
+for the domain and whether it is enabled or not. When a new domain is created,
+simply create an entry in the **DNS** module (if it is installed) so that, if
+the domain *www.company.com* is added, the domain *company.com* will be created
+with the host name *www*, the IP address of which will be the address of the
+first static network interface.
 
-Para publicar datos estos deben estar bajo */var/www/<vHostname>*,
-donde *vHostName* es el nombre del dominio virtual. Si se quiere añadir
-cualquier configuración personalizada, por ejemplo capacidad para
-servir aplicaciones en Python usando *mod_python*, se deberán crear los
-ficheros de configuración necesarios para ese dominio virtual en el
-directorio */etc/apache2/sites-available/user-ebox-<vHostName>/*.
+To publish data, it must be under */var/www/<vHostname>*,
+where *vHostName* is the name of the virtual domain. If any customized
+configuration is to be added, for example capacity to load
+applications in Python using *mod_python*, the necessary configuration
+files for this virtual domain must be created in the
+directory */etc/apache2/sites-available/user-ebox-<vHostName>/*.
 
-Ejemplo práctico
-^^^^^^^^^^^^^^^^
-Habilitar el servicio *Web*. Comprobar que está escuchando en el puerto 80.
-Configurarlo para que escuche en un puerto distinto y comprobar que el
-cambio surte efecto.
+Practical example
+^^^^^^^^^^^^^^^^^
+Enable the web server. Check that it is listening on port 80.
+Configure it to listen on a different port and verify that the
+change becomes effective.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activa el módulo :guilabel:`servidor web`, para ello marcar su casilla en la
-   columna :guilabel:`Estado`. Nos informa de los cambios que va a realizar
-   en el sistema. Permitir la operación pulsando el botón
-   :guilabel:`Aceptar`.
+#. **Action:**
+   Access eBox, enter :menuselection:`Module status` and
+   enable the :guilabel:`Web server` module by marking the checkbox in the
+   :guilabel:`Status` column. This indicates the changes to be made
+   in the system. Allow the operation by clicking on the
+   :guilabel:`Accept` button.
 
-   Efecto:
-     Se ha activado el botón guilabel:`Guardar Cambios`.
+   Effect:
+     The guilabel:`Save changes` button has been enabled.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+   Effect:
+     eBox displays the progress while the changes are being applied. Once this
+     is complete it indicates as such.
 
-     El servidor *Web* ha quedado habilitado por defecto en el puerto 80.
+     The web server is enabled by default on port 80.
 
-#. **Acción:**
-   Utilizando un navegador, acceder a la siguiente dirección
-   `http://ip_de_eBox/`.
+#. **Action:**
+   Using a browser, access the following address:
+   `http://eBox_ip/`.
 
-   Efecto:
-     Aparecerá una página por defecto de **Apache** con el mensaje *'It
+   Effect:
+     An **Apache** default page will be displayed with the message *'It
      works!'*.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Web`. Cambiar el valor del puerto de 80 a
-   1234 y pulsar el botón :guilabel:`Cambiar`.
+#. **Action:**
+   Access the :menuselection:`Web` menu. Change the port value from 80 to
+   1234 and click on the :guilabel:`Change` button.
 
-   Efecto:
-     Se ha activado el botón guilabel:`Guardar Cambios`.
+   Effect:
+     The guilabel:`Save changes` button has been enabled.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+   Effect:
+     eBox displays the progress while the changes are being applied. Once this
+     is complete it indicates as such.
 
-     Ahora el servidor *Web* está escuchando en el puerto 1234.
+     Now the web server is listening on port 1234.
 
-#. **Acción:**
-   Volver a intentar acceder con el navegador a `http://<ip_de_eBox>/`.
+#. **Action:**
+   Use the browser again to try to access `http://<eBox_ip>/`.
 
-   Efecto:
-     No obtenemos respuesta y pasado un tiempo el navegador informará de que
-     ha sido imposible conectar al servidor.
+   Effect:
+     A response is not obtained and, after a while, the browser will indicate
+     that it was impossible to connect to the server.
 
-#. **Acción:**
-   Intentar acceder ahora a `http://<ip_de_eBox>:1234/`.
+#. **Action:**
+   Now try to access `http://<eBox_ip>:1234/`.
 
-   Efecto:
-     El servidor responde y obtenemos la página de *'It works!'*.
+   Effect:
+     The server responds and the *'It works!'* page is obtained.
 
 .. include:: web-exercises.rst

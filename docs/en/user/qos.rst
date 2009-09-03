@@ -1,162 +1,156 @@
 .. _qos-ref:
 
-Moldeado de tráfico
-*******************
+Traffic shaping
+***************
 
 .. sectionauthor:: Isaac Clerencia <iclerencia@ebox-platform.com>,
                    Enrique J. Hernández <ejhernandez@ebox-platform.com>
 
-Calidad de servicio (QoS)
-=========================
+Quality of Service (QoS)
+========================
 
-La **calidad de servicio** (*Quality of Service*, QoS) en redes de
-computadores se refiere a los mecanismos de control en la reserva de
-recursos que pueden dar diferente prioridad a usuarios o flujos de
-datos diferentes, o garantizar un cierto nivel de rendimiento de
-acuerdo con las restricciones impuestas por la
-aplicación. Restricciones como el retraso en la entrega, la tasa de
-*bit*, la probabilidad de pérdida de paquetes o la variación de
-retraso por paquete [#]_ pueden estar fijadas por diversas
-aplicaciones de flujo de datos multimedia como voz o
-TV sobre IP. Estos mecanismos sólo aplican cuando los recursos son
-limitados (redes inalámbricas celulares) o cuando hay congestión en
-la red, en caso contrario no se debería aplicarse dichos mecanismos.
+**Quality of Service** (QoS) in computer networks refers to resource
+reservation control mechanisms to provide different priorities to
+different applications, users, or data flows, or to guarantee a
+certain level of performance according to the constraints imposed by
+the application. Constraints such as delay in delivery, the *bit*
+rate, the probability of packet loss or the variation delay per packet
+[#]_ may be determined for various multimedia data stream applications
+such as voice or TV over IP. These mechanisms are only applied when
+resources are limited (wireless cellular networks) or when there is
+congestion in network, otherwise such QoS mechanisms are not required.
 
-.. [#] *jitter* o *Packet Delay Variation* (PDV) es la diferencia en
-       el retraso entre el emisor y el receptor entre los paquetes
-       seleccionados de un flujo.
+.. [#] *jitter* or *Packet Delay Variation* (PDV) is the difference in
+       end-to-end delay between selected packets in a flow with any
+       lost packets being ignored.
 
-Existen diversas técnicas para dar calidad de servicio:
+There are several techniques to give quality of service:
 
-* Reserva de recursos de red: usando el protocolo *Resource
-  reSerVation Protocol* (RSVP) para pedir y reservar espacio en los
-  encaminadores. Sin embargo, esta opción se ha relegado ya que no
-  escala bien en el crecimiento de Internet.
-* Uso de servicios diferenciados (*DiffServ*): mediante el marcado de
-  paquetes dependiendo el servicio al que sirven. Dependiendo de las
-  marcas, los encaminadores usarán diversas técnicas de encolamiento
-  para adaptarse a los requisitos de las aplicaciones. Esta técnica
-  está actualmente aceptada.
+* Reserving network resources: using *Resource
+  reSerVation Protocol* (RSVP) to request and reserve resources in the
+  routers. However, this option has been neglected because it does not scale
+  well with Internet growth
+* Differentiated services (*DiffServ*): in this model, packets are
+  marked according to the type of service they need. In response to
+  these marks, routers and switches use various queuing strategies
+  to tailor performance to requirements. This approach is currently
+  widely accepted.
 
-Como añadido a estos sistemas, existen mecanismos de *gestión de ancho
-de banda* para mejorar la calidad de servicio basada en el **moldeado
-de tráfico**, **algoritmos de scheduling** o **evitación de la
-congestión**.
+In addition to these systems, *bandwidth management* mechanisms may be
+used to further improve performance such as  **traffic shaping**, **Scheduling
+algorithms** o **congestion avoidance**.
 
-Para el moldeado de tráfico existen básicamente dos algoritmos:
+Regarding traffic shaping, there are two predominant methods:
 
 *Token bucket*:
-  Dicta cuando el tráfico puede transmitirse, basado en la presencia
-  de *tokens* en el *bucket* (sitio virtual donde almacenar
-  *tokens*). Cada *token* es una unidad de *Bytes* determinada, así
-  cada vez que se envían datos, se consumen *tokens*, cuando no hay
-  *tokens* no es posible transmitir datos. Se proveen *tokens*
-  periódicamente a cada uno de los *buckets*. Con esta técnica se
-  permite el envío de datos en períodos de alta demanda [#]_.
+  It dictates when traffic can be transmitted, based on the presence
+  of *tokens* in the *bucket* (an abstract container that holds
+  aggregate network traffic to be transmitted). Each *token* in the
+  *bucket* can represent a unit of *bytes* of predetermined size, so
+  each time that traffic is transmitted, the *tokens* are removed
+  (*cashed in*). When there are no *tokens*, a flow cannot transmit
+  its packets. Periodically, *tokens* are added to the *bucket*. Using
+  such mechanism, it is allowed to send data in peak burst rate.
 
 *Leaky bucket*:
-  Se basa en la presencia de un *bucket* con un agujero. Entran
-  paquetes en el *bucket* hasta que este se llena, momento en el que
-  se descartan. La salida de paquetes se hace a una tasa continua y
-  estable a través de dicho agujero.
+  Conceptually based on considering a *bucket* with a hole in the
+  bottom. If packets arrive, they are placed into the bucket until it
+  becomes full, then packets are discarded. Packets are sent at a
+  *constant rate*, which is equivalent to the size of the hole in the
+  bucket.
 
-.. [#] Término conocido como *burst*.
-
-eBox utiliza las capacidades del núcleo de Linux [#]_ para hacer
-moldeado de tráfico usando *token bucket* que permite una tasa
-garantizada, limitada y una prioridad a determinados tipos de flujos
-de datos (protocolo y puerto) a través del menú
-:menuselection:`Moldeado de tráfico --> Reglas`.
+eBox uses Linux kernel features [#]_ to shape traffic using *token bucket*
+mechanisms that allow to assign a limited rate, a guaranteed rate and a
+priority to certain types of data flows through the
+:menuselection:`Traffic Shaping --> Rules` menu.
 
 .. [#] Linux Advanced Routing & Traffic Control http://lartc.org
 
-Para poder realizar moldeado de tráfico es necesario disponer de al
-menos una interfaz interna y una interfaz externa. También debe existir un
-*router* configurado para la externa con un ancho de banda de subida y
-de bajada distinto de cero. Las reglas de moldeado son específicas
-para cada interfaz y pueden asignarse a las interfaces externas con
-ancho de banda asignado y a todas las interfaces internas.
+In order to perform traffic shaping, it is required to have, at least, an
+internal network interface and an external one. A configured *gateway*
+with a download and upload rates different from zero is required. The shaping
+rules are specific for each interface and they may be selected for those
+external network interfaces with assigned upload rate and all internal ones.
 
-Si se moldea la interfaz externa, entonces se estará limitando el
-tráfico de salida de eBox hacia Internet, el límite máximo de tasa de
-salida será la suma de tasas de subida que tenemos en nuestros
-*routers*. En cambio, si se moldea la interfaz interna, entonces se
-estará limitando la salida de eBox hacia sus redes internas donde la
-tasa máxima será la suma de la tasa de bajada de todos los
-*routers*. Como se puede observar, no se puede moldear el tráfico
-entrante en sí, eso es debido a que el tráfico proveniente de la red no
-es predecible y controlable de casi ninguna forma. Existen técnicas
-específicas a diversos protocolos para tratar de controlar el tráfico
-entrante a eBox, como por ejemplo TCP con el ajuste artificial del
-tamaño de ventana de flujo de la conexión TCP o controlando la tasa de
-confirmaciones (*ACK*) devueltas al emisor.
+If the external network interface is shaped, then you are limiting
+eBox output traffic to the Internet. The maximum output rate is the
+sum of all the upload rates provided by the *gateways*. If, however, you
+shape an internal network interface, then the eBox output to internal
+networks is limited. The maximum rate will be the sum of all download
+*gateway* rates. As it can be seen, shaping input traffic is not
+possible directly, that is because input traffic is not predictable nor
+controllable in almost any way. There are specific techniques from
+various protocols to handle the incoming traffic, for instance TCP
+by artificially adjusting the TCP window size as well as controlling
+the rate of acknowledgements (ACK) being returned to the sender.
 
-Para cada interfaz se pueden añadir reglas para dar
-:guilabel:`prioridad` (0: máxima prioridad, 7: mínima prioridad),
-:guilabel:`tasa garantizada` o :guilabel:`tasa limitada`. Esas reglas
-se aplicarán al tráfico determinado por el :guilabel:`servicio`,
-:guilabel:`origen` y :guilabel:`destino` del flujo.
+Each network interface has a rule table to give
+:guilabel:`priority` (0: highest priority, 7: lowest priority),
+:guilabel:`guaranteed rate` and/or :guilabel:`limited rate`. These
+rules apply to traffic bound to a :guilabel:`service`,
+a :guilabel:`source` and/or a :guilabel:`destination`.
 
 .. figure:: images/qos/03-trafficshaping.png
    :scale: 80
    :align: center
-   :alt: Reglas de moldeado de tráfico
+   :alt: Traffic shaping rules
 
-   Reglas de moldeado de tráfico
+   Traffic shaping rules
 
-Ejemplo práctico
+.. FIXME: traffic shaping image is in Spanish
+
+Practice example
 ^^^^^^^^^^^^^^^^
 
-Crear una regla para moldear el tráfico de bajada HTTP y limitarlo a 20KB/s.
-Comprobar su funcionamiento.
+Set up a rule to shape incoming HTTP traffic by limiting it to 20KB/s. Check if
+it works properly.
 
-#. **Acción:**
-   Añadir un *router*  a través de :menuselection:`Red --> Routers` a
-   tu interfaz de red externo.
+#. **Action:**
+   Add a gateway in :menuselection:`Network --> Gateways` to
+   your external network interface.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`. La lista de puertas de
-     enlace contiene un único router.
+   Effect:
+     The :guilabel:`Save changes` button is enabled. The gateway list
+     displays a single gateway.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios.
+   Effect:
+     eBox displays the progress while the changes are being applied. Once this is
+     complete, it informs the user.
 
-#. **Acción:**
-   Acceder de nuevo a la interfaz de eBox y añadir en :menuselection:`Servicios`
-   un servicio llamado HTTP con protocolo TCP, tipo externo y puerto de destino
-   simple 80.
+#. **Action:**
+   Enter :menuselection:`Services` and add a new external service called HTTP
+   with TCP protocol and destination port 80.
 
-   Efecto:
-     eBox muestra una lista con los servicios en la que aparece nuestro nuevo
-     servicio HTTP.
+   Effect:
+     eBox shows a list with all the services where the new service is
+     displayed too.
 
-#. **Acción:**
-   Ir a la entrada :menuselection:`Moldeado de tráfico --> Reglas`. Seleccionar la
-   interfaz interna en la lista de interfaces y pulsar en
-   :guilabel:`Añadir nuevo` para añadir una nueva regla con los siguientes
-   datos:
+#. **Action:**
+   Enter :menuselection:`Traffic Shaping --> Rules`. Select the internal
+   interface from the interface list and, using :guilabel:`Add new`, set a new
+   rule with the following details:
 
-   :Habilitada:       Sí
-   :Servicio:         Servicio basado en puerto / HTTP
-   :Origen:           cualquiera
-   :Destino:          cualquiera
-   :Prioridad:        7
-   :Tasa garantizada: 0 Kb/s
-   :Tasa limitada:    160 Kb/s
+   :Enabled:         Yes
+   :Service:         Port-based service / HTTP
+   :Source:          any
+   :Destination:     any
+   :Priority:        7
+   :Guaranteed rate: 0 Kb/s
+   :Limited rate:    160 Kb/s
 
-   Pulsar el botón :guilabel:`Añadir`.
+   Press the :guilabel:`Add` button.
 
-   Efecto:
-     eBox muestra una tabla con la nueva regla de moldeado de tráfico.
+   Effect:
+     eBox displays a table with the new traffic shaping rule.
 
-#. **Acción:**
-   Comenzar a descargar usando el comando **wget** un fichero grande de Internet
-   (por ejemplo, una imagen ISO de Ubuntu).
+#. **Action:**
+   Start downloading a huge file (for example a Ubuntu ISO image) from the
+   Internet using the **wget** command.
 
-   Efecto:
-     La velocidad de descarga de la imagen no supera los 20KB/s.
+   Effect:
+     The download rate is stable around 20 KB/s.
 
 .. include:: qos-exercises.rst

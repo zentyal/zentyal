@@ -1,142 +1,134 @@
 .. _software-ref:
 
-Actualización de software
-+++++++++++++++++++++++++
+Software Updates
+++++++++++++++++
 
-.. sectionauthor:: Javier Amor García <javier.amor.garcia@ebox-platform.com>
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
+.. sectionauthor:: Javier Amor García <javier.amor.garcia@ebox-technologies.com>
+                   Enrique J. Hernandez <ejhernandez@ebox-technologies.com>
+                   Ignacio Correas <icorreas@ebox-technologies.com>
 
-Como todo sistema de *software*, eBox Platform requiere actualizaciones
-periódicas, bien sea para añadir nuevas características o para reparar
-defectos o fallos del sistema.
+Like any other software system, eBox Platform requires periodic
+updates, either to add new features or to fix defects or system failures.
 
-eBox distribuye su *software* mediante paquetes y usa la herramienta
-estándar de Ubuntu, **APT** [#]_, sin embargo para facilitar la tarea
-ofrece una interfaz web que simplifica el proceso. [#]_
+eBox distributes its software as packages and it uses Ubuntu's standard tool,
+**APT** [#]_. However, in order to ease this task, eBox provides a web interface
+to simplify the process.[#]_
 
-.. [#] *Advanced Packaging Tool* (APT) es un sistema de gestión de
-       paquetes *software* creado por el proyecto Debian que
-       simplifica en gran medida la instalación y eliminación de
-       programas en el sistema operativo GNU/Linux
+.. [#] Advanced Packaging Tool (APT) is a system for the management
+       of software packages created by the Debian Project that
+       greatly simplifies the installation and removal of
+       programs on the GNU / Linux operating system
        http://wiki.debian.org/Apt
 
 .. manual
 
-.. [#] Para una explicación más extensa sobre la instalación de
-       paquetes *software* en Ubuntu, leer la sección
+.. [#] For a more extensive explanation on how to install
+       software packages in Ubuntu, please read the section
        :ref:`package-tool-ref`.
 
 .. endmanual
 
-.. web
+.. Web
 
-.. [#] Para una explicación más extensa sobre la instalación de
-       paquetes *software* en Ubuntu, leer el capítulo al respecto
-       de la documentación oficial
+.. [#] For a more extensive explanation on how to install
+       software packages in Ubuntu, please read the chapter on
+       package management in Ubuntu's official documentation
        https://help.ubuntu.com/8.04/serverguide/C/package-management.html
 
 .. endweb
 
-Mediante la interfaz web podremos ver para qué componentes de eBox está
-disponible una nueva versión e instalarlos de un forma sencilla.
-También podemos actualizar el *software* en el que se apoya eBox,
-principalmente para corregir posibles fallos de seguridad.
+The web interface allows checking for new available versions of eBox components
+and installing them in a simple way. It also allows you to update the software
+supporting eBox, mainly to correct potential security flaws.
 
-Gestión de componentes de eBox
-==============================
+Management of eBox components
+=============================
 
-La **gestión de componentes de eBox** permite instalar, actualizar y
-eliminar módulos de eBox.
+The **management of eBox components** allows you to install, update and
+remove eBox modules.
 
-El propio gestor de componentes es un módulo más, y como cada módulo de
-eBox, debe ser habilitado antes de ser usado. Para
-gestionar los componentes de eBox debemos entrar en
-:menuselection:`Gestión de Software--> Componentes de eBox`.
+The component manager is a module, and like any other eBox module
+must be enabled before being used. To manage eBox components you must access
+:menuselection: `Software Management -> eBox components`.
 
 .. image:: images/software/software-ebox-components.png
    :scale: 80
    :align: center
 
-Presenta una lista con todos los componentes de eBox, así como la
-versión instalada y la ultima versión disponible. Aquellos componentes
-que no estén instalados o actualizados, pueden instalarse o
-actualizarse pulsando en el icono correspondiente en la columna de
-*Acciones*. Existe un botón de *Actualizar todos los paquetes* para
-actualizar todos aquellos que tengan actualización disponible.
+A list of all eBox components is shown there, together with the
+installed version and the latest available version. Components
+that are not installed or up to date, can be installed or
+updated by clicking on the respective icon in the *Actions* column. There is a
+button called *Update all packages* to
+update all those packages with a new version available.
 
-También podemos desinstalar componentes pulsando el icono apropiado
-para esta acción. Antes de realizar la desinstalación, se muestra un
-diálogo con la lista de aquellos paquetes de *software* que se van a
-eliminar. Este paso es necesario porque hemos podido querer eliminar
-un componente que al ser usados por otros conlleva también la
-eliminación de los últimos.
+It is also possible to uninstall components by clicking on the
+respective icon for this action. Before proceeding to uninstall,
+a dialogue will be displayed with the list of the software packages to be
+removed. This step is necessary because it might be about to eliminate
+a component that is used by others, which would be also removed.
 
-Algunos componentes son básicos y no pueden desinstalarse, ya que
-haría que se desinstalase eBox Platform.
+Some components are basic and cannot be uninstalled, as
+that would uninstall eBox Platform completely.
 
-Actualizaciones del sistema
-===========================
+System Updates
+==============
 
-Las **actualizaciones del sistema** actualizan programas usados por
-eBox. Para llevar a cabo su función, eBox Platform usa diferentes
-programas del sistema para llevar a cabo sus funciones, en los
-distintos paquetes de los componentes de eBox. Dichos programas son
-referenciados como **dependencias** asegurando que al instalar eBox,
-son instalados también ellos asegurando el correcto funcionamiento de
-eBox Platform. De manera análoga, estos programas pueden tener
-dependencias también.
+**System updates** performs the updates of programs used by
+eBox. In order to carry out its function, eBox Platform
+integrates different system programs within eBox components'
+packages. These programs are referenced as **dependencies**
+ensuring that when installing eBox, they are also installed. Similarly,
+these programs may have dependencies as well.
 
-Normalmente una actualización de una dependencia no es suficientemente
-importante como para crear un nuevo paquete de eBox con nuevas dependencias, pero
-sí puede ser interesante instalarla para aprovechar sus mejoras o sus
-soluciones frente a fallos de seguridad.
+Usually the update of a dependency is not important enough
+to create a new eBox package with new dependencies, but
+it may be interesting to install it in order to use its improvements
+or its patches for security flaws.
 
 .. figure:: images/software/system-updates.png
    :scale: 70
    :align: center
-   :alt: Actualizaciones del sistema
+   :alt: System Updates
 
-   Actualizaciones del sistema
+   System Updates
 
-Para ver las actualizaciones del sistema debemos ir a
-:menuselection:`Gestión de Sofware --> Actualizaciones del
-sistema`. Debe aparecer una lista de los paquetes que podemos
-actualizar o si el sistema está ya actualizado. Si se instalan
-paquetes en la maquina por otros medios que no sea la interfaz web,
-los datos de esta pueden quedar desactualizados. Por ello, cada noche
-se ejecuta el proceso de búsqueda de actualizaciones a instalar en el
-sistema. Si se quiere forzar dicha búsqueda se puede hacer ejecutando::
+To see updates of the system you must go to
+:menuselection:`Software Management --> System Updates`.
+You should see if your system is already updated or, otherwise, a list of
+packages that can be upgraded. If you install packages on the machine
+without using the web interface, this data may be outdated. Therefore, every
+night a process is executed to search for available updates for the system.
+Such a search can be forced by running::
 
-   $ sudo ebox-software
+    $ sudo ebox-software
 
-Para cada una de las actualizaciones podemos determinar si es de
-seguridad o no con el icono indicativo de más información. Si es una
-actualización de seguridad podemos ver el fallo de seguridad con el
-registro de cambios del paquete, pulsando sobre el icono.
+For each update, you can determine whether it is a security update
+using the information icon. If it is a security update the details about the
+security flaw included in the package changelog will be displayed by clicking
+on the icon.
 
-Si queremos actualizar tendremos que seleccionar aquellos paquetes
-sobre los que realizar la acción y pulsar el botón
-correspondiente. Como atajo también tenemos un botón de
-:guilabel:`Actualizar todos los paquetes`. Durante la actualización se
-irán mostrando mensajes sobre el progreso de la operación.
+If you want to perform an update you should select the packages
+on which to perform the action and press the appropriate button.
+As a shortcut, you can use the button :guilabel:`Update all packages`.
+Status messages will be displayed during the update operation.
 
-Actualizaciones automáticas
-===========================
+Automatic Updates
+=================
 
-Las **actualizaciones automáticas** consisten en que eBox Platform
-automáticamente instala cualquier actualización disponible. Dicha
-actualización se realiza cada noche a la medianoche.
+**Automatic updates** allow eBox Platform to automatically
+install any updates available. This operation is performed
+daily at midnight.
 
-Podremos activar esta característica accediendo a la pagina
-:menuselection:`Gestión de Software --> Actualizaciones automáticas`.`
+This feature can be activated by accessing the page
+:menuselection:`Software Management -> Automatic Updates`.
 
-.. image:: images/software/software-automatic-updates.png
+.. image:: images/ software/software-automatic-updates.png
    :scale: 80
    :align: center
 
-No es aconsejable usar esta opción si el administrador quiere tener
-una mayor seguridad en la gestión de sus actualizaciones.
-Realizando la actualizaciones manualmente se facilita que
-posibles errores en las mismas no pasen desapercibidos.
+It is not advisable to use this option if the administrator wants
+to keep a higher level of security in the management of updates. When performing
+the updates manually, administrators can avoid possible errors going unnoticed.
 
 .. include:: software-exercises.rst

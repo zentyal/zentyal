@@ -1,202 +1,200 @@
 .. _dhcp-ref:
 
-Servicio de configuración de red (DHCP)
-***************************************
+Network configuration service (DHCP)
+************************************
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
-                   Isaac Clerencia <iclerencia@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
-                   Víctor Jímenez <vjimenez@warp.es>,
-                   Jorge Salamero <jsalamero@ebox-platform.com>,
-                   Javier Uruen <juruen@ebox-platform.com>,
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
+                   Isaac Clerencia <iclerencia@ebox-platform.com>
+                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
+                   Víctor Jímenez <vjimenez@warp.es>
+                   Jorge Salamero <jsalamero@ebox-platform.com>
+                   Javier Uruen <juruen@ebox-platform.com>
 
-Como hemos comentado, **DHCP** (*Dynamic Host Configuration Protocol*) es un
-protocolo que permite a un dispositivo pedir y obtener una dirección IP
-desde un servidor que tiene una lista de direcciones disponibles para asignar.
+As indicated, **DHCP** (*Dynamic Host Configuration Protocol*) is a
+protocol that enables a device to request and obtain an IP address
+from a server with a list of available addresses to assign.
 
-El servicio DHCP [#]_ se usa también para obtener otros muchos parámetros tales como la
-*puerta de enlace por defecto*, la *máscara de red*, las *direcciones IP de los
-servidores de nombres* o el *dominio de búsqueda* entre otros. De esta
-manera, se facilita el acceso a la red sin la necesidad de una
-configuración manual por parte del cliente.
+The DHCP service [#]_ is also used to obtain many other parameters, such as the
+*default gateway*, the *network mask*, the *IP addresses for the
+name servers* or the *search domain*, among others. Hence,
+access to the network is made easier, without the need for
+manual configuration by clients.
 
-.. [#] eBox usa "*ISC DHCP Software*" (https://www.isc.org/software/dhcp)
-       para configurar el servicio de DHCP
+.. [#] eBox uses "*ISC DHCP Software*" (https://www.isc.org/software/dhcp)
+       to configure the DHCP service.
 
-Cuando un cliente DHCP se conecta a la red envía una petición de
-difusión (*broadcast*). El servidor DHCP responde a esa petición
-con una dirección IP, su tiempo de concesión y los otros
-parámetros explicados previamente. La petición suele suceder durante
-el período de arranque del cliente y debe completarse antes de seguir
-con el arranque del resto de servicios de red.
+When a DHCP client connects to the network, it sends a
+*broadcast* request and the DHCP server responds to valid requests
+with an IP address, the lease time granted for that IP and the
+parameters explained above. The request normally occurs during
+the client booting period and must be completed before
+going on with the remaining network services.
 
-Existen dos métodos de asignación de direcciones:
+There are two ways of assigning addresses:
 
 Manual:
-  La asignación se hace a partir de una tabla de correspondencia entre
-  direcciones físicas (*MAC*) y direcciones IP. El administrador de la red se
-  encarga del mantenimiento de esta tabla.
-Dinámica:
-  El administrador de la red asigna un rango de direcciones IP por un proceso
-  de petición y concesión que usa el concepto de alquiler con un período
-  controlado de tiempo en el que la IP concedida es válida. El servidor guarda
-  una tabla con las asignaciones anteriores para intentar volver a asignar la
-  misma IP a un cliente en sucesivas peticiones.
+  Assignment is based on a table containing physical address
+  (*MAC*)/IP address mappings, entered manually by the administrator.
+Dynamic:
+  The network administrator assigns a range of IP addresses for a request-
+  and-grant process that uses the lease concept with a controlled
+  period in which the granted IP remains valid. The server keeps
+  a table with the previous assignments to try to reassign the same IP
+  to a client in successive requests.
 
-Configuración de un servidor DHCP con eBox
-==========================================
+DHCP server configuration with eBox
+===================================
 
-Para configurar el servicio DHCP con eBox, se necesita al menos una
-interfaz configurada estáticamente. Una vez la tenemos, vamos al menú
-:menuselection:`DHCP` donde se configurará el servidor DHCP.
+To configure the DHCP service with eBox, at least one statically
+configured interface is required. Once this is available, go to the
+:menuselection:`DHCP` menu, where the DHCP server can be configured.
 
 .. figure:: images/dhcp/01-dhcp.png
-   :alt: Vista general de configuración del servicio DHCP
+   :alt: overview of DHCP service configuration
 
-   Vista general de configuración del servicio DHCP
+   Overview of DHCP service configuration
 
-Como hemos dicho, se pueden enviar algunos parámetros de la red junto con la
-dirección IP, estos parámetros se pueden configurar en la pestaña de
-:menuselection:`Opciones comunes`.
+As indicated above, some network parameters can be sent with the
+IP address. These parameters can be configured in the
+:menuselection:`Common options` tab.
 
-Puerta de enlace por defecto:
-  Es la puerta de enlace que va a emplear
-  el cliente si no conoce otra ruta por la que enviar el paquete a su
-  destino. Su valor puede ser eBox, una puerta de enlace ya
-  configurada en el apartado :menuselection:`Red --> Routers` o una
-  dirección IP personalizada.
+Default gateway:
+  This is the gateway to be used
+  by the client if it is unaware of another route to send the package
+  to its destination. Its value can be eBox, a gateway already
+  configured in the :menuselection:`Network --> Routers` section or a
+  custom IP address.
 
-Dominio de búsqueda:
-  En una red cuyas máquinas estuvieran nombradas siguiendo la forma
-  *<máquina>.dominio.com*, se podría configurar el dominio de búsqueda
-  como "dominio.com". De esta forma, cuando se intente resolver un
-  nombre de dominio sin éxito, se intentará de nuevo añadiéndole el
-  dominio de búsqueda al final.
+Search domain:
+  In a network with hosts named in line with
+  *<host>.domain.com*, the search domain can be configured
+  as "domain.com". Hence, when seeking to resolve an
+  unsuccessful domain name, another attempt can be made by adding the
+  search domain to the end of it.
 
-  Por ejemplo, si *smtp* no se puede resolver como dominio, se
-  intentará resolver *smtp.dominio.com* en la máquina cliente.
+  For example, if *smtp* cannot be resolved as a domain,
+  *smtp.domain.com* will be tried on the client host.
 
-  Podemos escribir el dominio de búsqueda, o podemos seleccionar uno
-  que se haya configurado en el servicio de DNS.
+  The search domain can be entered or one configured in the DNS
+  service can be selected.
 
-Servidor de nombres primario:
-  Se trata de aquel servidor DNS con el que contactará el cliente en
-  primer lugar cuando tenga que resolver un nombre o traducir una
-  dirección IP a un nombre. Su valor puede ser eBox (si queremos que se
-  consulte el propio servidor DNS de eBox) o una dirección IP de otro
-  servidor DNS.
+Primary name server:
+  This is the DNS server that the client will use
+  when a name is to be resolved or an IP address needs to be
+  translated into a name. Its value can be eBox (if the eBox DNS server
+  is to be queried) or an IP address of another
+  DNS server.
 
-Servidor de nombres secundario:
-  Servidor DNS con el que contactará el cliente si el primario no está
-  disponible. Su valor debe ser una dirección IP de un servidor DNS.
+Secondary name server:
+  DNS server that the client will use if the primary one is not
+  available. Its value must be the IP address of a DNS server.
 
-Debajo de las opciones comunes, se nos muestran los rangos de
-direcciones que se distribuyen mediante DHCP y las direcciones
-asignadas de forma manual. Para que el servicio DHCP esté activo, al
-menos debe haber un rango de direcciones a distribuir o una asignación
-estática. En caso contrario, el servidor DHCP **no** servirá direcciones
-IP aunque esté escuchando en todas las interfaces de red.
+The common options display the ranges of addresses distributed by DHCP
+and the addresses assigned manually. For the DHCP service to be
+active, there must be at least one range of addresses to be
+distributed or one static assignment. If not, the DHCP server will
+**not** serve IP addresses even if the service is listening on all the
+network interfaces.
 
-Los rangos de direcciones y las direcciones estáticas disponibles para asignar
-desde una determinada interfaz vienen determinados por la dirección estática
-asignada a dicha interfaz. Cualquier dirección IP libre de la subred
-correspondiente puede utilizarse en rangos o asignaciones estáticas.
+The ranges of addresses and the static addresses available for assignment
+from a certain interface are determined by the static address
+assigned to that interface. Any free IP address from the corresponding
+subnet can be used in ranges or static assignments.
 
-Para añadir un nuevo rango, pulsar en :guilabel:`Añadir nuevo` en la
-sección :guilabel:`Rangos`. Allí introducimos un nombre con el que
-identificar el rango y los valores que se quieran asignar dentro del
-rango que aparece encima.
+To add a new range, click on :guilabel:`Add new` in the
+:guilabel:`Ranges` section. Then enter a name by which to
+identify the range and the values to be assigned within the
+range appearing above.
 
-Se pueden realizar asignaciones estáticas de direcciones IP a
-determinadas direcciones físicas en el apartado
-:guilabel:`Asignaciones estáticas`. Una dirección asignada de este
-modo no puede formar parte de ningún rango.
+Static assignments of IP addresses are possible to
+determined physical addresses in the
+:guilabel:`Static assignments` section. An address assigned in this
+way cannot form part of any range.
 
 .. figure:: images/dhcp/02-dhcp-adv.png
-   :alt: Aspecto de las configuración avanzada para DHCP
+   :alt: appearance of the advanced configuration for DHCP
 
-   Aspecto de las configuración avanzada para DHCP
+   Appearance of the advanced configuration for DHCP
 
-La concesión dinámica de direcciones tiene un tiempo límite. Una vez
-expirado este tiempo se tiene que pedir la renovación (configurable en la
-pestaña :menuselection:`Opciones avanzadas`). Este tiempo varía desde 1800
-segundos hasta 7200. Las asignaciones estáticas también están
-limitadas en el tiempo. De hecho, desde el punto de vista del cliente,
-no hay diferencia entre ellas.
+The dynamic granting of addresses has a deadline before which
+renewal must be requested (configurable in the
+:menuselection:`Advanced options` tab) that varies from 1,800 seconds
+to 7,200 seconds. Static assignments do not expire and, therefore, are
+unlimited leases.
 
-Un **Cliente Ligero** es una máquina sin disco duro (y *hardware* modesto)
-que arranca a través de la red, pidiendo el programa de arranque
-(sistema operativo) a un servidor de clientes ligeros.
+A **Lightweight Client** is a special machine with no hard drive that is booted via
+the network by requesting the booting image (operating system) from
+a lightweight client server.
 
-eBox permite configurar a qué servidor PXE [#]_ se debe conectar el cliente. El
-servicio PXE, que se encargará de transmitir todo lo necesario para que el
-cliente ligero sea capaz de arrancar su sistema, se debe configurar por
-separado.
+eBox allows the PXE server [#]_ to which the client must connect to be configured. The
+PXE service, which is responsible for transmitting everything required for the
+lightweight client to be able to boot its system, must be configured
+separately.
 
-.. [#] **Preboot eXecution Environment** es un entorno para arrancar
-   ordenadores usando una interfaz de red independientemente de los
-   dispositivos de almacenamiento (como disco duros) o sistemas
-   operativos instalados
+.. [#] **Preboot eXecution Environment** is an environment to boot
+   PCs using a network interface independent of the
+   storage devices (such as hard drives) or operating
+   systems installed.
    (http://en.wikipedia.org/wiki/Preboot_Execution_Environment)
 
-El servidor PXE puede ser una dirección IP o un nombre, en cuyo caso será
-necesario indicar la ruta de la imagen de arranque, o eBox, en cuyo
-caso se puede cargar el fichero de la imagen.
+The PXE server may be an IP address or a name, in which case the path
+to the boot image or eBox must be indicated, in which case
+the image file can be loaded.
 
-Ejemplo práctico
-^^^^^^^^^^^^^^^^
+Practical example
+^^^^^^^^^^^^^^^^^
 
-Configurar el servicio de DHCP para que asigne un rango de 20
-direcciones de red.  Comprobar desde otra máquina cliente usando
-*dhclient* que funciona correctamente.
+Configure the DHCP service to assign a range of 20 network addresses.
+Check from another client host using *dhclient* that it works
+properly.
 
-Para configurar **DHCP** debemos tener activado y configurado el módulo
-**Red**. La interfaz de red sobre la cual vamos a configurar el servidor
-DHCP deberá ser estática (dirección IP asignada manualmente) y el rango a
-asignar deberá estar dentro de la subred determinada por la máscara de red
-de esa interfaz (por ejemplo rango 10.1.2.1-10.1.2.21 en una interfaz
+To configure **DHCP**, the **Network** module must be enabled and
+configured. The network interface on which the DHCP server is to be
+configured must be static (manually assigned IP address) and the range to
+assign must be within the subnet determined by the network mask
+of that interface (e.g. range 10.1.2.1-10.1.2.21 of an interface
 10.1.2.254/255.255.255.0).
 
-#. **Acción:**
-   Entrar en eBox y acceder al panel de control. Entrar en
-   :menuselection:`Estado del módulo` y activar el módulo **DHCP**, para ello marcar su
-   casilla en la columna :guilabel:`Estado`.
+#. **Action:**
+   Enter eBox and access the control panel. Enter
+   :menuselection:`Module status` and enable the **DHCP** module by marking its
+   checkbox in the :guilabel:`Status` column.
 
-   Efecto:
-     eBox solicita permiso para sobreescribir algunos ficheros.
+   Effect:
+     eBox requests permission to overwrite certain files.
 
-#. **Acción:**
-   Leer los cambios de cada uno de los ficheros que van a ser modificados y
-   otorgar permiso a eBox para sobreescribirlos.
+#. **Action:**
+   Read the changes of each of the files to be modified and
+   grant eBox permission to overwrite them.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+   Effect:
+     The :guilabel:`Save changes` button has been enabled.
 
-#. **Acción:**
-     Entrar en :menuselection:`DHCP` y seleccionar la interfaz sobre la cual se configurará
-     el servidor. La pasarela puede ser la propia eBox, alguna de las pasarelas
-     de eBox, una dirección específica, o ninguna (sin salida a otras redes).
-     Además se podrá definir el dominio de búsqueda (dominio que se añade
-     a todos los nombres DNS que no se pueden resolver) y al menos un servidor DNS
-     (servidor DNS primario y opcionalmente uno secundario).
+#. **Action:**
+     Enter :menuselection:`DHCP` and select the interface on which the server is to be
+     configured. The gateway may be eBox itself, one of the eBox gateways,
+     a specific address or none (no routing to other networks).
+     Furthermore, the search domain (domain added to all DNS names that
+     cannot be resolved) can be defined along with at least one DNS server
+     (primary DNS server and optionally a secondary one).
 
-     A continuación eBox nos informa del rango de direcciones
-     disponibles, vamos a elegir un subconjunto de 20 direcciones y en
-     :guilabel:`Añadir nueva` le damos un nombre significativo al
-     rango que pasará a asignar eBox.
+     eBox then indicates the range of available
+     addresses. Select a subset of 20 addresses and in
+     :guilabel:`Add new` give a significant name to the
+     range to be assigned by eBox.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+   Effect:
+     eBox displays the progress while the changes are being applied. Once this is
+     complete it indicates as such.
 
-     Ahora eBox gestiona la configuración del servidor DHCP.
+     eBox now manages the DHCP server configuration.
 
-#. **Acción:**
-     Desde otro equipo conectado a esa red solicitamos una IP dinámica del rango
-     mediante **dhclient**::
+#. **Action:**
+     From another PC connected to this network, request a dynamic IP from the range
+     using **dhclient**::
 
 	$ sudo dhclient eth0
 	There is already a pid file /var/run/dhclient.pid with pid 9922
@@ -215,12 +213,8 @@ de esa interfaz (por ejemplo rango 10.1.2.1-10.1.2.21 en una interfaz
 	DHCPACK from 10.1.2.254
 	bound to 10.1.2.1 -- renewal in 1468 seconds.
 
-#. **Acción:**
-     Comprobar desde el :menuselection:`Dashboard` que la
-     dirección concedida aparece en el *widget* :guilabel:`DHCP
-     leases` [#]_.
-
-.. [#] Hay que tener en cuenta que las asignaciones estáticas no
-       aparecen en el *widget* del DHCP.
+#. **Action:**
+     Verify from :menuselection:`Dashboard` that the
+     address appearing in the *widget* :guilabel:`DHCP leases` is displayed.
 
 .. include:: dhcp-exercises.rst

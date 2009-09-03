@@ -1,7 +1,7 @@
 .. _ebox-for-network-admin:
 
-eBox |version| para Administradores de Redes
-============================================
+eBox |version| for Network Administrators
+=========================================
 
 .. toctree::
    :maxdepth: 2
@@ -78,6 +78,8 @@ eBox Unified Threat Manager
    vpn
    ids
 
+.. no_elearning
+
 eBox Core
 ---------
 
@@ -91,3 +93,4 @@ eBox Core
    backup
    software
 
+.. endno_elearning

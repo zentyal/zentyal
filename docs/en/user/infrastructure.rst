@@ -1,27 +1,28 @@
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
-                   Isaac Clerencia <iclerencia@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
-                   Víctor Jímenez <vjimenez@warp.es>,
-                   Jorge Salamero <jsalamero@ebox-platform.com>,
-                   Javier Uruen <juruen@ebox-platform.com>,
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
+                   Isaac Clerencia <iclerencia@ebox-platform.com>
+                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
+                   Víctor Jiménez <vjimenez@warp.es>
+                   Jorge Salamero <jsalamero@ebox-platform.com>
+                   Javier Uruen <juruen@ebox-platform.com>
 
-En este apartado explicaremos varios de los servicios para gestionar y
-optimizar el tráfico interno y la infraestructura de tu red local,
-incluyendo la gestión de dominio, la auto-configuración de red en los
-clientes, la publicación de sitios Web internos y la
-sincronización de la hora via Internet. La configuración de dichos
-servicios requiere un esfuerzo importante. Sin embargo, eBox
-facilita enormemente esta tarea.
+This section explains several of the services to manage and
+optimize internal traffic and the infrastructure of your local network,
+including domain management, automatic network configuration in network
+clients, publication of internal Web sites and
+time synchronization using the Internet. The configuration of these
+services requires great efforts, although they
+are easier to configure with eBox.
 
-El servicio de DHCP es ampliamente utilizado para configurar
-automáticamente diversos parámetros de red como pueden ser la
-dirección IP de una máquina, o la puerta de enlace o *gateway* que
-utilizará para alcanzar Internet.
+The DHCP service is widely used to automatically
+configure different network parameters, such as the
+IP address of a host or the gateway to be used
+for Internet access.
 
-El servicio de DNS permite acceder a servicios y máquinas utilizando
-nombres en lugar de direcciones IP, las cuales son más difíciles de
-memorizar.
+The DNS service provides access to services and hosts using
+names instead of IP addresses, which are more difficult to
+memorize.
 
-Además, en muchas empresas se utilizan aplicaciones *Web* a las que
-sólo se tiene acceso de manera interna.
+Many businesses use *Web* applications to which only internal
+access is available.
+

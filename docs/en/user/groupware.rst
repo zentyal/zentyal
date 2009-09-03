@@ -1,201 +1,193 @@
-Servicio de *groupware*
-***********************
+Groupware Service
+*****************
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-technologies.com>
+                   Ignacio Correas <icorreas@ebox-technologies.com>
 
-El **groupware**, también conocido como *software* colaborativo, es el conjunto
-de aplicaciones que integran el trabajo de distintos usuarios en proyectos
-comunes. Cada usuario puede conectarse al sistema desde distintas estaciones
-de trabajo de la red local o también desde cualquier punto del mundo a
-través de Internet.
+Groupware, also known as collaborative software, is a set of
+applications integrating the work of different users in common projects.
+Each user can connect to the system from various working stations on the
+local network or from anywhere in the world via the Internet.
 
-Algunas de las funciones más destacadas de las herramientas de *groupware*
-son:
+Some of the most important functions of groupware tools are:
 
-* Comunicación entre los usuarios: correo, salas de *chat*, etc.
-* Compartición de información: calendarios compartidos, listas de tareas,
-  libretas de direcciones comunes, base de conocimiento,
-  compartición de ficheros, noticias, etc.
-* Gestión de proyectos, recursos, tiempo, *bugtracking*, etc.
+* Communication between users: mail, chat rooms, etc.
+* Information sharing: shared calendars, task lists,
+  common address books, knowledge base, file sharing, news, etc.
+* Project management, resources, time management, bugtracking, etc.
 
-Existen en el mercado una gran cantidad de soluciones de
-*groupware*. Entre las opciones que nos ofrece el Software Libre, una
-de las más populares es eGroupware [#]_ y es la seleccionada para eBox
-Platform para implementar esta funcionalidad tan importante en el
-ámbito empresarial.
+There is a large number of groupware solutions available on the market.
+Among the Open Source alternatives, one of the most popular options is
+eGroupWare [#]_ which is the one selected for eBox Platform to implement
+such an important feature in business environments.
 
 .. [#] **eGroupware**: *An enterprise ready groupware software for your
        network* http://www.egroupware.org
 
-Con eBox Platform la puesta a punto de eGroupware es muy sencilla. El
-objetivo es que el usuario no tenga que acceder a la configuración
-tradicional que ofrece eGroupware y pueda realizarlo prácticamente
-todo desde el interfaz de eBox, salvo que necesite alguna
-personalización avanzada. De hecho la contraseña para la configuración
-de eGroupware es auto-generada [#]_ por eBox y el administrador debería
-usarla bajo su responsabilidad dado que si realiza una acción
-inapropiada el módulo podría quedar mal configurado y en un estado inestable.
+Setting up eGroupware with eBox Platform is very simple. The
+goal is for the user not to need to access the traditional configuration
+offered in eGroupware and to allow him to manage all the settings
+from eBox interface, unless some advanced customization is needed. In fact,
+the password for the configuration of eGroupware is auto-generated [#]_
+by eBox and the administrator should use it under her own responsibility:
+by taking any wrong action the module might become improperly configured and
+left in an unstable status.
 
-.. [#] Nota para usuarios avanzados de eGroupware: La contraseña se
-       encuentra en el fichero `/var/lib/ebox/conf/ebox-egroupware.passwd` y
-       los nombres de usuario son 'admin' y 'ebox' para la configuración del
-       encabezado y del dominio respectivamente.
+.. [#] Note for eGroupware advanced users: The password is stored in
+       the file `/var/lib/ebox/conf/ebox-egroupware.passwd` and
+       usernames are 'admin' and 'ebox' for header and domain configuration
+       respectively.
 
+Groupware service settings with eBox
+====================================
 
-Configuración de servicio de groupware con eBox
-===============================================
+Most of eGroupware configuration is performed
+automatically by enabling the module and saving the changes.
+Without requiring any additional user intervention, eGroupware will
+be operating fully integrated with the eBox directory service (LDAP).
+All users being added to eBox from that moment on will be able
+to log in eGroupware without requiring any other action.
 
-La mayor parte de la configuración de eGroupware se realiza
-automáticamente al habilitar el módulo y guardar los cambios. Sin
-requerir ninguna intervención adicional del usuario, eGroupware estará
-en funcionamiento integrado con el servicio de directorio (LDAP) de
-eBox. Es decir, todos los usuarios que sean añadidos en eBox a partir
-de ese momento podrán iniciar sesión en eGroupware sin requerir
-ninguna otra acción especial.
+In addition, we can integrate the webmail service
+provided by eGroupware with eBox **mail** module.
+For this the only action required is to select a pre-existing virtual
+domain and to enable the IMAP service, allowing for the reception of mail.
+Instructions for creating a mail domain and configuring the IMAP service
+are fully explained in chapter :ref:`mail-service-ref`.
 
-Adicionalmente, podemos integrar el servicio de correo web (*webmail*)
-que eGroupware nos proporciona con el módulo de **correo** de eBox.
-Para ello lo único que hay que hacer es seleccionar un dominio
-virtual previamente existente y tener habilitado el servicio de
-recepción de correo IMAP. Las instrucciones relativas a la creación de
-un dominio de correo y configuración del servicio IMAP se explican con
-detenimiento en el capítulo :ref:`mail-service-ref`.
-
-Para la selección del dominio que usará eGroupware accederemos al menú
-:menuselection:`Groupware` y a la pestaña :guilabel:`Dominio Virtual de Correo`.
-La interfaz se muestra en la siguiente imagen, sólo tenemos que seleccionar
-el dominio deseado y pulsar el botón :guilabel:`Cambiar`. Aunque como de
-costumbre esto no tendrá efecto hasta que no pulsemos el botón
-:guilabel:`Guardar Cambios`.
+For the selection of the domain used by eGroupware, you should access the menu
+:menuselection:`Groupware` and the tab :guilabel:`Virtual Mail Domain`.
+The interface is shown in the following image. It is only needed to select
+the desired domain and click the button :guilabel:`Change`. Although, as
+usual, this action does not take effect until the button
+:guilabel:`Save Changes` is pressed.
 
 .. image:: images/groupware/egw-vdomain.png
    :scale: 80
    :align: center
 
-Para que nuestros usuarios puedan utilizar el servicio de correo tendrán que
-tener creadas sus respectivas cuentas en el mismo. En la imagen que se muestra
-a continuación (:menuselection:`Usuarios --> Editar Usuario`) podemos ver que
-en la configuración de eGroupware se muestra un aviso indicando cuál debe
-ser el nombre de la cuenta de correo para que pueda ser usada desde eGroupware.
+In order for users to be able to use the mail service they will
+need to have their own accounts created on it. The image below
+(:menuselection:`Users --> Edit User`) shows that during the
+configuration of eGroupware a notice is displayed indicating the
+name of the mail account that should be used from eGroupware.
 
 .. image:: images/groupware/egw-edit-user.png
    :scale: 80
    :align: center
 
-eGroupware se compone de varias aplicaciones, en eBox podemos editar
-los permisos de acceso de cada usuario asignándole una plantilla de permisos,
-como se puede ver en la imagen anterior. Disponemos de una plantilla de
-permisos creada por defecto pero podemos definir otras personalizadas.
+eGroupware consists of several applications; in eBox you can edit
+access permissions to these applications for each user assigning a permission
+template, as shown in the image above. There is a default permission template
+but you can define other ad-hoc ones.
 
-La plantilla de permisos por defecto es útil si queremos que la mayoría de
-los usuarios del sistema tengan los mismos permisos, de modo que cuando
-creemos un nuevo usuario no tengamos que preocuparnos de asignarle permisos,
-ya que éstos serán asignados automáticamente.
+The default permission template is useful for configuring most of
+the users of the system with the same permissions, so that when
+a new user is created permissions will be assigned automatically.
 
-Para editar la plantilla por defecto accederemos al menú
-:menuselection:`Groupware` y a la pestaña
-:menuselection:`Aplicaciones predeterminadas`, como se muestra en la imagen.
+To edit the default template go to the menu
+:menuselection:`Groupware` and tab
+:menuselection:`Default Applications`, as shown in the image.
 
 .. image:: images/groupware/egw-default-apps.png
    :scale: 80
    :align: center
 
-Para grupos reducidos de usuarios como es el caso de los administradores,
-podemos definir una plantilla de permisos personalizada y aplicarla
-manualmente a dichos usuarios.
+For small groups of users such as administrators,
+you can define a custom permission template and apply it
+manually for these users.
 
-Para definir una nueva plantilla debemos acceder a la pestaña
-:guilabel:`Plantillas definidas por el usuario` del menú
-:menuselection:`Groupware` y pulsar en :guilabel:`Añadir nueva`. Una vez
-introducido el nombre deseado aparecerá en la tabla y podremos editar las
-aplicaciones pulsando en :guilabel:`Aplicaciones permitidas`, de forma
-análoga a como se hace con la plantilla por defecto.
+To define a new template go to the tab
+:guilabel:`User Defined Permission Templates` in the menu
+:menuselection:`Groupware` and click on :guilabel:`Add New`. Once
+the name is entered it will appear on the table and you can edit the
+applications by clicking on :guilabel:`Allowed Applications`, in a
+similar way as with the default template.
 
 .. image:: images/groupware/egw-user-templates.png
    :scale: 80
    :align: center
 
-Hay que tener en cuenta que si modificamos la plantilla de permisos por
-defecto, los cambios sólo serán aplicados a los usuarios que sean creados a
-partir de ese momento. No se aplicarán de manera retroactiva a los usuarios
-creados previamente. Lo mismo ocurre con las plantillas definidas por el
-usuario, si existiesen usuarios con esa plantilla aplicada habría que editar
-las propiedades del usuario y aplicarle nuevamente la misma plantilla
-después de modificarla.
+Be aware that if you modify the default permission template,
+changes will only be applied to users that are created
+from that moment on. They will not be applied retroactively to users
+previously created. The same applies to the user-defined templates:
+if there were any users with that template applied on their configuration
+you should edit that user's properties and apply the same template again
+once it has been modified.
 
-Finalmente, cuando hayamos configurado todo, podemos acceder a eGroupware a
-través de la dirección `http://<ip_de_ebox>/egroupware` utilizando el
-usuario y contraseña definidos en la interfaz de eBox.
+Finally, once you have configured everything, you can access eGroupWare
+through the address `http://<ebox_ip>/egroupware` using the
+username and password defined in the eBox interface.
 
 .. image:: images/groupware/egw-login.png
    :scale: 80
    :align: center
 
-El manejo de eGroupware está fuera del alcance de este manual, para
-cualquier duda se debe consultar el manual de usuario oficial de eGroupware.
-Este se encuentra disponible en Internet en su página oficial y también está
-enlazado desde la propia aplicación una vez que estamos dentro.
+eGroupware management is beyond the scope of this manual. For
+any question, you should check the official eGroupware user manual.
+It is available on-line in the official website and it is also
+linked from within the application once you are inside.
 
-Ejemplo práctico
-^^^^^^^^^^^^^^^^
-Habilitar el módulo **Groupware** y comprobar su integración con el correo.
+Practical example
+^^^^^^^^^^^^^^^^^
+Enable the Groupware module and check its integration with the mail.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activa el módulo :guilabel:`Groupware`, para ello marca su casilla en la
-   columna :guilabel:`Estado`. Nos informa de que se modificará la
-   configuración de eGroupware. Permitir la operación pulsando el botón
-   :guilabel:`Aceptar`. Asegurarse de que se han habilitado previamiente los
-   módulos de los que depende (Correo, Webserver, Usuarios...).
+#. **Action:**
+    Access eBox, go to :menuselection:`Module Status` and
+    activate module :guilabel:`Groupware`, checking the box
+    in the column :guilabel:`Status`. You will be informed eGroupware
+    configuration is about to change. Allow the operation by pressing the button
+    :guilabel:`Accept`. Make sure you have previously enabled the
+    modules on which it depends (Mail, Webserver, Users, ...).
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+    Effect:
+      The button :guilabel:`Save Changes` is activated.
 
-#. **Acción:**
-   Configurar un dominio virtual de correo como se muestra en el ejemplo
-   :ref:`mail-conf-exercise-ref`. En dicho ejemplo también se añade un usuario
-   con su cuenta de correo correspondiente. No son necesarios los pasos de
-   ese ejemplo relativos a objetos o políticas de reenvío. Realizar sólo
-   hasta el paso en que se añade el usuario.
+#. **Action:**
+    Set up a virtual mail domain as shown in the example
+    :ref:`mail-conf-exercise-ref`. In this example a user is added
+    with her corresponding email account. Steps related to objects
+    or forwarding policies in the example are not necessary. Follow the steps
+    just until the point in which the user is added.
 
-   Efecto:
-     El usuario creado tiene una cuenta de correo válida.
+    Effect:
+      The new user has a valid mail account.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Correo --> General` y en la pestaña
-   :guilabel:`Opciones del servidor de correo` activar la casilla
-   :guilabel:`Servicio IMAP habilitado` y pulsar :guilabel:`Cambiar`.
+#. **Action:**
+    Access the :menuselection: `Mail --> General` menu and in the
+    :guilabel:`Mail Server Options` tab check the box
+    :guilabel:`IMAP Service Enabled` and click :guilabel:`Change`.
 
-   Efecto:
-     El cambio se ha guardado temporalmente pero no será efectivo hasta que
-     se guarden los cambios.
+    Effect:
+      The change is saved temporarily but it will not be effective until
+      changes are saved.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Groupware` y en la pestaña
-   :guilabel:`Dominio Virtual de Correo` seleccionar el dominio
-   creado anteriormente y pulsar :guilabel:`Cambiar`.
+#. **Action:**
+    Access the :menuselection: `Groupware` menu and in the
+    :guilabel:`Virtual Mail Domain` tab select the previously
+    created domain and click :guilabel:`Change`.
 
-   Efecto:
-     El cambio se ha guardado temporalmente pero no será efectivo hasta que
-     se guarden los cambios.
+    Effect:
+      The change is saved temporarily but it will not be effective until
+      changes are saved.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+    Save changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+    Effect:
+      eBox shows the progress while applying the changes and informs
+      when it is done.
 
-     A partir de ahora eGroupware se encuentra configurado correctamente
-     para integrarse con nuestro servidor IMAP.
+      From now on eGroupware is configured correctly
+      to be integrated with your IMAP server.
 
-#. **Acción:**
-   Acceder a la interfaz de eGroupware (http://<ip_de_ebox>/egroupware) con
-   el usuario que hemos creado anteriormente. Acceder a la aplicación de
-   correo electrónico de eGroupware y enviar un correo a nuestra propia
-   dirección.
+#. **Action:**
+    Access the eGroupware interface (http://<ebox_ip>/egroupware) with
+    the user you created earlier. Access the eGroupware mail application
+    and send an email to your own address.
 
-   Efecto:
-     Recibiremos el correo recién enviado en nuestro buzón de entrada.
+    Effect:
+      You will receive in your inbox the email you just sent.
 
 .. include:: groupware-exercises.rst

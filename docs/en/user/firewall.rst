@@ -1,254 +1,234 @@
 .. _firewall-ref:
 
-Cortafuegos
-***********
+Firewall
+********
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
-                   Isaac Clerencia <iclerencia@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
-                   Víctor Jímenez <vjimenez@warp.es>,
-                   Javier Uruen <juruen@ebox-platform.com>,
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
+                   Isaac Clerencia <iclerencia@ebox-platform.com>
+                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
+                   Víctor Jiménez <vjimenez@warp.es>
+                   Javier Uruen <juruen@ebox-platform.com>
 
-Para ver la aplicación de los objetos y servicios de red, vamos a configurar un
-cortafuegos. Un **cortafuegos** es un sistema que refuerza las políticas de control
-de acceso entre redes. En nuestro caso, vamos a tener una máquina dedicada a
-protección de nuestra red interna y eBox de ataques procedentes de la red exterior.
+We will configure a firewall to see the application of the network objects and
+services. A **firewall** is a system that strengthens the access control
+policies between networks. In our case, a host will be devoted to
+protecting our internal network and eBox from attacks from the external network.
 
-Un cortafuegos permite definir al usuario una serie de políticas de acceso,
-por ejemplo, cuáles son las máquinas a las que se puede conectar
-o las que pueden recibir información y el tipo de la misma. Para ello, utiliza
-reglas que pueden filtrar el tráfico dependiendo de determinados parámetros,
-por ejemplo protocolo, dirección origen o destino y puertos utilizados.
+A firewall allows the user to define a series of access policies, such as
+which hosts can be connected to or which can receive data and the type thereof.
+In order to do this, it uses rules that can filter traffic depending on
+different parameters, such as the protocol, source or destination addresses
+or ports used.
 
-Técnicamente, la mejor solución es disponer de un computador con dos o más
-tarjetas de red que aislen las diferentes redes (o segmentos de ellas)
-conectadas, de manera que el software cortafuegos se encargue de conectar los
-paquetes de las redes y determinar cuáles pueden pasar o no y a qué red lo
-harán. Al configurar nuestra máquina como cortafuegos y encaminador podremos
-enlazar los paquetes de tránsito entre redes de manera más segura.
+Technically speaking, the best solution is to have a computer with two or more
+network cards that isolate the different connected networks (or segments thereof)
+so that the firewall software is responsible for connecting the network
+packages and determining which can be passed or not and to which network
+they will be sent. By configuring the host as a firewall and router, traffic
+packages can be exchanged between networks in a more secure manner.
 
-El cortafuegos en GNU/Linux: Netfilter
-======================================
+The firewall in GNU/Linux: Netfilter
+====================================
 
-A partir del núcleo Linux 2.4, se proporciona un subsistema de
-filtrado denominado **Netfilter** que proporciona características de
-filtrado de paquetes y de traducción de redes NAT [#]_. La interfaz
-del comando **iptables** permite realizar las diferentes tareas de
-configuración de las reglas que afectan al sistema de filtrado (tabla
-*filter*), reglas que afectan a la traducción de los paquetes con NAT
-(tabla *nat*) o reglas para especificar algunas opciones de control y
-manipulación de paquetes (tabla *mangle*). Su manejo es muy flexible y
-ortogonal pero añade mucha complejidad y tiene una curva de
-aprendizaje alta.
+Starting with the Linux 2.4 kernel, a filtering subsystem known as
+**Netfilter** is provided to offer packet filtering
+and Network Address Translation (NAT) [#]_. The **iptables**
+command interface allows for the different configuration tasks
+to be performed for the rules affecting the filtering system (*filter*
+table), rules affecting packet translation with NAT
+(*nat* table) or rules to specify certain packet control and
+handling options (*mangle* table). It is extremely flexible and
+orthogonal to handle, although it adds a great deal of complexity and has a
+steep learning curve.
 
-.. [#] *Network Address Translation* (**NAT**): Es el proceso de reescribir
-       la fuente o destino de un paquete IP mientras pasan por un encaminador
-       o cortafuegos. Su uso principal es permitir a varias máquinas de una
-       red privada acceder a Internet con una única IP pública.
+.. [#] **NAT** *(Network Address Translation)*: this is the process of rewriting
+         the source or destination of an IP packet as it passes through a router
+         or firewall. Its main use is to provide several hosts in a private
+         network with Internet access through a single public IP.
 
-Modelo de seguridad de eBox
-===========================
+eBox security model
+===================
 
-El modelo de seguridad de eBox se basa en intentar proporcionar la máxima
-seguridad posible por defecto, intentando a su vez minimizar el esfuerzo de
-configuración de un administrador cuando añade nuevos servicios.
+The eBox security model is based on seeking to provide the utmost
+default security, in turn trying to minimize the work of the administrator
+regarding configuration when new services are added.
 
-Cuando eBox actúa de cortafuegos normalmente se instala entre la red
-local y el *router* que conecta esa red con otra red, normalmente
-Internet. Los interfaces de red que conectan la máquina con la red
-externa (el *router*) deben marcarse como tales. Esto permite al módulo
-**Cortafuegos** establecer unas políticas de filtrado por defecto.
+When eBox acts as a firewall, it is normally installed between the local
+network and the *router* that connects that network to another, normally
+Internet. The network interfaces connecting the host to the external
+network (the *router*) must be marked as such. This enables the
+**Firewall** module to establish default filtering policies.
 
 .. figure:: images/firewall/filter-combo.png
-   :alt: Gráfico: Red interna - Reglas de filtrado - Red externa
+   :alt: Graphic: Internal network - Filtering rules - External network
    :scale: 70
 
-   Red interna - Reglas de filtrado - Red externa
+   Internal network - Filtering rules - External network
 
-La política para las interfaces externas es denegar todo intento de
-nueva conexión a eBox. Para las interfaces internas se deniegan todos
-los intentos de conexión, excepto los que se realizan a servicios
-internos definidos en el módulo **Servicios**, que son aceptadas por
-defecto.
+The policy for external interfaces is to deny all attempts of
+new connections to eBox. Internal interfaces are denied all
+connection attempts, except those made to internal services
+defined in the **Services** module, which are accepted by
+default.
 
-Además eBox configura el cortafuegos automáticamente de tal manera que hace
-**NAT** para los paquetes que provengan de una interfaz interna y salgan por una
-externa. Si no se desea esta funcionalidad, puede ser desactivada mediante
-la variable **nat_enabled** en el fichero de configuración del módulo
-cortafuegos en **/etc/ebox/80firewall.conf**.
+Furthermore, eBox configures the firewall automatically to provide
+**NAT** for packages entering through an internal interface and exiting through an
+external interface. Where this function is not required, it may be disabled using
+the **nat_enabled** variable in the firewall module configuration
+file in **/etc/ebox/80firewall.conf**.
 
-Configuración de un cortafuegos con eBox
-========================================
+Firewall configuration with eBox
+================================
 
-Para facilitar el manejo de **iptables** en tareas de filtrado se usa
-el interfaz de eBox en :menuselection:`Cortafuegos --> Filtrado de
-paquetes`.
+For easier handling of **iptables** in filtering tasks, the eBox
+interface in :menuselection:`Firewall --> Package
+filtering` is used.
 
-Si eBox actúa como puerta de enlace, se pueden establecer reglas de
-filtrado que se encargarán de determinar si el tráfico de un
-servicio local o remoto debe ser aceptado o no. Hay cinco tipos de
-tráfico de red que pueden controlarse con las reglas de filtrado:
+Where eBox acts as a gateway, filtering rules can be established
+to determine whether the traffic from a local or remote
+service must be accepted or not. There are five types of network
+traffic that can be controlled with the filtering rules:
 
- * Tráfico de redes internas a eBox (ejemplo: permitir
-   acceso SSH desde algunas máquinas).
- * Tráfico entre redes internas y de redes internas a
-   Internet (ejemplo: prohibir el acceso a Internet desde determinada
-   red interna).
- * Tráfico de eBox a redes externas (ejemplo: permitir
-   descargar ficheros por FTP desde la propia máquina con eBox).
- * Tráfico de redes externas a eBox (ejemplo: permitir que
-   el servidor de Jabber se utilice desde Internet).
- * Tráfico de redes externas a redes internas (ejemplo:
-   permitir acceder a un servidor *Web* interno desde Internet).
+ * Traffic from an internal network to eBox
+   (e.g. allow SSH access from certain hosts).
+ * Traffic among internal networks and from internal networks to
+   the Internet (e.g. forbid Internet access from a certain
+   internal network).
+ * Traffic from eBox to external networks (e.g. allow
+   files to be downloaded by FTP from the host using eBox).
+ * Traffic from external networks to eBox (e.g. enable the
+   Jabber server to be used from the Internet).
+ * Traffic from external networks to internal networks (e.g.
+   allow access to an internal *Web* server from the Internet).
 
-Hay que tener en cuenta que los dos últimos tipos de reglas pueden ser
-un compromiso para la seguridad de eBox y la red, por lo que deben
-utilizarse con sumo cuidado. Se pueden ver los tipos de filtrado en el
-siguiente gráfico:
+Bear in mind that the last two types of rules may jeopardize
+eBox and network security and, therefore, must be used
+with the utmost care. The filtering types can be seen in the
+following graphic:
 
 .. figure:: images/firewall/firewall-schema.png
-   :alt: Tipos de reglas de filtrado
+   :alt: types of filtering rules
    :scale: 80
 
-   *GRAPHIC: Tipos de reglas de filtrado*
+   *GRAPHIC: types of filtering rules*
 
-eBox provee una forma sencilla de controlar el acceso a sus servicios y los
-del exterior desde una interfaz interna (donde se encuentra la *Intranet*) e
-Internet. Su configuración habitual se realiza por objeto. Así podemos
-determinar cómo un objeto de red puede acceder a cada uno de los servicios de
-eBox. Por ejemplo, podríamos denegar el acceso al servicio de DNS a determinada
-subred. Además se manejan las reglas de acceso a Internet, por ejemplo, para
-configurar el acceso a Internet se debe habilitar la salida como cliente a los
-puertos 80 y 443 del protocolo TCP a cualquier dirección.
+eBox provides a simple way to control access to its services and to external
+services from an internal interface (where the *intranet* is located) and the
+Internet. It is normally object-configured. Hence, it is possible
+to determine how a network object can access each of the eBox
+services. For example, access could be denied to the DNS service by a certain
+subnet. Furthermore, the Internet access rules are managed by eBox too, e.g. to
+configure Internet access, outgoing packages to TCP ports 80 and 443 to any
+address have to be allowed.
 
 .. figure:: images/firewall/02-firewall.png
-   :alt: Lista de reglas de filtrado de paquetes desde las redes
-         internas a eBox
+   :alt: list of package filtering rules from internal
+         networks to eBox
 
-   Lista de reglas de filtrado de paquetes desde las redes internas a eBox
+   List of package filtering rules from internal networks to eBox
 
-Cada regla tiene un :guilabel:`origen` y :guilabel:`destino` que es
-dependiente del tipo de filtrado que se realiza. Por ejemplo, las
-reglas de filtrado para salida de eBox sólo hace falta fijar el
-destinatario ya que el origen siempre es eBox. Se puede usar un
-:guilabel:`servicio` concreto o su :guilabel:`inverso` para, por
-ejemplo, denegar todo el tráfico de salida excepto el de
-*SSH* [#]_. Adicionalmente, se le puede dar una :guilabel:`descripción` para
-facilitar la gestión de las reglas. Finalmente, cada regla tiene una
-:guilabel:`decisión` que tomar, existen tres tipos:
+Each rule has a :guilabel:`source` and :guilabel:`destination` that
+depend on the type of filtering used. For example, the
+filtering rules for eBox output only require the establishing of the
+destination, as the source is always eBox. A
+specific :guilabel:`service` or its :guilabel:`reverse` can be used to
+deny all output traffic, for example, except SSH
+traffic. In addition, it can be given a :guilabel:`description` for
+easier rule management. Finally, each rule has a
+:guilabel:`decision` that can have the following values:
 
-.. [#] SSH: *Secure Shell* permite la comunicación segura entre dos
-       máquinas usando principalmente como consola remota
+* Accept the connection.
+* Deny connection by ignoring the incoming packages and making
+  the source suppose that connection could not be established.
+* Deny connection and also record it. Thus, through
+  :menuselection:`Logs -> Log query` of the
+  :guilabel:`Firewall`, it is possible to see whether a rule is working
+  properly.
 
-* Aceptar la conexión.
-* Denegar la conexión ignorando los paquetes entrantes y haciendo
-  suponer al origen que no se ha podido establecer la conexión.
-* Denegar la conexión y además registrarla. De esta manera, a través
-  de :menuselection:`Registros -> Consulta registros` del
-  :guilabel:`Cortafuegos` podemos ver si una regla está funcionando
-  correctamente.
+Port redirection
+----------------
 
-Redirecciones de puertos
-------------------------
+Port redirections (destination NAT) are configured through
+:menuselection:`Firewall --> Redirection`, where an external port
+can be given and all traffic routed to a host listening on a certain port
+can be redirected by translating the destination address.
 
-Las redirecciones de puertos (NAT de destino) se configuran desde
-:menuselection:`Cortafuegos --> Redirecciones` donde se puede hacer
-que todo el tráfico dirigido a un puerto externo (o rango de puertos),
-se direccione a una máquina que está escuchando en un puerto determinado
-haciendo la traducción de la dirección destino.
-
-Para configurar una redirección hay que establecer la
-:guilabel:`interfaz` donde se va a hacer la traducción, el
-:guilabel:`destino original` (puede ser eBox, una dirección IP o un
-objeto), el :guilabel:`puerto destino original` (puede ser *cualquiera*, un rango de
-puertos o un único puerto), el :guilabel:`protocolo`, la
-:guilabel:`fuente` desde donde se iniciará la conexión (en una
-configuración usual su valor será *cualquiera*), la
-:guilabel:`dirección IP destino` y, finalmente, el :guilabel:`puerto
-destino` donde la máquina destino recibirá las peticiones, que puede
-ser el mismo que el original o no.
+To configure a redirection, the following fields need to be specified:
+:guilabel:`interface` where the translation is to be made, the
+:guilabel:`original target` (this could be eBox, an IP address or an
+object), the :guilabel:`original destination port` (this could be *any*,
+a range of ports or a single port), the :guilabel:`protocol`, the
+:guilabel:`source` from where the connection is to be started (in a
+normal configuration, its value will be *any*), the
+:guilabel:`target IP address` and, finally, the :guilabel:`destination
+port`, where the target host is to receive the requests, which may or
+may not be the same as the original.
 
 .. image:: images/firewall/07-redirection.png
    :scale: 70
    :align: center
-   :alt: Editando una redirección
+   :alt: editing a redirection
 
-Según el ejemplo, todas las conexiones que vayan a eBox a través del
-interfaz *eth0* al puerto 8080/TCP se redirigirán al puerto 80/TCP de
-la máquina con dirección IP *10.10.10.10*.
+According to the example, all connections to eBox through the
+*eth0* interface to port 8080/TCP will be redirected to port 80/TCP of
+the host with IP address *10.10.10.10*.
 
-Ejemplo práctico
-----------------
-Usar el programa **netcat** para crear un servidor sencillo que escuche
-en el puerto 6970 en la máquina eBox. Añadir un servicio y una regla
-de cortafuegos para que una máquina interna pueda acceder al servicio.
+Practical example
+-----------------
+Use the **netcat** program to create a simple server that listens
+on port 6970 in the eBox host. Add a service and a firewall
+rule so that an internal host can access the service.
 
-Para ello:
+To do so:
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y activar el módulo
-   **Cortafuegos**, para ello marcar su casilla en la columna
-   :guilabel:`Estado`.
+#. **Action:**
+   Access eBox, enter :menuselection:`Module status` and enable the
+   **Firewall** module by marking the checkbox in the
+   :guilabel:`Status` column.
 
-   Efecto:
-     eBox solicita permiso para realizar algunas acciones.
+   Effect:
+     eBox requests permission to take certain actions.
 
-#. **Acción:**
-   Leer las acciones que se van a realizar y otorgar permiso a eBox
-   para hacerlo.
+#. **Action:**
+   Read the actions to be taken and grant permission to eBox
+   to do so.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+   Effect:
+     The :guilabel:`Save changes` button has been enabled.
 
-#. **Acción:**
+#. **Action:**
+   Create an internal service as in :ref:`serv-exer-ref` of
+   section :ref:`abs-ref` through :menuselection:`Services` with
+   the name **netcat** and with the :guilabel:`destination
+   port` 6970. Then go to :menuselection:`Firewall -->
+   Package filtering` in :guilabel:`Filtering rules from internal
+   networks to eBox` and add the rule with at least the
+   following fields:
 
-.. manual
+   - :guilabel:`Decision` : *ACCEPT*
+   - :guilabel:`Source` : *Any*
+   - :guilabel:`Service` : *netcat*. Created in this action.
 
-   Crear un servicio interno como en el :ref:`serv-exer-ref` de la
-   sección :ref:`abs-ref` a través de :menuselection:`Servicios` con
-   nombre **netcat** con :guilabel:`puerto
-   destino` 6970. Seguidamente, ir a :menuselection:`Cortafuegos -->
-   Filtrado de paquetes` en :guilabel:`Reglas de filtrado desde las
-   redes internas a eBox` añadir la regla con, al menos, los
-   siguientes campos:
+   Once this is done, :guilabel:`Save changes` to confirm the
+   configuration.
 
-.. endmanual
+   Effect:
+     The new **netcat** service has been created with a rule for
+     internal networks to connect to it.
 
-.. web
-
-   Crear un servicio interno a través de :menuselection:`Servicios` con
-   nombre **netcat** con :guilabel:`puerto
-   destino` 6970. Seguidamente, ir a :menuselection:`Cortafuegos -->
-   Filtrado de paquetes` en :guilabel:`Reglas de filtrado desde las
-   redes internas a eBox` añadir la regla con, al menos, los
-   siguientes campos:
-
-.. endweb
-
-   - :guilabel:`Decisión` : *ACEPTAR*
-   - :guilabel:`Fuente` : *Cualquiera*
-   - :guilabel:`Servicio` : *netcat*. Creado en esta acción
-
-   Una vez hecho esto. :guilabel:`Guardar cambios` para confirmar la
-   configuración.
-
-   Efecto:
-     El nuevo servicio **netcat** se ha creado con una regla para las
-     redes internas que permiten conectarse al mismo.
-
-#. **Acción:**
-   Lanzar desde la consola de eBox el siguiente comando::
+#. **Action:**
+   From the eBox console, launch the following command::
 
      nc -l -p 6970
 
-#. **Acción:**
-   Desde la máquina cliente comprobar que hay acceso a dicho
-   servicio usando el comando **nc**::
+#. **Action:**
+   From the client host, check that there is access to this
+   service using the command **nc**::
 
      nc <ip_eBox> 6970
 
-   Efecto
-     Puedes enviar datos que serán visto en la terminal donde hayas
-     lanzado **netcat** en eBox.
+   Effect:
+     You can send data that will be displayed in the terminal where you
+     launched **netcat** in eBox.
 
 .. include:: firewall-exercises.rst

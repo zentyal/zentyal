@@ -1,120 +1,106 @@
-Servicio de Voz sobre IP
-*************************
+Voice over IP service
+*********************
 
-.. sectionauthor:: Enrique J. Hernández <ejhernandez@ebox-platform.com>
-                   Jorge Salamero <jsalamero@ebox-platform.com>
+.. sectionauthor:: Enrique J. Hernández <ejhernandez@ebox-technologies.com>
+                   Jorge Salamero <jsalamero@ebox-technologies.com>
+                   Jorge Bernal <jbernal@ebox-technologies.com>
+		           Javi Vázquez <javivazquez@ebox-technologies.com>
 
-La **Voz sobre IP** o **Voz IP** consiste en transmitir voz sobre redes de datos usando
-una serie de protocolos para enviar la señal digital en paquetes en
-lugar de enviarla a través de circuitos analógicos conectados.
+**Voice over IP** or **VoIP** involves transmitting voice over data networks
+using different protocols to send the digital signal through packets, instead
+of using analog circuits.
 
-Cualquier red IP puede ser utilizada para esto, desde redes locales hasta
-redes públicas como *Internet*. Esto conlleva un ahorro importante de costes al
-utilizar una misma red para llevar voz y datos, sin escatimar en calidad o
-fiabilidad. Los principales problemas que se encuentra la Voz IP en su
-despliegue sobre las redes de datos son el NAT [#]_ y las dificultades que tienen
-los protocolos para gestionarlo, y el QoS [#]_, la necesidad de ofrecer un servicio
-de calidad en tiempo real, considerando la latencia (tiempo que se tarda en
-llegar al destino), el *jitter* (la variación de la latencia) y el ancho de
-banda.
+Any IP network can be used for this purpose, including private or public
+networks such as *Internet*. There are huge cost savings on using the same
+network for data and voice, without losing quality or reliability. The main
+issues of VoIP deployments over data networks are NAT [#]_ and the difficulties
+to manage it, and QoS [#]_, because of the need to offer a quality real-time
+service, where latency (the time it takes for data to arrive at destination), *jitter* (variations on latency) and bandwidth have to be considered.
 
-.. [#] Concepto que se explica en la sección :ref:`firewall-ref`.
+.. [#] Concept explained in section :ref:`firewall-ref`.
 
-.. [#] Concepto que se explica en la sección :ref:`qos-ref`.
+.. [#] Concept explained in section :ref:`qos-ref`.
 
-Protocolos
-----------
+Protocols
+---------
 
-Son varios los protocolos involucrados en la transmisión de voz, desde los
-protocolos de red como IP, con los protocolos de transporte como UDP o TCP,
-hasta los protocolos de voz, tanto para su transporte como para su
-señalización.
+There are several protocols involved in voice transmission, from network
+protocols such as IP and transport protocols like TCP or UDP, to voice
+protocols, both for transport and signaling.
 
-Los **protocolos de señalización** en Voz IP desempeñan las tareas de
-establecimiento y control de la llamada. SIP, IAX2 y H.323 son protocolos de
-señalización.
+VoIP **signaling protocols** accomplish the task of establishing and controlling
+the call. SIP, IAX2 and H.323 are signaling protocols.
 
-El **protocolo de transporte de voz** más utilizado es RTP (*Realtime Transport
-Protocol*) y su tarea es transportar la voz codificada desde el origen hasta
-el destino. Este protocolo se pone en marcha una vez establecida la llamada
-por los protocolos de señalización.
+The most widely used **voice transport protocol** is RTP
+(*Realtime Transport Protocol*), which carries the encoded voice from origin to
+destination. This protocol starts once the call is established by the signaling
+protocol.
 
 IAX2
 ^^^^
-**IAX2** es la versión 2 del protocolo *Inter Asterisk eXchange* creado para la
-interconexión de centralitas *Asterisk* [#]_. Las características más importantes
-de este protocolo es que la voz y la señalización va por el mismo flujo de
-datos y además éste puede ser cifrado. Esto tiene la ventaja directa de poder
-atravesar NAT con facilidad y que la sobrecarga es menor a la hora de mantener
-varios canales de comunicación simultáneos entre servidores. IAX2 funciona
-sobre el puerto UDP/4569.
 
-.. [#] **Asterisk** es un *software* para centralitas telefónicas que
-       eBox usa para implementar el módulo de Voz IP (http://www.asterisk.org/).
+**IAX2** is the second version of the *Inter Asterisk eXchange* protocol,
+created for connecting *Asterisk* [#]_ PBX systems. The main features of this
+protocol are that voice and signaling travel through the same data stream,
+which can be encrypted. This can traverse NAT easily and there is less overhead
+when trying to keep multiple communication channels open among servers. IAX2
+works on UDP/4569 port.
+
+.. [#] **Asterisk** is a PBX *software* that eBox uses for its VoIP module
+       (http://www.asterisk.org/).
 
 SIP
 ^^^
-**SIP** o *Session Initiation Protocol* es un protocolo creado en el
-seno del IETF [#]_ para la iniciación, modificación y finalización de
-sesiones interactivas multimedia. Tiene gran similitud con HTTP y
-SMTP. SIP solamente se encarga de la señalización funcionando sobre el
-puerto UDP/5060. La transmisión multimedia se realiza con RTP sobre el
-rango de puertos UDP/10000-20000.
 
-.. [#] **Internet Engineering Task Force** desarrolla y promociona
-       estándares de comunicaciones usados en *Internet*.
+**SIP** or *Session Initiation Protocol* is a protocol created by the IETF [#]_
+for the establishment, modification and termination of interactive multimedia
+sessions. It incorporates many elements of HTTP and SMTP. SIP only handles
+signaling and works over the UDP/5060 port. Multimedia transmission is handled
+by RTP over the port range UDP/10000-20000.
+
+.. [#] **Internet Engineering Task Force** develops and promotes communication
+       standards used on *Internet*.
 
 .. TODO: explicar funcionamiento de SIP y SIP+NAT
 .. TODO: protocolo H323
 
-Códecs
+Codecs
 ------
 
-Un **códec** es un algoritmo que adapta (codificando en origen y
-descodificando en destino) una información digital con el objetivo de
-comprimirla reduciendo el uso de ancho de banda y detectando y
-recuperándose de los errores en la transmisión. G.711, G.729, GSM y
-speex son códecs habituales dentro de la Voz IP.
+A **codec** is an algorithm that adapts digital information (encoding at origin,
+and decoding at destination) to compress it, reducing bandwidth usage, and
+to detect and recover from transmission errors. G.711, G.729, GSM and speex are
+common codecs for VoIP.
 
-**G.711**:
-  Es uno de los códecs más utilizados, con dos versiones, una
-  americana (*ulaw*) y otra europea (*alaw*). Este códec ofrece buena
-  calidad pero su consumo de ancho de banda es bastante significativo
-  con 64kbps. Es ideal para la comunicación por voz en redes locales.
+**G.711**: It is one of the most used codecs. It comes in two flavors: an
+American one (*ulaw*) and an European one (*alaw*). This codec offers good
+quality, but it has significant bandwidth requirements (64kbps), which makes it
+the ideal choice for communication over local networks.
 
-**G.729**:
-  Tiene una compresión mucho mayor usando solamente 8kbps siendo
-  ideal para las comunicaciones a través de *Internet*. El inconveniente es que
-  tiene algunas restricciones en su uso.
+**G.729**: It offers a better compression using only 8kbps, being ideal for
+*Internet* communications. There are some usage restrictions.
 
-**GSM**:
-  Es el mismo códec que el usado en las redes de telefonía celular. La
-  calidad de voz no es muy buena y usa 13kbps aproximadamente.
+**GSM**: It is the same codec that is used in mobile networks. Voice quality is
+not very good and it uses around 13kbps.
 
-**speex**:
-  Es un códec libre de patentes diseñado para voz. Es muy flexible a
-  pesar de consumir más tiempo de CPU que el resto y puede trabajar a
-  distintas tasas de frecuencia desde 8KHz, 16KHz hasta 32KHz,
-  normalmente referidos como *narrowband*, *wideband* y
-  *ultra-wideband* respectivamente con un consumo de 15.2kbps, 28kbps
-  y 36kbps.
+**speex**: It is a patent-free codec specially designed for voice. It is very
+versatile, though it uses more CPU than the rest. It can work at different
+bitrates, such as 8KHz, 16KHz and 32KHz, usually referred as *narrowband*,
+*wideband* and *ultra-wideband*, each consuming 15.2kbps, 28kbps and 36kbps
+respectively.
 
-.. TODO: hablar del overhead con las cabeceras
-.. TODO: tabla con bitrate + %overhead + total
-
-Despliegue
+Deployment
 ----------
 
-Veamos los elementos implicados en el despliegue de Voz IP:
+Let's cover the elements involved in a VoIP deployment:
 
-Teléfonos IP
-^^^^^^^^^^^^
-Son *teléfonos* con una apariencia convencional pero disponen
-de un conector RJ45 para conectarlo a una red *Ethernet* en lugar
-del habitual RJ11 de las redes telefónicas. Introducen
-características nuevas como acceso a la agenda de direcciones,
-automatización de llamadas, etc. no presentes en los teléfonos
-analógicos convencionales.
+IP Phones
+^^^^^^^^^
+
+They are *phones* with a traditional look, but which are able to use a RJ45
+connector to plug them to a *Ethernet* network instead of the RJ11 connector
+for phone networks. They also add new features, like address book access, call
+automation, ... not present in regular analog phones.
 
 .. figure:: images/voip/phone1.jpg
    :scale: 50
@@ -123,13 +109,12 @@ analógicos convencionales.
    :scale: 50
    :align: center
 
-Adaptadores Analógicos
-^^^^^^^^^^^^^^^^^^^^^^
-También conocidos como **adaptadores ATA** (*Analog Telephony
-Adapter*), permiten conectar un teléfono analógico convencional a una
-red de datos IP y hacer que este funcione como un teléfono IP. Para
-ello dispone de un puerto de red de datos RJ45 y uno o más puertos
-telefónicos RJ11.
+Analog Adapters
+^^^^^^^^^^^^^^^
+
+Analog adapters, also known as **ATA** (*Analog Telephony Adapter*), they can
+connect a traditional analog phone to an IP data network, and make it work like
+an IP phone. It has a RJ45 data port and one or more RJ11 phone ports.
 
 .. figure:: images/voip/ata.jpg
    :scale: 40
@@ -137,12 +122,12 @@ telefónicos RJ11.
 
 Softphones
 ^^^^^^^^^^
-Los **softphones** son aplicaciones de ordenador que permiten realizar llamadas
-Voz IP sin más *hardware* adicional que los propios altavoces y micrófono
-del ordenador. Existen multitud de aplicaciones para este propósito, para
-todas las plataformas y sistemas operativos. X-Lite y QuteCom (WengoPhone)
-están disponibles tanto para Windows y OSX como para GNU/Linux. Ekiga
-(GnomeMeeting) o Twinkle son nativas de este último.
+
+**Softphones** are computer programs to make and receive calls without
+additional hardware (except the computer's microphone and speakers). There are
+multiple applications for all platforms and operating systems. X-Lite and
+QuteCom (WengoPhone) are available for Windows, OSX and GNU/Linux. Ekiga
+(GnomeMeeting) or Twinkle are native applications for GNU/Linux.
 
 .. figure:: images/voip/qutecom.png
    :scale: 40
@@ -151,187 +136,166 @@ están disponibles tanto para Windows y OSX como para GNU/Linux. Ekiga
    :scale: 40
    :align: center
 
-Centralitas IP
-^^^^^^^^^^^^^^
-A diferencia de la telefonía tradicional, dónde las llamadas pasaban siempre
-por la centralita, en la Voz IP los clientes (teléfonos IP o *softphones*) se
-registran en el servidor, el emisor pregunta por los datos del receptor al
-servidor, y entonces el primero realiza una llamada al receptor. En el
-establecimiento de la llamada negocian un códec común para la transmisión
-de la voz.
+IP PBXs
+^^^^^^^
 
-*Asterisk* es una aplicación exclusivamente *software* que funciona sobre cualquier
-servidor habitual proporcionando las funcionalidades de una centralita o PBX
-(*Private Branch eXchange*): conectar entre sí distintos teléfonos, a un proveedor
-de Voz IP, o bien a la red telefónica. También ofrece servicios como buzón de voz,
-conferencias, respuesta interactiva de voz, etc.
+In contrast to traditional telephony which routed all calls through a central
+PBX, VoIP clients (IP phones or *softphones*) register on the server, ask it for
+the call recipient info, and then establish the call directly. When establishing
+the call, the caller and the recipient negotiate a common codec for voice
+transmission.
 
-Para conectar el servidor de la centralita *Asterisk* a la red telefónica analógica
-se usan unas tarjetas llamadas FXO (*Foreign eXchange Office*) que permiten a *Asterisk*
-funcionar como si fuera un teléfono convencional y redirigir las llamadas a través
-de la red telefónica. Para conectar un teléfono analógico al servidor se debe usar
-una tarjeta FXS (*Foreign eXchange Station*) así se pueden adaptar los terminales
-existentes a una nueva red de telefonía IP.
+*Asterisk* is a software-only application that works in commodity servers,
+providing the features of a PBX (*Private Branch eXchange*): connect multiple
+phones amongst them, with a VoIP provider or the public telephone network. It
+also offers services such as voicemail, conference, interactive voice responses,
+etc.
+
+To connect the *Asterisk* server to the public network, it needs extra cards
+called FXO (*Foreign eXchange Office*) which allow *Asterisk* to act like a
+regular phone and route calls through the phone network. To connect an analog
+phone to the server, it needs a FXS (*Foreign eXchange Station*) card. That way,
+existing phones can be adapted to the new IP telephony network.
 
 .. figure:: images/voip/tdm422e.png
    :scale: 30
 
-Configuración de un servidor *Asterisk* con eBox
-------------------------------------------------
-El módulo de Voz IP de eBox permite gestionar un servidor *Asterisk* con los
-usuarios ya existentes en el servidor LDAP del sistema y con las
-funcionalidades más habituales configuradas de una forma sencilla.
+*Asterisk* server configuration with eBox
+-----------------------------------------
+
+eBox VoIP module allows you to manage an *Asterisk* server with the users that
+already exist on the system LDAP server, and the most common features
+configured.
 
 .. figure:: images/voip/deployment.png
    :scale: 50
 
-Como ya es habitual, en primer lugar deberemos habilitar el
-módulo. Iremos a la sección :menuselection:`Estado del módulo` del
-menú de eBox y seleccionaremos la casilla :guilabel:`Voz IP`. Si no
-tenemos habilitado el módulo :guilabel:`Usuarios y Grupos` deberá ser
-habilitado previamente ya que depende de él.
+As usual, the module must be enabled first. Go to :menuselection:`Module status`
+and select the :guilabel:`VoIP` checkbox. If the :guilabel:`Users and groups` is
+not enabled, it should be enabled beforehand.
 
 .. figure:: images/voip/ebox-asterisk_general.png
    :scale: 50
 
-A la configuración general del servidor se accede a través del menú
-:menuselection:`Voz IP --> General`, una vez allí sólo necesitamos
-configurar los siguientes parámetros generales:
+To change the general configuration, go to :menuselection:`VoIP --> General`.
+Once there, the following general parameters should be configured:
 
-:guilabel:`Habilitar extensiones demo`:
-  Habilita las extensiones 500 y 600. Si llamamos a la extensión 500
-  se realiza una llamada mediante el protocolo IAX a
-  guest@pbx.digium.com. En la extensión 600 se dispone de una *prueba
-  de eco* para darnos una idea de la latencia en las llamadas. En
-  definitiva estas dos extensiones nos permiten comprobar que nuestro
-  cliente esta correctamente configurado.
+:guilabel:`Enable demo extensions`:
+  Enables extensions 500 and 600. A call to extension 500 starts a call via IAX
+  to guest@pbx.digium.com. Extension 600 provides an echo test, to estimate our
+  call latency. This two extensions can help to check if a client is well
+  configured.
 
-:guilabel:`Habilitar llamadas salientes`:
-  Habilita las llamadas salientes a otros servidores (por ejemplo:
-  usuario@dominio.tld) o a través del proveedor SIP que tengamos
-  configurado para llamar a teléfonos convencionales. Para realizar
-  llamadas a través del proveedor SIP tendremos que añadir un cero
-  adicional antes del número a llamar, por ejemplo si queremos llamar
-  a las oficinas de eBox Technologies (+34 976733506, o mejor
-  0034976733506), pulsaríamos 00034976733506.
+:guilabel:`Enable outgoing calls`:
+  Enables outgoing calls to other servers (like user@domain.tld) or through a
+  SIP provider to call regular phones. To call through the SIP provider, add an
+  additional zero before the number to call. For instance, to call eBox
+  Technologies offices (+34 976733507, or 0034976733506), dial 00034976733506.
 
-:guilabel:`Extensión de buzón de voz`:
-  Es la extensión donde podemos consultar nuestro buzón de voz. El
-  usuario y la contraseña es la extensión adjudicada por eBox al crear
-  el usuario o al asignársela por primera vez. Recomendamos cambiar la
-  contraseña inmediatamente desde el **Rincón del Usuario** [#]_. La aplicación
-  que reside en esta extensión nos permite cambiar el mensaje de
-  bienvenida a nuestro buzón, escuchar los mensajes en él y
-  borrarlos. Esta extensión solamente es accesible por los usuarios de
-  nuestro servidor, no aceptará llamadas entrantes de otros servidores
-  por seguridad.
+:guilabel:`Voicemail extension`:
+  It is the extension to call to check the voicemail. User and password are both
+  the extension assigned by eBox when creating the user, or assigned the first
+  time.  It is strongly recommended to change that password immediately from the
+  **User corner** [#]_. The application listening on this extension allows you
+  to change the welcome message, listen to recorded messages and delete them.
+  For security reasons, it is only accessible by the users of the eBox server,
+  so it does not accept incoming calls from other servers.
 
-.. [#] **El rincón del usuario** se explica en la sección :ref:`usercorner-ref`.
+.. [#] **User corner** is explained in the section :ref:`usercorner-ref`.
 
-:guilabel:`Dominio Voz IP`:
-  Es el dominio que se asignará a las direcciones de nuestros
-  usuarios. Así pues un usuario **usuario**, que tenga una extensión 1122
-  podrá ser llamado a usuario@dominio.tld o 1122@dominio.tld.
+:guilabel:`VoIP domain`:
+  It is the domain assigned to the user addresses. A user **user**, with a
+  extension 1122, can be called at user@domain.tld or 1122@domain.tld.
 
-En la sección de :guilabel:`Proveedor SIP` introduciremos los datos
-suministrados por nuestro proveedor SIP para que eBox pueda redirigir
-las llamadas a través de él:
+In the :guilabel:`SIP provider` section, enter the credentials supplied by the
+SIP provider, so eBox can route calls through it:
 
-:guilabel:`Nombre`:
-  Es el identificador que se da al proveedor dentro de eBox.
-:guilabel:`Nombre de usuario`:
-  Es el nombre de usuario del proveedor.
-:guilabel:`Contraseña`:
-  Es la contraseña de usuario del proveedor.
-:guilabel:`Servidor`:
-  Es el nombre de dominio del servidor del proveedor.
-:guilabel:`Destino de las llamadas entrantes`:
-  Es la extensión interna a la que se redirigen las llamadas realizadas
-  a la cuenta del proveedor.
+:guilabel:`Name`:
+  It is the identifier of the provider in eBox.
+:guilabel:`User name`:
+  It is the user name in the provider.
+:guilabel:`Password`:
+  It is the password in the provider.
+:guilabel:`Server`:
+  It is the domain name of the provider's server.
+:guilabel:`Recipient of incoming calls`:
+  It is the internal extension that will receive the incoming calls to the
+  provider's account.
 
-En la sección de :guilabel:`Configuración NAT` definiremos la posición
-en la red de nuestra máquina eBox. Si tiene una IP pública la opción
-por defecto :guilabel:`eBox está tras NAT: No` es correcta. Si
-tiene una IP privada deberemos indicar a *Asterisk* cuál es la IP
-pública que obtenemos al salir a *Internet*. En caso de tener una IP
-pública fija simplemente la introduciremos en :guilabel:`Dirección IP
-fija`; si nuestra IP pública es dinámica tendremos que configurar
-el servicio de DNS dinámico (DynDNS) de eBox disponible en
-:menuselection:`Red --> DynDNS` (o configurarlo
-manualmente) e introduciremos el nombre de dominio en
-:guilabel:`Nombre de máquina dinámico`.
+The :guilabel:`NAT configuration` section defines the network location of
+your eBox host.  If it has a public IP address, the default option
+:guilabel:`eBox is behind NAT` is not appropriate. If it has a private IP
+address, *Asterisk* needs to know your *Internet* public IP address.  If you
+have a fixed public address, select :guilabel:`Fixed IP address` and enter it;
+if the IP is dynamic, configure the dynamic DNS service (DynDNS) available in
+:menuselection:`Network --> DynDNS` (or configure it manually) and enter the
+domain name in :guilabel:`Dynamic hostname`.
 
-En la sección de :guilabel:`Redes locales` podremos añadir las redes
-locales a las que accedemos desde eBox sin hacer NAT, como pueden ser
-redes VPN, u otra serie de segmentos de red no configurados desde
-eBox como pudiera ser una red wireless. Esto es necesario debido al
-comportamiento del protocolo SIP en entornos con NAT.
+In the :guilabel:`Local networks` section, you can add the local networks to
+which eBox has direct access without NAT, like VPN or not configured network
+segments, like a Wi-Fi network. This is necessary because of how SIP behaves in
+NAT environments.
 
-A la configuración de las conferencias se accede a través
-:menuselection:`Voz IP --> Conferencias`. Aquí podemos configurar salas
-de reunión multiconferencia.  La :guilabel:`extensión` de estas salas
-deberá residir en el rango 8001-8999 y podrán tener opcionalmente una
-:guilabel:`contraseña de entrada`, una :guilabel:`contraseña
-administrativa` y una :guilabel:`descripción`. A estas extensiones se
-podrá acceder desde cualquier servidor simplemente marcando
-extension@dominio.tld.
+The conference configuration is accessed through
+:menuselection:`VoIP --> Meetings`. There you can configure multiple conference
+rooms. These rooms' :guilabel:`extension` should fit in the 8001-8999 range and
+optionally have a :guilabel:`password` and a :guilabel:`description`. These
+extensions can be accessed from any server by dialing extension@domain.tld.
 
 .. figure:: images/voip/ebox-asterisk_meetings.png
    :scale: 80
 
-Configurando un *softphone* para conectar a eBox
-------------------------------------------------
+Configuring a *softphone* to work with eBox
+-------------------------------------------
 
 Ekiga (Gnome)
 -------------
 
-**Ekiga** [#]_ es el *softphone* o cliente de voz IP recomendado en el
-*entorno de escritorio Gnome*. Al lanzarlo por primera vez
-presenta un asistente para configurar datos personales del usuario,
-dispositivos de sonido y vídeo, la conexión a *Internet* y los
-servicios de *Ekiga.net*. Podemos omitir la configuración tanto de la
-cuenta en *Ekiga.net* como de *Ekiga Call Out*.
+**Ekiga** [#]_ is the *softphone* (or VoIP client) recommended by the Gnome
+desktop environment. When first launched, Ekiga presents a wizard to configure
+the user's personal data, audio and video devices, the connection to the
+Internet and the *Ekiga.net*'s services. We can skip the configuration of both
+*Ekiga.net* and *Ekiga Call Out*.
 
 .. [#] http://ekiga.org
 
-Desde :guilabel:`Editar --> Cuentas`, seleccionando :guilabel:`Cuentas
---> Añadir una cuenta SIP` podremos configurar la cuenta de Voz IP de
-eBox Platform.
+From :guilabel:`Edit --> Accounts`, selecting :guilabel:`Accounts
+--> Add a SIP Account` you can configure your VoIP account in eBox Platform.
 
-:guilabel:`Nombre`:
-  Es el identificador de la cuenta dentro de *Ekiga*.
-:guilabel:`Servidor de registro`:
-  Es el nombre de dominio del servidor de Voz IP de eBox.
-:guilabel:`Usuario` y :guilabel:`Usuario para autenticación`:
-  Son el nombre de usuario de eBox.
-:guilabel:`Contraseña`:
-  Es la contraseña de usuario de eBox.
+:guilabel:`Name`:
+  Identifier of the account inside *Ekiga*.
+:guilabel:`Register server`:
+  Domain name of the VoIP server.
+:guilabel:`User` and :guilabel:`User for authentication`:
+  Both are the user name.
+:guilabel:`Password`:
+  User password.
 
 .. figure::        images/voip/ekiga_01.png
    :scale: 50
    :align: center
 
-Tras configurar la cuenta se intentará registrar en el servidor.
+After setting the account, it will attempt to register on the server.
 
 .. figure:: images/voip/ekiga_02.png
    :scale: 50
    :align: center
 
-Para realizar una llamada tan sólo hay que escribir el número o dirección *SIP*
-en la barra superior y llamar usando el icono del teléfono verde a la derecha.
-Para colgar se usa el icono del teléfono rojo a la derecha también.
+To make a call is as simple as typing the number or *SIP* address
+on the top bar, and call using the green phone icon to the right of the bar.
+To hang up, use the red phone icon.
 
 .. figure:: images/voip/ekiga_03.png
    :scale: 50
    :align: center
 
-Qutecom (Multiplataforma)
-^^^^^^^^^^^^^^^^^^^^^^^^^
+Qutecom (Multiplatform)
+^^^^^^^^^^^^^^^^^^^^^^^
 
-**Qutecom** [#]_ es un *softphone* que usa las bibliotecas Qt4 por lo que
-está disponible en las tres plataformas más extendidas: Linux, OSX y
-Windows. También al lanzarlo por primera vez nos presentará un
-asistente para configurar la cuenta de Voz IP.
+**Qutecom** [#]_ is a *softphone* that uses Qt4 libraries, what makes it
+available for the three more popular operating systems: GNU/Linux, OSX and
+Windows. When launched first time it shows a wizard to configure the VoIP
+account, as Ekiga does.
 
 .. [#] http://www.qutecom.org
 
@@ -339,67 +303,60 @@ asistente para configurar la cuenta de Voz IP.
    :scale: 50
    :align: center
 
-Tenemos un teclado numérico o una lista de contactos para realizar llamadas. Se
-usan los botones verde / rojo en la parte inferior para llamar y colgar.
+You have a keypad or a list of contacts to make calls. Use the green/red buttons
+at the bottom to call and hang up.
 
 .. figure:: images/voip/qutecom_02.png
    :scale: 50
    :align: center
 
-Ejemplo práctico
-^^^^^^^^^^^^^^^^
+Example
+^^^^^^^
+Create a user with a VoIP account. Change the extension to 1500.
 
-Crear un usuario que tenga una cuenta de Voz IP. Cambiarle la extensión a
-1500.
+#. **Action:**
+   Log into eBox, click on :menuselection:`Module status` and
+   enable the :guilabel:`VoIP` module by clicking the checkbox in the
+   :guilabel:`Status` column. If :guilabel:`Users and Groups` is not enabled
+   you should enable it previously. Then you will be informed about the changes
+   that are going to take place in the system. You should allow these actions
+   by clicking the :guilabel:`Accept` button.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activar el módulo :guilabel:`Voz IP` marcando la casilla
-   correspondiente en la columna :guilabel:`Estado`. Si
-   :guilabel:`Usuarios y Grupos` no está activado deberemos activarlo
-   previamente pues depende de él. Entonces se informa sobre los cambios que
-   se van a realizar en el sistema. Permitiremos la operación pulsando el botón
-   :guilabel:`Aceptar`.
+   Effect:
+     The :guilabel:`Save Changes` button has been activated.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+#. **Action:**
+   Go to :menuselection:`VoIP`. Write the machine's domain name in
+   :guilabel:`VoIP Domain`. The domain should be resolvable from the machines
+   of the service clients. Click on :guilabel:`Change`.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Voz IP`. En el campo
-   :guilabel:`Dominio Voz IP` escribir el nombre de dominio que corresponda
-   a esta máquina. Este dominio deberá poder resolverse desde las máquinas
-   de los clientes del servicio. Pulsar el botón :guilabel:`Cambiar`.
+#. **Action:**
+   Save the changes done.
 
-#. **Acción:**
-   Guardar los cambios.
+   Effect:
+     eBox shows its progress while applying the changes. Once it is done, it
+     shows it.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+     VoIP service is ready to be used.
 
-     El servicio de Voz IP está preparado para usarse.
+#. **Action:**
+   Access the :menuselection:`Users --> Add User` menu. Fill in the form to
+   create a new user.  Click on :guilabel:`Create User`.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Usuarios --> Añadir Usuario`. Completar la
-   información del formulario para crear un nuevo usuario. Pulsar el botón
-   :guilabel:`Crear Usuario`.
+   Effect:
+     eBox creates a new user and shows you its profile.
 
-   Efecto:
-     eBox crea un nuevo usuario y nos muestra el perfil con las opciones de
-     este.
+#. **Action:**
+   In the section :guilabel:`VoIP Account`, eBox shows if the user has its
+   account enabled or disabled, and also its extension.
+   Make sure that the account is enabled, all the users created while
+   the VoIP module is enabled should have their account also enabled. Finally,
+   change the extension given by defect (say, the first free extension of the
+   range of users), to the extension 1500.
+   Click on :guilabel:`Apply changes` in the :guilabel:`VoIP Account` section.
 
-#. **Acción:**
-   En la sección :guilabel:`Cuenta de Voz IP` muestra si el usuario tiene
-   la cuenta activada o desactivada y la extensión que tiene asignada.
-   Cerciorarse de que la cuenta está activada, ya que todos los usuarios creados
-   mientras el módulo de Voz IP está habilitado tienen la cuenta activada. Por
-   último, cambiar la extensión asignada por defecto, que es la primera libre
-   del rango de extensiones de usuarios, a la extensión 1500 que deseábamos.
-   Pulsar el botón :guilabel:`Aplicar cambios` de la sección
-   :guilabel:`Cuenta de Voz IP`.
-
-   Efecto:
-     eBox aplica los cambios realizados inmediatamente, el usuario ya puede
-     recibir llamadas sobre esa extensión.
+   Effect:
+     eBox apply the changes immediately. The user is able to receive calls in
+     that extension.
 
 .. include:: voip-exercises.rst

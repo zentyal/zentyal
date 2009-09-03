@@ -1,129 +1,110 @@
 .. _printers-ref:
 
-Servicio de compartición de impresoras
-**************************************
+Printers sharing service
+************************
 
 .. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
                    Enrique J. Hernández <ejhernandez@ebox-platform.com>,
                    Javier Uruen <juruen@ebox-platform.com>
 
-Para compartir una impresora de nuestra red, permitiendo o denegando
-el acceso a usuarios y grupos para su uso, debemos tener accesibilidad
-a dicha impresora desde la máquina que contenga eBox ya por conexión
-directa, puerto paralelo o USB [#]_, o a través de la red local. Además
-debemos conocer información relativa al fabricante, modelo y
-controlador de la impresora si se quiere obtener un funcionamiento
-correcto.
+.. FIXME: Not so well supported
 
-.. [#] *Universal Serial Bus* (USB) es un bus serie estándar para
-       comunicación de dispositivos con la computadora.
+In order to share a printer in our network, allowing or denying users
+and groups the access to it, we need to have access to that printer
+from a host running eBox. This can be done through: direct
+connection, i.e., with a USB [#]_ or parallel port, or through the local
+network. Besides that, if we want to obtain good results on its
+operation, we will need to know certain information regarding the
+manufacturer, the model and the driver of the printer. Printers can be
+added going to :menuselection:`Printers --> Add printer`. Once there,
+you will be asked to enter all the necessary details in a wizard.
 
-Una vez tenemos todos los datos previos, se puede añadir una impresora
-a través de :menuselection:`Impresoras --> Añadir Impresora`. Ahí se
-sigue un asistente en el que se irán introduciendo los datos
-necesarios para su incursión en función de los datos entrantes.
+.. [#] *Universal Serial Bus* (USB) is a serial bus standard to
+       connect devices to a host computer.
 
-En primer lugar, se establece un nombre significativo para la
-impresora y se configura el método de conexión. Este método depende del modelo
-de impresora y de cómo esté conectada a nuestra red. Los siguiente métodos de
-conexión están soportados por eBox:
+First of all, we need to name the printer and to establish a
+connection method for it. The following methods are currently supported by
+eBox:
 
-Puerto paralelo:
-  Una impresora conectada al servidor eBox mediante el puerto paralelo del mismo.
+Parallel port:
+  A physical printer connected to the eBox server using parallel port.
 USB:
-  Una impresora conectada al servidor eBox mediante el puerto USB.
+  A physical printer connected to the eBox server using USB
 *AppSocket*:
-  Una impresora remota de red que se comunica con el protocolo
-  *AppSocket*. A este protocolo también se le conoce con el nombre de
+  A remote printer that uses the *AppSocket* protocol, also known as
   *JetDirect*.
 IPP:
-  Una impresora remota que usa el protocolo IPP [#]_ para comunicarse.
+  A remote printer that uses the *Internet Printing Protocol* (IPP) [#]_.
 LPD:
-  Una impresora remota que usa el protocolo LPD [#]_ para comunicarse.
+  A remote printer that uses the *Line Printer Daemon protocol* (LPD) [#]_.
 Samba:
-   Una impresora remota a la que se puede acceder como recurso compartido de red
-   bajo Samba o Windows.
+   A remote printer shared through Samba or *Windows* printer sharing.
 
-.. [#] *Internet Printing Protocol* (IPP) es un protocolo de red para
-       la impresión remota y para la gestión de cola de
-       impresión. Más información en :rfc:`2910`.
+.. [#] *Internet Printing Protocol* (IPP) is a standard network
+       protocol for remote printing as well as for managing print
+       jobs, media size, resolution, and so forth. More information
+       available on :rfc:`2910`.
 
-.. [#] *Line Printer Daemon protocol* (LPD) son un conjunto de
-       programas que permiten la impresión remota y el envío de
-       trabajos usando *spooling* a las impresoras para los sistemas
-       *Unix*. Más información en :rfc:`1179`.
+.. [#] *Line Printer Daemon protocol* (LPD) is a set of programs that
+       provide printer spooling and network printer server
+       functionality for *Unix-like* systems. More information
+       available on :rfc:`1179`.
 
 .. image:: images/printers/12-printer.png
    :scale: 60
    :align: left
 
-En función del método seleccionado, se deben configurar los parámetros
-de la conexión. Por ejemplo, para una impresora en red, se debe establecer
-la dirección IP y el puerto de escucha de la misma como muestra la
-imagen.
+We will need to configure the connection parameters according to the
+selected method. For example, if we have a network printer, we
+will have to set up an IP address and a listening port as the
+following figure shows:
 
 .. image:: images/printers/12-printer1.png
    :scale: 60
    :align: left
 
-Posteriormente, en los siguientes cuatro pasos se debe delimitar qué
-controlador de impresora debe usar eBox para transmitir los datos a
-imprimir, estableciendo el fabricante, modelo, controlador de
-impresora a utilizar y sus parámetros de configuración.
+In the next four steps we will configure the printer driver that eBox needs to
+use in order to send the jobs to be printed out, defining:
+the manufacturer, the model, the printer driver as well as other
+settings.
 
 .. image:: images/printers/12-printer2.png
    :scale: 60
-   :align: left
+
 .. image:: images/printers/12-printer3.png
    :scale: 60
-   :align: left
+
 .. image:: images/printers/12-printer4.png
    :scale: 60
-   :align: left
+
 .. image:: images/printers/12-printer5.png
    :scale: 60
-   :align: left
 
-Una vez finalizado el asistente, ya tenemos la impresora configurada.
-Por tanto, podremos observar qué trabajos de impresión están pendientes
-o en proceso. También tendremos la posibilidad de modificar alguno de
-los parámetros introducidos en el asistente a través de
-:menuselection:`Impresoras --> Gestionar impresoras`.
 
-Las impresoras gestionadas por eBox son accesibles mediante el
-protocolo Samba. Adicionalmente podremos habilitar el demonio de
-impresión CUPS [#]_ que hará accesibles las impresoras mediante IPP.
+After these steps, the printer will be configured.  Now you will be able to
+see not only the queued printing jobs but also the ones in progress. In
+addition to that, you can also modify any of the parameters already introduced
+in the wizard going to :menuselection:`Printers --> Manage printers`.
 
-.. [#] *Common Unix Printing System* (CUPS) es un sistema modular de
-       impresión para sistemas Unix que permiten a una máquina actuar
-       de servidor de impresión, lo cual permite aceptar trabajos de
-       impresión, su procesamiento y envío a la impresora adecuada.
+The printers managed by eBox are accessible using the Samba protocol.
+You can also enable the printing daemon **CUPS** in order to share
+the printers using IPP too.
+
+.. [#] *Common Unix Printing System* (CUPS) is a modular printing system
+       for Unix systems that allows a machine to act as a printing server,
+       thus being able to accept printing jobs, process them and forward
+       them to the appropriate printer.
 
 .. _cups-img-ref:
 
-.. figure:: images/printers/16-manage-printers.png
+.. image:: images/printers/16-manage-printers.png
    :scale: 80
    :align: center
-   :alt: Gestión de impresoras
-   
-   Gestión de impresoras
 
-Si una impresora no está soportada por eBox, es decir, que eBox no
-dispone de los controladores necesarios para gestionar dicha
-impresora, hay que usar CUPS en su defecto. Para añadir una impresora
-por CUPS hay que habilitar su demonio de impresión como se muestra en
-la figura :ref:`cups-img-ref` con :guilabel:`Habilitar CUPS`. Una vez
-se ha habilitado, se puede configurar a través de::
-
-  http://direccion_ebox:631
-
-Una vez añadida la impresora a través de CUPS, eBox es capaz de
-exportarla usando el protocolo de Samba para ello.
-
-Una vez habilitamos el servicio y salvamos cambios podemos comenzar a
-permitir el acceso a dichos recursos a través de la edición del grupo
-o del usuario (:menuselection:`Grupos --> Editar Grupo --> Impresoras`
-o :menuselection:`Usuarios --> Editar Usuario --> Impresoras`).
+Once the service is enabled and you have saved changes, you can give
+access to the resources editing either the group or the user
+(:menuselection:`Groups --> Edit Group --> Printers` or
+:menuselection:`Users --> Edit User --> Printers`).
 
 .. image:: images/printers/13-printer-user.png
    :scale: 80

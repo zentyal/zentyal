@@ -1,25 +1,25 @@
 .. sectionauthor:: Enrique J. Hernández <ejhernandez@ebox-platform.com>,
+                   J. A. Calvo <jacalvo@ebox-platform.com>,
 
-En este apartado se verán diferentes técnicas para proteger la red
-más allá de un simple cortafuegos, evitando ataques externos,
-y detectando posibles intrusiones hacia servicios de red que se usen.
+This section will explain different techniques to protect your network
+beyond a simple firewall, preventing external attacks,
+and detecting possible intrusions into your network services.
 
-El correo electrónico sin un buen filtrado de correo no funciona
-correctamente, en este tema se verán diferentes técnicas para evitar
-el correo basura (*spam*) y los virus en el correo electrónico con
-eBox.
+An email service without a spam filter is a waste of time and resources.
+This section shows different techniques to avoid junk mail (spam) and viruses
+in the email service provided by eBox.
 
-El tráfico Web también puede traer problemas dependiendo de los lugares
-que se visiten. Por ello, en este tema se explicará la integración del
-filtrado de contenidos del *proxy HTTP* con un antivirus y diversas
-configuraciones más avanzadas para dar mayor seguridad a la navegación
-por Internet de los usuarios de la red.
+Web traffic can also bring problems depending on the sites visited. Therefore,
+in this section we explain the integration of the content filtering of the
+*HTTP proxy* with an antivirus and several advanced configurations to provide
+greater security to the Internet browsing of the users in the network.
 
-En este apartado, se explicará como conectar de manera segura a los
-empleados fuera de la oficina o a realizar conexiones entre oficinas
-mediante el uso de **redes privadas virtuales**, para ello se definirán
-las bases que sigue la seguridad en la red.
+We will also explain how to allow the employees outside the office to
+securely connect your local network, or how to make connections between
+offices by using **virtual private networks**. For that we will define the
+bases of the network security.
 
-Finalmente, la detección de intrusos a través de reglas de ataque se
-verán también en este apartado. De una forma sencilla, podemos recibir
-notificaciones de ataques y analizar los daños que hayan podido causar.
+Finally, it is explained how the intrusion detection system
+uses rulesets to match the contents of the traffic packages in order
+to detect external attacks. You can get notifications of possible attacks and
+analyze the damage they may have caused.

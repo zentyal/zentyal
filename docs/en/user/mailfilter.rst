@@ -1,328 +1,295 @@
 .. _mailfilter-sec-ref:
 
-Filtrado de correo electrónico
-******************************
+Mail Filter
+***********
 
 .. sectionauthor:: Jose A. Calvo <jacalvo@ebox-platform.com>
                    Enrique J. Hernandez <ejhernandez@ebox-platform.com>
                    Víctor Jímenez <vjimenez@warp.es>
+                   Javi Vázquez <javivazquez@ebox-technologies.com>
 
-Los principales problemas del correo electrónico son el *spam* y los virus.
+The main issues when talking about email are spam and viruses.
 
-El **Spam**, o correo electrónico no deseado, distrae la atención del usuario
-que tiene que bucear en su bandeja de entrada para encontrar los correos
-importantes. También genera una gran cantidad de tráfico que puede afectar al
-funcionamiento normal de la red y del servicio de correo.
+Spam, or not desired email, makes the user waste time looking for the right
+emails in the inbox. Moreover, spam generates a lot of network traffic that
+could affect the network and email services.
 
-Aunque los **Virus informáticos** no afectan al sistema en el que está instalado
-eBox, un correo electrónico que contenga un virus puede infectar otras máquinas
-clientes de la red.
+Although the viruses do not harm the system where eBox is installed, an infected
+email could affect other computers in the network.
 
-Esquema del filtrado de correo de eBox
-======================================
+Mail filter schema in eBox
+==========================
 
-Para defendernos de estas amenazas, eBox dispone de un filtrado de
-correo bastante potente y flexible.
+To defend ourselves from these threats, eBox has a mail filter
+quite powerful and flexible.
 
 .. figure:: images/mailfilter/mailfilter-schema.png
    :scale: 80
-   :alt: Esquema del filtrado de correo en eBox
+   :alt: eBox's mail filter schema
 
-   *GRAPHIC: Esquema del filtrado de correo en eBox*
+   *GRAPHIC: eBox's mail filter schema*
 
-En la figura se observan los diferentes pasos que sigue un correo antes
-de determinar si es válido o no. En primer lugar, el servidor
-de correo envía el correo al gestor de políticas de listas grises. Si
-el correo supera este filtro, pasará al filtro de correo donde se
-examinarán una serie de características del correo, para ver si contiene virus
-o si se trata de correo basura, utilizando para ello un filtro estadístico.
-Si supera todos esos filtros, entonces se determina que el correo es válido y se
-emite a su receptor o se almacena en un buzón del servidor.
+In the figure, we can observe the different steps that a message follows before
+tagging it. First, the email server sends it to the greylisting policies
+manager. If the email passes through the filter, spam and viruses are checked
+next using a statistical filter. Finally, if everything is OK, the email is
+considered valid and is sent to its recipient or stored in the server's mailbox.
 
-En esta sección vamos a explicar paso a paso en qué consiste cada uno
-de estos filtros y cómo se configuran en eBox.
+In the following section, details on those filters and its configuration will
+be explained in detail.
 
 Greylist
 --------
+A greylist [#]_ is a method of defense against spam which does not discard
+emails, but makes life harder for the spammers.
 
-Una **greylist** (lista gris) [#]_ es un método de defensa contra el *spam*
-que no descarta correos, sólo le pone más difícil el trabajo a un
-servidor de correo que actúa como *spammer* (emisor de correo *spam* o
-basura).
+.. [#] eBox uses **postgrey** http://postgrey.schweikert.ch/ as the
+       policy manager in postfix.
 
-.. [#] eBox usa **postgrey** http://postgrey.schweikert.ch/ como
-   gestor de esta política en **postfix**.
+In the case of eBox, the strategy is to pretend to be out of service. When a
+server wants to send a new mail, eBox says "*I'm out of service at this time,
+try in 300 seconds*" [#]_. If the server meets the specification, it will sent
+the message again a bit later and eBox will consider it as a valid server.
 
-En el caso de eBox, la estrategia utilizada es fingir estar fuera de servicio.
-Cuando un servidor nuevo quiere enviarle un correo, eBox le dice "*Estoy fuera
-de servicio en este momento, inténtalo en 300 segundos.*" [#]_, si el servidor
-remitente cumple la especificación reenviará el correo pasado ese tiempo y eBox
-lo apuntará como un servidor correcto.
+.. [#] Actually the mail server sends as response "Greylisted", say, put on the
+       greylist.
 
-.. [#] Realmente el servidor de correo envía como respuesta
-   *Greylisted*, es decir, puesto en la lista gris en espera de
-   permitir el envío de correo o no pasado el tiempo configurado.
-
-Sin embargo, los servidores que envían *Spam* no suelen seguir el estándar y
-no reenviarán el correo. Así habríamos evitado los mensajes de *Spam*.
+However, the servers that send spam do not usually follow the standard. They
+will not try to send the email again and we would have avoided the
+spam messages.
 
 .. figure:: images/mailfilter/greylisting-schema.png
    :scale: 80
-   :alt: Esquema del funcionamiento de una lista gris
+   :alt: Schematic operation of a greylist
 
-   *GRAPHIC: Esquema del funcionamiento de una lista gris*
+   *GRAPHIC: Schematic operation of a greylist*
 
-
-El *Greylist* se configura desde :menuselection:`Correo --> Greylist`
-con las siguientes opciones:
+Greylisting is configured from :menuselection:`Mail --> Greylist`
+with the following options:
 
 .. image:: images/mailfilter/05-greylist.png
    :scale: 70
 
-Habilitado:
-  Marcar para activar el *greylisting*.
+Enabled:
+  Set to enable greylisting.
 
-Duración del *Greylist*:
-  Segundos que debe esperar el servidor remitente antes de reenviar el correo.
+*Greylist* duration:
+  Seconds the sending server must wait before sending the mail again.
 
-Ventana de reintento:
-  Tiempo en horas en el que el servidor remitente puede enviar
-  correos. Si el servidor ha enviado algún correo durante ese tiempo,
-  dicho servidor pasará a la lista gris. En una lista gris, el
-  servidor de correo puede enviar todos los correos que quiera sin
-  restricciones temporales.
+Retry window:
+  Time (in hours) when the sender server can send email.
+  If the server has sent any mail during that time,
+  that server will go down in the grey list. In a grey list, the
+  mail server can send all the emails you want without temporary restrictions.
 
-Tiempo de vida de las entradas:
-  Días que se almacenarán los datos de los servidores evaluados en la
-  lista gris. Si pasan más de los días configurados, cuando el
-  servidor quiera volver a enviar correos tendrá que pasar de nuevo por
-  el proceso de *greylisting* descrito anteriormente.
+Entry time-to-live:
+  Days that data will be stored in the servers evaluated in the greylist.
+  After the configured days, the mail server will have to pass again through the
+  greylisting process described above.
 
-Verificadores de contenidos
----------------------------
+Content filtering system
+------------------------
 
-El filtrado de contenido del correo corre a cargo de los **antivirus**
-y de los detectores de **spam**. Para realizar esta tarea eBox usa un
-interfaz entre el MTA (**postfix**) y dichos programas. Para ello, se
-usa el programa **amavisd-new** [#]_ que habla con el MTA usando
-(E)SMTP o LMTP (*Local Mail Transfer Protocol* :RFC:`2033`) para comprobar
-que el correo no es *spam* ni contiene virus. Adicionalmente, esta interfaz
-realiza las siguientes comprobaciones:
+Mail content filtering is provided by the antivirus and spam detectors.
+To perform this task, eBox uses an interface between the MTA (**postfix**)
+and those programs. **amavisd-new** [#]_ talks with the MTA via
+(E)SMTP or LMTP (*Local Mail Transfer Protocol* :RFC:`2033`) to check that
+the emails are not spam neither contain viruses. Additionally, this interface
+performs the following checks:
 
- - Listas blancas y negras de ficheros y extensiones.
- - Filtrado de correos con cabeceras malformadas.
+ - White and black lists of files and extensions.
+ - Malformed headers.
 
 .. [#] **Amavisd-new**: http://www.ijs.si/software/amavisd/
 
 Antivirus
 ---------
 
-El *antivirus* que usa eBox es **ClamAV** [#]_, el cual es un
-conjunto de herramientas *antivirus* para UNIX especialmente diseñadas
-para escanear adjuntos en los correos electrónicos en un
-MTA. **ClamAV** posee un actualizador de base de datos que permite las
-actualizaciones programadas y firmas digitales a través del programa
-**freshclam**. Dicha base de datos se actualiza diariamente con los nuevos
-virus que se van encontrando. Además, el *antivirus* es capaz de
-escanear de forma nativa diversos formatos de fichero como por ejemplo
-Zip, BinHex, PDF, etc.
+The antivirus used by eBox is **ClamAV** [#]_, which is an
+antivirus toolkit designed for UNIX to scan attachments in emails in an MTA.
+**ClamAV** updates its virus database through **freshclam**. This database is
+updated daily with new virus that have been found. Furthermore, the antivirus is
+able to scan a variety of file formats such as Zip, BinHex, PDF, etc..
 
 .. [#] Clam Antivirus: http://www.clamav.net/
 
-En :menuselection:`Antivirus` se puede comprobar
-si está instalado y actualizado el *antivirus* en el sistema.
+In :menuselection:`Antivirus`, you can check if the antivirus is installed
+and up to date.
 
 .. image:: images/mailfilter/11-antivirus.png
    :scale: 70
    :align: center
 
-Se puede actualizar desde :menuselection:`Gestión de Software`, como
-veremos en :ref:`software-ref`.
+You can update it from :menuselection:`Software Management`, as we will see
+in :ref:`software-ref`.
 
-Si el *antivirus* está instalado y actualizado, eBox lo tendrá en
-cuenta dependiendo de la configuración del filtro SMTP, el *proxy
-POP*, el *proxy HTTP* o incluso podría funcionar para la compartición
-de ficheros.
+If the antivirus is installed and up to date, eBox will use it in the following
+modules: *SMTP proxy*, *POP proxy*, *HTTP proxy* and even *file sharing*.
 
 Antispam
 --------
 
-eBox utiliza un **Filtro Bayesiano** para la detección de *Spam*. Es
-necesario entrenar al filtro indicándole aquel correo que es basura
-*Spam*, y aquel correo que no lo es. Este tipo de correo se le suele
-denominar *Ham*. El filtro detectará patrones estadísticos que
-le servirán para puntuar mediante cálculos de probabilidades el correo
-nuevo según se parezca más al *Spam* (mayor puntuación), o al *Ham*.
+eBox employs a **Bayesian filter** to detect spam. It is
+necessary to train the filter, indicating what is junk mail and what
+is not. The latter kind of mail is often called *ham*. The filter will
+detect statistical patterns to classify the mail as spam or ham.
 
-eBox usa **Spamassassin** [#]_ como detector de *spam* basado en reglas
-de igualdad en el contenido. Puede usar un **filtro bayesiano** o
-reglas de redes como por ejemplo:
+eBox uses **Spamassassin** [#]_ as spam detector, based on rules
+of content similarity. It can use a Bayesian filter or network rules such as:
 
- - Listas negras publicadas vía DNS (*DNSBL*).
- - Listas negras de URI que siguen los sitios *Web* de *Spam*.
- - Filtros basados en el *checksum* de los mensajes.
- - Entorno de política de emisor (*Sender Policy Framework* o SPF) :RFC:`4408`.
- - Otros. [#]_
+ - DNS published blacklists (*DNSBL*).
+ - URI blacklists that track spam websites.
+ - Filters based on the checksum of messages.
+ - Sender Policy Framework (SPF): RFC: `4408`.
+ - Others. [#] _
 
 .. [#] *The Powerful #1 Open-Source Spam Filter*
        http://spamassassin.apache.org .
 
-.. [#] Existe una lista muy larga de técnicas *antispam* que se puede
-       consultar en http://en.wikipedia.org/wiki/Anti-spam_techniques_(e-mail)
+.. [#] A long list of *antispam* techniques can be found in
+       http://en.wikipedia.org/wiki/Anti-spam_techniques_(e-mail)
 
-La configuración general del filtro se realiza desde
-:menuselection:`Filtro de correo --> Antispam`:
+The general configuration of the filter is done from
+:menuselection:`Mail filter --> Antispam`:
 
 .. image:: images/mailfilter/12-antispam.png
    :scale: 80
 
-Umbral de *Spam*:
-  Puntuación a partir de la cual un correo se considera como *Spam*.
-Etiqueta de asunto *Spam*:
-  Etiqueta para añadir al asunto del correo en caso de que sea *Spam*.
-Usar el clasificador bayesiano:
-  Si está marcado se empleará el filtro bayesiano, si no sólo se
-  tendrán en cuenta las listas de direcciones permitidas (*whitelist*
-  o listas blancas) y bloqueadas (*blacklist* o listas negras).
-Auto-lista blanca:
-  Tiene en cuenta el historial del remitente a la hora de puntuar el
-  mensaje. Esto es, si el remitente ha enviado mucho correo como *ham*
-  es altamente probable que el próximo correo que envíe sea *ham* y no
-  *spam*.
-Auto-aprendizaje:
-  Si está marcado, el filtro aprenderá de los mensajes que son claramente *Spam*
-  o *Ham*.
-Umbral de auto-aprendizaje de *spam*:
-  Puntuación a partir de la cual el filtro aprenderá automáticamente un correo
-  como *spam*. No es conveniente poner un valor bajo, ya que puede
-  provocar posteriormente falsos positivos. Su valor debe ser mayor
-  que **Umbral de** *spam*.
-Umbral de auto-aprendizaje de *ham*:
-  Puntuación a partir de la cual el filtro aprenderá automáticamente un correo
-  como *ham*. No es conveniente poner un valor alto, ya que puede provocar
-  falsos negativos. Su valor debería ser menor que 0.
+Spam threshold:
+  Mail will be considered spam if the score is above this number.
+Spam subject tag:
+  Tag to be added to the mail subject when it is classified as spam.
+Use the Bayesian classifier:
+  If it is marked, the Bayesian filter will be used. Otherwise, only lists of
+  allowed (*whitelist*) and blocked (*blacklist*) addresses will be taken into
+  account.
+Automatic whitelist:
+   It takes into account the history of the sender when rating the message.
+   That is, if the sender has sent some ham emails, it is highly probable
+   that the next email sent by that sender is also ham.
+Automatic learning:
+  If it is enabled, the filter will learn from messages that are obviously
+  spam or ham.
+Threshold of self-learning spam:
+   The automatic learning system will learn from spam emails that have a score
+   above this value. It is not appropriate to set a low value, since it can
+   subsequently lead to false positives. Its value must be greater
+   than the spam threshold.
+Threshold of self-learning ham:
+   The automatic learning system will learn from ham emails that have a score
+   below this value. It is not appropriate to put a high value, since it can
+   cause false negatives. Its value should be less than 0.
 
-Desde :guilabel:`Política de remitente` podemos marcar los remitentes
-para que siempre se acepten sus correos (*whitelist*), para que
-siempre se marquen como spam (*blacklist*) o que siempre los procese
-el filtro antispam (*procesar*).
+From :guilabel:`Sender Policy` we can configure some senders
+so their mail is always accepted (*whitelist*),
+always marked as spam (*blacklist*) or always processed
+by the spam filter (*process*).
 
-Desde :guilabel:`Entrenar filtro de spam bayesiano` podemos entrenar
-al filtro bayesiano enviándole un buzón de correo en formato *Mbox*
-[#]_ que únicamente contenga *spam* o *ham*. Existen en *Internet* muchos
-ficheros de ejemplo para entrenar al filtro bayesiano. Conforme más
-entrenado esté el filtro, mejor será el resultado de la decisión de
-tomar un correo como basura o no.
+From :guilabel:`Train Bayesian spam filter` we can train the
+Bayesian filter sending it a mailbox in *mbox* format [#] _
+containing only spam or ham. There are many sample files in the
+Internet to train a Bayesian filter. The more trained the filter is,
+the better the spam detection.
 
-.. [#] *Mbox* y *maildir* son formatos de almacenamiento de
-   correos electrónicos y es dependiente del cliente de correo
-   electrónico. En el primero todos los correos se almacenan en un único
-   fichero y con el segundo formato, se almacenan en ficheros separados
-   diferentes dentro de un directorio.
+.. [#] *Mbox* and *maildir* are email storage formats, most email clients and
+   servers use one of these. In the first one, all the emails in a directory
+   are stored in a single file, while the second organizes the emails in
+   different files within a directory.
 
+File-based ACLs
+---------------
 
-Listas de control basadas en ficheros
--------------------------------------
+It is possible to filter files attached to mails using
+:menuselection:`Mail filter --> File based ACLs` (Access Control Lists).
 
-Es posible filtrar los ficheros adjuntos que se envían en los correos a través
-de :menuselection:`Filtro de correo --> Listas de control de acceso`
-(*File Access Control Lists*).
-
-Allí podemos permitir o bloquear correos según las extensiones de los
-ficheros adjuntos o de sus tipos MIME.
+There, we can allow or blocks mail according to the extensions of the files
+attached or their Multipurpose Internet Mail Extensions (MIME) types.
 
 .. image:: images/mailfilter/06-filter-files.png
    :scale: 80
 
 .. _smtp-filter-ref:
 
-Filtrado de Correo SMTP
------------------------
+Simple Mail Transfer Protocol (SMTP) mail filter
+------------------------------------------------
 
-Desde :menuselection:`Filtro de correo --> Filtrado de correo SMTP` se puede
-configurar el comportamiento de los filtros anteriores cuando eBox
-reciba correo por SMTP. Desde :menuselection:`Configuración general` podemos
-configurar el comportamiento general para todo el correo entrante:
+From :menuselection:`Mail filter --> SMTP mail filter` it is possible
+to configure the behavior of the filters when eBox receives mail by SMTP.
+On the other hand, from :menuselection:`General configuration` we can set
+the general behavior for every incoming email:
 
 .. image:: images/mailfilter/07-filter-smtp.png
 
-Habilitado:
-  Marcar para activar el filtro SMTP.
-Antivirus habilitado:
-  Marcar para que el filtro busque virus.
-Antispam habilitado:
-  Marcar para que el filtro busque *spam*.
-Puerto de servicio:
-  Puerto que ocupará el filtro SMTP.
-Notificar los mensajes problemáticos que no son *spam*:
-  Podemos enviar notificaciones a una cuenta de correo cuando se
-  reciben correos problemáticos que no son *spam*, por ejemplo con
-  virus.
+Enabled:
+  Check to enable the SMTP mail filter.
+Antivirus enabled:
+  Check to make the filter look for viruses.
+Antispam enabled:
+  Check to make the filter look for spam.
+Service port:
+  Port to be used by the SMTP filter.
+Notify about problematic email that is not spam:
+  We can send notifications to a mailbox when problematic (but not spam) emails
+  are received, e.g., emails infected by virus.
 
-Desde :menuselection:`Políticas de filtrado SMTP` se puede configurar qué debe
-hacer el filtro con cada tipo de correo.
+From :menuselection:`SMTP filter policies`, it is possible to configure what
+the filter must do with any kind of email.
 
 .. image:: images/mailfilter/08-filter-smtp-policies.png
 
-Por cada tipo de correo problemático, se pueden realizar las siguientes
-acciones:
+For each kind of email problem, you can perform the following actions:
 
-Pasar:
-  No hacer nada, dejar pasar el correo a su destinatario.
-Rechazar:
-  Descartar el mensaje antes de que llegue al destinatario, avisando al
-  remitente de que el mensaje ha sido descartado.
-Rebotar:
-  Igual que *Rechazar*, pero adjuntando una copia del mensaje en la
-  notificación.
-Descartar:
-  Descarta el mensaje antes de que llegue al destinatario sin avisar al
-  remitente.
+Pass:
+   Do nothing, let the mail reach its recipient.
+Reject:
+   Discard the message before it reaches the recipient, notifying the
+   sender that the message has been discarded.
+Bounce:
+   Like reject, but enclosing a copy of the message in the notification.
+Discard:
+   Discards the message before it reaches the destination, without notice
+   to the sender.
 
-Desde :menuselection:`Configuración de dominios virtuales` se puede configurar
-el comportamiento del filtro para los dominios virtuales de correo. Estas
-configuraciones sobreescriben las configuraciones generales definidas
-previamente.
+From :menuselection:`Virtual domain configuration` the behavior of the filter
+for virtual email domains can be configured. These settings override
+the general settings defined previously.
 
-Para personalizar la configuración de un dominio virtual de correo, pulsamos
-sobre :guilabel:`Añadir nuevo`.
+To customize the configuration of a virtual domain email, click
+on: guilabel: `add new`.
 
 .. image:: images/mailfilter/09-filter-domains.png
 
-Los parámetros que se pueden sobreescribir son los siguientes:
+The parameters that can be overriden are the following:
 
-Dominio:
-  Dominio virtual que queremos personalizar. Tendremos disponibles aquellos que
-  se hayan configurado en :menuselection:`Correo --> Dominio Virtual`.
-Usar filtrado de virus / *spam*:
-  Si están activados se filtrarán los correos recibidos en ese dominio en busca
-  de virus o *spam* respectivamente.
-Umbral de *spam*:
-  Se puede usar la puntuación por defecto de corte para los correos *Spam*, o
-  un valor personalizado.
-Cuenta de aprendizaje de *ham* / *spam*:
-  Si están activados se crearán las cuentas `ham@dominio` y `spam@dominio`
-  respectivamente. Los usuarios pueden enviar correos a estas cuentas para
-  entrenar al filtro. Todo el correo enviado a `ham@dominio` será aprendido como
-  correo no *spam*, mientras que el correo enviado a `spam@dominio` será
-  aprendido como *spam*.
+Domain:
+   Virtual domain that we want to customize, from those configured in
+   at :menuselection:`Mail --> Virtual Domain`.
+Use virus filtering / spam:
+   If this is enabled, mail received for this domain will be filtered looking
+   for viruses or spam.
+Spam threshold:
+   You can use the default threshold score for spam or a custom value.
+Learning account for ham / spam:
+   If enabled, `ham@domain` and `spam@domain` accounts will be created.
+   Users can send emails to these accounts to train the filter. All mail sent to
+   `ham@domain` will be learned as ham mail, while mail sent to `spam@domain`
+   will be learned as spam.
 
-Una vez añadido el dominio, se pueden añadir direcciones a su lista
-blanca, lista negra o que sea obligatorio procesar desde
-:menuselection:`Política antispam para remitentes`.
+Once the domain is added, from :menuselection:`Anti-spam policy for senders`,
+it is possible to add addresses to its whilelist and its blacklist or even
+force every mail for the domain to be processed.
 
-Listas de control de conexiones externas
-========================================
+External connection control lists
+=================================
 
-Desde :menuselection:`Filtro de correo --> Filtro de correo SMTP --> Conexiones
-externas` se pueden configurar las conexiones desde MTAs externos
-mediante su dirección IP o nombre de dominio hacia el filtro de correo
-que se ha configurado usando eBox. De la misma manera, se puede permitir a
-esos MTAs externos filtrar correo de aquellos dominios virtuales
-externos a eBox que se permitan a través de su configuración en esta
-sección. De esta manera, eBox puede distribuir su carga en dos
-máquinas, una actuando como servidor de correo y otra como servidor
-para filtrar correo.
+From :menuselection:`Mail Filter --> SMTP Mail Filter --> External connections`,
+you can configure connections from external MTAs,
+through its IP address or domain name, to the mail filter configured in eBox.
+In the same way, these external MTAs can be allowed to filter mail
+for those external virtual domains allowed in the configuration.
+This way, you can distribute your load between two
+machines, one acting as a mail server and another as a server
+to filter mail.
 
 .. image:: images/mailfilter/13-external.png
    :scale: 80
@@ -330,98 +297,91 @@ para filtrar correo.
 
 .. _pop3-proxy-ref:
 
-Proxy transparente para buzones de correo POP3
-==============================================
+Transparent proxy for POP3 mailboxes
+====================================
 
-Si eBox está configurado como un **proxy transparente**, puede filtrar el correo
-POP. La máquina eBox se colocará entre el verdadero servidor POP y el
-usuario filtrando el contenido descargado desde los servidores de
-correo (MTA). Para ello, eBox usa **p3scan** [#]_.
+If eBox is configured as a **transparent proxy**, you can filter POP email.
+The eBox machine will be placed between the real POP server and the
+user to filter the content downloaded from the MTAs. To do this,
+eBox uses **p3scan** [#]_.
 
 .. [#] Transparent POP proxy http://p3scan.sourceforge.net/
 
-Desde :menuselection:`Filtro de correo --> Proxy transparente POP` se puede
-configurar el comportamiento del filtrado:
+From :menuselection:`Mail Filter --> Transparent POP Proxy` you can configure
+the behavior of the filtering:
 
 .. image:: images/mailfilter/10-filter-pop.png
 
-Habilitado:
-  Si está marcada, se filtrará el correo POP.
-Filtrar virus:
-  Si está marcada, se filtrará el correo POP en busca de virus.
-Filtrar spam:
-  Si está marcada, se filtrará el correo POP en busca de *spam*.
-Asunto *spam* del ISP:
-  Si el servidor de correo marca el *spam* con una cabecera,
-  poniéndola aquí avisaremos al filtro para que tome los correos con
-  esa cabecera como *spam*.
+Enabled:
+  If checked, POP email will be filtered.
+Filter virus:
+  If checked, POP email will be filtered to detect viruses.
+Filter spam:
+  If checked, POP email will be filtered to detect spam.
+Spam subject tag from the ISP:
+  If the server marks spam mail with a tag, it can be specified here
+  and the filter will consider these emails as spam.
 
-Ejemplo práctico
-----------------
+Practical example
+-----------------
 
-Activar el filtro de correo y el *antivirus*. Enviar un correo con virus.
-Comprobar que el filtro surte efecto.
+Activate the mail filter and the antivirus. Send an email with a virus.
+Check that the filter is working properly.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activar el módulo :guilabel:`filtro de correo`, para ello marcar su
-   casilla en la columna :guilabel:`Estado`. Habilitar primero los
-   módulos **red** y **cortafuegos** si no se encuentran habilitados
-   con anterioridad.
+#. **Action:**
+   Access eBox, go to :menuselection:`Module Status` and enable the module
+   :guilabel:`mail filter`. To do this, check the box in the column
+   :guilabel:`Status`. You will have to enable **network** and **firewall**
+   first in case they were not already.
 
-   Efecto:
-     eBox solicita permiso para sobreescribir algunos ficheros.
+   Effect:
+     eBox asks for permission to override some files.
 
-#. **Acción:**
-   Leer los cambios de cada uno de los ficheros que van a ser modificados y
-   otorgar permiso a eBox para sobreescribirlos.
+#. **Action:**
+   Read the changes that are going to be made and grant eBox permission to
+   perform them.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+   Effect:
+     :guilabel:`Save Changes` has been enabled.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Filtro de Correo --> Filtro SMTP`,
-   marcar las casillas :guilabel:`Habilitado` y :guilabel:`Antivirus
-   habilitado` y pulsar el botón :guilabel:`Cambiar`.
+#. **Action:**
+   Go to :menuselection:`Mail Filter --> SMTP Mail Filter`, check boxes for
+   :guilabel:`Enabled` and :guilabel:`Antivirus enabled` and click on :guilabel:`Change`.
 
-   Efecto:
-     eBox nos avisa de que hemos modificado satisfactoriamente las opciones
-     mediante el mensaje **Hecho**.
+   Effect:
+     eBox informs you about the success of the modifications with a **Done**
+     message.
 
-#. **Acción:**
-   Acceder a :menuselection:`Correo --> General --> Opciones de
-   Filtrado de Correo` y seleccionar :guilabel:`Filtro de correo
-   interno de eBox`.
+#. **Action:**
+   Go to :menuselection:`Mail --> General --> Mail filter Options` and select
+   :guilabel:`Internal eBox Mail Filter`.
 
-   Efecto:
-     eBox usará su propio sistema de filtrado.
+   Effect:
+     eBox will use its own filter system.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+   Effect:
+     eBox shows the progress while applying the changes. Once it is done, it
+     notifies about it.
 
-     El filtro de correo ha sido activado con la opción de antivirus.
+     The mail filter with antivirus is enabled.
 
-#. **Acción:**
-   Descargar el fichero http://www.eicar.org/download/eicar_com.zip, que
-   contiene un virus de prueba y enviarlo desde nuestro cliente de correo a
-   una de las cuentas de correo de eBox.
+#. **Action:**
+   Download the file http://www.eicar.org/download/eicar_com.zip, which contains
+   a test virus and send it from your mail client to an eBox mailbox.
 
-   Efecto:
-     El correo nunca llegará a su destino porque el antivirus lo habrá
-     descartado.
+   Effect:
+     The email will never reach its destination because the antivirus will discard it.
 
-#. **Acción:**
-   Acceder a la consola de la máquina eBox y examinar las últimas líneas del
-   fichero `/var/log/mail.log`, por ejemplo mediante el uso del comando
-   **tail**.
+#. **Action:**
+   Go to the console in the eBox machine and check the last lines of
+   `/var/log/mail.log` using the **tail** command.
 
-   Efecto:
-     Observaremos que ha quedado registrado el bloqueo del mensaje
-     infectado, especificándonos el nombre del virus::
+   Effect:
+     There is a message in the log registering that the message with the virus
+     was blocked, specifying the name of the virus:
 
          Blocked INFECTED (Eicar-Test-Signature)
 

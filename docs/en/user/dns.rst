@@ -1,202 +1,202 @@
-Servicio de resolución de nombres (DNS)
-***************************************
+Name resolution service (DNS)
+*****************************
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
-                   Isaac Clerencia <iclerencia@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
-                   Víctor Jímenez <vjimenez@warp.es>,
-                   Jorge Salamero <jsalamero@ebox-platform.com>,
-                   Javier Uruen <juruen@ebox-platform.com>,
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
+                   Isaac Clerencia <iclerencia@ebox-platform.com>
+                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
+                   Víctor Jiménez <vjimenez@warp.es>
+                   Jorge Salamero <jsalamero@ebox-platform.com>
+                   Javier Uruen <juruen@ebox-platform.com>
 
-La funcionalidad de **DNS** *(Domain Name System)* es
-convertir nombres de máquinas, legibles y fáciles de recordar por los usuarios,
-en direcciones IP y viceversa. El sistema de dominios de nombres es
-una arquitectura arborescente cuyos objetivos son evitar la
-duplicación de la información y facilitar la búsqueda de dominios. El servicio
-escucha peticiones en el puerto 53 de los protocolos de transporte UDP y TCP.
+As explained, the function of the **DNS** *(Domain Name System)* is to
+convert hostnames that are readable and easy to remember by users
+into IP addresses and vice versa. The name domain system is
+a tree architecture, the aims of which are to avoid the
+duplication of data and to facilitate the search for domains. The service
+listens to requests in port 53 of the UDP and TCP transport protocols.
 
-Configuración de un servidor *caché* DNS con eBox
-=================================================
+DNS cache server configuration with eBox
+========================================
 
-Un servidor de nombres puede actuar como *caché* [#]_ para las consultas que
-él no puede responder. Es decir, la primera vez consultará al servidor
-adecuado porque se parte de una base de datos sin información, pero
-posteriormente responderá la *caché*, con la consecuente disminución del tiempo
-de respuesta.
+A name server can act as a cache [#]_ for queries that it cannot
+respond to. In other words, it will initially query the appropriate
+server, as it is based on a database without data, but the cache will
+subsequently reply, with the consequent decrease in response
+time.
 
-.. [#] *Caché* es una colección de datos duplicados de una fuente
-   original donde es costoso de obtener o calcular comparado con el
-   tiempo de lectura de la *caché* (http://en.wikipedia.org/wiki/Cache)
+.. [#] A cache is a collection of duplicated data from an original
+   source, where the original data is expensive to obtain or compute compared to the
+   cost of reading the cache (http://en.wikipedia.org/wiki/Cache).
 
-En la actualidad, la mayoría de los sistemas operativos modernos tienen una
-biblioteca local para traducir los nombres que se encarga de almacenar
-una *caché* propia de nombres de dominio con las peticiones realizadas
-por las aplicaciones del sistema (navegador, clientes de correo, ...).
+At present, most modern operating systems have a local library
+to translate the names that is responsible for storing
+its own domain name cache with the requests made by
+system applications (browser, e-mail clients, etc.).
 
-Ejemplo práctico A
-------------------
+Practical example A
+^^^^^^^^^^^^^^^^^^^
 
-Comprobar el correcto funcionamiento del servidor *caché* DNS.
-¿Qué tiempo de respuesta hay ante la misma petición *www.example.com*?
+Check the correct operation of the cache name server.
+What is the response time with regard to the same request *www.example.com*?
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activar el módulo **DNS**, para ello marcar su casilla en la columna
-   :guilabel:`Estado`.
+#. **Action:**
+   Access eBox, enter :menuselection:`Module status` and
+   enable the **DNS** module by marking the checkbox in the
+   :guilabel:`Status` column.
 
-   Efecto:
-     eBox solicita permiso para sobreescribir algunos ficheros.
+   Effect:
+     eBox requests permission to overwrite certain files.
 
-#. **Acción:**
-   Leer los cambios de cada uno de los ficheros que van a ser modificados y
-   otorgar permiso a eBox para sobreescribirlos.
+#. **Action:**
+   Read the changes of each of the files to be modified and
+   grant eBox permission to overwrite them.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+   Effect:
+     The :guilabel:`Save changes` button has been enabled.
 
-#. **Acción:**
-   Ir a :menuselection:`Red --> DNS` y añadir un nuevo
-   :guilabel:`Servidor de nombres de dominio` con valor 127.0.0.1 .
+#. **Action:**
+   Go to :menuselection:`Network --> DNS` and add a new
+   :guilabel:`Domain name server` with value 127.0.0.1.
 
-   Efecto:
-     Establece que sea la propia eBox la que traduzca de nombres a IP
-     y viceversa.
+   Effect:
+     eBox is established to translate names to IP
+     and vice versa.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+   Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+   Effect:
+     eBox displays the progress while the changes are being applied. Once this is
+     complete it is indicated as such.
 
-     Ahora eBox gestiona la configuración del servidor DNS.
+     eBox now manages the DNS server configuration.
 
-#. **Acción:**
-    Comprobar a través de la herramienta :guilabel:`Resolución de
-    Nombres de Dominio` disponible en :menuselection:`Red -->
-    Diagnóstico` comprobar el funcionamiento de la *caché* consultado el
-    dominio *www.example.com* consecutivamente y comprobar el tiempo
-    de respuesta.
+#. **Action:**
+    Use the :guilabel:`Domain name
+    resolution` tool available in :menuselection:`Network -->
+    Diagnosis` to check the operation of the cache, querying the
+    domain *www.example.com* consecutively and checking the response
+    time.
 
-Configuración de un servidor DNS con eBox
-=========================================
+DNS server configuration with eBox
+==================================
 
-DNS posee una estructura en árbol y el origen es conocido como '.' o raíz. Bajo
-el '.' existen los TLD *(Top Level Domains)* como org, com, edu, net, etc.
-Cuando se busca en un servidor DNS, si éste no conoce la respuesta, se buscará
-recursivamente en el árbol hasta encontrarla. Cada '.' en una dirección (por
-ejemplo, *home.example.com*) indica una rama del árbol de DNS diferente y un
-ámbito de consulta diferente que se irá recorriendo de derecha a izquierda.
+DNS has a tree structure and the source is known as '.' or root. Under
+'.' are the TLDs *(Top Level Domains)*, such as org, com, edu, net, etc.
+When searching in a DNS server, if it does not know the answer, the tree
+is recursively searched until it is found. Each '.' in an address (e.g.
+*home.example.com*) indicates a different branch of the DNS tree and a different
+query area. The name will be traversed from right to left.
 
 .. figure:: images/dns/domain-name-space.png
    :scale: 70
 
-   Árbol de DNS
+   DNS tree
 
-Otro aspecto importante es la resolución inversa (*in-addr.arpa*), ya
-que desde una dirección IP podemos traducirla a un nombre del
-dominio. Además a cada nombre asociado se le pueden añadir tantos
-alias (o nombres canónicos) como se desee, así una misma dirección IP
-puede tener varios nombres asociados.
+Another important aspect is reverse resolution (*in-addr.arpa*), as
+it is possible to translate an IP address to a domain
+name. Furthermore, as many aliases (or canonical names) as required
+can be added to each associated name and the same IP address
+can have several associated names.
 
-Una característica también importante del DNS es el registro
-**MX**. Dicho registro indica el lugar donde se enviarán los correos
-electrónicos que quieran enviarse a un determinado dominio. Por
-ejemplo, si queremos enviar un correo a alguien@casa.example.com, el
-servidor de correo preguntará por el registro MX de *casa.example.com*
-y el servicio responderá que es *mail.casa.example.com*.
+Another important characteristic of the DNS is the **MX**
+record. This record indicates the place where the e-mails to be
+sent to a certain domain are to be sent. For
+example, where an e-mail is to be sent to someone@home.example.com, the
+e-mail server will ask for the MX record of *home.example.com*
+and the service will reply that it is *mail.home.example.com*.
 
-La configuración en eBox se realiza a través del menú
-:menuselection:`DNS`. En eBox, se pueden configurar tantos dominios
-DNS como deseemos.
+The configuration in eBox is done through the
+:menuselection:`DNS` menu. In eBox, as many DNS domains as required
+can be configured.
 
-Para configurar un nuevo dominio, desplegamos el formulario pulsando
-:guilabel:`Añadir nuevo`. Desde allí se configura el nombre del
-dominio y una dirección IP opcional a la que hará referencia el
-dominio.
+To configure a new domain, drop down the form by clicking on
+:guilabel:`Add new`. From here, the domain name and an
+optional IP address to which the domain will refer can be
+configured.
 
 .. image:: images/dns/03-dns.png
    :scale: 70
 
-Una vez que hemos creado un dominio correcto, por ejemplo *casa.example.com*,
-tenemos la posibilidad de rellenar la lista de **máquinas** (*hostnames*) para
-el dominio. Se podrán añadir tantas direcciones IP como se deseen
-usando los nombres que decidamos. La resolución inversa se añade
-automáticamente. Además, para cada pareja nombre-dirección se podrán también poner
-tantos alias como se deseen.
+Once a correct domain has been created, e.g. *home.example.com*,
+it is possible to complete the **hostnames** list for
+the domain. As many IP addresses as required can be added
+using the names decided. Reverse resolution is added
+automatically. Furthermore, as many aliases as required can also be
+used for each mapping.
 
 .. image:: images/dns/04-dns-hostname.png
    :scale: 70
 
-Como característica adicional, podemos añadir nombres de servidores de
-correo a través de los :guilabel:`intercambiadores de correo` (*Mail
-Exchangers*) eligiendo un nombre de los dominios en los que eBox es
-autoridad [#]_ o uno externo. Además
-se le puede dar una :guilabel:`preferencia` cuyo menor valor es el que da
-mayor prioridad, es decir, un cliente de correo intentará
-primero aquel servidor con menor número de preferencia.
+As an additional feature, e-mail server names can be added
+through :guilabel:`mail exchangers`
+by selecting a name for the domains in which eBox is
+the authority [#]_ or an external one. Furthermore,
+a :guilabel:`preference` can be given, the lowest value of which gives
+highest priority, i.e. an e-mail client will first try
+the server with the lowest preference number.
 
-.. [#] Un servidor DNS es autoridad para un dominio cuando es aquel
-   que tiene toda la información para resolver la consulta para ese
-   dominio
+.. [#] A DNS server is the authority for a domain when it has
+   all the data to resolve the query for that
+   domain.
 
 .. image:: images/dns/05-dns-mx.png
    :scale: 70
 
-Para profundizar en el funcionamiento de DNS, veamos qué ocurre en función de la
-consulta que se hace a través de la herramienta de diagnóstico **dig** que se
-encuentra en :menuselection:`Red --> Diagnóstico`.
+For a more in-depth look into the operation of the DNS, let us see what happens depending
+on the query made through the **dig** diagnosis tool located
+in :menuselection:`Network --> Diagnosis`.
 
-Si hacemos una consulta a uno de los dominios que hemos añadido, el propio
-servidor DNS de eBox responde con la respuesta apropiada de manera inmediata.
-En caso contrario, el servidor DNS lanza una petición a los servidores
-DNS raíz, y responderá al usuario tan pronto como obtenga una respuesta de
-éstos. Es importante tener en cuenta que los servidores de nombres
-configurados en :menuselection:`Red --> DNS` son los usados por las aplicaciones
-cliente para resolver nombres, pero el servidor DNS no los utiliza de ningún
-modo. Si queremos que eBox resuelva nombres utilizando su propio DNS
-debemos configurar 127.0.0.1 como servidor DNS primario en dicha sección.
+If a query is made for one of the domains added, eBox will reply with the
+appropriate answer immediately. Otherwise, the DNS server will query the
+root DNS servers and will reply to the user as soon as it gets an answer.
+It is important to be aware of the fact that the nameservers configured in
+:menuselection:`Network --> DNS` are used by client applications to
+resolve names, but are not used in any way by the DNS server. If you want
+eBox to resolve names using its own DNS server, you have to set up
+127.0.0.1 as primary DNS server in the aforementioned section.
 
 .. _dns-exercise-ref:
 
-Ejemplo práctico B
-------------------
-Añadir un nuevo dominio al servicio de DNS. Dentro de este dominio asignar
-una dirección de red al nombre de una máquina. Desde otra máquina comprobar
-usando la herramienta **dig** que resuelve correctamente.
+Practical example B
+^^^^^^^^^^^^^^^^^^^
 
-#. **Acción:**
-   Comprobar que el servicio DNS está activo a través de
-   :menuselection:`Dashboard` en el *widget* :guilabel:`Estado de
-   módulos`. Si no está activo, habilitarlo en :menuselection:`Estado
-   de módulos`.
+Add a new domain to the DNS service. Within this domain, assign
+a network address to a hostname. From another host, check that
+it resolves correctly using the **dig** tool.
 
-#. **Acción:**
-     Entrar en :menuselection:`DNS` y en :guilabel:`Añadir
-     nueva` introducimos el dominio que vamos a gestionar. Se
-     desplegará una tabla donde podemos añadir nombres de máquinas,
-     servidores de correo para el dominio y la propia dirección del
-     dominio. Dentro de :guilabel:`Nombres de máquinas` procedemos de
-     la misma manera añadiendo el nombre de la máquina y su dirección
-     IP asociada.
+#. **Action:**
+   Check that the DNS service is active through
+   :menuselection:`Dashboard` in the :guilabel:`Module
+   status` *widget*. If it is not active, enable it in :menuselection:`Module
+   status`.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+     Enter :menuselection:`DNS` and in :guilabel:`Add
+     new` enter the domain to be managed. A
+     table will drop down where hostnames, mail
+     servers for the domain and the domain address itself
+     can be added.  In :guilabel:`Hostnames` do the same by
+     adding the hostname and its associated
+     IP address.
 
-   Efecto:
-     eBox solicitará permiso para escribir los nuevos ficheros.
+#. **Action:**
+   Save the changes.
 
-#. **Acción:**
-   Aceptar sobreescribir dichos ficheros y guardar cambios.
+   Effect:
+     eBox will request permission to write the new files.
 
-   Efecto:
-     Muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+#. **Action:**
+   Accept the overwriting of these files and save the changes.
 
-#. **Acción:**
-     Desde otro equipo conectado a esa red solicitamos la resolución del nombre
-     mediante **dig**, siendo por ejemplo 10.1.2.254 la dirección de nuestra eBox
-     y *mirror.ebox-platform.com* el dominio a resolver::
+   Effect:
+     The progress is displayed while the changes are being applied. Once this is
+     complete it indicates as such.
+
+#. **Action:**
+     From another PC connected to this network, request the name resolution
+     using **dig**, where 10.1.2.254 is, for example, the address of eBox
+     and mirror.ebox-platform.com the domain to be resolved::
 
 	$ dig mirror.ebox-platform.com @10.1.2.254
 

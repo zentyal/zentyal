@@ -1,187 +1,177 @@
 .. _logs-ref:
 
-Registros
-*********
+Logs
+****
 
-.. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
+.. sectionauthor:: José A. Calvo <jacalvo@ebox-technologies.com>,
+                   Enrique J. Hernandez <ejhernandez@ebox-technologies.com>
 
-eBox proporciona una infraestructura para que sus módulos puedan
-registrar todo tipo de eventos que puedan ser útiles para el
-administrador. Estos **registros** se pueden consultar a través de la
-interfaz de eBox de manera común. Estos registros se almacenan en una
-base de datos para hacer la consulta, los informes y las
-actualizaciones de manera más sencilla y eficiente. El gestor de base
-de datos que se usa es **PostgreSQL** [#]_.
+eBox provides an infrastructure for their modules that allows them to
+log different kind of events that may be useful for the
+administrator. These **logs** are available through the
+eBox interface. They are also stored in a database for making queries, reports
+and updates in an easier and more efficient way. The database management system
+used is **PostgreSQL** [#]_.
 
 .. [#] **PostgreSQL** *The world's most advanced open source database*
-   http://www.postgresql.org/.
+    http://www.postgresql.org/.
 
-Además podemos configurar distintos manejadores para los eventos, de
-forma que el administrador pueda ser notificado por distintos medios
-(Correo, Jabber o RSS [#]_).
+We can also configure different dispatchers for the events. That way
+the administrator can be notified by different means
+(email, RSS or Jabber [#]_).
 
-.. [#] **RSS** *Really Simple Syndication* es un formato XML usado
-   principalmente para publicar obras frecuentemente actualizadas
-   http://www.rssboard.org/rss-specification/.
+.. [#] **RSS** *Really Simple Syndication* is an XML format used
+    mainly to publish frequently updated works
+    http://www.rssboard.org/rss-specification/.
 
-Disponemos de registros para los siguientes servicios:
+You can have logs for the following services:
 
 - OpenVPN (:ref:`vpn-ref`)
 - SMTP Filter (:ref:`smtp-filter-ref`)
 - POP3 proxy (:ref:`pop3-proxy-ref`)
-- Impresoras (:ref:`printers-ref`)
-- Cortafuegos (:ref:`firewall-ref`)
+- Printers (:ref:`printers-ref`)
+- Firewall (:ref:`firewall-ref`)
 - DHCP (:ref:`dhcp-ref`)
-- Correo (:ref:`mail-service-ref`)
-- Proxy HTTP (:ref:`proxy-http-ref`)
-- Ficheros compartidos (:ref:`filesharing-chapter-ref`)
+- Mail (:ref:`mail-service-ref`)
+- Proxy (HTTP :ref:`proxy-http-ref`)
+- File Sharing (:ref:`filesharing-chapter-ref`)
 - IDS (:ref:`ids-ref`)
 
-Así mismo, podemos recibir notificaciones de los siguientes eventos:
+Likewise, you can receive notifications of the following events:
 
-- Valores específicos de los registros.
-- Estado de salud de eBox.
-- Estado de los servicios.
-- Eventos del subsistema RAID por *software*
-- Espacio libre en disco.
-- Problemas con los *routers* de salida a *Internet*.
-- Finalización de una copia completa de datos.
+- Specific values inside the logs.
+- eBox health status.
+- Service status
+- Events from the software RAID subsystem.
+- Free disk space.
+- Problems with Internet routers.
+- Completion of a full data backup.
 
-En primer lugar, para que funcionen los **registros**, al igual que con el resto
-de módulos de eBox, debemos asegurarnos de que este se encuentre habilitado.
+First, before you can work with the **logs**, like other eBox modules,
+you have to make sure it is enabled.
 
-Para habilitarlo debemos ir a :menuselection:`Estado del módulo` y
-seleccionar la casilla :guilabel:`registros`. Para obtener informes de
-los registros existentes, podemos acceder a la sección
-:menuselection:`Registros --> Consultar registros` del menú de eBox.
+To enable it, go to :menuselection:`Module Status` and
+select :guilabel:`Logs`. In order to obtain reports
+from the existing logs, you can access the
+:menuselection:`Logs -> Query Logs` menu.
 
-Podemos obtener un :guilabel:`Informe completo` de todos los dominios
-de registro.  Además, algunos de ellos nos proporcionan un interesante
-:guilabel:`Informe resumido` que nos ofrece una visión global del
-funcionamiento del servicio durante un periodo de tiempo.
+You can get a :guilabel:`Full report` of all log domains.
+Moreover, some of them give us an interesting
+:guilabel:`Summarized Report` that provides an overview of the
+service for a period of time.
 
 .. figure:: images/logs/01-logs.png
    :scale: 80
-   :alt: Consulta de registros
+   :alt: Query logs
 
-   Pantalla de consulta de registros
+   Query logs
 
-En el :guilabel:`Informe completo` se nos ofrece una lista de todas
-las acciones registradas para el dominio seleccionado. La información
-proporcionada es dependiente de cada dominio. Por ejemplo, para el
-dominio *OpenVPN* podemos consultar las conexiones a un servidor VPN
-de un cliente con un certificado concreto, o por ejemplo para el
-dominio *Proxy HTTP* podemos saber de un determinado cliente a qué
-páginas se le ha denegado el acceso. Por tanto, podemos realizar una
-consulta personalizada que nos permita filtrar tanto por intervalo
-temporal como por otros distintos valores dependientes del tipo de
-dominio. Dicha búsqueda podemos almacenarla en forma de evento para
-que nos avise cuando ocurra alguna coincidencia. Además, si la
-consulta se realiza hasta el momento actual, el resultado se irá
-refrescando con nuevos datos.
+In :guilabel:`Full report`, we have a list of all registered actions for the
+selected domain. Information provided is dependent on each domain.  For example,
+for the *OpenVPN* domain you can see the connections to a VPN server
+of a client with a specific certificate, or for example, in the *HTTP Proxy*
+domain you can know which pages have been denied to a particular client.
+You can also make custom queries that allow filtering by time period
+or different values, depending on the domain.
+These queries can be stored like an event that generates an
+alert when a match occurs. Furthermore, if you do a query without an
+upper bound in time, the results will be automatically refreshed with new data.
 
 .. figure:: images/logs/02-full-report.png
-   :alt: Informe completo
+   :alt: Full Report
    :scale: 50
 
-   Pantalla de informe completo
+   Full report example
 
-El :guilabel:`Informe resumido` nos permite seleccionar el periodo del
-informe, que puede ser de un día, una hora, una semana o un mes. La
-información que obtenemos es una o varias gráficas, acompañadas de una
-tabla-resumen con valores totales de distintos datos. En la imagen
-podemos ver, como ejemplo, las estadísticas de peticiones y tráfico del
-*proxy HTTP* al día.
+The :guilabel:`Summarized Report` allows you to select the period
+of the report, which may be one hour, one day, a week or a month. The
+information you get is one or more graphs, accompanied by a
+summary table with total values for different data. In the picture
+you can see, for example, daily statistics about the requests and traffic of
+the *HTTP proxy*.
 
 .. figure:: images/logs/03-summarized-report.png
    :scale: 80
-   :alt: Informe resumido
+   :alt: Summarized report
 
-   Pantalla de informe resumido
+   Summarized report example
 
-Configuración de registros
-==========================
+Logs configuration
+==================
 
-Una vez que hemos visto como podemos consultar los registros, es
-importante también saber que podemos configurarlos en la sección
-:menuselection:`Registros --> Configurar los registros` del menú de
-eBox.
+Once you know how to check the logs, is also important to know how to
+configure them, through the :menuselection:`Logs -> Configure logs` menu
+on the eBox interface.
 
 .. figure:: images/logs/04-config-logs.png
    :scale: 80
-   :alt: Configurar registros
+   :alt: Configure logs
 
-   Pantalla de configurar registros
+   Configure logs
 
-Los valores configurables para cada dominio instalado son:
+The values you can configure for each installed domain are:
 
-Habilitado:
- Si esta opción no está activada no se escribirán los registros de ese
- dominio.
-Purgar registros anteriores a:
- Establece el tiempo máximo que se guardarán los registros. Todos
- aquellos valores cuya antigüedad supere el periodo especificado,
- serán desechados.
+Enabled:
+  If this option is not activated no logs are written for this domain.
+Purge logs older than:
+  Sets the maximum time that the logs will be saved. Every
+  value whose age exceeds the specified period, will be discarded.
 
-Además podemos forzar la eliminación instantánea de todos los
-registros anteriores a un determinado periodo. Esto lo hacemos
-mediante el botón :guilabel:`Purgar` de la sección `Forzar la purga de
-registros`, que nos permite seleccionar distintos intervalos
-comprendidos entre una hora y 90 días.
+You can also force the instant removal of all
+logs that are older than a certain period. You can do this
+using the :guilabel:`Purge` button inside of the :guilabel:`Force log purge`
+section, which allows you to select different intervals
+between one hour and 90 days.
 
-Ejemplo práctico
-^^^^^^^^^^^^^^^^
-Habilitar el módulo de **registros**. Usar el
-:ref:`mail-conf-exercise-ref` como referencia para generar tráfico de
-correo electrónico conteniendo virus, *spam*, remitentes prohibidos y
-ficheros prohibidos. Observar los resultados en
-:menuselection:`Registros --> Consulta Registros --> Informe
-completo`.
+Practical example
+^^^^^^^^^^^^^^^^^
+Enable the **logs** module. Using the
+:ref:`mail-conf-exercise-ref` as a reference for generating email traffic
+containing viruses, spam, banned senders and forbidden files.
+Observe the results in :menuselection `Logs -> Query Logs -> Full Report`.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activa el módulo :guilabel:`registros`, para ello marcar su casilla en la
-   columna :guilabel:`Estado`. Nos informa de que se creará una base de datos
-   para guardar los registros. Permitir la operación pulsando el botón
-   :guilabel:`Aceptar`.
+#. **Action:**
+    Access eBox interface. Go to :menuselection:`Module Status` and
+    activate the :guilabel:`logs` module. For this, check the box in the
+    :guilabel:`State` column. You will be informed that a database
+    to save the logs is going to be created. Allow the operation by pressing
+    :guilabel:`Accept`.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+    Effect:
+      :guilabel:`Save Changes` button is now activated.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Registros --> Configurar registros`
-   y comprobar que los registros para el dominio :guilabel:`Correo` se
-   encuentran habilitados.
+#. **Action:**
+    Access :menuselection:`Logs -> Configure Logs` and check
+    that the :guilabel:`Mail` domain is already enabled.
 
-   Efecto:
-     Hemos habilitado el módulo **registros** y nos hemos asegurado de tener
-     activados los registros para el **correo**.
+    Effect:
+      You have enabled the **Logs** module and you have checked that the logs
+      for **mail** are enabled.
 
-#. **Acción:**
-   Guardar los cambios.
+#. **Action:**
+    Save the changes.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+    Effect:
+      eBox shows the progress while applying the changes. Once the process
+      is finished you are notified of that.
 
-     A partir de ahora quedarán registrados todos los correos que enviemos.
+      From now on, all sent emails will be logged.
 
-#. **Acción:**
-   Volver a enviar unos cuantos correos problemáticos (con *spam* o virus)
-   como se hizo en el tema correspondiente.
+#. **Action:**
+    Send a few problematic emails (with spam or virus)
+    as it was done in the relevant chapter.
 
-   Efecto:
-     Como ahora el módulo registros está habilitado, los correos han quedado
-     registrados, a diferencia de lo que ocurrió cuando los enviamos por
-     primera vez.
+    Effect:
+      As now the logs module is enabled, emails have been
+      logged, unlike what happened when we sent them for the
+      first time.
 
-#. **Acción:**
-   Acceder a :menuselection:`Registros --> Consulta Registros` y seleccionar
-   :menuselection:`Informe completo` para el dominio :guilabel:`Correo`.
+#. **Action:**
+    Access :menuselection:`Records -> Query Logs` and
+    :menuselection:`Full report` for the :guilabel:`Mail` domain.
 
-   Efecto:
-     Aparece una tabla con entradas relativas a los correos que hemos
-     enviado mostrando distintas informaciones de cada uno.
+    Effect:
+      A table with entries for the emails that you have
+      sent appears showing some information for each sent email.
 
 .. include:: logs-exercises.rst

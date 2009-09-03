@@ -1,311 +1,304 @@
 .. _mail-service-ref:
 
-Servicio de correo electrónico (SMTP/POP3-IMAP4)
-************************************************
+Electronic Mail Service (SMTP/POP3-IMAP4)
+*****************************************
 
 .. sectionauthor:: Jose A. Calvo <jacalvo@ebox-platform.com>
                    Enrique J. Hernandez <ejhernandez@ebox-platform.com>
                    Víctor Jímenez <vjimenez@warp.es>
 
-El servicio de **correo electrónico** es un método de *almacenamiento y
-envío* [#]_ para la composición, emisión, reserva y recepción de
-mensajes sobre sistemas de comunicación electrónicos.
+The **electronic mail** service is a store and forward method [#]_
+to compose, send, store and receive messages over electronic
+communication systems.
 
-.. [#] **Almacenamiento y envío**: Técnica de telecomunicación en la cual la
-         información se envía a una estación intermedia que almacena y después
-         envía la información a su destinatario o a otra estación intermedia.
+.. [#] **Store and forward**: Telecommunication technique in which 
+       information is sent to an intermediate station where it is kept
+       and sent at a later time to the final destination or to another
+       intermediate station.
 
-Cómo funciona el correo electrónico en Internet
-===============================================
+How electronic mail works through the Internet
+==============================================
 
 .. figure:: images/mail/mail-ab.png
    :scale: 60
-   :alt: Diagrama correo electrónico Alice manda un correo a Bob
+   :alt: Diagram where Alice sends an email to Bob
 
-   Diagrama correo electrónico Alice manda un correo a Bob
+   Diagram where Alice sends an email to Bob
 
-El diagrama muestra una secuencia típica de eventos que tienen lugar cuando
-Alice escribe un mensaje usando su cliente de correo o *Mail User
-Agent* (MUA) con destino la dirección de correo de su destinatario.
+The diagram depicts a typical event sequence that takes place when
+Alice writes a message to Bob using her *Mail User Agent* (MUA).
 
-1. Su MUA da formato al mensaje en un formato de Internet para el correo
-   electrónico y usa el protocolo *Simple Mail Transfer Protocol* (SMTP) que
-   envía el mensaje a su agente de envío de correos o *Mail Transfer
-   Agent* (MTA).
-2. El MTA mira en la dirección destino dada por el protocolo SMTP (no
-   de la cabecera del mensaje), en este caso bob@b.org, y hace una
-   solicitud al servicio de nombres para saber la IP del servidor de
-   correo del dominio del destino (registro **MX** que vimos en el
-   capítulo donde se explicaba DNS).
-3. El **smtp.a.org** envía el mensaje a **mx.b.org** usando SMTP, que almacena
-   el mensaje en el buzón del usuario **bob**.
-4. Bob obtiene el correo a través de su MUA, que recoge el correo usando el
-   protocolo *Post Office Protocolo 3* (POP3).
+1. Her MUA formats the message in email format and uses the
+   *Simple Mail Transfer Protocol* (SMTP) to send the message to the
+   local *Mail Transfer Agent* (MTA).
+2. The MTA looks at the destination address provided in the SMTP (not
+   from the message header), in this case bob@b.org, and resolves a
+   domain name to determine the fully qualified domain name of the
+   destination mail exchanger server (**MX** record that was explained
+   in the DNS section).
+3. **smtp.a.org** sends the message to **mx.b.org** using SMTP, which
+   delivers it to the mailbox of the user **bob**.
+4. Bob receives the message through his MUA, which picks up the
+   message using *Pop Office Protocol* (POP3).
 
-Esta situación puede cambiar de diversas maneras. Por ejemplo, Bob puede usar otro
-protocolo de obtención de correos como es *Internet Message Access
-Protocol* (IMAP) que permite leer directamente desde el servidor o usando un servicio
-de **Webmail** como el que usan diversos servicios gratuitos de correo vía
-*Web*.
+There are many alternative possibilities and complications to the
+previous email system sequence. For instance, Bob may pick up his
+email in many ways, for example using the *Internet Message Access
+Protocol* (IMAP), by logging into mx.b.org and reading it directly, or
+by using a **Webmail** service.
 
-Por tanto, podemos ver como el envío y recepción de correos entre
-servidores de correo se realiza a través de SMTP pero la obtención de
-correos por parte del usuario se realiza a través de POP3 o de IMAP
-que permiten la interoperabilidad entre diferentes servidores y
-clientes de correo. Lamentablemente, también existen protocolos
-propietarios como los que usan *Microsoft Exchange* o *Lotus Notes* de
-IBM.
+The sending and reception of emails between mail servers is done through SMTP
+but the users pick up their email using POP3 or IMAP. Using these protocols
+provides interoperability among different servers and email clients. There
+are also proprietary protocols such as the ones used by *Microsoft Exchange* 
+and *IBM Lotus Notes*.
 
-POP3 vs. IMAP
--------------
+POP3 vs IMAP
+------------
 
-El diseño de POP3 para recoger los mensajes del correo ayuda a las
-conexiones lentas permitiendo a los usuarios recoger todo el correo de
-una vez para después verlo y manipularlo sin necesidad de estar
-conectado. Estos mensajes, normalmente, se borran del buzón del
-usuario en el servidor, aunque actualmente la mayoría de MUAs permiten
-mantenerlos.
+The POP3 design to retrieve email messages is useful for slow connections,
+allowing users to pick up all their email all at once to see and
+manage it without being connected. These messages are usually removed
+from the user mailbox in the server, although most MUAs allow to keep them
+on the server.
 
-El más moderno IMAP, permite trabajar en línea o desconectado además de sólo
-borrar los mensajes depositados en el servidor de manera explícita.
-Adicionalmente, permite que múltiples clientes accedan al mismo buzón o
-lecturas parciales de mensajes MIME entre otras ventajas. Sin embargo, es un
-protocolo bastante complicado con más carga de trabajo en el lado del servidor
-que POP3, que relega dicho trabajo en el cliente. Las ventajas
-principales de IMAP sobre POP3 son:
+The more modern IMAP, allows to work on-line or offline as well as
+to explicitly manage server stored messages. Additionally, it allows
+simultaneous access by multiple clients to the same mailbox or partial fetches
+from MIME messages among other advantages. However, it is a quite complicated
+protocol with more server work load than POP3, which puts most of the load on
+the client side. The main advantages over POP3 are:
 
-- Modo de operación conectado y desconectado.
-- Varios clientes a la vez conectados al mismo buzón.
-- Descarga parcial de correos.
-- Información del estado del mensaje usando *banderas* (leído, borrado, respondido, ...).
-- Varios buzones en el servidor (el usuario los ve en forma de
-  carpetas) pudiendo hacer alguno de ellos públicos.
-- Búsquedas en el lado del servidor.
-- Mecanismos de extensión incluidos en el propio protocolo.
+- Connected and disconnected modes of operation.
+- Multiple clients simultaneously connected to the same mailbox.
+- Access to MIME message parts and partial fetch.
+- Message state information using *flags* (read, removed, replied, ...).
+- Multiple mailboxes on the server (usually presented to the user as
+  folders) allowing to make some of them public.
+- Server-side searches
+- Built-in extension mechanism
 
-Configuración de un servidor SMTP/POP3-IMAP4 con eBox
-=====================================================
+SMTP/POP3-IMAP4 server configuration with eBox
+==============================================
 
-En el servicio de correo debemos configurar el MTA para enviar y recibir
-correos así como la recepción de correos por parte de MUAs vía IMAP o POP3.
+Setting up an email system service requires to configure an MTA to send
+and receive emails as well as IMAP and/or POP3 servers to allow users
+to retrieve their mails.
 
-Para el envío/recepción de correos se usa Postfix [#f1]_ como servidor
-SMTP. Para el servicio de recepción de correos (POP3, IMAP) se usa
-Dovecot [#f2]_. Ambos con soporte para comunicación segura con
-SSL.
+To send and receive emails Postfix [#f1]_ acts as SMTP server. The email
+retrieval service (POP3, IMAP4) is provided by Dovecot [#f2]_. Both
+servers support secure communication using SSL.
 
 .. rubric:: Footnotes
 
-.. [#f1] **Postfix** *The Postfix Home Page* http://www.postfix.org .
+.. [#f1] **Postfix** The Postfix Home Page http://www.postfix.org .
 
-.. [#f2] **Dovecot** *Secure IMAP and POP3 Server* http://www.dovecot.org .
+.. [#f2] **Dovecot** Secure IMAP and POP3 Server http://www.dovecot.org .
 
-Configuración general
+General configuration
 ---------------------
 
-A través de :menuselection:`Correo --> General --> Opciones` podemos acceder
-a la configuración general del correo para :guilabel:`exigir la autenticación`,
-para enviar correos a través del servidor o permitir el cifrado de la comunicación
-SMTP con la opción :guilabel:`TLS para el servidor SMTP`.
+Through :menuselection:`Mail --> General --> Mail server options` you
+can access the general configuration to :guilabel:`require authentication`,
+to send email messages through the server or allow the SMTP communication
+encryption using the :guilabel:`TLS for SMTP server` setting.
 
 .. image:: images/mail/01-general.png
 
-Además se puede dar servicio de *relay*, esto es, reenviar correos
-cuyo origen y destino es diferente a cualquiera de los dominios
-gestionados por el servidor.
+In addition, the *relay* service is provided, that is, forwarding email
+messages whose source and destination are different from any of the
+domains managed by the server.
 
-También en :menuselection:`Correo --> General --> Opciones` podemos
-configurar eBox para que en vez de enviar directamente el correo, sea
-un *smarthost* el que lo haga. Así cada mensaje de correo que le
-llegue a eBox, será reenviado sin almacenarlo al *smarthost*
-configurado para ello. En ese caso, eBox sería un intermediario entre
-el usuario que envía el correo y el servidor que realmente lo
-envía. Se configuran los siguientes parámetros:
+Furthermore, in :menuselection:`Mail --> General --> Mail server
+options` you can configure eBox to not send messages directly but
+by using a *smarthost*, which is in charge of sending them.
+Each received email will be forwarded to the *smarthost* without
+keeping a copy. In this case, eBox would be an intermediary between the
+user who sends the email and the server which is the real message
+sender. The following settings can be configured:
 
-:guilabel:`Dirección del smarthost`:
-  Dirección IP o nombre de dominio
-:guilabel:`Autenticación del smarthost`:
-  Determinar si el *smarthost* requiere autenticación y si es así
-  proveer un usuario y contraseña
-:guilabel:`Tamaño máximo aceptado para los mensajes`:
-  Señala, si es necesario, el tamaño máximo de mensaje aceptado por el
-  *smarthost* en MiB.
+:guilabel:`Smarthost to send mail`:
+  Domain name or IP address.
+:guilabel:`Smarthost authentication`:
+  Whether the smarthost requires authentication using
+  user and password or not.
+:guilabel:`Maximum message size accepted`:
+  Indicates, if necessary, the maximum message size accepted by the
+  smarthost in MB.
 
-Se puede también configurar la obtención de los mensajes en la sección
-guilabel:`Servicios de obtención de correo`. EBox puede configurarse
-como servidor de POP3 o IMAP, ambos con soporte SSL.
+In order to configure the mail retrieval services go to
+the :guilabel:`Mail retrieval services` section. There eBox may be
+configured as POP3 and/or IMAP4 server, both allowing SSL support.
 
-También se puede configurar eBox para que actúe como *smarthost*. Para
-ello se permite una política de reenvío con objetos de red de eBox a
-través de :menuselection:`Correo --> General --> Política de Relay sobre objetos`
-basándonos en la dirección IP del servidor de correo origen. Si se
-permite el reenvío de correos desde dicho objeto, cualquier miembro de
-dicho objeto podrá enviar correos a través de eBox.
+In addition to this, eBox may be configured to act as a *smarthost*. To
+do so, you can add relay policies for network objects through
+:menuselection:`Mail --> General --> Relay policy for network objects`.
+The policies are based on the source mail server IP address. If the relay is
+allowed from a object, then each object member may send emails through eBox.
 
 .. image:: images/mail/02-relay.png
 
 .. warning::
-   Hay que tener cuidado con usar una política de *Open Relay*, es
-   decir, permitir reenviar correo desde cualquier lugar, ya que con
-   alta probabilidad nuestro servidor de correo se convertirá en una
-   fuente de *spam*.
+   Be careful when using an *Open Relay* policy, i.e., forwarding
+   email from everywhere, since your mail server will probably
+   become a *spam* source.
 
-Finalmente, se puede configurar el servidor de correo para que use algún
-filtro de contenidos para los mensajes [#]_. Para ello el servidor de
-filtrado debe recibir el correo en un puerto determinado y enviar el
-resultado a otro puerto donde el servidor de correo estará escuchando
-la respuesta. A través de :menuselection:`Correo --> General -->
-Opciones de Filtrado de Correo` se puede seleccionar un filtro de
-correo personalizado o usar eBox como servidor de filtrado.
+Finally, the mail server may be configured to use a content filter for
+their messages [#]_. To do so, the filter server must receive the
+message from a fixed port and send the result back to another fixed port
+where the mail server is bound to listen the response. Through
+:menuselection:`Mail --> General --> Mail filter options`, you may
+choose a custom server or eBox as mail filter.
 
-.. [#] En la sección :ref:`mailfilter-sec-ref` se amplia este tema.
+.. [#] In  :ref:`mailfilter-sec-ref` section this topic is explained in depth.
 
 .. image:: images/mail/mailfilter-options.png
    :align: center
 
-Creación de cuentas de correo a través de dominios virtuales
-------------------------------------------------------------
+Email account creation through virtual domains
+-----------------------------------------------
 
-Para crear una cuenta de correo se debe tener un usuario creado y un
-dominio virtual de correo.
-
-Desde :menuselection:`Correo --> Dominio Virtual`, se pueden crear
-tantos dominios virtuales como queramos que proveen de *nombre de
-dominio* a las cuentas de correo de los usuarios de
-eBox. Adicionalmente, es posible crear *alias* de un dominio virtual
-de tal manera que enviar un correo al dominio virtual o a su *alias*
-sea indiferente.
+In order to set up an email account with a mailbox, a virtual domain and
+a user are required. From :menuselection:`Mail --> Virtual Mail Domains`,
+you may create as many virtual domains as you want. They provide the
+*domain name* for email accounts for eBox users. Moreover, it is
+possible to set *aliases* for a virtual domain. It does not make any difference
+to send an email to one virtual domain or any of their aliases.
 
 .. image:: images/mail/mail-vdomains.png
    :align: center
 
-Para crear cuentas de correo lo haremos de manera análoga a la compartición de
-ficheros, acudimos a
-:menuselection:`Usuarios --> Editar Usuario --> Crear cuenta de correo`.
-Es ahí donde seleccionamos el dominio virtual principal del usuario. Si
-queremos asignar al usuario a más de una cuenta de correo lo podemos hacer a
-través de los alias. Realmente, el correo es almacenado una única vez en el
-buzón del usuario.
+In order to set up email accounts, you have to follow the same rules than 
+when configuring file sharing. From
+:menuselection:`Users --> Edit User --> Create mail account`.
+There, you select the main virtual domain for the user. If you want to
+assign to the user more than a single email address, you can use aliases.
+Behind the scenes, the email messages are kept just once in a mailbox.
+
+.. TODO: Explain how to authenticate using alias since they are not
+         real accounts
 
 .. image:: images/mail/03-user.png
    :align: center
    :scale: 80
 
-De la misma manera, se pueden crear *alias* para grupos donde recibir correo a
-través de :menuselection:`Grupos --> Editar grupo --> Crear un alias de
-cuenta de correo al grupo`.
+Likewise, you may set up *aliases* for user groups. Messages received
+by these aliases are sent to every user of the group. Group aliases are
+created through
+:menuselection:`Groups --> Edit Group --> Create alias mail account to
+group`.
 
 .. FIXME: group mail alias account is required
 
-Gestión de cola
----------------
+Queue Management
+----------------
 
-Desde :menuselection:`Correo --> Gestión de cola` podemos ver los correos que
-todavía no han sido enviados con la información acerca del mensaje. Las
-acciones que podemos realizar con estos mensajes son: eliminarlos, ver
-su contenido o volver a tratar de enviarlos (*reencolarlos*).
+From :menuselection:`Mail --> Queue Management`, you may see those
+email messages that haven't already been delivered. All
+the information about the messages is displayed. The allowed actions to perform
+are:
+deletion, content viewing or send retrying (*re-queuing* the
+message again).
 
 .. image:: images/mail/04-queue.png
    :align: center
 
 .. _mail-conf-exercise-ref:
 
-Ejemplo práctico
+Practice example
 ^^^^^^^^^^^^^^^^
-Crear un dominio virtual para el correo. Crear una cuenta de usuario y una
-cuenta de correo en el dominio creado para dicho usuario. Configurar el
-*relay* para el envío de correo. Enviar un correo de prueba con la cuenta
-creada a una cuenta externa.
 
-#. **Acción:**
-   Acceder a eBox, entrar en :menuselection:`Estado del módulo` y
-   activa el módulo **Correo**, para ello marca su casilla en la
-   columna :guilabel:`Estado`. Habilitar primero los módulos **Red** y
-   **Usuarios y grupos** si no se encuentran habilitados con anterioridad.
+Set up a virtual domain for the mail service. Create a user account
+and a mail account within the domain for that user. Configure the
+*relay* policy to send email messages. Send a test email message
+with the new account to an external mail account.
 
-   Efecto:
-     eBox solicita permiso para sobreescribir algunos ficheros.
+#. **Action:**
+   Log into eBox, access :menuselection:`Module status` and enable
+   **Mail** by checking its checkbox in the :guilabel:`Status` column.
+   Enable **Network** and **Users and Groups** first if they
+   are not already enabled.
 
-#. **Acción:**
-   Leer los cambios de cada uno de los ficheros que van a ser modificados y
-   otorgar permiso a eBox para sobreescribirlos.
+   Effect:
+     eBox requests permission to overwrite certain files.
 
-   Efecto:
-     Se ha activado el botón :guilabel:`Guardar Cambios`.
+#. **Action:**
+   Read the changes of each of the files to be modified and
+   grant eBox permission to overwrite them.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Correo --> Dominio Virtual`, pulsar
-   :guilabel:`Añadir nuevo`, introducir un nombre para el dominio y
-   pulsar el botón :guilabel:`Añadir`.
+   Effect:
+     The :guilabel:`Save changes` button has been enabled.
 
-   Efecto:
-     eBox nos notifica de que debemos salvar los cambios para usar el
-     dominio.
+#. **Action:**
+   Go to :menuselection:`Mail --> Virtual Mail Domains` and click
+   :guilabel:`Add new` to create a new domain. Enter the name in
+   the appropriate field.
 
-#. **Acción:**
-   Guardar los cambios.
+   Effect:
+     eBox notifies you that you must save changes to use this virtual
+     domain.
 
-   Efecto:
-     eBox muestra el progreso mientras aplica los cambios. Una vez que ha
-     terminado lo muestra.
+#. **Action:**
+   Save the changes.
 
-     Ahora ya podemos usar el dominio de correo que hemos añadido.
+   Effect:
+     eBox displays the progress while the changes are being applied. Once this is
+     completed, you will be notified.
 
-#. **Acción:**
-   Acceder a :menuselection:`Usuarios --> Añadir usuario`,
-   rellenar sus datos y pulsar el botón :guilabel:`Crear`.
+     Now you may use the newly created virtual mail domain.
 
-   Efecto:
-     El usuario se añade inmediatamente sin necesidad de salvar cambios.
-     Aparece la pantalla de edición del usuario recién creado.
+#. **Action:**
+   Enter :menuselection:`Users --> Add User`,
+   fill up the user data and click the :guilabel:`Create` button.
 
-#. **Acción:**
-   Escribir un nombre para la cuenta de correo del usuario en la sección
-   :guilabel:`Crear cuenta de correo` y pulsar el botón :guilabel:`Crear`.
+   Effect:
+     The user is added immediately without saving changes. The edition
+     screen is displayed for the newly created user.
 
-   Efecto:
-     La cuenta se ha añadido inmediatamente y nos aparecen opciones para
-     eliminarla o crear *alias* para ella.
+#. **Action:**
+   Introduce a name for the user mail account in
+   :guilabel:`Create mail account` and create it.
 
-#. **Acción:**
-   Acceder al menú :menuselection:`Objetos --> Añadir nuevo`. Escribir
-   un nombre para el objeto y pulsar :guilabel:`Añadir`.  Pulsar el
-   icono de :guilabel:`Miembros` del objeto creado. Escribir de nuevo
-   un nombre para el miembro, introducir la dirección IP de la máquina
-   desde donde se enviará el correo y pulsar :guilabel:`Añadir`.
+   Effect:
+     The account has been added immediately and options to delete it
+     or add *aliases* for it are shown.
 
-   Efecto:
-     El objeto se ha añadido temporalmente y podemos usarlo en otras partes
-     de la interfaz de eBox, pero no será persistente hasta que se guarden
-     cambios.
+#. **Action:**
+   Enter the :menuselection:`Object --> Add new` menu. Fill in a name for
+   the object and press :guilabel:`Add`. Click on :guilabel:`Members`
+   in the created object. Fill in again a name for the member and write
+   the host IP address where the mail will be sent from.
 
-#. **Acción:**
-   Acceder a :menuselection:`Correo --> General --> Política de
-   reenvío sobre objetos`. Seleccionar el objeto creado en el paso
-   anterior asegurándose de que está marcada la casilla
-   :guilabel:`Permitir reenvío` y pulsar el botón :guilabel:`Añadir`.
+   Effect:
+     The object has been added temporarily and you may use it in other
+     eBox sections, but it is not persistent until you save changes.
 
-   Efecto:
-     El botón :guilabel:`Guardar Cambios` estará activado.
+#. **Action:**
+   Enter :menuselection:`Mail --> General --> Relay policy for network
+   objects`. Select the previously created object making sure
+   :guilabel:`Allow relay` is checked and add it.
 
-#. **Acción:**
-   Guardar los cambios.
+   Effect:
+     The :guilabel:`Save changes` button has been enabled.
 
-   Efecto:
-     Se ha añadido una política de reenvío para el objeto que hemos creado,
-     que permitirá el envío de correos al exterior para ese origen.
+#. **Action:**
+   Save the changes
 
-#. **Acción:**
-   Configurar el cliente de correo seleccionado para que use eBox
-   como servidor SMTP y enviar un correo de prueba desde la cuenta que hemos
-   creado a una cuenta externa.
+   Effect:
+     A relay policy for that object has been added, which makes
+     possible from that object to send e-mails to the outside.
 
-   Efecto:
-     Transcurrido un breve periodo de tiempo deberíamos recibir el correo
-     enviado en el buzón de la cuenta externa.
+#. **Action:**
+   Configure a selected MUA in order to use eBox as SMTP server and
+   send a test email message from this new account to an external
+   one.
 
-#. **Acción:**
-   Comprobar en el servidor de correo a través del fichero de registro
-   `/var/log/mail.log` como el correo se ha enviado correctamente.
+   Effect:
+     After a brief period you should receive the message in your
+     external account mailbox.
+
+#. **Action:**
+   Verify using the mail server log file `/var/log/mail.log`
+   that the email message was delivered correctly.
 
 .. include:: mail-exercises.rst
