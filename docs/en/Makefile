@@ -23,36 +23,9 @@ help:
 	@echo "  linkcheck to check all external links for integrity"
 
 clean:
-	-rm -rf _build/*
+	-rm -rf _build
 
-html:
-	mkdir -p _build/html _build/doctrees
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) _build/html
-	@echo
-	@echo "Build finished. The HTML pages are in _build/html."
-
-web:
-	mkdir -p _build/web _build/doctrees
-	$(SPHINXBUILD) -b web $(ALLSPHINXOPTS) _build/web
-	@echo
-	@echo "Build finished; now you can run"
-	@echo "  python -m sphinx.web _build/web"
-	@echo "to start the server."
-
-htmlhelp:
-	mkdir -p _build/htmlhelp _build/doctrees
-	$(SPHINXBUILD) -b htmlhelp $(ALLSPHINXOPTS) _build/htmlhelp
-	@echo
-	@echo "Build finished; now you can run HTML Help Workshop with the" \
-	      ".hhp project file in _build/htmlhelp."
-
-latex:
-	mkdir -p _build/latex _build/doctrees
-	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) _build/latex
-	@echo
-	@echo "Build finished; the LaTeX files are in _build/latex."
-	@echo "Run \`make all-pdf' or \`make all-ps' in that directory to" \
-	      "run these through (pdf)latex."
+html: include-remove build-html include-add
 
 changes:
 	mkdir -p _build/changes _build/doctrees
@@ -66,3 +39,16 @@ linkcheck:
 	@echo
 	@echo "Link check complete; look for any errors in the above output " \
 	      "or in _build/linkcheck/output.txt."
+
+build-html:
+	mkdir -p _build/html _build/doctrees
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) _build/html
+	@echo
+	@echo "Build finished. The HTML pages are in _build/html."
+
+
+include-remove:
+	sed -i 's/.. include::/.. ..include::/g' $$(find . -name '*.rst')
+
+include-add:
+	sed -i 's/.. ..include::/.. include::/g' $$(find . -name '*.rst')
