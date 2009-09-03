@@ -27,7 +27,7 @@ import sys
 templates_path = []
 
 # The suffix of source filenames.
-source_suffix = '.txt'
+source_suffix = '.rst'
 
 # The master toctree document.
 master_doc = 'index'

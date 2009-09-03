@@ -118,7 +118,7 @@ like this::
 
     1;
 
-First of all, we need to include *EBox::Apache2::Model::Modules* as we will be
+First of all, we need 
 using one of its functions::
 
     #!perl

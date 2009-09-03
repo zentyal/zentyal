@@ -258,7 +258,7 @@ We will have to slightly modify the template used to generate the virtual host c
 
             ErrorLog /var/log/apache2/error.log
 
-            # Possible values include: debug, info, notice, warn, error, crit,
+            # Possible valu
             # alert, emerg.
             LogLevel warn
 

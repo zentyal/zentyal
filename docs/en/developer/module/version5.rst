@@ -456,7 +456,7 @@ The above command will create a file in *stubs/virtual-host.conf*. You should ad
 
             ErrorLog /var/log/apache2/error.log
 
-            # Possible values include: debug, info, notice, warn, error, crit,
+            # Possible valu
             # alert, emerg.
             LogLevel warn
 
