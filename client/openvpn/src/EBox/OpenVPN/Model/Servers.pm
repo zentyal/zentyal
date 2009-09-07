@@ -156,8 +156,8 @@ sub precondition
 sub preconditionFailMsg
 {
     return  __x(q/{openpar}You can't create VPN servers because there aren't enough/
-        . ' certificates.{closepar}{openpar}Please, go to the {openhref}certificate '
-        . 'manager module{closehref} and create new certificates.{closepar}'
+        . ' certificates.{closepar}{openpar}Please, go to the {openhref}certification '
+        . 'authority module{closehref} and create new certificates.{closepar}'
         . '{openpar}You will need, at least, one CA and one certificate.{closepar}',
         openhref => qq{<a href='/ebox/CA/Index'>}, closehref => qq{</a>},
         openpar => '<p>', closepar => '</p>' );
