@@ -8,6 +8,7 @@ DESKTOP_DIR=`xdg-user-dir DESKTOP`
 create_desktop_link()
 {
     LINK="$DESKTOP_DIR/$SHARE.desktop"
+    echo "#!/usr/bin/env xdg-open" > $LINK
     echo "[Desktop Entry]" > $LINK
     echo "Version=1.0" >> $LINK
     echo "Type=Link" >> $LINK
