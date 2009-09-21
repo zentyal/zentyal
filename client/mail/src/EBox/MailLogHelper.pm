@@ -37,7 +37,7 @@ use constant TABLENAME => "message";
 #        message TEXT NOT NULL,
 #        postfix_date TIMESTAMP NOT NULL
 #);
-
+ 
 my %temp;
 
 sub new
@@ -49,12 +49,12 @@ sub new
 }
 
 # Method: domain
-#
+#       
 #       Must return the text domain which the package belongs to
 #
-sub domain
+sub domain 
 {
-    return 'ebox-mail';
+    return 'ebox-mail'; 
 }
 
 sub logFiles {
@@ -73,10 +73,10 @@ sub _getDate
     my ($self, $line) = @_;
 
     my @date = localtime(time);
-
+    
     my $year = $date[5] + 1900;
     my ($month, $day, $hour, $min, $sec) = $line =~ m/^(...) +(\d+) (..):(..):(..).*$/;
-
+    
     return "$year-$month-$day $hour:$min:$sec";
 }
 
@@ -92,7 +92,7 @@ sub processLine
     if ($line =~ m/NOQUEUE/) {
         my ($who, $hostname, $clientip, $msg, $line2) = $line =~ m/.*NOQUEUE: reject: (.*) from (.*)\[(.*)\]: (.*); (.*)$/;
         my ($from, $to) = $line2 =~ m/.*from=<(.*)> to=<(.*)> .*/;
-
+        
         my $event = 'other';
         if ($msg =~ m/.*550.*$/) {
             $event = 'noaccount';
@@ -100,7 +100,12 @@ sub processLine
             $event = 'norelay';
         } elsif ($msg =~ m/.*552.*$/) {
             $event = 'maxmsgsize';
-            }
+        } elsif ($msg =~ m/Greylisted/) {
+            $event = 'greylist';
+        }
+
+        
+ 
 
         my $values = {
                       client_host_ip => $clientip,
@@ -114,10 +119,10 @@ sub processLine
                      };
 
         $dbengine->insert(TABLENAME, $values);
-
+                
     } elsif ($line =~ m/SASL PLAIN authentication failed/) {
         my ($hostname, $clientip) = $line =~ m/.*postfix\/.*: warning: (.*)\[(.*)\]: .*$/;
-
+                        
         my $values = {
                       client_host_ip => $clientip,
                       client_host_name => $hostname,
@@ -128,71 +133,95 @@ sub processLine
         $dbengine->insert(TABLENAME, $values);
     } elsif ($line =~ m/client=/) {
         my ($qid, $hostname, $clientip) = ($line =~ m/.*postfix\/.*: (.*): client=(.*)\[(.*)\]/);
-
-
+  
         $temp{$qid}{'hostname'} = $hostname;
         $temp{$qid}{'clientip'} = $clientip;
     } elsif ($line =~ m/cleanup.*message-id=/) {
-        my ($qid, $msg_id1) = $line =~ m/.*: (.*): message\-id=<(.*)>.*$/;
-        $temp{$qid}{'msgid'} = $msg_id1;
+        my ($qid, $msg_id) = $line =~ m/.*: (.*): message\-id=<(.*)>.*$/;
+        $temp{$qid}{'msgid'} = $msg_id;
     } elsif ($line =~ m/qmgr.*from=</) {
         my ($qid, $from, $size) = $line =~ m/.*: (.*): from=<(.*)>, size=(.*),.*$/;
         $temp{$qid}{'from'} = $from;
         $temp{$qid}{'size'} = $size;
-    } elsif ($line =~ m/virtual.*to=</) {
-        my ($qid, $to, $relay, $status, $msg) = $line =~ m/.*: (.*): to=<(.*)>, relay=(.*), .*, status=(.*) \((.*)\)$/;
+    } elsif ($line =~ m/.*: (.*): to=<(.*)>, relay=(.*?), .*, status=(.*?) \((.*)\)$/) {
+        my ($qid, $to, $relay, $status, $msg) = ($1, $2, $3, $4, $5);
+
         $temp{$qid}{'to'} = $to;
         $temp{$qid}{'relay'} = $relay;
         $temp{$qid}{'status'} = $status;
         $temp{$qid}{'msg'} = $msg;
         $temp{$qid}{'date'} = $self->_getDate($line);
+
+        if ($status ne 'sent') {
+            if ($msg =~ m/Connection timed out/) {
+                $temp{$qid}{'event'} = 'nohost';
+            }
+            elsif ($msg =~ /host.*said.*Relay access denied/) {
+                $temp{$qid}{'event'} = 'nosmarthostrelay';        
+            }
+            elsif ($msg =~ /server.*said.*authentication failure/) {
+                $temp{$qid}{'event'} = 'nosmarthostrelay';        
+            }
+            elsif ($msg =~ /Greylisted/) {
+                $temp{$qid}{'event'} = 'greylist';        
+            }
+            else {
+                $temp{$qid}{'event'} = 'other';
+            }
+
+        }
+
+        if (exists $temp{$qid}{'event'}) {
+            $self->_insertEvent($qid,  $dbengine);
+        }
+
     } elsif ($line =~ m/.*removed.*/) {
         my ($qid) = $line =~ m/.*qmgr.*: (.*): removed/;
+                
+        if (not exists $temp{$qid}) {
+            return;
+        }
+
 
         my $event = 'msgsent';
         if ($temp{$qid}{'msg'} =~ m/.*maildir has overdrawn his diskspace quota.*/) {
             $event = 'maxusrsize';
         }
-        my $values = {
-                      message_id => $temp{$qid}{'msgid'},
-                      client_host_ip => $temp{$qid}{'clientip'},
-                      client_host_name => $temp{$qid}{'hostname'},
-                      from_address => $temp{$qid}{'from'},
-                      to_address => $temp{$qid}{'to'},
-                      message_size => $temp{$qid}{'size'},
-                      relay => $temp{$qid}{'relay'},
-                      status => $temp{$qid}{'status'},
-                      message => $temp{$qid}{'msg'},
-                      postfix_date => $temp{$qid}{'date'},
-                      event => $event,
-                     };
 
-        $dbengine->insert(TABLENAME, $values);
+        $temp{$qid}{'event'} = $event;
 
-        $temp{$qid} = ();
-    } elsif ($line =~ m/.*status=deferred.*/) {
-        my ($qid, $to, $relay, $status, $msg) = $line =~ m/.*: (.*): to=<(.*)>, relay=(.*), .*, status=(.*) \((.*)\)$/;
-
-        my $values = {
-                      message_id => $temp{$qid}{'msgid'},
-                      client_host_ip => $temp{$qid}{'clientip'},
-                      client_host_name => $temp{$qid}{'hostname'},
-                      from_address => $temp{$qid}{'from'},
-                      to_address => $to,
-                      message_size => $temp{$qid}{'size'},
-                      relay => $relay,
-                      status => $status,
-                      message => $msg,
-                      postfix_date => $temp{$qid}{'date'},
-                      event => 'nohost',
-                     };
-
-        $dbengine->insert(TABLENAME, $values);
-
-        $temp{$qid} = ();
-
+        $self->_insertEvent($qid, $dbengine);
     }
 
 }
+
+sub _insertEvent
+{
+    my ($self, $qid, $dbengine) = @_;
+
+
+
+    my $values = {
+                  message_id => $temp{$qid}{'msgid'},
+                  client_host_ip => $temp{$qid}{'clientip'},
+                  client_host_name => $temp{$qid}{'hostname'},
+                  from_address => $temp{$qid}{'from'},
+                  to_address => $temp{$qid}{'to'},
+                  message_size => $temp{$qid}{'size'},
+                  relay => $temp{$qid}{'relay'},
+                  status => $temp{$qid}{'status'},
+                  message => $temp{$qid}{'msg'},
+                  postfix_date => $temp{$qid}{'date'},
+                  event => $temp{$qid}{'event'},
+                 };
+
+
+
+    $dbengine->insert(TABLENAME, $values);
+
+    delete $temp{$qid};
+}
+
+
 
 1;

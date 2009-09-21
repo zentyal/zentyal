@@ -1255,7 +1255,8 @@ sub tableInfo
                    'noaccount' => __('Account does not exist'),
                    'nohost' => __('Host unreachable'),
                    'noauth' => __('Authentication error'),
-                   'other' => __('Other events')
+                   'greylist' => __('Greylisted'),
+                   'other' => __('Other events'),
     };
 
     return [{

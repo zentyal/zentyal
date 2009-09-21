@@ -22,7 +22,7 @@ use lib '../..';
 
 use EBox::MailLogHelper;
 
-use Test::More tests => 32;
+use Test::More tests => 36;
 use Test::MockObject;
 use Test::Exception;
 
@@ -45,6 +45,13 @@ sub newFakeDBEngine
 }
                     
 
+sub _currentYear
+{
+    my ($sec,$min,$hour,$mday,$mon,$year) = localtime(time());
+    $year += 1900;
+    return $year;
+}
+
 
 sub checkInsert
 {
@@ -59,7 +66,7 @@ sub checkInsert
         diag "Inserted Data:\n" . Dumper $data;
     }
 
-    my @notNullFields = qw(client_host_ip to_address status postfix_date);
+    my @notNullFields = qw(client_host_ip client_host_name status postfix_date);
     my $failed = 0;
     foreach my $field (@notNullFields) {
         if ((not exists $data->{$field}) or (not defined $data->{$field})) {
@@ -80,6 +87,7 @@ sub checkInsert
     }
 }
 
+my $year = _currentYear();
 my @cases = (
              {
               name => 'Message sent with both TSL and SASL active',
@@ -100,7 +108,7 @@ my @cases = (
                                message_id => '200808251310.27640.spam@warp.es',
                                message_size => '557',
                                status => 'sent',
-                               postfix_date => '2008-Aug-25 06:48:55',
+                               postfix_date => "$year-Aug-25 06:48:55",
                                event => 'msgsent',
                                message => 'delivered to maildir',
                                to_address => 'macaco@monos.org',
@@ -127,7 +135,7 @@ my @cases = (
                                message_id => '200808251653.45100.spam@warp.es',
                                message_size => '556',
                                status => 'sent',
-                               postfix_date => '2008-Aug-25 09:30:48',
+                               postfix_date => "$year-Aug-25 09:30:48",
                                event => 'msgsent',
                                message => 'delivered to maildir',
                                to_address => 'macaco@monos.org',
@@ -153,7 +161,7 @@ my @cases = (
                                message_id => '200808251704.09656.spam@warp.es',
                                message_size => '555',
                                status => 'sent',
-                               postfix_date => '2008-Aug-25 09:41:13',
+                               postfix_date => "$year-Aug-25 09:41:13",
                                event => 'msgsent',
                                message => 'delivered to maildir',
                                to_address => 'macaco@monos.org',
@@ -183,7 +191,7 @@ my @cases = (
                                message_id => '200811181139.13287.spam@warp.es',
                                message_size => '580',
                                status => 'sent',
-                               postfix_date => '2008-Oct-30 11:00:22',
+                               postfix_date => "$year-Oct-30 11:00:22",
                                event => 'msgsent',
                                message => '250 2.0.0 Ok: queued as 3F7CEBC608',
                                to_address => 'jag@gmail.com',
@@ -213,7 +221,7 @@ my @cases = (
                                message_id => '200811181346.45800.spam@warp.es',
                                message_size => '580',
                                status => 'deferred',
-                               postfix_date => '2008-Oct-30 13:08:09',
+                               postfix_date => "$year-Oct-30 13:08:09",
                                event => 'nohost',
                                message => 'connect to 192.168.45.120[192.168.45.120]:25: Connection timed out',
                                to_address => 'jag@gmail.com',
@@ -247,7 +255,7 @@ my @cases = (
                                message_id => '200811181352.16952.spam@warp.es',
                                message_size => '580',
                                status => 'bounced',
-                               postfix_date => '2008-Oct-30 13:13:10',
+                               postfix_date => "$year-Oct-30 13:13:10",
                                event => 'other',
                                message => 'mail for 192.168.45.120 loops back to myself',
                                to_address => 'jag@gmail.com',
@@ -277,7 +285,7 @@ my @cases = (
                                message_id => '200811181701.17282.spam@warp.es',
                                message_size => '580',
                                status => 'bounced',
-                               postfix_date => '2008-Oct-30 16:22:19',
+                               postfix_date => "$year-Oct-30 16:22:19",
                                event => 'nosmarthostrelay',
                                message => 'host 192.168.45.120[192.168.45.120] said: 554 5.7.1 <jag@gmail.com>: Relay access denied (in reply to RCPT TO command)',
                                to_address => 'jag@gmail.com',
@@ -306,12 +314,41 @@ my @cases = (
                                message_id => '200811191624.44633.spam@warp.es',
                                message_size => '580',
                                status => 'deferred',
-                               postfix_date => '2008-Oct-31 00:21:30',
+                               postfix_date => "$year-Oct-31 00:21:30",
                                event => 'nosmarthostrelay',
                                message => 'delivery temporarily suspended: SASL authentication failed; server 192.168.45.120[192.168.45.120] said: 535 5.7.8 Error: authentication failed: authentication failure',
                                to_address => 'jag@gmail.com',
                                client_host_name => 'unknown',
                                relay => 'none',
+                               client_host_ip => '192.168.9.1'
+                              },
+
+             },
+
+             {
+              name => 'Sending mail to a greylisted external server',
+                 lines => [
+
+'Jul 13 09:42:04 ebox011101 postfix/smtpd[2986]: connect from unknown[192.168.9.1]',
+'Jul 13 09:42:04 ebox011101 postfix/smtpd[2986]: setting up TLS connection from unknown[192.168.9.1]',
+'Jul 13 09:42:04 ebox011101 postfix/smtpd[2986]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+'Jul 13 09:42:04 ebox011101 postfix/smtpd[2986]: 20A6F5265A: client=unknown[192.168.9.1]',
+'Jul 13 09:42:04 ebox011101 postfix/cleanup[2989]: 20A6F5265A: message-id=<604958.427461924-sendEmail@localhost>',
+'Jul 13 09:42:04 ebox011101 postfix/qmgr[2256]: 20A6F5265A: from=<a@a.com>, size=909, nrcpt=1 (queue active)',
+'Jul 13 09:42:04 ebox011101 postfix/smtpd[2986]: disconnect from unknown[192.168.9.1]',
+'Jul 13 09:42:05 ebox011101 postfix/smtp[2990]: 20A6F5265A: to=<ckent@dplanet.com>, relay=smtp.dplanet.com[67.23.2.154]:25, delay=1.6, delays=0.61/0/0.6/0.37, dsn=4.2.0, status=deferred (host smtp.dplanet.com[67.23.2.154] said: 450 4.2.0 <ckent@dplanet.com>: Recipient address rejected: Greylisted, see http://postgrey.schweikert.ch/help/ebox-technologies.com.html (in reply to RCPT TO command))',
+                          ],
+              expectedData =>  {
+                               from_address => 'a@a.com',
+                               message_id => '604958.427461924-sendEmail@localhost',
+                               message_size => '909',
+                               status => 'deferred',
+                               postfix_date => "$year-Jul-13 09:42:05",
+                               event => 'greylist',
+                               message => 'host smtp.dplanet.com[67.23.2.154] said: 450 4.2.0 <ckent@dplanet.com>: Recipient address rejected: Greylisted, see http://postgrey.schweikert.ch/help/ebox-technologies.com.html (in reply to RCPT TO command)',
+                               to_address => 'ckent@dplanet.com',
+                               client_host_name => 'unknown',
+                               relay => 'smtp.dplanet.com[67.23.2.154]:25',
                                client_host_ip => '192.168.9.1'
                               },
 
