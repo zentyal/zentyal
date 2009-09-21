@@ -25,9 +25,12 @@ use EBox::Gettext;
 use constant  SQUIDLOGFILE => '/var/log/squid/access.log';
 use constant  DANSGUARDIANLOGFILE => '/var/log/dansguardian/access.log';
 
+
+
 sub new
 {
         my $class = shift;
+
         my $self = {};
         bless($self, $class);
         return $self;
@@ -76,14 +79,32 @@ sub processLine # (file, line, logger)
 	}
 
 	my $event;
-	if ($fields[3] eq 'TCP_DENIED/403' and $file eq  DANSGUARDIANLOGFILE) {
-		$event = 'filtered';
-	} elsif ($fields[3] eq 'TCP_DENIED/403')  {
+        if ($file eq SQUIDLOGFILE) {
+            if ($fields[3] eq 'TCP_DENIED/403')  {
 		$event = 'denied';
-	} else {
-		$event = 'accepted';
-	}
+                $self->{alreadySeen} = 0;
+            } else {
+                if (not $self->{alreadySeen}) {
+                    $event = 'accepted';
+                } else {
+                    $self->{alreadySeen} = 0;
+                    return;
+                }
 
+            }
+            
+        } else {
+            # DANSGUARDIANLOGFILE
+            if ($fields[3] eq 'TCP_DENIED/403')  {
+                $event = 'filtered';
+                $self->{alreadySeen} = 1;
+            } else {
+                # squid file must handle this
+                return;
+            }
+
+
+        } 
 
         my $time = localtime $fields[0];
         my $data = {
