@@ -25,23 +25,20 @@ use EBox::Gettext;
 use constant  SQUIDLOGFILE => '/var/log/squid/access.log';
 use constant  DANSGUARDIANLOGFILE => '/var/log/dansguardian/access.log';
 
-
-
-sub new
+sub new 
 {
         my $class = shift;
-
         my $self = {};
         bless($self, $class);
         return $self;
 }
 
-sub domain {
+sub domain { 
         return 'ebox-squid';
 }
 
 
-# Method: logFiles
+# Method: logFiles 
 #
 #	This function must return the file or files to be read from.
 #
@@ -67,61 +64,43 @@ sub logFiles
 # 	line - string containing the log line
 #	dbengine- An instance of class implemeting AbstractDBEngineinterface
 #
-sub processLine # (file, line, logger)
+sub processLine # (file, line, logger) 
 {
 	my ($self, $file, $line, $dbengine) = @_;
         chomp $line;
-
+		
 	my @fields = split (/\s+/, $line);
-
+	
 	if ($fields[2] eq '127.0.0.1') {
 		return;
 	}
-
+	
 	my $event;
-        if ($file eq SQUIDLOGFILE) {
-            if ($fields[3] eq 'TCP_DENIED/403')  {
+	if ($fields[3] eq 'TCP_DENIED/403' and $file eq  DANSGUARDIANLOGFILE) {
+		$event = 'filtered';
+	} elsif ($fields[3] eq 'TCP_DENIED/403')  {
 		$event = 'denied';
-                $self->{alreadySeen} = 0;
-            } else {
-                if (not $self->{alreadySeen}) {
-                    $event = 'accepted';
-                } else {
-                    $self->{alreadySeen} = 0;
-                    return;
-                }
-
-            }
-            
-        } else {
-            # DANSGUARDIANLOGFILE
-            if ($fields[3] eq 'TCP_DENIED/403')  {
-                $event = 'filtered';
-                $self->{alreadySeen} = 1;
-            } else {
-                # squid file must handle this
-                return;
-            }
-
-
-        } 
+	} else {
+		$event = 'accepted';
+	}	
+	
 
         my $time = localtime $fields[0];
-        my $data = {
-            'timestamp' => $time,
-            'elapsed' => $fields[1],
-            'remotehost' => $fields[2],
+        my $data = { 
+            'timestamp' => $time, 
+            'elapsed' => $fields[1], 
+            'remotehost' => $fields[2], 
             'code' => $fields[3],
-            'bytes' => $fields[4],
+            'bytes' => $fields[4], 
             'method' => $fields[5],
-            'url' => $fields[6],
+            'url' => $fields[6], 
             'rfc931' => $fields[7],
-            'peer' => $fields[8],
+            'peer' => $fields[8], 
             'mimetype' => $fields[9],
             'event' => $event
            };
-
-
+	
+        
 	$dbengine->insert('access', $data);
 }
 
