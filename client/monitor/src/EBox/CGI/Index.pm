@@ -22,6 +22,9 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use  EBox::Exceptions::Command;
+
+use Error qw(:try);
 
 # Group: Public methods
 
@@ -71,7 +74,35 @@ sub masonParameters
                  class => 'note' ];
     }
 
-    my $measuredData = $mon->allMeasuredData();
+
+    my $needSaveChanges = 0;
+
+    my $measuredData;
+
+    EBox::debug("bef measured data");
+    try {
+        $measuredData = $mon->allMeasuredData();
+    } catch EBox::Exceptions::Command with {
+        my $ex = shift;
+        my $error = join ' ', @{ $ex->error() };
+
+      if ($error =~ m/No such file or directory/) {
+           $needSaveChanges = 1;
+        } else {
+            $ex->throw();
+        }
+    };
+
+    if ($needSaveChanges) {
+            $self->setTemplate('/msg.mas');
+            return [
+                    msg => __x('You must save the changes in module status to see monitor graphs '
+ . 'in the {openhref}Save changes{closehref} section. In case it is already enabled you must wait for a few seconds to collect the first monitor data',
+                            openhref  => qq{<a href="/ebox/Finish"><em>},
+                            closehref => qq{</em></a>}),
+                    class => 'note' ];
+        }
+
 
     return [
         URL           => '/ebox/Monitor/DisplayGraphs',
