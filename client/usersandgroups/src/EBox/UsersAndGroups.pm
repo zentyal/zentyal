@@ -94,6 +94,11 @@ sub actions
                  'action' => __('Your openLDAP database will be populated with some basic organizational units'),
                  'reason' => __('eBox needs this organizational units to add users and groups into them'),
                 'module' => 'users'
+            },
+           {
+            'action' => __(q{Create directories for slave's journals}),
+            'reason' => __(q{eBox needs the directories to record pending slave's actions}),
+            'module' => 'users'
             }
         ];
     } else {
@@ -598,7 +603,7 @@ sub soapRun
 {
     my ($self, $slave, $method, $param) = @_;
 
-    my $journaldir = EBox::Config::conf() . "userjournal/$slave";
+    my $journaldir = $self->_journalsDir . $slave;
     (-d $journaldir) or EBox::Sudo::command("mkdir -p $journaldir");
 
     my $client = $self->soapClient($slave);
@@ -613,6 +618,11 @@ sub soapRun
         $fh->close();
         rename($filename, "$filename.pending");
     };
+}
+
+sub _journalsDir
+{
+    return EBox::Config::conf() . 'userjournal/';
 }
 
 sub _initUserSlaves

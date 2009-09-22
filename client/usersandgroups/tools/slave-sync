@@ -14,9 +14,18 @@ if (($#ARGV == 0) and ($ARGV[0] eq '-l')) {
     $mode = 'list';
 }
 
-my $users = EBox::Global->modInstance('users');
+
 
 EBox::init();
+my $users = EBox::Global->modInstance('users');
+$users->configured() or
+    exit 0;
+$users->isMaster() or
+    exit 0;
+
+processDir(EBox::Config::conf() . "userjournal/");
+processDir(EBox::UserCorner::usercornerdir() . "userjournal/");
+
 
 sub processSlaveDir
 {
@@ -83,5 +92,6 @@ sub processDir
     closedir($jdir);
 }
 
-processDir(EBox::Config::conf() . "userjournal/");
-processDir(EBox::UserCorner::usercornerdir() . "userjournal/");
+
+
+1;

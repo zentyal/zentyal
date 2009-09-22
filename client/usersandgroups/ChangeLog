@@ -2,9 +2,12 @@ HEAD
 	+ Disable slapd apparmor profile in enableActions
 	+ Reload nscd when adding users and groups
 	+ Bugfix: backup bug report now works again
+	+ Bugfix: slave-sync does not try to real journal dir when not
+	configured or in slave mode. Journal dir created on
+	master's setup.
 1.3.0
 	+ eBox LDAP architecture now supports a master-slave configuration
-	+ bugfix: Update usercorner service when there's a change on the port number
+	+ bugfix: Update usercorner service when there is a change on the port number
 1.1.30
 	+ Added widget to manage group belonging from Edit User page
 	+ Fixed backup/restore problem with paswords and given/last names

@@ -27,6 +27,7 @@ use EBox::Ldap;
 use EBox::Module::Base;
 use EBox::Sudo qw(:all);
 use EBox::Exceptions::Internal;
+use EBox::UserCorner;
 
 use constant LDAPCONFDIR    => '/etc/ldap/';
 
@@ -182,6 +183,8 @@ sub master
 
     setupSyncProvider();
     EBox::Sudo::root("invoke-rc.d slapd restart");
+
+    createJournalsDirs();
 }
 
 sub setupSyncProvider
@@ -194,5 +197,22 @@ sub setupSyncProvider
                                       'entryUUID eq'] ],
     );
 }
+
+# create parent dirs for slave's journals 
+sub createJournalsDirs
+{
+    my $users = EBox::Global->modInstance('users');
+    my $journalDirs   = $users->_journalsDir();
+    (-d $journalDirs) or EBox::Sudo::command("mkdir -p $journalDirs");
+    
+    my $usercornerDir = EBox::UserCorner::usercornerdir() .
+                        "userjournal";
+    if (not -d $usercornerDir) {
+        EBox::Sudo::root("mkdir -p $usercornerDir");
+        EBox::Sudo::root("chown ebox.ebox $usercornerDir");
+    }
+
+}
+
 
 1;
