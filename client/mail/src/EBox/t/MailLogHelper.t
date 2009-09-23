@@ -22,7 +22,7 @@ use lib '../..';
 
 use EBox::MailLogHelper;
 
-use Test::More tests => 36;
+use Test::More tests => 50;
 use Test::MockObject;
 use Test::Exception;
 
@@ -35,10 +35,13 @@ use constant TABLENAME => "message";
 sub newFakeDBEngine
 {
     my $dbengine = Test::MockObject->new();
+    $dbengine->{nInserts} = 0;
+
     $dbengine->mock('insert' => sub {
                         my ($self, $table, $data) = @_;
                         $self->{insertedTable} = $table;
                         $self->{insertedData}  = $data;
+                        $self->{nInserts} += 1;
                     }
                    );
     return $dbengine;
@@ -60,6 +63,9 @@ sub checkInsert
     my $table = delete $dbengine->{insertedTable};
     is $table, TABLENAME,
         'checking that the insert was made in the mail log table';
+    my $nInserts = delete $dbengine->{nInserts};
+    is 1, $nInserts,
+        'checking that insert was done only one time per case';
     
     my $data = delete $dbengine->{insertedData};
     if ($dumpInsertedData) {
@@ -354,7 +360,54 @@ my @cases = (
 
              },
 
+             {
+                name => 'Relay access denied',
+                 lines => [
+'Sep 23 10:21:17 ebox011101 postfix/smtpd[14747]: connect from unknown[192.168.9.1]',
+'Sep 23 10:21:21 ebox011101 postfix/smtpd[14747]: NOQUEUE: reject: RCPT from unknown[192.168.9.1]: 554 5.7.1 <ckent@dplanet.com>: Relay access denied; from=<macaco@monos.org> to=<ckent@dplanet.com> proto=ESMTP helo=<localhost.localdomain>',
+'Sep 23 10:21:21 ebox011101 postfix/smtpd[14747]: lost connection after RCPT from unknown[192.168.9.1]',
+'Sep 23 10:21:21 ebox011101 postfix/smtpd[14747]: disconnect from unknown[192.168.9.1]',
+                          ],
+              expectedData =>  {
+                               from_address => 'macaco@monos.org',
+                               status => 'reject',
+                               postfix_date => "$year-Sep-23 10:21:21",
+                               event => 'norelay',
+                               message => '554 5.7.1 <ckent@dplanet.com>: Relay access denied',
+                               to_address => 'ckent@dplanet.com',
+                               client_host_name => 'unknown',
+                               client_host_ip => '192.168.9.1'
+                              },
 
+             },
+
+#XXX this case seems to work in the real applcationm, strange..
+#             {
+#                 name => 'Deferred by external SMTP',
+#                  lines => [
+# 'Sep 23 10:57:38 ebox011101 postfix/smtpd[15939]: connect from unknown[192.168.9.1]',
+# 'Sep 23 10:57:40 ebox011101 postfix/smtpd[15939]: setting up TLS connection from unknown[192.168.9.1]',
+# 'Sep 23 10:57:41 ebox011101 postfix/smtpd[15939]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+# 'Sep 23 10:57:45 ebox011101 postfix/smtpd[15939]: 48D98526BC: client=unknown[192.168.9.1], sasl_method=PLAIN, sasl_username=macaco@monos.org',
+# 'Sep 23 10:57:45 ebox011101 postfix/cleanup[15977]: 48D98526BC: message-id=<383994.577310176-sendEmail@localhost>',
+# 'Sep 23 10:57:45 ebox011101 postfix/qmgr[15873]: 48D98526BC: from=<macaco@monos.org>, size=935, nrcpt=1 (queue active)',
+# 'Sep 23 10:57:45 ebox011101 postfix/smtpd[15939]: disconnect from unknown[192.168.9.1]',
+# 'Sep 23 10:58:19 ebox011101 postfix/smtp[15981]: 48D98526BC: host gmail-smtp-in.l.google.com[209.85.219.2] said: 421-4.7.0 [88.16.31.62] Our system has detected an unusual amount of unsolicited 421-4.7.0 mail originating from your IP address. To protect our users from 421-4.7.0 spam, mail sent from your IP address has been temporarily blocked. 421-4.7.0 Please visit http://www.google.com/mail/help/bulk_mail.html to review 421 4.7.0 our Bulk Email Senders Guidelines. 2si6795794ewy.104 (in reply to end of DATA command)',
+
+
+#                           ],
+#               expectedData =>  {
+#                                from_address => 'macaco@monos.org',
+#                                status => 'deferred',
+#                                postfix_date => "$year-Sep-23 10:21:21",
+#                                event => 'norelay',
+#                                message => '554 5.7.1 <ckent@dplanet.com>: Relay access denied',
+#                                to_address => 'ckent@dplanet.com',
+#                                client_host_name => 'unknown',
+#                                client_host_ip => '192.168.9.1'
+#                               },
+
+#              },
             );
  
 
