@@ -327,7 +327,10 @@ clean up the temporal directories and the *rdiff-backup* metadata file::
     # rm -fr /mnt/ebox/var/lock/*
     # rm -fr /mnt/ebox/rdiff-backup-data
 
-Now you just need to restore the `/boot` partition mounted on `/target`::
+Now you just need to restore the `/boot` partition mounted on `/target`. If 
+you are using the same partition for `/boot` and `/` you must skip this step or
+you will lose your files in `/`. The commands for restore the `/boot` partition 
+are::
 
     # rm -fr /target/*
     # mv /mnt/ebox/boot/* /target/
