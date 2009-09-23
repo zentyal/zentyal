@@ -125,7 +125,7 @@ sub _table
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataForm',
-        help               => __('Local backup configuration.'),
+        help               => __('Local backup configuration. If the module is enabled the backup will be scheduled to be done daily'),
         messages           => {
                                   update => __('Local backup configuration updated.'),
                               },
