@@ -83,10 +83,12 @@ sub validateTypedRow
         for my $iface (@{$ifaces}) {
             my $ifacenet = $network->ifaceNetwork($iface).'/'.$network->ifaceNetmask($iface);
             if ($localnet eq $ifacenet) {
-                throw EBox::Exceptions::DataExists(
-                    'data'  => __('local network'),
-                    'value' => $changedFields->{localnet}->printableValue(),
-                );
+                throw EBox::Exceptions::External(
+                    __x(
+'Networks attached directly to internal interfaces, like {net},are always considered local networks so it is not neccesary to add them' ,
+                    net => $net->ip(),
+                     )
+                   );
             }
         }
     }
