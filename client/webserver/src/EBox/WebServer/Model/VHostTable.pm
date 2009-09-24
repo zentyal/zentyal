@@ -87,10 +87,28 @@ sub validateTypedRow
   my ($self, $action, $changedFields) = @_;
 
   if ( exists $changedFields->{name} ) {
+      my $vhost =  $changedFields->{name}->value();
       EBox::Validate::checkDomainName(
-                                      $changedFields->{name}->value(),
+                                      $vhost,
                                       __(q{Virtual host's name})
                                      );
+      my @parts = split /\./, $vhost;
+      if (@parts  == 1) {
+          throw EBox::Exceptions::InvalidData(
+              data => __(q{Virtual host's name}),
+              value => $vhost,
+              advice => __('The virtual host name supplied is a top domain name')
+             );
+      } elsif (@parts == 2) {
+          throw EBox::Exceptions::InvalidData(
+              data => __(q{Virtual host's name}),
+              value => $vhost,
+              advice => __x(
+'The virtual host name supplied is a domain name' .
+' (Maybe you want instead {url}?).',
+                            url => "www.$vhost")
+             );
+      }
   }
 
 }
