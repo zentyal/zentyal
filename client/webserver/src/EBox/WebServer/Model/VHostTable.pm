@@ -157,13 +157,16 @@ sub addedRowNotify
                              };
             $dns->addDomain($domainData);
 
+            my $noDnsWarning = $self->_dnsNoActiveWarning();
+
             $self->setMessage(__x('Virtual host {vhost} added. A domain {domain} ' .
                                   'has been created with the mapping ' .
-                                  'name {name} - IP address {ip} ',
+                                  'name {name} - IP address {ip}. {noDnsWarning} ',
                                   vhost => $vHostName,
                                   domain => $domain,
                                   name   => $hostName,
-                                  ip     => $ip
+                                  ip     => $ip,
+                                  noDnsWarning => $noDnsWarning,
                                  ));
         } else {
             my @hostNames = @{$dns->getHostnames($domain)};
@@ -266,6 +269,22 @@ sub _table
 }
 
 # Group: Private methods
+
+
+sub _dnsNoActiveWarning
+{
+    my ($self) = @_;
+    my $dns = EBox::Global->modInstance('dns');
+    if ($dns->isEnabled()) {
+        return '';
+    }
+
+    return __x(
+'{open}The DNS module is disabled. The added mapping or domains will not have any effect until you enable it',
+       open => q{<br/></div><div class='warning'>}, # attentions to the close
+                                                    # div trick!
+        );
+}
 
 # Guess the IP address to assign in the mapping name - IP. It gets the
 # first static internal interface address if any, then check if there

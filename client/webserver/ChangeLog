@@ -1,5 +1,7 @@
 HEAD
 	+ Better validation of virtual host names
+	+ Added warning when adding virtual hostames if the DNS module is
+	not enabled
 1.1.20
 	+ New release
 1.1
