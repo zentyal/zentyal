@@ -235,4 +235,24 @@ sub getJabberAdmins
 
 	return @admins;
 }
+
+
+sub _delUserWarning
+{
+    my ($self, $user) = @_;
+
+    my $jabber = EBox::Global->modInstance('jabber');
+    return unless ($jabber->configured());
+
+    $self->hasAccount($user) or
+        return;
+
+     settextdomain('ebox-jabber');
+     my $txt = 
+__('This user has a jabber account. If the user currently connected it will continue connected until jabber authorization is again required');
+     settextdomain('ebox-usersandgroups');
+
+     return $txt;
+}
+
 1;
