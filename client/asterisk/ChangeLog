@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: module tried to show modules when disabled, raising error
 1.1.20
     + Voicemail settings in user corner
 	+ New release

@@ -593,6 +593,12 @@ sub usersByMeetingsWidget
 #
 sub widgets
 {
+    my ($self) = @_;
+
+    if (not $self->isEnabled()) {
+        return {};
+    }
+
     return {
         'onlineusers' => {
             'title' => __("VoIP Online Users"),
