@@ -448,7 +448,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'VoIP',
                                         'text' => $self->printableName(),
-                                        'separator' => __('Communications'),
+                                        'separator' => 'Communications',
                                         'order' => 630);
 
     $folder->add(new EBox::Menu::Item(

@@ -673,7 +673,7 @@ sub menu
 
     $root->add(new EBox::Menu::Item('url' => 'Samba/Composite/General',
                                     'text' => $self->printableName(),
-                                    'separator' => __('Office'),
+                                    'separator' => 'Office',
                                     'order' => 540));
 }
 

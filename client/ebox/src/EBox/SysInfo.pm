@@ -194,12 +194,12 @@ sub menu
 
 	$root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
 					'text' => __('Dashboard'),
-					'separator' => __('Core'),
+					'separator' => 'Core',
 					'order' => 10));
 
 	$root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
 					'text' => __('Module Status'),
-					'separator' => __('Core'),
+					'separator' => 'Core',
 					'order' => 20));
 
 

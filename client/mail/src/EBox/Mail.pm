@@ -1180,7 +1180,7 @@ sub menu
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'Mail',
                                         'text' => $self->printableName(),
-                                        'separator' => __('Communications'),
+                                        'separator' => 'Communications',
                                         'order' => 610
     );
 

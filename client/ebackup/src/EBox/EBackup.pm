@@ -179,7 +179,7 @@ sub menu
 
     $root->add(new EBox::Menu::Item(
             'url' => 'EBackup/Composite/General',
-            'separator' => __('Core'),
+            'separator' => 'Core',
             'order' => 95,
             'text' => $self->printableName()));
 }

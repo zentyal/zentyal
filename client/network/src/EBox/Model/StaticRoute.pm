@@ -157,7 +157,7 @@ sub _table
            ),
        new EBox::Types::HostIP(
            fieldName     => 'gateway',
-           printableName => __('Gateway'),
+           printableName => 'Gateway',
            editable      => 1,
            help          => __('Gateway used to reach the above network' .
                                '  address')

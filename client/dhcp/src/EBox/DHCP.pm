@@ -161,7 +161,7 @@ sub menu
         my ($self, $root) = @_;
         $root->add(new EBox::Menu::Item('url' => 'DHCP/Composite/General',
                                         'text' => $self->printableName(),
-                                        'separator' => __('Infrastructure'),
+                                        'separator' => 'Infrastructure',
                                         'order' => 410));
 }
 

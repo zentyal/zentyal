@@ -167,7 +167,7 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'IDS/Composite/General',
                                     'text' => __('IDS'),
-                                    'separator' => __('UTM'),
+                                    'separator' => 'UTM',
                                     'order' => 320));
 }
 

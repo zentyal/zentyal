@@ -165,7 +165,7 @@ sub _table
             ),
         new EBox::Types::Select(
             'fieldName' => 'gateway',
-            'printableName' => __('Gateway'),
+            'printableName' => 'Gateway',
             'foreignModel' => \&gatewayModel,
             'foreignField' => 'name',
             'editable' => 1,

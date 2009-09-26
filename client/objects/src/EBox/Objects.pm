@@ -408,7 +408,7 @@ sub menu
     my $item = new EBox::Menu::Item(
                                     'url' => 'Objects/View/ObjectTable',
                                     'text' => __($self->title),
-                                    'separator' => __('Core'),
+                                    'separator' => 'Core',
                                     'order' => 50);
     $root->add($item);
 }

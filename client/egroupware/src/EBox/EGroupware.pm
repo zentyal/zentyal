@@ -177,7 +177,7 @@ sub menu
     my $settings = new EBox::Menu::Item(
             'url' => 'EGroupware/Composite/General',
             'text' => $self->printableName(),
-            'separator' => __('Office'),
+            'separator' => 'Office',
             'order' => 560);
 
     $root->add($settings);

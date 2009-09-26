@@ -147,7 +147,7 @@ sub menu
 
       my $item = new EBox::Menu::Item(name  => 'WebServer',
                                       text  => $self->printableName(),
-                                      separator => __('Infrastructure'),
+                                      separator => 'Infrastructure',
                                       url   => 'WebServer/Composite/General',
                                       order => 430
                                      );

@@ -270,7 +270,7 @@ sub menu
 
     $root->add(new EBox::Menu::Item(
             'url' => 'Radius/Composite/General',
-            'separator' => __('Gateway'),
+            'separator' => 'Gateway',
             'order' => 225,
             'text' => __('RADIUS')));
 }

@@ -90,7 +90,7 @@ sub menu
                                     'text' => $self->printableName());
     my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
                                         'text' => __('Traffic Shaping'),
-                                        'separator' => __('Gateway'),
+                                        'separator' => 'Gateway',
                                         'order' => 220);
     $folder->add($item);
     $root->add($folder);

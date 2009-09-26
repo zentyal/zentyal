@@ -288,7 +288,7 @@ sub menu
 
 	my $folder = new EBox::Menu::Folder('name' => 'Printers',
 					    'text' => $self->printableName(),
-                        'separator' => __('Office'),
+                        'separator' => 'Office',
                         'order' => 550);
 
 	$folder->add(new EBox::Menu::Item('url' => 'Printers/AddPrinterUI',

@@ -2136,7 +2136,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'Users',
                                         'text' => __('Users'),
-                                        'separator' => __('Office'),
+                                        'separator' => 'Office',
                                         'order' => 510);
 
     if ($self->configured()) {
@@ -2160,7 +2160,7 @@ sub menu
 
         $folder = new EBox::Menu::Folder('name' => 'Group',
                                      'text' => __('Groups'),
-                                     'separator' => __('Office'),
+                                     'separator' => 'Office',
                                      'order' => 520);
 
         if ($mode eq 'master') {

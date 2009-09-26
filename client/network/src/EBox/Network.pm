@@ -2823,7 +2823,7 @@ sub menu
     my ($self, $root) = @_;
     my $folder = new EBox::Menu::Folder('name' => 'Network',
                                         'text' => __('Network'),
-                                        'separator' => __('Core'),
+                                        'separator' => 'Core',
                                         'order' => 40);
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Ifaces',
@@ -2859,7 +2859,7 @@ sub menu
 #
 # Returns:
 #
-#   array ref of hash refs containing name, ip, 
+#   array ref of hash refs containing name, ip,
 #   if it is the default gateway or not and the id  for the gateway.
 #
 #   Example:

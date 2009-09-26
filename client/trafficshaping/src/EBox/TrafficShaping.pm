@@ -357,7 +357,7 @@ sub menu # (root)
 
     my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
                                         'text' => $self->printableName(),
-                                        'separator' => __('Gateway'),
+                                        'separator' => 'Gateway',
                                         'order' => 220);
     $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
                                       'text' => __('Rules')));

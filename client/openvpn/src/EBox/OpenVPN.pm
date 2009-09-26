@@ -1457,7 +1457,7 @@ sub menu
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'VPN',
                                         'text' => $self->printableName(),
-                                        'separator' => __('UTM'),
+                                        'separator' => 'UTM',
                                         'order' => 330
                                        );
 

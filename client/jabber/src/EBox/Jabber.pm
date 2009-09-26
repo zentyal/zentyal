@@ -359,7 +359,7 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'Jabber/Index',
                                     'text' => $self->printableName(),
-                                    'separator' => __('Communications'),
+                                    'separator' => 'Communications',
                                     'order' => 620));
 }
 
