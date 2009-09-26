@@ -8,81 +8,82 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:17+0200\n"
-"PO-Revision-Date: 2008-12-04 10:39+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-09-03 08:15+0200\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/ActiveSharing.pm:44 src/EBox/CGI/ActivePrinting.pm:48
 #: src/EBox/SambaLdapUser.pm:764 src/EBox/SambaLdapUser.pm:793
 #: src/EBox/SambaLdapUser.pm:844
 msgid "group name"
-msgstr ""
+msgstr "gruppe navn"
 
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
-msgstr ""
+msgstr "delings navn"
 
 #: src/EBox/CGI/ActiveSharing.pm:67 src/EBox/CGI/ActivePrinting.pm:44
 msgid "user name"
-msgstr ""
+msgstr "bruker navn"
 
 #: src/EBox/CGI/ActiveSharing.pm:70
 msgid "active"
-msgstr ""
+msgstr "aktiv"
 
 #: src/EBox/CGI/ActiveSharing.pm:71
 msgid "Disk quota limit"
-msgstr ""
+msgstr "Disk kvote begrensning"
 
 #: src/EBox/Samba/Model/SambaShares.pm:97
 msgid "Share name"
-msgstr ""
+msgstr "Delings område navn"
 
 #: src/EBox/Samba/Model/SambaShares.pm:103
 msgid "Share path"
-msgstr ""
+msgstr "Delings sti"
 
 #: src/EBox/Samba/Model/SambaShares.pm:109
 msgid "Directory under eBox"
-msgstr ""
+msgstr "Mappe under eBox"
 
 #: src/EBox/Samba/Model/SambaShares.pm:115
 msgid "File system path"
-msgstr ""
+msgstr "Fil system sti"
 
 #: src/EBox/Samba/Model/SambaShares.pm:123
 msgid "Comment"
-msgstr ""
+msgstr "Kommenter"
 
 #: src/EBox/Samba/Model/SambaShares.pm:128
 msgid "Access control"
-msgstr ""
+msgstr "Tilgangs kontroll"
 
 #: src/EBox/Samba/Model/SambaShares.pm:138
 msgid "Shares"
-msgstr ""
+msgstr "Delings områder"
 
 #: src/EBox/Samba/Model/SambaShares.pm:146
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "share"
-msgstr ""
+msgstr "delings område"
 
 #: src/EBox/Samba/Model/SambaShares.pm:176
 msgid "Path not allowed"
-msgstr ""
+msgstr "Sti ikke tillatt"
 
 #: src/EBox/Samba/Model/SambaShares.pm:184
 msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr ""
+msgstr "Bare alfanumeriske tegn pluss _ er gyldig for sti"
 
 #: src/EBox/Samba/Model/SambaShares.pm:218
 msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr ""
+msgstr "Mappen er ikke tom. Er du sikker på at du vil fjerne den?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:276
 msgid ""
@@ -90,454 +91,469 @@ msgid ""
 "in /home/samba/shares <br><i>File system path</i> will allow you to share an "
 "existing directory within your file system. "
 msgstr ""
+"<i>Mappen under eBox</i> vill automatisk opprette delings.mappe "
+"/home/samba/shares <br><i>Fil system sti</i> vil tillate deg å dele en "
+"eksisterende mappe innenfor ditt filsystem. "
 
 #: src/EBox/Samba/Model/SambaShares.pm:286
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
 msgstr ""
+"Her kan du opprette delings områder med mer fin-kontroll av rettigheter. Du "
+"kan bruke eksisterende mapper eller velge et navn og la eBox opprette den "
+"for deg."
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:114
 msgid "path"
-msgstr ""
+msgstr "sti"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:91
 msgid "Read only"
-msgstr ""
+msgstr "Kun lesing"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:95
 msgid "Read and write"
-msgstr ""
+msgstr "Lesing og skriving"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:99
 msgid "Administrator"
-msgstr ""
+msgstr "Administrator"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:120
 msgid "User/Group"
-msgstr ""
+msgstr "Bruker/Gruppe"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:125 src/EBox/Samba.pm:607
 #: src/EBox/Samba.pm:1752 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
-msgstr ""
+msgstr "Bruker"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:130
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:103
 #: src/templates/ajax/viewer/shareViewer.mas:10
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:137
 msgid "Permissions"
-msgstr ""
+msgstr "Rettigheter"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
 msgid "Share configuration"
-msgstr ""
+msgstr "Delings område konfigurasjon"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:178
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"
 msgstr ""
+"Vær forsiktig hvis du tildeler <i>administrator</i> rettigheter.Brukere vil "
+"ha tilgang til å lese og skrive alle filer i delings området"
 
 #: src/EBox/Samba/Model/PDC.pm:77
 msgid "File sharing module is not enabled."
-msgstr ""
+msgstr "Fil delings modul er ikke aktivert."
 
 #: src/EBox/Samba/Model/PDC.pm:78
 msgid "PDC is not enabled."
-msgstr ""
+msgstr "PDC er ikke aktivert."
 
 #: src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
-msgstr ""
+msgstr "Minimums passord lengde"
 
 #: src/EBox/Samba/Model/PDC.pm:91 src/EBox/Samba/Model/PDC.pm:109
 #: src/EBox/Samba/Model/PDC.pm:127 src/EBox/Samba/Model/GeneralSettings.pm:119
 #: src/templates/samba.mas:21 src/templates/samba.mas:24
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktivert"
 
 #: src/EBox/Samba/Model/PDC.pm:95 src/EBox/Samba/Model/PDC.pm:113
 #: src/EBox/Samba/Model/GeneralSettings.pm:111
 msgid "Limited to"
-msgstr ""
+msgstr "Begrenset til"
 
 #: src/EBox/Samba/Model/PDC.pm:96
 msgid "characters"
-msgstr ""
+msgstr "tegn"
 
 #: src/EBox/Samba/Model/PDC.pm:105
 msgid "Maximum password age"
-msgstr ""
+msgstr "Maksimum passord alder"
 
 #: src/EBox/Samba/Model/PDC.pm:114
 msgid "days"
-msgstr ""
+msgstr "dager"
 
 #: src/EBox/Samba/Model/PDC.pm:123
 msgid "Enforce password history"
-msgstr ""
+msgstr "Påtving passord historie"
 
 #: src/EBox/Samba/Model/PDC.pm:131
 msgid "Keep history for"
-msgstr ""
+msgstr "Behold historikk for"
 
 #: src/EBox/Samba/Model/PDC.pm:132
 msgid "passwords remebered"
-msgstr ""
+msgstr "passord husket"
 
 #: src/EBox/Samba/Model/PDC.pm:143
 msgid "PDC"
-msgstr ""
+msgstr "PDC"
 
 #: src/EBox/Samba/Model/PDC.pm:147
 msgid "On this page you can set different PDC related settings"
-msgstr ""
+msgstr "På denne siden kan du sette forskjellige PDC relaterte instillinger"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:93
 msgid "User/Group/Share"
-msgstr ""
+msgstr "Bruker/Gruppe/Delt område"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:99
 msgid "User homes"
-msgstr ""
+msgstr "Bruker mapper"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110 src/EBox/Samba.pm:586
 #: src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
-msgstr ""
+msgstr "Delt område"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:121
 msgid "Samba shares antivirus exceptions"
-msgstr ""
+msgstr "Samba deler antivirus unntak"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:126
 msgid "Add exceptions to the default antivirus settings"
-msgstr ""
+msgstr "Legg til unntak til standard antivirus innstillinger"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:127
 msgid "exception"
-msgstr ""
+msgstr "unntak"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:45
 #: src/EBox/Samba/Model/AntivirusDefault.pm:63
 msgid "Antivirus default settings"
-msgstr ""
+msgstr "Antivirus standard innstillinger"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:55
 msgid "Scan"
-msgstr ""
+msgstr "Søk"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:73
 msgid "Netbios and workgroup must have different names"
-msgstr ""
+msgstr "Netbios og arbeidsgruppe må ha forskjellige navn"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:83
 msgid "Enable PDC"
-msgstr ""
+msgstr "Aktiver PDC"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:89
 msgid "Domain name"
-msgstr ""
+msgstr "Domene navn"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:95
 msgid "Netbios name"
-msgstr ""
+msgstr "Netbios navn"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:101
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:107
 msgid "Quota limit"
-msgstr ""
+msgstr "Kvote begrensning"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:113
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:125
 msgid "Enable roaming profiles"
-msgstr ""
+msgstr "Aktiver flyttbare profiler"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:131
 msgid "Drive letter"
-msgstr ""
+msgstr "Stasjons bokstav"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:139
 msgid "General settings"
-msgstr ""
+msgstr "Generelle innstillinger"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:143
 msgid "On this page you can set different general settings for Samba"
 msgstr ""
+"På denne siden kan du sette forskjellige generelle instillinger for Samba"
 
 #: src/EBox/Samba/Composite/Antivirus.pm:64
 msgid "Antivirus"
-msgstr ""
+msgstr "Antivirus"
 
 #: src/EBox/Samba/Composite/General.pm:75
 msgid "File sharing options"
-msgstr ""
+msgstr "Fil delings alternativer"
 
 #: src/EBox/SambaLdapUser.pm:293
 msgid "This user has a sharing directory associated which contains data"
-msgstr ""
+msgstr "Denne brukeren har en delt mappe tildelt som inneholder data"
 
 #: src/EBox/SambaLdapUser.pm:355
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
-msgstr ""
+msgstr "Feil SID: {s}"
 
 #: src/EBox/SambaLdapUser.pm:359
 #, perl-brace-format
 msgid "User {u} does not exists"
-msgstr ""
+msgstr "Bruker {u} eksisterer ikke"
 
 #: src/EBox/SambaLdapUser.pm:363
 #, perl-brace-format
 msgid "User {u} is not a samba user"
-msgstr ""
+msgstr "Bruker {u} er ikke en samba bruker"
 
 #: src/EBox/SambaLdapUser.pm:374
 #, perl-brace-format
 msgid "Incoorect SID: {s}"
-msgstr ""
+msgstr "Feil SID: {s}"
 
 #: src/EBox/SambaLdapUser.pm:378
 #, perl-brace-format
 msgid "Group {g} does not exists"
-msgstr ""
+msgstr "Gruppen {g} eksisterer ikke"
 
 #: src/EBox/SambaLdapUser.pm:382
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
-msgstr ""
+msgstr "Gruppen {g} er ikke en samba gruppe"
 
 #: src/EBox/SambaLdapUser.pm:425
 msgid "This group has a sharing directory associatedwhich conatins data"
-msgstr ""
+msgstr "Denne gruppen har et delt område tildelt som inneholder data"
 
 #: src/EBox/SambaLdapUser.pm:680
 #, perl-brace-format
 msgid "{g} group does not exist"
-msgstr ""
+msgstr "{g} gruppen eksisterer ikke"
 
 #: src/EBox/SambaLdapUser.pm:798
 msgid "A name should be provided for the share"
-msgstr ""
+msgstr "Et navn bør oppgis for det delte område"
 
 #: src/EBox/SambaLdapUser.pm:806
 msgid "sharing resource"
-msgstr ""
+msgstr "delings resurs"
 
 #: src/EBox/SambaLdapUser.pm:910 src/EBox/Samba.pm:1207 src/EBox/Samba.pm:1237
 msgid "group"
-msgstr ""
+msgstr "gruppe"
 
 #: src/EBox/Samba.pm:77
 msgid "file sharing"
-msgstr ""
+msgstr "fil deling"
 
 #: src/EBox/Samba.pm:97
 msgid "Create Samba home directory for users and groups"
-msgstr ""
+msgstr "Opprett Samba hjemme mappe for brukere og grupper"
 
 #: src/EBox/Samba.pm:98
 msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
 msgstr ""
+"eBox vil opprette hjemme mappene for Samba brukere og grupper under "
+"/home/samba."
 
 #: src/EBox/Samba.pm:103
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "Legg til LDAP skjemaer"
 
 #: src/EBox/Samba.pm:104
 msgid "eBox will add two LDAP schemas: samba.schema and ebox.schema."
-msgstr ""
+msgstr "eBox vil legge til to LDAP skjemaer: samba.schema and ebox.schema."
 
 #: src/EBox/Samba.pm:109 src/EBox/Samba.pm:115
 msgid "Set Samba LDAP admin dn password"
-msgstr ""
+msgstr "Sett Samba LDAP admin dn passord"
 
 #: src/EBox/Samba.pm:110 src/EBox/Samba.pm:116
 msgid "eBox will configure Samba to use the LDAP admin dn password."
-msgstr ""
+msgstr "eBox vil konfigurere Samba til å bruke LDAP admin dn passord"
 
 #: src/EBox/Samba.pm:132
 msgid "To set up Samba according to your configuration"
-msgstr ""
+msgstr "For å sette opp Samba i henhold til din konfigurasjon"
 
 #: src/EBox/Samba.pm:137
 msgid "To set up smbldap-tools according to your configuration"
-msgstr ""
+msgstr "For å sette opp smbldap-tools i henhold til din konfigurasjon"
 
 #: src/EBox/Samba.pm:143
 msgid "To set up smbldap-tools according to your LDAP configuration"
-msgstr ""
+msgstr "For å sett opp up smbldap-tools i følge din LDAP konfigurasjon"
 
 #: src/EBox/Samba.pm:149
 msgid "To add two new schemas and the set ACLs"
-msgstr ""
+msgstr "For å legge til to nye skjemaer og sette ACLer"
 
 #: src/EBox/Samba.pm:154
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
 msgstr ""
+"For å få NSS til å bruke LDAP oppslag for brukere og gruppe kontoer. "
+"Nødvendig for Samba PDC konfigurasjon"
 
 #: src/EBox/Samba.pm:160
 msgid "To let NSS know how to access LDAP accounts"
-msgstr ""
+msgstr "For å la NSS vite hvordan aksessere LDAP kontoer "
 
 #: src/EBox/Samba.pm:165
 msgid ""
 "To copy LDAP admin password generated by eBox and allow NSS to access LDAP"
 msgstr ""
+"For å kopiere LDAP admin passordet generert av eBox og tillate NSS til å "
+"aksessere LDAP"
 
 #: src/EBox/Samba.pm:171
 msgid "To add quota support to /home partition"
-msgstr ""
+msgstr "For å legge til kvote støtte til /home partisjonen"
 
 #: src/EBox/Samba.pm:176
 msgid "To set the antivirus settings for Samba"
-msgstr ""
+msgstr "For å sette antivirus innstillinger for Samba"
 
 #: src/EBox/Samba.pm:586 src/EBox/Samba.pm:607
 msgid "Source machine"
-msgstr ""
+msgstr "Kilde maskin"
 
 #: src/EBox/Samba.pm:586 src/EBox/Samba.pm:607
 msgid "Connected since"
-msgstr ""
+msgstr "Tilkoblet siden"
 
 #: src/EBox/Samba.pm:627
 msgid "Shares by user"
-msgstr ""
+msgstr "Delinger etter bruker"
 
 #: src/EBox/Samba.pm:632
 msgid "Users by share"
-msgstr ""
+msgstr "Brukere etter delinger"
 
 #: src/EBox/Samba.pm:686
 msgid "File Sharing"
-msgstr ""
+msgstr "Fil Deling"
 
 #: src/EBox/Samba.pm:687
 msgid "Office"
-msgstr ""
+msgstr "Kontor"
 
 #: src/EBox/Samba.pm:1204 src/EBox/Samba.pm:1223
 msgid "user"
-msgstr ""
+msgstr "bruker"
 
 #: src/EBox/Samba.pm:1210
 msgid "printer"
-msgstr ""
+msgstr "skriver"
 
 #: src/EBox/Samba.pm:1318
 msgid "quota"
-msgstr ""
+msgstr "kvote"
 
 #: src/EBox/Samba.pm:1732
 msgid "User's files"
-msgstr ""
+msgstr "Brukers filer"
 
 #: src/EBox/Samba.pm:1734
 msgid "Group's files"
-msgstr ""
+msgstr "Gruppens filer"
 
 #: src/EBox/Samba.pm:1750 src/EBox/Samba.pm:1770 src/EBox/Samba.pm:1780
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: src/EBox/Samba.pm:1751 src/EBox/Samba.pm:1771
 msgid "Client address"
-msgstr ""
+msgstr "Klient adresse"
 
 #: src/EBox/Samba.pm:1753
 msgid "Action"
-msgstr ""
+msgstr "Handling"
 
 #: src/EBox/Samba.pm:1754
 msgid "Recurso"
-msgstr ""
+msgstr "Resurs"
 
 #: src/EBox/Samba.pm:1758
 msgid "Connect"
-msgstr ""
+msgstr "Koble til"
 
 #: src/EBox/Samba.pm:1759
 msgid "Access to directory"
-msgstr ""
+msgstr "Tilgang til mappe"
 
 #: src/EBox/Samba.pm:1760
 msgid "Read file"
-msgstr ""
+msgstr "Les fil"
 
 #: src/EBox/Samba.pm:1761
 msgid "Write file"
-msgstr ""
+msgstr "Skriv fil"
 
 #: src/EBox/Samba.pm:1762
 msgid "Disconnect"
-msgstr ""
+msgstr "Frakoble"
 
 #: src/EBox/Samba.pm:1763
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
 #: src/EBox/Samba.pm:1764
 msgid "Create directory"
-msgstr ""
+msgstr "Opprett mappe"
 
 #: src/EBox/Samba.pm:1765
 msgid "Remove directory"
-msgstr ""
+msgstr "Fjern mappe"
 
 #: src/EBox/Samba.pm:1766
 msgid "Rename"
-msgstr ""
+msgstr "Gi nytt navn"
 
 #: src/EBox/Samba.pm:1772 src/EBox/Samba.pm:1781
 msgid "File name"
-msgstr ""
+msgstr "Fil navn"
 
 #: src/EBox/Samba.pm:1773 src/EBox/Samba.pm:1777
 msgid "Virus"
-msgstr ""
+msgstr "Virus"
 
 #: src/EBox/Samba.pm:1774
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: src/EBox/Samba.pm:1782
 msgid "Quarantined file name"
-msgstr ""
+msgstr "Karantene filnavn"
 
 #: src/EBox/Samba.pm:1783 src/EBox/Samba.pm:1786
 msgid "Quarantine"
-msgstr ""
+msgstr "Karantene"
 
 #: src/EBox/Samba.pm:1789
 msgid "Samba access"
-msgstr ""
+msgstr "Samba tilgang"
 
 #: src/EBox/Samba.pm:1800
 msgid "Samba virus"
-msgstr ""
+msgstr "Samba virus"
 
 #: src/EBox/Samba.pm:1811
 msgid "Samba quarantine"
-msgstr ""
+msgstr "Samba karantene"
 
 #: migration/0001_add_samba_service.pl:113
 msgid "File sharing (Samba) protocol"
-msgstr ""
+msgstr "Fil deling (Samba) protokoll"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -545,45 +561,48 @@ msgid ""
 "remove it all its data will be removed. Please confirm that you want to "
 "delete it."
 msgstr ""
+"Gruppen du forsøkte å slette har en mappe som inneholder data, hvis du "
+"fjerner alt vil også dataene slettes. Vennligst bekreft at du vil slette "
+"den."
 
 #: src/templates/delete.mas:18 src/templates/samba.mas:89
 #: src/templates/samba.mas:90
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: src/templates/delete.mas:21
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: src/templates/samba.mas:9
 msgid "PDC/File sharing account"
-msgstr ""
+msgstr "PDC/Fil delings konto"
 
 #: src/templates/samba.mas:16
 msgid "User account"
-msgstr ""
+msgstr "Bruker konto"
 
 #: src/templates/samba.mas:22 src/templates/samba.mas:25
 msgid "Enabled"
-msgstr ""
+msgstr "Aktivert"
 
 #: src/templates/samba.mas:32
 msgid "Administration rights"
-msgstr ""
+msgstr "Administrasjons rettigheter"
 
 #: src/templates/samba.mas:44
 msgid "Disk quota limit (MB)"
-msgstr ""
+msgstr "Disk kvote nivå (MB)"
 
 #: src/templates/samba.mas:56 src/templates/samba.mas:57
 #: src/templates/samba.mas:86 src/templates/samba.mas:87
 #: src/templates/samba.mas:157 src/templates/samba.mas:158
 msgid "Change"
-msgstr ""
+msgstr "Endre"
 
 #: src/templates/samba.mas:65
 msgid "Sharing directory for this group"
-msgstr ""
+msgstr "Delings mappe for denne gruppen"
 
 #: src/templates/samba.mas:68
 msgid ""
@@ -591,52 +610,55 @@ msgid ""
 "that Microsoft Windows 98 and Millenium will not be able to see names longer "
 "than 12 characters"
 msgstr ""
+"Du kan sette en delings mappe for denne gruppen, men du bør tenke på at "
+"Microsoft Windows 98 og Milennium vil ikke klare å se navn lenger enn 12 "
+"tegn"
 
 #: src/templates/samba.mas:76
 msgid "This resource name is longer than 12 characters."
-msgstr ""
+msgstr "Dette resurs navnet er lenger enn 12 tegn."
 
 #: src/templates/samba.mas:79
 msgid "Directory name"
-msgstr ""
+msgstr "Mappe navn"
 
 #: src/templates/samba.mas:93 src/templates/samba.mas:94
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 #: src/templates/samba.mas:101
 msgid "Printers"
-msgstr ""
+msgstr "Skrivere"
 
 #: src/templates/samba.mas:105
 msgid "Select the printers this user will have access to."
-msgstr ""
+msgstr "Velg skriverene denne brukeren vil ha tilgang til."
 
 #: src/templates/samba.mas:115
 msgid "Printer"
-msgstr ""
+msgstr "Skrivere"
 
 #: src/templates/samba.mas:116
 msgid "Allow"
-msgstr ""
+msgstr "Tillat"
 
 #: src/templates/samba.mas:138
 msgid "Allow all printers"
-msgstr ""
+msgstr "Tillat alle skrivere"
 
 #: src/templates/samba.mas:169
 msgid "printers module"
-msgstr ""
+msgstr "skriver modul"
 
 #: src/templates/samba.mas:180
 msgid "file sharing module"
-msgstr ""
+msgstr "fil delings modul"
 
 #: stubs/smb.conf.mas:103
 msgid "Home Directories"
-msgstr ""
+msgstr "Hjemme Mapper"
 
 #: stubs/smb.conf.mas:114
 #, perl-brace-format
 msgid "{group} share directory"
-msgstr ""
+msgstr "{group} delings mappe"

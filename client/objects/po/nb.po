@@ -8,38 +8,39 @@ msgstr ""
 "Project-Id-Version: ebox-objects 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:16+0200\n"
-"PO-Revision-Date: 2008-09-01 08:32+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-26 10:41+0200\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
 msgid "Name"
-msgstr ""
+msgstr "Navn"
 
 #: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
 msgid "Members"
-msgstr ""
+msgstr "Medlemmer"
 
 #: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/MemberTable.pm:93
 #: src/EBox/Objects.pm:39
 msgid "Objects"
-msgstr ""
+msgstr "Objekter"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
-msgstr ""
+msgstr "Objekt Liste"
 
 #: src/EBox/Model/ObjectTable.pm:90
 msgid "object"
-msgstr ""
+msgstr "Objekt"
 
 #: src/EBox/Model/ObjectTable.pm:112
 msgid "This object is being used by another module"
-msgstr ""
+msgstr "Dette objektet er i bruk av en annen modul"
 
 #: src/EBox/Model/ObjectTable.pm:184
 msgid ""
@@ -47,61 +48,64 @@ msgid ""
 "used in other modules. Any change on an object is automatically synched in "
 "all the modules using it"
 msgstr ""
+"Objekter er en abstraksjon av maskiner og nettverks adresser som kan bli "
+"brukt i andre moduler. Alle endringer i et objekt blir automatisk "
+"synkronisert med alle moduler som bruker den"
 
 #: src/EBox/Model/MemberTable.pm:70
 msgid "IP address"
-msgstr ""
+msgstr "IP adresse"
 
 #: src/EBox/Model/MemberTable.pm:76
 msgid "MAC address"
-msgstr ""
+msgstr "MAC adresse"
 
 #: src/EBox/Model/MemberTable.pm:94
 msgid "member"
-msgstr ""
+msgstr "medlem"
 
 #: src/EBox/Model/MemberTable.pm:116
 msgid "You can only use MAC addresses with hosts"
-msgstr ""
+msgstr "Du kan bare bruke MAC adresse med verter"
 
 #: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
 msgid "network address"
-msgstr ""
+msgstr "nettverks adresse"
 
 #: src/EBox/Model/MemberTable.pm:126
 #, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
-msgstr ""
+msgstr "{ip} overlapper med adressen eller annet objekts medlem"
 
 #: src/EBox/Objects.pm:44
 #, perl-brace-format
 msgid "Added object {object}"
-msgstr ""
+msgstr "Lagt til objekt {object}"
 
 #: src/EBox/Objects.pm:46
 #, perl-brace-format
 msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr ""
+msgstr "Lagt til  {nname} ({ip}/{mask} [{mac}]) til objekt {object}"
 
 #: src/EBox/Objects.pm:47
 #, perl-brace-format
 msgid "Removed object {object}"
-msgstr ""
+msgstr "Fjernet objekt {object}"
 
 #: src/EBox/Objects.pm:49
 #, perl-brace-format
 msgid "Forcefully removed object {object}"
-msgstr ""
+msgstr "Tvangsfjernet objekt {object}"
 
 #: src/EBox/Objects.pm:51
 #, perl-brace-format
 msgid "Removed {nname} from object {object}"
-msgstr ""
+msgstr "Fjernet {nname} fra objekt {object}"
 
 #: src/EBox/Objects.pm:270
 msgid "Object"
-msgstr ""
+msgstr "Objekt"
 
 #: src/EBox/Objects.pm:411
 msgid "Core"
-msgstr ""
+msgstr "Kjerne"

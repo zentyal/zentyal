@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:05+0200\n"
-"PO-Revision-Date: 2009-05-31 19:59+0200\n"
+"PO-Revision-Date: 2009-06-29 20:04+0200\n"
 "Last-Translator: Sudel <sudel@freemail.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "Firewall"
 
 #: src/EBox/Firewall.pm:814
 msgid "UTM"
-msgstr ""
+msgstr "UTM"
 
 #: src/EBox/Firewall.pm:818
 msgid "Packet Filter"
@@ -266,7 +266,7 @@ msgstr "Destinazione"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:261
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
 #, fuzzy

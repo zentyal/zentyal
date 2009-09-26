@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-07-01 09:30+0200\n"
-"PO-Revision-Date: 2009-02-22 11:54+0000\n"
+"PO-Revision-Date: 2009-08-04 01:53+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgstr "模組狀態"
 
 #: src/EBox/DHCP.pm:164
 msgid "Infrastructure"
-msgstr ""
+msgstr "基礎建設"
 
 #: src/EBox/DHCP.pm:399 src/EBox/DHCP.pm:435 src/EBox/DHCP.pm:485
 #: src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:698 src/EBox/DHCP.pm:754
@@ -235,10 +235,9 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} 並不在目前的網路上"
 
 #: src/EBox/Model/Options.pm:169
-#, fuzzy
 msgid ""
 "DNS service must be active to be able to select eBox as primary DNS server"
-msgstr "DNS 服務必須啟動在 eBox DNS 伺服器本機的主要名稱伺服器"
+msgstr "DNS 服務必須啟動才能選擇 eBox 做為主要名稱伺服器"
 
 #: src/EBox/Model/Options.pm:314 src/EBox/Model/Options.pm:342
 msgid "Custom"
@@ -277,7 +276,7 @@ msgstr "設置"
 msgid ""
 "Setting \"eBox\" as default gateway will set the interface IP address as "
 "gateway"
-msgstr ""
+msgstr "將「eBox」設定為預設閘道器會將此介面的 IP 位址設為閘道器"
 
 #: src/EBox/Model/Options.pm:387 src/templates/options.mas:29
 msgid "Search domain"
@@ -297,7 +296,7 @@ msgstr "主要名稱伺服器"
 msgid ""
 "If \"eBox DNS\" is present and selected, the eBox server will act as cache "
 "DNS server"
-msgstr ""
+msgstr "如果「eBox DNS」出現並且被選取，eBox 伺服器將被當成快取 DNS 伺服器"
 
 #: src/EBox/Model/Options.pm:403 src/templates/options.mas:52
 msgid "Secondary nameserver"
@@ -308,18 +307,14 @@ msgid "Common options"
 msgstr "共同選項"
 
 #: src/EBox/Model/Options.pm:416
-#, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
 "domains on eBox might be chosen. All fields are optionals setting its value "
 "as \"None\" or leaving blank."
 msgstr ""
-"設定 \"eBox\" 的預設閘道將會設定網路介面的預設閘道.假如您設定\"名稱\",您可能"
-"要選擇一個預設閘道.而\"搜尋網域\"的值,必須要選擇一個來設置 DNS 網域在 eBox "
-"上.假如您設定 \"主要名稱伺服器\" 且 \"eBox DNS\" 也已安裝,則 eBox 伺服器可以"
-"動作並成為 cache DNS 伺服器.所有的欄位都是可選擇的設定且這些值可以 \"沒有\" "
-"或是空白."
+"如果您選擇「設定好的」作為預設閘道器，可以從已設定的閘道器中選擇一個。如同「搜尋網域」的數值，可以從 eBox 上已設定的 DNS "
+"網域中選擇一個。所有欄位可以選擇性設定數值為「沒有」或保持空白。"
 
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
@@ -382,12 +377,9 @@ msgid "You need to specify a path to the boot image in the remote server"
 msgstr "您需要指定到遠端伺服器中開機映像檔的路徑"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
-#, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
-msgstr ""
-"只有在您有下一個伺服器而它不是 eBox 時\n"
-"才能指定檔案名稱"
+msgstr "只有在您有下一個伺服器而它不是 eBox 時才能指定檔案名稱"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, perl-brace-format

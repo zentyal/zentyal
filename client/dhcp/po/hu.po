@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-07-01 09:30+0200\n"
-"PO-Revision-Date: 2008-09-01 08:30+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-07-27 15:06+0200\n"
+"Last-Translator: Érdi Olivér <freeoli@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/AddRange.pm:39
 #: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
@@ -22,60 +23,60 @@ msgstr ""
 #: src/EBox/DHCP.pm:479 src/EBox/DHCP.pm:577 src/EBox/DHCP.pm:631
 #: src/EBox/DHCP.pm:692 src/EBox/DHCP.pm:748 src/EBox/DHCP.pm:1139
 msgid "Interface"
-msgstr ""
+msgstr "Adapter"
 
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/EBox/Model/RangeTable.pm:213 src/EBox/Model/FixedAddressTable.pm:210
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
-msgstr ""
+msgstr "Név"
 
 #: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
 #: src/templates/ranges.mas:54
 msgid "From"
-msgstr ""
+msgstr "Tól"
 
 #: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
 #: src/templates/ranges.mas:55
 msgid "To"
-msgstr ""
+msgstr "Hoz"
 
 #: src/EBox/CGI/Enable.pm:39
 msgid "module status"
-msgstr ""
+msgstr "modul állapot"
 
 #: src/EBox/CGI/AddFixed.pm:43 src/EBox/DHCP.pm:1140 src/EBox/DHCP.pm:1208
 #: src/EBox/Model/FixedAddressTable.pm:216 src/templates/fixed.mas:9
 msgid "MAC address"
-msgstr ""
+msgstr "MAC cím"
 
 #: src/EBox/CGI/AddFixed.pm:44 src/EBox/DHCP.pm:1208
 #: src/EBox/Model/FixedAddressTable.pm:222
 #: src/EBox/Model/ThinClientOptions.pm:242 src/templates/fixed.mas:10
 msgid "IP address"
-msgstr ""
+msgstr "IP cím"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
-msgstr ""
+msgstr "Modul Állapot"
 
 #: src/EBox/DHCP.pm:164
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infrastruktúra"
 
 #: src/EBox/DHCP.pm:399 src/EBox/DHCP.pm:435 src/EBox/DHCP.pm:485
 #: src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:698 src/EBox/DHCP.pm:754
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr ""
+msgstr "{iface} nem statikus"
 
 #: src/EBox/DHCP.pm:569
 msgid "Not a valid action: add, set and del are available"
-msgstr ""
+msgstr "Érvénytelen művelet: Hozzáadás, beállítás és törlés elérhetőek"
 
 #: src/EBox/DHCP.pm:684
 msgid "No valid action. Available ones are: add, set and del"
-msgstr ""
+msgstr "Érvénytelen művelet. Csak a Hozzáadás, beállítás és törlés elérhetőek"
 
 #: src/EBox/DHCP.pm:923
 #, perl-brace-format
@@ -84,6 +85,9 @@ msgid ""
 "used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
 "it before trying to add a virtual interface using it."
 msgstr ""
+"A '{iface}' virtuális adapterhez próbálja hozzáadni az IP címet, de a cím "
+"használatban van a DHCP szerver '{range}' címtartományában. Kérem távolítsa "
+"el mielőtt újra próbálja hozzáadni az adapterhez."
 
 #: src/EBox/DHCP.pm:942
 #, perl-brace-format
@@ -92,38 +96,41 @@ msgid ""
 "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
 "remove it before trying to add a virtual interface using it."
 msgstr ""
+"Az '{fixed}' cím amit próbál hozzáadni az '{iface}' adapterhez, az "
+"használatban van a DHCP szerveren, fix IP-ként. Kérem távolítsa el, mielőtt "
+"megpróbálja ismét hozzáadni."
 
 #: src/EBox/DHCP.pm:1138
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #: src/EBox/DHCP.pm:1141
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/DHCP.pm:1142
 msgid "Event"
-msgstr ""
+msgstr "Esemény"
 
 #: src/EBox/DHCP.pm:1145
 msgid "Leased"
-msgstr ""
+msgstr "Bérelt"
 
 #: src/EBox/DHCP.pm:1145
 msgid "Released"
-msgstr ""
+msgstr "Felszabadítás"
 
 #: src/EBox/DHCP.pm:1148
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1208
 msgid "Host name"
-msgstr ""
+msgstr "Host név"
 
 #: src/EBox/DHCP.pm:1235
 msgid "DHCP leases"
-msgstr ""
+msgstr "DHCP bérlet"
 
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
 #: src/EBox/Model/LeaseTimes.pm:112 src/EBox/Model/Options.pm:119
@@ -134,91 +141,98 @@ msgstr ""
 #: src/EBox/Composite/OptionsTab.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr ""
+msgstr "{iface} adapter "
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
-msgstr ""
+msgstr "{from} - {to} érvénytelen IP tartomány"
 
 #: src/EBox/Model/RangeTable.pm:128
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr ""
+msgstr "{from}-{to} IP tartomány nincs a {net} hálózatban"
 
 #: src/EBox/Model/RangeTable.pm:141
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr ""
+msgstr "{from}-{to} IP tartományban, adapter {ifaceIP} IP címmel "
 
 #: src/EBox/Model/RangeTable.pm:164
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
+"{newFrom}-{newTo} IP tartományban átfedés van a : '{range}': "
+"{oldFrom}-{oldTo} IP tartománnyal"
 
 #: src/EBox/Model/RangeTable.pm:182
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr ""
+msgstr "{from}-{to} IP tartományban fix IP cím található '{name}': {fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
 msgid "Ranges"
-msgstr ""
+msgstr "IP Tartományok"
 
 #: src/EBox/Model/RangeTable.pm:240
 msgid "range"
-msgstr ""
+msgstr "IP tartomány"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
-msgstr ""
+msgstr "Adapter IP cím"
 
 #: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
 msgid "Subnet"
-msgstr ""
+msgstr "Alhálózat"
 
 #: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
-msgstr ""
+msgstr "Elérhető IP tartomány"
 
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr ""
+msgstr "DHCP tartomány"
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
 msgstr ""
+"Alapértelmezett IP bérleti idő, aminek magasabbnak kell lennie 0 "
+"másodpercnél"
 
 #: src/EBox/Model/LeaseTimes.pm:138
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
+"Alapértelmezett IP bérleti idő {default} alacsonyabbnak kell lennie mint "
+"{max}"
 
 #: src/EBox/Model/LeaseTimes.pm:150
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "Maximális IP bérleti időnek magasabbnak kell lennie mint 0 másodperc"
 
 #: src/EBox/Model/LeaseTimes.pm:156
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
+"Maximális  {max} IP bérleti időnek magasabbnak kell lennie mint {default}"
 
 #: src/EBox/Model/LeaseTimes.pm:200
 msgid "Default leased time"
-msgstr ""
+msgstr "Alapértelmezett IP bérleti idő"
 
 #: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
 msgid "seconds"
-msgstr ""
+msgstr "másodperc"
 
 #: src/EBox/Model/LeaseTimes.pm:207
 msgid "Maximum leased time"
-msgstr ""
+msgstr "Maximális IP bérleti idő"
 
 #: src/EBox/Model/LeaseTimes.pm:216
 msgid "Lease times"
-msgstr ""
+msgstr "Bérleti idők "
 
 #: src/EBox/Model/LeaseTimes.pm:221
 msgid ""

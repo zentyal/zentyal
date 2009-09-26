@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:05+0200\n"
-"PO-Revision-Date: 2009-02-28 10:58+0000\n"
+"PO-Revision-Date: 2009-08-04 06:02+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr "防火牆"
 
 #: src/EBox/Firewall.pm:814
 msgid "UTM"
-msgstr ""
+msgstr "UTM"
 
 #: src/EBox/Firewall.pm:818
 msgid "Packet Filter"
@@ -250,16 +250,14 @@ msgid "Interface"
 msgstr "介面"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:256
-#, fuzzy
 msgid "Original destination"
-msgstr "目的"
+msgstr "原始目的地"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:261
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
-#, fuzzy
 msgid "IP Address"
 msgstr "IP 位址"
 
@@ -268,9 +266,8 @@ msgid "Object"
 msgstr "Object"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
-#, fuzzy
 msgid "Original destination port"
-msgstr "目的連接埠"
+msgstr "原始的目的連接埠"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"

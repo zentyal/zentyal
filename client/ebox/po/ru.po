@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:04+0200\n"
-"PO-Revision-Date: 2009-06-05 12:06+0200\n"
-"Last-Translator: alex perl <alexondi@rambler.ru>\n"
+"PO-Revision-Date: 2009-07-17 09:32+0200\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:625
@@ -28,7 +28,6 @@ msgstr "Инструментальная панель"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
-#, fuzzy
 msgid "Configure Widgets"
 msgstr "Настройка виджетов"
 
@@ -37,7 +36,7 @@ msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
 msgstr ""
-"Выполняется скрипт запущенный эксклюзивно в eBox. Пожалуйста, подождите пока "
+"Выполняется скрипт запущенный в eBox эксклюзивно. Пожалуйста, подождите пока "
 "он не выполнится"
 
 #: src/EBox/CGI/Login/Index.pm:65
@@ -130,7 +129,6 @@ msgid "The module was restarted correctly."
 msgstr "Модуль был корректно перезапущен."
 
 #: src/EBox/CGI/EBox/Halt.pm:30
-#, fuzzy
 msgid "Halt or Reboot"
 msgstr "Выключение или перезагрузка"
 
@@ -147,9 +145,8 @@ msgid "Bug report"
 msgstr "Отчет об ошибках"
 
 #: src/EBox/CGI/EBox/General.pm:30
-#, fuzzy
 msgid "General Configuration"
-msgstr "Основная конфигурация"
+msgstr "Общая конфигурация"
 
 #: src/EBox/CGI/EBox/Password.pm:49
 msgid "Incorrect password."
@@ -289,7 +286,6 @@ msgstr ""
 "найти в журналах."
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
 msgid "Module Status Configuration"
 msgstr "Конфигурация статуса модуля"
 
@@ -299,7 +295,7 @@ msgstr "порт"
 
 #: src/EBox/Apache.pm:563
 msgid "eBox internal web server"
-msgstr ""
+msgstr "Внутренний веб сервер eBox"
 
 #: src/EBox/Global.pm:388 src/EBox/Global.pm:409
 #, perl-brace-format
@@ -437,17 +433,15 @@ msgstr "Таблица {table} не существует"
 #: src/EBox/Logs.pm:626 src/EBox/Events.pm:151
 #, fuzzy
 msgid "Monitoring"
-msgstr "Фильтрация"
+msgstr "Мониторинг"
 
 #: src/EBox/Logs.pm:630
-#, fuzzy
 msgid "Query Logs"
 msgstr "Журнал запросов"
 
 #: src/EBox/Logs.pm:633
-#, fuzzy
 msgid "Configure Logs"
-msgstr "Настроить журналы"
+msgstr "Настройки журналов"
 
 #: src/EBox/Logs.pm:646 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:128 src/templates/finish.mas:105
@@ -489,7 +483,6 @@ msgid "Save changes"
 msgstr "Сохранить изменения"
 
 #: src/EBox/SysInfo.pm:42
-#, fuzzy
 msgid "System Information"
 msgstr "Системная информация"
 
@@ -498,7 +491,6 @@ msgid "Time"
 msgstr "Время"
 
 #: src/EBox/SysInfo.pm:78
-#, fuzzy
 msgid "Hostname"
 msgstr "Имя узла"
 
@@ -511,17 +503,14 @@ msgid "System load"
 msgstr "Загрузка системы"
 
 #: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:200
-#, fuzzy
 msgid "Module Status"
 msgstr "Статус модуля"
 
 #: src/EBox/SysInfo.pm:123
-#, fuzzy
 msgid "General Information"
 msgstr "Общая информация"
 
 #: src/EBox/SysInfo.pm:128
-#, fuzzy
 msgid "Process List"
 msgstr "Список процессов"
 
@@ -589,7 +578,7 @@ msgid "any"
 msgstr "разное"
 
 #: src/EBox/Types/PortRange.pm:414
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"From\" {from} должно быть больше \"To\" {to}"
 
@@ -605,7 +594,7 @@ msgstr "Длина пароля не может превышать {maxLength} �
 
 #: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "Не разрешенный ip адрес"
 
 #: src/EBox/Types/Float.pm:113
 msgid "Enter a float number"
@@ -899,7 +888,6 @@ msgid "Log file"
 msgstr "Файл журнала"
 
 #: src/EBox/Event/Dispatcher/Log.pm:129
-#, fuzzy
 msgid "Log"
 msgstr "Журналы"
 
@@ -923,7 +911,6 @@ msgid "The file system {fs}, mounted on {mp}, has no space left"
 msgstr "В файловой системе {fs}, смонтированной на {mp}, не осталось места"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
-#, fuzzy
 msgid "Free storage space"
 msgstr "Свободное пространство"
 
@@ -1042,17 +1029,17 @@ msgstr ""
 "{newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
 msgstr "RAID устройство {name} началась операция {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:405
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr "RAID устройство {name} закончилась операция {opName} или была прервана"
 
 #: src/EBox/Event/Watcher/RAID.pm:411
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
@@ -1061,12 +1048,12 @@ msgstr ""
 "{newOpName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:436
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage} completed."
 msgstr "Состояние: {percentage} завершено"
 
 #: src/EBox/Event/Watcher/RAID.pm:439
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Estimated finish time: {time}."
 msgstr "Предполагаемое время завершения: {time}"
 
@@ -1164,7 +1151,7 @@ msgstr "восстановить"
 
 #: src/EBox/Event/Watcher/RAID.pm:574
 msgid "check"
-msgstr ""
+msgstr "проверить"
 
 #: src/EBox/Event/Watcher/RAID.pm:588
 msgid "faulty"
@@ -1324,7 +1311,6 @@ msgid "None"
 msgstr "Ничего"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
-#, fuzzy
 msgid "Configure Dispatchers"
 msgstr "Настроика диспетчеров"
 
@@ -1349,11 +1335,8 @@ msgid "Description"
 msgstr "Описание"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
-#, fuzzy
 msgid "Configure Events"
-msgstr ""
-"Настроить событияДля подписки на удаленные услуги eBox  {URL}. Вы будете "
-"иметь удаленную резервную копию и многое другое"
+msgstr "Настроить события"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:308
 msgid "event"
@@ -1364,11 +1347,15 @@ msgid "Enable/Disable each event watcher monitoring"
 msgstr "Ключ для службы прокси не найден"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:497
+#, fuzzy
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
@@ -1501,22 +1488,20 @@ msgid "must be greater than zero"
 msgstr "должно быть больше 0"
 
 #: src/EBox/ProgressIndicator.pm:147
-#, fuzzy
 msgid "Executable has not been run"
-msgstr "Исполняемый файл не запущен"
+msgstr "Исполнение не запущенно"
 
 #: src/EBox/ProgressIndicator.pm:264
-#, fuzzy
 msgid "The executable has not run"
-msgstr "Исполняемый файл не запущен"
+msgstr "Исполнение не запущенно"
 
 #: src/EBox/ProgressIndicator.pm:395
 msgid "The executable has already been started"
-msgstr "Исполняемый файл уже запущен"
+msgstr "Исполнение уже запущено"
 
 #: src/EBox/ProgressIndicator.pm:399
 msgid "The executable has already finished"
-msgstr "Исполняемый файл уже закончил выполнение"
+msgstr "Исполнение уже закончило выполнение"
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
@@ -1698,7 +1683,6 @@ msgid "Options"
 msgstr "Опции"
 
 #: src/templates/report/diskUsage.mas:34
-#, fuzzy
 msgid "Partition Properties"
 msgstr "Свойства раздела"
 
@@ -1708,7 +1692,6 @@ msgid "Inexistent RAID array {a}"
 msgstr "Существует RAID массив {a}"
 
 #: src/templates/report/raid.mas:42
-#, fuzzy
 msgid "RAID is not enabled in this system."
 msgstr "RAID не включен в данной системе"
 
@@ -1829,9 +1812,8 @@ msgid "Restore mode"
 msgstr "Режим восстановления"
 
 #: src/templates/password.mas:4
-#, fuzzy
 msgid "Change Password"
-msgstr "Изменить пароль"
+msgstr "Поменять пароль"
 
 #: src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
@@ -1858,7 +1840,7 @@ msgid "Full Backup"
 msgstr "Полное резервное копирование"
 
 #: src/templates/backup.mas:24
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "Module Status{closeref} section will be ignored in both backup and restore "
@@ -1869,7 +1851,6 @@ msgstr ""
 "копирование, так и при восстановлении"
 
 #: src/templates/backup.mas:26
-#, fuzzy
 msgid "Backup the Current State"
 msgstr "Сделать бэкап текущего состояния"
 
@@ -1887,12 +1868,10 @@ msgid "Backup mode"
 msgstr "Режим резервного копирования"
 
 #: src/templates/backup.mas:74
-#, fuzzy
 msgid "Restore Backup from File"
 msgstr "Восстановить из файла"
 
 #: src/templates/backup.mas:76
-#, fuzzy
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
@@ -2000,7 +1979,6 @@ msgid "There are no unsaved changes."
 msgstr "Несохраненных изменений нет."
 
 #: src/templates/port.mas:9
-#, fuzzy
 msgid "Administration Interface TCP Port"
 msgstr "TCP-порт администраторского интерфейса"
 
@@ -2080,17 +2058,14 @@ msgid "Modify"
 msgstr "Изменение"
 
 #: src/templates/backupTabs.mas:13
-#, fuzzy
 msgid "Local Backup"
 msgstr "Локальное резервное копирование"
 
 #: src/templates/backupTabs.mas:18
-#, fuzzy
 msgid "Remote Backup"
 msgstr "Удаленное резервное копирование"
 
 #: src/templates/backupTabs.mas:23
-#, fuzzy
 msgid "Remote Backup from Other Subscribed Hosts"
 msgstr "Удаленное копирование с других подписанных узлов"
 

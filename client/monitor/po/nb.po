@@ -8,22 +8,23 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 0.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:10+0200\n"
-"PO-Revision-Date: 2008-12-04 16:22+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-31 13:44+0200\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
 msgid "CPU {no} usage"
-msgstr ""
+msgstr "CPU {no} bruk"
 
 #: src/EBox/Monitor/Measure/CPU.pm:65
 msgid "CPU usage"
-msgstr ""
+msgstr "CPU bruk"
 
 #: src/EBox/Monitor/Measure/CPU.pm:66
 msgid ""
@@ -31,161 +32,167 @@ msgid ""
 "executing user code, executing system code, waiting for IO operations and "
 "being idle"
 msgstr ""
+"Samle tidsbruk av CPU i ulike statuser, mest kjent utføring bruker kode, "
+"utføring systemkode, venting på IO operasjoner og være inaktiv"
 
 #: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "idle"
-msgstr ""
+msgstr "inaktiv"
 
 #: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "user"
-msgstr ""
+msgstr "bruker"
 
 #: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "interrupt"
-msgstr ""
+msgstr "avbryte"
 
 #: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "nice"
-msgstr ""
+msgstr "bra"
 
 #: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
-msgstr ""
+msgstr "myk avbrytning"
 
 #: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "steal"
-msgstr ""
+msgstr "stjel"
 
 #: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
-msgstr ""
+msgstr "system"
 
 #: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
-msgstr ""
+msgstr "vent"
 
 #: src/EBox/Monitor/Measure/Base.pm:621
 msgid "value"
-msgstr ""
+msgstr "verdi"
 
 #: src/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
-msgstr ""
+msgstr "System belastning"
 
 #: src/EBox/Monitor/Measure/Load.pm:56
 msgid "Collect the system load that gives a rough overview of the system usage"
-msgstr ""
+msgstr "Samle systemet belastning som gir en grov oversikt over systemets bruk"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "short term"
-msgstr ""
+msgstr "kortsiktig"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "mid term"
-msgstr ""
+msgstr "midtsiktig"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "long term"
-msgstr ""
+msgstr "langsiktig"
 
 #: src/EBox/Monitor/Measure/Memory.pm:55
 msgid "Physical memory usage"
-msgstr ""
+msgstr "Fysisk minne bruk"
 
 #: src/EBox/Monitor/Measure/Memory.pm:56
 msgid "Collect the physical memory usage"
-msgstr ""
+msgstr "Samle inn fysksk minne bruk"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "free"
-msgstr ""
+msgstr "ledig"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
-msgstr ""
+msgstr "side mellomlagring"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "buffer cache"
-msgstr ""
+msgstr "sikkerhets mellomlagring"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
-msgstr ""
+msgstr "brukt"
 
 #: src/EBox/Monitor/Measure/Df.pm:76
 #, perl-brace-format
 msgid "free in {partition}"
-msgstr ""
+msgstr "ledig i {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:78
 #, perl-brace-format
 msgid "used in {partition}"
-msgstr ""
+msgstr "brukt i {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:83
 msgid "File system usage"
-msgstr ""
+msgstr "Fil system bruk"
 
 #: src/EBox/Monitor/Measure/Df.pm:84
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
-msgstr ""
+msgstr "Samle inn montert fil system bruk informasjon som \"df\" kommando gjør"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:104
 #: src/EBox/Monitor/Measure/Thermal.pm:110
 msgid "temperature"
-msgstr ""
+msgstr "temperatur"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 msgid "cooling device"
-msgstr ""
+msgstr "kjøle enhet"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:119
 msgid "sensor"
-msgstr ""
+msgstr "sensor"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:121
 #, perl-brace-format
 msgid "Temperature for {what}"
-msgstr ""
+msgstr "Temperatur for {what}"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:127
 msgid "Thermal"
-msgstr ""
+msgstr "Termisk"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:128
 #, perl-brace-format
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
 msgstr ""
+"Samle inn termisk informasjon (CPU sensors temperatur) hvis mulig fra {dir}"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr ""
+msgstr "Minst en terskel (maksimum eller mininmum) må settes"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 msgid "This threshold rule will override the current ones"
-msgstr ""
+msgstr "Denne terskel regelen vil overta gjeldende"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:156
 msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr ""
+"Gjeldende overvåknings verktøy versjon støtter ikke forskjell mellom data "
+"kilder"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:221
 msgid "Failure minimum"
-msgstr ""
+msgstr "Svikt minimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:224
 msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr ""
+"Sett lavre grense for tillatte verdier. Hvis usatt er den uendelig negativ."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:229
 msgid "Warning minimum"
-msgstr ""
+msgstr "Advarsel minimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #, perl-brace-format
@@ -193,15 +200,17 @@ msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
+"Hvis verdien er mindre enn denne verdien og større enn {fmin} blir en "
+"varsling sendt"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:234
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
 msgid "failure minimum"
-msgstr ""
+msgstr "svikt minimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
 msgid "Warning maximum"
-msgstr ""
+msgstr "Advarsel maksimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #, perl-brace-format
@@ -209,25 +218,27 @@ msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr ""
+"Hvis verdien er større enn denne verdien og mindre enn {fmax} blir en "
+"varsling sendt"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
 msgid "failure maximum"
-msgstr ""
+msgstr "svikt maksimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:247
 msgid "Failure maximum"
-msgstr ""
+msgstr "Svikt maksimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:250
 msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
-msgstr ""
+msgstr "Sett øvre grense tillatt. Hvis usatt er den uendelig positiv."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
 msgid "Invert"
-msgstr ""
+msgstr "Omvendt"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #, perl-brace-format
@@ -235,18 +246,20 @@ msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
 msgstr ""
+"Hvis satt til riktig, vil rekken med akkseptable verdier bli omvendt, f.eks "
+"verdien mellom {fmin} og {fmax} ({wmin} og {wmax}) er ikke ok."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning minimum"
-msgstr ""
+msgstr "advarsel minimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning maximum"
-msgstr ""
+msgstr "advarsel maksimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:265
 msgid "Persistent"
-msgstr ""
+msgstr "Vedvarende"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:268
 msgid ""
@@ -254,36 +267,39 @@ msgid ""
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
 msgstr ""
+"Hvis satt til riktig, en hendelse vil bli tildelt for hver verdi som er "
+"utenfor tillatt grense. Hvis satt til feil, bare en endring fra tillatt "
+"verdi til en uakseptabel verdi vil tildeles"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "Measure instance"
-msgstr ""
+msgstr "Mål forekomst"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:287
 msgid "Data Source"
-msgstr ""
+msgstr "Data Kilde"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
 msgid "Threshold configuration"
-msgstr ""
+msgstr "Terskel konfigurasjon"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 msgid "Threshold's list"
-msgstr ""
+msgstr "Terskels liste"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:298
 msgid "Threshold"
-msgstr ""
+msgstr "Terskel"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:302
 #, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
-msgstr ""
+msgstr "Enhver kontroll er gjort med høyeste mulig oppløsning: {nSec} sekunder"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:304
 #, perl-brace-format
@@ -291,91 +307,93 @@ msgid ""
 "Take into account this configuration will be only applied if monitor "
 "{openhref}event watcher is enabled{closehref}"
 msgstr ""
+"Ta hensyn til denne konfigurasjonen skal bare brukes hvis skjermen "
+"{openhref}hendelse overvåker er aktivert{closehref}"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:122
 msgid "Measure"
-msgstr ""
+msgstr "Mål"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:129
 msgid "Thresholds"
-msgstr ""
+msgstr "Terskler"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:138
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "Konfigurere overvåkere"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:139
 msgid "measure"
-msgstr ""
+msgstr "måling"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:144
 msgid "Every measure may have several thresholds to monitor"
-msgstr ""
+msgstr "Hvert mål kan ha mange terskler å overvåke"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:133
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:147
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:157
 msgid "not applicable"
-msgstr ""
+msgstr "ikke utførbart"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:145
 msgid "any"
-msgstr ""
+msgstr "hvilken som helst"
 
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr ""
+msgstr "Siste timen"
 
 #: src/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr ""
+msgstr "Siste dag"
 
 #: src/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr ""
+msgstr "Siste måned"
 
 #: src/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr ""
+msgstr "Siste år"
 
 #: src/EBox/CGI/Index.pm:41 src/EBox/Monitor.pm:165
 msgid "Monitoring"
-msgstr ""
+msgstr "Overvåkning"
 
 #: src/EBox/Monitor.pm:72 src/EBox/Monitor.pm:164
 #: src/EBox/Event/Watcher/Monitor.pm:145
 msgid "Monitor"
-msgstr ""
+msgstr "Overvåke"
 
 #: src/EBox/Monitor.pm:133
 msgid "Collectd main configuration file"
-msgstr ""
+msgstr "Innsamlet hoved konfigurasjons fil"
 
 #: src/EBox/Monitor.pm:137
 msgid "Collectd threshold configuration file"
-msgstr ""
+msgstr "Innsamlet terskel konfigurasjons fil"
 
 #: src/EBox/Event/Watcher/Monitor.pm:162
 msgid "Notify when a certain value has reached a certain threshold"
-msgstr ""
+msgstr "Varsle når en viss verdi har nådd en viss terskel"
 
 #: src/EBox/Event/Watcher/Monitor.pm:302
 #, perl-brace-format
 msgid "{what} \"{dS}\" is currently {value}."
-msgstr ""
+msgstr "{what} \"{dS}\" er nå {value}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:308
 #, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}."
-msgstr ""
+msgstr "Det er innenfor de {severity} regionene av {minBound} og {maxBound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:315
 #, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}."
-msgstr ""
+msgstr "Det er over {severity} terskelen av {bound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:318
 #, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}."
-msgstr ""
+msgstr "Det er under {severity} terskelen av {bound}."

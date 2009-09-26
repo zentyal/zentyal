@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:19+0200\n"
-"PO-Revision-Date: 2008-11-14 09:33+0000\n"
-"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2009-07-17 14:31+0200\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
@@ -68,7 +68,7 @@ msgid "Virtual hosts"
 msgstr "Виртуальные узлы"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:230
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
 "same web server is hosted on a single physical server. Different host names "
@@ -78,9 +78,10 @@ msgid ""
 "directory"
 msgstr ""
 "Виртуальные узлы на службах веб-хостинга располагаются на одном физическом "
-"сервере. Различные имена узла укажут на тот же самый веб-сервер. Запись в "
-"DNS будет автоматически создана, если это возможно. Содержание должно быть "
-"помещено в каталог {docRoot}/vHostName "
+"сервере. Различные имена узла указывают на один веб-сервер. Запись в DNS "
+"будет создана автоматически, если это возможно. Содержание должно быть "
+"помещено в каталог {docRoot} .  Специфичная конфигурация должна быть "
+"помещена в каталог {userConf}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:240
 msgid "virtual host"
@@ -162,7 +163,7 @@ msgstr "Веб"
 
 #: src/EBox/WebServer.pm:150
 msgid "Infrastructure"
-msgstr ""
+msgstr "Инфраструктура"
 
 #: src/EBox/WebServer.pm:171
 msgid "Web service status"

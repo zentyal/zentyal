@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:18+0200\n"
-"PO-Revision-Date: 2009-05-13 10:47+0200\n"
-"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2009-07-17 14:57+0200\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
@@ -115,7 +115,6 @@ msgid "Kbit/s"
 msgstr "Кбит/сек"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:559
-#, fuzzy
 msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
@@ -201,7 +200,7 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
-"Ограничительная скорость {lR} кбит/сек должна быть выше гарантированной "
+"Ограничиваемая скорость {lR} кбит/сек должна быть выше гарантированной "
 "скорости {gR} кбит/сек"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:244
@@ -211,8 +210,8 @@ msgid ""
 "increase maximum upload traffic to the gateways associated to this external "
 "interface"
 msgstr ""
-"Ограничительная скорость {lR} кбит/сек дожна быть ниже {maxLR}kbit/s или вам "
-"необходимо увеличить максимальную входящий трафик на шлюзе связанном с этим "
+"Ограничиваемая скорость {lR} кбит/сек должна быть ниже {maxLR}kbit/s или вам "
+"необходимо увеличить максимум входящего трафика на шлюзе связанном с этим "
 "внешним интерфейсом"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:401
@@ -226,6 +225,8 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
+"Ограничиваемая скорость {lR} кбит/сек дожна быть ниже {maxLR}kbit/s или вам "
+"необходимо увеличить максимально допустимый трафик"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
 msgid "Leaf class identifier"
@@ -261,6 +262,8 @@ msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
 msgstr ""
+"Выберите интерфейс для добавлений правил шейпинга трафика. Keep in mind that "
+"if you are shaping an internal interface, you are doing ingress shaping."
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
 msgid "Choose an interface to shape"
@@ -301,7 +304,7 @@ msgstr "Для включения правил управления трафик
 
 #: src/EBox/TrafficShaping.pm:357
 msgid "Gateway"
-msgstr ""
+msgstr "Шлюз"
 
 #: src/EBox/TrafficShaping.pm:425
 #, perl-brace-format
@@ -309,12 +312,16 @@ msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
+"Достигнут максимум правил аккаунта {max} , пожалуйста удалите хотябы один "
+"для добавления нового"
 
 #: src/EBox/TrafficShaping.pm:962
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
 msgstr ""
+"Шейпинг трафика можно организовать только на внешних интерфейсах связанных "
+"со шлюзом."
 
 #: src/EBox/TrafficShaping.pm:1051
 msgid "type"

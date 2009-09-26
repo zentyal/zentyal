@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-07-01 09:30+0200\n"
-"PO-Revision-Date: 2006-08-29 12:57+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-01 23:23+0200\n"
+"Last-Translator: Mustafa M. EL-Sebaie <mustsebaie@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n>=3 && n<=10 ? "
-"3 : n>=11 && n<=99 ? 4 : 5;\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/AddRange.pm:39
 #: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
@@ -23,52 +23,52 @@ msgstr ""
 #: src/EBox/DHCP.pm:479 src/EBox/DHCP.pm:577 src/EBox/DHCP.pm:631
 #: src/EBox/DHCP.pm:692 src/EBox/DHCP.pm:748 src/EBox/DHCP.pm:1139
 msgid "Interface"
-msgstr ""
+msgstr "الوسيط"
 
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/EBox/Model/RangeTable.pm:213 src/EBox/Model/FixedAddressTable.pm:210
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
-msgstr ""
+msgstr "اﻹسم"
 
 #: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
 #: src/templates/ranges.mas:54
 msgid "From"
-msgstr ""
+msgstr "من"
 
 #: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
 #: src/templates/ranges.mas:55
 msgid "To"
-msgstr ""
+msgstr "إلى"
 
 #: src/EBox/CGI/Enable.pm:39
 msgid "module status"
-msgstr ""
+msgstr "حالة الوحدة"
 
 #: src/EBox/CGI/AddFixed.pm:43 src/EBox/DHCP.pm:1140 src/EBox/DHCP.pm:1208
 #: src/EBox/Model/FixedAddressTable.pm:216 src/templates/fixed.mas:9
 msgid "MAC address"
-msgstr ""
+msgstr "عنوان الMAC"
 
 #: src/EBox/CGI/AddFixed.pm:44 src/EBox/DHCP.pm:1208
 #: src/EBox/Model/FixedAddressTable.pm:222
 #: src/EBox/Model/ThinClientOptions.pm:242 src/templates/fixed.mas:10
 msgid "IP address"
-msgstr ""
+msgstr "عنوان الIP"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
-msgstr ""
+msgstr "حالة الوحدة"
 
 #: src/EBox/DHCP.pm:164
 msgid "Infrastructure"
-msgstr ""
+msgstr "البنية التحتية"
 
 #: src/EBox/DHCP.pm:399 src/EBox/DHCP.pm:435 src/EBox/DHCP.pm:485
 #: src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:698 src/EBox/DHCP.pm:754
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr ""
+msgstr "{iface} ليس ثابتاً"
 
 #: src/EBox/DHCP.pm:569
 msgid "Not a valid action: add, set and del are available"

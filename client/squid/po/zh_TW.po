@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:18+0200\n"
-"PO-Revision-Date: 2009-03-28 09:58+0100\n"
-"Last-Translator: Brian Huang <taiwuco@gmail.com>\n"
+"PO-Revision-Date: 2009-08-04 09:16+0200\n"
+"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgstr "連接埠"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:71
 msgid "Cache files size (MB)"
-msgstr ""
+msgstr "快取檔案大小 (MB)"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:79
 msgid "Default policy"
@@ -47,17 +47,17 @@ msgstr "{port} 已使用，請選擇其他的"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:160
 msgid "Transparent proxy option is not compatible with authorization policy"
-msgstr ""
+msgstr "通透式代理伺服器選項與驗證原則不相容"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:167
 msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
-msgstr ""
+msgstr "通透式代理伺服器與在部分物件發現的驗證原則不相容"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:185
 msgid "You need to use authorization policies wuth global group policies"
-msgstr ""
+msgstr "您需要使用全域群組原則的驗證原則"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:194
 msgid ""
@@ -88,16 +88,15 @@ msgstr "政策"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Allowed time period"
-msgstr ""
+msgstr "允許的期間"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:90
 msgid "Time period when the access is allowed"
-msgstr ""
+msgstr "允許存取的期間"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:97
-#, fuzzy
 msgid "Group policy"
-msgstr "全域政策"
+msgstr "群組政策"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:109
 msgid "Configure network objects' policies"
@@ -129,16 +128,16 @@ msgstr "已更新對象之政策"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:172
 msgid "Authorization policy is not compatible with transparent proxy mode"
-msgstr ""
+msgstr "驗證原則與通透式代理伺服器模式不相容"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:195
 msgid "Filter policies are incompatible with restricted time periods"
-msgstr ""
+msgstr "過濾原則與限制的期間不相容"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:221
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
-msgstr ""
+msgstr "如果沒有任何群組原則就不能選擇沒有驗證的原則"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:48
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:103
@@ -149,7 +148,7 @@ msgstr "請求"
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99 src/EBox/Squid.pm:1002
 msgid "User"
-msgstr ""
+msgstr "使用者"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:54
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:108
@@ -217,9 +216,8 @@ msgstr "存取請求"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:65
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
-#, fuzzy
 msgid "Domains rules"
-msgstr "網域列表"
+msgstr "網域規則"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:78
 #: src/EBox/Squid/Model/NoCacheDomains.pm:102
@@ -310,43 +308,41 @@ msgid "MIME type updated"
 msgstr "MIME 類型已更新"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:70
-#, fuzzy
 msgid "Filter profiles"
-msgstr "已過濾的請求"
+msgstr "過濾器設定檔"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:83
 msgid "filter profile"
-msgstr ""
+msgstr "過濾器設定檔"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:86
 msgid "Added filter profile"
-msgstr ""
+msgstr "已加入的過濾器設定檔"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:87
 msgid "Removed filter profile"
-msgstr ""
+msgstr "已移除的過濾器設定檔"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:88
 msgid "Updated filter profile"
-msgstr ""
+msgstr "已更新的過濾器設定檔"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:103
 #: src/EBox/Squid/Model/FilterGroup.pm:147
-#, fuzzy
 msgid "Filter group"
-msgstr "過濾條件"
+msgstr "過濾器群組"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:108
 msgid "Configuration"
-msgstr ""
+msgstr "組態"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:154
 msgid "Filter group policy"
-msgstr ""
+msgstr "過濾器群組原則"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:201
 msgid "Maximum number of filter groups reached"
-msgstr ""
+msgstr "已達到過濾器群的最大數量"
 
 # It was "等級" which is wrong.
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
@@ -429,18 +425,17 @@ msgstr "過濾條件設定值已改變"
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:87
 #: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:83
 msgid "Using default profile configuration"
-msgstr ""
+msgstr "使用預設的設定檔組態"
 
 #: src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:57
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
 msgid "Use default profile configuration"
-msgstr ""
+msgstr "使用預設的設定檔組態"
 
 #: src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:67
-#, fuzzy
 msgid "Use default profile for extension filtering"
-msgstr "副檔名過濾條件"
+msgstr "使用預設的設定檔做延伸檔名過濾"
 
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:93
 msgid "Extension"
@@ -460,15 +455,15 @@ msgstr "網域"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:80
 msgid "Exempt domain from caching"
-msgstr ""
+msgstr "排除快取的網域"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:89
 msgid "Cache exemptions"
-msgstr ""
+msgstr "快取排除"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:103
 msgid "You can exempt some domains from caching"
-msgstr ""
+msgstr "您可以將某些網域排除在快取之外"
 
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:103
 #: src/EBox/Squid/Types/Policy.pm:64 src/EBox/Squid/Types/DomainPolicy.pm:34
@@ -488,95 +483,86 @@ msgstr "永遠拒絕"
 
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:106
 msgid "Ignore"
-msgstr ""
+msgstr "忽略"
 
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:120
 msgid "This list has not categories"
-msgstr ""
+msgstr "這個列表沒有分類"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:69
-#, fuzzy
 msgid "Use default profile threshold"
-msgstr "內容過濾門檻"
+msgstr "使用預設設定檔界限"
 
 #: src/EBox/Squid/Model/DomainFilterCategories.pm:62
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
-#, fuzzy
 msgid "Domains list categories"
-msgstr "網域列表"
+msgstr "網域列表分類"
 
 #: src/EBox/Squid/Model/DomainFilterCategories.pm:74
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:72
 msgid "category"
-msgstr ""
+msgstr "分類"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:72
 msgid "Group"
-msgstr ""
+msgstr "群組"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:75
 msgid "Filter configuration"
-msgstr ""
+msgstr "過濾器組態"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:86
 msgid "User groups configuration"
-msgstr ""
+msgstr "使用者群組組態"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:97
 msgid "group"
-msgstr ""
+msgstr "群組"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
-#, fuzzy
 msgid "Configure user's groups global policies"
-msgstr "設置網路對象的政策"
+msgstr "設定使用者的群組全域原則"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:79
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:76
-#, fuzzy
 msgid "List of groups"
-msgstr "對象列表"
+msgstr "群組列表"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
-#, fuzzy
 msgid "group's policy"
-msgstr "Squid 政策"
+msgstr "群組原則"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
 msgid ""
 "Here you can globaly block or allow access per user group. Filter options "
 "will be per global policy or per object policy"
-msgstr ""
+msgstr "您可以在這裡進行全域的阻擋或允許每個使用者群組的存取。過濾器選項會是各別全域原則或各別物件原則的"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
-#, fuzzy
 msgid "Added group's policy"
-msgstr "已新增對象之政策"
+msgstr "已加入的群組原則"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
-#, fuzzy
 msgid "Removed group's policy"
-msgstr "已移除對象之政策"
+msgstr "已移除的群組原則"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:98
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:95
-#, fuzzy
 msgid "Updated group's policy"
-msgstr "已更新對象之政策"
+msgstr "已更新的群組原則"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:114
-#, fuzzy
 msgid "Filter profile"
-msgstr "已過濾"
+msgstr "過濾器設定檔"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:162
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:130
 msgid "User group policies are not compatible with transparent proxy mode"
-msgstr ""
+msgstr "使用者群組原則與通透式代理伺服器模式不相容"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:175
 msgid "Global group policy need a global policy with authentication"

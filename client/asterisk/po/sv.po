@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:02+0200\n"
-"PO-Revision-Date: 2009-04-25 00:59+0200\n"
-"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
+"PO-Revision-Date: 2009-07-19 11:01+0200\n"
+"Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,28 +20,28 @@ msgstr ""
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
-msgstr ""
+msgstr "Inställningar för röstbrevlåda"
 
 #: src/EBox/Model/Voicemail.pm:94
 #, fuzzy
 msgid "New password"
-msgstr "Lösenord"
+msgstr "Nytt lösenord"
 
 #: src/EBox/Model/Voicemail.pm:101
 msgid "Mail address"
-msgstr ""
+msgstr "E-postadress"
 
 #: src/EBox/Model/Voicemail.pm:108
 msgid "Attach messages"
-msgstr ""
+msgstr "Bifoga medddelanden"
 
 #: src/EBox/Model/Voicemail.pm:114
 msgid "Delete sent messages"
-msgstr ""
+msgstr "Radera sända meddelanden"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
-msgstr ""
+msgstr "Inställningarna har uppdateras"
 
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
@@ -62,7 +62,7 @@ msgstr "Server"
 #: src/EBox/Model/Provider.pm:104
 #, fuzzy
 msgid "Recipient of incoming calls"
-msgstr "Aktivera inkommande samtal"
+msgstr "Mottagare av inkommande samtal"
 
 #: src/EBox/Model/Provider.pm:114
 msgid "SIP provider"
@@ -71,55 +71,57 @@ msgstr "SIP leverantör"
 #: src/EBox/Model/Provider.pm:118
 #, fuzzy
 msgid "SIP provider for outgoing calls configuration"
-msgstr "SIP leverantör konfiguration"
+msgstr "SIP leverantör för utgående samtal"
 
 #: src/EBox/Model/Provider.pm:120
 #, fuzzy
 msgid "SIP provider configuration updated"
-msgstr "SIP leverantör konfigurationsinställningar uppdaterade"
+msgstr "Inställningarna för SIP leverantören uppdaterades"
 
 #: src/EBox/Model/Meetings.pm:91
 msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
 msgstr ""
+"Paketen dahdi-linux och dahdi-tools måste vara vara installerad för att "
+"kunna använda mötesfunktionen"
 
 #: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
 #: src/EBox/Model/Settings.pm:84
 msgid "extension"
-msgstr ""
+msgstr "anknytning"
 
 #: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
 #: src/templates/asterisk.mas:34
 msgid "Extension"
-msgstr ""
+msgstr "Anknytning"
 
 #: src/EBox/Model/Meetings.pm:149
 #, perl-brace-format
 msgid "A number between {min} and {max}"
-msgstr ""
+msgstr "Ett nummer mellan {min} och [max}"
 
 #: src/EBox/Model/Meetings.pm:173
 msgid "Administrator password"
-msgstr ""
+msgstr "Administratörslösenord"
 
 #: src/EBox/Model/Meetings.pm:181 src/EBox/Model/Localnets.pm:117
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #: src/EBox/Model/Meetings.pm:192 src/EBox/Asterisk.pm:455
 msgid "Meetings"
-msgstr ""
+msgstr "Mötesfunktion"
 
 #: src/EBox/Model/Meetings.pm:193
 msgid "meeting"
-msgstr ""
+msgstr "möte"
 
 #: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
-msgstr ""
+msgstr "Anknytning för röstbrevlåda"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
-msgstr ""
+msgstr "Aktivera demonstrations-anknytningar"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
@@ -127,57 +129,57 @@ msgstr "Aktivera utgående samtal"
 
 #: src/EBox/Model/Settings.pm:136
 msgid "VoIP domain"
-msgstr ""
+msgstr "VoIP-domän"
 
 #: src/EBox/Model/Settings.pm:145
 #, fuzzy
 msgid "General configuration"
-msgstr "Generella konfigurationsinställningar"
+msgstr "Allmänna inställningar"
 
 #: src/EBox/Model/Settings.pm:149
 #, fuzzy
 msgid "General Asterisk server configuration"
-msgstr "Generell Asterisk serverkonfiguration"
+msgstr "Asterisk-serverinställningar"
 
 #: src/EBox/Model/Settings.pm:151
 #, fuzzy
 msgid "General Asterisk server configuration updated"
-msgstr "Generella Asterisk server konfigurationsinställningar uppdaterade"
+msgstr "Asterisk-serverinställningar uppdaterade"
 
 #: src/EBox/Model/NAT.pm:96
 msgid "Asterisk is behind NAT"
-msgstr ""
+msgstr "Asterisk-servern befinner sig bakom NAT"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 #: src/EBox/Model/NAT.pm:120
 #, fuzzy
 msgid "NAT configuration"
-msgstr "SIP leverantör konfiguration"
+msgstr "NAT-inställningar"
 
 #: src/EBox/Model/NAT.pm:124
 #, fuzzy
 msgid "NAT Asterisk server configuration"
-msgstr "Generell Asterisk serverkonfiguration"
+msgstr "NAT Asterisk-serverinställningar"
 
 #: src/EBox/Model/NAT.pm:126
 #, fuzzy
 msgid "NAT Asterisk server configuration updated"
-msgstr "Generella Asterisk server konfigurationsinställningar uppdaterade"
+msgstr "NAT Asterisk-serverinställningar uppdaterade"
 
 #: src/EBox/Model/Localnets.pm:87 src/EBox/Model/Localnets.pm:129
 msgid "local network"
-msgstr ""
+msgstr "lokalt nätverk"
 
 #: src/EBox/Model/Localnets.pm:111
 msgid "Local network"
-msgstr ""
+msgstr "Lokalt nätverk"
 
 #: src/EBox/Model/Localnets.pm:128
 msgid "Local networks"
-msgstr ""
+msgstr "Lokala nätverk"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
@@ -189,7 +191,7 @@ msgstr "Asterisk modul"
 
 #: src/EBox/Asterisk/Extensions.pm:208
 msgid "User's extension"
-msgstr ""
+msgstr "Användarens anknytning"
 
 #: src/EBox/Asterisk.pm:64 src/EBox/Asterisk.pm:445
 msgid "Asterisk"
@@ -198,74 +200,72 @@ msgstr "Asterisk"
 #: src/EBox/Asterisk.pm:118
 #, fuzzy
 msgid "To configure enabled and disabled modules."
-msgstr "För att konfigurera Asterisk aktiverade och inaktiverade moduler"
+msgstr "För att konfigurera både aktiverade och inaktiverade moduler"
 
 #: src/EBox/Asterisk.pm:123
 msgid "To configure the Realtime interface."
-msgstr "För att konfigurera realtidsgränssnittet"
+msgstr "För att konfigurera realtidsgränssnittet."
 
 #: src/EBox/Asterisk.pm:128
 msgid "To configure the LDAP Realtime driver."
-msgstr "För att konfigurera LDAP realtidsdrivrutinen"
+msgstr "För att konfigurera LDAP realtids-drivrutinen."
 
 #: src/EBox/Asterisk.pm:133
-#, fuzzy
 msgid "To configure the common SIP and IAX users."
-msgstr "För att konfigurera LDAP realtidsdrivrutinen"
+msgstr "För att konfigurera SIP och IAX användare."
 
 #: src/EBox/Asterisk.pm:138
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
-"För att konfigurera SIP trunken för lokala användare och externa "
+"För att konfigurera SIP-tunneln för lokala användare och externa "
 "leverantörer."
 
 #: src/EBox/Asterisk.pm:143
-#, fuzzy
 msgid "To configure the RTP port ranges."
-msgstr "För att konfigurera realtidsgränssnittet"
+msgstr "För att konfigurera RTP-portar."
 
 #: src/EBox/Asterisk.pm:148
 #, fuzzy
 msgid "To configure the dialplan."
-msgstr "För att konfigurera Asterisk samtalsstyrningplan"
+msgstr "För att konfigurera samtalsstyrningplanen för Asterisk."
 
 #: src/EBox/Asterisk.pm:153
 #, fuzzy
 msgid "To configure the voicemail."
-msgstr "För att konfigurera Asterisk samtalsstyrningplan"
+msgstr "För att konfigurera röstbrevlådor."
 
 #: src/EBox/Asterisk.pm:158
 #, fuzzy
 msgid "To configure the conferences."
-msgstr "För att konfigurera realtidsgränssnittet"
+msgstr "För att konfigurera konferenser."
 
 #: src/EBox/Asterisk.pm:163
 msgid "To add the Asterisk schema and ACLs."
-msgstr ""
+msgstr "För att lägga till Asterisk-schema och ACLer."
 
 #: src/EBox/Asterisk.pm:446
 msgid "Communications"
-msgstr ""
+msgstr "Kommunikation"
 
 #: src/EBox/Asterisk.pm:451
 msgid "General"
-msgstr ""
+msgstr "Allmänt"
 
 #: src/EBox/Asterisk.pm:472
 msgid "Voicemail"
-msgstr ""
+msgstr "Röstmeddelanden"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox VoIP system"
-msgstr ""
+msgstr "eBox VoIP-system"
 
 #: src/templates/asterisk.mas:8
 msgid "Asterisk account"
-msgstr "Asterisk konto"
+msgstr "Asterisk-konto"
 
 #: src/templates/asterisk.mas:9
 msgid "Password for Asterisk service is the user password"
-msgstr "Lösenord för Asterisk service är användarlösenordet"
+msgstr "Lösenordet för Asterisk tjänsten är samma som användarlösenordet"
 
 #: src/templates/asterisk.mas:17
 msgid "User account"

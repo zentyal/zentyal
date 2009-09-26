@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:15+0200\n"
-"PO-Revision-Date: 2009-04-25 21:47+0200\n"
-"Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
+"PO-Revision-Date: 2009-08-16 11:38+0200\n"
+"Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -66,7 +66,7 @@ msgstr "Servidor"
 
 #: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2678
 msgid "host name"
-msgstr "Nome do servidor"
+msgstr "nome do host"
 
 #: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
 #: src/EBox/CGI/Vlan.pm:40
@@ -87,7 +87,7 @@ msgstr "máscara de rede"
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
-msgstr "Ação de interface virtual"
+msgstr "ação de interface virtual"
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Model/GatewayTable.pm:89
 #: src/EBox/Network.pm:728 src/EBox/Network.pm:733 src/EBox/Network.pm:1037
@@ -703,7 +703,7 @@ msgstr "eBox vai efetuar a sua configuração de rede"
 #: src/EBox/Network.pm:119
 #, fuzzy
 msgid "eBox will set your DNS configuration"
-msgstr "eBox vai efetuar a sua configuração de rede"
+msgstr "eBox vai efetuar a sua configuração de DNS"
 
 #: src/EBox/Network.pm:124 src/EBox/Network.pm:129
 #, fuzzy
@@ -813,10 +813,10 @@ msgstr "Diagnóstico"
 msgid "Ping"
 msgstr "Ping"
 
+# this is the program for tracing routes.
 #: src/templates/diag.mas:22
-#, fuzzy
 msgid "Traceroute"
-msgstr "rota estática"
+msgstr "Traceroute"
 
 #: src/templates/diag.mas:27
 msgid "Trace"
@@ -853,9 +853,9 @@ msgid ""
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
 msgstr ""
-"O tráfego roteado através de interfaces marcadas como externos será tratado "
-"através de NAT. Assim como serviços para os usuários da rede não estarão "
-"disponíveis nas interfaces externas."
+"O tráfego roteado através de interfaces marcadas como externas será roteado "
+"através de NAT. _ _Também, serviços disponíveis para os usuários da rede não "
+"estarão disponíveis nas interfaces externas."
 
 #: src/templates/ifaces.mas:43 src/templates/ifaces.mas:45
 msgid "Static"

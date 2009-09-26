@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:10+0200\n"
-"PO-Revision-Date: 2009-05-13 11:29+0200\n"
-"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2009-09-21 00:57+0200\n"
+"Last-Translator: Albert Kadyrov <albert.kadyrov@mail.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
@@ -172,9 +172,8 @@ msgid "At least a threshold (maximum or minimum) must be set"
 msgstr "По крайне мере должен быть установлен порог (максимум или минимум)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
-#, fuzzy
 msgid "This threshold rule will override the current ones"
-msgstr "Это правило отменит текущее"
+msgstr "Это правило переопределит текущее"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:156
 msgid ""
@@ -186,7 +185,7 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:221
 msgid "Failure minimum"
-msgstr ""
+msgstr "Минимальное количество отказов"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:224
 msgid ""
@@ -198,7 +197,7 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:229
 msgid "Warning minimum"
-msgstr ""
+msgstr "Минимальное количество оповещений "
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #, perl-brace-format
@@ -212,11 +211,11 @@ msgstr ""
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:234
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
 msgid "failure minimum"
-msgstr ""
+msgstr "минимальное количество отказов"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
 msgid "Warning maximum"
-msgstr ""
+msgstr "Максимальное количество оповещений "
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #, perl-brace-format
@@ -230,21 +229,23 @@ msgstr ""
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
 msgid "failure maximum"
-msgstr ""
+msgstr "максимальное количество отказов"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:247
 msgid "Failure maximum"
-msgstr ""
+msgstr "Максимальное количество отказов"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:250
 msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
 msgstr ""
+"Установить верхний предел допустимых значений. При сбросе настроек "
+"по-умолчанию до бесконечности."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
 msgid "Invert"
-msgstr ""
+msgstr "Инвертировать"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #, perl-brace-format
@@ -255,15 +256,15 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning minimum"
-msgstr ""
+msgstr "минимальное количество оповещений"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning maximum"
-msgstr ""
+msgstr "максимальное количество оповещений"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:265
 msgid "Persistent"
-msgstr ""
+msgstr "Постоянный"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:268
 msgid ""
@@ -274,7 +275,7 @@ msgstr ""
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "Measure instance"
-msgstr ""
+msgstr "Мера измерения"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
 msgid "Type"
@@ -321,21 +322,21 @@ msgstr "Пороги"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:138
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "Настроить счетчики монитора"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:139
 msgid "measure"
-msgstr ""
+msgstr "мера"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:144
 msgid "Every measure may have several thresholds to monitor"
-msgstr ""
+msgstr "Каждая мера может иметь несколько пороговых значений"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:133
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:147
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:157
 msgid "not applicable"
-msgstr ""
+msgstr "не применимо"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:145

@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:10+0200\n"
-"PO-Revision-Date: 2009-05-19 00:19+0200\n"
-"Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
+"PO-Revision-Date: 2009-08-18 05:19+0200\n"
+"Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,7 +87,7 @@ msgstr "infectado"
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
 msgid "bad header"
-msgstr ""
+msgstr "cabeçalho mal-formado"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
@@ -104,7 +104,7 @@ msgstr "enviadores incluídos na lista negra"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
 msgid "bad message header"
-msgstr ""
+msgstr "cabeçalho da mensagem mal-formado"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
 msgid "Filter traffic details"
@@ -130,7 +130,7 @@ msgstr "O limite para marcar uma mensagem como spam"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:71
 msgid "Spam subject tag"
-msgstr "Etiqueta de spam"
+msgstr "Etiqueta de assunto spam"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:74
 msgid "Tag which will be added to the spam mail subject"
@@ -158,25 +158,27 @@ msgstr "Forneça o sistema de aprendizagem com mensagem que atinjam o limite"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:99
 msgid "Autolearn spam threshold"
-msgstr "Limite de auto-aprendizagem do spam"
+msgstr "Coeficiente de auto-aprendizagem de spam"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:103
 msgid ""
 "Spam messages with a score equal or greater than this threshold will be "
 "added to the learning system "
 msgstr ""
-"Mensagens de spam com um valor igual ou maior do que este limite serão "
-"adicionadas ao sistema de auto-aprendizagem"
+"Mensagens de spam com um escore igual ou maior do que este coeficiente serão "
+"adicionadas ao sistema de aprendizagem"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:107
 msgid "Autolearn ham threshold"
-msgstr ""
+msgstr "Coeficiente de auto-aprendizagem de e-mail desejado"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:110
 msgid ""
 "Ham messages with a score below this threshold will be added to the learning "
 "system"
 msgstr ""
+"Emails desejados com escore abaixo deste coeficiente serão adicionados ao "
+"sistema de aprendizado"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:116
 msgid "Antispam configuration"
@@ -186,26 +188,30 @@ msgstr "Configuração antispam"
 msgid ""
 "You must define autolearn spam threshold when autolearn option is active"
 msgstr ""
-"Você precisa definir um limite de auto-aprendizagem de spam quando a opção "
-"auto-aprendizagem estiver ativa"
+"Você precisa definir um coeficiente de auto-aprendizagem de spam quando a "
+"opção auto-aprendizagem estiver ativa"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:174
 msgid "You must define autolearn ham threshold when autolearn option is active"
 msgstr ""
+"Você deve definir o coeficiente de auto-aprendizagem de emails desejados "
+"quando a opção de auto-aprendizagem estiver ativa"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:180
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
 msgstr ""
-"O limite da auto-aprendizagem de spam não pode ser mais baixo que o limite "
-"de spam pré-definido"
+"O coeficiente da auto-aprendizagem de spam não pode ser mais baixo que o "
+"coeficiente de spam padrão"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:186
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
 msgstr ""
+"O coeficiente de auto-aprendizagem de emails desejados não pode ser maior ou "
+"igual ao nível de spam padrão"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:68
 msgid "External mail server"
@@ -229,13 +235,13 @@ msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
-"Aqui vc pode especificar quais servidores de e-mail externos podem conectar "
-"com o filtro de e-mail"
+"Aqui você pode especificar quais servidores de e-mail externos podem "
+"conectar ao filtro de e-mail"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:142
 #, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-msgstr "MTA {mta} externo inválido. Endereços da rede local não permitidos"
+msgstr "MTA {mta} externo inválido. Endereços da rede local não são permitidos"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:65
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:58
@@ -256,7 +262,7 @@ msgstr "Porta do serviço"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:91
 msgid "Notify of non-spam problematic messages"
-msgstr ""
+msgstr "Notifica sobre mensagens problemáticas não-spam"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:95
 msgid "Disabled"
@@ -268,7 +274,7 @@ msgstr "endereço de e-mail"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
 msgid "General  settings"
-msgstr "Ajustes gerais"
+msgstr "Configurações _ _ gerais"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
 #, perl-brace-format
@@ -285,15 +291,15 @@ msgstr "Caixa de correio contém"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:76
 msgid "Train bayesian spam filter"
-msgstr ""
+msgstr "Treinar filtro de spam bayesiano"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:81
 msgid "Learned from messages"
-msgstr ""
+msgstr "Aprendido das mensagens"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:98
 msgid "ham"
-msgstr ""
+msgstr "emails desejados"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:130
 #, perl-brace-format
@@ -310,13 +316,15 @@ msgstr "Filtro de spam"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
 msgid "ISP spam subject"
-msgstr ""
+msgstr "Assunto de spam do provedor"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
 msgid ""
 "This option allows you to set the string your ISP uses if\n"
 "it processes your email for SPAM."
 msgstr ""
+"Esta opção permite que você configure a string que o seu provedor utiliza \n"
+" qunado identifica spam em seu email"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 msgid "POP transparent proxy configuration"
@@ -327,6 +335,8 @@ msgid ""
 "The POP transparent proxy must scan for something to be useful. If you do "
 "not need either antivirus of spam scan we suggest you turn it off"
 msgstr ""
+"O proxy transparente POP deve buscar por algo para ser útil. Se você não "
+"precisa de antivirus ou filtro de spam, sugerimos que você desligue-o"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
 msgid "MIME Type"
@@ -351,6 +361,8 @@ msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
 msgstr ""
+"Tipos MIME que não estão listados abaixo são permitidos. Tipos MIME não são "
+"utilizados no proxy transparente"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:70
 msgid "External mail domain"
@@ -378,9 +390,8 @@ msgid "{d} is a internal eBox's virtual main domain"
 msgstr "{d} é um domínio virtual principal interno do eBox"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:62
-#, fuzzy
 msgid "Mail sender"
-msgstr "Enviador da mensagem"
+msgstr "Remetente da mensagem"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:68
 msgid "Policy"
@@ -388,11 +399,11 @@ msgstr "Política"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:77
 msgid "Sender policy"
-msgstr "Política do enviador"
+msgstr "Política do remetente"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:89
 msgid "sender policy"
-msgstr "política do enviador"
+msgstr "política do remetente"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:98
 msgid "whitelist"
@@ -437,7 +448,7 @@ msgstr "Regras de arquivos banidos"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
 msgid "Bad header policy"
-msgstr ""
+msgstr "Política de cabeçalhos mal-formados"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
 msgid "SMTP filter policies"
@@ -449,11 +460,11 @@ msgstr "Domínio"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:79
 msgid "Use virus filtering"
-msgstr ""
+msgstr "Usar filtragem de vírus"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:85
 msgid "Use spam filtering"
-msgstr ""
+msgstr "Usar filtragem de spam"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:98
 msgid "default"
@@ -461,11 +472,11 @@ msgstr "padrão"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:102
 msgid "custom threshold"
-msgstr ""
+msgstr "coeficiente personalizadao"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:113
 msgid "Learning ham account"
-msgstr ""
+msgstr "Conta de aprendizagem de email desejado"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:114
 msgid ""
@@ -473,10 +484,13 @@ msgid ""
 "incorrectly classified as spam may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Um endereço (ham@domínio) será criado para este domínio. Mensagens desejadas "
+"classificadas incorretamente como spam poderão ser encaminhadas para este "
+"endereço para treinar o filtro"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:125
 msgid "Learning spam account"
-msgstr ""
+msgstr "Conta de aprendizado de spam"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:126
 msgid ""
@@ -484,10 +498,13 @@ msgid ""
 "incorrectly classified as ham may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Um endereço (spam@domínio) será criado para este domínio. Spam "
+"incorretamente classificado como email desejado poderá ser encaminhado para "
+"este endereço para treinar o filtro"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:137
 msgid "Antispam sender policy"
-msgstr ""
+msgstr "Política antispam do remetente"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:148
 msgid "Virtual domains configuration"
@@ -523,6 +540,8 @@ msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
 msgstr ""
+"Filtra mensagens de email de acordo com os arquivos anexados. O proxy "
+"transparente POP filtra apenas pela extensão"
 
 #: src/EBox/MailFilter/Composite/Antispam.pm:63
 #: src/EBox/MailFilter/Amavis.pm:470 src/EBox/MailFilter/POPProxy.pm:350
@@ -540,7 +559,7 @@ msgstr "Escreva abaixo um número decimal"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:141
 msgid "Only non-zero positive numbers are allowed"
-msgstr "São permitidos apenas números positivos e não-zero"
+msgstr "São permitidos apenas números positivos diferentes de zero"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:150
 #, perl-brace-format
@@ -589,7 +608,7 @@ msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:55
 msgid " To configure spamassassin daemon"
-msgstr "Configurar daemon spam assassin"
+msgstr "Configurar processo spamassassin"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:333
 msgid "It must be a number(decimal point allowed)"
@@ -713,11 +732,11 @@ msgstr "Endereço recipiente"
 
 #: src/EBox/MailFilter.pm:506
 msgid "Spam hits"
-msgstr ""
+msgstr "Acertos de spam"
 
 #: src/EBox/MailFilter.pm:511
 msgid "Bad header found"
-msgstr ""
+msgstr "Cabeçalho mal-formado encontrado"
 
 #: src/EBox/MailFilter.pm:512
 msgid "Spam found"
@@ -725,11 +744,11 @@ msgstr "Spam encontrado"
 
 #: src/EBox/MailFilter.pm:513
 msgid "Forbidden attached file  found"
-msgstr ""
+msgstr "Arquivo proibido em anexo _ _ encontrado"
 
 #: src/EBox/MailFilter.pm:514
 msgid "Address in blacklist found"
-msgstr "Endereço encontrado na lista negra"
+msgstr "Endereço na lista negra encontrado"
 
 #: src/EBox/MailFilter.pm:515
 msgid "Virus found"
@@ -781,15 +800,13 @@ msgstr "Filtro de Email"
 
 #: src/EBox/MailFilter.pm:664
 msgid "UTM"
-msgstr ""
+msgstr "GAU (Gerenciamento de Ameaças Unificado)"
 
 #: src/EBox/MailFilter.pm:671
-#, fuzzy
 msgid "SMTP Mail Filter"
 msgstr "Filtro de e-mail SMTP"
 
 #: src/EBox/MailFilter.pm:678
-#, fuzzy
 msgid "POP Transparent Proxy"
 msgstr "Proxy POP transparente"
 

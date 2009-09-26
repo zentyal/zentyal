@@ -8,176 +8,181 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:04+0200\n"
-"PO-Revision-Date: 2008-07-04 08:17+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-09 23:08+0200\n"
+"Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:625
 msgid "Logs"
-msgstr ""
+msgstr "Дневници"
 
 #: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:196
 msgid "Dashboard"
-msgstr ""
+msgstr "Табло"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
 msgid "Configure Widgets"
-msgstr ""
+msgstr "Настройване на графичните обекти"
 
 #: src/EBox/CGI/Login/Index.pm:61
 msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
 msgstr ""
+"Има скрипт, който желае да се изпълнява в eBox изключително. Моля, изчакайте "
+"търпеливо да свърши."
 
 #: src/EBox/CGI/Login/Index.pm:65
 msgid "Incorrect password"
-msgstr ""
+msgstr "Невярна парола."
 
 #: src/EBox/CGI/Login/Index.pm:68
 msgid "For security reasons your session has expired due to inactivity"
 msgstr ""
+"От съображения за сигурност вашата сесия е затворена поради липса на "
+"активност."
 
 #: src/EBox/CGI/Login/Index.pm:71
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "Изключен сте от системата, защото е отворена нова сесия."
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"
-msgstr ""
+msgstr "Изход"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:705
 #: src/EBox/SysInfo.pm:221 src/templates/backup.mas:64
 msgid "Backup"
-msgstr ""
+msgstr "Архив"
 
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
-msgstr ""
+msgstr "Непознат режим на архивиране: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:192 src/EBox/CGI/EBox/Backup.pm:273
 #: src/EBox/CGI/EBox/Backup.pm:286 src/EBox/CGI/EBox/ConfirmBackup.pm:147
 #: src/EBox/Backup.pm:1322
 msgid "The input contains invalid characters"
-msgstr ""
+msgstr "Въведеното съдържа недопустими знаци."
 
 #: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
 msgid "Unknown restore mode: {mode}"
-msgstr ""
+msgstr "Непознат режим на възстановяване: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:239
 msgid "Backing up"
-msgstr ""
+msgstr "Протича архивиране."
 
 #: src/EBox/CGI/EBox/Backup.pm:240
 msgid "Backing up modules"
-msgstr ""
+msgstr "Протича архивиране на модули."
 
 #: src/EBox/CGI/EBox/Backup.pm:241
 msgid "Operation"
-msgstr ""
+msgstr "Действие"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "действия оставащи до края на архивирането"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
 msgid "Backup successful"
-msgstr ""
+msgstr "Архивирането е успешно."
 
 #: src/EBox/CGI/EBox/Backup.pm:254
 msgid "Restoring backup"
-msgstr ""
+msgstr "Протича възстановяване от архива."
 
 #: src/EBox/CGI/EBox/Backup.pm:255
 msgid "Restoring modules"
-msgstr ""
+msgstr "Протича възстановяване на модулите."
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
 #: src/templates/finish.mas:106 src/templates/moduleStatusTable.mas:58
 msgid "Module"
-msgstr ""
+msgstr "Модул"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
 msgid "modules left to restore"
-msgstr ""
+msgstr "модули оставащи за възстановяване"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
-msgstr ""
+msgstr "Възстановяването е успешно."
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
-msgstr ""
+msgstr "име на модул"
 
 #: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
-msgstr ""
+msgstr "Модулът е рестартиран успешно."
 
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or Reboot"
-msgstr ""
+msgstr "Спиране или рестартиране"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
 msgid "eBox is going down for halt"
-msgstr ""
+msgstr "eBox се изключва."
 
 #: src/EBox/CGI/EBox/Halt.pm:46
 msgid "eBox is going down for reboot"
-msgstr ""
+msgstr "eBox се изключва за да стартира наново."
 
 #: src/EBox/CGI/EBox/Bug.pm:29
 msgid "Bug report"
-msgstr ""
+msgstr "Доклад за бъгове"
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General Configuration"
-msgstr ""
+msgstr "Общи настройки"
 
 #: src/EBox/CGI/EBox/Password.pm:49
 msgid "Incorrect password."
-msgstr ""
+msgstr "Невярна парола."
 
 #: src/EBox/CGI/EBox/Password.pm:54
 msgid "New passwords do not match."
-msgstr ""
+msgstr "Новите пароли не съвпадат."
 
 #: src/EBox/CGI/EBox/Password.pm:58
 msgid "The password must be at least 6 characters long"
-msgstr ""
+msgstr "Паролата трябва да е дълга поне 6 знака."
 
 #: src/EBox/CGI/EBox/Password.pm:62
 msgid "The password was changed successfully."
-msgstr ""
+msgstr "Паролата е сменена успешно."
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 msgid "Configuration Backup"
-msgstr ""
+msgstr "Архив на настройките"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
-msgstr ""
+msgstr "Моля, потвърдете, че искате да изтриете следния архивен файл:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
 #: src/templates/backup.mas:173
 msgid "Delete"
-msgstr ""
+msgstr "Изтриване"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:114
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:130
 msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
+msgstr "Моля, потвърдете, че искате да възстановите от този архивен файл:  "
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
 msgid "Restore"
-msgstr ""
+msgstr "Възстановяване"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:176
 msgid "Configuration backup"

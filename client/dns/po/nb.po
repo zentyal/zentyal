@@ -8,39 +8,40 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:03+0200\n"
-"PO-Revision-Date: 2008-12-04 10:26+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-28 12:12+0200\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr ""
+msgstr "Ugyldig innstillings nummer. Tillatt rekke: ({min}, {max})"
 
 #: src/EBox/Model/MailExchanger.pm:110 src/EBox/Model/HostnameTable.pm:159
 #: src/templates/edit.mas:20
 msgid "Host name"
-msgstr ""
+msgstr "Verts navn"
 
 #: src/EBox/Model/MailExchanger.pm:117
 msgid "Owner domain"
-msgstr ""
+msgstr "Eier domene"
 
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
-msgstr ""
+msgstr "Tilpasset"
 
 #: src/EBox/Model/MailExchanger.pm:133
 msgid "Preference"
-msgstr ""
+msgstr "Instillinger"
 
 #: src/EBox/Model/MailExchanger.pm:142
 msgid "Mail exchangers"
-msgstr ""
+msgstr "E-post utveksler"
 
 #: src/EBox/Model/MailExchanger.pm:148
 #, perl-brace-format
@@ -50,10 +51,14 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
+"Laveste innstillings nummer har høyest prioritet  og er den første serveren "
+"som blir testet når en ekstern klient (typisk en annen e-post server) gjør "
+"en MX oppslag for domene navnet. Tillate innstillings nummer = ({min}, "
+"{max})"
 
 #: src/EBox/Model/MailExchanger.pm:154
 msgid "Mail exchanger record"
-msgstr ""
+msgstr "E-post utveksler oppføring"
 
 #: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
@@ -61,71 +66,75 @@ msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
 msgstr ""
+"Det er et annet alias med samme navn \"{name}\" for \"{hostname}\" i samme "
+"domene"
 
 #: src/EBox/Model/HostnameTable.pm:167 src/EBox/Model/DomainTable.pm:91
 msgid "IP Address"
-msgstr ""
+msgstr "IP Adresse"
 
 #: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
 #: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: src/EBox/Model/HostnameTable.pm:186
 msgid "Host names"
-msgstr ""
+msgstr "Verts navn"
 
 #: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
 msgid "Hostnames"
-msgstr ""
+msgstr "Verts navn"
 
 #: src/EBox/Model/HostnameTable.pm:193
 msgid "host name"
-msgstr ""
+msgstr "verts navn"
 
 #: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:796
 msgid "DNS"
-msgstr ""
+msgstr "DNS"
 
 #: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
-msgstr ""
+msgstr "DNS serveren tillater navn oppslag for dine domener"
 
 #: src/EBox/Model/DomainTable.pm:66
 msgid "Domain"
-msgstr ""
+msgstr "Domene"
 
 #: src/EBox/Model/DomainTable.pm:83
 msgid "Mail Exchangers"
-msgstr ""
+msgstr "E-post utvekslere"
 
 #: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
 msgid "Domains"
-msgstr ""
+msgstr "Domener"
 
 #: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
 msgid "domain"
-msgstr ""
+msgstr "domene"
 
 #: src/EBox/Model/EnableFormDNS.pm:84
 msgid "Service enabled"
-msgstr ""
+msgstr "Tjeneste aktivert"
 
 #: src/EBox/Model/EnableFormDNS.pm:86
 msgid "Service disabled"
-msgstr ""
+msgstr "Tjeneste deaktivert"
 
 #: src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
+"Et alias kan ikke være navne server verts navnet \"{ns}\". Bruk et verts navn "
+"i stedet"
 
 #: src/EBox/Model/AliasTable.pm:93
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr ""
+msgstr "Det er et verts navn med samme navn \"{name}\" i samme domene"
 
 #: src/EBox/Model/AliasTable.pm:102
 #, perl-brace-format
@@ -133,44 +142,46 @@ msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
 msgstr ""
+"Det er et alias for {hostname} verts navn med samme navn \"{name}\" i samme "
+"domene"
 
 #: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
-msgstr ""
+msgstr "alias"
 
 #: src/EBox/DNS.pm.in:51
 msgid "Domain Name System"
-msgstr ""
+msgstr "Domain Name System"
 
 #: src/EBox/DNS.pm.in:88
 msgid "DNS Server"
-msgstr ""
+msgstr "DNS Server"
 
 #: src/EBox/DNS.pm.in:652
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
-msgstr ""
+msgstr "konfigurasjons fil for sone {zone}"
 
 #: src/EBox/DNS.pm.in:668
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr ""
+msgstr "konfigurasjons fil for revers oppslags sone {zone}"
 
 #: src/EBox/DNS.pm.in:797
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infrastruktur"
 
 #: src/templates/index.mas:16
 msgid "Domain list"
-msgstr ""
+msgstr "Domene liste"
 
 #: src/templates/index.mas:21
 msgid "Name"
-msgstr ""
+msgstr "Navn"
 
 #: src/templates/index.mas:24 src/templates/edit.mas:23
 msgid "Action"
-msgstr ""
+msgstr "Handling"
 
 #: src/templates/index.mas:37 src/templates/index.mas:38
 #: src/templates/index.mas:39 src/templates/edit.mas:40
@@ -178,31 +189,31 @@ msgstr ""
 #: src/templates/edit.mas:74 src/templates/edit.mas:75
 #: src/templates/edit.mas:76
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 #: src/templates/index.mas:49
 msgid "Edit"
-msgstr ""
+msgstr "Rediger"
 
 #: src/templates/index.mas:53 src/templates/index.mas:54
 #: src/templates/edit.mas:54 src/templates/edit.mas:55
 #: src/templates/edit.mas:93 src/templates/edit.mas:94
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: src/templates/index.mas:65
 msgid "edit"
-msgstr ""
+msgstr "rediger"
 
 #: src/templates/index.mas:70 src/templates/edit.mas:110
 msgid "delete"
-msgstr ""
+msgstr "slett"
 
 #: src/templates/edit.mas:12
 #, perl-brace-format
 msgid "Host list for domain {domain}"
-msgstr ""
+msgstr "Verts liste for domene {domain}"
 
 #: src/templates/edit.mas:17
 msgid "IP"
-msgstr ""
+msgstr "IP"

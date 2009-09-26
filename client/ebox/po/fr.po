@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:04+0200\n"
-"PO-Revision-Date: 2009-03-22 17:15+0000\n"
-"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
+"PO-Revision-Date: 2009-08-20 13:34+0200\n"
+"Last-Translator: David Ande <david@andeprasfamily.ath.cx>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,9 +28,8 @@ msgstr "Panneau de contrôle"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
-#, fuzzy
 msgid "Configure Widgets"
-msgstr "Configurer les widgets"
+msgstr "Configurer les Widgets"
 
 #: src/EBox/CGI/Login/Index.pm:61
 msgid ""
@@ -128,9 +127,8 @@ msgid "The module was restarted correctly."
 msgstr "Le module a redémarré correctement"
 
 #: src/EBox/CGI/EBox/Halt.pm:30
-#, fuzzy
 msgid "Halt or Reboot"
-msgstr "Arrêt ou rédémarrage"
+msgstr "Arrêt ou redémarrage"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
 msgid "eBox is going down for halt"
@@ -145,7 +143,6 @@ msgid "Bug report"
 msgstr "Rapport de bug"
 
 #: src/EBox/CGI/EBox/General.pm:30
-#, fuzzy
 msgid "General Configuration"
 msgstr "Configuration générale"
 
@@ -289,7 +286,6 @@ msgstr ""
 "informations pertinentes peuvent être trouvées dans les logs."
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
 msgid "Module Status Configuration"
 msgstr "Configuration de l'état du module"
 
@@ -299,7 +295,7 @@ msgstr "port"
 
 #: src/EBox/Apache.pm:563
 msgid "eBox internal web server"
-msgstr ""
+msgstr "Serveur web interne d'eBox"
 
 #: src/EBox/Global.pm:388 src/EBox/Global.pm:409
 #, perl-brace-format
@@ -434,9 +430,8 @@ msgid "Table {table} does not exist"
 msgstr "Tableau {table} n'existe pas"
 
 #: src/EBox/Logs.pm:626 src/EBox/Events.pm:151
-#, fuzzy
 msgid "Monitoring"
-msgstr "Filtrage"
+msgstr "Surveillance"
 
 #: src/EBox/Logs.pm:630
 #, fuzzy
@@ -488,7 +483,6 @@ msgid "Save changes"
 msgstr "Sauver les modifications"
 
 #: src/EBox/SysInfo.pm:42
-#, fuzzy
 msgid "System Information"
 msgstr "Information système"
 
@@ -497,7 +491,6 @@ msgid "Time"
 msgstr "Heure"
 
 #: src/EBox/SysInfo.pm:78
-#, fuzzy
 msgid "Hostname"
 msgstr "Nom de l'hôte"
 
@@ -510,17 +503,14 @@ msgid "System load"
 msgstr "Charge du système"
 
 #: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:200
-#, fuzzy
 msgid "Module Status"
-msgstr "Statut du module"
+msgstr "Statut des modules"
 
 #: src/EBox/SysInfo.pm:123
-#, fuzzy
 msgid "General Information"
 msgstr "Information générale"
 
 #: src/EBox/SysInfo.pm:128
-#, fuzzy
 msgid "Process List"
 msgstr "Liste des processus"
 
@@ -602,7 +592,7 @@ msgstr "Le mot de passe doit comporter un maximum de {maxLength} caractères"
 
 #: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "Adresses IP ne sont pas autorisées"
 
 #: src/EBox/Types/Float.pm:113
 msgid "Enter a float number"
@@ -1040,30 +1030,30 @@ msgstr ""
 "{oldNum} à {newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
-msgstr "Le périphérique RAID {name} a débuté l'opération {opName}"
+msgstr "Le périphérique RAID {name} a démarré l'opération {opName}."
 
 #: src/EBox/Event/Watcher/RAID.pm:405
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr ""
 "Le périphérique RAID {name} a terminé l'opération {opName} ou elle a été "
-"annulée"
+"annulée."
 
 #: src/EBox/Event/Watcher/RAID.pm:411
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
 msgstr ""
-"Le périphérique RAID {name} a terminé l'opération {oldOpName} et débuté "
+"Le périphérique RAID {name} a terminé l'opération {oldOpName} et démarré "
 "{newOpName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:436
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr "Statut: {percentage}% complété"
+msgstr "État: {percentage}% complété"
 
 #: src/EBox/Event/Watcher/RAID.pm:439
 #, fuzzy, perl-brace-format
@@ -1164,7 +1154,7 @@ msgstr "rétablir"
 
 #: src/EBox/Event/Watcher/RAID.pm:574
 msgid "check"
-msgstr ""
+msgstr "Vérifier"
 
 #: src/EBox/Event/Watcher/RAID.pm:588
 msgid "faulty"
@@ -1350,7 +1340,6 @@ msgid "Description"
 msgstr "Description"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
-#, fuzzy
 msgid "Configure Events"
 msgstr "Configurer les événements"
 
@@ -1707,7 +1696,6 @@ msgid "Options"
 msgstr "Options"
 
 #: src/templates/report/diskUsage.mas:34
-#, fuzzy
 msgid "Partition Properties"
 msgstr "Propriétés de la partition"
 
@@ -1717,9 +1705,8 @@ msgid "Inexistent RAID array {a}"
 msgstr "Grappe RAID inexistante {a}"
 
 #: src/templates/report/raid.mas:42
-#, fuzzy
 msgid "RAID is not enabled in this system."
-msgstr "Le RAID n'est pas activé sur ce système"
+msgstr "Le RAID n'est pas activé sur ce système."
 
 #: src/templates/report/raid.mas:94
 msgid "left-asymmetric"
@@ -1838,7 +1825,6 @@ msgid "Restore mode"
 msgstr "Mode de restauraton"
 
 #: src/templates/password.mas:4
-#, fuzzy
 msgid "Change Password"
 msgstr "Modifier le mot de passe"
 
@@ -1867,17 +1853,16 @@ msgid "Full Backup"
 msgstr "Sauvegarde complète"
 
 #: src/templates/backup.mas:24
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "Module Status{closeref} section will be ignored in both backup and restore "
 "operations."
 msgstr ""
-"Les modules qui n'ont pas été activés pour une première fois dans {openref}"
-"le statut des modules{closeref} ne seront ni sauvegardés, ni restaurés"
+"Les modules qui n'ont pas été activés pour une première fois dans la section "
+"{openref}État des modules{closeref} ne seront ni sauvegardés, ni restaurés."
 
 #: src/templates/backup.mas:26
-#, fuzzy
 msgid "Backup the Current State"
 msgstr "Sauvegarder l'état actuel"
 
@@ -1894,19 +1879,17 @@ msgid "Backup mode"
 msgstr "Mode de sauvegarde"
 
 #: src/templates/backup.mas:74
-#, fuzzy
 msgid "Restore Backup from File"
-msgstr "Restaurer à partir d'un fichier de sauvegarde"
+msgstr "Restaurer une sauvegarde à partir d'un fichier"
 
 #: src/templates/backup.mas:76
-#, fuzzy
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
 msgstr ""
-"Vous pouvez envoyer un fichier de sauvegarder depuis votre ordinateur. "
-"Lorsque vous envoyer des fichiers, faites attention à la limite (>= 1 Gb) de "
-"certains navigateurs"
+"Vous pouvez importer un fichier de sauvegarde depuis votre ordinateur. "
+"Lorsque vous importez des fichiers, faites attention à la limite (>= 1 Gb) "
+"de certains navigateurs."
 
 #: src/templates/backup.mas:84
 msgid "Backup file"
@@ -2008,14 +1991,14 @@ msgid "There are no unsaved changes."
 msgstr "Il n'y a aucune modification non sauvegardée"
 
 #: src/templates/port.mas:9
-#, fuzzy
 msgid "Administration Interface TCP Port"
 msgstr "Port TCP de l'interface d'administration"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
 msgstr ""
-"Vous pourriez perdre votre connection Internet si vous éteigner cette machine"
+"Vous pourriez perdre votre connexion Internet si vous éteignez cette "
+"machine."
 
 #: src/templates/halt.mas:14
 msgid "Halt"
@@ -2090,19 +2073,16 @@ msgid "Modify"
 msgstr "Modifier"
 
 #: src/templates/backupTabs.mas:13
-#, fuzzy
 msgid "Local Backup"
 msgstr "Sauvegarde locale"
 
 #: src/templates/backupTabs.mas:18
-#, fuzzy
 msgid "Remote Backup"
 msgstr "Sauvegarde distante"
 
 #: src/templates/backupTabs.mas:23
-#, fuzzy
 msgid "Remote Backup from Other Subscribed Hosts"
-msgstr "Sauvegarde distante depuis un hôte enregistré"
+msgstr "Sauvegarde distante depuis d'autres hôtes enregistrés"
 
 #~ msgid "RAID device {name} is performing operation {opName}"
 #~ msgstr "Le périphérique RAID {name} accomplit l'opération {opName}"

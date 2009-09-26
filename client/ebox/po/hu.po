@@ -8,217 +8,223 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:04+0200\n"
-"PO-Revision-Date: 2009-01-22 10:47+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-09-25 12:24+0200\n"
+"Last-Translator: Sepi <sepi@freemail.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:625
 msgid "Logs"
-msgstr ""
+msgstr "Napló bejegyzések"
 
 #: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:196
 msgid "Dashboard"
-msgstr ""
+msgstr "Műszerfal"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
 msgid "Configure Widgets"
-msgstr ""
+msgstr "Widget-ek beállítása"
 
 #: src/EBox/CGI/Login/Index.pm:61
 msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
 msgstr ""
+"Ez a szkript utasította az eBox rendszert, hogy kizárolagosan futtassa a "
+"szkriptben található utasításokat. Kérlek várj türelemmel, míg végbe megy a "
+"folyamat."
 
 #: src/EBox/CGI/Login/Index.pm:65
 msgid "Incorrect password"
-msgstr ""
+msgstr "Hibás jelszó"
 
 #: src/EBox/CGI/Login/Index.pm:68
 msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
+msgstr "Biztonsági okokból a te munkafázisod inaktivitás miatt jejárt"
 
 #: src/EBox/CGI/Login/Index.pm:71
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "Ki lettél léptetve, mert egy új munkafázis lett elindítva."
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"
-msgstr ""
+msgstr "Kijelentkezés"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:705
 #: src/EBox/SysInfo.pm:221 src/templates/backup.mas:64
 msgid "Backup"
-msgstr ""
+msgstr "Biztonsági mentés"
 
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
-msgstr ""
+msgstr "Ismeretlen biztonsági mentési mód: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:192 src/EBox/CGI/EBox/Backup.pm:273
 #: src/EBox/CGI/EBox/Backup.pm:286 src/EBox/CGI/EBox/ConfirmBackup.pm:147
 #: src/EBox/Backup.pm:1322
 msgid "The input contains invalid characters"
-msgstr ""
+msgstr "A beírt adatok érvénytelen karaktereket tartalmaznak"
 
 #: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
 msgid "Unknown restore mode: {mode}"
-msgstr ""
+msgstr "Ismeretlen visszaállítási mód: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:239
 msgid "Backing up"
-msgstr ""
+msgstr "Biztonsági mentés készítés"
 
 #: src/EBox/CGI/EBox/Backup.pm:240
 msgid "Backing up modules"
-msgstr ""
+msgstr "Biztonsági mentés modul"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
 msgid "Operation"
-msgstr ""
+msgstr "Művelet"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "a műveletből a biztonsági mentés befejezése maradt"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
 msgid "Backup successful"
-msgstr ""
+msgstr "Biztonsági mentés sikeresen befejeződött"
 
 #: src/EBox/CGI/EBox/Backup.pm:254
 msgid "Restoring backup"
-msgstr ""
+msgstr "Biztonsági mentés visszaállítása"
 
 #: src/EBox/CGI/EBox/Backup.pm:255
 msgid "Restoring modules"
-msgstr ""
+msgstr "Visszaállító modulok"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
 #: src/templates/finish.mas:106 src/templates/moduleStatusTable.mas:58
 msgid "Module"
-msgstr ""
+msgstr "Modul"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
 msgid "modules left to restore"
-msgstr ""
+msgstr "visszaállításra maradt modulok"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
-msgstr ""
+msgstr "Visszaállítás sikeresen befejeződött"
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
-msgstr ""
+msgstr "modul név"
 
 #: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
-msgstr ""
+msgstr "A modul rendben újraindult."
 
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or Reboot"
-msgstr ""
+msgstr "Leállítás vagy Újra indítás"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
 msgid "eBox is going down for halt"
-msgstr ""
+msgstr "eBox le fog állni"
 
 #: src/EBox/CGI/EBox/Halt.pm:46
 msgid "eBox is going down for reboot"
-msgstr ""
+msgstr "eBox újra fog indulni"
 
 #: src/EBox/CGI/EBox/Bug.pm:29
 msgid "Bug report"
-msgstr ""
+msgstr "Hiba riport"
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General Configuration"
-msgstr ""
+msgstr "Általános beállítások"
 
 #: src/EBox/CGI/EBox/Password.pm:49
 msgid "Incorrect password."
-msgstr ""
+msgstr "Érvénytelen jelszó."
 
 #: src/EBox/CGI/EBox/Password.pm:54
 msgid "New passwords do not match."
-msgstr ""
+msgstr "Az új jelszavak nem egyeznek."
 
 #: src/EBox/CGI/EBox/Password.pm:58
 msgid "The password must be at least 6 characters long"
-msgstr ""
+msgstr "A jelszónak legalább 6 karakter hosszúnak kell lennie"
 
 #: src/EBox/CGI/EBox/Password.pm:62
 msgid "The password was changed successfully."
-msgstr ""
+msgstr "A jelszó sikeresen meg lett változtatva."
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 msgid "Configuration Backup"
-msgstr ""
+msgstr "Beállítások mentése"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
-msgstr ""
+msgstr "Kérlek erősísd meg, hogy törölni akarod a következő biztonsági mentést:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
 #: src/templates/backup.mas:173
 msgid "Delete"
-msgstr ""
+msgstr "Törlés"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:114
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:130
 msgid "Please confirm that you want to restore using this backup file:"
 msgstr ""
+"Kérlek erősísd meg, hogy biztosan vissza akarod állítani a biztonsági "
+"beállításokat:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
 msgid "Restore"
-msgstr ""
+msgstr "Visszaállítás"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:176
 msgid "Configuration backup"
-msgstr ""
+msgstr "Beállítások mentés"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:179
 msgid "Full data and configuration backup"
-msgstr ""
+msgstr "Minden adat és beállítás mentése"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:182
 msgid "Bug-report configuration dump"
-msgstr ""
+msgstr "Hiba-riport beállítás kilistázása"
 
 #: src/EBox/CGI/EBox/CurrentProgress.pm:36
 msgid "Upgrading"
-msgstr ""
+msgstr "Frissítés"
 
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
-msgstr ""
+msgstr "Beállítások mentése"
 
 #: src/EBox/CGI/Finish.pm:76
 msgid "Saving changes"
-msgstr ""
+msgstr "Változások mentése"
 
 #: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes in modules"
-msgstr ""
+msgstr "Változások mentése a modulokban"
 
 #: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
 msgid "Current operation"
-msgstr ""
+msgstr "Jelenlegi művelet"
 
 #: src/EBox/CGI/Finish.pm:79
 msgid "operations performed"
-msgstr ""
+msgstr "műveletek elvégezve"
 
 #: src/EBox/CGI/Finish.pm:80
 msgid "Changes saved"
-msgstr ""
+msgstr "Változások elmentve"
 
 #: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
@@ -226,26 +232,28 @@ msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
 msgstr ""
+"Néhány modul hibát jelentett a változások mentésénél. További információ a "
+"hibajegyzésk könyvtárában {dir}"
 
 #: src/EBox/CGI/Finish.pm:100
 msgid "Revoking changes"
-msgstr ""
+msgstr "Változások visszavonása"
 
 #: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes in modules"
-msgstr ""
+msgstr "Változások visszavonása a modulokban"
 
 #: src/EBox/CGI/Finish.pm:102
 msgid "Current module"
-msgstr ""
+msgstr "Jelenlegi modul"
 
 #: src/EBox/CGI/Finish.pm:103
 msgid "modules revoked"
-msgstr ""
+msgstr "modulok visszavonva"
 
 #: src/EBox/CGI/Finish.pm:104
 msgid "Changes revoked"
-msgstr ""
+msgstr "Változások visszavonva"
 
 #: src/EBox/CGI/Finish.pm:105
 #, perl-brace-format
@@ -253,77 +261,81 @@ msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
 msgstr ""
+"Néhány modul hibát jelentett miközben a változásokat visszavonta. További "
+"információért mejn a hibanapló könyvtárába {dir}"
 
 #: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm:212
 msgid "Disk Usage"
-msgstr ""
+msgstr "Merevlemez használat"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/SysInfo.pm:216
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: src/EBox/CGI/ClientRawBase.pm:209
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
+"Egy belső hiba lépett fel. Ez egy \"BUG\", a hozzá tartozó információkat "
+"megtalálod a hibanapló bejegyzések között."
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
 msgid "Module Status Configuration"
-msgstr ""
+msgstr "Modul állaot beállítások"
 
 #: src/EBox/Apache.pm:240 src/EBox/Apache.pm:249
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Apache.pm:563
 msgid "eBox internal web server"
-msgstr ""
+msgstr "eBox belső web szerver"
 
 #: src/EBox/Global.pm:388 src/EBox/Global.pm:409
 #, perl-brace-format
 msgid "Saving {modName} module"
-msgstr ""
+msgstr "{modName} modul mentése"
 
 #: src/EBox/Global.pm:835
 #, perl-brace-format
 msgid "running {scriptName} script"
-msgstr ""
+msgstr "{scriptName} szkript fut"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
-msgstr ""
+msgstr "Biztonsági mentés archívum készítése"
 
 #: src/EBox/Backup.pm:140
 #, perl-brace-format
 msgid "Dumping configuration of module {m}"
-msgstr ""
+msgstr "{m} modul beállításainak kilistázása"
 
 #: src/EBox/Backup.pm:299
 msgid "Could not create backup archive"
-msgstr ""
+msgstr "Nem lehet létrehozni a mentési archívumot"
 
 #: src/EBox/Backup.pm:306
 msgid "Could not append data to backup archive"
-msgstr ""
+msgstr "Nem lehet hozzáfűzni az adatot a mentési archívumhoz"
 
 #: src/EBox/Backup.pm:420
 msgid "Unknown"
-msgstr ""
+msgstr "Ismeretlen"
 
 #: src/EBox/Backup.pm:473
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
-msgstr ""
+msgstr "Nem lehet kibontani a mentési fájlokat: {files}"
 
 #: src/EBox/Backup.pm:476 src/EBox/Backup.pm:1122
 msgid "Could not unpack the backup"
-msgstr ""
+msgstr "Nem lehet kicsomagolni a mentést"
 
 #: src/EBox/Backup.pm:741
 msgid "Writing backup file to hard disk"
-msgstr ""
+msgstr "Mentési fájl kiírása a merev lemezre"
 
 #: src/EBox/Backup.pm:766
 msgid ""

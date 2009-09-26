@@ -8,19 +8,18 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:15+0200\n"
-"PO-Revision-Date: 2009-01-25 14:07+0000\n"
-"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2009-07-17 10:11+0200\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
 #: src/EBox/Network.pm:2771
-#, fuzzy
 msgid "Network Interfaces"
 msgstr "Сетевые интерфейсы"
 
@@ -57,9 +56,8 @@ msgid "You can change later the gateway at Network/Routes menus item"
 msgstr "Позднее, Вы можете изменить шлюз через меню Сеть/Маршруты"
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-#, fuzzy
 msgid "Network Diagnostic Tools"
-msgstr "Диагностика сети"
+msgstr "Средства Диагностики Сети"
 
 #: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14
 #: src/templates/diag.mas:23
@@ -218,23 +216,20 @@ msgid "Configure default gateway"
 msgstr "Настроить основной шлюз"
 
 #: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:2802
-#, fuzzy
 msgid "Balance Traffic"
 msgstr "Балансировка траффика"
 
 #: src/EBox/Network/Composite/MultiGw.pm:83
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two gateways. You can add "
 "them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
 msgstr ""
-"Для включения этой функции Вам необходимо, как минимум, два шлюза. Вы можете "
-"добавить их <a href=\"/ebox/Network/View/GatewayTable\">здесь</a> сначала"
+"Для включения этой функции Вам необходимо, как минимум, два шлюза. Вы должны "
+"добавить их сначала <a href=\"/ebox/Network/View/GatewayTable\">здесь</a> "
 
 #: src/EBox/Network/Composite/DNS.pm:61
-#, fuzzy
 msgid "Domain Name Server Resolver"
-msgstr "Разрешенные сервера имен"
+msgstr "Разрешение Сервера Доменных Имен"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:60
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:74
@@ -301,7 +296,7 @@ msgstr "Исходный объект"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:129
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Destination"
@@ -326,7 +321,6 @@ msgid "Gateway"
 msgstr "Шлюз"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:172
-#, fuzzy
 msgid "Gateway to route packets matching this rule"
 msgstr "Шлюз для маршрута пакетов соответствующих этому правилу"
 
@@ -356,24 +350,23 @@ msgstr "правило"
 
 #: src/EBox/Model/DynDNS.pm:87
 msgid "Enable Dynamic DNS"
-msgstr ""
+msgstr "Включить Dynamic DNS"
 
 #: src/EBox/Model/DynDNS.pm:98
 msgid "Username"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: src/EBox/Model/DynDNS.pm:103
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: src/EBox/Model/DynDNS.pm:108
-#, fuzzy
 msgid "Hostname"
 msgstr "Имя узла"
 
 #: src/EBox/Model/DynDNS.pm:115
 msgid "Dynamic DNS"
-msgstr ""
+msgstr "Dynamic DNS"
 
 #: src/EBox/Model/DynDNS.pm:119
 msgid ""
@@ -440,7 +433,6 @@ msgid "Default"
 msgstr "По умолчанию"
 
 #: src/EBox/Model/GatewayTable.pm:140
-#, fuzzy
 msgid "Gateways List"
 msgstr "Список шлюзов"
 
@@ -570,17 +562,14 @@ msgid "Optional description for this route"
 msgstr "Дополнительное описание для этого маршрута"
 
 #: src/EBox/Model/StaticRoute.pm:164
-#, fuzzy
 msgid "Static Routes List"
 msgstr "Список статических маршрутов"
 
 #: src/EBox/Model/StaticRoute.pm:165 src/EBox/Network.pm:2800
-#, fuzzy
 msgid "Static Routes"
 msgstr "Статические маршруты"
 
 #: src/EBox/Model/StaticRoute.pm:170
-#, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured."
@@ -611,17 +600,15 @@ msgstr ""
 "изменений."
 
 #: src/EBox/Model/DNSResolver.pm:78
-#, fuzzy
 msgid "IP address of the DNS server that eBox will use to resolve names."
-msgstr "IP-адрес из DNS-сервера, который eBox использует для разрешения имен"
+msgstr ""
+"IP-адрес DNS-сервера, который eBox будет использовать для разрешения имен"
 
 #: src/EBox/Model/DNSResolver.pm:84
-#, fuzzy
 msgid "Domain Name Server"
-msgstr "Сервер имен"
+msgstr "Сервер доменных имен"
 
 #: src/EBox/Model/DNSResolver.pm:93
-#, fuzzy
 msgid "Domain Name Server Resolver List"
 msgstr "Список разрешенных серверов имен"
 
@@ -641,7 +628,7 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
-msgstr ""
+msgstr "Включить"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -664,19 +651,20 @@ msgstr ""
 "мультишлюзовые правила ниже."
 
 #: src/EBox/Model/SearchDomain.pm:72
-#, fuzzy
 msgid "Domain"
-msgstr "Доменное имя"
+msgstr "Домен"
 
 #: src/EBox/Model/SearchDomain.pm:80
 msgid "Search Domain"
-msgstr ""
+msgstr "Поисковый домен"
 
 #: src/EBox/Model/SearchDomain.pm:84
 msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
 msgstr ""
+"Этот домен будет добавлен при попытке разрешить имя узла, если первая "
+"попытка без добавления его не удалась."
 
 #: src/EBox/Network.pm:90
 msgid "Add default routers to the default table"
@@ -707,14 +695,12 @@ msgid "eBox will set your network configuration"
 msgstr "eBox установит конфигурацию сети"
 
 #: src/EBox/Network.pm:119
-#, fuzzy
 msgid "eBox will set your DNS configuration"
-msgstr "eBox установит конфигурацию сети"
+msgstr "eBox установит DNS конфигурацию"
 
 #: src/EBox/Network.pm:124 src/EBox/Network.pm:129
-#, fuzzy
 msgid "eBox will set your ddclient configuration"
-msgstr "eBox установит конфигурацию сети"
+msgstr "eBox установит конфигурацию ddclient"
 
 #: src/EBox/Network.pm:725 src/EBox/Network.pm:729
 msgid "Virtual interface name"
@@ -746,7 +732,6 @@ msgstr ""
 "Сетевые интерфейсы должны быть в режиме trunk перед добавлением к ним vlans."
 
 #: src/EBox/Network.pm:2337
-#, fuzzy
 msgid ""
 "The requested operation will cause one of the \n"
 "configured gateways to become unreachable. Please remove it first if you "
@@ -754,7 +739,7 @@ msgid ""
 msgstr ""
 "Запрошенная операция приведет к тому, что настроены маршруты станут не "
 "доступны. Пожалуйста удалите сначала их, если вы действительно хотите внести "
-"такие изменения. "
+"такие изменения."
 
 #: src/EBox/Network.pm:2403 src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
@@ -803,36 +788,32 @@ msgid "Rx bytes"
 msgstr "Rx байт"
 
 #: src/EBox/Network.pm:2788
-#, fuzzy
 msgid "Core"
-msgstr "Источник"
+msgstr "Ядро"
 
 #: src/EBox/Network.pm:2792
 msgid "Interfaces"
 msgstr "Интерфейсы"
 
 #: src/EBox/Network.pm:2804
-#, fuzzy
 msgid "Diagnostic Tools"
-msgstr "Диагностика"
+msgstr "Средства диагностики"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
 msgstr "Ping"
 
 #: src/templates/diag.mas:22
-#, fuzzy
 msgid "Traceroute"
-msgstr "статические маршруты"
+msgstr "Traceroute"
 
 #: src/templates/diag.mas:27
 msgid "Trace"
-msgstr ""
+msgstr "Trace"
 
 #: src/templates/diag.mas:31
-#, fuzzy
 msgid "Domain Name Resolution"
-msgstr "Разрешение имен"
+msgstr "Разрешение доменных имен"
 
 #: src/templates/diag.mas:32
 msgid "Domain name"
@@ -901,7 +882,6 @@ msgid "Delete"
 msgstr "Удалить"
 
 #: src/templates/ifaces.mas:207
-#, fuzzy
 msgid "Virtual Interfaces"
 msgstr "Виртуальные интерфейсы"
 

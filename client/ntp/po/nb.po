@@ -8,208 +8,212 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:16+0200\n"
-"PO-Revision-Date: 2008-12-04 10:38+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-28 12:20+0200\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
-msgstr ""
+msgstr "ekstern synkroniserings status"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Time Zone Configuration"
-msgstr ""
+msgstr "Tids Sone Konfigurasjon"
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
-msgstr ""
+msgstr "første NTP server"
 
 #: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:221
 #: src/templates/servers.mas:16
 msgid "Primary server"
-msgstr ""
+msgstr "Primær server"
 
 #: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:235
 #: src/templates/servers.mas:27
 msgid "Secondary server"
-msgstr ""
+msgstr "Sekundær server"
 
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
-msgstr ""
+msgstr "Tertiær server"
 
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and Time Configuration"
-msgstr ""
+msgstr "Dato og tid konfigurasjon"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
 msgid "country"
-msgstr ""
+msgstr "land"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:42
 msgid "continent"
-msgstr ""
+msgstr "kontinent"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
-msgstr ""
+msgstr "Dag"
 
 #: src/EBox/CGI/ChangeDate.pm:42
 msgid "Month"
-msgstr ""
+msgstr "Måned"
 
 #: src/EBox/CGI/ChangeDate.pm:43
 msgid "Year"
-msgstr ""
+msgstr "År"
 
 #: src/EBox/CGI/ChangeDate.pm:44
 msgid "Hour"
-msgstr ""
+msgstr "Time"
 
 #: src/EBox/CGI/ChangeDate.pm:45
 msgid "Minutes"
-msgstr ""
+msgstr "Minutter"
 
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
-msgstr ""
+msgstr "Sekunder"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
-msgstr ""
+msgstr "Fjern ntp init skript linker"
 
 #: src/EBox/NTP.pm:68
 msgid "eBox will take care of starting and stopping the services."
-msgstr ""
+msgstr "eBox vil ta seg av starting og stopping av tjenestene."
 
 #: src/EBox/NTP.pm:223
 msgid "primary server"
-msgstr ""
+msgstr "primær server"
 
 #: src/EBox/NTP.pm:228 src/EBox/NTP.pm:247
 msgid "Primary and secondary server must be different"
-msgstr ""
+msgstr "Primær og sekundær server må være forskjellig"
 
 #: src/EBox/NTP.pm:231
 msgid "secondary server"
-msgstr ""
+msgstr "sekundær server"
 
 #: src/EBox/NTP.pm:244
 msgid "Primary and tertiary server must be different"
-msgstr ""
+msgstr "Primær og tertiær server må være forskjellig"
 
 #: src/EBox/NTP.pm:250
 msgid "tertiary server"
-msgstr ""
+msgstr "tertiær server"
 
 #: src/EBox/NTP.pm:266
 #, perl-brace-format
 msgid "{name} IP address"
-msgstr ""
+msgstr "{name} IP adresse"
 
 #: src/EBox/NTP.pm:269
 #, perl-brace-format
 msgid "{name} host name"
-msgstr ""
+msgstr "{name} verts navn"
 
 #: src/EBox/NTP.pm:399
 msgid "System"
-msgstr ""
+msgstr "System"
 
 #: src/EBox/NTP.pm:402
 msgid "Date/Time"
-msgstr ""
+msgstr "Dato/Tid"
 
 #: src/EBox/NTP.pm:405
 msgid "Time Zone"
-msgstr ""
+msgstr "Tids Sone"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktivert"
 
 #: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
-msgstr ""
+msgstr "Aktivert"
 
 #: src/templates/synch.mas:19 src/templates/synch.mas:20
 #: src/templates/servers.mas:50 src/templates/timezone.mas:33
 #: src/templates/timezone.mas:34 src/templates/date.mas:96
 #: src/templates/date.mas:97
 msgid "Change"
-msgstr ""
+msgstr "Endre"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
-msgstr ""
+msgstr "NTP servere"
 
 #: src/templates/servers.mas:10
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
+"Du bør huske å sette opp din tids sone for at synkroniseringen skal oppføre "
+"seg korrekt."
 
 #: src/templates/date.mas:10
 msgid ""
 "A change in the date or time will cause all eBox services to be restarted."
 msgstr ""
+"En endring i dato eller tid vil forårsake at alle eBox tjenester restartes."
 
 #: src/templates/date.mas:15
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: src/templates/date.mas:30
 msgid "January"
-msgstr ""
+msgstr "Januar"
 
 #: src/templates/date.mas:30
 msgid "February"
-msgstr ""
+msgstr "Februar"
 
 #: src/templates/date.mas:30
 msgid "March"
-msgstr ""
+msgstr "Mars"
 
 #: src/templates/date.mas:30
 msgid "April"
-msgstr ""
+msgstr "April"
 
 #: src/templates/date.mas:30
 msgid "May"
-msgstr ""
+msgstr "Mai"
 
 #: src/templates/date.mas:30
 msgid "June"
-msgstr ""
+msgstr "Juni"
 
 #: src/templates/date.mas:30
 msgid "July"
-msgstr ""
+msgstr "Juli"
 
 #: src/templates/date.mas:30
 msgid "August"
-msgstr ""
+msgstr "August"
 
 #: src/templates/date.mas:30
 msgid "September"
-msgstr ""
+msgstr "September"
 
 #: src/templates/date.mas:30
 msgid "October"
-msgstr ""
+msgstr "Oktober"
 
 #: src/templates/date.mas:30
 msgid "November"
-msgstr ""
+msgstr "November"
 
 #: src/templates/date.mas:30
 msgid "December"
-msgstr ""
+msgstr "Desember"
 
 #: src/templates/date.mas:55
 msgid "Time"
-msgstr ""
+msgstr "Tid"

@@ -5,16 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 1.3.3"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-network 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:32+0200\n"
-"PO-Revision-Date: 2008-09-01 08:32+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-07 10:53+0200\n"
+"Last-Translator: Peter Mráz <etkinator@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:58
 #: src/EBox/Model/MultiGwRulesDataTable.pm:389
@@ -23,7 +23,7 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:94
 msgid "Protocol"
-msgstr ""
+msgstr "Protokol"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:100
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:65
@@ -35,7 +35,7 @@ msgstr ""
 #: src/EBox/Network.pm:2342 src/EBox/Network.pm:2415 src/EBox/Network.pm:2435
 #: src/EBox/Network.pm:2456 src/EBox/Network.pm:2479
 msgid "Interface"
-msgstr ""
+msgstr "Rozhranie"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:103
 msgid ""

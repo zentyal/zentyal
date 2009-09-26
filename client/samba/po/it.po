@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:17+0200\n"
-"PO-Revision-Date: 2009-05-31 20:02+0200\n"
+"PO-Revision-Date: 2009-06-29 20:19+0200\n"
 "Last-Translator: Sudel <sudel@freemail.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -158,11 +158,11 @@ msgstr "modulo condivisione file"
 
 #: src/EBox/Samba/Model/PDC.pm:78
 msgid "PDC is not enabled."
-msgstr ""
+msgstr "PDC non è abilitato"
 
 #: src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
-msgstr ""
+msgstr "Minima lunghezza password"
 
 #: src/EBox/Samba/Model/PDC.pm:91 src/EBox/Samba/Model/PDC.pm:109
 #: src/EBox/Samba/Model/PDC.pm:127 src/EBox/Samba/Model/GeneralSettings.pm:119
@@ -173,32 +173,32 @@ msgstr "Disabilitato"
 #: src/EBox/Samba/Model/PDC.pm:95 src/EBox/Samba/Model/PDC.pm:113
 #: src/EBox/Samba/Model/GeneralSettings.pm:111
 msgid "Limited to"
-msgstr ""
+msgstr "Limitato a"
 
 #: src/EBox/Samba/Model/PDC.pm:96
 #, fuzzy
 msgid "characters"
-msgstr "Condivisioni"
+msgstr "caratteri"
 
 #: src/EBox/Samba/Model/PDC.pm:105
 msgid "Maximum password age"
-msgstr ""
+msgstr "Massima scadenza password"
 
 #: src/EBox/Samba/Model/PDC.pm:114
 msgid "days"
-msgstr ""
+msgstr "giorni"
 
 #: src/EBox/Samba/Model/PDC.pm:123
 msgid "Enforce password history"
-msgstr ""
+msgstr "Storia applicazione password"
 
 #: src/EBox/Samba/Model/PDC.pm:131
 msgid "Keep history for"
-msgstr ""
+msgstr "Mantieni la storia per"
 
 #: src/EBox/Samba/Model/PDC.pm:132
 msgid "passwords remebered"
-msgstr ""
+msgstr "passwords ricordate"
 
 #: src/EBox/Samba/Model/PDC.pm:143
 msgid "PDC"
@@ -206,12 +206,12 @@ msgstr "PDC"
 
 #: src/EBox/Samba/Model/PDC.pm:147
 msgid "On this page you can set different PDC related settings"
-msgstr ""
+msgstr "In questa pagina puoi scegliere diverse impostazioni PDC"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:93
 #, fuzzy
 msgid "User/Group/Share"
-msgstr "Utente/Gruppo"
+msgstr "Utente/Gruppo/Condivisione"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:99
 #, fuzzy
@@ -230,22 +230,22 @@ msgstr "Configurazione condivisione samba"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:126
 msgid "Add exceptions to the default antivirus settings"
-msgstr ""
+msgstr "Aggiungi eccezioni alle impostazioni antivirus predefinite"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:127
 #, fuzzy
 msgid "exception"
-msgstr "descrizione"
+msgstr "eccezione"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:45
 #: src/EBox/Samba/Model/AntivirusDefault.pm:63
 #, fuzzy
 msgid "Antivirus default settings"
-msgstr "Impostazioni generali"
+msgstr "Impostazioni generali antivirus"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:55
 msgid "Scan"
-msgstr ""
+msgstr "Scan"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:73
 msgid "Netbios and workgroup must have different names"
@@ -274,7 +274,7 @@ msgstr "Limite quota"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:113
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:125
 #, fuzzy

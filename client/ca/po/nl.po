@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:03+0200\n"
-"PO-Revision-Date: 2008-12-02 12:24+0000\n"
-"Last-Translator: Ronald van Eendenburg <ronald@kovoks.nl>\n"
+"PO-Revision-Date: 2009-07-16 01:28+0200\n"
+"Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgstr ""
 
 #: src/EBox/CGI/DownloadFiles.pm:127
 msgid "Error creating file"
-msgstr ""
+msgstr "Fout bij het aanmaken van bestand"
 
 #: src/EBox/CGI/ShowForm.pm:68 src/EBox/CGI/IssueCertificate.pm:140
 #: src/EBox/CGI/RevokeCertificate.pm:80 src/EBox/CGI/RenewCertificate.pm:78
@@ -50,6 +50,8 @@ msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
+"De invoer bevat ongeldige tekens. Alle alphanumerieke tekens, plus deze niet "
+"alphanumerieke tekens: .?&+;-@* en spaties zijn toegelaten."
 
 #: src/EBox/CGI/ShowForm.pm:74
 msgid "Action"
@@ -86,18 +88,16 @@ msgid "Organization Name"
 msgstr "Organizatie Naam"
 
 #: src/EBox/CGI/IssueCertificate.pm:162
-#, fuzzy
 msgid "The certificate has been issued."
-msgstr "Het certificaat om te vernieuwen bestaat niet"
+msgstr "Het certificaat werd uitgegeven"
 
 #: src/EBox/CGI/IssueCertificate.pm:163
 msgid "The new CA certificate has been issued."
-msgstr ""
+msgstr "Het nieuwe CA certificaat werd uitgegeven."
 
 #: src/EBox/CGI/RevokeCertificate.pm:64
-#, fuzzy
 msgid "The certificate has NOT been revoked."
-msgstr "Het certificaat om te vernieuwen bestaat niet"
+msgstr "Het certificaat werd niet ingetrokken."
 
 #: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
 msgid "Boolean indicating Certification Authority Certificate"
@@ -105,19 +105,19 @@ msgstr ""
 
 #: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:57
 msgid "Reason"
-msgstr ""
+msgstr "Reden"
 
 #: src/EBox/CGI/RevokeCertificate.pm:138
 msgid "The certificate has been revoked"
-msgstr ""
+msgstr "Het certificaat werd ingetrokken"
 
 #: src/EBox/CGI/RevokeCertificate.pm:139
 msgid "The CA certificate has been revoked"
-msgstr ""
+msgstr "Het CA certificaat werd ingetrokken"
 
 #: src/EBox/CGI/RenewCertificate.pm:64
 msgid "The certificate has NOT been renewed"
-msgstr ""
+msgstr "Het certificaat werd NIET vernieuwd"
 
 #: src/EBox/CGI/RenewCertificate.pm:69 src/templates/formRenew.mas:13
 #: src/templates/index.mas:52 src/templates/createCA.mas:19
@@ -126,15 +126,15 @@ msgstr ""
 
 #: src/EBox/CGI/RenewCertificate.pm:142
 msgid "The certificate CANNOT be renewed"
-msgstr ""
+msgstr "Het certificaat KAN NIET vernieuwd worden"
 
 #: src/EBox/CGI/RenewCertificate.pm:144
 msgid "The certificate has been renewed"
-msgstr ""
+msgstr "Het certificaat werd vernieuwd"
 
 #: src/EBox/CGI/RenewCertificate.pm:145
 msgid "The new CA certificate has been renewed"
-msgstr ""
+msgstr "Het nieuwe CA certificaat werd vernieuwd"
 
 #: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:542
 msgid ""
@@ -147,11 +147,12 @@ msgstr ""
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
-msgstr ""
+msgstr "De gebruiker {commonName} bestaat NIET"
 
 #: src/EBox/CA/TestStub.pm:720
+#, fuzzy
 msgid "Days set to the maximum allowed: Year 2038 Bug"
-msgstr ""
+msgstr "Dagen ingesteld to het maximum toegelaten: Jaar 2038 Bug"
 
 #: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:2388
 msgid "Expiration date later than CA certificate expiration date"
@@ -164,11 +165,12 @@ msgstr "Uitgever Certificaten Management"
 
 #: src/EBox/Model/Certificates.pm:213
 msgid "Module"
-msgstr ""
+msgstr "Module"
 
 #: src/EBox/Model/Certificates.pm:225
+#, fuzzy
 msgid "Service"
-msgstr ""
+msgstr "Service"
 
 #: src/EBox/Model/Certificates.pm:237
 msgid "Enable"
@@ -207,6 +209,7 @@ msgstr ""
 " Opties:"
 
 #: src/EBox/CA.pm:1151
+#, fuzzy
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "Zowel algemene naam, volledige naam of serienummer is verlopen"
 
@@ -228,6 +231,7 @@ msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Een Certificaat met deze algemene naam {cn} bestaat NIET in deze CA"
 
 #: src/EBox/CA.pm:1464
+#, fuzzy
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
@@ -237,12 +241,13 @@ msgstr ""
 "sleutels"
 
 #: src/EBox/CA.pm:1702
+#, fuzzy
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infrastruktuur"
 
 #: src/EBox/CA.pm:1706
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: src/EBox/CA.pm:2266
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -260,15 +265,16 @@ msgstr ""
 
 #: src/EBox/CA.pm:2272
 msgid "Certificate already revoked"
-msgstr ""
+msgstr "Certificaat reeds ingetrokken"
 
 #: src/EBox/CA.pm:2275
 msgid "ASN1 field length too long. Maximum Size:"
-msgstr ""
+msgstr "ASN1 veld te lang. Maximum grootte:"
 
 #: src/EBox/CA.pm:2277
+#, fuzzy
 msgid "Unknown error. Given the OpenSSL output:"
-msgstr ""
+msgstr "Onbekende fout. Geeft de OpenSSL uitvoer:"
 
 #: src/EBox/CA.pm:2352
 #, perl-brace-format
@@ -325,37 +331,43 @@ msgstr ""
 #: src/EBox/CA.pm:2476
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
-msgstr ""
+msgstr "Kan de OpenSSL shell niet starten. ({errval})"
 
+# passwoord is password but i dont know how to translate passphrase. there might not be a dutch translation for the word.
 #: src/templates/formRenew.mas:17 src/templates/formRevoke.mas:65
+#, fuzzy
 msgid "CA Passphrase"
-msgstr ""
+msgstr "CA Passwoord"
 
 #: src/templates/formRenew.mas:23 src/templates/index.mas:160
 #: src/templates/index.mas:177 src/templates/forceRenew.mas:27
 msgid "Renew"
-msgstr ""
+msgstr "Vernieuw"
 
 #: src/templates/formRenew.mas:28
 msgid "Renew a certificate"
-msgstr ""
+msgstr "Vernieuw een certificaat"
 
 #: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:33
 msgid "Expiration Date"
-msgstr ""
+msgstr "Vervaldatum"
 
 #: src/templates/index.mas:41 src/templates/createCA.mas:9
 msgid "Country code"
-msgstr ""
+msgstr "Landcode"
 
+# city is stad but gemeente is more commonly used in this context
 #: src/templates/index.mas:44 src/templates/createCA.mas:13
+#, fuzzy
 msgid "City"
-msgstr ""
+msgstr "Gemeente"
 
+# state is staat but we don't have that concept in dutch speaking country's, provincie is used as replacement for state/county model in us
 #: src/templates/index.mas:47 src/templates/index.mas:84
 #: src/templates/createCA.mas:16
+#, fuzzy
 msgid "State"
-msgstr ""
+msgstr "Provincie"
 
 #: src/templates/index.mas:57
 msgid "Issue"
@@ -363,7 +375,7 @@ msgstr ""
 
 #: src/templates/index.mas:62
 msgid "Certificate changes will take effect immediately"
-msgstr ""
+msgstr "Certificaat wijzigingen worden onmiddelijk van kracht"
 
 #: src/templates/index.mas:64
 msgid "The CA passphrase is optional"

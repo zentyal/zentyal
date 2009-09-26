@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:16+0200\n"
-"PO-Revision-Date: 2008-11-14 05:59+0000\n"
-"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2009-07-17 14:23+0200\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
@@ -32,7 +32,6 @@ msgid "Objects"
 msgstr "Объекты"
 
 #: src/EBox/Model/ObjectTable.pm:83
-#, fuzzy
 msgid "Objects List"
 msgstr "Список объектов"
 
@@ -59,7 +58,6 @@ msgid "IP address"
 msgstr "IP-адрес"
 
 #: src/EBox/Model/MemberTable.pm:76
-#, fuzzy
 msgid "MAC address"
 msgstr "MAC-адрес"
 
@@ -78,7 +76,7 @@ msgstr "сетевой адрес"
 #: src/EBox/Model/MemberTable.pm:126
 #, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
-msgstr ""
+msgstr "{ip} совпадает с другим адресом или членом других объектов"
 
 #: src/EBox/Objects.pm:44
 #, perl-brace-format
@@ -110,9 +108,8 @@ msgid "Object"
 msgstr "Объект"
 
 #: src/EBox/Objects.pm:411
-#, fuzzy
 msgid "Core"
-msgstr "Создать"
+msgstr "Ядро"
 
 #~ msgid "IP Address"
 #~ msgstr "IP-адрес"

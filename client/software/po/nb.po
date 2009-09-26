@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:17+0200\n"
-"PO-Revision-Date: 2008-12-17 11:17+0000\n"
+"PO-Revision-Date: 2009-08-26 11:03+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -116,24 +116,20 @@ msgstr ""
 "konfigurerte apt kilder."
 
 #: src/EBox/Software.pm:473
-#, fuzzy
 msgid "Software Management"
-msgstr "Programmvare behandling"
+msgstr "Programvare behandling"
 
 #: src/EBox/Software.pm:477
-#, fuzzy
 msgid "eBox Components"
-msgstr "eBox komponenter"
+msgstr "eBox Komponenter"
 
 #: src/EBox/Software.pm:479
-#, fuzzy
 msgid "System Updates"
-msgstr "System oppdateringer"
+msgstr "System Oppdateringer"
 
 #: src/EBox/Software.pm:481
-#, fuzzy
 msgid "Automatic Updates"
-msgstr "Automatiske oppdateringer"
+msgstr "Automatiske Oppdateringer"
 
 #: src/EBox/Software.pm:572
 #, perl-brace-format
@@ -144,23 +140,20 @@ msgstr ""
 "igjen senere"
 
 #: src/EBox/PackageDescriptions.pm:1
-#, fuzzy
 msgid "eBox - Antivirus module"
-msgstr "eBox - E-post filter modul"
+msgstr "eBox - Antivirus modul"
 
 #: src/EBox/PackageDescriptions.pm:2
-#, fuzzy
 msgid "eBox - Asterisk"
-msgstr "eBox - DNS server"
+msgstr "eBox - Asterisk"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr "eBox - Sertifiserings Autoritet Behandler for eBox"
+msgstr "eBox - Sertifiserings Autoritets Behandler for eBox"
 
 #: src/EBox/PackageDescriptions.pm:4
-#, fuzzy
 msgid "eBox - captive portal module"
-msgstr "eBox - E-post filter modul"
+msgstr "eBox - captive portal modul"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - DHCP server module"
@@ -172,16 +165,15 @@ msgstr "eBox - DNS server"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Backup"
-msgstr ""
+msgstr "eBox - Sikkerhetskopi"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "the eBox platform - Base framework"
 msgstr "eBox plattform - Basis rammeverk"
 
 #: src/EBox/PackageDescriptions.pm:9
-#, fuzzy
 msgid "eBox - eGroupware"
-msgstr "eBox - Brannmur"
+msgstr "eBox - eGroupware"
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "eBox - Firewall"
@@ -189,12 +181,11 @@ msgstr "eBox - Brannmur"
 
 #: src/EBox/PackageDescriptions.pm:11
 msgid "eBox - Intrusion Detection System"
-msgstr ""
+msgstr "eBox - Inntrengings Deteksjons System"
 
 #: src/EBox/PackageDescriptions.pm:12
-#, fuzzy
 msgid "eBox - Instant messaging proxy"
-msgstr "eBox - Lynmeldings tjeneste (Jabber)"
+msgstr "eBox - Lynmeldings proxy"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - Instant messaging (Jabber)"
@@ -202,7 +193,7 @@ msgstr "eBox - Lynmeldings tjeneste (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:14
 msgid "eBox - layer 7 protocols"
-msgstr ""
+msgstr "eBox - lag 7 protokoller"
 
 #: src/EBox/PackageDescriptions.pm:15
 msgid "eBox - Mail server"
@@ -213,13 +204,12 @@ msgid "eBox - Mail filter module"
 msgstr "eBox - E-post filter modul"
 
 #: src/EBox/PackageDescriptions.pm:17
-#, fuzzy
 msgid "eBox - Monitoring module  "
-msgstr "eBox - E-post filter modul"
+msgstr "eBox - Overvåkings modul  "
 
 #: src/EBox/PackageDescriptions.pm:18
 msgid "eBox - Network configuration module"
-msgstr "eBox - Network konfigurasjons modul"
+msgstr "eBox - Nettverks konfigurasjons modul"
 
 #: src/EBox/PackageDescriptions.pm:19
 msgid "eBox - NTP server"
@@ -227,7 +217,7 @@ msgstr "eBox - NTP server"
 
 #: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Object management"
-msgstr ""
+msgstr "eBox - Objekt håndtering"
 
 #: src/EBox/PackageDescriptions.pm:21
 msgid "eBox - OpenVPN server module"
@@ -239,7 +229,7 @@ msgstr "eBox - Printer deling"
 
 #: src/EBox/PackageDescriptions.pm:23
 msgid "eBox - client for remote services   "
-msgstr ""
+msgstr "eBox - klient for eksterne tjenester   "
 
 #: src/EBox/PackageDescriptions.pm:24
 msgid "eBox - File sharing"
@@ -251,109 +241,111 @@ msgstr "eBox - Tjeneste behandling"
 
 #: src/EBox/PackageDescriptions.pm:26
 msgid "eBox - Software management"
-msgstr ""
+msgstr "eBox - Programvare håndtering"
 
 #: src/EBox/PackageDescriptions.pm:27
 msgid "eBox - Proxy cache and content filter"
-msgstr ""
+msgstr "eBox - Proxy cache og innholds filter"
 
 #: src/EBox/PackageDescriptions.pm:28
 msgid "eBox - Traffic shaper for eBox"
-msgstr ""
+msgstr "eBox - Trafikk styrer for eBox"
 
 #: src/EBox/PackageDescriptions.pm:29
 msgid "eBox - User and Group management"
-msgstr ""
+msgstr "eBox - Bruker og Gruppe håndtering"
 
 #: src/EBox/PackageDescriptions.pm:30
 msgid "eBox - Web Server"
-msgstr ""
+msgstr "eBox - Web Server"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "HTTP programvare"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "programvare tjeneste for å oppdatere pakker via apt"
 
 #: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
-msgstr ""
+msgstr "regel for å tillate apt oppdateringer"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Følgende pakker vil bli installert"
 
 #: src/templates/del.mas:16
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Følgende pakker vil bli fjernet"
 
 #: src/templates/del.mas:32
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/templates/del.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: src/templates/updates.mas:11
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Oppdateringer er tilgjengelig for følgende system komponenter"
 
 #: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
-msgstr ""
+msgstr "Komponent"
 
 #: src/templates/updates.mas:17
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: src/templates/updates.mas:18
 msgid "Version"
-msgstr ""
+msgstr "Versjon"
 
 #: src/templates/updates.mas:19 src/templates/ebox.mas:27
 msgid "Update"
-msgstr ""
+msgstr "Oppdater"
 
 #: src/templates/updates.mas:53 src/templates/ebox.mas:74
 msgid "Update all packages"
-msgstr ""
+msgstr "Oppdater alle pakker"
 
 #: src/templates/updates.mas:64
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"Denne operasjonen vil ta tid, ikke bekymre deg hvis eBox ser uresponsiv ut "
+"etter at Oppgraderings knappen er trykket."
 
 #: src/templates/updates.mas:67
 msgid "Upgrade"
-msgstr ""
+msgstr "Oppgrader"
 
 #: src/templates/ebox.mas:15
 msgid "Installed version "
-msgstr ""
+msgstr "Installert versjon "
 
 #: src/templates/ebox.mas:16
 msgid "Latest version"
-msgstr ""
+msgstr "Siste versjon"
 
 #: src/templates/ebox.mas:17
 msgid "Actions"
-msgstr ""
+msgstr "Handlinger"
 
 #: src/templates/ebox.mas:33
 msgid "Install"
-msgstr ""
+msgstr "Installer"
 
 #: src/templates/ebox.mas:35
 msgid "none"
-msgstr ""
+msgstr "ingen"
 
 #: src/templates/ebox.mas:57
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
 #~ msgid "IPsec VPNs"
 #~ msgstr "IPsec VPN"

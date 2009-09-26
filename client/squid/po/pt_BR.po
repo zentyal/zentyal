@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:18+0200\n"
-"PO-Revision-Date: 2009-03-25 03:07+0000\n"
-"Last-Translator: Anderson Portinelli <portinelli@gmail.com>\n"
+"PO-Revision-Date: 2009-08-17 17:25+0200\n"
+"Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,11 +26,11 @@ msgstr "Porta"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:71
 msgid "Cache files size (MB)"
-msgstr ""
+msgstr "Tamanho dos arquivos de Cache (MB)"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:79
 msgid "Default policy"
-msgstr "Política padão"
+msgstr "Política padrão"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:87
 msgid "General Settings "
@@ -43,21 +43,24 @@ msgstr "Opções alteradas"
 #: src/EBox/Squid/Model/GeneralSettings.pm:133
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr "a {port} está em uso. Favor escolher outra"
+msgstr "{port} está em uso. Favor escolher outra"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:160
 msgid "Transparent proxy option is not compatible with authorization policy"
-msgstr ""
+msgstr "Opção Proxy Transparente não é compatível com Política de Autorização"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:167
 msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
 msgstr ""
+"Opção Proxy Transparente não é compatível com a política de autorização "
+"encontrada em alguns objetos"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:185
 msgid "You need to use authorization policies wuth global group policies"
 msgstr ""
+"Você necessita usar Políticas de Autorização com a política global de grupo"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:194
 msgid ""
@@ -89,16 +92,15 @@ msgstr "Política"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Allowed time period"
-msgstr ""
+msgstr "Intervalo de tempo permitido"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:90
 msgid "Time period when the access is allowed"
-msgstr ""
+msgstr "Intervalo de tempo no qual o acesso é permitido"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:97
-#, fuzzy
 msgid "Group policy"
-msgstr "Política Global"
+msgstr "Política de grupo"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:109
 msgid "Configure network objects' policies"
@@ -110,7 +112,7 @@ msgstr "Lista de objetos"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:124
 msgid "object's policy"
-msgstr "Política do objeto"
+msgstr "política do objeto"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:125
 msgid "Here you can establish a custom policy per network object"
@@ -132,15 +134,20 @@ msgstr "Política do objeto atualizada"
 #: src/EBox/Squid/Model/ObjectPolicy.pm:172
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr ""
+"Política de autorização não é compativel com o modo de proxy transparente"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:195
 msgid "Filter policies are incompatible with restricted time periods"
 msgstr ""
+"As políticas do filtro são incompatíveis com os intervalos de tempo "
+"restritos"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:221
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr ""
+"Você não pode selecionar uma política sem autorização se você possui alguma "
+"política de grupo"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:48
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:103
@@ -151,7 +158,7 @@ msgstr "Requisições"
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99 src/EBox/Squid.pm:1002
 msgid "User"
-msgstr ""
+msgstr "Usuário"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:54
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:108
@@ -163,7 +170,7 @@ msgstr "Requisições aceitas"
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 msgid "Accepted traffic size (Kb)"
-msgstr "Tráfego aceito (Kb)"
+msgstr "Volume de tráfego aceito (Kb)"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:63
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:119
@@ -175,7 +182,7 @@ msgstr "Requisições negadas"
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:124
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
 msgid "Denied traffic size (Kb)"
-msgstr "Tráfego negado (Kb)"
+msgstr "Volume de tráfego negado (Kb)"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:72
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:130
@@ -187,7 +194,7 @@ msgstr "Requisições filtradas"
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:135
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 msgid "Filtered traffic size (Kb))"
-msgstr "Tráfego filtrado (Kb)"
+msgstr "Volume de tráfego filtrado (Kb)"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:95 src/EBox/Squid.pm:1000
 msgid "Date"
@@ -195,7 +202,7 @@ msgstr "Data"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:144
 msgid "Web traffic details"
-msgstr "Datelhes do tráfego"
+msgstr "Detalhes do tráfego web"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 msgid "traffic"
@@ -203,15 +210,15 @@ msgstr "tráfego"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
-msgstr "Gráfico do tráfego"
+msgstr "Gráfico de volume do tráfego do Squid"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 msgid "Traffic size"
-msgstr "Tráfego"
+msgstr "Volume do tráfego"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:48
 msgid "Squid traffic requests graph"
-msgstr "Gráfico das requisições de tráfego"
+msgstr "Gráfico das requisições do tráfego do Squid"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
@@ -219,9 +226,8 @@ msgstr "Requisições de acesso"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:65
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
-#, fuzzy
 msgid "Domains rules"
-msgstr "Lista de domínios"
+msgstr "Regras de domínios"
 
 #: src/EBox/Squid/Model/DomainFilter.pm:78
 #: src/EBox/Squid/Model/NoCacheDomains.pm:102
@@ -274,7 +280,8 @@ msgstr "Permite todos {elements}"
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:74
 msgid "Use this field to change the value of  all the above rows at once"
 msgstr ""
-"Utilize este campo para alterar o valor de todas as linhas acima de uma vez"
+"Utilize este campo para alterar o valor de_ _ todas as linhas acima "
+"simultaneamente"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:52
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:48
@@ -295,7 +302,7 @@ msgid ""
 msgstr ""
 "Permite/Nega o tráfego HTTP dos arquivos com estes tipos MIME. Tipos MIME "
 "não listados aqui são permitidos.\n"
-"O filtro uma política de 'filtro' para ter efeito"
+"O _ _ filtro uma política de 'filtro' para ter efeito"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:68
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64

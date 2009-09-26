@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:17+0200\n"
-"PO-Revision-Date: 2009-05-13 12:16+0200\n"
-"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2009-07-17 14:19+0200\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/Settings.pm:53
@@ -32,7 +32,7 @@ msgstr "Настройки"
 
 #: src/EBox/Composite/Composite.pm:50
 msgid "Composite"
-msgstr ""
+msgstr "Комбинированный"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -47,10 +47,12 @@ msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system"
 msgstr ""
+"Подписка была сделана правильно. Подождите минуту, чтобы подписка была "
+"применена по всей системе"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:152
 msgid "Subscription data retrieved correctly"
-msgstr ""
+msgstr "Подписка на данные получена правильно"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:177
 msgid "Done"
@@ -68,7 +70,7 @@ msgstr "Имя пользователя"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:296
 msgid "eBox common name"
-msgstr ""
+msgstr "eBox общепринятое название"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:306
 msgid "Password"
@@ -76,7 +78,7 @@ msgstr "Пароль"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:314
 msgid "eBox subscription details"
-msgstr "Детальная подписка eBox"
+msgstr "Подробности подписки eBox"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:315
 msgid "Delete data"
@@ -108,7 +110,7 @@ msgstr ""
 
 #: src/EBox/RemoteServices/Subscription.pm:106
 msgid "Key for web subscription service not found"
-msgstr ""
+msgstr "Ключ для  подписки на веб-службы не найден"
 
 #: src/EBox/RemoteServices/Backup.pm:211
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
@@ -119,7 +121,7 @@ msgstr "Существует резервная копия: {n}"
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
-msgstr ""
+msgstr "На сервере нет резервной копии host: {h}"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
@@ -147,9 +149,9 @@ msgid "Key for service URN not found"
 msgstr "Ключ для службы URN не найден"
 
 #: src/EBox/RemoteServices/Auth.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Value for key {k} not found"
-msgstr "Ключ для службы URN не найден"
+msgstr "Значение для ключа {k} не найдено"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
@@ -262,9 +264,8 @@ msgid "Subscribed"
 msgstr "Подписчики"
 
 #: src/EBox/RemoteServices.pm:191
-#, fuzzy
 msgid "Remote Services Subscription"
-msgstr "Подписка на удаленную услугу"
+msgstr "Подписка удаленную службу"
 
 #~ msgid "Your computer has not internet connection"
 #~ msgstr "Ваш компьютер не имеет интернет соединения"

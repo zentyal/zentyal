@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:19+0200\n"
-"PO-Revision-Date: 2007-12-04 10:03+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-12 22:45+0200\n"
+"Last-Translator: Arnold Greving <arnold@arnox.nl>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
-msgstr ""
+msgstr "Naam virtuele host"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:142
 #, perl-brace-format
@@ -27,6 +27,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip} "
 msgstr ""
+"Virtuele host {vhost} toegevoegd. Het domein {domain} is aangemaakt en "
+"gekoppeld aan {naam} - IP adres {ip}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:160
 #, perl-brace-format
@@ -34,29 +36,35 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
+"Virtuele host {vhost} toegevoegd. De naam {name} en het IP adres {ip} is "
+"toegevoegd aan het domein {domain}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:174
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
+"Virtuele host {vhost} is als een alias {alias} toegevoegd aan hostnaam "
+"{hostname}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:180
 #: src/EBox/WebServer/Model/VHostTable.pm:185
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
-msgstr ""
+msgstr "Virtuele host {vhost} is toegevoegd"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:190
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
+"Voor de webserver is geen netwerkkaart met een statisch IP adres "
+"beschikbaar."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:216
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:226
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Virtuele hosts"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:230
 #, perl-brace-format
@@ -68,33 +76,41 @@ msgid ""
 "particular configuration you want to add must be placed at {userConf} "
 "directory"
 msgstr ""
+"Met behulp van virtuele hosts is het mogelijk dat één fysieke server "
+"meerdere websites kan serveren. Verschillende host namen verwijzen naar "
+"dezelfde webserver. De benodigde DNS records worden indien mogelijk "
+"automatisch aangemaakt. De content (website) moet in de directory {docRoot} "
+"geplaatst worden. Indien gewenst kan specifieke configuratie in de "
+"{userConf} directory geplaatst worden."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:240
 msgid "virtual host"
-msgstr ""
+msgstr "virtuele host"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
+msgstr "luisteren op poort"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "Listening port"
-msgstr ""
+msgstr "Luisteren op poort"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:158
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Per gebruiker aanzetten {dirName}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
+"Elke gebruiker toestemming geven een website in hun home directory onder "
+"public_html te plaatsen."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
 msgid "General configuration settings"
-msgstr ""
+msgstr "Algemene configuratie instellingen"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:176
 #, perl-brace-format
@@ -104,54 +120,61 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"Algemene configuratie instellingen. De poort waarop de webserver luistert "
+"mag niet door een andere service gebruikt worden. Wanneer gebruikers "
+"toestemming hebben om een website vanuit hun home directory te publiceren "
+"(dir: public_html) dan worden alle pagina's vanuit de samba home directory "
+"{dirName} gerserveerd"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "Algemene webserver instellingen bijgewerkt"
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"
-msgstr ""
+msgstr "Web service"
 
 #: src/EBox/WebServer/Composite/General.pm:82
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
+"De eBox web service maakt het mogelijk om meerdere, platte HTML, websites te "
+"serveren m.b.v. virtuele hosts"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
-msgstr ""
+msgstr "Configureer de poort waarop de webserver luistert"
 
 #: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
-msgstr ""
+msgstr "Configureer de public HTML directory van alle gebruikers"
 
 #: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "Maak de apache LDAP module beschikbaar"
 
 #: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"
-msgstr ""
+msgstr "Haal de home directories via LDAP op"
 
 #: src/EBox/WebServer.pm:149
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: src/EBox/WebServer.pm:150
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infrastructuur"
 
 #: src/EBox/WebServer.pm:171
 msgid "Web service status"
-msgstr ""
+msgstr "Status van de web service"
 
 #: src/EBox/WebServer.pm:348
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "De {userDirConfFile} mist! Graag aanmaken."
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "HyperText Transport Protocol"

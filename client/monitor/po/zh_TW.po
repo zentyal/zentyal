@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:10+0200\n"
-"PO-Revision-Date: 2009-03-06 04:38+0000\n"
+"PO-Revision-Date: 2009-08-04 06:32+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -257,7 +257,7 @@ msgid ""
 "If set to true, an event will be dispatched for each value that is out of "
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
-msgstr ""
+msgstr "如果設為 true，事件的每個數值超出可接受範圍時會被調整。如果設為 false，只有將可接受的數值改變為不可接受的數值時才會調整它"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "Measure instance"
@@ -354,11 +354,11 @@ msgstr "監視器"
 
 #: src/EBox/Monitor.pm:133
 msgid "Collectd main configuration file"
-msgstr ""
+msgstr "收集的主要組態檔案"
 
 #: src/EBox/Monitor.pm:137
 msgid "Collectd threshold configuration file"
-msgstr ""
+msgstr "收集的界限組態檔案"
 
 #: src/EBox/Event/Watcher/Monitor.pm:162
 msgid "Notify when a certain value has reached a certain threshold"

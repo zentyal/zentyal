@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:05+0200\n"
-"PO-Revision-Date: 2009-03-18 00:34+0000\n"
+"PO-Revision-Date: 2009-08-04 06:00+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -37,13 +37,12 @@ msgid "Name"
 msgstr "名稱"
 
 #: src/EBox/Model/PermissionTemplates.pm:63
-#, fuzzy
 msgid "Applications Allowed"
 msgstr "允許的應用程式"
 
 #: src/EBox/Model/PermissionTemplates.pm:71
 msgid "User Defined Permission Templates"
-msgstr ""
+msgstr "使用者定義權限範本"
 
 #: src/EBox/Model/PermissionTemplates.pm:75
 msgid "template"
@@ -60,9 +59,8 @@ msgid "DefaultApplications"
 msgstr "預設應用程式"
 
 #: src/EBox/Model/DefaultApplications.pm:50
-#, fuzzy
 msgid "Default Applications"
-msgstr "預設應用程式"
+msgstr "預設的應用程式"
 
 #: src/EBox/Model/DefaultApplications.pm:51
 msgid ""
@@ -148,7 +146,7 @@ msgstr "加入新的 schema"
 
 #: src/EBox/EGroupware.pm:213
 msgid "Office"
-msgstr ""
+msgstr "辦公室"
 
 #~ msgid "Permission templates defined by the user"
 #~ msgstr "使用者定義的權限範本"

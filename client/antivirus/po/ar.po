@@ -8,34 +8,37 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:01+0200\n"
-"PO-Revision-Date: 2009-02-20 11:10+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-07-31 10:22+0200\n"
+"Last-Translator: Mustafa M. EL-Sebaie <mustsebaie@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
-msgstr ""
+msgstr "الحالة"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
 msgid "Date"
-msgstr ""
+msgstr "التاريخ"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 msgid "Antivirus Database Update Status"
-msgstr ""
+msgstr "حالة تحديث قاعدة بيانات مضاد الفيروسات"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 msgid ""
 "The antivirus database has not been updated since the  mailfilter eBox's "
 "module was installed."
 msgstr ""
+"لم يتم تحديث قاعدة بيانات مضاد الفايروسات منذ تثبيت نموذج تصفية البريد "
+"اﻹلكتروني الخاص بeBox."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
 msgid "The last update failed."
-msgstr ""
+msgstr "عملية التحديث اﻷخيرة فاشلة."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
 #, perl-brace-format
@@ -44,33 +47,36 @@ msgid ""
 "The antivirus will not be able to use all the signatures.Please, install "
 "version {version} or higher."
 msgstr ""
+"التحديث ناجح ولكن نسخة ال freshclam منتهية الصلاحية.\n"
+"لن يتمكن مضاد الفيروسات من إستخدام جميع الدﻻﻻت. الرجاء تنصيب النسخة "
+"{version} فما فوق."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
 msgid "Last update successful."
-msgstr ""
+msgstr "عملية التحديث اﻷخيرة ناجحة."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
 #, perl-brace-format
 msgid "Unknown event {event}."
-msgstr ""
+msgstr "الحدث {event} غير معرًف."
 
 #: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:342
 #: src/EBox/AntiVirus.pm:347
 msgid "Antivirus"
-msgstr ""
+msgstr "مضاد الفيروسات"
 
 #: src/EBox/AntiVirus.pm:92
 msgid "UTM"
-msgstr ""
+msgstr "إدارة الحماية الموحدة"
 
 #: src/EBox/AntiVirus.pm:177
 msgid " To configure clamd daemon"
-msgstr ""
+msgstr "لتهيئة مترقب الclamd"
 
 #: src/EBox/AntiVirus.pm:182
 msgid "To configure freshclam updater"
-msgstr ""
+msgstr "لتهيئة محدث الfreshclam"
 
 #: src/EBox/AntiVirus.pm:187
 msgid "To schedule the launch of the updater"
-msgstr ""
+msgstr "لجدولة عملية إنطلاق المحدِِث."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:01+0200\n"
-"PO-Revision-Date: 2009-06-25 21:51+0200\n"
+"PO-Revision-Date: 2009-06-28 02:29+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -25,13 +25,11 @@ msgid "Date"
 msgstr "Дата"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-#, fuzzy
 msgid "Antivirus Database Update Status"
 msgstr "Обновления на антивирусната база данни"
 
 # Филтър на поща
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
-#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the  mailfilter eBox's "
 "module was installed."
@@ -39,12 +37,11 @@ msgstr ""
 "Антивирусната база данни не е обновявана откакто този модул е инсталиран."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
-#, fuzzy
 msgid "The last update failed."
 msgstr "Последното обновяване е неуспешно."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
 "The antivirus will not be able to use all the signatures.Please, install "
@@ -55,12 +52,11 @@ msgstr ""
 "инсталирайте версия {version} или по-нова."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
-#, fuzzy
 msgid "Last update successful."
 msgstr "Последното обновяване е успешно."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Непознато събитие {event}."
 
@@ -71,10 +67,9 @@ msgstr "Антивирусна система"
 
 #: src/EBox/AntiVirus.pm:92
 msgid "UTM"
-msgstr ""
+msgstr "Цялостно справяне със заплахи"
 
 #: src/EBox/AntiVirus.pm:177
-#, fuzzy
 msgid " To configure clamd daemon"
 msgstr "Настройване на демона clamd"
 

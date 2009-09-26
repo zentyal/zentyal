@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:17+0200\n"
-"PO-Revision-Date: 2009-01-25 14:13+0000\n"
-"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2009-07-17 10:43+0200\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
@@ -121,22 +121,18 @@ msgstr ""
 "источниках обновлений apt"
 
 #: src/EBox/Software.pm:473
-#, fuzzy
 msgid "Software Management"
 msgstr "Управление программным обеспечением"
 
 #: src/EBox/Software.pm:477
-#, fuzzy
 msgid "eBox Components"
 msgstr "Компоненты eBox"
 
 #: src/EBox/Software.pm:479
-#, fuzzy
 msgid "System Updates"
 msgstr "Системные обновления"
 
 #: src/EBox/Software.pm:481
-#, fuzzy
 msgid "Automatic Updates"
 msgstr "Автоматическое обновление"
 
@@ -149,23 +145,20 @@ msgstr ""
 "Пожалуйста, попробуйте позже"
 
 #: src/EBox/PackageDescriptions.pm:1
-#, fuzzy
 msgid "eBox - Antivirus module"
-msgstr "eBox - модуль почтового фильтра"
+msgstr "eBox - антивирусный модуль"
 
 #: src/EBox/PackageDescriptions.pm:2
-#, fuzzy
 msgid "eBox - Asterisk"
-msgstr "eBox - сервер DNS"
+msgstr "eBox - Asterisk"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr "eBox - Certificate Authority Manager для eBox"
+msgstr "eBox - Управление Центром Сертификации для eBox"
 
 #: src/EBox/PackageDescriptions.pm:4
-#, fuzzy
 msgid "eBox - captive portal module"
-msgstr "eBox - модуль почтового фильтра"
+msgstr "eBox - портальный модуль"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - DHCP server module"
@@ -177,29 +170,27 @@ msgstr "eBox - сервер DNS"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Backup"
-msgstr ""
+msgstr "eBox - Резервное копирование"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "the eBox platform - Base framework"
-msgstr "eBox platform - базовая структура"
+msgstr "eBox platform - базовый фреймворк"
 
 #: src/EBox/PackageDescriptions.pm:9
-#, fuzzy
 msgid "eBox - eGroupware"
-msgstr "eBox - Файервол "
+msgstr "eBox - eGroupware"
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "eBox - Firewall"
-msgstr "eBox - Файервол "
+msgstr "eBox - Файервол"
 
 #: src/EBox/PackageDescriptions.pm:11
 msgid "eBox - Intrusion Detection System"
-msgstr ""
+msgstr "eBox - Система Обнаружения Вторжений"
 
 #: src/EBox/PackageDescriptions.pm:12
-#, fuzzy
 msgid "eBox - Instant messaging proxy"
-msgstr "eBox - сервер мгновенных сообщений (Jabber)"
+msgstr "eBox - прокси мгновенных сообщений"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - Instant messaging (Jabber)"
@@ -215,27 +206,27 @@ msgstr "eBox - Почтовый сервер"
 
 #: src/EBox/PackageDescriptions.pm:16
 msgid "eBox - Mail filter module"
-msgstr "eBox - модуль почтового фильтра"
+msgstr "eBox - Модуль почтового фильтра"
 
 #: src/EBox/PackageDescriptions.pm:17
 msgid "eBox - Monitoring module  "
-msgstr "eBox - модуль мониторинга"
+msgstr "eBox - Модуль мониторинга"
 
 #: src/EBox/PackageDescriptions.pm:18
 msgid "eBox - Network configuration module"
-msgstr "eBox - модуль конфигурации сети"
+msgstr "eBox - Модуль конфигурации сети"
 
 #: src/EBox/PackageDescriptions.pm:19
 msgid "eBox - NTP server"
-msgstr "eBox - сервер NTP"
+msgstr "eBox - Сервер NTP"
 
 #: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Object management"
-msgstr "eBox - управление объектами"
+msgstr "eBox - Управление объектами"
 
 #: src/EBox/PackageDescriptions.pm:21
 msgid "eBox - OpenVPN server module"
-msgstr "eBox - модуль сервера OpenVPN"
+msgstr "eBox - Модуль сервера OpenVPN"
 
 #: src/EBox/PackageDescriptions.pm:22
 msgid "eBox - Printer sharing"
@@ -243,7 +234,7 @@ msgstr "eBox - Совместное использование принтеро�
 
 #: src/EBox/PackageDescriptions.pm:23
 msgid "eBox - client for remote services   "
-msgstr ""
+msgstr "eBox - клиент для удаленных служб"
 
 #: src/EBox/PackageDescriptions.pm:24
 msgid "eBox - File sharing"

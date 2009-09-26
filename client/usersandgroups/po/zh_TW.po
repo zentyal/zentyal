@@ -9,7 +9,7 @@ msgstr ""
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:18+0200\n"
-"PO-Revision-Date: 2009-03-13 08:06+0000\n"
+"PO-Revision-Date: 2009-08-04 08:30+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -69,9 +69,8 @@ msgid "user name"
 msgstr "使用者名稱"
 
 #: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
-#, fuzzy
 msgid "last name"
-msgstr "使用者名稱"
+msgstr "姓"
 
 #: src/EBox/CGI/ModifyUser.pm:49
 msgid "password"
@@ -127,36 +126,34 @@ msgid ""
 msgstr "為了要使用您必須要在模組狀態功能中啟用使用者模組"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:132
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are no users at the moment. You may want to add some in {openhref}Add "
 "user section{closehref}."
-msgstr "這裡現在沒有使用者.您必須至少有一個來管理這個群組"
+msgstr "這裡現在沒有使用者。您可能會想在{openhref}加入使用者{closehref}加入一些。"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:64
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:133
 #, perl-brace-format
 msgid ""
 "There are no groups at the moment. You may want to add some in {openhref}Add "
 "group section{closehref}."
-msgstr ""
+msgstr "這裡現在沒有群組。您可能會想在{openhref}加入群組{closehref}加入一些。"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:47
 msgid "Password management"
-msgstr ""
+msgstr "密碼管理"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:57
-#, fuzzy
 msgid "New password"
-msgstr "密碼"
+msgstr "新密碼"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:64
-#, fuzzy
 msgid "Re-type new password"
-msgstr "再輸入密碼"
+msgstr "再次輸入新密碼"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:73
 #: src/EBox/UsersAndGroups.pm:1813 src/templates/users.mas:51
@@ -166,7 +163,7 @@ msgstr "密碼"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:102
 msgid "Password successfully updated"
-msgstr ""
+msgstr "密碼已成功更新"
 
 #: src/EBox/UsersAndGroups.pm:62
 msgid "users and groups"
@@ -193,6 +190,8 @@ msgid ""
 "To configure the openLDAP database with dc  entry, rootpw, rootdn, schemas "
 "and ACLs used by  the LDAP based eBox modules"
 msgstr ""
+"設定 openLDAP 資料庫的 dc  entry, rootpw, rootdn, schemas 和基於 eBox 模組的 LDAP 所使用的 "
+"ACLs"
 
 #: src/EBox/UsersAndGroups.pm:366
 #, perl-brace-format
@@ -241,14 +240,13 @@ msgstr "密碼必須不超過 {maxPwdLength} 字元"
 
 #: src/EBox/UsersAndGroups.pm:1783 src/EBox/UsersAndGroups.pm:1794
 msgid "Office"
-msgstr ""
+msgstr "辦公室"
 
 #: src/EBox/UsersAndGroups.pm:1786 src/templates/users.mas:14
 msgid "Add User"
 msgstr "新增使用者"
 
 #: src/EBox/UsersAndGroups.pm:1789
-#, fuzzy
 msgid "Edit User"
 msgstr "編輯使用者"
 
@@ -265,7 +263,6 @@ msgid "This group contains users"
 msgstr "這個群組包含使用者"
 
 #: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
-#, fuzzy
 msgid "User"
 msgstr "使用者"
 
@@ -273,24 +270,23 @@ msgstr "使用者"
 msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
-msgstr ""
+msgstr "有一個命令稿要求在 eBox 中單獨執行。請耐心等候它完成"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:66
-#, fuzzy
 msgid "Incorrect password"
-msgstr "確認密碼"
+msgstr "不正確的密碼"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:69
 msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
+msgstr "為了安全性的理由，您的作業階段已因閒置而失效了"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:72
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "您已被登出，因為有新的作業階段開啟了"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:75
 msgid "You are not logged in"
-msgstr ""
+msgstr "您並未登入"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 #: src/EBox/UserCornerWebServer.pm:109
@@ -300,7 +296,7 @@ msgstr "使用者名稱"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
 msgid "Port"
-msgstr ""
+msgstr "連接埠"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
 msgid "User Corner webserver settings"
@@ -308,7 +304,7 @@ msgstr ""
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
-msgstr ""
+msgstr "聽取連接埠"
 
 #: src/EBox/UserCornerWebServer.pm:37
 #, fuzzy
@@ -344,14 +340,12 @@ msgid "User name"
 msgstr "使用者名稱"
 
 #: src/templates/users.mas:27 src/templates/user.mas:20
-#, fuzzy
 msgid "First name"
-msgstr "使用者名稱"
+msgstr "名"
 
 #: src/templates/users.mas:35 src/templates/user.mas:30
-#, fuzzy
 msgid "Last name"
-msgstr "使用者名稱"
+msgstr "姓"
 
 #: src/templates/users.mas:43 src/templates/group.mas:19
 #: src/templates/user.mas:40 src/templates/groups.mas:28
@@ -392,11 +386,10 @@ msgid "Cancel"
 msgstr "取消"
 
 #: src/templates/group.mas:13
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one  to manage this "
 "group properly"
-msgstr "這裡現在沒有使用者.您必須至少有一個來管理這個群組"
+msgstr "這裡現在沒有使用者。您必須至少有一個  才能正確管理這個群組"
 
 #: src/templates/group.mas:23 src/templates/group.mas:24
 #: src/templates/user.mas:72 src/templates/user.mas:73
@@ -442,19 +435,16 @@ msgid ""
 msgstr "假如您刪除這個群組所有的資料及它們分享的目錄都會被刪除"
 
 #: src/templates/user.mas:84
-#, fuzzy
 msgid "User groups"
-msgstr "使用者在群組中"
+msgstr "使用者群組"
 
 #: src/templates/user.mas:86
-#, fuzzy
 msgid "Other groups"
-msgstr "刪除群組"
+msgstr "其他群組"
 
 #: src/templates/user.mas:113
-#, fuzzy
 msgid "Remove groups from user"
-msgstr "從群組中移除使用者"
+msgstr "從使用者中移除群組"
 
 #: src/templates/user.mas:154 src/templates/user.mas:162
 #: src/templates/user.mas:163
@@ -482,15 +472,15 @@ msgstr "動作"
 
 #: src/templates/usercorner/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "警告：Caps Lock 已開啟"
 
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
-msgstr ""
+msgstr "進入"
 
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"
-msgstr ""
+msgstr "登出"
 
 #~ msgid "full name"
 #~ msgstr "完整名稱"

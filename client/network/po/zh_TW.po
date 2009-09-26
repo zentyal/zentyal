@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:15+0200\n"
-"PO-Revision-Date: 2009-03-13 02:57+0000\n"
+"PO-Revision-Date: 2009-08-04 07:12+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
 #: src/EBox/Network.pm:2771
-#, fuzzy
 msgid "Network Interfaces"
 msgstr "網路介面"
 
@@ -53,9 +52,8 @@ msgid "You can change later the gateway at Network/Routes menus item"
 msgstr "您可以在 網路/路由 選單選項中變更之後的通訊閘"
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-#, fuzzy
 msgid "Network Diagnostic Tools"
-msgstr "診斷網路"
+msgstr "網路診斷工具"
 
 #: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14
 #: src/templates/diag.mas:23
@@ -214,21 +212,18 @@ msgid "Configure default gateway"
 msgstr "設置預設通訊閘"
 
 #: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:2802
-#, fuzzy
 msgid "Balance Traffic"
 msgstr "平衡流量"
 
 #: src/EBox/Network/Composite/MultiGw.pm:83
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two gateways. You can add "
 "them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
 msgstr ""
-"要能使用這個功能，您需要至少兩個通訊閘。您可以先在<a href=\"/ebox/Network/"
-"View/GatewayTable\">這裡</a>加入它們"
+"要能使用這個功能，您需要至少兩個通訊閘。您可以先在<a "
+"href=\"/ebox/Network/View/GatewayTable\">這裡</a>加入它們。"
 
 #: src/EBox/Network/Composite/DNS.pm:61
-#, fuzzy
 msgid "Domain Name Server Resolver"
 msgstr "名稱伺服器解析"
 
@@ -295,7 +290,7 @@ msgstr "來源單位"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:129
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Destination"
@@ -320,7 +315,6 @@ msgid "Gateway"
 msgstr "通訊閘"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:172
-#, fuzzy
 msgid "Gateway to route packets matching this rule"
 msgstr "通訊閘到路由封包符合這個規則"
 
@@ -329,7 +323,6 @@ msgid "Multigateway rules"
 msgstr "多線路由規則(Multigateway)"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:193
-#, fuzzy
 msgid ""
 "You can decide what kind of traffic goes out by each gateway. This way, you "
 "can force a subnet, service, destination and so forth  to use the router you "
@@ -337,9 +330,8 @@ msgid ""
 "to bottom, you can reorder them once they are added. If you do not set a "
 "port or an IP address, then the rule will match all of them"
 msgstr ""
-"您可以決定什麼樣的封包走什麼路由出去.在這裡,您可以強制一個子網路,服務,目的和"
-"其他您選擇的來使用這個路由.請記住,規則將會被套用排序,從最上到最下,您可在新增"
-"後重新排序.假如您沒有設定連接埠或是 IP 位址,那麼規則將會符合這些"
+"您可以決定什麼樣的封包走什麼路由出去。這麼一來，您可以強制一個子網路、服務、目的和其他您選擇的來使用這個路由。請記住，規則將會被套用排序，從最上到最下，"
+"您可在新增後重新排序。假如您沒有設定連接埠或是 IP 位址，那麼規則將會符合這些全部"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:195
 #: src/EBox/Model/MultiGwRulesOptions.pm:68
@@ -348,24 +340,23 @@ msgstr "規則"
 
 #: src/EBox/Model/DynDNS.pm:87
 msgid "Enable Dynamic DNS"
-msgstr ""
+msgstr "啟用動態 DNS"
 
 #: src/EBox/Model/DynDNS.pm:98
 msgid "Username"
-msgstr ""
+msgstr "使用者名稱"
 
 #: src/EBox/Model/DynDNS.pm:103
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
 #: src/EBox/Model/DynDNS.pm:108
-#, fuzzy
 msgid "Hostname"
 msgstr "主機名稱"
 
 #: src/EBox/Model/DynDNS.pm:115
 msgid "Dynamic DNS"
-msgstr ""
+msgstr "動態 DNS"
 
 #: src/EBox/Model/DynDNS.pm:119
 msgid ""
@@ -428,7 +419,6 @@ msgid "Default"
 msgstr "預設"
 
 #: src/EBox/Model/GatewayTable.pm:140
-#, fuzzy
 msgid "Gateways List"
 msgstr "通訊閘列表"
 
@@ -555,21 +545,18 @@ msgid "Optional description for this route"
 msgstr "在這個路由選填註解"
 
 #: src/EBox/Model/StaticRoute.pm:164
-#, fuzzy
 msgid "Static Routes List"
 msgstr "靜態路由列表"
 
 #: src/EBox/Model/StaticRoute.pm:165 src/EBox/Network.pm:2800
-#, fuzzy
 msgid "Static Routes"
 msgstr "靜態路由"
 
 #: src/EBox/Model/StaticRoute.pm:170
-#, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured."
-msgstr "您在這裡輸入的所有路由必須能從目前所設定的網路介面其中之一可到的才行"
+msgstr "您在這裡輸入的所有路由必須能從目前所設定的網路介面其中之一可到的才行。"
 
 #: src/EBox/Model/StaticRoute.pm:173
 msgid "static route"
@@ -591,19 +578,16 @@ msgid ""
 msgstr "流量監控的啟動/停止是在背景執行不需要先儲存變更"
 
 #: src/EBox/Model/DNSResolver.pm:78
-#, fuzzy
 msgid "IP address of the DNS server that eBox will use to resolve names."
-msgstr "eBox 將會使用 DNS 伺服器的 IP 位址來解析名稱"
+msgstr "eBox 將會使用 DNS 伺服器的 IP 位址來解析名稱。"
 
 #: src/EBox/Model/DNSResolver.pm:84
-#, fuzzy
 msgid "Domain Name Server"
 msgstr "名稱伺服器"
 
 #: src/EBox/Model/DNSResolver.pm:93
-#, fuzzy
 msgid "Domain Name Server Resolver List"
-msgstr "名稱伺服器解析列表"
+msgstr "網域名稱伺服器解析列表"
 
 #: src/EBox/Model/DNSResolver.pm:99
 msgid "name server"
@@ -620,7 +604,7 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
-msgstr ""
+msgstr "啟用"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -636,21 +620,22 @@ msgid ""
 "{closeref}.{br}If you want to explicitily route traffic by a certain "
 "gateway, use the multigateway rules below"
 msgstr ""
+"啟用這個功能，您的流量會在通訊閘之間做平衡管控。也就是說，每個新連線會由不同的通訊閘送出。您可以選擇流量通過各通訊閘的比率，只要調整該通訊閘的權重參數即"
+"可。您可以在{openref}這裡{closeref}改變此數值。{br}如果您想要明確將流量導至某通訊閘，請使用下列多通訊閘規則"
 
 #: src/EBox/Model/SearchDomain.pm:72
-#, fuzzy
 msgid "Domain"
 msgstr "網域名稱"
 
 #: src/EBox/Model/SearchDomain.pm:80
 msgid "Search Domain"
-msgstr ""
+msgstr "搜尋網域"
 
 #: src/EBox/Model/SearchDomain.pm:84
 msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
-msgstr ""
+msgstr "如果第一次不附加此網域嘗試解析主機時失敗的話，接下來嘗試時會附加此網域。"
 
 #: src/EBox/Network.pm:90
 msgid "Add default routers to the default table"
@@ -677,14 +662,12 @@ msgid "eBox will set your network configuration"
 msgstr "eBox 會設定您的網路組態"
 
 #: src/EBox/Network.pm:119
-#, fuzzy
 msgid "eBox will set your DNS configuration"
-msgstr "eBox 會設定您的網路組態"
+msgstr "eBox 會設定您的 DNS 組態"
 
 #: src/EBox/Network.pm:124 src/EBox/Network.pm:129
-#, fuzzy
 msgid "eBox will set your ddclient configuration"
-msgstr "eBox 會設定您的網路組態"
+msgstr "eBox 會設定您的 ddclient 組態"
 
 #: src/EBox/Network.pm:725 src/EBox/Network.pm:729
 msgid "Virtual interface name"
@@ -713,14 +696,13 @@ msgid ""
 msgstr "在將 vlan 加入網路介面前需要先把它們設為 trunk 模式。"
 
 #: src/EBox/Network.pm:2337
-#, fuzzy
 msgid ""
 "The requested operation will cause one of the \n"
 "configured gateways to become unreachable. Please remove it first if you "
 "really want to make this change."
 msgstr ""
-"這個要求的操作會造成已設定的路由之一變得無法使用。如果您真的想要進行這項變更"
-"請先將它移除。"
+"這個要求的操作會造成已設定的\n"
+"路由之一變得無法使用。如果您真的想要進行這項變更請先將它移除。"
 
 #: src/EBox/Network.pm:2403 src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
@@ -767,34 +749,30 @@ msgid "Rx bytes"
 msgstr "Rx 位元組"
 
 #: src/EBox/Network.pm:2788
-#, fuzzy
 msgid "Core"
-msgstr "來源"
+msgstr "核心"
 
 #: src/EBox/Network.pm:2792
 msgid "Interfaces"
 msgstr "介面"
 
 #: src/EBox/Network.pm:2804
-#, fuzzy
 msgid "Diagnostic Tools"
-msgstr "診斷"
+msgstr "診斷工具"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
 msgstr "Ping"
 
 #: src/templates/diag.mas:22
-#, fuzzy
 msgid "Traceroute"
-msgstr "靜態路由"
+msgstr "Traceroute"
 
 #: src/templates/diag.mas:27
 msgid "Trace"
-msgstr ""
+msgstr "Trace"
 
 #: src/templates/diag.mas:31
-#, fuzzy
 msgid "Domain Name Resolution"
 msgstr "網域名稱解析"
 
@@ -862,7 +840,6 @@ msgid "Delete"
 msgstr "刪除"
 
 #: src/templates/ifaces.mas:207
-#, fuzzy
 msgid "Virtual Interfaces"
 msgstr "虛擬介面"
 

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:05+0200\n"
-"PO-Revision-Date: 2009-04-28 00:00+0200\n"
-"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
+"PO-Revision-Date: 2009-07-19 12:17+0200\n"
+"Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,7 +76,7 @@ msgstr "Brandvägg"
 
 #: src/EBox/Firewall.pm:814
 msgid "UTM"
-msgstr ""
+msgstr "UTM"
 
 #: src/EBox/Firewall.pm:818
 msgid "Packet Filter"
@@ -257,13 +257,12 @@ msgid "Interface"
 msgstr "Nätverksgränssnitt"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:256
-#, fuzzy
 msgid "Original destination"
-msgstr "Destination"
+msgstr "Ursprunglig destination"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:261
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
 #, fuzzy
@@ -277,7 +276,7 @@ msgstr "Objekt"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
 #, fuzzy
 msgid "Original destination port"
-msgstr "destinationsport"
+msgstr "Ursprunglig destinationsport"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"

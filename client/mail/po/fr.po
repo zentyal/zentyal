@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:09+0200\n"
-"PO-Revision-Date: 2009-06-21 22:09+0200\n"
-"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
+"PO-Revision-Date: 2009-07-28 03:48+0200\n"
+"Last-Translator: David Ande <david@andeprasfamily.ath.cx>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,9 +78,8 @@ msgstr "Quota de taille"
 #: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:737
 #: src/EBox/MailUserLdap.pm:799 src/EBox/MailUserLdap.pm:805
 #: src/EBox/Mail.pm:1392
-#, fuzzy
 msgid "maildir size"
-msgstr "taille de la boîte email"
+msgstr "taille de la boîte mail"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
@@ -165,7 +164,6 @@ msgid "Custom filter's mail forward port"
 msgstr "Filtre du port de transfert de mail personnalisé"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:103
-#, fuzzy
 msgid "Custom filter's IP address"
 msgstr "Filtre d'adresse IP personnalisé"
 
@@ -212,7 +210,6 @@ msgid "Password"
 msgstr "Mot de passe"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:123
-#, fuzzy
 msgid "Maximum message size accepted"
 msgstr "Taille maximale de message acceptée"
 
@@ -226,7 +223,6 @@ msgid "size in Mb"
 msgstr "Taille en Mb"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:143
-#, fuzzy
 msgid "Options"
 msgstr "Options"
 
@@ -237,12 +233,12 @@ msgstr "Nom"
 #: src/EBox/Mail/Model/VDomains.pm:64 src/EBox/Mail/Model/VDomainAliases.pm:57
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
 msgid "Aliases"
-msgstr ""
+msgstr "Alias"
 
 #: src/EBox/Mail/Model/VDomains.pm:78
 #, fuzzy
 msgid "Mail virtual domains"
-msgstr "Domaines virtuels de courrier email"
+msgstr "Domaines de courrier virtuels"
 
 #: src/EBox/Mail/Model/VDomains.pm:89
 msgid "Virtual domain added. You must save changes to use this domain"
@@ -259,9 +255,8 @@ msgstr ""
 "modules\" pour pouvoir l'utiliser"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:99 src/EBox/Mail.pm:1444
-#, fuzzy
 msgid "Mail retrieval services"
-msgstr "Service de recherche email"
+msgstr "Service de recherche de mails"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
 msgid "Enabled"
@@ -354,6 +349,8 @@ msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
+"Impossible d'utiliser {d} comme alias pour une domaine mail car un domaine "
+"portant ce nom existe déjà"
 
 #: src/EBox/MailAliasLdap.pm:256 src/EBox/MailAliasLdap.pm:286
 #: src/EBox/MailAliasLdap.pm:321
@@ -372,6 +369,7 @@ msgstr "Cet utilisateur a une compte de courrier"
 #, perl-brace-format
 msgid "Cannot create user account: mail directory {d} aready exists"
 msgstr ""
+"Impossible de créer ce compte utilisateur: un répertoire {d} existe déjà"
 
 #: src/EBox/Mail.pm:72
 #, fuzzy
@@ -403,12 +401,13 @@ msgid "Create certificates"
 msgstr "Créer alias de courrier"
 
 #: src/EBox/Mail.pm:135
+#, fuzzy
 msgid "eBox will create certificates to use in mail services"
-msgstr ""
+msgstr "eBox va créer des certificats qui seront utilisés par le service mail"
 
 #: src/EBox/Mail.pm:155
 msgid "To configure postfix"
-msgstr "Configurer postfix"
+msgstr "Pour configurer postfix"
 
 #: src/EBox/Mail.pm:161
 msgid "To define how client programs connect to services in  postfix"
@@ -455,9 +454,8 @@ msgstr ""
 "désactiver"
 
 #: src/EBox/Mail.pm:1066
-#, fuzzy
 msgid "SMTP service"
-msgstr "Service IMAP"
+msgstr "Service SMTP"
 
 #: src/EBox/Mail.pm:1073
 msgid "POP3 service"
@@ -513,9 +511,8 @@ msgid "Address"
 msgstr "Adresse"
 
 #: src/EBox/Mail.pm:1175
-#, fuzzy
 msgid "Communications"
-msgstr "Authentification"
+msgstr "Communications"
 
 #: src/EBox/Mail.pm:1182
 msgid "General"

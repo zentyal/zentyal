@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:17+0200\n"
-"PO-Revision-Date: 2009-01-25 08:28+0000\n"
-"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2009-07-17 11:19+0200\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/ActiveSharing.pm:44 src/EBox/CGI/ActivePrinting.pm:48
@@ -153,17 +153,16 @@ msgstr ""
 "Пользователи могут читать и писать в любой файл ресурса"
 
 #: src/EBox/Samba/Model/PDC.pm:77
-#, fuzzy
 msgid "File sharing module is not enabled."
-msgstr "модуль файловых ресурсов"
+msgstr "Модуль совместного использования файловых ресурсов не активен"
 
 #: src/EBox/Samba/Model/PDC.pm:78
 msgid "PDC is not enabled."
-msgstr ""
+msgstr "PDC не активен"
 
 #: src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
-msgstr ""
+msgstr "Минимальная длина пароля"
 
 #: src/EBox/Samba/Model/PDC.pm:91 src/EBox/Samba/Model/PDC.pm:109
 #: src/EBox/Samba/Model/PDC.pm:127 src/EBox/Samba/Model/GeneralSettings.pm:119
@@ -174,32 +173,31 @@ msgstr "Отключено"
 #: src/EBox/Samba/Model/PDC.pm:95 src/EBox/Samba/Model/PDC.pm:113
 #: src/EBox/Samba/Model/GeneralSettings.pm:111
 msgid "Limited to"
-msgstr ""
+msgstr "Ограничено"
 
 #: src/EBox/Samba/Model/PDC.pm:96
-#, fuzzy
 msgid "characters"
-msgstr "Ресурсы"
+msgstr "символы"
 
 #: src/EBox/Samba/Model/PDC.pm:105
 msgid "Maximum password age"
-msgstr ""
+msgstr "Максимальный срок службы пароля"
 
 #: src/EBox/Samba/Model/PDC.pm:114
 msgid "days"
-msgstr ""
+msgstr "дней"
 
 #: src/EBox/Samba/Model/PDC.pm:123
 msgid "Enforce password history"
-msgstr ""
+msgstr "Принудительная история паролей"
 
 #: src/EBox/Samba/Model/PDC.pm:131
 msgid "Keep history for"
-msgstr ""
+msgstr "Хранить историю"
 
 #: src/EBox/Samba/Model/PDC.pm:132
 msgid "passwords remebered"
-msgstr ""
+msgstr "запоминание паролей"
 
 #: src/EBox/Samba/Model/PDC.pm:143
 msgid "PDC"
@@ -207,17 +205,15 @@ msgstr "PDC"
 
 #: src/EBox/Samba/Model/PDC.pm:147
 msgid "On this page you can set different PDC related settings"
-msgstr ""
+msgstr "На этой странице вы можете  настроить параметры PDC"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:93
-#, fuzzy
 msgid "User/Group/Share"
-msgstr "Пользователь/Группа"
+msgstr "Пользователь/Группа/Ресурс"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:99
-#, fuzzy
 msgid "User homes"
-msgstr "Файлы пользователей"
+msgstr "Домашние каталоги пользователей"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110 src/EBox/Samba.pm:586
 #: src/templates/ajax/viewer/shareViewer.mas:12
@@ -225,37 +221,33 @@ msgid "Share"
 msgstr "Совместно используемый ресурс"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:121
-#, fuzzy
 msgid "Samba shares antivirus exceptions"
-msgstr "Конфигурация ресурсов Самбы"
+msgstr "Антивирусные исключение ресурсов Самбы"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:126
 msgid "Add exceptions to the default antivirus settings"
-msgstr ""
+msgstr "Добавить исключения настройки по умолчанию антивируса"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:127
-#, fuzzy
 msgid "exception"
-msgstr "описание"
+msgstr "исключения"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:45
 #: src/EBox/Samba/Model/AntivirusDefault.pm:63
-#, fuzzy
 msgid "Antivirus default settings"
-msgstr "Общие настройки"
+msgstr "Общие настройки антивируса"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:55
 msgid "Scan"
-msgstr ""
+msgstr "Сканирование"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:73
 msgid "Netbios and workgroup must have different names"
 msgstr "Netbios и рабочая группа должны иметь разные имена"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:83
-#, fuzzy
 msgid "Enable PDC"
-msgstr "Включено"
+msgstr "Включение PDC"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:89
 msgid "Domain name"
@@ -275,17 +267,15 @@ msgstr "Квота"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:113
 msgid "Mb"
-msgstr ""
+msgstr "Мбайт"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:125
-#, fuzzy
 msgid "Enable roaming profiles"
-msgstr "перемещаемые профили"
+msgstr "Включить перемещаемые профили"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:131
-#, fuzzy
 msgid "Drive letter"
-msgstr "Удалить"
+msgstr "Буква диска"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:139
 msgid "General settings"
@@ -293,16 +283,15 @@ msgstr "Общие настройки"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:143
 msgid "On this page you can set different general settings for Samba"
-msgstr ""
+msgstr "На этой странице вы можете установить основные настройки Samba"
 
 #: src/EBox/Samba/Composite/Antivirus.pm:64
 msgid "Antivirus"
-msgstr ""
+msgstr "Антивирус"
 
 #: src/EBox/Samba/Composite/General.pm:75
-#, fuzzy
 msgid "File sharing options"
-msgstr "Совместное использование файлов"
+msgstr "Настройки совместное использование файлов"
 
 #: src/EBox/SambaLdapUser.pm:293
 msgid "This user has a sharing directory associated which contains data"
@@ -431,7 +420,7 @@ msgstr "Добавить поддержку квот для раздела /home
 
 #: src/EBox/Samba.pm:176
 msgid "To set the antivirus settings for Samba"
-msgstr ""
+msgstr "Установить настройки антивируса для Самбы"
 
 #: src/EBox/Samba.pm:586 src/EBox/Samba.pm:607
 msgid "Source machine"
@@ -450,13 +439,12 @@ msgid "Users by share"
 msgstr "Пользовательские ресурсы"
 
 #: src/EBox/Samba.pm:686
-#, fuzzy
 msgid "File Sharing"
-msgstr "Совместное использование файлов"
+msgstr "Шаринг файлов"
 
 #: src/EBox/Samba.pm:687
 msgid "Office"
-msgstr ""
+msgstr "Офис"
 
 #: src/EBox/Samba.pm:1204 src/EBox/Samba.pm:1223
 msgid "user"
@@ -479,99 +467,88 @@ msgid "Group's files"
 msgstr "Файлы групп"
 
 #: src/EBox/Samba.pm:1750 src/EBox/Samba.pm:1770 src/EBox/Samba.pm:1780
-#, fuzzy
 msgid "Date"
-msgstr "активно"
+msgstr "Дата"
 
 #: src/EBox/Samba.pm:1751 src/EBox/Samba.pm:1771
 msgid "Client address"
-msgstr ""
+msgstr "Адрес клиента"
 
 #: src/EBox/Samba.pm:1753
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 #: src/EBox/Samba.pm:1754
 msgid "Recurso"
 msgstr ""
 
 #: src/EBox/Samba.pm:1758
-#, fuzzy
 msgid "Connect"
-msgstr "Подключеные"
+msgstr "Подключить"
 
 #: src/EBox/Samba.pm:1759
-#, fuzzy
 msgid "Access to directory"
-msgstr "Контроль доступа"
+msgstr "Доступ к каталогу"
 
 #: src/EBox/Samba.pm:1760
-#, fuzzy
 msgid "Read file"
-msgstr "Только чтение"
+msgstr "Чтение файла"
 
 #: src/EBox/Samba.pm:1761
 msgid "Write file"
-msgstr ""
+msgstr "Запись файла"
 
 #: src/EBox/Samba.pm:1762
 msgid "Disconnect"
-msgstr ""
+msgstr "Отключить"
 
 #: src/EBox/Samba.pm:1763
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: src/EBox/Samba.pm:1764
-#, fuzzy
 msgid "Create directory"
-msgstr "{group} каталог ресурсов"
+msgstr "Создать каталог"
 
 #: src/EBox/Samba.pm:1765
-#, fuzzy
 msgid "Remove directory"
-msgstr "Домашний каталог"
+msgstr "Удалить каталог"
 
 #: src/EBox/Samba.pm:1766
-#, fuzzy
 msgid "Rename"
-msgstr "имя пользователя"
+msgstr "Переименовать"
 
 #: src/EBox/Samba.pm:1772 src/EBox/Samba.pm:1781
-#, fuzzy
 msgid "File name"
-msgstr "имя пользователя"
+msgstr "имя файла"
 
 #: src/EBox/Samba.pm:1773 src/EBox/Samba.pm:1777
 msgid "Virus"
-msgstr ""
+msgstr "Вирус"
 
 #: src/EBox/Samba.pm:1774
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: src/EBox/Samba.pm:1782
 msgid "Quarantined file name"
-msgstr ""
+msgstr "Карантинное имя файла"
 
 #: src/EBox/Samba.pm:1783 src/EBox/Samba.pm:1786
 msgid "Quarantine"
-msgstr ""
+msgstr "Крантин"
 
 #: src/EBox/Samba.pm:1789
-#, fuzzy
 msgid "Samba access"
-msgstr "Общие ресурсы"
+msgstr "Доступ самбы"
 
 #: src/EBox/Samba.pm:1800
-#, fuzzy
 msgid "Samba virus"
-msgstr "Общие ресурсы"
+msgstr "Вирус самбы"
 
 #: src/EBox/Samba.pm:1811
-#, fuzzy
 msgid "Samba quarantine"
-msgstr "Общие ресурсы"
+msgstr "Карантин самбы"
 
 #: migration/0001_add_samba_service.pl:113
 msgid "File sharing (Samba) protocol"

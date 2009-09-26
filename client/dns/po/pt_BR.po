@@ -7,8 +7,9 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:03+0200\n"
-"PO-Revision-Date: 2009-01-21 13:30+0000\n"
-"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
+"PO-Revision-Date: 2009-07-18 17:35+0200\n"
+"Last-Translator: Fabricio Rocha dos Santos "
+"<fabricio.rocha.dos.santos@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,7 +107,7 @@ msgstr "Domínio"
 
 #: src/EBox/Model/DomainTable.pm:83
 msgid "Mail Exchangers"
-msgstr "Servidores de Email"
+msgstr "Servidores de E-mail"
 
 #: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
 msgid "Domains"
@@ -144,13 +145,14 @@ msgid ""
 "the same domain"
 msgstr "Já existe uma máquina com o nome \"{name}\" no domínio"
 
+# alias
 #: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
-msgstr "alias"
+msgstr "apelido"
 
 #: src/EBox/DNS.pm.in:51
 msgid "Domain Name System"
-msgstr "Domain Name System"
+msgstr "Sistema de Nome de Domínio"
 
 #: src/EBox/DNS.pm.in:88
 msgid "DNS Server"
@@ -168,7 +170,7 @@ msgstr "arquivo de configuração para a zona reversa {zone}"
 
 #: src/EBox/DNS.pm.in:797
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infraestrutura"
 
 #: src/templates/index.mas:16
 msgid "Domain list"

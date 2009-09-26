@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:09+0200\n"
-"PO-Revision-Date: 2009-01-25 09:00+0000\n"
-"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2009-07-17 09:48+0200\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
@@ -230,7 +230,7 @@ msgstr "Имя"
 #: src/EBox/Mail/Model/VDomains.pm:64 src/EBox/Mail/Model/VDomainAliases.pm:57
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
 msgid "Aliases"
-msgstr ""
+msgstr "Псевдоним"
 
 #: src/EBox/Mail/Model/VDomains.pm:78
 msgid "Mail virtual domains"
@@ -262,14 +262,13 @@ msgstr "Продолжительность серого списка (секун
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:71
 msgid "During this interval, the mail sender is deferred"
-msgstr ""
+msgstr "Почта отправителей задерживается в течении данного интервала"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:79
 msgid "Retry window (hours)"
 msgstr "Повтор окна (часов)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:80
-#, fuzzy
 msgid ""
 "Time that mail sender has to retry to be added before it will be greylisted "
 "again"
@@ -282,7 +281,6 @@ msgid "Entries time to live (days)"
 msgstr "Время жизни записи (дней)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:90
-#, fuzzy
 msgid "Period till unseen entries will be deleted"
 msgstr "Период после которого не просмотренные записи будут удалены"
 
@@ -291,15 +289,13 @@ msgid "Greylist configuration"
 msgstr "Конфигурация серого списка"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:78
-#, fuzzy
 msgid "virtual domain alias"
-msgstr "Список виртуальных доменов"
+msgstr "Псевдонимы виртуальных доменов"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:80
-#, fuzzy
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr ""
-"Виртуальный домен добавлен. Необходимо записать изменения, чтобы "
+"Псевдоним виртуального домена добавлен. Необходимо записать изменения, чтобы "
 "использовать этот домен"
 
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
@@ -309,12 +305,11 @@ msgstr "Настройки почтового сервера"
 
 #: src/EBox/Mail/Greylist.pm:55
 msgid "To configure whitelist for greylisting"
-msgstr "Настройка белого списка для серого списка"
+msgstr "Настройка белого списка в сером списке"
 
 #: src/EBox/Mail/Greylist.pm:279
-#, fuzzy
 msgid "Greylist service"
-msgstr "В сером списке"
+msgstr "Служба серый список"
 
 #: src/EBox/MailAliasLdap.pm:61 src/EBox/MailAliasLdap.pm:66
 #: src/EBox/MailAliasLdap.pm:88 src/EBox/MailAliasLdap.pm:93
@@ -324,14 +319,13 @@ msgid "mail account"
 msgstr "почтовые учетные записи"
 
 #: src/EBox/MailAliasLdap.pm:130 src/EBox/MailAliasLdap.pm:150
-#, fuzzy
 msgid "Domain alias"
-msgstr "почтовый псевдоним"
+msgstr "Псевдонимы домена"
 
 #: src/EBox/MailAliasLdap.pm:135 src/EBox/MailAliasLdap.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Mail domain {d} does not exists"
-msgstr "Учетная запись не существует"
+msgstr "Почтовый домен {d} не существует"
 
 #: src/EBox/MailAliasLdap.pm:142
 #, perl-brace-format
@@ -339,6 +333,8 @@ msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
+"Невозможно использовать{d} как псевдоним для почтового домена, поскольку "
+"домен с таким именем уже существует"
 
 #: src/EBox/MailAliasLdap.pm:256 src/EBox/MailAliasLdap.pm:286
 #: src/EBox/MailAliasLdap.pm:321
@@ -357,6 +353,8 @@ msgstr "Этот пользователь имеет почтовую учетн
 #, perl-brace-format
 msgid "Cannot create user account: mail directory {d} aready exists"
 msgstr ""
+"не возможно создать пользовательский аккаунт: почтовый каталог {d} уже "
+"существует"
 
 #: src/EBox/Mail.pm:72
 msgid "mail"
@@ -376,18 +374,16 @@ msgid "Add LDAP schemas"
 msgstr "Добавить LDAP схему"
 
 #: src/EBox/Mail.pm:127
-#, fuzzy
 msgid "eBox will add two LDAP schemas: authldap.schema and eboximail.schema."
-msgstr "eBox две схемы LDAP: {schema1} и {schema2}."
+msgstr "eBox добавлено две схемы LDAP: authldap.schema и eboximail.schema."
 
 #: src/EBox/Mail.pm:133
-#, fuzzy
 msgid "Create certificates"
-msgstr "Создать почтовые псевдонимы"
+msgstr "Создать сертификаты"
 
 #: src/EBox/Mail.pm:135
 msgid "eBox will create certificates to use in mail services"
-msgstr ""
+msgstr "eBox создал сертификаты для использования в почтовых службах"
 
 #: src/EBox/Mail.pm:155
 msgid "To configure postfix"
@@ -398,14 +394,12 @@ msgid "To define how client programs connect to services in  postfix"
 msgstr "Определить какие клиентские программы соединены со службой  postfix"
 
 #: src/EBox/Mail.pm:168
-#, fuzzy
 msgid "To configure dovecot"
-msgstr "Настроить postfix"
+msgstr "Настроить dovecot"
 
 #: src/EBox/Mail.pm:173
-#, fuzzy
 msgid "To configure dovecot to authenticate against LDAP"
-msgstr "Настроить courier для аутентификации через LDAP"
+msgstr "Настроить dovecot для аутентификации через LDAP"
 
 #: src/EBox/Mail.pm:178
 msgid "To add the LDAP schemas used by eBox mail"
@@ -427,36 +421,32 @@ msgstr ""
 "или отключите это."
 
 #: src/EBox/Mail.pm:655
-#, fuzzy
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
-"Почтовый фильтр {name} отключен. Пожалуйста установите другой фильтр или "
+"Почтовый фильтр $name отключен. Пожалуйста установите другой фильтр или "
 "отключите его"
 
 #: src/EBox/Mail.pm:1066
-#, fuzzy
 msgid "SMTP service"
-msgstr "Служба IMAP"
+msgstr "Служба SMTP"
 
 #: src/EBox/Mail.pm:1073
 msgid "POP3 service"
 msgstr "Служба POP3"
 
 #: src/EBox/Mail.pm:1079
-#, fuzzy
 msgid "POP3S service"
-msgstr "Служба POP3"
+msgstr "Служба POP3S"
 
 #: src/EBox/Mail.pm:1085
 msgid "IMAP service"
 msgstr "Служба IMAP"
 
 #: src/EBox/Mail.pm:1091
-#, fuzzy
 msgid "IMAPS service"
-msgstr "Служба IMAP"
+msgstr "Служба IMAPS"
 
 #: src/EBox/Mail.pm:1118 src/EBox/Mail.pm:1174 src/EBox/Mail.pm:1254
 #: src/EBox/Event/Dispatcher/Mail.pm:168
@@ -492,16 +482,14 @@ msgid "Address"
 msgstr "Адрес"
 
 #: src/EBox/Mail.pm:1175
-#, fuzzy
 msgid "Communications"
-msgstr "Аутентификация"
+msgstr "Коммуникации"
 
 #: src/EBox/Mail.pm:1182
 msgid "General"
 msgstr "Общие"
 
 #: src/EBox/Mail.pm:1189
-#, fuzzy
 msgid "Virtual Mail Domains"
 msgstr "Виртуальные почтовые домены"
 
@@ -582,9 +570,8 @@ msgid "Mailboxes"
 msgstr "Почтовые ящики"
 
 #: src/EBox/Mail.pm:1437
-#, fuzzy
 msgid "Mail SMTP server"
-msgstr "Почтовая служба"
+msgstr "Почтовый SMTP сервер"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"

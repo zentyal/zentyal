@@ -13,13 +13,14 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:03+0200\n"
-"PO-Revision-Date: 2007-08-19 12:01+0200\n"
-"Last-Translator: andy <semilbi@hotmail.com>\n"
+"PO-Revision-Date: 2009-07-08 07:47+0200\n"
+"Last-Translator: Jörg Gronmayer <joerg@gronmayer.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/ShowForm.pm:41
 #: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/Index.pm:39
@@ -173,31 +174,30 @@ msgstr ""
 "Zertifizierungsstelle"
 
 #: src/EBox/Model/Certificates.pm:92
-#, fuzzy
 msgid "You must create a Certification Authority."
-msgstr "Ein Zertifikat für die Zertifizierungsstelle generieren"
+msgstr "Sie müssen eine Zertifizierungsstelle generieren"
 
 #: src/EBox/Model/Certificates.pm:213
 msgid "Module"
-msgstr ""
+msgstr "Modul"
 
 #: src/EBox/Model/Certificates.pm:225
 msgid "Service"
-msgstr ""
+msgstr "Dienst"
 
 #: src/EBox/Model/Certificates.pm:237
 msgid "Enable"
-msgstr ""
+msgstr "Aktivieren"
 
 #: src/EBox/Model/Certificates.pm:245 src/EBox/CA.pm:1709
 #, fuzzy
 msgid "Services Certificates"
-msgstr "Das Zertifikat wird widerrufen"
+msgstr "Zertifizierungsdienste"
 
 #: src/EBox/Model/Certificates.pm:246
 #, fuzzy
 msgid "certificate"
-msgstr "Zertifikatsdatei"
+msgstr "Zertifikat"
 
 #: src/EBox/CA.pm:292 src/EBox/CA.pm:763 src/EBox/CA.pm:1351
 #, perl-brace-format
@@ -208,13 +208,12 @@ msgstr ""
 
 #: src/EBox/CA.pm:387
 msgid "The remove operation cannot be finished. Reason: "
-msgstr ""
-"Die Aktion \"Löschen\" konnte nicht vollständig durchgeführt werden. Grund:"
+msgstr "Löschen konnte nicht vollständig durchgeführt werden. Grund:"
 
 #: src/EBox/CA.pm:922 src/EBox/CA.pm:1247
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
-msgstr "Das Zertifikat mit der Bezeichnung {cn} gibt es NICHT"
+msgstr "Ein Zertifikat mit der Bezeichnung {cn} gibt es NICHT"
 
 #: src/EBox/CA.pm:926
 #, perl-brace-format
@@ -228,8 +227,7 @@ msgstr ""
 #: src/EBox/CA.pm:1151
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
-"Entweder die Bezeichnung, Spezielle Name oder die Seriennummer wurde "
-"übermittelt"
+"Entweder die Bezeichnung, der Name oder die Seriennummer wurde übermittelt"
 
 #: src/EBox/CA.pm:1373
 msgid "or"
@@ -261,25 +259,26 @@ msgstr ""
 
 #: src/EBox/CA.pm:1702
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infrastruktur"
 
 #: src/EBox/CA.pm:1706
 msgid "General"
-msgstr ""
+msgstr "Allgemein"
 
 #: src/EBox/CA.pm:2266
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Signieren nicht möglich. Falsches Passwort für die Zertifizierungsstelle "
-"oder ist etwa der private Schlüssel verschwunden?"
+"oder hat die Zertifizierungsstelle den privaten Schlüssel zurückgezogen?"
 
 #: src/EBox/CA.pm:2268
 msgid "Database corruption"
-msgstr "Datenbank wurde korrupiert"
+msgstr "Datenbankfehler"
 
 #: src/EBox/CA.pm:2270
+#, fuzzy
 msgid "Identifier duplicated in Database"
-msgstr "Identität in Datenbank dupliziert"
+msgstr "Doppelte Identität in der Datenbank"
 
 #: src/EBox/CA.pm:2272
 msgid "Certificate already revoked"
@@ -384,11 +383,11 @@ msgstr "Ablaufdatum"
 
 #: src/templates/index.mas:41 src/templates/createCA.mas:9
 msgid "Country code"
-msgstr ""
+msgstr "Landes-Kennung"
 
 #: src/templates/index.mas:44 src/templates/createCA.mas:13
 msgid "City"
-msgstr ""
+msgstr "Ort"
 
 #: src/templates/index.mas:47 src/templates/index.mas:84
 #: src/templates/createCA.mas:16

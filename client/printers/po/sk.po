@@ -5,41 +5,41 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-printers 1.3.3"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-printers 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:33+0200\n"
-"PO-Revision-Date: 2008-09-01 08:33+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-08 12:45+0200\n"
+"Last-Translator: Marcel Hecko <maco@blava.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:421
 msgid "Manage printers"
-msgstr ""
+msgstr "Riadenie tlaciarni"
 
 #: src/EBox/CGI/CancelJob.pm:40 src/EBox/CGI/AddPrinter.pm:40
 msgid "Printer's name"
-msgstr ""
+msgstr "Meno tlaciarne"
 
 #: src/EBox/CGI/CancelJob.pm:41
 msgid "Printer's id"
-msgstr ""
+msgstr "ID tlaciarne"
 
 #: src/EBox/CGI/CancelJob.pm:42
 msgid "Job id"
-msgstr ""
+msgstr "ID ulohy"
 
 #: src/EBox/CGI/CancelJob.pm:54
 msgid "Job was successfully canceled"
-msgstr ""
+msgstr "Uloha bola uspesne zrusena"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/NetworkPrinterUI.pm:30
 #: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
 msgid "Add a new printer (II)"
-msgstr ""
+msgstr "Pridat novu tlaciaren"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:46 src/EBox/CGI/SambaPrinter.pm:40
 #: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/ManufacturerUI.pm:46
@@ -62,7 +62,7 @@ msgstr ""
 #: src/EBox/Printers.pm:1157 src/EBox/Printers.pm:1212
 #: src/EBox/Printers.pm:1227 src/EBox/Printers.pm:1258
 msgid "Printer"
-msgstr ""
+msgstr "Tlaciaren"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/NetworkPrinterUI.pm:53
 #: src/EBox/CGI/USBPrinterUI.pm:54 src/EBox/CGI/ParallelPrinterUI.pm:54
@@ -74,15 +74,15 @@ msgstr ""
 #: src/templates/manufacturer.mas:22 src/templates/drivers.mas:34
 #: src/templates/drivers.mas:35
 msgid "Next"
-msgstr ""
+msgstr "Dalej"
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr ""
+msgstr "stav modulu"
 
 #: src/EBox/CGI/SambaPrinter.pm:52
 msgid "Shared resource"
-msgstr ""
+msgstr "Zdielany zdroj"
 
 #: src/EBox/CGI/SambaPrinter.pm:53 src/templates/samba.mas:32
 #: src/templates/printerback.mas:120
@@ -92,28 +92,28 @@ msgstr ""
 #: src/EBox/CGI/SambaPrinter.pm:61 src/templates/samba.mas:60
 #: src/templates/printerback.mas:148
 msgid "User"
-msgstr ""
+msgstr "Uzivatel"
 
 #: src/EBox/CGI/SambaPrinter.pm:62 src/templates/samba.mas:69
 #: src/templates/printerback.mas:157
 msgid "Password"
-msgstr ""
+msgstr "Heslo"
 
 #: src/EBox/CGI/DriverUI.pm:30
 msgid "Add a new printer (V)"
-msgstr ""
+msgstr "Pridat novu tlaciaren"
 
 #: src/EBox/CGI/ManufacturerUI.pm:30
 msgid "Add a new printer (III)"
-msgstr ""
+msgstr "Pridat novu tlaciaren (III)"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:30
 msgid "Manage printer"
-msgstr ""
+msgstr "Riadenie tlaciarne"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:58
 msgid "Printer details"
-msgstr ""
+msgstr "Detaily tlaciarne"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:59
 msgid "Driver Options"

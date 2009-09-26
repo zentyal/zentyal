@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:18+0200\n"
-"PO-Revision-Date: 2009-04-05 17:43+0200\n"
-"Last-Translator: Cyril MARTY <cyril_marty@yahoo.fr>\n"
+"PO-Revision-Date: 2009-07-28 03:58+0200\n"
+"Last-Translator: David Ande <david@andeprasfamily.ath.cx>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,9 +71,8 @@ msgid "user name"
 msgstr "nom d'utilisateur"
 
 #: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
-#, fuzzy
 msgid "last name"
-msgstr "nom d'utilisateur"
+msgstr "nom de famille"
 
 #: src/EBox/CGI/ModifyUser.pm:49
 msgid "password"
@@ -141,7 +140,7 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:64
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:133
 #, perl-brace-format
@@ -149,20 +148,20 @@ msgid ""
 "There are no groups at the moment. You may want to add some in {openhref}Add "
 "group section{closehref}."
 msgstr ""
+"Aucun groupe n'est défini pour le moment. Vous devez en ajouter dans "
+"{openhref}la section ajouter un groupe{closehref}."
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:47
 msgid "Password management"
-msgstr ""
+msgstr "Gestion des mots de passe"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:57
-#, fuzzy
 msgid "New password"
-msgstr "mot de passe"
+msgstr "Nouveau mot de passe"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:64
-#, fuzzy
 msgid "Re-type new password"
-msgstr "Reécrire le mot de passe"
+msgstr "Taper de nouveau le mot de passe"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:73
 #: src/EBox/UsersAndGroups.pm:1813 src/templates/users.mas:51
@@ -172,7 +171,7 @@ msgstr "Mot de passe"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:102
 msgid "Password successfully updated"
-msgstr ""
+msgstr "Le mot de passe a été mis à jour avec succès"
 
 #: src/EBox/UsersAndGroups.pm:62
 msgid "users and groups"
@@ -265,7 +264,7 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:1783 src/EBox/UsersAndGroups.pm:1794
 msgid "Office"
-msgstr ""
+msgstr "Bureau"
 
 #: src/EBox/UsersAndGroups.pm:1786 src/templates/users.mas:14
 msgid "Add User"
@@ -288,9 +287,8 @@ msgid "This group contains users"
 msgstr "Ce groupe contient des utilisateurs"
 
 #: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
-#, fuzzy
 msgid "User"
-msgstr "Utilisateurs"
+msgstr "Utilisateur"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:62
 msgid ""
@@ -306,14 +304,15 @@ msgstr "reécrire le mot de passe"
 #: src/EBox/UserCorner/CGI/Login/Index.pm:69
 msgid "For security reasons your session has expired due to inactivity"
 msgstr ""
+"Pour des raisons de sécurité votre session a espirée pour cause d'inactivité"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:72
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "Vous avez été déloggué car une nouvelle session a été ouverte"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:75
 msgid "You are not logged in"
-msgstr ""
+msgstr "Vous n'êtes pas loggué"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 #: src/EBox/UserCornerWebServer.pm:109
@@ -323,15 +322,16 @@ msgstr "Nom d'utilisateur"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
 msgid "User Corner webserver settings"
 msgstr ""
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
+#, fuzzy
 msgid "listening port"
-msgstr ""
+msgstr "Port écoutant"
 
 #: src/EBox/UserCornerWebServer.pm:37
 #, fuzzy
@@ -348,7 +348,7 @@ msgstr ""
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
-msgstr "Ajouter un nouvel utilisateur"
+msgstr "Ajouter un nouveau"
 
 #: src/templates/users.mas:11 src/templates/groups.mas:9
 msgid ""
@@ -425,12 +425,11 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #: src/templates/group.mas:13
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one  to manage this "
 "group properly"
 msgstr ""
-"Il n'y a aucun utilisateur à ce moment. Vous en avez besoin d'au moins un "
+"Il n'y a aucun utilisateur pour le moment. Vous en avez besoin d'au moins un "
 "pour contrôler ce groupe correctement"
 
 #: src/templates/group.mas:23 src/templates/group.mas:24
@@ -481,12 +480,11 @@ msgstr ""
 #: src/templates/user.mas:84
 #, fuzzy
 msgid "User groups"
-msgstr "Utilisateurs dans groupe"
+msgstr "Utilisateurs des groupes"
 
 #: src/templates/user.mas:86
-#, fuzzy
 msgid "Other groups"
-msgstr "Effacer le groupe"
+msgstr "Autres groupes"
 
 #: src/templates/user.mas:113
 #, fuzzy
@@ -520,15 +518,15 @@ msgstr "Actions"
 
 #: src/templates/usercorner/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Attention: Verr.Maj (Caps Lock) est activé"
 
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
-msgstr ""
+msgstr "Entrer"
 
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"
-msgstr ""
+msgstr "Déconnexion"
 
 #~ msgid "full name"
 #~ msgstr "nom complet"

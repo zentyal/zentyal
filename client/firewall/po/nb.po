@@ -8,35 +8,38 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:05+0200\n"
-"PO-Revision-Date: 2008-09-01 08:31+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-28 09:27+0200\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Filter.pm:28
 msgid "Packet filtering"
-msgstr ""
+msgstr "Pakke filtrering"
 
 #: src/EBox/Firewall.pm:57
 msgid "firewall"
-msgstr ""
+msgstr "brannmur"
 
 #: src/EBox/Firewall.pm:125
 msgid "Flush previous firewall rules"
-msgstr ""
+msgstr "Forkast tidligere brannmur regler"
 
 #: src/EBox/Firewall.pm:126
 msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
+"eBox brannmuren vil forkaste alle tidligere brannmur regler som ikke er lagt "
+"til manuelt eller andre verktøy"
 
 #: src/EBox/Firewall.pm:131
 msgid "Secure by default"
-msgstr ""
+msgstr "Sikre som standard"
 
 #: src/EBox/Firewall.pm:132
 msgid ""
@@ -45,172 +48,178 @@ msgid ""
 "all outcoming connections are denied by default, and only SSH and HTTPS "
 "incoming connections are allowed."
 msgstr ""
+"Bare noen få tilkoblinger er tillatt som standard. Forsikre deg at du legger "
+"til riktig innkommende og utgående regler for at systemet skal virke som "
+"forventet. Som regel vil alle utgående tilkoblinger bli blokkert som "
+"standard, og bare SSH og HTTPS inngående tilkoblinger er tillatt."
 
 #: src/EBox/Firewall.pm:304
 msgid "action"
-msgstr ""
+msgstr "handling"
 
 #: src/EBox/Firewall.pm:425 src/EBox/Firewall.pm:470 src/EBox/Firewall.pm:494
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
-msgstr ""
+msgstr "Navn '{name}' er ugyldig"
 
 #: src/EBox/Firewall.pm:426 src/EBox/Firewall.pm:605 src/EBox/Firewall.pm:630
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Firewall.pm:604 src/EBox/Firewall.pm:629
 msgid "protocol"
-msgstr ""
+msgstr "protokoll"
 
 #: src/EBox/Firewall.pm:813 src/EBox/Firewall.pm:848
 msgid "Firewall"
-msgstr ""
+msgstr "Brannmur"
 
 #: src/EBox/Firewall.pm:814
 msgid "UTM"
-msgstr ""
+msgstr "UTM"
 
 #: src/EBox/Firewall.pm:818
 msgid "Packet Filter"
-msgstr ""
+msgstr "Pakke filter"
 
 #: src/EBox/Firewall.pm:821
 msgid "Redirects"
-msgstr ""
+msgstr "Videresendinger"
 
 #: src/EBox/Firewall.pm:832
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: src/EBox/Firewall.pm:833
 msgid "Input interface"
-msgstr ""
+msgstr "Inndata grensesnitt"
 
 #: src/EBox/Firewall.pm:834
 msgid "Output interface"
-msgstr ""
+msgstr "Utdata grensesnitt"
 
 #: src/EBox/Firewall.pm:835 src/EBox/Firewall/Model/BaseRuleTable.pm:121
 #: src/EBox/Firewall/Model/RedirectsTable.pm:292
 msgid "Source"
-msgstr ""
+msgstr "Kilde"
 
 #: src/EBox/Firewall.pm:836 src/EBox/Firewall/Model/BaseRuleTable.pm:147
 msgid "Destination"
-msgstr ""
+msgstr "Destinasjon"
 
 #: src/EBox/Firewall.pm:837 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoll"
 
 #: src/EBox/Firewall.pm:838
 msgid "Source port"
-msgstr ""
+msgstr "Kilde port"
 
 #: src/EBox/Firewall.pm:839
 msgid "Destination port"
-msgstr ""
+msgstr "Destinasjons port"
 
 #: src/EBox/Firewall.pm:840 src/EBox/Firewall/Model/BaseRuleTable.pm:112
 msgid "Decision"
-msgstr ""
+msgstr "Valg"
 
 #: src/EBox/Firewall.pm:845
 msgid "DROP"
-msgstr ""
+msgstr "TAP"
 
 #: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
-msgstr ""
+msgstr "LOGG"
 
 #: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
-msgstr ""
+msgstr "Du må sette iptables_log_limit variabelen i ebox konfigurasjons filen"
 
 #: src/EBox/Iptables.pm:744 src/EBox/Iptables.pm:781
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
-msgstr ""
+msgstr "Du må sette iptables_log_burst variabelen i ebox konfigurasjons filen"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 msgid "packets dropped"
-msgstr ""
+msgstr "tapte pakker"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 msgid "Firewall packet traffic chart"
-msgstr ""
+msgstr "Brannmur pakke trafikk kart"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
 msgid "Packet traffic"
-msgstr ""
+msgstr "Pakke trafikk"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
-msgstr ""
+msgstr "Tapte pakker"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 msgid "Packet traffic details"
-msgstr ""
+msgstr "Pakke trafikk detaljer"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
-msgstr ""
+msgstr "trafikk"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
-msgstr ""
+msgstr "GODKJENN"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:68
 msgid "DENY"
-msgstr ""
+msgstr "AVVIS"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:126
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:152
 #: src/EBox/Firewall/Model/RedirectsTable.pm:297
 msgid "Any"
-msgstr ""
+msgstr "Hvilken som helst"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:129
 #: src/EBox/Firewall/Model/RedirectsTable.pm:300
 msgid "Source IP"
-msgstr ""
+msgstr "Kilde IP"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:133
 #: src/EBox/Firewall/Model/RedirectsTable.pm:304
 msgid "Source object"
-msgstr ""
+msgstr "Kilde objekt"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:155
 #: src/EBox/Firewall/Model/RedirectsTable.pm:315
 msgid "Destination IP"
-msgstr ""
+msgstr "Destinasjons IP"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:160
 msgid "Destination object"
-msgstr ""
+msgstr "Destinasjons objekt"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:175
 msgid "Service"
-msgstr ""
+msgstr "Tjeneste"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:179
 msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
+"Hvis omvendt treff er huket av, hvilken som helst tjeneste enn den valgte "
+"vil treffe denne regelen"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 #: src/templates/filter.mas:13
 msgid "Filtering rules for internal networks"
-msgstr ""
+msgstr "Filtrerings regler for interne nettverk"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
@@ -218,94 +227,96 @@ msgstr ""
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
 msgid "rule"
-msgstr ""
+msgstr "regel"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
 #: src/templates/filter.mas:6
 msgid "Filtering rules from internal networks to eBox"
-msgstr ""
+msgstr "Filtrerings regler fra interne nettverk til eBox"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 #: src/templates/filter.mas:21
 msgid "Filtering rules for traffic coming out from eBox"
-msgstr ""
+msgstr "Filtrerings regler for trafikk ut fra eBox"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
 #: src/templates/filter.mas:40
 msgid "Filtering rules from external networks to internal networks"
-msgstr ""
+msgstr "Filtrerings regler fra eksterne nettverk til interne nettverk"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 msgid "Filtering rules from  external networks to eBox"
-msgstr ""
+msgstr "Filtreringsregler fra  eksterne nettverk til eBox"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
-msgstr ""
+msgstr "Selvmotsigende regel funnet. Fjern den først"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:249
 msgid "Interface"
-msgstr ""
+msgstr "Grensesnitt"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:256
 msgid "Original destination"
-msgstr ""
+msgstr "Orginal destinasjon"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:261
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
 msgid "IP Address"
-msgstr ""
+msgstr "IP Adresse"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:268
 msgid "Object"
-msgstr ""
+msgstr "Objekt"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
 msgid "Original destination port"
-msgstr ""
+msgstr "Orginal destinasjons port"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:326
 msgid "Same"
-msgstr ""
+msgstr "Samme"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:329
 msgid "Other"
-msgstr ""
+msgstr "Annen"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:346
 msgid "Port redirections"
-msgstr ""
+msgstr "Port viderekobling"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "redirect"
-msgstr ""
+msgstr "viderekobling"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
-msgstr ""
+msgstr "Pakke trafikk rapport"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 msgid "Firewall packet traffic report"
-msgstr ""
+msgstr "Brannmur pakke trafikk rapport"
 
 #: src/templates/filter.mas:8
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
 "services running on your eBox machine"
 msgstr ""
+"Disse reglene er ment til å kontrollere tilgang fra interne nettverkskort "
+"til tjenester som kjører på din eBox maskin"
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
 #: src/templates/filter.mas:48
 msgid "Configure rules"
-msgstr ""
+msgstr "Konfigurer regler"
 
 #: src/templates/filter.mas:15
 msgid ""
@@ -313,20 +324,26 @@ msgid ""
 "Internet, and traffic between your internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section"
 msgstr ""
+"Disse reglene lar deg og kontrollere tilgang  fra interne nettverk til "
+"internett, og trafikk mellom dine interne nettverk. Hvis du vil tillate "
+"tilgang til dine eBox tjenester, må du bruke feltet over"
 
 #: src/templates/filter.mas:23
 msgid "These rules allow you to control access from eBox to external services"
 msgstr ""
+"Disse reglene lar deg å kontrollere tilgang fra eBox til eksterne tjenester"
 
 #: src/templates/filter.mas:29
 msgid "Filtering rules from external networks to eBox"
-msgstr ""
+msgstr "Filtrerings regler fra eksterne nettverk til eBox"
 
 #: src/templates/filter.mas:31
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your eBox machine."
 msgstr ""
+"Disse reglene lar deg kontrollere tilgang fra eksterne nettverk til "
+"tjenester som kjører på din eBox maskin."
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
 msgid ""
@@ -334,9 +351,14 @@ msgid ""
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing"
 msgstr ""
+"NB. Regler du legger til i denne seksjonen kan kompromittere din nettverks "
+"sikkerhet siden du kan gi tilgang fra usikre nettverk. Vennligst ikke bruk "
+"dette med mindre du vet hva du driver med"
 
 #: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
+"Disse reglene lar deg kontrollere tilgang fra eksterne nettverk til interne "
+"nettverk."

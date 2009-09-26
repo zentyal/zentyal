@@ -8,45 +8,50 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:05+0200\n"
-"PO-Revision-Date: 2009-03-04 16:07+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-13 14:25+0200\n"
+"Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/Applications.pm:103
 msgid "Application"
-msgstr ""
+msgstr "Toepassing"
 
 #: src/EBox/Model/Applications.pm:109
 msgid "Enabled"
-msgstr ""
+msgstr "Ingeschakeld"
 
 #: src/EBox/Model/Applications.pm:116
 msgid "Applications"
-msgstr ""
+msgstr "Toepassingen"
 
 #: src/EBox/Model/Applications.pm:117
 msgid "application"
-msgstr ""
+msgstr "toepassing"
 
 #: src/EBox/Model/PermissionTemplates.pm:57
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: src/EBox/Model/PermissionTemplates.pm:63
 msgid "Applications Allowed"
-msgstr ""
+msgstr "Toegelaten Toepassingen"
 
+# vertaling voor templates ????
 #: src/EBox/Model/PermissionTemplates.pm:71
+#, fuzzy
 msgid "User Defined Permission Templates"
-msgstr ""
+msgstr "Gebruiker gedefinieerde toelatings Templates"
 
+# zie vorige
 #: src/EBox/Model/PermissionTemplates.pm:75
+#, fuzzy
 msgid "template"
-msgstr ""
+msgstr "template"
 
 #: src/EBox/Model/PermissionTemplates.pm:76
 msgid ""
@@ -56,11 +61,11 @@ msgstr ""
 
 #: src/EBox/Model/DefaultApplications.pm:49
 msgid "DefaultApplications"
-msgstr ""
+msgstr "Standaard Toepassingen"
 
 #: src/EBox/Model/DefaultApplications.pm:50
 msgid "Default Applications"
-msgstr ""
+msgstr "Standaard Toepassingen"
 
 #: src/EBox/Model/DefaultApplications.pm:51
 msgid ""
@@ -70,15 +75,15 @@ msgstr ""
 
 #: src/EBox/Model/VMailDomain.pm:54
 msgid "No domain selected"
-msgstr ""
+msgstr "Geen domein geselekteerd"
 
 #: src/EBox/Model/VMailDomain.pm:99
 msgid "You must have at least one virtual mail domain defined."
-msgstr ""
+msgstr "U dient minstens 1 virtueel domein te definieren"
 
 #: src/EBox/Model/VMailDomain.pm:103
 msgid "You must have IMAP service enabled."
-msgstr ""
+msgstr "U dient de IMAP service te activeren"
 
 #: src/EBox/Model/VMailDomain.pm:128
 msgid ""
@@ -88,48 +93,48 @@ msgstr ""
 
 #: src/EBox/Model/VMailDomain.pm:143
 msgid "Virtual Domain"
-msgstr ""
+msgstr "Virtueel Domein"
 
 #: src/EBox/Model/VMailDomain.pm:152
 msgid "Virtual Mail Domain"
-msgstr ""
+msgstr "Virtueel Mail Domein"
 
 #: src/EBox/Model/VMailDomain.pm:157
 msgid "Select the virtual mail domain to be used for eGroupware"
-msgstr ""
+msgstr "Selecteer het virtueel mail domein voor gebruik met eGroupware"
 
 #: src/EBox/CGI/EGroupwareGroupOptions.pm:43
 msgid "groupname"
-msgstr ""
+msgstr "groepnaam"
 
 #: src/EBox/CGI/EGroupwareUserOptions.pm:43
 msgid "username"
-msgstr ""
+msgstr "gebruikersnaam"
 
 #: src/EBox/Composite/General.pm:76
 msgid "eGroupware Configuration"
-msgstr ""
+msgstr "eGroupware Configuratie"
 
 #: src/EBox/EGroupware.pm:49 src/EBox/EGroupware.pm:189
 #: src/EBox/EGroupware.pm:212
 msgid "eGroupware"
-msgstr ""
+msgstr "eGroupware"
 
 #: src/EBox/EGroupware.pm:97
 msgid "Create PostgreSQL user egroupware"
-msgstr ""
+msgstr "Maak PostgreSQL gebruiker egroupware aan"
 
 #: src/EBox/EGroupware.pm:98
 msgid "This user will be the owner of the egroupware database"
-msgstr ""
+msgstr "Deze gebruiker  zal de eigenaar zijn van de egroupware database"
 
 #: src/EBox/EGroupware.pm:102
 msgid "Create PostgreSQL egroupware database"
-msgstr ""
+msgstr "Maak PostgreSQL egroupware database aan"
 
 #: src/EBox/EGroupware.pm:103
 msgid "This database will store the data needed by eGroupware"
-msgstr ""
+msgstr "Deze database zal de gegevens nodig voor eGroupware bevatten"
 
 #: src/EBox/EGroupware.pm:120
 msgid "To configure eGroupware access settings"
@@ -143,6 +148,8 @@ msgstr ""
 msgid "To add a new schema"
 msgstr ""
 
+# bureel ?? */ kantoor ???
 #: src/EBox/EGroupware.pm:213
+#, fuzzy
 msgid "Office"
-msgstr ""
+msgstr "Bureel"

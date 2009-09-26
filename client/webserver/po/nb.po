@@ -5,21 +5,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:19+0200\n"
-"PO-Revision-Date: 2008-12-04 12:31+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-08-28 13:11+0200\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
-msgstr ""
+msgstr "Virtuelt verts navn"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:142
 #, perl-brace-format
@@ -27,6 +27,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip} "
 msgstr ""
+"Virtuell vert {vhost} lagt til. Et domene {domain} har blitt opprettet med "
+"kartleggings navn {name} - IP adresse {ip} "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:160
 #, perl-brace-format
@@ -34,29 +36,35 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
+"Virtuell vert {vhost} lagt til. Et kartleggings navn {name} - IP adresse "
+"{ip} har blitt lagt til {domain} domene"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:174
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
+"Virtuell vert {vhost} lagt til som et alias {alias} til verts navn "
+"{hostname}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:180
 #: src/EBox/WebServer/Model/VHostTable.pm:185
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
-msgstr ""
+msgstr "Verts navn {vhost} lagt til"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:190
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
+"Det er ikke noe statisk internt grensesnitt til å sette Web server IP "
+"adressen"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:216
 msgid "Name"
-msgstr ""
+msgstr "Navn"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:226
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Virtuell vert"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:230
 #, perl-brace-format
@@ -68,33 +76,40 @@ msgid ""
 "particular configuration you want to add must be placed at {userConf} "
 "directory"
 msgstr ""
+"Virtuelle verter er en form for web verts tjeneste hvor mange instanser av "
+"samme web server er vertet på en enslig fysisk server. Forskjellige verts "
+"navn vil peke til samme web server. DNS oppslaget vil automatisk bli "
+"opprettet hvis mulig. Inholdet må bli plassert under {docRoot} mappen. "
+"Enhver konfigurasjon du vil legge til må plasseres i {userConf} mappen"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:240
 msgid "virtual host"
-msgstr ""
+msgstr "virtuell vert"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
+msgstr "lytte port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "Listening port"
-msgstr ""
+msgstr "Lytte port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:158
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Aktiver per bruker {dirName}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
+"Hvis du huker av dette feltet, vil hver bruker tillates å ha en web side i "
+"deres hjemme mappe under public_html"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
 msgid "General configuration settings"
-msgstr ""
+msgstr "Generell konfigurasjons instillinger"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:176
 #, perl-brace-format
@@ -104,54 +119,60 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"Generell Web server konfigurasjon. Lytte porten må ikke fremskaffes fra en "
+"annen tjeneste. Hvis du aktiverer bruker til å publiserer sin egne html "
+"sider, vil sidene bli lastet fra {dirName} mappen fra deres samba hjemme "
+"mapper"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "Generell Web server konfigurasjon oppdater"
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"
-msgstr ""
+msgstr "Web tjeneste"
 
 #: src/EBox/WebServer/Composite/General.pm:82
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
+"eBox web tjenesten lar deg verte Web sider i ren HTML med forskjellige "
+"virtuelle verter"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
-msgstr ""
+msgstr "For å sette web server lytte porten"
 
 #: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
-msgstr ""
+msgstr "For å konfigurere per-bruker felles HTML mappe"
 
 #: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "Aktiver apache LDAP modul"
 
 #: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"
-msgstr ""
+msgstr "For å hente hjemme mapper fra LDAP"
 
 #: src/EBox/WebServer.pm:149
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: src/EBox/WebServer.pm:150
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infrastruktur"
 
 #: src/EBox/WebServer.pm:171
 msgid "Web service status"
-msgstr ""
+msgstr "Web tjeneste status"
 
 #: src/EBox/WebServer.pm:348
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "{userDirConfFile} mangler! Vennligst gjenopprett den"
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "HyperText Transport Protocol"

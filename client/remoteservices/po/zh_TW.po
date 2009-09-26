@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:17+0200\n"
-"PO-Revision-Date: 2009-03-13 03:04+0000\n"
+"PO-Revision-Date: 2009-08-04 07:48+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -145,9 +145,9 @@ msgid "Key for service URN not found"
 msgstr "找不到 URN 服務的設定鍵"
 
 #: src/EBox/RemoteServices/Auth.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Value for key {k} not found"
-msgstr "找不到 URN 服務的設定鍵"
+msgstr "找不到設定鍵 {k} 的數值"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
@@ -258,7 +258,6 @@ msgid "Subscribed"
 msgstr "已訂閱"
 
 #: src/EBox/RemoteServices.pm:191
-#, fuzzy
 msgid "Remote Services Subscription"
 msgstr "遠端服務訂閱"
 

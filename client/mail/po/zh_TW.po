@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:09+0200\n"
-"PO-Revision-Date: 2009-03-04 04:13+0000\n"
+"PO-Revision-Date: 2009-08-04 06:23+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -222,7 +222,7 @@ msgstr "名稱"
 #: src/EBox/Mail/Model/VDomains.pm:64 src/EBox/Mail/Model/VDomainAliases.pm:57
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
 msgid "Aliases"
-msgstr ""
+msgstr "別名"
 
 #: src/EBox/Mail/Model/VDomains.pm:78
 msgid "Mail virtual domains"
@@ -252,14 +252,13 @@ msgstr "灰名單(Greylist)時間(秒)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:71
 msgid "During this interval, the mail sender is deferred"
-msgstr ""
+msgstr "在這段時間中，此郵件寄件者會被延遲"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:79
 msgid "Retry window (hours)"
 msgstr "再審視窗(小時)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:80
-#, fuzzy
 msgid ""
 "Time that mail sender has to retry to be added before it will be greylisted "
 "again"
@@ -271,19 +270,17 @@ msgstr "項目存活的時間(天)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:90
 msgid "Period till unseen entries will be deleted"
-msgstr ""
+msgstr "未讀項目刪除前的期間"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:100
 msgid "Greylist configuration"
 msgstr "灰名單組態"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:78
-#, fuzzy
 msgid "virtual domain alias"
-msgstr "虛擬網域"
+msgstr "虛擬網域別名"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:80
-#, fuzzy
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr "虛擬網域已新增。您需要儲存變更來使用這個網域"
 
@@ -297,9 +294,8 @@ msgid "To configure whitelist for greylisting"
 msgstr "設定灰名單功能中的白名單"
 
 #: src/EBox/Mail/Greylist.pm:279
-#, fuzzy
 msgid "Greylist service"
-msgstr "已使用灰名單"
+msgstr "灰名單服務"
 
 #: src/EBox/MailAliasLdap.pm:61 src/EBox/MailAliasLdap.pm:66
 #: src/EBox/MailAliasLdap.pm:88 src/EBox/MailAliasLdap.pm:93
@@ -309,21 +305,20 @@ msgid "mail account"
 msgstr "郵件帳號"
 
 #: src/EBox/MailAliasLdap.pm:130 src/EBox/MailAliasLdap.pm:150
-#, fuzzy
 msgid "Domain alias"
-msgstr "郵件別名"
+msgstr "網域別名"
 
 #: src/EBox/MailAliasLdap.pm:135 src/EBox/MailAliasLdap.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Mail domain {d} does not exists"
-msgstr "帳號不存在"
+msgstr "郵件網域 {d} 不存在"
 
 #: src/EBox/MailAliasLdap.pm:142
 #, perl-brace-format
 msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
-msgstr ""
+msgstr "不能使用 {d} 作為郵件網域的別名，因為以此為名的網域已經存在"
 
 #: src/EBox/MailAliasLdap.pm:256 src/EBox/MailAliasLdap.pm:286
 #: src/EBox/MailAliasLdap.pm:321
@@ -341,7 +336,7 @@ msgstr "這個使用者是郵件帳號"
 #: src/EBox/MailUserLdap.pm:611
 #, perl-brace-format
 msgid "Cannot create user account: mail directory {d} aready exists"
-msgstr ""
+msgstr "不能建立使用者帳號：郵件目錄 {d} 已存在"
 
 #: src/EBox/Mail.pm:72
 msgid "mail"
@@ -361,18 +356,16 @@ msgid "Add LDAP schemas"
 msgstr "新增 LDAP schemas"
 
 #: src/EBox/Mail.pm:127
-#, fuzzy
 msgid "eBox will add two LDAP schemas: authldap.schema and eboximail.schema."
-msgstr "eBox 將會新增兩個 LDAP schemas: {schema1} 和 {schema2}。"
+msgstr "eBox 將會新增兩個 LDAP 架構： authldap.schema 和 eboximail.schema。"
 
 #: src/EBox/Mail.pm:133
-#, fuzzy
 msgid "Create certificates"
-msgstr "建立郵件別名"
+msgstr "建立憑證"
 
 #: src/EBox/Mail.pm:135
 msgid "eBox will create certificates to use in mail services"
-msgstr ""
+msgstr "eBox 將會建立用於郵件服務中的憑證"
 
 #: src/EBox/Mail.pm:155
 msgid "To configure postfix"
@@ -383,14 +376,12 @@ msgid "To define how client programs connect to services in  postfix"
 msgstr "在 postfix 中確定如何讓客戶端程式連到服務"
 
 #: src/EBox/Mail.pm:168
-#, fuzzy
 msgid "To configure dovecot"
-msgstr "設置 postfix"
+msgstr "設定 dovecot"
 
 #: src/EBox/Mail.pm:173
-#, fuzzy
 msgid "To configure dovecot to authenticate against LDAP"
-msgstr "設置 courier 來驗證 LDAP"
+msgstr "設定 dovecot 來驗證 LDAP"
 
 #: src/EBox/Mail.pm:178
 msgid "To add the LDAP schemas used by eBox mail"
@@ -410,34 +401,30 @@ msgid ""
 msgstr "郵件過濾器不存在.請設定其他的郵件過濾器或是停用它"
 
 #: src/EBox/Mail.pm:655
-#, fuzzy
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
-msgstr "郵件過濾器 {name} 沒有啟動。請設定其他的郵件過濾器或是停用它"
+msgstr "郵件過濾器 $name 沒有啟動。請設定其他的郵件過濾器或是停用它"
 
 #: src/EBox/Mail.pm:1066
-#, fuzzy
 msgid "SMTP service"
-msgstr "IMAP 服務"
+msgstr "SMTP 服務"
 
 #: src/EBox/Mail.pm:1073
 msgid "POP3 service"
 msgstr "POP3 服務"
 
 #: src/EBox/Mail.pm:1079
-#, fuzzy
 msgid "POP3S service"
-msgstr "POP3 服務"
+msgstr "POP3S 服務"
 
 #: src/EBox/Mail.pm:1085
 msgid "IMAP service"
 msgstr "IMAP 服務"
 
 #: src/EBox/Mail.pm:1091
-#, fuzzy
 msgid "IMAPS service"
-msgstr "IMAP 服務"
+msgstr "IMAPS 服務"
 
 #: src/EBox/Mail.pm:1118 src/EBox/Mail.pm:1174 src/EBox/Mail.pm:1254
 #: src/EBox/Event/Dispatcher/Mail.pm:168
@@ -473,16 +460,14 @@ msgid "Address"
 msgstr "位址"
 
 #: src/EBox/Mail.pm:1175
-#, fuzzy
 msgid "Communications"
-msgstr "驗證"
+msgstr "通訊"
 
 #: src/EBox/Mail.pm:1182
 msgid "General"
 msgstr "一般"
 
 #: src/EBox/Mail.pm:1189
-#, fuzzy
 msgid "Virtual Mail Domains"
 msgstr "虛擬郵件網域"
 
@@ -563,9 +548,8 @@ msgid "Mailboxes"
 msgstr "信箱"
 
 #: src/EBox/Mail.pm:1437
-#, fuzzy
 msgid "Mail SMTP server"
-msgstr "郵件服務"
+msgstr "郵件 SMTP 伺服器"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:17+0200\n"
-"PO-Revision-Date: 2009-03-13 04:45+0000\n"
+"PO-Revision-Date: 2009-08-04 08:15+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -113,22 +113,18 @@ msgid ""
 msgstr "從您設置的 apt 來源下載可用的 eBox 軟體"
 
 #: src/EBox/Software.pm:473
-#, fuzzy
 msgid "Software Management"
 msgstr "軟體管理"
 
 #: src/EBox/Software.pm:477
-#, fuzzy
 msgid "eBox Components"
 msgstr "eBox 元件"
 
 #: src/EBox/Software.pm:479
-#, fuzzy
 msgid "System Updates"
 msgstr "系統更新"
 
 #: src/EBox/Software.pm:481
-#, fuzzy
 msgid "Automatic Updates"
 msgstr "自動更新"
 
@@ -139,23 +135,20 @@ msgid ""
 msgstr "軟體管理目前是被 {locker} 鎖定.請稍後再試"
 
 #: src/EBox/PackageDescriptions.pm:1
-#, fuzzy
 msgid "eBox - Antivirus module"
-msgstr "eBox - 郵件過濾模組"
+msgstr "eBox - 防毒模組"
 
 #: src/EBox/PackageDescriptions.pm:2
-#, fuzzy
 msgid "eBox - Asterisk"
-msgstr "eBox - DNS 伺服器"
+msgstr "eBox - Asterisk"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr "eBox - Certificate Authority Manager for eBox"
+msgstr "eBox - eBox 的憑證中心管理程式"
 
 #: src/EBox/PackageDescriptions.pm:4
-#, fuzzy
 msgid "eBox - captive portal module"
-msgstr "eBox - 郵件過濾模組"
+msgstr "eBox - 網頁認證模組"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - DHCP server module"
@@ -167,16 +160,15 @@ msgstr "eBox - DNS 伺服器"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Backup"
-msgstr ""
+msgstr "eBox - 備份"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "the eBox platform - Base framework"
 msgstr "eBox 系統 - Base framework"
 
 #: src/EBox/PackageDescriptions.pm:9
-#, fuzzy
 msgid "eBox - eGroupware"
-msgstr "eBox - 防火牆"
+msgstr "eBox - eGroupware"
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "eBox - Firewall"
@@ -184,12 +176,11 @@ msgstr "eBox - 防火牆"
 
 #: src/EBox/PackageDescriptions.pm:11
 msgid "eBox - Intrusion Detection System"
-msgstr ""
+msgstr "eBox - 入侵偵測系統"
 
 #: src/EBox/PackageDescriptions.pm:12
-#, fuzzy
 msgid "eBox - Instant messaging proxy"
-msgstr "eBox - 即時通訊 (Jabber)"
+msgstr "eBox - 即時通訊代理伺服器"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - Instant messaging (Jabber)"
@@ -233,7 +224,7 @@ msgstr "eBox - 印表機分享"
 
 #: src/EBox/PackageDescriptions.pm:23
 msgid "eBox - client for remote services   "
-msgstr ""
+msgstr "eBox - 遠端服務客戶端   "
 
 #: src/EBox/PackageDescriptions.pm:24
 msgid "eBox - File sharing"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:17+0200\n"
-"PO-Revision-Date: 2009-01-21 16:22+0000\n"
-"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
+"PO-Revision-Date: 2009-08-16 11:35+0200\n"
+"Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,7 +58,7 @@ msgstr "Serviços"
 #: src/EBox/Model/ServiceTable.pm:161
 #: src/EBox/Model/ServiceConfigurationTable.pm:170
 msgid "service"
-msgstr "Serviço"
+msgstr "serviço"
 
 #: src/EBox/Model/ServiceTable.pm:541
 msgid ""
@@ -99,7 +99,7 @@ msgstr "porta"
 #: src/EBox/Services.pm:335
 #: migration/0001_import_services_from_firewall.pl:108
 msgid "eBox administration"
-msgstr "Administração do eBox"
+msgstr "administração do eBox"
 
 #: src/EBox/Services.pm:336
 #: migration/0001_import_services_from_firewall.pl:109

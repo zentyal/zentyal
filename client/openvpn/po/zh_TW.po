@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:16+0200\n"
-"PO-Revision-Date: 2009-03-20 07:42+0000\n"
+"PO-Revision-Date: 2009-08-04 07:37+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -118,9 +118,8 @@ msgstr "沒有提供檔案或已經為 {f} 設定"
 
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:60
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:76
-#, fuzzy
 msgid "Advertised network"
-msgstr "網路資訊"
+msgstr "宣告的網路"
 
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:69
 msgid "List of networks"
@@ -128,9 +127,8 @@ msgstr "網路清單"
 
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:70
 #: src/EBox/OpenVPN/Model/Servers.pm:85
-#, fuzzy
 msgid "Advertised networks"
-msgstr "廣告網路"
+msgstr "宣告的網路"
 
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:90
 #, perl-brace-format
@@ -139,6 +137,8 @@ msgid ""
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
 "access to your LAN by advertising its network address here{closepar}"
 msgstr ""
+"{openpar}您可以在這裡加入想要讓客戶端可以連線到這個 VPN　的網路。{closepar}{openpar}通常，我們會允許存取 "
+"LAN，只要在這裡宣告它的網路位址{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:60 src/EBox/OpenVPN/Server.pm:695
 #: src/EBox/OpenVPN/Client.pm:313
@@ -217,6 +217,10 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
+"{openpar}您可以設定 openVPN "
+"伺服器方便遠端辦公室或使用者連線。{closepar}{openpar}點選{openit}組態{closeit} 以設定 VPN 參數。{closep"
+"ar}{openpar}{openit}宣告的網路{closeit}讓您可以設定遠端使用者可存取的網路。{openpar}只要您曾經完成此組態，就可以下"
+"載預裝程式檔案以用於您的作業系統的客戶端裡。"
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
 msgid "Deleted daemons"
@@ -311,7 +315,6 @@ msgid "The interface {iface} is not configured"
 msgstr "介面 {iface} 尚未設定"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:411
-#, fuzzy
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
@@ -319,7 +322,6 @@ msgstr ""
 "不能使用網路位址轉譯(NAT)，因為它需要防火牆模組。該模組可能尚未安裝或沒有使用"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:418
-#, fuzzy
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
@@ -545,7 +547,6 @@ msgid "Main zebra configuration file"
 msgstr "主要 zebra 組態檔案"
 
 #: src/EBox/OpenVPN.pm:165
-#, fuzzy
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr "設定 ripd 交換客戶端至客戶端連線路由"
 
@@ -591,7 +592,7 @@ msgstr "VPN"
 
 #: src/EBox/OpenVPN.pm:1460
 msgid "UTM"
-msgstr ""
+msgstr "UTM"
 
 #: src/EBox/OpenVPN.pm:1467
 msgid "Servers"

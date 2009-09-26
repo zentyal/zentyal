@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:19+0200\n"
-"PO-Revision-Date: 2009-05-31 19:24+0200\n"
+"PO-Revision-Date: 2009-06-29 20:09+0200\n"
 "Last-Translator: Sudel <sudel@freemail.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,7 @@ msgstr "Web"
 
 #: src/EBox/WebServer.pm:150
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infrastruttura"
 
 #: src/EBox/WebServer.pm:171
 msgid "Web service status"

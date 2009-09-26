@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:04+0200\n"
-"PO-Revision-Date: 2009-05-19 06:33+0200\n"
+"PO-Revision-Date: 2009-08-04 05:57+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -26,9 +26,8 @@ msgstr "儀表板"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
-#, fuzzy
 msgid "Configure Widgets"
-msgstr "設置元件"
+msgstr "設定元件"
 
 #: src/EBox/CGI/Login/Index.pm:61
 msgid ""
@@ -123,7 +122,6 @@ msgid "The module was restarted correctly."
 msgstr "該模組已正確的還原。"
 
 #: src/EBox/CGI/EBox/Halt.pm:30
-#, fuzzy
 msgid "Halt or Reboot"
 msgstr "關機或重新開機"
 
@@ -140,7 +138,6 @@ msgid "Bug report"
 msgstr "錯誤回報"
 
 #: src/EBox/CGI/EBox/General.pm:30
-#, fuzzy
 msgid "General Configuration"
 msgstr "一般組態"
 
@@ -273,7 +270,6 @@ msgid ""
 msgstr "有關於內部範本有錯誤.這是 bug,有關資訊可以在日誌上找到"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
 msgid "Module Status Configuration"
 msgstr "模組狀態組態"
 
@@ -283,7 +279,7 @@ msgstr "連接埠"
 
 #: src/EBox/Apache.pm:563
 msgid "eBox internal web server"
-msgstr ""
+msgstr "eBox 內部網頁伺服器"
 
 #: src/EBox/Global.pm:388 src/EBox/Global.pm:409
 #, perl-brace-format
@@ -411,19 +407,16 @@ msgid "Table {table} does not exist"
 msgstr "Table {table} 不存在"
 
 #: src/EBox/Logs.pm:626 src/EBox/Events.pm:151
-#, fuzzy
 msgid "Monitoring"
-msgstr "過濾"
+msgstr "監控中"
 
 #: src/EBox/Logs.pm:630
-#, fuzzy
 msgid "Query Logs"
-msgstr "佇列日誌"
+msgstr "查詢日誌"
 
 #: src/EBox/Logs.pm:633
-#, fuzzy
 msgid "Configure Logs"
-msgstr "設置日誌"
+msgstr "設定日誌"
 
 #: src/EBox/Logs.pm:646 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:128 src/templates/finish.mas:105
@@ -465,7 +458,6 @@ msgid "Save changes"
 msgstr "儲存變更"
 
 #: src/EBox/SysInfo.pm:42
-#, fuzzy
 msgid "System Information"
 msgstr "系統資訊"
 
@@ -474,7 +466,6 @@ msgid "Time"
 msgstr "時刻"
 
 #: src/EBox/SysInfo.pm:78
-#, fuzzy
 msgid "Hostname"
 msgstr "主機名稱"
 
@@ -487,17 +478,14 @@ msgid "System load"
 msgstr "系統負載"
 
 #: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:200
-#, fuzzy
 msgid "Module Status"
 msgstr "模組狀態"
 
 #: src/EBox/SysInfo.pm:123
-#, fuzzy
 msgid "General Information"
 msgstr "一般資訊"
 
 #: src/EBox/SysInfo.pm:128
-#, fuzzy
 msgid "Process List"
 msgstr "程序清單"
 
@@ -579,7 +567,7 @@ msgstr "密碼應該不超過 {maxLength} 字元"
 
 #: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "IP 位址不允許"
 
 #: src/EBox/Types/Float.pm:113
 msgid "Enter a float number"
@@ -1008,31 +996,31 @@ msgid ""
 msgstr "磁碟陣列裝置 {name} 已改變啟動的元件數量從 {oldNum} 到 {newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
-msgstr "磁碟陣列裝置 {name} 已經開始動作 {opName}"
+msgstr "磁碟陣列裝置 {name} 已經開始動作 {opName}。"
 
 #: src/EBox/Event/Watcher/RAID.pm:405
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
-msgstr "磁碟陣列裝置 {name} 已經完成動作 {opName} 或是已取消"
+msgstr "磁碟陣列裝置 {name} 已經完成動作 {opName} 或是已取消。"
 
 #: src/EBox/Event/Watcher/RAID.pm:411
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
-msgstr "磁碟陣列裝置 {name} 已經完成動作 {oldOpName} 以及啟動 {newOpName}"
+msgstr "磁碟陣列裝置 {name} 已經完成動作 {oldOpName} 以及啟動 {newOpName}。"
 
 #: src/EBox/Event/Watcher/RAID.pm:436
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr "狀態: {percentage} 已完成"
+msgstr "狀態：{percentage} 已完成。"
 
 #: src/EBox/Event/Watcher/RAID.pm:439
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Estimated finish time: {time}."
-msgstr "估計完成時間: {time}"
+msgstr "估計完成時間：{time}。"
 
 #: src/EBox/Event/Watcher/RAID.pm:471
 #, perl-brace-format
@@ -1122,7 +1110,7 @@ msgstr "回覆"
 
 #: src/EBox/Event/Watcher/RAID.pm:574
 msgid "check"
-msgstr ""
+msgstr "檢查"
 
 #: src/EBox/Event/Watcher/RAID.pm:588
 msgid "faulty"
@@ -1275,9 +1263,8 @@ msgid "None"
 msgstr "沒有"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
-#, fuzzy
 msgid "Configure Dispatchers"
-msgstr "設置"
+msgstr "設定調整"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:346
 msgid "dispatcher"
@@ -1300,9 +1287,8 @@ msgid "Description"
 msgstr "說明"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
-#, fuzzy
 msgid "Configure Events"
-msgstr "設置事件"
+msgstr "設定事件"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:308
 msgid "event"
@@ -1418,7 +1404,7 @@ msgstr "事件服務狀態"
 
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
-msgstr ""
+msgstr "全部票證"
 
 #: src/EBox/ProgressIndicator.pm:43
 msgid "It must be a non-zero positive number"
@@ -1436,7 +1422,7 @@ msgstr "找不到 id 為 {id} 的程序指示器"
 
 #: src/EBox/ProgressIndicator.pm:139
 msgid "Number of ticks to notify"
-msgstr ""
+msgstr "要通知的票證數"
 
 #: src/EBox/ProgressIndicator.pm:141
 msgid "must be greater than zero"
@@ -1638,7 +1624,6 @@ msgid "Options"
 msgstr "選項"
 
 #: src/templates/report/diskUsage.mas:34
-#, fuzzy
 msgid "Partition Properties"
 msgstr "分割區屬性"
 
@@ -1648,7 +1633,6 @@ msgid "Inexistent RAID array {a}"
 msgstr "不存在的 RAID 陣列 {a}"
 
 #: src/templates/report/raid.mas:42
-#, fuzzy
 msgid "RAID is not enabled in this system."
 msgstr "RAID 在這個系統中並未啟用"
 
@@ -1769,7 +1753,6 @@ msgid "Restore mode"
 msgstr "還原模式"
 
 #: src/templates/password.mas:4
-#, fuzzy
 msgid "Change Password"
 msgstr "改變密碼"
 
@@ -1798,17 +1781,14 @@ msgid "Full Backup"
 msgstr "完整備份"
 
 #: src/templates/backup.mas:24
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "Module Status{closeref} section will be ignored in both backup and restore "
 "operations."
-msgstr ""
-"這些在 {openref}模組狀態{closeref} 中從未啟用過的模組在備份與還原的操作中都會"
-"被略過"
+msgstr "這些在 {openref}模組狀態{closeref} 中從未啟用過的模組在備份與還原的操作中都會被略過。"
 
 #: src/templates/backup.mas:26
-#, fuzzy
 msgid "Backup the Current State"
 msgstr "備份目前的狀態"
 
@@ -1823,18 +1803,14 @@ msgid "Backup mode"
 msgstr "備份模式"
 
 #: src/templates/backup.mas:74
-#, fuzzy
 msgid "Restore Backup from File"
 msgstr "從檔案還原備份"
 
 #: src/templates/backup.mas:76
-#, fuzzy
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
-msgstr ""
-"您可以從您的電腦上傳備份檔案。在上傳檔案時您應該注意某些瀏覽器不能處理大型檔"
-"案 (>= 1 Gb)"
+msgstr "您可以從您的電腦上傳備份檔案。在上傳檔案時您應該注意某些瀏覽器不能處理大型檔案 (>= 1 Gb)。"
 
 #: src/templates/backup.mas:84
 msgid "Backup file"
@@ -1932,7 +1908,6 @@ msgid "There are no unsaved changes."
 msgstr "還有未儲存的變更。"
 
 #: src/templates/port.mas:9
-#, fuzzy
 msgid "Administration Interface TCP Port"
 msgstr "管理介面 TCP 連接埠"
 
@@ -2012,17 +1987,14 @@ msgid "Modify"
 msgstr "修改"
 
 #: src/templates/backupTabs.mas:13
-#, fuzzy
 msgid "Local Backup"
 msgstr "本地端備份"
 
 #: src/templates/backupTabs.mas:18
-#, fuzzy
 msgid "Remote Backup"
 msgstr "遠端備份"
 
 #: src/templates/backupTabs.mas:23
-#, fuzzy
 msgid "Remote Backup from Other Subscribed Hosts"
 msgstr "從其他訂閱的主機遠端備份"
 

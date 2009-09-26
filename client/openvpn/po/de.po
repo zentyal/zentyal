@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:16+0200\n"
-"PO-Revision-Date: 2009-06-21 19:32+0200\n"
-"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
+"PO-Revision-Date: 2009-06-29 14:36+0200\n"
+"Last-Translator: Benjamin Höglinger <nefarius@darkhosters.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -348,7 +348,6 @@ msgid "The interface {iface} is not configured"
 msgstr "Die Netzwerkschnittstelle {iface} ist nicht konfiguriert"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:411
-#, fuzzy
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
@@ -357,7 +356,6 @@ msgstr ""
 "Firewall benötigt. Dieses ist aber weder installiert noch aktiviert"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:418
-#, fuzzy
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:15+0200\n"
-"PO-Revision-Date: 2009-05-19 23:46+0200\n"
-"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
+"PO-Revision-Date: 2009-07-19 13:51+0200\n"
+"Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -228,12 +228,12 @@ msgid ""
 "them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "För att kunna använda denna funktion behöver du minst två gateways. Du kan "
-"addera dem <a href=\"/ebox/Network/View/GatewayTable\">här</a> först"
+"addera dem <a href=\"/ebox/Network/View/GatewayTable\">här</a> först."
 
 #: src/EBox/Network/Composite/DNS.pm:61
 #, fuzzy
 msgid "Domain Name Server Resolver"
-msgstr "Namnserver uppslag"
+msgstr "DNS-serveruppslag"
 
 #: src/EBox/Model/PhysicalInterfaceTable.pm:60
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:74
@@ -300,8 +300,9 @@ msgid "Source object"
 msgstr "Källobjekt"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:129
+#, fuzzy
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Destination"
@@ -356,15 +357,15 @@ msgstr "regel"
 
 #: src/EBox/Model/DynDNS.pm:87
 msgid "Enable Dynamic DNS"
-msgstr ""
+msgstr "Aktivera dynamisk DNS"
 
 #: src/EBox/Model/DynDNS.pm:98
 msgid "Username"
-msgstr ""
+msgstr "Användarnamn"
 
 #: src/EBox/Model/DynDNS.pm:103
 msgid "Password"
-msgstr ""
+msgstr "Lösenord"
 
 #: src/EBox/Model/DynDNS.pm:108
 #, fuzzy
@@ -373,7 +374,7 @@ msgstr "Värdnamn"
 
 #: src/EBox/Model/DynDNS.pm:115
 msgid "Dynamic DNS"
-msgstr ""
+msgstr "Dynamisk DNS"
 
 #: src/EBox/Model/DynDNS.pm:119
 msgid ""
@@ -442,7 +443,7 @@ msgstr "Standard"
 #: src/EBox/Model/GatewayTable.pm:140
 #, fuzzy
 msgid "Gateways List"
-msgstr "Gatewaylista"
+msgstr "Lista över gateways"
 
 #: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2798
 msgid "Gateways"
@@ -585,8 +586,8 @@ msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured."
 msgstr ""
-"Alla gateways du lägger in här måste vara nåbara genom ett av "
-"nätverksgränsnitten som är konfigurerade"
+"Alla gateways du lägger in här måste vara nåbara genom något av "
+"konfigurerade nätverksgränsnitten."
 
 #: src/EBox/Model/StaticRoute.pm:173
 msgid "static route"
@@ -613,17 +614,18 @@ msgstr ""
 #, fuzzy
 msgid "IP address of the DNS server that eBox will use to resolve names."
 msgstr ""
-"IP adress för DNS servern som eBox kommer att använda för att slå upp namn"
+"IP-adress för DNS-servern som eBox kommer att använda för att slå upp "
+"värdnamn."
 
 #: src/EBox/Model/DNSResolver.pm:84
 #, fuzzy
 msgid "Domain Name Server"
-msgstr "Namnserver"
+msgstr "DNS-server"
 
 #: src/EBox/Model/DNSResolver.pm:93
 #, fuzzy
 msgid "Domain Name Server Resolver List"
-msgstr "Namnserver uppslagslista"
+msgstr "Lista över DNS-servrar för DNS-uppslag"
 
 #: src/EBox/Model/DNSResolver.pm:99
 msgid "name server"
@@ -641,7 +643,7 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
-msgstr ""
+msgstr "Aktivera"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -649,6 +651,7 @@ msgstr "Trafikbalansering"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:64
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "By enabling this feature, your traffic will be balanced amongst your "
 "gateways. That is, every new connection will be sent by a different gateway. "
@@ -657,6 +660,13 @@ msgid ""
 "{closeref}.{br}If you want to explicitily route traffic by a certain "
 "gateway, use the multigateway rules below"
 msgstr ""
+"Genom att aktivera den här funktionen kommer nätverkstrafiken balanseras "
+"mellan tillgängliga gateways. Dvs nya anslutningar kommer att sättas upp "
+"till olika gateways. Du kan välja hur mycket av trafiken som maximalt skall "
+"skickas till varje gateway genom att använd varje gateways vägnings "
+"parameter. Värdet ändras {openref}here{closeref}. {br} Om du vill styra viss "
+"trafik till en särskild gateway kan du använda multigateway-reglerna nedan. "
+""
 
 #: src/EBox/Model/SearchDomain.pm:72
 #, fuzzy
@@ -665,13 +675,16 @@ msgstr "Domännamn"
 
 #: src/EBox/Model/SearchDomain.pm:80
 msgid "Search Domain"
-msgstr ""
+msgstr "Sökdomän"
 
 #: src/EBox/Model/SearchDomain.pm:84
+#, fuzzy
 msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
 msgstr ""
+"Det här domännamnet kommer att läggas till första gången ett namnuppslag "
+"utan domännamnet går fel."
 
 #: src/EBox/Network.pm:90
 msgid "Add default routers to the default table"
@@ -704,12 +717,12 @@ msgstr "eBox kommer att aktivera din nätverkskonfiguration"
 #: src/EBox/Network.pm:119
 #, fuzzy
 msgid "eBox will set your DNS configuration"
-msgstr "eBox kommer att aktivera din nätverkskonfiguration"
+msgstr "eBox kommer att aktivera din DNS-konfiguration"
 
 #: src/EBox/Network.pm:124 src/EBox/Network.pm:129
 #, fuzzy
 msgid "eBox will set your ddclient configuration"
-msgstr "eBox kommer att aktivera din nätverkskonfiguration"
+msgstr "eBox kommer att aktivera din ddclient-konfiguration"
 
 #: src/EBox/Network.pm:725 src/EBox/Network.pm:729
 msgid "Virtual interface name"
@@ -800,7 +813,7 @@ msgstr "Rx bytes"
 #: src/EBox/Network.pm:2788
 #, fuzzy
 msgid "Core"
-msgstr "Källa"
+msgstr "Kärna"
 
 #: src/EBox/Network.pm:2792
 msgid "Interfaces"
@@ -809,7 +822,7 @@ msgstr "Gränssnitt"
 #: src/EBox/Network.pm:2804
 #, fuzzy
 msgid "Diagnostic Tools"
-msgstr "Diagnos"
+msgstr "Diagnosverktyg"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
@@ -818,16 +831,16 @@ msgstr "Ping"
 #: src/templates/diag.mas:22
 #, fuzzy
 msgid "Traceroute"
-msgstr "Statisk rutt"
+msgstr "Spåra rutt till värd."
 
 #: src/templates/diag.mas:27
 msgid "Trace"
-msgstr ""
+msgstr "Spåra"
 
 #: src/templates/diag.mas:31
 #, fuzzy
 msgid "Domain Name Resolution"
-msgstr "Namnuppslag"
+msgstr "Namnuppslag via DNS"
 
 #: src/templates/diag.mas:32
 msgid "Domain name"
