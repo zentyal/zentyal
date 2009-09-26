@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-06-28 00:19+0200\n"
-"PO-Revision-Date: 2007-04-18 19:04+0000\n"
-"Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
+"PO-Revision-Date: 2009-07-06 12:07+0200\n"
+"Last-Translator: Akin Sagbilge <akinsagbilge@crypttech.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -233,11 +233,11 @@ msgstr "Yeni ekle"
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
 msgid "Download"
-msgstr ""
+msgstr "İndirmek"
 
 #: src/templates/ajax/viewer/file.mas:26
 msgid "Remove"
-msgstr ""
+msgstr "Silmek"
 
 #: src/templates/ajax/setter/serviceSetter.mas:25
 msgid "port"
@@ -258,7 +258,7 @@ msgstr "Eşleşenleri tersine çevir"
 
 #: src/templates/ajax/modelViewer.mas:254
 msgid "Optional"
-msgstr ""
+msgstr "Opsiyonel"
 
 #: src/templates/ajax/tablePager.mas:58 src/templates/ajax/tablePager.mas:64
 msgid "first"
