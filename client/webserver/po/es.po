@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:19+0200\n"
+"POT-Creation-Date: 2009-09-26 19:42+0100\n"
 "PO-Revision-Date: 2009-05-03 19:36+0200\n"
 "Last-Translator: Jose Cruz <jcmg47@hotmail.com>\n"
 "Language-Team: none\n"
@@ -17,71 +17,35 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:92
-msgid "Virtual host's name"
-msgstr "Nombre del host virtual"
+#: src/EBox/WebServer.pm:77
+#, fuzzy
+msgid "Web Server"
+msgstr "Servicio Web"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:142
+#: src/EBox/WebServer.pm:96
+msgid "To set webserver listening port"
+msgstr "Para configurar el puerto de escucha del servidor Web"
+
+#: src/EBox/WebServer.pm:101
+msgid "To configure the per-user public HTML directory"
+msgstr "Para configurar el directorio HTML publico por usuario"
+
+#: src/EBox/WebServer.pm:128
+msgid "Enable apache LDAP user module"
+msgstr "Habilitar por usuario {dirName}"
+
+#: src/EBox/WebServer.pm:130
+msgid "To fetch home directories from LDAP"
+msgstr "Para obtener los directorios home desde LDAP"
+
+#: src/EBox/WebServer.pm:171
+msgid "Web service status"
+msgstr "Estado del servicio Web"
+
+#: src/EBox/WebServer.pm:348
 #, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the "
-"mapping name {name} - IP address {ip} "
-msgstr ""
-"Host Virtual {vhost} Agregado. Un dominio  {domain} ha sido creado con el "
-"nombre de mapeo {name} - Dirección IP {ip} "
-
-#: src/EBox/WebServer/Model/VHostTable.pm:160
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
-"added to {domain} domain"
-msgstr ""
-"Host virtual {vhost} agregado. Un nombre de mapeo {name} - Dirección IP {ip} "
-"Ha sido agregado al dominio {domain}"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:174
-#, perl-brace-format
-msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
-msgstr "Host Virtual {vhost} agregado como un alias {alias} al host {hostname}"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:180
-#: src/EBox/WebServer/Model/VHostTable.pm:185
-#, perl-brace-format
-msgid "Virtual host {vhost} added"
-msgstr "Host Virtual {vhost} agregado"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:190
-msgid "There is no static internal interface to set the Web server IP address"
-msgstr ""
-"No hay interfaz interno estático para poner la dirección IP del servidor Web"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:216
-msgid "Name"
-msgstr "Nombre"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:226
-msgid "Virtual hosts"
-msgstr "Hosts Virtuales"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:230
-#, fuzzy, perl-brace-format
-msgid ""
-"Virtual hosts are a form of web hosting service where many instances of the "
-"same web server is hosted on a single physical server. Different host names "
-"will point to the same web server. The DNS entry is automatically created if "
-"this is possible. The content must be placed under {docRoot} directory. Any "
-"particular configuration you want to add must be placed at {userConf} "
-"directory"
-msgstr ""
-"Hosts virtuales son una forma de servicio de alojamiento web, donde muchos "
-"de los casos el mismo servidor web está alojada en un único servidor físico. "
-"Diferentes nombres de host se apuntan al mismo servidor web. La entrada de "
-"DNS se crea automáticamente, si es posible. El contenido debe ser puesto "
-"bajo {docRoot}/ vHostName directorio"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:240
-msgid "virtual host"
-msgstr "Host Virtual"
+msgid "The {userDirConfFile} is missing! Please recover it"
+msgstr "El {userDirConfFile} falta! Por favor recuperelo"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
@@ -125,6 +89,92 @@ msgstr ""
 msgid "General Web server configuration settings updated"
 msgstr "Actualizada la configuración general del servidor web"
 
+#: src/EBox/WebServer/Model/VHostTable.pm:93
+#: src/EBox/WebServer/Model/VHostTable.pm:98
+#: src/EBox/WebServer/Model/VHostTable.pm:104
+msgid "Virtual host's name"
+msgstr "Nombre del host virtual"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:100
+msgid "The virtual host name supplied is a top domain name"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:107
+#, perl-brace-format
+msgid ""
+"The virtual host name supplied is a domain name (Maybe you want instead "
+"{url}?)."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:162
+#, fuzzy, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A domain {domain} has been created with the "
+"mapping name {name} - IP address {ip}. {noDnsWarning} "
+msgstr ""
+"Host Virtual {vhost} Agregado. Un dominio  {domain} ha sido creado con el "
+"nombre de mapeo {name} - Dirección IP {ip} "
+
+#: src/EBox/WebServer/Model/VHostTable.pm:181
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
+"added to {domain} domain"
+msgstr ""
+"Host virtual {vhost} agregado. Un nombre de mapeo {name} - Dirección IP {ip} "
+"Ha sido agregado al dominio {domain}"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:195
+#, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
+msgstr "Host Virtual {vhost} agregado como un alias {alias} al host {hostname}"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:201
+#: src/EBox/WebServer/Model/VHostTable.pm:206
+#, perl-brace-format
+msgid "Virtual host {vhost} added"
+msgstr "Host Virtual {vhost} agregado"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:211
+msgid "There is no static internal interface to set the Web server IP address"
+msgstr ""
+"No hay interfaz interno estático para poner la dirección IP del servidor Web"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:237
+msgid "Name"
+msgstr "Nombre"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:247
+msgid "Virtual hosts"
+msgstr "Hosts Virtuales"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:251
+#, fuzzy, perl-brace-format
+msgid ""
+"Virtual hosts are a form of web hosting service where many instances of the "
+"same web server is hosted on a single physical server. Different host names "
+"will point to the same web server. The DNS entry is automatically created if "
+"this is possible. The content must be placed under {docRoot} directory. Any "
+"particular configuration you want to add must be placed at {userConf} "
+"directory"
+msgstr ""
+"Hosts virtuales son una forma de servicio de alojamiento web, donde muchos "
+"de los casos el mismo servidor web está alojada en un único servidor físico. "
+"Diferentes nombres de host se apuntan al mismo servidor web. La entrada de "
+"DNS se crea automáticamente, si es posible. El contenido debe ser puesto "
+"bajo {docRoot}/ vHostName directorio"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:261
+msgid "virtual host"
+msgstr "Host Virtual"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:283
+#, perl-brace-format
+msgid ""
+"{open}The DNS module is disabled. The added mapping or domains will not have "
+"any effect until you enable it"
+msgstr ""
+
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"
 msgstr "Servicio Web"
@@ -135,39 +185,9 @@ msgid ""
 "different virtual hosts"
 msgstr ""
 
-#: src/EBox/WebServer.pm:96
-msgid "To set webserver listening port"
-msgstr "Para configurar el puerto de escucha del servidor Web"
-
-#: src/EBox/WebServer.pm:101
-msgid "To configure the per-user public HTML directory"
-msgstr "Para configurar el directorio HTML publico por usuario"
-
-#: src/EBox/WebServer.pm:128
-msgid "Enable apache LDAP user module"
-msgstr "Habilitar por usuario {dirName}"
-
-#: src/EBox/WebServer.pm:130
-msgid "To fetch home directories from LDAP"
-msgstr "Para obtener los directorios home desde LDAP"
-
-#: src/EBox/WebServer.pm:149
-msgid "Web"
-msgstr "Web"
-
-#: src/EBox/WebServer.pm:150
-msgid "Infrastructure"
-msgstr ""
-
-#: src/EBox/WebServer.pm:171
-msgid "Web service status"
-msgstr "Estado del servicio Web"
-
-#: src/EBox/WebServer.pm:348
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr "El {userDirConfFile} falta! Por favor recuperelo"
-
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
 msgstr "Protocolo de Transporte de hipertexto"
+
+#~ msgid "Web"
+#~ msgstr "Web"

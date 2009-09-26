@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.100Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:05+0200\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: 2009-02-04 05:14+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,12 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/Filter.pm:28
-msgid "Packet filtering"
-msgstr "فیلتر کردن بسته ها"
-
-#: src/EBox/Firewall.pm:57
-msgid "firewall"
+#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:848
+msgid "Firewall"
 msgstr "دیواره آتش"
 
 #: src/EBox/Firewall.pm:125
@@ -69,14 +65,6 @@ msgstr "پورت"
 #: src/EBox/Firewall.pm:604 src/EBox/Firewall.pm:629
 msgid "protocol"
 msgstr "پروتکل"
-
-#: src/EBox/Firewall.pm:813 src/EBox/Firewall.pm:848
-msgid "Firewall"
-msgstr "دیواره آتش"
-
-#: src/EBox/Firewall.pm:814
-msgid "UTM"
-msgstr ""
 
 #: src/EBox/Firewall.pm:818
 msgid "Packet Filter"
@@ -132,6 +120,10 @@ msgstr "رد کردن بدون پاسخ"
 msgid "LOG"
 msgstr "ثبت رخداد"
 
+#: src/EBox/CGI/Filter.pm:28
+msgid "Packet filtering"
+msgstr "فیلتر کردن بسته ها"
+
 #: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
@@ -143,31 +135,6 @@ msgstr ""
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr "شما باید متغیر iptables_log_burst را در فایل پیکربندی ebox تنظیم کنید"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
-msgid "packets dropped"
-msgstr "بسته ها رد شده اند"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
-msgid "Firewall packet traffic chart"
-msgstr "نمودار ترافیک بسته های دیواره آتش"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-msgid "Packet traffic"
-msgstr "ترافیک بسته"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
-msgid "Packets dropped"
-msgstr "بسته ها رد شده اند"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
-msgid "Packet traffic details"
-msgstr "جزئیات ترافیک بسته ها"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
-msgid "traffic"
-msgstr "ترافیک"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
@@ -218,38 +185,6 @@ msgstr ""
 msgid "Description"
 msgstr "تشریح"
 
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
-msgid "Filtering rules for internal networks"
-msgstr "قوانین فیلترینگ برای شبکه های داخلی"
-
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-msgid "rule"
-msgstr "قانون"
-
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
-msgstr "قوانین فیلترینگ از شبکه های داخلی به eBox"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
-msgstr "قوانین فیلترینگ برای ترافیکی که از eBox منتشر می شوند"
-
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
-msgstr "قوانین فیلترینگ از شبکه های خارجی به شبکه های داخلی"
-
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "قوانین فیلترینگ از شبکه های خارجی به eBox"
-
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
 msgstr "قانون متناقضی یافت شد. ابتدا آن را حذف کنید"
@@ -299,6 +234,63 @@ msgstr "مسیریابی های مجدد ترافیک پورت"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "redirect"
 msgstr "مسیریابی مجدد"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr "قوانین فیلترینگ از شبکه های خارجی به شبکه های داخلی"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
+msgid "rule"
+msgstr "قانون"
+
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+#: src/templates/filter.mas:6
+msgid "Filtering rules from internal networks to eBox"
+msgstr "قوانین فیلترینگ از شبکه های داخلی به eBox"
+
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+#: src/templates/filter.mas:13
+msgid "Filtering rules for internal networks"
+msgstr "قوانین فیلترینگ برای شبکه های داخلی"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
+msgid "packets dropped"
+msgstr "بسته ها رد شده اند"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
+msgid "Firewall packet traffic chart"
+msgstr "نمودار ترافیک بسته های دیواره آتش"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
+msgid "Packet traffic"
+msgstr "ترافیک بسته"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
+msgid "Packets dropped"
+msgstr "بسته ها رد شده اند"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
+msgid "Packet traffic details"
+msgstr "جزئیات ترافیک بسته ها"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
+msgid "traffic"
+msgstr "ترافیک"
+
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "قوانین فیلترینگ برای ترافیکی که از eBox منتشر می شوند"
+
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+msgid "Filtering rules from  external networks to eBox"
+msgstr "قوانین فیلترینگ از شبکه های خارجی به eBox"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
@@ -368,6 +360,9 @@ msgid ""
 msgstr ""
 "این قوانین به شما اجاز می دهند که دسترسی از شبکه های خارجی به شبکه های داخلی "
 "را کنترل کنید"
+
+#~ msgid "firewall"
+#~ msgstr "دیواره آتش"
 
 #~ msgid "External port"
 #~ msgstr "پورت خروجی"

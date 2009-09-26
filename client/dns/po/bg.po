@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:03+0200\n"
+"POT-Creation-Date: 2009-09-26 19:28+0100\n"
 "PO-Revision-Date: 2009-08-09 13:51+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
@@ -16,19 +16,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: src/EBox/Model/DomainTable.pm:66
+msgid "Domain"
+msgstr "Област"
+
+#: src/EBox/Model/DomainTable.pm:74 src/EBox/Model/HostnameTable.pm:192
+msgid "Hostnames"
+msgstr "Имена на хостове"
+
+#: src/EBox/Model/DomainTable.pm:83
+msgid "Mail Exchangers"
+msgstr "Сървъри за обмен на поща"
+
+#: src/EBox/Model/DomainTable.pm:91 src/EBox/Model/HostnameTable.pm:167
+msgid "IP Address"
+msgstr "IP адрес"
+
+#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
+msgid "Domains"
+msgstr "Области"
+
+#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+msgid "domain"
+msgstr "област"
+
+#: src/EBox/Model/HostnameTable.pm:135
+#, perl-brace-format
+msgid ""
+"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
+"same domain"
+msgstr "Вече има псевдоним \"{name}\" за \"{hostname}\" в същата област."
+
+#: src/EBox/Model/HostnameTable.pm:159 src/EBox/Model/MailExchanger.pm:110
+#: src/templates/edit.mas:20
+msgid "Host name"
+msgstr "Име на хост"
+
+#: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
+#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
+msgid "Alias"
+msgstr "Псевдоним"
+
+#: src/EBox/Model/HostnameTable.pm:186
+msgid "Host names"
+msgstr "Имена на хостове"
+
+#: src/EBox/Model/HostnameTable.pm:193
+msgid "host name"
+msgstr "Име на хост"
+
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:51
+msgid "DNS"
+msgstr "DNS"
+
+#: src/EBox/Model/DNSComposite.pm:77
+msgid "The DNS server allows you to resolve names for your own domains."
+msgstr ""
+"DNS сървърът ви дава възможност за разпознаване на имена от вашата собствена "
+"област."
+
+#: src/EBox/Model/AliasTable.pm:80
+#, perl-brace-format
+msgid ""
+"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
+msgstr ""
+"Псевдоним не може бъде сървърът за имена \"{ns}\". Вместо това използвайте "
+"име на хост."
+
+#: src/EBox/Model/AliasTable.pm:93
+#, perl-brace-format
+msgid "There is a hostname with the same name \"{name}\" in the same domain"
+msgstr "Има хост със същото име \"{name}\" в същата област."
+
+#: src/EBox/Model/AliasTable.pm:102
+#, perl-brace-format
+msgid ""
+"There is an alias for {hostname} hostname with the same name \"{name}\" in "
+"the same domain"
+msgstr "Вече има псевдоним \"{name}\" за хоста {hostname} в същата област."
+
+#: src/EBox/Model/AliasTable.pm:147
+msgid "alias"
+msgstr "Синоним"
+
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
 msgstr "Невалидно число на предпочитание. Допустим интервал: ({min}, {max})"
 
-#: src/EBox/Model/MailExchanger.pm:110 src/EBox/Model/HostnameTable.pm:159
-#: src/templates/edit.mas:20
-msgid "Host name"
-msgstr "Име на хост"
-
 #: src/EBox/Model/MailExchanger.pm:117
-msgid "Owner domain"
-msgstr "Тази област"
+#, fuzzy
+msgid "This domain"
+msgstr "област"
 
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
@@ -59,112 +139,21 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "Запис за обмен на поща"
 
-#: src/EBox/Model/HostnameTable.pm:135
-#, perl-brace-format
-msgid ""
-"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
-"same domain"
-msgstr "Вече има псевдоним \"{name}\" за \"{hostname}\" в същата област."
-
-#: src/EBox/Model/HostnameTable.pm:167 src/EBox/Model/DomainTable.pm:91
-msgid "IP Address"
-msgstr "IP адрес"
-
-#: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
-#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
-#: src/templates/edit.mas:64 src/templates/edit.mas:85
-msgid "Alias"
-msgstr "Псевдоним"
-
-#: src/EBox/Model/HostnameTable.pm:186
-msgid "Host names"
-msgstr "Имена на хостове"
-
-#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
-msgid "Hostnames"
-msgstr "Имена на хостове"
-
-#: src/EBox/Model/HostnameTable.pm:193
-msgid "host name"
-msgstr "Име на хост"
-
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:796
-msgid "DNS"
-msgstr "DNS"
-
-#: src/EBox/Model/DNSComposite.pm:77
-msgid "The DNS server allows you to resolve names for your own domains."
-msgstr ""
-"DNS сървърът ви дава възможност за разпознаване на имена от вашата собствена "
-"област."
-
-#: src/EBox/Model/DomainTable.pm:66
-msgid "Domain"
-msgstr "Област"
-
-#: src/EBox/Model/DomainTable.pm:83
-msgid "Mail Exchangers"
-msgstr "Сървъри за обмен на поща"
-
-#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
-msgid "Domains"
-msgstr "Области"
-
-#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
-msgid "domain"
-msgstr "област"
-
-#: src/EBox/Model/EnableFormDNS.pm:84
-msgid "Service enabled"
-msgstr "Услугата е включена"
-
-#: src/EBox/Model/EnableFormDNS.pm:86
-msgid "Service disabled"
-msgstr "Услугата е изключена"
-
-#: src/EBox/Model/AliasTable.pm:80
-#, perl-brace-format
-msgid ""
-"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr ""
-"Псевдоним не може бъде сървърът за имена \"{ns}\". Вместо това използвайте име "
-"на хост."
-
-#: src/EBox/Model/AliasTable.pm:93
-#, perl-brace-format
-msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr "Има хост със същото име \"{name}\" в същата област."
-
-#: src/EBox/Model/AliasTable.pm:102
-#, perl-brace-format
-msgid ""
-"There is an alias for {hostname} hostname with the same name \"{name}\" in "
-"the same domain"
-msgstr "Вече има псевдоним \"{name}\" за хоста {hostname} в същата област."
-
-#: src/EBox/Model/AliasTable.pm:147
-msgid "alias"
-msgstr "Синоним"
-
-#: src/EBox/DNS.pm.in:51
-msgid "Domain Name System"
-msgstr "Система за имена на области"
-
 #: src/EBox/DNS.pm.in:88
 msgid "DNS Server"
 msgstr "DNS сървър"
 
-#: src/EBox/DNS.pm.in:652
+#: src/EBox/DNS.pm.in:658
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "конфигурационен файл на зона {zone}"
 
-#: src/EBox/DNS.pm.in:668
+#: src/EBox/DNS.pm.in:674
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "конфигурационен файл на зона за обратно разпознаване {zone}"
 
-#: src/EBox/DNS.pm.in:797
+#: src/EBox/DNS.pm.in:803
 msgid "Infrastructure"
 msgstr "Инфраструктура"
 
@@ -214,3 +203,15 @@ msgstr "Списък на хостовете за област {domain}"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
+
+#~ msgid "Owner domain"
+#~ msgstr "Тази област"
+
+#~ msgid "Service enabled"
+#~ msgstr "Услугата е включена"
+
+#~ msgid "Service disabled"
+#~ msgstr "Услугата е изключена"
+
+#~ msgid "Domain Name System"
+#~ msgstr "Система за имена на области"

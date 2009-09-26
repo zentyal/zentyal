@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:03+0200\n"
+"POT-Creation-Date: 2009-09-26 19:28+0100\n"
 "PO-Revision-Date: 2008-11-11 01:37+0000\n"
 "Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
@@ -16,19 +16,100 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: src/EBox/Model/DomainTable.pm:66
+msgid "Domain"
+msgstr "Dominio"
+
+#: src/EBox/Model/DomainTable.pm:74 src/EBox/Model/HostnameTable.pm:192
+msgid "Hostnames"
+msgstr "Hostnames"
+
+#: src/EBox/Model/DomainTable.pm:83
+msgid "Mail Exchangers"
+msgstr "Intercambiadores de correo"
+
+#: src/EBox/Model/DomainTable.pm:91 src/EBox/Model/HostnameTable.pm:167
+msgid "IP Address"
+msgstr "Enderezo IP"
+
+#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
+msgid "Domains"
+msgstr "Dominios"
+
+#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+msgid "domain"
+msgstr "dominio"
+
+#: src/EBox/Model/HostnameTable.pm:135
+#, perl-brace-format
+msgid ""
+"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
+"same domain"
+msgstr ""
+"Hai un alias co mesmo nome \"{name}\" para \"{hostname}\" no mesmo dominio"
+
+#: src/EBox/Model/HostnameTable.pm:159 src/EBox/Model/MailExchanger.pm:110
+#: src/templates/edit.mas:20
+msgid "Host name"
+msgstr "Nome do host"
+
+#: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
+#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
+msgid "Alias"
+msgstr "Alias"
+
+#: src/EBox/Model/HostnameTable.pm:186
+#, fuzzy
+msgid "Host names"
+msgstr "Hostnames"
+
+#: src/EBox/Model/HostnameTable.pm:193
+#, fuzzy
+msgid "host name"
+msgstr "hostname"
+
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:51
+msgid "DNS"
+msgstr "DNS"
+
+#: src/EBox/Model/DNSComposite.pm:77
+msgid "The DNS server allows you to resolve names for your own domains."
+msgstr "O servidor DNS permite resolver nomes para os teus dominios."
+
+#: src/EBox/Model/AliasTable.pm:80
+#, fuzzy, perl-brace-format
+msgid ""
+"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
+msgstr ""
+"Un alias non pode ser o nome da máquina do servidor de nomes \"{ns}\". Usa "
+"un hostname no seu lugar"
+
+#: src/EBox/Model/AliasTable.pm:93
+#, perl-brace-format
+msgid "There is a hostname with the same name \"{name}\" in the same domain"
+msgstr "Hai un hostname co mesmo nome \"{name}\" no mesmo dominio"
+
+#: src/EBox/Model/AliasTable.pm:102
+#, fuzzy, perl-brace-format
+msgid ""
+"There is an alias for {hostname} hostname with the same name \"{name}\" in "
+"the same domain"
+msgstr "Hai un hostname co mesmo nome \"{name}\" no mesmo dominio"
+
+#: src/EBox/Model/AliasTable.pm:147
+msgid "alias"
+msgstr "alias"
+
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
 msgstr "Número de preferencia inválido. Rango permitido: ({min}, {max})"
 
-#: src/EBox/Model/MailExchanger.pm:110 src/EBox/Model/HostnameTable.pm:159
-#: src/templates/edit.mas:20
-msgid "Host name"
-msgstr "Nome do host"
-
 #: src/EBox/Model/MailExchanger.pm:117
-msgid "Owner domain"
-msgstr "Dominio propio"
+#, fuzzy
+msgid "This domain"
+msgstr "dominio"
 
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
@@ -59,114 +140,21 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "Rexistro do intercambiador de correo"
 
-#: src/EBox/Model/HostnameTable.pm:135
-#, perl-brace-format
-msgid ""
-"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
-"same domain"
-msgstr ""
-"Hai un alias co mesmo nome \"{name}\" para \"{hostname}\" no mesmo dominio"
-
-#: src/EBox/Model/HostnameTable.pm:167 src/EBox/Model/DomainTable.pm:91
-msgid "IP Address"
-msgstr "Enderezo IP"
-
-#: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
-#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
-#: src/templates/edit.mas:64 src/templates/edit.mas:85
-msgid "Alias"
-msgstr "Alias"
-
-#: src/EBox/Model/HostnameTable.pm:186
-#, fuzzy
-msgid "Host names"
-msgstr "Hostnames"
-
-#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
-msgid "Hostnames"
-msgstr "Hostnames"
-
-#: src/EBox/Model/HostnameTable.pm:193
-#, fuzzy
-msgid "host name"
-msgstr "hostname"
-
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:796
-msgid "DNS"
-msgstr "DNS"
-
-#: src/EBox/Model/DNSComposite.pm:77
-msgid "The DNS server allows you to resolve names for your own domains."
-msgstr "O servidor DNS permite resolver nomes para os teus dominios."
-
-#: src/EBox/Model/DomainTable.pm:66
-msgid "Domain"
-msgstr "Dominio"
-
-#: src/EBox/Model/DomainTable.pm:83
-msgid "Mail Exchangers"
-msgstr "Intercambiadores de correo"
-
-#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
-msgid "Domains"
-msgstr "Dominios"
-
-#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
-msgid "domain"
-msgstr "dominio"
-
-#: src/EBox/Model/EnableFormDNS.pm:84
-msgid "Service enabled"
-msgstr "Servizo habilitado"
-
-#: src/EBox/Model/EnableFormDNS.pm:86
-msgid "Service disabled"
-msgstr "Servizo deshabilitado"
-
-#: src/EBox/Model/AliasTable.pm:80
-#, fuzzy, perl-brace-format
-msgid ""
-"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr ""
-"Un alias non pode ser o nome da máquina do servidor de nomes \"{ns}\". Usa "
-"un hostname no seu lugar"
-
-#: src/EBox/Model/AliasTable.pm:93
-#, perl-brace-format
-msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr "Hai un hostname co mesmo nome \"{name}\" no mesmo dominio"
-
-#: src/EBox/Model/AliasTable.pm:102
-#, fuzzy, perl-brace-format
-msgid ""
-"There is an alias for {hostname} hostname with the same name \"{name}\" in "
-"the same domain"
-msgstr "Hai un hostname co mesmo nome \"{name}\" no mesmo dominio"
-
-#: src/EBox/Model/AliasTable.pm:147
-msgid "alias"
-msgstr "alias"
-
-#: src/EBox/DNS.pm.in:51
-#, fuzzy
-msgid "Domain Name System"
-msgstr "Servidor de Nomes de Dominio"
-
 #: src/EBox/DNS.pm.in:88
 msgid "DNS Server"
 msgstr "Servidor DNS"
 
-#: src/EBox/DNS.pm.in:652
+#: src/EBox/DNS.pm.in:658
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "ficheiro de configuración por zona {zone}"
 
-#: src/EBox/DNS.pm.in:668
+#: src/EBox/DNS.pm.in:674
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "ficheiro de configuración para resolución en reversa da zona {zone}"
 
-#: src/EBox/DNS.pm.in:797
+#: src/EBox/DNS.pm.in:803
 msgid "Infrastructure"
 msgstr ""
 
@@ -216,6 +204,19 @@ msgstr "Listado de máquinas por dominio {domain}"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
+
+#~ msgid "Owner domain"
+#~ msgstr "Dominio propio"
+
+#~ msgid "Service enabled"
+#~ msgstr "Servizo habilitado"
+
+#~ msgid "Service disabled"
+#~ msgstr "Servizo deshabilitado"
+
+#, fuzzy
+#~ msgid "Domain Name System"
+#~ msgstr "Servidor de Nomes de Dominio"
 
 #~ msgid "There is an alias with the same name \"{name}\" in the same domain"
 #~ msgstr "Hai un alias co mesmo nome \"{name}\" no mesmo dominio"

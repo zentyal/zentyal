@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-07-31 13:14+0100\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: 2009-08-04 05:39+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -15,8 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Event/Watcher/EBackup.pm:111
-#: src/EBox/EBackup.pm:50
+#: src/EBox/Event/Watcher/EBackup.pm:111 src/EBox/EBackup.pm:50
 msgid "Backup"
 msgstr "備份"
 
@@ -24,8 +24,7 @@ msgstr "備份"
 msgid "Check if eBox backup was not successfull."
 msgstr "檢查 eBox 備份是否成功。"
 
-#: src/EBox/Model/Settings.pm:73
-#: src/EBox/Model/Local.pm:109
+#: src/EBox/Model/Settings.pm:73 src/EBox/Model/Local.pm:109
 msgid "Backup destination"
 msgstr "備份目的地"
 
@@ -69,10 +68,8 @@ msgstr "主機"
 msgid "host"
 msgstr "主機"
 
-#: src/EBox/Model/Local.pm:81
-#: src/EBox/Model/Local.pm:150
+#: src/EBox/Model/Local.pm:81 src/EBox/Model/Local.pm:150
 #: src/EBox/Model/Local.pm:167
-#, perl-brace-format
 #, perl-brace-format
 msgid "Local backup directory {p} does not exist"
 msgstr "本地端備份目錄 {p} 不存在"
@@ -86,8 +83,10 @@ msgid "Local Backup Configuration"
 msgstr "本地端備份組態"
 
 #: src/EBox/Model/Local.pm:128
-msgid "Local backup configuration."
-msgstr "本地端備份組態。"
+msgid ""
+"Local backup configuration. If the module is enabled the backup will be "
+"scheduled to be done daily"
+msgstr ""
 
 #: src/EBox/Model/Local.pm:130
 msgid "Local backup configuration updated."
@@ -101,10 +100,12 @@ msgstr "安裝 /etc/cron.daily/ebox-ebackup-cron。"
 msgid "eBox will run a nightly script to backup your system."
 msgstr "eBox 會執行每天的命令稿來備份您的系統。"
 
-#: src/EBox/EBackup.pm:182
-msgid "Core"
-msgstr "核心"
-
 #: src/EBox/Composite/General.pm:63
 msgid "Backup module"
 msgstr "備份模組"
+
+#~ msgid "Local backup configuration."
+#~ msgstr "本地端備份組態。"
+
+#~ msgid "Core"
+#~ msgstr "核心"

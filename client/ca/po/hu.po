@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:03+0200\n"
+"POT-Creation-Date: 2009-09-26 19:25+0100\n"
 "PO-Revision-Date: 2009-09-10 17:16+0200\n"
 "Last-Translator: Sepi <sepi@freemail.hu>\n"
 "Language-Team: none\n"
@@ -17,23 +17,78 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/ShowForm.pm:41
-#: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/Index.pm:39
-#: src/EBox/CGI/IssueCertificate.pm:46 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CA.pm:1701
-msgid "Certification Authority"
-msgstr "Tanúsító hatóság"
+#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
+#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:252 src/EBox/CA.pm:529
+#: src/templates/formRevoke.mas:22 src/templates/index.mas:22
+#: src/templates/createCA.mas:7 src/templates/formRenew.mas:37
+msgid "Organization Name"
+msgstr "Szervezet"
 
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/ShowForm.pm:64
-#: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/RevokeCertificate.pm:76
-#: src/EBox/CGI/RenewCertificate.pm:74 src/EBox/CA/TestStub.pm:438
-#: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
-#: src/EBox/Model/Certificates.pm:231 src/EBox/CA.pm:746 src/EBox/CA.pm:909
-#: src/EBox/CA.pm:1236 src/EBox/CA.pm:1278 src/EBox/CA.pm:1372
-#: src/templates/formRenew.mas:43 src/templates/index.mas:23
-#: src/templates/formRevoke.mas:28
+#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:543
+msgid ""
+"The CA certificates should be revoked  or has expired before issuing a new "
+"certificate"
+msgstr ""
+"A CA tanúsítványokat vissza kellene vonni vagy a lejárat előtt új "
+"tanúsítványt kellene kiálítani"
+
+#: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
+#: src/EBox/CA/TestStub.pm:642 src/EBox/Model/Certificates.pm:234
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/RevokeCertificate.pm:76
+#: src/EBox/CGI/ShowForm.pm:64 src/EBox/CGI/RenewCertificate.pm:74
+#: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CA.pm:747 src/EBox/CA.pm:910
+#: src/EBox/CA.pm:1247 src/EBox/CA.pm:1289 src/EBox/CA.pm:1383
+#: src/templates/formRevoke.mas:28 src/templates/index.mas:23
+#: src/templates/formRenew.mas:43
 msgid "Common Name"
 msgstr "Közös Név"
+
+#: src/EBox/CA/TestStub.pm:654
+#, perl-brace-format
+msgid "The user {commonName} does NOT exist"
+msgstr "{commonName} nevű felhasználó nem létezik"
+
+#: src/EBox/CA/TestStub.pm:720
+msgid "Days set to the maximum allowed: Year 2038 Bug"
+msgstr "Maximális napok száma: Year 2038 Bug"
+
+#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:2399
+msgid "Expiration date later than CA certificate expiration date"
+msgstr "A lejárati dátum későbbi mint a CA tanúsítvány lejárati dátuma"
+
+#: src/EBox/Model/Certificates.pm:92
+#, perl-brace-format
+msgid ""
+"You must create a Certification Authority. Go to {openhref}Certification "
+"Authority{closehref} to do so"
+msgstr ""
+
+#: src/EBox/Model/Certificates.pm:216
+msgid "Module"
+msgstr "Modul"
+
+#: src/EBox/Model/Certificates.pm:228
+msgid "Service"
+msgstr "Szolgáltatás"
+
+#: src/EBox/Model/Certificates.pm:240
+msgid "Enable"
+msgstr "Engedélyez"
+
+#: src/EBox/Model/Certificates.pm:248 src/EBox/CA.pm:1720
+msgid "Services Certificates"
+msgstr "Szolgáltatások Tanúsítványai"
+
+#: src/EBox/Model/Certificates.pm:249
+msgid "certificate"
+msgstr "tanúsítvány"
+
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/CreateCA.pm:44
+#: src/EBox/CGI/RevokeCertificate.pm:42 src/EBox/CGI/ShowForm.pm:41
+#: src/EBox/CGI/Index.pm:39 src/EBox/CGI/RenewCertificate.pm:42
+#: src/EBox/CGI/IssueCertificate.pm:46 src/EBox/CA.pm:115
+msgid "Certification Authority"
+msgstr "Tanúsító hatóság"
 
 #: src/EBox/CGI/DownloadFiles.pm:79 src/EBox/CGI/ShowForm.pm:91
 #, perl-brace-format
@@ -44,24 +99,6 @@ msgstr "Közös név: {cn} NEM létezik az adatbázisban"
 msgid "Error creating file"
 msgstr "Hiba a fájl létrehozásakor"
 
-#: src/EBox/CGI/ShowForm.pm:68 src/EBox/CGI/IssueCertificate.pm:140
-#: src/EBox/CGI/RevokeCertificate.pm:80 src/EBox/CGI/RenewCertificate.pm:78
-msgid ""
-"The input contains invalid characters. All alphanumeric characters, plus "
-"these non alphanumeric chars: .?&+:-@* and spaces are allowed."
-msgstr ""
-"A begépelt adat hibás karaktereket tartalmaz. Minden alfanumerikus és a "
-"következő nem alfanumerikus karakterek engedélyezettek: .?&+:-@* és a "
-"szóköz."
-
-#: src/EBox/CGI/ShowForm.pm:74
-msgid "Action"
-msgstr "Hatás"
-
-#: src/EBox/CGI/ShowForm.pm:83
-msgid "Only revoke and renew actions are performed"
-msgstr "Csak a visszavonás és a megújítás hajtódik végre"
-
 #: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:115
 msgid "CA passphrases do NOT match"
 msgstr "CA jelmondatok nem egyeznek"
@@ -71,8 +108,8 @@ msgstr "CA jelmondatok nem egyeznek"
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "CA jelmondatoknak legalább {length} karakternek kell lennie"
 
-#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/IssueCertificate.pm:133
-#: src/EBox/CGI/RenewCertificate.pm:95
+#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:95
+#: src/EBox/CGI/IssueCertificate.pm:133
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
 msgstr "Lejárati napok száma ({days}). Pozitív számnak kell lenni"
@@ -80,21 +117,6 @@ msgstr "Lejárati napok száma ({days}). Pozitív számnak kell lenni"
 #: src/EBox/CGI/CreateCA.pm:140
 msgid "Problems creating Certification Authority has happened"
 msgstr "A Tanúsító Hatóság létrehozásánál probléma lépett fel"
-
-#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA/TestStub.pm:154
-#: src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:251 src/EBox/CA.pm:528
-#: src/templates/formRenew.mas:37 src/templates/index.mas:22
-#: src/templates/createCA.mas:7 src/templates/formRevoke.mas:22
-msgid "Organization Name"
-msgstr "Szervezet"
-
-#: src/EBox/CGI/IssueCertificate.pm:162
-msgid "The certificate has been issued."
-msgstr "A tanúsítvány elkészült."
-
-#: src/EBox/CGI/IssueCertificate.pm:163
-msgid "The new CA certificate has been issued."
-msgstr "Az új CA tanúsítvány elkészült."
 
 #: src/EBox/CGI/RevokeCertificate.pm:64
 msgid "The certificate has NOT been revoked."
@@ -108,6 +130,15 @@ msgstr ""
 msgid "Reason"
 msgstr "Ok"
 
+#: src/EBox/CGI/RevokeCertificate.pm:80 src/EBox/CGI/ShowForm.pm:68
+#: src/EBox/CGI/RenewCertificate.pm:78 src/EBox/CGI/IssueCertificate.pm:140
+msgid ""
+"The input contains invalid characters. All alphanumeric characters, plus "
+"these non alphanumeric chars: .?&+:-@* and spaces are allowed."
+msgstr ""
+"A begépelt adat hibás karaktereket tartalmaz. Minden alfanumerikus és a "
+"következő nem alfanumerikus karakterek engedélyezettek: .?&+:-@* és a szóköz."
+
 #: src/EBox/CGI/RevokeCertificate.pm:138
 msgid "The certificate has been revoked"
 msgstr "A tanúsítvány vissza lett vonva"
@@ -116,12 +147,20 @@ msgstr "A tanúsítvány vissza lett vonva"
 msgid "The CA certificate has been revoked"
 msgstr "A CA tanúsítvány vissza lett vonva"
 
+#: src/EBox/CGI/ShowForm.pm:74
+msgid "Action"
+msgstr "Hatás"
+
+#: src/EBox/CGI/ShowForm.pm:83
+msgid "Only revoke and renew actions are performed"
+msgstr "Csak a visszavonás és a megújítás hajtódik végre"
+
 #: src/EBox/CGI/RenewCertificate.pm:64
 msgid "The certificate has NOT been renewed"
 msgstr "A tanúsítványt NEM lett megújítva"
 
-#: src/EBox/CGI/RenewCertificate.pm:69 src/templates/formRenew.mas:13
-#: src/templates/index.mas:52 src/templates/createCA.mas:19
+#: src/EBox/CGI/RenewCertificate.pm:69 src/templates/index.mas:52
+#: src/templates/createCA.mas:19 src/templates/formRenew.mas:13
 msgid "Days to expire"
 msgstr "Napok a lejáratig"
 
@@ -137,95 +176,63 @@ msgstr "A tanúsítvány meg lett újítva"
 msgid "The new CA certificate has been renewed"
 msgstr "Az új CA tanúsítvány meg lett újítva"
 
-#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:542
-msgid ""
-"The CA certificates should be revoked  or has expired before issuing a new "
-"certificate"
-msgstr ""
-"A CA tanúsítványokat vissza kellene vonni vagy a lejárat előtt új "
-"tanúsítványt kellene kiálítani"
+#: src/EBox/CGI/IssueCertificate.pm:162
+msgid "The certificate has been issued."
+msgstr "A tanúsítvány elkészült."
 
-#: src/EBox/CA/TestStub.pm:654
-#, perl-brace-format
-msgid "The user {commonName} does NOT exist"
-msgstr "{commonName} nevű felhasználó nem létezik"
+#: src/EBox/CGI/IssueCertificate.pm:163
+msgid "The new CA certificate has been issued."
+msgstr "Az új CA tanúsítvány elkészült."
 
-#: src/EBox/CA/TestStub.pm:720
-msgid "Days set to the maximum allowed: Year 2038 Bug"
-msgstr "Maximális napok száma: Year 2038 Bug"
-
-#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:2388
-msgid "Expiration date later than CA certificate expiration date"
-msgstr "A lejárati dátum későbbi mint a CA tanúsítvány lejárati dátuma"
-
-#: src/EBox/Model/Certificates.pm:92
-msgid "You must create a Certification Authority."
-msgstr "Létre kell hozni egy Tanúsító Hatóságot."
-
-#: src/EBox/Model/Certificates.pm:213
-msgid "Module"
-msgstr "Modul"
-
-#: src/EBox/Model/Certificates.pm:225
-msgid "Service"
-msgstr "Szolgáltatás"
-
-#: src/EBox/Model/Certificates.pm:237
-msgid "Enable"
-msgstr "Engedélyez"
-
-#: src/EBox/Model/Certificates.pm:245 src/EBox/CA.pm:1709
-msgid "Services Certificates"
-msgstr "Szolgáltatások Tanúsítványai"
-
-#: src/EBox/Model/Certificates.pm:246
-msgid "certificate"
-msgstr "tanúsítvány"
-
-#: src/EBox/CA.pm:292 src/EBox/CA.pm:763 src/EBox/CA.pm:1351
+#: src/EBox/CA.pm:293 src/EBox/CA.pm:764 src/EBox/CA.pm:1362
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Maximum megengedett napok száma {days}: Year 2038 Bug"
 
-#: src/EBox/CA.pm:387
+#: src/EBox/CA.pm:388
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "A törlés nem fejeződött be a következő ok miatt:"
 
-#: src/EBox/CA.pm:922 src/EBox/CA.pm:1247
+#: src/EBox/CA.pm:923 src/EBox/CA.pm:1258
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "{cn} nevű tanúsítvány NEM létezik"
 
-#: src/EBox/CA.pm:926
+#: src/EBox/CA.pm:927
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
 
-#: src/EBox/CA.pm:1151
+#: src/EBox/CA.pm:1070
+msgid ""
+"The Certification Authority Infrastructure is not available, create it first"
+msgstr ""
+
+#: src/EBox/CA.pm:1162
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
 "A közös név (cn), megkülönböztető név (dn) vagy a sorozat szám engedélyezett"
 
-#: src/EBox/CA.pm:1373
+#: src/EBox/CA.pm:1384
 msgid "or"
 msgstr "vagy"
 
-#: src/EBox/CA.pm:1374
+#: src/EBox/CA.pm:1385
 msgid "Certificate file"
 msgstr "Tanúsítvány fájl"
 
-#: src/EBox/CA.pm:1396
+#: src/EBox/CA.pm:1407
 msgid "The certificate to renew does NOT exist"
 msgstr "A megújítandó tanúsítvány NEM létezik"
 
-#: src/EBox/CA.pm:1436
+#: src/EBox/CA.pm:1447
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "A tanúsítvány a {cn} névvel NEM létezik ebben a CA-ban"
 
-#: src/EBox/CA.pm:1464
+#: src/EBox/CA.pm:1475
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
@@ -233,40 +240,36 @@ msgstr ""
 "A privát kulcs jelmondata szükséges egy új kérelemhez. Nem lett megújítva. "
 "Készíts egy új tanúsítványt új kulcsokkal"
 
-#: src/EBox/CA.pm:1702
-msgid "Infrastructure"
-msgstr "Infrastruktúra"
-
-#: src/EBox/CA.pm:1706
+#: src/EBox/CA.pm:1717
 msgid "General"
 msgstr "Általános"
 
-#: src/EBox/CA.pm:2266
+#: src/EBox/CA.pm:2277
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Nem lehet aláírni. Hibás CA jelmondat vagy a CA privát kulcsa megsérült?"
 
-#: src/EBox/CA.pm:2268
+#: src/EBox/CA.pm:2279
 msgid "Database corruption"
 msgstr "Adatbázis sérülés"
 
-#: src/EBox/CA.pm:2270
+#: src/EBox/CA.pm:2281
 msgid "Identifier duplicated in Database"
 msgstr "Azonosító duplikáció található az adatbázisban"
 
-#: src/EBox/CA.pm:2272
+#: src/EBox/CA.pm:2283
 msgid "Certificate already revoked"
 msgstr "A tanúsítványt már vissza vonták"
 
-#: src/EBox/CA.pm:2275
+#: src/EBox/CA.pm:2286
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 mező túl hosszú. Maximum hossza:"
 
-#: src/EBox/CA.pm:2277
+#: src/EBox/CA.pm:2288
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Ismeretlen hiba. Használd az OpenSSL kimenetet:"
 
-#: src/EBox/CA.pm:2352
+#: src/EBox/CA.pm:2363
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -275,17 +278,18 @@ msgstr ""
 "A Tanúsító Hatóság (CA) elkészült a következő szervezeti névvel {orgName} és "
 "érvényességi idővel {days} (nap)"
 
-#: src/EBox/CA.pm:2354
+#: src/EBox/CA.pm:2365
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
-msgstr "Megsemmisített Tanúsító Hatóság a következő szervezeti névvel {orgName}"
+msgstr ""
+"Megsemmisített Tanúsító Hatóság a következő szervezeti névvel {orgName}"
 
-#: src/EBox/CA.pm:2356
+#: src/EBox/CA.pm:2367
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "CA tanúsítványt visszavonta a következő ok miatt: {reason} {force}"
 
-#: src/EBox/CA.pm:2358
+#: src/EBox/CA.pm:2369
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -294,7 +298,7 @@ msgstr ""
 "Kiállított CA tanúsítvány a következő {orgName} szervezeti névvel és {days} "
 "nap érvényességi idővel"
 
-#: src/EBox/CA.pm:2360
+#: src/EBox/CA.pm:2371
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -303,14 +307,14 @@ msgstr ""
 "Megújított CA tanúsítvány a következő {orgName} szervezeti névvel és {days} "
 "nap érvényességi idővel"
 
-#: src/EBox/CA.pm:2362
+#: src/EBox/CA.pm:2373
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Kiállított tanúsítvány a következő {cn} közös névvel és {days} nap "
 "érvényességi idővel"
 
-#: src/EBox/CA.pm:2364
+#: src/EBox/CA.pm:2375
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -318,39 +322,43 @@ msgstr ""
 "Vissza lett vonva a tanúsítvány a következő {cn} közös névvel, mert {reason} "
 "{force}"
 
-#: src/EBox/CA.pm:2366
+#: src/EBox/CA.pm:2377
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Meg lett újítva a tanúsítvány a következő {cn} közös névvel és {days} nap "
 "érvényességi idővel"
 
-#: src/EBox/CA.pm:2368
+#: src/EBox/CA.pm:2379
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr "Frissült a tanúsítvány adatbázis. {number} tanúsítvány van lejárva"
 
-#: src/EBox/CA.pm:2476
+#: src/EBox/CA.pm:2487
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Nem lehet elindítani az OpenSSL parancssort. ({errval})"
 
-#: src/templates/formRenew.mas:17 src/templates/formRevoke.mas:65
+#: src/templates/formRevoke.mas:10
+msgid "Revoke a Certificate"
+msgstr "Tanúsítvány visszavonása"
+
+#: src/templates/formRevoke.mas:18
+msgid "Revoke the selected certificate"
+msgstr "Kiválasztott tanúsítvány visszavonása"
+
+#: src/templates/formRevoke.mas:33 src/templates/formRenew.mas:48
+msgid "Expiration Date"
+msgstr "Lejárati dátum"
+
+#: src/templates/formRevoke.mas:65 src/templates/formRenew.mas:17
 msgid "CA Passphrase"
 msgstr "CA jelmondat"
 
-#: src/templates/formRenew.mas:23 src/templates/index.mas:160
-#: src/templates/index.mas:177 src/templates/forceRenew.mas:27
-msgid "Renew"
-msgstr "Megújítás"
-
-#: src/templates/formRenew.mas:28
-msgid "Renew a certificate"
-msgstr "Tanúsítvány megújítás"
-
-#: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:33
-msgid "Expiration Date"
-msgstr "Lejárati dátum"
+#: src/templates/formRevoke.mas:71 src/templates/index.mas:141
+#: src/templates/index.mas:173 src/templates/forceRevoke.mas:42
+msgid "Revoke"
+msgstr "Visszavon"
 
 #: src/templates/index.mas:41 src/templates/createCA.mas:9
 msgid "Country code"
@@ -394,9 +402,9 @@ msgid ""
 "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
 "Revoked certificates respectively"
 msgstr ""
-"Az aktuális dátumhoz viszonyítva azonosítja a Lejárati időt "
-"Létezőnek/Lejártnak, illetve a Visszavonási dátumot azonosítva határozza meg "
-"a Visszavont tanúsítványokat"
+"Az aktuális dátumhoz viszonyítva azonosítja a Lejárati időt Létezőnek/"
+"Lejártnak, illetve a Visszavonási dátumot azonosítva határozza meg a "
+"Visszavont tanúsítványokat"
 
 #: src/templates/index.mas:83
 msgid "Name"
@@ -426,14 +434,14 @@ msgstr "Lejárt"
 msgid "Revoked"
 msgstr "Visszavont"
 
-#: src/templates/index.mas:141 src/templates/index.mas:173
-#: src/templates/forceRevoke.mas:42 src/templates/formRevoke.mas:71
-msgid "Revoke"
-msgstr "Visszavon"
-
 #: src/templates/index.mas:150 src/templates/index.mas:175
 msgid "Download Key(s) and Certificate"
 msgstr "Kulcsok és tanúsítványok letöltése"
+
+#: src/templates/index.mas:160 src/templates/index.mas:177
+#: src/templates/forceRenew.mas:27 src/templates/formRenew.mas:23
+msgid "Renew"
+msgstr "Megújítás"
 
 #: src/templates/createCA.mas:26
 msgid "Create"
@@ -442,6 +450,36 @@ msgstr "Létrehoz"
 #: src/templates/createCA.mas:34
 msgid "Create Certification Authority Certificate"
 msgstr "Tanúsító Hatóság tanúsítvány létrehozása"
+
+#: src/templates/forceRenew.mas:42
+msgid "Renewing CA certificate"
+msgstr "CA tanúsítvány megújítása"
+
+#: src/templates/forceRenew.mas:44
+msgid "Renewing certificate"
+msgstr "Tanúsítvány megújítása"
+
+#: src/templates/forceRenew.mas:50
+#, perl-brace-format
+msgid ""
+"This renewal can affect the functionality from other modules, please confirm "
+"you are very sure to renew the whole certification authority from {on} and "
+"leave the service(s) unstable or disabled"
+msgstr ""
+"Ez a megújítás hatással van a többi modul működésére. Kérlek győződj meg "
+"róla, hogy biztosan az egész CA-t akarod megújítani innen ({on}) és hagyni a "
+"többi szolgáltatást bizonytalanul működni vagy kikapcsolni"
+
+#: src/templates/forceRenew.mas:53
+#, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to renew is being used "
+"by some module, please confirm you are sure to renew and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"A {cn} közös nevű tanúsítványt próbálod megújítani, de ezt a tanúsítványt "
+"használja néhány mogul. Kérlek győződj meg róla, hogy meg akarod újítani és "
+"hagyni a többi szolgáltatást bizonytalanul működni vagy kikapcsolni"
 
 #: src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
@@ -477,40 +515,12 @@ msgstr ""
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: src/templates/formRevoke.mas:10
-msgid "Revoke a Certificate"
-msgstr "Tanúsítvány visszavonása"
+#: src/templates/formRenew.mas:28
+msgid "Renew a certificate"
+msgstr "Tanúsítvány megújítás"
 
-#: src/templates/formRevoke.mas:18
-msgid "Revoke the selected certificate"
-msgstr "Kiválasztott tanúsítvány visszavonása"
+#~ msgid "You must create a Certification Authority."
+#~ msgstr "Létre kell hozni egy Tanúsító Hatóságot."
 
-#: src/templates/forceRenew.mas:42
-msgid "Renewing CA certificate"
-msgstr "CA tanúsítvány megújítása"
-
-#: src/templates/forceRenew.mas:44
-msgid "Renewing certificate"
-msgstr "Tanúsítvány megújítása"
-
-#: src/templates/forceRenew.mas:50
-#, perl-brace-format
-msgid ""
-"This renewal can affect the functionality from other modules, please confirm "
-"you are very sure to renew the whole certification authority from {on} and "
-"leave the service(s) unstable or disabled"
-msgstr ""
-"Ez a megújítás hatással van a többi modul működésére. Kérlek győződj meg "
-"róla, hogy biztosan az egész CA-t akarod megújítani innen ({on}) és hagyni a "
-"többi szolgáltatást bizonytalanul működni vagy kikapcsolni"
-
-#: src/templates/forceRenew.mas:53
-#, perl-brace-format
-msgid ""
-"The certificate whose common name is {cn} you tried to renew is being used "
-"by some module, please confirm you are sure to renew and leave the service"
-"(s) unstable or disabled"
-msgstr ""
-"A {cn} közös nevű tanúsítványt próbálod megújítani, de ezt a tanúsítványt "
-"használja néhány mogul. Kérlek győződj meg róla, hogy meg akarod újítani és "
-"hagyni a többi szolgáltatást bizonytalanul működni vagy kikapcsolni"
+#~ msgid "Infrastructure"
+#~ msgstr "Infrastruktúra"

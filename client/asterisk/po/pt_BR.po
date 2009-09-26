@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:02+0200\n"
+"POT-Creation-Date: 2009-09-26 19:24+0100\n"
 "PO-Revision-Date: 2009-08-16 07:38+0200\n"
 "Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,29 +18,152 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
-msgid "Voicemail settings"
-msgstr "Opções do correio de voz"
+#: src/EBox/Asterisk.pm:66
+msgid "VoIP"
+msgstr ""
 
-#: src/EBox/Model/Voicemail.pm:94
-msgid "New password"
-msgstr "Nova senha"
+#: src/EBox/Asterisk.pm:120
+msgid "To configure enabled and disabled modules."
+msgstr "Configurar os módulos habilitados e desabilitados"
 
-#: src/EBox/Model/Voicemail.pm:101
-msgid "Mail address"
+#: src/EBox/Asterisk.pm:125
+msgid "To configure the Realtime interface."
+msgstr "Configurar a interface Realtime."
+
+#: src/EBox/Asterisk.pm:130
+msgid "To configure the LDAP Realtime driver."
+msgstr "Configurar o driver do LDAP para Realtime."
+
+#: src/EBox/Asterisk.pm:135
+msgid "To configure the common SIP and IAX users."
+msgstr "Configurar os usuários comuns SIP e IAX"
+
+#: src/EBox/Asterisk.pm:140
+msgid "To configure the SIP trunk for local users and external providers."
+msgstr "Configurar o trunk SIP para usuários locais e provedores externos."
+
+#: src/EBox/Asterisk.pm:145
+msgid "To configure the RTP port ranges."
+msgstr "Configurar o intervalo de portas para RTP."
+
+#: src/EBox/Asterisk.pm:150
+msgid "To configure the dialplan."
+msgstr "Configurar o plano de chamada do Asterisk."
+
+#: src/EBox/Asterisk.pm:155
+msgid "To configure the voicemail."
+msgstr "Configurar o correio de voz"
+
+#: src/EBox/Asterisk.pm:160
+msgid "To configure the conferences."
+msgstr "Configurar conferências"
+
+#: src/EBox/Asterisk.pm:456
+msgid "General"
+msgstr "Geral"
+
+#: src/EBox/Asterisk.pm:460 src/EBox/Model/Meetings.pm:184
+msgid "Meetings"
+msgstr "Reuniões"
+
+#: src/EBox/Asterisk.pm:477
+msgid "Voicemail"
+msgstr "Correio de voz"
+
+#: src/EBox/Asterisk.pm:487 src/EBox/Asterisk.pm:574
+#, fuzzy
+msgid "User"
+msgstr "Nome de usuário"
+
+#: src/EBox/Asterisk.pm:487
+#, fuzzy
+msgid "Address"
 msgstr "Endereço de e-mail"
 
-#: src/EBox/Model/Voicemail.pm:108
-msgid "Attach messages"
-msgstr "Anexar mensagens"
+#: src/EBox/Asterisk.pm:487
+msgid "NAT"
+msgstr ""
 
-#: src/EBox/Model/Voicemail.pm:114
-msgid "Delete sent messages"
-msgstr "Apagar mensagens enviadas"
+#: src/EBox/Asterisk.pm:487
+msgid "Status"
+msgstr ""
 
-#: src/EBox/Model/Voicemail.pm:204
-msgid "Settings successfully updated"
-msgstr "Opções atualizadas com sucesso"
+#: src/EBox/Asterisk.pm:501 src/EBox/Asterisk.pm:583
+msgid "No users connected."
+msgstr ""
+
+#: src/EBox/Asterisk.pm:571
+#, perl-brace-format
+msgid "Room {name} active for {rtime}"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:574
+msgid "Time Connected"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:604
+msgid "VoIP Online Users"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:609
+msgid "VoIP Users in Meetings"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:114
+#: src/EBox/Model/Meetings.pm:123
+msgid "extension"
+msgstr "ramal"
+
+#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "Ramal de correio de voz"
+
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "Habilitar ramais de demonstração"
+
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "Habilita realizar chamadas"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "domínio VoIP"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "Configurações gerais"
+
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "Configuração geral do servidor Asterisk"
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated"
+msgstr "Configurações do servidor Asterisk atualizadas"
+
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net},are always "
+"considered local networks so it is not neccesary to add them"
+msgstr ""
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Rede local"
+
+#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:173
+msgid "Description"
+msgstr "Descrição"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Redes locais"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "rede local"
 
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
@@ -74,72 +197,33 @@ msgstr "Configuração de provedor SIP para chamadas realizadas"
 msgid "SIP provider configuration updated"
 msgstr "Configuração do provedor SIP atualizada."
 
-#: src/EBox/Model/Meetings.pm:91
-msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
-msgstr ""
-"Você deve instalar os pacotes dahdi-linux e dahdi-tools para usar Reuniões"
+#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
+msgid "Voicemail settings"
+msgstr "Opções do correio de voz"
 
-#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
-#: src/EBox/Model/Settings.pm:84
-msgid "extension"
-msgstr "ramal"
+#: src/EBox/Model/Voicemail.pm:94
+msgid "New password"
+msgstr "Nova senha"
 
-#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
-#: src/templates/asterisk.mas:34
-msgid "Extension"
-msgstr "Ramal"
+#: src/EBox/Model/Voicemail.pm:101
+msgid "Mail address"
+msgstr "Endereço de e-mail"
 
-#: src/EBox/Model/Meetings.pm:149
-#, perl-brace-format
-msgid "A number between {min} and {max}"
-msgstr "Um número entre {min} e {max}"
+#: src/EBox/Model/Voicemail.pm:108
+msgid "Attach messages"
+msgstr "Anexar mensagens"
 
-#: src/EBox/Model/Meetings.pm:173
-msgid "Administrator password"
-msgstr "Senha do administrador"
+#: src/EBox/Model/Voicemail.pm:114
+msgid "Delete sent messages"
+msgstr "Apagar mensagens enviadas"
 
-#: src/EBox/Model/Meetings.pm:181 src/EBox/Model/Localnets.pm:117
-msgid "Description"
-msgstr "Descrição"
-
-#: src/EBox/Model/Meetings.pm:192 src/EBox/Asterisk.pm:455
-msgid "Meetings"
-msgstr "Reuniões"
-
-#: src/EBox/Model/Meetings.pm:193
-msgid "meeting"
-msgstr "reunião"
-
-#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "Ramal de correio de voz"
-
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "Habilitar ramais de demonstração"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "Habilita realizar chamadas"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "domínio VoIP"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "Configurações gerais"
-
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "Configuração geral do servidor Asterisk"
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated"
-msgstr "Configurações do servidor Asterisk atualizadas"
+#: src/EBox/Model/Voicemail.pm:204
+msgid "Settings successfully updated"
+msgstr "Opções atualizadas com sucesso"
 
 #: src/EBox/Model/NAT.pm:96
-msgid "Asterisk is behind NAT"
+#, fuzzy
+msgid "eBox is behind NAT"
 msgstr "Servidor do Asterisk atrás de NAT"
 
 #: src/EBox/Model/NAT.pm:101
@@ -158,17 +242,28 @@ msgstr "Configuração de NAT do servidor Asterisk"
 msgid "NAT Asterisk server configuration updated"
 msgstr "Configurações de NAT do servidor Asterisk atualizadas"
 
-#: src/EBox/Model/Localnets.pm:87 src/EBox/Model/Localnets.pm:129
-msgid "local network"
-msgstr "rede local"
+#: src/EBox/Model/Meetings.pm:91
+msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
+msgstr ""
+"Você deve instalar os pacotes dahdi-linux e dahdi-tools para usar Reuniões"
 
-#: src/EBox/Model/Localnets.pm:111
-msgid "Local network"
-msgstr "Rede local"
+#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
+#: src/templates/asterisk.mas:34
+msgid "Extension"
+msgstr "Ramal"
 
-#: src/EBox/Model/Localnets.pm:128
-msgid "Local networks"
-msgstr "Redes locais"
+#: src/EBox/Model/Meetings.pm:149
+#, perl-brace-format
+msgid "A number between {min} and {max}"
+msgstr "Um número entre {min} e {max}"
+
+#: src/EBox/Model/Meetings.pm:185
+msgid "meeting"
+msgstr "reunião"
+
+#: src/EBox/Asterisk/Extensions.pm:208
+msgid "User's extension"
+msgstr "Ramal do usuário"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
@@ -177,66 +272,6 @@ msgstr "Nome do usuário"
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Módulo Asterisk"
-
-#: src/EBox/Asterisk/Extensions.pm:208
-msgid "User's extension"
-msgstr "Ramal do usuário"
-
-#: src/EBox/Asterisk.pm:64 src/EBox/Asterisk.pm:445
-msgid "Asterisk"
-msgstr "Asterisk"
-
-#: src/EBox/Asterisk.pm:118
-msgid "To configure enabled and disabled modules."
-msgstr "Configurar os módulos habilitados e desabilitados"
-
-#: src/EBox/Asterisk.pm:123
-msgid "To configure the Realtime interface."
-msgstr "Configurar a interface Realtime."
-
-#: src/EBox/Asterisk.pm:128
-msgid "To configure the LDAP Realtime driver."
-msgstr "Configurar o driver do LDAP para Realtime."
-
-#: src/EBox/Asterisk.pm:133
-msgid "To configure the common SIP and IAX users."
-msgstr "Configurar os usuários comuns SIP e IAX"
-
-#: src/EBox/Asterisk.pm:138
-msgid "To configure the SIP trunk for local users and external providers."
-msgstr "Configurar o trunk SIP para usuários locais e provedores externos."
-
-#: src/EBox/Asterisk.pm:143
-msgid "To configure the RTP port ranges."
-msgstr "Configurar o intervalo de portas para RTP."
-
-#: src/EBox/Asterisk.pm:148
-msgid "To configure the dialplan."
-msgstr "Configurar o plano de chamada do Asterisk."
-
-#: src/EBox/Asterisk.pm:153
-msgid "To configure the voicemail."
-msgstr "Configurar o correio de voz"
-
-#: src/EBox/Asterisk.pm:158
-msgid "To configure the conferences."
-msgstr "Configurar conferências"
-
-#: src/EBox/Asterisk.pm:163
-msgid "To add the Asterisk schema and ACLs."
-msgstr "Adicionar schema e ACLs para o Asterisk."
-
-#: src/EBox/Asterisk.pm:446
-msgid "Communications"
-msgstr "Comunicações"
-
-#: src/EBox/Asterisk.pm:451
-msgid "General"
-msgstr "Geral"
-
-#: src/EBox/Asterisk.pm:472
-msgid "Voicemail"
-msgstr "Correio de voz"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox VoIP system"
@@ -265,6 +300,18 @@ msgstr "Habilitado"
 #: src/templates/asterisk.mas:45 src/templates/asterisk.mas:46
 msgid "Change"
 msgstr "Alterar"
+
+#~ msgid "Administrator password"
+#~ msgstr "Senha do administrador"
+
+#~ msgid "Asterisk"
+#~ msgstr "Asterisk"
+
+#~ msgid "To add the Asterisk schema and ACLs."
+#~ msgstr "Adicionar schema e ACLs para o Asterisk."
+
+#~ msgid "Communications"
+#~ msgstr "Comunicações"
 
 #~ msgid "To add a new schema"
 #~ msgstr "Adicionar novo esquema"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:06+0200\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: 2006-11-28 14:15+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:266
-msgid "domain"
-msgstr "dominio"
-
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
 msgstr "estado del módulo"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:355
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:266
+msgid "domain"
+msgstr "dominio"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
 msgid "Jabber"
 msgstr "Jabber"
 
@@ -38,7 +38,7 @@ msgid "username"
 msgstr "nombre de usuario"
 
 #: src/EBox/Jabber.pm:71
-msgid "Copy jabber ldap schema to /etc/ldap/schemas"
+msgid "Add Jabber LDAP schema"
 msgstr ""
 
 #: src/EBox/Jabber.pm:72
@@ -53,49 +53,16 @@ msgstr ""
 msgid "To properly configure jabberd2 muc"
 msgstr ""
 
-#: src/EBox/Jabber.pm:113
-msgid "To add the LDAP schemas used by eBox jabber"
-msgstr ""
-
-#: src/EBox/Jabber.pm:356
-msgid "Communications"
-msgstr ""
-
-#: src/EBox/Jabber.pm:374
+#: src/EBox/Jabber.pm:380
 #, fuzzy
 msgid "Jabber server certificate"
 msgstr "Servicio Jabber"
 
-#: src/templates/jabber.mas:8
-#, fuzzy
-msgid "Jabber Account"
-msgstr "Cuenta Jabber"
-
-#: src/templates/jabber.mas:9
-#, fuzzy
-msgid "Password for Jabber service is the user password."
-msgstr "La contraseña para el servicio Jabber es la contraseña del usuario"
-
-#: src/templates/jabber.mas:18
-msgid "User account"
-msgstr "Cuenta de usuario"
-
-#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
-msgid "Disabled"
-msgstr "Desactivado"
-
-#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
-msgid "Enabled"
-msgstr "Activado"
-
-#: src/templates/jabber.mas:34
-msgid "Administration rights"
-msgstr "Privilegios de administrador"
-
-#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
-#: src/templates/index.mas:81 src/templates/index.mas:82
-msgid "Change"
-msgstr "Cambiar"
+#: src/EBox/JabberLdapUser.pm:252
+msgid ""
+"This user has a jabber account. If the user currently connected it will "
+"continue connected until jabber authorization is again required"
+msgstr ""
 
 #: src/templates/index.mas:17
 msgid "General Configuration"
@@ -142,6 +109,37 @@ msgstr "Opcional"
 #: src/templates/index.mas:72
 msgid "Required"
 msgstr "Obligatorio"
+
+#: src/templates/index.mas:81 src/templates/index.mas:82
+#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/templates/jabber.mas:8
+#, fuzzy
+msgid "Jabber Account"
+msgstr "Cuenta Jabber"
+
+#: src/templates/jabber.mas:9
+#, fuzzy
+msgid "Password for Jabber service is the user password."
+msgstr "La contraseña para el servicio Jabber es la contraseña del usuario"
+
+#: src/templates/jabber.mas:18
+msgid "User account"
+msgstr "Cuenta de usuario"
+
+#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
+msgid "Enabled"
+msgstr "Activado"
+
+#: src/templates/jabber.mas:34
+msgid "Administration rights"
+msgstr "Privilegios de administrador"
 
 #~ msgid "General Settings"
 #~ msgstr "Configuración general"

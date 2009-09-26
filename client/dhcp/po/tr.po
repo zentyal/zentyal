@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-07-01 09:30+0200\n"
+"POT-Creation-Date: 2009-09-26 19:29+0100\n"
 "PO-Revision-Date: 2009-04-01 22:39+0200\n"
 "Last-Translator: ömür özbahçeliler <ar-ge@seram.com.tr>\n"
 "Language-Team: none\n"
@@ -17,52 +17,339 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/AddRange.pm:39
-#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/SetIfaceOptions.pm:39
-#: src/EBox/CGI/RemoveFixed.pm:39 src/EBox/DHCP.pm:393 src/EBox/DHCP.pm:429
-#: src/EBox/DHCP.pm:479 src/EBox/DHCP.pm:577 src/EBox/DHCP.pm:631
-#: src/EBox/DHCP.pm:692 src/EBox/DHCP.pm:748 src/EBox/DHCP.pm:1139
-msgid "Interface"
+#: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/LeaseTimes.pm:112
+#: src/EBox/Model/ThinClientOptions.pm:118
+#: src/EBox/Model/FixedAddressTable.pm:94 src/EBox/Model/RangeTable.pm:95
+#: src/EBox/Model/Options.pm:119
+#: src/EBox/Composite/InterfaceConfiguration.pm:87
+#: src/EBox/Composite/AdvancedOptions.pm:88
+#: src/EBox/Composite/OptionsTab.pm:87
+#, fuzzy, perl-brace-format
+msgid "interface {iface}"
 msgstr "Ağ kartı"
 
+#: src/EBox/Model/RangeInfo.pm:143
+#, fuzzy
+msgid "Interface IP address"
+msgstr "Ağ geçidi IP adresi"
+
+#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
+msgid "Subnet"
+msgstr "Alt ağ"
+
+#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
+msgid "Available range"
+msgstr "Mevcut olan aralık"
+
+#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
+msgid "DHCP ranges"
+msgstr "DHCP aralığı"
+
+#: src/EBox/Model/LeaseTimes.pm:132
+msgid "Default leased time must be higher than 0 seconds"
+msgstr "Varsayılan kira süresi 0 saniyeden daha fazla olmalıdır"
+
+#: src/EBox/Model/LeaseTimes.pm:138
+#, perl-brace-format
+msgid "Default leased time {default} must be lower than maximum one {max}"
+msgstr ""
+
+#: src/EBox/Model/LeaseTimes.pm:150
+msgid "Maximum leased time must be higher than 0 seconds"
+msgstr ""
+
+#: src/EBox/Model/LeaseTimes.pm:156
+#, perl-brace-format
+msgid "Maximum leased time {max} must be higher than default one {default}"
+msgstr ""
+
+#: src/EBox/Model/LeaseTimes.pm:200
+#, fuzzy
+msgid "Default leased time"
+msgstr "Varsayılan ağ geçidi"
+
+#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
+msgid "seconds"
+msgstr ""
+
+#: src/EBox/Model/LeaseTimes.pm:207
+msgid "Maximum leased time"
+msgstr ""
+
+#: src/EBox/Model/LeaseTimes.pm:216
+#, fuzzy
+msgid "Lease times"
+msgstr "Varsayılan ağ geçidi"
+
+#: src/EBox/Model/LeaseTimes.pm:221
+msgid ""
+"Leased time is the time which a given IP address is valid by the DHCP server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:139
+msgid "You need to upload a boot image to eBox if you set it as next server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:146
+msgid ""
+"In order to upload a boot image to eBox, you need to set eBox as next server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:153
+msgid "You need to specify a path to the boot image in the remote server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:158
+msgid ""
+"You can only specify a file name if you have a next server and it is not eBox"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:209
+#, perl-brace-format
+msgid ""
+"Removing previously uploaded boot image since next server option has been "
+"changed from eBox to {option}"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:232
+msgid "Next server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:337
+#: src/EBox/Model/Options.pm:348 src/EBox/Model/Options.pm:371
+msgid "None"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:239 src/EBox/Model/Options.pm:361
+msgid "eBox"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:242
+#: src/EBox/Model/FixedAddressTable.pm:222 src/EBox/DHCP.pm:1208
+#: src/EBox/CGI/AddFixed.pm:44 src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "IP adresi"
+
+#: src/EBox/Model/ThinClientOptions.pm:246
+#, fuzzy
+msgid "name"
+msgstr "İsim"
+
+#: src/EBox/Model/ThinClientOptions.pm:252
+msgid "File name"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:261
+msgid "File path in next server"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:269
+msgid "Thin client"
+msgstr ""
+
+#: src/EBox/Model/ThinClientOptions.pm:274
+#, perl-brace-format
+msgid ""
+"You may want to customise your thin client options.To do so, you may include "
+"all the files you require under {path} directory"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:120
+#, perl-brace-format
+msgid "IP address {ip} is not in network {net}"
+msgstr "{ip} adresi {net} ağı içinde değil"
+
+#: src/EBox/Model/FixedAddressTable.pm:131
+#, fuzzy, perl-brace-format
+msgid "The selected IP is the interface IP address: {ifaceIP}"
+msgstr "Seçilen IP adresi ağ kartının IP adresidir: {iface_ip}"
+
+#: src/EBox/Model/FixedAddressTable.pm:148
+#, fuzzy, perl-brace-format
+msgid "IP address {ip} is in range '{range}': {from}-{to}"
+msgstr "{ip} adresi {range} aralığındadır: {old_from}-{old_to}"
+
+#: src/EBox/Model/FixedAddressTable.pm:160
+#, perl-brace-format
+msgid "{name} cannot contain spaces"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:178
+#, fuzzy
+msgid "update"
+msgstr "Tarih"
+
+#: src/EBox/Model/FixedAddressTable.pm:180
+#, fuzzy
+msgid "add"
+msgstr "Ekle"
+
+#: src/EBox/Model/FixedAddressTable.pm:182
+#, perl-brace-format
+msgid ""
+"You cannot {action} a fixed address with a name which is already used in "
+"other fixed address table"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:210 src/EBox/Model/RangeTable.pm:213
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
-#: src/EBox/Model/RangeTable.pm:213 src/EBox/Model/FixedAddressTable.pm:210
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
 msgstr "İsim"
 
-#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
+#: src/EBox/Model/FixedAddressTable.pm:216 src/EBox/DHCP.pm:1140
+#: src/EBox/DHCP.pm:1208 src/EBox/CGI/AddFixed.pm:43 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "MAC adresi"
+
+#: src/EBox/Model/FixedAddressTable.pm:225
+msgid "You cannot use an IP address contained in the above ranges."
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:232 src/templates/fixed.mas:5
+msgid "Fixed addresses"
+msgstr "Sabit adresler"
+
+#: src/EBox/Model/FixedAddressTable.pm:239
+#, fuzzy
+msgid "fixed address"
+msgstr "Sabit adresler"
+
+#: src/EBox/Model/RangeTable.pm:117
+#, perl-brace-format
+msgid "{from} - {to} is an invalid range"
+msgstr "{from}-{to} adresleri geçerli bir aralık değil"
+
+#: src/EBox/Model/RangeTable.pm:128
+#, perl-brace-format
+msgid "Range {from}-{to} is not in network {net}"
+msgstr "{from}-{to} aralıkları {net} ağının içinde değil"
+
+#: src/EBox/Model/RangeTable.pm:141
+#, fuzzy, perl-brace-format
+msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
+msgstr ""
+"{new_from}-{new_to} aralığı bir ağ kartının IP adresini içeriyor: {iface_ip}"
+
+#: src/EBox/Model/RangeTable.pm:164
+#, fuzzy, perl-brace-format
+msgid ""
+"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
+msgstr ""
+"{new_from}-{new_to} aralığı ile başka bir '{range}' aralığı kesişiyor: "
+"{old_from}-{old_to}"
+
+#: src/EBox/Model/RangeTable.pm:182
+#, fuzzy, perl-brace-format
+msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
+msgstr ""
+"{new_from}-{new_to} aralığı '{name}' aygıtının sabit IP numarasını "
+"tanımlıyor: {fixed_ip}"
+
+#: src/EBox/Model/RangeTable.pm:219 src/EBox/CGI/AddRange.pm:44
 #: src/templates/ranges.mas:54
 msgid "From"
 msgstr "Buradan"
 
-#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
+#: src/EBox/Model/RangeTable.pm:225 src/EBox/CGI/AddRange.pm:45
 #: src/templates/ranges.mas:55
 msgid "To"
 msgstr "Buraya"
 
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "Modul durumu"
+#: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
+msgid "Ranges"
+msgstr "Aralıklar"
 
-#: src/EBox/CGI/AddFixed.pm:43 src/EBox/DHCP.pm:1140 src/EBox/DHCP.pm:1208
-#: src/EBox/Model/FixedAddressTable.pm:216 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr "MAC adresi"
+#: src/EBox/Model/RangeTable.pm:240
+#, fuzzy
+msgid "range"
+msgstr "Aralıklar"
 
-#: src/EBox/CGI/AddFixed.pm:44 src/EBox/DHCP.pm:1208
-#: src/EBox/Model/FixedAddressTable.pm:222
-#: src/EBox/Model/ThinClientOptions.pm:242 src/templates/fixed.mas:10
-msgid "IP address"
-msgstr "IP adresi"
+#: src/EBox/Model/Options.pm:157
+#, perl-brace-format
+msgid "{gateway} is not in the current network"
+msgstr "{gateway} kendi ağınızda değil"
 
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "Modul durumu"
-
-#: src/EBox/DHCP.pm:164
-msgid "Infrastructure"
+#: src/EBox/Model/Options.pm:169
+msgid ""
+"DNS service must be active to be able to select eBox as primary DNS server"
 msgstr ""
+
+#: src/EBox/Model/Options.pm:314 src/EBox/Model/Options.pm:342
+msgid "Custom"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:322
+#, fuzzy
+msgid "eBox's domain"
+msgstr "Alan isminde ara"
+
+#: src/EBox/Model/Options.pm:330
+msgid "local eBox DNS"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:355 src/templates/options.mas:18
+msgid "Default gateway"
+msgstr "Varsayılan ağ geçidi"
+
+#: src/EBox/Model/Options.pm:365
+#, fuzzy
+msgid "Custom IP address"
+msgstr "\"Burdan\" bölümünden IP adresi"
+
+#: src/EBox/Model/Options.pm:375
+msgid "Configured ones"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:381
+msgid ""
+"Setting \"eBox\" as default gateway will set the interface IP address as "
+"gateway"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:387 src/templates/options.mas:29
+msgid "Search domain"
+msgstr "Alan isminde ara"
+
+#: src/EBox/Model/Options.pm:390
+msgid ""
+"The selected domain will complete on your clients those DNS queries which "
+"are not fully qualified"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:395 src/templates/options.mas:41
+msgid "Primary nameserver"
+msgstr "Birinci ad sunucusu"
+
+#: src/EBox/Model/Options.pm:398
+msgid ""
+"If \"eBox DNS\" is present and selected, the eBox server will act as cache "
+"DNS server"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:403 src/templates/options.mas:52
+msgid "Secondary nameserver"
+msgstr "İkinci ad sunucusu"
+
+#: src/EBox/Model/Options.pm:411
+msgid "Common options"
+msgstr ""
+
+#: src/EBox/Model/Options.pm:416
+msgid ""
+"If you set a \"configured ones\" as default gateway, you may choose one the "
+"configured gateways. As \"search domain\" value, one of the configured DNS "
+"domains on eBox might be chosen. All fields are optionals setting its value "
+"as \"None\" or leaving blank."
+msgstr ""
+
+#: src/EBox/DHCP.pm:393 src/EBox/DHCP.pm:429 src/EBox/DHCP.pm:479
+#: src/EBox/DHCP.pm:577 src/EBox/DHCP.pm:631 src/EBox/DHCP.pm:692
+#: src/EBox/DHCP.pm:748 src/EBox/DHCP.pm:1139 src/EBox/CGI/RemoveRange.pm:39
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/CGI/AddFixed.pm:39
+msgid "Interface"
+msgstr "Ağ kartı"
 
 #: src/EBox/DHCP.pm:399 src/EBox/DHCP.pm:435 src/EBox/DHCP.pm:485
 #: src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:698 src/EBox/DHCP.pm:754
@@ -134,303 +421,19 @@ msgstr "İsim"
 msgid "DHCP leases"
 msgstr "DHCP aralığı"
 
-#: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
-#: src/EBox/Model/LeaseTimes.pm:112 src/EBox/Model/Options.pm:119
-#: src/EBox/Model/FixedAddressTable.pm:94
-#: src/EBox/Model/ThinClientOptions.pm:118
-#: src/EBox/Composite/InterfaceConfiguration.pm:87
-#: src/EBox/Composite/AdvancedOptions.pm:88
-#: src/EBox/Composite/OptionsTab.pm:87
-#, fuzzy, perl-brace-format
-msgid "interface {iface}"
-msgstr "Ağ kartı"
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "Modul durumu"
 
-#: src/EBox/Model/RangeTable.pm:117
-#, perl-brace-format
-msgid "{from} - {to} is an invalid range"
-msgstr "{from}-{to} adresleri geçerli bir aralık değil"
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "Modul durumu"
 
-#: src/EBox/Model/RangeTable.pm:128
-#, perl-brace-format
-msgid "Range {from}-{to} is not in network {net}"
-msgstr "{from}-{to} aralıkları {net} ağının içinde değil"
-
-#: src/EBox/Model/RangeTable.pm:141
-#, fuzzy, perl-brace-format
-msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr ""
-"{new_from}-{new_to} aralığı bir ağ kartının IP adresini içeriyor: {iface_ip}"
-
-#: src/EBox/Model/RangeTable.pm:164
-#, fuzzy, perl-brace-format
-msgid ""
-"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
-msgstr ""
-"{new_from}-{new_to} aralığı ile başka bir '{range}' aralığı kesişiyor: "
-"{old_from}-{old_to}"
-
-#: src/EBox/Model/RangeTable.pm:182
-#, fuzzy, perl-brace-format
-msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr ""
-"{new_from}-{new_to} aralığı '{name}' aygıtının sabit IP numarasını "
-"tanımlıyor: {fixed_ip}"
-
-#: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
-msgid "Ranges"
-msgstr "Aralıklar"
-
-#: src/EBox/Model/RangeTable.pm:240
-#, fuzzy
-msgid "range"
-msgstr "Aralıklar"
-
-#: src/EBox/Model/RangeInfo.pm:143
-#, fuzzy
-msgid "Interface IP address"
-msgstr "Ağ geçidi IP adresi"
-
-#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
-msgid "Subnet"
-msgstr "Alt ağ"
-
-#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
-msgid "Available range"
-msgstr "Mevcut olan aralık"
-
-#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
-msgid "DHCP ranges"
-msgstr "DHCP aralığı"
-
-#: src/EBox/Model/LeaseTimes.pm:132
-msgid "Default leased time must be higher than 0 seconds"
-msgstr "Varsayılan kira süresi 0 saniyeden daha fazla olmalıdır"
-
-#: src/EBox/Model/LeaseTimes.pm:138
-#, perl-brace-format
-msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:150
-msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:156
-#, perl-brace-format
-msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:200
-#, fuzzy
-msgid "Default leased time"
-msgstr "Varsayılan ağ geçidi"
-
-#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
-msgid "seconds"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:207
-msgid "Maximum leased time"
-msgstr ""
-
-#: src/EBox/Model/LeaseTimes.pm:216
-#, fuzzy
-msgid "Lease times"
-msgstr "Varsayılan ağ geçidi"
-
-#: src/EBox/Model/LeaseTimes.pm:221
-msgid ""
-"Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:157
-#, perl-brace-format
-msgid "{gateway} is not in the current network"
-msgstr "{gateway} kendi ağınızda değil"
-
-#: src/EBox/Model/Options.pm:169
-msgid ""
-"DNS service must be active to be able to select eBox as primary DNS server"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:314 src/EBox/Model/Options.pm:342
-msgid "Custom"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:322
-#, fuzzy
-msgid "eBox's domain"
-msgstr "Alan isminde ara"
-
-#: src/EBox/Model/Options.pm:330
-msgid "local eBox DNS"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:337 src/EBox/Model/Options.pm:348
-#: src/EBox/Model/Options.pm:371 src/EBox/Model/ThinClientOptions.pm:236
-msgid "None"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:355 src/templates/options.mas:18
-msgid "Default gateway"
-msgstr "Varsayılan ağ geçidi"
-
-#: src/EBox/Model/Options.pm:361 src/EBox/Model/ThinClientOptions.pm:239
-msgid "eBox"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:365
-#, fuzzy
-msgid "Custom IP address"
-msgstr "\"Burdan\" bölümünden IP adresi"
-
-#: src/EBox/Model/Options.pm:375
-msgid "Configured ones"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:381
-msgid ""
-"Setting \"eBox\" as default gateway will set the interface IP address as "
-"gateway"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:387 src/templates/options.mas:29
-msgid "Search domain"
-msgstr "Alan isminde ara"
-
-#: src/EBox/Model/Options.pm:390
-msgid ""
-"The selected domain will complete on your clients those DNS queries which "
-"are not fully qualified"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:395 src/templates/options.mas:41
-msgid "Primary nameserver"
-msgstr "Birinci ad sunucusu"
-
-#: src/EBox/Model/Options.pm:398
-msgid ""
-"If \"eBox DNS\" is present and selected, the eBox server will act as cache "
-"DNS server"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:403 src/templates/options.mas:52
-msgid "Secondary nameserver"
-msgstr "İkinci ad sunucusu"
-
-#: src/EBox/Model/Options.pm:411
-msgid "Common options"
-msgstr ""
-
-#: src/EBox/Model/Options.pm:416
-msgid ""
-"If you set a \"configured ones\" as default gateway, you may choose one the "
-"configured gateways. As \"search domain\" value, one of the configured DNS "
-"domains on eBox might be chosen. All fields are optionals setting its value "
-"as \"None\" or leaving blank."
-msgstr ""
-
-#: src/EBox/Model/FixedAddressTable.pm:120
-#, perl-brace-format
-msgid "IP address {ip} is not in network {net}"
-msgstr "{ip} adresi {net} ağı içinde değil"
-
-#: src/EBox/Model/FixedAddressTable.pm:131
-#, fuzzy, perl-brace-format
-msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr "Seçilen IP adresi ağ kartının IP adresidir: {iface_ip}"
-
-#: src/EBox/Model/FixedAddressTable.pm:148
-#, fuzzy, perl-brace-format
-msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr "{ip} adresi {range} aralığındadır: {old_from}-{old_to}"
-
-#: src/EBox/Model/FixedAddressTable.pm:160
-#, perl-brace-format
-msgid "{name} cannot contain spaces"
-msgstr ""
-
-#: src/EBox/Model/FixedAddressTable.pm:178
-#, fuzzy
-msgid "update"
-msgstr "Tarih"
-
-#: src/EBox/Model/FixedAddressTable.pm:180
-#, fuzzy
-msgid "add"
-msgstr "Ekle"
-
-#: src/EBox/Model/FixedAddressTable.pm:182
+#: src/EBox/Composite/General.pm:79
 #, perl-brace-format
 msgid ""
-"You cannot {action} a fixed address with a name which is already used in "
-"other fixed address table"
-msgstr ""
-
-#: src/EBox/Model/FixedAddressTable.pm:225
-msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
-
-#: src/EBox/Model/FixedAddressTable.pm:232 src/templates/fixed.mas:5
-msgid "Fixed addresses"
-msgstr "Sabit adresler"
-
-#: src/EBox/Model/FixedAddressTable.pm:239
-#, fuzzy
-msgid "fixed address"
-msgstr "Sabit adresler"
-
-#: src/EBox/Model/ThinClientOptions.pm:139
-msgid "You need to upload a boot image to eBox if you set it as next server"
-msgstr ""
-
-#: src/EBox/Model/ThinClientOptions.pm:146
-msgid ""
-"In order to upload a boot image to eBox, you need to set eBox as next server"
-msgstr ""
-
-#: src/EBox/Model/ThinClientOptions.pm:153
-msgid "You need to specify a path to the boot image in the remote server"
-msgstr ""
-
-#: src/EBox/Model/ThinClientOptions.pm:158
-msgid ""
-"You can only specify a file name if you have a next server and it is not eBox"
-msgstr ""
-
-#: src/EBox/Model/ThinClientOptions.pm:209
-#, perl-brace-format
-msgid ""
-"Removing previously uploaded boot image since next server option has been "
-"changed from eBox to {option}"
-msgstr ""
-
-#: src/EBox/Model/ThinClientOptions.pm:232
-msgid "Next server"
-msgstr ""
-
-#: src/EBox/Model/ThinClientOptions.pm:246
-#, fuzzy
-msgid "name"
-msgstr "İsim"
-
-#: src/EBox/Model/ThinClientOptions.pm:252
-msgid "File name"
-msgstr ""
-
-#: src/EBox/Model/ThinClientOptions.pm:261
-msgid "File path in next server"
-msgstr ""
-
-#: src/EBox/Model/ThinClientOptions.pm:269
-msgid "Thin client"
-msgstr ""
-
-#: src/EBox/Model/ThinClientOptions.pm:274
-#, perl-brace-format
-msgid ""
-"You may want to customise your thin client options.To do so, you may include "
-"all the files you require under {path} directory"
+"An interface must set as static to configure the DHCP service on it. To do "
+"so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
 
 #: src/EBox/Composite/InterfaceConfiguration.pm:112
@@ -438,13 +441,6 @@ msgstr ""
 msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
-msgstr ""
-
-#: src/EBox/Composite/General.pm:79
-#, perl-brace-format
-msgid ""
-"An interface must set as static to configure the DHCP service on it. To do "
-"so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
 
 #: src/EBox/Composite/AdvancedOptions.pm:133

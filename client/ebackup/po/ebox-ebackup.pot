@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-07-31 13:14+0100\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,9 @@ msgid "Local Backup Configuration"
 msgstr ""
 
 #: src/EBox/Model/Local.pm:128
-msgid "Local backup configuration."
+msgid ""
+"Local backup configuration. If the module is enabled the backup will be "
+"scheduled to be done daily"
 msgstr ""
 
 #: src/EBox/Model/Local.pm:130
@@ -96,10 +98,6 @@ msgstr ""
 
 #: src/EBox/EBackup.pm:98
 msgid "eBox will run a nightly script to backup your system."
-msgstr ""
-
-#: src/EBox/EBackup.pm:182
-msgid "Core"
 msgstr ""
 
 #: src/EBox/Composite/General.pm:63

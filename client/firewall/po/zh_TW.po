@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:05+0200\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: 2009-08-04 06:02+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -16,12 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/Filter.pm:28
-msgid "Packet filtering"
-msgstr "封包過濾"
-
-#: src/EBox/Firewall.pm:57
-msgid "firewall"
+#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:848
+msgid "Firewall"
 msgstr "防火牆"
 
 #: src/EBox/Firewall.pm:125
@@ -64,14 +60,6 @@ msgstr "連接埠"
 #: src/EBox/Firewall.pm:604 src/EBox/Firewall.pm:629
 msgid "protocol"
 msgstr "通訊協定"
-
-#: src/EBox/Firewall.pm:813 src/EBox/Firewall.pm:848
-msgid "Firewall"
-msgstr "防火牆"
-
-#: src/EBox/Firewall.pm:814
-msgid "UTM"
-msgstr "UTM"
 
 #: src/EBox/Firewall.pm:818
 msgid "Packet Filter"
@@ -127,6 +115,10 @@ msgstr "丟棄"
 msgid "LOG"
 msgstr "紀錄"
 
+#: src/EBox/CGI/Filter.pm:28
+msgid "Packet filtering"
+msgstr "封包過濾"
+
 #: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
@@ -136,31 +128,6 @@ msgstr "您必須在 ebox 設置檔中設定 iptables_log_limit 變數"
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr "您必須在 ebox 設置檔中設定 iptables_log_burst 變數"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
-msgid "packets dropped"
-msgstr "封包丟棄"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
-msgid "Firewall packet traffic chart"
-msgstr "防火牆封包流量圖表"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-msgid "Packet traffic"
-msgstr "封包流量"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
-msgid "Packets dropped"
-msgstr "封包丟棄"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
-msgid "Packet traffic details"
-msgstr "封包流量詳細資料"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
-msgid "traffic"
-msgstr "流量"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
@@ -209,38 +176,6 @@ msgstr "假如勾選反向符合,任何服務除了所選擇的都將符合這�
 msgid "Description"
 msgstr "目的"
 
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
-msgid "Filtering rules for internal networks"
-msgstr "過濾內部網路規則"
-
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-msgid "rule"
-msgstr "規則"
-
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
-msgstr "過濾從內部網路連到 eBox 的規則"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
-msgstr "過濾從 eBox 出去的規則"
-
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
-msgstr "過濾從外部網路到內部網路的規則"
-
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "過濾從外部網路連到 eBox 的規則"
-
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
 msgstr "發現互相矛盾的規則。請優先移除它"
@@ -288,6 +223,63 @@ msgstr "連接埠轉送"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "redirect"
 msgstr "轉送"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr "過濾從外部網路到內部網路的規則"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
+msgid "rule"
+msgstr "規則"
+
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+#: src/templates/filter.mas:6
+msgid "Filtering rules from internal networks to eBox"
+msgstr "過濾從內部網路連到 eBox 的規則"
+
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+#: src/templates/filter.mas:13
+msgid "Filtering rules for internal networks"
+msgstr "過濾內部網路規則"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
+msgid "packets dropped"
+msgstr "封包丟棄"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
+msgid "Firewall packet traffic chart"
+msgstr "防火牆封包流量圖表"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
+msgid "Packet traffic"
+msgstr "封包流量"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
+msgid "Packets dropped"
+msgstr "封包丟棄"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
+msgid "Packet traffic details"
+msgstr "封包流量詳細資料"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
+msgid "traffic"
+msgstr "流量"
+
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "過濾從 eBox 出去的規則"
+
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+msgid "Filtering rules from  external networks to eBox"
+msgstr "過濾從外部網路連到 eBox 的規則"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
@@ -346,6 +338,12 @@ msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr "這些規則允許您控制存取從外部網路到內部網路"
+
+#~ msgid "firewall"
+#~ msgstr "防火牆"
+
+#~ msgid "UTM"
+#~ msgstr "UTM"
 
 #~ msgid "External port"
 #~ msgstr "外網連接埠"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:17+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2008-07-04 08:19+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -32,31 +32,31 @@ msgstr ""
 msgid "Internal"
 msgstr ""
 
-#: src/EBox/Model/ServiceTable.pm:130
+#: src/EBox/Model/ServiceTable.pm:131
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
 "ports configured for this service. This helps eBox to know what ports are "
 "already busy"
 msgstr ""
 
-#: src/EBox/Model/ServiceTable.pm:139
+#: src/EBox/Model/ServiceTable.pm:140
 msgid "Configuration"
 msgstr ""
 
-#: src/EBox/Model/ServiceTable.pm:151
+#: src/EBox/Model/ServiceTable.pm:152
 msgid "List of services"
 msgstr ""
 
-#: src/EBox/Model/ServiceTable.pm:152 src/EBox/Services.pm:47
+#: src/EBox/Model/ServiceTable.pm:153 src/EBox/Services.pm:47
 msgid "Services"
 msgstr ""
 
-#: src/EBox/Model/ServiceTable.pm:161
-#: src/EBox/Model/ServiceConfigurationTable.pm:170
+#: src/EBox/Model/ServiceTable.pm:162
+#: src/EBox/Model/ServiceConfigurationTable.pm:171
 msgid "service"
 msgstr ""
 
-#: src/EBox/Model/ServiceTable.pm:541
+#: src/EBox/Model/ServiceTable.pm:542
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
@@ -82,7 +82,7 @@ msgstr ""
 msgid "Service configuration"
 msgstr ""
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:193
+#: src/EBox/Model/ServiceConfigurationTable.pm:194
 msgid "This protocol does not use ports"
 msgstr ""
 
@@ -106,10 +106,6 @@ msgstr ""
 #: migration/0001_import_services_from_firewall.pl:110
 #: migration/0001_import_services_from_firewall.pl:125
 msgid "ebox-services"
-msgstr ""
-
-#: src/EBox/Services.pm:473
-msgid "Core"
 msgstr ""
 
 #: migration/0001_import_services_from_firewall.pl:69

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:05+0200\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: 2009-08-16 11:34+0200\n"
 "Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
@@ -16,14 +16,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/Filter.pm:28
-msgid "Packet filtering"
-msgstr "Filtro de pacotes"
-
-# Porta cortafogo
-#: src/EBox/Firewall.pm:57
-msgid "firewall"
-msgstr "firewall"
+#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:848
+msgid "Firewall"
+msgstr "Firewall"
 
 #: src/EBox/Firewall.pm:125
 msgid "Flush previous firewall rules"
@@ -69,14 +64,6 @@ msgstr "porta"
 #: src/EBox/Firewall.pm:604 src/EBox/Firewall.pm:629
 msgid "protocol"
 msgstr "protocolo"
-
-#: src/EBox/Firewall.pm:813 src/EBox/Firewall.pm:848
-msgid "Firewall"
-msgstr "Firewall"
-
-#: src/EBox/Firewall.pm:814
-msgid "UTM"
-msgstr "Gerenciamento Unificado de Ameaça"
 
 #: src/EBox/Firewall.pm:818
 msgid "Packet Filter"
@@ -132,6 +119,10 @@ msgstr "DROP"
 msgid "LOG"
 msgstr "LOG"
 
+#: src/EBox/CGI/Filter.pm:28
+msgid "Packet filtering"
+msgstr "Filtro de pacotes"
+
 #: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
@@ -145,31 +136,6 @@ msgid ""
 msgstr ""
 "Você deve definir a variável iptables_log_burst no arquivo de configuração "
 "do eBox"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
-msgid "packets dropped"
-msgstr "pacotes descartados"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
-msgid "Firewall packet traffic chart"
-msgstr "Gráfico de tráfego de pacotes do firewall"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-msgid "Packet traffic"
-msgstr "Tráfego de pacotes"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
-msgid "Packets dropped"
-msgstr "Pacotes descartados"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
-msgid "Packet traffic details"
-msgstr "Detalhes do tráfego de pacotes"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
-msgid "traffic"
-msgstr "tráfego"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
@@ -220,38 +186,6 @@ msgstr ""
 msgid "Description"
 msgstr "Descrição"
 
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
-msgid "Filtering rules for internal networks"
-msgstr "Regras de filtros para redes internas"
-
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-msgid "rule"
-msgstr "regra"
-
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
-msgstr "Regras de filtro de redes internas para o eBox"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
-msgstr "Regras de filtros para o tráfego saindo do eBox"
-
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
-msgstr "Regras de filtros de redes externas para redes internas"
-
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "Regras de filtros de  redes externas para o eBox"
-
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
 msgstr "Regra contraditória encontrada. Remova-a primeiro"
@@ -301,6 +235,63 @@ msgstr "Redirecionamento de portas"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "redirect"
 msgstr "redirecionamento"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr "Regras de filtros de redes externas para redes internas"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
+msgid "rule"
+msgstr "regra"
+
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+#: src/templates/filter.mas:6
+msgid "Filtering rules from internal networks to eBox"
+msgstr "Regras de filtro de redes internas para o eBox"
+
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+#: src/templates/filter.mas:13
+msgid "Filtering rules for internal networks"
+msgstr "Regras de filtros para redes internas"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
+msgid "packets dropped"
+msgstr "pacotes descartados"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
+msgid "Firewall packet traffic chart"
+msgstr "Gráfico de tráfego de pacotes do firewall"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
+msgid "Packet traffic"
+msgstr "Tráfego de pacotes"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
+msgid "Packets dropped"
+msgstr "Pacotes descartados"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
+msgid "Packet traffic details"
+msgstr "Detalhes do tráfego de pacotes"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
+msgid "traffic"
+msgstr "tráfego"
+
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "Regras de filtros para o tráfego saindo do eBox"
+
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+msgid "Filtering rules from  external networks to eBox"
+msgstr "Regras de filtros de  redes externas para o eBox"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
@@ -368,6 +359,13 @@ msgid ""
 msgstr ""
 "Estas regras permitem você controlar o acesso de redes externas para redes "
 "internas."
+
+# Porta cortafogo
+#~ msgid "firewall"
+#~ msgstr "firewall"
+
+#~ msgid "UTM"
+#~ msgstr "Gerenciamento Unificado de Ameaça"
 
 #~ msgid "External port"
 #~ msgstr "Porta externa"

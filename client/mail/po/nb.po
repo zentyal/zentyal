@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:09+0200\n"
+"POT-Creation-Date: 2009-09-26 19:33+0100\n"
 "PO-Revision-Date: 2009-08-31 09:29+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -17,57 +17,29 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
-#: src/templates/qmanager.mas:17
-msgid "Queue ID"
-msgstr "Kø ID"
+#: src/EBox/Event/Dispatcher/Mail.pm:155
+msgid "Admin mail recipient"
+msgstr "Administrator e-post mottager"
 
-#: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/DelAlias.pm:42
-#: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/DelAccount.pm:42
-msgid "username"
-msgstr "brukernavn"
+#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:72
+#: src/EBox/Mail.pm:1126 src/EBox/Mail.pm:1263
+msgid "Mail"
+msgstr "E-post"
 
-#: src/EBox/CGI/CreateAlias.pm:48
-msgid "maildrop"
-msgstr "e-post tap"
+#: src/EBox/Event/Dispatcher/Mail.pm:189
+#, perl-brace-format
+msgid "Cannot connect to {smtp} mail server"
+msgstr "Kan ikke koble til {smtp} e-post server"
 
-#: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:48
-msgid "account name"
-msgstr "konto navn"
+#: src/EBox/Event/Dispatcher/Mail.pm:230
+#, perl-brace-format
+msgid "Cannot connect to the server {hostname} to send the event through SMTP"
+msgstr "Kan ikke koble til serveren {hostname} for å sende hendelsen via SMTP"
 
-#: src/EBox/CGI/CreateAlias.pm:50 src/EBox/CGI/CreateGroupAlias.pm:49
-msgid "domain name"
-msgstr "domene navn"
-
-#: src/EBox/CGI/DelAlias.pm:46
-msgid "mail alias"
-msgstr "e-post alias"
-
-#: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1201
-msgid "Queue Management"
-msgstr "Kø Behandling"
-
-#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
-msgid "group"
-msgstr "gruppe"
-
-#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
-#: src/EBox/MailVDomainsLdap.pm:123 src/EBox/Mail/Model/VDomains.pm:87
+#: src/EBox/MailVDomainsLdap.pm:64 src/EBox/MailVDomainsLdap.pm:123
+#: src/EBox/Mail/Model/VDomains.pm:87 src/EBox/CGI/CreateAccount.pm:48
 msgid "virtual domain"
 msgstr "virtuelt domene"
-
-#: src/EBox/CGI/CreateAccount.pm:50
-msgid "Mail address"
-msgstr "E-post adresse"
-
-#: src/EBox/CGI/DelAccount.pm:46
-msgid "user mail"
-msgstr "bruker e-post"
-
-#: src/EBox/CGI/DelGroupAlias.pm:47
-msgid "group alias mail"
-msgstr "gruppe alias e-post"
 
 #: src/EBox/MailVDomainsLdap.pm:342
 msgid "Size quota"
@@ -75,81 +47,11 @@ msgstr "Størrelses begrensning"
 
 #: src/EBox/MailVDomainsLdap.pm:434 src/EBox/MailVDomainsLdap.pm:440
 #: src/EBox/MailVDomainsLdap.pm:484 src/EBox/MailVDomainsLdap.pm:490
-#: src/EBox/MailUserLdap.pm:731 src/EBox/MailUserLdap.pm:737
-#: src/EBox/MailUserLdap.pm:799 src/EBox/MailUserLdap.pm:805
-#: src/EBox/Mail.pm:1392
+#: src/EBox/MailUserLdap.pm:717 src/EBox/MailUserLdap.pm:723
+#: src/EBox/MailUserLdap.pm:785 src/EBox/MailUserLdap.pm:791
+#: src/EBox/Mail.pm:1401
 msgid "maildir size"
 msgstr "e-post mappe størrelse"
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
-msgid "Subject"
-msgstr "Emne"
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
-#, perl-brace-format
-msgid "[EBox-event] An event has happened at {hostName}"
-msgstr "[EBox-event] En hendelse har oppstått på {hostName}"
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1225
-msgid "To"
-msgstr "Til"
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
-msgid "Configure mail dispatcher"
-msgstr "Konfigurer e-post tildeler"
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
-msgid ""
-"In order to configure the Mail event dispatcher is required to enable the "
-"mail service from eBox"
-msgstr ""
-"For å konfigurere e-post handlings tildeler må e-post tjenesten aktiveres "
-"fra eBox"
-
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
-msgid "Mail dispatcher configuration updated"
-msgstr "E-post tildeler konfigurasjonen oppdatert"
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:85
-msgid ""
-"Users will have to authenticate to be able to send mails through this server"
-msgstr "Brukere vil måtte autentisere seg for å sende e-post via denne serveren"
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:93
-msgid "Authentication"
-msgstr "Autentisering"
-
-#: src/EBox/Mail/Model/SMTPAuth.pm:123
-msgid "Cannot require authentication when TLS is inactive"
-msgstr "Kan ikke kreve autentisering når TLS er deaktivert"
-
-#: src/EBox/Mail/Model/ObjectPolicy.pm:90
-msgid "Object"
-msgstr "Objekt"
-
-#: src/EBox/Mail/Model/ObjectPolicy.pm:96
-msgid "Allow relay"
-msgstr "Tillat videresending"
-
-#: src/EBox/Mail/Model/ObjectPolicy.pm:99
-msgid ""
-"Tick this to allow the machines within the above object to send mails "
-"through this server."
-msgstr ""
-"Huk av dette for å tillate maskiner innenfor objektet over å sende e-post "
-"gjennom denne serveren."
-
-#: src/EBox/Mail/Model/ObjectPolicy.pm:108
-msgid "Relay policy for network objects"
-msgstr "Videresendings fremgangsmåte for nettverks objekter"
-
-#: src/EBox/Mail/Model/ObjectPolicy.pm:120
-msgid "object's relay policy"
-msgstr "objekters videresendings fremgangsmåte"
-
-#: src/EBox/Mail/Model/ObjectPolicy.pm:121
-msgid "You may allow mail relay per network object"
-msgstr "Du kan tillate e-post videresending per nettverks objekt"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:89
 msgid "Filter in use"
@@ -179,55 +81,59 @@ msgstr "ingen"
 msgid "custom"
 msgstr "tilpasset"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:83
-msgid "Smarthost to send mail"
-msgstr "Smarthost til sending av e-post"
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
+msgid "Subject"
+msgstr "Emne"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:90
-msgid "Smarthost authentication"
-msgstr "Smarthost autentisering"
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
+#, perl-brace-format
+msgid "[EBox-event] An event has happened at {hostName}"
+msgstr "[EBox-event] En hendelse har oppstått på {hostName}"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:95
-msgid "None"
-msgstr "Ingen"
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1233
+msgid "To"
+msgstr "Til"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:99
-msgid "User and password"
-msgstr "Bruker og passord"
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
+msgid "Configure mail dispatcher"
+msgstr "Konfigurer e-post tildeler"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:105
-msgid "User"
-msgstr "Bruker"
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
+msgid ""
+"In order to configure the Mail event dispatcher is required to enable the "
+"mail service from eBox"
+msgstr ""
+"For å konfigurere e-post handlings tildeler må e-post tjenesten aktiveres "
+"fra eBox"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:111
-msgid "Password"
-msgstr "Passord"
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
+msgid "Mail dispatcher configuration updated"
+msgstr "E-post tildeler konfigurasjonen oppdatert"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:123
-msgid "Maximum message size accepted"
-msgstr "Maksimum meldings størrelse tillatt"
+#: src/EBox/Mail/Model/VDomainAliases.pm:57
+#: src/EBox/Mail/Model/VDomainAliases.pm:69 src/EBox/Mail/Model/VDomains.pm:64
+msgid "Aliases"
+msgstr "Alias"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:127 src/templates/createaccount.mas:78
-#: src/templates/alias.mas:140
-msgid "Unlimited size"
-msgstr "Ubegrenset størrelse"
+#: src/EBox/Mail/Model/VDomainAliases.pm:78
+msgid "virtual domain alias"
+msgstr "virtuelt domene alias"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:131
-msgid "size in Mb"
-msgstr "størrelse i Mb"
+#: src/EBox/Mail/Model/VDomainAliases.pm:80
+msgid "Virtual domain alias added. You must save changes to use this domain"
+msgstr ""
+"Virtuelt domene lagt til. Du må lagre endringer for å bruke dette domenet"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:143
-msgid "Options"
-msgstr "Alternativer"
+#: src/EBox/Mail/Model/VDomainAliases.pm:110
+#: src/EBox/Mail/Model/VDomains.pm:119
+msgid ""
+"You must enable the mail module in module status section in order to use it."
+msgstr ""
+"Du må aktivere e-post modulen i modul status seksjonen for å bruke den."
 
 #: src/EBox/Mail/Model/VDomains.pm:57
 msgid "Name"
 msgstr "Navn"
-
-#: src/EBox/Mail/Model/VDomains.pm:64 src/EBox/Mail/Model/VDomainAliases.pm:57
-#: src/EBox/Mail/Model/VDomainAliases.pm:69
-msgid "Aliases"
-msgstr "Alias"
 
 #: src/EBox/Mail/Model/VDomains.pm:78
 msgid "Mail virtual domains"
@@ -238,15 +144,106 @@ msgid "Virtual domain added. You must save changes to use this domain"
 msgstr ""
 "Virtuelt domene lagt til. Du må lagre endringer for å bruke dette domenet"
 
-#: src/EBox/Mail/Model/VDomains.pm:119
-#: src/EBox/Mail/Model/VDomainAliases.pm:110
+#: src/EBox/Mail/Model/SMTPAuth.pm:74
 msgid ""
-"You must enable the mail module in module status section in order to use it."
-msgstr "Du må aktivere e-post modulen i modul status seksjonen for å bruke den."
+"Users will have to authenticate to be able to send mails through this server"
+msgstr ""
+"Brukere vil måtte autentisere seg for å sende e-post via denne serveren"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:99 src/EBox/Mail.pm:1444
+#: src/EBox/Mail/Model/SMTPAuth.pm:82
+msgid "Authentication"
+msgstr "Autentisering"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:112
+msgid "Cannot require authentication when TLS is inactive"
+msgstr "Kan ikke kreve autentisering når TLS er deaktivert"
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:90
+msgid "Object"
+msgstr "Objekt"
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:96
+msgid "Allow relay"
+msgstr "Tillat videresending"
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:99
+#, fuzzy
+msgid ""
+"Check this option to allow the machines within the above object to send "
+"mails through this server"
+msgstr ""
+"Huk av dette for å tillate maskiner innenfor objektet over å sende e-post "
+"gjennom denne serveren."
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:108
+msgid "Relay policy for network objects"
+msgstr "Videresendings fremgangsmåte for nettverks objekter"
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:120
+msgid "object's relay policy"
+msgstr "objekters videresendings fremgangsmåte"
+
+#: src/EBox/Mail/Model/ObjectPolicy.pm:121
+msgid "You may allow mail relay per network object"
+msgstr "Du kan tillate e-post videresending per nettverks objekt"
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:88 src/EBox/Mail.pm:1453
 msgid "Mail retrieval services"
 msgstr "E-post hente tjenester"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:73
+msgid "Smarthost to send mail"
+msgstr "Smarthost til sending av e-post"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:76
+msgid "The format is host[:port] being port set to 25 if none is supplied"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:82
+msgid "Smarthost authentication"
+msgstr "Smarthost autentisering"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:90
+msgid "None"
+msgstr "Ingen"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:94
+msgid "User and password"
+msgstr "Bruker og passord"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:100
+msgid "User"
+msgstr "Bruker"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:106
+msgid "Password"
+msgstr "Passord"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:119
+msgid "Maximum message size accepted"
+msgstr "Maksimum meldings størrelse tillatt"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:123 src/templates/createaccount.mas:78
+#: src/templates/alias.mas:140
+msgid "Unlimited size"
+msgstr "Ubegrenset størrelse"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:127
+msgid "size in Mb"
+msgstr "størrelse i Mb"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:139
+msgid "Options"
+msgstr "Alternativer"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:196
+#: src/EBox/Mail/Model/SMTPOptions.pm:200
+msgid "Smarthost's address"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:197
+msgid "Smarthost's port"
+msgstr ""
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
 msgid "Enabled"
@@ -282,32 +279,71 @@ msgstr "Periode till usett innlegg vil bli slettet"
 msgid "Greylist configuration"
 msgstr "Grå listings konfigurasjon"
 
-#: src/EBox/Mail/Model/VDomainAliases.pm:78
-msgid "virtual domain alias"
-msgstr "virtuelt domene alias"
-
-#: src/EBox/Mail/Model/VDomainAliases.pm:80
-msgid "Virtual domain alias added. You must save changes to use this domain"
-msgstr ""
-"Virtuelt domene lagt til. Du må lagre endringer for å bruke dette domenet"
-
-#: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
-#: src/EBox/Mail/Composite/General.pm:77
-msgid "Mail server options"
-msgstr "E-post server alternativer"
-
 #: src/EBox/Mail/Greylist.pm:55
-msgid "To configure whitelist for greylisting"
+#, fuzzy
+msgid "Configure whitelist for greylisting"
 msgstr "For å konfigurere hvit listing for grå listing"
 
 #: src/EBox/Mail/Greylist.pm:279
 msgid "Greylist service"
 msgstr "Grå listings tjeneste"
 
+#: src/EBox/Mail/Composite/General.pm:77
+#: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
+msgid "Mail server options"
+msgstr "E-post server alternativer"
+
+#: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/DelAccount.pm:42
+#: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/CreateAlias.pm:42
+msgid "username"
+msgstr "brukernavn"
+
+#: src/EBox/CGI/CreateAccount.pm:50
+msgid "Mail address"
+msgstr "E-post adresse"
+
+#: src/EBox/CGI/MQRemove.pm:42 src/EBox/CGI/MQRequeue.pm:42
+#: src/templates/qmanager.mas:17
+msgid "Queue ID"
+msgstr "Kø ID"
+
+#: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
+#: src/EBox/Mail.pm:1209
+msgid "Queue Management"
+msgstr "Kø Behandling"
+
+#: src/EBox/CGI/DelAccount.pm:46
+msgid "user mail"
+msgstr "bruker e-post"
+
+#: src/EBox/CGI/DelAlias.pm:46
+msgid "mail alias"
+msgstr "e-post alias"
+
+#: src/EBox/CGI/DelGroupAlias.pm:42 src/EBox/CGI/CreateGroupAlias.pm:42
+msgid "group"
+msgstr "gruppe"
+
+#: src/EBox/CGI/DelGroupAlias.pm:47
+msgid "group alias mail"
+msgstr "gruppe alias e-post"
+
+#: src/EBox/CGI/CreateAlias.pm:48
+msgid "maildrop"
+msgstr "e-post tap"
+
+#: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:48
+msgid "account name"
+msgstr "konto navn"
+
+#: src/EBox/CGI/CreateAlias.pm:50 src/EBox/CGI/CreateGroupAlias.pm:49
+msgid "domain name"
+msgstr "domene navn"
+
 #: src/EBox/MailAliasLdap.pm:61 src/EBox/MailAliasLdap.pm:66
 #: src/EBox/MailAliasLdap.pm:88 src/EBox/MailAliasLdap.pm:93
-#: src/EBox/MailAliasLdap.pm:233 src/EBox/MailUserLdap.pm:82
-#: src/EBox/MailUserLdap.pm:87
+#: src/EBox/MailAliasLdap.pm:233 src/EBox/MailUserLdap.pm:81
+#: src/EBox/MailUserLdap.pm:86
 msgid "mail account"
 msgstr "e-post konto"
 
@@ -334,22 +370,18 @@ msgstr ""
 msgid "mail alias account"
 msgstr "e-post alias konto"
 
-#: src/EBox/MailUserLdap.pm:307
+#: src/EBox/MailUserLdap.pm:306
 msgid "This group has a mail alias"
 msgstr "Denne gruppen har et e-post alias"
 
-#: src/EBox/MailUserLdap.pm:334
+#: src/EBox/MailUserLdap.pm:333
 msgid "This user has a mail account"
 msgstr "Denne brukeren har en e-post konto"
 
-#: src/EBox/MailUserLdap.pm:611
+#: src/EBox/MailUserLdap.pm:597
 #, perl-brace-format
 msgid "Cannot create user account: mail directory {d} aready exists"
 msgstr "Kan ikke opprette bruker konto: e-post mappen {d} eksisterer allerede"
-
-#: src/EBox/Mail.pm:72
-msgid "mail"
-msgstr "e-post"
 
 #: src/EBox/Mail.pm:118
 msgid "Generate mail aliases"
@@ -365,7 +397,8 @@ msgid "Add LDAP schemas"
 msgstr "Legg til LDAP skjemaer"
 
 #: src/EBox/Mail.pm:127
-msgid "eBox will add two LDAP schemas: authldap.schema and eboximail.schema."
+#, fuzzy
+msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
 msgstr ""
 "eBox vil legge til to LDAP skjemaer: authldap.schema og eboximail.schema."
 
@@ -395,25 +428,21 @@ msgid "To configure dovecot to authenticate against LDAP"
 msgstr "For å konfigurere dovecot til å autentisere mot LDAP"
 
 #: src/EBox/Mail.pm:178
-msgid "To add the LDAP schemas used by eBox mail"
-msgstr "For å legge til LDAP skjemaer i bruk av eBox e-post"
-
-#: src/EBox/Mail.pm:183
 msgid "To configure smart host authentication"
 msgstr "For å konfigurere smart host autentisering"
 
-#: src/EBox/Mail.pm:612
+#: src/EBox/Mail.pm:620
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "Kan ikke endre dette parameteret for et ikke-tilpasset filter"
 
-#: src/EBox/Mail.pm:628 src/EBox/Mail.pm:648
+#: src/EBox/Mail.pm:636 src/EBox/Mail.pm:656
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 "E-post filteret eksisterer ikke. Vennligst sett et annet e-post filter eller "
 "deaktiver det"
 
-#: src/EBox/Mail.pm:655
+#: src/EBox/Mail.pm:663
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
@@ -421,164 +450,146 @@ msgstr ""
 "E-post filter $name er ikke aktiv. Vennligs sett et annet e-post filter "
 "eller deaktiver det"
 
-#: src/EBox/Mail.pm:1066
+#: src/EBox/Mail.pm:1074
 msgid "SMTP service"
 msgstr "SMTP tjeneste"
 
-#: src/EBox/Mail.pm:1073
+#: src/EBox/Mail.pm:1081
 msgid "POP3 service"
 msgstr "POP3 tjeneste"
 
-#: src/EBox/Mail.pm:1079
+#: src/EBox/Mail.pm:1087
 msgid "POP3S service"
 msgstr "POP3S tjeneste"
 
-#: src/EBox/Mail.pm:1085
+#: src/EBox/Mail.pm:1093
 msgid "IMAP service"
 msgstr "IMAP tjeneste"
 
-#: src/EBox/Mail.pm:1091
+#: src/EBox/Mail.pm:1099
 msgid "IMAPS service"
 msgstr "IMAPS tjeneste"
 
-#: src/EBox/Mail.pm:1118 src/EBox/Mail.pm:1174 src/EBox/Mail.pm:1254
-#: src/EBox/Event/Dispatcher/Mail.pm:168
-msgid "Mail"
-msgstr "E-post"
-
-#: src/EBox/Mail.pm:1132
+#: src/EBox/Mail.pm:1140
 msgid "enabled"
 msgstr "aktivert"
 
-#: src/EBox/Mail.pm:1132
+#: src/EBox/Mail.pm:1140
 msgid "disabled"
 msgstr "deaktivert"
 
-#: src/EBox/Mail.pm:1134 src/EBox/Mail.pm:1230
+#: src/EBox/Mail.pm:1142 src/EBox/Mail.pm:1238
 msgid "Status"
 msgstr "Status"
 
-#: src/EBox/Mail.pm:1137
+#: src/EBox/Mail.pm:1145
 msgid "Mail server's filter"
 msgstr "E-post servers filter"
 
-#: src/EBox/Mail.pm:1146 src/EBox/Mail.pm:1153
+#: src/EBox/Mail.pm:1154 src/EBox/Mail.pm:1161
 msgid "Filter type"
 msgstr "Filter type"
 
-#: src/EBox/Mail.pm:1147
+#: src/EBox/Mail.pm:1155
 msgid "Custom"
 msgstr "Tilpasset"
 
-#: src/EBox/Mail.pm:1149
+#: src/EBox/Mail.pm:1157
 msgid "Address"
 msgstr "Adresse"
 
-#: src/EBox/Mail.pm:1175
-msgid "Communications"
-msgstr "Kommunikasjon"
-
-#: src/EBox/Mail.pm:1182
+#: src/EBox/Mail.pm:1190
 msgid "General"
 msgstr "Generell"
 
-#: src/EBox/Mail.pm:1189
+#: src/EBox/Mail.pm:1197
 msgid "Virtual Mail Domains"
 msgstr "Virtuelle E-post Domener"
 
-#: src/EBox/Mail.pm:1195
+#: src/EBox/Mail.pm:1203
 msgid "Greylist"
 msgstr "Grå listing"
 
-#: src/EBox/Mail.pm:1222 src/templates/qmanager.mas:19
+#: src/EBox/Mail.pm:1230 src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Dato"
 
-#: src/EBox/Mail.pm:1223
+#: src/EBox/Mail.pm:1231
 msgid "Message ID"
 msgstr "Meldings ID"
 
-#: src/EBox/Mail.pm:1224
+#: src/EBox/Mail.pm:1232
 msgid "From"
 msgstr "Fra"
 
-#: src/EBox/Mail.pm:1226
+#: src/EBox/Mail.pm:1234
 msgid "From hostname"
 msgstr "Fra verts navn"
 
-#: src/EBox/Mail.pm:1227
+#: src/EBox/Mail.pm:1235
 msgid "From host ip"
 msgstr "Fra verts ip"
 
-#: src/EBox/Mail.pm:1228 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1236 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Størrelse (bytes)"
 
-#: src/EBox/Mail.pm:1229
+#: src/EBox/Mail.pm:1237
 msgid "Relay"
 msgstr "Videresende"
 
-#: src/EBox/Mail.pm:1231
+#: src/EBox/Mail.pm:1239
 msgid "Event"
 msgstr "Hendelse"
 
-#: src/EBox/Mail.pm:1232
+#: src/EBox/Mail.pm:1240
 msgid "Aditional Info"
 msgstr "Tilleggs informasjon"
 
-#: src/EBox/Mail.pm:1243
+#: src/EBox/Mail.pm:1251
 msgid "Successful messages"
 msgstr "Fullførte meldinger"
 
-#: src/EBox/Mail.pm:1244
+#: src/EBox/Mail.pm:1252
 msgid "Maximum message size exceeded"
 msgstr "Maksimal meldingsstørrelse overskredet"
 
-#: src/EBox/Mail.pm:1245
+#: src/EBox/Mail.pm:1253
 msgid "User quote exceeded"
 msgstr "Bruker kvote overskredet"
 
-#: src/EBox/Mail.pm:1246
+#: src/EBox/Mail.pm:1254
 msgid "Relay access denied"
 msgstr "Videresendings tilgang avvist"
 
-#: src/EBox/Mail.pm:1247
+#: src/EBox/Mail.pm:1255
 msgid "Account does not exist"
 msgstr "Kontoen eksisterer ikke"
 
-#: src/EBox/Mail.pm:1248
+#: src/EBox/Mail.pm:1256
 msgid "Host unreachable"
 msgstr "Kan ikke nå vert"
 
-#: src/EBox/Mail.pm:1249
+#: src/EBox/Mail.pm:1257
 msgid "Authentication error"
 msgstr "Autentiserings feil"
 
-#: src/EBox/Mail.pm:1250
+#: src/EBox/Mail.pm:1258
+#, fuzzy
+msgid "Greylisted"
+msgstr "Grå listing"
+
+#: src/EBox/Mail.pm:1259
 msgid "Other events"
 msgstr "Andre hendelser"
 
-#: src/EBox/Mail.pm:1356
+#: src/EBox/Mail.pm:1365
 msgid "Mailboxes"
 msgstr "E-post kasser"
 
-#: src/EBox/Mail.pm:1437
+#: src/EBox/Mail.pm:1446
 msgid "Mail SMTP server"
 msgstr "E-post SMTP server"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:155
-msgid "Admin mail recipient"
-msgstr "Administrator e-post mottager"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:189
-#, perl-brace-format
-msgid "Cannot connect to {smtp} mail server"
-msgstr "Kan ikke koble til {smtp} e-post server"
-
-#: src/EBox/Event/Dispatcher/Mail.pm:230
-#, perl-brace-format
-msgid "Cannot connect to the server {hostname} to send the event through SMTP"
-msgstr "Kan ikke koble til serveren {hostname} for å sende hendelsen via SMTP"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
@@ -639,46 +650,6 @@ msgstr "Avbryt"
 msgid "Change"
 msgstr "Endre"
 
-#: src/templates/createaccount.mas:15
-msgid "Create mail account"
-msgstr "Opprett e-post konto"
-
-#: src/templates/createaccount.mas:23
-msgid "Account name"
-msgstr "Konto navn"
-
-#: src/templates/createaccount.mas:27
-msgid "Domain name"
-msgstr "Domene navn"
-
-#: src/templates/createaccount.mas:62
-msgid "Maildir size"
-msgstr "E-post mappe størrelse"
-
-#: src/templates/alias.mas:11
-msgid "Mail account settings"
-msgstr "E-post konto innstillinger"
-
-#: src/templates/alias.mas:34
-msgid "Create mail aliases"
-msgstr "Opprett e-post aliaser"
-
-#: src/templates/alias.mas:39
-msgid "Mail alias"
-msgstr "E-post alias"
-
-#: src/templates/alias.mas:42
-msgid "Action"
-msgstr "Handling"
-
-#: src/templates/alias.mas:126
-msgid "Default maildir size (MB)"
-msgstr "Standard e-post mappe størrelse (MB)"
-
-#: src/templates/alias.mas:151 src/templates/alias.mas:152
-msgid "Modify"
-msgstr "Modifiser"
-
 #: src/templates/qmanager.mas:20
 msgid "Sender"
 msgstr "Avsender"
@@ -731,6 +702,11 @@ msgstr "liste"
 msgid "There is no messages in queue or the service is stopped"
 msgstr "Det er ingen melinger i køen eller tjenesten har stoppet"
 
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the mail module is enabled"
+msgstr "Følgende innstillinger vil kun fungere når e-post modulen er aktivert"
+
 #: src/templates/account.mas:22
 msgid "Mail account"
 msgstr "E-post konto"
@@ -739,7 +715,51 @@ msgstr "E-post konto"
 msgid "Click here to create a new mail virtual domain"
 msgstr "Trykk her for å opprette et nytt e-post virtuelt domene"
 
-#: src/templates/moduleDisabled.mas:5
-msgid ""
-"The following settings only will take effect when the mail module is enabled"
-msgstr "Følgende innstillinger vil kun fungere når e-post modulen er aktivert"
+#: src/templates/createaccount.mas:15
+msgid "Create mail account"
+msgstr "Opprett e-post konto"
+
+#: src/templates/createaccount.mas:23
+msgid "Account name"
+msgstr "Konto navn"
+
+#: src/templates/createaccount.mas:27
+msgid "Domain name"
+msgstr "Domene navn"
+
+#: src/templates/createaccount.mas:62
+msgid "Maildir size"
+msgstr "E-post mappe størrelse"
+
+#: src/templates/alias.mas:11
+msgid "Mail account settings"
+msgstr "E-post konto innstillinger"
+
+#: src/templates/alias.mas:34
+msgid "Create mail aliases"
+msgstr "Opprett e-post aliaser"
+
+#: src/templates/alias.mas:39
+msgid "Mail alias"
+msgstr "E-post alias"
+
+#: src/templates/alias.mas:42
+msgid "Action"
+msgstr "Handling"
+
+#: src/templates/alias.mas:126
+msgid "Default maildir size (MB)"
+msgstr "Standard e-post mappe størrelse (MB)"
+
+#: src/templates/alias.mas:151 src/templates/alias.mas:152
+msgid "Modify"
+msgstr "Modifiser"
+
+#~ msgid "mail"
+#~ msgstr "e-post"
+
+#~ msgid "To add the LDAP schemas used by eBox mail"
+#~ msgstr "For å legge til LDAP skjemaer i bruk av eBox e-post"
+
+#~ msgid "Communications"
+#~ msgstr "Kommunikasjon"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:17+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2009-02-19 16:28+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,21 +15,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Model/Settings.pm:53
-msgid "field1"
-msgstr ""
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
+msgid "Control panel"
+msgstr "ﺺﻔﺤﻫ کﻦﺗﺮﻟ"
 
-#: src/EBox/Model/Settings.pm:60
-msgid "field2"
-msgstr ""
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
+msgid "Control center"
+msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
 
-#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
-msgid "Settings"
-msgstr ""
-
-#: src/EBox/Composite/Composite.pm:50
-msgid "Composite"
-msgstr ""
+#: src/EBox/RemoteServices/Backup.pm:211
+#: src/EBox/RemoteServices/ProxyBackup.pm:208
+#, perl-brace-format
+msgid "Inexistent backup: {n}"
+msgstr "پﺶﺗیﺏﺎﻧ ﻡﻮﺟﻭﺩ ﻥیﺲﺗ: {n}"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -94,25 +92,6 @@ msgid ""
 "backup facilities and much more"
 msgstr ""
 
-#: src/EBox/RemoteServices/Composite/General.pm:73
-msgid "Remote services"
-msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
-
-#: src/EBox/RemoteServices/Composite/General.pm:74
-msgid ""
-"Remote services from eBox are paid services to enhance your eBox experience"
-msgstr ""
-
-#: src/EBox/RemoteServices/Subscription.pm:106
-msgid "Key for web subscription service not found"
-msgstr "کﻝیﺩ ﺏﺭﺍی ﺱﺭﻭیﺱ ﻊﺿﻭیﺕ ﻮﺑ یﺎﻔﺗ ﻦﺷﺩ"
-
-#: src/EBox/RemoteServices/Backup.pm:211
-#: src/EBox/RemoteServices/ProxyBackup.pm:208
-#, perl-brace-format
-msgid "Inexistent backup: {n}"
-msgstr "پﺶﺗیﺏﺎﻧ ﻡﻮﺟﻭﺩ ﻥیﺲﺗ: {n}"
-
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
@@ -121,6 +100,15 @@ msgstr "ﻩیچ پﺶﺗیﺏﺎﻧ<200c>ﻫﺍیی ﺩﺭ ﺱﺭﻭﺭ ﺏﺭ�
 #: src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
 msgstr "کﻝیﺩ ﺏﺭﺍی ﺱﺭﻭیﺱ پﺶﺗیﺏﺎﻧ پﺭﻭکﺱی یﺎﻔﺗ ﻦﺷﺩ"
+
+#: src/EBox/RemoteServices/Auth.pm:124
+msgid "Key for service URN not found"
+msgstr "کﻝیﺩ ﺏﺭﺍی ﺱﺭﻭیﺱ URN یﺎﻔﺗ ﻦﺷﺩ"
+
+#: src/EBox/RemoteServices/Auth.pm:160
+#, fuzzy, perl-brace-format
+msgid "Value for key {k} not found"
+msgstr "کﻝیﺩ ﺏﺭﺍی ﺱﺭﻭیﺱ URN یﺎﻔﺗ ﻦﺷﺩ"
 
 #: src/EBox/RemoteServices/Base.pm:213
 msgid "No ebox-services DNS key found"
@@ -139,59 +127,33 @@ msgstr "ﻦﻣی<200c>ﺕﻭﺎﻧﺩ ﺎﺘﺻﺎﻟ SOAP ﺍیﺝﺍﺩ ﻦﻣ
 msgid "No domain key found for this service"
 msgstr "ﻩیچ کﻝیﺩ ﺩﺎﻤﻨﻫ<200c>ﺍی ﺏﺭﺍی ﺍیﻥ ﺱﺭﻭیﺱ یﺎﻔﺗ ﻦﺷﺩ"
 
-#: src/EBox/RemoteServices/Auth.pm:124
-msgid "Key for service URN not found"
-msgstr "کﻝیﺩ ﺏﺭﺍی ﺱﺭﻭیﺱ URN یﺎﻔﺗ ﻦﺷﺩ"
+#: src/EBox/RemoteServices/Subscription.pm:106
+msgid "Key for web subscription service not found"
+msgstr "کﻝیﺩ ﺏﺭﺍی ﺱﺭﻭیﺱ ﻊﺿﻭیﺕ ﻮﺑ یﺎﻔﺗ ﻦﺷﺩ"
 
-#: src/EBox/RemoteServices/Auth.pm:160
-#, fuzzy, perl-brace-format
-msgid "Value for key {k} not found"
-msgstr "کﻝیﺩ ﺏﺭﺍی ﺱﺭﻭیﺱ URN یﺎﻔﺗ ﻦﺷﺩ"
+#: src/EBox/RemoteServices/Composite/General.pm:73
+msgid "Remote services"
+msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
-msgid "Control panel"
-msgstr "ﺺﻔﺤﻫ کﻦﺗﺮﻟ"
+#: src/EBox/RemoteServices/Composite/General.pm:74
+msgid "eBox Control Center is paid services to enhance your eBox experience"
+msgstr ""
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
-msgid "Control center"
-msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
+#: src/EBox/Model/Settings.pm:53
+msgid "field1"
+msgstr ""
 
-#: src/EBox/CGI/Backup/Index.pm:36
-msgid "Remote system backups"
-msgstr "پﺶﺗیﺏﺎﻧ<200c>ﻫﺍی ﺱﺎﻣﺎﻨﻫ ﺭﺎﻫ<200c>ﺩﻭﺭ"
+#: src/EBox/Model/Settings.pm:60
+msgid "field2"
+msgstr ""
 
-#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
-msgid "Backup deleted"
-msgstr "پﺶﺗیﺏﺎﻧ ﺡﺬﻓ ﺵﺩ"
+#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
+msgid "Settings"
+msgstr ""
 
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
-msgid "Restoring remote backup"
-msgstr "ﺏﺍﺯیﺎﺑی پﺶﺗیﺏﺎﻧ ﺭﺎﻫ<200c>ﺩﻭﺭ"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
-msgid "Restoring modules from remote backup"
-msgstr "ﺏﺍﺯیﺎﺑی ﻡﺎﺟﻮﻟ<200c>ﻫﺍ ﺍﺯ پﺶﺗیﺏﺎﻧ ﺭﺎﻫ ﺩﻭﺭ"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
-msgid "Module"
-msgstr "ﻡﺎﺟﻮﻟ"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
-msgid "modules left to restore"
-msgstr "ﻡﺎﺟﻮﻟ<200c>ﻫﺍی ﺏﺎﻗیﻡﺎﻧﺪﻫ ﺏﺭﺍی ﺏﺍﺰﺑیﻥی"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
-msgid "Restore successful"
-msgstr "ﺏﺍﺯیﺎﺑی ﻡﻮﻔﻗ ﺏﻭﺩ"
-
-#: src/EBox/CGI/Backup/Proxy.pm:35
-msgid "Remote system backups proxy"
-msgstr "پﺶﺗیﺏﺎﻧ<200c>ﻫﺍی ﺱﺎﻣﺎﻨﻫ ﺭﺎﻫ<200c>ﺩﻭﺭ"
+#: src/EBox/CGI/NoConnection.pm:31
+msgid "Connection error"
+msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
 
 #: src/EBox/CGI/Backup/Confirm.pm:35
 msgid "Configuration backup"
@@ -240,13 +202,47 @@ msgstr "ﺎﻗﺩﺎﻣﺎﺗ ﺏﺭﺍی ﺎﺘﻣﺎﻣ پﺶﺗیﺏﺎﻧ<20
 msgid "Backup successful"
 msgstr "ﺥﻭﺎﻨﻧﺪﻫ<200c>ﻫﺍی ﻢﺟﺍﺯ"
 
-#: src/EBox/CGI/NoConnection.pm:31
-msgid "Connection error"
-msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
+msgid "Restoring remote backup"
+msgstr "ﺏﺍﺯیﺎﺑی پﺶﺗیﺏﺎﻧ ﺭﺎﻫ<200c>ﺩﻭﺭ"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
+msgid "Restoring modules from remote backup"
+msgstr "ﺏﺍﺯیﺎﺑی ﻡﺎﺟﻮﻟ<200c>ﻫﺍ ﺍﺯ پﺶﺗیﺏﺎﻧ ﺭﺎﻫ ﺩﻭﺭ"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
+msgid "Module"
+msgstr "ﻡﺎﺟﻮﻟ"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
+msgid "modules left to restore"
+msgstr "ﻡﺎﺟﻮﻟ<200c>ﻫﺍی ﺏﺎﻗیﻡﺎﻧﺪﻫ ﺏﺭﺍی ﺏﺍﺰﺑیﻥی"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
+msgid "Restore successful"
+msgstr "ﺏﺍﺯیﺎﺑی ﻡﻮﻔﻗ ﺏﻭﺩ"
+
+#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
+msgid "Backup deleted"
+msgstr "پﺶﺗیﺏﺎﻧ ﺡﺬﻓ ﺵﺩ"
+
+#: src/EBox/CGI/Backup/Index.pm:36
+msgid "Remote system backups"
+msgstr "پﺶﺗیﺏﺎﻧ<200c>ﻫﺍی ﺱﺎﻣﺎﻨﻫ ﺭﺎﻫ<200c>ﺩﻭﺭ"
+
+#: src/EBox/CGI/Backup/Proxy.pm:35
+msgid "Remote system backups proxy"
+msgstr "پﺶﺗیﺏﺎﻧ<200c>ﻫﺍی ﺱﺎﻣﺎﻨﻫ ﺭﺎﻫ<200c>ﺩﻭﺭ"
 
 #: src/EBox/RemoteServices.pm:74
-msgid "eBox remote services"
-msgstr "ﺥﺭﻮﺟ"
+#, fuzzy
+msgid "Control Center Client"
+msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
 
 #: src/EBox/RemoteServices.pm:157
 msgid "Not subscribed"
@@ -258,8 +254,19 @@ msgstr ""
 
 #: src/EBox/RemoteServices.pm:191
 #, fuzzy
-msgid "Remote Services Subscription"
-msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
+msgid "Control Center"
+msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
+
+#: src/EBox/Composite/Composite.pm:50
+msgid "Composite"
+msgstr ""
+
+#~ msgid "eBox remote services"
+#~ msgstr "ﺥﺭﻮﺟ"
+
+#, fuzzy
+#~ msgid "Remote Services Subscription"
+#~ msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
 
 #~ msgid "Key for service proxy not found"
 #~ msgstr "کﻝیﺩ ﺏﺭﺍی ﺱﺭﻭیﺱ پﺭﻭکﺱی یﺎﻔﺗ ﻦﺷﺩ"

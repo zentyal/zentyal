@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:06+0200\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: 2009-09-09 11:29+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:266
-msgid "domain"
-msgstr "domene"
-
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
 msgstr "modul status"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:355
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:266
+msgid "domain"
+msgstr "domene"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
 msgid "Jabber"
 msgstr "Jabber"
 
@@ -34,8 +34,8 @@ msgid "username"
 msgstr "brukernavn"
 
 #: src/EBox/Jabber.pm:71
-msgid "Copy jabber ldap schema to /etc/ldap/schemas"
-msgstr "Kopier jabber ldap skjema til /etc/ldap/schemas"
+msgid "Add Jabber LDAP schema"
+msgstr ""
 
 #: src/EBox/Jabber.pm:72
 msgid "eBox will need this schema to store jabber users"
@@ -49,46 +49,15 @@ msgstr "For å konfigurere jabberd2 korrekt"
 msgid "To properly configure jabberd2 muc"
 msgstr "For å konfigurere jabberd2 muc korrekt"
 
-#: src/EBox/Jabber.pm:113
-msgid "To add the LDAP schemas used by eBox jabber"
-msgstr "For å legge til LDAP skjemaer bruk av eBox jabber"
-
-#: src/EBox/Jabber.pm:356
-msgid "Communications"
-msgstr "Kommunikasjon"
-
-#: src/EBox/Jabber.pm:374
+#: src/EBox/Jabber.pm:380
 msgid "Jabber server certificate"
 msgstr "Jabber server sertifikat"
 
-#: src/templates/jabber.mas:8
-msgid "Jabber Account"
-msgstr "Jabber Konto"
-
-#: src/templates/jabber.mas:9
-msgid "Password for Jabber service is the user password."
-msgstr "Passord for Jabber tjeneste er bruker passordet."
-
-#: src/templates/jabber.mas:18
-msgid "User account"
-msgstr "Bruker konto"
-
-#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
-msgid "Disabled"
-msgstr "Deaktivert"
-
-#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
-msgid "Enabled"
-msgstr "Aktivert"
-
-#: src/templates/jabber.mas:34
-msgid "Administration rights"
-msgstr "Administrasjons rettigheter"
-
-#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
-#: src/templates/index.mas:81 src/templates/index.mas:82
-msgid "Change"
-msgstr "Endre"
+#: src/EBox/JabberLdapUser.pm:252
+msgid ""
+"This user has a jabber account. If the user currently connected it will "
+"continue connected until jabber authorization is again required"
+msgstr ""
 
 #: src/templates/index.mas:17
 msgid "General Configuration"
@@ -133,3 +102,41 @@ msgstr "Valgfri"
 #: src/templates/index.mas:72
 msgid "Required"
 msgstr "Påkrevd"
+
+#: src/templates/index.mas:81 src/templates/index.mas:82
+#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
+msgid "Change"
+msgstr "Endre"
+
+#: src/templates/jabber.mas:8
+msgid "Jabber Account"
+msgstr "Jabber Konto"
+
+#: src/templates/jabber.mas:9
+msgid "Password for Jabber service is the user password."
+msgstr "Passord for Jabber tjeneste er bruker passordet."
+
+#: src/templates/jabber.mas:18
+msgid "User account"
+msgstr "Bruker konto"
+
+#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
+msgid "Disabled"
+msgstr "Deaktivert"
+
+#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
+msgid "Enabled"
+msgstr "Aktivert"
+
+#: src/templates/jabber.mas:34
+msgid "Administration rights"
+msgstr "Administrasjons rettigheter"
+
+#~ msgid "Copy jabber ldap schema to /etc/ldap/schemas"
+#~ msgstr "Kopier jabber ldap skjema til /etc/ldap/schemas"
+
+#~ msgid "To add the LDAP schemas used by eBox jabber"
+#~ msgstr "For å legge til LDAP skjemaer bruk av eBox jabber"
+
+#~ msgid "Communications"
+#~ msgstr "Kommunikasjon"

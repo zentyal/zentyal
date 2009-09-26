@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:01+0200\n"
+"POT-Creation-Date: 2009-09-26 19:23+0100\n"
 "PO-Revision-Date: 2009-03-25 12:22+0000\n"
 "Last-Translator: Marinescu Dragos <marinescu_dragos@live.com>\n"
 "Language-Team: none\n"
@@ -33,8 +33,7 @@ msgstr "Status-ul bazei de date a antivirusului"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 #, fuzzy
 msgid ""
-"The antivirus database has not been updated since the  mailfilter eBox's "
-"module was installed."
+"The antivirus database has not been updated since the module was installed."
 msgstr ""
 "Baza de date a antivirusului nu a fost updatata de cand modulul filtrumail "
 "eBox's a fost instalat"
@@ -66,25 +65,21 @@ msgstr "Ultima updatare a fost facuta cu suces"
 msgid "Unknown event {event}."
 msgstr "Eveniment necunoscut {event}"
 
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:342
-#: src/EBox/AntiVirus.pm:347
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:377
+#: src/EBox/AntiVirus.pm:382
 msgid "Antivirus"
 msgstr "Antivirus"
 
-#: src/EBox/AntiVirus.pm:92
-msgid "UTM"
-msgstr ""
-
-#: src/EBox/AntiVirus.pm:177
+#: src/EBox/AntiVirus.pm:212
 #, fuzzy
 msgid " To configure clamd daemon"
 msgstr "Pentru a configura clamd daemon"
 
-#: src/EBox/AntiVirus.pm:182
+#: src/EBox/AntiVirus.pm:217
 msgid "To configure freshclam updater"
 msgstr "Pentru a configura actualizarea freshclam"
 
-#: src/EBox/AntiVirus.pm:187
+#: src/EBox/AntiVirus.pm:222
 msgid "To schedule the launch of the updater"
 msgstr "Pentru a programa lansarea a actualizari"
 

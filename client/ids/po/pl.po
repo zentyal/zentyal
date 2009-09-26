@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:05+0200\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: 2009-03-08 15:17+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,24 +17,68 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: src/EBox/Model/Rules.pm:116
-msgid "Rule Set"
+#: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
+msgid "IDS"
 msgstr ""
 
-#: src/EBox/Model/Rules.pm:121 src/EBox/Model/Interfaces.pm:113
+#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
+msgid "Date"
+msgstr ""
+
+#: src/EBox/IDS.pm:300
+msgid "Priority"
+msgstr ""
+
+#: src/EBox/IDS.pm:301
+msgid "Description"
+msgstr ""
+
+#: src/EBox/IDS.pm:302
+msgid "Source"
+msgstr ""
+
+#: src/EBox/IDS.pm:303
+msgid "Destination"
+msgstr ""
+
+#: src/EBox/IDS.pm:304
+msgid "Protocol"
+msgstr ""
+
+#: src/EBox/IDS.pm:305
+msgid "Event"
+msgstr ""
+
+#: src/EBox/IDS.pm:317
+msgid "Alert"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:120
+msgid "Interface"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:125 src/EBox/Model/Rules.pm:133
 msgid "Enabled"
 msgstr ""
 
-#: src/EBox/Model/Rules.pm:130
-msgid "Rules"
+#: src/EBox/Model/Interfaces.pm:134
+msgid "Interfaces"
 msgstr ""
 
-#: src/EBox/Model/Rules.pm:135 src/EBox/Model/Interfaces.pm:127
+#: src/EBox/Model/Interfaces.pm:139 src/EBox/Model/Rules.pm:147
 msgid "rule"
 msgstr ""
 
-#: src/EBox/Model/Rules.pm:136 src/EBox/Model/Interfaces.pm:128
+#: src/EBox/Model/Interfaces.pm:140 src/EBox/Model/Rules.pm:148
 msgid "help message"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:128
+msgid "Rule Set"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:142
+msgid "Rules"
 msgstr ""
 
 #: src/EBox/Model/Report/AlertGraph.pm:47
@@ -50,10 +94,6 @@ msgstr ""
 msgid "Alert Graph"
 msgstr ""
 
-#: src/EBox/Model/Report/AlertDetails.pm:52 src/EBox/IDS.pm:268
-msgid "Date"
-msgstr ""
-
 #: src/EBox/Model/Report/AlertDetails.pm:58
 msgid "Number of alerts"
 msgstr ""
@@ -66,54 +106,10 @@ msgstr ""
 msgid "alerts"
 msgstr ""
 
-#: src/EBox/Model/Interfaces.pm:108
-msgid "Interface"
-msgstr ""
-
-#: src/EBox/Model/Interfaces.pm:122
-msgid "Interfaces"
-msgstr ""
-
-#: src/EBox/Composite/Report/AlertReport.pm:66
-msgid "IDS Alerts report"
-msgstr ""
-
 #: src/EBox/Composite/General.pm:71
 msgid "Intrusion Detection System Configuration"
 msgstr ""
 
-#: src/EBox/IDS.pm:62 src/EBox/IDS.pm:138 src/EBox/IDS.pm:280
-msgid "IDS"
-msgstr ""
-
-#: src/EBox/IDS.pm:139
-msgid "UTM"
-msgstr ""
-
-#: src/EBox/IDS.pm:269
-msgid "Priority"
-msgstr ""
-
-#: src/EBox/IDS.pm:270
-msgid "Description"
-msgstr ""
-
-#: src/EBox/IDS.pm:271
-msgid "Source"
-msgstr ""
-
-#: src/EBox/IDS.pm:272
-msgid "Destination"
-msgstr ""
-
-#: src/EBox/IDS.pm:273
-msgid "Protocol"
-msgstr ""
-
-#: src/EBox/IDS.pm:274
-msgid "Event"
-msgstr ""
-
-#: src/EBox/IDS.pm:286
-msgid "Alert"
+#: src/EBox/Composite/Report/AlertReport.pm:66
+msgid "IDS Alerts report"
 msgstr ""

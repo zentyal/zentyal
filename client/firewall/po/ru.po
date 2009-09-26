@@ -7,24 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:05+0200\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: 2009-07-17 10:25+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/Filter.pm:28
-msgid "Packet filtering"
-msgstr "Фильтрация пакетов"
-
-#: src/EBox/Firewall.pm:57
-msgid "firewall"
-msgstr "Файервол"
+#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:848
+msgid "Firewall"
+msgstr "Файрвол"
 
 #: src/EBox/Firewall.pm:125
 msgid "Flush previous firewall rules"
@@ -70,14 +66,6 @@ msgstr "порт"
 #: src/EBox/Firewall.pm:604 src/EBox/Firewall.pm:629
 msgid "protocol"
 msgstr "протокол"
-
-#: src/EBox/Firewall.pm:813 src/EBox/Firewall.pm:848
-msgid "Firewall"
-msgstr "Файрвол"
-
-#: src/EBox/Firewall.pm:814
-msgid "UTM"
-msgstr "UTM"
 
 #: src/EBox/Firewall.pm:818
 msgid "Packet Filter"
@@ -133,6 +121,10 @@ msgstr "ОТБРОСИТЬ"
 msgid "LOG"
 msgstr "ЖУРНАЛ"
 
+#: src/EBox/CGI/Filter.pm:28
+msgid "Packet filtering"
+msgstr "Фильтрация пакетов"
+
 #: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
@@ -146,31 +138,6 @@ msgid ""
 msgstr ""
 "Вы должны установить значение iptables_log_burst в конфигурационном файле "
 "ebox"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
-msgid "packets dropped"
-msgstr "пакеты отброшены"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
-msgid "Firewall packet traffic chart"
-msgstr "Диаграмма пакетов трафика файервола"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
-msgid "Packet traffic"
-msgstr "трафик пакетов"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
-msgid "Packets dropped"
-msgstr "Пакеты отброшены"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
-msgid "Packet traffic details"
-msgstr "Детали трафика пакетов"
-
-#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
-msgid "traffic"
-msgstr "трафик"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
@@ -221,38 +188,6 @@ msgstr ""
 msgid "Description"
 msgstr "Описание"
 
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
-msgid "Filtering rules for internal networks"
-msgstr "Правила Фильтрации между внутренними сетями"
-
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-msgid "rule"
-msgstr "правило"
-
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
-msgstr "Правила фильтрации из внутренних сетей на eBox"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
-msgstr "Правила фильтрации для трафика исходящего из eBox"
-
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
-msgstr "Правила фильтрации из внешних сетей на внутренние сети"
-
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "Правила фильтрации из  внешних сетей на eBox"
-
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
 msgstr "Найдены противоречивые правила.  Сначала удалите их"
@@ -300,6 +235,63 @@ msgstr "Перенаправление портов"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "redirect"
 msgstr "перенаправления"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr "Правила фильтрации из внешних сетей на внутренние сети"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
+msgid "rule"
+msgstr "правило"
+
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+#: src/templates/filter.mas:6
+msgid "Filtering rules from internal networks to eBox"
+msgstr "Правила фильтрации из внутренних сетей на eBox"
+
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+#: src/templates/filter.mas:13
+msgid "Filtering rules for internal networks"
+msgstr "Правила Фильтрации между внутренними сетями"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
+msgid "packets dropped"
+msgstr "пакеты отброшены"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
+msgid "Firewall packet traffic chart"
+msgstr "Диаграмма пакетов трафика файервола"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
+msgid "Packet traffic"
+msgstr "трафик пакетов"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
+msgid "Packets dropped"
+msgstr "Пакеты отброшены"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
+msgid "Packet traffic details"
+msgstr "Детали трафика пакетов"
+
+#: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
+msgid "traffic"
+msgstr "трафик"
+
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "Правила фильтрации для трафика исходящего из eBox"
+
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+msgid "Filtering rules from  external networks to eBox"
+msgstr "Правила фильтрации из  внешних сетей на eBox"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
@@ -367,6 +359,12 @@ msgid ""
 msgstr ""
 "Эти правила позволяют контролировать доступ из внешних сетей на внутренние "
 "сети"
+
+#~ msgid "firewall"
+#~ msgstr "Файервол"
+
+#~ msgid "UTM"
+#~ msgstr "UTM"
 
 #~ msgid "External port"
 #~ msgstr "Внешний порт"

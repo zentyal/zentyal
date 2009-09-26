@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:02+0200\n"
+"POT-Creation-Date: 2009-09-26 19:24+0100\n"
 "PO-Revision-Date: 2009-09-09 11:38+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -18,29 +18,152 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
-msgid "Voicemail settings"
-msgstr "Talepost instillinger"
+#: src/EBox/Asterisk.pm:66
+msgid "VoIP"
+msgstr ""
 
-#: src/EBox/Model/Voicemail.pm:94
-msgid "New password"
-msgstr "Nytt passord"
+#: src/EBox/Asterisk.pm:120
+msgid "To configure enabled and disabled modules."
+msgstr "For å konfigurere aktiverte og deaktiverte moduler."
 
-#: src/EBox/Model/Voicemail.pm:101
-msgid "Mail address"
+#: src/EBox/Asterisk.pm:125
+msgid "To configure the Realtime interface."
+msgstr "For å konfigurere Sanntids grensesnittet."
+
+#: src/EBox/Asterisk.pm:130
+msgid "To configure the LDAP Realtime driver."
+msgstr "For å konfigurere LDAP Sanntids driver."
+
+#: src/EBox/Asterisk.pm:135
+msgid "To configure the common SIP and IAX users."
+msgstr "For å konfigurere vanlige SIP og IAX brukere."
+
+#: src/EBox/Asterisk.pm:140
+msgid "To configure the SIP trunk for local users and external providers."
+msgstr "For å konfigurere SIP trunk for lokale og eksterne leverandører."
+
+#: src/EBox/Asterisk.pm:145
+msgid "To configure the RTP port ranges."
+msgstr "For å konfigurere RTP port rekker."
+
+#: src/EBox/Asterisk.pm:150
+msgid "To configure the dialplan."
+msgstr "For å konfigurere ringetider."
+
+#: src/EBox/Asterisk.pm:155
+msgid "To configure the voicemail."
+msgstr "For å konfigurere talepost."
+
+#: src/EBox/Asterisk.pm:160
+msgid "To configure the conferences."
+msgstr "For å konfigurere konferanser."
+
+#: src/EBox/Asterisk.pm:456
+msgid "General"
+msgstr "Generell"
+
+#: src/EBox/Asterisk.pm:460 src/EBox/Model/Meetings.pm:184
+msgid "Meetings"
+msgstr "Møter"
+
+#: src/EBox/Asterisk.pm:477
+msgid "Voicemail"
+msgstr "Talepost"
+
+#: src/EBox/Asterisk.pm:487 src/EBox/Asterisk.pm:574
+#, fuzzy
+msgid "User"
+msgstr "Brukernavn"
+
+#: src/EBox/Asterisk.pm:487
+#, fuzzy
+msgid "Address"
 msgstr "E-Post adresse"
 
-#: src/EBox/Model/Voicemail.pm:108
-msgid "Attach messages"
-msgstr "Legg ved meldinger"
+#: src/EBox/Asterisk.pm:487
+msgid "NAT"
+msgstr ""
 
-#: src/EBox/Model/Voicemail.pm:114
-msgid "Delete sent messages"
-msgstr "Slett sendte meldinger"
+#: src/EBox/Asterisk.pm:487
+msgid "Status"
+msgstr ""
 
-#: src/EBox/Model/Voicemail.pm:204
-msgid "Settings successfully updated"
-msgstr "Innstillinger oppdatert"
+#: src/EBox/Asterisk.pm:501 src/EBox/Asterisk.pm:583
+msgid "No users connected."
+msgstr ""
+
+#: src/EBox/Asterisk.pm:571
+#, perl-brace-format
+msgid "Room {name} active for {rtime}"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:574
+msgid "Time Connected"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:604
+msgid "VoIP Online Users"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:609
+msgid "VoIP Users in Meetings"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:114
+#: src/EBox/Model/Meetings.pm:123
+msgid "extension"
+msgstr "nummer"
+
+#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "Talepost nummer"
+
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "Aktiver test nummer"
+
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "Aktiver utgående samtaler"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "VoIP domene"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "Generell konfigurasjon"
+
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "Generell Asterisk server konfigurasjon"
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated"
+msgstr "Generell Asterisk server konfigurasjon oppdatert"
+
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net},are always "
+"considered local networks so it is not neccesary to add them"
+msgstr ""
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Lokalt nettverk"
+
+#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:173
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Lokale nettverk"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "lokalt nettverk"
 
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
@@ -74,71 +197,33 @@ msgstr "SIP leverandør for utgående samtaler konfigurasjon"
 msgid "SIP provider configuration updated"
 msgstr "SIP leverandør konfigurasjon oppdatert"
 
-#: src/EBox/Model/Meetings.pm:91
-msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
-msgstr "Du må installere dahdi-linux og dahdi-tools pakkene for å bruke Møter."
+#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
+msgid "Voicemail settings"
+msgstr "Talepost instillinger"
 
-#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
-#: src/EBox/Model/Settings.pm:84
-msgid "extension"
-msgstr "nummer"
+#: src/EBox/Model/Voicemail.pm:94
+msgid "New password"
+msgstr "Nytt passord"
 
-#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
-#: src/templates/asterisk.mas:34
-msgid "Extension"
-msgstr "Nummer"
+#: src/EBox/Model/Voicemail.pm:101
+msgid "Mail address"
+msgstr "E-Post adresse"
 
-#: src/EBox/Model/Meetings.pm:149
-#, perl-brace-format
-msgid "A number between {min} and {max}"
-msgstr "Et nummer mellom {min} og {max}"
+#: src/EBox/Model/Voicemail.pm:108
+msgid "Attach messages"
+msgstr "Legg ved meldinger"
 
-#: src/EBox/Model/Meetings.pm:173
-msgid "Administrator password"
-msgstr "Administrator passord"
+#: src/EBox/Model/Voicemail.pm:114
+msgid "Delete sent messages"
+msgstr "Slett sendte meldinger"
 
-#: src/EBox/Model/Meetings.pm:181 src/EBox/Model/Localnets.pm:117
-msgid "Description"
-msgstr "Beskrivelse"
-
-#: src/EBox/Model/Meetings.pm:192 src/EBox/Asterisk.pm:455
-msgid "Meetings"
-msgstr "Møter"
-
-#: src/EBox/Model/Meetings.pm:193
-msgid "meeting"
-msgstr "møte"
-
-#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "Talepost nummer"
-
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "Aktiver test nummer"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "Aktiver utgående samtaler"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "VoIP domene"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "Generell konfigurasjon"
-
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "Generell Asterisk server konfigurasjon"
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated"
-msgstr "Generell Asterisk server konfigurasjon oppdatert"
+#: src/EBox/Model/Voicemail.pm:204
+msgid "Settings successfully updated"
+msgstr "Innstillinger oppdatert"
 
 #: src/EBox/Model/NAT.pm:96
-msgid "Asterisk is behind NAT"
+#, fuzzy
+msgid "eBox is behind NAT"
 msgstr "Asterisk er bak NAT"
 
 #: src/EBox/Model/NAT.pm:101
@@ -157,17 +242,27 @@ msgstr "NAT Asterisk server konfigurering"
 msgid "NAT Asterisk server configuration updated"
 msgstr "NAT Asterisk server konfigurasjon oppdatert"
 
-#: src/EBox/Model/Localnets.pm:87 src/EBox/Model/Localnets.pm:129
-msgid "local network"
-msgstr "lokalt nettverk"
+#: src/EBox/Model/Meetings.pm:91
+msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
+msgstr "Du må installere dahdi-linux og dahdi-tools pakkene for å bruke Møter."
 
-#: src/EBox/Model/Localnets.pm:111
-msgid "Local network"
-msgstr "Lokalt nettverk"
+#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
+#: src/templates/asterisk.mas:34
+msgid "Extension"
+msgstr "Nummer"
 
-#: src/EBox/Model/Localnets.pm:128
-msgid "Local networks"
-msgstr "Lokale nettverk"
+#: src/EBox/Model/Meetings.pm:149
+#, perl-brace-format
+msgid "A number between {min} and {max}"
+msgstr "Et nummer mellom {min} og {max}"
+
+#: src/EBox/Model/Meetings.pm:185
+msgid "meeting"
+msgstr "møte"
+
+#: src/EBox/Asterisk/Extensions.pm:208
+msgid "User's extension"
+msgstr "Brukers nummer"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
@@ -176,66 +271,6 @@ msgstr "brukernavn"
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk modul"
-
-#: src/EBox/Asterisk/Extensions.pm:208
-msgid "User's extension"
-msgstr "Brukers nummer"
-
-#: src/EBox/Asterisk.pm:64 src/EBox/Asterisk.pm:445
-msgid "Asterisk"
-msgstr "Asterisk"
-
-#: src/EBox/Asterisk.pm:118
-msgid "To configure enabled and disabled modules."
-msgstr "For å konfigurere aktiverte og deaktiverte moduler."
-
-#: src/EBox/Asterisk.pm:123
-msgid "To configure the Realtime interface."
-msgstr "For å konfigurere Sanntids grensesnittet."
-
-#: src/EBox/Asterisk.pm:128
-msgid "To configure the LDAP Realtime driver."
-msgstr "For å konfigurere LDAP Sanntids driver."
-
-#: src/EBox/Asterisk.pm:133
-msgid "To configure the common SIP and IAX users."
-msgstr "For å konfigurere vanlige SIP og IAX brukere."
-
-#: src/EBox/Asterisk.pm:138
-msgid "To configure the SIP trunk for local users and external providers."
-msgstr "For å konfigurere SIP trunk for lokale og eksterne leverandører."
-
-#: src/EBox/Asterisk.pm:143
-msgid "To configure the RTP port ranges."
-msgstr "For å konfigurere RTP port rekker."
-
-#: src/EBox/Asterisk.pm:148
-msgid "To configure the dialplan."
-msgstr "For å konfigurere ringetider."
-
-#: src/EBox/Asterisk.pm:153
-msgid "To configure the voicemail."
-msgstr "For å konfigurere talepost."
-
-#: src/EBox/Asterisk.pm:158
-msgid "To configure the conferences."
-msgstr "For å konfigurere konferanser."
-
-#: src/EBox/Asterisk.pm:163
-msgid "To add the Asterisk schema and ACLs."
-msgstr "For å legge til Asterisk schema og ACLs."
-
-#: src/EBox/Asterisk.pm:446
-msgid "Communications"
-msgstr "Kommunikasjon"
-
-#: src/EBox/Asterisk.pm:451
-msgid "General"
-msgstr "Generell"
-
-#: src/EBox/Asterisk.pm:472
-msgid "Voicemail"
-msgstr "Talepost"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox VoIP system"
@@ -264,3 +299,15 @@ msgstr "Aktivert"
 #: src/templates/asterisk.mas:45 src/templates/asterisk.mas:46
 msgid "Change"
 msgstr "Endre"
+
+#~ msgid "Administrator password"
+#~ msgstr "Administrator passord"
+
+#~ msgid "Asterisk"
+#~ msgstr "Asterisk"
+
+#~ msgid "To add the Asterisk schema and ACLs."
+#~ msgstr "For å legge til Asterisk schema og ACLs."
+
+#~ msgid "Communications"
+#~ msgstr "Kommunikasjon"

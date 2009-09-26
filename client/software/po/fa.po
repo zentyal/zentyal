@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.100Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:17+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2009-02-10 18:49+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,71 +16,54 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CGI/InstallPkgs.pm:84
-msgid "There were no packages to update"
-msgstr "بسته‌هایی برای به‌روزرسانی باقی نمانده است"
+#: src/EBox/Software.pm:53
+#, fuzzy
+msgid "Software Management"
+msgstr "مدیریت نرم‌افزار"
 
-#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "ارتقا"
+#: src/EBox/Software.pm:77
+msgid "Enable cron script to download updates"
+msgstr "فعال‌سازی اسکریپت‌های کرون برای دانلود به‌روزرسانی‌ها"
 
-#: src/EBox/CGI/InstallPkgs.pm:146
-msgid "Upgrading packages"
-msgstr "بسته‌های ارتقا"
-
-#: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
-msgid "Current package"
-msgstr "بسته کنونی"
-
-#: src/EBox/CGI/InstallPkgs.pm:148
-msgid "packages left to install"
-msgstr "بسته‌های باقیمانده برای نصب"
-
-#: src/EBox/CGI/InstallPkgs.pm:149
+#: src/EBox/Software.pm:78
 msgid ""
-"The packages installation has finished successfully. The administration "
-"interface may become unresponsive for a few seconds. Please wait patiently "
-"until the system has been fully restarted"
+"eBox software will download the available updates from your configured apt "
+"sources. "
 msgstr ""
-"نصب بسته‌ها باموفقیت خاتمه یافت. رابط مدیریت ممکن است برای چند لحظه پاسخگو "
-"نباشد. لطفا تا زمانیکه سامانه کاملا راه‌اندازی مجدد شود صبر نمایید"
+"نرم‌افزار ای‌باکس به‌روزرسانی‌ها را از مخازن پیکربندی apt شما دانلود می‌کند."
 
-#: src/EBox/CGI/InstallPkgs.pm:153
+#: src/EBox/Software.pm:153 src/EBox/Software.pm:356
 msgid ""
-"The packages installation has not finished correctly . More information on "
-"the logs"
-msgstr "نصب بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت‌شده"
-
-#: src/EBox/CGI/InstallPkgs.pm:165
-msgid "Removing package"
-msgstr "حذف بسته"
-
-#: src/EBox/CGI/InstallPkgs.pm:166
-msgid "Removing the selected package and its dependent packages"
-msgstr "حذف بسته انتخاب شده و بسته‌های وابسته آن"
-
-#: src/EBox/CGI/InstallPkgs.pm:168
-msgid "packages left to remove"
-msgstr "بسته‌های باقیمانده برای حذف"
-
-#: src/EBox/CGI/InstallPkgs.pm:169
-msgid ""
-"The packages removal has finished successfully. The administration interface "
-"may become unresponsive for a few seconds. Please wait patiently until the "
-"system has been fully restarted"
+"The software management module must be enabled to be able to install packages"
 msgstr ""
-"حذف بسته‌ها باموفقیت خاتمه یافت. رابط مدیریت ممکن است برای چند لحظه پاسخگو "
-"نباشد. لطفا تا زمانیکه سامانه کاملا راه‌اندازی مجدد شود صبر نمایید"
 
-#: src/EBox/CGI/InstallPkgs.pm:173
+#: src/EBox/Software.pm:197 src/EBox/Software.pm:390
 msgid ""
-"The packages removal has not finished correctly . More information on the "
-"logs"
-msgstr "حذف بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت شده"
+"The software management module must be enabled to be able to remove packages"
+msgstr ""
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "به‌روزرسانی‌های خودکار نرم‌افزار"
+#: src/EBox/Software.pm:500
+#, fuzzy
+msgid "eBox Components"
+msgstr "مولفه‌های ای‌باکس"
+
+#: src/EBox/Software.pm:502
+#, fuzzy
+msgid "System Updates"
+msgstr "به‌روزرسانی‌های سامانه"
+
+#: src/EBox/Software.pm:504
+#, fuzzy
+msgid "Automatic Updates"
+msgstr "به‌روزرسانی‌های خودکار"
+
+#: src/EBox/Software.pm:595
+#, perl-brace-format
+msgid ""
+"Software management is currently  locked by {locker}. Please, try again later"
+msgstr ""
+"مدیریت نرم‌افزار هم‌اکنون توسط {locker} قفل شده است. لطفا، بعدا مجددا تلاش "
+"نمایید"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
@@ -94,177 +77,83 @@ msgstr "به‌روزرسانی‌های نرم‌افزاری به‌صورت �
 msgid "The system is up to date"
 msgstr "سامانه به‌روز است"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "پیکربندی به‌روزرسانی‌های خودکار"
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "به‌روزرسانی‌های خودکار نرم‌افزار"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
 msgstr "مولفه‌های ای‌باکس"
 
-#: src/EBox/Software.pm:76
-msgid "Enable cron script to download updates"
-msgstr "فعال‌سازی اسکریپت‌های کرون برای دانلود به‌روزرسانی‌ها"
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
+msgid "Upgrading"
+msgstr "ارتقا"
 
-#: src/EBox/Software.pm:77
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "پیکربندی به‌روزرسانی‌های خودکار"
+
+#: src/EBox/CGI/InstallPkgs.pm:84
+msgid "There were no packages to update"
+msgstr "بسته‌هایی برای به‌روزرسانی باقی نمانده است"
+
+#: src/EBox/CGI/InstallPkgs.pm:149
+msgid "Upgrading packages"
+msgstr "بسته‌های ارتقا"
+
+#: src/EBox/CGI/InstallPkgs.pm:150 src/EBox/CGI/InstallPkgs.pm:170
+msgid "Current package"
+msgstr "بسته کنونی"
+
+#: src/EBox/CGI/InstallPkgs.pm:151
+msgid "packages left to install"
+msgstr "بسته‌های باقیمانده برای نصب"
+
+#: src/EBox/CGI/InstallPkgs.pm:152
 msgid ""
-"eBox software will download the available updates from your configured apt "
-"sources. "
+"The packages installation has finished successfully. The administration "
+"interface may become unresponsive for a few seconds. Please wait patiently "
+"until the system has been fully restarted"
 msgstr ""
-"نرم‌افزار ای‌باکس به‌روزرسانی‌ها را از مخازن پیکربندی apt شما دانلود می‌کند."
+"نصب بسته‌ها باموفقیت خاتمه یافت. رابط مدیریت ممکن است برای چند لحظه پاسخگو "
+"نباشد. لطفا تا زمانیکه سامانه کاملا راه‌اندازی مجدد شود صبر نمایید"
 
-#: src/EBox/Software.pm:473
-#, fuzzy
-msgid "Software Management"
-msgstr "مدیریت نرم‌افزار"
-
-#: src/EBox/Software.pm:477
-#, fuzzy
-msgid "eBox Components"
-msgstr "مولفه‌های ای‌باکس"
-
-#: src/EBox/Software.pm:479
-#, fuzzy
-msgid "System Updates"
-msgstr "به‌روزرسانی‌های سامانه"
-
-#: src/EBox/Software.pm:481
-#, fuzzy
-msgid "Automatic Updates"
-msgstr "به‌روزرسانی‌های خودکار"
-
-#: src/EBox/Software.pm:572
-#, perl-brace-format
+#: src/EBox/CGI/InstallPkgs.pm:156
 msgid ""
-"Software management is currently  locked by {locker}. Please, try again later"
+"The packages installation has not finished correctly . More information on "
+"the logs"
+msgstr "نصب بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت‌شده"
+
+#: src/EBox/CGI/InstallPkgs.pm:168
+msgid "Removing package"
+msgstr "حذف بسته"
+
+#: src/EBox/CGI/InstallPkgs.pm:169
+msgid "Removing the selected package and its dependent packages"
+msgstr "حذف بسته انتخاب شده و بسته‌های وابسته آن"
+
+#: src/EBox/CGI/InstallPkgs.pm:171
+msgid "packages left to remove"
+msgstr "بسته‌های باقیمانده برای حذف"
+
+#: src/EBox/CGI/InstallPkgs.pm:172
+msgid ""
+"The packages removal has finished successfully. The administration interface "
+"may become unresponsive for a few seconds. Please wait patiently until the "
+"system has been fully restarted"
 msgstr ""
-"مدیریت نرم‌افزار هم‌اکنون توسط {locker} قفل شده است. لطفا، بعدا مجددا تلاش "
-"نمایید"
+"حذف بسته‌ها باموفقیت خاتمه یافت. رابط مدیریت ممکن است برای چند لحظه پاسخگو "
+"نباشد. لطفا تا زمانیکه سامانه کاملا راه‌اندازی مجدد شود صبر نمایید"
+
+#: src/EBox/CGI/InstallPkgs.pm:176
+msgid ""
+"The packages removal has not finished correctly . More information on the "
+"logs"
+msgstr "حذف بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت شده"
 
 #: src/EBox/PackageDescriptions.pm:1
-#, fuzzy
-msgid "eBox - Antivirus module"
-msgstr "ای‌باکس - ماجول فیلتر نامه"
-
-#: src/EBox/PackageDescriptions.pm:2
-#, fuzzy
-msgid "eBox - Asterisk"
-msgstr "ای‌باکس - سرور DNS"
-
-#: src/EBox/PackageDescriptions.pm:3
-msgid "eBox - Certificate Authority Manager for eBox"
-msgstr "ای‌باکس - مدیر صدور گواهینامه برای ای‌باکس"
-
-#: src/EBox/PackageDescriptions.pm:4
-#, fuzzy
-msgid "eBox - captive portal module"
-msgstr "ای‌باکس - ماجول فیلتر نامه"
-
-#: src/EBox/PackageDescriptions.pm:5
-msgid "eBox - DHCP server module"
-msgstr "ای‌باکس - ماجول سرور DHCP"
-
-#: src/EBox/PackageDescriptions.pm:6
-msgid "eBox - DNS server"
-msgstr "ای‌باکس - سرور DNS"
-
-#: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Backup"
 msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:8
-msgid "the eBox platform - Base framework"
-msgstr "پلتفرم ای‌باکس - چارچوب پایه"
-
-#: src/EBox/PackageDescriptions.pm:9
-#, fuzzy
-msgid "eBox - eGroupware"
-msgstr "ای‌باکس - دیواره آتش"
-
-#: src/EBox/PackageDescriptions.pm:10
-msgid "eBox - Firewall"
-msgstr "ای‌باکس - دیواره آتش"
-
-#: src/EBox/PackageDescriptions.pm:11
-msgid "eBox - Intrusion Detection System"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:12
-#, fuzzy
-msgid "eBox - Instant messaging proxy"
-msgstr "ای‌باکس - پیام‌رسانی لحظه‌ای (Jabber)"
-
-#: src/EBox/PackageDescriptions.pm:13
-msgid "eBox - Instant messaging (Jabber)"
-msgstr "ای‌باکس - پیام‌رسانی لحظه‌ای (Jabber)"
-
-#: src/EBox/PackageDescriptions.pm:14
-msgid "eBox - layer 7 protocols"
-msgstr "ای‌باکس - پروتکل‌های لایه ۷"
-
-#: src/EBox/PackageDescriptions.pm:15
-msgid "eBox - Mail server"
-msgstr "ای‌باکس - سرور نامه"
-
-#: src/EBox/PackageDescriptions.pm:16
-msgid "eBox - Mail filter module"
-msgstr "ای‌باکس - ماجول فیلتر نامه"
-
-#: src/EBox/PackageDescriptions.pm:17
-msgid "eBox - Monitoring module  "
-msgstr "ای‌باکس - ماجول دیده‌بانی"
-
-#: src/EBox/PackageDescriptions.pm:18
-msgid "eBox - Network configuration module"
-msgstr "ای‌باکس - ماجول پیکربندی شبکه"
-
-#: src/EBox/PackageDescriptions.pm:19
-msgid "eBox - NTP server"
-msgstr "ای‌باکس - سرور NTP"
-
-#: src/EBox/PackageDescriptions.pm:20
-msgid "eBox - Object management"
-msgstr "ای‌باکس - مدیریت شی"
-
-#: src/EBox/PackageDescriptions.pm:21
-msgid "eBox - OpenVPN server module"
-msgstr "ای‌باکس - ماجول سرور OpenVPN"
-
-#: src/EBox/PackageDescriptions.pm:22
-msgid "eBox - Printer sharing"
-msgstr "ای‌باکس - اشتراک‌گذاری چاپگر"
-
-#: src/EBox/PackageDescriptions.pm:23
-msgid "eBox - client for remote services   "
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:24
-msgid "eBox - File sharing"
-msgstr "ای‌باکس - اشتراک‌گذاری فایل"
-
-#: src/EBox/PackageDescriptions.pm:25
-msgid "eBox - Services management"
-msgstr "ای‌باکس - مدیریت سرویس"
-
-#: src/EBox/PackageDescriptions.pm:26
-msgid "eBox - Software management"
-msgstr "ای‌باکس - مدیریت نرم‌افزار"
-
-#: src/EBox/PackageDescriptions.pm:27
-msgid "eBox - Proxy cache and content filter"
-msgstr "ای‌باکس - کش پروکسی و فیلتر محتوا"
-
-#: src/EBox/PackageDescriptions.pm:28
-msgid "eBox - Traffic shaper for eBox"
-msgstr "ای‌باکس - شکل‌دهنده ترافیک برای ای‌باکس"
-
-#: src/EBox/PackageDescriptions.pm:29
-msgid "eBox - User and Group management"
-msgstr "ای‌باکس - مدیریت کاربر و گروه"
-
-#: src/EBox/PackageDescriptions.pm:30
-msgid "eBox - Web Server"
-msgstr "ای‌باکس - سرور وب"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
@@ -310,11 +199,11 @@ msgstr "توضیح"
 msgid "Version"
 msgstr "نسخه"
 
-#: src/templates/updates.mas:19 src/templates/ebox.mas:27
+#: src/templates/updates.mas:19 src/templates/ebox.mas:28
 msgid "Update"
 msgstr "به‌روزرسانی"
 
-#: src/templates/updates.mas:53 src/templates/ebox.mas:74
+#: src/templates/updates.mas:53 src/templates/ebox.mas:75
 msgid "Update all packages"
 msgstr "به‌روزرسانی "
 
@@ -342,17 +231,103 @@ msgstr "آخرین نسخه"
 msgid "Actions"
 msgstr "اقدامات"
 
-#: src/templates/ebox.mas:33
+#: src/templates/ebox.mas:34
 msgid "Install"
 msgstr "نصب"
 
-#: src/templates/ebox.mas:35
+#: src/templates/ebox.mas:36
 msgid "none"
 msgstr "هیچ کدام"
 
-#: src/templates/ebox.mas:57
+#: src/templates/ebox.mas:58
 msgid "Remove"
 msgstr "حذف"
+
+#, fuzzy
+#~ msgid "eBox - Antivirus module"
+#~ msgstr "ای‌باکس - ماجول فیلتر نامه"
+
+#, fuzzy
+#~ msgid "eBox - Asterisk"
+#~ msgstr "ای‌باکس - سرور DNS"
+
+#~ msgid "eBox - Certificate Authority Manager for eBox"
+#~ msgstr "ای‌باکس - مدیر صدور گواهینامه برای ای‌باکس"
+
+#, fuzzy
+#~ msgid "eBox - captive portal module"
+#~ msgstr "ای‌باکس - ماجول فیلتر نامه"
+
+#~ msgid "eBox - DHCP server module"
+#~ msgstr "ای‌باکس - ماجول سرور DHCP"
+
+#~ msgid "eBox - DNS server"
+#~ msgstr "ای‌باکس - سرور DNS"
+
+#~ msgid "the eBox platform - Base framework"
+#~ msgstr "پلتفرم ای‌باکس - چارچوب پایه"
+
+#, fuzzy
+#~ msgid "eBox - eGroupware"
+#~ msgstr "ای‌باکس - دیواره آتش"
+
+#~ msgid "eBox - Firewall"
+#~ msgstr "ای‌باکس - دیواره آتش"
+
+#, fuzzy
+#~ msgid "eBox - Instant messaging proxy"
+#~ msgstr "ای‌باکس - پیام‌رسانی لحظه‌ای (Jabber)"
+
+#~ msgid "eBox - Instant messaging (Jabber)"
+#~ msgstr "ای‌باکس - پیام‌رسانی لحظه‌ای (Jabber)"
+
+#~ msgid "eBox - layer 7 protocols"
+#~ msgstr "ای‌باکس - پروتکل‌های لایه ۷"
+
+#~ msgid "eBox - Mail server"
+#~ msgstr "ای‌باکس - سرور نامه"
+
+#~ msgid "eBox - Mail filter module"
+#~ msgstr "ای‌باکس - ماجول فیلتر نامه"
+
+#~ msgid "eBox - Monitoring module  "
+#~ msgstr "ای‌باکس - ماجول دیده‌بانی"
+
+#~ msgid "eBox - Network configuration module"
+#~ msgstr "ای‌باکس - ماجول پیکربندی شبکه"
+
+#~ msgid "eBox - NTP server"
+#~ msgstr "ای‌باکس - سرور NTP"
+
+#~ msgid "eBox - Object management"
+#~ msgstr "ای‌باکس - مدیریت شی"
+
+#~ msgid "eBox - OpenVPN server module"
+#~ msgstr "ای‌باکس - ماجول سرور OpenVPN"
+
+#~ msgid "eBox - Printer sharing"
+#~ msgstr "ای‌باکس - اشتراک‌گذاری چاپگر"
+
+#~ msgid "eBox - File sharing"
+#~ msgstr "ای‌باکس - اشتراک‌گذاری فایل"
+
+#~ msgid "eBox - Services management"
+#~ msgstr "ای‌باکس - مدیریت سرویس"
+
+#~ msgid "eBox - Software management"
+#~ msgstr "ای‌باکس - مدیریت نرم‌افزار"
+
+#~ msgid "eBox - Proxy cache and content filter"
+#~ msgstr "ای‌باکس - کش پروکسی و فیلتر محتوا"
+
+#~ msgid "eBox - Traffic shaper for eBox"
+#~ msgstr "ای‌باکس - شکل‌دهنده ترافیک برای ای‌باکس"
+
+#~ msgid "eBox - User and Group management"
+#~ msgstr "ای‌باکس - مدیریت کاربر و گروه"
+
+#~ msgid "eBox - Web Server"
+#~ msgstr "ای‌باکس - سرور وب"
 
 #~ msgid "IPsec VPNs"
 #~ msgstr "وی پی ان‌ های IPsec"

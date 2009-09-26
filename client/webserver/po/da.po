@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:19+0200\n"
+"POT-Creation-Date: 2009-09-26 19:42+0100\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,60 +17,33 @@ msgstr ""
 "es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:92
-msgid "Virtual host's name"
+#: src/EBox/WebServer.pm:77
+msgid "Web Server"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:142
+#: src/EBox/WebServer.pm:96
+msgid "To set webserver listening port"
+msgstr ""
+
+#: src/EBox/WebServer.pm:101
+msgid "To configure the per-user public HTML directory"
+msgstr ""
+
+#: src/EBox/WebServer.pm:128
+msgid "Enable apache LDAP user module"
+msgstr ""
+
+#: src/EBox/WebServer.pm:130
+msgid "To fetch home directories from LDAP"
+msgstr ""
+
+#: src/EBox/WebServer.pm:171
+msgid "Web service status"
+msgstr ""
+
+#: src/EBox/WebServer.pm:348
 #, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the "
-"mapping name {name} - IP address {ip} "
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:160
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
-"added to {domain} domain"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:174
-#, perl-brace-format
-msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:180
-#: src/EBox/WebServer/Model/VHostTable.pm:185
-#, perl-brace-format
-msgid "Virtual host {vhost} added"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:190
-msgid "There is no static internal interface to set the Web server IP address"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:216
-msgid "Name"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:226
-msgid "Virtual hosts"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:230
-#, perl-brace-format
-msgid ""
-"Virtual hosts are a form of web hosting service where many instances of the "
-"same web server is hosted on a single physical server. Different host names "
-"will point to the same web server. The DNS entry is automatically created if "
-"this is possible. The content must be placed under {docRoot} directory. Any "
-"particular configuration you want to add must be placed at {userConf} "
-"directory"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:240
-msgid "virtual host"
+msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
@@ -109,6 +82,82 @@ msgstr ""
 msgid "General Web server configuration settings updated"
 msgstr ""
 
+#: src/EBox/WebServer/Model/VHostTable.pm:93
+#: src/EBox/WebServer/Model/VHostTable.pm:98
+#: src/EBox/WebServer/Model/VHostTable.pm:104
+msgid "Virtual host's name"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:100
+msgid "The virtual host name supplied is a top domain name"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:107
+#, perl-brace-format
+msgid ""
+"The virtual host name supplied is a domain name (Maybe you want instead "
+"{url}?)."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:162
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A domain {domain} has been created with the "
+"mapping name {name} - IP address {ip}. {noDnsWarning} "
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:181
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
+"added to {domain} domain"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:195
+#, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:201
+#: src/EBox/WebServer/Model/VHostTable.pm:206
+#, perl-brace-format
+msgid "Virtual host {vhost} added"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:211
+msgid "There is no static internal interface to set the Web server IP address"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:237
+msgid "Name"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:247
+msgid "Virtual hosts"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:251
+#, perl-brace-format
+msgid ""
+"Virtual hosts are a form of web hosting service where many instances of the "
+"same web server is hosted on a single physical server. Different host names "
+"will point to the same web server. The DNS entry is automatically created if "
+"this is possible. The content must be placed under {docRoot} directory. Any "
+"particular configuration you want to add must be placed at {userConf} "
+"directory"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:261
+msgid "virtual host"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:283
+#, perl-brace-format
+msgid ""
+"{open}The DNS module is disabled. The added mapping or domains will not have "
+"any effect until you enable it"
+msgstr ""
+
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"
 msgstr ""
@@ -117,39 +166,6 @@ msgstr ""
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
-msgstr ""
-
-#: src/EBox/WebServer.pm:96
-msgid "To set webserver listening port"
-msgstr ""
-
-#: src/EBox/WebServer.pm:101
-msgid "To configure the per-user public HTML directory"
-msgstr ""
-
-#: src/EBox/WebServer.pm:128
-msgid "Enable apache LDAP user module"
-msgstr ""
-
-#: src/EBox/WebServer.pm:130
-msgid "To fetch home directories from LDAP"
-msgstr ""
-
-#: src/EBox/WebServer.pm:149
-msgid "Web"
-msgstr ""
-
-#: src/EBox/WebServer.pm:150
-msgid "Infrastructure"
-msgstr ""
-
-#: src/EBox/WebServer.pm:171
-msgid "Web service status"
-msgstr ""
-
-#: src/EBox/WebServer.pm:348
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr ""
 
 #: migration/0001_add_service_and_port.pl:147

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:10+0200\n"
-"PO-Revision-Date: 2009-07-19 14:21+0200\n"
+"POT-Creation-Date: 2009-09-26 19:33+0100\n"
+"PO-Revision-Date: 2009-09-26 19:34+0100\n"
 "Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,163 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
+#: src/EBox/Monitor.pm:164
+msgid "Monitor"
+msgstr "Övervakare"
+
+#: src/EBox/Event/Watcher/Monitor.pm:162
+msgid "Notify when a certain value has reached a certain threshold"
+msgstr "Meddela när ett angivet mätvärde har uppnått ett angivet gränsvärde."
+
+#: src/EBox/Event/Watcher/Monitor.pm:302
+#, perl-brace-format
+msgid "{what} \"{dS}\" is currently {value}."
+msgstr "{what} \"{dS}\" är ett angivet {value}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:308
+#, perl-brace-format
+msgid "That is within the {severity} region of {minBound} and {maxBound}."
+msgstr ""
+
+#: src/EBox/Event/Watcher/Monitor.pm:315
+#, perl-brace-format
+msgid "That is above the {severity} threshold of {bound}."
+msgstr ""
+
+#: src/EBox/Event/Watcher/Monitor.pm:318
+#, perl-brace-format
+msgid "That is below the {severity} threshold of {bound}."
+msgstr ""
+
+#: src/EBox/Monitor.pm:133
+msgid "Collectd main configuration file"
+msgstr "Collectd huvudkonfigurationsfil"
+
+#: src/EBox/Monitor.pm:137
+msgid "Collectd threshold configuration file"
+msgstr "Collectd konfigurationsfil för tröskelvärde"
+
+#: src/EBox/CGI/Index.pm:44
+msgid "Monitoring"
+msgstr "Övervakning"
+
+#: src/EBox/CGI/Index.pm:70
+#, perl-brace-format
+msgid ""
+"You must enable monitor module to see monitor graphs in {openhref}Module "
+"Status section{closehref}"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:99
+#, perl-brace-format
+msgid ""
+"You must save the changes in module status to see monitor graphs in the "
+"{openhref}Save changes{closehref} section. In case it is already enabled you "
+"must wait for a few seconds to collect the first monitor data"
+msgstr ""
+
+#: src/EBox/Monitor/Measure/Thermal.pm:104
+#: src/EBox/Monitor/Measure/Thermal.pm:110
+msgid "temperature"
+msgstr "temperatur"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:117
+msgid "cooling device"
+msgstr "kylningsutrustning"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:119
+msgid "sensor"
+msgstr "avkännare"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:121
+#, perl-brace-format
+msgid "Temperature for {what}"
+msgstr "Temperatur i {what}"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:127
+msgid "Thermal"
+msgstr "Termisk"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:128
+#, perl-brace-format
+msgid ""
+"Collect thermal information (CPU sensors temperature) if possible from {dir}"
+msgstr ""
+"Samla in temperaturinformation (avkännare för CPU-temperatur) från {dir} om "
+"möjligt."
+
+#: src/EBox/Monitor/Measure/Df.pm:76
+#, perl-brace-format
+msgid "used in {partition}"
+msgstr "använt i {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:78
+#, perl-brace-format
+msgid "free in {partition}"
+msgstr "ledigt i {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:83
+msgid "File system usage"
+msgstr "Fyllnadsgrad i filsystemet"
+
+#: src/EBox/Monitor/Measure/Df.pm:84
+msgid ""
+"Collect the mounted file system usage information as \"df\" command does"
+msgstr ""
+"Samla in fyllnadsgraden i monterade filsystem som kommandot \"df\" gör det."
+
+#: src/EBox/Monitor/Measure/Load.pm:55
+msgid "System load"
+msgstr "Systembelastning"
+
+#: src/EBox/Monitor/Measure/Load.pm:56
+msgid "Collect the system load that gives a rough overview of the system usage"
+msgstr ""
+"Samla in systembelastningen som ger dig en grov översikt över "
+"systemanvändningen"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "short term"
+msgstr "kortsiktig"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "mid term"
+msgstr "medellång sikt"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "long term"
+msgstr "långsiktigt"
+
+#: src/EBox/Monitor/Measure/Base.pm:621
+msgid "value"
+msgstr "värde"
+
+#: src/EBox/Monitor/Measure/Memory.pm:55
+msgid "Physical memory usage"
+msgstr "Användning av fysiskt minne"
+
+#: src/EBox/Monitor/Measure/Memory.pm:56
+#, fuzzy
+msgid "Collect the physical memory usage"
+msgstr "Samla in användningen av fysiskt minne."
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "free"
+msgstr "ledigt"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "page cache"
+msgstr "mellanlagring av minnessidor"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "buffer cache"
+msgstr "buffermellanlagring"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "used"
+msgstr "använt"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
@@ -68,107 +225,6 @@ msgstr "system"
 #: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
 msgstr "vänta"
-
-#: src/EBox/Monitor/Measure/Base.pm:621
-msgid "value"
-msgstr "värde"
-
-#: src/EBox/Monitor/Measure/Load.pm:55
-msgid "System load"
-msgstr "Systembelastning"
-
-#: src/EBox/Monitor/Measure/Load.pm:56
-msgid "Collect the system load that gives a rough overview of the system usage"
-msgstr ""
-"Samla in systembelastningen som ger dig en grov översikt över "
-"systemanvändningen"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "short term"
-msgstr "kortsiktig"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "mid term"
-msgstr "medellång sikt"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "long term"
-msgstr "långsiktigt"
-
-#: src/EBox/Monitor/Measure/Memory.pm:55
-msgid "Physical memory usage"
-msgstr "Användning av fysiskt minne"
-
-#: src/EBox/Monitor/Measure/Memory.pm:56
-#, fuzzy
-msgid "Collect the physical memory usage"
-msgstr "Samla in användningen av fysiskt minne."
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "free"
-msgstr "ledigt"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "page cache"
-msgstr "mellanlagring av minnessidor"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "buffer cache"
-msgstr "buffermellanlagring"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "used"
-msgstr "använt"
-
-#: src/EBox/Monitor/Measure/Df.pm:76
-#, perl-brace-format
-msgid "free in {partition}"
-msgstr "ledigt i {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:78
-#, perl-brace-format
-msgid "used in {partition}"
-msgstr "använt i {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:83
-msgid "File system usage"
-msgstr "Fyllnadsgrad i filsystemet"
-
-#: src/EBox/Monitor/Measure/Df.pm:84
-msgid ""
-"Collect the mounted file system usage information as \"df\" command does"
-msgstr ""
-"Samla in fyllnadsgraden i monterade filsystem som kommandot \"df\" gör det."
-
-#: src/EBox/Monitor/Measure/Thermal.pm:104
-#: src/EBox/Monitor/Measure/Thermal.pm:110
-msgid "temperature"
-msgstr "temperatur"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:117
-msgid "cooling device"
-msgstr "kylningsutrustning"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:119
-msgid "sensor"
-msgstr "avkännare"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:121
-#, perl-brace-format
-msgid "Temperature for {what}"
-msgstr "Temperatur i {what}"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:127
-msgid "Thermal"
-msgstr "Termisk"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:128
-#, perl-brace-format
-msgid ""
-"Collect thermal information (CPU sensors temperature) if possible from {dir}"
-msgstr ""
-"Samla in temperaturinformation (avkännare för CPU-temperatur) från {dir} om "
-"möjligt."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
@@ -225,8 +281,7 @@ msgid "Warning maximum"
 msgstr "Varning för maximum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
@@ -257,8 +312,7 @@ msgid "Invert"
 msgstr "Invertera"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
@@ -344,17 +398,6 @@ msgstr "mätvärde"
 msgid "Every measure may have several thresholds to monitor"
 msgstr "Varje mätvärde kan ha flera övervakade gränsvärden"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:133
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:147
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:157
-msgid "not applicable"
-msgstr "inte tillämplig"
-
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:135
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:145
-msgid "any"
-msgstr "alla"
-
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
 msgstr "Senaste timmen"
@@ -371,43 +414,13 @@ msgstr "Senaste månaden"
 msgid "Last year"
 msgstr "Senaste året"
 
-#: src/EBox/CGI/Index.pm:41 src/EBox/Monitor.pm:165
-msgid "Monitoring"
-msgstr "Övervakning"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:133
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:147
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:157
+msgid "not applicable"
+msgstr "inte tillämplig"
 
-#: src/EBox/Monitor.pm:72 src/EBox/Monitor.pm:164
-#: src/EBox/Event/Watcher/Monitor.pm:145
-msgid "Monitor"
-msgstr "Övervakare"
-
-#: src/EBox/Monitor.pm:133
-msgid "Collectd main configuration file"
-msgstr "Collectd huvudkonfigurationsfil"
-
-#: src/EBox/Monitor.pm:137
-msgid "Collectd threshold configuration file"
-msgstr "Collectd konfigurationsfil för tröskelvärde"
-
-#: src/EBox/Event/Watcher/Monitor.pm:162
-msgid "Notify when a certain value has reached a certain threshold"
-msgstr "Meddela när ett angivet mätvärde har uppnått ett angivet gränsvärde."
-
-#: src/EBox/Event/Watcher/Monitor.pm:302
-#, perl-brace-format
-msgid "{what} \"{dS}\" is currently {value}."
-msgstr "{what} \"{dS}\" är ett angivet {värde}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:308
-#, perl-brace-format
-msgid "That is within the {severity} region of {minBound} and {maxBound}."
-msgstr ""
-
-#: src/EBox/Event/Watcher/Monitor.pm:315
-#, perl-brace-format
-msgid "That is above the {severity} threshold of {bound}."
-msgstr ""
-
-#: src/EBox/Event/Watcher/Monitor.pm:318
-#, perl-brace-format
-msgid "That is below the {severity} threshold of {bound}."
-msgstr ""
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:135
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:145
+msgid "any"
+msgstr "alla"

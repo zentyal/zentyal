@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:16+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -106,10 +106,9 @@ msgstr ""
 msgid "Object"
 msgstr "Objecte"
 
-#: src/EBox/Objects.pm:411
 #, fuzzy
-msgid "Core"
-msgstr "Crea"
+#~ msgid "Core"
+#~ msgstr "Crea"
 
 #, fuzzy
 #~ msgid "IP Address"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:17+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2009-06-29 20:06+0200\n"
 "Last-Translator: Sudel <sudel@freemail.it>\n"
 "Language-Team: none\n"
@@ -33,7 +33,7 @@ msgstr "Descrizione"
 msgid "Internal"
 msgstr "Interno"
 
-#: src/EBox/Model/ServiceTable.pm:130
+#: src/EBox/Model/ServiceTable.pm:131
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
 "ports configured for this service. This helps eBox to know what ports are "
@@ -42,24 +42,24 @@ msgstr ""
 "Seleziona questo campo se c'è già un servizio che utilizza la porta "
 "configurata. Questo aiuterà eBox a conoscere le porte occupate"
 
-#: src/EBox/Model/ServiceTable.pm:139
+#: src/EBox/Model/ServiceTable.pm:140
 msgid "Configuration"
 msgstr "Configurazione"
 
-#: src/EBox/Model/ServiceTable.pm:151
+#: src/EBox/Model/ServiceTable.pm:152
 msgid "List of services"
 msgstr "Lista servizi"
 
-#: src/EBox/Model/ServiceTable.pm:152 src/EBox/Services.pm:47
+#: src/EBox/Model/ServiceTable.pm:153 src/EBox/Services.pm:47
 msgid "Services"
 msgstr "Servizi"
 
-#: src/EBox/Model/ServiceTable.pm:161
-#: src/EBox/Model/ServiceConfigurationTable.pm:170
+#: src/EBox/Model/ServiceTable.pm:162
+#: src/EBox/Model/ServiceConfigurationTable.pm:171
 msgid "service"
 msgstr "servizio"
 
-#: src/EBox/Model/ServiceTable.pm:541
+#: src/EBox/Model/ServiceTable.pm:542
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
@@ -87,7 +87,7 @@ msgstr "Porta destinazione"
 msgid "Service configuration"
 msgstr "Configurazione servizio"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:193
+#: src/EBox/Model/ServiceConfigurationTable.pm:194
 msgid "This protocol does not use ports"
 msgstr "Questo protocollo non usa porte"
 
@@ -113,10 +113,6 @@ msgstr "Porta amministrazione eBox"
 msgid "ebox-services"
 msgstr "ebox-services"
 
-#: src/EBox/Services.pm:473
-msgid "Core"
-msgstr "Core"
-
 #: migration/0001_import_services_from_firewall.pl:69
 msgid "any"
 msgstr "qualsiasi"
@@ -140,6 +136,9 @@ msgstr "qualsiasi TCP"
 #: migration/0001_import_services_from_firewall.pl:93
 msgid "any TCP port"
 msgstr "qualsiasi porta TCP"
+
+#~ msgid "Core"
+#~ msgstr "Core"
 
 #~ msgid "bbbb"
 #~ msgstr "bbbb"

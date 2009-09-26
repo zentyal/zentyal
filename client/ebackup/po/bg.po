@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-07-31 13:14+0100\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: 2009-08-09 14:32+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
@@ -82,8 +83,10 @@ msgid "Local Backup Configuration"
 msgstr "Локални настройки за архивиране"
 
 #: src/EBox/Model/Local.pm:128
-msgid "Local backup configuration."
-msgstr "Локални настройки за архивиране"
+msgid ""
+"Local backup configuration. If the module is enabled the backup will be "
+"scheduled to be done daily"
+msgstr ""
 
 #: src/EBox/Model/Local.pm:130
 msgid "Local backup configuration updated."
@@ -97,10 +100,12 @@ msgstr "Инсталиране на /etc/cron.daily/ebox-ebackup-cron"
 msgid "eBox will run a nightly script to backup your system."
 msgstr "eBox ще изпълнява нощен скрипт за да архивира Вашата система."
 
-#: src/EBox/EBackup.pm:182
-msgid "Core"
-msgstr "Сърцевина"
-
 #: src/EBox/Composite/General.pm:63
 msgid "Backup module"
 msgstr "Модул архивиране"
+
+#~ msgid "Local backup configuration."
+#~ msgstr "Локални настройки за архивиране"
+
+#~ msgid "Core"
+#~ msgstr "Сърцевина"

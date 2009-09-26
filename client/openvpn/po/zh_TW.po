@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:16+0200\n"
+"POT-Creation-Date: 2009-09-26 19:38+0100\n"
 "PO-Revision-Date: 2009-08-04 07:37+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -16,22 +16,255 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
-msgid "Server's address"
-msgstr "伺服器位址"
+#: src/EBox/OpenVPN.pm:70
+msgid "VPN"
+msgstr "VPN"
 
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:41
+#: src/EBox/OpenVPN.pm:148
+msgid "To configure Quagga to run ripd and zebra"
+msgstr "設定 Quagga 執行 ripd 和 zebra"
+
+#: src/EBox/OpenVPN.pm:154
+msgid "To configure Quagga to listen on the given interfaces"
+msgstr "設定 Quagga 聽取指定的介面"
+
+#: src/EBox/OpenVPN.pm:159
+msgid "Main zebra configuration file"
+msgstr "主要 zebra 組態檔案"
+
+#: src/EBox/OpenVPN.pm:165
+msgid "To configure ripd to exchange routes with client to client connections"
+msgstr "設定 ripd 交換客戶端至客戶端連線路由"
+
+#: src/EBox/OpenVPN.pm:666
 #, perl-brace-format
-msgid "You must provide at least one address for the server {name}"
-msgstr "您必須為伺服器 {name} 提供至少一個位址"
+msgid ""
+"Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
+"allowed"
+msgstr "無效的名稱 {name}。只能使用英文字母和 '-'、 '_'、 '.' 字元"
 
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:87
-msgid "Can't get address for this server: no external interfaces present"
-msgstr "不能取得這個伺服器的位址：沒有外部介面存在"
+#: src/EBox/OpenVPN.pm:679
+#, perl-brace-format
+msgid "Cannot use the name {n} because there is a client with the same name"
+msgstr "不能使用名稱 {n}，因為已存在同一名稱的客戶端"
 
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:199
-msgid "The client certificate can't be the same than the server's one"
-msgstr "客戶端的憑證不能會伺服器端的相同"
+#: src/EBox/OpenVPN.pm:690
+#, perl-brace-format
+msgid "Cannot use the name {n} because there is a server with the same name"
+msgstr "不能使用名稱 {n}，因為已存在同一名稱的伺服器"
+
+#: src/EBox/OpenVPN.pm:712
+#, perl-brace-format
+msgid ""
+"Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
+"internal use"
+msgstr "無效的名稱 {name}。以 {pf} 開頭的名稱已保留為內部使用"
+
+#: src/EBox/OpenVPN.pm:721
+#, perl-brace-format
+msgid ""
+"Invalid name {name}. A internal daemon must have a name which begins with "
+"the prefix {pf}"
+msgstr "無效的名稱 {name}。內部伺服程式名稱必須以 {pf} 開頭"
+
+#: src/EBox/OpenVPN.pm:1439
+#, perl-brace-format
+msgid "Client {c} does not exists"
+msgstr "客戶端 {c} 不存在"
+
+#: src/EBox/OpenVPN.pm:1467
+msgid "Servers"
+msgstr "伺服器"
+
+#: src/EBox/OpenVPN.pm:1473
+msgid "Clients"
+msgstr "客戶端"
+
+#: src/EBox/OpenVPN.pm:1486
+msgid "Common name"
+msgstr "一般名稱"
+
+#: src/EBox/OpenVPN.pm:1486
+msgid "Address"
+msgstr "位址"
+
+#: src/EBox/OpenVPN.pm:1486
+msgid "Connected since"
+msgstr "連線於"
+
+#: src/EBox/OpenVPN.pm:1513
+msgid "No users connected to the VPN"
+msgstr "沒有使用者連接到 VPN"
+
+#: src/EBox/OpenVPN.pm:1554
+msgid "OpenVPN daemons"
+msgstr "OpenVPN 伺服程式"
+
+#: src/EBox/OpenVPN.pm:1620
+msgid "Date"
+msgstr "日期"
+
+#: src/EBox/OpenVPN.pm:1621
+msgid "Event"
+msgstr "事件"
+
+#: src/EBox/OpenVPN.pm:1623
+msgid "Type"
+msgstr "類型"
+
+#: src/EBox/OpenVPN.pm:1624
+msgid "Remote IP"
+msgstr "遠端 IP"
+
+#: src/EBox/OpenVPN.pm:1625
+msgid "Remote Certificate"
+msgstr "遠端憑證"
+
+#: src/EBox/OpenVPN.pm:1630
+msgid "Initialization sequence completed"
+msgstr "初始化程序完成"
+
+#: src/EBox/OpenVPN.pm:1632
+msgid "Certificate issuer not authorized"
+msgstr "憑證發照者無法驗證"
+
+#: src/EBox/OpenVPN.pm:1633
+msgid "Certificate common name not authorized"
+msgstr "憑證一般名稱無法驗證"
+
+#: src/EBox/OpenVPN.pm:1634
+msgid "Certificate verification failed"
+msgstr "驗證憑證失敗"
+
+#: src/EBox/OpenVPN.pm:1636
+msgid "Client connection initiated"
+msgstr "客戶端連線已初始化"
+
+#: src/EBox/OpenVPN.pm:1637
+msgid "Client connection terminated"
+msgstr "客戶端連線已結束"
+
+#: src/EBox/OpenVPN.pm:1639
+msgid "Connection to server initiated"
+msgstr "連接至伺服器已初始化"
+
+#: src/EBox/OpenVPN.pm:1640
+msgid "Server connection terminated"
+msgstr "伺服器連線已結束"
+
+#: src/EBox/OpenVPN.pm:1644
+msgid "OpenVPN"
+msgstr "OpenVPN"
+
+#: src/EBox/OpenVPN.pm:1669
+msgid "You must set insecure_rip_conf to yes or no"
+msgstr "您必須將 insecure_rip_conf 設定為 yes 或 no"
+
+#: src/EBox/OpenVPN/Server.pm:84
+#, perl-brace-format
+msgid "The port {p}/{pro} is already in use"
+msgstr "連接埠 {p}/{pro} 已在使用中"
+
+#: src/EBox/OpenVPN/Server.pm:180
+#, perl-brace-format
+msgid "The certificate {cn} does not exist"
+msgstr "憑證 {cn} 不存在"
+
+#: src/EBox/OpenVPN/Server.pm:183
+#, perl-brace-format
+msgid "The certificate {cn} has expired"
+msgstr "憑證 {cn} 已經到期"
+
+#: src/EBox/OpenVPN/Server.pm:186
+#, perl-brace-format
+msgid "The certificate {cn} has been revoked"
+msgstr "憑證 {cn} 已註銷"
+
+#: src/EBox/OpenVPN/Server.pm:204
+#, perl-brace-format
+msgid "The server {name} does not have certificate assigned"
+msgstr "伺服器 {name} 沒有被分配憑證"
+
+#: src/EBox/OpenVPN/Server.pm:225
+#, perl-brace-format
+msgid ""
+"Cannot get key of server {name} because it does not have any certificate "
+"assigned"
+msgstr "不能取得伺服器 {name} 的金鑰，因為它沒有被分配憑證"
+
+#: src/EBox/OpenVPN/Server.pm:375
+#, perl-brace-format
+msgid "No IP address found for interface {iface}"
+msgstr "在介面 {iface} 上找不到 IP 位址"
+
+#: src/EBox/OpenVPN/Server.pm:480
+msgid "OpenVPN servers cannot be used for internal services"
+msgstr "OpenVPN 伺服器不能用於內部服務"
+
+#: src/EBox/OpenVPN/Server.pm:504
+#, perl-brace-format
+msgid "Unsupported client type: {ct}"
+msgstr "不支援的客戶端類型：{ct}"
+
+#: src/EBox/OpenVPN/Server.pm:693
+#, perl-brace-format
+msgid "Server {name}"
+msgstr "伺服器 {name}"
+
+#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Model/Servers.pm:60
+#: src/EBox/OpenVPN/Client.pm:313
+msgid "Enabled"
+msgstr "已啟用"
+
+#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
+msgid "Disabled"
+msgstr "已停用"
+
+#: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Model/Clients.pm:67
+#: src/EBox/OpenVPN/Client.pm:314
+msgid "Service"
+msgstr "服務"
+
+#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:316
+msgid "Running"
+msgstr "執行中"
+
+#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:316
+msgid "Stopped"
+msgstr "已停止"
+
+#: src/EBox/OpenVPN/Server.pm:699 src/EBox/OpenVPN/Client.pm:317
+msgid "Daemon status"
+msgstr "伺服程式狀態"
+
+#: src/EBox/OpenVPN/Server.pm:702
+msgid "All external interfaces"
+msgstr "所有的外部介面"
+
+#: src/EBox/OpenVPN/Server.pm:703
+msgid "Local address"
+msgstr "本地端位址"
+
+#: src/EBox/OpenVPN/Server.pm:708
+msgid "Port"
+msgstr "連接埠"
+
+#: src/EBox/OpenVPN/Server.pm:711
+msgid "VPN subnet"
+msgstr "VPN 子網路"
+
+#: src/EBox/OpenVPN/Server.pm:714
+msgid "VPN network interface"
+msgstr "VPN 網路介面"
+
+#: src/EBox/OpenVPN/Server.pm:718 src/EBox/OpenVPN/Server.pm:720
+#: src/EBox/OpenVPN/Client.pm:329 src/EBox/OpenVPN/Client.pm:331
+msgid "VPN interface address"
+msgstr "VPN 介面位址"
+
+#: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:331
+msgid "No active"
+msgstr "不使用"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:31
 #, perl-brace-format
@@ -72,88 +305,20 @@ msgid ""
 "certificate's private key"
 msgstr "做為客戶端憑證的檔案與憑證的私密金鑰檔案不符"
 
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
-msgid "Upload configuration's bundle"
-msgstr "上傳組態的預裝程式"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:73
-msgid "Server"
-msgstr "伺服器"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:79
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
-msgid "Server port"
-msgstr "伺服器連接埠"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:86
-msgid "CA's certificate"
-msgstr "CA 的憑證"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:97
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
-msgid "Client's certificate"
-msgstr "客戶端憑證"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:108
-msgid "Client's private key"
-msgstr "客戶端的私密金鑰"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:119
-msgid "Server tunnel password"
-msgstr "伺服器通道密碼 "
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:130
-msgid "Client configuration"
-msgstr "客戶端組態"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
-#: src/EBox/OpenVPN/Model/Clients.pm:100
-msgid "client"
-msgstr "客戶端"
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:232
-#, perl-brace-format
-msgid "No file supplied or already setted for {f}"
-msgstr "沒有提供檔案或已經為 {f} 設定"
-
-#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:60
-#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:76
-msgid "Advertised network"
-msgstr "宣告的網路"
-
-#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:69
-msgid "List of networks"
-msgstr "網路清單"
-
-#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:70
-#: src/EBox/OpenVPN/Model/Servers.pm:85
-msgid "Advertised networks"
-msgstr "宣告的網路"
-
-#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:90
-#, perl-brace-format
-msgid ""
-"{openpar}You can add here those networks which you want to make available to "
-"clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
-"access to your LAN by advertising its network address here{closepar}"
-msgstr ""
-"{openpar}您可以在這裡加入想要讓客戶端可以連線到這個 VPN　的網路。{closepar}{openpar}通常，我們會允許存取 "
-"LAN，只要在這裡宣告它的網路位址{closepar}"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:60 src/EBox/OpenVPN/Server.pm:695
-#: src/EBox/OpenVPN/Client.pm:313
-msgid "Enabled"
-msgstr "已啟用"
-
-#: src/EBox/OpenVPN/Model/Servers.pm:68
+#: src/EBox/OpenVPN/Model/Servers.pm:68 src/EBox/OpenVPN/Model/Clients.pm:60
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
-#: src/EBox/OpenVPN/Model/Clients.pm:60
 msgid "Name"
 msgstr "名稱"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:76 src/EBox/OpenVPN/Model/Clients.pm:75
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
 msgid "Configuration"
 msgstr "組態"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:85
+#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:70
+msgid "Advertised networks"
+msgstr "宣告的網路"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:94
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
@@ -174,12 +339,12 @@ msgid "server"
 msgstr "伺服器"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:158
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "{openpar}You can't create VPN servers because there aren't enough "
-"certificates.{closepar}{openpar}Please, go to the {openhref}certificate "
-"manager module{closehref} and create new certificates.{closepar}{openpar}You "
-"will need, at least, one CA and one certificate.{closepar}"
+"certificates.{closepar}{openpar}Please, go to the {openhref}certification "
+"authority module{closehref} and create new certificates.{closepar}{openpar}"
+"You will need, at least, one CA and one certificate.{closepar}"
 msgstr ""
 "{openpar}您不能建立 VPN 伺服器，因為沒有足夠的憑證。{closepar}{openpar}請到"
 "{openhref}憑證管理程式模組{closehref}建立新的憑證。{closepar}{openpar}您需要"
@@ -217,18 +382,34 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
-"{openpar}您可以設定 openVPN "
-"伺服器方便遠端辦公室或使用者連線。{closepar}{openpar}點選{openit}組態{closeit} 以設定 VPN 參數。{closep"
-"ar}{openpar}{openit}宣告的網路{closeit}讓您可以設定遠端使用者可存取的網路。{openpar}只要您曾經完成此組態，就可以下"
-"載預裝程式檔案以用於您的作業系統的客戶端裡。"
+"{openpar}您可以設定 openVPN 伺服器方便遠端辦公室或使用者連線。{closepar}"
+"{openpar}點選{openit}組態{closeit} 以設定 VPN 參數。{closepar}{openpar}"
+"{openit}宣告的網路{closeit}讓您可以設定遠端使用者可存取的網路。{openpar}只要"
+"您曾經完成此組態，就可以下載預裝程式檔案以用於您的作業系統的客戶端裡。"
 
-#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
-msgid "Deleted daemons"
-msgstr "已刪除伺服程式"
+#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:60
+#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:76
+msgid "Advertised network"
+msgstr "宣告的網路"
 
-#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
-msgid "daemon"
-msgstr "伺服程式"
+#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:69
+msgid "List of networks"
+msgstr "網路清單"
+
+#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:90
+#, perl-brace-format
+msgid ""
+"{openpar}You can add here those networks which you want to make available to "
+"clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
+"access to your LAN by advertising its network address here{closepar}"
+msgstr ""
+"{openpar}您可以在這裡加入想要讓客戶端可以連線到這個 VPN　的網路。{closepar}"
+"{openpar}通常，我們會允許存取 LAN，只要在這裡宣告它的網路位址{closepar}"
+
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:93
+msgid "Server port"
+msgstr "伺服器連接埠"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 msgid "VPN address"
@@ -335,9 +516,81 @@ msgid ""
 msgstr "除非啟用網路位址轉譯選項，否則要連接至此伺服器至少需要一個外部介面"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:459
+#, fuzzy
 msgid ""
-"The interface must be a external interface, unless masuqerade option is on"
+"The interface must be a external interface, unless Network Address "
+"Translation option is on"
 msgstr "除非開啟偽裝(masquerade)選項，否則此介面必須為外部介面"
+
+#: src/EBox/OpenVPN/Model/Clients.pm:94
+msgid "VPN clients"
+msgstr "VPH 客戶端"
+
+#: src/EBox/OpenVPN/Model/Clients.pm:100
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
+msgid "client"
+msgstr "客戶端"
+
+#: src/EBox/OpenVPN/Model/Clients.pm:143
+msgid ""
+"Cannot activate the client because is not fully configured; please edit the "
+"configuration and retry"
+msgstr "因為此客戶端尚未完全設定好，不能使用它；請編輯組態後再試一次"
+
+#: src/EBox/OpenVPN/Model/Clients.pm:180
+msgid "RIP password is mandatory"
+msgstr "RIP 密碼是強制的"
+
+#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
+msgid "Deleted daemons"
+msgstr "已刪除伺服程式"
+
+#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
+msgid "daemon"
+msgstr "伺服程式"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
+#, fuzzy
+msgid "Manual Configuration"
+msgstr "組態"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
+msgid "eBox bundle"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:78
+msgid "Upload configuration's bundle"
+msgstr "上傳組態的預裝程式"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
+msgid "Server"
+msgstr "伺服器"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:100
+msgid "CA's certificate"
+msgstr "CA 的憑證"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:111
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
+msgid "Client's certificate"
+msgstr "客戶端憑證"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:122
+msgid "Client's private key"
+msgstr "客戶端的私密金鑰"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
+msgid "Server tunnel password"
+msgstr "伺服器通道密碼 "
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:144
+msgid "Client configuration"
+msgstr "客戶端組態"
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
+#, perl-brace-format
+msgid "No file supplied or already setted for {f}"
+msgstr "沒有提供檔案或已經為 {f} 設定"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
 msgid "Client's type"
@@ -402,120 +655,33 @@ msgid ""
 "your clients"
 msgstr "客戶端預裝程式是一個包含立即可用於您的客戶端的組態檔案"
 
-#: src/EBox/OpenVPN/Model/Clients.pm:67 src/EBox/OpenVPN/Server.pm:696
-#: src/EBox/OpenVPN/Client.pm:314
-msgid "Service"
-msgstr "服務"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:94
-msgid "VPN clients"
-msgstr "VPH 客戶端"
-
-#: src/EBox/OpenVPN/Model/Clients.pm:143
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:335
+#, fuzzy
 msgid ""
-"Cannot activate the client because is not fully configured; please edit the "
-"configuration and retry"
-msgstr "因為此客戶端尚未完全設定好，不能使用它；請編輯組態後再試一次"
+"Cannot make a bundle because the server  is not fully configured; please "
+"complete the configuration and retry"
+msgstr "不能製作預裝程式，因為此伺服器尚未完全設定好；請編輯組態後再試一次"
 
-#: src/EBox/OpenVPN/Model/Clients.pm:180
-msgid "RIP password is mandatory"
-msgstr "RIP 密碼是強制的"
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
+msgid "Server's address"
+msgstr "伺服器位址"
 
-#: src/EBox/OpenVPN/Server.pm:84
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:41
 #, perl-brace-format
-msgid "The port {p}/{pro} is already in use"
-msgstr "連接埠 {p}/{pro} 已在使用中"
+msgid "You must provide at least one address for the server {name}"
+msgstr "您必須為伺服器 {name} 提供至少一個位址"
 
-#: src/EBox/OpenVPN/Server.pm:180
-#, perl-brace-format
-msgid "The certificate {cn} does not exist"
-msgstr "憑證 {cn} 不存在"
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:87
+msgid "Can't get address for this server: no external interfaces present"
+msgstr "不能取得這個伺服器的位址：沒有外部介面存在"
 
-#: src/EBox/OpenVPN/Server.pm:183
-#, perl-brace-format
-msgid "The certificate {cn} has expired"
-msgstr "憑證 {cn} 已經到期"
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:199
+msgid "The client certificate can't be the same than the server's one"
+msgstr "客戶端的憑證不能會伺服器端的相同"
 
-#: src/EBox/OpenVPN/Server.pm:186
-#, perl-brace-format
-msgid "The certificate {cn} has been revoked"
-msgstr "憑證 {cn} 已註銷"
-
-#: src/EBox/OpenVPN/Server.pm:204
-#, perl-brace-format
-msgid "The server {name} does not have certificate assigned"
-msgstr "伺服器 {name} 沒有被分配憑證"
-
-#: src/EBox/OpenVPN/Server.pm:225
-#, perl-brace-format
-msgid ""
-"Cannot get key of server {name} because it does not have any certificate "
-"assigned"
-msgstr "不能取得伺服器 {name} 的金鑰，因為它沒有被分配憑證"
-
-#: src/EBox/OpenVPN/Server.pm:375
-#, perl-brace-format
-msgid "No IP address found for interface {iface}"
-msgstr "在介面 {iface} 上找不到 IP 位址"
-
-#: src/EBox/OpenVPN/Server.pm:480
-msgid "OpenVPN servers cannot be used for internal services"
-msgstr "OpenVPN 伺服器不能用於內部服務"
-
-#: src/EBox/OpenVPN/Server.pm:504
-#, perl-brace-format
-msgid "Unsupported client type: {ct}"
-msgstr "不支援的客戶端類型：{ct}"
-
-#: src/EBox/OpenVPN/Server.pm:693
-#, perl-brace-format
-msgid "Server {name}"
-msgstr "伺服器 {name}"
-
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
-msgid "Disabled"
+#: src/EBox/OpenVPN/Types/TlsRemote.pm:52
+msgid "disabled"
 msgstr "已停用"
-
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:316
-msgid "Running"
-msgstr "執行中"
-
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:316
-msgid "Stopped"
-msgstr "已停止"
-
-#: src/EBox/OpenVPN/Server.pm:699 src/EBox/OpenVPN/Client.pm:317
-msgid "Daemon status"
-msgstr "伺服程式狀態"
-
-#: src/EBox/OpenVPN/Server.pm:702
-msgid "All external interfaces"
-msgstr "所有的外部介面"
-
-#: src/EBox/OpenVPN/Server.pm:703
-msgid "Local address"
-msgstr "本地端位址"
-
-#: src/EBox/OpenVPN/Server.pm:708
-msgid "Port"
-msgstr "連接埠"
-
-#: src/EBox/OpenVPN/Server.pm:711
-msgid "VPN subnet"
-msgstr "VPN 子網路"
-
-#: src/EBox/OpenVPN/Server.pm:714
-msgid "VPN network interface"
-msgstr "VPN 網路介面"
-
-#: src/EBox/OpenVPN/Server.pm:718 src/EBox/OpenVPN/Server.pm:720
-#: src/EBox/OpenVPN/Client.pm:329 src/EBox/OpenVPN/Client.pm:331
-msgid "VPN interface address"
-msgstr "VPN 介面位址"
-
-#: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:331
-msgid "No active"
-msgstr "不使用"
 
 #: src/EBox/OpenVPN/Client.pm:311
 #, perl-brace-format
@@ -526,158 +692,8 @@ msgstr "客戶端 {name}"
 msgid "Connection target"
 msgstr "連接目標"
 
-#: src/EBox/OpenVPN/Types/TlsRemote.pm:52
-msgid "disabled"
-msgstr "已停用"
+#~ msgid "openVPN"
+#~ msgstr "openVPN"
 
-#: src/EBox/OpenVPN.pm:70
-msgid "openVPN"
-msgstr "openVPN"
-
-#: src/EBox/OpenVPN.pm:148
-msgid "To configure Quagga to run ripd and zebra"
-msgstr "設定 Quagga 執行 ripd 和 zebra"
-
-#: src/EBox/OpenVPN.pm:154
-msgid "To configure Quagga to listen on the given interfaces"
-msgstr "設定 Quagga 聽取指定的介面"
-
-#: src/EBox/OpenVPN.pm:159
-msgid "Main zebra configuration file"
-msgstr "主要 zebra 組態檔案"
-
-#: src/EBox/OpenVPN.pm:165
-msgid "To configure ripd to exchange routes with client to client connections"
-msgstr "設定 ripd 交換客戶端至客戶端連線路由"
-
-#: src/EBox/OpenVPN.pm:666
-#, perl-brace-format
-msgid ""
-"Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
-"allowed"
-msgstr "無效的名稱 {name}。只能使用英文字母和 '-'、 '_'、 '.' 字元"
-
-#: src/EBox/OpenVPN.pm:679
-#, perl-brace-format
-msgid "Cannot use the name {n} because there is a client with the same name"
-msgstr "不能使用名稱 {n}，因為已存在同一名稱的客戶端"
-
-#: src/EBox/OpenVPN.pm:690
-#, perl-brace-format
-msgid "Cannot use the name {n} because there is a server with the same name"
-msgstr "不能使用名稱 {n}，因為已存在同一名稱的伺服器"
-
-#: src/EBox/OpenVPN.pm:712
-#, perl-brace-format
-msgid ""
-"Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
-"internal use"
-msgstr "無效的名稱 {name}。以 {pf} 開頭的名稱已保留為內部使用"
-
-#: src/EBox/OpenVPN.pm:721
-#, perl-brace-format
-msgid ""
-"Invalid name {name}. A internal daemon must have a name which begins with "
-"the prefix {pf}"
-msgstr "無效的名稱 {name}。內部伺服程式名稱必須以 {pf} 開頭"
-
-#: src/EBox/OpenVPN.pm:1439
-#, perl-brace-format
-msgid "Client {c} does not exists"
-msgstr "客戶端 {c} 不存在"
-
-#: src/EBox/OpenVPN.pm:1459
-msgid "VPN"
-msgstr "VPN"
-
-#: src/EBox/OpenVPN.pm:1460
-msgid "UTM"
-msgstr "UTM"
-
-#: src/EBox/OpenVPN.pm:1467
-msgid "Servers"
-msgstr "伺服器"
-
-#: src/EBox/OpenVPN.pm:1473
-msgid "Clients"
-msgstr "客戶端"
-
-#: src/EBox/OpenVPN.pm:1486
-msgid "Common name"
-msgstr "一般名稱"
-
-#: src/EBox/OpenVPN.pm:1486
-msgid "Address"
-msgstr "位址"
-
-#: src/EBox/OpenVPN.pm:1486
-msgid "Connected since"
-msgstr "連線於"
-
-#: src/EBox/OpenVPN.pm:1513
-msgid "No users connected to the VPN"
-msgstr "沒有使用者連接到 VPN"
-
-#: src/EBox/OpenVPN.pm:1554
-msgid "OpenVPN daemons"
-msgstr "OpenVPN 伺服程式"
-
-#: src/EBox/OpenVPN.pm:1620
-msgid "Date"
-msgstr "日期"
-
-#: src/EBox/OpenVPN.pm:1621
-msgid "Event"
-msgstr "事件"
-
-#: src/EBox/OpenVPN.pm:1623
-msgid "Type"
-msgstr "類型"
-
-#: src/EBox/OpenVPN.pm:1624
-msgid "Remote IP"
-msgstr "遠端 IP"
-
-#: src/EBox/OpenVPN.pm:1625
-msgid "Remote Certificate"
-msgstr "遠端憑證"
-
-#: src/EBox/OpenVPN.pm:1630
-msgid "Initialization sequence completed"
-msgstr "初始化程序完成"
-
-#: src/EBox/OpenVPN.pm:1632
-msgid "Certificate issuer not authorized"
-msgstr "憑證發照者無法驗證"
-
-#: src/EBox/OpenVPN.pm:1633
-msgid "Certificate common name not authorized"
-msgstr "憑證一般名稱無法驗證"
-
-#: src/EBox/OpenVPN.pm:1634
-msgid "Certificate verification failed"
-msgstr "驗證憑證失敗"
-
-#: src/EBox/OpenVPN.pm:1636
-msgid "Client connection initiated"
-msgstr "客戶端連線已初始化"
-
-#: src/EBox/OpenVPN.pm:1637
-msgid "Client connection terminated"
-msgstr "客戶端連線已結束"
-
-#: src/EBox/OpenVPN.pm:1639
-msgid "Connection to server initiated"
-msgstr "連接至伺服器已初始化"
-
-#: src/EBox/OpenVPN.pm:1640
-msgid "Server connection terminated"
-msgstr "伺服器連線已結束"
-
-#: src/EBox/OpenVPN.pm:1644
-msgid "OpenVPN"
-msgstr "OpenVPN"
-
-#: src/EBox/OpenVPN.pm:1669
-msgid "You must set insecure_rip_conf to yes or no"
-msgstr "您必須將 insecure_rip_conf 設定為 yes 或 no"
+#~ msgid "UTM"
+#~ msgstr "UTM"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-captiveportal 1.1Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:03+0200\n"
+"POT-Creation-Date: 2009-09-26 19:27+0100\n"
 "PO-Revision-Date: 2009-03-09 17:42+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,6 +16,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/EBox/CaptivePortal.pm:60 src/EBox/CaptivePortal.pm:166
+#: src/EBox/CaptivePortal.pm:213 src/EBox/UserCorner/CGI/PopUp.pm:30
+#: src/EBox/UserCorner/CGI/Index.pm:30
+msgid "Captive Portal"
+msgstr ""
+
+#: src/EBox/CaptivePortal.pm:178
+msgid "User"
+msgstr ""
+
+#: src/EBox/CaptivePortal.pm:198
+msgid "Captive Portal Users"
+msgstr ""
 
 #: src/EBox/Model/Interfaces.pm:50
 msgid "Interface"
@@ -39,18 +53,4 @@ msgstr ""
 
 #: src/EBox/Model/Settings.pm:97
 msgid "listening port"
-msgstr ""
-
-#: src/EBox/UserCorner/CGI/Index.pm:30 src/EBox/UserCorner/CGI/PopUp.pm:30
-#: src/EBox/CaptivePortal.pm:60 src/EBox/CaptivePortal.pm:166
-#: src/EBox/CaptivePortal.pm:213
-msgid "Captive Portal"
-msgstr ""
-
-#: src/EBox/CaptivePortal.pm:178
-msgid "User"
-msgstr ""
-
-#: src/EBox/CaptivePortal.pm:198
-msgid "Captive Portal Users"
 msgstr ""

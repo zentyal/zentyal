@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:17+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2009-08-04 08:15+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -16,71 +16,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/InstallPkgs.pm:84
-msgid "There were no packages to update"
-msgstr "沒有套件需要更新"
+#: src/EBox/Software.pm:53
+msgid "Software Management"
+msgstr "軟體管理"
 
-#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "更新中"
+#: src/EBox/Software.pm:77
+msgid "Enable cron script to download updates"
+msgstr "啟用排程 script 來下載更新"
 
-#: src/EBox/CGI/InstallPkgs.pm:146
-msgid "Upgrading packages"
-msgstr "更新套件中"
-
-#: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
-msgid "Current package"
-msgstr "目前套件"
-
-#: src/EBox/CGI/InstallPkgs.pm:148
-msgid "packages left to install"
-msgstr "套件安裝"
-
-#: src/EBox/CGI/InstallPkgs.pm:149
+#: src/EBox/Software.pm:78
 msgid ""
-"The packages installation has finished successfully. The administration "
-"interface may become unresponsive for a few seconds. Please wait patiently "
-"until the system has been fully restarted"
+"eBox software will download the available updates from your configured apt "
+"sources. "
+msgstr "從您設置的 apt 來源下載可用的 eBox 軟體"
+
+#: src/EBox/Software.pm:153 src/EBox/Software.pm:356
+msgid ""
+"The software management module must be enabled to be able to install packages"
 msgstr ""
-"套件安裝已成功完成.管理介面可能會幾秒鐘沒有回應.請耐心等待讓系統完全的重新啟"
-"動"
 
-#: src/EBox/CGI/InstallPkgs.pm:153
+#: src/EBox/Software.pm:197 src/EBox/Software.pm:390
 msgid ""
-"The packages installation has not finished correctly . More information on "
-"the logs"
-msgstr "套件安裝並沒有完成.在日誌上會有更多的資訊"
-
-#: src/EBox/CGI/InstallPkgs.pm:165
-msgid "Removing package"
-msgstr "移除套件"
-
-#: src/EBox/CGI/InstallPkgs.pm:166
-msgid "Removing the selected package and its dependent packages"
-msgstr "移除所選擇的套件及相依性套件"
-
-#: src/EBox/CGI/InstallPkgs.pm:168
-msgid "packages left to remove"
-msgstr "套件移除"
-
-#: src/EBox/CGI/InstallPkgs.pm:169
-msgid ""
-"The packages removal has finished successfully. The administration interface "
-"may become unresponsive for a few seconds. Please wait patiently until the "
-"system has been fully restarted"
+"The software management module must be enabled to be able to remove packages"
 msgstr ""
-"套件移除已經成功完成.管理介面可能會有幾秒鐘沒有回應.請耐心等待讓系統完全重新"
-"啟動"
 
-#: src/EBox/CGI/InstallPkgs.pm:173
+#: src/EBox/Software.pm:500
+msgid "eBox Components"
+msgstr "eBox 元件"
+
+#: src/EBox/Software.pm:502
+msgid "System Updates"
+msgstr "系統更新"
+
+#: src/EBox/Software.pm:504
+msgid "Automatic Updates"
+msgstr "自動更新"
+
+#: src/EBox/Software.pm:595
+#, perl-brace-format
 msgid ""
-"The packages removal has not finished correctly . More information on the "
-"logs"
-msgstr "套件移除沒有完成.在日誌上有更多資訊"
-
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "自動軟體更新"
+"Software management is currently  locked by {locker}. Please, try again later"
+msgstr "軟體管理目前是被 {locker} 鎖定.請稍後再試"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
@@ -94,165 +70,83 @@ msgstr "系統更新已被設定為全自動"
 msgid "The system is up to date"
 msgstr "系統已經是最新的"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "自動更新設置"
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "自動軟體更新"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
 msgstr "eBox 元件"
 
-#: src/EBox/Software.pm:76
-msgid "Enable cron script to download updates"
-msgstr "啟用排程 script 來下載更新"
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
+msgid "Upgrading"
+msgstr "更新中"
 
-#: src/EBox/Software.pm:77
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "自動更新設置"
+
+#: src/EBox/CGI/InstallPkgs.pm:84
+msgid "There were no packages to update"
+msgstr "沒有套件需要更新"
+
+#: src/EBox/CGI/InstallPkgs.pm:149
+msgid "Upgrading packages"
+msgstr "更新套件中"
+
+#: src/EBox/CGI/InstallPkgs.pm:150 src/EBox/CGI/InstallPkgs.pm:170
+msgid "Current package"
+msgstr "目前套件"
+
+#: src/EBox/CGI/InstallPkgs.pm:151
+msgid "packages left to install"
+msgstr "套件安裝"
+
+#: src/EBox/CGI/InstallPkgs.pm:152
 msgid ""
-"eBox software will download the available updates from your configured apt "
-"sources. "
-msgstr "從您設置的 apt 來源下載可用的 eBox 軟體"
+"The packages installation has finished successfully. The administration "
+"interface may become unresponsive for a few seconds. Please wait patiently "
+"until the system has been fully restarted"
+msgstr ""
+"套件安裝已成功完成.管理介面可能會幾秒鐘沒有回應.請耐心等待讓系統完全的重新啟"
+"動"
 
-#: src/EBox/Software.pm:473
-msgid "Software Management"
-msgstr "軟體管理"
-
-#: src/EBox/Software.pm:477
-msgid "eBox Components"
-msgstr "eBox 元件"
-
-#: src/EBox/Software.pm:479
-msgid "System Updates"
-msgstr "系統更新"
-
-#: src/EBox/Software.pm:481
-msgid "Automatic Updates"
-msgstr "自動更新"
-
-#: src/EBox/Software.pm:572
-#, perl-brace-format
+#: src/EBox/CGI/InstallPkgs.pm:156
 msgid ""
-"Software management is currently  locked by {locker}. Please, try again later"
-msgstr "軟體管理目前是被 {locker} 鎖定.請稍後再試"
+"The packages installation has not finished correctly . More information on "
+"the logs"
+msgstr "套件安裝並沒有完成.在日誌上會有更多的資訊"
+
+#: src/EBox/CGI/InstallPkgs.pm:168
+msgid "Removing package"
+msgstr "移除套件"
+
+#: src/EBox/CGI/InstallPkgs.pm:169
+msgid "Removing the selected package and its dependent packages"
+msgstr "移除所選擇的套件及相依性套件"
+
+#: src/EBox/CGI/InstallPkgs.pm:171
+msgid "packages left to remove"
+msgstr "套件移除"
+
+#: src/EBox/CGI/InstallPkgs.pm:172
+msgid ""
+"The packages removal has finished successfully. The administration interface "
+"may become unresponsive for a few seconds. Please wait patiently until the "
+"system has been fully restarted"
+msgstr ""
+"套件移除已經成功完成.管理介面可能會有幾秒鐘沒有回應.請耐心等待讓系統完全重新"
+"啟動"
+
+#: src/EBox/CGI/InstallPkgs.pm:176
+msgid ""
+"The packages removal has not finished correctly . More information on the "
+"logs"
+msgstr "套件移除沒有完成.在日誌上有更多資訊"
 
 #: src/EBox/PackageDescriptions.pm:1
-msgid "eBox - Antivirus module"
-msgstr "eBox - 防毒模組"
-
-#: src/EBox/PackageDescriptions.pm:2
-msgid "eBox - Asterisk"
-msgstr "eBox - Asterisk"
-
-#: src/EBox/PackageDescriptions.pm:3
-msgid "eBox - Certificate Authority Manager for eBox"
-msgstr "eBox - eBox 的憑證中心管理程式"
-
-#: src/EBox/PackageDescriptions.pm:4
-msgid "eBox - captive portal module"
-msgstr "eBox - 網頁認證模組"
-
-#: src/EBox/PackageDescriptions.pm:5
-msgid "eBox - DHCP server module"
-msgstr "eBox - DHCP 伺服器模組"
-
-#: src/EBox/PackageDescriptions.pm:6
-msgid "eBox - DNS server"
-msgstr "eBox - DNS 伺服器"
-
-#: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Backup"
 msgstr "eBox - 備份"
-
-#: src/EBox/PackageDescriptions.pm:8
-msgid "the eBox platform - Base framework"
-msgstr "eBox 系統 - Base framework"
-
-#: src/EBox/PackageDescriptions.pm:9
-msgid "eBox - eGroupware"
-msgstr "eBox - eGroupware"
-
-#: src/EBox/PackageDescriptions.pm:10
-msgid "eBox - Firewall"
-msgstr "eBox - 防火牆"
-
-#: src/EBox/PackageDescriptions.pm:11
-msgid "eBox - Intrusion Detection System"
-msgstr "eBox - 入侵偵測系統"
-
-#: src/EBox/PackageDescriptions.pm:12
-msgid "eBox - Instant messaging proxy"
-msgstr "eBox - 即時通訊代理伺服器"
-
-#: src/EBox/PackageDescriptions.pm:13
-msgid "eBox - Instant messaging (Jabber)"
-msgstr "eBox - 即時通訊 (Jabber)"
-
-#: src/EBox/PackageDescriptions.pm:14
-msgid "eBox - layer 7 protocols"
-msgstr "eBox - layer 7 protocols"
-
-#: src/EBox/PackageDescriptions.pm:15
-msgid "eBox - Mail server"
-msgstr "eBox - 郵件伺服器"
-
-#: src/EBox/PackageDescriptions.pm:16
-msgid "eBox - Mail filter module"
-msgstr "eBox - 郵件過濾模組"
-
-#: src/EBox/PackageDescriptions.pm:17
-msgid "eBox - Monitoring module  "
-msgstr "eBox - 監控模組"
-
-#: src/EBox/PackageDescriptions.pm:18
-msgid "eBox - Network configuration module"
-msgstr "eBox - 網路設置模組"
-
-#: src/EBox/PackageDescriptions.pm:19
-msgid "eBox - NTP server"
-msgstr "eBox - NTP 伺服器"
-
-#: src/EBox/PackageDescriptions.pm:20
-msgid "eBox - Object management"
-msgstr "eBox - Object 管理"
-
-#: src/EBox/PackageDescriptions.pm:21
-msgid "eBox - OpenVPN server module"
-msgstr "eBox - OpenVPN 伺服器模組"
-
-#: src/EBox/PackageDescriptions.pm:22
-msgid "eBox - Printer sharing"
-msgstr "eBox - 印表機分享"
-
-#: src/EBox/PackageDescriptions.pm:23
-msgid "eBox - client for remote services   "
-msgstr "eBox - 遠端服務客戶端   "
-
-#: src/EBox/PackageDescriptions.pm:24
-msgid "eBox - File sharing"
-msgstr "eBox - 檔案分享"
-
-#: src/EBox/PackageDescriptions.pm:25
-msgid "eBox - Services management"
-msgstr "eBox - 服務管理"
-
-#: src/EBox/PackageDescriptions.pm:26
-msgid "eBox - Software management"
-msgstr "eBox - 軟體管理"
-
-#: src/EBox/PackageDescriptions.pm:27
-msgid "eBox - Proxy cache and content filter"
-msgstr "eBox - 代理伺服器和內容過濾"
-
-#: src/EBox/PackageDescriptions.pm:28
-msgid "eBox - Traffic shaper for eBox"
-msgstr "eBox - eBox 的流量管理"
-
-#: src/EBox/PackageDescriptions.pm:29
-msgid "eBox - User and Group management"
-msgstr "eBox - 使用者和群組管理"
-
-#: src/EBox/PackageDescriptions.pm:30
-msgid "eBox - Web Server"
-msgstr "eBox - 網頁伺服器"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
@@ -298,11 +192,11 @@ msgstr "說明"
 msgid "Version"
 msgstr "版本"
 
-#: src/templates/updates.mas:19 src/templates/ebox.mas:27
+#: src/templates/updates.mas:19 src/templates/ebox.mas:28
 msgid "Update"
 msgstr "更新"
 
-#: src/templates/updates.mas:53 src/templates/ebox.mas:74
+#: src/templates/updates.mas:53 src/templates/ebox.mas:75
 msgid "Update all packages"
 msgstr "更新所有套件"
 
@@ -329,17 +223,104 @@ msgstr "最新版本"
 msgid "Actions"
 msgstr "動作"
 
-#: src/templates/ebox.mas:33
+#: src/templates/ebox.mas:34
 msgid "Install"
 msgstr "安裝"
 
-#: src/templates/ebox.mas:35
+#: src/templates/ebox.mas:36
 msgid "none"
 msgstr "沒有"
 
-#: src/templates/ebox.mas:57
+#: src/templates/ebox.mas:58
 msgid "Remove"
 msgstr "移除"
+
+#~ msgid "eBox - Antivirus module"
+#~ msgstr "eBox - 防毒模組"
+
+#~ msgid "eBox - Asterisk"
+#~ msgstr "eBox - Asterisk"
+
+#~ msgid "eBox - Certificate Authority Manager for eBox"
+#~ msgstr "eBox - eBox 的憑證中心管理程式"
+
+#~ msgid "eBox - captive portal module"
+#~ msgstr "eBox - 網頁認證模組"
+
+#~ msgid "eBox - DHCP server module"
+#~ msgstr "eBox - DHCP 伺服器模組"
+
+#~ msgid "eBox - DNS server"
+#~ msgstr "eBox - DNS 伺服器"
+
+#~ msgid "the eBox platform - Base framework"
+#~ msgstr "eBox 系統 - Base framework"
+
+#~ msgid "eBox - eGroupware"
+#~ msgstr "eBox - eGroupware"
+
+#~ msgid "eBox - Firewall"
+#~ msgstr "eBox - 防火牆"
+
+#~ msgid "eBox - Intrusion Detection System"
+#~ msgstr "eBox - 入侵偵測系統"
+
+#~ msgid "eBox - Instant messaging proxy"
+#~ msgstr "eBox - 即時通訊代理伺服器"
+
+#~ msgid "eBox - Instant messaging (Jabber)"
+#~ msgstr "eBox - 即時通訊 (Jabber)"
+
+#~ msgid "eBox - layer 7 protocols"
+#~ msgstr "eBox - layer 7 protocols"
+
+#~ msgid "eBox - Mail server"
+#~ msgstr "eBox - 郵件伺服器"
+
+#~ msgid "eBox - Mail filter module"
+#~ msgstr "eBox - 郵件過濾模組"
+
+#~ msgid "eBox - Monitoring module  "
+#~ msgstr "eBox - 監控模組"
+
+#~ msgid "eBox - Network configuration module"
+#~ msgstr "eBox - 網路設置模組"
+
+#~ msgid "eBox - NTP server"
+#~ msgstr "eBox - NTP 伺服器"
+
+#~ msgid "eBox - Object management"
+#~ msgstr "eBox - Object 管理"
+
+#~ msgid "eBox - OpenVPN server module"
+#~ msgstr "eBox - OpenVPN 伺服器模組"
+
+#~ msgid "eBox - Printer sharing"
+#~ msgstr "eBox - 印表機分享"
+
+#~ msgid "eBox - client for remote services   "
+#~ msgstr "eBox - 遠端服務客戶端   "
+
+#~ msgid "eBox - File sharing"
+#~ msgstr "eBox - 檔案分享"
+
+#~ msgid "eBox - Services management"
+#~ msgstr "eBox - 服務管理"
+
+#~ msgid "eBox - Software management"
+#~ msgstr "eBox - 軟體管理"
+
+#~ msgid "eBox - Proxy cache and content filter"
+#~ msgstr "eBox - 代理伺服器和內容過濾"
+
+#~ msgid "eBox - Traffic shaper for eBox"
+#~ msgstr "eBox - eBox 的流量管理"
+
+#~ msgid "eBox - User and Group management"
+#~ msgstr "eBox - 使用者和群組管理"
+
+#~ msgid "eBox - Web Server"
+#~ msgstr "eBox - 網頁伺服器"
 
 #~ msgid "IPsec VPNs"
 #~ msgstr "IPsec VPNs"

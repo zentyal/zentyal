@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:03+0200\n"
+"POT-Creation-Date: 2009-09-26 19:28+0100\n"
 "PO-Revision-Date: 2009-07-08 08:14+0200\n"
 "Last-Translator: Jörg Gronmayer <joerg@gronmayer.com>\n"
 "Language-Team: none\n"
@@ -17,19 +17,101 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: src/EBox/Model/DomainTable.pm:66
+msgid "Domain"
+msgstr "Domäne"
+
+#: src/EBox/Model/DomainTable.pm:74 src/EBox/Model/HostnameTable.pm:192
+msgid "Hostnames"
+msgstr "Computernamen (Hosts)"
+
+#: src/EBox/Model/DomainTable.pm:83
+msgid "Mail Exchangers"
+msgstr "Mail-Exchanger (MX)"
+
+#: src/EBox/Model/DomainTable.pm:91 src/EBox/Model/HostnameTable.pm:167
+msgid "IP Address"
+msgstr "IP Adresse"
+
+#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
+msgid "Domains"
+msgstr "Domänen"
+
+#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+msgid "domain"
+msgstr "Domäne"
+
+#: src/EBox/Model/HostnameTable.pm:135
+#, perl-brace-format
+msgid ""
+"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
+"same domain"
+msgstr ""
+"Es gibt bereits ein Alias mit dem Namen \"{name}\" für \"{hostname}\" in "
+"dieser Domäne"
+
+#: src/EBox/Model/HostnameTable.pm:159 src/EBox/Model/MailExchanger.pm:110
+#: src/templates/edit.mas:20
+msgid "Host name"
+msgstr "Name des Computers"
+
+#: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
+#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
+msgid "Alias"
+msgstr "Alias"
+
+#: src/EBox/Model/HostnameTable.pm:186
+msgid "Host names"
+msgstr "Computernamen (Hosts)"
+
+#: src/EBox/Model/HostnameTable.pm:193
+msgid "host name"
+msgstr "Name des Computers (Host)"
+
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:51
+msgid "DNS"
+msgstr "DNS"
+
+#: src/EBox/Model/DNSComposite.pm:77
+msgid "The DNS server allows you to resolve names for your own domains."
+msgstr "Der DNS-Server löst Computernamen Ihrer Domäne in IP-Adressen auf"
+
+#: src/EBox/Model/AliasTable.pm:80
+#, perl-brace-format
+msgid ""
+"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
+msgstr ""
+"Ein Alias kann nicht der Hostname des Name-Server \"{ns}\" sein. Verwenden "
+"Sie stattdessen einen anderen Hostnamen"
+
+#: src/EBox/Model/AliasTable.pm:93
+#, perl-brace-format
+msgid "There is a hostname with the same name \"{name}\" in the same domain"
+msgstr ""
+"Es gibt bereits einen Computer mit dem Namen \"{name}\" in dieser Domäne"
+
+#: src/EBox/Model/AliasTable.pm:102
+#, fuzzy, perl-brace-format
+msgid ""
+"There is an alias for {hostname} hostname with the same name \"{name}\" in "
+"the same domain"
+msgstr ""
+"Es gibt bereits einen Computer mit dem Namen \"{name}\" in dieser Domäne"
+
+#: src/EBox/Model/AliasTable.pm:147
+msgid "alias"
+msgstr "Alias"
+
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
 msgstr "Ungültige Nummer. Erlaubter Bereich {min} bis {max}"
 
-#: src/EBox/Model/MailExchanger.pm:110 src/EBox/Model/HostnameTable.pm:159
-#: src/templates/edit.mas:20
-msgid "Host name"
-msgstr "Name des Computers"
-
 #: src/EBox/Model/MailExchanger.pm:117
-msgid "Owner domain"
-msgstr "Besitzerdomäne"
+#, fuzzy
+msgid "This domain"
+msgstr "Domäne"
 
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
@@ -61,114 +143,21 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "Mail-Exchanger (MX) Eintrag"
 
-#: src/EBox/Model/HostnameTable.pm:135
-#, perl-brace-format
-msgid ""
-"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
-"same domain"
-msgstr ""
-"Es gibt bereits ein Alias mit dem Namen \"{name}\" für \"{hostname}\" in "
-"dieser Domäne"
-
-#: src/EBox/Model/HostnameTable.pm:167 src/EBox/Model/DomainTable.pm:91
-msgid "IP Address"
-msgstr "IP Adresse"
-
-#: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
-#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
-#: src/templates/edit.mas:64 src/templates/edit.mas:85
-msgid "Alias"
-msgstr "Alias"
-
-#: src/EBox/Model/HostnameTable.pm:186
-msgid "Host names"
-msgstr "Computernamen (Hosts)"
-
-#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
-msgid "Hostnames"
-msgstr "Computernamen (Hosts)"
-
-#: src/EBox/Model/HostnameTable.pm:193
-msgid "host name"
-msgstr "Name des Computers (Host)"
-
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:796
-msgid "DNS"
-msgstr "DNS"
-
-#: src/EBox/Model/DNSComposite.pm:77
-msgid "The DNS server allows you to resolve names for your own domains."
-msgstr "Der DNS-Server löst Computernamen Ihrer Domäne in IP-Adressen auf"
-
-#: src/EBox/Model/DomainTable.pm:66
-msgid "Domain"
-msgstr "Domäne"
-
-#: src/EBox/Model/DomainTable.pm:83
-msgid "Mail Exchangers"
-msgstr "Mail-Exchanger (MX)"
-
-#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
-msgid "Domains"
-msgstr "Domänen"
-
-#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
-msgid "domain"
-msgstr "Domäne"
-
-#: src/EBox/Model/EnableFormDNS.pm:84
-msgid "Service enabled"
-msgstr "Dienst aktiviert"
-
-#: src/EBox/Model/EnableFormDNS.pm:86
-msgid "Service disabled"
-msgstr "Dienst deaktiviert"
-
-#: src/EBox/Model/AliasTable.pm:80
-#, perl-brace-format
-msgid ""
-"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr ""
-"Ein Alias kann nicht der Hostname des Name-Server \"{ns}\" sein. Verwenden "
-"Sie stattdessen einen anderen Hostnamen"
-
-#: src/EBox/Model/AliasTable.pm:93
-#, perl-brace-format
-msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr ""
-"Es gibt bereits einen Computer mit dem Namen \"{name}\" in dieser Domäne"
-
-#: src/EBox/Model/AliasTable.pm:102
-#, fuzzy, perl-brace-format
-msgid ""
-"There is an alias for {hostname} hostname with the same name \"{name}\" in "
-"the same domain"
-msgstr ""
-"Es gibt bereits einen Computer mit dem Namen \"{name}\" in dieser Domäne"
-
-#: src/EBox/Model/AliasTable.pm:147
-msgid "alias"
-msgstr "Alias"
-
-#: src/EBox/DNS.pm.in:51
-msgid "Domain Name System"
-msgstr "Domain Name System (DNS)"
-
 #: src/EBox/DNS.pm.in:88
 msgid "DNS Server"
 msgstr "DNS-Server"
 
-#: src/EBox/DNS.pm.in:652
+#: src/EBox/DNS.pm.in:658
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "Konfigurationsdatei für Zone {zone}"
 
-#: src/EBox/DNS.pm.in:668
+#: src/EBox/DNS.pm.in:674
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "Konfiguration für Rückwärtsauflösung in Zone {zone}"
 
-#: src/EBox/DNS.pm.in:797
+#: src/EBox/DNS.pm.in:803
 msgid "Infrastructure"
 msgstr "Infrastruktur"
 
@@ -218,6 +207,18 @@ msgstr "Liste der Computer in der Domäne {domain}"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
+
+#~ msgid "Owner domain"
+#~ msgstr "Besitzerdomäne"
+
+#~ msgid "Service enabled"
+#~ msgstr "Dienst aktiviert"
+
+#~ msgid "Service disabled"
+#~ msgstr "Dienst deaktiviert"
+
+#~ msgid "Domain Name System"
+#~ msgstr "Domain Name System (DNS)"
 
 #~ msgid "There is an alias with the same name \"{name}\" in the same domain"
 #~ msgstr ""

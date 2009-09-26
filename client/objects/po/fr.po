@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:16+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2009-07-28 04:46+0200\n"
 "Last-Translator: David Ande <david@andeprasfamily.ath.cx>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -73,8 +73,7 @@ msgid "network address"
 msgstr "adresse réseau"
 
 #: src/EBox/Model/MemberTable.pm:126
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} chevauchements avec l'adresse ou un autre membre d'objet"
 
@@ -107,9 +106,8 @@ msgstr "suppression de {nname} de l'objet {object}"
 msgid "Object"
 msgstr "Objet"
 
-#: src/EBox/Objects.pm:411
-msgid "Core"
-msgstr "Core"
+#~ msgid "Core"
+#~ msgstr "Core"
 
 #~ msgid "IP Address"
 #~ msgstr "Adresse IP"

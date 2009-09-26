@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:16+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2008-11-10 16:11+0000\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: \n"
@@ -111,10 +111,9 @@ msgstr "Borrado {nname} del objeto {object}"
 msgid "Object"
 msgstr "Objeto"
 
-#: src/EBox/Objects.pm:411
 #, fuzzy
-msgid "Core"
-msgstr "Crear"
+#~ msgid "Core"
+#~ msgstr "Crear"
 
 #~ msgid "IP Address"
 #~ msgstr "Dirección IP"

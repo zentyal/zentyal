@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:02+0200\n"
+"POT-Creation-Date: 2009-09-26 19:24+0100\n"
 "PO-Revision-Date: 2009-08-04 00:13+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -18,29 +18,159 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
-msgid "Voicemail settings"
-msgstr "語音郵件設定值"
+#: src/EBox/Asterisk.pm:66
+msgid "VoIP"
+msgstr ""
 
-#: src/EBox/Model/Voicemail.pm:94
-msgid "New password"
-msgstr "新增密碼"
+#: src/EBox/Asterisk.pm:120
+msgid "To configure enabled and disabled modules."
+msgstr "設定 Asterisk 模組啟用或停用。"
 
-#: src/EBox/Model/Voicemail.pm:101
-msgid "Mail address"
+#: src/EBox/Asterisk.pm:125
+msgid "To configure the Realtime interface."
+msgstr "設定同步界面"
+
+# LDAP（Light-weighted Directory Access Protocol）是一種集中管理使用者與認證資訊的一種機制。
+#: src/EBox/Asterisk.pm:130
+msgid "To configure the LDAP Realtime driver."
+msgstr "設定LDAP(單一帳號)同步驅動程式"
+
+# LDAP（Light-weighted Directory Access Protocol）是一種集中管理使用者與認證資訊的一種機制。
+#: src/EBox/Asterisk.pm:135
+msgid "To configure the common SIP and IAX users."
+msgstr "設定一般 SIP 和 IAX 使用者。"
+
+# SIP TRUNK是一個由網路電話服務供應商提供的服務
+# ，SIP TRUNK允許企業利用已安裝的交換機去使用 VoIP，
+# 以和網路連線一樣的方式連接外部網路
+#: src/EBox/Asterisk.pm:140
+msgid "To configure the SIP trunk for local users and external providers."
+msgstr "設定區域使用者及外部供應商的SIP Trunk "
+
+#: src/EBox/Asterisk.pm:145
+msgid "To configure the RTP port ranges."
+msgstr "設定 RTP 連接埠範圍。"
+
+#: src/EBox/Asterisk.pm:150
+#, fuzzy
+msgid "To configure the dialplan."
+msgstr "設定Asterisk速撥功能"
+
+#: src/EBox/Asterisk.pm:155
+msgid "To configure the voicemail."
+msgstr "設定語音郵件。"
+
+#: src/EBox/Asterisk.pm:160
+msgid "To configure the conferences."
+msgstr "設定會議。"
+
+#: src/EBox/Asterisk.pm:456
+msgid "General"
+msgstr "一般"
+
+#: src/EBox/Asterisk.pm:460 src/EBox/Model/Meetings.pm:184
+msgid "Meetings"
+msgstr "會議"
+
+#: src/EBox/Asterisk.pm:477
+msgid "Voicemail"
+msgstr "語音郵件"
+
+#: src/EBox/Asterisk.pm:487 src/EBox/Asterisk.pm:574
+#, fuzzy
+msgid "User"
+msgstr "帳號"
+
+#: src/EBox/Asterisk.pm:487
+#, fuzzy
+msgid "Address"
 msgstr "郵件位址"
 
-#: src/EBox/Model/Voicemail.pm:108
-msgid "Attach messages"
-msgstr "附加的郵件"
+#: src/EBox/Asterisk.pm:487
+msgid "NAT"
+msgstr ""
 
-#: src/EBox/Model/Voicemail.pm:114
-msgid "Delete sent messages"
-msgstr "刪除寄出的郵件"
+#: src/EBox/Asterisk.pm:487
+msgid "Status"
+msgstr ""
 
-#: src/EBox/Model/Voicemail.pm:204
-msgid "Settings successfully updated"
-msgstr "設定值已成功的更新"
+#: src/EBox/Asterisk.pm:501 src/EBox/Asterisk.pm:583
+msgid "No users connected."
+msgstr ""
+
+#: src/EBox/Asterisk.pm:571
+#, perl-brace-format
+msgid "Room {name} active for {rtime}"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:574
+msgid "Time Connected"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:604
+msgid "VoIP Online Users"
+msgstr ""
+
+#: src/EBox/Asterisk.pm:609
+msgid "VoIP Users in Meetings"
+msgstr ""
+
+#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:114
+#: src/EBox/Model/Meetings.pm:123
+msgid "extension"
+msgstr "延伸功能"
+
+#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
+msgid "Voicemail extension"
+msgstr "語音郵件延伸功能"
+
+#: src/EBox/Model/Settings.pm:117
+msgid "Enable demo extensions"
+msgstr "啟用展示延伸功能"
+
+#: src/EBox/Model/Settings.pm:123
+msgid "Enable outgoing calls"
+msgstr "啟動撥出功能"
+
+#: src/EBox/Model/Settings.pm:136
+msgid "VoIP domain"
+msgstr "VoIP 網域"
+
+#: src/EBox/Model/Settings.pm:145
+msgid "General configuration"
+msgstr "一般組態"
+
+# Asterisk是一款實現用戶電話交換機（PBX）功能的自由軟體、開源軟體。Asterisk提供完善PBX功能，可以連接多種不同的電話終端，包括普通電話機，IP電話機，軟電話等，支持多種主流的IP電話協議和系統介面。軟體名稱Asterisk－星號（*），在Unix（包括Linux）和DOS作業系統中是通配符，用來在查找中適配任何字元，寓意該軟體廣泛的適用性。
+#: src/EBox/Model/Settings.pm:149
+msgid "General Asterisk server configuration"
+msgstr "一般 Asterisk 伺服器組態"
+
+#: src/EBox/Model/Settings.pm:151
+msgid "General Asterisk server configuration updated"
+msgstr "一般 Asterisk 伺服器組態已更新"
+
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net},are always "
+"considered local networks so it is not neccesary to add them"
+msgstr ""
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "本地端網路"
+
+#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:173
+msgid "Description"
+msgstr "描述"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "本地端網路"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "本地端網路"
 
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
@@ -75,72 +205,33 @@ msgstr "網外電話組態的 SIP 供應商"
 msgid "SIP provider configuration updated"
 msgstr "SIP 供應商組態已更新"
 
-#: src/EBox/Model/Meetings.pm:91
-msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
-msgstr "您必須安裝 dahdi-linux 和 dahi-tools 套件才能使用會議。"
+#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
+msgid "Voicemail settings"
+msgstr "語音郵件設定值"
 
-#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
-#: src/EBox/Model/Settings.pm:84
-msgid "extension"
-msgstr "延伸功能"
+#: src/EBox/Model/Voicemail.pm:94
+msgid "New password"
+msgstr "新增密碼"
 
-#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
-#: src/templates/asterisk.mas:34
-msgid "Extension"
-msgstr "延伸功能"
+#: src/EBox/Model/Voicemail.pm:101
+msgid "Mail address"
+msgstr "郵件位址"
 
-#: src/EBox/Model/Meetings.pm:149
-#, perl-brace-format
-msgid "A number between {min} and {max}"
-msgstr "在 {min} 到 {max} 之間的數字"
+#: src/EBox/Model/Voicemail.pm:108
+msgid "Attach messages"
+msgstr "附加的郵件"
 
-#: src/EBox/Model/Meetings.pm:173
-msgid "Administrator password"
-msgstr "系統管理者密碼"
+#: src/EBox/Model/Voicemail.pm:114
+msgid "Delete sent messages"
+msgstr "刪除寄出的郵件"
 
-#: src/EBox/Model/Meetings.pm:181 src/EBox/Model/Localnets.pm:117
-msgid "Description"
-msgstr "描述"
-
-#: src/EBox/Model/Meetings.pm:192 src/EBox/Asterisk.pm:455
-msgid "Meetings"
-msgstr "會議"
-
-#: src/EBox/Model/Meetings.pm:193
-msgid "meeting"
-msgstr "會議"
-
-#: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
-msgid "Voicemail extension"
-msgstr "語音郵件延伸功能"
-
-#: src/EBox/Model/Settings.pm:117
-msgid "Enable demo extensions"
-msgstr "啟用展示延伸功能"
-
-#: src/EBox/Model/Settings.pm:123
-msgid "Enable outgoing calls"
-msgstr "啟動撥出功能"
-
-#: src/EBox/Model/Settings.pm:136
-msgid "VoIP domain"
-msgstr "VoIP 網域"
-
-#: src/EBox/Model/Settings.pm:145
-msgid "General configuration"
-msgstr "一般組態"
-
-# Asterisk是一款實現用戶電話交換機（PBX）功能的自由軟體、開源軟體。Asterisk提供完善PBX功能，可以連接多種不同的電話終端，包括普通電話機，IP電話機，軟電話等，支持多種主流的IP電話協議和系統介面。軟體名稱Asterisk－星號（*），在Unix（包括Linux）和DOS作業系統中是通配符，用來在查找中適配任何字元，寓意該軟體廣泛的適用性。
-#: src/EBox/Model/Settings.pm:149
-msgid "General Asterisk server configuration"
-msgstr "一般 Asterisk 伺服器組態"
-
-#: src/EBox/Model/Settings.pm:151
-msgid "General Asterisk server configuration updated"
-msgstr "一般 Asterisk 伺服器組態已更新"
+#: src/EBox/Model/Voicemail.pm:204
+msgid "Settings successfully updated"
+msgstr "設定值已成功的更新"
 
 #: src/EBox/Model/NAT.pm:96
-msgid "Asterisk is behind NAT"
+#, fuzzy
+msgid "eBox is behind NAT"
 msgstr "Asterisk 在 NAT 後"
 
 #: src/EBox/Model/NAT.pm:101
@@ -160,17 +251,27 @@ msgstr "NAT Asterisk 伺服器組態"
 msgid "NAT Asterisk server configuration updated"
 msgstr "NAT Asterisk 伺服器組態已更新"
 
-#: src/EBox/Model/Localnets.pm:87 src/EBox/Model/Localnets.pm:129
-msgid "local network"
-msgstr "本地端網路"
+#: src/EBox/Model/Meetings.pm:91
+msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
+msgstr "您必須安裝 dahdi-linux 和 dahi-tools 套件才能使用會議。"
 
-#: src/EBox/Model/Localnets.pm:111
-msgid "Local network"
-msgstr "本地端網路"
+#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
+#: src/templates/asterisk.mas:34
+msgid "Extension"
+msgstr "延伸功能"
 
-#: src/EBox/Model/Localnets.pm:128
-msgid "Local networks"
-msgstr "本地端網路"
+#: src/EBox/Model/Meetings.pm:149
+#, perl-brace-format
+msgid "A number between {min} and {max}"
+msgstr "在 {min} 到 {max} 之間的數字"
+
+#: src/EBox/Model/Meetings.pm:185
+msgid "meeting"
+msgstr "會議"
+
+#: src/EBox/Asterisk/Extensions.pm:208
+msgid "User's extension"
+msgstr "使用者延伸功能"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"
@@ -179,72 +280,6 @@ msgstr "使用者名稱"
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk 模組"
-
-#: src/EBox/Asterisk/Extensions.pm:208
-msgid "User's extension"
-msgstr "使用者延伸功能"
-
-#: src/EBox/Asterisk.pm:64 src/EBox/Asterisk.pm:445
-msgid "Asterisk"
-msgstr "Asterisk"
-
-#: src/EBox/Asterisk.pm:118
-msgid "To configure enabled and disabled modules."
-msgstr "設定 Asterisk 模組啟用或停用。"
-
-#: src/EBox/Asterisk.pm:123
-msgid "To configure the Realtime interface."
-msgstr "設定同步界面"
-
-# LDAP（Light-weighted Directory Access Protocol）是一種集中管理使用者與認證資訊的一種機制。
-#: src/EBox/Asterisk.pm:128
-msgid "To configure the LDAP Realtime driver."
-msgstr "設定LDAP(單一帳號)同步驅動程式"
-
-# LDAP（Light-weighted Directory Access Protocol）是一種集中管理使用者與認證資訊的一種機制。
-#: src/EBox/Asterisk.pm:133
-msgid "To configure the common SIP and IAX users."
-msgstr "設定一般 SIP 和 IAX 使用者。"
-
-# SIP TRUNK是一個由網路電話服務供應商提供的服務
-# ，SIP TRUNK允許企業利用已安裝的交換機去使用 VoIP，
-# 以和網路連線一樣的方式連接外部網路
-#: src/EBox/Asterisk.pm:138
-msgid "To configure the SIP trunk for local users and external providers."
-msgstr "設定區域使用者及外部供應商的SIP Trunk "
-
-#: src/EBox/Asterisk.pm:143
-msgid "To configure the RTP port ranges."
-msgstr "設定 RTP 連接埠範圍。"
-
-#: src/EBox/Asterisk.pm:148
-#, fuzzy
-msgid "To configure the dialplan."
-msgstr "設定Asterisk速撥功能"
-
-#: src/EBox/Asterisk.pm:153
-msgid "To configure the voicemail."
-msgstr "設定語音郵件。"
-
-#: src/EBox/Asterisk.pm:158
-msgid "To configure the conferences."
-msgstr "設定會議。"
-
-#: src/EBox/Asterisk.pm:163
-msgid "To add the Asterisk schema and ACLs."
-msgstr "加入 Asterisk 配置和 ACLs。"
-
-#: src/EBox/Asterisk.pm:446
-msgid "Communications"
-msgstr "溝通"
-
-#: src/EBox/Asterisk.pm:451
-msgid "General"
-msgstr "一般"
-
-#: src/EBox/Asterisk.pm:472
-msgid "Voicemail"
-msgstr "語音郵件"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox VoIP system"
@@ -273,6 +308,18 @@ msgstr "啟動"
 #: src/templates/asterisk.mas:45 src/templates/asterisk.mas:46
 msgid "Change"
 msgstr "修改"
+
+#~ msgid "Administrator password"
+#~ msgstr "系統管理者密碼"
+
+#~ msgid "Asterisk"
+#~ msgstr "Asterisk"
+
+#~ msgid "To add the Asterisk schema and ACLs."
+#~ msgstr "加入 Asterisk 配置和 ACLs。"
+
+#~ msgid "Communications"
+#~ msgstr "溝通"
 
 #~ msgid "To add a new schema"
 #~ msgstr "新增模式"

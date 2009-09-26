@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:16+0200\n"
+"POT-Creation-Date: 2009-09-26 19:21+0100\n"
 "PO-Revision-Date: 2009-06-03 02:26+0200\n"
 "Last-Translator: Sudel <sudel@freemail.it>\n"
 "Language-Team: none\n"
@@ -15,10 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "stato della sincronizzazione esterna"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Time Zone Configuration"
@@ -41,19 +37,6 @@ msgstr "Server secondario"
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "Server terziario"
-
-#: src/EBox/CGI/Datetime.pm:30
-#, fuzzy
-msgid "Date and Time Configuration"
-msgstr "Impostazioni data e ora"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:41
-msgid "country"
-msgstr "paese"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:42
-msgid "continent"
-msgstr "continente"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -78,6 +61,23 @@ msgstr "Minuti"
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
 msgstr "Secondi"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr "paese"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr "continente"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "stato della sincronizzazione esterna"
+
+#: src/EBox/CGI/Datetime.pm:30
+#, fuzzy
+msgid "Date and Time Configuration"
+msgstr "Impostazioni data e ora"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
@@ -140,8 +140,8 @@ msgid "Enabled"
 msgstr "Abilitato"
 
 #: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/servers.mas:50 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34 src/templates/date.mas:96
+#: src/templates/timezone.mas:33 src/templates/timezone.mas:34
+#: src/templates/servers.mas:50 src/templates/date.mas:96
 #: src/templates/date.mas:97
 msgid "Change"
 msgstr "Cambia"

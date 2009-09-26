@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-egroupware 1.3.3"
+"Project-Id-Version: ebox-egroupware 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:05+0200\n"
+"POT-Creation-Date: 2009-09-26 19:30+0100\n"
 "PO-Revision-Date: 2009-06-28 00:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,19 +16,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: src/EBox/Model/Applications.pm:103
+#: src/EBox/EGroupware.pm:49
+msgid "Groupware"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:97
+msgid "Create PostgreSQL user egroupware"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:98
+msgid "This user will be the owner of the egroupware database"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:102
+msgid "Create PostgreSQL egroupware database"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:103
+msgid "This database will store the data needed by eGroupware"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:120
+msgid "To configure eGroupware access settings"
+msgstr ""
+
+#: src/EBox/EGroupware.pm:125
+msgid "To allow local access to egroupware database"
+msgstr ""
+
+#: src/EBox/Model/Applications.pm:111
 msgid "Application"
 msgstr ""
 
-#: src/EBox/Model/Applications.pm:109
+#: src/EBox/Model/Applications.pm:117
 msgid "Enabled"
 msgstr ""
 
-#: src/EBox/Model/Applications.pm:116
+#: src/EBox/Model/Applications.pm:124
 msgid "Applications"
 msgstr ""
 
-#: src/EBox/Model/Applications.pm:117
+#: src/EBox/Model/Applications.pm:125
 msgid "application"
 msgstr ""
 
@@ -108,41 +136,4 @@ msgstr ""
 
 #: src/EBox/Composite/General.pm:76
 msgid "eGroupware Configuration"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:49 src/EBox/EGroupware.pm:189
-#: src/EBox/EGroupware.pm:212
-msgid "eGroupware"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:97
-msgid "Create PostgreSQL user egroupware"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:98
-msgid "This user will be the owner of the egroupware database"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:102
-msgid "Create PostgreSQL egroupware database"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:103
-msgid "This database will store the data needed by eGroupware"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:120
-msgid "To configure eGroupware access settings"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:125
-msgid "To allow local access to egroupware database"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:130
-msgid "To add a new schema"
-msgstr ""
-
-#: src/EBox/EGroupware.pm:213
-msgid "Office"
 msgstr ""

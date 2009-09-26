@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:15+0200\n"
-"PO-Revision-Date: 2009-09-02 07:26+0200\n"
+"POT-Creation-Date: 2009-09-26 19:34+0100\n"
+"PO-Revision-Date: 2009-09-26 19:37+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -17,34 +17,541 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2771
+#: src/EBox/Event/Watcher/Gateways.pm:138
+#, fuzzy, perl-brace-format
+msgid "Gateway {gw} connected"
+msgstr "Gateway {gw} ikke tilgjengelig"
+
+#: src/EBox/Event/Watcher/Gateways.pm:245
+#, perl-brace-format
+msgid ""
+"Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
+"failed, max={maxFailRatio}%)"
+msgstr ""
+
+#: src/EBox/Event/Watcher/Gateways.pm:305
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:2842
+msgid "WAN Failover"
+msgstr ""
+
+#: src/EBox/Event/Watcher/Gateways.pm:321
+msgid "Check if gateways are connected or disconnected."
+msgstr ""
+
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2415
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "Gateway {gw} ikke tilgjengelig"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:65
+#: src/EBox/Model/GatewayTable.pm:97
+#: src/EBox/Model/MultiGwRulesDataTable.pm:101 src/EBox/Network.pm:824
+#: src/EBox/Network.pm:856 src/EBox/Network.pm:901 src/EBox/Network.pm:935
+#: src/EBox/Network.pm:960 src/EBox/Network.pm:1036 src/EBox/Network.pm:1159
+#: src/EBox/Network.pm:1354 src/EBox/Network.pm:1414 src/EBox/Network.pm:1449
+#: src/EBox/Network.pm:1484 src/EBox/Network.pm:1517 src/EBox/Network.pm:2458
+#: src/EBox/Network.pm:2490 src/EBox/Network.pm:2589 src/EBox/Network.pm:2609
+#: src/EBox/Network.pm:2630 src/EBox/Network.pm:2653
+msgid "Interface"
+msgstr "Grensesnitt"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:74
+#: src/EBox/Model/GatewayTable.pm:83
+#: src/EBox/Model/PhysicalInterfaceTable.pm:60
+#: src/EBox/Model/VlanInterfaceTable.pm:61 src/templates/ifaces.mas:26
+#: src/templates/ifaces.mas:211
+msgid "Name"
+msgstr "Navn"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:83
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:218
+#: src/templates/ifaces.mas:37
+msgid "Method"
+msgstr "Metode"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:92
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:250
+#: src/templates/ifaces.mas:74
+msgid "External"
+msgstr "Ekstern"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:108
+msgid "Configurable interface list"
+msgstr "Konfigurerbar grensesnitts liste"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:115
+msgid "These are the interfaces which can be configured"
+msgstr "Dette er grensesnittene som kan konfigureres"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:117
+#: src/EBox/Model/PhysicalInterfaceTable.pm:83
+#: src/EBox/Model/VlanInterfaceTable.pm:94
+msgid "interface"
+msgstr "grensesnitt"
+
+#: src/EBox/Model/GatewayTable.pm:90 src/EBox/CGI/VIface.pm:62
+#: src/EBox/Network.pm:731 src/EBox/Network.pm:736 src/EBox/Network.pm:1040
+#: src/EBox/Network.pm:1061 src/EBox/Network.pm:2460 src/EBox/Network.pm:2475
+#: src/EBox/Network.pm:2633 src/EBox/Network.pm:2772
+#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:212
+msgid "IP address"
+msgstr "IP adresse"
+
+#: src/EBox/Model/GatewayTable.pm:100
+msgid "Interface connected to this gateway"
+msgstr "Grensesnitt tilkoblet denne gatewayen"
+
+#: src/EBox/Model/GatewayTable.pm:104
+msgid "Weight"
+msgstr "Vekt"
+
+#: src/EBox/Model/GatewayTable.pm:108
+msgid ""
+"This field is only useful if you have more than one router and  the balance "
+"traffic feature is enabled."
+msgstr ""
+"Dette feltet er kun nyttig hvis du har mer enn en router  og del trafikk "
+"alternativet er aktivert."
+
+#: src/EBox/Model/GatewayTable.pm:114
+msgid "Default"
+msgstr "Standart"
+
+#: src/EBox/Model/GatewayTable.pm:124
+msgid "Gateways List"
+msgstr "Gateway Liste"
+
+#: src/EBox/Model/GatewayTable.pm:125 src/EBox/Network.pm:2836
+msgid "Gateways"
+msgstr "Gateway"
+
+#: src/EBox/Model/GatewayTable.pm:141
+msgid ""
+"You can add as many gateways as you want. This is very useful if you want to "
+"split your Internet traffic through several links."
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:143
+msgid "gateway"
+msgstr "gateway"
+
+#: src/EBox/Model/GatewayTable.pm:158 src/EBox/CGI/Iface.pm:87
+msgid "ip address"
+msgstr "ip adresse"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:71
+msgid ""
+"Starting traffic rate monitoring. Wait patiently until the graph appears"
+msgstr "Starter trafikk rate overvåking. Vent tålmodig til grafen blir synlig"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:74
+msgid "Stopping traffic rate monitoring"
+msgstr "Stopp trafikk rate overvåking"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:87
+msgid ""
+"The traffic rate monitor is start/stop on demand without requiring to save "
+"changes first"
+msgstr ""
+"Trafikk rate overvåkingen er start/stopp etter behov uten å kreve lagre "
+"endringer først"
+
+#: src/EBox/Model/StaticRoute.pm:153 src/EBox/Network.pm:72
+#: src/EBox/Network.pm:2825
+msgid "Network"
+msgstr "Nettverk"
+
+#: src/EBox/Model/StaticRoute.pm:156
+msgid "IP or network address"
+msgstr "IP eller nettverks adresse"
+
+#: src/EBox/Model/StaticRoute.pm:162
+msgid "Gateway used to reach the above network  address"
+msgstr "Gateway brukt til å nå nettverket over  adresse"
+
+#: src/EBox/Model/StaticRoute.pm:167 src/templates/ifaces.mas:155
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: src/EBox/Model/StaticRoute.pm:170
+msgid "Optional description for this route"
+msgstr "Valgfri beskrivelse for denne ruten"
+
+#: src/EBox/Model/StaticRoute.pm:176
+msgid "Static Routes List"
+msgstr "Statisk Rute Liste"
+
+#: src/EBox/Model/StaticRoute.pm:177 src/EBox/Network.pm:2838
+msgid "Static Routes"
+msgstr "Statisk Rute"
+
+#: src/EBox/Model/StaticRoute.pm:182
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+"Alle gatewayene du skriver inn her må være tilgjengelige gjennom en av "
+"nettverks grensesnittene konfigurert nå."
+
+#: src/EBox/Model/StaticRoute.pm:185
+msgid "static route"
+msgstr "statisk rute"
+
+#: src/EBox/Model/WANFailoverRules.pm:53
+#, fuzzy
+msgid "Ping to gateway"
+msgstr "gateway"
+
+#: src/EBox/Model/WANFailoverRules.pm:57
+msgid "Ping to host"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:61
+msgid "DNS resolve"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:65
+msgid "HTTP Request"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:89
+msgid "Test type"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:95 src/EBox/CGI/Diag.pm:51
+#: src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14 src/templates/diag.mas:23
+msgid "Host"
+msgstr "Vert"
+
+#: src/EBox/Model/WANFailoverRules.pm:101
+msgid "Number of probes"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:110
+msgid "Required success ratio"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:123
+msgid "Test rules"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:130
+msgid ""
+"You can define different rules to test if a gateway is working properly. If "
+"one of the test fails the gateway will be disabled. It will be enabled again "
+"when all tests are passed."
+msgstr ""
+
+#: src/EBox/Model/WANFailoverRules.pm:131
+#: src/EBox/Model/MultiGwRulesOptions.pm:68
+#: src/EBox/Model/MultiGwRulesDataTable.pm:195
+msgid "rule"
+msgstr "regel"
+
+#: src/EBox/Model/WANFailoverRules.pm:179
+msgid "Invalid value for Host"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:43
+msgid "Enable"
+msgstr "Aktiver"
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:53
+msgid "Traffic balancing"
+msgstr "Trafikk deling"
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:64
+#, perl-brace-format
+msgid ""
+"By enabling this feature, your traffic will be balanced amongst your "
+"gateways. That is, every new connection will be sent by a different gateway. "
+"You can choose which proportion of traffic goes through each gateway using "
+"the weight parameter of the gateway. You can change that value {openref}here"
+"{closeref}.{br}If you want to explicitily route traffic by a certain "
+"gateway, use the multigateway rules below"
+msgstr ""
+"Ved å aktivere denne tjenesten, vil din trafikk bli delt mellom dine "
+"gatewayer. Det vil si, alle nye tilkoblinger vil bli sent til en forskjellig "
+"gateway. Du kan velge hvilken del av trafikken som går gjennom hver gateway "
+"ved å bruke vekt parameterene på gatewayen. Du kan endre verdien {openref}her"
+"{closeref}. {br}Hvis du vil spesifikt route trafikk gjennom en bestem "
+"gateway, bruk multigateway regler under"
+
+#: src/EBox/Model/ByteRateSettings.pm:80
+msgid "Interface to listen"
+msgstr "Grensesnitt som lytter"
+
+#: src/EBox/Model/ByteRateSettings.pm:89
+msgid "Traffic rate monitor settings"
+msgstr "Trafikk rate overvåkings innstilling"
+
+#: src/EBox/Model/ByteRateSettings.pm:93
+msgid "Changes will be applied immediately to the traffic rate monitor"
+msgstr "Endringer vil bli utført umiddelbart til trafikk rate overvåkeren"
+
+#: src/EBox/Model/ByteRateSettings.pm:96
+msgid "Settings changed"
+msgstr "Innstillinger endret"
+
+#: src/EBox/Model/ByteRateSettings.pm:115
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (internt grensesnitt)"
+
+#: src/EBox/Model/ByteRateSettings.pm:122
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (eksternt grensesnitt)"
+
+#: src/EBox/Model/ByteRateSettings.pm:129
+msgid "all"
+msgstr "alle"
+
+#: src/EBox/Model/DNSResolver.pm:78
+msgid "IP address of the DNS server that eBox will use to resolve names."
+msgstr "IP adressen til DNS serveren som eBox vil bruke til å slå opp navn."
+
+#: src/EBox/Model/DNSResolver.pm:84
+msgid "Domain Name Server"
+msgstr "Domene Navn Server"
+
+#: src/EBox/Model/DNSResolver.pm:93
+msgid "Domain Name Server Resolver List"
+msgstr "Domene Navn Server Oppslags Liste"
+
+#: src/EBox/Model/DNSResolver.pm:99
+msgid "name server"
+msgstr "navn server"
+
+#: src/EBox/Model/DNSResolver.pm:111
+msgid ""
+"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
+"that these settings may be overriden if you have any network interface "
+"configured via DHCP</p>"
+msgstr ""
+"<p>Her kan du legge til navn server oppslagerne som eBox vil bruke..</"
+"p><p>NB. Disse innstillingene kan bli overskrevet om du har nettverks "
+"grensesnitt konfigurert via DHCP</p>"
+
+#: src/EBox/Model/PhysicalInterfaceTable.pm:74
+msgid "Physical interface list"
+msgstr "Fysisk grensesnitt liste"
+
+#: src/EBox/Model/PhysicalInterfaceTable.pm:81
+msgid "These are the physical interfaces which are available in your system."
+msgstr "Dette er de fysiske grensesnittene som er tilgjengelig i ditt system."
+
+#: src/EBox/Model/SearchDomain.pm:72
+msgid "Domain"
+msgstr "Domene"
+
+#: src/EBox/Model/SearchDomain.pm:80
+msgid "Search Domain"
+msgstr "Søke Domene"
+
+#: src/EBox/Model/SearchDomain.pm:84
+msgid ""
+"This domain will be appended when trying to resolve hosts if the first "
+"attempt without appending it has failed."
+msgstr ""
+"Dette domenet vil bli lagt til når du forsøker å slå opp verter hvis første "
+"forsøk uten feiler"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:46
+msgid "Select traffic graphic"
+msgstr "Velg trafikk grafikk"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:57
+msgid ""
+"Several views are showed depending on the parameter selection. An host IP "
+"address and a service, which must match the text given by the graphs legend "
+"based on /etc/services, may be required by the graph type. The flow view "
+"will change accordingly"
+msgstr ""
+"Flere visninger er vist avhenging av parameter valg. En vers IP adresse og "
+"tjeneste, som må treffe teksten gitt av grafens legende basert på /etc/"
+"services, kan være påkrevd av graf typen. Flyt visningen vil endre deretter"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:78
+msgid "Graph type"
+msgstr "Graf type"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:85
+msgid "All active traffic by source"
+msgstr "All aktiv trafikk av kilde"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:89
+msgid "All active traffic by service"
+msgstr "All aktiv trafikk av tjeneste"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:93
+msgid "Traffic by selected source"
+msgstr "All aktiv trafikk av valgt kilde"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:99
+msgid "Traffic by selected service"
+msgstr "All aktiv trafikk av valgt tjeneste"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:105
+msgid "Traffic by source and service"
+msgstr "All aktiv trafikk av kilde og tjeneste"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:111
+#: src/EBox/Model/MultiGwRulesDataTable.pm:110
+msgid "Source"
+msgstr "Kile"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:117
+#: src/EBox/Model/MultiGwRulesDataTable.pm:161 src/EBox/Model/DynDNS.pm:92
+msgid "Service"
+msgstr "Tjeneste"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:77
+msgid "any"
+msgstr "hvilken som helst"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:104
+msgid ""
+"Incoming interface to match packets. If you  want to match a whole subnet "
+"you can  select the interface of that subnet"
+msgstr ""
+"Inngående grensesnitt for treff av pakker. Hvis du vil  treffe et helt "
+"subnett kan du  velge grensesnittet til det subnettet"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:115
+#: src/EBox/Model/MultiGwRulesDataTable.pm:142
+msgid "Any"
+msgstr "Hvilken som helst"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:118
+msgid "Source IP"
+msgstr "Kilde IP"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:123
+msgid "Source object"
+msgstr "Kilde objekt"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:129
+msgid "eBox"
+msgstr "eBox"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:137
+msgid "Destination"
+msgstr "Destinasjon"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:145
+msgid "Destination IP"
+msgstr "Destinasjon IP"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:150
+msgid "Destination object"
+msgstr "Destinasjon objekt"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:172
+msgid "Gateway to route packets matching this rule"
+msgstr "Gateway til ruting av pakker som treffer denne regelen"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:180
+msgid "Multigateway rules"
+msgstr "Multigateway regler"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:193
+msgid ""
+"You can decide what kind of traffic goes out by each gateway. This way, you "
+"can force a subnet, service, destination and so forth  to use the router you "
+"choose. Please, bear in mind that rules will be applied in order, from top "
+"to bottom, you can reorder them once they are added. If you do not set a "
+"port or an IP address, then the rule will match all of them"
+msgstr ""
+"Du kan velge hvilken trafikk som går ut av hver gateway. På denne måten, kan "
+"du tvinge et subnet, tjeneste, destinasjon osv...  til å bruke routeren du "
+"velger. Vennligst, vær klar over at regler blir satt i rekkefølge, fra topp "
+"til bunn, du kan organisere dem når de er lagt til. Hvis du ikke setter en "
+"port eller en IP adresse, vil regelen treffe alle sammen"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:70
+msgid "Physical interface"
+msgstr "Fysisk grensesnitt"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:85
+msgid "Vlan interface list"
+msgstr "Vlan grensesnitt liste"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:92
+msgid "These are the vlan interfaces which are available in your system."
+msgstr "Dette er vlan grensesnittene som er tilgjengelig i ditt system."
+
+#: src/EBox/Model/DynDNS.pm:87
+msgid "Enable Dynamic DNS"
+msgstr "Aktiver Dynamisk DNS"
+
+#: src/EBox/Model/DynDNS.pm:98
+msgid "Username"
+msgstr "Brukernavn"
+
+#: src/EBox/Model/DynDNS.pm:103
+msgid "Password"
+msgstr "Passord"
+
+#: src/EBox/Model/DynDNS.pm:108
+msgid "Hostname"
+msgstr "Vertsnavn"
+
+#: src/EBox/Model/DynDNS.pm:115
+msgid "Dynamic DNS"
+msgstr "Dynamisk DNS"
+
+#: src/EBox/Model/DynDNS.pm:119
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+"Alle gatewayer du lgger inn her må være tilgjengelige gjennom en av "
+"nettverks grensesnittene som er konfigurert"
+
+#: src/EBox/Model/WANFailoverOptions.pm:72
+msgid "Time between checks"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverOptions.pm:73
+#, fuzzy
+msgid "seconds"
+msgstr "bytes/sekund"
+
+#: src/EBox/Model/WANFailoverOptions.pm:83
+msgid "Global options"
+msgstr ""
+
+#: src/EBox/Model/WANFailoverOptions.pm:87
+msgid "These options affect to all the tests."
+msgstr ""
+
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+msgid "Network Diagnostic Tools"
+msgstr "Nettverks Diagnose Verktøy"
+
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2716
+msgid "host name"
+msgstr "verts navn"
+
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "trafikk deling"
+
+#: src/EBox/CGI/Vlan.pm:41 src/EBox/CGI/VIface.pm:43 src/EBox/CGI/Iface.pm:42
+#: src/EBox/CGI/Iface.pm:59
+msgid "network interface"
+msgstr "nettverks grensesnitt"
+
+#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1233 src/EBox/Network.pm:1262
+#: src/templates/ifaces.mas:154
+msgid "VLAN Id"
+msgstr "VLAN Id"
+
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/CGI/FirstTime/Ifaces.pm:13
+#: src/EBox/Network.pm:2809
 msgid "Network Interfaces"
 msgstr "Nettverks Grensesnitt"
-
-#: src/EBox/CGI/FirstTime/Ifaces.pm:25
-msgid ""
-"After the initial config you can revisit this page at Network/Interfaces in "
-"the menu"
-msgstr ""
-"Etter første konfigurasjon kan du besøke denne siden om igjen på "
-"Nettverk/Grensesnitt i menyen"
-
-#: src/EBox/CGI/FirstTime/DNS.pm:41
-msgid "You can revisit this page at Network/DNS in the menu"
-msgstr "Du kan besøke denne siden om igjen på Nettverk/DNS i menyen."
-
-#: src/EBox/CGI/FirstTime/Iface.pm:45
-msgid "Network interface configured"
-msgstr "Nettverks grensesnitt konfigurert"
-
-#: src/EBox/CGI/FirstTime/Nameservers.pm:44
-msgid "DNS configured"
-msgstr "DNS konfigurert"
-
-#: src/EBox/CGI/FirstTime/Gateway.pm:41
-msgid "Gateway configured"
-msgstr "Gateway konfigurert"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:29
 msgid "Set default gateway"
@@ -54,67 +561,52 @@ msgstr "Sett standard gateway"
 msgid "You can change later the gateway at Network/Routes menus item"
 msgstr "Du kan endre senere standard gateway på Netverk/Ruter meny valget"
 
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-msgid "Network Diagnostic Tools"
-msgstr "Nettverks Diagnose Verktøy"
+#: src/EBox/CGI/FirstTime/Ifaces.pm:25
+msgid ""
+"After the initial config you can revisit this page at Network/Interfaces in "
+"the menu"
+msgstr ""
+"Etter første konfigurasjon kan du besøke denne siden om igjen på Nettverk/"
+"Grensesnitt i menyen"
 
-#: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14
-#: src/templates/diag.mas:23
-msgid "Host"
-msgstr "Vert"
+#: src/EBox/CGI/FirstTime/Nameservers.pm:44
+msgid "DNS configured"
+msgstr "DNS konfigurert"
 
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2678
-msgid "host name"
-msgstr "verts navn"
+#: src/EBox/CGI/FirstTime/Gateway.pm:41
+msgid "Gateway configured"
+msgstr "Gateway konfigurert"
 
-#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
-#: src/EBox/CGI/Vlan.pm:40
-msgid "network interface"
-msgstr "nettverks grensesnitt"
+#: src/EBox/CGI/FirstTime/DNS.pm:41
+msgid "You can revisit this page at Network/DNS in the menu"
+msgstr "Du kan besøke denne siden om igjen på Nettverk/DNS i menyen."
 
-#: src/EBox/CGI/Iface.pm:58
-msgid "method"
-msgstr "metode"
-
-#: src/EBox/CGI/Iface.pm:87 src/EBox/Model/GatewayTable.pm:174
-msgid "ip address"
-msgstr "ip adresse"
-
-#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63
-msgid "netmask"
-msgstr "nettmaske"
+#: src/EBox/CGI/FirstTime/Iface.pm:45
+msgid "Network interface configured"
+msgstr "Nettverks grensesnitt konfigurert"
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
 msgstr "virtuelt grensesnitts handling"
 
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Model/GatewayTable.pm:89
-#: src/EBox/Network.pm:728 src/EBox/Network.pm:733 src/EBox/Network.pm:1037
-#: src/EBox/Network.pm:1058 src/EBox/Network.pm:2448 src/EBox/Network.pm:2463
-#: src/EBox/Network.pm:2595 src/EBox/Network.pm:2734
-#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:213
-msgid "IP address"
-msgstr "IP adresse"
+#: src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Iface.pm:88
+msgid "netmask"
+msgstr "nettmaske"
 
 #: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
 msgid "virtual interface name"
 msgstr "virtuelt grensesnitts navn"
 
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1230
-#: src/EBox/Network.pm:1259 src/templates/ifaces.mas:155
-msgid "VLAN Id"
-msgstr "VLAN Id"
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr "trafikk deling"
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr "metode"
 
 #: src/EBox/Network/Report/ByteRate.pm:134
 #: src/EBox/Network/Composite/ByteRate.pm:74
 msgid "Traffic rate monitoring"
 msgstr "Trafikk hastighets overvåkning"
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2723
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2761
 msgid "Status"
 msgstr "Status"
 
@@ -195,33 +687,34 @@ msgstr "Total trafikk rate fra {src}"
 #: src/EBox/Network/Report/ByteRate.pm:1099
 #, perl-brace-format
 msgid "Total traffic rate for {service}"
-msgstr "Total trafikk rate for {tjeneste}"
+msgstr "Total trafikk rate for {service}"
 
 #: src/EBox/Network/Report/ByteRate.pm:1123
 #, perl-brace-format
 msgid "Traffic rate from {src} for {service}"
 msgstr "Trafikk rate fra {src} for {service}"
 
-#: src/EBox/Network/FirstTime.pm:14
-msgid "Configure network interfaces"
-msgstr "Konfigurer nettverks grensesnitt"
+#: src/EBox/Network/Composite/WANFailover.pm:78
+msgid ""
+"Events module is not enabled. You have to enable it and also enable the WAN "
+"Failover event in order to use this feature."
+msgstr ""
 
-#: src/EBox/Network/FirstTime.pm:15
-msgid "Configure name servers"
-msgstr "Konfigurer navne servere"
+#: src/EBox/Network/Composite/WANFailover.pm:82
+msgid ""
+"WAN Failover event is not enabled. You have to enable it in order to use "
+"this feature"
+msgstr ""
 
-#: src/EBox/Network/FirstTime.pm:16
-msgid "Configure default gateway"
-msgstr "Konfigurer standard gateway"
-
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:2802
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:2840
 msgid "Balance Traffic"
 msgstr "Del Trafikk"
 
 #: src/EBox/Network/Composite/MultiGw.pm:83
+#, fuzzy
 msgid ""
-"To be able to use this feature you need at least two gateways. You can add "
-"them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
+"To be able to use this feature you need at least two enabled gateways. You "
+"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "For å bruke denne funksjonen trenger du minst to gatewayer. Du kan legge dem "
 "til  <a href=\"/ebox/Network/View/GatewayTable\">her</a> først."
@@ -229,440 +722,6 @@ msgstr ""
 #: src/EBox/Network/Composite/DNS.pm:61
 msgid "Domain Name Server Resolver"
 msgstr "Domene Navn Server Oversetter"
-
-#: src/EBox/Model/PhysicalInterfaceTable.pm:60
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:74
-#: src/EBox/Model/GatewayTable.pm:82 src/EBox/Model/VlanInterfaceTable.pm:61
-#: src/templates/ifaces.mas:26 src/templates/ifaces.mas:212
-msgid "Name"
-msgstr "Navn"
-
-#: src/EBox/Model/PhysicalInterfaceTable.pm:74
-msgid "Physical interface list"
-msgstr "Fysisk grensesnitt liste"
-
-#: src/EBox/Model/PhysicalInterfaceTable.pm:81
-msgid "These are the physical interfaces which are available in your system."
-msgstr "Dette er de fysiske grensesnittene som er tilgjengelig i ditt system."
-
-#: src/EBox/Model/PhysicalInterfaceTable.pm:83
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:117
-#: src/EBox/Model/VlanInterfaceTable.pm:94
-msgid "interface"
-msgstr "grensesnitt"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:77
-msgid "any"
-msgstr "hvilken som helst"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:101
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:65
-#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:821
-#: src/EBox/Network.pm:853 src/EBox/Network.pm:898 src/EBox/Network.pm:932
-#: src/EBox/Network.pm:957 src/EBox/Network.pm:1033 src/EBox/Network.pm:1156
-#: src/EBox/Network.pm:1351 src/EBox/Network.pm:1411 src/EBox/Network.pm:1446
-#: src/EBox/Network.pm:1483 src/EBox/Network.pm:1516 src/EBox/Network.pm:2446
-#: src/EBox/Network.pm:2478 src/EBox/Network.pm:2551 src/EBox/Network.pm:2571
-#: src/EBox/Network.pm:2592 src/EBox/Network.pm:2615
-msgid "Interface"
-msgstr "Grensesnitt"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:104
-msgid ""
-"Incoming interface to match packets. If you  want to match a whole subnet "
-"you can  select the interface of that subnet"
-msgstr ""
-"Inngående grensesnitt for treff av pakker. Hvis du vil  treffe et helt "
-"subnett kan du  velge grensesnittet til det subnettet"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:110
-#: src/EBox/Model/ByteRateGraphControl.pm:111
-msgid "Source"
-msgstr "Kile"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:115
-#: src/EBox/Model/MultiGwRulesDataTable.pm:142
-msgid "Any"
-msgstr "Hvilken som helst"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:118
-msgid "Source IP"
-msgstr "Kilde IP"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:123
-msgid "Source object"
-msgstr "Kilde objekt"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:129
-msgid "eBox"
-msgstr "eBox"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:137
-msgid "Destination"
-msgstr "Destinasjon"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:145
-msgid "Destination IP"
-msgstr "Destinasjon IP"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:150
-msgid "Destination object"
-msgstr "Destinasjon objekt"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:161 src/EBox/Model/DynDNS.pm:92
-#: src/EBox/Model/ByteRateGraphControl.pm:117
-msgid "Service"
-msgstr "Tjeneste"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:168
-#: src/EBox/Model/StaticRoute.pm:148
-msgid "Gateway"
-msgstr "Gateway"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:172
-msgid "Gateway to route packets matching this rule"
-msgstr "Gateway til ruting av pakker som treffer denne regelen"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:180
-msgid "Multigateway rules"
-msgstr "Multigateway regler"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:193
-msgid ""
-"You can decide what kind of traffic goes out by each gateway. This way, you "
-"can force a subnet, service, destination and so forth  to use the router you "
-"choose. Please, bear in mind that rules will be applied in order, from top "
-"to bottom, you can reorder them once they are added. If you do not set a "
-"port or an IP address, then the rule will match all of them"
-msgstr ""
-"Du kan velge hvilken trafikk som går ut av hver gateway. På denne måten, kan "
-"du tvinge et subnet, tjeneste, destinasjon osv...  til å bruke routeren du "
-"velger. Vennligst, vær klar over at regler blir satt i rekkefølge, fra topp "
-"til bunn, du kan organisere dem når de er lagt til. Hvis du ikke setter en "
-"port eller en IP adresse, vil regelen treffe alle sammen"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:195
-#: src/EBox/Model/MultiGwRulesOptions.pm:68
-msgid "rule"
-msgstr "regel"
-
-#: src/EBox/Model/DynDNS.pm:87
-msgid "Enable Dynamic DNS"
-msgstr "Aktiver Dynamisk DNS"
-
-#: src/EBox/Model/DynDNS.pm:98
-msgid "Username"
-msgstr "Brukernavn"
-
-#: src/EBox/Model/DynDNS.pm:103
-msgid "Password"
-msgstr "Passord"
-
-#: src/EBox/Model/DynDNS.pm:108
-msgid "Hostname"
-msgstr "Vertsnavn"
-
-#: src/EBox/Model/DynDNS.pm:115
-msgid "Dynamic DNS"
-msgstr "Dynamisk DNS"
-
-#: src/EBox/Model/DynDNS.pm:119
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured"
-msgstr ""
-"Alle gatewayer du lgger inn her må være tilgjengelige gjennom en av "
-"nettverks grensesnittene som er konfigurert"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:83
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:218
-#: src/templates/ifaces.mas:37
-msgid "Method"
-msgstr "Metode"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:92
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:250
-#: src/templates/ifaces.mas:74
-msgid "External"
-msgstr "Ekstern"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:108
-msgid "Configurable interface list"
-msgstr "Konfigurerbar grensesnitts liste"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:115
-msgid "These are the interfaces which can be configured"
-msgstr "Dette er grensesnittene som kan konfigureres"
-
-#: src/EBox/Model/GatewayTable.pm:99
-msgid "Interface connected to this gateway"
-msgstr "Grensesnitt tilkoblet denne gatewayen"
-
-#: src/EBox/Model/GatewayTable.pm:103
-msgid "Upload"
-msgstr "Opplast"
-
-#: src/EBox/Model/GatewayTable.pm:107
-msgid "Upload rate in Kbits/s for this gateway."
-msgstr "Opplastings rate i Kbits/s for denne gatewayen"
-
-#: src/EBox/Model/GatewayTable.pm:112
-msgid "Download"
-msgstr "Nedlast"
-
-#: src/EBox/Model/GatewayTable.pm:116
-msgid "Download rate in Kbits/s for this gateway."
-msgstr "Nedlastings rate i Kbits/s for denne gatewayen"
-
-#: src/EBox/Model/GatewayTable.pm:120
-msgid "Weight"
-msgstr "Vekt"
-
-#: src/EBox/Model/GatewayTable.pm:124
-msgid ""
-"This field is only useful if you have more than one router and  the balance "
-"traffic feature is enabled."
-msgstr ""
-"Dette feltet er kun nyttig hvis du har mer enn en router  og del trafikk "
-"alternativet er aktivert."
-
-#: src/EBox/Model/GatewayTable.pm:130
-msgid "Default"
-msgstr "Standart"
-
-#: src/EBox/Model/GatewayTable.pm:140
-msgid "Gateways List"
-msgstr "Gateway Liste"
-
-#: src/EBox/Model/GatewayTable.pm:141 src/EBox/Network.pm:2798
-msgid "Gateways"
-msgstr "Gateway"
-
-#: src/EBox/Model/GatewayTable.pm:155
-#, perl-brace-format
-msgid ""
-"You can add as many gateways as you want. This is very useful if you want to "
-"split your Internet traffic through several links.{br}The download and "
-"upload fields must be set as much rate as you have to your connection "
-"towards the gateway. The correct value of these fields is critical to ensure "
-"a correct functionality of the traffic shaping module"
-msgstr ""
-"Du kan legge til så mange gatewayer du vil. Dette er veldig nyttig hvis du "
-"vil splitte din Internett trafikk gjennom forskjellige linker.{br} "
-"Nedlastings og opplastings feltene må settes til så mye hastighet som du har "
-"på din tilkobling på gatewayen. Korrekt verdi av disse feltene er viktig "
-"for å forsikre en korrekt funksjonalitet av trafikk formings modulen"
-
-#: src/EBox/Model/GatewayTable.pm:157
-msgid "gateway"
-msgstr "gateway"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:70
-msgid "Physical interface"
-msgstr "Fysisk grensesnitt"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:85
-msgid "Vlan interface list"
-msgstr "Vlan grensesnitt liste"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:92
-msgid "These are the vlan interfaces which are available in your system."
-msgstr "Dette er vlan grensesnittene som er tilgjengelig i ditt system."
-
-#: src/EBox/Model/ByteRateGraphControl.pm:46
-msgid "Select traffic graphic"
-msgstr "Velg trafikk grafikk"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:57
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-"Flere visninger er vist avhenging av parameter valg. En vers IP adresse og "
-"tjeneste, som må treffe teksten gitt av grafens legende basert på "
-"/etc/services, kan være påkrevd av graf typen. Flyt visningen vil endre "
-"deretter"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:78
-msgid "Graph type"
-msgstr "Graf type"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:85
-msgid "All active traffic by source"
-msgstr "All aktiv trafikk av kilde"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:89
-msgid "All active traffic by service"
-msgstr "All aktiv trafikk av tjeneste"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:93
-msgid "Traffic by selected source"
-msgstr "All aktiv trafikk av valgt kilde"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:99
-msgid "Traffic by selected service"
-msgstr "All aktiv trafikk av valgt tjeneste"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:105
-msgid "Traffic by source and service"
-msgstr "All aktiv trafikk av kilde og tjeneste"
-
-#: src/EBox/Model/ByteRateSettings.pm:80
-msgid "Interface to listen"
-msgstr "Grensesnitt som lytter"
-
-#: src/EBox/Model/ByteRateSettings.pm:89
-msgid "Traffic rate monitor settings"
-msgstr "Trafikk rate overvåkings innstilling"
-
-#: src/EBox/Model/ByteRateSettings.pm:93
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr "Endringer vil bli utført umiddelbart til trafikk rate overvåkeren"
-
-#: src/EBox/Model/ByteRateSettings.pm:96
-msgid "Settings changed"
-msgstr "Innstillinger endret"
-
-#: src/EBox/Model/ByteRateSettings.pm:115
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (internt grensesnitt)"
-
-#: src/EBox/Model/ByteRateSettings.pm:122
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (eksternt grensesnitt)"
-
-#: src/EBox/Model/ByteRateSettings.pm:129
-msgid "all"
-msgstr "alle"
-
-#: src/EBox/Model/StaticRoute.pm:141 src/EBox/Network.pm:72
-#: src/EBox/Network.pm:2787
-msgid "Network"
-msgstr "Nettverk"
-
-#: src/EBox/Model/StaticRoute.pm:144
-msgid "IP or network address"
-msgstr "IP eller nettverks adresse"
-
-#: src/EBox/Model/StaticRoute.pm:150
-msgid "Gateway used to reach the above network  address"
-msgstr "Gateway brukt til å nå nettverket over  adresse"
-
-#: src/EBox/Model/StaticRoute.pm:155 src/templates/ifaces.mas:156
-msgid "Description"
-msgstr "Beskrivelse"
-
-#: src/EBox/Model/StaticRoute.pm:158
-msgid "Optional description for this route"
-msgstr "Valgfri beskrivelse for denne ruten"
-
-#: src/EBox/Model/StaticRoute.pm:164
-msgid "Static Routes List"
-msgstr "Statisk Rute Liste"
-
-#: src/EBox/Model/StaticRoute.pm:165 src/EBox/Network.pm:2800
-msgid "Static Routes"
-msgstr "Statisk Rute"
-
-#: src/EBox/Model/StaticRoute.pm:170
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"Alle gatewayene du skriver inn her må være tilgjengelige gjennom en av "
-"nettverks grensesnittene konfigurert nå."
-
-#: src/EBox/Model/StaticRoute.pm:173
-msgid "static route"
-msgstr "statisk rute"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:71
-msgid ""
-"Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr "Starter trafikk rate overvåking. Vent tålmodig til grafen blir synlig"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:74
-msgid "Stopping traffic rate monitoring"
-msgstr "Stopp trafikk rate overvåking"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:87
-msgid ""
-"The traffic rate monitor is start/stop on demand without requiring to save "
-"changes first"
-msgstr ""
-"Trafikk rate overvåkingen er start/stopp etter behov uten å kreve lagre "
-"endringer først"
-
-#: src/EBox/Model/DNSResolver.pm:78
-msgid "IP address of the DNS server that eBox will use to resolve names."
-msgstr "IP adressen til DNS serveren som eBox vil bruke til å slå opp navn."
-
-#: src/EBox/Model/DNSResolver.pm:84
-msgid "Domain Name Server"
-msgstr "Domene Navn Server"
-
-#: src/EBox/Model/DNSResolver.pm:93
-msgid "Domain Name Server Resolver List"
-msgstr "Domene Navn Server Oppslags Liste"
-
-#: src/EBox/Model/DNSResolver.pm:99
-msgid "name server"
-msgstr "navn server"
-
-#: src/EBox/Model/DNSResolver.pm:111
-msgid ""
-"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
-"that these settings may be overriden if you have any network interface "
-"configured via DHCP</p>"
-msgstr ""
-"<p>Her kan du legge til navn server oppslagerne som eBox vil "
-"bruke..</p><p>NB. Disse innstillingene kan bli overskrevet om du har "
-"nettverks grensesnitt konfigurert via DHCP</p>"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:43
-msgid "Enable"
-msgstr "Aktiver"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:53
-msgid "Traffic balancing"
-msgstr "Trafikk deling"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:64
-#, perl-brace-format
-msgid ""
-"By enabling this feature, your traffic will be balanced amongst your "
-"gateways. That is, every new connection will be sent by a different gateway. "
-"You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
-"gateway, use the multigateway rules below"
-msgstr ""
-"Ved å aktivere denne tjenesten, vil din trafikk bli delt mellom dine "
-"gatewayer. Det vil si, alle nye tilkoblinger vil bli sent til en forskjellig "
-"gateway. Du kan velge hvilken del av trafikken som går gjennom hver gateway "
-"ved å bruke vekt parameterene på gatewayen. Du kan endre verdien "
-"{openref}her{closeref}. {br}Hvis du vil spesifikt route trafikk gjennom en "
-"bestem gateway, bruk multigateway regler under"
-
-#: src/EBox/Model/SearchDomain.pm:72
-msgid "Domain"
-msgstr "Domene"
-
-#: src/EBox/Model/SearchDomain.pm:80
-msgid "Search Domain"
-msgstr "Søke Domene"
-
-#: src/EBox/Model/SearchDomain.pm:84
-msgid ""
-"This domain will be appended when trying to resolve hosts if the first "
-"attempt without appending it has failed."
-msgstr ""
-"Dette domenet vil bli lagt til når du forsøker å slå opp verter hvis første "
-"forsøk uten feiler"
 
 #: src/EBox/Network.pm:90
 msgid "Add default routers to the default table"
@@ -700,38 +759,37 @@ msgstr "eBox vil sette din DNS konfigurasjon"
 msgid "eBox will set your ddclient configuration"
 msgstr "eBox vil sette din ddclient konfigurasjon"
 
-#: src/EBox/Network.pm:725 src/EBox/Network.pm:729
+#: src/EBox/Network.pm:728 src/EBox/Network.pm:732
 msgid "Virtual interface name"
 msgstr "Virtuelt grensesnitts navn"
 
-#: src/EBox/Network.pm:728 src/EBox/Network.pm:1037 src/EBox/Network.pm:2448
-#: src/templates/ifaces.mas:104 src/templates/ifaces.mas:214
+#: src/EBox/Network.pm:731 src/EBox/Network.pm:1040 src/EBox/Network.pm:2460
+#: src/templates/ifaces.mas:104 src/templates/ifaces.mas:213
 msgid "Netmask"
 msgstr "Nettmaske"
 
-#: src/EBox/Network.pm:1161
+#: src/EBox/Network.pm:1164
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 "Dette grensesnittet kan ikke bli satt i koffert modus, det er et vlan "
 "grensesnitt."
 
-#: src/EBox/Network.pm:1206
+#: src/EBox/Network.pm:1209
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
 "Dette grensesnittet er i koffert modus, du bør fjerne konfigurasjoner for "
-"alle vlan grensesnitt i denne kofferten før du endrer konfigurasjons "
-"modusen."
+"alle vlan grensesnitt i denne kofferten før du endrer konfigurasjons modusen."
 
-#: src/EBox/Network.pm:1239
+#: src/EBox/Network.pm:1242
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 "Nettverks grensesnitter må være i koffert modus før man legger til vlan til "
 "dem."
 
-#: src/EBox/Network.pm:2337
+#: src/EBox/Network.pm:2349
 msgid ""
 "The requested operation will cause one of the \n"
 "configured gateways to become unreachable. Please remove it first if you "
@@ -741,12 +799,7 @@ msgstr ""
 " konfigurerte gatewayene å bli utilgjengelige. Vennligst fjern den først "
 "hvis du virkelig vil gjøre denne endringen."
 
-#: src/EBox/Network.pm:2403 src/EBox/NetworkUtil.pm:55
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "Gateway {gw} ikke tilgjengelig"
-
-#: src/EBox/Network.pm:2406
+#: src/EBox/Network.pm:2418
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
@@ -755,49 +808,133 @@ msgstr ""
 "Gateway {gw} må være tilgjengelig med et statisk grensesnitt. Den er nå "
 "tilgjengelig via {iface} som ikke er statisk"
 
-#: src/EBox/Network.pm:2637 src/EBox/Network.pm:2658
+#: src/EBox/Network.pm:2675 src/EBox/Network.pm:2696
 msgid "Host name"
 msgstr "Verts navn"
 
-#: src/EBox/Network.pm:2708
+#: src/EBox/Network.pm:2746
 msgid "down"
 msgstr "nede"
 
-#: src/EBox/Network.pm:2714
+#: src/EBox/Network.pm:2752
 msgid "up"
 msgstr "oppe"
 
-#: src/EBox/Network.pm:2718
+#: src/EBox/Network.pm:2756
 msgid "link ok"
 msgstr "link ok"
 
-#: src/EBox/Network.pm:2720
+#: src/EBox/Network.pm:2758
 msgid "no link"
 msgstr "ingen link"
 
-#: src/EBox/Network.pm:2728
+#: src/EBox/Network.pm:2766
 msgid "MAC address"
 msgstr "MAC adresse"
 
-#: src/EBox/Network.pm:2745
+#: src/EBox/Network.pm:2783
 msgid "Tx bytes"
 msgstr "Tx bytes"
 
-#: src/EBox/Network.pm:2754
+#: src/EBox/Network.pm:2792
 msgid "Rx bytes"
 msgstr "Rx bytes"
 
-#: src/EBox/Network.pm:2788
-msgid "Core"
-msgstr "Kjerne"
-
-#: src/EBox/Network.pm:2792
+#: src/EBox/Network.pm:2830
 msgid "Interfaces"
 msgstr "Grensesnitt"
 
-#: src/EBox/Network.pm:2804
+#: src/EBox/Network.pm:2844
 msgid "Diagnostic Tools"
 msgstr "Diagnose Verktøy"
+
+#: src/templates/confirmVlanDel.mas:9
+#, fuzzy
+msgid ""
+"The removal of the vlan interface will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+"Endringen du forsøker  vil påvirke konfigurasjonen på et eller flere moduler "
+"som bruker referanser til dette nettverks grensesnittet."
+
+#: src/templates/confirmVlanDel.mas:12 src/templates/confirmremove.mas:14
+#, fuzzy
+msgid ""
+"If you choose to continue, all modules that make use of this network "
+"interface will delete the relevant parts of their configuration. Choose "
+"\"Cancel\" if you are not sure about this."
+msgstr ""
+"Hvis du velger å fortsette, vil alle modulene som bruker gjeldende "
+"konfigurasjon av dette nettverks grensesnittet slette vesentlige deler av "
+"sin konfigurasjon. Velg \"Avbryt\" hvis du ikke er sikker på dette."
+
+#: src/templates/confirmVlanDel.mas:22 src/templates/confirmremove.mas:24
+#: src/templates/confirm.mas:31
+msgid "Ok"
+msgstr "Ok"
+
+#: src/templates/confirmVlanDel.mas:24 src/templates/confirmremove.mas:26
+#: src/templates/confirm.mas:33
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: src/templates/ifaces.mas:11
+msgid ""
+"Remember that changing the network interfaces configuration may cause you to "
+"lose access to the administration page."
+msgstr ""
+"Husk at endring av nettverks grensesnitts konfigurasjonen kan forårsake at "
+"du mister tilgang til administrasjons siden."
+
+#: src/templates/ifaces.mas:14
+msgid ""
+"Traffic being routed through interfaces marked as external will be NATed.  "
+"Also, services meant for the LAN users will not be available on external "
+"interfaces."
+msgstr ""
+"Trafikken som rutes gjennom grensesnitt markert som eksterne vil bli NATet.  "
+"Også, tjenester som er ment for LAN brukere vil ikke være tilgjengelig på "
+"eksterne grensesnitt."
+
+#: src/templates/ifaces.mas:43 src/templates/ifaces.mas:45
+msgid "Static"
+msgstr "Statisk"
+
+#: src/templates/ifaces.mas:56 src/templates/ifaces.mas:58
+msgid "Trunk (802.1q)"
+msgstr "Koffert (802.1q)"
+
+#: src/templates/ifaces.mas:63 src/templates/ifaces.mas:65
+msgid "Not set"
+msgstr "Ikke satt"
+
+#: src/templates/ifaces.mas:141
+msgid "Change"
+msgstr "Endre"
+
+#: src/templates/ifaces.mas:149
+msgid "VLAN List"
+msgstr "VLAN Liste"
+
+#: src/templates/ifaces.mas:156 src/templates/ifaces.mas:214
+msgid "Action"
+msgstr "Handling"
+
+#: src/templates/ifaces.mas:172 src/templates/ifaces.mas:173
+#: src/templates/ifaces.mas:174 src/templates/ifaces.mas:258
+#: src/templates/ifaces.mas:259 src/templates/ifaces.mas:260
+msgid "Add"
+msgstr "Legg til"
+
+#: src/templates/ifaces.mas:191 src/templates/ifaces.mas:192
+#: src/templates/ifaces.mas:193 src/templates/ifaces.mas:285
+#: src/templates/ifaces.mas:286 src/templates/ifaces.mas:287
+msgid "Delete"
+msgstr "Slett"
+
+#: src/templates/ifaces.mas:206
+msgid "Virtual Interfaces"
+msgstr "Virtuelle grensesnitt"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
@@ -827,65 +964,7 @@ msgstr "Oppslag"
 msgid "Output"
 msgstr "Ut data"
 
-#: src/templates/ifaces.mas:11
-msgid ""
-"Remember that changing the network interfaces configuration may cause you to "
-"lose access to the administration page."
-msgstr ""
-"Husk at endring av nettverks grensesnitts konfigurasjonen kan forårsake at "
-"du mister tilgang til administrasjons siden."
-
-#: src/templates/ifaces.mas:14
-msgid ""
-"Traffic being routed through interfaces marked as external will be NATed.  "
-"Also, services meant for the LAN users will not be available on external "
-"interfaces."
-msgstr ""
-"Trafikken som rutes gjennom grensesnitt markert som eksterne vil bli NATet. "
-" Også, tjenester som er ment for LAN brukere vil ikke være tilgjengelig på "
-"eksterne grensesnitt."
-
-#: src/templates/ifaces.mas:43 src/templates/ifaces.mas:45
-msgid "Static"
-msgstr "Statisk"
-
-#: src/templates/ifaces.mas:56 src/templates/ifaces.mas:58
-msgid "Trunk (802.1q)"
-msgstr "Koffert (802.1q)"
-
-#: src/templates/ifaces.mas:63 src/templates/ifaces.mas:65
-msgid "Not set"
-msgstr "Ikke satt"
-
-#: src/templates/ifaces.mas:142
-msgid "Change"
-msgstr "Endre"
-
-#: src/templates/ifaces.mas:150
-msgid "VLAN List"
-msgstr "VLAN Liste"
-
-#: src/templates/ifaces.mas:157 src/templates/ifaces.mas:215
-msgid "Action"
-msgstr "Handling"
-
-#: src/templates/ifaces.mas:173 src/templates/ifaces.mas:174
-#: src/templates/ifaces.mas:175 src/templates/ifaces.mas:260
-#: src/templates/ifaces.mas:261 src/templates/ifaces.mas:262
-msgid "Add"
-msgstr "Legg til"
-
-#: src/templates/ifaces.mas:192 src/templates/ifaces.mas:193
-#: src/templates/ifaces.mas:194 src/templates/ifaces.mas:287
-#: src/templates/ifaces.mas:288 src/templates/ifaces.mas:289
-msgid "Delete"
-msgstr "Slett"
-
-#: src/templates/ifaces.mas:207
-msgid "Virtual Interfaces"
-msgstr "Virtuelle grensesnitt"
-
-#: src/templates/confirm.mas:14 src/templates/confirmremove.mas:11
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
 msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
@@ -893,7 +972,7 @@ msgstr ""
 "Endringen du forsøker  vil påvirke konfigurasjonen på et eller flere moduler "
 "som bruker referanser til dette nettverks grensesnittet."
 
-#: src/templates/confirm.mas:17 src/templates/confirmremove.mas:14
+#: src/templates/confirm.mas:17
 msgid ""
 "If you choose to continue, all modules that make use of the current "
 "configuration of this network interface will delete the relevant parts of "
@@ -903,10 +982,43 @@ msgstr ""
 "konfigurasjon av dette nettverks grensesnittet slette vesentlige deler av "
 "sin konfigurasjon. Velg \"Avbryt\" hvis du ikke er sikker på dette."
 
-#: src/templates/confirm.mas:31 src/templates/confirmremove.mas:24
-msgid "Ok"
-msgstr "Ok"
+#~ msgid "Configure network interfaces"
+#~ msgstr "Konfigurer nettverks grensesnitt"
 
-#: src/templates/confirm.mas:33 src/templates/confirmremove.mas:26
-msgid "Cancel"
-msgstr "Avbryt"
+#~ msgid "Configure name servers"
+#~ msgstr "Konfigurer navne servere"
+
+#~ msgid "Configure default gateway"
+#~ msgstr "Konfigurer standard gateway"
+
+#~ msgid "Gateway"
+#~ msgstr "Gateway"
+
+#~ msgid "Upload"
+#~ msgstr "Opplast"
+
+#~ msgid "Upload rate in Kbits/s for this gateway."
+#~ msgstr "Opplastings rate i Kbits/s for denne gatewayen"
+
+#~ msgid "Download"
+#~ msgstr "Nedlast"
+
+#~ msgid "Download rate in Kbits/s for this gateway."
+#~ msgstr "Nedlastings rate i Kbits/s for denne gatewayen"
+
+#~ msgid ""
+#~ "You can add as many gateways as you want. This is very useful if you want "
+#~ "to split your Internet traffic through several links.{br}The download and "
+#~ "upload fields must be set as much rate as you have to your connection "
+#~ "towards the gateway. The correct value of these fields is critical to "
+#~ "ensure a correct functionality of the traffic shaping module"
+#~ msgstr ""
+#~ "Du kan legge til så mange gatewayer du vil. Dette er veldig nyttig hvis "
+#~ "du vil splitte din Internett trafikk gjennom forskjellige linker.{br} "
+#~ "Nedlastings og opplastings feltene må settes til så mye hastighet som du "
+#~ "har på din tilkobling på gatewayen. Korrekt verdi av disse feltene er "
+#~ "viktig for å forsikre en korrekt funksjonalitet av trafikk formings "
+#~ "modulen"
+
+#~ msgid "Core"
+#~ msgstr "Kjerne"

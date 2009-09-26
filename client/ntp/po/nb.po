@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:16+0200\n"
+"POT-Creation-Date: 2009-09-26 19:21+0100\n"
 "PO-Revision-Date: 2009-08-28 12:20+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -16,10 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "ekstern synkroniserings status"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Time Zone Configuration"
@@ -42,18 +38,6 @@ msgstr "Sekundær server"
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "Tertiær server"
-
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and Time Configuration"
-msgstr "Dato og tid konfigurasjon"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:41
-msgid "country"
-msgstr "land"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:42
-msgid "continent"
-msgstr "kontinent"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -78,6 +62,22 @@ msgstr "Minutter"
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
 msgstr "Sekunder"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr "land"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr "kontinent"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "ekstern synkroniserings status"
+
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and Time Configuration"
+msgstr "Dato og tid konfigurasjon"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
@@ -138,8 +138,8 @@ msgid "Enabled"
 msgstr "Aktivert"
 
 #: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/servers.mas:50 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34 src/templates/date.mas:96
+#: src/templates/timezone.mas:33 src/templates/timezone.mas:34
+#: src/templates/servers.mas:50 src/templates/date.mas:96
 #: src/templates/date.mas:97
 msgid "Change"
 msgstr "Endre"

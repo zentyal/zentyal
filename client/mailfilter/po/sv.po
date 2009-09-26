@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:10+0200\n"
+"POT-Creation-Date: 2009-09-26 19:33+0100\n"
 "PO-Revision-Date: 2009-07-19 12:17+0200\n"
 "Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
@@ -17,113 +17,399 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
-msgid "total messages"
-msgstr "totalt meddelanden"
+#: src/EBox/MailFilter.pm:60
+msgid "Mail Filter"
+msgstr "E-postfilter"
 
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:49
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:80
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
-msgid "clean messages"
-msgstr "rena meddelanden"
+#: src/EBox/MailFilter.pm:84
+msgid "Add clamav user to amavis group"
+msgstr "Lägg till clamav användare till amavis gruppen"
 
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
-msgid "infected messages "
-msgstr "infekterade meddelanden"
+#: src/EBox/MailFilter.pm:85
+msgid "Clamav need access to amavis fields to properly scan mail"
+msgstr "Clamav behöver access till amavis fält för att kunna skanna e-post"
 
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
-msgid "spam messages"
-msgstr "skräppostmeddelanden"
+#: src/EBox/MailFilter.pm:89
+msgid "Add clamav user to p3scan group"
+msgstr "Lägg till clamav användare till p3scan gruppen"
 
+#: src/EBox/MailFilter.pm:90
+msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
+msgstr ""
+"Clamav behöver access till p3scan gruppen för att kunna skanna i POP proxyn"
+
+#: src/EBox/MailFilter.pm:94
+msgid "Update LDAP"
+msgstr "Uppdatera LDAP"
+
+#: src/EBox/MailFilter.pm:95
+msgid "Add amavis specific classes and fields"
+msgstr "Lägg till amavis specifika klasser och fält"
+
+#: src/EBox/MailFilter.pm:352
+msgid "Cannot proceed because the filter is in use"
+msgstr "Kan inte fortsätta eftersom filtret används"
+
+#: src/EBox/MailFilter.pm:480
+msgid "Mail filter"
+msgstr "E-postfilter"
+
+#: src/EBox/MailFilter.pm:501 src/EBox/MailFilter.pm:548
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
-#: src/EBox/MailFilter.pm:498 src/EBox/MailFilter.pm:545
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
-msgid "infected messages"
-msgstr "infekterade meddelanden"
+#: src/EBox/MailFilter.pm:503
+msgid "Action"
+msgstr "Åtgärd"
 
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
-msgid "Transparent POP proxy traffic details"
-msgstr "Transparent POP proxy trafikdetaljer"
+#: src/EBox/MailFilter.pm:504 src/EBox/MailFilter.pm:552
+msgid "Event"
+msgstr "Händelse"
 
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
-msgid "traffic"
-msgstr "trafik"
+#: src/EBox/MailFilter.pm:506
+msgid "Sender address"
+msgstr "Sändares adress"
 
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
-msgid "Mail filter graph"
-msgstr "E-post filtergraf"
+#: src/EBox/MailFilter.pm:507
+msgid "Recipient address"
+msgstr "Mottagares adress"
 
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:97
-msgid "spam"
-msgstr "skräppost"
+#: src/EBox/MailFilter.pm:509
+msgid "Spam hits"
+msgstr "Skräppost träffar"
 
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
-msgid "banned files"
-msgstr "bannade filer"
+#: src/EBox/MailFilter.pm:514
+msgid "Bad header found"
+msgstr "Dåligt e-post huvud funnet"
 
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
-msgid "infected"
-msgstr "infekterad"
+#: src/EBox/MailFilter.pm:515
+msgid "Spam found"
+msgstr "Skräppost funnet"
 
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
-msgid "bad header"
-msgstr "dåligt e-posthuvud"
+#: src/EBox/MailFilter.pm:516
+msgid "Forbidden attached file  found"
+msgstr "Förbjuden bifogad fil funnen"
 
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
-msgid "blacklisted"
-msgstr "svartlistad"
+#: src/EBox/MailFilter.pm:517
+msgid "Address in blacklist found"
+msgstr "Adress från svartlista funnen"
 
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
-msgid "Filter traffic"
-msgstr "Filtertrafik"
+#: src/EBox/MailFilter.pm:518
+msgid "Virus found"
+msgstr "Virus upptäckt"
 
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
-msgid "blacklisted senders"
-msgstr "Svartlistade avsändare"
+#: src/EBox/MailFilter.pm:519
+msgid "Clean message"
+msgstr "Rent meddelande"
 
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
-msgid "bad message header"
-msgstr "dåligt e-posthuvud"
+#: src/EBox/MailFilter.pm:529 src/EBox/MailFilter/Composite/Amavis.pm:61
+msgid "SMTP filter"
+msgstr "SMTP filter"
 
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
-msgid "Filter traffic details"
-msgstr "Filter trafikdetaljer"
+#: src/EBox/MailFilter.pm:550
+msgid "Account"
+msgstr "Konto"
 
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
-msgid "POP proxy graph"
-msgstr "POP proxygraf"
+#: src/EBox/MailFilter.pm:551
+msgid "Client's address"
+msgstr "Klients adress"
 
-#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
-msgid "Transparent POP proxy traffic"
-msgstr "Transparent POP proxytrafik"
+#: src/EBox/MailFilter.pm:554
+msgid "Total messages"
+msgstr "Totalt meddelanden"
 
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63
+#: src/EBox/MailFilter.pm:555
+msgid "Clean messages"
+msgstr "Rena meddelanden"
+
+#: src/EBox/MailFilter.pm:556
+msgid "Virus messages"
+msgstr "Virus meddelanden"
+
+#: src/EBox/MailFilter.pm:557
+msgid "Spam messages"
+msgstr "Skräppostmeddelanden"
+
+#: src/EBox/MailFilter.pm:564
+msgid "POP3 transmission complete"
+msgstr "POP3 överföring färdig"
+
+#: src/EBox/MailFilter.pm:566
+msgid "POP3 transmission aborted"
+msgstr "POP3 överföring avbruten"
+
+#: src/EBox/MailFilter.pm:574
+msgid "POP3 proxy"
+msgstr "POP3 proxy"
+
+#: src/EBox/MailFilter.pm:674
+#, fuzzy
+msgid "SMTP Mail Filter"
+msgstr "SMTP e-postfilter"
+
+#: src/EBox/MailFilter.pm:681
+#, fuzzy
+msgid "POP Transparent Proxy"
+msgstr "Transparent POP proxy"
+
+#: src/EBox/MailFilter.pm:689 src/EBox/MailFilter/POPProxy.pm:350
+#: src/EBox/MailFilter/Amavis.pm:468
+#: src/EBox/MailFilter/Composite/Antispam.pm:63
+msgid "Antispam"
+msgstr "Skräppostfilter"
+
+#: src/EBox/MailFilter.pm:696
+msgid "Files ACL"
+msgstr "Fil ACL"
+
+#: src/EBox/MailFilter/POPProxy.pm:47
+msgid " To configure p3scan"
+msgstr "För att konfigurera p3scan"
+
+#: src/EBox/MailFilter/POPProxy.pm:52
+msgid "To configure renattach"
+msgstr "För att konfigurera renattach"
+
+#: src/EBox/MailFilter/POPProxy.pm:323
+msgid "Transparent POP Proxy"
+msgstr "Transparent POP proxy"
+
+#: src/EBox/MailFilter/POPProxy.pm:329 src/EBox/MailFilter/Amavis.pm:452
+msgid "Status"
+msgstr "Status"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:65
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:58
+msgid "Enabled"
+msgstr "Aktiverad"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:71
+msgid "Antivirus enabled"
+msgstr "Antivirus aktiverat"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:77
+msgid "Antispam enabled"
+msgstr "Antiskräppost aktiverad"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:84
+msgid "Service's port"
+msgstr "Tjänstens port"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:91
+msgid "Notify of non-spam problematic messages"
+msgstr "Meddela om problematiska meddelande som inte är skräppost"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:95
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
+msgid "mail address"
+msgstr "e-post adress"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
+msgid "General  settings"
+msgstr "Generella inställningar"
+
+#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
+#, perl-brace-format
+msgid "The port {port} is already used by module {mod}"
+msgstr "Porten {port} används redan av modulen {mod}"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:68
+msgid "External mail server"
+msgstr "Extern e-postserver"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:74
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:76
+msgid "Allow connection"
+msgstr "Tillåt kommunikation"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:82
+msgid "External mail servers"
+msgstr "Externa e-postservrar"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:94
+msgid "external mail server"
+msgstr "extern e-postserver"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:95
+msgid ""
+"Here you can specify which external mail servers can connect to the mail "
+"filter"
+msgstr ""
+"Här kan du specificera vilka externa e-postservrar som kan ansluta till e-"
+"postfiltret."
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:142
+#, perl-brace-format
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr "Felaktig extern MTA {mta}. Lokala nätverksadresser är inte tillåtna"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:70
+msgid "External mail domain"
+msgstr "Extern e-postdomän"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:84
+msgid "External mail domains"
+msgstr "Externa e-postdomäner"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:96
+msgid "external mail domain"
+msgstr "extern e-postdomän"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:97
+msgid ""
+"Here you can specify which external mail domains can connect to the mail "
+"filter"
+msgstr ""
+"Här kan du specificera vilken extern e-postdomän som kan ansluta till e-"
+"postfiltret"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:115
+#, perl-brace-format
+msgid "{d} is a internal eBox's virtual main domain"
+msgstr "{d} är en intern eBox virtuell huvuddomän"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:63
+msgid "Virus policy"
+msgstr "Virus policy"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:69
+msgid "Spam policy"
+msgstr "Skräppostpolicy"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:75
+msgid "Banned files policy"
+msgstr "Policy för bannade filer"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
+msgid "Bad header policy"
+msgstr "Felaktig e-posthuvudpolicy"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
+msgid "SMTP filter policies"
+msgstr "SMTP filterpolicy"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:69
+msgid "Domain"
+msgstr "Domän"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:79
+msgid "Use virus filtering"
+msgstr "Använd virusfiltrering"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:85
+msgid "Use spam filtering"
+msgstr "Använd skräppostfiltrering"
+
 #: src/EBox/MailFilter/Model/VDomains.pm:91
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63
 #: src/EBox/MailFilter/SpamAssassin.pm:333
 msgid "Spam threshold"
 msgstr "Skräpposttröskel"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:98
+msgid "default"
+msgstr "standard"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:102
+msgid "custom threshold"
+msgstr "anpassat tröskelvärde"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:113
+msgid "Learning ham account"
+msgstr "Inlärande brapost (ham) konto"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:114
+msgid ""
+"An address (ham@domain) will be created for this domain, ham messages "
+"incorrectly classified as spam may be forwarded to this addres to train the "
+"filter"
+msgstr ""
+"En adress (ham@domän) kommer att skapas för denna domän, bra e-"
+"postmeddelanden som felaktigt klassats som skräppost kan vidarebefordras hit "
+"för att träna filtret"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:125
+msgid "Learning spam account"
+msgstr "Lärande skräppostkonto"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:126
+msgid ""
+"An address (spam@domain) will be created for this domain, spam messages "
+"incorrectly classified as ham may be forwarded to this addres to train the "
+"filter"
+msgstr "En adress (spam@domän)"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:137
+msgid "Antispam sender policy"
+msgstr "Antiskräppost avsändarpolicy"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:148
+msgid "Virtual domains configuration"
+msgstr "Virtuella domäners konfiguration"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:159
+msgid "virtual domain"
+msgstr "virtuell domän"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:70
+msgid "Filter virus"
+msgstr "Filtrera virus"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:76
+msgid "Filter spam"
+msgstr "Filtrera skräppost"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
+msgid "ISP spam subject"
+msgstr "ISP skräppostärende"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
+msgid ""
+"This option allows you to set the string your ISP uses if\n"
+"it processes your email for SPAM."
+msgstr ""
+"Detta val tillåter dig att sätta strängen din ISP använder om denne "
+"filtrerar din e-post efter skräppost "
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
+msgid "POP transparent proxy configuration"
+msgstr "Transparent proxy för POP konfiguration"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
+msgid ""
+"The POP transparent proxy must scan for something to be useful. If you do "
+"not need either antivirus of spam scan we suggest you turn it off"
+msgstr ""
+"Den transparenta proxyn för POP måste skanna nånting för att vara till nån "
+"hjälp. Om du inte behöver antivirus eller skräppostfiltrering rekommenderar "
+"vi att du slår av den."
+
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
+msgid "File extension"
+msgstr "filändelse"
+
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:74
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:74
+msgid "Allow"
+msgstr "Tillåt"
+
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:82
+msgid "File extensions"
+msgstr "filändelser"
+
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
+#: src/EBox/MailFilter/Types/FileExtension.pm:59
+msgid "file extension"
+msgstr "filändelse"
+
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:95
+msgid "Extensions which are not listed below are allowed"
+msgstr "Filändelser som inte listas nedan är inte tillåtna"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:67
 msgid "The score threshold to mark a message as spam"
@@ -212,182 +498,101 @@ msgid ""
 msgstr ""
 "Brapost (ham) autoinlärningströskel kan inte vara lägre än standard tröskel"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:68
-msgid "External mail server"
-msgstr "Extern e-postserver"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
+msgid "Mail filter graph"
+msgstr "E-post filtergraf"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:74
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:76
-msgid "Allow connection"
-msgstr "Tillåt kommunikation"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:49
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:80
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
+msgid "clean messages"
+msgstr "rena meddelanden"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:82
-msgid "External mail servers"
-msgstr "Externa e-postservrar"
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:94
-msgid "external mail server"
-msgstr "extern e-postserver"
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:95
-msgid ""
-"Here you can specify which external mail servers can connect to the mail "
-"filter"
-msgstr ""
-"Här kan du specificera vilka externa e-postservrar som kan ansluta till e-"
-"postfiltret."
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:142
-#, perl-brace-format
-msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-msgstr "Felaktig extern MTA {mta}. Lokala nätverksadresser är inte tillåtna"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:65
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:58
-msgid "Enabled"
-msgstr "Aktiverad"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:71
-msgid "Antivirus enabled"
-msgstr "Antivirus aktiverat"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:77
-msgid "Antispam enabled"
-msgstr "Antiskräppost aktiverad"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:84
-msgid "Service's port"
-msgstr "Tjänstens port"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:91
-msgid "Notify of non-spam problematic messages"
-msgstr "Meddela om problematiska meddelande som inte är skräppost"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:95
-msgid "Disabled"
-msgstr "Inaktiverad"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
-msgid "mail address"
-msgstr "e-post adress"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
-msgid "General  settings"
-msgstr "Generella inställningar"
-
-#: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
-#, perl-brace-format
-msgid "The port {port} is already used by module {mod}"
-msgstr "Porten {port} används redan av modulen {mod}"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:60
-msgid "Mailbox"
-msgstr "Brevlåda"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:66
-msgid "Mailbox contains"
-msgstr "Brevlåda innehåller"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:76
-msgid "Train bayesian spam filter"
-msgstr "Träna bayesiskt skräppostfilter"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:81
-msgid "Learned from messages"
-msgstr "Lärde från meddelanden"
-
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:98
-msgid "ham"
-msgstr "brapost (ham)"
+msgid "spam"
+msgstr "skräppost"
 
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:130
-#, perl-brace-format
-msgid "Invalid mailbox type: {type}"
-msgstr "Ogiltig brevlådetyp: {type}"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:95
+msgid "banned files"
+msgstr "bannade filer"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:70
-msgid "Filter virus"
-msgstr "Filtrera virus"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:72
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:55
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:85
+msgid "infected"
+msgstr "infekterad"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:76
-msgid "Filter spam"
-msgstr "Filtrera skräppost"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:76
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:58
+msgid "bad header"
+msgstr "dåligt e-posthuvud"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
-msgid "ISP spam subject"
-msgstr "ISP skräppostärende"
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:80
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:61
+msgid "blacklisted"
+msgstr "svartlistad"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
-msgid ""
-"This option allows you to set the string your ISP uses if\n"
-"it processes your email for SPAM."
-msgstr ""
-"Detta val tillåter dig att sätta strängen din ISP använder om denne "
-"filtrerar din e-post efter skräppost "
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
+msgid "Filter traffic"
+msgstr "Filtertrafik"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
-msgid "POP transparent proxy configuration"
-msgstr "Transparent proxy för POP konfiguration"
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:75
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:63
+msgid "total messages"
+msgstr "totalt meddelanden"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
-msgid ""
-"The POP transparent proxy must scan for something to be useful. If you do "
-"not need either antivirus of spam scan we suggest you turn it off"
-msgstr ""
-"Den transparenta proxyn för POP måste skanna nånting för att vara till nån "
-"hjälp. Om du inte behöver antivirus eller skräppostfiltrering rekommenderar "
-"vi att du slår av den."
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:52
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:69
+msgid "infected messages "
+msgstr "infekterade meddelanden"
 
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
-msgid "MIME Type"
-msgstr "MIME-typ"
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:56
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:90
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:73
+msgid "spam messages"
+msgstr "skräppostmeddelanden"
 
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:74
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:74
-msgid "Allow"
-msgstr "Tillåt"
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:85
+msgid "infected messages"
+msgstr "infekterade meddelanden"
 
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:82
-msgid "MIME types"
-msgstr "MIME-typer"
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:102
+msgid "Transparent POP proxy traffic details"
+msgstr "Transparent POP proxy trafikdetaljer"
 
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
-#: src/EBox/MailFilter/Types/MIMEType.pm:61
-msgid "MIME type"
-msgstr "MIME-typ"
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
+msgid "traffic"
+msgstr "trafik"
 
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:95
-msgid ""
-"MIME types which are not listed below are allowed. MIME types aren't used by "
-"POP transparent proxy"
-msgstr ""
-"Mimetyper som inte listas nedan tillåts. Mimetyper används inte av POP "
-"transparent proxy"
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
+msgid "POP proxy graph"
+msgstr "POP proxygraf"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:70
-msgid "External mail domain"
-msgstr "Extern e-postdomän"
+#: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:95
+msgid "Transparent POP proxy traffic"
+msgstr "Transparent POP proxytrafik"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:84
-msgid "External mail domains"
-msgstr "Externa e-postdomäner"
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
+msgid "blacklisted senders"
+msgstr "Svartlistade avsändare"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:96
-msgid "external mail domain"
-msgstr "extern e-postdomän"
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
+msgid "bad message header"
+msgstr "dåligt e-posthuvud"
 
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:97
-msgid ""
-"Here you can specify which external mail domains can connect to the mail "
-"filter"
-msgstr ""
-"Här kan du specificera vilken extern e-postdomän som kan ansluta till e-"
-"postfiltret"
-
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:115
-#, perl-brace-format
-msgid "{d} is a internal eBox's virtual main domain"
-msgstr "{d} är en intern eBox virtuell huvuddomän"
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
+msgid "Filter traffic details"
+msgstr "Filter trafikdetaljer"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:62
 msgid "Mail sender"
@@ -417,191 +622,55 @@ msgstr "svartlista"
 msgid "process"
 msgstr "process"
 
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
-msgid "File extension"
-msgstr "filändelse"
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:60
+msgid "Mailbox"
+msgstr "Brevlåda"
 
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:82
-msgid "File extensions"
-msgstr "filändelser"
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:66
+msgid "Mailbox contains"
+msgstr "Brevlåda innehåller"
 
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
-#: src/EBox/MailFilter/Types/FileExtension.pm:59
-msgid "file extension"
-msgstr "filändelse"
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:76
+msgid "Train bayesian spam filter"
+msgstr "Träna bayesiskt skräppostfilter"
 
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:95
-msgid "Extensions which are not listed below are allowed"
-msgstr "Filändelser som inte listas nedan är inte tillåtna"
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:81
+msgid "Learned from messages"
+msgstr "Lärde från meddelanden"
 
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:63
-msgid "Virus policy"
-msgstr "Virus policy"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:69
-msgid "Spam policy"
-msgstr "Skräppostpolicy"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:75
-msgid "Banned files policy"
-msgstr "Policy för bannade filer"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
-msgid "Bad header policy"
-msgstr "Felaktig e-posthuvudpolicy"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
-msgid "SMTP filter policies"
-msgstr "SMTP filterpolicy"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:69
-msgid "Domain"
-msgstr "Domän"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:79
-msgid "Use virus filtering"
-msgstr "Använd virusfiltrering"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:85
-msgid "Use spam filtering"
-msgstr "Använd skräppostfiltrering"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:98
-msgid "default"
-msgstr "standard"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:102
-msgid "custom threshold"
-msgstr "anpassat tröskelvärde"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:113
-msgid "Learning ham account"
-msgstr "Inlärande brapost (ham) konto"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:114
-msgid ""
-"An address (ham@domain) will be created for this domain, ham messages "
-"incorrectly classified as spam may be forwarded to this addres to train the "
-"filter"
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:83
+msgid "Train"
 msgstr ""
-"En adress (ham@domän) kommer att skapas för denna domän, bra e-"
-"postmeddelanden som felaktigt klassats som skräppost kan vidarebefordras hit "
-"för att träna filtret"
 
-#: src/EBox/MailFilter/Model/VDomains.pm:125
-msgid "Learning spam account"
-msgstr "Lärande skräppostkonto"
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:99
+msgid "ham"
+msgstr "brapost (ham)"
 
-#: src/EBox/MailFilter/Model/VDomains.pm:126
-msgid ""
-"An address (spam@domain) will be created for this domain, spam messages "
-"incorrectly classified as ham may be forwarded to this addres to train the "
-"filter"
-msgstr "En adress (spam@domän)"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:137
-msgid "Antispam sender policy"
-msgstr "Antiskräppost avsändarpolicy"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:148
-msgid "Virtual domains configuration"
-msgstr "Virtuella domäners konfiguration"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:159
-msgid "virtual domain"
-msgstr "virtuell domän"
-
-#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
-#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
-msgid "Mail filter report"
-msgstr "E-postfilter rapport"
-
-#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:71
-msgid "Transparent POP proxy report"
-msgstr "Rapport för transparent POP proxy"
-
-#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:71
-msgid "Mail Filter report"
-msgstr "E-postfilter rapport"
-
-#: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
-msgid "External connections"
-msgstr "Externa anslutningar"
-
-#: src/EBox/MailFilter/Composite/FileFilter.pm:59
-msgid "Attached files filter"
-msgstr "Filter för bifogade filer"
-
-#: src/EBox/MailFilter/Composite/FileFilter.pm:61
-msgid ""
-"Filter mail messages according attached files. The transparent POP proxy "
-"only filters by extension"
-msgstr ""
-"Filtrera e-postmeddelanden efter dess bifogade filer. Den transparenta POP "
-"proxyn filtrerar bara efter filändelse"
-
-#: src/EBox/MailFilter/Composite/Antispam.pm:63
-#: src/EBox/MailFilter/Amavis.pm:470 src/EBox/MailFilter/POPProxy.pm:350
-#: src/EBox/MailFilter.pm:686
-msgid "Antispam"
-msgstr "Skräppostfilter"
-
-#: src/EBox/MailFilter/Composite/Amavis.pm:61 src/EBox/MailFilter.pm:526
-msgid "SMTP filter"
-msgstr "SMTP filter"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
-msgid "Write down a decimal number"
-msgstr "Skriv ned ett decimalt nummer"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:141
-msgid "Only non-zero positive numbers are allowed"
-msgstr "Endast nummer från ett och uppåt tillåts"
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:150
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:131
 #, perl-brace-format
-msgid "Write down a number lesser than {m}"
-msgstr "Skriv ned ett nummer mindre än {m}"
+msgid "Invalid mailbox type: {type}"
+msgstr "Ogiltig brevlådetyp: {type}"
 
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:157
-#, perl-brace-format
-msgid "Write down a number greater  than {m}"
-msgstr "Skriv ned ett nummer större än {m}"
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
+msgid "MIME Type"
+msgstr "MIME-typ"
 
-#: src/EBox/MailFilter/Types/Policy.pm:30
-msgid "Pass"
-msgstr "Släpp igenom"
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:82
+msgid "MIME types"
+msgstr "MIME-typer"
 
-#: src/EBox/MailFilter/Types/Policy.pm:31
-msgid "Reject"
-msgstr "Neka"
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
+#: src/EBox/MailFilter/Types/MIMEType.pm:61
+msgid "MIME type"
+msgstr "MIME-typ"
 
-#: src/EBox/MailFilter/Types/Policy.pm:32
-msgid "Bounce"
-msgstr "Studsa"
-
-#: src/EBox/MailFilter/Types/Policy.pm:33
-msgid "Discard"
-msgstr "Förkasta"
-
-#: src/EBox/MailFilter/Types/Policy.pm:53
-msgid "Mailfilter's policy"
-msgstr "Policy för skräppostfilter"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:79
-msgid "domain name"
-msgstr "domännamn"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:83
-msgid "email address"
-msgstr "e-post adress"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:87
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:95
 msgid ""
-"The sender ought be either an email address or a domain name prefixed with "
-"'@'"
+"MIME types which are not listed below are allowed. MIME types aren't used by "
+"POP transparent proxy"
 msgstr ""
-"Avsändaren borde vara endera en e-postadress eller ett domännamn med @ före"
+"Mimetyper som inte listas nedan tillåts. Mimetyper används inte av POP "
+"transparent proxy"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:55
 msgid " To configure spamassassin daemon"
@@ -638,177 +707,104 @@ msgstr ""
 msgid "Unsupported or incorrect input source fonrmat: {format}"
 msgstr "Osupporterat eller felaktigt inmatningsformat: {format}"
 
-#: src/EBox/MailFilter/Amavis.pm:47
-msgid "To configure amavis"
-msgstr "För att konfigurera amavis"
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
+msgid "Write down a decimal number"
+msgstr "Skriv ned ett decimalt nummer"
 
-#: src/EBox/MailFilter/Amavis.pm:52
-msgid "To add the LDAP schemas used by eBox mailfilter"
-msgstr "För att lägga till LDAP scheman som används av eBox e-postfilter"
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:141
+msgid "Only non-zero positive numbers are allowed"
+msgstr "Endast nummer från ett och uppåt tillåts"
 
-#: src/EBox/MailFilter/Amavis.pm:434
-msgid "eBox internal mail filter"
-msgstr "eBox externt e-postfilter"
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:150
+#, perl-brace-format
+msgid "Write down a number lesser than {m}"
+msgstr "Skriv ned ett nummer mindre än {m}"
 
-#: src/EBox/MailFilter/Amavis.pm:448
-msgid "SMTP filter proxy"
-msgstr "Proxy för SMTP filter"
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:157
+#, perl-brace-format
+msgid "Write down a number greater  than {m}"
+msgstr "Skriv ned ett nummer större än {m}"
 
-#: src/EBox/MailFilter/Amavis.pm:454 src/EBox/MailFilter/POPProxy.pm:329
-msgid "Status"
-msgstr "Status"
+#: src/EBox/MailFilter/Types/AmavisSender.pm:79
+msgid "domain name"
+msgstr "domännamn"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:83
+msgid "email address"
+msgstr "e-post adress"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:87
+msgid ""
+"The sender ought be either an email address or a domain name prefixed with "
+"'@'"
+msgstr ""
+"Avsändaren borde vara endera en e-postadress eller ett domännamn med @ före"
+
+#: src/EBox/MailFilter/Types/Policy.pm:30
+msgid "Pass"
+msgstr "Släpp igenom"
+
+#: src/EBox/MailFilter/Types/Policy.pm:31
+msgid "Reject"
+msgstr "Neka"
+
+#: src/EBox/MailFilter/Types/Policy.pm:32
+msgid "Bounce"
+msgstr "Studsa"
+
+#: src/EBox/MailFilter/Types/Policy.pm:33
+msgid "Discard"
+msgstr "Förkasta"
+
+#: src/EBox/MailFilter/Types/Policy.pm:53
+msgid "Mailfilter's policy"
+msgstr "Policy för skräppostfilter"
 
 #: src/EBox/MailFilter/VDomainsLdap.pm:604
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
 msgstr "Virtuell e-postdomän {vd} finns inte"
 
-#: src/EBox/MailFilter/POPProxy.pm:47
-msgid " To configure p3scan"
-msgstr "För att konfigurera p3scan"
+#: src/EBox/MailFilter/Amavis.pm:48
+msgid "To configure amavis"
+msgstr "För att konfigurera amavis"
 
-#: src/EBox/MailFilter/POPProxy.pm:52
-msgid "To configure renattach"
-msgstr "För att konfigurera renattach"
+#: src/EBox/MailFilter/Amavis.pm:432
+msgid "eBox internal mail filter"
+msgstr "eBox externt e-postfilter"
 
-#: src/EBox/MailFilter/POPProxy.pm:323
-msgid "Transparent POP Proxy"
-msgstr "Transparent POP proxy"
+#: src/EBox/MailFilter/Amavis.pm:446
+msgid "SMTP filter proxy"
+msgstr "Proxy för SMTP filter"
 
-#: src/EBox/MailFilter.pm:83
-msgid "Add clamav user to amavis group"
-msgstr "Lägg till clamav användare till amavis gruppen"
+#: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
+msgid "External connections"
+msgstr "Externa anslutningar"
 
-#: src/EBox/MailFilter.pm:84
-msgid "Clamav need access to amavis fields to properly scan mail"
-msgstr "Clamav behöver access till amavis fält för att kunna skanna e-post"
+#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
+#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
+msgid "Mail filter report"
+msgstr "E-postfilter rapport"
 
-#: src/EBox/MailFilter.pm:88
-msgid "Add clamav user to p3scan group"
-msgstr "Lägg till clamav användare till p3scan gruppen"
+#: src/EBox/MailFilter/Composite/Report/FilterReport.pm:71
+msgid "Mail Filter report"
+msgstr "E-postfilter rapport"
 
-#: src/EBox/MailFilter.pm:89
-msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
+#: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:71
+msgid "Transparent POP proxy report"
+msgstr "Rapport för transparent POP proxy"
+
+#: src/EBox/MailFilter/Composite/FileFilter.pm:59
+msgid "Attached files filter"
+msgstr "Filter för bifogade filer"
+
+#: src/EBox/MailFilter/Composite/FileFilter.pm:61
+msgid ""
+"Filter mail messages according attached files. The transparent POP proxy "
+"only filters by extension"
 msgstr ""
-"Clamav behöver access till p3scan gruppen för att kunna skanna i POP proxyn"
-
-#: src/EBox/MailFilter.pm:93
-msgid "Update LDAP"
-msgstr "Uppdatera LDAP"
-
-#: src/EBox/MailFilter.pm:94
-msgid "Add amavis specific classes and fields"
-msgstr "Lägg till amavis specifika klasser och fält"
-
-#: src/EBox/MailFilter.pm:349
-msgid "Cannot proceed because the filter is in use"
-msgstr "Kan inte fortsätta eftersom filtret används"
-
-#: src/EBox/MailFilter.pm:477
-msgid "Mail filter"
-msgstr "E-postfilter"
-
-#: src/EBox/MailFilter.pm:500
-msgid "Action"
-msgstr "Åtgärd"
-
-#: src/EBox/MailFilter.pm:501 src/EBox/MailFilter.pm:549
-msgid "Event"
-msgstr "Händelse"
-
-#: src/EBox/MailFilter.pm:503
-msgid "Sender address"
-msgstr "Sändares adress"
-
-#: src/EBox/MailFilter.pm:504
-msgid "Recipient address"
-msgstr "Mottagares adress"
-
-#: src/EBox/MailFilter.pm:506
-msgid "Spam hits"
-msgstr "Skräppost träffar"
-
-#: src/EBox/MailFilter.pm:511
-msgid "Bad header found"
-msgstr "Dåligt e-post huvud funnet"
-
-#: src/EBox/MailFilter.pm:512
-msgid "Spam found"
-msgstr "Skräppost funnet"
-
-#: src/EBox/MailFilter.pm:513
-msgid "Forbidden attached file  found"
-msgstr "Förbjuden bifogad fil funnen"
-
-#: src/EBox/MailFilter.pm:514
-msgid "Address in blacklist found"
-msgstr "Adress från svartlista funnen"
-
-#: src/EBox/MailFilter.pm:515
-msgid "Virus found"
-msgstr "Virus upptäckt"
-
-#: src/EBox/MailFilter.pm:516
-msgid "Clean message"
-msgstr "Rent meddelande"
-
-#: src/EBox/MailFilter.pm:547
-msgid "Account"
-msgstr "Konto"
-
-#: src/EBox/MailFilter.pm:548
-msgid "Client's address"
-msgstr "Klients adress"
-
-#: src/EBox/MailFilter.pm:551
-msgid "Total messages"
-msgstr "Totalt meddelanden"
-
-#: src/EBox/MailFilter.pm:552
-msgid "Clean messages"
-msgstr "Rena meddelanden"
-
-#: src/EBox/MailFilter.pm:553
-msgid "Virus messages"
-msgstr "Virus meddelanden"
-
-#: src/EBox/MailFilter.pm:554
-msgid "Spam messages"
-msgstr "Skräppostmeddelanden"
-
-#: src/EBox/MailFilter.pm:561
-msgid "POP3 transmission complete"
-msgstr "POP3 överföring färdig"
-
-#: src/EBox/MailFilter.pm:563
-msgid "POP3 transmission aborted"
-msgstr "POP3 överföring avbruten"
-
-#: src/EBox/MailFilter.pm:571
-msgid "POP3 proxy"
-msgstr "POP3 proxy"
-
-#: src/EBox/MailFilter.pm:663
-msgid "Mail Filter"
-msgstr "E-postfilter"
-
-#: src/EBox/MailFilter.pm:664
-msgid "UTM"
-msgstr "UTM"
-
-#: src/EBox/MailFilter.pm:671
-#, fuzzy
-msgid "SMTP Mail Filter"
-msgstr "SMTP e-postfilter"
-
-#: src/EBox/MailFilter.pm:678
-#, fuzzy
-msgid "POP Transparent Proxy"
-msgstr "Transparent POP proxy"
-
-#: src/EBox/MailFilter.pm:693
-msgid "Files ACL"
-msgstr "Fil ACL"
+"Filtrera e-postmeddelanden efter dess bifogade filer. Den transparenta POP "
+"proxyn filtrerar bara efter filändelse"
 
 #: migration/0004_add_firewall_services.pl:32
 msgid "POP transparent proxy"
@@ -821,6 +817,12 @@ msgstr "POP3 protokoll"
 #: stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
 msgstr "[Virus] funnet i e-post till dig:"
+
+#~ msgid "To add the LDAP schemas used by eBox mailfilter"
+#~ msgstr "För att lägga till LDAP scheman som används av eBox e-postfilter"
+
+#~ msgid "UTM"
+#~ msgstr "UTM"
 
 #, fuzzy
 #~ msgid "Internal mailfilter"

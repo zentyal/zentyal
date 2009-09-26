@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:17+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2009-04-21 20:02+0200\n"
 "Last-Translator: Björn Torstensson <b.torstensson@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,69 +17,51 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/InstallPkgs.pm:84
-msgid "There were no packages to update"
-msgstr "Det fanns inga paket att uppdatera"
-
-#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "Uppgradering"
-
-#: src/EBox/CGI/InstallPkgs.pm:146
+#: src/EBox/Software.pm:53
 #, fuzzy
-msgid "Upgrading packages"
-msgstr "Uppgradering"
+msgid "Software Management"
+msgstr "Hantering av programvara"
 
-#: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
-msgid "Current package"
-msgstr "Aktuellt paket"
-
-#: src/EBox/CGI/InstallPkgs.pm:148
-msgid "packages left to install"
-msgstr "paket kvar att installera"
-
-#: src/EBox/CGI/InstallPkgs.pm:149
-msgid ""
-"The packages installation has finished successfully. The administration "
-"interface may become unresponsive for a few seconds. Please wait patiently "
-"until the system has been fully restarted"
+#: src/EBox/Software.pm:77
+msgid "Enable cron script to download updates"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:153
+#: src/EBox/Software.pm:78
 msgid ""
-"The packages installation has not finished correctly . More information on "
-"the logs"
+"eBox software will download the available updates from your configured apt "
+"sources. "
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:165
+#: src/EBox/Software.pm:153 src/EBox/Software.pm:356
+msgid ""
+"The software management module must be enabled to be able to install packages"
+msgstr ""
+
+#: src/EBox/Software.pm:197 src/EBox/Software.pm:390
+msgid ""
+"The software management module must be enabled to be able to remove packages"
+msgstr ""
+
+#: src/EBox/Software.pm:500
 #, fuzzy
-msgid "Removing package"
-msgstr "Uppgradering"
+msgid "eBox Components"
+msgstr "Komponenter i eBox"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
-msgid "Removing the selected package and its dependent packages"
-msgstr ""
+#: src/EBox/Software.pm:502
+#, fuzzy
+msgid "System Updates"
+msgstr "Systemuppdateringar"
 
-#: src/EBox/CGI/InstallPkgs.pm:168
-msgid "packages left to remove"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:169
-msgid ""
-"The packages removal has finished successfully. The administration interface "
-"may become unresponsive for a few seconds. Please wait patiently until the "
-"system has been fully restarted"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:173
-msgid ""
-"The packages removal has not finished correctly . More information on the "
-"logs"
-msgstr ""
-
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
+#: src/EBox/Software.pm:504
+#, fuzzy
+msgid "Automatic Updates"
 msgstr "Automatisk uppdatering av programvara"
+
+#: src/EBox/Software.pm:595
+#, perl-brace-format
+msgid ""
+"Software management is currently  locked by {locker}. Please, try again later"
+msgstr ""
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
@@ -93,192 +75,81 @@ msgstr "Uppdateringar av programvaran hanteras automatiskt"
 msgid "The system is up to date"
 msgstr "Systemet är uppdaterat"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "konfiguration av automatiska uppdateringar"
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Automatisk uppdatering av programvara"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
 msgstr "Komponenter i eBox"
 
-#: src/EBox/Software.pm:76
-msgid "Enable cron script to download updates"
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
+msgid "Upgrading"
+msgstr "Uppgradering"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "konfiguration av automatiska uppdateringar"
+
+#: src/EBox/CGI/InstallPkgs.pm:84
+msgid "There were no packages to update"
+msgstr "Det fanns inga paket att uppdatera"
+
+#: src/EBox/CGI/InstallPkgs.pm:149
+#, fuzzy
+msgid "Upgrading packages"
+msgstr "Uppgradering"
+
+#: src/EBox/CGI/InstallPkgs.pm:150 src/EBox/CGI/InstallPkgs.pm:170
+msgid "Current package"
+msgstr "Aktuellt paket"
+
+#: src/EBox/CGI/InstallPkgs.pm:151
+msgid "packages left to install"
+msgstr "paket kvar att installera"
+
+#: src/EBox/CGI/InstallPkgs.pm:152
+msgid ""
+"The packages installation has finished successfully. The administration "
+"interface may become unresponsive for a few seconds. Please wait patiently "
+"until the system has been fully restarted"
 msgstr ""
 
-#: src/EBox/Software.pm:77
+#: src/EBox/CGI/InstallPkgs.pm:156
 msgid ""
-"eBox software will download the available updates from your configured apt "
-"sources. "
+"The packages installation has not finished correctly . More information on "
+"the logs"
 msgstr ""
 
-#: src/EBox/Software.pm:473
+#: src/EBox/CGI/InstallPkgs.pm:168
 #, fuzzy
-msgid "Software Management"
-msgstr "Hantering av programvara"
+msgid "Removing package"
+msgstr "Uppgradering"
 
-#: src/EBox/Software.pm:477
-#, fuzzy
-msgid "eBox Components"
-msgstr "Komponenter i eBox"
+#: src/EBox/CGI/InstallPkgs.pm:169
+msgid "Removing the selected package and its dependent packages"
+msgstr ""
 
-#: src/EBox/Software.pm:479
-#, fuzzy
-msgid "System Updates"
-msgstr "Systemuppdateringar"
+#: src/EBox/CGI/InstallPkgs.pm:171
+msgid "packages left to remove"
+msgstr ""
 
-#: src/EBox/Software.pm:481
-#, fuzzy
-msgid "Automatic Updates"
-msgstr "Automatisk uppdatering av programvara"
-
-#: src/EBox/Software.pm:572
-#, perl-brace-format
+#: src/EBox/CGI/InstallPkgs.pm:172
 msgid ""
-"Software management is currently  locked by {locker}. Please, try again later"
+"The packages removal has finished successfully. The administration interface "
+"may become unresponsive for a few seconds. Please wait patiently until the "
+"system has been fully restarted"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:176
+msgid ""
+"The packages removal has not finished correctly . More information on the "
+"logs"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:1
-#, fuzzy
-msgid "eBox - Antivirus module"
-msgstr "Modul för e-postfilter"
-
-#: src/EBox/PackageDescriptions.pm:2
-#, fuzzy
-msgid "eBox - Asterisk"
-msgstr "eBox DNS-server"
-
-#: src/EBox/PackageDescriptions.pm:3
-#, fuzzy
-msgid "eBox - Certificate Authority Manager for eBox"
-msgstr "Hanterare för certfikatutfärdare för eBox"
-
-#: src/EBox/PackageDescriptions.pm:4
-#, fuzzy
-msgid "eBox - captive portal module"
-msgstr "Modul för e-postfilter"
-
-#: src/EBox/PackageDescriptions.pm:5
-#, fuzzy
-msgid "eBox - DHCP server module"
-msgstr "eBox DNS-server"
-
-#: src/EBox/PackageDescriptions.pm:6
-#, fuzzy
-msgid "eBox - DNS server"
-msgstr "eBox DNS-server"
-
-#: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Backup"
 msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:8
-msgid "the eBox platform - Base framework"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:9
-#, fuzzy
-msgid "eBox - eGroupware"
-msgstr "Brandvägg"
-
-#: src/EBox/PackageDescriptions.pm:10
-#, fuzzy
-msgid "eBox - Firewall"
-msgstr "Brandvägg"
-
-#: src/EBox/PackageDescriptions.pm:11
-msgid "eBox - Intrusion Detection System"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:12
-#, fuzzy
-msgid "eBox - Instant messaging proxy"
-msgstr "Snabbmeddelanden (Jabber)"
-
-#: src/EBox/PackageDescriptions.pm:13
-#, fuzzy
-msgid "eBox - Instant messaging (Jabber)"
-msgstr "Snabbmeddelanden (Jabber)"
-
-#: src/EBox/PackageDescriptions.pm:14
-msgid "eBox - layer 7 protocols"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:15
-#, fuzzy
-msgid "eBox - Mail server"
-msgstr "E-postserver"
-
-#: src/EBox/PackageDescriptions.pm:16
-#, fuzzy
-msgid "eBox - Mail filter module"
-msgstr "Modul för e-postfilter"
-
-#: src/EBox/PackageDescriptions.pm:17
-#, fuzzy
-msgid "eBox - Monitoring module  "
-msgstr "Modul för e-postfilter"
-
-#: src/EBox/PackageDescriptions.pm:18
-#, fuzzy
-msgid "eBox - Network configuration module"
-msgstr "Nätverkskonfiguration"
-
-#: src/EBox/PackageDescriptions.pm:19
-#, fuzzy
-msgid "eBox - NTP server"
-msgstr "eBox DNS-server"
-
-#: src/EBox/PackageDescriptions.pm:20
-#, fuzzy
-msgid "eBox - Object management"
-msgstr "Objekthantering"
-
-#: src/EBox/PackageDescriptions.pm:21
-#, fuzzy
-msgid "eBox - OpenVPN server module"
-msgstr "OpenVPN-server"
-
-#: src/EBox/PackageDescriptions.pm:22
-#, fuzzy
-msgid "eBox - Printer sharing"
-msgstr "Skrivardelning"
-
-#: src/EBox/PackageDescriptions.pm:23
-msgid "eBox - client for remote services   "
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:24
-#, fuzzy
-msgid "eBox - File sharing"
-msgstr "Fildelning"
-
-#: src/EBox/PackageDescriptions.pm:25
-msgid "eBox - Services management"
-msgstr "eBox - Hantering av tjänster"
-
-#: src/EBox/PackageDescriptions.pm:26
-#, fuzzy
-msgid "eBox - Software management"
-msgstr "Hantering av programvara"
-
-#: src/EBox/PackageDescriptions.pm:27
-#, fuzzy
-msgid "eBox - Proxy cache and content filter"
-msgstr "Proxycache och innehållsfilter"
-
-#: src/EBox/PackageDescriptions.pm:28
-#, fuzzy
-msgid "eBox - Traffic shaper for eBox"
-msgstr "Trafikbegränsning för eBox"
-
-#: src/EBox/PackageDescriptions.pm:29
-#, fuzzy
-msgid "eBox - User and Group management"
-msgstr "Hantering av användare och grupper"
-
-#: src/EBox/PackageDescriptions.pm:30
-msgid "eBox - Web Server"
-msgstr "eBox - Webserver"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
@@ -325,11 +196,11 @@ msgstr "Beskrivning"
 msgid "Version"
 msgstr "Version"
 
-#: src/templates/updates.mas:19 src/templates/ebox.mas:27
+#: src/templates/updates.mas:19 src/templates/ebox.mas:28
 msgid "Update"
 msgstr "Uppdatera"
 
-#: src/templates/updates.mas:53 src/templates/ebox.mas:74
+#: src/templates/updates.mas:53 src/templates/ebox.mas:75
 msgid "Update all packages"
 msgstr "Uppdatera alla paket"
 
@@ -357,17 +228,115 @@ msgstr "Senaste version"
 msgid "Actions"
 msgstr "Åtgärder"
 
-#: src/templates/ebox.mas:33
+#: src/templates/ebox.mas:34
 msgid "Install"
 msgstr "Installera"
 
-#: src/templates/ebox.mas:35
+#: src/templates/ebox.mas:36
 msgid "none"
 msgstr "ingen"
 
-#: src/templates/ebox.mas:57
+#: src/templates/ebox.mas:58
 msgid "Remove"
 msgstr "Ta bort"
+
+#, fuzzy
+#~ msgid "eBox - Antivirus module"
+#~ msgstr "Modul för e-postfilter"
+
+#, fuzzy
+#~ msgid "eBox - Asterisk"
+#~ msgstr "eBox DNS-server"
+
+#, fuzzy
+#~ msgid "eBox - Certificate Authority Manager for eBox"
+#~ msgstr "Hanterare för certfikatutfärdare för eBox"
+
+#, fuzzy
+#~ msgid "eBox - captive portal module"
+#~ msgstr "Modul för e-postfilter"
+
+#, fuzzy
+#~ msgid "eBox - DHCP server module"
+#~ msgstr "eBox DNS-server"
+
+#, fuzzy
+#~ msgid "eBox - DNS server"
+#~ msgstr "eBox DNS-server"
+
+#, fuzzy
+#~ msgid "eBox - eGroupware"
+#~ msgstr "Brandvägg"
+
+#, fuzzy
+#~ msgid "eBox - Firewall"
+#~ msgstr "Brandvägg"
+
+#, fuzzy
+#~ msgid "eBox - Instant messaging proxy"
+#~ msgstr "Snabbmeddelanden (Jabber)"
+
+#, fuzzy
+#~ msgid "eBox - Instant messaging (Jabber)"
+#~ msgstr "Snabbmeddelanden (Jabber)"
+
+#, fuzzy
+#~ msgid "eBox - Mail server"
+#~ msgstr "E-postserver"
+
+#, fuzzy
+#~ msgid "eBox - Mail filter module"
+#~ msgstr "Modul för e-postfilter"
+
+#, fuzzy
+#~ msgid "eBox - Monitoring module  "
+#~ msgstr "Modul för e-postfilter"
+
+#, fuzzy
+#~ msgid "eBox - Network configuration module"
+#~ msgstr "Nätverkskonfiguration"
+
+#, fuzzy
+#~ msgid "eBox - NTP server"
+#~ msgstr "eBox DNS-server"
+
+#, fuzzy
+#~ msgid "eBox - Object management"
+#~ msgstr "Objekthantering"
+
+#, fuzzy
+#~ msgid "eBox - OpenVPN server module"
+#~ msgstr "OpenVPN-server"
+
+#, fuzzy
+#~ msgid "eBox - Printer sharing"
+#~ msgstr "Skrivardelning"
+
+#, fuzzy
+#~ msgid "eBox - File sharing"
+#~ msgstr "Fildelning"
+
+#~ msgid "eBox - Services management"
+#~ msgstr "eBox - Hantering av tjänster"
+
+#, fuzzy
+#~ msgid "eBox - Software management"
+#~ msgstr "Hantering av programvara"
+
+#, fuzzy
+#~ msgid "eBox - Proxy cache and content filter"
+#~ msgstr "Proxycache och innehållsfilter"
+
+#, fuzzy
+#~ msgid "eBox - Traffic shaper for eBox"
+#~ msgstr "Trafikbegränsning för eBox"
+
+#, fuzzy
+#~ msgid "eBox - User and Group management"
+#~ msgstr "Hantering av användare och grupper"
+
+#~ msgid "eBox - Web Server"
+#~ msgstr "eBox - Webserver"
 
 #~ msgid "IPsec VPNs"
 #~ msgstr "IPsec VPN-nätverk"

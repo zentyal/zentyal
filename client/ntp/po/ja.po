@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:16+0200\n"
+"POT-Creation-Date: 2009-09-26 19:21+0100\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,10 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "外部同期状況"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Time Zone Configuration"
@@ -41,19 +37,6 @@ msgstr "二番目のサーバ"
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "三番目のサーバ"
-
-#: src/EBox/CGI/Datetime.pm:30
-#, fuzzy
-msgid "Date and Time Configuration"
-msgstr "日付と時刻の設定"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:41
-msgid "country"
-msgstr "国"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:42
-msgid "continent"
-msgstr "大陸"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -78,6 +61,23 @@ msgstr "分"
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
 msgstr "秒"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr "国"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr "大陸"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "外部同期状況"
+
+#: src/EBox/CGI/Datetime.pm:30
+#, fuzzy
+msgid "Date and Time Configuration"
+msgstr "日付と時刻の設定"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
@@ -140,8 +140,8 @@ msgid "Enabled"
 msgstr "有効"
 
 #: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/servers.mas:50 src/templates/timezone.mas:33
-#: src/templates/timezone.mas:34 src/templates/date.mas:96
+#: src/templates/timezone.mas:33 src/templates/timezone.mas:34
+#: src/templates/servers.mas:50 src/templates/date.mas:96
 #: src/templates/date.mas:97
 msgid "Change"
 msgstr "変更"

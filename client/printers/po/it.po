@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:16+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2009-06-07 18:27+0200\n"
 "Last-Translator: Marcello Teodori <marcello.teodori@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,195 +16,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/GeneralSettings.pm:90
-msgid "Standalone cups enabled"
-msgstr "Standalone cups abilitato"
-
-#: src/EBox/CGI/GeneralSettings.pm:92
-msgid "Standalone cups disabled"
-msgstr "Standalone cups disabilitato"
-
-#: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:357
-msgid "Manage printers"
-msgstr "Gestisci stampanti"
-
-#: src/EBox/CGI/CancelJob.pm:40 src/EBox/CGI/AddPrinter.pm:40
-msgid "Printer's name"
-msgstr "Nome della stampante"
-
-#: src/EBox/CGI/CancelJob.pm:41
-msgid "Printer's id"
-msgstr "Id della stampante"
-
-#: src/EBox/CGI/CancelJob.pm:42
-msgid "Job id"
-msgstr "Id stampa"
-
-#: src/EBox/CGI/CancelJob.pm:54
-msgid "Job was successfully canceled"
-msgstr "La stampa è stata correttamente annullata"
-
-#: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/USBPrinterUI.pm:30
-#: src/EBox/CGI/NetworkPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
-#: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/IPPPrinterUI.pm:30
-msgid "Add a new printer (II)"
-msgstr "Aggiungi una nuova stampante (II)"
-
-#: src/EBox/CGI/SambaPrinterUI.pm:46 src/EBox/CGI/SambaPrinter.pm:40
-#: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/ManagePrinterUI.pm:46
-#: src/EBox/CGI/ManufacturerUI.pm:46 src/EBox/CGI/USBPrinterUI.pm:46
-#: src/EBox/CGI/NetworkPrinterUI.pm:46 src/EBox/CGI/Driver.pm:39
-#: src/EBox/CGI/Manufacturer.pm:39 src/EBox/CGI/ManagePrinter.pm:40
-#: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/CGI/USBPrinter.pm:40
-#: src/EBox/CGI/ModelUI.pm:46 src/EBox/CGI/ParallelPrinterUI.pm:46
-#: src/EBox/CGI/DrvoptsUI.pm:46 src/EBox/CGI/Model.pm:39
-#: src/EBox/CGI/DeleteUI.pm:46 src/EBox/CGI/ParallelPrinter.pm:40
-#: src/EBox/CGI/Drvopts.pm:39 src/EBox/CGI/LPDPrinterUI.pm:46
-#: src/EBox/CGI/LPDPrinter.pm:41 src/EBox/CGI/IPPPrinterUI.pm:46
-#: src/EBox/CGI/IPPPrinter.pm:42 src/EBox/Printers.pm:252
-#: src/EBox/Printers.pm:387 src/EBox/Printers.pm:400 src/EBox/Printers.pm:417
-#: src/EBox/Printers.pm:473 src/EBox/Printers.pm:525 src/EBox/Printers.pm:567
-#: src/EBox/Printers.pm:584 src/EBox/Printers.pm:606 src/EBox/Printers.pm:632
-#: src/EBox/Printers.pm:659 src/EBox/Printers.pm:691 src/EBox/Printers.pm:721
-#: src/EBox/Printers.pm:749 src/EBox/Printers.pm:790 src/EBox/Printers.pm:804
-#: src/EBox/Printers.pm:830 src/EBox/Printers.pm:844 src/EBox/Printers.pm:870
-#: src/EBox/Printers.pm:884 src/EBox/Printers.pm:909 src/EBox/Printers.pm:932
-#: src/EBox/Printers.pm:957 src/EBox/Printers.pm:1029
-#: src/EBox/Printers.pm:1078 src/EBox/Printers.pm:1123
-#: src/EBox/Printers.pm:1152 src/EBox/Printers.pm:1207
-#: src/EBox/Printers.pm:1222 src/EBox/Printers.pm:1253
-msgid "Printer"
-msgstr "Stampante"
-
-#: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/USBPrinterUI.pm:54
-#: src/EBox/CGI/NetworkPrinterUI.pm:53 src/EBox/CGI/ParallelPrinterUI.pm:54
-#: src/EBox/CGI/DrvoptsUI.pm:53 src/EBox/CGI/LPDPrinterUI.pm:53
-#: src/EBox/CGI/IPPPrinterUI.pm:53 src/templates/printerback.mas:167
-#: src/templates/printerback.mas:168 src/templates/models.mas:21
-#: src/templates/models.mas:22 src/templates/manufacturer.mas:21
-#: src/templates/manufacturer.mas:22 src/templates/driver.mas:21
-#: src/templates/driver.mas:22 src/templates/addprinter.mas:40
-#: src/templates/addprinter.mas:41 src/templates/drivers.mas:34
-#: src/templates/drivers.mas:35
-msgid "Next"
-msgstr "Successivo"
-
-#: src/EBox/CGI/SambaPrinter.pm:52
-msgid "Shared resource"
-msgstr "Risorsa condivisa"
-
-#: src/EBox/CGI/SambaPrinter.pm:53 src/templates/printerback.mas:120
-#: src/templates/samba.mas:32
-msgid "Authentication"
-msgstr "Autenticazione"
-
-#: src/EBox/CGI/SambaPrinter.pm:61 src/templates/printerback.mas:148
-#: src/templates/samba.mas:60
-msgid "User"
-msgstr "Utente"
-
-#: src/EBox/CGI/SambaPrinter.pm:62 src/templates/printerback.mas:157
-#: src/templates/samba.mas:69
-msgid "Password"
-msgstr "Password"
-
-#: src/EBox/CGI/DriverUI.pm:30
-msgid "Add a new printer (V)"
-msgstr "Aggiungi una nuova stampante (V)"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:30
-msgid "Manage printer"
-msgstr "Gestisci stampante"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:58
-msgid "Printer details"
-msgstr "Informazioni stampante"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:59
-msgid "Driver Options"
-msgstr "Opzioni Driver"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:60
-msgid "Configuration options"
-msgstr "Opzioni configurazione"
-
-#: src/EBox/CGI/ManagePrinterUI.pm:61
-msgid "Jobs Queue"
-msgstr "Coda Stampe"
-
-#: src/EBox/CGI/ManufacturerUI.pm:30
-msgid "Add a new printer (III)"
-msgstr "Aggiungi una nuova stampante (III)"
-
-#: src/EBox/CGI/AddPrinterUI.pm:30
-msgid "Add a new printer (I)"
-msgstr "Aggiungi una nuova stampante (I)"
-
-#: src/EBox/CGI/Driver.pm:40 src/templates/printerback.mas:37
-#: src/templates/printer.mas:157
-msgid "Driver"
-msgstr "Driver"
-
-#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:809
-#: src/templates/printerback.mas:21 src/templates/printer.mas:141
-msgid "Manufacturer"
-msgstr "Produttore"
-
-#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:496
-#: src/EBox/Printers.pm:588 src/templates/addprinter.mas:23
-msgid "Method"
-msgstr "Metodo"
-
-#: src/EBox/CGI/AddPrinter.pm:43
-msgid "Printer description"
-msgstr "Descrizione stampante"
-
-#: src/EBox/CGI/ManagePrinter.pm:51
-msgid "The printer has been deleted successfully"
-msgstr "La stampante è stata rimossa correttamente."
-
-#: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/CGI/LPDPrinter.pm:42
-#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/Printers.pm:663
-#: src/EBox/Printers.pm:725 src/EBox/Printers.pm:753
-#: src/templates/printerback.mas:182 src/templates/network.mas:23
-#: src/templates/lpd.mas:23 src/templates/ipp.mas:23
-msgid "IP"
-msgstr "IP"
-
-#: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/CGI/LPDPrinter.pm:43
-#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:664
-#: src/EBox/Printers.pm:726 src/EBox/Printers.pm:754
-#: src/templates/printerback.mas:190 src/templates/network.mas:31
-#: src/templates/lpd.mas:31 src/templates/ipp.mas:31
-msgid "Port"
-msgstr "Porta"
-
-#: src/EBox/CGI/USBPrinter.pm:41 src/EBox/CGI/ParallelPrinter.pm:41
-#: src/EBox/Printers.pm:612 src/EBox/Printers.pm:638 src/templates/usb.mas:18
-#: src/templates/parallel.mas:18
-msgid "Device"
-msgstr "Dispositivo"
-
-#: src/EBox/CGI/ModelUI.pm:30
-msgid "Add a new printer (IV)"
-msgstr "Aggiungi una nuova stampante (IV)"
-
-#: src/EBox/CGI/DrvoptsUI.pm:30
-msgid "Add a new printer (VI)"
-msgstr "Aggiungi una nuova stampante (VI)"
-
-#: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:848 src/EBox/Printers.pm:888
-#: src/templates/printerback.mas:29 src/templates/printer.mas:149
-msgid "Model"
-msgstr "Modello"
-
-#: src/EBox/CGI/DeleteUI.pm:30
-msgid "Delete printer"
-msgstr "Rimuovi stampante"
-
 #: src/EBox/Printers.pm:56
-msgid "printers"
-msgstr "stampanti"
+#, fuzzy
+msgid "Printer Sharing"
+msgstr "Condivisione stampante"
 
 #: src/EBox/Printers.pm:76
 msgid "Create spool directory for printers"
@@ -241,18 +56,40 @@ msgstr "Per aggiungere e gestire le stampanti"
 msgid "To enable standalone cupsd listen on internal interfaces"
 msgstr "Per attivare cupsd separato in ascolto su interfacce interne"
 
-#: src/EBox/Printers.pm:290 src/EBox/Printers.pm:1262
-msgid "Printers"
-msgstr "Stampanti"
-
-#: src/EBox/Printers.pm:291
-msgid "Office"
-msgstr ""
+#: src/EBox/Printers.pm:252 src/EBox/Printers.pm:387 src/EBox/Printers.pm:400
+#: src/EBox/Printers.pm:417 src/EBox/Printers.pm:473 src/EBox/Printers.pm:525
+#: src/EBox/Printers.pm:567 src/EBox/Printers.pm:584 src/EBox/Printers.pm:606
+#: src/EBox/Printers.pm:632 src/EBox/Printers.pm:659 src/EBox/Printers.pm:691
+#: src/EBox/Printers.pm:721 src/EBox/Printers.pm:749 src/EBox/Printers.pm:790
+#: src/EBox/Printers.pm:804 src/EBox/Printers.pm:830 src/EBox/Printers.pm:844
+#: src/EBox/Printers.pm:870 src/EBox/Printers.pm:884 src/EBox/Printers.pm:909
+#: src/EBox/Printers.pm:932 src/EBox/Printers.pm:957 src/EBox/Printers.pm:1029
+#: src/EBox/Printers.pm:1078 src/EBox/Printers.pm:1123
+#: src/EBox/Printers.pm:1152 src/EBox/Printers.pm:1207
+#: src/EBox/Printers.pm:1222 src/EBox/Printers.pm:1253
+#: src/EBox/CGI/ParallelPrinter.pm:40 src/EBox/CGI/Drvopts.pm:39
+#: src/EBox/CGI/SambaPrinterUI.pm:46 src/EBox/CGI/Manufacturer.pm:39
+#: src/EBox/CGI/ManufacturerUI.pm:46 src/EBox/CGI/ModelUI.pm:46
+#: src/EBox/CGI/NetworkPrinterUI.pm:46 src/EBox/CGI/IPPPrinter.pm:42
+#: src/EBox/CGI/USBPrinterUI.pm:46 src/EBox/CGI/USBPrinter.pm:40
+#: src/EBox/CGI/IPPPrinterUI.pm:46 src/EBox/CGI/ManagePrinter.pm:40
+#: src/EBox/CGI/Model.pm:39 src/EBox/CGI/LPDPrinter.pm:41
+#: src/EBox/CGI/DrvoptsUI.pm:46 src/EBox/CGI/LPDPrinterUI.pm:46
+#: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/CGI/DriverUI.pm:46
+#: src/EBox/CGI/Driver.pm:39 src/EBox/CGI/DeleteUI.pm:46
+#: src/EBox/CGI/ParallelPrinterUI.pm:46 src/EBox/CGI/SambaPrinter.pm:40
+#: src/EBox/CGI/ManagePrinterUI.pm:46
+msgid "Printer"
+msgstr "Stampante"
 
 #: src/EBox/Printers.pm:295
 #, fuzzy
 msgid "Add Printer"
 msgstr "Aggiungi stampante"
+
+#: src/EBox/Printers.pm:357 src/EBox/CGI/ShowPrintersUI.pm:30
+msgid "Manage printers"
+msgstr "Gestisci stampanti"
 
 #: src/EBox/Printers.pm:492
 msgid ""
@@ -262,8 +99,13 @@ msgstr ""
 "Il nome della stampante contiene caratteri non validi. Sono ammessi solo "
 "caratteri alfanumerici"
 
-#: src/EBox/Printers.pm:501 src/templates/printer.mas:77
-#: src/templates/printers.mas:37 src/templates/addprinter.mas:15
+#: src/EBox/Printers.pm:496 src/EBox/Printers.pm:588
+#: src/EBox/CGI/AddPrinter.pm:41 src/templates/addprinter.mas:23
+msgid "Method"
+msgstr "Metodo"
+
+#: src/EBox/Printers.pm:501 src/templates/addprinter.mas:15
+#: src/templates/printers.mas:37 src/templates/printer.mas:77
 msgid "Name"
 msgstr "Nome"
 
@@ -276,6 +118,12 @@ msgstr "Il nome indicato è già usato per"
 msgid "Printer not configured"
 msgstr "Stampante non configurata"
 
+#: src/EBox/Printers.pm:612 src/EBox/Printers.pm:638
+#: src/EBox/CGI/ParallelPrinter.pm:41 src/EBox/CGI/USBPrinter.pm:41
+#: src/templates/usb.mas:18 src/templates/parallel.mas:18
+msgid "Device"
+msgstr "Dispositivo"
+
 #: src/EBox/Printers.pm:617
 msgid "It is not a usb printer"
 msgstr "Non è una stampante USB"
@@ -283,6 +131,22 @@ msgstr "Non è una stampante USB"
 #: src/EBox/Printers.pm:643
 msgid "It is not a parallel printer"
 msgstr "Non è una stampante parallela"
+
+#: src/EBox/Printers.pm:663 src/EBox/Printers.pm:725 src/EBox/Printers.pm:753
+#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/CGI/LPDPrinter.pm:42
+#: src/EBox/CGI/NetworkPrinter.pm:41 src/templates/network.mas:23
+#: src/templates/lpd.mas:23 src/templates/ipp.mas:23
+#: src/templates/printerback.mas:182
+msgid "IP"
+msgstr "IP"
+
+#: src/EBox/Printers.pm:664 src/EBox/Printers.pm:726 src/EBox/Printers.pm:754
+#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/CGI/LPDPrinter.pm:43
+#: src/EBox/CGI/NetworkPrinter.pm:42 src/templates/network.mas:31
+#: src/templates/lpd.mas:31 src/templates/ipp.mas:31
+#: src/templates/printerback.mas:190
+msgid "Port"
+msgstr "Porta"
 
 #: src/EBox/Printers.pm:669
 msgid "It is not a network printer"
@@ -301,6 +165,16 @@ msgstr "Non è una stampante USB"
 #, fuzzy
 msgid "It is not a LPD printer"
 msgstr "Non è una stampante USB"
+
+#: src/EBox/Printers.pm:809 src/EBox/CGI/Manufacturer.pm:40
+#: src/templates/printer.mas:141 src/templates/printerback.mas:21
+msgid "Manufacturer"
+msgstr "Produttore"
+
+#: src/EBox/Printers.pm:848 src/EBox/Printers.pm:888 src/EBox/CGI/Model.pm:40
+#: src/templates/printer.mas:149 src/templates/printerback.mas:29
+msgid "Model"
+msgstr "Modello"
 
 #: src/EBox/Printers.pm:990 src/EBox/Printers.pm:1016
 msgid "is not a valid option"
@@ -335,103 +209,232 @@ msgstr "Accodata"
 msgid "Canceled"
 msgstr "Annullata"
 
+#: src/EBox/Printers.pm:1262
+msgid "Printers"
+msgstr "Stampanti"
+
+#: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/NetworkPrinterUI.pm:30
+#: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/IPPPrinterUI.pm:30
+#: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
+msgid "Add a new printer (II)"
+msgstr "Aggiungi una nuova stampante (II)"
+
+#: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/NetworkPrinterUI.pm:53
+#: src/EBox/CGI/USBPrinterUI.pm:54 src/EBox/CGI/IPPPrinterUI.pm:53
+#: src/EBox/CGI/DrvoptsUI.pm:53 src/EBox/CGI/LPDPrinterUI.pm:53
+#: src/EBox/CGI/ParallelPrinterUI.pm:54 src/templates/manufacturer.mas:21
+#: src/templates/manufacturer.mas:22 src/templates/addprinter.mas:40
+#: src/templates/addprinter.mas:41 src/templates/drivers.mas:34
+#: src/templates/drivers.mas:35 src/templates/driver.mas:21
+#: src/templates/driver.mas:22 src/templates/models.mas:21
+#: src/templates/models.mas:22 src/templates/printerback.mas:167
+#: src/templates/printerback.mas:168
+msgid "Next"
+msgstr "Successivo"
+
+#: src/EBox/CGI/AddPrinter.pm:40 src/EBox/CGI/CancelJob.pm:40
+msgid "Printer's name"
+msgstr "Nome della stampante"
+
+#: src/EBox/CGI/AddPrinter.pm:43
+msgid "Printer description"
+msgstr "Descrizione stampante"
+
+#: src/EBox/CGI/AddPrinterUI.pm:30
+msgid "Add a new printer (I)"
+msgstr "Aggiungi una nuova stampante (I)"
+
+#: src/EBox/CGI/ManufacturerUI.pm:30
+msgid "Add a new printer (III)"
+msgstr "Aggiungi una nuova stampante (III)"
+
+#: src/EBox/CGI/ModelUI.pm:30
+msgid "Add a new printer (IV)"
+msgstr "Aggiungi una nuova stampante (IV)"
+
+#: src/EBox/CGI/GeneralSettings.pm:90
+msgid "Standalone cups enabled"
+msgstr "Standalone cups abilitato"
+
+#: src/EBox/CGI/GeneralSettings.pm:92
+msgid "Standalone cups disabled"
+msgstr "Standalone cups disabilitato"
+
+#: src/EBox/CGI/CancelJob.pm:41
+msgid "Printer's id"
+msgstr "Id della stampante"
+
+#: src/EBox/CGI/CancelJob.pm:42
+msgid "Job id"
+msgstr "Id stampa"
+
+#: src/EBox/CGI/CancelJob.pm:54
+msgid "Job was successfully canceled"
+msgstr "La stampa è stata correttamente annullata"
+
+#: src/EBox/CGI/ManagePrinter.pm:51
+msgid "The printer has been deleted successfully"
+msgstr "La stampante è stata rimossa correttamente."
+
+#: src/EBox/CGI/DrvoptsUI.pm:30
+msgid "Add a new printer (VI)"
+msgstr "Aggiungi una nuova stampante (VI)"
+
+#: src/EBox/CGI/DriverUI.pm:30
+msgid "Add a new printer (V)"
+msgstr "Aggiungi una nuova stampante (V)"
+
+#: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:157
+#: src/templates/printerback.mas:37
+msgid "Driver"
+msgstr "Driver"
+
+#: src/EBox/CGI/DeleteUI.pm:30
+msgid "Delete printer"
+msgstr "Rimuovi stampante"
+
+#: src/EBox/CGI/SambaPrinter.pm:52
+msgid "Shared resource"
+msgstr "Risorsa condivisa"
+
+#: src/EBox/CGI/SambaPrinter.pm:53 src/templates/samba.mas:32
+#: src/templates/printerback.mas:120
+msgid "Authentication"
+msgstr "Autenticazione"
+
+#: src/EBox/CGI/SambaPrinter.pm:61 src/templates/samba.mas:60
+#: src/templates/printerback.mas:148
+msgid "User"
+msgstr "Utente"
+
+#: src/EBox/CGI/SambaPrinter.pm:62 src/templates/samba.mas:69
+#: src/templates/printerback.mas:157
+msgid "Password"
+msgstr "Password"
+
+#: src/EBox/CGI/ManagePrinterUI.pm:30
+msgid "Manage printer"
+msgstr "Gestisci stampante"
+
+#: src/EBox/CGI/ManagePrinterUI.pm:58
+msgid "Printer details"
+msgstr "Informazioni stampante"
+
+#: src/EBox/CGI/ManagePrinterUI.pm:59
+msgid "Driver Options"
+msgstr "Opzioni Driver"
+
+#: src/EBox/CGI/ManagePrinterUI.pm:60
+msgid "Configuration options"
+msgstr "Opzioni configurazione"
+
+#: src/EBox/CGI/ManagePrinterUI.pm:61
+msgid "Jobs Queue"
+msgstr "Coda Stampe"
+
 #: migration/0001_add_ipp_service.pl:102
 msgid "Cups printer server port"
 msgstr "Porta server stampante cups"
 
-#: src/templates/printerback.mas:47 src/templates/printerback.mas:48
-msgid "Go"
-msgstr "Vai"
-
-#: src/templates/printerback.mas:56 src/templates/drvopts.mas:14
-msgid "Driver options"
-msgstr "Opzioni driver"
-
-#: src/templates/printerback.mas:96 src/templates/printerback.mas:97
-#: src/templates/printerback.mas:200 src/templates/printerback.mas:201
-#: src/templates/printer.mas:32 src/templates/printer.mas:167
-#: src/templates/printer.mas:168 src/templates/printers.mas:19
-msgid "Change"
-msgstr "Modifica"
-
-#: src/templates/printerback.mas:106
-msgid "Samba shared printer configurationr"
-msgstr "Configurazione stampante remota samba"
-
-#: src/templates/printerback.mas:112 src/templates/samba.mas:24
-msgid "Share resource"
-msgstr "Condividi risorsa"
-
-#: src/templates/printerback.mas:126 src/templates/printerback.mas:128
-#: src/templates/samba.mas:38 src/templates/samba.mas:40
-msgid "Anonymous"
-msgstr "Anonimo"
-
-#: src/templates/printerback.mas:132 src/templates/printerback.mas:134
-#: src/templates/samba.mas:44 src/templates/samba.mas:46
-msgid "Guest"
-msgstr "Ospite"
-
-#: src/templates/printerback.mas:138 src/templates/printerback.mas:140
-#: src/templates/samba.mas:50 src/templates/samba.mas:52
-msgid "User/Password"
-msgstr "Utente/Password"
-
-#: src/templates/printerback.mas:176
-msgid "Remote printer configuration"
-msgstr "Configurazione stampante remota"
-
-#: src/templates/printer.mas:69
-msgid "Job queue"
-msgstr "Coda di stampa"
-
-#: src/templates/printer.mas:78
-msgid "Size(KB)"
-msgstr "Dimensioni (KB)"
-
-#: src/templates/printer.mas:79
-msgid "Creation time"
-msgstr "Data di creazione"
-
-#: src/templates/printer.mas:80
-msgid "Action"
-msgstr "Azione"
-
-#: src/templates/printer.mas:119 src/templates/printer.mas:120
-#: src/templates/printer.mas:121 src/templates/del.mas:21
-#: src/templates/printers.mas:64 src/templates/printers.mas:65
-#: src/templates/printers.mas:66
-msgid "Delete"
-msgstr "Elimina"
-
-#: src/templates/printer.mas:129
-msgid "This printer has no pending job in queue at the moment"
-msgstr "Questa stampante non ha stampe pendenti in coda al momento"
-
-#: src/templates/models.mas:13
-msgid "Choose a printer model"
-msgstr "Scegli un modello di stampante"
-
-#: src/templates/samba.mas:17
-msgid "Samba shared printer configuration"
-msgstr "Configurazione stampante condivisa samba"
+#: src/templates/manufacturer.mas:12
+msgid "Choose manufacturer"
+msgstr "Scegli produttore"
 
 #: src/templates/del.mas:12
 #, perl-brace-format
 msgid "Are you sure you want to delete the printer '{name}'?"
 msgstr "Sei sicuro di voler eliminare la stampante '{name}'?"
 
+#: src/templates/del.mas:21 src/templates/printers.mas:64
+#: src/templates/printers.mas:65 src/templates/printers.mas:66
+#: src/templates/printer.mas:119 src/templates/printer.mas:120
+#: src/templates/printer.mas:121
+msgid "Delete"
+msgstr "Elimina"
+
 #: src/templates/del.mas:24
 msgid "Cancel"
 msgstr "Annulla"
 
-#: src/templates/manufacturer.mas:12
-msgid "Choose manufacturer"
-msgstr "Scegli produttore"
+#: src/templates/addprinter.mas:10
+msgid "Set printer name and method"
+msgstr "Imposta nome stampante e metodo"
+
+#: src/templates/addprinter.mas:28
+msgid "Parallel"
+msgstr "Parallela"
+
+#: src/templates/addprinter.mas:29
+msgid "AppSocket"
+msgstr ""
+
+#: src/templates/addprinter.mas:30
+msgid "Samba"
+msgstr "Samba"
+
+#: src/templates/addprinter.mas:31
+msgid "IPP: Internet printing protocol"
+msgstr ""
+
+#: src/templates/addprinter.mas:32
+msgid "LPD: Line Printer Daemon"
+msgstr ""
+
+#: src/templates/samba.mas:17
+msgid "Samba shared printer configuration"
+msgstr "Configurazione stampante condivisa samba"
+
+#: src/templates/samba.mas:24 src/templates/printerback.mas:112
+msgid "Share resource"
+msgstr "Condividi risorsa"
+
+#: src/templates/samba.mas:38 src/templates/samba.mas:40
+#: src/templates/printerback.mas:126 src/templates/printerback.mas:128
+msgid "Anonymous"
+msgstr "Anonimo"
+
+#: src/templates/samba.mas:44 src/templates/samba.mas:46
+#: src/templates/printerback.mas:132 src/templates/printerback.mas:134
+msgid "Guest"
+msgstr "Ospite"
+
+#: src/templates/samba.mas:50 src/templates/samba.mas:52
+#: src/templates/printerback.mas:138 src/templates/printerback.mas:140
+msgid "User/Password"
+msgstr "Utente/Password"
+
+#: src/templates/drivers.mas:13
+msgid "Choose a dirver for the printer"
+msgstr "Scegli un driver per la stampante"
+
+#: src/templates/drivers.mas:20
+msgid "driver"
+msgstr "driver"
+
+#: src/templates/network.mas:16
+#, fuzzy
+msgid "Configure AppSocket printer"
+msgstr "Configura stampante remota"
+
+#: src/templates/lpd.mas:16
+#, fuzzy
+msgid "Configure LPD printer"
+msgstr "Configura stampante remota"
+
+#: src/templates/usb.mas:15
+msgid "Local USB printer configuration"
+msgstr "Configurazione stampante locale USB"
 
 #: src/templates/printers.mas:13
 msgid "Enable standalone CUPS"
 msgstr "Abilita CUPS standalone"
+
+#: src/templates/printers.mas:19 src/templates/printer.mas:32
+#: src/templates/printer.mas:167 src/templates/printer.mas:168
+#: src/templates/printerback.mas:96 src/templates/printerback.mas:97
+#: src/templates/printerback.mas:200 src/templates/printerback.mas:201
+msgid "Change"
+msgstr "Modifica"
 
 #: src/templates/printers.mas:25
 msgid "General settings"
@@ -461,70 +464,64 @@ msgstr "Gestisci questa stampante"
 msgid "There is no printer configured yet"
 msgstr "Non ci sono stampanti configurate"
 
-#: src/templates/usb.mas:15
-msgid "Local USB printer configuration"
-msgstr "Configurazione stampante locale USB"
-
-#: src/templates/network.mas:16
-#, fuzzy
-msgid "Configure AppSocket printer"
-msgstr "Configura stampante remota"
-
 #: src/templates/driver.mas:12
 msgid "Choose a driver for the printer"
 msgstr "Scegli un driver per la stampante"
-
-#: src/templates/addprinter.mas:10
-msgid "Set printer name and method"
-msgstr "Imposta nome stampante e metodo"
-
-#: src/templates/addprinter.mas:28
-msgid "Parallel"
-msgstr "Parallela"
-
-#: src/templates/addprinter.mas:29
-msgid "AppSocket"
-msgstr ""
-
-#: src/templates/addprinter.mas:30
-msgid "Samba"
-msgstr "Samba"
-
-#: src/templates/addprinter.mas:31
-msgid "IPP: Internet printing protocol"
-msgstr ""
-
-#: src/templates/addprinter.mas:32
-msgid "LPD: Line Printer Daemon"
-msgstr ""
 
 #: src/templates/parallel.mas:15
 msgid "Local parallel printer configuration"
 msgstr "Configurazione stampante locale parallela"
 
-#: src/templates/drivers.mas:13
-msgid "Choose a dirver for the printer"
-msgstr "Scegli un driver per la stampante"
+#: src/templates/printer.mas:69
+msgid "Job queue"
+msgstr "Coda di stampa"
 
-#: src/templates/drivers.mas:20
-msgid "driver"
-msgstr "driver"
+#: src/templates/printer.mas:78
+msgid "Size(KB)"
+msgstr "Dimensioni (KB)"
 
-#: src/templates/lpd.mas:16
-#, fuzzy
-msgid "Configure LPD printer"
-msgstr "Configura stampante remota"
+#: src/templates/printer.mas:79
+msgid "Creation time"
+msgstr "Data di creazione"
+
+#: src/templates/printer.mas:80
+msgid "Action"
+msgstr "Azione"
+
+#: src/templates/printer.mas:129
+msgid "This printer has no pending job in queue at the moment"
+msgstr "Questa stampante non ha stampe pendenti in coda al momento"
+
+#: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
+msgid "Driver options"
+msgstr "Opzioni driver"
+
+#: src/templates/models.mas:13
+msgid "Choose a printer model"
+msgstr "Scegli un modello di stampante"
 
 #: src/templates/ipp.mas:16
 #, fuzzy
 msgid "Configure IPP printer"
 msgstr "Configura stampante remota"
 
+#: src/templates/printerback.mas:47 src/templates/printerback.mas:48
+msgid "Go"
+msgstr "Vai"
+
+#: src/templates/printerback.mas:106
+msgid "Samba shared printer configurationr"
+msgstr "Configurazione stampante remota samba"
+
+#: src/templates/printerback.mas:176
+msgid "Remote printer configuration"
+msgstr "Configurazione stampante remota"
+
+#~ msgid "printers"
+#~ msgstr "stampanti"
+
 #~ msgid "module status"
 #~ msgstr "stato modulo"
-
-#~ msgid "Printer sharing"
-#~ msgstr "Condivisione stampante"
 
 #~ msgid "Network printer"
 #~ msgstr "Stampante di rete"

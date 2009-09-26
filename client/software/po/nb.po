@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:17+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2009-08-26 11:03+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -17,71 +17,51 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/InstallPkgs.pm:84
-msgid "There were no packages to update"
-msgstr "Ingen pakker å oppdatere"
+#: src/EBox/Software.pm:53
+msgid "Software Management"
+msgstr "Programvare behandling"
 
-#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr "Oppgraderer"
+#: src/EBox/Software.pm:77
+msgid "Enable cron script to download updates"
+msgstr "Aktiver cron skript for nedlasting av oppdateringer"
 
-#: src/EBox/CGI/InstallPkgs.pm:146
-msgid "Upgrading packages"
-msgstr "Oppgraderer pakker"
-
-#: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
-msgid "Current package"
-msgstr "Gjeldende pakke"
-
-#: src/EBox/CGI/InstallPkgs.pm:148
-msgid "packages left to install"
-msgstr "pakker igjen å installere"
-
-#: src/EBox/CGI/InstallPkgs.pm:149
+#: src/EBox/Software.pm:78
 msgid ""
-"The packages installation has finished successfully. The administration "
-"interface may become unresponsive for a few seconds. Please wait patiently "
-"until the system has been fully restarted"
+"eBox software will download the available updates from your configured apt "
+"sources. "
 msgstr ""
-"Pakke installasjonen er fullført. Administrasjons grensesnittet kan være "
-"utilgjengelig en periode. Vennligs vent til systemet er fullstendig restartet"
+"eBox programmvare vil laste ned tilgjengelige oppdateringer fra dine "
+"konfigurerte apt kilder."
 
-#: src/EBox/CGI/InstallPkgs.pm:153
+#: src/EBox/Software.pm:153 src/EBox/Software.pm:356
 msgid ""
-"The packages installation has not finished correctly . More information on "
-"the logs"
-msgstr "Pakke installasjonen feilet. Mer informasjon i loggene"
-
-#: src/EBox/CGI/InstallPkgs.pm:165
-msgid "Removing package"
-msgstr "Fjerner pakke"
-
-#: src/EBox/CGI/InstallPkgs.pm:166
-msgid "Removing the selected package and its dependent packages"
-msgstr "Fjerner valgt pakke og dens relaterte pakker"
-
-#: src/EBox/CGI/InstallPkgs.pm:168
-msgid "packages left to remove"
-msgstr "pakker igjen å fjerne"
-
-#: src/EBox/CGI/InstallPkgs.pm:169
-msgid ""
-"The packages removal has finished successfully. The administration interface "
-"may become unresponsive for a few seconds. Please wait patiently until the "
-"system has been fully restarted"
+"The software management module must be enabled to be able to install packages"
 msgstr ""
-"Pakkene er fjernet. Administrasjons grensesnittet kan være utilgjengelig en "
-"periode. Vennligs vent til systemet er fullstendig restartet"
 
-#: src/EBox/CGI/InstallPkgs.pm:173
+#: src/EBox/Software.pm:197 src/EBox/Software.pm:390
 msgid ""
-"The packages removal has not finished correctly . More information on the "
-"logs"
-msgstr "Pakke fjerningen feilet. Mer informasjon i loggene"
+"The software management module must be enabled to be able to remove packages"
+msgstr ""
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Automatiske programmvare oppdateringer"
+#: src/EBox/Software.pm:500
+msgid "eBox Components"
+msgstr "eBox Komponenter"
+
+#: src/EBox/Software.pm:502
+msgid "System Updates"
+msgstr "System Oppdateringer"
+
+#: src/EBox/Software.pm:504
+msgid "Automatic Updates"
+msgstr "Automatiske Oppdateringer"
+
+#: src/EBox/Software.pm:595
+#, perl-brace-format
+msgid ""
+"Software management is currently  locked by {locker}. Please, try again later"
+msgstr ""
+"Programmvare behandling er for øyeblikket låst av {locker}. Vennligst prøv "
+"igjen senere"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
@@ -95,169 +75,83 @@ msgstr "Programmvare oppdateringer håndteres automatisk"
 msgid "The system is up to date"
 msgstr "Systemet er oppdatert"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "Oppsett for automatiske oppdateringer"
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Automatiske programmvare oppdateringer"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
 msgstr "eBox komponenter"
 
-#: src/EBox/Software.pm:76
-msgid "Enable cron script to download updates"
-msgstr "Aktiver cron skript for nedlasting av oppdateringer"
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
+msgid "Upgrading"
+msgstr "Oppgraderer"
 
-#: src/EBox/Software.pm:77
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "Oppsett for automatiske oppdateringer"
+
+#: src/EBox/CGI/InstallPkgs.pm:84
+msgid "There were no packages to update"
+msgstr "Ingen pakker å oppdatere"
+
+#: src/EBox/CGI/InstallPkgs.pm:149
+msgid "Upgrading packages"
+msgstr "Oppgraderer pakker"
+
+#: src/EBox/CGI/InstallPkgs.pm:150 src/EBox/CGI/InstallPkgs.pm:170
+msgid "Current package"
+msgstr "Gjeldende pakke"
+
+#: src/EBox/CGI/InstallPkgs.pm:151
+msgid "packages left to install"
+msgstr "pakker igjen å installere"
+
+#: src/EBox/CGI/InstallPkgs.pm:152
 msgid ""
-"eBox software will download the available updates from your configured apt "
-"sources. "
+"The packages installation has finished successfully. The administration "
+"interface may become unresponsive for a few seconds. Please wait patiently "
+"until the system has been fully restarted"
 msgstr ""
-"eBox programmvare vil laste ned tilgjengelige oppdateringer fra dine "
-"konfigurerte apt kilder."
+"Pakke installasjonen er fullført. Administrasjons grensesnittet kan være "
+"utilgjengelig en periode. Vennligs vent til systemet er fullstendig restartet"
 
-#: src/EBox/Software.pm:473
-msgid "Software Management"
-msgstr "Programvare behandling"
-
-#: src/EBox/Software.pm:477
-msgid "eBox Components"
-msgstr "eBox Komponenter"
-
-#: src/EBox/Software.pm:479
-msgid "System Updates"
-msgstr "System Oppdateringer"
-
-#: src/EBox/Software.pm:481
-msgid "Automatic Updates"
-msgstr "Automatiske Oppdateringer"
-
-#: src/EBox/Software.pm:572
-#, perl-brace-format
+#: src/EBox/CGI/InstallPkgs.pm:156
 msgid ""
-"Software management is currently  locked by {locker}. Please, try again later"
+"The packages installation has not finished correctly . More information on "
+"the logs"
+msgstr "Pakke installasjonen feilet. Mer informasjon i loggene"
+
+#: src/EBox/CGI/InstallPkgs.pm:168
+msgid "Removing package"
+msgstr "Fjerner pakke"
+
+#: src/EBox/CGI/InstallPkgs.pm:169
+msgid "Removing the selected package and its dependent packages"
+msgstr "Fjerner valgt pakke og dens relaterte pakker"
+
+#: src/EBox/CGI/InstallPkgs.pm:171
+msgid "packages left to remove"
+msgstr "pakker igjen å fjerne"
+
+#: src/EBox/CGI/InstallPkgs.pm:172
+msgid ""
+"The packages removal has finished successfully. The administration interface "
+"may become unresponsive for a few seconds. Please wait patiently until the "
+"system has been fully restarted"
 msgstr ""
-"Programmvare behandling er for øyeblikket låst av {locker}. Vennligst prøv "
-"igjen senere"
+"Pakkene er fjernet. Administrasjons grensesnittet kan være utilgjengelig en "
+"periode. Vennligs vent til systemet er fullstendig restartet"
+
+#: src/EBox/CGI/InstallPkgs.pm:176
+msgid ""
+"The packages removal has not finished correctly . More information on the "
+"logs"
+msgstr "Pakke fjerningen feilet. Mer informasjon i loggene"
 
 #: src/EBox/PackageDescriptions.pm:1
-msgid "eBox - Antivirus module"
-msgstr "eBox - Antivirus modul"
-
-#: src/EBox/PackageDescriptions.pm:2
-msgid "eBox - Asterisk"
-msgstr "eBox - Asterisk"
-
-#: src/EBox/PackageDescriptions.pm:3
-msgid "eBox - Certificate Authority Manager for eBox"
-msgstr "eBox - Sertifiserings Autoritets Behandler for eBox"
-
-#: src/EBox/PackageDescriptions.pm:4
-msgid "eBox - captive portal module"
-msgstr "eBox - captive portal modul"
-
-#: src/EBox/PackageDescriptions.pm:5
-msgid "eBox - DHCP server module"
-msgstr "eBox - DHCP server modul"
-
-#: src/EBox/PackageDescriptions.pm:6
-msgid "eBox - DNS server"
-msgstr "eBox - DNS server"
-
-#: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Backup"
 msgstr "eBox - Sikkerhetskopi"
-
-#: src/EBox/PackageDescriptions.pm:8
-msgid "the eBox platform - Base framework"
-msgstr "eBox plattform - Basis rammeverk"
-
-#: src/EBox/PackageDescriptions.pm:9
-msgid "eBox - eGroupware"
-msgstr "eBox - eGroupware"
-
-#: src/EBox/PackageDescriptions.pm:10
-msgid "eBox - Firewall"
-msgstr "eBox - Brannmur"
-
-#: src/EBox/PackageDescriptions.pm:11
-msgid "eBox - Intrusion Detection System"
-msgstr "eBox - Inntrengings Deteksjons System"
-
-#: src/EBox/PackageDescriptions.pm:12
-msgid "eBox - Instant messaging proxy"
-msgstr "eBox - Lynmeldings proxy"
-
-#: src/EBox/PackageDescriptions.pm:13
-msgid "eBox - Instant messaging (Jabber)"
-msgstr "eBox - Lynmeldings tjeneste (Jabber)"
-
-#: src/EBox/PackageDescriptions.pm:14
-msgid "eBox - layer 7 protocols"
-msgstr "eBox - lag 7 protokoller"
-
-#: src/EBox/PackageDescriptions.pm:15
-msgid "eBox - Mail server"
-msgstr "eBox - E-post server"
-
-#: src/EBox/PackageDescriptions.pm:16
-msgid "eBox - Mail filter module"
-msgstr "eBox - E-post filter modul"
-
-#: src/EBox/PackageDescriptions.pm:17
-msgid "eBox - Monitoring module  "
-msgstr "eBox - Overvåkings modul  "
-
-#: src/EBox/PackageDescriptions.pm:18
-msgid "eBox - Network configuration module"
-msgstr "eBox - Nettverks konfigurasjons modul"
-
-#: src/EBox/PackageDescriptions.pm:19
-msgid "eBox - NTP server"
-msgstr "eBox - NTP server"
-
-#: src/EBox/PackageDescriptions.pm:20
-msgid "eBox - Object management"
-msgstr "eBox - Objekt håndtering"
-
-#: src/EBox/PackageDescriptions.pm:21
-msgid "eBox - OpenVPN server module"
-msgstr "eBox - OpenVPN server modul"
-
-#: src/EBox/PackageDescriptions.pm:22
-msgid "eBox - Printer sharing"
-msgstr "eBox - Printer deling"
-
-#: src/EBox/PackageDescriptions.pm:23
-msgid "eBox - client for remote services   "
-msgstr "eBox - klient for eksterne tjenester   "
-
-#: src/EBox/PackageDescriptions.pm:24
-msgid "eBox - File sharing"
-msgstr "eBox - Fil deling"
-
-#: src/EBox/PackageDescriptions.pm:25
-msgid "eBox - Services management"
-msgstr "eBox - Tjeneste behandling"
-
-#: src/EBox/PackageDescriptions.pm:26
-msgid "eBox - Software management"
-msgstr "eBox - Programvare håndtering"
-
-#: src/EBox/PackageDescriptions.pm:27
-msgid "eBox - Proxy cache and content filter"
-msgstr "eBox - Proxy cache og innholds filter"
-
-#: src/EBox/PackageDescriptions.pm:28
-msgid "eBox - Traffic shaper for eBox"
-msgstr "eBox - Trafikk styrer for eBox"
-
-#: src/EBox/PackageDescriptions.pm:29
-msgid "eBox - User and Group management"
-msgstr "eBox - Bruker og Gruppe håndtering"
-
-#: src/EBox/PackageDescriptions.pm:30
-msgid "eBox - Web Server"
-msgstr "eBox - Web Server"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
@@ -303,11 +197,11 @@ msgstr "Beskrivelse"
 msgid "Version"
 msgstr "Versjon"
 
-#: src/templates/updates.mas:19 src/templates/ebox.mas:27
+#: src/templates/updates.mas:19 src/templates/ebox.mas:28
 msgid "Update"
 msgstr "Oppdater"
 
-#: src/templates/updates.mas:53 src/templates/ebox.mas:74
+#: src/templates/updates.mas:53 src/templates/ebox.mas:75
 msgid "Update all packages"
 msgstr "Oppdater alle pakker"
 
@@ -335,17 +229,104 @@ msgstr "Siste versjon"
 msgid "Actions"
 msgstr "Handlinger"
 
-#: src/templates/ebox.mas:33
+#: src/templates/ebox.mas:34
 msgid "Install"
 msgstr "Installer"
 
-#: src/templates/ebox.mas:35
+#: src/templates/ebox.mas:36
 msgid "none"
 msgstr "ingen"
 
-#: src/templates/ebox.mas:57
+#: src/templates/ebox.mas:58
 msgid "Remove"
 msgstr "Fjern"
+
+#~ msgid "eBox - Antivirus module"
+#~ msgstr "eBox - Antivirus modul"
+
+#~ msgid "eBox - Asterisk"
+#~ msgstr "eBox - Asterisk"
+
+#~ msgid "eBox - Certificate Authority Manager for eBox"
+#~ msgstr "eBox - Sertifiserings Autoritets Behandler for eBox"
+
+#~ msgid "eBox - captive portal module"
+#~ msgstr "eBox - captive portal modul"
+
+#~ msgid "eBox - DHCP server module"
+#~ msgstr "eBox - DHCP server modul"
+
+#~ msgid "eBox - DNS server"
+#~ msgstr "eBox - DNS server"
+
+#~ msgid "the eBox platform - Base framework"
+#~ msgstr "eBox plattform - Basis rammeverk"
+
+#~ msgid "eBox - eGroupware"
+#~ msgstr "eBox - eGroupware"
+
+#~ msgid "eBox - Firewall"
+#~ msgstr "eBox - Brannmur"
+
+#~ msgid "eBox - Intrusion Detection System"
+#~ msgstr "eBox - Inntrengings Deteksjons System"
+
+#~ msgid "eBox - Instant messaging proxy"
+#~ msgstr "eBox - Lynmeldings proxy"
+
+#~ msgid "eBox - Instant messaging (Jabber)"
+#~ msgstr "eBox - Lynmeldings tjeneste (Jabber)"
+
+#~ msgid "eBox - layer 7 protocols"
+#~ msgstr "eBox - lag 7 protokoller"
+
+#~ msgid "eBox - Mail server"
+#~ msgstr "eBox - E-post server"
+
+#~ msgid "eBox - Mail filter module"
+#~ msgstr "eBox - E-post filter modul"
+
+#~ msgid "eBox - Monitoring module  "
+#~ msgstr "eBox - Overvåkings modul  "
+
+#~ msgid "eBox - Network configuration module"
+#~ msgstr "eBox - Nettverks konfigurasjons modul"
+
+#~ msgid "eBox - NTP server"
+#~ msgstr "eBox - NTP server"
+
+#~ msgid "eBox - Object management"
+#~ msgstr "eBox - Objekt håndtering"
+
+#~ msgid "eBox - OpenVPN server module"
+#~ msgstr "eBox - OpenVPN server modul"
+
+#~ msgid "eBox - Printer sharing"
+#~ msgstr "eBox - Printer deling"
+
+#~ msgid "eBox - client for remote services   "
+#~ msgstr "eBox - klient for eksterne tjenester   "
+
+#~ msgid "eBox - File sharing"
+#~ msgstr "eBox - Fil deling"
+
+#~ msgid "eBox - Services management"
+#~ msgstr "eBox - Tjeneste behandling"
+
+#~ msgid "eBox - Software management"
+#~ msgstr "eBox - Programvare håndtering"
+
+#~ msgid "eBox - Proxy cache and content filter"
+#~ msgstr "eBox - Proxy cache og innholds filter"
+
+#~ msgid "eBox - Traffic shaper for eBox"
+#~ msgstr "eBox - Trafikk styrer for eBox"
+
+#~ msgid "eBox - User and Group management"
+#~ msgstr "eBox - Bruker og Gruppe håndtering"
+
+#~ msgid "eBox - Web Server"
+#~ msgstr "eBox - Web Server"
 
 #~ msgid "IPsec VPNs"
 #~ msgstr "IPsec VPN"

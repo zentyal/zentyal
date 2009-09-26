@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-monitor 0.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:10+0200\n"
+"POT-Creation-Date: 2009-09-26 19:33+0100\n"
 "PO-Revision-Date: 2009-02-05 07:40+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,6 +15,162 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
+#: src/EBox/Monitor.pm:164
+msgid "Monitor"
+msgstr "مانیتور"
+
+#: src/EBox/Event/Watcher/Monitor.pm:162
+msgid "Notify when a certain value has reached a certain threshold"
+msgstr "هنگامی که یک مقدار مشخص به یک سطح آستانه مشخص رسید، اعلام کن"
+
+#: src/EBox/Event/Watcher/Monitor.pm:302
+#, perl-brace-format
+msgid "{what} \"{dS}\" is currently {value}."
+msgstr "{what} \"{dS}\" در حال حاضر {value} می باشد"
+
+#: src/EBox/Event/Watcher/Monitor.pm:308
+#, perl-brace-format
+msgid "That is within the {severity} region of {minBound} and {maxBound}."
+msgstr "آن درون ناحیه {severity} از {minBound} و {maxBound} می باشد"
+
+#: src/EBox/Event/Watcher/Monitor.pm:315
+#, perl-brace-format
+msgid "That is above the {severity} threshold of {bound}."
+msgstr "آن بالای سطح آستانه {severity} از {bound} می باشد"
+
+#: src/EBox/Event/Watcher/Monitor.pm:318
+#, perl-brace-format
+msgid "That is below the {severity} threshold of {bound}."
+msgstr "آن زیر سطح آستانه {severity} از {bound} می باشد"
+
+#: src/EBox/Monitor.pm:133
+msgid "Collectd main configuration file"
+msgstr "فایل پیکربندی اصلی را جمع آوری کن"
+
+#: src/EBox/Monitor.pm:137
+msgid "Collectd threshold configuration file"
+msgstr "فایل پیکربندی سطح آستانه را جمع آوری کن"
+
+#: src/EBox/CGI/Index.pm:44
+msgid "Monitoring"
+msgstr "مانیتورینگ"
+
+#: src/EBox/CGI/Index.pm:70
+#, perl-brace-format
+msgid ""
+"You must enable monitor module to see monitor graphs in {openhref}Module "
+"Status section{closehref}"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:99
+#, perl-brace-format
+msgid ""
+"You must save the changes in module status to see monitor graphs in the "
+"{openhref}Save changes{closehref} section. In case it is already enabled you "
+"must wait for a few seconds to collect the first monitor data"
+msgstr ""
+
+#: src/EBox/Monitor/Measure/Thermal.pm:104
+#: src/EBox/Monitor/Measure/Thermal.pm:110
+msgid "temperature"
+msgstr "درجه حرارت"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:117
+msgid "cooling device"
+msgstr "ابزارهای خنک کننده"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:119
+msgid "sensor"
+msgstr "حس گر"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:121
+#, perl-brace-format
+msgid "Temperature for {what}"
+msgstr "درجه حرارت برای {what}"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:127
+msgid "Thermal"
+msgstr "گرمایی"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:128
+#, perl-brace-format
+msgid ""
+"Collect thermal information (CPU sensors temperature) if possible from {dir}"
+msgstr ""
+"اطلاعات گرمایی (درجه حرارت حس گر سی پی یو) را اگر ممکن است از {dir} جمع آوری "
+"کن"
+
+#: src/EBox/Monitor/Measure/Df.pm:76
+#, perl-brace-format
+msgid "used in {partition}"
+msgstr "فضای استفاده شده در {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:78
+#, perl-brace-format
+msgid "free in {partition}"
+msgstr "فضای آزاد در {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:83
+msgid "File system usage"
+msgstr "فضای مورد استفاده توسط فایل سیستم"
+
+#: src/EBox/Monitor/Measure/Df.pm:84
+msgid ""
+"Collect the mounted file system usage information as \"df\" command does"
+msgstr ""
+"هنگامی که فرمان \"df\" اجرا شد، اطلاعات مربوط به فضای مورد استفاده توسط فایل "
+"سیستم را جمع آوری کن"
+
+#: src/EBox/Monitor/Measure/Load.pm:55
+msgid "System load"
+msgstr "بار سیستم"
+
+#: src/EBox/Monitor/Measure/Load.pm:56
+msgid "Collect the system load that gives a rough overview of the system usage"
+msgstr ""
+"بار سیستم را که یک دید کلی از فضای مورد استفاده دیسک می دهد، جمع آوری کن"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "short term"
+msgstr "دوره کوتاه"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "mid term"
+msgstr "دوره متوسط"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "long term"
+msgstr "دوره بلند"
+
+#: src/EBox/Monitor/Measure/Base.pm:621
+msgid "value"
+msgstr "مقدار"
+
+#: src/EBox/Monitor/Measure/Memory.pm:55
+msgid "Physical memory usage"
+msgstr "فضای مورد استفاده توسط حافظه فیزیکی"
+
+#: src/EBox/Monitor/Measure/Memory.pm:56
+msgid "Collect the physical memory usage"
+msgstr "اطلاعات مربوط به فضای مورد استفاده توسظ حافظه فیزیکی را جمع آوری کن"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "free"
+msgstr "آزاد"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "page cache"
+msgstr "کش صفحه"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "buffer cache"
+msgstr "کش بافر"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "used"
+msgstr "استفاده شده"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
@@ -66,106 +222,6 @@ msgstr "سیستم"
 #: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
 msgstr "انتظار"
-
-#: src/EBox/Monitor/Measure/Base.pm:621
-msgid "value"
-msgstr "مقدار"
-
-#: src/EBox/Monitor/Measure/Load.pm:55
-msgid "System load"
-msgstr "بار سیستم"
-
-#: src/EBox/Monitor/Measure/Load.pm:56
-msgid "Collect the system load that gives a rough overview of the system usage"
-msgstr ""
-"بار سیستم را که یک دید کلی از فضای مورد استفاده دیسک می دهد، جمع آوری کن"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "short term"
-msgstr "دوره کوتاه"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "mid term"
-msgstr "دوره متوسط"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "long term"
-msgstr "دوره بلند"
-
-#: src/EBox/Monitor/Measure/Memory.pm:55
-msgid "Physical memory usage"
-msgstr "فضای مورد استفاده توسط حافظه فیزیکی"
-
-#: src/EBox/Monitor/Measure/Memory.pm:56
-msgid "Collect the physical memory usage"
-msgstr "اطلاعات مربوط به فضای مورد استفاده توسظ حافظه فیزیکی را جمع آوری کن"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "free"
-msgstr "آزاد"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "page cache"
-msgstr "کش صفحه"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "buffer cache"
-msgstr "کش بافر"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "used"
-msgstr "استفاده شده"
-
-#: src/EBox/Monitor/Measure/Df.pm:76
-#, perl-brace-format
-msgid "free in {partition}"
-msgstr "فضای آزاد در {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:78
-#, perl-brace-format
-msgid "used in {partition}"
-msgstr "فضای استفاده شده در {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:83
-msgid "File system usage"
-msgstr "فضای مورد استفاده توسط فایل سیستم"
-
-#: src/EBox/Monitor/Measure/Df.pm:84
-msgid ""
-"Collect the mounted file system usage information as \"df\" command does"
-msgstr ""
-"هنگامی که فرمان \"df\" اجرا شد، اطلاعات مربوط به فضای مورد استفاده توسط فایل "
-"سیستم را جمع آوری کن"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:104
-#: src/EBox/Monitor/Measure/Thermal.pm:110
-msgid "temperature"
-msgstr "درجه حرارت"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:117
-msgid "cooling device"
-msgstr "ابزارهای خنک کننده"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:119
-msgid "sensor"
-msgstr "حس گر"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:121
-#, perl-brace-format
-msgid "Temperature for {what}"
-msgstr "درجه حرارت برای {what}"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:127
-msgid "Thermal"
-msgstr "گرمایی"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:128
-#, perl-brace-format
-msgid ""
-"Collect thermal information (CPU sensors temperature) if possible from {dir}"
-msgstr ""
-"اطلاعات گرمایی (درجه حرارت حس گر سی پی یو) را اگر ممکن است از {dir} جمع آوری "
-"کن"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
@@ -335,17 +391,6 @@ msgid "Every measure may have several thresholds to monitor"
 msgstr ""
 "هر اندازه گیری ای ممکن است سطوح آستانه مختلقی برای مانیتور کردن داشته باشد"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:133
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:147
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:157
-msgid "not applicable"
-msgstr "غیر قابل اجرا"
-
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:135
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:145
-msgid "any"
-msgstr "هیچ"
-
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
 msgstr "ساعت قبل"
@@ -362,43 +407,13 @@ msgstr "ماه قبل"
 msgid "Last year"
 msgstr "سال قبل"
 
-#: src/EBox/CGI/Index.pm:41 src/EBox/Monitor.pm:165
-msgid "Monitoring"
-msgstr "مانیتورینگ"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:133
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:147
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:157
+msgid "not applicable"
+msgstr "غیر قابل اجرا"
 
-#: src/EBox/Monitor.pm:72 src/EBox/Monitor.pm:164
-#: src/EBox/Event/Watcher/Monitor.pm:145
-msgid "Monitor"
-msgstr "مانیتور"
-
-#: src/EBox/Monitor.pm:133
-msgid "Collectd main configuration file"
-msgstr "فایل پیکربندی اصلی را جمع آوری کن"
-
-#: src/EBox/Monitor.pm:137
-msgid "Collectd threshold configuration file"
-msgstr "فایل پیکربندی سطح آستانه را جمع آوری کن"
-
-#: src/EBox/Event/Watcher/Monitor.pm:162
-msgid "Notify when a certain value has reached a certain threshold"
-msgstr "هنگامی که یک مقدار مشخص به یک سطح آستانه مشخص رسید، اعلام کن"
-
-#: src/EBox/Event/Watcher/Monitor.pm:302
-#, perl-brace-format
-msgid "{what} \"{dS}\" is currently {value}."
-msgstr "{what} \"{dS}\" در حال حاضر {value} می باشد"
-
-#: src/EBox/Event/Watcher/Monitor.pm:308
-#, perl-brace-format
-msgid "That is within the {severity} region of {minBound} and {maxBound}."
-msgstr "آن درون ناحیه {severity} از {minBound} و {maxBound} می باشد"
-
-#: src/EBox/Event/Watcher/Monitor.pm:315
-#, perl-brace-format
-msgid "That is above the {severity} threshold of {bound}."
-msgstr "آن بالای سطح آستانه {severity} از {bound} می باشد"
-
-#: src/EBox/Event/Watcher/Monitor.pm:318
-#, perl-brace-format
-msgid "That is below the {severity} threshold of {bound}."
-msgstr "آن زیر سطح آستانه {severity} از {bound} می باشد"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:135
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:145
+msgid "any"
+msgstr "هیچ"

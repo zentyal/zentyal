@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:17+0200\n"
+"POT-Creation-Date: 2009-09-26 19:39+0100\n"
 "PO-Revision-Date: 2009-03-19 21:43+0000\n"
 "Last-Translator: Victor Campillo Acebo <victor.campillo@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,21 +17,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Settings.pm:53
-msgid "field1"
-msgstr "campo1"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
+msgid "Control panel"
+msgstr "Panel de control"
 
-#: src/EBox/Model/Settings.pm:60
-msgid "field2"
-msgstr "campo2"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
+msgid "Control center"
+msgstr "Centro de control"
 
-#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
-msgid "Settings"
-msgstr "Opciones"
-
-#: src/EBox/Composite/Composite.pm:50
-msgid "Composite"
-msgstr ""
+#: src/EBox/RemoteServices/Backup.pm:211
+#: src/EBox/RemoteServices/ProxyBackup.pm:208
+#, perl-brace-format
+msgid "Inexistent backup: {n}"
+msgstr "Backup inexistente: {n}"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -103,27 +101,6 @@ msgstr ""
 "Ordenando la suscripción de servicios remotos eBox {url}. Usted tendrá "
 "facilidades de backup remoto y mucho más"
 
-#: src/EBox/RemoteServices/Composite/General.pm:73
-msgid "Remote services"
-msgstr "Servicios remotos"
-
-#: src/EBox/RemoteServices/Composite/General.pm:74
-#, fuzzy
-msgid ""
-"Remote services from eBox are paid services to enhance your eBox experience"
-msgstr ""
-"Los servicios remotos de ebox son de pago para mejorar su experiencia eBox"
-
-#: src/EBox/RemoteServices/Subscription.pm:106
-msgid "Key for web subscription service not found"
-msgstr "Clave para el servicio de suscripción web no encontrada"
-
-#: src/EBox/RemoteServices/Backup.pm:211
-#: src/EBox/RemoteServices/ProxyBackup.pm:208
-#, perl-brace-format
-msgid "Inexistent backup: {n}"
-msgstr "Backup inexistente: {n}"
-
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
@@ -132,6 +109,15 @@ msgstr "No hay backups en el servidor para esta maquina: {h}"
 #: src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
 msgstr "Clave para el servicio backup proxy no encontrada"
+
+#: src/EBox/RemoteServices/Auth.pm:124
+msgid "Key for service URN not found"
+msgstr "Clave para el servicio URN no encontrada"
+
+#: src/EBox/RemoteServices/Auth.pm:160
+#, fuzzy, perl-brace-format
+msgid "Value for key {k} not found"
+msgstr "Clave para el servicio URN no encontrada"
 
 #: src/EBox/RemoteServices/Base.pm:213
 msgid "No ebox-services DNS key found"
@@ -150,59 +136,35 @@ msgstr "No se ha podido crear la conexion SOAP"
 msgid "No domain key found for this service"
 msgstr "Clave de dominio para este servicio no encontrada"
 
-#: src/EBox/RemoteServices/Auth.pm:124
-msgid "Key for service URN not found"
-msgstr "Clave para el servicio URN no encontrada"
+#: src/EBox/RemoteServices/Subscription.pm:106
+msgid "Key for web subscription service not found"
+msgstr "Clave para el servicio de suscripción web no encontrada"
 
-#: src/EBox/RemoteServices/Auth.pm:160
-#, fuzzy, perl-brace-format
-msgid "Value for key {k} not found"
-msgstr "Clave para el servicio URN no encontrada"
+#: src/EBox/RemoteServices/Composite/General.pm:73
+msgid "Remote services"
+msgstr "Servicios remotos"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
-msgid "Control panel"
-msgstr "Panel de control"
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
-msgid "Control center"
-msgstr "Centro de control"
-
-#: src/EBox/CGI/Backup/Index.pm:36
-msgid "Remote system backups"
-msgstr "Sistema remoto de backups"
-
-#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
-msgid "Backup deleted"
-msgstr "Backup borrado"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
-msgid "Restoring remote backup"
-msgstr "Restaurar backup remoto"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
-msgid "Restoring modules from remote backup"
-msgstr "Restaurar módulos desde backup remoto"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
-msgid "Module"
-msgstr "Módulo"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
-msgid "modules left to restore"
+#: src/EBox/RemoteServices/Composite/General.pm:74
+#, fuzzy
+msgid "eBox Control Center is paid services to enhance your eBox experience"
 msgstr ""
+"Los servicios remotos de ebox son de pago para mejorar su experiencia eBox"
 
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
-msgid "Restore successful"
-msgstr "La restauración ha tenido éxito"
+#: src/EBox/Model/Settings.pm:53
+msgid "field1"
+msgstr "campo1"
 
-#: src/EBox/CGI/Backup/Proxy.pm:35
-msgid "Remote system backups proxy"
-msgstr ""
+#: src/EBox/Model/Settings.pm:60
+msgid "field2"
+msgstr "campo2"
+
+#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
+msgid "Settings"
+msgstr "Opciones"
+
+#: src/EBox/CGI/NoConnection.pm:31
+msgid "Connection error"
+msgstr "Error de conexion"
 
 #: src/EBox/CGI/Backup/Confirm.pm:35
 msgid "Configuration backup"
@@ -254,13 +216,47 @@ msgstr ""
 msgid "Backup successful"
 msgstr "El backup ha tenido éxito"
 
-#: src/EBox/CGI/NoConnection.pm:31
-msgid "Connection error"
-msgstr "Error de conexion"
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
+msgid "Restoring remote backup"
+msgstr "Restaurar backup remoto"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
+msgid "Restoring modules from remote backup"
+msgstr "Restaurar módulos desde backup remoto"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
+msgid "Module"
+msgstr "Módulo"
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
+msgid "modules left to restore"
+msgstr ""
+
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
+msgid "Restore successful"
+msgstr "La restauración ha tenido éxito"
+
+#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
+msgid "Backup deleted"
+msgstr "Backup borrado"
+
+#: src/EBox/CGI/Backup/Index.pm:36
+msgid "Remote system backups"
+msgstr "Sistema remoto de backups"
+
+#: src/EBox/CGI/Backup/Proxy.pm:35
+msgid "Remote system backups proxy"
+msgstr ""
 
 #: src/EBox/RemoteServices.pm:74
-msgid "eBox remote services"
-msgstr "Servicios remotos eBox"
+#, fuzzy
+msgid "Control Center Client"
+msgstr "Centro de control"
 
 #: src/EBox/RemoteServices.pm:157
 #, fuzzy
@@ -274,8 +270,19 @@ msgstr "Suscrito"
 
 #: src/EBox/RemoteServices.pm:191
 #, fuzzy
-msgid "Remote Services Subscription"
-msgstr "Suscripción de servicios remotos"
+msgid "Control Center"
+msgstr "Centro de control"
+
+#: src/EBox/Composite/Composite.pm:50
+msgid "Composite"
+msgstr ""
+
+#~ msgid "eBox remote services"
+#~ msgstr "Servicios remotos eBox"
+
+#, fuzzy
+#~ msgid "Remote Services Subscription"
+#~ msgstr "Suscripción de servicios remotos"
 
 #~ msgid "Key for service proxy not found"
 #~ msgstr "Clave para el servicio proxy no encontrada"

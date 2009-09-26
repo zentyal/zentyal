@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-06-28 00:03+0200\n"
+"POT-Creation-Date: 2009-09-26 19:28+0100\n"
 "PO-Revision-Date: 2009-07-31 01:58+0200\n"
 "Last-Translator: Mustafa M. EL-Sebaie <mustsebaie@hotmail.com>\n"
 "Language-Team: none\n"
@@ -17,19 +17,97 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: src/EBox/Model/DomainTable.pm:66
+msgid "Domain"
+msgstr "النطاق"
+
+#: src/EBox/Model/DomainTable.pm:74 src/EBox/Model/HostnameTable.pm:192
+msgid "Hostnames"
+msgstr "أسماء المضيف"
+
+#: src/EBox/Model/DomainTable.pm:83
+msgid "Mail Exchangers"
+msgstr "بدالات البريد"
+
+#: src/EBox/Model/DomainTable.pm:91 src/EBox/Model/HostnameTable.pm:167
+msgid "IP Address"
+msgstr "عنوان الـIP"
+
+#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
+msgid "Domains"
+msgstr "النطاقات"
+
+#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+msgid "domain"
+msgstr "النطاق"
+
+#: src/EBox/Model/HostnameTable.pm:135
+#, perl-brace-format
+msgid ""
+"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
+"same domain"
+msgstr "توجد كنية بنفس اﻹسم \"{name}\" ل \"{hostname}\" في نفس النطاق."
+
+#: src/EBox/Model/HostnameTable.pm:159 src/EBox/Model/MailExchanger.pm:110
+#: src/templates/edit.mas:20
+msgid "Host name"
+msgstr "اسم المضيف"
+
+#: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
+#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
+msgid "Alias"
+msgstr "اسم بديل"
+
+#: src/EBox/Model/HostnameTable.pm:186
+#, fuzzy
+msgid "Host names"
+msgstr "أسماء المضيف"
+
+#: src/EBox/Model/HostnameTable.pm:193
+#, fuzzy
+msgid "host name"
+msgstr "اسم المضيف"
+
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:51
+msgid "DNS"
+msgstr "DNS"
+
+#: src/EBox/Model/DNSComposite.pm:77
+msgid "The DNS server allows you to resolve names for your own domains."
+msgstr "خادم ال DNS يسمح لك بحجز أسماء لنطاقك الخاص"
+
+#: src/EBox/Model/AliasTable.pm:80
+#, perl-brace-format
+msgid ""
+"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:93
+#, perl-brace-format
+msgid "There is a hostname with the same name \"{name}\" in the same domain"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:102
+#, perl-brace-format
+msgid ""
+"There is an alias for {hostname} hostname with the same name \"{name}\" in "
+"the same domain"
+msgstr ""
+
+#: src/EBox/Model/AliasTable.pm:147
+msgid "alias"
+msgstr "اسم بديل"
+
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
 msgstr ""
 
-#: src/EBox/Model/MailExchanger.pm:110 src/EBox/Model/HostnameTable.pm:159
-#: src/templates/edit.mas:20
-msgid "Host name"
-msgstr "اسم المضيف"
-
 #: src/EBox/Model/MailExchanger.pm:117
-msgid "Owner domain"
-msgstr "مالك النطاق"
+#, fuzzy
+msgid "This domain"
+msgstr "النطاق"
 
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
@@ -56,110 +134,21 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "سجل بدالة البريد"
 
-#: src/EBox/Model/HostnameTable.pm:135
-#, perl-brace-format
-msgid ""
-"There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
-"same domain"
-msgstr "توجد كنية بنفس اﻹسم \"{name}\" ل \"{hostname}\" في نفس النطاق."
-
-#: src/EBox/Model/HostnameTable.pm:167 src/EBox/Model/DomainTable.pm:91
-msgid "IP Address"
-msgstr "عنوان الـIP"
-
-#: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
-#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
-#: src/templates/edit.mas:64 src/templates/edit.mas:85
-msgid "Alias"
-msgstr "اسم بديل"
-
-#: src/EBox/Model/HostnameTable.pm:186
-#, fuzzy
-msgid "Host names"
-msgstr "أسماء المضيف"
-
-#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
-msgid "Hostnames"
-msgstr "أسماء المضيف"
-
-#: src/EBox/Model/HostnameTable.pm:193
-#, fuzzy
-msgid "host name"
-msgstr "اسم المضيف"
-
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:796
-msgid "DNS"
-msgstr "DNS"
-
-#: src/EBox/Model/DNSComposite.pm:77
-msgid "The DNS server allows you to resolve names for your own domains."
-msgstr "خادم ال DNS يسمح لك بحجز أسماء لنطاقك الخاص"
-
-#: src/EBox/Model/DomainTable.pm:66
-msgid "Domain"
-msgstr "النطاق"
-
-#: src/EBox/Model/DomainTable.pm:83
-msgid "Mail Exchangers"
-msgstr "بدالات البريد"
-
-#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
-msgid "Domains"
-msgstr "النطاقات"
-
-#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
-msgid "domain"
-msgstr "النطاق"
-
-#: src/EBox/Model/EnableFormDNS.pm:84
-msgid "Service enabled"
-msgstr "تمكين الخدمة"
-
-#: src/EBox/Model/EnableFormDNS.pm:86
-msgid "Service disabled"
-msgstr "تعطيل الخدمة"
-
-#: src/EBox/Model/AliasTable.pm:80
-#, perl-brace-format
-msgid ""
-"An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr ""
-
-#: src/EBox/Model/AliasTable.pm:93
-#, perl-brace-format
-msgid "There is a hostname with the same name \"{name}\" in the same domain"
-msgstr ""
-
-#: src/EBox/Model/AliasTable.pm:102
-#, perl-brace-format
-msgid ""
-"There is an alias for {hostname} hostname with the same name \"{name}\" in "
-"the same domain"
-msgstr ""
-
-#: src/EBox/Model/AliasTable.pm:147
-msgid "alias"
-msgstr "اسم بديل"
-
-#: src/EBox/DNS.pm.in:51
-msgid "Domain Name System"
-msgstr "نظام اسم النطاق"
-
 #: src/EBox/DNS.pm.in:88
 msgid "DNS Server"
 msgstr "خادم DNS"
 
-#: src/EBox/DNS.pm.in:652
+#: src/EBox/DNS.pm.in:658
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:668
+#: src/EBox/DNS.pm.in:674
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:797
+#: src/EBox/DNS.pm.in:803
 msgid "Infrastructure"
 msgstr ""
 
@@ -209,6 +198,18 @@ msgstr "{domain} قائمة  المضيف للنطاق"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
+
+#~ msgid "Owner domain"
+#~ msgstr "مالك النطاق"
+
+#~ msgid "Service enabled"
+#~ msgstr "تمكين الخدمة"
+
+#~ msgid "Service disabled"
+#~ msgstr "تعطيل الخدمة"
+
+#~ msgid "Domain Name System"
+#~ msgstr "نظام اسم النطاق"
 
 #~ msgid "Hostname"
 #~ msgstr "اسم المضبف"
