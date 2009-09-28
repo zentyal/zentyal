@@ -44,6 +44,10 @@ use EBox::NetWrappers qw(:all);
 use EBox::Service;
 use EBox::DHCPLogHelper;
 
+use EBox::Dashboard::Section;
+use EBox::Dashboard::List;
+
+
 # Models & Composites
 use EBox::Common::Model::EnableForm;
 use EBox::DHCP::Composite::AdvancedOptions;
