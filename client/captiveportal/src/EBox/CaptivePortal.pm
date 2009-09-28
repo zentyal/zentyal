@@ -32,6 +32,9 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::UserCorner;
 use EBox::Sudo;
+use EBox::Dashboard::Section;
+use EBox::Dashboard::List;
+
 
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
