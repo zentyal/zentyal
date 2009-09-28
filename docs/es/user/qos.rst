@@ -153,10 +153,11 @@ Comprobar su funcionamiento.
      eBox muestra una tabla con la nueva regla de moldeado de tráfico.
 
 #. **Acción:**
-   Comenzar a descargar usando el comando **wget** un fichero grande de Internet
-   (por ejemplo, una imagen ISO de Ubuntu).
+   Comenzar a descargar desde una máquina de tu **LAN** (distinta de
+   eBox) usando el comando **wget** un fichero grande accesible desde
+   Internet (por ejemplo, una imagen ISO de Ubuntu).
 
    Efecto:
-     La velocidad de descarga de la imagen no supera los 20KB/s.
+     La velocidad de descarga de la imagen no supera los 20KB/s (160 Kbits/s).
 
 .. include:: qos-exercises.rst

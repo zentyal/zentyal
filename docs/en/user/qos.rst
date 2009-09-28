@@ -147,10 +147,11 @@ it works properly.
      eBox displays a table with the new traffic shaping rule.
 
 #. **Action:**
-   Start downloading a huge file (for example a Ubuntu ISO image) from the
-   Internet using the **wget** command.
+   Start downloading a huge file, which is reachable from the Internet
+   (for example, a Ubuntu ISO image) from a host within your **LAN**
+   (not eBox itself) using the **wget** command.
 
    Effect:
-     The download rate is stable around 20 KB/s.
+     The download rate is stable around 20 KB/s (160 Kbit/s).
 
 .. include:: qos-exercises.rst

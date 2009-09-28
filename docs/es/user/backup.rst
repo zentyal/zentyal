@@ -355,7 +355,7 @@ deberemos limpiar los directorios temporales y borrar un fichero generado por *r
 
 Sólo queda restaurar la partición `/boot` montada en `/target`. Si usamos la 
 misma partición para  `/boot`  y  `/` deberemos saltarnos este paso o perderemos
-nuestros archivos en  `/`. Los comandos para restaurar la partición `/boot` son::
+nuestros ficheros en  `/`. Los comandos para restaurar la partición `/boot` son::
 
     # rm -fr /target/*
     # mv /mnt/ebox/boot/* /target/
