@@ -84,16 +84,23 @@ sub actions
 
 # Method: listEBoxPkgs
 #
-# 	Returns an array of hashes with the following fields:
+#       Get the list of the eBox packages with information about them.
+#
+# Parameters:
+#
+#       clear - Boolean set to true to retrieve the list of eBox
+#               packages from esofttool utility or false to get from
+#               cache
+#
+# Returns:
+#
+# 	array ref of hashes holding the following keys:
+#
 #	name - name of the package
 #	description - short description of the package
 #	version - version installed (if any)
 #	avail - latest version available
 #	removable - true if the package can be removed
-#
-# Returns:
-#
-# 	array ref of hashes holding the above keys
 #
 # Exceptions:
 #

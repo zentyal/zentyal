@@ -40,7 +40,7 @@ sub _process($) {
 	$self->{title} = __('eBox components');
 	my $software = EBox::Global->modInstance('software');
 	my @array = ();
-	push(@array, 'eboxpkgs' => $software->listEBoxPkgs);
+	push(@array, 'eboxpkgs' => $software->listEBoxPkgs());
 	$self->{params} = \@array;
 }
 
