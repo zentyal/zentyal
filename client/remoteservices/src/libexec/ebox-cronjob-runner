@@ -1,0 +1,97 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2009 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This script is intended to run all cron jobs transferred from eBox
+# CC
+
+use EBox;
+use EBox::Config;
+use EBox::Exceptions::Internal;
+use EBox::RemoteServices::Configuration;
+use Getopt::Long;
+use Pod::Usage;
+use YAML::Tiny;
+
+use constant JOBS_DIR      => EBox::RemoteServices::Configuration::JobsDir();
+use constant INCOMING_DIR  => EBox::RemoteServices::Configuration::IncomingJobDir();
+
+sub _runCronJobs
+{
+    my $cronPrefix = EBox::RemoteServices::Configuration::CronJobPrefix();
+
+    opendir(my $dirh, JOBS_DIR);
+    while(my $basename = readdir($dirh) ) {
+        next if ( $basename eq '.' or $basename eq '..');
+        next unless ( $basename =~ /^$cronPrefix/ );
+        my $cronJobDirPath = JOBS_DIR . $basename;
+        next unless (-d $cronJobDirPath);
+        my $cronJobPath = $cronJobDirPath . '/script';
+        next unless (-x $cronJobPath);
+        my $metadataFilePath = $cronJobDirPath . '/conf.yaml';
+        next unless (-r $metadataFilePath);
+        my $yaml = YAML::Tiny->read($metadataFilePath);
+        unless ( defined($yaml) ) {
+            throw EBox::Exceptions::Internal("Not a proper YAML file $metadataFilePath: " . $yaml->errstr());
+        }
+        # The period is in minutes
+        my $period        = $yaml->[0]->{period};
+        my $lastTimestamp = $yaml->[0]->{lastTimestap};
+        if ( $lastTimestamp + ($period * 60) < time() ) {
+            foreach my $fileName (qw(exitValue stderr stdout)) {
+                unlink("$cronJobDirPath/$fileName") if -e "$cronJobDirPath/$fileName";
+            }
+            # Create the link run the job in ebox-runnerd
+            symlink( $cronJobDirPath, INCOMING_DIR . $basename);
+            # Updates the timestamp
+            $yaml->[0]->{lastTimestamp} = time();
+            $yaml->write($metadataFilePath);
+        }
+    }
+    closedir($dirh);
+}
+
+# MAIN
+
+# Get arguments
+my ($usage) = (0);
+my $correct = GetOptions(
+    'usage|help' => \$usage,
+   );
+
+if ( $usage or (not $correct)) {
+    pod2usage(1);
+}
+
+EBox::init();
+
+_runCronJobs();
+
+__END__
+
+=head1 NAME
+
+ebox-cronjob-runner - Utility to run all cronjobs sent from the CC.
+                      Its usage is completely internal
+
+=head1 SYNOPSIS
+
+ebox-cronjob-runner [--usage|help]
+
+ Options:
+    --usage|help  Print this help and exit
+
+=cut

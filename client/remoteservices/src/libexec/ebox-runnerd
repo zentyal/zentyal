@@ -20,14 +20,15 @@ use EBox::Config;
 use EBox::Exceptions::Command;
 use EBox::Exceptions::External;
 use EBox::Sudo;
+use EBox::RemoteServices::Configuration;
 use Error qw(:try);
 use Getopt::Long;
 use Linux::Inotify2;
 use POSIX qw(SIG_IGN SIGHUP);
 use Pod::Usage;
 
-use constant JOBS_DIR      => EBox::Config::conf() . 'remoteservices/jobs/';
-use constant INCOMING_DIR  => JOBS_DIR . 'incoming/';
+use constant JOBS_DIR      => EBox::RemoteServices::Configuration::JobsDir();
+use constant INCOMING_DIR  => EBox::RemoteServices::Configuration::IncomingJobDir();
 use constant OUTCOMING_DIR => JOBS_DIR . 'outcoming/';
 
 # Common variables in the daemon processes

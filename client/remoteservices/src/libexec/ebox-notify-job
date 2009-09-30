@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
 # Copyright (C) 2008 Warp Networks S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,10 +16,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# This script is intended to notify CC using a SOAP call
+# This script is intended to notify CC for a job result using a SOAP call
 
 use EBox;
 use EBox::Exceptions::External;
+use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Jobs;
 use File::Basename;
 use File::Slurp;
@@ -29,28 +31,41 @@ use Pod::Usage;
 sub _notify
 {
     my ($jobDir) = @_;
+
     chomp($jobDir);
     my ($jobId) = File::Basename::fileparse($jobDir);
+    my $isCronJob = 0;
+    my $cronPrefix = EBox::RemoteServices::Configuration::CronJobPrefix();
+    if ( $jobId =~ /$cronPrefix([0-9]+)/ ) {
+        $jobId = $1;
+        $isCronJob = 1;
+    }
     my %results;
     foreach my $filePath (qw(stdout stderr exitValue)) {
         $results{$filePath} = File::Slurp::read_file("$jobDir/$filePath");
     }
-
     # Notify CC
     my $notifier = new EBox::RemoteServices::Jobs();
-    $notifier->jobResult(jobId     => $jobId,
-                         stdout    => $results{stdout},
-                         stderr    => $results{stderr},
-                         exitValue => $results{exitValue});
+    if ( $isCronJob ) {
+        $notifier->cronJobResult(jobId     => $jobId,
+                                 stdout    => $results{stdout},
+                                 stderr    => $results{stderr},
+                                 exitValue => $results{exitValue});
+    } else {
+        $notifier->jobResult(jobId     => $jobId,
+                             stdout    => $results{stdout},
+                             stderr    => $results{stderr},
+                             exitValue => $results{exitValue});
+    }
     unlink($jobDir);
 }
 
 # MAIN
 
 # Get arguments
-my ($usage, $foreground) = (0, 0);
+my ($usage) = (0);
 my $correct = GetOptions(
-    'usage|help' => \$usage
+    'usage|help' => \$usage,
    );
 
 if ( $usage or (not $correct)) {

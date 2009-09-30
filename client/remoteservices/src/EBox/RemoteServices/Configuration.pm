@@ -101,4 +101,50 @@ sub MonTimestamp
 
 }
 
+# Method: JobsDir
+#
+#      Get where the job management is done
+#
+# Returns:
+#
+#      String - the job management dir path
+#
+sub JobsDir
+{
+
+    return EBox::Config::conf() . 'remoteservices/jobs/';
+
+}
+
+# Method: IncomingJobDir
+#
+#      Get where the job instances are set to be run
+#
+# Returns:
+#
+#      String - the incoming job directory path
+#
+sub IncomingJobDir
+{
+
+    return JobsDir() . 'incoming/';
+
+}
+
+# Method: CronJobPrefix
+#
+#      Return the cron job prefix directory to difference from the
+#      on-demand job instances
+#
+# Returns:
+#
+#      String - the cron job prefix
+#
+sub CronJobPrefix
+{
+
+    return 'cron-';
+
+}
+
 1;

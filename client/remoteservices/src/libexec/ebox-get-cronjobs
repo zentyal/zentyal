@@ -1,0 +1,97 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2009 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This script is intended to get the cron jobs available for this eBox
+
+use EBox;
+use EBox::Config;
+use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Jobs;
+use Fcntl ':mode';
+use File::Path;
+use File::Slurp;
+use Getopt::Long;
+use Pod::Usage;
+use YAML::Tiny;
+
+# Get the cron jobs from the CC
+sub _getCronJobs
+{
+    # Notify CC
+    my $getter = new EBox::RemoteServices::Jobs();
+    my $cronJobs = $getter->cronJobs();
+    foreach my $cronJob (@{$cronJobs}) {
+        my $jobId    = $cronJob->{jobId};
+        my $dirName  = EBox::RemoteServices::Configuration::CronJobPrefix() . $jobId;
+        my $dirPath  = EBox::RemoteServices::Configuration::JobsDir() . $dirName;
+
+        # Write down the YAML cron job metadata file
+        my $yaml;
+        if ( -d $dirPath and -f "$dirPath/conf.yaml") {
+            $yaml = YAML::Tiny->read("$dirPath/conf.yaml");
+        } else {
+            unless ( -d $dirPath ) {
+                File::Path::mkpath($dirPath);
+            }
+            $yaml = new YAML::Tiny();
+            $yaml->[0]->{lastTimestamp} = 0;
+        }
+        $yaml->[0]->{period} = $cronJob->{period};
+        $yaml->write("$dirPath/conf.yaml");
+
+        # Write down the script
+        File::Slurp::write_file( "$dirPath/script", $cronJob->{script});
+        # Make the script executable to everyone
+        my $perm = (stat("$dirPath/script"))[2];
+        chmod($perm | S_IXUSR | S_IXGRP | S_IXOTH , "$dirPath/script");
+        # No arguments yet
+        File::Slurp::write_file( "$dirPath/args",   '');
+    }
+}
+
+# MAIN
+
+# Get arguments
+my ($usage) = (0);
+my $correct = GetOptions(
+    'usage|help' => \$usage,
+   );
+
+if ( $usage or (not $correct)) {
+    pod2usage(1);
+}
+
+EBox::init();
+
+_getCronJobs();
+
+__END__
+
+=head1 NAME
+
+ebox-get-cronjobs - Utility to get available cronjobs for this eBox.
+                    Its usage is completely internal
+
+=head1 SYNOPSIS
+
+ebox-get-cronjobs [--usage|help]
+
+ Options:
+    --usage|help  Print this help and exit
+
+=cut
+

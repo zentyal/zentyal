@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Warp Networks S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -53,8 +54,8 @@ sub new
 #
 # Parameters:
 #
-#     jobId - Int the unique identifier for the job, it corresponds to
-#     the same job to runJob web service
+#     jobId - Int the unique identifier for the job instance, it
+#     corresponds to the same job to runJob web service
 #
 #     stdout - String the standard output produced by the script
 #
@@ -70,6 +71,49 @@ sub jobResult
     my ($self, @wsParams) = @_;
 
     $self->soapCall('jobResult', @wsParams);
+}
+
+# Method: cronJobResult
+#
+#     Push job result to the CC
+#
+# Parameters:
+#
+#     jobId - Int the unique identifier for the cron job
+#
+#     stdout - String the standard output produced by the script
+#
+#     stderr - String the standard error output produced by the script
+#
+#     exitValue - Int the exit value as standard UNIX
+#                  (0 -> ok, ~0 -> fail)
+#
+#     - Named parameters
+#
+sub cronJobResult
+{
+    my ($self, @wsParams) = @_;
+
+    $self->soapCall('cronJobResult', @wsParams);
+}
+
+# Method: cronJobs
+#
+#     Get the available cronjobs for this eBox
+#
+# Returns:
+#
+#     array ref - containing the cron jobs in a hash ref:
+#
+#         * period - The period in minutes
+#         * jobId  - The job identifier within CC
+#         * script - The job itself
+#
+sub cronJobs
+{
+    my ($self, @wsParams) = @_;
+
+    return $self->soapCall('cronJobs', @wsParams);
 }
 
 # Group: Protected methods

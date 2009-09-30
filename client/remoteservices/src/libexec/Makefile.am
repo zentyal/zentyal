@@ -2,9 +2,10 @@
 
 scriptsdir = @DATADIR@/ebox
 
-scripts_SCRIPTS = ebox-finish-script-session ebox-start-script-session \
+scripts_SCRIPTS = ebox-cronjob-runner ebox-get-cronjobs ebox-finish-script-session \
 		  ebox-notify-job ebox-notify-mon-stats \
-	          ebox-runnerd ebox-unsubscribe
+	          ebox-runnerd ebox-start-script-session \
+	          ebox-unsubscribe
 
 helperscriptsdir = @DATADIR@/ebox-remoteservices
 
