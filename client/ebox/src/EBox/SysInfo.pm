@@ -1,3 +1,4 @@
+# Copyright (C) 2009 eBox Technologies S.L.
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -22,6 +23,7 @@ use base qw(EBox::GConfModule EBox::Report::DiskUsageProvider);
 
 use Sys::Hostname;
 use Sys::CpuLoad;
+use File::Slurp qw(read_file);
 
 use EBox::Config;
 use EBox::Gettext;
@@ -30,6 +32,7 @@ use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
 use EBox::Dashboard::Value;
+use EBox::Dashboard::HTML;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Report::RAID;
@@ -102,6 +105,16 @@ sub processesWidget
     $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
 }
 
+sub linksWidget
+{
+    my ($self, $widget) = @_;
+    my $section = new EBox::Dashboard::Section('links');
+    $widget->add($section);
+
+    my $html = read_file(EBox::Config::share() . 'ebox/www/links-widget.html');
+    $section->add(new EBox::Dashboard::HTML($html));
+}
+
 #
 # Method: widgets
 #
@@ -113,7 +126,8 @@ sub processesWidget
 #
 sub widgets
 {
-    return {
+
+    my $widgets = {
         'modules' => {
             'title' => __("Module Status"),
             'widget' => \&modulesWidget,
@@ -129,6 +143,16 @@ sub widgets
             'widget' => \&processesWidget
         },
     };
+
+    unless (EBox::Config::configkey('disable_links_widget') eq 'yes') {
+        $widgets->{'links'} = {
+            'title' => __("Support & Services"),
+            'widget' => \&linksWidget,
+            'default' => 1
+        };
+    }
+
+    return $widgets;
 }
 
 sub addKnownWidget()

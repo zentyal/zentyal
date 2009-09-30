@@ -1,4 +1,5 @@
 HEAD
+	+ New widget for the dashboard showing useful support information
 	+ Bugfix: wrong permissions on CSS files caused problem with usercorner
 	+ CSS are now templates for easier rebranding
 	+ Added default.theme with eBox colors
