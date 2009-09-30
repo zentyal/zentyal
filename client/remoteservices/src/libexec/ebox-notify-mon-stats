@@ -75,8 +75,7 @@ my $currentTar = new File::Temp(DIR => EBox::Config::tmp());
 my $tempDir = File::Temp->newdir(DIR => EBox::Config::tmp());
 try {
     EBox::Sudo::command(
-        EBox::Config::share() . 'ebox-remoteservices/rrd-dumper '
-        . "$rrdDir " . $tempDir->dirname() . ' ' . $currentTar->filename()
+        '/bin/tar cf ' . $currentTar->filename() . " -C $rrdDir ."
        );
 } catch EBox::Exceptions::Command with {
     my ($exc) = @_;

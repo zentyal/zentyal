@@ -29,6 +29,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Protocol;
 use Error qw(:try);
+use Net::SSL;
 use SOAP::Lite;
 
 # Group: Public functions
