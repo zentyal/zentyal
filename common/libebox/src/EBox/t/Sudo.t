@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 40;
+use Test::More tests => 44;
 use Test::Differences;
 use Test::Exception;
 use Error qw(:try);
@@ -23,10 +23,36 @@ EBox::TestStub::fake(); # to covert log in logfiel to msg into stderr
 EBox::Config::TestStub::fake(tmp => $testDir);
 
 exceptionTest();
+rootTest();
 rootWithoutExceptionTest();
 statTest();
 testFileTest();
 commandTest();
+
+sub rootTest
+{
+    my $touchFile = '/tmp/lulu';
+
+    EBox::Sudo::TestStub::fake();
+
+    lives_ok { 
+        EBox::Sudo::root("touch $touchFile") 
+      } 'root command without failure'; 
+
+    system "ls $testDir/*.cmd";
+    ok $? != 0, 'checking that not cmd file was left behind';
+
+    # same test but with exception
+    dies_ok {  
+        EBox::Sudo::root("ls /inexistent/*");
+    } 'root comamdn with failure';
+    system "ls $testDir/*.cmd";
+    ok $? != 0, 'checking that not cmd file was left behind after root with exception';
+
+
+    EBox::Sudo::TestStub::unfake();
+    unlink $touchFile;
+}
 
 sub exceptionTest
 {

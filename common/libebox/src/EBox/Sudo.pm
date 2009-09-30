@@ -171,6 +171,7 @@ sub _root
 
     my @output = `$sudocmd`;
     my $ret = $?;
+    unlink $cmdFile;
 
     if ($ret != 0) {
         if ($wantError) {
