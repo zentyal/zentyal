@@ -1,5 +1,7 @@
 HEAD
 	+ Change default logger and set default creation owner to ebox
+	+ Bugfix: EBox::Sudo::root() not longer letfs behind a .cmd file
+	after each call
 1.3.5
 	+ moved public.css and login.css to ebox package
 1.3.4
