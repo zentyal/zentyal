@@ -50,6 +50,7 @@ use EBox::Types::Union::Text;
 
 # Uses to validate
 use EBox::Validate qw( checkProtocol checkPort );
+use EBox::TrafficShaping;
 
 # Constants
 use constant LIMIT_RATE_KEY => '/limitRate';
@@ -768,7 +769,7 @@ sub _serviceHelp
 # are disabled
 sub _l7Types
 {
-    if (_l7FilterEnabled()) {
+    if (EBox::TrafficShaping::l7FilterEnabled()) {
         return (
                 new EBox::Types::Select(
                     fieldName       => 'service_l7Protocol',
@@ -804,11 +805,5 @@ sub _l7Types
     }
 }
 
-sub _l7FilterEnabled
-{
-    return 0 unless (EBox::Global->getInstance()->modExists('l7-protocols'));
-    my $out = `modinfo xt_layer7 2>&1`;
-    return ( $? == 0 );
-}
 
 1;

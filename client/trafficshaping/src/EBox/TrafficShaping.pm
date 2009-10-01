@@ -49,6 +49,7 @@ use Perl6::Junction qw( any );
 
 use EBox::Gettext;
 
+use EBox::Global;
 use EBox::Validate qw( checkProtocol checkPort );
 use EBox::LogAdmin qw ( :all );
 
@@ -178,9 +179,9 @@ sub _enforceServiceState
     # Build a tree for each interface
 
     $self->_createPostroutingChain();
-    foreach my $iface (@{$ifaces_ref}) {
-            $self->_resetChain($iface);
-    }
+
+    $self->_resetInterfacesChains();
+
     foreach my $iface (@{$ifaces_ref}) {
         if ( defined ( $self->{builders}->{$iface} ) ) {
             # Dump tc and iptables commands
@@ -192,6 +193,26 @@ sub _enforceServiceState
             # Execute iptables commands
             $self->_executeIptablesCmds($ipTablesCommands_ref);
         }
+    }
+}
+
+
+sub _resetInterfacesChains
+{
+    my ($self) = @_;
+
+    my $interfaces;
+    if (l7FilterEnabled()) {
+        # due to app protocols we must reset all chains bz a rule with app protocol
+        # requires ruels in all interfaces
+         my $network = EBox::Global->modInstance('network');
+        $interfaces = $network->ifaces();
+    } else {
+      $interfaces =  $self->_configuredInterfaces();
+    }
+
+    foreach my $iface (@{$interfaces  }) {
+            $self->_resetChain($iface);
     }
 }
 
@@ -1723,5 +1744,14 @@ sub _configuredInterfaces
     }
     return \@ifaces;
 }
+
+sub l7FilterEnabled
+{
+    return 0 unless (EBox::Global->getInstance()->modExists('l7-protocols'));
+    my $out = `modinfo xt_layer7 2>&1`;
+    return ( $? == 0 );
+}
+
+
 1;
 
