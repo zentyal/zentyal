@@ -31,7 +31,7 @@ use EBox;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Types::Boolean;
-use EBox::Types::Host;
+use EBox::Types::HostIP;
 
 # Group: Public methods
 
@@ -63,11 +63,12 @@ sub _table
 {
   my @tableHeader =
     (
-     new EBox::Types::Host(
+     new EBox::Types::HostIP(
                              fieldName     => 'mta',
                              printableName => __('External mail server'),
                              unique        => 1,
                              editable      => 1,
+                             help          => __('IP address of the server'),
                             ),
      new EBox::Types::Boolean(
                                     fieldName     => 'allow',

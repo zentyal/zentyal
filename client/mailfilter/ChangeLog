@@ -3,6 +3,8 @@ HEAD
         + Bugfix: adapted to changes in EBox::Ldap API
 	+ Bugfix: banned extension regex broke, fixed with a simpler
 	expression
+	+ Bugfix: only IP address are accepted now as external mail serves
+	for amavis (amavis cannot use sost names for this)
 1.1.30
 	+ Bugfix: when the user spam/ham does not exist do not try to
 	remove its account
