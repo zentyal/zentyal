@@ -1745,6 +1745,14 @@ sub _configuredInterfaces
     return \@ifaces;
 }
 
+
+# Method: l7FilterEnabled
+#
+#   return wether l7 (application layer) filtering is available or not. This
+#   will require an appropatie kernel, iptables and the module l7-protocols
+#
+#   Returns:
+#      boolean - whether l7 fitler is available or not
 sub l7FilterEnabled
 {
     return 0 unless (EBox::Global->getInstance()->modExists('l7-protocols'));
