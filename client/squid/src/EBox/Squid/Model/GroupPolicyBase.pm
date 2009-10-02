@@ -217,7 +217,25 @@ sub delPoliciesForGroup
 }
 
 
+sub precondition
+{
+    my ($self) = @_;
+    my $users = EBox::Global->modInstance('users');
+    $users->isEnabled() or
+        return 0;
 
+    return $users->groups() > 0; 
+}
+
+sub preconditionFailMsg
+{
+    return __x(
+'There are not user groups in the system. {open}Create{close} at least one group  if you want to set a group policy',
+open => q{<a href='/ebox/UsersAndGroups/Groups'>},
+close => q{</a>}
+);
+
+}
 
 1;
 
