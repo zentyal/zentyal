@@ -123,7 +123,7 @@ sub _content
     # build appropiate msg
     my $msg;
     if ($event eq 'uninitialized')  {
-        $msg = __(q{The antivirus database has not been updated since the module was installed.});
+        $msg = __(q{The antivirus database has not been updated since the module was enabled.});
     }
     elsif ($event eq 'error') {
         $msg = __('The last update failed.');
