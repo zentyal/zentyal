@@ -1,5 +1,6 @@
 HEAD
 	+ Bug fix: set editable property of internal service to 1
+	+ Bug fix: serviceId now ocnforms to it specification when called for a inexistent service
 1.1.20
 	+ UI improvement: hide and show port fields depending on the
 	configuration

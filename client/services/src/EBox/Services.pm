@@ -455,6 +455,10 @@ sub serviceId
 
     my $model =  $self->{'serviceModel'};
     my $row = $model->findValue('name' => $name);
+    if (not defined $row) {
+        return undef;
+    }
+    
 
     return $row->id();
 }
