@@ -161,10 +161,12 @@ sub enableActions
         $self->performLDAPActions();
     } else {
         if ( -f '/etc/init.d/apparmor' ) {
-            my $cmd = 'ln -s /etc/apparmor.d/usr.sbin.slapd ' .
-                      '/etc/apparmor.d/disabled/usr.sbin.slapd';
-            EBox::Sudo::root($cmd);
-            EBox::Sudo::root('invoke-rc.d apparmor restart');
+            if (-f '/etc/apparmor.d/usr.sbin.slapd') {
+                my $cmd = 'ln -s /etc/apparmor.d/usr.sbin.slapd ' .
+                          '/etc/apparmor.d/disabled/usr.sbin.slapd';
+                EBox::Sudo::root($cmd);
+                EBox::Sudo::root('invoke-rc.d apparmor restart');
+            }
         }
 
         EBox::Sudo::root("invoke-rc.d slapd stop");
@@ -1516,7 +1518,7 @@ sub groupInfo # (group)
                 base => $self->groupsDn,
                 filter => "(cn=$group)",
                 scope => 'one',
-                attrs => ['cn', 'description']
+                attrs => ['cn', 'gidNumber', 'description']
                );
 
     my $result = $self->ldap->search(\%args);
@@ -1525,6 +1527,7 @@ sub groupInfo # (group)
     # Mandatory data
     my $groupinfo = {
                      groupname => $entry->get_value('cn'),
+                     gid => $entry->get_value('gidNumber'),
                     };
 
 

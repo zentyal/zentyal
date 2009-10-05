@@ -297,7 +297,6 @@ sub _delUserWarning
 sub _addGroup
 {
     my ($self, $group) = @_;
-
     return unless ($self->{samba}->configured());
 
     $self->addGroupLdapAttrs($group);
@@ -313,8 +312,10 @@ sub addGroupLdapAttrs
 
     my $ldap  = $self->{ldap};
     my $users = EBox::Global->modInstance('users');
+    my $groupInfo = $users->groupInfo($group);
+    my $unixgid = $groupInfo->{gid};
 
-    my $rid = 2 * $users->lastGid + 1001;
+    my $rid = 2 * $unixgid + 1001;
 
     if (not defined $sambaSID) {
         my $baseSid = alwaysGetSID();
