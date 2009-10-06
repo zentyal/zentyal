@@ -69,6 +69,13 @@ sub enabled
     }
 
     my @files = <$dir/*>;
+
+    # XXX cooling devices arent supported yet
+    @files = grep {
+        my $file = $_;
+        not ($file =~ m/cooling.device/)
+    } @files;
+
     return (@files > 0);
 
 }
@@ -111,6 +118,11 @@ sub _description
     }
     my $baseDir = EBox::Monitor::Configuration::RRDBaseDirPath();
     foreach my $subDir (<${baseDir}thermal-*>) {
+        # XXX ignore cooling devices
+        if ($subDir =~ m/cooling.device/) {
+            next;
+        }
+
         my ($suffix) = $subDir =~ m:thermal-(.*?)$:g;
         my $what;
         if ( $suffix =~ m:cooling_device: ) {

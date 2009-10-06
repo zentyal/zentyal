@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: ignore cooling devices to avoid unexpected exceptions
 	+ Bugfix: Df measure shows free and used correctly, they were
 	swapt
 	+ Bugfix: do not sow graph if data has not been collected 
