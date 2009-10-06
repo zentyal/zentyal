@@ -2,7 +2,7 @@ HEAD
 	+ Bugfix: ignore cooling devices to avoid unexpected exceptions
 	+ Bugfix: Df measure shows free and used correctly, they were
 	swapt
-	+ Bugfix: do not sow graph if data has not been collected 
+	+ Bugfix: do not show graph if data has not been collected
 1.3.3
 	+ Bugfix: Do not show graphs if the module is not configured
 1.1.10
