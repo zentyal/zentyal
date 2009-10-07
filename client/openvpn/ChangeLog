@@ -1,4 +1,5 @@
 HEAD
+	+ Upgraded windows installer, now we use 2.1 (previously was 2.0.9)
 	+ Add "configuration" field to Client model to select manual  or
 	  bundle configuration mode
 	+ Bugfix: bundle configuration mode works again
