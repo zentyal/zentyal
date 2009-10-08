@@ -155,11 +155,15 @@ sub _storeInGConf
 #
 sub _restoreFromHash
 {
-    my ($self, $hash) = @_;
+    my ($self) = @_;
 
-    $self->SUPER::_restoreFromHash($hash);
+    $self->SUPER::_restoreFromHash();
+    return unless ($self->row());
 
-    $self->{'inverseMatch'} = $hash->{$self->fieldName() . '_inverseMatch'};
+    my $gconf = $self->row()->GConfModule();
+    my $path = $self->_path();
+    my $field = $self->fieldName();
+    $self->{'inverseMatch'} = $gconf->get_bool("$path/${field}_inverseMatch");
 }
 
 # Method: _setValue
