@@ -215,10 +215,10 @@ sub availablePort
     my $internals = $self->findAll('internal' => 1);
 
     for my $id (@{$internals}) {
-	my $service = $self->row($id);
+        my $service = $self->row($id);
         my $serviceConf = $service->subModel('configuration');
-        for my $conf (@{$serviceConf->findAllValue('destination' => $port)}) {
-            return undef if ($conf->valueByName('protocol') eq $protocol);
+        for my $id (@{$serviceConf->findAllValue('destination' => $port)}) {
+            return undef if ($serviceConf->row($id)->valueByName('protocol') eq $protocol);
         }
     }
 

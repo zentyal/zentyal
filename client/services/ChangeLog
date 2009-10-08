@@ -1,6 +1,9 @@
 HEAD
 	+ Bug fix: set editable property of internal service to 1
 	+ Bug fix: serviceId now ocnforms to it specification when called for a inexistent service
+	+ Bug fix: set service configuration using the new EBox::Model::Row API,
+	this prevented eBox administration port from being updated when users change
+	the value in System->General->Listening Port
 1.1.20
 	+ UI improvement: hide and show port fields depending on the
 	configuration
