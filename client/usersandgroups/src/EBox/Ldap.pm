@@ -211,14 +211,15 @@ sub getSlavePassword
 sub dn {
     my ($self) = @_;
     if(!defined($self->{dn})) {
-        $self->ldapCon();
+        my $ldap = Net::LDAP->new (LDAPI);
+        $ldap->bind();
         my %args = (
             'base' => '',
             'scope' => 'base',
             'filter' => '(objectclass=*)',
             'attrs' => ['namingContexts']
         );
-        my $result = $self->{ldap}->search(%args);
+        my $result = $ldap->search(%args);
         my $entry = ($result->entries)[0];
         my $attr = ($entry->attributes)[0];
         $self->{dn} = $entry->get_value($attr);

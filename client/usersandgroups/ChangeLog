@@ -1,4 +1,6 @@
 HEAD
+	+ Use anonymous bind to fetch dn
+1.3.5
 	+ Disable slapd apparmor profile in enableActions
 	+ Reload nscd when adding users and groups
 	+ Bugfix: backup bug report now works again
