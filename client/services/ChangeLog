@@ -1,4 +1,4 @@
-HEAD
+1.3.6
 	+ Bug fix: set editable property of internal service to 1
 	+ Bug fix: serviceId now ocnforms to it specification when called for a inexistent service
 	+ Bug fix: set service configuration using the new EBox::Model::Row API,

@@ -1,4 +1,4 @@
-HEAD
+1.3.6
         + now you can specify a port for the smarthost (if not specified
 	the default port continues to be 25)
 	+ bugfix: fixed regresion in logs and added greylist event for

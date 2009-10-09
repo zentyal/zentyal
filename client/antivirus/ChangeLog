@@ -1,4 +1,4 @@
-HEAD
+1.3.6
 	+ bugfix: notify squid module when antivirus is enabled, so it
 	could change its configuration if needed
 1.1.20

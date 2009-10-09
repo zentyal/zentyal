@@ -1,4 +1,4 @@
-HEAD
+1.3.6
 	+ Add clone() to EBox::Firewall::IptablesRule
 1.3.4
 	+ bugfix: inospoof chain was buggy and didn't allow traffic

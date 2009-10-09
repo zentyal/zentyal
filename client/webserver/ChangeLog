@@ -1,4 +1,4 @@
-HEAD
+1.3.6
 	+ Better validation of virtual host names
 	+ Added warning when adding virtual hostames if the DNS module is
 	not enabled

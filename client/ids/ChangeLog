@@ -1,4 +1,4 @@
-HEAD
+1.3.6
 	+ Bugfix: don't try to start snort if there are no valid interfaces selected
 1.3.3
 	+ Bugfix in logs consolidation, now it works

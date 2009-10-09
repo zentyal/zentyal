@@ -1,4 +1,4 @@
-HEAD
+1.3.6
 	+ Bugfix: ignore cooling devices to avoid unexpected exceptions
 	+ Bugfix: Df measure shows free and used correctly, they were
 	swapt
