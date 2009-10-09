@@ -69,9 +69,14 @@ sub validateTypedRow
                            $oldParams->{'workgroup'}->value();
 
     if ($netbios eq $workgroup) {
-		throw EBox::Exceptions::External(
-			__('Netbios and workgroup must have different names'));
-	}
+        throw EBox::Exceptions::External(
+                __('Netbios and workgroup must have different names'));
+    }
+
+    if (length($netbios) > 15) {
+        throw EBox::Exceptions::External(
+                __('Netbios name cannot be longer than 15 characters'));
+    }
 }
 
 sub _table
