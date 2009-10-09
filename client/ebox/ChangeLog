@@ -1,4 +1,6 @@
 HEAD
+	+ Bug fix: override _ids in EBox::Events::Watcher::Log to not return ids
+	which do not exist
 	+ Bug fix: fixed InverseMatchSelect type which is used by Firewall module
 	+ New widget for the dashboard showing useful support information
 	+ Bugfix: wrong permissions on CSS files caused problem with usercorner

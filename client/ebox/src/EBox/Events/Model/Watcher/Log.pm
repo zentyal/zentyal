@@ -91,6 +91,44 @@ sub subModels
 
 }
 
+# Method: _ids
+#
+# Overrides:
+#
+#        <EBox::Model::DataTable::_ids>
+#
+#   It is overriden to work around an issue that affects
+#   the removal of unexisting rows.
+#
+#   It returns ids which actually exist
+sub _ids
+{
+    my ($self) = @_;
+
+    my $currentIds = $self->SUPER::_ids();
+
+    my $logs = $self->{logs};
+
+    # Set up every model
+    $self->_setUpModels();
+
+    # Fetch the current available log domains
+    my %currentLogDomains;
+    my $currentTables = $logs->getAllTables();
+    foreach my $table (keys (%{$currentTables})) {
+        $currentLogDomains{$table} = 1;
+    }
+
+    my @realIds;
+    foreach my $id (@{$currentIds}) {
+        my $row = $self->row($id);
+        my $domain = $row->valueByName('domain');
+        push (@realIds, $id) if (exists $currentLogDomains{$domain});
+    }
+
+    return \@realIds;
+}
+
 # Method: syncrows
 #
 # Overrides:
