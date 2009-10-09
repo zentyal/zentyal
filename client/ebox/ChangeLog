@@ -6,6 +6,8 @@ HEAD
 	+ Bugfix: wrong permissions on CSS files caused problem with usercorner
 	+ CSS are now templates for easier rebranding
 	+ Added default.theme with eBox colors
+	+ Support customFilter in models for big tables
+1.3.5
 	+ Bugfix: Allow unsafe characters in password type
 	+ Add FollowSymLinks in eBox apache configuration. This is useful
 	  if we use js libraries provided by packages

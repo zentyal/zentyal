@@ -53,7 +53,12 @@ use POSIX;
   my $printableRowName = $model->table()->{'printableRowName'};
   my $tableName = $model->table()->{'tableName'};
   my $printableTableName = $model->table()->{'printableTableName'};
-  my @ids = @{$model->ids()};
+  my @ids;
+  if (not $model->customFilter()) {
+    @ids =  @{$model->ids()};
+  } else {
+    @ids = @{$model->customFilterIds($filter)};
+  }
   unless ($page) {
     $page = 0;
   } 
@@ -208,14 +213,14 @@ use POSIX;
               %>'>
 
 <& SELF:tableHead, tableHead => \@tableHead &>
-  
-    <tbody>      
+
+    <tbody>
 %    my $displayRows = 0;
 %    my $matches = 0;
-%    for ( my $idx = 0; $idx < scalar(@ids); $idx++) 
+%    for ( my $idx = 0; $idx < scalar(@ids); $idx++)
 %    {
-%      my  $row; 
-%      if (defined($filter) and (length($filter) > 0)) {
+%      my  $row;
+%      if (not $model->customFilter() and defined($filter) and (length($filter) > 0)) {
 %        $row = $model->row($ids[$idx]);
 %        if (not ($row->matchFilter($filter))) {
 %          next;

@@ -414,6 +414,37 @@ sub preconditionFailMsg
     return '';
 }
 
+# Method: customFilter
+#
+#       Return whether a custom filter should be used or not.
+#
+#       If customFilter is enabled, filter searches on the rows have to
+#       be carried out by the method customFilterIds.
+#
+#       When should I use this?
+#
+#       Use this option when you have model where you override ids() and row(),
+#       and the amount of rows you can potentially have is big > ~ 4000 entries.
+#
+#       This is useful to speed up filter searches. If you don't this, the
+#       automatic filter mechanism of models will be to slow.
+#
+#       This is also useful when you want to take advantage of the search system
+#       of your backend data. For example, if you are mapping data from an LDAP,
+#       you can use this feature to carry out searches using the LDAP protocol.
+#
+# Returns:
+#
+#       Boolean - true if a row may be enabled or not in the model
+#
+sub customFilter
+{
+    my ($self) = @_;
+
+    return $self->{'table'}->{'customFilter'};
+}
+
+
 # Method: isEnablePropertySet
 #
 #       Return whether the row enabled is set or not
@@ -1564,6 +1595,36 @@ sub ids
     } else {
         return $currentIds;
     }
+}
+
+# Method: customFilterIds
+#
+#       Return Ids filtered by the string that is passed 
+#
+#       You must enable the 'customFilter' property in your table description.
+#
+#       When should I use this?
+#
+#       Use this option when you have model where you override ids() and row(),
+#       and the amount of rows you can potentially have is big > ~ 4000 entries.
+#
+#       This is useful to speed up filter searches. If you don't this, the
+#       automatic filter mechanism of models will be to slow.
+#
+#       This is also useful when you want to take advantage of the search system
+#       of your backend data. For example, if you are mapping data from an LDAP,
+#       you can use this feature to carry out searches using the LDAP protocol.
+#
+# Parameters:
+#
+#   filter string
+#
+# Returns:
+#
+#   Array ref of ids
+sub customFilterIds
+{
+    throw EBox::Exceptions::NotImplemented('customFilterIds');
 }
 
 # Method: _ids

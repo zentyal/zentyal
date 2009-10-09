@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/ebox-ebackup/migration
 
-nobase_Migrations_SCRIPTS =
+nobase_Migrations_SCRIPTS = 0001_add_default_excludes.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 
