@@ -28,7 +28,7 @@ sub runGConf
         $model->addRow( type => 'exclude_path', target => $exclude );
     }
     for my $include (@defaultIncludes) {
-        $model->addRow( type => 'include', target => $include );
+        $model->addRow( type => 'include_path', target => $include );
     }
 }
 

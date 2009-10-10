@@ -31,6 +31,7 @@ use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::Password;
 use EBox::Types::Int;
+use EBox::View::Customizer;
 
 # Group: Public methods
 
