@@ -11,7 +11,7 @@ use EBox::Gettext;
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>eBox Platform</TITLE>
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
-<link href="/data/css/login.css" type="text/css" rel="stylesheet">
+<link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
 <script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
 </head>
 <body onload="document.getElementById('credential_0').focus();">

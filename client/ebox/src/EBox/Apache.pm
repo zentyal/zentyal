@@ -211,7 +211,10 @@ sub _writeCSSFiles
 {
     my ($self) = @_;
 
-    my $path = EBox::Config::share() . 'ebox/www/css';
+    my $path = EBox::Config::dynamicwww() . '/css';
+    unless (-d $path) {
+	mkdir $path;
+    }
 
     my ($primaryGid) = split / /, $GID, 2;
 
