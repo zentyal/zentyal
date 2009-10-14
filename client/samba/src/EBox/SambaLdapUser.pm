@@ -226,6 +226,7 @@ sub _addUser
     my  $samba = EBox::Global->modInstance('samba');
     $self->_createDir(USERSPATH . "/$user", $unixuid, USERGROUP, '0701');
     $self->_createDir(PROFILESPATH . "/$user", $unixuid, USERGROUP, '0700');
+    $self->_createDir(PROFILESPATH . "/$user.V2", $unixuid, USERGROUP, '0700');
     $self->{samba}->setUserQuota($unixuid, $samba->defaultUserQuota());
 }
 
@@ -268,6 +269,9 @@ sub _delUser($$)
     }
     if ( -d BASEPATH . "/profiles/$user") {
         root ("rm -rf \'" .  BASEPATH . "/profiles/$user\'");
+    }
+    if ( -d BASEPATH . "/profiles/$user.V2") {
+        root ("rm -rf \'" .  BASEPATH . "/profiles/$user.V2\'");
     }
 
     # Remove user from printers
