@@ -7,6 +7,7 @@ EBOX_PASS="ebox-foobar"
 sleep 5;
 
 # Change config admin pass
+sed -i '/^olcRootPW.*$/ d' /etc/ldap/slapd.d/cn=config/olcDatabase={0}config.ldif
 echo "olcRootPW: $ADMIN_PASS" >> /etc/ldap/slapd.d/cn=config/olcDatabase={0}config.ldif
 
 # Change eBox LDAP pass
