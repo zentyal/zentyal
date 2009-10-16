@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: Add CACertificatePath to trust in CC job dispatchers
 1.3.6
 	+ Run cronjob sent by eBox CC
 1.1.20

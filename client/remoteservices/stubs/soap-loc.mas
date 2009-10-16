@@ -7,11 +7,15 @@
    $domainName
    $allowedClientCNs
    $confDirPath
+   $caPath
    $proxyHostName => 'cc'
 </%args>
 <%init>
   my $internalDomainName = "internal.$domainName";
 </%init>
+<IfModule mod_ssl.c>
+   SSLCACertificatePath <% $caPath %>
+</IfModule>
 <Location /soap>
    SetHandler perl-script
    PerlHandler <% $soapHandler %>

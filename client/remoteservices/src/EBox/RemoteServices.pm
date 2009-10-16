@@ -401,7 +401,9 @@ sub _confSOAPService
             (soapHandler      => WS_DISPATCHER),
             (domainName       => $self->_confKeys()->{domain}),
             (allowedClientCNs => $self->_allowedClientCNRegexp()),
-            (confDirPath      => EBox::Config::conf()));
+            (confDirPath      => EBox::Config::conf()),
+            (caPath           => CA_DIR),
+           );
         EBox::Module::Base::writeConfFileNoCheck(
             $confFile,
             'remoteservices/soap-loc.mas',
