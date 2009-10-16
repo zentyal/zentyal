@@ -11,8 +11,6 @@ use EBox::Sudo qw(:all);
 use constant INTERFACES => '/etc/network/interfaces';
 use constant RESOLV     => '/etc/resolv.conf';
 use constant DEFAULT_IFACE => 'eth0';
-use constant DEFAULT_UPLOAD => '1024';
-use constant DEFAULT_DOWNLOAD => '1024';
 use constant DEFAULT_NAME => 'default';
 use constant DEFAULT_WEIGHT => 1;
 
@@ -96,8 +94,6 @@ foreach my $iface (get_interfaces) {
                     $gwModel->add(name      => DEFAULT_NAME,
                                   ip        => $iface->{'gateway'},
                                   interface => $iface->{'name'},
-                                  upload    => DEFAULT_UPLOAD,
-                                  download  => DEFAULT_DOWNLOAD,
                                   weight    => DEFAULT_WEIGHT,
                                   default   => 1);
                 }
