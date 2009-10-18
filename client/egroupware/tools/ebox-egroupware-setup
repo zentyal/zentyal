@@ -48,7 +48,7 @@ my $groupsDn = $users->groupsDn();
 my $rootDn = $ldap->rootDn();
 my $ldapPass = $ldap->getPassword();
 my $ldapHost = '127.0.0.1:';
-if ($users->isMaster()) {
+unless ($users->mode() eq 'slave') {
     $ldapHost .= $ldap->ldapConf->{'port'};
 } else {
     $ldapHost .= $ldap->ldapConf->{'replicaport'};

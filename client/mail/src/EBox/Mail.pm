@@ -319,7 +319,7 @@ sub _setMailConf
     }
 
     push(@array, fqdn => $self->_fqdn());
-    if ($users->isMaster()) {
+    unless ($users->mode() eq 'slave') {
         push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
     } else {
         push(@array, 'ldapport', $self->ldap->ldapConf->{'translucentport'});
@@ -365,7 +365,7 @@ sub _setMailConf
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@array);
 
     @array = ();
-    if ($users->isMaster()) {
+    unless ($users->mode() eq 'slave') {
         push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
     } else {
         push(@array, 'ldapport', $self->ldap->ldapConf->{'translucentport'});

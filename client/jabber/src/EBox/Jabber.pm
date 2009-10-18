@@ -306,7 +306,7 @@ sub _setConf
     #push (@array, 'bindpw' => $ldap->rootPw);
     push (@array, 'basedc' => $ldapconf->{'dn'});
     push (@array, 'ssl' => $self->ssl);
-    if ($users->isMaster()) {
+    unless ($users->mode() eq 'slave') {
         push(@array, 'ldapport', $ldapconf->{'port'});
     } else {
         push(@array, 'ldapport', $ldapconf->{'translucentport'});

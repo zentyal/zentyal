@@ -107,7 +107,7 @@ sub populateLdap
 		$ldap->add($dn, %args);
 	}
 
-    if (not $users->isMaster()) {
+    if ($users->mode() eq 'slave') {
         $users->waitSync();
         $users->rewriteObjectClassesTree($users->groupsDn());
     }

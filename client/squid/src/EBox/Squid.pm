@@ -618,9 +618,9 @@ sub _antivirusNeeded
 sub notifyAntivirusEnabled
 {
     my ($self, $enabled) = @_;
-    $self->_dgNeeded() or 
+    $self->_dgNeeded() or
         return;
-    
+
     $self->setAsChanged();
 }
 
@@ -647,7 +647,7 @@ sub _writeSquidConf
   push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
   push @writeParam, ('cacheDirSize'     => $cacheDirSize);
   push @writeParam, ('dn'     => $users->ldap()->dn());
-  if ($users->isMaster()) {
+  unless ($users->mode() eq 'slave') {
       push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'port'});
   } else {
       push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'replicaport'});

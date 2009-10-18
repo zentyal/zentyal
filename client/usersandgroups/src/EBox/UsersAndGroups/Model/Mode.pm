@@ -27,6 +27,7 @@ use base 'EBox::Model::DataForm';
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Host;
+use EBox::Types::Port;
 use EBox::Types::Password;
 
 use strict;
@@ -70,23 +71,42 @@ sub _table
             options => [
                 { 'value' => 'master', 'printableValue' => __('Master') },
                 { 'value' => 'slave', 'printableValue' => __('Slave') },
+                { 'value' => 'ad-slave', 'printableValue' => __('Windows AD Slave') },
             ],
             editable => 1,
             defaultValue => 'master',
         ),
         new EBox::Types::Host (
             fieldName => 'remote',
-            printableName => __('eBox master'),
+            printableName => __('Master host'),
             editable => 1,
-            optional => 1,
-            help => __('Only for slave configuration: IP of the master eBox')
+            help => __('Only for slave configuration: IP of the master eBox or Windows')
         ),
         new EBox::Types::Password (
             fieldName => 'password',
-            printableName => __('Password'),
+            printableName => __('LDAP password'),
             editable => 1,
-            optional => 1,
-            help => __('Only for slave configuration: Master eBox LDAP user password')
+            help => __('Master eBox LDAP or Windows AD user password')
+        ),
+        new EBox::Types::Text (
+            fieldName => 'username',
+            printableName => __('AD user'),
+            defaultValue => 'ebox',
+            editable => 1,
+            help => __('Username for binding to Windows AD (it has to exists in the AD with the above password)')
+        ),
+        new EBox::Types::Port (
+            fieldName => 'port',
+            printableName => __('Listen port'),
+            defaultValue => '6677',
+            editable => 1,
+            help => __('Port for listening password sync notifications from Windows')
+        ),
+        new EBox::Types::Password (
+            fieldName => 'secret',
+            printableName => __('AD Secret Key'),
+            editable => 1,
+            help => __('Secret key to be chared between Windows and eBox (16 chars)')
         )
     );
 
@@ -133,13 +153,21 @@ sub viewCustomizer
     my ($self) = @_;
 
     my $customizer = new EBox::View::Customizer();
-    my $fields = [ 'remote' ];
     $customizer->setModel($self);
     $customizer->setOnChangeActions(
             { mode =>
                 {
-                  master   => { disable => $fields },
-                  slave    => { enable  => $fields },
+                  'master'   => {
+                        enable  => [ 'password' ],
+                        disable => [ 'remote', 'username', 'port', 'secret' ],
+                    },
+                  'slave'    => {
+                        enable  => [ 'remote', 'password' ],
+                        disable => [ 'port', 'username', 'secret' ],
+                    },
+                  'ad-slave' => {
+                        enable  => [ 'remote', 'password', 'username', 'port', 'secret' ],
+                    },
                 }
             });
     return $customizer;

@@ -54,7 +54,7 @@ sub _process($) {
 	push(@args, 'groupusers' => $grpusers);
 	push(@args, 'remainusers' => \@remainusers);
 	push(@args, 'components' => $components);
-	push(@args, 'slave' => not $usersandgroups->isMaster() );
+	push(@args, 'slave' => $usersandgroups->mode() eq 'slave');
 
 	$self->{params} = \@args;
 }

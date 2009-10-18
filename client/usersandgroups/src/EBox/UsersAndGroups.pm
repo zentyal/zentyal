@@ -59,8 +59,8 @@ use constant SYSMINGID      => 1900;
 use constant MINUID         => 2000;
 use constant MINGID         => 2000;
 use constant HOMEPATH       => '/nonexistent';
-use constant MAXUSERLENGTH  => 24;
-use constant MAXGROUPLENGTH => 24;
+use constant MAXUSERLENGTH  => 32;
+use constant MAXGROUPLENGTH => 32;
 use constant MAXPWDLENGTH   => 512;
 use constant SECRETFILE     => '/etc/ldap.secret';
 use constant LDAPCONFDIR    => '/etc/ldap/';
@@ -88,12 +88,14 @@ sub _create
 #
 sub actions
 {
-    if (isMaster()) {
+    my $mode = mode();
+
+    if ($mode eq 'master') {
         return [
                 {
                  'action' => __('Your openLDAP database will be populated with some basic organizational units'),
                  'reason' => __('eBox needs this organizational units to add users and groups into them'),
-                'module' => 'users'
+                 'module' => 'users'
             },
            {
             'action' => __(q{Create directories for slave's journals}),
@@ -101,22 +103,31 @@ sub actions
             'module' => 'users'
             }
         ];
-    } else {
+    } elsif ($mode eq 'slave') {
         my @actions = (
                 {
                  'action' => __('Your eBox will be registered as a slave in the eBox master specified'),
                  'reason' => __('This eBox needs to have remote access to the users in the eBox master'),
-                'module' => 'users'
+                 'module' => 'users'
             }
         );
         if ( -f '/etc/init.d/apparmor' ) {
             push (@actions, {
                'action' => __('Apparmor profile will be disabled'),
-                'reason' => __('It is not ready to work with more than one slapd'),
-                'module' => 'users'
+               'reason' => __('It is not ready to work with more than one slapd'),
+               'module' => 'users'
             });
         }
         return \@actions;
+    } elsif ($mode eq 'ad-slave') {
+        return [
+                {
+                 'action' => __('Install /etc/cron.d/ebox-ad-sync.'),
+                 'reason' => __('eBox will run a script each 5 minutes to sync with Windows AD.'),
+                 'module' => 'users'
+                }
+        ];
+
     }
 }
 
@@ -126,7 +137,9 @@ sub actions
 #
 sub usedFiles
 {
-    if (isMaster()) {
+    my $mode = mode();
+
+    if ($mode eq 'master') {
         return [
                 {
                  'file' => '/etc/default/slapd',
@@ -141,6 +154,7 @@ sub usedFiles
                 },
         ];
     } else {
+    # FIXME: Used files for ad-slave ??
         return [];
     }
 }
@@ -153,13 +167,15 @@ sub enableActions
 {
     my ($self) = @_;
 
-    if (isMaster()) {
+    my $mode = mode();
+
+    if ($mode eq 'master') {
         my $password = remotePassword();
 
         EBox::UsersAndGroups::Setup::master($password);
 
         $self->performLDAPActions();
-    } else {
+    } elsif ($mode eq 'slave') {
         if ( -f '/etc/init.d/apparmor' ) {
             if (-f '/etc/apparmor.d/usr.sbin.slapd') {
                 my $cmd = 'ln -s /etc/apparmor.d/usr.sbin.slapd ' .
@@ -173,6 +189,14 @@ sub enableActions
         EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default.no /etc/default/slapd");
 
         $self->_setupSlaveLDAP();
+    } elsif ($mode eq 'ad-slave') {
+        # FIXME: We should auto-generate a password for our ldap (like we did before the master/slave thing)
+        # Now this is a workaround
+        my $password = remotePassword();
+
+        EBox::UsersAndGroups::Setup::master($password);
+
+        $self->performLDAPActions();
     }
 }
 
@@ -184,12 +208,14 @@ sub _setConf
 {
     my ($self) = @_;
 
+    my $mode = mode();
+
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(SECRETFILE, $ldap->getPassword(),
         { mode => '0600', uid => 0, gid => 0 });
 
     my $soapfile = EBox::Config::conf() . "/apache-soap-slave";
-    if( ( not isMaster() ) and ( not -f $soapfile ) ) {
+    if( ( $mode eq 'slave' ) and ( not -f $soapfile ) ) {
         my $apache = EBox::Global->modInstance('apache');
         EBox::Module::Base::writeConfFileNoCheck($soapfile,
             'usersandgroups/soap-slave.mas',
@@ -197,6 +223,11 @@ sub _setConf
         );
         $apache->addInclude($soapfile);
         $apache->save();
+    }
+
+    if ( $mode eq 'ad-slave' ) {
+        my $cronFile = EBox::Config::share() . '/ebox-usersandgroups/ebox-ad-sync.cron';
+        EBox::Sudo::root("install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
     }
 }
 
@@ -206,13 +237,19 @@ sub _setConf
 #
 sub _daemons
 {
-    if (isMaster()) {
+    my $mode = mode();
+
+    if ($mode eq 'master') {
         return [];
-    } else {
+    } elsif ($mode eq 'slave') {
         return [
             { 'name' => 'ebox.slapd-replica' },
             { 'name' => 'ebox.slapd-translucent' },
             { 'name' => 'ebox.slapd-frontend' },
+        ];
+    } elsif ($mode eq 'ad-slave') {
+        return [
+            { 'name' => 'ebox.ad-pwdsync' },
         ];
     }
 }
@@ -225,13 +262,17 @@ sub _enforceServiceState
 {
     my ($self) = @_;
 
-    if (isMaster()) {
+    my $mode = mode();
+
+    if ($mode eq 'master') {
         $self->_loadCertificates();
     } else {
         $self->SUPER::_enforceServiceState();
 
-        my ($ldap, $dn) = $self->_connRemoteLDAP();
-        $self->_getCertificates($ldap, $dn);
+        if ($mode eq 'slave') {
+            my ($ldap, $dn) = $self->_connRemoteLDAP();
+            $self->_getCertificates($ldap, $dn);
+        }
     }
 }
 
@@ -893,7 +934,7 @@ sub modifyUser # (\%user)
     my ($self, $user) = @_;
 
     $self->modifyUserLocal($user);
-    $self->_updateUserSlaves($user->{'username'}, $user->{'password'});
+    $self->_updateUserSlaves($user->{'username'});
 }
 
 # Method: modifyUserLocal
@@ -2113,7 +2154,8 @@ sub allWarnings
 sub isRunning
 {
     my ($self) = @_;
-    if (isMaster()) {
+
+    if (mode() eq 'master') {
         return $self->isEnabled();
     } else {
         return $self->SUPER::isRunning();
@@ -2202,13 +2244,15 @@ sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    if (isMaster()) {
+    my $mode = mode();
+
+    if ($mode eq 'master') {
         $self->ldap->dumpLdapMaster($dir);
         if ($options{bug}) {
             my $file = $self->ldap->ldifFile($dir, 'master', 'data');
             $self->_removePasswds($file);
         }
-    } else {
+    } elsif ($mode eq 'slave') {
         $self->ldap->dumpLdapReplica($dir);
         $self->ldap->dumpLdapTranslucent($dir);
         $self->ldap->dumpLdapFrontend($dir);
@@ -2220,7 +2264,7 @@ sub restoreConfig
 {
     my ($self, $dir) = @_;
 
-    if (isMaster()) {
+    unless (mode() eq 'slave') {
         EBox::Sudo::root('/etc/init.d/slapd stop');
         $self->ldap->restoreLdapMaster($dir);
         EBox::Sudo::root('/etc/init.d/slapd start');
@@ -2512,7 +2556,7 @@ sub waitSync
 {
     my ($self) = @_;
 
-    if ($self->isMaster()) {
+    unless (mode() eq 'slave') {
         return;
     }
 
@@ -2738,12 +2782,12 @@ sub deleteSlave
     return $res;
 }
 
-sub isMaster
+sub mode
 {
     my $model = EBox::Model::ModelManager->instance()->model('Mode');
     my $mode = $model->modeValue();
 
-    return ($mode eq 'master');
+    return $mode;
 }
 
 sub remoteLdap

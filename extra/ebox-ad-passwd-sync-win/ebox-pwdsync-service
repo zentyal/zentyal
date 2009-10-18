@@ -1,0 +1,86 @@
+#!/usr/bin/python
+# Copyright (C) 2009 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the Lesser GNU General Public License as
+# published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# Lesser GNU General Public License for more details.
+#
+# You should have received a copy of the Lesser GNU General Public
+# License along with This program; if not, write to the
+#   Free Software Foundation, Inc.,
+#   59 Temple Place, Suite 330,
+#   Boston, MA  02111-1307
+#   USA
+
+import Crypto.Cipher.AES
+import sys, os
+from base64 import b64encode
+from socket import *
+from struct import pack
+from _winreg import *
+from time import sleep
+from glob import glob
+
+REG_KEY = 'SYSTEM\\CurrentControlSet\\Control\\Lsa\\ebox-adsync'
+BLOCK_SIZE = 16
+
+# TODO: Choose a better place for this?
+QUEUE_PATH = 'c:\\temp-adsync'
+
+# Create directory if not exists
+if not os.access(QUEUE_PATH, os.F_OK):
+    os.mkdir(QUEUE_PATH, 0600)
+
+hKey = OpenKey(HKEY_LOCAL_MACHINE, REG_KEY, 0, KEY_READ)
+eboxAddress = QueryValueEx(hKey, 'host')[0]
+port = int(QueryValueEx(hKey, 'port')[0])
+secretKey = QueryValueEx(hKey, 'secret')[0]
+
+cipher = Crypto.Cipher.AES.new(secretKey)
+
+def notify_password(username, password):
+    data = username + password
+    padding = BLOCK_SIZE - (len(data) % BLOCK_SIZE)
+    data += "\x00" * padding
+
+    crypted = cipher.encrypt(data)
+    encoded = b64encode(crypted)
+
+    sock = socket(AF_INET, SOCK_STREAM)
+    try:
+        sock.connect((eboxAddress, port))
+
+        sock.send(pack("!LLL", len(username), len(password), len(encoded)))
+	print "DEBUG: encoded content = " + encoded
+        sock.send(encoded)
+	response = sock.recv(1)
+
+    	return response == '0'
+    except:
+	print "ERROR: ", sys.exc_info()[0]
+	return False
+    finally:
+    	sock.close()
+
+def main():
+    os.chdir(QUEUE_PATH)
+    while True:
+        nums = sorted(map(int, glob('*')))
+        for num in nums:
+            file = str(num)
+            with open(file, 'r') as f:
+                username = f.readline()
+                password = f.readline()
+                if notify_password(username, password):
+                    os.unlink(file)
+                else:
+                    break
+        sleep(5) # FIXME: change this to 30 seconds
+
+main()

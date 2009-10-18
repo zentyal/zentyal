@@ -1,0 +1,22 @@
+Required software for build ebox-ad-passwd-sync-win
+---------------------------------------------------
+
+Microsoft Visual C++ 6.0
+Python 2.6 for Win32 (http://www.python.org/ftp/python/2.6.2/python-2.6.2.msi)
+Python-Crypto (http://www.voidspace.org.uk/python/modules.shtml#pycrypto)
+Py2Exe (http://www.py2exe.org/)
+Nullsoft Installer (NSIS) (http://sourceforge.net/projects/nsis/)
+
+Recommended for accessing the SVN repository:
+TortoiseSVN (http://tortoisesvn.net/downloads)
+
+How to do it
+------------
+
+A VC++ workspace is provied, you only have to open it and build the
+passwdhk and ebox_adsync_config projects in Release mode
+(select them one by one in Build --> Set Active Configuration).
+The remaining passwdhk_driver project is not needed.
+
+Then, there is a make_installer.bat script that does the rest. The required
+software components have to be installed previously to that.

@@ -1,0 +1,34 @@
+Securization of password storage
+--------------------------------
+In the first proof of concept we store the passwords directly on disk.
+It's more secure to store only in case of failure, two cases:
+ - ebox-pwdsync-hook can't connect to ebox-pwdsync-service, it stores directly
+   on disk and ebox-pwdsync-service will read it when it is alive again.
+ - ebox-pwdsync-service receives the pass correctly through socket or
+   something like that but fails when tries to send it to the eBox slaves,
+   it stores the pass on disk until retries and receives the correct ACK.
+We also have to find a proper directory safer than c:\windows\temp.
+
+More than one slave
+-------------------
+Currently only one eBox slave is support, to support more than once we have to:
+ - Change the GUI to support that, a list instead of simple textboxes.
+ - Modify the password-failure-storage system to take account of which slaves
+   have exactly failed.
+
+Remove references to passwdhk.dll in the registry when uninstalling
+-------------------------------------------------------------------
+It can be done adding a commandline argument to ebox-adsync-config.exe
+so it will do that instead of showing the GUI.
+
+Other FIXMEs and TODOs
+----------------------
+- vcredist is beign unpacked in c:\ instead of some temp dir
+- Activate urlencode option for security reasons and decode it properly as it
+  says in README.passwdhk.txt (done but needs testing)
+- Replace urlencode with base64 encoding because the current urlencode doesn't
+  seems to work with utf8.
+- Add md5 or sha to the packet sent to eBox in order to check if the
+  deciphering process was correct, that means that the passwords set are
+  equal in both machines.
+- Remove unused registry configuration values for passwdhk.dll

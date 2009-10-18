@@ -1,0 +1,317 @@
+#!/usr/bin/perl
+
+use EBox;
+use EBox::Global;
+use Net::LDAP;
+use Error qw(:try);
+
+EBox::init();
+
+my $usersMod = EBox::Global->modInstance('users');
+my $model = $usersMod->model('Mode');
+my $host = $model->remoteValue();
+my $password = $model->passwordValue();
+my $username = $model->usernameValue();
+
+my $ldapAD = Net::LDAP->new($host, 'onerror' => undef);
+unless ($ldapAD) {
+    EBox::error("[ad-sync] Can't connect to $host\n");
+    exit 1;
+}
+
+my $dn = "CN=$username,CN=Users," . baseDnAD();
+
+my $res = $ldapAD->bind($dn, password => $password);
+unless ($res->{resultCode} eq 0) {
+    EBox::error("[ad-sync] Can't bind to $host");
+    exit 1;
+}
+
+my %newUsers = usersAD();
+my %newGroups = groupsAD();
+
+my $usersMod = EBox::Global->getInstance()->modInstance('users');
+
+my %currentUsers = map { $_->{username} => $_ } $usersMod->users();
+my %currentGroups = map { $_->{account} => $_ } $usersMod->groups();
+
+my @usersToAdd  = grep { not exists $currentUsers{$_} } keys %newUsers;
+my @usersToDel  = grep { not exists $newUsers{$_} } keys %currentUsers;
+my @usersToModify = grep { exists $newUsers{$_} } keys %currentUsers;
+
+my @groupsToAdd  = grep { not exists $currentGroups{$_} } keys %newGroups;
+my @groupsToDel  = grep { not exists $newGroups{$_} } keys %currentGroups;
+my @groupsToModify = grep { exists $newGroups{$_} } keys %currentGroups;
+
+foreach my $username (@usersToDel) {
+    EBox::debug("[ad-sync] Deleting user $username that no longer exists");
+    $usersMod->delUser($username);
+}
+
+foreach my $username (@usersToAdd) {
+    EBox::debug("[ad-sync] Adding new user $username");
+    my $user = $newUsers{$username};
+
+    # The user must have a initial password in order to add it, as
+    # we still don't have the good one, we generate a random one
+    $user->{password} = randomPassword();
+
+    $usersMod->addUser($user);
+}
+
+foreach my $username (@usersToModify) {
+    EBox::debug("[ad-sync] Modifying data on existing user $username");
+    my $user = $newUsers{$username};
+    $usersMod->modifyUser($user);
+}
+
+foreach my $groupname (@groupsToDel) {
+    EBox::debug("[ad-sync] Deleting group $groupname that no longer exists");
+    $usersMod->delGroup($groupname);
+}
+
+foreach my $groupname (@groupsToAdd) {
+    my $group = $newGroups{$groupname};
+    EBox::debug("[ad-sync] Adding new group $groupname");
+    $usersMod->addGroup($groupname, $group->{comment}, 0);
+    foreach my $member (@{$group->{members}}) {
+        # Sometimes it tries to add non-existent users
+        # so we handle that gracefully
+        try {
+            my $user = getPrincipalName($member);
+            next unless $user;
+            EBox::debug("[ad-sync] Adding user $user to new group $groupname");
+            $usersMod->addUserToGroup($user, $groupname);
+        } catch Error with {
+            EBox::warn("[ad-sync] can't add user $user to group $groupname.");
+        };
+    }
+}
+
+foreach my $groupname (@groupsToModify) {
+    my $group = $newGroups{$groupname};
+    my $usersInGroup = $usersMod->usersInGroup($groupname);
+    my %newMembers = map { $_ => 1 } @{$group->{members}};
+    my %currentMembers = map { $_ => 1 } @{$usersInGroup};
+    my @membersToAdd = grep { not exists $currentMembers{$_} } keys %newMembers;
+    my @membersToDel = grep { not exists $newMembers{$_} } keys %currentMembers;
+
+    foreach my $member (@membersToAdd) {
+        try {
+            my $user = getPrincipalName($member);
+            next unless $user;
+            EBox::debug("[ad-sync] Adding user $user to existing group $groupname");
+            $usersMod->addUserToGroup($user, $groupname);
+        } catch Error with {
+            EBox::warn("[ad-sync] can't add user $user to group $groupname.");
+        };
+    }
+
+    foreach my $member (@membersToDel) {
+        try {
+            my $user = getPrincipalName($member);
+            next unless $user;
+            EBox::debug("[ad-sync] Deleting user $member from group $groupname");
+            $usersMod->delUserFromGroup($member, $groupname);
+        } catch Error with {
+            EBox::warn("[ad-sync] can't del user $user from group $groupname.");
+        };
+    }
+
+    my $comment = $group->{comment};
+    $usersMod->modifyGroup({ groupname => $groupname, comment => $comment});
+}
+
+# FIXME: This code is duplicated, write it in a single point
+sub randomPassword
+{
+    my $pass = '';
+    my $letters = 'abcdefghijklmnopqrstuvwxyz';
+    my @chars= split(//, $letters . uc($letters) .
+            '-+/.0123456789');
+    for my $i (1..16) {
+        $pass .= $chars[int(rand (scalar(@chars)))];
+    }
+    return $pass;
+}
+
+# -- Active Directory helper functions --
+
+sub baseDnAD {
+    my $result = $ldapAD->search(
+        'base' => '',
+        'scope' => 'base',
+        'filter' => '(objectclass=*)',
+        'attrs' => ['namingContexts']
+    );
+    my $entry = ($result->entries)[0];
+    my $attr = ($entry->attributes)[0];
+    return $entry->get_value($attr);
+}
+
+sub usersDnAD
+{
+    return 'CN=Users,' . baseDnAD();
+}
+
+sub usersAD
+{
+    my %args = (
+                base => usersDnAD(),
+                filter => '(objectclass=user)',
+                scope => 'one',
+                attrs => ['userPrincipalName', 'cn', 'givenName', 'sn', 'description']
+               );
+
+    my $result = $ldapAD->search(%args);
+
+    my %users;
+    foreach my $user ($result->sorted('userPrincipalName')) {
+        my $username = $user->get_value('userPrincipalName');
+        if (userExistsAD($username)) {
+            my $info = userInfoAD($username, $user);
+            $users{$info->{user}} = $info;
+        }
+    }
+
+    return %users;
+}
+
+sub userExistsAD # (user)
+{
+    my ($user) = @_;
+
+    my %attrs = (
+                 base => usersDnAD(),
+                 filter => "(userPrincipalName=$user)",
+                 scope => 'one'
+                );
+
+    my $result = $ldapAD->search(%attrs);
+
+    return ($result->count > 0);
+}
+
+sub userInfoAD # (user, entry)
+{
+    my ($user, $entry) = @_;
+
+    # If $entry is undef we make a search to get the object, otherwise
+    # we already have the entry
+    unless ($entry) {
+        my %args = (
+                    base => usersDnAD(),
+                    filter => "(userPrincipalName=$user)",
+                    scope => 'one',
+                    attrs => ['*'],
+                   );
+
+        my $result = $ldapAD->search(%args);
+        $entry = $result->entry(0);
+    }
+
+    my $username = $entry->get_value('userPrincipalName');
+    # Remove the domain part
+    $username =~ s/@.*$//;
+
+    my $cn = $entry->get_value('cn');
+    my $surname = $entry->get_value('sn');
+    my $givenName = $entry->get_value('givenName');
+    my $comment = $entry->get_value('description');
+
+    # Surname is optional in AD but mandatory in
+    # the eBox LDAP, so if it not exits we must
+    # fill it with other data.
+    unless ($surname) {
+        if ($givenName) {
+            $surname = $givenName;
+            $givenName = '';
+        } else {
+            $surname = $cn;
+        }
+    }
+
+    # Mandatory data, some functions
+    # require user and others username
+    # so we include both
+    my $userinfo = {
+                    user => $username,
+                    username => $username,
+                    fullname => $cn,
+                    surname => $surname,
+                   };
+
+    # Optional Data
+    if ($givenName) {
+        $userinfo->{'givenname'} = $givenName;
+    } else {
+        $userinfo->{'givenname'} = '';
+    }
+    if ($comment) {
+        $userinfo->{'comment'} = $comment;
+    } else {
+        $userinfo->{'comment'} = '';
+    }
+
+    return $userinfo;
+}
+
+sub groupsAD
+{
+    my %args = (
+                base => usersDnAD(),
+                filter => '(objectclass=group)',
+                scope => 'one',
+                attrs => ['cn', 'member']
+               );
+
+    my $result = $ldapAD->search(%args);
+
+    my %groups;
+    foreach my $entry ($result->sorted('cn')) {
+        my $cn = $entry->get_value('cn');
+        my $desc = $entry->get_value('description');
+
+        $args{filter} = "(&(objectclass=group)(cn=$cn))";
+        $args{attrs} = ['member'];
+        my $membResult = $ldapAD->search(%args);
+        my @members;
+        foreach my $res ($membResult->sorted('member')) {
+            push (@members, $res->get_value('member'));
+        }
+
+        my $info = {
+                    'account' => $cn,
+                    'members' => \@members,
+                    'comment' => $desc,
+                   };
+
+        $groups{$cn} = $info;
+    }
+
+    return %groups;
+}
+
+sub getPrincipalName # (dn)
+{
+    my ($dn) = @_;
+
+    my %attrs = (
+                 base => $dn,
+                 filter => '(objectclass=user)',
+                 scope => 'one',
+                 attrs => ['userPrincipalName']
+                );
+
+    my $result = $ldapAD->search(%attrs);
+    my $entry = $result->shift_entry();
+    if ($entry) {
+        my $name = $entry->get_value('userPrincipalName');
+        $name =~ s/@.*$//;
+        return $name;
+    } else {
+        EBox::debug("[ad-sync] can't get userPrincipalName for $dn.");
+        return undef;
+    }
+}
+

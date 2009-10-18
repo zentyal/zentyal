@@ -70,7 +70,7 @@ sub masterLdap
 
     my $users = EBox::Global->modInstance('users');
     my $ldap;
-    if ($users->isMaster()) {
+    unless ($users->mode() eq 'slave') {
         $self->ldap->ldapCon();
         $ldap = $self->ldap->{ldap};
     } else {
@@ -95,7 +95,7 @@ sub _loadSchema
 
     my $users = EBox::Global->modInstance('users');
 
-    if ($users->isMaster()) {
+    unless ($users->mode() eq 'slave') {
         $self->ldap->ldapCon();
         my $ldap = $self->ldap->{ldap};
         $self->_loadSchemaDirectory($ldap, $ldiffile);
@@ -162,7 +162,7 @@ sub _loadACL
 
     my $users = EBox::Global->modInstance('users');
 
-    if ($users->isMaster()) {
+    unless ($users->mode() eq 'slave') {
         $self->ldap->ldapCon();
         my $ldap = $self->ldap->{ldap};
         $self->_loadACLDirectory($ldap, $acl);
@@ -249,7 +249,8 @@ sub performLDAPActions
     my ($self) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    if (not $users->isMaster()) {
+    my $slave = $users->mode() eq 'slave';
+    if ($slave) {
         $users->startIfRequired();
     }
     my $ldapuser = $self->_ldapModImplementation();
@@ -261,7 +262,7 @@ sub performLDAPActions
     for my $acl (@acls) {
         $self->_loadACL($acl);
     }
-    if (not $users->isMaster()) {
+    if ($slave) {
         $users->stopIfRequired();
         my @attrs = @{ $ldapuser->localAttributes() };
         for my $attr (@attrs) {

@@ -1,0 +1,6 @@
+
+LIBRARY passwdhk
+EXPORTS
+        InitializeChangeNotify
+        PasswordChangeNotify
+        PasswordFilter

@@ -86,7 +86,7 @@ sub precondition
 {
     my ($self) = @_;
     my $users = EBox::Global->modInstance('users');
-    unless ($users->configured() and $users->isMaster()) {
+    unless ($users->configured() and ($users->mode() eq 'master')) {
         $self->{preconFail} = 'notConfigured';
         return undef;
     }

@@ -1,0 +1,134 @@
+#!/usr/bin/perl
+# Copyright (C) 2009 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use warnings;
+use strict;
+
+use EBox;
+use EBox::Global;
+use Error qw(:try);
+
+use IO::Socket;
+use IO::Select;
+use MIME::Base64;
+use Crypt::Rijndael;
+
+use constant INT_SIZE => 4;
+
+EBox::init();
+
+my $usersMod = EBox::Global->modInstance('users');
+my $model = $usersMod->model('Mode');
+my $remote = $model->remoteValue();
+my $secretKey = $model->secretValue();
+my $port = $model->portValue();
+
+$SIG{PIPE} = 'IGNORE';
+
+my $sockAccept = new IO::Socket::INET(
+                       LocalPort => $port,
+                       Proto     => 'tcp',
+                       Listen    => SOMAXCONN,
+                       Reuse     => 0);
+
+unless ($sockAccept) {
+    EBox::error("[ad-pwdsync] Unable to create socket");
+    exit(1);
+}
+
+my $cipher = new Crypt::Rijndael($secretKey);
+
+my $sel = new IO::Select($sockAccept);
+
+while (my @ready = $sel->can_read()) {
+    foreach my $sock (@ready) {
+        if ($sock == $sockAccept) {
+            my ($newSock, $c_addr) = $sockAccept->accept();
+            my ($port, $c_ip) = sockaddr_in($c_addr);
+            my $ipAddr = inet_ntoa($c_ip);
+            EBox::debug("[ad-pwdsync] connection from $ipAddr");
+            unless ($ipAddr eq $remote) {
+                EBox::warn("Connection not from the trusted host: $ipAddr");
+            } else {
+                $sel->add($newSock);
+            }
+        } else {
+            my $ok = handleRequest($sock);
+            if ($ok) {
+                EBox::debug("[ad-pwdsync] password updated successfully");
+                $sock->write('0', 1);
+            } else {
+                EBox::debug("[ad-pwdsync] error updating password");
+                $sock->write('E', 1);
+            }
+            $sel->remove($sock);
+            $sock->close();
+        }
+    }
+}
+
+$sockAccept->close();
+
+exit(0);
+
+sub handleRequest
+{
+    my ($sock) = @_;
+
+    EBox::debug("[ad-pwdsync] handleRequest() called");
+
+    my $buf;
+    unless ($sock->read($buf, 3 * INT_SIZE)) {
+        EBox::error("[ad-pwdsync] Can't read lengths in handleRequest");
+        return 0;
+    }
+
+    my ($userLength, $passLength, $encodedLength) = unpack ('NNN', $buf);
+    EBox::debug("[ad-pwdsync] received username length: $userLength");
+    EBox::debug("[ad-pwdsync] received password length: $passLength");
+    EBox::debug("[ad-pwdsync] received encoded data length: $encodedLength");
+
+    my $encodedData;
+    unless ($sock->read($encodedData, $encodedLength)) {
+        EBox::error("[ad-pwdsync] Can't read encoded data");
+        return 0;
+    }
+    EBox::debug("[ad-pwdsync] received encoded data: $encodedData");
+
+    my $cryptData = decode_base64($encodedData);
+    unless ((length($cryptData) % 16) == 0) {
+        EBox::error("[ad-pwdsync] Crypted data length should be multiple of 16");
+        return 0;
+    }
+
+    my $data = $cipher->decrypt($cryptData);
+
+    my $username = substr ($data, 0, $userLength - 1);
+    my $password = substr ($data, $userLength, $passLength - 1);
+    EBox::debug("[ad-pwdsync] username = $username");
+    EBox::debug("[ad-pwdsync] password = $password");
+
+    my $ok = 1;
+    try {
+        $usersMod->modifyUser({ username => $username,
+                                password => $password });
+    } catch Error with{
+        $ok = 0;
+    };
+
+    return $ok;
+}
+
