@@ -70,13 +70,15 @@ def main():
         nums = sorted(map(int, glob('*')))
         for num in nums:
             file = str(num)
+            username = ''
+            password = ''
             with open(file, 'r') as f:
                 username = f.readline()
                 password = f.readline()
-                if notify_password(username, password):
-                    os.unlink(file)
-                else:
-                    break
+            if notify_password(username, password):
+                os.unlink(file)
+            else:
+                break
         sleep(30)
 
 main()
