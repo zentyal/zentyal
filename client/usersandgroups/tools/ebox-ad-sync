@@ -23,7 +23,7 @@ my $dn = "CN=$username,CN=Users," . baseDnAD();
 
 my $res = $ldapAD->bind($dn, password => $password);
 unless ($res->{resultCode} eq 0) {
-    EBox::error("[ad-sync] Can't bind to $host");
+    EBox::error("[ad-sync] Can't bind to $host as $dn");
     exit 1;
 }
 
