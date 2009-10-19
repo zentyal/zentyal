@@ -86,14 +86,20 @@ sub _table
             fieldName => 'password',
             printableName => __('LDAP password'),
             editable => 1,
-            help => __('Master eBox LDAP or Windows AD user password')
+            help => __('Master eBox LDAP password')
         ),
         new EBox::Types::Text (
             fieldName => 'username',
             printableName => __('AD user'),
             defaultValue => 'ebox',
             editable => 1,
-            help => __('Username for binding to Windows AD (it has to exists in the AD with the above password)')
+            help => __('Username for binding to Windows AD (it has to be created in the AD)')
+        ),
+        new EBox::Types::Password (
+            fieldName => 'adpass',
+            printableName => __('AD password'),
+            editable => 1,
+            help => __('Password for the above user')
         ),
         new EBox::Types::Port (
             fieldName => 'port',
@@ -159,14 +165,14 @@ sub viewCustomizer
                 {
                   'master'   => {
                         enable  => [ 'password' ],
-                        disable => [ 'remote', 'username', 'port', 'secret' ],
+                        disable => [ 'remote', 'username', 'adpass', 'port', 'secret' ],
                     },
                   'slave'    => {
                         enable  => [ 'remote', 'password' ],
-                        disable => [ 'port', 'username', 'secret' ],
+                        disable => [ 'port', 'username', 'adpass', 'secret' ],
                     },
                   'ad-slave' => {
-                        enable  => [ 'remote', 'password', 'username', 'port', 'secret' ],
+                        enable  => [ 'remote', 'password', 'username', 'addpass', 'port', 'secret' ],
                     },
                 }
             });

@@ -10,7 +10,7 @@ EBox::init();
 my $usersMod = EBox::Global->modInstance('users');
 my $model = $usersMod->model('Mode');
 my $host = $model->remoteValue();
-my $password = $model->passwordValue();
+my $password = $model->adpassValue();
 my $username = $model->usernameValue();
 
 my $ldapAD = Net::LDAP->new($host, 'onerror' => undef);

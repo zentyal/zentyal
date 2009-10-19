@@ -139,7 +139,7 @@ sub usedFiles
 {
     my $mode = mode();
 
-    if ($mode eq 'master') {
+    if ($mode ne 'slave') {
         return [
                 {
                  'file' => '/etc/default/slapd',
@@ -153,9 +153,6 @@ sub usedFiles
                     'module' => 'users'
                 },
         ];
-    } else {
-    # FIXME: Used files for ad-slave ??
-        return [];
     }
 }
 
@@ -169,13 +166,7 @@ sub enableActions
 
     my $mode = mode();
 
-    if ($mode eq 'master') {
-        my $password = remotePassword();
-
-        EBox::UsersAndGroups::Setup::master($password);
-
-        $self->performLDAPActions();
-    } elsif ($mode eq 'slave') {
+    if ($mode eq 'slave') {
         if ( -f '/etc/init.d/apparmor' ) {
             if (-f '/etc/apparmor.d/usr.sbin.slapd') {
                 my $cmd = 'ln -s /etc/apparmor.d/usr.sbin.slapd ' .
@@ -189,9 +180,7 @@ sub enableActions
         EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default.no /etc/default/slapd");
 
         $self->_setupSlaveLDAP();
-    } elsif ($mode eq 'ad-slave') {
-        # FIXME: We should auto-generate a password for our ldap (like we did before the master/slave thing)
-        # Now this is a workaround
+    } else { # Same setup for 'master' and 'ad-slave' modes
         my $password = remotePassword();
 
         EBox::UsersAndGroups::Setup::master($password);
