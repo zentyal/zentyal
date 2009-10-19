@@ -26,16 +26,12 @@ from struct import pack
 from _winreg import *
 from time import sleep
 from glob import glob
+from ebox-pwdsync-common import get_queue_path
 
 REG_KEY = 'SYSTEM\\CurrentControlSet\\Control\\Lsa\\ebox-adsync'
 BLOCK_SIZE = 16
 
-# TODO: Choose a better place for this?
-QUEUE_PATH = 'c:\\temp-adsync'
-
-# Create directory if not exists
-if not os.access(QUEUE_PATH, os.F_OK):
-    os.mkdir(QUEUE_PATH, 0600)
+QUEUE_PATH = get_queue_path()
 
 hKey = OpenKey(HKEY_LOCAL_MACHINE, REG_KEY, 0, KEY_READ)
 eboxAddress = QueryValueEx(hKey, 'host')[0]
@@ -57,16 +53,16 @@ def notify_password(username, password):
         sock.connect((eboxAddress, port))
 
         sock.send(pack("!LLL", len(username), len(password), len(encoded)))
-	print "DEBUG: encoded content = " + encoded
+        print "DEBUG: encoded content = " + encoded
         sock.send(encoded)
-	response = sock.recv(1)
+        response = sock.recv(1)
 
-    	return response == '0'
+        return response == '0'
     except:
-	print "ERROR: ", sys.exc_info()[0]
-	return False
+        print "ERROR: ", sys.exc_info()[0]
+        return False
     finally:
-    	sock.close()
+        sock.close()
 
 def main():
     os.chdir(QUEUE_PATH)
@@ -81,6 +77,6 @@ def main():
                     os.unlink(file)
                 else:
                     break
-        sleep(5) # FIXME: change this to 30 seconds
+        sleep(30)
 
 main()

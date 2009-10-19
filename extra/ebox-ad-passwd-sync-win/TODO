@@ -7,7 +7,6 @@ It's more secure to store only in case of failure, two cases:
  - ebox-pwdsync-service receives the pass correctly through socket or
    something like that but fails when tries to send it to the eBox slaves,
    it stores the pass on disk until retries and receives the correct ACK.
-We also have to find a proper directory safer than c:\windows\temp.
 
 More than one slave
 -------------------

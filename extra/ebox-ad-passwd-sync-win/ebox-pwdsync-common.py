@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -13,31 +12,23 @@
 #
 # You should have received a copy of the Lesser GNU General Public
 # License along with This program; if not, write to the
-#	Free Software Foundation, Inc.,
-#	59 Temple Place, Suite 330,
-#	Boston, MA  02111-1307
-#	USA
+#   Free Software Foundation, Inc.,
+#   59 Temple Place, Suite 330,
+#   Boston, MA  02111-1307
+#   USA
 
-from sys import argv
-#from socket import *
-from os import chdir
-from glob import glob
-from ebox-pwdsync-common import get_queue_path
+import os
+from _winreg import *
 
-QUEUE_PATH = get_queue_path()
+NTDS_KEY = 'SYSTEM\\CurrentControlSet\\Services\\NTDS\\Parameters'
 
-username = argv[1]
-password = argv[2]
+def get_queue_path():
+    hKey = OpenKey(HKEY_LOCAL_MACHINE, NTDS_KEY, 0, KEY_READ)
+    path = QueryValueEx(hKey, 'DSA Working Directory')[0]
+    path += '\\ebox-adsync'
 
-chdir(QUEUE_PATH)
-existingFiles = glob('*')
-lastNum = 0
-if existingFiles:
-    lastNum = sorted(map(int, existingFiles), reverse=True)[0]
-newFile = str(lastNum + 1)
-print "Creating file: " + newFile
+    # Create directory if not exists
+    if not os.access(QUEUE_PATH, os.F_OK):
+        os.mkdir(QUEUE_PATH, 0600)
 
-f = open(newFile, 'w')
-f.write(username + '\n')
-f.write(password + '\n')
-f.close()
+    return path
