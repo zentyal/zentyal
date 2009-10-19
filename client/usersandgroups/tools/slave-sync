@@ -20,7 +20,7 @@ EBox::init();
 my $users = EBox::Global->modInstance('users');
 $users->configured() or
     exit 0;
-$users->isMaster() or
+($users->mode() eq 'master') or
     exit 0;
 
 processDir(EBox::Config::conf() . "userjournal/");
