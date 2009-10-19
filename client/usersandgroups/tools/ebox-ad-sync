@@ -60,7 +60,7 @@ foreach my $username (@usersToAdd) {
 }
 
 foreach my $username (@usersToModify) {
-    EBox::debug("[ad-sync] Modifying data on existing user $username");
+    EBox::debug("[ad-sync] Updating existing user $username");
     my $user = $newUsers{$username};
     $usersMod->modifyUser($user);
 }
