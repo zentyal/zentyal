@@ -28,7 +28,7 @@ def get_queue_path():
     path += '\\ebox-adsync'
 
     # Create directory if not exists
-    if not os.access(QUEUE_PATH, os.F_OK):
-        os.mkdir(QUEUE_PATH, 0600)
+    if not os.access(path, os.F_OK):
+        os.mkdir(path, 0600)
 
     return path

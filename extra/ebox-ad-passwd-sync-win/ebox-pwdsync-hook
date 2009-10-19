@@ -22,7 +22,7 @@ from sys import argv
 #from socket import *
 from os import chdir
 from glob import glob
-from ebox-pwdsync-common import get_queue_path
+from ebox_pwdsync_common import get_queue_path
 
 QUEUE_PATH = get_queue_path()
 

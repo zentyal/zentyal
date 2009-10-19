@@ -87,8 +87,7 @@ BEGIN
 END
 
 IDD_PASSWDHK_CONFIG_DIALOG DIALOGEX 0, 0, 293, 172
-STYLE DS_3DLOOK | DS_CONTEXTHELP | WS_MINIMIZEBOX | WS_VISIBLE | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_3DLOOK | WS_MINIMIZEBOX | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "eBox Active Directory Password Synchronizer"
 FONT 8, "MS Sans Serif"
@@ -102,8 +101,8 @@ BEGIN
     GROUPBOX        "Actions",IDC_STATIC,7,132,283,32
     DEFPUSHBUTTON   "Save to Registry and Exit",IDOK,13,142,93,14,WS_GROUP
     PUSHBUTTON      "Exit without Saving ",IDCANCEL,189,142,93,14,WS_GROUP
-    LTEXT           "Dialog to configure the eBox AD Password Sync registry settings.\nFor more information see http://trac.ebox-platform.com/Documentation/EBoxActiveDirectorySync",
-                    IDC_STATIC,7,7,270,19
+    LTEXT           "Dialog to configure the eBox AD Password Sync registry settings.\nMore info at http://trac.ebox-platform.com/Documentation/EBoxActiveDirectorySync",
+                    IDC_STATIC,7,7,281,20
     LTEXT           "eBox slave host",IDC_STATIC,48,48,58,11
     LTEXT           "Secret key",IDC_STATIC,48,90,49,11
     EDITTEXT        IDC_PORT,110,69,143,12,ES_AUTOHSCROLL | ES_NUMBER
