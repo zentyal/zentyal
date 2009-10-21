@@ -141,7 +141,7 @@ of content similarity. It can use a Bayesian filter or network rules such as:
  - URI blacklists that track spam websites.
  - Filters based on the checksum of messages.
  - Sender Policy Framework (SPF): RFC: `4408`.
- - Others. [#] _
+ - Others. [#]_
 
 .. [#] *The Powerful #1 Open-Source Spam Filter*
        http://spamassassin.apache.org .
