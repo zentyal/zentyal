@@ -1225,10 +1225,6 @@ sub _modInstancesForRestore
     $_->name eq $anyModuleInBackup
   } @modules;
 
-
-
-
-
   # we remove global module because it will not  be restored
   @modules   =  grep { $_->name ne 'global' } @modules;
 
@@ -1238,7 +1234,6 @@ sub _modInstancesForRestore
                                     );
   }
 
-
   # check modules dependencies
   if (not $forceDependencies) {
     foreach my $mod (@modules) {
@@ -1246,24 +1241,53 @@ sub _modInstancesForRestore
     }
 
   }
-
-  # we sort the modules list with a restore-safe order
-  my %anyDependencyByModule = map {
-    my $mod = $_;
-    my $anyDependency = any(  @{ $mod->restoreDependencies() } );
-    ($mod => $anyDependency);
-  } @modules;
-
-
-  @modules = sort {
-    my $aDependsB =  $anyDependencyByModule{$a} eq $b->name() ? 1 : 0;
-    my $bDependsA =  $anyDependencyByModule{$b} eq $a->name() ? 1 : 0;
-
-    $aDependsB <=> $bDependsA;
-  } @modules;
-
-  return \@modules;
+  
+  my $sortedModules = $self->_sortModuleByDependency(\@modules);
+  return $sortedModules;
 }
+
+
+sub _sortModuleByDependency
+{
+    my ($self, $modules_r) = @_;
+    my @modules = @{ $modules_r };
+
+    my $i =0;
+    while ($i < @modules) {
+        my $mod = $modules[$i];
+        my @depends = @{ $mod->restoreDependencies() };
+        my $depOk = 1;
+
+        foreach my $dependency (@depends) {
+            my $depFound = 0;
+            foreach my $j (0 .. $i) {
+                if ($i == $j) {
+                    # for $i ==0 case
+                    last;
+                } elsif ($modules[$j]->name() eq $dependency) {
+                    $depFound = 1;
+                    last;
+                }
+            }
+
+            if (not $depFound) {
+                $depOk = 0;
+                last;
+            }
+        }
+
+        if ($depOk) {
+            $i += 1;
+        } else {
+            my $unreadyMod = splice @modules, $i, 1;
+            push @modules, $unreadyMod;
+        }
+
+    }
+
+    return \@modules;
+}
+
 
 
 sub _modulesInBackup
