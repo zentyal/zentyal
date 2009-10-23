@@ -201,6 +201,13 @@ sub _exposedMethods
 
 }
 
+
+sub restoreDependencies
+{
+    my ($self) = @_;
+    return ['services'];
+}
+
 # utility used by CGI
 
 sub externalIfaceExists
