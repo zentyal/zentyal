@@ -70,12 +70,19 @@ sub mailboxesDir
 #               mdsize - the maildir size of the account
 sub setUserAccount
 {
-    my ($self, $user, $lhs, $rhs, $mdsize)  = @_;
+    my ($self, $user, $lhs, $rhs, %extraParams)  = @_;
 
     my $ldap = $self->{ldap};
     my $users = EBox::Global->modInstance('users');
     my $mail = EBox::Global->modInstance('mail');
     my $email = $lhs.'@'.$rhs;
+    my $createMailbox;
+    if (exists $extraParams{createMail}) {
+        $createMailbox = $extraParams{createMail}
+    }else {
+        $createMailbox = 1;
+    }
+
 
     unless ($email =~ /^[^\.\-][\w\.\-]+\@[^\.\-][\w\.\-]+$/) {
         throw EBox::Exceptions::InvalidData('data' => __('mail account'),
@@ -87,35 +94,40 @@ sub setUserAccount
                                            'value' => $email);
     }
 
-    $self->_checkMaildirNotExists($lhs, $rhs);
+    if ($createMailbox) {
+        # when creating mailbox is neccesaty that it does not exist
+        $self->_checkMaildirNotExists($lhs, $rhs);
+    }
+
 
     my $dn = "uid=$user," .  $users->usersDn;
-        my %attrs = (
-                     changes => [
-                                 add => [
-                                         objectClass => 'couriermailaccount',
-                                         objectClass => 'usereboxmail',
-                                         mail            => $email,
-                                         mailbox => $rhs.'/'.$lhs.'/',
-                                         quota           => '0',
-                                         mailHomeDirectory => DIRVMAIL
+    my %attrs = (
+                 changes => [
+                             add => [
+                                     objectClass => 'couriermailaccount',
+                                     objectClass => 'usereboxmail',
+                                     mail            => $email,
+                                     mailbox => $rhs.'/'.$lhs.'/',
+                                     quota           => '0',
+                                     mailHomeDirectory => DIRVMAIL
                                         ]
-                                ]
-                    );
-        my $add = $ldap->modify($dn, \%attrs );
-
+                            ]
+                );
+    my $add = $ldap->modify($dn, \%attrs );
+    
+#    if ($createMailbox) {
         $self->_createMaildir($lhs, $rhs);
+#    }
 
-        my @list = $mail->{malias}->listMailGroupsByUser($user);
 
-        foreach my $item(@list) {
-                my $alias = $mail->{malias}->groupAlias($item);
-                $mail->{malias}->addMaildrop($alias, $email);
-        }
+    my @list = $mail->{malias}->listMailGroupsByUser($user);
+    
+    foreach my $item(@list) {
+        my $alias = $mail->{malias}->groupAlias($item);
+        $mail->{malias}->addMaildrop($alias, $email);
+    }
 
-        if ($mail->mdQuotaAvailable) {
-          $self->_setUserAccountWithMdQuota($dn, $mdsize);
-        }
+
 }
 
 # Method: delUserAccount
@@ -590,14 +602,14 @@ sub _getActualMDSize
 sub _checkMaildirNotExists
 {
     my ($self, $lhs, $vdomain) = @_;
-    my $dir = "/var/vmail/$vdomain/$lhs/";
+    my $dir = "/var/vmail/$vdomain/$lhs";
 
     if (EBox::Sudo::fileTest('-e', $dir)) {
-        throw EBox::Exceptions::External(
-          __x('Cannot create user account: mail directory {d} aready exists',
-             d => $dir
-            )
-                                        );
+        my $backupDir = $dir . '.bak';
+        EBox::Sudo::root("mv $dir $backupDir");
+        EBox::warn(
+           "Mail directory $dir already existed, moving it to $backupDir"
+                     );
     }
 
 }
