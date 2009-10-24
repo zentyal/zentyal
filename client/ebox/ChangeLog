@@ -1,4 +1,4 @@
-HEAD
+1.3.7
 	+ Bug fix: generate public.css and login.css in dynamic-www directory
 	  which is /var/lib/ebox/dynamicwww/css/ and not in /usr/share/ebox/www/css
 	  as these files are generate every time eBox's apache is

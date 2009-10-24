@@ -1,4 +1,4 @@
-HEAD
+1.3.7
         + more resilent EBox::MailVdomain::setUserAccount, now we don't
 	abort if it exists already a user maildir, instead we move it to a
 	backup directory
