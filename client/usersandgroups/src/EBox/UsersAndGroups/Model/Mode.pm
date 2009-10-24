@@ -80,6 +80,7 @@ sub _table
             fieldName => 'remote',
             printableName => __('Master host'),
             editable => 1,
+            optional => 1,
             help => __('Only for slave configuration: IP of the master eBox or Windows')
         ),
         new EBox::Types::Password (
@@ -99,6 +100,7 @@ sub _table
             fieldName => 'adpass',
             printableName => __('AD password'),
             editable => 1,
+            optional => 1,
             help => __('Password for the above user')
         ),
         new EBox::Types::Port (
