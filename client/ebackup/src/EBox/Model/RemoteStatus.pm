@@ -82,8 +82,6 @@ sub row
     my ($self, $id) = @_;
 
     my @status = @{$self->{gconfmodule}->remoteStatus()};
-    use Data::Dumper;
-    EBox::debug(Dumper(\@status));
     my $type = $status[$id]->{'type'};
     my $date = $status[$id]->{'date'};
 
@@ -92,6 +90,35 @@ sub row
     return $row;
 }
 
+# Method: precondition
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::precondition>
+#
+sub precondition 
+{
+    my ($self) = @_;
+
+    my @status = @{$self->{gconfmodule}->remoteStatus()};
+    return (scalar(@status));
+}
+
+# Method: preconditionFailMsg
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    return __('There is no information about the backuped files yet');
+}
+
+
+#
 # Group: Protected methods
 
 # Method: _table

@@ -23,6 +23,7 @@ my $fullBackup   = 0;
 my $bugReport    = 0;
 
 my $description = undef;
+my $destination = undef;
 
 my $help = 0;;
 
@@ -33,6 +34,7 @@ my $optionsOk = GetOptions(
                            'full-backup'     => \$fullBackup,
                            'bug-report'      => \$bugReport,
                            'description=s'   => \$description,
+                           'destination=s'   => \$destination,
                            'remote-backup=s' => \$remoteBackupName,
                            'help'            => \$help,
                           );
@@ -80,6 +82,9 @@ if (defined $description) {
     $params{description} = $description;
 }
 
+if (defined $destination) {
+    $params{destination} = $destination;
+}
 
 if ($fullBackup) {
     $params{fullBackup} = 1;

@@ -1312,30 +1312,11 @@ sub setUserQuota
     root(QUOTA_PROGRAM . " -s $user $quota");
 }
 
-sub extendedBackup
-{
-    my ($self, %options) = @_;
-    my $dir     = $options{dir};
-
-    $self->_dumpProfiles($dir);
-    $self->_dumpSharesFiles($dir);
-}
-
-sub extendedRestore
-{
-    my ($self, %options) = @_;
-    my $dir     = $options{dir};
-
-    $self->_loadProfiles($dir);
-    $self->_loadSharesFiles($dir);
-}
-
 sub dumpConfig
 {
     my ($self, $dir) = @_;
 
     $self->_dumpSharesTree($dir);
-
 }
 
 sub restoreConfig
@@ -1410,38 +1391,6 @@ sub _loadSharesTree
         EBox::Sudo::root("/bin/chown $uid.$gid '$dir'");
 
     }
-}
-
-
-sub _dumpProfiles
-{
-    my ($self, $dir) = @_;
-    my $archive = $self->_profilesArchive($dir);
-
-    (-d PROFILESPATH) or return;
-
-    my $tarCommand = "/bin/tar -cf $archive --bzip2 --atime-preserve --absolute-names --preserve --same-owner " . PROFILESPATH;
-    EBox::Sudo::root($tarCommand);
-}
-
-
-sub _loadProfiles
-{
-    my ($self, $dir) = @_;
-    my $archive = $self->_profilesArchive($dir);
-
-    (-e $archive) or
-        return;
-
-    my $tarCommand = "/bin/tar -xf $archive --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
-    EBox::Sudo::root($tarCommand);
-}
-
-
-sub _profilesArchive
-{
-    my ($self, $dir) = @_;
-    return "$dir/profiles.tgz";
 }
 
 sub fixSIDs
@@ -1526,56 +1475,6 @@ sub _sharesTreeFile
     return "$dir/sharesTree.bak";
 }
 
-sub  _dumpSharesFiles
-{
-    my ($self, $dir) = @_;
-
-    my $sambaLdapUser = new EBox::SambaLdapUser;
-    my @dirs;
-    foreach my $share (@{ $sambaLdapUser->sharedDirectories()}) {
-        next if grep { EBox::FileSystem::isSubdir($share, $_) } @dirs; # ignore if is a subdir of a directory already in the list
-            @dirs = grep { !EBox::FileSystem::isSubdir($_, $share)  } @dirs; # remove subdirectories of share from the list
-            push @dirs, $share;
-    }
-
-    # escape directories
-    @dirs = map {  "'$_'" } @dirs;
-
-    if (@dirs > 0) {
-        my $tarFile = $self->_sharesFilesArchive($dir);
-
-        my $tarCommand = "/bin/tar -cf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner @dirs";
-        EBox::Sudo::root($tarCommand);
-    }
-
-
-}
-
-
-sub  _loadSharesFiles
-{
-    my ($self, $restoreDir) = @_;
-
-    my $tarFile = $self->_sharesFilesArchive($restoreDir);
-
-    if (-e $tarFile) {
-        my $tarCommand = "/bin/tar -xf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
-        EBox::Sudo::root($tarCommand);
-    }
-    else {
-        EBox::error("Share's files archive not found at $tarFile. Share's files will NOT be restored.\n Resuming restoring process..")
-    }
-
-
-}
-
-
-sub  _sharesFilesArchive
-{
-    my ($self, $dir) = @_;
-    my $archive = "$dir/shares.tar.bz2";
-    return $archive;
-}
 
 
 # we look for shared directories leftover from users and groups created

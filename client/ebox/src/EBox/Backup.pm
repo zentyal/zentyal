@@ -706,6 +706,7 @@ sub makeBackup # (options)
                            description => { default =>  __('Backup') },
                            fullBackup  => { default => 0 },
                            bug         => { default => 0},
+                           destination => { optional => 1 },
                           });
 
   my $progress = $options{progress};
@@ -741,7 +742,8 @@ sub makeBackup # (options)
       $progress->notifyTick();
       $progress->setMessage(__('Writing backup file to hard disk'));
 
-      $backupFinalPath = $self->_moveToArchives($filename, $backupdir);
+      my $dest = $options{destination};
+      $backupFinalPath = $self->_moveToArchives($filename, $backupdir, $dest);
 
       $progress->setAsFinished();
   }
@@ -773,17 +775,20 @@ sub _modulesReady
 
 sub  _moveToArchives
 {
-  my ($self, $filename, $backupdir) = @_;
+  my ($self, $filename, $backupdir, $dest) = @_;
 
-  my $id = int(rand(999999)) . ".tar";
-  while (-f "$backupdir/$id") {
-    $id = int(rand(999999)) . ".tar";
+  unless ($dest) {
+      my $id = int(rand(999999)) . ".tar";
+      while (-f "$backupdir/$id") {
+          $id = int(rand(999999)) . ".tar";
+      }
+      $dest = $id;
   }
 
-  move($filename, "$backupdir/$id") or
+  move($filename, "$backupdir/$dest") or
     throw EBox::Exceptions::Internal("Could not save the backup.");
 
-  return "$backupdir/$id";
+  return "$backupdir/$dest";
 }
 
 

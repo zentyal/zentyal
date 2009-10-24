@@ -30,6 +30,9 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
+use EBox::Exceptions::DataInUse;
+
+use Error qw(:try);
 
 # Group: Public methods
 
@@ -112,6 +115,35 @@ sub row
     return $row;
 }
 
+# Method: precondition
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::precondition>
+#
+sub precondition 
+{
+    my ($self) = @_;
+
+    my @status = @{$self->{gconfmodule}->remoteListFiles()};
+    return (scalar(@status));
+}
+
+# Method: preconditionFailMsg
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    return __('There is no information about backuped files yet');
+}
+
+
+
 # Group: Protected methods
 
 # Method: _table
@@ -141,7 +173,7 @@ sub _table
     my $dataTable =
     {
         tableName          => 'RemoteFileList',
-        printableTableName => __('Remote File List'),
+        printableTableName => __('Restore Files'),
         printableRowName   => __('file restore operation'),
         defaultActions     => ['editField', 'changeView' ],
         tableDescription   => \@tableHeader,
@@ -153,6 +185,38 @@ sub _table
 
     return $dataTable;
 
+}
+
+sub _checkRowExist
+{
+	return 1;
+}
+
+sub validateTypedRowBak
+{
+	my ($self, $action, $fields) = @_;
+
+
+	my $file = $fields->{file}->value();
+	if (EBox::Sudo::fileTest('-e', $file)) {
+		throw EBox::Exceptions::DataInUse(
+			__('File already exists if you continue  the current'.
+			   'will be deleted'
+			)
+		);
+	}
+}
+
+sub setTypedRow
+{
+	my ($self, $id, $fields, $force) = @_;
+
+
+	my $file = $fields->{file}->value();
+	my $date = $fields->{date}->value();
+    	my $ebackup = EBox::Global->modInstance('ebackup');
+	$ebackup->restoreFile($file, $date);
+	$self->setMessage(__('File restored successfully'));
 }
 
 sub _backupVersion
@@ -169,6 +233,7 @@ sub _backupVersion
     }
     return \@versions;
 }
+
 
 # Method: headTitle
 #

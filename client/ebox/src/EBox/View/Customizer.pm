@@ -80,6 +80,39 @@ sub model
     return $self->{model};
 }
 
+# Method: setPermanentMessage
+#
+#   Set a message that will be always shown on top of the form as in opposed to
+#   flash messages that are shown when an action takes place
+#
+# Parameters:
+#
+#   string - string to show
+#
+sub setPermanentMessage
+{
+    my ($self, $msg) = @_;
+
+    $self->{permanentMessage}= $msg;
+}
+
+# Method: permanentMessage
+#
+#   Return a message that will be always shown on top of the form as in opposed to
+#   flash messages that are shown when an action takes place
+#
+#
+# Returns:
+#
+#   string - string to show
+#
+sub permanentMessage
+{
+    my ($self) = @_;
+
+    return $self->{permanentMessage};
+}
+
 # Method: setOnChangeActions
 #
 #   This method is used to set the actions -hide/show or enable/disable- that will take

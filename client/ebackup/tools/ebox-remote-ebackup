@@ -27,8 +27,10 @@
 #   --full default
 
 use EBox;
+use EBox::Config;
 use EBox::Global;
 use EBox::Sudo;
+use Error qw(:try);
 
 EBox::init();
 
@@ -44,6 +46,20 @@ if ($type eq 'full') {
     my $removeArguments = $ebackup->remoteDelOldArguments();
     EBox::Sudo::root($removeArguments);
 }
+
+# Backup configuration
+my $bakCmd = EBox::Config::pkgdata() .
+    '/ebox-make-backup --destination confbackup.tar';
+
+try {
+    EBox::Sudo::root($bakCmd);
+    # XXX Some modules such as events are marked as changed after
+    #     running ebox-make-backup.
+    #     This is a temporary workaround
+    EBox::Global->getInstance()->revokeAllModules();
+} otherwise {
+    EBox::debug("ebox-make-backup failed");
+};
 
 my $arguments = $ebackup->remoteArguments($type);
 EBox::Sudo::root($arguments);

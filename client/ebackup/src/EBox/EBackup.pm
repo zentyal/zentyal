@@ -32,12 +32,16 @@ use EBox::Sudo;
 use File::Slurp;
 
 use String::ShellQuote;
+use Date::Parse;
 use Error qw(:try);
+
+use EBox::Exceptions::MissingArgument;
 
 use constant DFLTPATH         => '/mnt/backup';
 use constant DFLTDIR          => 'ebox-backup';
 use constant DFLTKEEP         => '90';
 use constant SLBACKUPCONFFILE => '/etc/slbackup/slbackup.conf';
+use constant RSYNC_IBACKUP_URL => '206.221.209.44::/ibackup';
 
 # Constructor: _create
 #
@@ -131,6 +135,44 @@ sub actions
 #    return \@usedFiles;
 #}
 
+# Method: restoreFile
+#
+#	Given a file and date it tries to restore it
+#
+# Parameters:
+#	
+#	(POSTIONAL)
+#
+#	file - strings containing the file name to restore
+#	date - string containing a date that can be parsed by Date::Parse
+#
+sub restoreFile
+{
+    my ($self, $file, $date) = @_;
+    
+    unless (defined($file)) {
+	throw EBox::Exceptions::MissingArgument('file');
+    } 
+
+    unless (defined($date)) {
+	throw EBox::Exceptions::MissingArgument('date');
+    } 
+
+    my $time = Date::Parse::str2time($date);
+
+    my $model = $self->model('RemoteSettings');
+    my $pass = $model->row()->valueByName('password');
+
+    my $envPass = "RSYNC_PASSWORD='$pass' FTP_PASSWORD='$pass'";
+    my $url = $self->_remoteUrl();
+    my $rFile = $file;
+    $rFile =~ s:^.::; 
+    my $cmd ="$envPass duplicity --force -t $time --file-to-restore $rFile $url $file";
+    
+    EBox::Sudo::root($cmd);
+}
+
+
 # Method: remoteArguments
 #
 #   Return the arguments to be used by duplicty
@@ -163,9 +205,11 @@ sub remoteArguments
             $regexps .= "--exclude-regexp $regexp";
         }
     }
+    # Include configuration backup
+    $includes .= ' --include=/var/lib/ebox/conf/backups/confbackup.tar ';
 
     my $pass = $self->model('RemoteSettings')->row()->valueByName('password');
-    return "FTP_PASSWORD='$pass' duplicity $type "
+    return "RSYNC_PASSWORD='$pass' FTP_PASSWORD='$pass' duplicity $type "
            . "$includes $excludes $regexps / " . $self->_remoteUrl();
 }
 
@@ -186,7 +230,7 @@ sub remoteDelOldArguments
     my $time = uc(substr($freq, 0, 1));
     my $pass = $model->row()->valueByName('password');
 
-    return "FTP_PASSWORD='$pass' duplicity remove-older-than ${toKeep}${time} " . $self->_remoteUrl();
+    return "RSYNC_PASSWORD='$pass' FTP_PASSWORD='$pass' duplicity remove-older-than ${toKeep}${time} " . $self->_remoteUrl();
 }
 
 # Method: remoteListFileArguments
@@ -204,7 +248,7 @@ sub remoteListFileArguments
     my $model = $self->model('RemoteSettings');
     my $pass = $model->row()->valueByName('password');
 
-    return "FTP_PASSWORD='$pass' duplicity list-current-files " . $self->_remoteUrl();
+    return "RSYNC_PASSWORD='$pass' FTP_PASSWORD='$pass' duplicity list-current-files " . $self->_remoteUrl();
 }
 
 
@@ -254,7 +298,7 @@ sub remoteGenerateStatusCache
     my $file = tmpCurrentStatus();
     my $remoteUrl = $self->_remoteUrl();
     my $password = $self->model('RemoteSettings')->row()->valueByName('password');
-    my $cmd = "FTP_PASSWORD='$password' duplicity collection-status $remoteUrl";
+    my $cmd = "RSYNC_PASSWORD='$password' FTP_PASSWORD='$password' duplicity collection-status $remoteUrl";
     try {
         File::Slurp::write_file($file, @{EBox::Sudo::root($cmd)});
     } otherwise {};
@@ -385,6 +429,10 @@ sub _remoteUrl
     my $model = $self->model('RemoteSettings');
     my $method = $model->row()->valueByName('method');
     my $target = $model->row()->valueByName('target');
+    if ($method eq 'ibackup') {
+        $method = 'rsync';
+        $target = RSYNC_IBACKUP_URL;
+    }
     my $url = "$method://";
     if ($method ne 'file') {
         $user = $model->row()->valueByName('user');

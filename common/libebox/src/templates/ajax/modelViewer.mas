@@ -139,6 +139,13 @@
   my $requestCaller = $onlyBody ? 1 : 2;
   my @childArgs = $m->caller_args($requestCaller);
 </%init>
+% my $viewCustomizer = $model->viewCustomizer();
+% my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
+% if ($msg) {
+<& /msg.mas,
+   msg => $msg
+&>
+% }
 % if ( $model->message() ) {
 <& /msg.mas,
    msg => $model->popMessage()

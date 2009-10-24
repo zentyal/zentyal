@@ -4,6 +4,8 @@ HEAD
 	  as these files are generate every time eBox's apache is
 	  restarted
 	+ Bug fix: modules are restored now in the correct dependency order
+	+ ebox-make-backup accepts --destinaton flag to set backup's file name
+	+ Add support for permanent messages to EBox::View::Customizer
 1.3.6
 	+ Bug fix: override _ids in EBox::Events::Watcher::Log to not return ids
 	which do not exist

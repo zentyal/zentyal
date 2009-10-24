@@ -100,17 +100,21 @@ sub viewCustomizer
 {
     my ($self) = @_;
     my $customizer = new EBox::View::Customizer();
-    my $fields = [qw/user password/];
+    my $userPass = [qw/user password/];
+    my $allFields = [qw/user password target/];
+    my $target = [qw/target/];
     $customizer->setModel($self);
     $customizer->setOnChangeActions(
             { method =>
                 {
-                file => { disable => $fields },
-                rsync => { enable => $fields },
-                scp => { enable => $fields },
-                ftp => { enable => $fields },
+                ibackup => { disable => $target, enable=> $userPass },
+                file => { disable => $userPass, enable => $target },
+                rsync => { enable => $allFields },
+                scp => { enable => $allFields },
+                ftp => { enable => $allFields },
                 }
             });
+    $customizer->setPermanentMessage(_message());
     return $customizer;
 }
 
@@ -138,16 +142,19 @@ sub _table
            fieldName     => 'target',
            printableName => __('Host or destination'),
            editable      => 1,
+           optional      => 1,
        ),
        new EBox::Types::Text(
            fieldName     => 'user',
            printableName => __('User'),
            editable      => 1,
+           optional      => 1,
        ),
        new EBox::Types::Password(
            fieldName     => 'password',
            printableName => __('Password'),
            editable      => 1,
+           optional      => 1,
        ),
        new EBox::Types::Select(
            fieldName     => 'gpg_key',
@@ -219,7 +226,7 @@ sub _fullFrequency
     );
 }
 
-sub _incrFrequency 
+sub _incrFrequency
 {
     return ([{
             value => 'disabled',
@@ -289,6 +296,10 @@ sub _method
 {
     return ([
             {
+            value => 'ibackup',
+            printableValue => 'iBackup',
+            },
+            {
             value => 'file',
             printableValue => 'File System',
             },
@@ -335,6 +346,16 @@ sub _gpgKeys
     }
 
     return \@keys;
+}
+
+sub _message
+{
+    my $ibackup =  __x(
+        'By creating the iBackup account through this {ohref}link{chref} you ' .
+        'support the development of eBox with no extra charge',
+         ohref => '<a href="https://www.ibackup.com/p=ebox_technologies">',
+         chref => '</a>'
+    );
 }
 
 1;
