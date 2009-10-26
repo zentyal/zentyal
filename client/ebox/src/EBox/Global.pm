@@ -352,28 +352,10 @@ sub modifiedModules
 sub sortModulesEnableModDepends
 {
     my ($mods) = @_;
-
-    my @modules = @{$mods};
-
-    my %anyDependencyByModule = map {
-        my $modname = $_;
-        my $mod = EBox::Global->modInstance($modname);
-        my $deps = [];
-        if ($mod->can('enableModDepends')) {
-            $deps = $mod->enableModDepends();
-        }
-        my $anyDependency = any( @{ $deps } );
-        ($modname => $anyDependency);
-    } @modules;
-
-    @modules = sort {
-        my $aDependsB =  $anyDependencyByModule{$a} eq $b ? 1 : 0;
-        my $bDependsA =  $anyDependencyByModule{$b} eq $a ? 1 : 0;
-
-        $aDependsB <=> $bDependsA;
-    } @modules;
-
-    return \@modules;
+    return __PACKAGE__->sortModulesByDependencies(
+        $mods, 
+        'enableModDepends'
+       );
 }
 
 sub prepareSaveAllModules
@@ -805,6 +787,54 @@ sub modRevDepends # (module)
         }
         return \@revdeps;
 }
+
+sub sortModulesByDependencies
+{
+    my ($package, $modules_r, $dependenciesMethod) = @_;
+
+    my @modules = @{ $modules_r };
+
+    my $i =0;
+    while ($i < @modules) {
+        my $mod = $modules[$i];
+        my @depends = ();
+        if ($mod->can($dependenciesMethod)) {
+            @depends  = @{ $mod->$dependenciesMethod() };
+        }
+
+        my $depOk = 1;
+
+        foreach my $dependency (@depends) {
+            my $depFound = 0;
+            foreach my $j (0 .. $i) {
+                if ($i == $j) {
+                    # for $i ==0 case
+                    last;
+                } elsif ($modules[$j]->name() eq $dependency) {
+                    $depFound = 1;
+                    last;
+                }
+            }
+
+            if (not $depFound) {
+                $depOk = 0;
+                last;
+            }
+        }
+
+        if ($depOk) {
+            $i += 1;
+        } else {
+            my $unreadyMod = splice @modules, $i, 1;
+            push @modules, $unreadyMod;
+        }
+
+    }
+
+    return \@modules;
+
+}
+
 
 #
 # Method: setLocale

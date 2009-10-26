@@ -1247,53 +1247,12 @@ sub _modInstancesForRestore
 
   }
   
-  my $sortedModules = $self->_sortModuleByDependency(\@modules);
+  my $sortedModules = EBox::Global->sortModulesByDependencies(
+                                              \@modules,
+                                             'restoreDependencies', 
+                                             );
   return $sortedModules;
 }
-
-
-sub _sortModuleByDependency
-{
-    my ($self, $modules_r) = @_;
-    my @modules = @{ $modules_r };
-
-    my $i =0;
-    while ($i < @modules) {
-        my $mod = $modules[$i];
-        my @depends = @{ $mod->restoreDependencies() };
-        my $depOk = 1;
-
-        foreach my $dependency (@depends) {
-            my $depFound = 0;
-            foreach my $j (0 .. $i) {
-                if ($i == $j) {
-                    # for $i ==0 case
-                    last;
-                } elsif ($modules[$j]->name() eq $dependency) {
-                    $depFound = 1;
-                    last;
-                }
-            }
-
-            if (not $depFound) {
-                $depOk = 0;
-                last;
-            }
-        }
-
-        if ($depOk) {
-            $i += 1;
-        } else {
-            my $unreadyMod = splice @modules, $i, 1;
-            push @modules, $unreadyMod;
-        }
-
-    }
-
-    return \@modules;
-}
-
-
 
 sub _modulesInBackup
 {
