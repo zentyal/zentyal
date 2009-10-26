@@ -175,7 +175,7 @@ sub viewCustomizer
                         disable => [ 'port', 'username', 'adpass', 'secret' ],
                     },
                   'ad-slave' => {
-                        enable  => [ 'remote', 'password', 'username', 'addpass', 'port', 'secret' ],
+                        enable  => [ 'remote', 'password', 'username', 'adpass', 'port', 'secret' ],
                     },
                 }
             });
