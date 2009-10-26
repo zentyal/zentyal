@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: Do not set configuration for those interfaces which do
+	  not have ranges nor fixed address mapping configured
 1.1.20
 	+ New release
 1.1.10

@@ -4,9 +4,10 @@
 Parameters:
 
     ifaces - Hash
-    real_ifaces - Hash
+    real_ifaces - Hash containing the interface name as key and an 
+                  array ref containing the virtual interface names as value
     thinClientOption - Boolean indicating whether the thin client
-    options have been used or not
+                       options have been used or not
     dnsone - String the default primary DNS server
     dnstwo - String the default secondary DNS server
 </%doc>
@@ -45,6 +46,14 @@ allow bootp;
 default-lease-time 1800;
 max-lease-time 7200;
 
-%	foreach my $iface (keys(%real_ifaces)) {
+<%perl>
+	foreach my $iface (keys(%real_ifaces)) {
+           # Write configuration if there are any range or fixed addresses
+           my @ifacesToCheck = @{$real_ifaces{$iface}};
+           push(@ifacesToCheck, $iface);
+           my $nIfaceToWrite = grep { @{$ifaces{$_}->{ranges}} > 0 or @{$ifaces{$_}->{fixed}} > 0 } @ifacesToCheck;
+           if ( $nIfaceToWrite > 0) {
+</%perl>
 <& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, vifaces => $real_ifaces{$iface} &>
+%          }
 %	}
