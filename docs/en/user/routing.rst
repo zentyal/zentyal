@@ -133,7 +133,7 @@ To do so:
    Access the eBox interface, enter :menuselection:`Network --> Interfaces` and,
    for the :guilabel:`network interface` *eth0*, select the :guilabel:*Static*
    `method`. As the :guilabel:`IP address`, enter that indicated by the
-   instructor.  As the :guilabel:`Netmask`, use 255.255.255.255.0. Click on the
+   instructor.  As the :guilabel:`Netmask`, use 255.255.255.0. Click on the
    :guilabel:`Change` button.
 
    The network address will be of the form 10.1.X.Y, where 10.1.X corresponds to

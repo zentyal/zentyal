@@ -94,7 +94,7 @@ Para ello:
    Interfaces` y seleccionar para el :guilabel:`interfaz de red`
    *eth0* el :guilabel:`método` *Estático*.  Como :guilabel:`dirección
    IP` introducir la que indique el instructor.  Como
-   :guilabel:`Máscara de red` 255.255.255.255.0. Pulsar el botón
+   :guilabel:`Máscara de red` 255.255.255.0. Pulsar el botón
    :guilabel:`Cambiar`.
 
    La dirección de red tendrá la forma 10.1.X.Y, dónde 10.1.X corresponde con
