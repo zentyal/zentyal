@@ -153,6 +153,8 @@ sub usedFiles
                     'module' => 'users'
                 },
         ];
+    } else {
+        return [];
     }
 }
 

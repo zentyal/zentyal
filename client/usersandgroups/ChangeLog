@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: return empty array in usedFiles if it's not master mode
 1.3.8
 	+ Bugfix: fixed wrong disable of fields in selecting ad-slave in Mode model
 1.3.7
