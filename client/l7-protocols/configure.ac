@@ -1,4 +1,4 @@
-AC_INIT([EBox-l7-protocols], [1.3.8])
+AC_INIT([EBox-l7-protocols], [1.3.9])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/L7Protocols.pm])
