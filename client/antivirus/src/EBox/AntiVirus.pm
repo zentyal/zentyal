@@ -258,6 +258,7 @@ sub _setConf
 
   $self->writeConfFile(CLAMD_CONF_FILE, "antivirus/clamd.conf.mas", \@clamdParams);
 
+  $self->disableApparmorProfile('usr.sbin.clamd');
 
 
   my $observerScript = EBox::Config::share() . '/ebox-antivirus/' .  FRESHCLAM_OBSERVER_SCRIPT;
