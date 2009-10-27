@@ -169,14 +169,7 @@ sub enableActions
     my $mode = mode();
 
     if ($mode eq 'slave') {
-        if ( -f '/etc/init.d/apparmor' ) {
-            if (-f '/etc/apparmor.d/usr.sbin.slapd') {
-                my $cmd = 'ln -s /etc/apparmor.d/usr.sbin.slapd ' .
-                          '/etc/apparmor.d/disabled/usr.sbin.slapd';
-                EBox::Sudo::root($cmd);
-                EBox::Sudo::root('invoke-rc.d apparmor restart');
-            }
-        }
+        $self->disableApparmorProfile('usr.sbin.slapd');
 
         EBox::Sudo::root("invoke-rc.d slapd stop");
         EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default.no /etc/default/slapd");
