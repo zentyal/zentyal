@@ -725,4 +725,29 @@ sub certificates
     return [];
 }
 
+# Method: disableApparmorProfile
+#
+#   This method is used to disable a given
+#   apparmor profile.
+#
+#   It does nothing if apparmor or the profile
+#   are not installed.
+#
+# Parameters:
+#
+#   string - apparmor profile
+sub disableApparmorProfile
+{
+    my ($self, $profile) = @_;
+
+    if ( -f '/etc/init.d/apparmor' ) {
+        if (-f "/etc/apparmor.d/$profile") {
+            my $cmd = "ln -s /etc/apparmor.d/$profile " .
+                "/etc/apparmor.d/disabled/$profile";
+            EBox::Sudo::root($cmd);
+            EBox::Sudo::root('invoke-rc.d apparmor restart');
+        }
+    }
+}
+
 1;
