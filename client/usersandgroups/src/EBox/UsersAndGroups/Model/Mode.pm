@@ -115,7 +115,7 @@ sub _table
             printableName => __('AD Secret Key'),
             editable => 1,
             optional => 1,
-            help => __('Secret key to be chared between Windows and eBox (16 chars)')
+            help => __('Secret key to be shared between Windows and eBox (16 chars)')
         )
     );
 
