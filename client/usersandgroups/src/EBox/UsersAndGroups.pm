@@ -200,6 +200,7 @@ sub _setConf
 
     my $soapfile = EBox::Config::conf() . "/apache-soap-slave";
     if( ( $mode eq 'slave' ) and ( not -f $soapfile ) ) {
+        $self->disableApparmorProfile('usr.sbin.slapd');
         my $apache = EBox::Global->modInstance('apache');
         EBox::Module::Base::writeConfFileNoCheck($soapfile,
             'usersandgroups/soap-slave.mas',
