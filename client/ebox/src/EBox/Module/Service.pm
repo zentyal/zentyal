@@ -740,10 +740,11 @@ sub disableApparmorProfile
 {
     my ($self, $profile) = @_;
 
-    if ( -f '/etc/init.d/apparmor' ) {
-        if (-f "/etc/apparmor.d/$profile") {
-            my $cmd = "ln -s /etc/apparmor.d/$profile " .
-                "/etc/apparmor.d/disabled/$profile";
+    if ( -f '/etc/init.d/apparmor' and -d '/etc/apparmor.d/disable' ) {
+        my $profPath = "/etc/apparmor.d/$profile";
+        my $disPath = "/etc/apparmor.d/disable/$profile";
+        if (-f $profPath and not -f $disPath) {
+            my $cmd = "ln -s $profPath $disPath";
             EBox::Sudo::root($cmd);
             EBox::Sudo::root('invoke-rc.d apparmor restart');
         }
