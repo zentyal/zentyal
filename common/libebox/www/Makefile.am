@@ -4,7 +4,7 @@ wwwdir = $(datadir)/ebox/www
 
 images = images/delete.gif images/show.gif \
   images/help.gif images/hide.gif \
-  images/logintro.png images/title.gif \
+  images/logintro.png images/title.png \
   images/up.gif images/down.gif images/add.gif images/left.gif \
   images/sep.gif images/apply.gif images/warning.gif images/right.gif \
   images/error.gif images/msg.gif \
