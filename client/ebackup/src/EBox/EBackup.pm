@@ -251,8 +251,17 @@ sub remoteListFileArguments
     return "RSYNC_PASSWORD='$pass' FTP_PASSWORD='$pass' duplicity list-current-files " . $self->_remoteUrl();
 }
 
-
-
+# Method: remoteStatus
+#
+#  Return the status of the remote backup.
+#  Cached for 1000 seconds.
+#
+# Returns:
+#
+#  Array ref of hash refs containing:
+#
+#  type - full or incremental backup
+#  date - backup date
 sub remoteStatus
 {
     my ($self) = @_;
@@ -286,11 +295,23 @@ sub remoteStatus
     return \@status;
 }
 
+# Method: tmpCurrentStatus
+#
+#   Return the patch to store the temporary current status cache
+#
+# Returns:
+#
+#   string
 sub tmpCurrentStatus
 {
     return EBox::Config::tmp() . "backupstatus-cache";
 }
 
+# Method: remoteGenerateStatusCache
+#
+#   Generate a current status cache. This is to be called
+#   from a crontab script
+#
 sub remoteGenerateStatusCache
 {
     my ($self) = @_;
@@ -304,11 +325,26 @@ sub remoteGenerateStatusCache
     } otherwise {};
 }
 
+# Method: tmpFileList
+#
+#   Return the patch to store the temporary remote file list
+#
+# Returns:
+#
+#   string
 sub tmpFileList
 {
     return EBox::Config::tmp() . "backuplist-cache";
 }
 
+# Method: remoteListFilis
+#
+#  Return the list of the remote backuped files
+#
+# Returns:
+#
+#  Array ref of strings containing the file path
+#
 sub remoteListFiles
 {
     my ($self) = @_;
@@ -330,6 +366,11 @@ sub remoteListFiles
     return $self->{files};
 }
 
+# Method: setRemoteBackupCrontab
+#
+#   configure crantab according to user configuration
+#   to call our backup script
+#
 sub setRemoteBackupCrontab
 {
     my ($self) = @_;
