@@ -195,6 +195,8 @@ sub modelClasses
                'EBox::Samba::Model::DeletedSambaShares',
                'EBox::Samba::Model::AntivirusDefault',
                'EBox::Samba::Model::AntivirusExceptions',
+               'EBox::Samba::Model::RecycleDefault',
+               'EBox::Samba::Model::RecycleExceptions',
            ];
 
 }
@@ -213,6 +215,7 @@ sub compositeClasses
     return [
              'EBox::Samba::Composite::General',
              'EBox::Samba::Composite::Antivirus',
+             'EBox::Samba::Composite::RecycleBin',
            ];
 }
 

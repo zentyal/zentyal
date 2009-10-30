@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Samba/Composite
 
-nobase_perl_DATA = General.pm Antivirus.pm
+nobase_perl_DATA = General.pm Antivirus.pm RecycleBin.pm
 
 DISTCLEANFILES =
 

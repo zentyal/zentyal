@@ -13,37 +13,35 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Samba::Composite::General;
+package EBox::Samba::Composite::RecycleBin;
 
 use base 'EBox::Model::Composite';
 
 use strict;
 use warnings;
 
-## eBox uses
 use EBox::Gettext;
+use EBox::Global;
 
 # Group: Public methods
 
 # Constructor: new
 #
-#         Constructor for the general events composite
+#      Constructor for the Recycle composite
 #
 # Returns:
 #
-#       <EBox::Samba::Composite::General> - a
-#       general events composite
+#      <EBox::Samba::Composite::Recycle> - the recently created model
 #
 sub new
 {
+    my ($class) = @_;
 
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
+    my $self = $class->SUPER::new();
 
     return $self;
-
 }
+
 
 # Group: Protected methods
 
@@ -51,29 +49,21 @@ sub new
 #
 # Overrides:
 #
-#     <EBox::Model::Composite::_description>
+#       <EBox::Model::Composite::_description>
 #
 sub _description
 {
     my $description =
-        {
-            components      => [
-                                'samba/GeneralSettings',
-                                'PDC',
-                                'SambaShares',
-                                'RecycleBin',
-                               ],
-            layout          => 'tabbed',
-            name            =>  __PACKAGE__->nameFromClass,
-            printableName   => __('File sharing options'),
-            compositeDomain => 'Samba',
-#           help            => __(''),
-        };
-
-    my $samba = EBox::Global->modInstance('samba');
-    if ($samba->isAntivirusPresent()) {
-        push(@{$description->{'components'}}, 'samba/Antivirus');
-    }
+    {
+        components      => [
+                               'samba/RecycleDefault',
+                               'samba/RecycleExceptions',
+                           ],
+        layout          => 'top-bottom',
+        name            => __PACKAGE__->nameFromClass,
+        printableName   => __('Recycle Bin'),
+        compositeDomain => 'samba',
+    };
 
     return $description;
 }
