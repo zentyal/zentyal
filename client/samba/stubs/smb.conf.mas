@@ -105,9 +105,9 @@ use EBox::Gettext;
  browseable = No
 % my $av = ($antivirus xor defined($antivirus_exceptions{'users'}));
 % my $rb = ($recycle xor defined($recycle_exceptions{'users'}));
-% my $objects = '';
+% my $objects = 'full_audit';
 % if ($av) {
-%   $objects .= ' full_audit vscan-clamav';
+%   $objects .= ' vscan-clamav';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
@@ -133,9 +133,9 @@ use EBox::Gettext;
  browseable = Yes
 % my $av = ($antivirus xor defined($antivirus_exceptions{'group'}->{$group->{'sharename'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions{'group'}->{$group->{'sharename'}}));
-% my $objects = '';
+% my $objects = ' full_audit';
 % if ($av) {
-%   $objects .= ' full_audit vscan-clamav';
+%   $objects .= ' vscan-clamav';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
@@ -176,9 +176,9 @@ use EBox::Gettext;
  force directory mode = 0660
 % my $av = ($antivirus xor defined($antivirus_exceptions{'share'}->{$share->{'share'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions{'share'}->{$share->{'share'}}));
-% my $objects = '';
+% my $objects = 'full_audit';
 % if ($av) {
-%   $objects .= ' full_audit vscan-clamav';
+%   $objects .= ' vscan-clamav';
 % }
 % if ($rb) {
 %   $objects .= ' recycle';
