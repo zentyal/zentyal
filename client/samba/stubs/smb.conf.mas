@@ -16,6 +16,7 @@
     %antivirus_exceptions
     $recycle
     %recycle_exceptions
+    $recycle_config
     $drive
 </%args>
 <%init>
@@ -112,12 +113,15 @@ use EBox::Gettext;
 % if ($rb) {
 %   $objects .= ' recycle';
 % }
- vfs objects =<% $objects %>
+ vfs objects = <% $objects %>
 % if ($av) {
  vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
 % }
 % if ($rb) {
- recycle: config-file = /etc/samba/recycle.conf
+%   foreach my $key (keys %{$recycle_config}) {
+%     next unless $key;
+ recycle: <% $key %> = <% $recycle_config->{$key} %>
+%    }
 % }
 
 % foreach my $group (@dirgroup) {
@@ -140,12 +144,15 @@ use EBox::Gettext;
 % if ($rb) {
 %   $objects .= ' recycle';
 % }
- vfs objects =<% $objects %>
+ vfs objects = <% $objects %>
 % if ($av) {
  vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
 % }
 % if ($rb) {
- recycle: config-file = /etc/samba/recycle.conf
+%   foreach my $key (keys %{$recycle_config}) {
+%     next unless $key;
+ recycle: <% $key %> = <% $recycle_config->{$key} %>
+%    }
 % }
 %
 % }
@@ -183,12 +190,15 @@ use EBox::Gettext;
 % if ($rb) {
 %   $objects .= ' recycle';
 % }
- vfs objects =<% $objects %>
+ vfs objects = <% $objects %>
 % if ($av) {
  vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
 % }
 % if ($rb) {
- recycle: config-file = /etc/samba/recycle.conf
+%   foreach my $key (keys %{$recycle_config}) {
+%     next unless $key;
+ recycle: <% $key %> = <% $recycle_config->{$key} %>
+%    }
 % }
 %
 % }

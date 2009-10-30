@@ -50,7 +50,6 @@ use Sys::Hostname;
 
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
 use constant CLAMAVSMBCONFFILE    => '/etc/samba/vscan-clamav.conf';
-use constant RECYCLESMBCONFFILE   => '/etc/samba/recycle.conf';
 use constant LIBNSSLDAPFILE       => '/etc/ldap.conf';
 use constant SMBLDAPTOOLBINDFILE  => '/etc/smbldap-tools/smbldap_bind.conf';
 use constant SMBLDAPTOOLBINDFILE_MASK => '0600';
@@ -159,11 +158,6 @@ sub usedFiles
         'reason' => __('To set the antivirus settings for Samba'),
         'module' => 'samba'
     },
-    {
-        'file' => '/etc/samba/recycle.conf',
-        'reason' => __('To set the recycle bin settings for Samba'),
-        'module' => 'samba'
-    }
     ];
 }
 
@@ -360,6 +354,24 @@ sub recycleExceptions
     return $exceptions;
 }
 
+sub recycleConfig
+{
+    my ($self) = @_;
+
+    my $conf = {};
+    my @keys = ('repository', 'directory_mode', 'keeptree', 'versions',
+                'maxsize', 'exclude', 'excludedir', 'noversions');
+
+    foreach my $key (@keys) {
+        my $value = EBox::Config::configkey($key);
+        if ($value) {
+            $conf->{$key} = $value;
+        }
+    }
+
+    return $conf;
+}
+
 sub _exposedMethods
 {
     return {
@@ -473,11 +485,12 @@ sub _setConf
     push(@array, 'antivirus_exceptions' => $self->antivirusExceptions());
     push(@array, 'recycle' => $self->defaultRecycleSettings());
     push(@array, 'recycle_exceptions' => $self->recycleExceptions());
+    push(@array, 'recycle_config' => $self->recycleConfig());
+
 
     $self->writeConfFile(SMBCONFFILE, "samba/smb.conf.mas", \@array);
 
     $self->writeConfFile(CLAMAVSMBCONFFILE, "samba/vscan-clamav.conf.mas", \@array);
-    $self->writeConfFile(RECYCLESMBCONFFILE, "samba/recycle.conf.mas", \());
 
     root(EBox::Config::share() . '/ebox-samba/ebox-setadmin-pass');
 
