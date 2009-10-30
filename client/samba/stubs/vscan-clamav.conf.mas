@@ -5,17 +5,17 @@
 
 ; do not scan files larger than X bytes. If set to 0 (default),
 ; this feature is disable (i.e. all files are scanned)
-max file size = 0 
+max file size = 0
 
 ; log all file access (yes/no). If set to yes, every access will
 ; be logged. If set to no (default), only access to infected files
 ; will be logged
-verbose file logging = no  
+verbose file logging = no
 
 ; if set to yes (default), a file will be scanned while opening
 scan on open = yes
 ; if set to yes, a file will be scanned while closing (default is yes)
-scan on close = yes 
+scan on close = yes
 
 ; if communication to clamd fails, should access to file denied?
 ; (default: yes)
