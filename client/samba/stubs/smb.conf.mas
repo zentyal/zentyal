@@ -1,27 +1,28 @@
 <%args>
-	$pdc => 1
-	$netbios
-	$workgroup
-	$desc
-	$ifaces
-	$ldap
-	@dirgroup
-	@printers
-	$active_printer
-	$active_file
-	$backup_path
-	$quarantine_path
-	$roaming
-	@shares
+    $pdc => 1
+    $netbios
+    $workgroup
+    $desc
+    $ifaces
+    $ldap
+    @dirgroup
+    @printers
+    $active_printer
+    $backup_path
+    $quarantine_path
+    $roaming
+    @shares
     $antivirus
     %antivirus_exceptions
+    $recycle
+    %recycle_exceptions
     $drive
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
 [global]
- workgroup = <% $workgroup %> 
+ workgroup = <% $workgroup %>
  netbios name = <% $netbios %>
  server string = <% $desc %>
  enable privileges = yes
@@ -45,7 +46,7 @@ use EBox::Gettext;
  ldap suffix = <% $ldap->{'dn'} %>
  ldap machine suffix = ou=Computers
  ldap user suffix =  <% $ldap->{'users'} %>
- ldap group suffix =  <% $ldap->{'groups'} %> 
+ ldap group suffix =  <% $ldap->{'groups'} %>
  ldap idmap suffix = ou=Idmap
  ldap admin dn = <% $ldap->{'rootdn'} %>
  map acl inherit = Yes
@@ -60,10 +61,10 @@ use EBox::Gettext;
  logon script = logon.bat
  logon drive = <% $drive %>
  logon home =
-%  if ($roaming) {
+% if ($roaming) {
  logon path = \\<% $netbios %>\profiles\%U
 % } else {
- logon path = 
+ logon path =
 % }
 
  domain logons = Yes
@@ -73,64 +74,84 @@ use EBox::Gettext;
  add user script = /usr/sbin/smbldap-useradd -m "%u"
  ldap delete dn = Yes
  add machine script = /usr/sbin/smbldap-useradd -w "%u"
- add group script = /usr/sbin/smbldap-groupadd -p "%g" 
+ add group script = /usr/sbin/smbldap-groupadd -p "%g"
  add user to group script = /usr/sbin/smbldap-groupmod -m "%u" "%g"
  delete user from group script = /usr/sbin/smbldap-groupmod -x "%u" "%g"
  set primary group script = /usr/sbin/smbldap-usermod -g "%g" "%u"
 
-% if ($active_file) { 
- [netlogon]
-        path = /home/samba/netlogon/
-	browseable = No
-        read only = yes
+[netlogon]
+ path = /home/samba/netlogon/
+ browseable = No
+ read only = yes
 
- [profiles]
-        path = /home/samba/profiles
-        read only = no
-        create mask = 0600
-        directory mask = 0700
-        browseable = No
-        guest ok = Yes
-        profile acls = yes
-        csc policy = disable
-        valid users = %U
-	admin users = @"Domain Admins"
+[profiles]
+ path = /home/samba/profiles
+ read only = no
+ create mask = 0600
+ directory mask = 0700
+ browseable = No
+ guest ok = Yes
+ profile acls = yes
+ csc policy = disable
+ valid users = %U
+ admin users = @"Domain Admins"
 
-%  }
 % }
 
-% if ($active_file) { 
 [homes]
  comment = <% __('Home Directories') %>
  valid users = %S
  read only = No
  browseable = No
-% if ($antivirus xor defined($antivirus_exceptions{'users'})) {
- vfs objects = full_audit vscan-clamav
+% my $av = ($antivirus xor defined($antivirus_exceptions{'users'}));
+% my $rb = ($recycle xor defined($recycle_exceptions{'users'}));
+% my $objects = '';
+% if ($av) {
+%   $objects .= ' full_audit vscan-clamav';
+% }
+% if ($rb) {
+%   $objects .= ' recycle';
+% }
+ vfs objects =<% $objects %>
+% if ($av) {
  vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
 % }
+% if ($rb) {
+ recycle: config-file = /etc/samba/recycle.conf
+% }
 
-% 	foreach my $group (@dirgroup) {
+% foreach my $group (@dirgroup) {
 [<% $group->{'sharename'} %>]
-    comment = "<% __x('{group} share directory', group => $group->{'groupname'}) %>"
-	path = <% $group->{'path'} %>
-	valid users = @"<% $group->{'groupname'} %>"
-	force group = "<% $group->{'groupname'} %>"
-	force create mode = 0660
-	force directory mode = 0660
-	printable = No
-	read only = No
-	browseable = Yes
-% if ($antivirus xor defined(
-%      $antivirus_exceptions{'group'}->{$group->{'sharename'}})) {
- vfs objects = full_audit vscan-clamav
+ comment = "<% __x('{group} share directory', group => $group->{'groupname'}) %>"
+ path = <% $group->{'path'} %>
+ valid users = @"<% $group->{'groupname'} %>"
+ force group = "<% $group->{'groupname'} %>"
+ force create mode = 0660
+ force directory mode = 0660
+ printable = No
+ read only = No
+ browseable = Yes
+% my $av = ($antivirus xor defined($antivirus_exceptions{'group'}->{$group->{'sharename'}}));
+% my $rb = ($recycle xor defined($recycle_exceptions{'group'}->{$group->{'sharename'}}));
+% my $objects = '';
+% if ($av) {
+%   $objects .= ' full_audit vscan-clamav';
+% }
+% if ($rb) {
+%   $objects .= ' recycle';
+% }
+ vfs objects =<% $objects %>
+% if ($av) {
  vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
 % }
+% if ($rb) {
+ recycle: config-file = /etc/samba/recycle.conf
 % }
+%
 % }
 
-% if ($active_printer) { 
-% 	foreach my $printer (@printers) {
+% if ($active_printer) {
+%   foreach my $printer (@printers) {
 %               next unless (length $printer->{'users'} > 0);
 [<% $printer->{'name'} %>]
  path  = /var/spool/samba
@@ -138,7 +159,7 @@ use EBox::Gettext;
  printable     =    yes
  valid users   = <% $printer->{'users'} %>
 # guest ok = yes
-% 	}
+%   }
 % }
 
 % foreach my $share (@shares) {
@@ -153,17 +174,29 @@ use EBox::Gettext;
  browseable = Yes
  force create mode = 0660
  force directory mode = 0660
-% if ($antivirus xor defined($antivirus_exceptions{'share'}->{$share->{'share'}})) {
- vfs objects = full_audit vscan-clamav
+% my $av = ($antivirus xor defined($antivirus_exceptions{'share'}->{$share->{'share'}}));
+% my $rb = ($recycle xor defined($recycle_exceptions{'share'}->{$share->{'share'}}));
+% my $objects = '';
+% if ($av) {
+%   $objects .= ' full_audit vscan-clamav';
+% }
+% if ($rb) {
+%   $objects .= ' recycle';
+% }
+ vfs objects =<% $objects %>
+% if ($av) {
  vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
+% }
+% if ($rb) {
+ recycle: config-file = /etc/samba/recycle.conf
 % }
 %
 % }
 
 
 [ebox-internal-backups]
- path = <% $backup_path %> 
- read only = No 
+ path = <% $backup_path %>
+ read only = No
  valid users = @"Domain Admins"
  admin users = @"Domain Admins"
  force group = ebox
@@ -171,7 +204,7 @@ use EBox::Gettext;
  browseable = Yes
 
 [ebox-quarantine]
- path = <% $quarantine_path %> 
+ path = <% $quarantine_path %>
  read only = No
  valid users = @"Domain Admins"
  admin users = @"Domain Admins"
@@ -186,5 +219,4 @@ use EBox::Gettext;
  write list = @"Domain Admins"
  use client driver = yes
  valid users = "@Domain Users"
-
 

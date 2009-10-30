@@ -177,7 +177,7 @@ sub _checkConfig
   my $samba = EBox::Global->modInstance('samba');
   my $users = EBox::Global->modInstance('users');
 
-  ok $samba->fileService(), 'Checking that file service was restored';
+  ok $samba->isEnabled(), 'Checking that file service was restored';
 #  ok !$users->userExists($TEST_USER_LEFTOVER), "checking that user added after backup does not exists";
 
   my $homedir = $users->userInfo($TEST_USER)->{homeDirectory};

@@ -50,6 +50,7 @@ use Sys::Hostname;
 
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
 use constant CLAMAVSMBCONFFILE    => '/etc/samba/vscan-clamav.conf';
+use constant RECYCLESMBCONFFILE   => '/etc/samba/recycle.conf';
 use constant LIBNSSLDAPFILE       => '/etc/ldap.conf';
 use constant SMBLDAPTOOLBINDFILE  => '/etc/smbldap-tools/smbldap_bind.conf';
 use constant SMBLDAPTOOLBINDFILE_MASK => '0600';
@@ -156,6 +157,11 @@ sub usedFiles
     {
         'file' => '/etc/samba/vscan-clamav.conf',
         'reason' => __('To set the antivirus settings for Samba'),
+        'module' => 'samba'
+    },
+    {
+        'file' => '/etc/samba/recycle.conf',
+        'reason' => __('To set the recycle bin settings for Samba'),
         'module' => 'samba'
     }
     ];
@@ -324,6 +330,36 @@ sub antivirusExceptions
     return $exceptions;
 }
 
+sub defaultRecycleSettings
+{
+    my ($self) = @_;
+    my $recycle = $self->model('RecycleDefault');
+    return $recycle->row()->valueByName('enabled');
+}
+
+sub recycleExceptions
+{
+    my ($self) = @_;
+    my $model = $self->model('RecycleExceptions');
+    my $exceptions = {
+        'share' => {},
+        'group' => {},
+    };
+
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $element = $row->elementByName('user_group_share');
+        my $type = $element->selectedType();
+        if ($type eq 'users') {
+            $exceptions->{'users'} = 1;
+        } else {
+            my $value = $element->printableValue();
+            $exceptions->{$type}->{$value} = 1;
+        }
+    }
+    return $exceptions;
+}
+
 sub _exposedMethods
 {
     return {
@@ -427,7 +463,6 @@ sub _setConf
     push(@array, 'dirgroup'  => $smbimpl->groupShareDirectories);
     push(@array, 'ifaces'    => $interfaces);
     push(@array, 'printers'  => $self->_sambaPrinterConf());
-    push(@array, 'active_file' => $self->fileService());
     push(@array, 'active_printer' => $self->printerService());
     push(@array, 'pdc' => $self->pdc());
     push(@array, 'roaming' => $self->roamingProfiles());
@@ -436,10 +471,13 @@ sub _setConf
     push(@array, 'shares' => $self->shares());
     push(@array, 'antivirus' => $self->defaultAntivirusSettings());
     push(@array, 'antivirus_exceptions' => $self->antivirusExceptions());
+    push(@array, 'recycle' => $self->defaultRecycleSettings());
+    push(@array, 'recycle_exceptions' => $self->recycleExceptions());
 
     $self->writeConfFile(SMBCONFFILE, "samba/smb.conf.mas", \@array);
 
     $self->writeConfFile(CLAMAVSMBCONFFILE, "samba/vscan-clamav.conf.mas", \@array);
+    $self->writeConfFile(RECYCLESMBCONFFILE, "samba/recycle.conf.mas", \());
 
     root(EBox::Config::share() . '/ebox-samba/ebox-setadmin-pass');
 
@@ -679,39 +717,6 @@ sub menu
                                     'separator' => 'Office',
                                     'order' => 540));
 }
-
-#   Function: setFileService
-#
-#       Sets the file sharing service through samba
-#
-#   Parameters:
-#
-#       enabled - boolean. True enable, undef disable
-#
-sub setFileService # (enabled)
-{
-    my ($self, $active) = @_;
-    ($active and $self->fileService) and return;
-    (!$active and !$self->fileService) and return;
-
-    $self->enableService($active);
-}
-
-#   Function: fileService
-#
-#       Returns if the file sharing service is enabled
-#
-#   Returns:
-#
-#       boolean - true if enabled, otherwise undef
-#
-sub fileService
-{
-    my ($self) = @_;
-
-    return $self->isEnabled();
-}
-
 
 #   Function: setPrinterService
 #
