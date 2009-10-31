@@ -1,4 +1,5 @@
 HEAD
+	+ bugfix: ignore case when comparing domain and netbios names
 	+ Added support for Recycle Bin in shares
 1.3.7
 	+ Create .V2 profile directories. Windows Vista looks for them.

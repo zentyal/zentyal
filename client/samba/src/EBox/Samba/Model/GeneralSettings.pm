@@ -68,7 +68,7 @@ sub validateTypedRow
                            $newParams->{'workgroup'}->value() :
                            $oldParams->{'workgroup'}->value();
 
-    if ($netbios eq $workgroup) {
+    if (uc($netbios) eq uc($workgroup)) {
         throw EBox::Exceptions::External(
                 __('Netbios and workgroup must have different names'));
     }
@@ -213,7 +213,7 @@ sub _samba_group
 
     my @sortedGroups = sort { $a->{account} cmp $b->{account} }  $users->groups();
     for my $group (@sortedGroups) {
-        push (@groups, { value => $group->{gid}, 
+        push (@groups, { value => $group->{gid},
                 printableValue => $group->{account} });
     }
     return \@groups;
