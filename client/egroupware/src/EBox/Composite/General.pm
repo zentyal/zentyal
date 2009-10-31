@@ -75,7 +75,7 @@ sub _description
             name            =>  __PACKAGE__->nameFromClass,
             printableName   => __('eGroupware Configuration'),
             compositeDomain => 'EGroupware',
-#           help            => __(''),
+            help            => __('Once the module is enabled and you have created a user account, you can access the eGroupware web interface at http://<ebox_ip>/egroupware'),
         };
 
     return $description;
