@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Warp Networks S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,14 +16,13 @@
 
 # Class:
 #
-#   EBox::DNS::Model::MailExchanger
+#   <EBox::DNS::Model::NameServer>
 #
 #   This class inherits from <EBox::Model::DataTable> and represents
-#   the object table which contains the mail exchangers for a domain
-#   with its preference value. A member of
-#   <EBox::DNS::Model::DomainTable>
+#   the object table which contains the nameservers for a domain, that
+#   is, its NS records . A member of <EBox::DNS::Model::DomainTable>
 #
-package EBox::DNS::Model::MailExchanger;
+package EBox::DNS::Model::NameServer;
 
 use base 'EBox::Model::DataTable';
 
@@ -31,31 +31,20 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Validate qw(:all);
-use EBox::Exceptions::External;
-use EBox::Exceptions::DataExists;
 
 use EBox::Types::DomainName;
-use EBox::Types::Int;
 use EBox::Types::Select;
 use EBox::Types::Union;
-
-use EBox::Model::ModelManager;
-
-use constant {
-    MIN_PREFERENCE_NUM => 0,
-    MAX_PREFERENCE_NUM => 65535,
-};
 
 # Group: Public methods
 
 # Constructor: new
 #
-#      Create a new MailExchanger model instance
+#      Create a new NameServer model instance
 #
 # Returns:
 #
-#      <EBox::DNS::Model::MailExchanger> - the newly created model
+#      <EBox::DNS::Model::NameServer> - the newly created model
 #      instance
 #
 sub new
@@ -70,7 +59,7 @@ sub new
 
 # Method: validateTypedRow
 #
-#   Check the preference number is a valid one
+#   Check the given custom name is a Fully Qualified Domain Name (FQDN)
 #
 # Overrides:
 #
@@ -80,14 +69,6 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{preference} ) {
-        my $prefVal = $changedFields->{preference}->value();
-        unless ( $prefVal > MIN_PREFERENCE_NUM and $prefVal < MAX_PREFERENCE_NUM ) {
-            throw EBox::Exceptions::External(__x('Invalid preference number. Allowed range: ({min}, {max})',
-                                                 min => MIN_PREFERENCE_NUM,
-                                                 max => MAX_PREFERENCE_NUM));
-        }
-    }
     if ( exists $changedFields->{hostName} ) {
         if ( $changedFields->{hostName}->selectedType() eq 'custom' ) {
             my $val = $changedFields->{hostName}->value();
@@ -95,14 +76,14 @@ sub validateTypedRow
             unless ( @parts > 2 ) {
                 throw EBox::Exceptions::External(__x('The given host name '
                                                      . 'is not a fully qualified domain name (FQDN). '
-                                                     . 'Do you mean mx.{name}?',
+                                                     . 'Do you mean ns.{name}?',
                                                      name => $val));
             }
         }
     }
 
-
 }
+
 
 # Group: Protected methods
 
@@ -140,34 +121,24 @@ sub _table
                                           printableName => __('Custom'),
                                           editable      => 1,
                                           unique        => 1,
-                                                             ),
+                                         ),
                                  ],
-                                ),
-            new EBox::Types::Int(
-                                 fieldName     => 'preference',
-                                 printableName => __('Preference'),
-                                 editable      => 1,
-                                 defaultValue  => 10,
                                 ),
       );
 
     my $dataTable =
         {
-            tableName => 'MailExchanger',
-            printableTableName => __('Mail exchangers'),
+            tableName => 'NameServer',
+            printableTableName => __('Name servers'),
             automaticRemove => 1,
             modelDomain     => 'DNS',
-            defaultActions => ['add', 'del', 'editField',  'changeView' ],
+            defaultActions => ['add', 'del', 'move', 'editField',  'changeView' ],
             tableDescription => \@tableDesc,
             class => 'dataTable',
-            help => __x('The smallest preference number has the highest priority '
-                        . ' and is the first server to be tried when a remote client '
-                        . '(typically another mail server) does an MX lookup for the '
-                        . 'domain name. Allowed preference number interval = ({min}, {max})',
-                        min => MIN_PREFERENCE_NUM,
-                        max => MAX_PREFERENCE_NUM),
-            printableRowName => __('Mail exchanger record'),
-            sortedBy => 'preference',
+            help => __('It manages the name server (NS) records for this domain'),
+            printableRowName => __('name server record'),
+            order => 1,
+            insertPosition => 'back',
         };
 
     return $dataTable;
@@ -184,7 +155,7 @@ sub _hostnameModel
     my $model = EBox::Global->modInstance('dns')->model('HostnameTable');
     my $dir = $type->model()->directory();
     # Substitute mailExchangers name for hostnames to set the correct directory in hostname table
-    $dir =~ s:mailExchangers:hostnames:g;
+    $dir =~ s:nameServers:hostnames:g;
     $model->setDirectory($dir);
     return $model;
 }

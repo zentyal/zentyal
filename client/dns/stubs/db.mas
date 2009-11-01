@@ -15,8 +15,9 @@ Parameters:
       mailExchangers - Array ref containing hash refs with the following elements:
          hostName - String the host's name which is a mail exchanger
          preference - Int the preference number for that MX record
+      nameServers - Array ref containing the name servers for this domain
 
-  nameserverHostname - String the nameserver host name
+  nameserverHostname - String the name used as name server
 </%doc>
 <%args>
 	%domain
@@ -26,24 +27,32 @@ Parameters:
 my @time = localtime();
 my $date = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
 my @hosts = @{$domain{'hosts'}};
+my $firstNS = scalar(@{$domain{'nameServers'}}) == 0 ? $nameserverHostname : $domain{'nameServers'}->[0] ;
+unless ($firstNS =~ /\.$/ ) {
+   $firstNS = $firstNS . '.' . $domain{'name'} . '.';
+}
 </%init>
 $TTL 3D
-@	IN	SOA	<% $nameserverHostname %>.<% $domain{'name'} %>.	admin.example.com. (
+@	IN	SOA	<% $firstNS %>	admin.example.com. (
 			<% $date %>	;serial number
 			8H		;refresh
 			2H		;retry
 			4W		;expiration
 			1D )		;
 ;
-		NS	<% $nameserverHostname %>.<% $domain{'name'} %>.	;nameserver
+% if ( @{$domain{'nameServers'}} == 0 ) {
+                NS	<% $firstNS %>	;nameserver
 ;
+<% $firstNS %>		A	127.0.0.1
+% } else {
+%   foreach my $ns (@{$domain{'nameServers'}}) {
+                NS      <% $ns %>
+%   }
+% }
 % if($domain{'ipaddr'}) {	
 		A	<% $domain{'ipaddr'} %>
 % }
-% unless (@hosts > 0 and (scalar(grep { $_->{'name'} eq $nameserverHostname } @hosts))) {
-<% $nameserverHostname %>		A	127.0.0.1
 <%perl>
-  }
 	if(@hosts != 0) {
 		foreach my $host (@hosts) {
 </%perl>

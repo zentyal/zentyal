@@ -82,16 +82,8 @@ sub modelClasses
                             directory => 'aliasTable',
                            ],
             },
-            {
-             class => 'EBox::DNS::Model::EnableFormDNS',
-             parameters => [
-                            enableTitle => __('DNS Server'),
-                            modelDomain => 'DNS',
-                            domain      => 'ebox-dns',
-                            directory   => 'enableForm',
-                           ],
-            },
             'EBox::DNS::Model::MailExchanger',
+            'EBox::DNS::Model::NameServer',
            ];
 }
 
@@ -293,7 +285,7 @@ sub _hostnames
 #
 #   Array ref of hashes containing the following keys:
 #
-#      hostName   
+#      hostName
 #       preference
 sub _formatMailExchangers
 {
@@ -319,6 +311,63 @@ sub _formatMailExchangers
                 });
     }
     return \@mailExchangers;
+}
+
+# Method: _formatNameServers
+#
+#       Format the name servers to write configuration settings
+#       properly. That is, custom NS records appends a full stop after
+#       the type value.
+#
+#       If it has none configured, it will configure the following:
+#
+#       @ NS 127.0.0.1 # If there is no hostname named NS
+#       @ NS ns        # If there is a hostname whose name is 'ns'
+#
+# Parameters:
+#
+#       nameServers - model to iterate over
+#
+#            hostName - String the host's name
+#            id - String the row identifier
+#            ownerDomain - if the hostname owns to the same domain.
+#            custom - if the hostname is a foreign one
+#
+#       hostnames   - model with hostnames for that domain
+#
+# Returns:
+#
+#   Array ref of the name servers to set on
+#
+sub _formatNameServers
+{
+    my ($self, $nameServers, $hostnames) = @_;
+
+    my @nameservers;
+    foreach my $id (@{$nameServers->ids()}) {
+        my $ns = $nameServers->row($id);
+        my $hostName = $ns->valueByName('hostName');
+        if ($ns->elementByName('hostName')->selectedType() eq 'custom') {
+            unless ( $hostName =~ m:\.$: ) {
+                $hostName .= '.';
+            }
+        } else {
+            $hostName = $ns->parentRow()
+               ->subModel('hostnames')
+               ->row($hostName)
+               ->valueByName('hostname');
+        }
+        push (@nameservers, $hostName);
+    }
+    if ( @nameservers == 0 ) {
+        # Look for any hostname whose name is 'ns'
+        my $matchedId = $hostnames->findId(hostname => __PACKAGE__->NameserverHost());
+        if ( defined($matchedId) ) {
+            push(@nameservers, __PACKAGE__->NameserverHost());
+        }
+    }
+
+    return \@nameservers;
 }
 
 # Method: getHostnames
@@ -460,6 +509,8 @@ sub NameserverHost
 #  'name': domain name
 #  'ipaddr': domain ip address
 #  'hosts': an array ref returned by <EBox::DNS::_hostnames> method.
+#  'mailExchangers' : an array ref returned by <EBox::DNS::_formatMailExchangers>
+#  'nameServers' : an array ref returned by <EBox::DNS::_formatNameServers>
 #
 sub _completeDomain # (domain)
 {
@@ -475,6 +526,8 @@ sub _completeDomain # (domain)
 
     my $subModel = $row->subModel('mailExchangers');
     $domdata->{'mailExchangers'} = $self->_formatMailExchangers($subModel);
+    $domdata->{'nameServers'} = $self->_formatNameServers($row->subModel('nameServers'),
+                                                          $row->subModel('hostnames'));
 
     return $domdata;
 }

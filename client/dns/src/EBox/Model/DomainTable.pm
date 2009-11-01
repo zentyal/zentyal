@@ -85,6 +85,14 @@ sub _table
                                 'view' => '/ebox/DNS/View/MailExchanger',
                                 'backView' => '/ebox/DNS/View/DomainTable',
                              ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'nameServers',
+                                'printableName' => __('Name Servers'),
+                                'foreignModel' => 'NameServer',
+                                'view' => '/ebox/DNS/View/NameServer',
+                                'backView' => '/ebox/DNS/View/DomainTable',
+                             ),
             new EBox::Types::HostIP
                             (
                                 'fieldName' => 'ipaddr',
@@ -104,7 +112,6 @@ sub _table
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
-            'help' => __('Domains'),
             'printableRowName' => __('domain'),
             'sortedBy' => 'domain',
         };
