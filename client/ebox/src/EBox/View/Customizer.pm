@@ -25,6 +25,7 @@ use warnings;
 
 # Dependencies
 use EBox::Config;
+use EBox::Types::Boolean;
 
 # External dependencies
 use HTML::Mason::Interp;

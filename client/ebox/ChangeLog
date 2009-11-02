@@ -1,5 +1,6 @@
 HEAD
 	+ Add disableApparmorProfile to EBox::Module::Service
+	+ Bug fix: add missing use
 1.3.8
 	+ Bug fix: fixed order in EBox::Global::modified modules. Now
 	  Global and Backup use the same method to order the module list
