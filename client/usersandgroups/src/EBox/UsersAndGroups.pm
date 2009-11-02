@@ -1139,7 +1139,8 @@ sub uidList
 #
 # Returns:
 #
-#       array - holding the users
+#       array - holding the users. Each user is represented by a hash reference
+#       with the same format than the return value of userInfo
 #
 sub users
 {
