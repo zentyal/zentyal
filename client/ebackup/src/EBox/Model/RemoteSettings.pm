@@ -196,7 +196,7 @@ sub _table
         printableTableName => __('General Configuration'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
-        help               => __('General remte backup server configuration'),
+        help               => __('General remote backup server configuration'),
         messages           =>
             {
                 update => __('General backup server configuration updated'),
