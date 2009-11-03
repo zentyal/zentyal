@@ -30,7 +30,10 @@ use warnings;
 
 my $server = SOAP::Transport::HTTP::Apache
   ->dispatch_with(
-      { 'urn:EBox/Services/Jobs' => 'EBox::RemoteServices::Server::JobReceiver' }
+      {
+         'urn:EBox/Services/Jobs' => 'EBox::RemoteServices::Server::JobReceiver',
+         'urn:EBox/Services/Report' => 'EBox::RemoteServices::Server::ReportGenerator',
+      }
      );
 
 # Method: handler

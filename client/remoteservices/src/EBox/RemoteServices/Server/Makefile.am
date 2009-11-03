@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/RemoteServices/Server
 
-mods = Base.pm JobReceiver.pm
+mods = Base.pm JobReceiver.pm ReportGenerator.pm
 
 nobase_perl_DATA = $(mods)
 
