@@ -1,4 +1,4 @@
-# Copyright (C) 2008 eBox Technologies S.L.
+# Copyright (C) 2008-2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,6 +26,7 @@ use base qw(EBox::Module::Service EBox::Model::ModelProvider
 use strict;
 use warnings;
 
+use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Sudo;
@@ -42,6 +43,8 @@ use constant DFLTDIR          => 'ebox-backup';
 use constant DFLTKEEP         => '90';
 use constant SLBACKUPCONFFILE => '/etc/slbackup/slbackup.conf';
 use constant RSYNC_IBACKUP_URL => '206.221.209.44::/ibackup';
+use constant EBACKUP_CONF_FILE => EBox::Config::etc() . '82ebackup.conf';
+use constant EBACKUP_MENU_ENTRY => 'ebackup_menu_enabled';
 
 # Constructor: _create
 #
@@ -453,11 +456,15 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item(
+    my $enabledMenu = EBox::Config::configkeyFromFile(EBACKUP_MENU_ENTRY,
+                                                      EBACKUP_CONF_FILE);
+    if (defined($enabledMenu) and ($enabledMenu eq 'yes' )) {
+        $root->add(new EBox::Menu::Item(
             'url' => 'EBackup/Composite/Remote',
             'separator' => 'Core',
             'order' => 95,
             'text' => $self->printableName()));
+    }
 }
 
 sub _remoteUrl
