@@ -31,6 +31,8 @@ use base 'EBox::RemoteServices::Server::Base';
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Config;
+use EBox::Global;
+use YAML::Tiny;
 
 # Group: Public class methods
 
@@ -45,8 +47,8 @@ use EBox::Config;
 #
 # Returns:
 #
-#     0 - in operation success
-#     1 - if the jobId was already deployed
+#     '' - if the report thing is not yet supported by eBox
+#     YAML - a YAML encoded string with report results
 #
 # Exceptions:
 #
@@ -69,6 +71,11 @@ sub generateReport
     $full_report->{'range'} = $options->{'range'};
 
     my @mods = @{EBox::Global->modInstances()};
+
+    # Check for support about reports in this version
+    unless ( $mods[0]->can('report') ) {
+        return $class->_soapResult('');
+    }
 
     for my $mod (@mods) {
         my $name = $mod->name();
