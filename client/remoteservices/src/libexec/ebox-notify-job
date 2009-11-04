@@ -18,10 +18,13 @@
 
 # This script is intended to notify CC for a job result using a SOAP call
 
+package EBox::RemoteServices::Job::Notifier;
+
 use EBox;
 use EBox::Exceptions::External;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Jobs;
+use Error qw(:try);
 use File::Basename;
 use File::Slurp;
 use Getopt::Long;
@@ -42,22 +45,37 @@ sub _notify
     }
     my %results;
     foreach my $filePath (qw(stdout stderr exitValue)) {
-        $results{$filePath} = File::Slurp::read_file("$jobDir/$filePath");
+        try {
+            $results{$filePath} = File::Slurp::read_file("$jobDir/$filePath");
+        } otherwise {
+            my ($exc) = @_;
+            EBox::error("Cannot read $jodDir/$filePath file: $exc");
+            unlink($jobDir);
+            exit(2);
+        };
     }
-    # Notify CC
-    my $notifier = new EBox::RemoteServices::Jobs();
-    if ( $isCronJob ) {
-        $notifier->cronJobResult(jobId     => $jobId,
+    try {
+        # Notify CC
+        my $notifier = new EBox::RemoteServices::Jobs();
+        if ( $isCronJob ) {
+            $notifier->cronJobResult(jobId     => $jobId,
+                                     stdout    => $results{stdout},
+                                     stderr    => $results{stderr},
+                                     exitValue => $results{exitValue});
+        } else {
+            $notifier->jobResult(jobId     => $jobId,
                                  stdout    => $results{stdout},
                                  stderr    => $results{stderr},
                                  exitValue => $results{exitValue});
-    } else {
-        $notifier->jobResult(jobId     => $jobId,
-                             stdout    => $results{stdout},
-                             stderr    => $results{stderr},
-                             exitValue => $results{exitValue});
-    }
+        }
+    } otherwise {
+        my ($exc) = @_;
+        EBox::error("Problem with job result notification: $exc");
+        unlink($jobDir);
+        exit(3);
+    };
     unlink($jobDir);
+
 }
 
 # MAIN
