@@ -101,6 +101,8 @@ sub actions
 #	version - version installed (if any)
 #	avail - latest version available
 #	removable - true if the package can be removed
+#       depends - array ref containing the names of the package
+#                 dependencies to install this package
 #
 # Exceptions:
 #
