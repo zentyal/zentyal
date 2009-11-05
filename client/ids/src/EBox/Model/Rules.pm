@@ -78,6 +78,7 @@ sub syncRows
         my $slash = rindex ($file, '/');
         my $dot = rindex ($file, '.');
         my $name = substr ($file, ($slash + 1), ($dot - $slash - 1));
+        next if $name =~ /deleted/;
         push (@names, $name);
     }
     my %newNames = map { $_ => 1 } @names;
@@ -97,9 +98,10 @@ sub syncRows
     foreach my $id (@{$currentRows}) {
         my $row = $self->row($id);
         my $name = $row->valueByName('name');
-        next if exists $newNames{$name};
-        $self->removeRow($id);
-        $modified = 1;
+        if (not exists $newNames{$name} or ($name =~ /deleted/)) {
+            $self->removeRow($id);
+            $modified = 1;
+        }
     }
 
     if ($modified and not $modIsChanged) {
