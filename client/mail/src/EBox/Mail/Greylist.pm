@@ -70,7 +70,7 @@ sub daemon
 {
     return {
             'name' => GREYLIST_SERVICE,
-            'precondition' => \&EBox::Mail::greylistIsEnabledm #  awkward but
+            'precondition' => \&EBox::Mail::greylistIsEnabled #  awkward but
                    # precondition  method must reside in the main package
            };
 }
