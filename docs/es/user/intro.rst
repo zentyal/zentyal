@@ -368,6 +368,9 @@ interfaz web de administración es:
 Donde *direccion_de_red* es la dirección IP o el nombre de la máquina donde está
 instalado eBox que resuelve a esa dirección.
 
+Para acceder a la interfaz web se debe usar Mozilla Firefox, ya que
+otros navegadores como Microsoft Internet Explorer pueden dar problemas.
+
 La primera pantalla solicita la contraseña del administrador:
 
 .. image:: images/intro/01-login.png

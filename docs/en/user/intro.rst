@@ -363,6 +363,9 @@ web interface at the following URL:
 Here *network_address* is the IP address or a host name that resolves to
 the address where eBox is running.
 
+To access the web interface you should use Mozilla Firefox as they are
+some known issues with another browsers such as Microsoft Internet Explorer.
+
 The first screen will ask for the administrator password:
 
 .. image:: images/intro/01-login.png
