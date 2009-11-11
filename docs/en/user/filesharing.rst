@@ -71,12 +71,26 @@ eBox as file server
 eBox uses **Samba** SMB/CIFS implementation for Linux as a file server
 and *Windows* operative system authentication.
 
-You will be able to configure eBox as a file server going to:
-:menuselection:`File Sharing --> General Settings` unchecking
-the :guilabel:`Enable PDC` option. The file sharing in eBox is
-integrated with the users and groups. As a result, each user can
+The file sharing services are active when the 'File sharing' module is active,
+regardless whether you are using eBox as **PCD** or not.
+
+The file sharing in eBox is
+integrated with the users and groups. As a result, each user will
 have a personal directory and each group can have a shared directory
 for all its users.
+
+The personal directory for the user is automatically shared and can only be
+accessed  by the user.
+
+
+.. image:: images/filesharing/10-share-group.png
+
+
+Going to :menuselection:`Groups --> Edit Group` a shared directory for
+a group can also be created. Every member of this group will have
+access to this directory, being able to read and write all the files.
+
+
 
 .. image:: images/filesharing/06-sharing.png
    :scale: 60
@@ -122,11 +136,7 @@ users in this directory.
 
 .. image:: images/filesharing/09-share-acl.png
 
-Going to :menuselection:`Groups --> Edit Group` a shared directory for
-a group can also be created. Every member of this group will have
-access to this directory, being able to read and write all the files.
 
-.. image:: images/filesharing/10-share-group.png
 
 SMB/CIFS clients configuration
 ==============================
@@ -231,8 +241,11 @@ or its documents. Every time a user logs in an updated profile will be
 sent to them by the PDC server. The user can have access to his
 profile information from any computer. Please take into account the size of the
 users information when setting up your server in order to make sure
-there is enough space. In addition to that, the :guilabel:`Disk
-Letter` for the personal directory can be redefined.
+there is enough space. 
+
+In addition to that, the :guilabel:`Disk
+Letter` for the personal directory can be redefined. When a user logs into the
+domain his personal directory will be automatically mapped to a drive with this letter.
 
 Finally, you can define user policy passwords through :menuselection:`File Sharing --> PDC`.
 

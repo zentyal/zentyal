@@ -70,13 +70,26 @@ Nosotros nos vamos a aprovechar de la implementación de SMB/CIFS para Linux
 usando **Samba** como servidor de ficheros y de autenticación de sistemas
 operativos *Windows* en eBox.
 
-A través de :menuselection:`Compartir Ficheros --> Configuración
-general`, podemos configurar eBox como servidor de ficheros
-desmarcando :guilabel:`Habilitar PDC`.
+Los servicios de compartición  de ficheros están activos cuando el modulo de
+'Compartición de archivos' este activo, sin importar si la función de PDC este
+activa o no.
+
 Con eBox la compartición de ficheros está integrada con los
-usuarios y grupos. De tal manera que cada usuario puede tener su
-directorio personal y cada grupo un directorio compartido para todos
+usuarios y grupos. De tal manera que cada usuario tendrá su
+directorio personal y cada grupo puede tener un directorio compartido para todos
 sus usuarios.
+
+El directorio personal de cada usuario es compartido automáticamente y solo puede
+ser accedido por el correspondiente usuario.
+
+.. image:: images/filesharing/10-share-group.png
+
+También se puede crear un directorio compartido para un grupo desde
+:menuselection:`Grupos --> Editar grupo`. Todos los miembros del grupo
+tendrán acceso a ese directorio y podrán leer o escribir los ficheros y
+directorios dentro de dicho directorio compartido.
+
+
 
 .. image:: images/filesharing/06-sharing.png
    :scale: 60
@@ -122,12 +135,7 @@ borrar ficheros de cualquier otro usuario dentro de dicho directorio.
 
 .. image:: images/filesharing/09-share-acl.png
 
-También se puede crear un directorio compartido para un grupo desde
-:menuselection:`Grupos --> Editar grupo`. Todos los miembros del grupo
-tendrán acceso a ese directorio y podrán leer o escribir los ficheros y
-directorios dentro de dicho directorio compartido.
 
-.. image:: images/filesharing/10-share-group.png
 
 Configuración de clientes SMB/CIFS
 ----------------------------------
@@ -236,11 +244,11 @@ dispondrá de su entorno de trabajo en varios ordenadores. Hay que
 tener en cuenta antes de activar esta opción que la información de los
 usuarios puede ocupar varios GiB de información, el servidor PDC
 necesitará espacio de disco suficiente. Adicionalmente, se puede
-configurar la :guilabel:`letra del disco` con la que aparecerá el
+configurar la :guilabel:`letra del disco` al que se conectara el
 directorio personal del usuario tras autenticar contra el PDC en
 Windows.
 
-Adicionalmente, se pueden definir políticas para las contraseñas de
+Es posible definir políticas para las contraseñas de
 los usuarios a través de :menuselection:`Compartir ficheros --> PDC`
 
 * :guilabel:`Longitud mínima de contraseña`.
