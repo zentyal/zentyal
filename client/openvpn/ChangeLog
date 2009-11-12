@@ -1,3 +1,9 @@
+HEAD
+        + Changed name of AdvertisedNetworks model to ExposedNetworks to
+	avoid problems with ad-blockers. However we preserve the old
+	directory name to avoid more migrations, it seems that this not
+	triggers ad-blockers. If later we found that it triggers we will
+	have to use other directory and add a migration script.
 1.3.6
 	+ Upgraded windows installer, now we use 2.1 (previously was 2.0.9)
 	+ Add "configuration" field to Client model to select manual  or

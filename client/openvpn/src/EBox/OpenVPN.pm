@@ -83,8 +83,12 @@ sub modelClasses
     return [
         'EBox::OpenVPN::Model::Servers',
         'EBox::OpenVPN::Model::ServerConfiguration',
-        'EBox::OpenVPN::Model::AdvertisedNetworks',
-
+        {
+          class => 'EBox::OpenVPN::Model::ExposedNetworks',
+          parameters => [
+                         directory => 'AdvertisedNetworks',
+                        ],
+         },
         'EBox::OpenVPN::Model::DownloadClientBundle',
 
         'EBox::OpenVPN::Model::Clients',

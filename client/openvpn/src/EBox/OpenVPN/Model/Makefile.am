@@ -4,7 +4,7 @@ SUBDIRS= Servers ServerConfiguration t
 perldir = @PERLPATH@/EBox/OpenVPN/Model
 
 nobase_perl_DATA = InterfaceTable.pm \
-                   Servers.pm ServerConfiguration.pm AdvertisedNetworks.pm \
+                   Servers.pm ServerConfiguration.pm ExposedNetworks.pm \
 	           DownloadClientBundle.pm  \
                    Clients.pm ClientConfiguration.pm \
                    DeletedDaemons.pm

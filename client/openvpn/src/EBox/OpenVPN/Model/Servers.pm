@@ -83,8 +83,8 @@ sub _table
                             (
                                 'fieldName' => 'advertisedNetworks',
                                 'printableName' => __('Advertised networks'),
-                                'foreignModel' => 'AdvertisedNetworks',
-                                'view' => '/ebox/OpenVPN/View/AdvertisedNetworks',
+                                'foreignModel' => 'ExposedNetworks',
+                                'view' => '/ebox/OpenVPN/View/ExposedNetworks',
                                 'backView' => '/ebox/OpenVPN/View/Servers',
                                 'size' => '1',
                              ),

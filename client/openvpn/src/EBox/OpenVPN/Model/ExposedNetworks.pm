@@ -18,7 +18,7 @@
 #
 
 #
-package EBox::OpenVPN::Model::AdvertisedNetworks;
+package EBox::OpenVPN::Model::ExposedNetworks;
 use base 'EBox::Model::DataTable';
 
 use strict;
@@ -69,7 +69,7 @@ sub _table
             'printableTableName' => __('List of networks'),
             'pageTitle' => __('Advertised networks'),
             'automaticRemove' => 1,
-            'defaultController' => '/ebox/OpenVPN/Controller/AdvertisedNetworks',
+            'defaultController' => '/ebox/OpenVPN/Controller/ExposedNetworks',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
