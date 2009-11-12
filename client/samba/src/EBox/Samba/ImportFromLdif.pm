@@ -75,7 +75,7 @@ sub _addDomainUsersAccount
     my %args = (
                 attr => [
                          'cn'           => $name,
-                         'gidNumber'    => 512,
+                         'gidNumber'    => 513,
                          'sambaSID'     =>  $sambaLdap->getSID(),
                          'sambaGroupType'  => 2,
                          'displayName'  => $name,

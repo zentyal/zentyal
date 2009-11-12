@@ -1,6 +1,8 @@
 HEAD
 	+ bugfix: ignore case when comparing domain and netbios names
 	+ Added support for Recycle Bin in shares
+	+ bugfix: restore Domain Users with GID 513 and not 512.
+	  as this made Domain Admins not work
 1.3.7
 	+ Create .V2 profile directories. Windows Vista looks for them.
 	+ remove extendedBackup, data files must be backuped using ebackup
