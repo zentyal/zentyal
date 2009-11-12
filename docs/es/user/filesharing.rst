@@ -70,14 +70,14 @@ Nosotros nos vamos a aprovechar de la implementación de SMB/CIFS para Linux
 usando **Samba** como servidor de ficheros y de autenticación de sistemas
 operativos *Windows* en eBox.
 
-Los servicios de compartición  de ficheros están activos cuando el modulo de
-'Compartición de archivos' este activo, sin importar si la función de PDC este
-activa o no.
+Los servicios de compartición de ficheros están activos cuando el
+módulo de **Compartición de ficheros** esté activo, sin importar si la
+función de :guilabel:`PDC` esté activa.
 
-Con eBox la compartición de ficheros está integrada con los
-usuarios y grupos. De tal manera que cada usuario tendrá su
-directorio personal y cada grupo puede tener un directorio compartido para todos
-sus usuarios.
+Con eBox la compartición de ficheros está integrada con los usuarios y
+grupos. De tal manera que cada usuario tendrá su directorio personal y
+cada grupo puede tener un directorio compartido para todos sus
+usuarios.
 
 El directorio personal de cada usuario es compartido automáticamente y solo puede
 ser accedido por el correspondiente usuario.
@@ -243,8 +243,8 @@ recibirá del servidor PDC su perfil. De esta manera, el usuario
 dispondrá de su entorno de trabajo en varios ordenadores. Hay que
 tener en cuenta antes de activar esta opción que la información de los
 usuarios puede ocupar varios GiB de información, el servidor PDC
-necesitará espacio de disco suficiente. Adicionalmente, se puede
-configurar la :guilabel:`letra del disco` al que se conectara el
+necesitará espacio de disco suficiente. También se puede
+configurar la :guilabel:`letra del disco` al que se conectará el
 directorio personal del usuario tras autenticar contra el PDC en
 Windows.
 
