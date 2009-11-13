@@ -27,7 +27,7 @@ actualización concurrente de ficheros comunes y que no deberían interferir
 entre ellas.
 
 SMB/CIFS y su implementación Linux Samba
-----------------------------------------
+========================================
 
 El SMB (*Server Message Block*) o CIFS (*Common Internet File System*) se usa
 para compartir el acceso a ficheros, impresoras, puertos serie y otra serie de
@@ -51,7 +51,7 @@ sobre el que SMB se basa.
          correspondiente a un (posiblemente diferente) nombre de máquina.
 
 Primary Domain Controller (PDC)
--------------------------------
+===============================
 
 Un **PDC** es un servidor de dominios de versiones *Windows NT* previas a
 *Windows 2000*. Un dominio, según este entorno, es un sistema que permite el
@@ -64,7 +64,7 @@ más modernas de *Windows* ha pasado a denominarse simplemente *Domain Controlle
 .. _ebox-samba-ref:
 
 eBox como servidor de ficheros
-------------------------------
+==============================
 
 Nosotros nos vamos a aprovechar de la implementación de SMB/CIFS para Linux
 usando **Samba** como servidor de ficheros y de autenticación de sistemas
@@ -138,13 +138,13 @@ borrar ficheros de cualquier otro usuario dentro de dicho directorio.
 
 
 Configuración de clientes SMB/CIFS
-----------------------------------
+==================================
 
 Una vez tenemos el servicio ejecutándose podemos compartir ficheros a través de
 *Windows* o GNU/Linux.
 
 Cliente Windows
-^^^^^^^^^^^^^^^
+---------------
 
   A través de :menuselection:`Mis sitios de red --> Toda la
   red`. Encontramos el dominio que hemos elegido y después aparecerá
@@ -156,7 +156,7 @@ Cliente Windows
      :align: center
 
 Cliente Linux
-^^^^^^^^^^^^^
+-------------
 
   1. Konqueror (KDE)
 
@@ -224,7 +224,7 @@ Cliente Linux
        WARP                 WARP-JIMBO
 
 eBox como servidor de autenticación
------------------------------------
+===================================
 
 Para aprovechar las posibilidades del PDC como servidor de
 autenticación y su implementación **Samba** para GNU/Linux debemos
@@ -266,7 +266,7 @@ al entrar en una máquina registrada en el dominio.
    :scale: 60
 
 Configuración de clientes PDC
------------------------------
+=============================
 
 Para poder configurar la autenticación PDC en una máquina, se necesita
 utilizar una cuenta que tenga privilegios de administrador en el
