@@ -48,7 +48,7 @@ emails, but makes life harder for the spammers.
 
 In the case of eBox, the strategy is to pretend to be out of service. When a
 server wants to send a new mail, eBox says "*I'm out of service at this time,
-try in 300 seconds*" [#]_. If the server meets the specification, it will sent
+try in 300 seconds*" [#]_. If the server meets the specification, it will send
 the message again a bit later and eBox will consider it as a valid server.
 
 .. [#] Actually the mail server sends as response "Greylisted", say, put on the
