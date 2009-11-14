@@ -202,7 +202,7 @@ File-based ACLs
 It is possible to filter files attached to mails using
 :menuselection:`Mail filter --> File based ACLs` (Access Control Lists).
 
-There, we can allow or blocks mail according to the extensions of the files
+There, we can allow or block mail according to the extensions of the files
 attached or their Multipurpose Internet Mail Extensions (MIME) types.
 
 .. image:: images/mailfilter/06-filter-files.png
