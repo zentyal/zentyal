@@ -59,6 +59,8 @@ my @PACKAGES = (
 #    ['improxy', __('Instant Messaging Proxy')],
 );
 
+my @ASTERISK_EXTRAS = qw(dahdi-modules-2.6.24-24-l7filter dahdi-linux dahdi);
+
 #################
 # -- constants --
 #################
@@ -104,6 +106,12 @@ my $CNF_domain = undef;
 
 my @packages = selectPackagesMenu();
 @packages = map ("ebox-$_", @packages);
+if (grep /samba/, @packages) {
+    push (@packages, 'samba-vscan');
+}
+if (grep /asterisk/, @packages) {
+    push (@packages, @ASTERISK_EXTRAS);
+}
 installPackages(@packages);
 
 # Apache is the most basic module, if it's not installed correctly,

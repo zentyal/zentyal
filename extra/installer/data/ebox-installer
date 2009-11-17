@@ -1,61 +1,113 @@
 #!/bin/bash
 
-# script to execute after debian installer base-config and before
-# showing login indicator and debian sarge is ready to be fucked up
+# eBox installation script to execute after reboot but before login
 
-
-EXTRA_PACKAGES="libebox bc dahdi-modules-2.6.24-24-l7filter samba-vscan" 
-
+# Define some quick variables
 export LOG=/tmp/ebox-installer.log
+SOURCES_LIST=/etc/apt/sources.list
+PPA_URL="http://ppa.launchpad.net/ebox/1.2/ubuntu"
+EBOX_SOURCES="deb $PPA_URL hardy main"
+EXTRA_PACKAGES="libebox bc"
 
-mount /cdrom
-apt-cdrom add --no-mount
-APT_SUCCESS=$?
-umount /cdrom
+get_base_packages() {
+    echo "Installing eBox base packages...";
+    if apt-get install -y $EXTRA_PACKAGES >> $LOG 2>&1; then # Returns 0 if exists too
+        echo "Base packages installed successfully."
+    else
+        bail_out
+    fi
+}
 
-if [ $APT_SUCCESS != 0 ]; then
-    # retry prompting the user
-    apt-cdrom add
-fi
-
-SOURCES=/etc/apt/sources.list
-
-# add stable ebox sources
-echo "deb http://ppa.launchpad.net/ebox/ubuntu hardy main" >> $SOURCES
-
-echo Installing base packages...
-apt-get install -y $EXTRA_PACKAGES >> $LOG 2>&1 
-if [ $? != 0 ]; then
+# Generic Bailout
+bail_out() {
     echo "Installation failed. Check contents of $LOG to see what happened."
-    exit 1
+    echo "You may log in as root and re-run the installer from /etc/rc.local"
+    exit 1 # Indicate failure
+}
+
+# Wait for the user to insert the Disc.
+wait_disc() {
+    echo "Please insert the eBox Installation Disc within 30 seconds."
+    sleep 30
+}
+
+do_sources_disc() {
+    echo "Attempting to mount eBox Installation Disc..."
+    if mount /cdrom; then # If there was a disc in the drive
+        if apt-cdrom add --no-mount; then
+            umount /cdrom
+        else
+            # Retry with prompt and delay
+            wait_disc
+            apt-cdrom add
+        fi
+    fi
+    # Disc added to source list. Key added to keyring.
+}
+
+update_if_network() {
+    if $(wget -T 10 -t 1 $PPA_URL >> $LOG 2>&1); then
+        echo "Updating package database from the network..."
+        apt-get update >> $LOG 2>&1
+    else
+        echo "Warning: Can't connect to $PPA_URL. Updates won't be installed."
+    fi
+}
+
+purge_config() {
+    echo "Critical Error! Restoring original configuration state by purging libebox."
+    # Wipe out all configuration.
+    apt-get remove --purge libebox
+    # We need libebox installed again.
+    rm -f /var/tmp/ebox-base-packages.installed
+}
+
+installed_ok() {
+    echo "Installation Complete. Cleaning up eBox package installer files..."
+    rm -f /var/tmp/locale.gen
+    rm -f /var/tmp/ebox-*
+    rm -fr /var/tmp/po
+    # Restore original rc.local
+    mv /var/tmp/rc.local /etc/rc.local
+    exit 0
+}
+
+do_installer() { # Make sure we've got all our base packages
+    if [ -e /var/tmp/ebox-base-packages.installed ]; then
+        package_installer
+    else
+        get_base_packages # Get packages, including libebox if purged
+        # Mark our work complete so we don't re-do it needlessly
+        touch /var/tmp/ebox-base-packages.installed
+        # Run the main package installer
+        package_installer
+    fi
+}
+
+package_installer() {
+    echo "Launching eBox package installer..."
+    if /var/tmp/ebox-package-installer; then
+        installed_ok
+    else
+        purge_config
+        bail_out
+    fi
+    # Restore noisy logging
+    sed -i '1 d' /etc/lsb-base-logging.sh
+}
+
+
+# Main checks for re-runs. Just run the installer if we've been here before.
+if [ -e /var/tmp/ebox-sources-list.updated ]; then
+    do_installer
+else
+    do_sources_disc # Set up the CD
+    echo ${EBOX_SOURCES} >> ${SOURCES_LIST} # add ebox sources
+    export HOME=/root  # Needed for ssl-cert postinst
+    source /etc/default/locale; export LANG; # Set up locale
+    sed -i '1 i QUIET=yes' /etc/lsb-base-logging.sh  # initjobs are noisy.
+    update_if_network # apt-get update if we are connected to the internet
+    # Mark our work complete so we don't re-do it needlessly
+    touch /var/tmp/ebox-sources-list.updated
+    do_installer
 fi
-
-apt-get install -y dahdi-linux dahdi >> $LOG 2>&1
-if [ $? != 0 ]; then
-    echo "Installation failed. Check contents of $LOG to see what happened."
-    exit 1
-fi
-
-export HOME=/root # needed for ssl-cert postinst
-
-. /etc/default/locale
-export LANG
-
-# workaround buggy logging system
-sed -i '1 i QUIET=yes' /etc/lsb-base-logging.sh
-
-# launch package installer
-echo Launching eBox package installer...
-/var/tmp/ebox-package-installer
-
-# clean up
-echo Cleaning up eBox package installer files...
-rm -f /var/tmp/locale.gen
-rm -f /var/tmp/ebox-*
-rm -fr /var/tmp/po
-
-# restore original rc.local
-mv /var/tmp/rc.local /etc/rc.local
-
-# restore file to its original status
-sed -i '1 d' /etc/lsb-base-logging.sh
