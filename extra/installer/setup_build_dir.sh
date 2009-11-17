@@ -7,6 +7,8 @@ test -d $BASE_DIR || (echo "base_dir directory not found."; false) || exit 1
 
 test -r $ISO_PATH || (echo "iso image not found."; false) || exit 1
 
+test -r $UBUNTU_KEYRING_TAR || wget $UBUNTU_KEYRING_URL
+
 mkdir -p $CD_MOUNT_DIR || exit 1
 sudo mount -o loop $ISO_PATH $CD_MOUNT_DIR || exit 1
 
