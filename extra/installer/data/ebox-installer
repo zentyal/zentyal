@@ -11,7 +11,7 @@ EXTRA_PACKAGES="libebox bc"
 
 get_base_packages() {
     echo "Installing eBox base packages...";
-    if apt-get install -y $EXTRA_PACKAGES >> $LOG 2>&1; then # Returns 0 if exists too
+    if apt-get install -y --force-yes $EXTRA_PACKAGES >> $LOG 2>&1; then # Returns 0 if exists too
         echo "Base packages installed successfully."
     else
         bail_out
@@ -46,6 +46,9 @@ do_sources_disc() {
 }
 
 update_if_network() {
+    # Import PPA key to avoid warning
+    apt-key add /var/tmp/ebox-ppa.asc >> $LOG 2>&1
+    # Check if we can connect to the PPA url
     if $(wget -T 10 -t 1 $PPA_URL >> $LOG 2>&1); then
         echo "Updating package database from the network..."
         apt-get update >> $LOG 2>&1
