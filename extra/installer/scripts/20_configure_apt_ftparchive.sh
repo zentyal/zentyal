@@ -37,31 +37,7 @@ echo Label: Ubuntu >> $RELEASE_FILE
 echo Architecture: $ARCH >> $RELEASE_FILE
 
 rm -rf pool/extras/*
-
-echo "Deleting duplicated packages..."
-EXTRAS_LIST=/tmp/ebox-installer-extras-$$
-ls $EXTRAS_DIR | cut -d_ -f1 > $EXTRAS_LIST
-for package_path in `find pool/ -name "*.deb"`
-do
-    PACKAGE_NAME=`basename $package_path | cut -d_ -f1`
-    # Don't delete our custom ubuntu-keyring
-    if [ $PACKAGE_NAME == "ubuntu-keyring" ]
-    then
-        continue
-    fi
-    for EXTRA_PACKAGE in `cat $EXTRAS_LIST`
-    do
-        if [ $PACKAGE_NAME == $EXTRA_PACKAGE ]
-        then
-            echo "Deleting... $package_path"
-            rm $package_path
-            break
-        fi
-    done
-done
-rm $EXTRAS_LIST
-echo "Copying extra packages..."
-cp -rvv $EXTRAS_DIR/* pool/extras
+cp -r $EXTRAS_DIR/* pool/extras
 
 apt-ftparchive -c $APTCONF generate $APTCONF_DIR/apt-ftparchive-deb.conf || exit 1
 apt-ftparchive -c $APTCONF generate $APTCONF_DIR/apt-ftparchive-udeb.conf || exit 1
