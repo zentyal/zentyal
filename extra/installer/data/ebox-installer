@@ -27,13 +27,14 @@ bail_out() {
 
 # Wait for the user to insert the Disc.
 wait_disc() {
-    echo "Please insert the eBox Installation Disc within 30 seconds."
-    sleep 30
+    echo "Please insert the eBox Installation Disc and press Enter."
+    read
+    sleep 2
 }
 
 do_sources_disc() {
     echo "Attempting to mount eBox Installation Disc..."
-    if mount /cdrom; then # If there was a disc in the drive
+    while ! mount /cdrom; do
         if apt-cdrom add --no-mount; then
             umount /cdrom
         else
@@ -41,8 +42,7 @@ do_sources_disc() {
             wait_disc
             apt-cdrom add
         fi
-    fi
-    # Disc added to source list. Key added to keyring.
+    done
 }
 
 update_if_network() {
