@@ -185,7 +185,7 @@ sub vpnClientForServices
     if ($openvpn->clientExists($clientName)) {
         $client = $openvpn->client($clientName);
     } else {
-        my ($address, $port, $protocol) = @{$self->vpnLocation()};
+        my ($address, $port, $protocol, $vpnServerName) = @{$self->vpnLocation()};
 
         $client = $openvpn->newClient(
             $clientName,
@@ -193,7 +193,7 @@ sub vpnClientForServices
             service        => 1,
             proto          => $protocol,,
             servers        => [
-                [$address => $port],
+                [$vpnServerName => $port],
                ],
             caCertificate  => $self->{caCertificate},
             certificate    => $self->{certificate},
@@ -218,6 +218,7 @@ sub vpnClientForServices
 #             ipAddr - String the VPN IP address
 #             port   - Int the port to connect to
 #             protocol - String the protocol 'udp' or 'tcp'
+#             serverName - String the server domain name
 #
 sub vpnLocation
 {
@@ -232,7 +233,7 @@ sub vpnLocation
     my $protocol   = EBox::Config::configkeyFromFile('vpnProtocol',
                                                      $self->_confFile());
 
-    return [$address, $port, $protocol];
+    return [$address, $port, $protocol, $serverName];
 }
 
 # Group: Protected methods
