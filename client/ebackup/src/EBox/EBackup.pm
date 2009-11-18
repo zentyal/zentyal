@@ -372,7 +372,7 @@ sub remoteListFiles
 
 # Method: setRemoteBackupCrontab
 #
-#   configure crantab according to user configuration
+#   configure crontab according to user configuration
 #   to call our backup script
 #
 sub setRemoteBackupCrontab
