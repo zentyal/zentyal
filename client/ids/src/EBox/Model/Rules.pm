@@ -29,6 +29,16 @@ use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
 
+use constant DEFAULT_RULES => qw(local bad-traffic exploit community-exploit
+    scan finger ftp telnet rpc rservices dos community-dos ddos dns tftp
+    web-cgi web-coldfusion web-iis web-frontpage web-misc web-client web-php
+    community-sql-injection community-web-client community-web-dos
+    community-web-iis community-web-misc community-web-php sql
+    x11 icmp netbios misc attack-responses oracle community-oracle mysql
+    snmp community-ftp smtp community-smtp imap community-imap pop2
+    pop3 nntp community-nntp community-sip other-ids web-attacks backdoor
+    community-bot community-virus);
+
 # Group: Public methods
 
 # Constructor: new
@@ -49,6 +59,9 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
+
+    my %default = map { $_ => 1 } DEFAULT_RULES;
+    $self->{enableDefault} = \%default;
 
     bless ( $self, $class );
 
@@ -90,7 +103,8 @@ sub syncRows
 
     my @namesToAdd = grep { not exists $currentNames{$_} } @names;
     foreach my $name (@namesToAdd) {
-        $self->add(name => $name, enabled => 1);
+        my $enabled = $self->{enableDefault}->{$name} or 0;
+        $self->add(name => $name, enabled => $enabled);
         $modified = 1;
     }
 
@@ -133,7 +147,7 @@ sub _table
         new EBox::Types::Boolean (
             'fieldName' => 'enabled',
             'printableName' => __('Enabled'),
-            'defaultValue' => 1,
+            'defaultValue' => 0,
             'editable' => 1
         ),
     );

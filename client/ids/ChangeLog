@@ -1,4 +1,5 @@
 HEAD
+	+ Limited set of default rules by default to avoid high CPU consumption
 	+ Bugfix: don't add deleted snort rules
 1.3.6
 	+ Bugfix: don't try to start snort if there are no valid interfaces selected
