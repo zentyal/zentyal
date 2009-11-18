@@ -23,7 +23,7 @@
     color: #484554;
 }
 
-#capsWarning {
+#capsWarning, #ieWarning, #ffWarning {
     text-align: left;
     font-weight: normal;
     border-bottom: 1px solid #fa601d;

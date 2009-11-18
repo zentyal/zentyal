@@ -13,8 +13,19 @@ use EBox::Gettext;
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 <link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
 <script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
+<script type="text/javascript">
+function checkBrowser() {
+    if (/MSIE/.test(navigator.userAgent)) {
+        document.getElementById("ieWarning").style.display="block";
+        document.getElementById("credential_0").disabled="disabled";
+        document.getElementById("loginButton").disabled="disabled";
+    } else if (!/Firefox/.test(navigator.userAgent)) {
+        document.getElementById("ffWarning").style.display="block";
+    }
+}
+</script>
 </head>
-<body onload="document.getElementById('credential_0').focus();">
+<body onload="checkBrowser();document.getElementById('credential_0').focus();">
 <script src="/data/js/capsLock.js" type="text/javascript">//</script>
 <center>
 	<div id='login'>
@@ -25,9 +36,15 @@ use EBox::Gettext;
 %		}
 
 	<form name='login' action='/LOGIN' method='post'>
-                <div class="warning" id="capsWarning" style="display: none">
-                  <% __('Warning: Caps Lock is enabled')%>
-                </div>
+        <div class="warning" id="capsWarning" style="display: none">
+            <% __('Warning: Caps Lock is enabled')%>
+        </div>
+        <div class="warning" id="ieWarning" style="display: none">
+            <% __('Warning: Unfortunately Internet Explorer is not yet supported on eBox. Please use <a href="http://getfirefox.com">Firefox</a> instead.')%>
+        </div>
+        <div class="warning" id="ffWarning" style="display: none">
+            <% __('Warning: You are using a browser which is not <a href="http://getfirefox.com">Firefox</a>, the only one officially supported. Please, take into consideration that you might face some issues while navigating on eBox UI.')%>
+        </div>
 		<dl>
 			<dt><% __('Password') %>:</dt>
 			<dd><input  class='inputTextLogin' type='password'
@@ -36,7 +53,9 @@ use EBox::Gettext;
 					size='14' /></dd>
 				<input  type='hidden' name='destination'
 					value='<% $destination %>' />
-		<dd><input class='inputButton' type='submit' value="<% __('Enter') %>"/></dd>
+		    <dd><input class='inputButton' type='submit'
+                    id='loginButton'
+                    value="<% __('Enter') %>"/></dd>
 		</dl>
 	</form>
 	</div>
