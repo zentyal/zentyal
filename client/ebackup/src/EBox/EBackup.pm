@@ -202,6 +202,7 @@ sub remoteArguments
             $excludes .= "--exclude=$path ";
         } elsif ($row->valueByName('type') eq 'include_path') {
             my $path = shell_quote($row->valueByName('target'));
+            next if ($path eq '/');
             $includes .= "--include=$path ";
         } else {
             my $regexp = $row->valueByName('target');
