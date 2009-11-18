@@ -40,10 +40,10 @@ function checkBrowser() {
             <% __('Warning: Caps Lock is enabled')%>
         </div>
         <div class="warning" id="ieWarning" style="display: none">
-            <% __('Warning: Unfortunately Internet Explorer is not yet supported on eBox. Please use <a href="http://getfirefox.com">Firefox</a> instead.')%>
+            <% __x('Warning: Unfortunately Internet Explorer is not yet supported on eBox. Please use {url} instead.', url => '<a href="http://getfirefox.com">Firefox</a>')%>
         </div>
         <div class="warning" id="ffWarning" style="display: none">
-            <% __('Warning: You are using a browser which is not <a href="http://getfirefox.com">Firefox</a>, the only one officially supported. Please, take into consideration that you might face some issues while navigating on eBox UI.')%>
+            <% __x('Warning: You are using a browser which is not {url}, the only one officially supported. Please, take into consideration that you might face some issues while navigating on eBox UI.', url => '<a href="http://getfirefox.com">Firefox</a>')%>
         </div>
 		<dl>
 			<dt><% __('Password') %>:</dt>
