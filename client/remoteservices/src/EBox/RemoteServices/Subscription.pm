@@ -27,8 +27,10 @@ use strict;
 use warnings;
 
 use EBox::Config;
+use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
@@ -298,11 +300,17 @@ sub _openHTTPSConnection
                 foreach my $no ( 1 .. $mirrorCount ) {
                     my $site = EBox::RemoteServices::Configuration::PublicWebServer();
                     $site =~ s:\.:$no.:;
-                    EBox::Sudo::root(
-                        EBox::Iptables::pf(
-                            "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
-                           )
-                       );
+                    try {
+                        EBox::Sudo::root(
+                            EBox::Iptables::pf(
+                                "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
+                               )
+                             );
+                    } catch EBox::Exceptions::Sudo::Command with {
+                        throw EBox::Exceptions::External(
+                            __x('Cannot contact to {host}. Check your connection to the Internet',
+                                host => $site));
+                    };
                 }
                 my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
                 EBox::Sudo::root(
