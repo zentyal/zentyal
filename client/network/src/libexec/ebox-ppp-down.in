@@ -1,0 +1,6 @@
+#!/bin/bash
+
+libexec=@DATADIR@/ebox
+
+$libexec/dhcp-clear-gateway.pl
+$libexec/dhcp-clear.pl

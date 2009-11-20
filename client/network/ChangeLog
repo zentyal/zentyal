@@ -1,3 +1,5 @@
+HEAD
+	+ Added PPPoE support
 1.3.7
 	+ Bug fix: update ebox-netcfg-import to not add upload and download as those
 	  fields do no exist any longer

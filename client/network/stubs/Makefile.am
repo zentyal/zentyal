@@ -2,8 +2,8 @@
 
 Stubdir = @STUBSPATH@/network
 
-nobase_Stub_DATA = ddclient.conf.mas ddclient.mas dhclient.conf.mas jnettop.conf.mas \
-		   resolv.conf.mas rt_tables.mas
+nobase_Stub_DATA = ddclient.conf.mas ddclient.mas jnettop.conf.mas \
+		   resolv.conf.mas rt_tables.mas dsl-provider.mas chap-secrets.mas pap-secrets.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

@@ -28,14 +28,18 @@ use base qw(
 
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
-use constant IGNOREIFACES => qw(sit tun tap lo irda);
+use constant IGNOREIFACES => qw(sit tun tap lo irda ppp);
 use constant IFNAMSIZ => 16; #Max length name for interfaces
 use constant INTERFACES_FILE => '/etc/network/interfaces';
 use constant DDCLIENT_FILE => '/etc/ddclient.conf';
 use constant DEFAULT_DDCLIENT_FILE => '/etc/default/ddclient';
 use constant RESOLV_FILE => '/etc/resolv.conf';
+use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/ebox-ppp-';
+use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
+use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
 
 use Net::IP;
+use Perl6::Junction qw(any);
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 use EBox::Config;
@@ -108,7 +112,9 @@ sub actions
 #
 sub usedFiles
 {
-    return [
+    my ($self) = @_;
+
+    my @files = (
     {
         'file' => INTERFACES_FILE,
         'reason' => __('eBox will set your network configuration'),
@@ -128,8 +134,26 @@ sub usedFiles
         'file' => DDCLIENT_FILE,
         'reason' => __('eBox will set your ddclient configuration'),
         'module' => 'network'
+    },
+    {
+        'file' => CHAP_SECRETS_FILE,
+        'reason' => __('eBox will store your PPPoE passwords'),
+        'module' => 'network'
+    },
+    {
+        'file' => PAP_SECRETS_FILE,
+        'reason' => __('eBox will store your PPPoE passwords'),
+        'module' => 'network'
+    },
+    );
+
+    foreach my $iface (@{$self->pppIfaces()}) {
+        push (@files, { 'file' => PPP_PROVIDER_FILE . $iface,
+                        'reason' => __('eBox will add a DSL provider configuration for PPPoE'),
+                        'module' => 'network' });
     }
-    ];
+
+    return \@files;
 }
 
 
@@ -522,10 +546,10 @@ sub ifaceAddresses # (interface)
                     netmask=>$mask,
                     name=>$name});
         }
-    } elsif ($self->ifaceMethod($iface) eq 'dhcp') {
+    } elsif ($self->ifaceMethod($iface) eq any('dhcp', 'ppp')) {
         my $addr = $self->DHCPAddress($iface);
         my $mask = $self->DHCPNetmask($iface);
-        if ($addr && ($addr ne '')) {
+        if ($addr) {
             push(@array, {address=>$addr, netmask=>$mask});
         }
     }
@@ -619,6 +643,27 @@ sub allIfaces
 {
     my $self = shift;
     return $self->_allIfaces($self->ifaces());
+}
+
+# Method: pppIfaces
+#
+#       Returns the names for all the PPPoE interfaces.
+#
+# Returns:
+#
+#       an array ref - holding the name of the interfaces.
+#
+sub pppIfaces
+{
+    my ($self) = @_;
+    my @pppifaces;
+
+    foreach my $iface (@{$self->ifaces()}) {
+        if ($self->ifaceMethod($iface) eq 'ppp') {
+            push (@pppifaces, $iface);
+        }
+    }
+    return \@pppifaces;
 }
 
 # Method: allIfacesWithRemoved
@@ -922,9 +967,10 @@ sub ifaceAlias # (iface)
 #
 # Returns:
 #
-#   string - dhcp|static|notset|trunk
+#   string - dhcp|static|notset|trunk|ppp
 #           dhcp -> the interface is configured via dhcp
 #           static -> the interface is configured with a static ip
+#           ppp -> the interface is configured via PPP
 #           notset -> the interface exists but has not been
 #                 configured yet
 #           trunk -> vlan aware interface
@@ -1138,6 +1184,87 @@ sub _checkStatic # (iface, force)
             }
         }
     }
+}
+
+# Method: setIfacePPP
+#
+#   Configure with PPP method
+#
+# Parameters:
+#
+#   interface - the name of a network interface
+#   ppp_user - PPP user name
+#   ppp_pass - PPP password
+#   external - boolean to indicate if it's an external interface
+#   force - boolean to indicate if an exception should be raised when
+#   method is changed or it should be forced
+#
+sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
+{
+    my ($self, $name, $ppp_user, $ppp_pass, $ext, $force) = @_;
+
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+
+    my $oldm = $self->ifaceMethod($name);
+    my $olduser = $self->ifacePPPUser($name);
+    my $oldpass = $self->ifacePPPPass($name);
+    my $oldext = $self->ifaceIsExternal($name);
+
+    if (($oldm eq 'ppp') and
+        ($olduser eq $ppp_user) and
+        ($oldpass eq $ppp_pass) and
+        (! ($oldext xor $ext))) {
+        return;
+    }
+
+    if ($oldm eq 'trunk') {
+        $self->_trunkIfaceIsUsed($name);
+    }
+
+    $self->_routersReachableIfChange($name);
+
+    # Calling observers
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+
+    if ( defined ( $ext ) ){
+      # External attribute is not set by ebox-netcfg-import script
+      if ($ext != $self->ifaceIsExternal($name) ) {
+        # Tell observers the interface way has changed
+        foreach my $obs (@observers) {
+          if ($obs->ifaceExternalChanged($name, $ext)) {
+        if ($force) {
+          $obs->changeIfaceExternalProperty($name, $ext);
+        } else {
+          throw EBox::Exceptions::DataInUse();
+        }
+          }
+        }
+      }
+    }
+
+    if ($oldm ne 'ppp') {
+        foreach my $obs (@observers) {
+            if ($obs->ifaceMethodChanged($name, $oldm, 'ppp')) {
+                if ($force) {
+                    $obs->freeIface($name);
+                } else {
+                    throw EBox::Exceptions::DataInUse();
+                }
+            }
+        }
+    }
+
+    $self->set_bool("interfaces/$name/external", $ext);
+    $self->set_string("interfaces/$name/method", 'ppp');
+    $self->set_string("interfaces/$name/ppp_user", $ppp_user);
+    $self->set_string("interfaces/$name/ppp_pass", $ppp_pass);
+    $self->set_bool("interfaces/$name/changed", 'true');
+
+    #logAdminDeferred('network',"set_iface_ppp","iface=$name,external=$ext,address=$address,netmask=$netmask");
 }
 
 # Method: setIfaceTrunk
@@ -1396,19 +1523,20 @@ sub unsetIface # (interface, force)
 #
 # Parameters:
 #
-#   interface - interface name
+#   name - interface name
 #
 #  Returns:
 #
 #   - For static interfaces: the configured IP Address of the interface.
-#   - For dhcp interfaces:
+#   - For dhcp and ppp interfaces:
 #       - the current address if the interface is up
 #       - undef if the interface is down
 #   - For not-yet-configured interfaces
 #       - undef
-sub ifaceAddress # (interface)
+sub ifaceAddress # (name)
 {
     my ($self, $name) = @_;
+
     my $address;
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
@@ -1418,12 +1546,65 @@ sub ifaceAddress # (interface)
     }
     if ($self->ifaceMethod($name) eq 'static') {
         return $self->get_string("interfaces/$name/address");
-    } elsif ($self->ifaceMethod($name) eq 'dhcp') {
+    } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
         return $self->DHCPAddress($name);
     }
     return undef;
 }
 
+# Method: ifacePPPUser
+#
+#   Returns the configured username for a PPP interface
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For ppp interfaces: the configured user of the interface.
+#   - For the rest: undef
+#
+sub ifacePPPUser # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'ppp') {
+        return $self->get_string("interfaces/$name/ppp_user");
+    } else {
+        return undef;
+    }
+}
+
+# Method: ifacePPPPass
+#
+#   Returns the configured password for a PPP interface
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For ppp interfaces: the configured password of the interface.
+#   - For the rest: undef
+#
+sub ifacePPPPass # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'ppp') {
+        return $self->get_string("interfaces/$name/ppp_pass");
+    } else {
+        return undef;
+    }
+}
 
 # Method: ifaceNetmask
 #
@@ -1454,7 +1635,7 @@ sub ifaceNetmask # (interface)
     }
     if ($self->ifaceMethod($name) eq 'static') {
         return $self->get_string("interfaces/$name/netmask");
-    } elsif ($self->ifaceMethod($name) eq 'dhcp') {
+    } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
         return $self->DHCPNetmask($name);
     }
 
@@ -1538,17 +1719,11 @@ sub ifaceBroadcast # (interface)
 sub nameservers
 {
     my ($self) = @_;
-    my @array = ();
-#   foreach (1..2) {
-#       my $server = $self->get_string("nameserver" . $_);
-#       (defined($server) and ($server ne '')) or next;
-#       push(@array, $server);
-#   }
-#   return \@array;
-        my $resolverModel = $self->model('DNSResolver');
-        my $ids = $resolverModel->ids();
-        @array = map { $resolverModel->row($_)->valueByName('nameserver') } @{$ids};
-        return \@array;
+
+    my $resolverModel = $self->model('DNSResolver');
+    my $ids = $resolverModel->ids();
+    my @array = map { $resolverModel->row($_)->valueByName('nameserver') } @{$ids};
+    return \@array;
 }
 
 sub searchdomain
@@ -1571,10 +1746,10 @@ sub searchdomain
 sub nameserverOne
 {
     my ($self) = @_;
-#   return $self->get_string("nameserver1");
-        my $nss = $self->nameservers();
-        return $nss->[0] if (scalar(@{$nss}) >= 1);
-        return '';
+
+    my $nss = $self->nameservers();
+    return $nss->[0] if (scalar(@{$nss}) >= 1);
+    return '';
 }
 
 # Method: nameserverTwo
@@ -1589,11 +1764,11 @@ sub nameserverOne
 #
 sub nameserverTwo
 {
-    my $self = shift;
-#   return $self->get_string("nameserver2");
-        my $nss = $self->nameservers();
-        return $nss->[1] if (scalar(@{$nss}) >= 2);
-        return '';
+    my ($self) = @_;
+
+    my $nss = $self->nameservers();
+    return $nss->[1] if (scalar(@{$nss}) >= 2);
+    return '';
 }
 
 # Method: setNameservers
@@ -1608,30 +1783,23 @@ sub nameserverTwo
 sub setNameservers # (one, two)
 {
     my ($self, @dns) = @_;
-#   my @nameservers = ();
-#   my $i = 0;
-#   foreach (@dns) {
-#       $i++;
-#       ($i < 3) or last;
-#       (length($_) == 0) or checkIP($_, __("IP address"));
-#       $self->set_string("nameserver$i", $_);
-#   }
-        my $nss = $self->nameservers();
-        my $resolverModel = $self->model('DNSResolver');
-        my $nNSS = scalar(@{$nss});
-        for(my $idx = 0; $idx < @dns; $idx++) {
-            my $newNS = $dns[$idx];
-            if ( $idx <= $nNSS - 1) {
-                # There is a nameserver
-                $self->setNS($idx, $newNS);
-            } else {
-                # Add a new one
-                $resolverModel->add(nameserver => $newNS);
-            }
+
+    my $nss = $self->nameservers();
+    my $resolverModel = $self->model('DNSResolver');
+    my $nNSS = scalar(@{$nss});
+    for(my $idx = 0; $idx < @dns; $idx++) {
+        my $newNS = $dns[$idx];
+        if ( $idx <= $nNSS - 1) {
+            # There is a nameserver
+            $self->setNS($idx, $newNS);
+        } else {
+            # Add a new one
+            $resolverModel->add(nameserver => $newNS);
         }
+    }
 }
 
-# Method: setSarchDomain
+# Method: setSearchDomain
 #
 #   Set the search domain
 #
@@ -1678,14 +1846,6 @@ sub gateway
 #
 sub routes
 {
-#   my $self = shift;
-#   #my @routes = @{$order->list};
-#   #my @array = ();
-#   #foreach (@routes) {
-#   #   push(@array, $self->hash_from_dir($_));
-#   #}
-#   return $self->array_from_dir('routes');
-#   #return \@array;
     my ($self) = @_;
 
     my $staticRouteModel = $self->model('StaticRoute');
@@ -1696,48 +1856,8 @@ sub routes
                          gateway => $row->printableValueByName('gateway')});
     }
     return \@routes;
-
 }
 
-# Method: addRoute
-#
-#       Add a static route
-#
-# Parameters:
-#
-#       ip - the destination network (CIDR format)
-#       mask - network mask
-#       gateway - router for the given network
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::DataExists> - thrown if the route does
-#       already exists
-#
-#       <EBox::Exceptions::External> - thrown if the gateway is not
-#       reachable
-#
-#sub addRoute # (ip, mask, gateway)
-#{
-#   my ($self, $ip, $mask, $gw) = @_;
-#
-#   checkCIDR("$ip/$mask", __("network address"));
-#   checkIP($gw, __("ip address"));
-#   $self->gatewayReachable($gw, __("Gateway"));
-#
-#   $ip = ip_network($ip, mask_from_bits($mask));
-#   if ($self->_alreadyInRoute($ip, $mask)) {
-#       throw EBox::Exceptions::DataExists('data' => 'network route',
-#                         'value' => "$ip/$mask");
-#   }
-#
-#   my $id = $self->get_unique_id("r","routes");
-#
-#   $self->set_string("routes/$id/ip", $ip);
-#   $self->set_int("routes/$id/mask", $mask);
-#   $self->set_string("routes/$id/gateway", $gw);
-#}
-#
 # Method: gatewayDeleted
 #
 #    Mark an interface as changed for a route delete. The selected
@@ -1771,29 +1891,6 @@ sub gatewayDeleted
     }
 
 }
-
-# Method: delRoute
-#
-#       Removes a route
-#
-# Parameters:
-#
-#       ip - the destination network
-#       mask - network mask
-#
-#sub delRoute # (ip, mask)
-#{
-#   my ($self, $ip, $mask) = @_;
-#
-#   my @routes = $self->all_dirs("routes");
-#   foreach (@routes) {
-#       ($self->get_string("$_/ip") eq $ip) or next;
-#       ($self->get_int("$_/mask") eq $mask) or next;
-#       $self->gatewayDeleted($self->get_string("$_/gateway"));
-#       $self->delete_dir("$_");
-#       return;
-#   }
-#}
 
 #returns true if the interface has been marked as changed
 sub _hasChanged # (interface)
@@ -1898,9 +1995,40 @@ sub _generateDDClient
   }
 }
 
+sub _generatePPPConfig
+{
+    my ($self) = @_;
+
+    my $pppSecrets = {};
+
+    foreach my $iface (@{$self->pppIfaces()}) {
+        my $user = $self->ifacePPPUser($iface);
+        my $pass = $self->ifacePPPPass($iface);
+        $pppSecrets->{$user} = $pass;
+        $self->writeConfFile(PPP_PROVIDER_FILE . $iface,
+                             'network/dsl-provider.mas',
+                             [ iface => $iface,
+                               ppp_user => $user
+                             ]);
+    }
+
+    $self->writeConfFile(CHAP_SECRETS_FILE,
+                         'network/chap-secrets.mas',
+                         [ passwords  => $pppSecrets ],
+                         { mode => '0600' }
+                        );
+
+    $self->writeConfFile(PAP_SECRETS_FILE,
+                         'network/pap-secrets.mas',
+                         [ passwords  => $pppSecrets ],
+                         { mode => '0600' }
+                        );
+}
+
 sub generateInterfaces
 {
-    my $self = shift;
+    my ($self) = @_;
+
     my $file = INTERFACES_FILE;
     my $tmpfile = EBox::Config::tmp . '/interfaces';
     my $iflist = $self->allIfacesWithRemoved();
@@ -1916,20 +2044,28 @@ sub generateInterfaces
         throw EBox::Exceptions::Internal("Could not write on $file");
     print IFACES "auto lo";
     foreach (@{$iflist}) {
-        if (($self->ifaceMethod($_) eq "static") or
-            ($self->ifaceMethod($_) eq "dhcp")) {
+        if (($self->ifaceMethod($_) eq 'static') or
+            ($self->ifaceMethod($_) eq 'dhcp')) {
             print IFACES " " . $_;
         }
     }
     my ($gwIface, $gwIP) = $self->_defaultGwAndIface();
-    print IFACES "\niface lo inet loopback\n";
+    print IFACES "\n\niface lo inet loopback\n";
     foreach my $ifname (@{$iflist}) {
         my $method = $self->ifaceMethod($ifname);
-        if (($method ne 'static') and ($method ne 'dhcp')) {
+        if (($method ne 'static') and
+            ($method ne 'ppp') and
+            ($method ne 'dhcp')) {
             next;
         }
 
-        print IFACES "iface $ifname inet $method\n";
+        my $name = $ifname;
+        if ($method eq 'ppp') {
+            $name = "ebox-ppp-$ifname";
+            print IFACES "auto $name\n";
+        }
+
+        print IFACES "iface $name inet $method\n";
 
         if ($ifname =~ /^vlan/) {
             my $vlan = $self->vlan($ifname);
@@ -1947,7 +2083,12 @@ sub generateInterfaces
             {
                 print IFACES "\tgateway $gwIP\n";
             }
+        } elsif ($method eq 'ppp') {
+            print IFACES "\tpre-up /sbin/ifconfig $ifname up\n";
+            print IFACES "\tpost-down /sbin/ifconfig $ifname down\n";
+            print IFACES "\tprovider $name\n";
         }
+        print IFACES "\n";
     }
     close(IFACES);
 
@@ -2144,9 +2285,14 @@ sub _preSetConf
     foreach my $if (@{$iflist}) {
         if ($self->_hasChanged($if) or $restart) {
             try {
-                root("/sbin/ip address flush label $if");
-                root("/sbin/ip address flush label $if:*");
-                root("/sbin/ifdown --force -i $file $if");
+                my $ifname = $if;
+                if ($self->ifaceMethod($if) eq 'ppp') {
+                    $ifname = "ebox-ppp-$if";
+                } else {
+                    root("/sbin/ip address flush label $if");
+                    root("/sbin/ip address flush label $if:*");
+                }
+                root("/sbin/ifdown --force -i $file $ifname");
             } catch EBox::Exceptions::Internal with {};
             #remove if empty
             if ($self->_isEmpty($if)) {
@@ -2155,7 +2301,7 @@ sub _preSetConf
                 }
             }
         }
-        if ($self->ifaceMethod($if) eq 'dhcp') {
+        if ($self->ifaceMethod($if) eq any('dhcp', 'ppp')) {
             my @servers = @{$self->DHCPNameservers($if)};
             if (scalar(@servers) > 0) {
                 $self->{'skipdns'} = 1;
@@ -2186,6 +2332,7 @@ sub _setConf
     my ($self) = @_;
 
     $self->generateInterfaces();
+    $self->_generatePPPConfig();
     $self->_generateDDClient;
     unless ($self->{'skipdns'}) {
         # FIXME: there is a corner case when this won't be enough:
@@ -2214,20 +2361,23 @@ sub _enforceServiceState
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();
     $iflist = $self->allIfacesWithRemoved();
-    foreach (@{$iflist}) {
-        if ($self->_hasChanged($_) or $restart) {
-            push(@ifups, $_);
+    foreach my $iface (@{$iflist}) {
+        if ($self->_hasChanged($iface) or $restart) {
+            if ($self->ifaceMethod($iface) eq 'ppp') {
+                $iface = "ebox-ppp-$iface";
+            }
+            push(@ifups, $iface);
         }
     }
-    foreach (@ifups) {
-        root(EBox::Config::pkgdata() . "ebox-unblock-exec /sbin/ifup --force -i $file $_");
+    foreach my $iface (@ifups) {
+        root(EBox::Config::pkgdata() . "ebox-unblock-exec /sbin/ifup --force -i $file $iface");
         unless ($self->isReadOnly()) {
-            $self->_unsetChanged($_);
+            $self->_unsetChanged($iface);
         }
     }
 
     my $dhcpgw = $self->DHCPGateway();
-    unless ($dhcpgw and ($dhcpgw ne '')) {
+    unless ($dhcpgw) {
         try {
             root("/sbin/ip route del default table default");
         } catch EBox::Exceptions::Internal with {};
@@ -2271,9 +2421,14 @@ sub _stopService
     my $iflist = $self->allIfaces();
     foreach my $if (@{$iflist}) {
         try {
-            root("/sbin/ip address flush label $if");
-            root("/sbin/ip address flush label $if:*");
-            root("/sbin/ifdown --force -i $file $if");
+            my $ifname = $if;
+            if ($self->ifaceMethod($if) eq 'ppp') {
+                $ifname = "ebox-ppp-$if";
+            } else {
+                root("/sbin/ip address flush label $if");
+                root("/sbin/ip address flush label $if:*");
+            }
+            root("/sbin/ifdown --force -i $file $ifname");
         } catch EBox::Exceptions::Internal with {};
     }
 
@@ -2282,34 +2437,6 @@ sub _stopService
 
     $self->SUPER::_stopService();
 }
-
-#internal use functions
-# XXX UNUSED FUNCTION
-#sub _getInterfaces
-#{
-    #my $iflist = Ifconfig('list');
-    #return $iflist;
-#}
-
-# XXX UNUSED FUNCTION
-#sub _getInterfacesArray
-#{
-    #my $self = shift;
-    #my $iflist = Ifconfig('list');
-    #delete $iflist->{lo};
-    #my @array;
-    #my $i = 0;
-    #while (my($key,$value) = each(%{$iflist})) {
-        #my $entry;
-        #$entry->{name} = $key;
-        #($entry->{address}) = keys(%{$value->{inet}});
-        #$entry->{netmask} = $value->{inet}->{$entry->{address}};
-        #$entry->{status} = $value->{status};
-        #$array[$i] = $entry;
-        #$i++;
-    #}
-    #return \@array;
-#}
 
 sub _routersReachableIfChange # (interface, newaddress?, newmask?)
 {
@@ -2491,10 +2618,10 @@ sub DHCPCleanUp # (interface)
                              value => $iface);
 
     my $gw = $self->DHCPGateway();
-    if ($gw and $gw ne '') {
+    if ($gw) {
         my $host = $self->DHCPAddress($iface);
         my $mask = $self->DHCPNetmask($iface);
-        if (($host and $host ne '') and ($mask and $mask ne '')) {
+        if ($host and $mask) {
             if (isIPInNetwork($host, $mask, "$gw/$mask")) {
                 $self->DHCPGatewayCleanUp();
             }
@@ -2536,7 +2663,7 @@ sub storeSelectedDefaultGateway # (gateway
 #
 # Returns:
 #
-#   string - gatewaya
+#   string - gateway
 sub DHCPGateway
 {
     my ($self) = @_;

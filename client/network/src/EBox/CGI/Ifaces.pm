@@ -79,6 +79,9 @@ sub masonParameters
       $iface->{'virtual'} = $net->vifacesConf($_);
     } elsif ($net->ifaceMethod($_) eq 'trunk') {
       push(@params, 'vlans' => $net->ifaceVlans($_));
+    } elsif ($net->ifaceMethod($_) eq 'ppp') {
+      $iface->{'ppp_user'} = $net->ifacePPPUser($_);
+      $iface->{'ppp_pass'} = $net->ifacePPPPass($_);
     }
   }
 

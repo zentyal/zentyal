@@ -1,7 +1,7 @@
 <%args>
-	@ifaces
-	$iface
-	@vlans => ()
+    @ifaces
+    $iface
+    @vlans => ()
 </%args>
 <%init>
 use EBox::Gettext;
@@ -9,118 +9,126 @@ use EBox::NetWrappers qw(:all);
 </%init>
 <div class='help'>
 <% __('Remember that changing the network interfaces configuration may cause you to lose access to the administration page.') %>
-	<br/>
-	<br/>
+    <br/>
+    <br/>
 <% __('Traffic being routed through interfaces marked as external will be NATed.  Also, services meant for the LAN users will not be available on external interfaces.') %>
 </div>
 <& network/iftabs.mas, ifaces=> \@ifaces, selected => $iface->{name}&>
 <br/>
 
 <form action='Iface' method='post'>
-	<input type="hidden" name="ifname" value="<% $iface->{"name"} %>"/>
-	<table class='formTable'>
-%	if (iface_exists($iface->{'name'})) {
-	<tr>
-		<td class='tright'>
-			<span class="ftitle">
-				<%__('Name')%>:
-			</span>
-		</td>
-		<td class='tright'>
-			<input type='text' name='ifalias' value='<% $iface->{'alias'} %>'/>
-		</td>
-	</tr>
-%	}
-	<tr>
-		<td class='tright'>
-			<span class="ftitle">
-				<%__('Method')%>:
-			</span>
-		</td>
-		<td>
-			<select name='method' onChange='methodChanged(this)'>
+    <input type="hidden" name="ifname" value="<% $iface->{"name"} %>"/>
+    <table class='formTable'>
+%   if (iface_exists($iface->{'name'})) {
+    <tr>
+        <td class='tright'>
+            <span class="ftitle">
+                <%__('Name')%>:
+            </span>
+        </td>
+        <td>
+            <input type='text' name='ifalias' value='<% $iface->{'alias'} %>'/>
+        </td>
+    </tr>
+%   }
+    <tr>
+        <td class='tright'>
+            <span class="ftitle">
+                <%__('Method')%>:
+            </span>
+        </td>
+        <td>
+            <select name='method' onChange='methodChanged(this)'>
 % if ($iface->{'method'} eq 'static') {
-				<option selected value='static'><% __('Static') %></option>
+                <option selected value='static'><% __('Static') %></option>
 % } else {
-				<option value='static'><% __('Static') %></option>
+                <option value='static'><% __('Static') %></option>
 % }
 
 % if ($iface->{'method'} eq 'dhcp') {
-				<option selected value='dhcp'>DHCP</option>
+                <option selected value='dhcp'>DHCP</option>
 % } else {
-				<option value='dhcp'>DHCP</option>
+                <option value='dhcp'>DHCP</option>
+% }
+
+% if ($iface->{'method'} eq 'ppp') {
+                <option selected value='ppp'>PPPoE</option>
+% } else {
+                <option value='ppp'>PPPoE</option>
 % }
 
 % unless ($iface->{'name'} =~ /^vlan/) {
-%	if ($iface->{'method'} eq 'trunk') {
-				<option selected value='trunk'><%__('Trunk (802.1q)')%></option>
-%	} else {
-				<option value='trunk'><%__('Trunk (802.1q)')%></option>
-%	}
+%   if ($iface->{'method'} eq 'trunk') {
+                <option selected value='trunk'><%__('Trunk (802.1q)')%></option>
+%   } else {
+                <option value='trunk'><%__('Trunk (802.1q)')%></option>
+%   }
 % }
 
 % if ($iface->{'method'} eq 'notset') {
-				<option selected value='notset'><% __('Not set') %></option>
+                <option selected value='notset'><% __('Not set') %></option>
 % } else {
-				<option value='notset'><% __('Not set') %></option>
+                <option value='notset'><% __('Not set') %></option>
 % }
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td class='tright'>
-			<div id="external1">
-			<span class="ftitle">
-				<%__('External')%>:
-			</span>
-			</div>
-		</td>
-		<td>
-			<div id="external2">
-			<input type='checkbox'
-%					if ($iface->{'external'} eq 'yes') {
-					checked \
-%					}
-				name="external" />
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td class='tright'>
-			<div id="static1">
-				<span class='ftitle'><% __('IP address') %>:</span>
-			</div>
-		</td>
-		<td>
-			<div id="static2">
-			<input class='inputText' type='text' size='16' name='if_address'
-				   alt='if_name' value='<% $iface->{'address'} %>' />
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td class='tright'>
-			<div id="static3">
-				<span class='ftitle'><% __('Netmask') %>:</span>
-			</div>
-		</td>
-		<td>
-			<div id="static4">
-			<select name="if_netmask">
-%	my $netmask;
-%	if (defined($iface->{'netmask'})) {
-%		$netmask = $iface->{'netmask'};
-%	} else {
-%		$netmask = '255.255.255.0';
-%	}
-				<option selected value='<% $netmask %>'><% $netmask %></option>
-				<option value='255.255.255.252'>255.255.255.252</option>
-				<option value='255.255.255.248'>255.255.255.248</option>
-				<option value='255.255.255.240'>255.255.255.240</option>
-				<option value='255.255.255.224'>255.255.255.224</option>
-				<option value='255.255.255.192'>255.255.255.192</option>
-				<option value='255.255.255.128'>255.255.255.128</option>
-				<option value='255.255.255.0'>255.255.255.0</option>
+            </select>
+        </td>
+    </tr>
+    <tr id="external">
+        <td class='tright'>
+            <div id="external1">
+            <span class="ftitle">
+                <%__('External (WAN)')%>:
+            </span>
+            </div>
+        </td>
+        <td>
+            <div id="external2">
+            <input type='checkbox'
+%                   if ($iface->{'external'} eq 'yes') {
+                    checked \
+%                   }
+                name="external" />
+            <div class="field_help">
+            Check this if you are using eBox as a gateway and this interface is connected to your Internet router.
+            </div>
+        </td>
+    </tr>
+    <tr id="ipaddr">
+        <td class='tright'>
+            <div id="static1">
+                <span class='ftitle'><% __('IP address') %>:</span>
+            </div>
+        </td>
+        <td>
+            <div id="static2">
+            <input class='inputText' type='text' size='16' name='if_address'
+                   alt='if_name' value='<% $iface->{'address'} %>' />
+            </div>
+        </td>
+    </tr>
+    <tr id="netmask">
+        <td class='tright'>
+            <div id="static3">
+                <span class='ftitle'><% __('Netmask') %>:</span>
+            </div>
+        </td>
+        <td>
+            <div id="static4">
+            <select name="if_netmask">
+%   my $netmask;
+%   if (defined($iface->{'netmask'})) {
+%       $netmask = $iface->{'netmask'};
+%   } else {
+%       $netmask = '255.255.255.0';
+%   }
+                <option selected value='<% $netmask %>'><% $netmask %></option>
+                <option value='255.255.255.252'>255.255.255.252</option>
+                <option value='255.255.255.248'>255.255.255.248</option>
+                <option value='255.255.255.240'>255.255.255.240</option>
+                <option value='255.255.255.224'>255.255.255.224</option>
+                <option value='255.255.255.192'>255.255.255.192</option>
+                <option value='255.255.255.128'>255.255.255.128</option>
+                <option value='255.255.255.0'>255.255.255.0</option>
                 <option value="255.255.254.0">255.255.254.0</option>
                 <option value="255.255.252.0">255.255.252.0</option>
                 <option value="255.255.248.0">255.255.248.0</option>
@@ -128,75 +136,101 @@ use EBox::NetWrappers qw(:all);
                 <option value="255.255.224.0">255.255.224.0</option>
                 <option value="255.255.192.0">255.255.192.0</option>
                 <option value="255.255.128.0">255.255.128.0</option>
-				<option value='255.255.0.0'>255.255.0.0</option>
-				<option value='255.0.0.0'>255.0.0.0</option>
-			</select>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<input class='inputButton' type='submit'
-				name='accept' value="<% __('Change') %>" />
-		</td>
-	</tr>
-	</table>
+                <option value='255.255.0.0'>255.255.0.0</option>
+                <option value='255.0.0.0'>255.0.0.0</option>
+            </select>
+            </div>
+        </td>
+    </tr>
+    <tr id="ppp_user">
+        <td class='tright'>
+            <div id="ppp_user1">
+                <span class='ftitle'><% __('User name') %>:</span>
+            </div>
+        </td>
+        <td>
+            <div id="ppp_user2">
+            <input class='inputText' type='text' size='16' name='if_ppp_user'
+                   alt='if_ppp_user' value='<% $iface->{'ppp_user'} %>' />
+            </div>
+        </td>
+    </tr>
+    <tr id="ppp_pass">
+        <td class='tright'>
+            <div id="ppp_pass1">
+                <span class='ftitle'><% __('Password') %>:</span>
+            </div>
+        </td>
+        <td>
+            <div id="ppp_pass2">
+            <input class='inputText' type='password' size='16' name='if_ppp_pass'
+                   alt='if_ppp_pass' value='<% $iface->{'ppp_pass'} %>' />
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input class='inputButton' type='submit'
+                name='accept' value="<% __('Change') %>" />
+        </td>
+    </tr>
+    </table>
 </form>
 
 <div id='trunk'>
 % if ($iface->{"method"} eq "trunk") {
 <h3><% __('VLAN List') %></h3>
 
-	<table class='dataTable' cellspacing='0'>
-	<thead>
-		<tr>
-			<th class='tleft'><% __('VLAN Id') %></th>
-			<th class='tleft'><% __('Description') %></th>
-			<th class='thOptions'><% __('Action') %></th>
-		</tr>
-	</thead>
+    <table class='dataTable' cellspacing='0'>
+    <thead>
+        <tr>
+            <th class='tleft'><% __('VLAN Id') %></th>
+            <th class='tleft'><% __('Description') %></th>
+            <th class='thOptions'><% __('Action') %></th>
+        </tr>
+    </thead>
 
-	<tbody>
-		<tr class='border'><form action='Vlan' method='POST'>
-			<td class='tleft'>
-				<input type="hidden" name="ifname" value="<% $iface->{"name"}%>"/>
-				<input class="inputText" type="text" size="6" name="vlanid"/>
-			</td>
-			<td class='tleft'>
-				<input class="inputText" type="text" size="36" name="vlandesc"/>
-			</td>
-			<td class='tcenter'>
-				<input class="inputButton" type="image" name="add"
-						src="/data/images/add.gif"
-						alt="<% __("Add") %>"
-						title="<% __("Add") %>"
-						value="<% __("Add") %>" >
-			</td>
-		</form></tr>
+    <tbody>
+        <tr class='border'><form action='Vlan' method='POST'>
+            <td class='tleft'>
+                <input type="hidden" name="ifname" value="<% $iface->{"name"}%>"/>
+                <input class="inputText" type="text" size="6" name="vlanid"/>
+            </td>
+            <td class='tleft'>
+                <input class="inputText" type="text" size="36" name="vlandesc"/>
+            </td>
+            <td class='tcenter'>
+                <input class="inputButton" type="image" name="add"
+                        src="/data/images/add.gif"
+                        alt="<% __("Add") %>"
+                        title="<% __("Add") %>"
+                        value="<% __("Add") %>" >
+            </td>
+        </form></tr>
 
-% 	foreach my $vlan (@vlans) {
-		<tr class='border'><form action='Vlan' method='POST'>
-			<td class='tleft'>
-				<input type="hidden" name="ifname" value="<% $iface->{'name'}%>"/>
-				<input type="hidden" name="vlanid" value="<% $vlan->{'id'}%>"/>
-				<%$vlan->{'id'}%>
-			</td>
-			<td class='tleft'>
-				<%$vlan->{'name'}%>
-			</td>
-			<td class='tcenter'>
-				<input class="inputButton" type="image" name="del"
-						src="/data/images/delete.gif"
-						alt="<% __("Delete") %>"
-						title="<% __("Delete") %>"
-						value="<% __("Delete") %>" >
-			</td>
-		</form></tr>
-% 	}
+%   foreach my $vlan (@vlans) {
+        <tr class='border'><form action='Vlan' method='POST'>
+            <td class='tleft'>
+                <input type="hidden" name="ifname" value="<% $iface->{'name'}%>"/>
+                <input type="hidden" name="vlanid" value="<% $vlan->{'id'}%>"/>
+                <%$vlan->{'id'}%>
+            </td>
+            <td class='tleft'>
+                <%$vlan->{'name'}%>
+            </td>
+            <td class='tcenter'>
+                <input class="inputButton" type="image" name="del"
+                        src="/data/images/delete.gif"
+                        alt="<% __("Delete") %>"
+                        title="<% __("Delete") %>"
+                        value="<% __("Delete") %>" >
+            </td>
+        </form></tr>
+%   }
 
-	</tbody>
-	</table>
+    </tbody>
+    </table>
 
 % }
 </div>
@@ -205,41 +239,41 @@ use EBox::NetWrappers qw(:all);
 % if ($iface->{"method"} eq "static") {
 <h3><% __('Virtual Interfaces') %></h3>
 
-	<table class='dataTable' cellspacing='0'>
-	<thead>
-		<tr>
-			<th class='tleft'><% __('Name') %></th>
-			<th class='tleft'><% __('IP address') %></th>
-			<th class='tleft'><% __('Netmask') %></th>
-			<th class='thOptions'><% __('Action') %></th>
-		</tr>
-	</thead>
-	<tbody>
+    <table class='dataTable' cellspacing='0'>
+    <thead>
+        <tr>
+            <th class='tleft'><% __('Name') %></th>
+            <th class='tleft'><% __('IP address') %></th>
+            <th class='tleft'><% __('Netmask') %></th>
+            <th class='thOptions'><% __('Action') %></th>
+        </tr>
+    </thead>
+    <tbody>
 
-		<tr class='border'><form action='VIface' method='POST'>
+        <tr class='border'><form action='VIface' method='POST'>
 
-			<td>
-				<input type="hidden" name="ifname" value="<% $iface->{"name"} %>">
-				<input type="hidden" name="ifaction" value="add">
-				<input class="inputText" type="text" size="16" name="vif_name"
-					   alt="vif_name" value="" >
-			</td>
+            <td>
+                <input type="hidden" name="ifname" value="<% $iface->{"name"} %>">
+                <input type="hidden" name="ifaction" value="add">
+                <input class="inputText" type="text" size="16" name="vif_name"
+                       alt="vif_name" value="" >
+            </td>
 
-			<td>
-				<input class="inputText" type="text" size="16" name="vif_address"
-					   alt="vif_name" value="" >
-			</td>
+            <td>
+                <input class="inputText" type="text" size="16" name="vif_address"
+                       alt="vif_name" value="" >
+            </td>
 
-			<td>
-				<select name="vif_netmask">
-				<option selected value="255.255.255.0">255.255.255.0</option>
-				<option value='255.255.255.252'>255.255.255.252</option>
-				<option value='255.255.255.248'>255.255.255.248</option>
-				<option value='255.255.255.240'>255.255.255.240</option>
-				<option value='255.255.255.224'>255.255.255.224</option>
-				<option value='255.255.255.192'>255.255.255.192</option>
-				<option value='255.255.255.128'>255.255.255.128</option>
-				<option value='255.255.255.0'>255.255.255.0</option>
+            <td>
+                <select name="vif_netmask">
+                <option selected value="255.255.255.0">255.255.255.0</option>
+                <option value='255.255.255.252'>255.255.255.252</option>
+                <option value='255.255.255.248'>255.255.255.248</option>
+                <option value='255.255.255.240'>255.255.255.240</option>
+                <option value='255.255.255.224'>255.255.255.224</option>
+                <option value='255.255.255.192'>255.255.255.192</option>
+                <option value='255.255.255.128'>255.255.255.128</option>
+                <option value='255.255.255.0'>255.255.255.0</option>
                 <option value="255.255.254.0">255.255.254.0</option>
                 <option value="255.255.252.0">255.255.252.0</option>
                 <option value="255.255.248.0">255.255.248.0</option>
@@ -247,88 +281,90 @@ use EBox::NetWrappers qw(:all);
                 <option value="255.255.224.0">255.255.224.0</option>
                 <option value="255.255.192.0">255.255.192.0</option>
                 <option value="255.255.128.0">255.255.128.0</option>
-				<option value='255.255.0.0'>255.255.0.0</option>
-				<option value='255.0.0.0'>255.0.0.0</option>
-				</select>
-			</td>
+                <option value='255.255.0.0'>255.255.0.0</option>
+                <option value='255.0.0.0'>255.0.0.0</option>
+                </select>
+            </td>
 
-			<td class='tcenter'>
-				<input class="inputButton" type="image" name="accept"
-						src="/data/images/add.gif"
-						alt="<% __("Add") %>"
-						title="<% __("Add") %>"
-						value="<% __("Add") %>" >
-			</td>
-		</form></tr>
+            <td class='tcenter'>
+                <input class="inputButton" type="image" name="accept"
+                        src="/data/images/add.gif"
+                        alt="<% __("Add") %>"
+                        title="<% __("Add") %>"
+                        value="<% __("Add") %>" >
+            </td>
+        </form></tr>
 
-% 	foreach my $viface (@{$iface->{"virtual"}}) {
-		<tr class='border'><form name="<% $iface->{"name"} %>" action="VIface" method="post">
+%   foreach my $viface (@{$iface->{"virtual"}}) {
+        <tr class='border'><form name="<% $iface->{"name"} %>" action="VIface" method="post">
 
-			<td>
-				<input type="hidden" name="ifname" value="<% $iface->{"name"} %>">
-				<input type="hidden" name="ifaction" value="delete">
-				<input type="hidden"  name="vif_name" value="<% $viface->{"name"} %>" >
-				<% $viface->{"name"} %>
-			</td>
+            <td>
+                <input type="hidden" name="ifname" value="<% $iface->{"name"} %>">
+                <input type="hidden" name="ifaction" value="delete">
+                <input type="hidden"  name="vif_name" value="<% $viface->{"name"} %>" >
+                <% $viface->{"name"} %>
+            </td>
 
-			<td>
-				<% $viface->{"address"} %>
-			</td>
+            <td>
+                <% $viface->{"address"} %>
+            </td>
 
-			<td>
-				<% $viface->{"netmask"} %>
-			</td>
+            <td>
+                <% $viface->{"netmask"} %>
+            </td>
 
-			<td class='tcenter'>
-				<input type="image" name="del"
-					src="/data/images/delete.gif"
-					alt="<% __("Delete") %>"
-					title="<% __("Delete") %>"
-					value="<% __("Delete") %>">
-			</td>
+            <td class='tcenter'>
+                <input type="image" name="del"
+                    src="/data/images/delete.gif"
+                    alt="<% __("Delete") %>"
+                    title="<% __("Delete") %>"
+                    value="<% __("Delete") %>">
+            </td>
 
-		</form></tr>
-% 	}
+        </form></tr>
+%   }
 
-	</tbody>
-	</table>
+    </tbody>
+    </table>
 % }
 </div>
 
 <script type="text/javascript"><!--
 function methodChanged(select) {
-	selected = select.options[select.selectedIndex].value;
+    selected = select.options[select.selectedIndex].value;
 
-	if (selected == 'static' || selected == 'dhcp') {
-		document.getElementById("external1").style.display="block";
-		document.getElementById("external2").style.display="block";
-	} else {
-		document.getElementById("external1").style.display="none";
-		document.getElementById("external2").style.display="none";
-	}
+    if (selected == 'static' || selected == 'dhcp' || selected == 'ppp') {
+        $('external').show();
+    } else {
+        $('external').hide();
+    }
 
-	if (selected == 'static') {
-		document.getElementById("static1").style.display="block";
-		document.getElementById("static2").style.display="block";
-		document.getElementById("static3").style.display="block";
-		document.getElementById("static4").style.display="block";
-		document.getElementById("virtual").style.display="block";
-	} else {
-		document.getElementById("static1").style.display="none";
-		document.getElementById("static2").style.display="none";
-		document.getElementById("static3").style.display="none";
-		document.getElementById("static4").style.display="none";
-		document.getElementById("virtual").style.display="none";
-	}
+    if (selected == 'static') {
+        $('ipaddr').show();
+        $('netmask').show();
+        $('virtual').show();
+    } else {
+        $('ipaddr').hide();
+        $('netmask').hide();
+        $('virtual').hide();
+    }
 
-	if (selected == 'trunk') {
-		document.getElementById("trunk").style.display="block";
-	} else {
-		document.getElementById("trunk").style.display="none";
-	}
+    if (selected == 'trunk') {
+        $('trunk').show();
+    } else {
+        $('trunk').hide();
+    }
+
+    if (selected == 'ppp') {
+        $('ppp_user').show();
+        $('ppp_pass').show();
+    } else {
+        $('ppp_user').hide();
+        $('ppp_pass').hide();
+    }
 }
 
 var methodSelects = document.getElementsByName('method');
-for (var i = 0; i< methodSelects.length; i++) 
-	methodChanged(methodSelects[i]);
+for (var i = 0; i< methodSelects.length; i++)
+    methodChanged(methodSelects[i]);
 //--></script>

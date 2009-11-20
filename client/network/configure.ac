@@ -57,7 +57,6 @@ AC_CONF_EBOX($enable_runtime_tests)
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
-src/EBox/CGI/FirstTime/Makefile
 src/EBox/Network/Makefile
 src/EBox/Network/Composite/Makefile
 src/EBox/Network/Report/Makefile
@@ -75,6 +74,8 @@ migration/Makefile
 schemas/Makefile
 src/libexec/Makefile
 src/libexec/ebox-exit
+src/libexec/ebox-ppp-up
+src/libexec/ebox-ppp-down
 conf/Makefile
 stubs/Makefile
 tools/Makefile

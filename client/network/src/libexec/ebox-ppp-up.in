@@ -1,0 +1,21 @@
+#!/bin/bash
+
+libexec=@DATADIR@/ebox
+
+iface=$1
+local_address=$4
+remote_address=$5
+
+nameservers=`cat /etc/ppp/resolv.conf | cut -d' ' -f2 | xargs`
+
+# WARNING: ppp0 is hardcoded as we only support one PPPoE interface
+#   PPPoE is also incompatible with DHCP right now
+# NOTE: If some day we need the interface name we can
+#   use the iface variable passed as first parameter to this script
+
+$libexec/dhcp-address.pl ppp0 $local_address 255.255.255.254
+$libexec/dhcp-nameservers.pl ppp0 $nameservers
+$libexec/dhcp-gateway.pl $remote_address
+
+# Avoid problems with large packets
+iptables -A FORWARD -o ppp0 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu

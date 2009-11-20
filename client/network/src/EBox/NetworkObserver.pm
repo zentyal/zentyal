@@ -59,7 +59,7 @@ sub staticIfaceAddressChanged # (iface, oldaddr, oldmask, newaddr, newmask)
 #
 # Method: ifaceMethodChanged
 #
-# 	Invoked when the configuration method for a network interface is
+#	Invoked when the configuration method for a network interface is
 #	going to change. Both the old and new methods are passed as
 #	arguments to this function. They are strings: static, dhcp,
 #	trunk or notset. As with the previous function, a return value of
