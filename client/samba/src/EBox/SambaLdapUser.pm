@@ -500,32 +500,6 @@ sub _createDir
     }
 }
 
-sub _setUserQuota
-{
-    my ($self, $uid, $quota)  = @_;
-
-    #FIXME
-    use constant INSOFT => 0;
-    use constant INHARD => 0;
-
-    $quota = $quota * 1024; #~Blocks
-    root("/usr/sbin/setquota -u $uid $quota $quota " . INSOFT . " " . INHARD . " -a");
-    root("/usr/sbin/setquota -t 0 0 -a");
-}
-
-sub _setAllUsersQuota
-{
-    my ($self) = @_;
-
-    my $users = EBox::Global->modInstance('users');
-    my $samba = EBox::Global->modInstance('samba');
-    my $quota = $samba->defaultUserQuota;
-
-    foreach my $user ($users->users) {
-        $self->_setUserQuota($user->{'uid'}, $quota);
-    }
-}
-
 sub _directoryEmpty
 {
     my ($self, $path) = @_;
