@@ -136,8 +136,12 @@ sub init
 	my $uid = getpwnam($user);
 	setuid($uid) or die "Cannot change user to $user";
 
-    EBox::initLogger('eboxlog.conf');
-    dbusInit();
+        EBox::initLogger('eboxlog.conf');
+        dbusInit();
+
+        # Set HOME environment variable to avoid some issues calling
+        # external programs
+        $ENV{HOME} = EBox::Config::home();
 }
 
 # Method: dbusInit
