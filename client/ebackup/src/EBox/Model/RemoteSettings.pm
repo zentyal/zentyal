@@ -27,6 +27,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Sudo;
 use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::Password;
@@ -339,7 +340,8 @@ sub _gpgKeys
     my @keys = ({value => 'disabled', printableValue => __('Disabled')});
 
     my $cmd = 'gpg --list-secret-keys | grep "^sec" | awk \'{print $2}\'';
-    for my $line (`$cmd`) {
+    my $output = EBox::Sudo::command($cmd);
+    for my $line (@{$output}) {
         chop($line);
         $line =~ s:^.*/::;
         push (@keys, {value => $line , printableValue => $line});
