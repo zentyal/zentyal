@@ -31,8 +31,7 @@ use EBox::Gettext;
 
 use EBox::Ldap;
 
-use constant LDAPATTRMAPCONFFILE => '/etc/freeradius/ldap.attrmap';
-use constant PAPCONFFILE => '/etc/freeradius/modules/pap';
+use constant USERSCONFFILE => '/etc/freeradius/users';
 use constant LDAPCONFFILE => '/etc/freeradius/modules/ldap';
 use constant CLIENTSCONFFILE => '/etc/freeradius/clients.conf';
 use constant DEFAULTSRVCONFFILE => '/etc/freeradius/sites-available/default';
@@ -69,6 +68,7 @@ sub _create
 sub modelClasses
 {
     return [
+        'EBox::Radius::Model::Auth',
         'EBox::Radius::Model::Clients',
     ];
 }
@@ -90,25 +90,19 @@ sub compositeClasses
 
 # Method: actions
 #
-# Overrides:
+#       Override EBox::Module::Service::actions
 #
-#      <EBox::Module::Service::actions>
-#
-#sub actions
-#{
-#    return [
-#    {
-#        'action' => __('Enable default RADIUS vhost.'),
-#        'reason' => __('To configure EAP channel.'),
-#        'module' => 'radius'
-#    },
-#    {
-#        'action' => __('Enable RADIUS inner-tunnel vhost.'),
-#        'reason' => __('To configure PAP inner authentication.'),
-#        'module' => 'radius'
-#    },
-#    ];
-#}
+sub actions
+{
+    return [
+    {
+        'action' => __('Create RADIUS certificates for TTLS'),
+        'reason' => __('eBox will create the needed certificates for TTLS ' .
+            'in /etc/freeradius/certs/.'),
+        'module' => 'radius'
+    },
+    ];
+}
 
 
 # Method: usedFiles
@@ -121,17 +115,13 @@ sub usedFiles
 {
     my @usedFiles;
 
-    push (@usedFiles, { 'file' => LDAPATTRMAPCONFFILE,
+    push (@usedFiles, { 'file' => USERSCONFFILE,
                         'module' => 'radius',
-                        'reason' => __('To map LDAP attributes with RADIUS attributes.')
+                        'reason' => __('To configure allowed LDAP group.')
                       },
                       { 'file' => LDAPCONFFILE,
                         'module' => 'radius',
                         'reason' => __('To configure RADIUS LDAP module.')
-                      },
-                      { 'file' => PAPCONFFILE,
-                        'module' => 'radius',
-                        'reason' => __('To configure RADIUS PAP module.')
                       },
                       { 'file' => CLIENTSCONFFILE,
                         'module' => 'radius',
@@ -157,13 +147,13 @@ sub usedFiles
 #
 #      <EBox::ServiceModule::ServiceInterface::enableActions>
 #
-#sub enableActions
-#{
-#    my ($self) = @_;
-#
-#    EBox::Sudo::root(EBox::Config::share() .
-#                     '/ebox-radius/ebox-radius-enable');
-#}
+sub enableActions
+{
+    my ($self) = @_;
+
+    EBox::Sudo::root(EBox::Config::share() .
+                     '/ebox-radius/ebox-radius-enable');
+}
 
 
 # Method: enableService
@@ -208,17 +198,31 @@ sub _setConf
 {
     my ($self) = @_;
 
-    $self->writeConfFile(PAPCONFFILE, "radius/pap.mas",
-                         undef, { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
-    $self->writeConfFile(LDAPATTRMAPCONFFILE, "radius/ldap.attrmap.mas",
-                         undef, { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
     $self->writeConfFile(DEFAULTSRVCONFFILE, "radius/default.mas",
                          undef, { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
     $self->writeConfFile(INNERTUNNELSRVCONFFILE, "radius/inner-tunnel.mas",
                          undef, { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 
+    $self->_setUsers();
     $self->_setLDAP();
     $self->_setClients();
+}
+
+
+# set up the Users configuration
+sub _setUsers
+{
+    my ($self) = @_;
+
+    my @params = ();
+
+    my $model = $self->model('Auth');
+
+    push (@params, bygroup => $model->getByGroup());
+    push (@params, group => $model->getGroup());
+
+    $self->writeConfFile(USERSCONFFILE, "radius/users.mas", \@params,
+                            { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 }
 
 
@@ -248,9 +252,10 @@ sub _setClients
 {
     my ($self) = @_;
 
+    my @params = ();
+
     my $model = $self->model('Clients');
 
-    my @params = ();
     push (@params, clients => $model->getClients());
 
     $self->writeConfFile(CLIENTSCONFFILE, "radius/clients.conf.mas", \@params,

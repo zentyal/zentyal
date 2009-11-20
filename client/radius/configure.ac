@@ -1,4 +1,4 @@
-AC_INIT([EBox-radius], [1.3.9])
+AC_INIT([EBox-radius], [1.2])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Radius.pm])
@@ -53,11 +53,9 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
 src/Makefile
-src/templates/Makefile
 src/EBox/Makefile
 src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
-src/EBox/CGI/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

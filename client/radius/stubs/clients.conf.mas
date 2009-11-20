@@ -2,6 +2,12 @@
     @clients
 </%args>
 # /etc/freeradius/clients.conf
+
+#client localhost {
+#        ipaddr = 127.0.0.1
+#        secret = testing123
+#        nastype = other
+#}
 %    foreach my $client (@clients) {
 
 # <% $client->{'name'} %>

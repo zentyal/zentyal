@@ -1,0 +1,13 @@
+<%args>
+    $bygroup
+    $group
+</%args>
+# /etc/freeradius/users
+
+% if ($bygroup) {
+DEFAULT LDAP-Group == <% $group %>
+	Service-Type := Login-User
+DEFAULT Auth-Type := Reject
+% } else {
+DEFAULT Service-Type := Login-User
+% }

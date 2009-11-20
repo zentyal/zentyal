@@ -56,6 +56,7 @@ sub _description
     my $description =
     {
         components      => [
+                               'radius/Auth',
                                'radius/Clients',
                            ],
         layout          => 'top-bottom',

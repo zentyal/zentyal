@@ -130,7 +130,7 @@ sub _table
     my $dataTable =
     {
         tableName => 'Clients',
-        printableTableName => __('Clients'),
+        printableTableName => __('RADIUS Clients'),
         printableRowName => __('client'),
         defaultActions => ['add', 'del', 'editField', 'changeView' ],
         tableDescription => \@tableHeader,

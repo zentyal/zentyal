@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox
 
-SUBDIRS = Model Composite CGI
+SUBDIRS = Model Composite
 
 nobase_perl_DATA = Radius.pm
 

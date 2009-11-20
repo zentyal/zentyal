@@ -1,5 +1,0 @@
-# /etc/freeradius/modules/pap
-
-pap {
-	auto_header = yes
-}

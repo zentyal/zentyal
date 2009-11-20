@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Radius/Model
 
-nobase_perl_DATA = Clients.pm
+nobase_perl_DATA = Auth.pm Clients.pm
 
 DISTCLEANFILES =
 
