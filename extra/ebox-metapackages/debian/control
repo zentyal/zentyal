@@ -19,7 +19,7 @@ Description: eBox - All Modules
 
 Package: ebox-gateway
 Architecture: all
-Depends: ebox-network, ebox-squid, ebox-firewall, ebox-trafficshaping, ebox-l7-protocols, ebox-ebackup, ebox-software, ebox-monitor
+Depends: ebox-network, ebox-squid, ebox-firewall, ebox-trafficshaping, ebox-l7-protocols, ebox-ebackup, ebox-software, ebox-monitor, ebox-radius
 Description: eBox - Gateway Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
