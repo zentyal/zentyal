@@ -62,9 +62,7 @@ src/EBox/Event/Makefile
 src/EBox/Event/Watcher/Makefile
 src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
-src/EBox/CGI/Makefile
 schemas/Makefile
-stubs/Makefile
 tools/Makefile
 migration/Makefile
 Makefile

@@ -96,7 +96,7 @@ sub row
 #
 #      <EBox::Model::DataTable::precondition>
 #
-sub precondition 
+sub precondition
 {
     my ($self) = @_;
 

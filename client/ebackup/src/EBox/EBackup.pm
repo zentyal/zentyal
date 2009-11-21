@@ -38,10 +38,6 @@ use Error qw(:try);
 
 use EBox::Exceptions::MissingArgument;
 
-use constant DFLTPATH         => '/mnt/backup';
-use constant DFLTDIR          => 'ebox-backup';
-use constant DFLTKEEP         => '90';
-use constant SLBACKUPCONFFILE => '/etc/slbackup/slbackup.conf';
 use constant RSYNC_IBACKUP_URL => '206.221.209.44::/ibackup';
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . '82ebackup.conf';
 use constant EBACKUP_MENU_ENTRY => 'ebackup_menu_enabled';
@@ -77,7 +73,6 @@ sub _create
 sub modelClasses
 {
     return [
-        'EBox::EBackup::Model::Local',
         'EBox::EBackup::Model::RemoteSettings',
         'EBox::EBackup::Model::RemoteExcludes',
         'EBox::EBackup::Model::RemoteStatus',
@@ -95,71 +90,34 @@ sub modelClasses
 sub compositeClasses
 {
     return [
-        'EBox::EBackup::Composite::General',
         'EBox::EBackup::Composite::RemoteGeneral',
         'EBox::EBackup::Composite::Remote',
     ];
 }
 
 
-# Method: actions
-#
-# Overrides:
-#
-#      <EBox::Module::Service::actions>
-#
-sub actions
-{
-    return [
-    {
-        'action' => __('Install /etc/cron.daily/ebox-ebackup-cron.'),
-        'reason' => __('eBox will run a nightly script to backup your system.'),
-        'module' => 'ebackup'
-    },
-    ];
-}
-
-
-# Method: usedFiles
-#
-# Overrides:
-#
-#      <EBox::ServiceModule::ServiceInterface::usedFiles>
-#
-#sub usedFiles
-#{
-#    my @usedFiles;
-#
-#    push (@usedFiles, { 'file' => SLBACKUPCONFFILE,
-#                        'module' => 'ebackup',
-#                        'reason' => __('To configure backups.')
-#                      });
-#
-#    return \@usedFiles;
-#}
-
 # Method: restoreFile
 #
-#	Given a file and date it tries to restore it
+#   Given a file and date it tries to restore it
 #
 # Parameters:
-#	
-#	(POSTIONAL)
 #
-#	file - strings containing the file name to restore
-#	date - string containing a date that can be parsed by Date::Parse
+#   (POSTIONAL)
+#
+#   file - strings containing the file name to restore
+#   date - string containing a date that can be parsed by Date::Parse
 #
 sub restoreFile
 {
     my ($self, $file, $date) = @_;
-    
+
     unless (defined($file)) {
-	throw EBox::Exceptions::MissingArgument('file');
-    } 
+        throw EBox::Exceptions::MissingArgument('file');
+    }
 
     unless (defined($date)) {
-	throw EBox::Exceptions::MissingArgument('date');
-    } 
+        throw EBox::Exceptions::MissingArgument('date');
+    }
 
     my $time = Date::Parse::str2time($date);
 
@@ -169,9 +127,9 @@ sub restoreFile
     my $envPass = "RSYNC_PASSWORD='$pass' FTP_PASSWORD='$pass'";
     my $url = $self->_remoteUrl();
     my $rFile = $file;
-    $rFile =~ s:^.::; 
+    $rFile =~ s:^.::;
     my $cmd ="$envPass duplicity --force -t $time --file-to-restore $rFile $url $file";
-    
+
     EBox::Sudo::root($cmd);
 }
 
@@ -341,7 +299,7 @@ sub tmpFileList
     return EBox::Config::tmp() . "backuplist-cache";
 }
 
-# Method: remoteListFilis
+# Method: remoteListFiles
 #
 #  Return the list of the remote backuped files
 #
@@ -408,43 +366,8 @@ sub setRemoteBackupCrontab
 sub _setConf
 {
     my ($self) = @_;
-    # install cronjob
-    my $cronFile = EBox::Config::share() . '/ebox-ebackup/ebox-ebackup-cron';
-    EBox::Sudo::root("install -m 0755 -o root -g root $cronFile /etc/cron.daily/");
     $self->setRemoteBackupCrontab();
 }
-
-
-# Method: _setSLBackup
-#FIXME doc
-#sub _setSLBackup
-#{
-#    my ($self) = @_;
-#
-#    my $model = $self->model('Hosts');
-#
-#    my @hosts = ();
-#    foreach my $host (@{$model->ids()}) {
-#        my $row = $model->row($host);
-#        my $hostname = $row->valueByName('hostname');
-#        my $keep = $row->valueByName('keep');
-#        push (@hosts, { hostname => $hostname,
-#                        keep => $keep,
-#                      });
-#    }
-#
-#    $model = $self->model('Settings');
-#
-#    my $backuppath = $model->backupPathValue();
-#
-#    my @params = ();
-#
-#    #push (@params, hosts => \@hosts );
-#    push (@params, backuppath => $backuppath);
-#
-#    $self->writeConfFile(SLBACKUPCONFFILE, "ebackup/slbackup.conf.mas", \@params,
-#                            { 'uid' => 0, 'gid' => 0, mode => '640' });
-#}
 
 
 # Method: menu

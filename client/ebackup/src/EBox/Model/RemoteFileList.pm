@@ -30,6 +30,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
+use EBox::View::Customizer;
 use EBox::Exceptions::DataInUse;
 
 use Error qw(:try);
@@ -121,7 +122,7 @@ sub row
 #
 #      <EBox::Model::DataTable::precondition>
 #
-sub precondition 
+sub precondition
 {
     my ($self) = @_;
 
@@ -189,34 +190,34 @@ sub _table
 
 sub _checkRowExist
 {
-	return 1;
+    return 1;
 }
 
 sub validateTypedRowBak
 {
-	my ($self, $action, $fields) = @_;
+    my ($self, $action, $fields) = @_;
 
 
-	my $file = $fields->{file}->value();
-	if (EBox::Sudo::fileTest('-e', $file)) {
-		throw EBox::Exceptions::DataInUse(
-			__('File already exists if you continue  the current'.
-			   'will be deleted'
-			)
-		);
-	}
+    my $file = $fields->{file}->value();
+    if (EBox::Sudo::fileTest('-e', $file)) {
+        throw EBox::Exceptions::DataInUse(
+                __('File already exists if you continue  the current'.
+                    'will be deleted'
+                  )
+                );
+    }
 }
 
 sub setTypedRow
 {
-	my ($self, $id, $fields, $force) = @_;
+    my ($self, $id, $fields, $force) = @_;
 
 
-	my $file = $fields->{file}->value();
-	my $date = $fields->{date}->value();
-    	my $ebackup = EBox::Global->modInstance('ebackup');
-	$ebackup->restoreFile($file, $date);
-	$self->setMessage(__('File restored successfully'));
+    my $file = $fields->{file}->value();
+    my $date = $fields->{date}->value();
+    my $ebackup = EBox::Global->modInstance('ebackup');
+    $ebackup->restoreFile($file, $date);
+    $self->setMessage(__('File restored successfully'));
 }
 
 sub _backupVersion
@@ -246,4 +247,26 @@ sub headTitle
     return undef;
 }
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
+#   a custom behaviour to show and hide source and destination ports
+#   depending on the protocol
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    if ($self->precondition()) {
+        my $ebackup = EBox::Global->modInstance('ebackup');
+        my $url = $ebackup->_remoteUrl();
+        $customizer->setPermanentMessage(
+         __x('Remote URL to be used with duplicity for manual restores: {url}',
+             url => $url)
+        );
+    }
+    return $customizer;
+}
 1;

@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox
 
-SUBDIRS = EBackup Model Composite CGI Event
+SUBDIRS = EBackup Model Composite Event
 
 nobase_perl_DATA = EBackup.pm
 

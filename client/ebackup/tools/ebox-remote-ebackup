@@ -30,18 +30,26 @@ use EBox;
 use EBox::Config;
 use EBox::Global;
 use EBox::Sudo;
+use EBox::Event;
+
 use Error qw(:try);
+use Data::Dumper;
+
+use constant EVENTS_FIFO => EBox::Config::tmp() . 'events-fifo';
 
 EBox::init();
+
+my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
+unless ($ebackup->isEnabled() ) {
+    print "Backup module is disabled\n";
+    exit 0;
+}
 
 my $type = 'full';
 
 if ($ARGV[0] and $ARGV[0] eq '--incremental') {
     $type = 'incremental';
 }
-
-my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
-
 if ($type eq 'full') {
     my $removeArguments = $ebackup->remoteDelOldArguments();
     EBox::Sudo::root($removeArguments);
@@ -62,7 +70,42 @@ try {
 };
 
 my $arguments = $ebackup->remoteArguments($type);
-EBox::Sudo::root($arguments);
+my $success = 1;
+try {
+    EBox::Sudo::root($arguments);
+} otherwise {
+    $success = 0;
+};
+
+# Generate event
+my $global = EBox::Global->getInstance(1);
+if ($global->modExists('events')) {
+    my $events = $global->modInstance('events');
+    if ((defined $events)  and ($events->isRunning())) {
+        my $enabled = $events
+            ->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
+        if ($enabled) {
+            my $msg;
+            my $level;
+            if ($success) {
+                $msg = 'eBox backup succeeded';
+                $level = 'info';
+            } else {
+                $msg = 'eBox backup failed';
+                $level = 'error';
+            }
+            my $event = new EBox::Event(
+                    message => $msg,
+                    source => 'EBackup',
+                    level => $level,
+                    );
+
+            open(my $fifo, '+<', EVENTS_FIFO) or die;
+            print $fifo Dumper($event);
+            close($fifo);
+        }
+    }
+}
 
 # Create status
 $ebackup->remoteGenerateStatusCache();
