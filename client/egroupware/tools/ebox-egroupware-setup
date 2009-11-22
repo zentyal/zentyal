@@ -51,7 +51,7 @@ my $ldapHost = '127.0.0.1:';
 unless ($users->mode() eq 'slave') {
     $ldapHost .= $ldap->ldapConf->{'port'};
 } else {
-    $ldapHost .= $ldap->ldapConf->{'replicaport'};
+    $ldapHost .= $ldap->ldapConf->{'translucentport'};
 }
 
 my $ldapCmd = "$configCmd --account-auth ldap,ldap "
