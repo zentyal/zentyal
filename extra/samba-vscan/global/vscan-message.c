@@ -72,7 +72,7 @@ int vscan_send_warning_message(const char *filename, const char *virname, const 
 
 	/* We need to get the real ip structure from the ip string
 	 * is this info already available somewhere else in samba? */
-       	zero_ip(&ip);
+       	zero_ip_v4(&ip);
 	if (inet_aton(ipaddr,&ip) == 0) {
                	DEBUG(5,("Cannot resolve ip address %s\n", ipaddr));
                	return 1;

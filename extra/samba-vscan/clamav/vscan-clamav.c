@@ -67,7 +67,7 @@ static const char module_id[]=VSCAN_MODULE_STR" "SAMBA_VSCAN_VERSION_STR;
 
 
 
-static bool do_parameter(const char *param, const char *value)
+static bool do_parameter(const char *param, const char *value, void *userdata)
 {
 
         if ( do_common_parameter(&vscan_config, param, value) == False ) {
@@ -95,7 +95,7 @@ static bool do_parameter(const char *param, const char *value)
 			DEBUG(3, ("libclamav max recursion level limit is: %i\n", clamav_limits.maxreclevel));
 #else
 		} else if ( StrCaseCmp("scan archives", param) == 0 ) {
-			set_boolean(&scanarchives, value);
+			set_boolean(value, &scanarchives);
 			DEBUG(3, ("scan archives: %d\n", scanarchives));
 #endif
 		} else
@@ -105,7 +105,7 @@ static bool do_parameter(const char *param, const char *value)
         return True;
 }
 
-static bool do_section(const char *section)
+static bool do_section(const char *section, void *userdata)
 {
         /* simply return true, there's only one section :-) */
         return True;
@@ -171,7 +171,7 @@ static int vscan_connect(struct connection_struct *conn, PROTOTYPE_CONST char *s
 	 #endif
           DEBUG(3, ("configuration file is: %s\n", config_file));
 
-          retval = pm_process(config_file, do_section, do_parameter);
+          retval = pm_process(config_file, do_section, do_parameter, NULL);
           DEBUG(10, ("pm_process returned %d\n", retval));
 
           /* FIXME: this is lame! */
@@ -422,7 +422,7 @@ static int vscan_close(struct files_struct *fsp, int fd)
 
         /* First close the file */
 #if (SMB_VFS_INTERFACE_VERSION >= 6)
-        retval = SMB_VFS_NEXT_CLOSE(handle, fsp, fd);
+        retval = SMB_VFS_NEXT_CLOSE(handle, fsp);
 #else
         retval = default_vfs_ops.close(fsp, fd);
 #endif
@@ -513,7 +513,7 @@ static int vscan_close(struct files_struct *fsp, int fd)
 
 #if (SMB_VFS_INTERFACE_VERSION >= 6)
 /* Samba 3.0 */
-NTSTATUS init_module(void)
+NTSTATUS init_samba_module(void)
 {
 	NTSTATUS ret;
 	
