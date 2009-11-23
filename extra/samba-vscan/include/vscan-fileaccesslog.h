@@ -8,11 +8,11 @@ struct lrufiles_struct {
 	struct lrufiles_struct *prev, *next;
 	pstring fname;		/* the file name */
 	time_t mtime;		/* mtime of file */
-	BOOL infected;		/* infected? */
+	bool infected;		/* infected? */
 	time_t time_added;	/* time entry was added to list */
 };
 void lrufiles_init(int max_enties, time_t invalidate_time);
-struct lrufiles_struct *lrufiles_add(pstring fname, time_t mtime, BOOL infected);
+struct lrufiles_struct *lrufiles_add(pstring fname, time_t mtime, bool infected);
 void lrufiles_destroy_all(void);
 struct lrufiles_struct *lrufiles_search(pstring fname);
 void lrufiles_delete(pstring fname);

@@ -84,31 +84,6 @@ const static unsigned char urlchr_table[256] =
   U, U, U, U,  U, U, U, U,  U, U, U, U,  U, U, U, U,
 };
 
-
-
-BOOL set_boolean(BOOL *b, const char *value)
-{
-
-        BOOL retval;
-
-        retval = True;
-
-        if ( StrCaseCmp("yes", value) == 0 ||
-             StrCaseCmp("true", value) == 0 ||
-             StrCaseCmp("1", value) == 0 )
-                *b = True;
-        else if ( StrCaseCmp("no", value) == 0 ||
-                  StrCaseCmp("false", value) == 0 ||
-                  StrCaseCmp("0", value) == 0 )
-                *b = False;
-        else {
-                DEBUG(2, ("samba-vscan: badly formed boolean in configuration file, parameter %s\n", value));
-                retval = False;
-        }
-
-        return retval;
-}
-
 /* print a message via syslog */
 void vscan_syslog(const char *printMessage, ...)
 {

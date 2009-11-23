@@ -96,22 +96,22 @@ static BOOL do_parameter(const char *param, const char *value)
 		max_size = atoi(value);
 		DEBUG(3, ("max file size is: %d\n", max_size));
 	} else if ( StrCaseCmp("verbose file logging", param) == 0 ) {
-		set_boolean(&verbose_file_logging, value);
+		set_boolean(value, &verbose_file_logging);
 		DEBUG(3, ("verbose file logging is: %d\n", verbose_file_logging));	
 	} else if ( StrCaseCmp("scan on open", param) == 0 ) {
-		set_boolean(&scan_on_open, value);
+		set_boolean(value, &scan_on_open);
 		DEBUG(3, ("scan on open: %d\n", scan_on_open));
 	} else if ( StrCaseCmp("scan on close", param) == 0 ) {
-		set_boolean(&scan_on_close, value);
+		set_boolean(value, &scan_on_close);
 		DEBUG(3, ("scan on close is: %d\n", scan_on_close));
 	} else if ( StrCaseCmp("deny access on error", param) == 0 ) {
-		set_boolean(&deny_access_on_error, value);
+		set_boolean(value, &deny_access_on_error);
 		DEBUG(3, ("deny access on error is: %d\n", deny_access_on_error));
 	} else if ( StrCaseCmp("deny access on minor error", param) == 0 ) {
-		set_boolean(&deny_access_on_minor_error, value);
+		set_boolean(value, &deny_access_on_minor_error);
 		DEBUG(3, ("deny access on minor error is: %d\n", deny_access_on_minor_error));
 	} else if ( StrCaseCmp("send warning message", param) == 0 ) {
-		set_boolean(&send_warning_message, value);
+		set_boolean(value, &send_warning_message);
 		DEBUG(3, ("send warning message is: %d\n", send_warning_message));
 
         } else if ( StrCaseCmp("infected file action", param) == 0 ) {

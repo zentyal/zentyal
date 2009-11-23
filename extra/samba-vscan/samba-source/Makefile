@@ -41,7 +41,7 @@ MODULE_EXPORTS=
 # --enable-picky-developer and --enable-krb5developer.
 DEVELOPER_CFLAGS=-g -Wall -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -DDEBUG_PASSWORD -DDEVELOPER -Wdeclaration-after-statement -Werror-implicit-function-declaration
 CFLAGS= -O $(EXTRA_FLAGS) -D_SAMBA_BUILD_=3
-CPPFLAGS=-DHAVE_CONFIG_H  -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -Iinclude -I./include -I. -I. -I./../lib/replace -I./../lib/talloc -I./../lib/tevent -I./../lib/tdb/include -I./libaddns -I./librpc -I./.. -I./../lib/popt
+CPPFLAGS=-DHAVE_CONFIG_H  -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -Iinclude -I./include -I. -I. -I./lib/replace -I./lib/talloc -I./lib/tevent -I./lib/tdb/include -I./libaddns -I./librpc -I. -I./lib/popt
 
 EXEEXT=
 AR=ar

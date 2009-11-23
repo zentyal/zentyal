@@ -26,10 +26,10 @@ void vscan_destroy_context(VSCAN_CONTEXT *context);
 
 int vscan_global_config(VSCAN_CONTEXT *context);
 int vscan_private_config(VSCAN_CONTEXT *context);
-BOOL vscan_on_open(VSCAN_CONTEXT *context);
-BOOL vscan_on_close(VSCAN_CONTEXT *context);
-BOOL vscan_on_sendfile(VSCAN_CONTEXT *context);
-BOOL vscan_on_rename(VSCAN_CONTEXT *context);
+bool vscan_on_open(VSCAN_CONTEXT *context);
+bool vscan_on_close(VSCAN_CONTEXT *context);
+bool vscan_on_sendfile(VSCAN_CONTEXT *context);
+bool vscan_on_rename(VSCAN_CONTEXT *context);
 
 
 
