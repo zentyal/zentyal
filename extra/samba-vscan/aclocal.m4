@@ -1,5 +1,5 @@
 #
-# $Id: aclocal.m4,v 1.4 2003/06/23 18:26:58 mx2002 Exp $
+# $Id: aclocal.m4,v 1.4.2.2 2003/08/26 19:30:34 mx2002 Exp $
 #
 
 dnl AC_VALIDATE_CACHE_SYSTEM_TYPE[(cmd)]
@@ -54,7 +54,6 @@ AC_DEFUN(SMB_MODULE,
 	else
 		AC_MSG_RESULT([not])
 	fi
-	MODULES_CLEAN="$MODULES_CLEAN $2 $3"
 ])
 
 AC_DEFUN(SMB_SUBSYSTEM,

@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: autogen.sh,v 1.3 2003/06/25 08:00:51 mx2002 Exp $
+# $Id: autogen.sh,v 1.3.2.1 2003/07/14 13:09:15 mx2002 Exp $
 #
 # Run this script to build samba-vscan from CVS.
 # Derived from Samba's autogen.sh 
