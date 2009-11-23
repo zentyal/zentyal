@@ -126,11 +126,11 @@ AC_ARG_WITH(fhs,
 
 AC_SUBST(libdir)
 
-SAMBA_SOURCE="../../../source"
+SAMBA_SOURCE="samba-source"
 ####################################################
 # set the location location of the samba source tree
 AC_ARG_WITH(samba-source,
-[  --with-samba-source=DIR Where is the samba source tree (../../../source)],
+[  --with-samba-source=DIR Where is the samba source tree (samba-source)],
 [ case "$withval" in
   yes|no)
   #
