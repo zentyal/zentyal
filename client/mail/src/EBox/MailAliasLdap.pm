@@ -101,11 +101,11 @@ sub addGroupAlias ($$$) { #mail alias, groupname
     } $mailUserLdap->usersWithMailInGroup($groupname);
 
 
-    my $aux = 0;
-    foreach my $mail (@mailAccounts)
-    {
-        if ($aux++ == 0) {
+    my $first = 1;
+    foreach my $mail (@mailAccounts) {
+        if ($first) {
             $self->addAlias($alias, $mail, $groupname);
+            $first = 0;
         } else {
             $self->addMaildrop($alias, $mail);
         }

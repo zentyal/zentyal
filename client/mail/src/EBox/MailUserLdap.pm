@@ -30,10 +30,10 @@ use EBox::Gettext;
 
 use Perl6::Junction qw(any);
 
-# LDAP schema
+
 use constant DIRVMAIL   =>      '/var/vmail/';
-use constant BYTES                              => '1048576';
-use constant MAXMGSIZE                          => '104857600';
+use constant SIEVE_SCRIPTS_DIR => '/var/sieve-scripts';
+
 
 use base qw(EBox::LdapUserBase);
 
@@ -94,31 +94,31 @@ sub setUserAccount
     my $quota = $mail->defaultMailboxQuota();
     my $dn = "uid=$user," .  $users->usersDn;
 
-        my %attrs = (
-                     changes => [
-                                 add => [
-                                         objectClass => 'couriermailaccount',
-                                         objectClass => 'usereboxmail',
-                                         mail            => $email,
-                                         mailbox => $rhs.'/'.$lhs.'/',
-                                         userMaildirSize    => 0,
-                                         quota           => $quota,
-                                         mailHomeDirectory => DIRVMAIL
-                                        ]
-                                ]
-                    );
-        my $add = $ldap->modify($dn, \%attrs );
+    my %attrs = (
+                 changes => [
+                             add => [
+                                     objectClass => 'couriermailaccount',
+                                     objectClass => 'usereboxmail',
+                                     mail            => $email,
+                                     mailbox => $rhs.'/'.$lhs.'/',
+                                     userMaildirSize    => 0,
+                                     quota           => $quota,
+                                     mailHomeDirectory => DIRVMAIL
+                                    ]
+                            ]
+                );
+    my $add = $ldap->modify($dn, \%attrs );
 
-    
+
     $self->_createMaildir($lhs, $rhs);
 
+
+
     my @list = $mail->{malias}->listMailGroupsByUser($user);
-    
     foreach my $item(@list) {
         my $alias = $mail->{malias}->groupAlias($item);
         $mail->{malias}->addMaildrop($alias, $email);
     }
-
 }
 
 # Method: delUserAccount
@@ -186,6 +186,10 @@ sub delUserAccount   #username, mail
     # Here we remove mail directorie of user account.
     root("/bin/rm -rf ".DIRVMAIL.$mailbox);
 
+    # remove user's sieve scripts dir
+    my ($lhs, $rhs) = split '@', $usermail; 
+    my $sieveDir   = $self->_sieveDir($usermail, $rhs);
+    root("/bin/rm -rf $sieveDir");
 }
 
 
@@ -599,7 +603,8 @@ sub checkUserMDSize
 sub _checkMaildirNotExists
 {
     my ($self, $lhs, $vdomain) = @_;
-    my $dir = "/var/vmail/$vdomain/$lhs";
+    my $dir = DIRVMAIL . "/$vdomain/$lhs/";
+
 
     if (EBox::Sudo::fileTest('-e', $dir)) {
         my $backupDir = $dir . '.bak';
@@ -636,6 +641,11 @@ sub _createMaildir
 }
 
 
+sub _sieveDir
+{
+    my ($self, $lhs, $vdomain) = @_;
+    return SIEVE_SCRIPTS_DIR . "/$vdomain/$lhs";
+}
 
 #  Method: maildir
 #

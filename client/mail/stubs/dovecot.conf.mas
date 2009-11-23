@@ -29,12 +29,10 @@
 # Base directory where to store runtime data.
 #base_dir = /var/run/dovecot/
 
-# Protocols we want to be serving: imap imaps pop3 pop3s
+# Protocols we want to be serving: imap imaps pop3 pop3s managesieve
 # If you only want to use dovecot-auth, you can set this to "none".
-#protocols = imap imaps
-# protocols = imap imaps pop3 pop3s
 % if (@protocols) {
-protocols = <% "@protocols" %>
+protocols = <% "@protocols" %> 
 % } else {
 protocols = none
 % }
@@ -704,8 +702,7 @@ protocol pop3 {
 
   # Enabling Sieve plugin for server-side mail filtering and quota for quota
   #  support 
-#  mail_plugins = cmusieve quota
-   mail_plugins = quota
+  mail_plugins = cmusieve quota
  }
 
 ##
@@ -958,6 +955,18 @@ dict {
   #quota = mysql:/etc/dovecot-dict-quota.conf 
 }
 
+
+protocol managesieve {
+    listen = *:4190
+    login_executable = /usr/lib/dovecot/managesieve-login
+    mail_executable = /usr/lib/dovecot/managesieve
+    managesieve_max_line_length = 65536
+    managesieve_implementation_string = dovecot
+    sieve = /var/sieve-scripts/%d/%u/sieve-script
+    sieve_storage = /var/sieve-scripts/%d/%u
+    mail_debug=yes # XXX debug!
+}
+
 ##
 ## Plugin settings
 ##
@@ -1034,5 +1043,14 @@ plugin {
   autosubscribe = Trash
   autosubscribe2 = Spam
 
+  # sieve script location
+  sieve = /var/sieve-scripts/%d/%u/sieve-script
+  # Path to a global sieve script file, which gets executed ONLY if
+  # user's private Sieve script doesn't exist. (e.g. /etc/dovecot/default.sieve)
+  # (v1.0.1 and older called this setting "global_script_path")
+  sieve_global_path = /etc/dovecot/default.sieve
+
+  # Directory for :global include scripts (for v1.1 include extension)
+  #sieve_global_dir =
 
 }

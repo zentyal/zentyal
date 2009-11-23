@@ -572,6 +572,19 @@ sub imaps
 }
 
 
+# Method: managesieve
+#
+#  Returns:
+#     bool - wether the MANAGESIEVE service is enabled
+sub managesieve
+{
+    my ($self) = @_;
+
+    my $model = $self->model('RetrievalServices');
+    return $model->managesieveValue();
+}
+
+
 
 sub _fqdn
 {

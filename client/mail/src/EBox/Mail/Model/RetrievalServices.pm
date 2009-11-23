@@ -81,6 +81,13 @@ sub _table
                                   printableName => 'Secure IMAPS service enabled',
                                   editable => 1,
                                  ),
+         new EBox::Types::Boolean(
+                                  fieldName => 'managesieve',
+                                  printableName => 'Manage SIEVE scripts',
+                                  help =>
+ __(q{This service allows to a use to manage his SIEVE mail filtering scripts from a local client} ),
+                                  editable => 1,
+                                 ),
         );
 
       my $dataForm = {
@@ -117,6 +124,10 @@ sub activeProtocos
 
     if ($self->imapsValue()) {
         push @protocols, 'imaps';
+    }
+
+    if ($self->managesieveValue()) {
+        push @protocols, 'managesieve';
     }
 
     return \@protocols;
