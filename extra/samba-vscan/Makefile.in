@@ -66,7 +66,7 @@ INSTALLPERMS = $(SAMBA_INSTALLPERMS)
 INCLUDE_FLAGS	= -I$(abs_srcdir)/include -I$(abs_builddir)/include -I. -I$(abs_srcdir) -I$(abs_builddir) -I$(SAMBA_srcdir)/include -I$(SAMBA_srcdir)/ubiqx -I$(SAMBA_srcdir)/smbwrapper -I$(SAMBA_srcdir) -I$(SAMBA_srcdir)/lib/replace -I$(SAMBA_srcdir)/tdb/include/ -I$(SAMBA_srcdir)/librpc -I$(SAMBA_builddir)/include -I$(SAMBA_builddir)/ubiqx -I$(SAMBA_builddir)/smbwrapper -I$(SAMBA_builddir) @POPT_INCLUDE_DIR@
  
 
-FLAGS = $(INCLUDE_FLAGS) $(CFLAGS) $(CPPFLAGS) @VSCAN_SINGLE_LIB_FLAGS@
+FLAGS = $(INCLUDE_FLAGS) $(CFLAGS) $(CPPFLAGS)
 
 GLOBAL_LIBS = @GLOBAL_LIBS@
 
