@@ -114,6 +114,24 @@ sub _table
                                   ],
              ),
          new EBox::Types::Union(
+                              fieldName => 'mailboxQuota',
+                              printableName =>
+                                __('Maximum mailbox size allowed'),
+                              help => 
+ __('When a mailbox reaches this size futher messages will be rejected'),
+                              subtypes => [
+                              new EBox::Types::Union::Text(
+                                  'fieldName' => 'unlimited',
+                                  'printableName' => __('Unlimited size'),
+                                  ),
+                              new EBox::Types::Int(
+                                  'fieldName' => 'size',
+                                  'printableName' => __('size in Mb'),
+                                  'editable'  => 1,
+                                      ),
+                                  ],
+             ),
+         new EBox::Types::Union(
                               fieldName => 'maxSize',
                               printableName =>
                                 __('Maximum message size accepted'),
@@ -166,6 +184,22 @@ sub maxMsgSize
     }
 
     my $size = $maxSize->subtype()->value();
+    $size .= 'M';
+    return $size;
+}
+
+
+
+sub mailboxQuota
+{
+    my ($self) = @_;
+
+    my $mailboxQuota = $self->row()->elementByName('mailboxQuota');
+    if ($mailboxQuota->selectedType eq 'unlimited') {
+        return undef;
+    }
+
+    my $size = $mailboxQuota->subtype()->value();
     return $size;
 }
 

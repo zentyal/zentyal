@@ -50,6 +50,8 @@ my $keyFile  = '/etc/postfix/sasl/postfix.pem';
 smtpd_delay_reject  = yes 
 smtpd_helo_required = yes
 
+strict_rfc821_envelopes = yes
+disable_vrfy_command = yes
 
 smtpd_banner = eBox ESMTP
 biff = no
@@ -57,6 +59,8 @@ biff = no
 append_dot_mydomain = no
 
 myhostname = <% $fqdn %>
+#myorigin = /etc/mailname
+#mydestination = $myorigin, $myhostname, localhost, localhost.$mydomain, localhost.localdomain
 alias_maps = hash:/etc/aliases
 
 alias_database = hash:/etc/aliases
@@ -94,7 +98,9 @@ valiases_result_attribute = maildrop
 aliases_bind = no
 
 # Virtual Domains
-virtual_transport = virtual
+dovecot_destination_recipient_limit = 1
+virtual_transport = dovecot
+#virtual_transport = virtual
 virtual_mailbox_base = <% $vmaildir %>
 virtual_mailbox_maps= ldap:ldapvirtualmap
 
@@ -115,19 +121,7 @@ vmaildomains_result_attribute = dc, maildrop
 virtual_minimum_uid = 100
 virtual_uid_maps = static:<% $uidvmail %>
 virtual_gid_maps = static:<% $gidvmail %>
-mailbox_transport = virtual
-virtual_mailbox_limit_inbox = yes
-virtual_mailbox_limit_maps = ldap:ldapvquota
 
-ldapvquota_server_host = 127.0.0.1:<% $ldapport %>
-ldapvquota_bind = no
-ldapvquota_search_base = <% $usersDN %>
-ldapvquota_query_filter = (&(mail=%s)(objectClass=usereboxmail))
-ldapvquota_result_attribute = userMaildirSize
-
-virtual_mailbox_limit_override = yes
-virtual_maildir_extended = yes
-virtual_create_maildirsize = yes
 
 % if (($smtptls) or ($sasl)){
 ## TLS/SSL
@@ -140,6 +134,7 @@ smtpd_tls_loglevel = 1
 
 
 smtpd_recipient_restrictions = <% $smtpRecipientRestrictions %>
+
 
 % if ($sasl) {
 #SASL authentication

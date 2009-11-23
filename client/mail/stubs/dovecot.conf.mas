@@ -2,6 +2,13 @@
     $uid
     $gid
     @protocols
+    
+    $mailboxesDir
+    $userQuota
+
+    $firstValidUid
+    $firstValidGid
+    $postmasterAddress => 'postmaster@localhost'
 </%args>
 ## Dovecot configuration file
 
@@ -226,7 +233,7 @@ verbose_ssl = yes
 #
 # <doc/wiki/MailLocation.txt>
 #
-mail_location = maildir:/var/vmail/%d/%n/
+mail_location = maildir:<% $mailboxesDir %>/%d/%n/
 
 
 # If you need to set multiple mailbox locations or want to change default
@@ -275,6 +282,8 @@ mail_location = maildir:/var/vmail/%d/%n/
 # Typically this is set to "mail" to give access to /var/mail.
 #mail_privileged_group =
 mail_privileged_group = mail
+mail_uid=<% $uid %>
+mail_gid=<% $gid %>
 
 # Grant access to these supplementary groups for mail processes. Typically
 # these are used to set up access to shared mailboxes. Note that it may be
@@ -345,14 +354,14 @@ mail_privileged_group = mail
 # to make sure that users can't log in as daemons or other system users.
 # Note that denying root logins is hardcoded to dovecot binary and can't
 # be done even if first_valid_uid is set to 0.
-first_valid_uid = <% $uid %>
+first_valid_uid = <% $firstValidUid %>
 #last_valid_uid = 0
 
 # Valid GID range for users, defaults to non-root/wheel. Users having
 # non-valid GID as primary group ID aren't allowed to log in. If user
 # belongs to supplementary groups with non-valid GIDs, those groups are
 # not set.
-#first_valid_gid = 1
+first_valid_gid = <% $firstValidGid %>
 #last_valid_gid = 0
 
 # Maximum number of running mail processes. When this limit is reached,
@@ -672,9 +681,9 @@ protocol pop3 {
 ## LDA specific settings
 ##
 
-# protocol lda {
+ protocol lda {
   # Address to use when sending rejection mails.
-  # postmaster_address = postmaster@example.com
+   postmaster_address = <% $postmasterAddress %>
 
   # Hostname to use in various parts of sent mails, eg. in Message-Id.
   # Default is the system's real hostname.
@@ -689,11 +698,13 @@ protocol pop3 {
   #sendmail_path = /usr/lib/sendmail
 
   # UNIX socket path to master authentication server to find users.
-  #auth_socket_path = /var/run/dovecot/auth-master
+  auth_socket_path = /var/run/dovecot/auth-master
 
-  # Enabling Sieve plugin for server-side mail filtering
-  # mail_plugins = cmusieve
-# }
+  # Enabling Sieve plugin for server-side mail filtering and quota for quota
+  #  support 
+#  mail_plugins = cmusieve quota
+   mail_plugins = quota
+ }
 
 ##
 ## Authentication processes
@@ -840,7 +851,7 @@ auth default {
   #}
 
   # static settings generated from template <doc/wiki/UserDatabase.Static.txt>
-  userdb static {
+#  userdb static {
     # Template for the fields. Can return anything a userdb could normally
     # return. For example:
     #
@@ -853,16 +864,16 @@ auth default {
     # the user verification another way, you can add allow_all_users=yes to
     # the args in which case the passdb lookup is skipped.
     #
-    args = uid=<% $uid %> gid=<% $gid %> home=/var/vmail/%d/%n
-  }
+#    args = uid=<% $uid %> gid=<% $gid %> home=/var/vmail/%d/%n
+#  }
 
 
 
   # LDAP database <doc/wiki/AuthDatabase.LDAP.txt>
-#  userdb ldap {
+  userdb ldap {
     # Path for LDAP configuration file
-#    args = /etc/dovecot/dovecot-ldap.conf
-#  }
+    args = /etc/dovecot/dovecot-ldap.conf
+  }
 
  
   # User to use for the process. This user needs access to only user and
@@ -899,8 +910,8 @@ auth default {
       path = /var/run/dovecot/auth-master
       mode = 0600
       # Default user/group is the one who started dovecot-auth (root)
-      user = mail
-      group = mail
+      user = ebox
+      group = ebox
     }
     client {
       # The client socket is generally safe to export to everyone. Typical use
@@ -959,7 +970,38 @@ plugin {
   #   dict: Keep quota stored in dictionary (eg. SQL)
   #   maildir: Maildir++ quota
   #   fs: Read-only support for filesystem quota
+  #
+  # Quota limits are set using "quota_rule" parameters, either in here or in
+  # userdb. It's also possible to give mailbox-specific limits, for example:
+  #   quota_rule = *:storage=1048576
+  #   quota_rule2 = Trash:storage=102400
+  # User has now 1GB quota, but when saving to Trash mailbox the user gets
+  # additional 100MB.
+  #
+  # Multiple quota roots are also possible, for example:
+  #   quota = dict:user::proxy::quota
+  #   quota2 = dict:domain:%d:proxy::quota_domain
+  #   quota_rule = *:storage=102400
+  #   quota2_rule = *:storage=1048576
+  # Gives each user their own 100MB quota and one shared 1GB quota within
+  # the domain.
+  #
+  # You can execute a given command when user exceeds a specified quota limit.
+  # Each quota root has separate limits. Only the command for the first
+  # exceeded limit is excecuted, so put the highest limit first.
+  # Note that % needs to be escaped as %%, otherwise "% " expands to empty.
+  #   quota_warning = storage=95%% /usr/local/bin/quota-warning.sh 95
+  #   quota_warning2 = storage=80%% /usr/local/bin/quota-warning.sh 80
   #quota = maildir
+% if ($userQuota) {
+  quota = maildir:User quota
+  quota_rule = *:storage=<% $userQuota %>
+  quota_rule2 = Trash:storage=10%%
+
+  quota_warning = storage=70%% touch /tmp/quota
+
+% }
+
 
   # ACL plugin. vfile backend reads ACLs from "dovecot-acl" file from maildir
   # directory. You can also optionally give a global ACL directory path where

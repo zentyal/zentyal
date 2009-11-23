@@ -1,6 +1,7 @@
 <%args>
 $ldapport
 $usersDn
+$mailboxesDir 
 </%args>
 # This file is opened as root, so it should be owned by root and mode 0600.
 #
@@ -90,13 +91,13 @@ base = <% $usersDn %>
 # There are also other special fields which can be returned, see
 # http://wiki.dovecot.org/UserDatabase/ExtraFields
 #user_attrs = homeDirectory=home,uidNumber=uid,gidNumber=gid
+user_attrs = mail=<% $mailboxesDir %>/%d/%n,homeDirectory=home
 
 # Filter for user lookup. Some variables can be used (see
 # http://wiki.dovecot.org/Variables for full list):
 #   %u - username
 #   %n - user part in user@domain, same as %u if there's no domain
 #   %d - domain part in user@domain, empty if user there's no domain
-#user_filter = (&(objectClass=posixAccount)(mail=%u))
 user_filter = (&(objectClass=posixAccount)(mail=%u))
 
 # Password checking attributes:
@@ -105,7 +106,6 @@ user_filter = (&(objectClass=posixAccount)(mail=%u))
 #  password: Password, may optionally start with {type}, eg. {crypt}
 # There are also other special fields which can be returned, see
 # http://wiki.dovecot.org/PasswordDatabase/ExtraFields
-#pass_attrs = uid=user,userPassword=password
 pass_attrs = mail=user,userPassword=password
 
 # If you wish to avoid two LDAP lookups (passdb + userdb), you can use
@@ -115,7 +115,6 @@ pass_attrs = mail=user,userPassword=password
 #pass_attrs = uid=user,userPassword=password,homeDirectory=userdb_home,uidNumber=userdb_uid,gidNumber=userdb_gid
 
 # Filter for password lookups
-#pass_filter = (&(objectClass=posixAccount)(uid=%u))
 pass_filter = (&(objectClass=posixAccount)(mail=%u))
 
 # Default password scheme. "{scheme}" before password overrides this.

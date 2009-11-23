@@ -53,8 +53,10 @@ virtual   unix  -       n       n       -       -       virtual
 lmtp      unix  -       -       -       -       -       lmtp
 anvil     unix  -       -       -       -       1       anvil
 scache    unix  -       -       -       -       1       scache
-#dovecot   unix  -       n       n        -      -       pipe
-#  flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/deliver -d $(recipient)
+dovecot unix    -       n       n       -       -       pipe
+  flags=DRhu user=ebox:ebox argv=/usr/lib/dovecot/deliver -f ${sender} -d ${user}@${nexthop} -n -m ${extension}
+
+
 #
 # ====================================================================
 # Interfaces to non-Postfix software. Be sure to examine the manual

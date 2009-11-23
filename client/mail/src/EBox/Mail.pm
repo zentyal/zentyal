@@ -47,22 +47,30 @@ use EBox::ServiceManager;
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
 
-use constant MAILMAINCONFFILE                   => '/etc/postfix/main.cf';
-use constant MAILMASTERCONFFILE                 => '/etc/postfix/master.cf';
-use constant MASTER_PID_FILE                    => '/var/spool/postfix/pid/master.pid';
+use constant {
+ MAILMAINCONFFILE                   => '/etc/postfix/main.cf',
+ MAILMASTERCONFFILE                 => '/etc/postfix/master.cf',
+ MASTER_PID_FILE                    => '/var/spool/postfix/pid/master.pid',
 
-use constant DOVECOT_CONFFILE                   => '/etc/dovecot/dovecot.conf';
-use constant DOVECOT_LDAP_CONFFILE              =>  '/etc/dovecot/dovecot-ldap.conf';
+ DOVECOT_CONFFILE                   => '/etc/dovecot/dovecot.conf',
+ DOVECOT_LDAP_CONFFILE              =>  '/etc/dovecot/dovecot-ldap.conf',
 
-use constant MAILINIT                           => 'postfix';
+ MAILINIT                           => 'postfix',
 
-use constant BYTES                              => '1048576';
+ BYTES                              => '1048576',
 
-use constant DOVECOT_SERVICE                    => 'ebox.dovecot';
+ DOVECOT_SERVICE                    => 'ebox.dovecot',
 
-use constant SASL_PASSWD_FILE                   => '/etc/postfix/sasl_passwd';
+ SASL_PASSWD_FILE                   => '/etc/postfix/sasl_passwd',
+
+ MAILNAME_FILE                      => '/etc/mailname',
+
+ VDOMAINS_MAILBOXES_DIR             => '/var/vmail',
+
+};
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
+
 
 sub _create
 {
@@ -164,6 +172,12 @@ sub usedFiles
               'module' => 'mail'
             },
             {
+              'file' => MAILNAME_FILE,
+              'reason' => __('To configure host mail name'),
+              'module' => 'mail'             
+            },
+
+            {
               'file' => DOVECOT_CONFFILE,
               'reason' => __('To configure dovecot'),
               'module' => 'mail'
@@ -178,6 +192,7 @@ sub usedFiles
               'reason' => __('To configure smart host authentication'),
               'module' => 'mail'
             },
+
             @greylistFiles
     ];
 }
@@ -298,6 +313,8 @@ sub _setMailConf
 {
     my ($self) = @_;
 
+    $self->_setMailname();
+
     my $daemonUid = getpwnam('daemon');
     my $daemonGid = getgrnam('daemon');
     my $perm      = '0640';
@@ -356,22 +373,8 @@ sub _setMailConf
     push(@array, 'ipfilter', $self->ipfilter());
     $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
 
-    @array = ();
-    push(@array, 'uid', scalar(getpwnam('ebox')));
-    push(@array, 'gid', scalar(getgrnam('ebox')));
-    push(@array, 'protocols' , $self->_retrievalProtocols());
-
-
-    $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@array);
-
-    @array = ();
-    unless ($users->mode() eq 'slave') {
-        push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
-    } else {
-        push(@array, 'ldapport', $self->ldap->ldapConf->{'translucentport'});
-    }
-    push @array, ('usersDn', $users->usersDn());
-    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@array);
+    # dovecot configuration
+    $self->_setDovecotConf();
 
     # greylist configuration files
     $greylist->writeConf();
@@ -393,6 +396,52 @@ sub _setMailConf
     unless ($manager->skipModification('mail', SASL_PASSWD_FILE)) {
         EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
     }
+}
+
+
+sub _setDovecotConf
+{
+    my ($self) = @_;
+
+    my @params;
+    my $users = EBox::Global->modInstance('users');
+
+    # main dovecot conf file
+    @params = ();
+    my $smtpOptions = $self->model('SMTPOptions');
+    push @params, (uid => scalar(getpwnam('ebox')));
+    push @params, (gid => scalar(getgrnam('ebox')));
+    push @params, (protocols => $self->_retrievalProtocols());
+    push @params, (firstValidUid => scalar(getpwnam('ebox')));
+    push @params, (firstValidGid => scalar(getgrnam('ebox')));
+    push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
+    push @params, (userQuota => $smtpOptions->mailboxQuota());
+
+    $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
+
+    # ldap dovecot conf file
+    @params = ();
+    if ($users->mode() eq 'master') {
+        push(@params, 'ldapport', $self->ldap->ldapConf->{'port'});
+    } else {
+        push(@params, 'ldapport', $self->ldap->ldapConf->{'translucentport'});
+    }
+    push @params, ('usersDn', $users->usersDn());
+    push @params, ('mailboxesDir' =>  VDOMAINS_MAILBOXES_DIR);
+    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
+
+}
+
+sub _setMailname
+{
+    my ($self) = @_;
+    my $tmpFile = EBox::Config::tmp() . 'mailname.tmp';
+    my $fqdn = $self->_fqdn();
+
+    system "echo $fqdn > $tmpFile";
+    system "chmod 644 $tmpFile";
+    EBox::Sudo::root("chown root.root $tmpFile");
+    EBox::Sudo::root("mv $tmpFile " . MAILNAME_FILE);
 }
 
 
@@ -494,7 +543,6 @@ sub _daemons
         },
         {
          name => DOVECOT_SERVICE,
-         precondition => \&_dovecotService,
         },
 
     ];
@@ -917,27 +965,13 @@ sub _dovecotService
 {
     my ($self) = @_;
 
-
     # if main service is disabled, dovecot too!
     if (not $self->service('active')) {
         return undef;
     }
 
-    if ( @{ $self->_retrievalProtocols } > 0 ) {
-        return 1;
-    }
-
-    # dovecot is also needed for smtp auth
-    if ($self->saslService()) {
-        return 1;
-    }
-
-
-    return undef;
-
+    return 1;
 }
-
-
 
 sub _regenConfig
 {
