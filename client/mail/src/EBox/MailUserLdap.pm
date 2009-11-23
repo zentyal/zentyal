@@ -694,7 +694,7 @@ sub maildirQuotaType
     my ($self, $user)  = @_;
     
     my $userQuota = $self->getUserLdapValue($user, 'userMaildirSize');
-    if ($userQuota == 0) {
+    if (not $userQuota) {
         return 'default';
     }
 
