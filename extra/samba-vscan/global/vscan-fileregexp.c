@@ -25,7 +25,7 @@
 
 static pstring fileregexp_excludepattern = "";
 
-BOOL fileregexp_init (pstring filetype_excluderegexp) {
+bool fileregexp_init (pstring filetype_excluderegexp) {
 
 	//trim_string(filetype_excluderegexp, " ", " ");
 	
@@ -118,7 +118,7 @@ int fileregexp_skipscan(pstring fname) {
 
 #else /* HAVE_FILEREGEXP_SUPPORT */
 
-BOOL fileregexp_init (pstring filetype_excluderegexp)
+bool fileregexp_init (pstring filetype_excluderegexp)
 {
 	DEBUG(5,("Sorry, samba-vscan regexp-exclude support is not compiled in\n"));
 	return True;

@@ -13,7 +13,7 @@
 #define VSCAN_FR_SKIP_SCAN 		 1
 
 
-BOOL fileregexp_init (pstring filetype_excluderegexp);
+bool fileregexp_init (pstring filetype_excluderegexp);
 void fileregexp_close(void);
 int fileregexp_skipscan(pstring fname);
 

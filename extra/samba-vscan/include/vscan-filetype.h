@@ -13,7 +13,7 @@
 #define VSCAN_FT_SKIP_SCAN 		 1
 
 
-BOOL filetype_init (int flags, pstring exclude_list);
+bool filetype_init (int flags, pstring exclude_list);
 void filetype_close(void);
 int filetype_skipscan(pstring fname);
 

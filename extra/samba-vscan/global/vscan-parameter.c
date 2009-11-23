@@ -155,10 +155,10 @@ const char* get_configuration_file(const struct connection_struct *conn, fstring
  *
 */
 
-BOOL do_common_parameter(vscan_config_struct *vscan_config, const char *param, const char *value)
+bool do_common_parameter(vscan_config_struct *vscan_config, const char *param, const char *value)
 {
 	/* we assume we handled a common parameter */
-	BOOL ret = True;
+	bool ret = True;
 
         if ( StrCaseCmp("max file size", param) == 0 ) {
                 /* FIXME: sanity check missing! what, if value is out of range?

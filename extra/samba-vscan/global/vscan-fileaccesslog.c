@@ -131,7 +131,7 @@ struct lrufiles_struct *lrufiles_search(pstring fname) {
  *	   if no memory could be allocated
  *
 */
-struct lrufiles_struct *lrufiles_add(pstring fname, time_t mtime, BOOL infected) {
+struct lrufiles_struct *lrufiles_add(pstring fname, time_t mtime, bool infected) {
 	struct lrufiles_struct *new_entry, *tmp, *found = NULL;
 
 	/* check if lru file access was disabled by setting the corresponding

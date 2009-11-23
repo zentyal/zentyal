@@ -30,7 +30,7 @@ static magic_t filetype_magic = NULL;
 static pstring filetype_excludelist = "";
 
 /* indicates whether init libmagic was successfull or not */
-static BOOL filetype_init_magic = False;
+static bool filetype_init_magic = False;
 
 /** 
  * initialise libmagic and load magic
@@ -39,7 +39,7 @@ static BOOL filetype_init_magic = False;
  *
 */
 
-BOOL filetype_init (int flags, pstring exclude_list) {
+bool filetype_init (int flags, pstring exclude_list) {
 
 	pstrcpy(filetype_excludelist, exclude_list);
 	trim_string(filetype_excludelist, " ", " ");
@@ -160,7 +160,7 @@ int filetype_skipscan(pstring fname) {
 
 #else /* HAVE_FILETYPE_SUPPORT */
 
-BOOL filetype_init (int flags, pstring exclude_list)
+bool filetype_init (int flags, pstring exclude_list)
 {
 	DEBUG(5,("Sorry, samba-vscan filetype support is not compiled in\n"));
 	return True;

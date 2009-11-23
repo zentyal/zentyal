@@ -50,15 +50,15 @@
 
 vscan_config_struct vscan_config; /* contains the vscan module configuration */
 
-BOOL verbose_file_logging;
-BOOL send_warning_message;
+bool verbose_file_logging;
+bool send_warning_message;
 
 #ifdef LIBCLAMAV
 struct cl_node *clamav_root = NULL;
 struct cl_limits clamav_limits;
-BOOL clamav_loaded = False;
+bool clamav_loaded = False;
 #else
-BOOL scanarchives;
+bool scanarchives;
 fstring clamd_socket_name;      /* name of clamd socket */
 #endif  
 
@@ -67,7 +67,7 @@ static const char module_id[]=VSCAN_MODULE_STR" "SAMBA_VSCAN_VERSION_STR;
 
 
 
-static BOOL do_parameter(const char *param, const char *value)
+static bool do_parameter(const char *param, const char *value)
 {
 
         if ( do_common_parameter(&vscan_config, param, value) == False ) {
@@ -105,7 +105,7 @@ static BOOL do_parameter(const char *param, const char *value)
         return True;
 }
 
-static BOOL do_section(const char *section)
+static bool do_section(const char *section)
 {
         /* simply return true, there's only one section :-) */
         return True;

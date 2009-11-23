@@ -75,21 +75,21 @@ typedef struct {
 	struct {
                 ssize_t max_size;               /* do not scan files greater than max_size
                                                 if max_size = 0, scan any file */
-                BOOL verbose_file_logging;      /* log every file access */
-                BOOL scan_on_open;              /* scan a file before it is opened
+                bool verbose_file_logging;      /* log every file access */
+                bool scan_on_open;              /* scan a file before it is opened
                                                    Defaults to True
                                                 */
-                BOOL scan_on_close;             /* scan a new file put on share or
+                bool scan_on_close;             /* scan a new file put on share or
                                                    if file was modified
                                                    Defaults to False
                                                 */
-                BOOL deny_access_on_error;      /* if connection to daemon fails,  should access to any
+                bool deny_access_on_error;      /* if connection to daemon fails,  should access to any
                                                    file be denied? Defaults to True
                                                 */
 
-                BOOL deny_access_on_minor_error; /* if daemon returns non-critical error,
+                bool deny_access_on_minor_error; /* if daemon returns non-critical error,
                                                     should access to the file be denied? */
-                BOOL send_warning_message;      /* send a warning message using the windows
+                bool send_warning_message;      /* send a warning message using the windows
                                                    messenger service? */
                 fstring quarantine_dir;         /* directory for infected files */
                 fstring quarantine_prefix;      /* prefix    for infected files */
@@ -104,7 +104,7 @@ typedef struct {
 	void* specific;
 } vscan_config_struct;
 
-BOOL do_common_parameter(vscan_config_struct *vscan_config, const char *param, const char *value);
+bool do_common_parameter(vscan_config_struct *vscan_config, const char *param, const char *value);
 void set_common_default_settings(vscan_config_struct *vscan_config);
 #if (SMB_VFS_INTERFACE_VERSION >= 6)
 const char* get_configuration_file(const connection_struct *conn, fstring module_name, fstring paramconf);

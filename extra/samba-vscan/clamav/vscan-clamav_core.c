@@ -19,15 +19,15 @@
 #include <clamav.h>
 #endif
 
-extern BOOL verbose_file_logging;
-extern BOOL send_warning_message;
+extern bool verbose_file_logging;
+extern bool send_warning_message;
 
 #ifdef LIBCLAMAV
 extern struct cl_node *clamav_root;
 extern struct cl_limits clamav_limits;
-extern BOOL clamav_loaded;
+extern bool clamav_loaded;
 #else
-extern BOOL scanarchives;
+extern bool scanarchives;
 extern fstring clamd_socket_name;
 #endif
 
