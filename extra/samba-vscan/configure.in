@@ -592,8 +592,6 @@ AC_MSG_RESULT([
  Compile samba-vscan for Samba      : $SAMBA_VERSION_PRINT
  Compile samba-vscan with sources in: $SAMBA_SOURCE
  Compile samba-vscan backends       : $VSCAN_BACKENDS
- Use libmksd as                     : $MKS_LIB
- Use libkavdc as                    : $KAV_LIB
 ])
 
 AC_MSG_RESULT([Now type \"make\" to build all mentioned backends.
