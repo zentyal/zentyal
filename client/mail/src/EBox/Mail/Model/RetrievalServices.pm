@@ -124,6 +124,29 @@ sub activeProtocos
 
 
 
+sub validateTypedRow
+{
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+    # validate IMAP services changes
+    if ((not exists $params_r->{imap}) and (not exists $params_r->{imaps}) ) {
+        return;
+    }
+    
+    my $imap = exists $params_r->{imap} ? $params_r->{imap}->value() :
+                                          $actual_r->{imap}->value(); 
+    my $imaps = exists $params_r->{imaps} ? $params_r->{imaps}->value() :
+                                          $actual_r->{imaps}->value();   
+
+    my $global = EBox::Global->getInstance();
+
+    foreach my $mod (@{ $global->modInstances()  }) {
+        if ($mod->can('validateIMAPChanges') and $mod->isEnabled()) {
+            $mod->validateIMAPChanges($imap, $imaps);
+        }
+    }
+}
+
 
 1;
 

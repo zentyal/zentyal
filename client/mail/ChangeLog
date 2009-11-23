@@ -1,3 +1,5 @@
+13.10
+        + ESMTP service in port 465 fixed
 1.3.7
         + more resilent EBox::MailVdomain::setUserAccount, now we don't
 	abort if it exists already a user maildir, instead we move it to a
@@ -7,6 +9,7 @@
 	the default port continues to be 25)
 	+ bugfix: fixed regresion in logs and added greylist event for
 	conenctions to remotes SMTPs
+	+ bugfix: SMTPS port 465 now works properly
 1.3.4
 	+ tableInfo returns an array of hash refs
 1.1.41

@@ -1367,59 +1367,6 @@ sub _facilitiesForDiskUsage
     return {$printableName => [ $self->_storageMailDirs() ],};
 }
 
-sub mdQuotaAvailable
-{
-    my ($self) = @_;
-
-    return (EBox::Config::configkey('mdQuotaAvailable') eq 'yes');
-}
-
-sub assureMdQuotaIsAvailable
-{
-    my ($self) = @_;
-
-    if (not $self->mdQuotaAvailable) {
-        throw EBox::Exceptions::Internal('Maildir size quota is not available');
-    }
-}
-
-# Method: setMDDefaultSize
-#
-#  This method sets the default maildir size
-#
-# Parameters:
-#
-#               size - size of maildir
-sub setMDDefaultSize
-{
-    my ($self, $size)  = @_;
-
-    $self->assureMdQuotaIsAvailable();
-
-    unless (isAPositiveNumber($size)) {
-        throw EBox::Exceptions::InvalidData(
-                                            'data'      => __('maildir size'),
-                                            'value'     => $size
-        );
-    }
-
-
-
-    $self->set_int('mddefaultsize', $size);
-}
-
-# Method: getMDDefaultSize
-#
-#  This method returns the default maildir size
-#
-sub getMDDefaultSize
-{
-    my $self = shift;
-
-    $self->assureMdQuotaIsAvailable();
-
-    return $self->get_int('mddefaultsize');
-}
 
 
 # Method: certificates

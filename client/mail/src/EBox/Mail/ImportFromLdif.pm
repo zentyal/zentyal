@@ -62,17 +62,10 @@ sub processUsereboxmail
     my ($package, $entry) = @_;
 
     my $username = $entry->get_value('uid');
-    my $mdsize = $entry->get_value('userMaildirSize')   ;
 
-    $mdsize or return;
-
-    my $mailMod = EBox::Global->modInstance('mail');
-    $mailMod->mdQuotaAvailable() or
-        return;
-
-
-    my $mailUserLdap = $mailMod->_ldapModImplementation();
-    $mailUserLdap->setMDSize($mdsize);
+    # XXX this was used only for compability with ancient quota implemntation. I
+    # left this a palceholder and if it is not needed in the mail enhancements
+    # we can delete it
 }
 
 sub processCourierMailAlias
@@ -128,22 +121,8 @@ sub processVdeboxmail
 
     my $vdomain = $entry->get_value('dc');
 
-
-
-    # quota sutff
-
-    my $dftmdsize = $entry->get_value('vddftMaildirSize');
-
-    $dftmdsize or
-        return;
-
-    my $mailMod = EBox::Global->modInstance('mail');
-    $mailMod->mdQuotaAvailable() or
-        return;
-
-
-    my $vdomainsLdap = EBox::MailVDomainsLdap->new();
-    $vdomainsLdap->_addVDomainWithMdQuota($vdomain, $dftmdsize);
+    # XXX this method was used only for quota stuff, I left it here tempiorally
+    # and if it is not longer needed after changes in mail module it wil lbe deleted
 }
 
 1;
