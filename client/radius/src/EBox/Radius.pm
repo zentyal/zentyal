@@ -156,20 +156,6 @@ sub enableActions
 }
 
 
-# Method: enableService
-#
-# Overrides:
-#
-#      <EBox::Module::Service::enableService>
-#
-sub enableService
-{
-    my ($self, $status) = @_;
-
-    $self->SUPER::enableService($status);
-}
-
-
 # Method: _daemons
 #
 # Overrides:
@@ -231,13 +217,23 @@ sub _setLDAP
 {
     my ($self) = @_;
 
+    my $port;
     my @params = ();
 
     my $users = EBox::Global->modInstance('users');
 
     my $ldap = EBox::Ldap->instance();
     my $ldapConf = $ldap->ldapConf();
-    push (@params, url => $ldapConf->{'ldap'});
+
+    unless ($users->mode() eq 'slave') {
+        $port = $ldapConf->{'port'};
+    } else {
+        $port = $ldapConf->{'translucentport'};
+    }
+
+    my $url = $ldapConf->{'ldap'}.':'.$port.'/';
+
+    push (@params, url => $url);
     push (@params, dn => $ldapConf->{'dn'});
     push (@params, rootdn => $ldapConf->{'rootdn'});
     push (@params, password => $ldap->getPassword());
