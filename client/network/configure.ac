@@ -1,4 +1,4 @@
-AC_INIT([EBox-network], [1.3.9])
+AC_INIT([EBox-network], [1.3.10])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Network.pm])

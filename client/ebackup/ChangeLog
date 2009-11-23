@@ -1,4 +1,4 @@
-HEAD
+1.3.10
 	+ Bugfix do not include '/' as it is already used as source directory
 	+ Get rid of former local backup code
 	+ Send events when backup is done (Not working yet)

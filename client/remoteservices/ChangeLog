@@ -1,8 +1,8 @@
-HEAD
+1.3.10
 	+ Bugfix: Using a better message when the Internet is not
-  	  reachable when subscribing an eBox
+	  reachable when subscribing an eBox
 	+ Bugfix: Use name in VPN client configuration for reaching the
-  	  VPN server to avoid problems if we change the IP addresses
+	  VPN server to avoid problems if we change the IP addresses
 	+ Bugfix: Better error handling in notify job results
 	+ Bugfix: Using ebox as common base for Via protocol
 1.3.7

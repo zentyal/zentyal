@@ -1,4 +1,4 @@
-HEAD
+1.3.10
 	+ bugfix: ignore case when comparing domain and netbios names
 	+ Added support for Recycle Bin in shares
 	+ bugfix: restore Domain Users with GID 513 and not 512.
