@@ -7,9 +7,9 @@ CREATE TABLE message (
         to_address VARCHAR(320),
         message_size BIGINT,
         relay VARCHAR(320),
-        status VARCHAR(25) NOT NULL,
+        status VARCHAR(25),
         message TEXT,
         postfix_date TIMESTAMP NOT NULL,
-		  event VARCHAR(255) NOT NULL
+        event VARCHAR(255) NOT NULL
 );
 CREATE INDEX timestamp_i on message(postfix_date);

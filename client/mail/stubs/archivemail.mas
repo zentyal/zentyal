@@ -1,0 +1,28 @@
+<%args>
+$mailDir
+$expireDaysTrash
+$expireDaysSpam
+</%args>
+#!/bin/bash
+<& .archiveMail, 
+     mailDir => $mailDir, 
+     folder  => '.Trash', 
+     days    => $expireDaysTrash 
+&>
+<& .archiveMail, 
+     mailDir => $mailDir, 
+     folder  => '.Spam', 
+     days    => $expireDaysSpam 
+&>
+
+<%def .archiveMail>
+<%args>
+$mailDir
+$folder
+$days
+</%args>
+% if ($days) {
+find <% $mailDir%> -type d -name <% $folder %> |\
+    xargs -n 1 archivemail -d <% $days %> --delete --include-flagged
+% }
+</%def>

@@ -22,7 +22,7 @@ use lib '../..';
 
 use EBox::MailLogHelper;
 
-use Test::More tests => 50;
+use Test::More tests => 60;
 use Test::MockObject;
 use Test::Exception;
 
@@ -72,7 +72,7 @@ sub checkInsert
         diag "Inserted Data:\n" . Dumper $data;
     }
 
-    my @notNullFields = qw(client_host_ip client_host_name status postfix_date);
+    my @notNullFields = qw(client_host_ip client_host_name postfix_date);
     my $failed = 0;
     foreach my $field (@notNullFields) {
         if ((not exists $data->{$field}) or (not defined $data->{$field})) {
@@ -96,84 +96,86 @@ sub checkInsert
 my $year = _currentYear();
 my @cases = (
              {
-              name => 'Message sent with both TSL and SASL active',
+              name => 'Message sent to external account with both TSL and SASL active',
               lines => [
-                        'Aug 25 06:48:55 intrepid postfix/smtpd[32425]: connect from unknown[192.168.45.159]',
-                        'Aug 25 06:48:55 intrepid postfix/smtpd[32425]: setting up TLS connection from unknown[192.168.45.159]',
-                        'Aug 25 06:48:55 intrepid postfix/smtpd[32425]: Anonymous TLS connection established from unknown[192.168.45.159]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
-                        'Aug 25 06:48:55 intrepid postfix/smtpd[32425]: 44D533084A: client=unknown[192.168.45.159], sasl_method=PLAIN, sasl_username=macaco@monos.org',
-                        'Aug 25 06:48:55 intrepid postfix/cleanup[32428]: 44D533084A: message-id=<200808251310.27640.spam@warp.es>',
-                        'Aug 25 06:48:55 intrepid postfix/qmgr[3091]: 44D533084A: from=<spam@warp.es>, size=557, nrcpt=1 (queue active)',
-                        'Aug 25 06:48:55 intrepid postfix/smtpd[32425]: disconnect from unknown[192.168.45.159]',
-                        'Aug 25 06:48:55 intrepid postfix/virtual[32429]: 44D533084A: to=<macaco@monos.org>, relay=virtual, delay=0.11, delays=0.06/0.02/0/0.02, dsn=2.0.0, status=sent (delivered to maildir)',
-                        'Aug 25 06:48:55 intrepid postfix/qmgr[3091]: 44D533084A: removed',
-
-                       ],
-              expectedData => {
-                               from_address => 'spam@warp.es',
-                               message_id => '200808251310.27640.spam@warp.es',
-                               message_size => '557',
-                               status => 'sent',
-                               postfix_date => "$year-Aug-25 06:48:55",
-                               event => 'msgsent',
-                               message => 'delivered to maildir',
-                               to_address => 'macaco@monos.org',
-                               client_host_name => 'unknown',
-                               relay => 'virtual',
-                               client_host_ip => '192.168.45.159'
-                              },
-             },
-             {
-              name => 'Message sent with TSL but no  SASL',
-              lines => [
-                        'Aug 25 09:30:48 intrepid postfix/smtpd[22803]: connect from unknown[192.168.45.159]',
-                        'Aug 25 09:30:48 intrepid postfix/smtpd[22803]: setting up TLS connection from unknown[192.168.45.159]',
-                        'Aug 25 09:30:48 intrepid postfix/smtpd[22803]: Anonymous TLS connection established from unknown[192.168.45.159]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
-                        'Aug 25 09:30:48 intrepid postfix/smtpd[22803]: B0E2D30845: client=unknown[192.168.45.159]',
-                        'Aug 25 09:30:48 intrepid postfix/cleanup[22830]: B0E2D30845: message-id=<200808251653.45100.spam@warp.es>',
-                        'Aug 25 09:30:48 intrepid postfix/qmgr[3208]: B0E2D30845: from=<spam@warp.es>, size=556, nrcpt=1 (queue active)',
-                        'Aug 25 09:30:48 intrepid postfix/smtpd[22803]: disconnect from unknown[192.168.45.159]',
-                        'Aug 25 09:30:48 intrepid postfix/virtual[22855]: B0E2D30845: to=<macaco@monos.org>, relay=virtual, delay=0.08, delays=0.04/0/0/0.04, dsn=2.0.0, status=sent (delivered to maildir)',
-                        'Aug 25 09:30:48 intrepid postfix/qmgr[3208]: B0E2D30845: removed',
+'Oct  1 07:29:08 u86 postfix/smtpd[26290]: connect from unknown[192.168.9.1]',
+'Oct  1 07:29:08 u86 postfix/smtpd[26290]: setting up TLS connection from unknown[192.168.9.1]',
+'Oct  1 07:29:08 u86 postfix/smtpd[26290]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+'Oct  1 07:29:08 u86 postfix/smtpd[26290]: 4C80A28597: client=unknown[192.168.9.1], sasl_method=PLAIN, sasl_username=macaco@monos.org',
+'Oct  1 07:29:08 u86 postfix/cleanup[26294]: 4C80A28597: message-id=<756079.587244557-sendEmail@huginn>',
+'Oct  1 07:29:08 u86 postfix/qmgr[25790]: 4C80A28597: from=<macaco@monos.org>, size=889, nrcpt=1 (queue active)',
+'Oct  1 07:29:08 u86 postfix/smtpd[26290]: disconnect from unknown[192.168.9.1]',
+'Oct  1 07:29:09 u86 postfix/smtp[26295]: 4C80A28597: to=<jamor@example.com, relay=mail.ebox-technologies.com[67.23.8.134]:25, delay=1.3, delays=0.11/0.03/0.76/0.43, dsn=2.0.0, status=sent (250 2.0.0 Ok: queued as A7C263B459C)',
+'Oct  1 07:29:09 u86 postfix/qmgr[25790]: 4C80A28597: removed',
                        ],
               expectedData =>  {
-                               from_address => 'spam@warp.es',
-                               message_id => '200808251653.45100.spam@warp.es',
-                               message_size => '556',
+                               from_address => 'macaco@monos.org',
+                               message_id => '756079.587244557-sendEmail@huginn',
+                               message_size => 889,
                                status => 'sent',
-                               postfix_date => "$year-Aug-25 09:30:48",
+                               postfix_date => "$year-Oct-1 07:29:08",
                                event => 'msgsent',
-                               message => 'delivered to maildir',
+                               message => '250 2.0.0 Ok: queued as A7C263B459C',
                                to_address => 'macaco@monos.org',
                                client_host_name => 'unknown',
-                               relay => 'virtual',
-                               client_host_ip => '192.168.45.159'
+                               relay => 'dovecot',
+                               client_host_ip => '192.168.9.1'
+                              },
+             },
+             {
+              name => 'Message sent with TSL but no  SASL to a local mail domain account',
+              lines => [
+'Oct  1 06:58:29 u86 postfix/smtpd[25248]: connect from unknown[192.168.9.1]',
+'Oct  1 06:58:29 u86 postfix/smtpd[25248]: setting up TLS connection from unknown[192.168.9.1]',
+'Oct  1 06:58:29 u86 postfix/smtpd[25248]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+'Oct  1 06:58:29 u86 postfix/smtpd[25248]: AFDB128599: client=unknown[192.168.9.1]',
+'Oct  1 06:58:29 u86 postfix/cleanup[25253]: AFDB128599: message-id=<773316.468668298-sendEmail@huginn>',
+'Oct  1 06:58:29 u86 postfix/qmgr[25083]: AFDB128599: from=<jamor@example.com>, size=874, nrcpt=1 (queue active)',
+'Oct  1 06:58:29 u86 postfix/smtpd[25248]: disconnect from unknown[192.168.9.1]',
+'Oct  1 06:58:29 u86 deliver(macaco@monos.org): msgid=<773316.468668298-sendEmail@huginn>: saved mail to INBOX',
+'Oct  1 06:58:29 u86 postfix/pipe[25254]: AFDB128599: to=<macaco@monos.org>, relay=dovecot, delay=0.25, delays=0.15/0.03/0/0.06, dsn=2.0.0, status=sent (delivered via dovecot service)',
+'Oct  1 06:58:29 u86 postfix/qmgr[25083]: AFDB128599: removed',
+                       ],
+              expectedData =>  {
+                               from_address => 'jamor@example.com',
+                               message_id => '773316.468668298-sendEmail@huginn',
+                               message_size => 874,
+                               status => 'sent',
+                               postfix_date => "$year-Oct-1 06:58:29",
+                               event => 'msgsent',
+                               message => 'delivered via dovecot service',
+                               to_address => 'macaco@monos.org',
+                               client_host_name => 'unknown',
+                               relay => 'dovecot',
+                               client_host_ip => '192.168.9.1'
                               },
 
              },
              {
-              name => 'Message sent without TSL or SASL',
+              # XXX no longer valid bz change to lda tasnport
+              name => 'Message sent to vdomain account without TSL or SASL',
                  lines => [
-                           'Aug 25 09:41:13 intrepid postfix/smtpd[11871]: connect from unknown[192.168.45.159]',
-                           'Aug 25 09:41:13 intrepid postfix/smtpd[11871]: 3BA2C3084A: client=unknown[192.168.45.159]',
-                           'Aug 25 09:41:13 intrepid postfix/cleanup[13077]: 3BA2C3084A: message-id=<200808251704.09656.spam@warp.es>',
-                           'Aug 25 09:41:13 intrepid postfix/qmgr[3684]: 3BA2C3084A: from=<spam@warp.es>, size=555, nrcpt=1 (queue active)',
-                           'Aug 25 09:41:13 intrepid postfix/smtpd[11871]: disconnect from unknown[192.168.45.159]',
-                           'Aug 25 09:41:13 intrepid postfix/virtual[13079]: 3BA2C3084A: to=<macaco@monos.org>, relay=virtual, delay=0.13, delays=0.09/0/0/0.04, dsn=2.0.0, status=sent (delivered to maildir)',
-                           'Aug 25 09:41:13 intrepid postfix/qmgr[3684]: 3BA2C3084A: removed',
+'Oct  1 06:41:17 u86 postfix/smtpd[13237]: connect from unknown[192.168.9.1]',
+'Oct  1 06:41:17 u86 postfix/smtpd[13237]: D198328360: client=unknown[192.168.9.1]',
+'Oct  1 06:41:17 u86 postfix/cleanup[13241]: D198328360: message-id=<960540.392293723-sendEmail@huginn>',
+'Oct  1 06:41:17 u86 postfix/qmgr[12460]: D198328360: from=<jamor@example.com>, size=873, nrcpt=1 (queue active)',
+'Oct  1 06:41:17 u86 postfix/smtpd[13237]: disconnect from unknown[192.168.9.1]',
+'Oct  1 06:41:18 u86 deliver(macaco@monos.org): msgid=<960540.392293723-sendEmail@huginn>: saved mail to INBOX',
+'Oct  1 06:41:18 u86 postfix/pipe[13242]: D198328360: to=<macaco@monos.org>, relay=dovecot, delay=0.24, delays=0.11/0.04/0/0.09, dsn=2.0.0, status=sent (delivered via dovecot service)',
+'Oct  1 06:41:18 u86 postfix/qmgr[12460]: D198328360: removed',
                           ],
               expectedData =>  {
-                               from_address => 'spam@warp.es',
-                               message_id => '200808251704.09656.spam@warp.es',
-                               message_size => '555',
+                               from_address => 'jamor@example.com',
+                               message_id => '960540.392293723-sendEmail@huginn',
+                               message_size => '873',
                                status => 'sent',
-                               postfix_date => "$year-Aug-25 09:41:13",
+                               postfix_date => "$year-Oct-1 06:41:18",
                                event => 'msgsent',
-                               message => 'delivered to maildir',
+                               message => 'delivered via dovecot service',
                                to_address => 'macaco@monos.org',
                                client_host_name => 'unknown',
-                               relay => 'virtual',
-                               client_host_ip => '192.168.45.159'
+                               relay => 'dovecot',
+                               client_host_ip => '192.168.9.1'
                               },
 
              },
@@ -380,6 +382,24 @@ my @cases = (
                               },
 
              },
+             {
+                 name => 'SASL authentication error',
+                 lines => [
+'Oct  1 07:04:35 u86 postfix/smtpd[25859]: connect from unknown[192.168.9.1]',
+'Oct  1 07:04:35 u86 postfix/smtpd[25859]: setting up TLS connection from unknown[192.168.9.1]',
+'Oct  1 07:04:35 u86 postfix/smtpd[25859]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+'Oct  1 07:04:37 u86 postfix/smtpd[25859]: warning: unknown[192.168.9.1]: SASL PLAIN authentication failed:',
+'Oct  1 07:04:37 u86 postfix/smtpd[25859]: lost connection after AUTH from unknown[192.168.9.1]',
+'Oct  1 07:04:37 u86 postfix/smtpd[25859]: disconnect from unknown[192.168.9.1]',
+                ],
+              expectedData =>  {
+                               postfix_date => "$year-Oct-1 07:04:37",
+                               event => 'noauth',
+                               client_host_name => 'unknown',
+                               client_host_ip => '192.168.9.1'
+                              },                 
+                 
+                },
 
 #XXX this case seems to work in the real applcationm, strange..
 #             {
@@ -408,6 +428,41 @@ my @cases = (
 #                               },
 
 #              },
+
+             {
+                 name => 'User quota exceeded',
+                 lines => [
+'Oct  1 07:49:19 u86 postfix/smtpd[27306]: connect from unknown[192.168.9.1]',
+'Oct  1 07:49:19 u86 postfix/smtpd[27306]: setting up TLS connection from unknown[192.168.9.1]',
+'Oct  1 07:49:19 u86 postfix/smtpd[27306]: Anonymous TLS connection established from unknown[192.168.9.1]: TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits)',
+'Oct  1 07:49:19 u86 postfix/smtpd[27306]: 850AE2845F: client=unknown[192.168.9.1]',
+'Oct  1 07:49:19 u86 postfix/cleanup[27310]: 850AE2845F: message-id=<319615.810035856-sendEmail@huginn>',
+'Oct  1 07:49:20 u86 postfix/qmgr[26878]: 850AE2845F: from=<jamor@example.com>, size=4065462, nrcpt=1 (queue active)',
+'Oct  1 07:49:20 u86 deliver(macaco@monos.org): msgid=<319615.810035856-sendEmail@huginn>: save failed to INBOX: Quota exceeded (mailbox for user is full)',
+'Oct  1 07:49:20 u86 deliver(macaco@monos.org): msgid=<319615.810035856-sendEmail@huginn>: rejected: Quota exceeded (mailbox for user is full)',
+'Oct  1 07:49:20 u86 postfix/smtpd[27306]: disconnect from unknown[192.168.9.1]',
+'Oct  1 07:49:20 u86 postfix/pickup[26876]: DA6C8285A6: uid=109 from=<>',
+'Oct  1 07:49:20 u86 postfix/cleanup[27310]: DA6C8285A6: message-id=<dovecot-1254397760-467815-0@u86>',
+'Oct  1 07:49:20 u86 postfix/pipe[27311]: 850AE2845F: to=<macaco@monos.org>, relay=dovecot, delay=1.4, delays=0.92/0.03/0/0.47, dsn=2.0.0, status=sent (delivered via dovecot service)',
+'Oct  1 07:49:20 u86 postfix/qmgr[26878]: 850AE2845F: removed',
+
+                    ],
+              expectedData =>  {
+                               from_address => 'jamor@example.com',
+                               message_id => '319615.810035856-sendEmail@huginn',
+                               message_size => 4065462,
+                               status => 'rejected',
+                               postfix_date => "$year-Oct-1 07:49:20",
+                               event => 'maxusrsize',
+#                               message => 'delivered via dovecot service',
+                               message => undef,
+                               to_address => 'macaco@monos.org',
+                               client_host_name => 'unknown',
+                               relay => 'dovecot',
+                               client_host_ip => '192.168.9.1'
+                              },
+
+                }
             );
  
 

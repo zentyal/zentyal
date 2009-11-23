@@ -34,6 +34,7 @@ use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Port;
 use EBox::Types::Composite;
+use EBox::Types::MailAddress;
 
 # eBox exceptions used
 use EBox::Exceptions::External;
@@ -113,6 +114,12 @@ sub _table
                                                         )
                                   ],
              ),
+         new EBox::Types::MailAddress(
+             fieldName => 'bounceReturnAddress',
+             printableName => __('Return address for mail bounced back to the sender'),
+             defaultValue => 'noreply@example.com',
+             editable => 1,
+         ),
          new EBox::Types::Union(
                               fieldName => 'mailboxQuota',
                               printableName =>
@@ -150,7 +157,40 @@ sub _table
                                       ),
                                   ],
              ),
-
+         new EBox::Types::Union(
+                              fieldName => 'deletedExpire',
+                              printableName =>
+                                __('Expiration period for deleted mails'),
+                              subtypes => [
+                              new EBox::Types::Union::Text(
+                                  'fieldName' => 'never',
+                                  'printableName' => __('Never'),
+                                  ),
+                              new EBox::Types::Int(
+                                  'fieldName' => 'days',
+                                  'printableName' => __('days'),
+                                  'editable'  => 1,
+                                  'min'       => 1,
+                                      ),
+                                  ],
+             ),
+         new EBox::Types::Union(
+                              fieldName => 'spamExpire',
+                              printableName =>
+                                __('Expiration period for spam mails'),
+                              subtypes => [
+                              new EBox::Types::Union::Text(
+                                  'fieldName' => 'never',
+                                  'printableName' => __('Never'),
+                                  ),
+                              new EBox::Types::Int(
+                                  'fieldName' => 'days',
+                                  'printableName' => __('days'),
+                                  'editable'  => 1,
+                                  'min'       => 1,
+                                      ),
+                                  ],
+             ),
 
         );
 
@@ -211,6 +251,33 @@ sub mailboxQuota
     return $size;
 }
 
+
+
+sub expirationForDeleted
+{
+    my ($self) = @_;
+    return $self->_expiration('deletedExpire');
+}
+
+sub expirationForSpam
+{
+    my ($self) = @_;
+    return $self->_expiration('spamExpire');
+}
+
+
+sub _expiration
+{
+    my ($self, $element) = @_;
+    my $expiration = $self->row()->elementByName($element);
+    if ($expiration->selectedType eq 'never') {
+        # 0 means unlimited 
+        return 0;
+    }
+
+    my $days = $expiration->subtype()->value();
+    return $days;
+}
 
 
 sub validateTypedRow

@@ -85,11 +85,13 @@ sub processLine
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-    if (not $line =~ m/postfix/) {
+
+    if (not $line =~ m/(?:postfix)|(?:deliver)/) {
         return;
     }
 
     if ($line =~ m/NOQUEUE/) {
+        # no admited to the queue, inserte error event
         my ($who, $hostname, $clientip, $msg, $line2) = $line =~ m/.*NOQUEUE: reject: (.*) from (.*)\[(.*)\]: (.*); (.*)$/;
         my ($from, $to) = $line2 =~ m/.*from=<(.*)> to=<(.*)> .*/;
         
@@ -103,10 +105,7 @@ sub processLine
         } elsif ($msg =~ m/Greylisted/) {
             $event = 'greylist';
         }
-
-        
  
-
         my $values = {
                       client_host_ip => $clientip,
                       client_host_name => $hostname,
@@ -121,6 +120,7 @@ sub processLine
         $dbengine->insert(TABLENAME, $values);
                 
     } elsif ($line =~ m/SASL PLAIN authentication failed/) {
+        # auth failed, not admited at queue. Insert noauth event
         my ($hostname, $clientip) = $line =~ m/.*postfix\/.*: warning: (.*)\[(.*)\]: .*$/;
                         
         my $values = {
@@ -131,26 +131,62 @@ sub processLine
                      };
 
         $dbengine->insert(TABLENAME, $values);
+    } elsif ($line =~ m/cleanup.*message-id=/) {
+        # cleanup: removed for the quue and mail gets a messge id
+        my ($qid, $msg_id) = $line =~ m/.*: (.*): message\-id=<(.*)>.*$/;
+        exists $temp{$qid} or
+            return;
+
+        $temp{$qid}{'msgid'} = $msg_id;
+    } elsif ($line =~ m/deliver\((.*?)\): msgid=<(.*?)>: rejected: Quota exceeded \((.*?)\)/) {
+        # quta exceeded, insert maxusrsize event
+        my $to    = $1;
+        my $msgid = $2;
+        my $msg = $3; # XXX thois not works!
+        my $qid = _qidFromMessageId($msgid);
+        defined $qid or
+            return;
+        exists $temp{$qid} or
+            return;
+
+        $temp{$qid}{'to'}    = $to;
+        $temp{$qid}{'event'} = 'maxusrsize';
+        $temp{$qid}{'status'} = 'rejected';
+        $temp{$qid}{'message'} = $msg;
+        $temp{$qid}{'date'} = $self->_getDate($line);
+        $temp{$qid}{'relay'} = 'dovecot';
+
+        $self->_insertEvent($qid, $dbengine);
     } elsif ($line =~ m/client=/) {
+        # this is the ponit of entry for messages, we could only get a new qid
+        # here 
+
         my ($qid, $hostname, $clientip) = ($line =~ m/.*postfix\/.*: (.*): client=(.*)\[(.*)\]/);
-  
+
+        $temp{$qid}{'qid'}      = $qid;
         $temp{$qid}{'hostname'} = $hostname;
         $temp{$qid}{'clientip'} = $clientip;
-    } elsif ($line =~ m/cleanup.*message-id=/) {
-        my ($qid, $msg_id) = $line =~ m/.*: (.*): message\-id=<(.*)>.*$/;
-        $temp{$qid}{'msgid'} = $msg_id;
+        $temp{$qid}{'date'} = $self->_getDate($line);
+
     } elsif ($line =~ m/qmgr.*from=</) {
+        # get size
         my ($qid, $from, $size) = $line =~ m/.*: (.*): from=<(.*)>, size=(.*),.*$/;
+        exists $temp{$qid} or
+            return;
+
         $temp{$qid}{'from'} = $from;
         $temp{$qid}{'size'} = $size;
     } elsif ($line =~ m/.*: (.*): to=<(.*)>, relay=(.*?), .*, status=(.*?) \((.*)\)$/) {
+        # to, relay, date, msg and status
         my ($qid, $to, $relay, $status, $msg) = ($1, $2, $3, $4, $5);
+        exists $temp{$qid} or
+            return;
 
         $temp{$qid}{'to'} = $to;
         $temp{$qid}{'relay'} = $relay;
         $temp{$qid}{'status'} = $status;
         $temp{$qid}{'msg'} = $msg;
-        $temp{$qid}{'date'} = $self->_getDate($line);
+        $temp{$qid}{'date'} = $self->_getDate($line); # XXX remove
 
         if ($status ne 'sent') {
             if ($msg =~ m/Connection timed out/) {
@@ -176,23 +212,29 @@ sub processLine
         }
 
     } elsif ($line =~ m/.*removed.*/) {
+        # removed, last time we see the message insert event if it was not done before
         my ($qid) = $line =~ m/.*qmgr.*: (.*): removed/;
-                
-        if (not exists $temp{$qid}) {
+        exists $temp{$qid} or
             return;
-        }
 
-
-        my $event = 'msgsent';
-        if ($temp{$qid}{'msg'} =~ m/.*maildir has overdrawn his diskspace quota.*/) {
-            $event = 'maxusrsize';
-        }
-
-        $temp{$qid}{'event'} = $event;
-
+        $temp{$qid}{'event'} = 'msgsent';
         $self->_insertEvent($qid, $dbengine);
     }
 
+}
+
+sub _qidFromMessageId
+{
+    my ($msgId) = @_;
+    foreach my $mail (values %temp) {
+        exists $mail->{'msgid'} or 
+            next;
+        if ($mail->{'msgid'} eq $msgId) {
+            return $mail->{'qid'};
+        }
+    }
+
+    return undef;
 }
 
 sub _insertEvent
@@ -215,11 +257,9 @@ sub _insertEvent
                   event => $temp{$qid}{'event'},
                  };
 
-
+    delete $temp{$qid};
 
     $dbengine->insert(TABLENAME, $values);
-
-    delete $temp{$qid};
 }
 
 

@@ -7,7 +7,7 @@
 
     $firstValidUid
     $firstValidGid
-    $postmasterAddress => 'postmaster@localhost'
+    $postmasterAddress 
 </%args>
 ## Dovecot configuration file
 

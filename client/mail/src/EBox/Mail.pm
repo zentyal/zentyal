@@ -67,6 +67,8 @@ use constant {
 
  VDOMAINS_MAILBOXES_DIR             => '/var/vmail',
 
+ ARCHIVEMAIL_CRON_FILE              => '/etc/cron.daily/archivemail',
+
 };
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
@@ -396,6 +398,9 @@ sub _setMailConf
                           mode => '0600',
                          }
                         );
+
+    $self->_setArchivemailConf();
+
     my $manager = new EBox::ServiceManager;
     # Do not run postmap if we can't overwrite SASL_PASSWD_FILE
     unless ($manager->skipModification('mail', SASL_PASSWD_FILE)) {
@@ -415,7 +420,8 @@ sub _setDovecotConf
     @params = ();
     my $uid =  scalar(getpwnam('ebox'));
     my $gid = scalar(getgrnam('ebox'));
-
+    my $postmasterAddress = 
+         $self->model('SMTPOptions')->row()->valueByName('bounceReturnAddress');
 
     push @params, (uid => $uid);
     push @params, (gid => $gid);
@@ -423,6 +429,7 @@ sub _setDovecotConf
     push @params, (firstValidUid => $uid);
     push @params, (firstValidGid => $gid);
     push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
+    push @params, (postmasterAddress => $postmasterAddress);
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
 
@@ -440,6 +447,43 @@ sub _setDovecotConf
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
 
 }
+
+sub _setArchivemailConf
+{
+    my ($self) = @_;
+    
+    my $smtpOptions      = $self->model('SMTPOptions');
+    my $expireDaysTrash = $smtpOptions->expirationForDeleted();
+    my $expireDaysSpam  = $smtpOptions->expirationForSpam();
+
+    if ( ($expireDaysTrash == 0) and ($expireDaysSpam == 0) ) {
+        # no need to cronjob bz all expiration times are disabled
+        EBox::Sudo::root('rm -f ' . ARCHIVEMAIL_CRON_FILE);
+        return;
+    }
+
+
+
+    my @params = (
+                  mailDir =>  $self->{musers}->DIRVMAIL,
+                  expireDaysTrash  => $expireDaysTrash,
+                  expireDaysSpam   => $expireDaysSpam,
+                  
+                 );
+
+    EBox::Module::Base::writeConfFileNoCheck(ARCHIVEMAIL_CRON_FILE, 
+                         "mail/archivemail.mas",
+                         \@params,
+                         {
+                          uid => 0,
+                          gid => 0,
+                          mode => '0755'
+                         },
+                        );
+
+
+}
+
 
 
 # Method: defaultMailboxQuota
