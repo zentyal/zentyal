@@ -2,8 +2,9 @@ samba-vscan - on-access virus scanning with Samba 2.2.x/3.0
 ***********************************************************
 
 [Introduction]
-samba-vscan currently consists of eight Samba VFS modules:
+samba-vscan currently consists of twelve Samba VFS modules:
 
+* vscan-antivir - for use with H+BEDV AntiVir (server version)
 * vscan-fprotd - for use with F-Prot Daemon
 * vscan-icap - for use with an ICAP anti-virus service, currently only
   Symantec AntiVirus Engine 4.x is supported (this is alpha code and not
@@ -18,12 +19,22 @@ samba-vscan currently consists of eight Samba VFS modules:
   (http://www.vanja.com/tools) 
 * vscan-trend - for use with Trend Micro FileScanner / InterScan VirusWall
   via Trophie (http://www.vanja.com/tools) 
-* vscan-clamav - for use with Clam AntiVirus Daemon
-  (http://www.clamav.org)
+* vscan-clamav - for use with Clam AntiVirus Daemon (clamd) or libclamav
+  (http://www.clamav.net)
+* vscan-nai - for use with NAI/McAfee uvscan
+* vsan-fsav - for use with F-Secure AntiVirus (daemon)
+* vscan-symantec - for use with Symantec Anti Virus Engine
+  Note: the vscan-symantec module will statically linked against
+  the symantec library. This lib is not covered by GPL and the
+  resulting vscan-symantec VFS module may infringe the GPL of
+  Samba! Due this reason, the vscan-symantec module will only be
+  build if --with-symantec flag is used for ./configure
+
+
 
 For installation instructions, please refer to the INSTALL file.
-It's basically a proof-of-concept module for providing on-access virus scanning 
-with Samba.
+It's basically a proof-of-concept module for providing on-access virus 
+scanning with Samba.
 
 NOTE: To get VFS support on FreeBSD systems, you'll have to apply the
 samba-configure.in-fbsd-libdl.dif (at least for Samba 2.2.0-2.2.3)
@@ -33,13 +44,15 @@ For an introduction about the Samba Virtual File System, please read
 http://www.geocities.com/orville_torpid/papers/vfs_tutorial.html.
 For more details, please see the Samba source (esp. source/smbd and
 examples/VFS). The samba/samba-technical ML archive is a good source
-of information, too.
+of information, too. The Samba Developers Guide of Samba 3.x is worth
+a reading as well.
 
 
 [Credits]
 I'd like to thank Tim Potter, REYNAUD Jean-Samuel, Simon Harrison
 and the whole Samba Team. Last but not least all the cool people at SuSE and
-my OpenAntiVirus.org crew ;) 
+my OpenAntiVirus.org crew ;) Thanks to Adrian Woizik for providing me
+access to his FreeBSD machine. 
 
 
 [History]
@@ -63,4 +76,5 @@ WWW: http://www.openantivirus.org/
 
 Feedback, feature requests and so on can be send either to the author directly
 or to the openantivirus-discuss mailing list (see www.openantivirus.org
-for subscription details)
+for subscription details). Technical issues (developer issues) can be
+reported to the openantivirus-developer mailing list.

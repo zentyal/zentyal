@@ -1,8 +1,22 @@
 TODO
 ****
 
+[short-term]
+- more doxygen documentation
+- libclamav updates for 0.80
+- port stuff from clamav to others (see the
+  patches provided by Helmut for clamav)
+- check patch to improve the quarantine function
+- work on the vscan-nai stuff (is there any way to
+  use LinuxShield daemon stuff?)
+- remove support for Samba < 2.2.4 and Samba 3 alpha
+  versions (get rid of some of the ugly ifdef's)
+
+
+[long-term]
 - more testing, esp. in a production environment
 - improve and extend documentation
+- re-write, to avoid global vars
 - write VFS modules for more virusscanners
 - for speed reasons, scan only a file (again) if its checksum 
   does not match the stored checksum (i.e. the file has been changed)

@@ -25,6 +25,11 @@ A: Win* uses only one connection for all shares you're connected to.
    some time, this process will slow down all shares. See
    http://marc.theaimsgroup.com/?t=100629451400005&w=2&r=1 for details.
    I currently have no clue how to avoid this problem :-(
+   Keep also in mind this causes issues with run-time configuration, i.e.
+   if you use two or more samba-vscan modules with different configuration
+   (the latter one overwrites the other one(s)) - log entries via syslog
+   are also misleading (everything is logged with the name of the first
+   loaded VFS module)
 
 Q: Using this module I can't access any file containing german
    umlauts or special characters. Why?

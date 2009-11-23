@@ -1,6 +1,625 @@
-2003-07-14 Stefan Metzmacher <metze@metzemix.de>
-	* THIS IS THE START OF THE SAMBA-VSCAN REDESIGN!
-	  - USE THIS VERSION ONLY FOR TESTING!!!
+2007-09-15 Rainer Link <rainer@openantivirus.org>
+	* make it compile on IA64 as well, patch by
+          Andreas Schwab
+	* make it compile with Samba 3.0.25c or later, thanks
+	  to Svan Strickroth for the bug report and fix
+
+2007-05-20 Rainer Link <rainer@openantivirus.org>
+	* make it compile with Samba 3.0.25 or later again due to
+	  VFS interface changes
+
+2007-03-17 Rainer Link <rainer@openantivirus.org> 
+	* antivir/: vscan-antivir.c, vscan-antivir.conf,
+	  vscan-antivir_core.c: added scanmode feature
+	* INSTALL: updated for file regexp exlucsion
+
+2006-04-13 Rainer Link <rainer@openantivirus.org> 
+	* AUTHORS, INSTALL, antivir/vscan-antivir.c,
+	  antivir/vscan-antivir.h, antivir/vscan-antivir_core.c: company
+	  name has changed to Avira
+
+2006-04-12 Rainer Link <rainer@openantivirus.org> 
+	* antivir/vscan-antivir_core.c: bugfix to avoid connection issues,
+	  if the startup of the antivir server takes a little bit longer
+	  than expect. Provided by Avira
+
+2006-01-13 Rainer Link <rainer@openantivirus.org> 
+	* configure.in: quick hack to allow samba-vscan to be compiled with
+	  Samba3 versions which have an char in their release version
+	  number (i.e. 3.0.21a)
+
+2005-08-18 Rainer Link <rainer@openantivirus.org>
+	* nai/vscan-mcdaemon_core.c: bugfix, thanks to Lars Mueller for the
+	  bugreport
+
+2005-07-13  Rainer Link <rainer@openantivirus.org>
+	* global/vscan-fileaccesslog.c: renamed "new" to "new_entry" to not
+	  use a reserved word in C++ (as Samba 3.0.20pre2 onwards Samba can
+	  be compiled with C++ and allows VFS modules written in C++)
+
+2005-04-20  Rainer Link <rainer@openantivirus.org>
+	* icap/vscan-icap.c: bugfix, assemly of file path is now correct
+	  again
+
+2005-04-10  Rainer Link <rainer@openantivirus.org>
+	* clamav/vscan-clamav.c, fprot/vscan-fprotd.c: make it actually
+	  compile
+	* clamav/vscan-clamav.c: add debug statement in front of regexp
+	  init
+	* clamav/vscan-clamav.c: some code re-org in vscan_close
+	* antivir/vscan-antivir.c, antivir/vscan-antivir.conf,
+	  clamav/vscan-clamav.c, f-secure/vscan-fsav.c,
+	  f-secure/vscan-fsav.conf, fprot/vscan-fprotd.c,
+	  fprot/vscan-fprotd.conf, icap/vscan-icap.c, icap/vscan-icap.conf,
+	  kaspersky/vscan-kavp.c, kaspersky/vscan-kavp.conf,
+	  mks/vscan-mks32.conf, mks/vscan-mksd.c, nai/vscan-mcdaemon.c,
+	  nai/vscan-mcdaemon.conf, openantivirus/vscan-oav.c,
+	  openantivirus/vscan-oav.conf, sophos/vscan-sophos.c,
+	  sophos/vscan-sophos.conf, symantec/vscan-symantec.c,
+	  symantec/vscan-symantec.conf, symantec/vscan-symantec_core.c,
+	  trend/vscan-trend.c, trend/vscan-trend.conf: use file regexp
+	  stuff modified some syslog satements to contain the INFO tag some
+	  other small changes
+
+2005-04-08  Rainer Link <rainer@openantivirus.org>
+	* configure.in: bugfixes
+	* clamav/vscan-clamav.c, global/vscan-fileregexp.c,
+	  include/vscan-fileregexp.h, include/vscan-global.h: some
+	  code-rework on file regexp stuff. needs to be tested carefully!
+	* AUTHORS: added Sven
+
+2005-04-07  Rainer Link <rainer@openantivirus.org>
+	* README: updated
+	* VERSION: updated
+	* configure.in, clamav/vscan-clamav.conf, global/vscan-parameter.c:
+	  added some missing pieces for the file regexp stuff
+
+2005-03-29  Rainer Link <rainer@openantivirus.org>
+	* global/vscan-fileregexp.c: added; skip scanning of file based on
+	  regexp. Patch by Sven
+	* Makefile.in, clamav/vscan-clamav.c, global/vscan-parameter.c,
+	  include/vscan-parameter.h: skip scanning of file based on regexp.
+	  Patch by Sven; currently only clamav supported, needs to be
+	  ported to other modules as well
+	* clamav/: vscan-clamav.c, vscan-clamav.conf, vscan-clamav.h,
+	  vscan-clamav_core.c: scan inside archives or not now
+	  configurable. Patch by Sven
+
+2005-03-23  Rainer Link <rainer@openantivirus.org>
+	* NEWS, VERSION: updated
+	* Released samba-vscan 0.3.6
+
+2005-02-23  Rainer Link <rainer@openantivirus.org> 
+	* antivir/vscan-antivir.c, clamav/vscan-clamav.c,
+	f-secure/vscan-fsav.c, fprot/vscan-fprotd.c, icap/vscan-icap.c,
+	kaspersky/vscan-kavp.c, mks/vscan-mksd.c, nai/vscan-mcdaemon.c,
+	openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: increased debug
+	level to avoid log flooding
+	* antivir/Makefile: removed, not needed anymore
+
+2005-02-20 Rainer Link <rainer@openantivirus.org>
+	* NEWS, VERSION: updated for 0.3.6RC1
+	* ChangeLog: updated
+	* Released 0.3.6 RC1
+
+2005-02-09 Rainer Link <rainer@openantivirus.org>
+	* TODO, FAQ: updated
+
+2005-02-06 Rainer Link <rainer@openantivirus.org> 
+	* global/vscan-filetype.c: replaced pstrcat with pstrcpy
+	* global/vscan-filetype.c: log differently if libmagic failed or no
+	  exclude list has been set
+
+2005-02-05  Rainer Link <rainer@openantivirus.org>
+	* VERSION: updated to 0.3.6 beta1
+	* INSTALL: added some words wrt quarantine directory
+	* global/vscan-quarantine.c: increased DEBUG level
+	* clamav/vscan-clamav.conf: fixed a libclamav setting
+	* ChangeLog: updated
+
+2005-01-21  Rainer Link <rainer@openantivirus.org>
+	* global/vscan-parameter.c: added some more DEBUG statements adjust
+	DEBUG level
+
+2005-01-18  Rainer Link <rainer@openantivirus.org>
+	* ChangeLog: updated
+	* TODO: updated
+	* clamav/vscan-clamav_core.c: some minor changes
+	* global/vscan-parameter.c: changed atoi to atoll
+	* antivir/: vscan-antivir.c, vscan-antivir.conf, vscan-antivir.h,
+	vscan-antivir_core.c: modifications for 0.3.6 release (use
+	framework for parsing configuration)
+
+2005-01-17  Rainer Link <rainer@openantivirus.org>
+	* antivir/: vscan-antivir.c, vscan-antivir_core.c: some changes to
+	be in sync with upcoming 0.3.6
+	* global/vscan-quarantine.c: added some doxygen comments use
+	smb_mkstemp for generating temp file name in quarantine
+
+2004-12-07  Rainer Link <rainer@openantivirus.org>
+	* antivir/vscan-antivir.conf, clamav/vscan-clamav.conf,
+	f-secure/vscan-fsav.conf, fprot/vscan-fprotd.conf,
+	icap/vscan-icap.conf, kaspersky/vscan-kavp.conf,
+	mks/vscan-mks32.conf, nai/vscan-mcdaemon.conf,
+	openantivirus/vscan-oav.conf, sophos/vscan-sophos.conf,
+	symantec/vscan-symantec.conf, trend/vscan-trend.conf: "bugfix" in
+	comment - we do not delete any file if quarantine fails
+
+2004-11-27  Rainer Link <rainer@openantivirus.org>
+	* global/vscan-filetype.c: bugfix by Sven
+
+2004-11-17  Rainer Link <rainer@openantivirus.org>
+	* AUTHORS: added H+BEDV to list of contributors
+	* INSTALL: updated for H+BEDV AntiVir
+	* Makefile.in, configure.in, antivir/Makefile,
+	antivir/vscan-antivir.c, antivir/vscan-antivir.conf,
+	antivir/vscan-antivir.h, antivir/vscan-antivir_core.c,
+	antivir/vscan-antivir_core.h: added support for AntiVir,
+	contributed by the H+BEDV folks. Param parsing not yet up-to-date
+	for sheduled 0.3.6 release
+
+2004-10-05  Rainer Link <rainer@openantivirus.org>
+	* include/vscan-global.h, include/vscan-vfs.h, trend/vscan-trend.c:
+	some changes to build it for Samba 2.2.x
+
+2004-10-01  Rainer Link <rainer@openantivirus.org>
+	* clamav/vscan-clamav.c: bugfix; make module actually compile
+
+2004-09-29  Rainer Link <rainer@openantivirus.org>
+	* clamav/vscan-clamav.c, clamav/vscan-clamav.h,
+	f-secure/vscan-fsav.c, f-secure/vscan-fsav.h: updated to use the
+	new global configuration parsing module
+
+2004-09-28  Rainer Link <rainer@openantivirus.org>
+	* trend/vscan-trend.c: updated to use the new global configuration
+	parsing module
+	* fprot/vscan-fprotd.c, fprot/vscan-fprotd.h, icap/vscan-icap.c,
+	icap/vscan-icap.h, kaspersky/vscan-kavp.c, kaspersky/vscan-kavp.h,
+	mks/vscan-mks32.conf, mks/vscan-mksd.c, mks/vscan-mksd.h,
+	nai/vscan-mcdaemon.c, openantivirus/vscan-oav.c,
+	openantivirus/vscan-oav.h, sophos/vscan-sophos.c,
+	sophos/vscan-sophos.h, symantec/vscan-symantec.c,
+	symantec/vscan-symantec.h, trend/vscan-trend.c,
+	trend/vscan-trend.h: updated to use the new global configuration
+	parsing module
+	* global/vscan-parameter.c, include/vscan-parameter.h:
+	configuration file is a per module setting
+
+2004-09-27  Rainer Link <rainer@openantivirus.org>
+	* icap/vscan-icap_core.c: use sys_stat instead of stat to avoid LFS
+	issues
+	* INSTALL: updated
+
+2004-09-26  Rainer Link <rainer@openantivirus.org>
+	* global/vscan-parameter.c, include/vscan-parameter.h: use const
+	* fprot/vscan-fprotd_core.c, global/vscan-filetype.c,
+	global/vscan-parameter.c, include/vscan-parameter.h,
+	openantivirus/vscan-oav.c: some more code re-org; move parsing of
+	configuration to a dedicated module
+	* Makefile.in, configure.in: removed references to kav5
+
+2004-09-25  Rainer Link <rainer@openantivirus.org>
+	* kaspersky/Makefile.KAV4: removed; no longer needed
+	* f-secure/vscan-fsav.c, f-secure/vscan-fsav_core.c,
+	fprot/vscan-fprotd.c, fprot/vscan-fprotd_core.c, icap/vscan-icap.c,
+	icap/vscan-icap_core.c, kaspersky/vscan-kavp.c,
+	kaspersky/vscan-kavp_core.c, mks/vscan-mksd.c,
+	mks/vscan-mksd_core.c, nai/vscan-mcdaemon.c,
+	nai/vscan-mcdaemon_core.c, openantivirus/vscan-oav.c,
+	openantivirus/vscan-oav_core.c, sophos/vscan-sophos.c,
+	sophos/vscan-sophos_core.c, symantec/vscan-symantec.c,
+	symantec/vscan-symantec_core.c, trend/vscan-trend.c,
+	trend/vscan-trend_core.c: make the code a little bit more read-able
+	(esp. the check for return values)
+
+2004-09-24  Rainer Link <rainer@openantivirus.org>
+	* clamav/: vscan-clamav.c, vscan-clamav_core.c: make the code a
+	little bit more read-able (esp. the check for return values)
+	* include/vscan-scan.h: file vscan-scan.h was initially added on
+	branch VSCAN_0_3.
+	* include/vscan-fileaccesslog.h, include/vscan-filetype.h,
+	include/vscan-global.h, include/vscan-scan.h,
+	global/vscan-fileaccesslog.c, global/vscan-filetype.c: some changes
+	to make the code (esp. return values) more read-able
+	* clamav/Makefile, fprot/Makefile, icap/Makefile,
+	kaspersky/Makefile, mks/Makefile, openantivirus/Makefile,
+	sophos/Makefile, symantec/Makefile, trend/Makefile,
+	f-secure/Makefile, nai/Makefile: removed; no longer needed
+	* clamav/vscan-clamav.c: update LRU list also on file close. Patch
+	by Helmut, needs to be "ported" to other modules as well.
+	* clamav/vscan-clamav.conf: fixed spelling
+	* TODO: updated
+
+2004-09-10  Rainer Link <rainer@openantivirus.org>
+	* clamav/vscan-clamav.c: By creating a new file it is normal that
+	this file do not exists. So this entry is only a info, that only is
+	shown in verbose mode, and not a error.
+	Patch by Helmut
+
+2004-09-09  Rainer Link <rainer@openantivirus.org>
+	* clamav/vscan-clamav_core.c: simplified daemon version of scanfile
+	Patch by Helmut
+	* clamav/vscan-clamav.c: simplified vscan_open, so that onyl one
+	#ifdef LIBCLAMAV is needed, and only one
+	SMB_VFS_NEXT_OPEN/default_vfs_ops.open is nedded.  more error
+	messages when the daemon fails
+	Patch by Helmut
+	* clamav/vscan-clamav.c: simplified vscan_close, so that only one
+	#fdef LIBCLAMAV is needed
+	Patch by Helmut
+	* clamav/: vscan-clamav.c, vscan-clamav_core.c: Errors are always
+	reportet in the syslog in vscan_open corrected the handle of the
+	max_size parameter in verbose mode: more info messages why a file
+	isn't scanned
+	Patch by Helmut
+	* clamav/: vscan-clamav.c, vscan-clamav.h, vscan-clamav_core.c,
+	vscan-clamav_core.h: The functions programmed in
+	vscan-clamav_core.c are declared in vscan-clamav_core.h and the
+	other declerations are cleared Only the functions that are needed
+	by the library or the daemon version are declared and called by the
+	specific versions Patch by Helmut
+
+2004-09-08  Rainer Link <rainer@openantivirus.org>
+	* clamav/: vscan-clamav.c, vscan-clamav.h, vscan-clamav_core.c:
+	some fixes for libclamav support by Helmut Heinreichsberger (note:
+	there was an interface change for cl_scanfile after clamav 0.65)
+
+2004-07-29  Rainer Link <rainer@openantivirus.org>
+	* kaspersky/libkavdc/libkavdc.c: avoid "ERROR: string overflow by 1
+	(16 - 15) in safe_strcpy"
+
+2004-07-27  Rainer Link <rainer@openantivirus.org>
+	* INSTALL: updated the ClamAV installation/usage instructions
+	* INSTALL: some more words about using Samba 3 VFS modules
+
+2004-05-06  Rainer Link <rainer@openantivirus.org>
+	* .cvsignore: updated
+	* openantivirus/vscan-oav.c: bugfix
+
+2004-05-02  Rainer Link <rainer@openantivirus.org>
+	* global/vscan-parameter.c: file vscan-parameter.c was initially
+	added on branch VSCAN_0_3.
+	* include/vscan-parameter.h: file vscan-parameter.h was initially
+	added on branch VSCAN_0_3.
+	* Makefile.in, clamav/vscan-clamav_core.c, global/vscan-filetype.c,
+	global/vscan-functions.c, global/vscan-parameter.c,
+	icap/vscan-icap_core.c, include/vscan-functions.h,
+	include/vscan-global.h, include/vscan-parameter.h,
+	nai/vscan-mcdaemon_core.c, openantivirus/vscan-oav.c,
+	openantivirus/vscan-oav.h, openantivirus/vscan-oav_core.c,
+	sophos/vscan-sophos_core.c, trend/vscan-trend_core.c: started some
+	more code-reorganisation; not finished; could have broken stuff
+
+2004-04-30  Rainer Link <rainer@openantivirus.org>
+	* NEWS, VERSION: set to 0.3.5 release
+	* ChangeLog: updated
+	* Released samba-vscan 0.3.5
+
+2004-04-19  Rainer Link <rainer@openantivirus.org>
+	* ChangeLog: updated
+	* VERSION: set to 0.3.5RC1
+	* Released samba-vscan 0.3.5 RC1
+
+2004-04-13  Rainer Link <rainer@openantivirus.org>
+	* INSTALL, f-secure/vscan-fsav.conf: some updates
+
+2004-04-07  Rainer Link <rainer@openantivirus.org>
+	* f-secure/: vscan-fsav.c, vscan-fsav.h: compile-time settings
+	moved to corresponding header file to be in sync with other modules
+	* f-secure/vscan-fsav.conf: fixed spelling of a run-time option
+
+2004-04-03  Rainer Link <rainer@openantivirus.org>
+	* VERSION: set to 0.3.5 beta1
+	* INSTALL, NEWS, README: updated
+	* f-secure/README.fsecure: removed
+	* global/vscan-filetype.c: increased debug level
+	* clamav/vscan-clamav.conf, f-secure/vscan-fsav.conf,
+	fprot/vscan-fprotd.conf, icap/vscan-icap.conf,
+	kaspersky/vscan-kavp.conf, mks/vscan-mks32.conf,
+	nai/vscan-mcdaemon.conf, openantivirus/vscan-oav.conf,
+	sophos/vscan-sophos.conf, symantec/vscan-symantec.conf,
+	trend/vscan-trend.conf: updated default settings of configuration
+	files; some cosmetics
+	* fprot/vscan-fprotd_core.c: improved sanity check
+	* f-secure/vscan-fsav_core.c: cosmetics
+	* f-secure/: vscan-fsav_core.c, vscan-fsav_core.h: report virus
+	name via syslog (it's actually virus name + Engine; only one virus
+	name is reported from the last engine)
+	* kaspersky/vscan-kavp.h, openantivirus/vscan-oav.h: cosmetics :)
+	* nai/: vscan-mcdaemon.c, vscan-mcdaemon.h,
+	mcDaemon-v0.1/mcDaemon.c: some more fixes and updates
+
+2004-04-02  Rainer Link <rainer@openantivirus.org>
+	* f-secure/vscan-fsav.conf: minor update
+
+2004-03-30  Rainer Link <rainer@openantivirus.org>
+	* f-secure/vscan-fsav_core.c: use DEBUG instead of vscan_syslog in
+	some cases
+
+2004-03-12  Rainer Link <rainer@openantivirus.org>
+	* NEWS, README: credits to Adrian
+	* kaspersky/libkavdc/libkavdc.c: added copright info and license
+	stuff
+
+2004-03-10  Rainer Link <rainer@openantivirus.org>
+	* f-secure/vscan-fsav_core.c: bug fix
+	* f-secure/: vscan-fsav.c, vscan-fsav_core.c, vscan-fsav_core.h:
+	some more fixes to get the module built
+	* f-secure/vscan-fsav.c: some updates to get the module working
+	(hopefully)
+	* f-secure/vscan-fsav_core.c: added some error checking; modified
+	some syslog messages; some other fixes
+
+2004-03-09  Rainer Link <rainer@openantivirus.org>
+	* NEWS: updated
+
+2004-03-04  Rainer Link <rainer@openantivirus.org>
+	* NEWS: updated
+	* README: updated
+	* VERSION: 0.3.5 alpha2
+
+2004-03-03  Rainer Link <rainer@openantivirus.org>
+	* INSTALL: modified clamav entry, added Symantec section
+	* configure.in: make build of vscan-symantec a configure switch
+	(will not be built by default).  NOTE: vscan-symantec will be
+	statically linked against a Symantec lib, which is not GPL. So, the
+	vscan-symantec module is not 100% GPL anymore.	Loading this module
+	into Samba may violate the GPL. Do not distribute a binary
+	vscan-symantec module. If unsure, get in touch with the Samba team.
+
+2004-03-01  Rainer Link <rainer@openantivirus.org>
+	* NEWS: modified wrt libclamav / libmagic issue
+	* NEWS: updated wrt libclamav issue
+	* clamav/: vscan-clamav.c, vscan-clamav.conf, vscan-clamav.h,
+	vscan-clamav_core.c: improved libclamav support: limits are now
+	compilte-time/runtime setting options
+	* configure.in: improved output for libclamav checking
+
+2004-02-29  Rainer Link <rainer@openantivirus.org>
+	* clamav/vscan-clamav_core.c: report lib error code via syslog
+	* VERSION: set to 0.3.5 alpha1
+	* ChangeLog, NEWS: updated
+
+
+2004-02-28  Rainer Link <rainer@openantivirus.org>
+	* nai/vscan-mcdaemon_core.h: fix build for *BSD systems
+
+2004-02-27  Rainer Link <rainer@openantivirus.org>
+	* NEWS: updated
+	* f-secure/vscan-fsav.conf: fixed cut&paste bug .)
+	* INSTALL: more updates for the upcoming 0.3.5 release
+	* global/vscan-filetype.c: buigfix, make it acutally compile
+
+2004-02-26  Rainer Link <rainer@openantivirus.org> 
+	* ChangeLog: updated
+	* INSTALL: updated to address some of the recent code changes
+	* configure.in: added hint to use gmake on BSD systems
+	* global/vscan-filetype.c: strip anything after ";" (if any) for
+	the reported file type. libmagic reports an a text file e.g.
+	"text/plain; charset=us-ascii" but this info is not needed. Code
+	currently untested!
+
+2004-02-24  Rainer Link <rainer@openantivirus.org>
+	* f-secure/vscan-fsav.conf: updated
+
+2004-02-23  Rainer Link <rainer@openantivirus.org>
+	* openantivirus/vscan-oav_core.h: bugfix: include sys/types.h (see
+	man 2 socket). Thanks to Jean Milanez Melo for the bug report
+
+2004-02-13  Rainer Link <rainer@openantivirus.org>
+	* configure.in: bugfix: if --with-libkavdc was specified, the
+	summary info did not display "builtin" for libkavdc
+
+2004-01-08  Rainer Link <rainer@openantivirus.org>
+	* f-secure/: vscan-fsav.c, vscan-fsav.conf, vscan-fsav_core.c,
+	vscan-fsav_core.h: patch by Oliver. If fsavd runs as scanning
+	daemon for all users, switch to a specified user ID.
+
+2004-01-07  Rainer Link <rainer@openantivirus.org>
+	* nai/mcDaemon-v0.1/: mcDaemon.c, mcDaemonRC: translated some
+	messages rougly into english
+
+2004-01-03  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd_core.c, icap/vscan-icap_core.c,
+	nai/vscan-mcdaemon_core.c, openantivirus/vscan-oav_core.c: close
+	input/output streams to avoid memory leaks
+
+2003-12-17  Rainer Link <rainer@openantivirus.org>
+	* NEWS: updated
+
+2003-12-16  Rainer Link <rainer@openantivirus.org>
+	* ChangeLog: updated
+
+
+2003-12-11  Rainer Link <rainer@openantivirus.org>
+	* README: the official HP of ClamAV is clamav.net
+
+2003-12-10  Rainer Link <rainer@openantivirus.org>
+	* README: updated for vscan-mcdaemon and vscan-fsav
+	* AUTHORS: added name of two more contributors
+	* f-secure/vscan-fsav.c: updated to get it working with Samba
+	2.2.x, too
+
+2003-12-05  Rainer Link <rainer@openantivirus.org>
+	* nai/: vscan-mcdaemon.c, vscan-mcdaemon.h, vscan-mcdaemon_core.c,
+	vscan-mcdaemon_core.h: get module actually compiling with Samba
+	2.2.x and 3.0
+	* Makefile.in, configure.in: first step for building
+	vscan-mcdaemon.
+	* Makefile.in: bugfix: tab instead of spaces (typical c&p bug ...)
+
+2003-12-04  Rainer Link <rainer@openantivirus.org>
+	* TODO: updated
+	* configure.in, Makefile.in: updated to build the vscan-fsav module
+	* f-secure/Makefile: cosmetics
+
+2003-12-04  Rainer Link <rainer@openantivirus.org>
+	* f-secure/: Makefile, README.fsecure, vscan-fsav.c,
+	vscan-fsav.conf, vscan-fsav.h, vscan-fsav_core.c,
+	vscan-fsav_core.h: added; support for F-Secure Anti-Virus.
+	Contributed by Oliver Jehle
+	* nai/: LEAME, Makefile, vscan-mcdaemon.c, vscan-mcdaemon.conf,
+	vscan-mcdaemon.h, vscan-mcdaemon_core.c, vscan-mcdaemon_core.h,
+	mcDaemon-v0.1/COPYING, mcDaemon-v0.1/MCDaemon,
+	mcDaemon-v0.1/Makefile, mcDaemon-v0.1/mcDaemon.c,
+	mcDaemon-v0.1/mcDaemonRC, mcDaemon-v0.1/mcLoader.sh: added; support
+	for NAI uvscan. Contributed by Arturo Alberto Busleiman
+	* INSTALL: updated explanations for Samba 3
+
+2003-12-01  Rainer Link <rainer@openantivirus.org>
+	* Makefile.in, configure.in, clamav/vscan-clamav.c,
+	clamav/vscan-clamav.h, clamav/vscan-clamav_core.c: added support
+	for libclamav into vscan-clamav (clamd still support).	use
+	--wih-clamav to enable libclamav support. Build currently, but not
+	usable with Samba 3.0.0 up to now. Reason unkown.
+
+2003-11-17  Rainer Link <rainer@openantivirus.org>
+	* configure.in: minor update
+
+2003-11-15  Rainer Link <rainer@openantivirus.org>
+	* ChangeLog: updated
+
+2003-11-15 Rainer Link <rainer@openantivirus.org>
+	* symantec/vscan-symantec_core.c: bugfix: bool -> BOOL
+
+2003-11-06 Rainer Link <rainer@openantivirus.org>
+	* global/vscan-fileaccesslog.c: bugfix: counter was not always
+	decreased when entry was deleted. use ZERO_STRUCTP instead of
+	ZERO_STRUCT. Patch by Moritz Both
+
+2003-09-24 Rainer Link <rainer@openantivirus.org>
+	* INSTALL: bugfix: Samba 3.0 does not require the .so suffix in
+	smb.conf
+
+2003-09-24 Stefan Metzmacher <metze@metzemix.de> 
+	* Makefile.in, configure.in, global/vscan-filetype.c,
+	include/vscan-filetype.h: - revert my generic make rule
+	patch...(seems to not work on FreeBSD)	 - --with-single-libs was
+	also broken :-(
+	
+	- add filetype detection in configure.in  
+	--with-filetype=yes|no|auto  (default=auto)
+
+2003-09-24 Stefan Metzmacher <metze@metzemix.de> 
+	* icap/vscan-icap_core.c: fix compiler warning
+
+2003-09-23 Rainer Link <rainer@openantivirus.org>
+	* README: minor update
+
+2003-09-19 Rainer Link <rainer@openantivirus.org>
+	* ChangeLog: updated
+
+2003-09-19 Rainer Link <rainer@openantivirus.org>
+	* global/vscan-filetype.c: typo
+
+2003-09-15 Rainer Link <rainer@openantivirus.org>
+	* Makefile.in: added global/vscan-filetype.o to GLOBAL_OBJS
+
+2003-09-12 Rainer Link <rainer@openantivirus.org> 
+	* clamav/vscan-clamav.conf, fprot/vscan-fprotd.conf,
+	  icap/vscan-icap.conf, kaspersky/vscan-kavp.conf,
+	  mks/vscan-mks32.conf, sophos/vscan-sophos.conf,
+	  symantec/vscan-symantec.conf, trend/vscan-trend.conf: added the
+	  corresponding config option to skip file types
+	* global/vscan-filetype.c: added FIXME to change DEBUG statements
+	  after testing
+	* include/vscan-filetype.h, global/vscan-filetype.c: added; module
+	  to skip scanning of files based on their filetype
+	* Makefile.in, VERSION, clamav/vscan-clamav.c,
+	  clamav/vscan-clamav.h, fprot/vscan-fprotd.c,
+	  fprot/vscan-fprotd.h, icap/vscan-icap.c, icap/vscan-icap.h,
+	  include/vscan-global.h, kaspersky/vscan-kavp.c,
+	  kaspersky/vscan-kavp.h, mks/vscan-mksd.c, mks/vscan-mksd.h,
+	  openantivirus/vscan-oav.c, openantivirus/vscan-oav.conf,
+	  openantivirus/vscan-oav.h, sophos/vscan-sophos.c,
+	  sophos/vscan-sophos.h, symantec/vscan-symantec.c,
+	  symantec/vscan-symantec.h, trend/vscan-trend.c,
+	  trend/vscan-trend.h: changes for 0.3.5; added skip scanning of
+	  files based on file type (currently not well tested)
+
+
+2003-09-08  Rainer Link <rainer@openantivirus.org>
+	* ChangeLog, NEWS, VERSION: ready for 0.3.4 release
+	* Released samba-vscan 0.3.4
+
+2003-09-05  Rainer Link <rainer@openantivirus.org>
+
+	* INSTALL, Makefile.in: added hint that make install does not copy
+	the configuration files
+
+2003-09-02 Rainer Link <rainer@openantivirus.org>
+	* Released 0.3.4 RC1
+
+2003-08-26 Rainer Link <rainer@openantivirus.org>
+	* Released 0.3.4 beta2
+
+2003-08-26 Stefan Metzmacher <metze@metzemix.de>
+	* configure.in, aclocal.m4: support new samba versions with the 
+          new include/version.h file 
+
+2003-08-20 Rainer Link <rainer@openantivirus.org>
+	* Makefile.in: moved the _LIBS option to the end of the SHLD call -
+	  for whatever reason the mksd module gets "miscompiled" otherwise
+	  (i.e. does not work as the mksd_ symbols can not be resolved,
+	  when -lmksd is used)
+
+2003-08-15 Stefan Metzmacher <metze@metzemix.de>
+	* Makefile.in: add a generic make rule for all modules
+
+2003-08-08 Rainer Link <rainer@openantivirus.org>
+	* trend/vscan-trend.conf: the path name is actually
+	  /var/run/trophie
+
+2003-08-08 Stefan Metzmacher <metze@metzemix.de> 
+	* configure.in: fix SAMBA_VERSION -> $SAMBA_VERSION
+
+2003-08-05 Rainer Link <rainer@openantivirus.org> 
+	* INSTALL: added hint for --with-samba-version if Samba version can
+	  not be detected automatically
+
+2003-08-02  Rainer Link <rainer@openantivirus.org>
+	* ChangeLog, NEWS: updated
+	* VERSION: set version to 0.3.4 beta1 (non CVS)
+	* Released 0.3.4 beta1
+
+2003-08-01  Rainer Link <rainer@openantivirus.org>
+	* INSTALL: some more updates to reflect recent changes
+	* ChangeLog, NEWS: updated
+
+2003-07-31 Rainer Link <rainer@openantivirus.org>
+	* INSTALL: updated
+
+2003-07-31 Stefan Metzmacher <metze@metzemix.de>
+	* configure.in: Add --with-samba-version switch to configure.  This
+	  allows vendors to modify the value in
+	  $SAMBA_SOURCE/incude/version.h and compile samba-vscan fine
+	  without patching...
+	  (e.g. ALT linux uses "3.0/ALT" for Samba 3.0.* or so...)
+
+2003-07-31 Rainer Link <rainer@openantivirus.org>
+	* INSTALL: some more updates, esp wrt Samba 3.0
+
+2003-07-31 Stefan Metzmacher <metze@metzemix.de>
+	* NEWS, TODO, configure.in: NEWS: we now support Samba 3.0.0beta*
+	  or higher :-)
+	  readd KAV 3 support
+
+2003-07-21 Rainer Link <rainer@openantivirus.org>
+	* NEWS: updated (not yet finished)
+	* TODO: removed entry "configure and makefile"
+
+2003-07-17 Rainer Link <rainer@openantivirus.org>
+	* README: minor update
+	* INSTALL: some more updates
+
+2003-07-16 Rainer Link <rainer@openantivirus.org>
+	* INSTALL: removed references to popt-issues, we will always use
+	  the popt - stuff of samba
+	* AUTHORS: updated
+	* INSTALL: minor update
+	* INSTALL: first update to reflect recent changes (not yet
+	  finished)
 
 2003-07-14 Stefan Metzmacher <metze@metzemix.de>
 	* clamav/vscan-clamav_core.c: make the usage of safe_strcpy/cat() a

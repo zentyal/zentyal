@@ -1,3 +1,43 @@
+[samba-vscan 0.3.6c]
+* make it compile with Samba 3.0.25 or later due to
+  VFS interface changes
+* make it compile on IA64 architecture as well
+
+[samba-vscan 0.3.6b]
+* bugfix release
+
+[samba-vscan 0.3.6]
+* added support for H+BEDV AntiVir, contributed by H+BEDV
+  Datentechnik GmbH
+* several fixes
+* moved more code to the framework to reduce the code overhead
+  for each module
+
+[samba-vscan 0.3.5]
+* skip scan of a file completely based on its file type. Idea
+  originally by Adrian Woizik for the AMaViS project.
+* bug fix for the least recently opened file mechanism which
+  may have caused an smbd segfault
+* vscan-symantec module actually builds now
+* vscan-clamav can now be build for use of libclamav instead of
+  clamd (this is mutal exclusive). 
+* added support for NAI/McAfee uvscan. Contributed by Arturo 
+  Alberto Busleiman
+* added support for F-Secure AV. Contributed by Oliver Jehle
+* fixed a memory leak as some file descriptors were never closed
+* fixed a compilation issue on FreeBSD (probably other *BSD-like
+  systems as well)
+* updated documentation to reflect recent changes
+
+[samba-vscan 0.3.4]
+* add support for Samba 3.0beta*/RC* or better
+* configure stuff and improved Makefile, so building the modules
+  is easier and cleaner now 
+* support for ClamAV by Daruisz Markowicz 
+* scan on open _and_ scan on close is set now as default
+* various smaller updates and improvements
+* updated documentation
+
 [samba-vscan 0.3.3beta1]
 * updates for libmskd by Daruisz Markowicz
 * vscan-fprotd has now support for connecting to F-Prot Daemon in 
@@ -7,6 +47,7 @@
 * fixed same issues which might cause problems with long pathnames
   (> 256 chars)
 * documentation updated to reflect recent changes
+* 0.3.3 release was skipped
 
 [samba-vscan 0.3.2b]
 * bugfix for F-Prot Daemon und OAV (handling of long file names)

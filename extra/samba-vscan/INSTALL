@@ -1,7 +1,7 @@
 Installation instructions for samba-vscan
 *****************************************
 
-Copyright (C) by Rainer Link, 2001-2003
+Copyright (C) by Rainer Link, 2001-2004
 	      OpenAntiVirus.org <rainer@openantivirus.org>
 
 This software is licensed under the GNU General Public License (GPL)
@@ -79,7 +79,8 @@ vi vscan-oav.h
 	- INFECTED_DO_NOTHING: the infected file will remain untouched
 * SCAN_QUARANTINE_DIRECTORY: the quarantine directory for infected files,
   default is "/tmp" - it should be a directory not reachable via (Samba)
-  shares.
+  shares. Keep in mind this directory must be world-read/writable and
+  the sticky-bit should be set.  
 * VSCAN_QUARANTINE_PREFIX: a quarantined file will be renamed, via this
   setting the prefix can be specified. Default is "vir-". 
 * VSCAN_MAX_LRUFILES: the maximum number of last recently accessed file entries,
@@ -89,6 +90,12 @@ vi vscan-oav.h
   lru accessed file entry is considered as invalidated. The default is
   5 seconds.  Please see the chapter "Avoid multiple scans of a file 
   caused by Windows behaviour".
+* VSCAN_FT_EXCLUDE_LIST: MIME-types of files to be excluded from 
+  scanning, separated by semi-colon. Wildcards are not possible. Use
+  this feature with care.  
+* VSCAN_FR_EXCLUDE_REGEXP: regular expression (PCRE) to exclude
+  files from scanning based on path- and/or filename. Use this
+  feature with care!
 
 After you may have adjusted these settings to your needs, please
 refer to the next section on how to actually build and install
@@ -102,7 +109,8 @@ Step 1: Prerequisite
 VFS support works out-of-the-box in these Samba releases. As for compiling this
 module the config.h file of Samba is needed, you have to run ./configure in
 <samba-source>/source (yes, you need the Samba sources. A binary-only
-Samba installation is not sufficient).
+Samba installation is not sufficient). For Samba 3.0 you also have to
+run "make proto" in <samba-source>/source.
 
 Step 2: copying the sources (optional)
 You may copy recursively the complete samba-vscan directory to 
@@ -156,7 +164,8 @@ vi vscan-oav.h
 	- INFECTED_DO_NOTHING: the infected file will remain untouched
 * SCAN_QUARANTINE_DIRECTORY: the quarantine directory for infected files,
   default is "/tmp" - it should be a directory not reachable via (Samba)
-  shares.
+  shares. Keep in mind this directory must be world-read/writable and
+  the sticky-bit should be set. 
 * VSCAN_QUARANTINE_PREFIX: a quarantined file will be renamed, via this
   setting the prefix can be specified. Default is "vir-". 
 * VSCAN_MAX_LRUFILES: the maximum number of last recently accessed file entries,
@@ -166,6 +175,13 @@ vi vscan-oav.h
   lru accessed file entry is considered as invalidated. The default is 5
   seconds. Please see the chapter "Avoid multiple scans of a file caused 
   by Windows behaviour".
+* VSCAN_FT_EXCLUDE_LIST: MIME-types of files to be excluded from 
+  scanning, separated by semi-colon. Wildcards are not possible. Use
+  this feature with care!
+* VSCAN_FR_EXCLUDE_REGEXP: regular expression (PCRE) to exclude
+  files from scanning based on path- and/or filename. Use this
+  feature with care!
+
 
 Step 4: build
 Now run the ./configure script. If you didn't copy the samba-vscan
@@ -191,12 +207,19 @@ If you want to build only (a) specific backend(s), simply type
 "make fprotd oav sophos" to build the fprotd OpenAntiVirus and 
 Sophos backend (vscan-fprotd.so, vscan-oav.so, vscan-sophos.so).
 
+Hint: On *BSD systems please use GNU make (gmake) instead of BSD make, e.g.
+"gmake" (to build all modules) or "gmake fprotd" to build only the fprotd
+backend.
+
+
 Step 5: install
 After compilation has finished, copy the vscan-<product>.so (i.e. vscan-oav.so)
 to /usr/local/samba/lib/vfs (this is the default location of Samba 3.0 - 
 depending on your vendor/distribution, the location may vary).
 
-Otherwise, "make install" should work, too.
+Otherwise, "make install" should work, too. On *BSD systems please use
+"gmake install" instead.
+
 
 
 If you want to use the run-time configuration file copy the
@@ -204,7 +227,7 @@ corresponding .conf file to /etc/samba, i.e.
 
 cp -a openantivirus/vscan-oav.conf /etc/samba
 
-Note: "make install" does not copy configuration file(s).
+NOTE: "make install" does NOT copy configuration file(s).
 
 Step 6: configure Samba
 
@@ -242,14 +265,14 @@ Edit /etc/smb.conf and add the following entry (that's only an example):
                 browseable = yes
                 guest ok = yes
 
-IMPORTANT: vscan-oav: config-file = /path/file is refers, as the
+IMPORTANT: "vscan-oav: config-file = /path/file" refers as the
 name already implies to the vscan-oav module only. So, generally
-speaking it's vscan-<backend>: config-file = /path/file
+speaking it's "vscan-<backend>: config-file = /path/file"
 
 
 Basically you have to add a vfs object line to your shares
 which should be virus-protected by this module. If you'd like to use the
-run-time configuration file, simply add the 
+run-time configuration file, simply add  
 vscan-<backend>: config-file = /path/config-file
 (different settings for several shares can be achieved by using a different
 name of the configuration file for each share). If you want to protect _all_
@@ -257,6 +280,14 @@ shares your Samba server offers, simply add the vfs object line (and the
 vscan-<backend>: config-file = /file/path line, if you like) to the 
 [global] section.
 
+IMPORTANT: In Samba 3, more than one VFS module can be used, so in
+most cases it's recommended to have the samba-vscan module as the
+first one. If you want to use vscan-oav and the recycle module, they
+must be mentioned in one vfs object line, 
+i.e. vfs object = vscan-oav recyle 
+
+For more details, please see 
+http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/VFS.html
 
 
 The following options are available in the samba-style run-time configuration 
@@ -305,7 +336,8 @@ please refer to the corresponding configuration file):
 * quarantine directory = <string>
   Specifies the quarantine directory. Default is "/tmp", please change this
   for your needs. The quarantine directory must not be reached via samba 
-  share. 
+  share. Keep in mind this directory must be world-read/writable and
+  the sticky-bit should be set.
 
 * quarantine prefix = <string>
   Prefix for files in quarantine, default is "vir-".  
@@ -318,13 +350,23 @@ please refer to the corresponding configuration file):
   mechanism is disabled completely. The default is 100. Please see the chapter
   "Avoid multiple scans of a file caused by Windows behaviour".
 
-
 * lru file entry lifetime = <value>
-  Specified the lifetime of an entry in the lru accessed files list in seconds.
+  Specifies the lifetime of an entry in the lru accessed files list in seconds.
   The default is 5. After this lifetime an entry is considered as invalidated
   and deleted from the list. Please see the chapter "Avoid multiple scans of 
   a file caused by Windows behaviour".
    
+* exclude file types = <string>
+  Exclude files from scan process based on the MIME-type (i.e. as if
+  "file -i <file>" is used, see file(1) for details). This is a
+  semi-colon separated list (default: empty list). Use this feature with
+  care!
+
+* exclude file regexp = <string>
+  Exclude files from scan process based on regular expression (PCRE),
+  see pcre(3) and pcrepattern(3) for details. Of course, the PCRE
+  library must be installed to use this. Use this feature with care!
+
 
 Step 7: Restart Samba
 Restart Samba (e.g. killall -HUP smbd)
@@ -345,7 +387,7 @@ Windows (I think all versions) may open file(s) several times in a very short
 period of time, when i.e. opening a directory or double-clicking on a file. 
 
 Here are two real-world examples, created using vscan-fprotd with
-verbose loging switched on. 
+verbose logging switched on. 
 
 Double-clicking on an infected Word document:
 Jan  4 14:46:49 rlss2 smbd_vscan_fprotd[3201]: INFO: Scanning file : '/tmp/macroviren/CAP-A.DOC'
@@ -365,13 +407,14 @@ Jan  4 14:50:27 rlss2 smbd_vscan_fprotd[3201]: INFO: file /tmp/test.doc is clean
 Jan  4 14:50:28 rlss2 smbd_vscan_fprotd[3201]: INFO: Scanning file : '/tmp/test.doc'
 Jan  4 14:50:28 rlss2 smbd_vscan_fprotd[3201]: INFO: file /tmp/test.doc is clean
 
-As these examples demonstrate, those both files have been opened several times
-by Windows and therefore scanned several times, although scanning each of them
-once would have been sufficient. Of course, this slows down performance.
+As these examples demonstrate, both files have been opened several times
+by Windows and are therefore scanned several times, although scanning 
+each of them once would have been sufficient. Of course, this slows down 
+performance.
 
 Since the 0.3.2 release, samba-vscan has a mechanism, to avoid this. It uses 
 a last recently accessed file list. Each entry contains the file name, the
-last modified date/time and the time, the entry was added to the list.
+last modified date/time and the time the entry was added to the list.
 
 
 Log checking
@@ -406,6 +449,45 @@ please contact us asap.
   in the run-time configuration file (default is -dumb%20-archive); remember
   to encode space as %20
 
+- F-Secure
+  The F-Secure AntiVirus Daemon can operate in two modes. In the
+  standalone mode, a daemon process is started for each user requesting
+  a scan task. In standalone mode, daemon processes will be stopped after
+  30 sec of idle time.  In the central mode, the daemon is started once and
+  serves requests from any user. To be able to read the files of any
+  user, the daemon has to be started as "root" in most cases.
+
+  NOTE: the standalone mode currently does not work. You're welcome
+  helping to debug the reason.
+
+  If you use the standalone mode, please set 
+  "fsav userinstance = yes" - otherwise set it to no (default).
+  If you use the central mode (default), please set 
+  "fsav connect uid = <uid>" accordingly. As the daemon runs as root,
+  set the <uid> to 0, which is the default. In dedicated mode this
+  setting will be ignored.
+  Also in central mode, the socket to the daemon must be configured via
+  "fsav socket = <string>", default is "/tmp/.fsav-0". This setting
+  will be ignored if dedicated mode is set.
+
+  Other settings are:
+  Location of FSAV config file, fsavd binary and databases:
+  fsav config file = </path/to/config> (default: /etc/fsav.conf)
+  fsav binary  = </path/to/fsavd> (default: /opt/fsecure/fsav/bin/fsavd)
+  fsav db dir = </path/to/db> (default: /var/opt/f-secure/fsav/databases)
+  
+  Scanning of archive file, maximum number of nested archives and
+  support of MIME
+  fsav archive scan = <boolean> (default: yes)
+  fsav maxnested level = <integer> (default: 5)
+  fsav mime scan = <boolean> (default: yes)
+
+  Scan timeout (in seconds), in standalone mode this setting is ignored as 
+  the value of 30sec is hardcoded in the fsavd binary. If set to 0, scan
+  timeout is disabled.
+  fsav timeout = <int> (default: 0).
+
+
 - ICAP
   The support for an ICAP anti-virus service is currently at a very early stage,
   so don't expect it to be very stable. Actually, only the Symantec AntiVirus
@@ -426,7 +508,7 @@ please contact us asap.
   samba shared directories!!!! Please do check the [object] section
   in defUnix.prf and sure you add something like:
   Names=*/samba_shares
-  where samba_shaes is a samba share!
+  where samba_shares is a samba share!
   Please do check if kavdaemon really can scan that directory!
   You can do this by copying a eicar.test file to on of the shares and run:
   $AVPBASEDIR/DaemonClients/Sample/AvpDaemonClient /samba_shares/eicar.com
@@ -503,7 +585,24 @@ please contact us asap.
     make
 
     Normally, configure should autodected it (i.e. if no global lib
-    is available, the buildin lib will be used).  
+    is available, the builtin lib will be used).  
+
+- McAfee uvscan
+  McAfee/NAI is supported via mcDaemon, which is basically a wrapper for
+  uvscan. mcDaemon will not be automatically compiled, so please
+  step into nai/mcDaemon and type "make" (or "gmake" for BSD users).
+  "make install" will install the binary, the config file for mcDaemon
+  and the start-stop script (it's SUSE-like style).
+
+  The following mcdaemon specific settings are available:
+
+  mcdaemon ip = <IP> (default: 127.0.0.1)
+  mcdaemon port = <port> (default: 8128)
+
+
+  For starting mcdaemon see mcLoader.sh for details. Please keep
+  in mind mcdaemon is just a proof-of-concept! By design, it's
+  slow and not really reliable.
  
 - mks_vir Daemon
   You need mks32 - virus scanner, mksd - daemon for mks32, and virus
@@ -580,8 +679,14 @@ please contact us asap.
   arbitrary commands to Sophie/Trophie, so we need a better solution here ... 
 
 
-- Clam AntiVirus Daemon
-  You need Clam AntiVirus Daemon from http://www.clamav.org/. As socket name
+- Clam AntiVirus
+  samba-vscan (clamav module) can be configured to use for the
+  Clam AntiVirus daemon (clamd) or the ClamAV library (libclamav). 
+  Usage of clamd is default. For a discussion about pro and cons please
+  see http://marc.theaimsgroup.com/?t=108550773300004&r=1&w=2
+
+  Daemon:
+  You need Clam AntiVirus Daemon from http://www.clamav.net/. As socket name
   /var/run/clamd is assumed. You can modify this via CLAMD_SOCKET_NAME
   in vscan-clamav.h or via clamd socket name = <string> in the run-time
   configuration file.
@@ -590,11 +695,67 @@ please contact us asap.
   "nobody" or as the user "xyz", when user "xyz" is connected to his home 
   directory). This could be a security risk, as now an attacker could pass 
   arbitrary commands to Clam AntiVirus Daemon, so we need a better
-  solution here ... 
+  solution here. Moreover, clamd must run as root in most cases to be able 
+  to read the files, which could lead to as security risk as well.
+ 
+
+  libclamav:
+  To use the ClamAV library instead, use the --with-clamav-lib switch for
+  ./configure. Keep in mind, if vscan-clamav is build and linked for
+  libclamav, you must rebuild the module if you decide to use clamd
+  instead. Please keep in mind, this could be a huge performance
+  penalty.
+
+
+- Symantec AntiVirus Engine
+  The Symantec module will not be build by default, as it will be statically
+  linked against a library from Symantec. As this library is not GPL, but
+  a VFS module must be GPL (the VFS interface itself is GPL, too), loading
+  the vscan-symantec module my infringe the GPL rights of the Samba Team.
+  Do not distribute this module as a binary. If in doubt, please contact
+  the Samba Team.
+
+  To build this module, copy (or create a link) libsymcsapi.a and 
+  symcsapi.h from the Symantec SDK to the symantec directory of the
+  samba-vscan package. Use the "--with-symantec" switch for configure, e.g.
+  "./configure --with-symantec", so that the module will be compiled.
+
+
+- Avira AntiVir
+
+  An "antivir" binary (version 2.1.0-28 or later) and a valid SERVER
+  license are required.  Please check these requirements by means of
+  the "antivir --version" command.
+ 
+  No service needs to be started up, the vscan-antivir.so plugin
+  itself will handle the scanner processes.  Although it's advised
+  to setup a cronjob which runs regularly scheduled updates for the
+  AntiVir product.  The samba service does not need to be restarted
+  nor need the users reconnect to shares after AntiVir updates.
+ 
+  The correct pathname to the "antivir" binary needs to be setup in
+  the vscan-antivir.conf file.  The binary's name usually is
+  "/usr/lib/AntiVir/antivir".
+
+  Archive related settings can be customized to prevent DoS
+  situations.  This is why archive support is disabled by default.
+  When enabled, archives will not be scanned completely when they
+  exceed one of the specified limits.  A limit of 0 will disable the
+  appropriate condition (i.e. means "unlimited").
+
+  By default only viruses are scanned for.  Detection of other types
+  of unwanted software can be enabled with the appropriate "detect"
+  options.  But you should make sure to adjust the notification
+  message which is sent to the remote users since in this situation
+  not every alert is an "INFECTION" with a "VIRUS".
+
+  The vscan-antivir.so plugin is capable of handling files with non
+  printable and other special characters (umlauts and such) in their
+  names.  Unicode support has not been tested.   
 
 
 Check the license of your anti-virus product
--------------------------------------------
+--------------------------------------------
 
 Before using samba-vscan together with your anti-virus product, please check
 if your current license allows this, i.e. are you allowed to use it on a
@@ -631,7 +792,6 @@ PGP-Key (ID: 13B44079) for privacy.
 To report bugs or send patches you may use the SF Tracker, if you like
 (http://sf.net/projects/openantivirus). I prefer patches in unified diff
 format (diff -u), as there are more human readable (at least for me). 
-
 
 Donations
 ---------
