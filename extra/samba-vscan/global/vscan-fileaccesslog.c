@@ -1,4 +1,4 @@
-/* $Id: vscan-fileaccesslog.c,v 1.9 2003/06/18 06:01:03 mx2002 Exp $
+/* $Id: vscan-fileaccesslog.c,v 1.8.2.5 2007/05/19 17:59:42 reniar Exp $
  * 
  * File Access Log - stores information about LRU files
  *
@@ -36,6 +36,26 @@ static struct lrufiles_struct *LrufilesEnd = NULL;
 static int lrufiles_count = 0;
 static int lrufiles_max_entries = MAX_LRUFILES;
 static time_t lrufiles_invalidate_time = LRUFILES_INVALIDATE_TIME;
+
+
+/** Delete an entry from the lrufile list given by pointer. The
+ * entry must be in the list (this is not checked).
+ * @param entry The entry to be deleted
+ */
+static void lrufiles_delete_p(struct lrufiles_struct *entry)
+{
+	DEBUG(10, ("removing entry from lrufiles list: '%s'\n",
+			entry->fname));
+	/* should the last entry be deleted? If yes, set LrufilesEnd pointer */
+	if ( LrufilesEnd == entry )
+		LrufilesEnd = entry->prev;
+	DLIST_REMOVE(Lrufiles, entry);
+	ZERO_STRUCTP(entry);
+	SAFE_FREE(entry);
+	lrufiles_count--;
+	DEBUG(10, ("entry deleted, %d left in list\n", lrufiles_count));
+
+}
 
 /** 
  * initialise the double-linked list 
@@ -83,7 +103,11 @@ struct lrufiles_struct *lrufiles_search(pstring fname) {
                         /* match ... */
                         /* move to end of list */
                         DLIST_REMOVE(Lrufiles, curr);
-                        DLIST_ADD_END(Lrufiles, curr, tmp);
+			#if (SMB_VFS_INTERFACE_VERSION >= 21)
+			 DLIST_ADD_END(Lrufiles, curr, struct lrufiles_struct *);
+			#else
+                         DLIST_ADD_END(Lrufiles, curr, tmp);
+			#endif
                         LrufilesEnd = curr;
                         /* return it */
                         return curr;
@@ -108,7 +132,7 @@ struct lrufiles_struct *lrufiles_search(pstring fname) {
  *
 */
 struct lrufiles_struct *lrufiles_add(pstring fname, time_t mtime, BOOL infected) {
-	struct lrufiles_struct *new, *tmp, *found = NULL;
+	struct lrufiles_struct *new_entry, *tmp, *found = NULL;
 
 	/* check if lru file access was disabled by setting the corresponding
 	   value in the configuration file to zero (or below zero) */
@@ -130,33 +154,36 @@ struct lrufiles_struct *lrufiles_add(pstring fname, time_t mtime, BOOL infected)
 		return found;
 	} else {
 		DEBUG(10, ("alloc space for file entry '%s'\n", fname));
-		new = (struct lrufiles_struct *)malloc(sizeof(*new));
-		if (!new) return NULL;
+		new_entry = (struct lrufiles_struct *)malloc(sizeof(*new_entry));
+		if (!new_entry) return NULL;
 
-		ZERO_STRUCTP(new);
+		ZERO_STRUCTP(new_entry);
 
-		pstrcpy(new->fname, fname);
-		new->mtime = mtime;
-		new->infected = infected;
-		new->time_added = time(NULL);
+		pstrcpy(new_entry->fname, fname);
+		new_entry->mtime = mtime;
+		new_entry->infected = infected;
+		new_entry->time_added = time(NULL);
 
 		/* reached maximum? */
 		if ( lrufiles_count == lrufiles_max_entries ) {
 			DEBUG(10, ("lru maximum reached '%d'\n", lrufiles_count));
 			/* remove the first one - it really removes only the first one */
 			tmp = Lrufiles;
-			DLIST_REMOVE(Lrufiles, tmp);
-			ZERO_STRUCT(tmp);
-			SAFE_FREE(tmp);
-			lrufiles_count--;
+			DEBUG(10, ("removing first entry..."));
+			lrufiles_delete_p(tmp);
 		}
 		
-		DLIST_ADD_END(Lrufiles, new, tmp);
-		LrufilesEnd = new;
+		DEBUG(10, ("adding new entry to list...\n"));
+		#if (SMB_VFS_INTERFACE_VERSION >= 21)
+ 		 DLIST_ADD_END(Lrufiles, new_entry, struct lrufiles_struct *);
+		#else
+		 DLIST_ADD_END(Lrufiles, new_entry, tmp);
+		#endif
+		LrufilesEnd = new_entry;
 		lrufiles_count++;
 		DEBUG(10, ("entry '%s' added, count '%d'\n", fname, lrufiles_count));
 
-		return new;
+		return new_entry;
 	}
 }
 
@@ -186,6 +213,7 @@ void lrufiles_destroy_all() {
 	}
 	Lrufiles = NULL;
 	LrufilesEnd = NULL;
+	lrufiles_count = 0;
 	DEBUG(10, ("lrufiles destroyed\n"));
 }
 
@@ -208,15 +236,8 @@ void lrufiles_delete(pstring fname) {
 
 	DEBUG(10, ("file entry '%s' should be deleted\n", fname));
 	found = lrufiles_search(fname);
-	if ( found != NULL ) {
-		/* should the last entry be deleted? If yes, set LrufilesEnd pointer */
-		if ( LrufilesEnd == found )
-			LrufilesEnd = found->prev;
-
-		ZERO_STRUCTP(found);
-		SAFE_FREE(found);
-		DEBUG(10, ("entry '%s' deleted\n", fname));
-	}
+	if ( found != NULL ) 
+		lrufiles_delete_p(found);
 }
 			
 
@@ -241,7 +262,7 @@ int lrufiles_must_be_checked (pstring fname, time_t mtime) {
 	if ( lrufiles_max_entries <= 0 ) {
 		DEBUG(10, ("lru files feature is disabled, do nothing\n"));
 		/* do nothing, simply return 1 to advise scanning of file */
-		return 1;
+		return VSCAN_LRU_SCAN_FILE;
 	}
 
 	DEBUG(10, ("lookup '%s'\n", fname));
@@ -251,35 +272,22 @@ int lrufiles_must_be_checked (pstring fname, time_t mtime) {
 		/* not found */ 
 		DEBUG(10, ("entry '%s' not found\n", fname));
 		/* file must be scanned */
-		return 1;
+		return VSCAN_LRU_SCAN_FILE;
 	} else {
 		if ( found->time_added > time(NULL) ) {
 			/* uhm, someone has changed the clock?!? */
 			/* delete entry and advise to scan file */
 			DEBUG(10, ("Clock has changed. Invalidate '%s'\n", found->fname));
-			/* set LrufilesEnd accordingly when the last entry will be deleted */
-			if ( LrufilesEnd == found )
-				LrufilesEnd = found->prev;
-
-			DLIST_REMOVE(Lrufiles, found);
-                        ZERO_STRUCT(found);
-                        SAFE_FREE(found);
+			lrufiles_delete_p(found);
 			/* file must be scanned */
-			return 1;
+			return VSCAN_LRU_SCAN_FILE;
 		} else if ( time(NULL) >= (found->time_added + lrufiles_invalidate_time) ) {
 			/* lifetime expired */
 			/* remove entry, advide to scan */
                         DEBUG(10, ("Lifetime expired. Invalidate '%s'\n", found->fname));
-
-			/* set LrufilesEnd accordingly when the last entry will be deleted */
-			if ( LrufilesEnd == found ) 
-				LrufilesEnd = found->prev;
-
-                        DLIST_REMOVE(Lrufiles, found);
-                        ZERO_STRUCT(found);
-                        SAFE_FREE(found);
+			lrufiles_delete_p(found);
 			/* file must be scanned */
-			return 1;
+			return VSCAN_LRU_SCAN_FILE;
 		} else {
 			if ( found->mtime == mtime ) {
 				/* found, not modified */
@@ -287,20 +295,20 @@ int lrufiles_must_be_checked (pstring fname, time_t mtime) {
 				if ( found->infected ) {
 					DEBUG(10, ("entry '%s' marked as infected\n", fname));
 					/* file mark as infected, access must be denied */
-					return -1;
+					return VSCAN_LRU_DENY_ACCESS;
 				} else {
 					DEBUG(10, ("entry '%s' marked as not infected\n", fname));
 					/* ok, it's safe to grant access without virus scan */
-					return 0;
+					return VSCAN_LRU_GRANT_ACCESS;
 				}
 			} else {
 				/* found, was modified */
 				DEBUG(10, ("entry '%s' found, file was modified\n", fname));
 				/* file was modified, it must be scanned */
-				return 1;
+				return VSCAN_LRU_SCAN_FILE;
 			}
 		}
 	}
 	/* shouln't get there - but to be safe file must be scanned */
-	return 1;
+	return VSCAN_LRU_SCAN_FILE;
 }

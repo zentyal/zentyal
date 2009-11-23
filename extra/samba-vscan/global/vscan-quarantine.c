@@ -1,5 +1,5 @@
 /* 
- * $Id: vscan-quarantine.c,v 1.6 2003/06/18 06:01:03 mx2002 Exp $
+ * $Id: vscan-quarantine.c,v 1.4.2.4 2007/05/19 17:59:42 reniar Exp $
  *
  * Provides functions for quarantining or removing an infected file
  *
@@ -15,13 +15,23 @@
 
 #include "vscan-global.h"
 
-/*
-  deletes the infected file
+/**
+ * deletes the infected file
+ * @param handle		pointer to vfs_handle_struct structure
+ * @param connection_struct	pointer to connect_struct structure
+ * @param virus_file		filepath of infected file	
+ * @return
+ *	 0			success, file deleted
+ *     !=0			failure, file not deleted
 */
  
 #if (SMB_VFS_INTERFACE_VERSION >= 6)
 int vscan_delete_virus(vfs_handle_struct *handle, connection_struct *conn, char *virus_file) {
-	int rc = SMB_VFS_NEXT_UNLINK(handle, conn, virus_file);
+	#if (SMB_VFS_INTERFACE_VERSION >= 21)
+         int rc = SMB_VFS_NEXT_UNLINK(handle, virus_file);
+        #else 
+	 int rc = SMB_VFS_NEXT_UNLINK(handle, conn, virus_file);
+	#endif
 #else 
 int vscan_delete_virus(struct vfs_ops *ops, struct connection_struct *conn, char *virus_file) {
 	int rc = ops->unlink(conn, virus_file);
@@ -35,23 +45,54 @@ int vscan_delete_virus(struct vfs_ops *ops, struct connection_struct *conn, char
 	return 0;
 }
 
-/*
-  moves the infected file to quarantine
+/**
+ * moves the infected file to quarantine
+ * @param handle		pointer to vfs_handle_struct structure
+ * @param conn			pointer to connection_struct strucute
+ * @param virus_file		filepath of infected file
+ * @param q_dir			quarantine directory
+ * @param q_prefix		prefix of quarantine file
+ * @return
+ *	 0 			success, file quarantined
+ *     !=0			failure, file not quarantined
 */
 #if (SMB_VFS_INTERFACE_VERSION >= 6)
 int vscan_quarantine_virus(vfs_handle_struct *handle, connection_struct *conn, char *virus_file, char *q_dir, char *q_prefix) {
 #else
 int vscan_quarantine_virus(struct vfs_ops *ops, struct connection_struct *conn, char *virus_file, char *q_dir, char *q_prefix) {
 #endif
-	int rc;
-	/* FIXME: tempnam should be avoided */
-	char *q_file = tempnam(q_dir, q_prefix);
+	int rc, fd;
+	pstring q_file;
 
-	if (q_file == NULL) {
+	/* build file path */
+	pstrcpy(q_file, q_dir);
+	pstrcat(q_file, "/");
+	pstrcat(q_file, q_prefix);
+	pstrcat(q_file, "XXXXXX");
+
+	/* create temp file, q_file filled with temp file path */
+	/* NOTE: q_dir shoud have the sticky bit set! mkstemp creates
+	   a zero-byte file, but as long as rename(2) overwrites the
+	   newpath this isn't a problem */
+	fd = smb_mkstemp(q_file);
+	DEBUG(3, ("temp file is: %s\n", q_file));
+
+	if ( fd == -1 ) {
+		/* FIXME: we could call strerror, too */
 		vscan_syslog_alert("ERROR: cannot create unique quarantine filename. Probably a permission problem with directory %s", q_dir);
 		return -1;
 	}
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
+	/* close the opened, 0-byte file */
+	rc = close(fd);
+	if ( rc == -1 ) {
+		vscan_syslog_alert("ERROR while closing quarantine file: %s, reason: %s", q_file, strerror(errno));
+		return -1;
+	}
+	
+	/* now do the actual quarantine, i.e. renaming */
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+	rc = SMB_VFS_NEXT_RENAME(handle, virus_file, q_file);
+#elif (SMB_VFS_INTERFACE_VERSION >= 6)
 	rc = SMB_VFS_NEXT_RENAME(handle, conn, virus_file, q_file);
 #else
 	rc = ops->rename(conn, virus_file, q_file);
@@ -69,7 +110,10 @@ int vscan_quarantine_virus(struct vfs_ops *ops, struct connection_struct *conn, 
 	vscan_syslog("INFO: quarantining file '%s' to '%s' was successful", virus_file, q_file);
 	return 0;
 }
- 
+
+/**
+ do action on infected file
+*/ 
 #if (SMB_VFS_INTERFACE_VERSION >= 6)
 int vscan_do_infected_file_action(vfs_handle_struct *handle_ops, connection_struct *conn, char *virus_file, char *q_dir, char *q_prefix, enum infected_file_action_enum infected_file_action) {
 #else

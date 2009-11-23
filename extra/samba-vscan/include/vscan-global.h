@@ -5,32 +5,16 @@
 
 #include "vscan-config.h"
 
-#include "vscan-quarantine.h"
-#include "vscan-context.h"
 #include "vscan-functions.h"
 #include "vscan-fileaccesslog.h"
 #include "vscan-message.h"
-
+#include "vscan-quarantine.h"
+#include "vscan-filetype.h"
+#include "vscan-parameter.h"
+#include "vscan-scan.h"
+#include "vscan-fileregexp.h"
 
 #define CLIENT_IP_SIZE 18
-
-NTSTATUS vscan_init_oav(void);
-
-
-
-int vscan_call_open(VSCAN_CONTEXT *context);
-int vscan_call_scan(VSCAN_CONTEXT *context, const char *fname, const char *newname, int flags, mode_t mode);
-int vscan_call_close(VSCAN_CONTEXT *context);
-VSCAN_CONTEXT *vscan_create_context(vfs_handle_struct *handle);
-void vscan_destroy_context(VSCAN_CONTEXT *context);
-
-int vscan_global_config(VSCAN_CONTEXT *context);
-int vscan_private_config(VSCAN_CONTEXT *context);
-bool vscan_on_open(VSCAN_CONTEXT *context);
-bool vscan_on_close(VSCAN_CONTEXT *context);
-bool vscan_on_sendfile(VSCAN_CONTEXT *context);
-bool vscan_on_rename(VSCAN_CONTEXT *context);
-
 
 
 /* Configuration Section :-) */
@@ -75,8 +59,16 @@ bool vscan_on_rename(VSCAN_CONTEXT *context);
 #define SYSLOG_PRIORITY_ALERT   LOG_ERR
 #endif
 
+/* end configuration section */
 
 
+#if (SMB_VFS_INTERFACE_VERSION < 6)
+ #if (SAMBA_VERSION_MAJOR==3) || (SAMBA_VERSION_RELEASE>=4)
+ #define PROTOTYPE_CONST const
+ #else
+ #define PROTOTYPE_CONST
+ #endif
+#endif
 
 
 

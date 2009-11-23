@@ -1,5 +1,5 @@
 /*
- * $Id: vscan-message.c,v 1.12 2003/06/18 06:01:03 mx2002 Exp $
+ * $Id: vscan-message.c,v 1.10.2.3 2007/09/15 14:35:43 reniar Exp $
  * 
  * NetBIOS message interface
  *
@@ -79,7 +79,14 @@ int vscan_send_warning_message(const char *filename, const char *virname, const 
        	make_nmb_name(&calling, myname, 0x0);
        	make_nmb_name(&called , remote_machine, name_type);
 
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+/* OK, we're breaking compatiblity with 3.0.25[a|b] here... */
+	 if (!(cli=cli_initialise()) || (cli_set_port(cli, port) == 0) || !NT_STATUS_IS_OK(cli_connect(cli, remote_machine, &ip))) {
+/* If you really need to compile it for 3.0.25[a|b], please comment the line above and uncomment the line below */
+/*     	if (!(cli=cli_initialise()) || (cli_set_port(cli, port) == 0) || !cli_connect(cli, remote_machine, &ip)) { */
+#else
        	if (!(cli=cli_initialise(NULL)) || (cli_set_port(cli, port) == 0) || !cli_connect(cli, remote_machine, &ip)) {
+#endif
                	DEBUG(5,("Connection to %s failed\n", remote_machine));
                	return 1;
        	}

@@ -1,10 +1,10 @@
 /*
- * $Id: vscan-clamav.c,v 1.1 2003/07/13 18:32:53 reniar Exp $
+ * $Id: vscan-clamav.c,v 1.1.2.24 2007/05/21 08:43:32 reniar Exp $
  * 
  * virusscanning VFS module for samba.  Log infected files via syslog
  * facility and block access using Clam AntiVirus Daemon.
  *
- * Copyright (C) Rainer Link, 2001-2003
+ * Copyright (C) Rainer Link, 2001-2004
  *               OpenAntiVirus.org <rainer@openantivirus.org>
  *               Dariusz Markowicz <dariusz@markowicz.net>, 2003
  * Copyright (C) Stefan (metze) Metzmacher, 2003
@@ -42,48 +42,25 @@
 
 #include "vscan-vfs.h"
 
+#ifdef LIBCLAMAV
+#include <clamav.h>
+#endif
+
 #define VSCAN_MODULE_STR "vscan-clamav"
 
-fstring config_file;            /* location of config file, either
-                                   PARAMCONF or as set via vfs options
-                                */
+vscan_config_struct vscan_config; /* contains the vscan module configuration */
 
-ssize_t max_size;          	/* do not scan files greater than max_size
-                                   if max_size = 0, scan any file
-                                */
+BOOL verbose_file_logging;
+BOOL send_warning_message;
 
-BOOL verbose_file_logging;  	/* log ever file access */
-
-BOOL scan_on_open;         	/* scan a file before it is opened
-                                   Defaults to True
-                                */
-
-BOOL scan_on_close;        	/* scan a new file put on share or
-                                   if file was modified
-                                   Defaults to False
-                                */
-
-BOOL deny_access_on_error;	/* if using SAVI fails, should access to any
-				   file be denied? */
-
-BOOL deny_access_on_minor_error; /* if daemon returns non-critical error,
-                                    should access to the file be denied? */
-
-BOOL send_warning_message;	/* send a warning message using the windows
-				   messenger service? */
-
-
-fstring	clamd_socket_name;	/* name of clamd socket */
-
-fstring quarantine_dir;	/* directory for infected files */
-fstring quarantine_prefix;	/* prefix    for infected files */
-
-enum infected_file_action_enum infected_file_action; /* what to do with infected files;
-                                                        defaults to quarantine */
-
-int max_lrufiles;               /* specified the maximum entries in lrufiles list */
-time_t lrufiles_invalidate_time; /* specified the time in seconds after the lifetime
-                                    of an entry is expired and entry will be invalidated */
+#ifdef LIBCLAMAV
+struct cl_node *clamav_root = NULL;
+struct cl_limits clamav_limits;
+BOOL clamav_loaded = False;
+#else
+BOOL scanarchives;
+fstring clamd_socket_name;      /* name of clamd socket */
+#endif  
 
 /* module version */
 static const char module_id[]=VSCAN_MODULE_STR" "SAMBA_VSCAN_VERSION_STR;
@@ -92,58 +69,38 @@ static const char module_id[]=VSCAN_MODULE_STR" "SAMBA_VSCAN_VERSION_STR;
 
 static BOOL do_parameter(const char *param, const char *value)
 {
-	if ( StrCaseCmp("max file size", param) == 0 ) {
-		max_size = atoi(value);
-		DEBUG(3, ("max file size is: %d\n", max_size));
-	} else if ( StrCaseCmp("verbose file logging", param) == 0 ) {
-		set_boolean(value, &verbose_file_logging);
-		DEBUG(3, ("verbose file logging is: %d\n", verbose_file_logging));	
-	} else if ( StrCaseCmp("scan on open", param) == 0 ) {
-		set_boolean(value, &scan_on_open);
-		DEBUG(3, ("scan on open: %d\n", scan_on_open));
-	} else if ( StrCaseCmp("scan on close", param) == 0 ) {
-		set_boolean(value, &scan_on_close);
-		DEBUG(3, ("scan on close is: %d\n", scan_on_close));
-	} else if ( StrCaseCmp("deny access on error", param) == 0 ) {
-		set_boolean(value, &deny_access_on_error);
-		DEBUG(3, ("deny access on error is: %d\n", deny_access_on_error));
-	} else if ( StrCaseCmp("deny access on minor error", param) == 0 ) {
-		set_boolean(value, &deny_access_on_minor_error);
-		DEBUG(3, ("deny access on minor error is: %d\n", deny_access_on_minor_error));
-	} else if ( StrCaseCmp("send warning message", param) == 0 ) {
-		set_boolean(value, &send_warning_message);
-		DEBUG(3, ("send warning message is: %d\n", send_warning_message));
 
-        } else if ( StrCaseCmp("infected file action", param) == 0 ) {
-		if (StrCaseCmp("quarantine", value) == 0) {
-			infected_file_action = INFECTED_QUARANTINE;
-		} else if (StrCaseCmp("delete", value) == 0) {
-			infected_file_action = INFECTED_DELETE;
-		} else if (StrCaseCmp("nothing", value) == 0) {
-			infected_file_action = INFECTED_DO_NOTHING;
-		} else {
-			DEBUG(2, ("samba-vscan: badly formed infected file action in configuration file, parameter %s\n", value));
-		}
-                DEBUG(3, ("infected file action is: %d\n", infected_file_action));
-        } else if ( StrCaseCmp("quarantine directory", param) == 0 ) {
-                fstrcpy(quarantine_dir, value);
-                DEBUG(3, ("quarantine directory is: %s\n", quarantine_dir));
-        } else if ( StrCaseCmp("quarantine prefix", param) == 0 ) {
-                fstrcpy(quarantine_prefix, value);
-                DEBUG(3, ("quarantine prefix is: %s\n", quarantine_prefix));
-        } else if ( StrCaseCmp("max lru files entries", param) == 0 ) {
-                max_lrufiles = atoi(value);
-                DEBUG(3, ("max lru files entries is: %d\n", max_lrufiles));
-        } else if ( StrCaseCmp("lru file entry lifetime", param) == 0 ) {
-                lrufiles_invalidate_time = atol(value);
-                DEBUG(3, ("lru file entry lifetime is: %li\n", (long)lrufiles_invalidate_time));
-	} else if ( StrCaseCmp("clamd socket name", param) == 0) {
-		fstrcpy(clamd_socket_name, value);
-		DEBUG(3, ("clamd socket name is %s\n", clamd_socket_name));
+        if ( do_common_parameter(&vscan_config, param, value) == False ) {
+                /* parse VFS module specific configuration values */
+		if ( StrCaseCmp("clamd socket name", param) == 0) {
+#ifdef LIBCLAMAV
+			DEBUG(3, ("clamd socket name not supported when linked against lib clamav\n"));
+#else
+			fstrcpy(clamd_socket_name, value);
+			DEBUG(3, ("clamd socket name is %s\n", clamd_socket_name));
+#endif
 
-
-	} else
-                DEBUG(3, ("unknown parameter: %s\n", param));
+#ifdef LIBCLAMAV
+		} else if ( StrCaseCmp("libclamav max files in archive", param) == 0 ) {
+			/* sanity check? */
+			clamav_limits.maxfiles = atoi(value);
+			DEBUG(3, ("libclamav maxfiles limit is: %i\n", clamav_limits.maxfiles));
+		} else if ( StrCaseCmp("libclamav max archived file size", param) == 0) {
+			/* sanity check? */
+			clamav_limits.maxfilesize = atol(value);
+			DEBUG(3, ("libclamav max archived files limit is: %li\n", clamav_limits.maxfilesize));
+		} else if ( StrCaseCmp("libclamav max recursion level", param) == 0 ) {
+			/* sanity check? */
+			clamav_limits.maxreclevel = atoi(value);
+			DEBUG(3, ("libclamav max recursion level limit is: %i\n", clamav_limits.maxreclevel));
+#else
+		} else if ( StrCaseCmp("scan archives", param) == 0 ) {
+			set_boolean(&scanarchives, value);
+			DEBUG(3, ("scan archives: %d\n", scanarchives));
+#endif
+		} else
+        	        DEBUG(3, ("unknown parameter: %s\n", param));
+	}
 
         return True;
 }
@@ -159,12 +116,18 @@ static BOOL do_section(const char *section)
 
 /* Implementation of vfs_ops.  */
 
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+static int vscan_connect(vfs_handle_struct *handle,  const char *svc, const char *user)
+#elif (SMB_VFS_INTERFACE_VERSION >= 6)
 static int vscan_connect(vfs_handle_struct *handle, connection_struct *conn, const char *svc, const char *user)
 #else
 static int vscan_connect(struct connection_struct *conn, PROTOTYPE_CONST char *svc, PROTOTYPE_CONST char *user)
 #endif
 {
+        fstring config_file;            /* location of config file, either
+                                           PARAMCONF or as set via vfs options
+                                        */
+
 	#if (SAMBA_VERSION_MAJOR==2 && SAMBA_VERSION_RELEASE>=4) || SAMBA_VERSION_MAJOR==3
 	 #if !(SMB_VFS_INTERFACE_VERSION >= 6)
           pstring opts_str;
@@ -180,89 +143,74 @@ static int vscan_connect(struct connection_struct *conn, PROTOTYPE_CONST char *s
 	/* set default value for configuration files */
 	fstrcpy(config_file, PARAMCONF);
 
-	/* set default value for max file size */
-	max_size = VSCAN_MAX_SIZE;
+       /* set default values */
+        set_common_default_settings(&vscan_config);
 
-	/* set default value for file logging */
-	verbose_file_logging = VSCAN_VERBOSE_FILE_LOGGING;
+#ifdef LIBCLAMAV
+	memset(&clamav_limits, 0, sizeof(struct cl_limits));
 
-	/* set default value for scan on open() */
-	scan_on_open = VSCAN_SCAN_ON_OPEN;
+	clamav_limits.maxfiles = VSCAN_CL_MAXFILES;
+	clamav_limits.maxfilesize = VSCAN_CL_MAXFILESIZE;
+	clamav_limits.maxreclevel = VSCAN_CL_MAXRECLEVEL;
+#else
+	/* set default value for scanning archives */
+	scanarchives = VSCAN_SCAN_ARCHIVES;
 
-	/* set default value for scan on close() */
-	scan_on_close = VSCAN_SCAN_ON_CLOSE;
-
-	/* set default value for deny access on error */
-	deny_access_on_error = VSCAN_DENY_ACCESS_ON_ERROR;
-
-	/* set default value for deny access on minor error */
-	deny_access_on_minor_error = VSCAN_DENY_ACCESS_ON_MINOR_ERROR;
- 
-	/* set default value for send warning message */
-	send_warning_message = VSCAN_SEND_WARNING_MESSAGE;
-
-	/* name of clamd socket */
-	fstrcpy(clamd_socket_name, CLAMD_SOCKET_NAME);
-
-        /* set default value for maximum lrufile entries */
-        max_lrufiles = VSCAN_MAX_LRUFILES;
-
-        /* time after an entry is considered as expired */
-        lrufiles_invalidate_time = VSCAN_LRUFILES_INVALIDATE_TIME;
-
+        /* name of clamd socket */
+        fstrcpy(clamd_socket_name, VSCAN_CLAMD_SOCKET_NAME);
+#endif
 
 	vscan_syslog("INFO: connect to service %s by user %s", 
 	       svc, user);
 
 	#if (SAMBA_VERSION_MAJOR==2 && SAMBA_VERSION_RELEASE>=4) || SAMBA_VERSION_MAJOR==3
-	 #if (SMB_VFS_INTERFACE_VERSION >= 6)
-	  fstrcpy(config_file, lp_parm_const_string(SNUM(conn),VSCAN_MODULE_STR,"config-file",PARAMCONF));
-	 #else
-          pstrcpy(opts_str, (const char*) lp_vfs_options(SNUM(conn)));
-          if( !*opts_str ) {
-                DEBUG(3, ("samba-vscan: no configuration file set - using default value (%s).\n", lp_vfs_options(SNUM(conn))));
-          } else {
-                p = opts_str;
-                if ( next_token(&p, config_file, "=", sizeof(config_file)) ) {
-                        trim_string(config_file, " ", " ");
-                        if ( !strequal("config-file", config_file) ) {
-                                DEBUG(3, ("samba-vscan - connect: options %s is not config-file\n", config_file));
-                                /* setting default value */
-                                fstrcpy(config_file, PARAMCONF);
+	 #if (SMB_VFS_INTERFACE_VERSION >= 21)
+	  fstrcpy(config_file, get_configuration_file(handle->conn, VSCAN_MODULE_STR, PARAMCONF));
+	 #else 
+          fstrcpy(config_file, get_configuration_file(conn, VSCAN_MODULE_STR, PARAMCONF));
+	 #endif
+          DEBUG(3, ("configuration file is: %s\n", config_file));
 
-                        } else {
-                                if ( !next_token(&p, config_file," \n",sizeof(config_file)) ) {
-                                        DEBUG(3, ("samba-vscan - connect: no option after config-file=\n"));
-                                        /* setting default value */
-                                        fstrcpy(config_file, PARAMCONF);
-                                } else {
-                                        trim_string(config_file, " ", " ");
-                                        DEBUG(3, ("samba-vscan - connect: config file name is %s\n", config_file));
-                                }
-                        }
-                }
-          }
-	  #endif /*  #if (SMB_VFS_INTERFACE_VERSION >= 6)*/
           retval = pm_process(config_file, do_section, do_parameter);
           DEBUG(10, ("pm_process returned %d\n", retval));
+
+          /* FIXME: this is lame! */
+          verbose_file_logging = vscan_config.common.verbose_file_logging;
+          send_warning_message = vscan_config.common.send_warning_message;
+
 	  if (!retval) vscan_syslog("ERROR: could not parse configuration file '%s'. File not found or not read-able. Using compiled-in defaults", config_file);
 	#endif
 
+#ifdef LIBCLAMAV
+	/* initialise lib clamav */
+	vscan_clamav_lib_init();
+#endif
+
         /* initialise lrufiles list */
         DEBUG(5, ("init lrufiles list\n"));
-        lrufiles_init(max_lrufiles, lrufiles_invalidate_time);
+        lrufiles_init(vscan_config.common.max_lrufiles, vscan_config.common.lrufiles_invalidate_time);
 
+	/* initialise filetype */
+	DEBUG(5, ("init file type\n"));
+	filetype_init(0, vscan_config.common.exclude_file_types);
 
+	/* initialise file regexp */
+        DEBUG(5, ("init file regexp\n"));
+	fileregexp_init(vscan_config.common.exclude_file_regexp);
 
-	 #if (SMB_VFS_INTERFACE_VERSION >= 6)
+	#if (SMB_VFS_INTERFACE_VERSION >= 21)
+	 return SMB_VFS_NEXT_CONNECT(handle, svc, user);	
+	#elif (SMB_VFS_INTERFACE_VERSION >= 6)
 	 return SMB_VFS_NEXT_CONNECT(handle, conn, svc, user);
-	 #else
+	#else
 	 return default_vfs_ops.connect(conn, svc, user);
-	 #endif
+	#endif
 
 }
 
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+static void vscan_disconnect(vfs_handle_struct *handle)
+#elif (SMB_VFS_INTERFACE_VERSION >= 6)
 static void vscan_disconnect(vfs_handle_struct *handle, connection_struct *conn)
 #else/* Samba 3.0 alphaX */
 static void vscan_disconnect(struct connection_struct *conn)
@@ -271,147 +219,147 @@ static void vscan_disconnect(struct connection_struct *conn)
 
 	vscan_syslog("INFO: disconnected");
 
-        lrufiles_destroy_all();
+#ifdef LIBCLAMAV
+	vscan_clamav_lib_done();
+#endif
 
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
+        lrufiles_destroy_all();
+	filetype_close();
+
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+	SMB_VFS_NEXT_DISCONNECT(handle);
+#elif (SMB_VFS_INTERFACE_VERSION >= 6)
 	SMB_VFS_NEXT_DISCONNECT(handle, conn);
 #else
 	default_vfs_ops.disconnect(conn);
 #endif
 }
 
-
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+static int vscan_open(vfs_handle_struct *handle, const char *fname, files_struct *fsp, int flags, mode_t mode)
+#elif (SMB_VFS_INTERFACE_VERSION >= 6)
 static int vscan_open(vfs_handle_struct *handle, connection_struct *conn, const char *fname, int flags, mode_t mode)
 #else
 static int vscan_open(struct connection_struct *conn, PROTOTYPE_CONST char *fname, int flags, mode_t mode)
 #endif
 {
-	int retval, must_be_checked;
 	SMB_STRUCT_STAT stat_buf;
-	int sockfd;
 	pstring filepath;
-	char client_ip[CLIENT_IP_SIZE];
 
-	int rc;
+	/* Assemble complete file path */
+	#if (SMB_VFS_INTERFACE_VERSION >= 21)
+		pstrcpy(filepath, handle->conn->connectpath);
+	#else
+		pstrcpy(filepath, conn->connectpath);
+	#endif
+	pstrcat(filepath, "/");
+	pstrcat(filepath, fname);
 
 
         /* scan files while opening? */
-        if ( !scan_on_open ) {
+        if ( !vscan_config.common.scan_on_open ) {
                 DEBUG(3, ("samba-vscan - open: File '%s' not scanned as scan_on_open is not set\n", fname));
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
-		return SMB_VFS_NEXT_OPEN(handle, conn, fname, flags, mode);
-#else
-                return default_vfs_ops.open(conn, fname, flags, mode);
-#endif				
         }
-
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
-        if ( (SMB_VFS_NEXT_STAT(handle, conn, fname, &stat_buf)) != 0 )    /* an error occured */ 
-		return SMB_VFS_NEXT_OPEN(handle, conn, fname, flags, mode);
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+	if ( (SMB_VFS_NEXT_STAT(handle, fname, &stat_buf)) != 0 ) {    /* an error occured */ 
+#elif (SMB_VFS_INTERFACE_VERSION >= 6)
+	else if ( (SMB_VFS_NEXT_STAT(handle, conn, fname, &stat_buf)) != 0 ) {    /* an error occured */ 
 #else
-        if ( (default_vfs_ops.stat(conn, fname, &stat_buf)) != 0 )    /* an error occured */ 
-		return default_vfs_ops.open(conn, fname, flags, mode);
+	else if ( (default_vfs_ops.stat(conn, fname, &stat_buf)) != 0 ) {    /* an error occured */ 
 #endif
-	else if ( S_ISDIR(stat_buf.st_mode) ) 	/* is it a directory? */
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
-		return SMB_VFS_NEXT_OPEN(handle, conn, fname, flags, mode);
-#else
-		return default_vfs_ops.open(conn, fname, flags, mode);
-#endif
-	else if ( ( stat_buf.st_size > max_size ) && ( max_size > 0 ) ) /* file is too large */
-		vscan_syslog("INFO: File %s is larger than specified maximum file size! Not scanned!", fname);
-	else if ( stat_buf.st_size == 0 ) /* do not scan empty files */
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
-		return SMB_VFS_NEXT_OPEN(handle, conn, fname, flags, mode);
-#else
-		return default_vfs_ops.open(conn, fname, flags, mode);
-#endif
-	else  
+		if ( errno == ENOENT ) {
+			if ( verbose_file_logging )
+				vscan_syslog("INFO: File %s not found! Not scanned!", fname);
+		}
+		else {
+			vscan_syslog("ERROR: File %s not readable or an error occured", fname);
+		}
+	}
+	else if ( S_ISDIR(stat_buf.st_mode) ) { 	/* is it a directory? */
+		if ( verbose_file_logging )
+			vscan_syslog("INFO: File %s is a directory! Not scanned!", fname);
+	}
+	else if ( ( stat_buf.st_size > vscan_config.common.max_size ) && ( vscan_config.common.max_size > 0 ) ) { /* file is too large */
+		if ( vscan_config.common.verbose_file_logging )
+			vscan_syslog("INFO: File %s is larger than specified maximum file size! Not scanned!", fname);
+	}
+	else if ( stat_buf.st_size == 0 ) { /* do not scan empty files */
+		if ( vscan_config.common.verbose_file_logging )
+			vscan_syslog("INFO: File %s has size zero! Not scanned!", fname);
+	}
+	else if ( fileregexp_skipscan(filepath) == VSCAN_FR_SKIP_SCAN ) {
+		if ( vscan_config.common.verbose_file_logging )
+			vscan_syslog("INFO: File '%s' not scanned as file is machted by exclude regexp", filepath);
+	}
+	else if ( filetype_skipscan(filepath) == VSCAN_FT_SKIP_SCAN ) {
+		if ( verbose_file_logging )
+			vscan_syslog("INFO: File '%s' not scanned as file type is on exclude list", filepath);
+	} else
 	{
-		/* open socket */
-		sockfd = vscan_clamav_init();
+		char client_ip[CLIENT_IP_SIZE];
+		int must_be_checked;
 
-                if ( sockfd == -1 && deny_access_on_error ) {
-                        /* an error occured - can not communicate to daemon - deny access */
-                        vscan_syslog("ERROR: can not communicate to daemon - access denied");
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+		safe_strcpy(client_ip, handle->conn->client_address, CLIENT_IP_SIZE - 1);
+#else		
+		safe_strcpy(client_ip, conn->client_address, CLIENT_IP_SIZE -1);
+#endif
+                /* must file actually be scanned? */
+                must_be_checked = lrufiles_must_be_checked(filepath, stat_buf.st_mtime);
+                if ( must_be_checked == VSCAN_LRU_DENY_ACCESS ) {
+                        /* file has already been checked and marked as infected */
+                        /* deny access */
+                        if ( vscan_config.common.verbose_file_logging )
+                                vscan_syslog("INFO: File '%s' has already been scanned and marked as infected. Not scanned any more. Access denied", filepath);
+
+			/* deny access */
                         errno = EACCES;
                         return -1;
-                } else if ( sockfd >= 0 ) {
-			               
-                        /* Assemble complete file path */       
-                        pstrcpy(filepath, conn->connectpath);
-                        pstrcat(filepath, "/"); 
-                        pstrcat(filepath, fname);       
-
-			safe_strcpy(client_ip, conn->client_address, CLIENT_IP_SIZE -1);
-
-                        /* must file actually be scanned? */
-                        must_be_checked = lrufiles_must_be_checked(filepath, stat_buf.st_mtime);
-                        if ( must_be_checked == -1 ) {
-                                /* file has already been checked and marked as infected */
-                                /* deny access */
-                                if ( verbose_file_logging )
-                                        vscan_syslog("File '%s' has already been scanned and marked as infected. Not scanned any more. Access denied", filepath);
-			
-				/* close socket */
-				vscan_clamav_end(sockfd);
-				
-				/* deny access */
-                                errno = EACCES;
-                                return -1;
-                        } else if ( must_be_checked == 0 )  {
-                                /* file has already been checked, not marked as infected and not modified */
-                                if ( verbose_file_logging )
-                                        vscan_syslog("File '%s' has already been scanned, not marked as infected and not modified. Not scanned anymore. Access granted", filepath);
-
-                                /* close socket */
-				vscan_clamav_end(sockfd);
-				
-				/* grant access */
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
-				return SMB_VFS_NEXT_OPEN(handle, conn, fname, flags, mode);
-#else
-				return default_vfs_ops.open(conn, fname, flags, mode);
-#endif
-                        }
+                } else if ( must_be_checked == VSCAN_LRU_GRANT_ACCESS )  {
+                        /* file has already been checked, not marked as infected and not modified */
+                        if ( vscan_config.common.verbose_file_logging )
+                                vscan_syslog("INFO: File '%s' has already been scanned, not marked as infected and not modified. Not scanned anymore. Access granted", filepath);
+                }
+		else {
                         /* ok, we must check the file */
+			int retval;
 
-			/* scan file */
-			retval = vscan_clamav_scanfile(sockfd, filepath, client_ip);
-			if ( retval == -2 && deny_access_on_minor_error ) {
-				/* a minor error occured - deny access */
-				vscan_syslog("ERROR: daemon failed with a minor error - access to file %s denied", fname);
+#ifdef LIBCLAMAV
+			retval = vscan_clamav_lib_scanfile(filepath, client_ip);
+#else	/* LIBCLAMAV	*/
+			int sockfd;
+
+			/* open socket */
+			sockfd = vscan_clamav_init();
+	                if ( sockfd == VSCAN_SCAN_ERROR ) {
+				if( vscan_config.common.deny_access_on_error ) {
+		                        /* an error occured - can not communicate to daemon - deny access */
+					vscan_syslog("ERROR: can not communicate to daemon - access denied");
+					errno = EACCES;
+					return -1;
+				}
+				vscan_syslog("ERROR: can not communicate to daemon - Not scanned!");
+				retval = 3;	/* Access allowed, not scanned */
+			} else
+			{
+				/* scan file */
+				retval = vscan_clamav_scanfile(sockfd, filepath, client_ip);
 				vscan_clamav_end(sockfd);
-
-                                /* to be safe, remove file from lrufiles */
-                                lrufiles_delete(filepath);
-
-                                /* deny access */
-				errno = EACCES;
-				return -1;
-                        } else if ( retval == -1 && deny_access_on_error ) {
-			/* an error occured - can not communicate to daemon - deny access */
-                                vscan_syslog("ERROR: can not communicate to clamd - access to file %s denied", fname);
-				vscan_clamav_end(sockfd);
-
-				/* to be safe, remove file from lrufiles */
-                                lrufiles_delete(filepath);
-
-                                /* deny access */
-
-                                errno = EACCES;
-                                return -1;
-			} else if ( retval == 1 ) {
+			}
+#endif 
+			if ( retval == VSCAN_SCAN_OK ) {
+                                /* file is clean, add to lrufiles */
+                                lrufiles_add(filepath, stat_buf.st_mtime, False);
+			}
+			else if ( retval == VSCAN_SCAN_VIRUS_FOUND ) {
 				/* virus found */
-				vscan_clamav_end(sockfd);
-
 				/* do action ... */
-				
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
-				rc = vscan_do_infected_file_action(handle, conn, filepath, quarantine_dir, quarantine_prefix, infected_file_action);
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+				vscan_do_infected_file_action(handle, handle->conn, filepath, vscan_config.common.quarantine_dir, vscan_config.common.quarantine_prefix, vscan_config.common.infected_file_action);
+#elif (SMB_VFS_INTERFACE_VERSION >= 6)
+				vscan_do_infected_file_action(handle, conn, filepath, vscan_config.common.quarantine_dir, vscan_config.common.quarantine_prefix, vscan_config.common.infected_file_action);
 #else
-				rc = vscan_do_infected_file_action(&default_vfs_ops, conn, filepath, quarantine_dir, quarantine_prefix, infected_file_action);
+				vscan_do_infected_file_action(&default_vfs_ops, conn, filepath, vscan_config.common.quarantine_dir, vscan_config.common.quarantine_prefix, vscan_config.common.infected_file_action);
 #endif
 
                                 /* add/update file. mark file as infected! */
@@ -420,16 +368,41 @@ static int vscan_open(struct connection_struct *conn, PROTOTYPE_CONST char *fnam
 				/* virus found, deny acces */
 				errno = EACCES; 
 				return -1;
-                        } else if ( retval == 0 ) {
-                                /* file is clean, add to lrufiles */
-                                lrufiles_add(filepath, stat_buf.st_mtime, False);
-                        }
-		}
+			}
+			else if ( retval == VSCAN_SCAN_MINOR_ERROR ) {
+				/* to be safe, remove file from lrufiles */
+				lrufiles_delete(filepath);
 
-		/* close socket */
-		vscan_clamav_end(sockfd);
+				if( vscan_config.common.deny_access_on_minor_error ) {
+					/* a minor error occured - deny access */
+					vscan_syslog("ERROR: daemon failed with a minor error - access to file %s denied", fname);
+
+					/* deny access */
+					errno = EACCES;
+					return -1;
+				}
+				/* a minor error occured - Not scanned */
+				vscan_syslog("ERROR: daemon failed with a minor error - file %s Not scanned!", fname);
+                        } else if ( retval == VSCAN_SCAN_ERROR ) {
+				/* to be safe, remove file from lrufiles */
+				lrufiles_delete(filepath);
+
+				if( vscan_config.common.deny_access_on_error ) {
+					/* an error occured - can not communicate to daemon - deny access */
+					vscan_syslog("ERROR: can not communicate to clamd - access to file %s denied", fname);
+
+					/* deny access */
+					errno = EACCES;
+					return -1;
+				}
+				/* an error occured - can not communicate to daemon - Not scanned */
+				vscan_syslog("ERROR: can not communicate to clamd - file %s Not scanned!", fname);
+			}
+		}
 	}
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+	return SMB_VFS_NEXT_OPEN(handle, fname, fsp, flags, mode);
+#elif (SMB_VFS_INTERFACE_VERSION >= 6)
 	return SMB_VFS_NEXT_OPEN(handle, conn, fname, flags, mode);
 #else
 	return default_vfs_ops.open(conn, fname, flags, mode);
@@ -442,9 +415,9 @@ static int vscan_close(vfs_handle_struct *handle, files_struct *fsp, int fd)
 static int vscan_close(struct files_struct *fsp, int fd)
 #endif
 {
+	SMB_STRUCT_STAT stat_buf;
 	pstring filepath;
-        int retval, rv, rc;
-	int sockfd;
+        int retval = 0, rv = 0;
 	char client_ip[CLIENT_IP_SIZE];
 
         /* First close the file */
@@ -454,44 +427,85 @@ static int vscan_close(struct files_struct *fsp, int fd)
         retval = default_vfs_ops.close(fsp, fd);
 #endif
 
-        if ( !scan_on_close ) {
-                DEBUG(3, ("samba-vscan - close: File '%s' not scanned as scan_on_close is not set\n", fsp->fsp_name));
-                return retval;
-        }
-
-
-	/* get the file name */
+        /* get the file name */
         pstrcpy(filepath, fsp->conn->connectpath);
-        pstrcat(filepath, "/"); 
-        pstrcat(filepath, fsp->fsp_name);        
-	
+        pstrcat(filepath, "/");
+        pstrcat(filepath, fsp->fsp_name);
+
+        if ( !vscan_config.common.scan_on_close ) {
+                DEBUG(3, ("samba-vscan - close: File '%s' not scanned as scan_on_close is not set\n", fsp->fsp_name));
+        }
         /* Don't scan directorys */
-        if ( fsp->is_directory )
-            return retval;
-
-
-	if ( !fsp->modified ) {
-                if ( verbose_file_logging ) 
+        else if ( fsp->is_directory )
+		DEBUG(10, ("don't scan directory\n"));
+	/* Don't scan files which have not been modified */
+	else if ( !fsp->modified ) {
+                if ( vscan_config.common.verbose_file_logging ) 
                         vscan_syslog("INFO: file %s was not modified - not scanned", filepath);
 
-		return retval;
+	}
+        /* dont' scan file which matches exclude regexp */
+        else if ( fileregexp_skipscan(filepath) == VSCAN_FR_SKIP_SCAN ) {
+                if ( vscan_config.common.verbose_file_logging )
+                        vscan_syslog("INFO: file '%s' not scanned as file is machted by exclude regexp", filepath);
+        }
+	/* don't scan files which are in the list of exclude file types */
+	else if ( filetype_skipscan(filepath) == VSCAN_FT_SKIP_SCAN ) {
+                if ( vscan_config.common.verbose_file_logging )
+                        vscan_syslog("INFO: File '%s' not scanned as file type is on exclude list", filepath);
 	}
 
-	sockfd = vscan_clamav_init();
-        if ( sockfd >= 0 ) {
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+	else if ( (SMB_VFS_NEXT_STAT(handle, fsp->fsp_name, &stat_buf)) != 0 ) {    /* an error occured */ 
+#elif (SMB_VFS_INTERFACE_VERSION >= 6)
+	else if ( (SMB_VFS_NEXT_STAT(handle, handle->conn, fsp->fsp_name, &stat_buf)) != 0 ) {    /* an error occured */ 
+#else
+	else if ( (default_vfs_ops.stat(fsp->conn, fsp->fsp_name, &stat_buf)) != 0 ) {    /* an error occured */ 
+#endif
+		if( errno == ENOENT) {
+			if ( vscan_config.common.verbose_file_logging )
+				vscan_syslog("INFO: File %s not found! Not scanned!", fsp->fsp_name);
+		} else {
+			vscan_syslog("ERROR: File %s not readable or an error occured", fsp->fsp_name);
+		}
+		rv = 3; /* FIXME: due to code re-org this should no longer be needed */
+	}
+	else {
 		safe_strcpy(client_ip, fsp->conn->client_address, CLIENT_IP_SIZE -1);
+#ifdef LIBCLAMAV
 		/* scan only file, do nothing */
-                rv = vscan_clamav_scanfile(sockfd, filepath, client_ip);
-                vscan_clamav_end(sockfd);
-		if ( rv == 1 ) {
+		rv = vscan_clamav_lib_scanfile(filepath, client_ip);
+#else	/* LIBCLAMAV */
+		{
+			int sockfd;
+			sockfd = vscan_clamav_init();
+                	/* Errors are written from vscan_clamav_init()	*/
+			if ( sockfd < 0 )
+				return retval;
+			/* scan only file, do nothing */
+                	rv = vscan_clamav_scanfile(sockfd, filepath, client_ip);
+                	vscan_clamav_end(sockfd);
+		}
+#endif	/* LIBCLAMAV */
+
+		if ( rv == VSCAN_SCAN_VIRUS_FOUND ) {
 			/* virus was found */
 #if (SMB_VFS_INTERFACE_VERSION >= 6)
-			rc = vscan_do_infected_file_action(handle, fsp->conn, filepath, quarantine_dir, quarantine_prefix, infected_file_action);
+			vscan_do_infected_file_action(handle, fsp->conn, filepath, vscan_config.common.quarantine_dir, vscan_config.common.quarantine_prefix, vscan_config.common.infected_file_action);
 #else
-			rc = vscan_do_infected_file_action(&default_vfs_ops, fsp->conn, filepath, quarantine_dir, quarantine_prefix, infected_file_action);
+			vscan_do_infected_file_action(&default_vfs_ops, fsp->conn, filepath, vscan_config.common.quarantine_dir, vscan_config.common.quarantine_prefix, vscan_config.common.infected_file_action);
 #endif
+			/* add/update file, mark file as infected! */
+			lrufiles_add(filepath, stat_buf.st_mtime, True);
 		}
-
+		else if( rv == VSCAN_SCAN_OK ) {
+			/* add/update file, mark file as clean! */
+			lrufiles_add(filepath, stat_buf.st_mtime, False);
+		}
+		else {
+			/* to be save, delete file from lrufiles */
+			lrufiles_delete(filepath);
+		}
 	}
 	return retval;
 }
@@ -541,7 +555,7 @@ NTSTATUS init_module(void)
 	 #endif
 	#endif
 
-        openlog("smbd_"VSCAN_MODULE_STR, LOG_PID, SYSLOG_FACILITY);
+	openlog("smbd_"VSCAN_MODULE_STR, LOG_PID, SYSLOG_FACILITY);
 
         #if SAMBA_VERSION_MAJOR==3
          /* Samba 3.0 alphaX */

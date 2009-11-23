@@ -1,25 +1,23 @@
 #ifndef __VSCAN_VFS_H_
 #define __VSCAN_VFS_H_
 
-
-#if (SMB_VFS_INTERFACE_VERSION >= 6)
+#if (SMB_VFS_INTERFACE_VERSION >= 21)
+ static int vscan_connect(vfs_handle_struct *handle, const char *svc, const char *user); 
+ static void vscan_disconnect(vfs_handle_struct *handle);
+ static int vscan_open(vfs_handle_struct *handle, const char *fname, files_struct *fsp, int flags, mode_t mode);
+ static int vscan_close(vfs_handle_struct *handle, files_struct *fsp, int fd);
+#elif (SMB_VFS_INTERFACE_VERSION >= 6)
  static int vscan_connect(vfs_handle_struct *handle, connection_struct *conn, const char *svc, const char *user); 
  static void vscan_disconnect(vfs_handle_struct *handle, connection_struct *conn);
- static int vscan_open(vfs_handle_struct *handle, connection_struct *conn, const char *fname, 
- int flags, mode_t mode);
+ static int vscan_open(vfs_handle_struct *handle, connection_struct *conn, const char *fname, int flags, mode_t mode);
  static int vscan_close(vfs_handle_struct *handle, files_struct *fsp, int fd);
 #else
- #if (SAMBA_VERSION_MAJOR==3) || (SAMBA_VERSION_RELEASE>=4)
- #define PROTOTYPE_CONST const
- #else
- #define PROTOTYPE_CONST
- #endif
  static int vscan_connect(struct connection_struct *conn, PROTOTYPE_CONST char *svc, PROTOTYPE_CONST char *user); 
  static void vscan_disconnect(struct connection_struct *conn);
  static int vscan_open(struct connection_struct *conn, PROTOTYPE_CONST char *fname, 
  int flags, mode_t mode);
  static int vscan_close(struct files_struct *fsp, int fd);
-#endif /*  #if (SMB_VFS_INTERFACE_VERSION >= 6) */
+#endif /*  #if (SMB_VFS_INTERFACE_VERSION >= 21) */
 
 
 /* VFS operations */

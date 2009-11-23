@@ -1,9 +1,9 @@
 /*
- * $Id: vscan-functions.c,v 1.9 2003/06/18 06:01:03 mx2002 Exp $
+ * $Id: vscan-functions.c,v 1.7.2.2 2004/05/02 19:45:31 reniar Exp $
  * 
  * provides commonly used functions 
  *
- * Copyright (C) Rainer Link, 2002
+ * Copyright (C) Rainer Link, 2002-2004
  *               OpenAntiVirus.org <rainer@openantivirus.org>
  *
  * This software is licensed under the GNU General Public License (GPL)
@@ -84,6 +84,31 @@ const static unsigned char urlchr_table[256] =
   U, U, U, U,  U, U, U, U,  U, U, U, U,  U, U, U, U,
 };
 
+
+
+BOOL set_boolean(BOOL *b, const char *value)
+{
+
+        BOOL retval;
+
+        retval = True;
+
+        if ( StrCaseCmp("yes", value) == 0 ||
+             StrCaseCmp("true", value) == 0 ||
+             StrCaseCmp("1", value) == 0 )
+                *b = True;
+        else if ( StrCaseCmp("no", value) == 0 ||
+                  StrCaseCmp("false", value) == 0 ||
+                  StrCaseCmp("0", value) == 0 )
+                *b = False;
+        else {
+                DEBUG(2, ("samba-vscan: badly formed boolean in configuration file, parameter %s\n", value));
+                retval = False;
+        }
+
+        return retval;
+}
+
 /* print a message via syslog */
 void vscan_syslog(const char *printMessage, ...)
 {
@@ -156,5 +181,75 @@ char* encode_string (const char *s)
 /*  assert (p2 - newstr == newlen); */
 
   return newstr;
+}
+
+
+int vscan_inet_socket_init(const char* daemon_name, const char* ip, const unsigned short int port)
+{
+        int sockfd;
+        struct sockaddr_in servaddr;
+
+        /* create socket */
+        if (( sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0 ) {
+               vscan_syslog("ERROR: can not create socket!\n");
+               return -1;
+        }
+
+        bzero(&servaddr, sizeof(servaddr));
+        servaddr.sin_family = AF_INET;
+        servaddr.sin_port = htons(port);
+
+        /* hm, inet_pton may not exist on all systems - FIXME ! */
+        if ( inet_pton(AF_INET, ip, &servaddr.sin_addr) <= 0 ) {
+                vscan_syslog("ERROR: inet_pton failed!\n");
+                return -1;
+        }
+
+        /* connect to socket */
+        if ( connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0 )
+        {
+                vscan_syslog("ERROR: can not connect to %s (IP: '%s', port: '%d')!\n", daemon_name, ip, port);
+                return -1;
+        }
+
+
+        return sockfd;
+
+}
+
+int vscan_unix_socket_init(const char* daemon_name, const char* socket_name)
+{
+
+        int sockfd;
+        struct sockaddr_un servaddr;
+
+        /* create socket */
+        if (( sockfd = socket(AF_UNIX, SOCK_STREAM, 0)) < 0 ) {
+               vscan_syslog("ERROR: can not create socket!");
+               return -1;
+        }
+
+        bzero(&servaddr, sizeof(servaddr));
+        servaddr.sun_family = AF_UNIX;
+        safe_strcpy(servaddr.sun_path, socket_name, sizeof(servaddr.sun_path)-1);
+
+        /* connect to socket */
+        if ( connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0 ) {
+                vscan_syslog("ERROR: can not connect to %s (socket: '%s')!", daemon_name, socket_name);
+                return -1;
+        }
+
+    return sockfd;
+
+}
+
+
+void vscan_socket_end(int sockfd)
+{
+        /* sockfd == -1 indicates an error while connecting to socket */
+        if ( sockfd >= 0 ) {
+                close(sockfd);
+        }
+
 }
 
