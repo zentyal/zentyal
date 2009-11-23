@@ -90,8 +90,10 @@ base = <% $usersDn %>
 #
 # There are also other special fields which can be returned, see
 # http://wiki.dovecot.org/UserDatabase/ExtraFields
-#user_attrs = homeDirectory=home,uidNumber=uid,gidNumber=gid
-user_attrs = mail=<% $mailboxesDir %>/%d/%n,homeDirectory=home
+user_attrs = =mail=<% $mailboxesDir%>/%d/%n,homeDirectory=home, \
+             quota=quota_rule=*:storage=%$M,  \
+             =quota_rule2=Trash:storage=110%%
+
 
 # Filter for user lookup. Some variables can be used (see
 # http://wiki.dovecot.org/Variables for full list):

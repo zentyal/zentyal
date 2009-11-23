@@ -4,7 +4,6 @@
     @protocols
     
     $mailboxesDir
-    $userQuota
 
     $firstValidUid
     $firstValidGid
@@ -282,6 +281,9 @@ mail_location = maildir:<% $mailboxesDir %>/%d/%n/
 # Typically this is set to "mail" to give access to /var/mail.
 #mail_privileged_group =
 mail_privileged_group = mail
+
+
+# uid nad gid used by deliver
 mail_uid=<% $uid %>
 mail_gid=<% $gid %>
 
@@ -556,7 +558,7 @@ protocol imap {
 
   # Support for dynamically loadable plugins. mail_plugins is a space separated
   # list of plugins to load.
-  #mail_plugins = 
+  mail_plugins = quota imap_quota autocreate
   #mail_plugin_dir = /usr/lib/dovecot/modules/imap
 
   # Send IMAP capabilities in greeting message. This makes it unnecessary for
@@ -663,7 +665,7 @@ protocol pop3 {
 
   # Support for dynamically loadable plugins. mail_plugins is a space separated
   # list of plugins to load.
-  #mail_plugins = 
+  mail_plugins = quota
   #mail_plugin_dir = /usr/lib/dovecot/modules/pop3
 
   # Workarounds for various client bugs:
@@ -769,9 +771,10 @@ auth_executable = /usr/lib/dovecot/dovecot-auth
 # working.
 #auth_verbose = no
 
+
 # Even more verbose logging for debugging purposes. Shows for example SQL
 # queries.
-#auth_debug = no
+# auth_debug=yes 
 
 # In case of password mismatches, log the passwords and used scheme so the
 # problem can be debugged. Requires auth_debug=yes to be set.
@@ -993,15 +996,8 @@ plugin {
   #   quota_warning = storage=95%% /usr/local/bin/quota-warning.sh 95
   #   quota_warning2 = storage=80%% /usr/local/bin/quota-warning.sh 80
   #quota = maildir
-% if ($userQuota) {
   quota = maildir:User quota
-  quota_rule = *:storage=<% $userQuota %>
-  quota_rule2 = Trash:storage=10%%
-
-  quota_warning = storage=70%% touch /tmp/quota
-
-% }
-
+  quota_rule = *:storage=0
 
   # ACL plugin. vfile backend reads ACLs from "dovecot-acl" file from maildir
   # directory. You can also optionally give a global ACL directory path where
@@ -1030,4 +1026,13 @@ plugin {
   # they're moved to a 3rd namespace. The mails won't be counted in quota,
   # and they're not deleted automatically (use a cronjob or something).
   #lazy_expunge = .EXPUNGED/ .DELETED/ .DELETED/.EXPUNGED/
+
+
+  # autocreate plugin http://wiki.dovecot.org/Plugins/Autocreate
+  autocreate = Trash
+  autocreate2 = Spam
+  autosubscribe = Trash
+  autosubscribe2 = Spam
+
+
 }

@@ -118,7 +118,7 @@ sub _table
                               printableName =>
                                 __('Maximum mailbox size allowed'),
                               help => 
- __('When a mailbox reaches this size futher messages will be rejected'),
+ __('When a mailbox reaches this size futher messages will be rejected. This can be overidden by account'),
                               subtypes => [
                               new EBox::Types::Union::Text(
                                   'fieldName' => 'unlimited',
@@ -128,6 +128,7 @@ sub _table
                                   'fieldName' => 'size',
                                   'printableName' => __('size in Mb'),
                                   'editable'  => 1,
+                                  'min'       => 1,
                                       ),
                                   ],
              ),
@@ -144,6 +145,7 @@ sub _table
                                   'fieldName' => 'size',
                                   'printableName' => __('size in Mb'),
                                   'editable'  => 1,
+                                  'min'       => 1,
                                   'max'       => MAX_MSG_SIZE,
                                       ),
                                   ],
@@ -189,19 +191,26 @@ sub maxMsgSize
 }
 
 
-
+# Method: maiboxQuota
+#
+#   get the default maximum size for an account's mailbox.
+#
+#   Returns:
+#      the amount in Mb or 0 for unlimited size
 sub mailboxQuota
 {
     my ($self) = @_;
 
     my $mailboxQuota = $self->row()->elementByName('mailboxQuota');
     if ($mailboxQuota->selectedType eq 'unlimited') {
-        return undef;
+        # 0 means unlimited for dovecot's quota plugin..
+        return 0;
     }
 
     my $size = $mailboxQuota->subtype()->value();
     return $size;
 }
+
 
 
 sub validateTypedRow

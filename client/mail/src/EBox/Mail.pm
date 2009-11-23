@@ -376,6 +376,11 @@ sub _setMailConf
     # dovecot configuration
     $self->_setDovecotConf();
 
+
+    # sync users with quota conf
+    $self->{musers}->regenMaildirQuotas();
+
+
     # greylist configuration files
     $greylist->writeConf();
 
@@ -399,28 +404,32 @@ sub _setMailConf
 }
 
 
+
 sub _setDovecotConf
 {
     my ($self) = @_;
 
     my @params;
-    my $users = EBox::Global->modInstance('users');
 
     # main dovecot conf file
     @params = ();
-    my $smtpOptions = $self->model('SMTPOptions');
-    push @params, (uid => scalar(getpwnam('ebox')));
-    push @params, (gid => scalar(getgrnam('ebox')));
+    my $uid =  scalar(getpwnam('ebox'));
+    my $gid = scalar(getgrnam('ebox'));
+
+
+    push @params, (uid => $uid);
+    push @params, (gid => $gid);
     push @params, (protocols => $self->_retrievalProtocols());
-    push @params, (firstValidUid => scalar(getpwnam('ebox')));
-    push @params, (firstValidGid => scalar(getgrnam('ebox')));
+    push @params, (firstValidUid => $uid);
+    push @params, (firstValidGid => $gid);
     push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
-    push @params, (userQuota => $smtpOptions->mailboxQuota());
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
 
     # ldap dovecot conf file
     @params = ();
+    my $users = EBox::Global->modInstance('users');
+    
     if ($users->mode() eq 'master') {
         push(@params, 'ldapport', $self->ldap->ldapConf->{'port'});
     } else {
@@ -431,6 +440,22 @@ sub _setDovecotConf
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
 
 }
+
+
+# Method: defaultMailboxQuota
+#
+#   get the default maximum size for an account's mailbox.
+#
+#   Returns:
+#      the amount in Mb or 0 for unlimited size
+sub defaultMailboxQuota
+{
+    my ($self) = @_;
+    my $smtpOptions = $self->model('SMTPOptions');
+    return $smtpOptions->mailboxQuota();
+}
+
+
 
 sub _setMailname
 {

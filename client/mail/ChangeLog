@@ -2,6 +2,7 @@
         + ESMTP service in port 465 fixed
 	+ Deliver to local user fixed
 	+ Using LDA protocol and LDAP for dovecot's userdb
+	+ Added user mailbox quota
 1.3.7
         + more resilent EBox::MailVdomain::setUserAccount, now we don't
 	abort if it exists already a user maildir, instead we move it to a

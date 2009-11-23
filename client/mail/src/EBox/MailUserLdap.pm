@@ -90,20 +90,25 @@ sub setUserAccount
     $self->_checkMaildirNotExists($lhs, $rhs);
 
 
+    
+    my $quota = $mail->defaultMailboxQuota();
     my $dn = "uid=$user," .  $users->usersDn;
-    my %attrs = (
-                 changes => [
-                             add => [
-                                     objectClass => 'couriermailaccount',
-                                     objectClass => 'usereboxmail',
-                                     mail            => $email,
-                                     mailbox => $rhs.'/'.$lhs.'/',
-                                     quota           => '0',
-                                     mailHomeDirectory => DIRVMAIL
+
+        my %attrs = (
+                     changes => [
+                                 add => [
+                                         objectClass => 'couriermailaccount',
+                                         objectClass => 'usereboxmail',
+                                         mail            => $email,
+                                         mailbox => $rhs.'/'.$lhs.'/',
+                                         userMaildirSize    => 0,
+                                         quota           => $quota,
+                                         mailHomeDirectory => DIRVMAIL
                                         ]
-                            ]
-                );
-    my $add = $ldap->modify($dn, \%attrs );
+                                ]
+                    );
+        my $add = $ldap->modify($dn, \%attrs );
+
     
     $self->_createMaildir($lhs, $rhs);
 
@@ -154,11 +159,14 @@ sub delUserAccount   #username, mail
     my @toDelete = (
                     mail                    => $self->getUserLdapValue($username, "mail"),
                     mailbox                 => $mailbox,
-                    quota                   => $self->getUserLdapValue($username, "quota"),
+                    userMaildirSize            => 
+                        $self->getUserLdapValue($username, "userMaildirSize"),
+                    quota                   => 
+                        $self->getUserLdapValue($username, "quota"),
 
                     mailHomeDirectory => $self->getUserLdapValue($username, "mailHomeDirectory"),
                     objectClass     => 'couriermailaccount',
-                    objectClass => 'usereboxmail'
+                    objectClass => 'usereboxmail',
                    );
 
 
@@ -255,6 +263,39 @@ sub getUserLdapValue   #uid, ldap value
     return $entry->get_value($value);
 }
 
+# Method: setUserLdapValue
+#
+#  This method sets the value of a single-valued attribute in users leaf
+#
+# Parameters:
+#
+#               uid - uid of the user
+#               attr  - the atribute name
+#               value - new value for the attribute
+#  
+
+sub setUserLdapValue
+{
+    my ($self, $user, $attr, $value) = @_;
+
+    my $ldap = $self->{ldap};
+    my $users =EBox::Global->modInstance('users');
+    my $dn = "uid=$user," .  $users->usersDn;
+    $ldap->setAttribute($dn, $attr, $value);
+
+}
+
+# Method: existsUserLdapValue
+#
+#  This method returns wether an attribute exists in users leaf
+#
+# Parameters:
+#
+#               uid - uid of the user
+#               value - the atribute name
+#  
+#  Returns:
+#          - boolean
 sub existsUserLdapValue
 {
     my ($self, $uid, $value) = @_;
@@ -348,12 +389,18 @@ sub _userAddOns
      my $usermail = $self->userAccount($username);
      my @aliases = $mail->{malias}->accountAlias($usermail);
      my @vdomains =  $mail->{vdomains}->vdomains();
+     my $quotaType = $self->maildirQuotaType($username);
+     my $quota   = $self->maildirQuota($username);
 
      my @paramsList = (
-                       'username'    =>      $username,
-                       'mail'        =>      $usermail,
-                       'aliases'     => \@aliases,
-                       'vdomains'    => \@vdomains,
+                       username    =>      $username,
+                       mail        =>      $usermail,
+                       aliases     => \@aliases,
+                       vdomains    => \@vdomains,
+                       
+                       maildirQuotaType => $quotaType,
+                       maildirQuota => $quota,
+                       
                        service => $mail->service,
                       );
 
@@ -541,44 +588,13 @@ sub checkUserMDSize
     my $size = 0;
 
     foreach my $acc (keys %accounts) {
-        $size = $self->_getActualMDSize($acc);
+        $size = $self->maildirQuota($acc);
                 ($size > $newmdsize) and push (@warnusers, $acc);
     }
 
     return \@warnusers;
 }
 
-# Method: _getActualMDSize
-#
-#  This method returns the maildir size of a user account
-#
-# Parameters:
-#
-#               username - username
-#
-# Returns:
-#
-#               maildir size
-sub _getActualMDSize
- {
-     my ($self, $username) = @_;
-
-     my $mailhome = $self->getUserLdapValue($username, 'mailHomeDirectory');
-     my $mailbox = $mailhome . $self->getUserLdapValue($username, 'mailbox');
-
-     open(FILE,$mailbox.'maildirsize');
-     my @lines = <FILE>;
-
-     shift(@lines);
-
-     my $sum = 0;
-     for my $line (@lines) {
-         my @array = split(' ', $line);
-         $sum += $array[0];
-     }
-
-     return ($sum / $self->BYTES);
-}
 
 sub _checkMaildirNotExists
 {
@@ -637,6 +653,132 @@ sub maildir
 
   return "/var/vmail/$vdomain/$lhs/";
 }
+
+#  Method: maildirQuota
+#
+#     get the maildir quota for the user, please note that is only the quota
+#     amount this does not signals wether it is a default quota or a custom quota
+#
+#   Parameters:
+#        user - name of the user
+sub maildirQuota
+{
+    my ($self, $user) = @_;
+    return $self->getUserLdapValue($user, 'quota');
+}
+
+#  Method: maildirQuotaType
+#
+#     get the type of the quota assigned to the user
+#
+#   Parameters:
+#        user - name of the user
+#
+#    Returns:
+#       one of this strings:
+#          'default' - uses default quota type
+#          'noQuota' - the user has a custom unlimtied quota
+#          'custom'  - the user has a non-unlimted custom quota
+sub maildirQuotaType
+{
+    my ($self, $user)  = @_;
+    
+    my $userQuota = $self->getUserLdapValue($user, 'userMaildirSize');
+    if ($userQuota == 0) {
+        return 'default';
+    }
+
+    my $quota = $self->maildirQuota($user);
+    if ($quota == 0) {
+        return 'noQuota';
+    } else {
+        return 'custom';
+    }
+
+    return 'default';
+}
+
+
+#  Method: setMaildirQuotaUsesDefault
+#
+#     sets wether the user is using the default quota or not. Additionally if
+#     user is set to use the default quota the quota value is synchronized with
+#     the default quota
+#
+#   Parameters:
+#        user - name of the user
+#        isDefault - wether the user is using the default quota
+sub setMaildirQuotaUsesDefault
+{
+    my ($self, $user, $isDefault) = @_;
+
+    my $userMaildirSizeValue = $isDefault ? 0 : 1;
+    $self->setUserLdapValue($user, 'userMaildirSize', $userMaildirSizeValue);
+    if ($isDefault) {
+       # sync quota with default
+        my $mail = EBox::Global->modInstance('mail');
+        my $defaultQuota = $mail->defaultMailboxQuota();
+        $self->setUserLdapValue($user, 'quota', $defaultQuota);
+    }
+}
+
+
+
+#  Method: setMaildirQuota
+#
+#     sets the quota value for a user. Do not use it with users which use
+#     default quota; in this  case use only setMaildirQuotaUsesDefault
+#
+#   Parameters:
+#        user - name of the user
+#        quota - numeric value of the quota in Mb
+sub setMaildirQuota
+{
+    my ($self, $user, $quota) = @_;
+    defined $user or
+        throw EBox::Exceptions::MissingArgument('user');
+    defined $quota or
+        throw EBox::Exceptions::MissingArgument('quota');
+    
+    if (not $self->userAccount($user)) {
+        throws EBox::Exceptions::Internal(
+             "User $user has not mail account"
+           );
+    }
+
+    if ($quota < 0) {
+        throw EBox::Exceptions::External(
+            __('Quota can only be a postitive number or zero for unlimited quota')
+           )
+    }
+
+    $self->setUserLdapValue($user, 'quota', $quota);
+
+}
+
+#  Method: regenMaildirQuotas
+#
+# regenerate user accounts mailquotas to reflect the changes in default
+# quota configuration
+sub regenMaildirQuotas
+{
+    my ($self) = @_;
+
+    my $mail = EBox::Global->modInstance('mail');
+    my $defaultQuota = $mail->defaultMailboxQuota();
+    my $usersMod = EBox::Global->modInstance('users');
+
+    foreach my $user ($usersMod->users()) {
+        my $userName = $user->{username};
+        $self->userAccount($userName) or
+            next;
+
+        if ($self->maildirQuotaType($userName) eq 'default') {
+            $self->setMaildirQuota($userName, $defaultQuota);
+        }
+    }
+}
+
 
 
 # Method: gidvmail

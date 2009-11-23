@@ -3,6 +3,7 @@
 perldir = @PERLPATH@/EBox/CGI/Mail
 
 nobase_perl_DATA = CreateAccount.pm CreateAlias.pm DelAccount.pm DelAlias.pm  \
+                   SetAccountMaildirQuota.pm \
 	CreateGroupAlias.pm DelGroupAlias.pm  \
 	 QueueManager.pm MQRemove.pm MQRequeue.pm
 MAINTAINERCLEANFILES = Makefile.in

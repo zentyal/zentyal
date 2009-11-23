@@ -50,8 +50,8 @@ sub new
 # Parameters:
 #
 #     vdomain - The virtual domain name
-#               dftmdsize - Default maildir size for the vdomain
-sub addVDomain { #vdomain
+
+sub addVDomain {
     my ($self, $vdomain, $dftmdsize) = @_;
 
 
@@ -72,7 +72,7 @@ sub addVDomain { #vdomain
                  attr => [
                           'domainComponent' => $vdomain,
                           'objectclass'    => 'domain',
-                          'objectclass'     => 'vdeboxmail'
+                        'objectclass'     => 'vdeboxmail'
                          ]
                 );
 

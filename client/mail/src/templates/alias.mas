@@ -1,11 +1,10 @@
-<!-- vim: ts=4 sw=4 nowrap filetype=mason
--->
 <%args>
     $params
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
+
 % settextdomain('ebox-mail');
 
 <h3><% __('Mail account settings') %></h3>
@@ -24,9 +23,9 @@ use EBox::Gettext;
 			alt="<% __('Delete') %>">
 </form>
 
-% if ($params->{mdQuotaAvailable}) {
-  <& .modifyMdSize, params => $params &>
-% }
+
+<& .modifyMaildirQuota, params => $params &>
+
 <form action='/ebox/Mail/CreateAlias' method='POST'>
     <input type="hidden" name="maildrop" value="<% $params->{'mail'} %>">
     <input type="hidden" name="username" value="<% $params->{'username'} %>">
@@ -84,74 +83,87 @@ use EBox::Gettext;
 </form>
 % settextdomain('ebox-usersandgroups');
 
-% if ($params->{mdQuotaAvailable}) {
-  <& .updateMDSizeJs, params => $params &>
-% }
+<& .updateMaildirQuotaJs, params => $params &>
 
 
-<%def .updateMDSizeJs>
+
+<%def .updateMaildirQuotaJs>
 <%args>
 $params
 </%args>
 <script type="text/javascript">
-	function updateMDSize() {
-		var size = document.getElementById("mdsize")
-		var chk = document.getElementById("ummsize")
-		var val = <% $params->{'mdsize'} %>;
+        function updateMaildirQuota() {
+                var size = document.getElementById("maildirQuota")
+                var type = document.getElementById("quotaType")
+                var typeValue = type.value;
+                var val = <% $params->{'maildirQuota'} %>;
 
-		if(chk.checked) {
-			size.disabled = true;
-			size.value = '';
-		} else {
-			size.disabled = false;
-			
-			if(val == 0) {
-				val = 10;
-			}
-			size.value = val;
-		}
-	}
+                if(typeValue != 'custom') {
+                        size.disabled = true;
+                        size.value = '';
+                } else {
+                        size.disabled = false;
+                        if(val == 0) {
+                                val = 10;
+                        }
+                        size.value = val;
+                }
+        }
+
+        updateMaildirQuota();
 </script>
 </%def>
 
-
-<%def .modifyMdSize>
+<%def .modifyMaildirQuota>
 <%args>
 $params
 </%args>
-<form action='/ebox/Mail/ModifyAccountMDSize' method='POST'>
+<%init>
+my $quotaType =  $params->{maildirQuotaType};
+my @quotaTypeOptions = (
+  { value => 'noQuota', printableValue => __('No quota')},
+  { value => 'default' , printableValue => __('Default quota') },
+  { value => 'custom' , printableValue => __('Custom quota') },
+);
+</%init>
+<form action='/ebox/Mail/SetAccountMaildirQuota' method='POST'>
 <table class='formTable'>
 <input type="hidden" name="username" value="<% $params->{'username'} %>">
-	<tr>
-	<td class='tright'><% __('Default maildir size (MB)') %>:</td>
-	<td><input type='text' class='inputText' name='mdsize'
-				id='mdsize'
-				size="15"
-%				if($params->{'mdsize'} eq 0) {
-			disabled
-			value=""
-%				} else {
-			enabled
-			value='<% $params->{'mdsize'} %>'>
-%				}
-	</td>
-	</tr>
-	<tr>
-	<td class='tright'><% __('Unlimited size') %></td>
-	<td><input type='checkbox' name='ummsize' id='ummsize'
-			value='0' onclick="updateMDSize()"
-%				if($params->{'mdsize'} eq 0) {
-			checked
-%				} 
-	></td>
-	</tr>
-	<tr>
-	<td>
-	<input class='inputButton' type='submit' name='change'
-			value="<% __('Modify') %>"
-			alt="<% __('Modify') %>">
-	</td>
-	</tr>
+        <tr>
+        <td class='tright'><% __('Quta type') %></td>
+        <td>
+        <& /input/select.mas,
+                name => 'quotaType',
+                id => 'quotaType',
+                options => \@quotaTypeOptions,
+                value => $quotaType,
+                 onChange => 'updateMaildirQuota()',
+        &>
+        </td>
+        </tr>
+
+        <tr>
+        <td class='tright'><% __('Maximum mailbox size in MB') %>:</td>
+        <td><input type='text' class='inputText' name='maildirQuota'
+                                id='maildirQuota'
+                                size="15"
+%                               if($params->{'maildirType'} ne 'custom') {
+                        disabled
+                        value=""
+%                               } else {
+                        enabled
+                        value='<% $params->{'maildirQuota'} %>'>
+%                               }
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <input class='inputButton' type='submit' name='change'
+                        value="<% __('Modify') %>"
+                        alt="<% __('Modify') %>">
+        </td>
+        </tr>
 </table>
 </form>
+
 </%def>
