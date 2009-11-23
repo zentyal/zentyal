@@ -1,0 +1,3 @@
+class: 'EBox::WebMail'
+depends:
+    - webserver

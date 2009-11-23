@@ -1,0 +1,90 @@
+#!/bin/bash  -x
+
+db_name=roundcube
+db_user=roundcube
+db_pass=roundcube
+ROUNDCUBE_DIR=/var/lib/roundcube
+HTTPD_WEBMAIL_DIR=/var/www/webmail
+PG_HBA_FILE=/etc/postgresql/8.3/main/pg_hba.conf
+DB_CONF_FILE=/etc/roundcube/debian-db.php
+POPULATE_SCRIPT=/usr/share/dbconfig-common/data/roundcube/install/pgsql
+PG_PASS_FILE=/var/lib/postgresql/.pgpass
+
+
+create_db() 
+{
+
+
+    su postgres -c 'psql -Alt' | grep -q '^$db_name|' && db_exists=1 || db_exists=0 || true
+    if [ $db_exists -eq 0 ]; then
+        echo "Creating the $db_name database"
+        su postgres -c "psql -c \"CREATE ROLE $db_user UNENCRYPTED PASSWORD '$db_pass' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN\""
+        su postgres -c "createdb --encoding=utf-8 --owner $db_user $db_name"
+
+    fi
+
+}
+
+
+generate_debian_db()
+{
+
+cat <<EOT >  $DB_CONF_FILE
+<?php
+##
+## database access settings in php format
+## automatically generated from /etc/dbconfig-common/roundcube.conf
+## by /usr/sbin/dbconfig-generate-include
+## Mon, 31 Aug 2009 09:54:29 -0400
+##
+## by default this file is managed via ucf, so you shouldn't have to
+## worry about manual changes being silently discarded.  *however*,
+## you'll probably also want to edit the configuration file mentioned
+## above too.
+##
+\$dbuser='$db_user';
+\$dbpass='$db_pass';
+\$basepath='';
+\$dbname='$db_name';
+\$dbserver='';
+\$dbport='';
+\$dbtype='pgsql';
+EOT
+
+
+
+}
+
+initialize_db()
+{
+
+test -e $PG_PASS_FILE && mv $PG_PASS_FILE  $PG_PASS_FILE.bak
+
+echo "*:*:$db_name:$db_user:$db_pass" > $PG_PASS_FILE
+chmod 0600 $PG_PASS_FILE
+chown postgres.postgres $PG_PASS_FILE
+
+su postgres -c "psql -U $db_user -f $POPULATE_SCRIPT --host localhost $db_name"
+
+rm $PG_PASS_FILE
+test -e $PG_PASS_FILE.bak && mv $PG_PASS_FILE.bak $PG_PASS_FILE
+}
+
+update_pghba()
+{
+if ! grep -q $db_user $PG_HBA_FILE; then
+    echo "# Added by ebox-webmail" >> $PG_HBA_FILE
+    echo "host $db_name $db_user  127.0.0.1/32 password" >> $PG_HBA_FILE
+fi
+}
+
+
+ln -s $ROUNDCUBE_DIR $HTTPD_WEBMAIL_DIR
+
+create_db
+#update_pghba
+generate_debian_db
+initialize_db
+exit 0
+#/etc/init.d/postgresql-8.3 start
+
