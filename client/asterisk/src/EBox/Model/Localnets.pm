@@ -85,7 +85,7 @@ sub validateTypedRow
             if ($localnet eq $ifacenet) {
                 throw EBox::Exceptions::External(
                     __x(
-'Networks attached directly to internal interfaces, like {net},are always considered local networks so it is not neccesary to add them' ,
+'Networks attached directly to internal interfaces, like {net}, are always considered local networks so it is not neccessary to add them.' ,
                     net => $net->ip(),
                      )
                    );
