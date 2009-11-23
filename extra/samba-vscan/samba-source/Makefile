@@ -40,7 +40,7 @@ MODULE_EXPORTS=
 # (GCC) warnings. This is done automtically for --enable-developer,
 # --enable-picky-developer and --enable-krb5developer.
 DEVELOPER_CFLAGS=-g -Wall -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -DDEBUG_PASSWORD -DDEVELOPER -Wdeclaration-after-statement -Werror-implicit-function-declaration
-CFLAGS= -O $(FLAGS) -D_SAMBA_BUILD_=3
+CFLAGS= -O $(EXTRA_FLAGS) -D_SAMBA_BUILD_=3
 CPPFLAGS=-DHAVE_CONFIG_H  -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -Iinclude -I./include -I. -I. -I./../lib/replace -I./../lib/talloc -I./../lib/tevent -I./../lib/tdb/include -I./libaddns -I./librpc -I./.. -I./../lib/popt
 
 EXEEXT=
@@ -161,7 +161,7 @@ CODEPAGEDIR = ${MODULESDIR}
 # the directory where pid files go
 PIDDIR = ${VARDIR}/locks
 
-FLAGS = -I. \
+EXTRA_FLAGS = -I. \
 	-I$(srcdir) \
 	 -I$(srcdir)/iniparser/src \
 	-Iinclude -I./include  -I. -I. -I./../lib/replace -I./../lib/talloc -I./../lib/tevent -I./../lib/tdb/include -I./libaddns -I./librpc -I./.. \
