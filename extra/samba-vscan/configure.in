@@ -1,7 +1,7 @@
 dnl -*- mode: m4-mode -*-
 dnl Process this file with autoconf to produce a configure script.
 #
-# $Id: configure.in,v 1.19 2003/08/07 22:49:13 mx2002 Exp $
+# $Id: configure.in,v 1.17.2.23 2007/05/21 17:15:55 reniar Exp $
 #
 dnl We must use autotools 2.53 or above
 AC_PREREQ(2.53)
@@ -32,9 +32,9 @@ PKG_BETA_RELEASE=`sed -n 's/^PKG_BETA_RELEASE=//p' $srcdir/VERSION`
 PKG_CVS_SNAPSHOT=`sed -n 's/^PKG_CVS_SNAPSHOT=//p' $srcdir/VERSION`
 
 if test -n "$PKG_BETA_RELEASE"; then
-    PKG_SUBRELEASE="beta${PKG_BETA_RELEASE}"
+    PKG_SUBRELEASE=" beta${PKG_BETA_RELEASE}"
 elif test -n "$PKG_ALPHA_RELEASE"; then
-    PKG_SUBRELEASE="alpha${PKG_ALPHA_RELEASE}"
+    PKG_SUBRELEASE=" alpha${PKG_ALPHA_RELEASE}"
 fi
 
 if test x"$PKG_CVS_SNAPSHOT" = x"yes"; then
@@ -113,6 +113,12 @@ AC_VALIDATE_CACHE_SYSTEM_TYPE
 
 AC_CHECK_HEADERS(stdio.h)
 
+AC_CHECK_FUNC(inet_aton,
+	[AC_DEFINE(HAVE_INET_ATON, 1, [Define if you have inet_aton])],
+	[AC_CHECK_LIB(resolv, inet_aton,
+		[ GLOBAL_LIBS="-lresolv $GLOBAL_LIBS"
+		  AC_DEFINE(HAVE_INET_ATON, 1, [Define if you have inet_aton])])])
+
 AC_ARG_WITH(fhs, 
 [  --with-fhs              Use FHS-compliant paths (default=no)],
     libdir="\${prefix}/lib/samba",
@@ -156,6 +162,8 @@ AC_SUBST(SHLIB_PROGS)
 AC_SUBST(EXTRA_BIN_PROGS)
 AC_SUBST(EXTRA_SBIN_PROGS)
 AC_SUBST(EXTRA_ALL_TARGETS)
+
+AC_SUBST(GLOBAL_LIBS)
 
 AC_ARG_ENABLE(debug, 
 [  --enable-debug          Turn on compiler debugging information (default=no)],
@@ -469,9 +477,45 @@ fi
 ################################################################
 ################################################################
 #
-# Try to get the Samba Version
+# Try to get the Samba Version for new releases
 #
-SAMBA_VERSION_H_STR=$(cat ${SAMBA_srcdir}/include/version.h |grep '#define VERSION'|cut -d ' ' -f 3)
+SAMBA_VERSION_STRING=$(cat ${SAMBA_srcdir}/include/version.h |grep '#define SAMBA_VERSION_OFFICIAL_STRING'|cut -d ' ' -f3-)
+
+if test -n "$SAMBA_VERSION_STRING";then
+    AC_MSG_CHECKING(for Samba Version)
+    AC_MSG_RESULT($SAMBA_VERSION_STRING)
+fi
+
+SAMBA_VERSION_VENDOR_SUFFIX=$(cat ${SAMBA_srcdir}/include/version.h |grep '#define SAMBA_VERSION_VENDOR_SUFFIX'|cut -d ' ' -f3-)
+
+if test -n "$SAMBA_VERSION_VENDOR_SUFFIX";then
+    AC_MSG_CHECKING(for Samba Version Vendor Suffix)
+    AC_MSG_RESULT($SAMBA_VERSION_VENDOR_SUFFIX)
+fi
+
+SAMBA_VERSION_RELEASE=$(cat ${SAMBA_srcdir}/include/version.h |grep '#define SAMBA_VERSION_RELEASE'|cut -d ' ' -f3-)
+
+# uhm, it should not happen release is not set ...
+# uhm, did I already mention hack alert? ;)
+if test -n "$SAMBA_VERSION_RELEASE"; then
+  SAMBA_VERSION_RELEASE_NEW=$(echo $SAMBA_VERSION_RELEASE | tr -d [:alpha:])
+  if test $SAMBA_VERSION_RELEASE != $SAMBA_VERSION_RELEASE_NEW; then
+    AC_MSG_CHECKING(for Samba Release version)
+    AC_MSG_RESULT($SAMBA_VERSION_RELEASE_NEW)
+    AC_DEFINE_UNQUOTED(SAMBA_VERSION_RELEASE,$SAMBA_VERSION_RELEASE_NEW,[Samba Release version])  
+  else
+    SAMBA_VERSION_RELEASE_NEW=""
+  fi
+fi
+################################################################
+################################################################
+
+################################################################
+################################################################
+#
+# Try to get the Samba Version for old releases
+#
+SAMBA_VERSION_H_STR=$(cat ${SAMBA_srcdir}/include/version.h |grep '#define VERSION'|cut -d ' ' -f3-)
 
 SAMBA_VERSION=
 ####################################################
@@ -483,87 +527,141 @@ AC_ARG_WITH(samba-version,
   #
   # Just in case anybody calls it without argument
   #
-    AC_MSG_WARN([--with-samba-version called without argument - will use default])
+    AC_MSG_WARN([--with-samba-version called with($withval) - will use default])
   ;;
   * )
-    SAMBA_VERSION="\"$withval\""
-    if test x"$SAMBA_VERSION" != x"$SAMBA_VERSION_H_STR"; then
-	AC_MSG_WARN([you specified --with-samba-version=$SAMBA_VERSION])
-	AC_MSG_WARN([and \${SAMBA_srcdir}/include/version.h shows $SAMBA_VERSION_H_STR])
+    if test -z "$withval";then
+       AC_MSG_WARN([--with-samba-version called without argument - will use default])
+    else
+      SAMBA_VERSION="\"$withval\""
+
+      if test -n "$SAMBA_VERSION_STRING";then
+	    AC_MSG_WARN([you specified --with-samba-version=$SAMBA_VERSION])
+	    AC_MSG_WARN([this will have no effect because the used])
+	    AC_MSG_WARN([SAMBA Version $SAMBA_VERSION_STRING already])
+	    AC_MSG_WARN([includes the SAMBA_VERSION_{MAJOR,MINOR,RELEASE} define's])
+      else
+	if test x"$SAMBA_VERSION" != x"$SAMBA_VERSION_H_STR"; then
+	    AC_MSG_WARN([you specified --with-samba-version=$SAMBA_VERSION])
+	    AC_MSG_WARN([this will overwrite $SAMBA_VERSION_H_STR])
+	    AC_MSG_WARN([which is shown in \${SAMBA_srcdir}/include/version.h])
+	fi
+      fi
     fi
     ;;
   esac])
 
-if test -z "$SAMBA_VERSION"; then
+
+if test -z "$SAMBA_VERSION_STRING";then
+
+ if test -z "$SAMBA_VERSION"; then
 	SAMBA_VERSION=$SAMBA_VERSION_H_STR
-fi
+ fi
 
-AC_MSG_CHECKING(for Samba Version)
+ AC_MSG_CHECKING(for Samba Version)
 
-changequote(, )dnl
-SAMBA_VERSION_MAJOR=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\1/')
-SAMBA_VERSION_MINOR=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\2/')
-SAMBA_VERSION_RELEASE=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\3/')
-SAMBA_VERSION_SUFFIX=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\4/')
-SAMBA_VERSION_SUFFIX_RELEASE=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\5/')
-SAMBA_VERSION_SUFFIX_EXTRA=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\6/')
-changequote([, ])dnl
+ changequote(, )dnl
+ SAMBA_VERSION_MAJOR=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)\([-]*\)\(.*\)"/\1/')
+ SAMBA_VERSION_MINOR=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)\([-]*\)\(.*\)"/\2/')
+ SAMBA_VERSION_RELEASE=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)\([-]*\)\(.*\)"/\3/')
+ SAMBA_VERSION_SUFFIX=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)\([-]*\)\(.*\)"/\4/')
+ SAMBA_VERSION_SUFFIX_RELEASE=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)\([-]*\)\(.*\)"/\5/')
+ SAMBA_VERSION_SUFFIX_EXTRA1=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)\([-]*\)\(.*\)"/\6/')
+ SAMBA_VERSION_SUFFIX_EXTRA2=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)\([-]*\)\(.*\)"/\8/')
+ changequote([, ])dnl
 
-SAMBA_VERSION_MAJOR_STR="${SAMBA_VERSION_MAJOR}"
-SAMBA_VERSION_MINOR_STR="${SAMBA_VERSION_MINOR}"
-SAMBA_VERSION_RELEASE_STR="${SAMBA_VERSION_RELEASE}"
-SAMBA_VERSION_SUFFIX_STR="${SAMBA_VERSION_SUFFIX}"
-SAMBA_VERSION_SUFFIX_RELEASE_STR="${SAMBA_VERSION_SUFFIX_RELEASE}"
-SAMBA_VERSION_SUFFIX_EXTRA_STR="${SAMBA_VERSION_SUFFIX_EXTRA}"
+ SAMBA_VERSION_STRING="${SAMBA_VERSION_MAJOR}.${SAMBA_VERSION_MINOR}"
 
-SAMBA_VERSION_RELEASE_PRINT=".$SAMBA_VERSION_RELEASE"
+ if test -n "$SAMBA_VERSION_RELEASE";then
+    SAMBA_VERSION_STRING="${SAMBA_VERSION_STRING}.${SAMBA_VERSION_RELEASE}"
+ fi
 
-case $SAMBA_VERSION_SUFFIX in
-    *alpha*)
-	if test -z "$SAMBA_VERSION_RELEASE";then
-		SAMBA_VERSION_RELEASE=-2
-		SAMBA_VERSION_RELEASE_PRINT=""
-	fi
-	AC_DEFINE_UNQUOTED(SAMBA_VERSION_ALPHA_RELEASE,$SAMBA_VERSION_SUFFIX_RELEASE,[Samba ALPHA Release Version Number])
+ case $SAMBA_VERSION_SUFFIX in
+    a)
+	SAMBA_VERSION_REVISION="a"
 	;;
-    *beta*)
-	if test -z "$SAMBA_VERSION_RELEASE";then
-		SAMBA_VERSION_RELEASE=-1
-		SAMBA_VERSION_RELEASE_PRINT=""
-	fi
-	AC_DEFINE_UNQUOTED(SAMBA_VERSION_BETA_RELEASE,$SAMBA_VERSION_SUFFIX_RELEASE,[Samba BETA Release Version Number])
+    b)
+	SAMBA_VERSION_REVISION="b"
+	;;
+    c)
+	SAMBA_VERSION_REVISION="c"
+	;;
+    d)
+	SAMBA_VERSION_REVISION="d"
 	;;
     *pre*)
-	AC_DEFINE_UNQUOTED(SAMBA_VERSION_PRE_RELEASE,$SAMBA_VERSION_SUFFIX_RELEASE,[Samba PRE Release Version Number])
+	SAMBA_VERSION_PRE_RELEASE=$SAMBA_VERSION_SUFFIX_RELEASE
 	;;
     *rc*)
-	AC_DEFINE_UNQUOTED(SAMBA_VERSION_RC_RELEASE,$SAMBA_VERSION_SUFFIX_RELEASE,[Samba RC Release Version Number])
+	SAMBA_VERSION_RC_RELEASE=$SAMBA_VERSION_SUFFIX_RELEASE
+	;;
+    *beta*)
+	SAMBA_VERSION_BETA_RELEASE=$SAMBA_VERSION_SUFFIX_RELEASE
+	;;
+    *alpha*)
+	SAMBA_VERSION_ALPHA_RELEASE=$SAMBA_VERSION_SUFFIX_RELEASE
 	;;
     *cvs*)
-	AC_DEFINE_UNQUOTED(SAMBA_VERSION_IS_CVS_SNAPSHOT,1,[Whether the Samba Source is a CVS snapshot])
+	SAMBA_VERSION_IS_CVS_SNAPSHOT=yes
 	;;
-esac
+    *)
+	SAMBA_VERSION_VENDOR_SUFFIX=$SAMBA_VERSION_SUFFIX
+	;;
+ esac
 
-case $SAMBA_VERSION_SUFFIX_EXTRA in
+ case $SAMBA_VERSION_SUFFIX_EXTRA1 in
     *cvs*)
-	AC_DEFINE_UNQUOTED(SAMBA_VERSION_IS_CVS_SNAPSHOT,1,[Whether the Samba Source is a CVS snapshot])
+	SAMBA_VERSION_IS_CVS_SNAPSHOT=yes
 	;;
-esac
+    *)
+	SAMBA_VERSION_VENDOR_SUFFIX="${SAMBA_VERSION_VENDOR_SUFFIX}${SAMBA_VERSION_SUFFIX_EXTRA1}"
+	;;
+ esac
 
+ if test -n "$SAMBA_VERSION_SUFFIX_EXTRA2";then
+	SAMBA_VERSION_VENDOR_SUFFIX="${SAMBA_VERSION_VENDOR_SUFFIX}${SAMBA_VERSION_SUFFIX_EXTRA2}"
+ fi
 
-AC_DEFINE_UNQUOTED(SAMBA_VERSION_MAJOR,$SAMBA_VERSION_MAJOR,[Samba Major version])
-AC_DEFINE_UNQUOTED(SAMBA_VERSION_MINOR,$SAMBA_VERSION_MINOR,[Samba Minor version])
-AC_DEFINE_UNQUOTED(SAMBA_VERSION_RELEASE,$SAMBA_VERSION_RELEASE,[Samba Release version])
+ AC_DEFINE_UNQUOTED(SAMBA_VERSION_MAJOR,$SAMBA_VERSION_MAJOR,[Samba Major version])
+ AC_DEFINE_UNQUOTED(SAMBA_VERSION_MINOR,$SAMBA_VERSION_MINOR,[Samba Minor version])
+ if test -n "$SAMBA_VERSION_RELEASE";then
+   AC_DEFINE_UNQUOTED(SAMBA_VERSION_RELEASE,$SAMBA_VERSION_RELEASE,[Samba Release version])
+ fi
 
-AC_DEFINE_UNQUOTED(SAMBA_VERSION_MAJOR_STR,"$SAMBA_VERSION_MAJOR_STR",[Samba Major version as string])
-AC_DEFINE_UNQUOTED(SAMBA_VERSION_MINOR_STR,"$SAMBA_VERSION_MINOR_STR",[Samba Minor version as string])
-AC_DEFINE_UNQUOTED(SAMBA_VERSION_RELEASE_STR,"$SAMBA_VERSION_RELEASE_STR",[Samba Release version as string])
-AC_DEFINE_UNQUOTED(SAMBA_VERSION_SUFFIX_STR,"$SAMBA_VERSION_SUFFIX_STR",[Samba Release Suffix as string])
-AC_DEFINE_UNQUOTED(SAMBA_VERSION_SUFFIX_RELEASE_STR,"$SAMBA_VERSION_SUFFIX_RELEASE_STR",[Samba Suffix Release version as string])
-AC_DEFINE_UNQUOTED(SAMBA_VERSION_SUFFIX_EXTRA_STR,"$SAMBA_VERSION_SUFFIX_EXTRA_STR",[Samba Suffix Release Extra as string])
+ if test -n "${SAMBA_VERSION_REVISION}";then
+    SAMBA_VERSION_STRING="${SAMBA_VERSION_STRING}${SAMBA_VERSION_REVISION}"
+    AC_DEFINE_UNQUOTED(SAMBA_VERSION_REVISION,"${SAMBA_VERSION_REVISION}",[Samba Release Revision version])
+ elif test -n "${SAMBA_VERSION_PRE_RELEASE}";then
+    SAMBA_VERSION_STRING="${SAMBA_VERSION_STRING}pre${SAMBA_VERSION_PRE_RELEASE}"
+    AC_DEFINE_UNQUOTED(SAMBA_VERSION_PRE_RELEASE,${SAMBA_VERSION_PRE_RELEASE},[Samba PRE Release version])
+ elif test -n "${SAMBA_VERSION_RC_RELEASE}";then
+    SAMBA_VERSION_STRING="${SAMBA_VERSION_STRING}rc${SAMBA_VERSION_RC_RELEASE}"
+    AC_DEFINE_UNQUOTED(SAMBA_VERSION_RC_RELEASE,${SAMBA_VERSION_RC_RELEASE},[Samba RC Release version])
+ elif test -n "${SAMBA_VERSION_BETA_RELEASE}";then
+    SAMBA_VERSION_STRING="${SAMBA_VERSION_STRING}beta${SAMBA_VERSION_BETA_RELEASE}"
+    AC_DEFINE_UNQUOTED(SAMBA_VERSION_BETA_RELEASE,${SAMBA_VERSION_BETA_RELEASE},[Samba Beta Release version])
+ elif test -n "${SAMBA_VERSION_ALPHA_RELEASE}";then
+    SAMBA_VERSION_STRING="${SAMBA_VERSION_STRING}alpha${SAMBA_VERSION_ALPHA_RELEASE}"
+    AC_DEFINE_UNQUOTED(SAMBA_VERSION_ALPHA_RELEASE,${SAMBA_VERSION_ALPHA_RELEASE},[Samba Alpha Release version])
+ fi
 
-SAMBA_VERSION_PRINT="$SAMBA_VERSION_MAJOR.$SAMBA_VERSION_MINOR$SAMBA_VERSION_RELEASE_PRINT$SAMBA_VERSION_SUFFIX$SAMBA_VERSION_SUFFIX_RELEASE$SAMBA_VERSION_SUFFIX_EXTRA"
-AC_MSG_RESULT($SAMBA_VERSION_PRINT)
+ if test x"${SAMBA_VERSION_IS_CVS_SNAPSHOT}" = x"yes";then
+    SAMBA_VERSION_STRING="${SAMBA_VERSION_STRING}cvs"
+    AC_DEFINE_UNQUOTED(SAMBA_VERSION_IS_CVS_SNAPSHOT,1,[Samba is cvs snapshot])
+ fi
+
+ AC_DEFINE_UNQUOTED(SAMBA_VERSION_OFFICIAL_STRING,$SAMBA_VERSION_STRING,[Samba Version Official String])
+
+ if test -n "${SAMBA_VERSION_VENDOR_SUFFIX}";then
+    SAMBA_VERSION_STRING="${SAMBA_VERSION_STRING}-${SAMBA_VERSION_VENDOR_SUFFIX}"
+    AC_DEFINE_UNQUOTED(SAMBA_VERSION_VENDOR_SUFFIX,"$SAMBA_VERSION_VENDOR_SUFFIX",[Samba Version Vendor Suffix])
+ fi
+ 
+ SAMBA_VERSION_STRING="\"${SAMBA_VERSION_STRING}\""
+ AC_DEFINE_UNQUOTED(SAMBA_VERSION_STRING,$SAMBA_VERSION_STRING,[Samba Version String])
+
+ AC_MSG_RESULT($SAMBA_VERSION_STRING)
+fi
 ###########################################################
 ###########################################################
 
@@ -582,18 +680,189 @@ AC_SUBST(POPT_INCLUDE_DIR)
 VSCAN_BACKENDS="clamav"
 AC_SUBST(VSCAN_BACKENDS)
 
+###########################################################
 #
+# clamav
+#
+AC_MSG_CHECKING(whether to use libclamav)
+AC_ARG_WITH(libclamav,
+[  --with-libclamav        Use libclamav instead of clamd (default=no)],
+[ if test x"$withval" = "xyes" ; then
+   AC_MSG_RESULT(yes)
+   AC_CHECK_HEADERS(clamav.h)
+   vscan_save_LIBS=$LIBS
+   AC_CHECK_LIB(clamav,cl_loaddbdir)
+   LIBS=$vscan_save_LIBS
+   if test x"$ac_cv_header_clamav_h" = x"yes"; then
+    if test x"$ac_cv_lib_clamav_cl_loaddbdir" = x"yes"; then
+      CLAMAV_LIBS="-lclamav"
+      AC_DEFINE(LIBCLAMAV,1,[Whether to use lib clamav])
+      AC_MSG_CHECKING(whether to use clamd or libclamav)
+      AC_MSG_RESULT(libclamav)
+    else
+      AC_MSG_RESULT(clamd)
+    fi
+   fi
+  else
+   AC_MSG_RESULT(no) 
+ fi
+], 
+  AC_MSG_RESULT(no)
+)
+AC_SUBST(CLAMAV_LIBS)
+
+#
+###########################################################
+
+###########################################################
+#
+# check for magic.h and -lmagic
+#
+vscan_cv_filetype=auto
+MAGIC_LIB=
+AC_MSG_CHECKING(for filetype support)
+AC_ARG_WITH(filetype,
+[  --with-filetype         Check for filetype support (default=auto)],
+[ case "$withval" in
+  yes)
+    vscan_cv_filetype=$withval
+    vscan_cv_filetype_wanted=yes
+    AC_MSG_RESULT(${vscan_cv_filetype})
+    ;;
+  no)
+    vscan_cv_filetype=$withval
+    vscan_cv_filetype_wanted=no
+    AC_MSG_RESULT(${vscan_cv_filetype})
+    ;;
+  *)
+    AC_MSG_RESULT(${vscan_cv_filetype})
+    ;;
+  esac ],
+  AC_MSG_RESULT(${vscan_cv_filetype})
+)
+
+if test x"$vscan_cv_filetype" != x"no"; then
+ vscan_cv_filetype=no
+
+ AC_CHECK_HEADERS(magic.h)
+ vscan_save_LIBS=$LIBS
+ AC_CHECK_LIB(magic,magic_load)
+ LIBS=$vscan_save_LIBS
+ if test x"$ac_cv_header_magic_h" = x"yes"; then
+  if test x"$ac_cv_lib_magic_magic_load" = x"yes"; then
+     vscan_cv_filetype=yes
+     MAGIC_LIB="-lmagic"
+  fi
+ fi
+fi
+
+AC_MSG_CHECKING(whether to use filetype support)
+if test x"$vscan_cv_filetype" = x"yes"; then
+ GLOBAL_LIBS="${MAGIC_LIB} ${GLOBAL_LIBS}"
+ AC_DEFINE(HAVE_FILETYPE_SUPPORT,1,[Whether to have -lmagic])
+ AC_MSG_RESULT(yes)
+else
+ AC_MSG_RESULT(no)
+ if test x"$vscan_cv_filetype_wanted" = x"yes"; then
+  AC_MSG_WARN(sorry no filetype support is possible)
+  AC_MSG_ERROR(please install libmagic if you need filetype support) 
+ elif test x"$vscan_cv_filetype_wanted" = x"no"; then
+  TMP_DUMMY=
+ else
+  AC_MSG_WARN(sorry no filetype support is possible)
+  AC_MSG_WARN(please install libmagic if you need filetype support)
+ fi
+fi
+#
+###########################################################
+
+###########################################################
+#
+# check for pcre
+#
+vscan_cv_filerregexp=auto
+PCRE_LIB=
+AC_MSG_CHECKING(for regexp-exclude support)
+AC_ARG_WITH(fileregexp,
+[  --with-fileregexp       Check for regexp-exclude support (default=auto)],
+[ case "$withval" in
+  yes)
+    vscan_cv_filerregexp=$withval
+    vscan_cv_filerregexp_wanted=yes
+    AC_MSG_RESULT(${vscan_cv_filerregexp})
+    ;;
+  no)
+    vscan_cv_filerregexp=$withval
+    vscan_cv_filerregexp_wanted=no
+    AC_MSG_RESULT(${vscan_cv_filerregexp})
+    ;;
+  *)
+    AC_MSG_RESULT(${vscan_cv_filerregexp})
+    ;;
+  esac ],
+  AC_MSG_RESULT(${vscan_cv_filerregexp})
+)
+
+if test x"$vscan_cv_filerregexp" != x"no"; then
+ vscan_cv_filerregexp=no
+ AC_CHECK_HEADERS(pcre.h)
+ vscan_save_LIBS=$LIBS
+ if pcre-config --cflags >/dev/null 2>&1; then
+  LIBS="$LIBS `pcre-config --libs`"
+ fi
+ AC_CHECK_LIB(pcre, pcre_exec)
+ if test x"$ac_cv_lib_pcre_pcre_exec" = x"yes"; then
+  if test x"$ac_cv_header_pcre_h" = x"yes"; then
+   vscan_cv_filerregexp=yes
+   PCRE_LIB="$LIBS"
+  fi
+ fi
+ LIBS=$vscan_save_LIBS
+fi
+
+AC_MSG_CHECKING(whether to use regexp-exclude support)
+if test x"$vscan_cv_filerregexp" = x"yes"; then
+ GLOBAL_LIBS="${PCRE_LIB} ${GLOBAL_LIBS}"
+ AC_DEFINE(HAVE_FILEREGEXP_SUPPORT,1,[Whether to have -lpcre])
+ AC_MSG_RESULT(yes)
+else
+ AC_MSG_RESULT(no)
+ if test x"$vscan_cv_filetype_wanted" = x"yes"; then
+  AC_MSG_WARN(sorry no regexp-exclude support is possible)
+  AC_MSG_ERROR(please install libpcre if you need regexp-exclude support)
+ elif test x"$vscan_cv_filerregexp_wanted" = x"no"; then
+  TMP_DUMMY=
+ else
+  AC_MSG_WARN(sorry no regexp-exclude support is possible)
+  AC_MSG_WARN(please install libpcre if you need regexp-exclude support)
+ fi
+fi
+#
+###########################################################
+
 ###########################################################
 AC_OUTPUT(Makefile)
 
 AC_MSG_RESULT([
 ** Configuration summary for $PKG_NAME $PKG_VERSION $PKG_REL_DATE:
 
- Compile samba-vscan for Samba      : $SAMBA_VERSION_PRINT
+ Compile samba-vscan for Samba      : $SAMBA_VERSION_STRING
  Compile samba-vscan with sources in: $SAMBA_SOURCE
  Compile samba-vscan backends       : $VSCAN_BACKENDS
+ Use GLOBAL_LIBS                    : $GLOBAL_LIBS
 ])
 
 AC_MSG_RESULT([Now type \"make\" to build all mentioned backends.
 Or \"make <backend> {<backend>}\" to build only specific backend(s).
+On *BSD systems please use GNU make (gmake) instead of BSD make (make).
 ])
+
+if test -n "$SAMBA_VERSION_RELEASE_NEW"; then
+AC_MSG_RESULT([Note: The Samba relase version was set from $SAMBA_VERSION_RELEASE to $SAMBA_VERSION_RELEASE_NEW, 
+as the version number must be integer digit only 
+(otherwise this module won't compile). 
+Please ignore any complier warnings related to SAMBA_VERSION_RELEASE 
+redefined.  
+])
+fi
+

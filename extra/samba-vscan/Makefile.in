@@ -1,6 +1,6 @@
 #
 #
-#  $Id: Makefile.in,v 1.22 2003/08/15 18:13:26 mx2002 Exp $
+#  $Id: Makefile.in,v 1.19.2.19 2007/09/15 13:40:27 reniar Exp $
 #
 #
 CC		= @CC@
@@ -63,20 +63,23 @@ SAMBA_INSTALLPERMS = @SAMBA_INSTALLPERMS@
 
 INSTALLPERMS = $(SAMBA_INSTALLPERMS)
 
-INCLUDE_FLAGS	= -I$(abs_srcdir)/include -I$(abs_builddir)/include -I. -I$(abs_srcdir) -I$(abs_builddir) -I$(SAMBA_srcdir)/include -I$(SAMBA_srcdir)/ubiqx -I$(SAMBA_srcdir)/smbwrapper -I$(SAMBA_srcdir) -I$(SAMBA_builddir)/include -I$(SAMBA_builddir)/ubiqx -I$(SAMBA_builddir)/smbwrapper -I$(SAMBA_builddir) @POPT_INCLUDE_DIR@
+INCLUDE_FLAGS	= -I$(abs_srcdir)/include -I$(abs_builddir)/include -I. -I$(abs_srcdir) -I$(abs_builddir) -I$(SAMBA_srcdir)/include -I$(SAMBA_srcdir)/ubiqx -I$(SAMBA_srcdir)/smbwrapper -I$(SAMBA_srcdir) -I$(SAMBA_srcdir)/lib/replace -I$(SAMBA_srcdir)/tdb/include/ -I$(SAMBA_srcdir)/librpc -I$(SAMBA_builddir)/include -I$(SAMBA_builddir)/ubiqx -I$(SAMBA_builddir)/smbwrapper -I$(SAMBA_builddir) @POPT_INCLUDE_DIR@
+ 
 
-FLAGS = $(INCLUDE_FLAGS) $(CFLAGS) $(CPPFLAGS)
+FLAGS = $(INCLUDE_FLAGS) $(CFLAGS) $(CPPFLAGS) @VSCAN_SINGLE_LIB_FLAGS@
 
-GLOBAL_OBJS = global/vscan-vfs.o global/vscan-backends.o \
-	global/vscan-conf.o \
-	global/vscan-functions.o global/vscan-message.o \
-	global/vscan-quarantine.o global/vscan-fileaccesslog.o \
+GLOBAL_LIBS = @GLOBAL_LIBS@
 
-CLAMAV_OBJS = clamav/vscan-clamav.o
+GLOBAL_OBJS = global/vscan-functions.o \
+	global/vscan-message.o global/vscan-quarantine.o \
+	global/vscan-fileaccesslog.o global/vscan-filetype.o \
+	global/vscan-parameter.o global/vscan-fileregexp.o
+
+CLAMAV_OBJS = clamav/vscan-clamav.o clamav/vscan-clamav_core.o
+vscan-clamav_OBJS = $(GLOBAL_OBJS) $(CLAMAV_OBJS)
+vscan-clamav_LIBS = @CLAMAV_LIBS@  
 
 CLEAN_OBJS = $(GLOBAL_OBJS) $(CLAMAV_OBJS)
-
-vscan_OBJS = $(GLOBAL_OBJS)
 
 # Pattern rules
 
@@ -108,22 +111,25 @@ default: all
 @BROKEN_CC@	-mv `echo $@ | sed -e 's%^.*/%%g' -e 's%\.po$$%.o%'` $@
 @POBAD_CC@	@mv $*.po.o $@
 
-%.@SHLIBEXT@:
-	@if test -n "$(${*}_OBJS:.@OBJEXT@=.@PICSUFFIX@)";then \
-	    make -s $(${*}_OBJS:.@OBJEXT@=.@PICSUFFIX@); \
-	else \
-	    make -s $(*).@PICSUFFIX@; \
-	fi
+.@PICSUFFIX@.@SHLIBEXT@:
 	@if (: >> $@ || : > $@) >/dev/null 2>&1; then rm -f $@; else \
 	  dir=`echo $@ | sed 's,/[^/]*$$,,;s,^$$,.,'` $(MAKEDIR); fi
 	@echo "Linking $@"
-	@echo "with libs: $(${*}_LIBS)"
-	@$(SHLD) $(LDSHFLAGS) $(LDFLAGS) \
-		$(${*}_LIBS) $(${*}_OBJS:.@OBJEXT@=.@PICSUFFIX@) \
-		-o $@ @SONAMEFLAG@`basename $@`
+	@$(SHLD) $(LDSHFLAGS) \
+		-o $@ $< -Wl,-soname=`basename $@`
 
+vscan-clamav.$(SHLIBEXT): $(vscan-clamav_OBJS:.@OBJEXT@=.@PICSUFFIX@)
+	@echo "Linking $@"
+	@if test -n "$(${*}_LIBS)" -o -n "$(GLOBAL_LIBS)";then \
+	    echo "with libs: $(${*}_LIBS) $(GLOBAL_LIBS)"; \
+	fi
+	@$(SHLD) $(LDSHFLAGS) \
+		$(${*}_OBJS:.@OBJEXT@=.@PICSUFFIX@) \
+		-o $@ @SONAMEFLAG@`basename $@` $(${*}_LIBS) $(GLOBAL_LIBS)
 
-all: vscan.$(SHLIBEXT)
+clamav: vscan-clamav.$(SHLIBEXT)
+
+all: @VSCAN_BACKENDS@
 
 install: all
 	@echo "Make Directory $(DESTDIR)$(VFSLIBDIR)"
@@ -132,21 +138,32 @@ install: all
 	@echo "$(patsubst ${builddir}/%.$(SHLIBEXT),%.$(SHLIBEXT),$(wildcard ${builddir}/*.$(SHLIBEXT)))"
 	@echo "to $(DESTDIR)$(VFSLIBDIR) with $(INSTALLPERMS)"
 	@$(INSTALLCMD) -m $(INSTALLPERMS) $(patsubst ${builddir}/%.$(SHLIBEXT),%.$(SHLIBEXT),$(wildcard ${builddir}/*.$(SHLIBEXT))) $(DESTDIR)$(VFSLIBDIR)
+	@echo ""
+	@echo "NOTE: the corresponding configuration file(s) must be copied manually!"
+	@echo "The default location is /etc/samba. See INSTALL for details!"
 
 # Misc targets
 clean:
-	rm -rf .libs
-	rm -f $(CLEAN_OBJS:.@OBJEXT@=.@PICSUFFIX@)
-	rm -f $(CLEAN_OBJS:.@OBJEXT@=.@SHLIBEXT@)
-	rm -f core *~ *% *.$(SHLIBEXT) 
+	@echo "make clean..."
+	@echo "Remove all *.${OBJEXT} *.${PICSUFFIX} *.${SHLIBEXT} files"
+	@rm -rf .libs
+	@rm -f $(CLEAN_OBJS:.@OBJEXT@=.@PICSUFFIX@)
+	@rm -f $(CLEAN_OBJS:.@OBJEXT@=.@SHLIBEXT@)
+	@rm -f core *~ *% *.$(SHLIBEXT) 
+	@echo "make clean done"
 
 realclean: clean
-	rm -f include/vscan-config.h
-	rm -f config.log config.status
-	rm -f Makefile
+	@echo "make realclean..."
+	@rm -f include/vscan-config.h
+	@rm -f config.log config.status
+	@rm -f Makefile
+	@echo "make realclean done"
 
 distclean: realclean
+	@echo "make distclean done"
 
 realdistclean: realclean
-	rm -f include/vscan-config.h*
-	rm -f configure
+	@echo "make realdistclean..."
+	@rm -f include/vscan-config.h*
+	@rm -f configure
+	@echo "make realdistclean done"
