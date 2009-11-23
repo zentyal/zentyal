@@ -1,0 +1,14 @@
+prefix=/usr/local/samba
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Samba libsmbclient
+Description: A library to access CIFS servers
+Version: 0
+URL: http://www.samba.org/
+#Libs: -L${exec_prefix}/lib -lsmbclient
+Libs: -lsmbclient
+Libs.private: -lsmbclient   -lresolv -lresolv -lnsl -ldl
+Cflags: -I${prefix}/include
+

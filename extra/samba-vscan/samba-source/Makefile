@@ -1,0 +1,3093 @@
+#########################################################################
+# Makefile.in for Samba - rewritten for autoconf support
+# Copyright Andrew Tridgell 1992-1998
+# Copyright (C) 2001 by Martin Pool <mbp@samba.org>
+# Copyright Andrew Bartlett 2002
+# Copyright (C) 2003 Jim McDonough <jmcd@us.ibm.com>
+# Copyright (C) 2002-2003 Jelmer Vernooij <jelmer@samba.org>
+# Copyright (C) 2006 Lars Mueller <lars@samba.org>
+# Copyright (C) 2007 James Peach <jpeach@samba.org>
+# Copyright (C) 2008 Michael Adam <obnox@samba.org>
+###########################################################################
+
+prefix=/usr/local/samba
+exec_prefix=${prefix}
+sysconfdir=${prefix}/etc
+localstatedir=${prefix}/var
+datarootdir=${prefix}/share
+
+selftest_prefix=./st
+selftest_shrdir=
+smbtorture4_path=
+smbtorture4_option=
+selftest_custom_conf=
+
+LIBS=-lresolv -lresolv -lnsl -ldl
+CC=gcc
+SHLD=${CC} ${CFLAGS}
+LIB_PATH_VAR=LD_LIBRARY_PATH
+
+## Dynamic shared libraries build settings
+DSO_EXPORTS_CMD=-Wl,--version-script,$(srcdir)/exports/`basename $@ | sed 's/so\(.[0-9]\{1,\}\)\{0,1\}$$/syms/'`
+DSO_EXPORTS=$(DSO_EXPORTS_CMD)
+SHLD_DSO = $(SHLD) $(LDSHFLAGS) $(DSO_EXPORTS) -o $@
+
+# The MODULE_EXPORTS variable contains the platform-specific linker flags
+# needed to restrict the exports for VFS, IDMAP, RPC and PASSDB modules.
+MODULE_EXPORTS=
+
+# Add $(DEVELOPER_CFLAGS) to $(CFLAGS) to enable extra compiler
+# (GCC) warnings. This is done automtically for --enable-developer,
+# --enable-picky-developer and --enable-krb5developer.
+DEVELOPER_CFLAGS=-g -Wall -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -DDEBUG_PASSWORD -DDEVELOPER -Wdeclaration-after-statement -Werror-implicit-function-declaration
+CFLAGS= -O $(FLAGS) -D_SAMBA_BUILD_=3
+CPPFLAGS=-DHAVE_CONFIG_H  -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -Iinclude -I./include -I. -I. -I./../lib/replace -I./../lib/talloc -I./../lib/tevent -I./../lib/tdb/include -I./libaddns -I./librpc -I./.. -I./../lib/popt
+
+EXEEXT=
+AR=ar
+LDSHFLAGS=-shared -Wl,-Bsymbolic -Wl,-z,relro -L./bin
+LDFLAGS=-pie -Wl,-z,relro -L./bin
+
+WINBIND_NSS_LDSHFLAGS=-shared -Wl,-Bsymbolic -L./bin
+AWK=gawk
+PICFLAG=-fPIC
+DYNEXP=-Wl,--export-dynamic
+PERL=/usr/bin/perl
+
+PIDL_ARGS=
+
+TERMLDFLAGS=
+TERMLIBS=-lreadline -lncurses
+PRINT_LIBS=
+ZLIB_LIBS=-lz 
+AUTH_LIBS= -lcrypt 
+ACL_LIBS=
+PASSDB_LIBS= 
+IDMAP_LIBS=
+KRB5LIBS=
+LDAP_LIBS=
+NSCD_LIBS=
+UUID_LIBS=
+LIBWBCLIENT_LIBS=-lwbclient
+WINBIND_NSS_EXTRA_LIBS=
+WINBIND_NSS_PTHREAD=-lpthread
+PAM_WINBIND_EXTRA_LIBS=
+DNSSD_LIBS=
+AVAHI_LIBS=-lavahi-client -lavahi-common
+POPT_LIBS=-lpopt
+LIBTALLOC_LIBS=-ltalloc
+LIBTDB_LIBS=-ltdb
+LIBNETAPI_LIBS=bin/libnetapi.a
+LIBSMBCLIENT_LIBS=bin/libsmbclient.a
+LIBSMBSHAREMODES_LIBS=-lsmbsharemodes
+
+INSTALLCMD=/usr/bin/install -c
+INSTALLLIBCMD_SH=$(INSTALLCMD)
+INSTALLLIBCMD_A=:
+UNINSTALLLIBCMD_SH=rm -f
+UNINSTALLLIBCMD_A=:
+
+
+srcdir=samba-source
+builddir=samba-source
+SHELL=/bin/sh
+DESTDIR=/
+
+# XXX: Perhaps this should be /bin/bash instead -- apparently autoconf
+# will search for a POSIX-compliant shell, and that might not be
+# /bin/sh on some platforms.  I guess it's not a big problem -- mbp
+
+# See the autoconf manual "Installation Directory Variables" for a
+# discussion of the subtle use of these variables.
+
+BASEDIR= /usr/local/samba
+BINDIR = ${exec_prefix}/bin
+# sbindir is mapped to bindir when compiling SAMBA in 2.0.x compatibility mode.
+SBINDIR = ${exec_prefix}/sbin
+ROOTSBINDIR = ${SBINDIR}
+LIBDIR = ${exec_prefix}/lib
+MODULESDIR = ${exec_prefix}/lib
+INCLUDEDIR=${prefix}/include
+PAMMODULESDIR = ${exec_prefix}/lib/security
+VFSLIBDIR = $(MODULESDIR)/vfs
+PERFCOUNTLIBDIR = $(MODULESDIR)/perfcount
+PDBLIBDIR = $(MODULESDIR)/pdb
+RPCLIBDIR = $(MODULESDIR)/rpc
+IDMAPLIBDIR = $(MODULESDIR)/idmap
+NSSINFOLIBDIR = $(MODULESDIR)/nss_info
+CHARSETLIBDIR = $(MODULESDIR)/charset
+AUTHLIBDIR = $(MODULESDIR)/auth
+CONFIGLIBDIR = $(MODULESDIR)/config
+GPEXTLIBDIR = $(MODULESDIR)/gpext
+CONFIGDIR = ${exec_prefix}/lib
+VARDIR = ${prefix}/var
+MANDIR = ${datarootdir}/man
+DATADIR = ${datarootdir}
+
+# The permissions to give the executables and other data
+INSTALLPERMS_BIN = 0755
+INSTALLPERMS_DATA = 0644
+
+# set these to where to find various files
+# These can be overridden by command line switches (see smbd(8))
+# or in smb.conf (see smb.conf(5))
+LOGFILEBASE = ${VARDIR}
+CONFIGFILE = $(CONFIGDIR)/smb.conf
+LMHOSTSFILE = $(CONFIGDIR)/lmhosts
+NCALRPCDIR = ${VARDIR}/ncalrpc
+
+# This is where smbpasswd et al go
+PRIVATEDIR = ${prefix}/private
+
+SMB_PASSWD_FILE = $(PRIVATEDIR)/smbpasswd
+PRIVATE_DIR = $(PRIVATEDIR)
+
+# This is where SWAT images and help files go
+SWATDIR = ${prefix}/swat
+
+# This is where locale(mo) files go
+LOCALEDIR= ${prefix}/share/locale
+
+# the directory where lock files go
+LOCKDIR = ${VARDIR}/locks
+
+# FHS directories; equal to LOCKDIR if not using --with-fhs, but also settable
+CACHEDIR = ${LOCKDIR}
+STATEDIR = ${LOCKDIR}
+
+# Where to look for (and install) codepage databases.
+CODEPAGEDIR = ${MODULESDIR}
+
+# the directory where pid files go
+PIDDIR = ${VARDIR}/locks
+
+FLAGS = -I. \
+	-I$(srcdir) \
+	 -I$(srcdir)/iniparser/src \
+	-Iinclude -I./include  -I. -I. -I./../lib/replace -I./../lib/talloc -I./../lib/tevent -I./../lib/tdb/include -I./libaddns -I./librpc -I./.. \
+	$(CPPFLAGS) \
+	$(ISA) \
+	-I$(srcdir)/lib \
+	-I.. \
+	-I../source4 \
+	-D_SAMBA_BUILD_=3
+
+PATH_FLAGS = -DSMB_PASSWD_FILE=\"$(SMB_PASSWD_FILE)\" \
+	-DPRIVATE_DIR=\"$(PRIVATE_DIR)\" \
+	-DCONFIGFILE=\"$(CONFIGFILE)\" \
+	-DSBINDIR=\"$(SBINDIR)\" \
+	-DBINDIR=\"$(BINDIR)\" \
+	-DLMHOSTSFILE=\"$(LMHOSTSFILE)\" \
+	-DSWATDIR=\"$(SWATDIR)\" \
+	-DLOCKDIR=\"$(LOCKDIR)\" \
+	-DPIDDIR=\"$(PIDDIR)\" \
+	-DLIBDIR=\"$(LIBDIR)\" \
+	-DMODULESDIR=\"$(MODULESDIR)\" \
+	-DLOGFILEBASE=\"$(LOGFILEBASE)\" \
+	-DSHLIBEXT=\"so\" \
+	-DNCALRPCDIR=\"$(NCALRPCDIR)\" \
+	-DCONFIGDIR=\"$(CONFIGDIR)\" \
+	-DCODEPAGEDIR=\"$(CODEPAGEDIR)\" \
+	-DCACHEDIR=\"$(CACHEDIR)\" \
+	-DSTATEDIR=\"$(STATEDIR)\" \
+	-DLOCALEDIR=\"$(LOCALEDIR)\"
+
+# Note that all executable programs now provide for an optional executable suffix.
+
+SBIN_PROGS = bin/smbd bin/nmbd bin/swat$(EXEEXT)  bin/winbindd$(EXEEXT)
+
+ROOT_SBIN_PROGS = bin/mount.cifs bin/umount.cifs
+
+BIN_PROGS1 = bin/smbclient bin/net bin/smbspool \
+	bin/testparm bin/smbstatus bin/smbget
+BIN_PROGS2 = bin/smbcontrol bin/smbtree bin/tdbbackup \
+	bin/nmblookup bin/pdbedit bin/tdbdump \
+	bin/tdbtool
+BIN_PROGS3 = bin/smbpasswd bin/rpcclient bin/smbcacls \
+	bin/profiles bin/ntlm_auth bin/sharesec \
+	bin/smbcquotas bin/eventlogadm
+BIN_PROGS4 = bin/ldbedit bin/ldbsearch bin/ldbadd \
+	bin/ldbdel bin/ldbmodify bin/ldbrename
+
+TORTURE_PROGS = bin/smbtorture bin/msgtest \
+	bin/masktest bin/locktest \
+	bin/locktest2 bin/nsstest bin/vfstest \
+	bin/pdbtest bin/talloctort bin/replacetort \
+	bin/tdbtorture \
+	bin/smbconftort bin/vlp
+
+BIN_PROGS =  bin/wbinfo$(EXEEXT) \
+	$(BIN_PROGS1) $(BIN_PROGS2) $(BIN_PROGS3) $(BIN_PROGS4) 
+
+EVERYTHING_PROGS = bin/debug2html bin/smbfilter \
+	bin/talloctort bin/replacetort \
+	bin/log2pcap \
+	bin/vlp bin/smbiconv \
+	bin/dbwrap_tool
+
+PAM_MODULES = 
+
+NSS_MODULES = ../nsswitch/libnss_winbind.so ../nsswitch/libnss_wins.so
+
+SCRIPTS = $(srcdir)/script/smbtar $(builddir)/script/findsmb
+
+VFS_MODULES =  bin/recycle.so bin/audit.so bin/extd_audit.so bin/full_audit.so bin/netatalk.so bin/fake_perms.so bin/default_quota.so bin/readonly.so bin/cap.so bin/expand_msdfs.so bin/shadow_copy.so bin/shadow_copy2.so bin/xattr_tdb.so bin/streams_xattr.so bin/streams_depot.so bin/readahead.so bin/fileid.so bin/preopen.so bin/syncops.so bin/acl_xattr.so bin/acl_tdb.so bin/smb_traffic_analyzer.so bin/dirsort.so
+PERFCOUNT_MODULES = 
+PDB_MODULES = 
+RPC_MODULES = 
+IDMAP_MODULES = 
+CHARSET_MODULES =  bin/CP850.so bin/CP437.so
+AUTH_MODULES =  bin/script.so
+NSS_INFO_MODULES = 
+GPEXT_MODULES = 
+MODULES = $(VFS_MODULES) $(PDB_MODULES) $(RPC_MODULES) $(IDMAP_MODULES) \
+          $(CHARSET_MODULES) $(AUTH_MODULES) $(NSS_INFO_MODULES) \
+	  $(GPEXT_MODULES) $(PERFCOUNT_MODULES)
+
+EXTRA_ALL_TARGETS = 
+
+######################################################################
+# object file lists
+######################################################################
+
+TDB_LIB_OBJ = lib/util_tdb.o ../lib/util/util_tdb.o \
+	  lib/dbwrap.o lib/dbwrap_tdb.o \
+	  lib/dbwrap_ctdb.o \
+	  lib/dbwrap_rbt.o
+
+TDB_VALIDATE_OBJ = lib/tdb_validate.o
+
+SMBLDAP_OBJ =  
+
+VERSION_OBJ = lib/version.o
+
+WBCOMMON_OBJ = ../nsswitch/wb_common.o
+
+AFS_OBJ = lib/afs.o
+
+AFS_SETTOKEN_OBJ = lib/afs_settoken.o
+
+AVAHI_OBJ = lib/avahi.o smbd/avahi_register.o
+
+SERVER_MUTEX_OBJ = lib/server_mutex.o
+
+PASSCHANGE_OBJ = libsmb/passchange.o
+
+LIBNDR_DRSUAPI_OBJ = ../librpc/ndr/ndr_drsuapi.o \
+		     ../librpc/ndr/ndr_compression.o \
+		     ../librpc/gen_ndr/ndr_drsuapi.o \
+		     ../librpc/ndr/ndr_drsblobs.o \
+		     ../librpc/gen_ndr/ndr_drsblobs.o
+
+ZLIB_OBJ = 
+
+COMPRESSION_OBJ = ../lib/compression/mszip.o \
+				  ../lib/compression/lzxpress.o \
+				  $(ZLIB_OBJ)
+
+DRSUAPI_OBJ = $(LIBNDR_DRSUAPI_OBJ) \
+	      $(COMPRESSION_OBJ)
+
+LIBNDR_OBJ = ../librpc/ndr/ndr_basic.o \
+	     ../librpc/ndr/ndr.o \
+	     ../librpc/ndr/ndr_misc.o \
+	     ../librpc/gen_ndr/ndr_misc.o \
+	     ../librpc/gen_ndr/ndr_security.o \
+	     ../librpc/ndr/ndr_sec_helper.o \
+	     librpc/ndr/ndr_string.o \
+	     ../librpc/ndr/uuid.o \
+		 librpc/ndr/util.o
+
+RPCCLIENT_NDR_OBJ = rpc_client/ndr.o
+
+LIBNDR_GEN_OBJ0 = ../librpc/gen_ndr/ndr_samr.o \
+		  ../librpc/gen_ndr/ndr_lsa.o
+
+LIBNDR_GEN_OBJ1 = ../librpc/gen_ndr/ndr_netlogon.o \
+		  ../librpc/ndr/ndr_netlogon.o
+
+LIBNDR_GEN_OBJ2 = ../librpc/gen_ndr/ndr_spoolss.o \
+		  ../librpc/ndr/ndr_spoolss_buf.o
+
+LIBNDR_GEN_OBJ = ../librpc/gen_ndr/ndr_wkssvc.o \
+		 $(LIBNDR_GEN_OBJ0) \
+		 ../librpc/gen_ndr/ndr_dfs.o \
+		 ../librpc/gen_ndr/ndr_echo.o \
+		 ../librpc/gen_ndr/ndr_winreg.o \
+		 ../librpc/gen_ndr/ndr_initshutdown.o \
+		 ../librpc/gen_ndr/ndr_srvsvc.o \
+		 ../librpc/gen_ndr/ndr_eventlog.o \
+		 $(LIBNDR_GEN_OBJ1) \
+		 ../librpc/gen_ndr/ndr_dssetup.o \
+		 librpc/gen_ndr/ndr_notify.o \
+		 ../librpc/gen_ndr/ndr_xattr.o \
+		 ../librpc/gen_ndr/ndr_epmapper.o \
+		 ../librpc/gen_ndr/ndr_named_pipe_auth.o \
+		 ../librpc/gen_ndr/ndr_ntsvcs.o \
+		 $(LIBNDR_GEN_OBJ2)
+
+RPC_PARSE_OBJ0 = rpc_parse/parse_prs.o rpc_parse/parse_misc.o
+
+# this includes only the low level parse code, not stuff
+# that requires knowledge of security contexts
+RPC_PARSE_OBJ1 = $(RPC_PARSE_OBJ0)
+
+RPC_PARSE_OBJ2 = rpc_parse/parse_rpc.o \
+		 rpc_client/init_netlogon.o \
+		 rpc_client/init_lsa.o
+
+LIBREPLACE_OBJ =  ../lib/replace/replace.o ../lib/replace/snprintf.o ../lib/replace/getpass.o
+
+SOCKET_WRAPPER_OBJ = 
+NSS_WRAPPER_OBJ = 
+
+LIBSAMBAUTIL_OBJ = \
+		$(LIBREPLACE_OBJ) \
+		$(SOCKET_WRAPPER_OBJ) \
+		$(NSS_WRAPPER_OBJ)
+
+UTIL_OBJ = ../lib/util/rbtree.o ../lib/util/signal.o ../lib/util/time.o \
+		   ../lib/util/xfile.o ../lib/util/util_strlist.o  \
+		   ../lib/util/util_file.o ../lib/util/data_blob.o \
+		   ../lib/util/util.o ../lib/util/fsusage.o \
+		   ../lib/util/params.o ../lib/util/talloc_stack.o \
+		   ../lib/util/genrand.o ../lib/util/util_net.o \
+		   ../lib/util/become_daemon.o ../lib/util/system.o \
+		   ../lib/util/tevent_unix.o ../lib/util/tevent_ntstatus.o
+
+CRYPTO_OBJ = ../lib/crypto/crc32.o ../lib/crypto/md5.o \
+			 ../lib/crypto/hmacmd5.o ../lib/crypto/arcfour.o \
+			 ../lib/crypto/md4.o
+
+LIB_OBJ = $(LIBSAMBAUTIL_OBJ) $(UTIL_OBJ) $(CRYPTO_OBJ) \
+	  lib/messages.o librpc/gen_ndr/ndr_messaging.o lib/messages_local.o \
+	  lib/messages_ctdbd.o lib/packet.o lib/ctdbd_conn.o \
+	  lib/interfaces.o lib/memcache.o \
+	  lib/util_transfer_file.o ../lib/async_req/async_req.o \
+	  ../lib/async_req/async_sock.o ../lib/async_req/async_req_ntstatus.o \
+	  $(TDB_LIB_OBJ) \
+	  $(VERSION_OBJ) lib/charcnv.o lib/debug.o lib/fault.o \
+	  lib/interface.o lib/pidfile.o \
+	  lib/system.o lib/sendfile.o lib/recvfile.o lib/time.o \
+	  lib/username.o \
+	  lib/util_pw.o lib/access.o lib/smbrun.o \
+	  lib/bitmap.o lib/dprintf.o $(UTIL_REG_OBJ) \
+	  lib/wins_srv.o \
+	  lib/util_str.o lib/clobber.o lib/util_sid.o lib/util_uuid.o \
+	  lib/util_unistr.o lib/util_file.o \
+	  lib/util.o lib/util_sock.o lib/sock_exec.o lib/util_sec.o \
+	  lib/substitute.o lib/dbwrap_util.o \
+	  lib/ms_fnmatch.o lib/select.o lib/errmap_unix.o \
+	  lib/tallocmsg.o lib/dmallocmsg.o libsmb/smb_signing.o \
+	  lib/iconv.o lib/pam_errors.o intl/lang_tdb.o \
+	  lib/conn_tdb.o lib/adt_tree.o lib/gencache.o \
+	  lib/module.o lib/events.o  ./../lib/tevent/tevent.o ./../lib/tevent/tevent_debug.o ./../lib/tevent/tevent_util.o ./../lib/tevent/tevent_fd.o ./../lib/tevent/tevent_timed.o ./../lib/tevent/tevent_immediate.o ./../lib/tevent/tevent_signal.o ./../lib/tevent/tevent_req.o ./../lib/tevent/tevent_wakeup.o ./../lib/tevent/tevent_queue.o ./../lib/tevent/tevent_standard.o ./../lib/tevent/tevent_select.o ./../lib/tevent/tevent_epoll.o \
+	  lib/ldap_escape.o  \
+	  lib/secdesc.o lib/util_seaccess.o ../libcli/security/secace.o \
+	  ../libcli/security/secacl.o \
+	  libads/krb5_errs.o lib/system_smbd.o lib/audit.o $(LIBNDR_OBJ) \
+	  lib/file_id.o lib/idmap_cache.o \
+	  ../libcli/security/dom_sid.o
+
+LIB_DUMMY_OBJ = lib/dummysmbd.o lib/dummyroot.o
+LIB_NONSMBD_OBJ = $(LIB_OBJ) $(LIB_DUMMY_OBJ)
+
+READLINE_OBJ = lib/readline.o
+
+# Also depends on  $(SECRETS_OBJ) $(LIBSAMBA_OBJ)
+# Be sure to include them into your application
+POPT_LIB_OBJ = lib/popt_common.o
+
+PARAM_WITHOUT_REG_OBJ = dynconfig.o param/loadparm.o param/util.o lib/sharesec.o lib/ldap_debug_handler.o
+PARAM_REG_ADD_OBJ = $(REG_SMBCONF_OBJ) $(LIBSMBCONF_OBJ) $(PRIVILEGES_BASIC_OBJ)
+PARAM_OBJ = $(PARAM_WITHOUT_REG_OBJ) $(PARAM_REG_ADD_OBJ)
+
+KRBCLIENT_OBJ = libads/kerberos.o libads/ads_status.o
+
+LIBADDNS_OBJ0 = libaddns/dnsrecord.o libaddns/dnsutils.o  libaddns/dnssock.o \
+	       libaddns/dnsgss.o libaddns/dnsmarshall.o
+LIBADDNS_OBJ = $(LIBADDNS_OBJ0) $(SOCKET_WRAPPER_OBJ)
+
+GPEXT_OBJ = libgpo/gpext/gpext.o 
+
+LIBGPO_OBJ0 = libgpo/gpo_ldap.o libgpo/gpo_ini.o libgpo/gpo_util.o \
+	      libgpo/gpo_fetch.o libgpo/gpo_filesync.o libgpo/gpo_sec.o \
+	      libgpo/gpo_reg.o \
+	      $(GPEXT_OBJ)
+LIBGPO_OBJ = $(LIBGPO_OBJ0)
+
+LIBADS_OBJ = libads/ldap.o libads/ldap_printer.o \
+	     libads/sasl.o libads/sasl_wrapping.o \
+	     libads/krb5_setpw.o libads/ldap_user.o \
+	     libads/ads_struct.o libads/kerberos_keytab.o \
+             libads/disp_sec.o libads/ads_utils.o libads/ldap_utils.o \
+	     libads/ldap_schema.o libads/util.o libads/ndr.o
+
+LIBADS_SERVER_OBJ = libads/kerberos_verify.o libads/authdata.o \
+		    ../librpc/ndr/ndr_krb5pac.o \
+		    ../librpc/gen_ndr/ndr_krb5pac.o
+
+SECRETS_OBJ = passdb/secrets.o passdb/machine_sid.o
+
+LIBNBT_OBJ = ../libcli/nbt/nbtname.o \
+	     ../libcli/netlogon.o \
+	     ../libcli/ndr_netlogon.o \
+	     ../librpc/gen_ndr/ndr_nbt.o \
+	     ../librpc/gen_ndr/ndr_svcctl.o \
+	     ../librpc/ndr/ndr_svcctl.o
+
+LIBNMB_OBJ = libsmb/unexpected.o libsmb/namecache.o libsmb/nmblib.o \
+	     libsmb/namequery.o libsmb/conncache.o libads/dns.o
+
+NTERR_OBJ = libsmb/nterr.o libsmb/smberr.o
+DOSERR_OBJ = ../libcli/util/doserr.o
+ERRORMAP_OBJ = libsmb/errormap.o
+DCE_RPC_ERR_OBJ = ../librpc/rpc/dcerpc_error.o
+
+LIBSMB_ERR_OBJ0 = $(NTERR_OBJ) $(DOSERR_OBJ) $(ERRORMAP_OBJ) $(DCE_RPC_ERR_OBJ) \
+		  libsmb/smbdes.o libsmb/smbencrypt.o libsmb/ntlmssp_parse.o
+
+LIBSMB_ERR_OBJ = $(LIBSMB_ERR_OBJ0) \
+		 $(RPC_PARSE_OBJ1) \
+		 $(SECRETS_OBJ)
+
+LIBSMB_OBJ0 = \
+	       libsmb/ntlm_check.o \
+	       libsmb/ntlmssp.o \
+	       libsmb/ntlmssp_sign.o
+
+LIBSAMBA_OBJ = $(LIBSMB_OBJ0) \
+	       $(LIBSMB_ERR_OBJ)
+
+LIBCLI_LDAP_MESSAGE_OBJ = ../libcli/ldap/ldap_message.o
+LIBCLI_LDAP_NDR_OBJ = ../libcli/ldap/ldap_ndr.o
+
+CLDAP_OBJ = libads/cldap.o $(LIBCLI_LDAP_MESSAGE_OBJ) $(LIBCLI_LDAP_NDR_OBJ)
+
+LIBSMB_OBJ = libsmb/clientgen.o libsmb/cliconnect.o libsmb/clifile.o \
+	     libsmb/clikrb5.o libsmb/clispnego.o ../lib/util/asn1.o \
+	     libsmb/clirap.o libsmb/clierror.o libsmb/climessage.o \
+	     libsmb/clireadwrite.o libsmb/clilist.o libsmb/cliprint.o \
+	     libsmb/clitrans.o libsmb/clisecdesc.o libsmb/clidgram.o \
+	     libsmb/clistr.o libsmb/cliquota.o libsmb/clifsinfo.o libsmb/clidfs.o \
+             libsmb/credentials.o \
+	     libsmb/clioplock.o libsmb/clirap2.o \
+	     libsmb/smb_seal.o libsmb/async_smb.o \
+	     $(LIBSAMBA_OBJ) \
+	     $(LIBNMB_OBJ) \
+	     $(LIBNBT_OBJ) \
+	     $(CLDAP_OBJ) \
+	     $(DRSUAPI_OBJ)
+
+RPC_CLIENT_OBJ1 = rpc_client/cli_netlogon.o
+
+LIBMSRPC_OBJ = rpc_client/cli_lsarpc.o rpc_client/cli_samr.o \
+	       $(RPC_CLIENT_OBJ1) rpc_client/cli_reg.o $(RPC_CLIENT_OBJ) \
+	       rpc_client/cli_spoolss.o \
+	       rpc_client/init_spoolss.o \
+	       rpc_client/init_samr.o \
+		   librpc/rpc/dcerpc.o \
+		   ../librpc/rpc/binding.o
+
+LIBMSRPC_GEN_OBJ = ../librpc/gen_ndr/cli_lsa.o \
+		   ../librpc/gen_ndr/cli_dfs.o \
+		   ../librpc/gen_ndr/cli_echo.o \
+		   ../librpc/gen_ndr/cli_srvsvc.o \
+		   ../librpc/gen_ndr/cli_svcctl.o \
+		   ../librpc/gen_ndr/cli_winreg.o \
+		   ../librpc/gen_ndr/cli_initshutdown.o \
+		   ../librpc/gen_ndr/cli_eventlog.o \
+		   ../librpc/gen_ndr/cli_wkssvc.o \
+		   ../librpc/gen_ndr/cli_netlogon.o \
+		   ../librpc/gen_ndr/cli_samr.o \
+		   ../librpc/gen_ndr/cli_dssetup.o \
+		   ../librpc/gen_ndr/cli_ntsvcs.o \
+		   ../librpc/gen_ndr/cli_epmapper.o \
+		   ../librpc/gen_ndr/cli_drsuapi.o \
+		   ../librpc/gen_ndr/cli_spoolss.o \
+		   $(LIBNDR_GEN_OBJ) \
+		   $(RPCCLIENT_NDR_OBJ)
+
+#
+# registry-related objects
+#
+UTIL_REG_OBJ = lib/util_reg.o
+UTIL_REG_API_OBJ = lib/util_reg_api.o
+
+REG_INIT_BASIC_OBJ = registry/reg_init_basic.o
+REG_INIT_SMBCONF_OBJ = registry/reg_init_smbconf.o
+REG_INIT_FULL_OBJ = registry/reg_init_full.o
+
+REGFIO_OBJ = registry/regfio.o
+
+REGOBJS_OBJ = registry/reg_objects.o
+
+REG_BACKENDS_BASE_OBJ = registry/reg_backend_db.o
+
+REG_BACKENDS_SMBCONF_OBJ = registry/reg_backend_smbconf.o
+
+REG_BACKENDS_EXTRA_OBJ = registry/reg_backend_printing.o \
+			 registry/reg_backend_shares.o \
+			 registry/reg_backend_netlogon_params.o \
+			 registry/reg_backend_prod_options.o \
+			 registry/reg_backend_tcpip_params.o \
+			 registry/reg_backend_hkpt_params.o \
+			 registry/reg_backend_current_version.o \
+			 registry/reg_backend_perflib.o
+
+REG_BASE_OBJ = registry/reg_api.o \
+	       registry/reg_dispatcher.o \
+	       registry/reg_cachehook.o \
+	       $(REGFIO_OBJ) \
+	       $(REGOBJS_OBJ) \
+	       registry/reg_util.o \
+	       $(UTIL_REG_API_OBJ) \
+	       lib/util_nttoken.o \
+	       $(REG_BACKENDS_BASE_OBJ) \
+	       $(REG_INIT_BASIC_OBJ)
+
+REG_SMBCONF_OBJ = $(REG_BASE_OBJ) \
+		  $(REG_BACKENDS_SMBCONF_OBJ) \
+		  $(REG_INIT_SMBCONF_OBJ)
+
+REG_FULL_OBJ = $(REG_SMBCONF_OBJ) \
+	       $(REG_BACKENDS_EXTRA_OBJ) \
+	       $(REG_INIT_FULL_OBJ) \
+	       registry/reg_eventlog.o \
+	       registry/reg_perfcount.o \
+	       registry/reg_util_legacy.o
+
+LIB_EVENTLOG_OBJ = lib/eventlog/eventlog.o
+
+RPC_LSA_OBJ = rpc_server/srv_lsa_nt.o ../librpc/gen_ndr/srv_lsa.o
+
+RPC_NETLOG_OBJ = rpc_server/srv_netlog_nt.o \
+		 ../librpc/gen_ndr/srv_netlogon.o
+
+RPC_SAMR_OBJ = rpc_server/srv_samr_nt.o \
+               rpc_server/srv_samr_util.o \
+	       ../librpc/gen_ndr/srv_samr.o
+
+RPC_INITSHUTDOWN_OBJ =  ../librpc/gen_ndr/srv_initshutdown.o rpc_server/srv_initshutdown_nt.o
+
+RPC_REG_OBJ =  rpc_server/srv_winreg_nt.o \
+	       ../librpc/gen_ndr/srv_winreg.o
+
+RPC_DSSETUP_OBJ =  rpc_server/srv_dssetup_nt.o ../librpc/gen_ndr/srv_dssetup.o
+
+RPC_SVC_OBJ = rpc_server/srv_srvsvc_nt.o \
+	      ../librpc/gen_ndr/srv_srvsvc.o
+
+RPC_WKS_OBJ =  ../librpc/gen_ndr/srv_wkssvc.o rpc_server/srv_wkssvc_nt.o
+
+RPC_SVCCTL_OBJ =  rpc_server/srv_svcctl_nt.o \
+		  ../librpc/gen_ndr/srv_svcctl.o \
+                  services/svc_spoolss.o services/svc_rcinit.o services/services_db.o \
+                  services/svc_netlogon.o services/svc_winreg.o \
+                  services/svc_wins.o
+
+RPC_NTSVCS_OBJ = rpc_server/srv_ntsvcs_nt.o \
+		 ../librpc/gen_ndr/srv_ntsvcs.o
+
+RPC_DFS_OBJ =  ../librpc/gen_ndr/srv_dfs.o rpc_server/srv_dfs_nt.o
+
+RPC_SPOOLSS_OBJ = rpc_server/srv_spoolss_nt.o \
+		  ../librpc/gen_ndr/srv_spoolss.o
+
+RPC_EVENTLOG_OBJ = rpc_server/srv_eventlog_nt.o \
+		   $(LIB_EVENTLOG_OBJ) ../librpc/gen_ndr/srv_eventlog.o
+
+RPC_PIPE_OBJ = rpc_server/srv_pipe_hnd.o \
+               rpc_server/srv_pipe.o rpc_server/srv_lsa_hnd.o
+
+RPC_ECHO_OBJ = rpc_server/srv_echo_nt.o ../librpc/gen_ndr/srv_echo.o
+
+RPC_SERVER_OBJ =  $(RPC_LSA_OBJ) $(RPC_REG_OBJ) $(RPC_INITSHUTDOWN_OBJ) $(RPC_DSSETUP_OBJ) $(RPC_WKS_OBJ) $(RPC_SVCCTL_OBJ) $(RPC_NTSVCS_OBJ) $(RPC_NETLOG_OBJ) $(RPC_DFS_OBJ) $(RPC_SVC_OBJ) $(RPC_SPOOLSS_OBJ) $(RPC_EVENTLOG_OBJ) $(RPC_SAMR_OBJ) $(RPC_PIPE_OBJ)
+
+RPC_PARSE_OBJ = $(RPC_PARSE_OBJ2)
+
+RPC_CLIENT_OBJ = rpc_client/cli_pipe.o rpc_client/rpc_transport_np.o \
+	rpc_client/rpc_transport_sock.o rpc_client/rpc_transport_smbd.o
+
+LOCKING_OBJ = locking/locking.o locking/brlock.o locking/posix.o
+
+PRIVILEGES_BASIC_OBJ = lib/privileges_basic.o
+
+PRIVILEGES_OBJ = lib/privileges.o
+
+PASSDB_GET_SET_OBJ = passdb/pdb_get_set.o
+
+PASSDB_OBJ = $(PASSDB_GET_SET_OBJ) passdb/passdb.o passdb/pdb_interface.o \
+		passdb/util_wellknown.o passdb/util_builtin.o passdb/pdb_compat.o \
+		passdb/util_unixsids.o passdb/lookup_sid.o \
+		passdb/login_cache.o  passdb/pdb_smbpasswd.o passdb/pdb_tdb.o passdb/pdb_wbc_sam.o \
+		lib/account_pol.o $(PRIVILEGES_OBJ) \
+		lib/util_nscd.o lib/winbind_util.o $(SERVER_MUTEX_OBJ)
+
+DEVEL_HELP_WEIRD_OBJ = modules/weird.o
+CP850_OBJ = modules/CP850.o
+CP437_OBJ = modules/CP437.o
+CHARSET_MACOSXFS_OBJ = modules/charset_macosxfs.o
+
+GROUPDB_OBJ = groupdb/mapping.o groupdb/mapping_tdb.o groupdb/mapping_ldb.o
+
+PROFILE_OBJ = profile/profile.o
+PROFILES_OBJ = utils/profiles.o \
+	       $(LIBSAMBA_OBJ) \
+	       $(PARAM_OBJ) \
+               $(LIB_OBJ) $(LIB_DUMMY_OBJ) \
+               $(POPT_LIB_OBJ)
+
+OPLOCK_OBJ = smbd/oplock.o smbd/oplock_irix.o smbd/oplock_linux.o \
+	     smbd/oplock_onefs.o
+
+NOTIFY_OBJ = smbd/notify.o smbd/notify_inotify.o smbd/notify_internal.o
+
+VFS_DEFAULT_OBJ = modules/vfs_default.o
+VFS_AUDIT_OBJ = modules/vfs_audit.o
+VFS_EXTD_AUDIT_OBJ = modules/vfs_extd_audit.o
+VFS_FULL_AUDIT_OBJ = modules/vfs_full_audit.o
+VFS_FAKE_PERMS_OBJ = modules/vfs_fake_perms.o
+VFS_RECYCLE_OBJ = modules/vfs_recycle.o
+VFS_NETATALK_OBJ = modules/vfs_netatalk.o
+VFS_DEFAULT_QUOTA_OBJ = modules/vfs_default_quota.o
+VFS_READONLY_OBJ = modules/vfs_readonly.o modules/getdate.o
+VFS_CAP_OBJ = modules/vfs_cap.o
+VFS_EXPAND_MSDFS_OBJ = modules/vfs_expand_msdfs.o
+VFS_SHADOW_COPY_OBJ = modules/vfs_shadow_copy.o
+VFS_SHADOW_COPY2_OBJ = modules/vfs_shadow_copy2.o
+VFS_AFSACL_OBJ = modules/vfs_afsacl.o
+VFS_XATTR_TDB_OBJ = modules/vfs_xattr_tdb.o
+VFS_POSIXACL_OBJ = modules/vfs_posixacl.o
+VFS_AIXACL_OBJ = modules/vfs_aixacl.o modules/vfs_aixacl_util.o
+VFS_AIXACL2_OBJ = modules/vfs_aixacl2.o modules/vfs_aixacl_util.o modules/nfs4_acls.o
+VFS_SOLARISACL_OBJ = modules/vfs_solarisacl.o
+VFS_ZFSACL_OBJ = modules/vfs_zfsacl.o modules/nfs4_acls.o
+VFS_HPUXACL_OBJ = modules/vfs_hpuxacl.o
+VFS_IRIXACL_OBJ = modules/vfs_irixacl.o
+VFS_TRU64ACL_OBJ = modules/vfs_tru64acl.o
+VFS_CATIA_OBJ = modules/vfs_catia.o
+VFS_STREAMS_XATTR_OBJ = modules/vfs_streams_xattr.o
+VFS_STREAMS_DEPOT_OBJ = modules/vfs_streams_depot.o
+VFS_CACHEPRIME_OBJ = modules/vfs_cacheprime.o
+VFS_PREALLOC_OBJ = modules/vfs_prealloc.o
+VFS_COMMIT_OBJ = modules/vfs_commit.o
+VFS_GPFS_OBJ = modules/vfs_gpfs.o modules/gpfs.o modules/nfs4_acls.o
+VFS_NOTIFY_FAM_OBJ = modules/vfs_notify_fam.o
+VFS_READAHEAD_OBJ = modules/vfs_readahead.o
+VFS_TSMSM_OBJ = modules/vfs_tsmsm.o
+VFS_FILEID_OBJ = modules/vfs_fileid.o
+VFS_AIO_FORK_OBJ = modules/vfs_aio_fork.o
+VFS_PREOPEN_OBJ = modules/vfs_preopen.o
+VFS_SYNCOPS_OBJ = modules/vfs_syncops.o
+VFS_ACL_XATTR_OBJ = modules/vfs_acl_xattr.o
+VFS_ACL_TDB_OBJ = modules/vfs_acl_tdb.o
+VFS_SMB_TRAFFIC_ANALYZER_OBJ = modules/vfs_smb_traffic_analyzer.o
+VFS_ONEFS_OBJ = modules/vfs_onefs.o modules/onefs_acl.o modules/onefs_system.o \
+		modules/onefs_open.o modules/onefs_streams.o modules/onefs_dir.o \
+		modules/onefs_cbrl.o modules/onefs_notify.o modules/onefs_config.o
+VFS_ONEFS_SHADOW_COPY_OBJ = modules/vfs_onefs_shadow_copy.o modules/onefs_shadow_copy.o
+PERFCOUNT_ONEFS_OBJ = modules/perfcount_onefs.o
+PERFCOUNT_TEST_OBJ = modules/perfcount_test.o
+VFS_DIRSORT_OBJ = modules/vfs_dirsort.o
+
+PLAINTEXT_AUTH_OBJ = auth/pampass.o auth/pass_check.o
+
+SLCACHE_OBJ = libsmb/samlogon_cache.o
+
+DCUTIL_OBJ  = libsmb/namequery_dc.o libsmb/trustdom_cache.o libsmb/trusts_util.o libsmb/dsgetdcname.o
+
+AUTH_BUILTIN_OBJ = auth/auth_builtin.o
+AUTH_DOMAIN_OBJ = auth/auth_domain.o
+AUTH_SAM_OBJ = auth/auth_sam.o
+AUTH_SERVER_OBJ = auth/auth_server.o
+AUTH_UNIX_OBJ = auth/auth_unix.o
+AUTH_WINBIND_OBJ = auth/auth_winbind.o
+AUTH_WBC_OBJ = auth/auth_wbc.o
+AUTH_SCRIPT_OBJ = auth/auth_script.o
+AUTH_NETLOGOND_OBJ = auth/auth_netlogond.o
+
+AUTH_OBJ = auth/auth.o  $(AUTH_SAM_OBJ) $(AUTH_UNIX_OBJ) $(AUTH_WINBIND_OBJ) $(AUTH_WBC_OBJ) $(AUTH_SERVER_OBJ) $(AUTH_DOMAIN_OBJ) $(AUTH_BUILTIN_OBJ) $(AUTH_NETLOGOND_OBJ) auth/auth_util.o auth/token_util.o \
+	   auth/auth_compat.o auth/auth_ntlmssp.o \
+	   $(PLAINTEXT_AUTH_OBJ) $(SLCACHE_OBJ) $(DCUTIL_OBJ)
+
+MANGLE_OBJ = smbd/mangle.o smbd/mangle_hash.o smbd/mangle_hash2.o
+
+SMBD_OBJ_MAIN = smbd/server.o
+
+BUILDOPT_OBJ = smbd/build_options.o
+
+SMBD_OBJ_SRV = smbd/files.o smbd/chgpasswd.o smbd/connection.o \
+	       smbd/utmp.o smbd/session.o smbd/map_username.o \
+               smbd/dfree.o smbd/dir.o smbd/password.o smbd/conn.o \
+	       smbd/share_access.o smbd/fileio.o \
+               smbd/ipc.o smbd/lanman.o smbd/negprot.o \
+               smbd/message.o smbd/nttrans.o smbd/pipes.o \
+               smbd/reply.o smbd/sesssetup.o smbd/trans2.o smbd/uid.o \
+	       smbd/dosmode.o smbd/filename.o smbd/open.o smbd/close.o \
+	       smbd/blocking.o smbd/sec_ctx.o smbd/srvstr.o \
+	       smbd/vfs.o smbd/perfcount.o smbd/statcache.o smbd/seal.o \
+               smbd/posix_acls.o lib/sysacls.o \
+	       smbd/process.o smbd/service.o smbd/error.o \
+	       printing/printfsp.o lib/sysquotas.o lib/sysquotas_linux.o \
+	       lib/sysquotas_xfs.o lib/sysquotas_4A.o \
+	       smbd/change_trust_pw.o smbd/fake_file.o \
+	       smbd/quotas.o smbd/ntquotas.o $(AFS_OBJ) smbd/msdfs.o \
+	       $(AFS_SETTOKEN_OBJ) smbd/aio.o smbd/statvfs.o \
+	       smbd/dmapi.o \
+	       smbd/file_access.o \
+	       smbd/dnsregister.o smbd/globals.o \
+	       $(MANGLE_OBJ)  $(VFS_DEFAULT_OBJ)
+
+SMBD_OBJ_BASE = $(PARAM_WITHOUT_REG_OBJ) $(SMBD_OBJ_SRV) $(LIBSMB_OBJ) \
+		$(RPC_SERVER_OBJ) $(RPC_PARSE_OBJ) \
+		$(LOCKING_OBJ) $(PASSDB_OBJ) $(PRINTING_OBJ) $(PROFILE_OBJ) \
+		$(LIB_OBJ) $(PRINTBACKEND_OBJ) $(OPLOCK_OBJ) \
+		$(NOTIFY_OBJ) $(GROUPDB_OBJ) $(AUTH_OBJ) \
+		$(LIBMSRPC_OBJ) $(LIBMSRPC_GEN_OBJ) $(AVAHI_OBJ) \
+		$(LIBADS_OBJ) $(KRBCLIENT_OBJ) $(LIBADS_SERVER_OBJ) \
+		$(REG_FULL_OBJ) $(POPT_LIB_OBJ) $(BUILDOPT_OBJ) \
+		$(SMBLDAP_OBJ) $(LDB_OBJ) $(LIBNET_OBJ) \
+		$(LIBSMBCONF_OBJ) \
+		$(PRIVILEGES_BASIC_OBJ)
+
+PRINTING_OBJ = printing/pcap.o printing/print_svid.o printing/print_aix.o \
+               printing/print_cups.o printing/print_generic.o \
+               printing/lpq_parse.o printing/load.o \
+               printing/print_iprint.o
+
+PRINTBASE_OBJ = printing/notify.o printing/printing_db.o
+PRINTBACKEND_OBJ = printing/printing.o printing/nt_printing.o $(PRINTBASE_OBJ)
+
+SMBD_OBJ = $(SMBD_OBJ_BASE) $(SMBD_OBJ_MAIN)
+
+NMBD_OBJ1 = nmbd/asyncdns.o nmbd/nmbd.o nmbd/nmbd_become_dmb.o \
+            nmbd/nmbd_become_lmb.o nmbd/nmbd_browserdb.o \
+            nmbd/nmbd_browsesync.o nmbd/nmbd_elections.o \
+            nmbd/nmbd_incomingdgrams.o nmbd/nmbd_incomingrequests.o \
+            nmbd/nmbd_lmhosts.o nmbd/nmbd_logonnames.o nmbd/nmbd_mynames.o \
+            nmbd/nmbd_namelistdb.o nmbd/nmbd_namequery.o \
+            nmbd/nmbd_nameregister.o nmbd/nmbd_namerelease.o \
+            nmbd/nmbd_nodestatus.o nmbd/nmbd_packets.o \
+            nmbd/nmbd_processlogon.o nmbd/nmbd_responserecordsdb.o \
+            nmbd/nmbd_sendannounce.o nmbd/nmbd_serverlistdb.o \
+            nmbd/nmbd_subnetdb.o nmbd/nmbd_winsproxy.o nmbd/nmbd_winsserver.o \
+            nmbd/nmbd_workgroupdb.o nmbd/nmbd_synclists.o smbd/connection.o
+
+NMBD_OBJ = $(NMBD_OBJ1) $(PARAM_OBJ) $(LIBSMB_OBJ) $(LDB_OBJ) $(KRBCLIENT_OBJ) \
+           $(PROFILE_OBJ) $(LIB_NONSMBD_OBJ) $(POPT_LIB_OBJ) \
+	   $(LIBNDR_GEN_OBJ0)
+
+SWAT_OBJ1 = web/cgi.o web/diagnose.o web/startstop.o web/statuspage.o \
+           web/swat.o web/neg_lang.o
+
+SWAT_OBJ = $(SWAT_OBJ1) $(PARAM_OBJ) $(PRINTING_OBJ) $(PRINTBASE_OBJ) $(LIBSMB_OBJ) \
+	   $(LOCKING_OBJ) $(PASSDB_OBJ) $(KRBCLIENT_OBJ) \
+	   $(LIB_NONSMBD_OBJ) $(GROUPDB_OBJ) $(PLAINTEXT_AUTH_OBJ) \
+	   $(POPT_LIB_OBJ) $(SMBLDAP_OBJ) $(RPC_PARSE_OBJ) $(LIBMSRPC_GEN_OBJ) $(LIBMSRPC_OBJ) \
+           $(PASSCHANGE_OBJ) $(LDB_OBJ)
+
+STATUS_OBJ = utils/status.o utils/status_profile.o \
+	     $(LOCKING_OBJ) $(PARAM_OBJ) \
+             $(PROFILE_OBJ) $(LIB_NONSMBD_OBJ) $(POPT_LIB_OBJ) \
+	     $(LIBSAMBA_OBJ)
+
+SMBCONTROL_OBJ = utils/smbcontrol.o $(LOCKING_OBJ) $(PARAM_OBJ) \
+	$(PROFILE_OBJ) $(LIB_NONSMBD_OBJ) $(POPT_LIB_OBJ) \
+	$(LIBSAMBA_OBJ) \
+	$(PRINTBASE_OBJ)
+
+SMBTREE_OBJ = utils/smbtree.o $(PARAM_OBJ) \
+             $(PROFILE_OBJ) $(LIB_NONSMBD_OBJ) $(LIBSMB_OBJ) \
+	     $(KRBCLIENT_OBJ) $(POPT_LIB_OBJ) \
+             $(RPC_CLIENT_OBJ) ../librpc/rpc/binding.o $(RPC_PARSE_OBJ2) \
+             $(RPC_CLIENT_OBJ1) \
+	     $(PASSDB_OBJ) $(SMBLDAP_OBJ) $(LDB_OBJ) $(GROUPDB_OBJ) \
+	     $(LIBMSRPC_GEN_OBJ)
+
+TESTPARM_OBJ = utils/testparm.o \
+               $(PARAM_OBJ) $(LIB_NONSMBD_OBJ) $(POPT_LIB_OBJ) \
+	       $(LIBSAMBA_OBJ)
+
+TEST_LP_LOAD_OBJ = param/test_lp_load.o \
+		   $(PARAM_OBJ) $(LIB_NONSMBD_OBJ) \
+		   $(POPT_LIB_OBJ) $(LIBSAMBA_OBJ)
+
+PASSWD_UTIL_OBJ = utils/passwd_util.o
+
+SMBPASSWD_OBJ = utils/smbpasswd.o $(PASSWD_UTIL_OBJ) $(PASSCHANGE_OBJ) \
+		$(PARAM_OBJ) $(LIBSMB_OBJ) $(PASSDB_OBJ) \
+		$(GROUPDB_OBJ) $(LIB_NONSMBD_OBJ) $(KRBCLIENT_OBJ) \
+		$(POPT_LIB_OBJ) $(SMBLDAP_OBJ) $(RPC_PARSE_OBJ) \
+		$(LIBMSRPC_GEN_OBJ) $(LIBMSRPC_OBJ) $(LDB_OBJ)
+
+PDBEDIT_OBJ = utils/pdbedit.o $(PASSWD_UTIL_OBJ) $(PARAM_OBJ) $(PASSDB_OBJ) \
+		$(LIBSAMBA_OBJ) \
+		$(LIB_NONSMBD_OBJ) $(GROUPDB_OBJ) \
+		$(POPT_LIB_OBJ) $(SMBLDAP_OBJ) ../lib/util/asn1.o \
+		$(LDB_OBJ)
+
+SMBGET_OBJ = utils/smbget.o $(POPT_LIB_OBJ) $(LIBSMBCLIENT_OBJ1)
+
+DISPLAY_SEC_OBJ= lib/display_sec.o
+
+RPCCLIENT_OBJ1 = rpcclient/rpcclient.o rpcclient/cmd_lsarpc.o \
+	         rpcclient/cmd_samr.o rpcclient/cmd_spoolss.o \
+		 rpcclient/cmd_netlogon.o rpcclient/cmd_srvsvc.o \
+		 rpcclient/cmd_dfs.o rpcclient/cmd_epmapper.o \
+		 rpcclient/cmd_dssetup.o rpcclient/cmd_echo.o \
+		 rpcclient/cmd_shutdown.o rpcclient/cmd_test.o \
+		 rpcclient/cmd_wkssvc.o rpcclient/cmd_ntsvcs.o \
+		 rpcclient/cmd_drsuapi.o rpcclient/cmd_eventlog.o \
+		 $(DISPLAY_SEC_OBJ)
+
+RPCCLIENT_OBJ = $(RPCCLIENT_OBJ1) \
+             $(PARAM_OBJ) $(LIBSMB_OBJ) $(LIB_NONSMBD_OBJ) \
+             $(RPC_PARSE_OBJ) $(PASSDB_OBJ) $(LIBMSRPC_GEN_OBJ) $(LIBMSRPC_OBJ) \
+             $(READLINE_OBJ) $(GROUPDB_OBJ) $(KRBCLIENT_OBJ) \
+	     $(LIBADS_OBJ) $(POPT_LIB_OBJ) \
+	     $(SMBLDAP_OBJ) $(DCUTIL_OBJ) $(LDB_OBJ) 
+
+PAM_WINBIND_OBJ = ../nsswitch/pam_winbind.o localedir.o $(WBCOMMON_OBJ) \
+		  $(LIBREPLACE_OBJ) $(INIPARSER_OBJ)
+
+LIBSMBCLIENT_OBJ0 = \
+		    libsmb/libsmb_cache.o \
+		    libsmb/libsmb_compat.o \
+		    libsmb/libsmb_context.o \
+		    libsmb/libsmb_dir.o \
+		    libsmb/libsmb_file.o \
+		    libsmb/libsmb_misc.o \
+		    libsmb/libsmb_path.o \
+		    libsmb/libsmb_printjob.o \
+		    libsmb/libsmb_server.o \
+		    libsmb/libsmb_stat.o \
+		    libsmb/libsmb_xattr.o \
+		    libsmb/libsmb_setget.o
+
+LIBSMBCLIENT_OBJ1 = $(LIBSMBCLIENT_OBJ0) \
+		    $(PARAM_OBJ) $(LIB_NONSMBD_OBJ) \
+		    $(LIBSMB_OBJ) $(KRBCLIENT_OBJ) \
+		    $(LIBMSRPC_OBJ) $(LIBMSRPC_GEN_OBJ) $(RPC_PARSE_OBJ) \
+		    $(PASSDB_OBJ) $(SMBLDAP_OBJ) $(GROUPDB_OBJ) $(LDB_OBJ)
+
+LIBSMBCLIENT_OBJ = $(LIBSMBCLIENT_OBJ1)
+
+# This shared library is intended for linking with unit test programs
+# to test Samba internals.  It's called libbigballofmud.so to
+# discourage casual usage.
+
+LIBBIGBALLOFMUD_MAJOR = 0
+
+LIBBIGBALLOFMUD_OBJ = $(PARAM_OBJ) $(LIB_NONSMBD_OBJ) \
+	$(LIBSMB_OBJ) $(LIBMSRPC_OBJ) $(LIBMSRPC_GEN_OBJ) $(RPC_PARSE_OBJ) $(PASSDB_OBJ) \
+	$(GROUPDB_OBJ) $(KRBCLIENT_OBJ) $(SMBLDAP_OBJ) $(LDB_OBJ)
+
+CLIENT_OBJ1 = client/client.o client/clitar.o $(RPC_CLIENT_OBJ) \
+	      ../librpc/rpc/binding.o \
+	      client/dnsbrowse.o \
+	      $(RPC_CLIENT_OBJ1) \
+	      $(RPC_PARSE_OBJ2)
+
+CLIENT_OBJ = $(CLIENT_OBJ1) $(PARAM_OBJ) $(LIBSMB_OBJ) \
+	     $(LIB_NONSMBD_OBJ) $(KRBCLIENT_OBJ) $(LIBMSRPC_GEN_OBJ) \
+             $(READLINE_OBJ) $(POPT_LIB_OBJ) \
+             $(PASSDB_OBJ) $(SMBLDAP_OBJ) $(GROUPDB_OBJ) $(LDB_OBJ) \
+	     $(DISPLAY_SEC_OBJ)
+
+LIBSMBCONF_OBJ = ../lib/smbconf/smbconf.o \
+		 ../lib/smbconf/smbconf_util.o \
+		 ../lib/smbconf/smbconf_txt.o \
+		 lib/smbconf/smbconf_reg.o \
+		 lib/smbconf/smbconf_init.o
+
+SMBCONFTORT_OBJ0 = lib/smbconf/testsuite.o
+
+SMBCONFTORT_OBJ = $(SMBCONFTORT_OBJ0) \
+		  $(LIB_NONSMBD_OBJ) \
+		  $(PARAM_OBJ) \
+		  $(LIBSMB_ERR_OBJ) \
+		  $(POPT_LIB_OBJ)
+
+LIBNET_OBJ = libnet/libnet_join.o \
+	     libnet/libnet_keytab.o \
+	     libnet/libnet_samsync.o \
+	     libnet/libnet_samsync_ldif.o \
+	     libnet/libnet_samsync_passdb.o \
+	     libnet/libnet_samsync_display.o \
+	     libnet/libnet_samsync_keytab.o \
+	     libnet/libnet_dssync.o \
+	     libnet/libnet_dssync_keytab.o \
+	     librpc/gen_ndr/ndr_libnet_join.o
+
+NET_OBJ1 = utils/net.o utils/net_ads.o utils/net_help.o \
+	   utils/net_rap.o utils/net_rpc.o utils/net_rpc_samsync.o \
+	   utils/net_rpc_join.o utils/net_time.o utils/net_lookup.o \
+	   utils/net_cache.o utils/net_groupmap.o utils/net_idmap.o \
+	   utils/net_status.o utils/net_rpc_printer.o utils/net_rpc_rights.o \
+	   utils/net_rpc_service.o utils/net_rpc_registry.o utils/net_usershare.o \
+	   utils/netlookup.o utils/net_sam.o utils/net_rpc_shell.o \
+	   utils/net_util.o utils/net_rpc_sh_acct.o utils/net_rpc_audit.o \
+	   $(PASSWD_UTIL_OBJ) utils/net_dns.o utils/net_ads_gpo.o \
+	   utils/net_conf.o utils/net_join.o utils/net_user.o \
+	   utils/net_group.o utils/net_file.o utils/net_registry.o \
+	   auth/token_util.o utils/net_dom.o utils/net_share.o \
+	   utils/net_eventlog.o
+
+# these are not processed by make proto
+NET_OBJ2 = utils/net_registry_util.o utils/net_help_common.o
+
+NET_OBJ = $(NET_OBJ1) \
+	  $(NET_OBJ2) \
+	  $(PARAM_WITHOUT_REG_OBJ) $(LIBSMB_OBJ) \
+	  $(RPC_PARSE_OBJ) $(PASSDB_OBJ) $(GROUPDB_OBJ) \
+	  $(KRBCLIENT_OBJ) $(LIB_NONSMBD_OBJ) $(LIBADDNS_OBJ0) \
+	  $(LIBMSRPC_OBJ) $(LIBMSRPC_GEN_OBJ) \
+	  $(LIBADS_OBJ) $(LIBADS_SERVER_OBJ) $(POPT_LIB_OBJ) \
+	  $(SMBLDAP_OBJ) $(DCUTIL_OBJ) \
+	  $(AFS_OBJ) $(AFS_SETTOKEN_OBJ) $(READLINE_OBJ) \
+	  $(LDB_OBJ) $(LIBGPO_OBJ) $(INIPARSER_OBJ) $(DISPLAY_SEC_OBJ) \
+	  $(REG_SMBCONF_OBJ) $(LIBNET_OBJ) \
+	  $(LIBSMBCONF_OBJ) \
+	  $(PRIVILEGES_BASIC_OBJ) \
+	  $(LIB_EVENTLOG_OBJ)
+
+CUPS_OBJ = client/smbspool.o $(PARAM_OBJ) $(LIBSMB_OBJ) $(LDB_OBJ) \
+	  $(LIB_NONSMBD_OBJ) $(KRBCLIENT_OBJ) $(POPT_LIB_OBJ) \
+	  $(LIBNDR_GEN_OBJ0)
+
+CIFS_MOUNT_OBJ = client/mount.cifs.o client/mtab.o
+
+CIFS_UMOUNT_OBJ = client/umount.cifs.o client/mtab.o
+
+CIFS_UPCALL_OBJ = client/cifs.upcall.o
+
+NMBLOOKUP_OBJ = utils/nmblookup.o $(PARAM_OBJ) $(LIBNMB_OBJ) \
+               $(LIB_NONSMBD_OBJ) $(POPT_LIB_OBJ) $(LIBSAMBA_OBJ)
+
+SMBTORTURE_OBJ1 = torture/torture.o torture/nbio.o torture/scanner.o torture/utable.o \
+		torture/denytest.o torture/mangle_test.o
+
+SMBTORTURE_OBJ = $(SMBTORTURE_OBJ1) $(PARAM_OBJ) \
+	$(LIBSMB_OBJ) $(LDB_OBJ) $(KRBCLIENT_OBJ) $(LIB_NONSMBD_OBJ) \
+	lib/wb_reqtrans.o lib/wbclient.o \
+	$(LIBNDR_GEN_OBJ0)
+
+MASKTEST_OBJ = torture/masktest.o $(PARAM_OBJ) $(LIBSMB_OBJ) $(LDB_OBJ) $(KRBCLIENT_OBJ) \
+                 $(LIB_NONSMBD_OBJ) \
+		 $(LIBNDR_GEN_OBJ0)
+
+MSGTEST_OBJ = torture/msgtest.o $(PARAM_OBJ) $(LIBSMB_OBJ) $(LDB_OBJ) $(KRBCLIENT_OBJ) \
+                 $(LIB_NONSMBD_OBJ) \
+		 $(LIBNDR_GEN_OBJ0)
+
+LOCKTEST_OBJ = torture/locktest.o $(PARAM_OBJ) $(LOCKING_OBJ) $(KRBCLIENT_OBJ) \
+               $(LIBSMB_OBJ) $(LDB_OBJ) $(LIB_NONSMBD_OBJ) \
+               $(LIBNDR_GEN_OBJ0)
+
+NSSTEST_OBJ = torture/nsstest.o $(PARAM_OBJ) $(LIBSMB_OBJ) $(LDB_OBJ) $(KRBCLIENT_OBJ) \
+                 $(LIB_NONSMBD_OBJ) \
+		 $(LIBNDR_GEN_OBJ0)
+
+PDBTEST_OBJ = torture/pdbtest.o $(PARAM_OBJ) $(LIBSMB_OBJ) $(KRBCLIENT_OBJ) \
+		$(LIB_NONSMBD_OBJ) $(PASSDB_OBJ) $(GROUPDB_OBJ) \
+		$(SMBLDAP_OBJ) $(POPT_LIB_OBJ) $(LDB_OBJ) \
+		$(LIBNDR_GEN_OBJ0)
+
+VFSTEST_OBJ = torture/cmd_vfs.o torture/vfstest.o $(SMBD_OBJ_BASE) $(READLINE_OBJ)
+
+SMBICONV_OBJ = $(PARAM_OBJ) torture/smbiconv.o $(LIB_NONSMBD_OBJ) $(POPT_LIB_OBJ) $(LIBSAMBA_OBJ)
+
+LOG2PCAP_OBJ = utils/log2pcaphex.o
+
+LOCKTEST2_OBJ = torture/locktest2.o $(PARAM_OBJ) $(LOCKING_OBJ) $(LIBSMB_OBJ) $(LDB_OBJ) \
+		$(KRBCLIENT_OBJ) $(LIB_NONSMBD_OBJ) \
+		$(LIBNDR_GEN_OBJ0)
+
+SMBCACLS_OBJ = utils/smbcacls.o $(PARAM_OBJ) $(LIBSMB_OBJ) \
+		$(KRBCLIENT_OBJ) $(LIB_NONSMBD_OBJ) $(RPC_PARSE_OBJ) \
+		$(PASSDB_OBJ) $(GROUPDB_OBJ) $(LIBMSRPC_OBJ) $(LIBMSRPC_GEN_OBJ) \
+		$(POPT_LIB_OBJ) $(DCUTIL_OBJ) $(LIBADS_OBJ) $(SMBLDAP_OBJ) $(LDB_OBJ)
+
+SMBCQUOTAS_OBJ = utils/smbcquotas.o $(LIBSMB_OBJ) $(KRBCLIENT_OBJ) \
+		$(PARAM_OBJ) \
+		$(LIB_NONSMBD_OBJ) $(RPC_PARSE_OBJ) \
+		$(LIBMSRPC_OBJ) $(LIBMSRPC_GEN_OBJ) $(POPT_LIB_OBJ) \
+		$(PASSDB_OBJ) $(SMBLDAP_OBJ) $(GROUPDB_OBJ) $(LDB_OBJ)
+
+EVTLOGADM_OBJ0	= utils/eventlogadm.o
+
+EVTLOGADM_OBJ	= $(EVTLOGADM_OBJ0) $(PARAM_OBJ) $(LIB_NONSMBD_OBJ) \
+		$(LIBSAMBA_OBJ) \
+	        registry/reg_eventlog.o $(LIB_EVENTLOG_OBJ) \
+		../librpc/gen_ndr/ndr_eventlog.o \
+		../librpc/gen_ndr/ndr_lsa.o
+
+SHARESEC_OBJ0 = utils/sharesec.o
+SHARESEC_OBJ  = $(SHARESEC_OBJ0) $(PARAM_OBJ) $(LIB_NONSMBD_OBJ) \
+		$(LIBSAMBA_OBJ) \
+                $(POPT_LIB_OBJ)
+
+TALLOCTORT_OBJ = ../lib/talloc/testsuite.o ../lib/talloc/testsuite_main.o \
+		$(PARAM_OBJ) $(LIB_NONSMBD_OBJ) $(LIBSAMBA_OBJ)
+
+REPLACETORT_OBJ = ./../lib/replace/test/testsuite.o \
+		./../lib/replace/test/getifaddrs.o \
+		./../lib/replace/test/os2_delete.o \
+		./../lib/replace/test/strptime.o \
+		./../lib/replace/test/main.o \
+		$(LIBREPLACE_OBJ)
+
+DEBUG2HTML_OBJ = utils/debug2html.o utils/debugparse.o
+
+SMBFILTER_OBJ = utils/smbfilter.o $(PARAM_OBJ) $(LIBSMB_OBJ) $(LDB_OBJ) \
+                 $(LIB_NONSMBD_OBJ) $(KRBCLIENT_OBJ) \
+		 $(LIBNDR_GEN_OBJ0)
+
+WINBIND_WINS_NSS_OBJ = ../nsswitch/wins.o $(PARAM_OBJ) \
+	$(LIBSMB_OBJ) $(LIB_NONSMBD_OBJ) $(NSSWINS_OBJ) $(KRBCLIENT_OBJ) \
+	$(LIBNDR_GEN_OBJ0) $(LDB_OBJ)
+
+PAM_SMBPASS_OBJ_0 = pam_smbpass/pam_smb_auth.o pam_smbpass/pam_smb_passwd.o \
+		pam_smbpass/pam_smb_acct.o pam_smbpass/support.o
+PAM_SMBPASS_OBJ = $(PAM_SMBPASS_OBJ_0) $(PARAM_OBJ) $(LIB_NONSMBD_OBJ) $(PASSDB_OBJ) $(GROUPDB_OBJ) \
+		$(SMBLDAP_OBJ) $(LIBSAMBA_OBJ) \
+		$(LDB_OBJ)
+
+IDMAP_OBJ     = winbindd/idmap.o winbindd/idmap_util.o  winbindd/idmap_tdb.o winbindd/idmap_passdb.o winbindd/idmap_nss.o
+
+NSS_INFO_OBJ = winbindd/nss_info.o  winbindd/nss_info_template.o
+
+IDMAP_HASH_OBJ = \
+		winbindd/idmap_hash/idmap_hash.o \
+		winbindd/idmap_hash/mapfile.o
+
+IDMAP_ADEX_OBJ = \
+		winbindd/idmap_adex/idmap_adex.o \
+		winbindd/idmap_adex/cell_util.o \
+		winbindd/idmap_adex/likewise_cell.o \
+		winbindd/idmap_adex/provider_unified.o \
+		winbindd/idmap_adex/gc_util.o \
+		winbindd/idmap_adex/domain_util.o
+
+WINBINDD_OBJ1 = \
+		winbindd/winbindd.o       \
+		winbindd/winbindd_user.o  \
+		winbindd/winbindd_group.o \
+		winbindd/winbindd_util.o  \
+		winbindd/winbindd_cache.o \
+		winbindd/winbindd_pam.o   \
+		winbindd/winbindd_sid.o   \
+		winbindd/winbindd_misc.o  \
+		winbindd/winbindd_cm.o    \
+		winbindd/winbindd_wins.o  \
+		winbindd/winbindd_rpc.o   \
+		winbindd/winbindd_reconnect.o \
+		winbindd/winbindd_ads.o   \
+		winbindd/winbindd_passdb.o \
+		winbindd/winbindd_dual.o  \
+		winbindd/winbindd_async.o \
+		winbindd/winbindd_creds.o \
+		winbindd/winbindd_cred_cache.o \
+		winbindd/winbindd_ccache_access.o \
+		winbindd/winbindd_domain.o \
+		winbindd/winbindd_idmap.o \
+		winbindd/winbindd_locator.o \
+		winbindd/winbindd_ndr.o \
+		auth/token_util.o \
+		smbd/connection.o
+
+WINBINDD_OBJ = \
+		$(WINBINDD_OBJ1) $(PASSDB_OBJ) $(GROUPDB_OBJ) \
+		$(PARAM_OBJ) $(LIB_NONSMBD_OBJ) \
+		$(LIBSMB_OBJ) $(LIBMSRPC_OBJ) $(LIBMSRPC_GEN_OBJ) $(RPC_PARSE_OBJ) \
+		$(PROFILE_OBJ) $(SLCACHE_OBJ) $(SMBLDAP_OBJ) \
+		$(LIBADS_OBJ) $(KRBCLIENT_OBJ) $(POPT_LIB_OBJ) \
+		$(DCUTIL_OBJ) $(IDMAP_OBJ) $(NSS_INFO_OBJ) \
+		$(AFS_OBJ) $(AFS_SETTOKEN_OBJ) \
+		$(LIBADS_SERVER_OBJ) $(LDB_OBJ) \
+		$(TDB_VALIDATE_OBJ)
+
+WBINFO_OBJ = ../nsswitch/wbinfo.o $(LIBSAMBA_OBJ) $(PARAM_OBJ) $(LIB_NONSMBD_OBJ) \
+		$(POPT_LIB_OBJ) $(AFS_SETTOKEN_OBJ) \
+		lib/winbind_util.o $(WBCOMMON_OBJ)
+
+WINBIND_NSS_OBJ = $(WBCOMMON_OBJ) $(LIBREPLACE_OBJ) ../nsswitch/winbind_nss_linux.o
+
+LDB_COMMON_OBJ=lib/ldb/common/ldb.o lib/ldb/common/ldb_ldif.o \
+          lib/ldb/common/ldb_parse.o lib/ldb/common/ldb_msg.o lib/ldb/common/ldb_utf8.o \
+          lib/ldb/common/ldb_debug.o lib/ldb/common/ldb_modules.o \
+          lib/ldb/common/ldb_dn.o lib/ldb/common/ldb_match.o lib/ldb/common/ldb_attributes.o \
+          lib/ldb/common/attrib_handlers.o lib/ldb/common/ldb_controls.o lib/ldb/common/qsort.o
+
+LDB_TDB_OBJ=lib/ldb/ldb_tdb/ldb_tdb.o \
+       lib/ldb/ldb_tdb/ldb_pack.o lib/ldb/ldb_tdb/ldb_search.o lib/ldb/ldb_tdb/ldb_index.o \
+       lib/ldb/ldb_tdb/ldb_cache.o lib/ldb/ldb_tdb/ldb_tdb_wrap.o
+
+LDB_MODULES_OBJ=lib/ldb/modules/operational.o lib/ldb/modules/rdn_name.o \
+          lib/ldb/modules/objectclass.o \
+          lib/ldb/modules/paged_results.o lib/ldb/modules/sort.o lib/ldb/modules/asq.o
+
+# enabled in configure.in
+LDB_LDAP_OBJ=
+
+LDB_OBJ = ${LDB_COMMON_OBJ} ${LDB_TDB_OBJ} ${LDB_LDAP_OBJ} ${LDB_MODULES_OBJ}
+
+LDB_CMDLINE_OBJ = $(PARAM_OBJ) \
+	  $(POPT_LIB_OBJ) $(LIB_OBJ) $(LIB_DUMMY_OBJ) $(LIBSMB_ERR_OBJ0) \
+	  $(RPC_PARSE_OBJ1) $(SECRETS_OBJ) \
+	  $(LDB_OBJ) lib/ldb/tools/cmdline.o 
+
+
+LDBEDIT_OBJ = $(LDB_CMDLINE_OBJ) lib/ldb/tools/ldbedit.o
+LDBSEARCH_OBJ = $(LDB_CMDLINE_OBJ) lib/ldb/tools/ldbsearch.o
+LDBADD_OBJ = $(LDB_CMDLINE_OBJ) lib/ldb/tools/ldbadd.o
+LDBDEL_OBJ = $(LDB_CMDLINE_OBJ) lib/ldb/tools/ldbdel.o
+LDBMODIFY_OBJ = $(LDB_CMDLINE_OBJ) lib/ldb/tools/ldbmodify.o
+LDBRENAME_OBJ = $(LDB_CMDLINE_OBJ) lib/ldb/tools/ldbrename.o
+
+WINBIND_KRB5_LOCATOR_OBJ1 = ../nsswitch/winbind_krb5_locator.o
+WINBIND_KRB5_LOCATOR_OBJ = $(WINBIND_KRB5_LOCATOR_OBJ1) $(LIBREPLACE_OBJ)
+
+POPT_OBJ=../lib/popt/findme.o ../lib/popt/popt.o ../lib/popt/poptconfig.o \
+          ../lib/popt/popthelp.o ../lib/popt/poptparse.o
+
+INIPARSER_OBJ = iniparser_build/iniparser.o iniparser_build/dictionary.o \
+		iniparser_build/strlib.o
+
+TDBBACKUP_OBJ = ../lib/tdb/tools/tdbbackup.o $(LIBREPLACE_OBJ) \
+	$(SOCKET_WRAPPER_OBJ)
+
+TDBTOOL_OBJ = ../lib/tdb/tools/tdbtool.o $(LIBREPLACE_OBJ) \
+	$(SOCKET_WRAPPER_OBJ)
+
+TDBDUMP_OBJ = ../lib/tdb/tools/tdbdump.o $(LIBREPLACE_OBJ) \
+	$(SOCKET_WRAPPER_OBJ)
+
+TDBTORTURE_OBJ = ../lib/tdb/tools/tdbtorture.o $(LIBREPLACE_OBJ) \
+	$(SOCKET_WRAPPER_OBJ)
+
+
+NTLM_AUTH_OBJ1 = utils/ntlm_auth.o utils/ntlm_auth_diagnostics.o
+
+NTLM_AUTH_OBJ = ${NTLM_AUTH_OBJ1} $(LIBSAMBA_OBJ) $(POPT_LIB_OBJ) \
+		../lib/util/asn1.o libsmb/spnego.o libsmb/clikrb5.o libads/kerberos.o \
+		$(LIBADS_SERVER_OBJ) \
+		$(PASSDB_OBJ) $(GROUPDB_OBJ) \
+		$(SMBLDAP_OBJ) $(LIBNMB_OBJ) \
+		$(LDB_OBJ) $(WBCOMMON_OBJ) \
+		$(LIBNDR_GEN_OBJ0) $(LIBNDR_GEN_OBJ1)
+
+
+VLP_OBJ1 = printing/tests/vlp.o $(RPC_CLIENT_OBJ1) $(RPC_PARSE_OBJ2) $(RPC_CLIENT_OBJ) ../librpc/rpc/binding.o
+
+VLP_OBJ = $(VLP_OBJ1) $(PARAM_OBJ) $(LIBSMB_OBJ) \
+	  $(LIB_NONSMBD_OBJ) $(KRBCLIENT_OBJ) $(LIBMSRPC_GEN_OBJ) \
+	  $(READLINE_OBJ) $(POPT_LIB_OBJ) \
+	  $(PASSDB_OBJ) $(SMBLDAP_OBJ) $(GROUPDB_OBJ) $(LDB_OBJ) \
+	  $(DISPLAY_SEC_OBJ)
+
+RPC_OPEN_TCP_OBJ = torture/rpc_open_tcp.o \
+		   $(LIBSMB_OBJ) \
+		   $(PARAM_OBJ) \
+		   $(PASSDB_OBJ) \
+		   $(SMBLDAP_OBJ) $(LDB_OBJ) $(GROUPDB_OBJ) \
+		   $(LIB_NONSMBD_OBJ) \
+		   $(KRBCLIENT_OBJ) \
+		   $(RPC_PARSE_OBJ2) \
+		   $(RPC_CLIENT_OBJ1) \
+		   rpc_client/cli_pipe.o \
+		   ../librpc/rpc/binding.o \
+		   $(LIBMSRPC_GEN_OBJ)
+
+DBWRAP_TOOL_OBJ = utils/dbwrap_tool.o \
+		  $(PARAM_OBJ) \
+		  $(LIB_NONSMBD_OBJ) \
+		  $(LIBSAMBA_OBJ)
+
+######################################################################
+# now the rules...
+######################################################################
+all:: SHOWFLAGS basics libs $(SBIN_PROGS) $(BIN_PROGS) $(ROOT_SBIN_PROGS) \
+	$(MODULES) $(NSS_MODULES) $(PAM_MODULES)  \
+	$(EXTRA_ALL_TARGETS)
+
+basics::
+
+nss_modules:: $(NSS_MODULES)
+
+pam_modules:: $(PAM_MODULES)
+
+pam_smbpass: SHOWFLAGS bin/pam_smbpass.so
+
+pam_winbind: SHOWFLAGS bin/pam_winbind.so
+
+gpext_modules:: $(GPEXT_MODULES)
+
+torture:: SHOWFLAGS basics $(TORTURE_PROGS) 
+
+smbtorture : SHOWFLAGS bin/smbtorture
+
+masktest : SHOWFLAGS bin/masktest
+
+msgtest : SHOWFLAGS bin/msgtest
+
+locktest : SHOWFLAGS bin/locktest
+
+smbcacls : SHOWFLAGS bin/smbcacls
+
+smbcquotas : SHOWFLAGS bin/smbcquotas
+
+locktest2 : SHOWFLAGS bin/locktest2
+
+debug2html : SHOWFLAGS bin/debug2html
+
+smbfilter : SHOWFLAGS bin/smbfilter
+
+eventlogadm: SHOWFLAGS bin/eventlogadm
+
+sharesec: SHOWFLAGS bin/sharesec
+
+talloctort : SHOWFLAGS bin/talloctort
+
+replacetort : SHOWFLAGS bin/replacetort
+
+smbconftort : SHOWFLAGS bin/smbconftort
+
+timelimit : SHOWFLAGS bin/timelimit
+
+nsswitch : SHOWFLAGS bin/winbindd bin/wbinfo ../nsswitch/libnss_winbind.so \
+	../nsswitch/libnss_wins.so  \
+	bin/pam_winbind.so bin/smbcontrol
+
+wins : SHOWFLAGS ../nsswitch/libnss_wins.so
+
+modules:: SHOWFLAGS $(MODULES)
+
+#####################################################################
+## Perl IDL Compiler
+samba3-idl::
+	@PIDL_OUTPUTDIR="../librpc/gen_ndr" PIDL_ARGS="$(PIDL_ARGS)" CPP="$(CPP)" PIDL="../pidl/pidl" \
+	 srcdir="$(srcdir)" ../librpc/build_idl.sh ../librpc/idl/*.idl
+	@PIDL_OUTPUTDIR="librpc/gen_ndr" PIDL_ARGS="$(PIDL_ARGS)" CPP="$(CPP)" PIDL="../pidl/pidl" \
+	 srcdir="$(srcdir)" $(srcdir)/script/build_idl.sh \
+	 	librpc/idl/messaging.idl librpc/idl/libnetapi.idl librpc/idl/notify.idl
+
+#####################################################################
+
+
+everything:: all libtalloc libsmbclient libnetapi debug2html smbfilter talloctort replacetort smbconftort modules torture \
+	$(EVERYTHING_PROGS)
+
+.SUFFIXES:
+.SUFFIXES: .c .o .lo
+
+.PHONY: showflags SHOWFLAGS
+
+showflags: SHOWFLAGS
+
+SHOWFLAGS::
+	@echo "Using CFLAGS     = $(CFLAGS)"
+	@echo "      PICFLAG    = $(PICFLAG)"
+	@echo "      LIBS       = $(LIBS)"
+	@echo "      LDFLAGS    = $(LDFLAGS)"
+	@echo "      DYNEXP     = $(DYNEXP)"
+	@echo "      LDSHFLAGS  = $(LDSHFLAGS)"
+	@echo "      SHLIBEXT   = so"
+	@echo "      SONAMEFLAG = -Wl,-soname="
+
+# "showcflags" target for debuggin how CFLAGS are composed:
+
+.PHONY: showcflags SHOWCFLAGS
+
+showcflags: SHOWCFLAGS
+
+SHOWCFLAGS::
+	@echo "CFLAGS         = $(CFLAGS)"
+	@echo "FLAGS          = $(FLAGS)"
+	@echo ""
+	@echo "FLAGS1         =  -I$(srcdir)/iniparser/src"
+	@echo "SAMBA_CPPFLAGS = -Iinclude -I./include  -I. -I. -I./../lib/replace -I./../lib/talloc -I./../lib/tevent -I./../lib/tdb/include -I./libaddns -I./librpc -I./.."
+	@echo "CPPFLAGS       = $(CPPFLAGS)"
+	@echo "ISA            = $(ISA)"
+
+MAKEDIR = || exec false; \
+	  if test -d "$$dir"; then :; else \
+	  echo mkdir "$$dir"; \
+	  mkdir -p "$$dir" >/dev/null 2>&1 || \
+	  test -d "$$dir" || \
+	  mkdir "$$dir" || \
+	  exec false; fi || exec false
+
+# Run a static checker.
+CHECK_CC = $(CC_CHECKER) $(CFLAGS) $(PICFLAG) -c $< -o $@
+# Compile a source file.
+COMPILE_CC = $(CC) $(CFLAGS) $(PICFLAG) -c $< -o $@
+# Compile a source file with the installation paths defined.
+COMPILE_CC_PATH = $(CC) $(PATH_FLAGS) $(CFLAGS) $(PICFLAG) -c $< -o $@
+
+COMPILE = $(COMPILE_CC)
+
+.c.o:
+	@if (: >> $@ || : > $@) >/dev/null 2>&1; then rm -f $@; else \
+	 dir=`echo $@ | sed 's,/[^/]*$$,,;s,^$$,.,'` $(MAKEDIR); fi
+	@if test -n "$(CC_CHECKER)"; then \
+	  echo "Checking  $*.c with '$(CC_CHECKER)'";\
+	  $(CHECK_CC); \
+	 fi
+	@echo Compiling $*.c
+	@$(COMPILE) && exit 0;\
+		echo "The following command failed:" 1>&2;\
+		echo "$(subst ",\",$(COMPILE_CC))" 1>&2;\
+		$(COMPILE_CC) >/dev/null 2>&1
+#	-mv `echo $@ | sed 's%^.*/%%g'` $@
+
+PRECOMPILED_HEADER = $(builddir)/include/includes.h.gch
+
+# this adds support for precompiled headers. To use it, install a snapshot
+# of gcc-3.4 and run 'make pch' before you do the main build.
+pch::
+	rm -f $(PRECOMPILED_HEADER)
+	$(MAKE) $(PRECOMPILED_HEADER)
+
+$(PRECOMPILED_HEADER): $(srcdir)/include/includes.h
+	$(COMPILE)
+
+BINARY_PREREQS = bin/.dummy
+
+# These dependencies are only approximately correct: we want to make
+# sure Samba's paths are updated if ./configure is re-run.  Really it
+# would be nice if "make prefix=/opt/samba all" also rebuilt things,
+# but since we also require "make install prefix=/opt/samba" *not* to
+# rebuild it's a bit hard.
+
+dynconfig.o: dynconfig.c Makefile
+	@echo Compiling $*.c
+	@$(COMPILE_CC_PATH) && exit 0;\
+		echo "The following command failed:" 1>&2;\
+		echo "$(COMPILE_CC_PATH)" 1>&2;\
+		$(COMPILE_CC_PATH) >/dev/null 2>&1
+
+localedir.o: localedir.c Makefile
+	@echo Compiling $*.c
+	@$(COMPILE_CC_PATH) && exit 0;\
+		echo "The following command failed:" 1>&2;\
+		echo "$(COMPILE_CC_PATH)" 1>&2;\
+		$(COMPILE_CC_PATH) >/dev/null 2>&1
+
+lib/pidfile.o: lib/pidfile.c
+	@echo Compiling $*.c
+	@$(COMPILE_CC_PATH) && exit 0;\
+		echo "The following command failed:" 1>&2;\
+		echo "$(COMPILE_CC_PATH)" 1>&2;\
+		$(COMPILE_CC_PATH) >/dev/null 2>&1
+
+lib/version.o: lib/version.c include/version.h
+	@echo Compiling $*.c
+	@$(COMPILE_CC_PATH) && exit 0;\
+		echo "The following command failed:" 1>&2;\
+		echo "$(COMPILE_CC_PATH)" 1>&2;\
+		$(COMPILE_CC_PATH) >/dev/null 2>&1
+
+smbd/build_options.o: smbd/build_options.c Makefile include/config.h include/build_env.h include/proto.h
+	@echo Compiling $*.c
+	@$(COMPILE_CC_PATH) && exit 0;\
+		echo "The following command failed:" 1>&2;\
+		echo "$(COMPILE_CC_PATH)" 1>&2;\
+		$(COMPILE_CC_PATH) >/dev/null 2>&1
+
+smbd/build_options.c: include/config.h.in script/mkbuildoptions.awk
+	@echo Generating $@
+	@dir=smbd $(MAKEDIR) && $(AWK) -f $(srcdir)/script/mkbuildoptions.awk > $(builddir)/smbd/build_options.c < $(srcdir)/include/config.h.in
+
+bin/.dummy:
+	@if (: >> $@ || : > $@) >/dev/null 2>&1; then :; else \
+	  dir=bin $(MAKEDIR); fi
+	@: >> $@ || : > $@ # what a fancy emoticon!
+
+bin/smbd: $(BINARY_PREREQS) $(SMBD_OBJ) bin/libtalloc.so bin/libtdb.so bin/libwbclient.so 
+	@echo Linking $@
+	@$(CC) -o $@ $(SMBD_OBJ) $(LDFLAGS) $(LDAP_LIBS) \
+		$(KRB5LIBS) $(DYNEXP) $(PRINT_LIBS) $(AUTH_LIBS) \
+		$(ACL_LIBS) $(PASSDB_LIBS) $(LIBS) $(DNSSD_LIBS) $(AVAHI_LIBS) \
+		$(POPT_LIBS)  $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) \
+		$(LIBWBCLIENT_LIBS) $(ZLIB_LIBS)
+
+bin/nmbd: $(BINARY_PREREQS) $(NMBD_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(NMBD_OBJ) $(LDFLAGS) $(DYNEXP) $(LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(POPT_LIBS) \
+		$(KRB5LIBS) $(LDAP_LIBS) $(ZLIB_LIBS)
+
+bin/swat: $(BINARY_PREREQS) $(SWAT_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(SWAT_OBJ) $(LDFLAGS) $(DYNEXP) $(PRINT_LIBS) \
+	  $(AUTH_LIBS) $(LIBS) $(PASSDB_LIBS) $(POPT_LIBS) $(KRB5LIBS) \
+	  $(LDAP_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(ZLIB_LIBS)
+
+bin/rpcclient: $(BINARY_PREREQS) $(RPCCLIENT_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDFLAGS) $(RPCCLIENT_OBJ) \
+		$(DYNEXP) $(TERMLDFLAGS) $(TERMLIBS) $(LIBS) $(POPT_LIBS) \
+		$(KRB5LIBS) $(LDAP_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) \
+		$(LIBWBCLIENT_LIBS) $(ZLIB_LIBS) $(PASSDB_LIBS)
+
+bin/smbclient: $(BINARY_PREREQS) $(CLIENT_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(CLIENT_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(TERMLDFLAGS) $(TERMLIBS) $(LIBS) $(POPT_LIBS) \
+		$(KRB5LIBS) $(LDAP_LIBS) $(NSCD_LIBS) $(DNSSD_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(ZLIB_LIBS)
+
+bin/net: $(BINARY_PREREQS) $(NET_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so bin/libnetapi.a
+	@echo Linking $@
+	@$(CC) -o $@ $(NET_OBJ) $(DYNEXP) $(LDFLAGS) $(LIBS) \
+		$(POPT_LIBS) $(KRB5LIBS) $(UUID_LIBS) $(LDAP_LIBS) \
+		$(PASSDB_LIBS) $(TERMLDFLAGS) $(TERMLIBS) $(NSCD_LIBS) \
+		 $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(LIBNETAPI_LIBS) \
+		$(ZLIB_LIBS)
+
+bin/profiles: $(BINARY_PREREQS) $(PROFILES_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(PROFILES_OBJ) $(DYNEXP) $(LDFLAGS) $(LIBS) \
+		$(LDAP_LIBS) $(POPT_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/smbspool: $(BINARY_PREREQS) $(CUPS_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(CUPS_OBJ) $(DYNEXP) $(LDFLAGS) $(LIBS) \
+		$(KRB5LIBS) $(LDAP_LIBS) $(POPT_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(ZLIB_LIBS)
+
+bin/mount.cifs: $(BINARY_PREREQS) $(CIFS_MOUNT_OBJ)
+	@echo Linking $@
+	@$(CC) -o $@ $(CIFS_MOUNT_OBJ) $(DYNEXP) $(LDFLAGS)
+
+bin/umount.cifs: $(BINARY_PREREQS) $(CIFS_UMOUNT_OBJ)
+	@echo Linking $@
+	@$(CC) -o $@ $(CIFS_UMOUNT_OBJ) $(DYNEXP) $(LDFLAGS)
+
+bin/cifs.upcall: $(BINARY_PREREQS) $(CIFS_UPCALL_OBJ) $(LIBSMBCLIENT_OBJ1) bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(CIFS_UPCALL_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBSMBCLIENT_OBJ1) $(LIBS) -lkeyutils $(KRB5LIBS) \
+		$(LDAP_LIBS) $(LIBTALLOC_LIBS) $(LIBWBCLIENT_LIBS) \
+		$(LIBTDB_LIBS) $(NSCD_LIBS)
+
+bin/testparm: $(BINARY_PREREQS) $(TESTPARM_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(TESTPARM_OBJ) $(LDFLAGS) $(DYNEXP) $(LIBS) \
+		$(LDAP_LIBS) $(POPT_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/smbstatus: $(BINARY_PREREQS) $(STATUS_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(STATUS_OBJ) $(LDFLAGS) $(DYNEXP) $(LIBS) \
+		$(LDAP_LIBS) $(POPT_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/smbcontrol: $(BINARY_PREREQS) $(SMBCONTROL_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -DUSING_SMBCONTROL -o $@ \
+		$(SMBCONTROL_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(LDAP_LIBS)  $(POPT_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/smbtree: $(BINARY_PREREQS) $(SMBTREE_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(SMBTREE_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(LIBS) $(POPT_LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(NSCD_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(ZLIB_LIBS)
+
+bin/smbpasswd: $(BINARY_PREREQS) $(SMBPASSWD_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(SMBPASSWD_OBJ) $(LDFLAGS) $(PASSDB_LIBS) \
+		$(DYNEXP) $(LIBS) $(POPT_LIBS) $(KRB5LIBS) $(LDAP_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(ZLIB_LIBS)
+
+bin/pdbedit: $(BINARY_PREREQS) $(PDBEDIT_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(PDBEDIT_OBJ) $(LDFLAGS) $(DYNEXP) $(LIBS) \
+		$(POPT_LIBS) $(PASSDB_LIBS) $(LDAP_LIBS) $(LIBTALLOC_LIBS) \
+		$(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS)
+
+bin/smbget: $(BINARY_PREREQS) $(SMBGET_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(SMBGET_OBJ) $(LDFLAGS) $(DYNEXP) $(LIBS) \
+		$(POPT_LIBS)  $(KRB5LIBS) $(LDAP_LIBS) $(NSCD_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(ZLIB_LIBS)
+
+bin/nmblookup: $(BINARY_PREREQS) $(NMBLOOKUP_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(NMBLOOKUP_OBJ) $(LDFLAGS) $(DYNEXP) $(LIBS) \
+		$(POPT_LIBS) $(LDAP_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/smbtorture: $(BINARY_PREREQS) $(SMBTORTURE_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(SMBTORTURE_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(POPT_LIBS) $(LIBTALLOC_LIBS) \
+		$(LIBTDB_LIBS) $(ZLIB_LIBS) $(LIBWBCLIENT_LIBS)
+
+bin/talloctort: $(BINARY_PREREQS) $(TALLOCTORT_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(TALLOCTORT_OBJ) $(LDFLAGS) \
+		$(DYNEXP) $(LIBS) $(LDAP_LIBS) $(POPT_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/replacetort: $(REPLACETORT_OBJ)  bin/libtalloc.so
+	@echo Linking $@
+	@$(CC) -pie -o $@ $(REPLACETORT_OBJ) $(LDFLAGS) \
+		$(DYNEXP) $(LIBS) $(POPT_LIBS) $(LIBTALLOC_LIBS)
+
+bin/smbconftort: $(SMBCONFTORT_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -pie -o $@ $(SMBCONFTORT_OBJ) $(LDFLAGS) \
+		$(DYNEXP) $(LIBS) $(LDAP_LIBS) $(POPT_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/masktest: $(BINARY_PREREQS) $(MASKTEST_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(MASKTEST_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(POPT_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(ZLIB_LIBS)
+
+bin/msgtest: $(BINARY_PREREQS) $(MSGTEST_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(MSGTEST_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(POPT_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(ZLIB_LIBS)
+
+bin/smbcacls: $(BINARY_PREREQS) $(SMBCACLS_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(SMBCACLS_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(POPT_LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(NSCD_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(ZLIB_LIBS)
+
+bin/smbcquotas: $(BINARY_PREREQS) $(SMBCQUOTAS_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(SMBCQUOTAS_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(POPT_LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(NSCD_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(ZLIB_LIBS)
+
+bin/eventlogadm: $(BINARY_PREREQS) $(EVTLOGADM_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(EVTLOGADM_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(LDAP_LIBS) $(POPT_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/sharesec: $(BINARY_PREREQS) $(SHARESEC_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(SHARESEC_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(LDAP_LIBS) $(POPT_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/locktest: $(BINARY_PREREQS) $(LOCKTEST_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LOCKTEST_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(POPT_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(ZLIB_LIBS)
+
+bin/nsstest: $(BINARY_PREREQS) $(NSSTEST_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(NSSTEST_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(LIBS) $(KRB5LIBS)  $(LDAP_LIBS) $(POPT_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(ZLIB_LIBS)
+
+bin/pdbtest: $(BINARY_PREREQS) $(PDBTEST_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(PDBTEST_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(PASSDB_LIBS) \
+		$(POPT_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(ZLIB_LIBS)
+
+bin/vfstest: $(BINARY_PREREQS) $(VFSTEST_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(VFSTEST_OBJ) $(LDFLAGS) $(TERMLDFLAGS) $(AVAHI_LIBS) \
+		$(TERMLIBS) $(DYNEXP) $(PRINT_LIBS) $(AUTH_LIBS) $(DNSSD_LIBS) \
+		$(ACL_LIBS) $(LIBS) $(POPT_LIBS) $(KRB5LIBS) $(LDAP_LIBS) \
+		 $(NSCD_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) \
+		$(LIBWBCLIENT_LIBS) $(ZLIB_LIBS)
+
+bin/smbiconv: $(BINARY_PREREQS) $(SMBICONV_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(SMBICONV_OBJ) $(LDFLAGS) $(TERMLDFLAGS) \
+		$(TERMLIBS) $(DYNEXP) $(LIBS) $(LDAP_LIBS) $(POPT_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/log2pcap: $(BINARY_PREREQS) $(LOG2PCAP_OBJ)  bin/libtalloc.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LOG2PCAP_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(POPT_LIBS) $(LIBS) $(LIBTALLOC_LIBS)
+
+bin/locktest2: $(BINARY_PREREQS) $(LOCKTEST2_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LOCKTEST2_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(POPT_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(ZLIB_LIBS)
+
+bin/debug2html: $(BINARY_PREREQS) $(DEBUG2HTML_OBJ)  bin/libtalloc.so
+	@echo Linking $@
+	@$(CC) -o $@ $(DEBUG2HTML_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(LIBS) $(LIBTALLOC_LIBS)
+
+bin/smbfilter: $(BINARY_PREREQS) $(SMBFILTER_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(SMBFILTER_OBJ) $(LDFLAGS) $(LIBS) \
+		$(KRB5LIBS) $(LDAP_LIBS) $(POPT_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(ZLIB_LIBS)
+
+bin/ldbedit: $(BINARY_PREREQS) $(LDBEDIT_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDBEDIT_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(POPT_LIBS) $(LDAP_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/ldbsearch: $(BINARY_PREREQS) $(LDBSEARCH_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDBSEARCH_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(POPT_LIBS) $(LDAP_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/ldbadd: $(BINARY_PREREQS) $(LDBADD_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDBADD_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(POPT_LIBS) $(LDAP_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/ldbmodify: $(BINARY_PREREQS) $(LDBMODIFY_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDBMODIFY_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(POPT_LIBS) $(LDAP_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/ldbdel: $(BINARY_PREREQS) $(LDBDEL_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDBDEL_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(POPT_LIBS) $(LDAP_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/ldbrename: $(BINARY_PREREQS) $(LDBRENAME_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) $(FLAGS) -o $@ $(LDBRENAME_OBJ) $(DYNEXP) $(LDFLAGS) \
+		$(LIBS) $(POPT_LIBS) $(LDAP_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/versiontest: $(BINARY_PREREQS) lib/version_test.o $(VERSION_OBJ)
+	@echo Linking $@
+	@$(CC) $(FLAGS) -o $@ $(VERSION_OBJ) lib/version_test.o
+
+
+#####################################################################
+#
+# libraries
+#
+#####################################################################
+
+MKSYMS_SH = $(srcdir)/script/mksyms.sh
+
+
+#-------------------------------------------------------------------
+#
+# libtalloc
+#
+#-------------------------------------------------------------------
+
+
+LIBTALLOC_OBJ0 =  ../lib/talloc/talloc.o
+LIBTALLOC_OBJ = $(LIBTALLOC_OBJ0) $(LIBREPLACE_OBJ)
+
+LIBTALLOC_SHARED_TARGET=bin/libtalloc.so
+LIBTALLOC_SOVER=1
+LIBTALLOC_SHARED_TARGET_SONAME=$(LIBTALLOC_SHARED_TARGET).$(LIBTALLOC_SOVER)
+LIBTALLOC_STATIC_TARGET=bin/libtalloc.a
+LIBTALLOC= bin/libtalloc.so
+LIBTALLOC_SYMS=$(srcdir)/exports/libtalloc.syms
+LIBTALLOC_HEADERS=$(srcdir)/../lib/talloc/talloc.h
+
+$(LIBTALLOC_SYMS): $(LIBTALLOC_HEADERS)
+	@$(MKSYMS_SH) $(AWK) $@ $(LIBTALLOC_HEADERS)
+
+$(LIBTALLOC_SHARED_TARGET_SONAME): $(BINARY_PREREQS) $(LIBTALLOC_OBJ) $(LIBTALLOC_SYMS)
+	@echo Linking shared library $@
+	@$(SHLD_DSO) $(LIBTALLOC_OBJ) -Wl,-soname=`basename $@`
+
+$(LIBTALLOC_SHARED_TARGET): $(LIBTALLOC_SHARED_TARGET_SONAME)
+	@rm -f $@
+	@ln -f -s `basename $(LIBTALLOC_SHARED_TARGET_SONAME)` $@
+
+$(LIBTALLOC_STATIC_TARGET): $(BINARY_PREREQS) $(LIBTALLOC_OBJ0)
+	@echo Linking non-shared library $@
+	@-$(AR) -rc $@ $(LIBTALLOC_OBJ0)
+
+libtalloc: $(LIBTALLOC)
+
+cleanlibtalloc::
+	-rm -f \
+		$(LIBTALLOC_SYMS) \
+		$(LIBTALLOC_STATIC_TARGET) \
+		$(LIBTALLOC_SHARED_TARGET) \
+		$(LIBTALLOC_SHARED_TARGET_SONAME)
+
+installlibtalloc:: installdirs libtalloc
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(LIBDIR)
+	-$(INSTALLLIBCMD_SH) $(LIBTALLOC_SHARED_TARGET_SONAME) $(DESTDIR)$(LIBDIR)
+	@rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBTALLOC_SHARED_TARGET)`
+	-if test -r $(LIBTALLOC_SHARED_TARGET_SONAME) ; then \
+		ln -f -s `basename $(LIBTALLOC_SHARED_TARGET_SONAME)` \
+			$(DESTDIR)$(LIBDIR)/`basename $(LIBTALLOC_SHARED_TARGET)` ; \
+	fi
+	-$(INSTALLLIBCMD_A) $(LIBTALLOC_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBTALLOC_HEADERS) $(DESTDIR)${prefix}/include
+
+uninstalllibtalloc::
+	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBTALLOC_SHARED_TARGET)`
+	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBTALLOC_SHARED_TARGET_SONAME)`
+	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBTALLOC_STATIC_TARGET)`
+	-rm -f $(DESTDIR)${prefix}/include/talloc.h
+
+libs:: libtalloc
+installlibs:: installlibtalloc
+uninstalllibs:: uninstalllibtalloc
+cleanlibs:: cleanlibtalloc
+shlibs test_shlibs: bin/libtalloc.so
+
+showlibtalloc:
+	@echo  ""
+	@echo "LIBTALLOC_SHARED               = bin/libtalloc.so"
+	@echo "LIBTALLOC_STATIC               = "
+	@echo "LIBTALLOC_TARGET               = bin/libtalloc.so"
+	@echo "LIBTALLOC_LIBS                 = $(LIBTALLOC_LIBS)"
+	@echo ""
+	@echo "LIBTALLOC_SHARED_TARGET        = $(LIBTALLOC_SHARED_TARGET)"
+	@echo "LIBTALLOC_SOVER                = $(LIBTALLOC_SOVER)"
+	@echo "LIBTALLOC_SHARED TARGET_SONAME = $(LIBTALLOC_SHARED_TARGET_SONAME)"
+	@echo "LIBTALLOC_STATIC_TARGET        = $(LIBTALLOC_STATIC_TARGET)"
+	@echo "LIBTALLOC                      = $(LIBTALLOC)"
+
+showlibs:: showlibtalloc
+
+#-------------------------------------------------------------------
+#
+# libtdb
+#
+#-------------------------------------------------------------------
+
+LIBTDB_OBJ0 =  ../lib/tdb/common/tdb.o ../lib/tdb/common/dump.o ../lib/tdb/common/transaction.o ../lib/tdb/common/error.o ../lib/tdb/common/traverse.o ../lib/tdb/common/freelist.o ../lib/tdb/common/freelistcheck.o ../lib/tdb/common/io.o ../lib/tdb/common/lock.o ../lib/tdb/common/open.o
+LIBTDB_OBJ = $(LIBTDB_OBJ0) $(LIBREPLACE_OBJ)
+
+LIBTDB_SHARED_TARGET=bin/libtdb.so
+LIBTDB_SOVER=1
+LIBTDB_SHARED_TARGET_SONAME=$(LIBTDB_SHARED_TARGET).$(LIBTDB_SOVER)
+LIBTDB_STATIC_TARGET=bin/libtdb.a
+LIBTDB= bin/libtdb.so
+LIBTDB_SYMS=$(srcdir)/exports/libtdb.syms
+LIBTDB_HEADERS=$(srcdir)/../lib/tdb/include/tdb.h
+
+$(LIBTDB_SYMS): $(LIBTDB_HEADERS)
+	@$(MKSYMS_SH) $(AWK) $@ $(LIBTDB_HEADERS)
+
+$(LIBTDB_SHARED_TARGET_SONAME): $(BINARY_PREREQS) $(LIBTDB_OBJ) $(LIBTDB_SYMS)
+	@echo Linking shared library $@
+	@$(SHLD_DSO) $(LIBTDB_OBJ) \
+		-Wl,-soname=`basename $@`
+
+$(LIBTDB_SHARED_TARGET): $(LIBTDB_SHARED_TARGET_SONAME)
+	@rm -f $@
+	@ln -f -s `basename $(LIBTDB_SHARED_TARGET_SONAME)` $@
+
+$(LIBTDB_STATIC_TARGET): $(BINARY_PREREQS) $(LIBTDB_OBJ0)
+	@echo Linking non-shared library $@
+	@-$(AR) -rc $@ $(LIBTDB_OBJ0)
+
+libtdb: $(LIBTDB)
+
+cleanlibtdb::
+	-rm -f \
+		$(LIBTDB_SYMS) \
+		$(LIBTDB_STATIC_TARGET) \
+		$(LIBTDB_SHARED_TARGET) \
+		$(LIBTDB_SHARED_TARGET_SONAME)
+
+
+installlibtdb:: installdirs libtdb
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(LIBDIR)
+	-$(INSTALLLIBCMD_SH) $(LIBTDB_SHARED_TARGET_SONAME) $(DESTDIR)$(LIBDIR)
+	@rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBTDB_SHARED_TARGET)`
+	-if test -r $(LIBTDB_SHARED_TARGET_SONAME) ; then \
+		ln -f -s `basename $(LIBTDB_SHARED_TARGET_SONAME)` \
+			$(DESTDIR)$(LIBDIR)/`basename $(LIBTDB_SHARED_TARGET)` ; \
+	fi
+	-$(INSTALLLIBCMD_A) $(LIBTDB_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBTDB_HEADERS) $(DESTDIR)${prefix}/include
+
+uninstalllibtdb::
+	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBTDB_SHARED_TARGET)`
+	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBTDB_SHARED_TARGET_SONAME)`
+	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBTDB_STATIC_TARGET)`
+	-rm -f $(DESTDIR)${prefix}/include/tdb.h
+
+libs:: libtdb
+installlibs:: installlibtdb
+uninstalllibs:: uninstalllibtdb
+cleanlibs:: cleanlibtdb
+shlibs test_shlibs: bin/libtdb.so
+
+showlibtdb:
+	@echo  ""
+	@echo "LIBTDB_SHARED               = bin/libtdb.so"
+	@echo "LIBTDB_STATIC               = "
+	@echo "LIBTDB_TARGET               = bin/libtdb.so"
+	@echo "LIBTDB_LIBS                 = $(LIBTDB_LIBS)"
+	@echo ""
+	@echo "LIBTDB_SHARED_TARGET        = $(LIBTDB_SHARED_TARGET)"
+	@echo "LIBTDB_SOVER                = $(LIBTDB_SOVER)"
+	@echo "LIBTDB_SHARED TARGET_SONAME = $(LIBTDB_SHARED_TARGET_SONAME)"
+	@echo "LIBTDB_STATIC_TARGET        = $(LIBTDB_STATIC_TARGET)"
+	@echo "LIBTDB                      = $(LIBTDB)"
+
+showlibs:: showlibtdb
+
+#-------------------------------------------------------------------
+#
+# libwbclient
+#
+#-------------------------------------------------------------------
+
+LIBWBCLIENT_OBJ0 = ../nsswitch/libwbclient/wbclient.o \
+		  ../nsswitch/libwbclient/wbc_util.o \
+		  ../nsswitch/libwbclient/wbc_pwd.o \
+		  ../nsswitch/libwbclient/wbc_idmap.o \
+		  ../nsswitch/libwbclient/wbc_sid.o \
+		  ../nsswitch/libwbclient/wbc_guid.o \
+		  ../nsswitch/libwbclient/wbc_pam.o
+LIBWBCLIENT_OBJ = $(LIBWBCLIENT_OBJ0) \
+		  $(WBCOMMON_OBJ) \
+		  $(LIBREPLACE_OBJ)
+
+LIBWBCLIENT_SHARED_TARGET=bin/libwbclient.so
+LIBWBCLIENT_SOVER=0
+LIBWBCLIENT_SHARED_TARGET_SONAME=$(LIBWBCLIENT_SHARED_TARGET).$(LIBWBCLIENT_SOVER)
+LIBWBCLIENT_STATIC_TARGET=bin/libwbclient.a
+LIBWBCLIENT= bin/libwbclient.so
+LIBWBCLIENT_SYMS=$(srcdir)/exports/libwbclient.syms
+LIBWBCLIENT_HEADERS=$(srcdir)/../nsswitch/libwbclient/wbclient.h
+
+$(LIBWBCLIENT_SYMS): $(LIBWBCLIENT_HEADERS)
+	@$(MKSYMS_SH) $(AWK) $@ $(LIBWBCLIENT_HEADERS)
+
+$(LIBWBCLIENT_SHARED_TARGET_SONAME): $(BINARY_PREREQS) $(LIBWBCLIENT_OBJ) $(LIBWBCLIENT_SYMS) bin/libtalloc.so
+	@echo Linking shared library $@
+	@$(SHLD_DSO) $(LIBTALLOC_LIBS) $(LIBWBCLIENT_OBJ) \
+		-Wl,-soname=`basename $@`
+
+$(LIBWBCLIENT_SHARED_TARGET): $(LIBWBCLIENT_SHARED_TARGET_SONAME)
+	@rm -f $@
+	@ln -f -s `basename $(LIBWBCLIENT_SHARED_TARGET_SONAME)` $@
+
+$(LIBWBCLIENT_STATIC_TARGET): $(BINARY_PREREQS) $(LIBWBCLIENT_OBJ0) $(WBCOMMON_OBJ)
+	@echo Linking non-shared library $@
+	@-$(AR) -rc $@ $(LIBWBCLIENT_OBJ0) $(WBCOMMON_OBJ)
+
+libwbclient: $(LIBWBCLIENT)
+
+cleanlibwbclient::
+	-rm -f \
+		$(LIBWBCLIENT_SYMS) \
+		$(LIBWBCLIENT_STATIC_TARGET) \
+		$(LIBWBCLIENT_SHARED_TARGET) \
+		$(LIBWBCLIENT_SHARED_TARGET_SONAME)
+
+installlibwbclient:: installdirs libwbclient
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(LIBDIR)
+	-$(INSTALLLIBCMD_SH) $(LIBWBCLIENT_SHARED_TARGET_SONAME) $(DESTDIR)$(LIBDIR)
+	@rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBWBCLIENT_SHARED_TARGET)`
+	-if test -r $(LIBWBCLIENT_SHARED_TARGET_SONAME) ; then \
+		ln -f -s `basename $(LIBWBCLIENT_SHARED_TARGET_SONAME)` \
+			$(DESTDIR)$(LIBDIR)/`basename $(LIBWBCLIENT_SHARED_TARGET)` ; \
+	fi
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBWBCLIENT_HEADERS) $(DESTDIR)${prefix}/include
+
+uninstalllibwbclient::
+	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBWBCLIENT_SHARED_TARGET)`
+	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBWBCLIENT_SHARED_TARGET_SONAME)`
+	-rm -f $(DESTDIR)${prefix}/include/wbclient.h
+
+libs:: libwbclient
+installlibs:: installlibwbclient
+uninstalllibs:: uninstalllibwbclient
+cleanlibs:: cleanlibwbclient
+shlibs test_shlibs: bin/libwbclient.so
+
+showlibwbclient:
+	@echo  ""
+	@echo "LIBWBCLIENT_SHARED               = bin/libwbclient.so"
+	@echo "LIBWBCLIENT_STATIC               = "
+	@echo "LIBWBCLIENT_TARGET               = bin/libwbclient.so"
+	@echo "LIBWBCLIENT_LIBS                 = $(LIBWBCLIENT_LIBS)"
+	@echo ""
+	@echo "LIBWBCLIENT_SHARED_TARGET        = $(LIBWBCLIENT_SHARED_TARGET)"
+	@echo "LIBWBCLIENT_SOVER                = $(LIBWBCLIENT_SOVER)"
+	@echo "LIBWBCLIENT_SHARED TARGET_SONAME = $(LIBWBCLIENT_SHARED_TARGET_SONAME)"
+	@echo "LIBWBCLIENT_STATIC_TARGET        = $(LIBWBCLIENT_STATIC_TARGET)"
+	@echo "LIBWBCLIENT                      = $(LIBWBCLIENT)"
+
+showlibs:: showlibwbclient
+
+
+#-------------------------------------------------------------------
+#
+# libaddns
+#
+#-------------------------------------------------------------------
+
+
+LIBADDNS_SHARED_TARGET=bin/libaddns.so
+LIBADDNS_SOVER=0
+LIBADDNS_SHARED_TARGET_SONAME=$(LIBADDNS_SHARED_TARGET).$(LIBADDNS_SOVER)
+LIBADDNS_STATIC_TARGET=bin/libaddns.a
+LIBADDNS=bin/libaddns.a 
+#LIBADDNS_SYMS=$(srcdir)/exports/libaddns.syms
+LIBADDNS_HEADERS=$(srcdir)/libaddns/addns.h
+
+$(LIBADDNS_SHARED_TARGET_SONAME): $(BINARY_PREREQS) $(LIBADDNS_OBJ) bin/libtalloc.so
+	@echo Linking shared library $@
+	@$(SHLD_DSO) $(LIBADDNS_OBJ) $(LIBS) \
+		$(KRB5LIBS) $(UUID_LIBS) $(LIBTALLOC_LIBS) \
+		-Wl,-soname=`basename $@`
+
+$(LIBADDNS_SHARED_TARGET): $(LIBADDNS_SHARED_TARGET_SONAME)
+	@rm -f $@
+	@ln -f -s `basename $(LIBADDNS_SHARED_TARGET_SONAME)` $@
+
+$(LIBADDNS_STATIC_TARGET): $(BINARY_PREREQS) $(LIBADDNS_OBJ0)
+	@echo Linking non-shared library $@
+	@-$(AR) -rc $@ $(LIBADDNS_OBJ0)
+
+libaddns: $(LIBADDNS)
+
+cleanlibaddns::
+	-rm -f \
+		$(LIBADDNS_SHARED_TARGET) \
+		$(LIBADDNS_SHARED_TARGET_SONAME) \
+		$(LIBADDNS_STATIC_TARGET)
+
+installlibaddns:: installdirs libaddns
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(LIBDIR)
+	-$(INSTALLLIBCMD_SH) $(LIBADDNS_SHARED_TARGET_SONAME) $(DESTDIR)$(LIBDIR)
+	@rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBADDNS_SHARED_TARGET)`
+	-if test -r $(LIBADDNS_SHARED_TARGET_SONAME) ; then \
+		ln -f -s `basename $(LIBADDNS_SHARED_TARGET_SONAME)` \
+			$(DESTDIR)$(LIBDIR)/`basename $(LIBADDNS_SHARED_TARGET)` ; \
+	fi
+	-$(INSTALLLIBCMD_A) $(LIBADDNS_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+
+uninstalllibaddns::
+	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBADDNS_SHARED_TARGET_SONAME)`
+	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBADDNS_SHARED_TARGET)`
+	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBADDNS_STATIC_TARGET)`
+
+libs:: libaddns
+installlibs:: 
+uninstalllibs:: 
+cleanlibs:: cleanlibaddns
+shlibs test_shlibs: 
+
+showlibaddns:
+	@echo  ""
+	@echo "LIBADDNS_SHARED               = "
+	@echo "LIBADDNS_STATIC               = bin/libaddns.a"
+	@echo "LIBADDNS_TARGET               = "
+	@echo "LIBADDNS_LIBS                 = $(LIBADDNS_LIBS)"
+	@echo ""
+	@echo "LIBADDNS_SHARED_TARGET        = $(LIBADDNS_SHARED_TARGET)"
+	@echo "LIBADDNS_SOVER                = $(LIBADDNS_SOVER)"
+	@echo "LIBADDNS_SHARED TARGET_SONAME = $(LIBADDNS_SHARED_TARGET_SONAME)"
+	@echo "LIBADDNS_STATIC_TARGET        = $(LIBADDNS_STATIC_TARGET)"
+	@echo "LIBADDNS                      = $(LIBADDNS)"
+
+showlibs:: showlibaddns
+
+#-------------------------------------------------------------------
+#
+# libnetapi
+#
+#-------------------------------------------------------------------
+
+LIBNETAPI_OBJ0 = lib/netapi/netapi.o \
+		 lib/netapi/cm.o \
+		 librpc/gen_ndr/ndr_libnetapi.o \
+		 lib/netapi/libnetapi.o \
+		 lib/netapi/joindomain.o \
+		 lib/netapi/serverinfo.o \
+		 lib/netapi/getdc.o \
+		 lib/netapi/user.o \
+		 lib/netapi/group.o \
+		 lib/netapi/localgroup.o \
+		 lib/netapi/samr.o \
+		 lib/netapi/sid.o \
+		 lib/netapi/share.o \
+		 lib/netapi/file.o \
+		 lib/netapi/shutdown.o
+
+LIBNETAPI_OBJ  = $(LIBNETAPI_OBJ0) $(LIBNET_OBJ) \
+		 $(LIBSMBCONF_OBJ) \
+		 $(REG_SMBCONF_OBJ) \
+		 $(PARAM_WITHOUT_REG_OBJ) $(LIB_NONSMBD_OBJ) \
+		 $(LIBSMB_OBJ) $(KRBCLIENT_OBJ) \
+		 $(LIBMSRPC_OBJ) $(LIBMSRPC_GEN_OBJ) $(RPC_PARSE_OBJ) \
+		 $(PASSDB_OBJ) $(SMBLDAP_OBJ) $(GROUPDB_OBJ) $(LDB_OBJ) \
+		 $(DCUTIL_OBJ) $(LIBADS_OBJ) $(PRIVILEGES_BASIC_OBJ) \
+		 auth/token_util.o
+
+LIBNETAPI_SHARED_TARGET=bin/libnetapi.so
+LIBNETAPI_SOVER=0
+LIBNETAPI_SHARED_TARGET_SONAME=$(LIBNETAPI_SHARED_TARGET).$(LIBNETAPI_SOVER)
+LIBNETAPI_STATIC_TARGET=bin/libnetapi.a
+LIBNETAPI=bin/libnetapi.a bin/libnetapi.so
+LIBNETAPI_SYMS=$(srcdir)/exports/libnetapi.syms
+LIBNETAPI_HEADERS=$(srcdir)/lib/netapi/netapi.h
+
+$(LIBNETAPI_SYMS): $(LIBNETAPI_HEADERS)
+	@$(MKSYMS_SH) $(AWK) $@ $(LIBNETAPI_HEADERS)
+
+$(LIBNETAPI_SHARED_TARGET_SONAME): $(BINARY_PREREQS) $(LIBNETAPI_OBJ) $(LIBNETAPI_SYMS) bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking shared library $@
+	@$(SHLD_DSO) $(LIBNETAPI_OBJ) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(LIBS) \
+		$(LDAP_LIBS) $(KRB5LIBS) $(NSCD_LIBS) \
+		-Wl,-soname=`basename $@`
+
+$(LIBNETAPI_SHARED_TARGET): $(LIBNETAPI_SHARED_TARGET_SONAME)
+	@rm -f $@
+	@ln -f -s `basename $(LIBNETAPI_SHARED_TARGET_SONAME)` $@
+
+$(LIBNETAPI_STATIC_TARGET): $(BINARY_PREREQS) $(LIBNETAPI_OBJ0)
+	@echo Linking non-shared library $@
+	@-$(AR) -rc $@ $(LIBNETAPI_OBJ0)
+
+libnetapi: $(LIBNETAPI)
+
+cleanlibnetapi::
+	-rm -f \
+		$(LIBNETAPI_SYMS) \
+		$(LIBNETAPI_STATIC_TARGET) \
+		$(LIBNETAPI_SHARED_TARGET) \
+		$(LIBNETAPI_SHARED_TARGET_SONAME)
+
+installlibnetapi:: installdirs libnetapi
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(LIBDIR)
+	-$(INSTALLLIBCMD_SH) $(LIBNETAPI_SHARED_TARGET_SONAME) $(DESTDIR)$(LIBDIR)
+	@rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBNETAPI_SHARED_TARGET)`
+	-if test -r $(LIBNETAPI_SHARED_TARGET_SONAME) ; then \
+		ln -f -s `basename $(LIBNETAPI_SHARED_TARGET_SONAME)` \
+			$(DESTDIR)$(LIBDIR)/`basename $(LIBNETAPI_SHARED_TARGET)` ; \
+	fi
+	-$(INSTALLLIBCMD_A) $(LIBNETAPI_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(srcdir)/lib/netapi/netapi.h $(DESTDIR)${prefix}/include
+
+uninstalllibnetapi::
+	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBNETAPI_SHARED_TARGET)`
+	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBNETAPI_SHARED_TARGET_SONAME)`
+	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBNETAPI_STATIC_TARGET)`
+	-rm -f $(DESTDIR)${prefix}/include/netapi.h
+
+libs:: libnetapi
+installlibs:: installlibnetapi
+uninstalllibs:: uninstalllibnetapi
+cleanlibs:: cleanlibnetapi
+shlibs test_shlibs: bin/libnetapi.so
+
+showlibnetapi:
+	@echo  ""
+	@echo "LIBNETAPI_SHARED               = bin/libnetapi.so"
+	@echo "LIBNETAPI_STATIC               = bin/libnetapi.a"
+	@echo "LIBNETAPI_TARGET               = bin/libnetapi.a"
+	@echo "LIBNETAPI_LIBS                 = $(LIBNETAPI_LIBS)"
+	@echo ""
+	@echo "LIBNETAPI_SHARED_TARGET        = $(LIBNETAPI_SHARED_TARGET)"
+	@echo "LIBNETAPI_SOVER                = $(LIBNETAPI_SOVER)"
+	@echo "LIBNETAPI_SHARED TARGET_SONAME = $(LIBNETAPI_SHARED_TARGET_SONAME)"
+	@echo "LIBNETAPI_STATIC_TARGET        = $(LIBNETAPI_STATIC_TARGET)"
+	@echo "LIBNETAPI                      = $(LIBNETAPI)"
+
+showlibs:: showlibnetapi
+
+#-------------------------------------------------------------------
+#
+# libsmbclient
+#
+#-------------------------------------------------------------------
+
+LIBSMBCLIENT_SHARED_TARGET=bin/libsmbclient.so
+LIBSMBCLIENT_SOVER=0
+LIBSMBCLIENT_SHARED_TARGET_SONAME=$(LIBSMBCLIENT_SHARED_TARGET).$(LIBSMBCLIENT_SOVER)
+LIBSMBCLIENT_STATIC_TARGET=bin/libsmbclient.a
+LIBSMBCLIENT=bin/libsmbclient.a bin/libsmbclient.so
+LIBSMBCLIENT_SYMS=$(srcdir)/exports/libsmbclient.syms
+LIBSMBCLIENT_HEADERS=$(srcdir)/include/libsmbclient.h
+
+$(LIBSMBCLIENT_SYMS): $(LIBSMBCLIENT_HEADERS)
+	@$(MKSYMS_SH) $(AWK) $@ $(LIBSMBCLIENT_HEADERS)
+
+$(LIBSMBCLIENT_SHARED_TARGET_SONAME): $(BINARY_PREREQS) $(LIBSMBCLIENT_OBJ) $(LIBSMBCLIENT_SYMS) bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking shared library $@
+	@$(SHLD_DSO) $(LIBSMBCLIENT_OBJ) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) $(LIBS) \
+		$(KRB5LIBS) $(LDAP_LIBS) $(NSCD_LIBS) $(ZLIB_LIBS) \
+		-Wl,-soname=`basename $@`
+
+$(LIBSMBCLIENT_SHARED_TARGET): $(LIBSMBCLIENT_SHARED_TARGET_SONAME)
+	@rm -f $@
+	@ln -s `basename $(LIBSMBCLIENT_SHARED_TARGET_SONAME)` $@
+
+$(LIBSMBCLIENT_STATIC_TARGET): $(BINARY_PREREQS) $(LIBSMBCLIENT_OBJ1)
+	@echo Linking non-shared library $@
+	@-$(AR) -rc $@ $(LIBSMBCLIENT_OBJ1)
+
+libsmbclient: $(LIBSMBCLIENT)
+
+cleanlibsmbclient::
+	-rm -f \
+		$(LIBSMBCLIENT_SHARED_TARGET) \
+		$(LIBSMBCLIENT_SHARED_TARGET_SONAME) \
+		$(LIBSMBCLIENT_STATIC_TARGET)
+
+installlibsmbclient:: installdirs libsmbclient
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(LIBDIR)
+	-$(INSTALLLIBCMD_SH) $(LIBSMBCLIENT_SHARED_TARGET_SONAME) $(DESTDIR)$(LIBDIR)
+	@rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBCLIENT_SHARED_TARGET)`
+	-if test -r $(LIBSMBCLIENT_SHARED_TARGET_SONAME) ; then \
+		ln -f -s `basename $(LIBSMBCLIENT_SHARED_TARGET_SONAME)` \
+			$(DESTDIR)$(LIBDIR)/`basename $(LIBSMBCLIENT_SHARED_TARGET)` ; \
+	fi
+	-$(INSTALLLIBCMD_A) $(LIBSMBCLIENT_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBSMBCLIENT_HEADERS) $(DESTDIR)${prefix}/include
+
+installclientlib:: installlibsmbclient
+
+uninstalllibsmbclient::
+	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBCLIENT_SHARED_TARGET)`
+	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBCLIENT_SHARED_TARGET_SONAME)`
+	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBCLIENT_STATIC_TARGET)`
+	-rm -f $(DESTDIR)${prefix}/include/libsmbclient.h
+
+uninstallclientlib:: uninstalllibsmbclient
+
+libs:: libsmbclient
+installlibs:: installlibsmbclient
+uninstalllibs:: uninstalllibsmbclient
+cleanlibs:: cleanlibsmbclient
+shlibs test_shlibs: bin/libsmbclient.so
+
+showlibsmbclient:
+	@echo  ""
+	@echo "LIBSMBCLIENT_SHARED               = bin/libsmbclient.so"
+	@echo "LIBSMBCLIENT_STATIC               = bin/libsmbclient.a"
+	@echo "LIBSMBCLIENT_TARGET               = bin/libsmbclient.a"
+	@echo "LIBSMBCLIENT_LIBS                 = $(LIBSMBCLIENT_LIBS)"
+	@echo ""
+	@echo "LIBSMBCLIENT_SHARED_TARGET        = $(LIBSMBCLIENT_SHARED_TARGET)"
+	@echo "LIBSMBCLIENT_SOVER                = $(LIBSMBCLIENT_SOVER)"
+	@echo "LIBSMBCLIENT_SHARED TARGET_SONAME = $(LIBSMBCLIENT_SHARED_TARGET_SONAME)"
+	@echo "LIBSMBCLIENT_STATIC_TARGET        = $(LIBSMBCLIENT_STATIC_TARGET)"
+	@echo "LIBSMBCLIENT                      = $(LIBSMBCLIENT)"
+
+showlibs:: showlibsmbclient
+
+#-------------------------------------------------------------------
+#
+# libsmbsharemodes
+#
+#-------------------------------------------------------------------
+
+LIBSMBSHAREMODES_OBJ0 = libsmb/smb_share_modes.o
+
+LIBSMBSHAREMODES_OBJ = $(LIBSMBSHAREMODES_OBJ0)
+
+LIBSMBSHAREMODES_SHARED_TARGET=bin/libsmbsharemodes.so
+LIBSMBSHAREMODES_SOVER=0
+LIBSMBSHAREMODES_SHARED_TARGET_SONAME=$(LIBSMBSHAREMODES_SHARED_TARGET).$(LIBSMBSHAREMODES_SOVER)
+LIBSMBSHAREMODES_STATIC_TARGET=bin/libsmbsharemodes.a
+LIBSMBSHAREMODES=bin/libsmbsharemodes.a bin/libsmbsharemodes.so
+LIBSMBSHAREMODES_SYMS=$(srcdir)/exports/libsmbsharemodes.syms
+LIBSMBSHAREMODES_HEADERS=$(srcdir)/include/smb_share_modes.h
+
+$(LIBSMBSHAREMODES_SYMS): $(LIBSMBSHAREMODES_HEADERS)
+	@$(MKSYMS_SH) $(AWK) $@ $(LIBSMBSHAREMODES_HEADERS)
+
+$(LIBSMBSHAREMODES_SHARED_TARGET_SONAME): $(BINARY_PREREQS) $(LIBSMBSHAREMODES_OBJ) $(LIBSMBSHAREMODES_SYMS) bin/libtalloc.so bin/libtdb.so
+	@echo Linking shared library $@
+	@$(SHLD_DSO) $(LIBSMBSHAREMODES_OBJ) \
+		$(LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) \
+		$(KRB5LIBS) $(LDAP_LIBS) \
+		-Wl,-soname=`basename $@`
+
+$(LIBSMBSHAREMODES_SHARED_TARGET): $(LIBSMBSHAREMODES_SHARED_TARGET_SONAME)
+	@rm -f $@
+	@ln -f -s `basename $(LIBSMBSHAREMODES_SHARED_TARGET_SONAME)` $@
+
+$(LIBSMBSHAREMODES_STATIC_TARGET): $(BINARY_PREREQS) $(LIBSMBSHAREMODES_OBJ0)
+	@echo Linking non-shared library $@
+	@-$(AR) -rc $@ $(LIBSMBSHAREMODES_OBJ0)
+
+libsmbsharemodes: $(LIBSMBSHAREMODES)
+
+cleanlibsmbsharemodes::
+	-rm -f \
+		$(LIBSMBSHAREMODES_SHARED_TARGET) \
+		$(LIBSMBSHAREMODES_SHARED_TARGET_SONAME) \
+		$(LIBSMBSHAREMODES_STATIC_TARGET)
+
+installlibsmbsharemodes:: installdirs libsmbsharemodes
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(LIBDIR)
+	-$(INSTALLLIBCMD_SH) $(LIBSMBSHAREMODES_SHARED_TARGET_SONAME) $(DESTDIR)$(LIBDIR)
+	@rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBSHAREMODES_SHARED_TARGET)`
+	-if test -r $(LIBSMBSHAREMODES_SHARED_TARGET_SONAME) ; then \
+		ln -f -s `basename $(LIBSMBSHAREMODES_SHARED_TARGET_SONAME)` \
+			$(DESTDIR)$(LIBDIR)/`basename $(LIBSMBSHAREMODES_SHARED_TARGET)` ; \
+	fi
+	-$(INSTALLLIBCMD_A) $(LIBSMBSHAREMODES_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBSMBSHAREMODES_HEADERS) $(DESTDIR)${prefix}/include
+
+uninstalllibsmbsharemodes::
+	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBSHAREMODES_SHARED_TARGET)`
+	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBSHAREMODES_SHARED_TARGET_SONAME)`
+	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBSHAREMODES_STATIC_TARGET)`
+	-rm -f $(DESTDIR)${prefix}/include/smb_share_modes.h
+
+libs:: libsmbsharemodes
+installlibs:: installlibsmbsharemodes
+uninstalllibs:: uninstalllibsmbsharemodes
+cleanlibs:: cleanlibsmbsharemodes
+shlibs test_shlibs: bin/libsmbsharemodes.so
+
+showlibsmbsharemodes:
+	@echo  ""
+	@echo "LIBSMBSHAREMODES_SHARED               = bin/libsmbsharemodes.so"
+	@echo "LIBSMBSHAREMODES_STATIC               = bin/libsmbsharemodes.a"
+	@echo "LIBSMBSHAREMODES_TARGET               = bin/libsmbsharemodes.so"
+	@echo "LIBSMBSHAREMODES_LIBS                 = $(LIBSMBSHAREMODES_LIBS)"
+	@echo ""
+	@echo "LIBSMBSHAREMODES_SHARED_TARGET        = $(LIBSMBSHAREMODES_SHARED_TARGET)"
+	@echo "LIBSMBSHAREMODES_SOVER                = $(LIBSMBSHAREMODES_SOVER)"
+	@echo "LIBSMBSHAREMODES_SHARED TARGET_SONAME = $(LIBSMBSHAREMODES_SHARED_TARGET_SONAME)"
+	@echo "LIBSMBSHAREMODES_STATIC_TARGET        = $(LIBSMBSHAREMODES_STATIC_TARGET)"
+	@echo "LIBSMBSHAREMODES                      = $(LIBSMBSHAREMODES)"
+
+showlibs:: showlibsmbsharemodes
+
+#-------------------------------------------------------------------
+#
+# libbigballofmud
+#
+#-------------------------------------------------------------------
+
+# This is probably wrong for anything other than the GNU linker.
+bin/libbigballofmud.so: $(BINARY_PREREQS) $(LIBBIGBALLOFMUD_OBJ) bin/libtalloc.so
+	@echo Linking shared library $@
+	@$(SHLD) $(LDSHFLAGS) -o $@ $(LIBBIGBALLOFMUD_OBJ) \
+		$(LIBS) $(LIBTALLOC_LIBS) \
+		$(PASSDB_LIBS) $(IDMAP_LIBS) $(KRB5LIBS) $(LDAP_LIBS) \
+		-Wl,-soname=`basename $@`.$(LIBBIGBALLOFMUD_MAJOR)
+	ln -snf libbigballofmud.so bin/libbigballofmud.so.0
+
+# It would be nice to build a static bigballofmud too, but when I try
+# I get linker errors about dl_open and similar things.  I'm not sure if
+# it can be fixed or if they just can't be called from a static
+# library.
+
+#####################################################################
+#
+# shared modules
+#
+#####################################################################
+
+# Linker command to link a RPC, VFS, AUTH, CHARSET or PASSDB module.
+SHLD_MODULE = $(SHLD) $(LDSHFLAGS) $(MODULE_EXPORTS) \
+	      -o $@ -Wl,-soname=`basename $@`
+
+bin/librpc_lsarpc.so: $(BINARY_PREREQS) $(RPC_LSA_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_LSA_OBJ)
+
+bin/librpc_samr.so: $(BINARY_PREREQS) $(RPC_SAMR_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_SAMR_OBJ)
+
+bin/librpc_srvsvc.so: $(BINARY_PREREQS) $(RPC_SVC_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_SVC_OBJ)
+
+bin/librpc_svcctl.so: $(BINARY_PREREQS) $(RPC_SVCCTL_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_SVCCTL_OBJ)
+
+bin/librpc_ntsvcs.so: $(BINARY_PREREQS) $(RPC_NTSVCS_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_NTSVCS_OBJ)
+
+bin/librpc_wkssvc.so: $(BINARY_PREREQS) $(RPC_WKS_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_WKS_OBJ)
+
+bin/librpc_NETLOGON.so: $(BINARY_PREREQS) $(RPC_NETLOG_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_NETLOG_OBJ)
+
+bin/librpc_winreg.so: $(BINARY_PREREQS) $(RPC_REG_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_REG_OBJ)
+
+bin/librpc_initshutdown.so: $(BINARY_PREREQS) $(RPC_INITSHUTDOWN_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_INITSHUTDOWN_OBJ)
+
+bin/librpc_dssetup.so: $(BINARY_PREREQS) $(RPC_DSSETUP_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_DSSETUP_OBJ)
+
+bin/librpc_spoolss.so: $(BINARY_PREREQS) $(RPC_SPOOLSS_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_SPOOLSS_OBJ)
+
+bin/librpc_eventlog.so: $(BINARY_PREREQS) $(RPC_EVENTLOG_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_EVENTLOG_OBJ)
+
+bin/librpc_netdfs.so: $(BINARY_PREREQS) $(RPC_DFS_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_DFS_OBJ)
+
+bin/librpc_echo.so: $(BINARY_PREREQS) $(RPC_ECHO_OBJ)
+	@echo "Linking $@"
+	@$(SHLD_MODULE) $(RPC_ECHO_OBJ)
+
+bin/winbindd: $(BINARY_PREREQS) $(WINBINDD_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo "Linking $@"
+	@$(CC) -o $@ $(WINBINDD_OBJ) $(LDFLAGS) $(DYNEXP) $(LIBS) \
+		$(POPT_LIBS) $(KRB5LIBS) $(LDAP_LIBS) \
+		$(PASSDB_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) \
+		$(ZLIB_LIBS)
+
+bin/vlp: $(BINARY_PREREQS) $(VLP_OBJ) bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo "Linking $@"
+	@$(CC) -o $@ $(VLP_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(TERMLDFLAGS) $(TERMLIBS) $(LIBS) $(POPT_LIBS) \
+		$(KRB5LIBS) $(LDAP_LIBS) $(NSCD_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS) \
+		$(ZLIB_LIBS)
+
+../nsswitch/libnss_winbind.so: $(BINARY_PREREQS) $(WINBIND_NSS_OBJ)
+	@echo "Linking $@"
+	@$(SHLD) $(WINBIND_NSS_LDSHFLAGS) -o $@ $(WINBIND_NSS_OBJ) \
+		$(WINBIND_NSS_EXTRA_LIBS) $(WINBIND_NSS_PTHREAD) \
+		-Wl,-soname=`basename $@`.2
+
+../nsswitch/libnss_wins.so: $(BINARY_PREREQS) $(WINBIND_WINS_NSS_OBJ) bin/libtalloc.so bin/libtdb.so
+	@echo "Linking $@"
+	@$(SHLD) $(LDSHFLAGS) -o $@ $(WINBIND_WINS_NSS_OBJ) \
+		$(LDAP_LIBS) $(KRB5LIBS) $(LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) \
+		-Wl,-soname=`basename $@`.2
+
+bin/winbind_krb5_locator.so: $(BINARY_PREREQS) $(WINBIND_KRB5_LOCATOR_OBJ) bin/libwbclient.so
+	@echo "Linking $@"
+	@$(SHLD) $(LDSHFLAGS) -o $@ $(WINBIND_KRB5_LOCATOR_OBJ) $(LIBWBCLIENT_LIBS) \
+		-Wl,-soname=`basename $@`
+
+bin/pam_winbind.so: $(BINARY_PREREQS) $(PAM_WINBIND_OBJ) bin/libtalloc.so bin/libwbclient.so
+	@echo "Linking shared library $@"
+	@$(SHLD) $(LDSHFLAGS) -o $@ $(PAM_WINBIND_OBJ) -lpam  \
+		$(PAM_WINBIND_EXTRA_LIBS) $(LIBTALLOC_LIBS) $(LIBWBCLIENT_LIBS) -Wl,-soname=`basename $@`
+
+bin/builtin.so: $(BINARY_PREREQS) $(AUTH_BUILTIN_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(AUTH_BUILTIN_OBJ)
+
+bin/domain.so: $(BINARY_PREREQS) $(AUTH_DOMAIN_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(AUTH_DOMAIN_OBJ)
+
+bin/script.so: $(BINARY_PREREQS) $(AUTH_SCRIPT_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(AUTH_SCRIPT_OBJ)
+
+bin/netlogond.so: $(BINARY_PREREQS) $(AUTH_NETLOGOND_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(AUTH_NETLOGOND_OBJ)
+
+bin/smbserver.so: $(BINARY_PREREQS) $(AUTH_SERVER_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(AUTH_SERVER_OBJ)
+
+bin/winbind.so: $(BINARY_PREREQS) $(AUTH_WINBIND_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(AUTH_WINBIND_OBJ)
+
+bin/wbc.so: $(BINARY_PREREQS) $(AUTH_WBC_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(AUTH_WBC_OBJ)
+
+bin/unix.so: $(BINARY_PREREQS) $(AUTH_UNIX_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(AUTH_UNIX_OBJ)
+
+bin/sam.so: $(BINARY_PREREQS) $(AUTH_SAM_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(AUTH_SAM_OBJ)
+
+bin/ldapsam.so: $(BINARY_PREREQS) passdb/pdb_ldap.o passdb/pdb_nds.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) passdb/pdb_ldap.o passdb/pdb_nds.o $(LDAP_LIBS)
+
+bin/tdbsam.so: $(BINARY_PREREQS) passdb/pdb_tdb.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) passdb/pdb_tdb.o
+
+bin/wbc_sam.so: $(BINARY_PREREQS) passdb/pdb_wbc_sam.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) passdb/pdb_wbc_sam.o
+
+bin/smbpasswd.so: $(BINARY_PREREQS) passdb/pdb_smbpasswd.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) passdb/pdb_smbpasswd.o
+
+bin/rid.so: $(BINARY_PREREQS) winbindd/idmap_rid.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) winbindd/idmap_rid.o
+
+bin/ad.so: $(BINARY_PREREQS) winbindd/idmap_ad.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) winbindd/idmap_ad.o
+
+bin/hash.so: $(BINARY_PREREQS) $(IDMAP_HASH_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(IDMAP_HASH_OBJ)
+
+bin/adex.so: $(BINARY_PREREQS) $(IDMAP_ADEX_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(IDMAP_ADEX_OBJ)
+
+bin/tdb2.so: $(BINARY_PREREQS) winbindd/idmap_tdb2.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) winbindd/idmap_tdb2.o
+
+bin/ldap.so: $(BINARY_PREREQS) winbindd/idmap_ldap.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) winbindd/idmap_ldap.o
+
+bin/weird.so: $(BINARY_PREREQS) $(DEVEL_HELP_WEIRD_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(DEVEL_HELP_WEIRD_OBJ)
+
+bin/CP850.so: $(BINARY_PREREQS) $(CP850_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(CP850_OBJ)
+
+bin/CP437.so: $(BINARY_PREREQS) $(CP437_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(CP437_OBJ)
+
+bin/macosxfs.so: $(BINARY_PREREQS) $(CHARSET_MACOSXFS_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(CHARSET_MACOSXFS_OBJ) -framework CoreFoundation
+
+# NOTE, there is no build rule for a dynamic default VFS module because
+# this one MUST MUST MUST be built statically.
+
+bin/audit.so: $(BINARY_PREREQS) $(VFS_AUDIT_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_AUDIT_OBJ)
+
+bin/extd_audit.so: $(BINARY_PREREQS) $(VFS_EXTD_AUDIT_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_EXTD_AUDIT_OBJ)
+
+bin/full_audit.so: $(BINARY_PREREQS) $(VFS_FULL_AUDIT_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_FULL_AUDIT_OBJ)
+
+bin/recycle.so: $(BINARY_PREREQS) $(VFS_RECYCLE_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_RECYCLE_OBJ)
+
+bin/netatalk.so: $(BINARY_PREREQS) $(VFS_NETATALK_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_NETATALK_OBJ)
+
+bin/fake_perms.so: $(BINARY_PREREQS) $(VFS_FAKE_PERMS_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_FAKE_PERMS_OBJ)
+
+bin/default_quota.so: $(BINARY_PREREQS) $(VFS_DEFAULT_QUOTA_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_DEFAULT_QUOTA_OBJ)
+
+bin/readonly.so: $(BINARY_PREREQS) $(VFS_READONLY_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_READONLY_OBJ)
+
+bin/shadow_copy.so: $(BINARY_PREREQS) $(VFS_SHADOW_COPY_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_SHADOW_COPY_OBJ)
+
+bin/shadow_copy2.so: $(BINARY_PREREQS) $(VFS_SHADOW_COPY2_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_SHADOW_COPY2_OBJ)
+
+bin/syncops.so: $(BINARY_PREREQS) $(VFS_SYNCOPS_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_SYNCOPS_OBJ)
+
+bin/cap.so: $(BINARY_PREREQS) $(VFS_CAP_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_CAP_OBJ)
+
+bin/expand_msdfs.so: $(BINARY_PREREQS) $(VFS_EXPAND_MSDFS_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_EXPAND_MSDFS_OBJ)
+
+bin/afsacl.so: $(BINARY_PREREQS) $(VFS_AFSACL_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_AFSACL_OBJ)
+
+bin/xattr_tdb.so: $(BINARY_PREREQS) $(VFS_XATTR_TDB_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_XATTR_TDB_OBJ)
+
+bin/posixacl.so: $(BINARY_PREREQS) $(VFS_POSIXACL_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_POSIXACL_OBJ)
+
+bin/aixacl.so: $(BINARY_PREREQS) $(VFS_AIXACL_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_AIXACL_OBJ)
+
+bin/aixacl2.so: $(BINARY_PREREQS) $(VFS_AIXACL2_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_AIXACL2_OBJ)
+
+bin/solarisacl.so: $(BINARY_PREREQS) $(VFS_SOLARISACL_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_SOLARISACL_OBJ)
+
+bin/zfsacl.so: $(BINARY_PREREQS) $(VFS_ZFSACL_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_ZFSACL_OBJ)
+
+bin/irixacl.so: $(BINARY_PREREQS) $(VFS_IRIXACL_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_IRIXACL_OBJ)
+
+bin/hpuxacl.so: $(BINARY_PREREQS) $(VFS_HPUXACL_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_HPUXACL_OBJ)
+
+bin/tru64acl.so: $(BINARY_PREREQS) $(VFS_TRU64ACL_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_TRU64ACL_OBJ)
+
+bin/catia.so: $(BINARY_PREREQS) $(VFS_CATIA_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_CATIA_OBJ)
+
+bin/streams_xattr.so: $(BINARY_PREREQS) $(VFS_STREAMS_XATTR_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_STREAMS_XATTR_OBJ)
+
+bin/streams_depot.so: $(BINARY_PREREQS) $(VFS_STREAMS_DEPOT_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_STREAMS_DEPOT_OBJ)
+
+bin/cacheprime.so: $(BINARY_PREREQS) $(VFS_CACHEPRIME_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_CACHEPRIME_OBJ)
+
+bin/prealloc.so: $(BINARY_PREREQS) $(VFS_PREALLOC_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_PREALLOC_OBJ)
+
+bin/commit.so: $(BINARY_PREREQS) $(VFS_COMMIT_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_COMMIT_OBJ)
+
+bin/gpfs.so: $(BINARY_PREREQS) $(VFS_GPFS_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_GPFS_OBJ)
+
+bin/notify_fam.so: $(BINARY_PREREQS) $(VFS_NOTIFY_FAM_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_NOTIFY_FAM_OBJ) 
+
+bin/readahead.so: $(BINARY_PREREQS) $(VFS_READAHEAD_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_READAHEAD_OBJ)
+
+bin/tsmsm.so: $(BINARY_PREREQS) $(VFS_TSMSM_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_TSMSM_OBJ)
+
+bin/fileid.so: $(BINARY_PREREQS) $(VFS_FILEID_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_FILEID_OBJ)
+
+bin/aio_fork.so: $(BINARY_PREREQS) $(VFS_AIO_FORK_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_AIO_FORK_OBJ)
+
+bin/preopen.so: $(BINARY_PREREQS) $(VFS_PREOPEN_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_PREOPEN_OBJ)
+
+bin/acl_xattr.so: $(BINARY_PREREQS) $(VFS_ACL_XATTR_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_ACL_XATTR_OBJ)
+
+bin/smb_traffic_analyzer.so: $(BINARY_PREREQS) $(VFS_SMB_TRAFFIC_ANALYZER_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_SMB_TRAFFIC_ANALYZER_OBJ)
+
+bin/acl_tdb.so: $(BINARY_PREREQS) $(VFS_ACL_TDB_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_ACL_TDB_OBJ)
+
+bin/onefs.so: $(BINARY_PREREQS) $(VFS_ONEFS_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_ONEFS_OBJ) 
+
+bin/onefs_shadow_copy.so: $(BINARY_PREREQS) $(VFS_ONEFS_SHADOW_COPY_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_ONEFS_SHADOW_COPY_OBJ)
+
+bin/pc_onefs.so: $(BINARY_PREREQS) $(PERFCOUNT_ONEFS_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(PERFCOUNT_ONEFS_OBJ)
+
+bin/pc_test.so: $(BINARY_PREREQS) $(PERFCOUNT_TEST_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(PERFCOUNT_TEST_OBJ)
+
+bin/registry.so: $(BINARY_PREREQS) libgpo/gpext/registry.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) libgpo/gpext/registry.o
+
+bin/scripts.so: $(BINARY_PREREQS) libgpo/gpext/scripts.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) libgpo/gpext/scripts.o
+
+bin/security.so: $(BINARY_PREREQS) libgpo/gpext/security.o
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) libgpo/gpext/security.o
+
+bin/dirsort.so: $(BINARY_PREREQS) $(VFS_DIRSORT_OBJ)
+	@echo "Building plugin $@"
+	@$(SHLD_MODULE) $(VFS_DIRSORT_OBJ)
+
+#########################################################
+## IdMap NSS plugins
+
+## None here right now
+#########################################################
+
+bin/wbinfo: $(BINARY_PREREQS) $(WBINFO_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDFLAGS) $(WBINFO_OBJ) $(DYNEXP) $(LIBS) \
+		$(LDAP_LIBS) $(POPT_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS) \
+		$(LIBWBCLIENT_LIBS)
+
+bin/ntlm_auth: $(BINARY_PREREQS) $(NTLM_AUTH_OBJ) $(PARAM_OBJ) \
+	$(LIB_NONSMBD_OBJ)  bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDFLAGS) $(DYNEXP) $(NTLM_AUTH_OBJ) \
+		$(PARAM_OBJ) $(LIB_NONSMBD_OBJ) $(LIBS) \
+		$(POPT_LIBS) $(KRB5LIBS) $(LDAP_LIBS) $(NSCD_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS)
+
+bin/pam_smbpass.so: $(BINARY_PREREQS) $(PAM_SMBPASS_OBJ) bin/libtalloc.so bin/libwbclient.so bin/libtdb.so
+	@echo "Linking shared library $@"
+	@$(SHLD) $(LDSHFLAGS) -o $@ $(PAM_SMBPASS_OBJ) -lpam $(DYNEXP) \
+		$(LIBS) $(LDAP_LIBS) $(NSCD_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS) $(LIBWBCLIENT_LIBS)
+
+bin/tdbbackup: $(BINARY_PREREQS) $(TDBBACKUP_OBJ) bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDFLAGS) $(TDBBACKUP_OBJ) $(DYNEXP) \
+		$(LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/tdbtool: $(BINARY_PREREQS) $(TDBTOOL_OBJ) bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDFLAGS) $(TDBTOOL_OBJ) $(DYNEXP) \
+		$(LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/tdbdump: $(BINARY_PREREQS) $(TDBDUMP_OBJ) bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDFLAGS) $(TDBDUMP_OBJ) $(DYNEXP) \
+		$(LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/tdbtorture: $(BINARY_PREREQS) $(TDBTORTURE_OBJ) bin/libtalloc.so bin/libtdb.so
+	@echo Linking $@
+	@$(CC) -o $@ $(LDFLAGS) $(TDBTORTURE_OBJ) $(DYNEXP) \
+		$(LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/t_strcmp: $(BINARY_PREREQS) bin/libtalloc.so bin/libbigballofmud.so torture/t_strcmp.o
+	$(CC) -o $@ $(DYNEXP) $(LIBS) $(LIBTALLOC_LIBS) \
+		torture/t_strcmp.o -L ./bin -lbigballofmud
+
+bin/t_strstr: $(BINARY_PREREQS) bin/libtalloc.so bin/libbigballofmud.so torture/t_strstr.o
+	$(CC) -o $@ $(DYNEXP) $(LIBS) $(LIBTALLOC_LIBS) \
+		torture/t_strstr.o -L ./bin -lbigballofmud
+
+bin/t_strappend: $(BINARY_PREREQS) bin/libtalloc.so bin/libbigballofmud.so torture/t_strappend.o
+	$(CC) -o $@ $(DYNEXP) $(LIBS) $(LIBTALLOC_LIBS) \
+		torture/t_strappend.o -L ./bin -lbigballofmud
+
+bin/t_stringoverflow: $(BINARY_PREREQS) bin/libbigballofmud.so torture/t_stringoverflow.o
+	$(CC) -o $@ $(DYNEXP) torture/t_stringoverflow.o \
+		-L./bin -lbigballofmud
+
+bin/timelimit: script/tests/timelimit.o
+	@echo Linking $@
+	@$(CC) -o $@ $(DYNEXP) script/tests/timelimit.o
+
+bin/rpc_open_tcp: $(BINARY_PREREQS) $(RPC_OPEN_TCP_OBJ) bin/libtalloc.so bin/libtdb.so bin/libwbclient.so
+	@echo "Linking $@"
+	@$(CC) -o $@ $(RPC_OPEN_TCP_OBJ) $(LDFLAGS) $(DYNEXP) \
+		$(LIBS) $(LIBTALLOC_LIBS) $(LIBWBCLIENT_LIBS) \
+		$(LDAP_LIBS) $(KRB5LIBS) $(NSCD_LIBS)
+
+bin/test_lp_load: $(BINARY_PREREQS) $(TEST_LP_LOAD_OBJ)  bin/libtalloc.so bin/libtdb.so
+	@echo "Linking $@"
+	@$(CC) -o $@ $(TEST_LP_LOAD_OBJ) \
+		$(LDFLAGS) $(DYNEEXP) $(LIBS) \
+		$(LDAP_LIBS) \
+		$(POPT_LIBS) $(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+bin/dbwrap_tool: $(DBWRAP_TOOL_OBJ) bin/libtalloc.so bin/libtdb.so
+	@echo "Linking $@"
+	@$(CC) -o $@ $(DBWRAP_TOOL_OBJ)\
+		$(LDFLAGS) $(DYNEEXP) $(LIBS) \
+		$(LDAP_LIBS) \
+		$(LIBTALLOC_LIBS) $(LIBTDB_LIBS)
+
+install-dbwrap_tool:: bin/dbwrap_tool
+	@$(SHELL) script/installbin.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(BINDIR) $<
+
+install:: installservers installbin installcifsmount  installman \
+		installscripts installdat installmodules installswat \
+		 installlibs installmo
+
+install-everything:: install installmodules
+
+# DESTDIR is used here to prevent packagers wasting their time
+# duplicating the Makefile. Remove it and you will have the privelege
+# of package each samba release for muliple versions of multiple
+# distributions and operating systems, or at least supplying patches
+# to all the packaging files required for this, prior to committing
+# the removal of DESTDIR. Do not remove it even though you think it
+# is not used
+
+installdirs::
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) \
+		$(DESTDIR) $(prefix) $(BINDIR) $(SBINDIR) $(LIBDIR) \
+		$(VARDIR) $(PRIVATEDIR) $(PIDDIR) $(LOCKDIR) $(STATEDIR) \
+		$(CACHEDIR) $(MANDIR) $(CODEPAGEDIR) $(MODULESDIR) $(LOCALEDIR)
+
+installservers:: all installdirs
+	@$(SHELL) script/installbin.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(SBINDIR) $(SBIN_PROGS)
+
+installbin:: all installdirs
+	@$(SHELL) script/installbin.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(BINDIR) $(BIN_PROGS)
+
+installcifsmount:: bin/mount.cifs bin/umount.cifs
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(ROOTSBINDIR)
+	@$(SHELL) script/installbin.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(ROOTSBINDIR) bin/mount.cifs bin/umount.cifs
+
+installcifsupcall:: 
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(SBINDIR)
+	@$(SHELL) script/installbin.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(SBINDIR) 
+
+# Some symlinks are required for the 'probing' of modules.
+# This mechanism should go at some point..
+installmodules:: modules installdirs
+	@$(SHELL) $(srcdir)/script/installmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(VFSLIBDIR) $(VFS_MODULES)
+	@$(SHELL) $(srcdir)/script/installmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(PDBLIBDIR) $(PDB_MODULES)
+	@$(SHELL) $(srcdir)/script/installmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(RPCLIBDIR) $(RPC_MODULES)
+	@$(SHELL) $(srcdir)/script/installmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(IDMAPLIBDIR) $(IDMAP_MODULES)
+	@$(SHELL) $(srcdir)/script/installmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(NSSINFOLIBDIR) $(NSS_INFO_MODULES)
+	@$(SHELL) $(srcdir)/script/installmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(CHARSETLIBDIR) $(CHARSET_MODULES)
+	@$(SHELL) $(srcdir)/script/installmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(AUTHLIBDIR) $(AUTH_MODULES)
+	@$(SHELL) $(srcdir)/script/installmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(GPEXTLIBDIR) $(GPEXT_MODULES)
+	@$(SHELL) $(srcdir)/script/installmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(PERFCOUNTLIBDIR) $(PERFCOUNT_MODULES)
+	@$(SHELL) $(srcdir)/script/linkmodules.sh $(DESTDIR)$(PDBLIBDIR) ldapsam.so NDS_ldapsam.so
+	@$(SHELL) $(srcdir)/script/linkmodules.sh $(DESTDIR)$(PDBLIBDIR) ldapsam.so NDS_ldapsam_compat.so
+	@$(SHELL) $(srcdir)/script/linkmodules.sh $(DESTDIR)$(PDBLIBDIR) ldapsam.so ldapsam_compat.so
+	@$(SHELL) $(srcdir)/script/linkmodules.sh $(DESTDIR)$(AUTHLIBDIR) rhosts.so hostsequiv.so
+	@$(SHELL) $(srcdir)/script/linkmodules.sh $(DESTDIR)$(AUTHLIBDIR) sam.so sam_ignoredomain.so
+	@$(SHELL) $(srcdir)/script/linkmodules.sh $(DESTDIR)$(AUTHLIBDIR) domain.so trustdomain.so ntdomain.so
+	@$(SHELL) $(srcdir)/script/linkmodules.sh $(DESTDIR)$(AUTHLIBDIR) builtin.so guest.so fixed_challenge.so name_to_ntstatus.so
+	@$(SHELL) $(srcdir)/script/linkmodules.sh $(DESTDIR)$(NSSINFOLIBDIR) ../idmap/ad.so rfc2307.so sfu.so sfu20.so
+	@$(SHELL) $(srcdir)/script/linkmodules.sh $(DESTDIR)$(NSSINFOLIBDIR) ../idmap/adex.so adex.so
+	@$(SHELL) $(srcdir)/script/linkmodules.sh $(DESTDIR)$(NSSINFOLIBDIR) ../idmap/hash.so hash.so
+
+installscripts:: installdirs
+	@$(SHELL) $(srcdir)/script/installscripts.sh $(INSTALLPERMS_BIN) $(DESTDIR)$(BINDIR) $(SCRIPTS)
+
+installdat:: installdirs
+	@$(SHELL) $(srcdir)/script/installdat.sh $(DESTDIR) $(CODEPAGEDIR) $(srcdir)
+
+installmsg:: installdirs
+	@$(SHELL) $(srcdir)/script/installmsg.sh $(DESTDIR) $(CODEPAGEDIR) $(srcdir)
+
+installswat:: installdirs installmsg
+	@$(SHELL) $(srcdir)/script/installswat.sh $(DESTDIR) $(SWATDIR) $(srcdir)
+
+installpammodules:: $(PAM_MODULES)
+	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(PAMMODULESDIR)
+	@for module in $(PAM_MODULES); do \
+		echo "Installing module $${module} as $(DESTDIR)/$(PAMMODULESDIR)/$${module}.so "; \
+		$(INSTALLCMD) -m $(INSTALLPERMS_BIN) bin/$${module}.so \
+			"$(DESTDIR)/$(PAMMODULESDIR)"; \
+	done
+
+# revert to the previously installed version
+revert::
+	@$(SHELL) $(srcdir)/script/revert.sh $(SBINDIR) $(SBIN_PROGS)
+	@$(SHELL) $(srcdir)/script/revert.sh $(BINDIR) $(BIN_PROGS) $(SCRIPTS)
+
+installman:: installdirs
+	@$(SHELL) $(srcdir)/script/installman.sh $(DESTDIR)$(MANDIR) $(srcdir) C ""
+
+installmo:: all installdirs
+	@$(SHELL) $(srcdir)/script/installmo.sh $(DESTDIR) $(LOCALEDIR) $(srcdir)
+
+.PHONY: showlayout
+
+showlayout::
+	@echo "Samba will be installed into:"
+	@echo "  prefix:      $(prefix)"
+	@echo "  bindir:      $(BINDIR)"
+	@echo "  sbindir:     $(SBINDIR)"
+	@echo "  libdir:      $(LIBDIR)"
+	@echo "  modulesdir:  $(MODULESDIR)"
+	@echo "  vardir:      $(VARDIR)"
+	@echo "  mandir:      $(MANDIR)"
+	@echo "  privatedir:  $(PRIVATE_DIR)"
+	@echo "  configdir:   $(CONFIGDIR)"
+	@echo "  lockdir:     $(LOCKDIR)"
+	@echo "  statedir:    $(STATEDIR)"
+	@echo "  cachedir:    $(CACHEDIR)"
+	@echo "  piddir:      $(PIDDIR)"
+	@echo "  swatdir:     $(SWATDIR)"
+	@echo "  codepagedir: $(CODEPAGEDIR)"
+
+
+uninstall:: uninstallmo uninstallman uninstallservers uninstallbin uninstallcifsmount  uninstallscripts uninstalldat uninstallswat uninstallmodules uninstalllibs 
+
+uninstallmo::
+	@$(SHELL) $(srcdir)/script/uninstallmo.sh $(DESTDIR) $(LOCALEDIR) $(srcdir)
+
+uninstallman::
+	@$(SHELL) $(srcdir)/script/uninstallman.sh $(DESTDIR)$(MANDIR) $(srcdir) C
+
+uninstallservers::
+	@$(SHELL) script/uninstallbin.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(SBINDIR) $(SBIN_PROGS)
+
+uninstallbin::
+	@$(SHELL) script/uninstallbin.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(BINDIR) $(BIN_PROGS)
+
+uninstallcifsmount::
+	@$(SHELL) script/uninstallbin.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(ROOTSBINDIR) bin/mount.cifs bin/umount.cifs
+
+uninstallcifsupcall::
+	@$(SHELL) script/uninstallbin.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(ROOTSBINDIR) 
+
+uninstallmodules::
+	@$(SHELL) $(srcdir)/script/uninstallmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(VFSLIBDIR) $(VFS_MODULES)
+	@$(SHELL) $(srcdir)/script/uninstallmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(PDBLIBDIR) $(PDB_MODULES)
+	@$(SHELL) $(srcdir)/script/uninstallmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(RPCLIBDIR) $(RPC_MODULES)
+	@$(SHELL) $(srcdir)/script/uninstallmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(IDMAPLIBDIR) $(IDMAP_MODULES)
+	@$(SHELL) $(srcdir)/script/uninstallmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(CHARSETLIBDIR) $(CHARSET_MODULES)
+	@$(SHELL) $(srcdir)/script/uninstallmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(AUTHLIBDIR) $(AUTH_MODULES)
+	@$(SHELL) $(srcdir)/script/uninstallmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(GPEXTLIBDIR) $(GPEXT_MODULES)
+	@$(SHELL) $(srcdir)/script/uninstallmodules.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(prefix) $(PERFCOUNTLIBDIR) $(PERFCOUNT_MODULES)
+
+uninstallscripts::
+	@$(SHELL) $(srcdir)/script/uninstallscripts.sh $(INSTALLPERMS_BIN) $(DESTDIR)$(BINDIR) $(SCRIPTS)
+
+uninstalldat::
+	@$(SHELL) $(srcdir)/script/uninstalldat.sh $(DESTDIR) $(LIBDIR) $(srcdir)
+
+uninstallmsg::
+	@$(SHELL) $(srcdir)/script/uninstallmsg.sh $(DESTDIR) $(LIBDIR) $(srcdir)
+
+uninstallswat:: uninstallmsg
+	@$(SHELL) $(srcdir)/script/uninstallswat.sh $(DESTDIR) $(SWATDIR) $(srcdir)
+
+uninstallpammodules::
+	@for module in $(PAM_MODULES); do \
+		echo "Removing $(DESTDIR)/$(PAMMODULESDIR)/$${module}.so "; \
+		rm -f "$(DESTDIR)/$(PAMMODULESDIR)/$${module}.so"; \
+	done
+
+# Toplevel clean files
+TOPFILES=dynconfig.o localedir.o
+
+cleanlibs::
+	-rm -f ../lib/*/*.o ../lib/*/*/*.o \
+		../libcli/*.o ../libcli/*/*.o \
+		../librpc/*/*.o
+
+clean:: cleanlibs
+	-rm -f include/build_env.h
+	-rm -f smbd/build_options.c
+	-rm -f $(PRECOMPILED_HEADER)
+	-rm -f core */*~ *~ \
+		*/*.o */*/*.o */*/*/*.o \
+		../testsuite/*/*.o \
+		../nsswitch/*.o ../nsswitch/*/*.o ../nsswitch/*.so \
+		*/*.so */*/*.so */*/*/*.so \
+		$(TOPFILES) $(BIN_PROGS) $(SBIN_PROGS) $(ROOT_SBIN_PROGS) \
+		$(MODULES) $(TORTURE_PROGS) \
+		$(EVERYTHING_PROGS) \
+		bin/timelimit \
+		.headers.stamp */src/*.o
+	-rm -rf t_dir
+
+include/build_env.h: script/build_env.sh
+	@echo Building include/build_env.h
+	@$(SHELL) $(srcdir)/script/build_env.sh $(srcdir) $(builddir) $(CC) \
+	  > $(builddir)/include/build_env.h
+
+proto::
+
+etags::
+	find $(srcdir)/.. -name "*.[ch]" | xargs -n 100 etags --append
+
+ctags::
+	ctags `find $(srcdir)/.. -name "*.[ch]" | grep -v include/proto\.h`
+
+realclean:: clean
+	-rm -f config.log bin/.dummy script/findsmb script/gen-8bit-gap.sh
+	-rm -f script/installbin.sh script/uninstallbin.sh
+
+distclean:: realclean
+	-rm -f smbadduser
+	-rm -f include/config.h Makefile
+	-rm -f config.status config.cache so_locations
+	-rm -rf .deps TAGS
+
+realdistclean:: distclean
+	-rm -f include/config.h.in
+	-rm -f include/version.h
+	-rm -f configure
+
+# this target is really just for my use. It only works on a limited
+# range of machines and is used to produce a list of potentially
+# dead (ie. unused) functions in the code. (tridge)
+finddead::
+	nm */*.o |grep 'U ' | awk '{print $$2}' | sort -u > nmused.txt
+	nm */*.o |grep 'T ' | awk '{print $$3}' | sort -u > nmfns.txt
+	comm -13 nmused.txt nmfns.txt
+
+
+# when configure.in is updated, reconfigure
+$(srcdir)/configure: $(srcdir)/configure.in
+	@echo "WARNING: you need to rerun ./autogen.sh"
+
+config.status: $(srcdir)/configure
+	@echo "WARNING: you need to run ./configure"
+
+Makefile: $(srcdir)/Makefile.in config.status
+	@echo "WARNING: you need to run ./config.status"
+
+######################################################################
+# Samba Testing Framework
+
+# Check shared libs for unresolved symbols
+test_shlibs:
+	@echo "Testing $? "
+	@$(LIB_PATH_VAR)=./bin && \
+	export $(LIB_PATH_VAR) && \
+	for module in $?; do \
+		./script/tests/dlopen.sh $${module} \
+			|| exit 1; \
+	done
+
+# Check for NSS module problems.
+test_nss_modules:: nss_modules
+	@echo "Testing $(NSS_MODULES) "
+	@$(LIB_PATH_VAR)=./bin && \
+	export $(LIB_PATH_VAR) && \
+	for module in $(NSS_MODULES); do \
+		./script/tests/dlopen.sh $${module} \
+			|| exit 1; \
+	done
+
+# Check for PAM module problems.  Specifically, check that every module we
+# built can actually be loaded by a minimal PAM-aware application.
+test_pam_modules:: pam_modules
+	@echo "Testing $(PAM_MODULES) "
+	@$(LIB_PATH_VAR)=./bin && \
+	export $(LIB_PATH_VAR) && \
+	for module in $(PAM_MODULES); do \
+		./script/tests/dlopen.sh -lpam -ldl bin/$${module}.so \
+			|| exit 1; \
+	done
+
+
+##
+## Targets for 'make test'
+##
+
+TEST_EXTRA_ARGS = ${smbtorture4_option} ${selftest_shrdir} ${selftest_custom_conf}
+
+test:: all torture timelimit
+	@echo Running Test suite
+	@LIB_PATH_VAR=$(LIB_PATH_VAR) PERL="$(PERL)" $(srcdir)/script/tests/selftest.sh ${selftest_prefix} all ${TEST_EXTRA_ARGS}
+
+valgrindtest:: all torture timelimit
+	@echo Running Test suite with valgrind
+	@LIB_PATH_VAR=$(LIB_PATH_VAR) \
+	 NMBD_VALGRIND="xterm -n nmbd -e valgrind -q --db-attach=yes --num-callers=30" \
+	 WINBINDD_VALGRIND="xterm -n winbindd -e valgrind -q --db-attach=yes --num-callers=30" \
+	 SMBD_VALGRIND="xterm -n smbd -e valgrind -q --db-attach=yes --num-callers=30" \
+	 VALGRIND="valgrind -q --num-callers=30 --log-file=${selftest_prefix}/valgrind.log" \
+	 PERL="$(PERL)" $(srcdir)/script/tests/selftest.sh ${selftest_prefix} all ${TEST_EXTRA_ARGS}
+
+SELFTEST_FORMAT = plain
+selftestdir = ../selftest
+
+S3_LD_LIBPATH_OVERRIDE = $(LIB_PATH_VAR)="$(builddir)/bin"
+
+selftest:: all torture timelimit
+	@LIB_PATH_VAR=$(LIB_PATH_VAR) $(S3_LD_LIBPATH_OVERRIDE) \
+		SAMBA4SHAREDDIR="$(builddir)/bin/shared" SMBTORTURE4=$(smbtorture4_path) \
+		PERL="$(PERL)" PYTHON="$(PYTHON)" \
+		$(PERL) $(selftestdir)/selftest.pl \
+		--prefix=${selftest_prefix} --target=samba3 \
+		--testlist="$(srcdir)/selftest/tests.sh|" \
+		--expected-failures=$(srcdir)/selftest/knownfail \
+		--exclude=$(srcdir)/selftest/skip \
+		--socket-wrapper $(TESTS) --format=$(SELFTEST_FORMAT) --immediate
+
+selftest-%:
+	$(MAKE) selftest TESTS=$*
+
+# Check for Winbind struct 32/64bit padding
+test_wbpad:
+	@echo "Testing winbind request/response structure for 32/64bit padding"
+	@./script/tests/wb_pad.sh || exit 1;
+
+##
+## Examples:
+##
+
+libsmbclient_examples: libsmbclient
+	$(MAKE) -C ../examples/libsmbclient -f Makefile.internal
+
+clean_libsmbclient_examples:
+	$(MAKE) -C ../examples/libsmbclient -f Makefile.internal clean
+
+libnetapi_examples: libnetapi
+	$(MAKE) -C lib/netapi/examples
+
+clean_libnetapi_examples:
+	$(MAKE) -C lib/netapi/examples clean

@@ -1,0 +1,14 @@
+prefix=/usr/local/samba
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Samba libnetapi
+Description: A library to control CIFS servers
+Version: 0
+URL: http://www.samba.org/
+#Libs: -L${exec_prefix}/lib -lnetapi
+Libs: -lnetapi
+Libs.private: -lnetapi   -lresolv -lresolv -lnsl -ldl
+Cflags: -I${prefix}/include
+
