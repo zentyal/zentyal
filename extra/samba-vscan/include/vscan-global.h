@@ -3,6 +3,8 @@
 
 #include <includes.h>
 
+#include "pstring.h"
+
 #include "vscan-config.h"
 
 #include "vscan-functions.h"
@@ -35,15 +37,15 @@
 */
 
 #ifndef SAMBA_VERSION_MAJOR
-# define SAMBA_VERSION_MAJOR 2
+# define SAMBA_VERSION_MAJOR 3
 #endif
 
 #ifndef SAMBA_VERSION_MINOR
-# define SAMBA_VERSION_MINOR 2 
+# define SAMBA_VERSION_MINOR 4 
 #endif 
 
 #ifndef SAMBA_VERSION_RELEASE
-# define SAMBA_VERSION_RELEASE 8 
+# define SAMBA_VERSION_RELEASE 0
 #endif 
 
 #ifndef SYSLOG_FACILITY
