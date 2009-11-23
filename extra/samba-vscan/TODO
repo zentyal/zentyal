@@ -1,0 +1,32 @@
+TODO
+****
+
+- more testing, esp. in a production environment
+- improve and extend documentation
+- write VFS modules for more virusscanners
+- for speed reasons, scan only a file (again) if its checksum 
+  does not match the stored checksum (i.e. the file has been changed)
+- provide the possibility to run a script if a virus is found (i.e.
+  to generate an alert mail via script)
+- some virus scanners report suspicious files or intended "viruses", which
+  are currently not blocked. If they are blocked or not should be configurable
+  via the config file mentioned above
+- Windows opens file(s) several times, if i.e. a directory is opened in
+  Explorer or being double-clicked. Need a good mechanism to detect this
+  and avoid scanning of the same file several times in a very short period
+  of time. This should be mainly fixed by now, but probably we should hook
+  the VFS write function to delete an entry in the lru file list ...
+- some re-structuring of the code / general code clean-up / security
+  code audit
+- re-write logger function, to be more flexible (i.e. for each
+  class, such as ERROR, INFO, ALERT, be able to specify the
+  SYSLOG_LEVEL)
+- avoid using global vars as much as possible
+- currently, when "quarantine" is selected and quarantining fails, the file
+  left untouched. This may not appropriate in all cases, so make this
+  configurable (quarantining failing, do nothing)
+- improve the renaming of infected files, i.e. 
+  <prefix>-<orig-filename>-<timestamp>
+- put some extra work into the samba-vscan framework and write a
+  developers guide on how to use it to write a new module
+- check if all modules are really LFS-aware!  

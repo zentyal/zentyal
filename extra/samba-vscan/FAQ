@@ -1,0 +1,38 @@
+samba-vscan FAQ
+***************
+
+Q: Does samba-vscan send out notification messages if access to an infected
+   file is denied?
+A: Yes, via the windows messaging service ("winpopup service"), when
+   send warning message = yes is set in the corresponding configuration 
+   file. 
+   Tools like Logcheck (www.psionic.com) or snort (www.snort.org)
+   can be used to generate alerts/notification messages for the admin.
+   You may change SYSLOG_FACILITY and SYSLOG_PRIORITY, used for normal 
+   messages, and SYSLOG_PRIORITY_ALERT for virus messages 
+   (see vscan-<product>.h) to fit your needs.
+
+Q: What happens with infected files?
+A: Depends on the "infected file action" setting in the corresponding 
+   configuration file. An infected file may moved into quarantine, deleted
+   or left untouched.
+
+Q: Using vscan-samba slows down using file shares / connecting to new
+   shares. Why?
+A: Win* uses only one connection for all shares you're connected to. 
+   Therefore a smbd client is forked only once and only one instance of
+   samba-vscan module is created. So, if scanning of a large file takes
+   some time, this process will slow down all shares. See
+   http://marc.theaimsgroup.com/?t=100629451400005&w=2&r=1 for details.
+   I currently have no clue how to avoid this problem :-(
+
+Q: Using this module I can't access any file containing german
+   umlauts or special characters. Why?
+A: When using samba-vscan unicode support seems to be broken. I'm currently
+   not sure if the provided VFS patch break it or if unicode support
+   is broken within the VFS layer in general. 
+   See http://marc.theaimsgroup.com/?t=100662550000001&w=2&r=1 or
+   http://marc.theaimsgroup.com/?l=samba-technical&m=100681100607866&w=2
+   for details. I'm not sure, if this is still valid in  recent Samba 
+   releases, i.e. 2.2.6 (as the time of this writing).
+  

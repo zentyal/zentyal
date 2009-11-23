@@ -1,0 +1,95 @@
+diff -urN samba-2.2.2.orig/examples/VFS/audit.c samba-2.2.2/examples/VFS/audit.c
+--- samba-2.2.2.orig/examples/VFS/audit.c	Sat Oct 13 23:08:56 2001
++++ samba-2.2.2/examples/VFS/audit.c	Fri Nov  2 12:26:28 2001
+@@ -107,11 +107,13 @@
+ /* VFS initialisation function.  Return initialised vfs_ops structure
+    back to SAMBA. */
+ 
+-BOOL vfs_init(connection_struct *conn)
++struct vfs_ops* vfs_init(int* Version, struct vfs_ops *ops)
+ {
+ 	openlog("smbd_audit", LOG_PID, SYSLOG_FACILITY);
+ 	syslog(SYSLOG_PRIORITY, "VFS_INIT: vfs_ops loaded\n");
+-	return True;
++        *Version = SMB_VFS_INTERFACE_VERSION;
++        return (&audit_ops);
++
+ }
+ 
+ /* Implementation of vfs_ops.  Pass everything on to the default
+diff -urN samba-2.2.2.orig/source/Makefile.in samba-2.2.2/source/Makefile.in
+--- samba-2.2.2.orig/source/Makefile.in	Sat Oct 13 23:09:06 2001
++++ samba-2.2.2/source/Makefile.in	Fri Nov  2 12:28:05 2001
+@@ -483,7 +483,7 @@
+ 
+ bin/smbd: $(SMBD_OBJ) bin/.dummy
+ 	@echo Linking $@
+-	@$(CC) $(FLAGS) -o $@ $(SMBD_OBJ) $(LDFLAGS) $(LIBS) 
++	@$(CC) $(FLAGS) -rdynamic -o $@ $(SMBD_OBJ) $(LDFLAGS) $(LIBS) 
+ 
+ bin/nmbd: $(NMBD_OBJ) bin/.dummy
+ 	@echo Linking $@
+diff -urN samba-2.2.2.orig/source/include/proto.h samba-2.2.2/source/include/proto.h
+--- samba-2.2.2.orig/source/include/proto.h	Sat Oct 13 23:09:22 2001
++++ samba-2.2.2/source/include/proto.h	Fri Nov  2 12:28:48 2001
+@@ -4467,7 +4467,7 @@
+ 
+ /*The following definitions come from  smbd/vfs.c  */
+ 
+-BOOL vfs_init(connection_struct *conn);
++BOOL smbd_vfs_init(connection_struct *conn);
+ BOOL vfs_directory_exist(connection_struct *conn, char *dname, SMB_STRUCT_STAT *st);
+ int vfs_mkdir(connection_struct *conn, char *fname, mode_t mode);
+ char *vfs_getwd(connection_struct *conn, char *unix_path);
+diff -urN samba-2.2.2.orig/source/msdfs/msdfs.c samba-2.2.2/source/msdfs/msdfs.c
+--- samba-2.2.2.orig/source/msdfs/msdfs.c	Sat Oct 13 23:09:28 2001
++++ samba-2.2.2/source/msdfs/msdfs.c	Fri Nov  2 12:31:25 2001
+@@ -89,7 +89,7 @@
+ 	conn->service = snum;
+ 	conn->connectpath = lp_pathname(snum);
+ 
+-	if (!vfs_init(conn)) {
++	if (!smbd_vfs_init(conn)) {
+ 		DEBUG(0,("create_conn_struct: vfs init failed.\n"));
+ 		return False;
+ 	}
+diff -urN samba-2.2.2.orig/source/smbd/service.c samba-2.2.2/source/smbd/service.c
+--- samba-2.2.2.orig/source/smbd/service.c	Sat Oct 13 23:09:41 2001
++++ samba-2.2.2/source/smbd/service.c	Fri Nov  2 12:31:59 2001
+@@ -526,7 +526,7 @@
+ 	}
+ 	/* Initialise VFS function pointers */
+ 
+-	if (!vfs_init(conn)) {
++	if (!smbd_vfs_init(conn)) {
+ 		DEBUG(0, ("vfs_init failed for service %s\n", lp_servicename(SNUM(conn))));
+ 		yield_connection(conn, lp_servicename(SNUM(conn)), lp_max_connections(SNUM(conn)));
+ 		conn_free(conn);
+diff -urN samba-2.2.2.orig/source/smbd/vfs.c samba-2.2.2/source/smbd/vfs.c
+--- samba-2.2.2.orig/source/smbd/vfs.c	Sat Oct 13 23:09:42 2001
++++ samba-2.2.2/source/smbd/vfs.c	Fri Nov  2 12:33:16 2001
+@@ -266,7 +266,7 @@
+  Generic VFS init.
+ ******************************************************************/
+ 
+-BOOL vfs_init(connection_struct *conn)
++BOOL smbd_vfs_init(connection_struct *conn)
+ {
+ 	if (*lp_vfsobj(SNUM(conn))) {
+ #ifdef HAVE_LIBDL
+@@ -274,13 +274,13 @@
+ 		/* Loadable object file */
+  
+ 		if (!vfs_init_custom(conn)) {
+-			DEBUG(0, ("vfs_init: vfs_init_custom failed\n"));
++			DEBUG(0, ("smbd_vfs_init: vfs_init_custom failed\n"));
+ 			return False;
+ 		}
+ 
+ 		return True;
+ #else
+-		DEBUG(0, ("vfs_init: No libdl present - cannot use VFS objects\n"));
++		DEBUG(0, ("smbd_vfs_init: No libdl present - cannot use VFS objects\n"));
+ 		return False;
+ #endif
+ 	}

@@ -1,0 +1,111 @@
+[samba-vscan 0.3.3beta1]
+* updates for libmskd by Daruisz Markowicz
+* vscan-fprotd has now support for connecting to F-Prot Daemon in 
+  a specified port range (i.e. 10200 up to 10204)
+* the default value to be compiled for is now Samba 2.2.8  
+* extended error messages when connection to anti-virus daemon failed
+* fixed same issues which might cause problems with long pathnames
+  (> 256 chars)
+* documentation updated to reflect recent changes
+
+[samba-vscan 0.3.2b]
+* bugfix for F-Prot Daemon und OAV (handling of long file names)
+* make it compile with Samba < 2.2.4 versions
+
+[samba-vscan 0.3.2a]
+* bugfix release for the KAV module
+
+[samba-vscan 0.3.2]
+* added a very basic ICAP client for use with Symantec AntiVirus Engine 4.x 
+* added a mechanism to avoid scanning of the same file multiples times in
+  a very short period of time (i.e. when user double-clicks a file)
+* bugfix for F-Prot module (scanning of files containing space(s) is now
+  possible)
+* updated for mks. It uses now a library by MkS, licensed under the terms
+  of the LGPL. Thanks to Dariusz Markowicz for the patch. 
+* updated documentation
+
+[samba-vscan 0.3.1]
+* virus notification via windows winpopup service
+* an infected file can now be either deleted, moved into quarantine
+  or left untouched
+* various smaller enhancements and bugfixes
+* code re-organisation for a better re-use of code. The aim is to have
+  sooner or later some kind of a framework to be able to write new
+  modules very easily
+* informational messages will be logged using the INFO tag
+* documentation updated to reflect recent changes
+
+[samba-vscan 0.3.0]
+* Symantec support has been removed due to licensing issues (linking GPL-
+  code against non-GPL library)
+* the Sophos and Trend Module has been re-written to use Sophie and
+  Trophie (see http://www.vanja.com/tools/) to avoid licensing issues
+  as mentioned above
+* added support for the recent Samba 3.0 alpha releases
+* added the possiblilty to use a run-time, samba-stylish configuration file
+  on a per share basis (via "vfs options" setting in smb.conf), requires 
+  recent Samba 2.2.x or Samba 3.0 (alpha)
+* for better (automatic) log checking, error messages start with the
+  ERROR tag, virus messages start with the ALERT tag
+* the client IP of the client maschine, retrieving/storing an infected
+  file will be logged in the virus alert message
+* improved init message, to see for which Samba release a module was 
+  compile for (helps /me when doing end-user support :))
+* documentation has been rewritten 
+
+
+[samba-vscan 0.2.5]
+* virus scanning on close can now performed, too
+* if virus scanning on open or on close (or both) should be performed 
+  is now configurable at compile time
+* if the VFS module can not communicate to the virus scanning daemon
+  or initialisation of the used virus scanning API fails, it's possible 
+  now to deny access to a file just being opened because virus scanning
+  can not performed in such a case. This is configurable at compile time
+
+[samba-vscan 0.2.5 beta2]
+* use stat() provided by Samba, not directly the stat() of libc
+* use ANSI C lib functions to communicate with ScannerDaemon and F-Prot
+  Daemon
+* added support for mks32
+
+[samba-vscan 0.2.5 beta1]
+* make it compile with Samba 2.2 CVS (i.e. the upconing 2.4.4 release)
+
+[samba-vscan 0.2.4]
+* added support for OpenAntiVirus.org ScannerDaemon
+* added support for F-Prot Daemon
+
+[samba-vscan 0.2.3]
+* added support for Symantec CarrierScan
+* added support for Kaspersky AntiVirus
+
+[samba-vscan 0.2.2]
+* some clean-ups of header files to make it compile on *BSD systems
+  (at least FreeBSD)
+
+[samba-vscan 0.2.1]
+* make it work on Samba 2.2.3(a) 
+* set errno to EACCES
+
+[samba-vscan 0.2.0]
+* added support for Samba 3.0
+* files bigger than a certain file size can now be excluded from scanning
+* don't try to scan directories (this seemed to happen only with Win* clients)
+
+[samba-vscan 0.1.1]
+* bugfix release
+
+[samba-vscan 0.1.0]
+* moved vscan-trophie and vscan-sophie to old/, as we use VSAPI / VSAPI
+  now directly. This avoids timeout problems.
+* improved documentation
+* this release is expected to be stable :-)
+
+[samba-vscan 0.0.2]
+* added vscan-trophie
+* VFS modules work now with Samba 2.2.0, 2.2.1 and 2.2.2
+
+[samba-vscan 0.0.1]
+* initial release

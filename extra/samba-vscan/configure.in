@@ -1,0 +1,755 @@
+dnl -*- mode: m4-mode -*-
+dnl Process this file with autoconf to produce a configure script.
+#
+# $Id: configure.in,v 1.19 2003/08/07 22:49:13 mx2002 Exp $
+#
+dnl We must use autotools 2.53 or above
+AC_PREREQ(2.53)
+AC_INIT(Makefile.in)
+
+dnl In vscan-config.h you got information of Samba's version
+AC_CONFIG_HEADER(include/vscan-config.h)
+dnl To make sure that didn't get #define PACKAGE_* in vscan-config.h
+
+
+################################################
+# samba-vscan VERSION
+PKG_NAME=`sed -n 's/^PKG_NAME=//p' $srcdir/VERSION`
+PKG_HOME_URL=`sed -n 's/^PKG_HOME_URL=//p' $srcdir/VERSION`
+PKG_COMPILE_TIME=`LC_TIME= /bin/date`
+PKG_REL_DATE=`sed -n 's/^PKG_REL_DATE=//p' $srcdir/VERSION`
+
+PKG_MAJOR=`sed -n 's/^PKG_MAJOR=//p' $srcdir/VERSION`
+PKG_MINOR=`sed -n 's/^PKG_MINOR=//p' $srcdir/VERSION`
+PKG_RELEASE=`sed -n 's/^PKG_RELEASE=//p' $srcdir/VERSION`
+
+PKG_VERSION_PREFIX=`sed -n 's/^PKG_VERSION_PREFIX=//p' $srcdir/VERSION`
+PKG_VERSION_SUFFIX=`sed -n 's/^PKG_VERSION_SUFFIX=//p' $srcdir/VERSION`
+PKG_VENDOR_SUFFIX=`sed -n 's/^PKG_VENDOR_SUFFIX=//p' $srcdir/VERSION`
+
+PKG_ALPHA_RELEASE=`sed -n 's/^PKG_ALPHA_RELEASE=//p' $srcdir/VERSION`
+PKG_BETA_RELEASE=`sed -n 's/^PKG_BETA_RELEASE=//p' $srcdir/VERSION`
+PKG_CVS_SNAPSHOT=`sed -n 's/^PKG_CVS_SNAPSHOT=//p' $srcdir/VERSION`
+
+if test -n "$PKG_BETA_RELEASE"; then
+    PKG_SUBRELEASE="beta${PKG_BETA_RELEASE}"
+elif test -n "$PKG_ALPHA_RELEASE"; then
+    PKG_SUBRELEASE="alpha${PKG_ALPHA_RELEASE}"
+fi
+
+if test x"$PKG_CVS_SNAPSHOT" = x"yes"; then
+    PKG_SUBRELEASE="${PKG_SUBRELEASE}cvs"
+fi
+
+PKG_VERSION="$PKG_VERSION_PREFIX$PKG_MAJOR.$PKG_MINOR.$PKG_RELEASE$PKG_SUBRELEASE$PKG_VERSION_SUFFIX$PKG_VENDOR_SUFFIX"
+
+AC_DEFINE_UNQUOTED(SAMBA_VSCAN_NAME,"$PKG_NAME",[SAMBA_VSCAN_NAME])
+AC_DEFINE_UNQUOTED(SAMBA_VSCAN_HOME_URL,"$PKG_HOME_URL",[SAMBA_VSCAN_HOME_URL])
+AC_DEFINE_UNQUOTED(SAMBA_VSCAN_RELEASE_DATE,"$PKG_REL_DATE",[SAMBA_VSCAN_RELEASE_DATE])
+AC_DEFINE_UNQUOTED(SAMBA_VSCAN_COMPILE_TIME,"$PKG_COMPILE_TIME",[SAMBA_VSCAN_COMPILE_TIME])
+AC_DEFINE_UNQUOTED(SAMBA_VSCAN_VERSION_STR,"$PKG_VERSION",[SAMBA_VSCAN_VERSION_STR])
+
+AC_DEFINE_UNQUOTED(SAMBA_VSCAN_VERSION_MAJOR,$PKG_MAJOR,[SAMBA_VSCAN_VERSION_MAJOR])
+AC_DEFINE_UNQUOTED(SAMBA_VSCAN_VERSION_MINOR,$PKG_MINOR,[SAMBA_VSCAN_VERSION_MINOR])
+AC_DEFINE_UNQUOTED(SAMBA_VSCAN_VERSION_RELEASE,$PKG_RELEASE,[SAMBA_VSCAN_VERSION_RELEASE])
+
+if test -n "$PKG_ALPHA_RELEASE"; then
+    AC_DEFINE_UNQUOTED(SAMBA_VSCAN_VERSION_ALPHA_RELEASE,$PKG_ALPHA_RELEASE,[SAMBA_VSCAN_VERSION_ALPHA_RELEASE])
+fi
+
+if test -n "$PKG_BETA_RELEASE"; then
+    AC_DEFINE_UNQUOTED(SAMBA_VSCAN_VERSION_BETA_RELEASE,$PKG_BETA_RELEASE,[SAMBA_VSCAN_VERSION_BETA_RELEASE])
+fi
+
+if test  x"$PKG_CVS_SNAPSHOT" = x"yes"; then
+    AC_DEFINE_UNQUOTED(SAMBA_VSCAN_VERSION_CVS_SNAPSHOT,1,[SAMBA_VSCAN_VERSION_CVS_SNAPSHOT])
+fi
+
+AC_DISABLE_STATIC
+AC_ENABLE_SHARED
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+
+#################################################
+# Directory handling stuff to support both the
+# legacy SAMBA directories and FHS compliant
+# ones...
+AC_PREFIX_DEFAULT(/usr/local/samba)
+
+# compile with optimization and without debugging by default, but
+# allow people to set their own preference.
+if test "x$CFLAGS" = x
+then
+  CFLAGS="-O ${CFLAGS}"
+fi
+
+
+#dnl Check if we use GNU ld
+#LD=ld
+#AC_PROG_LD_GNU
+
+dnl needed before AC_TRY_COMPILE
+AC_ISC_POSIX
+dnl look for executable suffix
+AC_EXEEXT
+
+dnl Check if C compiler understands -c and -o at the same time
+AC_PROG_CC_C_O
+if eval "test \"`echo '$ac_cv_prog_cc_'${ac_cc}_c_o`\" = no"; then
+      BROKEN_CC=
+else
+      BROKEN_CC=#
+fi
+AC_SUBST(BROKEN_CC)
+
+builddir=`pwd`
+AC_SUBST(builddir)
+
+AC_CANONICAL_SYSTEM
+
+AC_VALIDATE_CACHE_SYSTEM_TYPE
+
+AC_CHECK_HEADERS(stdio.h)
+
+AC_ARG_WITH(fhs, 
+[  --with-fhs              Use FHS-compliant paths (default=no)],
+    libdir="\${prefix}/lib/samba",
+    libdir="\${prefix}/lib")
+
+AC_SUBST(libdir)
+
+SAMBA_SOURCE="../../../source"
+####################################################
+# set the location location of the samba source tree
+AC_ARG_WITH(samba-source,
+[  --with-samba-source=DIR Where is the samba source tree (../../../source)],
+[ case "$withval" in
+  yes|no)
+  #
+  # Just in case anybody calls it without argument
+  #
+    AC_MSG_WARN([--with-samba-source called without argument - will use default])
+  ;;
+  * )
+    SAMBA_SOURCE="$withval"
+    ;;
+  esac])
+
+AC_SUBST(SAMBA_SOURCE)
+
+dnl Unique-to-Samba variables we'll be playing with.
+AC_SUBST(CC)
+AC_SUBST(SHELL)
+AC_SUBST(LDSHFLAGS)
+AC_SUBST(SONAMEFLAG)
+AC_SUBST(SHLD)
+AC_SUBST(HOST_OS)
+AC_SUBST(PICFLAG)
+AC_SUBST(PICSUFFIX)
+AC_SUBST(POBAD_CC)
+AC_SUBST(SHLIBEXT)
+AC_SUBST(INSTALLCLIENTCMD_SH)
+AC_SUBST(INSTALLCLIENTCMD_A)
+AC_SUBST(SHLIB_PROGS)
+AC_SUBST(EXTRA_BIN_PROGS)
+AC_SUBST(EXTRA_SBIN_PROGS)
+AC_SUBST(EXTRA_ALL_TARGETS)
+
+AC_ARG_ENABLE(debug, 
+[  --enable-debug          Turn on compiler debugging information (default=no)],
+    [if eval "test x$enable_debug = xyes"; then
+	CFLAGS="${CFLAGS} -g"
+    fi])
+
+AC_ARG_ENABLE(developer, [  --enable-developer      Turn on developer warnings and debugging (default=no)],
+    [if eval "test x$enable_developer = xyes"; then
+        developer=yes
+    	CFLAGS="${CFLAGS} -g -Wall -Wshadow -Wstrict-prototypes -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -DDEBUG_PASSWORD -DDEVELOPER"
+    fi])
+
+
+DYNEXP=
+
+# Assume non-shared by default and override below
+BLDSHARED="false"
+
+# these are the defaults, good for lots of systems
+HOST_OS="$host_os"
+LDSHFLAGS="-shared"
+SONAMEFLAG="#"
+SHLD="\${CC}"
+PICFLAG=""
+PICSUFFIX="po"
+POBAD_CC="#"
+SHLIBEXT="so"
+
+
+if test x"$enable_shared" = x"yes"; then
+  # this bit needs to be modified for each OS that is suported by
+  # smbwrapper. You need to specify how to created a shared library and
+  # how to compile C code to produce PIC object files
+
+  AC_MSG_CHECKING([ability to build shared libraries])
+
+  # and these are for particular systems
+  case "$host_os" in
+		*linux*)
+			BLDSHARED="true"
+			LDSHFLAGS="-shared" 
+			DYNEXP="-Wl,--export-dynamic"
+			PICFLAG="-fPIC"
+			SONAMEFLAG="-Wl,-soname="
+			;;
+		*solaris*)
+			BLDSHARED="true"
+			LDSHFLAGS="-G"
+			SONAMEFLAG="-h "
+			if test "${GCC}" = "yes"; then
+				PICFLAG="-fPIC"
+				if test "${ac_cv_prog_gnu_ld}" = "yes"; then
+					DYNEXP="-Wl,-E"
+				fi
+			else
+				PICFLAG="-KPIC"
+				## ${CFLAGS} added for building 64-bit shared 
+				## libs using Sun's Compiler
+				LDSHFLAGS="-G \${CFLAGS}"
+				POBAD_CC=""
+				PICSUFFIX="po.o"
+			fi
+			;;
+		*sunos*)
+			BLDSHARED="true"
+			LDSHFLAGS="-G"
+			SONAMEFLAG="-Wl,-h,"
+			PICFLAG="-KPIC"   # Is this correct for SunOS
+			;;
+		*netbsd* | *freebsd*)  BLDSHARED="true"
+			LDSHFLAGS="-shared"
+			DYNEXP="-Wl,--export-dynamic"
+			SONAMEFLAG="-Wl,-soname,"
+			PICFLAG="-fPIC -DPIC"
+			;;
+		*openbsd*)  BLDSHARED="true"
+			LDSHFLAGS="-shared"
+			DYNEXP="-Wl,-Bdynamic"
+			SONAMEFLAG="-Wl,-soname,"
+			PICFLAG="-fPIC"
+			;;
+		*irix*)
+			case "$host_os" in
+			*irix6*)
+			;;
+			esac
+			ATTEMPT_WRAP32_BUILD=yes
+			BLDSHARED="true"
+			LDSHFLAGS="-set_version sgi1.0 -shared"
+			SONAMEFLAG="-soname "
+			SHLD="\${LD}"
+			if test "${GCC}" = "yes"; then
+				PICFLAG="-fPIC"
+			else 
+				PICFLAG="-KPIC"
+			fi
+			;;
+		*aix*)
+			BLDSHARED="true"
+			LDSHFLAGS="-Wl,-bexpall,-bM:SRE,-bnoentry,-berok"
+			DYNEXP="-Wl,-brtl,-bexpall"
+			PICFLAG="-O2"
+			if test "${GCC}" != "yes"; then
+				## for funky AIX compiler using strncpy()
+				CFLAGS="$CFLAGS -D_LINUX_SOURCE_COMPAT -qmaxmem=32000"
+			fi
+			;;
+		*hpux*)
+			SHLIBEXT="sl"
+			# Use special PIC flags for the native HP-UX compiler.
+			if test $ac_cv_prog_cc_Ae = yes; then
+				BLDSHARED="true"
+				SHLD="/usr/bin/ld"
+				LDSHFLAGS="-B symbolic -b -z"
+				SONAMEFLAG="+h "
+				PICFLAG="+z"
+			fi
+			DYNEXP="-Wl,-E"
+			;;
+		*qnx*)
+			;;
+		*osf*)
+			BLDSHARED="true"
+			LDSHFLAGS="-shared"
+			SONAMEFLAG="-Wl,-soname,"
+			PICFLAG="-fPIC"
+			;;
+		*sco*)
+			;;
+		*unixware*)
+			BLDSHARED="true"
+			LDSHFLAGS="-shared"
+			SONAMEFLAG="-Wl,-soname,"
+			PICFLAG="-KPIC"
+			;;
+		*next2*)
+			;;
+		*dgux*) AC_CHECK_PROG( ROFF, groff, [groff -etpsR -Tascii -man])
+			;;
+		*sysv4*)
+			case "$host" in
+				*-univel-*)
+					LDSHFLAGS="-G"
+                             		DYNEXP="-Bexport"
+				;;
+				*mips-sni-sysv4*) 
+				;;
+			esac
+			;;
+
+		*sysv5*)
+			LDSHFLAGS="-G"
+			;;
+		*vos*)
+			BLDSHARED="false"
+			LDSHFLAGS=""
+			;;
+		*)
+			;;
+  esac
+  AC_SUBST(DYNEXP)
+  AC_MSG_RESULT($BLDSHARED)
+  AC_MSG_CHECKING([linker flags for shared libraries])
+  AC_MSG_RESULT([$LDSHFLAGS])
+  AC_MSG_CHECKING([compiler flags for position-independent code])
+  AC_MSG_RESULT([$PICFLAG])
+  AC_MSG_CHECKING([for suffix of position-independent code])
+  AC_MSG_RESULT([$PICSUFFIX])
+fi
+
+#######################################################
+# test whether building a shared library actually works
+if test $BLDSHARED = true; then
+AC_CACHE_CHECK([whether building shared libraries actually works], 
+               [ac_cv_shlib_works],[
+   ac_cv_shlib_works=no
+   echo "int foo(void) { return 1;}" > shlibtest.c
+   # try building a trivial shared library
+   if test "$PICSUFFIX" = "po"; then
+     $CC $CPPFLAGS $CFLAGS $PICFLAG -c -o shlibtest.po shlibtest.c &&
+       $CC $CPPFLAGS $CFLAGS `eval echo $LDSHFLAGS` -o "shlibtest.$SHLIBEXT" shlibtest.po &&
+       ac_cv_shlib_works=yes
+   else
+     $CC $CPPFLAGS $CFLAGS $PICFLAG -c -o shlibtest.$PICSUFFIX shlibtest.c &&
+       mv shlibtest.$PICSUFFIX shlibtest.po &&
+       $CC $CPPFLAGS $CFLAGS `eval echo $LDSHFLAGS` -o "shlibtest.$SHLIBEXT" shlibtest.po &&
+       ac_cv_shlib_works=yes
+   fi
+   rm -f shlibtest.c
+   rm -f "shlibtest.$SHLIBEXT" shlibtest.po
+])
+if test $ac_cv_shlib_works = no; then
+   AC_ERROR(Shared libs are not supported under your os)
+fi
+fi
+
+
+################################################################
+################################################################
+#
+# check if the Samba Source Tree is ok and
+# 'configure' and 'make proto' are already run 
+#
+if ! test -d $SAMBA_SOURCE ; then
+    AC_ERROR($SAMBA_SOURCE doesn't exist)
+fi
+
+if ! test -r $SAMBA_SOURCE/include/version.h ; then
+    AC_ERROR($SAMBA_SOURCE is not readable)
+fi
+
+if ! test -f $SAMBA_SOURCE/Makefile ; then
+    AC_ERROR(You have to run ./autogen.sh && ./configure in $SAMBA_SOURCE)
+fi
+
+if ! test -f $SAMBA_SOURCE/include/config.h ; then
+    AC_ERROR(You have to run ./autogen.sh && ./configure in $SAMBA_SOURCE)
+fi
+
+if ! test -f $SAMBA_SOURCE/include/proto.h ; then
+    AC_ERROR(You have to run 'make proto' in $SAMBA_SOURCE)
+fi
+################################################################
+################################################################
+
+###########################################################
+###########################################################
+#
+# get some settings from Samba's Makefile
+#
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,srcdir,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,builddir,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,prefix,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,exec_prefix,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,mandir,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,LIBS,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,CC,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,SHLD,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,CFLAGS,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,CPPFLAGS,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,EXEEXT,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,LDFLAGS,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,LDSHFLAGS,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,DYNEXP,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,LINK,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,INSTALLCMD,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,BASEDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,BINDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,SBINDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,LIBDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,VFSLIBDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,PDBLIBDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,RPCLIBDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,IDMAPLIBDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,CHARSETLIBDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,AUTHLIBDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,CONFIGDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,VARDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,MANDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,INSTALLPERMS,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,LOGFILEBASE,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,CONFIGFILE,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,LMHOSTSFILE,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,PRIVATEDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,SMB_PASSWD_FILE,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,PRIVATE_DIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,SWATDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,LOCKDIR,SAMBA_)
+AC_GET_MAKEFILE_VAR(${SAMBA_SOURCE}/Makefile,PIDDIR,SAMBA_)
+###########################################################
+###########################################################
+
+############################################################
+############################################################
+# deal with samba versions where srcdir != @abs_srcdir@
+if test x"$SAMBA_srcdir" = x"."; then
+	SAMBA_srcdir=$SAMBA_SOURCE
+fi
+# deal with samba versions where builddir != @abs_builddir@
+if test x"$SAMBA_builddir" = x"."; then
+	SAMBA_builddir=$SAMBA_SOURCE
+fi
+
+# deal with samba versions without subdirs for modules
+if test -z "$SAMBA_VFSLIBDIR"; then
+	SAMBA_VFSLIBDIR="\$(LIBDIR)"
+fi
+
+if test -z "$SAMBA_PDBLIBDIR"; then
+	SAMBA_PDBLIBDIR="\$(LIBDIR)"
+fi
+
+if test -z "$SAMBA_RPCLIBDIR"; then
+	SAMBA_RPCLIBDIR="\$(LIBDIR)"
+fi
+
+if test -z "$SAMBA_AUTHLIBDIR"; then
+	SAMBA_AUTHLIBDIR="\$(LIBDIR)"
+fi
+
+if test -z "$SAMBA_IDMAPLIBDIR"; then
+	SAMBA_IDMAPLIBDIR="\$(LIBDIR)"
+fi
+
+if test -z "$SAMBA_CHARSETLIBDIR"; then
+	SAMBA_CHARSETLIBDIR="\$(LIBDIR)"
+fi
+
+
+################################################################
+################################################################
+#
+# Try to get the Samba Version
+#
+SAMBA_VERSION_H_STR=$(cat ${SAMBA_srcdir}/include/version.h |grep '#define VERSION'|cut -d ' ' -f 3)
+
+SAMBA_VERSION=
+####################################################
+# set the location location of the samba source tree
+AC_ARG_WITH(samba-version,
+[  --with-samba-version=VERSION_STRING Default is autodetect from (\${SAMBA_srcdir}/include/version.h)],
+[ case "$withval" in
+  yes|no)
+  #
+  # Just in case anybody calls it without argument
+  #
+    AC_MSG_WARN([--with-samba-version called without argument - will use default])
+  ;;
+  * )
+    SAMBA_VERSION="\"$withval\""
+    if test x"$SAMBA_VERSION" != x"$SAMBA_VERSION_H_STR"; then
+	AC_MSG_WARN([you specified --with-samba-version=$SAMBA_VERSION])
+	AC_MSG_WARN([and \${SAMBA_srcdir}/include/version.h shows $SAMBA_VERSION_H_STR])
+    fi
+    ;;
+  esac])
+
+if test -z "$SAMBA_VERSION"; then
+	SAMBA_VERSION=$SAMBA_VERSION_H_STR
+fi
+
+AC_MSG_CHECKING(for Samba Version)
+
+changequote(, )dnl
+SAMBA_VERSION_MAJOR=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\1/')
+SAMBA_VERSION_MINOR=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\2/')
+SAMBA_VERSION_RELEASE=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\3/')
+SAMBA_VERSION_SUFFIX=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\4/')
+SAMBA_VERSION_SUFFIX_RELEASE=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\5/')
+SAMBA_VERSION_SUFFIX_EXTRA=$(echo $SAMBA_VERSION | sed -e 's/"\([0-9]\)\.\([0-9]\)[\.]*\([0-9]*\)\([a-zA-Z]*\)\([0-9]*\)\([a-zA-Z]*\)"/\6/')
+changequote([, ])dnl
+
+SAMBA_VERSION_MAJOR_STR="${SAMBA_VERSION_MAJOR}"
+SAMBA_VERSION_MINOR_STR="${SAMBA_VERSION_MINOR}"
+SAMBA_VERSION_RELEASE_STR="${SAMBA_VERSION_RELEASE}"
+SAMBA_VERSION_SUFFIX_STR="${SAMBA_VERSION_SUFFIX}"
+SAMBA_VERSION_SUFFIX_RELEASE_STR="${SAMBA_VERSION_SUFFIX_RELEASE}"
+SAMBA_VERSION_SUFFIX_EXTRA_STR="${SAMBA_VERSION_SUFFIX_EXTRA}"
+
+SAMBA_VERSION_RELEASE_PRINT=".$SAMBA_VERSION_RELEASE"
+
+case $SAMBA_VERSION_SUFFIX in
+    *alpha*)
+	if test -z "$SAMBA_VERSION_RELEASE";then
+		SAMBA_VERSION_RELEASE=-2
+		SAMBA_VERSION_RELEASE_PRINT=""
+	fi
+	AC_DEFINE_UNQUOTED(SAMBA_VERSION_ALPHA_RELEASE,$SAMBA_VERSION_SUFFIX_RELEASE,[Samba ALPHA Release Version Number])
+	;;
+    *beta*)
+	if test -z "$SAMBA_VERSION_RELEASE";then
+		SAMBA_VERSION_RELEASE=-1
+		SAMBA_VERSION_RELEASE_PRINT=""
+	fi
+	AC_DEFINE_UNQUOTED(SAMBA_VERSION_BETA_RELEASE,$SAMBA_VERSION_SUFFIX_RELEASE,[Samba BETA Release Version Number])
+	;;
+    *pre*)
+	AC_DEFINE_UNQUOTED(SAMBA_VERSION_PRE_RELEASE,$SAMBA_VERSION_SUFFIX_RELEASE,[Samba PRE Release Version Number])
+	;;
+    *rc*)
+	AC_DEFINE_UNQUOTED(SAMBA_VERSION_RC_RELEASE,$SAMBA_VERSION_SUFFIX_RELEASE,[Samba RC Release Version Number])
+	;;
+    *cvs*)
+	AC_DEFINE_UNQUOTED(SAMBA_VERSION_IS_CVS_SNAPSHOT,1,[Whether the Samba Source is a CVS snapshot])
+	;;
+esac
+
+case $SAMBA_VERSION_SUFFIX_EXTRA in
+    *cvs*)
+	AC_DEFINE_UNQUOTED(SAMBA_VERSION_IS_CVS_SNAPSHOT,1,[Whether the Samba Source is a CVS snapshot])
+	;;
+esac
+
+
+AC_DEFINE_UNQUOTED(SAMBA_VERSION_MAJOR,$SAMBA_VERSION_MAJOR,[Samba Major version])
+AC_DEFINE_UNQUOTED(SAMBA_VERSION_MINOR,$SAMBA_VERSION_MINOR,[Samba Minor version])
+AC_DEFINE_UNQUOTED(SAMBA_VERSION_RELEASE,$SAMBA_VERSION_RELEASE,[Samba Release version])
+
+AC_DEFINE_UNQUOTED(SAMBA_VERSION_MAJOR_STR,"$SAMBA_VERSION_MAJOR_STR",[Samba Major version as string])
+AC_DEFINE_UNQUOTED(SAMBA_VERSION_MINOR_STR,"$SAMBA_VERSION_MINOR_STR",[Samba Minor version as string])
+AC_DEFINE_UNQUOTED(SAMBA_VERSION_RELEASE_STR,"$SAMBA_VERSION_RELEASE_STR",[Samba Release version as string])
+AC_DEFINE_UNQUOTED(SAMBA_VERSION_SUFFIX_STR,"$SAMBA_VERSION_SUFFIX_STR",[Samba Release Suffix as string])
+AC_DEFINE_UNQUOTED(SAMBA_VERSION_SUFFIX_RELEASE_STR,"$SAMBA_VERSION_SUFFIX_RELEASE_STR",[Samba Suffix Release version as string])
+AC_DEFINE_UNQUOTED(SAMBA_VERSION_SUFFIX_EXTRA_STR,"$SAMBA_VERSION_SUFFIX_EXTRA_STR",[Samba Suffix Release Extra as string])
+
+SAMBA_VERSION_PRINT="$SAMBA_VERSION_MAJOR.$SAMBA_VERSION_MINOR$SAMBA_VERSION_RELEASE_PRINT$SAMBA_VERSION_SUFFIX$SAMBA_VERSION_SUFFIX_RELEASE$SAMBA_VERSION_SUFFIX_EXTRA"
+AC_MSG_RESULT($SAMBA_VERSION_PRINT)
+###########################################################
+###########################################################
+
+###########################################################
+###########################################################
+# POPT include dir
+POPT_INCLUDE_DIR="-I\$(SAMBA_srcdir)/popt -I\$(SAMBA_builddir)/popt"
+AC_SUBST(POPT_INCLUDE_DIR)
+###########################################################
+
+###########################################################
+###########################################################
+#
+# VSCAN BACKENDS
+#
+VSCAN_BACKENDS="oav sophos fprotd trend icap mksd kavp clamav"
+AC_SUBST(VSCAN_BACKENDS)
+
+###########################################################
+#
+# MKS lib (libmksd)
+#
+vscan_cv_libmksd_builtin=auto
+AC_MSG_CHECKING(whether use libmksd as builtin)
+AC_ARG_WITH(libmksd-builtin,
+[  --with-libmksd-builtin  Don't use system libmksd lib (default=auto)],
+[ case "$withval" in
+  no)
+    AC_MSG_RESULT(${vscan_cv_libmksd_builtin})
+    ;;
+  *)
+    vscan_cv_libmksd_builtin=yes
+    AC_MSG_RESULT(${vscan_cv_libmksd_builtin})
+    ;;
+  esac ],
+  AC_MSG_RESULT(${vscan_cv_libmksd_builtin})
+)
+
+if test x"$vscan_cv_libmksd_builtin" != x"yes"; then
+ vscan_cv_libmksd_builtin=yes
+ MKS_LIB="builtin"
+ AC_CHECK_HEADERS(libmksd.h)
+ vscan_save_LIBS=$LIBS
+ AC_CHECK_LIB(mksd,mksd_connect)
+ LIBS=$vscan_save_LIBS
+ if test x"$ac_cv_header_libmksd_h" = x"yes"; then
+  if test x"$ac_cv_lib_mksd_mksd_connect" = x"yes"; then
+     vscan_cv_libmksd_builtin=no
+     MKS_LIB="-lmksd"
+  fi
+ fi
+fi
+
+AC_MSG_CHECKING(whether to use libmksd as builtin or system)
+if test x"$vscan_cv_libmksd_builtin" = x"yes"; then
+ libmksd_STATIC="\$(libmksd_OBJS)"
+ libmkds_LIBS=
+ AC_DEFINE(HAVE_LIBMKSD_BUILTIN,1,[Whether to have libmksd builtin])
+ AC_MSG_RESULT(builtin)
+else
+ libmksd_STATIC=
+ libmksd_LIBS=$MKS_LIB
+ AC_MSG_RESULT(system)
+fi
+AC_SUBST(libmksd_STATIC)
+AC_SUBST(libmksd_LIBS)
+#
+
+
+###########################################################
+#
+# KASPERSKY lib (libkavdc)
+#
+vscan_cv_libkavdc_builtin=auto
+AC_MSG_CHECKING(whether use libkavdc as builtin)
+AC_ARG_WITH(libkavdc-builtin,
+[  --with-libkavdc-builtin Don't use system libkavdc lib (default=auto)],
+[ case "$withval" in
+  no)
+    AC_MSG_RESULT(${vscan_cv_libkavdc_builtin})
+    ;;
+  *)
+    vscan_cv_libkavdc_builtin=yes
+    AC_MSG_RESULT(${vscan_cv_libkavdc_builtin})
+    ;;
+  esac ],
+  AC_MSG_RESULT(${vscan_cv_libkavdc_builtin})
+)
+
+if test x"$vscan_cv_libkavdc_builtin" != x"yes"; then
+ vscan_cv_libkavdc_builtin=yes
+ KAV_LIB="builtin"
+ AC_CHECK_HEADERS(kavclient.h)
+ vscan_save_LIBS=$LIBS
+ AC_CHECK_LIB(kavdc,KAVConnect)
+
+ # KAV 3 support
+ LIBS="$LIBS /usr/lib/kavdclib.so"
+ AC_CACHE_CHECK([for KAVConnect in /usr/lib/kavdclib.so],vscan_cv_kavdclib_so, [
+    AC_TRY_LINK([],
+	[
+	void KAVConnect(void);
+	
+	int main(int argc, const char **argv)
+	{
+		KAVConnect();
+		return 0;
+	}
+	],
+	[vscan_cv_kavdclib_so=yes],[vscan_cv_kavdclib_so=no]
+    )
+ ])
+
+ LIBS=$vscan_save_LIBS
+ if test x"$ac_cv_header_kavclient_h" = x"yes"; then
+  if test x"$ac_cv_lib_kavdc_KAVConnect" = x"yes"; then
+     vscan_cv_libkavdc_builtin=no
+     KAV_LIB="-lkavdc"
+  elif test x"$vscan_cv_kavdclib_so" = x"yes"; then
+     vscan_cv_libkavdc_builtin=no
+     KAV_LIB="/usr/lib/kavdclib.so"
+  fi
+ fi
+fi
+
+AC_MSG_CHECKING(whether to use libkavdc as builtin or system)
+if test x"$vscan_cv_libkavdc_builtin" = x"yes"; then
+ libkavdc_STATIC="\$(libkavdc_OBJS)"
+ libkavdc_LIBS=
+ AC_DEFINE(HAVE_LIBKAVDC_BUILTIN,1,[Whether to have libkavdc builtin])
+ AC_MSG_RESULT(builtin)
+else
+ libkavdc_STATIC=
+ libkavdc_LIBS=$KAV_LIB
+ AC_MSG_RESULT(system)
+fi
+AC_SUBST(libkavdc_STATIC)
+AC_SUBST(libkavdc_LIBS)
+#
+
+###########################################################
+#
+# Symantec lib
+#
+#VSCAN_BACKENDS="${VSCAN_BACKENDS} symantec"
+SYMANTEC_LIBS=
+AC_SUBST(SYMANTEC_LIBS)
+
+###########################################################
+#
+#
+#
+VSCAN_SINGLE_LIB_FLAGS=
+AC_SUBST(VSCAN_SINGLE_LIB_FLAGS)
+vscan_cv_single_libs=no
+AC_MSG_CHECKING(whether to build only libmksd and libkavdc as shared libs)
+AC_ARG_WITH(single-libs,
+[  --with-single-libs      Build only libmksd and libkavdc as shared libs (default=no)],
+[ case "$withval" in
+  no)
+    AC_MSG_RESULT(${vscan_cv_single_libs})
+    ;;
+  *)
+    vscan_cv_single_libs=yes
+    VSCAN_BACKENDS="libmksd libkavdc"
+    VSCAN_SINGLE_LIB_FLAGS="-DUSE_VSCAN_SINGLE_LIB=1"
+    AC_MSG_RESULT(${vscan_cv_single_libs})
+    ;;
+  esac ],
+  AC_MSG_RESULT(${vscan_cv_single_libs})
+)
+
+#
+###########################################################
+AC_OUTPUT(Makefile)
+
+AC_MSG_RESULT([
+** Configuration summary for $PKG_NAME $PKG_VERSION $PKG_REL_DATE:
+
+ Compile samba-vscan for Samba      : $SAMBA_VERSION_PRINT
+ Compile samba-vscan with sources in: $SAMBA_SOURCE
+ Compile samba-vscan backends       : $VSCAN_BACKENDS
+ Use libmksd as                     : $MKS_LIB
+ Use libkavdc as                    : $KAV_LIB
+])
+
+AC_MSG_RESULT([Now type \"make\" to build all mentioned backends.
+Or \"make <backend> {<backend>}\" to build only specific backend(s).
+])

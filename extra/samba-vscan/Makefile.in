@@ -1,0 +1,172 @@
+#
+#
+#  $Id: Makefile.in,v 1.22 2003/08/15 18:13:26 mx2002 Exp $
+#
+#
+CC		= @CC@
+SHLD		= @SHLD@
+CFLAGS		= @CFLAGS@ @SAMBA_CFLAGS@
+CPPFLAGS	= @CPPFLAGS@ @SAMBA_CPPFLAGS@
+PICFLAG		= @PICFLAG@
+PICSUFFIX	= @PICSUFFIX@
+LDFLAGS		= @LDFLAGS@ @SAMBA_LDFLAGS@
+LDSHFLAGS	= @LDSHFLAGS@ @SAMBA_LDSHFLAGS@
+INSTALLCMD	= @INSTALL@
+SAMBA_SOURCE	= @SAMBA_SOURCE@
+SHLIBEXT	= @SHLIBEXT@
+OBJEXT		= @OBJEXT@ 
+
+SAMBA_CC	= @SAMBA_CC@
+SAMBA_SHLD	= @SAMBA_SHLD@
+SAMBA_CFLAGS	= @SAMBA_CFLAGS@
+SAMBA_CPPFLAGS	= @SAMBA_CPPFLAGS@
+SAMBA_LDFLAGS	= @SAMBA_LDFLAGS@
+SAMBA_LDSHFLAGS	= @SAMBA_LDSHFLAGS@
+SAMBA_DYNEXP	= @SAMBA_DYNEXP@
+SAMBA_LINK	= @SAMBA_LINK@
+
+VPATH		= @srcdir@
+srcdir		= @srcdir@
+abs_srcdir	= @abs_srcdir@
+builddir	= @builddir@
+abs_builddir	= @abs_builddir@
+
+SAMBA_srcdir	= @SAMBA_srcdir@
+SAMBA_builddir	= @SAMBA_builddir@
+
+prefix		= @SAMBA_prefix@
+exec_prefix	= @SAMBA_exec_prefix@
+mandir		= @SAMBA_mandir@
+
+BASEDIR		= @SAMBA_BASEDIR@
+BINDIR		= @SAMBA_BINDIR@
+SBINDIR		= @SAMBA_SBINDIR@
+
+LIBDIR		= @SAMBA_LIBDIR@
+VFSLIBDIR	= @SAMBA_VFSLIBDIR@
+PDBLIBDIR	= @SAMBA_PDBLIBDIR@
+RPCLIBDIR	= @SAMBA_RPCLIBDIR@
+IDMAPLIBDIR	= @SAMBA_IDMAPLIBDIR@
+CHARSETLIBDIR	= @SAMBA_CHARSETLIBDIR@
+AUTHLIBDIR	= @SAMBA_AUTHLIBDIR@
+
+VARDIR		= @SAMBA_VARDIR@
+MANDIR		= @SAMBA_MANDIR@
+LOGFILEBASE	= @SAMBA_LOGFILEBASE@
+PRIVATEDIR	= @SAMBA_PRIVATEDIR@
+PRIVATE_DIR	= @SAMBA_PRIVATE_DIR@
+SWATDIR		= @SAMBA_SWATDIR@
+LOCKDIR		= @SAMBA_LOCKDIR@
+CONFIGDIR	= @SAMBA_CONFIGDIR@
+
+SAMBA_INSTALLPERMS = @SAMBA_INSTALLPERMS@
+
+INSTALLPERMS = $(SAMBA_INSTALLPERMS)
+
+INCLUDE_FLAGS	= -I$(abs_srcdir)/include -I$(abs_builddir)/include -I. -I$(abs_srcdir) -I$(abs_builddir) -I$(SAMBA_srcdir)/include -I$(SAMBA_srcdir)/ubiqx -I$(SAMBA_srcdir)/smbwrapper -I$(SAMBA_srcdir) -I$(SAMBA_builddir)/include -I$(SAMBA_builddir)/ubiqx -I$(SAMBA_builddir)/smbwrapper -I$(SAMBA_builddir) @POPT_INCLUDE_DIR@
+
+FLAGS = $(INCLUDE_FLAGS) $(CFLAGS) $(CPPFLAGS) @VSCAN_SINGLE_LIB_FLAGS@
+
+GLOBAL_OBJS = global/vscan-vfs.o global/vscan-backends.o \
+	global/vscan-conf.o \
+	global/vscan-functions.o global/vscan-message.o \
+	global/vscan-quarantine.o global/vscan-fileaccesslog.o \
+
+OAV_OBJS = openantivirus/vscan-oav.o
+
+SOPHOS_OBJS = sophos/vscan-sophos.o
+
+FPROT_OBJS = fprot/vscan-fprotd.o
+
+TREND_OBJS = trend/vscan-trend.o
+
+ICAP_OBJS = icap/vscan-icap.o
+
+libmksd_OBJS = mks/libmksd/libmksd.o
+MKS_OBJS = mks/vscan-mksd.o @libmksd_STATIC@
+vscan-mksd_LIBS = @libmksd_LIBS@
+
+libkavdc_OBJS = kaspersky/libkavdc/libkavdc.o
+KASPERSKY_OBJS = kaspersky/vscan-kavp.o @libkavdc_STATIC@
+vscan-kavp_LIBS = @libkavdc_LIBS@
+
+CLAMAV_OBJS = clamav/vscan-clamav.o
+
+CLEAN_OBJS = $(GLOBAL_OBJS) $(OAV_OBJS) $(SOPHOS_OBJS) $(FPROT_OBJS) \
+		$(TREND_OBJS) $(ICAP_OBJS) $(MKS_OBJS) $(libmksd_OBJS) \
+		$(SYMANTEC_OBJS) $(KASPERSKY_OBJS) $(libkavdc_OBJS) $(CLAMAV_OBJS)
+
+vscan_OBJS = $(GLOBAL_OBJS) $(OAV_OBJS)
+
+# Pattern rules
+
+MAKEDIR = || exec false; \
+	  if test -d "$$dir"; then :; else \
+	  echo mkdir "$$dir"; \
+	  mkdir -p "$$dir" >/dev/null 2>&1 || \
+	  test -d "$$dir" || \
+	  mkdir "$$dir" || \
+	  exec false; fi || exec false
+
+default: all
+
+.SUFFIXES:
+.SUFFIXES: .c .@OBJEXT@ .@PICSUFFIX@ .@SHLIBEXT@
+
+.c.@OBJEXT@:
+	@if (: >> $@ || : > $@) >/dev/null 2>&1; then rm -f $@; else \
+	 dir=`echo $@ | sed 's,/[^/]*$$,,;s,^$$,.,'` $(MAKEDIR); fi
+	@echo Compiling $*.c
+	@$(CC) -I. $(FLAGS) -c $< -o $@
+@BROKEN_CC@	-mv `echo $@ | sed 's%^.*/%%g'` $@
+
+.c.@PICSUFFIX@:
+	@if (: >> $@ || : > $@) >/dev/null 2>&1; then rm -f $@; else \
+	  dir=`echo $@ | sed 's,/[^/]*$$,,;s,^$$,.,'` $(MAKEDIR); fi
+	@echo Compiling $*.c with $(PICFLAG)
+	@$(CC) -I. $(FLAGS) $(PICFLAG) -c $< -o $@
+@BROKEN_CC@	-mv `echo $@ | sed -e 's%^.*/%%g' -e 's%\.po$$%.o%'` $@
+@POBAD_CC@	@mv $*.po.o $@
+
+%.@SHLIBEXT@:
+	@if test -n "$(${*}_OBJS:.@OBJEXT@=.@PICSUFFIX@)";then \
+	    make -s $(${*}_OBJS:.@OBJEXT@=.@PICSUFFIX@); \
+	else \
+	    make -s $(*).@PICSUFFIX@; \
+	fi
+	@if (: >> $@ || : > $@) >/dev/null 2>&1; then rm -f $@; else \
+	  dir=`echo $@ | sed 's,/[^/]*$$,,;s,^$$,.,'` $(MAKEDIR); fi
+	@echo "Linking $@"
+	@echo "with libs: $(${*}_LIBS)"
+	@$(SHLD) $(LDSHFLAGS) $(LDFLAGS) \
+		$(${*}_LIBS) $(${*}_OBJS:.@OBJEXT@=.@PICSUFFIX@) \
+		-o $@ @SONAMEFLAG@`basename $@`
+
+
+all: vscan.$(SHLIBEXT)
+
+install: all
+	@echo "Make Directory $(DESTDIR)$(VFSLIBDIR)"
+	@$(INSTALLCMD) -d $(DESTDIR)$(VFSLIBDIR)
+	@echo "Install VFS Modules:"
+	@echo "$(patsubst ${builddir}/%.$(SHLIBEXT),%.$(SHLIBEXT),$(wildcard ${builddir}/*.$(SHLIBEXT)))"
+	@echo "to $(DESTDIR)$(VFSLIBDIR) with $(INSTALLPERMS)"
+	@$(INSTALLCMD) -m $(INSTALLPERMS) $(patsubst ${builddir}/%.$(SHLIBEXT),%.$(SHLIBEXT),$(wildcard ${builddir}/*.$(SHLIBEXT))) $(DESTDIR)$(VFSLIBDIR)
+
+# Misc targets
+clean:
+	rm -rf .libs
+	rm -f $(CLEAN_OBJS:.@OBJEXT@=.@PICSUFFIX@)
+	rm -f $(CLEAN_OBJS:.@OBJEXT@=.@SHLIBEXT@)
+	rm -f core *~ *% *.$(SHLIBEXT) 
+
+realclean: clean
+	rm -f include/vscan-config.h
+	rm -f config.log config.status
+	rm -f Makefile
+
+distclean: realclean
+
+realdistclean: realclean
+	rm -f include/vscan-config.h*
+	rm -f configure

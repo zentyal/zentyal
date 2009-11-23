@@ -1,0 +1,90 @@
+Example on access virus-scanning module for Samba
+*************************************************
+
+Copyright (C) by Rainer Link, SuSE GmbH <link@suse.de>, 2001
+		 	      OpenAntiVirus.org <rainer@openantivirus.org>, 2001
+
+
+This software is licensed under the GNU General Public License (GPL)
+See: http://www.gnu.org/copyleft/gpl.html
+
+
+NOTE: The development on vscan-sophie and vscan-trophie has been discontinued 
+and the use is depreciated.
+
+
+- Install Samba 2.2.0a. It needs _working_ VFS-support, i.e.
+  the SuSE RPMs for Samba = 2.2.0a are shipped with this feature. If
+  your Samba installation lacks it, you have to re-configure Samba 
+  (./configure --enable-vfs) and re-compile it. Very likely you have to apply
+  the provided samba-vfs.dif to get the example audit module (and this 
+  samba-vscan module) really working!
+
+  If you're using Samba 2.2.2, please apply the samba-2.2.2-vfs.dif - VFS
+  support in 2.2.2 is broken and unfortunately the VFS interface changed
+  between 2.2.0, 2.2.1 and 2.2.2 :-(
+
+- This module currently works either with Sophos Sweep+Trophie or
+  Trend Micro's Engine+Trophie.
+
+-- Install Sophie 1.13 or better (I'm not sure if 1.14/1.15 will work, too.)
+   All versions below 1.13 do not work!
+   NOTE: Sophie 1.15 has a buglet - it reports non-existent files as infected.
+
+   - get Sophos Sweep from www.sophos.de and install it
+   - get Sophie from http://www.vanja.com/tools/
+     - in sophie.h change #define SOPHIE_SOCKET_GROUP     "mail"
+       to #define SOPHIE_SOCKET_GROUP     "root"
+       (this should be only needed on SuSE Linux?)
+     - ./configure & make :-)
+     - ./sophie -D
+     - chmod g+rwx /var/run/sophie
+       (shouldn't be needed as smbd runs as root) 
+-- Install the Trend Engine (can be downloaded as a separate file) and install
+   Trophie
+   -- get the Engine from http://www.antivirus.com/download/engines/
+   -- get Trophie from http://www.vanja.com/tools/
+     - in trophie.h change #define TROPHIE_SOCKET_GROUP     "mail"
+       to #define TROPHIE_SOCKET_GROUP     "root"
+       (this should be only needed on SuSE Linux?)
+     - ./configure & make :-)
+     - ./tropie -D
+     - chmod g+rwx /var/run/trophie
+       (shouldn't be needed as smbd runs as root)
+ 
+- copy vscan-sophie.c / vscan-trophie.c to <samba-src>/examples/VFS and make this directory
+  your working directory (cd <samba-src>/examples/VFS :-))
+- if you're using Samba 2.2.0 / 2.2.0a, please set
+  SAMBA_VERSION_MINOR to 0, for Samba 2.2.1a set it to 1. The default is
+  2 to Samba 2.2.2
+  This is needed as the VFS interface has been changed between those
+  version
+- if you want to log every file access (means non-infected files will be reported, too)
+  please set VERBOSE_FILE_LOGGING to 1
+  Per default it's set to 0 - therefore only infected files will be logged.
+- add "vscan-sophie.so" or "vscan-trophie.c" to VFS_OBJS in Makefile
+- make :-) 
+- copy vscan-sophie.so /vscan-trophie.o to /usr/lib/samba/vfs (this is the location
+  on SuSE systems)
+- edit /etc/smb.conf and add the following entry (that's only an example):
+  [vscan]
+                comment = virus-protected /tmp directory
+                path = /tmp
+                vfs object = /usr/lib/samba/vfs/vscan-sophie.so
+		#or
+		#vfs object = /usr/lib/samba/vfs/vscan-trophie.so
+                writeable = yes
+                browseable = yes
+                guest ok = yes
+
+- Restart Samba (i.e. rcsmb start on SuSE Linux)
+- copy eicar.com to /tmp
+- smbclient ///localhost/vscan
+  At the smbclient command line try to retrieve eicar.com
+  - get eicar.com
+    -> access should be denied!!!
+- everything should be logged via syslog
+
+Please report any problems directly to me. Even a (short) mail telling
+me this module works for you is welcome, of course :-)
+

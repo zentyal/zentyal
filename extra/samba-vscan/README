@@ -1,0 +1,66 @@
+samba-vscan - on-access virus scanning with Samba 2.2.x/3.0
+***********************************************************
+
+[Introduction]
+samba-vscan currently consists of eight Samba VFS modules:
+
+* vscan-fprotd - for use with F-Prot Daemon
+* vscan-icap - for use with an ICAP anti-virus service, currently only
+  Symantec AntiVirus Engine 4.x is supported (this is alpha code and not
+  yet for production environment!)
+* vscan-kavp - for use with Kaspersky AntiVirus (kavdaemon) via
+  Kaspersky KAV client C library. vscan-kavp is a stripped-down version
+  from vscan-kavp of  Ries van Twisk). For the full-featured version please
+  see http://www.rvt.dds.nl
+* vscan-mks - for use with mks32 via mks_vir Daemon
+* vscan-oav - for use with OpenAntiVirus.org ScannerDaemon
+* vscan-sophos - for use with Sophos Sweep via Sophie 
+  (http://www.vanja.com/tools) 
+* vscan-trend - for use with Trend Micro FileScanner / InterScan VirusWall
+  via Trophie (http://www.vanja.com/tools) 
+* vscan-clamav - for use with Clam AntiVirus Daemon
+  (http://www.clamav.org)
+
+For installation instructions, please refer to the INSTALL file.
+It's basically a proof-of-concept module for providing on-access virus scanning 
+with Samba.
+
+NOTE: To get VFS support on FreeBSD systems, you'll have to apply the
+samba-configure.in-fbsd-libdl.dif (at least for Samba 2.2.0-2.2.3)
+
+
+For an introduction about the Samba Virtual File System, please read
+http://www.geocities.com/orville_torpid/papers/vfs_tutorial.html.
+For more details, please see the Samba source (esp. source/smbd and
+examples/VFS). The samba/samba-technical ML archive is a good source
+of information, too.
+
+
+[Credits]
+I'd like to thank Tim Potter, REYNAUD Jean-Samuel, Simon Harrison
+and the whole Samba Team. Last but not least all the cool people at SuSE and
+my OpenAntiVirus.org crew ;) 
+
+
+[History]
+In mid-May 2001 I started to dig into the VFS stuff (mostly at night ;)) and 
+some days later I got the audit example really working (it didn't work 
+out-of-the-box). As I was working on the Sophie integration into AMaViS,
+I've decided to use Sophie with my virus scanning VFS module, too.
+samba-vscan was released to the public on 10/03/2001 by checking in the
+sources into the CVS repository of OpenAntiVirus.org
+
+
+[License]
+This software is licensed under the GNU General Public License (GPL)
+See COPYING or http://www.gnu.org/copyleft/gpl.html
+
+
+[Author]
+Rainer Link
+eMail: rainer@openantivirus.org
+WWW: http://www.openantivirus.org/
+
+Feedback, feature requests and so on can be send either to the author directly
+or to the openantivirus-discuss mailing list (see www.openantivirus.org
+for subscription details)

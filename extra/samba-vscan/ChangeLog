@@ -1,0 +1,984 @@
+2003-07-14 Stefan Metzmacher <metze@metzemix.de>
+	* THIS IS THE START OF THE SAMBA-VSCAN REDESIGN!
+	  - USE THIS VERSION ONLY FOR TESTING!!!
+
+2003-07-14 Stefan Metzmacher <metze@metzemix.de>
+	* clamav/vscan-clamav_core.c: make the usage of safe_strcpy/cat() a
+	  bit clearer...  last parameter should be sizeof(first_param)-1;
+	  like pstrcpy(x,y) -> safe_strcpy(x,y,sizeof(pstring)-1)
+	* VERSION, configure.in: add move more version depended stuff to
+	  VERSION.
+	  and change the version to 0.3.4aplha1cvs
+	* clamav/vscan-clamav_core.c: move pstrc* to safe_strc*...
+
+2003-07-13 Rainer Link <rainer@openantivirus.org>
+	* README: minor update
+	* clamav/.cvsignore: addd; was forgotten by last checkin
+	* INSTALL, Makefile.in, README, configure.in, clamav/Makefile,
+	  clamav/vscan-clamav.c, clamav/vscan-clamav.conf,
+	  clamav/vscan-clamav.h, clamav/vscan-clamav_core.c,
+	  clamav/vscan-clamav_core.h: support for ClamAV, contributed by
+	  Dariusz Markowicz (builds with Samba 2.2.8 and Samba 3.0 beta2;
+	  module itself untested yet)
+
+2003-07-13 Stefan Metzmacher <metze@metzemix.de>
+	* ChangeLog: update for my last changes...
+	* TODO: note about readd KASPERSKY 3 lib
+
+2003-07-09 Stefan Metzmacher <metze@metzemix.de>
+	* sophos/vscan-sophos_core.c: I missed one fstrcpy usage last time
+	  :-(
+
+2003-07-08 Stefan Metzmacher <metze@metzemix.de>
+	* Makefile.in: add @SONAMEFLAGS@ -> -Wl,soname=...
+	  to all modules
+
+2003-06-25 Stefan Metzmacher <metze@metzemix.de>
+	* configure.in: it should be "HEAD<0.3.4" -> HEAD before 0.3.4 :-)
+	* configure.in: update SAMBA_VSCAN_VERSION_STR to "HEAD>0.3.4"
+	  this code should be make the 0.3.4 release...
+	* fprot/vscan-fprotd.c, icap/vscan-icap.c, kaspersky/vscan-kavp.c,
+	  mks/vscan-mksd.c, openantivirus/vscan-oav.c,
+	  sophos/vscan-sophos.c, symantec/vscan-symantec.c,
+	  trend/vscan-trend.c: - add a whitespace to module_id[]
+	  - debug registration message only with DEBUG() and not to syslog
+	  - call openlog() in init_module() to hopefully on't segfault on
+	  AIX
+	* Makefile.in, configure.in, fprot/vscan-fprotd.c,
+	  icap/vscan-icap.c, kaspersky/vscan-kavp.c, mks/vscan-mksd.c,
+	  openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	  symantec/vscan-symantec.c, trend/vscan-trend.c: This patch
+	  - sets the version string to "HEAD>0.3.3"
+	  - restores the names used in VSCAN_0_3
+
+	  the modules are now:
+	  FPROT: vscan-fprotd.so in smb.conf:	  vfs objects =
+	  vscan-fprotd	   vscan-fprotd: config-file =
+	  /etc/samba/vscan-fprotd.conf
+	  
+	  ICAP: vscan-icap.so in smb.conf:     vfs objects = vscan-icap
+	  vscan-icap: config-file = /etc/samba/vscan-icap.conf
+	  KASPERSKY (KAVP): vscan-kavp.so in smb.conf:	   vfs objects =
+	  vscan-kavp	 vscan-kavp: config-file =
+	  /etc/samba/vscan-kavp.conf
+
+	  MKSD: vscan-mksd.so in smb.conf:     vfs objects = vscan-mksd
+	  vscan-mksd: config-file = /etc/samba/vscan-mks32.conf
+
+	  OAV: vscan-oav.so in smb.conf:     vfs objects = vscan-oav
+	  vscan-oav: config-file = /etc/samba/vscan-oav.conf
+
+	  SOPHOS: vscan-sophos.so in smb.conf:	   vfs objects =
+	  vscan-sophos	   vscan-sophos: config-file =
+	  /etc/samba/vscan-sophos.conf
+
+	  SYMANTEC: vscan-symantec.so in smb.conf:     vfs objects =
+	  vscan-symantec     vscan-symantec: config-file =
+	  /etc/samba/vscan-symantec.conf
+
+	  TREND: vscan-trend.so in smb.conf:	 vfs objects = vscan-trend
+	     vscan-trend: config-file = /etc/samba/vscan-trend.conf
+
+	* Makefile.in, autogen.sh, fprot/vscan-fprotd.c, icap/vscan-icap.c,
+	  include/vscan-global.h, kaspersky/vscan-kavp.c, mks/vscan-mksd.c,
+	  openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	  symantec/vscan-symantec.c, trend/vscan-trend.c,
+	  trend/vscan-trend_core.c: don't remove configure and
+	  include/vscan-config.h.in with 'make distclean' you can now use
+	  'make realdistclean' for that.
+	  so, in releases we can provide 'configure and
+	  include/vscan-config.h.in' so, autoheader and autoconf are not
+	  required for building releases...
+
+	  autogen.sh now runs: rm -rf autom4te.cache autom4te-2.53.cache
+
+	  and finialy the core of this patch:
+
+	  substitute all misused fstrcpy,fstrcat and replace them with
+	  safe_strcpy,safe_strcat
+	  to work fine with samba 3.0.*
+
+2003-06-24 Rainer Link <rainer@openantivirus.org>
+	* autogen.sh: minor cosmetics - refer to samba-vscan instead of
+	  samba
+	* fprot/vscan-fprotd.conf, icap/vscan-icap.conf,
+	  kaspersky/vscan-kavp.conf, mks/vscan-mks32.conf,
+	  openantivirus/vscan-oav.conf, sophos/vscan-sophos.conf,
+	  symantec/vscan-symantec.conf, trend/vscan-trend.conf: scan on
+	  close = yes is the new default (for security reasons). File won't
+	  be scanned twice when scan on open = yes is set, too, as a file
+	  will be scanned on close only when it was modified
+
+2003-06-23 Stefan Metzmacher <metze@metzemix.de>
+	* configure.in: better handle case where samba's srcdir !=
+	  abs_srcdir (in samba 2.2.*)
+	* Makefile.in, configure.in: better handling of the case where
+	  samba's srcdir!=builddir
+	  better handling of the case where our srcdir!=builddir
+	* Makefile.in, aclocal.m4: remove some unused stuff
+	  (XML,MYSQL,ICONV) from aclocal.m4
+	  be more verbose on 'make install'
+	* configure.in: we don't need our own var's we can use
+	  AC_CHECK_LIB() and $ac_cv_lib_$1_$2
+	  so for AC_CHECK_LIB(kavdc,KAVConnect) ->
+	  $av_cv_lib_kavdc_KAVConnect
+	* Makefile.in: sync with samba's Makefile.in
+	* Makefile.in, configure.in, kaspersky/libkavdc/libkavdc.c: add
+	  configure option: --with-single-libs
+	  this will add -DUSE_VSCAN_SINGLE_LIB=1 to the compiler flags
+	  and let 'make all' build libmksd.so and libkavdc.so (This should
+	  only be used for testing)
+	* Makefile.in: rename MKS_* -> libmksd_* rename KASPERSKY_* ->
+	  libkavdc_*
+	  fixes the build
+	* Makefile.in, configure.in, kaspersky/KAVClient.h,
+	  kaspersky/helpers.c, kaspersky/helpers.h, kaspersky/kavclient.c,
+	  kaspersky/kavclient.h, kaspersky/shmem.h,
+	  kaspersky/vscan-kavp_core.c, kaspersky/vscan-kavp_core.h,
+	  kaspersky/libkavdc/.cvsignore, kaspersky/libkavdc/kavclient.h,
+	  kaspersky/libkavdc/libkavdc.c, kaspersky/libkavdc/shmem.h,
+	  mks/vscan-mksd_core.h: Adding configure tests for:
+	  - libmksd.h and -lmksd
+	  - kavclient.h and -lkavdc   and move kav client code into
+	  libkavdc dir
+	  add configure options:   --with-libmksd-builtin  Don't use system
+	  libmksd lib (default=auto)   --with-libkavdc-builtin Don't use
+	  system libkavdc lib (default=auto)
+	  to force the use of the builtin implemantations...
+
+	  TODO: support for the old kaspersky 3 lib
+	* Makefile.in, configure.in: we now use -I$(SAMBA_builddir)/include
+	  also to handle the case when $srcdir!=builddir
+	  and a few other cosmetic changes
+	* .cvsignore: don't ignore config.sub and config.guess
+
+2003-06-20 Stefan Metzmacher <metze@metzemix.de>
+	* Makefile.in: don't remove config.sub and config.guess by make
+	  distclean
+	* Makefile.in, config.guess, config.sub, configure.in: use @OBJEXT@
+	  instead of .o same for .po
+	  deal with samba's without $(VFSLIBDIR)
+	  add -I$(SAMBA_SOURCE)/popt to always get popt.h
+	  better way to get the samba version, using sed now
+	  we now really detect the build os
+	* .cvsignore, Makefile.in, fprot/.cvsignore, global/.cvsignore,
+	  icap/.cvsignore, kaspersky/.cvsignore, mks/.cvsignore,
+	  mks/libmksd/.cvsignore, openantivirus/.cvsignore,
+	  sophos/.cvsignore, symantec/.cvsignore, trend/.cvsignore: add
+	  more .cvsignore files
+	  use more of Samba's Makefile var's...
+	* aclocal.m4: small fix:only cut by the first '=' when we get
+	  values from samba's Makefile
+
+2003-06-18 Stefan Metzmacher <metze@metzemix.de>
+	* Makefile.in, aclocal.m4, configure.in: use settings from samba's
+	  Makefile
+	* Makefile.in, include/.cvsignore: compile with -fPIC
+	* fprot/vscan-fprotd.c, fprot/vscan-fprotd_core.c,
+	  icap/vscan-icap.c, icap/vscan-icap_core.c,
+	  kaspersky/vscan-kavp.c, kaspersky/vscan-kavp_core.c,
+	  mks/vscan-mksd.c, mks/vscan-mksd_core.c,
+	  openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	  sophos/vscan-sophos_core.c, symantec/vscan-symantec.c,
+	  symantec/vscan-symantec_core.c, trend/vscan-trend.c,
+	  trend/vscan-trend_core.c: include vscan-global.h first ...
+	* Makefile.in, configure.in, fprot/vscan-fprotd.c,
+	  icap/vscan-icap.c, icap/vscan-icap_core.c, kaspersky/helpers.c,
+	  kaspersky/helpers.h, kaspersky/kavclient.c,
+	  kaspersky/vscan-kavp.c, mks/vscan-mksd.c, mks/vscan-mksd.h,
+	  mks/vscan-mksd_core.c, mks/libmksd/libmksd.c,
+	  mks/libmksd/libmksd.h, openantivirus/vscan-oav.c,
+	  sophos/vscan-sophos.c, symantec/vscan-symantec.c,
+	  trend/vscan-trend.c: Now all modules are build via the toplevel
+	  Makefile
+	  they compile fine with SAMBA_3_0 CVS and SAMBA_2_2 CVS
+	  except symantec because I haven't the header and lib
+	  mksd and kapsersky are build with our lib I need to add the
+	  configure checks for detecting the system libs and then link
+	  against them.
+	  What's also left is compiling with -fPIC
+	* configure.in, fprot/vscan-fprotd.c, fprot/vscan-fprotd_core.c,
+	  global/vscan-fileaccesslog.c, global/vscan-functions.c,
+	  global/vscan-message.c, global/vscan-quarantine.c,
+	  include/.cvsignore, include/vscan-fileaccesslog.h,
+	  include/vscan-functions.h, include/vscan-global.h,
+	  include/vscan-message.h, include/vscan-vfs.h,
+	  openantivirus/vscan-oav.c, openantivirus/vscan-oav_core.c,
+	  sophos/vscan-sophos.c, sophos/vscan-sophos_core.c: - rename
+	  vscan_config.h ->vscan-config.h
+	  - include only vscan-global.h   and the rest via vscan-global.h
+	  - change some 'char' or 'pstring' parameters to 'const char'	 to
+	  avoid compiler warnings.
+
+2003-06-17 Stefan Metzmacher <metze@metzemix.de>
+	* include/vscan-global.h: restore 2.2.8 as default (this is only
+	  used for non converted backends)
+	* include/.cvsignore: fixing typo in .cvsignore: vscan-config.h ->
+	  vscan_config.h
+	* Makefile.in: rm configure with 'make distclean'
+	* .cvsignore, Makefile.in, aclocal.m4, autogen.sh, configure.in,
+	  install-sh, fprot/vscan-fprotd.c, fprot/vscan-fprotd_core.c,
+	  global/vscan-functions.c, global/vscan-message.c,
+	  global/vscan-quarantine.c, icap/vscan-icap.c, include/.cvsignore,
+	  include/vscan-fileaccesslog.h, include/vscan-functions.h,
+	  include/vscan-global.h, include/vscan-quarantine.h,
+	  include/vscan-vfs.h, kaspersky/vscan-kavp.c, mks/vscan-mksd.c,
+	  openantivirus/vscan-oav.c, openantivirus/vscan-oav_core.c,
+	  sophos/vscan-sophos.c, symantec/vscan-symantec.c,
+	  trend/vscan-trend.c: add a configure.in Makefile.in into the top
+	  dir
+	  run ./autogen.sh ./configure
+	  --with-samba-source=/path/to/samba/source/dir --enable-developer
+
+	  make oav sophos fprot
+
+	  configure detects which samba version is in use :-)
+
+	  this tree backend are working now.  the rest will follow.
+
+2003-04-19  Rainer Link <rainer@openantivirus.org>
+	* NEWS: updated
+	* INSTALL: updated to reflect recent changes
+	* fprot/vscan-fprotd.conf: extend comment for fprot port setting
+	* fprot/vscan-fprotd.conf: updated to the correct port range F-Prot
+	Daemon supports
+	* fprot/: vscan-fprotd.c, vscan-fprotd.h, vscan-fprotd_core.c:
+	F-Prot Daemon listens on port 10200 up to 10204. Added some code so
+	that vscan-fprotd tries to connect to daemon on specified port
+	range and not only on port 10200. Feature requested by Christian
+	Zimmermann
+	* ChangeLog: updated
+	* Released 0.3.3 beta1
+
+
+2003-04-18  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, icap/vscan-icap.c, kaspersky/vscan-kavp.c,
+	mks/vscan-mksd.c, openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	trend/vscan-trend.c: don't use fstr* functions for vars of type
+	pstring
+	* include/vscan-fileaccesslog.h, global/vscan-fileaccesslog.c:
+	fname is now of type pstring instead of fstring
+	* symantec/vscan-symantec.c: bug fixed, so it actually compiles now
+	again. Don't use fstr* functions for vars of type pstring
+
+2003-04-15  Rainer Link <rainer@openantivirus.org>
+	* sophos/vscan-sophos_core.c, trend/vscan-trend_core.c: ok, Sophie
+	actually accepts filenames only up to 256 chars
+	* kaspersky/: Makefile, Makefile.KAV4: minor update
+	* icap/vscan-icap_core.c, openantivirus/vscan-oav_core.c,
+	sophos/vscan-sophos_core.c, symantec/vscan-symantec_core.c,
+	trend/vscan-trend_core.c: more verbose error msg when connection
+	has failed
+	* README, TODO, INSTALL: fixed some spelling errors
+	* AUTHORS: added Dariusz to list of Contributors
+
+2003-04-13  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd_core.c: extend error message in case of
+	connection to daemon failed
+	* ChangeLog: updated
+
+2003-04-08  Rainer Link <rainer@openantivirus.org>
+	* mks/mks.h: removed - no longer needed
+	* INSTALL, mks/Makefile, mks/vscan-mksd_core.c,
+	mks/vscan-mksd_core.h: updates by Dariusz
+
+2003-03-30  Rainer Link <rainer@openantivirus.org>
+	* INSTALL: updated for 2.2.8 setting
+	* fprot/vscan-fprotd.c, icap/vscan-icap.c, include/vscan-global.h,
+	include/vscan-vfs.h, kaspersky/vscan-kavp.c, mks/vscan-mksd.c,
+	openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: changes to fix a
+	compiler warning when compiled for Samba 2.2.8
+	* mks/libmksd/: libmksd.c, libmksd.h: updates to libmksd by Dariusz
+
+2003-03-29  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, icap/vscan-icap.c, kaspersky/vscan-kavp.c,
+	mks/vscan-mksd.c, openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: set module_id to
+	0.3.2b
+	* NEWS: updated for 0.3.2b release
+	* ChangeLog: updated
+	* Released 0.3.2b
+
+2003-03-28  Rainer Link <rainer@openantivirus.org>
+	* INSTALL: added section 'Donations'
+
+2003-03-27  Rainer Link <rainer@openantivirus.org>
+	* global/vscan-message.c: unix_to_dos macro is different in Samba
+	2.2.0-2.2.3 and >= 2.2.4
+
+2003-03-17  Rainer Link <rainer@openantivirus.org>
+	* openantivirus/vscan-oav_core.c: fix a possible problem with very
+	long path/filenames
+	* fprot/vscan-fprotd_core.c: fixed a bug wrt very long path/file
+	names
+
+2003-03-10  Rainer Link <rainer@openantivirus.org>
+	* icap/icap-client.c: fixed a misleading error msg
+
+2003-02-22  Rainer Link <rainer@openantivirus.org>
+	* TODO: updated. we should check if the modules are really LFS
+	aware
+
+
+2003-02-21  Rainer Link <rainer@openantivirus.org>
+	* TODO: updated, better renaming of files probably needed
+	* Released samba-vscan 0.3.2a
+
+2003-02-20  Rainer Link <rainer@openantivirus.org> 
+	* AUTHORS: added Kevin Wang to contributors
+	* INSTALL: added info wrt RedHat, Samba & Kaspersy by Kevin Wang
+	* kaspersky/: Makefile, Makefile.KAV4, helpers.c, kavclient.c,
+	vscan-kavp.c, vscan-kavp_core.c: various fixes (memory leacks/file
+	descriptors) by Kevin Wang
+	* INSTALL: fixed the vfs option setting for the configuration file
+
+2003-02-06  Rainer Link <rainer@openantivirus.org>
+	* Changelog: updated
+	* Released samba-vscan 0.3.2
+
+2003-01-30  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, icap/vscan-icap.c, kaspersky/vscan-kavp.c,
+	mks/vscan-mksd.c, openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: set module_id to
+	0.3.2RC2
+	* trend/Makefile: bugfix
+	* INSTALL: fixed the path for the samba-included popt files.
+	Reported by M. Voerman
+	* icap/Makefile, kaspersky/Makefile, kaspersky/Makefile.KAV4,
+	openantivirus/Makefile, sophos/Makefile, symantec/Makefile,
+	trend/Makefile: bug fix: the vscan-fileaccesslog stuff was not bing
+	build. Reported by M. Voerman
+	* ChangeLog: updated
+	* Released samba-vscan 0.3.2RC2
+
+2003-01-25  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, icap/vscan-icap.c, kaspersky/vscan-kavp.c,
+	openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: updated module_id
+	to 0.3.2RC1
+	* ChangeLog: updated
+	* INSTALL: updated info wrt Symantec AntiVirus Engine
+	* fprot/vscan-fprotd_core.c: use encode_string instead of
+	enocde_space to acutally encode all unsafe chars
+	* include/vscan-functions.h, global/vscan-functions.c: removed
+	encode_space() added encode_string()
+	* Released samba-vscan 0.3.2 RC1
+
+2003-01-24  Rainer Link <rainer@openantivirus.org>
+
+	* fprot/vscan-fprotd_core.c: indicate failure, when fflush()ing
+	failed
+
+
+2003-01-21  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, icap/vscan-icap.c, kaspersky/vscan-kavp.c,
+	mks/vscan-mksd.c, openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: set module_id to
+	0.3.2b2
+	* INSTALL: updated
+	* global/vscan-functions.c: fixed the check for too long string to
+	be encoded
+	* include/vscan-functions.h, global/vscan-functions.c: added some
+	code to avoid integer overflow
+	* ChangeLog: updated
+	* Released samba-vscan 0.3.2 Beta2
+
+2003-01-20  Rainer Link <rainer@openantivirus.org>
+	* ChangeLog: updated
+
+
+2003-01-19  Rainer Link <rainer@openantivirus.org>
+	* INSTALL, mks/Makefile, mks/vscan-mksd_core.h: implemented
+	USE_INCLMKSDLIB=1 feature, to be able to build the mks module with
+	the shipped libmksd (instead of using a globally installed libmskd)
+	* INSTALL, README, mks/Makefile, mks/vscan-mksd_core.h: another
+	update for mks by Dariusz
+	* NEWS: updated
+	* mks/mks_c.c: removed, file no longer needed by the new stuff
+	* mks/: Makefile, mks.h, vscan-mksd_core.c, vscan-mksd_core.h,
+	libmksd/COPYING.LIB, libmksd/libmksd.c, libmksd/libmksd.h: updated
+	mks support, based on a patch from Dariusz Markowicz (SF Patch-ID:
+	658472)
+
+2003-01-15  Rainer Link <rainer@openantivirus.org>
+	* icap/icap-client.c: updated
+	* icap/icap-client.c: added, example icap client for testing ICAP
+	server
+	* FAQ, TODO: updated
+	* include/vscan-message.h, icap/vscan-icap_core.c: cosmetics
+
+2003-01-14  Rainer Link <rainer@openantivirus.org>
+	* fprot/Makefile, icap/Makefile, kaspersky/Makefile,
+	kaspersky/Makefile.KAV4, mks/Makefile, openantivirus/Makefile,
+	sophos/Makefile, symantec/Makefile, trend/Makefile: added -fPIC to
+	Makefiles (to be able to use samba-vscan on X86-64)
+
+2003-01-06  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.conf, fprot/vscan-fprotd.h,
+	icap/vscan-icap.conf, icap/vscan-icap.h, kaspersky/vscan-kavp.conf,
+	kaspersky/vscan-kavp.h, mks/vscan-mks32.conf, mks/vscan-mksd.h,
+	openantivirus/vscan-oav.conf, openantivirus/vscan-oav.h,
+	sophos/vscan-sophos.conf, sophos/vscan-sophos.h,
+	symantec/vscan-symantec.conf, symantec/vscan-symantec.h,
+	trend/vscan-trend.conf, trend/vscan-trend.h: changed default value
+	of "lru file entry lifetime" to 5 (seconds)
+	* NEWS: updated
+	* INSTALL: updated, added new section "how to report bugs"
+	* ChangeLog: updated
+
+2003-01-04  Rainer Link <rainer@openantivirus.org>
+	* INSTALL: added some more info wrt the last recently accessed file
+	mechanism
+	* fprot/vscan-fprotd_core.c: used encode_space funtion to encode
+	spaces as %20
+	* include/vscan-functions.h, global/vscan-functions.c: added
+	function encoded_space to encode any occurences of a space as %20
+	(mainly for vscan-fprotd module)
+	* fprot/vscan-fprotd.h, icap/vscan-icap.h, kaspersky/vscan-kavp.h,
+	mks/vscan-mksd.h, openantivirus/vscan-oav.h, sophos/vscan-sophos.h,
+	symantec/vscan-symantec.h, trend/vscan-trend.h: bugfix, added
+	missing trailing / to close comment
+
+2003-01-03  Rainer Link <rainer@openantivirus.org>
+	* TODO: updated
+	* INSTALL: first update to address the last recently accessed file
+	mechanism to avoid multiple scans of the same file in a very short
+	period of time caused by Windows behaviour
+	* README: updated, actually, samba-vscan consists of seven modules
+	:)
+	* fprot/vscan-fprotd.c, icap/vscan-icap.c, kaspersky/vscan-kavp.c,
+	mks/vscan-mksd.c, openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: set module_id to
+	0.3.2b1
+	* fprot/vscan-fprotd.c, fprot/vscan-fprotd.h, icap/vscan-icap.c,
+	icap/vscan-icap.h, kaspersky/vscan-kavp.c, kaspersky/vscan-kavp.h,
+	mks/vscan-mksd.c, mks/vscan-mksd.h, openantivirus/vscan-oav.c,
+	openantivirus/vscan-oav.h, sophos/vscan-sophos.c,
+	sophos/vscan-sophos.h, symantec/vscan-symantec.c,
+	symantec/vscan-symantec.h, trend/vscan-trend.c,
+	trend/vscan-trend.h: use VSCAN_MAX_LRUFILES and
+	VSCAN_LRUFILES_INVALIDATE_TIME as compile time settings
+	* fprot/vscan-fprotd.conf, icap/vscan-icap.conf,
+	kaspersky/vscan-kavp.conf, mks/vscan-mks32.conf,
+	openantivirus/vscan-oav.conf, symantec/vscan-symantec.conf,
+	trend/vscan-trend.conf: offer the possibility to disable the lru
+	files mechanism by setting "max lru files entries" to zero
+	* global/vscan-fileaccesslog.c: offer the possibility to disable
+	the lru files mechanism
+	* global/vscan-message.c: removed a no longer valid FIXME remark
+
+2002-12-17  Rainer Link <rainer@openantivirus.org>
+	* icap/vscan-icap.c, icap/vscan-icap.conf, kaspersky/vscan-kavp.c,
+	kaspersky/vscan-kavp.conf, mks/vscan-mks32.conf, mks/vscan-mksd.c,
+	openantivirus/vscan-oav.c, openantivirus/vscan-oav.conf,
+	sophos/vscan-sophos.c, sophos/vscan-sophos.conf,
+	symantec/vscan-symantec.c, symantec/vscan-symantec.conf,
+	trend/vscan-trend.c, trend/vscan-trend.conf: added the lru files
+	feature to avoid multiple scans of files
+	* icap/vscan-icap_core.c: added a FIXME wrt LFS support
+	* fprot/vscan-fprotd.conf: minor change
+	* fprot/vscan-fprotd.c: close the socket in error conditions et al
+	* global/vscan-fileaccesslog.c: added comments fixed a bug when the
+	last entry will be deleted
+
+2002-12-16  Rainer Link <rainer@openantivirus.org>
+	* fprot/: Makefile, vscan-fprotd.c, vscan-fprotd.conf: use the lru
+	file list mechanism to avoid scanning of files due to Win behaviour
+	* include/vscan-fileaccesslog.h, global/vscan-fileaccesslog.c:
+	check if lifetime of an entry has expired and invalidate entry
+	* global/vscan-fileaccesslog.c: some changes, debug at level 10
+	* include/vscan-fileaccesslog.h, global/vscan-fileaccesslog.c:
+	several updates and bugfixes. Actually, if double-clicking a word
+	file it will be scanned up to 6x time until Windows really reports
+	back "access denied" to user. With this code, a file will be
+	(hopefully) scanned only once.
+	* include/vscan-fileaccesslog.h, global/vscan-fileaccesslog.c: ok,
+	make it actually compile :)
+	* include/vscan-fileaccesslog.h, global/vscan-fileaccesslog.c:
+	initial checking of the "file access log" stuff, which stores
+	information about last-recently-used files (file name and modify
+	time). Will later be used to avoid scanning a file multiple time as
+	windows access a file very often in a very short time of period.
+	This code is currently untested and not used
+
+2002-12-15  Rainer Link <rainer@openantivirus.org>
+	* global/vscan-message.c: uhm, newline is of course encoded as \r\n
+	(works with Win98), silly me
+
+2002-12-14  Rainer Link <rainer@openantivirus.org>
+	* NEWS: updated wrt vscan-icap
+	* INSTALL, README: updates wrt the vscan-icap module
+	* fprot/vscan-fprotd.c, icap/vscan-icap.c, kaspersky/vscan-kavp.c,
+	mks/vscan-mksd.c, openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: set module_id to
+	0.3.2a1
+	* icap/vscan-icap_core.c: removed debug statements
+	* ChangeLog: updated
+	* icap/: Makefile, vscan-icap.c, vscan-icap.conf, vscan-icap.h,
+	vscan-icap_core.c, vscan-icap_core.h: initial, basic ICAP support,
+	based on Symantec ICAP server.
+
+
+2002-12-05 Rainer Link <rainer@openantivirus.org>
+	* NEWS: updated for 0.3.1 release
+	* Released 0.3.1
+
+2002-12-04 Rainer Link <rainer@openantivirus.org>
+	* INSTALL: added section "log checking"
+	* global/vscan-message.c: added missing '\n' in DEBUG statements
+	* openantivirus/vscan-oav_core.c: there's no "OK" tag but "INFO" 
+	instead
+
+2002-12-04 Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprot.c, kaspersky/vscan-kavp.c,
+	mks/vscan-mksd.c, openantivirus/vscan-oav.c,
+	sophos/vscan-sophos.c, symantec/vscan-symantec.c,
+	trend/vscan-trend.c: one more ifdef to avoid a compiler 
+	warning wrt next_token with Samba 3.0
+	* openantivirus/vscan-oav_core.c: fixed a stupid bug which 
+	caused to log always 'UNKNOWN' instead of the virus name
+	* global/vscan-message.c: the winpopup stuff works now with
+	Samba 3.0, at least with Samba 3.0 alpha21
+	* ChangeLog: updated
+	* Released samba-vscan 0.3.1RC1
+
+2002-12-03 Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.conf, kaspersky/vscan-kavp.conf,
+	mks/vscan-mks32.conf, openantivirus/vscan-oav.conf,
+	sophos/vscan-sophos.conf, symantec/vscan-symantec.conf,
+	trend/vscan-trend.conf: fixed missing "deny access on minor error"
+	entry in conf files
+	* INSTALL: updated to reflect recent changes
+	* TODO, NEWS: updated
+
+2002-11-29 Rainer Link <rainer@openantivirus.org>
+	* global/vscan-message.c: use fstrcpy instead of pstrcpy as
+	remote_maschine is of type fstring
+	* fprot/vscan-fprotd.c, kaspersky/vscan-kavp.c, mks/vscan-mksd.c,
+	openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: set module_id to
+	0.3.1beta2
+	* global/vscan-message.c: fixed to get it compiled with Samba 2.2.x
+	and Samba 3.0. Works with Samba 2.2.x, but I wasn't unable to test
+	it with Samba 3.0
+	* kaspersky/vscan-kavp.h, mks/vscan-mksd.h,
+	openantivirus/vscan-oav.h, sophos/vscan-sophos.h,
+	symantec/vscan-symantec.h, trend/vscan-trend.h: the samba version
+	has now to be set in include/vscan-global.h
+	* global/vscan-message.c: debug on level 2 only first fix for Samba
+	3.0 (more to come)
+	* fprot/vscan-fprotd.c, kaspersky/vscan-kavp.c, mks/vscan-mksd.c,
+	openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: set module_id to
+	0.3.1beta1
+
+2002-11-28 Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, fprot/vscan-fprotd_core.c,
+	kaspersky/vscan-kavp.c, mks/vscan-mksd.c,
+	openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: some minor
+	fixes/changes
+
+2002-11-28 Rainer Link <rainer@openantivirus.org>
+	* kaspersky/vscan-kavp_core.c: fixed vscan_warning_msg call
+	* kaspersky/: Makefile, Makefile.KAV4, vscan-kavp.c,
+	vscan-kavp.conf, vscan-kavp.h, vscan-kavp_core.c: ported the new
+	stuff to the kaspersky module, needs some testing as the core
+	interface has been changed
+	* fprot/vscan-fprotd.c, kaspersky/vscan-kavp.c, mks/vscan-mksd.c,
+	openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: do not log "scan on
+	close" as "scan on open" :)
+	* INSTALL: bugfix :) it's "vfs options" and not "vfs option"
+
+2002-11-27 Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, mks/vscan-mksd.c,
+	openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	symantec/vscan-symantec.c, trend/vscan-trend.c: set module_id to
+	0.3.1alpha
+	* fprot/vscan-fprotd.c, fprot/vscan-fprotd.h,
+	fprot/vscan-fprotd_core.c, fprot/vscan-fprotd_core.h,
+	global/vscan-quarantine.c, include/vscan-quarantine.h,
+	mks/Makefile, mks/vscan-mks32.conf, mks/vscan-mksd.c,
+	mks/vscan-mksd.h, mks/vscan-mksd_core.c, openantivirus/Makefile,
+	openantivirus/vscan-oav.c, openantivirus/vscan-oav.conf,
+	openantivirus/vscan-oav.h, openantivirus/vscan-oav_core.c,
+	sophos/Makefile, sophos/vscan-sophos.c, sophos/vscan-sophos.conf,
+	sophos/vscan-sophos.h, sophos/vscan-sophos_core.c,
+	symantec/Makefile, symantec/vscan-symantec.c,
+	symantec/vscan-symantec.conf, symantec/vscan-symantec.h,
+	symantec/vscan-symantec_core.c, trend/Makefile,
+	trend/vscan-trend.c, trend/vscan-trend.conf, trend/vscan-trend.h,
+	trend/vscan-trend_core.c: implementation of quarantine function,
+	based on a patch by Kurt 
+	some more code reorganisation (still more to come)
+
+2002-11-26 Rainer Link <rainer@openantivirus.org>
+	* INSTALL: updated Sophie/Trophie section wrt permission for the
+	socket file
+	* fprot/: Makefile, vscan-fprotd.c, vscan-fprotd.h: some more work
+	done on the quarantine stuff
+	* global/vscan-quarantine.c: added, provides functions for
+	quarantining / removing an infected file
+	* include/vscan-quarantine.h: added
+	* AUTHORS: added Kurt to Contributors
+	* fprot/vscan-fprotd.c, fprot/vscan-fprotd.conf,
+	fprot/vscan-fprotd.h, fprot/vscan-fprotd_core.c,
+	fprot/vscan-fprotd_core.h, global/vscan-functions.c,
+	include/vscan-functions.h, include/vscan-global.h: first
+	implementation of quarantine function, based on a patch by Kurt
+	some more code reorganisation (still more to come)
+
+2002-11-24 Rainer Link <rainer@openantivirus.org>
+	* fprot/Makefile, fprot/vscan-fprotd.c, fprot/vscan-fprotd.conf,
+	fprot/vscan-fprotd.h, fprot/vscan-fprotd_core.c,
+	kaspersky/Makefile, kaspersky/Makefile.KAV4,
+	kaspersky/vscan-kavp.c, kaspersky/vscan-kavp.conf,
+	kaspersky/vscan-kavp.h, mks/Makefile, mks/vscan-mks32.conf,
+	mks/vscan-mksd.c, mks/vscan-mksd.h, mks/vscan-mksd_core.c,
+	openantivirus/vscan-oav_core.c, sophos/Makefile,
+	sophos/vscan-sophos.c, sophos/vscan-sophos.conf,
+	sophos/vscan-sophos.h, sophos/vscan-sophos_core.c,
+	symantec/Makefile, symantec/vscan-symantec.c,
+	symantec/vscan-symantec.conf, symantec/vscan-symantec.h,
+	symantec/vscan-symantec_core.c, trend/Makefile,
+	trend/vscan-trend.c, trend/vscan-trend.conf, trend/vscan-trend.h,
+	trend/vscan-trend_core.c: some code-reorganisation 
+	added logging keyword INFO where appropriate 
+	send winpop-up msg whan virus was found (configurable)
+	deny access on minor error feature added
+	* global/vscan-functions.c: added header
+	* AUTHORS, TODO: updated
+	* global/vscan-message.c: added, used to generate winpopup-msgs
+	* global/vscan-functions.c: added, provides common-used functions
+	* include/vscan-message.h: added
+	* include/vscan-functions.h: initial checkin, provides common used
+	functions
+	* openantivirus/: vscan-oav.conf, vscan-oav.h: new parameters
+	* openantivirus/vscan-oav_core.c: log info messages as INFO 
+	send virus messages via netbios msg, too 
+	return -2 on minor errors
+	* openantivirus/vscan-oav.c: some code re-organisation 
+	log informational messages as INFO 
+	added deny_access_on_minor_error feature
+	* openantivirus/Makefile: updated
+
+2002-11-23 Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.h, kaspersky/vscan-kavp.h, mks/vscan-mksd.h,
+	openantivirus/vscan-oav.h, sophos/vscan-sophos.h,
+	symantec/vscan-symantec.h, trend/vscan-trend.h: default location of
+	config file is now /etc/samba
+
+2002-11-22 Rainer Link <rainer@openantivirus.org>
+	* fprot/Makefile, fprot/vscan-fprotd.c, fprot/vscan-fprotd.h,
+	include/vscan-global.h, include/vscan-vfs.h, kaspersky/Makefile,
+	kaspersky/vscan-kavp.c, kaspersky/vscan-kavp.h, mks/Makefile,
+	mks/vscan-mksd.c, mks/vscan-mksd.h, openantivirus/Makefile,
+	openantivirus/vscan-oav.c, openantivirus/vscan-oav.h,
+	sophos/Makefile, sophos/vscan-sophos.c, sophos/vscan-sophos.h,
+	symantec/Makefile, symantec/vscan-symantec.c,
+	symantec/vscan-symantec.h, trend/Makefile, trend/vscan-trend.c,
+	trend/vscan-trend.h: first step of code re-organisation
+	* fprot/vscan-fprotd_core.c, kaspersky/vscan-kavp.c,
+	sophos/vscan-sophos.c, trend/vscan-trend.c: Fixed some line wraps,
+	credits to Lars Mueller
+
+
+2002-11-11 Rainer Link <rainer@openantivirus.org>
+	* NEWS, TODO, FAQ: updated for 0.3.0 release
+	* INSTALL: rewritten for 0.3.0 release
+	* fprot/INSTALL, kaspersky/INSTALL, mks/INSTALL,
+	  openantivirus/INSTALL, sophos/INSTALL, symantec/INSTALL,
+	  trend/INSTALL: removed as contents have been merged to
+	  global INSTALL file
+	* ChangeLog: updated
+	* Released samba-vscan 0.3.0
+
+2002-10-25 Rainer Link <rainer@openantivirus.org>
+	* mks/vscan-mksd.c: bugfix of the changes related to
+	  Samba 3.0 VFS
+	  
+2002-10-24 Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, kaspersky/vscan-kavp.c,
+	  mks/vscan-mksd.c, symantec/vscan-symantec.c,
+	  sophos/vscan-sophos.c, trend/vscan-trend.c: make it
+	  work with the recent Samba 3.0 VFS again
+	  
+2002-10-23 Rainer Link <rainer@openantivirus.org>
+	* openantivirus/vscan-oav.c: make it work with the
+	  recent Samba 3.0 VFS again
+
+2002-10-22 Rainer Link <rainer@openantivirus.org>
+	* kaspersky/vscan-kavp_core.c, mks/vscan-mksd_core.c: log
+	  error msg as "ERROR: <msg>" as within the other modules
+	  
+
+2002-10-18 Rainer Link <rainer@openantivirus.org>
+	* trend/Makefile, trend/vscan-trend.h, trend/vscan-trend.c,
+	  trend/vscan-trend_core.h, trend/vscan-trend_core.c: rewritten
+	  due to GPL-issues. Use Trophie again :-)
+	* trend/vscan-trend_init.h, trend/vscan-trend_init.c, 
+	  trend/vscan-trend_vsapi.h: removed, as no longer needed 
+	* fprot/vscan-fprotd_core.c, kaspersky/vscan-kavp_core.c,
+	  mks/vscan-mksd_cire.c, openantivirus/vscan-oav_core.c,
+	  sophos/vscan-sophos_core.c, trend/vscan-trend_core.c,
+	  symantec/vscan-symantec_core.c: added ALERT key word
+	  in front of virus logging
+
+2002-10-17 Rainer Link <rainer@openantivirus.org>
+	* sophos/Makefile, sophos/vscan-sophos.c, sophos/vscan-sophos.conf,
+	  sophos/vscan-sophos_core.c: updated to got the module really
+	  working
+
+2002-10-16 Rainer Link <rainer@openantivirus.org>
+	* sophos/Makefile, sophos/vscan-sophos.c, sophos/vscan-sopohs.h,
+	  sophos/vscan-sophos_core.c, sophos/vscan-sophos_core.h: rewritten due 
+	  to GPL-issues. Use Sophie again :-) 
+
+2002-10-15 Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprot.c, kaspersky/vscan-kavp.c, mks/vscan-mksd.c,
+	  openantivirus/vscan-oav.c, sophos/vscan-sophos.c, 
+	  symantec/vscan-symantec.c, trend/vscan-trend.c: log 
+	  via syslog, if config file could not be parsed
+	  
+2002-08-21 Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, fprotd/vscan-fprotd_core.c, 
+	  kaspersk/vscan-kavp.c, kaspersky/vscan-kavp_core.c, mks/vscan-mksd.c,
+	  mks/vscan-mksd_core.c, openantivirus/vscan-oav.c, 
+          openantivirus/vscan-oav_core.c, sophos/vscan-sophos.c, 
+	  sophos/vscan-sophos_core.c, symantec/vscan-symantec.c,
+          symantec/vscan-symantec_core.c, trend/vscan-trend.c, 
+	  trend/vscan-trend_core.c: log the client IP, if virus was found
+	* kaspersky/KAVClient.h, kasperky/helpers.c, kaspersky/helpers.h,
+	  kaspersky/shmem.h: updated to the new C lib source file from
+	  Kasperksy Labs (GPL-compatible BSD license)
+	* kaspersky/Makefile.KAV4: new file
+	
+	
+2002-07-15 Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, kaspersky/vscan-kavp.c, mks/vscan-mksd.c,
+          openantivirus/vscan-oav.c, sophos/vscan-sophos.c, 
+	  symantec/vscan-symante.c: new init message
+
+2002-07-02 Rainer Link <rainer@openantivirus.org>
+	* kaspersky/vscan-kavp.conf: new file
+	* kaspersky/vscan-kavp.c, kaspersky/vscan-kavp_core.c: make path to 
+	  avp socket file configurable
+	
+2002-07-01 Rainer Link <rainer@openantivirus.org>
+	* kaspersky/vscan-kavp.c: open/close the connection to kavdaemon for 
+	  every open()/close() VFS call to avoid trouble with persistent 
+	  connection (i.e. when kavdaemon is sig-HUP'ed, then we can't 
+	  send/receive data anymore). Problem dectect by Christian H. of 
+	  DATSEC, Germany
+	* mks/vscan-mks32.conf, mks/vscan-mksd.c, mks/vscan-mksd_core.c: use 
+	  samba style configuration file
+
+
+2002-06-13 Rainer Link <rainer@openantivirus.org>
+	* kaspersky/vscan-kavp.c, openantivirus/vscan-oav.c, 
+          symantec/vscan-symantec.c, trend/vscan-trend.c: use samba style 
+	  configuration file
+	* openantivirus/vscan-oav.conf, symantec/vscan-symantec.conf: new file
+
+2002-06-07 Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.conf: new file
+	* fprot/vscan-fprotd.c, fprot/vscan-fprotd_core.c, 
+	  sophos/vscan-sophos.c, sophos/vscan-sophos_core.c: use samba-style 
+	  configuration file instead  of compile-time flags
+	* kaspersky/kavclient.c, kaspersky/kavclient.h: new files 
+	* sophos/vscan-sophos.conf: new file
+
+
+2002-05-06 Rainer Link <rainer@openantivirus.org>
+	* Released 0.2.5
+	
+2002-05-01  Rainer Link <rainer@openantivirus.org>
+	* if communication with daemon fails or initialisation of the
+	  used virus scanning API fails, block access to file
+	  (configurable). Suggest by Svavar Ingi Hermannsson of
+	  FRISK Int'l.
+	* INSTALLs: updated
+	* if virus scanning is performend on open or close is now
+	  configurable at compile time
+	* Released 0.2.5 beta 3
+
+2002-04-26  Rainer Link <rainer@openantivirus.org>
+	* do not log via syslog() directly but vscan_syslog() instead
+	* renamed vscan_<module>_print() to vscan_syslog()
+	 
+2002-04-25  Rainer Link <rainer@openantivirus.org>
+	* scan for viruses when a file is closed (this is just logged!)
+	* removed "Access denied" from the syslog message if
+	  a virus is found
+	  
+2002-04-19  Rainer Link <rainer@openantivirus.org>
+	* mks/*: added support for mks32, contributed by 
+	  Krzysztof Drewicz <hunter@pld.org.pl> (this stuff is
+	  untested)
+	* Released 0.2.5 beta 2
+
+2002-04-19  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd_core.c: removed any '\n' from messages to
+	  be logged via syslog facility, GET request is now conform
+	  to RFC (1945) :)
+
+2002-04-18  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprot_core.c, oav/vscan-oav_core.c: use the
+	  ANSI C standard I/O lib to communicate to the daemon 
+	  
+2002-04-17  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprot_core.c: renamed function readline() to
+	  read_line() to avoid problems with GNU readline. Problem
+	  reported by  Svavar Ingi Hermannsson <svavar@f-prot.com>
+
+2002-04-07  Rainer Link <rainer@openantivirus.org>
+	* fprot/Makefile, kaspersky/Makefile,
+	  openantivirus/Makefile, sophos/Makefile,
+	  syamtenc/Makefile, trend/Makefile:
+	  added -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 
+          to CFLAGS to avoid crashes of smbd when
+          default_vfs_ops.stat is used 
+
+2002-04-06  Rainer Link <rainer@openantivirus.org>
+	* fprot/vscan-fprotd.c, kaspersky/vscan-kavp.c, 
+	  openantivirus/vscan-oav.c, sophos/vscan-sophos.c,
+	  symantec/vscan-symantec.c, trend/vscan-trend.c: use 
+	  default_vfs_ops.stat instead of libc stat
+	  	  
+2002-04-06  Rainer Link <rainer@openantivirus.org>
+	* make it compile with Samba 2.2 CVS (read: the upcomoing 2.2.4
+          release)
+	* Released 0.2.5 beta1
+
+2002-04-03  Rainer Link <rainer@openantivirus.org>
+	* NEWS, README: updated
+	* Released 0.2.4
+	
+2002-03-11  Rainer Link <rainer@openantivirus.org>
+	* some minor improvements of ScannerDaemon support
+	* added (experimental) support for F-Prot Daemon
+	* INSTALL, README, NEWS: updated
+	* Released 0.2.4RC2
+
+2002-03-08  Rainer Link <rainer@openantivirus.org>
+	* added support for OpenAntiVirus.org ScannerDaemon :)
+	* INSTALL, README, NEWS: updated
+	* Released 0.2.4RC1
+
+2002-03-06  Rainer Link <rainer@openantivirus.org>
+	* added support for Symantec CarrierScan
+	* added support for Kaspersky AntiVirus (based on the work
+	  of Ries van Twisk)
+	* INSTALL, README, NEWS: updated
+	* Released 0.2.3
+
+2002-03-04  Rainer Link <rainer@openantivirus.org>
+	* added samba-configure.in-fbsd-libdl.dif: q&d patch
+	  to able to use VFS modules on FreeBSD systems (as the configure
+	  check is wrong)
+	* Released 0.2.2
+
+2002-03-01  Rainer Link <rainer@openantivirus.org>
+	* sophos/*.h, trend/*.h: avoid multiple inclusion
+	* sophos/vscan-sophos.h, trend/vscan-trend.h: some more #ifdefs
+	  to be able to compile it on *BSD (hopefully, tested currently
+	  only on FBSD 4.5)
+	* Released 0.2.2-RC1
+ 
+2002-02-04  Rainer Link <rainer@openantivirus.org>
+	* samba-2.2.3-vfs.dif: new file
+	* trend/vscan-trend.c, sophos/vscan-sophos.c: set errno to
+	  EACCES
+	* trend/vscan-trend.c: bug-fix, retval is actually the number
+	  of found viruses
+	* trend/INSTALL, sophos/INSTALL: minor update for Samba 2.2.3
+	* Released 0.2.1RC1
+
+2001-12-27  Rainer Link <rainer@openantivirus.org>
+	* Released 0.2.0
+
+2001-12-23  Rainer Link <rainer@openantivirus.org>
+	* NEWS, README: updated
+	* tagged sources as samba_vscan_0_2_0-pre1
+
+2001-12-05  Rainer Link <rainer@openantivirus.org>
+	* sophos/INSTALL: elaborated information about customizing
+	  SAVI a bit
+
+2001-12-04  Rainer Link <rainer@openantivirus.org>
+	* sophos/Makefile, trend/Makefile: added header files
+	  to SOURCES, thanks to Wileczek Michaël
+
+2001-12-03  Rainer Link <rainer@openantivirus.org>
+	* FAQ,sophos/INSTALL, trend/INSTALL: 
+          documented the VSCAN_MAX_FILE_SIZE parameter
+
+2001-12-02  Rainer Link <rainer@openantivirus.org>
+	* sophos/vscan-sophos.c, trend/vscan-trend.c:
+	  don't scan directories (this happened only when
+          Win clients open a directory), don't scan files
+	  larger than a specific value (configurable), 
+	  both reported/suggested by Ariel Mella 
+	* sophos/INSTALL, trend/INSTALL: added information how to
+	  configure this module to be used with Samba 3.0 alpha0
+
+2001-11-30  Rainer Link <rainer@openantivirus.org>
+	* sophos/vscan-sophos.h, sophos/vscan-sophos.c,
+	  trend/vscan-trend.h, trend/vscan-trend.c:
+  	  added support for Samba 3.0 (experimental)
+
+2001-11-30  Rainer Link <rainer@openantivirus.org>
+	* Released 0.1.1
+
+2001-11-26  Rainer Link <rainer@openantivirus.org>
+	* FAQ: updated
+
+2001-11-19  Rainer Link <rainer@openantivirus.org>
+	* sophos/vscan-sophos.c, trend/vscan-trend.c: removed
+	  the closelog() call as this may cause segfaults. Win*
+	  clients open only one socket for all shares a user is
+          connected to. 
+
+2001-11-19  Rainer Link <rainer@openantivirus.org>
+	* FAQ, NEWS: Added
+	* README: minor update
+	* released 0.1.0
+
+2001-11-18  Rainer Link <rainer@openantivirus.org>
+	* vscan-sophos / vscan-trend: some code clean-up
+	* moved vscan-sophie.c and vscan-trophie.c to old/
+	* improved documentation
+        * tagged sources as samba_vscan_0_1-pre1
+
+2001-11-17  Rainer Link <rainer@openantivirus.org>
+	* TODO: Updated
+
+2001-11-12  Rainer Link <rainer@openantivirus.org>
+	* Added vscan-trend (trend/) which uses VSAPI directly
+
+2001-11-11  Rainer Link <rainer@openantivirus.org>
+	* Added vscan-sophos (sophos/) which uses SAVI directly
+	 
+
+2001-11-05  Rainer Link <rainer@openantivirus.org>
+	* TODO: Updated
+	* Released 0.0.2
+
+2001-11-03  Rainer Link <rainer@openantivirus.org>
+	* added Samba 2.2.1a-vfs.dif to get VFS working with Samba 2.2.1a,
+          patch by Lars Mueller of SuSE
+	* updated vscan-sophie.c to get it work with Samba 2.2.1a
+	* added vscan-trophie.c - based on vscan-sophie.c for Trend Micro
+          Engine and Trophie
+	* renamed samba-vfs.dif to samba-2.2.0a-vfs.dif
+	* README: updated
+
+2001-11-02  Rainer Link <rainer@openantivirus.org>
+	* added ChangeLog file
+	* added samba-2.2.2-vfs.dif to get VFS working, contributed
+	  by Simon Harrison
+	* updated vscan-sophie.c due to changes in VFS layer in
+	  Samba 2.2.2
+	* updated README to reflect the changes in vscan-sophie.c

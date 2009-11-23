@@ -1,0 +1,7 @@
+ - On share based settings using 'vfs options' in the samba configuration files
+   chech unfortunatly is not activated in samba 2.2.3.
+ - Peformance checking and optimizing.
+ - Change Makefile
+ - nfs optimyzing by sending a scan request to a nfs server.
+ - Checking the debug numbers in kavclient.c and check where I can use DEBUGADD 
+ 

@@ -1,0 +1,106 @@
+--- source/Makefile.in
++++ source/Makefile.in	Fri May 18 13:05:28 2001
+@@ -452,7 +452,7 @@
+ 
+ bin/smbd: $(SMBD_OBJ) bin/.dummy
+ 	@echo Linking $@
+-	@$(CC) $(FLAGS) -o $@ $(SMBD_OBJ) $(LDFLAGS) $(LIBS) 
++	@$(CC) $(FLAGS) -rdynamic -o $@ $(SMBD_OBJ) $(LDFLAGS) $(LIBS) 
+ 
+ bin/nmbd: $(NMBD_OBJ) bin/.dummy
+ 	@echo Linking $@
+
+--- examples/VFS/Makefile
++++ examples/VFS/Makefile	Mon Jun 25 19:44:19 2001
+@@ -12,7 +12,8 @@
+ SAMBA_INCL = ../../source/include
+ UBIQX_SRC = ../../source/ubiqx
+ SMBWR_SRC = ../../source/smbwrapper
+-CFLAGS = -I$(SAMBA_SRC) -I$(SAMBA_INCL) -I$(UBIQX_SRC) -I$(SMBWR_SRC) -Wall -g
++CFLAGS = -I$(SAMBA_SRC) -I$(SAMBA_INCL) -I$(UBIQX_SRC) -I$(SMBWR_SRC) -Wall -g -fPIC
++CPPFLAGS=-D_GNU_SOURCE -D_LARGEFILE64_SOURCE
+ VFS_OBJS = audit.so skel.so
+ 
+ # Default target
+--- examples/VFS/audit.c
++++ examples/VFS/audit.c	Mon Aug 13 00:09:22 2001
+@@ -107,10 +107,11 @@
+ /* VFS initialisation function.  Return initialised vfs_ops structure
+    back to SAMBA. */
+ 
+-struct vfs_ops *vfs_init(void)
++struct vfs_ops *vfs_module_init(int *vfs_version)
+ {
+ 	openlog("smbd_audit", LOG_PID, SYSLOG_FACILITY);
+-	syslog(SYSLOG_PRIORITY, "VFS_INIT: &audit_ops: 0x%8.8x\n", 
++ 	*vfs_version = SMB_VFS_INTERFACE_VERSION;
++	syslog(SYSLOG_PRIORITY, "VFS_MODULE_INIT: &audit_ops: 0x%8.8x\n", 
+ 	       &audit_ops);
+ 	return(&audit_ops);
+ }
+--- examples/VFS/block/Makefile
++++ examples/VFS/block/Makefile	Thu Jul 12 14:57:42 2001
+@@ -8,7 +8,7 @@
+ CC = gcc
+ LIBTOOL = libtool
+ 
+-SAMBA_SRC = /usr/local/src/samba/samba-2.2.0-ron/source
++SAMBA_SRC = ../../../source
+ SAMBA_INCL = ${SAMBA_SRC}/include
+ UBIQX_SRC = ${SAMBA_SRC}/ubiqx
+ SMBWR_SRC = ${SAMBA_SRC}/smbwrapper
+--- examples/VFS/block/block.c
++++ examples/VFS/block/block.c	Mon Aug 13 00:09:40 2001
+@@ -297,7 +297,7 @@
+ /* VFS initialisation function.  Return initialised vfs_ops structure
+    back to SAMBA. */
+ 
+-struct vfs_ops *vfs_init(int *vfs_version)
++struct vfs_ops *vfs_module_init(int *vfs_version)
+ {
+ 	*vfs_version = SMB_VFS_INTERFACE_VERSION;
+ 	
+--- examples/VFS/skel.c
++++ examples/VFS/skel.c	Mon Aug 13 00:09:32 2001
+@@ -132,7 +132,7 @@
+ 
+ /* VFS initialisation - return vfs_ops function pointer structure */
+ 
+-struct vfs_ops *vfs_init(int *vfs_version)
++struct vfs_ops *vfs_module_init(int *vfs_version)
+ {
+ 	*vfs_version = SMB_VFS_INTERFACE_VERSION;
+ 	return(&skel_ops);
+--- source/smbd/vfs.c
++++ source/smbd/vfs.c	Mon Aug 13 00:10:38 2001
+@@ -121,12 +121,12 @@
+ 		return False;
+     }
+ 
+-    /* Get handle on vfs_init() symbol */
++    /* Get handle on vfs_module_init() symbol */
+ 
+-    init_fptr = (struct vfs_ops *(*)(int *))sys_dlsym(conn->dl_handle, "vfs_init");
++    init_fptr = (struct vfs_ops *(*)(int *))sys_dlsym(conn->dl_handle, "vfs_module_init");
+ 
+     if (init_fptr == NULL) {
+-		DEBUG(0, ("No vfs_init() symbol found in %s\n",
++		DEBUG(0, ("No vfs_module_init() symbol found in %s\n",
+ 		  lp_vfsobj(SNUM(conn))));
+ 		return False;
+     }
+@@ -134,12 +134,12 @@
+     /* Initialise vfs_ops structure */
+ 
+     if ((ops = init_fptr(&vfs_version)) == NULL) {
+-        DEBUG(0, ("vfs_init function from %s failed\n", lp_vfsobj(SNUM(conn))));
++        DEBUG(0, ("vfs_module_init function from %s failed\n", lp_vfsobj(SNUM(conn))));
+ 		return False;
+     }
+ 
+ 	if (vfs_version != SMB_VFS_INTERFACE_VERSION) {
+-		DEBUG(0, ("vfs_init returned wrong interface version info (was %d, should be %d)\n",
++		DEBUG(0, ("vfs_module_init returned wrong interface version info (was %d, should be %d)\n",
+ 			vfs_version, SMB_VFS_INTERFACE_VERSION ));
+ 		return False;
+ 	}
