@@ -63,7 +63,7 @@ Description: eBox - Office Suite
 
 Package: ebox-communication
 Architecture: all
-Depends: ebox-mail, ebox-jabber, ebox-asterisk, ebox-mailfilter, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor
+Depends: ebox-mail, ebox-jabber, ebox-asterisk, ebox-mailfilter, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor, ebox-webmail
 Description: eBox - Communications Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
