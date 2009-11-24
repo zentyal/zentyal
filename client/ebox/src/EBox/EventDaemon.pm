@@ -257,7 +257,10 @@ sub _mainDispatcherLoop
             {
                 no strict 'vars'; $event = eval $data;
             }
-            $self->_dispatchEventByDispatcher($event);
+            # skip the given data if it is not a valid EBox::Event object
+            if ( defined($event) and $event->isa('EBox::Event') ) {
+                $self->_dispatchEventByDispatcher($event);
+            }
         }
         if ( time() - $self->{lastDispatcherScan} > SCANNING_INTERVAL ) {
             $self->_loadModules('Dispatcher');
