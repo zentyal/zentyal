@@ -101,7 +101,8 @@ if ($global->modExists('events')) {
                     );
 
             open(my $fifo, '+<', EVENTS_FIFO) or die;
-            print $fifo Dumper($event);
+            $Data::Dumper::Indent = 0;
+            print $fifo Dumper($event) . "\n";
             close($fifo);
         }
     }

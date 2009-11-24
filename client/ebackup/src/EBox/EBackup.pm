@@ -413,7 +413,7 @@ sub _remoteUrl
         }
     }
 
-    $url .= $target;
+    $url .= $target if defined($target);
 
     if ($method eq 'scp') {
         $url .= ' --ssh-askpass';
