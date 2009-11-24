@@ -40,6 +40,7 @@ my @PACKAGES = (
     ['samba', __('File sharing server and Windows PDC')],
     ['dns', __('DNS server')],
     ['dhcp', __('DHCP server')],
+    ['radius', __('RADIUS server')],
     ['squid', __('HTTP proxy and content filter')],
     ['usersandgroups', __('LDAP users and groups management')],
     ['monitor', __('System monitor with graphs and alerts')],
@@ -50,6 +51,7 @@ my @PACKAGES = (
     ['openvpn', __('VPN server')],
     ['webserver', __('HTTP server')],
     ['mail', __('Mail system: SMTP, POP3, IMAP4')],
+    ['webmail', __('WWW Mail Client')],
     ['mailfilter', __('Antispam, antivirus, transparent POP3 proxy')],
     ['antivirus', __('Antivirus')],
     ['egroupware', __('Shared calendar and address book, webmail, etc')],
@@ -69,6 +71,8 @@ my $SELECTION_FILE = 'selection';
 my $INSTALL_FILES = '/var/tmp';
 
 my $INSTALLER_TITLE = __('eBox Platform Installer');
+my $PACKAGE_MODE_TITLE = __('Choose package selection method');
+my $PACKAGE_MODE_MESSAGE = __('Select the method that better fits your needs.');
 my $SIMPLE_METHOD = __('simple');
 my $SIMPLE_DESC = __('Select packages by task');
 my $ADVANCED_METHOD = __('advanced');
@@ -77,6 +81,16 @@ my $TASK_TITLE = __('Select eBox tasks to install');
 my $TASK_MESSAGE = __('Select one or more tasks:');
 my $PACKAGE_TITLE = __('Select eBox packages to install');
 my $PACKAGE_MESSAGE = __('Select the desired packages:');
+my $USERS_MODE_TITLE = __('Select the type of the server');
+my $USERS_MODE_MESSAGE = __('Choose standalone unless you want LDAP replication or synchronization with Active Directory.');
+my $USERS_STANDALONE_DESC = __('Standalone server');
+my $USERS_ADVANCED_DESC = __('Advanced configuration (Master/Slave/AD Sync)');
+my $USERS_STANDALONE = __('standalone');
+my $USERS_ADVANCED = __('advanced');
+my $USERS_ADVANCED_TITLE = __("Advanced configuration modes");
+my $USERS_ADVANCED_MESSAGE = __x("In this beta version we don't support the advanced autoconfiguration yet. You can learn more about these features here:
+{url}",
+url => 'http://trac.ebox-platform.com/wiki/Document/AdvancedSetup_1.3');
 my $IFACES_TITLE = __('Select external interfaces');
 my $IFACES_MESSAGE = __('Strict default policies are applied to incoming traffic through external interfaces.');
 my $PASS_TITLE = __('Enter password for eBox interface');
@@ -97,6 +111,7 @@ my $WHIPTAIL_ARGS = "--clear --backtitle \"$INSTALLER_TITLE\"";
 ########################
 
 my $CNF_password;
+my $CNF_mode;
 my @CNF_selectedIfaces;
 my $CNF_domain = undef;
 
@@ -120,6 +135,14 @@ if (system ("$INSTALL_FILES/ebox-module-installed apache") != 0) {
         showDialog(__('Error'), __('Installation failed.') . "\n\n" .
                    __("Check contents of $LOG to see what happened"));
         exit (1);
+}
+
+# Choose mode if users module is installed
+if (system ("$INSTALL_FILES/ebox-module-installed users") == 0) {
+    $CNF_mode = askUsersMode();
+    if ($CNF_mode eq $USERS_ADVANCED) {
+        showDialog($USERS_ADVANCED_TITLE, $USERS_ADVANCED_MESSAGE);
+    }
 }
 
 # Choose password for eBox interface
@@ -181,9 +204,11 @@ sub selectPackagesMenu # returns array
     my @selection;
     my $option = '';
     my $ret = 0;
+    my $arg1 = "$SIMPLE_METHOD \"$SIMPLE_DESC\"";
+    my $arg2 = "$ADVANCED_METHOD \"$ADVANCED_DESC\"";
     do {
         unless ($ret == -1) {
-            $option = showMenu();
+            $option = showMenu($PACKAGE_MODE_TITLE, $PACKAGE_MODE_MESSAGE, $arg1, $arg2);
         }
         if ($option eq $SIMPLE_METHOD) {
             $ret = showChecklist($TASK_TITLE, $TASK_MESSAGE, @TASKS);
@@ -240,6 +265,18 @@ sub askPassword # returns string
     return $password;
 }
 
+sub askUsersMode # returns string
+{
+    my $arg1 = "$USERS_STANDALONE \"$USERS_STANDALONE_DESC\"";
+    my $arg2 = "$USERS_ADVANCED \"$USERS_ADVANCED_DESC\"";
+    my $mode;
+    do {
+        $mode = showMenu($USERS_MODE_TITLE, $USERS_MODE_MESSAGE, $arg1, $arg2);
+    } until ($mode);
+
+    return $mode;
+}
+
 sub askMailDomain # returns string
 {
     my $domain;
@@ -270,8 +307,11 @@ sub preconfiguration
     open ($PROGRESS, '|-', $whipCmd);
 
     # Enable all eBox installed modules
-
-    my $moduleList = `$INSTALL_FILES/ebox-enable-list`;
+    my $moduleList = '';
+    if ($CNF_mode eq $USERS_STANDALONE) {
+        $moduleList = `$INSTALL_FILES/ebox-enable-list`;
+        system("$INSTALL_FILES/ebox-set-master >> $LOG 2>&1");
+    }
     print $PROGRESS "1\n";
 
     chomp($moduleList);
@@ -356,14 +396,10 @@ sub preconfiguration
 
 sub showMenu
 {
-    my $title = __('Choose package selection method');
-    my $message = __('Select the method that better fits your needs');
+    my ($title, $message, $arg1, $arg2) = @_;
 
     my $size = 2;
-    my $height = $size + 7;
-
-    my $arg1 = "$SIMPLE_METHOD \"$SIMPLE_DESC\"";
-    my $arg2 = "$ADVANCED_METHOD \"$ADVANCED_DESC\"";
+    my $height = $size + 9;
 
     my $max_len = max(length($arg1), length($arg2), length ($title));
     my $width = 7 + $max_len;
@@ -454,7 +490,7 @@ sub showDialog # (title, message)
     my ($title, $message) = @_;
 
     my $size = 1 + int(length($message) / 70);
-    my $height = $size + 7;
+    my $height = $size + 8;
     my $width = get_dialog_width($title, $message);
 
     my $command = "whiptail $WHIPTAIL_ARGS --title \"$title\" " .
