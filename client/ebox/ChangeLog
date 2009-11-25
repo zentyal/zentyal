@@ -1,6 +1,7 @@
-1.3.10
+HEAD
 	+ Added EBox::Events::sendEvent method to send methods using Perl
 	  code (used by ebackup module)
+1.3.10
 	+ Show warning when accesing the UI with unsupported browsers
 	+ Add disableApparmorProfile to EBox::Module::Service
 	+ Bug fix: add missing use
