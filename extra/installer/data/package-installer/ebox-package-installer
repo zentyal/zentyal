@@ -385,6 +385,12 @@ sub preconfiguration
         system ("$INSTALL_FILES/ebox-set-maildomain $CNF_domain >> $LOG 2>&1");
     }
 
+    if ($CNF_mode eq $USERS_STANDALONE) {
+        system("$INSTALL_FILES/ebox-change-ldap-admin-pass >> $LOG 2>&1");
+    } else {
+        system("cp $INSTALL_FILES/ebox-change-ldap-admin-pass /usr/share/ebox/");
+    }
+
     print $PROGRESS "100\n";
 
     close ($PROGRESS);

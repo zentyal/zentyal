@@ -1,0 +1,57 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use Net::LDAP;
+
+my $ldap = Net::LDAP->new('127.0.0.1', 'onerror' => undef);
+$ldap or exit 1;
+my $rootdn = 'cn=admin,' . baseDn($ldap);
+
+my $pass = GenRandom(32);
+
+my $ldif =
+"dn: $rootdn
+changetype: modify
+replace: userPassword
+userPassword: $pass
+";
+
+system ("echo '$ldif' | ldapmodify -h localhost -x -D '$rootdn' -w ebox");
+
+exit 0;
+
+sub baseDn {
+    my ($ldap) = @_;
+
+    my $result = $ldap->search(
+        'base' => '',
+        'scope' => 'base',
+        'filter' => '(objectclass=*)',
+        'attrs' => ['namingContexts']
+    );
+    my $entry = ($result->entries)[0];
+    my $attr = ($entry->attributes)[0];
+    return $entry->get_value($attr);
+}
+
+# Function stolen from slapd.config in slapd package
+sub GenRandom {
+      my ($len) = @_;
+      my $char;
+      my $data;
+      my @chars;;
+      @chars = split(//, "abcdefghijklmnopqrstuvwxyz"
+                       . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+
+      open(RD, "</dev/urandom") or die "Failed to open random source";
+      $data = "";
+      while ($len--) {
+        read(RD, $char, 1) == 1 or die "Failed to read random data";
+        $data .= $chars[ord($char) % @chars];
+      }
+      close(RD);
+      return $data;
+}
+
