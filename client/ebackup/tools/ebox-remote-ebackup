@@ -33,9 +33,6 @@ use EBox::Sudo;
 use EBox::Event;
 
 use Error qw(:try);
-use Data::Dumper;
-
-use constant EVENTS_FIFO => EBox::Config::tmp() . 'events-fifo';
 
 EBox::init();
 
@@ -94,16 +91,9 @@ if ($global->modExists('events')) {
                 $msg = 'eBox backup failed';
                 $level = 'error';
             }
-            my $event = new EBox::Event(
-                    message => $msg,
-                    source => 'EBackup',
-                    level => $level,
-                    );
-
-            open(my $fifo, '+<', EVENTS_FIFO) or die;
-            $Data::Dumper::Indent = 0;
-            print $fifo Dumper($event) . "\n";
-            close($fifo);
+            $events->sendEvent(message => $msg,
+                               source  => 'EBackup',
+                               level   => $level);
         }
     }
 }

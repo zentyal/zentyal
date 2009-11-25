@@ -35,10 +35,14 @@ use warnings;
 # eBox uses
 use EBox::Common::Model::EnableForm;
 use EBox::Config;
+use EBox::Event;
 use EBox::Events::Model::ConfigurationComposite;
 use EBox::Events::Model::GeneralComposite;
 use EBox::Events::Model::ConfigureEventDataTable;
 use EBox::Events::Model::ConfigureDispatcherDataTable;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Folder;
@@ -46,13 +50,8 @@ use EBox::Menu::Item;
 use EBox::Service;
 
 # Core modules
+use Data::Dumper;
 use Error qw(:try);
-
-################
-# Core modules
-################
-# use File::Copy qw(copy);
-
 
 # Constants:
 #
@@ -64,6 +63,7 @@ use constant ENABLED_DISPATCHERS_DIR => CONF_DIR . 'DispatcherEnabled/';
 use constant ENABLED_WATCHERS_DIR    => CONF_DIR . 'WatcherEnabled/';
 use constant CONF_DISPATCHER_MODEL_PREFIX => 'EBox::Events::Model::Dispatcher::';
 use constant CONF_WATCHER_MODEL_PREFIX => 'EBox::Events::Model::Watcher::';
+use constant EVENTS_FIFO             => EBox::Config::tmp() . 'events-fifo';
 
 # Group: Protected methods
 
@@ -359,6 +359,89 @@ sub enableEventElement # ($className, $enabled)
       }
 
   }
+
+# Method: sendEvent
+#
+#       Send an event to the event daemon to be dispatched to enabled
+#       dispatchers.
+#
+#       It could send to content of an event or <EBox::Event> object
+#       itself to be sent.
+#
+# Parameters:
+#
+#      message - String the i18ned message which will be dispatched
+#
+#      source - String the event watcher/subwatcher name to
+#               categorise afterwards the event depending on the
+#               source
+#
+#      level  - Enumerate the level of the event *(Optional)*
+#               Possible values: 'info', 'warn', 'error' or 'fatal'.
+#               Default: 'info'
+#
+#      timestamp - Int the number of seconds since the epoch (1 Jan 1970)
+#                  *(Optional)* Default value: now
+#
+#      dispatchTo - array ref containing the relative name for the
+#      dispatchers you want to dispatch this event *(Optional)*
+#      Default value: *any*, which means any available dispatcher will
+#      dispatch the event. Concrete example: ControlCenter
+#
+#      - Named parameters
+#
+#      event - <EBox::Event> the event to send. If this parameter is
+#              set, then the previous parameters will be ignored. *(Optional)*
+#
+# Returns:
+#
+#      Boolean - indicating if the sending was successful or not
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if there is no
+#      message and source or no event.
+#
+#      <EBox::Exceptions::External> - thrown if we try to send events
+#      giving the fact the events module is disabled
+#
+#      <EBox::Exceptions::Internal> - thrown if we cannot send the
+#      event through the fifo
+#
+sub sendEvent
+{
+    my ($self, %args) = @_;
+
+    unless ( $self->isEnabled() ) {
+        throw EBox::Exceptions::External(
+            __('The events module is not enabled to send events')
+           );
+    }
+
+    my $event;
+    if ( defined($args{event}) and $args{event}->isa('EBox::Event') ) {
+        $event = $args{event};
+    } elsif ( defined($args{message}) and defined($args{source}) ) {
+        $event = new EBox::Event(%args);
+    } else {
+        throw EBox::Exceptions::MissingArgument('message') if not defined($args{message});
+        throw EBox::Exceptions::MissingArgument('source') if not defined($args{source});
+    }
+
+    my $dumper = new Data::Dumper([$event]);
+    # Set no new lines to dump to communicate with FIFO, the end of
+    # connection is done using newline character
+    $dumper->Indent(0);
+
+    # Send the dumpered event through the FIFO
+    open(my $fifo, '+<', EVENTS_FIFO)
+      or throw EBox::Exceptions::Internal('Could not open ' . EVENTS_FIFO . "for reading: $!");
+    print $fifo $dumper->Dump() . "\n";
+    close($fifo);
+
+    return 1;
+
+}
 
 # Group: Private methods
 
