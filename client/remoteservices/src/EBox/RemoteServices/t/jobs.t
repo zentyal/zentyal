@@ -35,8 +35,9 @@ EBox::init();
 my $notifier = new EBox::RemoteServices::Jobs();
 isa_ok($notifier, 'EBox::RemoteServices::Jobs');
 
+# jobResult
 lives_ok {
-    $notifier->jobResult(jobId  => 1,
+    $notifier->jobResult(jobId  => 4,
                          stdout => 'foo',
                          stderr => 'bar',
                          exitValue => 1);
@@ -48,3 +49,36 @@ dies_ok {
                          stderr => 'bar',
                          exitValue => 1);
 } 'Notifying an inexistent job result';
+
+my $stdout = 'foo' x 344444;
+my $stderr = 'bar';
+lives_ok {
+    $notifier->jobResult(jobId  => 4,
+                         stdout => $stdout,
+                         stderr => $stderr,
+                         exitValue => 1);
+} 'Notifying a giant job result';
+
+$stdout = 'foo';
+$stderr = 'bar' x 333333;
+lives_ok {
+    $notifier->jobResult(jobId  => 4,
+                         stdout => $stdout,
+                         stderr => $stderr,
+                         exitValue => 1);
+} 'Notifying a giant job result error';
+
+# cronJobResult
+lives_ok {
+    $notifier->cronJobResult(jobId  => 3,
+                             stdout => 'foo',
+                             stderr => 'bar',
+                             exitValue => 1);
+} 'Notifying a cron job result';
+
+dies_ok {
+    $notifier->cronJobResult(jobid => 121213321,
+                             stdout => 'foo',
+                             stderr => 'bar',
+                             exitValue => 1);
+} 'Notifying an inexistent cron job result';

@@ -32,6 +32,8 @@ use EBox::Exceptions::DataNotFound;
 
 use Error qw(:try);
 
+use constant MAX_SIZE => 65524;
+
 # Group: Public methods
 
 # Constructor: new
@@ -70,7 +72,7 @@ sub jobResult
 {
     my ($self, @wsParams) = @_;
 
-    $self->soapCall('jobResult', @wsParams);
+    $self->_transmitResult('jobResult', @wsParams);
 }
 
 # Method: cronJobResult
@@ -94,7 +96,7 @@ sub cronJobResult
 {
     my ($self, @wsParams) = @_;
 
-    $self->soapCall('cronJobResult', @wsParams);
+    $self->_transmitResult('cronJobResult', @wsParams);
 }
 
 # Method: cronJobs
@@ -138,6 +140,37 @@ sub _serviceUrnKey
 sub _serviceHostNameKey
 {
     return 'managementProxy';
+}
+
+# Group: Private methods
+
+# Upload the job result separated in tracks if required
+sub _transmitResult
+{
+    my ($self, $type, @wsParams) = @_;
+
+    my %originalWSParams = @wsParams;
+    my $lengthStdOut = length($originalWSParams{stdout});
+    my $lengthStdErr = length($originalWSParams{stderr});
+    if ( $lengthStdOut > MAX_SIZE or $lengthStdErr > MAX_SIZE) {
+        my %wsParams = %originalWSParams;
+        my $startPos = 0;
+        $wsParams{stdout} = substr($wsParams{stdout}, $startPos, MAX_SIZE);
+        $wsParams{stderr} = substr($wsParams{stderr}, $startPos, MAX_SIZE);
+        my $jobResultId = $self->soapCall($type, %wsParams);
+        while ( $lengthStdOut > $startPos or $lengthStdErr > $startPos) {
+            $startPos += MAX_SIZE;
+            my $stdout = $startPos > $lengthStdOut ? '' : substr($originalWSParams{stdout}, $startPos, MAX_SIZE);
+            my $stderr = $startPos > $lengthStdErr ? '' : substr($originalWSParams{stderr}, $startPos, MAX_SIZE);
+            $self->soapCall('appendJobResult',
+                            jobInstanceResultId => $jobResultId,
+                            stdout => $stdout,
+                            stderr => $stderr);
+        }
+    } else {
+        $self->soapCall($type, @wsParams);
+    }
+
 }
 
 1;
