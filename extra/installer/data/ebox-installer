@@ -10,6 +10,8 @@ EBOX_SOURCES="deb $PPA_URL hardy main"
 EXTRA_PACKAGES="libebox bc"
 
 get_base_packages() {
+    # Workaround to avoid dependency problems with our ldap version
+    apt-get remove --purge -y --force-yes apparmor-utils >> $LOG 2>&1
     echo "Installing eBox base packages...";
     if apt-get install -y --force-yes $EXTRA_PACKAGES >> $LOG 2>&1; then # Returns 0 if exists too
         echo "Base packages installed successfully."
@@ -27,20 +29,21 @@ bail_out() {
 
 # Wait for the user to insert the Disc.
 wait_disc() {
-    echo "Please insert the eBox Installation Disc and press Enter."
-    read
+    whiptail --clear --backtitle 'eBox Platform Installer'\
+             --title 'eBox Installation Disc needed'\
+             --msgbox 'Please insert the eBox Installation Disc.' 8 48
     sleep 2
 }
 
 do_sources_disc() {
     echo "Attempting to mount eBox Installation Disc..."
-    while ! mount /cdrom; do
-        if apt-cdrom add --no-mount; then
-            umount /cdrom
+    while ! mount /cdrom >> $LOG 2>&1; do
+        if apt-cdrom add --no-mount 2> $LOG; then
+            umount /cdrom >> $LOG 2>&1
         else
             # Retry with prompt and delay
             wait_disc
-            apt-cdrom add
+            apt-cdrom add 2> $LOG
         fi
     done
 }
@@ -60,7 +63,7 @@ update_if_network() {
 purge_config() {
     echo "Critical Error! Restoring original configuration state by purging libebox."
     # Wipe out all configuration.
-    apt-get remove --purge libebox
+    apt-get remove --purge -y --force-yes libebox >> $LOG 2>&1
     # We need libebox installed again.
     rm -f /var/tmp/ebox-base-packages.installed
 }
