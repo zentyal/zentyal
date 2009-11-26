@@ -48,6 +48,7 @@ eBox Office
    office
    directory
    filesharing
+   pdc-howto
    printers
    groupware
 
