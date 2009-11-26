@@ -57,8 +57,8 @@ tasksel tasksel/first multiselect
 postfix postfix/main_mailer_type select No configuration
 
 # ldap answers
-slapd slapd/password1 password ebox
-slapd slapd/password2 password ebox
+slapd slapd/password1 password
+slapd slapd/password2 password
 ldap-auth-config ldap-auth-config/ldapns/ldap_version select 3
 ldap-auth-config ldap-auth-config/binddn string cn=proxyuser,dc=example,dc=net
 ldap-auth-config ldap-auth-config/ldapns/ldap-server string ldapi:///findme

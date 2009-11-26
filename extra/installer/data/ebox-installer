@@ -5,7 +5,7 @@
 # Define some quick variables
 export LOG=/tmp/ebox-installer.log
 SOURCES_LIST=/etc/apt/sources.list
-PPA_URL="http://ppa.launchpad.net/ebox/1.2/ubuntu"
+PPA_URL="http://ppa.launchpad.net/ebox/1.3/ubuntu"
 EBOX_SOURCES="deb $PPA_URL hardy main"
 EXTRA_PACKAGES="libebox bc"
 

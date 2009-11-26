@@ -6,16 +6,14 @@ use EBox::Global;
 
 EBox::init();
 
-my $LDAP_PASS = 'ebox';
+my $LDAP_PASS = $ARGV[0];
 
 my $users = EBox::Global->modInstance('users');
 my $model = $users->model('Mode');
-
 my $row = $model->row();
 $row->elementByName('mode')->setValue('master');
 $row->elementByName('password')->setValue($LDAP_PASS);
 $row->store();
-
 $users->saveConfig();
 
 1;
