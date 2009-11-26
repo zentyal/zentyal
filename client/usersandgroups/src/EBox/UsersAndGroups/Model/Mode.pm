@@ -29,6 +29,7 @@ use EBox::Types::Select;
 use EBox::Types::Host;
 use EBox::Types::Port;
 use EBox::Types::Password;
+use EBox::View::Customizer;
 
 use strict;
 use warnings;
