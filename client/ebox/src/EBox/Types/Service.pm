@@ -157,7 +157,7 @@ sub cmp
     }
 
     my $protoA = $self->protocol();
-    my $protoB = $self->protocol();
+    my $protoB = $compared->protocol();
 
     if ($protoA gt $protoB) {
         return 1;
