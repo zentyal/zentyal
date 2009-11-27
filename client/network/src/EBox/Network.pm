@@ -1461,6 +1461,9 @@ sub vlan # (vlan)
     if ($vlan =~ /^vlan/) {
         $vlan =~ s/^vlan//;
     }
+    if ($vlan =~ /:/) {
+	$vlan =~ s/:.*$//;
+    }
     $self->dir_exists("vlans/$vlan") or return undef;
     return $self->hash_from_dir("vlans/$vlan");
 }
