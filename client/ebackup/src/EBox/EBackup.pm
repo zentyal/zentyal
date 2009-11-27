@@ -41,6 +41,9 @@ use EBox::Exceptions::MissingArgument;
 use constant RSYNC_IBACKUP_URL => '206.221.209.44::/ibackup';
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . '82ebackup.conf';
 use constant EBACKUP_MENU_ENTRY => 'ebackup_menu_enabled';
+use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/ebox-ebackup/ebox-duplicity-wrapper';
+use constant DUPLICITY_PASSWORD =>  EBox::Config::conf . '/ebox-ebackup.password';
+
 
 # Constructor: _create
 #
@@ -122,13 +125,10 @@ sub restoreFile
     my $time = Date::Parse::str2time($date);
 
     my $model = $self->model('RemoteSettings');
-    my $pass = $model->row()->valueByName('password');
-
-    my $envPass = "RSYNC_PASSWORD='$pass' FTP_PASSWORD='$pass'";
     my $url = $self->_remoteUrl();
     my $rFile = $file;
     $rFile =~ s:^.::;
-    my $cmd ="$envPass duplicity --force -t $time --file-to-restore $rFile $url $file";
+    my $cmd = DUPLICITY_WRAPPER .  "--force -t $time --file-to-restore $rFile $url $file";
 
     EBox::Sudo::root($cmd);
 }
@@ -170,8 +170,7 @@ sub remoteArguments
     # Include configuration backup
     $includes .= ' --include=/var/lib/ebox/conf/backups/confbackup.tar ';
 
-    my $pass = $self->model('RemoteSettings')->row()->valueByName('password');
-    return "RSYNC_PASSWORD='$pass' FTP_PASSWORD='$pass' duplicity $type "
+    return DUPLICITY_WRAPPER .  " $type "
            . "$includes $excludes $regexps / " . $self->_remoteUrl();
 }
 
@@ -190,9 +189,8 @@ sub remoteDelOldArguments
     my $toKeep = $model->row()->valueByName('full_copies_to_keep');
     my $freq = $model->row()->valueByName('full');
     my $time = uc(substr($freq, 0, 1));
-    my $pass = $model->row()->valueByName('password');
 
-    return "RSYNC_PASSWORD='$pass' FTP_PASSWORD='$pass' duplicity remove-older-than ${toKeep}${time} " . $self->_remoteUrl();
+    return DUPLICITY_WRAPPER . " remove-older-than ${toKeep}${time} " . $self->_remoteUrl();
 }
 
 # Method: remoteListFileArguments
@@ -208,9 +206,8 @@ sub remoteListFileArguments
     my ($self, $type) = @_;
 
     my $model = $self->model('RemoteSettings');
-    my $pass = $model->row()->valueByName('password');
 
-    return "RSYNC_PASSWORD='$pass' FTP_PASSWORD='$pass' duplicity list-current-files " . $self->_remoteUrl();
+    return DUPLICITY_WRAPPER . " list-current-files " . $self->_remoteUrl();
 }
 
 # Method: remoteStatus
@@ -280,8 +277,7 @@ sub remoteGenerateStatusCache
 
     my $file = tmpCurrentStatus();
     my $remoteUrl = $self->_remoteUrl();
-    my $password = $self->model('RemoteSettings')->row()->valueByName('password');
-    my $cmd = "RSYNC_PASSWORD='$password' FTP_PASSWORD='$password' duplicity collection-status $remoteUrl";
+    my $cmd = DUPLICITY_WRAPPER . " collection-status $remoteUrl";
     try {
         File::Slurp::write_file($file, @{EBox::Sudo::root($cmd)});
     } otherwise {};
@@ -366,6 +362,15 @@ sub setRemoteBackupCrontab
 sub _setConf
 {
     my ($self) = @_;
+    # Store password
+    my $model = $self->model('RemoteSettings');
+    my $pass = $model->row()->valueByName('password');
+    $pass = '' unless (defined($pass));
+    EBox::Module::Base::writeFile(
+            DUPLICITY_PASSWORD,
+            $pass, { uid => 'ebox', gid => 'ebox', mode => '0600'}
+    );
+
     $self->setRemoteBackupCrontab();
 }
 
