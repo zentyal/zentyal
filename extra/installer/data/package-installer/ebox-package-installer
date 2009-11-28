@@ -111,7 +111,7 @@ my $WHIPTAIL_ARGS = "--clear --backtitle \"$INSTALLER_TITLE\"";
 ########################
 
 my $CNF_password;
-my $CNF_users;
+my $CNF_users = '';
 my $CNF_ldap_pass;
 my @CNF_selectedIfaces;
 my $CNF_domain = undef;
