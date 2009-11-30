@@ -303,7 +303,7 @@ sub restoreDB
 sub DESTROY
 {
     my ($self) = @_;
-    $self->_disconnect();
+    $self->_disconnect() if (defined($self));
 }
 
 1;
