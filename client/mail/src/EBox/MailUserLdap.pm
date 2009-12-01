@@ -858,4 +858,9 @@ sub schemas
              EBox::Config::share() . '/ebox-mail/eboxmail.ldif' ];
 }
 
+sub localAttributes
+{
+    return ['quota'];
+}
+
 1;
