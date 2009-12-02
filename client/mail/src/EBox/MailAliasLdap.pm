@@ -36,7 +36,7 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{ldap} = EBox::Ldap->instance();
+    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
     bless($self, $class);
     return $self;
 }
