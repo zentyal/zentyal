@@ -1,9 +1,9 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Composite Model ImportFromLdif Types
+SUBDIRS = Composite Model Types
 
 perldir = @PERLPATH@/EBox/UsersAndGroups
 
-nobase_perl_DATA = ImportFromLdif.pm Passwords.pm UserUpdater.pm \
+nobase_perl_DATA =  Passwords.pm UserUpdater.pm \
     WSDispatcher.pm Setup.pm
 
 DISTCLEANFILES =

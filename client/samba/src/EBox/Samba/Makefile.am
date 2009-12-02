@@ -3,7 +3,7 @@ SUBDIRS = Model Types Composite
 
 perldir = @PERLPATH@/EBox/Samba
 
-nobase_perl_DATA = ImportFromLdif.pm
+nobase_perl_DATA = 
 
 MAINTAINERCLEANFILES = Makefile.in
 

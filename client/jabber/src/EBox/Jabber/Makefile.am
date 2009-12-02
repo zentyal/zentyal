@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/Jabber
 
-regular_packages = ImportFromLdif.pm
+regular_packages = 
 
 nobase_perl_DATA=  $(regular_packages)
 

@@ -69,7 +69,6 @@ src/EBox/UserCorner/CGI/Logout/Makefile
 src/EBox/UserCornerWebServer/Makefile
 src/EBox/UserCornerWebServer/Model/Makefile
 src/EBox/UsersAndGroups/Makefile
-src/EBox/UsersAndGroups/ImportFromLdif/Makefile
 src/EBox/UsersAndGroups/Model/Makefile
 src/EBox/UsersAndGroups/Composite/Makefile
 src/EBox/UsersAndGroups/Types/Makefile
