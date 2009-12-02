@@ -109,7 +109,7 @@ sub writeConf
 {
     my ($self) = @_;
 
-    my $ldap = EBox::Ldap->instance();
+    my $ldap = EBox::Global->modInstance('users')->ldap();
 
     my $antivirus   = EBox::Global->modInstance('antivirus');
     my $mailfilter  = EBox::Global->modInstance('mailfilter');
