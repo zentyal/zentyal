@@ -93,6 +93,23 @@ sub validateTypedRow
         }
     }
 
+    if (exists $changedFields->{enableDir} and 
+        $changedFields->{enableDir}->value())  {
+        my $samba = EBox::Global->modInstance('samba');
+        if (not $samba) {
+            throw EBox::Exceptions::External(
+__('To allow HTML directories for users is needed that the file sharing module is installed and configured')
+                                             );
+        }
+        my $configured = $samba->configured();
+        if (not $configured) {
+            throw EBox::Exceptions::External(
+__('To allow HTML directories for user os needed to have the file sharing module configured. To configure it enable it at least one time')
+                                             );
+
+        }
+    }
+
 }
 
 # Method: formSubmitted
