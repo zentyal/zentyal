@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:43+0100\n"
-"PO-Revision-Date: 2009-08-28 14:45+0200\n"
+"PO-Revision-Date: 2009-09-30 16:22+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "Grensenitt"
 
 #: src/EBox/Validate.pm:393 src/EBox/Validate.pm:407
 msgid "Must be a number between 1 and 4096"
-msgstr ""
+msgstr "Må være et nummer mellom 1 og 4096"
 
 #: src/EBox/Validate.pm:697
 #, perl-brace-format

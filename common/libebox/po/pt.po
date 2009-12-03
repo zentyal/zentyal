@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:43+0100\n"
-"PO-Revision-Date: 2009-03-11 17:27+0000\n"
+"PO-Revision-Date: 2009-11-11 19:03+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "Interface"
 
 #: src/EBox/Validate.pm:393 src/EBox/Validate.pm:407
 msgid "Must be a number between 1 and 4096"
-msgstr ""
+msgstr "Deve ser um número entre 1 e 4096"
 
 #: src/EBox/Validate.pm:697
 #, perl-brace-format
@@ -97,7 +97,6 @@ msgstr ""
 "informação relevante poderá ser encontrada nos registos"
 
 #: src/EBox/CGI/Base.pm:563
-#, fuzzy
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -106,7 +105,6 @@ msgstr ""
 "poderá ser encontrada nos registos"
 
 #: src/EBox/CGI/Base.pm:569
-#, fuzzy
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -178,7 +176,7 @@ msgstr "Remover"
 
 #: src/templates/ajax/tableBody.mas:105
 msgid "Add new"
-msgstr ""
+msgstr "Adicionar novo"
 
 #: src/templates/ajax/modelViewer.mas:254 src/templates/formTable.mas:90
 msgid "Optional"
@@ -211,7 +209,6 @@ msgid "Choose one..."
 msgstr "Escolha uma..."
 
 #: src/templates/language.mas:10
-#, fuzzy
 msgid "Language Selection"
 msgstr "Selecção da linguagem"
 
@@ -265,7 +262,7 @@ msgstr ""
 "na configuração da eBox ou de software"
 
 #: src/templates/ebox/pageNotFound.mas:9
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
 "mailing lists"
