@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:39+0100\n"
-"PO-Revision-Date: 2009-03-10 22:57+0000\n"
+"PO-Revision-Date: 2009-11-05 00:15+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -114,9 +114,9 @@ msgid "Key for service URN not found"
 msgstr "A chave para o serviço URN não foi encontrada"
 
 #: src/EBox/RemoteServices/Auth.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Value for key {k} not found"
-msgstr "A chave para o serviço URN não foi encontrada"
+msgstr "O valor para a chave {k} não foi encontrado"
 
 #: src/EBox/RemoteServices/Base.pm:213
 msgid "No ebox-services DNS key found"
@@ -144,7 +144,6 @@ msgid "Remote services"
 msgstr "Serviços Remotos"
 
 #: src/EBox/RemoteServices/Composite/General.pm:74
-#, fuzzy
 msgid "eBox Control Center is paid services to enhance your eBox experience"
 msgstr ""
 "Os serviços remotos da eBox são serviços pagos para aumentar a sua "
@@ -253,9 +252,8 @@ msgid "Remote system backups proxy"
 msgstr "Proxy da seguranças de sistema remotas"
 
 #: src/EBox/RemoteServices.pm:74
-#, fuzzy
 msgid "Control Center Client"
-msgstr "Centro de controle"
+msgstr "Cliente do Centro de controle"
 
 #: src/EBox/RemoteServices.pm:157
 msgid "Not subscribed"
@@ -266,7 +264,6 @@ msgid "Subscribed"
 msgstr "Subscritos"
 
 #: src/EBox/RemoteServices.pm:191
-#, fuzzy
 msgid "Control Center"
 msgstr "Centro de controle"
 

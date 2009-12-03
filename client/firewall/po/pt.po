@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-03-10 16:54+0000\n"
+"PO-Revision-Date: 2009-11-11 19:38+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -196,26 +196,24 @@ msgid "Interface"
 msgstr "Interface"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:256
-#, fuzzy
 msgid "Original destination"
-msgstr "Destino"
+msgstr "Destino original"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:261
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
 msgid "IP Address"
-msgstr ""
+msgstr "Endereço IP"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:268
 msgid "Object"
-msgstr ""
+msgstr "Objecto"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
-#, fuzzy
 msgid "Original destination port"
-msgstr "Porto de destino"
+msgstr "Porto de destino original"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"

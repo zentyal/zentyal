@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:41+0100\n"
-"PO-Revision-Date: 2009-09-01 14:27+0200\n"
-"Last-Translator: LordS <superpirla@email.it>\n"
+"PO-Revision-Date: 2009-11-16 09:47+0100\n"
+"Last-Translator: gabriele garis <g.garis@inwind.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,102 +21,127 @@ msgid "This group contains users"
 msgstr "Questo gruppo contiene utenti"
 
 #: src/EBox/UserCornerWebServer.pm:37
-#, fuzzy
 msgid "User Corner"
-msgstr "Nome utente"
+msgstr "Angolo utente"
 
 #: src/EBox/UserCornerWebServer.pm:63
+#, fuzzy
 msgid "Migrate configured modules"
-msgstr ""
+msgstr "Migra i moduli configurati"
 
 #: src/EBox/UserCornerWebServer.pm:64
+#, fuzzy
 msgid "Required for usercorner access to configured modules"
-msgstr ""
+msgstr "Richiesto per l'accesso dall'angolo utente ai moduli configurati"
 
 #: src/EBox/UserCornerWebServer.pm:171
+#, fuzzy
 msgid "Users corner certificates"
-msgstr ""
+msgstr "Certificati dell'angolo utente"
 
 #: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
-#, fuzzy
 msgid "User"
-msgstr "Utenti"
+msgstr "Utente"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:62
+#, fuzzy
 msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
 msgstr ""
+"C'è uno script che sta lavorando in eBox. Per favore, aspetta finchè ha "
+"terminato"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:66
-#, fuzzy
 msgid "Incorrect password"
-msgstr "ridigita la password"
+msgstr "password non corretta"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:69
 msgid "For security reasons your session has expired due to inactivity"
 msgstr ""
+"Per ragioni di sicurezza la tua sessione è stata terminata per inattività"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:72
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "La sessione è stata terminata perchè una nuova sessione è stata aperta"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:75
 msgid "You are not logged in"
-msgstr ""
+msgstr "Non sei autenticato"
 
-#: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:49
-#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/DelGroupFromUser.pm:45
+#: src/EBox/CGI/AddGroupToUser.pm:45
+#: src/EBox/CGI/AddUserToGroup.pm:49
+#: src/EBox/CGI/DelUserFromGroup.pm:50
+#: src/EBox/CGI/DelGroupFromUser.pm:45
 #: src/EBox/UsersAndGroups/Model/Users.pm:86
 msgid "user"
 msgstr "utente"
 
-#: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/AddUserToGroup.pm:44
-#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/DelGroupFromUser.pm:50
-#: src/EBox/CGI/Group.pm:45 src/EBox/UsersAndGroups/Model/Groups.pm:85
+#: src/EBox/CGI/AddGroupToUser.pm:50
+#: src/EBox/CGI/AddUserToGroup.pm:44
+#: src/EBox/CGI/DelUserFromGroup.pm:45
+#: src/EBox/CGI/DelGroupFromUser.pm:50
+#: src/EBox/CGI/Group.pm:45
+#: src/EBox/UsersAndGroups/Model/Groups.pm:85
 msgid "group"
 msgstr "gruppo"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:2162
+#: src/EBox/CGI/Groups.pm:43
+#: src/EBox/UsersAndGroups.pm:2162
 #: src/EBox/UsersAndGroups/Model/Groups.pm:77
 msgid "Groups"
 msgstr "Gruppi"
 
-#: src/EBox/CGI/Groups.pm:52 src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
-#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups.pm:2138
+#: src/EBox/CGI/Groups.pm:52
+#: src/EBox/CGI/User.pm:42
+#: src/EBox/CGI/Users.pm:31
+#: src/EBox/CGI/Users.pm:56
+#: src/EBox/UsersAndGroups.pm:2138
 #: src/EBox/UsersAndGroups/Model/Users.pm:78
 #: src/EBox/UsersAndGroups/Model/Users.pm:85
 msgid "Users"
 msgstr "Utenti"
 
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1314 src/EBox/UsersAndGroups.pm:1319
-#: src/EBox/UsersAndGroups.pm:1483 src/EBox/UsersAndGroups.pm:1616
-#: src/EBox/UsersAndGroups.pm:1650 src/EBox/UsersAndGroups.pm:1767
+#: src/EBox/CGI/ModifyGroup.pm:40
+#: src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/UsersAndGroups.pm:1314
+#: src/EBox/UsersAndGroups.pm:1319
+#: src/EBox/UsersAndGroups.pm:1483
+#: src/EBox/UsersAndGroups.pm:1616
+#: src/EBox/UsersAndGroups.pm:1650
+#: src/EBox/UsersAndGroups.pm:1767
 #: src/EBox/UsersAndGroups.pm:1870
 msgid "group name"
 msgstr "nome gruppo"
 
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/AddUser.pm:47
+#: src/EBox/CGI/ModifyGroup.pm:47
+#: src/EBox/CGI/AddUser.pm:47
 #: src/EBox/CGI/ModifyUser.pm:48
 msgid "comment"
 msgstr "commento"
 
-#: src/EBox/CGI/AddUser.pm:45 src/EBox/CGI/ModifyUser.pm:42
-#: src/EBox/UsersAndGroups.pm:670 src/EBox/UsersAndGroups.pm:676
-#: src/EBox/UsersAndGroups.pm:916 src/EBox/UsersAndGroups.pm:966
-#: src/EBox/UsersAndGroups.pm:1018 src/EBox/UsersAndGroups.pm:1449
-#: src/EBox/UsersAndGroups.pm:1511 src/EBox/UsersAndGroups.pm:1611
-#: src/EBox/UsersAndGroups.pm:1645 src/EBox/UsersAndGroups.pm:1716
+#: src/EBox/CGI/AddUser.pm:45
+#: src/EBox/CGI/ModifyUser.pm:42
+#: src/EBox/UsersAndGroups.pm:670
+#: src/EBox/UsersAndGroups.pm:676
+#: src/EBox/UsersAndGroups.pm:916
+#: src/EBox/UsersAndGroups.pm:966
+#: src/EBox/UsersAndGroups.pm:1018
+#: src/EBox/UsersAndGroups.pm:1449
+#: src/EBox/UsersAndGroups.pm:1511
+#: src/EBox/UsersAndGroups.pm:1611
+#: src/EBox/UsersAndGroups.pm:1645
+#: src/EBox/UsersAndGroups.pm:1716
 msgid "user name"
 msgstr "nome utente"
 
-#: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
-#, fuzzy
+#: src/EBox/CGI/AddUser.pm:46
+#: src/EBox/CGI/ModifyUser.pm:47
 msgid "last name"
-msgstr "nome utente"
+msgstr "cognome"
 
-#: src/EBox/CGI/AddUser.pm:73 src/EBox/CGI/ModifyUser.pm:76
+#: src/EBox/CGI/AddUser.pm:73
+#: src/EBox/CGI/ModifyUser.pm:76
 #: src/EBox/UsersAndGroups/Model/Password.pm:98
 msgid "Passwords do not match."
 msgstr "Le password non corrispondono."
@@ -154,7 +179,6 @@ msgid "Edit group"
 msgstr "Modifica gruppo"
 
 #: src/EBox/UsersAndGroups.pm:77
-#, fuzzy
 msgid "Users and Groups"
 msgstr "utenti e gruppi"
 
@@ -162,51 +186,63 @@ msgstr "utenti e gruppi"
 msgid ""
 "Your openLDAP database will be populated with some basic organizational units"
 msgstr ""
+"Il tuo database openLDAP verrà popolato con alcune unità organizzative di "
+"base"
 
 #: src/EBox/UsersAndGroups.pm:95
 msgid "eBox needs this organizational units to add users and groups into them"
 msgstr ""
+"eBox necessita di queste unità organizzative per aggiungere utenti e "
+"gruppialle stesse"
 
 #: src/EBox/UsersAndGroups.pm:99
+#, fuzzy
 msgid "Create directories for slave's journals"
-msgstr ""
+msgstr "Crea le directory per i log dello slave"
 
 #: src/EBox/UsersAndGroups.pm:100
+#, fuzzy
 msgid "eBox needs the directories to record pending slave's actions"
 msgstr ""
+"eBox necessita delle directory dove registrare le azioni in sospeso dello "
+"slave"
 
 #: src/EBox/UsersAndGroups.pm:107
 msgid "Your eBox will be registered as a slave in the eBox master specified"
-msgstr ""
+msgstr "Il tuo eBox sarà registrato come slave nell'eBox master specificato"
 
 #: src/EBox/UsersAndGroups.pm:108
 msgid "This eBox needs to have remote access to the users in the eBox master"
 msgstr ""
+"Questo eBox necessita di avere accesso remoto agli utenti nell'eBox primario"
 
 #: src/EBox/UsersAndGroups.pm:114
 msgid "Apparmor profile will be disabled"
-msgstr ""
+msgstr "Il profilo apparmor sarà disabilitato"
 
 #: src/EBox/UsersAndGroups.pm:115
 msgid "It is not ready to work with more than one slapd"
-msgstr ""
+msgstr "Non è possibile che funzioni con più di un server ldap"
 
 #: src/EBox/UsersAndGroups.pm:133
 msgid "To make openLDAP listen on TCP and Unix sockets"
-msgstr "Per permettere openLDAP di ascoltare su TCP e Socket Unix"
+msgstr "Per permettere a openLDAP di ascoltare su TCP e Socket Unix"
 
 #: src/EBox/UsersAndGroups.pm:138
 msgid ""
 "To copy LDAP admin password generated by  eBox and allow other modules to "
 "access LDAP"
 msgstr ""
+"Per copiare la password di amministratore di LDAP generata da eBox e "
+"permettere agli altri moduli di accedere a LDAP"
 
 #: src/EBox/UsersAndGroups.pm:665
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Il nome utente non deve essere più lungo di {maxuserlength} caratteri"
 
-#: src/EBox/UsersAndGroups.pm:763 src/EBox/UsersAndGroups.pm:1378
+#: src/EBox/UsersAndGroups.pm:763
+#: src/EBox/UsersAndGroups.pm:1378
 msgid "Maximum number of system users reached"
 msgstr "Numero massimo di utenti di sistema raggiunto"
 
@@ -251,56 +287,67 @@ msgstr ""
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "La password non deve essere più lunga di {maxPwdLength} caratteri"
 
-#: src/EBox/UsersAndGroups.pm:2148 src/templates/users.mas:14
+#: src/EBox/UsersAndGroups.pm:2148
+#: src/templates/users.mas:14
 msgid "Add User"
 msgstr "Aggiungi Utente"
 
 #: src/EBox/UsersAndGroups.pm:2152
-#, fuzzy
 msgid "Edit User"
 msgstr "Modifica utente"
 
 #: src/EBox/UsersAndGroups.pm:2156
+#, fuzzy
 msgid "Slave Status"
-msgstr ""
+msgstr "Stato dello Slave"
 
-#: src/EBox/UsersAndGroups.pm:2168 src/templates/groups.mas:12
+#: src/EBox/UsersAndGroups.pm:2168
+#: src/templates/groups.mas:12
 msgid "Add Group"
 msgstr "Aggiungi gruppo"
 
-#: src/EBox/UsersAndGroups.pm:2171 src/templates/groups.mas:49
+#: src/EBox/UsersAndGroups.pm:2171
+#: src/templates/groups.mas:49
 msgid "Edit Group"
 msgstr "Modifica Gruppo"
 
-#: src/EBox/UsersAndGroups.pm:2175 src/EBox/UsersAndGroups/Model/Mode.pm:69
+#: src/EBox/UsersAndGroups.pm:2175
+#: src/EBox/UsersAndGroups/Model/Mode.pm:69
+#, fuzzy
 msgid "Mode"
-msgstr ""
+msgstr "Modalità"
 
-#: src/EBox/UsersAndGroups.pm:2189 src/EBox/UsersAndGroups/Model/Mode.pm:86
-#: src/EBox/UsersAndGroups/Model/Password.pm:75 src/templates/users.mas:51
-#: src/templates/usercorner/login/index.mas:34 src/templates/user.mas:52
+#: src/EBox/UsersAndGroups.pm:2189
+#: src/EBox/UsersAndGroups/Model/Mode.pm:86
+#: src/EBox/UsersAndGroups/Model/Password.pm:75
+#: src/templates/users.mas:51
+#: src/templates/usercorner/login/index.mas:34
+#: src/templates/user.mas:52
 msgid "Password"
 msgstr "Password"
 
 #: src/EBox/UsersAndGroups.pm:2400
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
-msgstr ""
+msgstr "Non è possibile la connessione con l'eBox master a {remote}"
 
 #: src/EBox/UsersAndGroups.pm:2407
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr ""
+"Non è possibile la connessione con l'eBox master a {remote} con la password "
+"LDAP fornita"
 
 #: src/EBox/UsersAndGroups.pm:2426
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
-msgstr ""
+msgstr "Una macchina di nome {host} è già registrata su questo eBox"
 
 #: src/EBox/UsersAndGroups.pm:2536
+#, fuzzy
 msgid "Replication failed"
-msgstr ""
+msgstr "copia fallita"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:59
 #: src/EBox/UsersAndGroups/Model/Users.pm:60
@@ -331,117 +378,118 @@ msgid ""
 "There are no groups at the moment. You may want to add some in {openhref}Add "
 "group section{closehref}."
 msgstr ""
+"Non ci sono gruppi al momento. Puoi aggiungerne in {openhref} Aggiungi "
+"gruppo sezione {closehref}"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:140
-#, fuzzy
 msgid ""
 "There are no groups at the moment. You may want to add some in the master "
 "eBox"
-msgstr ""
-"Non ci sono utenti al momento. Hai bisogno almeno di un utente per gestire "
-"questo gruppo adeguatamente"
+msgstr "Non ci sono gruppi al momento. Puoi aggiungerne nell'eBox master"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:91
 msgid "Force sync"
-msgstr ""
+msgstr "Forza la sincronizzazione"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:93
+#, fuzzy
 msgid "on slaves"
-msgstr ""
+msgstr "sugli slaves"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:99
 msgid "Force sync of pending operations"
-msgstr ""
+msgstr "Forza la sincronizzazione delle operazioni in sospeso"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:102
 msgid "Sync now"
-msgstr ""
+msgstr "Sincronizza adesso"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:71
-#, fuzzy
 msgid "Master"
-msgstr "utente"
+msgstr "Master"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:72
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:55
 msgid "Slave"
-msgstr ""
+msgstr "Slave"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:79
 msgid "eBox master"
-msgstr ""
+msgstr "eBox master"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:82
 msgid "Only for slave configuration: IP of the master eBox"
-msgstr ""
+msgstr "Solo per la configurazione dello slave: IP dell'eBox master"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
+#, fuzzy
 msgid "Only for slave configuration: Master eBox LDAP user password"
 msgstr ""
+"Solo per la configurazione dello slave: password utenti LDAP del master eBox"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:95
+#, fuzzy
 msgid "eBox users mode"
-msgstr ""
+msgstr "modalità utente di ebox"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:119
 msgid "Missing fields to configure eBox as slave"
-msgstr ""
+msgstr "Mancano dei campi per configurare eBox come slave"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
-msgstr ""
+msgstr "gestione della password"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:59
-#, fuzzy
 msgid "New password"
-msgstr "password"
+msgstr "Nuova password"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:66
-#, fuzzy
 msgid "Re-type new password"
-msgstr "Ridigita password"
+msgstr "Ridigita la nuova password"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:117
 msgid "Password successfully updated"
-msgstr ""
+msgstr "Password aggiornata correttamente"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:65
 msgid "Full name"
 msgstr "Nome completo"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:132
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are no users at the moment. You may want to add some in {openhref}Add "
 "user section{closehref}."
 msgstr ""
-"Non ci sono utenti al momento. Hai bisogno almeno di un utente per gestire "
-"questo gruppo adeguatamente"
+"Non ci sono utenti al momento. Puoi aggiungerne in {openhref}Aggiungi utente "
+"sezione{closehref}"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:64
-#, fuzzy
 msgid "Operation"
-msgstr "Descrizione"
+msgstr "Operazione"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:69
 msgid "Parameter"
-msgstr ""
+msgstr "Parametro"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:78
 msgid "List of pending operations on slaves"
-msgstr ""
+msgstr "Lista delle operazioni in sospeso sugli slaves"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:85
+#, fuzzy
 msgid ""
 "This is a list those operations that need to be run by the slaves because "
 "the master failed to contact them."
 msgstr ""
+"Questa è una lista delle operazioni che hanno bisogno di essere effettuate "
+"dagli slaves perchè il master ha fallito."
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
-#, fuzzy
 msgid "operation"
-msgstr "Descrizione"
+msgstr "Operazione"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:129
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:114
@@ -454,59 +502,64 @@ msgstr ""
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:131
 #, fuzzy
 msgid "There are no pending operations at the moment."
-msgstr "Non ci sono utenti al momento."
+msgstr "Non ci sono operazioni in sospeso al momento."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:63
+#, fuzzy
 msgid "List of slaves"
-msgstr ""
+msgstr "lista degli slaves"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:70
+#, fuzzy
 msgid "This a list of those eBox slaves which are subscribed to this eBox."
-msgstr ""
+msgstr "Questa è una lista degli eBox slaves che sono correlati a questo eBox"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:71
 msgid "slave"
-msgstr ""
+msgstr "slave"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:116
 #, fuzzy
 msgid "There are no slaves at the moment."
-msgstr "Non ci sono utenti al momento."
+msgstr "Non ci sono slaves al momento."
 
 #: src/EBox/UsersAndGroups/Setup.pm:137
 msgid "Can't bind to LDAP with the provided password"
-msgstr ""
+msgstr "Non è possibile autenticarsi su LDAP con la password fornita"
 
 #: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:74
+#, fuzzy
 msgid "Slave status"
-msgstr ""
+msgstr "Stato dello slave"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
-#, fuzzy
 msgid "User corner"
-msgstr "Nome utente"
+msgstr "Angolo utente"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
 msgid "Port"
-msgstr ""
+msgstr "Porta"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
+#, fuzzy
 msgid "User Corner webserver settings"
-msgstr ""
+msgstr "Impostazioni del server web per l'angolo utente"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
-msgstr ""
+msgstr "porta in ascolto"
 
 #: migration/0001_usercorner_add_webserver_service.pl:54
+#, fuzzy
 msgid "User Corner Web Server"
-msgstr ""
+msgstr "Server web per l'angolo utente"
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
 msgstr "Aggiungi nuovo"
 
-#: src/templates/users.mas:11 src/templates/groups.mas:9
+#: src/templates/users.mas:11
+#: src/templates/groups.mas:9
 msgid ""
 "Changes in user accounts take effect inmediately, they do not need to be "
 "saved."
@@ -514,7 +567,8 @@ msgstr ""
 "Le modifiche agli account utente hanno effetto immediato, non è necessario "
 "registrarle."
 
-#: src/templates/users.mas:12 src/templates/groups.mas:10
+#: src/templates/users.mas:12
+#: src/templates/groups.mas:10
 msgid ""
 "Changes related to printing, file sharing and Jabber service do need to be "
 "saved in order to be effective."
@@ -522,31 +576,37 @@ msgstr ""
 "Non è necessario registrare le modifiche relative ai servizi di stampa, "
 "condivisione file e Jabber per renderle attive."
 
-#: src/templates/users.mas:19 src/templates/usercorner/login/index.mas:29
+#: src/templates/users.mas:19
+#: src/templates/usercorner/login/index.mas:29
 msgid "User name"
 msgstr "Nome utente"
 
-#: src/templates/users.mas:27 src/templates/user.mas:21
-#, fuzzy
+#: src/templates/users.mas:27
+#: src/templates/user.mas:21
 msgid "First name"
-msgstr "nome utente"
+msgstr "nome"
 
-#: src/templates/users.mas:35 src/templates/user.mas:31
-#, fuzzy
+#: src/templates/users.mas:35
+#: src/templates/user.mas:31
 msgid "Last name"
-msgstr "nome utente"
+msgstr "cognome"
 
-#: src/templates/users.mas:43 src/templates/group.mas:20
-#: src/templates/groups.mas:28 src/templates/user.mas:41
+#: src/templates/users.mas:43
+#: src/templates/group.mas:20
+#: src/templates/groups.mas:28
+#: src/templates/user.mas:41
 msgid "Comment"
 msgstr "Commento"
 
-#: src/templates/users.mas:58 src/templates/user.mas:62
+#: src/templates/users.mas:58
+#: src/templates/user.mas:62
 msgid "Retype password"
 msgstr "Ridigita password"
 
-#: src/templates/users.mas:71 src/templates/users.mas:72
-#: src/templates/groups.mas:40 src/templates/groups.mas:41
+#: src/templates/users.mas:71
+#: src/templates/users.mas:72
+#: src/templates/groups.mas:40
+#: src/templates/groups.mas:41
 msgid "Create"
 msgstr "Crea"
 
@@ -580,18 +640,18 @@ msgstr "Annulla"
 
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"
-msgstr ""
+msgstr "Esci"
 
 #: src/templates/usercorner/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Attenzione: Caps Lock è abilitato"
 
 #: src/templates/usercorner/login/index.mas:41
+#, fuzzy
 msgid "Enter"
-msgstr ""
+msgstr "Entra"
 
 #: src/templates/group.mas:14
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one  to manage this "
 "group properly"
@@ -599,8 +659,10 @@ msgstr ""
 "Non ci sono utenti al momento. Hai bisogno almeno di un utente per gestire "
 "questo gruppo adeguatamente"
 
-#: src/templates/group.mas:25 src/templates/group.mas:26
-#: src/templates/user.mas:74 src/templates/user.mas:75
+#: src/templates/group.mas:25
+#: src/templates/group.mas:26
+#: src/templates/user.mas:74
+#: src/templates/user.mas:75
 msgid "Change"
 msgstr "Modifica"
 
@@ -612,12 +674,15 @@ msgstr "Utenti nel gruppo"
 msgid "Users not in group"
 msgstr "Utenti fuori dal gruppo"
 
-#: src/templates/group.mas:51 src/templates/group.mas:92
-#: src/templates/user.mas:106 src/templates/user.mas:141
+#: src/templates/group.mas:51
+#: src/templates/group.mas:92
+#: src/templates/user.mas:106
+#: src/templates/user.mas:141
 msgid "Empty list"
 msgstr "Elenco vuoto"
 
-#: src/templates/group.mas:61 src/templates/groups.mas:74
+#: src/templates/group.mas:61
+#: src/templates/groups.mas:74
 #: src/templates/user.mas:114
 msgid "Remove"
 msgstr "Elimina"
@@ -626,12 +691,15 @@ msgstr "Elimina"
 msgid "Remove users from group"
 msgstr "Elimina utenti dal gruppo"
 
-#: src/templates/group.mas:75 src/templates/group.mas:78
-#: src/templates/user.mas:125 src/templates/user.mas:128
+#: src/templates/group.mas:75
+#: src/templates/group.mas:78
+#: src/templates/user.mas:125
+#: src/templates/user.mas:128
 msgid "Add users to group"
 msgstr "Aggiungi utenti al gruppo"
 
-#: src/templates/group.mas:108 src/templates/group.mas:117
+#: src/templates/group.mas:108
+#: src/templates/group.mas:117
 #: src/templates/group.mas:118
 msgid "Delete group"
 msgstr "Elimina gruppo"
@@ -644,7 +712,8 @@ msgstr ""
 "Se elimini questo gruppo, tutti i dati all'interno delle sue directory "
 "condivise saranno eliminati"
 
-#: src/templates/groups.mas:18 src/templates/groups.mas:52
+#: src/templates/groups.mas:18
+#: src/templates/groups.mas:52
 msgid "Group name"
 msgstr "Nome gruppo"
 
@@ -657,21 +726,20 @@ msgid "Actions"
 msgstr "Azioni"
 
 #: src/templates/user.mas:88
-#, fuzzy
 msgid "User groups"
-msgstr "Utenti nel gruppo"
+msgstr "Gruppi di utenti"
 
 #: src/templates/user.mas:90
-#, fuzzy
 msgid "Other groups"
-msgstr "Elimina gruppo"
+msgstr "Altri gruppi"
 
 #: src/templates/user.mas:117
 #, fuzzy
 msgid "Remove groups from user"
-msgstr "Elimina utenti dal gruppo"
+msgstr "Rimuovi i gruppi "
 
-#: src/templates/user.mas:159 src/templates/user.mas:167
+#: src/templates/user.mas:159
+#: src/templates/user.mas:167
 #: src/templates/user.mas:168
 msgid "Delete user"
 msgstr "Elimina utente"

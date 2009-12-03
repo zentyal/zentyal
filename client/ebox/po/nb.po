@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-08-28 07:38+0200\n"
+"PO-Revision-Date: 2009-09-30 16:20+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -1696,9 +1696,8 @@ msgid "Running"
 msgstr "Kjører"
 
 #: src/templates/dashboard/status.mas:17
-#, fuzzy
 msgid "The service is enabled and running"
-msgstr "eBox er oppe og kjører"
+msgstr "Tjenesten er aktivert og kjører"
 
 #: src/templates/dashboard/status.mas:20
 msgid "Stopped"
@@ -1706,7 +1705,7 @@ msgstr "Stoppet"
 
 #: src/templates/dashboard/status.mas:21
 msgid "The service is enabled, but not running"
-msgstr ""
+msgstr "Tjenesten er aktivert, men kjører ikke"
 
 #: src/templates/dashboard/status.mas:23
 msgid "Start"
@@ -1714,11 +1713,11 @@ msgstr "Start"
 
 #: src/templates/dashboard/status.mas:25
 msgid "Running unmanaged"
-msgstr ""
+msgstr "Kjører ubehandlet"
 
 #: src/templates/dashboard/status.mas:26
 msgid "The service is running, but not enabled in eBox"
-msgstr ""
+msgstr "Tjenesten kjører, men er ikke aktivert i eBox"
 
 #: src/templates/dashboard/status.mas:29
 msgid "Disabled"
@@ -1726,7 +1725,7 @@ msgstr "Deaktivert"
 
 #: src/templates/dashboard/status.mas:30
 msgid "The service is not enabled in eBox"
-msgstr ""
+msgstr "Tjenesten er ikke aktivert i eBox"
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"

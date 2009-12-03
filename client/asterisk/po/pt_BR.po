@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:24+0100\n"
-"PO-Revision-Date: 2009-08-16 07:38+0200\n"
+"PO-Revision-Date: 2009-11-18 22:24+0100\n"
 "Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/EBox/Asterisk.pm:66
 msgid "VoIP"
-msgstr ""
+msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:120
 msgid "To configure enabled and disabled modules."
@@ -71,43 +71,41 @@ msgid "Voicemail"
 msgstr "Correio de voz"
 
 #: src/EBox/Asterisk.pm:487 src/EBox/Asterisk.pm:574
-#, fuzzy
 msgid "User"
-msgstr "Nome de usuário"
+msgstr "Usuário"
 
 #: src/EBox/Asterisk.pm:487
-#, fuzzy
 msgid "Address"
-msgstr "Endereço de e-mail"
+msgstr "Endereço"
 
 #: src/EBox/Asterisk.pm:487
 msgid "NAT"
-msgstr ""
+msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:487
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/EBox/Asterisk.pm:501 src/EBox/Asterisk.pm:583
 msgid "No users connected."
-msgstr ""
+msgstr "Nenhum usuário conectado."
 
 #: src/EBox/Asterisk.pm:571
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr ""
+msgstr "Sala {name} ativa por {rtime}"
 
 #: src/EBox/Asterisk.pm:574
 msgid "Time Connected"
-msgstr ""
+msgstr "Tempo conectado"
 
 #: src/EBox/Asterisk.pm:604
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "Usuários VoIP conectados"
 
 #: src/EBox/Asterisk.pm:609
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "Usuários VoIP em Renuiões"
 
 #: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:114
 #: src/EBox/Model/Meetings.pm:123
@@ -148,6 +146,8 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net},are always "
 "considered local networks so it is not neccesary to add them"
 msgstr ""
+"Redes conectadadas diretamente às interfaces internas, como {net} são sempre "
+"consideradas redes locais, sendo desnecessário adicioná-las"
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
@@ -222,9 +222,8 @@ msgid "Settings successfully updated"
 msgstr "Opções atualizadas com sucesso"
 
 #: src/EBox/Model/NAT.pm:96
-#, fuzzy
 msgid "eBox is behind NAT"
-msgstr "Servidor do Asterisk atrás de NAT"
+msgstr "O eBox está atrás de NAT"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"

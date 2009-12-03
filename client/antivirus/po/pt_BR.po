@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:23+0100\n"
-"PO-Revision-Date: 2009-08-16 11:33+0200\n"
+"PO-Revision-Date: 2009-11-18 22:17+0100\n"
 "Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -30,12 +30,10 @@ msgid "Antivirus Database Update Status"
 msgstr "Data da última atualização do Antivírus"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
-#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was installed."
 msgstr ""
-"A base de dados não foi atualizada desde a instalação do módulo eBox "
-"mailfilter "
+"A base de dados do antivírus não foi atualizada desde a instalação do módulo"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
 msgid "The last update failed."
@@ -48,9 +46,8 @@ msgid ""
 "The antivirus will not be able to use all the signatures.Please, install "
 "version {version} or higher."
 msgstr ""
-"Atualização bem sucedida, mas a versão do seu freshclam está "
-"desatualizada. \n"
-" O antivírus não serão capaz de utilizar todos as definições de vírus. Por "
+"Atualização bem sucedida, mas a versão do seu freshclam está desatualizada. \n"
+" O antivírus não será capaz de utilizar todos as definições de vírus. Por "
 "favor, instale a versão {version} ou superior."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
@@ -69,7 +66,7 @@ msgstr "Antivírus"
 
 #: src/EBox/AntiVirus.pm:212
 msgid " To configure clamd daemon"
-msgstr "Configuração do Clamd Daemon"
+msgstr "Configuração do Clamd daemon"
 
 #: src/EBox/AntiVirus.pm:217
 msgid "To configure freshclam updater"

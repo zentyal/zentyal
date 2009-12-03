@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-08-16 07:22+0200\n"
+"PO-Revision-Date: 2009-11-19 03:32+0100\n"
 "Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/EBackup.pm:111 src/EBox/EBackup.pm:50
 msgid "Backup"
-msgstr ""
+msgstr "Backup"
 
 #: src/EBox/Event/Watcher/EBackup.pm:129
 msgid "Check if eBox backup was not successfull."
@@ -88,6 +88,8 @@ msgid ""
 "Local backup configuration. If the module is enabled the backup will be "
 "scheduled to be done daily"
 msgstr ""
+"Configuração de backup local. Se o módulo estiver habilitado, o backup será "
+"agendado para execução diária"
 
 #: src/EBox/Model/Local.pm:130
 msgid "Local backup configuration updated."

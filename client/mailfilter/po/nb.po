@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.12.99Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-mailfilter 0.12.99Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:33+0100\n"
-"PO-Revision-Date: 2009-08-31 13:06+0200\n"
+"PO-Revision-Date: 2009-09-30 16:29+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -637,7 +637,7 @@ msgstr "Lært fra meldinger"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:83
 msgid "Train"
-msgstr ""
+msgstr "Tren"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:99
 msgid "ham"

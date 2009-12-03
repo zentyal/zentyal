@@ -8,31 +8,34 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2008-09-01 08:31+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-10-29 16:53+0100\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:848
 msgid "Firewall"
-msgstr ""
+msgstr "Tűzfal"
 
 #: src/EBox/Firewall.pm:125
 msgid "Flush previous firewall rules"
-msgstr ""
+msgstr "Előző tűzfal szabályok törlése"
 
 #: src/EBox/Firewall.pm:126
 msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
+"Az eBox tűzfal kitörli az összes már létező kézileg vagy más segédprogrammal "
+"beállított tűzfalszabályt"
 
 #: src/EBox/Firewall.pm:131
 msgid "Secure by default"
-msgstr ""
+msgstr "Alapból biztonságos"
 
 #: src/EBox/Firewall.pm:132
 msgid ""
@@ -41,6 +44,10 @@ msgid ""
 "all outcoming connections are denied by default, and only SSH and HTTPS "
 "incoming connections are allowed."
 msgstr ""
+"Alapból csak egy pár kapcsolat van engedélyezve. Győződjön meg róla, hogy "
+"hozzáadta a szükséges bejövő illetve kimenő kapcsolatokat a rendszer "
+"akadálymentes működése érdekében. Általában alapból minden kimenő kapcsolat "
+"tiltva van, és csak az SSH és HTTPS bejövő kapcsolat van engedélyezve."
 
 #: src/EBox/Firewall.pm:304
 msgid "action"
@@ -49,183 +56,190 @@ msgstr ""
 #: src/EBox/Firewall.pm:425 src/EBox/Firewall.pm:470 src/EBox/Firewall.pm:494
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
-msgstr ""
+msgstr "A '{name}' név nem érvényes"
 
 #: src/EBox/Firewall.pm:426 src/EBox/Firewall.pm:605 src/EBox/Firewall.pm:630
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Firewall.pm:604 src/EBox/Firewall.pm:629
 msgid "protocol"
-msgstr ""
+msgstr "protokol"
 
 #: src/EBox/Firewall.pm:818
 msgid "Packet Filter"
-msgstr ""
+msgstr "Csomagszűrő"
 
 #: src/EBox/Firewall.pm:821
 msgid "Redirects"
-msgstr ""
+msgstr "Átirányítások"
 
 #: src/EBox/Firewall.pm:832
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #: src/EBox/Firewall.pm:833
 msgid "Input interface"
-msgstr ""
+msgstr "Bejövő adapter"
 
 #: src/EBox/Firewall.pm:834
 msgid "Output interface"
-msgstr ""
+msgstr "Kimenő adapter"
 
 #: src/EBox/Firewall.pm:835 src/EBox/Firewall/Model/BaseRuleTable.pm:121
 #: src/EBox/Firewall/Model/RedirectsTable.pm:292
 msgid "Source"
-msgstr ""
+msgstr "Forrás"
 
 #: src/EBox/Firewall.pm:836 src/EBox/Firewall/Model/BaseRuleTable.pm:147
 msgid "Destination"
-msgstr ""
+msgstr "Cél"
 
 #: src/EBox/Firewall.pm:837 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
-msgstr ""
+msgstr "Protokol"
 
 #: src/EBox/Firewall.pm:838
 msgid "Source port"
-msgstr ""
+msgstr "Forrásport"
 
 #: src/EBox/Firewall.pm:839
 msgid "Destination port"
-msgstr ""
+msgstr "Célport"
 
 #: src/EBox/Firewall.pm:840 src/EBox/Firewall/Model/BaseRuleTable.pm:112
 msgid "Decision"
-msgstr ""
+msgstr "Döntés"
 
 #: src/EBox/Firewall.pm:845
 msgid "DROP"
-msgstr ""
+msgstr "DROP"
 
 #: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
-msgstr ""
+msgstr "LOG"
 
 #: src/EBox/CGI/Filter.pm:28
 msgid "Packet filtering"
-msgstr ""
+msgstr "Csomag szűrés"
 
 #: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
+"Be kell állítsa az iptables_log_limit változót az ebox konfigurációs "
+"fájljában"
 
 #: src/EBox/Iptables.pm:744 src/EBox/Iptables.pm:781
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
+"Be kell állítsa az iptables_log_burst változót az ebox konfigurációs "
+"fájljában"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
-msgstr ""
+msgstr "ACCEPT"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:68
 msgid "DENY"
-msgstr ""
+msgstr "DENY"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:126
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:152
 #: src/EBox/Firewall/Model/RedirectsTable.pm:297
 msgid "Any"
-msgstr ""
+msgstr "Bármely"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:129
 #: src/EBox/Firewall/Model/RedirectsTable.pm:300
 msgid "Source IP"
-msgstr ""
+msgstr "Forrás IP"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:133
 #: src/EBox/Firewall/Model/RedirectsTable.pm:304
 msgid "Source object"
-msgstr ""
+msgstr "Forrás objektum"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:155
 #: src/EBox/Firewall/Model/RedirectsTable.pm:315
 msgid "Destination IP"
-msgstr ""
+msgstr "Cél IP"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:160
 msgid "Destination object"
-msgstr ""
+msgstr "Cél objektum"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:175
 msgid "Service"
-msgstr ""
+msgstr "Szolgáltatás"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:179
 msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
+"Ha az inverz egyezés be van jelölve, a bejelöltön kívül minden más "
+"szolgáltatásra vonatkozik a szabály"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
-msgstr ""
+msgstr "Egymásnak ellentmondó szabályok találhatók. Törölje előbb őket"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:249
 msgid "Interface"
-msgstr ""
+msgstr "Adapter"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:256
 msgid "Original destination"
-msgstr ""
+msgstr "Eredeti cél"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:261
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
 msgid "IP Address"
-msgstr ""
+msgstr "IP cím"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:268
 msgid "Object"
-msgstr ""
+msgstr "Objektum"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
 msgid "Original destination port"
-msgstr ""
+msgstr "Eredeti cél port"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:326
 msgid "Same"
-msgstr ""
+msgstr "Ugyanaz"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:329
 msgid "Other"
-msgstr ""
+msgstr "Másik"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:346
 msgid "Port redirections"
-msgstr ""
+msgstr "Port átirányítások"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "redirect"
-msgstr ""
+msgstr "átirányít"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
 #: src/templates/filter.mas:40
 msgid "Filtering rules from external networks to internal networks"
 msgstr ""
+"A külső hálózatból a belső hálózat fele haladó szűrő szabályok szabályok"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
@@ -233,71 +247,73 @@ msgstr ""
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
 msgid "rule"
-msgstr ""
+msgstr "szabály"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
 #: src/templates/filter.mas:6
 msgid "Filtering rules from internal networks to eBox"
-msgstr ""
+msgstr "A belső hálózatból az eBox fele haladó szűrő szabályok"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 #: src/templates/filter.mas:13
 msgid "Filtering rules for internal networks"
-msgstr ""
+msgstr "A belső hálózatra vonatkozó szűrő szabályok"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 msgid "packets dropped"
-msgstr ""
+msgstr "csomag eldobva"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 msgid "Firewall packet traffic chart"
-msgstr ""
+msgstr "A tűzfal csomagforgalom-grafikonja"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
 msgid "Packet traffic"
-msgstr ""
+msgstr "Csomagforgalom"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
-msgstr ""
+msgstr "Eldobott csomagok"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 msgid "Packet traffic details"
-msgstr ""
+msgstr "Csomagforgalom részletezve"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
-msgstr ""
+msgstr "forgalom"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 #: src/templates/filter.mas:21
 msgid "Filtering rules for traffic coming out from eBox"
-msgstr ""
+msgstr "Az eBoxon kívülről jövő forgalom szűrő szabályai"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 msgid "Filtering rules from  external networks to eBox"
-msgstr ""
+msgstr "Szűrő szabályok  külső hálózatból az eBoxba"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
-msgstr ""
+msgstr "Csomagforgalom összesítő"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 msgid "Firewall packet traffic report"
-msgstr ""
+msgstr "A tűzfal csomagforgalom összesítője"
 
 #: src/templates/filter.mas:8
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
 "services running on your eBox machine"
 msgstr ""
+"Ezen szabályok célja, hogy ellenőrizze a belső hálózat felől, az eBox "
+"szolgáltatásai elérni kívánó forgalmat"
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
 #: src/templates/filter.mas:48
 msgid "Configure rules"
-msgstr ""
+msgstr "Szabályok beállítása"
 
 #: src/templates/filter.mas:15
 msgid ""
@@ -305,20 +321,28 @@ msgid ""
 "Internet, and traffic between your internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section"
 msgstr ""
+"Ezek a szabályok megengedik a hozzáférés szabályozását  a belső hálózatból "
+"az internet felé, és a belső hálózatok közti forgalmomszabályozást. Ha "
+"hozzáférést szeretne adni az eBox szolgáltatásaihoz, használja a fenti "
+"szakaszt"
 
 #: src/templates/filter.mas:23
 msgid "These rules allow you to control access from eBox to external services"
 msgstr ""
+"Ezen szabályokkal beállíthatja az eBoxtól a külső szolgáltatások felé "
+"irányuló forgalmat"
 
 #: src/templates/filter.mas:29
 msgid "Filtering rules from external networks to eBox"
-msgstr ""
+msgstr "A külső hálózatokból az eBox felé szűrő szabályok"
 
 #: src/templates/filter.mas:31
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your eBox machine."
 msgstr ""
+"Ezen szabályok segítségével beállíthatja a külső hálózatokból az eBox "
+"szolgáltatásait elérni kívánó forgalmat"
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
 msgid ""
@@ -326,9 +350,14 @@ msgid ""
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing"
 msgstr ""
+"Tudnia kell arról, hogy ha ezeken a szabálylistákon módosít, kockára teheti "
+"a hálózata biztonságát, mivel nem biztonságos hálózatokból engedélyezi a "
+"hozzáférést. Kérjük ne használja ezt, ha nem tudja biztosan mint csinál"
 
 #: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
+"Ezen szabályok segítségével beállíthatja a külső hálózatból a belső "
+"hálózatba irányuló forgalmat"

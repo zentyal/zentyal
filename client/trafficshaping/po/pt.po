@@ -1,3 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-11-05 00:24+0200\n"
+"PO-Revision-Date: 2009-11-05 00:36+0100\n"
+"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"X-Generator: Pootle 1.1.0\n"
+
 # Portuguese translations for ebox-trafficshaping package.
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
@@ -19,32 +32,30 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:83
-#, fuzzy
 msgid "External Interface"
-msgstr "{iface} (interface externo)"
+msgstr "Interface externo"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:88
 msgid "Upload"
-msgstr ""
+msgstr "Carregar"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:92
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:100
 msgid "Upload rate in Kbits/s for through this interface"
-msgstr ""
+msgstr "Taxa de carga em Kb/s para este interface"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:96
 msgid "Download"
-msgstr ""
+msgstr "Descarregar"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:108
-#, fuzzy
 msgid "External Interface Rates"
-msgstr "{iface} (interface externo)"
+msgstr "Taxas do Interface Externo"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
 msgid "rate"
-msgstr ""
+msgstr "taxa"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
@@ -140,16 +151,15 @@ msgstr "Taxa garantida"
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:522
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:536
 msgid "Kbit/s"
-msgstr "Kbit/s"
+msgstr "Kb/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:524
-#, fuzzy
 msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
 "Tenha em atenção que a soma das taxas garantidas não pode exceder a largura "
-"de banda total. 0 significa taxa ilimitada"
+"de banda total. 0 significa taxa não garantida"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:531
 #: src/EBox/TrafficShaping.pm:1536
@@ -170,8 +180,8 @@ msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
-"Tenha em atenção que o interface é interno, o fluxo de tráfego vem da "
-"internet para o interior e o externob pelo caminho contrário"
+"Tenha em atenção que o interface é interno, o fluxo de tráfego que vem da "
+"Internet para o interior e o externo pelo caminho contrário"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:559
 msgid "rule"
@@ -201,9 +211,9 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
-"protoclos baseados em portos usam o porto que condiz com o serviço, enquanto "
-"protocolos baseados em aplicações são mais lentos mas mais eficazes porque "
-"verificam o conteúdo de qualquer pacote que condiz com o serviço"
+"protocolos baseados em portos usam o porto que condiz com o serviço, "
+"enquanto protocolos baseados em aplicações são mais lentos mas mais eficazes "
+"porque verificam o conteúdo de qualquer pacote que condiz com o serviço."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:740
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:757
@@ -218,7 +228,7 @@ msgstr "Grupo de serviços baseados em aplicação"
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr "A taxa garantida excede a taxa permitida: {rate} Kbit/s"
+msgstr "A taxa garantida excede a taxa permitida: {rate} Kb/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:225
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:410
@@ -226,14 +236,14 @@ msgstr "A taxa garantida excede a taxa permitida: {rate} Kbit/s"
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
-"A taxa garantida deve estar neste intervalo: ( {minRate}, {maxRate} ) Kbit/s"
+"A taxa garantida deve estar neste intervalo: ( {minRate}, {maxRate} ) Kb/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:237
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:422
 #, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
-msgstr "A taxa limitada {lR} Kbit/s deve ser a taxa garantida {gR} Kbit/s"
+msgstr "A taxa limitada {lR} Kb/s deve ser a taxa garantida {gR} Kb/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:244
 #, perl-brace-format
@@ -242,9 +252,9 @@ msgid ""
 "increase maximum upload traffic to the gateways associated to this external "
 "interface"
 msgstr ""
-"A taxa limitada {lR} Kbit/s deve ser mais baixa do que {maxLR} Kbit/s ou "
-"deve incrementar o trafego máximo de carga para as gateways associadas a "
-"este interface externo"
+"A taxa limitada {lR} Kb/s deve ser mais baixa do que {maxLR} Kb/s ou deve "
+"incrementar o tráfego máximo de carga para as gateways associadas a este "
+"interface externo"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:401
 #, perl-brace-format
@@ -257,7 +267,7 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
-"A taxa limitada {lR} Kbit/s deve ser mais baixa do que {maxLR} ou deve "
+"A taxa limitada {lR} Kb/s deve ser mais baixa do que {maxLR} ou deve "
 "incrementar o tráfego máximo permitido"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
@@ -275,7 +285,9 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"O perfil de tráfego é aplicado quando a eBox está configurada como gateway."
+"O perfil de tráfego é aplicado quando a eBox está configurada como gateway. "
+"Para obter isto necessita pelo menos de um interface interno e outro externo "
+". Verifique a configuração dos interfaces em "
 "{openhref}Network->Interfaces{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
@@ -287,9 +299,9 @@ msgid ""
 "external one."
 msgstr ""
 "O perfil de tráfego é aplicado somente se houver gateways com uma definição "
-"de taxa de carga associada com um interface externo. para fazer isto crie a "
-"definação da gateway em {openhref}Network->Gateways{closehref} com interface "
-"externo"
+"de taxa de carga associada com um interface externo. Para fazer isto crie a "
+"definição da gateway em {openhref}Network->Gateways{closehref} com um "
+"interface externo"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
 msgid "Rules list per interface"
@@ -306,7 +318,7 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
 msgid "Choose an interface to shape"
-msgstr "Escolha um interface para estabelecer um perfil"
+msgstr "Escolha um interface para estabelecer"
 
 #: src/EBox/TC.pm:69
 msgid "options"
@@ -338,14 +350,12 @@ msgid "To implement the traffic shaping rules"
 msgstr "Para implementar regras de perfil de tráfego"
 
 #: src/EBox/TrafficShaping.pm:363
-#, fuzzy
 msgid "Rules"
-msgstr "regra"
+msgstr "Regras"
 
 #: src/EBox/TrafficShaping.pm:365
-#, fuzzy
 msgid "Interface Rates"
-msgstr "Interface"
+msgstr "Taxas do Interface"
 
 #: src/EBox/TrafficShaping.pm:433
 #, perl-brace-format
@@ -366,7 +376,7 @@ msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
-"Interface {iface} deve ter uma taxa máxima de largura de banda para fazer "
+"O interface {iface} deve ter uma taxa máxima de largura de banda para fazer "
 "perfil de tráfego"
 
 #: src/EBox/TrafficShaping.pm:1533

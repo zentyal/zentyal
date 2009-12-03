@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:29+0100\n"
-"PO-Revision-Date: 2006-08-29 12:57+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-12-02 10:00+0100\n"
+"Last-Translator: gfengyoung <gfengyoung@foxmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/LeaseTimes.pm:112
 #: src/EBox/Model/ThinClientOptions.pm:118
@@ -25,80 +25,80 @@ msgstr ""
 #: src/EBox/Composite/OptionsTab.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr ""
+msgstr "接口{iface}"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
-msgstr ""
+msgstr "接口IP地址"
 
 #: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
 msgid "Subnet"
-msgstr ""
+msgstr "子网"
 
 #: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
-msgstr ""
+msgstr "可用范围"
 
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr ""
+msgstr "DHCP范围"
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "默认租约时间必须大于0秒"
 
 #: src/EBox/Model/LeaseTimes.pm:138
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
+msgstr "默认租约时间 {default} 必须小于 {max}"
 
 #: src/EBox/Model/LeaseTimes.pm:150
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "最大租约时间必须大于0秒"
 
 #: src/EBox/Model/LeaseTimes.pm:156
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
+msgstr "最大租约时间{max} 必须大于默认时间 {default}"
 
 #: src/EBox/Model/LeaseTimes.pm:200
 msgid "Default leased time"
-msgstr ""
+msgstr "默认租约时间"
 
 #: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
 msgid "seconds"
-msgstr ""
+msgstr "秒"
 
 #: src/EBox/Model/LeaseTimes.pm:207
 msgid "Maximum leased time"
-msgstr ""
+msgstr "最大租约时间"
 
 #: src/EBox/Model/LeaseTimes.pm:216
 msgid "Lease times"
-msgstr ""
+msgstr "租约时间"
 
 #: src/EBox/Model/LeaseTimes.pm:221
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
+msgstr "租约时间是指DHCP服务器分配IP的可用期限"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
 msgid "You need to upload a boot image to eBox if you set it as next server"
-msgstr ""
+msgstr "如果你设置其为下一个服务器，你需要上传一个启动镜像"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
-msgstr ""
+msgstr "为了上传一个启动镜像到ebox，你需要设置ebox为下一个服务器"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
-msgstr ""
+msgstr "你需要在远处服务器上指定一个启动镜像路径"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
-msgstr ""
+msgstr "如果你有下一个非ebox的服务器，你只能指定一个文件名"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, perl-brace-format
@@ -109,38 +109,38 @@ msgstr ""
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
-msgstr ""
+msgstr "下一个服务器"
 
 #: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:337
 #: src/EBox/Model/Options.pm:348 src/EBox/Model/Options.pm:371
 msgid "None"
-msgstr ""
+msgstr "无"
 
 #: src/EBox/Model/ThinClientOptions.pm:239 src/EBox/Model/Options.pm:361
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:242
 #: src/EBox/Model/FixedAddressTable.pm:222 src/EBox/DHCP.pm:1208
 #: src/EBox/CGI/AddFixed.pm:44 src/templates/fixed.mas:10
 msgid "IP address"
-msgstr ""
+msgstr "IP地址"
 
 #: src/EBox/Model/ThinClientOptions.pm:246
 msgid "name"
-msgstr ""
+msgstr "名称"
 
 #: src/EBox/Model/ThinClientOptions.pm:252
 msgid "File name"
-msgstr ""
+msgstr "文件名"
 
 #: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
-msgstr ""
+msgstr "在下一个服务器上的文件路径"
 
 #: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
-msgstr ""
+msgstr "瘦客户端"
 
 #: src/EBox/Model/ThinClientOptions.pm:274
 #, perl-brace-format
@@ -152,7 +152,7 @@ msgstr ""
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
-msgstr ""
+msgstr "IP地址{ip}不在网络{net}中"
 
 #: src/EBox/Model/FixedAddressTable.pm:131
 #, perl-brace-format

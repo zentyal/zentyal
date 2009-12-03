@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-09-25 12:24+0200\n"
+"PO-Revision-Date: 2009-10-10 07:08+0000\n"
 "Last-Translator: Sepi <sepi@freemail.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +20,11 @@ msgstr ""
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "RSS fájl: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
@@ -33,38 +33,40 @@ msgstr ""
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
-msgstr ""
+msgstr "Ez a csatorna figyeli mi történik ezen az eBox gépen az idő mentén"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
-msgstr ""
+msgstr "Ez az esemény történt a {hostname} eBox gépen {source}-ból"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "Menj a következő {url} címre, hogy ellenőrizd a rendszer állapotát."
 
 #: src/EBox/Event/Dispatcher/Log.pm:136
 msgid "Log file"
-msgstr ""
+msgstr "Napló fájl"
 
 #: src/EBox/Event/Dispatcher/Log.pm:149
 msgid "Log"
-msgstr ""
+msgstr "Naplóbejegyzés"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "Adminisztratív Jabber profil"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
 msgstr ""
+"{serverName} nevű Jabber szerver le van kapcsolva, vagy a kapcsolat nem "
+"engedélyezett"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
@@ -74,25 +76,25 @@ msgstr ""
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "Azonosítási hiba: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr ""
+msgstr "{name} nevű diszpécser nem lett engedélyezve"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr ""
+msgstr "A következő modulok nem futnak: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
-msgstr ""
+msgstr "Szolgáltatás"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
-msgstr ""
+msgstr "Ellenőrizze ha valamelyik eBox szolgáltatás nem fut, pedig kellene"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -100,44 +102,46 @@ msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
+"{service} nevű szolgáltatás újra lett indítva {restart} alkalommal {time} "
+"másodperc alatt és le lett állítva"
 
 #: src/EBox/Event/Watcher/Log.pm:203
 msgid "Log observer"
-msgstr ""
+msgstr "Naplóbejegyzés figyelő"
 
 #: src/EBox/Event/Watcher/Log.pm:230
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
-msgstr ""
+msgstr "Figyelmeztessen, ha valamilyen naplóbejegyzés készült ({loggers})"
 
 #: src/EBox/Event/Watcher/State.pm:126
 msgid "eBox is up and running"
-msgstr ""
+msgstr "eBox felállt és működik"
 
 #: src/EBox/Event/Watcher/State.pm:132
 msgid "eBox is critically down"
-msgstr ""
+msgstr "eBox kritikus hiba miatt leállt"
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
-msgstr ""
+msgstr "Státusz"
 
 #: src/EBox/Event/Watcher/State.pm:174
 msgid "Check if eBox is currently up or down"
-msgstr ""
+msgstr "Ellenőrizze, ha eBox pillanatnyilag működik-e vagy sem"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr ""
+msgstr "A felcsatolt fájlrendszeren ({fs}; {mp}) nincs több szabad hely"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr ""
+msgstr "Szabad tároló kapacitás"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
-msgstr ""
+msgstr "Ellenőrizze, ha valamelyik lemez partición elfogyott a szabad hely"
 
 #: src/EBox/Event/Watcher/RAID.pm:182 src/EBox/CGI/Report/RAID.pm:30
 #: src/EBox/SysInfo.pm:218
@@ -146,52 +150,52 @@ msgstr "RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
-msgstr ""
+msgstr "Ellenőrizze, ha valamilyen esemény történt a RAID alrendszerben"
 
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr ""
+msgstr "Új RAID tömb információ ({devName}):"
 
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
-msgstr ""
+msgstr "Státusz: {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
-msgstr ""
+msgstr "Típus: {type}"
 
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
-msgstr ""
+msgstr "Aktív eszközök szükségesek: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
-msgstr ""
+msgstr "Aktív eszközök: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
-msgstr ""
+msgstr "Folyamatban: {operation}"
 
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
-msgstr ""
+msgstr "elkészült folyamat százalékban: {per}"
 
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
-msgstr ""
+msgstr "Folyamat várható befejezése: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
-msgstr ""
+msgstr "RAID komponens {nb}: {device} eszköz, {state} státusz"
 
 #: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format
@@ -199,11 +203,15 @@ msgid ""
 "RAID device {name} has dissappeared: A RAID array which previously was "
 "configured appears to no longer be configured"
 msgstr ""
+"{name} RAID eszköz eltünt: Az előzőleg beállított RAID tömb továbbá már nem "
+"konfigurálható"
 
 #: src/EBox/Event/Watcher/RAID.pm:355
 #, perl-brace-format
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
 msgstr ""
+"{name} nevű RAID eszköz állapota megváltozott {oldState} állapotról az "
+"{newState} állapotra"
 
 #: src/EBox/Event/Watcher/RAID.pm:375
 #, perl-brace-format
@@ -211,11 +219,13 @@ msgid ""
 "RAID device {name} has changed its number of active components from {oldNum} "
 "to {newNum}"
 msgstr ""
+"{name} nevű RAID eszközön megváltozott az aktív komponensek száma a {oldNum} "
+"számúról a {newNum} számúra"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
-msgstr ""
+msgstr "{name} RAID eszköz megkezdte működését ezen a néven: {opName}. "
 
 #: src/EBox/Event/Watcher/RAID.pm:405
 #, perl-brace-format

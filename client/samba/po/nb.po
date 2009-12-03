@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:39+0100\n"
-"PO-Revision-Date: 2009-09-03 08:15+0200\n"
+"PO-Revision-Date: 2009-09-30 17:35+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -65,15 +65,16 @@ msgid "Drive letter"
 msgstr "Stasjons bokstav"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:137
-#, fuzzy
 msgid "Samba group"
-msgstr "Samba virus"
+msgstr "Samba gruppe"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:141
 msgid ""
 "Only users belonging to this group will have a samba account. Sync happens "
 "every hour"
 msgstr ""
+"Bare brukere som tilhører denne gruppen vil ha en samba konto. "
+"Synkronisering skjer hver time"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:147
 msgid "General settings"
@@ -85,9 +86,8 @@ msgstr ""
 "På denne siden kan du sette forskjellige generelle instillinger for Samba"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:204
-#, fuzzy
 msgid "All users"
-msgstr "bruker"
+msgstr "Alle brukere"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:91
 msgid "Read only"
@@ -385,9 +385,8 @@ msgid "Add LDAP schemas"
 msgstr "Legg til LDAP skjemaer"
 
 #: src/EBox/Samba.pm:103
-#, fuzzy
 msgid "eBox will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr "eBox vil legge til to LDAP skjemaer: samba.schema and ebox.schema."
+msgstr "eBox vil legge til to LDAP skjemaer: samba og ebox."
 
 #: src/EBox/Samba.pm:108
 msgid "Set Samba LDAP admin dn password"
@@ -479,7 +478,7 @@ msgstr "Handling"
 
 #: src/EBox/Samba.pm:1743
 msgid "Resource"
-msgstr ""
+msgstr "Resurs"
 
 #: src/EBox/Samba.pm:1747
 msgid "Connect"

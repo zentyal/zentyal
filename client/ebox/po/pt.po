@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-03-11 19:12+0000\n"
+"PO-Revision-Date: 2009-11-11 20:56+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -224,18 +224,18 @@ msgstr ""
 "{oldNum} para {newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
 msgstr "Dispositivo RAID {name} iniciou a operação {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:405
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr ""
 "Dispositivo RAID {name} terminou a operação {opName} ou então foi abortada"
 
 #: src/EBox/Event/Watcher/RAID.pm:411
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
@@ -243,14 +243,14 @@ msgstr ""
 "Dispositivo RAID {name} terminou a operação {oldOpName} e iniciou {newOpName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:436
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage} completed."
 msgstr "Estado: {percentage}% completa "
 
 #: src/EBox/Event/Watcher/RAID.pm:439
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Estimated finish time: {time}."
-msgstr "Tempo estimado de finalização: {time}"
+msgstr "Tempo estimado para finalização: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:471
 #, perl-brace-format
@@ -345,7 +345,7 @@ msgstr "recuperar"
 
 #: src/EBox/Event/Watcher/RAID.pm:574
 msgid "check"
-msgstr ""
+msgstr "verificar"
 
 #: src/EBox/Event/Watcher/RAID.pm:588
 msgid "faulty"
@@ -353,7 +353,7 @@ msgstr "defeituoso"
 
 #: src/EBox/Event/Watcher/RAID.pm:590 src/templates/report/raid.mas:233
 msgid "spare"
-msgstr "sobreselente"
+msgstr "sobresselente"
 
 #: src/EBox/EventDaemon.pm:473
 #, perl-brace-format
@@ -782,7 +782,6 @@ msgstr "Painel de informações"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
-#, fuzzy
 msgid "Configure Widgets"
 msgstr "Configurar widgets"
 
@@ -806,12 +805,10 @@ msgid "You have been logged out because a new session has been opened"
 msgstr "Foi desligado porque foi iniciada uma nova sessão"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
 msgid "Module Status Configuration"
 msgstr "Configuração do estado do módulo"
 
 #: src/EBox/CGI/EBox/General.pm:30
-#, fuzzy
 msgid "General Configuration"
 msgstr "Configuração geral"
 
@@ -891,7 +888,6 @@ msgid "The password was changed successfully."
 msgstr "A password foi modificada com sucesso"
 
 #: src/EBox/CGI/EBox/Halt.pm:30
-#, fuzzy
 msgid "Halt or Reboot"
 msgstr "Desligar ou reiniciar"
 
@@ -1198,7 +1194,6 @@ msgid "None"
 msgstr "Nome"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
-#, fuzzy
 msgid "Configure Events"
 msgstr "Configurar eventos"
 
@@ -1295,7 +1290,6 @@ msgid "Receiver"
 msgstr "Receptor"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
-#, fuzzy
 msgid "Configure Dispatchers"
 msgstr "Configurar expedidores"
 
@@ -1379,7 +1373,7 @@ msgstr "Introduza um número flutuante"
 
 #: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "Endereços IP não são permitidos"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
@@ -1404,12 +1398,10 @@ msgid "Table {table} does not exist"
 msgstr "A tabela {table} não existe"
 
 #: src/EBox/Logs.pm:630
-#, fuzzy
 msgid "Query Logs"
 msgstr "Consultar registos"
 
 #: src/EBox/Logs.pm:633
-#, fuzzy
 msgid "Configure Logs"
 msgstr "Configurar registos"
 
@@ -1452,7 +1444,7 @@ msgstr "porto"
 
 #: src/EBox/Apache.pm:588
 msgid "eBox internal web server"
-msgstr ""
+msgstr "Servidor Web interno eBox"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -1467,7 +1459,6 @@ msgid "Enable service"
 msgstr "Activar serviço"
 
 #: src/EBox/SysInfo.pm:42
-#, fuzzy
 msgid "System Information"
 msgstr "Informação do sistema"
 
@@ -1476,7 +1467,6 @@ msgid "Time"
 msgstr "Hora"
 
 #: src/EBox/SysInfo.pm:78
-#, fuzzy
 msgid "Hostname"
 msgstr "Nome do hospedeiro"
 
@@ -1489,17 +1479,14 @@ msgid "System load"
 msgstr "Carga do sistema"
 
 #: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:201
-#, fuzzy
 msgid "Module Status"
 msgstr "Estado dos módulos"
 
 #: src/EBox/SysInfo.pm:123
-#, fuzzy
 msgid "General Information"
 msgstr "Informação geral"
 
 #: src/EBox/SysInfo.pm:128
-#, fuzzy
 msgid "Process List"
 msgstr "Lista de processos"
 
@@ -1622,7 +1609,6 @@ msgid "Starting..."
 msgstr "A iniciar..."
 
 #: src/templates/port.mas:9
-#, fuzzy
 msgid "Administration Interface TCP Port"
 msgstr "Interface de administração do porto TCP"
 
@@ -1649,9 +1635,8 @@ msgid "Accept"
 msgstr "Aceitar"
 
 #: src/templates/password.mas:4
-#, fuzzy
 msgid "Change Password"
-msgstr "Mudar a palavra-passe"
+msgstr "Alterar a palavra-passe"
 
 #: src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
@@ -1716,9 +1701,8 @@ msgid "Running"
 msgstr "A correr"
 
 #: src/templates/dashboard/status.mas:17
-#, fuzzy
 msgid "The service is enabled and running"
-msgstr "eBox está a correr"
+msgstr "O serviço está activo e a correr"
 
 #: src/templates/dashboard/status.mas:20
 msgid "Stopped"
@@ -1726,7 +1710,7 @@ msgstr "Parado"
 
 #: src/templates/dashboard/status.mas:21
 msgid "The service is enabled, but not running"
-msgstr ""
+msgstr "O serviço está activo mas está parado"
 
 #: src/templates/dashboard/status.mas:23
 msgid "Start"
@@ -1734,11 +1718,11 @@ msgstr "Iniciar"
 
 #: src/templates/dashboard/status.mas:25
 msgid "Running unmanaged"
-msgstr ""
+msgstr "A correr sem gestão"
 
 #: src/templates/dashboard/status.mas:26
 msgid "The service is running, but not enabled in eBox"
-msgstr ""
+msgstr "O serviço está a correr mas não está activo na eBox"
 
 #: src/templates/dashboard/status.mas:29
 msgid "Disabled"
@@ -1746,24 +1730,21 @@ msgstr "Desactivado"
 
 #: src/templates/dashboard/status.mas:30
 msgid "The service is not enabled in eBox"
-msgstr ""
+msgstr "O serviço não está activo na eBox"
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
 msgstr "Não existem entradas nesta lista"
 
 #: src/templates/backupTabs.mas:13
-#, fuzzy
 msgid "Local Backup"
 msgstr "Cópia de segurança local"
 
 #: src/templates/backupTabs.mas:18
-#, fuzzy
 msgid "Remote Backup"
 msgstr "Cópia de segurança remota"
 
 #: src/templates/backupTabs.mas:23
-#, fuzzy
 msgid "Remote Backup from Other Subscribed Hosts"
 msgstr "Cópia de segurança remota de outros hospedeiros subscritos"
 
@@ -1772,7 +1753,7 @@ msgid "Full Backup"
 msgstr "Cópia de segurança completa"
 
 #: src/templates/backup.mas:24
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "Module Status{closeref} section will be ignored in both backup and restore "
@@ -1783,7 +1764,6 @@ msgstr ""
 "restauração"
 
 #: src/templates/backup.mas:26
-#, fuzzy
 msgid "Backup the Current State"
 msgstr "Faça cópia de segurança do estado actual"
 
@@ -1800,19 +1780,17 @@ msgid "Backup mode"
 msgstr "Modo da cópia de segurança"
 
 #: src/templates/backup.mas:74
-#, fuzzy
 msgid "Restore Backup from File"
 msgstr "Restaurar cópia de segurança a partir do ficheiro"
 
 #: src/templates/backup.mas:76
-#, fuzzy
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
 msgstr ""
 "Pode carregar a cópia de segurança a partir do seu computador. Quando fizer "
 "a carga de ficheiros grandes (>= 1Gb), tenha em atenção que alguns "
-"servidores web não o suportam"
+"navegadores web não o suportam"
 
 #: src/templates/backup.mas:84
 msgid "Backup file"
@@ -1985,7 +1963,6 @@ msgid "Inexistent RAID array {a}"
 msgstr "Dispositivo RAID {a} inexistente"
 
 #: src/templates/report/raid.mas:42
-#, fuzzy
 msgid "RAID is not enabled in this system."
 msgstr "RAID não está activo neste sistema"
 
@@ -2090,7 +2067,6 @@ msgid "Options"
 msgstr "Opções"
 
 #: src/templates/report/diskUsage.mas:34
-#, fuzzy
 msgid "Partition Properties"
 msgstr "Propriedades da partição"
 

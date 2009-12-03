@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 0.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:33+0100\n"
-"PO-Revision-Date: 2009-08-31 13:44+0200\n"
+"PO-Revision-Date: 2009-09-30 16:32+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,8 @@ msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
 "Status section{closehref}"
 msgstr ""
+"Du må aktivere overvåknings modulen for å se overvåknings grafer i "
+"{penhref}Modul Status feltet{closehref}"
 
 #: src/EBox/CGI/Index.pm:99
 #, perl-brace-format
@@ -72,6 +74,9 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
+"Du må lagre endringene i modul status for å se overvåknings graver i "
+"{openhref}Lagre endringer{closehref} feltet. Hvis det allerede er aktivert "
+"må du vente noen sekunder for at den skal samle første overvåknings data"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:104
 #: src/EBox/Monitor/Measure/Thermal.pm:110

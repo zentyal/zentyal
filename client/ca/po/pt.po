@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:25+0100\n"
-"PO-Revision-Date: 2009-03-10 23:51+0000\n"
+"PO-Revision-Date: 2009-11-05 01:04+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,7 @@ msgstr "Dias definidos para o máximo permitido: Bug ano 2038"
 
 #: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:2399
 msgid "Expiration date later than CA certificate expiration date"
-msgstr "Data expiração posterior à data de expiração do certificado CA"
+msgstr "A data de expiração é posterior à data de expiração do certificado CA"
 
 #: src/EBox/Model/Certificates.pm:92
 #, perl-brace-format
@@ -61,36 +61,35 @@ msgid ""
 "You must create a Certification Authority. Go to {openhref}Certification "
 "Authority{closehref} to do so"
 msgstr ""
+"Necessita de criar uma Autoridade Certificadora. Vá para "
+"{openhref}Autoridade Certifcadora{closehref}"
 
 #: src/EBox/Model/Certificates.pm:216
 msgid "Module"
-msgstr ""
+msgstr "Módulo"
 
 #: src/EBox/Model/Certificates.pm:228
 msgid "Service"
-msgstr ""
+msgstr "Serviço"
 
 #: src/EBox/Model/Certificates.pm:240
 msgid "Enable"
-msgstr ""
+msgstr "Activar"
 
 #: src/EBox/Model/Certificates.pm:248 src/EBox/CA.pm:1720
-#, fuzzy
 msgid "Services Certificates"
-msgstr "Revogando certificado"
+msgstr "Serviço de certificados"
 
 #: src/EBox/Model/Certificates.pm:249
-#, fuzzy
 msgid "certificate"
-msgstr "Certificado"
+msgstr "certificado"
 
 #: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/CreateCA.pm:44
 #: src/EBox/CGI/RevokeCertificate.pm:42 src/EBox/CGI/ShowForm.pm:41
 #: src/EBox/CGI/Index.pm:39 src/EBox/CGI/RenewCertificate.pm:42
 #: src/EBox/CGI/IssueCertificate.pm:46 src/EBox/CA.pm:115
-#, fuzzy
 msgid "Certification Authority"
-msgstr "Gestão de Autoridade Certificadora"
+msgstr "Autoridade Certificadora"
 
 #: src/EBox/CGI/DownloadFiles.pm:79 src/EBox/CGI/ShowForm.pm:91
 #, perl-brace-format
@@ -103,7 +102,7 @@ msgstr "Erro ao criar o ficheiro"
 
 #: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:115
 msgid "CA passphrases do NOT match"
-msgstr "Palavra-passe CA não coincide"
+msgstr "Palavras-passe CA não coincidem"
 
 #: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:123
 #, perl-brace-format
@@ -121,13 +120,12 @@ msgid "Problems creating Certification Authority has happened"
 msgstr "Problema ao criar Certificado de Autoridade"
 
 #: src/EBox/CGI/RevokeCertificate.pm:64
-#, fuzzy
 msgid "The certificate has NOT been revoked."
 msgstr "O certificado não foi revogado"
 
 #: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
 msgid "Boolean indicating Certification Authority Certificate"
-msgstr "Booleano a indicar certificado de autoridade certificadora"
+msgstr "Booleano a indicar certificação de Autoridade Certificadora"
 
 #: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:57
 msgid "Reason"
@@ -135,13 +133,12 @@ msgstr "Razão"
 
 #: src/EBox/CGI/RevokeCertificate.pm:80 src/EBox/CGI/ShowForm.pm:68
 #: src/EBox/CGI/RenewCertificate.pm:78 src/EBox/CGI/IssueCertificate.pm:140
-#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
 "A entrada contém caracteres inválidos. São permitidos todos os caracteres "
-"alfanuméricos, mais os seguintes: .?&+:\\@ e espaço ."
+"alfanuméricos, mais os seguintes: .?&+:\\@ e espaços."
 
 #: src/EBox/CGI/RevokeCertificate.pm:138
 msgid "The certificate has been revoked"
@@ -181,12 +178,10 @@ msgid "The new CA certificate has been renewed"
 msgstr "O novo certificado CA foi renovado"
 
 #: src/EBox/CGI/IssueCertificate.pm:162
-#, fuzzy
 msgid "The certificate has been issued."
 msgstr "O certificado foi emitido"
 
 #: src/EBox/CGI/IssueCertificate.pm:163
-#, fuzzy
 msgid "The new CA certificate has been issued."
 msgstr "O novo certificado CA foi emitido"
 
@@ -217,6 +212,8 @@ msgstr ""
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
+"A infraestrutura da Autoridade de Certificação não está disponível. Crie-a "
+"primeiro "
 
 #: src/EBox/CA.pm:1162
 msgid "Either common name, distinguished name or serial number has been passed"
@@ -249,7 +246,7 @@ msgstr ""
 
 #: src/EBox/CA.pm:1717
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: src/EBox/CA.pm:2277
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -340,7 +337,6 @@ msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Não pode iniciar a shell OpenSSl . ({errval})"
 
 #: src/templates/formRevoke.mas:10
-#, fuzzy
 msgid "Revoke a Certificate"
 msgstr "Revogar um certificado"
 
@@ -363,11 +359,11 @@ msgstr "Revoga"
 
 #: src/templates/index.mas:41 src/templates/createCA.mas:9
 msgid "Country code"
-msgstr ""
+msgstr "Código de país"
 
 #: src/templates/index.mas:44 src/templates/createCA.mas:13
 msgid "City"
-msgstr ""
+msgstr "Cidade"
 
 #: src/templates/index.mas:47 src/templates/index.mas:84
 #: src/templates/createCA.mas:16
@@ -391,7 +387,6 @@ msgid "Issue the Certification Authority Certificate"
 msgstr "Emite o certificado de Autoridade Certificadora"
 
 #: src/templates/index.mas:70
-#, fuzzy
 msgid "Issue a New Certificate"
 msgstr "Emitir um novo certificado"
 

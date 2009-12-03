@@ -5,11 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:42+0100\n"
-"PO-Revision-Date: 2009-08-28 13:11+0200\n"
+"PO-Revision-Date: 2009-10-02 09:05+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,9 +18,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebServer.pm:77
-#, fuzzy
 msgid "Web Server"
-msgstr "Web tjeneste"
+msgstr "Web Server"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
@@ -98,7 +96,7 @@ msgstr "Virtuelt verts navn"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:100
 msgid "The virtual host name supplied is a top domain name"
-msgstr ""
+msgstr "Det virtuelle verts navnet oppgitt er et topp domene navn"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:107
 #, perl-brace-format
@@ -106,15 +104,17 @@ msgid ""
 "The virtual host name supplied is a domain name (Maybe you want instead "
 "{url}?)."
 msgstr ""
+"Det virtuelle verts navnet oppgitt er et domene navn (Kanskje du vil i "
+"stedet {url}?)."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:162
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip}. {noDnsWarning} "
 msgstr ""
 "Virtuell vert {vhost} lagt til. Et domene {domain} har blitt opprettet med "
-"kartleggings navn {name} - IP adresse {ip} "
+"kartleggings navn {name} - IP adresse {ip}. {noDnsWarning} "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:181
 #, perl-brace-format
@@ -177,6 +177,8 @@ msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"
 msgstr ""
+"{open}DNS modulen er deaktivert. Kartleggingene eller domenene  du la til "
+"vil ikke tas i bruk intil du aktiverer den."
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"

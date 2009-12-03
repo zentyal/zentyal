@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:29+0100\n"
-"PO-Revision-Date: 2009-03-10 23:57+0000\n"
+"PO-Revision-Date: 2009-11-11 18:48+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,8 @@ msgstr "Tempos de aluguer"
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
-"Tempo de aluguer é o tempo que o servidor DHCP atribui a um endereço IP"
+"Tempo de aluguer é o tempo de validade que o servidor DHCP atribui a um "
+"endereço IP"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
 msgid "You need to upload a boot image to eBox if you set it as next server"
@@ -103,15 +104,14 @@ msgstr ""
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr ""
-"necessita de especificar um caminho para a imagem de inicio no servidor "
+"Necessita de especificar um caminho para a imagem de inicio no servidor "
 "remoto"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
-#, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
 msgstr ""
-"Só pode especificar um ficheiro se tiver o próximo servidor e não for eBox"
+"Só pode especificar um ficheiro se tiver um próximo servidor e não for eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, perl-brace-format
@@ -119,7 +119,7 @@ msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
-"A remover a imagem de inicio carregada porque o próximo servidor for "
+"A remover a imagem de inicio carregada porque o próximo servidor foi "
 "alterado de eBox para {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
@@ -184,7 +184,7 @@ msgstr "O endereço IP {ip} está no âmbito '{range}': {from}-{to}"
 #: src/EBox/Model/FixedAddressTable.pm:160
 #, perl-brace-format
 msgid "{name} cannot contain spaces"
-msgstr "O {name} não pode conter espaços"
+msgstr "{name} não pode conter espaços"
 
 #: src/EBox/Model/FixedAddressTable.pm:178
 msgid "update"
@@ -229,29 +229,30 @@ msgstr "endereço fixo"
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
-msgstr "Âmbito inválido {from} - {to} "
+msgstr "{from} - {to} é um âmbito inválido "
 
 #: src/EBox/Model/RangeTable.pm:128
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr "Âmbito {from} - {to} não pertence à rede {net}"
+msgstr "O âmbito {from} - {to} não pertence à rede {net}"
 
 #: src/EBox/Model/RangeTable.pm:141
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr "Âmbito {from}-{to} inclui interface com endereço IP: {ifaceIP}"
+msgstr "O âmbito {from}-{to} inclui interface com endereço IP: {ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:164
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
-"Âmbito {newFrom}-{newTo} sobrepõem-se ao âmbito '{range}': {oldFrom}-{oldTo}"
+"O âmbito {newFrom}-{newTo} sobrepõem-se ao âmbito '{range}': "
+"{oldFrom}-{oldTo}"
 
 #: src/EBox/Model/RangeTable.pm:182
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr "Âmbito {from}-{to} inclui endereço fixo '{name}': {fixedIP}"
+msgstr "O âmbito {from}-{to} inclui endereço fixo '{name}': {fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:219 src/EBox/CGI/AddRange.pm:44
 #: src/templates/ranges.mas:54
@@ -277,12 +278,11 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} não está na rede actual"
 
 #: src/EBox/Model/Options.pm:169
-#, fuzzy
 msgid ""
 "DNS service must be active to be able to select eBox as primary DNS server"
 msgstr ""
-"O serviço DNS deve ser activado como servidor de nomes primário no servidor "
-"DNS eBox"
+"O serviço DNS deve estar activado como servidor de nomes primário no "
+"servidor DNS eBox"
 
 #: src/EBox/Model/Options.pm:314 src/EBox/Model/Options.pm:342
 msgid "Custom"
@@ -313,6 +313,8 @@ msgid ""
 "Setting \"eBox\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
+"Definir a eBox como gateway pré-definida definirá o endereço IP do interface "
+"como gateway"
 
 #: src/EBox/Model/Options.pm:387 src/templates/options.mas:29
 msgid "Search domain"
@@ -322,40 +324,41 @@ msgstr "Procurar domínio"
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
-msgstr ""
+msgstr "O domínio seleccionado completará os endereços não qualificados"
 
 #: src/EBox/Model/Options.pm:395 src/templates/options.mas:41
 msgid "Primary nameserver"
-msgstr "Servidor de nomes primário"
+msgstr "Servidor primário de nomes"
 
 #: src/EBox/Model/Options.pm:398
 msgid ""
 "If \"eBox DNS\" is present and selected, the eBox server will act as cache "
 "DNS server"
 msgstr ""
+"Se o DNS eBox estiver presente e seleccionado o servidor eBox actuará como "
+"um servidor cache DNS"
 
 #: src/EBox/Model/Options.pm:403 src/templates/options.mas:52
 msgid "Secondary nameserver"
-msgstr "Servidor de nomes secundário"
+msgstr "Servidor secundário de nomes"
 
 #: src/EBox/Model/Options.pm:411
 msgid "Common options"
 msgstr "Opções comuns"
 
 #: src/EBox/Model/Options.pm:416
-#, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
 "domains on eBox might be chosen. All fields are optionals setting its value "
 "as \"None\" or leaving blank."
 msgstr ""
-"Se definir a eBox como gateway será definida como a gateway pré-definida no "
-"endereço do interface. Se definir um nome pode escolher uma das gateways "
-"configuradas. um dos domínios pode ser escolhido como domínio de procura. Se "
-"definir o servidor de nomes primário como DNS eBox, o mesmo pode actuar como "
-"servidor de cache de DNS. Todos os campos são opcionais definindo o seu "
-"valor como \"nenhum\" ou em branco."
+"Se definir a eBox como gateway, a mesma, será definida como a gateway "
+"pré-definida no endereço do interface. Se definir um nome pode escolher uma "
+"das gateways configuradas. um dos domínios pode ser escolhido como domínio "
+"de procura. Se definir o servidor de nomes primário como DNS eBox, o mesmo "
+"pode actuar como servidor de cache de DNS. Todos os campos são opcionais "
+"definindo o seu valor como \"nenhum\" ou em branco."
 
 #: src/EBox/DHCP.pm:393 src/EBox/DHCP.pm:429 src/EBox/DHCP.pm:479
 #: src/EBox/DHCP.pm:577 src/EBox/DHCP.pm:631 src/EBox/DHCP.pm:692

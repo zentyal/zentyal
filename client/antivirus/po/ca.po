@@ -8,33 +8,36 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:23+0100\n"
-"PO-Revision-Date: 2009-02-20 11:10+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-11-28 15:08+0100\n"
+"Last-Translator: Sergio Vergara Ruiz <svruiz@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
-msgstr ""
+msgstr "Estat"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 msgid "Antivirus Database Update Status"
-msgstr ""
+msgstr "La base de dades de l'antivirus a sigut actualitzada."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 msgid ""
 "The antivirus database has not been updated since the module was installed."
 msgstr ""
+"La base de dades de l'antivirus no a sigut actualitzada, necessita "
+"instal·lar el modul."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
 msgid "The last update failed."
-msgstr ""
+msgstr "L'ultima actualització a fallat."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
 #, perl-brace-format
@@ -43,29 +46,32 @@ msgid ""
 "The antivirus will not be able to use all the signatures.Please, install "
 "version {version} or higher."
 msgstr ""
+"L'actualització a sigut un èxit, però la versió freshclam està obsoleta.\n"
+"L'antivirus no serà capaç d'utilitzar totes les signatures. Si us plau, "
+"instal·li la versió {version} o superior."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
 msgid "Last update successful."
-msgstr ""
+msgstr "L'ultima actualització a sigut un èxit."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
 #, perl-brace-format
 msgid "Unknown event {event}."
-msgstr ""
+msgstr "Esdeveniment desconegut {event}."
 
 #: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:377
 #: src/EBox/AntiVirus.pm:382
 msgid "Antivirus"
-msgstr ""
+msgstr "Antivirus"
 
 #: src/EBox/AntiVirus.pm:212
 msgid " To configure clamd daemon"
-msgstr ""
+msgstr "Per configurar el dimoni clamd"
 
 #: src/EBox/AntiVirus.pm:217
 msgid "To configure freshclam updater"
-msgstr ""
+msgstr "Per configurar l'actualització freshclam"
 
 #: src/EBox/AntiVirus.pm:222
 msgid "To schedule the launch of the updater"
-msgstr ""
+msgstr "Per programar el llançament de l'actualització"

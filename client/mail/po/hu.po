@@ -8,41 +8,44 @@ msgstr ""
 "Project-Id-Version: ebox-mail 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:33+0100\n"
-"PO-Revision-Date: 2008-09-01 08:32+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-11-18 10:59+0100\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
-msgstr ""
+msgstr "Admin levelek célja"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:72
 #: src/EBox/Mail.pm:1126 src/EBox/Mail.pm:1263
 msgid "Mail"
-msgstr ""
+msgstr "Levelezés"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
-msgstr ""
+msgstr "Nem tudok csatlakozni a {smtp} levelező szerverre"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:230
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
+"Nem tudok csatlakozni a {hostname} szerverre, hogy elküldjek egy eseményt "
+"SMTP-n keresztül"
 
 #: src/EBox/MailVDomainsLdap.pm:64 src/EBox/MailVDomainsLdap.pm:123
 #: src/EBox/Mail/Model/VDomains.pm:87 src/EBox/CGI/CreateAccount.pm:48
 msgid "virtual domain"
-msgstr ""
+msgstr "virtuális tartomány"
 
 #: src/EBox/MailVDomainsLdap.pm:342
 msgid "Size quota"
-msgstr ""
+msgstr "Quota mérete"
 
 #: src/EBox/MailVDomainsLdap.pm:434 src/EBox/MailVDomainsLdap.pm:440
 #: src/EBox/MailVDomainsLdap.pm:484 src/EBox/MailVDomainsLdap.pm:490
@@ -50,300 +53,313 @@ msgstr ""
 #: src/EBox/MailUserLdap.pm:785 src/EBox/MailUserLdap.pm:791
 #: src/EBox/Mail.pm:1401
 msgid "maildir size"
-msgstr ""
+msgstr "maildir mérete"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:89
 msgid "Filter in use"
-msgstr ""
+msgstr "Hasznát szűrő"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:97
 msgid "Custom filter's mail forward port"
-msgstr ""
+msgstr "Levelek, saját szűrő felé történő továbbítási portja"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:103
 msgid "Custom filter's IP address"
-msgstr ""
+msgstr "Saját szűrő IP címe"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:109
 msgid "Custom filter's Port"
-msgstr ""
+msgstr "Saját szűrő portja"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:118
 msgid "Mail filter options"
-msgstr ""
+msgstr "Levélszűrő beállításai"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:161
 msgid "none"
-msgstr ""
+msgstr "semmi"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:162
 msgid "custom"
-msgstr ""
+msgstr "személyreszabott"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
-msgstr ""
+msgstr "Tárgy"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
 #, perl-brace-format
 msgid "[EBox-event] An event has happened at {hostName}"
-msgstr ""
+msgstr "[EBox-event] Egy esemény történt a {hostName} gépen"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1233
 msgid "To"
-msgstr ""
+msgstr "Címzett"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
 msgid "Configure mail dispatcher"
-msgstr ""
+msgstr "Levél diszpécser beállítása"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from eBox"
 msgstr ""
+"Ahhoz, hogy beállítsa a levél eseményre reagáló diszpécsert, aktiválnia kell "
+"az mail szolgáltatást az eBoxban"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
 msgid "Mail dispatcher configuration updated"
-msgstr ""
+msgstr "Levél diszpécser beállításai frissítve"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:57
 #: src/EBox/Mail/Model/VDomainAliases.pm:69 src/EBox/Mail/Model/VDomains.pm:64
 msgid "Aliases"
-msgstr ""
+msgstr "Aliasok"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:78
 msgid "virtual domain alias"
-msgstr ""
+msgstr "virtuális tartomány alisok"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:80
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr ""
+"Virtuális tartomány aliasok hozzáadva. El kell mentenie a beállításokat a "
+"tartomány használatához"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:110
 #: src/EBox/Mail/Model/VDomains.pm:119
 msgid ""
 "You must enable the mail module in module status section in order to use it."
-msgstr ""
+msgstr "Használat előtt be kell kapcsolja a mail modult a modulkezelőbben."
 
 #: src/EBox/Mail/Model/VDomains.pm:57
 msgid "Name"
-msgstr ""
+msgstr "Név"
 
 #: src/EBox/Mail/Model/VDomains.pm:78
 msgid "Mail virtual domains"
-msgstr ""
+msgstr "Virtuális levelező tartományok"
 
 #: src/EBox/Mail/Model/VDomains.pm:89
 msgid "Virtual domain added. You must save changes to use this domain"
 msgstr ""
+"Virtuális tartomány hozzáadva. Mentse el a beállításokat a tartomány "
+"használatához"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:74
 msgid ""
 "Users will have to authenticate to be able to send mails through this server"
 msgstr ""
+"A felhasználóknak be kell jelentkezniük ha a szerveren keresztül szeretnének "
+"levelet küldeni"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:82
 msgid "Authentication"
-msgstr ""
+msgstr "Bejelentkezés"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:112
 msgid "Cannot require authentication when TLS is inactive"
-msgstr ""
+msgstr "Nem szükséges s bejelentkezés ha a TLS ki van kapcsolva"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:90
 msgid "Object"
-msgstr ""
+msgstr "Objektum"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:96
 msgid "Allow relay"
-msgstr ""
+msgstr "Levéltovábbítás engedélyezése"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:99
 msgid ""
 "Check this option to allow the machines within the above object to send "
 "mails through this server"
 msgstr ""
+"Jelölje be ezt az opciót ha a fenti objektumba tartozó gépek küldhetnek "
+"leveleket ezen a szerveren keresztül"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:108
 msgid "Relay policy for network objects"
-msgstr ""
+msgstr "Hálózati objektumok levéltovábbítási szabályai"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:120
 msgid "object's relay policy"
-msgstr ""
+msgstr "objektumok levéltovábbítási szabályai"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:121
 msgid "You may allow mail relay per network object"
-msgstr ""
+msgstr "Hálózati objektumokra lebontva engedélyezheti a levéltovábbítást"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:88 src/EBox/Mail.pm:1453
 msgid "Mail retrieval services"
-msgstr ""
+msgstr "Levél letöltő szolgáltatások"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:73
 msgid "Smarthost to send mail"
-msgstr ""
+msgstr "Levelek küldéséhez használt levéltovábbító"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:76
 msgid "The format is host[:port] being port set to 25 if none is supplied"
 msgstr ""
+"A formátum: host[:port], a port 25-re lesz állítva ha nem adja meg másképp"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:82
 msgid "Smarthost authentication"
-msgstr ""
+msgstr "Levéltovábbító hitelesítése"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:90
 msgid "None"
-msgstr ""
+msgstr "Semmi"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:94
 msgid "User and password"
-msgstr ""
+msgstr "Felhasználónév és jelszó"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:100
 msgid "User"
-msgstr ""
+msgstr "Felhasználónév"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:106
 msgid "Password"
-msgstr ""
+msgstr "Jelszó"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:119
 msgid "Maximum message size accepted"
-msgstr ""
+msgstr "Maximálisan elfogadott üzenethossz"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:123 src/templates/createaccount.mas:78
 #: src/templates/alias.mas:140
 msgid "Unlimited size"
-msgstr ""
+msgstr "Korlátlan méret"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:127
 msgid "size in Mb"
-msgstr ""
+msgstr "méret Mb-ban"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:139
 msgid "Options"
-msgstr ""
+msgstr "Beállítások"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:196
 #: src/EBox/Mail/Model/SMTPOptions.pm:200
 msgid "Smarthost's address"
-msgstr ""
+msgstr "Levéltovábbító címe"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:197
 msgid "Smarthost's port"
-msgstr ""
+msgstr "Levéltovábbító portja"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
 msgid "Enabled"
-msgstr ""
+msgstr "Bekapcsolva"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:70
 msgid "Greylist duration (seconds)"
-msgstr ""
+msgstr "Greylist időtartama (másodperc)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:71
 msgid "During this interval, the mail sender is deferred"
-msgstr ""
+msgstr "Ebben az intervallumban a levélküldés elhalasztható"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:79
 msgid "Retry window (hours)"
-msgstr ""
+msgstr "Újrapróbálkozási intervallum (óra)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:80
 msgid ""
 "Time that mail sender has to retry to be added before it will be greylisted "
 "again"
 msgstr ""
+"Az időtartomány ameddig a küldő próbálkozik a hozzáadással, mielőtt megint "
+"graylistre kerülne"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:89
 msgid "Entries time to live (days)"
-msgstr ""
+msgstr "Levelek élettartama (nap)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:90
 msgid "Period till unseen entries will be deleted"
-msgstr ""
+msgstr "Láthatatlan bejegyzések törlési intervalluma"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:100
 msgid "Greylist configuration"
-msgstr ""
+msgstr "Greylist beállítása"
 
 #: src/EBox/Mail/Greylist.pm:55
 msgid "Configure whitelist for greylisting"
-msgstr ""
+msgstr "whitelistek beállítása greylistre"
 
 #: src/EBox/Mail/Greylist.pm:279
 msgid "Greylist service"
-msgstr ""
+msgstr "Greylist szolgáltatás"
 
 #: src/EBox/Mail/Composite/General.pm:77
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
 msgid "Mail server options"
-msgstr ""
+msgstr "Levelezőszerver beállításai"
 
 #: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/DelAccount.pm:42
 #: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/CreateAlias.pm:42
 msgid "username"
-msgstr ""
+msgstr "felhasználónév"
 
 #: src/EBox/CGI/CreateAccount.pm:50
 msgid "Mail address"
-msgstr ""
+msgstr "Email cím"
 
 #: src/EBox/CGI/MQRemove.pm:42 src/EBox/CGI/MQRequeue.pm:42
 #: src/templates/qmanager.mas:17
 msgid "Queue ID"
-msgstr ""
+msgstr "Queue ID"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
 #: src/EBox/Mail.pm:1209
 msgid "Queue Management"
-msgstr ""
+msgstr "Queue Management"
 
 #: src/EBox/CGI/DelAccount.pm:46
 msgid "user mail"
-msgstr ""
+msgstr "felhasználói levél"
 
 #: src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
-msgstr ""
+msgstr "virtuális emailcím"
 
 #: src/EBox/CGI/DelGroupAlias.pm:42 src/EBox/CGI/CreateGroupAlias.pm:42
 msgid "group"
-msgstr ""
+msgstr "csoport"
 
 #: src/EBox/CGI/DelGroupAlias.pm:47
 msgid "group alias mail"
-msgstr ""
+msgstr "csoport virtuális emailcíme"
 
 #: src/EBox/CGI/CreateAlias.pm:48
 msgid "maildrop"
-msgstr ""
+msgstr "maildrop"
 
 #: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:48
 msgid "account name"
-msgstr ""
+msgstr "felhasználói fiók neve"
 
 #: src/EBox/CGI/CreateAlias.pm:50 src/EBox/CGI/CreateGroupAlias.pm:49
 msgid "domain name"
-msgstr ""
+msgstr "tartománynév"
 
 #: src/EBox/MailAliasLdap.pm:61 src/EBox/MailAliasLdap.pm:66
 #: src/EBox/MailAliasLdap.pm:88 src/EBox/MailAliasLdap.pm:93
 #: src/EBox/MailAliasLdap.pm:233 src/EBox/MailUserLdap.pm:81
 #: src/EBox/MailUserLdap.pm:86
 msgid "mail account"
-msgstr ""
+msgstr "postafiók"
 
 #: src/EBox/MailAliasLdap.pm:130 src/EBox/MailAliasLdap.pm:150
 msgid "Domain alias"
-msgstr ""
+msgstr "Tartomány alias"
 
 #: src/EBox/MailAliasLdap.pm:135 src/EBox/MailAliasLdap.pm:175
 #, perl-brace-format
 msgid "Mail domain {d} does not exists"
-msgstr ""
+msgstr "A {d} levelező tartomány nem létezik"
 
 #: src/EBox/MailAliasLdap.pm:142
 #, perl-brace-format
@@ -351,379 +367,393 @@ msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
+"A {d} tartomány nem használható levelező tartomány aliasként, mivel már "
+"létezik"
 
 #: src/EBox/MailAliasLdap.pm:256 src/EBox/MailAliasLdap.pm:286
 #: src/EBox/MailAliasLdap.pm:321
 msgid "mail alias account"
-msgstr ""
+msgstr "felhasználó virtuális email címe"
 
 #: src/EBox/MailUserLdap.pm:306
 msgid "This group has a mail alias"
-msgstr ""
+msgstr "Ennek a csoportnak van virtuális emailcíme"
 
 #: src/EBox/MailUserLdap.pm:333
 msgid "This user has a mail account"
-msgstr ""
+msgstr "Ennek a felhasználónak van levelező fiókja"
 
 #: src/EBox/MailUserLdap.pm:597
 #, perl-brace-format
 msgid "Cannot create user account: mail directory {d} aready exists"
 msgstr ""
+"Nem lehet létrehozni a felhasználói fiókot: a {d} levelező mappa már létezik"
 
 #: src/EBox/Mail.pm:118
 msgid "Generate mail aliases"
-msgstr ""
+msgstr "Virtuális emailcím generálása"
 
 #: src/EBox/Mail.pm:120
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
-msgstr ""
+msgstr "az eBox végrehajta: {cmd}"
 
 #: src/EBox/Mail.pm:125
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "LDAP séma hozzáadása"
 
 #: src/EBox/Mail.pm:127
 msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr ""
+msgstr "az eBox két LDAP sémát tölt be: authldap.ldif és eboximail.ldif."
 
 #: src/EBox/Mail.pm:133
 msgid "Create certificates"
-msgstr ""
+msgstr "Tanúsítvány létrehozása"
 
 #: src/EBox/Mail.pm:135
 msgid "eBox will create certificates to use in mail services"
-msgstr ""
+msgstr "Az eBox a levelezési szolgáltatás számára tanúsítványt generál"
 
 #: src/EBox/Mail.pm:155
 msgid "To configure postfix"
-msgstr ""
+msgstr "Hogy beállítsa a postfixet"
 
 #: src/EBox/Mail.pm:161
 msgid "To define how client programs connect to services in  postfix"
-msgstr ""
+msgstr "Hogy beállítsa hány kliens csatlakozhat a postfix szolgáltatásaihoz"
 
 #: src/EBox/Mail.pm:168
 msgid "To configure dovecot"
-msgstr ""
+msgstr "Hogy beállítsa a dovecotot"
 
 #: src/EBox/Mail.pm:173
 msgid "To configure dovecot to authenticate against LDAP"
-msgstr ""
+msgstr "Hogy beállítsa a dovecot LDAP hitelesítését"
 
 #: src/EBox/Mail.pm:178
 msgid "To configure smart host authentication"
-msgstr ""
+msgstr "Hogy beállítsa a levéltovábbító hitelesítését"
 
 #: src/EBox/Mail.pm:620
 msgid "Cannot change this parameter for a non-custom filter"
-msgstr ""
+msgstr "Ne változtassa meg ezt a paramétert egy nem személyreszabott szűrőnél"
 
 #: src/EBox/Mail.pm:636 src/EBox/Mail.pm:656
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
+"A levélszűrő nem létezik. Kérem állítson be egy másik levélszűrőt vagy "
+"kapcsolja ki ezt"
 
 #: src/EBox/Mail.pm:663
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
+"A $name levélszűrő nem aktív. Kérem állítson be egy másik levélszűrőt vagy "
+"kapcsolja ki ezt"
 
 #: src/EBox/Mail.pm:1074
 msgid "SMTP service"
-msgstr ""
+msgstr "SMTP szolgáltatás"
 
 #: src/EBox/Mail.pm:1081
 msgid "POP3 service"
-msgstr ""
+msgstr "POP3 szolgáltatás"
 
 #: src/EBox/Mail.pm:1087
 msgid "POP3S service"
-msgstr ""
+msgstr "POP3S szolgáltatás"
 
 #: src/EBox/Mail.pm:1093
 msgid "IMAP service"
-msgstr ""
+msgstr "IMAP szolgáltatás"
 
 #: src/EBox/Mail.pm:1099
 msgid "IMAPS service"
-msgstr ""
+msgstr "IMAPS szolgáltatás"
 
 #: src/EBox/Mail.pm:1140
 msgid "enabled"
-msgstr ""
+msgstr "bekapcsolva"
 
 #: src/EBox/Mail.pm:1140
 msgid "disabled"
-msgstr ""
+msgstr "kikapcsolva"
 
 #: src/EBox/Mail.pm:1142 src/EBox/Mail.pm:1238
 msgid "Status"
-msgstr ""
+msgstr "Státus"
 
 #: src/EBox/Mail.pm:1145
 msgid "Mail server's filter"
-msgstr ""
+msgstr "Levelező szerver szűrő"
 
 #: src/EBox/Mail.pm:1154 src/EBox/Mail.pm:1161
 msgid "Filter type"
-msgstr ""
+msgstr "Szűrő típusa"
 
 #: src/EBox/Mail.pm:1155
 msgid "Custom"
-msgstr ""
+msgstr "Személyreszabott"
 
 #: src/EBox/Mail.pm:1157
 msgid "Address"
-msgstr ""
+msgstr "Cím"
 
 #: src/EBox/Mail.pm:1190
 msgid "General"
-msgstr ""
+msgstr "Általános"
 
 #: src/EBox/Mail.pm:1197
 msgid "Virtual Mail Domains"
-msgstr ""
+msgstr "Virtuális mail tartomány"
 
 #: src/EBox/Mail.pm:1203
 msgid "Greylist"
-msgstr ""
+msgstr "Greylist"
 
 #: src/EBox/Mail.pm:1230 src/templates/qmanager.mas:19
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #: src/EBox/Mail.pm:1231
 msgid "Message ID"
-msgstr ""
+msgstr "Üzenet azonosító"
 
 #: src/EBox/Mail.pm:1232
 msgid "From"
-msgstr ""
+msgstr "From"
 
 #: src/EBox/Mail.pm:1234
 msgid "From hostname"
-msgstr ""
+msgstr "From hostname"
 
 #: src/EBox/Mail.pm:1235
 msgid "From host ip"
-msgstr ""
+msgstr "From host ip"
 
 #: src/EBox/Mail.pm:1236 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
-msgstr ""
+msgstr "Mérte (bájt)"
 
 #: src/EBox/Mail.pm:1237
 msgid "Relay"
-msgstr ""
+msgstr "Levéltovábbító"
 
 #: src/EBox/Mail.pm:1239
 msgid "Event"
-msgstr ""
+msgstr "Esemény"
 
 #: src/EBox/Mail.pm:1240
 msgid "Aditional Info"
-msgstr ""
+msgstr "További információk"
 
 #: src/EBox/Mail.pm:1251
 msgid "Successful messages"
-msgstr ""
+msgstr "Elküldött levelek"
 
 #: src/EBox/Mail.pm:1252
 msgid "Maximum message size exceeded"
-msgstr ""
+msgstr "Túllépte a megengedett levélméretet"
 
 #: src/EBox/Mail.pm:1253
 msgid "User quote exceeded"
-msgstr ""
+msgstr "Túllépte a felhasználói méretkorlátot"
 
 #: src/EBox/Mail.pm:1254
 msgid "Relay access denied"
-msgstr ""
+msgstr "Levéltovábbítás megtiltva"
 
 #: src/EBox/Mail.pm:1255
 msgid "Account does not exist"
-msgstr ""
+msgstr "A felhasználói fiók nem létezik"
 
 #: src/EBox/Mail.pm:1256
 msgid "Host unreachable"
-msgstr ""
+msgstr "A host nem érhető el"
 
 #: src/EBox/Mail.pm:1257
 msgid "Authentication error"
-msgstr ""
+msgstr "Hitelesítési hiba"
 
 #: src/EBox/Mail.pm:1258
 msgid "Greylisted"
-msgstr ""
+msgstr "Greylistre téve"
 
 #: src/EBox/Mail.pm:1259
 msgid "Other events"
-msgstr ""
+msgstr "Más események"
 
 #: src/EBox/Mail.pm:1365
 msgid "Mailboxes"
-msgstr ""
+msgstr "Levelező postaládák"
 
 #: src/EBox/Mail.pm:1446
 msgid "Mail SMTP server"
-msgstr ""
+msgstr "Levelező SMTP szerver"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
-msgstr ""
+msgstr "eBox levelező rendszer"
 
 #: src/templates/groupalias.mas:11
 msgid "Create alias mail account to group"
-msgstr ""
+msgstr "Virtuális emailcím létrehozása csoportnak"
 
 #: src/templates/groupalias.mas:16
 msgid ""
 "When the last member of a group is removed, the mail alias account will be "
 "deleted"
 msgstr ""
+"Ha a csoport utolsó tagja is törölve lett, a virtuális emailcím is törlődik"
 
 #: src/templates/groupalias.mas:21
 msgid ""
 "There are no users in the group or the users do not have a mail account, so "
 "an alias account cannot be created"
 msgstr ""
+"Nincsenek felhasználók a csoportban, vagy a felhasználóknak nincs email "
+"fiókjuk, tehát a virtuális emailcím nem lett létrehozva"
 
 #: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
 #: src/templates/createaccount.mas:46 src/templates/createaccount.mas:47
 #: src/templates/alias.mas:63 src/templates/alias.mas:64
 #: src/templates/alias.mas:65
 msgid "Create"
-msgstr ""
+msgstr "Létrehoz"
 
 #: src/templates/groupalias.mas:54
 msgid "Mail alias settings"
-msgstr ""
+msgstr "Virtuális emailcím beállítások"
 
 #: src/templates/groupalias.mas:64 src/templates/groupalias.mas:65
 #: src/templates/warnvd.mas:29 src/templates/alias.mas:22
 #: src/templates/alias.mas:23 src/templates/alias.mas:24
 #: src/templates/alias.mas:76 src/templates/alias.mas:77
 msgid "Delete"
-msgstr ""
+msgstr "Törlés"
 
 #: src/templates/warnvd.mas:14
 msgid ""
 "The virtual domain you tried to delete contains data in the following "
 "modules. Please confirm you want to remove it and all its related data"
 msgstr ""
+"A virtuális tartomány, amelyet ki szeretne törölni, a következő modulokban "
+"tárol adatokat. Erősítse meg, hogy ezekkel együtt szeretné-e eltávolítani"
 
 #: src/templates/warnvd.mas:32 src/templates/warnvdmdsize.mas:36
 #: src/templates/warnusermdsize.mas:26
 msgid "Cancel"
-msgstr ""
+msgstr "Mégsem"
 
 #: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
 msgid "Change"
-msgstr ""
+msgstr "Változtat"
 
 #: src/templates/qmanager.mas:20
 msgid "Sender"
-msgstr ""
+msgstr "Küldő"
 
 #: src/templates/qmanager.mas:21
 msgid "Recipients"
-msgstr ""
+msgstr "Címzettek"
 
 #: src/templates/qmanager.mas:22
 msgid "Message"
-msgstr ""
+msgstr "Üzenet"
 
 #: src/templates/qmanager.mas:23
 msgid "Operate"
-msgstr ""
+msgstr "Operate"
 
 #: src/templates/qmanager.mas:44 src/templates/qmanager.mas:45
 msgid "Requeue"
-msgstr ""
+msgstr "Requeue"
 
 #: src/templates/qmanager.mas:49 src/templates/qmanager.mas:50
 msgid "Show Info"
-msgstr ""
+msgstr "További információk"
 
 #: src/templates/qmanager.mas:54 src/templates/qmanager.mas:55
 msgid "Remove"
-msgstr ""
+msgstr "Töröl"
 
 #: src/templates/qmanager.mas:67 src/templates/qmanager.mas:68
 msgid "Hide Info"
-msgstr ""
+msgstr "Információk elrejtése"
 
 #: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
 msgid "first"
-msgstr ""
+msgstr "első"
 
 #: src/templates/qmanager.mas:91 src/templates/qmanager.mas:92
 msgid "prev"
-msgstr ""
+msgstr "előző"
 
 #: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "next"
-msgstr ""
+msgstr "következő"
 
 #: src/templates/qmanager.mas:115 src/templates/qmanager.mas:116
 msgid "last"
-msgstr ""
+msgstr "utolsó"
 
 #: src/templates/qmanager.mas:126
 msgid "There is no messages in queue or the service is stopped"
-msgstr ""
+msgstr "Nincsenek üzenetek a queue-ban, vagy a szolgáltatás nem működik"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr ""
+"Ezek a beállítások akkor lesznek alkalmazva, ha bekapcsolja a levelező "
+"modult"
 
 #: src/templates/account.mas:22
 msgid "Mail account"
-msgstr ""
+msgstr "Levelező fiók"
 
 #: src/templates/account.mas:26
 msgid "Click here to create a new mail virtual domain"
-msgstr ""
+msgstr "Kattintson ide egy új virtuális levelezőtartomány létrehozásához"
 
 #: src/templates/createaccount.mas:15
 msgid "Create mail account"
-msgstr ""
+msgstr "Postafiók létrehozása"
 
 #: src/templates/createaccount.mas:23
 msgid "Account name"
-msgstr ""
+msgstr "Postafiók neve"
 
 #: src/templates/createaccount.mas:27
 msgid "Domain name"
-msgstr ""
+msgstr "Tartománynév"
 
 #: src/templates/createaccount.mas:62
 msgid "Maildir size"
-msgstr ""
+msgstr "Maildir mérete"
 
 #: src/templates/alias.mas:11
 msgid "Mail account settings"
-msgstr ""
+msgstr "Postafiók beállításai"
 
 #: src/templates/alias.mas:34
 msgid "Create mail aliases"
-msgstr ""
+msgstr "Virtuális emailcím létrehozása"
 
 #: src/templates/alias.mas:39
 msgid "Mail alias"
-msgstr ""
+msgstr "Virtuális emailcím"
 
 #: src/templates/alias.mas:42
 msgid "Action"
-msgstr ""
+msgstr "Action"
 
 #: src/templates/alias.mas:126
 msgid "Default maildir size (MB)"
-msgstr ""
+msgstr "Alapértelmezett maildir méret (MB)"
 
 #: src/templates/alias.mas:151 src/templates/alias.mas:152
 msgid "Modify"
-msgstr ""
+msgstr "Módosít"

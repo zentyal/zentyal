@@ -8,20 +8,19 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:42+0100\n"
-"PO-Revision-Date: 2009-07-17 14:31+0200\n"
+"PO-Revision-Date: 2009-10-30 03:52+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebServer.pm:77
-#, fuzzy
 msgid "Web Server"
-msgstr "Веб-служба"
+msgstr "Веб сервер"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
@@ -98,7 +97,7 @@ msgstr "Имена виртуальных узлов"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:100
 msgid "The virtual host name supplied is a top domain name"
-msgstr ""
+msgstr "Вирутальное имя машины является главным именем домена"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:107
 #, perl-brace-format
@@ -106,15 +105,17 @@ msgid ""
 "The virtual host name supplied is a domain name (Maybe you want instead "
 "{url}?)."
 msgstr ""
+"Виртуальное имя машины является именем домена (Возможно вы хотите "
+"использовать {url})"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:162
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip}. {noDnsWarning} "
 msgstr ""
 "Виртуальный узел {vhost} добавлен. Домен {domain} был создан, с отображаемым "
-"именем  {name} - IP-адресом {ip} "
+"именем  {name} - IP-адресом {ip} . {noDnsWarning} "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:181
 #, perl-brace-format
@@ -178,6 +179,8 @@ msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"
 msgstr ""
+"{open} Модуль DNS отключен. Добавление отображений или доменов не будет "
+"иметь никакого эффекта пока вы его не включите"
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"

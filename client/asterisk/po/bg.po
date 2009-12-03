@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:24+0100\n"
-"PO-Revision-Date: 2009-06-28 03:24+0200\n"
+"PO-Revision-Date: 2009-10-04 07:55+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/EBox/Asterisk.pm:66
 msgid "VoIP"
-msgstr ""
+msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:120
 msgid "To configure enabled and disabled modules."
@@ -72,48 +72,46 @@ msgid "Voicemail"
 msgstr "Гласова поща"
 
 #: src/EBox/Asterisk.pm:487 src/EBox/Asterisk.pm:574
-#, fuzzy
 msgid "User"
-msgstr "Потребителско име"
+msgstr "Потребител"
 
 #: src/EBox/Asterisk.pm:487
-#, fuzzy
 msgid "Address"
-msgstr "Пощенски адрес"
+msgstr "Адрес"
 
 #: src/EBox/Asterisk.pm:487
 msgid "NAT"
-msgstr ""
+msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:487
 msgid "Status"
-msgstr ""
+msgstr "Състояние"
 
 #: src/EBox/Asterisk.pm:501 src/EBox/Asterisk.pm:583
 msgid "No users connected."
-msgstr ""
+msgstr "Няма свързани потребители."
 
 #: src/EBox/Asterisk.pm:571
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr ""
+msgstr "Стая {name} активна {rtime}"
 
 #: src/EBox/Asterisk.pm:574
 msgid "Time Connected"
-msgstr ""
+msgstr "Време на връзка"
 
 #: src/EBox/Asterisk.pm:604
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "Включени потребители на VoIP"
 
 #: src/EBox/Asterisk.pm:609
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "Потребители на VoIP в срещи"
 
 #: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:114
 #: src/EBox/Model/Meetings.pm:123
 msgid "extension"
-msgstr "разширение"
+msgstr "вътрешен номер"
 
 #: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
@@ -121,7 +119,7 @@ msgstr "Вътрешен номер за гласова поща"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
-msgstr "Включване на демо разширения"
+msgstr "Включване на демо вътрешни номера"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
@@ -149,6 +147,8 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net},are always "
 "considered local networks so it is not neccesary to add them"
 msgstr ""
+"Мрежите свързани пряко към вътрешни интерфейси, като {net}, се считат за "
+"локални, така че не е необходимо да бъдат добавяни."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
@@ -223,9 +223,8 @@ msgid "Settings successfully updated"
 msgstr "Настройките са успешно обновени."
 
 #: src/EBox/Model/NAT.pm:96
-#, fuzzy
 msgid "eBox is behind NAT"
-msgstr "Астериск е зад NAT."
+msgstr "eBox е зад NAT."
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
@@ -246,13 +245,13 @@ msgstr "Настройките на Астериск сървър за NAT са 
 #: src/EBox/Model/Meetings.pm:91
 msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
 msgstr ""
-"Трябва да инсталирате пакетите dahdi-linux и dahdi-tools, за да използвате "
-"Събрания."
+"Трябва да инсталирате пакетите dahdi-linux и dahdi-tools, за да ползвате "
+"Срещи."
 
 #: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
 #: src/templates/asterisk.mas:34
 msgid "Extension"
-msgstr "Разширение"
+msgstr "Вътрешен номер"
 
 #: src/EBox/Model/Meetings.pm:149
 #, perl-brace-format
@@ -261,11 +260,11 @@ msgstr "Число между {min} и {max}"
 
 #: src/EBox/Model/Meetings.pm:185
 msgid "meeting"
-msgstr "събрания"
+msgstr "среща"
 
 #: src/EBox/Asterisk/Extensions.pm:208
 msgid "User's extension"
-msgstr "Потребителско разширение"
+msgstr "Вътрешен номер на потребителя"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:42
 msgid "username"

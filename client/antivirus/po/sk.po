@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:23+0100\n"
-"PO-Revision-Date: 2009-08-08 12:47+0200\n"
-"Last-Translator: Marcel Hecko <maco@blava.net>\n"
+"PO-Revision-Date: 2009-11-14 18:35+0100\n"
+"Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,20 +23,20 @@ msgstr "Stav"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
 msgid "Date"
-msgstr "Datum"
+msgstr "Dátum"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 msgid "Antivirus Database Update Status"
-msgstr "Stav Antivirusovej Databazy"
+msgstr "Stav Antivírusovej Databázy"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 msgid ""
 "The antivirus database has not been updated since the module was installed."
-msgstr ""
+msgstr "Antivírusová databáza nebola aktualizovaná od inštalácie modulu"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
 msgid "The last update failed."
-msgstr "Posledna aktualizacia sa nepodarila."
+msgstr "Posledná aktualizácia sa nepodarila."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
 #, perl-brace-format
@@ -45,29 +45,32 @@ msgid ""
 "The antivirus will not be able to use all the signatures.Please, install "
 "version {version} or higher."
 msgstr ""
+"Aktualizácia bola úspešná, ale verzia vášho freshclam je zastaralá.\n"
+"Antivírus nebude schopný používať všetky jeho signatury.Prosím, nainštalujte "
+"verziu {version} alebo vyššiu."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
 msgid "Last update successful."
-msgstr "Posledna aktualizacia sa podarila."
+msgstr "Posledná aktualizácia sa podarila."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
 #, perl-brace-format
 msgid "Unknown event {event}."
-msgstr ""
+msgstr "Neznáma udalosť {event}."
 
 #: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:377
 #: src/EBox/AntiVirus.pm:382
 msgid "Antivirus"
-msgstr "Antivirus"
+msgstr "Antivírus"
 
 #: src/EBox/AntiVirus.pm:212
 msgid " To configure clamd daemon"
-msgstr ""
+msgstr "Konfigurovať Clamd servis"
 
 #: src/EBox/AntiVirus.pm:217
 msgid "To configure freshclam updater"
-msgstr ""
+msgstr "Konfigurovať Freshclam aktualizačný program"
 
 #: src/EBox/AntiVirus.pm:222
 msgid "To schedule the launch of the updater"
-msgstr ""
+msgstr "Načasovať spúšťanie aktualizačného programu"

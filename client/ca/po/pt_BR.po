@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:25+0100\n"
-"PO-Revision-Date: 2009-08-16 11:23+0200\n"
+"PO-Revision-Date: 2009-11-18 22:43+0100\n"
 "Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,8 @@ msgid ""
 "You must create a Certification Authority. Go to {openhref}Certification "
 "Authority{closehref} to do so"
 msgstr ""
+"Você deve criar uma Autoridade de Certificação. Vá em "
+"{openhref}Certification Authority{closehref} para isto"
 
 #: src/EBox/Model/Certificates.pm:216
 msgid "Module"
@@ -211,6 +213,8 @@ msgstr ""
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
+"A infraestrutura da Autoridade Certificadora não está disponível. Crie uma "
+"primeiro"
 
 #: src/EBox/CA.pm:1162
 msgid "Either common name, distinguished name or serial number has been passed"
@@ -268,7 +272,7 @@ msgstr "Campo ASN1 muito longo. Tamanho máximo:"
 
 #: src/EBox/CA.pm:2288
 msgid "Unknown error. Given the OpenSSL output:"
-msgstr "Erro desconhecido. Dada a saída do OpenSSL:"
+msgstr "Erro desconhecido. Saída do OpenSSL:"
 
 #: src/EBox/CA.pm:2363
 #, perl-brace-format

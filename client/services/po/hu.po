@@ -8,29 +8,30 @@ msgstr ""
 "Project-Id-Version: ebox-services 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:39+0100\n"
-"PO-Revision-Date: 2009-01-21 10:16+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-10-29 17:05+0100\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
-msgstr ""
+msgstr "Tartomány"
 
 #: src/EBox/Model/ServiceTable.pm:114
 msgid "Service name"
-msgstr ""
+msgstr "Szolgáltatás neve"
 
 #: src/EBox/Model/ServiceTable.pm:122
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: src/EBox/Model/ServiceTable.pm:129
 msgid "Internal"
-msgstr ""
+msgstr "Belső"
 
 #: src/EBox/Model/ServiceTable.pm:131
 msgid ""
@@ -38,67 +39,72 @@ msgid ""
 "ports configured for this service. This helps eBox to know what ports are "
 "already busy"
 msgstr ""
+"Jelölje be ezt a mezőt, ha jelenleg ezt a portot egy helyi szolgáltatás "
+"használja. Ez segíti az eBoxnak a használt portok feltérképezésében"
 
 #: src/EBox/Model/ServiceTable.pm:140
 msgid "Configuration"
-msgstr ""
+msgstr "Beállítások"
 
 #: src/EBox/Model/ServiceTable.pm:152
 msgid "List of services"
-msgstr ""
+msgstr "Szolgáltatások listája"
 
 #: src/EBox/Model/ServiceTable.pm:153 src/EBox/Services.pm:47
 msgid "Services"
-msgstr ""
+msgstr "Szolgáltatások"
 
 #: src/EBox/Model/ServiceTable.pm:162
 #: src/EBox/Model/ServiceConfigurationTable.pm:171
 msgid "service"
-msgstr ""
+msgstr "szolgáltatás"
 
 #: src/EBox/Model/ServiceTable.pm:542
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
 msgstr ""
+"A szolgáltatás egy absztrakciója egy vagy több hálózati protokollnak "
+"amelyeket fel lehet használni egyéb modulokban: tűzfal, forgalom "
+"korlátozás..."
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:139
 msgid "Protocol"
-msgstr ""
+msgstr "Protokol"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:145
 msgid "Source port"
-msgstr ""
+msgstr "Forrás port"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:147
 msgid "This field is usually set to any"
-msgstr ""
+msgstr "Ennek a mezőnek az értéke általában any"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:151
 msgid "Destination port"
-msgstr ""
+msgstr "Cél port"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:161
 msgid "Service configuration"
-msgstr ""
+msgstr "Szolgáltatás beállítása"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:194
 msgid "This protocol does not use ports"
-msgstr ""
+msgstr "Ez a szolgáltatás nem használ portot"
 
 #: src/EBox/Services.pm:333
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Services.pm:335
 #: migration/0001_import_services_from_firewall.pl:108
 msgid "eBox administration"
-msgstr ""
+msgstr "eBox kezelőfelület"
 
 #: src/EBox/Services.pm:336
 #: migration/0001_import_services_from_firewall.pl:109
 msgid "eBox Administration port"
-msgstr ""
+msgstr "eBox kezelőfelület portja"
 
 #: src/EBox/Services.pm:337 migration/0001_import_services_from_firewall.pl:71
 #: migration/0001_import_services_from_firewall.pl:82
@@ -106,28 +112,28 @@ msgstr ""
 #: migration/0001_import_services_from_firewall.pl:110
 #: migration/0001_import_services_from_firewall.pl:125
 msgid "ebox-services"
-msgstr ""
+msgstr "ebox-szolgáltatások"
 
 #: migration/0001_import_services_from_firewall.pl:69
 msgid "any"
-msgstr ""
+msgstr "any"
 
 #: migration/0001_import_services_from_firewall.pl:70
 msgid "any protocol and port"
-msgstr ""
+msgstr "bármely protokoll és port"
 
 #: migration/0001_import_services_from_firewall.pl:80
 msgid "any UDP"
-msgstr ""
+msgstr "bármely UDP"
 
 #: migration/0001_import_services_from_firewall.pl:81
 msgid "any UDP port"
-msgstr ""
+msgstr "bármely UDP port"
 
 #: migration/0001_import_services_from_firewall.pl:92
 msgid "any TCP"
-msgstr ""
+msgstr "bármely TCP"
 
 #: migration/0001_import_services_from_firewall.pl:93
 msgid "any TCP port"
-msgstr ""
+msgstr "bármely TCP port"

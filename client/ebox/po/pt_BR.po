@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-08-16 11:33+0200\n"
+"PO-Revision-Date: 2009-11-24 01:05+0100\n"
 "Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,16 +29,16 @@ msgstr "RSS"
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
-msgstr "eBox, canal de alerta para {hostname}"
+msgstr "Canal de alertas do eBox para {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
-msgstr "Este link faz o acompanhamento do que ocorre nesta maquina."
+msgstr "Este canal rastreia o que acontece nesta maquina eBox ao longo do tempo"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
-msgstr "Evento ocorrido na eBox {hostname} para {source}"
+msgstr "Evento ocorrido na eBox {hostname} de {source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
@@ -47,7 +47,7 @@ msgstr "Ir para a url {url} checar status"
 
 #: src/EBox/Event/Dispatcher/Log.pm:136
 msgid "Log file"
-msgstr "Arquivo de LOG"
+msgstr "Arquivo de log"
 
 #: src/EBox/Event/Dispatcher/Log.pm:149
 msgid "Log"
@@ -86,7 +86,7 @@ msgstr "Dispatcher {name} não está configurado para iniciar"
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr "O seguinte módulo não esta funcionando: {modules}\n"
+msgstr "Os seguintes módulos não estão funcionando: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
@@ -94,9 +94,7 @@ msgstr "Serviço"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
-msgstr ""
-"Verifique se qualquer serviço do eBox  não está sendo executado, quando "
-"deveria esta"
+msgstr "Verifica se algum serviço do eBox não está rodando quando deveria"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -104,7 +102,7 @@ msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
-"O serviço {service} foi reiniciado {restart} vezes em {time}segundos e foi "
+"O serviço {service} foi reiniciado {restart} vezes em {time} segundos e foi "
 "interrompido"
 
 #: src/EBox/Event/Watcher/Log.pm:203
@@ -118,33 +116,33 @@ msgstr "Notifique quando um logger ({loggers}) logou algo"
 
 #: src/EBox/Event/Watcher/State.pm:126
 msgid "eBox is up and running"
-msgstr "eBox está instalado e funcionando"
+msgstr "eBox está pronto e operante"
 
 #: src/EBox/Event/Watcher/State.pm:132
 msgid "eBox is critically down"
-msgstr "eBox inoperante"
+msgstr "eBox está criticamente inoperante"
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
-msgstr "Condição"
+msgstr "Estado"
 
 #: src/EBox/Event/Watcher/State.pm:174
 msgid "Check if eBox is currently up or down"
-msgstr "Checar se o eBox está funcionando ou inoperânte"
+msgstr "Checar se o eBox está operante ou não"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr "O arquivo do sistema {fs}, montado em {mp}, não tem espaço suficiente."
+msgstr ""
+"O arquivo do sistema {fs}, montado em {mp}, não tem mais espaço disponível"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr "Espaço livre de armazenamento"
+msgstr "Espaço livre para armazenamento"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
-msgstr ""
-"Verifique se qualquer partição do disco não tem espaço de armazenamento"
+msgstr "Verifique se qualquer partição do disco não tem mais espaço disponível"
 
 #: src/EBox/Event/Watcher/RAID.pm:182 src/EBox/CGI/Report/RAID.pm:30
 #: src/EBox/SysInfo.pm:218
@@ -153,12 +151,12 @@ msgstr "RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
-msgstr "Verifique qualquer evento que aconteceu no RAID do subsistema"
+msgstr "Verifica se algum evento ocorreu no subsistema RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr "Informações da nova RAID {devName}:"
+msgstr "Informações do novo dispositivo RAID {devName}:"
 
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
@@ -183,22 +181,22 @@ msgstr "Dispositivos Ativos: {nb}"
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
-msgstr "Progresso da operação: {operation}"
+msgstr "Operação em progresso: {operation}"
 
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
-msgstr "Progresso da operação: {per}"
+msgstr "Percentual de progresso da operação: {per}"
 
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
-msgstr "Tempo estimado para o término : {time}"
+msgstr "Tempo estimado para o término da operação: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
-msgstr "Componente RAID {nb}: componente {device} status {state}"
+msgstr "Componente RAID {nb}: dispositivo {device} estado {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format

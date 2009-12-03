@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-06-03 02:21+0200\n"
-"Last-Translator: Sudel <sudel@freemail.it>\n"
+"PO-Revision-Date: 2009-11-15 17:49+0100\n"
+"Last-Translator: gabriele <g.garis@inwind.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,7 +119,8 @@ msgstr "eBox è su e in esecuzione"
 msgid "eBox is critically down"
 msgstr "eBox è giù in modo critico"
 
-#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
+#: src/EBox/Event/Watcher/State.pm:157
+#: src/templates/report/raid.mas:226
 msgid "State"
 msgstr "Stato"
 
@@ -140,7 +141,8 @@ msgstr "Spazio libero di memorizzazione"
 msgid "Check if any disk partition has no storage space left"
 msgstr "Controlla la presenza di partizioni del disco piene"
 
-#: src/EBox/Event/Watcher/RAID.pm:182 src/EBox/CGI/Report/RAID.pm:30
+#: src/EBox/Event/Watcher/RAID.pm:182
+#: src/EBox/CGI/Report/RAID.pm:30
 #: src/EBox/SysInfo.pm:218
 msgid "RAID"
 msgstr "RAID"
@@ -220,12 +222,14 @@ msgstr ""
 "attivi da {oldNum} a {newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
-#, fuzzy, perl-brace-format
+#, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
 msgstr "Il dispositivo RAID {name} ha avviato l'operazione {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:405
-#, fuzzy, perl-brace-format
+#, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr ""
 "Il dispositivo RAID {name} ha terminato l'operazione {opName} o è stata "
@@ -241,12 +245,14 @@ msgstr ""
 "{newOpName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:436
-#, fuzzy, perl-brace-format
+#, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage} completed."
 msgstr "Stato: {percentage}% completato"
 
 #: src/EBox/Event/Watcher/RAID.pm:439
-#, fuzzy, perl-brace-format
+#, perl-brace-format
+#, perl-brace-format
 msgid "Estimated finish time: {time}."
 msgstr "Tempo di completamento stimato: {time}"
 
@@ -297,32 +303,39 @@ msgstr ""
 "Un componente {compName} è stato rimosso a caldo dall'array RAID {arrayName} "
 "mentre il suo stato era {status}"
 
-#: src/EBox/Event/Watcher/RAID.pm:542 src/EBox/Event/Watcher/RAID.pm:586
+#: src/EBox/Event/Watcher/RAID.pm:542
+#: src/EBox/Event/Watcher/RAID.pm:586
 #: src/templates/report/raid.mas:111
 msgid "active"
 msgstr "attivo"
 
-#: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:113
+#: src/EBox/Event/Watcher/RAID.pm:544
+#: src/templates/report/raid.mas:113
 msgid "degraded"
 msgstr "degradato"
 
-#: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:115
+#: src/EBox/Event/Watcher/RAID.pm:546
+#: src/templates/report/raid.mas:115
 msgid "recovering"
 msgstr "in recupero"
 
-#: src/EBox/Event/Watcher/RAID.pm:548 src/templates/report/raid.mas:117
+#: src/EBox/Event/Watcher/RAID.pm:548
+#: src/templates/report/raid.mas:117
 msgid "resyncing"
 msgstr "in sincronizzazione"
 
-#: src/EBox/Event/Watcher/RAID.pm:550 src/templates/report/raid.mas:121
+#: src/EBox/Event/Watcher/RAID.pm:550
+#: src/templates/report/raid.mas:121
 msgid "rebuilding"
 msgstr "in ricostruzione"
 
-#: src/EBox/Event/Watcher/RAID.pm:552 src/templates/report/raid.mas:119
+#: src/EBox/Event/Watcher/RAID.pm:552
+#: src/templates/report/raid.mas:119
 msgid "reshaping"
 msgstr "in trasformazione"
 
-#: src/EBox/Event/Watcher/RAID.pm:554 src/templates/report/raid.mas:123
+#: src/EBox/Event/Watcher/RAID.pm:554
+#: src/templates/report/raid.mas:123
 msgid "failed"
 msgstr "fallito"
 
@@ -344,13 +357,14 @@ msgstr "recupero"
 
 #: src/EBox/Event/Watcher/RAID.pm:574
 msgid "check"
-msgstr ""
+msgstr "controllo"
 
 #: src/EBox/Event/Watcher/RAID.pm:588
 msgid "faulty"
 msgstr "difettoso"
 
-#: src/EBox/Event/Watcher/RAID.pm:590 src/templates/report/raid.mas:233
+#: src/EBox/Event/Watcher/RAID.pm:590
+#: src/templates/report/raid.mas:233
 msgid "spare"
 msgstr "riserva"
 
@@ -386,12 +400,15 @@ msgstr "Sconosciuto"
 msgid "Could not extract the requested backup files: {files}"
 msgstr "Impossibile estrarre i file di backup richiesti: {files}"
 
-#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1123
+#: src/EBox/Backup.pm:477
+#: src/EBox/Backup.pm:1123
 msgid "Could not unpack the backup"
 msgstr "Impossibile spacchettare il backup"
 
-#: src/EBox/Backup.pm:706 src/EBox/CGI/EBox/Backup.pm:34
-#: src/EBox/SysInfo.pm:223 src/templates/backup.mas:64
+#: src/EBox/Backup.pm:706
+#: src/EBox/CGI/EBox/Backup.pm:34
+#: src/EBox/SysInfo.pm:223
+#: src/templates/backup.mas:64
 msgid "Backup"
 msgstr "Backup"
 
@@ -468,8 +485,10 @@ msgstr ""
 "Dipendenza di ripristino non risolta per il modulo {topModule}: {modName} "
 "non è installato"
 
-#: src/EBox/Backup.pm:1323 src/EBox/CGI/EBox/Backup.pm:192
-#: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
+#: src/EBox/Backup.pm:1323
+#: src/EBox/CGI/EBox/Backup.pm:192
+#: src/EBox/CGI/EBox/Backup.pm:273
+#: src/EBox/CGI/EBox/Backup.pm:286
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147
 msgid "The input contains invalid characters"
 msgstr "L'input contiene dei caratteri non validi"
@@ -483,13 +502,16 @@ msgstr "Archivi di backup"
 msgid "Remove data from {model}{br}"
 msgstr "Elimina dati da {model}{br}"
 
-#: src/EBox/Model/DataForm.pm:594 src/templates/dataInUse.mas:25
-#: src/templates/dataInUse.mas:34 src/templates/port.mas:14
+#: src/EBox/Model/DataForm.pm:594
+#: src/templates/dataInUse.mas:25
+#: src/templates/dataInUse.mas:34
+#: src/templates/port.mas:14
 #: src/templates/password.mas:53
 msgid "Change"
 msgstr "Modifica"
 
-#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:699
+#: src/templates/progress.mas:22
 msgid "Done"
 msgstr "Fatto"
 
@@ -498,8 +520,10 @@ msgstr "Fatto"
 msgid "It should be one of following values: {values}"
 msgstr "Dovrebbe essere uno dei seguenti valori: {values}"
 
-#: src/EBox/Model/Composite.pm:670 src/EBox/Model/Composite.pm:685
-#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Model/DataTable.pm:2067
+#: src/EBox/Model/Composite.pm:670
+#: src/EBox/Model/Composite.pm:685
+#: src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/DataTable.pm:2067
 #: src/EBox/Logs.pm:649
 msgid "Action"
 msgstr "Azione"
@@ -531,7 +555,8 @@ msgstr ""
 "\t\t\tdalle seguenti sezioni:"
 
 #: src/EBox/Model/ProviderBase.pm:246
-#, fuzzy, perl-brace-format
+#, perl-brace-format
+#, perl-brace-format
 msgid "Provided object with index {i} does not exist"
 msgstr "L'oggetto fornito con indice {i} non esiste"
 
@@ -541,7 +566,6 @@ msgid "{model} in {module} module"
 msgstr "{model} in modulo {module}"
 
 #: src/EBox/Model/DataTable.pm:330
-#, fuzzy
 msgid "at"
 msgstr "a"
 
@@ -643,7 +667,8 @@ msgstr "L'eseguibile è già stato avviato"
 msgid "The executable has already finished"
 msgstr "L'eseguibile ha già terminato"
 
-#: src/EBox/Global.pm:442 src/EBox/Global.pm:463
+#: src/EBox/Global.pm:442
+#: src/EBox/Global.pm:463
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Salvo modulo {modName}"
@@ -775,7 +800,8 @@ msgstr "Forza eliminazione log"
 msgid "Purge"
 msgstr "Elimina"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:196
+#: src/EBox/CGI/Dashboard/Index.pm:32
+#: src/EBox/SysInfo.pm:196
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -811,7 +837,6 @@ msgid "Module Status Configuration"
 msgstr "Configurazione generale dei moduli"
 
 #: src/EBox/CGI/EBox/General.pm:30
-#, fuzzy
 msgid "General Configuration"
 msgstr "Configurazione generale"
 
@@ -857,8 +882,10 @@ msgstr "Ripristino backup"
 msgid "Restoring modules"
 msgstr "Ripristino moduli"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
-#: src/templates/finish.mas:106 src/templates/moduleStatusTable.mas:58
+#: src/EBox/CGI/EBox/Backup.pm:256
+#: src/EBox/Logs.pm:648
+#: src/templates/finish.mas:106
+#: src/templates/moduleStatusTable.mas:58
 msgid "Module"
 msgstr "Modulo"
 
@@ -870,7 +897,8 @@ msgstr "moduli rimasti da ripristinare"
 msgid "Restore successful"
 msgstr "Ripristino eseguito correttamente"
 
-#: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:32
+#: src/EBox/CGI/EBox/Password.pm:43
+#: src/templates/login/index.mas:32
 msgid "Password"
 msgstr "Password"
 
@@ -891,7 +919,6 @@ msgid "The password was changed successfully."
 msgstr "La password è stata cambiata correttamente."
 
 #: src/EBox/CGI/EBox/Halt.pm:30
-#, fuzzy
 msgid "Halt or Reboot"
 msgstr "Spegni o riavvia"
 
@@ -903,7 +930,8 @@ msgstr "eBox si sta spegnendo"
 msgid "eBox is going down for reboot"
 msgstr "eBox si sta riavviando"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
+#: src/templates/backup.mas:18
 msgid "Configuration Backup"
 msgstr "Ripristino Configurazione"
 
@@ -911,7 +939,8 @@ msgstr "Ripristino Configurazione"
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr "Conferma la rimozione del seguente file di backup:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107
+#: src/templates/backup.mas:172
 #: src/templates/backup.mas:173
 msgid "Delete"
 msgstr "Elimina"
@@ -922,7 +951,8 @@ msgid "Please confirm that you want to restore using this backup file:"
 msgstr "Conferma il ripristino con questo file di backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
+#: src/templates/backup.mas:95
 msgid "Restore"
 msgstr "Ripristina"
 
@@ -958,15 +988,18 @@ msgstr ""
 "Si è verificato un errore interno relativo ad un template. Questo è un bug, "
 "le informazioni relative si possono trovare nei log."
 
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:57
+#: src/EBox/CGI/Logs/Index.pm:35
+#: src/EBox/Logs.pm:57
 msgid "Logs"
 msgstr "Log"
 
-#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
+#: src/EBox/CGI/Logout/Index.pm:29
+#: src/EBox/Html.pm:40
 msgid "Logout"
 msgstr "Logout"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm:214
+#: src/EBox/CGI/Report/DiskUsage.pm:31
+#: src/EBox/SysInfo.pm:214
 msgid "Disk Usage"
 msgstr "Utilizzo Disco"
 
@@ -982,7 +1015,8 @@ msgstr "Salva modifiche"
 msgid "Saving changes in modules"
 msgstr "Salvo le modifiche nei moduli"
 
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
+#: src/EBox/CGI/Finish.pm:78
+#: src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr "Operazione attuale"
 
@@ -1032,7 +1066,8 @@ msgstr ""
 "Qualche modulo ha riportato errori durante la revoca delle modifiche. "
 "Maggiori informazioni nel log {dir}"
 
-#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
+#: src/EBox/PgDBEngine.pm:50
+#: src/EBox/PgDBEngine.pm:63
 #: src/EBox/PgDBEngine.pm:76
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
@@ -1165,7 +1200,8 @@ msgstr "configurazione dispatcher Jabber aggiornata"
 msgid "It should follow the pattern 'user@domain[/resource]'"
 msgstr "Dovrebbe seguire lo schema 'utente@dominio[/risorsa]'"
 
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:89
+#: src/EBox/Events/Model/GeneralComposite.pm:76
+#: src/EBox/Events.pm:89
 msgid "Events"
 msgstr "Eventi"
 
@@ -1182,7 +1218,8 @@ msgid "Name"
 msgstr "Nome"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
-#: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
+#: src/templates/confirm-backup.mas:36
+#: src/templates/backup.mas:44
 #: src/templates/backup.mas:126
 msgid "Description"
 msgstr "Descrizione"
@@ -1198,7 +1235,6 @@ msgid "None"
 msgstr "Nessuno"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
-#, fuzzy
 msgid "Configure Events"
 msgstr "Configura eventi"
 
@@ -1248,7 +1284,8 @@ msgid "Log domain {logDomain}"
 msgstr "Dominio log {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
-#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
+#: src/EBox/Types/Service.pm:212
+#: src/EBox/Types/PortRange.pm:289
 #: src/templates/logs/index.mas:185
 msgid "Any"
 msgstr "Qualsiasi"
@@ -1341,7 +1378,8 @@ msgstr ""
 msgid "Free space"
 msgstr "Spazio libero"
 
-#: src/EBox/Report/DiskUsage.pm:336 src/EBox/SysInfo.pm:207
+#: src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm:207
 msgid "System"
 msgstr "Sistema"
 
@@ -1364,12 +1402,14 @@ msgstr "La password deve essere lunga almeno {maxLength} caratteri"
 msgid "Enter an integer number"
 msgstr "Inserisci un numero intero"
 
-#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:121
+#: src/EBox/Types/Int.pm:162
+#: src/EBox/Types/Float.pm:121
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
 msgstr "Il valore non dovrebbe essere più grande di {m}"
 
-#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:130
+#: src/EBox/Types/Int.pm:172
+#: src/EBox/Types/Float.pm:130
 #, perl-brace-format
 msgid "The value shouldn't be less than {m}"
 msgstr "Il valore non dovrebbe essere più piccolo di {m}"
@@ -1381,7 +1421,7 @@ msgstr "Scrivi un numero positivo"
 
 #: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "Indirizzi IP non consentiti "
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
@@ -1406,17 +1446,17 @@ msgid "Table {table} does not exist"
 msgstr "La tabella {table} non esiste"
 
 #: src/EBox/Logs.pm:630
-#, fuzzy
 msgid "Query Logs"
 msgstr "Effettua una query sui log"
 
 #: src/EBox/Logs.pm:633
-#, fuzzy
 msgid "Configure Logs"
 msgstr "Configura log"
 
-#: src/EBox/Logs.pm:646 src/templates/finish.mas:105
-#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:128
+#: src/EBox/Logs.pm:646
+#: src/templates/finish.mas:105
+#: src/templates/confirm-backup.mas:28
+#: src/templates/backup.mas:128
 msgid "Date"
 msgstr "Data"
 
@@ -1448,13 +1488,14 @@ msgstr "Il parametro del tempo di vita deve essere un numero positivo di ore"
 msgid "Event service status"
 msgstr "Stato servizio eventi"
 
-#: src/EBox/Apache.pm:265 src/EBox/Apache.pm:274
+#: src/EBox/Apache.pm:265
+#: src/EBox/Apache.pm:274
 msgid "port"
 msgstr "porta"
 
 #: src/EBox/Apache.pm:588
 msgid "eBox internal web server"
-msgstr ""
+msgstr "eBox web server interno"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -1469,7 +1510,6 @@ msgid "Enable service"
 msgstr "Attiva servizio"
 
 #: src/EBox/SysInfo.pm:42
-#, fuzzy
 msgid "System Information"
 msgstr "Informazioni sistema"
 
@@ -1490,18 +1530,16 @@ msgstr "Versione eBox"
 msgid "System load"
 msgstr "Carico sistema"
 
-#: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:201
-#, fuzzy
+#: src/EBox/SysInfo.pm:118
+#: src/EBox/SysInfo.pm:201
 msgid "Module Status"
 msgstr "Stato moduli"
 
 #: src/EBox/SysInfo.pm:123
-#, fuzzy
 msgid "General Information"
 msgstr "Informazioni generali"
 
 #: src/EBox/SysInfo.pm:128
-#, fuzzy
 msgid "Process List"
 msgstr "Lista processi"
 
@@ -1593,7 +1631,8 @@ msgstr "Mantieni il file corrente"
 msgid "Modify"
 msgstr "Modificare"
 
-#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
+#: src/templates/dataInUse.mas:41
+#: src/templates/confirm-backup.mas:74
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -1626,7 +1665,6 @@ msgid "Starting..."
 msgstr "Avvio..."
 
 #: src/templates/port.mas:9
-#, fuzzy
 msgid "Administration Interface TCP Port"
 msgstr "Porta TCP interfaccia di amministrazione"
 
@@ -1673,12 +1711,15 @@ msgstr "Nuova password"
 msgid "Confirm password"
 msgstr "Conferma password"
 
-#: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
-#: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
+#: src/templates/confirm-backup.mas:44
+#: src/templates/backup.mas:127
+#: src/templates/report/raid.mas:131
+#: src/templates/report/diskUsage.mas:30
 msgid "Type"
 msgstr "Tipo"
 
-#: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
+#: src/templates/confirm-backup.mas:53
+#: src/templates/backup.mas:129
 msgid "Archive size"
 msgstr "Dimensione archivio"
 
@@ -1698,7 +1739,8 @@ msgstr "Modalità di ripristino"
 msgid "Depends"
 msgstr "Dipende"
 
-#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
+#: src/templates/moduleStatusTable.mas:60
+#: src/templates/report/raid.mas:104
 msgid "Status"
 msgstr "Stato"
 
@@ -1730,7 +1772,7 @@ msgstr "Fermo"
 
 #: src/templates/dashboard/status.mas:21
 msgid "The service is enabled, but not running"
-msgstr ""
+msgstr "Il servizio é abilitato, ma non é avviato"
 
 #: src/templates/dashboard/status.mas:23
 msgid "Start"
@@ -1738,11 +1780,11 @@ msgstr "Avvia"
 
 #: src/templates/dashboard/status.mas:25
 msgid "Running unmanaged"
-msgstr ""
+msgstr "Funzionamento non gestito"
 
 #: src/templates/dashboard/status.mas:26
 msgid "The service is running, but not enabled in eBox"
-msgstr ""
+msgstr "Il servizio é avviato, ma non é abilitato in eBox"
 
 #: src/templates/dashboard/status.mas:29
 msgid "Disabled"
@@ -1750,19 +1792,17 @@ msgstr "Disabilitato"
 
 #: src/templates/dashboard/status.mas:30
 msgid "The service is not enabled in eBox"
-msgstr ""
+msgstr "Il servizio non é abilitato in eBox"
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
 msgstr "Non c'è nulla in questa lista"
 
 #: src/templates/backupTabs.mas:13
-#, fuzzy
 msgid "Local Backup"
 msgstr "Backup locale"
 
 #: src/templates/backupTabs.mas:18
-#, fuzzy
 msgid "Remote Backup"
 msgstr "Backup remoto"
 
@@ -1805,12 +1845,10 @@ msgid "Backup mode"
 msgstr "Modalità di backup"
 
 #: src/templates/backup.mas:74
-#, fuzzy
 msgid "Restore Backup from File"
 msgstr "Ripristina backup da file"
 
 #: src/templates/backup.mas:76
-#, fuzzy
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
@@ -1851,7 +1889,8 @@ msgstr "Ripristina configurazione usando questo file"
 msgid "Restore from backup"
 msgstr "Ripristina da backup"
 
-#: src/templates/backup.mas:166 src/templates/backup.mas:167
+#: src/templates/backup.mas:166
+#: src/templates/backup.mas:167
 msgid "Download"
 msgstr "Scarica"
 
@@ -1884,7 +1923,8 @@ msgstr ""
 msgid "Select available full reports"
 msgstr "Seleziona log completi disponibili"
 
-#: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
+#: src/templates/logs/index.mas:35
+#: src/templates/logs/index.mas:36
 #: src/templates/logs/index.mas:37
 msgid "View"
 msgstr "Vedi"
@@ -1897,51 +1937,63 @@ msgstr "Ricerca personalizzata"
 msgid "From date:"
 msgstr "Dalla data:"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "January"
 msgstr "Gennaio"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "February"
 msgstr "Febbraio"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "March"
 msgstr "Marzo"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "April"
 msgstr "Aprile"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "May"
 msgstr "Maggio"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "June"
 msgstr "Giugno"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "July"
 msgstr "Luglio"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "August"
 msgstr "Agosto"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "September"
 msgstr "Settembre"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "October"
 msgstr "Ottobre"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "November"
 msgstr "Novembre"
 
-#: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
+#: src/templates/logs/index.mas:62
+#: src/templates/logs/index.mas:128
 msgid "December"
 msgstr "Dicembre"
 
@@ -1953,11 +2005,13 @@ msgstr "Aggiorna logs"
 msgid "To date:"
 msgstr "Alla data:"
 
-#: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
+#: src/templates/logs/index.mas:203
+#: src/templates/logs/index.mas:204
 msgid "Search"
 msgstr "Cerca"
 
-#: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
+#: src/templates/logs/index.mas:208
+#: src/templates/logs/index.mas:209
 msgid "Save as event"
 msgstr "Registra come evento"
 
@@ -1969,19 +2023,23 @@ msgstr "Nessun log corrisponde al criterio attuale"
 msgid "There are no logs for this domain"
 msgstr "Non ci sono log per questo dominio"
 
-#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
+#: src/templates/logs/dbtable.mas:87
+#: src/templates/logs/dbtable.mas:88
 msgid "first"
 msgstr "primo"
 
-#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
+#: src/templates/logs/dbtable.mas:91
+#: src/templates/logs/dbtable.mas:92
 msgid "prev"
 msgstr "precedente"
 
-#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
+#: src/templates/logs/dbtable.mas:111
+#: src/templates/logs/dbtable.mas:112
 msgid "next"
 msgstr "successivo"
 
-#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
+#: src/templates/logs/dbtable.mas:115
+#: src/templates/logs/dbtable.mas:116
 msgid "last"
 msgstr "ultimo"
 
@@ -1991,7 +2049,6 @@ msgid "Inexistent RAID array {a}"
 msgstr "Array RAID {a} inesistente"
 
 #: src/templates/report/raid.mas:42
-#, fuzzy
 msgid "RAID is not enabled in this system."
 msgstr "Il RAID non è abilitato in questo sistema"
 
@@ -2096,7 +2153,6 @@ msgid "Options"
 msgstr "Opzioni"
 
 #: src/templates/report/diskUsage.mas:34
-#, fuzzy
 msgid "Partition Properties"
 msgstr "Proprietà partizione"
 

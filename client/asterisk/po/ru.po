@@ -9,19 +9,19 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:24+0100\n"
-"PO-Revision-Date: 2009-07-12 12:08+0200\n"
+"PO-Revision-Date: 2009-09-29 10:58+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Asterisk.pm:66
 msgid "VoIP"
-msgstr ""
+msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:120
 msgid "To configure enabled and disabled modules."
@@ -73,43 +73,41 @@ msgid "Voicemail"
 msgstr "Голосовая почта"
 
 #: src/EBox/Asterisk.pm:487 src/EBox/Asterisk.pm:574
-#, fuzzy
 msgid "User"
 msgstr "Имя пользователя"
 
 #: src/EBox/Asterisk.pm:487
-#, fuzzy
 msgid "Address"
-msgstr "Почтовый адрес"
+msgstr "Адрес"
 
 #: src/EBox/Asterisk.pm:487
 msgid "NAT"
-msgstr ""
+msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:487
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: src/EBox/Asterisk.pm:501 src/EBox/Asterisk.pm:583
 msgid "No users connected."
-msgstr ""
+msgstr "Нет подключенных пользователей."
 
 #: src/EBox/Asterisk.pm:571
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr ""
+msgstr "Комната {namt} до {rtime}"
 
 #: src/EBox/Asterisk.pm:574
 msgid "Time Connected"
-msgstr ""
+msgstr "Время подключения"
 
 #: src/EBox/Asterisk.pm:604
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "Пользователи VoIP он-лайн"
 
 #: src/EBox/Asterisk.pm:609
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "Пользователи VoIP на конференциях"
 
 #: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:114
 #: src/EBox/Model/Meetings.pm:123
@@ -150,6 +148,8 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net},are always "
 "considered local networks so it is not neccesary to add them"
 msgstr ""
+"Сети подключенные к внутреннему интерфейсу, подобных {net} и так считаются "
+"внутренними сетями и поэтому нет необходимости добавлять их."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
@@ -224,9 +224,8 @@ msgid "Settings successfully updated"
 msgstr "Настройки обновлены успешно"
 
 #: src/EBox/Model/NAT.pm:96
-#, fuzzy
 msgid "eBox is behind NAT"
-msgstr "Asterisk за NAT"
+msgstr "eBox за NAT"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"

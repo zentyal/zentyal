@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:39+0100\n"
-"PO-Revision-Date: 2009-03-10 23:17+0000\n"
+"PO-Revision-Date: 2009-11-05 00:00+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -31,9 +31,8 @@ msgid "Objects"
 msgstr "Objectos"
 
 #: src/EBox/Model/ObjectTable.pm:83
-#, fuzzy
 msgid "Objects List"
-msgstr "Lista de objectos"
+msgstr "Lista dos objectos"
 
 #: src/EBox/Model/ObjectTable.pm:90
 msgid "object"
@@ -54,12 +53,10 @@ msgstr ""
 "sincronizada com os módulos que o usam"
 
 #: src/EBox/Model/MemberTable.pm:70
-#, fuzzy
 msgid "IP address"
 msgstr "Endereço IP"
 
 #: src/EBox/Model/MemberTable.pm:76
-#, fuzzy
 msgid "MAC address"
 msgstr "Endereço MAC"
 
@@ -69,7 +66,7 @@ msgstr "membro"
 
 #: src/EBox/Model/MemberTable.pm:116
 msgid "You can only use MAC addresses with hosts"
-msgstr "Só pode usar um endereço MAC entre hospedeiros"
+msgstr "Só pode usar endereços MAC com hospedeiros"
 
 #: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
 msgid "network address"
@@ -78,7 +75,7 @@ msgstr "endereço de rede"
 #: src/EBox/Model/MemberTable.pm:126
 #, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
-msgstr ""
+msgstr "{ip} está em conflito con o endereço ou outro objecto"
 
 #: src/EBox/Objects.pm:44
 #, perl-brace-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:42+0100\n"
-"PO-Revision-Date: 2009-03-10 22:25+0000\n"
+"PO-Revision-Date: 2009-11-05 00:23+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,17 +18,16 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebServer.pm:77
-#, fuzzy
 msgid "Web Server"
-msgstr "Serviço Web"
+msgstr "Servidor Web"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
-msgstr "Para definir a porte de escuta do servidor web"
+msgstr "Para definir o porto de escuta do servidor web"
 
 #: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
-msgstr "Para configurar o directório HTML por utilizador"
+msgstr "Para configurar o directório HTML público por utilizador"
 
 #: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
@@ -87,17 +86,17 @@ msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
-msgstr "As definições de configuração geral do servidor Web foi actualizada"
+msgstr "As definições de configuração geral do servidor Web foram actualizadas"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 #: src/EBox/WebServer/Model/VHostTable.pm:98
 #: src/EBox/WebServer/Model/VHostTable.pm:104
 msgid "Virtual host's name"
-msgstr "Nome do servidor virtual"
+msgstr "Nome do hospedeiro virtual"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:100
 msgid "The virtual host name supplied is a top domain name"
-msgstr ""
+msgstr "O nome de hospedeiro virtual fornecido é um nome de domínio de topo"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:107
 #, perl-brace-format
@@ -105,15 +104,17 @@ msgid ""
 "The virtual host name supplied is a domain name (Maybe you want instead "
 "{url}?)."
 msgstr ""
+"O nome de hospedeiro virtual fornecido é um nome de domínio de topo (Quer "
+"{url} em alternativa?)."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:162
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip}. {noDnsWarning} "
 msgstr ""
 "O servidor virtual {vhost} foi adicionado. O domínio {domain} foi criado com "
-"nome de mapeamento {name} - Endereço IP {ip}"
+"nome de mapeamento {name} - Endereço IP {ip}. {noDnsWarning}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:181
 #, perl-brace-format
@@ -140,7 +141,7 @@ msgstr "O servidor virtual {vhost} foi adicionado"
 #: src/EBox/WebServer/Model/VHostTable.pm:211
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
-"Não existe interface estático interno para definir o endereço IP do servidor "
+"Não existe interface interno estático para definir o endereço IP do servidor "
 "Web"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:237
@@ -152,7 +153,7 @@ msgid "Virtual hosts"
 msgstr "Servidores virtuais"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:251
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
 "same web server is hosted on a single physical server. Different host names "
@@ -162,10 +163,10 @@ msgid ""
 "directory"
 msgstr ""
 "Hospedeiros virtuais são uma forma de hospedar várias instâncias de servidor "
-"web hospedadas num único servidor físico. Nomes de hospedeiro diferentes "
-"apontaram para o mesmo servidor web. A entrada DNS é criada automáticamente "
-"sempre que possível. Os conteúdos devem ser colocados em {docRoot}/"
-"Directório vHostName"
+"web num único servidor físico. Nomes de hospedeiro diferentes apontaram "
+"para o mesmo servidor web. A entrada DNS é criada automáticamente sempre que "
+"possível. Os conteúdos devem ser colocados em {docRoot}/Directório "
+"vHostName"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:261
 msgid "virtual host"
@@ -177,6 +178,8 @@ msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"
 msgstr ""
+"{open}O módulo DNS está desactivado. O mapeamento ou domínios adicionados "
+"não terão efeito até os activar"
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Web service"
@@ -192,7 +195,7 @@ msgstr ""
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
-msgstr "protocolo de transporte Hipertexto"
+msgstr "Protocolo de transporte Hipertexto"
 
 #~ msgid "Web"
 #~ msgstr "Web"

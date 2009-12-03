@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-08-09 23:08+0200\n"
+"PO-Revision-Date: 2009-10-07 08:49+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,79 +19,79 @@ msgstr ""
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "RSS файл: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
-msgstr ""
+msgstr "Канал за eBox аларми за {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
-msgstr ""
+msgstr "Този канал проследява какво се случва на тази eBox машина."
 
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
-msgstr ""
+msgstr "Събитието е направено на eBox {hostname} от {source}."
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "Идете на {url} да проверите състоянието."
 
 #: src/EBox/Event/Dispatcher/Log.pm:136
 msgid "Log file"
-msgstr ""
+msgstr "Файл дневник"
 
 #: src/EBox/Event/Dispatcher/Log.pm:149
 msgid "Log"
-msgstr ""
+msgstr "Дневник"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "Джабер администраторска сметка"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "Джабер"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr ""
+msgstr "Джабер сървърът {serverName} е отпаднал или не е позволено свързване."
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "Неуспешно абониране: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "Неуспешна оторизация: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr ""
+msgstr "Диспечер {name} не е настроен да бъде активиран."
 
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr ""
+msgstr "Следните модули не са активни: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
-msgstr ""
+msgstr "Услуга"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
-msgstr ""
+msgstr "Проверка дали някоя eBox услуга не се изпълнява когато би трябвало"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -99,98 +99,100 @@ msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
+"Услугата {service} е рестартирана {restart} пъти за {time} секунди и е "
+"спряна."
 
 #: src/EBox/Event/Watcher/Log.pm:203
 msgid "Log observer"
-msgstr ""
+msgstr "Наблюдател на дневника"
 
 #: src/EBox/Event/Watcher/Log.pm:230
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
-msgstr ""
+msgstr "Известяване когато дописник ({loggers}) записва нещо"
 
 #: src/EBox/Event/Watcher/State.pm:126
 msgid "eBox is up and running"
-msgstr ""
+msgstr "eBox е стартиран и работи."
 
 #: src/EBox/Event/Watcher/State.pm:132
 msgid "eBox is critically down"
-msgstr ""
+msgstr "eBox е критично спрян."
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
-msgstr ""
+msgstr "Състояние"
 
 #: src/EBox/Event/Watcher/State.pm:174
 msgid "Check if eBox is currently up or down"
-msgstr ""
+msgstr "Проверка дали eBox работи или е спрян."
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr ""
+msgstr "Файловата система {fs}, монтирана на {mp}, няма останало място."
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr ""
+msgstr "Свободно място за съхранение"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
-msgstr ""
+msgstr "Проверка дали някой дял на диска е без останало свободно място"
 
 #: src/EBox/Event/Watcher/RAID.pm:182 src/EBox/CGI/Report/RAID.pm:30
 #: src/EBox/SysInfo.pm:218
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
-msgstr ""
+msgstr "Проверка дали има събитие в RAID подсистемата"
 
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr ""
+msgstr "Сведения за нов масив RAID устройство {devName}:"
 
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
-msgstr ""
+msgstr "Състояние: {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
-msgstr ""
+msgstr "Тип: {type}"
 
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
-msgstr ""
+msgstr "Необходими активни устройства: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
-msgstr ""
+msgstr "Активни устройства: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
-msgstr ""
+msgstr "Текущо действие: {operation}"
 
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
-msgstr ""
+msgstr "Процент изълнение на действието: {per}"
 
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
-msgstr ""
+msgstr "Предвиждано време на приключване на действието: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
-msgstr ""
+msgstr "RAID съставна част {nb}: устройство {device} състояние {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format
@@ -198,11 +200,14 @@ msgid ""
 "RAID device {name} has dissappeared: A RAID array which previously was "
 "configured appears to no longer be configured"
 msgstr ""
+"RAID устройство {name} липсва: RAID масив, който е бил настроен, изглежда "
+"вече не съществува."
 
 #: src/EBox/Event/Watcher/RAID.pm:355
 #, perl-brace-format
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
 msgstr ""
+"RAID устройство {name} променя състоянието си от {oldState} на {newState}."
 
 #: src/EBox/Event/Watcher/RAID.pm:375
 #, perl-brace-format
@@ -210,16 +215,20 @@ msgid ""
 "RAID device {name} has changed its number of active components from {oldNum} "
 "to {newNum}"
 msgstr ""
+"RAID устройство {name} променя броя на активните си съставни части от "
+"{oldNum} to {newNum}."
 
 #: src/EBox/Event/Watcher/RAID.pm:399
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
-msgstr ""
+msgstr "RAID устройство {name} започва действие {opName}."
 
 #: src/EBox/Event/Watcher/RAID.pm:405
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr ""
+"RAID устройство {name} приключва действие {opName} или действието е "
+"отменено."
 
 #: src/EBox/Event/Watcher/RAID.pm:411
 #, perl-brace-format
@@ -227,16 +236,17 @@ msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
 msgstr ""
+"RAID устройство {name} приключва действие {oldOpName} и започва {newOpName}."
 
 #: src/EBox/Event/Watcher/RAID.pm:436
 #, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr ""
+msgstr "Състояние: {percentage} изпълнено."
 
 #: src/EBox/Event/Watcher/RAID.pm:439
 #, perl-brace-format
 msgid "Estimated finish time: {time}."
-msgstr ""
+msgstr "Предвиждано време на приключване: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:471
 #, perl-brace-format
@@ -277,31 +287,31 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:542 src/EBox/Event/Watcher/RAID.pm:586
 #: src/templates/report/raid.mas:111
 msgid "active"
-msgstr ""
+msgstr "в действие"
 
 #: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:113
 msgid "degraded"
-msgstr ""
+msgstr "понижение"
 
 #: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:115
 msgid "recovering"
-msgstr ""
+msgstr "протича възстановяване"
 
 #: src/EBox/Event/Watcher/RAID.pm:548 src/templates/report/raid.mas:117
 msgid "resyncing"
-msgstr ""
+msgstr "протича ресинхронизиране"
 
 #: src/EBox/Event/Watcher/RAID.pm:550 src/templates/report/raid.mas:121
 msgid "rebuilding"
-msgstr ""
+msgstr "протича преправяне"
 
 #: src/EBox/Event/Watcher/RAID.pm:552 src/templates/report/raid.mas:119
 msgid "reshaping"
-msgstr ""
+msgstr "повторно оформяне"
 
 #: src/EBox/Event/Watcher/RAID.pm:554 src/templates/report/raid.mas:123
 msgid "failed"
-msgstr ""
+msgstr "неуспех"
 
 #: src/EBox/Event/Watcher/RAID.pm:566
 msgid "resync"

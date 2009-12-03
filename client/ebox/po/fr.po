@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-08-20 13:34+0200\n"
-"Last-Translator: David Ande <david@andeprasfamily.ath.cx>\n"
+"PO-Revision-Date: 2009-09-30 11:19+0200\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -249,9 +249,9 @@ msgid "Status: {percentage} completed."
 msgstr "État: {percentage}% complété"
 
 #: src/EBox/Event/Watcher/RAID.pm:439
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Estimated finish time: {time}."
-msgstr "Temps de fin estimé : {time}"
+msgstr "Heure de fin estimée : {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:471
 #, perl-brace-format
@@ -1295,9 +1295,8 @@ msgid "Receiver"
 msgstr "Récepteur"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
-#, fuzzy
 msgid "Configure Dispatchers"
-msgstr "Configurer les expéditeurs"
+msgstr "Configurer les répartiteurs (Dispatchers)"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
 msgid "dispatcher"
@@ -1406,14 +1405,12 @@ msgid "Table {table} does not exist"
 msgstr "Tableau {table} n'existe pas"
 
 #: src/EBox/Logs.pm:630
-#, fuzzy
 msgid "Query Logs"
-msgstr "Rechercher dans les journaux"
+msgstr "Journaux de requêtes"
 
 #: src/EBox/Logs.pm:633
-#, fuzzy
 msgid "Configure Logs"
-msgstr "Configurer les journaux"
+msgstr "Configurer les journaux d'activité"
 
 #: src/EBox/Logs.pm:646 src/templates/finish.mas:105
 #: src/templates/confirm-backup.mas:28 src/templates/backup.mas:128
@@ -1715,9 +1712,8 @@ msgid "Running"
 msgstr "En fonction"
 
 #: src/templates/dashboard/status.mas:17
-#, fuzzy
 msgid "The service is enabled and running"
-msgstr "eBox est en service"
+msgstr "Le service est activé et en fonction"
 
 #: src/templates/dashboard/status.mas:20
 msgid "Stopped"
@@ -1725,7 +1721,7 @@ msgstr "Stoppé"
 
 #: src/templates/dashboard/status.mas:21
 msgid "The service is enabled, but not running"
-msgstr ""
+msgstr "Le service est activé, mais ne fonctionne pas"
 
 #: src/templates/dashboard/status.mas:23
 msgid "Start"
@@ -1733,11 +1729,11 @@ msgstr "Démarrer"
 
 #: src/templates/dashboard/status.mas:25
 msgid "Running unmanaged"
-msgstr ""
+msgstr "non géré(s) en fonction"
 
 #: src/templates/dashboard/status.mas:26
 msgid "The service is running, but not enabled in eBox"
-msgstr ""
+msgstr "Ce service est en fonction, mais pas activé dans eBox"
 
 #: src/templates/dashboard/status.mas:29
 msgid "Disabled"
@@ -1745,7 +1741,7 @@ msgstr "Désactivé"
 
 #: src/templates/dashboard/status.mas:30
 msgid "The service is not enabled in eBox"
-msgstr ""
+msgstr "Le service n'est pas activé dans eBox"
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"

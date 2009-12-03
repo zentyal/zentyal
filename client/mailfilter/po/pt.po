@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:33+0100\n"
-"PO-Revision-Date: 2009-03-11 16:11+0000\n"
+"PO-Revision-Date: 2009-11-12 17:18+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -148,12 +148,10 @@ msgid "POP3 proxy"
 msgstr "Proxy POP3"
 
 #: src/EBox/MailFilter.pm:674
-#, fuzzy
 msgid "SMTP Mail Filter"
 msgstr "Filtro de correio SMTP"
 
 #: src/EBox/MailFilter.pm:681
-#, fuzzy
 msgid "POP Transparent Proxy"
 msgstr "Proxy transparente POP"
 
@@ -455,7 +453,6 @@ msgstr ""
 "adicionadas ao sistema de auto-aprendizagem"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:107
-#, fuzzy
 msgid "Autolearn ham threshold"
 msgstr "Limite de auto-aprendizagem"
 
@@ -636,7 +633,7 @@ msgstr "Aprendido das mensagens"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:83
 msgid "Train"
-msgstr ""
+msgstr "Sucessão"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:99
 msgid "ham"
@@ -683,11 +680,10 @@ msgstr ""
 "aprendizagem"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:347
-#, fuzzy
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
-msgstr "O limite de spam não pode ser mais baixo ou igual que o seu"
+msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:384
 msgid ""

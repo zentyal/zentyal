@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:28+0100\n"
-"PO-Revision-Date: 2009-03-11 00:11+0000\n"
+"PO-Revision-Date: 2009-11-11 19:37+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -62,12 +62,10 @@ msgid "Alias"
 msgstr "Pseudónimo"
 
 #: src/EBox/Model/HostnameTable.pm:186
-#, fuzzy
 msgid "Host names"
 msgstr "Nomes do hospedeiro"
 
 #: src/EBox/Model/HostnameTable.pm:193
-#, fuzzy
 msgid "host name"
 msgstr "nome de hospedeiro"
 
@@ -93,11 +91,11 @@ msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "Existe um nome de hospede com o mesmo nome \"{name}\" no mesmo domínio"
 
 #: src/EBox/Model/AliasTable.pm:102
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
-msgstr "Existe um nome de hospede com o mesmo nome \"{name}\" no mesmo domínio"
+msgstr "Existe um nome de hospedeiro com o mesmo nome \"{name}\" no mesmo domínio"
 
 #: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
@@ -109,9 +107,8 @@ msgid "Invalid preference number. Allowed range: ({min}, {max})"
 msgstr "Preferência inválida. Âmbito permitido: ({min}, {max})"
 
 #: src/EBox/Model/MailExchanger.pm:117
-#, fuzzy
 msgid "This domain"
-msgstr "domínio"
+msgstr "Este domínio"
 
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"
@@ -157,7 +154,7 @@ msgstr "ficheiro de configuração para a resolução reversa da zona {zone}"
 
 #: src/EBox/DNS.pm.in:803
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infraestrutura"
 
 #: src/templates/index.mas:16
 msgid "Domain list"

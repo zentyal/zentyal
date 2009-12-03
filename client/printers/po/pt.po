@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:39+0100\n"
-"PO-Revision-Date: 2009-03-10 23:03+0000\n"
+"PO-Revision-Date: 2009-11-12 17:19+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Printers.pm:56
-#, fuzzy
 msgid "Printer Sharing"
 msgstr "Partilha de impressoras"
 
@@ -32,7 +31,7 @@ msgstr "A eBox criará o directório em /var/spool/samba"
 
 #: src/EBox/Printers.pm:82
 msgid "Add user ebox to lpadmin group"
-msgstr "Adicionar utilizador eBox ao grupo lpadadmin"
+msgstr "Adicionar utilizador eBox ao grupo lpdmin"
 
 #: src/EBox/Printers.pm:83
 msgid "In order to manage printers and queues from the eBox web interface"
@@ -84,7 +83,6 @@ msgid "Printer"
 msgstr "Impressora"
 
 #: src/EBox/Printers.pm:295
-#, fuzzy
 msgid "Add Printer"
 msgstr "Adicionar impressora"
 
@@ -112,7 +110,7 @@ msgstr "Nome"
 
 #: src/EBox/Printers.pm:508
 msgid "The given name is alreaday used as "
-msgstr "O nome escolhido já está em uso"
+msgstr "O nome escolhido já está em uso como"
 
 #: src/EBox/Printers.pm:529 src/EBox/Printers.pm:1082
 #: src/EBox/Printers.pm:1127
@@ -158,14 +156,12 @@ msgid "It is not a samba printer"
 msgstr "Não é uma impressora samba"
 
 #: src/EBox/Printers.pm:731
-#, fuzzy
 msgid "It is not a IPP printer"
-msgstr "Não é uma impressora com porta USB"
+msgstr "Não é uma impressora IPP"
 
 #: src/EBox/Printers.pm:759
-#, fuzzy
 msgid "It is not a LPD printer"
-msgstr "Não é uma impressora com porta USB"
+msgstr "Não é uma impressora LPD"
 
 #: src/EBox/Printers.pm:809 src/EBox/CGI/Manufacturer.pm:40
 #: src/templates/printer.mas:141 src/templates/printerback.mas:21
@@ -367,7 +363,7 @@ msgstr "Paralela"
 
 #: src/templates/addprinter.mas:29
 msgid "AppSocket"
-msgstr ""
+msgstr "AppSocket"
 
 #: src/templates/addprinter.mas:30
 msgid "Samba"
@@ -375,7 +371,7 @@ msgstr "Samba"
 
 #: src/templates/addprinter.mas:31
 msgid "IPP: Internet printing protocol"
-msgstr ""
+msgstr "IPP: Protocolo de impressão internet"
 
 #: src/templates/addprinter.mas:32
 msgid "LPD: Line Printer Daemon"
@@ -383,7 +379,7 @@ msgstr ""
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"
-msgstr "Configuração da impressora partilhada samba"
+msgstr "Configuração da impressora partilhada Samba"
 
 #: src/templates/samba.mas:24 src/templates/printerback.mas:112
 msgid "Share resource"
@@ -413,18 +409,16 @@ msgid "driver"
 msgstr "controlador"
 
 #: src/templates/network.mas:16
-#, fuzzy
 msgid "Configure AppSocket printer"
-msgstr "Configurar impressora remota"
+msgstr "Configurar impressora AppSocket"
 
 #: src/templates/lpd.mas:16
-#, fuzzy
 msgid "Configure LPD printer"
-msgstr "Configurar impressora remota"
+msgstr "Configurar impressora LPD"
 
 #: src/templates/usb.mas:15
 msgid "Local USB printer configuration"
-msgstr "Configuração de impressora local USB"
+msgstr "Configuração de impressora USB local"
 
 #: src/templates/printers.mas:13
 msgid "Enable standalone CUPS"
@@ -471,7 +465,7 @@ msgstr "Escolha um controlador para a impressora"
 
 #: src/templates/parallel.mas:15
 msgid "Local parallel printer configuration"
-msgstr "Configuração de impressora local paralela"
+msgstr "Configuração de impressora paralela local"
 
 #: src/templates/printer.mas:69
 msgid "Job queue"
@@ -479,7 +473,7 @@ msgstr "Fila do trabalho"
 
 #: src/templates/printer.mas:78
 msgid "Size(KB)"
-msgstr "Tamanho (Kb)"
+msgstr "Tamanho (KB)"
 
 #: src/templates/printer.mas:79
 msgid "Creation time"
@@ -502,9 +496,8 @@ msgid "Choose a printer model"
 msgstr "Escolha o modelo da impressora"
 
 #: src/templates/ipp.mas:16
-#, fuzzy
 msgid "Configure IPP printer"
-msgstr "Configurar impressora remota"
+msgstr "Configurar impressora IPP"
 
 #: src/templates/printerback.mas:47 src/templates/printerback.mas:48
 msgid "Go"
@@ -512,7 +505,7 @@ msgstr "Ir"
 
 #: src/templates/printerback.mas:106
 msgid "Samba shared printer configurationr"
-msgstr "Configuração de impressora samba partilhada"
+msgstr "Configuração de impressora partilhada samba"
 
 #: src/templates/printerback.mas:176
 msgid "Remote printer configuration"

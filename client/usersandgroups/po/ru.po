@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:41+0100\n"
-"PO-Revision-Date: 2009-09-14 07:09+0200\n"
+"PO-Revision-Date: 2009-10-30 04:10+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/LdapUserImplementation.pm:42
@@ -28,7 +28,7 @@ msgstr "Уголок Пользователя"
 
 #: src/EBox/UserCornerWebServer.pm:63
 msgid "Migrate configured modules"
-msgstr ""
+msgstr "Миграция настроенных модулей"
 
 #: src/EBox/UserCornerWebServer.pm:64
 msgid "Required for usercorner access to configured modules"
@@ -156,30 +156,32 @@ msgid "Edit group"
 msgstr "Редактировать группу"
 
 #: src/EBox/UsersAndGroups.pm:77
-#, fuzzy
 msgid "Users and Groups"
-msgstr "пользователи и группы"
+msgstr "Пользователи и Группы"
 
 #: src/EBox/UsersAndGroups.pm:94
 msgid ""
 "Your openLDAP database will be populated with some basic organizational units"
 msgstr ""
+"В вашу базу данных openLDAP будут добавлены основные организационные "
+"подразделения"
 
 #: src/EBox/UsersAndGroups.pm:95
 msgid "eBox needs this organizational units to add users and groups into them"
-msgstr ""
+msgstr "eBox необходимы эти модули для добавления пользователей и групп"
 
 #: src/EBox/UsersAndGroups.pm:99
 msgid "Create directories for slave's journals"
-msgstr ""
+msgstr "Создание каталогов для вторичных журналов"
 
 #: src/EBox/UsersAndGroups.pm:100
 msgid "eBox needs the directories to record pending slave's actions"
-msgstr ""
+msgstr "eBox необходимы каталоги для записей незаконченных действий"
 
 #: src/EBox/UsersAndGroups.pm:107
 msgid "Your eBox will be registered as a slave in the eBox master specified"
 msgstr ""
+"Ваш eBox должен быть зарегистрирован в качестве вторичного в eBox мастер"
 
 #: src/EBox/UsersAndGroups.pm:108
 msgid "This eBox needs to have remote access to the users in the eBox master"

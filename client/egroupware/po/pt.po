@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-03-10 05:57+0000\n"
+"PO-Revision-Date: 2009-11-11 19:35+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EGroupware.pm:49
-#, fuzzy
 msgid "Groupware"
 msgstr "eGroupware"
 
@@ -67,13 +66,12 @@ msgid "Name"
 msgstr "Nome"
 
 #: src/EBox/Model/PermissionTemplates.pm:63
-#, fuzzy
 msgid "Applications Allowed"
 msgstr "Aplicações permitidas"
 
 #: src/EBox/Model/PermissionTemplates.pm:71
 msgid "User Defined Permission Templates"
-msgstr ""
+msgstr "Modelos de permissão definidas para o utilizador"
 
 #: src/EBox/Model/PermissionTemplates.pm:75
 msgid "template"
@@ -89,12 +87,11 @@ msgstr ""
 
 #: src/EBox/Model/DefaultApplications.pm:49
 msgid "DefaultApplications"
-msgstr "Aplicações por omissão"
+msgstr "Aplicações pré-definidas"
 
 #: src/EBox/Model/DefaultApplications.pm:50
-#, fuzzy
 msgid "Default Applications"
-msgstr "Aplicações por omissão"
+msgstr "Aplicações pré-definidas"
 
 #: src/EBox/Model/DefaultApplications.pm:51
 msgid ""

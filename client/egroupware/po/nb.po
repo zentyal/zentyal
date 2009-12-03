@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-08-26 11:35+0200\n"
+"PO-Revision-Date: 2009-09-30 16:23+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EGroupware.pm:49
-#, fuzzy
 msgid "Groupware"
-msgstr "eGroupware"
+msgstr "Gruppevare"
 
 #: src/EBox/EGroupware.pm:97
 msgid "Create PostgreSQL user egroupware"

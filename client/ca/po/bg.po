@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:25+0100\n"
-"PO-Revision-Date: 2009-09-26 19:27+0100\n"
+"PO-Revision-Date: 2009-09-28 09:03+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -63,6 +63,8 @@ msgid ""
 "You must create a Certification Authority. Go to {openhref}Certification "
 "Authority{closehref} to do so"
 msgstr ""
+"Трябва да създадете удостоверяващ орган. Отидете на {openhref}Удостоверяващ "
+"орган{closehref} за да го направите."
 
 #: src/EBox/Model/Certificates.pm:216
 msgid "Module"
@@ -211,7 +213,7 @@ msgstr ""
 #: src/EBox/CA.pm:1070
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
-msgstr ""
+msgstr "Инфраструктурата на удостоверяващ орган не е налична, създайте я първо."
 
 #: src/EBox/CA.pm:1162
 msgid "Either common name, distinguished name or serial number has been passed"
@@ -251,8 +253,8 @@ msgstr "Общи"
 #: src/EBox/CA.pm:2277
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
-"Невъзможно подписване. Грешна парола на удостоверителен орган или да не би "
-"да е изчезнал частният ключ на удостоверителният орган?"
+"Невъзможно подписване. Грешна парола на удостоверителен орган, да не би да е "
+"изчезнал частният ключ на удостоверителният орган?"
 
 #: src/EBox/CA.pm:2279
 msgid "Database corruption"

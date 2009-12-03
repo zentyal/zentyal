@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:39+0100\n"
-"PO-Revision-Date: 2009-06-07 18:27+0200\n"
-"Last-Translator: Marcello Teodori <marcello.teodori@gmail.com>\n"
+"PO-Revision-Date: 2009-11-12 15:52+0100\n"
+"Last-Translator: gabriele garis <g.garis@inwind.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,7 +17,6 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Printers.pm:56
-#, fuzzy
 msgid "Printer Sharing"
 msgstr "Condivisione stampante"
 
@@ -83,7 +82,6 @@ msgid "Printer"
 msgstr "Stampante"
 
 #: src/EBox/Printers.pm:295
-#, fuzzy
 msgid "Add Printer"
 msgstr "Aggiungi stampante"
 
@@ -157,14 +155,12 @@ msgid "It is not a samba printer"
 msgstr "Non è una stampante samba"
 
 #: src/EBox/Printers.pm:731
-#, fuzzy
 msgid "It is not a IPP printer"
-msgstr "Non è una stampante USB"
+msgstr "Non è una stampante IPP"
 
 #: src/EBox/Printers.pm:759
-#, fuzzy
 msgid "It is not a LPD printer"
-msgstr "Non è una stampante USB"
+msgstr "Non è una stampante LPD"
 
 #: src/EBox/Printers.pm:809 src/EBox/CGI/Manufacturer.pm:40
 #: src/templates/printer.mas:141 src/templates/printerback.mas:21
@@ -365,8 +361,9 @@ msgid "Parallel"
 msgstr "Parallela"
 
 #: src/templates/addprinter.mas:29
+#, fuzzy
 msgid "AppSocket"
-msgstr ""
+msgstr "AppSocket"
 
 #: src/templates/addprinter.mas:30
 msgid "Samba"
@@ -374,11 +371,11 @@ msgstr "Samba"
 
 #: src/templates/addprinter.mas:31
 msgid "IPP: Internet printing protocol"
-msgstr ""
+msgstr "IPP: Internet printing protocol"
 
 #: src/templates/addprinter.mas:32
 msgid "LPD: Line Printer Daemon"
-msgstr ""
+msgstr "LPD: Line Printer Daemon"
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"
@@ -414,12 +411,11 @@ msgstr "driver"
 #: src/templates/network.mas:16
 #, fuzzy
 msgid "Configure AppSocket printer"
-msgstr "Configura stampante remota"
+msgstr "Configura stampante AppSocket"
 
 #: src/templates/lpd.mas:16
-#, fuzzy
 msgid "Configure LPD printer"
-msgstr "Configura stampante remota"
+msgstr "Configura stampante LPD"
 
 #: src/templates/usb.mas:15
 msgid "Local USB printer configuration"
@@ -501,9 +497,8 @@ msgid "Choose a printer model"
 msgstr "Scegli un modello di stampante"
 
 #: src/templates/ipp.mas:16
-#, fuzzy
 msgid "Configure IPP printer"
-msgstr "Configura stampante remota"
+msgstr "Configura stampante IPP"
 
 #: src/templates/printerback.mas:47 src/templates/printerback.mas:48
 msgid "Go"

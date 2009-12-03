@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:34+0100\n"
-"PO-Revision-Date: 2009-06-21 19:23+0200\n"
-"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
+"PO-Revision-Date: 2009-10-20 13:17+0200\n"
+"Last-Translator: Ralph Gottschalkson <ralph@gottschalkson.eu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: src/EBox/Event/Watcher/Gateways.pm:138
 #, fuzzy, perl-brace-format
 msgid "Gateway {gw} connected"
-msgstr "Gateway {gw} ist nicht erreichbar"
+msgstr "Gateway {gw} ist erreichbar"
 
 #: src/EBox/Event/Watcher/Gateways.pm:245
 #, perl-brace-format
@@ -33,15 +33,17 @@ msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
 "failed, max={maxFailRatio}%)"
 msgstr ""
+"Gateway {gw} ist nicht erreichbar. ({failRatio}% von  '{type}' tests zum "
+"Host '{host}' fehlgeschlagen, max={maxFailRatio}%)"
 
 #: src/EBox/Event/Watcher/Gateways.pm:305
 #: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:2842
 msgid "WAN Failover"
-msgstr ""
+msgstr "WAN Ausfallleitung"
 
 #: src/EBox/Event/Watcher/Gateways.pm:321
 msgid "Check if gateways are connected or disconnected."
-msgstr ""
+msgstr "Prüft ob das Gateway erreichbar ist oder nicht"
 
 #: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2415
 #, perl-brace-format
@@ -214,42 +216,41 @@ msgid "static route"
 msgstr "Statisches Routing"
 
 #: src/EBox/Model/WANFailoverRules.pm:53
-#, fuzzy
 msgid "Ping to gateway"
-msgstr "Gateway"
+msgstr "Ping zum Gateway"
 
 #: src/EBox/Model/WANFailoverRules.pm:57
 msgid "Ping to host"
-msgstr ""
+msgstr "Ping zum Host"
 
 #: src/EBox/Model/WANFailoverRules.pm:61
 msgid "DNS resolve"
-msgstr ""
+msgstr "DNS Namensauflösung"
 
 #: src/EBox/Model/WANFailoverRules.pm:65
 msgid "HTTP Request"
-msgstr ""
+msgstr "HTTP-Anfrage"
 
 #: src/EBox/Model/WANFailoverRules.pm:89
 msgid "Test type"
-msgstr ""
+msgstr "Testmethode"
 
 #: src/EBox/Model/WANFailoverRules.pm:95 src/EBox/CGI/Diag.pm:51
 #: src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14 src/templates/diag.mas:23
 msgid "Host"
-msgstr "Computer"
+msgstr "Host"
 
 #: src/EBox/Model/WANFailoverRules.pm:101
 msgid "Number of probes"
-msgstr ""
+msgstr "Anzahl der Versuche"
 
 #: src/EBox/Model/WANFailoverRules.pm:110
 msgid "Required success ratio"
-msgstr ""
+msgstr "Erforderliche Erfolgsrate"
 
 #: src/EBox/Model/WANFailoverRules.pm:123
 msgid "Test rules"
-msgstr ""
+msgstr "Testregeln"
 
 #: src/EBox/Model/WANFailoverRules.pm:130
 msgid ""
@@ -257,6 +258,10 @@ msgid ""
 "one of the test fails the gateway will be disabled. It will be enabled again "
 "when all tests are passed."
 msgstr ""
+"Sie können unterschiedliche Regeln definieren, um festzustellen, ob das "
+"Gateway funktioniert. Wenn eine der Regel fehlschägt, wird das Gateway "
+"deaktiviert. Es wird wieder aktiviert wenn all Regeln erfolgreich ausgeführt "
+"sind."
 
 #: src/EBox/Model/WANFailoverRules.pm:131
 #: src/EBox/Model/MultiGwRulesOptions.pm:68
@@ -266,15 +271,15 @@ msgstr "Regel"
 
 #: src/EBox/Model/WANFailoverRules.pm:179
 msgid "Invalid value for Host"
-msgstr ""
+msgstr "Ungültiger Wert für diesen Host"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
-msgstr ""
+msgstr "aktivieren"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
-msgstr "Netzverkehr aufteilen"
+msgstr "Netzwerkverkehr aufteilen"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:64
 #, perl-brace-format
@@ -324,23 +329,20 @@ msgid "all"
 msgstr "alle"
 
 #: src/EBox/Model/DNSResolver.pm:78
-#, fuzzy
 msgid "IP address of the DNS server that eBox will use to resolve names."
 msgstr ""
-"IP-Adresse des DNS-Servers, welchen eBox zur Auflösung von Namen verwenden "
-"soll"
+"IP-Adresse des DNS-Servers, den eBox zur Auflösung von Namen verwenden soll"
 
 # there's no german expression for 'name server'
 #: src/EBox/Model/DNSResolver.pm:84
 #, fuzzy
 msgid "Domain Name Server"
-msgstr "Name Server"
+msgstr "DNS Server"
 
 # there's no german expression for 'name server' and 'resolver'
 #: src/EBox/Model/DNSResolver.pm:93
-#, fuzzy
 msgid "Domain Name Server Resolver List"
-msgstr "Name Server Resolver Liste"
+msgstr "DNS Server-Liste"
 
 #: src/EBox/Model/DNSResolver.pm:99
 msgid "name server"
@@ -367,19 +369,20 @@ msgstr ""
 "Dies sind die verfügbaren physikalischen Netzwerkkarten in Ihrem System"
 
 #: src/EBox/Model/SearchDomain.pm:72
-#, fuzzy
 msgid "Domain"
-msgstr "Name der Domäne"
+msgstr "Domäne"
 
 #: src/EBox/Model/SearchDomain.pm:80
 msgid "Search Domain"
-msgstr ""
+msgstr "Domänen-Suchreihenfolge"
 
 #: src/EBox/Model/SearchDomain.pm:84
 msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
 msgstr ""
+"Diese Domäne wird angehängt wenn die Namensauflösung eines Hosts ohne diese "
+"fehlgeschlagen ist."
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
@@ -447,7 +450,7 @@ msgstr ""
 #: src/EBox/Model/MultiGwRulesDataTable.pm:115
 #: src/EBox/Model/MultiGwRulesDataTable.pm:142
 msgid "Any"
-msgstr "Alle"
+msgstr "Jede/r"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:118
 msgid "Source IP"
@@ -459,7 +462,7 @@ msgstr "Quelle: Computergruppe"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:129
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Destination"
@@ -474,7 +477,6 @@ msgid "Destination object"
 msgstr "Ziel: Computergruppe"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:172
-#, fuzzy
 msgid "Gateway to route packets matching this rule"
 msgstr "Gateway zum Routen von Paketen, welche dieser Regel entsprechen"
 
@@ -503,7 +505,7 @@ msgstr "Liste der physikalischen Netzwerkkarten"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:85
 msgid "Vlan interface list"
-msgstr "Liste der virtuellen Netzwerkkarten"
+msgstr "Liste der virtuellen Netzwerkkarten (VLAN)"
 
 #: src/EBox/Model/VlanInterfaceTable.pm:92
 msgid "These are the vlan interfaces which are available in your system."
@@ -511,15 +513,16 @@ msgstr "Das sind die verfügbaren virtuellen Netzwerkkarten in Ihrem System"
 
 #: src/EBox/Model/DynDNS.pm:87
 msgid "Enable Dynamic DNS"
-msgstr ""
+msgstr "Aktiviere dynamisches DNS"
 
 #: src/EBox/Model/DynDNS.pm:98
 msgid "Username"
-msgstr ""
+msgstr "Benutzer"
 
+# P
 #: src/EBox/Model/DynDNS.pm:103
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: src/EBox/Model/DynDNS.pm:108
 #, fuzzy
@@ -528,7 +531,7 @@ msgstr "Computername"
 
 #: src/EBox/Model/DynDNS.pm:115
 msgid "Dynamic DNS"
-msgstr ""
+msgstr "Dynamisches DNS"
 
 #: src/EBox/Model/DynDNS.pm:119
 msgid ""
@@ -540,20 +543,19 @@ msgstr ""
 
 #: src/EBox/Model/WANFailoverOptions.pm:72
 msgid "Time between checks"
-msgstr ""
+msgstr "Zeitraum zwischen den Checks"
 
 #: src/EBox/Model/WANFailoverOptions.pm:73
-#, fuzzy
 msgid "seconds"
-msgstr "Bytes pro Sekunde"
+msgstr "Sekunden"
 
 #: src/EBox/Model/WANFailoverOptions.pm:83
 msgid "Global options"
-msgstr ""
+msgstr "Globale Einstellungen"
 
 #: src/EBox/Model/WANFailoverOptions.pm:87
 msgid "These options affect to all the tests."
-msgstr ""
+msgstr "Diese Optionen beeinflussen alle Tests."
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
 #, fuzzy
@@ -576,11 +578,10 @@ msgstr "Netzwerkkarte"
 #: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1233 src/EBox/Network.pm:1262
 #: src/templates/ifaces.mas:154
 msgid "VLAN Id"
-msgstr "vLAN-ID"
+msgstr "VLAN-ID"
 
 #: src/EBox/CGI/Ifaces.pm:29 src/EBox/CGI/FirstTime/Ifaces.pm:13
 #: src/EBox/Network.pm:2809
-#, fuzzy
 msgid "Network Interfaces"
 msgstr "Netzwerkkarten"
 
@@ -736,6 +737,7 @@ msgid ""
 "WAN Failover event is not enabled. You have to enable it in order to use "
 "this feature"
 msgstr ""
+"WAN Failover ist nicht aktiviert. Zur Benutzung muss es aktivuert werden."
 
 #: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:2840
 #, fuzzy
@@ -789,14 +791,12 @@ msgid "eBox will set your network configuration"
 msgstr "eBox wird Ihre Netzwerk-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:119
-#, fuzzy
 msgid "eBox will set your DNS configuration"
-msgstr "eBox wird Ihre Netzwerk-Konfiguration durchführen"
+msgstr "eBox wird Ihre DNS-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:124 src/EBox/Network.pm:129
-#, fuzzy
 msgid "eBox will set your ddclient configuration"
-msgstr "eBox wird Ihre Netzwerk-Konfiguration durchführen"
+msgstr "eBox wird Ihre dynamische DNS-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:728 src/EBox/Network.pm:732
 msgid "Virtual interface name"
@@ -810,7 +810,7 @@ msgstr "Netzmaske"
 #: src/EBox/Network.pm:1164
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
-"Diese Netzwerkkarte kann nicht in den Stamm-Modus gesetzt werden, es ist "
+"Diese Netzwerkkarte kann nicht in den Trunk-Modus gesetzt werden, es ist "
 "eine virtuelle Netzwerkkarte"
 
 #: src/EBox/Network.pm:1209
@@ -818,14 +818,14 @@ msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
-"Diese Netzwerkkarte ist im V-LAN-Modus, Sie sollten alle virtuellen "
+"Diese Netzwerkkarte ist im VLAN-Modus, Sie sollten alle virtuellen "
 "Netzwerkkarten unkonfigurieren, bevor Sie den Modus ändern"
 
 #: src/EBox/Network.pm:1242
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
-"Netzwerkkarten müssen im Stamm-Modus sein, bevor vLANs hinzugefügt werden "
+"Netzwerkkarten müssen im Trunk-Modus sein, bevor VLANs hinzugefügt werden "
 "können"
 
 #: src/EBox/Network.pm:2349
@@ -886,19 +886,16 @@ msgid "Interfaces"
 msgstr "Netzwerkkarten"
 
 #: src/EBox/Network.pm:2844
-#, fuzzy
 msgid "Diagnostic Tools"
-msgstr "Diagnose"
+msgstr "Diagnose-Werkzeuge"
 
 #: src/templates/confirmVlanDel.mas:9
-#, fuzzy
 msgid ""
 "The removal of the vlan interface will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
-"Die Änderungen, welche Sie machen möchten, wirken sich auf die Konfiguration "
-"eines oder mehrerer Module aus, auf welche sich auf diese Netzwerkkarte "
-"beziehen"
+"Das Löschen dieses VLAN-Interfaces wirkt sich auf ein oder mehere Module "
+"aus, die sich auf dieses Interface beziehen."
 
 #: src/templates/confirmVlanDel.mas:12 src/templates/confirmremove.mas:14
 #, fuzzy
@@ -978,7 +975,6 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: src/templates/ifaces.mas:206
-#, fuzzy
 msgid "Virtual Interfaces"
 msgstr "Virtuelle Netzwerkkarten"
 
@@ -987,16 +983,14 @@ msgid "Ping"
 msgstr "Ping"
 
 #: src/templates/diag.mas:22
-#, fuzzy
 msgid "Traceroute"
-msgstr "Statisches Routing"
+msgstr "Traceroute"
 
 #: src/templates/diag.mas:27
 msgid "Trace"
-msgstr ""
+msgstr "Trace"
 
 #: src/templates/diag.mas:31
-#, fuzzy
 msgid "Domain Name Resolution"
 msgstr "Namensauflösung"
 

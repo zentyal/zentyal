@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:34+0100\n"
-"PO-Revision-Date: 2009-05-31 21:14+0200\n"
-"Last-Translator: Sudel <sudel@freemail.it>\n"
+"PO-Revision-Date: 2009-11-15 17:53+0100\n"
+"Last-Translator: gabriele <g.garis@inwind.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,35 +29,50 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Event/Watcher/Gateways.pm:305
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:2842
+#: src/EBox/Network/Composite/WANFailover.pm:62
+#: src/EBox/Network.pm:2842
 msgid "WAN Failover"
 msgstr ""
 
 #: src/EBox/Event/Watcher/Gateways.pm:321
 msgid "Check if gateways are connected or disconnected."
-msgstr ""
+msgstr "Controlla se i gateway sono connessi"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2415
+#: src/EBox/NetworkUtil.pm:55
+#: src/EBox/Network.pm:2415
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "Gateway {gw} non raggiungibile"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:65
 #: src/EBox/Model/GatewayTable.pm:97
-#: src/EBox/Model/MultiGwRulesDataTable.pm:101 src/EBox/Network.pm:824
-#: src/EBox/Network.pm:856 src/EBox/Network.pm:901 src/EBox/Network.pm:935
-#: src/EBox/Network.pm:960 src/EBox/Network.pm:1036 src/EBox/Network.pm:1159
-#: src/EBox/Network.pm:1354 src/EBox/Network.pm:1414 src/EBox/Network.pm:1449
-#: src/EBox/Network.pm:1484 src/EBox/Network.pm:1517 src/EBox/Network.pm:2458
-#: src/EBox/Network.pm:2490 src/EBox/Network.pm:2589 src/EBox/Network.pm:2609
-#: src/EBox/Network.pm:2630 src/EBox/Network.pm:2653
+#: src/EBox/Model/MultiGwRulesDataTable.pm:101
+#: src/EBox/Network.pm:824
+#: src/EBox/Network.pm:856
+#: src/EBox/Network.pm:901
+#: src/EBox/Network.pm:935
+#: src/EBox/Network.pm:960
+#: src/EBox/Network.pm:1036
+#: src/EBox/Network.pm:1159
+#: src/EBox/Network.pm:1354
+#: src/EBox/Network.pm:1414
+#: src/EBox/Network.pm:1449
+#: src/EBox/Network.pm:1484
+#: src/EBox/Network.pm:1517
+#: src/EBox/Network.pm:2458
+#: src/EBox/Network.pm:2490
+#: src/EBox/Network.pm:2589
+#: src/EBox/Network.pm:2609
+#: src/EBox/Network.pm:2630
+#: src/EBox/Network.pm:2653
 msgid "Interface"
 msgstr "Interfaccia"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:74
 #: src/EBox/Model/GatewayTable.pm:83
 #: src/EBox/Model/PhysicalInterfaceTable.pm:60
-#: src/EBox/Model/VlanInterfaceTable.pm:61 src/templates/ifaces.mas:26
+#: src/EBox/Model/VlanInterfaceTable.pm:61
+#: src/templates/ifaces.mas:26
 #: src/templates/ifaces.mas:211
 msgid "Name"
 msgstr "Nome"
@@ -88,11 +103,18 @@ msgstr "Queste sono le interfacce che possono essere configurate"
 msgid "interface"
 msgstr "interfaccia"
 
-#: src/EBox/Model/GatewayTable.pm:90 src/EBox/CGI/VIface.pm:62
-#: src/EBox/Network.pm:731 src/EBox/Network.pm:736 src/EBox/Network.pm:1040
-#: src/EBox/Network.pm:1061 src/EBox/Network.pm:2460 src/EBox/Network.pm:2475
-#: src/EBox/Network.pm:2633 src/EBox/Network.pm:2772
-#: src/templates/ifaces.mas:91 src/templates/ifaces.mas:212
+#: src/EBox/Model/GatewayTable.pm:90
+#: src/EBox/CGI/VIface.pm:62
+#: src/EBox/Network.pm:731
+#: src/EBox/Network.pm:736
+#: src/EBox/Network.pm:1040
+#: src/EBox/Network.pm:1061
+#: src/EBox/Network.pm:2460
+#: src/EBox/Network.pm:2475
+#: src/EBox/Network.pm:2633
+#: src/EBox/Network.pm:2772
+#: src/templates/ifaces.mas:91
+#: src/templates/ifaces.mas:212
 msgid "IP address"
 msgstr "indirizzo IP"
 
@@ -117,11 +139,11 @@ msgid "Default"
 msgstr "Default"
 
 #: src/EBox/Model/GatewayTable.pm:124
-#, fuzzy
 msgid "Gateways List"
 msgstr "Elenco gateway"
 
-#: src/EBox/Model/GatewayTable.pm:125 src/EBox/Network.pm:2836
+#: src/EBox/Model/GatewayTable.pm:125
+#: src/EBox/Network.pm:2836
 msgid "Gateways"
 msgstr "Gateway"
 
@@ -130,12 +152,15 @@ msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your Internet traffic through several links."
 msgstr ""
+"Puoi aggiungere quanti gateway vuoi. È molto utile se vuoi separare il "
+"traffico internet"
 
 #: src/EBox/Model/GatewayTable.pm:143
 msgid "gateway"
 msgstr "gateway"
 
-#: src/EBox/Model/GatewayTable.pm:158 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Model/GatewayTable.pm:158
+#: src/EBox/CGI/Iface.pm:87
 msgid "ip address"
 msgstr "indirizzo ip"
 
@@ -158,7 +183,8 @@ msgstr ""
 "Il monitoraggio del traffico viene avviato/interrotto su richiesta senza "
 "necessità di registrare prima le modifiche"
 
-#: src/EBox/Model/StaticRoute.pm:153 src/EBox/Network.pm:72
+#: src/EBox/Model/StaticRoute.pm:153
+#: src/EBox/Network.pm:72
 #: src/EBox/Network.pm:2825
 msgid "Network"
 msgstr "Rete"
@@ -171,7 +197,8 @@ msgstr "IP o indirizzo rete"
 msgid "Gateway used to reach the above network  address"
 msgstr "Gateway usato per accedere all'indirizzo di rete"
 
-#: src/EBox/Model/StaticRoute.pm:167 src/templates/ifaces.mas:155
+#: src/EBox/Model/StaticRoute.pm:167
+#: src/templates/ifaces.mas:155
 msgid "Description"
 msgstr "Descrizione"
 
@@ -184,7 +211,8 @@ msgstr "Descrizione opzionale per l'instadamento"
 msgid "Static Routes List"
 msgstr "Lista route statiche"
 
-#: src/EBox/Model/StaticRoute.pm:177 src/EBox/Network.pm:2838
+#: src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:2838
 #, fuzzy
 msgid "Static Routes"
 msgstr "Route statiche"
@@ -209,36 +237,42 @@ msgstr "gateway"
 
 #: src/EBox/Model/WANFailoverRules.pm:57
 msgid "Ping to host"
-msgstr ""
+msgstr "Contatta la macchina"
 
 #: src/EBox/Model/WANFailoverRules.pm:61
+#, fuzzy
 msgid "DNS resolve"
-msgstr ""
+msgstr "Risoluzione DNS"
 
 #: src/EBox/Model/WANFailoverRules.pm:65
 msgid "HTTP Request"
-msgstr ""
+msgstr "Richiesta HTTP"
 
 #: src/EBox/Model/WANFailoverRules.pm:89
 msgid "Test type"
-msgstr ""
+msgstr "Tipo testo"
 
-#: src/EBox/Model/WANFailoverRules.pm:95 src/EBox/CGI/Diag.pm:51
-#: src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14 src/templates/diag.mas:23
+#: src/EBox/Model/WANFailoverRules.pm:95
+#: src/EBox/CGI/Diag.pm:51
+#: src/EBox/CGI/Diag.pm:58
+#: src/templates/diag.mas:14
+#: src/templates/diag.mas:23
 msgid "Host"
 msgstr "Host"
 
 #: src/EBox/Model/WANFailoverRules.pm:101
 msgid "Number of probes"
-msgstr ""
+msgstr "Numero di prove"
 
 #: src/EBox/Model/WANFailoverRules.pm:110
+#, fuzzy
 msgid "Required success ratio"
-msgstr ""
+msgstr "Tasso di successo richiesto"
 
 #: src/EBox/Model/WANFailoverRules.pm:123
+#, fuzzy
 msgid "Test rules"
-msgstr ""
+msgstr "Regole per il test"
 
 #: src/EBox/Model/WANFailoverRules.pm:130
 msgid ""
@@ -246,6 +280,9 @@ msgid ""
 "one of the test fails the gateway will be disabled. It will be enabled again "
 "when all tests are passed."
 msgstr ""
+"Puoi definire regole differenti per verificare se il gateway funziona "
+"correttamente. Se uno dei test fallisce il gateway sarà disabilitato. Sarà "
+"abilitato nuovamente quando tutti i testi avranno successo."
 
 #: src/EBox/Model/WANFailoverRules.pm:131
 #: src/EBox/Model/MultiGwRulesOptions.pm:68
@@ -255,11 +292,11 @@ msgstr "regola"
 
 #: src/EBox/Model/WANFailoverRules.pm:179
 msgid "Invalid value for Host"
-msgstr ""
+msgstr "Valore non valido per la macchina"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
-msgstr ""
+msgstr "Abilita"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -275,6 +312,12 @@ msgid ""
 "{closeref}.{br}If you want to explicitily route traffic by a certain "
 "gateway, use the multigateway rules below"
 msgstr ""
+"Abilitando questa caratteristica, il traffico sarà bilanciato tra i gateway. "
+"Ogni nuova connessione passerà da un gateway diverso. Puoi scegliere quanto "
+"traffico passa attraverso ciascun gateway impostando il parametro peso del "
+"gateway. Puoi cambiare il valore {openref}qui{closeref}.{br}Se vuoi "
+"esplicitamente indirizzare il traffico attraverso un certo gateway, "
+"configura le impostazioni per il multigateway sotto."
 
 #: src/EBox/Model/ByteRateSettings.pm:80
 msgid "Interface to listen"
@@ -351,13 +394,15 @@ msgstr "Nome dominio"
 
 #: src/EBox/Model/SearchDomain.pm:80
 msgid "Search Domain"
-msgstr ""
+msgstr "Dominio di ricerca"
 
 #: src/EBox/Model/SearchDomain.pm:84
 msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
 msgstr ""
+"Questo dominio sarà aggiunto al nome della macchina se il tentativo di "
+"risolverlo senza il dominio fallisce."
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
@@ -406,7 +451,8 @@ msgid "Source"
 msgstr "Sorgente"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:117
-#: src/EBox/Model/MultiGwRulesDataTable.pm:161 src/EBox/Model/DynDNS.pm:92
+#: src/EBox/Model/MultiGwRulesDataTable.pm:161
+#: src/EBox/Model/DynDNS.pm:92
 msgid "Service"
 msgstr "Servizio"
 
@@ -437,7 +483,7 @@ msgstr "Oggetto sorgente"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:129
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Destination"
@@ -489,15 +535,15 @@ msgstr "Queste sono le interfacce vlan disponibili sul tuo sistema"
 
 #: src/EBox/Model/DynDNS.pm:87
 msgid "Enable Dynamic DNS"
-msgstr ""
+msgstr "Abilita il DNS dinamico"
 
 #: src/EBox/Model/DynDNS.pm:98
 msgid "Username"
-msgstr ""
+msgstr "Nome utente"
 
 #: src/EBox/Model/DynDNS.pm:103
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: src/EBox/Model/DynDNS.pm:108
 #, fuzzy
@@ -506,7 +552,7 @@ msgstr "Nome host"
 
 #: src/EBox/Model/DynDNS.pm:115
 msgid "Dynamic DNS"
-msgstr ""
+msgstr "DNS dinamico"
 
 #: src/EBox/Model/DynDNS.pm:119
 msgid ""
@@ -518,7 +564,7 @@ msgstr ""
 
 #: src/EBox/Model/WANFailoverOptions.pm:72
 msgid "Time between checks"
-msgstr ""
+msgstr "Tempo tra i controlli"
 
 #: src/EBox/Model/WANFailoverOptions.pm:73
 #, fuzzy
@@ -527,18 +573,21 @@ msgstr "byte/secondo"
 
 #: src/EBox/Model/WANFailoverOptions.pm:83
 msgid "Global options"
-msgstr ""
+msgstr "Opzioni globali"
 
 #: src/EBox/Model/WANFailoverOptions.pm:87
+#, fuzzy
 msgid "These options affect to all the tests."
-msgstr ""
+msgstr "Queste opzioni si applicano a tutti i test."
 
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+#: src/EBox/CGI/Diag.pm:29
+#: src/EBox/CGI/Diag.pm:41
 #, fuzzy
 msgid "Network Diagnostic Tools"
 msgstr "Diagnosi rete"
 
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2716
+#: src/EBox/CGI/Diag.pm:65
+#: src/EBox/Network.pm:2716
 msgid "host name"
 msgstr "nome host"
 
@@ -546,19 +595,23 @@ msgstr "nome host"
 msgid "traffic balance"
 msgstr "bilanciamento traffico"
 
-#: src/EBox/CGI/Vlan.pm:41 src/EBox/CGI/VIface.pm:43 src/EBox/CGI/Iface.pm:42
+#: src/EBox/CGI/Vlan.pm:41
+#: src/EBox/CGI/VIface.pm:43
+#: src/EBox/CGI/Iface.pm:42
 #: src/EBox/CGI/Iface.pm:59
 msgid "network interface"
 msgstr "interfaccia rete"
 
-#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1233 src/EBox/Network.pm:1262
+#: src/EBox/CGI/Vlan.pm:43
+#: src/EBox/Network.pm:1233
+#: src/EBox/Network.pm:1262
 #: src/templates/ifaces.mas:154
 msgid "VLAN Id"
 msgstr "Id VLAN"
 
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/CGI/FirstTime/Ifaces.pm:13
+#: src/EBox/CGI/Ifaces.pm:29
+#: src/EBox/CGI/FirstTime/Ifaces.pm:13
 #: src/EBox/Network.pm:2809
-#, fuzzy
 msgid "Network Interfaces"
 msgstr "Interfacce di rete"
 
@@ -598,11 +651,13 @@ msgstr "Interfaccia di rete configurata"
 msgid "virtual interface action"
 msgstr "azione su interfaccia virtuale"
 
-#: src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Iface.pm:88
+#: src/EBox/CGI/VIface.pm:63
+#: src/EBox/CGI/Iface.pm:88
 msgid "netmask"
 msgstr "maschera di rete"
 
-#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+#: src/EBox/CGI/VIface.pm:64
+#: src/EBox/CGI/VIface.pm:70
 msgid "virtual interface name"
 msgstr "nome interfaccia virtuale"
 
@@ -615,7 +670,8 @@ msgstr "metodo"
 msgid "Traffic rate monitoring"
 msgstr "Monitoraggio livelli di traffico"
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2761
+#: src/EBox/Network/Report/ByteRate.pm:136
+#: src/EBox/Network.pm:2761
 msgid "Status"
 msgstr "Stato"
 
@@ -708,14 +764,19 @@ msgid ""
 "Events module is not enabled. You have to enable it and also enable the WAN "
 "Failover event in order to use this feature."
 msgstr ""
+"Il modulo eventi non è abilitato. Devi abilitarlo e abilitare il WAN "
+"Failover per usare questa parte."
 
 #: src/EBox/Network/Composite/WANFailover.pm:82
 msgid ""
 "WAN Failover event is not enabled. You have to enable it in order to use "
 "this feature"
 msgstr ""
+"L'evento WAN Failover non è abilitato. Devi abilitarlo per usare questa "
+"parte."
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:2840
+#: src/EBox/Network/Composite/MultiGw.pm:63
+#: src/EBox/Network.pm:2840
 #, fuzzy
 msgid "Balance Traffic"
 msgstr "Bilancia traffico"
@@ -768,17 +829,22 @@ msgstr "eBox imposterà la configurazione di rete"
 msgid "eBox will set your DNS configuration"
 msgstr "eBox imposterà la configurazione di rete"
 
-#: src/EBox/Network.pm:124 src/EBox/Network.pm:129
+#: src/EBox/Network.pm:124
+#: src/EBox/Network.pm:129
 #, fuzzy
 msgid "eBox will set your ddclient configuration"
 msgstr "eBox imposterà la configurazione di rete"
 
-#: src/EBox/Network.pm:728 src/EBox/Network.pm:732
+#: src/EBox/Network.pm:728
+#: src/EBox/Network.pm:732
 msgid "Virtual interface name"
 msgstr "Nome interfaccia virtuale"
 
-#: src/EBox/Network.pm:731 src/EBox/Network.pm:1040 src/EBox/Network.pm:2460
-#: src/templates/ifaces.mas:104 src/templates/ifaces.mas:213
+#: src/EBox/Network.pm:731
+#: src/EBox/Network.pm:1040
+#: src/EBox/Network.pm:2460
+#: src/templates/ifaces.mas:104
+#: src/templates/ifaces.mas:213
 msgid "Netmask"
 msgstr "Maschera di rete"
 
@@ -823,7 +889,8 @@ msgstr ""
 "Il gateway {gw} deve essere raggiungibile da un'interfaccia statica. "
 "Attualmente è raggiungibile da {iface} che non è statica"
 
-#: src/EBox/Network.pm:2675 src/EBox/Network.pm:2696
+#: src/EBox/Network.pm:2675
+#: src/EBox/Network.pm:2696
 msgid "Host name"
 msgstr "Nome host"
 
@@ -874,7 +941,8 @@ msgstr ""
 "configurazione di uno o più moduli con riferimenti a questa interfaccia di "
 "rete."
 
-#: src/templates/confirmVlanDel.mas:12 src/templates/confirmremove.mas:14
+#: src/templates/confirmVlanDel.mas:12
+#: src/templates/confirmremove.mas:14
 #, fuzzy
 msgid ""
 "If you choose to continue, all modules that make use of this network "
@@ -885,12 +953,14 @@ msgstr ""
 "di questa interfaccia di rete elimineranno le parti relative della propria "
 "configurazione. Scegli \"Annulla\" se non sei sicuro di cosa stai facendo."
 
-#: src/templates/confirmVlanDel.mas:22 src/templates/confirmremove.mas:24
+#: src/templates/confirmVlanDel.mas:22
+#: src/templates/confirmremove.mas:24
 #: src/templates/confirm.mas:31
 msgid "Ok"
 msgstr "Ok"
 
-#: src/templates/confirmVlanDel.mas:24 src/templates/confirmremove.mas:26
+#: src/templates/confirmVlanDel.mas:24
+#: src/templates/confirmremove.mas:26
 #: src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Annulla"
@@ -913,15 +983,18 @@ msgstr ""
 "NAT. Inoltre i servizi dedicati agli utenti LAN non saranno disponibili "
 "sulle interfacce esterne."
 
-#: src/templates/ifaces.mas:43 src/templates/ifaces.mas:45
+#: src/templates/ifaces.mas:43
+#: src/templates/ifaces.mas:45
 msgid "Static"
 msgstr "Statica"
 
-#: src/templates/ifaces.mas:56 src/templates/ifaces.mas:58
+#: src/templates/ifaces.mas:56
+#: src/templates/ifaces.mas:58
 msgid "Trunk (802.1q)"
 msgstr "Trunk (802.1q)"
 
-#: src/templates/ifaces.mas:63 src/templates/ifaces.mas:65
+#: src/templates/ifaces.mas:63
+#: src/templates/ifaces.mas:65
 msgid "Not set"
 msgstr "Non impostata"
 
@@ -933,28 +1006,35 @@ msgstr "Modifica"
 msgid "VLAN List"
 msgstr "Elenco VLAN"
 
-#: src/templates/ifaces.mas:156 src/templates/ifaces.mas:214
+#: src/templates/ifaces.mas:156
+#: src/templates/ifaces.mas:214
 msgid "Action"
 msgstr "Azione"
 
-#: src/templates/ifaces.mas:172 src/templates/ifaces.mas:173
-#: src/templates/ifaces.mas:174 src/templates/ifaces.mas:258
-#: src/templates/ifaces.mas:259 src/templates/ifaces.mas:260
+#: src/templates/ifaces.mas:172
+#: src/templates/ifaces.mas:173
+#: src/templates/ifaces.mas:174
+#: src/templates/ifaces.mas:258
+#: src/templates/ifaces.mas:259
+#: src/templates/ifaces.mas:260
 msgid "Add"
 msgstr "Aggiungi"
 
-#: src/templates/ifaces.mas:191 src/templates/ifaces.mas:192
-#: src/templates/ifaces.mas:193 src/templates/ifaces.mas:285
-#: src/templates/ifaces.mas:286 src/templates/ifaces.mas:287
+#: src/templates/ifaces.mas:191
+#: src/templates/ifaces.mas:192
+#: src/templates/ifaces.mas:193
+#: src/templates/ifaces.mas:285
+#: src/templates/ifaces.mas:286
+#: src/templates/ifaces.mas:287
 msgid "Delete"
 msgstr "Elimina"
 
 #: src/templates/ifaces.mas:206
-#, fuzzy
 msgid "Virtual Interfaces"
 msgstr "Interfacce virtuali"
 
-#: src/templates/diag.mas:13 src/templates/diag.mas:18
+#: src/templates/diag.mas:13
+#: src/templates/diag.mas:18
 msgid "Ping"
 msgstr "Ping"
 
@@ -965,7 +1045,7 @@ msgstr "route statica"
 
 #: src/templates/diag.mas:27
 msgid "Trace"
-msgstr ""
+msgstr "Trace"
 
 #: src/templates/diag.mas:31
 #, fuzzy
@@ -984,7 +1064,8 @@ msgstr "Ricerca"
 msgid "Output"
 msgstr "Uscita"
 
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
+#: src/templates/confirmremove.mas:11
+#: src/templates/confirm.mas:14
 msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."

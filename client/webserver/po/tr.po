@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:42+0100\n"
-"PO-Revision-Date: 2008-11-21 14:30+0000\n"
-"Last-Translator: PardusLynx <parduslynx@gmail.com>\n"
+"PO-Revision-Date: 2009-10-14 20:22+0000\n"
+"Last-Translator: Ethem KELESOGLU <ethem.kelesoglu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,11 +20,11 @@ msgstr ""
 #: src/EBox/WebServer.pm:77
 #, fuzzy
 msgid "Web Server"
-msgstr "Web hizmeti"
+msgstr "Web Sunucu"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
-msgstr ""
+msgstr "Web Sunucunun dinleme portunu ayarla"
 
 #: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "Apache LDAP kullanıcı modülünü etkinleştir"
 
 #: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"
@@ -40,35 +40,37 @@ msgstr ""
 
 #: src/EBox/WebServer.pm:171
 msgid "Web service status"
-msgstr ""
+msgstr "WEb hizmeti durumu"
 
 #: src/EBox/WebServer.pm:348
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "{userDirConfFile} kayıp! Lütfen geri yükleyin"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
+msgstr "dinleme portu"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "Listening port"
-msgstr ""
+msgstr "Dinleme portu"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:158
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Her kullanıcı için {dirName}'yi etkinleştir."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
+"Eğer bu alanı işaretlediyseniz, her kullanıcı public_html kök dizininde "
+"kendi web sitesini yayımlayabilir."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:172
 msgid "General configuration settings"
-msgstr ""
+msgstr "Genel konfigürasyon ayarları"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:176
 #, perl-brace-format
@@ -78,10 +80,14 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"Genel web sunucu ayarları. Dinleme portu başka bir hizmete ait olmamalı. "
+"Eğer kullanıcıların kendi html sayfalarını yayımlamalarına izin verdiyseniz, "
+"Bu sayfalar kullanıcıların samba kök dizinlerinde {dirName} dizininden "
+"yüklenecektir."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:182
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "Genel Web sunucu konfigürasyon ayarları güncellendi"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 #: src/EBox/WebServer/Model/VHostTable.pm:98

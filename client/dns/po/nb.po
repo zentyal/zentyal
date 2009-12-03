@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:28+0100\n"
-"PO-Revision-Date: 2009-08-28 12:12+0200\n"
+"PO-Revision-Date: 2009-09-30 16:14+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -109,9 +109,8 @@ msgid "Invalid preference number. Allowed range: ({min}, {max})"
 msgstr "Ugyldig innstillings nummer. Tillatt rekke: ({min}, {max})"
 
 #: src/EBox/Model/MailExchanger.pm:117
-#, fuzzy
 msgid "This domain"
-msgstr "domene"
+msgstr "Dette domenet"
 
 #: src/EBox/Model/MailExchanger.pm:125
 msgid "Custom"

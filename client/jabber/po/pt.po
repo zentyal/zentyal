@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-02-23 11:56+0000\n"
+"PO-Revision-Date: 2009-11-05 00:51+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "nome de utilizador"
 
 #: src/EBox/Jabber.pm:71
 msgid "Add Jabber LDAP schema"
-msgstr ""
+msgstr "Adicionar esquema LDAP Jabber"
 
 #: src/EBox/Jabber.pm:72
 msgid "eBox will need this schema to store jabber users"
@@ -46,31 +46,31 @@ msgid "To properly configure jabberd2"
 msgstr "Para configurar correctamente o jabberd2"
 
 #: src/EBox/Jabber.pm:104 src/EBox/Jabber.pm:109
-#, fuzzy
 msgid "To properly configure jabberd2 muc"
-msgstr "Para configurar correctamente o jabberd2"
+msgstr "Para configurar correctamente o jabberd2 muc"
 
 #: src/EBox/Jabber.pm:380
-#, fuzzy
 msgid "Jabber server certificate"
-msgstr "Serviço Jabber"
+msgstr "Certificado do Servidor Jabber"
 
 #: src/EBox/JabberLdapUser.pm:252
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required"
 msgstr ""
+"Este utilizador tem uma conta Jabber. O utilizador continuará ligado até ser "
+"novamente necessária uma autorização Jabber"
 
 #: src/templates/index.mas:17
 msgid "General Configuration"
-msgstr ""
+msgstr "Configuração geral"
 
 #: src/templates/index.mas:19
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
 msgstr ""
-"O nome de domínio deve estar disponível na rede. Caso contrário pode não "
+"O nome de domínio deve estar disponível na rede, caso contrário pode não "
 "conseguir usar este serviço. Isto aplica-se a ligações internas e externas."
 
 #: src/templates/index.mas:25
@@ -78,16 +78,14 @@ msgid "Domain name"
 msgstr "Nome de Domínio"
 
 #: src/templates/index.mas:33
-#, fuzzy
 msgid "Connect to other servers"
-msgstr "Ligar à rede global Jabber"
+msgstr "Ligar a outros servidores"
 
 #: src/templates/index.mas:45
 msgid "Enable MUC (Multi User Chat)"
-msgstr ""
+msgstr "Activar MUC (conversa multi-utilizador)"
 
 #: src/templates/index.mas:57
-#, fuzzy
 msgid "SSL support"
 msgstr "Suporte SSL"
 
@@ -112,15 +110,12 @@ msgid "Change"
 msgstr "Modificar"
 
 #: src/templates/jabber.mas:8
-#, fuzzy
 msgid "Jabber Account"
 msgstr "Conta Jabber"
 
 #: src/templates/jabber.mas:9
-#, fuzzy
 msgid "Password for Jabber service is the user password."
-msgstr ""
-"A palavra-passe para o serviço de Jabber é a palavra-passe de utilizador"
+msgstr "A palavra-passe para o serviço Jabber é a palavra-passe de utilizador"
 
 #: src/templates/jabber.mas:18
 msgid "User account"

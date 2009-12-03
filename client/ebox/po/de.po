@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-07-08 08:18+0200\n"
-"Last-Translator: Jörg Gronmayer <joerg@gronmayer.com>\n"
+"PO-Revision-Date: 2009-10-20 12:36+0200\n"
+"Last-Translator: Ralph Gottschalkson <ralph@gottschalkson.eu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,13 +38,12 @@ msgstr "eBox Alarme für {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
-msgstr ""
-"Diese RSS-Datei beschreibt, was mit diese eBox im Laufe der Zeit erlebt"
+msgstr "Dieser RSS-Channel beschreibt, was mit dieser eBox passiert ist"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
-msgstr "Dies hat sich bei der eBox {hostname} von {source} ereignet"
+msgstr "Das ist mit der eBox {hostname} von {source} passiert"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
@@ -77,12 +76,12 @@ msgstr ""
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr "Die Einschreibung ist fehlgeschlagen: {message}"
+msgstr "Diese Abonnement ist fehlgeschlagen: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr "Die Authorisierung schlug fehl: {result} - {message}"
+msgstr "Die Anmeldung schlug fehl: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
@@ -1471,7 +1470,7 @@ msgstr "Port"
 
 #: src/EBox/Apache.pm:588
 msgid "eBox internal web server"
-msgstr "eBox' interner Webserver"
+msgstr "interner Webserver dieser eBox"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -1699,7 +1698,7 @@ msgstr "Typ"
 
 #: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
 msgid "Archive size"
-msgstr "Archiv grösse"
+msgstr "Archivgröße"
 
 #: src/templates/confirm-backup.mas:110
 msgid "Full Restore"
@@ -1914,7 +1913,7 @@ msgstr "Benutzerdefinierte Abfrage"
 
 #: src/templates/logs/index.mas:50
 msgid "From date:"
-msgstr "Datum Von:"
+msgstr "Datum von:"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "January"
@@ -1970,7 +1969,7 @@ msgstr "Logs aktualisieren"
 
 #: src/templates/logs/index.mas:116
 msgid "To date:"
-msgstr "Datum Bis:"
+msgstr "Datum bis:"
 
 #: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
 msgid "Search"

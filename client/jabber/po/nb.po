@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-09-09 11:29+0200\n"
+"PO-Revision-Date: 2009-09-30 16:22+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "brukernavn"
 
 #: src/EBox/Jabber.pm:71
 msgid "Add Jabber LDAP schema"
-msgstr ""
+msgstr "Legg til Jabber LDAP skjema"
 
 #: src/EBox/Jabber.pm:72
 msgid "eBox will need this schema to store jabber users"
@@ -58,6 +58,8 @@ msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required"
 msgstr ""
+"Denne brukeren har en jabber konto. Hvis brukeren er tilkoblet vil den "
+"fortsette tilkoblet inntil jabber autoriseringen trengs igjen"
 
 #: src/templates/index.mas:17
 msgid "General Configuration"

@@ -10,28 +10,28 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2007-03-15 17:26+0100\n"
-"Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
+"PO-Revision-Date: 2009-11-29 22:32+0100\n"
+"Last-Translator: Sergio Vergara Ruiz <svruiz@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "Arxiu RSS: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
-msgstr ""
+msgstr "eBox canal d'alertes per {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"

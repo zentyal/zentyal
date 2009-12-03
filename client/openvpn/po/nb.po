@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:38+0100\n"
-"PO-Revision-Date: 2009-09-26 19:39+0100\n"
+"PO-Revision-Date: 2009-09-30 17:29+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -353,7 +353,7 @@ msgid "server"
 msgstr "server"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:158
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You can't create VPN servers because there aren't enough "
 "certificates.{closepar}{openpar}Please, go to the {openhref}certification "
@@ -361,9 +361,10 @@ msgid ""
 "You will need, at least, one CA and one certificate.{closepar}"
 msgstr ""
 "{openpar}Du kan ikke opprette VPN servere fordi det er ikke nok "
-"sertifikater..{closepar}{openpar}Vennligst gå til {openhref}sertifikat "
-"behandler modulen{closehref} og opprett nye sertifikater{closepar}{openpar}"
-"Du vil trenge minst en CA og et sertifikat.{closepar}"
+"sertifikater.{closepar}{openpar}Vennligst gå til {openhref}sertifikat "
+"behandler modulen{closehref} og opprett nye "
+"sertifikater{closepar}{openpar}Du vil trenge minst en CA og et "
+"sertifikat.{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:173
 msgid "Server creation"
@@ -545,12 +546,11 @@ msgstr ""
 "ikke nettverks adresse oversetting valget er aktivert"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:459
-#, fuzzy
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
 msgstr ""
-"Grensesnittet må være et eksternt grensesnitt, hvis ikke skjul valget er på"
+"Grensesnittet må være et eksternt grensesnitt, hvis ikke NAT valget er på"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
 msgid "VPN clients"
@@ -582,13 +582,12 @@ msgid "daemon"
 msgstr "tjeneste"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
-#, fuzzy
 msgid "Manual Configuration"
-msgstr "Konfigurasjon"
+msgstr "Manuell Konfigurasjon"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
 msgid "eBox bundle"
-msgstr ""
+msgstr "eBox pakke"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:78
 msgid "Upload configuration's bundle"
@@ -694,13 +693,12 @@ msgstr ""
 "klienter"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:335
-#, fuzzy
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
 "Kan ikke lage pakke fordi serveren  er ikke fullstendig konfigurert; "
-"vennligst rediger konfigurasjonen og prøv igjen"
+"vennligst fullfør konfigurasjonen og prøv igjen"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"

@@ -8,29 +8,29 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:42+0100\n"
-"PO-Revision-Date: 2007-12-04 10:03+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-11-28 15:13+0100\n"
+"Last-Translator: Sergio Vergara Ruiz <svruiz@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebServer.pm:77
 msgid "Web Server"
-msgstr ""
+msgstr "Servidor Web"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
-msgstr ""
+msgstr "Per configurar el port del servidor web"
 
 #: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
-msgstr ""
+msgstr "Per configurar l'usuari públic del directori HTML"
 
 #: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "Habilita l'usuari del mòdul Apache LDAP "
 
 #: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"

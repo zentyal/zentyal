@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:39+0100\n"
-"PO-Revision-Date: 2009-08-28 13:34+0200\n"
+"PO-Revision-Date: 2009-09-30 17:31+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -144,11 +144,9 @@ msgid "Remote services"
 msgstr "Eksterne tjenester"
 
 #: src/EBox/RemoteServices/Composite/General.pm:74
-#, fuzzy
 msgid "eBox Control Center is paid services to enhance your eBox experience"
 msgstr ""
-"Eksterne tjenester fra eBox er betalte tjenester for å forbedre din eBox "
-"opplevelse"
+"eBox Kontroll Senter er betalte tjenester for å forbedre din eBox opplevelse"
 
 #: src/EBox/Model/Settings.pm:53
 msgid "field1"
@@ -253,9 +251,8 @@ msgid "Remote system backups proxy"
 msgstr "Ekstern system sikkerhetskopi proxy"
 
 #: src/EBox/RemoteServices.pm:74
-#, fuzzy
 msgid "Control Center Client"
-msgstr "Kontroll senter"
+msgstr "Kontroll Senter Klient"
 
 #: src/EBox/RemoteServices.pm:157
 msgid "Not subscribed"
@@ -266,9 +263,8 @@ msgid "Subscribed"
 msgstr "Abonnert"
 
 #: src/EBox/RemoteServices.pm:191
-#, fuzzy
 msgid "Control Center"
-msgstr "Kontroll senter"
+msgstr "Kontroll Senter"
 
 #: src/EBox/Composite/Composite.pm:50
 msgid "Composite"

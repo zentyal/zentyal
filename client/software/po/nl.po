@@ -7,18 +7,18 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:39+0100\n"
-"PO-Revision-Date: 2005-11-11 13:07+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-10-05 23:20+0200\n"
+"Last-Translator: Marco Luken <marcoluken@kabelfoon.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Software.pm:53
 msgid "Software Management"
-msgstr ""
+msgstr "Software Beheer"
 
 #: src/EBox/Software.pm:77
 msgid "Enable cron script to download updates"
@@ -42,25 +42,28 @@ msgstr ""
 
 #: src/EBox/Software.pm:500
 msgid "eBox Components"
-msgstr ""
+msgstr "eBox Componenten"
 
 #: src/EBox/Software.pm:502
 msgid "System Updates"
-msgstr ""
+msgstr "Systeem Updates"
 
 #: src/EBox/Software.pm:504
 msgid "Automatic Updates"
-msgstr ""
+msgstr "Automatische Updates"
 
 #: src/EBox/Software.pm:595
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"Software beheer is momenteel  gelocked door {locker}. Probeer het later nog "
+"eens"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
-msgstr ""
+msgstr "Systeem updates"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
@@ -68,23 +71,23 @@ msgstr ""
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "Het systeem is up-to-date"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Automatische software updates"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
-msgstr ""
+msgstr "eBox componenten"
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
 msgid "Upgrading"
-msgstr ""
+msgstr "Bezig met upgraden"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "automatische updates configuratie"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"

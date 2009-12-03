@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:34+0100\n"
-"PO-Revision-Date: 2009-09-26 19:37+0100\n"
+"PO-Revision-Date: 2009-09-30 16:46+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,9 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Watcher/Gateways.pm:138
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Gateway {gw} connected"
-msgstr "Gateway {gw} ikke tilgjengelig"
+msgstr "Gateway {gw} ikke tilkoblet"
 
 #: src/EBox/Event/Watcher/Gateways.pm:245
 #, perl-brace-format
@@ -28,15 +28,17 @@ msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
 "failed, max={maxFailRatio}%)"
 msgstr ""
+"Gateway {gw} frakoblet ({feilRate}% av '{type}' tester til vert '{vert}' "
+"feilet, maks={maxFeilRate}%)"
 
 #: src/EBox/Event/Watcher/Gateways.pm:305
 #: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:2842
 msgid "WAN Failover"
-msgstr ""
+msgstr "WAN Feilsikkerhet"
 
 #: src/EBox/Event/Watcher/Gateways.pm:321
 msgid "Check if gateways are connected or disconnected."
-msgstr ""
+msgstr "Kontroller om gatewayer er tilkoblet eller frakoblet."
 
 #: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2415
 #, perl-brace-format
@@ -130,6 +132,8 @@ msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your Internet traffic through several links."
 msgstr ""
+"Du kan legge til så mange gatewayer du vil. Dette er veldig fordelaktig hvis "
+"du vil splitte din Internett trafikk mellom forskjellige forbindelser."
 
 #: src/EBox/Model/GatewayTable.pm:143
 msgid "gateway"
@@ -198,25 +202,24 @@ msgid "static route"
 msgstr "statisk rute"
 
 #: src/EBox/Model/WANFailoverRules.pm:53
-#, fuzzy
 msgid "Ping to gateway"
-msgstr "gateway"
+msgstr "Ping til gateway"
 
 #: src/EBox/Model/WANFailoverRules.pm:57
 msgid "Ping to host"
-msgstr ""
+msgstr "Ping til vert"
 
 #: src/EBox/Model/WANFailoverRules.pm:61
 msgid "DNS resolve"
-msgstr ""
+msgstr "DNS oppslag"
 
 #: src/EBox/Model/WANFailoverRules.pm:65
 msgid "HTTP Request"
-msgstr ""
+msgstr "HTTP Forespørsel"
 
 #: src/EBox/Model/WANFailoverRules.pm:89
 msgid "Test type"
-msgstr ""
+msgstr "Test type"
 
 #: src/EBox/Model/WANFailoverRules.pm:95 src/EBox/CGI/Diag.pm:51
 #: src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14 src/templates/diag.mas:23
@@ -225,15 +228,15 @@ msgstr "Vert"
 
 #: src/EBox/Model/WANFailoverRules.pm:101
 msgid "Number of probes"
-msgstr ""
+msgstr "Antall forsøk"
 
 #: src/EBox/Model/WANFailoverRules.pm:110
 msgid "Required success ratio"
-msgstr ""
+msgstr "Påkrevd vellykket terskel"
 
 #: src/EBox/Model/WANFailoverRules.pm:123
 msgid "Test rules"
-msgstr ""
+msgstr "Test regler"
 
 #: src/EBox/Model/WANFailoverRules.pm:130
 msgid ""
@@ -241,6 +244,9 @@ msgid ""
 "one of the test fails the gateway will be disabled. It will be enabled again "
 "when all tests are passed."
 msgstr ""
+"Du kan definere forskjellige regler for å teste om en gateway fungerer "
+"skikkelig. Hvis en av testene feiler vil gatewayen deaktiveres. Den vil "
+"aktiveres igjen når alle testene er bestått."
 
 #: src/EBox/Model/WANFailoverRules.pm:131
 #: src/EBox/Model/MultiGwRulesOptions.pm:68
@@ -250,7 +256,7 @@ msgstr "regel"
 
 #: src/EBox/Model/WANFailoverRules.pm:179
 msgid "Invalid value for Host"
-msgstr ""
+msgstr "Ugyldig verdi for Vert"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
@@ -511,20 +517,19 @@ msgstr ""
 
 #: src/EBox/Model/WANFailoverOptions.pm:72
 msgid "Time between checks"
-msgstr ""
+msgstr "Tid mellom kontroller"
 
 #: src/EBox/Model/WANFailoverOptions.pm:73
-#, fuzzy
 msgid "seconds"
-msgstr "bytes/sekund"
+msgstr "sekunder"
 
 #: src/EBox/Model/WANFailoverOptions.pm:83
 msgid "Global options"
-msgstr ""
+msgstr "Globale instillinger"
 
 #: src/EBox/Model/WANFailoverOptions.pm:87
 msgid "These options affect to all the tests."
-msgstr ""
+msgstr "Disse valgene påvirker alle testene."
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
 msgid "Network Diagnostic Tools"
@@ -699,25 +704,28 @@ msgid ""
 "Events module is not enabled. You have to enable it and also enable the WAN "
 "Failover event in order to use this feature."
 msgstr ""
+"Handlings modulen er ikke aktivert. Du må aktivere den og også aktivere WAN "
+"Feilsikkerhets handlingen for å kunne bruke dette tillegget."
 
 #: src/EBox/Network/Composite/WANFailover.pm:82
 msgid ""
 "WAN Failover event is not enabled. You have to enable it in order to use "
 "this feature"
 msgstr ""
+"WAN Feilsikkehets handling er ikke aktivert. Du må aktivere den for å bruke "
+"dette tillegget."
 
 #: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:2840
 msgid "Balance Traffic"
 msgstr "Del Trafikk"
 
 #: src/EBox/Network/Composite/MultiGw.pm:83
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
 msgstr ""
-"For å bruke denne funksjonen trenger du minst to gatewayer. Du kan legge dem "
-"til  <a href=\"/ebox/Network/View/GatewayTable\">her</a> først."
+"For å bruke denne funksjonen trenger du minst to aktiverte gatewayer. Du kan "
+"legge dem til  <a href=\"/ebox/Network/View/GatewayTable\">her</a> først."
 
 #: src/EBox/Network/Composite/DNS.pm:61
 msgid "Domain Name Server Resolver"
@@ -849,23 +857,21 @@ msgid "Diagnostic Tools"
 msgstr "Diagnose Verktøy"
 
 #: src/templates/confirmVlanDel.mas:9
-#, fuzzy
 msgid ""
 "The removal of the vlan interface will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
-"Endringen du forsøker  vil påvirke konfigurasjonen på et eller flere moduler "
-"som bruker referanser til dette nettverks grensesnittet."
+"Fjerning av vlan grensesnittet vil påvirke konfigurasjonen på et eller flere "
+"moduler som bruker referanser til dette nettverks grensesnittet."
 
 #: src/templates/confirmVlanDel.mas:12 src/templates/confirmremove.mas:14
-#, fuzzy
 msgid ""
 "If you choose to continue, all modules that make use of this network "
 "interface will delete the relevant parts of their configuration. Choose "
 "\"Cancel\" if you are not sure about this."
 msgstr ""
-"Hvis du velger å fortsette, vil alle modulene som bruker gjeldende "
-"konfigurasjon av dette nettverks grensesnittet slette vesentlige deler av "
+"Hvis du velger å fortsette, vil alle modulene som bruker den gjeldende "
+"konfigurasjonen av dette nettverks grensesnittet slette vesentlige deler av "
 "sin konfigurasjon. Velg \"Avbryt\" hvis du ikke er sikker på dette."
 
 #: src/templates/confirmVlanDel.mas:22 src/templates/confirmremove.mas:24

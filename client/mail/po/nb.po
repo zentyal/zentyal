@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:33+0100\n"
-"PO-Revision-Date: 2009-08-31 09:29+0200\n"
+"PO-Revision-Date: 2009-09-30 16:28+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -167,13 +167,12 @@ msgid "Allow relay"
 msgstr "Tillat videresending"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:99
-#, fuzzy
 msgid ""
 "Check this option to allow the machines within the above object to send "
 "mails through this server"
 msgstr ""
-"Huk av dette for å tillate maskiner innenfor objektet over å sende e-post "
-"gjennom denne serveren."
+"Huk av dette valget for å tillate maskiner innenfor objektet over å sende "
+"e-post gjennom denne serveren"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:108
 msgid "Relay policy for network objects"
@@ -197,7 +196,7 @@ msgstr "Smarthost til sending av e-post"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:76
 msgid "The format is host[:port] being port set to 25 if none is supplied"
-msgstr ""
+msgstr "Formatet er vert[:port] hvor port er satt til 25 hvis blank"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:82
 msgid "Smarthost authentication"
@@ -239,11 +238,11 @@ msgstr "Alternativer"
 #: src/EBox/Mail/Model/SMTPOptions.pm:196
 #: src/EBox/Mail/Model/SMTPOptions.pm:200
 msgid "Smarthost's address"
-msgstr ""
+msgstr "Smarthosts adresse"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:197
 msgid "Smarthost's port"
-msgstr ""
+msgstr "Smarthosts port"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
 msgid "Enabled"
@@ -280,9 +279,8 @@ msgid "Greylist configuration"
 msgstr "Grå listings konfigurasjon"
 
 #: src/EBox/Mail/Greylist.pm:55
-#, fuzzy
 msgid "Configure whitelist for greylisting"
-msgstr "For å konfigurere hvit listing for grå listing"
+msgstr "Konfigurer hvit listing for grå listing"
 
 #: src/EBox/Mail/Greylist.pm:279
 msgid "Greylist service"
@@ -397,10 +395,8 @@ msgid "Add LDAP schemas"
 msgstr "Legg til LDAP skjemaer"
 
 #: src/EBox/Mail.pm:127
-#, fuzzy
 msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr ""
-"eBox vil legge til to LDAP skjemaer: authldap.schema og eboximail.schema."
+msgstr "eBox vil legge til to LDAP skjemaer: authldap.ldif og eboximail.ldif."
 
 #: src/EBox/Mail.pm:133
 msgid "Create certificates"
@@ -575,9 +571,8 @@ msgid "Authentication error"
 msgstr "Autentiserings feil"
 
 #: src/EBox/Mail.pm:1258
-#, fuzzy
 msgid "Greylisted"
-msgstr "Grå listing"
+msgstr "Grå listet"
 
 #: src/EBox/Mail.pm:1259
 msgid "Other events"

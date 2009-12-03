@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:39+0100\n"
-"PO-Revision-Date: 2009-08-31 14:03+0200\n"
+"PO-Revision-Date: 2009-09-30 17:30+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Printers.pm:56
-#, fuzzy
 msgid "Printer Sharing"
-msgstr "Printers id"
+msgstr "Printers Deling"
 
 #: src/EBox/Printers.pm:76
 msgid "Create spool directory for printers"

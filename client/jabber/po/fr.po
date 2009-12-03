@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:30+0100\n"
-"PO-Revision-Date: 2009-07-28 02:18+0200\n"
-"Last-Translator: David Ande <david@andeprasfamily.ath.cx>\n"
+"PO-Revision-Date: 2009-09-30 11:48+0200\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr "nom d'utilisateur"
 
 #: src/EBox/Jabber.pm:71
 msgid "Add Jabber LDAP schema"
-msgstr ""
+msgstr "Ajouter le schéma LDAP Jabber"
 
 #: src/EBox/Jabber.pm:72
 msgid "eBox will need this schema to store jabber users"
@@ -44,12 +44,11 @@ msgstr "eBox a besoin de ce schéma pour stocker les utilisateurs de jabber"
 
 #: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94 src/EBox/Jabber.pm:99
 msgid "To properly configure jabberd2"
-msgstr "Pour configurer proprement jabberd2"
+msgstr "Pour configurer proprement \"jabberd2\""
 
 #: src/EBox/Jabber.pm:104 src/EBox/Jabber.pm:109
-#, fuzzy
 msgid "To properly configure jabberd2 muc"
-msgstr "Pour configurer proprement jabberd2 muc"
+msgstr "Pour configurer proprement \"jabberd2 muc\""
 
 #: src/EBox/Jabber.pm:380
 msgid "Jabber server certificate"
@@ -60,6 +59,9 @@ msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required"
 msgstr ""
+"Cet utilisateur a un compte Jabber. Si l'utilisateur présentement connecté "
+"reste en ligne, il le sera jusqu'à ce qu'une autorisation Jabber lui soit "
+"demandée"
 
 #: src/templates/index.mas:17
 msgid "General Configuration"

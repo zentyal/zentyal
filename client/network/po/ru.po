@@ -8,20 +8,20 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:34+0100\n"
-"PO-Revision-Date: 2009-07-17 10:11+0200\n"
-"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2009-10-28 07:32+0100\n"
+"Last-Translator: Vladimir Popov <adminlug@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Watcher/Gateways.pm:138
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Gateway {gw} connected"
-msgstr "Шлюз {gw} недоступен"
+msgstr "Шлюз {gw} подключен"
 
 #: src/EBox/Event/Watcher/Gateways.pm:245
 #, perl-brace-format
@@ -29,15 +29,17 @@ msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
 "failed, max={maxFailRatio}%)"
 msgstr ""
+"Шлюз {gw} отключен ({failRatio}% из '{type}' тесты из узла '{host}' "
+"провалены, max={maxFailRatio}%)"
 
 #: src/EBox/Event/Watcher/Gateways.pm:305
 #: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:2842
 msgid "WAN Failover"
-msgstr ""
+msgstr "Отказоустойчивая WAN"
 
 #: src/EBox/Event/Watcher/Gateways.pm:321
 msgid "Check if gateways are connected or disconnected."
-msgstr ""
+msgstr "Отметьте, если шлюз подключен или отключен"
 
 #: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2415
 #, perl-brace-format
@@ -78,7 +80,7 @@ msgstr "Внешний"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:108
 msgid "Configurable interface list"
-msgstr "Список застраиваемых интерфейсов"
+msgstr "Список настраиваемых интерфейсов"
 
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:115
 msgid "These are the interfaces which can be configured"
@@ -131,6 +133,8 @@ msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your Internet traffic through several links."
 msgstr ""
+"Вы можете добавить такое количество шлюзов, какое пожелаете. Это необходимо, "
+"если вы хотите распределить ваш трафик через несколько каналов."
 
 #: src/EBox/Model/GatewayTable.pm:143
 msgid "gateway"
@@ -200,25 +204,24 @@ msgid "static route"
 msgstr "статические маршруты"
 
 #: src/EBox/Model/WANFailoverRules.pm:53
-#, fuzzy
 msgid "Ping to gateway"
-msgstr "шлюз"
+msgstr "Пинг шлюза"
 
 #: src/EBox/Model/WANFailoverRules.pm:57
 msgid "Ping to host"
-msgstr ""
+msgstr "Пинг узла"
 
 #: src/EBox/Model/WANFailoverRules.pm:61
 msgid "DNS resolve"
-msgstr ""
+msgstr "Разрешение DNS"
 
 #: src/EBox/Model/WANFailoverRules.pm:65
 msgid "HTTP Request"
-msgstr ""
+msgstr "Запрос HTTP"
 
 #: src/EBox/Model/WANFailoverRules.pm:89
 msgid "Test type"
-msgstr ""
+msgstr "Тип теста"
 
 #: src/EBox/Model/WANFailoverRules.pm:95 src/EBox/CGI/Diag.pm:51
 #: src/EBox/CGI/Diag.pm:58 src/templates/diag.mas:14 src/templates/diag.mas:23
@@ -227,15 +230,15 @@ msgstr "Узел"
 
 #: src/EBox/Model/WANFailoverRules.pm:101
 msgid "Number of probes"
-msgstr ""
+msgstr "Число проб"
 
 #: src/EBox/Model/WANFailoverRules.pm:110
 msgid "Required success ratio"
-msgstr ""
+msgstr "Требуемое успешное завершения"
 
 #: src/EBox/Model/WANFailoverRules.pm:123
 msgid "Test rules"
-msgstr ""
+msgstr "Правила теста"
 
 #: src/EBox/Model/WANFailoverRules.pm:130
 msgid ""
@@ -243,6 +246,9 @@ msgid ""
 "one of the test fails the gateway will be disabled. It will be enabled again "
 "when all tests are passed."
 msgstr ""
+"Вы можете определить различные правила проверки нормальной работы шлюза. "
+"Если один из тестов не пройдет, шлюз будет отключен. Он будет снова включен, "
+"когда пройдут успешно все тесты."
 
 #: src/EBox/Model/WANFailoverRules.pm:131
 #: src/EBox/Model/MultiGwRulesOptions.pm:68
@@ -252,7 +258,7 @@ msgstr "правило"
 
 #: src/EBox/Model/WANFailoverRules.pm:179
 msgid "Invalid value for Host"
-msgstr ""
+msgstr "Неверное значение для узла"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
@@ -514,20 +520,19 @@ msgstr ""
 
 #: src/EBox/Model/WANFailoverOptions.pm:72
 msgid "Time between checks"
-msgstr ""
+msgstr "Время между проверками"
 
 #: src/EBox/Model/WANFailoverOptions.pm:73
-#, fuzzy
 msgid "seconds"
-msgstr "байт/сек."
+msgstr "сек."
 
 #: src/EBox/Model/WANFailoverOptions.pm:83
 msgid "Global options"
-msgstr ""
+msgstr "Общие настройки"
 
 #: src/EBox/Model/WANFailoverOptions.pm:87
 msgid "These options affect to all the tests."
-msgstr ""
+msgstr "Эти парметры влияют на все тесты"
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
 msgid "Network Diagnostic Tools"

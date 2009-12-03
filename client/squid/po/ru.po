@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:39+0100\n"
-"PO-Revision-Date: 2009-08-10 20:47+0200\n"
-"Last-Translator: Sergei Sedov <sedov@webmail.perm.ru>\n"
+"PO-Revision-Date: 2009-10-30 07:35+0100\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:56
@@ -357,14 +357,13 @@ msgid "Block not listed domains"
 msgstr "Блокировать не перечисленные домены"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
-#, fuzzy
 msgid ""
 "If this is enabled, any domain which is neither present neither in the "
 "<i>Domains rules</i> nor in the <i>Domain list files</i> sections below will "
 "be forbidden."
 msgstr ""
-"Если это включено, любой домен не перечисленный в <i>Список доменов</i>будет "
-"запрещен"
+"Если это включено, любой домен не перечисленный в <i>Список доменов</i> или "
+"<i>Правила доменов</i> будет запрещен"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:52
 msgid "Block sites specified only as IP"
@@ -517,9 +516,8 @@ msgid "You must supply a domains list"
 msgstr "Вы должны указать список доменов"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:221
-#, fuzzy
 msgid "Inexistent archive file"
-msgstr "Inexistent archive file"
+msgstr "В файле архива"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:243
 msgid ""
@@ -555,6 +553,9 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
+"Вы не можете  активировать антивирусный фильтр пока антивирусный модуль не "
+"установлен. Если вы хотите фильтровать вирусы, сначала установите его и  "
+"{openhref}активируйте его{closehref} затем возращайтесь сюда."
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:68
 msgid "Use default profile for domain filtering"
@@ -862,7 +863,7 @@ msgstr "до часа ..."
 
 #: src/EBox/Squid/Types/TimePeriod.pm:475
 msgid "You must specify two diffrent hours to the range"
-msgstr ""
+msgstr "Вы должны указывать различные часы в диапазоне"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:492
 #, perl-brace-format
@@ -887,7 +888,7 @@ msgstr ""
 #: src/EBox/Squid/Types/TimePeriod.pm:524
 #: src/EBox/Squid/Types/TimePeriod.pm:530
 msgid "The end of the range is greater than the begin"
-msgstr ""
+msgstr "Конец диапазона больше начала"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:554
 msgid "The time period must be at least active on one day"
@@ -968,44 +969,36 @@ msgid "Filter groups membership"
 msgstr ""
 
 #: src/EBox/Squid.pm:215
-#, fuzzy
 msgid "Content filter banned extension list"
-msgstr "Порог фильтра содержимого"
+msgstr "Список запрещенных расширений фильтра содержимого "
 
 #: src/EBox/Squid.pm:220
-#, fuzzy
 msgid "Content filter banned mime type list"
-msgstr "Порог фильтра содержимого"
+msgstr "Список запрещенных MIME типов фильтра содержимого"
 
 #: src/EBox/Squid.pm:225
-#, fuzzy
 msgid "Content filter exception site list"
-msgstr "Порог фильтра содержимого"
+msgstr "Список разрешенных сайтов фильтра содержимого"
 
 #: src/EBox/Squid.pm:230
-#, fuzzy
 msgid "Content filter grey site list"
-msgstr "Порог фильтра содержимого"
+msgstr "Серый список сайтов фильтра содержимого"
 
 #: src/EBox/Squid.pm:235
-#, fuzzy
 msgid "Content filter banned site list"
-msgstr "Порог фильтра содержимого"
+msgstr "Список запрещенных сайтов фильтра содержимого"
 
 #: src/EBox/Squid.pm:240
-#, fuzzy
 msgid "Content filter exception URL list"
-msgstr "Порог фильтра содержимого"
+msgstr "Список исключений URL фильтра содержимого"
 
 #: src/EBox/Squid.pm:245
-#, fuzzy
 msgid "Content filter grey URL list"
-msgstr "Порог фильтра содержимого"
+msgstr "Серый список URL фильтра содержимого"
 
 #: src/EBox/Squid.pm:250
-#, fuzzy
 msgid "Content filter banned URL list"
-msgstr "Порог фильтра содержимого"
+msgstr "Список запрещенных URL фильтра содержимого "
 
 #: src/EBox/Squid.pm:255
 msgid "Forbidden phrases list"
@@ -1013,15 +1006,15 @@ msgstr "Список запрещённых фраз"
 
 #: src/EBox/Squid.pm:260
 msgid "Exception phrases list"
-msgstr ""
+msgstr "Список фраз исключений"
 
 #: src/EBox/Squid.pm:265
 msgid "PICS ratings configuration"
-msgstr ""
+msgstr "Конфигурация оценок PICS"
 
 #: src/EBox/Squid.pm:270
 msgid "Dansguardian's log rotation configuration"
-msgstr ""
+msgstr "Конфигурация ротации журналов Dansguardian"
 
 #: src/EBox/Squid.pm:306
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -1052,14 +1045,12 @@ msgid "Objects' Policy"
 msgstr "Политика объектов"
 
 #: src/EBox/Squid.pm:978
-#, fuzzy
 msgid "Groups' Policy"
-msgstr "Политика объектов"
+msgstr "Групповая политика"
 
 #: src/EBox/Squid.pm:981
-#, fuzzy
 msgid "Filter Profiles"
-msgstr "Отфильтровано запросов"
+msgstr "Профили фильтра"
 
 #: src/EBox/Squid.pm:1013
 msgid "Host"
@@ -1099,11 +1090,11 @@ msgstr "HTTP прокси файлы в кеше "
 
 #: src/templates/ajax/setter/timePeriod.mas:16
 msgid "From"
-msgstr ""
+msgstr "От"
 
 #: src/templates/ajax/setter/timePeriod.mas:21
 msgid "To"
-msgstr ""
+msgstr "К"
 
 #: src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"

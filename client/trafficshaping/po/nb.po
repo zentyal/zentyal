@@ -1,3 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-09-30 17:37+0200\n"
+"PO-Revision-Date: 2009-09-30 17:40+0200\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"X-Generator: Pootle 1.1.0\n"
+
 # Norwegian Bokmal translations for ebox-trafficshaping package.
 # Copyright (C) 2008 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
@@ -20,32 +33,30 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:83
-#, fuzzy
 msgid "External Interface"
-msgstr "{iface} (eksternt grensesnitt)"
+msgstr "Eksternt Grensesnitt"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:88
 msgid "Upload"
-msgstr ""
+msgstr "Opplasting"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:92
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:100
 msgid "Upload rate in Kbits/s for through this interface"
-msgstr ""
+msgstr "Opplastings rate i Kbits/s for dette grensesnittet"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:96
 msgid "Download"
-msgstr ""
+msgstr "Nedlasting"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:108
-#, fuzzy
 msgid "External Interface Rates"
-msgstr "{iface} (eksternt grensesnitt)"
+msgstr "Eksternt Grensesnitt Rater"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
 msgid "rate"
-msgstr ""
+msgstr "rate"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
@@ -340,14 +351,12 @@ msgid "To implement the traffic shaping rules"
 msgstr "For å implementere trafikk formings regler"
 
 #: src/EBox/TrafficShaping.pm:363
-#, fuzzy
 msgid "Rules"
-msgstr "regel"
+msgstr "Regeler"
 
 #: src/EBox/TrafficShaping.pm:365
-#, fuzzy
 msgid "Interface Rates"
-msgstr "Grensesnitt"
+msgstr "Grensesnitt Rater"
 
 #: src/EBox/TrafficShaping.pm:433
 #, perl-brace-format

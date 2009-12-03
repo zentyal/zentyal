@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:33+0100\n"
-"PO-Revision-Date: 2009-05-07 19:36+0200\n"
-"Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
+"PO-Revision-Date: 2009-11-12 17:17+0100\n"
+"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -114,15 +114,13 @@ msgstr "A configuração de expedição de correio foi actualizada"
 #: src/EBox/Mail/Model/VDomainAliases.pm:57
 #: src/EBox/Mail/Model/VDomainAliases.pm:69 src/EBox/Mail/Model/VDomains.pm:64
 msgid "Aliases"
-msgstr ""
+msgstr "Pseudónimos"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:78
-#, fuzzy
 msgid "virtual domain alias"
-msgstr "domínio virtual"
+msgstr "pseudónimo do domínio virtual"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:80
-#, fuzzy
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr ""
 "Foi adicionado um domínio virtual. Deve guardar as alterações para usar este "
@@ -173,13 +171,12 @@ msgid "Allow relay"
 msgstr "Permitir encaminhamento"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:99
-#, fuzzy
 msgid ""
 "Check this option to allow the machines within the above object to send "
 "mails through this server"
 msgstr ""
-"Marque para permitir que as máquinas pertencentes a esta objecto enviem "
-"correio através deste servidor"
+"Marque esta opção para permitir que as máquinas pertencentes a esta objecto "
+"enviem correio através deste servidor"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:108
 msgid "Relay policy for network objects"
@@ -204,6 +201,8 @@ msgstr "Smarthost para enviar correio"
 #: src/EBox/Mail/Model/SMTPOptions.pm:76
 msgid "The format is host[:port] being port set to 25 if none is supplied"
 msgstr ""
+"O formato é hospedeiro:[porto] sendo o porto definido para 25 se não for "
+"fornecido"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:82
 msgid "Smarthost authentication"
@@ -245,11 +244,11 @@ msgstr "Opções"
 #: src/EBox/Mail/Model/SMTPOptions.pm:196
 #: src/EBox/Mail/Model/SMTPOptions.pm:200
 msgid "Smarthost's address"
-msgstr ""
+msgstr "Endereço do smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:197
 msgid "Smarthost's port"
-msgstr ""
+msgstr "Porto do smarthost"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
 msgid "Enabled"
@@ -261,14 +260,13 @@ msgstr "Duração da greylist (segundos)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:71
 msgid "During this interval, the mail sender is deferred"
-msgstr ""
+msgstr "Durante este intervalo o crreio do remetente é deferido"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:79
 msgid "Retry window (hours)"
 msgstr "Janela de nova tentativa (horas)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:80
-#, fuzzy
 msgid ""
 "Time that mail sender has to retry to be added before it will be greylisted "
 "again"
@@ -281,7 +279,6 @@ msgid "Entries time to live (days)"
 msgstr "Tempo máximo das mensagens na greylist"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:90
-#, fuzzy
 msgid "Period till unseen entries will be deleted"
 msgstr "Período em que as mensagens sem confirmação deverão ser apagadas"
 
@@ -290,19 +287,17 @@ msgid "Greylist configuration"
 msgstr "Configuração da greylist"
 
 #: src/EBox/Mail/Greylist.pm:55
-#, fuzzy
 msgid "Configure whitelist for greylisting"
-msgstr "Para configurar a lista branca para o funcionamento do graylist"
+msgstr "Configurar a lista branca para o funcionamento do graylist"
 
 #: src/EBox/Mail/Greylist.pm:279
-#, fuzzy
 msgid "Greylist service"
-msgstr "Foi colocado no greylist"
+msgstr "Serviço greylist"
 
 #: src/EBox/Mail/Composite/General.pm:77
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
 msgid "Mail server options"
-msgstr "Configuração do servidor de correio"
+msgstr "Opções do servidor de correio"
 
 #: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/DelAccount.pm:42
 #: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/CreateAlias.pm:42
@@ -359,14 +354,13 @@ msgid "mail account"
 msgstr "conta de correio"
 
 #: src/EBox/MailAliasLdap.pm:130 src/EBox/MailAliasLdap.pm:150
-#, fuzzy
 msgid "Domain alias"
-msgstr "pseudónimo de correio"
+msgstr "pseudónimo do domínio"
 
 #: src/EBox/MailAliasLdap.pm:135 src/EBox/MailAliasLdap.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Mail domain {d} does not exists"
-msgstr "A conta não existe"
+msgstr "O domínio de correio {d} não existe"
 
 #: src/EBox/MailAliasLdap.pm:142
 #, perl-brace-format
@@ -374,6 +368,8 @@ msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
+"Não é possivel usar {d} como pseudónimo para um domínio de correio porque o "
+"nome já existe"
 
 #: src/EBox/MailAliasLdap.pm:256 src/EBox/MailAliasLdap.pm:286
 #: src/EBox/MailAliasLdap.pm:321
@@ -386,15 +382,16 @@ msgstr "Este grupo tem um pseudónimo de correio"
 
 #: src/EBox/MailUserLdap.pm:333
 msgid "This user has a mail account"
-msgstr "Este utilizador tem uma conta de correio"
+msgstr "Este utilizador tem conta de correio"
 
 #: src/EBox/MailUserLdap.pm:597
 #, perl-brace-format
 msgid "Cannot create user account: mail directory {d} aready exists"
 msgstr ""
+"Não é possível criar uma conta de utilizador: o directório de correio já "
+"existe"
 
 #: src/EBox/Mail.pm:118
-#, fuzzy
 msgid "Generate mail aliases"
 msgstr "Gerar pseudónimos de correio"
 
@@ -408,18 +405,16 @@ msgid "Add LDAP schemas"
 msgstr "Adicionar esquemas LDAP"
 
 #: src/EBox/Mail.pm:127
-#, fuzzy
 msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr "A eBox adicioanrá dois esquemas LDAP: {schema1} e {schema2}"
+msgstr "A eBox adicioanrá dois esquemas LDAP: authldap.ldif e eboximail.ldif"
 
 #: src/EBox/Mail.pm:133
-#, fuzzy
 msgid "Create certificates"
-msgstr "Criar pseudónimos de correio"
+msgstr "Criar ceritficados"
 
 #: src/EBox/Mail.pm:135
 msgid "eBox will create certificates to use in mail services"
-msgstr ""
+msgstr "A Ebox criará os certificados para usar nos serviços de correio"
 
 #: src/EBox/Mail.pm:155
 msgid "To configure postfix"
@@ -427,21 +422,19 @@ msgstr "Para configurar o postfix"
 
 #: src/EBox/Mail.pm:161
 msgid "To define how client programs connect to services in  postfix"
-msgstr "para definir como os clientes se ligarão ao postfix"
+msgstr "Para definir como os clientes se ligarão ao postfix"
 
 #: src/EBox/Mail.pm:168
-#, fuzzy
 msgid "To configure dovecot"
-msgstr "Para configurar o postfix"
+msgstr "Para configurar o dovecot"
 
 #: src/EBox/Mail.pm:173
-#, fuzzy
 msgid "To configure dovecot to authenticate against LDAP"
-msgstr "Para configurar a autenticação do courrier no LDAP"
+msgstr "Para configurar a autenticação do dovecot no LDAP"
 
 #: src/EBox/Mail.pm:178
 msgid "To configure smart host authentication"
-msgstr "para configurar a autenticação no smarthost"
+msgstr "Para configurar a autenticação no smarthost"
 
 #: src/EBox/Mail.pm:620
 msgid "Cannot change this parameter for a non-custom filter"
@@ -454,36 +447,32 @@ msgstr ""
 "O filtro de correio não existe. Defina outro filtro de correio ou desligue-o"
 
 #: src/EBox/Mail.pm:663
-#, fuzzy
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
-"O filtro de correio {name} não está activo. Defina outro filtro de correio o "
+"O filtro de correio $name não está activo. Defina outro filtro de correio ou "
 "desligue-o"
 
 #: src/EBox/Mail.pm:1074
-#, fuzzy
 msgid "SMTP service"
-msgstr "Serviço IMAP"
+msgstr "Serviço SMTP"
 
 #: src/EBox/Mail.pm:1081
 msgid "POP3 service"
 msgstr "Serviço POP3"
 
 #: src/EBox/Mail.pm:1087
-#, fuzzy
 msgid "POP3S service"
-msgstr "Serviço POP3"
+msgstr "Serviço POP3S"
 
 #: src/EBox/Mail.pm:1093
 msgid "IMAP service"
 msgstr "Serviço IMAP"
 
 #: src/EBox/Mail.pm:1099
-#, fuzzy
 msgid "IMAPS service"
-msgstr "Serviço IMAP"
+msgstr "Serviço IMAPS"
 
 #: src/EBox/Mail.pm:1140
 msgid "enabled"
@@ -518,7 +507,6 @@ msgid "General"
 msgstr "Geral"
 
 #: src/EBox/Mail.pm:1197
-#, fuzzy
 msgid "Virtual Mail Domains"
 msgstr "Domínios de correio virtuais"
 
@@ -591,9 +579,8 @@ msgid "Authentication error"
 msgstr "Erro de autenticação"
 
 #: src/EBox/Mail.pm:1258
-#, fuzzy
 msgid "Greylisted"
-msgstr "Greylist"
+msgstr "Colocado na Greylist"
 
 #: src/EBox/Mail.pm:1259
 msgid "Other events"
@@ -604,9 +591,8 @@ msgid "Mailboxes"
 msgstr "Caixas de correio"
 
 #: src/EBox/Mail.pm:1446
-#, fuzzy
 msgid "Mail SMTP server"
-msgstr "Serviços de e-mai"
+msgstr "Servidor de correio SMTP"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"

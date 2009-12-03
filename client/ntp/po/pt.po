@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:21+0100\n"
-"PO-Revision-Date: 2009-03-10 23:19+0000\n"
+"PO-Revision-Date: 2009-11-04 23:57+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Time Zone Configuration"
-msgstr ""
+msgstr "Configuração da zona horária"
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
@@ -76,9 +76,8 @@ msgid "external synchronize status"
 msgstr "estado da sincronização externa"
 
 #: src/EBox/CGI/Datetime.pm:30
-#, fuzzy
 msgid "Date and Time Configuration"
-msgstr "Definições da data e hora"
+msgstr "Definições de data e hora"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
@@ -123,22 +122,20 @@ msgid "System"
 msgstr "Sistema"
 
 #: src/EBox/NTP.pm:402
-#, fuzzy
 msgid "Date/Time"
 msgstr "Data/hora"
 
 #: src/EBox/NTP.pm:405
-#, fuzzy
 msgid "Time Zone"
 msgstr "Zona horária"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
-msgstr "Desactivar"
+msgstr "Inactivo"
 
 #: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
-msgstr "Activar"
+msgstr "Activo"
 
 #: src/templates/synch.mas:19 src/templates/synch.mas:20
 #: src/templates/timezone.mas:33 src/templates/timezone.mas:34
@@ -160,7 +157,6 @@ msgstr ""
 "correctamente "
 
 #: src/templates/date.mas:10
-#, fuzzy
 msgid ""
 "A change in the date or time will cause all eBox services to be restarted."
 msgstr "A alteração da data ou hora reiniciará todos os serviços da eBox"

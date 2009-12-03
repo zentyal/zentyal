@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:38+0100\n"
-"PO-Revision-Date: 2009-08-05 18:04+0200\n"
-"Last-Translator: Shafeek SUMSER <shafeek@futuredist.com>\n"
+"PO-Revision-Date: 2009-09-30 17:19+0200\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: src/EBox/OpenVPN.pm:70
 msgid "VPN"
-msgstr "VPN"
+msgstr "RPV (VPN)"
 
 #: src/EBox/OpenVPN.pm:148
 msgid "To configure Quagga to run ripd and zebra"
@@ -33,10 +33,9 @@ msgid "Main zebra configuration file"
 msgstr "Fichier de configuration principal de zebra"
 
 #: src/EBox/OpenVPN.pm:165
-#, fuzzy
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr ""
-"Pour configurer ripd afin d'échanger les routes des connexions client à "
+"Pour configurer \"ripd\" afin d'échanger les routes des connexions client à "
 "client"
 
 #: src/EBox/OpenVPN.pm:666
@@ -69,13 +68,13 @@ msgstr ""
 "pour une utilisation interne"
 
 #: src/EBox/OpenVPN.pm:721
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Invalid name {name}. A internal daemon must have a name which begins with "
 "the prefix {pf}"
 msgstr ""
-"Nom invalide {name}. Un service système doit avoir un nom commençant par le "
-"préfixe {pf}"
+"Nom invalide {name}. Un service système (internal daemon) doit avoir un nom "
+"commençant par le préfixe {pf}"
 
 #: src/EBox/OpenVPN.pm:1439
 #, perl-brace-format
@@ -104,7 +103,7 @@ msgstr "Connecté depuis"
 
 #: src/EBox/OpenVPN.pm:1513
 msgid "No users connected to the VPN"
-msgstr "Aucun utilisateur n'est connecté au VPN"
+msgstr "Aucun utilisateur n'est connecté au RPV (VPN)"
 
 #: src/EBox/OpenVPN.pm:1554
 msgid "OpenVPN daemons"
@@ -168,7 +167,7 @@ msgstr "OpenVPN"
 
 #: src/EBox/OpenVPN.pm:1669
 msgid "You must set insecure_rip_conf to yes or no"
-msgstr ""
+msgstr "Vous devez définir \"insecure_rip_conf\" à oui ou non"
 
 #: src/EBox/OpenVPN/Server.pm:84
 #, perl-brace-format
@@ -264,35 +263,37 @@ msgstr "Port"
 
 #: src/EBox/OpenVPN/Server.pm:711
 msgid "VPN subnet"
-msgstr "Sous-réseau VPN"
+msgstr "Sous-réseau RPV (VPN)"
 
 #: src/EBox/OpenVPN/Server.pm:714
 msgid "VPN network interface"
-msgstr "Interface réseau VPN"
+msgstr "Interface réseau RPV (VPN)"
 
 #: src/EBox/OpenVPN/Server.pm:718 src/EBox/OpenVPN/Server.pm:720
 #: src/EBox/OpenVPN/Client.pm:329 src/EBox/OpenVPN/Client.pm:331
 msgid "VPN interface address"
-msgstr "adresse de l'interface VPN"
+msgstr "adresse de l'interface RPV (VPN)"
 
 #: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:331
 msgid "No active"
 msgstr "Non actif"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:31
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "Fichier introuvable {path}"
+msgstr "Fichier de certification CA inexistant {p}"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:38
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "Modifier le certificat du client"
+msgstr "Fichier de certificat client inexistant {p}"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:45
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "Fichier de clé privée de certificat inexistant"
+msgstr ""
+"Fichier de certificat de clé privée inexistant {p} (certificate's private "
+"key file)"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
@@ -334,15 +335,13 @@ msgstr "Configuration "
 
 #: src/EBox/OpenVPN/Model/Servers.pm:85
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:70
-#, fuzzy
 msgid "Advertised networks"
-msgstr "Réseaux diffusés"
+msgstr "Réseaux publiés (Advertised networks)"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:94
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
-#, fuzzy
 msgid "Download client bundle"
-msgstr "Télécharger le fichier paquet du client"
+msgstr "Télécharger le paquetage client (client bundle)"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
@@ -350,7 +349,7 @@ msgstr "Liste des serveurs"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:107
 msgid "VPN servers"
-msgstr "Serveurs VPN"
+msgstr "Serveurs RPV (VPN)"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:113
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:148
@@ -365,6 +364,11 @@ msgid ""
 "authority module{closehref} and create new certificates.{closepar}{openpar}"
 "You will need, at least, one CA and one certificate.{closepar}"
 msgstr ""
+"{openpar}Vous ne pouvez pas créer un serveur RPV (VPN), car il n'y a pas "
+"assez de certificats.{closepar}{openpar}Veuillez aller au {openhref}module "
+"d'autorité de certification{closehref} et créer un nouveau certificat. "
+"{closepar}{openpar}. Vous avez besoin d'au moins un CA et un "
+"certificat.{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:173
 msgid "Server creation"
@@ -388,6 +392,8 @@ msgid ""
 "{act} not possible because there aren'tany available certificate. Please, go "
 "tothe certificate authority moduleand create new certificates"
 msgstr ""
+"{act} impossible car il n'y a aucun certificat disponible. Veuiller allez au "
+"module d'autorité de certification pour en créer un nouveau"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
 #, perl-brace-format
@@ -399,27 +405,34 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
+"{openpar}Vous pouvez configurer le serveur \"openVPN\" pour facilement "
+"connecter des bureaux ou utilisateurs distants.{closepar}{openpar} Cliquer "
+"sur {openit}Configuration{closeit} pour définir les paramètres du RPV "
+"(VPN).{closepar}{openpar}{openit}Réseaux diffusés (Advertised "
+"networks){closeit} vous permet de configurer quels réseaux vous désirer "
+"rendre accessibles aux utilisateurs distants.{openpar} Une fois la "
+"configuration terminée, vous pouvez télécharger un paquetage de "
+"configuration pour vos utilisateurs distants."
 
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:60
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:76
-#, fuzzy
 msgid "Advertised network"
-msgstr "Réseau diffusé"
+msgstr "Réseau diffusé (Advertised network)"
 
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:69
 msgid "List of networks"
 msgstr "Liste des réseaux"
 
 #: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:90
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
 "access to your LAN by advertising its network address here{closepar}"
 msgstr ""
-"{openpar} Vous pouvez ajouter ici les réseaux depuis lesquels les clients "
-"pourront se connecter à ce VPN.{closepar} {openpar} En résumé, vous allez "
-"autoriser l'accès à votre LAN en publiant ici sont adresse réseau{closepar}"
+"{openpar} Vous pouvez ajouter ici les réseaux accessibles au clients RPV "
+"(VPN).{closepar} {openpar} Typiquement, vous allez autoriser l'accès à votre "
+"LAN en publiant ici sont adresse réseau{closepar}"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:93
@@ -428,7 +441,7 @@ msgstr "Port du serveur"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 msgid "VPN address"
-msgstr "Adresse du VPN"
+msgstr "Adresse du RPV (VPN)"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:81
 msgid "Use a network address which is not used by this machine"
@@ -463,7 +476,8 @@ msgstr "Accepter les connexion client à client"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Enable it to allow client machines of this VPN to see each other"
-msgstr "Activer le pour autoriser les machines clientes de ce VPN à se voir"
+msgstr ""
+"Activez-le pour autoriser les machines clientes de ce RPV (VPN) à se voir"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
 msgid "Allow eBox-to-eBox tunnels"
@@ -471,7 +485,8 @@ msgstr "Accepte les tunnels eBox-à-eBox"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:119
 msgid "Enable it if this VPN is used to connect to another eBox"
-msgstr "Activez-le si ce VPN est utilisé pour se connecter à un autre eBox"
+msgstr ""
+"Activez-le si ce RPV (VPN) est utilisé pour se connecter à un autre eBox"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:124
 msgid "eBox-to-eBox tunnel password"
@@ -517,7 +532,7 @@ msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
-"Impossible d'utiliser le NAT car il requière le module firewall. Le module "
+"Impossible d'utiliser le NAT car il requière le module Pare-feu . Le module "
 "n'est pas installé ou activé"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:418
@@ -525,7 +540,7 @@ msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
-"Impossible d'utiliser le NAT car il requière que le module firewall soit "
+"Impossible d'utiliser le NAT car il requière que le module Pare-feu  soit "
 "activé. Veuillez l'activer et réessayez"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:450
@@ -537,17 +552,14 @@ msgstr ""
 "sans que l'option NAT soit activée"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:459
-#, fuzzy
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
-msgstr ""
-"Au moins une interface externe est nécessaire pour se connecter au serveur "
-"sans que l'option NAT soit activée"
+msgstr "L'interface doit être externe, à moins que l'option NAT soit active"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
 msgid "VPN clients"
-msgstr "Clients VPN"
+msgstr "Clients RPV (VPN)"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:100
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
@@ -563,32 +575,29 @@ msgstr ""
 "Veuillez éditer la configuration et réessayez"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:180
-#, fuzzy
 msgid "RIP password is mandatory"
-msgstr "Le mot de passe RIP est obligatoire"
+msgstr "Le RIP du mot de passe (RIP password) est obligatoire"
 
+# Un démon ou daemon prononcé /ˈdiːmən/ ou /ˈdeɪmən/, du grec δαιμων) désigne un type de programme informatique, un processus qui s'exécute en arrière-plan plutôt que sous le contrôle direct d'un utilisateur.
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
-#, fuzzy
 msgid "Deleted daemons"
-msgstr "Démons supprimés"
+msgstr "Démons (daemons) supprimés"
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
 msgid "daemon"
-msgstr "Démon"
+msgstr "Démon (daemon)"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
-#, fuzzy
 msgid "Manual Configuration"
-msgstr "Configuration "
+msgstr "Configuration manuelle"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
 msgid "eBox bundle"
-msgstr ""
+msgstr "Paquetage eBox"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:78
-#, fuzzy
 msgid "Upload configuration's bundle"
-msgstr "Configuration du client {name} mis-à-jour"
+msgstr "Envoi du paquetage de configuration"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
 msgid "Server"
@@ -621,13 +630,12 @@ msgid "No file supplied or already setted for {f}"
 msgstr "Aucun fichier spécifié ou déjà utilisé pour {f}."
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
-#, fuzzy
 msgid "Client's type"
-msgstr "Type de clients"
+msgstr "Type de clients (Client's type)"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
 msgid "Add OpenVPN's installer to bundle"
-msgstr "Ajouter l'installation d'OpenVPN au paquet"
+msgstr "Ajouter l'installation d'OpenVPN au paquetage"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
 msgid "OpenVPN installer for Microsoft Windows"
@@ -651,9 +659,8 @@ msgid "Additional server address (optional)"
 msgstr "Adresse supplémentaire du serveur (optionnelle)"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
-#, fuzzy
 msgid "Configure bundle"
-msgstr "Configuration du client {name} mis-à-jour"
+msgstr "Configurer le paquetage"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
 msgid "EBox to EBox tunnel"
@@ -664,11 +671,12 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
+"Impossible de créer un paquetage car le serveur n'est pas complètement "
+"configuré. Veuillez éditer sa configuration et recommencer"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
-#, fuzzy
 msgid "Cannot use for the bundle the server's certificate"
-msgstr "Clef privée utilisée pour déverrouiller le certificat client"
+msgstr "Impossible le certificat du serveur pour le paquetage"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
 msgid "Invalid client type: the server does not allow eBox-to-eBox tunnels"
@@ -678,6 +686,8 @@ msgstr ""
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:219
 msgid "Invalid client type: the server is intended for eBox-to-eBox tunnels"
 msgstr ""
+"Type de client invalide : le serveur est destiné pour des tunnels entre "
+"machines eBox"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
 msgid "Installer is only available for Windows clients"
@@ -688,15 +698,16 @@ msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
+"Un paquetage client est un fichier qui contient une configuration prête à "
+"l'emploi pour vos clients"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:335
-#, fuzzy
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
-"Impossible d'activer le serveur car il n'est pas totalement configuré; "
-"Éditez la configuration et essayez de nouveau"
+"Impossible de créer le paquetage car le serveur n'est pas complètement "
+"configuré. Veuillez compléter sa configuration et recommencer"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"

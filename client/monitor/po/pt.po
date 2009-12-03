@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-09-26 19:33+0100\n"
-"PO-Revision-Date: 2009-03-10 23:38+0000\n"
+"PO-Revision-Date: 2009-11-11 19:32+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,8 @@ msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
 "Status section{closehref}"
 msgstr ""
+"Deve activar o monitor para ver os gráficos em {openhref}secção do Módulo de "
+"estado{closehref}"
 
 #: src/EBox/CGI/Index.pm:99
 #, perl-brace-format
@@ -72,6 +74,9 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
+"Deve guardar as alterações no módulo de estado para ver os gráficos do "
+"monitor na secção {openhref}Save changes{closehref}. Em caso de já estar "
+"activado deve esperar alguns segundos pela primeira recolha de dados"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:104
 #: src/EBox/Monitor/Measure/Thermal.pm:110
