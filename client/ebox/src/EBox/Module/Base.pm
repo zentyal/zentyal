@@ -1,5 +1,6 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
 # Copyright (C) 2006-2008 Warp Networks S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -38,40 +39,40 @@ use Error qw(:try);
 
 # Method: _create
 #
-#   	Base constructor for a module
+#   Base constructor for a module
 #
 # Parameters:
 #
-#       name - String module's name
-#	domain - String locale domain
-#       printableName - String printable module's name
-#       title - String the module's title
+#   name - String module's name
+#   domain - String locale domain
+#   printableName - String printable module's name
+#   title - String the module's title
 #
 # Returns:
 #
-#       EBox::Module instance
+#   EBox::Module instance
 #
 # Exceptions:
 #
-#      	Internal - If no name is provided
+#   Internal - If no name is provided
 sub _create # (name, domain?)
 {
-	my $class = shift;
-	my %opts = @_;
-	my $self = {};
-	$self->{name} = delete $opts{name};
-	$self->{domain} = delete $opts{domain};
-	$self->{title} = delete $opts{title};
+    my $class = shift;
+    my %opts = @_;
+    my $self = {};
+    $self->{name} = delete $opts{name};
+    $self->{domain} = delete $opts{domain};
+    $self->{title} = delete $opts{title};
     $self->{printableName} = delete $opts{printableName};
-	unless (defined($self->{name})) {
-		use Devel::StackTrace;
-		my $trace = Devel::StackTrace->new;
-		print STDERR $trace->as_string;
-		throw EBox::Exceptions::Internal(
-			"No name provided on Module creation");
-	}
-	bless($self, $class);
-	return $self;
+    unless (defined($self->{name})) {
+        use Devel::StackTrace;
+        my $trace = Devel::StackTrace->new;
+        print STDERR $trace->as_string;
+        throw EBox::Exceptions::Internal(
+            "No name provided on Module creation");
+    }
+    bless($self, $class);
+    return $self;
 }
 
 # Method: info
@@ -84,72 +85,95 @@ sub info
     return EBox::Global::readModInfo($self->{name});
 }
 
+# Method: depends
+#
+#       Return an array ref with the names of the modules that this
+#       module depends on
+#
+# Returns:
+#
+#       array ref - holding the names of the modules that the requested module
+#
+sub depends
+{
+    my ($self) = @_;
+
+    my $info = $self->info();
+    my @list = map {s/^\s+//; $_} @{$info->{'depends'}};
+    if (@list) {
+        return \@list;
+    } else {
+        return [];
+    }
+}
+
+
 # Method: revokeConfig
 #
-#   	Base method to revoke config. It just notifies that he module has been
-#   	restarted.
+#       Base method to revoke config. It just notifies that he module has been
+#       restarted.
 #       It should be overriden by subclasses as needed
 #
 sub revokeConfig
 {
-	my $self = shift;
-	my $global = EBox::Global->getInstance();
+    my $self = shift;
+    my $global = EBox::Global->getInstance();
 
-	$global->modIsChanged($self->name) or return;
-	$global->modRestarted($self->name);
+    $global->modIsChanged($self->name) or return;
+    $global->modRestarted($self->name);
 }
 
 # Method: _saveConfig
 #
-#   	Base method to save configuration. It should be overriden
-#	by subclasses as needed
+#   Base method to save configuration. It should be overriden
+#   by subclasses as needed
 #
 sub _saveConfig
 {
-	# default empty implementation. It should be overriden by subclasses as
-	# needed
+    # default empty implementation. It should be overriden by subclasses as
+    # needed
 }
 
 # Method: save
 #
-#	Sets a module as saved. This implies a call to _regenConfig and set
-#	the module as saved and unlock it.
+#   Sets a module as saved. This implies a call to _regenConfig and set
+#   the module as saved and unlock it.
 #
 sub save
 {
-	my $self = shift;
+    my $self = shift;
 
-	$self->_lock();
-	my $global = EBox::Global->getInstance();
-	my $log = EBox::logger;
-	$log->info("Restarting service for module: " . $self->name);
-	$self->_saveConfig();
-	try {
-		$self->_regenConfig();
-	} finally {
-		$global->modRestarted($self->name);
-		$self->_unlock();
-	};
+    $self->_lock();
+    my $global = EBox::Global->getInstance();
+    my $log = EBox::logger;
+    $log->info("Restarting service for module: " . $self->name);
+    $self->_saveConfig();
+    try {
+        $self->_regenConfig();
+    } finally {
+        $global->modRestarted($self->name);
+        $self->_unlock();
+    };
 }
 
 # Method: saveConfig
 #
-#	Save module config, but do not call _regenConfig
+#   Save module config, but do not call _regenConfig
 #
 sub saveConfig
 {
-	my $self = shift;
+    my $self = shift;
 
-	$self->_lock();
-	try {
-	  my $global = EBox::Global->getInstance();
-	  my $log = EBox::logger;
-	  $log->info("Restarting service for module: " . $self->name);
-	  $self->_saveConfig();
-	}
-	finally {
-	  $self->_unlock();
-	};
+    $self->_lock();
+    try {
+      my $global = EBox::Global->getInstance();
+      my $log = EBox::logger;
+      $log->info("Restarting service for module: " . $self->name);
+      $self->_saveConfig();
+    }
+    finally {
+      $self->_unlock();
+    };
 }
 
 # Method: saveConfigRecursive
@@ -343,7 +367,7 @@ sub _bak_file_from_dir
 #   this method should be override by any module that depends on another module/s  to be restored from a backup
 #
 # Returns:
-#	a reference to a list with the names of required eBox modules for a sucesful restore. (default: none)
+#   a reference to a list with the names of required eBox modules for a sucesful restore. (default: none)
 #
 #
 sub restoreDependencies
@@ -438,32 +462,32 @@ sub initChangedState
 #
 # Method: name
 #
-#	Return the module name of the current module instance
+#   Return the module name of the current module instance
 #
 # Returns:
 #
-#      	strings - name
+#       strings - name
 #
 sub name
 {
-	my $self = shift;
-	return $self->{name};
+    my $self = shift;
+    return $self->{name};
 }
 
 #
 # Method: setName
 #
-#	Set the module name for the current module instance
+#   Set the module name for the current module instance
 #
 # Parameters:
 #
-#      	name - module name
+#   name - module name
 #
 sub setName # (name)
 {
-	my $self = shift;
-	my $name = shift;
-	$self->{name} = $name;
+    my $self = shift;
+    my $name = shift;
+    $self->{name} = $name;
 }
 
 # Method: printableName
@@ -510,72 +534,72 @@ sub setPrintableName
 #
 # Method: title
 #
-#	Returns the module title of the current module instance
+#   Returns the module title of the current module instance
 #
 # Returns:
 #
-#      	string - title or name if title was not provided
+#   string - title or name if title was not provided
 #
 sub title
 {
-	my ($self) = @_;
-	if(defined($self->{title})) {
-		return $self->{title};
-	} else {
-		return $self->{name};
-	}
+    my ($self) = @_;
+    if(defined($self->{title})) {
+        return $self->{title};
+    } else {
+        return $self->{name};
+    }
 }
 
 #
 # Method: setTitle
 #
-#	Sets the module title for the current module instance
+#   Sets the module title for the current module instance
 #
 # Parameters:
 #
-#      	title - module title
+#   title - module title
 #
 sub setTitle # (title)
 {
-	my ($self,$title) = @_;
-	$self->{title} = $title;
+    my ($self,$title) = @_;
+    $self->{title} = $title;
 }
 
 #
 # Method: actionMessage
 #
-#	Gets the action message for an action
+#   Gets the action message for an action
 #
 # Parameters:
 #
-# 	action - action name
+#   action - action name
 sub actionMessage
 {
-	my ($self,$action) = @_;
-	if(defined($self->{'actions'})) {
-		return $self->{'actions'}->{$action};
-	} else {
-		return $action;
-	}
+    my ($self,$action) = @_;
+    if(defined($self->{'actions'})) {
+        return $self->{'actions'}->{$action};
+    } else {
+        return $action;
+    }
 }
 
 #
 # Method: menu
 #
-#	This method returns the menu for the module. What it returns
-#	it will be added up to the interface's menu. It should be
-#	overriden by subclasses as needed
+#   This method returns the menu for the module. What it returns
+#   it will be added up to the interface's menu. It should be
+#   overriden by subclasses as needed
 sub menu
 {
-	# default empty implementation
-	return undef;
+    # default empty implementation
+    return undef;
 }
 
 #
 # Method: widgets
 #
-#	Return the widget names for the module. It should be overriden by
-#	subclasses as needed
+#   Return the widget names for the module. It should be overriden by
+#   subclasses as needed
 #
 # Returns:
 #
@@ -590,17 +614,16 @@ sub menu
 #   the widget function. This is intended to allow the dynamic creation of
 #   several widgets.
 #
-
 sub widgets
 {
-	# default empty implementation
-	return {};
+    # default empty implementation
+    return {};
 }
 
 #
 # Method: widget
 #
-#	Return the appropriate widget if exists or undef otherwise
+#   Return the appropriate widget if exists or undef otherwise
 #
 # Parameters:
 #       name - the widget name
@@ -609,7 +632,6 @@ sub widgets
 #
 #       <EBox::Dashboard::Widget> with the appropriate widget
 #
-
 sub widget
 {
     my ($self, $name) = @_;
@@ -631,9 +653,9 @@ sub widget
 #
 # Method: statusSummary
 #
-#	Return the status summary for the module. What it returns will
-#	be added up to the common status summary page. It should be overriden by
-#	subclasses as needed.
+#   Return the status summary for the module. What it returns will
+#   be added up to the common status summary page. It should be overriden by
+#   subclasses as needed.
 #
 # Returns:
 #
@@ -641,81 +663,81 @@ sub widget
 #
 sub statusSummary
 {
-	# default empty implementation
-	return undef;
+    # default empty implementation
+    return undef;
 }
 
 #
 # Method: domain
 #
-#	Returns the locale domain for the current module instance
+#   Returns the locale domain for the current module instance
 #
 # Returns:
 #
-#      	strings - locale domain
+#   strings - locale domain
 #
 sub domain
 {
-	my $self = shift;
+    my $self = shift;
 
-	if (defined $self->{domain}){
-		return $self->{domain};
-	} else {
-		return 'ebox';
-	}
+    if (defined $self->{domain}){
+        return $self->{domain};
+    } else {
+        return 'ebox';
+    }
 }
 
 # Method: package
 #
-#	Returns the package name
+#   Returns the package name
 #
 # Returns:
 #
-#      	strings - package name
+#   strings - package name
 #
 # TODO Change domain  for package which
 # is more general. But we must ensure no module uses it directly
 sub package
 {
-	my $self = shift;
+    my $self = shift;
 
-	return $self->domain();
+    return $self->domain();
 }
 
 #
 # Method: pidRunning
 #
-#	Checks if a PID is running
+#   Checks if a PID is running
 #
 # Parameters:
 #
-#	pid - PID number
+#   pid - PID number
 #
 # Returns:
 #
-#	boolean - True if it's running , otherise false
+#   boolean - True if it's running , otherise false
 sub pidRunning
 {
-	my ($self, $pid) = @_;
-	my $t = new Proc::ProcessTable;
-	foreach my $proc (@{$t->table}) {
-		($pid eq $proc->pid) and return 1;
-	}
-	return undef;
+    my ($self, $pid) = @_;
+    my $t = new Proc::ProcessTable;
+    foreach my $proc (@{$t->table}) {
+        ($pid eq $proc->pid) and return 1;
+    }
+    return undef;
 }
 
 #
 # Method: pidFileRunning
 #
-#	Given a file holding a PID, it gathers it and checks if it's running
+#   Given a file holding a PID, it gathers it and checks if it's running
 #
 # Parameters:
 #
-#	file - file name
+#   file - file name
 #
 # Returns:
 #
-#	boolean - True if it's running , otherise false
+#   boolean - True if it's running , otherise false
 #
 sub pidFileRunning
 {

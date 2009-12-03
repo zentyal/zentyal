@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,13 +16,16 @@
 
 package EBox::Loggerd;
 
+use strict;
+use warnings;
+
 use EBox;
 use EBox::Global;
-use EBox::Sudo qw( :all );
 use EBox::Gettext;
 use EBox::DBEngineFactory;
 use EBox::Exceptions::Internal;
 
+use Error qw(:try);
 use IO::Handle;
 use IO::File;
 use IO::Select;
@@ -31,20 +35,12 @@ use POSIX;
 
 use constant BUFFER => 64000;
 
-# Safe signal usage
-my ($piperd, $pipewr);
-
-sub int_handler
-{
-    syswrite $pipewr, 1, 1;
-}
-
 sub new
 {
     my $class = shift;
     my $self = {};
     my %opts = @_;
-    $self->{'filetails'} = [] ;
+    $self->{'filetails'} = [];
     bless($self, $class);
     return $self;
 }
@@ -64,29 +60,26 @@ sub run
     $self->_mainloop();
 }
 
-
 sub initDaemon
 {
     my ($self) = @_;
 
     unless (POSIX::setsid) {
-        EBox::debug ('Cannot start new session for ', $self->{'name'});
+        EBox::error('Cannot start new session for ', $self->{'name'});
         exit 1;
     }
 
-    foreach my $fd (0 .. 64) { POSIX::close($fd); }
-
-    my $tmp = EBox::Config::tmp();
-    open(STDIN,  "+<$tmp/stdin");
-    if (EBox::Config::configkey('debug') eq 'yes') {
-        open(STDOUT, "+>$tmp/stout");
-        open(STDERR, "+>$tmp/stderr");
+    foreach my $fd (0 .. 64) {
+        POSIX::close($fd);
     }
 
+    my $tmp = EBox::Config::tmp();
+    open (STDIN,  "+<$tmp/stdin");
+    if (EBox::Config::configkey('debug') eq 'yes') {
+        open (STDOUT, "+>$tmp/stout");
+        open (STDERR, "+>$tmp/stderr");
+    }
 }
-
-
-
 
 # Method: _prepare
 #
@@ -96,28 +89,25 @@ sub _prepare # (fifo)
 {
     my ($self) = @_;
 
-    pipe $piperd, $pipewr;
-    $SIG{"INT"} = \&int_handler;
-
     my @loghelpers = @{$self->{'loghelpers'}};
     for my $obj (@loghelpers) {
         for my $file (@{$obj->logFiles()}) {
             my $tail;
-            eval {
+            my $skip = 0;
+            try {
                 $tail = File::Tail->new(name => $file,
-                                        interval => 1, maxinterval => 1,
-                                        ignore_nonexistant => 1)
-               };
-
-            if ($@) {
-                EBox::warn($@);
-                next;
-            }
+                                        interval => 1, maxinterval => 5,
+                                        ignore_nonexistant => 1,
+                                        errmode => 'return');
+            } otherwise {
+                EBox::warn("Error creating File::Tail on $file: $@");
+                $skip = 1;
+            };
+            next if $skip;
             push @{$self->{'filetails'}}, $tail;
             push @{$self->{'objects'}->{$file}}, $obj;
         }
     }
-
 }
 
 sub _mainloop
@@ -126,13 +116,12 @@ sub _mainloop
     my $rin;
 
     my @files = @{$self->{'filetails'}};
-    while(@files) {
-        vec($rin, fileno($piperd), 1) = 1;
-                my ($nfound, $timeleft, @pending)=
-                    File::Tail::select($rin, undef, undef, undef , @files);
-        if ($nfound > @pending) {
-            EBox::info "Exiting Loggerd\n";
-            exit 0;
+    while (@files) {
+        my ($nfound, $timeleft, @pending) =
+            File::Tail::select(undef, undef, undef, undef, @files);
+        if ($nfound == -1) {
+            EBox::error("Error in File::Tail::select(): $!");
+            exit 1;
         }
         foreach my $file (@pending) {
             my $path = $file->{'input'};
@@ -140,17 +129,16 @@ sub _mainloop
             if (defined($buffer) and length ($buffer) > 0) {
                 for my $obj (@{$self->{'objects'}->{$path}}) {
                     foreach my $line (split(/\n/, $buffer)) {
-                        eval {$obj->processLine($path, $line,
-                                                $self->{'dbengine'})};
-                                        }
+                        try {
+                            $obj->processLine($path, $line, $self->{'dbengine'});
+                        } otherwise {
+                            EBox::warn("Error processing line $line of $path: $@");
+                        };
+                    }
                 }
             }
         }
-
     }
-
 }
 
-
 1;
-

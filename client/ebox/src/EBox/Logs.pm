@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -87,6 +88,17 @@ sub enableActions
     EBox::Sudo::root(EBox::Config::share() . '/ebox/ebox-logs-enable');
 }
 
+# Method: depends
+#
+#       Override EBox::Module::Base::depends
+#
+sub depends
+{
+    my $mods = EBox::Global->modInstancesOfType('EBox::LogObserver');
+    my @names = map ($_->{name}, @$mods);
+    return \@names;
+}
+
 sub _daemons
 {
     return [
@@ -157,38 +169,6 @@ sub compositeClasses
            ];
 }
 
-
-
-
-
-# Method: allLogDomains
-#
-#       This function fetchs all the log domains available throughout
-#       ebox. *(Deprecated)*
-#
-# Returns:
-#
-#       An array ref containing  hash references holding:
-#
-#               logdomain - log domain name
-#               text - log domain name i18n
-#
-sub allLogDomains
-{
-    my ($self) = @_;
-
-    my $global = EBox::Global->getInstance();
-
-    my @domains;
-    my @mods = @{$global->modInstancesOfType('EBox::LogObserver')};
-    foreach my $mod (@mods) {
-        my $dm = $mod->logDomain();
-        next unless defined($dm);
-        push @domains, $dm;
-    }
-    return \@domains;
-}
-
 # Method: allEnabledLogHelpers
 #
 #       This function fetchs all the classes implemeting the interface
@@ -217,8 +197,8 @@ sub allEnabledLogHelpers
 
     my @enabledObjects;
     my @mods = @{$global->modInstancesOfType('EBox::LogObserver')};
-    foreach my $mod  (@mods) {
-        if ( $enabledLogs->{$mod->name } ) {
+    foreach my $mod (@mods) {
+        if ($global->modEnabled($mod->name) and $enabledLogs->{$mod->name}) {
             push (@enabledObjects, $mod->logHelper());
         }
     }
@@ -683,8 +663,8 @@ sub _saveEnabledLogsModules
     my $enabledLogs = $self->model('ConfigureLogTable')->enabledLogs();
 
     unless (-d ENABLED_LOG_CONF_DIR) {
-                mkdir (ENABLED_LOG_CONF_DIR);
-            }
+        mkdir (ENABLED_LOG_CONF_DIR);
+    }
 
     # Create a string of domains separated by comas
     my $enabledLogsString = join (',', keys %{$enabledLogs});
@@ -692,7 +672,7 @@ sub _saveEnabledLogsModules
     my $file;
     unless (open($file, '>' . ENABLED_LOG_CONF_FILE)) {
         throw EBox::Exceptions::Internal(
-                                         'Cannot open ' . ENABLED_LOG_CONF_FILE);
+                'Cannot open ' . ENABLED_LOG_CONF_FILE);
     }
 
     print $file "$enabledLogsString";
@@ -703,7 +683,7 @@ sub _saveEnabledLogsModules
 #
 #       (Private)
 #
-#       This function restores the  enabled logs saved in a file by
+#       This function restores the enabled logs saved in a file by
 #       <EBox::Logs::_saveEnabledLogsModules>
 #       We have to do this beacuse the logger daemon will request this
 #       configuration as root user.

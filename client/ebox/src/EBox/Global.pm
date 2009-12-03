@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -53,18 +54,18 @@ use constant {
 #for Singleton pattern
 sub _new_instance
 {
-        my $class = shift;
-        my $self = $class->SUPER::_create(name => 'global', @_);
-        bless($self, $class);
-        $self->{'mod_instances'} = {};
-        $self->{'mod_instances_hidden'} = {};
-        return $self;
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => 'global', @_);
+    bless($self, $class);
+    $self->{'mod_instances'} = {};
+    $self->{'mod_instances_hidden'} = {};
+    return $self;
 }
 
 sub isReadOnly
 {
-        my $self = shift;
-        return $self->{ro};
+    my $self = shift;
+    return $self->{ro};
 }
 
 #Method: readModInfo
@@ -135,16 +136,38 @@ sub _writeModInfo
 #
 sub modExists # (module)
 {
-        my ($self, $name) = @_;
-        return defined($self->_className($name));
+    my ($self, $name) = @_;
+    return defined($self->_className($name));
 }
 
+# Method: modEnabled
 #
+#      Check if a module exists and it's enabled
+#
+# Parameters:
+#
+#       module -  module's name to check
+#
+# Returns:
+#
+#       boolean - True if the module is enabled, otherwise false
+#
+sub modEnabled # (module)
+{
+    my ($self, $name) = @_;
+
+    unless ($self->modExists($name)) {
+        return 0;
+    }
+    my $mod = $self->modInstance($name);
+    return $mod->isEnabled();
+}
+
 # Method: modIsChanged
 #
 #      Check if the module config has changed
 #
-#       Global module is considered always unchanged
+#      Global module is considered always unchanged
 #
 # Parameters:
 #
@@ -157,18 +180,17 @@ sub modExists # (module)
 
 sub modIsChanged # (module)
 {
-        my ($self, $name) = @_;
+    my ($self, $name) = @_;
 
-        defined($name) or return undef;
-        ($name ne 'global') or return undef;
+    defined($name) or return undef;
+    ($name ne 'global') or return undef;
 
-        $self->modExists($name) or return undef;
+    $self->modExists($name) or return undef;
 
-        my $info = readModInfo($name);
-        return $self->get_bool("modules/$name/changed");
+    my $info = readModInfo($name);
+    return $self->get_bool("modules/$name/changed");
 }
 
-#
 # Method: modChange
 #
 #       Set a module as changed
@@ -181,18 +203,18 @@ sub modIsChanged # (module)
 #
 sub modChange # (module)
 {
-        my ($self, $name) = @_;
-        defined($name) or return;
-        ($name ne 'global') or return;
+    my ($self, $name) = @_;
+    defined($name) or return;
+    ($name ne 'global') or return;
 
-        return if $self->modIsChanged($name);
+    return if $self->modIsChanged($name);
 
-        my $mod = $self->modInstance($name);
-        defined($mod) or throw EBox::Exceptions::Internal("Module $name does not exist");
+    my $mod = $self->modInstance($name);
+    defined($mod) or throw EBox::Exceptions::Internal("Module $name does not exist");
 
-        $mod->initChangedState();
+    $mod->initChangedState();
 
-        $self->set_bool("modules/$name/changed", 1);
+    $self->set_bool("modules/$name/changed", 1);
 }
 
 #
@@ -206,15 +228,14 @@ sub modChange # (module)
 #
 sub modRestarted # (module)
 {
-        my ($self, $name) = @_;
-        defined($name) or return;
-        ($name ne 'global') or return;
-        $self->modExists($name) or return;
+    my ($self, $name) = @_;
+    defined($name) or return;
+    ($name ne 'global') or return;
+    $self->modExists($name) or return;
 
-        $self->set_bool("modules/$name/changed", undef);
+    $self->set_bool("modules/$name/changed", undef);
 }
 
-#
 # Method: modNames
 #
 #       Return an array containing all module names
@@ -225,46 +246,45 @@ sub modRestarted # (module)
 #
 sub modNames
 {
-        my $self = shift;
-        my $log = EBox::logger();
-        my $global = EBox::Global->instance();
-        my @allmods = ();
-        foreach (('sysinfo', 'network', 'firewall')) {
-                if ($self->modExists($_)) {
-                        push(@allmods, $_);
-                }
+    my $self = shift;
+    my $log = EBox::logger();
+    my $global = EBox::Global->instance();
+    my @allmods = ();
+    foreach (('sysinfo', 'network', 'firewall')) {
+        if ($self->modExists($_)) {
+            push(@allmods, $_);
         }
-        my @files = glob(EBox::Config::share() . '/ebox/modules/*.yaml');
-        my @mods = map { basename($_) =~ m/(.*)\.yaml/ ; $1 } @files;
-        foreach my $mod (@mods) {
-                next unless ($self->modExists($mod));
-                next if (grep(/^$mod$/, @allmods));
-                my $class = $self->_className($mod);
-                if(defined($class)) {
-                        push(@allmods, $mod);
-                }
+    }
+    my @files = glob(EBox::Config::share() . '/ebox/modules/*.yaml');
+    my @mods = map { basename($_) =~ m/(.*)\.yaml/ ; $1 } @files;
+    foreach my $mod (@mods) {
+        next unless ($self->modExists($mod));
+        next if (grep(/^$mod$/, @allmods));
+        my $class = $self->_className($mod);
+        if(defined($class)) {
+            push(@allmods, $mod);
         }
-        return \@allmods;
+    }
+    return \@allmods;
 }
 
-#
 # Method: unsaved
 #
 #       Tell you if there is at least one unsaved module
 #
 # Returns:
 #
-#   	boolean - indicating if at least a module has unsaved changes
+#       boolean - indicating if at least a module has unsaved changes
 #
 sub unsaved
 {
-        my $self = shift;
-        my @names = @{$self->modNames()};
-        foreach (@names) {
-                $self->modIsChanged($_) or next;
-                return 1;
-        }
-        return undef;
+    my $self = shift;
+    my @names = @{$self->modNames()};
+    foreach (@names) {
+        $self->modIsChanged($_) or next;
+        return 1;
+    }
+    return undef;
 }
 
 
@@ -279,7 +299,6 @@ sub prepareRevokeAllModules
     return $self->_prepareActionScript('revokeAllModules', $totalTicks);
 }
 
-#
 # Method: revokeAllModules
 #
 #       Revoke the changes made in the configuration for all the modules
@@ -353,7 +372,7 @@ sub sortModulesEnableModDepends
 {
     my ($mods) = @_;
     return __PACKAGE__->sortModulesByDependencies(
-        $mods, 
+        $mods,
         'enableModDepends'
        );
 }
@@ -467,7 +486,6 @@ sub saveAllModules
         throw EBox::Exceptions::Internal($errorText);
 }
 
-#
 # Method: restartAllModules
 #
 #       Force a restart for all the modules
@@ -501,7 +519,6 @@ sub restartAllModules
                 "being restarted, their state is unknown: $failed");
 }
 
-#
 # Method: stopAllModules
 #
 #       Stops all the modules
@@ -536,7 +553,6 @@ sub stopAllModules
                 "stopping, their state is unknown: $failed");
 }
 
-#
 # Method: getInstance
 #
 #       Return an instance of global class
@@ -551,22 +567,22 @@ sub stopAllModules
 #
 sub getInstance # (read_only?)
 {
-        my $tmp = shift;
-        if (!$tmp or ($tmp ne 'EBox::Global')) {
-                throw EBox::Exceptions::Internal("Incorrect call to ".
+    my $tmp = shift;
+    if (!$tmp or ($tmp ne 'EBox::Global')) {
+        throw EBox::Exceptions::Internal("Incorrect call to ".
                 "EBox::Global->getInstance(), maybe it was called as an static".
                 " function instead of a class method?");
-        }
-        my $ro = shift;
-        my $global = EBox::Global->instance();
-        if ($global->isReadOnly xor $ro) {
-                $global->{ro} = $ro;
-                # swap instance groups
-                my $bak = $global->{mod_instances};
-                $global->{mod_instances} = $global->{mod_instances_hidden};
-                $global->{mod_instances_hidden} = $bak;
-        }
-        return $global;
+    }
+    my $ro = shift;
+    my $global = EBox::Global->instance();
+    if ($global->isReadOnly xor $ro) {
+        $global->{ro} = $ro;
+        # swap instance groups
+        my $bak = $global->{mod_instances};
+        $global->{mod_instances} = $global->{mod_instances_hidden};
+        $global->{mod_instances_hidden} = $bak;
+    }
+    return $global;
 }
 
 #
@@ -580,18 +596,17 @@ sub getInstance # (read_only?)
 #
 sub modInstances
 {
-        my $self = EBox::Global->instance();
-        my @names = @{$self->modNames};
-        my @array = ();
+    my $self = EBox::Global->instance();
+    my @names = @{$self->modNames};
+    my @array = ();
 
-        foreach my $name (@names) {
-                my $mod = $self->modInstance($name);
-                push(@array, $mod);
-        }
-        return \@array;
+    foreach my $name (@names) {
+        my $mod = $self->modInstance($name);
+        push(@array, $mod);
+    }
+    return \@array;
 }
 
-#
 # Method: modInstancesOfType
 #
 #       Return an array ref with an instance of every module that extends
@@ -608,23 +623,22 @@ sub modInstances
 #
 sub modInstancesOfType # (classname)
 {
-        shift;
-        my $classname = shift;
-        my $self = EBox::Global->instance();
-        my @names = @{$self->modNames};
-        my @array = ();
+    shift;
+    my $classname = shift;
+    my $self = EBox::Global->instance();
+    my @names = @{$self->modNames};
+    my @array = ();
 
-        foreach my $name (@names) {
-                my $mod = $self->modInstance($name);
-                if ($mod->isa($classname)) {
-                        push(@array, $mod);
-                }
+    foreach my $name (@names) {
+        my $mod = $self->modInstance($name);
+        if ($mod->isa($classname)) {
+            push(@array, $mod);
         }
-        return \@array;
+    }
+    return \@array;
 }
 
 
-#
 # Method: modInstance
 #
 #       Build an instance of a module. Can be called as a class method or as an
@@ -663,7 +677,7 @@ sub modInstance # (module)
         $global = $self;
     } else {
         throw EBox::Exceptions::Internal("Incorrect call to ".
-                                             "EBox::Global modInstance(), the first parameter is not a class".
+                                         "EBox::Global modInstance(), the first parameter is not a class".
                                          " nor an instance.");
     }
 
@@ -701,7 +715,6 @@ sub modInstance # (module)
 }
 
 
-#
 # Method: logger
 #
 #       Initialise Log4perl if necessary, returns the logger for the i
@@ -722,15 +735,15 @@ sub modInstance # (module)
 #       undef
 sub logger # (caller?)
 {
-        shift;
-        EBox::deprecated();
-        return EBox::logger(shift);
+    shift;
+    EBox::deprecated();
+    return EBox::logger(shift);
 }
 
 # Method: modDepends
 #
 #       Return an array ref with the names of the modules that the requested
-#       module deed on
+#       module depends on
 #
 #   Parameters:
 #
@@ -742,18 +755,13 @@ sub logger # (caller?)
 #       array ref - holding the names of the modules that the requested module
 sub modDepends # (module)
 {
-        my ($self, $name) = @_;
-        $self->modExists($name) or return undef;
-        my $info = readModInfo($name);
-        my @list = map {s/^\s+//; $_} @{$info->{'depends'}};
-        if (@list) {
-                return \@list;
-        } else {
-                return [];
-        }
+    my ($self, $name) = @_;
+
+    $self->modExists($name) or return undef;
+    my $mod = $self->modInstance($name);
+    return $mod->depends();
 }
 
-#
 # Method: modRevDepends
 #
 #       Return an array ref with the names of the modules which depend on a given
@@ -771,21 +779,21 @@ sub modDepends # (module)
 #
 sub modRevDepends # (module)
 {
-        my ($self, $name) = @_;
-        $self->modExists($name) or return undef;
-        my @revdeps = ();
-        my @mods = @{$self->modNames};
-        foreach my $mod (@mods) {
-                my @deps = @{$self->modDepends($mod)};
-                foreach my $dep (@deps) {
-                        defined($dep) or next;
-                        if ($name eq $dep) {
-                                push(@revdeps, $mod);
-                                last;
-                        }
-                }
+    my ($self, $name) = @_;
+    $self->modExists($name) or return undef;
+    my @revdeps = ();
+    my @mods = @{$self->modNames};
+    foreach my $mod (@mods) {
+        my @deps = @{$self->modDepends($mod)};
+        foreach my $dep (@deps) {
+            defined($dep) or next;
+            if ($name eq $dep) {
+                push(@revdeps, $mod);
+                last;
+            }
         }
-        return \@revdeps;
+    }
+    return \@revdeps;
 }
 
 sub sortModulesByDependencies
@@ -832,42 +840,38 @@ sub sortModulesByDependencies
     }
 
     return \@modules;
-
 }
 
 
-#
 # Method: setLocale
 #
 #       *deprecated*
 #
 sub setLocale # (locale)
 {
-        shift;
-        EBox::deprecated();
-        EBox::setLocale(shift);
+    shift;
+    EBox::deprecated();
+    EBox::setLocale(shift);
 }
 
-#
-# Method: setLocale
+# Method: locale
 #
 #       *deprecated*
 #
 sub locale
 {
-        EBox::deprecated();
-        return EBox::locale();
+    EBox::deprecated();
+    return EBox::locale();
 }
 
-#
-# Method: setLocale
+# Method: init
 #
 #       *deprecated*
 #
 sub init
 {
-        EBox::deprecated();
-        EBox::init();
+    EBox::deprecated();
+    EBox::init();
 }
 
 # Method: _runExecFromDir
@@ -936,7 +940,6 @@ sub _runExecFromDir
             };
         }
     }
-
 }
 
 # Method: _nScripts
