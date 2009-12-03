@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:30+0100\n"
+"POT-Creation-Date: 2009-12-03 12:57+0000\n"
 "PO-Revision-Date: 2009-07-19 11:59+0200\n"
 "Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
@@ -46,6 +46,14 @@ msgstr "För att konfigurera eGroupware åtkomstinställningar"
 msgid "To allow local access to egroupware database"
 msgstr "För att tillåta access till eGroupware databasen"
 
+#: src/EBox/CGI/EGroupwareUserOptions.pm:43
+msgid "username"
+msgstr "användarnamn"
+
+#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
+msgid "groupname"
+msgstr "gruppnamn"
+
 #: src/EBox/Model/Applications.pm:111
 msgid "Application"
 msgstr "Applikation"
@@ -61,6 +69,22 @@ msgstr "Applikationer"
 #: src/EBox/Model/Applications.pm:125
 msgid "application"
 msgstr "applikation"
+
+#: src/EBox/Model/DefaultApplications.pm:49
+msgid "DefaultApplications"
+msgstr "Standardapplikationer"
+
+#: src/EBox/Model/DefaultApplications.pm:50
+msgid "Default Applications"
+msgstr "Standardapplikationer"
+
+#: src/EBox/Model/DefaultApplications.pm:51
+msgid ""
+"These are the default application permissions that are given to the new "
+"created users or existing ones before enabling eGroupware module."
+msgstr ""
+"Det här är standard applikationsrättigheter som tilldelas nya användare "
+"eller redan existerande före aktivering av eGroupware modulen."
 
 #: src/EBox/Model/PermissionTemplates.pm:57
 msgid "Name"
@@ -87,22 +111,6 @@ msgid ""
 msgstr ""
 "Redigera rättighetsmallar med de tillåtna applikatiner som kan tilldelas "
 "användare eller grupper"
-
-#: src/EBox/Model/DefaultApplications.pm:49
-msgid "DefaultApplications"
-msgstr "Standardapplikationer"
-
-#: src/EBox/Model/DefaultApplications.pm:50
-msgid "Default Applications"
-msgstr "Standardapplikationer"
-
-#: src/EBox/Model/DefaultApplications.pm:51
-msgid ""
-"These are the default application permissions that are given to the new "
-"created users or existing ones before enabling eGroupware module."
-msgstr ""
-"Det här är standard applikationsrättigheter som tilldelas nya användare "
-"eller redan existerande före aktivering av eGroupware modulen."
 
 #: src/EBox/Model/VMailDomain.pm:54
 msgid "No domain selected"
@@ -136,17 +144,15 @@ msgstr "Virtuell E-post domän"
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Välj den virtuella epost-domänen att användas med eGroupware"
 
-#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
-msgid "groupname"
-msgstr "gruppnamn"
-
-#: src/EBox/CGI/EGroupwareUserOptions.pm:43
-msgid "username"
-msgstr "användarnamn"
-
 #: src/EBox/Composite/General.pm:76
 msgid "eGroupware Configuration"
 msgstr "eGroupware konfiguration"
+
+#: src/EBox/Composite/General.pm:78
+msgid ""
+"Once the module is enabled and you have created a user account, you can "
+"access the eGroupware web interface at http://<ebox_ip>/egroupware"
+msgstr ""
 
 #~ msgid "To add a new schema"
 #~ msgstr "För att addera ett nytt schema"

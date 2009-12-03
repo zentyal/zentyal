@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:33+0100\n"
+"POT-Creation-Date: 2009-12-03 12:58+0000\n"
 "PO-Revision-Date: 2009-10-20 13:40+0200\n"
 "Last-Translator: Ralph Gottschalkson <ralph@gottschalkson.eu>\n"
 "Language-Team: none\n"
@@ -17,221 +17,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
-#: src/EBox/Monitor.pm:164
-msgid "Monitor"
-msgstr "Monitor"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:133
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:147
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:157
+msgid "not applicable"
+msgstr "nicht zutreffend"
 
-#: src/EBox/Event/Watcher/Monitor.pm:162
-msgid "Notify when a certain value has reached a certain threshold"
-msgstr "Benachrichtigung, wenn ein bestimmter Grenzwert erreicht wurde"
-
-#: src/EBox/Event/Watcher/Monitor.pm:302
-#, perl-brace-format
-msgid "{what} \"{dS}\" is currently {value}."
-msgstr "{what} \"{dS}\" ist momentan {value}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:308
-#, perl-brace-format
-msgid "That is within the {severity} region of {minBound} and {maxBound}."
-msgstr "Das ist im {severity} Bereich von {minBound} und {maxBound}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:315
-#, perl-brace-format
-msgid "That is above the {severity} threshold of {bound}."
-msgstr "Das ist oberhalb der {severity} Grenze von {bound}."
-
-#: src/EBox/Event/Watcher/Monitor.pm:318
-#, perl-brace-format
-msgid "That is below the {severity} threshold of {bound}."
-msgstr "Das ist unterhalb der {severity} Grenze von {bound}."
-
-#: src/EBox/Monitor.pm:133
-msgid "Collectd main configuration file"
-msgstr "Zusammengefasste Haupteinstellungen"
-
-#: src/EBox/Monitor.pm:137
-msgid "Collectd threshold configuration file"
-msgstr "Zusammengefasste Schwellen Haupteinstellungen"
-
-#: src/EBox/CGI/Index.pm:44
-msgid "Monitoring"
-msgstr "Überwachung"
-
-# Whats the German name of the HREF?
-#: src/EBox/CGI/Index.pm:70
-#, perl-brace-format
-#, fuzzy
-msgid ""
-"You must enable monitor module to see monitor graphs in {openhref}Module "
-"Status section{closehref}"
-msgstr ""
-"Sie müssen das Überwachungs Modul aktivieren, um Überwachungsgraphen zu "
-"sehen. "
-
-# {openhref}Save changes{closehref} Translate it too?
-# <- This English sounds crude too.
-#: src/EBox/CGI/Index.pm:99
-#, perl-brace-format
-#, fuzzy
-msgid ""
-"You must save the changes in module status to see monitor graphs in the "
-"{openhref}Save changes{closehref} section. In case it is already enabled you "
-"must wait for a few seconds to collect the first monitor data"
-msgstr ""
-"Sie müssen vorgenommene Änderungen speichern und einpaar Sekunden warten um "
-"Überwachungs-Daten zu sehen."
-
-#: src/EBox/Monitor/Measure/Thermal.pm:104
-#: src/EBox/Monitor/Measure/Thermal.pm:110
-msgid "temperature"
-msgstr "Temperatur"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:117
-msgid "cooling device"
-msgstr "Kühler / Lüfter"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:119
-msgid "sensor"
-msgstr "Sensor"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:121
-#, perl-brace-format
-msgid "Temperature for {what}"
-msgstr "Temperatur für {what}"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:127
-msgid "Thermal"
-msgstr "Thermisch"
-
-#: src/EBox/Monitor/Measure/Thermal.pm:128
-#, perl-brace-format
-msgid ""
-"Collect thermal information (CPU sensors temperature) if possible from {dir}"
-msgstr ""
-"Ermittelt Temperaturdaten (CPU-Temperatursensor) - falls möglich - aus {dir}"
-
-#: src/EBox/Monitor/Measure/Df.pm:76
-#, perl-brace-format
-msgid "used in {partition}"
-msgstr "Belegt in {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:78
-#, perl-brace-format
-msgid "free in {partition}"
-msgstr "Frei in {partition}"
-
-#: src/EBox/Monitor/Measure/Df.pm:83
-msgid "File system usage"
-msgstr "Dateisystem-Auslastung"
-
-#: src/EBox/Monitor/Measure/Df.pm:84
-msgid ""
-"Collect the mounted file system usage information as \"df\" command does"
-msgstr ""
-"Ermittelt Informationen zur Dateisystembelegung entsprechend dem Kommando "
-"\"df\""
-
-#: src/EBox/Monitor/Measure/Load.pm:55
-msgid "System load"
-msgstr "Systemauslastung"
-
-#: src/EBox/Monitor/Measure/Load.pm:56
-msgid "Collect the system load that gives a rough overview of the system usage"
-msgstr ""
-"Erfasst die Sytemauslastung und gibt einen groben Überblick über die "
-"Systemnutzung "
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "short term"
-msgstr "kurzfristig"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "mid term"
-msgstr "mittelfristig"
-
-#: src/EBox/Monitor/Measure/Load.pm:59
-msgid "long term"
-msgstr "langfristig"
-
-#: src/EBox/Monitor/Measure/Base.pm:621
-msgid "value"
-msgstr "Wert"
-
-#: src/EBox/Monitor/Measure/Memory.pm:55
-msgid "Physical memory usage"
-msgstr "Arbeitsspeicher-Auslastung"
-
-#: src/EBox/Monitor/Measure/Memory.pm:56
-msgid "Collect the physical memory usage"
-msgstr "Ermittelt die Arbeitsspeicher-Auslastung"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "free"
-msgstr "frei"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "page cache"
-msgstr "Seiten-Cache"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "buffer cache"
-msgstr "Buffer-Cache"
-
-#: src/EBox/Monitor/Measure/Memory.pm:57
-msgid "used"
-msgstr "benutzt"
-
-#: src/EBox/Monitor/Measure/CPU.pm:59
-#, perl-brace-format
-msgid "CPU {no} usage"
-msgstr "CPU {no} Auslastung"
-
-#: src/EBox/Monitor/Measure/CPU.pm:65
-msgid "CPU usage"
-msgstr "CPU Auslastung"
-
-#: src/EBox/Monitor/Measure/CPU.pm:66
-msgid ""
-"Collect the amount of time spent by the CPU in various states, most notably "
-"executing user code, executing system code, waiting for IO operations and "
-"being idle"
-msgstr ""
-"Ermittelt die CPU-Last für alle möglichen unterschiedlichen Systemzustände - "
-"Mittelwert aus den Werten für die Ausführung von benutzereigenen Tasks, "
-"Systemtasks, Wartezeiten auf Ein- und Ausgabeoperationen sowie Leerlaufzeit"
-
-#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "idle"
-msgstr "Leerlauf"
-
-#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "user"
-msgstr "Benutzer"
-
-#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
-msgid "interrupt"
-msgstr "Interrupt"
-
-#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "nice"
-msgstr "nett "
-
-#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "soft interrupt"
-msgstr "Software-Interrupt"
-
-#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
-msgid "steal"
-msgstr "Fest"
-
-#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
-msgid "system"
-msgstr "System"
-
-#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
-msgid "wait"
-msgstr "Warten"
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:135
+#: src/EBox/Monitor/Types/MeasureAttribute.pm:145
+msgid "any"
+msgstr "jede"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
@@ -426,13 +221,216 @@ msgstr "letzter Monat"
 msgid "Last year"
 msgstr "Letztes Jahr"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:133
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:147
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:157
-msgid "not applicable"
-msgstr "nicht zutreffend"
+#: src/EBox/Monitor/Measure/Load.pm:55
+msgid "System load"
+msgstr "Systemauslastung"
 
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:135
-#: src/EBox/Monitor/Types/MeasureAttribute.pm:145
-msgid "any"
-msgstr "jede"
+#: src/EBox/Monitor/Measure/Load.pm:56
+msgid "Collect the system load that gives a rough overview of the system usage"
+msgstr ""
+"Erfasst die Sytemauslastung und gibt einen groben Überblick über die "
+"Systemnutzung "
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "short term"
+msgstr "kurzfristig"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "mid term"
+msgstr "mittelfristig"
+
+#: src/EBox/Monitor/Measure/Load.pm:59
+msgid "long term"
+msgstr "langfristig"
+
+#: src/EBox/Monitor/Measure/Df.pm:76
+#, perl-brace-format
+msgid "used in {partition}"
+msgstr "Belegt in {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:78
+#, perl-brace-format
+msgid "free in {partition}"
+msgstr "Frei in {partition}"
+
+#: src/EBox/Monitor/Measure/Df.pm:83
+msgid "File system usage"
+msgstr "Dateisystem-Auslastung"
+
+#: src/EBox/Monitor/Measure/Df.pm:84
+msgid ""
+"Collect the mounted file system usage information as \"df\" command does"
+msgstr ""
+"Ermittelt Informationen zur Dateisystembelegung entsprechend dem Kommando "
+"\"df\""
+
+#: src/EBox/Monitor/Measure/Thermal.pm:111
+#: src/EBox/Monitor/Measure/Thermal.pm:117
+msgid "temperature"
+msgstr "Temperatur"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:129
+msgid "cooling device"
+msgstr "Kühler / Lüfter"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:131
+msgid "sensor"
+msgstr "Sensor"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:133
+#, perl-brace-format
+msgid "Temperature for {what}"
+msgstr "Temperatur für {what}"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:139
+msgid "Thermal"
+msgstr "Thermisch"
+
+#: src/EBox/Monitor/Measure/Thermal.pm:140
+#, perl-brace-format
+msgid ""
+"Collect thermal information (CPU sensors temperature) if possible from {dir}"
+msgstr ""
+"Ermittelt Temperaturdaten (CPU-Temperatursensor) - falls möglich - aus {dir}"
+
+#: src/EBox/Monitor/Measure/Base.pm:621
+msgid "value"
+msgstr "Wert"
+
+#: src/EBox/Monitor/Measure/CPU.pm:59
+#, perl-brace-format
+msgid "CPU {no} usage"
+msgstr "CPU {no} Auslastung"
+
+#: src/EBox/Monitor/Measure/CPU.pm:65
+msgid "CPU usage"
+msgstr "CPU Auslastung"
+
+#: src/EBox/Monitor/Measure/CPU.pm:66
+msgid ""
+"Collect the amount of time spent by the CPU in various states, most notably "
+"executing user code, executing system code, waiting for IO operations and "
+"being idle"
+msgstr ""
+"Ermittelt die CPU-Last für alle möglichen unterschiedlichen Systemzustände - "
+"Mittelwert aus den Werten für die Ausführung von benutzereigenen Tasks, "
+"Systemtasks, Wartezeiten auf Ein- und Ausgabeoperationen sowie Leerlaufzeit"
+
+#: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "idle"
+msgstr "Leerlauf"
+
+#: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "user"
+msgstr "Benutzer"
+
+#: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
+msgid "interrupt"
+msgstr "Interrupt"
+
+#: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "nice"
+msgstr "nett "
+
+#: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "soft interrupt"
+msgstr "Software-Interrupt"
+
+#: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
+msgid "steal"
+msgstr "Fest"
+
+#: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
+msgid "system"
+msgstr "System"
+
+#: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
+msgid "wait"
+msgstr "Warten"
+
+#: src/EBox/Monitor/Measure/Memory.pm:55
+msgid "Physical memory usage"
+msgstr "Arbeitsspeicher-Auslastung"
+
+#: src/EBox/Monitor/Measure/Memory.pm:56
+msgid "Collect the physical memory usage"
+msgstr "Ermittelt die Arbeitsspeicher-Auslastung"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "free"
+msgstr "frei"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "page cache"
+msgstr "Seiten-Cache"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "buffer cache"
+msgstr "Buffer-Cache"
+
+#: src/EBox/Monitor/Measure/Memory.pm:57
+msgid "used"
+msgstr "benutzt"
+
+#: src/EBox/CGI/Index.pm:44
+msgid "Monitoring"
+msgstr "Überwachung"
+
+# Whats the German name of the HREF?
+#: src/EBox/CGI/Index.pm:70
+#, fuzzy, perl-brace-format
+msgid ""
+"You must enable monitor module to see monitor graphs in {openhref}Module "
+"Status section{closehref}"
+msgstr ""
+"Sie müssen das Überwachungs Modul aktivieren, um Überwachungsgraphen zu "
+"sehen. "
+
+# {openhref}Save changes{closehref} Translate it too?
+# <- This English sounds crude too.
+#: src/EBox/CGI/Index.pm:98
+#, fuzzy, perl-brace-format
+msgid ""
+"You must save the changes in module status to see monitor graphs in the "
+"{openhref}Save changes{closehref} section. In case it is already enabled you "
+"must wait for a few seconds to collect the first monitor data"
+msgstr ""
+"Sie müssen vorgenommene Änderungen speichern und einpaar Sekunden warten um "
+"Überwachungs-Daten zu sehen."
+
+#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
+#: src/EBox/Monitor.pm:164
+msgid "Monitor"
+msgstr "Monitor"
+
+#: src/EBox/Event/Watcher/Monitor.pm:162
+msgid "Notify when a certain value has reached a certain threshold"
+msgstr "Benachrichtigung, wenn ein bestimmter Grenzwert erreicht wurde"
+
+#: src/EBox/Event/Watcher/Monitor.pm:302
+#, perl-brace-format
+msgid "{what} \"{dS}\" is currently {value}."
+msgstr "{what} \"{dS}\" ist momentan {value}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:308
+#, perl-brace-format
+msgid "That is within the {severity} region of {minBound} and {maxBound}."
+msgstr "Das ist im {severity} Bereich von {minBound} und {maxBound}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:315
+#, perl-brace-format
+msgid "That is above the {severity} threshold of {bound}."
+msgstr "Das ist oberhalb der {severity} Grenze von {bound}."
+
+#: src/EBox/Event/Watcher/Monitor.pm:318
+#, perl-brace-format
+msgid "That is below the {severity} threshold of {bound}."
+msgstr "Das ist unterhalb der {severity} Grenze von {bound}."
+
+#: src/EBox/Monitor.pm:133
+msgid "Collectd main configuration file"
+msgstr "Zusammengefasste Haupteinstellungen"
+
+#: src/EBox/Monitor.pm:137
+msgid "Collectd threshold configuration file"
+msgstr "Zusammengefasste Schwellen Haupteinstellungen"

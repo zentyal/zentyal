@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:39+0100\n"
+"POT-Creation-Date: 2009-12-03 13:02+0000\n"
 "PO-Revision-Date: 2009-08-04 09:16+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -16,731 +16,187 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:56
-msgid "elements"
-msgstr "內容"
+#: src/EBox/Squid.pm:68 src/EBox/Squid.pm:951 src/EBox/Squid.pm:1027
+#: src/EBox/Squid/Composite/General.pm:76
+msgid "HTTP Proxy"
+msgstr "HTTP 代理服務器"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:64
-#, perl-brace-format
-msgid "Allow all {elements}"
-msgstr "允許所有 {elements}"
+#: src/EBox/Squid.pm:195
+#, fuzzy
+msgid "HTTP Proxy configuration file"
+msgstr "HTTP 代理服務器快取檔案"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:74
-msgid "Use this field to change the value of  all the above rows at once"
-msgstr "使用這個欄位來一次改變所有上面各列的數值"
+#: src/EBox/Squid.pm:200
+#, fuzzy
+msgid "Content filter configuration file"
+msgstr "內容過濾門檻"
 
-#: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:54
-#: src/EBox/Squid/Model/DomainFilterSettings.pm:71
-msgid "Domain filter settings"
-msgstr "網域過濾條件設定值"
+#: src/EBox/Squid.pm:205
+msgid "Default filter group configuration"
+msgstr ""
 
-#: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:61
-#: src/EBox/Squid/Model/DomainFilterSettings.pm:78
-msgid "Filtering settings changed"
-msgstr "過濾條件設定值已改變"
+#: src/EBox/Squid.pm:210
+msgid "Filter groups membership"
+msgstr ""
 
-#: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:83
-#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:94
-#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:87
-msgid "Using default profile configuration"
-msgstr "使用預設的設定檔組態"
+#: src/EBox/Squid.pm:215
+#, fuzzy
+msgid "Content filter banned extension list"
+msgstr "內容過濾門檻"
 
-#: src/EBox/Squid/Model/GroupPolicyBase.pm:72
-#: src/EBox/Squid/Model/GroupsFilterPolicy.pm:60
-msgid "Group"
-msgstr "群組"
+#: src/EBox/Squid.pm:220
+#, fuzzy
+msgid "Content filter banned mime type list"
+msgstr "內容過濾門檻"
 
-#: src/EBox/Squid/Model/GroupPolicyBase.pm:84
-#: src/EBox/Squid/Model/DomainFilterBase.pm:43
-#: src/EBox/Squid/Model/ObjectPolicy.pm:85
-#: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:81
-msgid "Policy"
-msgstr "政策"
+#: src/EBox/Squid.pm:225
+#, fuzzy
+msgid "Content filter exception site list"
+msgstr "內容過濾門檻"
 
+#: src/EBox/Squid.pm:230
+#, fuzzy
+msgid "Content filter grey site list"
+msgstr "內容過濾門檻"
+
+#: src/EBox/Squid.pm:235
+#, fuzzy
+msgid "Content filter banned site list"
+msgstr "內容過濾門檻"
+
+#: src/EBox/Squid.pm:240
+#, fuzzy
+msgid "Content filter exception URL list"
+msgstr "內容過濾門檻"
+
+#: src/EBox/Squid.pm:245
+#, fuzzy
+msgid "Content filter grey URL list"
+msgstr "內容過濾門檻"
+
+#: src/EBox/Squid.pm:250
+#, fuzzy
+msgid "Content filter banned URL list"
+msgstr "內容過濾門檻"
+
+#: src/EBox/Squid.pm:255
+msgid "Forbidden phrases list"
+msgstr ""
+
+#: src/EBox/Squid.pm:260
+msgid "Exception phrases list"
+msgstr ""
+
+#: src/EBox/Squid.pm:265
+msgid "PICS ratings configuration"
+msgstr ""
+
+#: src/EBox/Squid.pm:270
+msgid "Dansguardian's log rotation configuration"
+msgstr ""
+
+#: src/EBox/Squid.pm:306
+msgid "You must set the cache_mem variable in the ebox configuration file"
+msgstr "您必須設定 cache_mem 變數在 ebox 組態檔案中"
+
+#: src/EBox/Squid.pm:923
+msgid "Enabled"
+msgstr "已啟用"
+
+#: src/EBox/Squid.pm:925 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+msgid "Disabled"
+msgstr "停用"
+
+#: src/EBox/Squid.pm:927
+msgid "Transparent proxy"
+msgstr "通透式代理服務器"
+
+#: src/EBox/Squid.pm:930 src/EBox/Squid/Model/MIMEFilterBase.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:89
-#: src/EBox/Squid/Model/MIMEFilterBase.pm:60
-#: src/EBox/Squid/Model/ExtensionFilterBase.pm:100 src/EBox/Squid.pm:930
+#: src/EBox/Squid/Model/ExtensionFilterBase.pm:100
 msgid "Allow"
 msgstr "允許"
 
-#: src/EBox/Squid/Model/GroupPolicyBase.pm:93 src/EBox/Squid.pm:932
+#: src/EBox/Squid.pm:932 src/EBox/Squid/Model/GroupPolicyBase.pm:93
 msgid "Deny"
 msgstr "拒絕"
 
-#: src/EBox/Squid/Model/GroupPolicyBase.pm:103
-msgid "Time period"
-msgstr ""
-
-#: src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
-#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:26
-msgid "extensions"
-msgstr "副檔名"
-
-#: src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
-#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:33
-msgid "Set policy for all extensions"
-msgstr "設定政策給所有副檔名"
-
-#: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
-#: src/EBox/Squid/Model/DomainFilterCategories.pm:62
-msgid "Domains list categories"
-msgstr "網域列表分類"
-
-#: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:72
-#: src/EBox/Squid/Model/DomainFilterCategories.pm:74
-msgid "category"
-msgstr "分類"
-
-#: src/EBox/Squid/Model/DefaultAntiVirus.pm:61
-#: src/EBox/Squid/Model/FilterGroupAntiVirus.pm:61
-#, fuzzy
-msgid "Filter virus"
-msgstr "已過濾的請求"
-
-#: src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:57
-#: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
-#: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
-msgid "Use default profile configuration"
-msgstr "使用預設的設定檔組態"
-
-#: src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:67
-msgid "Use default profile for extension filtering"
-msgstr "使用預設的設定檔做延伸檔名過濾"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:58
-msgid "Transparent Proxy"
-msgstr "通透式代理服務器"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:65
-msgid "Port"
-msgstr "連接埠"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:71
-msgid "Cache files size (MB)"
-msgstr "快取檔案大小 (MB)"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:79
-msgid "Default policy"
-msgstr "預設政策"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:87
-msgid "General Settings "
-msgstr "一般設定值 "
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:92
-msgid "Settings changed"
-msgstr "設定值已變更"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:133
-#, perl-brace-format
-msgid "{port} is already in use. Please choose another"
-msgstr "{port} 已使用，請選擇其他的"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:160
-msgid "Transparent proxy option is not compatible with authorization policy"
-msgstr "通透式代理伺服器選項與驗證原則不相容"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:167
-msgid ""
-"Transparent proxy is incompatible with the authorization policy found in "
-"some objects"
-msgstr "通透式代理伺服器與在部分物件發現的驗證原則不相容"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:185
-msgid "You need to use authorization policies wuth global group policies"
-msgstr "您需要使用全域群組原則的驗證原則"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:194
-msgid ""
-"<i>Filter</i> means that HTTP requests will go through the content filter "
-"and they might be rejected if the content is not considered valid."
-msgstr ""
-"<i>過濾條件</i>代表 HTTP 請求都會通過內容過濾器，如果該內容不被認定為合宜就會"
-"被拒絕。"
-
-#: src/EBox/Squid/Model/GeneralSettings.pm:201
-msgid ""
-"Note that you cannot proxy HTTPS transparently. You will need to add a "
-"firewall rule if you enable this mode."
-msgstr ""
-"注意您不能通透地代理 HTTPS. 如果您啟用了這個模式就需要加入一個防火牆規則。"
-
-#: src/EBox/Squid/Model/DomainFilterFiles.pm:84
-#, fuzzy
-msgid "Domains lists files"
-msgstr "網域列表"
-
-#: src/EBox/Squid/Model/DomainFilterFiles.pm:97
-#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
-#, fuzzy
-msgid "internet domain list"
-msgstr "網際網域"
-
-#: src/EBox/Squid/Model/DomainFilterFiles.pm:98
-#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
-msgid "You can uplaod fiels whith list of domains"
-msgstr ""
-
-#: src/EBox/Squid/Model/DomainFilterFiles.pm:100
-#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
-#, fuzzy
-msgid "Domain list added"
-msgstr "網域已新增"
-
-#: src/EBox/Squid/Model/DomainFilterFiles.pm:101
-#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
-#, fuzzy
-msgid "Domain list removed"
-msgstr "網域已移除"
-
-#: src/EBox/Squid/Model/DomainFilterFiles.pm:102
-#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:96
-#, fuzzy
-msgid "Domain list updated"
-msgstr "網域已更新"
-
-# It was "等級" which is wrong.
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:75
-msgid "Threshold"
-msgstr "門檻"
-
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:78
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:84
-msgid "Content filter threshold"
-msgstr "內容過濾門檻"
-
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:84
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:90
-msgid "Content filter threshold changed"
-msgstr "內容過濾門檻已變更"
-
-#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:54
-#: src/EBox/Squid/Model/ExtensionFilter.pm:111
-msgid "Configure allowed file extensions"
-msgstr "設定允許的副檔名"
-
-#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:67
-#: src/EBox/Squid/Model/ExtensionFilter.pm:124
-msgid "extension"
-msgstr "副檔名"
-
-#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:68
-#: src/EBox/Squid/Model/ExtensionFilter.pm:125
-msgid ""
-"Allow/Deny the HTTP traffic of the files which the given extensions.\n"
-"Extensions not listed here are allowed.\n"
-"The extension filter needs a 'filter' policy to be in effect"
-msgstr ""
-"允許/拒絕指定副檔名的 HTTP 流量。\n"
-"沒有列在這裡的副檔名就是允許的。\n"
-"副檔名過濾條件需要「filter」政策才能生效"
-
-#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:71
-#: src/EBox/Squid/Model/ExtensionFilter.pm:128
-msgid "Extension added"
-msgstr "副檔名已加入"
-
-#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:72
-#: src/EBox/Squid/Model/ExtensionFilter.pm:129
-msgid "Extension removed"
-msgstr "副檔名已移除"
-
-#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:73
-#: src/EBox/Squid/Model/ExtensionFilter.pm:130
-msgid "Extension updated"
-msgstr "副檔名已更新"
-
-#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:48
-#: src/EBox/Squid/Model/MIMEFilter.pm:52
-msgid "Configure allowed MIME types"
-msgstr "設置已允許的 MIME 類型"
-
-#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
-#: src/EBox/Squid/Model/MIMEFilter.pm:64
-msgid "MIME type"
-msgstr "MIME 類型"
-
-#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:61
-#: src/EBox/Squid/Model/MIMEFilter.pm:65
-msgid ""
-"Allow/Deny the HTTP traffic of the files which the given MIME types.MIME "
-"types not listed here are allowed.\n"
-"The  filter needs a 'filter' policy to be in effect"
-msgstr ""
-"允許/拒絕指定 MIME 類型檔案的 HTTP 流量。沒有列在這裡的 MIME 類型就是允許"
-"的。\n"
-"此過濾條件需要「filter」政策才能生效"
-
-#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
-#: src/EBox/Squid/Model/MIMEFilter.pm:68
-msgid "MIME type added"
-msgstr "MIME 類型已加入"
-
-#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:65
-#: src/EBox/Squid/Model/MIMEFilter.pm:69
-msgid "MIME type removed"
-msgstr "MIME 類型已移除"
-
-#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:66
-#: src/EBox/Squid/Model/MIMEFilter.pm:70
-msgid "MIME type updated"
-msgstr "MIME 類型已更新"
-
-#: src/EBox/Squid/Model/GroupsFilterPolicy.pm:75
-msgid "Filter configuration"
-msgstr "過濾器組態"
-
-#: src/EBox/Squid/Model/GroupsFilterPolicy.pm:86
-msgid "User groups configuration"
-msgstr "使用者群組組態"
-
-#: src/EBox/Squid/Model/GroupsFilterPolicy.pm:97
-msgid "group"
-msgstr "群組"
-
-#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:78
-msgid "Domains lists files for filter group"
-msgstr ""
-
-#: src/EBox/Squid/Model/DomainFilter.pm:65
-#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
-msgid "Domains rules"
-msgstr "網域規則"
-
-#: src/EBox/Squid/Model/DomainFilter.pm:78
-#: src/EBox/Squid/Model/NoCacheDomains.pm:102
-#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
-msgid "internet domain"
-msgstr "網際網域"
-
-#: src/EBox/Squid/Model/DomainFilter.pm:79
-#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
-msgid "Allow/Deny the HTTP traffic from/to the listed internet domains."
-msgstr "允許/拒絕 HTTP 流量從/到已列出網際網域."
-
-#: src/EBox/Squid/Model/DomainFilter.pm:81
-#: src/EBox/Squid/Model/NoCacheDomains.pm:105
-#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
-msgid "Domain added"
-msgstr "網域已新增"
-
-#: src/EBox/Squid/Model/DomainFilter.pm:82
-#: src/EBox/Squid/Model/NoCacheDomains.pm:106
-#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
-msgid "Domain removed"
-msgstr "網域已移除"
-
-#: src/EBox/Squid/Model/DomainFilter.pm:83
-#: src/EBox/Squid/Model/NoCacheDomains.pm:107
-#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
-msgid "Domain updated"
-msgstr "網域已更新"
-
-#: src/EBox/Squid/Model/DomainFilterBase.pm:36
-#: src/EBox/Squid/Model/DomainFilterBase.pm:62
-#: src/EBox/Squid/Model/NoCacheDomains.pm:73
-msgid "Domain"
-msgstr "網域"
-
-#: src/EBox/Squid/Model/DomainFilterBase.pm:64
-msgid "You must not prefix the domain with www."
-msgstr "您不可在網域前加上www"
-
-#: src/EBox/Squid/Model/DomainFilterBase.pm:68
-#, fuzzy
-msgid "Domain or IP address"
-msgstr "網域已新增"
-
-# It was "阻擋未列出的網域", which is misleading. 
-#: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:41
-msgid "Block not listed domains"
-msgstr "阻擋未列表的網域"
-
-#: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
-#, fuzzy
-msgid ""
-"If this is enabled, any domain which is neither present neither in the "
-"<i>Domains rules</i> nor in the <i>Domain list files</i> sections below will "
-"be forbidden."
-msgstr "如果啟用此項，任何沒有列在下面<i>網域清單</i>中的網域都會被禁用。"
-
-#: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:52
-msgid "Block sites specified only as IP"
-msgstr "阻擋只以 IP 指定的網站"
-
-#: src/EBox/Squid/Model/FilterGroup.pm:70
-msgid "Filter profiles"
-msgstr "過濾器設定檔"
-
-#: src/EBox/Squid/Model/FilterGroup.pm:83
-msgid "filter profile"
-msgstr "過濾器設定檔"
-
-#: src/EBox/Squid/Model/FilterGroup.pm:86
-msgid "Added filter profile"
-msgstr "已加入的過濾器設定檔"
-
-#: src/EBox/Squid/Model/FilterGroup.pm:87
-msgid "Removed filter profile"
-msgstr "已移除的過濾器設定檔"
-
-#: src/EBox/Squid/Model/FilterGroup.pm:88
-msgid "Updated filter profile"
-msgstr "已更新的過濾器設定檔"
-
-#: src/EBox/Squid/Model/FilterGroup.pm:103
-#: src/EBox/Squid/Model/FilterGroup.pm:147
-msgid "Filter group"
-msgstr "過濾器群組"
-
-#: src/EBox/Squid/Model/FilterGroup.pm:108
-msgid "Configuration"
-msgstr "組態"
-
-#: src/EBox/Squid/Model/FilterGroup.pm:154
-msgid "Filter group policy"
-msgstr "過濾器群組原則"
-
-#: src/EBox/Squid/Model/FilterGroup.pm:201
-msgid "Maximum number of filter groups reached"
-msgstr "已達到過濾器群的最大數量"
-
-#: src/EBox/Squid/Model/MIMEFilterBase.pm:53
-#: src/EBox/Squid/Model/MIMEFilterBase.pm:128
-#: src/EBox/Squid/Model/MIMEFilterBase.pm:137
-#: src/EBox/Squid/Model/MIMEFilterBase.pm:148
-msgid "MIME Type"
-msgstr "MIME 類型"
-
-#: src/EBox/Squid/Model/MIMEFilterBase.pm:130
-msgid "A MIME Type must follows this syntax: type/subtype"
-msgstr "MIME 類型必須為這個語法：type/subtype"
-
-#: src/EBox/Squid/Model/MIMEFilterBase.pm:140
-#, perl-brace-format
-msgid "{type} is not a valid IANA type"
-msgstr "{type} 不是有效的 IANA 類型"
-
-#: src/EBox/Squid/Model/MIMEFilterBase.pm:151
-#, perl-brace-format
-msgid "{t} subtype has a wrong syntax"
-msgstr "{t} 子類型語法錯誤"
-
-#: src/EBox/Squid/Model/NoCacheDomains.pm:80
-msgid "Exempt domain from caching"
-msgstr "排除快取的網域"
-
-#: src/EBox/Squid/Model/NoCacheDomains.pm:89
-msgid "Cache exemptions"
-msgstr "快取排除"
-
-#: src/EBox/Squid/Model/NoCacheDomains.pm:103
-msgid "You can exempt some domains from caching"
-msgstr "您可以將某些網域排除在快取之外"
-
-# It was translated as "單位" which is confusing with the meaning of the word "unit"
-#: src/EBox/Squid/Model/ObjectPolicy.pm:78
-msgid "Object"
-msgstr "對象"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:89
-msgid "Allowed time period"
-msgstr "允許的期間"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:90
-msgid "Time period when the access is allowed"
-msgstr "允許存取的期間"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:97
-msgid "Group policy"
-msgstr "群組政策"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:109
-msgid "Configure network objects' policies"
-msgstr "設置網路對象的政策"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:110
-msgid "List of objects"
-msgstr "對象列表"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:124
-msgid "object's policy"
-msgstr "對象之政策"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:125
-msgid "Here you can establish a custom policy per network object"
-msgstr "這裡您可以建立每一個網路對象的客製政策"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:127
-msgid "Added object's policy"
-msgstr "已新增對象之政策"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:128
-msgid "Removed object's policy"
-msgstr "已移除對象之政策"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:129
-msgid "Updated object's policy"
-msgstr "已更新對象之政策"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:172
-msgid "Authorization policy is not compatible with transparent proxy mode"
-msgstr "驗證原則與通透式代理伺服器模式不相容"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:195
-msgid "Filter policies are incompatible with restricted time periods"
-msgstr "過濾原則與限制的期間不相容"
-
-#: src/EBox/Squid/Model/ObjectPolicy.pm:221
-msgid ""
-"You cannot choose a policy without authorization if you have any group policy"
-msgstr "如果沒有任何群組原則就不能選擇沒有驗證的原則"
-
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:69
-msgid "Use default profile threshold"
-msgstr "使用預設設定檔界限"
-
-#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:61
-msgid "Categories"
-msgstr ""
-
-#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:69
-#, fuzzy
-msgid "File"
-msgstr "過濾條件"
-
-#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:179
-#, fuzzy
-msgid "You must supply a domains list"
-msgstr "您不可在網域前加上www"
-
-#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:221
-msgid "Inexistent archive file"
-msgstr ""
-
-#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:243
-msgid ""
-"Plain lists not allowed: is only allowed compressed archives of classified "
-"black lists"
-msgstr ""
-
-#: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:67
-msgid "Use default profile for MIME filtering"
-msgstr ""
-
-#: src/EBox/Squid/Model/AntiVirusBase.pm:51
-msgid "Use antivirus"
-msgstr ""
-
-#: src/EBox/Squid/Model/AntiVirusBase.pm:93
-#, perl-brace-format
-msgid ""
-"You cannot activate antivirus filter because the antivirus module is "
-"disabled. If you want to filter virus, first {openhref}activate the module"
-"{closehref} and come back here"
-msgstr ""
-
-#: src/EBox/Squid/Model/AntiVirusBase.pm:99
-#, perl-brace-format
-msgid ""
-"You cannot activate antivirus filter because the antivirus module is not "
-"installed. If you want to filter virus, first install it and then {openhref}"
-"activate the module{closehref} and come back here"
-msgstr ""
-
-#: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:68
-msgid "Use default profile for domain filtering"
-msgstr ""
-
-#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
-msgid "Squid traffic size graph"
-msgstr "Squid 流量大小圖表"
-
-#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:58
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:113
-msgid "Accepted traffic size (Kb)"
-msgstr "已接受的流量大小 (Kb)"
-
-#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:67
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:124
-msgid "Denied traffic size (Kb)"
-msgstr "已拒絕的流量大小 (Kb)"
-
-#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:76
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:135
-msgid "Filtered traffic size (Kb))"
-msgstr "已過濾的流量大小 (Kb)"
-
-#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
-msgid "Traffic size"
-msgstr "流量大小"
-
-#: src/EBox/Squid/Model/Report/RequestsGraph.pm:48
-msgid "Squid traffic requests graph"
-msgstr "Squid 流量請求圖表"
-
-#: src/EBox/Squid/Model/Report/RequestsGraph.pm:58
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:48
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:103
-msgid "Requests"
-msgstr "請求"
-
-#: src/EBox/Squid/Model/Report/RequestsGraph.pm:62
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:54
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:108
-msgid "Accepted requests"
-msgstr "已接受的請求"
-
-#: src/EBox/Squid/Model/Report/RequestsGraph.pm:69
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:63
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:119
-msgid "Denied requests"
-msgstr "已拒絕的請求"
-
-#: src/EBox/Squid/Model/Report/RequestsGraph.pm:74
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:72
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:130
-msgid "Filtered requests"
-msgstr "已過濾的請求"
-
-#: src/EBox/Squid/Model/Report/RequestsGraph.pm:100
-msgid "Access requests"
-msgstr "存取請求"
-
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:51
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:99 src/EBox/Squid.pm:1014
-msgid "User"
-msgstr "使用者"
-
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:95 src/EBox/Squid.pm:1012
-msgid "Date"
-msgstr "日期"
-
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:144
-msgid "Web traffic details"
-msgstr "網頁流量詳細資料"
-
-#: src/EBox/Squid/Model/Report/TrafficDetails.pm:151
-msgid "traffic"
-msgstr "流量"
-
-#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:76
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:79
-msgid "List of groups"
-msgstr "群組列表"
-
-#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
-msgid "group's policy"
-msgstr "群組原則"
-
-#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:91
-msgid ""
-"Here you can deny or allow access depending on the user group. Filtering "
-"would occur if the object policy requires it"
-msgstr ""
-
-#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
-msgid "Added group's policy"
-msgstr "已加入的群組原則"
-
-#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
-msgid "Removed group's policy"
-msgstr "已移除的群組原則"
-
-#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:95
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:98
-msgid "Updated group's policy"
-msgstr "已更新的群組原則"
-
-#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:130
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:162
-msgid "User group policies are not compatible with transparent proxy mode"
-msgstr "使用者群組原則與通透式代理伺服器模式不相容"
-
-#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:148
-msgid ""
-"The object needs to be set to a policy with authorization for be able to use "
-"groups policies"
-msgstr ""
-
-#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:163
-#, fuzzy, perl-brace-format
-msgid "Configure object {ob} user groups policies"
-msgstr "設置網路對象的政策"
-
-#: src/EBox/Squid/Model/ExtensionFilter.pm:66
-#: src/EBox/Squid/Model/ExtensionFilterBase.pm:51
-msgid "File extension"
-msgstr "副檔名"
-
-#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
-#: src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
-msgid "MIME types"
-msgstr "MIME 類型"
-
-#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:33
-#: src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
-msgid "Set policy for all MIME types"
-msgstr "設定政策給所有 MIME 類型"
-
-#: src/EBox/Squid/Model/ExtensionFilterBase.pm:93
-msgid "Extension"
-msgstr "副檔名"
-
-#: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:103
-#: src/EBox/Squid/Types/DomainPolicy.pm:34 src/EBox/Squid/Types/Policy.pm:64
-msgid "Always allow"
-msgstr "永遠允許"
-
+#: src/EBox/Squid.pm:934 src/EBox/Squid/Types/DomainPolicy.pm:35
+#: src/EBox/Squid/Types/Policy.pm:65
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
-#: src/EBox/Squid/Types/DomainPolicy.pm:35 src/EBox/Squid/Types/Policy.pm:65
-#: src/EBox/Squid.pm:934
 msgid "Filter"
 msgstr "過濾條件"
 
-#: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:105
-#: src/EBox/Squid/Types/DomainPolicy.pm:36 src/EBox/Squid/Types/Policy.pm:66
-msgid "Always deny"
-msgstr "永遠拒絕"
+#: src/EBox/Squid.pm:937
+msgid "Global policy"
+msgstr "全域政策"
 
-#: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:106
-msgid "Ignore"
-msgstr "忽略"
+#: src/EBox/Squid.pm:939
+msgid "Listening port"
+msgstr "聽候連接埠"
 
-#: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:120
-msgid "This list has not categories"
-msgstr "這個列表沒有分類"
+#: src/EBox/Squid.pm:971
+msgid "General"
+msgstr "一般"
 
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
-msgid "Configure user's groups global policies"
-msgstr "設定使用者的群組全域原則"
+#: src/EBox/Squid.pm:975
+msgid "Objects' Policy"
+msgstr "物件政策"
 
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
-msgid ""
-"Here you can globaly block or allow access per user group. Filter options "
-"will be per global policy or per object policy"
-msgstr ""
-"您可以在這裡進行全域的阻擋或允許每個使用者群組的存取。過濾器選項會是各別全域"
-"原則或各別物件原則的"
+#: src/EBox/Squid.pm:978
+#, fuzzy
+msgid "Groups' Policy"
+msgstr "物件政策"
 
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:114
-msgid "Filter profile"
-msgstr "過濾器設定檔"
+#: src/EBox/Squid.pm:981
+#, fuzzy
+msgid "Filter Profiles"
+msgstr "已過濾的請求"
 
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:175
-msgid "Global group policy need a global policy with authentication"
-msgstr ""
+#: src/EBox/Squid.pm:1012 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+msgid "Date"
+msgstr "日期"
 
-#: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55 src/EBox/Squid.pm:925
-msgid "Disabled"
-msgstr "停用"
+#: src/EBox/Squid.pm:1013
+msgid "Host"
+msgstr "主機"
+
+#: src/EBox/Squid.pm:1014 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
+msgid "User"
+msgstr "使用者"
+
+#: src/EBox/Squid.pm:1015
+msgid "URL"
+msgstr "URL"
+
+#: src/EBox/Squid.pm:1016
+msgid "Bytes"
+msgstr "位元組"
+
+#: src/EBox/Squid.pm:1017
+msgid "Mime/type"
+msgstr "Mime/類型"
+
+#: src/EBox/Squid.pm:1018
+msgid "Event"
+msgstr "事件"
+
+#: src/EBox/Squid.pm:1023
+msgid "Accepted"
+msgstr "已接受"
+
+#: src/EBox/Squid.pm:1024
+msgid "Denied"
+msgstr "已拒絕"
+
+#: src/EBox/Squid.pm:1025
+msgid "Filtered"
+msgstr "已過濾"
+
+#: src/EBox/Squid.pm:1103
+msgid "HTTP Proxy's cache files"
+msgstr "HTTP 代理服務器快取檔案"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
@@ -765,6 +221,37 @@ msgstr "非常嚴格"
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
 msgstr "這指定要怎麼嚴格設定內容過濾"
+
+#: src/EBox/Squid/Types/DomainPolicy.pm:34 src/EBox/Squid/Types/Policy.pm:64
+#: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:103
+msgid "Always allow"
+msgstr "永遠允許"
+
+#: src/EBox/Squid/Types/DomainPolicy.pm:36 src/EBox/Squid/Types/Policy.pm:66
+#: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:105
+msgid "Always deny"
+msgstr "永遠拒絕"
+
+#: src/EBox/Squid/Types/DomainPolicy.pm:56
+#, fuzzy
+msgid "Squid's domain policy"
+msgstr "Squid 政策"
+
+#: src/EBox/Squid/Types/Policy.pm:67
+msgid "Authorize and allow"
+msgstr ""
+
+#: src/EBox/Squid/Types/Policy.pm:68
+msgid "Authorize and filter"
+msgstr ""
+
+#: src/EBox/Squid/Types/Policy.pm:69
+msgid "Authorize and deny"
+msgstr ""
+
+#: src/EBox/Squid/Types/Policy.pm:89
+msgid "Squid's policy"
+msgstr "Squid 政策"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:26
 msgid "M"
@@ -880,46 +367,716 @@ msgstr ""
 msgid "The time period must be at least active on one day"
 msgstr ""
 
-#: src/EBox/Squid/Types/DomainPolicy.pm:56
+#: src/EBox/Squid/Model/DomainFilterFiles.pm:84
 #, fuzzy
-msgid "Squid's domain policy"
-msgstr "Squid 政策"
+msgid "Domains lists files"
+msgstr "網域列表"
 
-#: src/EBox/Squid/Types/Policy.pm:67
-msgid "Authorize and allow"
+#: src/EBox/Squid/Model/DomainFilterFiles.pm:97
+#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
+#, fuzzy
+msgid "internet domain list"
+msgstr "網際網域"
+
+#: src/EBox/Squid/Model/DomainFilterFiles.pm:98
+#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
+msgid "You can uplaod fiels whith list of domains"
 msgstr ""
 
-#: src/EBox/Squid/Types/Policy.pm:68
-msgid "Authorize and filter"
+#: src/EBox/Squid/Model/DomainFilterFiles.pm:100
+#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
+#, fuzzy
+msgid "Domain list added"
+msgstr "網域已新增"
+
+#: src/EBox/Squid/Model/DomainFilterFiles.pm:101
+#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
+#, fuzzy
+msgid "Domain list removed"
+msgstr "網域已移除"
+
+#: src/EBox/Squid/Model/DomainFilterFiles.pm:102
+#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:96
+#, fuzzy
+msgid "Domain list updated"
+msgstr "網域已更新"
+
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:69
+msgid "Use default profile threshold"
+msgstr "使用預設設定檔界限"
+
+# It was "等級" which is wrong.
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:75
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
+msgid "Threshold"
+msgstr "門檻"
+
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:84
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:78
+msgid "Content filter threshold"
+msgstr "內容過濾門檻"
+
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:90
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:84
+msgid "Content filter threshold changed"
+msgstr "內容過濾門檻已變更"
+
+#: src/EBox/Squid/Model/GroupsFilterPolicy.pm:60
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:72
+msgid "Group"
+msgstr "群組"
+
+#: src/EBox/Squid/Model/GroupsFilterPolicy.pm:75
+msgid "Filter configuration"
+msgstr "過濾器組態"
+
+#: src/EBox/Squid/Model/GroupsFilterPolicy.pm:86
+msgid "User groups configuration"
+msgstr "使用者群組組態"
+
+#: src/EBox/Squid/Model/GroupsFilterPolicy.pm:97
+msgid "group"
+msgstr "群組"
+
+#: src/EBox/Squid/Model/NoCacheDomains.pm:73
+#: src/EBox/Squid/Model/DomainFilterBase.pm:36
+#: src/EBox/Squid/Model/DomainFilterBase.pm:62
+msgid "Domain"
+msgstr "網域"
+
+#: src/EBox/Squid/Model/NoCacheDomains.pm:80
+msgid "Exempt domain from caching"
+msgstr "排除快取的網域"
+
+#: src/EBox/Squid/Model/NoCacheDomains.pm:89
+msgid "Cache exemptions"
+msgstr "快取排除"
+
+#: src/EBox/Squid/Model/NoCacheDomains.pm:102
+#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
+#: src/EBox/Squid/Model/DomainFilter.pm:78
+msgid "internet domain"
+msgstr "網際網域"
+
+#: src/EBox/Squid/Model/NoCacheDomains.pm:103
+msgid "You can exempt some domains from caching"
+msgstr "您可以將某些網域排除在快取之外"
+
+#: src/EBox/Squid/Model/NoCacheDomains.pm:105
+#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
+#: src/EBox/Squid/Model/DomainFilter.pm:81
+msgid "Domain added"
+msgstr "網域已新增"
+
+#: src/EBox/Squid/Model/NoCacheDomains.pm:106
+#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
+#: src/EBox/Squid/Model/DomainFilter.pm:82
+msgid "Domain removed"
+msgstr "網域已移除"
+
+#: src/EBox/Squid/Model/NoCacheDomains.pm:107
+#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
+#: src/EBox/Squid/Model/DomainFilter.pm:83
+msgid "Domain updated"
+msgstr "網域已更新"
+
+#: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
+#: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
+#: src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:57
+msgid "Use default profile configuration"
+msgstr "使用預設的設定檔組態"
+
+#: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:68
+msgid "Use default profile for domain filtering"
 msgstr ""
 
-#: src/EBox/Squid/Types/Policy.pm:69
-msgid "Authorize and deny"
+#: src/EBox/Squid/Model/MIMEFilterBase.pm:53
+#: src/EBox/Squid/Model/MIMEFilterBase.pm:128
+#: src/EBox/Squid/Model/MIMEFilterBase.pm:137
+#: src/EBox/Squid/Model/MIMEFilterBase.pm:148
+msgid "MIME Type"
+msgstr "MIME 類型"
+
+#: src/EBox/Squid/Model/MIMEFilterBase.pm:130
+msgid "A MIME Type must follows this syntax: type/subtype"
+msgstr "MIME 類型必須為這個語法：type/subtype"
+
+#: src/EBox/Squid/Model/MIMEFilterBase.pm:140
+#, perl-brace-format
+msgid "{type} is not a valid IANA type"
+msgstr "{type} 不是有效的 IANA 類型"
+
+#: src/EBox/Squid/Model/MIMEFilterBase.pm:151
+#, perl-brace-format
+msgid "{t} subtype has a wrong syntax"
+msgstr "{t} 子類型語法錯誤"
+
+#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:26
+#: src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
+msgid "extensions"
+msgstr "副檔名"
+
+#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:33
+#: src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
+msgid "Set policy for all extensions"
+msgstr "設定政策給所有副檔名"
+
+#: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:67
+msgid "Use default profile for MIME filtering"
 msgstr ""
 
-#: src/EBox/Squid/Types/Policy.pm:89
-msgid "Squid's policy"
-msgstr "Squid 政策"
+# It was "阻擋未列出的網域", which is misleading. 
+#: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:41
+msgid "Block not listed domains"
+msgstr "阻擋未列表的網域"
 
-#: src/EBox/Squid/Composite/Extensions.pm:91
+#: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
+#, fuzzy
+msgid ""
+"If this is enabled, any domain which is neither present neither in the "
+"<i>Domains rules</i> nor in the <i>Domain list files</i> sections below will "
+"be forbidden."
+msgstr "如果啟用此項，任何沒有列在下面<i>網域清單</i>中的網域都會被禁用。"
+
+#: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:52
+msgid "Block sites specified only as IP"
+msgstr "阻擋只以 IP 指定的網站"
+
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:56
+msgid "elements"
+msgstr "內容"
+
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:64
+#, perl-brace-format
+msgid "Allow all {elements}"
+msgstr "允許所有 {elements}"
+
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:74
+msgid "Use this field to change the value of  all the above rows at once"
+msgstr "使用這個欄位來一次改變所有上面各列的數值"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:58
+msgid "Transparent Proxy"
+msgstr "通透式代理服務器"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:65
+msgid "Port"
+msgstr "連接埠"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:71
+msgid "Cache files size (MB)"
+msgstr "快取檔案大小 (MB)"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:79
+msgid "Default policy"
+msgstr "預設政策"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:87
+msgid "General Settings "
+msgstr "一般設定值 "
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:92
+msgid "Settings changed"
+msgstr "設定值已變更"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:133
+#, perl-brace-format
+msgid "{port} is already in use. Please choose another"
+msgstr "{port} 已使用，請選擇其他的"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:160
+msgid "Transparent proxy option is not compatible with authorization policy"
+msgstr "通透式代理伺服器選項與驗證原則不相容"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:167
+msgid ""
+"Transparent proxy is incompatible with the authorization policy found in "
+"some objects"
+msgstr "通透式代理伺服器與在部分物件發現的驗證原則不相容"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:185
+#, fuzzy
+msgid "You need to use authorization policies with global group policies"
+msgstr "您需要使用全域群組原則的驗證原則"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:194
+msgid ""
+"<i>Filter</i> means that HTTP requests will go through the content filter "
+"and they might be rejected if the content is not considered valid."
+msgstr ""
+"<i>過濾條件</i>代表 HTTP 請求都會通過內容過濾器，如果該內容不被認定為合宜就會"
+"被拒絕。"
+
+#: src/EBox/Squid/Model/GeneralSettings.pm:201
+msgid ""
+"Note that you cannot proxy HTTPS transparently. You will need to add a "
+"firewall rule if you enable this mode."
+msgstr ""
+"注意您不能通透地代理 HTTPS. 如果您啟用了這個模式就需要加入一個防火牆規則。"
+
+# It was translated as "單位" which is confusing with the meaning of the word "unit"
+#: src/EBox/Squid/Model/ObjectPolicy.pm:78
+msgid "Object"
+msgstr "對象"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:85
+#: src/EBox/Squid/Model/DomainFilterBase.pm:43
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:84
+#: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:81
+msgid "Policy"
+msgstr "政策"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:89
+msgid "Allowed time period"
+msgstr "允許的期間"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:90
+msgid "Time period when the access is allowed"
+msgstr "允許存取的期間"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:97
+msgid "Group policy"
+msgstr "群組政策"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:109
+msgid "Configure network objects' policies"
+msgstr "設置網路對象的政策"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:110
+msgid "List of objects"
+msgstr "對象列表"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:124
+msgid "object's policy"
+msgstr "對象之政策"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:125
+msgid "Here you can establish a custom policy per network object"
+msgstr "這裡您可以建立每一個網路對象的客製政策"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:127
+msgid "Added object's policy"
+msgstr "已新增對象之政策"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:128
+msgid "Removed object's policy"
+msgstr "已移除對象之政策"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:129
+msgid "Updated object's policy"
+msgstr "已更新對象之政策"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:172
+msgid "Authorization policy is not compatible with transparent proxy mode"
+msgstr "驗證原則與通透式代理伺服器模式不相容"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:195
+msgid "Filter policies are incompatible with restricted time periods"
+msgstr "過濾原則與限制的期間不相容"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:221
+msgid ""
+"You cannot choose a policy without authorization if you have any group policy"
+msgstr "如果沒有任何群組原則就不能選擇沒有驗證的原則"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:441
+#, perl-brace-format
+msgid ""
+"There are not netowrk objects in the system. {open}Create{close} at least "
+"one object  if you want to set a object policy"
+msgstr ""
+
+#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
+#: src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
+msgid "MIME types"
+msgstr "MIME 類型"
+
+#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:33
+#: src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
+msgid "Set policy for all MIME types"
+msgstr "設定政策給所有 MIME 類型"
+
+#: src/EBox/Squid/Model/DomainFilterBase.pm:64
+msgid "You must not prefix the domain with www."
+msgstr "您不可在網域前加上www"
+
+#: src/EBox/Squid/Model/DomainFilterBase.pm:68
+#, fuzzy
+msgid "Domain or IP address"
+msgstr "網域已新增"
+
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:103
+msgid "Time period"
+msgstr ""
+
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:233
+#, perl-brace-format
+msgid ""
+"There are not user groups in the system. {open}Create{close} at least one "
+"group  if you want to set a group policy"
+msgstr ""
+
+#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:61
+msgid "Categories"
+msgstr ""
+
+#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:69
+#, fuzzy
+msgid "File"
+msgstr "過濾條件"
+
+#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:179
+#, fuzzy
+msgid "You must supply a domains list"
+msgstr "您不可在網域前加上www"
+
+#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:221
+msgid "Inexistent archive file"
+msgstr ""
+
+#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:243
+msgid ""
+"Plain lists not allowed: is only allowed compressed archives of classified "
+"black lists"
+msgstr ""
+
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
+msgid "Configure user's groups global policies"
+msgstr "設定使用者的群組全域原則"
+
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:79
+#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:76
+msgid "List of groups"
+msgstr "群組列表"
+
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
+#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
+msgid "group's policy"
+msgstr "群組原則"
+
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
+msgid ""
+"Here you can globaly block or allow access per user group. Filter options "
+"will be per global policy or per object policy"
+msgstr ""
+"您可以在這裡進行全域的阻擋或允許每個使用者群組的存取。過濾器選項會是各別全域"
+"原則或各別物件原則的"
+
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
+#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
+msgid "Added group's policy"
+msgstr "已加入的群組原則"
+
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
+#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
+msgid "Removed group's policy"
+msgstr "已移除的群組原則"
+
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:98
+#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:95
+msgid "Updated group's policy"
+msgstr "已更新的群組原則"
+
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:114
+msgid "Filter profile"
+msgstr "過濾器設定檔"
+
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:162
+#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:130
+msgid "User group policies are not compatible with transparent proxy mode"
+msgstr "使用者群組原則與通透式代理伺服器模式不相容"
+
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:175
+msgid "Global group policy need a global policy with authentication"
+msgstr ""
+
+#: src/EBox/Squid/Model/ExtensionFilterBase.pm:51
+#: src/EBox/Squid/Model/ExtensionFilter.pm:66
+msgid "File extension"
+msgstr "副檔名"
+
+#: src/EBox/Squid/Model/ExtensionFilterBase.pm:93
+msgid "Extension"
+msgstr "副檔名"
+
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:71
+#: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:54
+msgid "Domain filter settings"
+msgstr "網域過濾條件設定值"
+
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:78
+#: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:61
+msgid "Filtering settings changed"
+msgstr "過濾條件設定值已改變"
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:52
+#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:48
+msgid "Configure allowed MIME types"
+msgstr "設置已允許的 MIME 類型"
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:64
+#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
+msgid "MIME type"
+msgstr "MIME 類型"
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:65
+#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:61
+msgid ""
+"Allow/Deny the HTTP traffic of the files which the given MIME types.MIME "
+"types not listed here are allowed.\n"
+"The  filter needs a 'filter' policy to be in effect"
+msgstr ""
+"允許/拒絕指定 MIME 類型檔案的 HTTP 流量。沒有列在這裡的 MIME 類型就是允許"
+"的。\n"
+"此過濾條件需要「filter」政策才能生效"
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:68
+#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
+msgid "MIME type added"
+msgstr "MIME 類型已加入"
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:69
+#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:65
+msgid "MIME type removed"
+msgstr "MIME 類型已移除"
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:70
+#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:66
+msgid "MIME type updated"
+msgstr "MIME 類型已更新"
+
+#: src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:67
+msgid "Use default profile for extension filtering"
+msgstr "使用預設的設定檔做延伸檔名過濾"
+
+#: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
+#: src/EBox/Squid/Model/DomainFilterCategories.pm:62
+msgid "Domains list categories"
+msgstr "網域列表分類"
+
+#: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:72
+#: src/EBox/Squid/Model/DomainFilterCategories.pm:74
+msgid "category"
+msgstr "分類"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:111
+#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:54
+msgid "Configure allowed file extensions"
+msgstr "設定允許的副檔名"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:124
+#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:67
+msgid "extension"
+msgstr "副檔名"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:125
+#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:68
+msgid ""
+"Allow/Deny the HTTP traffic of the files which the given extensions.\n"
+"Extensions not listed here are allowed.\n"
+"The extension filter needs a 'filter' policy to be in effect"
+msgstr ""
+"允許/拒絕指定副檔名的 HTTP 流量。\n"
+"沒有列在這裡的副檔名就是允許的。\n"
+"副檔名過濾條件需要「filter」政策才能生效"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:128
+#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:71
+msgid "Extension added"
+msgstr "副檔名已加入"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:129
+#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:72
+msgid "Extension removed"
+msgstr "副檔名已移除"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:130
+#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:73
+msgid "Extension updated"
+msgstr "副檔名已更新"
+
+#: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:106
+msgid "Ignore"
+msgstr "忽略"
+
+#: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:120
+msgid "This list has not categories"
+msgstr "這個列表沒有分類"
+
+#: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:87
+#: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:94
+#: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:83
+msgid "Using default profile configuration"
+msgstr "使用預設的設定檔組態"
+
+#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
+#: src/EBox/Squid/Model/DomainFilter.pm:65
+msgid "Domains rules"
+msgstr "網域規則"
+
+#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
+#: src/EBox/Squid/Model/DomainFilter.pm:79
+msgid "Allow/Deny the HTTP traffic from/to the listed internet domains."
+msgstr "允許/拒絕 HTTP 流量從/到已列出網際網域."
+
+#: src/EBox/Squid/Model/FilterGroupAntiVirus.pm:61
+#: src/EBox/Squid/Model/DefaultAntiVirus.pm:61
+#, fuzzy
+msgid "Filter virus"
+msgstr "已過濾的請求"
+
+#: src/EBox/Squid/Model/FilterGroup.pm:70
+msgid "Filter profiles"
+msgstr "過濾器設定檔"
+
+#: src/EBox/Squid/Model/FilterGroup.pm:83
+msgid "filter profile"
+msgstr "過濾器設定檔"
+
+#: src/EBox/Squid/Model/FilterGroup.pm:86
+msgid "Added filter profile"
+msgstr "已加入的過濾器設定檔"
+
+#: src/EBox/Squid/Model/FilterGroup.pm:87
+msgid "Removed filter profile"
+msgstr "已移除的過濾器設定檔"
+
+#: src/EBox/Squid/Model/FilterGroup.pm:88
+msgid "Updated filter profile"
+msgstr "已更新的過濾器設定檔"
+
+#: src/EBox/Squid/Model/FilterGroup.pm:103
+#: src/EBox/Squid/Model/FilterGroup.pm:147
+msgid "Filter group"
+msgstr "過濾器群組"
+
+#: src/EBox/Squid/Model/FilterGroup.pm:108
+msgid "Configuration"
+msgstr "組態"
+
+#: src/EBox/Squid/Model/FilterGroup.pm:154
+msgid "Filter group policy"
+msgstr "過濾器群組原則"
+
+#: src/EBox/Squid/Model/FilterGroup.pm:201
+msgid "Maximum number of filter groups reached"
+msgstr "已達到過濾器群的最大數量"
+
+#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:78
+msgid "Domains lists files for filter group"
+msgstr ""
+
+#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:91
+msgid ""
+"Here you can deny or allow access depending on the user group. Filtering "
+"would occur if the object policy requires it"
+msgstr ""
+
+#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:148
+msgid ""
+"The object needs to be set to a policy with authorization for be able to use "
+"groups policies"
+msgstr ""
+
+#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:163
+#, fuzzy, perl-brace-format
+msgid "Configure object {ob} user groups policies"
+msgstr "設置網路對象的政策"
+
+#: src/EBox/Squid/Model/AntiVirusBase.pm:51
+msgid "Use antivirus"
+msgstr ""
+
+#: src/EBox/Squid/Model/AntiVirusBase.pm:93
+#, perl-brace-format
+msgid ""
+"You cannot activate antivirus filter because the antivirus module is "
+"disabled. If you want to filter virus, first {openhref}activate the module"
+"{closehref} and come back here"
+msgstr ""
+
+#: src/EBox/Squid/Model/AntiVirusBase.pm:99
+#, perl-brace-format
+msgid ""
+"You cannot activate antivirus filter because the antivirus module is not "
+"installed. If you want to filter virus, first install it and then {openhref}"
+"activate the module{closehref} and come back here"
+msgstr ""
+
+#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
+msgid "Squid traffic size graph"
+msgstr "Squid 流量大小圖表"
+
+#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:58
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:113
+msgid "Accepted traffic size (Kb)"
+msgstr "已接受的流量大小 (Kb)"
+
+#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:67
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:124
+msgid "Denied traffic size (Kb)"
+msgstr "已拒絕的流量大小 (Kb)"
+
+#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:76
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:135
+msgid "Filtered traffic size (Kb))"
+msgstr "已過濾的流量大小 (Kb)"
+
+#: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
+msgid "Traffic size"
+msgstr "流量大小"
+
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:48
+msgid "Squid traffic requests graph"
+msgstr "Squid 流量請求圖表"
+
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:58
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:48
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:103
+msgid "Requests"
+msgstr "請求"
+
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:62
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:54
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:108
+msgid "Accepted requests"
+msgstr "已接受的請求"
+
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:69
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:63
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:119
+msgid "Denied requests"
+msgstr "已拒絕的請求"
+
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:74
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:72
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:130
+msgid "Filtered requests"
+msgstr "已過濾的請求"
+
+#: src/EBox/Squid/Model/Report/RequestsGraph.pm:100
+msgid "Access requests"
+msgstr "存取請求"
+
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:144
+msgid "Web traffic details"
+msgstr "網頁流量詳細資料"
+
+#: src/EBox/Squid/Model/Report/TrafficDetails.pm:151
+msgid "traffic"
+msgstr "流量"
+
+#: src/EBox/Squid/Composite/Domains.pm:92
+msgid "Domains filtering"
+msgstr "網域過濾條件"
+
 #: src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
+#: src/EBox/Squid/Composite/Extensions.pm:91
 msgid "File extensions filtering"
 msgstr "副檔名過濾條件"
-
-#: src/EBox/Squid/Composite/General.pm:76 src/EBox/Squid.pm:68
-#: src/EBox/Squid.pm:951 src/EBox/Squid.pm:1027
-msgid "HTTP Proxy"
-msgstr "HTTP 代理服務器"
-
-#: src/EBox/Squid/Composite/FilterGroupMIME.pm:92
-#: src/EBox/Squid/Composite/MIME.pm:91
-msgid "MIME types filtering"
-msgstr "MIME 類型過濾條件"
-
-#: src/EBox/Squid/Composite/FilterGroupDomains.pm:84
-#, fuzzy
-msgid "Domains filtering for filter group"
-msgstr "網域過濾條件"
 
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:77
 #: src/EBox/Squid/Composite/FilterSettings.pm:77
@@ -931,162 +1088,20 @@ msgstr "過濾條件設定值"
 msgid "Filter settings for profile {p}"
 msgstr "過濾條件設定值"
 
+#: src/EBox/Squid/Composite/FilterGroupDomains.pm:84
+#, fuzzy
+msgid "Domains filtering for filter group"
+msgstr "網域過濾條件"
+
+#: src/EBox/Squid/Composite/MIME.pm:91
+#: src/EBox/Squid/Composite/FilterGroupMIME.pm:92
+msgid "MIME types filtering"
+msgstr "MIME 類型過濾條件"
+
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:71
 msgid "HTTP proxy traffic report"
 msgstr "HTTP 代理服務器流量報告"
-
-#: src/EBox/Squid/Composite/Domains.pm:92
-msgid "Domains filtering"
-msgstr "網域過濾條件"
-
-#: src/EBox/Squid.pm:195
-#, fuzzy
-msgid "HTTP Proxy configuration file"
-msgstr "HTTP 代理服務器快取檔案"
-
-#: src/EBox/Squid.pm:200
-#, fuzzy
-msgid "Content filter configuration file"
-msgstr "內容過濾門檻"
-
-#: src/EBox/Squid.pm:205
-msgid "Default filter group configuration"
-msgstr ""
-
-#: src/EBox/Squid.pm:210
-msgid "Filter groups membership"
-msgstr ""
-
-#: src/EBox/Squid.pm:215
-#, fuzzy
-msgid "Content filter banned extension list"
-msgstr "內容過濾門檻"
-
-#: src/EBox/Squid.pm:220
-#, fuzzy
-msgid "Content filter banned mime type list"
-msgstr "內容過濾門檻"
-
-#: src/EBox/Squid.pm:225
-#, fuzzy
-msgid "Content filter exception site list"
-msgstr "內容過濾門檻"
-
-#: src/EBox/Squid.pm:230
-#, fuzzy
-msgid "Content filter grey site list"
-msgstr "內容過濾門檻"
-
-#: src/EBox/Squid.pm:235
-#, fuzzy
-msgid "Content filter banned site list"
-msgstr "內容過濾門檻"
-
-#: src/EBox/Squid.pm:240
-#, fuzzy
-msgid "Content filter exception URL list"
-msgstr "內容過濾門檻"
-
-#: src/EBox/Squid.pm:245
-#, fuzzy
-msgid "Content filter grey URL list"
-msgstr "內容過濾門檻"
-
-#: src/EBox/Squid.pm:250
-#, fuzzy
-msgid "Content filter banned URL list"
-msgstr "內容過濾門檻"
-
-#: src/EBox/Squid.pm:255
-msgid "Forbidden phrases list"
-msgstr ""
-
-#: src/EBox/Squid.pm:260
-msgid "Exception phrases list"
-msgstr ""
-
-#: src/EBox/Squid.pm:265
-msgid "PICS ratings configuration"
-msgstr ""
-
-#: src/EBox/Squid.pm:270
-msgid "Dansguardian's log rotation configuration"
-msgstr ""
-
-#: src/EBox/Squid.pm:306
-msgid "You must set the cache_mem variable in the ebox configuration file"
-msgstr "您必須設定 cache_mem 變數在 ebox 組態檔案中"
-
-#: src/EBox/Squid.pm:923
-msgid "Enabled"
-msgstr "已啟用"
-
-#: src/EBox/Squid.pm:927
-msgid "Transparent proxy"
-msgstr "通透式代理服務器"
-
-#: src/EBox/Squid.pm:937
-msgid "Global policy"
-msgstr "全域政策"
-
-#: src/EBox/Squid.pm:939
-msgid "Listening port"
-msgstr "聽候連接埠"
-
-#: src/EBox/Squid.pm:971
-msgid "General"
-msgstr "一般"
-
-#: src/EBox/Squid.pm:975
-msgid "Objects' Policy"
-msgstr "物件政策"
-
-#: src/EBox/Squid.pm:978
-#, fuzzy
-msgid "Groups' Policy"
-msgstr "物件政策"
-
-#: src/EBox/Squid.pm:981
-#, fuzzy
-msgid "Filter Profiles"
-msgstr "已過濾的請求"
-
-#: src/EBox/Squid.pm:1013
-msgid "Host"
-msgstr "主機"
-
-#: src/EBox/Squid.pm:1015
-msgid "URL"
-msgstr "URL"
-
-#: src/EBox/Squid.pm:1016
-msgid "Bytes"
-msgstr "位元組"
-
-#: src/EBox/Squid.pm:1017
-msgid "Mime/type"
-msgstr "Mime/類型"
-
-#: src/EBox/Squid.pm:1018
-msgid "Event"
-msgstr "事件"
-
-#: src/EBox/Squid.pm:1023
-msgid "Accepted"
-msgstr "已接受"
-
-#: src/EBox/Squid.pm:1024
-msgid "Denied"
-msgstr "已拒絕"
-
-#: src/EBox/Squid.pm:1025
-msgid "Filtered"
-msgstr "已過濾"
-
-#: src/EBox/Squid.pm:1103
-msgid "HTTP Proxy's cache files"
-msgstr "HTTP 代理服務器快取檔案"
 
 #: src/templates/ajax/setter/timePeriod.mas:16
 msgid "From"

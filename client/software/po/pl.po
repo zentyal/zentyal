@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:39+0100\n"
+"POT-Creation-Date: 2009-12-03 13:02+0000\n"
 "PO-Revision-Date: 2007-04-03 14:25+0000\n"
 "Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,6 +17,19 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
+
+#: migration/0001_add_http_software_rule.pl:24
+msgid "HTTP software"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:26
+msgid "software service to update packages via apt"
+msgstr ""
+
+#: migration/0001_add_http_software_rule.pl:45
+#, fuzzy
+msgid "rule to allow apt updates"
+msgstr "Automatyczne aktualizacje systemu"
 
 #: src/EBox/Software.pm:53
 #, fuzzy
@@ -33,36 +46,48 @@ msgid ""
 "sources. "
 msgstr ""
 
-#: src/EBox/Software.pm:153 src/EBox/Software.pm:356
+#: src/EBox/Software.pm:162 src/EBox/Software.pm:365
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr ""
 
-#: src/EBox/Software.pm:197 src/EBox/Software.pm:390
+#: src/EBox/Software.pm:206 src/EBox/Software.pm:399
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
 
-#: src/EBox/Software.pm:500
+#: src/EBox/Software.pm:509
 #, fuzzy
 msgid "eBox Components"
 msgstr "komponenty eBox"
 
-#: src/EBox/Software.pm:502
+#: src/EBox/Software.pm:511
 #, fuzzy
 msgid "System Updates"
 msgstr "Aktualizacje systemu"
 
-#: src/EBox/Software.pm:504
+#: src/EBox/Software.pm:513
 #, fuzzy
 msgid "Automatic Updates"
 msgstr "Automatyczne aktualizacje systemu"
 
-#: src/EBox/Software.pm:595
+#: src/EBox/Software.pm:604
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Automatyczne aktualizacje systemu"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "konfiguracja automatycznej aktualizacji"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
+msgid "eBox components"
+msgstr "komponenty eBox"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
@@ -76,21 +101,9 @@ msgstr "Aktualizacje systemu odbywają się automatycznie"
 msgid "The system is up to date"
 msgstr "System jest zaktualizowany"
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Automatyczne aktualizacje systemu"
-
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
-msgid "eBox components"
-msgstr "komponenty eBox"
-
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
 msgid "Upgrading"
 msgstr "Uaktualniam"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "konfiguracja automatycznej aktualizacji"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
@@ -148,22 +161,41 @@ msgid ""
 "logs"
 msgstr ""
 
-#: src/EBox/PackageDescriptions.pm:1
-msgid "eBox - Backup"
-msgstr ""
+#: src/templates/ebox.mas:14 src/templates/updates.mas:16
+msgid "Component"
+msgstr "Komponenty"
 
-#: migration/0001_add_http_software_rule.pl:24
-msgid "HTTP software"
-msgstr ""
+#: src/templates/ebox.mas:15
+msgid "Installed version "
+msgstr "Zainstalowana wersja"
 
-#: migration/0001_add_http_software_rule.pl:26
-msgid "software service to update packages via apt"
-msgstr ""
+#: src/templates/ebox.mas:16
+msgid "Latest version"
+msgstr "Najnowsza wersja"
 
-#: migration/0001_add_http_software_rule.pl:45
-#, fuzzy
-msgid "rule to allow apt updates"
-msgstr "Automatyczne aktualizacje systemu"
+#: src/templates/ebox.mas:17
+msgid "Actions"
+msgstr "Czynności"
+
+#: src/templates/ebox.mas:28 src/templates/updates.mas:19
+msgid "Update"
+msgstr "Uaktualnij"
+
+#: src/templates/ebox.mas:34
+msgid "Install"
+msgstr "Zainstaluj"
+
+#: src/templates/ebox.mas:36
+msgid "none"
+msgstr "żadne"
+
+#: src/templates/ebox.mas:58
+msgid "Remove"
+msgstr "Usuń"
+
+#: src/templates/ebox.mas:75 src/templates/updates.mas:53
+msgid "Update all packages"
+msgstr "Uaktualnij wszystkie pakiety"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
@@ -185,10 +217,6 @@ msgstr "Anuluj"
 msgid "Updates are available for the following system components"
 msgstr "Dostępne są aktualizacje dla następujących komponentów"
 
-#: src/templates/updates.mas:16 src/templates/ebox.mas:14
-msgid "Component"
-msgstr "Komponenty"
-
 #: src/templates/updates.mas:17
 msgid "Description"
 msgstr "Opis"
@@ -196,14 +224,6 @@ msgstr "Opis"
 #: src/templates/updates.mas:18
 msgid "Version"
 msgstr ""
-
-#: src/templates/updates.mas:19 src/templates/ebox.mas:28
-msgid "Update"
-msgstr "Uaktualnij"
-
-#: src/templates/updates.mas:53 src/templates/ebox.mas:75
-msgid "Update all packages"
-msgstr "Uaktualnij wszystkie pakiety"
 
 #: src/templates/updates.mas:64
 msgid ""
@@ -216,30 +236,6 @@ msgstr ""
 #: src/templates/updates.mas:67
 msgid "Upgrade"
 msgstr "Zaktualizuj"
-
-#: src/templates/ebox.mas:15
-msgid "Installed version "
-msgstr "Zainstalowana wersja"
-
-#: src/templates/ebox.mas:16
-msgid "Latest version"
-msgstr "Najnowsza wersja"
-
-#: src/templates/ebox.mas:17
-msgid "Actions"
-msgstr "Czynności"
-
-#: src/templates/ebox.mas:34
-msgid "Install"
-msgstr "Zainstaluj"
-
-#: src/templates/ebox.mas:36
-msgid "none"
-msgstr "żadne"
-
-#: src/templates/ebox.mas:58
-msgid "Remove"
-msgstr "Usuń"
 
 #, fuzzy
 #~ msgid "eBox - Antivirus module"

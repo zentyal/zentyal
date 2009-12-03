@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:39+0100\n"
+"POT-Creation-Date: 2009-12-03 13:01+0000\n"
 "PO-Revision-Date: 2009-11-25 15:15+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -17,6 +17,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Model/MemberTable.pm:93
+msgid "Objects"
+msgstr "Objektumok"
+
+#: src/EBox/Objects.pm:44
+#, perl-brace-format
+msgid "Added object {object}"
+msgstr "{object} objektum hozzáadva"
+
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "A {nname} ({ip}/{mask} [{mac}]) hozzáadva {object} objektumhoz"
+
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "Az {object} objektum törölve"
+
+#: src/EBox/Objects.pm:49
+#, perl-brace-format
+msgid "Forcefully removed object {object}"
+msgstr "{object} objektum erőszakosan törölve lett"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "A {nname} eltávolítva az {object} objektumból"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "Objektum"
+
 #: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
 msgid "Name"
 msgstr "Név"
@@ -24,11 +58,6 @@ msgstr "Név"
 #: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
 msgid "Members"
 msgstr "Tagok"
-
-#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/MemberTable.pm:93
-#: src/EBox/Objects.pm:39
-msgid "Objects"
-msgstr "Objektumok"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -76,32 +105,3 @@ msgstr "hálózati címek"
 #, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
 msgstr "Átfedés van a {ip} és más objektumok tagjai között"
-
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "{object} objektum hozzáadva"
-
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "A {nname} ({ip}/{mask} [{mac}]) hozzáadva {object} objektumhoz"
-
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "Az {object} objektum törölve"
-
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "{object} objektum erőszakosan törölve lett"
-
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "A {nname} eltávolítva az {object} objektumból"
-
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "Objektum"

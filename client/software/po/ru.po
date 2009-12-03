@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:39+0100\n"
+"POT-Creation-Date: 2009-12-03 13:02+0000\n"
 "PO-Revision-Date: 2009-07-17 10:43+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -17,6 +17,18 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: migration/0001_add_http_software_rule.pl:24
+msgid "HTTP software"
+msgstr "HTTP программное обеспечение"
+
+#: migration/0001_add_http_software_rule.pl:26
+msgid "software service to update packages via apt"
+msgstr "служба обновления пакетов через apt"
+
+#: migration/0001_add_http_software_rule.pl:45
+msgid "rule to allow apt updates"
+msgstr "правило разрешающее обновления apt"
 
 #: src/EBox/Software.pm:53
 msgid "Software Management"
@@ -34,35 +46,47 @@ msgstr ""
 "Программное обеспечение eBox загрузит доступные обновления указанных в ваших "
 "источниках обновлений apt"
 
-#: src/EBox/Software.pm:153 src/EBox/Software.pm:356
+#: src/EBox/Software.pm:162 src/EBox/Software.pm:365
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr ""
 
-#: src/EBox/Software.pm:197 src/EBox/Software.pm:390
+#: src/EBox/Software.pm:206 src/EBox/Software.pm:399
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
 
-#: src/EBox/Software.pm:500
+#: src/EBox/Software.pm:509
 msgid "eBox Components"
 msgstr "Компоненты eBox"
 
-#: src/EBox/Software.pm:502
+#: src/EBox/Software.pm:511
 msgid "System Updates"
 msgstr "Системные обновления"
 
-#: src/EBox/Software.pm:504
+#: src/EBox/Software.pm:513
 msgid "Automatic Updates"
 msgstr "Автоматическое обновление"
 
-#: src/EBox/Software.pm:595
+#: src/EBox/Software.pm:604
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 "Управление программным обеспечением сейчас заблокировано {locker}. "
 "Пожалуйста, попробуйте позже"
+
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Автоматическое обновление программного обеспечения"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "автоматическое обновление конфигурации"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
+msgid "eBox components"
+msgstr "Компоненты eBox"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
@@ -76,21 +100,9 @@ msgstr "Обновление программного обеспечения в�
 msgid "The system is up to date"
 msgstr "Система уже обновлена"
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Автоматическое обновление программного обеспечения"
-
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
-msgid "eBox components"
-msgstr "Компоненты eBox"
-
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
 msgid "Upgrading"
 msgstr "Обновление"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "автоматическое обновление конфигурации"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
@@ -154,21 +166,41 @@ msgstr ""
 "Удаление пакетов завершено некорректно. Дополнительную информацию смотрите в "
 "журналах системы"
 
-#: src/EBox/PackageDescriptions.pm:1
-msgid "eBox - Backup"
-msgstr "eBox - Резервное копирование"
+#: src/templates/ebox.mas:14 src/templates/updates.mas:16
+msgid "Component"
+msgstr "Компонент"
 
-#: migration/0001_add_http_software_rule.pl:24
-msgid "HTTP software"
-msgstr "HTTP программное обеспечение"
+#: src/templates/ebox.mas:15
+msgid "Installed version "
+msgstr "Установленная версия"
 
-#: migration/0001_add_http_software_rule.pl:26
-msgid "software service to update packages via apt"
-msgstr "служба обновления пакетов через apt"
+#: src/templates/ebox.mas:16
+msgid "Latest version"
+msgstr "Последняя версия"
 
-#: migration/0001_add_http_software_rule.pl:45
-msgid "rule to allow apt updates"
-msgstr "правило разрешающее обновления apt"
+#: src/templates/ebox.mas:17
+msgid "Actions"
+msgstr "Действия"
+
+#: src/templates/ebox.mas:28 src/templates/updates.mas:19
+msgid "Update"
+msgstr "Обновление"
+
+#: src/templates/ebox.mas:34
+msgid "Install"
+msgstr "Установка"
+
+#: src/templates/ebox.mas:36
+msgid "none"
+msgstr "ничего"
+
+#: src/templates/ebox.mas:58
+msgid "Remove"
+msgstr "Удалить"
+
+#: src/templates/ebox.mas:75 src/templates/updates.mas:53
+msgid "Update all packages"
+msgstr "Обновить все пакеты"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
@@ -190,10 +222,6 @@ msgstr "Отмена"
 msgid "Updates are available for the following system components"
 msgstr "Возможно обновление нескольких системных компонент"
 
-#: src/templates/updates.mas:16 src/templates/ebox.mas:14
-msgid "Component"
-msgstr "Компонент"
-
 #: src/templates/updates.mas:17
 msgid "Description"
 msgstr "Описание"
@@ -201,14 +229,6 @@ msgstr "Описание"
 #: src/templates/updates.mas:18
 msgid "Version"
 msgstr "Версия"
-
-#: src/templates/updates.mas:19 src/templates/ebox.mas:28
-msgid "Update"
-msgstr "Обновление"
-
-#: src/templates/updates.mas:53 src/templates/ebox.mas:75
-msgid "Update all packages"
-msgstr "Обновить все пакеты"
 
 #: src/templates/updates.mas:64
 msgid ""
@@ -222,29 +242,8 @@ msgstr ""
 msgid "Upgrade"
 msgstr "Обновление"
 
-#: src/templates/ebox.mas:15
-msgid "Installed version "
-msgstr "Установленная версия"
-
-#: src/templates/ebox.mas:16
-msgid "Latest version"
-msgstr "Последняя версия"
-
-#: src/templates/ebox.mas:17
-msgid "Actions"
-msgstr "Действия"
-
-#: src/templates/ebox.mas:34
-msgid "Install"
-msgstr "Установка"
-
-#: src/templates/ebox.mas:36
-msgid "none"
-msgstr "ничего"
-
-#: src/templates/ebox.mas:58
-msgid "Remove"
-msgstr "Удалить"
+#~ msgid "eBox - Backup"
+#~ msgstr "eBox - Резервное копирование"
 
 #~ msgid "eBox - Antivirus module"
 #~ msgstr "eBox - антивирусный модуль"

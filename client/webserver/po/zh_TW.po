@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:42+0100\n"
+"POT-Creation-Date: 2009-12-03 13:09+0000\n"
 "PO-Revision-Date: 2009-08-04 08:19+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr "HyperText Transport Protocol"
 
 #: src/EBox/WebServer.pm:77
 #, fuzzy
@@ -51,16 +55,28 @@ msgstr "此 {userDirConfFile} 已遺失!請回復"
 msgid "listening port"
 msgstr "監聽連接埠"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+#: src/EBox/WebServer/Model/GeneralSettings.pm:101
+msgid ""
+"To allow HTML directories for users is needed that the file sharing module "
+"is installed and configured"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:107
+msgid ""
+"To allow HTML directories for user os needed to have the file sharing module "
+"configured. To configure it enable it at least one time"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
 msgstr "監聽連接埠"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#: src/EBox/WebServer/Model/GeneralSettings.pm:175
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "啟用每個使用者 {dirName}"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+#: src/EBox/WebServer/Model/GeneralSettings.pm:179
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
@@ -68,11 +84,11 @@ msgstr ""
 "假如您勾選這個功能,每個使用者都會允許有一個網站在他們的家目錄中放置 "
 "public_html"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:172
+#: src/EBox/WebServer/Model/GeneralSettings.pm:189
 msgid "General configuration settings"
 msgstr "一般設置設定"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:176
+#: src/EBox/WebServer/Model/GeneralSettings.pm:193
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
@@ -83,7 +99,7 @@ msgstr ""
 "一般網頁伺服器設置.監聽連接埠必須不能被其他服務使用.假如您啟用使用者發佈他們"
 "的自己的 html 網頁,則網頁將會從他們的 samba 家目錄的 {dirName} 目錄中讀取"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:182
+#: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"
 msgstr "一般網頁伺服器設置設定已更新"
 
@@ -180,10 +196,6 @@ msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr "eBox 的網頁伺服器允許您在主機上架設HTML網頁以及多個虛擬主機"
-
-#: migration/0001_add_service_and_port.pl:147
-msgid "HyperText Transport Protocol"
-msgstr "HyperText Transport Protocol"
 
 #~ msgid "Web"
 #~ msgstr "網頁"

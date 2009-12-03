@@ -1,16 +1,3 @@
-msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-30 15:09+0200\n"
-"PO-Revision-Date: 2009-09-30 17:00+0200\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
-"X-Generator: Pootle 1.1.0\n"
-
 # French translations for ebox-trafficshaping package.
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
@@ -20,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:40+0100\n"
+"POT-Creation-Date: 2009-12-03 13:02+0000\n"
 "PO-Revision-Date: 2009-07-28 04:33+0200\n"
 "Last-Translator: David Ande <david@andeprasfamily.ath.cx>\n"
 "Language-Team: none\n"
@@ -29,204 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:83
-msgid "External Interface"
-msgstr "Interface externe"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:88
-msgid "Upload"
-msgstr "Envoyer (Upload)"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:92
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:100
-msgid "Upload rate in Kbits/s for through this interface"
-msgstr "Taux d'envoi en Kbits/s au travers de l'interface"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:96
-msgid "Download"
-msgstr "Télécharger"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:108
-msgid "External Interface Rates"
-msgstr "Taux de l'interface externe"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
-msgid "rate"
-msgstr "taux (rate)"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:138
-#, perl-brace-format
-msgid "Change or remove some rules on {contextName}"
-msgstr "Modifier ou effacer les règles sur {contextName}"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:270
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (interface interne)"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:273
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (interface externe)"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:300
-msgid "Guaranteed rate"
-msgstr "Taux garanti"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:305
-msgid "Limited rate"
-msgstr "Taux limité"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:316
-#, perl-brace-format
-msgid ""
-"Object {object} has no members. Please add at least one to add rules using "
-"this object"
-msgstr ""
-"L'objet {object} n'a pas de membre. Veuillez en ajouter au moins un pour "
-"pouvoir ajouter des règles sur cet objet"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:343
-msgid "If service is any, some source ordestination should be provided"
-msgstr ""
-"Si le service est défini sur \"n'importe lequel /tous\", une source ou une "
-"destination doit être définie"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:443
-msgid "Service"
-msgstr "Service"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:448
-msgid "Port based service"
-msgstr "Service basé sur les ports"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:460
-msgid "Source"
-msgstr "Source"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:465
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:493
-msgid "Any"
-msgstr "Tous"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:468
-msgid "Source IP"
-msgstr "IP source"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:473
-msgid "Source MAC"
-msgstr "Source MAC"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:478
-msgid "Source object"
-msgstr "Objet source"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:488
-msgid "Destination"
-msgstr "Destination"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:496
-msgid "Destination IP"
-msgstr "IP de destination"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:501
-msgid "Destination object"
-msgstr "Objet de destination"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:511
-#: src/EBox/TrafficShaping.pm:1537
-msgid "Priority"
-msgstr "Priorité"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:515
-msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr "La plus basse priorité: 7 La plus haute priorité: 0"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:519
-#: src/EBox/TrafficShaping.pm:1535
-msgid "Guaranteed Rate"
-msgstr "Taux garanti"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:522
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:536
-msgid "Kbit/s"
-msgstr "Kbit/s"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:524
-msgid ""
-"Note that  The sum of all guaranteed rates cannot exceed your total "
-"bandwidth. 0 means unguaranteed rate."
-msgstr ""
-"Noter que la somme de tout les taux garantis ne peut excéder votre bande "
-"passante totale. 0 signifie un taux non garanti."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:531
-#: src/EBox/TrafficShaping.pm:1536
-msgid "Limited Rate"
-msgstr "Taux limité"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:538
-msgid "Traffic will not exceed this rate. 0 means unlimited rate."
-msgstr "Le trafic ne dépassera pas ce taux. 0 signifie un taux illimité."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:545
-#, perl-brace-format
-msgid "Rules list for {printableIndex}"
-msgstr "Listes des règles pour {printableIndex}"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-msgid ""
-"Note that if the interface is internal, the traffic flow comes from Internet "
-"to inside and the external is the other way around"
-msgstr ""
-"Notez que si l'interface est interne, le flux du trafic va de l'internet "
-"vers l'intérieur, tandis que si elle est externe, se sera l'inverse"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:559
-msgid "rule"
-msgstr "règle"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:620
-#, perl-brace-format
-msgid "Remove {num} rules at {modelName}"
-msgstr "Effacer {num} règles dans {modelName}"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:667
-#, perl-brace-format
-msgid ""
-"Normalizing rates: {limitNum} rules have decreased its limit rate to "
-"{limitRate}, {guaranNum} rules have normalized its guaranteed rate to "
-"maintain the same proportion that it has previously and {removeNum} have "
-"been deleted because its guaranteed rate was lower than the minimum allowed"
-msgstr ""
-"Normalisation des taux : {limitNum} règles ont descendu leur taux limite à "
-"{limitRate}, {guaranNum} règles ont normalisé leur taux garanti afin de "
-"maintenir la même proportion que précédemment et {removeNum} règles ont été "
-"effacées car leur taux garanti était inférieur au minimum autorisé"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:724
-msgid ""
-"Port based protocols use the port number to match a service, while "
-"Application based protocols are slower but more effective as they check the "
-"content of any packet to match a service."
-msgstr ""
-"Les protocoles basés sur les ports utilisent les numéro de port lié à un "
-"service, tandis que les protocoles basé sur les applications sont plus lent "
-"mais plus efficace car ils contrôlent le contenu des paquets afin de "
-"vérifier s'il correspondent au service attendu."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:740
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:757
-msgid "Application based service"
-msgstr "Service basé par application (Application based service)"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:748
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:764
-msgid "Application based service group"
-msgstr ""
-"Groupe de service basé par application (Application based service group)"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
@@ -283,6 +72,204 @@ msgstr "Marque de classe de feuille"
 msgid "Address"
 msgstr "Adresse"
 
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:139
+#, perl-brace-format
+msgid "Change or remove some rules on {contextName}"
+msgstr "Modifier ou effacer les règles sur {contextName}"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:271
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (interface interne)"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:274
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (interface externe)"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:301
+msgid "Guaranteed rate"
+msgstr "Taux garanti"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:306
+msgid "Limited rate"
+msgstr "Taux limité"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:317
+#, perl-brace-format
+msgid ""
+"Object {object} has no members. Please add at least one to add rules using "
+"this object"
+msgstr ""
+"L'objet {object} n'a pas de membre. Veuillez en ajouter au moins un pour "
+"pouvoir ajouter des règles sur cet objet"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:344
+msgid "If service is any, some source ordestination should be provided"
+msgstr ""
+"Si le service est défini sur \"n'importe lequel /tous\", une source ou une "
+"destination doit être définie"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
+msgid "Service"
+msgstr "Service"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:484
+msgid "Port based service"
+msgstr "Service basé sur les ports"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:496
+msgid "Source"
+msgstr "Source"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:501
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:529
+msgid "Any"
+msgstr "Tous"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:504
+msgid "Source IP"
+msgstr "IP source"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:509
+msgid "Source MAC"
+msgstr "Source MAC"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:514
+msgid "Source object"
+msgstr "Objet source"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:524
+msgid "Destination"
+msgstr "Destination"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:532
+msgid "Destination IP"
+msgstr "IP de destination"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:537
+msgid "Destination object"
+msgstr "Objet de destination"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:547
+#: src/EBox/TrafficShaping.pm:1558
+msgid "Priority"
+msgstr "Priorité"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:551
+msgid "Lowest priotiry: 7 Highest priority: 0"
+msgstr "La plus basse priorité: 7 La plus haute priorité: 0"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:555
+#: src/EBox/TrafficShaping.pm:1556
+msgid "Guaranteed Rate"
+msgstr "Taux garanti"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:558
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:572
+msgid "Kbit/s"
+msgstr "Kbit/s"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:560
+msgid ""
+"Note that  The sum of all guaranteed rates cannot exceed your total "
+"bandwidth. 0 means unguaranteed rate."
+msgstr ""
+"Noter que la somme de tout les taux garantis ne peut excéder votre bande "
+"passante totale. 0 signifie un taux non garanti."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:567
+#: src/EBox/TrafficShaping.pm:1557
+msgid "Limited Rate"
+msgstr "Taux limité"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:574
+msgid "Traffic will not exceed this rate. 0 means unlimited rate."
+msgstr "Le trafic ne dépassera pas ce taux. 0 signifie un taux illimité."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:581
+#, perl-brace-format
+msgid "Rules list for {printableIndex}"
+msgstr "Listes des règles pour {printableIndex}"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:590
+msgid ""
+"Note that if the interface is internal, the traffic flow comes from Internet "
+"to inside and the external is the other way around"
+msgstr ""
+"Notez que si l'interface est interne, le flux du trafic va de l'internet "
+"vers l'intérieur, tandis que si elle est externe, se sera l'inverse"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:595
+msgid "rule"
+msgstr "règle"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:656
+#, perl-brace-format
+msgid "Remove {num} rules at {modelName}"
+msgstr "Effacer {num} règles dans {modelName}"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:703
+#, perl-brace-format
+msgid ""
+"Normalizing rates: {limitNum} rules have decreased its limit rate to "
+"{limitRate}, {guaranNum} rules have normalized its guaranteed rate to "
+"maintain the same proportion that it has previously and {removeNum} have "
+"been deleted because its guaranteed rate was lower than the minimum allowed"
+msgstr ""
+"Normalisation des taux : {limitNum} règles ont descendu leur taux limite à "
+"{limitRate}, {guaranNum} règles ont normalisé leur taux garanti afin de "
+"maintenir la même proportion que précédemment et {removeNum} règles ont été "
+"effacées car leur taux garanti était inférieur au minimum autorisé"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:760
+msgid ""
+"Port based protocols use the port number to match a service, while "
+"Application based protocols are slower but more effective as they check the "
+"content of any packet to match a service."
+msgstr ""
+"Les protocoles basés sur les ports utilisent les numéro de port lié à un "
+"service, tandis que les protocoles basé sur les applications sont plus lent "
+"mais plus efficace car ils contrôlent le contenu des paquets afin de "
+"vérifier s'il correspondent au service attendu."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:776
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:793
+msgid "Application based service"
+msgstr "Service basé par application (Application based service)"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:784
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:800
+msgid "Application based service group"
+msgstr ""
+"Groupe de service basé par application (Application based service group)"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:83
+msgid "External Interface"
+msgstr "Interface externe"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:88
+msgid "Upload"
+msgstr "Envoyer (Upload)"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:92
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:100
+msgid "Upload rate in Kbits/s for through this interface"
+msgstr "Taux d'envoi en Kbits/s au travers de l'interface"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:96
+msgid "Download"
+msgstr "Télécharger"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:108
+msgid "External Interface Rates"
+msgstr "Taux de l'interface externe"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
+msgid "rate"
+msgstr "taux (rate)"
+
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
 #, perl-brace-format
 msgid ""
@@ -323,44 +310,40 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Choisissez une interface à lisser"
 
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "options"
-
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:420
-#: src/EBox/TrafficShaping.pm:571 src/EBox/TrafficShaping.pm:959
-msgid "Interface"
-msgstr "Interface"
-
-#: src/EBox/TrafficShaping.pm:93 src/EBox/TrafficShaping.pm:94
+#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:95
 msgid "Traffic Shaping"
 msgstr "Lissage de trafic"
 
-#: src/EBox/TrafficShaping.pm:132
+#: src/EBox/TrafficShaping.pm:133
 msgid "Add iptables rules to mangle table"
 msgstr "Ajouter des règles \"iptables\" à la table \"mangle\""
 
-#: src/EBox/TrafficShaping.pm:133
+#: src/EBox/TrafficShaping.pm:134
 msgid "To mark packets with different priorities and rates"
 msgstr "Marquer les paquets avec une priorité ou taux différents"
 
-#: src/EBox/TrafficShaping.pm:137
+#: src/EBox/TrafficShaping.pm:138
 msgid "Add tc rules"
 msgstr "Ajouter des règles \"tc\""
 
-#: src/EBox/TrafficShaping.pm:138
+#: src/EBox/TrafficShaping.pm:139
 msgid "To implement the traffic shaping rules"
 msgstr "Implémenter des règles de gestion de trafic (traffic shaping)"
 
-#: src/EBox/TrafficShaping.pm:363
+#: src/EBox/TrafficShaping.pm:384
 msgid "Rules"
 msgstr "Règles"
 
-#: src/EBox/TrafficShaping.pm:365
+#: src/EBox/TrafficShaping.pm:386
 msgid "Interface Rates"
 msgstr "Taux/fréquence de l'interface (Interface Rates)"
 
-#: src/EBox/TrafficShaping.pm:433
+#: src/EBox/TrafficShaping.pm:441 src/EBox/TrafficShaping.pm:592
+#: src/EBox/TrafficShaping.pm:980 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr "Interface"
+
+#: src/EBox/TrafficShaping.pm:454
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -369,11 +352,11 @@ msgstr ""
 "Le nombre maximum de compte de règles {max} est atteint. Veuillez en effacer "
 "au moins une"
 
-#: src/EBox/TrafficShaping.pm:1045
+#: src/EBox/TrafficShaping.pm:1066
 msgid "type"
 msgstr "type"
 
-#: src/EBox/TrafficShaping.pm:1068
+#: src/EBox/TrafficShaping.pm:1089
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -382,13 +365,17 @@ msgstr ""
 "L'interface {iface} doit avoir un taux de transfert maximum afin de pouvoir "
 "lisser le trafic"
 
-#: src/EBox/TrafficShaping.pm:1533
+#: src/EBox/TrafficShaping.pm:1554
 msgid "Protocol"
 msgstr "Protocole"
 
-#: src/EBox/TrafficShaping.pm:1534
+#: src/EBox/TrafficShaping.pm:1555
 msgid "Port"
 msgstr "Port"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "options"
 
 #~ msgid "traffic shaping"
 #~ msgstr "lissage de trafic"

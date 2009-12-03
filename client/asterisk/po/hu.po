@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:24+0100\n"
+"POT-Creation-Date: 2009-12-03 12:47+0000\n"
 "PO-Revision-Date: 2009-11-25 15:22+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: migration/0001_add_firewall_services.pl:30
+msgid "eBox VoIP system"
+msgstr "eBox VoIP rendszer"
 
 #: src/EBox/Asterisk.pm:66
 msgid "VoIP"
@@ -109,10 +113,91 @@ msgstr "Online VoIP felhasználók"
 msgid "VoIP Users in Meetings"
 msgstr "A beszélgetésben résztvevő felhasználók"
 
-#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:114
-#: src/EBox/Model/Meetings.pm:123
+#: src/EBox/Asterisk/Extensions.pm:208
+msgid "User's extension"
+msgstr "Felhasználói kiterjesztés"
+
+#: src/EBox/Asterisk/Extensions.pm:296 src/EBox/Model/Meetings.pm:145
+#: src/templates/asterisk.mas:34
+msgid "Extension"
+msgstr "Kiterjesztés"
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:42
+msgid "username"
+msgstr "felhasználói név"
+
+#: src/EBox/Model/Meetings.pm:91
+msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
+msgstr ""
+"Telepítened kell a dahdi-linux és a dahdi-tools csomagokat, hogy használni "
+"tudd a Találkozókat."
+
+#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
+#: src/EBox/Model/Settings.pm:84
 msgid "extension"
 msgstr "kiterjesztés"
+
+#: src/EBox/Model/Meetings.pm:149
+#, perl-brace-format
+msgid "A number between {min} and {max}"
+msgstr "A szám {min} és {max} között"
+
+#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:90
+msgid "Password"
+msgstr "Jelszó"
+
+#: src/EBox/Model/Meetings.pm:173 src/EBox/Model/Localnets.pm:119
+msgid "Description"
+msgstr "Leírás"
+
+#: src/EBox/Model/Meetings.pm:185
+msgid "meeting"
+msgstr "találkozó"
+
+#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
+msgid "Voicemail settings"
+msgstr "Hangrögzítő beállítások"
+
+#: src/EBox/Model/Voicemail.pm:94
+msgid "New password"
+msgstr "Új jelszó"
+
+#: src/EBox/Model/Voicemail.pm:101
+msgid "Mail address"
+msgstr "Levelezési cím"
+
+#: src/EBox/Model/Voicemail.pm:108
+msgid "Attach messages"
+msgstr "Üzenetek hozzácsatolása"
+
+#: src/EBox/Model/Voicemail.pm:114
+msgid "Delete sent messages"
+msgstr "Elküldött levelek törlése"
+
+#: src/EBox/Model/Voicemail.pm:204
+msgid "Settings successfully updated"
+msgstr "Beállítások rendben frissültek"
+
+#: src/EBox/Model/Localnets.pm:88
+#, fuzzy, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+"A belső interfészre kapcsolódó hálózatok, mint a {net}, alapértelmezetten "
+"helyinek vannak minősítve, nem szükséges külön hozzáadni őket"
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Helyi hálózat"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Helyi hálózatok"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "helyi hálózat"
 
 #: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
@@ -142,31 +227,6 @@ msgstr "Általános Asterisk szerver beállítások"
 msgid "General Asterisk server configuration updated"
 msgstr "Általános Asterisk szerver beállítások frissültek"
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net},are always "
-"considered local networks so it is not neccesary to add them"
-msgstr ""
-"A belső interfészre kapcsolódó hálózatok, mint a {net}, alapértelmezetten "
-"helyinek vannak minősítve, nem szükséges külön hozzáadni őket"
-
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "Helyi hálózat"
-
-#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:173
-msgid "Description"
-msgstr "Leírás"
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "Helyi hálózatok"
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "helyi hálózat"
-
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
 msgstr "Név"
@@ -174,10 +234,6 @@ msgstr "Név"
 #: src/EBox/Model/Provider.pm:83
 msgid "Username"
 msgstr "Felhasználói név"
-
-#: src/EBox/Model/Provider.pm:90 src/EBox/Model/Meetings.pm:165
-msgid "Password"
-msgstr "Jelszó"
 
 #: src/EBox/Model/Provider.pm:97
 msgid "Server"
@@ -198,30 +254,6 @@ msgstr "SIP szolgáltató a kimenő hívások beállításához"
 #: src/EBox/Model/Provider.pm:120
 msgid "SIP provider configuration updated"
 msgstr "SIP szolgáltató beállítások frissültek"
-
-#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
-msgid "Voicemail settings"
-msgstr "Hangrögzítő beállítások"
-
-#: src/EBox/Model/Voicemail.pm:94
-msgid "New password"
-msgstr "Új jelszó"
-
-#: src/EBox/Model/Voicemail.pm:101
-msgid "Mail address"
-msgstr "Levelezési cím"
-
-#: src/EBox/Model/Voicemail.pm:108
-msgid "Attach messages"
-msgstr "Üzenetek hozzácsatolása"
-
-#: src/EBox/Model/Voicemail.pm:114
-msgid "Delete sent messages"
-msgstr "Elküldött levelek törlése"
-
-#: src/EBox/Model/Voicemail.pm:204
-msgid "Settings successfully updated"
-msgstr "Beállítások rendben frissültek"
 
 #: src/EBox/Model/NAT.pm:96
 #, fuzzy
@@ -244,41 +276,9 @@ msgstr "NAT Asterisk szerver beállítások"
 msgid "NAT Asterisk server configuration updated"
 msgstr "NAT Asterisk szerver beállítások frissültek"
 
-#: src/EBox/Model/Meetings.pm:91
-msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
-msgstr ""
-"Telepítened kell a dahdi-linux és a dahdi-tools csomagokat, hogy használni "
-"tudd a Találkozókat."
-
-#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
-#: src/templates/asterisk.mas:34
-msgid "Extension"
-msgstr "Kiterjesztés"
-
-#: src/EBox/Model/Meetings.pm:149
-#, perl-brace-format
-msgid "A number between {min} and {max}"
-msgstr "A szám {min} és {max} között"
-
-#: src/EBox/Model/Meetings.pm:185
-msgid "meeting"
-msgstr "találkozó"
-
-#: src/EBox/Asterisk/Extensions.pm:208
-msgid "User's extension"
-msgstr "Felhasználói kiterjesztés"
-
-#: src/EBox/CGI/AsteriskUserOptions.pm:42
-msgid "username"
-msgstr "felhasználói név"
-
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk modul"
-
-#: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
-msgstr "eBox VoIP rendszer"
 
 #: src/templates/asterisk.mas:8
 msgid "Asterisk account"

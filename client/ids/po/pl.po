@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:30+0100\n"
+"POT-Creation-Date: 2009-12-03 12:57+0000\n"
 "PO-Revision-Date: 2009-03-08 15:17+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Interface"
 msgstr ""
 
-#: src/EBox/Model/Interfaces.pm:125 src/EBox/Model/Rules.pm:133
+#: src/EBox/Model/Interfaces.pm:125 src/EBox/Model/Rules.pm:149
 msgid "Enabled"
 msgstr ""
 
@@ -65,33 +65,25 @@ msgstr ""
 msgid "Interfaces"
 msgstr ""
 
-#: src/EBox/Model/Interfaces.pm:139 src/EBox/Model/Rules.pm:147
+#: src/EBox/Model/Interfaces.pm:139 src/EBox/Model/Rules.pm:163
 msgid "rule"
 msgstr ""
 
-#: src/EBox/Model/Interfaces.pm:140 src/EBox/Model/Rules.pm:148
+#: src/EBox/Model/Interfaces.pm:140 src/EBox/Model/Rules.pm:164
 msgid "help message"
 msgstr ""
 
-#: src/EBox/Model/Rules.pm:128
+#: src/EBox/Model/Rules.pm:144
 msgid "Rule Set"
 msgstr ""
 
-#: src/EBox/Model/Rules.pm:142
+#: src/EBox/Model/Rules.pm:158
 msgid "Rules"
 msgstr ""
 
-#: src/EBox/Model/Report/AlertGraph.pm:47
 #: src/EBox/Model/Report/AlertDetails.pm:41
+#: src/EBox/Model/Report/AlertGraph.pm:47
 msgid "number of alerts"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertGraph.pm:52
-msgid "Alerts chart"
-msgstr ""
-
-#: src/EBox/Model/Report/AlertGraph.pm:68
-msgid "Alert Graph"
 msgstr ""
 
 #: src/EBox/Model/Report/AlertDetails.pm:58
@@ -104,6 +96,14 @@ msgstr ""
 
 #: src/EBox/Model/Report/AlertDetails.pm:73
 msgid "alerts"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
 msgstr ""
 
 #: src/EBox/Composite/General.pm:71

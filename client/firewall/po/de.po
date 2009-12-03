@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:30+0100\n"
+"POT-Creation-Date: 2009-12-03 12:57+0000\n"
 "PO-Revision-Date: 2009-06-29 14:32+0200\n"
 "Last-Translator: Benjamin Höglinger <nefarius@darkhosters.net>\n"
 "Language-Team: none\n"
@@ -23,7 +23,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:848
+#: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
+msgid ""
+"You must set the iptables_log_limit variable in the ebox configuration file"
+msgstr ""
+"Sie müssen die Variable iptables_log_limit in der eBox-Konfigurationsdatei "
+"setzen"
+
+#: src/EBox/Iptables.pm:744 src/EBox/Iptables.pm:781
+msgid ""
+"You must set the iptables_log_burst variable in the ebox configuration file"
+msgstr ""
+"Sie müssen die Variable iptables_log_lburst in der eBox-Konfigurationsdatei "
+"setzen"
+
+#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:855
 msgid "Firewall"
 msgstr "Firewall"
 
@@ -56,74 +70,74 @@ msgstr ""
 "funktionieren. Standardmässig sind alle ausgehenden Verbindungen verboten "
 "und nur eingehende SSH- und HTTPS-Verbindungen werden erlaubt"
 
-#: src/EBox/Firewall.pm:304
+#: src/EBox/Firewall.pm:311
 msgid "action"
 msgstr "Aktion"
 
-#: src/EBox/Firewall.pm:425 src/EBox/Firewall.pm:470 src/EBox/Firewall.pm:494
+#: src/EBox/Firewall.pm:432 src/EBox/Firewall.pm:477 src/EBox/Firewall.pm:501
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "Der Name \"{name}\" ist ungültig"
 
-#: src/EBox/Firewall.pm:426 src/EBox/Firewall.pm:605 src/EBox/Firewall.pm:630
+#: src/EBox/Firewall.pm:433 src/EBox/Firewall.pm:612 src/EBox/Firewall.pm:637
 msgid "port"
 msgstr "Port"
 
-#: src/EBox/Firewall.pm:604 src/EBox/Firewall.pm:629
+#: src/EBox/Firewall.pm:611 src/EBox/Firewall.pm:636
 msgid "protocol"
 msgstr "Protokoll"
 
-#: src/EBox/Firewall.pm:818
+#: src/EBox/Firewall.pm:825
 msgid "Packet Filter"
 msgstr "Paketfilter"
 
-#: src/EBox/Firewall.pm:821
+#: src/EBox/Firewall.pm:828
 msgid "Redirects"
 msgstr "Weiterleitungen"
 
-#: src/EBox/Firewall.pm:832
+#: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/Firewall.pm:833
+#: src/EBox/Firewall.pm:840
 msgid "Input interface"
 msgstr "Eingang-Netzwerkkarte"
 
-#: src/EBox/Firewall.pm:834
+#: src/EBox/Firewall.pm:841
 msgid "Output interface"
 msgstr "Ausgang-Netzwerkkarte"
 
-#: src/EBox/Firewall.pm:835 src/EBox/Firewall/Model/BaseRuleTable.pm:121
-#: src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall.pm:842 src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
 msgid "Source"
 msgstr "Quelle"
 
-#: src/EBox/Firewall.pm:836 src/EBox/Firewall/Model/BaseRuleTable.pm:147
+#: src/EBox/Firewall.pm:843 src/EBox/Firewall/Model/BaseRuleTable.pm:147
 msgid "Destination"
 msgstr "Ziel"
 
-#: src/EBox/Firewall.pm:837 src/EBox/Firewall/Model/RedirectsTable.pm:285
+#: src/EBox/Firewall.pm:844 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
 msgstr "Protokoll"
 
-#: src/EBox/Firewall.pm:838
+#: src/EBox/Firewall.pm:845
 msgid "Source port"
 msgstr "Quellport"
 
-#: src/EBox/Firewall.pm:839
+#: src/EBox/Firewall.pm:846
 msgid "Destination port"
 msgstr "Zielport"
 
-#: src/EBox/Firewall.pm:840 src/EBox/Firewall/Model/BaseRuleTable.pm:112
+#: src/EBox/Firewall.pm:847 src/EBox/Firewall/Model/BaseRuleTable.pm:112
 msgid "Decision"
 msgstr "Entscheidung"
 
-#: src/EBox/Firewall.pm:845
+#: src/EBox/Firewall.pm:852
 msgid "DROP"
 msgstr "LÖSCHEN"
 
-#: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/BaseRuleTable.pm:70
+#: src/EBox/Firewall.pm:852 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
 msgstr "PROTOKOLLIEREN"
 
@@ -131,69 +145,24 @@ msgstr "PROTOKOLLIEREN"
 msgid "Packet filtering"
 msgstr "Paketfilter"
 
-#: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
-msgid ""
-"You must set the iptables_log_limit variable in the ebox configuration file"
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "Filter-Regeln für Verkehr von der eBox nach anderswo"
+
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+msgid "rule"
+msgstr "Regel"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
 msgstr ""
-"Sie müssen die Variable iptables_log_limit in der eBox-Konfigurationsdatei "
-"setzen"
-
-#: src/EBox/Iptables.pm:744 src/EBox/Iptables.pm:781
-msgid ""
-"You must set the iptables_log_burst variable in the ebox configuration file"
-msgstr ""
-"Sie müssen die Variable iptables_log_lburst in der eBox-Konfigurationsdatei "
-"setzen"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
-msgid "ACCEPT"
-msgstr "ANNEHMEN"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
-msgid "DENY"
-msgstr "ABLEHNEN"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
-#: src/EBox/Firewall/Model/RedirectsTable.pm:297
-msgid "Any"
-msgstr "Alle"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
-#: src/EBox/Firewall/Model/RedirectsTable.pm:300
-msgid "Source IP"
-msgstr "Quell-IP"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
-#: src/EBox/Firewall/Model/RedirectsTable.pm:304
-msgid "Source object"
-msgstr "Gruppe der Quellcomputer"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
-#: src/EBox/Firewall/Model/RedirectsTable.pm:315
-msgid "Destination IP"
-msgstr "Ziel IP"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
-msgid "Destination object"
-msgstr "Gruppe der Zielcomputer"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
-msgid "Service"
-msgstr "Dienst"
-
-# see item 99 for translation of 'inverse match'
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
-msgid ""
-"If inverse match is ticked, any service but the selected one will match this "
-"rule"
-msgstr ""
-"Wenn 'Bedeutung umkehren' aktiviert ist, dann trifft die Regel auf alle "
-"Dienste bis auf den Ausgewählten zu."
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
-msgid "Description"
-msgstr "Beschreibung"
+"Filter-Regeln für Verkehr von externen Netzwerken nach interne Netzwerke"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
@@ -223,6 +192,27 @@ msgstr "Computergruppe"
 msgid "Original destination port"
 msgstr "Ursprünglicher Zielport"
 
+#: src/EBox/Firewall/Model/RedirectsTable.pm:297
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
+msgid "Any"
+msgstr "Alle"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:300
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
+msgid "Source IP"
+msgstr "Quell-IP"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:304
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
+msgid "Source object"
+msgstr "Gruppe der Quellcomputer"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:315
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
+msgid "Destination IP"
+msgstr "Ziel IP"
+
 #: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"
 msgstr "Port"
@@ -235,27 +225,47 @@ msgstr "Gleicher"
 msgid "Other"
 msgstr "Anderer"
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:346
+#: src/EBox/Firewall/Model/RedirectsTable.pm:337
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
+msgid "Description"
+msgstr "Beschreibung"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:354
 msgid "Port redirections"
 msgstr "Port-Weiterleitung"
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+#: src/EBox/Firewall/Model/RedirectsTable.pm:363
 msgid "redirect"
 msgstr "umleiten"
 
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
-msgstr ""
-"Filter-Regeln für Verkehr von externen Netzwerken nach interne Netzwerke"
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+msgid "ACCEPT"
+msgstr "ANNEHMEN"
 
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-msgid "rule"
-msgstr "Regel"
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+msgid "DENY"
+msgstr "ABLEHNEN"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+msgid "Destination object"
+msgstr "Gruppe der Zielcomputer"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+msgid "Service"
+msgstr "Dienst"
+
+# see item 99 for translation of 'inverse match'
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+msgid ""
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
+msgstr ""
+"Wenn 'Bedeutung umkehren' aktiviert ist, dann trifft die Regel auf alle "
+"Dienste bis auf den Ausgewählten zu."
+
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+msgid "Filtering rules from  external networks to eBox"
+msgstr "Filter-Regeln für Verkehr von externen Netzwerken zur eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
 #: src/templates/filter.mas:6
@@ -291,15 +301,6 @@ msgstr "Paket-Traffic Details"
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
 msgstr "Traffic"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
-msgstr "Filter-Regeln für Verkehr von der eBox nach anderswo"
-
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "Filter-Regeln für Verkehr von externen Netzwerken zur eBox"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"

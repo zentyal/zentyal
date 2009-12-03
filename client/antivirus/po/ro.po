@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:23+0100\n"
+"POT-Creation-Date: 2009-12-03 12:47+0000\n"
 "PO-Revision-Date: 2009-03-25 12:22+0000\n"
 "Last-Translator: Marinescu Dragos <marinescu_dragos@live.com>\n"
 "Language-Team: none\n"
@@ -15,6 +15,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:378
+#: src/EBox/AntiVirus.pm:383
+msgid "Antivirus"
+msgstr "Antivirus"
+
+#: src/EBox/AntiVirus.pm:212
+#, fuzzy
+msgid " To configure clamd daemon"
+msgstr "Pentru a configura clamd daemon"
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr "Pentru a configura actualizarea freshclam"
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr "Pentru a programa lansarea a actualizari"
 
 # src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
@@ -33,7 +51,7 @@ msgstr "Status-ul bazei de date a antivirusului"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 #, fuzzy
 msgid ""
-"The antivirus database has not been updated since the module was installed."
+"The antivirus database has not been updated since the module was enabled."
 msgstr ""
 "Baza de date a antivirusului nu a fost updatata de cand modulul filtrumail "
 "eBox's a fost instalat"
@@ -64,24 +82,6 @@ msgstr "Ultima updatare a fost facuta cu suces"
 #, fuzzy, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Eveniment necunoscut {event}"
-
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:377
-#: src/EBox/AntiVirus.pm:382
-msgid "Antivirus"
-msgstr "Antivirus"
-
-#: src/EBox/AntiVirus.pm:212
-#, fuzzy
-msgid " To configure clamd daemon"
-msgstr "Pentru a configura clamd daemon"
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr "Pentru a configura actualizarea freshclam"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "Pentru a programa lansarea a actualizari"
 
 #~ msgid "Update status"
 #~ msgstr "Status actualizare"

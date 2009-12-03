@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:23+0100\n"
+"POT-Creation-Date: 2009-12-03 12:47+0000\n"
 "PO-Revision-Date: 2009-11-28 15:08+0100\n"
 "Last-Translator: Sergio Vergara Ruiz <svruiz@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,6 +15,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:378
+#: src/EBox/AntiVirus.pm:383
+msgid "Antivirus"
+msgstr "Antivirus"
+
+#: src/EBox/AntiVirus.pm:212
+msgid " To configure clamd daemon"
+msgstr "Per configurar el dimoni clamd"
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr "Per configurar l'actualització freshclam"
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr "Per programar el llançament de l'actualització"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
@@ -29,8 +46,9 @@ msgid "Antivirus Database Update Status"
 msgstr "La base de dades de l'antivirus a sigut actualitzada."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+#, fuzzy
 msgid ""
-"The antivirus database has not been updated since the module was installed."
+"The antivirus database has not been updated since the module was enabled."
 msgstr ""
 "La base de dades de l'antivirus no a sigut actualitzada, necessita "
 "instal·lar el modul."
@@ -58,20 +76,3 @@ msgstr "L'ultima actualització a sigut un èxit."
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Esdeveniment desconegut {event}."
-
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:377
-#: src/EBox/AntiVirus.pm:382
-msgid "Antivirus"
-msgstr "Antivirus"
-
-#: src/EBox/AntiVirus.pm:212
-msgid " To configure clamd daemon"
-msgstr "Per configurar el dimoni clamd"
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr "Per configurar l'actualització freshclam"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "Per programar el llançament de l'actualització"

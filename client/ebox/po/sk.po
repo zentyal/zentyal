@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:30+0100\n"
+"POT-Creation-Date: 2009-12-03 12:57+0000\n"
 "PO-Revision-Date: 2009-08-05 21:15+0100\n"
 "Last-Translator: Peter Mráz <etkinator@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -17,137 +17,647 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:219
-#, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "RSS súbor: {path}"
+#: src/EBox/SysInfo.pm:45
+#, fuzzy
+msgid "System Information"
+msgstr "Informácie o systéme"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:233
-msgid "RSS"
-msgstr "RSS"
+#: src/EBox/SysInfo.pm:80
+msgid "Time"
+msgstr "Čas"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:290
-#, perl-brace-format
-msgid "eBox alerts channel for {hostname}"
-msgstr "Kanál upozornení systému eBox zo stanice {hostname}"
+#: src/EBox/SysInfo.pm:81
+#, fuzzy
+msgid "Hostname"
+msgstr "Názov stanice"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:293
-msgid "This channel tracks what happens on this eBox machine along the time"
-msgstr "Tento kanál priebežne sleduje udalosti na počítači so systémom eBox"
+#: src/EBox/SysInfo.pm:83
+msgid "eBox version"
+msgstr "Verzia eBoxu"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:313
-#, perl-brace-format
-msgid "The event has happened in eBox {hostname} from {source}"
+#: src/EBox/SysInfo.pm:86
+msgid "System load"
+msgstr "Záťaž systému"
+
+#: src/EBox/SysInfo.pm:132 src/EBox/SysInfo.pm:225
+#, fuzzy
+msgid "Module Status"
+msgstr "Stav modulov"
+
+#: src/EBox/SysInfo.pm:137
+#, fuzzy
+msgid "General Information"
+msgstr "Všeobecné informácie"
+
+#: src/EBox/SysInfo.pm:142
+#, fuzzy
+msgid "Process List"
+msgstr "Zoznam procesov"
+
+#: src/EBox/SysInfo.pm:149
+msgid "Support & Services"
 msgstr ""
-"Udalosť, ktorá nastala v systéme eBox na stanici {hostname} v module {source}"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:317
-#, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr "Súčasný stav môžete skontrolovať v systéme {url}"
+#: src/EBox/SysInfo.pm:220 src/EBox/CGI/Dashboard/Index.pm:32
+msgid "Dashboard"
+msgstr "Informačný panel"
 
-#: src/EBox/Event/Dispatcher/Log.pm:136
-msgid "Log file"
-msgstr "Súbor so záznamom"
+#: src/EBox/SysInfo.pm:231 src/EBox/Report/DiskUsage.pm:336
+msgid "System"
+msgstr "Systém"
 
-#: src/EBox/Event/Dispatcher/Log.pm:149
-msgid "Log"
-msgstr "Záznam"
+#: src/EBox/SysInfo.pm:235
+msgid "General"
+msgstr "Všeobecné nastavenia"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:166
-msgid "Admin Jabber account"
-msgstr "Administrátorské konto Jabberu"
+#: src/EBox/SysInfo.pm:238 src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr "Využitie disku"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:179
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:229
-#, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr "Jabber server {serverName} nie je funkčný alebo odmietol pripojenie"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:259
-#, perl-brace-format
-msgid "Subscription failed: {message}"
-msgstr "Nepodarilo sa vytvoriť konto: {message}"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:266
-#, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
-msgstr "Nepodarilo sa prihlásiť: {result} - {message}"
-
-#: src/EBox/Event/Dispatcher/Abstract.pm:141
-#, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
-msgstr ""
-"Oznamovacia služba {name} sa nedá zapnúť, pretože nebola nakonfigurovaná"
-
-#: src/EBox/Event/Watcher/Runit.pm:113
-#, perl-brace-format
-msgid "The following modules are not running: {modules}\n"
-msgstr "Nasledujúce moduly nie sú spustené: {modules}\n"
-
-#: src/EBox/Event/Watcher/Runit.pm:142
-msgid "Service"
-msgstr "Služba"
-
-#: src/EBox/Event/Watcher/Runit.pm:159
-msgid "Check if any eBox service is not running when it should"
-msgstr ""
-"Sleduje, či sú spustené všetky služby systému eBox, ktoré majú byť spustené"
-
-#: src/EBox/Event/Watcher/Runit.pm:229
-#, perl-brace-format
-msgid ""
-"The service {service} has been restarted {restart} times in {time} seconds "
-"and it has been stopped"
-msgstr ""
-"Služba {service} bola reštartovaná {restart} krát za {time} sekúnd a "
-"nakoniec bola vypnutá"
-
-#: src/EBox/Event/Watcher/Log.pm:203
-msgid "Log observer"
-msgstr "Pozorovanie záznamu"
-
-#: src/EBox/Event/Watcher/Log.pm:230
-#, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "Upozorní ak funkcia logger ({loggers}) niečo zaznamená"
-
-#: src/EBox/Event/Watcher/State.pm:126
-msgid "eBox is up and running"
-msgstr "Systém eBox je zapnutý a pracuje"
-
-#: src/EBox/Event/Watcher/State.pm:132
-msgid "eBox is critically down"
-msgstr "Systém eBox zlyhal a je vypnutý"
-
-#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
-msgid "State"
-msgstr "Stav"
-
-#: src/EBox/Event/Watcher/State.pm:174
-msgid "Check if eBox is currently up or down"
-msgstr "Sleduje, či je eBox spustený alebo nie"
-
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
-#, perl-brace-format
-msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr "V súborovom systéme {fs}, pripojeného do {mp}, dochádza voľné miesto"
-
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
-msgid "Free storage space"
-msgstr "Voľné miesto na disku"
-
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition has no storage space left"
-msgstr "Sleduje, či je na diskovom oddiely dostatok voľného miesta"
-
-#: src/EBox/Event/Watcher/RAID.pm:182 src/EBox/CGI/Report/RAID.pm:30
-#: src/EBox/SysInfo.pm:218
+#: src/EBox/SysInfo.pm:242 src/EBox/CGI/Report/RAID.pm:30
+#: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
 msgstr "RAID"
+
+#: src/EBox/SysInfo.pm:247 src/EBox/CGI/EBox/Backup.pm:34
+#: src/EBox/Backup.pm:706 src/templates/backup.mas:64
+msgid "Backup"
+msgstr "Zálohovanie"
+
+#: src/EBox/SysInfo.pm:250
+msgid "Halt/Reboot"
+msgstr "Vypnutie/reštart"
+
+#: src/EBox/ProgressIndicator.pm:41
+msgid "Total ticks"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:43
+msgid "It must be a non-zero positive number"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:51
+#, perl-brace-format
+msgid "Cannot execute {exe}"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:101
+#, perl-brace-format
+msgid "Progress indicator with id {id} not found"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:139
+msgid "Number of ticks to notify"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:141
+msgid "must be greater than zero"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:147
+msgid "Executable has not been run"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:264
+msgid "The executable has not run"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:395
+msgid "The executable has already been started"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:399
+msgid "The executable has already finished"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:209
+#: src/EBox/Events/Model/Watcher/Log.pm:233
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:257
+#: src/EBox/Logs/Model/SelectLog.pm:141
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
+msgid "Domain"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:262
+msgid "Filtering"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:270
+msgid "Configure log watchers"
+msgstr "Nastavenie sledovania záznamov"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:272
+msgid "Log watcher"
+msgstr "Sledovač udalostí"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
+#, perl-brace-format
+msgid "Log domain {logDomain}"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
+#: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
+#: src/templates/logs/index.mas:185
+msgid "Any"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
+#: src/templates/logs/index.mas:183
+msgid "Event"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
+msgid "filter"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
+msgid "Minimum free disk space per filesystem"
+msgstr "Voľné miesto v súborovom systéme"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr ""
+"Ak voľné miesto na ktoromkoľvek diskovom oddieli klesne pod stanovenú "
+"percentuálnu hodnotu, vyvolá to udalosť."
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
+msgid "Configure disk free space watcher"
+msgstr "Nastavenie sledovania voľného miesta na disku"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+msgid "Name"
+msgstr "Meno"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
+#: src/templates/backup.mas:44 src/templates/backup.mas:126
+#: src/templates/confirm-backup.mas:36
+msgid "Description"
+msgstr "Popis"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
+msgid "Configuration"
+msgstr "Nastavenie"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
+msgid "None"
+msgstr "Žiadne"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
+#, fuzzy
+msgid "Configure Events"
+msgstr "Sledovanie udalostí"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
+msgid "event"
+msgstr "udalosti"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
+msgid "Enable/Disable each event watcher monitoring"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
+msgid "Receiver"
+msgstr "Odosielať do"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
+#: src/EBox/Model/DataTable.pm:4480
+msgid "Enabled"
+msgstr "Zapnuté"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
+#, fuzzy
+msgid "Configure Dispatchers"
+msgstr "Nastavenie oznamovania"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
+msgid "dispatcher"
+msgstr "oznamovacia služba"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
+msgid "Enable/Disable each event dispatcher"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
+msgid ""
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
+msgstr ""
+"Pred tým ako zapnete tento spôsob oznamovania udalostí, je potrebné ho "
+"najskôr nastaviť."
+
+#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:89
+msgid "Events"
+msgstr "Udalosti"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:78
+msgid ""
+"Events module configures eBox to help informing you about events that happen"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
+msgid "Jabber server name"
+msgstr "Adresa Jabber servera"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
+msgid "Jabber server to send the messages"
+msgstr "Jabber server, cez ktorý sa majú správy odosielať"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
+msgid "Jabber user name"
+msgstr "Používateľské meno"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
+msgstr ""
+"Označenie Jabber konta, cez ktoré sa budú odosielať správy. Rada: je to časť "
+"Jabber adresy pred zavináčom."
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
+msgid "User password"
+msgstr "Heslo používateľa"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
+msgid "Subscribe"
+msgstr "Vytvoriť konto"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
+msgid ""
+"Tick this option if you want eBox to create an account for the above user"
+msgstr ""
+"Túto možnosť zaškrtnite, ak chcete aby eBox vytvoril nové konto pre hore "
+"uvedeného používateľa"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+msgid "Administrator Jabber Identifier"
+msgstr "Jabber adresa administrátora"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+msgid ""
+"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
+"admin. Note that you need to register this  account manually in any jabber "
+"server"
+msgstr ""
+"Cieľová Jabber adresa, kam majú byť správy vygenerované eBoxom odoslané. "
+"Napr. vaša adresa. Táto adresa musí byť vopred zaregistrovaná na niektorom "
+"Jabber serveri."
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
+msgid "Configure Jabber dispatcher"
+msgstr "Nastavenie oznamovania cez Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
+msgid "This dispatcher will send events to an Jabber account"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
+msgid "Jabber dispatcher configuration updated"
+msgstr "Nastavenie oznamovania cez Jabber bolo aktualizované"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
+msgid "Nobody"
+msgstr "Nikoho"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
+msgid "IP address"
+msgstr "IP adresy"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
+msgid "Object"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
+msgid "Public"
+msgstr "Všetkých"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
+msgid "Channel link"
+msgstr "Odkaz v kanále"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
+msgid "Allowed readers"
+msgstr "Čítanie povolené pre:"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+msgid "Use this field to set the access control for the channel"
+msgstr "Toto pole slúži na obmedzenie prístupu ku kanálu"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+msgid "Syndicate this RSS"
+msgstr "Odoberať tento RSS kanál"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
+msgid "Configure RSS dispatcher"
+msgstr "Nastavenie oznamovania cez RSS"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
+msgid "RSS dispatcher configuration updated"
+msgstr "Nastavenie oznamovania cez RSS bolo aktualizované"
+
+#: src/EBox/EventDaemon.pm:476
+#, perl-brace-format
+msgid "Dispatcher {name} disabled since it is not able to send events"
+msgstr ""
+
+#: src/EBox/Auth.pm:155
+msgid "Password changed"
+msgstr ""
+
+#: src/EBox/CGI/ClientRawBase.pm:209
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+"Nastala vnútorná chyba súvisiaca so šablónou. Toto je chyba programu, o "
+"ktorej môžete podrobnosti nájsť v záznamoch."
+
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:57
+msgid "Logs"
+msgstr "Záznamy"
+
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:53
+#, fuzzy
+msgid "Configure Widgets"
+msgstr "Nastavenie panelov"
+
+#: src/EBox/CGI/Login/Index.pm:62
+msgid ""
+"There is a script which has asked to run in eBox exclusively. Please, wait "
+"patiently until it is done"
+msgstr ""
+
+#: src/EBox/CGI/Login/Index.pm:66
+msgid "Incorrect password"
+msgstr "Nesprávne heslo"
+
+#: src/EBox/CGI/Login/Index.pm:69
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Kvôli bezpečnosti sa pripojenie po určitej dobe nečinnosti prerušilo"
+
+#: src/EBox/CGI/Login/Index.pm:72
+msgid "You have been logged out because a new session has been opened"
+msgstr "Boli ste odhlásený zo systému, pretože bolo nadviazané iné spojenie"
+
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
+#, fuzzy
+msgid "Module Status Configuration"
+msgstr "Stav konfigurácie modulov"
+
+#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
+msgid "Logout"
+msgstr "Odhlásiť sa"
+
+#: src/EBox/CGI/EBox/General.pm:30
+#, fuzzy
+msgid "General Configuration"
+msgstr "Všeobecné nastavenia"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+#, fuzzy
+msgid "Halt or Reboot"
+msgstr "Vypnutie alebo reštart systému"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "eBox is going down for halt"
+msgstr "eBox vypína počítač"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "eBox is going down for reboot"
+msgstr "eBox reštartuje počítač"
+
+#: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:49
+msgid "Password"
+msgstr "Heslo"
+
+#: src/EBox/CGI/EBox/Password.pm:52
+msgid "Incorrect password."
+msgstr "Nesprávne heslo."
+
+#: src/EBox/CGI/EBox/Password.pm:57
+msgid "New passwords do not match."
+msgstr "Nové heslá sa nezhodujú."
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "The password must be at least 6 characters long"
+msgstr "Heslo musí byť dlhé aspoň 6 znakov"
+
+#: src/EBox/CGI/EBox/Password.pm:66
+msgid "The password was changed successfully."
+msgstr "Heslo bolo úspešne zmenené."
+
+#: src/EBox/CGI/EBox/Bug.pm:29
+msgid "Bug report"
+msgstr "Nahlásenie chyby"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
+msgid "Configuration Backup"
+msgstr "Záloha konfigurácie"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Potvrďte, že chcete naozaj vymazať tento súbor so zálohou:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
+#: src/templates/backup.mas:173
+msgid "Delete"
+msgstr "Odstrániť"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr "Potvrďte, že naozaj chcete obnoviť systém z tejto zálohy:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
+msgid "Restore"
+msgstr "Obnoviť"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
+#: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
+#: src/EBox/Backup.pm:1311
+msgid "The input contains invalid characters"
+msgstr "Vstup obsahuje neplatné znaky"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
+msgid "Configuration backup"
+msgstr "Záloha konfigurácie"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+msgid "Full data and configuration backup"
+msgstr "Úplná záloha všetkých dát a konfigurácie"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+msgid "Bug-report configuration dump"
+msgstr ""
+
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr ""
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr "Modul bol úspešne reštartovaný."
+
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:160
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr "Neznámy mód zálohy: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:226
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr "Neznámy mód obnovy: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:239
+msgid "Backing up"
+msgstr "Zálohovanie"
+
+#: src/EBox/CGI/EBox/Backup.pm:240
+msgid "Backing up modules"
+msgstr "Zálohovanie modulov"
+
+#: src/EBox/CGI/EBox/Backup.pm:241
+msgid "Operation"
+msgstr "Operácia"
+
+#: src/EBox/CGI/EBox/Backup.pm:242
+msgid "operations left to finish backup"
+msgstr "počet zostávajúcich operácii do skončenia zálohovania"
+
+#: src/EBox/CGI/EBox/Backup.pm:243
+msgid "Backup successful"
+msgstr "Zálohovanie prebehlo úspešne"
+
+#: src/EBox/CGI/EBox/Backup.pm:254
+msgid "Restoring backup"
+msgstr "Obnova zo zálohy"
+
+#: src/EBox/CGI/EBox/Backup.pm:255
+msgid "Restoring modules"
+msgstr "Obnovovanie modulov"
+
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
+msgid "Module"
+msgstr "Modul"
+
+#: src/EBox/CGI/EBox/Backup.pm:257
+msgid "modules left to restore"
+msgstr "Počet zostavajúcich modulov na obnovu"
+
+#: src/EBox/CGI/EBox/Backup.pm:258
+msgid "Restore successful"
+msgstr "Obnova bola dokončená"
+
+#: src/EBox/CGI/Finish.pm:32
+msgid "Save configuration"
+msgstr "Uloženie konfigurácie"
+
+#: src/EBox/CGI/Finish.pm:76
+msgid "Saving changes"
+msgstr "Uloženie zmien"
+
+#: src/EBox/CGI/Finish.pm:77
+msgid "Saving changes in modules"
+msgstr "Ukladám zmeny v moduloch"
+
+#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
+msgid "Current operation"
+msgstr "Prebiehajúca operácia"
+
+#: src/EBox/CGI/Finish.pm:79
+msgid "operations performed"
+msgstr "operácií vykonaných"
+
+#: src/EBox/CGI/Finish.pm:80
+msgid "Changes saved"
+msgstr "Zmeny boli uložené"
+
+#: src/EBox/CGI/Finish.pm:81
+#, perl-brace-format
+msgid ""
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
+msgstr ""
+"Niekoľko modulov pri ukladaní zmien ohlásilo chybu. Viac informácií sa "
+"nachádza v záznamoch v {dir}"
+
+#: src/EBox/CGI/Finish.pm:100
+msgid "Revoking changes"
+msgstr ""
+
+#: src/EBox/CGI/Finish.pm:101
+msgid "Revoking changes in modules"
+msgstr ""
+
+#: src/EBox/CGI/Finish.pm:102
+msgid "Current module"
+msgstr ""
+
+#: src/EBox/CGI/Finish.pm:103
+msgid "modules revoked"
+msgstr ""
+
+#: src/EBox/CGI/Finish.pm:104
+msgid "Changes revoked"
+msgstr "Zmeny boli odvolané"
+
+#: src/EBox/CGI/Finish.pm:105
+#, perl-brace-format
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
+msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
@@ -346,291 +856,194 @@ msgstr ""
 msgid "spare"
 msgstr ""
 
-#: src/EBox/EventDaemon.pm:473
+#: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
-msgid "Dispatcher {name} disabled since it is not able to send events"
+msgid "The following modules are not running: {modules}\n"
+msgstr "Nasledujúce moduly nie sú spustené: {modules}\n"
+
+#: src/EBox/Event/Watcher/Runit.pm:142
+msgid "Service"
+msgstr "Služba"
+
+#: src/EBox/Event/Watcher/Runit.pm:159
+msgid "Check if any eBox service is not running when it should"
 msgstr ""
+"Sleduje, či sú spustené všetky služby systému eBox, ktoré majú byť spustené"
 
-#: src/EBox/Backup.pm:96
-msgid "Creating backup archive"
-msgstr ""
-
-#: src/EBox/Backup.pm:140
-#, perl-brace-format
-msgid "Dumping configuration of module {m}"
-msgstr ""
-
-#: src/EBox/Backup.pm:299
-msgid "Could not create backup archive"
-msgstr ""
-
-#: src/EBox/Backup.pm:306
-msgid "Could not append data to backup archive"
-msgstr ""
-
-#: src/EBox/Backup.pm:421
-msgid "Unknown"
-msgstr ""
-
-#: src/EBox/Backup.pm:474
-#, perl-brace-format
-msgid "Could not extract the requested backup files: {files}"
-msgstr ""
-
-#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1123
-msgid "Could not unpack the backup"
-msgstr ""
-
-#: src/EBox/Backup.pm:706 src/EBox/CGI/EBox/Backup.pm:34
-#: src/EBox/SysInfo.pm:223 src/templates/backup.mas:64
-msgid "Backup"
-msgstr "Zálohovanie"
-
-#: src/EBox/Backup.pm:742
-msgid "Writing backup file to hard disk"
-msgstr ""
-
-#: src/EBox/Backup.pm:767
-msgid ""
-"Some modules has not saved changes. Before doing the backup you must save  "
-"or discard them"
-msgstr ""
-
-#: src/EBox/Backup.pm:822
-msgid "Incorrect or corrupt backup file"
-msgstr ""
-
-#: src/EBox/Backup.pm:851
-msgid "The backup file is corrupt: could not open archive"
-msgstr ""
-
-#: src/EBox/Backup.pm:863
-msgid "The backup file is corrupt: could not open backup checksum"
-msgstr ""
-
-#: src/EBox/Backup.pm:870
-msgid "The backup file is corrupt."
-msgstr ""
-
-#: src/EBox/Backup.pm:888
-msgid ""
-"The backup archive has a invalid type. Maybe the file is corrupt or you are "
-"using a incompatible eBox version"
-msgstr ""
-
-#: src/EBox/Backup.pm:894
-msgid ""
-"The archive does not contain a full backup, that made a full restore "
-"impossibe. A configuration recovery  may be possible"
-msgstr ""
-
-#: src/EBox/Backup.pm:929
+#: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
 msgid ""
-"There in not enough space left in the hard disk to complete the restore "
-"proccess. {size} Kb required. Free sufficient space and retry"
+"The service {service} has been restarted {restart} times in {time} seconds "
+"and it has been stopped"
 msgstr ""
+"Služba {service} bola reštartovaná {restart} krát za {time} sekúnd a "
+"nakoniec bola vypnutá"
 
-#: src/EBox/Backup.pm:1210
+#: src/EBox/Event/Watcher/State.pm:126
+msgid "eBox is up and running"
+msgstr "Systém eBox je zapnutý a pracuje"
+
+#: src/EBox/Event/Watcher/State.pm:132
+msgid "eBox is critically down"
+msgstr "Systém eBox zlyhal a je vypnutý"
+
+#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
+msgid "State"
+msgstr "Stav"
+
+#: src/EBox/Event/Watcher/State.pm:174
+msgid "Check if eBox is currently up or down"
+msgstr "Sleduje, či je eBox spustený alebo nie"
+
+#: src/EBox/Event/Watcher/Log.pm:203
+msgid "Log observer"
+msgstr "Pozorovanie záznamu"
+
+#: src/EBox/Event/Watcher/Log.pm:230
 #, perl-brace-format
-msgid "No module {m} found in backup"
-msgstr ""
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr "Upozorní ak funkcia logger ({loggers}) niečo zaznamená"
 
-#: src/EBox/Backup.pm:1237
-msgid "No modules to restore"
-msgstr ""
-
-#: src/EBox/Backup.pm:1302
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
-msgid ""
-"Unresolved restore dependency for module {topModule}: {modName} is not "
-"installed"
-msgstr ""
+msgid "The file system {fs}, mounted on {mp}, has no space left"
+msgstr "V súborovom systéme {fs}, pripojeného do {mp}, dochádza voľné miesto"
 
-#: src/EBox/Backup.pm:1323 src/EBox/CGI/EBox/Backup.pm:192
-#: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:147
-msgid "The input contains invalid characters"
-msgstr "Vstup obsahuje neplatné znaky"
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
+msgid "Free storage space"
+msgstr "Voľné miesto na disku"
 
-#: src/EBox/Backup.pm:1345
-msgid "Backup's archives"
-msgstr ""
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
+msgid "Check if any disk partition has no storage space left"
+msgstr "Sleduje, či je na diskovom oddiely dostatok voľného miesta"
 
-#: src/EBox/Model/DataForm.pm:544
+#: src/EBox/Event/Dispatcher/Jabber.pm:166
+msgid "Admin Jabber account"
+msgstr "Administrátorské konto Jabberu"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:179
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr ""
+msgid "Jabber server {serverName} is down or connection is not allowed"
+msgstr "Jabber server {serverName} nie je funkčný alebo odmietol pripojenie"
 
-#: src/EBox/Model/DataForm.pm:594 src/templates/dataInUse.mas:25
-#: src/templates/dataInUse.mas:34 src/templates/port.mas:14
-#: src/templates/password.mas:53
-msgid "Change"
-msgstr "Zmeniť"
-
-#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
-msgid "Done"
-msgstr "Hotovo"
-
-#: src/EBox/Model/Composite.pm:371
+#: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr ""
+msgid "Subscription failed: {message}"
+msgstr "Nepodarilo sa vytvoriť konto: {message}"
 
-#: src/EBox/Model/Composite.pm:670 src/EBox/Model/Composite.pm:685
-#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Model/DataTable.pm:2067
-#: src/EBox/Logs.pm:649
-msgid "Action"
-msgstr "Akcia"
-
-#: src/EBox/Model/Composite.pm:672
+#: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr ""
+msgid "Authorization failed: {result} - {message}"
+msgstr "Nepodarilo sa prihlásiť: {result} - {message}"
 
-#: src/EBox/Model/Composite.pm:795
-msgid "Choose one of the following:"
-msgstr ""
-
-#: src/EBox/Model/ModelManager.pm:468
-msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
-msgstr ""
-
-#: src/EBox/Model/ModelManager.pm:515
-msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
-msgstr ""
-
-#: src/EBox/Model/ProviderBase.pm:246
+#: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
-msgid "Provided object with index {i} does not exist"
+msgid "Dispatcher {name} is not configured to be enabled"
 msgstr ""
+"Oznamovacia služba {name} sa nedá zapnúť, pretože nebola nakonfigurovaná"
 
-#: src/EBox/Model/DataTable.pm:326
+#: src/EBox/Event/Dispatcher/Log.pm:136
+msgid "Log file"
+msgstr "Súbor so záznamom"
+
+#: src/EBox/Event/Dispatcher/Log.pm:149
+msgid "Log"
+msgstr "Záznam"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
-msgid "{model} in {module} module"
-msgstr "{model} v module {module}"
+msgid "RSS file: {path}"
+msgstr "RSS súbor: {path}"
 
-#: src/EBox/Model/DataTable.pm:330
-msgid "at"
-msgstr "o"
+#: src/EBox/Event/Dispatcher/RSS.pm:233
+msgid "RSS"
+msgstr "RSS"
 
-#: src/EBox/Model/DataTable.pm:510
-msgid "field"
-msgstr "pole"
-
-#: src/EBox/Model/DataTable.pm:1434
-msgid "page"
-msgstr "strana"
-
-#: src/EBox/Model/DataTable.pm:1437
-msgid "Page must be a number equal or greater than zero"
-msgstr "Strana musí byť číslo väčšie alebo rovné nule"
-
-#: src/EBox/Model/DataTable.pm:2742
+#: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
-msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgid "eBox alerts channel for {hostname}"
+msgstr "Kanál upozornení systému eBox zo stanice {hostname}"
 
-#: src/EBox/Model/DataTable.pm:2813
-msgid "Page size"
-msgstr ""
+#: src/EBox/Event/Dispatcher/RSS.pm:293
+msgid "This channel tracks what happens on this eBox machine along the time"
+msgstr "Tento kanál priebežne sleduje udalosti na počítači so systémom eBox"
 
-#: src/EBox/Model/DataTable.pm:2816
-msgid "Must be either a positive number or zero"
-msgstr "Musí byť buď kladné číslo alebo nula"
-
-#: src/EBox/Model/DataTable.pm:3123
+#: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
-msgid "{row} added"
+msgid "The event has happened in eBox {hostname} from {source}"
 msgstr ""
+"Udalosť, ktorá nastala v systéme eBox na stanici {hostname} v module {source}"
 
-#: src/EBox/Model/DataTable.pm:3124
+#: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
-msgid "{row} deleted"
-msgstr ""
+msgid "Go to your {url} to check its status."
+msgstr "Súčasný stav môžete skontrolovať v systéme {url}"
 
-#: src/EBox/Model/DataTable.pm:3125
+#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
+#: src/EBox/PgDBEngine.pm:76
 #, perl-brace-format
-msgid "{row} updated"
-msgstr "{row} bola aktualizovaná"
+msgid "You must set the {variable} variable in the ebox configuration file"
+msgstr ""
 
-#: src/EBox/Model/DataTable.pm:3126
+#: src/EBox/PgDBEngine.pm:272
 #, perl-brace-format
-msgid "{row} moved up"
+msgid "Error dumping the postgresql database {name}"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:3127
+#: src/EBox/PgDBEngine.pm:290
 #, perl-brace-format
-msgid "{row} moved down"
+msgid "DB dump file {file} is not readable"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:4419
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
-msgid "Enabled"
-msgstr "Zapnuté"
+#: src/EBox/Types/Int.pm:155
+msgid "Enter an integer number"
+msgstr "Zadajte celočíselnú hodnotu"
 
-#: src/EBox/ProgressIndicator.pm:41
-msgid "Total ticks"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:43
-msgid "It must be a non-zero positive number"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:51
+#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:121
 #, perl-brace-format
-msgid "Cannot execute {exe}"
-msgstr ""
+msgid "The value shouldn't be greater than {m}"
+msgstr "Hodnota nemôže byť väčšia ako {m}"
 
-#: src/EBox/ProgressIndicator.pm:101
+#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:130
 #, perl-brace-format
-msgid "Progress indicator with id {id} not found"
-msgstr ""
+msgid "The value shouldn't be less than {m}"
+msgstr "Hodnota nemôže byť menšia ako {m}"
 
-#: src/EBox/ProgressIndicator.pm:139
-msgid "Number of ticks to notify"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:141
-msgid "must be greater than zero"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:147
-msgid "Executable has not been run"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:264
-msgid "The executable has not run"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:395
-msgid "The executable has already been started"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:399
-msgid "The executable has already finished"
-msgstr ""
-
-#: src/EBox/Global.pm:442 src/EBox/Global.pm:463
+#: src/EBox/Types/Password.pm:134
 #, perl-brace-format
-msgid "Saving {modName} module"
-msgstr "Ukladanie modulu {modName} "
+msgid "The password should have at least {minLength} characters"
+msgstr "Heslo musí obsahovať najmenej {minLength} znakov"
 
-#: src/EBox/Global.pm:889
+#: src/EBox/Types/Password.pm:145
 #, perl-brace-format
-msgid "running {scriptName} script"
+msgid "The password should have at most {maxLength} characters"
+msgstr "Heslo môže mať najviac {maxLength} znakov"
+
+#: src/EBox/Types/DomainName.pm:118
+msgid "IP addresses are not allowed"
 msgstr ""
 
-#: src/EBox/Logs/Model/SelectLog.pm:141
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
-#: src/EBox/Events/Model/Watcher/Log.pm:219
-msgid "Domain"
+#: src/EBox/Types/PortRange.pm:138
+msgid "any"
 msgstr ""
+
+#: src/EBox/Types/PortRange.pm:414
+#, perl-brace-format
+msgid "\"From\" {from} must be greater than \"To\" {to}"
+msgstr "Hodnota \"Od\" {from} musí byť väčšia ako hodnota \"Do\" {to}"
+
+#: src/EBox/Types/Float.pm:113
+msgid "Enter a float number"
+msgstr "Zadajte desatinné číslo"
+
+#: src/EBox/Types/Select.pm:342
+#, perl-brace-format
+msgid "Choose a value within the value set: {set}"
+msgstr "Vyberte hodnotu z množiny: {set}"
 
 #: src/EBox/Logs/Model/SelectLog.pm:149
 msgid "Full report"
@@ -710,6 +1123,14 @@ msgstr "Konfigurácia súborov so záznamami"
 msgid "Enable/disable logging per-module basis"
 msgstr ""
 
+#: src/EBox/Logs/Model/ForcePurge.pm:109
+msgid "Force log purge"
+msgstr "Odstránenie starých záznamov"
+
+#: src/EBox/Logs/Model/ForcePurge.pm:112
+msgid "Purge"
+msgstr "Odstrániť"
+
 #: src/EBox/Logs/Model/Report/Details.pm:226
 #: src/EBox/Logs/Model/Report/Details.pm:234
 #: src/EBox/Logs/Model/Report/Details.pm:269
@@ -740,613 +1161,25 @@ msgstr ""
 msgid "Report options"
 msgstr ""
 
-#: src/EBox/Logs/Model/ForcePurge.pm:109
-msgid "Force log purge"
-msgstr "Odstránenie starých záznamov"
-
-#: src/EBox/Logs/Model/ForcePurge.pm:112
-msgid "Purge"
-msgstr "Odstrániť"
-
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:196
-msgid "Dashboard"
-msgstr "Informačný panel"
-
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:53
-#, fuzzy
-msgid "Configure Widgets"
-msgstr "Nastavenie panelov"
-
-#: src/EBox/CGI/Login/Index.pm:62
-msgid ""
-"There is a script which has asked to run in eBox exclusively. Please, wait "
-"patiently until it is done"
+#: src/EBox/Common/Model/EnableForm.pm:100
+msgid "Service enabled"
 msgstr ""
 
-#: src/EBox/CGI/Login/Index.pm:66
-msgid "Incorrect password"
-msgstr "Nesprávne heslo"
-
-#: src/EBox/CGI/Login/Index.pm:69
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Kvôli bezpečnosti sa pripojenie po určitej dobe nečinnosti prerušilo"
-
-#: src/EBox/CGI/Login/Index.pm:72
-msgid "You have been logged out because a new session has been opened"
-msgstr "Boli ste odhlásený zo systému, pretože bolo nadviazané iné spojenie"
-
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
-msgid "Module Status Configuration"
-msgstr "Stav konfigurácie modulov"
-
-#: src/EBox/CGI/EBox/General.pm:30
-#, fuzzy
-msgid "General Configuration"
-msgstr "Všeobecné nastavenia"
-
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
+#: src/EBox/Common/Model/EnableForm.pm:102
+msgid "Service disabled"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:160
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "Neznámy mód zálohy: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:226
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "Neznámy mód obnovy: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:239
-msgid "Backing up"
-msgstr "Zálohovanie"
-
-#: src/EBox/CGI/EBox/Backup.pm:240
-msgid "Backing up modules"
-msgstr "Zálohovanie modulov"
-
-#: src/EBox/CGI/EBox/Backup.pm:241
-msgid "Operation"
-msgstr "Operácia"
-
-#: src/EBox/CGI/EBox/Backup.pm:242
-msgid "operations left to finish backup"
-msgstr "počet zostávajúcich operácii do skončenia zálohovania"
-
-#: src/EBox/CGI/EBox/Backup.pm:243
-msgid "Backup successful"
-msgstr "Zálohovanie prebehlo úspešne"
-
-#: src/EBox/CGI/EBox/Backup.pm:254
-msgid "Restoring backup"
-msgstr "Obnova zo zálohy"
-
-#: src/EBox/CGI/EBox/Backup.pm:255
-msgid "Restoring modules"
-msgstr "Obnovovanie modulov"
-
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
-#: src/templates/finish.mas:106 src/templates/moduleStatusTable.mas:58
-msgid "Module"
-msgstr "Modul"
-
-#: src/EBox/CGI/EBox/Backup.pm:257
-msgid "modules left to restore"
-msgstr "Počet zostavajúcich modulov na obnovu"
-
-#: src/EBox/CGI/EBox/Backup.pm:258
-msgid "Restore successful"
-msgstr "Obnova bola dokončená"
-
-#: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:32
-msgid "Password"
-msgstr "Heslo"
-
-#: src/EBox/CGI/EBox/Password.pm:52
-msgid "Incorrect password."
-msgstr "Nesprávne heslo."
-
-#: src/EBox/CGI/EBox/Password.pm:57
-msgid "New passwords do not match."
-msgstr "Nové heslá sa nezhodujú."
-
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "The password must be at least 6 characters long"
-msgstr "Heslo musí byť dlhé aspoň 6 znakov"
-
-#: src/EBox/CGI/EBox/Password.pm:66
-msgid "The password was changed successfully."
-msgstr "Heslo bolo úspešne zmenené."
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-#, fuzzy
-msgid "Halt or Reboot"
-msgstr "Vypnutie alebo reštart systému"
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "eBox is going down for halt"
-msgstr "eBox vypína počítač"
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "eBox is going down for reboot"
-msgstr "eBox reštartuje počítač"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
-msgid "Configuration Backup"
-msgstr "Záloha konfigurácie"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Potvrďte, že chcete naozaj vymazať tento súbor so zálohou:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
-#: src/templates/backup.mas:173
-msgid "Delete"
-msgstr "Odstrániť"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Potvrďte, že naozaj chcete obnoviť systém z tejto zálohy:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
-msgid "Restore"
-msgstr "Obnoviť"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-msgid "Configuration backup"
-msgstr "Záloha konfigurácie"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-msgid "Full data and configuration backup"
-msgstr "Úplná záloha všetkých dát a konfigurácie"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-msgid "Bug-report configuration dump"
+#: src/EBox/Common/Model/EnableForm.pm:146
+msgid "Enable service"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "Nahlásenie chyby"
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
+#: src/EBox/Events.pm:417
+msgid "The events module is not enabled to send events"
 msgstr ""
 
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr "Modul bol úspešne reštartovaný."
-
-#: src/EBox/CGI/ClientRawBase.pm:209
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
+#: src/EBox/Events.pm:632
+msgid "Event service status"
 msgstr ""
-"Nastala vnútorná chyba súvisiaca so šablónou. Toto je chyba programu, o "
-"ktorej môžete podrobnosti nájsť v záznamoch."
-
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:57
-msgid "Logs"
-msgstr "Záznamy"
-
-#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Odhlásiť sa"
-
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm:214
-msgid "Disk Usage"
-msgstr "Využitie disku"
-
-#: src/EBox/CGI/Finish.pm:32
-msgid "Save configuration"
-msgstr "Uloženie konfigurácie"
-
-#: src/EBox/CGI/Finish.pm:76
-msgid "Saving changes"
-msgstr "Uloženie zmien"
-
-#: src/EBox/CGI/Finish.pm:77
-msgid "Saving changes in modules"
-msgstr "Ukladám zmeny v moduloch"
-
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
-msgid "Current operation"
-msgstr "Prebiehajúca operácia"
-
-#: src/EBox/CGI/Finish.pm:79
-msgid "operations performed"
-msgstr "operácií vykonaných"
-
-#: src/EBox/CGI/Finish.pm:80
-msgid "Changes saved"
-msgstr "Zmeny boli uložené"
-
-#: src/EBox/CGI/Finish.pm:81
-#, perl-brace-format
-msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr ""
-"Niekoľko modulov pri ukladaní zmien ohlásilo chybu. Viac informácií sa "
-"nachádza v záznamoch v {dir}"
-
-#: src/EBox/CGI/Finish.pm:100
-msgid "Revoking changes"
-msgstr ""
-
-#: src/EBox/CGI/Finish.pm:101
-msgid "Revoking changes in modules"
-msgstr ""
-
-#: src/EBox/CGI/Finish.pm:102
-msgid "Current module"
-msgstr ""
-
-#: src/EBox/CGI/Finish.pm:103
-msgid "modules revoked"
-msgstr ""
-
-#: src/EBox/CGI/Finish.pm:104
-msgid "Changes revoked"
-msgstr "Zmeny boli odvolané"
-
-#: src/EBox/CGI/Finish.pm:105
-#, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
-msgstr ""
-
-#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
-#: src/EBox/PgDBEngine.pm:76
-#, perl-brace-format
-msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr ""
-
-#: src/EBox/PgDBEngine.pm:272
-#, perl-brace-format
-msgid "Error dumping the postgresql database {name}"
-msgstr ""
-
-#: src/EBox/PgDBEngine.pm:290
-#, perl-brace-format
-msgid "DB dump file {file} is not readable"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
-msgid "Nobody"
-msgstr "Nikoho"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
-msgid "IP address"
-msgstr "IP adresy"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
-msgid "Object"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
-msgid "Public"
-msgstr "Všetkých"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
-msgid "Channel link"
-msgstr "Odkaz v kanále"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
-msgid "Allowed readers"
-msgstr "Čítanie povolené pre:"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
-msgid "Use this field to set the access control for the channel"
-msgstr "Toto pole slúži na obmedzenie prístupu ku kanálu"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
-msgid "Syndicate this RSS"
-msgstr "Odoberať tento RSS kanál"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
-msgid "Configure RSS dispatcher"
-msgstr "Nastavenie oznamovania cez RSS"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
-msgid "RSS dispatcher configuration updated"
-msgstr "Nastavenie oznamovania cez RSS bolo aktualizované"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
-msgid "Jabber server name"
-msgstr "Adresa Jabber servera"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
-msgid "Jabber server to send the messages"
-msgstr "Jabber server, cez ktorý sa majú správy odosielať"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
-msgid "Jabber user name"
-msgstr "Používateľské meno"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr ""
-"Označenie Jabber konta, cez ktoré sa budú odosielať správy. Rada: je to časť "
-"Jabber adresy pred zavináčom."
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
-msgid "User password"
-msgstr "Heslo používateľa"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
-msgid "Subscribe"
-msgstr "Vytvoriť konto"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
-msgid ""
-"Tick this option if you want eBox to create an account for the above user"
-msgstr ""
-"Túto možnosť zaškrtnite, ak chcete aby eBox vytvoril nové konto pre hore "
-"uvedeného používateľa"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
-msgid "Administrator Jabber Identifier"
-msgstr "Jabber adresa administrátora"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
-msgid ""
-"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
-"admin. Note that you need to register this  account manually in any jabber "
-"server"
-msgstr ""
-"Cieľová Jabber adresa, kam majú byť správy vygenerované eBoxom odoslané. "
-"Napr. vaša adresa. Táto adresa musí byť vopred zaregistrovaná na niektorom "
-"Jabber serveri."
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
-msgid "Configure Jabber dispatcher"
-msgstr "Nastavenie oznamovania cez Jabber"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
-msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
-msgid "Jabber dispatcher configuration updated"
-msgstr "Nastavenie oznamovania cez Jabber bolo aktualizované"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr ""
-
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:89
-msgid "Events"
-msgstr "Udalosti"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:78
-msgid ""
-"Events module configures eBox to help informing you about events that happen"
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
-msgid "Name"
-msgstr "Meno"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
-#: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
-#: src/templates/backup.mas:126
-msgid "Description"
-msgstr "Popis"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
-msgid "Configuration"
-msgstr "Nastavenie"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
-msgid "None"
-msgstr "Žiadne"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
-#, fuzzy
-msgid "Configure Events"
-msgstr "Sledovanie udalostí"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
-msgid "event"
-msgstr "udalosti"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
-msgid "Enable/Disable each event watcher monitoring"
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/Log.pm:171
-#: src/EBox/Events/Model/Watcher/Log.pm:195
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/Log.pm:224
-msgid "Filtering"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/Log.pm:232
-msgid "Configure log watchers"
-msgstr "Nastavenie sledovania záznamov"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:234
-msgid "Log watcher"
-msgstr "Sledovač udalostí"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
-#, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
-#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
-#: src/templates/logs/index.mas:185
-msgid "Any"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
-#: src/templates/logs/index.mas:183
-msgid "Event"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
-#, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
-msgid "filter"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
-msgid "Minimum free disk space per filesystem"
-msgstr "Voľné miesto v súborovom systéme"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr ""
-"Ak voľné miesto na ktoromkoľvek diskovom oddieli klesne pod stanovenú "
-"percentuálnu hodnotu, vyvolá to udalosť."
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
-msgid "Configure disk free space watcher"
-msgstr "Nastavenie sledovania voľného miesta na disku"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
-msgid "Receiver"
-msgstr "Odosielať do"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
-#, fuzzy
-msgid "Configure Dispatchers"
-msgstr "Nastavenie oznamovania"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
-msgid "dispatcher"
-msgstr "oznamovacia služba"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
-msgid "Enable/Disable each event dispatcher"
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr ""
-"Pred tým ako zapnete tento spôsob oznamovania udalostí, je potrebné ho "
-"najskôr nastaviť."
-
-#: src/EBox/Html.pm:39
-msgid "Save changes"
-msgstr "Uložiť zmeny"
-
-#: src/EBox/Auth.pm:155
-msgid "Password changed"
-msgstr ""
-
-#: src/EBox/Report/DiskUsage.pm:61
-#, perl-brace-format
-msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr ""
-
-#: src/EBox/Report/DiskUsage.pm:210
-#, perl-brace-format
-msgid ""
-"Invalid file system: {f}. Only regular and no removable media file systems "
-"are accepted"
-msgstr ""
-
-#: src/EBox/Report/DiskUsage.pm:333
-msgid "Free space"
-msgstr "Voľné miesto"
-
-#: src/EBox/Report/DiskUsage.pm:336 src/EBox/SysInfo.pm:207
-msgid "System"
-msgstr "Systém"
-
-#: src/EBox/Types/Select.pm:342
-#, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr "Vyberte hodnotu z množiny: {set}"
-
-#: src/EBox/Types/Password.pm:134
-#, perl-brace-format
-msgid "The password should have at least {minLength} characters"
-msgstr "Heslo musí obsahovať najmenej {minLength} znakov"
-
-#: src/EBox/Types/Password.pm:145
-#, perl-brace-format
-msgid "The password should have at most {maxLength} characters"
-msgstr "Heslo môže mať najviac {maxLength} znakov"
-
-#: src/EBox/Types/Int.pm:155
-msgid "Enter an integer number"
-msgstr "Zadajte celočíselnú hodnotu"
-
-#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:121
-#, perl-brace-format
-msgid "The value shouldn't be greater than {m}"
-msgstr "Hodnota nemôže byť väčšia ako {m}"
-
-#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:130
-#, perl-brace-format
-msgid "The value shouldn't be less than {m}"
-msgstr "Hodnota nemôže byť menšia ako {m}"
-
-#: src/EBox/Types/Float.pm:113
-msgid "Enter a float number"
-msgstr "Zadajte desatinné číslo"
-
-#: src/EBox/Types/DomainName.pm:118
-msgid "IP addresses are not allowed"
-msgstr ""
-
-#: src/EBox/Types/PortRange.pm:138
-msgid "any"
-msgstr ""
-
-#: src/EBox/Types/PortRange.pm:414
-#, perl-brace-format
-msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr "Hodnota \"Od\" {from} musí byť väčšia ako hodnota \"Do\" {to}"
 
 #: src/EBox/Logs.pm:73
 msgid "Create logs database"
@@ -1372,13 +1205,19 @@ msgid "Configure Logs"
 msgstr "Nastavenie zaznamenávania"
 
 #: src/EBox/Logs.pm:646 src/templates/finish.mas:105
-#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:128
+#: src/templates/backup.mas:128 src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "Dátum"
 
 #: src/EBox/Logs.pm:647
 msgid "Client Address"
 msgstr ""
+
+#: src/EBox/Logs.pm:649 src/EBox/Model/Composite.pm:670
+#: src/EBox/Model/Composite.pm:685 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/DataTable.pm:2128
+msgid "Action"
+msgstr "Akcia"
 
 #: src/EBox/Logs.pm:650
 msgid "Params"
@@ -1400,140 +1239,243 @@ msgstr ""
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr ""
 
-#: src/EBox/Events.pm:549
-msgid "Event service status"
+#: src/EBox/Model/ProviderBase.pm:246
+#, perl-brace-format
+msgid "Provided object with index {i} does not exist"
 msgstr ""
 
-#: src/EBox/Apache.pm:265 src/EBox/Apache.pm:274
+#: src/EBox/Model/DataForm.pm:544
+#, perl-brace-format
+msgid "Remove data from {model}{br}"
+msgstr ""
+
+#: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
+#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
+#: src/templates/port.mas:14
+msgid "Change"
+msgstr "Zmeniť"
+
+#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
+msgid "Done"
+msgstr "Hotovo"
+
+#: src/EBox/Model/Composite.pm:371
+#, perl-brace-format
+msgid "It should be one of following values: {values}"
+msgstr ""
+
+#: src/EBox/Model/Composite.pm:672
+#, perl-brace-format
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr ""
+
+#: src/EBox/Model/Composite.pm:795
+msgid "Choose one of the following:"
+msgstr ""
+
+#: src/EBox/Model/ModelManager.pm:468
+msgid ""
+"The data you are removing is being used by\n"
+"                    the following sections:"
+msgstr ""
+
+#: src/EBox/Model/ModelManager.pm:515
+msgid ""
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:326
+#, perl-brace-format
+msgid "{model} in {module} module"
+msgstr "{model} v module {module}"
+
+#: src/EBox/Model/DataTable.pm:330
+msgid "at"
+msgstr "o"
+
+#: src/EBox/Model/DataTable.pm:541
+msgid "field"
+msgstr "pole"
+
+#: src/EBox/Model/DataTable.pm:1465
+msgid "page"
+msgstr "strana"
+
+#: src/EBox/Model/DataTable.pm:1468
+msgid "Page must be a number equal or greater than zero"
+msgstr "Strana musí byť číslo väčšie alebo rovné nule"
+
+#: src/EBox/Model/DataTable.pm:2803
+#, perl-brace-format
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2874
+msgid "Page size"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2877
+msgid "Must be either a positive number or zero"
+msgstr "Musí byť buď kladné číslo alebo nula"
+
+#: src/EBox/Model/DataTable.pm:3184
+#, perl-brace-format
+msgid "{row} added"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:3185
+#, perl-brace-format
+msgid "{row} deleted"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:3186
+#, perl-brace-format
+msgid "{row} updated"
+msgstr "{row} bola aktualizovaná"
+
+#: src/EBox/Model/DataTable.pm:3187
+#, perl-brace-format
+msgid "{row} moved up"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:3188
+#, perl-brace-format
+msgid "{row} moved down"
+msgstr ""
+
+#: src/EBox/Html.pm:39
+msgid "Save changes"
+msgstr "Uložiť zmeny"
+
+#: src/EBox/Backup.pm:96
+msgid "Creating backup archive"
+msgstr ""
+
+#: src/EBox/Backup.pm:140
+#, perl-brace-format
+msgid "Dumping configuration of module {m}"
+msgstr ""
+
+#: src/EBox/Backup.pm:299
+msgid "Could not create backup archive"
+msgstr ""
+
+#: src/EBox/Backup.pm:306
+msgid "Could not append data to backup archive"
+msgstr ""
+
+#: src/EBox/Backup.pm:421
+msgid "Unknown"
+msgstr ""
+
+#: src/EBox/Backup.pm:474
+#, perl-brace-format
+msgid "Could not extract the requested backup files: {files}"
+msgstr ""
+
+#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1128
+msgid "Could not unpack the backup"
+msgstr ""
+
+#: src/EBox/Backup.pm:743
+msgid "Writing backup file to hard disk"
+msgstr ""
+
+#: src/EBox/Backup.pm:769
+msgid ""
+"Some modules has not saved changes. Before doing the backup you must save  "
+"or discard them"
+msgstr ""
+
+#: src/EBox/Backup.pm:827
+msgid "Incorrect or corrupt backup file"
+msgstr ""
+
+#: src/EBox/Backup.pm:856
+msgid "The backup file is corrupt: could not open archive"
+msgstr ""
+
+#: src/EBox/Backup.pm:868
+msgid "The backup file is corrupt: could not open backup checksum"
+msgstr ""
+
+#: src/EBox/Backup.pm:875
+msgid "The backup file is corrupt."
+msgstr ""
+
+#: src/EBox/Backup.pm:893
+msgid ""
+"The backup archive has a invalid type. Maybe the file is corrupt or you are "
+"using a incompatible eBox version"
+msgstr ""
+
+#: src/EBox/Backup.pm:899
+msgid ""
+"The archive does not contain a full backup, that made a full restore "
+"impossibe. A configuration recovery  may be possible"
+msgstr ""
+
+#: src/EBox/Backup.pm:934
+#, perl-brace-format
+msgid ""
+"There in not enough space left in the hard disk to complete the restore "
+"proccess. {size} Kb required. Free sufficient space and retry"
+msgstr ""
+
+#: src/EBox/Backup.pm:1215
+#, perl-brace-format
+msgid "No module {m} found in backup"
+msgstr ""
+
+#: src/EBox/Backup.pm:1238
+msgid "No modules to restore"
+msgstr ""
+
+#: src/EBox/Backup.pm:1290
+#, perl-brace-format
+msgid ""
+"Unresolved restore dependency for module {topModule}: {modName} is not "
+"installed"
+msgstr ""
+
+#: src/EBox/Backup.pm:1333
+msgid "Backup's archives"
+msgstr ""
+
+#: src/EBox/Apache.pm:268 src/EBox/Apache.pm:277
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Apache.pm:588
+#: src/EBox/Apache.pm:591
 msgid "eBox internal web server"
 msgstr ""
 
-#: src/EBox/Common/Model/EnableForm.pm:100
-msgid "Service enabled"
+#: src/EBox/Global.pm:424 src/EBox/Global.pm:445
+#, perl-brace-format
+msgid "Saving {modName} module"
+msgstr "Ukladanie modulu {modName} "
+
+#: src/EBox/Global.pm:919
+#, perl-brace-format
+msgid "running {scriptName} script"
 msgstr ""
 
-#: src/EBox/Common/Model/EnableForm.pm:102
-msgid "Service disabled"
+#: src/EBox/Report/DiskUsage.pm:61
+#, perl-brace-format
+msgid "No usage data for {d}. Are you sure is a valid disk?"
 msgstr ""
 
-#: src/EBox/Common/Model/EnableForm.pm:146
-msgid "Enable service"
-msgstr ""
-
-#: src/EBox/SysInfo.pm:42
-#, fuzzy
-msgid "System Information"
-msgstr "Informácie o systéme"
-
-#: src/EBox/SysInfo.pm:77
-msgid "Time"
-msgstr "Čas"
-
-#: src/EBox/SysInfo.pm:78
-#, fuzzy
-msgid "Hostname"
-msgstr "Názov stanice"
-
-#: src/EBox/SysInfo.pm:80
-msgid "eBox version"
-msgstr "Verzia eBoxu"
-
-#: src/EBox/SysInfo.pm:83
-msgid "System load"
-msgstr "Záťaž systému"
-
-#: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:201
-#, fuzzy
-msgid "Module Status"
-msgstr "Stav modulov"
-
-#: src/EBox/SysInfo.pm:123
-#, fuzzy
-msgid "General Information"
-msgstr "Všeobecné informácie"
-
-#: src/EBox/SysInfo.pm:128
-#, fuzzy
-msgid "Process List"
-msgstr "Zoznam procesov"
-
-#: src/EBox/SysInfo.pm:211
-msgid "General"
-msgstr "Všeobecné nastavenia"
-
-#: src/EBox/SysInfo.pm:226
-msgid "Halt/Reboot"
-msgstr "Vypnutie/reštart"
-
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr "Ak tento počítač vypnete, nebude ho možné ovládať cez toto rozhranie."
-
-#: src/templates/halt.mas:14
-msgid "Halt"
-msgstr "Vypnúť"
-
-#: src/templates/halt.mas:16
-msgid "Reboot"
-msgstr "Reštartovať"
-
-#: src/templates/headTitle.mas:20
-msgid "Remote services control panel"
-msgstr ""
-
-#: src/templates/finish.mas:82
-msgid "Warning"
-msgstr ""
-
-#: src/templates/finish.mas:96
+#: src/EBox/Report/DiskUsage.pm:210
+#, perl-brace-format
 msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr ""
-"V jednom alebo viacerých moduloch sú neuložené zmeny, môžete ich uložiť "
-"alebo zrušiť."
-
-#: src/templates/finish.mas:99
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-"Ak ste zmenili sieťové rozhranie alebo port pre administračné rozhranie, "
-"bude po uložení potrebné ručne zmeniť URL adresu v prehliadači, aby ste sa "
-"znova dostali do tohto administračného rozhrania."
-
-#: src/templates/finish.mas:107
-msgid "Message"
+"Invalid file system: {f}. Only regular and no removable media file systems "
+"are accepted"
 msgstr ""
 
-#: src/templates/finish.mas:123
-msgid "Save"
-msgstr "Uložiť"
-
-#: src/templates/finish.mas:125
-msgid "Discard changes"
-msgstr "Zrušiť zmeny"
-
-#: src/templates/finish.mas:130
-msgid "There are no unsaved changes."
-msgstr ""
-
-#: src/templates/bug.mas:9
-msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a bug in eBox."
-msgstr ""
-"Táto stránka umožňuje vygenerovať súbor s informáciami o stave systému. "
-"Súbor je potrebný, ak chete odoslať správu o chybe v systéme eBox."
-
-#: src/templates/bug.mas:14
-msgid "Download bug report file"
-msgstr "Stiahnuť súbor s hláseniím o chybe"
+#: src/EBox/Report/DiskUsage.pm:333
+msgid "Free space"
+msgstr "Voľné miesto"
 
 #: src/templates/configurationFiles.mas:28
 msgid "Do you wish to overwrite these files?"
@@ -1547,43 +1489,23 @@ msgstr ""
 msgid "Modify"
 msgstr ""
 
-#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
-msgid "Cancel"
-msgstr "Zrušiť"
-
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr ""
-"Niekoľko zmien nie je uložených. Ak sa odhlásite, budú nenávratne stratené."
-
-#: src/templates/logout/index.mas:15
-msgid "There are no unsaved changes in this session."
-msgstr "Všetky zmeny sú uložené, pokojne sa môžete odhlásiť."
-
-#: src/templates/logout/index.mas:19
-msgid "Exit"
-msgstr "Koniec"
-
-#: src/templates/progress.mas:20
-msgid "Item"
+#: src/templates/headTitle.mas:20
+msgid "Remote services control panel"
 msgstr ""
 
-#: src/templates/progress.mas:21
-msgid "items left"
-msgstr ""
-
-#: src/templates/progress.mas:23
-msgid "Some error has happened in eBox: "
-msgstr ""
-
-#: src/templates/progress.mas:38
-msgid "Starting..."
-msgstr "Štartovanie..."
-
-#: src/templates/port.mas:9
+#: src/templates/backupTabs.mas:13
 #, fuzzy
-msgid "Administration Interface TCP Port"
-msgstr "Číslo TCP portu pre administračné rozhranie"
+msgid "Local Backup"
+msgstr "Úplná záloha"
+
+#: src/templates/backupTabs.mas:18
+#, fuzzy
+msgid "Remote Backup"
+msgstr "Zálohovanie"
+
+#: src/templates/backupTabs.mas:23
+msgid "Remote Backup from Other Subscribed Hosts"
+msgstr ""
 
 #: src/templates/configureView.mas:16
 msgid ""
@@ -1604,64 +1526,13 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: src/templates/password.mas:4
-#, fuzzy
-msgid "Change Password"
-msgstr "Zmena hesla"
-
-#: src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "Heslo musí mať dĺžku najmenej 6 znakov."
-
-#: src/templates/password.mas:11
-msgid "Current password"
-msgstr "Súčasné heslo"
-
-#: src/templates/password.mas:25
-msgid "New password"
-msgstr "Nové heslo"
-
-#: src/templates/password.mas:39
-msgid "Confirm password"
-msgstr "Potvrdenie hesla"
-
-#: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
-#: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
-msgid "Type"
-msgstr "Typ"
-
-#: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
-msgid "Archive size"
-msgstr "Veľkosť archívu"
-
-#: src/templates/confirm-backup.mas:110
-msgid "Full Restore"
-msgstr "Úplná obnova"
-
-#: src/templates/confirm-backup.mas:111
-msgid "Configuration Restore"
-msgstr "Obnova konfigurácie"
-
-#: src/templates/confirm-backup.mas:116
-msgid "Restore mode"
-msgstr "Mód obnovy"
-
-#: src/templates/moduleStatusTable.mas:59
-msgid "Depends"
-msgstr "Závisí od"
-
-#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
-msgid "Status"
-msgstr "Stav"
-
-#: src/templates/moduleStatusTable.mas:85
-#, perl-brace-format
-msgid "Configure module: {module}"
-msgstr ""
-
 #: src/templates/dashboard/index.mas:89
 msgid "Configure widgets"
 msgstr "Nastavenie panelov"
+
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
+msgstr ""
 
 #: src/templates/dashboard/status.mas:10
 msgid "Restart"
@@ -1704,124 +1575,165 @@ msgstr "Vypnuté"
 msgid "The service is not enabled in eBox"
 msgstr ""
 
-#: src/templates/dashboard/list.mas:43
-msgid "No entries in this list"
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr "Ak tento počítač vypnete, nebude ho možné ovládať cez toto rozhranie."
+
+#: src/templates/halt.mas:14
+msgid "Halt"
+msgstr "Vypnúť"
+
+#: src/templates/halt.mas:16
+msgid "Reboot"
+msgstr "Reštartovať"
+
+#: src/templates/moduleStatusTable.mas:59
+msgid "Depends"
+msgstr "Závisí od"
+
+#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
+msgid "Status"
+msgstr "Stav"
+
+#: src/templates/moduleStatusTable.mas:85
+#, perl-brace-format
+msgid "Configure module: {module}"
 msgstr ""
 
-#: src/templates/backupTabs.mas:13
-#, fuzzy
-msgid "Local Backup"
-msgstr "Úplná záloha"
-
-#: src/templates/backupTabs.mas:18
-#, fuzzy
-msgid "Remote Backup"
-msgstr "Zálohovanie"
-
-#: src/templates/backupTabs.mas:23
-msgid "Remote Backup from Other Subscribed Hosts"
+#: src/templates/report/raid.mas:20
+#, perl-brace-format
+msgid "Inexistent RAID array {a}"
 msgstr ""
 
-#: src/templates/backup.mas:17
-msgid "Full Backup"
-msgstr "Úplná záloha"
-
-#: src/templates/backup.mas:24
-#, fuzzy, perl-brace-format
-msgid ""
-"Those modules which have not been enabled for first time in the {openref}"
-"Module Status{closeref} section will be ignored in both backup and restore "
-"operations."
+#: src/templates/report/raid.mas:42
+msgid "RAID is not enabled in this system."
 msgstr ""
-"Tie moduly, ktoré neboli zapnuté po prvý raz v časti {openref}Stav modulov"
-"{closeref} budú vynechané pri zálohovaní aj pri obnovovaní"
 
-#: src/templates/backup.mas:26
-#, fuzzy
-msgid "Backup the Current State"
-msgstr "Záloha aktuálneho stavu"
-
-#: src/templates/backup.mas:35
-msgid ""
-"Backup is disabled because there are unsaved configuration changes. Please, "
-"save or discard them to be able to backup the configuration"
+#: src/templates/report/raid.mas:94
+msgid "left-asymmetric"
 msgstr ""
-"Zálohu nie je možné vykonať, pretože neboli uložené zmeny v konfigurácii. "
-"Najskôr ich uložte alebo zrušte, a potom bude možné konfiguráciu zálohovať."
 
-#: src/templates/backup.mas:52
-msgid "Backup mode"
-msgstr "Mód zálohy"
-
-#: src/templates/backup.mas:74
-#, fuzzy
-msgid "Restore Backup from File"
-msgstr "Obnovenie zálohy zo súboru"
-
-#: src/templates/backup.mas:76
-#, fuzzy
-msgid ""
-"You can upload a backup file from your computer. When uploading files you "
-"should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
+#: src/templates/report/raid.mas:95
+msgid "right-asymmetric"
 msgstr ""
-"Môžete obnoviť zálohu uloženú v počítači. Pri nahrávaní súborov, sa zobrazí "
-"varovanie, že niektoré prehliadače nevedia odoslať veľké súbory (>= 1 Gb)"
 
-#: src/templates/backup.mas:84
-msgid "Backup file"
-msgstr "Súbor so zálohou"
+#: src/templates/report/raid.mas:96
+msgid "left-symmetric"
+msgstr ""
 
-#: src/templates/backup.mas:114
-msgid "Full"
-msgstr "Úplná"
+#: src/templates/report/raid.mas:97
+msgid "right-symmetric"
+msgstr ""
 
-#: src/templates/backup.mas:115
-msgid "Configuration only"
-msgstr "Iba konfigurácia"
+#: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
+#: src/templates/backup.mas:127 src/templates/confirm-backup.mas:44
+msgid "Type"
+msgstr "Typ"
 
-#: src/templates/backup.mas:116
-msgid "Unknown type"
-msgstr "Neznámy typ"
+#: src/templates/report/raid.mas:142
+msgid "Active RAID devices"
+msgstr "Počet aktívnych RAID zariadení"
 
-#: src/templates/backup.mas:122
-msgid "Backups' list"
-msgstr "Zoznam záloh"
+#: src/templates/report/raid.mas:143
+msgid "Active RAID devices needed"
+msgstr "Počet potrebných aktívnych RAID zariadení"
 
-#: src/templates/backup.mas:130
-msgid "Actions"
-msgstr "Akcie"
+#: src/templates/report/raid.mas:144
+msgid "Size in blocks"
+msgstr "Veľkosť v blokoch"
 
-#: src/templates/backup.mas:160
-msgid "Restore configuration using this file"
-msgstr "Obnoviť konfiguráciu z tohto súboru"
+#: src/templates/report/raid.mas:145
+msgid "Chunk size"
+msgstr "veľkosť paralelne zapisovaného bloku"
 
-#: src/templates/backup.mas:161
-msgid "Restore from backup"
-msgstr "Obnoviť zo zálohy"
+#: src/templates/report/raid.mas:148
+msgid "Parity algorithm"
+msgstr "Algoritmus overenia parity"
 
-#: src/templates/backup.mas:166 src/templates/backup.mas:167
-msgid "Download"
-msgstr "Stiahnuť"
+#: src/templates/report/raid.mas:180
+msgid "Array properties"
+msgstr "Vlastnosti poľa"
 
-#: src/templates/backup.mas:186
-msgid "download"
-msgstr "stiahnuť"
+#: src/templates/report/raid.mas:195
+msgid "Resyncing array"
+msgstr ""
 
-#: src/templates/backup.mas:188
-msgid "restore"
-msgstr "obnoviť"
+#: src/templates/report/raid.mas:196
+msgid "Rebuild array"
+msgstr ""
 
-#: src/templates/backup.mas:190
-msgid "delete"
-msgstr "odstrániť"
+#: src/templates/report/raid.mas:197
+msgid "Reshape array"
+msgstr ""
 
-#: src/templates/login/index.mas:29
-msgid "Warning: Caps Lock is enabled"
-msgstr "Varovanie: Máte zapnutý Caps Lock"
+#: src/templates/report/raid.mas:205
+msgid "Operation type"
+msgstr ""
 
-#: src/templates/login/index.mas:39
-msgid "Enter"
-msgstr "Prihlásiť"
+#: src/templates/report/raid.mas:207
+msgid "Percentage completed"
+msgstr ""
+
+#: src/templates/report/raid.mas:209
+msgid "Estimated time left"
+msgstr ""
+
+#: src/templates/report/raid.mas:211
+msgid "Operation speed"
+msgstr ""
+
+#: src/templates/report/raid.mas:224
+msgid "RAID device number"
+msgstr "Číslo RAID zariadenia"
+
+#: src/templates/report/raid.mas:225
+msgid "Device"
+msgstr "Zariadenie"
+
+#: src/templates/report/raid.mas:231
+msgid "up"
+msgstr "funkčné"
+
+#: src/templates/report/raid.mas:232
+msgid "failure"
+msgstr "nefunkčné"
+
+#: src/templates/report/raid.mas:261
+msgid "No unused RAID devices"
+msgstr ""
+
+#: src/templates/report/raid.mas:264
+msgid "Unused RAID arrays"
+msgstr ""
+
+#: src/templates/report/diskUsage.mas:29
+msgid "Mounted on"
+msgstr "Pripojený do priečinka"
+
+#: src/templates/report/diskUsage.mas:31
+msgid "Options"
+msgstr "Nastavenia"
+
+#: src/templates/report/diskUsage.mas:34
+#, fuzzy
+msgid "Partition Properties"
+msgstr "Vlastnosti diskového oddielu"
+
+#: src/templates/progress.mas:20
+msgid "Item"
+msgstr ""
+
+#: src/templates/progress.mas:21
+msgid "items left"
+msgstr ""
+
+#: src/templates/progress.mas:23
+msgid "Some error has happened in eBox: "
+msgstr ""
+
+#: src/templates/progress.mas:38
+msgid "Starting..."
+msgstr "Štartovanie..."
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
@@ -1932,119 +1844,230 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: src/templates/report/raid.mas:20
-#, perl-brace-format
-msgid "Inexistent RAID array {a}"
+#: src/templates/finish.mas:82
+msgid "Warning"
 msgstr ""
 
-#: src/templates/report/raid.mas:42
-msgid "RAID is not enabled in this system."
+#: src/templates/finish.mas:96
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+"V jednom alebo viacerých moduloch sú neuložené zmeny, môžete ich uložiť "
+"alebo zrušiť."
+
+#: src/templates/finish.mas:99
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+"Ak ste zmenili sieťové rozhranie alebo port pre administračné rozhranie, "
+"bude po uložení potrebné ručne zmeniť URL adresu v prehliadači, aby ste sa "
+"znova dostali do tohto administračného rozhrania."
+
+#: src/templates/finish.mas:107
+msgid "Message"
 msgstr ""
 
-#: src/templates/report/raid.mas:94
-msgid "left-asymmetric"
+#: src/templates/finish.mas:123
+msgid "Save"
+msgstr "Uložiť"
+
+#: src/templates/finish.mas:125
+msgid "Discard changes"
+msgstr "Zrušiť zmeny"
+
+#: src/templates/finish.mas:130
+msgid "There are no unsaved changes."
 msgstr ""
 
-#: src/templates/report/raid.mas:95
-msgid "right-asymmetric"
+#: src/templates/backup.mas:17
+msgid "Full Backup"
+msgstr "Úplná záloha"
+
+#: src/templates/backup.mas:24
+#, fuzzy, perl-brace-format
+msgid ""
+"Those modules which have not been enabled for first time in the {openref}"
+"Module Status{closeref} section will be ignored in both backup and restore "
+"operations."
 msgstr ""
+"Tie moduly, ktoré neboli zapnuté po prvý raz v časti {openref}Stav modulov"
+"{closeref} budú vynechané pri zálohovaní aj pri obnovovaní"
 
-#: src/templates/report/raid.mas:96
-msgid "left-symmetric"
-msgstr ""
-
-#: src/templates/report/raid.mas:97
-msgid "right-symmetric"
-msgstr ""
-
-#: src/templates/report/raid.mas:142
-msgid "Active RAID devices"
-msgstr "Počet aktívnych RAID zariadení"
-
-#: src/templates/report/raid.mas:143
-msgid "Active RAID devices needed"
-msgstr "Počet potrebných aktívnych RAID zariadení"
-
-#: src/templates/report/raid.mas:144
-msgid "Size in blocks"
-msgstr "Veľkosť v blokoch"
-
-#: src/templates/report/raid.mas:145
-msgid "Chunk size"
-msgstr "veľkosť paralelne zapisovaného bloku"
-
-#: src/templates/report/raid.mas:148
-msgid "Parity algorithm"
-msgstr "Algoritmus overenia parity"
-
-#: src/templates/report/raid.mas:180
-msgid "Array properties"
-msgstr "Vlastnosti poľa"
-
-#: src/templates/report/raid.mas:195
-msgid "Resyncing array"
-msgstr ""
-
-#: src/templates/report/raid.mas:196
-msgid "Rebuild array"
-msgstr ""
-
-#: src/templates/report/raid.mas:197
-msgid "Reshape array"
-msgstr ""
-
-#: src/templates/report/raid.mas:205
-msgid "Operation type"
-msgstr ""
-
-#: src/templates/report/raid.mas:207
-msgid "Percentage completed"
-msgstr ""
-
-#: src/templates/report/raid.mas:209
-msgid "Estimated time left"
-msgstr ""
-
-#: src/templates/report/raid.mas:211
-msgid "Operation speed"
-msgstr ""
-
-#: src/templates/report/raid.mas:224
-msgid "RAID device number"
-msgstr "Číslo RAID zariadenia"
-
-#: src/templates/report/raid.mas:225
-msgid "Device"
-msgstr "Zariadenie"
-
-#: src/templates/report/raid.mas:231
-msgid "up"
-msgstr "funkčné"
-
-#: src/templates/report/raid.mas:232
-msgid "failure"
-msgstr "nefunkčné"
-
-#: src/templates/report/raid.mas:261
-msgid "No unused RAID devices"
-msgstr ""
-
-#: src/templates/report/raid.mas:264
-msgid "Unused RAID arrays"
-msgstr ""
-
-#: src/templates/report/diskUsage.mas:29
-msgid "Mounted on"
-msgstr "Pripojený do priečinka"
-
-#: src/templates/report/diskUsage.mas:31
-msgid "Options"
-msgstr "Nastavenia"
-
-#: src/templates/report/diskUsage.mas:34
+#: src/templates/backup.mas:26
 #, fuzzy
-msgid "Partition Properties"
-msgstr "Vlastnosti diskového oddielu"
+msgid "Backup the Current State"
+msgstr "Záloha aktuálneho stavu"
+
+#: src/templates/backup.mas:35
+msgid ""
+"Backup is disabled because there are unsaved configuration changes. Please, "
+"save or discard them to be able to backup the configuration"
+msgstr ""
+"Zálohu nie je možné vykonať, pretože neboli uložené zmeny v konfigurácii. "
+"Najskôr ich uložte alebo zrušte, a potom bude možné konfiguráciu zálohovať."
+
+#: src/templates/backup.mas:52
+msgid "Backup mode"
+msgstr "Mód zálohy"
+
+#: src/templates/backup.mas:74
+#, fuzzy
+msgid "Restore Backup from File"
+msgstr "Obnovenie zálohy zo súboru"
+
+#: src/templates/backup.mas:76
+#, fuzzy
+msgid ""
+"You can upload a backup file from your computer. When uploading files you "
+"should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
+msgstr ""
+"Môžete obnoviť zálohu uloženú v počítači. Pri nahrávaní súborov, sa zobrazí "
+"varovanie, že niektoré prehliadače nevedia odoslať veľké súbory (>= 1 Gb)"
+
+#: src/templates/backup.mas:84
+msgid "Backup file"
+msgstr "Súbor so zálohou"
+
+#: src/templates/backup.mas:114
+msgid "Full"
+msgstr "Úplná"
+
+#: src/templates/backup.mas:115
+msgid "Configuration only"
+msgstr "Iba konfigurácia"
+
+#: src/templates/backup.mas:116
+msgid "Unknown type"
+msgstr "Neznámy typ"
+
+#: src/templates/backup.mas:122
+msgid "Backups' list"
+msgstr "Zoznam záloh"
+
+#: src/templates/backup.mas:129 src/templates/confirm-backup.mas:53
+msgid "Archive size"
+msgstr "Veľkosť archívu"
+
+#: src/templates/backup.mas:130
+msgid "Actions"
+msgstr "Akcie"
+
+#: src/templates/backup.mas:160
+msgid "Restore configuration using this file"
+msgstr "Obnoviť konfiguráciu z tohto súboru"
+
+#: src/templates/backup.mas:161
+msgid "Restore from backup"
+msgstr "Obnoviť zo zálohy"
+
+#: src/templates/backup.mas:166 src/templates/backup.mas:167
+msgid "Download"
+msgstr "Stiahnuť"
+
+#: src/templates/backup.mas:186
+msgid "download"
+msgstr "stiahnuť"
+
+#: src/templates/backup.mas:188
+msgid "restore"
+msgstr "obnoviť"
+
+#: src/templates/backup.mas:190
+msgid "delete"
+msgstr "odstrániť"
+
+#: src/templates/bug.mas:9
+msgid ""
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a bug in eBox."
+msgstr ""
+"Táto stránka umožňuje vygenerovať súbor s informáciami o stave systému. "
+"Súbor je potrebný, ak chete odoslať správu o chybe v systéme eBox."
+
+#: src/templates/bug.mas:14
+msgid "Download bug report file"
+msgstr "Stiahnuť súbor s hláseniím o chybe"
+
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr ""
+"Niekoľko zmien nie je uložených. Ak sa odhlásite, budú nenávratne stratené."
+
+#: src/templates/logout/index.mas:15
+msgid "There are no unsaved changes in this session."
+msgstr "Všetky zmeny sú uložené, pokojne sa môžete odhlásiť."
+
+#: src/templates/logout/index.mas:19
+msgid "Exit"
+msgstr "Koniec"
+
+#: src/templates/password.mas:4
+#, fuzzy
+msgid "Change Password"
+msgstr "Zmena hesla"
+
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "Heslo musí mať dĺžku najmenej 6 znakov."
+
+#: src/templates/password.mas:11
+msgid "Current password"
+msgstr "Súčasné heslo"
+
+#: src/templates/password.mas:25
+msgid "New password"
+msgstr "Nové heslo"
+
+#: src/templates/password.mas:39
+msgid "Confirm password"
+msgstr "Potvrdenie hesla"
+
+#: src/templates/login/index.mas:40
+msgid "Warning: Caps Lock is enabled"
+msgstr "Varovanie: Máte zapnutý Caps Lock"
+
+#: src/templates/login/index.mas:43
+#, perl-brace-format
+msgid ""
+"Warning: Unfortunately Internet Explorer is not yet supported on eBox. "
+"Please use {url} instead."
+msgstr ""
+
+#: src/templates/login/index.mas:46
+#, perl-brace-format
+msgid ""
+"Warning: You are using a browser which is not {url}, the only one officially "
+"supported. Please, take into consideration that you might face some issues "
+"while navigating on eBox UI."
+msgstr ""
+
+#: src/templates/login/index.mas:58
+msgid "Enter"
+msgstr "Prihlásiť"
+
+#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: src/templates/confirm-backup.mas:110
+msgid "Full Restore"
+msgstr "Úplná obnova"
+
+#: src/templates/confirm-backup.mas:111
+msgid "Configuration Restore"
+msgstr "Obnova konfigurácie"
+
+#: src/templates/confirm-backup.mas:116
+msgid "Restore mode"
+msgstr "Mód obnovy"
+
+#: src/templates/port.mas:9
+#, fuzzy
+msgid "Administration Interface TCP Port"
+msgstr "Číslo TCP portu pre administračné rozhranie"
 
 #~ msgid "Control panel"
 #~ msgstr "Riadiaci panel"

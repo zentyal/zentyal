@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:24+0100\n"
+"POT-Creation-Date: 2009-12-03 12:47+0000\n"
 "PO-Revision-Date: 2009-08-04 00:13+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: migration/0001_add_firewall_services.pl:30
+msgid "eBox VoIP system"
+msgstr "eBox VoIP 系統"
 
 #: src/EBox/Asterisk.pm:66
 msgid "VoIP"
@@ -115,10 +119,87 @@ msgstr ""
 msgid "VoIP Users in Meetings"
 msgstr ""
 
-#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:114
-#: src/EBox/Model/Meetings.pm:123
+#: src/EBox/Asterisk/Extensions.pm:208
+msgid "User's extension"
+msgstr "使用者延伸功能"
+
+#: src/EBox/Asterisk/Extensions.pm:296 src/EBox/Model/Meetings.pm:145
+#: src/templates/asterisk.mas:34
+msgid "Extension"
+msgstr "延伸功能"
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:42
+msgid "username"
+msgstr "使用者名稱"
+
+#: src/EBox/Model/Meetings.pm:91
+msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
+msgstr "您必須安裝 dahdi-linux 和 dahi-tools 套件才能使用會議。"
+
+#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
+#: src/EBox/Model/Settings.pm:84
 msgid "extension"
 msgstr "延伸功能"
+
+#: src/EBox/Model/Meetings.pm:149
+#, perl-brace-format
+msgid "A number between {min} and {max}"
+msgstr "在 {min} 到 {max} 之間的數字"
+
+#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:90
+msgid "Password"
+msgstr "密碼"
+
+#: src/EBox/Model/Meetings.pm:173 src/EBox/Model/Localnets.pm:119
+msgid "Description"
+msgstr "描述"
+
+#: src/EBox/Model/Meetings.pm:185
+msgid "meeting"
+msgstr "會議"
+
+#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
+msgid "Voicemail settings"
+msgstr "語音郵件設定值"
+
+#: src/EBox/Model/Voicemail.pm:94
+msgid "New password"
+msgstr "新增密碼"
+
+#: src/EBox/Model/Voicemail.pm:101
+msgid "Mail address"
+msgstr "郵件位址"
+
+#: src/EBox/Model/Voicemail.pm:108
+msgid "Attach messages"
+msgstr "附加的郵件"
+
+#: src/EBox/Model/Voicemail.pm:114
+msgid "Delete sent messages"
+msgstr "刪除寄出的郵件"
+
+#: src/EBox/Model/Voicemail.pm:204
+msgid "Settings successfully updated"
+msgstr "設定值已成功的更新"
+
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "本地端網路"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "本地端網路"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "本地端網路"
 
 #: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
@@ -149,29 +230,6 @@ msgstr "一般 Asterisk 伺服器組態"
 msgid "General Asterisk server configuration updated"
 msgstr "一般 Asterisk 伺服器組態已更新"
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net},are always "
-"considered local networks so it is not neccesary to add them"
-msgstr ""
-
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "本地端網路"
-
-#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:173
-msgid "Description"
-msgstr "描述"
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "本地端網路"
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "本地端網路"
-
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
 msgstr "名稱"
@@ -179,10 +237,6 @@ msgstr "名稱"
 #: src/EBox/Model/Provider.pm:83
 msgid "Username"
 msgstr "帳號"
-
-#: src/EBox/Model/Provider.pm:90 src/EBox/Model/Meetings.pm:165
-msgid "Password"
-msgstr "密碼"
 
 #: src/EBox/Model/Provider.pm:97
 msgid "Server"
@@ -204,30 +258,6 @@ msgstr "網外電話組態的 SIP 供應商"
 #: src/EBox/Model/Provider.pm:120
 msgid "SIP provider configuration updated"
 msgstr "SIP 供應商組態已更新"
-
-#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
-msgid "Voicemail settings"
-msgstr "語音郵件設定值"
-
-#: src/EBox/Model/Voicemail.pm:94
-msgid "New password"
-msgstr "新增密碼"
-
-#: src/EBox/Model/Voicemail.pm:101
-msgid "Mail address"
-msgstr "郵件位址"
-
-#: src/EBox/Model/Voicemail.pm:108
-msgid "Attach messages"
-msgstr "附加的郵件"
-
-#: src/EBox/Model/Voicemail.pm:114
-msgid "Delete sent messages"
-msgstr "刪除寄出的郵件"
-
-#: src/EBox/Model/Voicemail.pm:204
-msgid "Settings successfully updated"
-msgstr "設定值已成功的更新"
 
 #: src/EBox/Model/NAT.pm:96
 #, fuzzy
@@ -251,39 +281,9 @@ msgstr "NAT Asterisk 伺服器組態"
 msgid "NAT Asterisk server configuration updated"
 msgstr "NAT Asterisk 伺服器組態已更新"
 
-#: src/EBox/Model/Meetings.pm:91
-msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
-msgstr "您必須安裝 dahdi-linux 和 dahi-tools 套件才能使用會議。"
-
-#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
-#: src/templates/asterisk.mas:34
-msgid "Extension"
-msgstr "延伸功能"
-
-#: src/EBox/Model/Meetings.pm:149
-#, perl-brace-format
-msgid "A number between {min} and {max}"
-msgstr "在 {min} 到 {max} 之間的數字"
-
-#: src/EBox/Model/Meetings.pm:185
-msgid "meeting"
-msgstr "會議"
-
-#: src/EBox/Asterisk/Extensions.pm:208
-msgid "User's extension"
-msgstr "使用者延伸功能"
-
-#: src/EBox/CGI/AsteriskUserOptions.pm:42
-msgid "username"
-msgstr "使用者名稱"
-
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk 模組"
-
-#: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
-msgstr "eBox VoIP 系統"
 
 #: src/templates/asterisk.mas:8
 msgid "Asterisk account"

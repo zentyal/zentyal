@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:42+0100\n"
+"POT-Creation-Date: 2009-12-03 13:09+0000\n"
 "PO-Revision-Date: 2009-10-14 20:22+0000\n"
 "Last-Translator: Ethem KELESOGLU <ethem.kelesoglu@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr ""
 
 #: src/EBox/WebServer.pm:77
 #, fuzzy
@@ -51,16 +55,28 @@ msgstr "{userDirConfFile} kayıp! Lütfen geri yükleyin"
 msgid "listening port"
 msgstr "dinleme portu"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+#: src/EBox/WebServer/Model/GeneralSettings.pm:101
+msgid ""
+"To allow HTML directories for users is needed that the file sharing module "
+"is installed and configured"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:107
+msgid ""
+"To allow HTML directories for user os needed to have the file sharing module "
+"configured. To configure it enable it at least one time"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
 msgstr "Dinleme portu"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#: src/EBox/WebServer/Model/GeneralSettings.pm:175
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "Her kullanıcı için {dirName}'yi etkinleştir."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+#: src/EBox/WebServer/Model/GeneralSettings.pm:179
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
@@ -68,11 +84,11 @@ msgstr ""
 "Eğer bu alanı işaretlediyseniz, her kullanıcı public_html kök dizininde "
 "kendi web sitesini yayımlayabilir."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:172
+#: src/EBox/WebServer/Model/GeneralSettings.pm:189
 msgid "General configuration settings"
 msgstr "Genel konfigürasyon ayarları"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:176
+#: src/EBox/WebServer/Model/GeneralSettings.pm:193
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
@@ -85,7 +101,7 @@ msgstr ""
 "Bu sayfalar kullanıcıların samba kök dizinlerinde {dirName} dizininden "
 "yüklenecektir."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:182
+#: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"
 msgstr "Genel Web sunucu konfigürasyon ayarları güncellendi"
 
@@ -176,7 +192,3 @@ msgid ""
 msgstr ""
 "eBox web hizmeti Web sayfalarını düz HTML biçiminde farklı sanal sunucularda "
 "barındırmanıza izin verir"
-
-#: migration/0001_add_service_and_port.pl:147
-msgid "HyperText Transport Protocol"
-msgstr ""

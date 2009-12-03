@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:33+0100\n"
+"POT-Creation-Date: 2009-12-03 12:58+0000\n"
 "PO-Revision-Date: 2008-01-08 15:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,6 +16,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "es\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: migration/0004_add_firewall_services.pl:32
+msgid "POP transparent proxy"
+msgstr ""
+
+#: migration/0004_add_firewall_services.pl:50
+msgid "POP3 protocol"
+msgstr ""
 
 #: src/EBox/MailFilter.pm:60
 #, fuzzy
@@ -58,8 +66,8 @@ msgid "Mail filter"
 msgstr "メールフィルタ"
 
 #: src/EBox/MailFilter.pm:501 src/EBox/MailFilter.pm:548
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 #, fuzzy
 msgid "Date"
 msgstr "削除"
@@ -200,6 +208,132 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+#: src/EBox/MailFilter/Types/FileExtension.pm:59
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
+msgid "file extension"
+msgstr "ファイル拡張子"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:79
+msgid "domain name"
+msgstr "ドメイン名"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:83
+msgid "email address"
+msgstr "Eメールアドレス"
+
+#: src/EBox/MailFilter/Types/AmavisSender.pm:87
+#, fuzzy
+msgid ""
+"The sender ought be either an email address or a domain name prefixed with "
+"'@'"
+msgstr ""
+"送信者はEメールアドレスか'@'でプリフィックスされたドメイン名のいずれかを使え"
+"ます"
+
+#: src/EBox/MailFilter/Types/Policy.pm:30
+msgid "Pass"
+msgstr "通過"
+
+#: src/EBox/MailFilter/Types/Policy.pm:31
+msgid "Reject"
+msgstr "拒否"
+
+#: src/EBox/MailFilter/Types/Policy.pm:32
+msgid "Bounce"
+msgstr "宛先不明通知"
+
+#: src/EBox/MailFilter/Types/Policy.pm:33
+msgid "Discard"
+msgstr "破棄"
+
+#: src/EBox/MailFilter/Types/Policy.pm:53
+#, fuzzy
+msgid "Mailfilter's policy"
+msgstr "メールフィルタのポート"
+
+#: src/EBox/MailFilter/Types/MIMEType.pm:61
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
+msgid "MIME type"
+msgstr "MIMEタイプ"
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
+msgid "Write down a decimal number"
+msgstr ""
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:141
+msgid "Only non-zero positive numbers are allowed"
+msgstr ""
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:150
+#, perl-brace-format
+msgid "Write down a number lesser than {m}"
+msgstr ""
+
+#: src/EBox/MailFilter/Types/AntispamThreshold.pm:157
+#, perl-brace-format
+msgid "Write down a number greater  than {m}"
+msgstr ""
+
+#: src/EBox/MailFilter/VDomainsLdap.pm:604
+#, perl-brace-format
+msgid "Virtual mail domain {vd} does not exist"
+msgstr "バーチャルメールドメイン {vd} は存在しません"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:62
+#, fuzzy
+msgid "Mail sender"
+msgstr "メールフィルタ"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:68
+msgid "Policy"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:77
+#, fuzzy
+msgid "Sender policy"
+msgstr "望ましくないヘッダポリシーです"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:89
+#, fuzzy
+msgid "sender policy"
+msgstr "望ましくないヘッダポリシーです"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:98
+#, fuzzy
+msgid "whitelist"
+msgstr "ホワイトリスト"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:99
+#, fuzzy
+msgid "blacklist"
+msgstr "ブラックリスト"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:100
+msgid "process"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
+#, fuzzy
+msgid "MIME Type"
+msgstr "MIMEタイプ"
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:74
+#: src/EBox/MailFilter/Model/FileExtensionACL.pm:74
+msgid "Allow"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:82
+#, fuzzy
+msgid "MIME types"
+msgstr "MIMEタイプ"
+
+#: src/EBox/MailFilter/Model/MIMETypeACL.pm:95
+#, fuzzy
+msgid ""
+"MIME types which are not listed below are allowed. MIME types aren't used by "
+"POP transparent proxy"
+msgstr "以下に表示されていない {plural} が許可されています"
+
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:65
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:58
 #, fuzzy
@@ -245,201 +379,61 @@ msgstr "拒否設定が変更されました"
 msgid "The port {port} is already used by module {mod}"
 msgstr "ポート {port} はすでにモジュール {mod} で使われています"
 
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:68
-msgid "External mail server"
-msgstr "外部メールサーバ"
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:74
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:76
-msgid "Allow connection"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:82
-#, fuzzy
-msgid "External mail servers"
-msgstr "外部メールサーバ"
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:94
-#, fuzzy
-msgid "external mail server"
-msgstr "外部メールサーバ"
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:95
-msgid ""
-"Here you can specify which external mail servers can connect to the mail "
-"filter"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/ExternalMTA.pm:142
-#, perl-brace-format
-msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-msgstr ""
-"無効な外部MTAです: {mta}。ローカルのネットワークアドレスは利用できません"
-
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:70
-msgid "External mail domain"
-msgstr "外部メールドメイン"
-
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:84
-msgid "External mail domains"
-msgstr "外部メールドメイン"
-
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:96
-#, fuzzy
-msgid "external mail domain"
-msgstr "外部メールドメイン"
-
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:97
-msgid ""
-"Here you can specify which external mail domains can connect to the mail "
-"filter"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/ExternalDomain.pm:115
-#, perl-brace-format
-msgid "{d} is a internal eBox's virtual main domain"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:63
-msgid "Virus policy"
-msgstr "ウィルスポリシー"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:69
-msgid "Spam policy"
-msgstr "迷惑メールポリシー"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:75
-msgid "Banned files policy"
-msgstr "隔離ファイルポリシー"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
-#, fuzzy
-msgid "Bad header policy"
-msgstr "望ましくないヘッダポリシーです"
-
-#: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
-#, fuzzy
-msgid "SMTP filter policies"
-msgstr "メールフィルタのポート"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:69
-msgid "Domain"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/VDomains.pm:79
-msgid "Use virus filtering"
-msgstr "ウィルスフィルタを使用"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:85
-msgid "Use spam filtering"
-msgstr "迷惑メールフィルタを使用"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:91
-#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63
-#: src/EBox/MailFilter/SpamAssassin.pm:333
-msgid "Spam threshold"
-msgstr "迷惑メールしきい値"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:98
-msgid "default"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/VDomains.pm:102
-#, fuzzy
-msgid "custom threshold"
-msgstr "迷惑メールしきい値"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:113
-msgid "Learning ham account"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/VDomains.pm:114
-msgid ""
-"An address (ham@domain) will be created for this domain, ham messages "
-"incorrectly classified as spam may be forwarded to this addres to train the "
-"filter"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/VDomains.pm:125
-msgid "Learning spam account"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/VDomains.pm:126
-msgid ""
-"An address (spam@domain) will be created for this domain, spam messages "
-"incorrectly classified as ham may be forwarded to this addres to train the "
-"filter"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/VDomains.pm:137
-#, fuzzy
-msgid "Antispam sender policy"
-msgstr "送信者アクセス一覧をアンチスパム"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:148
-msgid "Virtual domains configuration"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/VDomains.pm:159
-#, fuzzy
-msgid "virtual domain"
-msgstr "メールドメイン"
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:70
-msgid "Filter virus"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:76
-#, fuzzy
-msgid "Filter spam"
-msgstr "フィルタタイプ"
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
-#, fuzzy
-msgid "ISP spam subject"
-msgstr "迷惑メール題名タグ"
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
-msgid ""
-"This option allows you to set the string your ISP uses if\n"
-"it processes your email for SPAM."
-msgstr ""
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
-#, fuzzy
-msgid "POP transparent proxy configuration"
-msgstr "アンチスパムオプション"
-
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
-msgid ""
-"The POP transparent proxy must scan for something to be useful. If you do "
-"not need either antivirus of spam scan we suggest you turn it off"
-msgstr ""
-
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
 #, fuzzy
 msgid "File extension"
 msgstr "ファイル拡張子"
-
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:74
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:74
-msgid "Allow"
-msgstr ""
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:82
 #, fuzzy
 msgid "File extensions"
 msgstr "ファイル拡張子"
 
-#: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
-#: src/EBox/MailFilter/Types/FileExtension.pm:59
-msgid "file extension"
-msgstr "ファイル拡張子"
-
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:95
 #, fuzzy
 msgid "Extensions which are not listed below are allowed"
 msgstr "以下に表示されていない {plural} が許可されています"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:68
+msgid "External mail server"
+msgstr "外部メールサーバ"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:71
+msgid "IP address of the server"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:75
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:76
+msgid "Allow connection"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:83
+#, fuzzy
+msgid "External mail servers"
+msgstr "外部メールサーバ"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:95
+#, fuzzy
+msgid "external mail server"
+msgstr "外部メールサーバ"
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:96
+msgid ""
+"Here you can specify which external mail servers can connect to the mail "
+"filter"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/ExternalMTA.pm:143
+#, perl-brace-format
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr ""
+"無効な外部MTAです: {mta}。ローカルのネットワークアドレスは利用できません"
+
+#: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63
+#: src/EBox/MailFilter/Model/VDomains.pm:91
+#: src/EBox/MailFilter/SpamAssassin.pm:333
+msgid "Spam threshold"
+msgstr "迷惑メールしきい値"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:67
 msgid "The score threshold to mark a message as spam"
@@ -525,27 +519,192 @@ msgstr ""
 "通常メールの学習のしきい値はデフォルトの迷惑メールのレベルよりも小さく設定し"
 "てください"
 
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:70
+msgid "External mail domain"
+msgstr "外部メールドメイン"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:84
+msgid "External mail domains"
+msgstr "外部メールドメイン"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:96
+#, fuzzy
+msgid "external mail domain"
+msgstr "外部メールドメイン"
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:97
+msgid ""
+"Here you can specify which external mail domains can connect to the mail "
+"filter"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/ExternalDomain.pm:115
+#, perl-brace-format
+msgid "{d} is a internal eBox's virtual main domain"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:70
+msgid "Filter virus"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:76
+#, fuzzy
+msgid "Filter spam"
+msgstr "フィルタタイプ"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
+#, fuzzy
+msgid "ISP spam subject"
+msgstr "迷惑メール題名タグ"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
+msgid ""
+"This option allows you to set the string your ISP uses if\n"
+"it processes your email for SPAM."
+msgstr ""
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
+#, fuzzy
+msgid "POP transparent proxy configuration"
+msgstr "アンチスパムオプション"
+
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
+msgid ""
+"The POP transparent proxy must scan for something to be useful. If you do "
+"not need either antivirus of spam scan we suggest you turn it off"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:63
+msgid "Virus policy"
+msgstr "ウィルスポリシー"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:69
+msgid "Spam policy"
+msgstr "迷惑メールポリシー"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:75
+msgid "Banned files policy"
+msgstr "隔離ファイルポリシー"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
+#, fuzzy
+msgid "Bad header policy"
+msgstr "望ましくないヘッダポリシーです"
+
+#: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
+#, fuzzy
+msgid "SMTP filter policies"
+msgstr "メールフィルタのポート"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:60
+msgid "Mailbox"
+msgstr "メールボックス"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:66
+msgid "Mailbox contains"
+msgstr "メールボックス内容"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:76
+#, fuzzy
+msgid "Train bayesian spam filter"
+msgstr "ベイジアン識別器を使用"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:81
+#, fuzzy
+msgid "Learned from messages"
+msgstr "メールボックスファイルから学習"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:83
+msgid "Train"
+msgstr "学習"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:98
+#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
+msgid "spam"
+msgstr "迷惑メール"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:99
+msgid "ham"
+msgstr "通常メール"
+
+#: src/EBox/MailFilter/Model/AntispamTraining.pm:131
+#, perl-brace-format
+msgid "Invalid mailbox type: {type}"
+msgstr "無効なメールボックス形式です: {type}"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:69
+msgid "Domain"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:79
+msgid "Use virus filtering"
+msgstr "ウィルスフィルタを使用"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:85
+msgid "Use spam filtering"
+msgstr "迷惑メールフィルタを使用"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:98
+msgid "default"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:102
+#, fuzzy
+msgid "custom threshold"
+msgstr "迷惑メールしきい値"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:113
+msgid "Learning ham account"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:114
+msgid ""
+"An address (ham@domain) will be created for this domain, ham messages "
+"incorrectly classified as spam may be forwarded to this addres to train the "
+"filter"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:125
+msgid "Learning spam account"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:126
+msgid ""
+"An address (spam@domain) will be created for this domain, spam messages "
+"incorrectly classified as ham may be forwarded to this addres to train the "
+"filter"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:137
+#, fuzzy
+msgid "Antispam sender policy"
+msgstr "送信者アクセス一覧をアンチスパム"
+
+#: src/EBox/MailFilter/Model/VDomains.pm:148
+msgid "Virtual domains configuration"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/VDomains.pm:159
+#, fuzzy
+msgid "virtual domain"
+msgstr "メールドメイン"
+
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
 #, fuzzy
 msgid "Mail filter graph"
 msgstr "メールフィルタ"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:49
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:80
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:80
 #, fuzzy
 msgid "clean messages"
 msgstr "メールボックスファイルから学習"
-
-#: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:49
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:90
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:98
-msgid "spam"
-msgstr "迷惑メール"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
@@ -574,6 +733,25 @@ msgstr "ブラックリスト"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:103
 msgid "Filter traffic"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
+#, fuzzy
+msgid "blacklisted senders"
+msgstr "ブラックリスト"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
+#, fuzzy
+msgid "bad message header"
+msgstr "望ましくないヘッダ形式です"
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
+msgid "Filter traffic details"
+msgstr ""
+
+#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
+#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
+msgid "traffic"
 msgstr ""
 
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:46
@@ -605,11 +783,6 @@ msgstr "メールボックスファイルから学習"
 msgid "Transparent POP proxy traffic details"
 msgstr ""
 
-#: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
-msgid "traffic"
-msgstr ""
-
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:51
 msgid "POP proxy graph"
 msgstr ""
@@ -618,105 +791,18 @@ msgstr ""
 msgid "Transparent POP proxy traffic"
 msgstr ""
 
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
+#: src/EBox/MailFilter/Amavis.pm:48
+msgid "To configure amavis"
+msgstr "AMaViSを設定"
+
+#: src/EBox/MailFilter/Amavis.pm:432
+msgid "eBox internal mail filter"
+msgstr "eBox内部メールフィルタ"
+
+#: src/EBox/MailFilter/Amavis.pm:446
 #, fuzzy
-msgid "blacklisted senders"
-msgstr "ブラックリスト"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
-#, fuzzy
-msgid "bad message header"
-msgstr "望ましくないヘッダ形式です"
-
-#: src/EBox/MailFilter/Model/Report/FilterDetails.pm:117
-msgid "Filter traffic details"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:62
-#, fuzzy
-msgid "Mail sender"
-msgstr "メールフィルタ"
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:68
-msgid "Policy"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:77
-#, fuzzy
-msgid "Sender policy"
-msgstr "望ましくないヘッダポリシーです"
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:89
-#, fuzzy
-msgid "sender policy"
-msgstr "望ましくないヘッダポリシーです"
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:98
-#, fuzzy
-msgid "whitelist"
-msgstr "ホワイトリスト"
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:99
-#, fuzzy
-msgid "blacklist"
-msgstr "ブラックリスト"
-
-#: src/EBox/MailFilter/Model/AntispamACL.pm:100
-msgid "process"
-msgstr ""
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:60
-msgid "Mailbox"
-msgstr "メールボックス"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:66
-msgid "Mailbox contains"
-msgstr "メールボックス内容"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:76
-#, fuzzy
-msgid "Train bayesian spam filter"
-msgstr "ベイジアン識別器を使用"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:81
-#, fuzzy
-msgid "Learned from messages"
-msgstr "メールボックスファイルから学習"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:83
-msgid "Train"
-msgstr "学習"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:99
-msgid "ham"
-msgstr "通常メール"
-
-#: src/EBox/MailFilter/Model/AntispamTraining.pm:131
-#, perl-brace-format
-msgid "Invalid mailbox type: {type}"
-msgstr "無効なメールボックス形式です: {type}"
-
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
-#, fuzzy
-msgid "MIME Type"
-msgstr "MIMEタイプ"
-
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:82
-#, fuzzy
-msgid "MIME types"
-msgstr "MIMEタイプ"
-
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
-#: src/EBox/MailFilter/Types/MIMEType.pm:61
-msgid "MIME type"
-msgstr "MIMEタイプ"
-
-#: src/EBox/MailFilter/Model/MIMETypeACL.pm:95
-#, fuzzy
-msgid ""
-"MIME types which are not listed below are allowed. MIME types aren't used by "
-"POP transparent proxy"
-msgstr "以下に表示されていない {plural} が許可されています"
+msgid "SMTP filter proxy"
+msgstr "MIMEタイプフィルタ"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:55
 msgid " To configure spamassassin daemon"
@@ -751,84 +837,21 @@ msgstr ""
 msgid "Unsupported or incorrect input source fonrmat: {format}"
 msgstr "サポートされていないか誤ったフォーマットです: {format}"
 
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
-msgid "Write down a decimal number"
-msgstr ""
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:141
-msgid "Only non-zero positive numbers are allowed"
-msgstr ""
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:150
-#, perl-brace-format
-msgid "Write down a number lesser than {m}"
-msgstr ""
-
-#: src/EBox/MailFilter/Types/AntispamThreshold.pm:157
-#, perl-brace-format
-msgid "Write down a number greater  than {m}"
-msgstr ""
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:79
-msgid "domain name"
-msgstr "ドメイン名"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:83
-msgid "email address"
-msgstr "Eメールアドレス"
-
-#: src/EBox/MailFilter/Types/AmavisSender.pm:87
-#, fuzzy
-msgid ""
-"The sender ought be either an email address or a domain name prefixed with "
-"'@'"
-msgstr ""
-"送信者はEメールアドレスか'@'でプリフィックスされたドメイン名のいずれかを使え"
-"ます"
-
-#: src/EBox/MailFilter/Types/Policy.pm:30
-msgid "Pass"
-msgstr "通過"
-
-#: src/EBox/MailFilter/Types/Policy.pm:31
-msgid "Reject"
-msgstr "拒否"
-
-#: src/EBox/MailFilter/Types/Policy.pm:32
-msgid "Bounce"
-msgstr "宛先不明通知"
-
-#: src/EBox/MailFilter/Types/Policy.pm:33
-msgid "Discard"
-msgstr "破棄"
-
-#: src/EBox/MailFilter/Types/Policy.pm:53
-#, fuzzy
-msgid "Mailfilter's policy"
-msgstr "メールフィルタのポート"
-
-#: src/EBox/MailFilter/VDomainsLdap.pm:604
-#, perl-brace-format
-msgid "Virtual mail domain {vd} does not exist"
-msgstr "バーチャルメールドメイン {vd} は存在しません"
-
-#: src/EBox/MailFilter/Amavis.pm:48
-msgid "To configure amavis"
-msgstr "AMaViSを設定"
-
-#: src/EBox/MailFilter/Amavis.pm:432
-msgid "eBox internal mail filter"
-msgstr "eBox内部メールフィルタ"
-
-#: src/EBox/MailFilter/Amavis.pm:446
-#, fuzzy
-msgid "SMTP filter proxy"
-msgstr "MIMEタイプフィルタ"
-
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
 #, fuzzy
 msgid "External connections"
 msgstr "外部メールドメイン"
+
+#: src/EBox/MailFilter/Composite/FileFilter.pm:59
+#, fuzzy
+msgid "Attached files filter"
+msgstr "メールフィルタ"
+
+#: src/EBox/MailFilter/Composite/FileFilter.pm:61
+msgid ""
+"Filter mail messages according attached files. The transparent POP proxy "
+"only filters by extension"
+msgstr ""
 
 #: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
 #: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
@@ -843,25 +866,6 @@ msgstr "メールフィルタのポート"
 
 #: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:71
 msgid "Transparent POP proxy report"
-msgstr ""
-
-#: src/EBox/MailFilter/Composite/FileFilter.pm:59
-#, fuzzy
-msgid "Attached files filter"
-msgstr "メールフィルタ"
-
-#: src/EBox/MailFilter/Composite/FileFilter.pm:61
-msgid ""
-"Filter mail messages according attached files. The transparent POP proxy "
-"only filters by extension"
-msgstr ""
-
-#: migration/0004_add_firewall_services.pl:32
-msgid "POP transparent proxy"
-msgstr ""
-
-#: migration/0004_add_firewall_services.pl:50
-msgid "POP3 protocol"
 msgstr ""
 
 #: stubs/p3scan.conf.mas:15

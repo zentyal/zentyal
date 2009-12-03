@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:21+0100\n"
+"POT-Creation-Date: 2009-12-03 13:01+0000\n"
 "PO-Revision-Date: 2009-11-25 14:43+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -16,10 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr "Időzóna beállítása"
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
@@ -71,13 +67,17 @@ msgstr "ország"
 msgid "continent"
 msgstr "kontinens"
 
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "külső szinkronizálás státusa"
-
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and Time Configuration"
 msgstr "Dátum és Idő beállítása"
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr "Időzóna beállítása"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "külső szinkronizálás státusa"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
@@ -129,21 +129,6 @@ msgstr "Dátum/Idő"
 msgid "Time Zone"
 msgstr "Időzóna"
 
-#: src/templates/synch.mas:11 src/templates/synch.mas:14
-msgid "Disabled"
-msgstr "Kikapcsolva"
-
-#: src/templates/synch.mas:12 src/templates/synch.mas:15
-msgid "Enabled"
-msgstr "Bekapcsolva"
-
-#: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/timezone.mas:33 src/templates/timezone.mas:34
-#: src/templates/servers.mas:50 src/templates/date.mas:96
-#: src/templates/date.mas:97
-msgid "Change"
-msgstr "Változtat"
-
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "NTP szerverek"
@@ -156,12 +141,26 @@ msgstr ""
 "Ne felejtse el beállítani az időzónát, hogy a szinkronizáció helyesen "
 "működjön."
 
+#: src/templates/servers.mas:50 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34 src/templates/synch.mas:19
+#: src/templates/synch.mas:20 src/templates/date.mas:96
+#: src/templates/date.mas:97
+msgid "Change"
+msgstr "Változtat"
+
+#: src/templates/synch.mas:11 src/templates/synch.mas:14
+msgid "Disabled"
+msgstr "Kikapcsolva"
+
+#: src/templates/synch.mas:12 src/templates/synch.mas:15
+msgid "Enabled"
+msgstr "Bekapcsolva"
+
 #: src/templates/date.mas:10
 msgid ""
 "A change in the date or time will cause all eBox services to be restarted."
 msgstr ""
-"A dátum vagy időváltoztatás az összes eBox szolgáltatás újraindítását "
-"okozza."
+"A dátum vagy időváltoztatás az összes eBox szolgáltatás újraindítását okozza."
 
 #: src/templates/date.mas:15
 msgid "Date"

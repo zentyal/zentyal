@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:39+0100\n"
+"POT-Creation-Date: 2009-12-03 13:02+0000\n"
 "PO-Revision-Date: 2009-06-21 19:26+0200\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -22,6 +22,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: migration/0001_add_http_software_rule.pl:24
+msgid "HTTP software"
+msgstr "HTTP Software"
+
+#: migration/0001_add_http_software_rule.pl:26
+msgid "software service to update packages via apt"
+msgstr "Software-Dienst um Pakete via apt zu aktualisieren"
+
+#: migration/0001_add_http_software_rule.pl:45
+msgid "rule to allow apt updates"
+msgstr "Regel, welche apt-Aktualisierungen erlaubt"
 
 #: src/EBox/Software.pm:53
 #, fuzzy
@@ -40,38 +52,50 @@ msgstr ""
 "eBox wird nun verfügbare Updates von den von Ihnen eingestellten apt-Quellen "
 "herunterladen."
 
-#: src/EBox/Software.pm:153 src/EBox/Software.pm:356
+#: src/EBox/Software.pm:162 src/EBox/Software.pm:365
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr ""
 
-#: src/EBox/Software.pm:197 src/EBox/Software.pm:390
+#: src/EBox/Software.pm:206 src/EBox/Software.pm:399
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
 
-#: src/EBox/Software.pm:500
+#: src/EBox/Software.pm:509
 #, fuzzy
 msgid "eBox Components"
 msgstr "eBox-Komponenten"
 
-#: src/EBox/Software.pm:502
+#: src/EBox/Software.pm:511
 #, fuzzy
 msgid "System Updates"
 msgstr "Systemaktualisierungen"
 
-#: src/EBox/Software.pm:504
+#: src/EBox/Software.pm:513
 #, fuzzy
 msgid "Automatic Updates"
 msgstr "Automatische Softwareaktualisierungen"
 
-#: src/EBox/Software.pm:595
+#: src/EBox/Software.pm:604
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 "Die Softwareverwaltung ist momentan durch {locker} gesperrt. Bitte versuchen "
 "Sie es später nochmals"
+
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Automatische Softwareaktualisierungen"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "Automatische Aktualisierungen konfigurieren"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
+msgid "eBox components"
+msgstr "eBox-Komponenten"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
@@ -85,21 +109,9 @@ msgstr "Softwareaktualisierungen werden automatisch durchgeführt"
 msgid "The system is up to date"
 msgstr "Das System ist auf dem aktuellsten Stand"
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Automatische Softwareaktualisierungen"
-
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
-msgid "eBox components"
-msgstr "eBox-Komponenten"
-
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
 msgid "Upgrading"
 msgstr "wird aktualisiert"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "Automatische Aktualisierungen konfigurieren"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
@@ -165,21 +177,41 @@ msgstr ""
 "Die Paket-Entfernung wurde nicht erfolgreich beendet. Weitere Informationen "
 "in den Logs"
 
-#: src/EBox/PackageDescriptions.pm:1
-msgid "eBox - Backup"
-msgstr ""
+#: src/templates/ebox.mas:14 src/templates/updates.mas:16
+msgid "Component"
+msgstr "Komponente"
 
-#: migration/0001_add_http_software_rule.pl:24
-msgid "HTTP software"
-msgstr "HTTP Software"
+#: src/templates/ebox.mas:15
+msgid "Installed version "
+msgstr "Installierte Version"
 
-#: migration/0001_add_http_software_rule.pl:26
-msgid "software service to update packages via apt"
-msgstr "Software-Dienst um Pakete via apt zu aktualisieren"
+#: src/templates/ebox.mas:16
+msgid "Latest version"
+msgstr "Neueste Version"
 
-#: migration/0001_add_http_software_rule.pl:45
-msgid "rule to allow apt updates"
-msgstr "Regel, welche apt-Aktualisierungen erlaubt"
+#: src/templates/ebox.mas:17
+msgid "Actions"
+msgstr "Aktionen"
+
+#: src/templates/ebox.mas:28 src/templates/updates.mas:19
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: src/templates/ebox.mas:34
+msgid "Install"
+msgstr "Installieren"
+
+#: src/templates/ebox.mas:36
+msgid "none"
+msgstr "keiner"
+
+#: src/templates/ebox.mas:58
+msgid "Remove"
+msgstr "Entfernen"
+
+#: src/templates/ebox.mas:75 src/templates/updates.mas:53
+msgid "Update all packages"
+msgstr "Alle Pakete aktualisieren"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
@@ -201,10 +233,6 @@ msgstr "Abbrechen"
 msgid "Updates are available for the following system components"
 msgstr "Für die folgenden Systemkomponenten sind Aktualisierungen verfügbar"
 
-#: src/templates/updates.mas:16 src/templates/ebox.mas:14
-msgid "Component"
-msgstr "Komponente"
-
 #: src/templates/updates.mas:17
 msgid "Description"
 msgstr "Beschreibung"
@@ -212,14 +240,6 @@ msgstr "Beschreibung"
 #: src/templates/updates.mas:18
 msgid "Version"
 msgstr "Version"
-
-#: src/templates/updates.mas:19 src/templates/ebox.mas:28
-msgid "Update"
-msgstr "Aktualisieren"
-
-#: src/templates/updates.mas:53 src/templates/ebox.mas:75
-msgid "Update all packages"
-msgstr "Alle Pakete aktualisieren"
 
 #: src/templates/updates.mas:64
 msgid ""
@@ -232,30 +252,6 @@ msgstr ""
 #: src/templates/updates.mas:67
 msgid "Upgrade"
 msgstr "Aktualisieren"
-
-#: src/templates/ebox.mas:15
-msgid "Installed version "
-msgstr "Installierte Version"
-
-#: src/templates/ebox.mas:16
-msgid "Latest version"
-msgstr "Neueste Version"
-
-#: src/templates/ebox.mas:17
-msgid "Actions"
-msgstr "Aktionen"
-
-#: src/templates/ebox.mas:34
-msgid "Install"
-msgstr "Installieren"
-
-#: src/templates/ebox.mas:36
-msgid "none"
-msgstr "keiner"
-
-#: src/templates/ebox.mas:58
-msgid "Remove"
-msgstr "Entfernen"
 
 #, fuzzy
 #~ msgid "eBox - Antivirus module"

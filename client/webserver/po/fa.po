@@ -7,13 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:42+0100\n"
+"POT-Creation-Date: 2009-12-03 13:09+0000\n"
 "PO-Revision-Date: 2009-01-14 21:09+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr "پروتکل انتقال فرامتن (وب)"
 
 #: src/EBox/WebServer.pm:77
 #, fuzzy
@@ -49,16 +53,28 @@ msgstr "{userDirConfFile} وجود ندارد! لطفا آنرا بازیابی 
 msgid "listening port"
 msgstr "پورت در حال شنود"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+#: src/EBox/WebServer/Model/GeneralSettings.pm:101
+msgid ""
+"To allow HTML directories for users is needed that the file sharing module "
+"is installed and configured"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:107
+msgid ""
+"To allow HTML directories for user os needed to have the file sharing module "
+"configured. To configure it enable it at least one time"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
 msgstr "پورت در حال شنود"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#: src/EBox/WebServer/Model/GeneralSettings.pm:175
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "فعال‌سازی {dirName} به ازای هر کاربر"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+#: src/EBox/WebServer/Model/GeneralSettings.pm:179
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
@@ -66,11 +82,11 @@ msgstr ""
 "اگر شما این گزینه را انتخاب نمایید، هر کاربر اجازه خواهد داشت تا یک وب‌سایت "
 "در پوشه خانه اش زیر شاخه public_html داشته باشد"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:172
+#: src/EBox/WebServer/Model/GeneralSettings.pm:189
 msgid "General configuration settings"
 msgstr "تنظیمات عمومی پیکربندی"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:176
+#: src/EBox/WebServer/Model/GeneralSettings.pm:193
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
@@ -82,7 +98,7 @@ msgstr ""
 "شما به کاربران اجازه انتشار صفحات وب مخصوص به خودشان را داده باشید، صفحات از "
 "پوشه {dirName} از پوشه خانه سامبای آنها بارگذاری خواهد شد"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:182
+#: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"
 msgstr "تنظیمات عمومی پیکربندی سرور وب به‌روز رسانی شد"
 
@@ -183,10 +199,6 @@ msgid ""
 msgstr ""
 "سرویس وب ای‌باکس به شما اجازه می‌دهد تا صفحات وب تنها HTML را در ویزبان‌های "
 "مجازی مختلف میزبانی کنید"
-
-#: migration/0001_add_service_and_port.pl:147
-msgid "HyperText Transport Protocol"
-msgstr "پروتکل انتقال فرامتن (وب)"
 
 #~ msgid "Web"
 #~ msgstr "وب"

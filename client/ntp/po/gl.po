@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:21+0100\n"
+"POT-Creation-Date: 2009-12-03 13:01+0000\n"
 "PO-Revision-Date: 2008-11-23 14:07+0000\n"
 "Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
@@ -15,10 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr ""
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
@@ -70,15 +66,19 @@ msgstr "país"
 msgid "continent"
 msgstr "continente"
 
-#: src/EBox/CGI/Synch.pm:41
-#, fuzzy
-msgid "external synchronize status"
-msgstr "sincronizar o estado exterior"
-
 #: src/EBox/CGI/Datetime.pm:30
 #, fuzzy
 msgid "Date and Time Configuration"
 msgstr "Configuracións de data e hora"
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr ""
+
+#: src/EBox/CGI/Synch.pm:41
+#, fuzzy
+msgid "external synchronize status"
+msgstr "sincronizar o estado exterior"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
@@ -132,21 +132,6 @@ msgstr "Data/hora"
 msgid "Time Zone"
 msgstr "Zona horaria"
 
-#: src/templates/synch.mas:11 src/templates/synch.mas:14
-msgid "Disabled"
-msgstr "Deshabilitado"
-
-#: src/templates/synch.mas:12 src/templates/synch.mas:15
-msgid "Enabled"
-msgstr "Habilitado"
-
-#: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/timezone.mas:33 src/templates/timezone.mas:34
-#: src/templates/servers.mas:50 src/templates/date.mas:96
-#: src/templates/date.mas:97
-msgid "Change"
-msgstr "Cambiar"
-
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "Servidores NTP"
@@ -158,6 +143,21 @@ msgid ""
 msgstr ""
 "Debes lembrarte de establecer a zona horaria para que a sincronización se "
 "faga correctamente."
+
+#: src/templates/servers.mas:50 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34 src/templates/synch.mas:19
+#: src/templates/synch.mas:20 src/templates/date.mas:96
+#: src/templates/date.mas:97
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/templates/synch.mas:11 src/templates/synch.mas:14
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#: src/templates/synch.mas:12 src/templates/synch.mas:15
+msgid "Enabled"
+msgstr "Habilitado"
 
 #: src/templates/date.mas:10
 #, fuzzy

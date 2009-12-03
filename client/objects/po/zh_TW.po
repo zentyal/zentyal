@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:39+0100\n"
+"POT-Creation-Date: 2009-12-03 13:01+0000\n"
 "PO-Revision-Date: 2009-08-04 07:26+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -16,6 +16,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
+#: src/EBox/Model/MemberTable.pm:93
+msgid "Objects"
+msgstr "單位"
+
+#: src/EBox/Objects.pm:44
+#, perl-brace-format
+msgid "Added object {object}"
+msgstr "已新增單位 {object}"
+
+#: src/EBox/Objects.pm:46
+#, perl-brace-format
+msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
+msgstr "已新增 {nname} ({ip}/{mask} [{mac}]) 到單位 {object}"
+
+#: src/EBox/Objects.pm:47
+#, perl-brace-format
+msgid "Removed object {object}"
+msgstr "已移除單位 {object}"
+
+#: src/EBox/Objects.pm:49
+#, perl-brace-format
+msgid "Forcefully removed object {object}"
+msgstr "已強制移除單位 {object}"
+
+#: src/EBox/Objects.pm:51
+#, perl-brace-format
+msgid "Removed {nname} from object {object}"
+msgstr "已移除 {nname} 從單位 {object}"
+
+#: src/EBox/Objects.pm:270
+msgid "Object"
+msgstr "單位"
+
 #: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
 msgid "Name"
 msgstr "名稱"
@@ -23,11 +57,6 @@ msgstr "名稱"
 #: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
 msgid "Members"
 msgstr "人員"
-
-#: src/EBox/Model/ObjectTable.pm:82 src/EBox/Model/MemberTable.pm:93
-#: src/EBox/Objects.pm:39
-msgid "Objects"
-msgstr "單位"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
@@ -74,35 +103,6 @@ msgstr "網路位址"
 #, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} 與此位址或其他單位的成員重疊"
-
-#: src/EBox/Objects.pm:44
-#, perl-brace-format
-msgid "Added object {object}"
-msgstr "已新增單位 {object}"
-
-#: src/EBox/Objects.pm:46
-#, perl-brace-format
-msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr "已新增 {nname} ({ip}/{mask} [{mac}]) 到單位 {object}"
-
-#: src/EBox/Objects.pm:47
-#, perl-brace-format
-msgid "Removed object {object}"
-msgstr "已移除單位 {object}"
-
-#: src/EBox/Objects.pm:49
-#, perl-brace-format
-msgid "Forcefully removed object {object}"
-msgstr "已強制移除單位 {object}"
-
-#: src/EBox/Objects.pm:51
-#, perl-brace-format
-msgid "Removed {nname} from object {object}"
-msgstr "已移除 {nname} 從單位 {object}"
-
-#: src/EBox/Objects.pm:270
-msgid "Object"
-msgstr "單位"
 
 #~ msgid "Core"
 #~ msgstr "核心"

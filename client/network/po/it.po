@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:34+0100\n"
+"POT-Creation-Date: 2009-12-03 13:00+0000\n"
 "PO-Revision-Date: 2009-11-15 17:53+0100\n"
 "Last-Translator: gabriele <g.garis@inwind.it>\n"
 "Language-Team: none\n"
@@ -15,6 +15,77 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/CGI/Iface.pm:43 src/EBox/CGI/Iface.pm:60 src/EBox/CGI/Vlan.pm:41
+#: src/EBox/CGI/VIface.pm:43
+msgid "network interface"
+msgstr "interfaccia rete"
+
+#: src/EBox/CGI/Iface.pm:59
+msgid "method"
+msgstr "metodo"
+
+#: src/EBox/CGI/Iface.pm:88 src/EBox/Model/GatewayTable.pm:158
+msgid "ip address"
+msgstr "indirizzo ip"
+
+#: src/EBox/CGI/Iface.pm:89 src/EBox/CGI/VIface.pm:63
+msgid "netmask"
+msgstr "maschera di rete"
+
+#: src/EBox/CGI/Iface.pm:95
+#, fuzzy
+msgid "user name"
+msgstr "Nome utente"
+
+#: src/EBox/CGI/Iface.pm:96
+#, fuzzy
+msgid "password"
+msgstr "Password"
+
+#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1360 src/EBox/Network.pm:1389
+#: src/templates/ifaces.mas:188
+msgid "VLAN Id"
+msgstr "Id VLAN"
+
+#: src/EBox/CGI/VIface.pm:44
+msgid "virtual interface action"
+msgstr "azione su interfaccia virtuale"
+
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:776 src/EBox/Network.pm:781
+#: src/EBox/Network.pm:1086 src/EBox/Network.pm:1107 src/EBox/Network.pm:2590
+#: src/EBox/Network.pm:2605 src/EBox/Network.pm:2763 src/EBox/Network.pm:2902
+#: src/EBox/Model/GatewayTable.pm:90 src/templates/ifaces.mas:99
+#: src/templates/ifaces.mas:246
+msgid "IP address"
+msgstr "indirizzo IP"
+
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "nome interfaccia virtuale"
+
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+#, fuzzy
+msgid "Network Diagnostic Tools"
+msgstr "Diagnosi rete"
+
+#: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58
+#: src/EBox/Model/WANFailoverRules.pm:95 src/templates/diag.mas:14
+#: src/templates/diag.mas:23
+msgid "Host"
+msgstr "Host"
+
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2846
+msgid "host name"
+msgstr "nome host"
+
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:2939
+msgid "Network Interfaces"
+msgstr "Interfacce di rete"
+
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "bilanciamento traffico"
 
 #: src/EBox/Event/Watcher/Gateways.pm:138
 #, fuzzy, perl-brace-format
@@ -29,8 +100,7 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Event/Watcher/Gateways.pm:305
-#: src/EBox/Network/Composite/WANFailover.pm:62
-#: src/EBox/Network.pm:2842
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:2972
 msgid "WAN Failover"
 msgstr ""
 
@@ -38,640 +108,48 @@ msgstr ""
 msgid "Check if gateways are connected or disconnected."
 msgstr "Controlla se i gateway sono connessi"
 
-#: src/EBox/NetworkUtil.pm:55
-#: src/EBox/Network.pm:2415
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "Gateway {gw} non raggiungibile"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:65
-#: src/EBox/Model/GatewayTable.pm:97
-#: src/EBox/Model/MultiGwRulesDataTable.pm:101
-#: src/EBox/Network.pm:824
-#: src/EBox/Network.pm:856
-#: src/EBox/Network.pm:901
-#: src/EBox/Network.pm:935
-#: src/EBox/Network.pm:960
-#: src/EBox/Network.pm:1036
-#: src/EBox/Network.pm:1159
-#: src/EBox/Network.pm:1354
-#: src/EBox/Network.pm:1414
-#: src/EBox/Network.pm:1449
-#: src/EBox/Network.pm:1484
-#: src/EBox/Network.pm:1517
-#: src/EBox/Network.pm:2458
-#: src/EBox/Network.pm:2490
-#: src/EBox/Network.pm:2589
-#: src/EBox/Network.pm:2609
-#: src/EBox/Network.pm:2630
-#: src/EBox/Network.pm:2653
-msgid "Interface"
-msgstr "Interfaccia"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:74
-#: src/EBox/Model/GatewayTable.pm:83
-#: src/EBox/Model/PhysicalInterfaceTable.pm:60
-#: src/EBox/Model/VlanInterfaceTable.pm:61
-#: src/templates/ifaces.mas:26
-#: src/templates/ifaces.mas:211
-msgid "Name"
-msgstr "Nome"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:83
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:218
-#: src/templates/ifaces.mas:37
-msgid "Method"
-msgstr "Metodo"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:92
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:250
-#: src/templates/ifaces.mas:74
-msgid "External"
-msgstr "Esterna"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:108
-msgid "Configurable interface list"
-msgstr "Elenco interfacce configurabili"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:115
-msgid "These are the interfaces which can be configured"
-msgstr "Queste sono le interfacce che possono essere configurate"
-
-#: src/EBox/Model/ConfigurableInterfaceTable.pm:117
-#: src/EBox/Model/PhysicalInterfaceTable.pm:83
-#: src/EBox/Model/VlanInterfaceTable.pm:94
-msgid "interface"
-msgstr "interfaccia"
-
-#: src/EBox/Model/GatewayTable.pm:90
-#: src/EBox/CGI/VIface.pm:62
-#: src/EBox/Network.pm:731
-#: src/EBox/Network.pm:736
-#: src/EBox/Network.pm:1040
-#: src/EBox/Network.pm:1061
-#: src/EBox/Network.pm:2460
-#: src/EBox/Network.pm:2475
-#: src/EBox/Network.pm:2633
-#: src/EBox/Network.pm:2772
-#: src/templates/ifaces.mas:91
-#: src/templates/ifaces.mas:212
-msgid "IP address"
-msgstr "indirizzo IP"
-
-#: src/EBox/Model/GatewayTable.pm:100
-msgid "Interface connected to this gateway"
-msgstr "Interfaccia connessa a questo gateway"
-
-#: src/EBox/Model/GatewayTable.pm:104
-msgid "Weight"
-msgstr "Peso"
-
-#: src/EBox/Model/GatewayTable.pm:108
-msgid ""
-"This field is only useful if you have more than one router and  the balance "
-"traffic feature is enabled."
-msgstr ""
-"Questo campo è utilie solo se hai più di un router ed è abilitato il "
-"bilanciamento del traffico"
-
-#: src/EBox/Model/GatewayTable.pm:114
-msgid "Default"
-msgstr "Default"
-
-#: src/EBox/Model/GatewayTable.pm:124
-msgid "Gateways List"
-msgstr "Elenco gateway"
-
-#: src/EBox/Model/GatewayTable.pm:125
-#: src/EBox/Network.pm:2836
-msgid "Gateways"
-msgstr "Gateway"
-
-#: src/EBox/Model/GatewayTable.pm:141
-msgid ""
-"You can add as many gateways as you want. This is very useful if you want to "
-"split your Internet traffic through several links."
-msgstr ""
-"Puoi aggiungere quanti gateway vuoi. È molto utile se vuoi separare il "
-"traffico internet"
-
-#: src/EBox/Model/GatewayTable.pm:143
-msgid "gateway"
-msgstr "gateway"
-
-#: src/EBox/Model/GatewayTable.pm:158
-#: src/EBox/CGI/Iface.pm:87
-msgid "ip address"
-msgstr "indirizzo ip"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:71
-msgid ""
-"Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr ""
-"Avvio il monitoraggio del traffico. Attendi pazientemente finché non appare "
-"il grafico"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:74
-msgid "Stopping traffic rate monitoring"
-msgstr "Interrompo il monitoraggio del traffico"
-
-#: src/EBox/Model/ByteRateEnableForm.pm:87
-msgid ""
-"The traffic rate monitor is start/stop on demand without requiring to save "
-"changes first"
-msgstr ""
-"Il monitoraggio del traffico viene avviato/interrotto su richiesta senza "
-"necessità di registrare prima le modifiche"
-
-#: src/EBox/Model/StaticRoute.pm:153
-#: src/EBox/Network.pm:72
-#: src/EBox/Network.pm:2825
-msgid "Network"
-msgstr "Rete"
-
-#: src/EBox/Model/StaticRoute.pm:156
-msgid "IP or network address"
-msgstr "IP o indirizzo rete"
-
-#: src/EBox/Model/StaticRoute.pm:162
-msgid "Gateway used to reach the above network  address"
-msgstr "Gateway usato per accedere all'indirizzo di rete"
-
-#: src/EBox/Model/StaticRoute.pm:167
-#: src/templates/ifaces.mas:155
-msgid "Description"
-msgstr "Descrizione"
-
-#: src/EBox/Model/StaticRoute.pm:170
-msgid "Optional description for this route"
-msgstr "Descrizione opzionale per l'instadamento"
-
-#: src/EBox/Model/StaticRoute.pm:176
-#, fuzzy
-msgid "Static Routes List"
-msgstr "Lista route statiche"
-
-#: src/EBox/Model/StaticRoute.pm:177
-#: src/EBox/Network.pm:2838
-#, fuzzy
-msgid "Static Routes"
-msgstr "Route statiche"
-
-#: src/EBox/Model/StaticRoute.pm:182
-#, fuzzy
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"Tutti i gateway inseriti devono essere raggiungibili dall'interfaccia di "
-"rete confogurata"
-
-#: src/EBox/Model/StaticRoute.pm:185
-msgid "static route"
-msgstr "route statica"
-
-#: src/EBox/Model/WANFailoverRules.pm:53
-#, fuzzy
-msgid "Ping to gateway"
-msgstr "gateway"
-
-#: src/EBox/Model/WANFailoverRules.pm:57
-msgid "Ping to host"
-msgstr "Contatta la macchina"
-
-#: src/EBox/Model/WANFailoverRules.pm:61
-#, fuzzy
-msgid "DNS resolve"
-msgstr "Risoluzione DNS"
-
-#: src/EBox/Model/WANFailoverRules.pm:65
-msgid "HTTP Request"
-msgstr "Richiesta HTTP"
-
-#: src/EBox/Model/WANFailoverRules.pm:89
-msgid "Test type"
-msgstr "Tipo testo"
-
-#: src/EBox/Model/WANFailoverRules.pm:95
-#: src/EBox/CGI/Diag.pm:51
-#: src/EBox/CGI/Diag.pm:58
-#: src/templates/diag.mas:14
-#: src/templates/diag.mas:23
-msgid "Host"
-msgstr "Host"
-
-#: src/EBox/Model/WANFailoverRules.pm:101
-msgid "Number of probes"
-msgstr "Numero di prove"
-
-#: src/EBox/Model/WANFailoverRules.pm:110
-#, fuzzy
-msgid "Required success ratio"
-msgstr "Tasso di successo richiesto"
-
-#: src/EBox/Model/WANFailoverRules.pm:123
-#, fuzzy
-msgid "Test rules"
-msgstr "Regole per il test"
-
-#: src/EBox/Model/WANFailoverRules.pm:130
-msgid ""
-"You can define different rules to test if a gateway is working properly. If "
-"one of the test fails the gateway will be disabled. It will be enabled again "
-"when all tests are passed."
-msgstr ""
-"Puoi definire regole differenti per verificare se il gateway funziona "
-"correttamente. Se uno dei test fallisce il gateway sarà disabilitato. Sarà "
-"abilitato nuovamente quando tutti i testi avranno successo."
-
-#: src/EBox/Model/WANFailoverRules.pm:131
-#: src/EBox/Model/MultiGwRulesOptions.pm:68
-#: src/EBox/Model/MultiGwRulesDataTable.pm:195
-msgid "rule"
-msgstr "regola"
-
-#: src/EBox/Model/WANFailoverRules.pm:179
-msgid "Invalid value for Host"
-msgstr "Valore non valido per la macchina"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:43
-msgid "Enable"
-msgstr "Abilita"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:53
-msgid "Traffic balancing"
-msgstr "Bilanciamento traffico"
-
-#: src/EBox/Model/MultiGwRulesOptions.pm:64
-#, perl-brace-format
-msgid ""
-"By enabling this feature, your traffic will be balanced amongst your "
-"gateways. That is, every new connection will be sent by a different gateway. "
-"You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
-"gateway, use the multigateway rules below"
-msgstr ""
-"Abilitando questa caratteristica, il traffico sarà bilanciato tra i gateway. "
-"Ogni nuova connessione passerà da un gateway diverso. Puoi scegliere quanto "
-"traffico passa attraverso ciascun gateway impostando il parametro peso del "
-"gateway. Puoi cambiare il valore {openref}qui{closeref}.{br}Se vuoi "
-"esplicitamente indirizzare il traffico attraverso un certo gateway, "
-"configura le impostazioni per il multigateway sotto."
-
-#: src/EBox/Model/ByteRateSettings.pm:80
-msgid "Interface to listen"
-msgstr "Interfaccia da ascoltare"
-
-#: src/EBox/Model/ByteRateSettings.pm:89
-msgid "Traffic rate monitor settings"
-msgstr "Impostazioni monitoraggio traffico"
-
-#: src/EBox/Model/ByteRateSettings.pm:93
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr ""
-"Le modifiche verranno applicate immediatamente al monitoraggio del traffico"
-
-#: src/EBox/Model/ByteRateSettings.pm:96
-msgid "Settings changed"
-msgstr "Impostazioni modificate"
-
-#: src/EBox/Model/ByteRateSettings.pm:115
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (internal interface)"
-
-#: src/EBox/Model/ByteRateSettings.pm:122
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (external interface)"
-
-#: src/EBox/Model/ByteRateSettings.pm:129
-msgid "all"
-msgstr "tutte"
-
-#: src/EBox/Model/DNSResolver.pm:78
-#, fuzzy
-msgid "IP address of the DNS server that eBox will use to resolve names."
-msgstr "Indirizzi IP del server DNS che eBox utilizza per recuperare i nomi"
-
-#: src/EBox/Model/DNSResolver.pm:84
-#, fuzzy
-msgid "Domain Name Server"
-msgstr "Name server"
-
-#: src/EBox/Model/DNSResolver.pm:93
-#, fuzzy
-msgid "Domain Name Server Resolver List"
-msgstr "Lista name server resolver"
-
-#: src/EBox/Model/DNSResolver.pm:99
-msgid "name server"
-msgstr "name server"
-
-#: src/EBox/Model/DNSResolver.pm:111
-msgid ""
-"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
-"that these settings may be overriden if you have any network interface "
-"configured via DHCP</p>"
-msgstr ""
-"<p>Qui puoi aggiungere i name server resolvers che eBox userà.</p><p>Nota "
-"che queste impostazioni possono essere prevalicate se hai altre interfacce "
-"configurate via DHCP</p>"
-
-#: src/EBox/Model/PhysicalInterfaceTable.pm:74
-msgid "Physical interface list"
-msgstr "Elenco interfacce fisiche"
-
-#: src/EBox/Model/PhysicalInterfaceTable.pm:81
-msgid "These are the physical interfaces which are available in your system."
-msgstr "Queste sono le interfacce fisiche disponibili sul tuo sistema."
-
-#: src/EBox/Model/SearchDomain.pm:72
-#, fuzzy
-msgid "Domain"
-msgstr "Nome dominio"
-
-#: src/EBox/Model/SearchDomain.pm:80
-msgid "Search Domain"
-msgstr "Dominio di ricerca"
-
-#: src/EBox/Model/SearchDomain.pm:84
-msgid ""
-"This domain will be appended when trying to resolve hosts if the first "
-"attempt without appending it has failed."
-msgstr ""
-"Questo dominio sarà aggiunto al nome della macchina se il tentativo di "
-"risolverlo senza il dominio fallisce."
-
-#: src/EBox/Model/ByteRateGraphControl.pm:46
-msgid "Select traffic graphic"
-msgstr "Seleziona grafico traffico"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:57
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-"Vengono mostrate diverse viste in base ai parametri selezionati. A seconda "
-"del tipo di grafico, possono essere richiesti l'indirizzo IP di un host ed "
-"un servizio, che devono corrispondere al testo sulla legenda del grafico in "
-"base al file /etc/services. La vista del flusso verrà modificata di "
-"conseguenza"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:78
-msgid "Graph type"
-msgstr "Tipo grafico"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:85
-msgid "All active traffic by source"
-msgstr "Tutto il traffico attivo per sorgente"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:89
-msgid "All active traffic by service"
-msgstr "Tutto il traffico attivo per servizio"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:93
-msgid "Traffic by selected source"
-msgstr "Traffico per sorgente selezionata"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:99
-msgid "Traffic by selected service"
-msgstr "Traffico per servizio selezionato"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:105
-msgid "Traffic by source and service"
-msgstr "Traffico per sorgente e servizio"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:111
-#: src/EBox/Model/MultiGwRulesDataTable.pm:110
-msgid "Source"
-msgstr "Sorgente"
-
-#: src/EBox/Model/ByteRateGraphControl.pm:117
-#: src/EBox/Model/MultiGwRulesDataTable.pm:161
-#: src/EBox/Model/DynDNS.pm:92
-msgid "Service"
-msgstr "Servizio"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:77
-msgid "any"
-msgstr "qualsiasi"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:104
-msgid ""
-"Incoming interface to match packets. If you  want to match a whole subnet "
-"you can  select the interface of that subnet"
-msgstr ""
-"Interfaccia d'ingresso per i pacchetti. Se vuoi_ _interessare un'intera "
-"sottorete puoi_ _selezionare l'interfaccia interessata"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:115
-#: src/EBox/Model/MultiGwRulesDataTable.pm:142
-msgid "Any"
-msgstr "Qualsiasi"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:118
-msgid "Source IP"
-msgstr "IP sorgente"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:123
-msgid "Source object"
-msgstr "Oggetto sorgente"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:129
-msgid "eBox"
-msgstr "eBox"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:137
-msgid "Destination"
-msgstr "Destinazione"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:145
-msgid "Destination IP"
-msgstr "IP destinazione"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:150
-msgid "Destination object"
-msgstr "Oggetto destinazione"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:172
-#, fuzzy
-msgid "Gateway to route packets matching this rule"
-msgstr "Gateway verso pacchetti instradati seguendo questa regola"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:180
-msgid "Multigateway rules"
-msgstr "Regole multigateway"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:193
-#, fuzzy
-msgid ""
-"You can decide what kind of traffic goes out by each gateway. This way, you "
-"can force a subnet, service, destination and so forth  to use the router you "
-"choose. Please, bear in mind that rules will be applied in order, from top "
-"to bottom, you can reorder them once they are added. If you do not set a "
-"port or an IP address, then the rule will match all of them"
-msgstr ""
-"Puoi decidere che tipo di traffico esce da ciascun gateway. In questo modo "
-"puoi forzare una sottorete, servizio, destinazione all'uso di un certo "
-"router. Prego tieni a menti che le regole saranno applicate in sequenza, "
-"dall'alto verso il basso, dopo averle aggiunte puoi riordinarle. Se non "
-"imposti una porta o un indirizzo IP, la regola sarà applicata a tutti"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:70
-msgid "Physical interface"
-msgstr "Interfaccia fisica"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:85
-msgid "Vlan interface list"
-msgstr "Elenco interfacce vlan"
-
-#: src/EBox/Model/VlanInterfaceTable.pm:92
-msgid "These are the vlan interfaces which are available in your system."
-msgstr "Queste sono le interfacce vlan disponibili sul tuo sistema"
-
-#: src/EBox/Model/DynDNS.pm:87
-msgid "Enable Dynamic DNS"
-msgstr "Abilita il DNS dinamico"
-
-#: src/EBox/Model/DynDNS.pm:98
-msgid "Username"
-msgstr "Nome utente"
-
-#: src/EBox/Model/DynDNS.pm:103
-msgid "Password"
-msgstr "Password"
-
-#: src/EBox/Model/DynDNS.pm:108
-#, fuzzy
-msgid "Hostname"
-msgstr "Nome host"
-
-#: src/EBox/Model/DynDNS.pm:115
-msgid "Dynamic DNS"
-msgstr "DNS dinamico"
-
-#: src/EBox/Model/DynDNS.pm:119
-msgid ""
-"All gateways you enter here must be reachable through one of the network "
-"interfaces currently configured"
-msgstr ""
-"Tutti i gateway inseriti devono essere raggiungibili dall'interfaccia di "
-"rete confogurata"
-
-#: src/EBox/Model/WANFailoverOptions.pm:72
-msgid "Time between checks"
-msgstr "Tempo tra i controlli"
-
-#: src/EBox/Model/WANFailoverOptions.pm:73
-#, fuzzy
-msgid "seconds"
-msgstr "byte/secondo"
-
-#: src/EBox/Model/WANFailoverOptions.pm:83
-msgid "Global options"
-msgstr "Opzioni globali"
-
-#: src/EBox/Model/WANFailoverOptions.pm:87
-#, fuzzy
-msgid "These options affect to all the tests."
-msgstr "Queste opzioni si applicano a tutti i test."
-
-#: src/EBox/CGI/Diag.pm:29
-#: src/EBox/CGI/Diag.pm:41
-#, fuzzy
-msgid "Network Diagnostic Tools"
-msgstr "Diagnosi rete"
-
-#: src/EBox/CGI/Diag.pm:65
-#: src/EBox/Network.pm:2716
-msgid "host name"
-msgstr "nome host"
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr "bilanciamento traffico"
-
-#: src/EBox/CGI/Vlan.pm:41
-#: src/EBox/CGI/VIface.pm:43
-#: src/EBox/CGI/Iface.pm:42
-#: src/EBox/CGI/Iface.pm:59
-msgid "network interface"
-msgstr "interfaccia rete"
-
-#: src/EBox/CGI/Vlan.pm:43
-#: src/EBox/Network.pm:1233
-#: src/EBox/Network.pm:1262
-#: src/templates/ifaces.mas:154
-msgid "VLAN Id"
-msgstr "Id VLAN"
-
-#: src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/CGI/FirstTime/Ifaces.pm:13
-#: src/EBox/Network.pm:2809
-msgid "Network Interfaces"
-msgstr "Interfacce di rete"
-
-#: src/EBox/CGI/FirstTime/Routes.pm:29
-msgid "Set default gateway"
-msgstr "Imposta gateway predefinito"
-
-#: src/EBox/CGI/FirstTime/Routes.pm:43
-msgid "You can change later the gateway at Network/Routes menus item"
-msgstr "Puoi modificare più tardi il gateway dalla voce di menu Rete/Route"
-
-#: src/EBox/CGI/FirstTime/Ifaces.pm:25
-msgid ""
-"After the initial config you can revisit this page at Network/Interfaces in "
-"the menu"
-msgstr ""
-"Dopo la configurazione iniziale puoi raggiungere questa pagina da Rete/"
-"Interfacce nel menu"
-
-#: src/EBox/CGI/FirstTime/Nameservers.pm:44
-msgid "DNS configured"
-msgstr "DNS configurato"
-
-#: src/EBox/CGI/FirstTime/Gateway.pm:41
-msgid "Gateway configured"
-msgstr "Gateway configurato"
-
-#: src/EBox/CGI/FirstTime/DNS.pm:41
-msgid "You can revisit this page at Network/DNS in the menu"
-msgstr "Puoi raggiungere questa pagina da Rete/DNS sul menu"
-
-#: src/EBox/CGI/FirstTime/Iface.pm:45
-msgid "Network interface configured"
-msgstr "Interfaccia di rete configurata"
-
-#: src/EBox/CGI/VIface.pm:44
-msgid "virtual interface action"
-msgstr "azione su interfaccia virtuale"
-
-#: src/EBox/CGI/VIface.pm:63
-#: src/EBox/CGI/Iface.pm:88
-msgid "netmask"
-msgstr "maschera di rete"
-
-#: src/EBox/CGI/VIface.pm:64
-#: src/EBox/CGI/VIface.pm:70
-msgid "virtual interface name"
-msgstr "nome interfaccia virtuale"
-
-#: src/EBox/CGI/Iface.pm:58
-msgid "method"
-msgstr "metodo"
-
-#: src/EBox/Network/Report/ByteRate.pm:134
 #: src/EBox/Network/Composite/ByteRate.pm:74
+#: src/EBox/Network/Report/ByteRate.pm:134
 msgid "Traffic rate monitoring"
 msgstr "Monitoraggio livelli di traffico"
 
-#: src/EBox/Network/Report/ByteRate.pm:136
-#: src/EBox/Network.pm:2761
+#: src/EBox/Network/Composite/WANFailover.pm:78
+msgid ""
+"Events module is not enabled. You have to enable it and also enable the WAN "
+"Failover event in order to use this feature."
+msgstr ""
+"Il modulo eventi non è abilitato. Devi abilitarlo e abilitare il WAN "
+"Failover per usare questa parte."
+
+#: src/EBox/Network/Composite/WANFailover.pm:82
+msgid ""
+"WAN Failover event is not enabled. You have to enable it in order to use "
+"this feature"
+msgstr ""
+"L'evento WAN Failover non è abilitato. Devi abilitarlo per usare questa "
+"parte."
+
+#: src/EBox/Network/Composite/DNS.pm:61
+#, fuzzy
+msgid "Domain Name Server Resolver"
+msgstr "Name server resolver"
+
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:2970
+#, fuzzy
+msgid "Balance Traffic"
+msgstr "Bilancia traffico"
+
+#: src/EBox/Network/Composite/MultiGw.pm:83
+#, fuzzy
+msgid ""
+"To be able to use this feature you need at least two enabled gateways. You "
+"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
+msgstr ""
+"Per poter usare questa funzione, hai bisogno almeno di due gateway. Puoi "
+"aggiungerli da <a href=\"/ebox/Network/View/GatewayDataTable\">qui</"
+"a>all'inizio"
+
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2891
 msgid "Status"
 msgstr "Stato"
 
@@ -759,48 +237,16 @@ msgstr "Traffico totale per {service}"
 msgid "Traffic rate from {src} for {service}"
 msgstr "Traffico totale da {src} per {service}"
 
-#: src/EBox/Network/Composite/WANFailover.pm:78
-msgid ""
-"Events module is not enabled. You have to enable it and also enable the WAN "
-"Failover event in order to use this feature."
-msgstr ""
-"Il modulo eventi non è abilitato. Devi abilitarlo e abilitare il WAN "
-"Failover per usare questa parte."
+#: src/EBox/Network.pm:76 src/EBox/Network.pm:2955
+#: src/EBox/Model/StaticRoute.pm:153
+msgid "Network"
+msgstr "Rete"
 
-#: src/EBox/Network/Composite/WANFailover.pm:82
-msgid ""
-"WAN Failover event is not enabled. You have to enable it in order to use "
-"this feature"
-msgstr ""
-"L'evento WAN Failover non è abilitato. Devi abilitarlo per usare questa "
-"parte."
-
-#: src/EBox/Network/Composite/MultiGw.pm:63
-#: src/EBox/Network.pm:2840
-#, fuzzy
-msgid "Balance Traffic"
-msgstr "Bilancia traffico"
-
-#: src/EBox/Network/Composite/MultiGw.pm:83
-#, fuzzy
-msgid ""
-"To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
-msgstr ""
-"Per poter usare questa funzione, hai bisogno almeno di due gateway. Puoi "
-"aggiungerli da <a href=\"/ebox/Network/View/GatewayDataTable\">qui</"
-"a>all'inizio"
-
-#: src/EBox/Network/Composite/DNS.pm:61
-#, fuzzy
-msgid "Domain Name Server Resolver"
-msgstr "Name server resolver"
-
-#: src/EBox/Network.pm:90
+#: src/EBox/Network.pm:94
 msgid "Add default routers to the default table"
 msgstr "Aggiungi router di default a tabella di default"
 
-#: src/EBox/Network.pm:91
+#: src/EBox/Network.pm:95
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
@@ -808,11 +254,11 @@ msgstr ""
 "Questo è necessario per lavorare in configurazione multigateway. Nota che "
 "per elencare le routes di default devi eseguire:"
 
-#: src/EBox/Network.pm:97
+#: src/EBox/Network.pm:101
 msgid "Enable eBox DHCP hook"
 msgstr "Abilita DHCP hook di eBox"
 
-#: src/EBox/Network.pm:98
+#: src/EBox/Network.pm:102
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
@@ -820,41 +266,58 @@ msgstr ""
 "Si occuperà di aggiungere la route di default data da un server DHCP nella "
 "tabella delle route di default"
 
-#: src/EBox/Network.pm:114
+#: src/EBox/Network.pm:120
 msgid "eBox will set your network configuration"
 msgstr "eBox imposterà la configurazione di rete"
 
-#: src/EBox/Network.pm:119
+#: src/EBox/Network.pm:125
 #, fuzzy
 msgid "eBox will set your DNS configuration"
 msgstr "eBox imposterà la configurazione di rete"
 
-#: src/EBox/Network.pm:124
-#: src/EBox/Network.pm:129
+#: src/EBox/Network.pm:130 src/EBox/Network.pm:135
 #, fuzzy
 msgid "eBox will set your ddclient configuration"
 msgstr "eBox imposterà la configurazione di rete"
 
-#: src/EBox/Network.pm:728
-#: src/EBox/Network.pm:732
+#: src/EBox/Network.pm:140 src/EBox/Network.pm:145
+msgid "eBox will store your PPPoE passwords"
+msgstr ""
+
+#: src/EBox/Network.pm:152
+#, fuzzy
+msgid "eBox will add a DSL provider configuration for PPPoE"
+msgstr "eBox imposterà la configurazione di rete"
+
+#: src/EBox/Network.pm:773 src/EBox/Network.pm:777
 msgid "Virtual interface name"
 msgstr "Nome interfaccia virtuale"
 
-#: src/EBox/Network.pm:731
-#: src/EBox/Network.pm:1040
-#: src/EBox/Network.pm:2460
-#: src/templates/ifaces.mas:104
-#: src/templates/ifaces.mas:213
+#: src/EBox/Network.pm:776 src/EBox/Network.pm:1086 src/EBox/Network.pm:2590
+#: src/templates/ifaces.mas:112 src/templates/ifaces.mas:247
 msgid "Netmask"
 msgstr "Maschera di rete"
 
-#: src/EBox/Network.pm:1164
+#: src/EBox/Network.pm:869 src/EBox/Network.pm:901 src/EBox/Network.pm:946
+#: src/EBox/Network.pm:981 src/EBox/Network.pm:1006 src/EBox/Network.pm:1082
+#: src/EBox/Network.pm:1207 src/EBox/Network.pm:1286 src/EBox/Network.pm:1484
+#: src/EBox/Network.pm:1545 src/EBox/Network.pm:1575 src/EBox/Network.pm:1602
+#: src/EBox/Network.pm:1633 src/EBox/Network.pm:1668 src/EBox/Network.pm:1701
+#: src/EBox/Network.pm:2588 src/EBox/Network.pm:2620 src/EBox/Network.pm:2719
+#: src/EBox/Network.pm:2739 src/EBox/Network.pm:2760 src/EBox/Network.pm:2783
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:65
+#: src/EBox/Model/MultiGwRulesDataTable.pm:101
+#: src/EBox/Model/GatewayTable.pm:97
+msgid "Interface"
+msgstr "Interfaccia"
+
+#: src/EBox/Network.pm:1291
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 "Questa interfaccia non può essere messa in modalità trunk, è un'interfaccia "
 "vlan."
 
-#: src/EBox/Network.pm:1209
+#: src/EBox/Network.pm:1336
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -863,14 +326,14 @@ msgstr ""
 "configurazioni di interfacce vlan associate prima di modificarne la modalità "
 "di configurazione."
 
-#: src/EBox/Network.pm:1242
+#: src/EBox/Network.pm:1369
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 "Le interfacce di rete devono essere in modalità trunk prima di aggiungervi "
 "vlan."
 
-#: src/EBox/Network.pm:2349
+#: src/EBox/Network.pm:2479
 #, fuzzy
 msgid ""
 "The requested operation will cause one of the \n"
@@ -880,7 +343,12 @@ msgstr ""
 "L'operazione richiesta renderà uno dei router configurati non raggiungibile. "
 "Prego rimuovilo prima se desideri realmente effettuare questa modifica."
 
-#: src/EBox/Network.pm:2418
+#: src/EBox/Network.pm:2545 src/EBox/NetworkUtil.pm:55
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "Gateway {gw} non raggiungibile"
+
+#: src/EBox/Network.pm:2548
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
@@ -889,60 +357,529 @@ msgstr ""
 "Il gateway {gw} deve essere raggiungibile da un'interfaccia statica. "
 "Attualmente è raggiungibile da {iface} che non è statica"
 
-#: src/EBox/Network.pm:2675
-#: src/EBox/Network.pm:2696
+#: src/EBox/Network.pm:2805 src/EBox/Network.pm:2826
 msgid "Host name"
 msgstr "Nome host"
 
-#: src/EBox/Network.pm:2746
+#: src/EBox/Network.pm:2876
 msgid "down"
 msgstr "giù"
 
-#: src/EBox/Network.pm:2752
+#: src/EBox/Network.pm:2882
 msgid "up"
 msgstr "su"
 
-#: src/EBox/Network.pm:2756
+#: src/EBox/Network.pm:2886
 msgid "link ok"
 msgstr "collegamento ok"
 
-#: src/EBox/Network.pm:2758
+#: src/EBox/Network.pm:2888
 msgid "no link"
 msgstr "nessun collegamento"
 
-#: src/EBox/Network.pm:2766
+#: src/EBox/Network.pm:2896
 msgid "MAC address"
 msgstr "indirizzo MAC"
 
-#: src/EBox/Network.pm:2783
+#: src/EBox/Network.pm:2913
 msgid "Tx bytes"
 msgstr "Tx bytes"
 
-#: src/EBox/Network.pm:2792
+#: src/EBox/Network.pm:2922
 msgid "Rx bytes"
 msgstr "Rx bytes"
 
-#: src/EBox/Network.pm:2830
+#: src/EBox/Network.pm:2960
 msgid "Interfaces"
 msgstr "Interfacce"
 
-#: src/EBox/Network.pm:2844
+#: src/EBox/Network.pm:2966 src/EBox/Model/GatewayTable.pm:125
+msgid "Gateways"
+msgstr "Gateway"
+
+#: src/EBox/Network.pm:2968 src/EBox/Model/StaticRoute.pm:177
+#, fuzzy
+msgid "Static Routes"
+msgstr "Route statiche"
+
+#: src/EBox/Network.pm:2974
 #, fuzzy
 msgid "Diagnostic Tools"
 msgstr "Diagnosi"
 
-#: src/templates/confirmVlanDel.mas:9
+#: src/EBox/Model/VlanInterfaceTable.pm:61
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:74
+#: src/EBox/Model/GatewayTable.pm:83
+#: src/EBox/Model/PhysicalInterfaceTable.pm:60 src/templates/ifaces.mas:26
+#: src/templates/ifaces.mas:245
+msgid "Name"
+msgstr "Nome"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:70
+msgid "Physical interface"
+msgstr "Interfaccia fisica"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:85
+msgid "Vlan interface list"
+msgstr "Elenco interfacce vlan"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:92
+msgid "These are the vlan interfaces which are available in your system."
+msgstr "Queste sono le interfacce vlan disponibili sul tuo sistema"
+
+#: src/EBox/Model/VlanInterfaceTable.pm:94
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:117
+#: src/EBox/Model/PhysicalInterfaceTable.pm:83
+msgid "interface"
+msgstr "interfaccia"
+
+#: src/EBox/Model/StaticRoute.pm:156
+msgid "IP or network address"
+msgstr "IP o indirizzo rete"
+
+#: src/EBox/Model/StaticRoute.pm:162
+msgid "Gateway used to reach the above network  address"
+msgstr "Gateway usato per accedere all'indirizzo di rete"
+
+#: src/EBox/Model/StaticRoute.pm:167 src/templates/ifaces.mas:189
+msgid "Description"
+msgstr "Descrizione"
+
+#: src/EBox/Model/StaticRoute.pm:170
+msgid "Optional description for this route"
+msgstr "Descrizione opzionale per l'instadamento"
+
+#: src/EBox/Model/StaticRoute.pm:176
+#, fuzzy
+msgid "Static Routes List"
+msgstr "Lista route statiche"
+
+#: src/EBox/Model/StaticRoute.pm:182
 #, fuzzy
 msgid ""
-"The removal of the vlan interface will affect the configuration of one or "
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+"Tutti i gateway inseriti devono essere raggiungibili dall'interfaccia di "
+"rete confogurata"
+
+#: src/EBox/Model/StaticRoute.pm:185
+msgid "static route"
+msgstr "route statica"
+
+#: src/EBox/Model/SearchDomain.pm:72
+#, fuzzy
+msgid "Domain"
+msgstr "Nome dominio"
+
+#: src/EBox/Model/SearchDomain.pm:80
+msgid "Search Domain"
+msgstr "Dominio di ricerca"
+
+#: src/EBox/Model/SearchDomain.pm:84
+msgid ""
+"This domain will be appended when trying to resolve hosts if the first "
+"attempt without appending it has failed."
+msgstr ""
+"Questo dominio sarà aggiunto al nome della macchina se il tentativo di "
+"risolverlo senza il dominio fallisce."
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:43
+msgid "Enable"
+msgstr "Abilita"
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:53
+msgid "Traffic balancing"
+msgstr "Bilanciamento traffico"
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:64
+#, perl-brace-format
+msgid ""
+"By enabling this feature, your traffic will be balanced amongst your "
+"gateways. That is, every new connection will be sent by a different gateway. "
+"You can choose which proportion of traffic goes through each gateway using "
+"the weight parameter of the gateway. You can change that value {openref}here"
+"{closeref}.{br}If you want to explicitily route traffic by a certain "
+"gateway, use the multigateway rules below"
+msgstr ""
+"Abilitando questa caratteristica, il traffico sarà bilanciato tra i gateway. "
+"Ogni nuova connessione passerà da un gateway diverso. Puoi scegliere quanto "
+"traffico passa attraverso ciascun gateway impostando il parametro peso del "
+"gateway. Puoi cambiare il valore {openref}qui{closeref}.{br}Se vuoi "
+"esplicitamente indirizzare il traffico attraverso un certo gateway, "
+"configura le impostazioni per il multigateway sotto."
+
+#: src/EBox/Model/MultiGwRulesOptions.pm:68
+#: src/EBox/Model/MultiGwRulesDataTable.pm:195
+#: src/EBox/Model/WANFailoverRules.pm:131
+msgid "rule"
+msgstr "regola"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:83
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:218
+#: src/templates/ifaces.mas:37
+msgid "Method"
+msgstr "Metodo"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:92
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:250
+msgid "External"
+msgstr "Esterna"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:108
+msgid "Configurable interface list"
+msgstr "Elenco interfacce configurabili"
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:115
+msgid "These are the interfaces which can be configured"
+msgstr "Queste sono le interfacce che possono essere configurate"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:77
+msgid "any"
+msgstr "qualsiasi"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:104
+msgid ""
+"Incoming interface to match packets. If you  want to match a whole subnet "
+"you can  select the interface of that subnet"
+msgstr ""
+"Interfaccia d'ingresso per i pacchetti. Se vuoi_ _interessare un'intera "
+"sottorete puoi_ _selezionare l'interfaccia interessata"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:110
+#: src/EBox/Model/ByteRateGraphControl.pm:111
+msgid "Source"
+msgstr "Sorgente"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:115
+#: src/EBox/Model/MultiGwRulesDataTable.pm:142
+msgid "Any"
+msgstr "Qualsiasi"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:118
+msgid "Source IP"
+msgstr "IP sorgente"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:123
+msgid "Source object"
+msgstr "Oggetto sorgente"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:129
+msgid "eBox"
+msgstr "eBox"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:137
+msgid "Destination"
+msgstr "Destinazione"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:145
+msgid "Destination IP"
+msgstr "IP destinazione"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:150
+msgid "Destination object"
+msgstr "Oggetto destinazione"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:161 src/EBox/Model/DynDNS.pm:92
+#: src/EBox/Model/ByteRateGraphControl.pm:117
+msgid "Service"
+msgstr "Servizio"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:172
+#, fuzzy
+msgid "Gateway to route packets matching this rule"
+msgstr "Gateway verso pacchetti instradati seguendo questa regola"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:180
+msgid "Multigateway rules"
+msgstr "Regole multigateway"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:193
+#, fuzzy
+msgid ""
+"You can decide what kind of traffic goes out by each gateway. This way, you "
+"can force a subnet, service, destination and so forth  to use the router you "
+"choose. Please, bear in mind that rules will be applied in order, from top "
+"to bottom, you can reorder them once they are added. If you do not set a "
+"port or an IP address, then the rule will match all of them"
+msgstr ""
+"Puoi decidere che tipo di traffico esce da ciascun gateway. In questo modo "
+"puoi forzare una sottorete, servizio, destinazione all'uso di un certo "
+"router. Prego tieni a menti che le regole saranno applicate in sequenza, "
+"dall'alto verso il basso, dopo averle aggiunte puoi riordinarle. Se non "
+"imposti una porta o un indirizzo IP, la regola sarà applicata a tutti"
+
+#: src/EBox/Model/DNSResolver.pm:78
+#, fuzzy
+msgid "IP address of the DNS server that eBox will use to resolve names."
+msgstr "Indirizzi IP del server DNS che eBox utilizza per recuperare i nomi"
+
+#: src/EBox/Model/DNSResolver.pm:84
+#, fuzzy
+msgid "Domain Name Server"
+msgstr "Name server"
+
+#: src/EBox/Model/DNSResolver.pm:93
+#, fuzzy
+msgid "Domain Name Server Resolver List"
+msgstr "Lista name server resolver"
+
+#: src/EBox/Model/DNSResolver.pm:99
+msgid "name server"
+msgstr "name server"
+
+#: src/EBox/Model/DNSResolver.pm:111
+msgid ""
+"<p>Here you can add the name server resolvers that eBox will use.</p><p>Note "
+"that these settings may be overriden if you have any network interface "
+"configured via DHCP</p>"
+msgstr ""
+"<p>Qui puoi aggiungere i name server resolvers che eBox userà.</p><p>Nota "
+"che queste impostazioni possono essere prevalicate se hai altre interfacce "
+"configurate via DHCP</p>"
+
+#: src/EBox/Model/ByteRateSettings.pm:80
+msgid "Interface to listen"
+msgstr "Interfaccia da ascoltare"
+
+#: src/EBox/Model/ByteRateSettings.pm:89
+msgid "Traffic rate monitor settings"
+msgstr "Impostazioni monitoraggio traffico"
+
+#: src/EBox/Model/ByteRateSettings.pm:93
+msgid "Changes will be applied immediately to the traffic rate monitor"
+msgstr ""
+"Le modifiche verranno applicate immediatamente al monitoraggio del traffico"
+
+#: src/EBox/Model/ByteRateSettings.pm:96
+msgid "Settings changed"
+msgstr "Impostazioni modificate"
+
+#: src/EBox/Model/ByteRateSettings.pm:115
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (internal interface)"
+
+#: src/EBox/Model/ByteRateSettings.pm:122
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (external interface)"
+
+#: src/EBox/Model/ByteRateSettings.pm:129
+msgid "all"
+msgstr "tutte"
+
+#: src/EBox/Model/DynDNS.pm:87
+msgid "Enable Dynamic DNS"
+msgstr "Abilita il DNS dinamico"
+
+#: src/EBox/Model/DynDNS.pm:98
+msgid "Username"
+msgstr "Nome utente"
+
+#: src/EBox/Model/DynDNS.pm:103 src/templates/ifaces.mas:161
+msgid "Password"
+msgstr "Password"
+
+#: src/EBox/Model/DynDNS.pm:108
+#, fuzzy
+msgid "Hostname"
+msgstr "Nome host"
+
+#: src/EBox/Model/DynDNS.pm:115
+msgid "Dynamic DNS"
+msgstr "DNS dinamico"
+
+#: src/EBox/Model/DynDNS.pm:119
+msgid ""
+"All gateways you enter here must be reachable through one of the network "
+"interfaces currently configured"
+msgstr ""
+"Tutti i gateway inseriti devono essere raggiungibili dall'interfaccia di "
+"rete confogurata"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:71
+msgid ""
+"Starting traffic rate monitoring. Wait patiently until the graph appears"
+msgstr ""
+"Avvio il monitoraggio del traffico. Attendi pazientemente finché non appare "
+"il grafico"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:74
+msgid "Stopping traffic rate monitoring"
+msgstr "Interrompo il monitoraggio del traffico"
+
+#: src/EBox/Model/ByteRateEnableForm.pm:87
+msgid ""
+"The traffic rate monitor is start/stop on demand without requiring to save "
+"changes first"
+msgstr ""
+"Il monitoraggio del traffico viene avviato/interrotto su richiesta senza "
+"necessità di registrare prima le modifiche"
+
+#: src/EBox/Model/WANFailoverRules.pm:53
+#, fuzzy
+msgid "Ping to gateway"
+msgstr "gateway"
+
+#: src/EBox/Model/WANFailoverRules.pm:57
+msgid "Ping to host"
+msgstr "Contatta la macchina"
+
+#: src/EBox/Model/WANFailoverRules.pm:61
+#, fuzzy
+msgid "DNS resolve"
+msgstr "Risoluzione DNS"
+
+#: src/EBox/Model/WANFailoverRules.pm:65
+msgid "HTTP Request"
+msgstr "Richiesta HTTP"
+
+#: src/EBox/Model/WANFailoverRules.pm:89
+msgid "Test type"
+msgstr "Tipo testo"
+
+#: src/EBox/Model/WANFailoverRules.pm:101
+msgid "Number of probes"
+msgstr "Numero di prove"
+
+#: src/EBox/Model/WANFailoverRules.pm:110
+#, fuzzy
+msgid "Required success ratio"
+msgstr "Tasso di successo richiesto"
+
+#: src/EBox/Model/WANFailoverRules.pm:123
+#, fuzzy
+msgid "Test rules"
+msgstr "Regole per il test"
+
+#: src/EBox/Model/WANFailoverRules.pm:130
+msgid ""
+"You can define different rules to test if a gateway is working properly. If "
+"one of the test fails the gateway will be disabled. It will be enabled again "
+"when all tests are passed."
+msgstr ""
+"Puoi definire regole differenti per verificare se il gateway funziona "
+"correttamente. Se uno dei test fallisce il gateway sarà disabilitato. Sarà "
+"abilitato nuovamente quando tutti i testi avranno successo."
+
+#: src/EBox/Model/WANFailoverRules.pm:179
+msgid "Invalid value for Host"
+msgstr "Valore non valido per la macchina"
+
+#: src/EBox/Model/WANFailoverOptions.pm:72
+msgid "Time between checks"
+msgstr "Tempo tra i controlli"
+
+#: src/EBox/Model/WANFailoverOptions.pm:73
+#, fuzzy
+msgid "seconds"
+msgstr "byte/secondo"
+
+#: src/EBox/Model/WANFailoverOptions.pm:83
+msgid "Global options"
+msgstr "Opzioni globali"
+
+#: src/EBox/Model/WANFailoverOptions.pm:87
+#, fuzzy
+msgid "These options affect to all the tests."
+msgstr "Queste opzioni si applicano a tutti i test."
+
+#: src/EBox/Model/GatewayTable.pm:100
+msgid "Interface connected to this gateway"
+msgstr "Interfaccia connessa a questo gateway"
+
+#: src/EBox/Model/GatewayTable.pm:104
+msgid "Weight"
+msgstr "Peso"
+
+#: src/EBox/Model/GatewayTable.pm:108
+msgid ""
+"This field is only useful if you have more than one router and  the balance "
+"traffic feature is enabled."
+msgstr ""
+"Questo campo è utilie solo se hai più di un router ed è abilitato il "
+"bilanciamento del traffico"
+
+#: src/EBox/Model/GatewayTable.pm:114
+msgid "Default"
+msgstr "Default"
+
+#: src/EBox/Model/GatewayTable.pm:124
+msgid "Gateways List"
+msgstr "Elenco gateway"
+
+#: src/EBox/Model/GatewayTable.pm:141
+msgid ""
+"You can add as many gateways as you want. This is very useful if you want to "
+"split your Internet traffic through several links."
+msgstr ""
+"Puoi aggiungere quanti gateway vuoi. È molto utile se vuoi separare il "
+"traffico internet"
+
+#: src/EBox/Model/GatewayTable.pm:143
+msgid "gateway"
+msgstr "gateway"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:46
+msgid "Select traffic graphic"
+msgstr "Seleziona grafico traffico"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:57
+msgid ""
+"Several views are showed depending on the parameter selection. An host IP "
+"address and a service, which must match the text given by the graphs legend "
+"based on /etc/services, may be required by the graph type. The flow view "
+"will change accordingly"
+msgstr ""
+"Vengono mostrate diverse viste in base ai parametri selezionati. A seconda "
+"del tipo di grafico, possono essere richiesti l'indirizzo IP di un host ed "
+"un servizio, che devono corrispondere al testo sulla legenda del grafico in "
+"base al file /etc/services. La vista del flusso verrà modificata di "
+"conseguenza"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:78
+msgid "Graph type"
+msgstr "Tipo grafico"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:85
+msgid "All active traffic by source"
+msgstr "Tutto il traffico attivo per sorgente"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:89
+msgid "All active traffic by service"
+msgstr "Tutto il traffico attivo per servizio"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:93
+msgid "Traffic by selected source"
+msgstr "Traffico per sorgente selezionata"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:99
+msgid "Traffic by selected service"
+msgstr "Traffico per servizio selezionato"
+
+#: src/EBox/Model/ByteRateGraphControl.pm:105
+msgid "Traffic by source and service"
+msgstr "Traffico per sorgente e servizio"
+
+#: src/EBox/Model/PhysicalInterfaceTable.pm:74
+msgid "Physical interface list"
+msgstr "Elenco interfacce fisiche"
+
+#: src/EBox/Model/PhysicalInterfaceTable.pm:81
+msgid "These are the physical interfaces which are available in your system."
+msgstr "Queste sono le interfacce fisiche disponibili sul tuo sistema."
+
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
 "La modifica che stai cercando di effettuare avrà impatti sulla "
 "configurazione di uno o più moduli con riferimenti a questa interfaccia di "
 "rete."
 
-#: src/templates/confirmVlanDel.mas:12
-#: src/templates/confirmremove.mas:14
+#: src/templates/confirmremove.mas:14 src/templates/confirmVlanDel.mas:12
 #, fuzzy
 msgid ""
 "If you choose to continue, all modules that make use of this network "
@@ -953,14 +890,12 @@ msgstr ""
 "di questa interfaccia di rete elimineranno le parti relative della propria "
 "configurazione. Scegli \"Annulla\" se non sei sicuro di cosa stai facendo."
 
-#: src/templates/confirmVlanDel.mas:22
-#: src/templates/confirmremove.mas:24
+#: src/templates/confirmremove.mas:24 src/templates/confirmVlanDel.mas:22
 #: src/templates/confirm.mas:31
 msgid "Ok"
 msgstr "Ok"
 
-#: src/templates/confirmVlanDel.mas:24
-#: src/templates/confirmremove.mas:26
+#: src/templates/confirmremove.mas:26 src/templates/confirmVlanDel.mas:24
 #: src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr "Annulla"
@@ -983,58 +918,67 @@ msgstr ""
 "NAT. Inoltre i servizi dedicati agli utenti LAN non saranno disponibili "
 "sulle interfacce esterne."
 
-#: src/templates/ifaces.mas:43
-#: src/templates/ifaces.mas:45
+#: src/templates/ifaces.mas:43 src/templates/ifaces.mas:45
 msgid "Static"
 msgstr "Statica"
 
-#: src/templates/ifaces.mas:56
-#: src/templates/ifaces.mas:58
+#: src/templates/ifaces.mas:62 src/templates/ifaces.mas:64
 msgid "Trunk (802.1q)"
 msgstr "Trunk (802.1q)"
 
-#: src/templates/ifaces.mas:63
-#: src/templates/ifaces.mas:65
+#: src/templates/ifaces.mas:69 src/templates/ifaces.mas:71
 msgid "Not set"
 msgstr "Non impostata"
 
-#: src/templates/ifaces.mas:141
+#: src/templates/ifaces.mas:80
+#, fuzzy
+msgid "External (WAN)"
+msgstr "Esterna"
+
+#: src/templates/ifaces.mas:148
+#, fuzzy
+msgid "User name"
+msgstr "Nome utente"
+
+#: src/templates/ifaces.mas:175
 msgid "Change"
 msgstr "Modifica"
 
-#: src/templates/ifaces.mas:149
+#: src/templates/ifaces.mas:183
 msgid "VLAN List"
 msgstr "Elenco VLAN"
 
-#: src/templates/ifaces.mas:156
-#: src/templates/ifaces.mas:214
+#: src/templates/ifaces.mas:190 src/templates/ifaces.mas:248
 msgid "Action"
 msgstr "Azione"
 
-#: src/templates/ifaces.mas:172
-#: src/templates/ifaces.mas:173
-#: src/templates/ifaces.mas:174
-#: src/templates/ifaces.mas:258
-#: src/templates/ifaces.mas:259
-#: src/templates/ifaces.mas:260
+#: src/templates/ifaces.mas:206 src/templates/ifaces.mas:207
+#: src/templates/ifaces.mas:208 src/templates/ifaces.mas:292
+#: src/templates/ifaces.mas:293 src/templates/ifaces.mas:294
 msgid "Add"
 msgstr "Aggiungi"
 
-#: src/templates/ifaces.mas:191
-#: src/templates/ifaces.mas:192
-#: src/templates/ifaces.mas:193
-#: src/templates/ifaces.mas:285
-#: src/templates/ifaces.mas:286
-#: src/templates/ifaces.mas:287
+#: src/templates/ifaces.mas:225 src/templates/ifaces.mas:226
+#: src/templates/ifaces.mas:227 src/templates/ifaces.mas:319
+#: src/templates/ifaces.mas:320 src/templates/ifaces.mas:321
 msgid "Delete"
 msgstr "Elimina"
 
-#: src/templates/ifaces.mas:206
+#: src/templates/ifaces.mas:240
 msgid "Virtual Interfaces"
 msgstr "Interfacce virtuali"
 
-#: src/templates/diag.mas:13
-#: src/templates/diag.mas:18
+#: src/templates/confirmVlanDel.mas:9
+#, fuzzy
+msgid ""
+"The removal of the vlan interface will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+"La modifica che stai cercando di effettuare avrà impatti sulla "
+"configurazione di uno o più moduli con riferimenti a questa interfaccia di "
+"rete."
+
+#: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
 msgstr "Ping"
 
@@ -1064,16 +1008,6 @@ msgstr "Ricerca"
 msgid "Output"
 msgstr "Uscita"
 
-#: src/templates/confirmremove.mas:11
-#: src/templates/confirm.mas:14
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-"La modifica che stai cercando di effettuare avrà impatti sulla "
-"configurazione di uno o più moduli con riferimenti a questa interfaccia di "
-"rete."
-
 #: src/templates/confirm.mas:17
 msgid ""
 "If you choose to continue, all modules that make use of the current "
@@ -1083,6 +1017,31 @@ msgstr ""
 "Se scegli di continuare, tutti i moduli che usano la configurazione attuale "
 "di questa interfaccia di rete elimineranno le parti relative della propria "
 "configurazione. Scegli \"Annulla\" se non sei sicuro di cosa stai facendo."
+
+#~ msgid "Set default gateway"
+#~ msgstr "Imposta gateway predefinito"
+
+#~ msgid "You can change later the gateway at Network/Routes menus item"
+#~ msgstr "Puoi modificare più tardi il gateway dalla voce di menu Rete/Route"
+
+#~ msgid ""
+#~ "After the initial config you can revisit this page at Network/Interfaces "
+#~ "in the menu"
+#~ msgstr ""
+#~ "Dopo la configurazione iniziale puoi raggiungere questa pagina da Rete/"
+#~ "Interfacce nel menu"
+
+#~ msgid "DNS configured"
+#~ msgstr "DNS configurato"
+
+#~ msgid "Gateway configured"
+#~ msgstr "Gateway configurato"
+
+#~ msgid "You can revisit this page at Network/DNS in the menu"
+#~ msgstr "Puoi raggiungere questa pagina da Rete/DNS sul menu"
+
+#~ msgid "Network interface configured"
+#~ msgstr "Interfaccia di rete configurata"
 
 #~ msgid "Configure network interfaces"
 #~ msgstr "Configura interfacce di rete"

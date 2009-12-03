@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:21+0100\n"
+"POT-Creation-Date: 2009-12-03 13:01+0000\n"
 "PO-Revision-Date: 2006-11-16 13:25+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,10 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr ""
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
@@ -70,12 +66,16 @@ msgstr ""
 msgid "continent"
 msgstr ""
 
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr ""
-
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and Time Configuration"
+msgstr ""
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr ""
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
 msgstr ""
 
 #: src/EBox/NTP.pm:67
@@ -128,21 +128,6 @@ msgstr ""
 msgid "Time Zone"
 msgstr ""
 
-#: src/templates/synch.mas:11 src/templates/synch.mas:14
-msgid "Disabled"
-msgstr ""
-
-#: src/templates/synch.mas:12 src/templates/synch.mas:15
-msgid "Enabled"
-msgstr ""
-
-#: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/timezone.mas:33 src/templates/timezone.mas:34
-#: src/templates/servers.mas:50 src/templates/date.mas:96
-#: src/templates/date.mas:97
-msgid "Change"
-msgstr ""
-
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr ""
@@ -151,6 +136,21 @@ msgstr ""
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
+msgstr ""
+
+#: src/templates/servers.mas:50 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34 src/templates/synch.mas:19
+#: src/templates/synch.mas:20 src/templates/date.mas:96
+#: src/templates/date.mas:97
+msgid "Change"
+msgstr ""
+
+#: src/templates/synch.mas:11 src/templates/synch.mas:14
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/synch.mas:12 src/templates/synch.mas:15
+msgid "Enabled"
 msgstr ""
 
 #: src/templates/date.mas:10

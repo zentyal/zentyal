@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:38+0100\n"
+"POT-Creation-Date: 2009-12-03 13:01+0000\n"
 "PO-Revision-Date: 2007-01-08 10:05+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,150 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
-
-#: src/EBox/OpenVPN.pm:70
-msgid "VPN"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:148
-msgid "To configure Quagga to run ripd and zebra"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:154
-msgid "To configure Quagga to listen on the given interfaces"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:159
-msgid "Main zebra configuration file"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:165
-msgid "To configure ripd to exchange routes with client to client connections"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:666
-#, perl-brace-format
-msgid ""
-"Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
-"allowed"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:679
-#, perl-brace-format
-msgid "Cannot use the name {n} because there is a client with the same name"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:690
-#, perl-brace-format
-msgid "Cannot use the name {n} because there is a server with the same name"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:712
-#, perl-brace-format
-msgid ""
-"Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
-"internal use"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:721
-#, perl-brace-format
-msgid ""
-"Invalid name {name}. A internal daemon must have a name which begins with "
-"the prefix {pf}"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1439
-#, perl-brace-format
-msgid "Client {c} does not exists"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1467
-msgid "Servers"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1473
-msgid "Clients"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1486
-msgid "Common name"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1486
-msgid "Address"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1486
-msgid "Connected since"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1513
-msgid "No users connected to the VPN"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1554
-msgid "OpenVPN daemons"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1620
-msgid "Date"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1621
-msgid "Event"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1623
-msgid "Type"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1624
-msgid "Remote IP"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1625
-msgid "Remote Certificate"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1630
-msgid "Initialization sequence completed"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1632
-msgid "Certificate issuer not authorized"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1633
-msgid "Certificate common name not authorized"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1634
-msgid "Certificate verification failed"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1636
-msgid "Client connection initiated"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1637
-msgid "Client connection terminated"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1639
-msgid "Connection to server initiated"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1640
-msgid "Server connection terminated"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1644
-msgid "OpenVPN"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1669
-msgid "You must set insecure_rip_conf to yes or no"
-msgstr ""
 
 #: src/EBox/OpenVPN/Server.pm:84
 #, perl-brace-format
@@ -211,8 +67,8 @@ msgstr ""
 msgid "Server {name}"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Model/Servers.pm:60
-#: src/EBox/OpenVPN/Client.pm:313
+#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
+#: src/EBox/OpenVPN/Model/Servers.pm:60
 msgid "Enabled"
 msgstr ""
 
@@ -220,8 +76,8 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Model/Clients.pm:67
-#: src/EBox/OpenVPN/Client.pm:314
+#: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:314
+#: src/EBox/OpenVPN/Model/Clients.pm:67
 msgid "Service"
 msgstr ""
 
@@ -305,95 +161,17 @@ msgid ""
 "certificate's private key"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:68 src/EBox/OpenVPN/Model/Clients.pm:60
-#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
-msgid "Name"
+#: src/EBox/OpenVPN/Types/TlsRemote.pm:52
+msgid "disabled"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:76 src/EBox/OpenVPN/Model/Clients.pm:75
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
-msgid "Configuration"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Servers.pm:85
-#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:70
-msgid "Advertised networks"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Servers.pm:94
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
-msgid "Download client bundle"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Servers.pm:106
-msgid "List of servers"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Servers.pm:107
-msgid "VPN servers"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Servers.pm:113
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:148
-msgid "server"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Servers.pm:158
+#: src/EBox/OpenVPN/Client.pm:311
 #, perl-brace-format
-msgid ""
-"{openpar}You can't create VPN servers because there aren't enough "
-"certificates.{closepar}{openpar}Please, go to the {openhref}certification "
-"authority module{closehref} and create new certificates.{closepar}{openpar}"
-"You will need, at least, one CA and one certificate.{closepar}"
+msgid "Client {name}"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:173
-msgid "Server creation"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Servers.pm:271
-msgid ""
-"Cannot activate the server because  is not fully configured; please edit the "
-"configuration and retry"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Servers.pm:278
-msgid "Server activation"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Servers.pm:305
-#, perl-brace-format
-msgid ""
-"{act} not possible because there aren'tany available certificate. Please, go "
-"tothe certificate authority moduleand create new certificates"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Servers.pm:318
-#, perl-brace-format
-msgid ""
-"{openpar}You can configure openVPN servers to easily connect remote offices "
-"or users.{closepar}{openpar}Click on {openit}Configuration{closeit} to set "
-"the VPN parameters.{closepar}{openpar}{openit}Advertised networks{closeit} "
-"allows you to configure which networks you want to make accessible to the "
-"remote users.{openpar}Once you are done with the configuration you can "
-"download a file bundle for your operating system to use in your clients."
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:60
-#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:76
-msgid "Advertised network"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:69
-msgid "List of networks"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/AdvertisedNetworks.pm:90
-#, perl-brace-format
-msgid ""
-"{openpar}You can add here those networks which you want to make available to "
-"clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
-"access to your LAN by advertising its network address here{closepar}"
+#: src/EBox/OpenVPN/Client.pm:325
+msgid "Connection target"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
@@ -458,6 +236,11 @@ msgstr ""
 msgid "Server configuration"
 msgstr ""
 
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:148
+#: src/EBox/OpenVPN/Model/Servers.pm:113
+msgid "server"
+msgstr ""
+
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:202
 msgid "All network interfaces"
 msgstr ""
@@ -509,77 +292,13 @@ msgid ""
 "Translation option is on"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Clients.pm:94
-msgid "VPN clients"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Clients.pm:100
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
-msgid "client"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Clients.pm:143
-msgid ""
-"Cannot activate the client because is not fully configured; please edit the "
-"configuration and retry"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/Clients.pm:180
-msgid "RIP password is mandatory"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
-msgid "Deleted daemons"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
-msgid "daemon"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
-msgid "Manual Configuration"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
-msgid "eBox bundle"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:78
-msgid "Upload configuration's bundle"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
-msgid "Server"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:100
-msgid "CA's certificate"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:111
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
-msgid "Client's certificate"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:122
-msgid "Client's private key"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
-msgid "Server tunnel password"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:144
-msgid "Client configuration"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
-#, perl-brace-format
-msgid "No file supplied or already setted for {f}"
-msgstr ""
-
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
 msgid "Client's type"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:111
+msgid "Client's certificate"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
@@ -607,6 +326,11 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 msgid "Configure bundle"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
+#: src/EBox/OpenVPN/Model/Servers.pm:94
+msgid "Download client bundle"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
@@ -647,6 +371,151 @@ msgid ""
 "complete the configuration and retry"
 msgstr ""
 
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:76
+msgid "Advertised network"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
+msgid "List of networks"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:70
+#: src/EBox/OpenVPN/Model/Servers.pm:85
+msgid "Advertised networks"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:90
+#, perl-brace-format
+msgid ""
+"{openpar}You can add here those networks which you want to make available to "
+"clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
+"access to your LAN by advertising its network address here{closepar}"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
+#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:76
+msgid "Configuration"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
+msgid "Manual Configuration"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
+msgid "eBox bundle"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:78
+msgid "Upload configuration's bundle"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
+msgid "Server"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:100
+msgid "CA's certificate"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:122
+msgid "Client's private key"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
+msgid "Server tunnel password"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:144
+msgid "Client configuration"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
+#: src/EBox/OpenVPN/Model/Clients.pm:100
+msgid "client"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
+#, perl-brace-format
+msgid "No file supplied or already setted for {f}"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
+#: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:68
+msgid "Name"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
+msgid "Deleted daemons"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
+msgid "daemon"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Clients.pm:94
+msgid "VPN clients"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Clients.pm:143
+msgid ""
+"Cannot activate the client because is not fully configured; please edit the "
+"configuration and retry"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Clients.pm:180
+msgid "RIP password is mandatory"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:106
+msgid "List of servers"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:107
+msgid "VPN servers"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:158
+#, perl-brace-format
+msgid ""
+"{openpar}You can't create VPN servers because there aren't enough "
+"certificates.{closepar}{openpar}Please, go to the {openhref}certification "
+"authority module{closehref} and create new certificates.{closepar}{openpar}"
+"You will need, at least, one CA and one certificate.{closepar}"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:173
+msgid "Server creation"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:271
+msgid ""
+"Cannot activate the server because  is not fully configured; please edit the "
+"configuration and retry"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:278
+msgid "Server activation"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:305
+#, perl-brace-format
+msgid ""
+"{act} not possible because there aren'tany available certificate. Please, go "
+"tothe certificate authority moduleand create new certificates"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:318
+#, perl-brace-format
+msgid ""
+"{openpar}You can configure openVPN servers to easily connect remote offices "
+"or users.{closepar}{openpar}Click on {openit}Configuration{closeit} to set "
+"the VPN parameters.{closepar}{openpar}{openit}Advertised networks{closeit} "
+"allows you to configure which networks you want to make accessible to the "
+"remote users.{openpar}Once you are done with the configuration you can "
+"download a file bundle for your operating system to use in your clients."
+msgstr ""
+
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"
 msgstr ""
@@ -664,15 +533,146 @@ msgstr ""
 msgid "The client certificate can't be the same than the server's one"
 msgstr ""
 
-#: src/EBox/OpenVPN/Types/TlsRemote.pm:52
-msgid "disabled"
+#: src/EBox/OpenVPN.pm:70
+msgid "VPN"
 msgstr ""
 
-#: src/EBox/OpenVPN/Client.pm:311
+#: src/EBox/OpenVPN.pm:152
+msgid "To configure Quagga to run ripd and zebra"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:158
+msgid "To configure Quagga to listen on the given interfaces"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:163
+msgid "Main zebra configuration file"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:169
+msgid "To configure ripd to exchange routes with client to client connections"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:670
 #, perl-brace-format
-msgid "Client {name}"
+msgid ""
+"Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
+"allowed"
 msgstr ""
 
-#: src/EBox/OpenVPN/Client.pm:325
-msgid "Connection target"
+#: src/EBox/OpenVPN.pm:683
+#, perl-brace-format
+msgid "Cannot use the name {n} because there is a client with the same name"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:694
+#, perl-brace-format
+msgid "Cannot use the name {n} because there is a server with the same name"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:716
+#, perl-brace-format
+msgid ""
+"Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
+"internal use"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:725
+#, perl-brace-format
+msgid ""
+"Invalid name {name}. A internal daemon must have a name which begins with "
+"the prefix {pf}"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1443
+#, perl-brace-format
+msgid "Client {c} does not exists"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1471
+msgid "Servers"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1477
+msgid "Clients"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1490
+msgid "Common name"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1490
+msgid "Address"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1490
+msgid "Connected since"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1517
+msgid "No users connected to the VPN"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1558
+msgid "OpenVPN daemons"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1624
+msgid "Date"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1625
+msgid "Event"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1627
+msgid "Type"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1628
+msgid "Remote IP"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1629
+msgid "Remote Certificate"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1634
+msgid "Initialization sequence completed"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1636
+msgid "Certificate issuer not authorized"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1637
+msgid "Certificate common name not authorized"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1638
+msgid "Certificate verification failed"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1640
+msgid "Client connection initiated"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1641
+msgid "Client connection terminated"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1643
+msgid "Connection to server initiated"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1644
+msgid "Server connection terminated"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1648
+msgid "OpenVPN"
+msgstr ""
+
+#: src/EBox/OpenVPN.pm:1673
+msgid "You must set insecure_rip_conf to yes or no"
 msgstr ""

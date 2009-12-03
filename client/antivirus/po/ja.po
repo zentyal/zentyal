@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:23+0100\n"
+"POT-Creation-Date: 2009-12-03 12:47+0000\n"
 "PO-Revision-Date: 2009-02-20 11:10+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +15,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:378
+#: src/EBox/AntiVirus.pm:383
+msgid "Antivirus"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:212
+msgid " To configure clamd daemon"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
@@ -30,7 +47,7 @@ msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 msgid ""
-"The antivirus database has not been updated since the module was installed."
+"The antivirus database has not been updated since the module was enabled."
 msgstr ""
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
@@ -52,21 +69,4 @@ msgstr ""
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
 #, perl-brace-format
 msgid "Unknown event {event}."
-msgstr ""
-
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:377
-#: src/EBox/AntiVirus.pm:382
-msgid "Antivirus"
-msgstr ""
-
-#: src/EBox/AntiVirus.pm:212
-msgid " To configure clamd daemon"
-msgstr ""
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr ""
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
 msgstr ""

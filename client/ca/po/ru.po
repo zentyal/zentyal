@@ -7,98 +7,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:25+0100\n"
+"POT-Creation-Date: 2009-12-03 12:50+0000\n"
 "PO-Revision-Date: 2009-11-08 15:37+0100\n"
 "Last-Translator: Anton Sovetov <anton.sovetov@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
-#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:252 src/EBox/CA.pm:529
-#: src/templates/formRevoke.mas:22 src/templates/index.mas:22
-#: src/templates/createCA.mas:7 src/templates/formRenew.mas:37
-msgid "Organization Name"
-msgstr "Наименование организация"
-
-#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:543
-msgid ""
-"The CA certificates should be revoked  or has expired before issuing a new "
-"certificate"
-msgstr ""
-"Сертификаты ЦС должно быть отозваны или иметь истекший срок действия перед "
-"изданием нового сертификата"
-
-#: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
-#: src/EBox/CA/TestStub.pm:642 src/EBox/Model/Certificates.pm:234
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/RevokeCertificate.pm:76
-#: src/EBox/CGI/ShowForm.pm:64 src/EBox/CGI/RenewCertificate.pm:74
-#: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CA.pm:747 src/EBox/CA.pm:910
-#: src/EBox/CA.pm:1247 src/EBox/CA.pm:1289 src/EBox/CA.pm:1383
-#: src/templates/formRevoke.mas:28 src/templates/index.mas:23
-#: src/templates/formRenew.mas:43
-msgid "Common Name"
-msgstr "Каноническое имя"
-
-#: src/EBox/CA/TestStub.pm:654
-#, perl-brace-format
-msgid "The user {commonName} does NOT exist"
-msgstr "Пользователь {commonName} не существует"
-
-#: src/EBox/CA/TestStub.pm:720
-msgid "Days set to the maximum allowed: Year 2038 Bug"
-msgstr "Дни установлены в максимально допустимое значение: Ошибка 2038 года"
-
-#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:2399
-msgid "Expiration date later than CA certificate expiration date"
-msgstr "Срок указан больше, чем дата истечения срока сертификата ЦС"
-
-#: src/EBox/Model/Certificates.pm:92
-#, perl-brace-format
-msgid ""
-"You must create a Certification Authority. Go to {openhref}Certification "
-"Authority{closehref} to do so"
-msgstr ""
-
-#: src/EBox/Model/Certificates.pm:216
-msgid "Module"
-msgstr "Модуль"
-
-#: src/EBox/Model/Certificates.pm:228
-msgid "Service"
-msgstr "Служба"
-
-#: src/EBox/Model/Certificates.pm:240
-msgid "Enable"
-msgstr "Включить"
-
-#: src/EBox/Model/Certificates.pm:248 src/EBox/CA.pm:1720
-msgid "Services Certificates"
-msgstr "Службы Сертификации"
-
-#: src/EBox/Model/Certificates.pm:249
-msgid "certificate"
-msgstr "сертификат"
-
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CGI/CreateCA.pm:44
-#: src/EBox/CGI/RevokeCertificate.pm:42 src/EBox/CGI/ShowForm.pm:41
-#: src/EBox/CGI/Index.pm:39 src/EBox/CGI/RenewCertificate.pm:42
-#: src/EBox/CGI/IssueCertificate.pm:46 src/EBox/CA.pm:115
+#: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
+#: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:46
+#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:115
 msgid "Certification Authority"
 msgstr "Центр сертификации (ЦС)"
-
-#: src/EBox/CGI/DownloadFiles.pm:79 src/EBox/CGI/ShowForm.pm:91
-#, perl-brace-format
-msgid "Common name: {cn} does NOT exist in database"
-msgstr "Имя: {cn} отсутствует в базе данных"
-
-#: src/EBox/CGI/DownloadFiles.pm:127
-msgid "Error creating file"
-msgstr "Ошибка в создании файла"
 
 #: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:115
 msgid "CA passphrases do NOT match"
@@ -131,8 +56,19 @@ msgstr "Булевая индикация сертификата Центра с
 msgid "Reason"
 msgstr "Причина"
 
-#: src/EBox/CGI/RevokeCertificate.pm:80 src/EBox/CGI/ShowForm.pm:68
-#: src/EBox/CGI/RenewCertificate.pm:78 src/EBox/CGI/IssueCertificate.pm:140
+#: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:74
+#: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/ShowForm.pm:64
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:747 src/EBox/CA.pm:910
+#: src/EBox/CA.pm:1247 src/EBox/CA.pm:1289 src/EBox/CA.pm:1383
+#: src/EBox/Model/Certificates.pm:234 src/EBox/CA/TestStub.pm:438
+#: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
+#: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
+#: src/templates/index.mas:23
+msgid "Common Name"
+msgstr "Каноническое имя"
+
+#: src/EBox/CGI/RevokeCertificate.pm:80 src/EBox/CGI/RenewCertificate.pm:78
+#: src/EBox/CGI/IssueCertificate.pm:140 src/EBox/CGI/ShowForm.pm:68
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -148,20 +84,12 @@ msgstr "Сертификат был отозван"
 msgid "The CA certificate has been revoked"
 msgstr "Сертификат ЦС был отозван"
 
-#: src/EBox/CGI/ShowForm.pm:74
-msgid "Action"
-msgstr "Действие"
-
-#: src/EBox/CGI/ShowForm.pm:83
-msgid "Only revoke and renew actions are performed"
-msgstr "Предусмотрены только аннулирование и обновление"
-
 #: src/EBox/CGI/RenewCertificate.pm:64
 msgid "The certificate has NOT been renewed"
 msgstr "Сертификат НЕ был обновлен"
 
-#: src/EBox/CGI/RenewCertificate.pm:69 src/templates/index.mas:52
-#: src/templates/createCA.mas:19 src/templates/formRenew.mas:13
+#: src/EBox/CGI/RenewCertificate.pm:69 src/templates/formRenew.mas:13
+#: src/templates/index.mas:52 src/templates/createCA.mas:19
 msgid "Days to expire"
 msgstr "Дни до истечения срока"
 
@@ -177,6 +105,13 @@ msgstr "Сертификат был обновлен"
 msgid "The new CA certificate has been renewed"
 msgstr "Новый сертификат ЦС был обновлен"
 
+#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:252 src/EBox/CA.pm:529
+#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
+#: src/templates/formRenew.mas:37 src/templates/formRevoke.mas:22
+#: src/templates/index.mas:22 src/templates/createCA.mas:7
+msgid "Organization Name"
+msgstr "Наименование организация"
+
 #: src/EBox/CGI/IssueCertificate.pm:162
 msgid "The certificate has been issued."
 msgstr "Сертификат издан"
@@ -184,6 +119,23 @@ msgstr "Сертификат издан"
 #: src/EBox/CGI/IssueCertificate.pm:163
 msgid "The new CA certificate has been issued."
 msgstr "Новый сертификат ЦС издан"
+
+#: src/EBox/CGI/ShowForm.pm:74
+msgid "Action"
+msgstr "Действие"
+
+#: src/EBox/CGI/ShowForm.pm:83
+msgid "Only revoke and renew actions are performed"
+msgstr "Предусмотрены только аннулирование и обновление"
+
+#: src/EBox/CGI/ShowForm.pm:91 src/EBox/CGI/DownloadFiles.pm:79
+#, perl-brace-format
+msgid "Common name: {cn} does NOT exist in database"
+msgstr "Имя: {cn} отсутствует в базе данных"
+
+#: src/EBox/CGI/DownloadFiles.pm:127
+msgid "Error creating file"
+msgstr "Ошибка в создании файла"
 
 #: src/EBox/CA.pm:293 src/EBox/CA.pm:764 src/EBox/CA.pm:1362
 #, perl-brace-format
@@ -194,6 +146,14 @@ msgstr ""
 #: src/EBox/CA.pm:388
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Операция удаления не может быть завершена. Причина: "
+
+#: src/EBox/CA.pm:543 src/EBox/CA/TestStub.pm:259
+msgid ""
+"The CA certificates should be revoked  or has expired before issuing a new "
+"certificate"
+msgstr ""
+"Сертификаты ЦС должно быть отозваны или иметь истекший срок действия перед "
+"изданием нового сертификата"
 
 #: src/EBox/CA.pm:923 src/EBox/CA.pm:1258
 #, perl-brace-format
@@ -246,6 +206,10 @@ msgstr ""
 #: src/EBox/CA.pm:1717
 msgid "General"
 msgstr "Общие"
+
+#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:248
+msgid "Services Certificates"
+msgstr "Службы Сертификации"
 
 #: src/EBox/CA.pm:2277
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -332,10 +296,63 @@ msgstr ""
 "Обновлена база данных сертификатов. {number} сертификатов недействительны по "
 "сроку"
 
+#: src/EBox/CA.pm:2399 src/EBox/CA/TestStub.pm:729
+msgid "Expiration date later than CA certificate expiration date"
+msgstr "Срок указан больше, чем дата истечения срока сертификата ЦС"
+
 #: src/EBox/CA.pm:2487
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Не могу запустить оболочку OpenSSL. ({errval})"
+
+#: src/EBox/Model/Certificates.pm:92
+#, perl-brace-format
+msgid ""
+"You must create a Certification Authority. Go to {openhref}Certification "
+"Authority{closehref} to do so"
+msgstr ""
+
+#: src/EBox/Model/Certificates.pm:216
+msgid "Module"
+msgstr "Модуль"
+
+#: src/EBox/Model/Certificates.pm:228
+msgid "Service"
+msgstr "Служба"
+
+#: src/EBox/Model/Certificates.pm:240
+msgid "Enable"
+msgstr "Включить"
+
+#: src/EBox/Model/Certificates.pm:249
+msgid "certificate"
+msgstr "сертификат"
+
+#: src/EBox/CA/TestStub.pm:654
+#, perl-brace-format
+msgid "The user {commonName} does NOT exist"
+msgstr "Пользователь {commonName} не существует"
+
+#: src/EBox/CA/TestStub.pm:720
+msgid "Days set to the maximum allowed: Year 2038 Bug"
+msgstr "Дни установлены в максимально допустимое значение: Ошибка 2038 года"
+
+#: src/templates/formRenew.mas:17 src/templates/formRevoke.mas:65
+msgid "CA Passphrase"
+msgstr "Пароль ЦС"
+
+#: src/templates/formRenew.mas:23 src/templates/index.mas:160
+#: src/templates/index.mas:177 src/templates/forceRenew.mas:27
+msgid "Renew"
+msgstr "Обновить"
+
+#: src/templates/formRenew.mas:28
+msgid "Renew a certificate"
+msgstr "Обновить сертификат"
+
+#: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:33
+msgid "Expiration Date"
+msgstr "Дата истечения срока"
 
 #: src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"
@@ -344,14 +361,6 @@ msgstr "Отозвать сертификат"
 #: src/templates/formRevoke.mas:18
 msgid "Revoke the selected certificate"
 msgstr "Аннулировать выбранный сертификат"
-
-#: src/templates/formRevoke.mas:33 src/templates/formRenew.mas:48
-msgid "Expiration Date"
-msgstr "Дата истечения срока"
-
-#: src/templates/formRevoke.mas:65 src/templates/formRenew.mas:17
-msgid "CA Passphrase"
-msgstr "Пароль ЦС"
 
 #: src/templates/formRevoke.mas:71 src/templates/index.mas:141
 #: src/templates/index.mas:173 src/templates/forceRevoke.mas:42
@@ -434,11 +443,6 @@ msgstr "Отозванный"
 msgid "Download Key(s) and Certificate"
 msgstr "Загрузить Ключ(и) и Сертификат"
 
-#: src/templates/index.mas:160 src/templates/index.mas:177
-#: src/templates/forceRenew.mas:27 src/templates/formRenew.mas:23
-msgid "Renew"
-msgstr "Обновить"
-
 #: src/templates/createCA.mas:26
 msgid "Create"
 msgstr "Создать"
@@ -446,35 +450,6 @@ msgstr "Создать"
 #: src/templates/createCA.mas:34
 msgid "Create Certification Authority Certificate"
 msgstr "Создать Сертификат Центра Сертификации"
-
-#: src/templates/forceRenew.mas:42
-msgid "Renewing CA certificate"
-msgstr "Обновление сертификата ЦС"
-
-#: src/templates/forceRenew.mas:44
-msgid "Renewing certificate"
-msgstr "Обновление сертификата"
-
-#: src/templates/forceRenew.mas:50
-#, perl-brace-format
-msgid ""
-"This renewal can affect the functionality from other modules, please confirm "
-"you are very sure to renew the whole certification authority from {on} and "
-"leave the service(s) unstable or disabled"
-msgstr ""
-"Это обновление может сказаться на функциональности других модулей. Убедитесь "
-"в необходимости обновления всей сертификации подлинности от {on} и оставьте "
-"службы отключенными"
-
-#: src/templates/forceRenew.mas:53
-#, perl-brace-format
-msgid ""
-"The certificate whose common name is {cn} you tried to renew is being used "
-"by some module, please confirm you are sure to renew and leave the service"
-"(s) unstable or disabled"
-msgstr ""
-"Сертификат {cn}, который Вы пытаетесь обновить в данный момент некоторыми "
-"модулями. Убедитесь в необходимости обновления и оставьте службы отключенными"
 
 #: src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
@@ -510,9 +485,34 @@ msgstr ""
 msgid "Cancel"
 msgstr "Отмена"
 
-#: src/templates/formRenew.mas:28
-msgid "Renew a certificate"
-msgstr "Обновить сертификат"
+#: src/templates/forceRenew.mas:42
+msgid "Renewing CA certificate"
+msgstr "Обновление сертификата ЦС"
+
+#: src/templates/forceRenew.mas:44
+msgid "Renewing certificate"
+msgstr "Обновление сертификата"
+
+#: src/templates/forceRenew.mas:50
+#, perl-brace-format
+msgid ""
+"This renewal can affect the functionality from other modules, please confirm "
+"you are very sure to renew the whole certification authority from {on} and "
+"leave the service(s) unstable or disabled"
+msgstr ""
+"Это обновление может сказаться на функциональности других модулей. Убедитесь "
+"в необходимости обновления всей сертификации подлинности от {on} и оставьте "
+"службы отключенными"
+
+#: src/templates/forceRenew.mas:53
+#, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to renew is being used "
+"by some module, please confirm you are sure to renew and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"Сертификат {cn}, который Вы пытаетесь обновить в данный момент некоторыми "
+"модулями. Убедитесь в необходимости обновления и оставьте службы отключенными"
 
 #~ msgid "You must create a Certification Authority."
 #~ msgstr "Вы должны создать Центр Сертификации"

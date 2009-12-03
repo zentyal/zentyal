@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:28+0100\n"
+"POT-Creation-Date: 2009-12-03 12:53+0000\n"
 "PO-Revision-Date: 2009-10-04 07:58+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
@@ -16,29 +16,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/DomainTable.pm:66
-msgid "Domain"
-msgstr "Област"
+#: src/EBox/DNS.pm.in:51 src/EBox/Model/DNSComposite.pm:75
+msgid "DNS"
+msgstr "DNS"
 
-#: src/EBox/Model/DomainTable.pm:74 src/EBox/Model/HostnameTable.pm:192
-msgid "Hostnames"
-msgstr "Имена на хостове"
-
-#: src/EBox/Model/DomainTable.pm:83
-msgid "Mail Exchangers"
-msgstr "Сървъри за обмен на поща"
-
-#: src/EBox/Model/DomainTable.pm:91 src/EBox/Model/HostnameTable.pm:167
-msgid "IP Address"
-msgstr "IP адрес"
-
-#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
-msgid "Domains"
-msgstr "Области"
-
-#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:115
 msgid "domain"
 msgstr "област"
+
+#: src/EBox/DNS.pm.in:711
+#, perl-brace-format
+msgid "configuration file for zone {zone}"
+msgstr "конфигурационен файл на зона {zone}"
+
+#: src/EBox/DNS.pm.in:727
+#, perl-brace-format
+msgid "configuration file for reverse resolution zone {zone}"
+msgstr "конфигурационен файл на зона за обратно разпознаване {zone}"
+
+#: src/EBox/DNS.pm.in:856
+msgid "Infrastructure"
+msgstr "Инфраструктура"
 
 #: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
@@ -47,10 +45,14 @@ msgid ""
 "same domain"
 msgstr "Вече има псевдоним \"{name}\" за \"{hostname}\" в същата област."
 
-#: src/EBox/Model/HostnameTable.pm:159 src/EBox/Model/MailExchanger.pm:110
-#: src/templates/edit.mas:20
+#: src/EBox/Model/HostnameTable.pm:159 src/EBox/Model/MailExchanger.pm:123
+#: src/EBox/Model/NameServer.pm:104 src/templates/edit.mas:20
 msgid "Host name"
 msgstr "Име на хост"
+
+#: src/EBox/Model/HostnameTable.pm:167 src/EBox/Model/DomainTable.pm:99
+msgid "IP Address"
+msgstr "IP адрес"
 
 #: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
 #: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
@@ -62,19 +64,85 @@ msgstr "Псевдоним"
 msgid "Host names"
 msgstr "Имена на хостове"
 
+#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
+msgid "Hostnames"
+msgstr "Имена на хостове"
+
 #: src/EBox/Model/HostnameTable.pm:193
 msgid "host name"
 msgstr "Име на хост"
 
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:51
-msgid "DNS"
-msgstr "DNS"
+#: src/EBox/Model/DomainTable.pm:66
+msgid "Domain"
+msgstr "Област"
+
+#: src/EBox/Model/DomainTable.pm:83
+msgid "Mail Exchangers"
+msgstr "Сървъри за обмен на поща"
+
+#: src/EBox/Model/DomainTable.pm:91
+#, fuzzy
+msgid "Name Servers"
+msgstr "DNS сървър"
+
+#: src/EBox/Model/DomainTable.pm:109
+msgid "Domains"
+msgstr "Области"
 
 #: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr ""
 "DNS сървърът ви дава възможност за разпознаване на имена от вашата собствена "
 "област."
+
+#: src/EBox/Model/MailExchanger.pm:86
+#, perl-brace-format
+msgid "Invalid preference number. Allowed range: ({min}, {max})"
+msgstr "Невалидно число на предпочитание. Допустим интервал: ({min}, {max})"
+
+#: src/EBox/Model/MailExchanger.pm:96
+#, perl-brace-format
+msgid ""
+"The given host name is not a fully qualified domain name (FQDN). Do you mean "
+"mx.{name}?"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:126 src/EBox/Model/NameServer.pm:107
+msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:132 src/EBox/Model/NameServer.pm:113
+msgid "This domain"
+msgstr "Тази област"
+
+#: src/EBox/Model/MailExchanger.pm:140 src/EBox/Model/NameServer.pm:121
+msgid "Custom"
+msgstr "По избор"
+
+#: src/EBox/Model/MailExchanger.pm:148
+msgid "Preference"
+msgstr "Предпочитание"
+
+#: src/EBox/Model/MailExchanger.pm:157
+msgid "Mail exchangers"
+msgstr "Сървъри за обмен на поща"
+
+#: src/EBox/Model/MailExchanger.pm:163
+#, perl-brace-format
+msgid ""
+"The smallest preference number has the highest priority  and is the first "
+"server to be tried when a remote client (typically another mail server) does "
+"an MX lookup for the domain name. Allowed preference number interval = "
+"({min}, {max})"
+msgstr ""
+"Най-малкото число на предпочитание има най-висок приоритет и показва първия "
+"сървър, който трябва да бъде запитан, когато отдалечен клиент (най-често "
+"друг пощенски сървър) прави MX запитване за име на област. Интервал на "
+"допустими числа на предпочитание = ({min}, {max})"
+
+#: src/EBox/Model/MailExchanger.pm:169
+msgid "Mail exchanger record"
+msgstr "Запис за обмен на поща"
 
 #: src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
@@ -100,61 +168,26 @@ msgstr "Вече има псевдоним \"{name}\" за хоста {hostname}
 msgid "alias"
 msgstr "Синоним"
 
-#: src/EBox/Model/MailExchanger.pm:86
-#, perl-brace-format
-msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr "Невалидно число на предпочитание. Допустим интервал: ({min}, {max})"
-
-#: src/EBox/Model/MailExchanger.pm:117
-msgid "This domain"
-msgstr "Тази област"
-
-#: src/EBox/Model/MailExchanger.pm:125
-msgid "Custom"
-msgstr "По избор"
-
-#: src/EBox/Model/MailExchanger.pm:133
-msgid "Preference"
-msgstr "Предпочитание"
-
-#: src/EBox/Model/MailExchanger.pm:142
-msgid "Mail exchangers"
-msgstr "Сървъри за обмен на поща"
-
-#: src/EBox/Model/MailExchanger.pm:148
+#: src/EBox/Model/NameServer.pm:77
 #, perl-brace-format
 msgid ""
-"The smallest preference number has the highest priority  and is the first "
-"server to be tried when a remote client (typically another mail server) does "
-"an MX lookup for the domain name. Allowed preference number interval = "
-"({min}, {max})"
+"The given host name is not a fully qualified domain name (FQDN). Do you mean "
+"ns.{name}?"
 msgstr ""
-"Най-малкото число на предпочитание има най-висок приоритет и показва първия "
-"сървър, който трябва да бъде запитан, когато отдалечен клиент (най-често "
-"друг пощенски сървър) прави MX запитване за име на област. Интервал на "
-"допустими числа на предпочитание = ({min}, {max})"
 
-#: src/EBox/Model/MailExchanger.pm:154
-msgid "Mail exchanger record"
-msgstr "Запис за обмен на поща"
-
-#: src/EBox/DNS.pm.in:88
-msgid "DNS Server"
+#: src/EBox/Model/NameServer.pm:132
+#, fuzzy
+msgid "Name servers"
 msgstr "DNS сървър"
 
-#: src/EBox/DNS.pm.in:658
-#, perl-brace-format
-msgid "configuration file for zone {zone}"
-msgstr "конфигурационен файл на зона {zone}"
+#: src/EBox/Model/NameServer.pm:138
+msgid "It manages the name server (NS) records for this domain"
+msgstr ""
 
-#: src/EBox/DNS.pm.in:674
-#, perl-brace-format
-msgid "configuration file for reverse resolution zone {zone}"
-msgstr "конфигурационен файл на зона за обратно разпознаване {zone}"
-
-#: src/EBox/DNS.pm.in:803
-msgid "Infrastructure"
-msgstr "Инфраструктура"
+#: src/EBox/Model/NameServer.pm:139
+#, fuzzy
+msgid "name server record"
+msgstr "Запис за обмен на поща"
 
 #: src/templates/index.mas:16
 msgid "Domain list"

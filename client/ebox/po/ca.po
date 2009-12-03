@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:30+0100\n"
+"POT-Creation-Date: 2009-12-03 12:57+0000\n"
 "PO-Revision-Date: 2009-11-29 22:32+0100\n"
 "Last-Translator: Sergio Vergara Ruiz <svruiz@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
@@ -19,133 +19,680 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:219
-#, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "Arxiu RSS: {path}"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:233
-msgid "RSS"
-msgstr "RSS"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:290
-#, perl-brace-format
-msgid "eBox alerts channel for {hostname}"
-msgstr "eBox canal d'alertes per {hostname}"
-
-#: src/EBox/Event/Dispatcher/RSS.pm:293
-msgid "This channel tracks what happens on this eBox machine along the time"
-msgstr ""
-
-#: src/EBox/Event/Dispatcher/RSS.pm:313
-#, perl-brace-format
-msgid "The event has happened in eBox {hostname} from {source}"
-msgstr ""
-
-#: src/EBox/Event/Dispatcher/RSS.pm:317
-#, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr ""
-
-#: src/EBox/Event/Dispatcher/Log.pm:136
-msgid "Log file"
-msgstr ""
-
-#: src/EBox/Event/Dispatcher/Log.pm:149
+#: src/EBox/SysInfo.pm:45
 #, fuzzy
-msgid "Log"
+msgid "System Information"
+msgstr "Informació general"
+
+#: src/EBox/SysInfo.pm:80
+msgid "Time"
+msgstr "Temps"
+
+#: src/EBox/SysInfo.pm:81
+#, fuzzy
+msgid "Hostname"
+msgstr "Nom del servidor"
+
+#: src/EBox/SysInfo.pm:83
+#, fuzzy
+msgid "eBox version"
+msgstr "Versió d'Ebox"
+
+#: src/EBox/SysInfo.pm:86
+msgid "System load"
+msgstr "Càrrega del sistema"
+
+#: src/EBox/SysInfo.pm:132 src/EBox/SysInfo.pm:225
+#, fuzzy
+msgid "Module Status"
+msgstr "Coses de ModuleName"
+
+#: src/EBox/SysInfo.pm:137
+#, fuzzy
+msgid "General Information"
+msgstr "Informació general"
+
+#: src/EBox/SysInfo.pm:142
+#, fuzzy
+msgid "Process List"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/SysInfo.pm:149
+#, fuzzy
+msgid "Support & Services"
+msgstr "Serveis"
+
+#: src/EBox/SysInfo.pm:220 src/EBox/CGI/Dashboard/Index.pm:32
+msgid "Dashboard"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:231 src/EBox/Report/DiskUsage.pm:336
+#, fuzzy
+msgid "System"
+msgstr "Càrrega del sistema"
+
+#: src/EBox/SysInfo.pm:235
+msgid "General"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:238 src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:242 src/EBox/CGI/Report/RAID.pm:30
+#: src/EBox/Event/Watcher/RAID.pm:182
+msgid "RAID"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:247 src/EBox/CGI/EBox/Backup.pm:34
+#: src/EBox/Backup.pm:706 src/templates/backup.mas:64
+msgid "Backup"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/SysInfo.pm:250
+msgid "Halt/Reboot"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:41
+msgid "Total ticks"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:43
+msgid "It must be a non-zero positive number"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:51
+#, perl-brace-format
+msgid "Cannot execute {exe}"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:101
+#, perl-brace-format
+msgid "Progress indicator with id {id} not found"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:139
+msgid "Number of ticks to notify"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:141
+msgid "must be greater than zero"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:147
+msgid "Executable has not been run"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:264
+msgid "The executable has not run"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:395
+msgid "The executable has already been started"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:399
+msgid "The executable has already finished"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:209
+#: src/EBox/Events/Model/Watcher/Log.pm:233
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:257
+#: src/EBox/Logs/Model/SelectLog.pm:141
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
+#, fuzzy
+msgid "Domain"
+msgstr "Avall"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:262
+#, fuzzy
+msgid "Filtering"
+msgstr "Filtrat de paquets"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:270
+#, fuzzy
+msgid "Configure log watchers"
+msgstr "Descarta els canvis"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:272
+msgid "Log watcher"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
+#, perl-brace-format
+msgid "Log domain {logDomain}"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
+#: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
+#: src/templates/logs/index.mas:185
+msgid "Any"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
+#: src/templates/logs/index.mas:183
+#, fuzzy
+msgid "Event"
+msgstr "Extern"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
+msgid "filter"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
+msgid "Minimum free disk space per filesystem"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
+#, fuzzy
+msgid "Configure disk free space watcher"
+msgstr "Descarta els canvis"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+msgid "Name"
+msgstr "Nom"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
+#: src/templates/backup.mas:44 src/templates/backup.mas:126
+#: src/templates/confirm-backup.mas:36
+msgid "Description"
+msgstr "Descripció"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
+#, fuzzy
+msgid "Configuration"
+msgstr "Desa la configuració"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
+#, fuzzy
+msgid "None"
+msgstr "No"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
+#, fuzzy
+msgid "Configure Events"
+msgstr "Desa la configuració"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
+#, fuzzy
+msgid "event"
+msgstr "Extern"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
+msgid "Enable/Disable each event watcher monitoring"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
+msgid "Receiver"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
+#: src/EBox/Model/DataTable.pm:4480
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
+#, fuzzy
+msgid "Configure Dispatchers"
+msgstr "Descarta els canvis"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
+#, fuzzy
+msgid "dispatcher"
+msgstr "Descarta els canvis"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
+msgid "Enable/Disable each event dispatcher"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
+msgid ""
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
+msgstr ""
+
+#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:89
+#, fuzzy
+msgid "Events"
+msgstr "Extern"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:78
+msgid ""
+"Events module configures eBox to help informing you about events that happen"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
+msgid "Jabber server name"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
+msgid "Jabber server to send the messages"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
+msgid "Jabber user name"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
+#, fuzzy
+msgid "User password"
+msgstr "Nova contrasenya"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
+msgid "Subscribe"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
+msgid ""
+"Tick this option if you want eBox to create an account for the above user"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#, fuzzy
+msgid "Administrator Jabber Identifier"
+msgstr "Contrasenya de l'administrador"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+msgid ""
+"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
+"admin. Note that you need to register this  account manually in any jabber "
+"server"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
+msgid "Configure Jabber dispatcher"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
+msgid "This dispatcher will send events to an Jabber account"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
+#, fuzzy
+msgid "Jabber dispatcher configuration updated"
+msgstr "Restaura la configuració"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
+msgid "Nobody"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
+msgid "IP address"
+msgstr "Adreça IP"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
+msgid "Object"
+msgstr "Objecte"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
+#, fuzzy
+msgid "Public"
+msgstr "Política"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
+msgid "Channel link"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
+msgid "Allowed readers"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+msgid "Use this field to set the access control for the channel"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+msgid "Syndicate this RSS"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
+#, fuzzy
+msgid "Configure RSS dispatcher"
+msgstr "Descarta els canvis"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
+#, fuzzy
+msgid "RSS dispatcher configuration updated"
+msgstr "Restaura la configuració"
+
+#: src/EBox/EventDaemon.pm:476
+#, perl-brace-format
+msgid "Dispatcher {name} disabled since it is not able to send events"
+msgstr ""
+
+#: src/EBox/Auth.pm:155
+#, fuzzy
+msgid "Password changed"
+msgstr "Nova contrasenya"
+
+#: src/EBox/CGI/ClientRawBase.pm:209
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+"S'ha produït un error relacionat amb una plantilla. Això és una errada, "
+"hauríeu de trobar informació relevant als registres."
+
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:57
+#, fuzzy
+msgid "Logs"
 msgstr "Surt"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:166
-msgid "Admin Jabber account"
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:53
+#, fuzzy
+msgid "Configure Widgets"
+msgstr "Desa la configuració"
+
+#: src/EBox/CGI/Login/Index.pm:62
+msgid ""
+"There is a script which has asked to run in eBox exclusively. Please, wait "
+"patiently until it is done"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:179
-msgid "Jabber"
+#: src/EBox/CGI/Login/Index.pm:66
+#, fuzzy
+msgid "Incorrect password"
+msgstr "Contrasenya incorrecta."
+
+#: src/EBox/CGI/Login/Index.pm:69
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Per raons de seguretat, la vostra sessió ha caducat per inactivitat"
+
+#: src/EBox/CGI/Login/Index.pm:72
+msgid "You have been logged out because a new session has been opened"
+msgstr "Heu sortit perque s'ha iniciat una nova sessió"
+
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
+#, fuzzy
+msgid "Module Status Configuration"
+msgstr "Restaura la configuració"
+
+#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
+msgid "Logout"
+msgstr "Surt"
+
+#: src/EBox/CGI/EBox/General.pm:30
+#, fuzzy
+msgid "General Configuration"
+msgstr "Configuració general"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or Reboot"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:229
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "eBox is going down for halt"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "eBox is going down for reboot"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:49
+#, fuzzy
+msgid "Password"
+msgstr "Nova contrasenya"
+
+#: src/EBox/CGI/EBox/Password.pm:52
+msgid "Incorrect password."
+msgstr "Contrasenya incorrecta."
+
+#: src/EBox/CGI/EBox/Password.pm:57
+msgid "New passwords do not match."
+msgstr "Les contrasenyes noves no coincideixen."
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "The password must be at least 6 characters long"
+msgstr "La contrasenya ha de tenir almenys 6 caràcters"
+
+#: src/EBox/CGI/EBox/Password.pm:66
+msgid "The password was changed successfully."
+msgstr "S'ha canviat la contrasenya amb èxit."
+
+#: src/EBox/CGI/EBox/Bug.pm:29
+msgid "Bug report"
+msgstr "Informe d'error"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
+#, fuzzy
+msgid "Configuration Backup"
+msgstr "Còpies de seguretat de la configuració"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Confirmeu que voleu eliminar el següent fitxer de còpia de seguretat:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
+#: src/templates/backup.mas:173
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
+#, fuzzy
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr ""
+"Confirmeu que voleu restaurar la configuració des d'aquest fitxer de còpia "
+"de seguretat:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
+msgid "Restore"
+msgstr "Restaura"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
+#: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
+#: src/EBox/Backup.pm:1311
+msgid "The input contains invalid characters"
+msgstr "L'entrada conté caràcters invàlids"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
+#, fuzzy
+msgid "Configuration backup"
+msgstr "Còpies de seguretat de la configuració"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+#, fuzzy
+msgid "Full data and configuration backup"
+msgstr "Llista de còpies de seguretat de la configuració"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+#, fuzzy
+msgid "Bug-report configuration dump"
+msgstr "Restaura la configuració"
+
+#: src/EBox/CGI/EBox/RestartService.pm:48
+#, fuzzy
+msgid "module name"
+msgstr "Nom del servidor"
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr ""
+
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
+msgid "Unknown backup mode: {mode}"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:259
+#: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
-msgid "Subscription failed: {message}"
+msgid "Unknown restore mode: {mode}"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:266
-#, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
+#: src/EBox/CGI/EBox/Backup.pm:239
+#, fuzzy
+msgid "Backing up"
+msgstr "Fes una còpia de seguretat"
+
+#: src/EBox/CGI/EBox/Backup.pm:240
+#, fuzzy
+msgid "Backing up modules"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/CGI/EBox/Backup.pm:241
+#, fuzzy
+msgid "Operation"
+msgstr "Descripció"
+
+#: src/EBox/CGI/EBox/Backup.pm:242
+msgid "operations left to finish backup"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Abstract.pm:141
-#, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
+#: src/EBox/CGI/EBox/Backup.pm:243
+#, fuzzy
+msgid "Backup successful"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/CGI/EBox/Backup.pm:254
+#, fuzzy
+msgid "Restoring backup"
+msgstr "Restaura des de la còpia de seguretat"
+
+#: src/EBox/CGI/EBox/Backup.pm:255
+#, fuzzy
+msgid "Restoring modules"
+msgstr "Restaura"
+
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
+#, fuzzy
+msgid "Module"
+msgstr "regla"
+
+#: src/EBox/CGI/EBox/Backup.pm:257
+msgid "modules left to restore"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Runit.pm:113
-#, perl-brace-format
-msgid "The following modules are not running: {modules}\n"
+#: src/EBox/CGI/EBox/Backup.pm:258
+#, fuzzy
+msgid "Restore successful"
+msgstr "Restaura"
+
+#: src/EBox/CGI/Finish.pm:32
+msgid "Save configuration"
+msgstr "Desa la configuració"
+
+#: src/EBox/CGI/Finish.pm:76
+#, fuzzy
+msgid "Saving changes"
+msgstr "Descarta els canvis"
+
+#: src/EBox/CGI/Finish.pm:77
+#, fuzzy
+msgid "Saving changes in modules"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
+#, fuzzy
+msgid "Current operation"
+msgstr "Contrasenya actual"
+
+#: src/EBox/CGI/Finish.pm:79
+msgid "operations performed"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Runit.pm:142
-msgid "Service"
-msgstr "Servei"
+#: src/EBox/CGI/Finish.pm:80
+#, fuzzy
+msgid "Changes saved"
+msgstr "Canvia la contrasenya"
 
-#: src/EBox/Event/Watcher/Runit.pm:159
-msgid "Check if any eBox service is not running when it should"
-msgstr ""
-
-#: src/EBox/Event/Watcher/Runit.pm:229
+#: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
 msgid ""
-"The service {service} has been restarted {restart} times in {time} seconds "
-"and it has been stopped"
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Log.pm:203
-msgid "Log observer"
-msgstr ""
-
-#: src/EBox/Event/Watcher/Log.pm:230
-#, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr ""
-
-#: src/EBox/Event/Watcher/State.pm:126
-msgid "eBox is up and running"
-msgstr ""
-
-#: src/EBox/Event/Watcher/State.pm:132
-msgid "eBox is critically down"
-msgstr ""
-
-#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
+#: src/EBox/CGI/Finish.pm:100
 #, fuzzy
-msgid "State"
-msgstr "Estat"
+msgid "Revoking changes"
+msgstr "Descarta els canvis"
 
-#: src/EBox/Event/Watcher/State.pm:174
-msgid "Check if eBox is currently up or down"
-msgstr ""
+#: src/EBox/CGI/Finish.pm:101
+#, fuzzy
+msgid "Revoking changes in modules"
+msgstr "Restaura"
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#: src/EBox/CGI/Finish.pm:102
+#, fuzzy
+msgid "Current module"
+msgstr "Contrasenya actual"
+
+#: src/EBox/CGI/Finish.pm:103
+#, fuzzy
+msgid "modules revoked"
+msgstr "Nom del servidor"
+
+#: src/EBox/CGI/Finish.pm:104
+#, fuzzy
+msgid "Changes revoked"
+msgstr "Canvia la contrasenya"
+
+#: src/EBox/CGI/Finish.pm:105
 #, perl-brace-format
-msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr ""
-
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
-msgid "Free storage space"
-msgstr ""
-
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition has no storage space left"
-msgstr ""
-
-#: src/EBox/Event/Watcher/RAID.pm:182 src/EBox/CGI/Report/RAID.pm:30
-#: src/EBox/SysInfo.pm:218
-msgid "RAID"
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
 msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:199
@@ -338,302 +885,191 @@ msgstr ""
 msgid "spare"
 msgstr ""
 
-#: src/EBox/EventDaemon.pm:473
+#: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
-msgid "Dispatcher {name} disabled since it is not able to send events"
+msgid "The following modules are not running: {modules}\n"
 msgstr ""
 
-#: src/EBox/Backup.pm:96
-#, fuzzy
-msgid "Creating backup archive"
-msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
+#: src/EBox/Event/Watcher/Runit.pm:142
+msgid "Service"
+msgstr "Servei"
 
-#: src/EBox/Backup.pm:140
+#: src/EBox/Event/Watcher/Runit.pm:159
+msgid "Check if any eBox service is not running when it should"
+msgstr ""
+
+#: src/EBox/Event/Watcher/Runit.pm:229
+#, perl-brace-format
+msgid ""
+"The service {service} has been restarted {restart} times in {time} seconds "
+"and it has been stopped"
+msgstr ""
+
+#: src/EBox/Event/Watcher/State.pm:126
+msgid "eBox is up and running"
+msgstr ""
+
+#: src/EBox/Event/Watcher/State.pm:132
+msgid "eBox is critically down"
+msgstr ""
+
+#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
+#, fuzzy
+msgid "State"
+msgstr "Estat"
+
+#: src/EBox/Event/Watcher/State.pm:174
+msgid "Check if eBox is currently up or down"
+msgstr ""
+
+#: src/EBox/Event/Watcher/Log.pm:203
+msgid "Log observer"
+msgstr ""
+
+#: src/EBox/Event/Watcher/Log.pm:230
+#, perl-brace-format
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr ""
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
+#, perl-brace-format
+msgid "The file system {fs}, mounted on {mp}, has no space left"
+msgstr ""
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
+msgid "Free storage space"
+msgstr ""
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
+msgid "Check if any disk partition has no storage space left"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:166
+msgid "Admin Jabber account"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:179
+msgid "Jabber"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:229
+#, perl-brace-format
+msgid "Jabber server {serverName} is down or connection is not allowed"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:259
+#, perl-brace-format
+msgid "Subscription failed: {message}"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:266
+#, perl-brace-format
+msgid "Authorization failed: {result} - {message}"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Abstract.pm:141
+#, perl-brace-format
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Log.pm:136
+msgid "Log file"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Log.pm:149
+#, fuzzy
+msgid "Log"
+msgstr "Surt"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:219
+#, perl-brace-format
+msgid "RSS file: {path}"
+msgstr "Arxiu RSS: {path}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:233
+msgid "RSS"
+msgstr "RSS"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:290
+#, perl-brace-format
+msgid "eBox alerts channel for {hostname}"
+msgstr "eBox canal d'alertes per {hostname}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:293
+msgid "This channel tracks what happens on this eBox machine along the time"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/RSS.pm:313
+#, perl-brace-format
+msgid "The event has happened in eBox {hostname} from {source}"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/RSS.pm:317
+#, perl-brace-format
+msgid "Go to your {url} to check its status."
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
+#: src/EBox/PgDBEngine.pm:76
+#, perl-brace-format
+msgid "You must set the {variable} variable in the ebox configuration file"
+msgstr "Heu d'establir la variable {variable} al fitxer de configuració d'ebox"
+
+#: src/EBox/PgDBEngine.pm:272
+#, perl-brace-format
+msgid "Error dumping the postgresql database {name}"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:290
+#, perl-brace-format
+msgid "DB dump file {file} is not readable"
+msgstr ""
+
+#: src/EBox/Types/Int.pm:155
+msgid "Enter an integer number"
+msgstr ""
+
+#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:121
+#, perl-brace-format
+msgid "The value shouldn't be greater than {m}"
+msgstr ""
+
+#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:130
+#, perl-brace-format
+msgid "The value shouldn't be less than {m}"
+msgstr ""
+
+#: src/EBox/Types/Password.pm:134
 #, fuzzy, perl-brace-format
-msgid "Dumping configuration of module {m}"
-msgstr "Restaura la configuració"
+msgid "The password should have at least {minLength} characters"
+msgstr "La contrasenya ha de tenir almenys 6 caràcters"
 
-#: src/EBox/Backup.pm:299
-#, fuzzy
-msgid "Could not create backup archive"
-msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
-
-#: src/EBox/Backup.pm:306
-#, fuzzy
-msgid "Could not append data to backup archive"
-msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
-
-#: src/EBox/Backup.pm:421
-msgid "Unknown"
-msgstr ""
-
-#: src/EBox/Backup.pm:474
-#, perl-brace-format
-msgid "Could not extract the requested backup files: {files}"
-msgstr ""
-
-#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1123
-msgid "Could not unpack the backup"
-msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
-
-#: src/EBox/Backup.pm:706 src/EBox/CGI/EBox/Backup.pm:34
-#: src/EBox/SysInfo.pm:223 src/templates/backup.mas:64
-msgid "Backup"
-msgstr "Còpia de seguretat"
-
-#: src/EBox/Backup.pm:742
-msgid "Writing backup file to hard disk"
-msgstr ""
-
-#: src/EBox/Backup.pm:767
-msgid ""
-"Some modules has not saved changes. Before doing the backup you must save  "
-"or discard them"
-msgstr ""
-
-#: src/EBox/Backup.pm:822
-msgid "Incorrect or corrupt backup file"
-msgstr "El fitxer de còpia de seguretat és incorrecte o corromput"
-
-#: src/EBox/Backup.pm:851
-#, fuzzy
-msgid "The backup file is corrupt: could not open archive"
-msgstr "El fitxer de còpia de seguretat és corrupte."
-
-#: src/EBox/Backup.pm:863
-#, fuzzy
-msgid "The backup file is corrupt: could not open backup checksum"
-msgstr "El fitxer de còpia de seguretat és corrupte."
-
-#: src/EBox/Backup.pm:870
-msgid "The backup file is corrupt."
-msgstr "El fitxer de còpia de seguretat és corrupte."
-
-#: src/EBox/Backup.pm:888
-msgid ""
-"The backup archive has a invalid type. Maybe the file is corrupt or you are "
-"using a incompatible eBox version"
-msgstr ""
-
-#: src/EBox/Backup.pm:894
-msgid ""
-"The archive does not contain a full backup, that made a full restore "
-"impossibe. A configuration recovery  may be possible"
-msgstr ""
-
-#: src/EBox/Backup.pm:929
-#, perl-brace-format
-msgid ""
-"There in not enough space left in the hard disk to complete the restore "
-"proccess. {size} Kb required. Free sufficient space and retry"
-msgstr ""
-
-#: src/EBox/Backup.pm:1210
-#, perl-brace-format
-msgid "No module {m} found in backup"
-msgstr ""
-
-#: src/EBox/Backup.pm:1237
-msgid "No modules to restore"
-msgstr ""
-
-#: src/EBox/Backup.pm:1302
-#, perl-brace-format
-msgid ""
-"Unresolved restore dependency for module {topModule}: {modName} is not "
-"installed"
-msgstr ""
-
-#: src/EBox/Backup.pm:1323 src/EBox/CGI/EBox/Backup.pm:192
-#: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:147
-msgid "The input contains invalid characters"
-msgstr "L'entrada conté caràcters invàlids"
-
-#: src/EBox/Backup.pm:1345
-#, fuzzy
-msgid "Backup's archives"
-msgstr "Còpia de seguretat"
-
-#: src/EBox/Model/DataForm.pm:544
-#, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr ""
-
-#: src/EBox/Model/DataForm.pm:594 src/templates/dataInUse.mas:25
-#: src/templates/dataInUse.mas:34 src/templates/port.mas:14
-#: src/templates/password.mas:53
-msgid "Change"
-msgstr "Canvia"
-
-#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
-#, fuzzy
-msgid "Done"
-msgstr "Avall"
-
-#: src/EBox/Model/Composite.pm:371
-#, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr ""
-
-#: src/EBox/Model/Composite.pm:670 src/EBox/Model/Composite.pm:685
-#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Model/DataTable.pm:2067
-#: src/EBox/Logs.pm:649
-msgid "Action"
-msgstr "Acció"
-
-#: src/EBox/Model/Composite.pm:672
-#, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr ""
-
-#: src/EBox/Model/Composite.pm:795
-msgid "Choose one of the following:"
-msgstr ""
-
-#: src/EBox/Model/ModelManager.pm:468
-msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
-msgstr ""
-
-#: src/EBox/Model/ModelManager.pm:515
-msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
-msgstr ""
-
-#: src/EBox/Model/ProviderBase.pm:246
+#: src/EBox/Types/Password.pm:145
 #, fuzzy, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "{field} no existeix."
+msgid "The password should have at most {maxLength} characters"
+msgstr "La contrasenya ha de tenir almenys 6 caràcters"
 
-#: src/EBox/Model/DataTable.pm:326
+#: src/EBox/Types/DomainName.pm:118
+msgid "IP addresses are not allowed"
+msgstr ""
+
+#: src/EBox/Types/PortRange.pm:138
+msgid "any"
+msgstr ""
+
+#: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
-msgid "{model} in {module} module"
+msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:330
-#, fuzzy
-msgid "at"
-msgstr "Data"
-
-#: src/EBox/Model/DataTable.pm:510
-msgid "field"
+#: src/EBox/Types/Float.pm:113
+msgid "Enter a float number"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:1434
-#, fuzzy
-msgid "page"
-msgstr "Canvia"
-
-#: src/EBox/Model/DataTable.pm:1437
-msgid "Page must be a number equal or greater than zero"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:2742
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
-msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgid "Choose a value within the value set: {set}"
 msgstr ""
-
-#: src/EBox/Model/DataTable.pm:2813
-#, fuzzy
-msgid "Page size"
-msgstr "Canvia"
-
-#: src/EBox/Model/DataTable.pm:2816
-msgid "Must be either a positive number or zero"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:3123
-#, fuzzy, perl-brace-format
-msgid "{row} added"
-msgstr "Elimina"
-
-#: src/EBox/Model/DataTable.pm:3124
-#, fuzzy, perl-brace-format
-msgid "{row} deleted"
-msgstr "Elimina"
-
-#: src/EBox/Model/DataTable.pm:3125
-#, fuzzy, perl-brace-format
-msgid "{row} updated"
-msgstr "Elimina"
-
-#: src/EBox/Model/DataTable.pm:3126
-#, perl-brace-format
-msgid "{row} moved up"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:3127
-#, perl-brace-format
-msgid "{row} moved down"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:4419
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
-msgid "Enabled"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:41
-msgid "Total ticks"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:43
-msgid "It must be a non-zero positive number"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:51
-#, perl-brace-format
-msgid "Cannot execute {exe}"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:101
-#, perl-brace-format
-msgid "Progress indicator with id {id} not found"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:139
-msgid "Number of ticks to notify"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:141
-msgid "must be greater than zero"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:147
-msgid "Executable has not been run"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:264
-msgid "The executable has not run"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:395
-msgid "The executable has already been started"
-msgstr ""
-
-#: src/EBox/ProgressIndicator.pm:399
-msgid "The executable has already finished"
-msgstr ""
-
-#: src/EBox/Global.pm:442 src/EBox/Global.pm:463
-#, fuzzy, perl-brace-format
-msgid "Saving {modName} module"
-msgstr "Còpia de seguretat"
-
-#: src/EBox/Global.pm:889
-#, perl-brace-format
-msgid "running {scriptName} script"
-msgstr ""
-
-#: src/EBox/Logs/Model/SelectLog.pm:141
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
-#: src/EBox/Events/Model/Watcher/Log.pm:219
-#, fuzzy
-msgid "Domain"
-msgstr "Avall"
 
 #: src/EBox/Logs/Model/SelectLog.pm:149
 #, fuzzy
@@ -719,6 +1155,15 @@ msgstr "Desa la configuració"
 msgid "Enable/disable logging per-module basis"
 msgstr ""
 
+#: src/EBox/Logs/Model/ForcePurge.pm:109
+msgid "Force log purge"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:112
+#, fuzzy
+msgid "Purge"
+msgstr "Canvia"
+
 #: src/EBox/Logs/Model/Report/Details.pm:226
 #: src/EBox/Logs/Model/Report/Details.pm:234
 #: src/EBox/Logs/Model/Report/Details.pm:269
@@ -752,645 +1197,27 @@ msgstr ""
 msgid "Report options"
 msgstr "Descripció"
 
-#: src/EBox/Logs/Model/ForcePurge.pm:109
-msgid "Force log purge"
-msgstr ""
-
-#: src/EBox/Logs/Model/ForcePurge.pm:112
+#: src/EBox/Common/Model/EnableForm.pm:100
 #, fuzzy
-msgid "Purge"
-msgstr "Canvia"
+msgid "Service enabled"
+msgstr "Servei"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:196
-msgid "Dashboard"
-msgstr ""
-
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:53
+#: src/EBox/Common/Model/EnableForm.pm:102
 #, fuzzy
-msgid "Configure Widgets"
-msgstr "Desa la configuració"
+msgid "Service disabled"
+msgstr "Serveis"
 
-#: src/EBox/CGI/Login/Index.pm:62
-msgid ""
-"There is a script which has asked to run in eBox exclusively. Please, wait "
-"patiently until it is done"
-msgstr ""
-
-#: src/EBox/CGI/Login/Index.pm:66
+#: src/EBox/Common/Model/EnableForm.pm:146
 #, fuzzy
-msgid "Incorrect password"
-msgstr "Contrasenya incorrecta."
+msgid "Enable service"
+msgstr "servei"
 
-#: src/EBox/CGI/Login/Index.pm:69
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Per raons de seguretat, la vostra sessió ha caducat per inactivitat"
-
-#: src/EBox/CGI/Login/Index.pm:72
-msgid "You have been logged out because a new session has been opened"
-msgstr "Heu sortit perque s'ha iniciat una nova sessió"
-
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
-msgid "Module Status Configuration"
-msgstr "Restaura la configuració"
-
-#: src/EBox/CGI/EBox/General.pm:30
-#, fuzzy
-msgid "General Configuration"
-msgstr "Configuració general"
-
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
+#: src/EBox/Events.pm:417
+msgid "The events module is not enabled to send events"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:160
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:226
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:239
-#, fuzzy
-msgid "Backing up"
-msgstr "Fes una còpia de seguretat"
-
-#: src/EBox/CGI/EBox/Backup.pm:240
-#, fuzzy
-msgid "Backing up modules"
-msgstr "Còpia de seguretat"
-
-#: src/EBox/CGI/EBox/Backup.pm:241
-#, fuzzy
-msgid "Operation"
-msgstr "Descripció"
-
-#: src/EBox/CGI/EBox/Backup.pm:242
-msgid "operations left to finish backup"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:243
-#, fuzzy
-msgid "Backup successful"
-msgstr "Còpia de seguretat"
-
-#: src/EBox/CGI/EBox/Backup.pm:254
-#, fuzzy
-msgid "Restoring backup"
-msgstr "Restaura des de la còpia de seguretat"
-
-#: src/EBox/CGI/EBox/Backup.pm:255
-#, fuzzy
-msgid "Restoring modules"
-msgstr "Restaura"
-
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
-#: src/templates/finish.mas:106 src/templates/moduleStatusTable.mas:58
-#, fuzzy
-msgid "Module"
-msgstr "regla"
-
-#: src/EBox/CGI/EBox/Backup.pm:257
-msgid "modules left to restore"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:258
-#, fuzzy
-msgid "Restore successful"
-msgstr "Restaura"
-
-#: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:32
-#, fuzzy
-msgid "Password"
-msgstr "Nova contrasenya"
-
-#: src/EBox/CGI/EBox/Password.pm:52
-msgid "Incorrect password."
-msgstr "Contrasenya incorrecta."
-
-#: src/EBox/CGI/EBox/Password.pm:57
-msgid "New passwords do not match."
-msgstr "Les contrasenyes noves no coincideixen."
-
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "The password must be at least 6 characters long"
-msgstr "La contrasenya ha de tenir almenys 6 caràcters"
-
-#: src/EBox/CGI/EBox/Password.pm:66
-msgid "The password was changed successfully."
-msgstr "S'ha canviat la contrasenya amb èxit."
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or Reboot"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "eBox is going down for halt"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "eBox is going down for reboot"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
-#, fuzzy
-msgid "Configuration Backup"
-msgstr "Còpies de seguretat de la configuració"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Confirmeu que voleu eliminar el següent fitxer de còpia de seguretat:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
-#: src/templates/backup.mas:173
-msgid "Delete"
-msgstr "Elimina"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-#, fuzzy
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
-"Confirmeu que voleu restaurar la configuració des d'aquest fitxer de còpia "
-"de seguretat:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
-msgid "Restore"
-msgstr "Restaura"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-#, fuzzy
-msgid "Configuration backup"
-msgstr "Còpies de seguretat de la configuració"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-#, fuzzy
-msgid "Full data and configuration backup"
-msgstr "Llista de còpies de seguretat de la configuració"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-#, fuzzy
-msgid "Bug-report configuration dump"
-msgstr "Restaura la configuració"
-
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "Informe d'error"
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-#, fuzzy
-msgid "module name"
-msgstr "Nom del servidor"
-
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr ""
-
-#: src/EBox/CGI/ClientRawBase.pm:209
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"S'ha produït un error relacionat amb una plantilla. Això és una errada, "
-"hauríeu de trobar informació relevant als registres."
-
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:57
-#, fuzzy
-msgid "Logs"
-msgstr "Surt"
-
-#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Surt"
-
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm:214
-msgid "Disk Usage"
-msgstr ""
-
-#: src/EBox/CGI/Finish.pm:32
-msgid "Save configuration"
-msgstr "Desa la configuració"
-
-#: src/EBox/CGI/Finish.pm:76
-#, fuzzy
-msgid "Saving changes"
-msgstr "Descarta els canvis"
-
-#: src/EBox/CGI/Finish.pm:77
-#, fuzzy
-msgid "Saving changes in modules"
-msgstr "Còpia de seguretat"
-
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
-#, fuzzy
-msgid "Current operation"
-msgstr "Contrasenya actual"
-
-#: src/EBox/CGI/Finish.pm:79
-msgid "operations performed"
-msgstr ""
-
-#: src/EBox/CGI/Finish.pm:80
-#, fuzzy
-msgid "Changes saved"
-msgstr "Canvia la contrasenya"
-
-#: src/EBox/CGI/Finish.pm:81
-#, perl-brace-format
-msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr ""
-
-#: src/EBox/CGI/Finish.pm:100
-#, fuzzy
-msgid "Revoking changes"
-msgstr "Descarta els canvis"
-
-#: src/EBox/CGI/Finish.pm:101
-#, fuzzy
-msgid "Revoking changes in modules"
-msgstr "Restaura"
-
-#: src/EBox/CGI/Finish.pm:102
-#, fuzzy
-msgid "Current module"
-msgstr "Contrasenya actual"
-
-#: src/EBox/CGI/Finish.pm:103
-#, fuzzy
-msgid "modules revoked"
-msgstr "Nom del servidor"
-
-#: src/EBox/CGI/Finish.pm:104
-#, fuzzy
-msgid "Changes revoked"
-msgstr "Canvia la contrasenya"
-
-#: src/EBox/CGI/Finish.pm:105
-#, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
-msgstr ""
-
-#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
-#: src/EBox/PgDBEngine.pm:76
-#, perl-brace-format
-msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr "Heu d'establir la variable {variable} al fitxer de configuració d'ebox"
-
-#: src/EBox/PgDBEngine.pm:272
-#, perl-brace-format
-msgid "Error dumping the postgresql database {name}"
-msgstr ""
-
-#: src/EBox/PgDBEngine.pm:290
-#, perl-brace-format
-msgid "DB dump file {file} is not readable"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
-msgid "Nobody"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
-msgid "IP address"
-msgstr "Adreça IP"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
-msgid "Object"
-msgstr "Objecte"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
-#, fuzzy
-msgid "Public"
-msgstr "Política"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
-msgid "Channel link"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
-msgid "Allowed readers"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
-msgid "Use this field to set the access control for the channel"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
-msgid "Syndicate this RSS"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
-#, fuzzy
-msgid "Configure RSS dispatcher"
-msgstr "Descarta els canvis"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
-#, fuzzy
-msgid "RSS dispatcher configuration updated"
-msgstr "Restaura la configuració"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
-msgid "Jabber server name"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
-msgid "Jabber server to send the messages"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
-msgid "Jabber user name"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
-#, fuzzy
-msgid "User password"
-msgstr "Nova contrasenya"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
-msgid "Subscribe"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
-msgid ""
-"Tick this option if you want eBox to create an account for the above user"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
-#, fuzzy
-msgid "Administrator Jabber Identifier"
-msgstr "Contrasenya de l'administrador"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
-msgid ""
-"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
-"admin. Note that you need to register this  account manually in any jabber "
-"server"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
-msgid "Configure Jabber dispatcher"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
-msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
-#, fuzzy
-msgid "Jabber dispatcher configuration updated"
-msgstr "Restaura la configuració"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr ""
-
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:89
-#, fuzzy
-msgid "Events"
-msgstr "Extern"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:78
-msgid ""
-"Events module configures eBox to help informing you about events that happen"
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
-msgid "Name"
-msgstr "Nom"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
-#: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
-#: src/templates/backup.mas:126
-msgid "Description"
-msgstr "Descripció"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
-#, fuzzy
-msgid "Configuration"
-msgstr "Desa la configuració"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
-#, fuzzy
-msgid "None"
-msgstr "No"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
-#, fuzzy
-msgid "Configure Events"
-msgstr "Desa la configuració"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
-#, fuzzy
-msgid "event"
-msgstr "Extern"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
-msgid "Enable/Disable each event watcher monitoring"
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/Log.pm:171
-#: src/EBox/Events/Model/Watcher/Log.pm:195
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/Log.pm:224
-#, fuzzy
-msgid "Filtering"
-msgstr "Filtrat de paquets"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:232
-#, fuzzy
-msgid "Configure log watchers"
-msgstr "Descarta els canvis"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:234
-msgid "Log watcher"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
-#, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
-#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
-#: src/templates/logs/index.mas:185
-msgid "Any"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
-#: src/templates/logs/index.mas:183
-#, fuzzy
-msgid "Event"
-msgstr "Extern"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
-#, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
-msgid "filter"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
-msgid "Minimum free disk space per filesystem"
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr ""
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
-#, fuzzy
-msgid "Configure disk free space watcher"
-msgstr "Descarta els canvis"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
-msgid "Receiver"
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
-#, fuzzy
-msgid "Configure Dispatchers"
-msgstr "Descarta els canvis"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
-#, fuzzy
-msgid "dispatcher"
-msgstr "Descarta els canvis"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
-msgid "Enable/Disable each event dispatcher"
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr ""
-
-#: src/EBox/Html.pm:39
-#, fuzzy
-msgid "Save changes"
-msgstr "Descarta els canvis"
-
-#: src/EBox/Auth.pm:155
-#, fuzzy
-msgid "Password changed"
-msgstr "Nova contrasenya"
-
-#: src/EBox/Report/DiskUsage.pm:61
-#, perl-brace-format
-msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr ""
-
-#: src/EBox/Report/DiskUsage.pm:210
-#, perl-brace-format
-msgid ""
-"Invalid file system: {f}. Only regular and no removable media file systems "
-"are accepted"
-msgstr ""
-
-#: src/EBox/Report/DiskUsage.pm:333
-msgid "Free space"
-msgstr ""
-
-#: src/EBox/Report/DiskUsage.pm:336 src/EBox/SysInfo.pm:207
-#, fuzzy
-msgid "System"
-msgstr "Càrrega del sistema"
-
-#: src/EBox/Types/Select.pm:342
-#, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr ""
-
-#: src/EBox/Types/Password.pm:134
-#, fuzzy, perl-brace-format
-msgid "The password should have at least {minLength} characters"
-msgstr "La contrasenya ha de tenir almenys 6 caràcters"
-
-#: src/EBox/Types/Password.pm:145
-#, fuzzy, perl-brace-format
-msgid "The password should have at most {maxLength} characters"
-msgstr "La contrasenya ha de tenir almenys 6 caràcters"
-
-#: src/EBox/Types/Int.pm:155
-msgid "Enter an integer number"
-msgstr ""
-
-#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:121
-#, perl-brace-format
-msgid "The value shouldn't be greater than {m}"
-msgstr ""
-
-#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:130
-#, perl-brace-format
-msgid "The value shouldn't be less than {m}"
-msgstr ""
-
-#: src/EBox/Types/Float.pm:113
-msgid "Enter a float number"
-msgstr ""
-
-#: src/EBox/Types/DomainName.pm:118
-msgid "IP addresses are not allowed"
-msgstr ""
-
-#: src/EBox/Types/PortRange.pm:138
-msgid "any"
-msgstr ""
-
-#: src/EBox/Types/PortRange.pm:414
-#, perl-brace-format
-msgid "\"From\" {from} must be greater than \"To\" {to}"
+#: src/EBox/Events.pm:632
+msgid "Event service status"
 msgstr ""
 
 #: src/EBox/Logs.pm:73
@@ -1416,7 +1243,7 @@ msgid "Configure Logs"
 msgstr "Desa la configuració"
 
 #: src/EBox/Logs.pm:646 src/templates/finish.mas:105
-#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:128
+#: src/templates/backup.mas:128 src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "Data"
 
@@ -1424,6 +1251,12 @@ msgstr "Data"
 #, fuzzy
 msgid "Client Address"
 msgstr "adreça ip"
+
+#: src/EBox/Logs.pm:649 src/EBox/Model/Composite.pm:670
+#: src/EBox/Model/Composite.pm:685 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/DataTable.pm:2128
+msgid "Action"
+msgstr "Acció"
 
 #: src/EBox/Logs.pm:650
 msgid "Params"
@@ -1445,146 +1278,254 @@ msgstr ""
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr ""
 
-#: src/EBox/Events.pm:549
-msgid "Event service status"
+#: src/EBox/Model/ProviderBase.pm:246
+#, fuzzy, perl-brace-format
+msgid "Provided object with index {i} does not exist"
+msgstr "{field} no existeix."
+
+#: src/EBox/Model/DataForm.pm:544
+#, perl-brace-format
+msgid "Remove data from {model}{br}"
 msgstr ""
 
-#: src/EBox/Apache.pm:265 src/EBox/Apache.pm:274
+#: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
+#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
+#: src/templates/port.mas:14
+msgid "Change"
+msgstr "Canvia"
+
+#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
+#, fuzzy
+msgid "Done"
+msgstr "Avall"
+
+#: src/EBox/Model/Composite.pm:371
+#, perl-brace-format
+msgid "It should be one of following values: {values}"
+msgstr ""
+
+#: src/EBox/Model/Composite.pm:672
+#, perl-brace-format
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr ""
+
+#: src/EBox/Model/Composite.pm:795
+msgid "Choose one of the following:"
+msgstr ""
+
+#: src/EBox/Model/ModelManager.pm:468
+msgid ""
+"The data you are removing is being used by\n"
+"                    the following sections:"
+msgstr ""
+
+#: src/EBox/Model/ModelManager.pm:515
+msgid ""
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:326
+#, perl-brace-format
+msgid "{model} in {module} module"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:330
+#, fuzzy
+msgid "at"
+msgstr "Data"
+
+#: src/EBox/Model/DataTable.pm:541
+msgid "field"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:1465
+#, fuzzy
+msgid "page"
+msgstr "Canvia"
+
+#: src/EBox/Model/DataTable.pm:1468
+msgid "Page must be a number equal or greater than zero"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2803
+#, perl-brace-format
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2874
+#, fuzzy
+msgid "Page size"
+msgstr "Canvia"
+
+#: src/EBox/Model/DataTable.pm:2877
+msgid "Must be either a positive number or zero"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:3184
+#, fuzzy, perl-brace-format
+msgid "{row} added"
+msgstr "Elimina"
+
+#: src/EBox/Model/DataTable.pm:3185
+#, fuzzy, perl-brace-format
+msgid "{row} deleted"
+msgstr "Elimina"
+
+#: src/EBox/Model/DataTable.pm:3186
+#, fuzzy, perl-brace-format
+msgid "{row} updated"
+msgstr "Elimina"
+
+#: src/EBox/Model/DataTable.pm:3187
+#, perl-brace-format
+msgid "{row} moved up"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:3188
+#, perl-brace-format
+msgid "{row} moved down"
+msgstr ""
+
+#: src/EBox/Html.pm:39
+#, fuzzy
+msgid "Save changes"
+msgstr "Descarta els canvis"
+
+#: src/EBox/Backup.pm:96
+#, fuzzy
+msgid "Creating backup archive"
+msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
+
+#: src/EBox/Backup.pm:140
+#, fuzzy, perl-brace-format
+msgid "Dumping configuration of module {m}"
+msgstr "Restaura la configuració"
+
+#: src/EBox/Backup.pm:299
+#, fuzzy
+msgid "Could not create backup archive"
+msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
+
+#: src/EBox/Backup.pm:306
+#, fuzzy
+msgid "Could not append data to backup archive"
+msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
+
+#: src/EBox/Backup.pm:421
+msgid "Unknown"
+msgstr ""
+
+#: src/EBox/Backup.pm:474
+#, perl-brace-format
+msgid "Could not extract the requested backup files: {files}"
+msgstr ""
+
+#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1128
+msgid "Could not unpack the backup"
+msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
+
+#: src/EBox/Backup.pm:743
+msgid "Writing backup file to hard disk"
+msgstr ""
+
+#: src/EBox/Backup.pm:769
+msgid ""
+"Some modules has not saved changes. Before doing the backup you must save  "
+"or discard them"
+msgstr ""
+
+#: src/EBox/Backup.pm:827
+msgid "Incorrect or corrupt backup file"
+msgstr "El fitxer de còpia de seguretat és incorrecte o corromput"
+
+#: src/EBox/Backup.pm:856
+#, fuzzy
+msgid "The backup file is corrupt: could not open archive"
+msgstr "El fitxer de còpia de seguretat és corrupte."
+
+#: src/EBox/Backup.pm:868
+#, fuzzy
+msgid "The backup file is corrupt: could not open backup checksum"
+msgstr "El fitxer de còpia de seguretat és corrupte."
+
+#: src/EBox/Backup.pm:875
+msgid "The backup file is corrupt."
+msgstr "El fitxer de còpia de seguretat és corrupte."
+
+#: src/EBox/Backup.pm:893
+msgid ""
+"The backup archive has a invalid type. Maybe the file is corrupt or you are "
+"using a incompatible eBox version"
+msgstr ""
+
+#: src/EBox/Backup.pm:899
+msgid ""
+"The archive does not contain a full backup, that made a full restore "
+"impossibe. A configuration recovery  may be possible"
+msgstr ""
+
+#: src/EBox/Backup.pm:934
+#, perl-brace-format
+msgid ""
+"There in not enough space left in the hard disk to complete the restore "
+"proccess. {size} Kb required. Free sufficient space and retry"
+msgstr ""
+
+#: src/EBox/Backup.pm:1215
+#, perl-brace-format
+msgid "No module {m} found in backup"
+msgstr ""
+
+#: src/EBox/Backup.pm:1238
+msgid "No modules to restore"
+msgstr ""
+
+#: src/EBox/Backup.pm:1290
+#, perl-brace-format
+msgid ""
+"Unresolved restore dependency for module {topModule}: {modName} is not "
+"installed"
+msgstr ""
+
+#: src/EBox/Backup.pm:1333
+#, fuzzy
+msgid "Backup's archives"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/Apache.pm:268 src/EBox/Apache.pm:277
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Apache.pm:588
+#: src/EBox/Apache.pm:591
 msgid "eBox internal web server"
 msgstr ""
 
-#: src/EBox/Common/Model/EnableForm.pm:100
-#, fuzzy
-msgid "Service enabled"
-msgstr "Servei"
-
-#: src/EBox/Common/Model/EnableForm.pm:102
-#, fuzzy
-msgid "Service disabled"
-msgstr "Serveis"
-
-#: src/EBox/Common/Model/EnableForm.pm:146
-#, fuzzy
-msgid "Enable service"
-msgstr "servei"
-
-#: src/EBox/SysInfo.pm:42
-#, fuzzy
-msgid "System Information"
-msgstr "Informació general"
-
-#: src/EBox/SysInfo.pm:77
-msgid "Time"
-msgstr "Temps"
-
-#: src/EBox/SysInfo.pm:78
-#, fuzzy
-msgid "Hostname"
-msgstr "Nom del servidor"
-
-#: src/EBox/SysInfo.pm:80
-#, fuzzy
-msgid "eBox version"
-msgstr "Versió d'Ebox"
-
-#: src/EBox/SysInfo.pm:83
-msgid "System load"
-msgstr "Càrrega del sistema"
-
-#: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:201
-#, fuzzy
-msgid "Module Status"
-msgstr "Coses de ModuleName"
-
-#: src/EBox/SysInfo.pm:123
-#, fuzzy
-msgid "General Information"
-msgstr "Informació general"
-
-#: src/EBox/SysInfo.pm:128
-#, fuzzy
-msgid "Process List"
+#: src/EBox/Global.pm:424 src/EBox/Global.pm:445
+#, fuzzy, perl-brace-format
+msgid "Saving {modName} module"
 msgstr "Còpia de seguretat"
 
-#: src/EBox/SysInfo.pm:211
-msgid "General"
+#: src/EBox/Global.pm:919
+#, perl-brace-format
+msgid "running {scriptName} script"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:226
-msgid "Halt/Reboot"
+#: src/EBox/Report/DiskUsage.pm:61
+#, perl-brace-format
+msgid "No usage data for {d}. Are you sure is a valid disk?"
 msgstr ""
 
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
-
-#: src/templates/halt.mas:14
-msgid "Halt"
-msgstr ""
-
-#: src/templates/halt.mas:16
-msgid "Reboot"
-msgstr ""
-
-#: src/templates/headTitle.mas:20
-msgid "Remote services control panel"
-msgstr ""
-
-#: src/templates/finish.mas:82
-msgid "Warning"
-msgstr ""
-
-#: src/templates/finish.mas:96
+#: src/EBox/Report/DiskUsage.pm:210
+#, perl-brace-format
 msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr ""
-"Hi ha canvis no desats en un o més dels vostres mòduls. Podeu desar o "
-"descartar aquests canvis."
-
-#: src/templates/finish.mas:99
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-"Si heu fet canvis a les interfícies de xarxa o al port d'administració, és "
-"possible que necessiteu reescriure la url per a poder accedir a aquesta "
-"interfície d'administració una altra vegada."
-
-#: src/templates/finish.mas:107
-msgid "Message"
+"Invalid file system: {f}. Only regular and no removable media file systems "
+"are accepted"
 msgstr ""
 
-#: src/templates/finish.mas:123
-msgid "Save"
-msgstr "Desa"
-
-#: src/templates/finish.mas:125
-msgid "Discard changes"
-msgstr "Descarta els canvis"
-
-#: src/templates/finish.mas:130
-msgid "There are no unsaved changes."
-msgstr "No hi ha canvis sense desar."
-
-#: src/templates/bug.mas:9
-#, fuzzy
-msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a bug in eBox."
+#: src/EBox/Report/DiskUsage.pm:333
+msgid "Free space"
 msgstr ""
-"Aquesta pàgina vos permet generar un fitxer amb la informació sobre l'estat "
-"del vostre sistema. El fitxer serà útil si voleu informar d'una errada en "
-"EBox."
-
-#: src/templates/bug.mas:14
-msgid "Download bug report file"
-msgstr "Descarrega un fitxer d'informe d'error"
 
 #: src/templates/configurationFiles.mas:28
 msgid "Do you wish to overwrite these files?"
@@ -1598,45 +1539,23 @@ msgstr ""
 msgid "Modify"
 msgstr ""
 
-#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
-msgid "Cancel"
-msgstr "Cancel·la"
-
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr "Hi ha canvis sense desar, si sortiu ara es perdran."
-
-#: src/templates/logout/index.mas:15
-#, fuzzy
-msgid "There are no unsaved changes in this session."
-msgstr "No hi ha canvis sense desar."
-
-#: src/templates/logout/index.mas:19
-msgid "Exit"
-msgstr "Surt"
-
-#: src/templates/progress.mas:20
-#, fuzzy
-msgid "Item"
-msgstr "Càrrega del sistema"
-
-#: src/templates/progress.mas:21
-msgid "items left"
+#: src/templates/headTitle.mas:20
+msgid "Remote services control panel"
 msgstr ""
 
-#: src/templates/progress.mas:23
-msgid "Some error has happened in eBox: "
+#: src/templates/backupTabs.mas:13
+#, fuzzy
+msgid "Local Backup"
+msgstr "Còpia de seguretat"
+
+#: src/templates/backupTabs.mas:18
+#, fuzzy
+msgid "Remote Backup"
+msgstr "Restaura des de la còpia de seguretat"
+
+#: src/templates/backupTabs.mas:23
+msgid "Remote Backup from Other Subscribed Hosts"
 msgstr ""
-
-#: src/templates/progress.mas:38
-#, fuzzy
-msgid "Starting..."
-msgstr "Estat"
-
-#: src/templates/port.mas:9
-#, fuzzy
-msgid "Administration Interface TCP Port"
-msgstr "Port TCP per a la interfície d'administració"
 
 #: src/templates/configureView.mas:16
 msgid ""
@@ -1657,71 +1576,14 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: src/templates/password.mas:4
-#, fuzzy
-msgid "Change Password"
-msgstr "Canvia la contrasenya"
-
-#: src/templates/password.mas:5
-#, fuzzy
-msgid "Your password must be at least 6 characters long."
-msgstr "La contrasenya ha de tenir almenys 6 caràcters"
-
-#: src/templates/password.mas:11
-msgid "Current password"
-msgstr "Contrasenya actual"
-
-#: src/templates/password.mas:25
-msgid "New password"
-msgstr "Nova contrasenya"
-
-#: src/templates/password.mas:39
-#, fuzzy
-msgid "Confirm password"
-msgstr "Nova contrasenya"
-
-#: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
-#: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
-msgid "Type"
-msgstr ""
-
-#: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
-msgid "Archive size"
-msgstr ""
-
-#: src/templates/confirm-backup.mas:110
-#, fuzzy
-msgid "Full Restore"
-msgstr "Restaura"
-
-#: src/templates/confirm-backup.mas:111
-#, fuzzy
-msgid "Configuration Restore"
-msgstr "Desa la configuració"
-
-#: src/templates/confirm-backup.mas:116
-#, fuzzy
-msgid "Restore mode"
-msgstr "Restaura"
-
-#: src/templates/moduleStatusTable.mas:59
-#, fuzzy
-msgid "Depends"
-msgstr "Extern"
-
-#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
-msgid "Status"
-msgstr "Estat"
-
-#: src/templates/moduleStatusTable.mas:85
-#, perl-brace-format
-msgid "Configure module: {module}"
-msgstr ""
-
 #: src/templates/dashboard/index.mas:89
 #, fuzzy
 msgid "Configure widgets"
 msgstr "Desa la configuració"
+
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
+msgstr ""
 
 #: src/templates/dashboard/status.mas:10
 #, fuzzy
@@ -1765,126 +1627,170 @@ msgstr ""
 msgid "The service is not enabled in eBox"
 msgstr ""
 
-#: src/templates/dashboard/list.mas:43
-msgid "No entries in this list"
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
 msgstr ""
 
-#: src/templates/backupTabs.mas:13
-#, fuzzy
-msgid "Local Backup"
-msgstr "Còpia de seguretat"
-
-#: src/templates/backupTabs.mas:18
-#, fuzzy
-msgid "Remote Backup"
-msgstr "Restaura des de la còpia de seguretat"
-
-#: src/templates/backupTabs.mas:23
-msgid "Remote Backup from Other Subscribed Hosts"
+#: src/templates/halt.mas:14
+msgid "Halt"
 msgstr ""
 
-#: src/templates/backup.mas:17
-#, fuzzy
-msgid "Full Backup"
-msgstr "Còpia de seguretat"
+#: src/templates/halt.mas:16
+msgid "Reboot"
+msgstr ""
 
-#: src/templates/backup.mas:24
+#: src/templates/moduleStatusTable.mas:59
+#, fuzzy
+msgid "Depends"
+msgstr "Extern"
+
+#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
+msgid "Status"
+msgstr "Estat"
+
+#: src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
-msgid ""
-"Those modules which have not been enabled for first time in the {openref}"
-"Module Status{closeref} section will be ignored in both backup and restore "
-"operations."
+msgid "Configure module: {module}"
 msgstr ""
 
-#: src/templates/backup.mas:26
-#, fuzzy
-msgid "Backup the Current State"
-msgstr "Fes una còpia de seguretat de la configuració actual"
-
-#: src/templates/backup.mas:35
-msgid ""
-"Backup is disabled because there are unsaved configuration changes. Please, "
-"save or discard them to be able to backup the configuration"
+#: src/templates/report/raid.mas:20
+#, perl-brace-format
+msgid "Inexistent RAID array {a}"
 msgstr ""
 
-#: src/templates/backup.mas:52
-#, fuzzy
-msgid "Backup mode"
-msgstr "Còpia de seguretat"
-
-#: src/templates/backup.mas:74
-#, fuzzy
-msgid "Restore Backup from File"
-msgstr "Restaura des de la còpia de seguretat"
-
-#: src/templates/backup.mas:76
-msgid ""
-"You can upload a backup file from your computer. When uploading files you "
-"should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
+#: src/templates/report/raid.mas:42
+msgid "RAID is not enabled in this system."
 msgstr ""
 
-#: src/templates/backup.mas:84
-#, fuzzy
-msgid "Backup file"
-msgstr "Còpia de seguretat"
-
-#: src/templates/backup.mas:114
-msgid "Full"
+#: src/templates/report/raid.mas:94
+msgid "left-asymmetric"
 msgstr ""
 
-#: src/templates/backup.mas:115
-#, fuzzy
-msgid "Configuration only"
-msgstr "Desa la configuració"
-
-#: src/templates/backup.mas:116
-msgid "Unknown type"
+#: src/templates/report/raid.mas:95
+msgid "right-asymmetric"
 msgstr ""
 
-#: src/templates/backup.mas:122
-#, fuzzy
-msgid "Backups' list"
-msgstr "Còpia de seguretat"
+#: src/templates/report/raid.mas:96
+msgid "left-symmetric"
+msgstr ""
 
-#: src/templates/backup.mas:130
-msgid "Actions"
+#: src/templates/report/raid.mas:97
+msgid "right-symmetric"
+msgstr ""
+
+#: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
+#: src/templates/backup.mas:127 src/templates/confirm-backup.mas:44
+msgid "Type"
+msgstr ""
+
+#: src/templates/report/raid.mas:142
+msgid "Active RAID devices"
+msgstr ""
+
+#: src/templates/report/raid.mas:143
+msgid "Active RAID devices needed"
+msgstr ""
+
+#: src/templates/report/raid.mas:144
+msgid "Size in blocks"
+msgstr ""
+
+#: src/templates/report/raid.mas:145
+msgid "Chunk size"
+msgstr ""
+
+#: src/templates/report/raid.mas:148
+msgid "Parity algorithm"
+msgstr ""
+
+#: src/templates/report/raid.mas:180
+msgid "Array properties"
+msgstr ""
+
+#: src/templates/report/raid.mas:195
+msgid "Resyncing array"
+msgstr ""
+
+#: src/templates/report/raid.mas:196
+msgid "Rebuild array"
+msgstr ""
+
+#: src/templates/report/raid.mas:197
+msgid "Reshape array"
+msgstr ""
+
+#: src/templates/report/raid.mas:205
+msgid "Operation type"
+msgstr ""
+
+#: src/templates/report/raid.mas:207
+msgid "Percentage completed"
+msgstr ""
+
+#: src/templates/report/raid.mas:209
+msgid "Estimated time left"
+msgstr ""
+
+#: src/templates/report/raid.mas:211
+msgid "Operation speed"
+msgstr ""
+
+#: src/templates/report/raid.mas:224
+msgid "RAID device number"
+msgstr ""
+
+#: src/templates/report/raid.mas:225
+#, fuzzy
+msgid "Device"
+msgstr "Servei"
+
+#: src/templates/report/raid.mas:231
+msgid "up"
+msgstr "amunt"
+
+#: src/templates/report/raid.mas:232
+msgid "failure"
+msgstr ""
+
+#: src/templates/report/raid.mas:261
+msgid "No unused RAID devices"
+msgstr ""
+
+#: src/templates/report/raid.mas:264
+msgid "Unused RAID arrays"
+msgstr ""
+
+#: src/templates/report/diskUsage.mas:29
+msgid "Mounted on"
+msgstr ""
+
+#: src/templates/report/diskUsage.mas:31
+#, fuzzy
+msgid "Options"
 msgstr "Accions"
 
-#: src/templates/backup.mas:160
-msgid "Restore configuration using this file"
-msgstr "Restaura la configuració fent servir aquest fitxer"
-
-#: src/templates/backup.mas:161
-msgid "Restore from backup"
-msgstr "Restaura des de la còpia de seguretat"
-
-#: src/templates/backup.mas:166 src/templates/backup.mas:167
-msgid "Download"
-msgstr "Descarrega"
-
-#: src/templates/backup.mas:186
+#: src/templates/report/diskUsage.mas:34
 #, fuzzy
-msgid "download"
-msgstr "Descarrega"
+msgid "Partition Properties"
+msgstr "port de destinació"
 
-#: src/templates/backup.mas:188
+#: src/templates/progress.mas:20
 #, fuzzy
-msgid "restore"
-msgstr "Restaura"
+msgid "Item"
+msgstr "Càrrega del sistema"
 
-#: src/templates/backup.mas:190
-#, fuzzy
-msgid "delete"
-msgstr "Elimina"
-
-#: src/templates/login/index.mas:29
-msgid "Warning: Caps Lock is enabled"
+#: src/templates/progress.mas:21
+msgid "items left"
 msgstr ""
 
-#: src/templates/login/index.mas:39
+#: src/templates/progress.mas:23
+msgid "Some error has happened in eBox: "
+msgstr ""
+
+#: src/templates/progress.mas:38
 #, fuzzy
-msgid "Enter"
-msgstr "Extern"
+msgid "Starting..."
+msgstr "Estat"
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
@@ -1998,121 +1904,239 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: src/templates/report/raid.mas:20
+#: src/templates/finish.mas:82
+msgid "Warning"
+msgstr ""
+
+#: src/templates/finish.mas:96
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+"Hi ha canvis no desats en un o més dels vostres mòduls. Podeu desar o "
+"descartar aquests canvis."
+
+#: src/templates/finish.mas:99
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+"Si heu fet canvis a les interfícies de xarxa o al port d'administració, és "
+"possible que necessiteu reescriure la url per a poder accedir a aquesta "
+"interfície d'administració una altra vegada."
+
+#: src/templates/finish.mas:107
+msgid "Message"
+msgstr ""
+
+#: src/templates/finish.mas:123
+msgid "Save"
+msgstr "Desa"
+
+#: src/templates/finish.mas:125
+msgid "Discard changes"
+msgstr "Descarta els canvis"
+
+#: src/templates/finish.mas:130
+msgid "There are no unsaved changes."
+msgstr "No hi ha canvis sense desar."
+
+#: src/templates/backup.mas:17
+#, fuzzy
+msgid "Full Backup"
+msgstr "Còpia de seguretat"
+
+#: src/templates/backup.mas:24
 #, perl-brace-format
-msgid "Inexistent RAID array {a}"
+msgid ""
+"Those modules which have not been enabled for first time in the {openref}"
+"Module Status{closeref} section will be ignored in both backup and restore "
+"operations."
 msgstr ""
 
-#: src/templates/report/raid.mas:42
-msgid "RAID is not enabled in this system."
-msgstr ""
-
-#: src/templates/report/raid.mas:94
-msgid "left-asymmetric"
-msgstr ""
-
-#: src/templates/report/raid.mas:95
-msgid "right-asymmetric"
-msgstr ""
-
-#: src/templates/report/raid.mas:96
-msgid "left-symmetric"
-msgstr ""
-
-#: src/templates/report/raid.mas:97
-msgid "right-symmetric"
-msgstr ""
-
-#: src/templates/report/raid.mas:142
-msgid "Active RAID devices"
-msgstr ""
-
-#: src/templates/report/raid.mas:143
-msgid "Active RAID devices needed"
-msgstr ""
-
-#: src/templates/report/raid.mas:144
-msgid "Size in blocks"
-msgstr ""
-
-#: src/templates/report/raid.mas:145
-msgid "Chunk size"
-msgstr ""
-
-#: src/templates/report/raid.mas:148
-msgid "Parity algorithm"
-msgstr ""
-
-#: src/templates/report/raid.mas:180
-msgid "Array properties"
-msgstr ""
-
-#: src/templates/report/raid.mas:195
-msgid "Resyncing array"
-msgstr ""
-
-#: src/templates/report/raid.mas:196
-msgid "Rebuild array"
-msgstr ""
-
-#: src/templates/report/raid.mas:197
-msgid "Reshape array"
-msgstr ""
-
-#: src/templates/report/raid.mas:205
-msgid "Operation type"
-msgstr ""
-
-#: src/templates/report/raid.mas:207
-msgid "Percentage completed"
-msgstr ""
-
-#: src/templates/report/raid.mas:209
-msgid "Estimated time left"
-msgstr ""
-
-#: src/templates/report/raid.mas:211
-msgid "Operation speed"
-msgstr ""
-
-#: src/templates/report/raid.mas:224
-msgid "RAID device number"
-msgstr ""
-
-#: src/templates/report/raid.mas:225
+#: src/templates/backup.mas:26
 #, fuzzy
-msgid "Device"
-msgstr "Servei"
+msgid "Backup the Current State"
+msgstr "Fes una còpia de seguretat de la configuració actual"
 
-#: src/templates/report/raid.mas:231
-msgid "up"
-msgstr "amunt"
-
-#: src/templates/report/raid.mas:232
-msgid "failure"
+#: src/templates/backup.mas:35
+msgid ""
+"Backup is disabled because there are unsaved configuration changes. Please, "
+"save or discard them to be able to backup the configuration"
 msgstr ""
 
-#: src/templates/report/raid.mas:261
-msgid "No unused RAID devices"
-msgstr ""
-
-#: src/templates/report/raid.mas:264
-msgid "Unused RAID arrays"
-msgstr ""
-
-#: src/templates/report/diskUsage.mas:29
-msgid "Mounted on"
-msgstr ""
-
-#: src/templates/report/diskUsage.mas:31
+#: src/templates/backup.mas:52
 #, fuzzy
-msgid "Options"
+msgid "Backup mode"
+msgstr "Còpia de seguretat"
+
+#: src/templates/backup.mas:74
+#, fuzzy
+msgid "Restore Backup from File"
+msgstr "Restaura des de la còpia de seguretat"
+
+#: src/templates/backup.mas:76
+msgid ""
+"You can upload a backup file from your computer. When uploading files you "
+"should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
+msgstr ""
+
+#: src/templates/backup.mas:84
+#, fuzzy
+msgid "Backup file"
+msgstr "Còpia de seguretat"
+
+#: src/templates/backup.mas:114
+msgid "Full"
+msgstr ""
+
+#: src/templates/backup.mas:115
+#, fuzzy
+msgid "Configuration only"
+msgstr "Desa la configuració"
+
+#: src/templates/backup.mas:116
+msgid "Unknown type"
+msgstr ""
+
+#: src/templates/backup.mas:122
+#, fuzzy
+msgid "Backups' list"
+msgstr "Còpia de seguretat"
+
+#: src/templates/backup.mas:129 src/templates/confirm-backup.mas:53
+msgid "Archive size"
+msgstr ""
+
+#: src/templates/backup.mas:130
+msgid "Actions"
 msgstr "Accions"
 
-#: src/templates/report/diskUsage.mas:34
+#: src/templates/backup.mas:160
+msgid "Restore configuration using this file"
+msgstr "Restaura la configuració fent servir aquest fitxer"
+
+#: src/templates/backup.mas:161
+msgid "Restore from backup"
+msgstr "Restaura des de la còpia de seguretat"
+
+#: src/templates/backup.mas:166 src/templates/backup.mas:167
+msgid "Download"
+msgstr "Descarrega"
+
+#: src/templates/backup.mas:186
 #, fuzzy
-msgid "Partition Properties"
-msgstr "port de destinació"
+msgid "download"
+msgstr "Descarrega"
+
+#: src/templates/backup.mas:188
+#, fuzzy
+msgid "restore"
+msgstr "Restaura"
+
+#: src/templates/backup.mas:190
+#, fuzzy
+msgid "delete"
+msgstr "Elimina"
+
+#: src/templates/bug.mas:9
+#, fuzzy
+msgid ""
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a bug in eBox."
+msgstr ""
+"Aquesta pàgina vos permet generar un fitxer amb la informació sobre l'estat "
+"del vostre sistema. El fitxer serà útil si voleu informar d'una errada en "
+"EBox."
+
+#: src/templates/bug.mas:14
+msgid "Download bug report file"
+msgstr "Descarrega un fitxer d'informe d'error"
+
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr "Hi ha canvis sense desar, si sortiu ara es perdran."
+
+#: src/templates/logout/index.mas:15
+#, fuzzy
+msgid "There are no unsaved changes in this session."
+msgstr "No hi ha canvis sense desar."
+
+#: src/templates/logout/index.mas:19
+msgid "Exit"
+msgstr "Surt"
+
+#: src/templates/password.mas:4
+#, fuzzy
+msgid "Change Password"
+msgstr "Canvia la contrasenya"
+
+#: src/templates/password.mas:5
+#, fuzzy
+msgid "Your password must be at least 6 characters long."
+msgstr "La contrasenya ha de tenir almenys 6 caràcters"
+
+#: src/templates/password.mas:11
+msgid "Current password"
+msgstr "Contrasenya actual"
+
+#: src/templates/password.mas:25
+msgid "New password"
+msgstr "Nova contrasenya"
+
+#: src/templates/password.mas:39
+#, fuzzy
+msgid "Confirm password"
+msgstr "Nova contrasenya"
+
+#: src/templates/login/index.mas:40
+msgid "Warning: Caps Lock is enabled"
+msgstr ""
+
+#: src/templates/login/index.mas:43
+#, perl-brace-format
+msgid ""
+"Warning: Unfortunately Internet Explorer is not yet supported on eBox. "
+"Please use {url} instead."
+msgstr ""
+
+#: src/templates/login/index.mas:46
+#, perl-brace-format
+msgid ""
+"Warning: You are using a browser which is not {url}, the only one officially "
+"supported. Please, take into consideration that you might face some issues "
+"while navigating on eBox UI."
+msgstr ""
+
+#: src/templates/login/index.mas:58
+#, fuzzy
+msgid "Enter"
+msgstr "Extern"
+
+#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: src/templates/confirm-backup.mas:110
+#, fuzzy
+msgid "Full Restore"
+msgstr "Restaura"
+
+#: src/templates/confirm-backup.mas:111
+#, fuzzy
+msgid "Configuration Restore"
+msgstr "Desa la configuració"
+
+#: src/templates/confirm-backup.mas:116
+#, fuzzy
+msgid "Restore mode"
+msgstr "Restaura"
+
+#: src/templates/port.mas:9
+#, fuzzy
+msgid "Administration Interface TCP Port"
+msgstr "Port TCP per a la interfície d'administració"
 
 #, fuzzy
 #~ msgid "Monitoring"
@@ -2211,9 +2235,6 @@ msgstr "port de destinació"
 #, fuzzy
 #~ msgid "subscription page"
 #~ msgstr "Descripció"
-
-#~ msgid "Services"
-#~ msgstr "Serveis"
 
 #~ msgid "Summary"
 #~ msgstr "Resum"

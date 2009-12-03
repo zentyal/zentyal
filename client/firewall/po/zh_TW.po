@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:30+0100\n"
+"POT-Creation-Date: 2009-12-03 12:57+0000\n"
 "PO-Revision-Date: 2009-08-04 06:02+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -16,7 +16,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:848
+#: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
+msgid ""
+"You must set the iptables_log_limit variable in the ebox configuration file"
+msgstr "您必須在 ebox 設置檔中設定 iptables_log_limit 變數"
+
+#: src/EBox/Iptables.pm:744 src/EBox/Iptables.pm:781
+msgid ""
+"You must set the iptables_log_burst variable in the ebox configuration file"
+msgstr "您必須在 ebox 設置檔中設定 iptables_log_burst 變數"
+
+#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:855
 msgid "Firewall"
 msgstr "防火牆"
 
@@ -44,74 +54,74 @@ msgstr ""
 "預設中只有一些連線是允許的. 請確定您所新增的連入跟連出的規則能使您的系統工作"
 "正常.通常,預設中所有連出的連線是禁止的,只有 SSH 和 HTTPS 連入連線是允許的."
 
-#: src/EBox/Firewall.pm:304
+#: src/EBox/Firewall.pm:311
 msgid "action"
 msgstr "動作"
 
-#: src/EBox/Firewall.pm:425 src/EBox/Firewall.pm:470 src/EBox/Firewall.pm:494
+#: src/EBox/Firewall.pm:432 src/EBox/Firewall.pm:477 src/EBox/Firewall.pm:501
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "名稱 '{name}' 是無效的"
 
-#: src/EBox/Firewall.pm:426 src/EBox/Firewall.pm:605 src/EBox/Firewall.pm:630
+#: src/EBox/Firewall.pm:433 src/EBox/Firewall.pm:612 src/EBox/Firewall.pm:637
 msgid "port"
 msgstr "連接埠"
 
-#: src/EBox/Firewall.pm:604 src/EBox/Firewall.pm:629
+#: src/EBox/Firewall.pm:611 src/EBox/Firewall.pm:636
 msgid "protocol"
 msgstr "通訊協定"
 
-#: src/EBox/Firewall.pm:818
+#: src/EBox/Firewall.pm:825
 msgid "Packet Filter"
 msgstr "封包過濾"
 
-#: src/EBox/Firewall.pm:821
+#: src/EBox/Firewall.pm:828
 msgid "Redirects"
 msgstr "轉送"
 
-#: src/EBox/Firewall.pm:832
+#: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 msgid "Date"
 msgstr "日期"
 
-#: src/EBox/Firewall.pm:833
+#: src/EBox/Firewall.pm:840
 msgid "Input interface"
 msgstr "連入介面"
 
-#: src/EBox/Firewall.pm:834
+#: src/EBox/Firewall.pm:841
 msgid "Output interface"
 msgstr "連出介面"
 
-#: src/EBox/Firewall.pm:835 src/EBox/Firewall/Model/BaseRuleTable.pm:121
-#: src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall.pm:842 src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
 msgid "Source"
 msgstr "來源"
 
-#: src/EBox/Firewall.pm:836 src/EBox/Firewall/Model/BaseRuleTable.pm:147
+#: src/EBox/Firewall.pm:843 src/EBox/Firewall/Model/BaseRuleTable.pm:147
 msgid "Destination"
 msgstr "目的"
 
-#: src/EBox/Firewall.pm:837 src/EBox/Firewall/Model/RedirectsTable.pm:285
+#: src/EBox/Firewall.pm:844 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
 msgstr "通訊協定"
 
-#: src/EBox/Firewall.pm:838
+#: src/EBox/Firewall.pm:845
 msgid "Source port"
 msgstr "來源連接埠"
 
-#: src/EBox/Firewall.pm:839
+#: src/EBox/Firewall.pm:846
 msgid "Destination port"
 msgstr "目的連接埠"
 
-#: src/EBox/Firewall.pm:840 src/EBox/Firewall/Model/BaseRuleTable.pm:112
+#: src/EBox/Firewall.pm:847 src/EBox/Firewall/Model/BaseRuleTable.pm:112
 msgid "Decision"
 msgstr "動作"
 
-#: src/EBox/Firewall.pm:845
+#: src/EBox/Firewall.pm:852
 msgid "DROP"
 msgstr "丟棄"
 
-#: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/BaseRuleTable.pm:70
+#: src/EBox/Firewall.pm:852 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
 msgstr "紀錄"
 
@@ -119,62 +129,23 @@ msgstr "紀錄"
 msgid "Packet filtering"
 msgstr "封包過濾"
 
-#: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
-msgid ""
-"You must set the iptables_log_limit variable in the ebox configuration file"
-msgstr "您必須在 ebox 設置檔中設定 iptables_log_limit 變數"
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "過濾從 eBox 出去的規則"
 
-#: src/EBox/Iptables.pm:744 src/EBox/Iptables.pm:781
-msgid ""
-"You must set the iptables_log_burst variable in the ebox configuration file"
-msgstr "您必須在 ebox 設置檔中設定 iptables_log_burst 變數"
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+msgid "rule"
+msgstr "規則"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
-msgid "ACCEPT"
-msgstr "允許"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
-msgid "DENY"
-msgstr "拒絕"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
-#: src/EBox/Firewall/Model/RedirectsTable.pm:297
-msgid "Any"
-msgstr "任何"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
-#: src/EBox/Firewall/Model/RedirectsTable.pm:300
-msgid "Source IP"
-msgstr "來源 IP"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
-#: src/EBox/Firewall/Model/RedirectsTable.pm:304
-msgid "Source object"
-msgstr "來源 object"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
-#: src/EBox/Firewall/Model/RedirectsTable.pm:315
-msgid "Destination IP"
-msgstr "目的 IP"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
-msgid "Destination object"
-msgstr "目的 object"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
-msgid "Service"
-msgstr "服務"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
-msgid ""
-"If inverse match is ticked, any service but the selected one will match this "
-"rule"
-msgstr "假如勾選反向符合,任何服務除了所選擇的都將符合這個規則"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
-msgid "Description"
-msgstr "目的"
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr "過濾從外部網路到內部網路的規則"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
@@ -204,6 +175,27 @@ msgstr "Object"
 msgid "Original destination port"
 msgstr "原始的目的連接埠"
 
+#: src/EBox/Firewall/Model/RedirectsTable.pm:297
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
+msgid "Any"
+msgstr "任何"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:300
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
+msgid "Source IP"
+msgstr "來源 IP"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:304
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
+msgid "Source object"
+msgstr "來源 object"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:315
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
+msgid "Destination IP"
+msgstr "目的 IP"
+
 #: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"
 msgstr "連接埠"
@@ -216,26 +208,44 @@ msgstr "相同"
 msgid "Other"
 msgstr "其他"
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:346
+#: src/EBox/Firewall/Model/RedirectsTable.pm:337
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
+msgid "Description"
+msgstr "目的"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:354
 msgid "Port redirections"
 msgstr "連接埠轉送"
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+#: src/EBox/Firewall/Model/RedirectsTable.pm:363
 msgid "redirect"
 msgstr "轉送"
 
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
-msgstr "過濾從外部網路到內部網路的規則"
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+msgid "ACCEPT"
+msgstr "允許"
 
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-msgid "rule"
-msgstr "規則"
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+msgid "DENY"
+msgstr "拒絕"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+msgid "Destination object"
+msgstr "目的 object"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+msgid "Service"
+msgstr "服務"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+msgid ""
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
+msgstr "假如勾選反向符合,任何服務除了所選擇的都將符合這個規則"
+
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+msgid "Filtering rules from  external networks to eBox"
+msgstr "過濾從外部網路連到 eBox 的規則"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
 #: src/templates/filter.mas:6
@@ -271,15 +281,6 @@ msgstr "封包流量詳細資料"
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
 msgstr "流量"
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
-msgstr "過濾從 eBox 出去的規則"
-
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "過濾從外部網路連到 eBox 的規則"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"

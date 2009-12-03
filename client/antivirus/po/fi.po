@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:23+0100\n"
+"POT-Creation-Date: 2009-12-03 12:47+0000\n"
 "PO-Revision-Date: 2009-05-14 10:04+0200\n"
 "Last-Translator: Alexander Elo <alexander.elo@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,6 +16,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:378
+#: src/EBox/AntiVirus.pm:383
+msgid "Antivirus"
+msgstr "Antivirus"
+
+#: src/EBox/AntiVirus.pm:212
+#, fuzzy
+msgid " To configure clamd daemon"
+msgstr "Konfiguroimaan clamd daemon"
+
+#: src/EBox/AntiVirus.pm:217
+#, fuzzy
+msgid "To configure freshclam updater"
+msgstr "Konfiguroimaan freshclam updater"
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr "Ajasta päivitys"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
@@ -33,7 +52,7 @@ msgstr "Antivirus tietokannan päivityksen tila"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 #, fuzzy
 msgid ""
-"The antivirus database has not been updated since the module was installed."
+"The antivirus database has not been updated since the module was enabled."
 msgstr ""
 "Antiviruksen tietokantaa ei päivitetty, koska  mailfilter eBox moduuli on "
 "asennettu"
@@ -63,25 +82,6 @@ msgstr "Viime päivitys onnistui"
 #, fuzzy, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Tuntematon tapahtuma {event}"
-
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:377
-#: src/EBox/AntiVirus.pm:382
-msgid "Antivirus"
-msgstr "Antivirus"
-
-#: src/EBox/AntiVirus.pm:212
-#, fuzzy
-msgid " To configure clamd daemon"
-msgstr "Konfiguroimaan clamd daemon"
-
-#: src/EBox/AntiVirus.pm:217
-#, fuzzy
-msgid "To configure freshclam updater"
-msgstr "Konfiguroimaan freshclam updater"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "Ajasta päivitys"
 
 #~ msgid "Update status"
 #~ msgstr "Päivityksen tila"

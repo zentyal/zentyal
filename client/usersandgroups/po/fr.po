@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:41+0100\n"
+"POT-Creation-Date: 2009-12-03 13:07+0000\n"
 "PO-Revision-Date: 2009-09-30 10:49+0200\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -19,54 +19,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: migration/0001_usercorner_add_webserver_service.pl:54
+msgid "User Corner Web Server"
+msgstr "Serveur web de l'espace utilisateur"
+
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
 msgstr "Ce groupe contient des utilisateurs"
 
-#: src/EBox/UserCornerWebServer.pm:37
-msgid "User Corner"
-msgstr "Espace utilisateur"
+#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
+#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:78
+#: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2169
+msgid "Users"
+msgstr "Utilisateurs"
 
-#: src/EBox/UserCornerWebServer.pm:63
-msgid "Migrate configured modules"
-msgstr "Migrer les modules configurés"
-
-#: src/EBox/UserCornerWebServer.pm:64
-msgid "Required for usercorner access to configured modules"
-msgstr "configuration des modules requise pour l'accès à l'espace utilisateur"
-
-#: src/EBox/UserCornerWebServer.pm:171
-msgid "Users corner certificates"
-msgstr "Certificats de l'espace utilisateurs"
-
-#: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
-msgid "User"
-msgstr "Utilisateur"
-
-#: src/EBox/UserCorner/CGI/Login/Index.pm:62
-msgid ""
-"There is a script which has asked to run in eBox exclusively. Please, wait "
-"patiently until it is done"
-msgstr ""
-"Un script a demandé de fonctionner en mode exclusif. Merci de patientez "
-"jusqu'à la fin de son exécution"
-
-#: src/EBox/UserCorner/CGI/Login/Index.pm:66
-msgid "Incorrect password"
-msgstr "Mot de passe incorrect"
-
-#: src/EBox/UserCorner/CGI/Login/Index.pm:69
-msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
-"Pour des raisons de sécurité votre session a expirée pour cause d'inactivité"
-
-#: src/EBox/UserCorner/CGI/Login/Index.pm:72
-msgid "You have been logged out because a new session has been opened"
-msgstr "Vous avez été déconnecté car une nouvelle session a été ouverte"
-
-#: src/EBox/UserCorner/CGI/Login/Index.pm:75
-msgid "You are not logged in"
-msgstr "Vous n'êtes pas connecté"
+#: src/EBox/CGI/User.pm:46
+msgid "username"
+msgstr "nom d'utilisateur"
 
 #: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:49
 #: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/DelGroupFromUser.pm:45
@@ -74,58 +43,60 @@ msgstr "Vous n'êtes pas connecté"
 msgid "user"
 msgstr "utilisateur"
 
-#: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/AddUserToGroup.pm:44
-#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/DelGroupFromUser.pm:50
-#: src/EBox/CGI/Group.pm:45 src/EBox/UsersAndGroups/Model/Groups.pm:85
+#: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/Group.pm:45
+#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/DelUserFromGroup.pm:45
+#: src/EBox/CGI/DelGroupFromUser.pm:50
+#: src/EBox/UsersAndGroups/Model/Groups.pm:85
 msgid "group"
 msgstr "groupe"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:2162
-#: src/EBox/UsersAndGroups/Model/Groups.pm:77
-msgid "Groups"
-msgstr "Groupes"
-
-#: src/EBox/CGI/Groups.pm:52 src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
-#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups.pm:2138
-#: src/EBox/UsersAndGroups/Model/Users.pm:78
-#: src/EBox/UsersAndGroups/Model/Users.pm:85
-msgid "Users"
-msgstr "Utilisateurs"
+#: src/EBox/CGI/Group.pm:30
+msgid "Edit group"
+msgstr "Éditer groupe"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1314 src/EBox/UsersAndGroups.pm:1319
-#: src/EBox/UsersAndGroups.pm:1483 src/EBox/UsersAndGroups.pm:1616
-#: src/EBox/UsersAndGroups.pm:1650 src/EBox/UsersAndGroups.pm:1767
-#: src/EBox/UsersAndGroups.pm:1870
+#: src/EBox/UsersAndGroups.pm:1343 src/EBox/UsersAndGroups.pm:1348
+#: src/EBox/UsersAndGroups.pm:1512 src/EBox/UsersAndGroups.pm:1646
+#: src/EBox/UsersAndGroups.pm:1680 src/EBox/UsersAndGroups.pm:1797
+#: src/EBox/UsersAndGroups.pm:1900
 msgid "group name"
 msgstr "nom de groupe"
 
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/AddUser.pm:47
-#: src/EBox/CGI/ModifyUser.pm:48
+#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
+#: src/EBox/CGI/AddUser.pm:47
 msgid "comment"
 msgstr "commentaire"
 
-#: src/EBox/CGI/AddUser.pm:45 src/EBox/CGI/ModifyUser.pm:42
-#: src/EBox/UsersAndGroups.pm:670 src/EBox/UsersAndGroups.pm:676
-#: src/EBox/UsersAndGroups.pm:916 src/EBox/UsersAndGroups.pm:966
-#: src/EBox/UsersAndGroups.pm:1018 src/EBox/UsersAndGroups.pm:1449
-#: src/EBox/UsersAndGroups.pm:1511 src/EBox/UsersAndGroups.pm:1611
-#: src/EBox/UsersAndGroups.pm:1645 src/EBox/UsersAndGroups.pm:1716
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups/Model/Groups.pm:77
+#: src/EBox/UsersAndGroups.pm:2193
+msgid "Groups"
+msgstr "Groupes"
+
+#: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
+#: src/EBox/UsersAndGroups.pm:698 src/EBox/UsersAndGroups.pm:704
+#: src/EBox/UsersAndGroups.pm:944 src/EBox/UsersAndGroups.pm:994
+#: src/EBox/UsersAndGroups.pm:1046 src/EBox/UsersAndGroups.pm:1478
+#: src/EBox/UsersAndGroups.pm:1540 src/EBox/UsersAndGroups.pm:1641
+#: src/EBox/UsersAndGroups.pm:1675 src/EBox/UsersAndGroups.pm:1746
 msgid "user name"
 msgstr "nom d'utilisateur"
 
-#: src/EBox/CGI/AddUser.pm:46 src/EBox/CGI/ModifyUser.pm:47
+#: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
 msgid "last name"
 msgstr "nom de famille"
 
-#: src/EBox/CGI/AddUser.pm:73 src/EBox/CGI/ModifyUser.pm:76
+#: src/EBox/CGI/ModifyUser.pm:49
+msgid "password"
+msgstr "mot de passe"
+
+#: src/EBox/CGI/ModifyUser.pm:50
+msgid "confirm password"
+msgstr "confirmer le mot de passe"
+
+#: src/EBox/CGI/ModifyUser.pm:76 src/EBox/CGI/AddUser.pm:73
 #: src/EBox/UsersAndGroups/Model/Password.pm:98
 msgid "Passwords do not match."
 msgstr "Les mots de passe ne correspondent pas."
-
-#: src/EBox/CGI/User.pm:46
-msgid "username"
-msgstr "nom d'utilisateur"
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
@@ -143,182 +114,135 @@ msgstr "Utilisateur enlevé avec succès"
 msgid "Group removed successfully"
 msgstr "Groupe enlevé avec succès"
 
-#: src/EBox/CGI/ModifyUser.pm:49
-msgid "password"
-msgstr "mot de passe"
+#: src/EBox/UserCornerWebServer.pm:37
+msgid "User Corner"
+msgstr "Espace utilisateur"
 
-#: src/EBox/CGI/ModifyUser.pm:50
-msgid "confirm password"
-msgstr "confirmer le mot de passe"
+#: src/EBox/UserCornerWebServer.pm:63
+msgid "Migrate configured modules"
+msgstr "Migrer les modules configurés"
 
-#: src/EBox/CGI/Group.pm:30
-msgid "Edit group"
-msgstr "Éditer groupe"
+#: src/EBox/UserCornerWebServer.pm:64
+msgid "Required for usercorner access to configured modules"
+msgstr "configuration des modules requise pour l'accès à l'espace utilisateur"
 
-#: src/EBox/UsersAndGroups.pm:77
-msgid "Users and Groups"
-msgstr "Utilisateurs et Groupes"
+#: src/EBox/UserCornerWebServer.pm:171
+msgid "Users corner certificates"
+msgstr "Certificats de l'espace utilisateurs"
 
-#: src/EBox/UsersAndGroups.pm:94
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
+#: src/EBox/UsersAndGroups/Model/Mode.pm:75
+#: src/EBox/UsersAndGroups/Model/Slaves.pm:55
+msgid "Slave"
+msgstr "Esclave"
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:64
+msgid "Operation"
+msgstr "Opération"
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:69
+msgid "Parameter"
+msgstr "Paramètre"
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:78
+msgid "List of pending operations on slaves"
+msgstr "Liste des opérations en attente dans les esclaves"
+
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:85
 msgid ""
-"Your openLDAP database will be populated with some basic organizational units"
+"This is a list those operations that need to be run by the slaves because "
+"the master failed to contact them."
 msgstr ""
-"Votre base de donnée openLDAP va être publiée avec une unité "
-"organisationnelle (organizational units) par défaut"
+"Ceci est une liste des opérations qui doivent être entreprises par les "
+"esclaves, car le maître ne peut pas les contacter"
 
-#: src/EBox/UsersAndGroups.pm:95
-msgid "eBox needs this organizational units to add users and groups into them"
-msgstr ""
-"eBox demande que vous ajoutiez des utilisateurs et groupes dans l'unité "
-"organisationnelle (organizational units)"
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
+msgid "operation"
+msgstr "opération"
 
-#: src/EBox/UsersAndGroups.pm:99
-msgid "Create directories for slave's journals"
-msgstr "Créer des répertoires pour les journaux esclaves"
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:129
+#: src/EBox/UsersAndGroups/Model/Slaves.pm:114
+msgid "You must enable the module Users in master mode."
+msgstr "Vous devez activer le module \"Utilisateurs\" en mode maître"
 
-#: src/EBox/UsersAndGroups.pm:100
-msgid "eBox needs the directories to record pending slave's actions"
-msgstr ""
-"eBox nécessite des répertoires pour consigner les actions esclaves en "
-"attente"
+#: src/EBox/UsersAndGroups/Model/PendingSync.pm:131
+msgid "There are no pending operations at the moment."
+msgstr "Il n'y a pas d'opération en attente pour le moment."
 
-#: src/EBox/UsersAndGroups.pm:107
-msgid "Your eBox will be registered as a slave in the eBox master specified"
-msgstr "Votre eBox sera enregistré comme esclave dans l'eBox maître spécifié"
-
-#: src/EBox/UsersAndGroups.pm:108
-msgid "This eBox needs to have remote access to the users in the eBox master"
-msgstr ""
-"Cette eBox a besoin d'un accès distant aux utilisateurs de l'eBox maître"
-
-#: src/EBox/UsersAndGroups.pm:114
-msgid "Apparmor profile will be disabled"
-msgstr "Le profile AppArmor (Application Armor) sera désactivé"
-
-#: src/EBox/UsersAndGroups.pm:115
-msgid "It is not ready to work with more than one slapd"
-msgstr "Ebox n'est pas prêt pour travailler avec plus d'un \"slapd\""
-
-#: src/EBox/UsersAndGroups.pm:133
-msgid "To make openLDAP listen on TCP and Unix sockets"
-msgstr "Pour permettre openLDAP d'écouter les sockets TCP et Unix"
-
-#: src/EBox/UsersAndGroups.pm:138
-msgid ""
-"To copy LDAP admin password generated by  eBox and allow other modules to "
-"access LDAP"
-msgstr ""
-"Pour copier le mot de passe administrateur de LDAP, généré par eBox et "
-"permettre aux autres modules d'accéder à LDAP"
-
-#: src/EBox/UsersAndGroups.pm:665
-#, perl-brace-format
-msgid "Username must not be longer than {maxuserlength} characters"
-msgstr ""
-"Le nom d'utilisateur ne peut pas être plus long que {maxuserlength} "
-"caractères"
-
-#: src/EBox/UsersAndGroups.pm:763 src/EBox/UsersAndGroups.pm:1378
-msgid "Maximum number of system users reached"
-msgstr "Nombre maximum d'utilisateurs système atteint"
-
-#: src/EBox/UsersAndGroups.pm:780
-#, perl-brace-format
-msgid ""
-"Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
-msgstr ""
-"UID {uid} incorrecte pour un utilisateur. L'UID doit être plus grand ou égal "
-"à {min}"
-
-#: src/EBox/UsersAndGroups.pm:791
-#, perl-brace-format
-msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
-msgstr ""
-"UID {uid} incorrecte pour un utilisateur système. L'UID doit être plus petit "
-"que {max}"
-
-#: src/EBox/UsersAndGroups.pm:1302
-#, perl-brace-format
-msgid "Groupname must not be longer than {maxGroupLength} characters"
-msgstr ""
-"Le nom du groupe ne peut pas être plus long que {maxGroupLength} caractères"
-
-#: src/EBox/UsersAndGroups.pm:1308
-msgid "The group name is not valid because it is used internally"
-msgstr "Le nom du groupe n'est pas valide parce qu'il est employé en interne"
-
-#: src/EBox/UsersAndGroups.pm:1395
-#, perl-brace-format
-msgid ""
-"Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
-msgstr ""
-"GID {gid} incorrecte pour un groupe. Le GID doit être plus grand ou égal à "
-"{min}"
-
-#: src/EBox/UsersAndGroups.pm:1405
-#, perl-brace-format
-msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
-msgstr ""
-"GID {gid} incorrecte pour un groupe système. Le GID doit être plus petit que "
-"{max}"
-
-#: src/EBox/UsersAndGroups.pm:1946
-#, perl-brace-format
-msgid "Password must not be longer than {maxPwdLength} characters"
-msgstr ""
-"Le mot de passe ne peut pas être plus long que {maxPwdLength} caractères "
-
-#: src/EBox/UsersAndGroups.pm:2148 src/templates/users.mas:14
-msgid "Add User"
-msgstr "Ajouter un utilisateur"
-
-#: src/EBox/UsersAndGroups.pm:2152
-msgid "Edit User"
-msgstr "Éditer l'utilisateur"
-
-#: src/EBox/UsersAndGroups.pm:2156
-msgid "Slave Status"
-msgstr "Statut de l'esclave"
-
-#: src/EBox/UsersAndGroups.pm:2168 src/templates/groups.mas:12
-msgid "Add Group"
-msgstr "Ajouter un groupe"
-
-#: src/EBox/UsersAndGroups.pm:2171 src/templates/groups.mas:49
-msgid "Edit Group"
-msgstr "Éditer un groupe"
-
-#: src/EBox/UsersAndGroups.pm:2175 src/EBox/UsersAndGroups/Model/Mode.pm:69
+#: src/EBox/UsersAndGroups/Model/Mode.pm:72 src/EBox/UsersAndGroups.pm:2206
 msgid "Mode"
 msgstr "Mode"
 
-#: src/EBox/UsersAndGroups.pm:2189 src/EBox/UsersAndGroups/Model/Mode.pm:86
-#: src/EBox/UsersAndGroups/Model/Password.pm:75 src/templates/users.mas:51
-#: src/templates/usercorner/login/index.mas:34 src/templates/user.mas:52
-msgid "Password"
-msgstr "Mot de passe"
+#: src/EBox/UsersAndGroups/Model/Mode.pm:74
+msgid "Master"
+msgstr "Maître"
 
-#: src/EBox/UsersAndGroups.pm:2400
-#, perl-brace-format
-msgid "Can't connect to master eBox at {remote}"
-msgstr "Impossible de se connecter à l'eBox maître par {remote}"
-
-#: src/EBox/UsersAndGroups.pm:2407
-#, perl-brace-format
-msgid ""
-"Can't connect to master eBox at {remote} with the provided LDAP password"
+#: src/EBox/UsersAndGroups/Model/Mode.pm:76
+msgid "Windows AD Slave"
 msgstr ""
-"Impossible de se connecter à l'eBox maître par {remote} avec le mot de passe "
-"LDAP spécifié"
 
-#: src/EBox/UsersAndGroups.pm:2426
-#, perl-brace-format
-msgid "A host with the name {host} is already registered in this eBox"
-msgstr "Un hôte du nom de {host} est déjà enregistré dans cet eBox"
+#: src/EBox/UsersAndGroups/Model/Mode.pm:83
+#, fuzzy
+msgid "Master host"
+msgstr "Maître"
 
-#: src/EBox/UsersAndGroups.pm:2536
-msgid "Replication failed"
-msgstr "Réplication échouée"
+#: src/EBox/UsersAndGroups/Model/Mode.pm:86
+#, fuzzy
+msgid "Only for slave configuration: IP of the master eBox or Windows"
+msgstr ""
+"Uniquement pour la configuration en tant qu'esclave : IP de l'eBox maître"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:90
+#, fuzzy
+msgid "LDAP password"
+msgstr "mot de passe"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:92
+msgid "Master eBox LDAP password"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:96
+#, fuzzy
+msgid "AD user"
+msgstr "Ajouter un utilisateur"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:99
+msgid "Username for binding to Windows AD (it has to be created in the AD)"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:103
+#, fuzzy
+msgid "AD password"
+msgstr "mot de passe"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:106
+msgid "Password for the above user"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:110
+#, fuzzy
+msgid "Listen port"
+msgstr "Port en écoute"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:113
+msgid "Port for listening password sync notifications from Windows"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:117
+msgid "AD Secret Key"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:120
+msgid "Secret key to be shared between Windows and eBox (16 chars)"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:126
+msgid "eBox users mode"
+msgstr "Mode utilisateur de l'eBox"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:150
+msgid "Missing fields to configure eBox as slave"
+msgstr "Champs manquant pour configurer eBox en tant qu'esclave"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:59
 #: src/EBox/UsersAndGroups/Model/Users.pm:60
@@ -360,6 +284,37 @@ msgstr ""
 "Aucun groupe n'est défini pour le moment. Vous pouvez en ajouter dans l'eBox "
 "maître"
 
+#: src/EBox/UsersAndGroups/Model/Groups.pm:143
+#, fuzzy
+msgid ""
+"There are no groups at the moment. You may want to add some in the Domain "
+"Controller"
+msgstr ""
+"Aucun groupe n'est défini pour le moment. Vous pouvez en ajouter dans l'eBox "
+"maître"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:49
+msgid "Password management"
+msgstr "Gestion des mots de passe"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:59
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:66
+msgid "Re-type new password"
+msgstr "Taper de nouveau le mot de passe"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:75
+#: src/EBox/UsersAndGroups.pm:2220 src/templates/users.mas:51
+#: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
+msgid "Password"
+msgstr "Mot de passe"
+
+#: src/EBox/UsersAndGroups/Model/Password.pm:117
+msgid "Password successfully updated"
+msgstr "Le mot de passe a été mis à jour avec succès"
+
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:91
 msgid "Force sync"
 msgstr "Forcer la synchronisation"
@@ -376,55 +331,6 @@ msgstr "Forcer la synchronisation des opérations en attente"
 msgid "Sync now"
 msgstr "Synchroniser maintenant"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:71
-msgid "Master"
-msgstr "Maître"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:72
-#: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
-#: src/EBox/UsersAndGroups/Model/Slaves.pm:55
-msgid "Slave"
-msgstr "Esclave"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:79
-msgid "eBox master"
-msgstr "eBox maître"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:82
-msgid "Only for slave configuration: IP of the master eBox"
-msgstr ""
-"Uniquement pour la configuration en tant qu'esclave : IP de l'eBox maître"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:89
-msgid "Only for slave configuration: Master eBox LDAP user password"
-msgstr ""
-"Uniquement pour la configuration en tant qu'esclave : mot de passe de "
-"l'utilisateur LDAP de l'eBox maître"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:95
-msgid "eBox users mode"
-msgstr "Mode utilisateur de l'eBox"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:119
-msgid "Missing fields to configure eBox as slave"
-msgstr "Champs manquant pour configurer eBox en tant qu'esclave"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:49
-msgid "Password management"
-msgstr "Gestion des mots de passe"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:59
-msgid "New password"
-msgstr "Nouveau mot de passe"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:66
-msgid "Re-type new password"
-msgstr "Taper de nouveau le mot de passe"
-
-#: src/EBox/UsersAndGroups/Model/Password.pm:117
-msgid "Password successfully updated"
-msgstr "Le mot de passe a été mis à jour avec succès"
-
 #: src/EBox/UsersAndGroups/Model/Users.pm:65
 msgid "Full name"
 msgstr "Nom complet"
@@ -437,39 +343,6 @@ msgid ""
 msgstr ""
 "Il n'y a aucun utilisateur à ce moment. Vous pouvez en ajouter dans "
 "{openhref} la section \"Ajout d'utilisateur\"{closehref}."
-
-#: src/EBox/UsersAndGroups/Model/PendingSync.pm:64
-msgid "Operation"
-msgstr "Opération"
-
-#: src/EBox/UsersAndGroups/Model/PendingSync.pm:69
-msgid "Parameter"
-msgstr "Paramètre"
-
-#: src/EBox/UsersAndGroups/Model/PendingSync.pm:78
-msgid "List of pending operations on slaves"
-msgstr "Liste des opérations en attente dans les esclaves"
-
-#: src/EBox/UsersAndGroups/Model/PendingSync.pm:85
-msgid ""
-"This is a list those operations that need to be run by the slaves because "
-"the master failed to contact them."
-msgstr ""
-"Ceci est une liste des opérations qui doivent être entreprises par les "
-"esclaves, car le maître ne peut pas les contacter"
-
-#: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
-msgid "operation"
-msgstr "opération"
-
-#: src/EBox/UsersAndGroups/Model/PendingSync.pm:129
-#: src/EBox/UsersAndGroups/Model/Slaves.pm:114
-msgid "You must enable the module Users in master mode."
-msgstr "Vous devez activer le module \"Utilisateurs\" en mode maître"
-
-#: src/EBox/UsersAndGroups/Model/PendingSync.pm:131
-msgid "There are no pending operations at the moment."
-msgstr "Il n'y a pas d'opération en attente pour le moment."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:63
 msgid "List of slaves"
@@ -488,13 +361,204 @@ msgstr "esclave"
 msgid "There are no slaves at the moment."
 msgstr "Il n'y a pas d'esclave pour le moment."
 
+#: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:74
+msgid "Slave status"
+msgstr "Statut de l'esclave"
+
 #: src/EBox/UsersAndGroups/Setup.pm:137
 msgid "Can't bind to LDAP with the provided password"
 msgstr "Impossible de se connecter à LDAP avec le mot de passe spécifié"
 
-#: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:74
-msgid "Slave status"
+#: src/EBox/UsersAndGroups.pm:77
+msgid "Users and Groups"
+msgstr "Utilisateurs et Groupes"
+
+#: src/EBox/UsersAndGroups.pm:96
+msgid ""
+"Your openLDAP database will be populated with some basic organizational units"
+msgstr ""
+"Votre base de donnée openLDAP va être publiée avec une unité "
+"organisationnelle (organizational units) par défaut"
+
+#: src/EBox/UsersAndGroups.pm:97
+msgid "eBox needs this organizational units to add users and groups into them"
+msgstr ""
+"eBox demande que vous ajoutiez des utilisateurs et groupes dans l'unité "
+"organisationnelle (organizational units)"
+
+#: src/EBox/UsersAndGroups.pm:101
+msgid "Create directories for slave's journals"
+msgstr "Créer des répertoires pour les journaux esclaves"
+
+#: src/EBox/UsersAndGroups.pm:102
+msgid "eBox needs the directories to record pending slave's actions"
+msgstr ""
+"eBox nécessite des répertoires pour consigner les actions esclaves en attente"
+
+#: src/EBox/UsersAndGroups.pm:109
+msgid "Your eBox will be registered as a slave in the eBox master specified"
+msgstr "Votre eBox sera enregistré comme esclave dans l'eBox maître spécifié"
+
+#: src/EBox/UsersAndGroups.pm:110
+msgid "This eBox needs to have remote access to the users in the eBox master"
+msgstr ""
+"Cette eBox a besoin d'un accès distant aux utilisateurs de l'eBox maître"
+
+#: src/EBox/UsersAndGroups.pm:116
+msgid "Apparmor profile will be disabled"
+msgstr "Le profile AppArmor (Application Armor) sera désactivé"
+
+#: src/EBox/UsersAndGroups.pm:117
+msgid "It is not ready to work with more than one slapd"
+msgstr "Ebox n'est pas prêt pour travailler avec plus d'un \"slapd\""
+
+#: src/EBox/UsersAndGroups.pm:125
+msgid "Install /etc/cron.d/ebox-ad-sync."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:126
+msgid "eBox will run a script each 5 minutes to sync with Windows AD."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:146
+msgid "To make openLDAP listen on TCP and Unix sockets"
+msgstr "Pour permettre openLDAP d'écouter les sockets TCP et Unix"
+
+#: src/EBox/UsersAndGroups.pm:151
+msgid ""
+"To copy LDAP admin password generated by  eBox and allow other modules to "
+"access LDAP"
+msgstr ""
+"Pour copier le mot de passe administrateur de LDAP, généré par eBox et "
+"permettre aux autres modules d'accéder à LDAP"
+
+#: src/EBox/UsersAndGroups.pm:693
+#, perl-brace-format
+msgid "Username must not be longer than {maxuserlength} characters"
+msgstr ""
+"Le nom d'utilisateur ne peut pas être plus long que {maxuserlength} "
+"caractères"
+
+#: src/EBox/UsersAndGroups.pm:791 src/EBox/UsersAndGroups.pm:1407
+msgid "Maximum number of system users reached"
+msgstr "Nombre maximum d'utilisateurs système atteint"
+
+#: src/EBox/UsersAndGroups.pm:808
+#, perl-brace-format
+msgid ""
+"Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
+msgstr ""
+"UID {uid} incorrecte pour un utilisateur. L'UID doit être plus grand ou égal "
+"à {min}"
+
+#: src/EBox/UsersAndGroups.pm:819
+#, perl-brace-format
+msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
+msgstr ""
+"UID {uid} incorrecte pour un utilisateur système. L'UID doit être plus petit "
+"que {max}"
+
+#: src/EBox/UsersAndGroups.pm:1331
+#, perl-brace-format
+msgid "Groupname must not be longer than {maxGroupLength} characters"
+msgstr ""
+"Le nom du groupe ne peut pas être plus long que {maxGroupLength} caractères"
+
+#: src/EBox/UsersAndGroups.pm:1337
+msgid "The group name is not valid because it is used internally"
+msgstr "Le nom du groupe n'est pas valide parce qu'il est employé en interne"
+
+#: src/EBox/UsersAndGroups.pm:1424
+#, perl-brace-format
+msgid ""
+"Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
+msgstr ""
+"GID {gid} incorrecte pour un groupe. Le GID doit être plus grand ou égal à "
+"{min}"
+
+#: src/EBox/UsersAndGroups.pm:1434
+#, perl-brace-format
+msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
+msgstr ""
+"GID {gid} incorrecte pour un groupe système. Le GID doit être plus petit que "
+"{max}"
+
+#: src/EBox/UsersAndGroups.pm:1976
+#, perl-brace-format
+msgid "Password must not be longer than {maxPwdLength} characters"
+msgstr ""
+"Le mot de passe ne peut pas être plus long que {maxPwdLength} caractères "
+
+#: src/EBox/UsersAndGroups.pm:2179 src/templates/users.mas:14
+msgid "Add User"
+msgstr "Ajouter un utilisateur"
+
+#: src/EBox/UsersAndGroups.pm:2183
+msgid "Edit User"
+msgstr "Éditer l'utilisateur"
+
+#: src/EBox/UsersAndGroups.pm:2187
+msgid "Slave Status"
 msgstr "Statut de l'esclave"
+
+#: src/EBox/UsersAndGroups.pm:2199 src/templates/groups.mas:12
+msgid "Add Group"
+msgstr "Ajouter un groupe"
+
+#: src/EBox/UsersAndGroups.pm:2202 src/templates/groups.mas:49
+msgid "Edit Group"
+msgstr "Éditer un groupe"
+
+#: src/EBox/UsersAndGroups.pm:2433
+#, perl-brace-format
+msgid "Can't connect to master eBox at {remote}"
+msgstr "Impossible de se connecter à l'eBox maître par {remote}"
+
+#: src/EBox/UsersAndGroups.pm:2440
+#, perl-brace-format
+msgid ""
+"Can't connect to master eBox at {remote} with the provided LDAP password"
+msgstr ""
+"Impossible de se connecter à l'eBox maître par {remote} avec le mot de passe "
+"LDAP spécifié"
+
+#: src/EBox/UsersAndGroups.pm:2459
+#, perl-brace-format
+msgid "A host with the name {host} is already registered in this eBox"
+msgstr "Un hôte du nom de {host} est déjà enregistré dans cet eBox"
+
+#: src/EBox/UsersAndGroups.pm:2569
+msgid "Replication failed"
+msgstr "Réplication échouée"
+
+#: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
+msgid "User"
+msgstr "Utilisateur"
+
+#: src/EBox/UserCorner/CGI/Login/Index.pm:62
+msgid ""
+"There is a script which has asked to run in eBox exclusively. Please, wait "
+"patiently until it is done"
+msgstr ""
+"Un script a demandé de fonctionner en mode exclusif. Merci de patientez "
+"jusqu'à la fin de son exécution"
+
+#: src/EBox/UserCorner/CGI/Login/Index.pm:66
+msgid "Incorrect password"
+msgstr "Mot de passe incorrect"
+
+#: src/EBox/UserCorner/CGI/Login/Index.pm:69
+msgid "For security reasons your session has expired due to inactivity"
+msgstr ""
+"Pour des raisons de sécurité votre session a expirée pour cause d'inactivité"
+
+#: src/EBox/UserCorner/CGI/Login/Index.pm:72
+msgid "You have been logged out because a new session has been opened"
+msgstr "Vous avez été déconnecté car une nouvelle session a été ouverte"
+
+#: src/EBox/UserCorner/CGI/Login/Index.pm:75
+msgid "You are not logged in"
+msgstr "Vous n'êtes pas connecté"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User corner"
@@ -512,59 +576,9 @@ msgstr "Paramètres du serveur web de l'espace utilisateur"
 msgid "listening port"
 msgstr "Port en écoute"
 
-#: migration/0001_usercorner_add_webserver_service.pl:54
-msgid "User Corner Web Server"
-msgstr "Serveur web de l'espace utilisateur"
-
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
 msgstr "Ajouter un nouveau"
-
-#: src/templates/users.mas:11 src/templates/groups.mas:9
-msgid ""
-"Changes in user accounts take effect inmediately, they do not need to be "
-"saved."
-msgstr ""
-"Les changements aux comptes utilisateurs entrent en vigueur immédiatement, "
-"ils n'ont pas besoin d'être sauvegardés."
-
-#: src/templates/users.mas:12 src/templates/groups.mas:10
-msgid ""
-"Changes related to printing, file sharing and Jabber service do need to be "
-"saved in order to be effective."
-msgstr ""
-"Les changements liés à l'impression et au partage de fichiers doivent être "
-"sauvegardés afin d'enter en vigueur."
-
-#: src/templates/users.mas:19 src/templates/usercorner/login/index.mas:29
-msgid "User name"
-msgstr "Nom d'utilisateur"
-
-#: src/templates/users.mas:27 src/templates/user.mas:21
-msgid "First name"
-msgstr "Prénom"
-
-#: src/templates/users.mas:35 src/templates/user.mas:31
-msgid "Last name"
-msgstr "Nom"
-
-#: src/templates/users.mas:43 src/templates/group.mas:20
-#: src/templates/groups.mas:28 src/templates/user.mas:41
-msgid "Comment"
-msgstr "Commentaire"
-
-#: src/templates/users.mas:58 src/templates/user.mas:62
-msgid "Retype password"
-msgstr "Réécrire le mot de passe"
-
-#: src/templates/users.mas:71 src/templates/users.mas:72
-#: src/templates/groups.mas:40 src/templates/groups.mas:41
-msgid "Create"
-msgstr "Créer"
-
-#: src/templates/users.mas:85
-msgid "Group"
-msgstr "Groupe"
 
 #: src/templates/del.mas:15
 msgid ""
@@ -592,17 +606,68 @@ msgstr "Effacer"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: src/templates/usercorner/headTitle.mas:11
-msgid "Logout"
-msgstr "Déconnexion"
+#: src/templates/groups.mas:9 src/templates/users.mas:11
+msgid ""
+"Changes in user accounts take effect inmediately, they do not need to be "
+"saved."
+msgstr ""
+"Les changements aux comptes utilisateurs entrent en vigueur immédiatement, "
+"ils n'ont pas besoin d'être sauvegardés."
 
-#: src/templates/usercorner/login/index.mas:26
-msgid "Warning: Caps Lock is enabled"
-msgstr "Attention: Verr.Maj (Caps Lock) est activé"
+#: src/templates/groups.mas:10 src/templates/users.mas:12
+msgid ""
+"Changes related to printing, file sharing and Jabber service do need to be "
+"saved in order to be effective."
+msgstr ""
+"Les changements liés à l'impression et au partage de fichiers doivent être "
+"sauvegardés afin d'enter en vigueur."
 
-#: src/templates/usercorner/login/index.mas:41
-msgid "Enter"
-msgstr "Entrer"
+#: src/templates/groups.mas:18 src/templates/groups.mas:52
+msgid "Group name"
+msgstr "Nom de groupe"
+
+#: src/templates/groups.mas:28 src/templates/users.mas:43
+#: src/templates/group.mas:20 src/templates/user.mas:41
+msgid "Comment"
+msgstr "Commentaire"
+
+#: src/templates/groups.mas:33
+msgid "Optional value"
+msgstr "Valeur optionelle"
+
+#: src/templates/groups.mas:40 src/templates/groups.mas:41
+#: src/templates/users.mas:71 src/templates/users.mas:72
+msgid "Create"
+msgstr "Créer"
+
+#: src/templates/groups.mas:53
+msgid "Actions"
+msgstr "Actions"
+
+#: src/templates/groups.mas:74 src/templates/group.mas:61
+#: src/templates/user.mas:114
+msgid "Remove"
+msgstr "Enlever"
+
+#: src/templates/users.mas:19 src/templates/usercorner/login/index.mas:29
+msgid "User name"
+msgstr "Nom d'utilisateur"
+
+#: src/templates/users.mas:27 src/templates/user.mas:21
+msgid "First name"
+msgstr "Prénom"
+
+#: src/templates/users.mas:35 src/templates/user.mas:31
+msgid "Last name"
+msgstr "Nom"
+
+#: src/templates/users.mas:58 src/templates/user.mas:62
+msgid "Retype password"
+msgstr "Réécrire le mot de passe"
+
+#: src/templates/users.mas:85
+msgid "Group"
+msgstr "Groupe"
 
 #: src/templates/group.mas:14
 msgid ""
@@ -630,11 +695,6 @@ msgstr "Utilisateurs PAS dans groupe"
 msgid "Empty list"
 msgstr "Liste vide"
 
-#: src/templates/group.mas:61 src/templates/groups.mas:74
-#: src/templates/user.mas:114
-msgid "Remove"
-msgstr "Enlever"
-
 #: src/templates/group.mas:64
 msgid "Remove users from group"
 msgstr "Supprimer les utilisateurs du groupe"
@@ -656,18 +716,6 @@ msgid ""
 msgstr ""
 "Si vous enlevez ce groupe toutes ses données dans son répertoire partagé "
 "seront enlevées"
-
-#: src/templates/groups.mas:18 src/templates/groups.mas:52
-msgid "Group name"
-msgstr "Nom de groupe"
-
-#: src/templates/groups.mas:33
-msgid "Optional value"
-msgstr "Valeur optionelle"
-
-#: src/templates/groups.mas:53
-msgid "Actions"
-msgstr "Actions"
 
 #: src/templates/user.mas:88
 msgid "User groups"
@@ -693,6 +741,26 @@ msgid ""
 msgstr ""
 "Cette opération causera la suppression de l'utilisateur et de toutes ses "
 "données liées; comme les comptes de courrier, fichiers utilisateurs, ..."
+
+#: src/templates/usercorner/headTitle.mas:11
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: src/templates/usercorner/login/index.mas:26
+msgid "Warning: Caps Lock is enabled"
+msgstr "Attention: Verr.Maj (Caps Lock) est activé"
+
+#: src/templates/usercorner/login/index.mas:41
+msgid "Enter"
+msgstr "Entrer"
+
+#~ msgid "eBox master"
+#~ msgstr "eBox maître"
+
+#~ msgid "Only for slave configuration: Master eBox LDAP user password"
+#~ msgstr ""
+#~ "Uniquement pour la configuration en tant qu'esclave : mot de passe de "
+#~ "l'utilisateur LDAP de l'eBox maître"
 
 #~ msgid ""
 #~ "Your current openLDAP database will be replaced and backed up in /var/"
@@ -731,9 +799,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Votre base de données openLDAP actuelle va être remplacée et sauvegardée "
 #~ "dans /var/backup/slapd"
-
-#~ msgid "Add user"
-#~ msgstr "Ajouter un utilisateur"
 
 # Better translation
 #~ msgid "Edit user"

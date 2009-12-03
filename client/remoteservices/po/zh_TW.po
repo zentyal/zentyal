@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:39+0100\n"
+"POT-Creation-Date: 2009-12-03 13:02+0000\n"
 "PO-Revision-Date: 2009-08-04 07:48+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -16,27 +16,128 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
-msgid "Control panel"
-msgstr "控制面板"
+#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
+msgid "Backup deleted"
+msgstr "備份模式"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
-msgid "Control center"
-msgstr "控制中心"
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
+msgid "Making remote backup"
+msgstr "建立遠端備份"
 
-#: src/EBox/RemoteServices/Backup.pm:211
-#: src/EBox/RemoteServices/ProxyBackup.pm:208
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
+msgid "Backing up modules "
+msgstr "正在備份模組"
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
+msgid "Operation"
+msgstr "操作"
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
+msgid "operations left to finish backup"
+msgstr "完成備份的操作"
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
+msgid "Backup successful"
+msgstr "備份成功"
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
+msgid "Restoring remote backup"
+msgstr "正在還原遠端備份"
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
+msgid "Restoring modules from remote backup"
+msgstr "正在從遠端備份還原模組"
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
+msgid "Module"
+msgstr "模組"
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
+msgid "modules left to restore"
+msgstr "剩下要還原的模組"
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
+msgid "Restore successful"
+msgstr "還原成功"
+
+#: src/EBox/CGI/Backup/Index.pm:36
+msgid "Remote system backups"
+msgstr "系統備份"
+
+#: src/EBox/CGI/Backup/Confirm.pm:35
+msgid "Configuration backup"
+msgstr "組態備份"
+
+#: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
+msgid ""
+"Please confirm that you want to restore the configuraction using the "
+"following remote backup:"
+msgstr "請確認您想要使用下列遠端備份檔還原組態："
+
+#: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
+msgid "Restore"
+msgstr "還原"
+
+#: src/EBox/CGI/Backup/Confirm.pm:119
+msgid "Please confirm that you want to delete the following remote backup:"
+msgstr "請確認您想要刪除下列遠端備份檔："
+
+#: src/EBox/CGI/Backup/Confirm.pm:125
+msgid "Delete"
+msgstr "刪除"
+
+#: src/EBox/CGI/Backup/Confirm.pm:173
 #, perl-brace-format
-msgid "Inexistent backup: {n}"
-msgstr "不存在的備份： {n}"
+msgid "Inexistent action: {a}"
+msgstr "不存在的動作：{a}"
 
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
-msgid "Access from control panel without password"
-msgstr "不使用密碼存取控制面板"
+#: src/EBox/CGI/Backup/Proxy.pm:35
+msgid "Remote system backups proxy"
+msgstr "遠端系統備份代理伺服器"
 
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
-msgid "Access settings"
-msgstr "存取設定值"
+#: src/EBox/CGI/NoConnection.pm:31
+msgid "Connection error"
+msgstr "連線錯誤"
+
+#: src/EBox/RemoteServices/Auth.pm:124
+msgid "Key for service URN not found"
+msgstr "找不到 URN 服務的設定鍵"
+
+#: src/EBox/RemoteServices/Auth.pm:160
+#, perl-brace-format
+msgid "Value for key {k} not found"
+msgstr "找不到設定鍵 {k} 的數值"
+
+#: src/EBox/RemoteServices/Subscription.pm:108
+msgid "Key for web subscription service not found"
+msgstr "找不到網頁訂閱服務的設定鍵"
+
+#: src/EBox/RemoteServices/Subscription.pm:311
+#, perl-brace-format
+msgid "Cannot contact to {host}. Check your connection to the Internet"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:213
+msgid "No ebox-services DNS key found"
+msgstr "找不到 ebox-服務 DNS 設定鍵"
+
+#: src/EBox/RemoteServices/Base.pm:258
+#, perl-brace-format
+msgid "Server {s} not found via DNS server {d}"
+msgstr "無法透過 DNS 伺服器 {d} 找到伺服器 {s}"
+
+#: src/EBox/RemoteServices/Base.pm:341
+msgid "Cannot create SOAP connection"
+msgstr "不能建立 SOAP 連線"
+
+#: src/EBox/RemoteServices/Base.pm:355
+msgid "No domain key found for this service"
+msgstr "找不到這個服務的網域設定鍵"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:149
 msgid ""
@@ -93,6 +194,20 @@ msgid ""
 "backup facilities and much more"
 msgstr "為了訂閱 eBox 遠端服務 {url}。您要有遠端備份的能力等等"
 
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
+msgid "Access from control panel without password"
+msgstr "不使用密碼存取控制面板"
+
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
+msgid "Access settings"
+msgstr "存取設定值"
+
+#: src/EBox/RemoteServices/Backup.pm:211
+#: src/EBox/RemoteServices/ProxyBackup.pm:208
+#, perl-brace-format
+msgid "Inexistent backup: {n}"
+msgstr "不存在的備份： {n}"
+
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
@@ -101,36 +216,6 @@ msgstr "訂閱 {h}"
 #: src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
 msgstr "找不到代理伺服器備份服務的設定鍵"
-
-#: src/EBox/RemoteServices/Auth.pm:124
-msgid "Key for service URN not found"
-msgstr "找不到 URN 服務的設定鍵"
-
-#: src/EBox/RemoteServices/Auth.pm:160
-#, perl-brace-format
-msgid "Value for key {k} not found"
-msgstr "找不到設定鍵 {k} 的數值"
-
-#: src/EBox/RemoteServices/Base.pm:213
-msgid "No ebox-services DNS key found"
-msgstr "找不到 ebox-服務 DNS 設定鍵"
-
-#: src/EBox/RemoteServices/Base.pm:258
-#, perl-brace-format
-msgid "Server {s} not found via DNS server {d}"
-msgstr "無法透過 DNS 伺服器 {d} 找到伺服器 {s}"
-
-#: src/EBox/RemoteServices/Base.pm:341
-msgid "Cannot create SOAP connection"
-msgstr "不能建立 SOAP 連線"
-
-#: src/EBox/RemoteServices/Base.pm:355
-msgid "No domain key found for this service"
-msgstr "找不到這個服務的網域設定鍵"
-
-#: src/EBox/RemoteServices/Subscription.pm:106
-msgid "Key for web subscription service not found"
-msgstr "找不到網頁訂閱服務的設定鍵"
 
 #: src/EBox/RemoteServices/Composite/General.pm:73
 msgid "Remote services"
@@ -141,105 +226,13 @@ msgstr "遠端服務"
 msgid "eBox Control Center is paid services to enhance your eBox experience"
 msgstr "來自 eBox 的遠端服務是付費服務，可以增強您的 eBox 體驗"
 
-#: src/EBox/Model/Settings.pm:53
-msgid "field1"
-msgstr "欄位1"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
+msgid "Control panel"
+msgstr "控制面板"
 
-#: src/EBox/Model/Settings.pm:60
-msgid "field2"
-msgstr "欄位2"
-
-#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
-msgid "Settings"
-msgstr "設定值"
-
-#: src/EBox/CGI/NoConnection.pm:31
-msgid "Connection error"
-msgstr "連線錯誤"
-
-#: src/EBox/CGI/Backup/Confirm.pm:35
-msgid "Configuration backup"
-msgstr "組態備份"
-
-#: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
-msgid ""
-"Please confirm that you want to restore the configuraction using the "
-"following remote backup:"
-msgstr "請確認您想要使用下列遠端備份檔還原組態："
-
-#: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
-msgid "Restore"
-msgstr "還原"
-
-#: src/EBox/CGI/Backup/Confirm.pm:119
-msgid "Please confirm that you want to delete the following remote backup:"
-msgstr "請確認您想要刪除下列遠端備份檔："
-
-#: src/EBox/CGI/Backup/Confirm.pm:125
-msgid "Delete"
-msgstr "刪除"
-
-#: src/EBox/CGI/Backup/Confirm.pm:173
-#, perl-brace-format
-msgid "Inexistent action: {a}"
-msgstr "不存在的動作：{a}"
-
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
-msgid "Making remote backup"
-msgstr "建立遠端備份"
-
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
-msgid "Backing up modules "
-msgstr "正在備份模組"
-
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
-msgid "Operation"
-msgstr "操作"
-
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
-msgid "operations left to finish backup"
-msgstr "完成備份的操作"
-
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
-msgid "Backup successful"
-msgstr "備份成功"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
-msgid "Restoring remote backup"
-msgstr "正在還原遠端備份"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
-msgid "Restoring modules from remote backup"
-msgstr "正在從遠端備份還原模組"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
-msgid "Module"
-msgstr "模組"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
-msgid "modules left to restore"
-msgstr "剩下要還原的模組"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
-msgid "Restore successful"
-msgstr "還原成功"
-
-#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
-msgid "Backup deleted"
-msgstr "備份模式"
-
-#: src/EBox/CGI/Backup/Index.pm:36
-msgid "Remote system backups"
-msgstr "系統備份"
-
-#: src/EBox/CGI/Backup/Proxy.pm:35
-msgid "Remote system backups proxy"
-msgstr "遠端系統備份代理伺服器"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
+msgid "Control center"
+msgstr "控制中心"
 
 #: src/EBox/RemoteServices.pm:74
 #, fuzzy
@@ -259,9 +252,17 @@ msgstr "已訂閱"
 msgid "Control Center"
 msgstr "控制中心"
 
-#: src/EBox/Composite/Composite.pm:50
-msgid "Composite"
-msgstr "組合"
+#~ msgid "field1"
+#~ msgstr "欄位1"
+
+#~ msgid "field2"
+#~ msgstr "欄位2"
+
+#~ msgid "Settings"
+#~ msgstr "設定值"
+
+#~ msgid "Composite"
+#~ msgstr "組合"
 
 #~ msgid "eBox remote services"
 #~ msgstr "eBox 遠端服務"

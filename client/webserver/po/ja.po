@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:42+0100\n"
+"POT-Creation-Date: 2009-12-03 13:09+0000\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "es\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr "ハイパーテキストトランスポートプロトコル"
 
 #: src/EBox/WebServer.pm:77
 #, fuzzy
@@ -52,26 +56,38 @@ msgstr "ファイル {userDirConfFile} がありません！ 修復してくだ�
 msgid "listening port"
 msgstr "受信ポート"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+#: src/EBox/WebServer/Model/GeneralSettings.pm:101
+msgid ""
+"To allow HTML directories for users is needed that the file sharing module "
+"is installed and configured"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:107
+msgid ""
+"To allow HTML directories for user os needed to have the file sharing module "
+"configured. To configure it enable it at least one time"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
 msgstr "受信ポート"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#: src/EBox/WebServer/Model/GeneralSettings.pm:175
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "ユーザ {dirName} 毎に有効化"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+#: src/EBox/WebServer/Model/GeneralSettings.pm:179
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:172
+#: src/EBox/WebServer/Model/GeneralSettings.pm:189
 msgid "General configuration settings"
 msgstr "全般的設定"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:176
+#: src/EBox/WebServer/Model/GeneralSettings.pm:193
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
@@ -83,7 +99,7 @@ msgstr ""
 "せん。ユーザ毎の公開ページを有効にする場合、ページSambaホームディレクトリの中"
 "の {dirName} ディレクトリから読み込まれます。"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:182
+#: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"
 msgstr "全般的なWebサーバの設定が更新されました"
 
@@ -184,10 +200,6 @@ msgid ""
 msgstr ""
 "eBox Webサービスでは異なるバーチャルホストでプレーンなHTMLページをホストする"
 "ことを許可しています"
-
-#: migration/0001_add_service_and_port.pl:147
-msgid "HyperText Transport Protocol"
-msgstr "ハイパーテキストトランスポートプロトコル"
 
 #~ msgid "Web"
 #~ msgstr "Web"

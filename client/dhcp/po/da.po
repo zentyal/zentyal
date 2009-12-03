@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:29+0100\n"
+"POT-Creation-Date: 2009-12-03 13:11+0000\n"
 "PO-Revision-Date: 2007-07-24 15:13+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,72 +16,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/LeaseTimes.pm:112
-#: src/EBox/Model/ThinClientOptions.pm:118
-#: src/EBox/Model/FixedAddressTable.pm:94 src/EBox/Model/RangeTable.pm:95
-#: src/EBox/Model/Options.pm:119
+#: migration/0002_add_services.pl:117
+msgid "Trivial File Transfer Protocol"
+msgstr "Triviel Fil Overførsels Protokol"
+
+#: migration/0002_add_services.pl:126
+msgid "Dynamic Host Configuration Protocol"
+msgstr "Dynamisk Host Konfigurations Protokol"
+
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "Modul Status"
+
+#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:397
+#: src/EBox/DHCP.pm:433 src/EBox/DHCP.pm:483 src/EBox/DHCP.pm:581
+#: src/EBox/DHCP.pm:635 src/EBox/DHCP.pm:696 src/EBox/DHCP.pm:752
+#: src/EBox/DHCP.pm:1143
+msgid "Interface"
+msgstr "Interface"
+
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:216
+#: src/EBox/DHCP.pm:1144 src/EBox/DHCP.pm:1212 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "MAC adresse"
+
+#: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:242
+#: src/EBox/Model/FixedAddressTable.pm:222 src/EBox/DHCP.pm:1212
+#: src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "IP adresse"
+
+#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:210 src/EBox/Model/RangeTable.pm:213
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
+msgid "Name"
+msgstr "Navn"
+
+#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
+#: src/templates/ranges.mas:54
+msgid "From"
+msgstr "Fra"
+
+#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
+#: src/templates/ranges.mas:55
+msgid "To"
+msgstr "Til"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "modul status"
+
+#: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
+#: src/EBox/Model/FixedAddressTable.pm:94 src/EBox/Model/RangeInfo.pm:108
+#: src/EBox/Model/Options.pm:119 src/EBox/Model/RangeTable.pm:95
+#: src/EBox/Composite/OptionsTab.pm:87
 #: src/EBox/Composite/InterfaceConfiguration.pm:87
 #: src/EBox/Composite/AdvancedOptions.pm:88
-#: src/EBox/Composite/OptionsTab.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "interface {iface}"
-
-#: src/EBox/Model/RangeInfo.pm:143
-msgid "Interface IP address"
-msgstr "Interface IP adresse"
-
-#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
-msgid "Subnet"
-msgstr "Subnet"
-
-#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
-msgid "Available range"
-msgstr "Tilgængeligt område"
-
-#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
-msgid "DHCP ranges"
-msgstr "DHCP områder"
-
-#: src/EBox/Model/LeaseTimes.pm:132
-msgid "Default leased time must be higher than 0 seconds"
-msgstr "Default tildelt tid må være mere end 0 sekunder"
-
-#: src/EBox/Model/LeaseTimes.pm:138
-#, perl-brace-format
-msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr "Default tildelt tid {default} må være mindre end maximum tiden {max}"
-
-#: src/EBox/Model/LeaseTimes.pm:150
-msgid "Maximum leased time must be higher than 0 seconds"
-msgstr "Maximum tildelt tid må være mere end 0 sekunder"
-
-#: src/EBox/Model/LeaseTimes.pm:156
-#, perl-brace-format
-msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr "Maximum tildelt tid {max} må være større end default tildelt {default}"
-
-#: src/EBox/Model/LeaseTimes.pm:200
-msgid "Default leased time"
-msgstr "Default tildelt tid"
-
-#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
-msgid "seconds"
-msgstr "sekunder"
-
-#: src/EBox/Model/LeaseTimes.pm:207
-msgid "Maximum leased time"
-msgstr "Maximum tildelt tid"
-
-#: src/EBox/Model/LeaseTimes.pm:216
-msgid "Lease times"
-msgstr "Tildelt tid"
-
-#: src/EBox/Model/LeaseTimes.pm:221
-msgid ""
-"Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
-"Tildelt tid er den tid som en tildelt IP adresse er gyldig hos en DHCP server"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
 #, fuzzy
@@ -128,12 +123,6 @@ msgstr "Ingen"
 msgid "eBox"
 msgstr "eBox"
 
-#: src/EBox/Model/ThinClientOptions.pm:242
-#: src/EBox/Model/FixedAddressTable.pm:222 src/EBox/DHCP.pm:1208
-#: src/EBox/CGI/AddFixed.pm:44 src/templates/fixed.mas:10
-msgid "IP address"
-msgstr "IP adresse"
-
 #: src/EBox/Model/ThinClientOptions.pm:246
 msgid "name"
 msgstr "navn"
@@ -158,6 +147,46 @@ msgid ""
 msgstr ""
 "Måske vil du tilpasse dine tynd klient indstililnge. For at gøre det kan du "
 "lægge alle de nødvendige filer i {path} folderen"
+
+#: src/EBox/Model/LeaseTimes.pm:132
+msgid "Default leased time must be higher than 0 seconds"
+msgstr "Default tildelt tid må være mere end 0 sekunder"
+
+#: src/EBox/Model/LeaseTimes.pm:138
+#, perl-brace-format
+msgid "Default leased time {default} must be lower than maximum one {max}"
+msgstr "Default tildelt tid {default} må være mindre end maximum tiden {max}"
+
+#: src/EBox/Model/LeaseTimes.pm:150
+msgid "Maximum leased time must be higher than 0 seconds"
+msgstr "Maximum tildelt tid må være mere end 0 sekunder"
+
+#: src/EBox/Model/LeaseTimes.pm:156
+#, perl-brace-format
+msgid "Maximum leased time {max} must be higher than default one {default}"
+msgstr "Maximum tildelt tid {max} må være større end default tildelt {default}"
+
+#: src/EBox/Model/LeaseTimes.pm:200
+msgid "Default leased time"
+msgstr "Default tildelt tid"
+
+#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
+msgid "seconds"
+msgstr "sekunder"
+
+#: src/EBox/Model/LeaseTimes.pm:207
+msgid "Maximum leased time"
+msgstr "Maximum tildelt tid"
+
+#: src/EBox/Model/LeaseTimes.pm:216
+msgid "Lease times"
+msgstr "Tildelt tid"
+
+#: src/EBox/Model/LeaseTimes.pm:221
+msgid ""
+"Leased time is the time which a given IP address is valid by the DHCP server"
+msgstr ""
+"Tildelt tid er den tid som en tildelt IP adresse er gyldig hos en DHCP server"
 
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
@@ -196,17 +225,6 @@ msgstr ""
 "Du kan ikke {action} en fast adresse med et navn, der allerede er brugt til "
 "en anden fast adresse"
 
-#: src/EBox/Model/FixedAddressTable.pm:210 src/EBox/Model/RangeTable.pm:213
-#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
-#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
-msgid "Name"
-msgstr "Navn"
-
-#: src/EBox/Model/FixedAddressTable.pm:216 src/EBox/DHCP.pm:1140
-#: src/EBox/DHCP.pm:1208 src/EBox/CGI/AddFixed.pm:43 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr "MAC adresse"
-
 #: src/EBox/Model/FixedAddressTable.pm:225
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr ""
@@ -219,50 +237,21 @@ msgstr "Faste adresser"
 msgid "fixed address"
 msgstr "Fast adresse"
 
-#: src/EBox/Model/RangeTable.pm:117
-#, perl-brace-format
-msgid "{from} - {to} is an invalid range"
-msgstr "{from} - {to} er en ugyldig range"
+#: src/EBox/Model/RangeInfo.pm:143
+msgid "Interface IP address"
+msgstr "Interface IP adresse"
 
-#: src/EBox/Model/RangeTable.pm:128
-#, perl-brace-format
-msgid "Range {from}-{to} is not in network {net}"
-msgstr "Range {from}-{to} er ikke i netværket {net}"
+#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
+msgid "Subnet"
+msgstr "Subnet"
 
-#: src/EBox/Model/RangeTable.pm:141
-#, perl-brace-format
-msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr "Range {from}-{to} indbefatter interface med IP adresse: {ifaceIP}"
+#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
+msgid "Available range"
+msgstr "Tilgængeligt område"
 
-#: src/EBox/Model/RangeTable.pm:164
-#, perl-brace-format
-msgid ""
-"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
-msgstr ""
-"Range {newFrom}-{newTo} overlapper gammel range '{range}': {oldFrom}-{oldTo}"
-
-#: src/EBox/Model/RangeTable.pm:182
-#, perl-brace-format
-msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr "Range {from}-{to} inkluderer fast adresse '{name}': {fixedIP}"
-
-#: src/EBox/Model/RangeTable.pm:219 src/EBox/CGI/AddRange.pm:44
-#: src/templates/ranges.mas:54
-msgid "From"
-msgstr "Fra"
-
-#: src/EBox/Model/RangeTable.pm:225 src/EBox/CGI/AddRange.pm:45
-#: src/templates/ranges.mas:55
-msgid "To"
-msgstr "Til"
-
-#: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
-msgid "Ranges"
-msgstr "Ranges/områder"
-
-#: src/EBox/Model/RangeTable.pm:240
-msgid "range"
-msgstr "range/område"
+#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
+msgid "DHCP ranges"
+msgstr "DHCP områder"
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
@@ -350,29 +339,56 @@ msgstr ""
 "navneserver\", kan eBox serveren fungere som cache DNSserver. Alle felter er "
 "muligheder, og kan sættes til \"Ingen\" eller blank."
 
-#: src/EBox/DHCP.pm:393 src/EBox/DHCP.pm:429 src/EBox/DHCP.pm:479
-#: src/EBox/DHCP.pm:577 src/EBox/DHCP.pm:631 src/EBox/DHCP.pm:692
-#: src/EBox/DHCP.pm:748 src/EBox/DHCP.pm:1139 src/EBox/CGI/RemoveRange.pm:39
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/CGI/AddFixed.pm:39
-msgid "Interface"
-msgstr "Interface"
+#: src/EBox/Model/RangeTable.pm:117
+#, perl-brace-format
+msgid "{from} - {to} is an invalid range"
+msgstr "{from} - {to} er en ugyldig range"
 
-#: src/EBox/DHCP.pm:399 src/EBox/DHCP.pm:435 src/EBox/DHCP.pm:485
-#: src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:698 src/EBox/DHCP.pm:754
+#: src/EBox/Model/RangeTable.pm:128
+#, perl-brace-format
+msgid "Range {from}-{to} is not in network {net}"
+msgstr "Range {from}-{to} er ikke i netværket {net}"
+
+#: src/EBox/Model/RangeTable.pm:141
+#, perl-brace-format
+msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
+msgstr "Range {from}-{to} indbefatter interface med IP adresse: {ifaceIP}"
+
+#: src/EBox/Model/RangeTable.pm:164
+#, perl-brace-format
+msgid ""
+"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
+msgstr ""
+"Range {newFrom}-{newTo} overlapper gammel range '{range}': {oldFrom}-{oldTo}"
+
+#: src/EBox/Model/RangeTable.pm:182
+#, perl-brace-format
+msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
+msgstr "Range {from}-{to} inkluderer fast adresse '{name}': {fixedIP}"
+
+#: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
+msgid "Ranges"
+msgstr "Ranges/områder"
+
+#: src/EBox/Model/RangeTable.pm:240
+msgid "range"
+msgstr "range/område"
+
+#: src/EBox/DHCP.pm:403 src/EBox/DHCP.pm:439 src/EBox/DHCP.pm:489
+#: src/EBox/DHCP.pm:587 src/EBox/DHCP.pm:702 src/EBox/DHCP.pm:758
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} er ikke statisk"
 
-#: src/EBox/DHCP.pm:569
+#: src/EBox/DHCP.pm:573
 msgid "Not a valid action: add, set and del are available"
 msgstr "Ikke en gyldig handling: tilføj, sæt og slet er mulige"
 
-#: src/EBox/DHCP.pm:684
+#: src/EBox/DHCP.pm:688
 msgid "No valid action. Available ones are: add, set and del"
 msgstr "Ugyldig handling. Tilgængeligt er: tilføj, sæt og slet"
 
-#: src/EBox/DHCP.pm:923
+#: src/EBox/DHCP.pm:927
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -383,7 +399,7 @@ msgstr ""
 "brug i DHCP området '{range}' i interfacet '{iface}'. Fjern venligst dette "
 "før du prøver at tilføje et virtuelt interface der bruger det."
 
-#: src/EBox/DHCP.pm:942
+#: src/EBox/DHCP.pm:946
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -394,47 +410,39 @@ msgstr ""
 "brug af den DHCP faste adresse '{fixed}' i interfacet '{iface}'. Fjern "
 "venligst dette før du prøver at tilføje et virtuelt interface der bruger det."
 
-#: src/EBox/DHCP.pm:1138
+#: src/EBox/DHCP.pm:1142
 msgid "Date"
 msgstr "Dato"
 
-#: src/EBox/DHCP.pm:1141
+#: src/EBox/DHCP.pm:1145
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1142
+#: src/EBox/DHCP.pm:1146
 msgid "Event"
 msgstr "Hændelse"
 
-#: src/EBox/DHCP.pm:1145
+#: src/EBox/DHCP.pm:1149
 msgid "Leased"
 msgstr "Tildelt"
 
-#: src/EBox/DHCP.pm:1145
+#: src/EBox/DHCP.pm:1149
 msgid "Released"
 msgstr "Frigivet"
 
-#: src/EBox/DHCP.pm:1148
+#: src/EBox/DHCP.pm:1152
 msgid "DHCP"
 msgstr "DHCP"
 
-#: src/EBox/DHCP.pm:1208
+#: src/EBox/DHCP.pm:1212
 #, fuzzy
 msgid "Host name"
 msgstr "navn"
 
-#: src/EBox/DHCP.pm:1235
+#: src/EBox/DHCP.pm:1239
 #, fuzzy
 msgid "DHCP leases"
 msgstr "DHCP områder"
-
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "Modul Status"
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "modul status"
 
 #: src/EBox/Composite/General.pm:79
 #, perl-brace-format
@@ -445,19 +453,6 @@ msgstr ""
 "Et interface skal sættes til statisk for at konfigurere DHCP services på "
 "det. Du skal derfor ændre {openhref}interface konfiguration{closehref} i "
 "netværk modulet"
-
-#: src/EBox/Composite/InterfaceConfiguration.pm:112
-#, perl-brace-format
-msgid ""
-"In order to serve IP addresses on a external interface, you must open the "
-"service on {openhref}firewall module{closehref}"
-msgstr ""
-"For at kunne tildele IP adresser på et eksternt interface, skal du åbne "
-"denne service på {openhref}firewall module{closehref}"
-
-#: src/EBox/Composite/AdvancedOptions.pm:133
-msgid "Advanced options"
-msgstr "Avancerede indstillinger"
 
 #: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
@@ -475,29 +470,18 @@ msgstr ""
 "For at kunne tildele IP addresses på et interface, skal man definere et "
 "område eller en fast adresse."
 
-#: migration/0002_add_services.pl:117
-msgid "Trivial File Transfer Protocol"
-msgstr "Triviel Fil Overførsels Protokol"
-
-#: migration/0002_add_services.pl:126
-msgid "Dynamic Host Configuration Protocol"
-msgstr "Dynamisk Host Konfigurations Protokol"
-
-#: src/templates/options.mas:8
-msgid "Options"
-msgstr "Muligheder"
-
-#: src/templates/options.mas:10
+#: src/EBox/Composite/InterfaceConfiguration.pm:112
+#, perl-brace-format
 msgid ""
-"You can leave empty the Default Gateway field to use eBox as default gateway "
-"for this subnet"
+"In order to serve IP addresses on a external interface, you must open the "
+"service on {openhref}firewall module{closehref}"
 msgstr ""
-"Du kan lade Default Gateway feltet stå tomt, for at bruge eBox som default "
-"gateway for dette subnet"
+"For at kunne tildele IP adresser på et eksternt interface, skal du åbne "
+"denne service på {openhref}firewall module{closehref}"
 
-#: src/templates/options.mas:64
-msgid "Apply"
-msgstr "Anvende"
+#: src/EBox/Composite/AdvancedOptions.pm:133
+msgid "Advanced options"
+msgstr "Avancerede indstillinger"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
@@ -522,6 +506,22 @@ msgstr "Subnet netmaske"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "Slet"
+
+#: src/templates/options.mas:8
+msgid "Options"
+msgstr "Muligheder"
+
+#: src/templates/options.mas:10
+msgid ""
+"You can leave empty the Default Gateway field to use eBox as default gateway "
+"for this subnet"
+msgstr ""
+"Du kan lade Default Gateway feltet stå tomt, for at bruge eBox som default "
+"gateway for dette subnet"
+
+#: src/templates/options.mas:64
+msgid "Apply"
+msgstr "Anvende"
 
 #~ msgid "DHCP service status"
 #~ msgstr "DHCP service status"

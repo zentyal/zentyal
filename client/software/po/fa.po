@@ -8,13 +8,25 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.100Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:39+0100\n"
+"POT-Creation-Date: 2009-12-03 13:02+0000\n"
 "PO-Revision-Date: 2009-02-10 18:49+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: migration/0001_add_http_software_rule.pl:24
+msgid "HTTP software"
+msgstr "نرم‌افزار HTTP"
+
+#: migration/0001_add_http_software_rule.pl:26
+msgid "software service to update packages via apt"
+msgstr "سرویس نرم‌افزاری برای به‌روزرسانی بسته‌ها از طریق apt"
+
+#: migration/0001_add_http_software_rule.pl:45
+msgid "rule to allow apt updates"
+msgstr "قانون برای اجازه به‌روزرسانی‌های apt"
 
 #: src/EBox/Software.pm:53
 #, fuzzy
@@ -32,38 +44,50 @@ msgid ""
 msgstr ""
 "نرم‌افزار ای‌باکس به‌روزرسانی‌ها را از مخازن پیکربندی apt شما دانلود می‌کند."
 
-#: src/EBox/Software.pm:153 src/EBox/Software.pm:356
+#: src/EBox/Software.pm:162 src/EBox/Software.pm:365
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr ""
 
-#: src/EBox/Software.pm:197 src/EBox/Software.pm:390
+#: src/EBox/Software.pm:206 src/EBox/Software.pm:399
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
 
-#: src/EBox/Software.pm:500
+#: src/EBox/Software.pm:509
 #, fuzzy
 msgid "eBox Components"
 msgstr "مولفه‌های ای‌باکس"
 
-#: src/EBox/Software.pm:502
+#: src/EBox/Software.pm:511
 #, fuzzy
 msgid "System Updates"
 msgstr "به‌روزرسانی‌های سامانه"
 
-#: src/EBox/Software.pm:504
+#: src/EBox/Software.pm:513
 #, fuzzy
 msgid "Automatic Updates"
 msgstr "به‌روزرسانی‌های خودکار"
 
-#: src/EBox/Software.pm:595
+#: src/EBox/Software.pm:604
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 "مدیریت نرم‌افزار هم‌اکنون توسط {locker} قفل شده است. لطفا، بعدا مجددا تلاش "
 "نمایید"
+
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "به‌روزرسانی‌های خودکار نرم‌افزار"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "پیکربندی به‌روزرسانی‌های خودکار"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
+msgid "eBox components"
+msgstr "مولفه‌های ای‌باکس"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
@@ -77,21 +101,9 @@ msgstr "به‌روزرسانی‌های نرم‌افزاری به‌صورت �
 msgid "The system is up to date"
 msgstr "سامانه به‌روز است"
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "به‌روزرسانی‌های خودکار نرم‌افزار"
-
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
-msgid "eBox components"
-msgstr "مولفه‌های ای‌باکس"
-
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
 msgid "Upgrading"
 msgstr "ارتقا"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr "پیکربندی به‌روزرسانی‌های خودکار"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
@@ -151,21 +163,41 @@ msgid ""
 "logs"
 msgstr "حذف بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت شده"
 
-#: src/EBox/PackageDescriptions.pm:1
-msgid "eBox - Backup"
-msgstr ""
+#: src/templates/ebox.mas:14 src/templates/updates.mas:16
+msgid "Component"
+msgstr "مولفه"
 
-#: migration/0001_add_http_software_rule.pl:24
-msgid "HTTP software"
-msgstr "نرم‌افزار HTTP"
+#: src/templates/ebox.mas:15
+msgid "Installed version "
+msgstr "نسخه نصب‌شده"
 
-#: migration/0001_add_http_software_rule.pl:26
-msgid "software service to update packages via apt"
-msgstr "سرویس نرم‌افزاری برای به‌روزرسانی بسته‌ها از طریق apt"
+#: src/templates/ebox.mas:16
+msgid "Latest version"
+msgstr "آخرین نسخه"
 
-#: migration/0001_add_http_software_rule.pl:45
-msgid "rule to allow apt updates"
-msgstr "قانون برای اجازه به‌روزرسانی‌های apt"
+#: src/templates/ebox.mas:17
+msgid "Actions"
+msgstr "اقدامات"
+
+#: src/templates/ebox.mas:28 src/templates/updates.mas:19
+msgid "Update"
+msgstr "به‌روزرسانی"
+
+#: src/templates/ebox.mas:34
+msgid "Install"
+msgstr "نصب"
+
+#: src/templates/ebox.mas:36
+msgid "none"
+msgstr "هیچ کدام"
+
+#: src/templates/ebox.mas:58
+msgid "Remove"
+msgstr "حذف"
+
+#: src/templates/ebox.mas:75 src/templates/updates.mas:53
+msgid "Update all packages"
+msgstr "به‌روزرسانی "
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
@@ -187,10 +219,6 @@ msgstr "لغو"
 msgid "Updates are available for the following system components"
 msgstr "به‌روزرسانی‌ها برای مولفه‌های سامانه زیر در دسترس هستند"
 
-#: src/templates/updates.mas:16 src/templates/ebox.mas:14
-msgid "Component"
-msgstr "مولفه"
-
 #: src/templates/updates.mas:17
 msgid "Description"
 msgstr "توضیح"
@@ -198,14 +226,6 @@ msgstr "توضیح"
 #: src/templates/updates.mas:18
 msgid "Version"
 msgstr "نسخه"
-
-#: src/templates/updates.mas:19 src/templates/ebox.mas:28
-msgid "Update"
-msgstr "به‌روزرسانی"
-
-#: src/templates/updates.mas:53 src/templates/ebox.mas:75
-msgid "Update all packages"
-msgstr "به‌روزرسانی "
 
 #: src/templates/updates.mas:64
 msgid ""
@@ -218,30 +238,6 @@ msgstr ""
 #: src/templates/updates.mas:67
 msgid "Upgrade"
 msgstr "ارتقا"
-
-#: src/templates/ebox.mas:15
-msgid "Installed version "
-msgstr "نسخه نصب‌شده"
-
-#: src/templates/ebox.mas:16
-msgid "Latest version"
-msgstr "آخرین نسخه"
-
-#: src/templates/ebox.mas:17
-msgid "Actions"
-msgstr "اقدامات"
-
-#: src/templates/ebox.mas:34
-msgid "Install"
-msgstr "نصب"
-
-#: src/templates/ebox.mas:36
-msgid "none"
-msgstr "هیچ کدام"
-
-#: src/templates/ebox.mas:58
-msgid "Remove"
-msgstr "حذف"
 
 #, fuzzy
 #~ msgid "eBox - Antivirus module"

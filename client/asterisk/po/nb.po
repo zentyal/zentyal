@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:24+0100\n"
+"POT-Creation-Date: 2009-12-03 12:47+0000\n"
 "PO-Revision-Date: 2009-09-30 16:11+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: migration/0001_add_firewall_services.pl:30
+msgid "eBox VoIP system"
+msgstr "eBox VoIP system"
 
 #: src/EBox/Asterisk.pm:66
 msgid "VoIP"
@@ -107,10 +111,89 @@ msgstr "VoIP Tilkoblede Brukere"
 msgid "VoIP Users in Meetings"
 msgstr "VoIP Brukere i Møter"
 
-#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:114
-#: src/EBox/Model/Meetings.pm:123
+#: src/EBox/Asterisk/Extensions.pm:208
+msgid "User's extension"
+msgstr "Brukers nummer"
+
+#: src/EBox/Asterisk/Extensions.pm:296 src/EBox/Model/Meetings.pm:145
+#: src/templates/asterisk.mas:34
+msgid "Extension"
+msgstr "Nummer"
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:42
+msgid "username"
+msgstr "brukernavn"
+
+#: src/EBox/Model/Meetings.pm:91
+msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
+msgstr "Du må installere dahdi-linux og dahdi-tools pakkene for å bruke Møter."
+
+#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
+#: src/EBox/Model/Settings.pm:84
 msgid "extension"
 msgstr "nummer"
+
+#: src/EBox/Model/Meetings.pm:149
+#, perl-brace-format
+msgid "A number between {min} and {max}"
+msgstr "Et nummer mellom {min} og {max}"
+
+#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:90
+msgid "Password"
+msgstr "Passord"
+
+#: src/EBox/Model/Meetings.pm:173 src/EBox/Model/Localnets.pm:119
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: src/EBox/Model/Meetings.pm:185
+msgid "meeting"
+msgstr "møte"
+
+#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
+msgid "Voicemail settings"
+msgstr "Talepost instillinger"
+
+#: src/EBox/Model/Voicemail.pm:94
+msgid "New password"
+msgstr "Nytt passord"
+
+#: src/EBox/Model/Voicemail.pm:101
+msgid "Mail address"
+msgstr "E-Post adresse"
+
+#: src/EBox/Model/Voicemail.pm:108
+msgid "Attach messages"
+msgstr "Legg ved meldinger"
+
+#: src/EBox/Model/Voicemail.pm:114
+msgid "Delete sent messages"
+msgstr "Slett sendte meldinger"
+
+#: src/EBox/Model/Voicemail.pm:204
+msgid "Settings successfully updated"
+msgstr "Innstillinger oppdatert"
+
+#: src/EBox/Model/Localnets.pm:88
+#, fuzzy, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+"Nettverk tikoblet direkte til interne grensesnitt, som {net}, er alltid "
+"behandlet som lokale nettverk så det er ikke nødvendig å legge dem til"
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr "Lokalt nettverk"
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr "Lokale nettverk"
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
+msgstr "lokalt nettverk"
 
 #: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
@@ -140,31 +223,6 @@ msgstr "Generell Asterisk server konfigurasjon"
 msgid "General Asterisk server configuration updated"
 msgstr "Generell Asterisk server konfigurasjon oppdatert"
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net},are always "
-"considered local networks so it is not neccesary to add them"
-msgstr ""
-"Nettverk tikoblet direkte til interne grensesnitt, som {net}, er alltid "
-"behandlet som lokale nettverk så det er ikke nødvendig å legge dem til"
-
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr "Lokalt nettverk"
-
-#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:173
-msgid "Description"
-msgstr "Beskrivelse"
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr "Lokale nettverk"
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr "lokalt nettverk"
-
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
 msgstr "Navn"
@@ -172,10 +230,6 @@ msgstr "Navn"
 #: src/EBox/Model/Provider.pm:83
 msgid "Username"
 msgstr "Brukernavn"
-
-#: src/EBox/Model/Provider.pm:90 src/EBox/Model/Meetings.pm:165
-msgid "Password"
-msgstr "Passord"
 
 #: src/EBox/Model/Provider.pm:97
 msgid "Server"
@@ -197,30 +251,6 @@ msgstr "SIP leverandør for utgående samtaler konfigurasjon"
 msgid "SIP provider configuration updated"
 msgstr "SIP leverandør konfigurasjon oppdatert"
 
-#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
-msgid "Voicemail settings"
-msgstr "Talepost instillinger"
-
-#: src/EBox/Model/Voicemail.pm:94
-msgid "New password"
-msgstr "Nytt passord"
-
-#: src/EBox/Model/Voicemail.pm:101
-msgid "Mail address"
-msgstr "E-Post adresse"
-
-#: src/EBox/Model/Voicemail.pm:108
-msgid "Attach messages"
-msgstr "Legg ved meldinger"
-
-#: src/EBox/Model/Voicemail.pm:114
-msgid "Delete sent messages"
-msgstr "Slett sendte meldinger"
-
-#: src/EBox/Model/Voicemail.pm:204
-msgid "Settings successfully updated"
-msgstr "Innstillinger oppdatert"
-
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
 msgstr "eBox er bak NAT"
@@ -241,39 +271,9 @@ msgstr "NAT Asterisk server konfigurering"
 msgid "NAT Asterisk server configuration updated"
 msgstr "NAT Asterisk server konfigurasjon oppdatert"
 
-#: src/EBox/Model/Meetings.pm:91
-msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
-msgstr "Du må installere dahdi-linux og dahdi-tools pakkene for å bruke Møter."
-
-#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
-#: src/templates/asterisk.mas:34
-msgid "Extension"
-msgstr "Nummer"
-
-#: src/EBox/Model/Meetings.pm:149
-#, perl-brace-format
-msgid "A number between {min} and {max}"
-msgstr "Et nummer mellom {min} og {max}"
-
-#: src/EBox/Model/Meetings.pm:185
-msgid "meeting"
-msgstr "møte"
-
-#: src/EBox/Asterisk/Extensions.pm:208
-msgid "User's extension"
-msgstr "Brukers nummer"
-
-#: src/EBox/CGI/AsteriskUserOptions.pm:42
-msgid "username"
-msgstr "brukernavn"
-
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk modul"
-
-#: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
-msgstr "eBox VoIP system"
 
 #: src/templates/asterisk.mas:8
 msgid "Asterisk account"

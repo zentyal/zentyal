@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:23+0100\n"
+"POT-Creation-Date: 2009-12-03 12:47+0000\n"
 "PO-Revision-Date: 2009-06-06 18:44+0200\n"
 "Last-Translator: Fernando Aguilar <aguilar.arce@hotmail.com>\n"
 "Language-Team: none\n"
@@ -16,6 +16,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:378
+#: src/EBox/AntiVirus.pm:383
+msgid "Antivirus"
+msgstr "Antivirus"
+
+#: src/EBox/AntiVirus.pm:212
+#, fuzzy
+msgid " To configure clamd daemon"
+msgstr "Configurar clamd daemon"
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr "Configurar actualización freshclam"
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr "Programar el inicio de la actualización"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
@@ -33,7 +51,7 @@ msgstr "Estado de actualización de la base de datos de virus"
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
 #, fuzzy
 msgid ""
-"The antivirus database has not been updated since the module was installed."
+"The antivirus database has not been updated since the module was enabled."
 msgstr ""
 "La base de datos de virus no ha sido actualizada desde que el módulo filtro "
 "de correo de Ebox fue instalado"
@@ -64,24 +82,6 @@ msgstr "La ultima actualización se ha realizado con exito"
 #, fuzzy, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Evento {event} desconocido"
-
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:377
-#: src/EBox/AntiVirus.pm:382
-msgid "Antivirus"
-msgstr "Antivirus"
-
-#: src/EBox/AntiVirus.pm:212
-#, fuzzy
-msgid " To configure clamd daemon"
-msgstr "Configurar clamd daemon"
-
-#: src/EBox/AntiVirus.pm:217
-msgid "To configure freshclam updater"
-msgstr "Configurar actualización freshclam"
-
-#: src/EBox/AntiVirus.pm:222
-msgid "To schedule the launch of the updater"
-msgstr "Programar el inicio de la actualización"
 
 #~ msgid "Update status"
 #~ msgstr "Estado de la actualización"

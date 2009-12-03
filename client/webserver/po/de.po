@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:42+0100\n"
+"POT-Creation-Date: 2009-12-03 13:09+0000\n"
 "PO-Revision-Date: 2008-11-24 01:04+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -16,6 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr ""
+"HyperText Transport Protokoll (Protokoll für den Transport von "
+"angereichertem Text)"
 
 #: src/EBox/WebServer.pm:77
 #, fuzzy
@@ -52,16 +58,28 @@ msgstr "Die Datei {userDirConfFile} wurde nicht gefunden."
 msgid "listening port"
 msgstr "Hört auf Port"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+#: src/EBox/WebServer/Model/GeneralSettings.pm:101
+msgid ""
+"To allow HTML directories for users is needed that the file sharing module "
+"is installed and configured"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:107
+msgid ""
+"To allow HTML directories for user os needed to have the file sharing module "
+"configured. To configure it enable it at least one time"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
 msgstr "Port"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#: src/EBox/WebServer/Model/GeneralSettings.pm:175
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "Ein {dirName} pro Benutzer"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+#: src/EBox/WebServer/Model/GeneralSettings.pm:179
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
@@ -69,11 +87,11 @@ msgstr ""
 "Wenn Sie dieses Feld aktivieren ist es jedem Benutzer erlaubt eine Webseite "
 "in ihrem Home-Verzeichnis unter public_html zu haben"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:172
+#: src/EBox/WebServer/Model/GeneralSettings.pm:189
 msgid "General configuration settings"
 msgstr "Allgemeine Einstellungen"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:176
+#: src/EBox/WebServer/Model/GeneralSettings.pm:193
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
@@ -86,7 +104,7 @@ msgstr ""
 "Wenn Sie Benutzern erlauben, eigene HTML-Seiten zu veröffentlichen, müssen "
 "sie im Ordner {dirName} ihres eigenen Ordners der Dateifreigabe liegen."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:182
+#: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"
 msgstr "Die allgemeinen Einstellungen wurden aktualisiert"
 
@@ -189,12 +207,6 @@ msgid ""
 msgstr ""
 "Der eBox Webserver erlaubt Ihnen verschiedene HTML-Webseiten in "
 "unterschiedlichen virtuellen Servern zu speichern"
-
-#: migration/0001_add_service_and_port.pl:147
-msgid "HyperText Transport Protocol"
-msgstr ""
-"HyperText Transport Protokoll (Protokoll für den Transport von "
-"angereichertem Text)"
 
 #~ msgid "Web"
 #~ msgstr "Web"

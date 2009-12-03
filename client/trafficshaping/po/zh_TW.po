@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:40+0100\n"
+"POT-Creation-Date: 2009-12-03 13:02+0000\n"
 "PO-Revision-Date: 2009-08-04 08:16+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -17,195 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:83
-#, fuzzy
-msgid "External Interface"
-msgstr "{iface} (外部介面)"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:88
-msgid "Upload"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:92
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:100
-msgid "Upload rate in Kbits/s for through this interface"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:96
-msgid "Download"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:108
-#, fuzzy
-msgid "External Interface Rates"
-msgstr "{iface} (外部介面)"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
-msgid "rate"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:138
-#, perl-brace-format
-msgid "Change or remove some rules on {contextName}"
-msgstr "改變或移除 {contextName} 上的某些規則"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:270
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (內部介面)"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:273
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (外部介面)"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:300
-msgid "Guaranteed rate"
-msgstr "保證速率"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:305
-msgid "Limited rate"
-msgstr "限制速率"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:316
-#, perl-brace-format
-msgid ""
-"Object {object} has no members. Please add at least one to add rules using "
-"this object"
-msgstr "物件 {object} 沒有成員。請至少加入一個成員以添加使用這個物件的規則"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:343
-msgid "If service is any, some source ordestination should be provided"
-msgstr "如果不限服務，應該提供一些來源或目的地"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:443
-msgid "Service"
-msgstr "服務"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:448
-msgid "Port based service"
-msgstr "以連接埠為基礎的服務"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:460
-msgid "Source"
-msgstr "來源"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:465
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:493
-msgid "Any"
-msgstr "任意"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:468
-msgid "Source IP"
-msgstr "來源 IP"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:473
-msgid "Source MAC"
-msgstr "來源 MAC"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:478
-msgid "Source object"
-msgstr "來源物件"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:488
-msgid "Destination"
-msgstr "目的地"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:496
-msgid "Destination IP"
-msgstr "目的 IP"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:501
-msgid "Destination object"
-msgstr "目的物件"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:511
-#: src/EBox/TrafficShaping.pm:1537
-msgid "Priority"
-msgstr "優先順序"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:515
-msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr "最低優先順序：7 最高優先順序：0"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:519
-#: src/EBox/TrafficShaping.pm:1535
-msgid "Guaranteed Rate"
-msgstr "保證速率"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:522
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:536
-msgid "Kbit/s"
-msgstr "Kbit/s"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:524
-msgid ""
-"Note that  The sum of all guaranteed rates cannot exceed your total "
-"bandwidth. 0 means unguaranteed rate."
-msgstr "請注意  所有保證速率的總和不得超過您的總頻寬。0 表示不限制速率。"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:531
-#: src/EBox/TrafficShaping.pm:1536
-msgid "Limited Rate"
-msgstr "限制的速率"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:538
-msgid "Traffic will not exceed this rate. 0 means unlimited rate."
-msgstr "流量不能超過這個速率。0 表示不限制速率。"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:545
-#, perl-brace-format
-msgid "Rules list for {printableIndex}"
-msgstr "{printableIndex} 的規則清單"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-msgid ""
-"Note that if the interface is internal, the traffic flow comes from Internet "
-"to inside and the external is the other way around"
-msgstr ""
-"注意: 如果介面為內部, 表示流量是從網際流入內部. 而外部介面則是相反的表示."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:559
-msgid "rule"
-msgstr "規則"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:620
-#, perl-brace-format
-msgid "Remove {num} rules at {modelName}"
-msgstr "移除 {modelName} 的 {num} 規則"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:667
-#, perl-brace-format
-msgid ""
-"Normalizing rates: {limitNum} rules have decreased its limit rate to "
-"{limitRate}, {guaranNum} rules have normalized its guaranteed rate to "
-"maintain the same proportion that it has previously and {removeNum} have "
-"been deleted because its guaranteed rate was lower than the minimum allowed"
-msgstr ""
-"常態化速率: {limitNum}規則已減低其限制速率到{limitRate}, {guaranNum}規則已常"
-"態化其保證速率來依相同比率維持其先前所有之速率, 而{removeNum}已被刪除因為其保"
-"證速率之前低於所容許之最低值"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:724
-msgid ""
-"Port based protocols use the port number to match a service, while "
-"Application based protocols are slower but more effective as they check the "
-"content of any packet to match a service."
-msgstr ""
-"基於連接埠的通訊協定使用埠號來比對服務，基於應用程式的通訊協定比較慢但更有效"
-"率，因為他們檢查任何封包的內容以比對服務。"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:740
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:757
-msgid "Application based service"
-msgstr "基於應用程式的服務"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:748
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:764
-msgid "Application based service group"
-msgstr "基於應用程式的服務群組"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
@@ -257,6 +68,195 @@ msgstr "憑證管理中心金鑰識別碼"
 msgid "Address"
 msgstr "位址"
 
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:139
+#, perl-brace-format
+msgid "Change or remove some rules on {contextName}"
+msgstr "改變或移除 {contextName} 上的某些規則"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:271
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (內部介面)"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:274
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (外部介面)"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:301
+msgid "Guaranteed rate"
+msgstr "保證速率"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:306
+msgid "Limited rate"
+msgstr "限制速率"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:317
+#, perl-brace-format
+msgid ""
+"Object {object} has no members. Please add at least one to add rules using "
+"this object"
+msgstr "物件 {object} 沒有成員。請至少加入一個成員以添加使用這個物件的規則"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:344
+msgid "If service is any, some source ordestination should be provided"
+msgstr "如果不限服務，應該提供一些來源或目的地"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
+msgid "Service"
+msgstr "服務"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:484
+msgid "Port based service"
+msgstr "以連接埠為基礎的服務"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:496
+msgid "Source"
+msgstr "來源"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:501
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:529
+msgid "Any"
+msgstr "任意"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:504
+msgid "Source IP"
+msgstr "來源 IP"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:509
+msgid "Source MAC"
+msgstr "來源 MAC"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:514
+msgid "Source object"
+msgstr "來源物件"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:524
+msgid "Destination"
+msgstr "目的地"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:532
+msgid "Destination IP"
+msgstr "目的 IP"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:537
+msgid "Destination object"
+msgstr "目的物件"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:547
+#: src/EBox/TrafficShaping.pm:1558
+msgid "Priority"
+msgstr "優先順序"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:551
+msgid "Lowest priotiry: 7 Highest priority: 0"
+msgstr "最低優先順序：7 最高優先順序：0"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:555
+#: src/EBox/TrafficShaping.pm:1556
+msgid "Guaranteed Rate"
+msgstr "保證速率"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:558
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:572
+msgid "Kbit/s"
+msgstr "Kbit/s"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:560
+msgid ""
+"Note that  The sum of all guaranteed rates cannot exceed your total "
+"bandwidth. 0 means unguaranteed rate."
+msgstr "請注意  所有保證速率的總和不得超過您的總頻寬。0 表示不限制速率。"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:567
+#: src/EBox/TrafficShaping.pm:1557
+msgid "Limited Rate"
+msgstr "限制的速率"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:574
+msgid "Traffic will not exceed this rate. 0 means unlimited rate."
+msgstr "流量不能超過這個速率。0 表示不限制速率。"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:581
+#, perl-brace-format
+msgid "Rules list for {printableIndex}"
+msgstr "{printableIndex} 的規則清單"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:590
+msgid ""
+"Note that if the interface is internal, the traffic flow comes from Internet "
+"to inside and the external is the other way around"
+msgstr ""
+"注意: 如果介面為內部, 表示流量是從網際流入內部. 而外部介面則是相反的表示."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:595
+msgid "rule"
+msgstr "規則"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:656
+#, perl-brace-format
+msgid "Remove {num} rules at {modelName}"
+msgstr "移除 {modelName} 的 {num} 規則"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:703
+#, perl-brace-format
+msgid ""
+"Normalizing rates: {limitNum} rules have decreased its limit rate to "
+"{limitRate}, {guaranNum} rules have normalized its guaranteed rate to "
+"maintain the same proportion that it has previously and {removeNum} have "
+"been deleted because its guaranteed rate was lower than the minimum allowed"
+msgstr ""
+"常態化速率: {limitNum}規則已減低其限制速率到{limitRate}, {guaranNum}規則已常"
+"態化其保證速率來依相同比率維持其先前所有之速率, 而{removeNum}已被刪除因為其保"
+"證速率之前低於所容許之最低值"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:760
+msgid ""
+"Port based protocols use the port number to match a service, while "
+"Application based protocols are slower but more effective as they check the "
+"content of any packet to match a service."
+msgstr ""
+"基於連接埠的通訊協定使用埠號來比對服務，基於應用程式的通訊協定比較慢但更有效"
+"率，因為他們檢查任何封包的內容以比對服務。"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:776
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:793
+msgid "Application based service"
+msgstr "基於應用程式的服務"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:784
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:800
+msgid "Application based service group"
+msgstr "基於應用程式的服務群組"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:83
+#, fuzzy
+msgid "External Interface"
+msgstr "{iface} (外部介面)"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:88
+msgid "Upload"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:92
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:100
+msgid "Upload rate in Kbits/s for through this interface"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:96
+msgid "Download"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:108
+#, fuzzy
+msgid "External Interface Rates"
+msgstr "{iface} (外部介面)"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
+msgid "rate"
+msgstr ""
+
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
 #, perl-brace-format
 msgid ""
@@ -294,70 +294,70 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "選擇要控管的介面"
 
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "選項"
-
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:420
-#: src/EBox/TrafficShaping.pm:571 src/EBox/TrafficShaping.pm:959
-msgid "Interface"
-msgstr "介面"
-
-#: src/EBox/TrafficShaping.pm:93 src/EBox/TrafficShaping.pm:94
+#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:95
 msgid "Traffic Shaping"
 msgstr "流量控管"
 
-#: src/EBox/TrafficShaping.pm:132
+#: src/EBox/TrafficShaping.pm:133
 msgid "Add iptables rules to mangle table"
 msgstr "加入 iptables 規則至 mangle 表"
 
-#: src/EBox/TrafficShaping.pm:133
+#: src/EBox/TrafficShaping.pm:134
 msgid "To mark packets with different priorities and rates"
 msgstr "將封包標記為不同的優先順序與速率"
 
-#: src/EBox/TrafficShaping.pm:137
+#: src/EBox/TrafficShaping.pm:138
 msgid "Add tc rules"
 msgstr "加入 tc 規則"
 
-#: src/EBox/TrafficShaping.pm:138
+#: src/EBox/TrafficShaping.pm:139
 msgid "To implement the traffic shaping rules"
 msgstr "實作流量控管規則"
 
-#: src/EBox/TrafficShaping.pm:363
+#: src/EBox/TrafficShaping.pm:384
 #, fuzzy
 msgid "Rules"
 msgstr "規則"
 
-#: src/EBox/TrafficShaping.pm:365
+#: src/EBox/TrafficShaping.pm:386
 #, fuzzy
 msgid "Interface Rates"
 msgstr "介面"
 
-#: src/EBox/TrafficShaping.pm:433
+#: src/EBox/TrafficShaping.pm:441 src/EBox/TrafficShaping.pm:592
+#: src/EBox/TrafficShaping.pm:980 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr "介面"
+
+#: src/EBox/TrafficShaping.pm:454
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr "已達最大規則總數 {max} ，請至少刪除一條規則後才能加入新的規則"
 
-#: src/EBox/TrafficShaping.pm:1045
+#: src/EBox/TrafficShaping.pm:1066
 msgid "type"
 msgstr "類型"
 
-#: src/EBox/TrafficShaping.pm:1068
+#: src/EBox/TrafficShaping.pm:1089
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr "介面 {iface} 應該有最大頻寬率才能進行流量控管"
 
-#: src/EBox/TrafficShaping.pm:1533
+#: src/EBox/TrafficShaping.pm:1554
 msgid "Protocol"
 msgstr "通訊協定"
 
-#: src/EBox/TrafficShaping.pm:1534
+#: src/EBox/TrafficShaping.pm:1555
 msgid "Port"
 msgstr "連接埠"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "選項"
 
 #~ msgid "traffic shaping"
 #~ msgstr "流量控管"

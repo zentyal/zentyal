@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:27+0100\n"
+"POT-Creation-Date: 2009-12-03 12:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,17 +16,17 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CaptivePortal.pm:60 src/EBox/CaptivePortal.pm:166
-#: src/EBox/CaptivePortal.pm:213 src/EBox/UserCorner/CGI/PopUp.pm:30
-#: src/EBox/UserCorner/CGI/Index.pm:30
+#: src/EBox/CaptivePortal.pm:63 src/EBox/CaptivePortal.pm:169
+#: src/EBox/CaptivePortal.pm:216 src/EBox/UserCorner/CGI/Index.pm:30
+#: src/EBox/UserCorner/CGI/PopUp.pm:30
 msgid "Captive Portal"
 msgstr ""
 
-#: src/EBox/CaptivePortal.pm:178
+#: src/EBox/CaptivePortal.pm:181
 msgid "User"
 msgstr ""
 
-#: src/EBox/CaptivePortal.pm:198
+#: src/EBox/CaptivePortal.pm:201
 msgid "Captive Portal Users"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:30+0100\n"
+"POT-Creation-Date: 2009-12-03 12:57+0000\n"
 "PO-Revision-Date: 2009-06-21 19:11+0200\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -46,6 +46,14 @@ msgstr "Um die eGroupware Zugriffseinstellungen zu Konfigurieren"
 msgid "To allow local access to egroupware database"
 msgstr "Um lokalen zugriff auf die eGroupware Datenbank zu erlauben"
 
+#: src/EBox/CGI/EGroupwareUserOptions.pm:43
+msgid "username"
+msgstr "Benutzername"
+
+#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
+msgid "groupname"
+msgstr "Gruppenname"
+
 #: src/EBox/Model/Applications.pm:111
 msgid "Application"
 msgstr "Anwendung"
@@ -61,6 +69,24 @@ msgstr "Anwendungen"
 #: src/EBox/Model/Applications.pm:125
 msgid "application"
 msgstr "Anwendung"
+
+#: src/EBox/Model/DefaultApplications.pm:49
+msgid "DefaultApplications"
+msgstr "Standartanwendungen"
+
+#: src/EBox/Model/DefaultApplications.pm:50
+#, fuzzy
+msgid "Default Applications"
+msgstr "Standartanwendungen"
+
+#: src/EBox/Model/DefaultApplications.pm:51
+msgid ""
+"These are the default application permissions that are given to the new "
+"created users or existing ones before enabling eGroupware module."
+msgstr ""
+"Dies sind die Standart Benutzerrechte die neu Angelegten Benutzern oder "
+"vorhandenen Benutzern gegeben werden, bevor die eGroupware Module Aktiviert "
+"werden."
 
 #: src/EBox/Model/PermissionTemplates.pm:57
 msgid "Name"
@@ -88,24 +114,6 @@ msgid ""
 msgstr ""
 "Bearbeite die Berechtigungs-Vorlagen mit den erlaubten Anwendungen, damit "
 "diese Gruppen oder Benutzern zugewiesen werden können."
-
-#: src/EBox/Model/DefaultApplications.pm:49
-msgid "DefaultApplications"
-msgstr "Standartanwendungen"
-
-#: src/EBox/Model/DefaultApplications.pm:50
-#, fuzzy
-msgid "Default Applications"
-msgstr "Standartanwendungen"
-
-#: src/EBox/Model/DefaultApplications.pm:51
-msgid ""
-"These are the default application permissions that are given to the new "
-"created users or existing ones before enabling eGroupware module."
-msgstr ""
-"Dies sind die Standart Benutzerrechte die neu Angelegten Benutzern oder "
-"vorhandenen Benutzern gegeben werden, bevor die eGroupware Module Aktiviert "
-"werden."
 
 #: src/EBox/Model/VMailDomain.pm:54
 msgid "No domain selected"
@@ -139,17 +147,15 @@ msgstr "Virtuelle Mail Domäne"
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Wählen Sie die virtuelle Mail Domäne, die Egroupware nutzen soll."
 
-#: src/EBox/CGI/EGroupwareGroupOptions.pm:43
-msgid "groupname"
-msgstr "Gruppenname"
-
-#: src/EBox/CGI/EGroupwareUserOptions.pm:43
-msgid "username"
-msgstr "Benutzername"
-
 #: src/EBox/Composite/General.pm:76
 msgid "eGroupware Configuration"
 msgstr "eGroupware Konfiguration"
+
+#: src/EBox/Composite/General.pm:78
+msgid ""
+"Once the module is enabled and you have created a user account, you can "
+"access the eGroupware web interface at http://<ebox_ip>/egroupware"
+msgstr ""
 
 #~ msgid "To add a new schema"
 #~ msgstr "Um ein neues Schema hinzu zufügen"

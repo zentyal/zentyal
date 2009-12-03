@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:21+0100\n"
+"POT-Creation-Date: 2009-12-03 13:01+0000\n"
 "PO-Revision-Date: 2009-07-12 15:58+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -17,10 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Time Zone Configuration"
-msgstr "Конфигурация часового пояса"
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
@@ -72,13 +68,17 @@ msgstr "страна"
 msgid "continent"
 msgstr "континент"
 
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr "статус внешней синхронизации"
-
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and Time Configuration"
 msgstr "Конфигурация Дата и время"
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Time Zone Configuration"
+msgstr "Конфигурация часового пояса"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr "статус внешней синхронизации"
 
 #: src/EBox/NTP.pm:67
 msgid "Remove ntp init script links"
@@ -130,21 +130,6 @@ msgstr "Дата/Время"
 msgid "Time Zone"
 msgstr "Часовой пояс"
 
-#: src/templates/synch.mas:11 src/templates/synch.mas:14
-msgid "Disabled"
-msgstr "Отключено"
-
-#: src/templates/synch.mas:12 src/templates/synch.mas:15
-msgid "Enabled"
-msgstr "Включено"
-
-#: src/templates/synch.mas:19 src/templates/synch.mas:20
-#: src/templates/timezone.mas:33 src/templates/timezone.mas:34
-#: src/templates/servers.mas:50 src/templates/date.mas:96
-#: src/templates/date.mas:97
-msgid "Change"
-msgstr "Изменить"
-
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "NTP-серверы"
@@ -155,6 +140,21 @@ msgid ""
 "correctly."
 msgstr ""
 "Вы должны помнить настройки часового пояса для правильной синхронизации."
+
+#: src/templates/servers.mas:50 src/templates/timezone.mas:33
+#: src/templates/timezone.mas:34 src/templates/synch.mas:19
+#: src/templates/synch.mas:20 src/templates/date.mas:96
+#: src/templates/date.mas:97
+msgid "Change"
+msgstr "Изменить"
+
+#: src/templates/synch.mas:11 src/templates/synch.mas:14
+msgid "Disabled"
+msgstr "Отключено"
+
+#: src/templates/synch.mas:12 src/templates/synch.mas:15
+msgid "Enabled"
+msgstr "Включено"
 
 #: src/templates/date.mas:10
 msgid ""

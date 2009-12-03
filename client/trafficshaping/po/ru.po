@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:40+0100\n"
+"POT-Creation-Date: 2009-12-03 13:02+0000\n"
 "PO-Revision-Date: 2009-07-17 14:57+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -18,196 +18,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:83
-#, fuzzy
-msgid "External Interface"
-msgstr "{iface} (внешний интерфрейс)"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:88
-msgid "Upload"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:92
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:100
-msgid "Upload rate in Kbits/s for through this interface"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:96
-msgid "Download"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:108
-#, fuzzy
-msgid "External Interface Rates"
-msgstr "{iface} (внешний интерфрейс)"
-
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
-msgid "rate"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:138
-#, perl-brace-format
-msgid "Change or remove some rules on {contextName}"
-msgstr "Изменить или удалить некоторые правила касающиеся {contextName}"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:270
-#, perl-brace-format
-msgid "{iface} (internal interface)"
-msgstr "{iface} (внутренний интерфейс)"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:273
-#, perl-brace-format
-msgid "{iface} (external interface)"
-msgstr "{iface} (внешний интерфрейс)"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:300
-msgid "Guaranteed rate"
-msgstr "Гарантируемая скорость"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:305
-msgid "Limited rate"
-msgstr "Ограниченная скорось"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:316
-#, perl-brace-format
-msgid ""
-"Object {object} has no members. Please add at least one to add rules using "
-"this object"
-msgstr ""
-"Объект {object} не имеет членов. Пожалуйста добавьте хотя-бы одного, для "
-"добавления правил к объекту."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:343
-msgid "If service is any, some source ordestination should be provided"
-msgstr "Если служба любая, должны быть предоставлен источник или назначение"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:443
-msgid "Service"
-msgstr "Служба"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:448
-msgid "Port based service"
-msgstr "Основной порт службы"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:460
-msgid "Source"
-msgstr "Источник"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:465
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:493
-msgid "Any"
-msgstr "Любой"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:468
-msgid "Source IP"
-msgstr "Источник IP"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:473
-msgid "Source MAC"
-msgstr "Источник MAC"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:478
-msgid "Source object"
-msgstr "Источник объект"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:488
-msgid "Destination"
-msgstr "Назначение"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:496
-msgid "Destination IP"
-msgstr "Назначение IP"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:501
-msgid "Destination object"
-msgstr "Назначение объект"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:511
-#: src/EBox/TrafficShaping.pm:1537
-msgid "Priority"
-msgstr "Приоритет"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:515
-msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr "Низший приоритет: 7 Высший приоритет: 0"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:519
-#: src/EBox/TrafficShaping.pm:1535
-msgid "Guaranteed Rate"
-msgstr "Гарантируемая скорость"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:522
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:536
-msgid "Kbit/s"
-msgstr "Кбит/сек"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:524
-msgid ""
-"Note that  The sum of all guaranteed rates cannot exceed your total "
-"bandwidth. 0 means unguaranteed rate."
-msgstr ""
-"Замечание,  сумма всех скоростей не должна превышать общую скорость "
-"пропускания. 0 неограниченная норма."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:531
-#: src/EBox/TrafficShaping.pm:1536
-msgid "Limited Rate"
-msgstr "Ограниченная скорость"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:538
-msgid "Traffic will not exceed this rate. 0 means unlimited rate."
-msgstr ""
-"Трафик не будет превышать эту скорость. 0 означает неограниченную скорость."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:545
-#, perl-brace-format
-msgid "Rules list for {printableIndex}"
-msgstr "Список правил для {printableIndex}"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:554
-msgid ""
-"Note that if the interface is internal, the traffic flow comes from Internet "
-"to inside and the external is the other way around"
-msgstr ""
-"Заметьте, если интерфейс внешний, трафик из Интернета во внутреннию сеть и "
-"наоборот, если внутрений то во вне."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:559
-msgid "rule"
-msgstr "правило"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:620
-#, perl-brace-format
-msgid "Remove {num} rules at {modelName}"
-msgstr "Удалить {num} правила для {modelName}"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:667
-#, perl-brace-format
-msgid ""
-"Normalizing rates: {limitNum} rules have decreased its limit rate to "
-"{limitRate}, {guaranNum} rules have normalized its guaranteed rate to "
-"maintain the same proportion that it has previously and {removeNum} have "
-"been deleted because its guaranteed rate was lower than the minimum allowed"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:724
-msgid ""
-"Port based protocols use the port number to match a service, while "
-"Application based protocols are slower but more effective as they check the "
-"content of any packet to match a service."
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:740
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:757
-msgid "Application based service"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:748
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:764
-msgid "Application based service group"
-msgstr ""
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
@@ -265,6 +75,196 @@ msgstr "Список идентификаторов класса"
 msgid "Address"
 msgstr "Адрес"
 
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:139
+#, perl-brace-format
+msgid "Change or remove some rules on {contextName}"
+msgstr "Изменить или удалить некоторые правила касающиеся {contextName}"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:271
+#, perl-brace-format
+msgid "{iface} (internal interface)"
+msgstr "{iface} (внутренний интерфейс)"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:274
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr "{iface} (внешний интерфрейс)"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:301
+msgid "Guaranteed rate"
+msgstr "Гарантируемая скорость"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:306
+msgid "Limited rate"
+msgstr "Ограниченная скорось"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:317
+#, perl-brace-format
+msgid ""
+"Object {object} has no members. Please add at least one to add rules using "
+"this object"
+msgstr ""
+"Объект {object} не имеет членов. Пожалуйста добавьте хотя-бы одного, для "
+"добавления правил к объекту."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:344
+msgid "If service is any, some source ordestination should be provided"
+msgstr "Если служба любая, должны быть предоставлен источник или назначение"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
+msgid "Service"
+msgstr "Служба"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:484
+msgid "Port based service"
+msgstr "Основной порт службы"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:496
+msgid "Source"
+msgstr "Источник"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:501
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:529
+msgid "Any"
+msgstr "Любой"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:504
+msgid "Source IP"
+msgstr "Источник IP"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:509
+msgid "Source MAC"
+msgstr "Источник MAC"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:514
+msgid "Source object"
+msgstr "Источник объект"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:524
+msgid "Destination"
+msgstr "Назначение"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:532
+msgid "Destination IP"
+msgstr "Назначение IP"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:537
+msgid "Destination object"
+msgstr "Назначение объект"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:547
+#: src/EBox/TrafficShaping.pm:1558
+msgid "Priority"
+msgstr "Приоритет"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:551
+msgid "Lowest priotiry: 7 Highest priority: 0"
+msgstr "Низший приоритет: 7 Высший приоритет: 0"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:555
+#: src/EBox/TrafficShaping.pm:1556
+msgid "Guaranteed Rate"
+msgstr "Гарантируемая скорость"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:558
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:572
+msgid "Kbit/s"
+msgstr "Кбит/сек"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:560
+msgid ""
+"Note that  The sum of all guaranteed rates cannot exceed your total "
+"bandwidth. 0 means unguaranteed rate."
+msgstr ""
+"Замечание,  сумма всех скоростей не должна превышать общую скорость "
+"пропускания. 0 неограниченная норма."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:567
+#: src/EBox/TrafficShaping.pm:1557
+msgid "Limited Rate"
+msgstr "Ограниченная скорость"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:574
+msgid "Traffic will not exceed this rate. 0 means unlimited rate."
+msgstr ""
+"Трафик не будет превышать эту скорость. 0 означает неограниченную скорость."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:581
+#, perl-brace-format
+msgid "Rules list for {printableIndex}"
+msgstr "Список правил для {printableIndex}"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:590
+msgid ""
+"Note that if the interface is internal, the traffic flow comes from Internet "
+"to inside and the external is the other way around"
+msgstr ""
+"Заметьте, если интерфейс внешний, трафик из Интернета во внутреннию сеть и "
+"наоборот, если внутрений то во вне."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:595
+msgid "rule"
+msgstr "правило"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:656
+#, perl-brace-format
+msgid "Remove {num} rules at {modelName}"
+msgstr "Удалить {num} правила для {modelName}"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:703
+#, perl-brace-format
+msgid ""
+"Normalizing rates: {limitNum} rules have decreased its limit rate to "
+"{limitRate}, {guaranNum} rules have normalized its guaranteed rate to "
+"maintain the same proportion that it has previously and {removeNum} have "
+"been deleted because its guaranteed rate was lower than the minimum allowed"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:760
+msgid ""
+"Port based protocols use the port number to match a service, while "
+"Application based protocols are slower but more effective as they check the "
+"content of any packet to match a service."
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:776
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:793
+msgid "Application based service"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:784
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:800
+msgid "Application based service group"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:83
+#, fuzzy
+msgid "External Interface"
+msgstr "{iface} (внешний интерфрейс)"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:88
+msgid "Upload"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:92
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:100
+msgid "Upload rate in Kbits/s for through this interface"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:96
+msgid "Download"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:108
+#, fuzzy
+msgid "External Interface Rates"
+msgstr "{iface} (внешний интерфрейс)"
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
+msgid "rate"
+msgstr ""
+
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
 #, perl-brace-format
 msgid ""
@@ -298,46 +298,42 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Выберите интерфейс для управления "
 
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "настройки"
-
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:420
-#: src/EBox/TrafficShaping.pm:571 src/EBox/TrafficShaping.pm:959
-msgid "Interface"
-msgstr "Интерфейс"
-
-#: src/EBox/TrafficShaping.pm:93 src/EBox/TrafficShaping.pm:94
+#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:95
 msgid "Traffic Shaping"
 msgstr "Управление трафиком"
 
-#: src/EBox/TrafficShaping.pm:132
+#: src/EBox/TrafficShaping.pm:133
 msgid "Add iptables rules to mangle table"
 msgstr "Добавить правило iptables в таблицу mangle"
 
-#: src/EBox/TrafficShaping.pm:133
+#: src/EBox/TrafficShaping.pm:134
 msgid "To mark packets with different priorities and rates"
 msgstr "Чтобы отметить пакеты с различным приоритетом и скоростью"
 
-#: src/EBox/TrafficShaping.pm:137
+#: src/EBox/TrafficShaping.pm:138
 msgid "Add tc rules"
 msgstr "Добавить правила tc"
 
-#: src/EBox/TrafficShaping.pm:138
+#: src/EBox/TrafficShaping.pm:139
 msgid "To implement the traffic shaping rules"
 msgstr "Для включения правил управления трафиком"
 
-#: src/EBox/TrafficShaping.pm:363
+#: src/EBox/TrafficShaping.pm:384
 #, fuzzy
 msgid "Rules"
 msgstr "правило"
 
-#: src/EBox/TrafficShaping.pm:365
+#: src/EBox/TrafficShaping.pm:386
 #, fuzzy
 msgid "Interface Rates"
 msgstr "Интерфейс"
 
-#: src/EBox/TrafficShaping.pm:433
+#: src/EBox/TrafficShaping.pm:441 src/EBox/TrafficShaping.pm:592
+#: src/EBox/TrafficShaping.pm:980 src/EBox/TC.pm:107
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: src/EBox/TrafficShaping.pm:454
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -346,11 +342,11 @@ msgstr ""
 "Достигнут максимум правил аккаунта {max} , пожалуйста удалите хотябы один "
 "для добавления нового"
 
-#: src/EBox/TrafficShaping.pm:1045
+#: src/EBox/TrafficShaping.pm:1066
 msgid "type"
 msgstr "тип"
 
-#: src/EBox/TrafficShaping.pm:1068
+#: src/EBox/TrafficShaping.pm:1089
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -359,13 +355,17 @@ msgstr ""
 "Интерфейс {iface} должен иметь максимальную скорость по пропускной "
 "способности для управления трафиком"
 
-#: src/EBox/TrafficShaping.pm:1533
+#: src/EBox/TrafficShaping.pm:1554
 msgid "Protocol"
 msgstr "Протокол"
 
-#: src/EBox/TrafficShaping.pm:1534
+#: src/EBox/TrafficShaping.pm:1555
 msgid "Port"
 msgstr "Порт"
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "настройки"
 
 #~ msgid "traffic shaping"
 #~ msgstr "управление трафиком"

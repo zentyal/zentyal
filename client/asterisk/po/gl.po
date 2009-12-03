@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:24+0100\n"
+"POT-Creation-Date: 2009-12-03 12:47+0000\n"
 "PO-Revision-Date: 2009-03-08 15:16+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: migration/0001_add_firewall_services.pl:30
+msgid "eBox VoIP system"
+msgstr ""
 
 #: src/EBox/Asterisk.pm:66
 msgid "VoIP"
@@ -106,9 +110,86 @@ msgstr ""
 msgid "VoIP Users in Meetings"
 msgstr ""
 
-#: src/EBox/Model/Settings.pm:84 src/EBox/Model/Meetings.pm:114
-#: src/EBox/Model/Meetings.pm:123
+#: src/EBox/Asterisk/Extensions.pm:208
+msgid "User's extension"
+msgstr ""
+
+#: src/EBox/Asterisk/Extensions.pm:296 src/EBox/Model/Meetings.pm:145
+#: src/templates/asterisk.mas:34
+msgid "Extension"
+msgstr ""
+
+#: src/EBox/CGI/AsteriskUserOptions.pm:42
+msgid "username"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:91
+msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
+#: src/EBox/Model/Settings.pm:84
 msgid "extension"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:149
+#, perl-brace-format
+msgid "A number between {min} and {max}"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:90
+msgid "Password"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:173 src/EBox/Model/Localnets.pm:119
+msgid "Description"
+msgstr ""
+
+#: src/EBox/Model/Meetings.pm:185
+msgid "meeting"
+msgstr ""
+
+#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
+msgid "Voicemail settings"
+msgstr ""
+
+#: src/EBox/Model/Voicemail.pm:94
+msgid "New password"
+msgstr ""
+
+#: src/EBox/Model/Voicemail.pm:101
+msgid "Mail address"
+msgstr ""
+
+#: src/EBox/Model/Voicemail.pm:108
+msgid "Attach messages"
+msgstr ""
+
+#: src/EBox/Model/Voicemail.pm:114
+msgid "Delete sent messages"
+msgstr ""
+
+#: src/EBox/Model/Voicemail.pm:204
+msgid "Settings successfully updated"
+msgstr ""
+
+#: src/EBox/Model/Localnets.pm:88
+#, perl-brace-format
+msgid ""
+"Networks attached directly to internal interfaces, like {net}, are always "
+"considered local networks so it is not neccessary to add them."
+msgstr ""
+
+#: src/EBox/Model/Localnets.pm:113
+msgid "Local network"
+msgstr ""
+
+#: src/EBox/Model/Localnets.pm:130
+msgid "Local networks"
+msgstr ""
+
+#: src/EBox/Model/Localnets.pm:131
+msgid "local network"
 msgstr ""
 
 #: src/EBox/Model/Settings.pm:92 src/EBox/Model/Settings.pm:129
@@ -139,39 +220,12 @@ msgstr ""
 msgid "General Asterisk server configuration updated"
 msgstr ""
 
-#: src/EBox/Model/Localnets.pm:88
-#, perl-brace-format
-msgid ""
-"Networks attached directly to internal interfaces, like {net},are always "
-"considered local networks so it is not neccesary to add them"
-msgstr ""
-
-#: src/EBox/Model/Localnets.pm:113
-msgid "Local network"
-msgstr ""
-
-#: src/EBox/Model/Localnets.pm:119 src/EBox/Model/Meetings.pm:173
-msgid "Description"
-msgstr ""
-
-#: src/EBox/Model/Localnets.pm:130
-msgid "Local networks"
-msgstr ""
-
-#: src/EBox/Model/Localnets.pm:131
-msgid "local network"
-msgstr ""
-
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
 msgstr ""
 
 #: src/EBox/Model/Provider.pm:83
 msgid "Username"
-msgstr ""
-
-#: src/EBox/Model/Provider.pm:90 src/EBox/Model/Meetings.pm:165
-msgid "Password"
 msgstr ""
 
 #: src/EBox/Model/Provider.pm:97
@@ -194,30 +248,6 @@ msgstr ""
 msgid "SIP provider configuration updated"
 msgstr ""
 
-#: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
-msgid "Voicemail settings"
-msgstr ""
-
-#: src/EBox/Model/Voicemail.pm:94
-msgid "New password"
-msgstr ""
-
-#: src/EBox/Model/Voicemail.pm:101
-msgid "Mail address"
-msgstr ""
-
-#: src/EBox/Model/Voicemail.pm:108
-msgid "Attach messages"
-msgstr ""
-
-#: src/EBox/Model/Voicemail.pm:114
-msgid "Delete sent messages"
-msgstr ""
-
-#: src/EBox/Model/Voicemail.pm:204
-msgid "Settings successfully updated"
-msgstr ""
-
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
 msgstr ""
@@ -238,38 +268,8 @@ msgstr ""
 msgid "NAT Asterisk server configuration updated"
 msgstr ""
 
-#: src/EBox/Model/Meetings.pm:91
-msgid "You must install dahdi-linux and dahdi-tools packages to use Meetings."
-msgstr ""
-
-#: src/EBox/Model/Meetings.pm:145 src/EBox/Asterisk/Extensions.pm:296
-#: src/templates/asterisk.mas:34
-msgid "Extension"
-msgstr ""
-
-#: src/EBox/Model/Meetings.pm:149
-#, perl-brace-format
-msgid "A number between {min} and {max}"
-msgstr ""
-
-#: src/EBox/Model/Meetings.pm:185
-msgid "meeting"
-msgstr ""
-
-#: src/EBox/Asterisk/Extensions.pm:208
-msgid "User's extension"
-msgstr ""
-
-#: src/EBox/CGI/AsteriskUserOptions.pm:42
-msgid "username"
-msgstr ""
-
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
-msgstr ""
-
-#: migration/0001_add_firewall_services.pl:30
-msgid "eBox VoIP system"
 msgstr ""
 
 #: src/templates/asterisk.mas:8

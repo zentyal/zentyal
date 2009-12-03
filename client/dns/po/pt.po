@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:28+0100\n"
-"PO-Revision-Date: 2009-11-11 19:37+0100\n"
+"POT-Creation-Date: 2009-12-03 12:53+0000\n"
+"PO-Revision-Date: 2009-12-03 12:55+0000\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -17,29 +17,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/DomainTable.pm:66
-msgid "Domain"
-msgstr "Domínio"
+#: src/EBox/DNS.pm.in:51 src/EBox/Model/DNSComposite.pm:75
+msgid "DNS"
+msgstr "DNS"
 
-#: src/EBox/Model/DomainTable.pm:74 src/EBox/Model/HostnameTable.pm:192
-msgid "Hostnames"
-msgstr "Nomes do hospedeiro"
-
-#: src/EBox/Model/DomainTable.pm:83
-msgid "Mail Exchangers"
-msgstr "Trocadores de correio"
-
-#: src/EBox/Model/DomainTable.pm:91 src/EBox/Model/HostnameTable.pm:167
-msgid "IP Address"
-msgstr "Endereço IP"
-
-#: src/EBox/Model/DomainTable.pm:101 src/EBox/Model/DomainTable.pm:107
-msgid "Domains"
-msgstr "Domínios"
-
-#: src/EBox/Model/DomainTable.pm:108 src/EBox/DNS.pm.in:345
+#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:115
 msgid "domain"
 msgstr "domínio"
+
+#: src/EBox/DNS.pm.in:711
+#, perl-brace-format
+msgid "configuration file for zone {zone}"
+msgstr "ficheiro de configuração para a zona {zone}"
+
+#: src/EBox/DNS.pm.in:727
+#, perl-brace-format
+msgid "configuration file for reverse resolution zone {zone}"
+msgstr "ficheiro de configuração para a resolução reversa da zona {zone}"
+
+#: src/EBox/DNS.pm.in:856
+msgid "Infrastructure"
+msgstr "Infraestrutura"
 
 #: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
@@ -50,10 +48,14 @@ msgstr ""
 "Existe um pseudónimo com o mesmo nome \"{name}\" para \"{hostname}\" no "
 "mesmo domínio"
 
-#: src/EBox/Model/HostnameTable.pm:159 src/EBox/Model/MailExchanger.pm:110
-#: src/templates/edit.mas:20
+#: src/EBox/Model/HostnameTable.pm:159 src/EBox/Model/MailExchanger.pm:123
+#: src/EBox/Model/NameServer.pm:104 src/templates/edit.mas:20
 msgid "Host name"
 msgstr "Nome do hospedeiro"
+
+#: src/EBox/Model/HostnameTable.pm:167 src/EBox/Model/DomainTable.pm:99
+msgid "IP Address"
+msgstr "Endereço IP"
 
 #: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
 #: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
@@ -65,17 +67,82 @@ msgstr "Pseudónimo"
 msgid "Host names"
 msgstr "Nomes do hospedeiro"
 
+#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
+msgid "Hostnames"
+msgstr "Nomes do hospedeiro"
+
 #: src/EBox/Model/HostnameTable.pm:193
 msgid "host name"
 msgstr "nome de hospedeiro"
 
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/DNS.pm.in:51
-msgid "DNS"
-msgstr "DNS"
+#: src/EBox/Model/DomainTable.pm:66
+msgid "Domain"
+msgstr "Domínio"
+
+#: src/EBox/Model/DomainTable.pm:83
+msgid "Mail Exchangers"
+msgstr "Trocadores de correio"
+
+#: src/EBox/Model/DomainTable.pm:91
+#, fuzzy
+msgid "Name Servers"
+msgstr "Servidor DNS"
+
+#: src/EBox/Model/DomainTable.pm:109
+msgid "Domains"
+msgstr "Domínios"
 
 #: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "O servidor DNS permite resolver nomes dos seus próprios domínios"
+
+#: src/EBox/Model/MailExchanger.pm:86
+#, perl-brace-format
+msgid "Invalid preference number. Allowed range: ({min}, {max})"
+msgstr "Preferência inválida. Âmbito permitido: ({min}, {max})"
+
+#: src/EBox/Model/MailExchanger.pm:96
+#, perl-brace-format
+msgid ""
+"The given host name is not a fully qualified domain name (FQDN). Do you mean "
+"mx.{name}?"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:126 src/EBox/Model/NameServer.pm:107
+msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:132 src/EBox/Model/NameServer.pm:113
+msgid "This domain"
+msgstr "Este domínio"
+
+#: src/EBox/Model/MailExchanger.pm:140 src/EBox/Model/NameServer.pm:121
+msgid "Custom"
+msgstr "Personalizado"
+
+#: src/EBox/Model/MailExchanger.pm:148
+msgid "Preference"
+msgstr "Preferências"
+
+#: src/EBox/Model/MailExchanger.pm:157
+msgid "Mail exchangers"
+msgstr "Trocadores de correio"
+
+#: src/EBox/Model/MailExchanger.pm:163
+#, perl-brace-format
+msgid ""
+"The smallest preference number has the highest priority  and is the first "
+"server to be tried when a remote client (typically another mail server) does "
+"an MX lookup for the domain name. Allowed preference number interval = "
+"({min}, {max})"
+msgstr ""
+"A preferência mais baixa tem a prioridade mais alta e é o primeiro servidor "
+"a ser contactado quando um cliente remoto fax uma ligação MX para o domínio. "
+"O intervalo permitido é ({min}, {max})"
+
+#: src/EBox/Model/MailExchanger.pm:169
+msgid "Mail exchanger record"
+msgstr "Registo do trocador de correio"
 
 #: src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
@@ -95,66 +162,34 @@ msgstr "Existe um nome de hospede com o mesmo nome \"{name}\" no mesmo domínio"
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
-msgstr "Existe um nome de hospedeiro com o mesmo nome \"{name}\" no mesmo domínio"
+msgstr ""
+"Existe um nome de hospedeiro {hostname} com o mesmo nome \"{name}\" no mesmo "
+"domínio"
 
 #: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
 msgstr "pseudónimo"
 
-#: src/EBox/Model/MailExchanger.pm:86
-#, perl-brace-format
-msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr "Preferência inválida. Âmbito permitido: ({min}, {max})"
-
-#: src/EBox/Model/MailExchanger.pm:117
-msgid "This domain"
-msgstr "Este domínio"
-
-#: src/EBox/Model/MailExchanger.pm:125
-msgid "Custom"
-msgstr "Personalizado"
-
-#: src/EBox/Model/MailExchanger.pm:133
-msgid "Preference"
-msgstr "Preferências"
-
-#: src/EBox/Model/MailExchanger.pm:142
-msgid "Mail exchangers"
-msgstr "Trocadores de correio"
-
-#: src/EBox/Model/MailExchanger.pm:148
+#: src/EBox/Model/NameServer.pm:77
 #, perl-brace-format
 msgid ""
-"The smallest preference number has the highest priority  and is the first "
-"server to be tried when a remote client (typically another mail server) does "
-"an MX lookup for the domain name. Allowed preference number interval = "
-"({min}, {max})"
+"The given host name is not a fully qualified domain name (FQDN). Do you mean "
+"ns.{name}?"
 msgstr ""
-"A preferência mais baixa tem a prioridade mais alta e é o primeiro servidor "
-"a ser contactado quando um cliente remoto fax uma ligação MX para o domínio. "
-"O intervalo permitido é ({min}, {max})"
 
-#: src/EBox/Model/MailExchanger.pm:154
-msgid "Mail exchanger record"
-msgstr "Registo do trocador de correio"
-
-#: src/EBox/DNS.pm.in:88
-msgid "DNS Server"
+#: src/EBox/Model/NameServer.pm:132
+#, fuzzy
+msgid "Name servers"
 msgstr "Servidor DNS"
 
-#: src/EBox/DNS.pm.in:658
-#, perl-brace-format
-msgid "configuration file for zone {zone}"
-msgstr "ficheiro de configuração para a zona {zone}"
+#: src/EBox/Model/NameServer.pm:138
+msgid "It manages the name server (NS) records for this domain"
+msgstr ""
 
-#: src/EBox/DNS.pm.in:674
-#, perl-brace-format
-msgid "configuration file for reverse resolution zone {zone}"
-msgstr "ficheiro de configuração para a resolução reversa da zona {zone}"
-
-#: src/EBox/DNS.pm.in:803
-msgid "Infrastructure"
-msgstr "Infraestrutura"
+#: src/EBox/Model/NameServer.pm:139
+#, fuzzy
+msgid "name server record"
+msgstr "Registo do trocador de correio"
 
 #: src/templates/index.mas:16
 msgid "Domain list"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:29+0100\n"
+"POT-Creation-Date: 2009-12-03 13:11+0000\n"
 "PO-Revision-Date: 2009-05-08 04:24+0200\n"
 "Last-Translator: kinneko <kinneko@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,74 +17,67 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/LeaseTimes.pm:112
-#: src/EBox/Model/ThinClientOptions.pm:118
-#: src/EBox/Model/FixedAddressTable.pm:94 src/EBox/Model/RangeTable.pm:95
-#: src/EBox/Model/Options.pm:119
+#: migration/0002_add_services.pl:117
+msgid "Trivial File Transfer Protocol"
+msgstr "Trivial File Transfer Protocol (TFTP)"
+
+#: migration/0002_add_services.pl:126
+msgid "Dynamic Host Configuration Protocol"
+msgstr "Dynamic Host Configuration Protocol (DHCP)"
+
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "モジュール状態"
+
+#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:397
+#: src/EBox/DHCP.pm:433 src/EBox/DHCP.pm:483 src/EBox/DHCP.pm:581
+#: src/EBox/DHCP.pm:635 src/EBox/DHCP.pm:696 src/EBox/DHCP.pm:752
+#: src/EBox/DHCP.pm:1143
+msgid "Interface"
+msgstr "インタフェース"
+
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:216
+#: src/EBox/DHCP.pm:1144 src/EBox/DHCP.pm:1212 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "MACアドレス"
+
+#: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:242
+#: src/EBox/Model/FixedAddressTable.pm:222 src/EBox/DHCP.pm:1212
+#: src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "IPアドレス"
+
+#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:210 src/EBox/Model/RangeTable.pm:213
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
+msgid "Name"
+msgstr "名前"
+
+#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
+#: src/templates/ranges.mas:54
+msgid "From"
+msgstr "開始"
+
+#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
+#: src/templates/ranges.mas:55
+msgid "To"
+msgstr "終了"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "モジュール状態"
+
+#: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
+#: src/EBox/Model/FixedAddressTable.pm:94 src/EBox/Model/RangeInfo.pm:108
+#: src/EBox/Model/Options.pm:119 src/EBox/Model/RangeTable.pm:95
+#: src/EBox/Composite/OptionsTab.pm:87
 #: src/EBox/Composite/InterfaceConfiguration.pm:87
 #: src/EBox/Composite/AdvancedOptions.pm:88
-#: src/EBox/Composite/OptionsTab.pm:87
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "インタフェース {iface}"
-
-#: src/EBox/Model/RangeInfo.pm:143
-msgid "Interface IP address"
-msgstr "インタフェースIPアドレス"
-
-#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
-msgid "Subnet"
-msgstr "サブネット"
-
-#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
-msgid "Available range"
-msgstr "利用可能範囲"
-
-#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
-msgid "DHCP ranges"
-msgstr "DHCP範囲"
-
-#: src/EBox/Model/LeaseTimes.pm:132
-msgid "Default leased time must be higher than 0 seconds"
-msgstr "デフォルトのリース時間は0秒より大きくしてください"
-
-#: src/EBox/Model/LeaseTimes.pm:138
-#, perl-brace-format
-msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr ""
-"デフォルトのリース時間 {default} は最大値 {max} よりも小さくしてください"
-
-#: src/EBox/Model/LeaseTimes.pm:150
-msgid "Maximum leased time must be higher than 0 seconds"
-msgstr "リース時間の最大値は0秒よりも大きくしてください"
-
-#: src/EBox/Model/LeaseTimes.pm:156
-#, perl-brace-format
-msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
-"リース時間の最大値 {max} はデフォルト値 {default} よりも大きくしてください"
-
-#: src/EBox/Model/LeaseTimes.pm:200
-msgid "Default leased time"
-msgstr "デフォルトリース時間"
-
-#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
-msgid "seconds"
-msgstr "秒"
-
-#: src/EBox/Model/LeaseTimes.pm:207
-msgid "Maximum leased time"
-msgstr "最大リース時間"
-
-#: src/EBox/Model/LeaseTimes.pm:216
-msgid "Lease times"
-msgstr "リース時間"
-
-#: src/EBox/Model/LeaseTimes.pm:221
-msgid ""
-"Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr ""
-"リース時間とはDHCPサーバがIPアドレスを割当済みとして保持する時間のことです"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
 #, fuzzy
@@ -132,12 +125,6 @@ msgstr "なし"
 msgid "eBox"
 msgstr "eBox"
 
-#: src/EBox/Model/ThinClientOptions.pm:242
-#: src/EBox/Model/FixedAddressTable.pm:222 src/EBox/DHCP.pm:1208
-#: src/EBox/CGI/AddFixed.pm:44 src/templates/fixed.mas:10
-msgid "IP address"
-msgstr "IPアドレス"
-
 #: src/EBox/Model/ThinClientOptions.pm:246
 msgid "name"
 msgstr "名前"
@@ -162,6 +149,48 @@ msgid ""
 msgstr ""
 "シンクライアントオプションを設定する必要があるかもしれません。そのためには全"
 "ての必要なファイルを {path} ディレクトリ以下に置く必要があります。"
+
+#: src/EBox/Model/LeaseTimes.pm:132
+msgid "Default leased time must be higher than 0 seconds"
+msgstr "デフォルトのリース時間は0秒より大きくしてください"
+
+#: src/EBox/Model/LeaseTimes.pm:138
+#, perl-brace-format
+msgid "Default leased time {default} must be lower than maximum one {max}"
+msgstr ""
+"デフォルトのリース時間 {default} は最大値 {max} よりも小さくしてください"
+
+#: src/EBox/Model/LeaseTimes.pm:150
+msgid "Maximum leased time must be higher than 0 seconds"
+msgstr "リース時間の最大値は0秒よりも大きくしてください"
+
+#: src/EBox/Model/LeaseTimes.pm:156
+#, perl-brace-format
+msgid "Maximum leased time {max} must be higher than default one {default}"
+msgstr ""
+"リース時間の最大値 {max} はデフォルト値 {default} よりも大きくしてください"
+
+#: src/EBox/Model/LeaseTimes.pm:200
+msgid "Default leased time"
+msgstr "デフォルトリース時間"
+
+#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
+msgid "seconds"
+msgstr "秒"
+
+#: src/EBox/Model/LeaseTimes.pm:207
+msgid "Maximum leased time"
+msgstr "最大リース時間"
+
+#: src/EBox/Model/LeaseTimes.pm:216
+msgid "Lease times"
+msgstr "リース時間"
+
+#: src/EBox/Model/LeaseTimes.pm:221
+msgid ""
+"Leased time is the time which a given IP address is valid by the DHCP server"
+msgstr ""
+"リース時間とはDHCPサーバがIPアドレスを割当済みとして保持する時間のことです"
 
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
@@ -200,17 +229,6 @@ msgstr ""
 "他の固定アドレステーブルで使用されている名前を持つ固定アドレスに対し、 "
 "{action} できません。"
 
-#: src/EBox/Model/FixedAddressTable.pm:210 src/EBox/Model/RangeTable.pm:213
-#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
-#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
-msgid "Name"
-msgstr "名前"
-
-#: src/EBox/Model/FixedAddressTable.pm:216 src/EBox/DHCP.pm:1140
-#: src/EBox/DHCP.pm:1208 src/EBox/CGI/AddFixed.pm:43 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr "MACアドレス"
-
 #: src/EBox/Model/FixedAddressTable.pm:225
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr "この範囲に含まれるIPアドレスを使用することはできません。"
@@ -223,52 +241,21 @@ msgstr "固定アドレス"
 msgid "fixed address"
 msgstr "固定アドレス"
 
-#: src/EBox/Model/RangeTable.pm:117
-#, perl-brace-format
-msgid "{from} - {to} is an invalid range"
-msgstr "{from} - {to} は無効な範囲です"
+#: src/EBox/Model/RangeInfo.pm:143
+msgid "Interface IP address"
+msgstr "インタフェースIPアドレス"
 
-#: src/EBox/Model/RangeTable.pm:128
-#, perl-brace-format
-msgid "Range {from}-{to} is not in network {net}"
-msgstr "範囲 {from}-{to} はネットワーク {net} に存在しません"
+#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
+msgid "Subnet"
+msgstr "サブネット"
 
-#: src/EBox/Model/RangeTable.pm:141
-#, perl-brace-format
-msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr ""
-"範囲 {from}-{to} は次のIPアドレスを持ったインタフェースを含んでいます: "
-"{ifaceIP}"
+#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
+msgid "Available range"
+msgstr "利用可能範囲"
 
-#: src/EBox/Model/RangeTable.pm:164
-#, perl-brace-format
-msgid ""
-"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
-msgstr ""
-"範囲 {newFrom}-{newTo} が範囲 '{range}': {oldFrom}-{oldTo} に重複しています"
-
-#: src/EBox/Model/RangeTable.pm:182
-#, perl-brace-format
-msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr "範囲 {from}-{to} は固定アドレス '{name}': {fixedIP} を含んでいます"
-
-#: src/EBox/Model/RangeTable.pm:219 src/EBox/CGI/AddRange.pm:44
-#: src/templates/ranges.mas:54
-msgid "From"
-msgstr "開始"
-
-#: src/EBox/Model/RangeTable.pm:225 src/EBox/CGI/AddRange.pm:45
-#: src/templates/ranges.mas:55
-msgid "To"
-msgstr "終了"
-
-#: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
-msgid "Ranges"
-msgstr "範囲"
-
-#: src/EBox/Model/RangeTable.pm:240
-msgid "range"
-msgstr "範囲"
+#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
+msgid "DHCP ranges"
+msgstr "DHCP範囲"
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
@@ -356,29 +343,58 @@ msgstr ""
 "ると、eBoxサーバはDNSキャッシュサーバとして機能します。\"なし\"あるいは空白の"
 "項目は任意の項目です。"
 
-#: src/EBox/DHCP.pm:393 src/EBox/DHCP.pm:429 src/EBox/DHCP.pm:479
-#: src/EBox/DHCP.pm:577 src/EBox/DHCP.pm:631 src/EBox/DHCP.pm:692
-#: src/EBox/DHCP.pm:748 src/EBox/DHCP.pm:1139 src/EBox/CGI/RemoveRange.pm:39
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/CGI/AddFixed.pm:39
-msgid "Interface"
-msgstr "インタフェース"
+#: src/EBox/Model/RangeTable.pm:117
+#, perl-brace-format
+msgid "{from} - {to} is an invalid range"
+msgstr "{from} - {to} は無効な範囲です"
 
-#: src/EBox/DHCP.pm:399 src/EBox/DHCP.pm:435 src/EBox/DHCP.pm:485
-#: src/EBox/DHCP.pm:583 src/EBox/DHCP.pm:698 src/EBox/DHCP.pm:754
+#: src/EBox/Model/RangeTable.pm:128
+#, perl-brace-format
+msgid "Range {from}-{to} is not in network {net}"
+msgstr "範囲 {from}-{to} はネットワーク {net} に存在しません"
+
+#: src/EBox/Model/RangeTable.pm:141
+#, perl-brace-format
+msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
+msgstr ""
+"範囲 {from}-{to} は次のIPアドレスを持ったインタフェースを含んでいます: "
+"{ifaceIP}"
+
+#: src/EBox/Model/RangeTable.pm:164
+#, perl-brace-format
+msgid ""
+"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
+msgstr ""
+"範囲 {newFrom}-{newTo} が範囲 '{range}': {oldFrom}-{oldTo} に重複しています"
+
+#: src/EBox/Model/RangeTable.pm:182
+#, perl-brace-format
+msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
+msgstr "範囲 {from}-{to} は固定アドレス '{name}': {fixedIP} を含んでいます"
+
+#: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
+msgid "Ranges"
+msgstr "範囲"
+
+#: src/EBox/Model/RangeTable.pm:240
+msgid "range"
+msgstr "範囲"
+
+#: src/EBox/DHCP.pm:403 src/EBox/DHCP.pm:439 src/EBox/DHCP.pm:489
+#: src/EBox/DHCP.pm:587 src/EBox/DHCP.pm:702 src/EBox/DHCP.pm:758
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} は静的ではありません"
 
-#: src/EBox/DHCP.pm:569
+#: src/EBox/DHCP.pm:573
 msgid "Not a valid action: add, set and del are available"
 msgstr "有効なアクションではありません: 追加。設定、削除のみ実行できます"
 
-#: src/EBox/DHCP.pm:684
+#: src/EBox/DHCP.pm:688
 msgid "No valid action. Available ones are: add, set and del"
 msgstr "有効なアクションではありません。追加、設定、削除のみ実行できます。"
 
-#: src/EBox/DHCP.pm:923
+#: src/EBox/DHCP.pm:927
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -389,7 +405,7 @@ msgstr ""
 "'{iface}' のDHCP範囲 '{range}' ですでに使われています。バーチャルインタフェー"
 "スを追加する前にアドレス範囲を削除してください。"
 
-#: src/EBox/DHCP.pm:942
+#: src/EBox/DHCP.pm:946
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -400,47 +416,39 @@ msgstr ""
 "'{iface}' のDHCP固定アドレス '{fixed}' ですでに使われています。バーチャルイン"
 "タフェースを追加する前にアドレスを削除してください。"
 
-#: src/EBox/DHCP.pm:1138
+#: src/EBox/DHCP.pm:1142
 msgid "Date"
 msgstr "日付"
 
-#: src/EBox/DHCP.pm:1141
+#: src/EBox/DHCP.pm:1145
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1142
+#: src/EBox/DHCP.pm:1146
 msgid "Event"
 msgstr "イベント"
 
-#: src/EBox/DHCP.pm:1145
+#: src/EBox/DHCP.pm:1149
 msgid "Leased"
 msgstr "リース"
 
-#: src/EBox/DHCP.pm:1145
+#: src/EBox/DHCP.pm:1149
 msgid "Released"
 msgstr "解放"
 
-#: src/EBox/DHCP.pm:1148
+#: src/EBox/DHCP.pm:1152
 msgid "DHCP"
 msgstr "DHCP"
 
-#: src/EBox/DHCP.pm:1208
+#: src/EBox/DHCP.pm:1212
 #, fuzzy
 msgid "Host name"
 msgstr "名前"
 
-#: src/EBox/DHCP.pm:1235
+#: src/EBox/DHCP.pm:1239
 #, fuzzy
 msgid "DHCP leases"
 msgstr "DHCP範囲"
-
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "モジュール状態"
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "モジュール状態"
 
 #: src/EBox/Composite/General.pm:79
 #, perl-brace-format
@@ -451,19 +459,6 @@ msgstr ""
 "DHCPサービスを設定するにはインタフェースが静的と設定されていなくてはなりませ"
 "ん。そのためには、ネットワークモジュールの{openhref}interfaces configuration"
 "{closehref}を変更してください。"
-
-#: src/EBox/Composite/InterfaceConfiguration.pm:112
-#, perl-brace-format
-msgid ""
-"In order to serve IP addresses on a external interface, you must open the "
-"service on {openhref}firewall module{closehref}"
-msgstr ""
-"外部インタフェースにIPアドレスを供給するには、{openhref}firewall module"
-"{closehref}のサービスを開始する必要があります"
-
-#: src/EBox/Composite/AdvancedOptions.pm:133
-msgid "Advanced options"
-msgstr "詳細設定"
 
 #: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
@@ -481,29 +476,18 @@ msgstr ""
 "インタフェースにIPアドレスを供給するには、アドレス範囲または固定アドレスが設"
 "定されている必要があります。"
 
-#: migration/0002_add_services.pl:117
-msgid "Trivial File Transfer Protocol"
-msgstr "Trivial File Transfer Protocol (TFTP)"
-
-#: migration/0002_add_services.pl:126
-msgid "Dynamic Host Configuration Protocol"
-msgstr "Dynamic Host Configuration Protocol (DHCP)"
-
-#: src/templates/options.mas:8
-msgid "Options"
-msgstr "オプション"
-
-#: src/templates/options.mas:10
+#: src/EBox/Composite/InterfaceConfiguration.pm:112
+#, perl-brace-format
 msgid ""
-"You can leave empty the Default Gateway field to use eBox as default gateway "
-"for this subnet"
+"In order to serve IP addresses on a external interface, you must open the "
+"service on {openhref}firewall module{closehref}"
 msgstr ""
-"eBoxをこのサブネットのデフォルトゲートウェイとする場合、デフォルトゲートウェ"
-"イの項目は空白で構いません"
+"外部インタフェースにIPアドレスを供給するには、{openhref}firewall module"
+"{closehref}のサービスを開始する必要があります"
 
-#: src/templates/options.mas:64
-msgid "Apply"
-msgstr "適用"
+#: src/EBox/Composite/AdvancedOptions.pm:133
+msgid "Advanced options"
+msgstr "詳細設定"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
@@ -528,6 +512,22 @@ msgstr "サブネットマスク"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "削除"
+
+#: src/templates/options.mas:8
+msgid "Options"
+msgstr "オプション"
+
+#: src/templates/options.mas:10
+msgid ""
+"You can leave empty the Default Gateway field to use eBox as default gateway "
+"for this subnet"
+msgstr ""
+"eBoxをこのサブネットのデフォルトゲートウェイとする場合、デフォルトゲートウェ"
+"イの項目は空白で構いません"
+
+#: src/templates/options.mas:64
+msgid "Apply"
+msgstr "適用"
 
 #~ msgid "DHCP service status"
 #~ msgstr "DHCPサービスの状態"

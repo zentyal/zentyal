@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:42+0100\n"
+"POT-Creation-Date: 2009-12-03 13:09+0000\n"
 "PO-Revision-Date: 2009-09-30 11:03+0200\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
+
+#: migration/0001_add_service_and_port.pl:147
+msgid "HyperText Transport Protocol"
+msgstr "Protocole De Transport D'Hypertexte (http)"
 
 #: src/EBox/WebServer.pm:77
 msgid "Web Server"
@@ -50,16 +54,28 @@ msgstr "{userDirConfFile} manquant ! Veuillez le restaurer."
 msgid "listening port"
 msgstr "port d'écoute"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+#: src/EBox/WebServer/Model/GeneralSettings.pm:101
+msgid ""
+"To allow HTML directories for users is needed that the file sharing module "
+"is installed and configured"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:107
+msgid ""
+"To allow HTML directories for user os needed to have the file sharing module "
+"configured. To configure it enable it at least one time"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
 msgstr "Port d'écoute"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:158
+#: src/EBox/WebServer/Model/GeneralSettings.pm:175
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "Activé par utilisateur {dirName}"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+#: src/EBox/WebServer/Model/GeneralSettings.pm:179
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
@@ -67,11 +83,11 @@ msgstr ""
 "Si vous cochez ce champs, chaque utilisateur pourra avoir un site internet "
 "dans son dossier home sous public_html"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:172
+#: src/EBox/WebServer/Model/GeneralSettings.pm:189
 msgid "General configuration settings"
 msgstr "Paramètres de configuration générale"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:176
+#: src/EBox/WebServer/Model/GeneralSettings.pm:193
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
@@ -84,7 +100,7 @@ msgstr ""
 "à publier leur propre contenu html, les pages seront chargées depuis "
 "{dirName} de leur partage home samba"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:182
+#: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"
 msgstr "Paramètres de configuration générale du serveur Web mis-à-jour"
 
@@ -97,8 +113,7 @@ msgstr "Nom d'hôte virtuel"
 #: src/EBox/WebServer/Model/VHostTable.pm:100
 msgid "The virtual host name supplied is a top domain name"
 msgstr ""
-"Le nom d'hôte virtuel fourni est un nom de domaine primaire (top domain "
-"name)"
+"Le nom d'hôte virtuel fourni est un nom de domaine primaire (top domain name)"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:107
 #, perl-brace-format
@@ -194,10 +209,6 @@ msgid ""
 msgstr ""
 "Le service Web d'eBox vous permet d'héberger des pages HTML dans différents "
 "hôtes virtuels"
-
-#: migration/0001_add_service_and_port.pl:147
-msgid "HyperText Transport Protocol"
-msgstr "Protocole De Transport D'Hypertexte (http)"
 
 #~ msgid "Web"
 #~ msgstr "Web"

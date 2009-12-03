@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:28+0100\n"
+"POT-Creation-Date: 2009-12-03 12:53+0000\n"
 "PO-Revision-Date: 2009-11-15 18:01+0100\n"
 "Last-Translator: gabriele <g.garis@inwind.it>\n"
 "Language-Team: none\n"
@@ -16,33 +16,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/DomainTable.pm:66
-msgid "Domain"
-msgstr "Dominio"
+#: src/EBox/DNS.pm.in:51 src/EBox/Model/DNSComposite.pm:75
+msgid "DNS"
+msgstr "DNS"
 
-#: src/EBox/Model/DomainTable.pm:74
-#: src/EBox/Model/HostnameTable.pm:192
-msgid "Hostnames"
-msgstr "Nomi host"
-
-#: src/EBox/Model/DomainTable.pm:83
-msgid "Mail Exchangers"
-msgstr "Mail Exchangers"
-
-#: src/EBox/Model/DomainTable.pm:91
-#: src/EBox/Model/HostnameTable.pm:167
-msgid "IP Address"
-msgstr "indirizzo IP"
-
-#: src/EBox/Model/DomainTable.pm:101
-#: src/EBox/Model/DomainTable.pm:107
-msgid "Domains"
-msgstr "Domini"
-
-#: src/EBox/Model/DomainTable.pm:108
-#: src/EBox/DNS.pm.in:345
+#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:115
 msgid "domain"
 msgstr "dominio"
+
+#: src/EBox/DNS.pm.in:711
+#, perl-brace-format
+msgid "configuration file for zone {zone}"
+msgstr "configurazione file per zona {zone}"
+
+#: src/EBox/DNS.pm.in:727
+#, perl-brace-format
+msgid "configuration file for reverse resolution zone {zone}"
+msgstr "configuratzione file per reverse resolution zone {zone}"
+
+#: src/EBox/DNS.pm.in:856
+msgid "Infrastructure"
+msgstr "Infrastruttura"
 
 #: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
@@ -53,18 +47,18 @@ msgstr ""
 "C'è un alias con lo stesso nome \"{name}\" per \"{hostname}\" nello stesso "
 "dominio"
 
-#: src/EBox/Model/HostnameTable.pm:159
-#: src/EBox/Model/MailExchanger.pm:110
-#: src/templates/edit.mas:20
+#: src/EBox/Model/HostnameTable.pm:159 src/EBox/Model/MailExchanger.pm:123
+#: src/EBox/Model/NameServer.pm:104 src/templates/edit.mas:20
 msgid "Host name"
 msgstr "Nome host"
 
-#: src/EBox/Model/HostnameTable.pm:175
-#: src/EBox/Model/AliasTable.pm:130
-#: src/EBox/Model/AliasTable.pm:140
-#: src/EBox/Model/AliasTable.pm:146
-#: src/templates/edit.mas:64
-#: src/templates/edit.mas:85
+#: src/EBox/Model/HostnameTable.pm:167 src/EBox/Model/DomainTable.pm:99
+msgid "IP Address"
+msgstr "indirizzo IP"
+
+#: src/EBox/Model/HostnameTable.pm:175 src/EBox/Model/AliasTable.pm:130
+#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
 msgstr "Alias"
 
@@ -73,19 +67,84 @@ msgstr "Alias"
 msgid "Host names"
 msgstr "Nomi host"
 
+#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
+msgid "Hostnames"
+msgstr "Nomi host"
+
 #: src/EBox/Model/HostnameTable.pm:193
 msgid "host name"
 msgstr "nome host"
 
-#: src/EBox/Model/DNSComposite.pm:75
-#: src/EBox/DNS.pm.in:51
-msgid "DNS"
-msgstr "DNS"
+#: src/EBox/Model/DomainTable.pm:66
+msgid "Domain"
+msgstr "Dominio"
+
+#: src/EBox/Model/DomainTable.pm:83
+msgid "Mail Exchangers"
+msgstr "Mail Exchangers"
+
+#: src/EBox/Model/DomainTable.pm:91
+#, fuzzy
+msgid "Name Servers"
+msgstr "Server DNS"
+
+#: src/EBox/Model/DomainTable.pm:109
+msgid "Domains"
+msgstr "Domini"
 
 #: src/EBox/Model/DNSComposite.pm:77
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr ""
 "Il server DNS permette la risoluzione dei nomi all'interno del dominio."
+
+#: src/EBox/Model/MailExchanger.pm:86
+#, perl-brace-format
+msgid "Invalid preference number. Allowed range: ({min}, {max})"
+msgstr "Numero non valido. Intervallo ammesso: ({min}, {max})"
+
+#: src/EBox/Model/MailExchanger.pm:96
+#, perl-brace-format
+msgid ""
+"The given host name is not a fully qualified domain name (FQDN). Do you mean "
+"mx.{name}?"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:126 src/EBox/Model/NameServer.pm:107
+msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
+msgstr ""
+
+#: src/EBox/Model/MailExchanger.pm:132 src/EBox/Model/NameServer.pm:113
+#, fuzzy
+msgid "This domain"
+msgstr "dominio"
+
+#: src/EBox/Model/MailExchanger.pm:140 src/EBox/Model/NameServer.pm:121
+msgid "Custom"
+msgstr "Personalizzato"
+
+#: src/EBox/Model/MailExchanger.pm:148
+msgid "Preference"
+msgstr "Preferenza"
+
+#: src/EBox/Model/MailExchanger.pm:157
+msgid "Mail exchangers"
+msgstr "Mail exchanger"
+
+#: src/EBox/Model/MailExchanger.pm:163
+#, perl-brace-format
+msgid ""
+"The smallest preference number has the highest priority  and is the first "
+"server to be tried when a remote client (typically another mail server) does "
+"an MX lookup for the domain name. Allowed preference number interval = "
+"({min}, {max})"
+msgstr ""
+"Il numero più piccolo ha priorità maggiore  ed è il primo server ad essere "
+"provato quando un client remoto (in genere un'altro server mail) effettua un "
+"MX lookup per il nome di dominio. Intervallo ammesso = ({min}, {max})"
+
+#: src/EBox/Model/MailExchanger.pm:169
+msgid "Mail exchanger record"
+msgstr "Record Mail exchanger"
 
 #: src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
@@ -111,61 +170,26 @@ msgstr "C'è un nome host con lo stesso nome \"{name}\" nello stesso dominio"
 msgid "alias"
 msgstr "alias"
 
-#: src/EBox/Model/MailExchanger.pm:86
-#, perl-brace-format
-msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr "Numero non valido. Intervallo ammesso: ({min}, {max})"
-
-#: src/EBox/Model/MailExchanger.pm:117
-#, fuzzy
-msgid "This domain"
-msgstr "dominio"
-
-#: src/EBox/Model/MailExchanger.pm:125
-msgid "Custom"
-msgstr "Personalizzato"
-
-#: src/EBox/Model/MailExchanger.pm:133
-msgid "Preference"
-msgstr "Preferenza"
-
-#: src/EBox/Model/MailExchanger.pm:142
-msgid "Mail exchangers"
-msgstr "Mail exchanger"
-
-#: src/EBox/Model/MailExchanger.pm:148
+#: src/EBox/Model/NameServer.pm:77
 #, perl-brace-format
 msgid ""
-"The smallest preference number has the highest priority  and is the first "
-"server to be tried when a remote client (typically another mail server) does "
-"an MX lookup for the domain name. Allowed preference number interval = "
-"({min}, {max})"
+"The given host name is not a fully qualified domain name (FQDN). Do you mean "
+"ns.{name}?"
 msgstr ""
-"Il numero più piccolo ha priorità maggiore  ed è il primo server ad essere "
-"provato quando un client remoto (in genere un'altro server mail) effettua un "
-"MX lookup per il nome di dominio. Intervallo ammesso = ({min}, {max})"
 
-#: src/EBox/Model/MailExchanger.pm:154
-msgid "Mail exchanger record"
-msgstr "Record Mail exchanger"
-
-#: src/EBox/DNS.pm.in:88
-msgid "DNS Server"
+#: src/EBox/Model/NameServer.pm:132
+#, fuzzy
+msgid "Name servers"
 msgstr "Server DNS"
 
-#: src/EBox/DNS.pm.in:658
-#, perl-brace-format
-msgid "configuration file for zone {zone}"
-msgstr "configurazione file per zona {zone}"
+#: src/EBox/Model/NameServer.pm:138
+msgid "It manages the name server (NS) records for this domain"
+msgstr ""
 
-#: src/EBox/DNS.pm.in:674
-#, perl-brace-format
-msgid "configuration file for reverse resolution zone {zone}"
-msgstr "configuratzione file per reverse resolution zone {zone}"
-
-#: src/EBox/DNS.pm.in:803
-msgid "Infrastructure"
-msgstr "Infrastruttura"
+#: src/EBox/Model/NameServer.pm:139
+#, fuzzy
+msgid "name server record"
+msgstr "Record Mail exchanger"
 
 #: src/templates/index.mas:16
 msgid "Domain list"
@@ -175,19 +199,14 @@ msgstr "Elenco domini"
 msgid "Name"
 msgstr "Nome"
 
-#: src/templates/index.mas:24
-#: src/templates/edit.mas:23
+#: src/templates/index.mas:24 src/templates/edit.mas:23
 msgid "Action"
 msgstr "Azione"
 
-#: src/templates/index.mas:37
-#: src/templates/index.mas:38
-#: src/templates/index.mas:39
-#: src/templates/edit.mas:40
-#: src/templates/edit.mas:41
-#: src/templates/edit.mas:42
-#: src/templates/edit.mas:74
-#: src/templates/edit.mas:75
+#: src/templates/index.mas:37 src/templates/index.mas:38
+#: src/templates/index.mas:39 src/templates/edit.mas:40
+#: src/templates/edit.mas:41 src/templates/edit.mas:42
+#: src/templates/edit.mas:74 src/templates/edit.mas:75
 #: src/templates/edit.mas:76
 msgid "Add"
 msgstr "Aggiungi"
@@ -196,12 +215,9 @@ msgstr "Aggiungi"
 msgid "Edit"
 msgstr "Modifica"
 
-#: src/templates/index.mas:53
-#: src/templates/index.mas:54
-#: src/templates/edit.mas:54
-#: src/templates/edit.mas:55
-#: src/templates/edit.mas:93
-#: src/templates/edit.mas:94
+#: src/templates/index.mas:53 src/templates/index.mas:54
+#: src/templates/edit.mas:54 src/templates/edit.mas:55
+#: src/templates/edit.mas:93 src/templates/edit.mas:94
 msgid "Delete"
 msgstr "Cancella"
 
@@ -209,8 +225,7 @@ msgstr "Cancella"
 msgid "edit"
 msgstr "modifica"
 
-#: src/templates/index.mas:70
-#: src/templates/edit.mas:110
+#: src/templates/index.mas:70 src/templates/edit.mas:110
 msgid "delete"
 msgstr "cancella"
 

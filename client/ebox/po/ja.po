@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:30+0100\n"
+"POT-Creation-Date: 2009-12-03 12:57+0000\n"
 "PO-Revision-Date: 2008-01-08 15:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,133 +16,662 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:219
-#, perl-brace-format
-msgid "RSS file: {path}"
-msgstr "RSSファイル: {path}"
+#: src/EBox/SysInfo.pm:45
+#, fuzzy
+msgid "System Information"
+msgstr "システム情報"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:233
-msgid "RSS"
-msgstr "RSS"
+#: src/EBox/SysInfo.pm:80
+msgid "Time"
+msgstr "時間"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:290
-#, perl-brace-format
-msgid "eBox alerts channel for {hostname}"
-msgstr "eBoxは {hostname} へのチャネルに対して警戒しています"
+#: src/EBox/SysInfo.pm:81
+#, fuzzy
+msgid "Hostname"
+msgstr "ホスト名"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:293
-msgid "This channel tracks what happens on this eBox machine along the time"
-msgstr "このチャネルはeBoxの作動するマシンで起こったことをずっと監視しています"
+#: src/EBox/SysInfo.pm:83
+msgid "eBox version"
+msgstr "eBox バージョン"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:313
-#, perl-brace-format
-msgid "The event has happened in eBox {hostname} from {source}"
-msgstr "{source} によってeBox {hostname} にイベントが発生しました"
+#: src/EBox/SysInfo.pm:86
+msgid "System load"
+msgstr "システム負荷"
 
-#: src/EBox/Event/Dispatcher/RSS.pm:317
-#, perl-brace-format
-msgid "Go to your {url} to check its status."
-msgstr "ステータスを確認するには {url} に行ってください。"
+#: src/EBox/SysInfo.pm:132 src/EBox/SysInfo.pm:225
+#, fuzzy
+msgid "Module Status"
+msgstr "モジュール状態"
 
-#: src/EBox/Event/Dispatcher/Log.pm:136
-msgid "Log file"
-msgstr "ログファイル"
+#: src/EBox/SysInfo.pm:137
+#, fuzzy
+msgid "General Information"
+msgstr "一般的な情報"
 
-#: src/EBox/Event/Dispatcher/Log.pm:149
-msgid "Log"
-msgstr "ログ"
+#: src/EBox/SysInfo.pm:142
+#, fuzzy
+msgid "Process List"
+msgstr "バックアップ一覧"
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:166
-msgid "Admin Jabber account"
-msgstr "Jabber管理者アカウント"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:179
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:229
-#, perl-brace-format
-msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr "Jabberサーバ {serverName} がダウンしているか接続が許可されていません"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:259
-#, perl-brace-format
-msgid "Subscription failed: {message}"
-msgstr "購読に失敗しました: {message}"
-
-#: src/EBox/Event/Dispatcher/Jabber.pm:266
-#, perl-brace-format
-msgid "Authorization failed: {result} - {message}"
-msgstr "認証に失敗しました: {result} - {message}"
-
-#: src/EBox/Event/Dispatcher/Abstract.pm:141
-#, perl-brace-format
-msgid "Dispatcher {name} is not configured to be enabled"
-msgstr "ディスパッチャー {name} は有効化されていません"
-
-#: src/EBox/Event/Watcher/Runit.pm:113
-#, perl-brace-format
-msgid "The following modules are not running: {modules}\n"
-msgstr "次のモジュールが動作していません: {modules}\n"
-
-#: src/EBox/Event/Watcher/Runit.pm:142
-msgid "Service"
+#: src/EBox/SysInfo.pm:149
+#, fuzzy
+msgid "Support & Services"
 msgstr "サービス"
 
-#: src/EBox/Event/Watcher/Runit.pm:159
-msgid "Check if any eBox service is not running when it should"
-msgstr "動作していないeBoxサービスがないか確認してください"
-
-#: src/EBox/Event/Watcher/Runit.pm:229
-#, perl-brace-format
-msgid ""
-"The service {service} has been restarted {restart} times in {time} seconds "
-"and it has been stopped"
+#: src/EBox/SysInfo.pm:220 src/EBox/CGI/Dashboard/Index.pm:32
+msgid "Dashboard"
 msgstr ""
-"サービス {service} は {time} 秒間に {restart} 回再起動され、停止しました"
 
-#: src/EBox/Event/Watcher/Log.pm:203
-msgid "Log observer"
-msgstr "ログの監視"
+#: src/EBox/SysInfo.pm:231 src/EBox/Report/DiskUsage.pm:336
+msgid "System"
+msgstr "システム"
 
-#: src/EBox/Event/Watcher/Log.pm:230
-#, perl-brace-format
-msgid "Notify when a logger ({loggers}) has logged something"
-msgstr "{loggers} が何かログに記録したときに知らせる"
+#: src/EBox/SysInfo.pm:235
+msgid "General"
+msgstr "一般的"
 
-#: src/EBox/Event/Watcher/State.pm:126
-msgid "eBox is up and running"
-msgstr "eBoxは動作中です"
+#: src/EBox/SysInfo.pm:238 src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr "ディスクの状況"
 
-#: src/EBox/Event/Watcher/State.pm:132
-msgid "eBox is critically down"
-msgstr "eBoxは停止しています"
-
-#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
-msgid "State"
-msgstr "状態"
-
-#: src/EBox/Event/Watcher/State.pm:174
-msgid "Check if eBox is currently up or down"
-msgstr "eBoxが現在動作しているか確認してください"
-
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
-#, perl-brace-format
-msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr "{mp} にマウントされたファイルシステム {fs} に空き容量がありません"
-
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
-msgid "Free storage space"
-msgstr "空いているディスク容量"
-
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
-msgid "Check if any disk partition has no storage space left"
-msgstr "ディスクパーティションに十分な空き容量があるか確認してください"
-
-#: src/EBox/Event/Watcher/RAID.pm:182 src/EBox/CGI/Report/RAID.pm:30
-#: src/EBox/SysInfo.pm:218
+#: src/EBox/SysInfo.pm:242 src/EBox/CGI/Report/RAID.pm:30
+#: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
 msgstr "RAID"
+
+#: src/EBox/SysInfo.pm:247 src/EBox/CGI/EBox/Backup.pm:34
+#: src/EBox/Backup.pm:706 src/templates/backup.mas:64
+msgid "Backup"
+msgstr "バックアップ"
+
+#: src/EBox/SysInfo.pm:250
+msgid "Halt/Reboot"
+msgstr "停止/再起動"
+
+#: src/EBox/ProgressIndicator.pm:41
+msgid "Total ticks"
+msgstr "合計"
+
+#: src/EBox/ProgressIndicator.pm:43
+msgid "It must be a non-zero positive number"
+msgstr "0以外の正の整数でなくてはなりません"
+
+#: src/EBox/ProgressIndicator.pm:51
+#, fuzzy, perl-brace-format
+msgid "Cannot execute {exe}"
+msgstr "実行できません  {exe}"
+
+#: src/EBox/ProgressIndicator.pm:101
+#, perl-brace-format
+msgid "Progress indicator with id {id} not found"
+msgstr "ID {id} の進捗状況が見つかりません"
+
+#: src/EBox/ProgressIndicator.pm:139
+msgid "Number of ticks to notify"
+msgstr "知らせる間隔"
+
+#: src/EBox/ProgressIndicator.pm:141
+msgid "must be greater than zero"
+msgstr "0より大きい必要があります"
+
+#: src/EBox/ProgressIndicator.pm:147
+msgid "Executable has not been run"
+msgstr "実行バイナリはまだ実行されていません"
+
+#: src/EBox/ProgressIndicator.pm:264
+msgid "The executable has not run"
+msgstr "実行バイナリはまだ実行していません"
+
+#: src/EBox/ProgressIndicator.pm:395
+msgid "The executable has already been started"
+msgstr "実行バイナリはすでに開始されました"
+
+#: src/EBox/ProgressIndicator.pm:399
+msgid "The executable has already finished"
+msgstr "実行バイナリはすでに完了しました"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:209
+#: src/EBox/Events/Model/Watcher/Log.pm:233
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr ""
+"警告! ログ監視が有効になっていません。変化が起こったときに連絡を受けるには有"
+"効にしてください。"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:257
+#: src/EBox/Logs/Model/SelectLog.pm:141
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
+msgid "Domain"
+msgstr "ドメイン"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:262
+msgid "Filtering"
+msgstr "フィルタリング"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:270
+msgid "Configure log watchers"
+msgstr "ログ監視を設定する"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:272
+msgid "Log watcher"
+msgstr "ログ監視"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
+#, perl-brace-format
+msgid "Log domain {logDomain}"
+msgstr "ログドメイン {logDomain}"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
+#: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
+#: src/templates/logs/index.mas:185
+msgid "Any"
+msgstr "全部"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
+#: src/templates/logs/index.mas:183
+msgid "Event"
+msgstr "イベント"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr "{logDomain} からのログを知らせるフィルタ"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+"すべてのフィルタは累積的です。また、任意のフィルタにマッチしたすべてのログの"
+"行は知らされます"
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
+msgid "filter"
+msgstr "フィルタ"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
+msgid "Minimum free disk space per filesystem"
+msgstr "ファイルシステム毎の最小空きディスク容量"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+msgid ""
+"When the free space percentage of any disk partition is under this value the "
+"event is triggered."
+msgstr ""
+"ディスクパーティションの空き容量がこの値を下回ったときイベントが発生します。"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
+msgid "Configure disk free space watcher"
+msgstr "空きディスク容量の監視を設定する"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+msgid "Name"
+msgstr "名前"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
+#: src/templates/backup.mas:44 src/templates/backup.mas:126
+#: src/templates/confirm-backup.mas:36
+msgid "Description"
+msgstr "内容"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
+msgid "Configuration"
+msgstr "設定"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
+msgid "None"
+msgstr "なし"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
+#, fuzzy
+msgid "Configure Events"
+msgstr "イベントを設定する"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
+msgid "event"
+msgstr "イベント"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
+msgid "Enable/Disable each event watcher monitoring"
+msgstr "イベント監視を有効/無効にする"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+"警告! ログドメイン監視が有効になっていません。このドメインで何らかの変化が起"
+"こったときに連絡を受けるためには、'設定'に行き、少なくとも一つのログドメイン"
+"監視を有効にしてください。"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
+msgid "Receiver"
+msgstr "受信"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
+#: src/EBox/Model/DataTable.pm:4480
+msgid "Enabled"
+msgstr "有効"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
+#, fuzzy
+msgid "Configure Dispatchers"
+msgstr "ディスパッチャーを設定する"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
+msgid "dispatcher"
+msgstr "ディスパッチャー"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
+msgid "Enable/Disable each event dispatcher"
+msgstr "イベントディスパッチャーを有効/無効にする"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
+msgid ""
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
+msgstr ""
+"設定可能なイベントディスパッチャーを有効にするには、最初に設定してください"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:89
+msgid "Events"
+msgstr "イベント"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:78
+msgid ""
+"Events module configures eBox to help informing you about events that happen"
+msgstr ""
+"イベントモジュールは何かイベントが起きたときにそれが何なのか知らせるように"
+"eBoxを設定します"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
+msgid "Jabber server name"
+msgstr "Jabberサーバ名"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
+msgid "Jabber server to send the messages"
+msgstr "送信先Jabberサーバ"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
+msgid "Port"
+msgstr "ポート"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
+msgid "Jabber user name"
+msgstr "Jabberユーザ名"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+msgid ""
+"Jabber ID of the account that will send the messages. Hint: do not introduce "
+"@domain, only the user name"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
+msgid "User password"
+msgstr "ユーザパスワード"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
+msgid "Subscribe"
+msgstr "購読する"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
+#, fuzzy
+msgid ""
+"Tick this option if you want eBox to create an account for the above user"
+msgstr ""
+"上記ユーザのアカウントを作成する必要がある場合、このオプションをチェックして"
+"ください"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+msgid "Administrator Jabber Identifier"
+msgstr "Jabber管理者識別子"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+#, fuzzy
+msgid ""
+"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
+"admin. Note that you need to register this  account manually in any jabber "
+"server"
+msgstr ""
+"eBoxにより作成されたメッセージの送信先Jabber ID (例: you, the eBox admin)\n"
+"注意: このアカウントはどこかのJabberサーバに手動で登録しておく必要があります"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
+msgid "Configure Jabber dispatcher"
+msgstr "Jabberディスパッチャーを設定"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
+#, fuzzy
+msgid "This dispatcher will send events to an Jabber account"
+msgstr "このディスパッチャーはJabberアカウントにイベントを送信します"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
+msgid "Jabber dispatcher configuration updated"
+msgstr "Jabberディスパッチャー設定が更新されました"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr "次のような書式になっているはずです 'user@domain[/resource]'"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
+msgid "Nobody"
+msgstr "なし"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
+msgid "IP address"
+msgstr "IPアドレス"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
+msgid "Object"
+msgstr "オブジェクト"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
+msgid "Public"
+msgstr "パブリック"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
+msgid "Channel link"
+msgstr "チャンネルリンク"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
+msgid "Allowed readers"
+msgstr "許可されたリーダ"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+#, fuzzy
+msgid "Use this field to set the access control for the channel"
+msgstr "チャネルのアクセス制御を設定するにはこのフィールドを使ってください"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+msgid "Syndicate this RSS"
+msgstr "このRSSを配給する"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
+msgid "Configure RSS dispatcher"
+msgstr "RSSディスパッチャーを設定する"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr ""
+"チャネルリンクとはお気に入りのRSSのコンテンツを配給するリンクのことです"
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
+msgid "RSS dispatcher configuration updated"
+msgstr "RSSディスパッチャーの設定が更新されました"
+
+#: src/EBox/EventDaemon.pm:476
+#, perl-brace-format
+msgid "Dispatcher {name} disabled since it is not able to send events"
+msgstr ""
+"イベントを送信することができないため、ディスパッチャー {name} は無効化されま"
+"した"
+
+#: src/EBox/Auth.pm:155
+msgid "Password changed"
+msgstr "パスワードは変更されました"
+
+#: src/EBox/CGI/ClientRawBase.pm:209
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+"テンプレートに関連した内部エラーが発生しました。これはバグです。関連する情報"
+"がログに含まれているかもしれません。"
+
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:57
+msgid "Logs"
+msgstr "ログ"
+
+#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
+#: src/templates/dashboard/index.mas:53
+#, fuzzy
+msgid "Configure Widgets"
+msgstr "イベントを設定する"
+
+#: src/EBox/CGI/Login/Index.pm:62
+#, fuzzy
+msgid ""
+"There is a script which has asked to run in eBox exclusively. Please, wait "
+"patiently until it is done"
+msgstr "実行中のウェブサービススクリプトがあります。少々お待ちください"
+
+#: src/EBox/CGI/Login/Index.pm:66
+msgid "Incorrect password"
+msgstr "パスワードが誤っています"
+
+#: src/EBox/CGI/Login/Index.pm:69
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "セキュリティ上の理由によりあなたのセッションは閉じられました"
+
+#: src/EBox/CGI/Login/Index.pm:72
+msgid "You have been logged out because a new session has been opened"
+msgstr "新しいセッションが開かれたためログアウトされました"
+
+#: src/EBox/CGI/ServiceModule/StatusView.pm:39
+#, fuzzy
+msgid "Module Status Configuration"
+msgstr "モジュール状態の設定"
+
+#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
+msgid "Logout"
+msgstr "ログアウト"
+
+#: src/EBox/CGI/EBox/General.pm:30
+#, fuzzy
+msgid "General Configuration"
+msgstr "一般的設定"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+#, fuzzy
+msgid "Halt or Reboot"
+msgstr "停止または再起動"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "eBox is going down for halt"
+msgstr "eBoxは停止処理を始めました"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "eBox is going down for reboot"
+msgstr "eBoxは再起動処理を始めました"
+
+#: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:49
+msgid "Password"
+msgstr "パスワード"
+
+#: src/EBox/CGI/EBox/Password.pm:52
+msgid "Incorrect password."
+msgstr "パスワードが誤っています。"
+
+#: src/EBox/CGI/EBox/Password.pm:57
+msgid "New passwords do not match."
+msgstr "新しいパスワードがマッチしません。"
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "The password must be at least 6 characters long"
+msgstr "パスワードは最低でも6文字必要です"
+
+#: src/EBox/CGI/EBox/Password.pm:66
+msgid "The password was changed successfully."
+msgstr "パスワードは変更されました"
+
+#: src/EBox/CGI/EBox/Bug.pm:29
+msgid "Bug report"
+msgstr "バグ報告"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
+msgid "Configuration Backup"
+msgstr "設定をバックアップ"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "次のバックアップファイルを削除するか確認してください:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
+#: src/templates/backup.mas:173
+msgid "Delete"
+msgstr "削除"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr "次のバックアップファイルからリストアするか確認してください:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
+msgid "Restore"
+msgstr "リストア"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
+#: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
+#: src/EBox/Backup.pm:1311
+msgid "The input contains invalid characters"
+msgstr "入力は無効な文字を含んでいます"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
+msgid "Configuration backup"
+msgstr "設定のバックアップ"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+msgid "Full data and configuration backup"
+msgstr "全データと設定のバックアップ"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+msgid "Bug-report configuration dump"
+msgstr "バグ報告設定のダンプ"
+
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr "モジュール名"
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr "モジュールは正しく再起動されました。"
+
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr "アップグレード中"
+
+#: src/EBox/CGI/EBox/Backup.pm:160
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr "不明なバックアップモード: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:226
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr "不明な修復モード: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:239
+msgid "Backing up"
+msgstr "バックアップ中"
+
+#: src/EBox/CGI/EBox/Backup.pm:240
+msgid "Backing up modules"
+msgstr "モジュールをバックアップ中"
+
+#: src/EBox/CGI/EBox/Backup.pm:241
+msgid "Operation"
+msgstr "処理"
+
+#: src/EBox/CGI/EBox/Backup.pm:242
+msgid "operations left to finish backup"
+msgstr "バックアップ完了までの残りの処理"
+
+#: src/EBox/CGI/EBox/Backup.pm:243
+msgid "Backup successful"
+msgstr "バックアップ完了"
+
+#: src/EBox/CGI/EBox/Backup.pm:254
+msgid "Restoring backup"
+msgstr "バックアップからリストアしています"
+
+#: src/EBox/CGI/EBox/Backup.pm:255
+msgid "Restoring modules"
+msgstr "バックアップからモジュールをリストアしています"
+
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
+msgid "Module"
+msgstr "モジュール"
+
+#: src/EBox/CGI/EBox/Backup.pm:257
+msgid "modules left to restore"
+msgstr "残りのリストアするモジュール"
+
+#: src/EBox/CGI/EBox/Backup.pm:258
+msgid "Restore successful"
+msgstr "リストア完了"
+
+#: src/EBox/CGI/Finish.pm:32
+msgid "Save configuration"
+msgstr "設定を保存"
+
+#: src/EBox/CGI/Finish.pm:76
+msgid "Saving changes"
+msgstr "変更内容を保存"
+
+#: src/EBox/CGI/Finish.pm:77
+msgid "Saving changes in modules"
+msgstr "モジュール変更内容を保存"
+
+#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
+msgid "Current operation"
+msgstr "現在の処理"
+
+#: src/EBox/CGI/Finish.pm:79
+msgid "operations performed"
+msgstr "実行中の処理"
+
+#: src/EBox/CGI/Finish.pm:80
+msgid "Changes saved"
+msgstr "保存された変更"
+
+#: src/EBox/CGI/Finish.pm:81
+#, perl-brace-format
+msgid ""
+"Some modules reported error when saving changes . More information on the "
+"logs in {dir}"
+msgstr ""
+"変更内容を保存する際に、いくつかのモジュールがエラーを報告しました。詳細は"
+"{dir}のログに記録されています"
+
+#: src/EBox/CGI/Finish.pm:100
+msgid "Revoking changes"
+msgstr "変更を破棄"
+
+#: src/EBox/CGI/Finish.pm:101
+msgid "Revoking changes in modules"
+msgstr "モジュールの変更を破棄"
+
+#: src/EBox/CGI/Finish.pm:102
+msgid "Current module"
+msgstr "現在のモジュール"
+
+#: src/EBox/CGI/Finish.pm:103
+msgid "modules revoked"
+msgstr "破棄されたモジュール"
+
+#: src/EBox/CGI/Finish.pm:104
+msgid "Changes revoked"
+msgstr "破棄された変更"
+
+#: src/EBox/CGI/Finish.pm:105
+#, perl-brace-format
+msgid ""
+"Some modules reported error when discarding changes . More information on "
+"the logs in {dir}"
+msgstr ""
+"変更を取り消す際に、いくつかのモジュールがエラーを報告しました。詳細な情報は"
+"{dir}のログに記録されています"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
@@ -349,311 +878,191 @@ msgstr "障害"
 msgid "spare"
 msgstr "予備"
 
-#: src/EBox/EventDaemon.pm:473
+#: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
-msgid "Dispatcher {name} disabled since it is not able to send events"
-msgstr ""
-"イベントを送信することができないため、ディスパッチャー {name} は無効化されま"
-"した"
+msgid "The following modules are not running: {modules}\n"
+msgstr "次のモジュールが動作していません: {modules}\n"
 
-#: src/EBox/Backup.pm:96
-msgid "Creating backup archive"
-msgstr "バックアップのアーカイブを作成しています"
+#: src/EBox/Event/Watcher/Runit.pm:142
+msgid "Service"
+msgstr "サービス"
 
-#: src/EBox/Backup.pm:140
-#, perl-brace-format
-msgid "Dumping configuration of module {m}"
-msgstr "モジュール {m} の設定をダンプしています"
+#: src/EBox/Event/Watcher/Runit.pm:159
+msgid "Check if any eBox service is not running when it should"
+msgstr "動作していないeBoxサービスがないか確認してください"
 
-#: src/EBox/Backup.pm:299
-msgid "Could not create backup archive"
-msgstr "バックアップのアーカイブを作成できませんでした"
-
-#: src/EBox/Backup.pm:306
-msgid "Could not append data to backup archive"
-msgstr "バックアップのアーカイブにデータを追加できませんでした"
-
-#: src/EBox/Backup.pm:421
-msgid "Unknown"
-msgstr "不明"
-
-#: src/EBox/Backup.pm:474
-#, perl-brace-format
-msgid "Could not extract the requested backup files: {files}"
-msgstr "リクエストされたバックアップファイルを展開できませんでした: {files}"
-
-#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1123
-msgid "Could not unpack the backup"
-msgstr "バックアップを展開できませんでした"
-
-#: src/EBox/Backup.pm:706 src/EBox/CGI/EBox/Backup.pm:34
-#: src/EBox/SysInfo.pm:223 src/templates/backup.mas:64
-msgid "Backup"
-msgstr "バックアップ"
-
-#: src/EBox/Backup.pm:742
-#, fuzzy
-msgid "Writing backup file to hard disk"
-msgstr "バックアップをハードディスクに書き込んでいます"
-
-#: src/EBox/Backup.pm:767
-msgid ""
-"Some modules has not saved changes. Before doing the backup you must save  "
-"or discard them"
-msgstr ""
-"いくつかのモジュールは保存されていません。バックアップする前に保存するか、変"
-"更を破棄してください"
-
-#: src/EBox/Backup.pm:822
-msgid "Incorrect or corrupt backup file"
-msgstr "バックアップファイルが正しくないか破損しています"
-
-#: src/EBox/Backup.pm:851
-msgid "The backup file is corrupt: could not open archive"
-msgstr "バックアップファイルが破損しています: アーカイブを開けませんでした"
-
-#: src/EBox/Backup.pm:863
-msgid "The backup file is corrupt: could not open backup checksum"
-msgstr ""
-"バックアップファイルが破損しています: バックアップチェックサムを開けませんで"
-"した"
-
-#: src/EBox/Backup.pm:870
-msgid "The backup file is corrupt."
-msgstr "バックアップファイルが破損しています。"
-
-#: src/EBox/Backup.pm:888
-msgid ""
-"The backup archive has a invalid type. Maybe the file is corrupt or you are "
-"using a incompatible eBox version"
-msgstr ""
-"バックアップアーカイブが無効な形式です。ファイルが破損しているか、互換性のな"
-"いバージョンのeBoxで作成されています"
-
-#: src/EBox/Backup.pm:894
-msgid ""
-"The archive does not contain a full backup, that made a full restore "
-"impossibe. A configuration recovery  may be possible"
-msgstr ""
-"アーカイブが完全なバックアップを含んでいないため、完全な復元は不可能です。設"
-"定の修復は可能かもしれません。"
-
-#: src/EBox/Backup.pm:929
+#: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
 msgid ""
-"There in not enough space left in the hard disk to complete the restore "
-"proccess. {size} Kb required. Free sufficient space and retry"
+"The service {service} has been restarted {restart} times in {time} seconds "
+"and it has been stopped"
 msgstr ""
-"復元のために十分なハードディスクの空き容量がありません。{size} Kbが必要です。"
-"十分なディスク容量を準備してから再度行ってください"
+"サービス {service} は {time} 秒間に {restart} 回再起動され、停止しました"
 
-#: src/EBox/Backup.pm:1210
+#: src/EBox/Event/Watcher/State.pm:126
+msgid "eBox is up and running"
+msgstr "eBoxは動作中です"
+
+#: src/EBox/Event/Watcher/State.pm:132
+msgid "eBox is critically down"
+msgstr "eBoxは停止しています"
+
+#: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
+msgid "State"
+msgstr "状態"
+
+#: src/EBox/Event/Watcher/State.pm:174
+msgid "Check if eBox is currently up or down"
+msgstr "eBoxが現在動作しているか確認してください"
+
+#: src/EBox/Event/Watcher/Log.pm:203
+msgid "Log observer"
+msgstr "ログの監視"
+
+#: src/EBox/Event/Watcher/Log.pm:230
 #, perl-brace-format
-msgid "No module {m} found in backup"
-msgstr "モジュール{m}がバックアップから見つかりません"
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr "{loggers} が何かログに記録したときに知らせる"
 
-#: src/EBox/Backup.pm:1237
-msgid "No modules to restore"
-msgstr "復元するモジュールはありません"
-
-#: src/EBox/Backup.pm:1302
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
-msgid ""
-"Unresolved restore dependency for module {topModule}: {modName} is not "
-"installed"
+msgid "The file system {fs}, mounted on {mp}, has no space left"
+msgstr "{mp} にマウントされたファイルシステム {fs} に空き容量がありません"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
+msgid "Free storage space"
+msgstr "空いているディスク容量"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
+msgid "Check if any disk partition has no storage space left"
+msgstr "ディスクパーティションに十分な空き容量があるか確認してください"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:166
+msgid "Admin Jabber account"
+msgstr "Jabber管理者アカウント"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:179
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:229
+#, perl-brace-format
+msgid "Jabber server {serverName} is down or connection is not allowed"
+msgstr "Jabberサーバ {serverName} がダウンしているか接続が許可されていません"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:259
+#, perl-brace-format
+msgid "Subscription failed: {message}"
+msgstr "購読に失敗しました: {message}"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:266
+#, perl-brace-format
+msgid "Authorization failed: {result} - {message}"
+msgstr "認証に失敗しました: {result} - {message}"
+
+#: src/EBox/Event/Dispatcher/Abstract.pm:141
+#, perl-brace-format
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr "ディスパッチャー {name} は有効化されていません"
+
+#: src/EBox/Event/Dispatcher/Log.pm:136
+msgid "Log file"
+msgstr "ログファイル"
+
+#: src/EBox/Event/Dispatcher/Log.pm:149
+msgid "Log"
+msgstr "ログ"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:219
+#, perl-brace-format
+msgid "RSS file: {path}"
+msgstr "RSSファイル: {path}"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:233
+msgid "RSS"
+msgstr "RSS"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:290
+#, perl-brace-format
+msgid "eBox alerts channel for {hostname}"
+msgstr "eBoxは {hostname} へのチャネルに対して警戒しています"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:293
+msgid "This channel tracks what happens on this eBox machine along the time"
+msgstr "このチャネルはeBoxの作動するマシンで起こったことをずっと監視しています"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:313
+#, perl-brace-format
+msgid "The event has happened in eBox {hostname} from {source}"
+msgstr "{source} によってeBox {hostname} にイベントが発生しました"
+
+#: src/EBox/Event/Dispatcher/RSS.pm:317
+#, perl-brace-format
+msgid "Go to your {url} to check its status."
+msgstr "ステータスを確認するには {url} に行ってください。"
+
+#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
+#: src/EBox/PgDBEngine.pm:76
+#, perl-brace-format
+msgid "You must set the {variable} variable in the ebox configuration file"
+msgstr "変数 {variable} をeBox設定ファイルにセットする必要があります"
+
+#: src/EBox/PgDBEngine.pm:272
+#, perl-brace-format
+msgid "Error dumping the postgresql database {name}"
+msgstr "PostgreSQLデータベース {name} をダンプしている時にエラーが発生しました"
+
+#: src/EBox/PgDBEngine.pm:290
+#, perl-brace-format
+msgid "DB dump file {file} is not readable"
+msgstr "データベースダンプファイル {file} は読み込み可能ではありません"
+
+#: src/EBox/Types/Int.pm:155
+msgid "Enter an integer number"
 msgstr ""
-"モジュール {topModule} の依存関係が復元できません: {modName} がインストールさ"
-"れていません"
 
-#: src/EBox/Backup.pm:1323 src/EBox/CGI/EBox/Backup.pm:192
-#: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:147
-msgid "The input contains invalid characters"
-msgstr "入力は無効な文字を含んでいます"
-
-#: src/EBox/Backup.pm:1345
-msgid "Backup's archives"
-msgstr "バックアップアーカイブ"
-
-#: src/EBox/Model/DataForm.pm:544
+#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:121
 #, perl-brace-format
-msgid "Remove data from {model}{br}"
-msgstr "{model}{br} からデータを削除する"
+msgid "The value shouldn't be greater than {m}"
+msgstr "値は{m}以下にしてください"
 
-#: src/EBox/Model/DataForm.pm:594 src/templates/dataInUse.mas:25
-#: src/templates/dataInUse.mas:34 src/templates/port.mas:14
-#: src/templates/password.mas:53
-msgid "Change"
-msgstr "変更"
-
-#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
-msgid "Done"
-msgstr "完了"
-
-#: src/EBox/Model/Composite.pm:371
-#, perl-brace-format
-msgid "It should be one of following values: {values}"
-msgstr "次の値のいずれかでなくてはなりません: {values}"
-
-#: src/EBox/Model/Composite.pm:670 src/EBox/Model/Composite.pm:685
-#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Model/DataTable.pm:2067
-#: src/EBox/Logs.pm:649
-msgid "Action"
-msgstr "アクション"
-
-#: src/EBox/Model/Composite.pm:672
-#, perl-brace-format
-msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr "許可されたアクションは: {view} と {cView}"
-
-#: src/EBox/Model/Composite.pm:795
-msgid "Choose one of the following:"
-msgstr "以下のいずれかを選んでください"
-
-#: src/EBox/Model/ModelManager.pm:468
-msgid ""
-"The data you are removing is being used by\n"
-"                    the following sections:"
-msgstr ""
-"削除しようとしているデータは\n"
-"次のセクションで使われています:"
-
-#: src/EBox/Model/ModelManager.pm:515
-msgid ""
-"The data you are modifying is being used by\n"
-"\t\t\tthe following sections:"
-msgstr "修正しようとしているデータは次のセクションで使われています:"
-
-#: src/EBox/Model/ProviderBase.pm:246
-#, perl-brace-format
-msgid "Provided object with index {i} does not exist"
-msgstr "インデックス {i} を持つ入力オブジェクトは存在しません"
-
-#: src/EBox/Model/DataTable.pm:326
-#, perl-brace-format
-msgid "{model} in {module} module"
-msgstr "{module} モジュールの {model}"
-
-#: src/EBox/Model/DataTable.pm:330
-msgid "at"
-msgstr "at"
-
-#: src/EBox/Model/DataTable.pm:510
-msgid "field"
-msgstr "フィールド"
-
-#: src/EBox/Model/DataTable.pm:1434
-#, fuzzy
-msgid "page"
-msgstr "予備"
-
-#: src/EBox/Model/DataTable.pm:1437
-#, fuzzy
-msgid "Page must be a number equal or greater than zero"
-msgstr "0より大きい必要があります"
-
-#: src/EBox/Model/DataTable.pm:2742
-#, perl-brace-format
-msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr "{model}{br} の {rowName} から {num} 行削除する"
-
-#: src/EBox/Model/DataTable.pm:2813
-msgid "Page size"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:2816
-#, fuzzy
-msgid "Must be either a positive number or zero"
-msgstr "0以外の正の整数でなくてはなりません"
-
-#: src/EBox/Model/DataTable.pm:3123
-#, perl-brace-format
-msgid "{row} added"
-msgstr "{row} が追加されました"
-
-#: src/EBox/Model/DataTable.pm:3124
-#, perl-brace-format
-msgid "{row} deleted"
-msgstr "{row} が削除されました"
-
-#: src/EBox/Model/DataTable.pm:3125
-#, perl-brace-format
-msgid "{row} updated"
-msgstr "{row} が更新されました"
-
-#: src/EBox/Model/DataTable.pm:3126
-#, perl-brace-format
-msgid "{row} moved up"
-msgstr "{row} が上に移動しました"
-
-#: src/EBox/Model/DataTable.pm:3127
-#, perl-brace-format
-msgid "{row} moved down"
-msgstr "{row} が下に移動しました"
-
-#: src/EBox/Model/DataTable.pm:4419
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
-msgid "Enabled"
-msgstr "有効"
-
-#: src/EBox/ProgressIndicator.pm:41
-msgid "Total ticks"
-msgstr "合計"
-
-#: src/EBox/ProgressIndicator.pm:43
-msgid "It must be a non-zero positive number"
-msgstr "0以外の正の整数でなくてはなりません"
-
-#: src/EBox/ProgressIndicator.pm:51
+#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:130
 #, fuzzy, perl-brace-format
-msgid "Cannot execute {exe}"
-msgstr "実行できません  {exe}"
+msgid "The value shouldn't be less than {m}"
+msgstr "値は{m}以上にしてください"
 
-#: src/EBox/ProgressIndicator.pm:101
+#: src/EBox/Types/Password.pm:134
 #, perl-brace-format
-msgid "Progress indicator with id {id} not found"
-msgstr "ID {id} の進捗状況が見つかりません"
+msgid "The password should have at least {minLength} characters"
+msgstr "パスワードは最低でも {minLength} 文字含んでいる必要があります"
 
-#: src/EBox/ProgressIndicator.pm:139
-msgid "Number of ticks to notify"
-msgstr "知らせる間隔"
-
-#: src/EBox/ProgressIndicator.pm:141
-msgid "must be greater than zero"
-msgstr "0より大きい必要があります"
-
-#: src/EBox/ProgressIndicator.pm:147
-msgid "Executable has not been run"
-msgstr "実行バイナリはまだ実行されていません"
-
-#: src/EBox/ProgressIndicator.pm:264
-msgid "The executable has not run"
-msgstr "実行バイナリはまだ実行していません"
-
-#: src/EBox/ProgressIndicator.pm:395
-msgid "The executable has already been started"
-msgstr "実行バイナリはすでに開始されました"
-
-#: src/EBox/ProgressIndicator.pm:399
-msgid "The executable has already finished"
-msgstr "実行バイナリはすでに完了しました"
-
-#: src/EBox/Global.pm:442 src/EBox/Global.pm:463
+#: src/EBox/Types/Password.pm:145
 #, perl-brace-format
-msgid "Saving {modName} module"
-msgstr "{modName}モジュールを保存"
+msgid "The password should have at most {maxLength} characters"
+msgstr "パスワードは最大で {maxLength} 文字まで使えます"
 
-#: src/EBox/Global.pm:889
+#: src/EBox/Types/DomainName.pm:118
+msgid "IP addresses are not allowed"
+msgstr ""
+
+#: src/EBox/Types/PortRange.pm:138
+msgid "any"
+msgstr "全部"
+
+#: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
-msgid "running {scriptName} script"
-msgstr "{scriptName}スクリプトを実行"
+msgid "\"From\" {from} must be greater than \"To\" {to}"
+msgstr "\"From\" {from} は \"To\" {to} よりも大きくなくてはなりません"
 
-#: src/EBox/Logs/Model/SelectLog.pm:141
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
-#: src/EBox/Events/Model/Watcher/Log.pm:219
-msgid "Domain"
-msgstr "ドメイン"
+#: src/EBox/Types/Float.pm:113
+#, fuzzy
+msgid "Enter a float number"
+msgstr "数値を入力してください"
+
+#: src/EBox/Types/Select.pm:342
+#, perl-brace-format
+msgid "Choose a value within the value set: {set}"
+msgstr "値を選んでください: {set}"
 
 #: src/EBox/Logs/Model/SelectLog.pm:149
 #, fuzzy
@@ -737,6 +1146,14 @@ msgstr "設定を保存"
 msgid "Enable/disable logging per-module basis"
 msgstr "モジュール毎のログを有効/無効にする"
 
+#: src/EBox/Logs/Model/ForcePurge.pm:109
+msgid "Force log purge"
+msgstr "ログを強制的に消去する"
+
+#: src/EBox/Logs/Model/ForcePurge.pm:112
+msgid "Purge"
+msgstr "消去する"
+
 #: src/EBox/Logs/Model/Report/Details.pm:226
 #: src/EBox/Logs/Model/Report/Details.pm:234
 #: src/EBox/Logs/Model/Report/Details.pm:269
@@ -771,628 +1188,28 @@ msgstr ""
 msgid "Report options"
 msgstr "その他のオプション"
 
-#: src/EBox/Logs/Model/ForcePurge.pm:109
-msgid "Force log purge"
-msgstr "ログを強制的に消去する"
+#: src/EBox/Common/Model/EnableForm.pm:100
+msgid "Service enabled"
+msgstr "サービスは有効化されました"
 
-#: src/EBox/Logs/Model/ForcePurge.pm:112
-msgid "Purge"
-msgstr "消去する"
+#: src/EBox/Common/Model/EnableForm.pm:102
+msgid "Service disabled"
+msgstr "サービスは無効化されました"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:196
-msgid "Dashboard"
-msgstr ""
+#: src/EBox/Common/Model/EnableForm.pm:146
+msgid "Enable service"
+msgstr "サービスを有効にする"
 
-#: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:53
+#: src/EBox/Events.pm:417
 #, fuzzy
-msgid "Configure Widgets"
-msgstr "イベントを設定する"
-
-#: src/EBox/CGI/Login/Index.pm:62
-#, fuzzy
-msgid ""
-"There is a script which has asked to run in eBox exclusively. Please, wait "
-"patiently until it is done"
-msgstr "実行中のウェブサービススクリプトがあります。少々お待ちください"
-
-#: src/EBox/CGI/Login/Index.pm:66
-msgid "Incorrect password"
-msgstr "パスワードが誤っています"
-
-#: src/EBox/CGI/Login/Index.pm:69
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "セキュリティ上の理由によりあなたのセッションは閉じられました"
-
-#: src/EBox/CGI/Login/Index.pm:72
-msgid "You have been logged out because a new session has been opened"
-msgstr "新しいセッションが開かれたためログアウトされました"
-
-#: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
-msgid "Module Status Configuration"
-msgstr "モジュール状態の設定"
-
-#: src/EBox/CGI/EBox/General.pm:30
-#, fuzzy
-msgid "General Configuration"
-msgstr "一般的設定"
-
-#: src/EBox/CGI/EBox/CurrentProgress.pm:36
-msgid "Upgrading"
-msgstr "アップグレード中"
-
-#: src/EBox/CGI/EBox/Backup.pm:160
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "不明なバックアップモード: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:226
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "不明な修復モード: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:239
-msgid "Backing up"
-msgstr "バックアップ中"
-
-#: src/EBox/CGI/EBox/Backup.pm:240
-msgid "Backing up modules"
-msgstr "モジュールをバックアップ中"
-
-#: src/EBox/CGI/EBox/Backup.pm:241
-msgid "Operation"
-msgstr "処理"
-
-#: src/EBox/CGI/EBox/Backup.pm:242
-msgid "operations left to finish backup"
-msgstr "バックアップ完了までの残りの処理"
-
-#: src/EBox/CGI/EBox/Backup.pm:243
-msgid "Backup successful"
-msgstr "バックアップ完了"
-
-#: src/EBox/CGI/EBox/Backup.pm:254
-msgid "Restoring backup"
-msgstr "バックアップからリストアしています"
-
-#: src/EBox/CGI/EBox/Backup.pm:255
-msgid "Restoring modules"
-msgstr "バックアップからモジュールをリストアしています"
-
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
-#: src/templates/finish.mas:106 src/templates/moduleStatusTable.mas:58
-msgid "Module"
-msgstr "モジュール"
-
-#: src/EBox/CGI/EBox/Backup.pm:257
-msgid "modules left to restore"
-msgstr "残りのリストアするモジュール"
-
-#: src/EBox/CGI/EBox/Backup.pm:258
-msgid "Restore successful"
-msgstr "リストア完了"
-
-#: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:32
-msgid "Password"
-msgstr "パスワード"
-
-#: src/EBox/CGI/EBox/Password.pm:52
-msgid "Incorrect password."
-msgstr "パスワードが誤っています。"
-
-#: src/EBox/CGI/EBox/Password.pm:57
-msgid "New passwords do not match."
-msgstr "新しいパスワードがマッチしません。"
-
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "The password must be at least 6 characters long"
-msgstr "パスワードは最低でも6文字必要です"
-
-#: src/EBox/CGI/EBox/Password.pm:66
-msgid "The password was changed successfully."
-msgstr "パスワードは変更されました"
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-#, fuzzy
-msgid "Halt or Reboot"
-msgstr "停止または再起動"
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "eBox is going down for halt"
-msgstr "eBoxは停止処理を始めました"
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "eBox is going down for reboot"
-msgstr "eBoxは再起動処理を始めました"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
-msgid "Configuration Backup"
-msgstr "設定をバックアップ"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:105
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "次のバックアップファイルを削除するか確認してください:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
-#: src/templates/backup.mas:173
-msgid "Delete"
-msgstr "削除"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:130
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr "次のバックアップファイルからリストアするか確認してください:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
-msgid "Restore"
-msgstr "リストア"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176
-msgid "Configuration backup"
-msgstr "設定のバックアップ"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
-msgid "Full data and configuration backup"
-msgstr "全データと設定のバックアップ"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:182
-msgid "Bug-report configuration dump"
-msgstr "バグ報告設定のダンプ"
-
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "バグ報告"
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr "モジュール名"
-
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr "モジュールは正しく再起動されました。"
-
-#: src/EBox/CGI/ClientRawBase.pm:209
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
+msgid "The events module is not enabled to send events"
 msgstr ""
-"テンプレートに関連した内部エラーが発生しました。これはバグです。関連する情報"
-"がログに含まれているかもしれません。"
-
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:57
-msgid "Logs"
-msgstr "ログ"
-
-#: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "ログアウト"
-
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm:214
-msgid "Disk Usage"
-msgstr "ディスクの状況"
-
-#: src/EBox/CGI/Finish.pm:32
-msgid "Save configuration"
-msgstr "設定を保存"
-
-#: src/EBox/CGI/Finish.pm:76
-msgid "Saving changes"
-msgstr "変更内容を保存"
-
-#: src/EBox/CGI/Finish.pm:77
-msgid "Saving changes in modules"
-msgstr "モジュール変更内容を保存"
-
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
-msgid "Current operation"
-msgstr "現在の処理"
-
-#: src/EBox/CGI/Finish.pm:79
-msgid "operations performed"
-msgstr "実行中の処理"
-
-#: src/EBox/CGI/Finish.pm:80
-msgid "Changes saved"
-msgstr "保存された変更"
-
-#: src/EBox/CGI/Finish.pm:81
-#, perl-brace-format
-msgid ""
-"Some modules reported error when saving changes . More information on the "
-"logs in {dir}"
-msgstr ""
-"変更内容を保存する際に、いくつかのモジュールがエラーを報告しました。詳細は"
-"{dir}のログに記録されています"
-
-#: src/EBox/CGI/Finish.pm:100
-msgid "Revoking changes"
-msgstr "変更を破棄"
-
-#: src/EBox/CGI/Finish.pm:101
-msgid "Revoking changes in modules"
-msgstr "モジュールの変更を破棄"
-
-#: src/EBox/CGI/Finish.pm:102
-msgid "Current module"
-msgstr "現在のモジュール"
-
-#: src/EBox/CGI/Finish.pm:103
-msgid "modules revoked"
-msgstr "破棄されたモジュール"
-
-#: src/EBox/CGI/Finish.pm:104
-msgid "Changes revoked"
-msgstr "破棄された変更"
-
-#: src/EBox/CGI/Finish.pm:105
-#, perl-brace-format
-msgid ""
-"Some modules reported error when discarding changes . More information on "
-"the logs in {dir}"
-msgstr ""
-"変更を取り消す際に、いくつかのモジュールがエラーを報告しました。詳細な情報は"
-"{dir}のログに記録されています"
-
-#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
-#: src/EBox/PgDBEngine.pm:76
-#, perl-brace-format
-msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr "変数 {variable} をeBox設定ファイルにセットする必要があります"
-
-#: src/EBox/PgDBEngine.pm:272
-#, perl-brace-format
-msgid "Error dumping the postgresql database {name}"
-msgstr "PostgreSQLデータベース {name} をダンプしている時にエラーが発生しました"
-
-#: src/EBox/PgDBEngine.pm:290
-#, perl-brace-format
-msgid "DB dump file {file} is not readable"
-msgstr "データベースダンプファイル {file} は読み込み可能ではありません"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
-msgid "Nobody"
-msgstr "なし"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
-msgid "IP address"
-msgstr "IPアドレス"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
-msgid "Object"
-msgstr "オブジェクト"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
-msgid "Public"
-msgstr "パブリック"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
-msgid "Channel link"
-msgstr "チャンネルリンク"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
-msgid "Allowed readers"
-msgstr "許可されたリーダ"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
-#, fuzzy
-msgid "Use this field to set the access control for the channel"
-msgstr "チャネルのアクセス制御を設定するにはこのフィールドを使ってください"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
-msgid "Syndicate this RSS"
-msgstr "このRSSを配給する"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
-msgid "Configure RSS dispatcher"
-msgstr "RSSディスパッチャーを設定する"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
-msgid ""
-"The channel link is the link which is used to syndicate the content to your "
-"favourite RSS. "
-msgstr ""
-"チャネルリンクとはお気に入りのRSSのコンテンツを配給するリンクのことです"
-
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
-msgid "RSS dispatcher configuration updated"
-msgstr "RSSディスパッチャーの設定が更新されました"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
-msgid "Jabber server name"
-msgstr "Jabberサーバ名"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
-msgid "Jabber server to send the messages"
-msgstr "送信先Jabberサーバ"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
-msgid "Port"
-msgstr "ポート"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
-msgid "Jabber user name"
-msgstr "Jabberユーザ名"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
-msgid ""
-"Jabber ID of the account that will send the messages. Hint: do not introduce "
-"@domain, only the user name"
-msgstr ""
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
-msgid "User password"
-msgstr "ユーザパスワード"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
-msgid "Subscribe"
-msgstr "購読する"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
-#, fuzzy
-msgid ""
-"Tick this option if you want eBox to create an account for the above user"
-msgstr ""
-"上記ユーザのアカウントを作成する必要がある場合、このオプションをチェックして"
-"ください"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
-msgid "Administrator Jabber Identifier"
-msgstr "Jabber管理者識別子"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
-#, fuzzy
-msgid ""
-"Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
-"admin. Note that you need to register this  account manually in any jabber "
-"server"
-msgstr ""
-"eBoxにより作成されたメッセージの送信先Jabber ID (例: you, the eBox admin)\n"
-"注意: このアカウントはどこかのJabberサーバに手動で登録しておく必要があります"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
-msgid "Configure Jabber dispatcher"
-msgstr "Jabberディスパッチャーを設定"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
-#, fuzzy
-msgid "This dispatcher will send events to an Jabber account"
-msgstr "このディスパッチャーはJabberアカウントにイベントを送信します"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
-msgid "Jabber dispatcher configuration updated"
-msgstr "Jabberディスパッチャー設定が更新されました"
-
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
-msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr "次のような書式になっているはずです 'user@domain[/resource]'"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:89
-msgid "Events"
-msgstr "イベント"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:78
-msgid ""
-"Events module configures eBox to help informing you about events that happen"
-msgstr ""
-"イベントモジュールは何かイベントが起きたときにそれが何なのか知らせるように"
-"eBoxを設定します"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
-msgid "Name"
-msgstr "名前"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
-#: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
-#: src/templates/backup.mas:126
-msgid "Description"
-msgstr "内容"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
-msgid "Configuration"
-msgstr "設定"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
-msgid "None"
-msgstr "なし"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
-#, fuzzy
-msgid "Configure Events"
-msgstr "イベントを設定する"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
-msgid "event"
-msgstr "イベント"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
-msgid "Enable/Disable each event watcher monitoring"
-msgstr "イベント監視を有効/無効にする"
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
-msgid ""
-"Warning! There is no log domain watcher enabled. Please, go to "
-"'Configuration' to enable at least one to be notified when a log in this "
-"domain happens. "
-msgstr ""
-"警告! ログドメイン監視が有効になっていません。このドメインで何らかの変化が起"
-"こったときに連絡を受けるためには、'設定'に行き、少なくとも一つのログドメイン"
-"監視を有効にしてください。"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:171
-#: src/EBox/Events/Model/Watcher/Log.pm:195
-msgid ""
-"Warning! The log watcher is not enabled. Enable to be notified when logs "
-"happen. "
-msgstr ""
-"警告! ログ監視が有効になっていません。変化が起こったときに連絡を受けるには有"
-"効にしてください。"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:224
-msgid "Filtering"
-msgstr "フィルタリング"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:232
-msgid "Configure log watchers"
-msgstr "ログ監視を設定する"
-
-#: src/EBox/Events/Model/Watcher/Log.pm:234
-msgid "Log watcher"
-msgstr "ログ監視"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
-#, perl-brace-format
-msgid "Log domain {logDomain}"
-msgstr "ログドメイン {logDomain}"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
-#: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
-#: src/templates/logs/index.mas:185
-msgid "Any"
-msgstr "全部"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
-#: src/templates/logs/index.mas:183
-msgid "Event"
-msgstr "イベント"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
-#, perl-brace-format
-msgid "Filters to apply to notify logs from {logDomain}"
-msgstr "{logDomain} からのログを知らせるフィルタ"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
-msgid ""
-"Every filter added is cumulative.Then every log line which matches with any "
-"filter given will be notified"
-msgstr ""
-"すべてのフィルタは累積的です。また、任意のフィルタにマッチしたすべてのログの"
-"行は知らされます"
-
-#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
-msgid "filter"
-msgstr "フィルタ"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
-msgid "Minimum free disk space per filesystem"
-msgstr "ファイルシステム毎の最小空きディスク容量"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
-msgid ""
-"When the free space percentage of any disk partition is under this value the "
-"event is triggered."
-msgstr ""
-"ディスクパーティションの空き容量がこの値を下回ったときイベントが発生します。"
-
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
-msgid "Configure disk free space watcher"
-msgstr "空きディスク容量の監視を設定する"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
-msgid "Receiver"
-msgstr "受信"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
-#, fuzzy
-msgid "Configure Dispatchers"
-msgstr "ディスパッチャーを設定する"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
-msgid "dispatcher"
-msgstr "ディスパッチャー"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
-msgid "Enable/Disable each event dispatcher"
-msgstr "イベントディスパッチャーを有効/無効にする"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
-msgid ""
-"In order to enable a configurable event dispatcher, you need to configure it "
-"first"
-msgstr ""
-"設定可能なイベントディスパッチャーを有効にするには、最初に設定してください"
-
-#: src/EBox/Html.pm:39
-msgid "Save changes"
-msgstr "変更を保存"
-
-#: src/EBox/Auth.pm:155
-msgid "Password changed"
-msgstr "パスワードは変更されました"
-
-#: src/EBox/Report/DiskUsage.pm:61
-#, perl-brace-format
-msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr "{d} は使われていません。本当に有効なディスクですか？"
-
-#: src/EBox/Report/DiskUsage.pm:210
-#, fuzzy, perl-brace-format
-msgid ""
-"Invalid file system: {f}. Only regular and no removable media file systems "
-"are accepted"
-msgstr ""
-"無効なファイルシステムです: {f} 。正常なリムーバブルメディアのファイルシステ"
-"ムだけが利用できます。"
-
-#: src/EBox/Report/DiskUsage.pm:333
-msgid "Free space"
-msgstr "空き容量"
-
-#: src/EBox/Report/DiskUsage.pm:336 src/EBox/SysInfo.pm:207
-msgid "System"
-msgstr "システム"
-
-#: src/EBox/Types/Select.pm:342
-#, perl-brace-format
-msgid "Choose a value within the value set: {set}"
-msgstr "値を選んでください: {set}"
-
-#: src/EBox/Types/Password.pm:134
-#, perl-brace-format
-msgid "The password should have at least {minLength} characters"
-msgstr "パスワードは最低でも {minLength} 文字含んでいる必要があります"
-
-#: src/EBox/Types/Password.pm:145
-#, perl-brace-format
-msgid "The password should have at most {maxLength} characters"
-msgstr "パスワードは最大で {maxLength} 文字まで使えます"
-
-#: src/EBox/Types/Int.pm:155
-msgid "Enter an integer number"
-msgstr ""
-
-#: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:121
-#, perl-brace-format
-msgid "The value shouldn't be greater than {m}"
-msgstr "値は{m}以下にしてください"
-
-#: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:130
-#, fuzzy, perl-brace-format
-msgid "The value shouldn't be less than {m}"
-msgstr "値は{m}以上にしてください"
-
-#: src/EBox/Types/Float.pm:113
-#, fuzzy
-msgid "Enter a float number"
-msgstr "数値を入力してください"
-
-#: src/EBox/Types/DomainName.pm:118
-msgid "IP addresses are not allowed"
-msgstr ""
-
-#: src/EBox/Types/PortRange.pm:138
-msgid "any"
-msgstr "全部"
-
-#: src/EBox/Types/PortRange.pm:414
-#, perl-brace-format
-msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr "\"From\" {from} は \"To\" {to} よりも大きくなくてはなりません"
+"イベントを送信することができないため、ディスパッチャー {name} は無効化されま"
+"した"
+
+#: src/EBox/Events.pm:632
+msgid "Event service status"
+msgstr "イベントサービス状態"
 
 #: src/EBox/Logs.pm:73
 msgid "Create logs database"
@@ -1418,13 +1235,19 @@ msgid "Configure Logs"
 msgstr "設定ログ"
 
 #: src/EBox/Logs.pm:646 src/templates/finish.mas:105
-#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:128
+#: src/templates/backup.mas:128 src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "日時"
 
 #: src/EBox/Logs.pm:647
 msgid "Client Address"
 msgstr "クライアントのアドレス"
+
+#: src/EBox/Logs.pm:649 src/EBox/Model/Composite.pm:670
+#: src/EBox/Model/Composite.pm:685 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/DataTable.pm:2128
+msgid "Action"
+msgstr "アクション"
 
 #: src/EBox/Logs.pm:650
 msgid "Params"
@@ -1446,141 +1269,263 @@ msgstr "ログメッセージ"
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "ライフタイムパラメタは正の数で表される時間でなくてはなりません"
 
-#: src/EBox/Events.pm:549
-msgid "Event service status"
-msgstr "イベントサービス状態"
+#: src/EBox/Model/ProviderBase.pm:246
+#, perl-brace-format
+msgid "Provided object with index {i} does not exist"
+msgstr "インデックス {i} を持つ入力オブジェクトは存在しません"
 
-#: src/EBox/Apache.pm:265 src/EBox/Apache.pm:274
+#: src/EBox/Model/DataForm.pm:544
+#, perl-brace-format
+msgid "Remove data from {model}{br}"
+msgstr "{model}{br} からデータを削除する"
+
+#: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
+#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
+#: src/templates/port.mas:14
+msgid "Change"
+msgstr "変更"
+
+#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
+msgid "Done"
+msgstr "完了"
+
+#: src/EBox/Model/Composite.pm:371
+#, perl-brace-format
+msgid "It should be one of following values: {values}"
+msgstr "次の値のいずれかでなくてはなりません: {values}"
+
+#: src/EBox/Model/Composite.pm:672
+#, perl-brace-format
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr "許可されたアクションは: {view} と {cView}"
+
+#: src/EBox/Model/Composite.pm:795
+msgid "Choose one of the following:"
+msgstr "以下のいずれかを選んでください"
+
+#: src/EBox/Model/ModelManager.pm:468
+msgid ""
+"The data you are removing is being used by\n"
+"                    the following sections:"
+msgstr ""
+"削除しようとしているデータは\n"
+"次のセクションで使われています:"
+
+#: src/EBox/Model/ModelManager.pm:515
+msgid ""
+"The data you are modifying is being used by\n"
+"\t\t\tthe following sections:"
+msgstr "修正しようとしているデータは次のセクションで使われています:"
+
+#: src/EBox/Model/DataTable.pm:326
+#, perl-brace-format
+msgid "{model} in {module} module"
+msgstr "{module} モジュールの {model}"
+
+#: src/EBox/Model/DataTable.pm:330
+msgid "at"
+msgstr "at"
+
+#: src/EBox/Model/DataTable.pm:541
+msgid "field"
+msgstr "フィールド"
+
+#: src/EBox/Model/DataTable.pm:1465
+#, fuzzy
+msgid "page"
+msgstr "予備"
+
+#: src/EBox/Model/DataTable.pm:1468
+#, fuzzy
+msgid "Page must be a number equal or greater than zero"
+msgstr "0より大きい必要があります"
+
+#: src/EBox/Model/DataTable.pm:2803
+#, perl-brace-format
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr "{model}{br} の {rowName} から {num} 行削除する"
+
+#: src/EBox/Model/DataTable.pm:2874
+msgid "Page size"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2877
+#, fuzzy
+msgid "Must be either a positive number or zero"
+msgstr "0以外の正の整数でなくてはなりません"
+
+#: src/EBox/Model/DataTable.pm:3184
+#, perl-brace-format
+msgid "{row} added"
+msgstr "{row} が追加されました"
+
+#: src/EBox/Model/DataTable.pm:3185
+#, perl-brace-format
+msgid "{row} deleted"
+msgstr "{row} が削除されました"
+
+#: src/EBox/Model/DataTable.pm:3186
+#, perl-brace-format
+msgid "{row} updated"
+msgstr "{row} が更新されました"
+
+#: src/EBox/Model/DataTable.pm:3187
+#, perl-brace-format
+msgid "{row} moved up"
+msgstr "{row} が上に移動しました"
+
+#: src/EBox/Model/DataTable.pm:3188
+#, perl-brace-format
+msgid "{row} moved down"
+msgstr "{row} が下に移動しました"
+
+#: src/EBox/Html.pm:39
+msgid "Save changes"
+msgstr "変更を保存"
+
+#: src/EBox/Backup.pm:96
+msgid "Creating backup archive"
+msgstr "バックアップのアーカイブを作成しています"
+
+#: src/EBox/Backup.pm:140
+#, perl-brace-format
+msgid "Dumping configuration of module {m}"
+msgstr "モジュール {m} の設定をダンプしています"
+
+#: src/EBox/Backup.pm:299
+msgid "Could not create backup archive"
+msgstr "バックアップのアーカイブを作成できませんでした"
+
+#: src/EBox/Backup.pm:306
+msgid "Could not append data to backup archive"
+msgstr "バックアップのアーカイブにデータを追加できませんでした"
+
+#: src/EBox/Backup.pm:421
+msgid "Unknown"
+msgstr "不明"
+
+#: src/EBox/Backup.pm:474
+#, perl-brace-format
+msgid "Could not extract the requested backup files: {files}"
+msgstr "リクエストされたバックアップファイルを展開できませんでした: {files}"
+
+#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1128
+msgid "Could not unpack the backup"
+msgstr "バックアップを展開できませんでした"
+
+#: src/EBox/Backup.pm:743
+#, fuzzy
+msgid "Writing backup file to hard disk"
+msgstr "バックアップをハードディスクに書き込んでいます"
+
+#: src/EBox/Backup.pm:769
+msgid ""
+"Some modules has not saved changes. Before doing the backup you must save  "
+"or discard them"
+msgstr ""
+"いくつかのモジュールは保存されていません。バックアップする前に保存するか、変"
+"更を破棄してください"
+
+#: src/EBox/Backup.pm:827
+msgid "Incorrect or corrupt backup file"
+msgstr "バックアップファイルが正しくないか破損しています"
+
+#: src/EBox/Backup.pm:856
+msgid "The backup file is corrupt: could not open archive"
+msgstr "バックアップファイルが破損しています: アーカイブを開けませんでした"
+
+#: src/EBox/Backup.pm:868
+msgid "The backup file is corrupt: could not open backup checksum"
+msgstr ""
+"バックアップファイルが破損しています: バックアップチェックサムを開けませんで"
+"した"
+
+#: src/EBox/Backup.pm:875
+msgid "The backup file is corrupt."
+msgstr "バックアップファイルが破損しています。"
+
+#: src/EBox/Backup.pm:893
+msgid ""
+"The backup archive has a invalid type. Maybe the file is corrupt or you are "
+"using a incompatible eBox version"
+msgstr ""
+"バックアップアーカイブが無効な形式です。ファイルが破損しているか、互換性のな"
+"いバージョンのeBoxで作成されています"
+
+#: src/EBox/Backup.pm:899
+msgid ""
+"The archive does not contain a full backup, that made a full restore "
+"impossibe. A configuration recovery  may be possible"
+msgstr ""
+"アーカイブが完全なバックアップを含んでいないため、完全な復元は不可能です。設"
+"定の修復は可能かもしれません。"
+
+#: src/EBox/Backup.pm:934
+#, perl-brace-format
+msgid ""
+"There in not enough space left in the hard disk to complete the restore "
+"proccess. {size} Kb required. Free sufficient space and retry"
+msgstr ""
+"復元のために十分なハードディスクの空き容量がありません。{size} Kbが必要です。"
+"十分なディスク容量を準備してから再度行ってください"
+
+#: src/EBox/Backup.pm:1215
+#, perl-brace-format
+msgid "No module {m} found in backup"
+msgstr "モジュール{m}がバックアップから見つかりません"
+
+#: src/EBox/Backup.pm:1238
+msgid "No modules to restore"
+msgstr "復元するモジュールはありません"
+
+#: src/EBox/Backup.pm:1290
+#, perl-brace-format
+msgid ""
+"Unresolved restore dependency for module {topModule}: {modName} is not "
+"installed"
+msgstr ""
+"モジュール {topModule} の依存関係が復元できません: {modName} がインストールさ"
+"れていません"
+
+#: src/EBox/Backup.pm:1333
+msgid "Backup's archives"
+msgstr "バックアップアーカイブ"
+
+#: src/EBox/Apache.pm:268 src/EBox/Apache.pm:277
 msgid "port"
 msgstr "ポート"
 
-#: src/EBox/Apache.pm:588
+#: src/EBox/Apache.pm:591
 msgid "eBox internal web server"
 msgstr ""
 
-#: src/EBox/Common/Model/EnableForm.pm:100
-msgid "Service enabled"
-msgstr "サービスは有効化されました"
+#: src/EBox/Global.pm:424 src/EBox/Global.pm:445
+#, perl-brace-format
+msgid "Saving {modName} module"
+msgstr "{modName}モジュールを保存"
 
-#: src/EBox/Common/Model/EnableForm.pm:102
-msgid "Service disabled"
-msgstr "サービスは無効化されました"
+#: src/EBox/Global.pm:919
+#, perl-brace-format
+msgid "running {scriptName} script"
+msgstr "{scriptName}スクリプトを実行"
 
-#: src/EBox/Common/Model/EnableForm.pm:146
-msgid "Enable service"
-msgstr "サービスを有効にする"
+#: src/EBox/Report/DiskUsage.pm:61
+#, perl-brace-format
+msgid "No usage data for {d}. Are you sure is a valid disk?"
+msgstr "{d} は使われていません。本当に有効なディスクですか？"
 
-#: src/EBox/SysInfo.pm:42
-#, fuzzy
-msgid "System Information"
-msgstr "システム情報"
-
-#: src/EBox/SysInfo.pm:77
-msgid "Time"
-msgstr "時間"
-
-#: src/EBox/SysInfo.pm:78
-#, fuzzy
-msgid "Hostname"
-msgstr "ホスト名"
-
-#: src/EBox/SysInfo.pm:80
-msgid "eBox version"
-msgstr "eBox バージョン"
-
-#: src/EBox/SysInfo.pm:83
-msgid "System load"
-msgstr "システム負荷"
-
-#: src/EBox/SysInfo.pm:118 src/EBox/SysInfo.pm:201
-#, fuzzy
-msgid "Module Status"
-msgstr "モジュール状態"
-
-#: src/EBox/SysInfo.pm:123
-#, fuzzy
-msgid "General Information"
-msgstr "一般的な情報"
-
-#: src/EBox/SysInfo.pm:128
-#, fuzzy
-msgid "Process List"
-msgstr "バックアップ一覧"
-
-#: src/EBox/SysInfo.pm:211
-msgid "General"
-msgstr "一般的"
-
-#: src/EBox/SysInfo.pm:226
-msgid "Halt/Reboot"
-msgstr "停止/再起動"
-
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
-"このマシンを停止した場合、あなたのインターネット接続が切断するかもしれませ"
-"ん。"
-
-#: src/templates/halt.mas:14
-msgid "Halt"
-msgstr "停止"
-
-#: src/templates/halt.mas:16
-msgid "Reboot"
-msgstr "再起動"
-
-#: src/templates/headTitle.mas:20
-msgid "Remote services control panel"
-msgstr ""
-
-#: src/templates/finish.mas:82
-msgid "Warning"
-msgstr "警告"
-
-#: src/templates/finish.mas:96
+#: src/EBox/Report/DiskUsage.pm:210
+#, fuzzy, perl-brace-format
 msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
+"Invalid file system: {f}. Only regular and no removable media file systems "
+"are accepted"
 msgstr ""
-"1つ以上のモジュールで保存されていない変更があります。変更は保存するか破棄する"
-"ことができます。"
+"無効なファイルシステムです: {f} 。正常なリムーバブルメディアのファイルシステ"
+"ムだけが利用できます。"
 
-#: src/templates/finish.mas:99
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-"ネットワークインタフェースや管理するポートに変更を加えた場合、管理インタ"
-"フェースにアクセスするURLを手動で変更する必要があるかもしれません。"
-
-#: src/templates/finish.mas:107
-msgid "Message"
-msgstr "メッセージ"
-
-#: src/templates/finish.mas:123
-msgid "Save"
-msgstr "保存"
-
-#: src/templates/finish.mas:125
-msgid "Discard changes"
-msgstr "変更を破棄"
-
-#: src/templates/finish.mas:130
-msgid "There are no unsaved changes."
-msgstr "保存されていない変更はありません。"
-
-#: src/templates/bug.mas:9
-msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a bug in eBox."
-msgstr ""
-"このページからシステムの状態に関する情報をファイルに出力できます。このファイ"
-"ルはeBoxのバグを報告するときに有用です。"
-
-#: src/templates/bug.mas:14
-msgid "Download bug report file"
-msgstr "バグ報告ファイルをダウンロード"
+#: src/EBox/Report/DiskUsage.pm:333
+msgid "Free space"
+msgstr "空き容量"
 
 #: src/templates/configurationFiles.mas:28
 msgid "Do you wish to overwrite these files?"
@@ -1594,42 +1539,23 @@ msgstr "現在のファイルを保持"
 msgid "Modify"
 msgstr "修正"
 
-#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
-msgid "Cancel"
-msgstr "キャンセル"
+#: src/templates/headTitle.mas:20
+msgid "Remote services control panel"
+msgstr ""
 
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr "保存されていない変更があります。ログアウトすると変更は失われます。"
-
-#: src/templates/logout/index.mas:15
-msgid "There are no unsaved changes in this session."
-msgstr "このセッションで保存されていない変更はありません。"
-
-#: src/templates/logout/index.mas:19
-msgid "Exit"
-msgstr "終了"
-
-#: src/templates/progress.mas:20
-msgid "Item"
-msgstr "アイテム"
-
-#: src/templates/progress.mas:21
-msgid "items left"
-msgstr "残りのアイテム"
-
-#: src/templates/progress.mas:23
-msgid "Some error has happened in eBox: "
-msgstr "eBoxに何らかのエラーが発生しました:"
-
-#: src/templates/progress.mas:38
-msgid "Starting..."
-msgstr "開始しました..."
-
-#: src/templates/port.mas:9
+#: src/templates/backupTabs.mas:13
 #, fuzzy
-msgid "Administration Interface TCP Port"
-msgstr "管理インタフェースのTCPポート"
+msgid "Local Backup"
+msgstr "全てバックアップ"
+
+#: src/templates/backupTabs.mas:18
+#, fuzzy
+msgid "Remote Backup"
+msgstr "バックアップからリストアしています"
+
+#: src/templates/backupTabs.mas:23
+msgid "Remote Backup from Other Subscribed Hosts"
+msgstr ""
 
 #: src/templates/configureView.mas:16
 msgid ""
@@ -1652,65 +1578,14 @@ msgstr "eBoxにより変更されるファイル"
 msgid "Accept"
 msgstr "了承"
 
-#: src/templates/password.mas:4
-#, fuzzy
-msgid "Change Password"
-msgstr "パスワードを変更"
-
-#: src/templates/password.mas:5
-msgid "Your password must be at least 6 characters long."
-msgstr "パスワードは最低でも6文字必要です。"
-
-#: src/templates/password.mas:11
-msgid "Current password"
-msgstr "現在のパスワード"
-
-#: src/templates/password.mas:25
-msgid "New password"
-msgstr "新しいパスワード"
-
-#: src/templates/password.mas:39
-msgid "Confirm password"
-msgstr "新しいパスワード(確認)"
-
-#: src/templates/confirm-backup.mas:44 src/templates/backup.mas:127
-#: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
-msgid "Type"
-msgstr "タイプ"
-
-#: src/templates/confirm-backup.mas:53 src/templates/backup.mas:129
-msgid "Archive size"
-msgstr ""
-
-#: src/templates/confirm-backup.mas:110
-msgid "Full Restore"
-msgstr "全て復元"
-
-#: src/templates/confirm-backup.mas:111
-msgid "Configuration Restore"
-msgstr "設定を復元"
-
-#: src/templates/confirm-backup.mas:116
-msgid "Restore mode"
-msgstr "復元モード"
-
-#: src/templates/moduleStatusTable.mas:59
-msgid "Depends"
-msgstr "依存"
-
-#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
-msgid "Status"
-msgstr "状態"
-
-#: src/templates/moduleStatusTable.mas:85
-#, perl-brace-format
-msgid "Configure module: {module}"
-msgstr "設定モジュール: {module}"
-
 #: src/templates/dashboard/index.mas:89
 #, fuzzy
 msgid "Configure widgets"
 msgstr "イベントを設定する"
+
+#: src/templates/dashboard/list.mas:43
+msgid "No entries in this list"
+msgstr ""
 
 #: src/templates/dashboard/status.mas:10
 msgid "Restart"
@@ -1753,124 +1628,167 @@ msgstr "無効"
 msgid "The service is not enabled in eBox"
 msgstr ""
 
-#: src/templates/dashboard/list.mas:43
-msgid "No entries in this list"
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr ""
+"このマシンを停止した場合、あなたのインターネット接続が切断するかもしれませ"
+"ん。"
+
+#: src/templates/halt.mas:14
+msgid "Halt"
+msgstr "停止"
+
+#: src/templates/halt.mas:16
+msgid "Reboot"
+msgstr "再起動"
+
+#: src/templates/moduleStatusTable.mas:59
+msgid "Depends"
+msgstr "依存"
+
+#: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
+msgid "Status"
+msgstr "状態"
+
+#: src/templates/moduleStatusTable.mas:85
+#, perl-brace-format
+msgid "Configure module: {module}"
+msgstr "設定モジュール: {module}"
+
+#: src/templates/report/raid.mas:20
+#, perl-brace-format
+msgid "Inexistent RAID array {a}"
+msgstr "RAIDアレイ {a} は存在しません"
+
+#: src/templates/report/raid.mas:42
+msgid "RAID is not enabled in this system."
 msgstr ""
 
-#: src/templates/backupTabs.mas:13
+#: src/templates/report/raid.mas:94
+msgid "left-asymmetric"
+msgstr "left-asymmetric"
+
+#: src/templates/report/raid.mas:95
+msgid "right-asymmetric"
+msgstr "right-asymmetric"
+
+#: src/templates/report/raid.mas:96
+msgid "left-symmetric"
+msgstr "left-symmetric"
+
+#: src/templates/report/raid.mas:97
+msgid "right-symmetric"
+msgstr "right-symmetric"
+
+#: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
+#: src/templates/backup.mas:127 src/templates/confirm-backup.mas:44
+msgid "Type"
+msgstr "タイプ"
+
+#: src/templates/report/raid.mas:142
+msgid "Active RAID devices"
+msgstr "アクティブなRAIDデバイス"
+
+#: src/templates/report/raid.mas:143
+msgid "Active RAID devices needed"
+msgstr "アクティブなRAIDデバイスが必要です"
+
+#: src/templates/report/raid.mas:144
+msgid "Size in blocks"
+msgstr "ブロックのサイズ"
+
+#: src/templates/report/raid.mas:145
+msgid "Chunk size"
+msgstr "Chunkサイズ"
+
+#: src/templates/report/raid.mas:148
+msgid "Parity algorithm"
+msgstr "パリティアルゴリズム"
+
+#: src/templates/report/raid.mas:180
+msgid "Array properties"
+msgstr "アレイ情報"
+
+#: src/templates/report/raid.mas:195
+msgid "Resyncing array"
+msgstr "アレイ再同期中"
+
+#: src/templates/report/raid.mas:196
+msgid "Rebuild array"
+msgstr "アレイ再構築"
+
+#: src/templates/report/raid.mas:197
+msgid "Reshape array"
+msgstr "アレイ再構成"
+
+#: src/templates/report/raid.mas:205
+msgid "Operation type"
+msgstr "処理"
+
+#: src/templates/report/raid.mas:207
+msgid "Percentage completed"
+msgstr "完了した割合"
+
+#: src/templates/report/raid.mas:209
+msgid "Estimated time left"
+msgstr "残り時間"
+
+#: src/templates/report/raid.mas:211
+msgid "Operation speed"
+msgstr "実行速度"
+
+#: src/templates/report/raid.mas:224
+msgid "RAID device number"
+msgstr "RAIDデバイス番号"
+
+#: src/templates/report/raid.mas:225
+msgid "Device"
+msgstr "デバイス"
+
+#: src/templates/report/raid.mas:231
+msgid "up"
+msgstr "正常"
+
+#: src/templates/report/raid.mas:232
+msgid "failure"
+msgstr "障害"
+
+#: src/templates/report/raid.mas:261
+msgid "No unused RAID devices"
+msgstr "未使用のRAIDデバイスはありません"
+
+#: src/templates/report/raid.mas:264
+msgid "Unused RAID arrays"
+msgstr "未使用のRAIDデバイス"
+
+#: src/templates/report/diskUsage.mas:29
+msgid "Mounted on"
+msgstr "マウント先"
+
+#: src/templates/report/diskUsage.mas:31
+msgid "Options"
+msgstr "オプション"
+
+#: src/templates/report/diskUsage.mas:34
 #, fuzzy
-msgid "Local Backup"
-msgstr "全てバックアップ"
+msgid "Partition Properties"
+msgstr "パーティション情報"
 
-#: src/templates/backupTabs.mas:18
-#, fuzzy
-msgid "Remote Backup"
-msgstr "バックアップからリストアしています"
+#: src/templates/progress.mas:20
+msgid "Item"
+msgstr "アイテム"
 
-#: src/templates/backupTabs.mas:23
-msgid "Remote Backup from Other Subscribed Hosts"
-msgstr ""
+#: src/templates/progress.mas:21
+msgid "items left"
+msgstr "残りのアイテム"
 
-#: src/templates/backup.mas:17
-msgid "Full Backup"
-msgstr "全てバックアップ"
+#: src/templates/progress.mas:23
+msgid "Some error has happened in eBox: "
+msgstr "eBoxに何らかのエラーが発生しました:"
 
-#: src/templates/backup.mas:24
-#, fuzzy, perl-brace-format
-msgid ""
-"Those modules which have not been enabled for first time in the {openref}"
-"Module Status{closeref} section will be ignored in both backup and restore "
-"operations."
-msgstr ""
-"{openref}モジュール状態{closeref}セクションで初回に有効にされなかったモジュー"
-"ルは、バックアップと復元処理中は無視されます"
-
-#: src/templates/backup.mas:26
-#, fuzzy
-msgid "Backup the Current State"
-msgstr "現在の状態をバックアップ"
-
-#: src/templates/backup.mas:35
-msgid ""
-"Backup is disabled because there are unsaved configuration changes. Please, "
-"save or discard them to be able to backup the configuration"
-msgstr ""
-"保存されていない設定の変更があるため、バックアップできません。変更を保存する"
-"か破棄してください"
-
-#: src/templates/backup.mas:52
-msgid "Backup mode"
-msgstr "バックアップモード"
-
-#: src/templates/backup.mas:74
-#, fuzzy
-msgid "Restore Backup from File"
-msgstr "次のファイルからバックアップを復元"
-
-#: src/templates/backup.mas:76
-#, fuzzy
-msgid ""
-"You can upload a backup file from your computer. When uploading files you "
-"should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
-msgstr ""
-"バックアップファイルを別のコンピュータからアップロードできます。ただし、ファ"
-"イルサイズが大きすぎる(>= 1 Gb)場合はブラウザが扱えないかもしれません。"
-
-#: src/templates/backup.mas:84
-msgid "Backup file"
-msgstr "バックアップファイル"
-
-#: src/templates/backup.mas:114
-msgid "Full"
-msgstr "全て"
-
-#: src/templates/backup.mas:115
-msgid "Configuration only"
-msgstr "設定のみ"
-
-#: src/templates/backup.mas:116
-msgid "Unknown type"
-msgstr "不明な形式"
-
-#: src/templates/backup.mas:122
-msgid "Backups' list"
-msgstr "バックアップ一覧"
-
-#: src/templates/backup.mas:130
-msgid "Actions"
-msgstr "アクション"
-
-#: src/templates/backup.mas:160
-msgid "Restore configuration using this file"
-msgstr "次のファイルを使って設定を復元する"
-
-#: src/templates/backup.mas:161
-msgid "Restore from backup"
-msgstr "バックアップから復元"
-
-#: src/templates/backup.mas:166 src/templates/backup.mas:167
-msgid "Download"
-msgstr "ダウンロード"
-
-#: src/templates/backup.mas:186
-msgid "download"
-msgstr "ダウンロード"
-
-#: src/templates/backup.mas:188
-msgid "restore"
-msgstr "復元"
-
-#: src/templates/backup.mas:190
-msgid "delete"
-msgstr "削除"
-
-#: src/templates/login/index.mas:29
-msgid "Warning: Caps Lock is enabled"
-msgstr "警告: Caps Lockキーが有効です"
-
-#: src/templates/login/index.mas:39
-msgid "Enter"
-msgstr "入力"
+#: src/templates/progress.mas:38
+msgid "Starting..."
+msgstr "開始しました..."
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
@@ -1983,119 +1901,228 @@ msgstr "次"
 msgid "last"
 msgstr "最後"
 
-#: src/templates/report/raid.mas:20
-#, perl-brace-format
-msgid "Inexistent RAID array {a}"
-msgstr "RAIDアレイ {a} は存在しません"
+#: src/templates/finish.mas:82
+msgid "Warning"
+msgstr "警告"
 
-#: src/templates/report/raid.mas:42
-msgid "RAID is not enabled in this system."
+#: src/templates/finish.mas:96
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+"1つ以上のモジュールで保存されていない変更があります。変更は保存するか破棄する"
+"ことができます。"
+
+#: src/templates/finish.mas:99
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+"ネットワークインタフェースや管理するポートに変更を加えた場合、管理インタ"
+"フェースにアクセスするURLを手動で変更する必要があるかもしれません。"
+
+#: src/templates/finish.mas:107
+msgid "Message"
+msgstr "メッセージ"
+
+#: src/templates/finish.mas:123
+msgid "Save"
+msgstr "保存"
+
+#: src/templates/finish.mas:125
+msgid "Discard changes"
+msgstr "変更を破棄"
+
+#: src/templates/finish.mas:130
+msgid "There are no unsaved changes."
+msgstr "保存されていない変更はありません。"
+
+#: src/templates/backup.mas:17
+msgid "Full Backup"
+msgstr "全てバックアップ"
+
+#: src/templates/backup.mas:24
+#, fuzzy, perl-brace-format
+msgid ""
+"Those modules which have not been enabled for first time in the {openref}"
+"Module Status{closeref} section will be ignored in both backup and restore "
+"operations."
+msgstr ""
+"{openref}モジュール状態{closeref}セクションで初回に有効にされなかったモジュー"
+"ルは、バックアップと復元処理中は無視されます"
+
+#: src/templates/backup.mas:26
+#, fuzzy
+msgid "Backup the Current State"
+msgstr "現在の状態をバックアップ"
+
+#: src/templates/backup.mas:35
+msgid ""
+"Backup is disabled because there are unsaved configuration changes. Please, "
+"save or discard them to be able to backup the configuration"
+msgstr ""
+"保存されていない設定の変更があるため、バックアップできません。変更を保存する"
+"か破棄してください"
+
+#: src/templates/backup.mas:52
+msgid "Backup mode"
+msgstr "バックアップモード"
+
+#: src/templates/backup.mas:74
+#, fuzzy
+msgid "Restore Backup from File"
+msgstr "次のファイルからバックアップを復元"
+
+#: src/templates/backup.mas:76
+#, fuzzy
+msgid ""
+"You can upload a backup file from your computer. When uploading files you "
+"should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
+msgstr ""
+"バックアップファイルを別のコンピュータからアップロードできます。ただし、ファ"
+"イルサイズが大きすぎる(>= 1 Gb)場合はブラウザが扱えないかもしれません。"
+
+#: src/templates/backup.mas:84
+msgid "Backup file"
+msgstr "バックアップファイル"
+
+#: src/templates/backup.mas:114
+msgid "Full"
+msgstr "全て"
+
+#: src/templates/backup.mas:115
+msgid "Configuration only"
+msgstr "設定のみ"
+
+#: src/templates/backup.mas:116
+msgid "Unknown type"
+msgstr "不明な形式"
+
+#: src/templates/backup.mas:122
+msgid "Backups' list"
+msgstr "バックアップ一覧"
+
+#: src/templates/backup.mas:129 src/templates/confirm-backup.mas:53
+msgid "Archive size"
 msgstr ""
 
-#: src/templates/report/raid.mas:94
-msgid "left-asymmetric"
-msgstr "left-asymmetric"
+#: src/templates/backup.mas:130
+msgid "Actions"
+msgstr "アクション"
 
-#: src/templates/report/raid.mas:95
-msgid "right-asymmetric"
-msgstr "right-asymmetric"
+#: src/templates/backup.mas:160
+msgid "Restore configuration using this file"
+msgstr "次のファイルを使って設定を復元する"
 
-#: src/templates/report/raid.mas:96
-msgid "left-symmetric"
-msgstr "left-symmetric"
+#: src/templates/backup.mas:161
+msgid "Restore from backup"
+msgstr "バックアップから復元"
 
-#: src/templates/report/raid.mas:97
-msgid "right-symmetric"
-msgstr "right-symmetric"
+#: src/templates/backup.mas:166 src/templates/backup.mas:167
+msgid "Download"
+msgstr "ダウンロード"
 
-#: src/templates/report/raid.mas:142
-msgid "Active RAID devices"
-msgstr "アクティブなRAIDデバイス"
+#: src/templates/backup.mas:186
+msgid "download"
+msgstr "ダウンロード"
 
-#: src/templates/report/raid.mas:143
-msgid "Active RAID devices needed"
-msgstr "アクティブなRAIDデバイスが必要です"
+#: src/templates/backup.mas:188
+msgid "restore"
+msgstr "復元"
 
-#: src/templates/report/raid.mas:144
-msgid "Size in blocks"
-msgstr "ブロックのサイズ"
+#: src/templates/backup.mas:190
+msgid "delete"
+msgstr "削除"
 
-#: src/templates/report/raid.mas:145
-msgid "Chunk size"
-msgstr "Chunkサイズ"
+#: src/templates/bug.mas:9
+msgid ""
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a bug in eBox."
+msgstr ""
+"このページからシステムの状態に関する情報をファイルに出力できます。このファイ"
+"ルはeBoxのバグを報告するときに有用です。"
 
-#: src/templates/report/raid.mas:148
-msgid "Parity algorithm"
-msgstr "パリティアルゴリズム"
+#: src/templates/bug.mas:14
+msgid "Download bug report file"
+msgstr "バグ報告ファイルをダウンロード"
 
-#: src/templates/report/raid.mas:180
-msgid "Array properties"
-msgstr "アレイ情報"
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr "保存されていない変更があります。ログアウトすると変更は失われます。"
 
-#: src/templates/report/raid.mas:195
-msgid "Resyncing array"
-msgstr "アレイ再同期中"
+#: src/templates/logout/index.mas:15
+msgid "There are no unsaved changes in this session."
+msgstr "このセッションで保存されていない変更はありません。"
 
-#: src/templates/report/raid.mas:196
-msgid "Rebuild array"
-msgstr "アレイ再構築"
+#: src/templates/logout/index.mas:19
+msgid "Exit"
+msgstr "終了"
 
-#: src/templates/report/raid.mas:197
-msgid "Reshape array"
-msgstr "アレイ再構成"
-
-#: src/templates/report/raid.mas:205
-msgid "Operation type"
-msgstr "処理"
-
-#: src/templates/report/raid.mas:207
-msgid "Percentage completed"
-msgstr "完了した割合"
-
-#: src/templates/report/raid.mas:209
-msgid "Estimated time left"
-msgstr "残り時間"
-
-#: src/templates/report/raid.mas:211
-msgid "Operation speed"
-msgstr "実行速度"
-
-#: src/templates/report/raid.mas:224
-msgid "RAID device number"
-msgstr "RAIDデバイス番号"
-
-#: src/templates/report/raid.mas:225
-msgid "Device"
-msgstr "デバイス"
-
-#: src/templates/report/raid.mas:231
-msgid "up"
-msgstr "正常"
-
-#: src/templates/report/raid.mas:232
-msgid "failure"
-msgstr "障害"
-
-#: src/templates/report/raid.mas:261
-msgid "No unused RAID devices"
-msgstr "未使用のRAIDデバイスはありません"
-
-#: src/templates/report/raid.mas:264
-msgid "Unused RAID arrays"
-msgstr "未使用のRAIDデバイス"
-
-#: src/templates/report/diskUsage.mas:29
-msgid "Mounted on"
-msgstr "マウント先"
-
-#: src/templates/report/diskUsage.mas:31
-msgid "Options"
-msgstr "オプション"
-
-#: src/templates/report/diskUsage.mas:34
+#: src/templates/password.mas:4
 #, fuzzy
-msgid "Partition Properties"
-msgstr "パーティション情報"
+msgid "Change Password"
+msgstr "パスワードを変更"
+
+#: src/templates/password.mas:5
+msgid "Your password must be at least 6 characters long."
+msgstr "パスワードは最低でも6文字必要です。"
+
+#: src/templates/password.mas:11
+msgid "Current password"
+msgstr "現在のパスワード"
+
+#: src/templates/password.mas:25
+msgid "New password"
+msgstr "新しいパスワード"
+
+#: src/templates/password.mas:39
+msgid "Confirm password"
+msgstr "新しいパスワード(確認)"
+
+#: src/templates/login/index.mas:40
+msgid "Warning: Caps Lock is enabled"
+msgstr "警告: Caps Lockキーが有効です"
+
+#: src/templates/login/index.mas:43
+#, perl-brace-format
+msgid ""
+"Warning: Unfortunately Internet Explorer is not yet supported on eBox. "
+"Please use {url} instead."
+msgstr ""
+
+#: src/templates/login/index.mas:46
+#, perl-brace-format
+msgid ""
+"Warning: You are using a browser which is not {url}, the only one officially "
+"supported. Please, take into consideration that you might face some issues "
+"while navigating on eBox UI."
+msgstr ""
+
+#: src/templates/login/index.mas:58
+msgid "Enter"
+msgstr "入力"
+
+#: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: src/templates/confirm-backup.mas:110
+msgid "Full Restore"
+msgstr "全て復元"
+
+#: src/templates/confirm-backup.mas:111
+msgid "Configuration Restore"
+msgstr "設定を復元"
+
+#: src/templates/confirm-backup.mas:116
+msgid "Restore mode"
+msgstr "復元モード"
+
+#: src/templates/port.mas:9
+#, fuzzy
+msgid "Administration Interface TCP Port"
+msgstr "管理インタフェースのTCPポート"
 
 #, fuzzy
 #~ msgid "Monitoring"
@@ -2219,9 +2246,6 @@ msgstr "パーティション情報"
 
 #~ msgid "Error"
 #~ msgstr "エラー"
-
-#~ msgid "Services"
-#~ msgstr "サービス"
 
 #~ msgid "Summary"
 #~ msgstr "概要"

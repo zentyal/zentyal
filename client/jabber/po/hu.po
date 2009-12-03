@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:30+0100\n"
+"POT-Creation-Date: 2009-12-03 12:58+0000\n"
 "PO-Revision-Date: 2009-11-25 15:06+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -17,21 +17,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "modul állapota"
-
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:266
-msgid "domain"
-msgstr "tartomány"
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/CGI/JabberUserOptions.pm:44
-msgid "username"
-msgstr "felhasználónév"
+#: src/EBox/JabberLdapUser.pm:252
+msgid ""
+"This user has a jabber account. If the user currently connected it will "
+"continue connected until jabber authorization is again required"
+msgstr ""
+"Ennek a felhasználónak van jabber fiókja. Ha a felhasználó csatlakoztatva "
+"van, továbbra is csatlakozva maradhat ami után újra igényelt jabber "
+"hitelesítést"
 
 #: src/EBox/Jabber.pm:71
 msgid "Add Jabber LDAP schema"
@@ -49,18 +42,25 @@ msgstr ""
 msgid "To properly configure jabberd2 muc"
 msgstr ""
 
+#: src/EBox/Jabber.pm:266 src/EBox/CGI/JabberConf.pm:42
+msgid "domain"
+msgstr "tartomány"
+
 #: src/EBox/Jabber.pm:380
 msgid "Jabber server certificate"
 msgstr "Jabber szervertanúsítvány"
 
-#: src/EBox/JabberLdapUser.pm:252
-msgid ""
-"This user has a jabber account. If the user currently connected it will "
-"continue connected until jabber authorization is again required"
-msgstr ""
-"Ennek a felhasználónak van jabber fiókja. Ha a felhasználó csatlakoztatva "
-"van, továbbra is csatlakozva maradhat ami után újra igényelt jabber "
-"hitelesítést"
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr "modul állapota"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/CGI/JabberUserOptions.pm:44
+msgid "username"
+msgstr "felhasználónév"
 
 #: src/templates/index.mas:17
 msgid "General Configuration"

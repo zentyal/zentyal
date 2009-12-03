@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:39+0100\n"
+"POT-Creation-Date: 2009-12-03 13:02+0000\n"
 "PO-Revision-Date: 2009-09-30 17:31+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -17,27 +17,130 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
-msgid "Control panel"
-msgstr "Kontroll panel"
+#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
+msgid "Backup deleted"
+msgstr "Sikkerhetskopi slettet"
 
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
-msgid "Control center"
-msgstr "Kontroll senter"
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
+msgid "Making remote backup"
+msgstr "Oppretter ekstern sikkerhetskopi"
 
-#: src/EBox/RemoteServices/Backup.pm:211
-#: src/EBox/RemoteServices/ProxyBackup.pm:208
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
+msgid "Backing up modules "
+msgstr "Sikkerhetskopierer moduler "
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
+msgid "Operation"
+msgstr "Oppgave"
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
+msgid "operations left to finish backup"
+msgstr "oppgaver igjen til fullføring av sikkerhetskopi"
+
+#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
+msgid "Backup successful"
+msgstr "Sikkerhetskopi vellykket"
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
+msgid "Restoring remote backup"
+msgstr "Gjenoppretter ekstern sikkerhetskopi"
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
+msgid "Restoring modules from remote backup"
+msgstr "Gjenoppretter moduler fra ekstern sikkerhetskopi"
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
+msgid "Module"
+msgstr "Modul"
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
+msgid "modules left to restore"
+msgstr "moduler igjen å gjenopprette"
+
+#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
+#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
+msgid "Restore successful"
+msgstr "Gjenoppretting vellykket"
+
+#: src/EBox/CGI/Backup/Index.pm:36
+msgid "Remote system backups"
+msgstr "Eksterne system sikkerhetskopier"
+
+#: src/EBox/CGI/Backup/Confirm.pm:35
+msgid "Configuration backup"
+msgstr "Konfigurasjons sikkerhetskopi"
+
+#: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
+msgid ""
+"Please confirm that you want to restore the configuraction using the "
+"following remote backup:"
+msgstr ""
+"Vennligst verifiser at du vil gjenopprette konfigurasjonen med følgende "
+"eksterne sikkerhetskopi"
+
+#: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
+msgid "Restore"
+msgstr "Gjenopprett"
+
+#: src/EBox/CGI/Backup/Confirm.pm:119
+msgid "Please confirm that you want to delete the following remote backup:"
+msgstr "Vennligst verifiser at du vil slette følgende ekstern sikkerhetskopi:"
+
+#: src/EBox/CGI/Backup/Confirm.pm:125
+msgid "Delete"
+msgstr "Slett"
+
+#: src/EBox/CGI/Backup/Confirm.pm:173
 #, perl-brace-format
-msgid "Inexistent backup: {n}"
-msgstr "Ikke eksisterende sikkerhetskopi: {n}"
+msgid "Inexistent action: {a}"
+msgstr "Ikkeeksisterende handling: {a}"
 
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
-msgid "Access from control panel without password"
-msgstr "Tilgang fra kontrollpanel uten passord"
+#: src/EBox/CGI/Backup/Proxy.pm:35
+msgid "Remote system backups proxy"
+msgstr "Ekstern system sikkerhetskopi proxy"
 
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
-msgid "Access settings"
-msgstr "Tilgangs instillinger"
+#: src/EBox/CGI/NoConnection.pm:31
+msgid "Connection error"
+msgstr "Tilkoblings feil"
+
+#: src/EBox/RemoteServices/Auth.pm:124
+msgid "Key for service URN not found"
+msgstr "Nøkkel for tjeneste URN ikke funnet"
+
+#: src/EBox/RemoteServices/Auth.pm:160
+#, perl-brace-format
+msgid "Value for key {k} not found"
+msgstr "Verdi for nøkkel {k} ikke funnet"
+
+#: src/EBox/RemoteServices/Subscription.pm:108
+msgid "Key for web subscription service not found"
+msgstr "Nøkkel for web abonnement tjeneste ble ikke funnet"
+
+#: src/EBox/RemoteServices/Subscription.pm:311
+#, perl-brace-format
+msgid "Cannot contact to {host}. Check your connection to the Internet"
+msgstr ""
+
+#: src/EBox/RemoteServices/Base.pm:213
+msgid "No ebox-services DNS key found"
+msgstr "Ingen ebox-tjeneste DNS nøkkel funnet"
+
+#: src/EBox/RemoteServices/Base.pm:258
+#, perl-brace-format
+msgid "Server {s} not found via DNS server {d}"
+msgstr "Server {s} ikke funnet via DNS server {d}"
+
+#: src/EBox/RemoteServices/Base.pm:341
+msgid "Cannot create SOAP connection"
+msgstr "Kan ikke opprette SOAP forbindelse"
+
+#: src/EBox/RemoteServices/Base.pm:355
+msgid "No domain key found for this service"
+msgstr "Ingen domene nøkkel funnet for denne tjenesten"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:149
 msgid ""
@@ -100,6 +203,20 @@ msgstr ""
 "For å abbonere på en eBox ekstern tjeneste {url}. Må du ha ekstern "
 "sikkerhetskopi muligheter og mye mer"
 
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:79
+msgid "Access from control panel without password"
+msgstr "Tilgang fra kontrollpanel uten passord"
+
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
+msgid "Access settings"
+msgstr "Tilgangs instillinger"
+
+#: src/EBox/RemoteServices/Backup.pm:211
+#: src/EBox/RemoteServices/ProxyBackup.pm:208
+#, perl-brace-format
+msgid "Inexistent backup: {n}"
+msgstr "Ikke eksisterende sikkerhetskopi: {n}"
+
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
@@ -108,36 +225,6 @@ msgstr "Ingen sikkerhetskopi for vert: {h}"
 #: src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
 msgstr "Nøkkel for proxy sikkerhetskopi tjeneste ikke funnet"
-
-#: src/EBox/RemoteServices/Auth.pm:124
-msgid "Key for service URN not found"
-msgstr "Nøkkel for tjeneste URN ikke funnet"
-
-#: src/EBox/RemoteServices/Auth.pm:160
-#, perl-brace-format
-msgid "Value for key {k} not found"
-msgstr "Verdi for nøkkel {k} ikke funnet"
-
-#: src/EBox/RemoteServices/Base.pm:213
-msgid "No ebox-services DNS key found"
-msgstr "Ingen ebox-tjeneste DNS nøkkel funnet"
-
-#: src/EBox/RemoteServices/Base.pm:258
-#, perl-brace-format
-msgid "Server {s} not found via DNS server {d}"
-msgstr "Server {s} ikke funnet via DNS server {d}"
-
-#: src/EBox/RemoteServices/Base.pm:341
-msgid "Cannot create SOAP connection"
-msgstr "Kan ikke opprette SOAP forbindelse"
-
-#: src/EBox/RemoteServices/Base.pm:355
-msgid "No domain key found for this service"
-msgstr "Ingen domene nøkkel funnet for denne tjenesten"
-
-#: src/EBox/RemoteServices/Subscription.pm:106
-msgid "Key for web subscription service not found"
-msgstr "Nøkkel for web abonnement tjeneste ble ikke funnet"
 
 #: src/EBox/RemoteServices/Composite/General.pm:73
 msgid "Remote services"
@@ -148,107 +235,13 @@ msgid "eBox Control Center is paid services to enhance your eBox experience"
 msgstr ""
 "eBox Kontroll Senter er betalte tjenester for å forbedre din eBox opplevelse"
 
-#: src/EBox/Model/Settings.pm:53
-msgid "field1"
-msgstr "felt1"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:148
+msgid "Control panel"
+msgstr "Kontroll panel"
 
-#: src/EBox/Model/Settings.pm:60
-msgid "field2"
-msgstr "felt2"
-
-#: src/EBox/Model/Settings.pm:69 src/EBox/Model/Settings.pm:70
-msgid "Settings"
-msgstr "Instillinger"
-
-#: src/EBox/CGI/NoConnection.pm:31
-msgid "Connection error"
-msgstr "Tilkoblings feil"
-
-#: src/EBox/CGI/Backup/Confirm.pm:35
-msgid "Configuration backup"
-msgstr "Konfigurasjons sikkerhetskopi"
-
-#: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
-msgid ""
-"Please confirm that you want to restore the configuraction using the "
-"following remote backup:"
-msgstr ""
-"Vennligst verifiser at du vil gjenopprette konfigurasjonen med følgende "
-"eksterne sikkerhetskopi"
-
-#: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
-msgid "Restore"
-msgstr "Gjenopprett"
-
-#: src/EBox/CGI/Backup/Confirm.pm:119
-msgid "Please confirm that you want to delete the following remote backup:"
-msgstr "Vennligst verifiser at du vil slette følgende ekstern sikkerhetskopi:"
-
-#: src/EBox/CGI/Backup/Confirm.pm:125
-msgid "Delete"
-msgstr "Slett"
-
-#: src/EBox/CGI/Backup/Confirm.pm:173
-#, perl-brace-format
-msgid "Inexistent action: {a}"
-msgstr "Ikkeeksisterende handling: {a}"
-
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
-msgid "Making remote backup"
-msgstr "Oppretter ekstern sikkerhetskopi"
-
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
-msgid "Backing up modules "
-msgstr "Sikkerhetskopierer moduler "
-
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
-msgid "Operation"
-msgstr "Oppgave"
-
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
-msgid "operations left to finish backup"
-msgstr "oppgaver igjen til fullføring av sikkerhetskopi"
-
-#: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
-msgid "Backup successful"
-msgstr "Sikkerhetskopi vellykket"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
-msgid "Restoring remote backup"
-msgstr "Gjenoppretter ekstern sikkerhetskopi"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
-msgid "Restoring modules from remote backup"
-msgstr "Gjenoppretter moduler fra ekstern sikkerhetskopi"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
-msgid "Module"
-msgstr "Modul"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
-msgid "modules left to restore"
-msgstr "moduler igjen å gjenopprette"
-
-#: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
-#: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
-msgid "Restore successful"
-msgstr "Gjenoppretting vellykket"
-
-#: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
-msgid "Backup deleted"
-msgstr "Sikkerhetskopi slettet"
-
-#: src/EBox/CGI/Backup/Index.pm:36
-msgid "Remote system backups"
-msgstr "Eksterne system sikkerhetskopier"
-
-#: src/EBox/CGI/Backup/Proxy.pm:35
-msgid "Remote system backups proxy"
-msgstr "Ekstern system sikkerhetskopi proxy"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:161
+msgid "Control center"
+msgstr "Kontroll senter"
 
 #: src/EBox/RemoteServices.pm:74
 msgid "Control Center Client"
@@ -266,9 +259,17 @@ msgstr "Abonnert"
 msgid "Control Center"
 msgstr "Kontroll Senter"
 
-#: src/EBox/Composite/Composite.pm:50
-msgid "Composite"
-msgstr "Kompositt"
+#~ msgid "field1"
+#~ msgstr "felt1"
+
+#~ msgid "field2"
+#~ msgstr "felt2"
+
+#~ msgid "Settings"
+#~ msgstr "Instillinger"
+
+#~ msgid "Composite"
+#~ msgstr "Kompositt"
 
 #~ msgid "eBox remote services"
 #~ msgstr "eBox eksterne tjenester"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:30+0100\n"
+"POT-Creation-Date: 2009-12-03 12:57+0000\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -17,7 +17,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:848
+#: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
+msgid ""
+"You must set the iptables_log_limit variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/Iptables.pm:744 src/EBox/Iptables.pm:781
+msgid ""
+"You must set the iptables_log_burst variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:855
 msgid "Firewall"
 msgstr ""
 
@@ -43,84 +53,84 @@ msgid ""
 "incoming connections are allowed."
 msgstr ""
 
-#: src/EBox/Firewall.pm:304
+#: src/EBox/Firewall.pm:311
 msgid "action"
 msgstr "acció"
 
-#: src/EBox/Firewall.pm:425 src/EBox/Firewall.pm:470 src/EBox/Firewall.pm:494
+#: src/EBox/Firewall.pm:432 src/EBox/Firewall.pm:477 src/EBox/Firewall.pm:501
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "El nom '{name}' és invàlid"
 
-#: src/EBox/Firewall.pm:426 src/EBox/Firewall.pm:605 src/EBox/Firewall.pm:630
+#: src/EBox/Firewall.pm:433 src/EBox/Firewall.pm:612 src/EBox/Firewall.pm:637
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Firewall.pm:604 src/EBox/Firewall.pm:629
+#: src/EBox/Firewall.pm:611 src/EBox/Firewall.pm:636
 msgid "protocol"
 msgstr "protocol"
 
-#: src/EBox/Firewall.pm:818
+#: src/EBox/Firewall.pm:825
 #, fuzzy
 msgid "Packet Filter"
 msgstr "Filtrat de paquets"
 
-#: src/EBox/Firewall.pm:821
+#: src/EBox/Firewall.pm:828
 #, fuzzy
 msgid "Redirects"
 msgstr "Redireccions de ports"
 
-#: src/EBox/Firewall.pm:832
+#: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 #, fuzzy
 msgid "Date"
 msgstr "Elimina"
 
-#: src/EBox/Firewall.pm:833
+#: src/EBox/Firewall.pm:840
 #, fuzzy
 msgid "Input interface"
 msgstr "interfície de xarxa"
 
-#: src/EBox/Firewall.pm:834
+#: src/EBox/Firewall.pm:841
 #, fuzzy
 msgid "Output interface"
 msgstr "interfície de xarxa"
 
-#: src/EBox/Firewall.pm:835 src/EBox/Firewall/Model/BaseRuleTable.pm:121
-#: src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall.pm:842 src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
 #, fuzzy
 msgid "Source"
 msgstr "Servei"
 
-#: src/EBox/Firewall.pm:836 src/EBox/Firewall/Model/BaseRuleTable.pm:147
+#: src/EBox/Firewall.pm:843 src/EBox/Firewall/Model/BaseRuleTable.pm:147
 #, fuzzy
 msgid "Destination"
 msgstr "port de destinació"
 
-#: src/EBox/Firewall.pm:837 src/EBox/Firewall/Model/RedirectsTable.pm:285
+#: src/EBox/Firewall.pm:844 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
 msgstr "Protocol"
 
-#: src/EBox/Firewall.pm:838
+#: src/EBox/Firewall.pm:845
 #, fuzzy
 msgid "Source port"
 msgstr "Informe d'error"
 
-#: src/EBox/Firewall.pm:839
+#: src/EBox/Firewall.pm:846
 #, fuzzy
 msgid "Destination port"
 msgstr "port de destinació"
 
-#: src/EBox/Firewall.pm:840 src/EBox/Firewall/Model/BaseRuleTable.pm:112
+#: src/EBox/Firewall.pm:847 src/EBox/Firewall/Model/BaseRuleTable.pm:112
 #, fuzzy
 msgid "Decision"
 msgstr "port de destinació"
 
-#: src/EBox/Firewall.pm:845
+#: src/EBox/Firewall.pm:852
 msgid "DROP"
 msgstr ""
 
-#: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/BaseRuleTable.pm:70
+#: src/EBox/Firewall.pm:852 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
 msgstr ""
 
@@ -128,67 +138,23 @@ msgstr ""
 msgid "Packet filtering"
 msgstr "Filtrat de paquets"
 
-#: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
-msgid ""
-"You must set the iptables_log_limit variable in the ebox configuration file"
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
 msgstr ""
 
-#: src/EBox/Iptables.pm:744 src/EBox/Iptables.pm:781
-msgid ""
-"You must set the iptables_log_burst variable in the ebox configuration file"
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+msgid "rule"
+msgstr "regla"
+
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
 msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
-msgid "ACCEPT"
-msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
-msgid "DENY"
-msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
-#: src/EBox/Firewall/Model/RedirectsTable.pm:297
-msgid "Any"
-msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
-#: src/EBox/Firewall/Model/RedirectsTable.pm:300
-#, fuzzy
-msgid "Source IP"
-msgstr "Servei"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
-#: src/EBox/Firewall/Model/RedirectsTable.pm:304
-#, fuzzy
-msgid "Source object"
-msgstr "Informe d'error"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
-#: src/EBox/Firewall/Model/RedirectsTable.pm:315
-#, fuzzy
-msgid "Destination IP"
-msgstr "port de destinació"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
-#, fuzzy
-msgid "Destination object"
-msgstr "port de destinació"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
-msgid "Service"
-msgstr "Servei"
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
-msgid ""
-"If inverse match is ticked, any service but the selected one will match this "
-"rule"
-msgstr ""
-
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
-#, fuzzy
-msgid "Description"
-msgstr "port de destinació"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
@@ -221,6 +187,30 @@ msgstr "Objecte"
 msgid "Original destination port"
 msgstr "port de destinació"
 
+#: src/EBox/Firewall/Model/RedirectsTable.pm:297
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
+msgid "Any"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:300
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
+#, fuzzy
+msgid "Source IP"
+msgstr "Servei"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:304
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
+#, fuzzy
+msgid "Source object"
+msgstr "Informe d'error"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:315
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
+#, fuzzy
+msgid "Destination IP"
+msgstr "port de destinació"
+
 #: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"
 msgstr "Port"
@@ -233,27 +223,48 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:346
+#: src/EBox/Firewall/Model/RedirectsTable.pm:337
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
+#, fuzzy
+msgid "Description"
+msgstr "port de destinació"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:354
 msgid "Port redirections"
 msgstr "Redireccions de ports"
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+#: src/EBox/Firewall/Model/RedirectsTable.pm:363
 #, fuzzy
 msgid "redirect"
 msgstr "Redireccions de ports"
 
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+msgid "ACCEPT"
 msgstr ""
 
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-msgid "rule"
-msgstr "regla"
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+msgid "DENY"
+msgstr ""
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+#, fuzzy
+msgid "Destination object"
+msgstr "port de destinació"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+msgid "Service"
+msgstr "Servei"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+msgid ""
+"If inverse match is ticked, any service but the selected one will match this "
+"rule"
+msgstr ""
+
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+#, fuzzy
+msgid "Filtering rules from  external networks to eBox"
+msgstr "Configura les regles predeterminades"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
 #: src/templates/filter.mas:6
@@ -292,16 +303,6 @@ msgstr ""
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
 msgstr ""
-
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
-msgstr ""
-
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-#, fuzzy
-msgid "Filtering rules from  external networks to eBox"
-msgstr "Configura les regles predeterminades"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
