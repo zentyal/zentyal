@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-09-26 19:43+0100\n"
+"POT-Creation-Date: 2009-12-03 15:23+0000\n"
 "PO-Revision-Date: 2006-11-23 16:39+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,46 +16,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
-#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
-msgid "Interface"
-msgstr "Interface"
-
-#: src/EBox/Validate.pm:393 src/EBox/Validate.pm:407
-msgid "Must be a number between 1 and 4096"
-msgstr ""
-
-#: src/EBox/Validate.pm:697
-#, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-
-#: src/EBox/Validate.pm:702
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-
-#: src/EBox/Validate.pm:777
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-
-#: src/EBox/Validate.pm:805
-msgid "The file path must be absolute"
-msgstr ""
-
-#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
-#, perl-brace-format
-msgid "Directory not found: {d}"
-msgstr ""
-
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "Ongeldige waarde voor {data}: {value}."
+
+#: src/EBox/Exceptions/DataMissing.pm:36
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "{data} heeft geen waarde."
 
 #: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
@@ -67,14 +36,10 @@ msgstr "{data} {value} bestaat reeds."
 msgid "{data} {value} does not exist."
 msgstr "{data} {value} bestaat niet."
 
-#: src/EBox/Exceptions/DataMissing.pm:36
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr "{data} heeft geen waarde."
-
-#: src/EBox/CGI/EBox/PageNotFound.pm:12
-msgid "Page not found"
-msgstr "Pagina niet gevonden"
+#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
+#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
+msgid "Interface"
+msgstr "Interface"
 
 #: src/EBox/CGI/Base.pm:196
 msgid ""
@@ -137,10 +102,9 @@ msgstr "Upgeload bestand is niet juist."
 msgid "Cannot create a temporally file for the upload"
 msgstr "Kan geen tijdelijk bestand aanmaken voor de upload."
 
-#: src/EBox/Sudo.pm:270
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "'{cmd}' als {user} uitvoeren is mislukt."
+#: src/EBox/CGI/EBox/PageNotFound.pm:12
+msgid "Page not found"
+msgstr "Pagina niet gevonden"
 
 #: src/EBox/Config.pm.in:75
 #, perl-brace-format
@@ -151,21 +115,57 @@ msgstr "Kan het configuratiebestand {file} niet openen."
 msgid "The ebox user has not been set in the config file."
 msgstr "De ebox gebruiker is niet aangemaakt in het configuratiebestand."
 
-#: src/templates/ajax/setter/serviceSetter.mas:25
-msgid "port"
+#: src/EBox/Sudo.pm:268
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "'{cmd}' als {user} uitvoeren is mislukt."
+
+#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
+#, perl-brace-format
+msgid "Directory not found: {d}"
 msgstr ""
 
-#: src/templates/ajax/setter/portRangeSetter.mas:23
-msgid "From"
+#: src/EBox/Validate.pm:393 src/EBox/Validate.pm:407
+msgid "Must be a number between 1 and 4096"
 msgstr ""
 
-#: src/templates/ajax/setter/portRangeSetter.mas:29
-msgid "To"
+#: src/EBox/Validate.pm:697
+#, perl-brace-format
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
 msgstr ""
 
-#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
-#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
-msgid "Inverse match"
+#: src/EBox/Validate.pm:702
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+
+#: src/EBox/Validate.pm:777
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+
+#: src/EBox/Validate.pm:805
+msgid "The file path must be absolute"
+msgstr ""
+
+#: src/templates/enable.mas:9
+msgid "Service configuration"
+msgstr ""
+
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
+msgid "Enabled"
+msgstr ""
+
+#: src/templates/enable.mas:29 src/templates/enable.mas:30
+#: src/templates/language.mas:23
+msgid "Change"
 msgstr ""
 
 #: src/templates/ajax/viewer/file.mas:22 src/templates/ajax/viewer/file.mas:33
@@ -176,11 +176,36 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:105
+#: src/templates/ajax/tableBody.mas:110
 msgid "Add new"
 msgstr ""
 
-#: src/templates/ajax/modelViewer.mas:254 src/templates/formTable.mas:90
+#: src/templates/ajax/tableSelector.mas:14
+msgid "Choose one of the options to show the associated table"
+msgstr ""
+
+#: src/templates/ajax/tableSelector.mas:32
+msgid "Choose one..."
+msgstr ""
+
+#: src/templates/ajax/setter/serviceSetter.mas:25
+msgid "port"
+msgstr ""
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:13
+msgid "Inverse match"
+msgstr ""
+
+#: src/templates/ajax/setter/portRangeSetter.mas:23
+msgid "From"
+msgstr ""
+
+#: src/templates/ajax/setter/portRangeSetter.mas:29
+msgid "To"
+msgstr ""
+
+#: src/templates/ajax/modelViewer.mas:261
 msgid "Optional"
 msgstr ""
 
@@ -200,49 +225,6 @@ msgstr ""
 #: src/templates/ajax/tablePager.mas:77 src/templates/ajax/tablePager.mas:78
 #: src/templates/ajax/tablePager.mas:87 src/templates/ajax/tablePager.mas:88
 msgid "last"
-msgstr ""
-
-#: src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr ""
-
-#: src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr ""
-
-#: src/templates/language.mas:10
-msgid "Language Selection"
-msgstr ""
-
-#: src/templates/language.mas:11
-msgid ""
-"Language changes happen automatically, saving the configuration it's not "
-"needed."
-msgstr ""
-
-#: src/templates/language.mas:23 src/templates/enable.mas:29
-#: src/templates/enable.mas:30
-msgid "Change"
-msgstr ""
-
-#: src/templates/title.mas:12
-msgid "show help"
-msgstr ""
-
-#: src/templates/title.mas:13
-msgid "hide help"
-msgstr ""
-
-#: src/templates/enable.mas:9
-msgid "Service configuration"
-msgstr ""
-
-#: src/templates/enable.mas:21 src/templates/enable.mas:24
-msgid "Disabled"
-msgstr ""
-
-#: src/templates/enable.mas:22 src/templates/enable.mas:25
-msgid "Enabled"
 msgstr ""
 
 #: src/templates/ebox/pageNotFound.mas:3
@@ -274,3 +256,21 @@ msgstr ""
 #, fuzzy
 msgid "The page cannot be found"
 msgstr "Pagina niet gevonden"
+
+#: src/templates/title.mas:12
+msgid "show help"
+msgstr ""
+
+#: src/templates/title.mas:13
+msgid "hide help"
+msgstr ""
+
+#: src/templates/language.mas:10
+msgid "Language Selection"
+msgstr ""
+
+#: src/templates/language.mas:11
+msgid ""
+"Language changes happen automatically, saving the configuration it's not "
+"needed."
+msgstr ""
