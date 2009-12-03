@@ -123,7 +123,7 @@ sub _table
         defaultActions     => ['editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataForm',
-        help               => 'Change your Voicemail settings',
+        help               => __('Change your Voicemail settings'),
         modelDomain        => 'Asterisk',
     };
 
