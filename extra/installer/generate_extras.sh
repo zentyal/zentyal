@@ -16,8 +16,8 @@ sudo mv sources.list $CHROOT/etc/apt/sources.list
 
 sudo chroot $CHROOT apt-get update
 
-test -r extra-packages.list || exit 1
-cat extra-packages.list | xargs sudo chroot $CHROOT apt-get install --download-only --allow-unauthenticated --yes
+test -r data/extra-packages.list || exit 1
+cat data/extra-packages.list | xargs sudo chroot $CHROOT apt-get install --download-only --allow-unauthenticated --yes
 
 cp $CHROOT/var/cache/apt/archives/*.deb $EXTRAS_DIR/
 

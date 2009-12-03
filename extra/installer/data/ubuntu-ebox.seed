@@ -10,8 +10,8 @@ d-i base-installer/kernel/override-image string linux-server
 d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
-# install ssh and custom l7filter kernel
-d-i pkgsel/include string ssh linux-image-2.6.24-24-l7filter
+# install ssh, bc and custom l7filter kernel
+d-i pkgsel/include string ssh bc linux-image-2.6.24-24-l7filter
 
 ##
 ## automatic install (for testing purposes)

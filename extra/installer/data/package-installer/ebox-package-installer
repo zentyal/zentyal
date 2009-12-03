@@ -316,8 +316,9 @@ sub preconfiguration
         system('/etc/init.d/squid start > /dev/null 2>&1');
     }
 
-    # Disable cdrom from apt sources
+    # Disable cdrom and delete file from apt sources
     system('sed -i "s/^deb cdrom/#deb cdrom/" /etc/apt/sources.list');
+    system('sed -i "s/^deb file:.*$//" /etc/apt/sources.list');
 
     my $message = __('Preconfiguring eBox packages...');
     my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$message\" 7 64 0";
