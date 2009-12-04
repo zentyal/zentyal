@@ -29,7 +29,7 @@ automatizando la mayoría de tareas, evitando errores y ahorrando tiempo para el
 administrador de sistemas. Esta amplia gama de servicios de
 red son administrados a través de una cómoda e intuitiva interfaz web.
 eBox Platform tiene un diseño modular pensado para poder ser extendido
-fácilmente, pudiendo instalar sólamente los módulos que se necesiten en
+fácilmente, pudiendo instalar solamente los módulos que se necesiten en
 cada servidor. Además está publicado bajo una licencia de Software Libre (GPL) [#f1]_. Sus
 principales características son:
 
@@ -253,7 +253,7 @@ siguientes de este manual.
    usuarios y grupos, etc.
 :ref:`ebox-comm-ref`:
    eBox se convierte en el centro de comunicaciones de
-   tu organización incluyendo el correo, mensajería instántanea y voz
+   tu organización incluyendo el correo, mensajería instantánea y voz
    sobre IP.
 
 Podemos seleccionar varios perfiles para combinar sus funcionalidades.
@@ -428,28 +428,71 @@ Contenido principal:
 
      Formulario de configuración
 
-*Dashboard*:
-  El *dashboard* es la pantalla inicial de la interfaz. Contiene una serie de *widgets*
-  configurables. En todo momento se pueden reorganizar pulsando en los títulos y
-  arrastrándolos.
+*Dashboard*
+===========
 
-  .. figure:: images/intro/05-center-dashboard.png
-     :scale: 70
-     :alt: *Dashboard*
-     :align: center
+El *dashboard* es la pantalla inicial de la interfaz. Contiene una
+serie de *widgets* configurables. En todo momento se pueden
+reorganizar pulsando en los títulos y arrastrándolos.
 
-     *Dashboard*
+.. figure:: images/intro/05-center-dashboard.png
+   :scale: 70
+   :alt: *Dashboard*
+   :align: center
 
-  Pulsando en :guilabel:`Configurar Widgets` la interfaz cambia, permitiendo retirar
-  y añadir nuevos *widgets*. Para añadir uno nuevo, se busca en el menú
-  superior y se arrastra a la parte central.
+   *Dashboard*
 
-  .. figure:: images/intro/05-center-dashboard-configure.png
-     :scale: 90
-     :alt: Configuración del *dashboard*
-     :align: center
+Pulsando en :guilabel:`Configurar Widgets` la interfaz cambia,
+permitiendo retirar y añadir nuevos *widgets*. Para añadir uno nuevo,
+se busca en el menú superior y se arrastra a la parte central.
 
-     Configuración del *dashboard*
+.. figure:: images/intro/05-center-dashboard-configure.png
+   :scale: 90
+   :alt: Configuración del *dashboard*
+   :align: center
+
+   Configuración del *dashboard*
+
+Estado de los módulos
+---------------------
+
+Hay un *widget* muy importante dentro del *dashboard* que muestra el
+estado de todos los módulos instalados en eBox.
+
+.. figure:: images/intro/module-status-dashboard.png
+   :scale: 50
+   :alt: *Widget* de estado de los módulos
+   :align: center
+
+   *Widget* de estado de los módulos
+
+La imagen muestra el estado para un servicio y una acción que se puede
+ejecutar sobre él. Los estados disponibles son los siguientes:
+
+Ejecutándose:
+  Los demonios del servicio se están ejecutando para aceptar
+  conexiones de los clientes. Se puede reiniciar el servicio usando
+  :guilabel:`Reiniciar`.
+
+Ejecutándose sin ser gestionado:
+  Si no has configurado el servicio todavía, es posible encontrarlo
+  ejecutando con la configuración por defecto de la distribución. Por
+  tanto, no es gestionado por eBox hasta el momento.
+
+Parado:
+  Ha ocurrido algún problema ya que el servicio debería estar
+  ejecutándose pero está parado por alguna razón. Para descubrirla, se
+  deberían comprobar los ficheros de registro para el servicio o el
+  fichero de registro de eBox mismo como describe la sección
+  :ref:`ebox-working-ref`. Se puede intentar iniciar el servicio
+  pinchando en :guilabel:`Arrancar`.
+
+Deshabilitado:
+  El servicio ha sido deshabilitado explícitamente por el
+  administrador como se explica en :ref:`module-status-ref`.
+
+Aplicando los cambios en la configuración
+=========================================
 
 Una particularidad importante del funcionamiento de eBox Platform es su forma
 de hacer efectivas las configuraciones que hagamos en la interfaz. Para ello, primero
@@ -468,6 +511,57 @@ necesario guardar los cambios pero se avisa adecuadamente.
    :align: center
 
    Guardar Cambios
+
+Además de esto, se pueden revertir los cambios. Por tanto si has
+cambiado algo que no recuerdas o no estás seguro de hacerlo, siempre
+puedes descartar los cambios de manera segura. Ten en cuenta que si
+modificas la configuración de las interfaces de red o el puerto de
+administración, puedes perder la conexión con eBox. Para recuperarla
+quizás debas reescribir la URL en el navegador.
+
+.. _module-status-ref:
+
+Configuración del estado de los módulos
+=======================================
+
+Como se ha discutido previamente, eBox se construye modularmente. El
+objetivo de la mayoría de módulos es gestionar servicios de red que
+debes habilitar a través de :menuselection:`Estado del módulo`.
+
+.. figure:: images/intro/module-status-conf.png
+   :scale: 50
+   :alt: Configuración del estado de los módulos
+   :align: center
+
+   Configuración del estado de los módulos
+
+
+Cada módulo puede tener dependencias sobre otros para que
+funcione. Por ejemplo, el servicio DHCP necesita que el módulo de red
+esté habilitado para que pueda ofrecer direcciones IP a través de las
+interfaces de red configuradas. Por tanto, las dependencias se
+muestran en la columna :guilabel:`Depende`.
+
+Habilitar un módulo por primera vez es conocido dentro de la *jerga*
+eBox como **configurar** un módulo. Dicha configuración se realiza una
+vez por módulo. Seleccionando la columna :guilabel:`Estado`, habilitas
+o deshabilitas el módulo. Si es la primera vez, se presenta un diálogo
+para completar una serie de acciones y modificaciones a ficheros que
+implica la activación del módulo [#]_. Tras ello, puedes guardar los
+cambios para llevar a acabo las modificaciones.
+
+.. figure:: images/intro/dialog-module-status.png
+   :scale: 50
+   :alt: Diálogo de confirmación para **configurar** un módulo
+   :align: center
+
+   Diálogo de confirmación para **configurar** un módulo
+
+
+.. [#] Este proceso es obligatorio para cumplir la política de Debian
+   http://www.debian.org/doc/debian-policy/ 
+
+.. _ebox-working-ref:
 
 ¿Cómo funciona eBox Platform?
 *****************************
@@ -531,7 +625,7 @@ eBox Platform puede utilizarse de dos maneras fundamentales:
 * **Encaminador** y **filtro** de la conexión a internet.
 * Servidor de los distintos servicios de red.
 
-Ambas funcionalidades pueden combinars en una misma máquina o
+Ambas funcionalidades pueden combinarse en una misma máquina o
 separarse en varias.
 
 La figura :ref:`ebox-net-img-ref` escenifica las distintas ubicaciones que
@@ -670,7 +764,7 @@ Para ello:
 
    Efecto:
      Se ha activado el botón :guilabel:`Guardar Cambios` y algunos módulos que dependen
-     de Network ahora pueden ser activados.
+     de **red** ahora pueden ser activados.
 
 #. **Acción:**
    Guardar los cambios.

@@ -31,7 +31,6 @@ server only the necessary modules and easily extend the functionality
 according to your needs. Besides, eBox Platform is released under a free
 software license (GPL) [#f1]_. The main features are:
 
-
 .. [#f1] **GPL** (*GNU General Public License*): Software license that
 	allows free redistribution, adaptation, use and creation of derivative works
 	with the same license.
@@ -42,7 +41,7 @@ software license (GPL) [#f1]_. The main features are:
   * Service integration.
 
 * Easy and intuitive interface.
-* Extendable and adaptable to specific needs.
+* Extensible and adaptable to specific needs.
 * Hardware independent.
 * Open source software.
 
@@ -416,33 +415,76 @@ Main content:
 
   .. figure:: images/intro/05-center-configure.png
      :scale: 50
-     :alt: Configuration form
+     :alt: Web User Interface configuration forms
      :align: center
 
-     Configuration form
+     Web User Interface configuration forms
 
-*Dashboard*:
-  The *dashboard* is the initial screen of the web interface. It contains a
-  number of configurable *widgets*. You can reorganize them at any moment simply
-  by clicking and dragging the titles.
+*Dashboard*
+===========
 
-  .. figure:: images/intro/05-center-dashboard.png
-     :scale: 70
-     :alt: *Dashboard*
-     :align: center
+The *dashboard* is the initial screen of the web interface. It
+contains a number of configurable *widgets*. You can reorganize them
+at any moment simply by clicking and dragging the titles.
 
-     *Dashboard*
+.. figure:: images/intro/05-center-dashboard.png
+   :scale: 70
+   :alt: *Dashboard*
+   :align: center
 
-  By clicking on :guilabel:`Configure Widgets` the interface changes, allowing
-  you to remove and add new *widgets*. To add a new widget, you search for it in
-  the top menu and drag it to the main part of the page.
+   *Dashboard*
 
-  .. figure:: images/intro/05-center-dashboard-configure.png
-     :scale: 90
-     :alt: *Dashboard* configuration
-     :align: center
+By clicking on :guilabel:`Configure Widgets` the interface
+changes, allowing you to remove and add new *widgets*. To add a new
+widget, you search for it in the top menu and drag it to the main part
+of the page.
 
-     *Dashboard* configuration
+.. figure:: images/intro/05-center-dashboard-configure.png
+   :scale: 90
+   :alt: *Dashboard* configuration
+   :align: center
+
+   *Dashboard* configuration
+
+Module status
+-------------
+
+There is a very important *widget* within the *dashboard* which shows
+the status from all installed modules in eBox.
+
+.. figure:: images/intro/module-status-dashboard.png
+   :scale: 50
+   :alt: Module status *widget*
+   :align: center
+
+   Module status *widget*
+
+The figure depicts the current status for a service and action to apply on
+it. The available status are the following:
+
+Running:
+  The service daemons are running to accept connections from the
+  network clients. You can restart the service using
+  :guilabel:`Restart`.
+
+Running unmanaged: 
+  If you haven't configured the service yet, it is
+  possible to find it running with the default configuration from the
+  distribution. Therefore it is not managed by eBox yet.
+
+Stopped:
+  Some problem has happened since the service has to be running but it
+  is stopped for some reason. In order to find it out, you
+  should check the log files for the service or eBox log file itself
+  as :ref:`ebox-working-ref` section describes. You may try to start
+  the service by clicking on :guilabel:`Start`.
+
+Disabled:
+  The service has been disabled explicitly by the system administrator
+  as it is explained in :ref:`module-status-ref`.
+
+Applying configuration changes
+==============================
 
 An important detail to take into account is the method eBox uses to
 apply the configuration changes made through the interface. First of all,
@@ -460,6 +502,57 @@ but in these cases you will receive a notification.
    :align: center
 
    Save changes
+
+In addition to this, you can revert your changes. Hence if you have
+done something that you do not remember or you are unsure to do it,
+you can always discard them safely. Take into account, if you have
+made changes on the network interfaces configuration or the eBox Web
+administration port, then you may lose current connection to eBox, so
+you must rewrite the URL in the browser to reach administration
+interface again.
+
+.. _module-status-ref:
+
+Modules status configuration
+============================
+
+As it is discussed above, eBox is built up with modules. The majority
+of the modules are intended to manage network services that you must
+enable them through :menuselection:`Module Status`. 
+
+.. figure:: images/intro/module-status-conf.png
+   :scale: 50
+   :alt: Module status configuration
+   :align: center
+
+   Module status configuration
+
+Each module may have dependencies on others to work. For instance,
+DHCP service needs to have the network module enabled so that it
+can serve IP address leases through the configured network
+interfaces. Thus the dependencies are shown in :guilabel:`Depends`
+column.
+
+Enabling a module for the first time in eBox *jargon* is called
+**configure** the module. Configuration is done once per module.
+By clicking on :guilabel:`Status` checkbox, you enable the module. If
+it is the first time, a dialog is presented to accept to carry out a
+set of actions and file modifications that enabling the service
+implies [#]_. After that, you may save changes to apply these
+modifications. Likewise, you may disable a module by unchecking the
+:guilabel:`Status` column for this module.
+
+.. figure:: images/intro/dialog-module-status.png
+   :scale: 50
+   :alt: Confirm dialog to **configure** a module
+   :align: center
+
+   Confirm dialog to **configure** a module
+
+.. [#] This process is mandatory to comply the Debian Policy
+   http://www.debian.org/doc/debian-policy/ 
+
+.. _ebox-working-ref:
 
 How does eBox Platform work?
 ****************************
