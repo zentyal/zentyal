@@ -33,6 +33,7 @@ sub new
 	my $class = shift;
 	my $self  = {};
 	$self->{ldap} = EBox::Ldap->instance();
+	$self->{jabber} = EBox::Global->modInstance('jabber');
 	bless($self, $class);
 	return $self;
 }
@@ -40,12 +41,11 @@ sub new
 sub _userAddOns
 {
 	my ($self, $username) = @_;
-	my $jabber = EBox::Global->modInstance('jabber');
 
-	return unless ($jabber->configured());
+	return unless ($self->{jabber}->configured());
 
 	my $active = 'no';
-	$active = 'yes' if($self->hasAccount($username));
+	$active = 'yes' if ($self->hasAccount($username));
 
 	my $is_admin = 0;
 	$is_admin = 1 if ($self->isAdmin($username));
@@ -56,7 +56,7 @@ sub _userAddOns
 	             'active'   => $active,
 		     'is_admin' => $is_admin,
 
-		     'service' => $jabber->isEnabled(),
+		     'service' => $self->{jabber}->isEnabled(),
 		   };
 
 	return { path => '/jabber/jabber.mas',
@@ -237,22 +237,32 @@ sub getJabberAdmins
 }
 
 
+sub _addUser
+{
+   my ($self, $user, $password) = @_;
+
+   unless ($self->{jabber}->configured()) {
+       return;
+   }
+ 
+   $self->setHasAccount($user, 1);
+}
+
+
 sub _delUserWarning
 {
     my ($self, $user) = @_;
 
-    my $jabber = EBox::Global->modInstance('jabber');
-    return unless ($jabber->configured());
+    return unless ($self->{jabber}->configured());
 
     $self->hasAccount($user) or
         return;
 
-     settextdomain('ebox-jabber');
-     my $txt = 
-__('This user has a jabber account. If the user currently connected it will continue connected until jabber authorization is again required');
-     settextdomain('ebox-usersandgroups');
+    settextdomain('ebox-jabber');
+    my $txt = __('This user has a jabber account. If the user currently connected it will continue connected until jabber authorization is again required.');
+    settextdomain('ebox-usersandgroups');
 
-     return $txt;
+    return $txt;
 }
 
 1;
