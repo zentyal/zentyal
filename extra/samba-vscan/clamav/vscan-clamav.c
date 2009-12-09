@@ -247,11 +247,7 @@ static int vscan_open(struct connection_struct *conn, PROTOTYPE_CONST char *fnam
 	pstring filepath;
 
 	/* Assemble complete file path */
-	#if (SMB_VFS_INTERFACE_VERSION >= 21)
-		pstrcpy(filepath, handle->conn->connectpath);
-	#else
-		pstrcpy(filepath, conn->connectpath);
-	#endif
+	pstrcpy(filepath, handle->conn->origpath);
 	pstrcat(filepath, "/");
 	pstrcat(filepath, fname);
 
