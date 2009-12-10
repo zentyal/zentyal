@@ -68,7 +68,7 @@ sub new
   my ($class, %params) = @_;
 
   if ( not defined ($params{tableInfo})) {
-    throw EBox::Exceptions::MissingArgument('tableInfo');
+    throw EBox::Exceptions::MissingArgument('tableInfo', silent => 1);
   }
 
   my $self = $class->SUPER::new(%params);

@@ -391,8 +391,11 @@ sub _inferModuleFromComposite
     }
 
     unless ( defined ($returningModule) ) {
+        # XXX We use this for flow control. It's wrong, in the meantime
+        #     we set the exception as silent
         throw EBox::Exceptions::DataNotFound( data => 'compositeName',
-                                              value => $compName);
+                                              value => $compName,
+                                              silent => 1);
     }
 
     return $returningModule;

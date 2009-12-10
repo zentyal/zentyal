@@ -6,6 +6,7 @@ HEAD
 	+ Check $self is defined in PgDBEngine::DESTROY
 	+ Do not watch files in ebox-loggerd related to disabled modules and
 	  other improvements in the daemon
+	+ Silent some exceptions that are used for flow control
 1.3.10
 	+ Show warning when accesing the UI with unsupported browsers
 	+ Add disableApparmorProfile to EBox::Module::Service

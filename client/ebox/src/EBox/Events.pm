@@ -606,7 +606,9 @@ sub _obtainModelsByPrefix # (prefix)
                   push( @models, @{$model->subModels()});
               }
           } catch EBox::Exceptions::Base with {
-              EBox::warn("model $className cannot be instantiated");
+              # XXX LogFilter is failing continously but we can recover
+              #     comment this out to not  write useless info to the log
+              # EBox::warn("model $className cannot be instantiated");
           };
 
       }
