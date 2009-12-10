@@ -135,8 +135,8 @@ sub _table
             new EBox::Types::HasMany (
                                       'fieldName' => 'acl',
                                       'printableName' => __('Antispam sender policy'),
-                                      'foreignModel' => 'AntispamACL',
-                                      'view' => '/ebox/MailFilter/View/AntispamACL',
+                                      'foreignModel' => 'AntispamVDomainACL',
+                                      'view' => '/ebox/MailFilter/View/AntispamVDomainACL',
                                       'backView' => '/ebox/MailFilter/View/VDomain',
                                       'editable'  => 1,
                             ),

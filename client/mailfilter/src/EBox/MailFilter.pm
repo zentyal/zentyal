@@ -179,6 +179,8 @@ sub modelClasses
             'EBox::MailFilter::Model::AntispamACL',
             'EBox::MailFilter::Model::AntispamTraining',
 
+            'EBox::MailFilter::Model::AntispamVDomainACL',
+
             'EBox::MailFilter::Model::POPProxyConfiguration',
 
             'EBox::MailFilter::Model::Report::FilterDetails',
