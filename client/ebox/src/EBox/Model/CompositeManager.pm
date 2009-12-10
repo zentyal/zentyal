@@ -440,7 +440,8 @@ sub _chooseCompositeUsingIndex
     # No match
     throw EBox::Exceptions::DataNotFound(data => 'compositeInstance',
                                          value => "/$moduleName/$compositeName/"
-                                        . join ('/', @{$indexesRef}));
+                                        . join ('/', @{$indexesRef}),
+                                         silent => 1);
 
 
 }
