@@ -2,6 +2,9 @@ HEAD
 	+ Set the active tab using hash from the location browser
 	+ Don't ask when a user modification is found by default
 	+ Set HOME environment variable in EBox::init()
+	+ Add suport for silent exceptions. In a few places we
+	  use exceptions for flow control (which is wrong). This
+	  exceptions shouldn't be logged.
 1.3.7
 	+ Add support for permanent messages
 1.3.6

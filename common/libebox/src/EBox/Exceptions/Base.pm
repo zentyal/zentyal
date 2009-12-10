@@ -24,11 +24,18 @@ sub new # (text)
 {
 	my $class = shift;
 	my $text = shift;
+	my (%opts) = @_;
 
 	local $Error::Depth = $Error::Depth + 1;
 	local $Error::Debug = 1;
 
 	$self = $class->SUPER::new(-text => $text, @_);
+	if (exists $opts{silent} and $opts{silent}) {
+		$self->{silent} = 1;
+	} else {
+		$self->{silent} = 0;
+	}
+
 	bless ($self, $class);
 	return $self;
 }
@@ -50,7 +57,7 @@ sub log
 	$self = shift;
 	my $log = EBox::logger();
 	$Log::Log4perl::caller_depth +=3;
-	$self->_logfunc($log, $self->stringify());
+	$self->_logfunc($log, $self->stringify()) unless $self->{silent};
 	$Log::Log4perl::caller_depth -=3;
 }
 

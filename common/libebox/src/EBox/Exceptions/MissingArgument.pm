@@ -42,7 +42,7 @@ sub new
 	local $Error::Debug = 1;
 
 	$Log::Log4perl::caller_depth++;
-	$self = $class->SUPER::new("Missing argument: $arg");
+	$self = $class->SUPER::new("Missing argument: $arg", @_);
 	$Log::Log4perl::caller_depth--;
 
 	bless ($self, $class);
