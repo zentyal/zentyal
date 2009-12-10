@@ -141,6 +141,7 @@ sub composite
     } else {
         throw EBox::Exceptions::DataNotFound( data  => 'composite',
                                               value => $compName,
+                                              silent => 1,
                                             );
     }
 
