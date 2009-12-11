@@ -192,7 +192,7 @@ sub configured
 # Method: setConfigured
 #
 #   This method is used to set if the module has been configured.
-#   Configuration is done one time per service package version.
+#   Configuration is done once per service package version.
 #
 #   If it's set to true it means that the user has accepted
 #   to carry out the actions and file modifications that enabling a
