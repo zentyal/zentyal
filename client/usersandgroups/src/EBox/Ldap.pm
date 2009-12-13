@@ -803,28 +803,6 @@ sub _loadLdap
                         ]);
 }
 
-# Method: importLdap
-#
-#    import in eBox the data found in LDIF file. Import classes for the various
-#    modules are used to load the data
-#
-#    Parameters:
-#       dir - directory in which is the LDIF file
-sub _importLdap
-{
-    my ($self, $dir, $slapd, $base) = @_;
-
-    my $ldifFile = $self->ldifFile($dir, $slapd, $base);
-
-    EBox::UsersAndGroups::ImportFromLdif::Engine::importLdif($ldifFile);
-}
-
-sub _importLdapData
-{
-    my ($self, $dir, $slapd) = @_;
-    $self->_importLdap($dir, $slapd, $self->dn());
-}
-
 sub _loadLdapData
 {
     my ($self, $dir, $slapd) = @_;
