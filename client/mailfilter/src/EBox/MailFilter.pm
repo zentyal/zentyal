@@ -91,6 +91,13 @@ sub actions
              'module' => 'mailfilter',
             },
             {
+             'action' => __('Add spam and ham system users'),
+             'reason' => 
+__('This users are for the email accounts used for training the bayesian filter'),
+             'module' => 'mailfilter',
+            },
+
+            {
              'action' => __('Update LDAP'),
              'reason' => __('Add amavis specific classes and fields'),
              'module' => 'mailfilter',
