@@ -14,30 +14,34 @@ POTFILES_TMPL = \
  ./src/templates/index.mas \
  ./src/templates/forceRevoke.mas \
  ./src/templates/forceRenew.mas \
- ./src/templates/formRevoke.mas
+ ./src/templates/formRevoke.mas 
 
 POTFILES_PL = \
+ ./src/EBox/Model/Certificates.pm \
+ ./src/EBox/CGI/DownloadFiles.pm \
  ./src/EBox/CGI/ShowForm.pm \
  ./src/EBox/CGI/CreateCA.pm \
  ./src/EBox/CGI/Index.pm \
- ./src/EBox/CGI/DownloadFiles.pm \
  ./src/EBox/CGI/IssueCertificate.pm \
  ./src/EBox/CGI/RevokeCertificate.pm \
  ./src/EBox/CGI/RenewCertificate.pm \
+ ./src/EBox/CA/Certificates.pm \
  ./src/EBox/CA/Observer.pm \
  ./src/EBox/CA/TestStub.pm \
  ./src/EBox/CA/DN.pm \
  ./src/EBox/CA.pm \
- ./migration/0001_add_password_aware.pl
+ ./migration/0001_add_password_aware.pl 
 
 POTFILES = \
+ ./src/EBox/Model/Certificates.pm \
+ ./src/EBox/CGI/DownloadFiles.pm \
  ./src/EBox/CGI/ShowForm.pm \
  ./src/EBox/CGI/CreateCA.pm \
  ./src/EBox/CGI/Index.pm \
- ./src/EBox/CGI/DownloadFiles.pm \
  ./src/EBox/CGI/IssueCertificate.pm \
  ./src/EBox/CGI/RevokeCertificate.pm \
  ./src/EBox/CGI/RenewCertificate.pm \
+ ./src/EBox/CA/Certificates.pm \
  ./src/EBox/CA/Observer.pm \
  ./src/EBox/CA/TestStub.pm \
  ./src/EBox/CA/DN.pm \
@@ -48,7 +52,7 @@ POTFILES = \
  ./src/templates/forceRevoke.mas \
  ./src/templates/forceRenew.mas \
  ./src/templates/formRevoke.mas \
- ./migration/0001_add_password_aware.pl
+ ./migration/0001_add_password_aware.pl 
 
 # Usually the message domain is the same as the package name.
 DOMAIN = $(PACKAGE)

@@ -1687,4 +1687,54 @@ sub notifyLogChange
     $logs->setAsChanged();
 }
 
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    $report->{'connections'} = {};
+
+    $report->{'connections'}->{'client'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'daemon_type, SUM(connections) AS connections',
+        'from' => 'openvpn_report',
+        'where' => "daemon_type = 'client'",
+        'group' => 'daemon_type'
+    });
+    $report->{'connections'}->{'server'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'daemon_type, SUM(connections) AS connections',
+        'from' => 'openvpn_report',
+        'where' => "daemon_type = 'server'",
+        'group' => 'daemon_type'
+    });
+
+
+
+    $report->{'top_users'} = $self->runQuery($beg, $end, {
+        'select' => 'certificate AS user, SUM(connections) AS connections',
+        'from' => 'openvpn_report',
+        'where' => "daemon_type = 'server'",
+        'group' => 'certificate',
+        'limit' => $options->{'max_top_users'},
+        'order' => 'connections DESC'
+    });
+
+    return $report;
+}
+
+sub consolidateReportQueries
+{
+    return [
+        {
+            'target_table' => 'openvpn_report',
+            'query' => {
+                'select' => 'daemon_name, daemon_type, from_ip AS ip, from_cert AS certificate, COUNT(event) AS connections',
+                'from' => 'openvpn',
+                'where' => "event = 'serverConnectionInitiated'",
+                'group' => 'daemon_name, daemon_type, ip, certificate'
+            }
+        },
+    ];
+}
+
 1;

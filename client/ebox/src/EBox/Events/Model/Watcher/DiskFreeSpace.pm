@@ -23,6 +23,8 @@
 #    - spaceThreshold - Int the minimum disk free space before
 #    notifying the user of lack of space in a disk
 #
+use strict;
+use warnings;
 
 package EBox::Events::Model::Watcher::DiskFreeSpace;
 

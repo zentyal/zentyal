@@ -26,6 +26,8 @@
 #
 
 package EBox::Events::Model::Watcher::Log;
+use strict;
+use warnings;
 
 use base 'EBox::Model::DataTable';
 
@@ -165,6 +167,10 @@ sub syncRows
     my %currentLogDomains;
     my $currentTables = $logs->getAllTables();
     foreach my $table (keys (%{$currentTables})) {
+        # ignore events table
+        if ($table eq 'events') {
+            next;
+        }
         $currentLogDomains{$table} = 1;
     }
 
@@ -320,10 +326,14 @@ sub _setUpModels
 
     my $logDomainTables = $self->{logs}->getAllTables();
     if ( defined ( $logDomainTables )) {
-        my @logDomains = keys %{$logDomainTables};
-        foreach my $domain (@logDomains) {
+        while (my ($domain, $tableInfo) = each %{$logDomainTables}) {
+            if ($domain eq 'events') {
+                # avoid observe recuservely itself!
+                next;
+            }
             push ( @{$self->{models}},
-                   $self->_createFilteringModel($domain));
+                   $self->_createFilteringModel($domain, $tableInfo));
+
         }
     }
 
@@ -333,11 +343,13 @@ sub _setUpModels
 # log domain and notify this new model to model manager
 sub _createFilteringModel # (domain)
 {
-    my ($self, $domain) = @_;
+    my ($self, $domain, $domainTableInfo) = @_;
+    if (not defined $domainTableInfo) {
+      $domainTableInfo = $self->{logs}->getTableInfo($domain);
+    }
 
 
-    my $domainTableInfo = $self->{logs}->getTableInfo($domain);
-    $filteringModel = new EBox::Events::Model::Watcher::LogFiltering(
+    my $filteringModel = new EBox::Events::Model::Watcher::LogFiltering(
                                                                      gconfmodule => $self->{gconfmodule},
                                                                      directory   => $self->{gconfdir},
                                                                      tableInfo => $domainTableInfo,

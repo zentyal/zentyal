@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/Mail/Composite
 
+SUBDIRS = Report
 
 nobase_perl_DATA =  General.pm ServiceConfiguration.pm
 

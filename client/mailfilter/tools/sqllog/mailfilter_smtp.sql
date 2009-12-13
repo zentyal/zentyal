@@ -1,5 +1,5 @@
-CREATE TABLE message_filter (
-        date TIMESTAMP NOT NULL,        
+CREATE TABLE mailfilter_smtp (
+        timestamp TIMESTAMP NOT NULL,        
         
         event VARCHAR(255) NOT NULL,
         action VARCHAR(255) NOT NULL,    
@@ -10,4 +10,4 @@ CREATE TABLE message_filter (
         spam_hits FLOAT
 );
 
-CREATE INDEX timestamp_i on message_filter(date);
+CREATE INDEX mailfilter_smtp_timestamp_i on mailfilter_smtp(timestamp);

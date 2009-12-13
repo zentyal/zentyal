@@ -159,7 +159,7 @@ sub _consolidateTable
     my $sourceTable  = $tableInfo->{tablename};;
 
 
-    my $dateCol = $tableInfo->{timecol};
+    my $dateCol = 'timestamp';
     my $consDateSub = "_$timePeriod" . 'Date';
 
     my %consColumns = %{ $self->_columnsSpec($conf->{consolidateColumns}) };
@@ -218,7 +218,7 @@ sub _consolidateTable
                # XXX TODO replace the warning with a die when we will be able to
                # do a rollback
                exists $accummulator{$accummulateColumn} or
-                   EBox::warning("Accummulatin in $accummulateColumn which was not defined as accummulate column");
+                   EBox::warn("Accummulatin in $accummulateColumn which was not defined as accummulate column");
                $accummulator{$accummulateColumn} += $consValue;
            }
 

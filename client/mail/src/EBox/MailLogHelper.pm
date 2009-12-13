@@ -22,10 +22,11 @@ use EBox::Gettext;
 use base qw(EBox::LogHelper);
 
 use constant MAILOG => "/var/log/mail.log";
-use constant TABLENAME => "message";
+use constant TABLENAME => "mail_message";
 
 # Table structure:
 # CREATE TABLE message (
+#        timestamp TIMESTAMP NOT NULL,
 #        message_id VARCHAR(340),
 #        client_host_ip INET NOT NULL,
 #        client_host_name VARCHAR(255) NULL,
@@ -33,9 +34,9 @@ use constant TABLENAME => "message";
 #        to_address VARCHAR(320) NOT NULL,
 #        message_size BIGINT,
 #        relay VARCHAR(320),
+#        message_type VARCHAR(10) NOT NULL,
 #        status VARCHAR(25) NOT NULL,
-#        message TEXT NOT NULL,
-#        postfix_date TIMESTAMP NOT NULL
+#        message TEXT NOT NULL
 #);
  
 my %temp;
@@ -107,30 +108,32 @@ sub processLine
         }
  
         my $values = {
+                      timestamp => $self->_getDate($line),
                       client_host_ip => $clientip,
                       client_host_name => $hostname,
                       from_address => $from,
                       to_address => $to,
                       status => 'reject',
                       message => $msg,
-                      postfix_date => $self->_getDate($line),
                       event => $event,
                      };
 
-        $dbengine->insert(TABLENAME, $values);
+        $self->_insert($dbengine, $values);
+
                 
     } elsif ($line =~ m/SASL PLAIN authentication failed/) {
         # auth failed, not admited at queue. Insert noauth event
         my ($hostname, $clientip) = $line =~ m/.*postfix\/.*: warning: (.*)\[(.*)\]: .*$/;
                         
         my $values = {
+                      timestamp => $self->_getDate($line),
                       client_host_ip => $clientip,
                       client_host_name => $hostname,
-                      postfix_date => $self->_getDate($line),
                       event => 'noauth',
                      };
 
-        $dbengine->insert(TABLENAME, $values);
+        $self->_insert($dbengine, $values);
+
     } elsif ($line =~ m/cleanup.*message-id=/) {
         # cleanup: removed for the quue and mail gets a messge id
         my ($qid, $msg_id) = $line =~ m/.*: (.*): message\-id=<(.*)>.*$/;
@@ -244,6 +247,7 @@ sub _insertEvent
 
 
     my $values = {
+                  timestamp => $temp{$qid}{'date'},
                   message_id => $temp{$qid}{'msgid'},
                   client_host_ip => $temp{$qid}{'clientip'},
                   client_host_name => $temp{$qid}{'hostname'},
@@ -253,15 +257,43 @@ sub _insertEvent
                   relay => $temp{$qid}{'relay'},
                   status => $temp{$qid}{'status'},
                   message => $temp{$qid}{'msg'},
-                  postfix_date => $temp{$qid}{'date'},
                   event => $temp{$qid}{'event'},
                  };
 
     delete $temp{$qid};
 
-    $dbengine->insert(TABLENAME, $values);
+    $self->_insert($dbengine, $values);
 }
 
+sub _insert
+{
+    my ($self, $dbengine, $values) = @_;
 
+    my $mail = EBox::Global->modInstance('mail');
+    my %vdomains = map { $_ => 1 } $mail->{vdomains}->vdomains();
+
+    my $type;
+    if (defined($values->{'from_address'}) and
+            defined($values->{'to_address'})) {
+        my $from = $values->{'from_address'};
+        my $to = $values->{'to_address'};
+        my($from_user, $from_domain) = split('@', $from);
+        my($to_user, $to_domain) = split('@', $to);
+        if(exists $vdomains{$from_domain} and
+                exists $vdomains{$to_domain}) {
+            $type = 'internal';
+        } elsif (exists $vdomains{$from_domain}) {
+            $type = 'sent';
+        } elsif (exists $vdomains{$to_domain}) {
+            $type = 'received';
+        } else {
+            $type = 'relay';
+        }
+    } else {
+        $type = 'unknown';
+    }
+    $values->{'message_type'} = $type;
+    $dbengine->insert(TABLENAME, $values);
+}
 
 1;

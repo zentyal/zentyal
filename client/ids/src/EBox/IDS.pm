@@ -340,6 +340,41 @@ sub _consolidate
     return { $table => $spec };
 }
 
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    $report->{'alerts'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'COALESCE(SUM(alerts), 0) AS alerts',
+        'from' => 'ids_report',
+    }, { 'name' => 'alerts'});
+
+    $report->{'top_alert_sources'} = $self->runQuery($beg, $end, {
+        'select' => 'source, SUM(alerts) AS alerts', 
+        'from' => 'ids_report',
+        'group' => 'source',
+        'limit' => $options->{'max_top_alert_sources'},
+        'order' => 'alerts DESC'
+    });
+    return $report;
+}
+
+sub consolidateReportQueries
+{
+    return [
+        {
+            'target_table' => 'ids_report',
+            'query' => {
+                'select' => "split_part(source, ':', 1) AS source, COUNT(event) AS alerts",
+                'from' => 'ids',
+                'group' => "source"
+            }
+        }
+    ];
+}
+
 # Group: Private methods
 
 1;

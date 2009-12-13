@@ -4,4 +4,4 @@ CREATE TABLE samba_virus (
     filename VARCHAR(120),
     event VARCHAR(16),
     timestamp TIMESTAMP);
-CREATE INDEX samba_virus_i on samba_virus(timestamp);
+CREATE INDEX samba_virus_timestamp_i on samba_virus(timestamp);

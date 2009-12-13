@@ -1745,4 +1745,48 @@ sub isAntivirusPresent
              and (-f '/usr/lib/samba/vfs/vscan-clamav.so'));
 }
 
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    $report->{'activity'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'COALLESCE(SUM(operations) AS operations, 0)',
+        'from' => 'samba_access_report'
+    });
+
+    $report->{'top_activity_users'} = $self->runQuery($beg, $end, {
+        'select' => 'username, SUM(operations) AS operations',
+        'from' => 'samba_access_report',
+        'group' => 'username',
+        'limit' => $options->{'max_top_activity_users'},
+        'order' => 'operations DESC'
+    });
+
+    return $report;
+}
+
+sub consolidateReportQueries
+{
+    return [
+        {
+            'target_table' => 'samba_access_report',
+            'query' => {
+                'select' => 'username, COUNT(event) AS operations',
+                'from' => 'samba_access',
+                'group' => 'username'
+            }
+        },
+        {
+            'target_table' => 'samba_virus_report',
+            'query' => {
+                'select' => 'client, COUNT(event) AS virus',
+                'from' => 'samba_virus',
+                'group' => 'client'
+            }
+        },
+    ];
+}
+
 1;

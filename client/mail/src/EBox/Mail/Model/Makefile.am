@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS= Dispatcher
+SUBDIRS= Dispatcher Report
 
 perldir = @PERLPATH@/EBox/Mail/Model
 

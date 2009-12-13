@@ -72,13 +72,12 @@ sub enableLog
 #       This function returns an array of hash ref or a single hash
 #       ref with these fields:
 #
-#        - name: A string with the module name.
+#        - name: the printable name of the table
+#        - index: the name of the table         
 #        - titles: A hash ref with the table fields and theirs user read
 #               translation.
 #        - order: An array with table fields ordered.
 #        - tablename: the name of the database table associated with the module.
-#        - timecol: the table field that contains timestamp value (time and date
-#        field)
 #
 #         - consolidate: instructions for consolidation of information in
 #         periodic tables. The instruction is a hash ref (see below)
@@ -92,7 +91,7 @@ sub enableLog
 #    has those fields:
 #       - consolidateColumns:hash ref which a key for each column that should
 #           be treated the value is a hash ref with more options:
-#             * conversor: reference to a sub to ocnvert the column value. The
+#             * conversor: reference to a sub to convert the column value. The
 #                 function will be called with row value as first argument and
 #                 the row as second
 #              * accummulate: sginals that the vaule of the column will be
@@ -111,10 +110,13 @@ sub enableLog
 #           Use zero if you don't want autoincrement.
 #            The drfault is a column called count which autoincrements one unit
 #            each time
-
+#
 #       - filter: refrence to a method used to filter out rows, the method will
 #                 be supplied to a reference to a hash with the row values and
 #                 if it returns false the row would be excluded
+#
+#   Warning:
+#    -use lowercase in column names 
 sub tableInfo
 {
     throw EBox::Exceptions::NotImplemented;

@@ -42,6 +42,7 @@ use EBox::Service;
 use EBox::Exceptions::InvalidData;
 use EBox::Dashboard::ModuleStatus;
 use EBox::ServiceManager;
+use EBox::DBEngineFactory;
 
 
 use Proc::ProcessTable;
@@ -254,6 +255,10 @@ sub modelClasses
             'EBox::Mail::Model::Dispatcher::Mail',
 
             'EBox::Mail::Model::GreylistConfiguration',
+
+            'EBox::Mail::Model::Report::TrafficGraph',
+            'EBox::Mail::Model::Report::TrafficDetails',
+            'EBox::Mail::Model::Report::TrafficReportOptions',
            ];
 }
 
@@ -269,6 +274,8 @@ sub compositeClasses
     return [
             'EBox::Mail::Composite::ServiceConfiguration',
             'EBox::Mail::Composite::General',
+
+            'EBox::Mail::Composite::Report::TrafficReport',
            ];
 }
 
@@ -337,7 +344,7 @@ sub _setMailConf
         $allowedaddrs .= " $addr";
     }
 
-    push(@array, fqdn => $self->_fqdn());
+    push(@array, fqdn => $self->mailname());
     unless ($users->mode() eq 'slave') {
         push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
     } else {
@@ -562,7 +569,7 @@ sub imap
 # Method: imaps
 #
 #  Returns:
-#     bool - wether the IMAPS service is enabled
+#     bool - whether the IMAPS service is enabled
 sub imaps
 {
     my ($self) = @_;
@@ -571,6 +578,15 @@ sub imaps
     return $model->imapsValue();
 }
 
+# Method: mailname
+#
+#  Returns:
+#     string - the mailname for the machine
+sub mailname
+{
+    my ($self) = @_;
+    return $self->_fqdn();
+}
 
 # Method: managesieve
 #
@@ -1343,7 +1359,7 @@ sub tableInfo
 {
     my $self = shift;
     my $titles = {
-                   'postfix_date' => __('Date'),
+                   'timestamp' => __('Date'),
                    'message_id' => __('Message ID'),
                    'from_address' => __('From'),
                    'to_address' => __('To'),
@@ -1351,14 +1367,15 @@ sub tableInfo
                    'client_host_ip' => __('From host ip'),
                    'message_size' => __('Size (bytes)'),
                    'relay' => __('Relay'),
+                   'message_type' => __('Message type'),
                    'status' => __('Status'),
                    'event' => __('Event'),
-                   'message' => __('Aditional Info')
+                   'message' => __('Additional Info')
     };
     my @order = (
-                 'postfix_date', 'from_address',
+                 'timestamp', 'from_address',
                  'to_address', 'client_host_ip',
-                 'message_size', 'relay',
+                 'message_size', 'relay', 'message_type',
                  'status', 'event',
                  'message'
     );
@@ -1380,13 +1397,94 @@ sub tableInfo
             'index' => 'mail',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'message',
-            'timecol' => 'postfix_date',
+            'tablename' => 'mail_message',
             'filter' => ['from_address', 'to_address', 'status'],
             'events' => $events,
-            'eventcol' => 'event'
+            'eventcol' => 'event',
+            'consolidate' => $self->consolidate(),
     }];
 }
+
+
+sub consolidate
+{
+    my ($self) = @_;
+    my %vdomains = map { $_ => 1 } $self->{vdomains}->vdomains();
+    
+
+    my $table = 'mail_traffic';
+
+    my $isAddrInVD = sub {
+        my ($addr) = @_;
+        if (defined $addr) {
+            my ($user, $vd) = split '@', $addr;
+            if (exists $vdomains{$vd}) {
+                return $vd;
+            }
+        }
+
+        return undef;
+    };
+
+
+    my $spec=  {
+            consolidateColumns => {
+                event => {
+                    accummulate => sub {
+                        my ($value, $row) = @_;
+                        if ($value eq 'msgsent') {
+                            my $toAddr = $row->{to_address};
+                            if ($isAddrInVD->($toAddr)) {
+                                return 'received';
+                            }
+                            
+                            return 'sent';
+
+                        } else {
+                            return 'rejected';
+                        }
+                    },
+                    conversor => sub { return 1  },
+                   }, # end event column
+
+                   from_address => {
+                       destination => 'vdomain',
+                       conversor => sub {
+                           my ($value, $row) = @_;
+                           my $vd;
+                           $vd = $isAddrInVD->($row->{from_address});
+                           if ($vd) {
+                               return $vd;
+                           }
+                           
+                           $vd = $isAddrInVD->($row->{to_address});
+                           if ($vd) {
+                               return $vd;
+                           }
+
+                           return '-';
+                       }
+                      }, # end from_address column
+            }, # end consoldiateColumns section
+
+           accummulateColumns    => { 
+                      sent  => 0,
+                      received  => 0,
+                      rejected  => 0,
+              },
+
+            filter => sub {
+                  my ($row) = @_;
+                  return $row->{event} ne 'other';
+              },
+
+           };
+
+
+    return {  $table => $spec };
+
+}
+
 
 sub logHelper
 {
@@ -1523,5 +1621,90 @@ sub certificates
            ];
 }
 
+sub consolidateReportQueries
+{
+    return [
+        {
+            'target_table' => 'mail_report',
+            'query' => {
+                'select' => 'client_host_ip, split_part(from_address, \'@\', 1) AS user_from, split_part(from_address, \'@\', 2) AS domain_from, split_part(to_address, \'@\', 1) AS user_to, split_part(to_address, \'@\', 2) AS domain_to, SUM(COALESCE(message_size,0)) as bytes, COUNT(*) as messages, message_type, status, event',
+                'from' => 'mail_message',
+                'group' => 'client_host_ip, user_from, domain_from, user_to, domain_to, message_type, event, status'
+            }
+        }
+    ];
+}
+
+# Method: report
+#
+# Overrides: 
+#   <EBox::Module::Base::report>
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+    $report->{'mail_sent_traffic'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'event, SUM(bytes) AS bytes, SUM(messages) AS messages',
+        'from' => 'mail_report',
+        'where' => "event='msgsent' AND (message_type = 'sent' OR message_type = 'internal')",
+        'group' => "event"
+    }, { 'key' => 'event' });
+
+    $report->{'mail_received_traffic'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'event, SUM(bytes) AS bytes, SUM(messages) AS messages',
+        'from' => 'mail_report',
+        'where' => "event='msgsent' AND (message_type = 'received' OR message_type = 'internal')",
+        'group' => "event"
+    }, { 'key' => 'event' });
+
+    $report->{'mail_relayed_traffic'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'event, SUM(bytes) AS bytes, SUM(messages) AS messages',
+        'from' => 'mail_report',
+        'where' => "event='msgsent' AND message_type = 'relay'",
+        'group' => "event"
+    }, { 'key' => 'event' });
+
+    $report->{'top_sent_mail_domains_by_domain'} = $self->runCompositeQuery(
+        $beg, $end,
+    {
+        'select' => 'DISTINCT domain_from',
+        'from' => 'mail_report',
+        'where' => "event = 'msgsent' AND (message_type = 'sent' OR message_type = 'internal')",
+        'order' => 'domain_from'
+    },
+    'domain_from',
+    {
+        'select' => 'domain_to AS domain, SUM(bytes) AS bytes, SUM(messages) AS messages',
+        'from' => 'mail_report',
+        'where' => "event = 'msgsent' AND (message_type = 'sent' OR message_type = 'internal') AND domain_from = '_domain_from_'",
+        'group' => 'domain',
+        'limit' => $options->{'max_domains_top_sent_mail_domains_by_domain'},
+        'order' => 'bytes DESC'
+    });
+
+    $report->{'top_received_mail_domains_by_domain'} = $self->runCompositeQuery(
+        $beg, $end,
+    {
+        'select' => 'DISTINCT domain_to',
+        'from' => 'mail_report',
+        'where' => "event = 'msgsent' AND (message_type = 'received' OR message_type = 'internal')",
+        'order' => 'domain_to'
+    },
+    'domain_to',
+    {
+        'select' => 'domain_from AS domain, SUM(bytes) AS bytes, SUM(messages) AS messages',
+        'from' => 'mail_report',
+        'where' => "event = 'msgsent' AND (message_type = 'received' OR message_type = 'internal') AND domain_to = '_domain_to_'",
+        'group' => 'domain',
+        'limit' => $options->{'max_domains_top_received_mail_domains_by_domain'},
+        'order' => 'bytes DESC'
+    });
+
+    return $report;
+}
 
 1;

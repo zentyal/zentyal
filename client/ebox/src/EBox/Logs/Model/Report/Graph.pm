@@ -91,6 +91,15 @@ sub reportRows
 {
     my ($self) = @_;
 
+    my $limit = $self->limitByTimePeriod();
+    return $self->SUPER::reportRows($limit);
+}
+
+
+sub limitByTimePeriod
+{
+    my ($self) = @_;
+
     my $limit;
     my $timePeriod = $self->timePeriod();
     if (exists $nRowsByTimePeriod{$timePeriod}) {
@@ -99,7 +108,7 @@ sub reportRows
         $limit = 30;
     }
 
-    return $self->SUPER::reportRows($limit);
+    return $limit;
 }
 
 sub datasetsLabels

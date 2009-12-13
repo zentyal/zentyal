@@ -229,13 +229,13 @@ sub usedFiles
 
 sub _daemons
 {
-	return [
+    return [
         {
             name => CLAMD_INIT,
             type => 'init.d',
             pidfiles => [CLAMAVPIDFILE],
         },
-    ];
+           ];
 
 }
 
@@ -285,9 +285,22 @@ sub _setConf
 
 
 
+
+
+# Method: freshclamState
 #
+#   get the last freshclam event
+#  
+#  Returns:
+#     hash ref with the following fields
+#       update - true if the last event was a succesful update
+#       error  - true if the last event was a error
+#       outdated  - contains a version number if the last event was a updte
+#                   that recommend a updated version of engine. (in this case
+#                   update field is not set to true)
+#       date     - date of the last event
 #
-#
+#    If there is not last recorded event it returns a empty hash
 sub freshclamState
 {
   my ($self) = @_;
@@ -297,7 +310,6 @@ sub freshclamState
   if (not -e $freshclamStateFile) {
     return { map {  ( $_ => undef )  } @stateAttrs  }; # freshclam has never updated before
   }
-
 
   my $fileContents  =  read_file($freshclamStateFile);
   my %state =  split ',', $fileContents, (@stateAttrs * 2);
@@ -385,6 +397,47 @@ sub summary
         running       => $self->isRunning(),
         nobutton      => 0);
     $section->add($antivirus);
+}
+
+
+# Method: report
+#
+#  Returns:
+#    hash ref with the keys:
+#      freshclamEvent - one of 'update', 'outdated', 'error' or 'uninitialized'
+#      clamVersionRequested - new clam version requested by the 'outdated'
+#                             event. This key does not exist in other events
+#      freshclamEventTimestamp - timestamp of the last event. Undef if there was not last event
+#
+# Overrides: 
+#   <EBox::Module::Base::report>
+sub report
+{    
+    my ($self) = @_;
+    my $state = $self->freshclamState();
+
+    my $timeStamp = delete $state->{date};
+
+    my $event = 'uninitialized';
+    my $eventInfo;
+    # select which event is active if a event has happened
+    while (($event, $eventInfo) = each %{ $state } ) {
+        if ($eventInfo) {
+            last;
+        }
+    }
+
+    my $report = {
+       freshclamEvent => $event,
+       freshclamEventTimestamp => $timeStamp,
+    };
+
+    if ($event eq 'outdated') {
+        $report->{clamVersionRequested} = $eventInfo,
+    }
+    
+
+    return $report;
 }
 
 1;

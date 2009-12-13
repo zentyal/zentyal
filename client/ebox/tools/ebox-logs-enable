@@ -12,6 +12,7 @@ create_db()
         su postgres -c "createdb $db_name" > /dev/null 2>&1 || true
         su postgres -c "createuser -R -S -D $db_user" > /dev/null 2>&1 || true
         su postgres -c "psql -d $db_name -c \"GRANT ALL ON DATABASE $db_name TO $db_user\"" > /dev/null 2>&1 || true
+        su postgres -c "psql -d $db_name -c \"CREATE LANGUAGE plpgsql\"" > /dev/null 2>&1 || true
     fi
 
 }

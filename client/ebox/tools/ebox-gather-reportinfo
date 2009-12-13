@@ -1,0 +1,36 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::Config;
+use EBox::DBEngineFactory;
+
+EBox::init();
+
+my $db = EBox::DBEngineFactory::DBEngine();
+
+my @mods = @{EBox::Global->modInstances()};
+
+my @time = localtime(time);
+
+my $year = $time[5] + 1900;
+my $month = $time[4] + 1;
+my $day = $time[3];
+my $hour = $time[2];
+my $min = $time[1];
+my $sec = $time[0];
+
+my $date = "$year-$month-$day $hour:$min:$sec";
+
+for my $mod (@mods) {
+    my $data = $mod->logReportInfo();
+    for my $i (@{$data}) {
+        $i->{'values'}->{'timestamp'} = $date;
+        $db->insert($i->{'table'}, $i->{'values'});
+    }
+}
+
+1;

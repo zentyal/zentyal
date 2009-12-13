@@ -116,7 +116,7 @@ sub run
     foreach my $logger (@loggers) {
         next unless $self->_isLoggerEnabled($logger);
         my $pagesize = PAGESIZE;
-        my $timeCol = $logs->getTableInfo($logger)->{timecol};
+        my $timeCol = 'timestamp';
         foreach my $filter (@{$self->_filters($logger)}) {
             # Copy filter in filterCpy to workaround nasty
             # issues with the garbage collector.
@@ -222,9 +222,20 @@ sub _description
       my $loggerTables = $logs->getAllTables();
       my $loggersMsg = '';
       if ( defined ( $loggerTables ) ) {
-          my @loggers = keys %{$loggerTables};
-          $loggersMsg = join( ', ',
-                              map { $logs->getTableInfo($_)->{name} } @loggers);
+          my @names;
+          while (my ($domain, $tableInfo) = each %{ $loggerTables }) {
+              if ($domain eq 'events') {
+                  next;
+              }
+
+              push @names, $tableInfo->{name};
+          }
+          $loggersMsg = join(', ', @names);
+          # XX Delete
+#           my @loggers = keys %{$loggerTables};
+          
+#           $loggersMsg = join( ', ',
+#                               map { $logs->getTableInfo($_)->{name} } @loggers);
       }
 
       return __x('Notify when a logger ({loggers}) has logged something',

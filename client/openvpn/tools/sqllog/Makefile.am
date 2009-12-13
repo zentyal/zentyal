@@ -2,7 +2,7 @@
 
 Sqllogdir = @DATADIR@/ebox/sqllog/
 
-nobase_Sqllog_DATA = openvpn.sql
+nobase_Sqllog_DATA = openvpn.sql openvpn_report.sql
 
 EXTRA_DIST = $(nobase_Sqllog_DATA)
 

@@ -364,7 +364,7 @@ sub addModuleStatus
 #
 #   Used to enable a service
 #
-# Paramters:
+# Parameters:
 #
 #   boolean - true to enable, false to disable
 #

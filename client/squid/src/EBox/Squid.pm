@@ -39,6 +39,7 @@ use EBox::Squid::LogHelper;
 use EBox::SquidOnlyFirewall;
 use EBox::Squid::LdapUserImplementation;
 
+use EBox::DBEngineFactory;
 use EBox::Dashboard::Value;
 use EBox::Dashboard::Section;
 use EBox::Menu::Item;
@@ -1028,8 +1029,7 @@ sub tableInfo
             'index' => 'squid',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'access',
-            'timecol' => 'timestamp',
+            'tablename' => 'squid_access',
             'filter' => ['url', 'remotehost', 'rfc931'],
             'events' => $events,
             'eventcol' => 'event',
@@ -1154,13 +1154,114 @@ sub restoreConfig
     $filterGroups->restoreConfig($dir);
 }
 
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
 
+    my $report = {};
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+    $report->{'summarized_traffic'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'event, SUM(bytes) AS bytes, SUM(hits) AS hits',
+        'from' => 'squid_access_report',
+        'group' => "event"
+    }, { 'key' => 'event' });
+
+    $report->{'top_domains'} = $self->runQuery($beg, $end, {
+        'select' => 'domain, SUM(bytes) AS bytes, SUM(hits) AS hits',
+        'from' => 'squid_access_report',
+        'where' => "event = 'accepted'",
+        'group' => 'domain',
+        'limit' => $options->{'max_top_domains'},
+        'order' => 'bytes DESC'
+    });
+
+    $report->{'top_blocked_domains'} = $self->runQuery($beg, $end, {
+        'select' => 'domain, SUM(hits) AS hits',
+        'from' => 'squid_access_report',
+        'where' => "event = 'denied' OR event = 'filtered'",
+        'group' => 'domain',
+        'limit' => $options->{'max_top_blocked_domains'},
+        'order' => 'hits DESC'
+    });
+
+    $report->{'top_ips'} = $self->runQuery($beg, $end, {
+        'select' => 'ip, SUM(bytes) AS bytes, SUM(hits) AS hits',
+        'from' => 'squid_access_report',
+        'where' => "event = 'accepted'",
+        'group' => 'ip',
+        'limit' => $options->{'max_top_ips'},
+        'order' => 'bytes DESC'
+    });
+
+    $report->{'top_blocked_ips'} = $self->runQuery($beg, $end, {
+        'select' => 'ip, SUM(hits) AS hits',
+        'from' => 'squid_access_report',
+        'where' => "event = 'denied' OR event = 'filtered'",
+        'group' => 'ip',
+        'limit' => $options->{'max_top_blocked_ips'},
+        'order' => 'hits DESC'
+    });
+
+    $report->{'top_users'} = $self->runQuery($beg, $end, {
+        'select' => 'username, SUM(bytes) AS bytes, SUM(hits) AS hits',
+        'from' => 'squid_access_report',
+        'where' => "event = 'accepted' AND username <> '-'",
+        'group' => 'username',
+        'limit' => $options->{'max_top_users'},
+        'order' => 'bytes DESC'
+    });
+
+    $report->{'top_blocked_users'} = $self->runQuery($beg, $end, {
+        'select' => 'username, SUM(hits) AS hits',
+        'from' => 'squid_access_report',
+        'where' => "(event = 'denied' OR event = 'filtered') AND username <> '-'",
+        'group' => 'username',
+        'limit' => $options->{'max_top_blocked_users'},
+        'order' => 'hits DESC'
+    });
+
+    $report->{'top_domains_by_user'} = $self->runCompositeQuery($beg, $end,
+    {
+        'select' => 'username, SUM(bytes) AS bytes',
+        'from' => 'squid_access_report',
+        'where' => "event = 'accepted' AND username <> '-'",
+        'group' => 'username',
+        'limit' => $options->{'max_users_top_domains_by_user'},
+        'order' => 'bytes DESC'
+    },
+    'username',
+    {
+        'select' => 'domain, SUM(bytes) AS bytes, SUM(hits) AS hits',
+        'from' => 'squid_access_report',
+        'where' => "event = 'accepted' AND username = '_username_'",
+        'group' => 'domain',
+        'limit' => $options->{'max_domains_top_domains_by_user'},
+        'order' => 'bytes DESC'
+    });
+
+    return $report;
+}
+
+sub consolidateReportQueries
+{
+    return [
+        {
+            'target_table' => 'squid_access_report',
+            'query' => {
+                'select' => 'rfc931 AS username, remotehost AS ip, domain_from_url(url) AS domain, event, SUM(bytes) AS bytes, COUNT(event) AS hits',
+                'from' => 'squid_access',
+                'group' => 'username, ip, domain, event'
+            }
+        }
+    ];
+}
 
 # LdapModule implementation
 sub _ldapModImplementation
 {
     return new EBox::Squid::LdapUserImplementation();
 }
-
 
 1;

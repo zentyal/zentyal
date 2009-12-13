@@ -507,7 +507,7 @@ sub _smtpFilterTableInfo
 {
     my ($self) = @_;
     my $titles = {
-                  'date' => __('Date'),
+                  'timestamp' => __('Date'),
 
                   'action' => __('Action'),
                   'event' => __('Event'),
@@ -517,7 +517,7 @@ sub _smtpFilterTableInfo
 
                   'spam_hits' => __('Spam hits'),
     };
-    my @order = qw( date event action from_address to_address spam_hits );
+    my @order = qw( timestamp event action from_address to_address spam_hits );
 
     my $events = {
                   'BAD-HEADER' => __('Bad header found'),
@@ -539,8 +539,7 @@ sub _smtpFilterTableInfo
             'index' => 'mailfilter-smtpFilter',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'message_filter',
-            'timecol' => 'date',
+            'tablename' => 'mailfilter_smtp',
             'filter' => ['action', 'from_address', 'to_address'],
             'events' => $events,
             'eventcol' => 'event',
@@ -554,7 +553,7 @@ sub _popProxyTableInfo
     my ($self) = @_;
 
     my $titles = {
-                  'date' => __('Date'),
+                  'timestamp' => __('Date'),
 
                   'address' => __('Account'),
                   clientConn => __(q{Client's address}),
@@ -566,7 +565,7 @@ sub _popProxyTableInfo
                   spam   => __('Spam messages'),
                  };
 
-    my @order = qw( date event address clientConn mails clean virus spam );
+    my @order = qw( timestamp event address clientConn mails clean virus spam );
 
     my $events = {
                   'pop3_fetch_ok' =>
@@ -584,9 +583,8 @@ sub _popProxyTableInfo
             'index' => 'mailfilter-popProxy',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'pop_proxy_filter',
-            'timecol' => 'date',
-            'filter' => ['date', 'address', 'clientConn'],
+            'tablename' => 'mailfilter_pop',
+            'filter' => ['timestamp', 'address', 'clientConn'],
             'events' => $events,
             'eventcol' => 'event',
             'consolidate' => $self->_popProxyFilterConsolidationSpec(),
@@ -663,7 +661,7 @@ sub _popProxyFilterConsolidationSpec
                                       },
                };
 
-    return {  pop_proxy_filter_traffic => $spec };
+    return { mailfilter_pop_filter_traffic => $spec };
 }
 
 sub menu
@@ -709,6 +707,61 @@ sub menu
 
 
     $root->add($folder);
+}
+
+# Method: consolidateReportQueries
+#
+#  Returns:
+#
+# Overrides:
+#   <EBox::Module::Base::consolidateReportQueries>
+sub consolidateReportQueries
+{
+    return [
+        {
+            'target_table' => 'mailfilter_smtp_report',
+            'query' => {
+                'select' => 'event, action, split_part(from_address, \'@\', 2) AS from_domain, split_part(to_address, \'@\', 2) AS to_domain, COUNT(*) as messages',
+                'from' => 'mailfilter_smtp',
+                'group' => 'event, action, from_domain, to_domain'
+            }
+        },
+        {
+            'target_table' => 'mailfilter_pop_report',
+            'query' => {
+                'select' => 'event, address, clientconn, SUM(clean) as clean, SUM(spam) as spam, SUM(virus) AS virus',
+                'from' => 'mailfilter_pop',
+                'group' => 'event, address, clientconn'
+            }
+        }
+    ];
+}
+
+# Method: report
+#
+#  Returns:
+#
+# Overrides:
+#   <EBox::Module::Base::report>
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report;
+
+    $report->{'smtp'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'lower(event) AS event, SUM(messages) AS messages',
+        'from' => 'mailfilter_smtp_report',
+        'group' => "event"
+    }, { 'key' => 'event'});
+
+    $report->{'pop'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'SUM(clean) AS clean', 'SUM(spam) AS spam, SUM(virus) AS virus',
+        'from' => 'mailfilter_pop_report',
+        'where' => "event = 'pop3_fetch_ok'"
+    });
+
+    return $report;
 }
 
 

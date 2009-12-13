@@ -75,7 +75,9 @@ src/EBox/Event/Dispatcher/t/Makefile
 src/EBox/Mail/Makefile
 src/EBox/Mail/Model/Makefile
 src/EBox/Mail/Model/Dispatcher/Makefile
+src/EBox/Mail/Model/Report/Makefile
 src/EBox/Mail/Composite/Makefile
+src/EBox/Mail/Composite/Report/Makefile
 src/EBox/Mail/Types/Makefile
 src/EBox/t/Makefile
 src/EBox/CGI/Makefile

@@ -5,5 +5,5 @@ CREATE TABLE openvpn( 	timestamp TIMESTAMP,
 	from_ip     INET,
 	from_cert     VARCHAR(100)
 	);
-CREATE INDEX timestamp_i on openvpn(timestamp);
+CREATE INDEX openvpn_timestamp_i on openvpn(timestamp);
 

@@ -1,4 +1,5 @@
-CREATE TABLE message (
+CREATE TABLE mail_message (
+        timestamp TIMESTAMP NOT NULL,
         qid VARCHAR(50),
         message_id VARCHAR(340),
         client_host_ip INET NOT NULL,
@@ -7,9 +8,9 @@ CREATE TABLE message (
         to_address VARCHAR(320),
         message_size BIGINT,
         relay VARCHAR(320),
-        status VARCHAR(25),
+        message_type VARCHAR(10) NOT NULL,
+        status VARCHAR(25) NOT NULL,
         message TEXT,
-        postfix_date TIMESTAMP NOT NULL,
         event VARCHAR(255) NOT NULL
 );
-CREATE INDEX timestamp_i on message(postfix_date);
+CREATE INDEX mail_message_timestamp_i ON mail_message(timestamp);

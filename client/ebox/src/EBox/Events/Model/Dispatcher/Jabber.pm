@@ -26,6 +26,8 @@
 #     - subscribe
 #     - adminJID
 #
+use strict;
+use warnings;
 
 package EBox::Events::Model::Dispatcher::Jabber;
 

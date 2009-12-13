@@ -27,6 +27,7 @@ package EBox::Events;
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
+            EBox::LogObserver
             );
 
 use strict;
@@ -40,9 +41,15 @@ use EBox::Events::Model::ConfigurationComposite;
 use EBox::Events::Model::GeneralComposite;
 use EBox::Events::Model::ConfigureEventDataTable;
 use EBox::Events::Model::ConfigureDispatcherDataTable;
+use EBox::Events::Model::Report::EventsDetails;
+use EBox::Events::Model::Report::EventsGraph;
+use EBox::Events::Model::Report::EventsReportOptions;
+use EBox::Events::Composite::Report::EventsReport;
+
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Folder;
@@ -95,6 +102,7 @@ sub _create
       return $self;
 
   }
+
 
 sub _daemons
 {
@@ -164,22 +172,27 @@ sub menu
 #       <EBox::Model::ModelProvider::models>
 #
 sub models
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my @models = (
+        $self->configureEventModel(),
+        $self->configureDispatcherModel(),
+        $self->_enableForm(),
+        
+        $self->reportDetailsModel(),
+        $self->reportGraphModel(),
+        $self->reportOptionsModel(),
+       );
+    
+    push ( @models, @{$self->_obtainModelsByPrefix(CONF_DISPATCHER_MODEL_PREFIX)});
+    push ( @models, @{$self->_obtainModelsByPrefix(CONF_WATCHER_MODEL_PREFIX)});
+    
+    return \@models;
+ }
 
-      my @models = (
-                    $self->configureEventModel(),
-                    $self->configureDispatcherModel(),
-                    $self->_enableForm(),
-                   );
 
-      push ( @models, @{$self->_obtainModelsByPrefix(CONF_DISPATCHER_MODEL_PREFIX)});
-      push ( @models, @{$self->_obtainModelsByPrefix(CONF_WATCHER_MODEL_PREFIX)});
 
-      return \@models;
-
-  }
 
 # Method: _exposedMethods
 #
@@ -225,16 +238,16 @@ sub _exposedMethods
 #       <EBox::Model::CompositeProvider::composites>
 #
 sub composites
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    return [
+        $self->_eventsComposite(),
+        $self->_configurationComposite(),
+        $self->_reportComposite(),
+       ];
 
-      return [
-              $self->_eventsComposite(),
-              $self->_configurationComposite(),
-             ];
-
-  }
+}
 
 # Method: configureEventModel
 #
@@ -288,6 +301,61 @@ sub configureDispatcherModel
       return $self->{configureDispatcherModel};
 
   }
+
+sub reportDetailsModel 
+{
+    my ( $self ) = @_;
+    
+    # Check if it is already cached
+    unless ( exists $self->{EventsDetailsModel} ) {
+        $self->{EventsDetailsModel} =
+            new EBox::Events::Model::Report::EventsDetails(
+                                              gconfmodule => $self,
+                                              directory   => 'EventsDetails'
+                                             );
+    }
+    
+    return $self->{EventsDetailsModel};
+    
+}
+
+sub reportGraphModel
+{
+    my ( $self ) = @_;
+    
+    # Check if it is already cached
+    unless ( exists $self->{EventsGraphModel} ) {
+        $self->{EventsGraphModel} =
+            new EBox::Events::Model::Report::EventsGraph(
+                                              gconfmodule => $self,
+                                              directory   => 'EventsGraph'
+                                             );
+    }
+    
+    return $self->{EventsGraphModel};
+    
+}
+
+
+
+sub reportOptionsModel
+{
+    my ( $self ) = @_;
+    
+    # Check if it is already cached
+    unless ( exists $self->{EventsOptionModel} ) {
+        $self->{EventsOptionModel} =
+            new EBox::Events::Model::Report::EventsReportOptions(
+                                              gconfmodule => $self,
+                                              directory   => 'EventsReportOptions'
+                                             );
+    }
+    
+    return $self->{EventsOptionModel};
+    
+}
+
+
 
 # Method: isRunning
 #
@@ -445,11 +513,16 @@ sub sendEvent
 
 # Group: Private methods
 
-# Check if at least one watcher and one dispatcher are enabled
+# Check either if at least one watcher and one dispatcher are enabled or the
+# logs are enabled
 sub _adminDumbness
-  {
-
+{
       my ($self) = @_;
+
+      # XXX TODO
+      if ($self->_logIsEnabled()) {
+          return undef;
+      }
 
       my $eventModel = $self->configureEventModel();
       my $dispatcherModel = $self->configureDispatcherModel();
@@ -468,7 +541,26 @@ sub _adminDumbness
 
       return undef;
 
-  }
+}
+
+
+# Method: _logIsEnabled
+#
+# check if log is enabled for the events module
+sub _logIsEnabled
+{
+    my ($self) = @_;
+    
+    my $log = EBox::Global->modInstance('logs');
+    if (not $log->isEnabled()) {
+        return undef;
+    }
+    
+    my $configureLogTable = $log->model('ConfigureLogTable');
+    my $enabledLogs = $configureLogTable->enabledLogs();
+    return $enabledLogs->{events};
+}
+
 
 # Enable/disable watchers and dispatchers to restore backup
 sub _prepareRestoreBackup
@@ -657,18 +749,28 @@ sub _eventsComposite
 # Instantiate the configure composite in order to manage ability of
 # event watchers and dispatchers
 sub _configurationComposite
-  {
+{
+    my ($self) = @_;
+      
+    unless ( exists $self->{confComposite}) {
+        $self->{confComposite} = new EBox::Events::Model::ConfigurationComposite();
+    }
 
-      my ($self) = @_;
+    return $self->{confComposite};
+}
 
-      unless ( exists $self->{confComposite}) {
-          $self->{confComposite} = new EBox::Events::Model::ConfigurationComposite();
+
+sub _reportComposite
+{
+    my ($self) = @_;
+
+    unless ( exists $self->{reportComposite}) {
+        $self->{reportComposite} = new EBox::Events::Composite::Report::EventsReport( );
       }
+    
+    return $self->{reportComposite};
 
-      return $self->{confComposite};
-
-  }
-
+}
 
 # Method:  restoreConfig
 #
@@ -687,6 +789,126 @@ sub restoreConfig
 
     $self->_prepareRestoreBackup();
   }
+
+
+sub enableLog
+{
+    my ($self, $status) = @_;
+    $self->setAsChanged();
+}
+
+sub tableInfo
+{
+    my ($self) =@_;
+    my $titles =  {
+        timestamp => __('Date of first event'),
+        lasttimestamp  => __('Date of last event'),
+        nrepeated     => __('Repetitions'),
+        level     => __('Level'),
+        source   => __('Source'),
+        message  => __('Message'),
+       };
+
+    my @order =qw(firsttimestamp lasttimestamp nrepeated level source message);
+
+    my $levels = {
+        info => __('Informative'),
+        warn => __('Warning'),
+        error => __('Error'),
+        fatal => __('Fatal error'),
+       };
+
+
+
+
+    return [
+             {
+            'name' => __('Events'),
+            'index' => 'events',
+            'titles' => $titles,
+            'order' => \@order,
+            'tablename' => 'events',
+            'filter' => [ 'source', 'message'],
+            'events' => $levels,
+            'eventcol' => 'level',
+            'consolidate' => $self->_consolidateTable(),
+           }
+       ];
+}
+
+
+sub _consolidateTable
+{
+    my $table = 'events_accummulated';
+    my $spec=  {
+            consolidateColumns => {
+                                   level => {
+                                                 accummulate => sub {
+                                                     # accummulate in correct
+                                                     # level column
+                                                     my ($type) = @_;
+                                                     return $type;
+                                                 },
+                                                 conversor => sub {
+                                                     my ($v, $row) = @_;
+                                                     return $row->{nrepeated};
+                                                   },
+                                                },
+                                   source => { destination => 'source' },
+                                  },
+           accummulateColumns    => { 
+                      info  => 0,
+                      warn  => 0,
+                      error  => 0,
+                      fatal  => 0,
+              },
+
+           };
+
+
+    return {  $table => $spec };
+}
+
+# Method: report
+#
+#  Returns:
+#    hash ref with a key for each source of event, the values will be
+#     a harsh ref with this fields:
+# 
+#         info - number of informative events from the source
+#         warn - number of warning events from the source
+#         error - number of error events from the source
+#         fatal - number of fatal events from the source
+# 
+# 
+# Overrides: 
+#   <EBox::Module::Base::report>
+sub reportDeprecated
+{
+    my ($self) = @_;
+
+    my %report;
+    
+    my $logs = EBox::Global->modInstance('logs');
+    my $yesterday = $logs->yesterdayDate();
+
+    my @sourcesLogs = @{ $logs->consolidatedLogForDay(
+                                               'events_accummulated',
+                                                $yesterday 
+                                                     )
+                     };
+
+    foreach my $sourceLog (@sourcesLogs) {
+        delete $sourceLog->{date};
+        my $source = delete $sourceLog->{source};
+        
+        $report{$source} = $sourceLog;
+    }
+
+    return \%report;
+}
+
+
 
 
 1;

@@ -2,7 +2,7 @@
 
 Sqllogdir = @DATADIR@/ebox/sqllog/
 
-nobase_Sqllog_DATA = mailfilter.sql mailfilter_traffic.sql pop_proxy_filter.sql pop_proxy_filter_traffic.sql
+nobase_Sqllog_DATA = mailfilter_smtp.sql mailfilter_smtp_traffic.sql mailfilter_smtp_report.sql mailfilter_pop.sql mailfilter_pop_traffic.sql mailfilter_pop_report.sql
 
 EXTRA_DIST = $(nobase_Sqllog_DATA)
 

@@ -29,6 +29,7 @@ use EBox::Exceptions::Internal;
 use Params::Validate qw(validate_pos);
 
 use Error qw(:try);
+use Data::Dumper;
 
 sub new {
         my $class = shift,
@@ -162,15 +163,50 @@ sub insert
                      $self->{dbh}->errstr .
                      " \n"
                     );
+        EBox::debug ("Values: " . Dumper(\@vals) . "\n");
         throw EBox::Exceptions::Internal ("Error inserting data: $sql\n" .
+                                          $self->{dbh}->errstr .
+                                          " \n" .
+                                          "Values: " . Dumper(\@vals) .
+                                           "\n"
+                                         );
+    }
+
+}
+
+# Method: update
+#
+#     This function performs an update in the database.
+#
+# Parameters:
+#   $table: The table name to insert data.
+#   $values: A hash ref with database fields name and values pairs that do you
+#   want to update
+#   $where: An array ref with conditions for the where
+#
+sub update
+{
+    my ($self, $table, $values, $where) = @_;
+    my $sql = "UPDATE $table SET ";
+
+    $sql .= join(", ", map { $_ . " = " . $values->{$_} } keys %$values);
+    $sql .= ' WHERE ' . join(' AND ', @{$where});
+
+    $self->_prepare($sql);
+    my $err = $self->{'sthinsert'}->execute();
+    if (!$err) {
+        #throw exception
+        EBox::debug ("Error updating data: $sql\n" .
+                     $self->{dbh}->errstr .
+                     " \n"
+                    );
+        throw EBox::Exceptions::Internal ("Error updating data: $sql\n" .
                                           $self->{dbh}->errstr .
                                           " \n"
                                          );
     }
 
 }
-
-
 
 # Method: query
 #
@@ -180,6 +216,16 @@ sub insert
 # Parameters:
 #   $sql: A string that contains the SQL query.
 #   @values: An array with the values to substitute in the query.
+#
+# Returns: 
+#  (this is copied for the perldoc for DBI)
+# It returns a reference to an array that contains one hash reference per
+#  row.   If there are no rows to return, fetchall_arrayref returns a reference
+#  to an empty array. If an error occurs, fetchall_arrayref returns the data
+#  fetched thus far, which may be none. You should check $sth->err afterwards
+#  (or use the RaiseError attribute) to discover if the data is complete or was
+#  truncated due to an error. 
+#
 #
 sub query
 {
@@ -191,7 +237,7 @@ sub query
 
     $self->_prepare($sql);
     if (@values) {
-        $err = $self->{'sthinsert'}->execute(@values);
+       $err = $self->{'sthinsert'}->execute(@values);
     } else {
         $err = $self->{'sthinsert'}->execute();
     }
@@ -206,7 +252,48 @@ sub query
     return $ret;
 }
 
+# Method: query_hash
+#
+#   Run a custom SQL query and return the results
+#
+# Parameters:
+#
+#       index - String the module name in lower case
+#       query - Hash containing SQL strings with optional (except 'from') keys:
+#          'select', 'from', 'where', 'group', 'order', 'limit'
+#
+# Return:
+#       array reference. Each row will be a hash reference with column/values
+#       as key/values.
+sub query_hash
+{
+    my ($self, $query) = @_;
 
+    my $sql = "SELECT ";
+    if (defined($query->{'select'})) {
+        $sql .= $query->{'select'};
+    } else {
+        $sql .= '*';
+    }
+    $sql .= " FROM " . $query->{'from'} . " ";
+    if (defined($query->{'where'})) {
+        $sql .= "WHERE " . $query->{'where'} . " ";
+    }
+    if (defined($query->{'group'})) {
+        $sql .= "GROUP BY " . $query->{'group'} . " ";
+    }
+    if (defined($query->{'order'})) {
+        $sql .= "ORDER BY " . $query->{'order'} . " ";
+    }
+    if (defined($query->{'limit'})) {
+        $sql .= "LIMIT " . $query->{'limit'} . " ";
+    }
+    $sql .= ';';
+
+    my @results = @{$self->query($sql)};
+
+    return \@results;
+}
 
 # Method: do
 #

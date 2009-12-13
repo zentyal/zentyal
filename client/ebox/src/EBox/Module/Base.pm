@@ -32,6 +32,7 @@ use EBox::Exceptions::Lock;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ServiceManager;
+use EBox::DBEngineFactory;
 use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
@@ -945,6 +946,501 @@ sub writeFile # (file, data, defaults)
     EBox::Sudo::root("/bin/mv $tmpfile  '$file'");
     EBox::Sudo::root("/bin/chmod $mode '$file'");
     EBox::Sudo::root("/bin/chown $uid.$gid '$file'");
+}
+
+# Method: report
+#
+#   returns the reporting information provided by the module
+#
+#   Returns:
+#     hash reference with the report information
+#
+#     If not overriden by the subclasses it will return undef
+sub report
+{
+    my ($self) = @_;
+    return undef;
+}
+
+# Method: runMontlyQuery
+#
+#   Runs a query in the database for all the months in t erange,
+#   organizing the data for its use in the report
+#
+# Parameters:
+#
+#       beg - initial year-month (i.e., '2009-10')
+#	    end - final year-month
+#       query - SQL query without any dates
+#       options - hash containing options for the processing of the results
+#          key - if key is provided, multiple rows will be processed and
+#                hashed by the content of the key field
+#
+#   Returns:
+#     hash reference with the report information
+#
+#     If not overriden by the subclasses it will return undef
+sub runMonthlyQuery
+{
+    my ($self, $beg, $end, $query, $options) = @_;
+
+    defined($options) or $options = {};
+
+    my $data = {};
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+    my ($begyear, $begmonth) = split('-', $beg);
+    my ($endyear, $endmonth) = split('-', $end);
+
+    my $year = $begyear;
+    my $month = $begmonth;
+
+    my $orig_where = $query->{'where'};
+
+    my $skipped = 0;
+
+    my $key = $options->{'key'};
+
+    while (
+        ($year < $endyear) or
+        (($year == $endyear) and ($month <= $endmonth))
+    ) {
+        my $date_where = "date >= '$year-$month-01 00:00:00' AND " .
+            "date < date '$year-$month-01 00:00:00' + interval '1 month'";
+        my $new_where;
+        if (defined($orig_where)) {
+            $new_where = "$orig_where AND $date_where";
+        } else {
+            $new_where = "$date_where";
+        }
+        $query->{'where'} = $new_where;
+
+        my $results = $db->query_hash($query);
+        if (@{$results}) {
+            my @fields = keys(%{@{$results}[0]});
+            if (defined($key)) {
+                for my $r (@{$results}) {
+                    my $keyname = $r->{$key};
+                    if (not exists($data->{$keyname})) {
+                        $data->{$keyname} = {};
+                    }
+                    for my $f (@fields) {
+                        if ($f eq $key) {
+                            next;
+                        }
+                        if (not exists($data->{$keyname}->{$f})) {
+                            $data->{$keyname}->{$f} = [];
+                        }
+                        my $empties = $skipped;
+                        while($empties > 0) {
+                            push(@{$data->{$keyname}->{$f}}, 0);
+                            $empties--;
+                        }
+                        push(@{$data->{$keyname}->{$f}}, $r->{$f});
+                    }
+                }
+            } else {
+                for my $r (@{$results}) {
+                    for my $f (@fields) {
+                        if (not exists($data->{$f})) {
+                            $data->{$f} = [];
+                        }
+                        my $empties = $skipped;
+                        while($empties > 0) {
+                            push(@{$data->{$f}}, 0);
+                            $empties--;
+                        }
+                        push(@{$data->{$f}}, $r->{$f});
+                    }
+                }
+            }
+            $skipped = 0;
+        } else {
+            $skipped++;
+        }
+        if($month == 12) {
+            $month = 1;
+            $year++;
+        } else {
+            $month++;
+        }
+    }
+    return $data;
+}
+
+sub runQuery
+{
+    my ($self, $beg, $end, $query) = @_;
+
+    my $data = {};
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+    my ($begyear, $begmonth) = split('-', $beg);
+    my ($endyear, $endmonth) = split('-', $end);
+
+    my $orig_where = $query->{'where'};
+    my $date_where = "date >= '$begyear-$begmonth-01 00:00:00' AND " .
+                "date < date '$endyear-$endmonth-01 00:00:00' + interval '1 month'";
+    my $new_where;
+    if (defined($orig_where)) {
+        $new_where = "$orig_where AND $date_where";
+    } else {
+        $new_where = "$date_where";
+    }
+    $query->{'where'} = $new_where;
+
+    my $results = $db->query_hash($query);
+    if (@{$results}) {
+        my @fields = keys(%{@{$results}[0]});
+
+        for my $f (@fields) {
+            $data->{$f} = [];
+        }
+
+        for my $r (@{$results}) {
+            for my $f (@fields) {
+                push(@{$data->{$f}}, $r->{$f});
+            }
+        }
+        return $data;
+    }
+    return undef;
+}
+
+sub runCompositeQuery
+{
+    my ($self, $beg, $end, $query, $key, $next_query) = @_;
+
+    my $data = {};
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+    my ($begyear, $begmonth) = split('-', $beg);
+    my ($endyear, $endmonth) = split('-', $end);
+
+    my $orig_where = $query->{'where'};
+    my $date_where = "date >= '$begyear-$begmonth-01 00:00:00' AND " .
+                "date < date '$endyear-$endmonth-01 00:00:00' + interval '1 month'";
+    my $new_where;
+    if (defined($orig_where)) {
+        $new_where = "$orig_where AND $date_where";
+    } else {
+        $new_where = "$date_where";
+    }
+    $query->{'where'} = $new_where;
+
+    my $results = $db->query_hash($query);
+    my @keys = map { $_->{$key} } @{$results};
+    (@keys) or return undef;
+
+    $orig_where = $next_query->{'where'};
+    for my $k (@keys) {
+        $data->{$k} = {};
+        my $date_where = "date >= '$begyear-$begmonth-01 00:00:00' AND " .
+                    "date < date '$endyear-$endmonth-01 00:00:00' + interval '1 month'";
+        my $new_where;
+        if (defined($orig_where)) {
+            $new_where = "$orig_where AND $date_where";
+        } else {
+            $new_where = "$date_where";
+        }
+        my $regex = '_' . $key . '_';
+        $new_where =~ s/$regex/$k/; 
+        $next_query->{'where'} = $new_where;
+
+        $results = $db->query_hash($next_query);
+        if (@{$results}) {
+            my @fields = keys(%{@{$results}[0]});
+
+            for my $f (@fields) {
+                $data->{$k}->{$f} = [];
+            }
+
+            for my $r (@{$results}) {
+                for my $f (@fields) {
+                    push(@{$data->{$k}->{$f}}, $r->{$f});
+                }
+            }
+        }
+    }
+    return $data;
+}
+
+
+sub consolidateReportFromLogs
+{
+    my ($self) = @_;
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+    my $queries = $self->consolidateReportQueries();
+
+    for my $q (@{$queries}) {
+        my $target_table = $q->{'target_table'};
+        my $query = $q->{'query'};
+
+        my $res = $db->query_hash({
+            'select' => 'EXTRACT(EPOCH FROM last_date) AS date',
+            'from' => 'report_consolidation',
+            'where' => "report_table = '$target_table'"
+        });
+
+        my $date;
+        if(@{$res}) {
+            my $row = shift(@{$res});
+            $date = $row->{'date'};
+        } else {
+            $res = $db->query_hash({
+                'select' => 'EXTRACT(EPOCH FROM timestamp) AS date',
+                'from' => $query->{'from'},
+                'order' => "timestamp",
+                'limit' => 1
+            });
+            my $row = shift(@{$res});
+
+            #if there are no rows at all, just continue
+            defined($row) or next;
+
+            #substract one so we can run the query with > and still get this
+            #result in
+            $date = $row->{'date'} - 1;
+
+            #later we call update so we need to have something inserted
+            $db->insert('report_consolidation', {
+                'report_table' => $target_table,
+                'last_date' => 'epoch'
+            });
+        }
+        my @time = localtime($date);
+        my $year = $time[5]+1900;
+        my $month = $time[4]+1;
+
+        my @curtime = localtime();
+        my $curyear = $curtime[5]+1900;
+        my $curmonth = $curtime[4]+1;
+
+        my $orig_where = $query->{'where'};
+
+        while (
+            ($year < $curyear) or
+            (($year == $curyear) and ($month <= $curmonth))
+        ) {
+            my $date_where = "timestamp > (timestamp with time zone 'epoch' + $date * interval '1 second') AND timestamp >= '$year-$month-01 00:00:00' AND " .
+                "timestamp < date '$year-$month-01 00:00:00' + interval '1 month'";
+            my $time_res = $db->query_hash({
+                'select' => 'EXTRACT(EPOCH FROM timestamp) AS date',
+                'from' => $query->{'from'},
+                'where' => $date_where,
+                'order' => 'date DESC',
+                'limit' => 1
+            });
+            my $time_row = shift(@{$time_res});
+            my $last_time = $time_row->{'date'};
+
+            if (defined($last_time)) {
+                $date_where = "timestamp > (timestamp with time zone 'epoch' + $date * interval '1 second') AND timestamp >= '$year-$month-01 00:00:00' AND " .
+                    "timestamp <= timestamp with time zone 'epoch' + $last_time * interval '1 second'";
+                my $new_where;
+                if (defined($orig_where)) {
+                    $new_where = "$orig_where AND $date_where";
+                } else {
+                    $new_where = "$date_where";
+                }
+                $query->{'where'} = $new_where;
+
+                my $results = $db->query_hash($query);
+                my @fields = keys(%{@{$results}[0]});
+                my @groupFields = split(/ *, */,$query->{'group'});
+                for my $r (@{$results}) {
+                    my @where;
+                    for my $f (@groupFields) {
+                        push(@where, $f . " = '" . $r->{$f} . "'");
+                    }
+                    push(@where, "date = '$year-$month-01'");
+                    my $res = $db->query_hash({
+                        'from' => $target_table,
+                        'where' => join(' AND ', @where)
+                    });
+                    if (@{$res}) {
+                        my $row = shift(@{$res});
+                        my $new_row = {};
+                        for my $k (keys %$r) {
+                            if(!grep(/^$k$/, @groupFields)) {
+                                $new_row->{$k} = $row->{$k} + $r->{$k};
+                            }
+                        }
+                        $db->update($target_table, $new_row, \@where);
+                    } else {
+                        $r->{'date'} = "$year-$month-01";
+                        $db->insert($target_table, $r);
+                    }
+                }
+                $db->update('report_consolidation',
+                    { 'last_date' => "timestamp with time zone 'epoch' + $last_time * interval '1 second'" },
+                    [ "report_table = '$target_table'" ],
+                );
+            }
+            if($month == 12) {
+                $month = 1;
+                $year++;
+            } else {
+                $month++;
+            }
+        }
+    }
+}
+
+sub consolidateReportQueries
+{
+    return [];
+}
+
+sub logReportInfo
+{
+    return [];
+}
+
+sub consolidateReportInfoQueries
+{
+    return [];
+}
+
+sub consolidateReportInfo
+{
+    my ($self) = @_;
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+    my $queries = $self->consolidateReportInfoQueries();
+
+    for my $q (@{$queries}) {
+        my $target_table = $q->{'target_table'};
+        my $query = $q->{'query'};
+
+        my $res = $db->query_hash({
+            'select' => 'EXTRACT(EPOCH FROM last_date) AS date',
+            'from' => 'report_consolidation',
+            'where' => "report_table = '$target_table'"
+        });
+
+        my $date;
+        if(@{$res}) {
+            my $row = shift(@{$res});
+            $date = $row->{'date'};
+        } else {
+            $res = $db->query_hash({
+                'select' => 'EXTRACT(EPOCH FROM timestamp) AS date',
+                'from' => $query->{'from'},
+                'order' => "timestamp",
+                'limit' => 1
+            });
+            my $row = shift(@{$res});
+            #substract one so we can run the query with > and still get this
+            #result in
+            $date = $row->{'date'} - 1;
+
+            #later we call update so we need to have something inserted
+            $db->insert('report_consolidation', {
+                'report_table' => $target_table,
+                'last_date' => 'epoch'
+            });
+        }
+        my @time = localtime($date);
+        my $year = $time[5]+1900;
+        my $month = $time[4]+1;
+
+        my @curtime = localtime();
+        my $curyear = $curtime[5]+1900;
+        my $curmonth = $curtime[4]+1;
+
+        my $orig_where = $query->{'where'};
+        while (
+            ($year < $curyear) or
+            (($year == $curyear) and ($month <= $curmonth))
+        ) {
+            my $date_where = "timestamp > (timestamp with time zone 'epoch' + $date * interval '1 second') AND timestamp >= '$year-$month-01 00:00:00' AND " .
+                "timestamp < date '$year-$month-01 00:00:00' + interval '1 month'";
+            my $time_res = $db->query_hash({
+                'select' => 'EXTRACT(EPOCH FROM timestamp) AS date',
+                'from' => $query->{'from'},
+                'where' => $date_where,
+                'order' => 'date DESC',
+                'limit' => 1
+            });
+            my $time_row = shift(@{$time_res});
+            my $last_time = $time_row->{'date'};
+
+            if (defined($last_time)) {
+                $date_where = "timestamp > (timestamp with time zone 'epoch' + $date * interval '1 second') AND timestamp >= '$year-$month-01 00:00:00' AND " .
+                    "timestamp <= timestamp with time zone 'epoch' + $last_time * interval '1 second'";
+                my $new_where;
+                if (defined($orig_where)) {
+                    $new_where = "$orig_where AND $date_where";
+                } else {
+                    $new_where = "$date_where";
+                }
+                my $max_where = "timestamp = (SELECT MAX(timestamp) FROM " . $query->{'from'} . ' WHERE ' . $new_where . ')';
+                $query->{'where'} = $max_where;
+
+                my $results = $db->query_hash($query);
+                my @fields = keys(%{@{$results}[0]});
+                if (defined($query->{'key'})) {
+                    my @keyFields = split(/ *, */,$query->{'key'});
+                    for my $r (@{$results}) {
+                        my @where;
+                        for my $f (@keyFields) {
+                            push(@where, $f . " = '" . $r->{$f} . "'");
+                        }
+                        push(@where, "date = '$year-$month-01'");
+                        my $res = $db->query_hash({
+                            'from' => $target_table,
+                            'where' => join(' AND ', @where)
+                        });
+                        if (@{$res}) {
+                            my $new_row = {};
+                            for my $k (keys %$r) {
+                                if(!grep(/^$k$/, @keyFields)) {
+                                    $new_row->{$k} = $r->{$k};
+                                }
+                            }
+                            $db->update($target_table, $new_row, \@where);
+                        } else {
+                            $r->{'date'} = "$year-$month-01";
+                            $db->insert($target_table, $r);
+                        }
+                    }
+                } else {
+                    for my $r (@{$results}) {
+                        my @where;
+                        push(@where, "date = '$year-$month-01'");
+                        my $res = $db->query_hash({
+                            'from' => $target_table,
+                            'where' => join(' AND ', @where)
+                        });
+                        if (@{$res}) {
+                            my $new_row = {};
+                            for my $k (keys %$r) {
+                                $new_row->{$k} = $r->{$k};
+                            }
+                            $db->update($target_table, $new_row, \@where);
+                        } else {
+                            $r->{'date'} = "$year-$month-01";
+                            $db->insert($target_table, $r);
+                        }
+                    }
+                }
+                $db->update('report_consolidation',
+                    { 'last_date' => "timestamp with time zone 'epoch' + $last_time * interval '1 second'" },
+                    [ "report_table = '$target_table'" ],
+                );
+            }
+            if($month == 12) {
+                $month = 1;
+                $year++;
+            } else {
+                $month++;
+            }
+        }
+    }
 }
 
 1;

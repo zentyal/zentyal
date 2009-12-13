@@ -2408,6 +2408,45 @@ sub _isLaterThanCA # (date)
 }
 
 
+# Method: report
+#
+# Returns:
+#    ref hash with the following fields:
+#    CAState: state of the CA certificate. It will be ono of this states:
+#       - R - Revoked
+#       - E - Expired
+#       - V - Valid
+#       - ! - Inexistent
+#
+#    nValidCertificates: number of valid active certificates
+#    nRevokedCertificates: number of revoked certificates
+#    nExpiredCertificates: number of expired certifcates
+#
+
+# Overrides: 
+#   <EBox::Module::Base::report>
+sub report
+{
+    my ($self) = @_;
+    my $currentCA = $self->currentCACertificateState();
+
+    my ($nValid, $nRevoked, $nExpired) = (0, 0, 0);
+    if ($currentCA ne '!') {
+        $nValid = @{ $self->listCertificates(state => 'V', excludeCA => 1) };
+        $nRevoked = @{ $self->listCertificates(state => 'R', excludeCA => 1) };
+        $nExpired = @{ $self->listCertificates(state => 'E', excludeCA => 1) };
+
+    }
+
+    return {
+            CAState => $currentCA,
+
+            nValidCertifcates     => $nValid,
+            nRevokedCertificates  => $nRevoked,
+            nExpiredCertificates  => $nExpired,
+           };
+}
+
 ## OpenSSL execution environment provided by OpenCA::OpenSSL
 ## through OpenCA application
 ## Modificated to adapt to OpenSSL environment

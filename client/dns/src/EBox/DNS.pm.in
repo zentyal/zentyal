@@ -857,5 +857,51 @@ sub menu
                                     'order' => 420));
 }
 
+sub logReportInfo
+{
+    my ($self) = @_;
+
+    my $domains = @{$self->domains()};
+    my $data = [
+        {
+            'table'  => 'dns_domains',
+            'values' => {
+                'domains' => $domains
+            }
+        }
+    ];
+    return $data;
+}
+
+sub consolidateReportInfoQueries
+{
+    return [
+        {
+            'target_table' => 'dns_domains_report',
+            'query' => {
+                'select' => 'domains',
+                'from' => 'dns_domains'
+            }
+        }
+    ];
+}
+
+# Method: report
+#
+# Overrides:
+#   <EBox::Module::Base::report>
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    $report->{'domains'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'domains',
+        'from' => 'dns_domains_report',
+    }, { 'name' => 'domains' });
+
+    return $report;
+}
 
 1;

@@ -3,4 +3,4 @@ CREATE TABLE firewall_packet_traffic(
         drop BIGINT DEFAULT 0
 );
 
-CREATE INDEX firewall_i on firewall_packet_traffic(date);
+CREATE INDEX firewall_packet_traffic_date_i on firewall_packet_traffic(date);

@@ -4,4 +4,4 @@ CREATE TABLE samba_access (
     resource VARCHAR(240),
     event VARCHAR(16),
     timestamp TIMESTAMP);
-CREATE INDEX samba_access_i on samba_access(timestamp);
+CREATE INDEX samba_access_timestamp_i on samba_access(timestamp);

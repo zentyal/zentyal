@@ -24,8 +24,8 @@ use base qw(EBox::LogHelper);
 use constant MAIL_LOG => '/var/log/mail.log';
 use constant SYS_LOG => '/var/log/syslog';
 
-use constant SMTP_FILTER_TABLE => 'message_filter';
-use constant POP_PROXY_TABLE   => 'pop_proxy_filter';
+use constant SMTP_FILTER_TABLE => 'mailfilter_smtp';
+use constant POP_PROXY_TABLE   => 'mailfilter_pop';
 
 
 
@@ -114,6 +114,13 @@ sub _processAmavisLine
 
     my ($action, $event, $from, $to, $hits) = ($1, $2, $3, $4, $5);
 
+    my $mail = EBox::Global->modInstance('mail');
+    my $mailname = $mail->mailname();
+
+    if (($from =~ m/@\Q$mailname\E$/) and ($to =~ m/@\Q$mailname\E$/)) {
+        return;
+    }
+
     if ($event eq 'CLEAN') {
         $event = 'CLEAN';
     }
@@ -132,7 +139,7 @@ sub _processAmavisLine
                   from_address => $from,
                   to_address   => $to,
 
-                  date => $date,
+                  timestamp => $date,
                  };
 
     if ($hits ne '-') {
@@ -200,7 +207,7 @@ sub _processPOPProxyLine
                       clientConn => $p3scanClientConn,
 
 
-                      date => $date,
+                      timestamp => $date,
                      };
 
 

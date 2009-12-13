@@ -1,5 +1,6 @@
 HEAD
-       + Fixed bug when retrieving LDAP instance in master/slave architecture
+	+ Fixed bug when retrieving LDAP instance in master/slave architecture
+	+ Added log consolidation and report
 1.3.10
 	+ ESMTP service in port 465 fixed
 	+ Deliver to local user fixed
@@ -13,10 +14,10 @@ HEAD
 	abort if it exists already a user maildir, instead we move it to a
 	backup directory
 1.3.6
-        + now you can specify a port for the smarthost (if not specified
+	+ now you can specify a port for the smarthost (if not specified
 	the default port continues to be 25)
 	+ bugfix: fixed regresion in logs and added greylist event for
-	conenctions to remotes SMTPs
+	connections to remote SMTPs
 1.3.4
 	+ tableInfo returns an array of hash refs
 1.1.41

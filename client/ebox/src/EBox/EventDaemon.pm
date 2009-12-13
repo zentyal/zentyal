@@ -38,12 +38,14 @@ use warnings;
 ###################
 # Dependencies
 ###################
-use Data::Dumper;
 
 # eBox uses
 use EBox::Config;
+use EBox::Global;
+use EBox::DBEngineFactory;
 
 # Core modules
+use Data::Dumper;
 use File::stat;
 use File::Slurp;
 use IO::Handle;
@@ -51,6 +53,9 @@ use IO::Select;
 use Error qw(:try);
 use POSIX;
 use UNIVERSAL;
+use Time::Local qw(timelocal);
+
+
 
 # Constants:
 #
@@ -64,6 +69,8 @@ use constant WATCHERS_DIR      => EBox::Config::conf() . 'events/WatcherEnabled/
 use constant DISPATCHERS_DIR   => EBox::Config::conf() . 'events/DispatcherEnabled/';
 use constant EVENTS_FIFO       => EBox::Config::tmp() . 'events-fifo';
 use constant SCANNING_INTERVAL => 60;
+use constant EVENT_FOLDING_INTERVAL => 30 * 60; # half hour
+
 
 # Group: Public methods
 
@@ -242,6 +249,11 @@ sub _mainDispatcherLoop
 
     my ($self) = @_;
 
+    # load dbengine if neccessary
+    if ($self->_logEnabled()) {
+        $self->{dbengine} = EBox::DBEngineFactory::DBEngine();
+    }
+
     # Load dispatcher classes
     $self->_loadModules('Dispatcher');
     # Start main loop with a select
@@ -257,6 +269,13 @@ sub _mainDispatcherLoop
             {
                 no strict 'vars'; $event = eval $data;
             }
+
+            # log the event if log is enabled
+            if (exists $self->{dbengine}) {
+                $self->_logEvent($event);
+            }
+
+            # dispatch event to its watchers
             # skip the given data if it is not a valid EBox::Event object
             if ( defined($event) and $event->isa('EBox::Event') ) {
                 $self->_dispatchEventByDispatcher($event);
@@ -437,49 +456,172 @@ sub _deleteFromINC
 #       event - <EBox::Event> the event to dispatch
 #
 sub _dispatchEventByDispatcher
-  {
+{
 
-      my ($self, $event) = @_;
+    my ($self, $event) = @_;
 
-      my @requestedDispatchers = ();
+    my @requestedDispatchers = ();
 
-      my $reqByEventRef = $event->dispatchTo();
+    my $reqByEventRef = $event->dispatchTo();
 
-      if ( grep { 'any' } @{$reqByEventRef} ) {
-          @requestedDispatchers = values ( %{$self->{registeredDispatchers}} );
-      } else {
-          my @reqByEvent = map { "EBox::Dispatcher::$_" } @{$reqByEventRef};
-          foreach my $dispatcherName (keys (%{$self->{registeredDispatchers}})) {
-              if ( grep { $dispatcherName } @reqByEvent ) {
-                  push ( @requestedDispatchers,
-                         $self->{registeredDispatchers}->{$dispatcherName});
-              }
-          }
-      }
+    if ( grep { 'any' } @{$reqByEventRef} ) {
+        @requestedDispatchers = values ( %{$self->{registeredDispatchers}} );
+    } else {
+        my @reqByEvent = map { "EBox::Dispatcher::$_" } @{$reqByEventRef};
+        foreach my $dispatcherName (keys (%{$self->{registeredDispatchers}})) {
+            if ( grep { $dispatcherName } @reqByEvent ) {
+                push ( @requestedDispatchers,
+                        $self->{registeredDispatchers}->{$dispatcherName});
+            }
+        }
+    }
 
-      # Dispatch the event
-      foreach my $dispatcher (@requestedDispatchers) {
-          try {
-              $dispatcher->enable();
-              $dispatcher->send($event);
-          } catch EBox::Exceptions::External with {
-              my ($exc) = @_;
-              EBox::warn($dispatcher->name() . ' is not enabled to send messages');
-              EBox::error($exc->stringify());
-              # TODO: Disable dispatcher since it's not enabled to
-              # send events
-              eval { require 'EBox::Global'};
-              my $events = EBox::Global->modInstance('events');
-              # Disable the model
-              $events->enableDispatcher( ref ( $dispatcher ), 0);
-              $events->configureDispatcherModel()->setMessage(
-                         __x('Dispatcher {name} disabled since it is not able to '
-                             . 'send events', name => $dispatcher->name()));
-          };
-      }
+# Dispatch the event
+    foreach my $dispatcher (@requestedDispatchers) {
+        try {
+            $dispatcher->enable();
+            $dispatcher->send($event);
+        } catch EBox::Exceptions::External with {
+            my ($exc) = @_;
+            EBox::warn($dispatcher->name() . ' is not enabled to send messages');
+            EBox::error($exc->stringify());
+# TODO: Disable dispatcher since it's not enabled to
+# send events
+            eval { require 'EBox::Global'};
+            my $events = EBox::Global->modInstance('events');
+# Disable the model
+            $events->enableDispatcher( ref ( $dispatcher ), 0);
+            $events->configureDispatcherModel()->setMessage(
+                    __x('Dispatcher {name} disabled since it is not able to '
+                        . 'send events', name => $dispatcher->name()));
+        };
+    }
+}
 
-  }
+sub _logEnabled
+{
+    my ($self) = @_;
+    my $logs = EBox::Global->modInstance('logs');
+    defined $logs or
+        return undef;
+    $logs->isEnabled() or 
+        return undef;
 
+    # check if log for events module is enabled
+    my $enabledLogs = $logs->_restoreEnabledLogsModules();
+    return $enabledLogs->{events};
+}
+
+sub _foldingEventInLog
+{
+    my ($self, $event) = @_;
+
+    my $dbh = $self->{dbengine}->{dbh};
+
+    if (not exists $self->{selectStmt}) {
+         my $selectStmt = $dbh->prepare(
+         'SELECT id, lastTimestamp FROM '. LOG_TABLE . ' ' 
+          . 'WHERE level = ? '
+          . 'AND source = ? ' 
+          . 'AND message = ? ' 
+          . 'ORDER BY lastTimestamp DESC ' 
+          . 'LIMIT 1'
+                                       );
+
+        $self->{selectStmt} = $selectStmt;
+    }
+
+    $self->{selectStmt}->execute(
+        $event->level(),
+        $event->source(),
+        $event->message()
+       );
+
+    my $storedEvent = $self->{selectStmt}->fetchrow_hashref();
+    if (not defined $storedEvent) {
+        # not matching event found ...
+        return undef;
+    }
+    
+    my ($year, $mon, $mday, $hour, $min, $sec) = split /[\s\-:]/, $storedEvent->{lasttimestamp};
+    $year -= 1900;
+    $mon -= 1;
+    my $storedTimestamp =  timelocal($sec,$min,$hour,$mday,$mon,$year);
+
+
+    if (($storedTimestamp + EVENT_FOLDING_INTERVAL) >  $event->timestamp()) {
+        # Last event of the same type happened before last
+        # half an hour
+        my $id = $storedEvent->{id};
+        return $id;
+    }
+
+    return undef;
+}
+
+sub _updateFoldingEventInLog
+{
+    my ($self, $id, $event) = @_;
+
+    my $ts = $event->timestamp();
+    my @tsParts = localtime($ts);
+    $tsParts[5] += 1900;
+    $tsParts[4] += 1;
+    my $lastTimestamp = join('-', @tsParts[5,4,3]) . ' ' . 
+                        join(':', @tsParts[2,1,0]);
+
+    my $dbh = $self->{dbengine}->{dbh};
+
+    if (not exists $self->{updateStmt}) {
+        my $updateStmt = $dbh->prepare(
+            'UPDATE ' . LOG_TABLE . ' '
+            . 'SET nRepeated = nRepeated + 1, lastTimestamp = ? '
+            . 'WHERE id = ?'
+           )  or die $dbh->errstr;;
+        $self->{updateStmt} = $updateStmt;
+    }
+
+
+    $self->{updateStmt}->execute($lastTimestamp, $id);
+}
+
+sub _insertEventInLog
+{
+    my ($self, $event) = @_;
+
+    my $timeStmp = $event->strTimestamp();
+
+    my $values = {
+        firstTimestamp => $timeStmp,
+        lastTimestamp  => $timeStmp,
+
+        level     => $event->level(),
+        source   => $event->source(),
+        message  => $event->message(),
+       };
+
+    $self->{dbengine}->insert(LOG_TABLE, $values);
+}
+
+# Method: _logEvent
+#
+#  Add the event to the events log
+#
+# Parameters:
+#
+#       event - <EBox::Event> the event to dispatch
+#
+sub _logEvent
+{
+    my ($self, $event) = @_;
+
+    my $foldingEventId = $self->_foldingEventInLog($event);
+    if ($foldingEventId) {
+        $self->_updateFoldingEventInLog($foldingEventId, $event);
+    } else {
+        $self->_insertEventInLog($event);
+    }
+}
 # Method: _addToDispatch
 #
 #       Send to the Dispatcher daemon the given event through the
@@ -515,5 +657,3 @@ sub _addToDispatch
 my $eventd = new EBox::EventDaemon(10);
 
 $eventd->run();
-
-

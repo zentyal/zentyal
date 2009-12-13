@@ -1,4 +1,4 @@
-CREATE TABLE mailfilter_traffic (
+CREATE TABLE mailfilter_smtp_traffic (
         date         TIMESTAMP NOT NULL,       
         clean        BIGINT DEFAULT 0,               
         spam         BIGINT DEFAULT 0,
@@ -8,4 +8,4 @@ CREATE TABLE mailfilter_traffic (
         blacklisted  BIGINT DEFAULT 0
 );
 
-CREATE INDEX timestamp_i on mailfilter_traffic(date);
+CREATE INDEX mailfilter_smtp_traffic_date_i on mailfilter_smtp_traffic(date);

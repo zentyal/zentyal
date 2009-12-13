@@ -108,6 +108,42 @@ sub _daemons
     ];
 }
 
+
+# Method: enableService
+#
+#   Used to enable a service. Overriddien to notify all LogObserver of the
+#   changes. 
+#
+# Parameters:
+#
+#   boolean - true to enable, false to disable
+#
+#  Overriddes:
+#  <EBox::Module::service::enableService >
+sub enableService
+{
+    my ($self, $status) = @_;
+    defined $status or
+        $status = 0;
+
+    return unless ($self->isEnabled() xor $status);
+
+    $self->SUPER::enableService($status);
+    $self->_notifyLogEnable();
+}
+
+
+
+sub _notifyLogEnable
+{
+    my ($self, $status) = @_;
+    my $modules = $self->getLogsModules();
+    foreach my $module (@{ $modules }) {
+        $module->enableLog($status);
+    }
+    
+}
+
 # Method: isRunning
 #
 # Overrides:
@@ -179,7 +215,7 @@ sub compositeClasses
 #
 # Returns:
 #
-#       Array ref of objects <EBox::LogObserver>
+#       Array ref of objects <EBox::LogHelper>
 #
 sub allEnabledLogHelpers
 {
@@ -199,7 +235,10 @@ sub allEnabledLogHelpers
     my @mods = @{$global->modInstancesOfType('EBox::LogObserver')};
     foreach my $mod (@mods) {
         if ($global->modEnabled($mod->name) and $enabledLogs->{$mod->name}) {
-            push (@enabledObjects, $mod->logHelper());
+            my $logHelper = $mod->logHelper();
+            defined $logHelper or
+                next;
+            push (@enabledObjects, $logHelper);
         }
     }
 
@@ -378,9 +417,6 @@ sub _checkValidDate # (date)
 #
 #       page - Int the page to search for results
 #
-#       timecol - String the table field which contains the timestamp
-#       value (time and date field)
-#
 #       filters - hash ref a list of filters indexed by name which
 #       contains the value of the given filter (normally a
 #       string). Passing *undef* no filters are applied
@@ -494,6 +530,58 @@ sub totalRecords
 
     return $tcount;
 }
+
+# Method: consolidatedLogForDay
+#
+# Parameters:
+#     table - consolidated table. The suffix '_daily' is added automaticallu
+#     date  - date in format yyyy-mm-dd
+#
+#  Returns: 
+#      array reference. Each row will be a hash reference with
+#      column/values as key/values. Remember that it will be always a 'date'
+#      field. 
+#      If there is not data it will return a empty array
+sub consolidatedLogForDay
+{
+    my ($self, $table, $date) = @_;
+    $date or
+        throw EBox::Exceptions::MissingArgument('date');
+    $table or
+        throw EBox::Exceptions::MissingArgument('table');
+    
+    # put the standard 00:00:00  hour
+    ($date) = split '\s', $date;
+    $date .= ' 00:00:00';
+
+
+    $table = $table . '_daily';
+
+    my $dbengine = EBox::DBEngineFactory::DBEngine();
+
+    my $sql = "SELECT * FROM $table WHERE date='$date'";
+    
+    my @results = @{  $dbengine->query($sql) };
+    return \@results;
+}
+
+# Method: yesterdayDate
+#
+#  Returns:
+#    the yesterday date in string format so it can used in SQL queries and 
+#    i nthe consolidatedLogForDay method
+sub yesterdayDate
+{
+    my ($self) = @_;
+    my $yesterdayTs = time()  - 86400; # 86400 seconds in a day
+    my  ($sec,$min,$hour,$mday,$mon,$year) = localtime($yesterdayTs);
+    $year += 1900;
+    $mon  +=1;
+
+    return "$year-$mon-$mday 00:00:00";
+}
+
+
 
 sub _addRegExp
 {
@@ -638,7 +726,6 @@ sub tableInfo
             'titles' => $titles,
             'order' => \@order,
             'tablename' => 'admin',
-            'timecol' => 'timestamp',
             'filter' => ['source', 'module']
            };
 }
@@ -766,7 +853,7 @@ sub forcePurge
 
   foreach my $tableInfo ( @tables ) {
     my $table = $tableInfo->{tablename};
-    my $timeCol = $tableInfo->{timecol};
+    my $timeCol = 'timestamp';
     $self->_purgeTable($table, $timeCol, $thresholdDate);
   }
 }
@@ -813,7 +900,7 @@ sub purge
 
       foreach my $table (@logTables) {
           my $dbTable = $table->{tablename};
-          my $timeCol = $table->{timecol};
+          my $timeCol = 'timestamp';
 
           $self->_purgeTable($dbTable, $timeCol, $threshold);
       }
@@ -821,9 +908,6 @@ sub purge
 
   }
 }
-
-# Transform an hour into a localtime
-
 
 
 # Transform an hour into a localtime
@@ -846,6 +930,8 @@ sub _purgeTable #(tablename, timecolumn, thresholdDate)
   my $dbengine = EBox::DBEngineFactory::DBEngine();
   $dbengine->query($sqlStatement);
 }
+
+
 
 
 1;

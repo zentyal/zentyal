@@ -125,9 +125,12 @@ src/EBox/Event/Watcher/Makefile
 src/EBox/Event/Watcher/t/Makefile
 src/EBox/Events/Makefile
 src/EBox/Events/Model/Makefile
+src/EBox/Events/Model/Report/Makefile
 src/EBox/Events/Model/Dispatcher/Makefile
 src/EBox/Events/Model/t/Makefile
 src/EBox/Events/Model/Watcher/Makefile
+src/EBox/Events/Composite/Makefile
+src/EBox/Events/Composite/Report/Makefile
 src/EBox/Module/Makefile
 src/EBox/Report/Makefile
 src/EBox/Report/t/Makefile

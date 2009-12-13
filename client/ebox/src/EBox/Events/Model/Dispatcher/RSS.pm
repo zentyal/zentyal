@@ -22,6 +22,8 @@
 #     - link
 #     - allowed - the allowed readers
 #
+use strict;
+use warnings;
 
 package EBox::Events::Model::Dispatcher::RSS;
 
@@ -271,7 +273,7 @@ sub _updateLinkInRSS # (ip)
     $rss->parsefile(EBox::Event::Dispatcher::RSS::RSSFilePath());
 
     # Update link
-    my $channeLink = $rss->channel('link');
+    my $channelLink = $rss->channel('link');
 
     $channelLink =~ s{https://.*?/}{https://$ip/}g;
 

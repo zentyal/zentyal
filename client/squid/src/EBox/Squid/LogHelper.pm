@@ -101,7 +101,7 @@ sub processLine # (file, line, logger)
            };
 	
         
-	$dbengine->insert('access', $data);
+	$dbengine->insert('squid_access', $data);
 }
 
 1;

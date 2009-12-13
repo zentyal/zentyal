@@ -40,7 +40,7 @@ sub new
 
 sub dbTableName
 {
-    return 'pop_proxy_filter_traffic';
+    return 'mailfilter_pop_filter_traffic';
 }
 
 

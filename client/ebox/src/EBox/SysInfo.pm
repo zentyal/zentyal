@@ -24,6 +24,7 @@ use base qw(EBox::GConfModule EBox::Report::DiskUsageProvider);
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
+use Filesys::Df;
 
 use EBox::Config;
 use EBox::Gettext;
@@ -35,8 +36,8 @@ use EBox::Dashboard::Value;
 use EBox::Dashboard::HTML;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
+use EBox::Report::DiskUsage;
 use EBox::Report::RAID;
-
 
 sub _create
 {
@@ -255,6 +256,59 @@ sub menu
 
 
 	$root->add($folder);
+}
+
+sub logReportInfo
+{
+    my ($self) = @_;
+
+    my @data;
+
+    my $fileSysS = EBox::Report::DiskUsage::partitionsFileSystems();
+    foreach my $fileSys (keys %{$fileSysS}) {
+        my $entry = {};
+        $entry->{'table'} = 'sysinfo_disk_usage';
+        $entry->{'values'} = {};
+        my $mount = $fileSysS->{$fileSys}->{mountPoint};
+        $entry->{'values'}->{'mountpoint'} = $mount;
+        my $info = df($mount);
+        $entry->{'values'}->{'used'} = $info->{'used'};
+        $entry->{'values'}->{'free'} = $info->{'bavail'};
+        push(@data, $entry)
+    }
+    return \@data;
+}
+
+sub consolidateReportInfoQueries
+{
+    return [
+        {
+            'target_table' => 'sysinfo_disk_usage_report',
+            'query' => {
+                'select' => 'mountpoint, used, free',
+                'from' => 'sysinfo_disk_usage',
+                'key' => 'mountpoint'
+            }
+        }
+    ];
+}
+
+# Method: report
+#
+# Overrides:
+#   <EBox::Module::Base::report>
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    $report->{'disk_usage'} = $self->runMonthlyQuery($beg, $end, {
+        'select' => 'mountpoint, used, free',
+        'from' => 'sysinfo_disk_usage_report',
+    }, { 'key' => 'mountpoint' });
+
+    return $report;
 }
 
 1;

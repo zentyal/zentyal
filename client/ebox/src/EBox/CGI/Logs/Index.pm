@@ -40,20 +40,6 @@ sub new # (error=?, msg=?, cgi=?)
     return $self;
 }
 
-sub _getTime
-{
-    my ($self, $module, $tmpl) = @_;
-
-    foreach my $mod (@{$tmpl}) {
-        if ($mod->{'name'} eq $module) {
-            return $mod->{'timecol'};
-        }
-    }
-
-    return undef;
-}
-
-
 sub _actualPage
 {
     my ($self, $tpages) = @_;
@@ -174,7 +160,7 @@ sub _searchLogs
     my $hfilters;
     my $tableinfo = $logs->getTableInfo($selected);
     my $table     = $tableinfo->{'tablename'};
-    my $timecol   = $tableinfo->{'timecol'};
+    my $timecol   = 'timestamp';
 
     my $tpages = ceil($logs->totalRecords($table) / PAGESIZE) - 1;
     my $page = $self->_actualPage($tpages);
