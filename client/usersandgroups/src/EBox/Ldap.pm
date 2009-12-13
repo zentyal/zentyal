@@ -22,7 +22,6 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
-use EBox::UsersAndGroups::ImportFromLdif::Engine;
 use EBox::Gettext;
 
 use Net::LDAP;
