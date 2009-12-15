@@ -5,6 +5,8 @@ HEAD
 	+ Add suport for silent exceptions. In a few places we
 	  use exceptions for flow control (which is wrong). This
 	  exceptions shouldn't be logged.
+	+ fixed bug in network address setter that allowed to choose 24
+	bits as valid netmask
 1.3.7
 	+ Add support for permanent messages
 1.3.6
