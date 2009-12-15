@@ -41,6 +41,8 @@ create_repository() {
     apt-get update >> $LOG 2>&1
     # Restore the original sources.list
     mv /var/tmp/sources.list ${SOURCES_LIST}
+    # Move packages to the cache
+    mv $PKG_DIR/*.deb /var/cache/apt/archives/
 }
 
 update_if_network() {
@@ -68,6 +70,7 @@ installed_ok() {
     rm -f /var/tmp/locale.gen
     rm -fr /var/tmp/ebox-*
     rm -fr /var/tmp/po
+    apt-get clean
     # Restore original rc.local
     mv /var/tmp/rc.local /etc/rc.local
     exit 0
