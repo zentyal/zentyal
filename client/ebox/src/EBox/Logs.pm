@@ -62,32 +62,6 @@ sub _create
     return $self;
 }
 
-
-# Method: actions
-#
-#       Override EBox::Module::Service::actions
-#
-sub actions
-{
-    return [
-        {
-                'action' => __('Create logs database'),
-                'reason' => __('eBox store its logs in the database'),
-                'module' => 'logs'
-        }
-    ];
-}
-
-
-# Method: enableActions
-#
-#       Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    EBox::Sudo::root(EBox::Config::share() . '/ebox/ebox-logs-enable');
-}
-
 # Method: depends
 #
 #       Override EBox::Module::Base::depends
@@ -930,8 +904,5 @@ sub _purgeTable #(tablename, timecolumn, thresholdDate)
   my $dbengine = EBox::DBEngineFactory::DBEngine();
   $dbengine->query($sqlStatement);
 }
-
-
-
 
 1;
