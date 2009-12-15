@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: usercorner model precondition to avoid show voicemail
+	screen when the user has not voip account        
 1.3.6
 	+ Bugfix: module tried to show modules when disabled, raising error
 1.1.20

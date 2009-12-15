@@ -31,7 +31,7 @@ use EBox::Types::Password;
 use EBox::Types::MailAddress;
 use EBox::Types::Boolean;
 use Apache2::RequestUtil;
-
+use EBox::AsteriskLdapUser;
 
 # Group: Public methods
 
@@ -202,6 +202,25 @@ sub _addTypedRow
     $ldap->setAttribute($dn, 'AstAccountVMDelete', $delete);
 
     $self->setMessage(__('Settings successfully updated'));
+}
+
+
+sub precondition
+{
+    my ($self) = @_;
+    my $request = Apache2::RequestUtil->request();
+    my $userName = $request->user();
+
+    my $userLdap = EBox::AsteriskLdapUser->new();
+    return $userLdap->hasAccount($userName);
+}
+
+
+sub preconditionFailMsg
+{
+    return
+__('You have not an VoIP account. Maybe VoIP is not enabled in this server')
+        ;
 }
 
 1;
