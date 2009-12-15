@@ -503,7 +503,7 @@ sub sendEvent
 
     # Send the dumpered event through the FIFO
     open(my $fifo, '+<', EVENTS_FIFO)
-      or throw EBox::Exceptions::Internal('Could not open ' . EVENTS_FIFO . "for reading: $!");
+      or throw EBox::Exceptions::Internal('Could not open ' . EVENTS_FIFO . " for reading: $!");
     print $fifo $dumper->Dump() . "\n";
     close($fifo);
 

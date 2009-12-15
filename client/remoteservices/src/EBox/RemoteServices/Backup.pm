@@ -62,35 +62,67 @@ sub prepareMakeRemoteBackup
     return EBox::Backup->prepareMakeBackup(@backupOptions);
 }
 
+# Method: makeRemoteBackup
+#
+#      Make a configuration backup and send it to the eBox Control
+#      Center
+#
+# Parameters:
+#
+#      name - String the backup's name
+#
+#      description - String the backup's description
+#
+#      automatic - Boolean indicating whether the backup must be set as
+#                  automatic or not
+#
 sub makeRemoteBackup
 {
-    my ($self, $name, $description) = @_;
+    my ($self, $name, $description, $automatic) = @_;
+
     $name or throw EBox::Exceptions::MissingArgument('name');
     defined $description or $description = '';
 
     my @backupOptions = (
-        fullBackup => 0,
-        description => $description,
+        fullBackup   => 0,
+        description  => $description,
        );
 
     my $archive = EBox::Backup->makeBackup(@backupOptions);
 
-    sendRemoteBackup($archive, $name, $description);
+    $self->sendRemoteBackup($archive, $name, $description, $automatic);
 }
 
 
+# Method: sendRemoteBackup
+#
+#      Send a configuration backup to the eBox Control Center
+#
+# Parameters:
+#
+#      archive - String the path to the configuration backup archive
+#
+#      name - String the backup's name
+#
+#      description - String the backup's description
+#
+#      automatic - Boolean indicating whether the backup must be set as
+#                  automatic or not
+#
 sub sendRemoteBackup
 {
-    my ($self, $archive, $name, $description) = @_;
+    my ($self, $archive, $name, $description, $automatic) = @_;
     $archive or throw EBox::Exceptions::MissingArgument('archive');
     $name    or throw EBox::Exceptions::MissingArgument('name');
     defined $description or $description = '';
+    defined $automatic or $automatic = 0;
 
     try {
         my $archiveContents = File::Slurp::read_file($archive);
         $self->_pushConfBackup(file => $archiveContents,
                                fileName => $name,
-                               comment => $description);
+                               comment => $description,
+                               automatic => $automatic);
     }
     finally {
         unlink $archive;
@@ -178,6 +210,23 @@ sub removeRemoteBackup
     $self->_removeConfBackup(fileName => $name);
 }
 
+# Method: listRemoteBackups
+#
+#       Get the list of the current remote configuration backups
+#
+# Returns:
+#
+#       hash ref - the list of backups indexed by name with the following values:
+#
+#           Automatic - 1/0 indicating whether the backup is automatic or not
+#           Canonical Name - String the eBox's name
+#           Comment - String the description for the backup
+#           Date - String the date in printable format
+#           sortableDate - Int the date in seconds from epoch
+#           Filename - String the backup name
+#           Size - Int the size in bytes
+#           printableSize - String the size in a printable format
+#
 sub listRemoteBackups
 {
     my ($self) = @_;
@@ -269,6 +318,9 @@ sub _metainfoFromServer
               $self->_printableSize($properties{Size});
         }
 
+        if (exists $properties{Date}) {
+            $properties{sortableDate} = $self->_sortableDate($properties{Date});
+        }
 
         $metainfo->{$properties{Filename}} = \%properties;
     }

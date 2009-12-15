@@ -1,0 +1,102 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2009 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This script is intended to make a configuration backup automatically daily
+
+use EBox;
+use EBox::Config;
+use EBox::Exceptions::Base;
+use EBox::Gettext;
+use EBox::RemoteServices::Backup;
+use Error qw(:try);
+use File::Slurp;
+use Getopt::Long;
+use Pod::Usage;
+
+use constant LAST_BACKUP_TIMESTAMP_FILE => EBox::Config::conf() . 'remoteservices/last-backup-stamp';
+
+# Get the cron jobs from the CC
+sub _makeConfBackup
+{
+    my $gl = EBox::Global->getInstance();
+    my $rs = $gl->modInstance('remoteservices');
+    if ( $rs->eBoxSubscribed() ) {
+        my $lastBackupStamp = 0;
+        if ( -r LAST_BACKUP_TIMESTAMP_FILE ) {
+            $lastBackupStamp = File::Slurp::read_file(LAST_BACKUP_TIMESTAMP_FILE);
+            chomp($lastBackupstamp);
+        }
+        # Make the conf backup if any change has been done to eBox
+        if ( $gl->lastModificationTime() > $lastBackupStamp ) {
+            my $backupService = new EBox::RemoteServices::Backup();
+            my $automatic = 1;
+            try {
+                $backupService->makeRemoteBackup('automatic-backup-' . time(),
+                                                 __('Automatic backup'),
+                                                 $automatic);
+                # Save the timestamp for later use
+                File::Slurp::write_file(LAST_BACKUP_TIMESTAMP_FILE, time());
+            } catch EBox::Exceptions::Base with {
+                my ($exc) = @_;
+                # Cannot make the backup, inform the user with an event
+                my $evtMod = $gl->modInstance('events');
+                my $msg = __x('Cannot make the automatic backup {reason}',
+                              reason =>  $exc->stringify());
+                try {
+                    $evtMod->sendEvent(message => $msg,
+                                       source  => 'automatic-backup',
+                                       level   => 'error');
+                } catch EBox::Exceptions::Base with {
+                    EBox::error($msg);
+                };
+            };
+        }
+    }
+
+}
+
+# MAIN
+
+# Get arguments
+my ($usage) = (0);
+my $correct = GetOptions(
+    'usage|help' => \$usage,
+   );
+
+if ( $usage or (not $correct)) {
+    pod2usage(1);
+}
+
+EBox::init();
+
+_makeConfBackup();
+
+__END__
+
+=head1 NAME
+
+ebox-automatic-conf-backup - Utility to make a configuration backup daily
+
+=head1 SYNOPSIS
+
+ebox-automatic-conf-backup [--usage|help]
+
+ Options:
+    --usage|help  Print this help and exit
+
+=cut
+

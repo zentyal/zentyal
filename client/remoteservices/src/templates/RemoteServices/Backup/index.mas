@@ -78,7 +78,7 @@ my $deleteImg = "/data/images/delete.gif";
 my @rows = map {
              my @row;
 	     my $name =  $_->{Filename};
-	     push @row, ( $name, $_->{Date}, $_->{Comment}, $_->{printableSize});
+	     push @row, ( $name, $_->{Date}, $_->{Comment}, $_->{printableSize});      
 	     # action element
 	     push @row, [
 			 {
@@ -102,7 +102,7 @@ my @rows = map {
 
 	     [@row]
 			
-          } values %backups; 
+          } sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups; 
 
 my @legendElements = (
 		      { 

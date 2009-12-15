@@ -37,6 +37,7 @@ use Encode qw( :all );
 use Error qw(:try);
 use File::Slurp qw(read_file write_file);
 use Apache2::RequestUtil;
+use POSIX;
 
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
 use constant LDAP          => "ldap://127.0.0.1";
@@ -621,6 +622,52 @@ sub objectClasses
     my $result = $self->search(\%attrs);
 
     return [ $result->pop_entry()->get_value('objectClass') ];
+}
+
+# Method: lastModificationTime
+#
+#     Get the last modification time for the directory
+#
+# Parameters:
+#
+#     fromTimestamp - String from timestamp to start the query from to
+#                     speed up the query. If the value is greater than
+#                     the LDAP last modification time, then it returns zero
+#                     *Optional* Default value: undef
+#
+# Returns:
+#
+#     Int - the timestamp in seconds since epoch
+#
+# Example:
+#
+#     $ldap->lastModificationTime('20091204132422Z') => 1259955547
+#
+sub lastModificationTime
+{
+    my ($self, $fromTimestamp) = @_;
+
+    my $filter = '(objectclass=*)';
+    if (defined($fromTimestamp)) {
+        $filter = "(&(objectclass=*)(modifyTimestamp>=$fromTimestamp))";
+    }
+
+    my $res = $self->search({base => $self->dn(), attrs => [ 'modifyTimestamp' ],
+                             filter => $filter });
+    # Order alphanumerically and the latest is the one whose timestamp
+    # is the last one
+    my @sortedEntries = $res->sorted('modifyTimestamp');
+    if ( scalar(@sortedEntries) == 0) {
+        # fromTimestamp given is greater than the current time, so we return 0
+        return 0;
+    }
+    my $lastStamp = $sortedEntries[-1]->get_value('modifyTimestamp');
+
+    # Convert to seconds since epoch
+    my ($year, $month, $day, $h, $m, $s) = 
+      $lastStamp =~ /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})Z/;
+    return POSIX::mktime( $s, $m, $h, $day - 1, $month -1, $year - 1900 );
+
 }
 
 sub _errorOnLdap

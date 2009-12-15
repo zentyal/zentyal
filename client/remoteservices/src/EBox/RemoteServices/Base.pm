@@ -29,6 +29,7 @@ use EBox::Global;
 use EBox::RemoteServices::SOAPClient;
 use EBox::Config;
 
+use Date::Calc::Object;
 use Error qw(:try);
 use Net::DNS;
 
@@ -304,6 +305,31 @@ sub _printableSize
     return $size . ' ' . (pop @units);
 }
 
+
+# Method: _sortableDate
+#
+#      Given a date in String format, try to transform to a sortable
+#      date using seconds from epoch
+#
+# Parameters:
+#
+#      date - String the date in string format
+#
+# Returns:
+#
+#      Int - the seconds since epoch using the given date as parameter
+#
+sub _sortableDate
+{
+    my ($self, $dateStr) = @_;
+
+    my ($strDay, $day, $monthStr, $year, $h, $m, $s) =
+      $dateStr =~ m/^([A-Za-z]{3}), ([0-9]{2}) ([A-Za-z]{3}) ([0-9]{4}) ([0-9]{2}):([0-9]{2}):([0-9]{2}).*$/;
+    my $date = new Date::Calc( $year, Date::Calc::Decode_Month($monthStr), $day,
+                               $h, $m, $s);
+    return $date->mktime();
+
+}
 
 # Group: Private methods
 

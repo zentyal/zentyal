@@ -47,6 +47,7 @@ use Digest::MD5;
 use constant {
     PRESAVE_SUBDIR  => EBox::Config::etc() . 'pre-save',
     POSTSAVE_SUBDIR => EBox::Config::etc() . 'post-save',
+    TIMESTAMP_KEY   => 'saved_timestamp',
 };
 
 
@@ -475,6 +476,8 @@ sub saveAllModules
         }
         if ($failed eq "") {
             $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
+            # Store a timestamp with the time of the ending
+            $self->st_set_int(TIMESTAMP_KEY, time());
             $progress->setAsFinished();
             return;
         }
@@ -842,6 +845,37 @@ sub sortModulesByDependencies
     return \@modules;
 }
 
+# Method: lastModificationTime
+#
+#      Return the latest modification time, this is the latest of
+#      these events:
+#
+#      - After finishing saving changes using <saveAllModules> call
+#      - After a modification in LDAP in users module is present and at
+#      least configured
+#
+# Returns:
+#
+#      Int - the lastModificationTime
+#
+sub lastModificationTime
+{
+    my ($self) = @_;
+
+    my $lastStamp = $self->st_get_int(TIMESTAMP_KEY);
+    $lastStamp = 0 unless defined($lastStamp);
+    if ( $self->modExists('users') ) {
+        my $usersMod = $self->modInstance('users');
+        if ( $usersMod->configured() ) {
+            my $ldapStamp = $usersMod->ldap()->lastModificationTime($lastStamp);
+            if ( $ldapStamp > $lastStamp ) {
+                $lastStamp = $ldapStamp;
+            }
+        }
+    }
+    return $lastStamp;
+
+}
 
 # Method: setLocale
 #
