@@ -867,7 +867,11 @@ sub lastModificationTime
     if ( $self->modExists('users') ) {
         my $usersMod = $self->modInstance('users');
         if ( $usersMod->configured() ) {
-            my $ldapStamp = $usersMod->ldap()->lastModificationTime($lastStamp);
+            my ($sec, $min, $hour, $mday, $mon, $year) = localtime($lastStamp);
+            my $lastStampStr = sprintf('%04d%02d%02d%02d%02d%02dZ',
+                                       ($year + 1900, $mon + 1, $mday + 1, $hour,
+                                        $min, $sec));
+            my $ldapStamp = $usersMod->ldap()->lastModificationTime($lastStampStr);
             if ( $ldapStamp > $lastStamp ) {
                 $lastStamp = $ldapStamp;
             }
