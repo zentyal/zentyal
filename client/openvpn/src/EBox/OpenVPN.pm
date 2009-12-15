@@ -1695,20 +1695,13 @@ sub report
 
     $report->{'connections'} = {};
 
-    $report->{'connections'}->{'client'} = $self->runMonthlyQuery($beg, $end, {
+    $report->{'connections'} = $self->runMonthlyQuery($beg, $end, {
         'select' => 'daemon_type, SUM(connections) AS connections',
         'from' => 'openvpn_report',
-        'where' => "daemon_type = 'client'",
+        'where' => "certificate NOT LIKE '%.ebox-services.com' AND
+                    certificate NOT LIKE '%.ebox-controlcenter.com'",
         'group' => 'daemon_type'
-    });
-    $report->{'connections'}->{'server'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'daemon_type, SUM(connections) AS connections',
-        'from' => 'openvpn_report',
-        'where' => "daemon_type = 'server'",
-        'group' => 'daemon_type'
-    });
-
-
+    }, { 'key' => 'daemon_type' } );
 
     $report->{'top_users'} = $self->runQuery($beg, $end, {
         'select' => 'certificate AS user, SUM(connections) AS connections',
