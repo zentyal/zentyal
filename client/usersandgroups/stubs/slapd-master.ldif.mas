@@ -8,6 +8,15 @@ changetype: modify
 add: olcModuleLoad
 olcModuleLoad: syncprov
 
+dn: olcDatabase={1}hdb,cn=config
+changetype: modify
+replace: olcDbIndex
+olcDbIndex: objectclass eq
+olcDbIndex: entryCSN eq
+olcDbIndex: entryUUID eq
+olcDbIndex: uid eq
+olcDbIndex: memberUid eq
+
 dn: olcOverlay=syncprov,olcDatabase={1}hdb,cn=config
 objectClass: olcOverlayConfig
 objectClass: olcSyncProvConfig

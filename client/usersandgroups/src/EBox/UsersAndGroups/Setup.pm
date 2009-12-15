@@ -181,21 +181,9 @@ sub master
 	my $defaultGroup = $users->defaultGroup();
 	$users->addGroup($defaultGroup, 'All users', 1);
 
-    setupSyncProvider();
     EBox::Sudo::root("invoke-rc.d slapd restart");
 
     createJournalsDirs();
-}
-
-sub setupSyncProvider
-{
-    # add indexes for entryCNS and entryUUID
-    my $dn = 'olcDatabase={1}hdb,cn=config';
-    my %args = (
-        replace => [ 'olcDbIndex' => ['objectclass eq',
-                                      'entryCSN eq',
-                                      'entryUUID eq'] ],
-    );
 }
 
 # create parent dirs for slave's journals 
@@ -204,7 +192,7 @@ sub createJournalsDirs
     my $users = EBox::Global->modInstance('users');
     my $journalDirs   = $users->_journalsDir();
     (-d $journalDirs) or EBox::Sudo::command("mkdir -p $journalDirs");
-    
+
     my $usercornerDir = EBox::UserCorner::usercornerdir() .
                         "userjournal";
     if (not -d $usercornerDir) {
