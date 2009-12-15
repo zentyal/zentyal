@@ -1,5 +1,5 @@
 HEAD
-        + Don't allow to enable public_html directories if samba modules
+	+ Don't allow to enable public_html directories if samba modules
 	is not configured because in this situation there aren't user home directories
 1.3.6
 	+ Better validation of virtual host names
