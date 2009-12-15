@@ -119,17 +119,13 @@ sub _allModulesWithConsolidation
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance();
+    my $logs = EBox::Global->modInstance('logs');
 
 
     my @modNames;
-    my @mods =  @{  $global->modInstancesOfType('EBox::LogObserver')  };
+    my @mods = @{ $logs->getLogsModules() };
 
     foreach my $mod (@mods) {
-        if (not $mod->configured()) {
-            next;
-        }
-
         my $name = $mod->name();
 
         my $consolidate = @{  $self->_tableInfosFromMod($name, 1) };

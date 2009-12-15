@@ -251,7 +251,7 @@ sub getLogsModules
 {
     my $global = EBox::Global->getInstance();
 
-    return $global->modInstancesOfType('EBox::LogObserver');
+    return [grep { $_->configured() } @{$global->modInstancesOfType('EBox::LogObserver')}];
 }
 
 sub getAllTables

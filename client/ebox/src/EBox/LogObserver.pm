@@ -175,7 +175,7 @@ sub humanEventMessage
 
 # Method: reportUrls
 #
-#     this  return the nodule's rows for the SelectLog table.
+#     this  return the module's rows for the SelectLog table.
 sub reportUrls
 {
     my ($self) = @_;

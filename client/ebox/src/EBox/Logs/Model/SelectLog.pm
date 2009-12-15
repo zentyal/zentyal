@@ -53,7 +53,8 @@ sub ids
     my ($self) = @_;
 
     my @ids;
-    my @mods = @{ EBox::Global->modInstancesOfType('EBox::LogObserver') };
+    my $logs = EBox::Global->modInstance('logs');
+    my @mods = @{ $logs->getLogsModules() };
     my $idx = 0;
     foreach my $mod (@mods) {
         foreach my $urlGroup (@{ $mod->reportUrls }) {
@@ -78,7 +79,8 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my @mods = @{ EBox::Global->modInstancesOfType('EBox::LogObserver') };
+    my $logs = EBox::Global->modInstance('logs');
+    my @mods = @{ $logs->getLogsModules() };
     my $idx = 0;
     my $rowValues;
     foreach my $mod (@mods) {
