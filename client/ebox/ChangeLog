@@ -1,4 +1,5 @@
 HEAD
+	+ Bug fix: Add migration to create language plpgsql in database
 	+ Bug fix: Add missing script for report log consolidation
 	+ Bug fix: Don't show modules in logs if they are not configured. This
 	  prevents some crashes when modules need information only available when
