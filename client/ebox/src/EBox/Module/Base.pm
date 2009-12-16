@@ -1248,30 +1248,32 @@ sub consolidateReportFromLogs
                 $query->{'where'} = $new_where;
 
                 my $results = $db->query_hash($query);
-                my @fields = keys(%{@{$results}[0]});
-                my @groupFields = split(/ *, */,$query->{'group'});
-                for my $r (@{$results}) {
-                    my @where;
-                    for my $f (@groupFields) {
-                        push(@where, $f . " = '" . $r->{$f} . "'");
-                    }
-                    push(@where, "date = '$year-$month-01'");
-                    my $res = $db->query_hash({
-                        'from' => $target_table,
-                        'where' => join(' AND ', @where)
-                    });
-                    if (@{$res}) {
-                        my $row = shift(@{$res});
-                        my $new_row = {};
-                        for my $k (keys %$r) {
-                            if(!grep(/^$k$/, @groupFields)) {
-                                $new_row->{$k} = $row->{$k} + $r->{$k};
-                            }
+                if (@{$results}) {
+                    my @fields = keys(%{@{$results}[0]});
+                    my @groupFields = split(/ *, */,$query->{'group'});
+                    for my $r (@{$results}) {
+                        my @where;
+                        for my $f (@groupFields) {
+                            push(@where, $f . " = '" . $r->{$f} . "'");
                         }
-                        $db->update($target_table, $new_row, \@where);
-                    } else {
-                        $r->{'date'} = "$year-$month-01";
-                        $db->insert($target_table, $r);
+                        push(@where, "date = '$year-$month-01'");
+                        my $res = $db->query_hash({
+                            'from' => $target_table,
+                            'where' => join(' AND ', @where)
+                        });
+                        if (@{$res}) {
+                            my $row = shift(@{$res});
+                            my $new_row = {};
+                            for my $k (keys %$r) {
+                                if(!grep(/^$k$/, @groupFields)) {
+                                    $new_row->{$k} = $row->{$k} + $r->{$k};
+                                }
+                            }
+                            $db->update($target_table, $new_row, \@where);
+                        } else {
+                            $r->{'date'} = "$year-$month-01";
+                            $db->insert($target_table, $r);
+                        }
                     }
                 }
                 $db->update('report_consolidation',
@@ -1382,49 +1384,51 @@ sub consolidateReportInfo
                 $query->{'where'} = $max_where;
 
                 my $results = $db->query_hash($query);
-                my @fields = keys(%{@{$results}[0]});
-                if (defined($query->{'key'})) {
-                    my @keyFields = split(/ *, */,$query->{'key'});
-                    for my $r (@{$results}) {
-                        my @where;
-                        for my $f (@keyFields) {
-                            push(@where, $f . " = '" . $r->{$f} . "'");
+                if (@{$results}) {
+                    my @fields = keys(%{@{$results}[0]});
+                    if (defined($query->{'key'})) {
+                        my @keyFields = split(/ *, */,$query->{'key'});
+                        for my $r (@{$results}) {
+                            my @where;
+                            for my $f (@keyFields) {
+                                push(@where, $f . " = '" . $r->{$f} . "'");
+                            }
+                            push(@where, "date = '$year-$month-01'");
+                            my $res = $db->query_hash({
+                                'from' => $target_table,
+                                'where' => join(' AND ', @where)
+                            });
+                            if (@{$res}) {
+                                my $new_row = {};
+                                for my $k (keys %$r) {
+                                    if(!grep(/^$k$/, @keyFields)) {
+                                        $new_row->{$k} = $r->{$k};
+                                    }
+                                }
+                                $db->update($target_table, $new_row, \@where);
+                            } else {
+                                $r->{'date'} = "$year-$month-01";
+                                $db->insert($target_table, $r);
+                            }
                         }
-                        push(@where, "date = '$year-$month-01'");
-                        my $res = $db->query_hash({
-                            'from' => $target_table,
-                            'where' => join(' AND ', @where)
-                        });
-                        if (@{$res}) {
-                            my $new_row = {};
-                            for my $k (keys %$r) {
-                                if(!grep(/^$k$/, @keyFields)) {
+                    } else {
+                        for my $r (@{$results}) {
+                            my @where;
+                            push(@where, "date = '$year-$month-01'");
+                            my $res = $db->query_hash({
+                                'from' => $target_table,
+                                'where' => join(' AND ', @where)
+                            });
+                            if (@{$res}) {
+                                my $new_row = {};
+                                for my $k (keys %$r) {
                                     $new_row->{$k} = $r->{$k};
                                 }
+                                $db->update($target_table, $new_row, \@where);
+                            } else {
+                                $r->{'date'} = "$year-$month-01";
+                                $db->insert($target_table, $r);
                             }
-                            $db->update($target_table, $new_row, \@where);
-                        } else {
-                            $r->{'date'} = "$year-$month-01";
-                            $db->insert($target_table, $r);
-                        }
-                    }
-                } else {
-                    for my $r (@{$results}) {
-                        my @where;
-                        push(@where, "date = '$year-$month-01'");
-                        my $res = $db->query_hash({
-                            'from' => $target_table,
-                            'where' => join(' AND ', @where)
-                        });
-                        if (@{$res}) {
-                            my $new_row = {};
-                            for my $k (keys %$r) {
-                                $new_row->{$k} = $r->{$k};
-                            }
-                            $db->update($target_table, $new_row, \@where);
-                        } else {
-                            $r->{'date'} = "$year-$month-01";
-                            $db->insert($target_table, $r);
                         }
                     }
                 }
