@@ -7,7 +7,7 @@ HEAD
 	  eBox configuration was modified for last time
 1.3.11
 	+ Support customFilter in models for big tables
-	+ Added EBox::Events::sendEvent method to send methods using Perl
+	+ Added EBox::Events::sendEvent method to send events using Perl
 	  code (used by ebackup module)
 	+ Bug fix: EBox::Type::Service::cmp now works when only the
 	  protocols are different
