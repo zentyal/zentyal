@@ -83,7 +83,7 @@ sub _table
             printableName => __('Master host'),
             editable => 1,
             optional => 1,
-            help => __('Only for slave configuration: IP of the master eBox or Windows')
+            help => __('Only for slave configuration: IP of the master eBox or Windows AD')
         ),
         new EBox::Types::Password (
             fieldName => 'password',
