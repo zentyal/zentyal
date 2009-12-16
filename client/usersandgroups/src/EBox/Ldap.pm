@@ -666,7 +666,7 @@ sub lastModificationTime
     # Convert to seconds since epoch
     my ($year, $month, $day, $h, $m, $s) = 
       $lastStamp =~ /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})Z/;
-    return POSIX::mktime( $s, $m, $h, $day - 1, $month -1, $year - 1900 );
+    return POSIX::mktime( $s, $m, $h, $day, $month -1, $year - 1900 );
 
 }
 
