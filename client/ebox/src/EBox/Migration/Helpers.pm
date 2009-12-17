@@ -4,6 +4,16 @@ use warnings;
 
 use EBox;
 
+# SQL helpers
+
+sub runQuery
+{
+    my ($query) = @_;
+
+    my $cmd = qq{echo "$query" | sudo su postgres -c 'psql eboxlogs' > /dev/null 2>&1};
+    system $cmd;
+}
+
 sub renameTable
 {
     my ($oldTable, $newTable) = @_;
@@ -16,14 +26,53 @@ sub renameTable
         "DROP TABLE $newTable" . "_new"
     );
 
-    my $cmd = qq{echo "$exists_query" | sudo su postgres -c 'psql eboxlogs' > /dev/null 2>&1};
-    system $cmd;
+    runQuery($exists_query);
     if ($? == 0) {
         for my $q (@queries) {
-            $cmd = qq{echo "$q" | sudo su postgres -c 'psql eboxlogs' > /dev/null 2>&1};
-            system $cmd;
+            runQuery($q);
         }
     }
+}
+
+sub renameConsolidationTable
+{
+    my ($oldTable, $newTable) = @_;
+
+    my @types = ('hourly', 'daily', 'weekly', 'monthly');
+
+    for my $t (@types) {
+        renameTable($oldTable . "_$t", $newTable . "_$t");
+    }
+}
+
+sub renameField
+{
+    my ($table, $oldField, $newField) = @_;
+
+    my $query = "ALTER TABLE $table RENAME COLUMN $oldField TO $newField";
+    runQuery($query);
+}
+
+sub createIndex
+{
+    my ($table, $field) = @_;
+
+    my $query = "CREATE INDEX $table" . "_$field" . "_i ON $table($field)";
+    runQuery($query);
+}
+
+sub createTimestampIndex
+{
+    my ($table) = @_;
+    createIndex($table, 'timestamp');
+}
+
+sub dropIndex
+{
+    my ($index) = @_;
+
+    my $query = "DROP INDEX $index"; 
+    runQuery($query);
 }
 
 1;
