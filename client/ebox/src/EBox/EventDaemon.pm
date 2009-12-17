@@ -592,7 +592,7 @@ sub _insertEventInLog
     my $timeStmp = $event->strTimestamp();
 
     my $values = {
-        firstTimestamp => $timeStmp,
+        timestamp => $timeStmp,
         lastTimestamp  => $timeStmp,
 
         level     => $event->level(),
