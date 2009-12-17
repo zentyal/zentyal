@@ -1,4 +1,6 @@
 HEAD
+	+ Added EBox::MigrationHelpers to include migration helpers, for now,
+	  include a db table renaming one
 	+ Bug fix: Fix mismatch in event table field names
 	+ Bug fix: Add migration to create language plpgsql in database
 	+ Bug fix: Add missing script for report log consolidation

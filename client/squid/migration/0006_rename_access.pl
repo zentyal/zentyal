@@ -14,27 +14,11 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Global;
+use EBox::MigrationHelpers;
 
 sub runGConf
 {
-    my ($self) = @_;
-
-    my $exists_query = "SELECT COUNT(*) FROM access";
-    my @queries = (
-        "ALTER TABLE squid_access RENAME TO squid_access_new",
-        "ALTER TABLE access RENAME TO squid_access",
-        "INSERT INTO squid_access SELECT * FROM squid_access_new",
-        "DROP TABLE squid_access_new"
-    );
-
-    my $cmd = qq{echo "$exists_query" | sudo su postgres -c 'psql eboxlogs' > /dev/null 2>&1};
-    system $cmd;
-    if ($? == 0) {
-        for my $q (@queries) {
-            $cmd = qq{echo "$q" | sudo su postgres -c 'psql eboxlogs' > /dev/null 2>&1};
-            system $cmd;
-        }
-    }
+    EBox::MigrationHelpers::renameTable('access', 'squid_access');
 }
 
 EBox::init();
