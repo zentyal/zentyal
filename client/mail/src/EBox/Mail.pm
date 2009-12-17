@@ -1678,12 +1678,12 @@ sub report
     },
     'domain_from',
     {
-        'select' => 'domain_to AS domain, SUM(bytes) AS bytes, SUM(messages) AS messages',
+        'select' => 'domain_to AS domain, SUM(bytes) AS traffic_bytes, SUM(messages) AS messages',
         'from' => 'mail_report',
         'where' => "event = 'msgsent' AND (message_type = 'sent' OR message_type = 'internal') AND domain_from = '_domain_from_'",
         'group' => 'domain',
         'limit' => $options->{'max_domains_top_sent_mail_domains_by_domain'},
-        'order' => 'bytes DESC'
+        'order' => 'traffic_bytes DESC'
     });
 
     $report->{'top_received_mail_domains_by_domain'} = $self->runCompositeQuery(
@@ -1696,12 +1696,12 @@ sub report
     },
     'domain_to',
     {
-        'select' => 'domain_from AS domain, SUM(bytes) AS bytes, SUM(messages) AS messages',
+        'select' => 'domain_from AS domain, SUM(bytes) AS traffic_bytes, SUM(messages) AS messages',
         'from' => 'mail_report',
         'where' => "event = 'msgsent' AND (message_type = 'received' OR message_type = 'internal') AND domain_to = '_domain_to_'",
         'group' => 'domain',
         'limit' => $options->{'max_domains_top_received_mail_domains_by_domain'},
-        'order' => 'bytes DESC'
+        'order' => 'traffic_bytes DESC'
     });
 
     return $report;

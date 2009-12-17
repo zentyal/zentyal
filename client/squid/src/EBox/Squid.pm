@@ -1169,12 +1169,12 @@ sub report
     }, { 'key' => 'event' });
 
     $report->{'top_domains'} = $self->runQuery($beg, $end, {
-        'select' => 'domain, SUM(bytes) AS bytes, SUM(hits) AS hits',
+        'select' => 'domain, SUM(bytes) AS traffic_bytes, SUM(hits) AS hits',
         'from' => 'squid_access_report',
         'where' => "event = 'accepted'",
         'group' => 'domain',
         'limit' => $options->{'max_top_domains'},
-        'order' => 'bytes DESC'
+        'order' => 'traffic_bytes DESC'
     });
 
     $report->{'top_blocked_domains'} = $self->runQuery($beg, $end, {
@@ -1187,12 +1187,12 @@ sub report
     });
 
     $report->{'top_ips'} = $self->runQuery($beg, $end, {
-        'select' => 'ip, SUM(bytes) AS bytes, SUM(hits) AS hits',
+        'select' => 'ip, SUM(bytes) AS traffic_bytes, SUM(hits) AS hits',
         'from' => 'squid_access_report',
         'where' => "event = 'accepted'",
         'group' => 'ip',
         'limit' => $options->{'max_top_ips'},
-        'order' => 'bytes DESC'
+        'order' => 'traffic_bytes DESC'
     });
 
     $report->{'top_blocked_ips'} = $self->runQuery($beg, $end, {
@@ -1205,12 +1205,12 @@ sub report
     });
 
     $report->{'top_users'} = $self->runQuery($beg, $end, {
-        'select' => 'username, SUM(bytes) AS bytes, SUM(hits) AS hits',
+        'select' => 'username, SUM(bytes) AS traffic_bytes, SUM(hits) AS hits',
         'from' => 'squid_access_report',
         'where' => "event = 'accepted' AND username <> '-'",
         'group' => 'username',
         'limit' => $options->{'max_top_users'},
-        'order' => 'bytes DESC'
+        'order' => 'traffic_bytes DESC'
     });
 
     $report->{'top_blocked_users'} = $self->runQuery($beg, $end, {
@@ -1233,12 +1233,12 @@ sub report
     },
     'username',
     {
-        'select' => 'domain, SUM(bytes) AS bytes, SUM(hits) AS hits',
+        'select' => 'domain, SUM(bytes) AS traffic_bytes, SUM(hits) AS hits',
         'from' => 'squid_access_report',
         'where' => "event = 'accepted' AND username = '_username_'",
         'group' => 'domain',
         'limit' => $options->{'max_domains_top_domains_by_user'},
-        'order' => 'bytes DESC'
+        'order' => 'traffic_bytes DESC'
     });
 
     return $report;
