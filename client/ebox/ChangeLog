@@ -6,6 +6,8 @@ HEAD
 	  configured, such as mail which holds the vdomains in LDAP
 	+ Added method EBox::Global::lastModificationTime to know when
 	  eBox configuration was modified for last time
+	+ Bug fix: in Loggerd files are only parsed one time regardless of
+	  how many LogHelper reference them
 1.3.11
 	+ Support customFilter in models for big tables
 	+ Added EBox::Events::sendEvent method to send events using Perl
