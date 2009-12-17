@@ -23,7 +23,7 @@ sub runGConf
         "DROP INDEX timestamp_i",
         "ALTER TABLE message RENAME TO mail_message",
         "ALTER TABLE mail_message RENAME COLUMN postfix_date TO timestamp",
-        "CREATE INDEX timestamp_i ON mail_message(timestamp)"
+        "CREATE INDEX mail_message_timestamp_i ON mail_message(timestamp)"
     );
     for my $sql (@sqls) {
         my $cmd = qq{echo "$sql" | sudo su postgres -c'psql eboxlogs' > /dev/null 2>&1};
