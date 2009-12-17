@@ -28,7 +28,7 @@ use strict;
 use warnings;
 
 package EBox::Migration;
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 use strict;
 use warnings;
