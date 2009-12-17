@@ -36,7 +36,7 @@ EBox::init();
 my $mod = EBox::Global->modInstance('mail');
 my $migration = new EBox::Migration(
 				    'gconfmodule' => $mod,
-				    'version' => 5,
+				    'version' => 6,
 				   );
 
 $migration->execute();
