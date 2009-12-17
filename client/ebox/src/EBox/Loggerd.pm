@@ -90,21 +90,30 @@ sub _prepare # (fifo)
     my ($self) = @_;
 
     my @loghelpers = @{$self->{'loghelpers'}};
+    my %tailByFile;
     for my $obj (@loghelpers) {
         for my $file (@{$obj->logFiles()}) {
             my $tail;
-            my $skip = 0;
-            try {
-                $tail = File::Tail->new(name => $file,
-                                        interval => 1, maxinterval => 5,
-                                        ignore_nonexistant => 1,
-                                        errmode => 'return');
-            } otherwise {
-                EBox::warn("Error creating File::Tail on $file: $@");
-                $skip = 1;
-            };
-            next if $skip;
-            push @{$self->{'filetails'}}, $tail;
+            if (exists $tailByFile{$file}) {
+                $tail = $tailByFile{$file};
+            } else {
+                my $skip = 0;
+                try {
+                    $tail = File::Tail->new(name => $file,
+                                            interval => 1, maxinterval => 5,
+                                            ignore_nonexistant => 1,
+                                            errmode => 'return');
+                } otherwise {
+                    EBox::warn("Error creating File::Tail on $file: $@");
+                    $skip = 1;
+                };
+                next if $skip;
+                
+                $tailByFile{$file} = $tail;
+                push @{$self->{'filetails'}}, $tail;
+            }
+
+  
             push @{$self->{'objects'}->{$file}}, $obj;
         }
     }
