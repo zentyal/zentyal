@@ -15,7 +15,7 @@ use EBox::Gettext;
 use EBox::Sudo;
 use Error qw(:try);
 
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 sub runGConf
 {

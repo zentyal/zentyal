@@ -7,7 +7,7 @@
 # depening on if certain mail service is enabled or not
 #
 package EBox::Migration;
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 use strict;
 use warnings;

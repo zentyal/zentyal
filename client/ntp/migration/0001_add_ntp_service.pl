@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 package EBox::Migration;
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 use strict;
 use warnings;
@@ -12,7 +12,7 @@ use EBox::Gettext;
 use Error qw(:try);
 
 
-# XXX remove when this block is included in EBox::MigrationBase
+# XXX remove when this block is included in EBox::Migration::Base
 
 # Method: addInternalService
 #

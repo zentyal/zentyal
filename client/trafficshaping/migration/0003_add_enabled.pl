@@ -65,14 +65,14 @@ use warnings;
 use EBox;
 use EBox::Global;
 
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 # Constants
 use constant DEFAULT_ENABLED => 1;
 
 # Constructor: new
 #
-#      Overrides at <EBox::MigrationBase::new> method
+#      Overrides at <EBox::Migration::Base::new> method
 #
 # Returns:
 #
@@ -91,7 +91,7 @@ sub new
 
 # Method: runGConf
 #
-#       Overrides <EBox::MigrationBase::runGConf> method
+#       Overrides <EBox::Migration::Base::runGConf> method
 #
 sub runGConf
 {

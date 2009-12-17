@@ -11,7 +11,7 @@
 #   We only add the rule if the user has not added any output rule.
 #
 package EBox::Migration;
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 use strict;
 use warnings;

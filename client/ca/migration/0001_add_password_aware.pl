@@ -34,13 +34,13 @@ use EBox::Global;
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 use constant DEFAULT_PASS_REQUIRED  => 0;
 
 # Constructor: new
 #
-#      Overrides at <EBox::MigrationBase::new> method
+#      Overrides at <EBox::Migration::Base::new> method
 #
 # Returns:
 #
@@ -61,7 +61,7 @@ sub new
 #
 # Overrides:
 #
-#       <EBox::MigrationBase::runGConf>
+#       <EBox::Migration::Base::runGConf>
 #
 sub runGConf
 {

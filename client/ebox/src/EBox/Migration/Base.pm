@@ -1,4 +1,4 @@
-package EBox::MigrationBase;
+package EBox::Migration::Base;
 use strict;
 use warnings;
 use EBox;

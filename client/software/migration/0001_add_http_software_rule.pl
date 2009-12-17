@@ -5,7 +5,7 @@
 #   service to the Output rules
 
 package EBox::Migration;
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 use strict;
 use warnings;

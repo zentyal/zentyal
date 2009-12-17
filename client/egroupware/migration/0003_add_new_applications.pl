@@ -18,7 +18,7 @@ use EBox::Model::ModelManager;
 use Socket;
 use Error qw(:try);
 
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 use constant NEW_APPS => ('groupdav',
                           'egw-pear',

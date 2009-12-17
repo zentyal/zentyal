@@ -14,7 +14,7 @@ use EBox::Global;
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 use constant DEFAULT_WEIGHT => '1';
 use constant DEFAULT_NAME => 'default';

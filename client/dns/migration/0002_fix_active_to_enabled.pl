@@ -27,7 +27,7 @@ package EBox::Migration;
 use strict;
 use warnings;
 
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 use EBox;
 use EBox::Global;
@@ -54,7 +54,7 @@ sub new
 #
 # Overrides:
 #
-#     <EBox::MigrationBase::runGConf>
+#     <EBox::Migration::Base::runGConf>
 #
 sub runGConf
 {

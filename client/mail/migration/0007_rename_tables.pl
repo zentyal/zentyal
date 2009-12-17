@@ -14,11 +14,11 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Global;
-use EBox::MigrationHelpers;
+use EBox::Migration::Helpers;
 
 sub runGConf
 {
-    EBox::MigrationHelpers::renameTable('mail', 'mail_message');
+    EBox::Migration::Helpers::renameTable('mail', 'mail_message');
 }
 
 EBox::init();

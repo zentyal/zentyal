@@ -17,7 +17,7 @@ use EBox::Validate qw(:all);
 
 use Error qw(:try);
 
-use base 'EBox::MigrationBase';
+use base 'EBox::Migration::Base';
 
 sub new
 {

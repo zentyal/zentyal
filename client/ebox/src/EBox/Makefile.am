@@ -20,7 +20,7 @@ authutildir =  @PERLPATH@/EBox
 nobase_authutil_DATA = ThirdParty/Apache2/AuthCookie/Util.pm
 
 SUBDIRS = Backup CGI Common Dashboard GConfModule interactiveTest Event Events Global Logs \
-	Model ProgressIndicator Report t Test Types Module Util View
+	Migration Model ProgressIndicator Report t Test Types Module Util View
 
 SOURCES = $(nobase_perl_DATA)
 
