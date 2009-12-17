@@ -21,6 +21,7 @@ sub runGConf
     EBox::Migration::Helpers::dropIndex('timestamp_i');
     EBox::Migration::Helpers::renameField('message', 'postfix_date', 'timestamp');
     EBox::Migration::Helpers::renameTable('message', 'mail_message');
+    EBox::Migration::Helpers::renameConsolidationTable('mail_traffic', 'mail_message_traffic');
     EBox::Migration::Helpers::createTimestampIndex('mail_message');
 }
 
