@@ -145,7 +145,7 @@ sub _table
   my $dataTable =
     {
      tableName          => __PACKAGE__->nameFromClass,
-     printableTableName => __(q{Virtual domains configuration}),
+     printableTableName => __(q{Virtual Domains}),
      modelDomain        => 'mail',
      'defaultController' => '/ebox/MailFilter/Controller/VDomains',
      'defaultActions' => [

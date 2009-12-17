@@ -50,6 +50,7 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 	my %opts = @_;
 	my $self = {};
 	$self->{title} = delete $opts{title};
+	$self->{crumbs} = delete $opts{crumbs};
 	$self->{olderror} = delete $opts{error};
 	$self->{msg} = delete $opts{msg};
 	$self->{cgi} = delete $opts{cgi};
@@ -84,13 +85,13 @@ sub _title
 	my $self = shift;
 
 	my $title = $self->{title};
-	defined $title or $title = '';
+	my $crumbs = $self->{crumbs};
 
 	my $filename = EBox::Config::templates . '/title.mas';
 	my $interp = $self->_masonInterp();
 	my $comp = $interp->make_component(comp_file => $filename);
 
-	my @params = ( 'title' => $title);
+	my @params = (title => $title, crumbs => $crumbs);
 
 	settextdomain('ebox');
 	$interp->exec($comp, @params);

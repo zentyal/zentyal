@@ -67,8 +67,8 @@ sub _table
   my $dataTable =
   {
       tableName          => name(),
-      pageTitle          => __(q{Filter profiles}),
-#      printableTableName => __('List of groups'),
+      pageTitle         => __('Filter profiles'),
+      printableTableName => __('List of profiles'),
       modelDomain        => 'Squid',
       'defaultController' => '/ebox/Squid/Controller/FilterGroup',
       'defaultActions' => [

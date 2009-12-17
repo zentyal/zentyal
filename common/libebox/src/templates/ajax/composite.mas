@@ -16,7 +16,7 @@
   use Data::Dumper;
 </%init>
 <& .pageTitle,
-   title => $model->pageTitle()
+   crumbs => $model->HTMLTitle()
 &>
 <& .headTitle,
    title => $model->headTitle()
@@ -81,13 +81,11 @@
 </%doc>
 <%def .pageTitle>
 <%args>
-  $title => undef
+  $crumbs => undef
 </%args>
-% if ($title) {
 <& /title.mas,
-    title => $title
+    crumbs => $crumbs 
 &>
-% }
 </%def>
 
 <%doc>

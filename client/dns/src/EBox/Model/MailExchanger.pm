@@ -173,6 +173,17 @@ sub _table
     return $dataTable;
 }
 
+# Method: pageTitle
+#
+#   Overrides <EBox::Model::DataTable::pageTitle>
+#   to show the name of the domain
+sub pageTitle
+{
+        my ($self) = @_;
+
+        return $self->parentRow()->printableValueByName('domain');
+}
+
 # Group: Private methods
 
 # Get the hostname model from DNS module
@@ -188,5 +199,8 @@ sub _hostnameModel
     $model->setDirectory($dir);
     return $model;
 }
+
+
+
 
 1;

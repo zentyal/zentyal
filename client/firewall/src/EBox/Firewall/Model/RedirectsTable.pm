@@ -351,7 +351,8 @@ sub _table
     {
         'tableName' => 'RedirectsTable',
         'printableTableName' =>
-          __('Port redirections'),
+          __('List of forwarded ports'),
+        'pageTitle' => __('Port Forwading'),
         'automaticRemove' => 1,
         'defaultController' =>
             '/ebox/Firewall/Controller/RedirectsTable',

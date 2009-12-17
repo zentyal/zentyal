@@ -73,7 +73,7 @@ sub _description
                                ],
             layout          => 'tabbed',
             name            =>  __PACKAGE__->nameFromClass,
-            printableName   => __('eGroupware Configuration'),
+            pageTile => __('eGroupware'),
             compositeDomain => 'EGroupware',
             help            => __('Once the module is enabled and you have created a user account, you can access the eGroupware web interface at http://<ebox_ip>/egroupware'),
         };

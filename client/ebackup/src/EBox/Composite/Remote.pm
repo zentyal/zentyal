@@ -61,7 +61,7 @@ sub _description
                            ],
         layout          => 'tabbed',
         name            => __PACKAGE__->nameFromClass,
-        printableName   => __('Backup module'),
+        pageTitle       => __('Backup module'),
         compositeDomain => 'EBackup',
     };
 

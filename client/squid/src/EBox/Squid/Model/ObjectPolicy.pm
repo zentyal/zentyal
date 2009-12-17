@@ -106,8 +106,9 @@ sub _table
   my $dataTable =
   {
       tableName          => name(),
-      pageTitle          => __(q{Configure network objects' policies}),
+      pageTitle          => __('Object Policies'),
       printableTableName => __('List of objects'),
+      HTTPUrlView        => 'Squid/View/ObjectPolicy',
       modelDomain        => 'Squid',
       'defaultController' => '/ebox/Squid/Controller/ObjectPolicy',
       'defaultActions' => [

@@ -42,7 +42,7 @@ use strict;
 use warnings;
 
 
-use base qw(EBox::Model::DataTable EBox::Firewall::Model::BaseRuleTable) ;
+use base qw(EBox::Firewall::Model::BaseRuleTable) ;
 
 
 sub new
@@ -65,7 +65,7 @@ sub _table
     {
         'tableName' => 'ExternalToEBoxRuleTable',
         'printableTableName' =>
-          __('Filtering rules from  external networks to eBox'),
+          __('External networks to eBox'),
         'automaticRemove' => 1,
         'defaultController' =>
             '/ebox/Firewall/Controller/ExternalToEBoxRuleTable',

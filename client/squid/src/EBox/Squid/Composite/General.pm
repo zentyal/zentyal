@@ -73,7 +73,7 @@ sub _description
                             ],
          layout          => 'top-bottom',
          name            => 'General',
-         printableName   => __('HTTP Proxy'),
+         pageTitle => __('HTTP Proxy'),
          compositeDomain => 'Squid',
 #         help            => __(''),
         };

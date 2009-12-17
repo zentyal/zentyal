@@ -75,6 +75,7 @@ sub _description
          layout          => 'tabbed',
          name            =>  __PACKAGE__->nameFromClass,
          printableName   => __('Mail server options'),
+         pageTitle       => __('Mail server'),
          compositeDomain => 'Mail',
 #         help            => __(''),
         };

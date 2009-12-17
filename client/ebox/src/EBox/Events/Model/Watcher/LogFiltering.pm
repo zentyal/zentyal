@@ -193,4 +193,36 @@ sub _table
 
 }
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to
+#   provide a custom HTML title with breadcrumbs
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $custom =  $self->SUPER::viewCustomizer();
+    my $parentDir =$self->directory();
+    my @split = split('/', $parentDir);
+    $parentDir = join('/', splice(@split, 0, 4));
+
+    $custom->setHTMLTitle([
+            {
+            title => __('Events'),
+            link  => '/ebox/Events/Composite/GeneralComposite',
+            },
+            {
+            title => __('Log Observer Watcher'),
+            link  => "/ebox/Events/View/LogWatcherConfiguration?directory=$parentDir",
+            },
+            {
+            title => $self->{tableInfo}->{name},
+            link => ''
+            },
+            ]);
+
+    return $custom;
+}
+
 1;

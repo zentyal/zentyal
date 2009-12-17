@@ -61,7 +61,7 @@ sub _description
                            ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
-        printableName   => __('RADIUS module'),
+        pageTitle       => __('RADIUS'),
         compositeDomain => 'Radius',
     };
 

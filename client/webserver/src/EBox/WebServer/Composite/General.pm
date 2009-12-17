@@ -77,7 +77,8 @@ sub _description
                           ],
        layout          => 'top-bottom',
        name            => 'General',
-       printableName   => __('Web service'),
+       printableName   => __('Configuration'),
+       pageTitle       => __('Web Server'),
        compositeDomain => 'Web',
        help            => __('The eBox web service allows you ' .
                              'to host Web pages in plain HTML ' .

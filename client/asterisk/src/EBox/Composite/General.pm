@@ -64,6 +64,7 @@ sub _description
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
         printableName   => __('Asterisk module'),
+        pageTitle       => __('VoIP'),
         compositeDomain => 'Asterisk',
     };
 

@@ -31,7 +31,7 @@ use EBox::Gettext;
 #
 # Returns:
 #
-#       <EBox::Samba::Composite::General> - a
+#       <EBox::Samba::Model::General> - a
 #       general events composite
 #
 sub new
@@ -61,10 +61,10 @@ sub _description
                                 'samba/GeneralSettings',
                                 'PDC',
                                 'SambaShares',
-                                'RecycleBin',
                                ],
             layout          => 'tabbed',
             name            =>  __PACKAGE__->nameFromClass,
+            pageTitle => __('File Sharing'),
             printableName   => __('File sharing options'),
             compositeDomain => 'Samba',
 #           help            => __(''),

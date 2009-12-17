@@ -72,7 +72,7 @@ sub _table
           ),
          new  EBox::Squid::Types::WeightedPhrasesThreshold(
              fieldName => 'contentFilterThreshold',
-             printableName => __('Threshold'),
+             printableName => __('Threshold a'),
              editable => 1,
              ),
 
@@ -111,10 +111,20 @@ sub threshold
     return $self->contentFilterThresholdValue();
 }
 
+# Method: viewCustomizer
+#
+#    Overrides <EBox::Model::DataTable::viewCustomizer>
+#    to show breadcrumbs
+#
+sub viewCustomizer
+{
+        my ($self) = @_;
 
+        my $custom =  $self->SUPER::viewCustomizer();
+        $custom->setHTMLTitle([ ]);
 
-
-
+        return $custom;
+}
 
 1;
 

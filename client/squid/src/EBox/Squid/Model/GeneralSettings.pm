@@ -182,7 +182,7 @@ sub _checkNoAuthPolicy
         my $groupsPolicies = $squid->model('GlobalGroupPolicy')->groupsPolicies();
         if (@{ $groupsPolicies }) {
             throw EBox::Exceptions::External(
-  __('You need to use authorization policies with global group policies')
+  __('You need to use authorization policies wuth global group policies')
                                             );
         }
     }

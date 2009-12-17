@@ -112,7 +112,8 @@ sub _table
 
       my $dataTable = {
                        tableName          => 'DynDNS',
-                       printableTableName => __('Dynamic DNS'),
+                       pageTitle          => ('Dynamic DNS'),
+                       printableTableName => __('Configuration'),
                        defaultActions     => [ 'editField', 'changeView' ],
                        tableDescription   => \@tableHeader,
                        class              => 'dataForm',

@@ -56,24 +56,12 @@ sub _description
                             ],
          layout          => 'top-bottom',
          name            =>  __PACKAGE__->nameFromClass,
-         printableName   => __('Attached files filter'),
+         pageTitle => __('Attached Files Filter'),
          compositeDomain => 'MailFilter',
          help            => __('Filter mail messages according attached files. The transparent POP proxy only filters by extension'),
         };
 
       return $description;
 }
-
-# Method: pageTitle
-#
-#   we override this method to avoid repeating the tab's titles
-#
-#  Overrides:
-#   <EBox::Model::Composite::pageTitle>
-sub pageTitle
-{
-    return undef;
-}
-
 
 1;

@@ -62,6 +62,7 @@ sub _description
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
         printableName   => __('Antivirus'),
+        pageTitle       => undef,
         compositeDomain => 'samba',
     };
 

@@ -295,6 +295,10 @@ q{No need to configure the connection to a remote server beacuse WebMail is conf
 );
 }
 
+sub headTitle
+{
+	return undef;
+}
 
 1;
 

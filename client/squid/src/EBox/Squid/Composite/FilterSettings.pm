@@ -83,5 +83,21 @@ sub _description
 
   }
 
+sub HTMLTitle
+{
+        my ($self) = @_;
+
+
+        return ([
+                {
+                title => __('Filter Profiles'),
+                link  => '/ebox/Squid/View/FilterGroup',
+                },
+                {
+                title => 'default',
+                link => '',
+                },
+        ]);
+}
 
 1;

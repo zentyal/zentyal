@@ -322,6 +322,16 @@ sub _process
         $selected = 'none';
     }
 
+    $self->{crumbs} = [
+        {title => __('Query Logs'),
+            link => '/ebox/Logs/View/SelectLog'
+        },
+        {title => __('Full Reports'),
+            link => "/ebox/Logs/Index?selected=$selected&refresh=1"
+        },
+    ];
+
+
     my @masonParameters;
     push(@masonParameters, 'logdomains' => $logs->getLogDomains());
     push(@masonParameters, 'selected' => $selected);

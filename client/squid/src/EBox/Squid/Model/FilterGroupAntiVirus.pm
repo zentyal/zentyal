@@ -70,14 +70,19 @@ sub _table
     return $dataForm;
 }
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#   to show breadcrumbs
+sub viewCustomizer
+{
+        my ($self) = @_;
 
+        my $custom =  $self->SUPER::viewCustomizer();
+        $custom->setHTMLTitle([ ]);
 
-
-
-
-
-
-
+        return $custom;
+}
 
 1;
 

@@ -41,7 +41,7 @@ use strict;
 use warnings;
 
 
-use base qw(EBox::Model::DataTable EBox::Firewall::Model::BaseRuleTable) ;
+use base qw(EBox::Firewall::Model::BaseRuleTable) ;
 
 
 sub new
@@ -62,7 +62,7 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'ToInternetRuleTable',
-        'printableTableName' => __('Filtering rules for internal networks'),
+        'printableTableName' => __('Internal networks'),
         'automaticRemove' => 1,
         'defaultController' =>
             '/ebox/Firewall/Controller/ToInternetRuleTable',

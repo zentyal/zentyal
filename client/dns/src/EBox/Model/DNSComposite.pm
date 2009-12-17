@@ -72,10 +72,11 @@ sub _description
                             ],
          layout          => 'top-bottom',
          name            => 'DNSComposite',
+         pageTitle       => __('DNS'),
          printableName   => __('DNS'),
          compositeDomain => 'DNS',
          help            => __('The DNS server allows you to resolve names'
-              	 			.' for your own domains.'),
+                    .' for your own domains.'),
         };
 
       return $description;

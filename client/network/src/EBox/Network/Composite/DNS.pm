@@ -58,7 +58,7 @@ sub _description
                               'SearchDomain',
                            ],
         layout          => 'top-bottom',
-        printableName   => __('Domain Name Server Resolver'),
+        pageTitle => __('Domain Name Server Resolver'),
         compositeDomain => 'Network',
         name            => 'DNS',
     };

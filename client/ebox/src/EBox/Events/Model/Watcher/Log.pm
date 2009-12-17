@@ -371,4 +371,28 @@ sub _removeFilteringModel # (domain)
 
 }
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to
+#   provide a custom HTML title with breadcrumbs
+#
+sub viewCustomizer
+{
+        my ($self) = @_;
+
+        my $custom =  $self->SUPER::viewCustomizer();
+        $custom->setHTMLTitle([
+                {
+                title => __('Events'),
+                link  => '/ebox/Events/Composite/GeneralComposite',
+                },
+                {
+                title => __('Log Observer Watcher'),
+                link  => ''
+                }
+        ]);
+
+        return $custom;
+}
+
 1;

@@ -90,7 +90,8 @@ it processes your email for SPAM.'),
 
       my $dataForm = {
                       tableName          => 'POPProxyConfiguration',
-                      printableTableName => __('POP transparent proxy configuration'),
+                      pageTitle => __('POP Transparent Proxy'),
+		      printableTableName => __('Configuration'),
                       modelDomain        => 'MailFilter',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,

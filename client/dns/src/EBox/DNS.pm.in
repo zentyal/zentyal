@@ -851,7 +851,7 @@ sub configureFirewall
 sub menu
 {
     my ($self, $root) = @_;
-    $root->add(new EBox::Menu::Item('url' => 'DNS/Composite/DNSComposite',
+    $root->add(new EBox::Menu::Item('url' => 'DNS/View/DomainTable',
                                     'text' => $self->printableName(),
                                     'separator' => __('Infrastructure'),
                                     'order' => 420));

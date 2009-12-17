@@ -66,8 +66,7 @@ sub _table
     my $dataTable =
         {
             'tableName'              => __PACKAGE__->name(),
-            'printableTableName' => __('List of networks'),
-            'pageTitle' => __('Advertised networks'),
+            'printableTableName' => __('List of Advertised Networks'),
             'automaticRemove' => 1,
             'defaultController' => '/ebox/OpenVPN/Controller/ExposedNetworks',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
@@ -80,6 +79,17 @@ sub _table
         };
 
     return $dataTable;
+}
+
+# Method: pageTitle
+#
+#   Overrides <EBox::Model::DataTable::pageTitle>
+#   to show the name of the domain
+sub pageTitle
+{
+        my ($self) = @_;
+
+        return $self->parentRow()->printableValueByName('name');
 }
 
 # Group: Private methods

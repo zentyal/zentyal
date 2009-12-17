@@ -123,7 +123,8 @@ sub _table
 
     my $dataForm = {
         tableName           => 'Mode',
-        printableTableName  => __('eBox users mode'),
+        printableTableName  => __('Configuration'),
+        pageTitle           => __('eBox Users Mode'),
         defaultActions      => [ 'editField', 'changeView' ],
         tableDescription    => \@tableDesc,
         modelDomain         => 'Users',

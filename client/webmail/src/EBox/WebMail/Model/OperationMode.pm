@@ -57,6 +57,7 @@ sub _table
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
                       printableTableName => __('Operation mode'),
+                      headTitle          => undef,         		     
                       modelDomain        => 'WebMail',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
@@ -109,8 +110,10 @@ sub usesEBoxMail
 }
 
 
-
-
+sub headTitle
+{
+        return undef;
+}
 
 1;
 

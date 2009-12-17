@@ -61,23 +61,12 @@ sub _description
          layout          => 'top-bottom',
          name            =>  __PACKAGE__->nameFromClass,
          printableName   => __('Antispam'),
+         pageTitle	 => __('Antispam'),
          compositeDomain => 'MailFilter',
 #         help            => __(''),
         };
 
       return $description;
 }
-
-# Method: pageTitle
-#
-#   we override this method to avoid repeating the tab's titles
-#
-#  Overrides:
-#   <EBox::Model::Composite::pageTitle>
-sub pageTitle
-{
-    return undef;
-}
-
 
 1;

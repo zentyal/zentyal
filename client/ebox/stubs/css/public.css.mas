@@ -381,13 +381,23 @@ body {
 }
 
 .title {
-    display: block;
+    display: inline;
     color: #787878;
     font-weight: bold;
     font-size: 17px;
     background-color: #FFFFFF;
     font-family: Trebuchet MS, Verdana, sans-serif;
-    float: left;
+    float: none;
+}
+
+.title_link {
+    display: inline;
+    color: #787878;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: #FFFFFF;
+    font-family: Trebuchet MS, Verdana, sans-serif;
+    float: none;
 }
 
 h3 {

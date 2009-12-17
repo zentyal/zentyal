@@ -61,7 +61,7 @@ sub _description
                             ],
          layout          => 'tabbed',
          name            =>  __PACKAGE__->nameFromClass,
-         printableName   => __('WebMail backend'),
+         pageTitle       => __('WebMail backend'),
          compositeDomain => 'WebMail',
 #         help            => __(''),
         };

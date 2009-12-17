@@ -66,7 +66,7 @@ sub _table
         my $dataTable =
                 {
                         'tableName' => 'VDomainAliases',
-                        'printableTableName' => __('Aliases'),
+                        'printableTableName' => __('List of Aliases'),
                         'defaultController' =>
             '/ebox/Mail/Controller/VDomainAliases',
                         'defaultActions' =>
@@ -111,7 +111,16 @@ sub preconditionFailMsg
                   'status section in order to use it.');
 }
 
+# Method: pageTitle
+#
+#   Overrides <EBox::Model::DataTable::pageTitle>
+#   to show the name of the domain
+sub pageTitle
+{
+        my ($self) = @_;
 
+        return $self->parentRow()->printableValueByName('vdomain');
+}
 
 
 

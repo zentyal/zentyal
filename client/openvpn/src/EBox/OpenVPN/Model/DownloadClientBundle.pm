@@ -100,8 +100,7 @@ sub _table
     my $dataTable =
     {
         'tableName'               => __PACKAGE__->nameFromClass(),
-        'printableTableName' => __('Configure bundle'),
-        'pageTitle' => __('Download client bundle'),
+        'printableTableName' => __('Download Client Bundle'),
         'automaticRemove' => 1,
         'defaultController' => '/ebox/OpenVPN/Controller/DownloadClientBundle',
         'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
@@ -318,6 +317,16 @@ sub precondition
     return  $configuration->configured();
 }
 
+# Method: pageTitle
+#
+#   Overrides <EBox::Model::DataTable::pageTitle>
+#   to show the name of the domain
+sub pageTitle
+{
+        my ($self) = @_;
+
+        return $self->parentRow()->printableValueByName('name');
+}
 
 
 # Method: preconditionFailMsg

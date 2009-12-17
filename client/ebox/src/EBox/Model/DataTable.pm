@@ -25,6 +25,7 @@ use EBox::Global;
 use EBox::Model::CompositeManager;
 use EBox::Model::ModelManager;
 use EBox::Model::Row;
+use EBox::View::Customizer;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
@@ -2640,6 +2641,33 @@ sub findRow
 
 }
 
+# Method: _HTTPUrlView
+#
+#   Returns the HTTP URL base used to get the view for this model
+#
+sub _HTTPUrlView
+{
+    my ($self) = @_;
+
+    return $self->table()->{'HTTPUrlView'};
+}
+
+# Method: HTTPLink
+#
+#   Returns the HTTP URL base + directory parameter to get the view for this
+#   model
+#
+sub HTTPLink
+{
+    my ($self) = @_;
+
+    my $link = '/ebox/' . $self->_HTTPUrlView();
+    my $parentRow = $self->parentRow();
+    if ($parentRow) {
+        $link .= '?directory=' . $self->directory();
+    }
+    return $link;
+}
 
 sub DESTROY { ; }
 
@@ -4342,9 +4370,25 @@ sub popRedirection
     return $redirection;
 }
 
+# Method: viewCustomizer
+#
+#   Returns EBox::View::Customizer for this model.
+#   By default it creates an empty object. 
+#
+# Returns:
+#
+#   An instance of <EBox::View::Customizer>
+#
 sub viewCustomizer
 {
-    return undef;
+    my ($self) = @_;
+
+    unless ($self->{viewCustomizer}) {
+        my $viewCustom = new EBox::View::Customizer();
+        $viewCustom->setModel($self);
+        $self->{viewCustomizer} = $viewCustom;
+    }
+    return $self->{viewCustomizer};
 }
 
 # Method: _autoloadGetId

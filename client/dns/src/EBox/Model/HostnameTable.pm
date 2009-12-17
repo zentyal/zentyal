@@ -175,6 +175,7 @@ sub _table
                                 'printableName' => __('Alias'),
                                 'foreignModel' => 'AliasTable',
                                 'view' => '/ebox/DNS/View/AliasTable',
+
                                 'backView' => '/ebox/DNS/View/AliasTable',
                                 'size' => '1',
                              )
@@ -186,6 +187,7 @@ sub _table
             'printableTableName' => __('Host names'),
             'automaticRemove' => 1,
             'defaultController' => '/ebox/Dns/Controller/HostnameTable',
+            'HTTPUrlView'       => 'DNS/View/HostnameTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
@@ -215,6 +217,17 @@ sub deletedRowNotify
             $mailExModel->removeRow($mailRow->id());
         }
     }
+}
+
+# Method: pageTitle
+#
+#   Overrides <EBox::Model::DataTable::pageTitle>
+#   to show the name of the domain
+sub pageTitle
+{
+        my ($self) = @_;
+
+        return $self->parentRow()->printableValueByName('domain');
 }
 
 1;

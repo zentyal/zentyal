@@ -258,6 +258,31 @@ sub _table
 
   }
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to
+#   provide a custom HTML title with breadcrumbs
+#
+sub viewCustomizer
+{
+        my ($self) = @_;
+
+        my $custom =  $self->SUPER::viewCustomizer();
+        $custom->setHTMLTitle([
+                {
+                title => __('Events'),
+                link  => '/ebox/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
+                },
+                {
+                title => __('Jabber Dispatcher'),
+                link  => ''
+                }
+        ]);
+
+        return $custom;
+}
+
+
 # Group: Private methods
 
 # Check the admin JID

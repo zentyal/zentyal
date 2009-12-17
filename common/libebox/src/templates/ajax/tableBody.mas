@@ -88,8 +88,15 @@ use POSIX;
   }
 </%init>
 <& .pageTitle,
-   title => $model->pageTitle()
+   crumbs => $model->viewCustomizer()->HTMLTitle()
 &>
+
+% if ($model->help()) {
+<div class="help">
+  <% $model->help() %>
+</div>
+% }
+
 %  if ( $action ne 'changeAdd' and $action ne 'changeEdit' )
 %  {
 %    if ( $model->printableModelName() )
@@ -530,12 +537,12 @@ $page
 <%def .pageTitle>
 <%args>
   $title => undef
+  $crumbs => undef
 </%args>
-% if ($title) {
 <& /title.mas,
-    title => $title
+    title => $title,
+    crumbs => $crumbs
 &>
-% }
 </%def>
 
 

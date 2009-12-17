@@ -98,5 +98,32 @@ sub _table
 #     return $parent;
 # }
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#   to show breadcrumbs
+sub viewCustomizer
+{
+        my ($self) = @_;
+
+        my $manager = EBox::Model::ModelManager->instance();
+        my $custom = $self->SUPER::viewCustomizer();
+        $custom->setHTMLTitle([
+                {
+                title => __('Filter Profiles'),
+                link  => '/ebox/Squid/View/FilterGroup',
+                },
+                {
+                title => 'default',
+                link => '/ebox/Squid/Composite/FilterSettings?directory=FilterGroup/defaultFilterGroup/filterPolicy#Domains'
+                },
+                {
+                title => $self->parentRow()->valueByName('description'),
+                link => ''
+                }
+        ]);
+
+        return $custom;
+}
 1;
 

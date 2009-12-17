@@ -45,6 +45,11 @@
       $formDataRef = $model->table()->{'tableDescription'};
   }
 </%init>
+
+<& /title.mas,
+    crumbs => $model->viewCustomizer()->HTMLTitle()
+&>
+
 <& PARENT:title,
    title => $model->headTitle()
 &>

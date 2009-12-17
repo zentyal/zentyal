@@ -74,7 +74,6 @@ sub _description
                             ],
          layout          => 'top-bottom',
          name            => 'FilterGroupSettings',
-         printableName   => __('Filter settings'),
          compositeDomain => 'Squid',
 #         help            => __(''),
         };
@@ -84,19 +83,23 @@ sub _description
   }
 
 
-sub pageTitle
+sub HTMLTitle
 {
-    my ($self) = @_;
-    my $parentRow = $self->parentRow();
-    my $profile = $parentRow->elementByName('name')->printableValue();
-    my $title = __x(
-            'Filter settings for profile {p}',
-                    p => $profile,
-                   );
+        my ($self) = @_;
 
+        my $parentRow = $self->parentRow();
+        my $profile = $parentRow->elementByName('name')->printableValue();
 
-    return $title;
+        return ([
+                {
+                title => __('Filter Profiles'),
+                link  => '/ebox/Squid/View/FilterGroup',
+                },
+                {
+                title => $profile,
+                link => '',
+                },
+        ]);
 }
-
 
 1;

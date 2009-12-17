@@ -154,6 +154,28 @@ sub blacklist
     return $self->_listByPolicy('blacklist');
 }
 
+sub viewCustomizer
+{
+        my ($self) = @_;
+
+        my $custom =  $self->SUPER::viewCustomizer();
+	if ($self->parentRow()) {
+		$custom->setHTMLTitle([
+			{
+			title => __('Virtual Domains'),
+			link  => '/ebox/MailFilter/Composite/Amavis#VDomains'
+			},
+			{
+			title => $self->parentRow()->printableValueByName('vdomain'),
+			link  => ''
+			}
+		]);
+	} else {
+		$custom->setHTMLTitle([]);
+	}
+
+        return $custom;
+}
 
 
 sub _listByPolicy

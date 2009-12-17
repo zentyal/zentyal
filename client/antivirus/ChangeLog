@@ -1,3 +1,5 @@
+HEAD
+	+ Add page title
 1.3.10
 	+ Use disableApparmorProfile from EBox::Module::Service
 	  in setConf to avoid issues if apparmor is installed

@@ -1,6 +1,8 @@
 1.3.11
 	+ Added report support
 	+ Add description field for redirects
+	+ Breadcrumbs
+	+ Change Redirections for Port Forwarding
 1.3.6
 	+ Add clone() to EBox::Firewall::IptablesRule
 1.3.4

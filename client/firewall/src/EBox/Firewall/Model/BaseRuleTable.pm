@@ -197,4 +197,34 @@ sub _fieldDescription
 
     return \@tableHead;
 }
+
+# Method: viewCustomizer
+#
+#    Overrides <EBox::Model::DataTable::viewCustomizer>
+#    to show breadcrumbs
+#
+sub viewCustomizer
+{
+        my ($self) = @_;
+
+        my $custom =  $self->SUPER::viewCustomizer();
+        $custom->setHTMLTitle([
+                {
+                title => __('Packet Filter'),
+                link  => '/ebox/Firewall/Filter',
+                },
+                {
+                title => $self->printableName(),
+                link  => ''
+                }
+        ]);
+
+        return $custom;
+}
+
+sub headTitle
+{
+    return __('Configure Rules');
+}
+
 1;

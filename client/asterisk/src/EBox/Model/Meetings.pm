@@ -181,7 +181,8 @@ sub _table
     my $dataTable =
     {
         tableName          => 'Meetings',
-        printableTableName => __('Meetings'),
+        printableTableName => __('List of Meetings'),
+        pageTitle          => __('Meetings'),
         printableRowName   => __('meeting'),
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,

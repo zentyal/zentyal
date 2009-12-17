@@ -68,7 +68,8 @@ sub _table
 
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
-                      printableTableName => __('Antivirus Database Update Status'),
+                      printableTableName => __('Database Update Status'),
+                      pageTitle          => __('Antivirus'),
                       modelDomain        => 'AntiVirus',
                       tableDescription   => \@tableDesc,
 

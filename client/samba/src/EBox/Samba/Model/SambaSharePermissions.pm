@@ -143,14 +143,14 @@ sub _table
 
     my $dataTable = {
                      tableName          => 'SambaSharePermissions',
-                     printableTableName => __('Share configuration'),
+                     printableTableName => __('Access Control'),
                      modelDomain        => 'Samba',
                      menuNamespace      => 'Samba/View/SambaShares',
                      defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
                      class              => 'dataTable',
                      help               => '',
-                     printableRowName   => __('share'),
+                     printableRowName   => __('ACL'),
                      insertPosition     => 'back',
                     };
 
@@ -171,6 +171,30 @@ sub syncRows
     }
     return $anyChange;
 }
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to
+#   provide a custom HTML title with breadcrumbs
+#
+sub viewCustomizer
+{
+        my ($self) = @_;
+
+        my $custom =  $self->SUPER::viewCustomizer();
+        $custom->setHTMLTitle([
+                {
+                title => __('Shares'),
+                link  => '/ebox/Samba/Composite/General#SambaShares',
+                },
+                {
+                title => $self->parentRow()->valueByName('share'),
+                link  => ''
+                }
+        ]);
+
+        return $custom;
+}
+
 
 # Private methods
 sub _permissionsHelp
@@ -178,4 +202,5 @@ sub _permissionsHelp
     return __('Be careful if you grant <i>administrator</i> privileges.' .
               'User will be able to read and write any file in the share');
 }
+
 1;

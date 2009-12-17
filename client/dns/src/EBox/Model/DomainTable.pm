@@ -106,9 +106,11 @@ sub _table
     my $dataTable =
         {
             'tableName' => 'DomainTable',
-            'printableTableName' => __('Domains'),
+            'printableTableName' => __('List of Domains'),
+	    'pageTitle' => __('DNS'),
             'automaticRemove' => 1,
             'defaultController' => '/ebox/Dns/Controller/DomainTable',
+            'HTTPUrlView'=> 'DNS/View/DomainTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

@@ -157,6 +157,7 @@ sub _table
             [	'add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'Services/View/ServiceTable',
+        'HTTPUrlView'   => 'Services/View/ServiceTable',
         'class' => 'dataTable',
         'help' => _servicesHelp(), # FIXME
         'printableRowName' => __('service'),
@@ -534,8 +535,8 @@ sub _serviceConfParams
            'destination_single_port' => $destinationSinglePort,
            'destination_from_port' => $destinationPortFrom,
            'destination_to_port' => $destinationPortTo,
-	   'internal' => $internal,
-	   'readOnly' => $readonly);
+           'internal' => $internal,
+           'readOnly' => $readonly);
 }
 
 sub _servicesHelp
@@ -545,4 +546,5 @@ sub _servicesHelp
               'shaping...');
 
 }
+
 1;

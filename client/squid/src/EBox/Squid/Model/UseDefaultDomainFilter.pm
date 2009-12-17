@@ -66,6 +66,7 @@ sub _table
     my $dataForm = {
         tableName          => 'UseDefaultDomainFilter',
         printableTableName => __('Use default profile for domain filtering'),
+        pageTitle          => undef,
         modelDomain        => 'Squid',
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableDesc,
@@ -75,6 +76,16 @@ sub _table
 
 
     return $dataForm;
+}
+
+sub viewCustomizer
+{
+        my ($self) = @_;
+
+        my $custom =  $self->SUPER::viewCustomizer();
+        $custom->setHTMLTitle([ ]);
+
+        return $custom;
 }
 
 1;

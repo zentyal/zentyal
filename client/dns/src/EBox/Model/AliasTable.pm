@@ -151,4 +151,11 @@ sub _table
     return $dataTable;
 }
 
+sub pageTitle
+{
+        my ($self) = @_;
+
+        return $self->parentRow()->printableValueByName('hostname');
+}
+
 1;

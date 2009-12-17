@@ -160,4 +160,13 @@ sub _hostnameModel
     return $model;
 }
 
+
+sub pageTitle
+{
+        my ($self) = @_;
+
+        return $self->parentRow()->printableValueByName('domain');
+}
+
+
 1;

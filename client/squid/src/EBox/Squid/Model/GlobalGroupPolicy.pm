@@ -75,7 +75,7 @@ sub _table
   my $dataTable =
   {
       tableName          => name(),
-      pageTitle          => __(q{Configure user's groups global policies}),
+      pageTitle          => __('Group policies'),
       printableTableName => __('List of groups'),
       modelDomain        => 'Squid',
       'defaultController' => '/ebox/Squid/Controller/GlobalGroupPolicy',

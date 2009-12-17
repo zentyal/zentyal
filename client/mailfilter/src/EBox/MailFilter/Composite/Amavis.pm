@@ -58,7 +58,7 @@ sub _description
                             ],
          layout          => 'tabbed',
          name            =>  __PACKAGE__->nameFromClass,
-         printableName   => __('SMTP filter'),
+         pageTitle       => __('SMTP Mail Filter'),
          compositeDomain => 'MailFilter',
 #         help            => __(''),
         };

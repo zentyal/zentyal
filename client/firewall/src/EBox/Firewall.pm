@@ -825,7 +825,7 @@ sub menu
                                       'text' => __('Packet Filter')));
 
     $folder->add(new EBox::Menu::Item('url' => 'Firewall/View/RedirectsTable',
-                                      'text' => __('Redirects')));
+                                      'text' => __('Port Forwarding')));
 
     $root->add($folder);
 }

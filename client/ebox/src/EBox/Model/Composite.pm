@@ -469,23 +469,6 @@ sub printableName
 
   }
 
-# Method: pageTitle
-#
-#       Get the i18ned name of the page where the model is contained, if any
-#
-# Returns:
-#
-#   string
-#
-sub pageTitle
-  {
-
-      my ($self) = @_;
-
-      return $self->printableName();
-
-  }
-
 # Method: precondition
 #
 #       Check if the composite has enough data to be manipulated, that
@@ -1115,6 +1098,42 @@ sub restoreFiles
 
 }
 
+sub pageTitle
+{
+	my ($self) = @_;
 
+	my $desc = $self->_description();
+	if (exists $desc->{pageTitle}) {
+		return $desc->{pageTitle};
+	} else {
+		return undef;
+	}
+}
+
+sub headTitle
+{
+	my ($self) = @_;
+
+	my $desc = $self->_description();
+	if (exists $desc->{headTitle}) {
+		return $desc->{headTitle};
+	} else {
+		return undef;
+	}
+}
+
+sub HTMLTitle
+{
+	my ($self) = @_;
+
+	my $pageTitle = $self->pageTitle();
+	return undef unless ($pageTitle);
+
+	return [
+            {title => $pageTitle, 
+             link  => undef 
+            }];
+
+}
 
 1;

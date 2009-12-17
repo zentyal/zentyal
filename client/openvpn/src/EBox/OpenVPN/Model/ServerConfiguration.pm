@@ -512,6 +512,16 @@ sub configured
     return 1;
 }
 
+# Method: pageTitle
+#
+#   Overrides <EBox::Model::DataTable::pageTitle>
+#   to show the name of the domain
+sub pageTitle
+{
+        my ($self) = @_;
+
+        return $self->parentRow()->printableValueByName('name');
+}
 
 1;
 

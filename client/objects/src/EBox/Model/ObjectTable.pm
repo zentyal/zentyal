@@ -83,6 +83,7 @@ sub _table
             'printableTableName' => __('Objects List'),
             'automaticRemove' => 1,
             'defaultController' => '/ebox/Objects/Controller/ObjectTable',
+            'HTTPUrlView'   => 'Objects/View/ObjectTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

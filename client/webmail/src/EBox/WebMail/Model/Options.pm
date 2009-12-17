@@ -58,7 +58,8 @@ __('The name of the webmail will be used in the login screen and page titles')
 
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
-                      printableTableName => __('Options'),
+                      printableTableName => __('Configuration'),
+                      pageTitle          => __('Options'),
                       modelDomain        => 'WebMail',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,

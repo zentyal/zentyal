@@ -75,7 +75,9 @@ sub _table
         my $dataTable =
                 {
                         'tableName' => 'VDomains',
-                        'printableTableName' => __('Mail virtual domains'),
+                        'printableTableName' => __('List of Domains'),
+                        'pageTitle'         => __('Virtual Domains'),
+                        'HTTPUrlView'       => 'Mail/View/VDomains',
                         'defaultController' =>
             '/ebox/Mail/Controller/VDomains',
                         'defaultActions' =>

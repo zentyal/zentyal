@@ -41,7 +41,7 @@ use strict;
 use warnings;
 
 
-use base qw(EBox::Model::DataTable EBox::Firewall::Model::BaseRuleTable) ;
+use base qw(EBox::Firewall::Model::BaseRuleTable) ;
 
 
 
@@ -65,7 +65,7 @@ sub _table
     {
         'tableName' => 'InternalToEBoxRuleTable',
         'printableTableName' =>
-          __('Filtering rules from internal networks to eBox'),
+          __('Internal networks to eBox'),
         'automaticRemove' => 1,
         'defaultController' =>
             '/ebox/Firewall/Controller/InternalToEBoxRuleTable',

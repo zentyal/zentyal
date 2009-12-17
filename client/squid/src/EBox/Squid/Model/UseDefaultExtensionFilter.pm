@@ -65,6 +65,7 @@ sub _table
     my $dataForm = {
         tableName          => 'UseDefaultExtensionFilter',
         printableTableName => __('Use default profile for extension filtering'),
+        pageTitle         => undef,
         modelDomain        => 'Squid',
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableDesc,
@@ -156,7 +157,20 @@ END
 
 }
 
+# Method: viewCustomizer
+#
+#    Overrides <EBox::Model::DataTable::viewCustomizer>
+#    to show breadcrumbs
+#
+sub viewCustomizer
+{
+        my ($self) = @_;
 
+        my $custom =  $self->SUPER::viewCustomizer();
+        $custom->setHTMLTitle([ ]);
+
+        return $custom;
+}
 
 
 1;

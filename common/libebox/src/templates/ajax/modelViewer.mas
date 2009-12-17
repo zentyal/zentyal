@@ -100,12 +100,6 @@
 <!-- working. Find more information at "table-helper.js"  -->
 <div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
 
-% if ($model->help()) {
-<div class="help">
-  <% $model->help() %>
-</div>
-% }
-
 <div id='error_<% $model->modelName() | hu %>'></div>
 </%method>
 
@@ -139,6 +133,7 @@
   my $requestCaller = $onlyBody ? 1 : 2;
   my @childArgs = $m->caller_args($requestCaller);
 </%init>
+
 % my $viewCustomizer = $model->viewCustomizer();
 % my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
 % if ($msg) {

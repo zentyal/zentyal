@@ -41,7 +41,7 @@ use strict;
 use warnings;
 
 
-use base qw(EBox::Model::DataTable EBox::Firewall::Model::BaseRuleTable) ;
+use base qw(EBox::Firewall::Model::BaseRuleTable) ;
 
 
 
@@ -65,7 +65,7 @@ sub _table
     {
         'tableName' => 'EBoxOutputRuleTable',
         'printableTableName' =>
-          __('Filtering rules for traffic coming out from eBox'),
+          __('Traffic coming out from eBox'),
         'automaticRemove' => 1,
         'defaultController' =>
             '/ebox/Firewall/Controller/EBoxOutputRuleTable',

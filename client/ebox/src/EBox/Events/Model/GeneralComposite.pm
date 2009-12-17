@@ -74,6 +74,8 @@ sub _description
          layout          => 'top-bottom',
          name            => 'GeneralComposite',
          printableName   => __('Events'),
+         pageTitle => __('Events'),
+         headTitle => undef,
          compositeDomain => 'Events',
          help            => __('Events module configures eBox to help ' .
                                'informing you about events that happen'),

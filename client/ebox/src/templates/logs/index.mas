@@ -17,7 +17,7 @@ use EBox::Gettext;
 use Data::Dumper;
 </%init>
 
-
+<h3><% __('Log Domain') %></h3>
 	<form method="POST" action="Index">
 	<div class='help'><% __('Last hour logs will be showed when selecting a component') %></div>
 	<% __('Select available full reports') %>:

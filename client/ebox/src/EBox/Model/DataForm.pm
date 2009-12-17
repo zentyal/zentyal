@@ -319,12 +319,23 @@ sub setRow
       # We can only set those types which have setters
       my @newValues = @{$self->setterTypes()};
 
+      # Fetch field trigger names
+      my $viewCustom = $self->viewCustomizer();
+      my  %triggerFields = %{$self->viewCustomizer()->onChangeFields()};
+      # Fetch trigger values
+      for my $name (keys %triggerFields) {
+          $triggerFields{$name} = $params{$name};
+      }
+
       my $changedData;
       for (my $i = 0; $i < @newValues ; $i++) {
           my $newData = $newValues[$i]->clone();
-          $newData->setMemValue(\%params);
-
-          $changedData->{$newData->fieldName()} = $newData;
+          my $fieldName = $newData->fieldName();
+          # Skip fields that are hidden or disabled by the view customizer
+          unless ($viewCustom->skipField($fieldName, \%triggerFields)) {
+              $newData->setMemValue(\%params);
+          }
+          $changedData->{$fieldName} = $newData;
       }
 
       $self->setTypedRow( '',

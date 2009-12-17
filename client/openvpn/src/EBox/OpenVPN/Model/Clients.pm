@@ -91,8 +91,10 @@ sub _table
     my $dataTable =
         {
             'tableName'          => __PACKAGE__->name(),
-            'printableTableName' => __('VPN clients'),
+            'printableTableName' => __('List of Clients'),
+            'pageTitle'          => __('VPN Clients'),
             'automaticRemove' => 1,
+            'HTTPUrlView'       => 'OpenVPN/View/Clients',
             'defaultController' => '/ebox/OpenVPN/Controller/Clients',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,

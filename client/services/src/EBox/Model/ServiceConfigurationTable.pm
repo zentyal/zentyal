@@ -165,6 +165,7 @@ sub _table
                         [	'add', 'del', 'move',  'editField', 'changeView' ],
                 'tableDescription' => \@tableHead,
                 'menuNamespace' => 'Services/View/ServiceConfigurationTable',
+                'HTTPUrlView' => 'Services/View/ServiceConfigurationTable',
                 'class' => 'dataTable',
                 'help' => '', # FIXME
                 'rowUnique' => 1,
@@ -196,6 +197,17 @@ sub validateTypedRow()
             }
         }
     }
+}
+
+# Method: pageTitle
+#
+#   Overrides <EBox::Model::DataTable::pageTitle>
+#   to show the name of the domain
+sub pageTitle
+{
+    my ($self) = @_;
+
+    return $self->parentRow()->printableValueByName('name');
 }
 
 1;

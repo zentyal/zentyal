@@ -40,11 +40,6 @@ sub new
         return $self;
 }
 
-sub pageTitle
-{
-    return __('Antivirus default settings');
-}
-
 sub _table
 {
 
@@ -61,6 +56,7 @@ sub _table
     {
         'tableName' => 'AntivirusDefault',
         'printableTableName' => __('Antivirus default settings'),
+        'pageTitle' => undef,
         'modelDomain' => 'Samba',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,

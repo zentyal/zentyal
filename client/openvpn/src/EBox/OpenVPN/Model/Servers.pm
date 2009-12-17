@@ -105,6 +105,7 @@ sub _table
             'tableName'              => __PACKAGE__->name(),
             'printableTableName' => __('List of servers'),
             'pageTitle' => __('VPN servers'),
+	    'HTTPUrlView' => 'OpenVPN/View/Servers',
             'automaticRemove' => 1,
             'defaultController' => '/ebox/OpenVPN/Controller/Servers',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],

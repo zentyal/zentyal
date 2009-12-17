@@ -1,18 +1,31 @@
 <%args>
-	$title
+    $title => undef
+    $crumbs => undef
 </%args>
 <%init>
 use EBox::Gettext;
 my $domain = settextdomain('libebox');
 </%init>
-% if (length($title)) {
-<div id='titlehelp'>
-	<div class='title'><% $title %></div>
-	<div id='helpbutton'>
-		<a id='showhelp' href="#" onclick="switchHelp(); return false; " title="<% __('Display help notes') %>">(<% __("show help")%>)</a>
-		<a style='display:none;' id='hidehelp' href="#" onclick="switchHelp(); return false; " title="<% __('Hide help notes') %>">(<% __("hide help")%>)</a>
-	</div>
-</div>
+<div>
+% if ($title or ($crumbs and @$crumbs)) {
+% if ($crumbs) {
+%     for  (my $i = 0; $i < scalar(@$crumbs); $i++) {
+%       my $section = $crumbs->[$i];
+%       if ($i != scalar(@$crumbs) - 1) {
+    <span class='title_link'><a href='<% $section->{link} %>'><% $section->{title} %></a></span>
+    <span class='title_link_sep'>&raquo;</span>
+%       } else  {
+    <span class='title'><% $section->{title} %></span>
+%	}
+%     }
+% } elsif ($title) {
+    <span class='title'><% $title %></span>
 % }
+    <span id='helpbutton'>
+        <a id='showhelp' href="#" onclick="switchHelp(); return false; " title="<% __('Display help notes') %>">(<% __("show help")%>)</a>
+        <a style='display:none;' id='hidehelp' href="#" onclick="switchHelp(); return false; " title="<% __('Hide help notes') %>">(<% __("hide help")%>)</a>
+    </span>
+% }
+</div>
 
 % settextdomain($domain);

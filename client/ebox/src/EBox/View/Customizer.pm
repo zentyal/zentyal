@@ -27,9 +27,11 @@ use warnings;
 use EBox::Config;
 use EBox::Types::Boolean;
 
+
 # External dependencies
 use HTML::Mason::Interp;
 use JSON; # objToJson
+use List::Util; # first
 use Error qw(:try);
 
 # EBox exceptions
@@ -173,6 +175,64 @@ sub onChangeActions
     return $self->{onChangeActions};
 }
 
+# Method: onChangeFields
+#
+#   Return a hash name containing the field names that
+#   trigger a show or hide action
+#
+sub onChangeFields
+{
+    my ($self) = @_;
+
+    my $actions = $self->{onChangeActions};
+    if ($actions) {
+        return {map {$_ => undef} keys %$actions};
+    } else {
+        return {};
+    }
+}
+
+# Method: skipField
+#
+# Parameters:
+#
+#   (POSTIONAL)
+#
+#   fieldName - string
+#   onChangeValues - hash ref containing the field names
+#                    that trigger actions and their actual
+#                    values
+# Returns:
+#
+#   boolean - true skip, otherwise false
+#
+sub skipField
+{
+    my ($self, $field, $values) = @_;
+
+    return 0 unless ($field);
+    return 0 unless ($values);
+    return 0 unless (%$values);
+
+    my $actions = $self->{onChangeActions};
+    for my $triggerField (keys %$values) {
+        my $actualValue = $values->{$triggerField};
+        my $actionTriggered = $actions->{$triggerField}->{$actualValue};
+        my $disable = $actionTriggered->{disable};
+        my $hide = $actionTriggered->{hide};
+        my @ignore;
+        push (@ignore, @{$disable}) if ($disable);
+        push (@ignore, @{$hide}) if ($hide);
+        if (@ignore) {
+            if (List::Util::first { $_ eq $field } @ignore) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
 # Method: onChangeActionOnFieldJS
 #
 #   It returns the JS code to run when there is a change on a field
@@ -276,11 +336,11 @@ sub initHTMLStateField
                 for my $field (@{$actions->{$trigger}->{$value}->{$action}}) {
                     if ($field eq $fieldName) {
                         for my $f (@{$fields}) {
-			    if ($f->fieldName() eq $trigger and
-				$self->_hasTriggerValue($f, $value)) {
-				return $action;
-			    }
-                         }
+                            if ($f->fieldName() eq $trigger and
+                                    $self->_hasTriggerValue($f, $value)) {
+                                return $action;
+                            }
+                        }
                     }
                 }
             }
@@ -290,20 +350,69 @@ sub initHTMLStateField
     return 'show';
 }
 
+sub setHTMLTitle
+{
+	my ($self, $title) = @_;
+	$self->{htmlTitle} = $title;
+}
+
+# Method: HTMLTitle
+#
+#   Returns the data structure that is used to
+#   create the page title.
+#
+#   This structure is used to make up a breadcrumb header if needed.
+#
+# Returns:
+#
+#   Array ref of hash ref containing the page title.
+#   Each hash represents a component of the title. For example:
+#
+#          Services >> Pop 3
+#
+#   For every component you need its text and its link. So every hash
+#   contains the following keys:
+#
+#       title
+#       link
+sub HTMLTitle
+{
+    my ($self) = @_;
+
+    if ($self->{htmlTitle}) {
+	return $self->{htmlTitle};
+    }
+    my @crumbs;
+    my $model = $self->model();
+    while (1) {
+        unshift (@crumbs,
+            {title => $model->pageTitle(),
+             link  => $model->HTTPLink()
+            }
+        ) if ($model->pageTitle());
+        if ($model->parentRow()) {
+            $model = $model->parentRow()->model()
+        } else {
+            last;
+        }
+    }
+
+    return \@crumbs;
+}
 
 # Group: Private methods
 sub _hasTriggerValue
 {
-	my ($self, $field, $value) = @_;
+    my ($self, $field, $value) = @_;
 
-	if ($field->isa('EBox::Types::Boolean')) {
-		 my $bool = new EBox::Types::Boolean(
-				fieldName => 'dummy',
-				defaultValue => $value eq 'on');
-		return $field->isEqualTo($bool);
-	}
+    if ($field->isa('EBox::Types::Boolean')) {
+        my $bool = new EBox::Types::Boolean(
+                fieldName => 'dummy',
+                defaultValue => $value eq 'on');
+        return $field->isEqualTo($bool);
+    }
 
-	return  ( $field->value() eq $value );
+    return  ( $field->value() eq $value );
 }
 
 sub _modelName
