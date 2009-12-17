@@ -18,7 +18,7 @@ use EBox::Migration::Helpers;
 
 sub runGConf
 {
-    EBox::Migration::Helpers::renameTable('mail', 'mail_message');
+    EBox::Migration::Helpers::renameTable('message', 'mail_message');
 }
 
 EBox::init();
