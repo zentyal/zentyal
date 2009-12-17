@@ -187,6 +187,14 @@ sub vpnClientForServices
     } else {
         my ($address, $port, $protocol, $vpnServerName) = @{$self->vpnLocation()};
 
+        # Configure and enable VPN module
+        if (not $openvpn->configured() ) {
+            $openvpn->setConfigured(1);
+            $openvpn->enableActions();
+        } elsif (not $openvpn->isEnabled() ) {
+            $openvpn->enableService(1);
+        }
+
         $client = $openvpn->newClient(
             $clientName,
             internal       => 1,
@@ -234,6 +242,25 @@ sub vpnLocation
                                                      $self->_confFile());
 
     return [$address, $port, $protocol, $serverName];
+}
+
+# Method: isConnected
+#
+#    Check whether the auth service is connected to the eBox CC or not
+#
+# Returns:
+#
+#    Boolean - indicating the state
+#
+sub isConnected
+{
+    my ($self) = @_;
+
+    my $openvpn = EBox::Global->modInstance('openvpn');
+    my $client  = $self->vpnClientForServices();
+    return 1 if ($client->isRunning() and $client->ifaceAddress());
+    return 0;
+
 }
 
 # Group: Protected methods

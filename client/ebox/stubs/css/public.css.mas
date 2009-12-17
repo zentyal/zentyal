@@ -225,6 +225,12 @@
     background-color: #F4F4F4;
 }
 
+.summaryWarning {
+    background: #FFEECC;
+    color: #DD0000;
+    font-weight: bold;
+}
+
 .summaryKey {
     width: 35%;
     color: #4c4c4c;

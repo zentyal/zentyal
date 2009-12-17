@@ -21,12 +21,31 @@ use warnings;
 use base 'EBox::Dashboard::Item';
 use EBox::Gettext;
 
+# Constructor: new
+#
+#     Create a dashboard key:value
+#
+# Parameters:
+#
+#      name  - String the key name
+#      value - String the value related to that key
+#
+#      value_type - String the value type, it could one of the
+#      following values: info, warning *(Optional)*
+#           Default value: info
+#
+# Returns:
+#
+#      <EBox::Dashboard::Value> - the newly created object instance
+#
 sub new  # (key, prettykey, value)
 {
 	my $class = shift;
 	my $self = $class->SUPER::new();
 	$self->{key} = shift;
 	$self->{value} = shift;
+        $self->{value_type} = shift;
+        $self->{value_type} = 'info' unless defined($self->{value_type});
 	$self->{type} = 'value';
 	bless($self, $class);
 	return $self;

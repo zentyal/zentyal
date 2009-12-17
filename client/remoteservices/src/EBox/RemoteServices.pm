@@ -33,6 +33,8 @@ use Error qw(:try);
 # eBox uses
 use EBox::Config;
 use EBox::Dashboard::ModuleStatus;
+use EBox::Dashboard::Section;
+use EBox::Dashboard::Value;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
@@ -107,6 +109,7 @@ sub _setConf
 
       $self->_confSOAPService();
       $self->_establishVPNConnection();
+      $self->_startupTasks();
 
 }
 
@@ -225,6 +228,26 @@ sub compositeClasses
     my ($self) = @_;
 
     return [ 'EBox::RemoteServices::Composite::General' ];
+}
+
+# Method: widgets
+#
+# Overrides:
+#
+#    <EBox::Module::Base::widgets>
+#
+sub widgets
+{
+    my ($self) = @_;
+
+    return {
+        'cc_connection' => {
+            'title'   => __('eBox Control Center Connection'),
+            'widget'  => \&_ccConnectionWidget,
+            'default' => 1,
+        }
+       };
+
 }
 
 # Method: eBoxSubscribed
@@ -378,6 +401,22 @@ sub vpnSettings
 
 }
 
+# Method: isConnected
+#
+#         Check whether eBox is connected to the Control Center or not
+#
+# Return:
+#
+#         Boolean - indicating the state
+#
+sub isConnected
+{
+    my ($self) = @_;
+
+    my $authRS = new EBox::RemoteServices::Backup();
+    return $authRS->isConnected();
+}
+
 # Group: Private methods
 
 # Configure the SOAP server
@@ -459,6 +498,18 @@ sub _establishVPNConnection
 
 }
 
+# Perform the tasks done just after subscribing
+sub _startupTasks
+{
+    my ($self) = @_;
+
+    if ( $self->st_get_bool('just_subscribed') ) {
+        # Get the cron jobs after subscribing on the background
+        system(EBox::Config::pkgdata() . 'ebox-get-cronjobs &');
+        $self->st_set_bool('just_subscribed', 0);
+    }
+}
+
 # Return the allowed client CNs regexp
 sub _allowedClientCNRegexp
 {
@@ -508,6 +559,26 @@ sub _caLinkPath
     my $hashValue = $hashRet->[0];
     chomp($hashValue);
     return CA_DIR . "${hashValue}.0";
+
+}
+
+# Return the Control Center connection widget to be shown in the dashboard
+sub _ccConnectionWidget
+{
+    my ($self, $widget) = @_;
+
+    if ( $self->eBoxSubscribed() ) {
+        my $section = new EBox::Dashboard::Section('connection_section');
+        $widget->add($section);
+        my $msg = __x('Not connected. Check VPN logs in {path}',
+                      path => EBox::Config::log() . 'openvpn/');
+        my $valueType = 'warning';
+        if ( $self->isConnected() ) {
+            $msg = __('Connected');
+            $valueType = 'info';
+        }
+        $section->add(new EBox::Dashboard::Value(__('Control Center'), $msg, $valueType));
+    }
 
 }
 

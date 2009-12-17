@@ -65,7 +65,7 @@ sub _description
       {
           components      => [
               'Subscription',
-              'AccessSettings',
+              # 'AccessSettings',
              ],
           layout          => 'top-bottom',
           name            => 'General',

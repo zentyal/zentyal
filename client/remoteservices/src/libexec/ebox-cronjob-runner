@@ -20,6 +20,7 @@
 
 use EBox;
 use EBox::Config;
+use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::RemoteServices::Configuration;
 use Getopt::Long;
@@ -78,7 +79,10 @@ if ( $usage or (not $correct)) {
 
 EBox::init();
 
-_runCronJobs();
+my $rs = EBox::Global->modInstance('remoteservices');
+if ( $rs->isConnected() ) {
+    _runCronJobs();
+}
 
 __END__
 

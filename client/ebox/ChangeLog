@@ -1,4 +1,6 @@
 HEAD
+	+ Added type for EBox::Dashboard::Value to stand out warning
+	  messages in dashboard
 	+ Added EBox::MigrationHelpers to include migration helpers, for now,
 	  include a db table renaming one
 	+ Bug fix: Fix mismatch in event table field names
@@ -8,6 +10,7 @@ HEAD
 	  prevents some crashes when modules need information only available when
 	  configured, such as mail which holds the vdomains in LDAP
 	+ Added method EBox::Global::lastModificationTime to know when
+          eBox configuration was modified for last time
 	+ Add support for breadcrumbs on the UI
 	+ Bug fix: in Loggerd files are only parsed one time regardless of
 	  how many LogHelper reference them

@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/ebox-remoteservices/migration
 
-nobase_Migrations_SCRIPTS =
+nobase_Migrations_SCRIPTS = 0001_passwordless.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 

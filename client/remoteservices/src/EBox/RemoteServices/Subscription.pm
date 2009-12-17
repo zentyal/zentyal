@@ -351,7 +351,6 @@ sub _openVPNConnection #(ipaddr, port, protocol)
 #                     "-D ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
 #                    );
 #             }
-            # We assume UDP
             EBox::Sudo::root(
                 EBox::Iptables::pf(
                     "-A ointernal -p $protocol -d $ipAddr --dport $port -j ACCEPT"

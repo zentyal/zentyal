@@ -19,6 +19,7 @@
 
 use EBox;
 use EBox::Config;
+use EBox::Global;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Jobs;
 use Fcntl ':mode';
@@ -59,7 +60,7 @@ sub _getCronJobs
         my $perm = (stat("$dirPath/script"))[2];
         chmod($perm | S_IXUSR | S_IXGRP | S_IXOTH , "$dirPath/script");
         # No arguments yet
-        File::Slurp::write_file( "$dirPath/args",   '');
+        File::Slurp::write_file( "$dirPath/args",  '');
     }
 }
 
@@ -77,7 +78,10 @@ if ( $usage or (not $correct)) {
 
 EBox::init();
 
-_getCronJobs();
+my $rs = EBox::Global->modInstance('remoteservices');
+if ( $rs->isConnected() ) {
+    _getCronJobs();
+}
 
 __END__
 

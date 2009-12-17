@@ -1230,7 +1230,7 @@ sub dhcpLeasesWidget
 
 ### Method: widgets
 #
-#   Overrides <EBox::Module::widgets>
+#   Overrides <EBox::Module::Base::widgets>
 #
 sub widgets
 {

@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Warp Networks S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -52,7 +53,7 @@ use Error qw(:try);
 
 # Constants
 use constant {
-    EBOX_SERVICES_URL => 'https://www.ebox-controlcenter.com',
+    EBOX_SERVICES_URL => 'http://www.ebox-technologies.com/contact/',
     MAX_LENGTH => 20,
 };
 
@@ -147,10 +148,12 @@ sub setTypedRow
             # Indicate if the necessary to wait for a second or not
             if ( $subsData->{new} ) {
                 $self->{returnedMsg} = __('Subscription was done correctly. Wait a minute to let '
-                                          . 'the subscription be propagated throughout the system');
+                                          . 'the subscription be propagated throughout the system.');
             } else {
-                $self->{returnedMsg} = __('Subscription data retrieved correctly');
+                $self->{returnedMsg} = __('Subscription data retrieved correctly.');
             }
+            $self->{returnedMsg} .= ' ' . __('Please, save changes');
+            $self->{gconfmodule}->st_set_bool('just_subscribed', 1);
         }
     }
     $self->_manageEvents(not $subs);
@@ -233,6 +236,41 @@ sub unsubscribe
 
 }
 
+# Method: viewCustomizer
+#
+#      Return a custom view customizer to set a permanent message if
+#      the VPN is not enabled or configured
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    if ( not $self->eBoxSubscribed() ) {
+        my $customizer = new EBox::View::Customizer();
+        $customizer->setModel($self);
+        my $vpnMod = EBox::Global->modInstance('openvpn');
+        my $msg = '';
+        if ( not $vpnMod->configured() ) {
+            $msg = __('Subscribing an eBox will configure OpenVPN module '
+                      . 'by running these actions and modifying these files: ') . '<br/>'
+                      . $self->_actionsStr($vpnMod) . '<br/>' . $self->_filesStr($vpnMod);
+        } elsif ( not $vpnMod->isEnabled() ) {
+            $msg = __('Subscribing an eBox will enable the OpenVPN module.')
+        }
+        $customizer->setPermanentMessage(
+            $msg . __('Take into account that subscribing an eBox could take a '
+                      . 'minute. Do not touch anything while subscribing process is done.')
+           );
+        return $customizer;
+    } else {
+        return undef;
+    }
+
+}
 
 # Method: precondition
 #
@@ -246,9 +284,7 @@ sub precondition
 {
     my $global = EBox::Global->getInstance();
     if ( $global->modExists('openvpn') ) {
-        my $vpn = $global->modInstance('openvpn');
-        return (not $global->modIsChanged('openvpn')
-                  and $vpn->isEnabled());
+        return not $global->modIsChanged('openvpn');
     } else {
         return 0;
     }
@@ -265,8 +301,7 @@ sub precondition
 sub preconditionFailMsg
 {
     return __('Prior to make a subscription on remote services, '
-              . 'enable the OpenVPN module and save or discard '
-              . 'its changes');
+              . 'save or discard changes in the OpenVPN module');
 }
 
 # Group: Protected methods
@@ -293,11 +328,13 @@ sub _table
                              ),
        new EBox::Types::Text(
                              fieldName      => 'eboxCommonName',
-                             printableName  => __('eBox common name'),
+                             printableName  => __('eBox name'),
                              editable       => (not $self->eBoxSubscribed()),
                              volatile       => 1,
                              acquirer       => \&_acquireFromGConfState,
                              storer         => \&_storeInGConfState,
+                             help           => __('Choose a name for your eBox which is '
+                                                  . 'a valid domain name'),
                             ),
       );
 
@@ -387,6 +424,32 @@ sub _manageEvents # (subscribing)
     $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
                                 $subscribing);
 
+}
+
+# Dump the OpenVPN actions string
+sub _actionsStr
+{
+    my ($self, $mod) = @_;
+
+    my $retStr = '';
+    foreach my $action (@{$mod->actions()}) {
+        $retStr .= __('Action') . ':' . $action->{action} . '<br/>';
+        $retStr .= __('Reason') . ':' . $action->{reason} . '<br/>';
+    }
+    return $retStr;
+}
+
+# Dump the OpenVPN actions string
+sub _filesStr
+{
+    my ($self, $mod) = @_;
+
+    my $retStr = '';
+    foreach my $file (@{$mod->usedFiles()}) {
+        $retStr .= __('File') . ':' . $file->{file} . '<br/>';
+        $retStr .= __('Reason') . ':' . $file->{reason} . '<br/>';
+    }
+    return $retStr;
 }
 
 1;
