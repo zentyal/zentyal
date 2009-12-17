@@ -94,7 +94,6 @@ sub register
         push(@{$self->{order}}, $measureToRegister);
         return 1;
     } else {
-        EBox::info("$measureToRegister is not enabled to collect data");
         return 0;
     }
 
