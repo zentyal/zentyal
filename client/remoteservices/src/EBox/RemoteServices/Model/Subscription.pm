@@ -47,6 +47,7 @@ use EBox::RemoteServices::Subscription;
 use EBox::Types::Password;
 use EBox::Types::Text;
 use EBox::Validate;
+use EBox::View::Customizer;
 
 # Core modules
 use Error qw(:try);

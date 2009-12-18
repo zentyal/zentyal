@@ -191,7 +191,8 @@ sub vpnClientForServices
         if (not $openvpn->configured() ) {
             $openvpn->setConfigured(1);
             $openvpn->enableActions();
-        } elsif (not $openvpn->isEnabled() ) {
+        }
+        if (not $openvpn->isEnabled() ) {
             $openvpn->enableService(1);
         }
 

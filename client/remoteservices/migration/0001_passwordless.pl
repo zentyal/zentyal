@@ -21,9 +21,11 @@ sub runGConf
 
     my $rs = $self->{gconfmodule};
 
-    if ( defined($rs->get_bool('AccessSettings/passwordless')) ) {
-        $rs->set_bool('AccessSettings/passwordless', 1);
-    }
+    $rs->set_bool('AccessSettings/passwordless', 1);
+    $rs->set_bool('AccessSettings/readOnly', 0);
+    my $version = $rs->get_int('AccessSettings/version');
+    $version = 0 unless defined($version);
+    $rs->set_int('AccessSettings/version', $version+1);
 
 }
 
