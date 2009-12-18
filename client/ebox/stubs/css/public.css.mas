@@ -390,7 +390,17 @@ body {
     display: inline;
     color: #787878;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 15px;
+    background-color: #FFFFFF;
+    font-family: Trebuchet MS, Verdana, sans-serif;
+    float: none;
+}
+
+.title_link_sep {
+    display: inline;
+    color: #787878;
+    font-weight: bold;
+    font-size: 15px;
     background-color: #FFFFFF;
     font-family: Trebuchet MS, Verdana, sans-serif;
     float: none;

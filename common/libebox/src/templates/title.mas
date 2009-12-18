@@ -13,7 +13,7 @@ my $domain = settextdomain('libebox');
 %       my $section = $crumbs->[$i];
 %       if ($i != scalar(@$crumbs) - 1) {
     <span class='title_link'><a href='<% $section->{link} %>'><% $section->{title} %></a></span>
-    <span class='title_link_sep'>&raquo;</span>
+    <span class='title_link_sep'>&#9654;</span>
 %       } else  {
     <span class='title'><% $section->{title} %></span>
 %	}
