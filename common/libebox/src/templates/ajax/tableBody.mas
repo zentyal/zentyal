@@ -441,7 +441,18 @@ $page
             id='actionsCell_<% 
                               $row->{id} 
                             %>'>
-%      my $disabled = $row->readOnly() ? 'disabled' : '';
+%      my $disabled = '';
+%      my $edit = 'edit';
+%      my $edit_msg = __('Edit');
+%      my $delete = 'delete';
+%      my $delete_msg = __('Delete');
+%      if ($row->readOnly()) {
+%          $disabled = 'disabled';
+%          $edit = 'edit-inactive';
+%          $delete = 'delete-inactive';
+%          $edit_msg = __('Read-only row: edit disabled');
+%          $delete_msg = __('Read-only row: delete disabled');
+%      }
 
 %      if ($actions->{'del'}) 
 %      {
@@ -452,9 +463,9 @@ $page
               type='image' 
               name='del'
               value="Del" 
-              title="Del"
+              title="<% $delete_msg %>"
               alt="Del" 
-              src='/data/images/delete.gif'
+              src='/data/images/<% $delete %>.gif'
               onClick='<% 
                           $model->actionClickedJS('del', 
                              $row->{id}, 
@@ -473,8 +484,8 @@ $page
               type='image' 
               name='edit'
               value="edit" 
-              title="edit" 
-              src='/data/images/edit.gif'
+              title="<% $edit_msg %>"
+              src='/data/images/<% $edit %>.gif'
               onClick='<% 
                          $model->changeViewJS( changeType => 'changeEdit', 
                              editId => $row->{'id'}, 
