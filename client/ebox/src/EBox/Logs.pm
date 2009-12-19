@@ -77,10 +77,24 @@ sub _daemons
 {
     return [
         {
-            'name' => LOG_DAEMON
+            'name' => LOG_DAEMON,
+            'precondition' => \&_loggerdPrecondition,
         }
     ];
 }
+
+
+#  Method: _loggerdPrecondition
+#
+#   loggerd daemon precondition, checks that a least one logger domain is
+#   enabled
+sub _loggerdPrecondition
+{
+    my ($self) = @_;
+    my $enabled = $self->allEnabledLogHelpers();
+    return @{ $enabled } > 0;
+}
+
 
 
 # Method: enableService

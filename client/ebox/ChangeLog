@@ -14,6 +14,8 @@ HEAD
 	+ Add support for breadcrumbs on the UI
 	+ Bug fix: in Loggerd files are only parsed one time regardless of
 	  how many LogHelper reference them
+	+ Added precondition for Loggerd: it does not run if there isnt
+	anything to watch
 1.3.11
 	+ Support customFilter in models for big tables
 	+ Added EBox::Events::sendEvent method to send events using Perl
