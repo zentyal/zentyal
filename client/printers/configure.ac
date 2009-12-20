@@ -1,4 +1,4 @@
-AC_INIT([EBox-printers], [1.3.10])
+AC_INIT([EBox-printers], [1.3.12])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Printers.pm])

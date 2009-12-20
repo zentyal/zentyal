@@ -1,4 +1,4 @@
-HEAD
+1.3.12
 	+ Don't allow to enable public_html directories if samba modules
 	is not configured because in this situation there aren't user home directories
 	+ Add titles and headers

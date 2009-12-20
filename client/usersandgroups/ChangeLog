@@ -1,4 +1,4 @@
-HEAD
+1.3.12
 	+ Add EBox::Ldap::lastModificationTime to know when the master LDAP
  	  database was modified for the last time
 	+ Index uid and memberUid to avoid some warnings and improve performance,
