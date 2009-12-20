@@ -8,10 +8,11 @@ use Error qw(:try);
 EBox::init();
 
 my $usersMod = EBox::Global->modInstance('users');
-my $model = $usersMod->model('Mode');
-my $host = $model->remoteValue();
-my $password = $model->adpassValue();
-my $username = $model->usernameValue();
+my $mode = $usersMod->model('Mode');
+my $host = $mode->remoteValue();
+my $settings = $usersMod->model('ADSyncSettings');
+my $username = $settings->usernameValue();
+my $password = $settings->adpassValue();
 
 my $ldapAD = Net::LDAP->new($host, 'onerror' => undef);
 unless ($ldapAD) {
@@ -19,11 +20,13 @@ unless ($ldapAD) {
     exit 1;
 }
 
-my $dn = "CN=$username,CN=Users," . baseDnAD();
+my $base = baseDnAD();
 
-my $res = $ldapAD->bind($dn, password => $password);
+my $bindDn = "CN=$username,CN=Users,$base";
+
+my $res = $ldapAD->bind($bindDn, password => $password);
 unless ($res->{resultCode} eq 0) {
-    EBox::error("[ad-sync] Can't bind to $host as $dn");
+    EBox::error("[ad-sync] Can't bind to $host as $bindDn");
     exit 1;
 }
 
@@ -149,23 +152,19 @@ sub baseDnAD {
     return $entry->get_value($attr);
 }
 
-sub usersDnAD
-{
-    return 'CN=Users,' . baseDnAD();
-}
-
 sub usersAD
 {
+    my %users;
+
     my %args = (
-                base => usersDnAD(),
-                filter => '(objectclass=user)',
+                base => $base,
+                filter => '(&(objectclass=user)(!(objectclass=computer))(!(isCriticalSystemObject=TRUE)))',
                 scope => 'one',
                 attrs => ['userPrincipalName', 'cn', 'givenName', 'sn', 'description']
                );
 
     my $result = $ldapAD->search(%args);
 
-    my %users;
     foreach my $user ($result->sorted('userPrincipalName')) {
         my $username = $user->get_value('userPrincipalName');
         if (userExistsAD($username)) {
@@ -182,7 +181,7 @@ sub userExistsAD # (user)
     my ($user) = @_;
 
     my %attrs = (
-                 base => usersDnAD(),
+                 base => $base,
                  filter => "(userPrincipalName=$user)",
                  scope => 'one'
                 );
@@ -200,7 +199,7 @@ sub userInfoAD # (user, entry)
     # we already have the entry
     unless ($entry) {
         my %args = (
-                    base => usersDnAD(),
+                    base => $base,
                     filter => "(userPrincipalName=$user)",
                     scope => 'one',
                     attrs => ['*'],
@@ -258,8 +257,10 @@ sub userInfoAD # (user, entry)
 
 sub groupsAD
 {
+    my %groups;
+
     my %args = (
-                base => usersDnAD(),
+                base => $base,
                 filter => '(objectclass=group)',
                 scope => 'one',
                 attrs => ['cn', 'member']
@@ -267,7 +268,6 @@ sub groupsAD
 
     my $result = $ldapAD->search(%args);
 
-    my %groups;
     foreach my $entry ($result->sorted('cn')) {
         my $cn = $entry->get_value('cn');
         my $desc = $entry->get_value('description');

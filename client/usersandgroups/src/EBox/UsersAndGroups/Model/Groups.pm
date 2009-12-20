@@ -130,18 +130,20 @@ sub preconditionFailMsg
         return __('You must enable the module Users in the module ' .
                 'status section in order to use it.');
     } else {
-        my $users = EBox::Global->modInstance('users');
-        if ($users->mode() eq 'master') {
+        my $users = $self->parentModule();
+        my $mode = $users->mode();
+        if ($mode eq 'master') {
             return __x('There are no groups at the moment. '
                 . 'You may want to add some in {openhref}Add group section{closehref}.',
                 openhref => '<a href="/ebox/UsersAndGroups/Groups">',
                 closehref => '</a>');
-        } elsif ($users->mode() eq 'slave') {
-            return __('There are no groups at the moment. '
-                . 'You may want to add some in the master eBox');
-        } elsif ($users->mode() eq 'ad-slave') {
-            return __('There are no groups at the moment. '
-                . 'You may want to add some in the Domain Controller');
+        } elsif ($mode eq 'slave') {
+            my $master = $users->model('Mode')->remoteValue();
+            return __x('This eBox is configured as slave and there are no groups at the moment. You may want to add some in the {openhref}master{closehref}.',
+                       openhref => "<a href='https://$master/ebox/UsersAndGroups/Groups'>",
+                       closehref => '</a>');
+        } elsif ($mode eq 'ad-slave') {
+            return __('This eBox is configured as Windows AD slave and there are no groups at the moment. If there are groups in your Domain Controller, maybe the synchronization process has failed or has not finished yet.');
         }
     }
 }

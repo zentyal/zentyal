@@ -299,6 +299,7 @@ sub modelClasses
         'EBox::UsersAndGroups::Model::Slaves',
         'EBox::UsersAndGroups::Model::PendingSync',
         'EBox::UsersAndGroups::Model::ForceSync',
+        'EBox::UsersAndGroups::Model::ADSyncSettings',
     ];
 }
 
@@ -2182,10 +2183,14 @@ sub menu
             'url' => '/Users/View/Users',
             'text' => __('Edit User')));
         if ($mode eq 'master') {
-	    $folder->add(new EBox::Menu::Item(
-		'url' => 'Users/Composite/SlaveInfo',
-		'text' => __('Slave Status')));
-         }
+	        $folder->add(new EBox::Menu::Item(
+		                    'url' => 'Users/Composite/SlaveInfo',
+                            'text' => __('Slave Status')));
+        } elsif ($mode eq 'ad-slave') {
+	        $folder->add(new EBox::Menu::Item(
+		                    'url' => 'Users/View/ADSyncSettings',
+                            'text' => __('AD Sync Settings')));
+        }
 
         $root->add($folder);
 

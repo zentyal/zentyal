@@ -31,10 +31,11 @@ use constant INT_SIZE => 4;
 EBox::init();
 
 my $usersMod = EBox::Global->modInstance('users');
-my $model = $usersMod->model('Mode');
-my $remote = $model->remoteValue();
-my $secretKey = $model->secretValue();
-my $port = $model->portValue();
+my $mode = $usersMod->model('Mode');
+my $remote = $mode->remoteValue();
+my $settings = $usersMod->model('ADSyncSettings');
+my $secretKey = $settings->secretValue();
+my $port = $settings->portValue();
 
 $SIG{PIPE} = 'IGNORE';
 

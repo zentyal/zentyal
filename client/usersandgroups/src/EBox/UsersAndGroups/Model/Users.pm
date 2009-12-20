@@ -129,10 +129,21 @@ sub preconditionFailMsg
         return __('You must enable the module Users in the module ' .
                 'status section in order to use it.');
     } else {
-        return __x('There are no users at the moment. '
-                   . 'You may want to add some in {openhref}Add user section{closehref}.',
-                   openhref => '<a href="/ebox/UsersAndGroups/Users">',
-                   closehref => '</a>');
+        my $users = $self->parentModule();
+        my $mode = $users->mode();
+        if ($mode eq 'master') {
+            return __x('There are no users at the moment. '
+                       . 'You may want to add some in {openhref}Add user section{closehref}.',
+                       openhref => '<a href="/ebox/UsersAndGroups/Users">',
+                       closehref => '</a>');
+        } elsif ($mode eq 'slave') {
+            my $master = $users->model('Mode')->remoteValue();
+            return __x('This eBox is configured as slave and there are no users at the moment. You may want to add some in the {openhref}master{closehref}.',
+                       openhref => "<a href='https://$master/ebox/UsersAndGroups/Users'>",
+                       closehref => '</a>');
+        } elsif ($mode eq 'ad-slave') {
+            return __('This eBox is configured as Windows AD slave and there are no users at the moment. If there are users in your Domain Controller, maybe the synchronization process has failed or has not finished yet.');
+        }
     }
 }
 
