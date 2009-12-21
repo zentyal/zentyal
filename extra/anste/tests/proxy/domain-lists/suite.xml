@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite>
-    <name>eBox Proxy basic tests</name>
+    <name>eBox Proxy domain list tests</name>
     <desc>
     Contains a set of tests to check
-    that the eBox HTTP Proxy module works properly.
+    that the domain list features of eBox HTTP Proxy module work properly.
     </desc>
 
     <scenario>proxy/basic.xml</scenario>
