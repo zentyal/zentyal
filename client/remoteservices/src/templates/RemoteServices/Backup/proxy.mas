@@ -113,7 +113,7 @@ my @legendElements = (
 <& /legendTable.mas, elements => \@legendElements, nColumns => 2 &>
 % }
 % elsif (not $password) {
-<& /msg.mas, msg => __('You must enter a valid user and password to '
+<& /msg.mas, msg => __('You must enter a valid user/email address and password to '
    . 'see this list'), class => 'warning' &>
 
 % }
@@ -129,7 +129,7 @@ my @rows = (
         [ 
           name => 'user',
           input => 'text',
-	  printableName => __('User'),
+	  printableName => __('User or Email Address'),
         ],
         [ 
           name => 'password',

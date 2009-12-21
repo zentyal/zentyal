@@ -264,7 +264,7 @@ sub viewCustomizer
         }
         $customizer->setPermanentMessage(
             $msg . __('Take into account that subscribing an eBox could take a '
-                      . 'minute. Do not touch anything while subscribing process is done.')
+                      . 'minute. Do not touch anything until subscribing process is done.')
            );
         return $customizer;
     } else {
@@ -321,7 +321,7 @@ sub _table
       (
        new EBox::Types::Text(
                              fieldName     => 'username',
-                             printableName => __('User name'),
+                             printableName => __('User Name or Email Address'),
                              editable      => (not $self->eBoxSubscribed()),
                              volatile      => 1,
                              acquirer      => \&_acquireFromGConfState,
@@ -329,7 +329,7 @@ sub _table
                              ),
        new EBox::Types::Text(
                              fieldName      => 'eboxCommonName',
-                             printableName  => __('eBox name'),
+                             printableName  => __('eBox Name'),
                              editable       => (not $self->eBoxSubscribed()),
                              volatile       => 1,
                              acquirer       => \&_acquireFromGConfState,
