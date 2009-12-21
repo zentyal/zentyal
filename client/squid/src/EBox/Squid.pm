@@ -60,6 +60,7 @@ use constant DGPORT => '3129';
 use constant DGDIR => '/etc/dansguardian';
 use constant DGLISTSDIR => DGDIR . '/lists';
 use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
+use constant CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf';
 
 sub _create
 {
@@ -269,6 +270,11 @@ sub usedFiles
              'file' => DG_LOGROTATE_CONF,
              'module' => 'squid',
              'reason' => __(q{Dansguardian's log rotation configuration}),
+            },
+            {
+                'file' => CLAMD_SCANNER_CONF_FILE,
+                'module' => 'squid',
+             'reason' => __(q{Dansguardian's antivirus canner configuration}),
             },
 
            ];
@@ -706,6 +712,17 @@ sub _writeDgConf
                        'squid/pics.mas',
                        []
                       );
+
+  if ($antivirus) {
+      my $avMod = EBox::Global->modInstance('antivirus');
+      $self->writeConfFile(CLAMD_SCANNER_CONF_FILE,
+                           "squid/clamdscan.conf.mas", 
+                           [
+                               clamdSocket => $avMod->localSocket(),
+                           ]
+                          );
+
+  }
 
 
   foreach my $group (@dgFilterGroups) {

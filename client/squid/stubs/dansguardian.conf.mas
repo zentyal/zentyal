@@ -145,7 +145,7 @@ downloadmanager = '/etc/dansguardian/downloadmanagers/default.conf'
 # See the individual plugin conf file for more options (if any).
 #
 % if ($antivirus) {
-contentscanner = '/etc/dansguardian/contentscanners/clamav.conf'
+contentscanner = '/etc/dansguardian/contentscanners/clamdscan.conf'
 % }
 
 

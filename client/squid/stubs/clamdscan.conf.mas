@@ -1,0 +1,21 @@
+<%args>
+$clamdSocket
+</%args>
+
+plugname = 'clamdscan'
+
+# edit this to match the location of your ClamD UNIX domain socket
+clamdudsfile = '<% $clamdSocket %>'
+
+# If this string is set, the text it contains shall be removed from the
+# beginning of filenames when passing them to ClamD.
+# Use it to - for example - support a ClamD running inside a chroot jail:
+# if DG's filecachedir is set to "/var/clamdchroot/downloads/" and pathprefix
+# is set to "/var/clamdchroot", then file names given to ClamD will be of the
+# form "/downloads/tf*" instead of "/var/clamdchroot/downloads/tf*".
+#pathprefix = '/var/clamdchroot'
+
+exceptionvirusmimetypelist = '/etc/dansguardian/lists/contentscanners/exceptionvirusmimetypelist'
+exceptionvirusextensionlist = '/etc/dansguardian/lists/contentscanners/exceptionvirusextensionlist'
+exceptionvirussitelist = '/etc/dansguardian/lists/contentscanners/exceptionvirussitelist'
+exceptionvirusurllist = '/etc/dansguardian/lists/contentscanners/exceptionvirusurllist'

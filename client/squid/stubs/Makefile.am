@@ -8,6 +8,7 @@ nobase_Stub_DATA = squid.conf.mas  \
         bannedurllist.mas exceptionurllist.mas greyurllist.mas \
 	bannedextensionlist.mas bannedmimetypelist.mas  \
 	bannedphraselist.mas exceptionphraselist.mas \
+	clamdscan.conf.mas \
 	pics.mas \
 	dansguardian.logrotate
 
