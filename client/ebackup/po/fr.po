@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:57+0000\n"
-"PO-Revision-Date: 2009-09-30 11:43+0200\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2009-12-13 00:15+0100\n"
+"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,31 +28,31 @@ msgstr "Vérifier si la sauvegarde est sans succès"
 #: src/EBox/Model/RemoteFileList.pm:143
 msgid "There is no information about backuped files yet"
 msgstr ""
+"Il n'existe pas encore d'information concernant les fichiers sauvegardés"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "Fichier"
 
 #: src/EBox/Model/RemoteFileList.pm:166
-#, fuzzy
 msgid "Backup Date"
-msgstr "Sauvegarde"
+msgstr "Date de sauvegarde"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
-msgstr ""
+msgstr "Restaurer des fichiers"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "opération de restauration de fichier"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue  the currentwill be deleted"
-msgstr ""
+msgstr "Le fichier existe déjà, si vous continuez, il sera effacé"
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr ""
+msgstr "Le fichier à été restauré"
 
 #: src/EBox/Model/RemoteFileList.pm:266
 #, perl-brace-format
@@ -61,61 +61,59 @@ msgstr ""
 
 #: src/EBox/Model/RemoteStatus.pm:117
 msgid "There is no information about the backuped files yet"
-msgstr ""
+msgstr "Il n'existe pas encore d'information concernant le fichier sauvegardé"
 
 #: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:74
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: src/EBox/Model/RemoteStatus.pm:140
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: src/EBox/Model/RemoteStatus.pm:147
 msgid "Remote Backup Status"
-msgstr ""
+msgstr "Statut de la sauvegarde distante"
 
 #: src/EBox/Model/RemoteStatus.pm:148
-#, fuzzy
 msgid "backup"
 msgstr "Sauvegarde"
 
 #: src/EBox/Model/RemoteSettings.pm:138
 msgid "Method"
-msgstr ""
+msgstr "Méthode"
 
 #: src/EBox/Model/RemoteSettings.pm:144
-#, fuzzy
 msgid "Host or destination"
-msgstr "Destination de la sauvegarde"
+msgstr "Hôte ou destination"
 
 #: src/EBox/Model/RemoteSettings.pm:150
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
 
 #: src/EBox/Model/RemoteSettings.pm:156
 msgid "Password"
-msgstr ""
+msgstr "Mot de passe"
 
 #: src/EBox/Model/RemoteSettings.pm:162
 msgid "GPG key"
-msgstr ""
+msgstr "Clé GPG"
 
 #: src/EBox/Model/RemoteSettings.pm:169
 msgid "Full Backup Frequency"
-msgstr ""
+msgstr "Fréquence des sauvegardes complètes"
 
 #: src/EBox/Model/RemoteSettings.pm:175
 msgid "Number of full copies to keep"
-msgstr ""
+msgstr "Nombre de copie complètes à garder"
 
 #: src/EBox/Model/RemoteSettings.pm:182
 msgid "Incremental Backup Frequency"
-msgstr ""
+msgstr "Fréquence des sauvegardes incrémentielles"
 
 #: src/EBox/Model/RemoteSettings.pm:188
 msgid "Backup process starts at"
-msgstr ""
+msgstr "Le processus de sauvegarde commence à"
 
 #: src/EBox/Model/RemoteSettings.pm:197
 msgid "General Configuration"
@@ -124,7 +122,7 @@ msgstr "Configuration Générale "
 #: src/EBox/Model/RemoteSettings.pm:200
 #, fuzzy
 msgid "General remote backup server configuration"
-msgstr "Configuration générale du serveur de sauvegarde"
+msgstr "Configuration générale du serveur de sauvegarde distant"
 
 #: src/EBox/Model/RemoteSettings.pm:203
 msgid "General backup server configuration updated"
@@ -132,19 +130,19 @@ msgstr "Mise à jour de la configuration générale du serveur de sauvegarde"
 
 #: src/EBox/Model/RemoteSettings.pm:217
 msgid "Daily"
-msgstr ""
+msgstr "Quotidien"
 
 #: src/EBox/Model/RemoteSettings.pm:221
 msgid "Weekly"
-msgstr ""
+msgstr "Hebdomadaire"
 
 #: src/EBox/Model/RemoteSettings.pm:225
 msgid "Monthly"
-msgstr ""
+msgstr "Mensuel"
 
 #: src/EBox/Model/RemoteSettings.pm:234 src/EBox/Model/RemoteSettings.pm:340
 msgid "Disabled"
-msgstr ""
+msgstr "inactif"
 
 #: src/EBox/Model/RemoteSettings.pm:356
 #, perl-brace-format
@@ -152,22 +150,24 @@ msgid ""
 "By creating the iBackup account through this {ohref}link{chref} you support "
 "the development of eBox with no extra charge"
 msgstr ""
+"En créant le compte iBackup au tyravers de ce {ohref}lien{chref} , vous "
+"participez au développement d'eBox gratuitement"
 
 #: src/EBox/Model/RemoteExcludes.pm:80
 msgid "Exlcude or Include"
-msgstr ""
+msgstr "Exclu ou inclu"
 
 #: src/EBox/Model/RemoteExcludes.pm:91
 msgid "Includes and Excludes"
-msgstr ""
+msgstr "Inclus et exclus"
 
 #: src/EBox/Model/RemoteExcludes.pm:92
 msgid "exclude"
-msgstr ""
+msgstr "exclu"
 
 #: src/EBox/Model/RemoteExcludes.pm:111
 msgid "Exclude path"
-msgstr ""
+msgstr "Chemin exclu"
 
 #: src/EBox/Model/RemoteExcludes.pm:115
 msgid "Exclude file regexp"
@@ -175,11 +175,11 @@ msgstr ""
 
 #: src/EBox/Model/RemoteExcludes.pm:119
 msgid "Include Path"
-msgstr ""
+msgstr "Chemin inclu"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
-msgstr ""
+msgstr "Configuration et statut"
 
 #: src/EBox/Composite/Remote.pm:64
 msgid "Backup module"

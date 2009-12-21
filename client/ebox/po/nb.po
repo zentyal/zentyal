@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:57+0000\n"
-"PO-Revision-Date: 2009-09-30 16:20+0200\n"
+"PO-Revision-Date: 2009-12-04 09:37+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr "Prosess Liste"
 
 #: src/EBox/SysInfo.pm:149
 msgid "Support & Services"
-msgstr ""
+msgstr "Støtte og Tjenester"
 
 #: src/EBox/SysInfo.pm:220 src/EBox/CGI/Dashboard/Index.pm:32
 msgid "Dashboard"
@@ -1182,9 +1182,8 @@ msgid "Enable service"
 msgstr "Aktiver tjeneste"
 
 #: src/EBox/Events.pm:417
-#, fuzzy
 msgid "The events module is not enabled to send events"
-msgstr "Tildeler {name} deaktivert siden den ikke klarer å sende hendelser"
+msgstr "Handlings modulen er ikke aktivert for sending av handlinger"
 
 #: src/EBox/Events.pm:632
 msgid "Event service status"
@@ -2056,6 +2055,8 @@ msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on eBox. "
 "Please use {url} instead."
 msgstr ""
+"Advarsel: Desverre er Internet Explorer ikke støttet enda på eBox. Vennligst "
+"bruk {url} i stedet."
 
 #: src/templates/login/index.mas:46
 #, perl-brace-format
@@ -2064,6 +2065,9 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on eBox UI."
 msgstr ""
+"Advarsel: Du bruker en nettleser som ikke er {url}, den eneste som er "
+"offisielt støttet. Vennligst, tenk på at du kan møte problemer med "
+"navigering av eBox grensesnittet."
 
 #: src/templates/login/index.mas:58
 msgid "Enter"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:58+0000\n"
-"PO-Revision-Date: 2009-09-30 15:50+0200\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2009-12-12 23:02+0100\n"
+"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
 msgid "protocol for editing SIEVE filters"
-msgstr ""
+msgstr "protocole pour éditer les filtres SIEVE"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
@@ -42,7 +42,7 @@ msgstr "Cet utilisateur a une compte de courrier"
 
 #: src/EBox/MailUserLdap.pm:761
 msgid "Quota can only be a postitive number or zero for unlimited quota"
-msgstr ""
+msgstr "Quota doit être un nombre positif ou zéro pour un quota illimité"
 
 #: src/EBox/MailAliasLdap.pm:130 src/EBox/MailAliasLdap.pm:150
 msgid "Domain alias"
@@ -100,7 +100,7 @@ msgstr "courrier de l'utilisateur"
 
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
-msgstr ""
+msgstr "Quota doit être une quantité de MB supérieur à zéro"
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
 #: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:87
@@ -285,18 +285,20 @@ msgstr "Mot de passe"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:119
 msgid "Return address for mail bounced back to the sender"
-msgstr ""
+msgstr "Renvoi l'adresse des courriers rejetés à l'expéditeur"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:126
-#, fuzzy
 msgid "Maximum mailbox size allowed"
-msgstr "Taille maximale de la boîte de courrier"
+msgstr "Taille maximale autorisée de la boîte de courrier"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:128
+#, fuzzy
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
+"Lorsqu'une boite de réception atteint cette taille, les messages suivant "
+"seront rejetés. Ceci peut être écrasé par la configuration du compte "
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:132
 #: src/EBox/Mail/Model/SMTPOptions.pm:149 src/templates/createaccount.mas:78
@@ -314,21 +316,21 @@ msgstr "Taille maximale de message acceptée"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:163
 msgid "Expiration period for deleted mails"
-msgstr ""
+msgstr "Période d'expiration pour les courriers effacés"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:167
 #: src/EBox/Mail/Model/SMTPOptions.pm:184
 msgid "Never"
-msgstr ""
+msgstr "Jamais"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:171
 #: src/EBox/Mail/Model/SMTPOptions.pm:188
 msgid "days"
-msgstr ""
+msgstr "jours"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:180
 msgid "Expiration period for spam mails"
-msgstr ""
+msgstr "Période d'expiration pour les courriers indésirables"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:199
 msgid "Options"
@@ -344,10 +346,13 @@ msgid "Smarthost's port"
 msgstr "Port \"Smarthost\" (serveur mail de relai)"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:88
+#, fuzzy
 msgid ""
 "This service allows to a use to manage his SIEVE mail filtering scripts from "
 "a local client"
 msgstr ""
+"Ce service permet l'usage de ses scripts de filtrage de courrier SIEVE par "
+"un client local"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:95 src/EBox/Mail.pm:1516
 msgid "Mail retrieval services"
@@ -775,29 +780,24 @@ msgid "Action"
 msgstr "Action"
 
 #: src/templates/alias.mas:124
-#, fuzzy
 msgid "No quota"
-msgstr "Quota de taille"
+msgstr "Pas de quota"
 
 #: src/templates/alias.mas:125
-#, fuzzy
 msgid "Default quota"
-msgstr "Quota de taille"
+msgstr "Quota par défaut"
 
 #: src/templates/alias.mas:126
-#, fuzzy
 msgid "Custom quota"
-msgstr "Personnaliser"
+msgstr "Quota personnalisé"
 
 #: src/templates/alias.mas:133
-#, fuzzy
 msgid "Quta type"
-msgstr "Type de filtre"
+msgstr "Type de quota"
 
 #: src/templates/alias.mas:146
-#, fuzzy
 msgid "Maximum mailbox size in MB"
-msgstr "Taille maximale de la boîte de courrier"
+msgstr "Taille maximale de la boîte de courrier en MB"
 
 #: src/templates/alias.mas:162 src/templates/alias.mas:163
 msgid "Modify"

@@ -9,7 +9,7 @@ msgstr ""
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:07+0000\n"
-"PO-Revision-Date: 2009-12-03 13:08+0000\n"
+"PO-Revision-Date: 2009-12-07 09:54+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -178,61 +178,55 @@ msgstr "Sjef"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:76
 msgid "Windows AD Slave"
-msgstr ""
+msgstr "Windows AD Slave"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:83
-#, fuzzy
 msgid "Master host"
-msgstr "Sjef"
+msgstr "Sjefs vert"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:86
-#, fuzzy
 msgid "Only for slave configuration: IP of the master eBox or Windows"
-msgstr "Bare for slave konfigurasjon: IP til sjefs eBoxen"
+msgstr "Bare for slave konfigurasjon: IP til sjefs eBoxen eller Windows"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:90
-#, fuzzy
 msgid "LDAP password"
-msgstr "passord"
+msgstr "LDAP passord"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:92
 msgid "Master eBox LDAP password"
-msgstr ""
+msgstr "Sjefs eBox LDAP passord"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:96
-#, fuzzy
 msgid "AD user"
-msgstr "bruker"
+msgstr "AD bruker"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:99
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
-msgstr ""
+msgstr "Brukernavn for binding til Windows AD (den må opprettes i AD)"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:103
-#, fuzzy
 msgid "AD password"
-msgstr "passord"
+msgstr "AD passord"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:106
 msgid "Password for the above user"
-msgstr ""
+msgstr "Passord for brukeren over"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:110
-#, fuzzy
 msgid "Listen port"
-msgstr "lytte port"
+msgstr "Lytte port"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:113
 msgid "Port for listening password sync notifications from Windows"
-msgstr ""
+msgstr "Port for passord synkroniserings varsling fra Windows"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:117
 msgid "AD Secret Key"
-msgstr ""
+msgstr "AD Hemmelig Nøkkel"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:120
 msgid "Secret key to be shared between Windows and eBox (16 chars)"
-msgstr ""
+msgstr "Hemmelig Nøkkel for deling mellom Windows og eBox (16 tegn)"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:126
 msgid "eBox users mode"
@@ -282,12 +276,12 @@ msgstr ""
 "Det er ingen grupper akkurat nå. Du vil kanskje legge til noen i sjefs eBoxen"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:143
-#, fuzzy
 msgid ""
 "There are no groups at the moment. You may want to add some in the Domain "
 "Controller"
 msgstr ""
-"Det er ingen grupper akkurat nå. Du vil kanskje legge til noen i sjefs eBoxen"
+"Det er ingen grupper akkurat nå. Du vil kanskje legge til noen i Domene "
+"Kontrolleren"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
@@ -406,11 +400,12 @@ msgstr "Den er ikke klar for å jobbe med mer enn en slapd"
 
 #: src/EBox/UsersAndGroups.pm:125
 msgid "Install /etc/cron.d/ebox-ad-sync."
-msgstr ""
+msgstr "Install /etc/cron.d/ebox-ad-sync."
 
 #: src/EBox/UsersAndGroups.pm:126
 msgid "eBox will run a script each 5 minutes to sync with Windows AD."
 msgstr ""
+"eBox vil kjøre et skript hvert 5 minutt for å synkronisere med Windows AD."
 
 #: src/EBox/UsersAndGroups.pm:146
 msgid "To make openLDAP listen on TCP and Unix sockets"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:53+0000\n"
-"PO-Revision-Date: 2009-09-30 16:14+0200\n"
+"PO-Revision-Date: 2009-12-04 09:10+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -84,9 +84,8 @@ msgid "Mail Exchangers"
 msgstr "E-post utvekslere"
 
 #: src/EBox/Model/DomainTable.pm:91
-#, fuzzy
 msgid "Name Servers"
-msgstr "DNS Server"
+msgstr "Navn Server"
 
 #: src/EBox/Model/DomainTable.pm:109
 msgid "Domains"
@@ -107,10 +106,12 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
+"Oppgitt verts navn er ikke et fullverdig domene navn (FQDN). Mener du "
+"mx.{name}?"
 
 #: src/EBox/Model/MailExchanger.pm:126 src/EBox/Model/NameServer.pm:107
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
-msgstr ""
+msgstr "Hvis du velger \"Tilpasset\", bør det være et Fullverdig Domene Navn"
 
 #: src/EBox/Model/MailExchanger.pm:132 src/EBox/Model/NameServer.pm:113
 msgid "This domain"
@@ -176,20 +177,20 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "ns.{name}?"
 msgstr ""
+"Oppgitt verts navn er ikke et fullverdig domene navn (FQDN). Mener du "
+"ns.{name}?"
 
 #: src/EBox/Model/NameServer.pm:132
-#, fuzzy
 msgid "Name servers"
-msgstr "DNS Server"
+msgstr "Navn Server"
 
 #: src/EBox/Model/NameServer.pm:138
 msgid "It manages the name server (NS) records for this domain"
-msgstr ""
+msgstr "Den styerer navn server (NS) poster for dette domenet"
 
 #: src/EBox/Model/NameServer.pm:139
-#, fuzzy
 msgid "name server record"
-msgstr "E-post utveksler oppføring"
+msgstr "navn server post"
 
 #: src/templates/index.mas:16
 msgid "Domain list"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:02+0000\n"
-"PO-Revision-Date: 2009-09-30 17:35+0200\n"
+"PO-Revision-Date: 2009-12-04 16:01+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -113,9 +113,8 @@ msgid "Netbios and workgroup must have different names"
 msgstr "Netbios og arbeidsgruppe må ha forskjellige navn"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:78
-#, fuzzy
 msgid "Netbios name cannot be longer than 15 characters"
-msgstr "Dette resurs navnet er lenger enn 12 tegn."
+msgstr "Netbios navn kan ikke være lenger enn 15 tegn"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:88
 msgid "Enable PDC"
@@ -362,14 +361,12 @@ msgid "exception"
 msgstr "unntak"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:121
-#, fuzzy
 msgid "Samba shares Recycle Bin exceptions"
-msgstr "Samba deler antivirus unntak"
+msgstr "Samba deler Søppel Kasse unntak"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:126
-#, fuzzy
 msgid "Add exceptions to the default Recycle Bin settings"
-msgstr "Legg til unntak til standard antivirus innstillinger"
+msgstr "Legg til unntak til standard Søppel Kasse innstillinger"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:45
 #: src/EBox/Samba/Model/AntivirusDefault.pm:63
@@ -381,22 +378,20 @@ msgid "Scan"
 msgstr "Søk"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:45
-#, fuzzy
 msgid "Recycle default settings"
-msgstr "Antivirus standard innstillinger"
+msgstr "Gjenopprett standard innstillinger"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:55
 msgid "Enable Recycle Bin"
-msgstr ""
+msgstr "Slett Søppel Kasse"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:63
-#, fuzzy
 msgid "Recycle Bin default settings"
-msgstr "Antivirus standard innstillinger"
+msgstr "Søppel Kasse standard instillinger"
 
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
-msgstr ""
+msgstr "Søppel Kasse"
 
 #: src/EBox/Samba/Composite/General.pm:68
 msgid "File sharing options"

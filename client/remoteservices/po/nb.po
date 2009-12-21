@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:02+0000\n"
-"PO-Revision-Date: 2009-09-30 17:31+0200\n"
+"PO-Revision-Date: 2009-12-04 10:01+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgstr "Nøkkel for web abonnement tjeneste ble ikke funnet"
 #: src/EBox/RemoteServices/Subscription.pm:311
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
-msgstr ""
+msgstr "Kan ikke kontakte {host}. Kontroller din tilkobling til Internett"
 
 #: src/EBox/RemoteServices/Base.pm:213
 msgid "No ebox-services DNS key found"

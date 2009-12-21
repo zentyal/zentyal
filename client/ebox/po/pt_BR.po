@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:57+0000\n"
-"PO-Revision-Date: 2009-11-24 01:05+0100\n"
+"PO-Revision-Date: 2009-12-04 04:27+0100\n"
 "Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1948,19 +1948,19 @@ msgid "Full Backup"
 msgstr "Backup Completo"
 
 #: src/templates/backup.mas:24
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "Module Status{closeref} section will be ignored in both backup and restore "
 "operations."
 msgstr ""
-"Os módulos que não foram ativados no {openref} na secção do estado dos "
-"módulos{closeref} serão ignorados nas operações de backup e restauração"
+"Aqueles módulos que não foram ativados inicialmente na seção {openref}Status "
+"dos Módulos{closeref} serão ignorados nas operações de backup e "
+"restauração."
 
 #: src/templates/backup.mas:26
-#, fuzzy
 msgid "Backup the Current State"
-msgstr "Fazer Backup da configuração Atual"
+msgstr "Backup do estado atual"
 
 #: src/templates/backup.mas:35
 msgid ""
@@ -2047,27 +2047,27 @@ msgid ""
 "system. The file will be useful if you want to report a bug in eBox."
 msgstr ""
 "Esta página permite gerar um arquivo com informação sobre o estado so seu "
-"sistema. O arquivo será útil se você quer reportar um bug no EBox."
+"sistema. O arquivo será útil se você quiser reportar um bug no eBox."
 
 #: src/templates/bug.mas:14
 msgid "Download bug report file"
-msgstr "Download do arquivo de report de bug"
+msgstr "Download do arquivo de relatório de bugs"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
 msgstr ""
-"Existem mudanças não salvas, se você desconectar agora, elas serão perdidas."
+"Existem mudanças a serem salvas. Se você desconectar agora elas serão "
+"perdidas."
 
 #: src/templates/logout/index.mas:15
 msgid "There are no unsaved changes in this session."
-msgstr "Não existem configurações não-salvas nessa sessão"
+msgstr "Não existem configurações a serem salvas nesta sessão"
 
 #: src/templates/logout/index.mas:19
 msgid "Exit"
 msgstr "Sair"
 
 #: src/templates/password.mas:4
-#, fuzzy
 msgid "Change Password"
 msgstr "Trocar Senha"
 
@@ -2097,6 +2097,8 @@ msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on eBox. "
 "Please use {url} instead."
 msgstr ""
+"Atenção: Infelizmente o Internet Explorer ainda não é suportado pelo eBox. "
+"Por favor, use {url} alternativamente"
 
 #: src/templates/login/index.mas:46
 #, perl-brace-format
@@ -2105,6 +2107,9 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on eBox UI."
 msgstr ""
+"Atenção: Você está usando um browser que não é {url}, o único oficialmente "
+"suportado. Por favor, leve em consideração que você deverá deparar-se com "
+"algumas dificuldades durante a navegação na interface do eBox."
 
 #: src/templates/login/index.mas:58
 msgid "Enter"

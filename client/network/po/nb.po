@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:00+0000\n"
-"PO-Revision-Date: 2009-12-03 13:01+0000\n"
+"PO-Revision-Date: 2009-12-04 10:25+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -35,14 +35,12 @@ msgid "netmask"
 msgstr "nettmaske"
 
 #: src/EBox/CGI/Iface.pm:95
-#, fuzzy
 msgid "user name"
-msgstr "Brukernavn"
+msgstr "Bruker navn"
 
 #: src/EBox/CGI/Iface.pm:96
-#, fuzzy
 msgid "password"
-msgstr "Passord"
+msgstr "passord"
 
 #: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1360 src/EBox/Network.pm:1389
 #: src/templates/ifaces.mas:188
@@ -278,12 +276,11 @@ msgstr "eBox vil sette din ddclient konfigurasjon"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
 msgid "eBox will store your PPPoE passwords"
-msgstr ""
+msgstr "eBox vil lagre dine PPPoE passord"
 
 #: src/EBox/Network.pm:152
-#, fuzzy
 msgid "eBox will add a DSL provider configuration for PPPoE"
-msgstr "eBox vil sette din DNS konfigurasjon"
+msgstr "eBox vil legge til en DSL leverandør konfigurasjon for PPPoE"
 
 #: src/EBox/Network.pm:773 src/EBox/Network.pm:777
 msgid "Virtual interface name"
@@ -902,14 +899,12 @@ msgid "Not set"
 msgstr "Ikke satt"
 
 #: src/templates/ifaces.mas:80
-#, fuzzy
 msgid "External (WAN)"
-msgstr "Ekstern"
+msgstr "Ekstern (WAN)"
 
 #: src/templates/ifaces.mas:148
-#, fuzzy
 msgid "User name"
-msgstr "Brukernavn"
+msgstr "Bruker navn"
 
 #: src/templates/ifaces.mas:175
 msgid "Change"

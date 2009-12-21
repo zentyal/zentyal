@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:02+0000\n"
-"PO-Revision-Date: 2009-10-02 08:53+0200\n"
+"PO-Revision-Date: 2009-12-07 09:47+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -580,7 +580,6 @@ msgstr ""
 "noen objekter"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:185
-#, fuzzy
 msgid "You need to use authorization policies with global group policies"
 msgstr "Du må bruke autoriserings instrukser med globale gruppe instrukser"
 
@@ -673,6 +672,8 @@ msgid ""
 "There are not netowrk objects in the system. {open}Create{close} at least "
 "one object  if you want to set a object policy"
 msgstr ""
+"Det er ingen nettverks objekter i systemet. {open}Create{close} minst et "
+"objekt  hvis du vil sette en objekt instruks"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
 #: src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
@@ -702,6 +703,8 @@ msgid ""
 "There are not user groups in the system. {open}Create{close} at least one "
 "group  if you want to set a group policy"
 msgstr ""
+"Det er ingen bruker grupper i systemet. {open}Create{close} minst en gruppe "
+" hvis du vil sette en gruppe instruks"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:61
 msgid "Categories"

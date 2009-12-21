@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:58+0000\n"
-"PO-Revision-Date: 2009-09-30 16:28+0200\n"
+"PO-Revision-Date: 2009-12-04 09:50+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
 msgid "protocol for editing SIEVE filters"
-msgstr ""
+msgstr "protokoll for redigering av SIEVE filter"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
@@ -42,7 +42,7 @@ msgstr "Denne brukeren har en e-post konto"
 
 #: src/EBox/MailUserLdap.pm:761
 msgid "Quota can only be a postitive number or zero for unlimited quota"
-msgstr ""
+msgstr "Kvote kan bare være et positiv nummer vra null til uendelig kvote"
 
 #: src/EBox/MailAliasLdap.pm:130 src/EBox/MailAliasLdap.pm:150
 msgid "Domain alias"
@@ -100,7 +100,7 @@ msgstr "bruker e-post"
 
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
-msgstr ""
+msgstr "Kvote må være en mengde MB større enn null"
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
 #: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:87
@@ -144,9 +144,8 @@ msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr "Kan ikke koble til serveren {hostname} for å sende hendelsen via SMTP"
 
 #: src/EBox/Mail/Greylist.pm:55
-#, fuzzy
 msgid "To configure whitelist for greylisting"
-msgstr "Konfigurer hvit listing for grå listing"
+msgstr "For å konfigurer hvit listing for grå listing"
 
 #: src/EBox/Mail/Greylist.pm:279
 msgid "Greylist service"
@@ -161,13 +160,12 @@ msgid "Allow relay"
 msgstr "Tillat videresending"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:99
-#, fuzzy
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
 msgstr ""
-"Huk av dette valget for å tillate maskiner innenfor objektet over å sende e-"
-"post gjennom denne serveren"
+"Huk av dette valget for å tillate maskiner innenfor objektet over å sende "
+"e-post gjennom denne serveren."
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:108
 msgid "Relay policy for network objects"
@@ -274,18 +272,19 @@ msgstr "Passord"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:119
 msgid "Return address for mail bounced back to the sender"
-msgstr ""
+msgstr "Svar adressen for epost avvist tilbake til sender"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:126
-#, fuzzy
 msgid "Maximum mailbox size allowed"
-msgstr "Maksimum meldings størrelse tillatt"
+msgstr "Maksimum postboks størrelse tillatt"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:128
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
+"Når en postboks når denne størrelsen vil videre meldinger bli avvist. Dette "
+"kan bli overstyrt av konto"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:132
 #: src/EBox/Mail/Model/SMTPOptions.pm:149 src/templates/createaccount.mas:78
@@ -303,21 +302,21 @@ msgstr "Maksimum meldings størrelse tillatt"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:163
 msgid "Expiration period for deleted mails"
-msgstr ""
+msgstr "Utløpsdato på slettede e-post"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:167
 #: src/EBox/Mail/Model/SMTPOptions.pm:184
 msgid "Never"
-msgstr ""
+msgstr "Aldri"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:171
 #: src/EBox/Mail/Model/SMTPOptions.pm:188
 msgid "days"
-msgstr ""
+msgstr "dager"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:180
 msgid "Expiration period for spam mails"
-msgstr ""
+msgstr "Utløpsdato for søppel e-post"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:199
 msgid "Options"
@@ -337,6 +336,8 @@ msgid ""
 "This service allows to a use to manage his SIEVE mail filtering scripts from "
 "a local client"
 msgstr ""
+"Denne tjenesten tillater en bruker å behandle sine SIEVE e-post filter "
+"scripts fra en lokal klient"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:95 src/EBox/Mail.pm:1516
 msgid "Mail retrieval services"
@@ -458,9 +459,8 @@ msgstr ""
 "For å definere hvordan klient programmer kobler til tjenester i  postfix"
 
 #: src/EBox/Mail.pm:178
-#, fuzzy
 msgid "To configure host mail name"
-msgstr "For å konfigurere postfix"
+msgstr "For å konfigurere verts e-post navn"
 
 #: src/EBox/Mail.pm:184
 msgid "To configure dovecot"
@@ -756,28 +756,24 @@ msgid "Action"
 msgstr "Handling"
 
 #: src/templates/alias.mas:124
-#, fuzzy
 msgid "No quota"
-msgstr "Størrelses begrensning"
+msgstr "Ingen kvote"
 
 #: src/templates/alias.mas:125
-#, fuzzy
 msgid "Default quota"
-msgstr "Størrelses begrensning"
+msgstr "Standard kvote"
 
 #: src/templates/alias.mas:126
-#, fuzzy
 msgid "Custom quota"
-msgstr "Tilpasset"
+msgstr "Tilpasset kvote"
 
 #: src/templates/alias.mas:133
-#, fuzzy
 msgid "Quta type"
-msgstr "Filter type"
+msgstr "Kvote type"
 
 #: src/templates/alias.mas:146
 msgid "Maximum mailbox size in MB"
-msgstr ""
+msgstr "Maksimum e-post boks størrelse i MB"
 
 #: src/templates/alias.mas:162 src/templates/alias.mas:163
 msgid "Modify"

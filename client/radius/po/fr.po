@@ -1,5 +1,5 @@
 # French translations for ebox-radius package
-# Traductions fran�aises du paquet ebox-radius.
+# Traductions françaises du paquet ebox-radius.
 # Copyright (C) 2009 Warp S.L.
 # This file is distributed under the same license as the ebox-radius package.
 # Automatically generated, 2009.
@@ -9,91 +9,96 @@ msgstr ""
 "Project-Id-Version: ebox-radius 1.3.10Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:02+0000\n"
-"PO-Revision-Date: 2009-12-03 13:02+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-12-13 00:26+0100\n"
+"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox RADIUS system"
-msgstr ""
+msgstr "système RADIUS d'eBox"
 
 #: src/EBox/Model/Auth.pm:103
 msgid "All users"
-msgstr ""
+msgstr "Tous les utilisateurs"
 
 #: src/EBox/Model/Auth.pm:128
 msgid "Group allowed to authenticate"
-msgstr ""
+msgstr "Groupe autorisé a s'authentifier"
 
 #: src/EBox/Model/Auth.pm:138
 msgid "General configuration"
-msgstr ""
+msgstr "Configuration générale"
 
 #: src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
-msgstr ""
+msgstr "Configuration du serveur RADIUS"
 
 #: src/EBox/Model/Auth.pm:144
 msgid "RADIUS server configuration updated"
-msgstr ""
+msgstr "Configuration du serveur RADIUS mise à jour"
 
 #: src/EBox/Model/Clients.pm:112
 msgid "Client"
-msgstr ""
+msgstr "Client"
 
 #: src/EBox/Model/Clients.pm:119
 msgid "IP Address"
-msgstr ""
+msgstr "Adresse IP"
 
 #: src/EBox/Model/Clients.pm:125
+#, fuzzy
 msgid "Shared Secret"
-msgstr ""
+msgstr "Secret Partagé"
 
 #: src/EBox/Model/Clients.pm:133
 msgid "RADIUS Clients"
-msgstr ""
+msgstr "Clients RADIUS"
 
 #: src/EBox/Model/Clients.pm:134
 msgid "client"
-msgstr ""
+msgstr "client"
 
 #: src/EBox/Radius.pm:53 src/EBox/Radius.pm:276
 msgid "RADIUS"
-msgstr ""
+msgstr "RADIUS"
 
 #: src/EBox/Radius.pm:99
 msgid "Create RADIUS certificates for TTLS"
-msgstr ""
+msgstr "Créer des certificats RADIUS pour TTLS"
 
 #: src/EBox/Radius.pm:100
 msgid ""
 "eBox will create the needed certificates for TTLS in /etc/freeradius/certs/."
 msgstr ""
+"eBox créera les certificats nécessaire pour TTLS dans "
+"/etc/freeradius/certs/."
 
 #: src/EBox/Radius.pm:120
 msgid "To configure allowed LDAP group."
-msgstr ""
+msgstr "Pour configurer les groupes LDAP autorisés"
 
 #: src/EBox/Radius.pm:124
 msgid "To configure RADIUS LDAP module."
-msgstr ""
+msgstr "Pour configurer le module RADIUS LDAP"
 
 #: src/EBox/Radius.pm:128
 msgid "To configure RADIUS clients."
-msgstr ""
+msgstr "Pour configurer les clients RADIUS"
 
 #: src/EBox/Radius.pm:132
 msgid "To configure default RADIUS vhost."
-msgstr ""
+msgstr "Pour configurer le vhost RADIUS par défaut"
 
 #: src/EBox/Radius.pm:136
+#, fuzzy
 msgid "To configure RADIUS inner-tunnel vhost."
-msgstr ""
+msgstr "Pour configurer le vhost RADIUS inner-tunnel"
 
 #: src/EBox/Composite/General.pm:64
 msgid "RADIUS module"
-msgstr ""
+msgstr "Module RADIUS"

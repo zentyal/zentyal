@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:47+0000\n"
-"PO-Revision-Date: 2009-09-30 16:11+0200\n"
+"PO-Revision-Date: 2009-12-04 09:06+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -175,13 +175,13 @@ msgid "Settings successfully updated"
 msgstr "Innstillinger oppdatert"
 
 #: src/EBox/Model/Localnets.pm:88
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
 "Nettverk tikoblet direkte til interne grensesnitt, som {net}, er alltid "
-"behandlet som lokale nettverk så det er ikke nødvendig å legge dem til"
+"behandlet som lokale nettverk så det er ikke nødvendig å legge dem til."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"

@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:07+0000\n"
-"PO-Revision-Date: 2009-09-30 10:49+0200\n"
-"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
+"PO-Revision-Date: 2009-12-12 23:42+0100\n"
+"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -179,62 +179,62 @@ msgstr "Maître"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:76
 msgid "Windows AD Slave"
-msgstr ""
+msgstr "Esclave Windows AD (Active Directory)"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:83
-#, fuzzy
 msgid "Master host"
-msgstr "Maître"
+msgstr "Hôte maître"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:86
-#, fuzzy
 msgid "Only for slave configuration: IP of the master eBox or Windows"
 msgstr ""
-"Uniquement pour la configuration en tant qu'esclave : IP de l'eBox maître"
+"Uniquement pour la configuration en tant qu'esclave : IP de l'eBox maître ou "
+"Windows"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:90
-#, fuzzy
 msgid "LDAP password"
-msgstr "mot de passe"
+msgstr "Mot de passe LDAP"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:92
 msgid "Master eBox LDAP password"
-msgstr ""
+msgstr "Mot de passe LDAP de l'eBox maître"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:96
-#, fuzzy
 msgid "AD user"
-msgstr "Ajouter un utilisateur"
+msgstr "Utilisateur Active Directory"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:99
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
 msgstr ""
+"Nom d'utilisateur pour la liaison à Windows AD (il doit avoir été créer dans "
+"Active Directory)"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:103
-#, fuzzy
 msgid "AD password"
-msgstr "mot de passe"
+msgstr "mot de passe Active Directory"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:106
+#, fuzzy
 msgid "Password for the above user"
-msgstr ""
+msgstr "Mot de passe pour l'utilisateur du dessus"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:110
-#, fuzzy
 msgid "Listen port"
-msgstr "Port en écoute"
+msgstr "Port d'écoute"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:113
 msgid "Port for listening password sync notifications from Windows"
 msgstr ""
+"Port de communication pour la synchronisation des mot de passe venant de "
+"Windows"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:117
 msgid "AD Secret Key"
-msgstr ""
+msgstr "Clé secrète d'AD"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:120
 msgid "Secret key to be shared between Windows and eBox (16 chars)"
-msgstr ""
+msgstr "Clé secrète partagée entre Windows et eBox (16 caractères)"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:126
 msgid "eBox users mode"
@@ -414,11 +414,13 @@ msgstr "Ebox n'est pas prêt pour travailler avec plus d'un \"slapd\""
 
 #: src/EBox/UsersAndGroups.pm:125
 msgid "Install /etc/cron.d/ebox-ad-sync."
-msgstr ""
+msgstr "Installer /etc/cron.d/ebox-ad-sync."
 
 #: src/EBox/UsersAndGroups.pm:126
 msgid "eBox will run a script each 5 minutes to sync with Windows AD."
 msgstr ""
+"eBox exécutera un script toute les 5 minutes pour se synchroniser avec "
+"Windows AD"
 
 #: src/EBox/UsersAndGroups.pm:146
 msgid "To make openLDAP listen on TCP and Unix sockets"

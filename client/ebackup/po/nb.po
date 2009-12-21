@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:57+0000\n"
-"PO-Revision-Date: 2009-09-30 16:17+0200\n"
+"PO-Revision-Date: 2009-12-04 09:20+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -27,104 +27,101 @@ msgstr "Kontroller om eBox sikkerhetskopi feilet."
 
 #: src/EBox/Model/RemoteFileList.pm:143
 msgid "There is no information about backuped files yet"
-msgstr ""
+msgstr "Det er ingen informasjon om sikkerhets kopierte filer enda"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: src/EBox/Model/RemoteFileList.pm:166
-#, fuzzy
 msgid "Backup Date"
-msgstr "Sikkerhetskopi"
+msgstr "Sikkerhets kopi Dato"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
-msgstr ""
+msgstr "Gjenopprett Filer"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "fil gjennoprettings handling"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue  the currentwill be deleted"
-msgstr ""
+msgstr "Filen eksisterer allerede hvis du fortsetter  vil gjeldende bli slettet"
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr ""
+msgstr "Fil gjennopprettet"
 
 #: src/EBox/Model/RemoteFileList.pm:266
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
 msgstr ""
+"Ekstern URL for bruk med duplisering for manuelle gjenopprettinger: {url}"
 
 #: src/EBox/Model/RemoteStatus.pm:117
 msgid "There is no information about the backuped files yet"
-msgstr ""
+msgstr "Det er ingen informasjon om sikkerhetskopierte filer enda"
 
 #: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:74
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: src/EBox/Model/RemoteStatus.pm:140
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: src/EBox/Model/RemoteStatus.pm:147
 msgid "Remote Backup Status"
-msgstr ""
+msgstr "Ekstern Sikkerhets kopi Status"
 
 #: src/EBox/Model/RemoteStatus.pm:148
-#, fuzzy
 msgid "backup"
-msgstr "Sikkerhetskopi"
+msgstr "sikkerhets kopi"
 
 #: src/EBox/Model/RemoteSettings.pm:138
 msgid "Method"
-msgstr ""
+msgstr "Metode"
 
 #: src/EBox/Model/RemoteSettings.pm:144
-#, fuzzy
 msgid "Host or destination"
-msgstr "Sikkerhetskopi destinasjon"
+msgstr "Vert eller destinasjon"
 
 #: src/EBox/Model/RemoteSettings.pm:150
 msgid "User"
-msgstr ""
+msgstr "Bruker"
 
 #: src/EBox/Model/RemoteSettings.pm:156
 msgid "Password"
-msgstr ""
+msgstr "Passord"
 
 #: src/EBox/Model/RemoteSettings.pm:162
 msgid "GPG key"
-msgstr ""
+msgstr "GPG nøkkel"
 
 #: src/EBox/Model/RemoteSettings.pm:169
 msgid "Full Backup Frequency"
-msgstr ""
+msgstr "Full Sikkehets kopi Frekvens"
 
 #: src/EBox/Model/RemoteSettings.pm:175
 msgid "Number of full copies to keep"
-msgstr ""
+msgstr "Antall fulle kopier som skal beholdes"
 
 #: src/EBox/Model/RemoteSettings.pm:182
 msgid "Incremental Backup Frequency"
-msgstr ""
+msgstr "Endrings Sikkerhets kopi Frekvens"
 
 #: src/EBox/Model/RemoteSettings.pm:188
 msgid "Backup process starts at"
-msgstr ""
+msgstr "Sikkerhets kopi starter"
 
 #: src/EBox/Model/RemoteSettings.pm:197
 msgid "General Configuration"
 msgstr "Generell Konfigurering"
 
 #: src/EBox/Model/RemoteSettings.pm:200
-#, fuzzy
 msgid "General remote backup server configuration"
-msgstr "Generell sikkerhetskopi server konfigurering"
+msgstr "Generell ekstern sikkerhetskopi server konfigurering"
 
 #: src/EBox/Model/RemoteSettings.pm:203
 msgid "General backup server configuration updated"
@@ -132,19 +129,19 @@ msgstr "Generell sikkerhetskopi server konfigurasjon oppdatert"
 
 #: src/EBox/Model/RemoteSettings.pm:217
 msgid "Daily"
-msgstr ""
+msgstr "Daglig"
 
 #: src/EBox/Model/RemoteSettings.pm:221
 msgid "Weekly"
-msgstr ""
+msgstr "Ukentlig"
 
 #: src/EBox/Model/RemoteSettings.pm:225
 msgid "Monthly"
-msgstr ""
+msgstr "Månedlig"
 
 #: src/EBox/Model/RemoteSettings.pm:234 src/EBox/Model/RemoteSettings.pm:340
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktivert"
 
 #: src/EBox/Model/RemoteSettings.pm:356
 #, perl-brace-format
@@ -152,38 +149,40 @@ msgid ""
 "By creating the iBackup account through this {ohref}link{chref} you support "
 "the development of eBox with no extra charge"
 msgstr ""
+"Ved å opprette iBackup kontoen gjennom dette {ohref}link{chref} Støtter du "
+"utviklingen av eBox uten ekstra kostnad"
 
 #: src/EBox/Model/RemoteExcludes.pm:80
 msgid "Exlcude or Include"
-msgstr ""
+msgstr "Ekskluder eller Inkluder"
 
 #: src/EBox/Model/RemoteExcludes.pm:91
 msgid "Includes and Excludes"
-msgstr ""
+msgstr "Inkluderinger og Ekskluderinger"
 
 #: src/EBox/Model/RemoteExcludes.pm:92
 msgid "exclude"
-msgstr ""
+msgstr "eksluder"
 
 #: src/EBox/Model/RemoteExcludes.pm:111
 msgid "Exclude path"
-msgstr ""
+msgstr "Ekskluder sti"
 
 #: src/EBox/Model/RemoteExcludes.pm:115
 msgid "Exclude file regexp"
-msgstr ""
+msgstr "Eksluder fil regxp"
 
 #: src/EBox/Model/RemoteExcludes.pm:119
 msgid "Include Path"
-msgstr ""
+msgstr "Inkluder Sti"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
-msgstr ""
+msgstr "Konfigurering og Status"
 
 #: src/EBox/Composite/Remote.pm:64
 msgid "Backup module"
-msgstr "Sikkerhetskopi modulen"
+msgstr "Sikkerhetskopi module"
 
 #~ msgid "Hostname"
 #~ msgstr "Vertsnavn"

@@ -5,51 +5,51 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:09+0000\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-12-10 14:55+0100\n"
+"Last-Translator: Adrian Munteanu <adrimunteanu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "HyperText Transport Protocol"
 
 #: src/EBox/WebServer.pm:77
 msgid "Web Server"
-msgstr ""
+msgstr "Server Web"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
-msgstr ""
+msgstr "Setare port ascultare server web"
 
 #: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
-msgstr ""
+msgstr "Configurare director public HTML per utilizator"
 
 #: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "Activare modul utilizator apache LDAP"
 
 #: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"
-msgstr ""
+msgstr "Adu directoarele home din LDAP"
 
 #: src/EBox/WebServer.pm:171
 msgid "Web service status"
-msgstr ""
+msgstr "Stare serviciu web"
 
 #: src/EBox/WebServer.pm:348
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "Utilizatorul{userDirConfFile} lipseste! Va rugam recuperati-l"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"

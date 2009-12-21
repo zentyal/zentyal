@@ -5,11 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:09+0000\n"
-"PO-Revision-Date: 2009-10-02 09:05+0200\n"
+"PO-Revision-Date: 2009-12-07 09:57+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -60,12 +59,16 @@ msgid ""
 "To allow HTML directories for users is needed that the file sharing module "
 "is installed and configured"
 msgstr ""
+"For å tillate HTML mapper for brukere, er det nødvendig at fil delings "
+"modulen er installert og konfigurert"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:107
 msgid ""
 "To allow HTML directories for user os needed to have the file sharing module "
 "configured. To configure it enable it at least one time"
 msgstr ""
+"For å tillate HTML mapper for bruker os, er det nødvendig at fil delings "
+"modulen er konfigurert. For å konfigurere den aktiver den minst en gang"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
