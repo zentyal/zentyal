@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:02+0000\n"
+"POT-Creation-Date: 2009-12-21 17:05+0100\n"
 "PO-Revision-Date: 2009-12-12 23:54+0100\n"
 "Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -105,7 +105,6 @@ msgstr "chemin"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
 #: src/EBox/Samba/Model/SambaShares.pm:146
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "share"
 msgstr "partage"
 
@@ -211,6 +210,7 @@ msgid "Access control"
 msgstr "Contrôle d'accès"
 
 #: src/EBox/Samba/Model/SambaShares.pm:138
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:186
 msgid "Shares"
 msgstr "Partages"
 
@@ -279,10 +279,15 @@ msgid "Permissions"
 msgstr "Permissions"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
-msgid "Share configuration"
-msgstr "Configuration du partage"
+#, fuzzy
+msgid "Access Control"
+msgstr "Contrôle d'accès"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:178
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
+msgid "ACL"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"
@@ -374,14 +379,13 @@ msgstr "Exceptions de partages de la corbeille avec Samba"
 msgid "Add exceptions to the default Recycle Bin settings"
 msgstr "Ajouter des exceptions au paramètres par défaut de la corbeille"
 
-#: src/EBox/Samba/Model/AntivirusDefault.pm:45
-#: src/EBox/Samba/Model/AntivirusDefault.pm:63
-msgid "Antivirus default settings"
-msgstr "Paramètres par défaut de l'antivirus"
-
-#: src/EBox/Samba/Model/AntivirusDefault.pm:55
+#: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
 msgstr "Scan"
+
+#: src/EBox/Samba/Model/AntivirusDefault.pm:58
+msgid "Antivirus default settings"
+msgstr "Paramètres par défaut de l'antivirus"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:45
 #, fuzzy
@@ -400,6 +404,10 @@ msgstr "Paramètres par défaut de la corbeille"
 msgid "Recycle Bin"
 msgstr "Corbeille"
 
+#: src/EBox/Samba/Composite/General.pm:67 src/EBox/Samba.pm:76
+msgid "File Sharing"
+msgstr "Partage de fichiers"
+
 #: src/EBox/Samba/Composite/General.pm:68
 msgid "File sharing options"
 msgstr "Options des partages de fichiers"
@@ -407,10 +415,6 @@ msgstr "Options des partages de fichiers"
 #: src/EBox/Samba/Composite/Antivirus.pm:64
 msgid "Antivirus"
 msgstr "Antivirus"
-
-#: src/EBox/Samba.pm:76
-msgid "File Sharing"
-msgstr "Partage de fichiers"
 
 #: src/EBox/Samba.pm:96
 msgid "Create Samba home directory for users and groups"
@@ -703,6 +707,9 @@ msgstr "Répertoires home"
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "Dossier partagé de {group}"
+
+#~ msgid "Share configuration"
+#~ msgstr "Configuration du partage"
 
 #~ msgid "file sharing"
 #~ msgstr "partage de fichiers"

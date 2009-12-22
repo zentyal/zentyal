@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:01+0000\n"
+"POT-Creation-Date: 2009-12-21 17:04+0100\n"
 "PO-Revision-Date: 2009-08-04 07:37+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -237,7 +237,7 @@ msgid "Server configuration"
 msgstr "伺服器組態"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:148
-#: src/EBox/OpenVPN/Model/Servers.pm:113
+#: src/EBox/OpenVPN/Model/Servers.pm:114
 msgid "server"
 msgstr "伺服器"
 
@@ -328,47 +328,43 @@ msgid "Additional server address (optional)"
 msgstr "額外的伺服器位址（選擇性的）"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
-msgid "Configure bundle"
-msgstr "設定預裝程式"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
-#: src/EBox/OpenVPN/Model/Servers.pm:94
-msgid "Download client bundle"
+#, fuzzy
+msgid "Download Client Bundle"
 msgstr "下載客戶端綁定程式"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:140
 msgid "EBox to EBox tunnel"
 msgstr "EBox 對 EBox 通道"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:174
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr "不能製作預裝程式，因為此伺服器尚未完全設定好；請編輯組態後再試一次"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:189
 msgid "Cannot use for the bundle the server's certificate"
 msgstr "不能在預裝程式中使用伺服器的憑證"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:209
 msgid "Invalid client type: the server does not allow eBox-to-eBox tunnels"
 msgstr "無效的客戶端類型：該伺服器不允許 eBox 對 eBox 通道"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:219
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:218
 msgid "Invalid client type: the server is intended for eBox-to-eBox tunnels"
 msgstr "無效的客戶端類型：該伺服器希望使用 eBox 對 eBox 通道"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
 msgstr "安裝程式只能用於 Windows 客戶端"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:297
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:296
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr "客戶端預裝程式是一個包含立即可用於您的客戶端的組態檔案"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:335
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:344
 #, fuzzy
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
@@ -376,20 +372,16 @@ msgid ""
 msgstr "不能製作預裝程式，因為此伺服器尚未完全設定好；請編輯組態後再試一次"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:76
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
 msgid "Advertised network"
 msgstr "宣告的網路"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
-msgid "List of networks"
-msgstr "網路清單"
-
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:70
-#: src/EBox/OpenVPN/Model/Servers.pm:85
-msgid "Advertised networks"
+#, fuzzy
+msgid "List of Advertised Networks"
 msgstr "宣告的網路"
 
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:90
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:100
 #, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
@@ -438,7 +430,7 @@ msgid "Client configuration"
 msgstr "客戶端組態"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
-#: src/EBox/OpenVPN/Model/Clients.pm:100
+#: src/EBox/OpenVPN/Model/Clients.pm:102
 msgid "client"
 msgstr "客戶端"
 
@@ -461,18 +453,32 @@ msgid "daemon"
 msgstr "伺服程式"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
-msgid "VPN clients"
+#, fuzzy
+msgid "List of Clients"
+msgstr "網路清單"
+
+#: src/EBox/OpenVPN/Model/Clients.pm:95
+#, fuzzy
+msgid "VPN Clients"
 msgstr "VPH 客戶端"
 
-#: src/EBox/OpenVPN/Model/Clients.pm:143
+#: src/EBox/OpenVPN/Model/Clients.pm:145
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr "因為此客戶端尚未完全設定好，不能使用它；請編輯組態後再試一次"
 
-#: src/EBox/OpenVPN/Model/Clients.pm:180
+#: src/EBox/OpenVPN/Model/Clients.pm:182
 msgid "RIP password is mandatory"
 msgstr "RIP 密碼是強制的"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:85
+msgid "Advertised networks"
+msgstr "宣告的網路"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:94
+msgid "Download client bundle"
+msgstr "下載客戶端綁定程式"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
@@ -482,7 +488,7 @@ msgstr "伺服器清單"
 msgid "VPN servers"
 msgstr "VPN 伺服器"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:158
+#: src/EBox/OpenVPN/Model/Servers.pm:159
 #, fuzzy, perl-brace-format
 msgid ""
 "{openpar}You can't create VPN servers because there aren't enough "
@@ -494,21 +500,21 @@ msgstr ""
 "{openhref}憑證管理程式模組{closehref}建立新的憑證。{closepar}{openpar}您需要"
 "至少一個 CA 與一個憑證。{closepar}"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:173
+#: src/EBox/OpenVPN/Model/Servers.pm:174
 msgid "Server creation"
 msgstr "伺服器建立"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:271
+#: src/EBox/OpenVPN/Model/Servers.pm:272
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr "不能使用此伺服器，因為設定尚未完全；請編輯它的組態後再試一次"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:278
+#: src/EBox/OpenVPN/Model/Servers.pm:279
 msgid "Server activation"
 msgstr "伺服器啟用"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:305
+#: src/EBox/OpenVPN/Model/Servers.pm:306
 #, perl-brace-format
 msgid ""
 "{act} not possible because there aren'tany available certificate. Please, go "
@@ -516,7 +522,7 @@ msgid ""
 msgstr ""
 "無法執行 {act} ，因為沒有任何可用的憑證。請移至憑證中心模組並建立新的模組"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:318
+#: src/EBox/OpenVPN/Model/Servers.pm:319
 #, perl-brace-format
 msgid ""
 "{openpar}You can configure openVPN servers to easily connect remote offices "
@@ -691,6 +697,9 @@ msgstr "OpenVPN"
 #: src/EBox/OpenVPN.pm:1673
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "您必須將 insecure_rip_conf 設定為 yes 或 no"
+
+#~ msgid "Configure bundle"
+#~ msgstr "設定預裝程式"
 
 #~ msgid "openVPN"
 #~ msgstr "openVPN"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:07+0000\n"
+"POT-Creation-Date: 2009-12-21 17:06+0100\n"
 "PO-Revision-Date: 2009-11-16 09:47+0100\n"
 "Last-Translator: gabriele garis <g.garis@inwind.it>\n"
 "Language-Team: none\n"
@@ -27,7 +27,7 @@ msgstr "Questo gruppo contiene utenti"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
 #: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:78
-#: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2169
+#: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2170
 msgid "Users"
 msgstr "Utenti"
 
@@ -53,10 +53,10 @@ msgid "Edit group"
 msgstr "Modifica gruppo"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1343 src/EBox/UsersAndGroups.pm:1348
-#: src/EBox/UsersAndGroups.pm:1512 src/EBox/UsersAndGroups.pm:1646
-#: src/EBox/UsersAndGroups.pm:1680 src/EBox/UsersAndGroups.pm:1797
-#: src/EBox/UsersAndGroups.pm:1900
+#: src/EBox/UsersAndGroups.pm:1344 src/EBox/UsersAndGroups.pm:1349
+#: src/EBox/UsersAndGroups.pm:1513 src/EBox/UsersAndGroups.pm:1647
+#: src/EBox/UsersAndGroups.pm:1681 src/EBox/UsersAndGroups.pm:1798
+#: src/EBox/UsersAndGroups.pm:1901
 msgid "group name"
 msgstr "nome gruppo"
 
@@ -66,16 +66,16 @@ msgid "comment"
 msgstr "commento"
 
 #: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups/Model/Groups.pm:77
-#: src/EBox/UsersAndGroups.pm:2193
+#: src/EBox/UsersAndGroups.pm:2198
 msgid "Groups"
 msgstr "Gruppi"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:698 src/EBox/UsersAndGroups.pm:704
-#: src/EBox/UsersAndGroups.pm:944 src/EBox/UsersAndGroups.pm:994
-#: src/EBox/UsersAndGroups.pm:1046 src/EBox/UsersAndGroups.pm:1478
-#: src/EBox/UsersAndGroups.pm:1540 src/EBox/UsersAndGroups.pm:1641
-#: src/EBox/UsersAndGroups.pm:1675 src/EBox/UsersAndGroups.pm:1746
+#: src/EBox/UsersAndGroups.pm:699 src/EBox/UsersAndGroups.pm:705
+#: src/EBox/UsersAndGroups.pm:945 src/EBox/UsersAndGroups.pm:995
+#: src/EBox/UsersAndGroups.pm:1047 src/EBox/UsersAndGroups.pm:1479
+#: src/EBox/UsersAndGroups.pm:1541 src/EBox/UsersAndGroups.pm:1642
+#: src/EBox/UsersAndGroups.pm:1676 src/EBox/UsersAndGroups.pm:1747
 msgid "user name"
 msgstr "nome utente"
 
@@ -132,7 +132,7 @@ msgid "Users corner certificates"
 msgstr "Certificati dell'angolo utente"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
-#: src/EBox/UsersAndGroups/Model/Mode.pm:75
+#: src/EBox/UsersAndGroups/Model/Mode.pm:72
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:55
 msgid "Slave"
 msgstr "Slave"
@@ -175,81 +175,90 @@ msgstr ""
 msgid "There are no pending operations at the moment."
 msgstr "Non ci sono operazioni in sospeso al momento."
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:72 src/EBox/UsersAndGroups.pm:2206
-#, fuzzy
-msgid "Mode"
-msgstr "Modalità"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:74
-msgid "Master"
-msgstr "Master"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:76
-msgid "Windows AD Slave"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:83
-#, fuzzy
-msgid "Master host"
-msgstr "Master"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:86
-#, fuzzy
-msgid "Only for slave configuration: IP of the master eBox or Windows"
-msgstr "Solo per la configurazione dello slave: IP dell'eBox master"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:90
-#, fuzzy
-msgid "LDAP password"
-msgstr "password"
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:92
-msgid "Master eBox LDAP password"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/Mode.pm:96
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
 #, fuzzy
 msgid "AD user"
 msgstr "Aggiungi utente"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:99
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:68
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:103
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
 #, fuzzy
 msgid "AD password"
 msgstr "password"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:106
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:74
 msgid "Password for the above user"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:110
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:78
 #, fuzzy
 msgid "Listen port"
 msgstr "porta in ascolto"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:113
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
 msgid "Port for listening password sync notifications from Windows"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:117
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
 msgid "AD Secret Key"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:120
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
 msgid "Secret key to be shared between Windows and eBox (16 chars)"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:126
-#, fuzzy
-msgid "eBox users mode"
-msgstr "modalità utente di ebox"
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
+msgid "Windows AD Sync Settings"
+msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:150
-msgid "Missing fields to configure eBox as slave"
-msgstr "Mancano dei campi per configurare eBox come slave"
+#: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:114
+msgid "The secret key needs to have 16 characters."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2211
+#, fuzzy
+msgid "Mode"
+msgstr "Modalità"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:71
+msgid "Master"
+msgstr "Master"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:73
+msgid "Windows AD Slave"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:80
+#, fuzzy
+msgid "Master host"
+msgstr "Master"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:82
+#, fuzzy
+msgid "Only for slave configuration: IP of the master eBox or Windows AD"
+msgstr "Solo per la configurazione dello slave: IP dell'eBox master"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:86
+#, fuzzy
+msgid "LDAP password"
+msgstr "password"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:88
+msgid "Master eBox LDAP password"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:94
+#, fuzzy
+msgid "Configuration"
+msgstr "Operazione"
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:95
+#, fuzzy
+msgid "eBox Users Mode"
+msgstr "modalità utente di ebox"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:59
 #: src/EBox/UsersAndGroups/Model/Users.pm:60
@@ -274,7 +283,7 @@ msgstr ""
 "Devi abilitare il modulo Utenti nella sezione stato dei moduli per poterlo "
 "utilizzare."
 
-#: src/EBox/UsersAndGroups/Model/Groups.pm:135
+#: src/EBox/UsersAndGroups/Model/Groups.pm:136
 #, perl-brace-format
 msgid ""
 "There are no groups at the moment. You may want to add some in {openhref}Add "
@@ -283,18 +292,21 @@ msgstr ""
 "Non ci sono gruppi al momento. Puoi aggiungerne in {openhref} Aggiungi "
 "gruppo sezione {closehref}"
 
-#: src/EBox/UsersAndGroups/Model/Groups.pm:140
+#: src/EBox/UsersAndGroups/Model/Groups.pm:142
+#, fuzzy, perl-brace-format
 msgid ""
-"There are no groups at the moment. You may want to add some in the master "
-"eBox"
-msgstr "Non ci sono gruppi al momento. Puoi aggiungerne nell'eBox master"
+"This eBox is configured as slave and there are no groups at the moment. You "
+"may want to add some in the {openhref}master{closehref}."
+msgstr ""
+"Non ci sono gruppi al momento. Puoi aggiungerne in {openhref} Aggiungi "
+"gruppo sezione {closehref}"
 
-#: src/EBox/UsersAndGroups/Model/Groups.pm:143
-#, fuzzy
+#: src/EBox/UsersAndGroups/Model/Groups.pm:146
 msgid ""
-"There are no groups at the moment. You may want to add some in the Domain "
-"Controller"
-msgstr "Non ci sono gruppi al momento. Puoi aggiungerne nell'eBox master"
+"This eBox is configured as Windows AD slave and there are no groups at the "
+"moment. If there are groups in your Domain Controller, maybe the "
+"synchronization process has failed or has not finished yet."
+msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
@@ -309,7 +321,7 @@ msgid "Re-type new password"
 msgstr "Ridigita la nuova password"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:75
-#: src/EBox/UsersAndGroups.pm:2220 src/templates/users.mas:51
+#: src/EBox/UsersAndGroups.pm:2225 src/templates/users.mas:51
 #: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
 msgid "Password"
 msgstr "Password"
@@ -339,7 +351,7 @@ msgstr "Sincronizza adesso"
 msgid "Full name"
 msgstr "Nome completo"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:132
+#: src/EBox/UsersAndGroups/Model/Users.pm:135
 #, perl-brace-format
 msgid ""
 "There are no users at the moment. You may want to add some in {openhref}Add "
@@ -347,6 +359,22 @@ msgid ""
 msgstr ""
 "Non ci sono utenti al momento. Puoi aggiungerne in {openhref}Aggiungi utente "
 "sezione{closehref}"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:141
+#, fuzzy, perl-brace-format
+msgid ""
+"This eBox is configured as slave and there are no users at the moment. You "
+"may want to add some in the {openhref}master{closehref}."
+msgstr ""
+"Non ci sono utenti al momento. Puoi aggiungerne in {openhref}Aggiungi utente "
+"sezione{closehref}"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:145
+msgid ""
+"This eBox is configured as Windows AD slave and there are no users at the "
+"moment. If there are users in your Domain Controller, maybe the "
+"synchronization process has failed or has not finished yet."
+msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:63
 #, fuzzy
@@ -442,83 +470,87 @@ msgstr ""
 "Per copiare la password di amministratore di LDAP generata da eBox e "
 "permettere agli altri moduli di accedere a LDAP"
 
-#: src/EBox/UsersAndGroups.pm:693
+#: src/EBox/UsersAndGroups.pm:694
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Il nome utente non deve essere più lungo di {maxuserlength} caratteri"
 
-#: src/EBox/UsersAndGroups.pm:791 src/EBox/UsersAndGroups.pm:1407
+#: src/EBox/UsersAndGroups.pm:792 src/EBox/UsersAndGroups.pm:1408
 msgid "Maximum number of system users reached"
 msgstr "Numero massimo di utenti di sistema raggiunto"
 
-#: src/EBox/UsersAndGroups.pm:808
+#: src/EBox/UsersAndGroups.pm:809
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
 "UID {uid} errato per un utente. Lo UID deve essere uguale o maggiore di {min}"
 
-#: src/EBox/UsersAndGroups.pm:819
+#: src/EBox/UsersAndGroups.pm:820
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "UID {uid} errato per un utente di sistema. Lo UID deve essere minore di {max}"
 
-#: src/EBox/UsersAndGroups.pm:1331
+#: src/EBox/UsersAndGroups.pm:1332
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr ""
 "Il nome del gruppo non deve essere più lungo di {maxGroupLength} caratteri"
 
-#: src/EBox/UsersAndGroups.pm:1337
+#: src/EBox/UsersAndGroups.pm:1338
 msgid "The group name is not valid because it is used internally"
 msgstr "Il nome gruppo non è valido perché usato internamente"
 
-#: src/EBox/UsersAndGroups.pm:1424
+#: src/EBox/UsersAndGroups.pm:1425
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 "GID {gid} errato per un gruppo. Il GID deve essere uguale o maggiore di {min}"
 
-#: src/EBox/UsersAndGroups.pm:1434
+#: src/EBox/UsersAndGroups.pm:1435
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "GID {gid} errato per un gruppo di sistema. Il GID deve essere minore di {max}"
 
-#: src/EBox/UsersAndGroups.pm:1976
+#: src/EBox/UsersAndGroups.pm:1977
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "La password non deve essere più lunga di {maxPwdLength} caratteri"
 
-#: src/EBox/UsersAndGroups.pm:2179 src/templates/users.mas:14
+#: src/EBox/UsersAndGroups.pm:2180 src/templates/users.mas:14
 msgid "Add User"
 msgstr "Aggiungi Utente"
 
-#: src/EBox/UsersAndGroups.pm:2183
+#: src/EBox/UsersAndGroups.pm:2184
 msgid "Edit User"
 msgstr "Modifica utente"
 
-#: src/EBox/UsersAndGroups.pm:2187
+#: src/EBox/UsersAndGroups.pm:2188
 #, fuzzy
 msgid "Slave Status"
 msgstr "Stato dello Slave"
 
-#: src/EBox/UsersAndGroups.pm:2199 src/templates/groups.mas:12
+#: src/EBox/UsersAndGroups.pm:2192
+msgid "AD Sync Settings"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:2204 src/templates/groups.mas:12
 msgid "Add Group"
 msgstr "Aggiungi gruppo"
 
-#: src/EBox/UsersAndGroups.pm:2202 src/templates/groups.mas:49
+#: src/EBox/UsersAndGroups.pm:2207 src/templates/groups.mas:49
 msgid "Edit Group"
 msgstr "Modifica Gruppo"
 
-#: src/EBox/UsersAndGroups.pm:2433
+#: src/EBox/UsersAndGroups.pm:2438
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr "Non è possibile la connessione con l'eBox master a {remote}"
 
-#: src/EBox/UsersAndGroups.pm:2440
+#: src/EBox/UsersAndGroups.pm:2445
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
@@ -526,12 +558,12 @@ msgstr ""
 "Non è possibile la connessione con l'eBox master a {remote} con la password "
 "LDAP fornita"
 
-#: src/EBox/UsersAndGroups.pm:2459
+#: src/EBox/UsersAndGroups.pm:2464
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr "Una macchina di nome {host} è già registrata su questo eBox"
 
-#: src/EBox/UsersAndGroups.pm:2569
+#: src/EBox/UsersAndGroups.pm:2574
 #, fuzzy
 msgid "Replication failed"
 msgstr "copia fallita"
@@ -760,6 +792,20 @@ msgstr "Attenzione: Caps Lock è abilitato"
 #, fuzzy
 msgid "Enter"
 msgstr "Entra"
+
+#~ msgid "Missing fields to configure eBox as slave"
+#~ msgstr "Mancano dei campi per configurare eBox come slave"
+
+#~ msgid ""
+#~ "There are no groups at the moment. You may want to add some in the master "
+#~ "eBox"
+#~ msgstr "Non ci sono gruppi al momento. Puoi aggiungerne nell'eBox master"
+
+#, fuzzy
+#~ msgid ""
+#~ "There are no groups at the moment. You may want to add some in the Domain "
+#~ "Controller"
+#~ msgstr "Non ci sono gruppi al momento. Puoi aggiungerne nell'eBox master"
 
 #~ msgid "eBox master"
 #~ msgstr "eBox master"

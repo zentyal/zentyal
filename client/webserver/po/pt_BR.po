@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:09+0000\n"
+"POT-Creation-Date: 2009-12-21 17:06+0100\n"
 "PO-Revision-Date: 2009-11-16 13:15+0100\n"
 "Last-Translator: Jorge Eduardo Quintao <jorge@netsol.com.br>\n"
 "Language-Team: none\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "HyperText Transport Protocol"
 msgstr "HTTP Protoloco de Transporte de HiperTexto"
 
-#: src/EBox/WebServer.pm:77
+#: src/EBox/WebServer.pm:77 src/EBox/WebServer/Composite/General.pm:81
 #, fuzzy
 msgid "Web Server"
 msgstr "Serviço Web"
@@ -197,16 +197,19 @@ msgstr ""
 "adicionados não terão efeito até que você habilite o módulo DNS."
 
 #: src/EBox/WebServer/Composite/General.pm:80
-msgid "Web service"
-msgstr "Serviço Web"
+msgid "Configuration"
+msgstr ""
 
-#: src/EBox/WebServer/Composite/General.pm:82
+#: src/EBox/WebServer/Composite/General.pm:83
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
 "O serviço Web do eBox permite que você hospede páginas HTML dentro de "
 "diferentes servidores virtuais"
+
+#~ msgid "Web service"
+#~ msgstr "Serviço Web"
 
 #~ msgid "Web"
 #~ msgstr "Web"

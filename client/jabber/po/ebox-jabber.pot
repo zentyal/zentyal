@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:58+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/JabberLdapUser.pm:252
+#: src/EBox/JabberLdapUser.pm:262
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
-"continue connected until jabber authorization is again required"
+"continue connected until jabber authorization is again required."
 msgstr ""
 
 #: src/EBox/Jabber.pm:71

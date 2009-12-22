@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:58+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2006-11-28 14:15+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -21,10 +21,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/JabberLdapUser.pm:252
+#: src/EBox/JabberLdapUser.pm:262
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
-"continue connected until jabber authorization is again required"
+"continue connected until jabber authorization is again required."
 msgstr ""
 
 #: src/EBox/Jabber.pm:71

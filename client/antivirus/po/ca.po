@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:47+0000\n"
+"POT-Creation-Date: 2009-12-21 16:58+0100\n"
 "PO-Revision-Date: 2009-11-28 15:08+0100\n"
 "Last-Translator: Sergio Vergara Ruiz <svruiz@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:378
-#: src/EBox/AntiVirus.pm:383
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:390
+#: src/EBox/AntiVirus.pm:395 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
 msgid "Antivirus"
 msgstr "Antivirus"
 
@@ -42,10 +42,11 @@ msgid "Date"
 msgstr "Data"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-msgid "Antivirus Database Update Status"
+#, fuzzy
+msgid "Database Update Status"
 msgstr "La base de dades de l'antivirus a sigut actualitzada."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
 #, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
@@ -53,11 +54,11 @@ msgstr ""
 "La base de dades de l'antivirus no a sigut actualitzada, necessita "
 "instal·lar el modul."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
 msgid "The last update failed."
 msgstr "L'ultima actualització a fallat."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
 #, perl-brace-format
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
@@ -68,11 +69,11 @@ msgstr ""
 "L'antivirus no serà capaç d'utilitzar totes les signatures. Si us plau, "
 "instal·li la versió {version} o superior."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
 msgid "Last update successful."
 msgstr "L'ultima actualització a sigut un èxit."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:144
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Esdeveniment desconegut {event}."

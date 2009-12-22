@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:58+0000\n"
+"POT-Creation-Date: 2009-12-21 17:03+0100\n"
 "PO-Revision-Date: 2009-02-28 19:44+0000\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -107,7 +107,7 @@ msgid "Quota must be a amount of MB greter than zero"
 msgstr ""
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
-#: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:87
+#: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:89
 msgid "virtual domain"
 msgstr "domino virtual"
 
@@ -124,7 +124,7 @@ msgid "maildrop"
 msgstr "maildrop"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1325
+#: src/EBox/Mail.pm:1341
 msgid "Queue Management"
 msgstr "Gestión de cola"
 
@@ -132,8 +132,8 @@ msgstr "Gestión de cola"
 msgid "Admin mail recipient"
 msgstr "Cuenta de correo para Admin"
 
-#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:82
-#: src/EBox/Mail.pm:1242 src/EBox/Mail.pm:1379
+#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:83
+#: src/EBox/Mail.pm:1258 src/EBox/Mail.pm:1396
 msgid "Mail"
 msgstr "Correo"
 
@@ -231,9 +231,12 @@ msgstr "ninguno"
 msgid "custom"
 msgstr "personalizado"
 
-#: src/EBox/Mail/Model/VDomainAliases.pm:57
-#: src/EBox/Mail/Model/VDomainAliases.pm:69 src/EBox/Mail/Model/VDomains.pm:64
+#: src/EBox/Mail/Model/VDomainAliases.pm:57 src/EBox/Mail/Model/VDomains.pm:64
 msgid "Aliases"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:69
+msgid "List of Aliases"
 msgstr ""
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:78
@@ -247,7 +250,7 @@ msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr "Dominio virtual añadido. Debes guardar cambios para usar este dominio"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:110
-#: src/EBox/Mail/Model/VDomains.pm:119
+#: src/EBox/Mail/Model/VDomains.pm:121
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
@@ -344,13 +347,37 @@ msgstr "IP smarthost"
 msgid "Smarthost's port"
 msgstr "IP smarthost"
 
+#: src/EBox/Mail/Model/RetrievalServices.pm:66
+#, fuzzy
+msgid "POP3 service enabled"
+msgstr "servicio POP3"
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:71
+#, fuzzy
+msgid "Secure POP3S service enabled"
+msgstr "servicio POP3"
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:76
+#, fuzzy
+msgid "IMAP service enabled"
+msgstr "servicio IMAP"
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:81
+#, fuzzy
+msgid "Secure IMAPS service enabled"
+msgstr "servicio IMAP"
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:86
+msgid "Manage SIEVE scripts"
+msgstr ""
+
 #: src/EBox/Mail/Model/RetrievalServices.pm:88
 msgid ""
 "This service allows to a use to manage his SIEVE mail filtering scripts from "
 "a local client"
 msgstr ""
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:95 src/EBox/Mail.pm:1516
+#: src/EBox/Mail/Model/RetrievalServices.pm:95 src/EBox/Mail.pm:1614
 msgid "Mail retrieval services"
 msgstr "Servicios de recepción de correo"
 
@@ -393,10 +420,16 @@ msgid "Name"
 msgstr "Nombre"
 
 #: src/EBox/Mail/Model/VDomains.pm:78
-msgid "Mail virtual domains"
-msgstr "Dominios virtuales para el correo"
+#, fuzzy
+msgid "List of Domains"
+msgstr "Dominios virtual de correo"
 
-#: src/EBox/Mail/Model/VDomains.pm:89
+#: src/EBox/Mail/Model/VDomains.pm:79
+#, fuzzy
+msgid "Virtual Domains"
+msgstr "Dominio virtual"
+
+#: src/EBox/Mail/Model/VDomains.pm:91
 msgid "Virtual domain added. You must save changes to use this domain"
 msgstr "Dominio virtual añadido. Debes guardar cambios para usar este dominio"
 
@@ -409,7 +442,7 @@ msgstr "Asunto"
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] ocurio un evento en {hostName}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1349
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1365
 msgid "To"
 msgstr "Para"
 
@@ -429,78 +462,146 @@ msgstr ""
 msgid "Mail dispatcher configuration updated"
 msgstr "Configuración del emisor de mail actualizada"
 
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:48
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:69
+#, fuzzy
+msgid "Virtual domain"
+msgstr "Dominio virtual"
+
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:49
+#: src/EBox/Mail/Model/Report/TrafficGraph.pm:51
+#, fuzzy
+msgid "Sent messsages"
+msgstr "Mensajes satisfactorios"
+
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:50
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:79
+#: src/EBox/Mail/Model/Report/TrafficGraph.pm:52
+#, fuzzy
+msgid "Received messages"
+msgstr "Mensajes satisfactorios"
+
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:83
+#: src/EBox/Mail/Model/Report/TrafficGraph.pm:53
+#, fuzzy
+msgid "Rejected messages"
+msgstr "Mensajes satisfactorios"
+
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:63 src/EBox/Mail.pm:1362
+#: src/templates/qmanager.mas:19
+msgid "Date"
+msgstr "Fecha"
+
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:75
+#, fuzzy
+msgid "Sent messages"
+msgstr "Mensajes satisfactorios"
+
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:92
+#, fuzzy
+msgid "Mail traffic details"
+msgstr "Características del servicio de correo"
+
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:100
+msgid "traffic"
+msgstr ""
+
+#: src/EBox/Mail/Model/Report/TrafficGraph.pm:62
+msgid "Traffic summary chart"
+msgstr ""
+
+#: src/EBox/Mail/Model/Report/TrafficGraph.pm:84
+msgid "Traffic summary graph"
+msgstr ""
+
 #: src/EBox/Mail/Composite/General.pm:77
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
 msgid "Mail server options"
 msgstr "Opciones del servidor de correo"
 
-#: src/EBox/Mail.pm:128
+#: src/EBox/Mail/Composite/General.pm:78
+#, fuzzy
+msgid "Mail server"
+msgstr "Características del servicio de correo"
+
+#: src/EBox/Mail/Composite/Report/TrafficReport.pm:70
+#, fuzzy
+msgid "Mail traffic reports"
+msgstr "Puerto de reenvío de correo"
+
+#: src/EBox/Mail/Composite/Report/TrafficReport.pm:71
+#, fuzzy
+msgid "Mail traffic report"
+msgstr "Puerto de reenvío de correo"
+
+#: src/EBox/Mail.pm:129
 msgid "Generate mail aliases"
 msgstr "Generar alias de cuenta de correo"
 
-#: src/EBox/Mail.pm:130
+#: src/EBox/Mail.pm:131
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
 msgstr "eBox ejecutará {cmd}"
 
-#: src/EBox/Mail.pm:135
+#: src/EBox/Mail.pm:136
 msgid "Add LDAP schemas"
 msgstr "Agregar esquemas a LDAP"
 
-#: src/EBox/Mail.pm:137
+#: src/EBox/Mail.pm:138
 #, fuzzy
 msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
 msgstr "eBox añadirá dos esquemas LDAP: {schema1} y {schema2}."
 
-#: src/EBox/Mail.pm:143
+#: src/EBox/Mail.pm:144
 #, fuzzy
 msgid "Create certificates"
 msgstr "Crear alias de cuenta de correo"
 
-#: src/EBox/Mail.pm:145
+#: src/EBox/Mail.pm:146
 #, fuzzy
 msgid "eBox will create certificates to use in mail services"
 msgstr "eBox, se ocupara de iniciar y detener esos servicios"
 
-#: src/EBox/Mail.pm:165
+#: src/EBox/Mail.pm:166
 msgid "To configure postfix"
 msgstr "Configurar POSTFIX"
 
-#: src/EBox/Mail.pm:171
+#: src/EBox/Mail.pm:172
 msgid "To define how client programs connect to services in  postfix"
 msgstr "Define como los clientes de correo, se conectaran con POSTFIX"
 
-#: src/EBox/Mail.pm:178
+#: src/EBox/Mail.pm:179
 #, fuzzy
 msgid "To configure host mail name"
 msgstr "Configurar POSTFIX"
 
-#: src/EBox/Mail.pm:184
+#: src/EBox/Mail.pm:185
 #, fuzzy
 msgid "To configure dovecot"
 msgstr "Configurar POSTFIX"
 
-#: src/EBox/Mail.pm:189
+#: src/EBox/Mail.pm:190
 #, fuzzy
 msgid "To configure dovecot to authenticate against LDAP"
 msgstr "Configura COURIER para que valide los usuarios a través de LDAP"
 
-#: src/EBox/Mail.pm:194
+#: src/EBox/Mail.pm:195
 msgid "To configure smart host authentication"
 msgstr "Configurar la autenticación del \"smarthost\""
 
-#: src/EBox/Mail.pm:750
+#: src/EBox/Mail.pm:766
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "No puede cambiar este parámetro para un filtro no personalizado"
 
-#: src/EBox/Mail.pm:766 src/EBox/Mail.pm:786
+#: src/EBox/Mail.pm:782 src/EBox/Mail.pm:802
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 "El filtro de correo no existe. Por favor, establece otro filtro de correo o "
 "deshabilítalo"
 
-#: src/EBox/Mail.pm:793
+#: src/EBox/Mail.pm:809
 #, fuzzy
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
@@ -509,148 +610,150 @@ msgstr ""
 "El filtro de correo {name} no está activo. Por favor, establece otro filtro "
 "de correo o deshabilítalo"
 
-#: src/EBox/Mail.pm:1190
+#: src/EBox/Mail.pm:1206
 #, fuzzy
 msgid "SMTP service"
 msgstr "servicio IMAP"
 
-#: src/EBox/Mail.pm:1197
+#: src/EBox/Mail.pm:1213
 msgid "POP3 service"
 msgstr "servicio POP3"
 
-#: src/EBox/Mail.pm:1203
+#: src/EBox/Mail.pm:1219
 #, fuzzy
 msgid "POP3S service"
 msgstr "servicio POP3"
 
-#: src/EBox/Mail.pm:1209
+#: src/EBox/Mail.pm:1225
 msgid "IMAP service"
 msgstr "servicio IMAP"
 
-#: src/EBox/Mail.pm:1215
+#: src/EBox/Mail.pm:1231
 #, fuzzy
 msgid "IMAPS service"
 msgstr "servicio IMAP"
 
-#: src/EBox/Mail.pm:1256
+#: src/EBox/Mail.pm:1272
 msgid "enabled"
 msgstr "habilitado"
 
-#: src/EBox/Mail.pm:1256
+#: src/EBox/Mail.pm:1272
 msgid "disabled"
 msgstr "deshabilitado"
 
-#: src/EBox/Mail.pm:1258 src/EBox/Mail.pm:1354
+#: src/EBox/Mail.pm:1274 src/EBox/Mail.pm:1371
 msgid "Status"
 msgstr "Estado"
 
-#: src/EBox/Mail.pm:1261
+#: src/EBox/Mail.pm:1277
 msgid "Mail server's filter"
 msgstr "Filtro del servidor de correo"
 
-#: src/EBox/Mail.pm:1270 src/EBox/Mail.pm:1277
+#: src/EBox/Mail.pm:1286 src/EBox/Mail.pm:1293
 msgid "Filter type"
 msgstr "Tipo de filtro"
 
-#: src/EBox/Mail.pm:1271
+#: src/EBox/Mail.pm:1287
 msgid "Custom"
 msgstr "Personalizado"
 
-#: src/EBox/Mail.pm:1273
+#: src/EBox/Mail.pm:1289
 msgid "Address"
 msgstr "Dirección"
 
-#: src/EBox/Mail.pm:1306
+#: src/EBox/Mail.pm:1322
 msgid "General"
 msgstr "General"
 
-#: src/EBox/Mail.pm:1313
+#: src/EBox/Mail.pm:1329
 #, fuzzy
 msgid "Virtual Mail Domains"
 msgstr "Dominios virtual de correo"
 
-#: src/EBox/Mail.pm:1319
+#: src/EBox/Mail.pm:1335
 msgid "Greylist"
 msgstr "Lista gris"
 
-#: src/EBox/Mail.pm:1346 src/templates/qmanager.mas:19
-msgid "Date"
-msgstr "Fecha"
-
-#: src/EBox/Mail.pm:1347
+#: src/EBox/Mail.pm:1363
 msgid "Message ID"
 msgstr "ID de Mensaje"
 
-#: src/EBox/Mail.pm:1348
+#: src/EBox/Mail.pm:1364
 msgid "From"
 msgstr "De"
 
-#: src/EBox/Mail.pm:1350
+#: src/EBox/Mail.pm:1366
 msgid "From hostname"
 msgstr "Desde nombre de máquina"
 
-#: src/EBox/Mail.pm:1351
+#: src/EBox/Mail.pm:1367
 msgid "From host ip"
 msgstr "Desde ip de la máquina"
 
-#: src/EBox/Mail.pm:1352 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1368 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Tamaños (bytes)"
 
-#: src/EBox/Mail.pm:1353
+#: src/EBox/Mail.pm:1369
 msgid "Relay"
 msgstr "Relay"
 
-#: src/EBox/Mail.pm:1355
+#: src/EBox/Mail.pm:1370
+#, fuzzy
+msgid "Message type"
+msgstr "ID del mensaje"
+
+#: src/EBox/Mail.pm:1372
 msgid "Event"
 msgstr "Evento"
 
-#: src/EBox/Mail.pm:1356
-msgid "Aditional Info"
+#: src/EBox/Mail.pm:1373
+#, fuzzy
+msgid "Additional Info"
 msgstr "Información adicional"
 
-#: src/EBox/Mail.pm:1367
+#: src/EBox/Mail.pm:1384
 msgid "Successful messages"
 msgstr "Mensajes satisfactorios"
 
-#: src/EBox/Mail.pm:1368
+#: src/EBox/Mail.pm:1385
 msgid "Maximum message size exceeded"
 msgstr "Tamaño máximo de mensaje excecido"
 
-#: src/EBox/Mail.pm:1369
+#: src/EBox/Mail.pm:1386
 msgid "User quote exceeded"
 msgstr "Cuota de usuario excedida"
 
-#: src/EBox/Mail.pm:1370
+#: src/EBox/Mail.pm:1387
 msgid "Relay access denied"
 msgstr "Acceso de Relay denegado"
 
-#: src/EBox/Mail.pm:1371
+#: src/EBox/Mail.pm:1388
 msgid "Account does not exist"
 msgstr "La cuenta no existe"
 
-#: src/EBox/Mail.pm:1372
+#: src/EBox/Mail.pm:1389
 msgid "Host unreachable"
 msgstr "Máquina inalcanzable"
 
-#: src/EBox/Mail.pm:1373
+#: src/EBox/Mail.pm:1390
 msgid "Authentication error"
 msgstr "Error de autenticación"
 
-#: src/EBox/Mail.pm:1374
+#: src/EBox/Mail.pm:1391
 #, fuzzy
 msgid "Greylisted"
 msgstr "Lista gris"
 
-#: src/EBox/Mail.pm:1375
+#: src/EBox/Mail.pm:1392
 msgid "Other events"
 msgstr "Otros eventos"
 
-#: src/EBox/Mail.pm:1481
+#: src/EBox/Mail.pm:1579
 msgid "Mailboxes"
 msgstr "Buzones de correo"
 
-#: src/EBox/Mail.pm:1509
+#: src/EBox/Mail.pm:1607
 #, fuzzy
 msgid "Mail SMTP server"
 msgstr "Características del servicio de correo"
@@ -837,6 +940,9 @@ msgstr ""
 #: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
 msgid "Change"
 msgstr "Cambiar"
+
+#~ msgid "Mail virtual domains"
+#~ msgstr "Dominios virtuales para el correo"
 
 #~ msgid "maildir size"
 #~ msgstr "tamaño del buzón de correo"
@@ -1140,20 +1246,11 @@ msgstr "Cambiar"
 #~ msgid "Account do not exists"
 #~ msgstr "La cuenta no existe"
 
-#~ msgid "Virtual domains"
-#~ msgstr "Dominio virtual"
-
-#~ msgid "Mail service settings"
-#~ msgstr "Características del servicio de correo"
-
 #~ msgid "Relay policy for objects"
 #~ msgstr "Política de Relay sobre objetos"
 
 #~ msgid "Allowed"
 #~ msgstr "Permitido"
-
-#~ msgid "Mail forward port"
-#~ msgstr "Puerto de reenvío de correo"
 
 #~ msgid "Filter's IP address"
 #~ msgstr "Dirección IP del filtro"

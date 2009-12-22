@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2009-08-04 06:02+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -71,13 +71,13 @@ msgstr "連接埠"
 msgid "protocol"
 msgstr "通訊協定"
 
-#: src/EBox/Firewall.pm:825
+#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "封包過濾"
 
 #: src/EBox/Firewall.pm:828
-msgid "Redirects"
-msgstr "轉送"
+msgid "Port Forwarding"
+msgstr ""
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -130,8 +130,8 @@ msgid "Packet filtering"
 msgstr "封包過濾"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
+#, fuzzy
+msgid "Traffic coming out from eBox"
 msgstr "過濾從 eBox 出去的規則"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
@@ -143,8 +143,8 @@ msgid "rule"
 msgstr "規則"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
+#, fuzzy
+msgid "External networks to internal networks"
 msgstr "過濾從外部網路到內部網路的規則"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
@@ -214,10 +214,14 @@ msgid "Description"
 msgstr "目的"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
-msgid "Port redirections"
-msgstr "連接埠轉送"
+msgid "List of forwarded ports"
+msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+msgid "Port Forwading"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:364
 msgid "redirect"
 msgstr "轉送"
 
@@ -243,19 +247,25 @@ msgid ""
 "rule"
 msgstr "假如勾選反向符合,任何服務除了所選擇的都將符合這個規則"
 
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#, fuzzy
+msgid "Configure Rules"
+msgstr "設置規則"
+
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "過濾從外部網路連到 eBox 的規則"
+#, fuzzy
+msgid "External networks to eBox"
+msgstr "過濾從外網到 eBox 的規則"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
+#, fuzzy
+msgid "Internal networks to eBox"
 msgstr "過濾從內部網路連到 eBox 的規則"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
-msgid "Filtering rules for internal networks"
-msgstr "過濾內部網路規則"
+#, fuzzy
+msgid "Internal networks"
+msgstr "外網連接埠"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
@@ -290,6 +300,10 @@ msgstr "封包流量報告"
 msgid "Firewall packet traffic report"
 msgstr "防火牆封包流量報告"
 
+#: src/templates/filter.mas:6
+msgid "Filtering rules from internal networks to eBox"
+msgstr "過濾從內部網路連到 eBox 的規則"
+
 #: src/templates/filter.mas:8
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
@@ -302,6 +316,10 @@ msgstr "這些規則是控制您的 ebox 機器上的內網介面到執行的服
 msgid "Configure rules"
 msgstr "設置規則"
 
+#: src/templates/filter.mas:13
+msgid "Filtering rules for internal networks"
+msgstr "過濾內部網路規則"
+
 #: src/templates/filter.mas:15
 msgid ""
 "These rules allow you to control access  from your internal networks to the "
@@ -310,6 +328,10 @@ msgid ""
 msgstr ""
 "這些規則允許您去控制從您的內網到網際網路,和內網之間的流量.假如您想要試著存取"
 "您的 eBox 服務,您必須要使用以下選項"
+
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "過濾從 eBox 出去的規則"
 
 #: src/templates/filter.mas:23
 msgid "These rules allow you to control access from eBox to external services"
@@ -334,20 +356,30 @@ msgstr ""
 "一個建議,在這裡新增規則後可能會損害您的網路安全,您可能會允許不明的網路來存取."
 "請不要使用您不清楚的功能"
 
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr "過濾從外部網路到內部網路的規則"
+
 #: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr "這些規則允許您控制存取從外部網路到內部網路"
 
+#~ msgid "Redirects"
+#~ msgstr "轉送"
+
+#~ msgid "Port redirections"
+#~ msgstr "連接埠轉送"
+
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "過濾從外部網路連到 eBox 的規則"
+
 #~ msgid "firewall"
 #~ msgstr "防火牆"
 
 #~ msgid "UTM"
 #~ msgstr "UTM"
-
-#~ msgid "External port"
-#~ msgstr "外網連接埠"
 
 #~ msgid "Global firewall configuration"
 #~ msgstr "全域防火牆設置"

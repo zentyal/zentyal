@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:09+0000\n"
+"POT-Creation-Date: 2009-12-21 17:06+0100\n"
 "PO-Revision-Date: 2009-04-21 20:06+0200\n"
 "Last-Translator: Björn Torstensson <b.torstensson@gmail.com>\n"
 "Language-Team: none\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "HyperText Transport Protocol"
 msgstr ""
 
-#: src/EBox/WebServer.pm:77
+#: src/EBox/WebServer.pm:77 src/EBox/WebServer/Composite/General.pm:81
 #, fuzzy
 msgid "Web Server"
 msgstr "Webbtjänst"
@@ -179,14 +179,17 @@ msgid ""
 msgstr ""
 
 #: src/EBox/WebServer/Composite/General.pm:80
-msgid "Web service"
-msgstr "Webbtjänst"
+msgid "Configuration"
+msgstr ""
 
-#: src/EBox/WebServer/Composite/General.pm:82
+#: src/EBox/WebServer/Composite/General.pm:83
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
+
+#~ msgid "Web service"
+#~ msgstr "Webbtjänst"
 
 #~ msgid "Web"
 #~ msgstr "Webb"

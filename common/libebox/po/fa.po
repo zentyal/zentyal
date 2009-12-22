@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 15:23+0000\n"
+"POT-Creation-Date: 2009-12-21 17:10+0100\n"
 "PO-Revision-Date: 2009-02-04 06:31+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -41,7 +41,7 @@ msgstr "{data} {value} موجود نمی باشند"
 msgid "Interface"
 msgstr "واسط"
 
-#: src/EBox/CGI/Base.pm:196
+#: src/EBox/CGI/Base.pm:197
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -49,7 +49,7 @@ msgstr ""
 "ورودی شامل کاراکتر های نامعتبر می باشد. تمامی حروف الفبا و اعداد به علاوه "
 "کاراکتر های : /.?&+:-@ و فاصله ها مجاز می باشند"
 
-#: src/EBox/CGI/Base.pm:346
+#: src/EBox/CGI/Base.pm:347
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -57,7 +57,7 @@ msgstr ""
 "یک خطای داخلی مرتبط به یک قالب رخ داده است. این یک اشکال است، اطلاعات مرتبط "
 "می تواند در فایل های ثبت وقایع یافت شود"
 
-#: src/EBox/CGI/Base.pm:563
+#: src/EBox/CGI/Base.pm:564
 #, fuzzy
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
@@ -66,7 +66,7 @@ msgstr ""
 "یک خطای داخلی رخ داده است. این مساله ممکن است یک اشکال باشد، اطلاعات مرتبط "
 "می تواند در فایل های ثبت وقایع یافت شود"
 
-#: src/EBox/CGI/Base.pm:569
+#: src/EBox/CGI/Base.pm:570
 #, fuzzy
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
@@ -75,18 +75,18 @@ msgstr ""
 "یک خطای غیر منتظره رخ داده است. این یک اشکال است، اطلاعات مرتبط می تواند در "
 "فایل های ثبت وقایع یافت شود"
 
-#: src/EBox/CGI/Base.pm:575
+#: src/EBox/CGI/Base.pm:576
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "شما تنها به یک مشکل در eBox برخورده اید. لطفا پشتیبانی فنی را جستجو کنید"
 
-#: src/EBox/CGI/Base.pm:662
+#: src/EBox/CGI/Base.pm:663
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "تقاضای شما نمی تواند پردازش شود زیرا شامل تعدادی از پارامترهای نادرست می باشد"
 
-#: src/EBox/CGI/Base.pm:677
+#: src/EBox/CGI/Base.pm:678
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -94,11 +94,11 @@ msgstr ""
 "تقاضای شما نمی تواند پردازش شود زیرا فاقد تعدادی از پارامترهای مورد نیاز می "
 "باشد"
 
-#: src/EBox/CGI/Base.pm:828
+#: src/EBox/CGI/Base.pm:829
 msgid "Invalid uploaded file."
 msgstr "فایل آپلود شده نامعتبر می باشد."
 
-#: src/EBox/CGI/Base.pm:834
+#: src/EBox/CGI/Base.pm:835
 msgid "Cannot create a temporally file for the upload"
 msgstr "نمی توان یک فایل موقتی برای آپلود ساخت"
 
@@ -180,8 +180,24 @@ msgstr "دانلود"
 msgid "Remove"
 msgstr "حذف"
 
-#: src/templates/ajax/tableBody.mas:110
+#: src/templates/ajax/tableBody.mas:117
 msgid "Add new"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:446
+msgid "Edit"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:448
+msgid "Delete"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:453
+msgid "Read-only row: edit disabled"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:454
+msgid "Read-only row: delete disabled"
 msgstr ""
 
 #: src/templates/ajax/tableSelector.mas:14
@@ -209,7 +225,7 @@ msgstr "از"
 msgid "To"
 msgstr "به"
 
-#: src/templates/ajax/modelViewer.mas:261
+#: src/templates/ajax/modelViewer.mas:256
 msgid "Optional"
 msgstr "انتخابی"
 
@@ -265,11 +281,11 @@ msgstr "ما متأسفیم"
 msgid "The page cannot be found"
 msgstr "صفحه مورد نظر نمی تواند یافت شود"
 
-#: src/templates/title.mas:12
+#: src/templates/title.mas:25
 msgid "show help"
 msgstr "نمایش کمک"
 
-#: src/templates/title.mas:13
+#: src/templates/title.mas:26
 msgid "hide help"
 msgstr "پنهان کمک"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.100Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2009-02-04 05:14+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -78,13 +78,13 @@ msgstr "پورت"
 msgid "protocol"
 msgstr "پروتکل"
 
-#: src/EBox/Firewall.pm:825
+#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "فیلتر کردن بسته"
 
 #: src/EBox/Firewall.pm:828
-msgid "Redirects"
-msgstr "مسیریابی ترافیک ها"
+msgid "Port Forwarding"
+msgstr ""
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -137,8 +137,8 @@ msgid "Packet filtering"
 msgstr "فیلتر کردن بسته ها"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
+#, fuzzy
+msgid "Traffic coming out from eBox"
 msgstr "قوانین فیلترینگ برای ترافیکی که از eBox منتشر می شوند"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
@@ -150,8 +150,8 @@ msgid "rule"
 msgstr "قانون"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
+#, fuzzy
+msgid "External networks to internal networks"
 msgstr "قوانین فیلترینگ از شبکه های خارجی به شبکه های داخلی"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
@@ -223,10 +223,14 @@ msgid "Description"
 msgstr "تشریح"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
-msgid "Port redirections"
-msgstr "مسیریابی های مجدد ترافیک پورت"
+msgid "List of forwarded ports"
+msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+msgid "Port Forwading"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:364
 msgid "redirect"
 msgstr "مسیریابی مجدد"
 
@@ -254,19 +258,25 @@ msgstr ""
 "اگر تطابق وارانه علامت زده شده است، هر سرویسی اما آن که انتخاب شده با این "
 "قانون تطابق خواهد داشت"
 
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#, fuzzy
+msgid "Configure Rules"
+msgstr "پیکربندی قوانین"
+
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
+#, fuzzy
+msgid "External networks to eBox"
 msgstr "قوانین فیلترینگ از شبکه های خارجی به eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
+#, fuzzy
+msgid "Internal networks to eBox"
 msgstr "قوانین فیلترینگ از شبکه های داخلی به eBox"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
-msgid "Filtering rules for internal networks"
-msgstr "قوانین فیلترینگ برای شبکه های داخلی"
+#, fuzzy
+msgid "Internal networks"
+msgstr "پورت خروجی"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
@@ -301,6 +311,10 @@ msgstr "گزارش ترافیک بسته"
 msgid "Firewall packet traffic report"
 msgstr "گزارش ترافیک بسته دیواره آتش"
 
+#: src/templates/filter.mas:6
+msgid "Filtering rules from internal networks to eBox"
+msgstr "قوانین فیلترینگ از شبکه های داخلی به eBox"
+
 #: src/templates/filter.mas:8
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
@@ -315,6 +329,10 @@ msgstr ""
 msgid "Configure rules"
 msgstr "پیکربندی قوانین"
 
+#: src/templates/filter.mas:13
+msgid "Filtering rules for internal networks"
+msgstr "قوانین فیلترینگ برای شبکه های داخلی"
+
 #: src/templates/filter.mas:15
 msgid ""
 "These rules allow you to control access  from your internal networks to the "
@@ -324,6 +342,10 @@ msgstr ""
 "این قوانین به شما اجازه می دهند که دسترسی از شبکه های داخلی خود به اینترنت و "
 "ترافیک میان شبکه های داخلی خود را کنترل کنید. اگر می خواهید دسترسی به سرویس "
 "های eBox خود را میسر سازید، باید از بخش بالا استفاده کنید"
+
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "قوانین فیلترینگ برای ترافیکی که از eBox منتشر می شوند"
 
 #: src/templates/filter.mas:23
 msgid "These rules allow you to control access from eBox to external services"
@@ -354,6 +376,10 @@ msgstr ""
 "داشته باشید. لظفا از این بخش استفاده نکنید مگر اینکه دقیقا بدانید که چه عملی "
 "انجام می دهید"
 
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr "قوانین فیلترینگ از شبکه های خارجی به شبکه های داخلی"
+
 #: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
@@ -362,8 +388,14 @@ msgstr ""
 "این قوانین به شما اجاز می دهند که دسترسی از شبکه های خارجی به شبکه های داخلی "
 "را کنترل کنید"
 
+#~ msgid "Redirects"
+#~ msgstr "مسیریابی ترافیک ها"
+
+#~ msgid "Port redirections"
+#~ msgstr "مسیریابی های مجدد ترافیک پورت"
+
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "قوانین فیلترینگ از شبکه های خارجی به eBox"
+
 #~ msgid "firewall"
 #~ msgstr "دیواره آتش"
-
-#~ msgid "External port"
-#~ msgstr "پورت خروجی"

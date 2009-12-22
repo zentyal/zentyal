@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 16:59+0100\n"
 "PO-Revision-Date: 2009-12-04 09:37+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -17,69 +17,69 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/SysInfo.pm:45
+#: src/EBox/SysInfo.pm:46
 msgid "System Information"
 msgstr "System Informasjon"
 
-#: src/EBox/SysInfo.pm:80
+#: src/EBox/SysInfo.pm:81
 msgid "Time"
 msgstr "Tid"
 
-#: src/EBox/SysInfo.pm:81
+#: src/EBox/SysInfo.pm:82
 msgid "Hostname"
 msgstr "Vertsnavn"
 
-#: src/EBox/SysInfo.pm:83
+#: src/EBox/SysInfo.pm:84
 msgid "eBox version"
 msgstr "eBox versjon"
 
-#: src/EBox/SysInfo.pm:86
+#: src/EBox/SysInfo.pm:87
 msgid "System load"
 msgstr "System belastning"
 
-#: src/EBox/SysInfo.pm:132 src/EBox/SysInfo.pm:225
+#: src/EBox/SysInfo.pm:133 src/EBox/SysInfo.pm:226
 msgid "Module Status"
 msgstr "Modul Status"
 
-#: src/EBox/SysInfo.pm:137
+#: src/EBox/SysInfo.pm:138
 msgid "General Information"
 msgstr "Generell Informasjon"
 
-#: src/EBox/SysInfo.pm:142
+#: src/EBox/SysInfo.pm:143
 msgid "Process List"
 msgstr "Prosess Liste"
 
-#: src/EBox/SysInfo.pm:149
+#: src/EBox/SysInfo.pm:150
 msgid "Support & Services"
 msgstr "Støtte og Tjenester"
 
-#: src/EBox/SysInfo.pm:220 src/EBox/CGI/Dashboard/Index.pm:32
+#: src/EBox/SysInfo.pm:221 src/EBox/CGI/Dashboard/Index.pm:32
 msgid "Dashboard"
 msgstr "Dashbord"
 
-#: src/EBox/SysInfo.pm:231 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm:232 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "System"
 
-#: src/EBox/SysInfo.pm:235
+#: src/EBox/SysInfo.pm:236
 msgid "General"
 msgstr "Generelt"
 
-#: src/EBox/SysInfo.pm:238 src/EBox/CGI/Report/DiskUsage.pm:31
+#: src/EBox/SysInfo.pm:239 src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
 msgstr "Disk Bruk"
 
-#: src/EBox/SysInfo.pm:242 src/EBox/CGI/Report/RAID.pm:30
+#: src/EBox/SysInfo.pm:243 src/EBox/CGI/Report/RAID.pm:30
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/SysInfo.pm:247 src/EBox/CGI/EBox/Backup.pm:34
+#: src/EBox/SysInfo.pm:248 src/EBox/CGI/EBox/Backup.pm:34
 #: src/EBox/Backup.pm:706 src/templates/backup.mas:64
 msgid "Backup"
 msgstr "Sikkerhetskopi"
 
-#: src/EBox/SysInfo.pm:250
+#: src/EBox/SysInfo.pm:251
 msgid "Halt/Reboot"
 msgstr "Avslutt/Restart"
 
@@ -125,8 +125,8 @@ msgstr "Den kjørbare filen har blitt startet"
 msgid "The executable has already finished"
 msgstr "Den kjøbare filen har allerede fullført"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:209
-#: src/EBox/Events/Model/Watcher/Log.pm:233
+#: src/EBox/Events/Model/Watcher/Log.pm:215
+#: src/EBox/Events/Model/Watcher/Log.pm:239
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
@@ -134,23 +134,40 @@ msgstr ""
 "Advarsel! Logg overvåkeren er ikke aktivert. Aktiver for å bli varslet når "
 "logger oppstår. "
 
-#: src/EBox/Events/Model/Watcher/Log.pm:257
-#: src/EBox/Logs/Model/SelectLog.pm:141
+#: src/EBox/Events/Model/Watcher/Log.pm:263
+#: src/EBox/Logs/Model/SelectLog.pm:143
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
 msgid "Domain"
 msgstr "Domene"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:262
+#: src/EBox/Events/Model/Watcher/Log.pm:268
 msgid "Filtering"
 msgstr "Filtrerer"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:270
+#: src/EBox/Events/Model/Watcher/Log.pm:276
 msgid "Configure log watchers"
 msgstr "Konfigurer logg overvåkere"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:272
+#: src/EBox/Events/Model/Watcher/Log.pm:278
 msgid "Log watcher"
 msgstr "Logg overvåkere"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:386
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:212
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:137
+#: src/EBox/Events/Model/GeneralComposite.pm:76
+#: src/EBox/Events/Model/GeneralComposite.pm:77
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:325 src/EBox/Events.pm:96
+#: src/EBox/Events.pm:826
+msgid "Events"
+msgstr "Hendelser"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:390
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
+#, fuzzy
+msgid "Log Observer Watcher"
+msgstr "Logg overvåker"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
@@ -185,11 +202,11 @@ msgstr ""
 msgid "filter"
 msgstr "filter"
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:101
 msgid "Minimum free disk space per filesystem"
 msgstr "Minimum ledig disk plass per filsystem"
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:106
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
@@ -197,8 +214,13 @@ msgstr ""
 "Når ledig plass i prosent på enhver disk partisjon er under denne verdien "
 "blir hendelsen kjørt."
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
 msgid "Configure disk free space watcher"
+msgstr "Konfigurer disk ledig plass overvåker"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
+#, fuzzy
+msgid "Free Disk Space Watcher"
 msgstr "Konfigurer disk ledig plass overvåker"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
@@ -227,6 +249,7 @@ msgid "Configure Events"
 msgstr "Konfigurer Hendelser"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
+#: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
 msgstr "hendelse"
 
@@ -250,7 +273,7 @@ msgstr "Mottager"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4480
+#: src/EBox/Model/DataTable.pm:4524
 msgid "Enabled"
 msgstr "Aktivert"
 
@@ -274,34 +297,30 @@ msgstr ""
 "For å aktivere en konfigurasjons hendelses tildeler, må du først konfigurere "
 "den"
 
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:89
-msgid "Events"
-msgstr "Hendelser"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:78
+#: src/EBox/Events/Model/GeneralComposite.pm:80
 msgid ""
 "Events module configures eBox to help informing you about events that happen"
 msgstr ""
 "Hendelses modulen konfigurerer eBox for å hjelpe til med å informere deg om "
 "hendelser som skjer"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
 msgid "Jabber server name"
 msgstr "Jabber server navn"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:196
 msgid "Jabber server to send the messages"
 msgstr "Jabber server til å sende meldingene"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:200
 msgid "Port"
 msgstr "Port"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:207
 msgid "Jabber user name"
 msgstr "Jabber bruker navn"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
@@ -309,26 +328,26 @@ msgstr ""
 "Jabber ID til kontoen som vil sende meldinger. Hint: ikke skriv @domene, "
 "bare brukernavn"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
 msgid "User password"
 msgstr "Bruker Passord"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid "Subscribe"
 msgstr "Abboner"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
 msgstr ""
 "Huk av dette valget hvis du vil at eBox skal lage en konto for brukeren over"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:233
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:300
 msgid "Administrator Jabber Identifier"
 msgstr "Administrator Jabber Ident"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
 msgid ""
 "Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
 "admin. Note that you need to register this  account manually in any jabber "
@@ -338,59 +357,64 @@ msgstr ""
 "administratoren. Noter at du trenger å registrere denne  kontoen manuelt på "
 "enhver jabber server"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:245
 msgid "Configure Jabber dispatcher"
 msgstr "Konfigurer Jabber tildeler"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:250
 msgid "This dispatcher will send events to an Jabber account"
 msgstr "Denne tildeleren vil sende hendelser til en Jabber konto"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:253
 msgid "Jabber dispatcher configuration updated"
 msgstr "Jabber tildeler konfigurasjon oppdatert"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
+#, fuzzy
+msgid "Jabber Dispatcher"
+msgstr "Konfigurer Jabber tildeler"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
 msgid "It should follow the pattern 'user@domain[/resource]'"
 msgstr "Det bør følge dette mønsteret 'bruker@domene[/resurs]'"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:150
 msgid "Nobody"
 msgstr "Ingen"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:154
 msgid "IP address"
 msgstr "IP addresse"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:161
 msgid "Object"
 msgstr "Objekt"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:170
 msgid "Public"
 msgstr "Felles"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:177
 msgid "Channel link"
 msgstr "Kanal link"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:184
 msgid "Allowed readers"
 msgstr "Tillatte lesere"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:187
 msgid "Use this field to set the access control for the channel"
 msgstr "Bruk dette feltet for å sette tilgangs kontroll for kanalen"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:192
 msgid "Syndicate this RSS"
 msgstr "Syndiker denne RSS"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:202
 msgid "Configure RSS dispatcher"
 msgstr "Konfigurer RSS fordeler"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:207
 msgid ""
 "The channel link is the link which is used to syndicate the content to your "
 "favourite RSS. "
@@ -398,11 +422,79 @@ msgstr ""
 "Kanal linken er linken som er bruk til å syndikere inholdet til din favoritt "
 "RSS. "
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:210
 msgid "RSS dispatcher configuration updated"
 msgstr "RSS fordeler konfigurasjon oppdatert"
 
-#: src/EBox/EventDaemon.pm:476
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:329
+#, fuzzy
+msgid "RSS Dispatcher"
+msgstr "tildeler"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:50
+#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:808
+#, fuzzy
+msgid "Source"
+msgstr "Tjeneste"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:80
+#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:815
+#, fuzzy
+msgid "Informative"
+msgstr "System Informasjon"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:84
+#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
+#: src/templates/finish.mas:82
+msgid "Warning"
+msgstr "Advarsel"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:88
+#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:817
+msgid "Error"
+msgstr ""
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:92
+#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
+msgid "Fatal error"
+msgstr ""
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:702
+#: src/templates/finish.mas:105 src/templates/backup.mas:128
+#: src/templates/confirm-backup.mas:28
+msgid "Date"
+msgstr "Dato"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:101
+#, fuzzy
+msgid "Events details"
+msgstr "Hendelser"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:60
+#, fuzzy
+msgid "Events summarized chart"
+msgstr "Hendelses tjeneste status"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:77
+#, fuzzy
+msgid "Events summarized graph"
+msgstr "Oppsumert rapport"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+#, fuzzy
+msgid "Events reports"
+msgstr "Velg rapport"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:71
+#, fuzzy
+msgid "Events report"
+msgstr "Velg rapport"
+
+#: src/EBox/EventDaemon.pm:495
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr "Tildeler {name} deaktivert siden den ikke klarer å sende hendelser"
@@ -419,9 +511,18 @@ msgstr ""
 "En intern feil relatert til en mal har oppstått. Dette er en feil, relevant "
 "informasjon kan bli funnet i loggene."
 
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:57
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58
 msgid "Logs"
 msgstr "Logger"
+
+#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:686
+msgid "Query Logs"
+msgstr "Spørre logger"
+
+#: src/EBox/CGI/Logs/Index.pm:329
+#, fuzzy
+msgid "Full Reports"
+msgstr "Full rapport"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
@@ -587,7 +688,7 @@ msgstr "Gjenoppretter sikkerhetskopi"
 msgid "Restoring modules"
 msgstr "Gjenoppretter moduler"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:704
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
 msgstr "Modul"
@@ -868,8 +969,8 @@ msgid "spare"
 msgstr "reserve"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
-#, perl-brace-format
-msgid "The following modules are not running: {modules}\n"
+#, fuzzy, perl-brace-format
+msgid "The following modules are not running but they are enabled: {modules}\n"
 msgstr "Følgende moduler kjører ikke: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
@@ -877,7 +978,8 @@ msgid "Service"
 msgstr "Tjeneste"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
-msgid "Check if any eBox service is not running when it should"
+#, fuzzy
+msgid "Check if any eBox service is not running when it is enabled"
 msgstr "Kontroller om noen eBox tjenester ikke kjører når de burde"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
@@ -909,7 +1011,7 @@ msgstr "Kontroller om eBox er oppe eller nede"
 msgid "Log observer"
 msgstr "Logg overvåker"
 
-#: src/EBox/Event/Watcher/Log.pm:230
+#: src/EBox/Event/Watcher/Log.pm:241
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
 msgstr "Varsle når en logger ({loggers}) har logget noe"
@@ -991,18 +1093,18 @@ msgstr "Denne hendelsen skjedde på eBox {hostname} fra {source}"
 msgid "Go to your {url} to check its status."
 msgstr "Gå til din {url} for å sjekke status."
 
-#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
-#: src/EBox/PgDBEngine.pm:76
+#: src/EBox/PgDBEngine.pm:51 src/EBox/PgDBEngine.pm:64
+#: src/EBox/PgDBEngine.pm:77
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "Du må sette {variable} variabelen i ebox konfigurasjons filen"
 
-#: src/EBox/PgDBEngine.pm:272
+#: src/EBox/PgDBEngine.pm:359
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Feil i lagring av postgresql database {name}"
 
-#: src/EBox/PgDBEngine.pm:290
+#: src/EBox/PgDBEngine.pm:377
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "DB lagrings fil {file} er ikke leslig"
@@ -1053,19 +1155,19 @@ msgstr "Skriv inn et flyttall"
 msgid "Choose a value within the value set: {set}"
 msgstr "Velg en verdi innen: {set}"
 
-#: src/EBox/Logs/Model/SelectLog.pm:149
+#: src/EBox/Logs/Model/SelectLog.pm:151
 msgid "Full report"
 msgstr "Full rapport"
 
-#: src/EBox/Logs/Model/SelectLog.pm:155
+#: src/EBox/Logs/Model/SelectLog.pm:157
 msgid "Summarized report"
 msgstr "Oppsumert rapport"
 
-#: src/EBox/Logs/Model/SelectLog.pm:166
+#: src/EBox/Logs/Model/SelectLog.pm:168
 msgid "Select report"
 msgstr "Velg rapport"
 
-#: src/EBox/Logs/Model/SelectLog.pm:173
+#: src/EBox/Logs/Model/SelectLog.pm:175
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:375
 msgid "logs"
 msgstr "logger"
@@ -1181,67 +1283,74 @@ msgstr "Tjeneste deaktivert"
 msgid "Enable service"
 msgstr "Aktiver tjeneste"
 
-#: src/EBox/Events.pm:417
+#: src/EBox/Events.pm:485
 msgid "The events module is not enabled to send events"
 msgstr "Handlings modulen er ikke aktivert for sending av handlinger"
 
-#: src/EBox/Events.pm:632
+#: src/EBox/Events.pm:726
 msgid "Event service status"
 msgstr "Hendelses tjeneste status"
 
-#: src/EBox/Logs.pm:73
-msgid "Create logs database"
-msgstr "Opprette logge database"
+#: src/EBox/Events.pm:804
+#, fuzzy
+msgid "Date of first event"
+msgstr "Lagre som hendelse"
 
-#: src/EBox/Logs.pm:74
-msgid "eBox store its logs in the database"
-msgstr "eBox lagerer sine logger i databasen"
+#: src/EBox/Events.pm:805
+#, fuzzy
+msgid "Date of last event"
+msgstr "Lagre som hendelse"
 
-#: src/EBox/Logs.pm:431
+#: src/EBox/Events.pm:806
+#, fuzzy
+msgid "Repetitions"
+msgstr "Rapport alternativer"
+
+#: src/EBox/Events.pm:807
+#, fuzzy
+msgid "Level"
+msgstr "hendelse"
+
+#: src/EBox/Events.pm:809 src/templates/finish.mas:107
+msgid "Message"
+msgstr "Melding"
+
+#: src/EBox/Logs.pm:435
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "Tabell {table} eksisterer ikke"
 
-#: src/EBox/Logs.pm:630
-msgid "Query Logs"
-msgstr "Spørre logger"
-
-#: src/EBox/Logs.pm:633
+#: src/EBox/Logs.pm:689
 msgid "Configure Logs"
 msgstr "Konfigurer logger"
 
-#: src/EBox/Logs.pm:646 src/templates/finish.mas:105
-#: src/templates/backup.mas:128 src/templates/confirm-backup.mas:28
-msgid "Date"
-msgstr "Dato"
-
-#: src/EBox/Logs.pm:647
+#: src/EBox/Logs.pm:703
 msgid "Client Address"
 msgstr "Klient Adresse"
 
-#: src/EBox/Logs.pm:649 src/EBox/Model/Composite.pm:670
-#: src/EBox/Model/Composite.pm:685 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2128
+#: src/EBox/Logs.pm:705 src/EBox/Model/Composite.pm:653
+#: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/DataTable.pm:2129
 msgid "Action"
 msgstr "Oppgave"
 
-#: src/EBox/Logs.pm:650
+#: src/EBox/Logs.pm:706
 msgid "Params"
 msgstr "Parameter"
 
-#: src/EBox/Logs.pm:651
+#: src/EBox/Logs.pm:707
 msgid "Committed"
 msgstr "Forpliktet"
 
-#: src/EBox/Logs.pm:656
+#: src/EBox/Logs.pm:712
 msgid "Admin"
 msgstr "Admin"
 
-#: src/EBox/Logs.pm:751
+#: src/EBox/Logs.pm:806
 msgid "Log messages"
 msgstr "Logg meldinger"
 
-#: src/EBox/Logs.pm:778
+#: src/EBox/Logs.pm:833
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Livstids parameter må være et positivt antall timer"
 
@@ -1250,18 +1359,18 @@ msgstr "Livstids parameter må være et positivt antall timer"
 msgid "Provided object with index {i} does not exist"
 msgstr "Oppgitt objekt med indeks {i} eksisterer ikke"
 
-#: src/EBox/Model/DataForm.pm:544
+#: src/EBox/Model/DataForm.pm:555
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr "Fjern data fra {model}{br}"
 
-#: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
+#: src/EBox/Model/DataForm.pm:605 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
 msgstr "Endre"
 
-#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:710 src/templates/progress.mas:22
 msgid "Done"
 msgstr "Ferdig"
 
@@ -1270,12 +1379,12 @@ msgstr "Ferdig"
 msgid "It should be one of following values: {values}"
 msgstr "Det bør være en av følgende verdier: {values}"
 
-#: src/EBox/Model/Composite.pm:672
+#: src/EBox/Model/Composite.pm:655
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr "Tillatte handlinger er: {view} og {cView}"
 
-#: src/EBox/Model/Composite.pm:795
+#: src/EBox/Model/Composite.pm:778
 msgid "Choose one of the following:"
 msgstr "Velg en av følgende:"
 
@@ -1295,61 +1404,61 @@ msgstr ""
 "Dataene du prøver å modifisere er i bruk av\n"
 "\t\t\tfølgende seksjoner:"
 
-#: src/EBox/Model/DataTable.pm:326
+#: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
 msgid "{model} in {module} module"
 msgstr "{model} i {module} modul"
 
-#: src/EBox/Model/DataTable.pm:330
+#: src/EBox/Model/DataTable.pm:331
 msgid "at"
 msgstr "på"
 
-#: src/EBox/Model/DataTable.pm:541
+#: src/EBox/Model/DataTable.pm:542
 msgid "field"
 msgstr "felt"
 
-#: src/EBox/Model/DataTable.pm:1465
+#: src/EBox/Model/DataTable.pm:1466
 msgid "page"
 msgstr "side"
 
-#: src/EBox/Model/DataTable.pm:1468
+#: src/EBox/Model/DataTable.pm:1469
 msgid "Page must be a number equal or greater than zero"
 msgstr "Side må være et tall større eller lik null"
 
-#: src/EBox/Model/DataTable.pm:2803
+#: src/EBox/Model/DataTable.pm:2831
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Fjern {num} rader av {rowName} fra {model}{br}"
 
-#: src/EBox/Model/DataTable.pm:2874
+#: src/EBox/Model/DataTable.pm:2902
 msgid "Page size"
 msgstr "Side størrelse"
 
-#: src/EBox/Model/DataTable.pm:2877
+#: src/EBox/Model/DataTable.pm:2905
 msgid "Must be either a positive number or zero"
 msgstr "Må være enten et positivt tall eller null"
 
-#: src/EBox/Model/DataTable.pm:3184
+#: src/EBox/Model/DataTable.pm:3212
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} lagt til"
 
-#: src/EBox/Model/DataTable.pm:3185
+#: src/EBox/Model/DataTable.pm:3213
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} slettet"
 
-#: src/EBox/Model/DataTable.pm:3186
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} oppdatert"
 
-#: src/EBox/Model/DataTable.pm:3187
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} flyttet opp"
 
-#: src/EBox/Model/DataTable.pm:3188
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} flyttet ned"
@@ -1472,12 +1581,12 @@ msgstr "port"
 msgid "eBox internal web server"
 msgstr "eBox intern web server"
 
-#: src/EBox/Global.pm:424 src/EBox/Global.pm:445
+#: src/EBox/Global.pm:444 src/EBox/Global.pm:465
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Lagrer {modName} modul"
 
-#: src/EBox/Global.pm:919
+#: src/EBox/Global.pm:961
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "kjører {scriptName} skript"
@@ -1758,6 +1867,11 @@ msgstr "En feil har oppstått i eBox:"
 msgid "Starting..."
 msgstr "Starter..."
 
+#: src/templates/logs/index.mas:20
+#, fuzzy
+msgid "Log Domain"
+msgstr "Domene"
+
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
 msgstr "Siste times logger vil bli vist når man velger en komponent"
@@ -1867,10 +1981,6 @@ msgstr "neste"
 msgid "last"
 msgstr "siste"
 
-#: src/templates/finish.mas:82
-msgid "Warning"
-msgstr "Advarsel"
-
 #: src/templates/finish.mas:96
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
@@ -1888,10 +1998,6 @@ msgstr ""
 "Hvis du gjorde endringer til nettverks kortene eller aministrasjons porten, "
 "kan det hende du må manuellt skrive om adressen for å kunne se dette "
 "administrasjons grensesnittet igjen."
-
-#: src/templates/finish.mas:107
-msgid "Message"
-msgstr "Melding"
 
 #: src/templates/finish.mas:123
 msgid "Save"
@@ -2092,6 +2198,12 @@ msgstr "Gjenopprettings modus"
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "Administrasjons Gjensesnitt TC Port"
+
+#~ msgid "Create logs database"
+#~ msgstr "Opprette logge database"
+
+#~ msgid "eBox store its logs in the database"
+#~ msgstr "eBox lagerer sine logger i databasen"
 
 #~ msgid "Monitoring"
 #~ msgstr "Overvåker"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:00+0000\n"
+"POT-Creation-Date: 2009-12-21 17:04+0100\n"
 "PO-Revision-Date: 2009-12-04 10:25+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -666,11 +666,11 @@ msgstr "Passord"
 msgid "Hostname"
 msgstr "Vertsnavn"
 
-#: src/EBox/Model/DynDNS.pm:115
-msgid "Dynamic DNS"
-msgstr "Dynamisk DNS"
+#: src/EBox/Model/DynDNS.pm:116
+msgid "Configuration"
+msgstr ""
 
-#: src/EBox/Model/DynDNS.pm:119
+#: src/EBox/Model/DynDNS.pm:120
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
@@ -979,6 +979,9 @@ msgstr ""
 "Hvis du velger å fortsette, vil alle modulene som bruker gjeldende "
 "konfigurasjon av dette nettverks grensesnittet slette vesentlige deler av "
 "sin konfigurasjon. Velg \"Avbryt\" hvis du ikke er sikker på dette."
+
+#~ msgid "Dynamic DNS"
+#~ msgstr "Dynamisk DNS"
 
 #~ msgid "Set default gateway"
 #~ msgstr "Sett standard gateway"

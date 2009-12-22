@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2009-08-04 06:00+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -137,14 +137,18 @@ msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "選擇要用在 eGroupware 的虛擬郵件網域"
 
 #: src/EBox/Composite/General.pm:76
-msgid "eGroupware Configuration"
-msgstr "eGroupware 組態"
+#, fuzzy
+msgid "eGroupware"
+msgstr "eGroupware"
 
 #: src/EBox/Composite/General.pm:78
 msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+
+#~ msgid "eGroupware Configuration"
+#~ msgstr "eGroupware 組態"
 
 #~ msgid "To add a new schema"
 #~ msgstr "加入新的 schema"

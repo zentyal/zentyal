@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:47+0000\n"
+"POT-Creation-Date: 2009-12-21 16:58+0100\n"
 "PO-Revision-Date: 2009-12-10 13:53+0100\n"
 "Last-Translator: Adrian Munteanu <adrimunteanu@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:378
-#: src/EBox/AntiVirus.pm:383
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:390
+#: src/EBox/AntiVirus.pm:395 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
 msgid "Antivirus"
 msgstr "Antivirus"
 
@@ -45,10 +45,10 @@ msgstr "Data"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 #, fuzzy
-msgid "Antivirus Database Update Status"
+msgid "Database Update Status"
 msgstr "Starea actualizării bazei de date a antivirusului"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
 #, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
@@ -56,12 +56,12 @@ msgstr ""
 "Baza de date a antivirusului nu a fost actualizata de când modulul filtru-"
 "mail eBox a fost instalat"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
 #, fuzzy
 msgid "The last update failed."
 msgstr "Ultima actualizare a eșuat"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
 #, fuzzy, perl-brace-format
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
@@ -73,12 +73,12 @@ msgstr ""
 " Antivirusul nu va putea folosi toate semnăturile. Te rog instalează "
 "versiunea {version} sau mai mare"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
 #, fuzzy
 msgid "Last update successful."
 msgstr "Ultima actualizare a fost făcută cu succes"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:144
 #, fuzzy, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Eveniment necunoscut {event}"

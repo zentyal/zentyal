@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:02+0000\n"
+"POT-Creation-Date: 2009-12-22 08:15+0100\n"
 "PO-Revision-Date: 2009-12-07 09:47+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -17,173 +17,182 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Squid.pm:68 src/EBox/Squid.pm:951 src/EBox/Squid.pm:1027
+#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:969 src/EBox/Squid.pm:1045
 #: src/EBox/Squid/Composite/General.pm:76
 msgid "HTTP Proxy"
 msgstr "HTTP Proxy"
 
-#: src/EBox/Squid.pm:195
+#: src/EBox/Squid.pm:197
 msgid "HTTP Proxy configuration file"
 msgstr "HTTP Proxy konfigurasjons fil"
 
-#: src/EBox/Squid.pm:200
+#: src/EBox/Squid.pm:202
 msgid "Content filter configuration file"
 msgstr "Innholds filter konfigurasjons fil"
 
-#: src/EBox/Squid.pm:205
+#: src/EBox/Squid.pm:207
 msgid "Default filter group configuration"
 msgstr "Standard filter gruppe konfigurasjon"
 
-#: src/EBox/Squid.pm:210
+#: src/EBox/Squid.pm:212
 msgid "Filter groups membership"
 msgstr "Filter gruppe medlemskap"
 
-#: src/EBox/Squid.pm:215
+#: src/EBox/Squid.pm:217
 msgid "Content filter banned extension list"
 msgstr "Innholds filter forbudt etternavn liste"
 
-#: src/EBox/Squid.pm:220
+#: src/EBox/Squid.pm:222
 msgid "Content filter banned mime type list"
 msgstr "Innholds filter forbudt mime type liste"
 
-#: src/EBox/Squid.pm:225
+#: src/EBox/Squid.pm:227
 msgid "Content filter exception site list"
 msgstr "Innholds filter unntaks steds liste"
 
-#: src/EBox/Squid.pm:230
+#: src/EBox/Squid.pm:232
 msgid "Content filter grey site list"
 msgstr "Innholds filter grå steds liste"
 
-#: src/EBox/Squid.pm:235
+#: src/EBox/Squid.pm:237
 msgid "Content filter banned site list"
 msgstr "Innholds filter forbudt steds liste"
 
-#: src/EBox/Squid.pm:240
+#: src/EBox/Squid.pm:242
 msgid "Content filter exception URL list"
 msgstr "Innholds filter unntaks URL liste"
 
-#: src/EBox/Squid.pm:245
+#: src/EBox/Squid.pm:247
 msgid "Content filter grey URL list"
 msgstr "Innholds filter grå URL liste"
 
-#: src/EBox/Squid.pm:250
+#: src/EBox/Squid.pm:252
 msgid "Content filter banned URL list"
 msgstr "Innholds filter forbudt URL liste"
 
-#: src/EBox/Squid.pm:255
+#: src/EBox/Squid.pm:257
 msgid "Forbidden phrases list"
 msgstr "Forbudte tekster liste"
 
-#: src/EBox/Squid.pm:260
+#: src/EBox/Squid.pm:262
 msgid "Exception phrases list"
 msgstr "Unntaks tekster liste"
 
-#: src/EBox/Squid.pm:265
+#: src/EBox/Squid.pm:267
 msgid "PICS ratings configuration"
 msgstr "PICS rangerings konfigurasjon"
 
-#: src/EBox/Squid.pm:270
+#: src/EBox/Squid.pm:272
 msgid "Dansguardian's log rotation configuration"
 msgstr "Dansguardian's logg rotering konfigurasjon"
 
-#: src/EBox/Squid.pm:306
+#: src/EBox/Squid.pm:277
+#, fuzzy
+msgid "Dansguardian's antivirus canner configuration"
+msgstr "Dansguardian's logg rotering konfigurasjon"
+
+#: src/EBox/Squid.pm:313
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr "Du må sette cache_mem variabelen i ebox konfigurasjons filen"
 
-#: src/EBox/Squid.pm:923
+#: src/EBox/Squid.pm:941
 msgid "Enabled"
 msgstr "Aktivert"
 
-#: src/EBox/Squid.pm:925 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+#: src/EBox/Squid.pm:943 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
 msgstr "Deaktivert"
 
-#: src/EBox/Squid.pm:927
+#: src/EBox/Squid.pm:945
 msgid "Transparent proxy"
 msgstr "Gjennomsiktig proxy"
 
-#: src/EBox/Squid.pm:930 src/EBox/Squid/Model/MIMEFilterBase.pm:60
+#: src/EBox/Squid.pm:948 src/EBox/Squid/Model/MIMEFilterBase.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:89
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:100
 msgid "Allow"
 msgstr "Tillat"
 
-#: src/EBox/Squid.pm:932 src/EBox/Squid/Model/GroupPolicyBase.pm:93
+#: src/EBox/Squid.pm:950 src/EBox/Squid/Model/GroupPolicyBase.pm:93
 msgid "Deny"
 msgstr "Avvis"
 
-#: src/EBox/Squid.pm:934 src/EBox/Squid/Types/DomainPolicy.pm:35
+#: src/EBox/Squid.pm:952 src/EBox/Squid/Types/DomainPolicy.pm:35
 #: src/EBox/Squid/Types/Policy.pm:65
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
 msgstr "Filtrer"
 
-#: src/EBox/Squid.pm:937
+#: src/EBox/Squid.pm:955
 msgid "Global policy"
 msgstr "Global instruks"
 
-#: src/EBox/Squid.pm:939
+#: src/EBox/Squid.pm:957
 msgid "Listening port"
 msgstr "Lytte port"
 
-#: src/EBox/Squid.pm:971
+#: src/EBox/Squid.pm:989
 msgid "General"
 msgstr "Generell"
 
-#: src/EBox/Squid.pm:975
+#: src/EBox/Squid.pm:993
 msgid "Objects' Policy"
 msgstr "Objekts instruks"
 
-#: src/EBox/Squid.pm:978
+#: src/EBox/Squid.pm:996
 msgid "Groups' Policy"
 msgstr "Gruppens instruks"
 
-#: src/EBox/Squid.pm:981
+#: src/EBox/Squid.pm:999
+#: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
+#: src/EBox/Squid/Model/DomainFilterCategories.pm:113
+#: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
+#: src/EBox/Squid/Composite/FilterSettings.pm:93
 msgid "Filter Profiles"
 msgstr "Filter Profiler"
 
-#: src/EBox/Squid.pm:1012 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+#: src/EBox/Squid.pm:1030 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
 msgstr "Dato"
 
-#: src/EBox/Squid.pm:1013
+#: src/EBox/Squid.pm:1031
 msgid "Host"
 msgstr "Vert"
 
-#: src/EBox/Squid.pm:1014 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Squid.pm:1032 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
 msgstr "Bruker"
 
-#: src/EBox/Squid.pm:1015
+#: src/EBox/Squid.pm:1033
 msgid "URL"
 msgstr "URL"
 
-#: src/EBox/Squid.pm:1016
+#: src/EBox/Squid.pm:1034
 msgid "Bytes"
 msgstr "Bytes"
 
-#: src/EBox/Squid.pm:1017
+#: src/EBox/Squid.pm:1035
 msgid "Mime/type"
 msgstr "Mime/type"
 
-#: src/EBox/Squid.pm:1018
+#: src/EBox/Squid.pm:1036
 msgid "Event"
 msgstr "Hendelse"
 
-#: src/EBox/Squid.pm:1023
+#: src/EBox/Squid.pm:1041
 msgid "Accepted"
 msgstr "Godkjent"
 
-#: src/EBox/Squid.pm:1024
+#: src/EBox/Squid.pm:1042
 msgid "Denied"
 msgstr "Avvist"
 
-#: src/EBox/Squid.pm:1025
+#: src/EBox/Squid.pm:1043
 msgid "Filtered"
 msgstr "Filtrert"
 
-#: src/EBox/Squid.pm:1103
+#: src/EBox/Squid.pm:1120
 msgid "HTTP Proxy's cache files"
 msgstr "HTTP Proxy mellomlagrings filer"
 
@@ -388,8 +397,8 @@ msgid "Use default profile threshold"
 msgstr "Bruk standard profil terskel"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:75
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
-msgid "Threshold"
+#, fuzzy
+msgid "Threshold a"
 msgstr "Terskel"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:84
@@ -470,6 +479,10 @@ msgstr "Bruk standard profil konfigurasjon"
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:68
 msgid "Use default profile for domain filtering"
 msgstr "Bruk standard profil dor domene filtrering"
+
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
+msgid "Threshold"
+msgstr "Terskel"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:53
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:128
@@ -580,7 +593,8 @@ msgstr ""
 "noen objekter"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:185
-msgid "You need to use authorization policies with global group policies"
+#, fuzzy
+msgid "You need to use authorization policies wuth global group policies"
 msgstr "Du må bruke autoriserings instrukser med globale gruppe instrukser"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:194
@@ -623,50 +637,51 @@ msgid "Group policy"
 msgstr "Gruppe instruks"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:109
-msgid "Configure network objects' policies"
-msgstr "Konfigurer nettverks objektets instrukser"
+#, fuzzy
+msgid "Object Policies"
+msgstr "Objekts instruks"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:110
 msgid "List of objects"
 msgstr "Liste med objekter"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:124
+#: src/EBox/Squid/Model/ObjectPolicy.pm:125
 msgid "object's policy"
 msgstr "objektets instruks"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:125
+#: src/EBox/Squid/Model/ObjectPolicy.pm:126
 msgid "Here you can establish a custom policy per network object"
 msgstr "Her kan du etablere tilpasset instruks per nettverks objekt"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:127
+#: src/EBox/Squid/Model/ObjectPolicy.pm:128
 msgid "Added object's policy"
 msgstr "Lagt til objektets instruks"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:128
+#: src/EBox/Squid/Model/ObjectPolicy.pm:129
 msgid "Removed object's policy"
 msgstr "Fjernet objektets instruks"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:129
+#: src/EBox/Squid/Model/ObjectPolicy.pm:130
 msgid "Updated object's policy"
 msgstr "Oppdatert objektets instruks"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:172
+#: src/EBox/Squid/Model/ObjectPolicy.pm:173
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr ""
 "Autoriserings innstruks er ikke kompatibel med gjennomsiktig proxy modus"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:195
+#: src/EBox/Squid/Model/ObjectPolicy.pm:196
 msgid "Filter policies are incompatible with restricted time periods"
 msgstr "Filter instrukser er ikke kompatible med begrensede tidsperioder"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:221
+#: src/EBox/Squid/Model/ObjectPolicy.pm:222
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr ""
 "Du kan ikke velge instruks uten autorisering hvis du ikke har en gruppe "
 "instruks"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:441
+#: src/EBox/Squid/Model/ObjectPolicy.pm:442
 #, perl-brace-format
 msgid ""
 "There are not netowrk objects in the system. {open}Create{close} at least "
@@ -703,8 +718,8 @@ msgid ""
 "There are not user groups in the system. {open}Create{close} at least one "
 "group  if you want to set a group policy"
 msgstr ""
-"Det er ingen bruker grupper i systemet. {open}Create{close} minst en gruppe "
-" hvis du vil sette en gruppe instruks"
+"Det er ingen bruker grupper i systemet. {open}Create{close} minst en gruppe  "
+"hvis du vil sette en gruppe instruks"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:61
 msgid "Categories"
@@ -731,8 +746,9 @@ msgstr ""
 "klassifiserte svarte lister"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
-msgid "Configure user's groups global policies"
-msgstr "Konfigurer bruker gruppers globale instrukser"
+#, fuzzy
+msgid "Group policies"
+msgstr "Gruppe instruks"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:79
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:76
@@ -919,6 +935,11 @@ msgstr "Filtrer virus"
 msgid "Filter profiles"
 msgstr "Filter profiler"
 
+#: src/EBox/Squid/Model/FilterGroup.pm:71
+#, fuzzy
+msgid "List of profiles"
+msgstr "Liste med grupper"
+
 #: src/EBox/Squid/Model/FilterGroup.pm:83
 msgid "filter profile"
 msgstr "filter profil"
@@ -1078,16 +1099,6 @@ msgstr "Domene filtrering"
 msgid "File extensions filtering"
 msgstr "Fil etternavn filtrering"
 
-#: src/EBox/Squid/Composite/FilterGroupSettings.pm:77
-#: src/EBox/Squid/Composite/FilterSettings.pm:77
-msgid "Filter settings"
-msgstr "Filter innstillinger"
-
-#: src/EBox/Squid/Composite/FilterGroupSettings.pm:93
-#, perl-brace-format
-msgid "Filter settings for profile {p}"
-msgstr "Filter instillinger for profil {p}"
-
 #: src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
 msgstr "Domener filtrert for filter grupper"
@@ -1096,6 +1107,10 @@ msgstr "Domener filtrert for filter grupper"
 #: src/EBox/Squid/Composite/FilterGroupMIME.pm:92
 msgid "MIME types filtering"
 msgstr "MIME type filtrering"
+
+#: src/EBox/Squid/Composite/FilterSettings.pm:77
+msgid "Filter settings"
+msgstr "Filter innstillinger"
 
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:71
@@ -1113,6 +1128,15 @@ msgstr "Til"
 #: src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
 msgstr "Dager i uken"
+
+#~ msgid "Configure network objects' policies"
+#~ msgstr "Konfigurer nettverks objektets instrukser"
+
+#~ msgid "Configure user's groups global policies"
+#~ msgstr "Konfigurer bruker gruppers globale instrukser"
+
+#~ msgid "Filter settings for profile {p}"
+#~ msgstr "Filter instillinger for profil {p}"
 
 #~ msgid "Gateway"
 #~ msgstr "Gateway"

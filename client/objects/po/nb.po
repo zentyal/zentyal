@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:01+0000\n"
+"POT-Creation-Date: 2009-12-21 17:04+0100\n"
 "PO-Revision-Date: 2009-08-26 10:41+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -63,15 +63,15 @@ msgstr "Medlemmer"
 msgid "Objects List"
 msgstr "Objekt Liste"
 
-#: src/EBox/Model/ObjectTable.pm:90
+#: src/EBox/Model/ObjectTable.pm:91
 msgid "object"
 msgstr "Objekt"
 
-#: src/EBox/Model/ObjectTable.pm:112
+#: src/EBox/Model/ObjectTable.pm:113
 msgid "This object is being used by another module"
 msgstr "Dette objektet er i bruk av en annen modul"
 
-#: src/EBox/Model/ObjectTable.pm:184
+#: src/EBox/Model/ObjectTable.pm:185
 msgid ""
 "Objects are an abstraction of machines and network addresses which can be "
 "used in other modules. Any change on an object is automatically synched in "

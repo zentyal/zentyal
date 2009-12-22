@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:02+0000\n"
+"POT-Creation-Date: 2009-12-21 17:05+0100\n"
 "PO-Revision-Date: 2009-05-06 11:27+0200\n"
 "Last-Translator: Marco Falger <mfalger@aon.at>\n"
 "Language-Team: none\n"
@@ -100,7 +100,6 @@ msgstr "Pfad"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
 #: src/EBox/Samba/Model/SambaShares.pm:146
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "share"
 msgstr "Freigabe"
 
@@ -208,6 +207,7 @@ msgid "Access control"
 msgstr "Zugriffskontrolle"
 
 #: src/EBox/Samba/Model/SambaShares.pm:138
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:186
 msgid "Shares"
 msgstr "Freigabe"
 
@@ -277,10 +277,14 @@ msgstr "Berechtigungen"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
 #, fuzzy
-msgid "Share configuration"
-msgstr "Samba-Freigaben Konfiguration"
+msgid "Access Control"
+msgstr "Zugriffskontrolle"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:178
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
+msgid "ACL"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"
@@ -377,15 +381,14 @@ msgstr "Samba-Freigaben Konfiguration"
 msgid "Add exceptions to the default Recycle Bin settings"
 msgstr ""
 
-#: src/EBox/Samba/Model/AntivirusDefault.pm:45
-#: src/EBox/Samba/Model/AntivirusDefault.pm:63
+#: src/EBox/Samba/Model/AntivirusDefault.pm:50
+msgid "Scan"
+msgstr ""
+
+#: src/EBox/Samba/Model/AntivirusDefault.pm:58
 #, fuzzy
 msgid "Antivirus default settings"
 msgstr "Allgemeine Einstellungen"
-
-#: src/EBox/Samba/Model/AntivirusDefault.pm:55
-msgid "Scan"
-msgstr ""
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:45
 #, fuzzy
@@ -405,6 +408,11 @@ msgstr "Allgemeine Einstellungen"
 msgid "Recycle Bin"
 msgstr ""
 
+#: src/EBox/Samba/Composite/General.pm:67 src/EBox/Samba.pm:76
+#, fuzzy
+msgid "File Sharing"
+msgstr "Dateifreigabe"
+
 #: src/EBox/Samba/Composite/General.pm:68
 #, fuzzy
 msgid "File sharing options"
@@ -413,11 +421,6 @@ msgstr "Dateifreigabe"
 #: src/EBox/Samba/Composite/Antivirus.pm:64
 msgid "Antivirus"
 msgstr ""
-
-#: src/EBox/Samba.pm:76
-#, fuzzy
-msgid "File Sharing"
-msgstr "Dateifreigabe"
 
 #: src/EBox/Samba.pm:96
 msgid "Create Samba home directory for users and groups"
@@ -723,6 +726,10 @@ msgstr "Eigener Ordner"
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group} Freigabe-Verzeichnis"
+
+#, fuzzy
+#~ msgid "Share configuration"
+#~ msgstr "Samba-Freigaben Konfiguration"
 
 #~ msgid "file sharing"
 #~ msgstr "Dateifreigabe"

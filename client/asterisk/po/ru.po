@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:47+0000\n"
+"POT-Creation-Date: 2009-12-21 16:59+0100\n"
 "PO-Revision-Date: 2009-09-29 10:58+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "Система eBox VoIP "
 
-#: src/EBox/Asterisk.pm:66
+#: src/EBox/Asterisk.pm:66 src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
 
@@ -68,7 +68,7 @@ msgstr "Для настройки конференций"
 msgid "General"
 msgstr "Общие"
 
-#: src/EBox/Asterisk.pm:460 src/EBox/Model/Meetings.pm:184
+#: src/EBox/Asterisk.pm:460 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "Meetings"
 
@@ -150,7 +150,12 @@ msgstr "Пароль"
 msgid "Description"
 msgstr "Описание"
 
-#: src/EBox/Model/Meetings.pm:185
+#: src/EBox/Model/Meetings.pm:184
+#, fuzzy
+msgid "List of Meetings"
+msgstr "Meetings"
+
+#: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
 msgstr "meeting"
 
@@ -174,9 +179,18 @@ msgstr "Прикрепленные сообщения"
 msgid "Delete sent messages"
 msgstr "Удалить отправленные сообщения"
 
+#: src/EBox/Model/Voicemail.pm:126
+#, fuzzy
+msgid "Change your Voicemail settings"
+msgstr "Настройки голосовой почты"
+
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
 msgstr "Настройки обновлены успешно"
+
+#: src/EBox/Model/Voicemail.pm:222
+msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
+msgstr ""
 
 #: src/EBox/Model/Localnets.pm:88
 #, fuzzy, perl-brace-format

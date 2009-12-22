@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:09+0000\n"
+"POT-Creation-Date: 2009-12-21 17:06+0100\n"
 "PO-Revision-Date: 2009-10-30 03:52+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "HyperText Transport Protocol"
 msgstr "HTTP (протокол передачи гипертекста)"
 
-#: src/EBox/WebServer.pm:77
+#: src/EBox/WebServer.pm:77 src/EBox/WebServer/Composite/General.pm:81
 msgid "Web Server"
 msgstr "Веб сервер"
 
@@ -199,16 +199,19 @@ msgstr ""
 "иметь никакого эффекта пока вы его не включите"
 
 #: src/EBox/WebServer/Composite/General.pm:80
-msgid "Web service"
-msgstr "Веб-служба"
+msgid "Configuration"
+msgstr ""
 
-#: src/EBox/WebServer/Composite/General.pm:82
+#: src/EBox/WebServer/Composite/General.pm:83
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
 "Веб-служба EBox позволяет вам создавать веб-сайты с веб-страницами в формате "
 "обычного HTML на различных виртуальных узлах"
+
+#~ msgid "Web service"
+#~ msgstr "Веб-служба"
 
 #~ msgid "Web"
 #~ msgstr "Веб"

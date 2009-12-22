@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2009-08-13 14:25+0200\n"
 "Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
 "Language-Team: none\n"
@@ -141,14 +141,18 @@ msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Selecteer het virtueel mail domein voor gebruik met eGroupware"
 
 #: src/EBox/Composite/General.pm:76
-msgid "eGroupware Configuration"
-msgstr "eGroupware Configuratie"
+#, fuzzy
+msgid "eGroupware"
+msgstr "eGroupware"
 
 #: src/EBox/Composite/General.pm:78
 msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+
+#~ msgid "eGroupware Configuration"
+#~ msgstr "eGroupware Configuratie"
 
 # bureel ?? */ kantoor ???
 #, fuzzy

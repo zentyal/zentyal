@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:47+0000\n"
+"POT-Creation-Date: 2009-12-21 16:58+0100\n"
 "PO-Revision-Date: 2009-05-14 10:04+0200\n"
 "Last-Translator: Alexander Elo <alexander.elo@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:378
-#: src/EBox/AntiVirus.pm:383
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:390
+#: src/EBox/AntiVirus.pm:395 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
 msgid "Antivirus"
 msgstr "Antivirus"
 
@@ -46,10 +46,10 @@ msgstr "Päivämäärä"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 #, fuzzy
-msgid "Antivirus Database Update Status"
+msgid "Database Update Status"
 msgstr "Antivirus tietokannan päivityksen tila"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
 #, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
@@ -57,12 +57,12 @@ msgstr ""
 "Antiviruksen tietokantaa ei päivitetty, koska  mailfilter eBox moduuli on "
 "asennettu"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
 #, fuzzy
 msgid "The last update failed."
 msgstr "Viime päivitys epäonnistui"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
 #, fuzzy, perl-brace-format
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
@@ -73,12 +73,12 @@ msgstr ""
 "Antivirus ei pysty käyttämään kaikkia allekirjoituksia. Ole hyvä ja asenna "
 "versio {version} tai uudempi"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
 #, fuzzy
 msgid "Last update successful."
 msgstr "Viime päivitys onnistui"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:144
 #, fuzzy, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Tuntematon tapahtuma {event}"

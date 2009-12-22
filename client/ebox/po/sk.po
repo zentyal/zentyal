@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 16:59+0100\n"
 "PO-Revision-Date: 2009-08-05 21:15+0100\n"
 "Last-Translator: Peter Mráz <etkinator@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -17,74 +17,74 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/SysInfo.pm:45
+#: src/EBox/SysInfo.pm:46
 #, fuzzy
 msgid "System Information"
 msgstr "Informácie o systéme"
 
-#: src/EBox/SysInfo.pm:80
+#: src/EBox/SysInfo.pm:81
 msgid "Time"
 msgstr "Čas"
 
-#: src/EBox/SysInfo.pm:81
+#: src/EBox/SysInfo.pm:82
 #, fuzzy
 msgid "Hostname"
 msgstr "Názov stanice"
 
-#: src/EBox/SysInfo.pm:83
+#: src/EBox/SysInfo.pm:84
 msgid "eBox version"
 msgstr "Verzia eBoxu"
 
-#: src/EBox/SysInfo.pm:86
+#: src/EBox/SysInfo.pm:87
 msgid "System load"
 msgstr "Záťaž systému"
 
-#: src/EBox/SysInfo.pm:132 src/EBox/SysInfo.pm:225
+#: src/EBox/SysInfo.pm:133 src/EBox/SysInfo.pm:226
 #, fuzzy
 msgid "Module Status"
 msgstr "Stav modulov"
 
-#: src/EBox/SysInfo.pm:137
+#: src/EBox/SysInfo.pm:138
 #, fuzzy
 msgid "General Information"
 msgstr "Všeobecné informácie"
 
-#: src/EBox/SysInfo.pm:142
+#: src/EBox/SysInfo.pm:143
 #, fuzzy
 msgid "Process List"
 msgstr "Zoznam procesov"
 
-#: src/EBox/SysInfo.pm:149
+#: src/EBox/SysInfo.pm:150
 msgid "Support & Services"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:220 src/EBox/CGI/Dashboard/Index.pm:32
+#: src/EBox/SysInfo.pm:221 src/EBox/CGI/Dashboard/Index.pm:32
 msgid "Dashboard"
 msgstr "Informačný panel"
 
-#: src/EBox/SysInfo.pm:231 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm:232 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "Systém"
 
-#: src/EBox/SysInfo.pm:235
+#: src/EBox/SysInfo.pm:236
 msgid "General"
 msgstr "Všeobecné nastavenia"
 
-#: src/EBox/SysInfo.pm:238 src/EBox/CGI/Report/DiskUsage.pm:31
+#: src/EBox/SysInfo.pm:239 src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
 msgstr "Využitie disku"
 
-#: src/EBox/SysInfo.pm:242 src/EBox/CGI/Report/RAID.pm:30
+#: src/EBox/SysInfo.pm:243 src/EBox/CGI/Report/RAID.pm:30
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/SysInfo.pm:247 src/EBox/CGI/EBox/Backup.pm:34
+#: src/EBox/SysInfo.pm:248 src/EBox/CGI/EBox/Backup.pm:34
 #: src/EBox/Backup.pm:706 src/templates/backup.mas:64
 msgid "Backup"
 msgstr "Zálohovanie"
 
-#: src/EBox/SysInfo.pm:250
+#: src/EBox/SysInfo.pm:251
 msgid "Halt/Reboot"
 msgstr "Vypnutie/reštart"
 
@@ -130,30 +130,47 @@ msgstr ""
 msgid "The executable has already finished"
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/Log.pm:209
-#: src/EBox/Events/Model/Watcher/Log.pm:233
+#: src/EBox/Events/Model/Watcher/Log.pm:215
+#: src/EBox/Events/Model/Watcher/Log.pm:239
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/Log.pm:257
-#: src/EBox/Logs/Model/SelectLog.pm:141
+#: src/EBox/Events/Model/Watcher/Log.pm:263
+#: src/EBox/Logs/Model/SelectLog.pm:143
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
 msgid "Domain"
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/Log.pm:262
+#: src/EBox/Events/Model/Watcher/Log.pm:268
 msgid "Filtering"
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/Log.pm:270
+#: src/EBox/Events/Model/Watcher/Log.pm:276
 msgid "Configure log watchers"
 msgstr "Nastavenie sledovania záznamov"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:272
+#: src/EBox/Events/Model/Watcher/Log.pm:278
 msgid "Log watcher"
 msgstr "Sledovač udalostí"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:386
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:212
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:137
+#: src/EBox/Events/Model/GeneralComposite.pm:76
+#: src/EBox/Events/Model/GeneralComposite.pm:77
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:325 src/EBox/Events.pm:96
+#: src/EBox/Events.pm:826
+msgid "Events"
+msgstr "Udalosti"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:390
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
+#, fuzzy
+msgid "Log Observer Watcher"
+msgstr "Pozorovanie záznamu"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
@@ -186,11 +203,11 @@ msgstr ""
 msgid "filter"
 msgstr ""
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:101
 msgid "Minimum free disk space per filesystem"
 msgstr "Voľné miesto v súborovom systéme"
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:106
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
@@ -198,8 +215,13 @@ msgstr ""
 "Ak voľné miesto na ktoromkoľvek diskovom oddieli klesne pod stanovenú "
 "percentuálnu hodnotu, vyvolá to udalosť."
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
 msgid "Configure disk free space watcher"
+msgstr "Nastavenie sledovania voľného miesta na disku"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
+#, fuzzy
+msgid "Free Disk Space Watcher"
 msgstr "Nastavenie sledovania voľného miesta na disku"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
@@ -229,6 +251,7 @@ msgid "Configure Events"
 msgstr "Sledovanie udalostí"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
+#: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
 msgstr "udalosti"
 
@@ -249,7 +272,7 @@ msgstr "Odosielať do"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4480
+#: src/EBox/Model/DataTable.pm:4524
 msgid "Enabled"
 msgstr "Zapnuté"
 
@@ -274,32 +297,28 @@ msgstr ""
 "Pred tým ako zapnete tento spôsob oznamovania udalostí, je potrebné ho "
 "najskôr nastaviť."
 
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:89
-msgid "Events"
-msgstr "Udalosti"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:78
+#: src/EBox/Events/Model/GeneralComposite.pm:80
 msgid ""
 "Events module configures eBox to help informing you about events that happen"
 msgstr ""
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
 msgid "Jabber server name"
 msgstr "Adresa Jabber servera"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:196
 msgid "Jabber server to send the messages"
 msgstr "Jabber server, cez ktorý sa majú správy odosielať"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:200
 msgid "Port"
 msgstr "Port"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:207
 msgid "Jabber user name"
 msgstr "Používateľské meno"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
@@ -307,27 +326,27 @@ msgstr ""
 "Označenie Jabber konta, cez ktoré sa budú odosielať správy. Rada: je to časť "
 "Jabber adresy pred zavináčom."
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
 msgid "User password"
 msgstr "Heslo používateľa"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid "Subscribe"
 msgstr "Vytvoriť konto"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
 msgstr ""
 "Túto možnosť zaškrtnite, ak chcete aby eBox vytvoril nové konto pre hore "
 "uvedeného používateľa"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:233
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:300
 msgid "Administrator Jabber Identifier"
 msgstr "Jabber adresa administrátora"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
 msgid ""
 "Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
 "admin. Note that you need to register this  account manually in any jabber "
@@ -337,69 +356,140 @@ msgstr ""
 "Napr. vaša adresa. Táto adresa musí byť vopred zaregistrovaná na niektorom "
 "Jabber serveri."
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:245
 msgid "Configure Jabber dispatcher"
 msgstr "Nastavenie oznamovania cez Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:250
 msgid "This dispatcher will send events to an Jabber account"
 msgstr ""
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:253
 msgid "Jabber dispatcher configuration updated"
 msgstr "Nastavenie oznamovania cez Jabber bolo aktualizované"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
+#, fuzzy
+msgid "Jabber Dispatcher"
+msgstr "Nastavenie oznamovania cez Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
 msgid "It should follow the pattern 'user@domain[/resource]'"
 msgstr ""
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:150
 msgid "Nobody"
 msgstr "Nikoho"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:154
 msgid "IP address"
 msgstr "IP adresy"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:161
 msgid "Object"
 msgstr ""
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:170
 msgid "Public"
 msgstr "Všetkých"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:177
 msgid "Channel link"
 msgstr "Odkaz v kanále"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:184
 msgid "Allowed readers"
 msgstr "Čítanie povolené pre:"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:187
 msgid "Use this field to set the access control for the channel"
 msgstr "Toto pole slúži na obmedzenie prístupu ku kanálu"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:192
 msgid "Syndicate this RSS"
 msgstr "Odoberať tento RSS kanál"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:202
 msgid "Configure RSS dispatcher"
 msgstr "Nastavenie oznamovania cez RSS"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:207
 msgid ""
 "The channel link is the link which is used to syndicate the content to your "
 "favourite RSS. "
 msgstr ""
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:210
 msgid "RSS dispatcher configuration updated"
 msgstr "Nastavenie oznamovania cez RSS bolo aktualizované"
 
-#: src/EBox/EventDaemon.pm:476
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:329
+#, fuzzy
+msgid "RSS Dispatcher"
+msgstr "oznamovacia služba"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:50
+#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:808
+#, fuzzy
+msgid "Source"
+msgstr "Služba"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:80
+#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:815
+#, fuzzy
+msgid "Informative"
+msgstr "Informácie o RAID"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:84
+#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
+#: src/templates/finish.mas:82
+msgid "Warning"
+msgstr ""
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:88
+#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:817
+msgid "Error"
+msgstr ""
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:92
+#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
+msgid "Fatal error"
+msgstr ""
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:702
+#: src/templates/finish.mas:105 src/templates/backup.mas:128
+#: src/templates/confirm-backup.mas:28
+msgid "Date"
+msgstr "Dátum"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:101
+#, fuzzy
+msgid "Events details"
+msgstr "Udalosti"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:60
+msgid "Events summarized chart"
+msgstr ""
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:77
+msgid "Events summarized graph"
+msgstr ""
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+#, fuzzy
+msgid "Events reports"
+msgstr "Udalosti"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:71
+#, fuzzy
+msgid "Events report"
+msgstr "Udalosti"
+
+#: src/EBox/EventDaemon.pm:495
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr ""
@@ -416,9 +506,19 @@ msgstr ""
 "Nastala vnútorná chyba súvisiaca so šablónou. Toto je chyba programu, o "
 "ktorej môžete podrobnosti nájsť v záznamoch."
 
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:57
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58
 msgid "Logs"
 msgstr "Záznamy"
+
+#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:686
+#, fuzzy
+msgid "Query Logs"
+msgstr "Prezeranie záznamov"
+
+#: src/EBox/CGI/Logs/Index.pm:329
+#, fuzzy
+msgid "Full Reports"
+msgstr "Úplná obnova"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
@@ -586,7 +686,7 @@ msgstr "Obnova zo zálohy"
 msgid "Restoring modules"
 msgstr "Obnovovanie modulov"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:704
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
 msgstr "Modul"
@@ -857,8 +957,8 @@ msgid "spare"
 msgstr ""
 
 #: src/EBox/Event/Watcher/Runit.pm:113
-#, perl-brace-format
-msgid "The following modules are not running: {modules}\n"
+#, fuzzy, perl-brace-format
+msgid "The following modules are not running but they are enabled: {modules}\n"
 msgstr "Nasledujúce moduly nie sú spustené: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
@@ -866,7 +966,8 @@ msgid "Service"
 msgstr "Služba"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
-msgid "Check if any eBox service is not running when it should"
+#, fuzzy
+msgid "Check if any eBox service is not running when it is enabled"
 msgstr ""
 "Sleduje, či sú spustené všetky služby systému eBox, ktoré majú byť spustené"
 
@@ -899,7 +1000,7 @@ msgstr "Sleduje, či je eBox spustený alebo nie"
 msgid "Log observer"
 msgstr "Pozorovanie záznamu"
 
-#: src/EBox/Event/Watcher/Log.pm:230
+#: src/EBox/Event/Watcher/Log.pm:241
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
 msgstr "Upozorní ak funkcia logger ({loggers}) niečo zaznamená"
@@ -983,18 +1084,18 @@ msgstr ""
 msgid "Go to your {url} to check its status."
 msgstr "Súčasný stav môžete skontrolovať v systéme {url}"
 
-#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
-#: src/EBox/PgDBEngine.pm:76
+#: src/EBox/PgDBEngine.pm:51 src/EBox/PgDBEngine.pm:64
+#: src/EBox/PgDBEngine.pm:77
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:272
+#: src/EBox/PgDBEngine.pm:359
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:290
+#: src/EBox/PgDBEngine.pm:377
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr ""
@@ -1045,19 +1146,19 @@ msgstr "Zadajte desatinné číslo"
 msgid "Choose a value within the value set: {set}"
 msgstr "Vyberte hodnotu z množiny: {set}"
 
-#: src/EBox/Logs/Model/SelectLog.pm:149
+#: src/EBox/Logs/Model/SelectLog.pm:151
 msgid "Full report"
 msgstr ""
 
-#: src/EBox/Logs/Model/SelectLog.pm:155
+#: src/EBox/Logs/Model/SelectLog.pm:157
 msgid "Summarized report"
 msgstr ""
 
-#: src/EBox/Logs/Model/SelectLog.pm:166
+#: src/EBox/Logs/Model/SelectLog.pm:168
 msgid "Select report"
 msgstr ""
 
-#: src/EBox/Logs/Model/SelectLog.pm:173
+#: src/EBox/Logs/Model/SelectLog.pm:175
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:375
 msgid "logs"
 msgstr "záznamy"
@@ -1173,69 +1274,73 @@ msgstr ""
 msgid "Enable service"
 msgstr ""
 
-#: src/EBox/Events.pm:417
+#: src/EBox/Events.pm:485
 msgid "The events module is not enabled to send events"
 msgstr ""
 
-#: src/EBox/Events.pm:632
+#: src/EBox/Events.pm:726
 msgid "Event service status"
 msgstr ""
 
-#: src/EBox/Logs.pm:73
-msgid "Create logs database"
+#: src/EBox/Events.pm:804
+msgid "Date of first event"
 msgstr ""
 
-#: src/EBox/Logs.pm:74
-msgid "eBox store its logs in the database"
+#: src/EBox/Events.pm:805
+msgid "Date of last event"
 msgstr ""
 
-#: src/EBox/Logs.pm:431
+#: src/EBox/Events.pm:806
+#, fuzzy
+msgid "Repetitions"
+msgstr "Nastavenia"
+
+#: src/EBox/Events.pm:807
+#, fuzzy
+msgid "Level"
+msgstr "udalosti"
+
+#: src/EBox/Events.pm:809 src/templates/finish.mas:107
+msgid "Message"
+msgstr ""
+
+#: src/EBox/Logs.pm:435
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr ""
 
-#: src/EBox/Logs.pm:630
-#, fuzzy
-msgid "Query Logs"
-msgstr "Prezeranie záznamov"
-
-#: src/EBox/Logs.pm:633
+#: src/EBox/Logs.pm:689
 #, fuzzy
 msgid "Configure Logs"
 msgstr "Nastavenie zaznamenávania"
 
-#: src/EBox/Logs.pm:646 src/templates/finish.mas:105
-#: src/templates/backup.mas:128 src/templates/confirm-backup.mas:28
-msgid "Date"
-msgstr "Dátum"
-
-#: src/EBox/Logs.pm:647
+#: src/EBox/Logs.pm:703
 msgid "Client Address"
 msgstr ""
 
-#: src/EBox/Logs.pm:649 src/EBox/Model/Composite.pm:670
-#: src/EBox/Model/Composite.pm:685 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2128
+#: src/EBox/Logs.pm:705 src/EBox/Model/Composite.pm:653
+#: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/DataTable.pm:2129
 msgid "Action"
 msgstr "Akcia"
 
-#: src/EBox/Logs.pm:650
+#: src/EBox/Logs.pm:706
 msgid "Params"
 msgstr ""
 
-#: src/EBox/Logs.pm:651
+#: src/EBox/Logs.pm:707
 msgid "Committed"
 msgstr ""
 
-#: src/EBox/Logs.pm:656
+#: src/EBox/Logs.pm:712
 msgid "Admin"
 msgstr ""
 
-#: src/EBox/Logs.pm:751
+#: src/EBox/Logs.pm:806
 msgid "Log messages"
 msgstr ""
 
-#: src/EBox/Logs.pm:778
+#: src/EBox/Logs.pm:833
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr ""
 
@@ -1244,18 +1349,18 @@ msgstr ""
 msgid "Provided object with index {i} does not exist"
 msgstr ""
 
-#: src/EBox/Model/DataForm.pm:544
+#: src/EBox/Model/DataForm.pm:555
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr ""
 
-#: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
+#: src/EBox/Model/DataForm.pm:605 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
 msgstr "Zmeniť"
 
-#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:710 src/templates/progress.mas:22
 msgid "Done"
 msgstr "Hotovo"
 
@@ -1264,12 +1369,12 @@ msgstr "Hotovo"
 msgid "It should be one of following values: {values}"
 msgstr ""
 
-#: src/EBox/Model/Composite.pm:672
+#: src/EBox/Model/Composite.pm:655
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr ""
 
-#: src/EBox/Model/Composite.pm:795
+#: src/EBox/Model/Composite.pm:778
 msgid "Choose one of the following:"
 msgstr ""
 
@@ -1285,61 +1390,61 @@ msgid ""
 "\t\t\tthe following sections:"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:326
+#: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
 msgid "{model} in {module} module"
 msgstr "{model} v module {module}"
 
-#: src/EBox/Model/DataTable.pm:330
+#: src/EBox/Model/DataTable.pm:331
 msgid "at"
 msgstr "o"
 
-#: src/EBox/Model/DataTable.pm:541
+#: src/EBox/Model/DataTable.pm:542
 msgid "field"
 msgstr "pole"
 
-#: src/EBox/Model/DataTable.pm:1465
+#: src/EBox/Model/DataTable.pm:1466
 msgid "page"
 msgstr "strana"
 
-#: src/EBox/Model/DataTable.pm:1468
+#: src/EBox/Model/DataTable.pm:1469
 msgid "Page must be a number equal or greater than zero"
 msgstr "Strana musí byť číslo väčšie alebo rovné nule"
 
-#: src/EBox/Model/DataTable.pm:2803
+#: src/EBox/Model/DataTable.pm:2831
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2874
+#: src/EBox/Model/DataTable.pm:2902
 msgid "Page size"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2877
+#: src/EBox/Model/DataTable.pm:2905
 msgid "Must be either a positive number or zero"
 msgstr "Musí byť buď kladné číslo alebo nula"
 
-#: src/EBox/Model/DataTable.pm:3184
+#: src/EBox/Model/DataTable.pm:3212
 #, perl-brace-format
 msgid "{row} added"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:3185
+#: src/EBox/Model/DataTable.pm:3213
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:3186
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} bola aktualizovaná"
 
-#: src/EBox/Model/DataTable.pm:3187
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:3188
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr ""
@@ -1451,12 +1556,12 @@ msgstr "port"
 msgid "eBox internal web server"
 msgstr ""
 
-#: src/EBox/Global.pm:424 src/EBox/Global.pm:445
+#: src/EBox/Global.pm:444 src/EBox/Global.pm:465
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Ukladanie modulu {modName} "
 
-#: src/EBox/Global.pm:919
+#: src/EBox/Global.pm:961
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr ""
@@ -1735,6 +1840,10 @@ msgstr ""
 msgid "Starting..."
 msgstr "Štartovanie..."
 
+#: src/templates/logs/index.mas:20
+msgid "Log Domain"
+msgstr ""
+
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
 msgstr "Ak si vyberiete komponent, zobrazia sa záznamy za poslednú hodinu"
@@ -1844,10 +1953,6 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: src/templates/finish.mas:82
-msgid "Warning"
-msgstr ""
-
 #: src/templates/finish.mas:96
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
@@ -1865,10 +1970,6 @@ msgstr ""
 "Ak ste zmenili sieťové rozhranie alebo port pre administračné rozhranie, "
 "bude po uložení potrebné ručne zmeniť URL adresu v prehliadači, aby ste sa "
 "znova dostali do tohto administračného rozhrania."
-
-#: src/templates/finish.mas:107
-msgid "Message"
-msgstr ""
 
 #: src/templates/finish.mas:123
 msgid "Save"
@@ -2102,9 +2203,6 @@ msgstr "Číslo TCP portu pre administračné rozhranie"
 
 #~ msgid "Disk usage Information"
 #~ msgstr "Informácie o využití disku"
-
-#~ msgid "RAID Information"
-#~ msgstr "Informácie o RAID"
 
 #~ msgid "Created by {href}"
 #~ msgstr "Vytvorené spoločnosťou {href}"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:53+0000\n"
+"POT-Creation-Date: 2009-12-22 08:14+0100\n"
 "PO-Revision-Date: 2008-09-01 08:31+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,11 +17,12 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
 
-#: src/EBox/DNS.pm.in:51 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/DNS.pm.in:51 src/EBox/Model/DomainTable.pm:110
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:115
+#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:117
 msgid "domain"
 msgstr ""
 
@@ -33,10 +34,6 @@ msgstr ""
 #: src/EBox/DNS.pm.in:727
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr ""
-
-#: src/EBox/DNS.pm.in:856
-msgid "Infrastructure"
 msgstr ""
 
 #: src/EBox/Model/HostnameTable.pm:135
@@ -61,15 +58,15 @@ msgstr ""
 msgid "Alias"
 msgstr ""
 
-#: src/EBox/Model/HostnameTable.pm:186
+#: src/EBox/Model/HostnameTable.pm:187
 msgid "Host names"
 msgstr ""
 
-#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
+#: src/EBox/Model/HostnameTable.pm:194 src/EBox/Model/DomainTable.pm:74
 msgid "Hostnames"
 msgstr ""
 
-#: src/EBox/Model/HostnameTable.pm:193
+#: src/EBox/Model/HostnameTable.pm:195
 msgid "host name"
 msgstr ""
 
@@ -86,10 +83,10 @@ msgid "Name Servers"
 msgstr ""
 
 #: src/EBox/Model/DomainTable.pm:109
-msgid "Domains"
+msgid "List of Domains"
 msgstr ""
 
-#: src/EBox/Model/DNSComposite.pm:77
+#: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr ""
 

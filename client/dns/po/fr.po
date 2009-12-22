@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:53+0000\n"
+"POT-Creation-Date: 2009-12-22 08:14+0100\n"
 "PO-Revision-Date: 2009-12-12 21:00+0100\n"
 "Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -17,11 +17,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:51 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/DNS.pm.in:51 src/EBox/Model/DomainTable.pm:110
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:115
+#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:117
 msgid "domain"
 msgstr "domaine"
 
@@ -34,10 +35,6 @@ msgstr "Fichier de configuration pour la zone {zone}"
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "Fichier de configuration pour la zone de recherche inversée {zone}"
-
-#: src/EBox/DNS.pm.in:856
-msgid "Infrastructure"
-msgstr "Infrastructure"
 
 #: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
@@ -63,15 +60,15 @@ msgstr "Adresse IP"
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Model/HostnameTable.pm:186
+#: src/EBox/Model/HostnameTable.pm:187
 msgid "Host names"
 msgstr "Noms d'hôtes"
 
-#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
+#: src/EBox/Model/HostnameTable.pm:194 src/EBox/Model/DomainTable.pm:74
 msgid "Hostnames"
 msgstr "Noms d'hôtes"
 
-#: src/EBox/Model/HostnameTable.pm:193
+#: src/EBox/Model/HostnameTable.pm:195
 msgid "host name"
 msgstr "nom d'hôte"
 
@@ -89,10 +86,11 @@ msgid "Name Servers"
 msgstr "Serveur DNS"
 
 #: src/EBox/Model/DomainTable.pm:109
-msgid "Domains"
+#, fuzzy
+msgid "List of Domains"
 msgstr "Domaines"
 
-#: src/EBox/Model/DNSComposite.pm:77
+#: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr ""
 "Le serveur DNS vous permet de résoudre les noms de votre propre domaine."
@@ -245,6 +243,9 @@ msgstr "Liste des hôtes pour le domaine {domain}"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
+
+#~ msgid "Infrastructure"
+#~ msgstr "Infrastructure"
 
 #~ msgid "Owner domain"
 #~ msgstr "Domaine propriétaire"

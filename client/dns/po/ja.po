@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:53+0000\n"
+"POT-Creation-Date: 2009-12-22 08:14+0100\n"
 "PO-Revision-Date: 2008-01-08 15:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,11 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/DNS.pm.in:51 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/DNS.pm.in:51 src/EBox/Model/DomainTable.pm:110
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:115
+#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:117
 msgid "domain"
 msgstr "ドメイン"
 
@@ -33,10 +34,6 @@ msgstr "ゾーン{zone}の設定ファイル"
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "zone{zone}の逆引き設定ファイル"
-
-#: src/EBox/DNS.pm.in:856
-msgid "Infrastructure"
-msgstr ""
 
 #: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
@@ -62,16 +59,16 @@ msgstr "IPアドレス"
 msgid "Alias"
 msgstr "エイリアス"
 
-#: src/EBox/Model/HostnameTable.pm:186
+#: src/EBox/Model/HostnameTable.pm:187
 #, fuzzy
 msgid "Host names"
 msgstr "ホスト名"
 
-#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
+#: src/EBox/Model/HostnameTable.pm:194 src/EBox/Model/DomainTable.pm:74
 msgid "Hostnames"
 msgstr "ホスト名"
 
-#: src/EBox/Model/HostnameTable.pm:193
+#: src/EBox/Model/HostnameTable.pm:195
 #, fuzzy
 msgid "host name"
 msgstr "ホスト名"
@@ -90,10 +87,11 @@ msgid "Name Servers"
 msgstr "DNSサーバ"
 
 #: src/EBox/Model/DomainTable.pm:109
-msgid "Domains"
+#, fuzzy
+msgid "List of Domains"
 msgstr "ドメイン"
 
-#: src/EBox/Model/DNSComposite.pm:77
+#: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr ""
 "DNSサーバは所有するドメインのためにあなたが名前解決することを許可します"

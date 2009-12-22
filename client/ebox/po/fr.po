@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 16:59+0100\n"
 "PO-Revision-Date: 2009-12-12 22:31+0100\n"
 "Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: <es@li.org>\n"
@@ -18,70 +18,70 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/SysInfo.pm:45
+#: src/EBox/SysInfo.pm:46
 msgid "System Information"
 msgstr "Information système"
 
-#: src/EBox/SysInfo.pm:80
+#: src/EBox/SysInfo.pm:81
 msgid "Time"
 msgstr "Heure"
 
-#: src/EBox/SysInfo.pm:81
+#: src/EBox/SysInfo.pm:82
 msgid "Hostname"
 msgstr "Nom de l'hôte"
 
-#: src/EBox/SysInfo.pm:83
+#: src/EBox/SysInfo.pm:84
 msgid "eBox version"
 msgstr "Version de l'eBox"
 
-#: src/EBox/SysInfo.pm:86
+#: src/EBox/SysInfo.pm:87
 msgid "System load"
 msgstr "Charge du système"
 
-#: src/EBox/SysInfo.pm:132 src/EBox/SysInfo.pm:225
+#: src/EBox/SysInfo.pm:133 src/EBox/SysInfo.pm:226
 msgid "Module Status"
 msgstr "Statut des modules"
 
-#: src/EBox/SysInfo.pm:137
+#: src/EBox/SysInfo.pm:138
 msgid "General Information"
 msgstr "Information générale"
 
-#: src/EBox/SysInfo.pm:142
+#: src/EBox/SysInfo.pm:143
 msgid "Process List"
 msgstr "Liste des processus"
 
-#: src/EBox/SysInfo.pm:149
+#: src/EBox/SysInfo.pm:150
 #, fuzzy
 msgid "Support & Services"
 msgstr "Services"
 
-#: src/EBox/SysInfo.pm:220 src/EBox/CGI/Dashboard/Index.pm:32
+#: src/EBox/SysInfo.pm:221 src/EBox/CGI/Dashboard/Index.pm:32
 msgid "Dashboard"
 msgstr "Panneau de contrôle"
 
-#: src/EBox/SysInfo.pm:231 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm:232 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "Système"
 
-#: src/EBox/SysInfo.pm:235
+#: src/EBox/SysInfo.pm:236
 msgid "General"
 msgstr "Général"
 
-#: src/EBox/SysInfo.pm:238 src/EBox/CGI/Report/DiskUsage.pm:31
+#: src/EBox/SysInfo.pm:239 src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
 msgstr "Utilisation du disque"
 
-#: src/EBox/SysInfo.pm:242 src/EBox/CGI/Report/RAID.pm:30
+#: src/EBox/SysInfo.pm:243 src/EBox/CGI/Report/RAID.pm:30
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/SysInfo.pm:247 src/EBox/CGI/EBox/Backup.pm:34
+#: src/EBox/SysInfo.pm:248 src/EBox/CGI/EBox/Backup.pm:34
 #: src/EBox/Backup.pm:706 src/templates/backup.mas:64
 msgid "Backup"
 msgstr "Sauvegarde"
 
-#: src/EBox/SysInfo.pm:250
+#: src/EBox/SysInfo.pm:251
 msgid "Halt/Reboot"
 msgstr "Arrêt/Redémarrage"
 
@@ -127,8 +127,8 @@ msgstr "L'exécutable a déjà été démarré"
 msgid "The executable has already finished"
 msgstr "L'exécutable s'est déjà terminé"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:209
-#: src/EBox/Events/Model/Watcher/Log.pm:233
+#: src/EBox/Events/Model/Watcher/Log.pm:215
+#: src/EBox/Events/Model/Watcher/Log.pm:239
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
@@ -136,23 +136,40 @@ msgstr ""
 "Attention ! La surveillance n'est pas activée. Activez-la pour être notifié "
 "lorsqu'un évènement se produit"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:257
-#: src/EBox/Logs/Model/SelectLog.pm:141
+#: src/EBox/Events/Model/Watcher/Log.pm:263
+#: src/EBox/Logs/Model/SelectLog.pm:143
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
 msgid "Domain"
 msgstr "Domaine"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:262
+#: src/EBox/Events/Model/Watcher/Log.pm:268
 msgid "Filtering"
 msgstr "Filtrage"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:270
+#: src/EBox/Events/Model/Watcher/Log.pm:276
 msgid "Configure log watchers"
 msgstr "Configurez les observateurs d'évènements"
 
-#: src/EBox/Events/Model/Watcher/Log.pm:272
+#: src/EBox/Events/Model/Watcher/Log.pm:278
 msgid "Log watcher"
 msgstr "Observateur d'évènements"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:386
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:212
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:137
+#: src/EBox/Events/Model/GeneralComposite.pm:76
+#: src/EBox/Events/Model/GeneralComposite.pm:77
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:325 src/EBox/Events.pm:96
+#: src/EBox/Events.pm:826
+msgid "Events"
+msgstr "Evénements"
+
+#: src/EBox/Events/Model/Watcher/Log.pm:390
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
+#, fuzzy
+msgid "Log Observer Watcher"
+msgstr "Observateur d'évènement"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
@@ -188,11 +205,11 @@ msgstr ""
 msgid "filter"
 msgstr "filtre"
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:101
 msgid "Minimum free disk space per filesystem"
 msgstr "Espace disque libre minimum par système de fichier"
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:106
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
@@ -200,8 +217,13 @@ msgstr ""
 "Quand le pourcentage de l'espace libre de n'importe quelle partition disque "
 "est en dessous de cette valeur un évènement sera déclenché. "
 
-#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
 msgid "Configure disk free space watcher"
+msgstr "Configurer la surveillance de l'espace disque libre"
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
+#, fuzzy
+msgid "Free Disk Space Watcher"
 msgstr "Configurer la surveillance de l'espace disque libre"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
@@ -230,6 +252,7 @@ msgid "Configure Events"
 msgstr "Configurer les événements"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
+#: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
 msgstr "événement"
 
@@ -252,7 +275,7 @@ msgstr "Récepteur"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4480
+#: src/EBox/Model/DataTable.pm:4524
 msgid "Enabled"
 msgstr "Activé"
 
@@ -275,33 +298,29 @@ msgid ""
 msgstr ""
 "Afin d'activer un événement d'expéditeur, vous devez le configurer avant"
 
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:89
-msgid "Events"
-msgstr "Evénements"
-
-#: src/EBox/Events/Model/GeneralComposite.pm:78
+#: src/EBox/Events/Model/GeneralComposite.pm:80
 msgid ""
 "Events module configures eBox to help informing you about events that happen"
 msgstr ""
 "Le module d'évènements configure eBox pour vous informer de ce qui se passe"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
 msgid "Jabber server name"
 msgstr "Nom du serveur Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:196
 msgid "Jabber server to send the messages"
 msgstr "Nom du serveur Jabber pour l'envoi de message"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:200
 msgid "Port"
 msgstr "Port"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:207
 msgid "Jabber user name"
 msgstr "Nom d'utilisateur Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
@@ -309,27 +328,27 @@ msgstr ""
 "Identifiant Jabber du compte qui devra envoyer les messages.Astuce: Ne pas "
 "mettre @domain, mais uniquement le nom de l'utilisateur"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
 msgid "User password"
 msgstr "Mot de passe utilisateur"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid "Subscribe"
 msgstr "S'enregistrer"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
 msgstr ""
 "Cocher cette option si vous souhaitez qu'eBox créé le compte pour "
 "l'utilisateur au dessus."
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:233
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:300
 msgid "Administrator Jabber Identifier"
 msgstr "Identifiant de l'administrateur Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
 msgid ""
 "Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
 "admin. Note that you need to register this  account manually in any jabber "
@@ -339,59 +358,64 @@ msgstr ""
 "l'administrateur eBox. Vous devez enregistrer ce compte manuellement dans "
 "tous les serveurs jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:245
 msgid "Configure Jabber dispatcher"
 msgstr "Configurer l'expéditeur Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:250
 msgid "This dispatcher will send events to an Jabber account"
 msgstr "Cet expéditeur enverra les évènements à un compte Jabber"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:253
 msgid "Jabber dispatcher configuration updated"
 msgstr "Configuration de l'expéditeur Jabber mis-à-jour"
 
-#: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
+#, fuzzy
+msgid "Jabber Dispatcher"
+msgstr "Configurer l'expéditeur Jabber"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
 msgid "It should follow the pattern 'user@domain[/resource]'"
 msgstr "Doit être formé comme suit : 'user@domain[/resource]'"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:148
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:150
 msgid "Nobody"
 msgstr "Personne"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:152
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:154
 msgid "IP address"
 msgstr "Adresse IP"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:161
 msgid "Object"
 msgstr "Objet"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:170
 msgid "Public"
 msgstr "Publique"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:177
 msgid "Channel link"
 msgstr "Lien du canal"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:182
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:184
 msgid "Allowed readers"
 msgstr "Lecteurs permis"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:185
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:187
 msgid "Use this field to set the access control for the channel"
 msgstr "Utiliser ce champs pour paramétrer le contrôle d'accès pour cet chaîne"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:192
 msgid "Syndicate this RSS"
 msgstr "S'abonner à ce flux RSS"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:200
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:202
 msgid "Configure RSS dispatcher"
 msgstr "Configurer les expéditeurs RSS"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:207
 msgid ""
 "The channel link is the link which is used to syndicate the content to your "
 "favourite RSS. "
@@ -399,11 +423,79 @@ msgstr ""
 "Le lien de canal est le lien utilisé pour s'abonner au contenu de votre flux "
 "RSS favoris"
 
-#: src/EBox/Events/Model/Dispatcher/RSS.pm:208
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:210
 msgid "RSS dispatcher configuration updated"
 msgstr "Configuration de l'expéditeur RSS mis-à-jour"
 
-#: src/EBox/EventDaemon.pm:476
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:329
+#, fuzzy
+msgid "RSS Dispatcher"
+msgstr "Annuler les modifications"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:50
+#: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:808
+#, fuzzy
+msgid "Source"
+msgstr "Service"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:51
+#: src/EBox/Events/Model/Report/EventsDetails.pm:80
+#: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:815
+#, fuzzy
+msgid "Informative"
+msgstr "Information RAID"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:52
+#: src/EBox/Events/Model/Report/EventsDetails.pm:84
+#: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
+#: src/templates/finish.mas:82
+msgid "Warning"
+msgstr "Attention"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:53
+#: src/EBox/Events/Model/Report/EventsDetails.pm:88
+#: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:817
+msgid "Error"
+msgstr "Erreur"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:54
+#: src/EBox/Events/Model/Report/EventsDetails.pm:92
+#: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
+msgid "Fatal error"
+msgstr ""
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:702
+#: src/templates/finish.mas:105 src/templates/backup.mas:128
+#: src/templates/confirm-backup.mas:28
+msgid "Date"
+msgstr "Date"
+
+#: src/EBox/Events/Model/Report/EventsDetails.pm:101
+#, fuzzy
+msgid "Events details"
+msgstr "Evénements"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:60
+#, fuzzy
+msgid "Events summarized chart"
+msgstr "Statut du service d'événements"
+
+#: src/EBox/Events/Model/Report/EventsGraph.pm:77
+#, fuzzy
+msgid "Events summarized graph"
+msgstr "Synthèse du rapport"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:70
+#, fuzzy
+msgid "Events reports"
+msgstr "Rapport sélectionné"
+
+#: src/EBox/Events/Composite/Report/EventsReport.pm:71
+#, fuzzy
+msgid "Events report"
+msgstr "Rapport sélectionné"
+
+#: src/EBox/EventDaemon.pm:495
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr ""
@@ -422,9 +514,18 @@ msgstr ""
 "Une erreur interne liée au modèle s'est produite. Cela est du à un bug, des "
 "informations pertinentes peuvent être trouvées dans les logs."
 
-#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:57
+#: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58
 msgid "Logs"
 msgstr "Journaux"
+
+#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:686
+msgid "Query Logs"
+msgstr "Journaux de requêtes"
+
+#: src/EBox/CGI/Logs/Index.pm:329
+#, fuzzy
+msgid "Full Reports"
+msgstr "Rapport complet"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
@@ -595,7 +696,7 @@ msgstr "Restauration à partir de la sauvegarde"
 msgid "Restoring modules"
 msgstr "Restauration des modules"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:648
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:704
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
 msgstr "Module"
@@ -880,8 +981,8 @@ msgid "spare"
 msgstr "espace perdu"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
-#, perl-brace-format
-msgid "The following modules are not running: {modules}\n"
+#, fuzzy, perl-brace-format
+msgid "The following modules are not running but they are enabled: {modules}\n"
 msgstr "Les modules suivants ne sont pas chargés : {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
@@ -889,7 +990,8 @@ msgid "Service"
 msgstr "Service"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
-msgid "Check if any eBox service is not running when it should"
+#, fuzzy
+msgid "Check if any eBox service is not running when it is enabled"
 msgstr ""
 "Vérifier qu'aucun des services eBox n'est activé alors qu'il ne devrait pas"
 
@@ -922,7 +1024,7 @@ msgstr "Vérifier si eBox est actuellement en service"
 msgid "Log observer"
 msgstr "Observateur d'évènement"
 
-#: src/EBox/Event/Watcher/Log.pm:230
+#: src/EBox/Event/Watcher/Log.pm:241
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
 msgstr "Notifier lorsqu'un enregistreur ({loggers}) a détecté quelquechose"
@@ -1005,18 +1107,18 @@ msgstr "L'évènement est survenu dans l'eBox {hostname} de {source}"
 msgid "Go to your {url} to check its status."
 msgstr "Allez à {url} pour vérifier son statut"
 
-#: src/EBox/PgDBEngine.pm:50 src/EBox/PgDBEngine.pm:63
-#: src/EBox/PgDBEngine.pm:76
+#: src/EBox/PgDBEngine.pm:51 src/EBox/PgDBEngine.pm:64
+#: src/EBox/PgDBEngine.pm:77
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "Vous devez définir la variable {variable} dans la configuration d'eBox"
 
-#: src/EBox/PgDBEngine.pm:272
+#: src/EBox/PgDBEngine.pm:359
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Erreur au dump de la base de donnée postgresql {name}"
 
-#: src/EBox/PgDBEngine.pm:290
+#: src/EBox/PgDBEngine.pm:377
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Le fichier dump {file} n'est pas lisible"
@@ -1067,19 +1169,19 @@ msgstr "Entrer un nombre décimal"
 msgid "Choose a value within the value set: {set}"
 msgstr "Choisir une valeur parmi : {set}"
 
-#: src/EBox/Logs/Model/SelectLog.pm:149
+#: src/EBox/Logs/Model/SelectLog.pm:151
 msgid "Full report"
 msgstr "Rapport complet"
 
-#: src/EBox/Logs/Model/SelectLog.pm:155
+#: src/EBox/Logs/Model/SelectLog.pm:157
 msgid "Summarized report"
 msgstr "Synthèse du rapport"
 
-#: src/EBox/Logs/Model/SelectLog.pm:166
+#: src/EBox/Logs/Model/SelectLog.pm:168
 msgid "Select report"
 msgstr "Rapport sélectionné"
 
-#: src/EBox/Logs/Model/SelectLog.pm:173
+#: src/EBox/Logs/Model/SelectLog.pm:175
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:375
 msgid "logs"
 msgstr "journaux"
@@ -1195,68 +1297,75 @@ msgstr "Service désactivé"
 msgid "Enable service"
 msgstr "Activer le service"
 
-#: src/EBox/Events.pm:417
+#: src/EBox/Events.pm:485
 #, fuzzy
 msgid "The events module is not enabled to send events"
 msgstr "Le module évènement n'est pas activé pour envoyer des évènements"
 
-#: src/EBox/Events.pm:632
+#: src/EBox/Events.pm:726
 msgid "Event service status"
 msgstr "Statut du service d'événements"
 
-#: src/EBox/Logs.pm:73
-msgid "Create logs database"
-msgstr "Créer la base de donnée des journaux"
+#: src/EBox/Events.pm:804
+#, fuzzy
+msgid "Date of first event"
+msgstr "Sauver en tant qu'évènement"
 
-#: src/EBox/Logs.pm:74
-msgid "eBox store its logs in the database"
-msgstr "eBox conserve ses événements dans la base de données"
+#: src/EBox/Events.pm:805
+#, fuzzy
+msgid "Date of last event"
+msgstr "Sauver en tant qu'évènement"
 
-#: src/EBox/Logs.pm:431
+#: src/EBox/Events.pm:806
+#, fuzzy
+msgid "Repetitions"
+msgstr "Options du rapport"
+
+#: src/EBox/Events.pm:807
+#, fuzzy
+msgid "Level"
+msgstr "événement"
+
+#: src/EBox/Events.pm:809 src/templates/finish.mas:107
+msgid "Message"
+msgstr "Message"
+
+#: src/EBox/Logs.pm:435
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "Tableau {table} n'existe pas"
 
-#: src/EBox/Logs.pm:630
-msgid "Query Logs"
-msgstr "Journaux de requêtes"
-
-#: src/EBox/Logs.pm:633
+#: src/EBox/Logs.pm:689
 msgid "Configure Logs"
 msgstr "Configurer les journaux d'activité"
 
-#: src/EBox/Logs.pm:646 src/templates/finish.mas:105
-#: src/templates/backup.mas:128 src/templates/confirm-backup.mas:28
-msgid "Date"
-msgstr "Date"
-
-#: src/EBox/Logs.pm:647
+#: src/EBox/Logs.pm:703
 msgid "Client Address"
 msgstr "Adresse du client"
 
-#: src/EBox/Logs.pm:649 src/EBox/Model/Composite.pm:670
-#: src/EBox/Model/Composite.pm:685 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2128
+#: src/EBox/Logs.pm:705 src/EBox/Model/Composite.pm:653
+#: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/DataTable.pm:2129
 msgid "Action"
 msgstr "Action"
 
-#: src/EBox/Logs.pm:650
+#: src/EBox/Logs.pm:706
 msgid "Params"
 msgstr "Paramètres"
 
-#: src/EBox/Logs.pm:651
+#: src/EBox/Logs.pm:707
 msgid "Committed"
 msgstr "Effectué"
 
-#: src/EBox/Logs.pm:656
+#: src/EBox/Logs.pm:712
 msgid "Admin"
 msgstr "Admin"
 
-#: src/EBox/Logs.pm:751
+#: src/EBox/Logs.pm:806
 msgid "Log messages"
 msgstr "Messages du journal"
 
-#: src/EBox/Logs.pm:778
+#: src/EBox/Logs.pm:833
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Le paramètre de durée de vie doit être une nombre positif d'heures"
 
@@ -1265,18 +1374,18 @@ msgstr "Le paramètre de durée de vie doit être une nombre positif d'heures"
 msgid "Provided object with index {i} does not exist"
 msgstr "L'objet fourni avec l'index {i} n'existe pas"
 
-#: src/EBox/Model/DataForm.pm:544
+#: src/EBox/Model/DataForm.pm:555
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr "Supprimer les données de {model}{br}"
 
-#: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
+#: src/EBox/Model/DataForm.pm:605 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
 msgstr "Modifier"
 
-#: src/EBox/Model/DataForm.pm:699 src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:710 src/templates/progress.mas:22
 msgid "Done"
 msgstr "Réussit"
 
@@ -1285,12 +1394,12 @@ msgstr "Réussit"
 msgid "It should be one of following values: {values}"
 msgstr "Cela doit être une des valeurs suivantes : {values}"
 
-#: src/EBox/Model/Composite.pm:672
+#: src/EBox/Model/Composite.pm:655
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr "Les actions permises sont : {view} et {cView}"
 
-#: src/EBox/Model/Composite.pm:795
+#: src/EBox/Model/Composite.pm:778
 msgid "Choose one of the following:"
 msgstr "Choisissez-en une parmi les suivantes : "
 
@@ -1310,61 +1419,61 @@ msgstr ""
 "Les données que vous essayez de modifier sont utilisées par \n"
 "\t\t\t les sections suivantes :"
 
-#: src/EBox/Model/DataTable.pm:326
+#: src/EBox/Model/DataTable.pm:327
 #, perl-brace-format
 msgid "{model} in {module} module"
 msgstr "{model} dans {module} module"
 
-#: src/EBox/Model/DataTable.pm:330
+#: src/EBox/Model/DataTable.pm:331
 msgid "at"
 msgstr "à"
 
-#: src/EBox/Model/DataTable.pm:541
+#: src/EBox/Model/DataTable.pm:542
 msgid "field"
 msgstr "champs"
 
-#: src/EBox/Model/DataTable.pm:1465
+#: src/EBox/Model/DataTable.pm:1466
 msgid "page"
 msgstr "Page"
 
-#: src/EBox/Model/DataTable.pm:1468
+#: src/EBox/Model/DataTable.pm:1469
 msgid "Page must be a number equal or greater than zero"
 msgstr "La page doit être un nombre égal ou plus grand que zéro"
 
-#: src/EBox/Model/DataTable.pm:2803
+#: src/EBox/Model/DataTable.pm:2831
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Effacer {num} colonnes de {rowName} depuis {model}{br}"
 
-#: src/EBox/Model/DataTable.pm:2874
+#: src/EBox/Model/DataTable.pm:2902
 msgid "Page size"
 msgstr "Taille de la page"
 
-#: src/EBox/Model/DataTable.pm:2877
+#: src/EBox/Model/DataTable.pm:2905
 msgid "Must be either a positive number or zero"
 msgstr "Cela doit être soit un nombre positif soit un zéro"
 
-#: src/EBox/Model/DataTable.pm:3184
+#: src/EBox/Model/DataTable.pm:3212
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} ajoutée(s)"
 
-#: src/EBox/Model/DataTable.pm:3185
+#: src/EBox/Model/DataTable.pm:3213
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} effacée(s)"
 
-#: src/EBox/Model/DataTable.pm:3186
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} mise-à-jours"
 
-#: src/EBox/Model/DataTable.pm:3187
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} montée(s)"
 
-#: src/EBox/Model/DataTable.pm:3188
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} descendue(s)"
@@ -1485,12 +1594,12 @@ msgstr "port"
 msgid "eBox internal web server"
 msgstr "Serveur web interne d'eBox"
 
-#: src/EBox/Global.pm:424 src/EBox/Global.pm:445
+#: src/EBox/Global.pm:444 src/EBox/Global.pm:465
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Sauvegarde en cours du module {modName}"
 
-#: src/EBox/Global.pm:919
+#: src/EBox/Global.pm:961
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "Script {scriptName} en cours d'exécution"
@@ -1773,6 +1882,11 @@ msgstr "Une erreur est apparue dans eBox : "
 msgid "Starting..."
 msgstr "Démarrage ..."
 
+#: src/templates/logs/index.mas:20
+#, fuzzy
+msgid "Log Domain"
+msgstr "Domaine"
+
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
 msgstr ""
@@ -1884,10 +1998,6 @@ msgstr "Suivant"
 msgid "last"
 msgstr "Dernier"
 
-#: src/templates/finish.mas:82
-msgid "Warning"
-msgstr "Attention"
-
 #: src/templates/finish.mas:96
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
@@ -1905,10 +2015,6 @@ msgstr ""
 "Si vous avez effectué des modifications sur les interfaces réseau ou le port "
 "d'administration, vous pouvez avoir à réécrire manuellement l'URL afin de "
 "pouvoir accéder à nouveau à cette interface d'administration."
-
-#: src/templates/finish.mas:107
-msgid "Message"
-msgstr "Message"
 
 #: src/templates/finish.mas:123
 msgid "Save"
@@ -2112,6 +2218,12 @@ msgstr "Mode de restauraton"
 msgid "Administration Interface TCP Port"
 msgstr "Port TCP de l'interface d'administration"
 
+#~ msgid "Create logs database"
+#~ msgstr "Créer la base de donnée des journaux"
+
+#~ msgid "eBox store its logs in the database"
+#~ msgstr "eBox conserve ses événements dans la base de données"
+
 #~ msgid "Monitoring"
 #~ msgstr "Surveillance"
 
@@ -2138,9 +2250,6 @@ msgstr "Port TCP de l'interface d'administration"
 
 #~ msgid "Disk usage Information"
 #~ msgstr "Information sur l'utilisation du disque"
-
-#~ msgid "RAID Information"
-#~ msgstr "Information RAID"
 
 #~ msgid "Back up"
 #~ msgstr "Copie de sauvegarde"
@@ -2260,9 +2369,6 @@ msgstr "Port TCP de l'interface d'administration"
 #, fuzzy
 #~ msgid "Write down a number"
 #~ msgstr "Taper un nombre positif"
-
-#~ msgid "Error"
-#~ msgstr "Erreur"
 
 #, fuzzy
 #~ msgid "Configuration backups"
@@ -3132,10 +3238,6 @@ msgstr "Port TCP de l'interface d'administration"
 
 #~ msgid "Yes"
 #~ msgstr "Oui"
-
-#, fuzzy
-#~ msgid "Dispatchers"
-#~ msgstr "Annuler les modifications"
 
 #~ msgid "Packet filtering"
 #~ msgstr "Filtrage de paquets"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 15:23+0000\n"
+"POT-Creation-Date: 2009-12-21 17:10+0100\n"
 "PO-Revision-Date: 2007-04-05 10:50+0000\n"
 "Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
 "Language-Team: none\n"
@@ -43,7 +43,7 @@ msgstr "{data} {value} nie istnieje."
 msgid "Interface"
 msgstr "Interfejs"
 
-#: src/EBox/CGI/Base.pm:196
+#: src/EBox/CGI/Base.pm:197
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -51,7 +51,7 @@ msgstr ""
 "Pole zawiera niedozwolone znaki. Dozwolone są litery, cyfry oraz znaki: /.?&"
 "+:-@ i spacja."
 
-#: src/EBox/CGI/Base.pm:346
+#: src/EBox/CGI/Base.pm:347
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -59,7 +59,7 @@ msgstr ""
 "Wystąpił błąd wewnętrzny związany z szablonem. Związane z błędem komunikaty "
 "można znaleźć w logach."
 
-#: src/EBox/CGI/Base.pm:563
+#: src/EBox/CGI/Base.pm:564
 #, fuzzy
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
@@ -67,7 +67,7 @@ msgid ""
 msgstr ""
 "Wystąpił błąd zewnętrzny. Związane z nim komunikaty można znaleźć w logach."
 
-#: src/EBox/CGI/Base.pm:569
+#: src/EBox/CGI/Base.pm:570
 #, fuzzy
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
@@ -76,20 +76,20 @@ msgstr ""
 "Wystąpił nieoczekiwany błąd wewnętrzny. Związane z nim komunikaty można "
 "znaleźć w logach."
 
-#: src/EBox/CGI/Base.pm:575
+#: src/EBox/CGI/Base.pm:576
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Właśnie trafiłaś na błąd w eBoxsie. Prosimy odwołaj się do wsparcia "
 "technicznego."
 
-#: src/EBox/CGI/Base.pm:662
+#: src/EBox/CGI/Base.pm:663
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Twoje żądanie nie mogło zostać przetworzone ponieważ miało nieprawidłowe "
 "parametry."
 
-#: src/EBox/CGI/Base.pm:677
+#: src/EBox/CGI/Base.pm:678
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -97,11 +97,11 @@ msgstr ""
 "Twoje żądanie nie mogło zostać przetworzone ponieważ brakło w nim niektórych "
 "wymaganych parametrów."
 
-#: src/EBox/CGI/Base.pm:828
+#: src/EBox/CGI/Base.pm:829
 msgid "Invalid uploaded file."
 msgstr "Wgrano nieprawidłowy plik."
 
-#: src/EBox/CGI/Base.pm:834
+#: src/EBox/CGI/Base.pm:835
 msgid "Cannot create a temporally file for the upload"
 msgstr ""
 
@@ -184,9 +184,25 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:110
+#: src/templates/ajax/tableBody.mas:117
 msgid "Add new"
 msgstr "Dodaj nowy"
+
+#: src/templates/ajax/tableBody.mas:446
+msgid "Edit"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:448
+msgid "Delete"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:453
+msgid "Read-only row: edit disabled"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:454
+msgid "Read-only row: delete disabled"
+msgstr ""
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -213,7 +229,7 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: src/templates/ajax/modelViewer.mas:261
+#: src/templates/ajax/modelViewer.mas:256
 msgid "Optional"
 msgstr ""
 
@@ -265,11 +281,11 @@ msgstr ""
 msgid "The page cannot be found"
 msgstr "Strony nie odnaleziono."
 
-#: src/templates/title.mas:12
+#: src/templates/title.mas:25
 msgid "show help"
 msgstr "Pokaż pomoc"
 
-#: src/templates/title.mas:13
+#: src/templates/title.mas:26
 msgid "hide help"
 msgstr "Schowaj pomoc"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:01+0000\n"
+"POT-Creation-Date: 2009-12-21 17:04+0100\n"
 "PO-Revision-Date: 2008-12-04 10:38+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -236,7 +236,7 @@ msgid "Server configuration"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:148
-#: src/EBox/OpenVPN/Model/Servers.pm:113
+#: src/EBox/OpenVPN/Model/Servers.pm:114
 msgid "server"
 msgstr ""
 
@@ -324,67 +324,57 @@ msgid "Additional server address (optional)"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
-msgid "Configure bundle"
+msgid "Download Client Bundle"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
-#: src/EBox/OpenVPN/Model/Servers.pm:94
-msgid "Download client bundle"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:140
 msgid "EBox to EBox tunnel"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:174
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:189
 msgid "Cannot use for the bundle the server's certificate"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:209
 msgid "Invalid client type: the server does not allow eBox-to-eBox tunnels"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:219
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:218
 msgid "Invalid client type: the server is intended for eBox-to-eBox tunnels"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:297
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:296
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:335
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:344
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:76
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
 msgid "Advertised network"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
-msgid "List of networks"
+msgid "List of Advertised Networks"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:70
-#: src/EBox/OpenVPN/Model/Servers.pm:85
-msgid "Advertised networks"
-msgstr ""
-
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:90
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:100
 #, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
@@ -430,7 +420,7 @@ msgid "Client configuration"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
-#: src/EBox/OpenVPN/Model/Clients.pm:100
+#: src/EBox/OpenVPN/Model/Clients.pm:102
 msgid "client"
 msgstr ""
 
@@ -453,17 +443,29 @@ msgid "daemon"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
-msgid "VPN clients"
+msgid "List of Clients"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Clients.pm:143
+#: src/EBox/OpenVPN/Model/Clients.pm:95
+msgid "VPN Clients"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Clients.pm:145
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Clients.pm:180
+#: src/EBox/OpenVPN/Model/Clients.pm:182
 msgid "RIP password is mandatory"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:85
+msgid "Advertised networks"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/Servers.pm:94
+msgid "Download client bundle"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/Servers.pm:106
@@ -474,7 +476,7 @@ msgstr ""
 msgid "VPN servers"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:158
+#: src/EBox/OpenVPN/Model/Servers.pm:159
 #, perl-brace-format
 msgid ""
 "{openpar}You can't create VPN servers because there aren't enough "
@@ -483,28 +485,28 @@ msgid ""
 "You will need, at least, one CA and one certificate.{closepar}"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:173
+#: src/EBox/OpenVPN/Model/Servers.pm:174
 msgid "Server creation"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:271
+#: src/EBox/OpenVPN/Model/Servers.pm:272
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:278
+#: src/EBox/OpenVPN/Model/Servers.pm:279
 msgid "Server activation"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:305
+#: src/EBox/OpenVPN/Model/Servers.pm:306
 #, perl-brace-format
 msgid ""
 "{act} not possible because there aren'tany available certificate. Please, go "
 "tothe certificate authority moduleand create new certificates"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:318
+#: src/EBox/OpenVPN/Model/Servers.pm:319
 #, perl-brace-format
 msgid ""
 "{openpar}You can configure openVPN servers to easily connect remote offices "

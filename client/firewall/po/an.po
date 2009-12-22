@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2007-02-27 22:38+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -69,13 +69,14 @@ msgstr "puerto"
 msgid "protocol"
 msgstr "protocolo"
 
-#: src/EBox/Firewall.pm:825
+#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "Colato de paquez"
 
 #: src/EBox/Firewall.pm:828
-msgid "Redirects"
-msgstr "Reendrezeras"
+#, fuzzy
+msgid "Port Forwarding"
+msgstr "Regles de colato"
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -132,9 +133,8 @@ msgid "Packet filtering"
 msgstr "Colato de paquez"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
 #, fuzzy
-msgid "Filtering rules for traffic coming out from eBox"
+msgid "Traffic coming out from eBox"
 msgstr "Regles ta l'azeso á internet"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
@@ -146,9 +146,8 @@ msgid "rule"
 msgstr "regle"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
 #, fuzzy
-msgid "Filtering rules from external networks to internal networks"
+msgid "External networks to internal networks"
 msgstr "Regles de filtrato ta l'azeso á Internet"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
@@ -226,10 +225,15 @@ msgid "Description"
 msgstr "Destín"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
-msgid "Port redirections"
-msgstr "Reendrezeras de puertos"
+msgid "List of forwarded ports"
+msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+#, fuzzy
+msgid "Port Forwading"
+msgstr "Regles de colato"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:364
 #, fuzzy
 msgid "redirect"
 msgstr "Reendrezeras"
@@ -257,22 +261,25 @@ msgid ""
 "rule"
 msgstr ""
 
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#, fuzzy
+msgid "Configure Rules"
+msgstr "Confegurar regles"
+
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 #, fuzzy
-msgid "Filtering rules from  external networks to eBox"
+msgid "External networks to eBox"
 msgstr "Regles de filtrato ta l'azeso á Internet"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
 #, fuzzy
-msgid "Filtering rules from internal networks to eBox"
+msgid "Internal networks to eBox"
 msgstr "Regles de filtrato ta l'azeso á Internet"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
 #, fuzzy
-msgid "Filtering rules for internal networks"
-msgstr "Regles de filtrato ta l'azeso á Internet"
+msgid "Internal networks"
+msgstr "Puerto esterno"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
@@ -308,6 +315,11 @@ msgstr ""
 msgid "Firewall packet traffic report"
 msgstr ""
 
+#: src/templates/filter.mas:6
+#, fuzzy
+msgid "Filtering rules from internal networks to eBox"
+msgstr "Regles de filtrato ta l'azeso á Internet"
+
 #: src/templates/filter.mas:8
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
@@ -320,12 +332,22 @@ msgstr ""
 msgid "Configure rules"
 msgstr "Confegurar regles"
 
+#: src/templates/filter.mas:13
+#, fuzzy
+msgid "Filtering rules for internal networks"
+msgstr "Regles de filtrato ta l'azeso á Internet"
+
 #: src/templates/filter.mas:15
 msgid ""
 "These rules allow you to control access  from your internal networks to the "
 "Internet, and traffic between your internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section"
 msgstr ""
+
+#: src/templates/filter.mas:21
+#, fuzzy
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "Regles ta l'azeso á internet"
 
 #: src/templates/filter.mas:23
 msgid "These rules allow you to control access from eBox to external services"
@@ -349,6 +371,11 @@ msgid ""
 "this unless you know what you are doing"
 msgstr ""
 
+#: src/templates/filter.mas:40
+#, fuzzy
+msgid "Filtering rules from external networks to internal networks"
+msgstr "Regles de filtrato ta l'azeso á Internet"
+
 #: src/templates/filter.mas:42
 #, fuzzy
 msgid ""
@@ -356,12 +383,19 @@ msgid ""
 "networks."
 msgstr "Regles de filtrato ta l'azeso á Internet"
 
+#~ msgid "Redirects"
+#~ msgstr "Reendrezeras"
+
+#~ msgid "Port redirections"
+#~ msgstr "Reendrezeras de puertos"
+
+#, fuzzy
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "Regles de filtrato ta l'azeso á Internet"
+
 #, fuzzy
 #~ msgid "firewall"
 #~ msgstr "Cortafuegos"
-
-#~ msgid "External port"
-#~ msgstr "Puerto esterno"
 
 #~ msgid "Global services' filtering rules"
 #~ msgstr "Regles globals de filtrato  de serbizios"
@@ -638,9 +672,6 @@ msgstr "Regles de filtrato ta l'azeso á Internet"
 #~ msgstr ""
 #~ "Iste enrastre li premitirá establir regles de colato que abrán "
 #~ "preferencia sobre as que confegure ta os ochetos de rete más abaxo."
-
-#~ msgid "Forwarding rules"
-#~ msgstr "Regles de colato"
 
 #~ msgid "Rules for internet access"
 #~ msgstr "Regles ta l'azeso á internet"

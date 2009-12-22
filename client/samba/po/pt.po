@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:02+0000\n"
+"POT-Creation-Date: 2009-12-21 17:05+0100\n"
 "PO-Revision-Date: 2009-11-11 19:25+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -104,7 +104,6 @@ msgstr "caminho"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
 #: src/EBox/Samba/Model/SambaShares.pm:146
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "share"
 msgstr "partilha"
 
@@ -209,6 +208,7 @@ msgid "Access control"
 msgstr "Controle de acesso"
 
 #: src/EBox/Samba/Model/SambaShares.pm:138
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:186
 msgid "Shares"
 msgstr "Partilhas"
 
@@ -276,10 +276,15 @@ msgid "Permissions"
 msgstr "Permissões"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
-msgid "Share configuration"
-msgstr "Configuração da partilha samba"
+#, fuzzy
+msgid "Access Control"
+msgstr "Controle de acesso"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:178
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
+msgid "ACL"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"
@@ -371,14 +376,13 @@ msgstr "Excepções de anti-vírus nas partilhas Samba"
 msgid "Add exceptions to the default Recycle Bin settings"
 msgstr "Adicionar excepções às definições do anti-vírus"
 
-#: src/EBox/Samba/Model/AntivirusDefault.pm:45
-#: src/EBox/Samba/Model/AntivirusDefault.pm:63
-msgid "Antivirus default settings"
-msgstr "Definições gerais do Anti-vírus"
-
-#: src/EBox/Samba/Model/AntivirusDefault.pm:55
+#: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
 msgstr "Verificar"
+
+#: src/EBox/Samba/Model/AntivirusDefault.pm:58
+msgid "Antivirus default settings"
+msgstr "Definições gerais do Anti-vírus"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:45
 #, fuzzy
@@ -398,6 +402,10 @@ msgstr "Definições gerais do Anti-vírus"
 msgid "Recycle Bin"
 msgstr ""
 
+#: src/EBox/Samba/Composite/General.pm:67 src/EBox/Samba.pm:76
+msgid "File Sharing"
+msgstr "Partilha de ficheiros"
+
 #: src/EBox/Samba/Composite/General.pm:68
 msgid "File sharing options"
 msgstr "Opções da partilha de ficheiros"
@@ -405,10 +413,6 @@ msgstr "Opções da partilha de ficheiros"
 #: src/EBox/Samba/Composite/Antivirus.pm:64
 msgid "Antivirus"
 msgstr "Anti-vírus"
-
-#: src/EBox/Samba.pm:76
-msgid "File Sharing"
-msgstr "Partilha de ficheiros"
 
 #: src/EBox/Samba.pm:96
 msgid "Create Samba home directory for users and groups"
@@ -697,6 +701,9 @@ msgstr "Directórios raíz"
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "Directírio partilhado de {group}"
+
+#~ msgid "Share configuration"
+#~ msgstr "Configuração da partilha samba"
 
 #~ msgid "file sharing"
 #~ msgstr "partilha de ficheiros"

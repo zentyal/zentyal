@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:02+0000\n"
+"POT-Creation-Date: 2009-12-21 17:05+0100\n"
 "PO-Revision-Date: 2009-10-29 17:05+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -101,12 +101,12 @@ msgstr "Beállítások"
 msgid "List of services"
 msgstr "Szolgáltatások listája"
 
-#: src/EBox/Model/ServiceTable.pm:162
-#: src/EBox/Model/ServiceConfigurationTable.pm:171
+#: src/EBox/Model/ServiceTable.pm:163
+#: src/EBox/Model/ServiceConfigurationTable.pm:172
 msgid "service"
 msgstr "szolgáltatás"
 
-#: src/EBox/Model/ServiceTable.pm:543
+#: src/EBox/Model/ServiceTable.pm:544
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
@@ -135,6 +135,6 @@ msgstr "Cél port"
 msgid "Service configuration"
 msgstr "Szolgáltatás beállítása"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:194
+#: src/EBox/Model/ServiceConfigurationTable.pm:195
 msgid "This protocol does not use ports"
 msgstr "Ez a szolgáltatás nem használ portot"

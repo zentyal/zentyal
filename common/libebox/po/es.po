@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 15:23+0000\n"
+"POT-Creation-Date: 2009-12-21 17:10+0100\n"
 "PO-Revision-Date: 2008-12-12 09:32+0000\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: \n"
@@ -46,7 +46,7 @@ msgstr "{data} no existente: {value}."
 msgid "Interface"
 msgstr "Interfaz"
 
-#: src/EBox/CGI/Base.pm:196
+#: src/EBox/CGI/Base.pm:197
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -54,7 +54,7 @@ msgstr ""
 "La entrada contiene caracteres inválidos. Todos los caracteres alfanuméricos "
 "más los caracteres /.?'&+:-@ y los espacios están permitidos."
 
-#: src/EBox/CGI/Base.pm:346
+#: src/EBox/CGI/Base.pm:347
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -62,7 +62,7 @@ msgstr ""
 "Se ha producido un error interno relacionado con una plantilla. Se trata de "
 "un bug, puede encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:563
+#: src/EBox/CGI/Base.pm:564
 #, fuzzy
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
@@ -71,7 +71,7 @@ msgstr ""
 "Se ha producido un error interno. Probablemente se trate de un bug, puede "
 "encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:569
+#: src/EBox/CGI/Base.pm:570
 #, fuzzy
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
@@ -80,19 +80,19 @@ msgstr ""
 "Se ha producido un error interno. Se trata de un bug, puede encontrar más "
 "información en los logs."
 
-#: src/EBox/CGI/Base.pm:575
+#: src/EBox/CGI/Base.pm:576
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
 
-#: src/EBox/CGI/Base.pm:662
+#: src/EBox/CGI/Base.pm:663
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Su petición no pudo ser procesada debido a que contenia parametros "
 "incorrectos"
 
-#: src/EBox/CGI/Base.pm:677
+#: src/EBox/CGI/Base.pm:678
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -100,11 +100,11 @@ msgstr ""
 "Su petición no pudo ser procesada debido a que carece de algún parametro "
 "necesario"
 
-#: src/EBox/CGI/Base.pm:828
+#: src/EBox/CGI/Base.pm:829
 msgid "Invalid uploaded file."
 msgstr "Fichero subido inválido"
 
-#: src/EBox/CGI/Base.pm:834
+#: src/EBox/CGI/Base.pm:835
 msgid "Cannot create a temporally file for the upload"
 msgstr "No se pudo crear un fichero temporal para la subida"
 
@@ -188,9 +188,25 @@ msgstr "Descargar"
 msgid "Remove"
 msgstr "Borrar"
 
-#: src/templates/ajax/tableBody.mas:110
+#: src/templates/ajax/tableBody.mas:117
 msgid "Add new"
 msgstr "Añade nuevo"
+
+#: src/templates/ajax/tableBody.mas:446
+msgid "Edit"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:448
+msgid "Delete"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:453
+msgid "Read-only row: edit disabled"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:454
+msgid "Read-only row: delete disabled"
+msgstr ""
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -217,7 +233,7 @@ msgstr "Desde"
 msgid "To"
 msgstr "Hasta"
 
-#: src/templates/ajax/modelViewer.mas:261
+#: src/templates/ajax/modelViewer.mas:256
 msgid "Optional"
 msgstr "Opcional"
 
@@ -272,11 +288,11 @@ msgstr "lo sentimos"
 msgid "The page cannot be found"
 msgstr "La página no pudo encontrarse"
 
-#: src/templates/title.mas:12
+#: src/templates/title.mas:25
 msgid "show help"
 msgstr "mostrar ayuda"
 
-#: src/templates/title.mas:13
+#: src/templates/title.mas:26
 msgid "hide help"
 msgstr "ocultar ayuda"
 

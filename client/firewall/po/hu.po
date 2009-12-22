@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2009-10-29 16:53+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -80,13 +80,13 @@ msgstr "port"
 msgid "protocol"
 msgstr "protokol"
 
-#: src/EBox/Firewall.pm:825
+#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "Csomagszűrő"
 
 #: src/EBox/Firewall.pm:828
-msgid "Redirects"
-msgstr "Átirányítások"
+msgid "Port Forwarding"
+msgstr ""
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -139,8 +139,8 @@ msgid "Packet filtering"
 msgstr "Csomag szűrés"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
+#, fuzzy
+msgid "Traffic coming out from eBox"
 msgstr "Az eBoxon kívülről jövő forgalom szűrő szabályai"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
@@ -152,8 +152,8 @@ msgid "rule"
 msgstr "szabály"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
+#, fuzzy
+msgid "External networks to internal networks"
 msgstr ""
 "A külső hálózatból a belső hálózat fele haladó szűrő szabályok szabályok"
 
@@ -224,10 +224,14 @@ msgid "Description"
 msgstr "Leírás"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
-msgid "Port redirections"
-msgstr "Port átirányítások"
+msgid "List of forwarded ports"
+msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+msgid "Port Forwading"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:364
 msgid "redirect"
 msgstr "átirányít"
 
@@ -255,19 +259,24 @@ msgstr ""
 "Ha az inverz egyezés be van jelölve, a bejelöltön kívül minden más "
 "szolgáltatásra vonatkozik a szabály"
 
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#, fuzzy
+msgid "Configure Rules"
+msgstr "Szabályok beállítása"
+
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "Szűrő szabályok  külső hálózatból az eBoxba"
+#, fuzzy
+msgid "External networks to eBox"
+msgstr "A külső hálózatokból az eBox felé szűrő szabályok"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
+#, fuzzy
+msgid "Internal networks to eBox"
 msgstr "A belső hálózatból az eBox fele haladó szűrő szabályok"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
-msgid "Filtering rules for internal networks"
-msgstr "A belső hálózatra vonatkozó szűrő szabályok"
+msgid "Internal networks"
+msgstr ""
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
@@ -302,6 +311,10 @@ msgstr "Csomagforgalom összesítő"
 msgid "Firewall packet traffic report"
 msgstr "A tűzfal csomagforgalom összesítője"
 
+#: src/templates/filter.mas:6
+msgid "Filtering rules from internal networks to eBox"
+msgstr "A belső hálózatból az eBox fele haladó szűrő szabályok"
+
 #: src/templates/filter.mas:8
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
@@ -316,6 +329,10 @@ msgstr ""
 msgid "Configure rules"
 msgstr "Szabályok beállítása"
 
+#: src/templates/filter.mas:13
+msgid "Filtering rules for internal networks"
+msgstr "A belső hálózatra vonatkozó szűrő szabályok"
+
 #: src/templates/filter.mas:15
 msgid ""
 "These rules allow you to control access  from your internal networks to the "
@@ -326,6 +343,10 @@ msgstr ""
 "az internet felé, és a belső hálózatok közti forgalmomszabályozást. Ha "
 "hozzáférést szeretne adni az eBox szolgáltatásaihoz, használja a fenti "
 "szakaszt"
+
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "Az eBoxon kívülről jövő forgalom szűrő szabályai"
 
 #: src/templates/filter.mas:23
 msgid "These rules allow you to control access from eBox to external services"
@@ -355,6 +376,11 @@ msgstr ""
 "a hálózata biztonságát, mivel nem biztonságos hálózatokból engedélyezi a "
 "hozzáférést. Kérjük ne használja ezt, ha nem tudja biztosan mint csinál"
 
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr ""
+"A külső hálózatból a belső hálózat fele haladó szűrő szabályok szabályok"
+
 #: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
@@ -362,3 +388,12 @@ msgid ""
 msgstr ""
 "Ezen szabályok segítségével beállíthatja a külső hálózatból a belső "
 "hálózatba irányuló forgalmat"
+
+#~ msgid "Redirects"
+#~ msgstr "Átirányítások"
+
+#~ msgid "Port redirections"
+#~ msgstr "Port átirányítások"
+
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "Szűrő szabályok  külső hálózatból az eBoxba"

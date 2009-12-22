@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:02+0000\n"
+"POT-Creation-Date: 2009-12-21 17:05+0100\n"
 "PO-Revision-Date: 2009-12-04 16:01+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -104,7 +104,6 @@ msgstr "sti"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
 #: src/EBox/Samba/Model/SambaShares.pm:146
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "share"
 msgstr "delings område"
 
@@ -209,6 +208,7 @@ msgid "Access control"
 msgstr "Tilgangs kontroll"
 
 #: src/EBox/Samba/Model/SambaShares.pm:138
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:186
 msgid "Shares"
 msgstr "Delings områder"
 
@@ -276,10 +276,15 @@ msgid "Permissions"
 msgstr "Rettigheter"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
-msgid "Share configuration"
-msgstr "Delings område konfigurasjon"
+#, fuzzy
+msgid "Access Control"
+msgstr "Tilgangs kontroll"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:178
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:153
+msgid "ACL"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"
@@ -368,14 +373,13 @@ msgstr "Samba deler Søppel Kasse unntak"
 msgid "Add exceptions to the default Recycle Bin settings"
 msgstr "Legg til unntak til standard Søppel Kasse innstillinger"
 
-#: src/EBox/Samba/Model/AntivirusDefault.pm:45
-#: src/EBox/Samba/Model/AntivirusDefault.pm:63
-msgid "Antivirus default settings"
-msgstr "Antivirus standard innstillinger"
-
-#: src/EBox/Samba/Model/AntivirusDefault.pm:55
+#: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
 msgstr "Søk"
+
+#: src/EBox/Samba/Model/AntivirusDefault.pm:58
+msgid "Antivirus default settings"
+msgstr "Antivirus standard innstillinger"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:45
 msgid "Recycle default settings"
@@ -393,6 +397,10 @@ msgstr "Søppel Kasse standard instillinger"
 msgid "Recycle Bin"
 msgstr "Søppel Kasse"
 
+#: src/EBox/Samba/Composite/General.pm:67 src/EBox/Samba.pm:76
+msgid "File Sharing"
+msgstr "Fil Deling"
+
 #: src/EBox/Samba/Composite/General.pm:68
 msgid "File sharing options"
 msgstr "Fil delings alternativer"
@@ -400,10 +408,6 @@ msgstr "Fil delings alternativer"
 #: src/EBox/Samba/Composite/Antivirus.pm:64
 msgid "Antivirus"
 msgstr "Antivirus"
-
-#: src/EBox/Samba.pm:76
-msgid "File Sharing"
-msgstr "Fil Deling"
 
 #: src/EBox/Samba.pm:96
 msgid "Create Samba home directory for users and groups"
@@ -690,6 +694,9 @@ msgstr "Hjemme Mapper"
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group} delings mappe"
+
+#~ msgid "Share configuration"
+#~ msgstr "Delings område konfigurasjon"
 
 #~ msgid "file sharing"
 #~ msgstr "fil deling"

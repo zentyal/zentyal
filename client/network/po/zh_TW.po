@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:00+0000\n"
+"POT-Creation-Date: 2009-12-21 17:04+0100\n"
 "PO-Revision-Date: 2009-08-04 07:12+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -643,11 +643,11 @@ msgstr "密碼"
 msgid "Hostname"
 msgstr "主機名稱"
 
-#: src/EBox/Model/DynDNS.pm:115
-msgid "Dynamic DNS"
-msgstr "動態 DNS"
+#: src/EBox/Model/DynDNS.pm:116
+msgid "Configuration"
+msgstr ""
 
-#: src/EBox/Model/DynDNS.pm:119
+#: src/EBox/Model/DynDNS.pm:120
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured"
@@ -941,6 +941,9 @@ msgid ""
 msgstr ""
 "如果您選擇繼續，所有使用這個網路介面的組態的模組會刪除其組態的相關部分。如果"
 "您對這個問題不確定就請選擇「取消」。"
+
+#~ msgid "Dynamic DNS"
+#~ msgstr "動態 DNS"
 
 #~ msgid "Set default gateway"
 #~ msgstr "設定預設通訊閘"

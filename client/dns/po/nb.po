@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:53+0000\n"
+"POT-Creation-Date: 2009-12-22 08:14+0100\n"
 "PO-Revision-Date: 2009-12-04 09:10+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -17,11 +17,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:51 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/DNS.pm.in:51 src/EBox/Model/DomainTable.pm:110
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:115
+#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:117
 msgid "domain"
 msgstr "domene"
 
@@ -34,10 +35,6 @@ msgstr "konfigurasjons fil for sone {zone}"
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "konfigurasjons fil for revers oppslags sone {zone}"
-
-#: src/EBox/DNS.pm.in:856
-msgid "Infrastructure"
-msgstr "Infrastruktur"
 
 #: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
@@ -63,15 +60,15 @@ msgstr "IP Adresse"
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Model/HostnameTable.pm:186
+#: src/EBox/Model/HostnameTable.pm:187
 msgid "Host names"
 msgstr "Verts navn"
 
-#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
+#: src/EBox/Model/HostnameTable.pm:194 src/EBox/Model/DomainTable.pm:74
 msgid "Hostnames"
 msgstr "Verts navn"
 
-#: src/EBox/Model/HostnameTable.pm:193
+#: src/EBox/Model/HostnameTable.pm:195
 msgid "host name"
 msgstr "verts navn"
 
@@ -88,10 +85,11 @@ msgid "Name Servers"
 msgstr "Navn Server"
 
 #: src/EBox/Model/DomainTable.pm:109
-msgid "Domains"
+#, fuzzy
+msgid "List of Domains"
 msgstr "Domener"
 
-#: src/EBox/Model/DNSComposite.pm:77
+#: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "DNS serveren tillater navn oppslag for dine domener"
 
@@ -106,8 +104,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
-"Oppgitt verts navn er ikke et fullverdig domene navn (FQDN). Mener du "
-"mx.{name}?"
+"Oppgitt verts navn er ikke et fullverdig domene navn (FQDN). Mener du mx."
+"{name}?"
 
 #: src/EBox/Model/MailExchanger.pm:126 src/EBox/Model/NameServer.pm:107
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
@@ -177,8 +175,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "ns.{name}?"
 msgstr ""
-"Oppgitt verts navn er ikke et fullverdig domene navn (FQDN). Mener du "
-"ns.{name}?"
+"Oppgitt verts navn er ikke et fullverdig domene navn (FQDN). Mener du ns."
+"{name}?"
 
 #: src/EBox/Model/NameServer.pm:132
 msgid "Name servers"
@@ -238,6 +236,9 @@ msgstr "Verts liste for domene {domain}"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
+
+#~ msgid "Infrastructure"
+#~ msgstr "Infrastruktur"
 
 #~ msgid "Owner domain"
 #~ msgstr "Eier domene"

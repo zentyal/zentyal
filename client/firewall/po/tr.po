@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2009-03-05 16:06+0000\n"
 "Last-Translator: Evren BILGIC <exybiz@gmail.com>\n"
 "Language-Team: none\n"
@@ -70,13 +70,14 @@ msgstr "Port"
 msgid "protocol"
 msgstr "Protokol"
 
-#: src/EBox/Firewall.pm:825
+#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "Paket süzgeçleme"
 
 #: src/EBox/Firewall.pm:828
-msgid "Redirects"
-msgstr "Yönlendirme"
+#, fuzzy
+msgid "Port Forwarding"
+msgstr "Yönlendirme kuralları"
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -132,8 +133,8 @@ msgid "Packet filtering"
 msgstr "Paket filtreleme"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
+#, fuzzy
+msgid "Traffic coming out from eBox"
 msgstr "eBox dışından gelen trafik için süzgeçleme kuralları"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
@@ -145,8 +146,8 @@ msgid "rule"
 msgstr "kural"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
+#, fuzzy
+msgid "External networks to internal networks"
 msgstr "Harici ağladan dahili ağlara doğru olan süzgeçeleme kuralları"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
@@ -219,10 +220,15 @@ msgid "Description"
 msgstr "Açıklama"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
-msgid "Port redirections"
-msgstr "Port yönlendirme"
+msgid "List of forwarded ports"
+msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+#, fuzzy
+msgid "Port Forwading"
+msgstr "Yönlendirme kuralları"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:364
 #, fuzzy
 msgid "redirect"
 msgstr "Yönlendirme"
@@ -249,19 +255,25 @@ msgid ""
 "rule"
 msgstr ""
 
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#, fuzzy
+msgid "Configure Rules"
+msgstr "Kuralları ayarla"
+
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "eBox'a doğru olan harici ağlardan süzgeçeleme kuralları"
+#, fuzzy
+msgid "External networks to eBox"
+msgstr "Harici ağlardan eBox'a olan süzgeçleme kuralları"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
+#, fuzzy
+msgid "Internal networks to eBox"
 msgstr "Yerel ağlardan eBox'a doğru giden filtre kuralları"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
-msgid "Filtering rules for internal networks"
-msgstr "Yerel ağlar için fıltre kuralları"
+#, fuzzy
+msgid "Internal networks"
+msgstr "Harici port"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
@@ -297,6 +309,10 @@ msgstr ""
 msgid "Firewall packet traffic report"
 msgstr ""
 
+#: src/templates/filter.mas:6
+msgid "Filtering rules from internal networks to eBox"
+msgstr "Yerel ağlardan eBox'a doğru giden filtre kuralları"
+
 #: src/templates/filter.mas:8
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
@@ -311,6 +327,10 @@ msgstr ""
 msgid "Configure rules"
 msgstr "Kuralları ayarla"
 
+#: src/templates/filter.mas:13
+msgid "Filtering rules for internal networks"
+msgstr "Yerel ağlar için fıltre kuralları"
+
 #: src/templates/filter.mas:15
 msgid ""
 "These rules allow you to control access  from your internal networks to the "
@@ -320,6 +340,10 @@ msgstr ""
 "Bu kurlallar, dahili ağınızdan internete doğru olan ve diğer dahili ağlarla "
 "aranızdaki erişimi kontrol etmenizi sağlar. Eğer eBox servislerine erişim "
 "sağlamak istiyorsanız yukardaki bölümü kullanmalısınız."
+
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "eBox dışından gelen trafik için süzgeçleme kuralları"
 
 #: src/templates/filter.mas:23
 msgid "These rules allow you to control access from eBox to external services"
@@ -348,18 +372,28 @@ msgstr ""
 "ağınızın güvenliğini azaltmanıza neden olabileceğini unutmayın. Lütfen, ne "
 "yaptığınızı bilmeden bu bölümü kullanmayın."
 
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr "Harici ağladan dahili ağlara doğru olan süzgeçeleme kuralları"
+
 #: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr "Bu kurallar harici ağlardan dahili ağlara erişim kontrolünü sağlar"
 
+#~ msgid "Redirects"
+#~ msgstr "Yönlendirme"
+
+#~ msgid "Port redirections"
+#~ msgstr "Port yönlendirme"
+
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "eBox'a doğru olan harici ağlardan süzgeçeleme kuralları"
+
 #, fuzzy
 #~ msgid "firewall"
 #~ msgstr "Güvenlik duvarı"
-
-#~ msgid "External port"
-#~ msgstr "Harici port"
 
 #~ msgid "Global services' filtering rules"
 #~ msgstr "Genel servisler süzgeçleme kuralları"
@@ -630,9 +664,6 @@ msgstr "Bu kurallar harici ağlardan dahili ağlara erişim kontrolünü sağlar
 
 #~ msgid "Filtering Rules"
 #~ msgstr "Süzgeçleme kuralları"
-
-#~ msgid "Forwarding rules"
-#~ msgstr "Yönlendirme kuralları"
 
 #~ msgid "Rules for internet access"
 #~ msgstr "İnternet erişim kuralları"

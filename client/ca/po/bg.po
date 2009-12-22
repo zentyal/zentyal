@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:50+0000\n"
+"POT-Creation-Date: 2009-12-21 16:59+0100\n"
 "PO-Revision-Date: 2009-09-28 09:03+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
@@ -308,7 +308,7 @@ msgstr ""
 "Крайната дата е по-късна от крайната дата на удостоверението на "
 "удостоверяващия орган."
 
-#: src/EBox/CA.pm:2487
+#: src/EBox/CA.pm:2526
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Невъзможно стартиране на OpenSSL обвивка. ({errval})"

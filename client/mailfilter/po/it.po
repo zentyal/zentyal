@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:58+0000\n"
+"POT-Creation-Date: 2009-12-21 17:03+0100\n"
 "PO-Revision-Date: 2009-11-16 09:52+0100\n"
 "Last-Translator: gabriele garis <g.garis@inwind.it>\n"
 "Language-Team: none\n"
@@ -51,145 +51,156 @@ msgstr ""
 "proxy POP"
 
 #: src/EBox/MailFilter.pm:94
+msgid "Add spam and ham system users"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:96
+msgid ""
+"This users are for the email accounts used for training the bayesian filter"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:101
 msgid "Update LDAP"
 msgstr "Aggiorna LDAP"
 
-#: src/EBox/MailFilter.pm:95
+#: src/EBox/MailFilter.pm:102
 msgid "Add amavis specific classes and fields"
 msgstr "Aggiungi classi e campi specifici di amavis"
 
-#: src/EBox/MailFilter.pm:352
+#: src/EBox/MailFilter.pm:361
 msgid "Cannot proceed because the filter is in use"
 msgstr "Impossibile procedere in quanto il filtro è in uso"
 
-#: src/EBox/MailFilter.pm:480
+#: src/EBox/MailFilter.pm:489
 #, fuzzy
 msgid "Mail filter"
 msgstr "Filtro posta"
 
-#: src/EBox/MailFilter.pm:501 src/EBox/MailFilter.pm:548
+#: src/EBox/MailFilter.pm:510 src/EBox/MailFilter.pm:556
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 #, fuzzy
 msgid "Date"
 msgstr "Elimina"
 
-#: src/EBox/MailFilter.pm:503
+#: src/EBox/MailFilter.pm:512
 #, fuzzy
 msgid "Action"
 msgstr "Azioni"
 
-#: src/EBox/MailFilter.pm:504 src/EBox/MailFilter.pm:552
+#: src/EBox/MailFilter.pm:513 src/EBox/MailFilter.pm:560
 msgid "Event"
 msgstr "Evento"
 
-#: src/EBox/MailFilter.pm:506
+#: src/EBox/MailFilter.pm:515
 #, fuzzy
 msgid "Sender address"
 msgstr "indirizzo email"
 
-#: src/EBox/MailFilter.pm:507
+#: src/EBox/MailFilter.pm:516
 #, fuzzy
 msgid "Recipient address"
 msgstr "indirizzo email"
 
-#: src/EBox/MailFilter.pm:509
+#: src/EBox/MailFilter.pm:518
 #, fuzzy
 msgid "Spam hits"
 msgstr "Soglia dello spam"
 
-#: src/EBox/MailFilter.pm:514
+#: src/EBox/MailFilter.pm:523
 #, fuzzy
 msgid "Bad header found"
 msgstr "Politica header cattivi"
 
-#: src/EBox/MailFilter.pm:515
+#: src/EBox/MailFilter.pm:524
 msgid "Spam found"
 msgstr "Rilevato spam"
 
-#: src/EBox/MailFilter.pm:516
+#: src/EBox/MailFilter.pm:525
 msgid "Forbidden attached file  found"
 msgstr "Rilevato allegato non permesso"
 
-#: src/EBox/MailFilter.pm:517
+#: src/EBox/MailFilter.pm:526
 msgid "Address in blacklist found"
 msgstr "Rilevato indirizzo in blacklist"
 
-#: src/EBox/MailFilter.pm:518
+#: src/EBox/MailFilter.pm:527
 #, fuzzy
 msgid "Virus found"
 msgstr "Politica virus"
 
-#: src/EBox/MailFilter.pm:519
+#: src/EBox/MailFilter.pm:528
 #, fuzzy
 msgid "Clean message"
 msgstr "Appreso da file mailbox"
 
-#: src/EBox/MailFilter.pm:529 src/EBox/MailFilter/Composite/Amavis.pm:61
+#: src/EBox/MailFilter.pm:538
 #, fuzzy
 msgid "SMTP filter"
 msgstr "Filtro tipi MIME"
 
-#: src/EBox/MailFilter.pm:550
+#: src/EBox/MailFilter.pm:558
 #, fuzzy
 msgid "Account"
 msgstr "Azioni"
 
-#: src/EBox/MailFilter.pm:551
+#: src/EBox/MailFilter.pm:559
 #, fuzzy
 msgid "Client's address"
 msgstr "indirizzo email"
 
-#: src/EBox/MailFilter.pm:554
+#: src/EBox/MailFilter.pm:562
 #, fuzzy
 msgid "Total messages"
 msgstr "Appreso da file mailbox"
 
-#: src/EBox/MailFilter.pm:555
+#: src/EBox/MailFilter.pm:563
 #, fuzzy
 msgid "Clean messages"
 msgstr "Appreso da file mailbox"
 
-#: src/EBox/MailFilter.pm:556
+#: src/EBox/MailFilter.pm:564
 #, fuzzy
 msgid "Virus messages"
 msgstr "Appreso da file mailbox"
 
-#: src/EBox/MailFilter.pm:557
+#: src/EBox/MailFilter.pm:565
 #, fuzzy
 msgid "Spam messages"
 msgstr "Appreso da file mailbox"
 
-#: src/EBox/MailFilter.pm:564
+#: src/EBox/MailFilter.pm:572
 #, fuzzy
 msgid "POP3 transmission complete"
 msgstr "Trasmissione POP3 completa"
 
-#: src/EBox/MailFilter.pm:566
+#: src/EBox/MailFilter.pm:574
 msgid "POP3 transmission aborted"
 msgstr "Trasmissione POP3 interrotta"
 
-#: src/EBox/MailFilter.pm:574
+#: src/EBox/MailFilter.pm:582
 msgid "POP3 proxy"
 msgstr "POP3 proxy"
 
-#: src/EBox/MailFilter.pm:674
+#: src/EBox/MailFilter.pm:681 src/EBox/MailFilter/Composite/Amavis.pm:61
 #, fuzzy
 msgid "SMTP Mail Filter"
 msgstr "Filtro posta"
 
-#: src/EBox/MailFilter.pm:681
+#: src/EBox/MailFilter.pm:688
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #, fuzzy
 msgid "POP Transparent Proxy"
 msgstr "Opzioni antispam"
 
-#: src/EBox/MailFilter.pm:689 src/EBox/MailFilter/POPProxy.pm:350
+#: src/EBox/MailFilter.pm:696 src/EBox/MailFilter/POPProxy.pm:350
 #: src/EBox/MailFilter/Amavis.pm:468
 #: src/EBox/MailFilter/Composite/Antispam.pm:63
+#: src/EBox/MailFilter/Composite/Antispam.pm:64
 msgid "Antispam"
 msgstr "Antispam"
 
-#: src/EBox/MailFilter.pm:696
+#: src/EBox/MailFilter.pm:703
 msgid "Files ACL"
 msgstr "Files ACL"
 
@@ -279,11 +290,13 @@ msgid "Virtual mail domain {vd} does not exist"
 msgstr "Il dominio virtuale di posta {vd} non esiste"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:62
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:62
 #, fuzzy
 msgid "Mail sender"
 msgstr "Filtro posta"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:68
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:68
 msgid "Policy"
 msgstr "Politica"
 
@@ -293,21 +306,31 @@ msgid "Sender policy"
 msgstr "Politica header cattivi"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:89
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:89
 #, fuzzy
 msgid "sender policy"
 msgstr "Politica header cattivi"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:98
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
 msgid "whitelist"
 msgstr "Whitelist"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:99
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:99
 msgid "blacklist"
 msgstr "Blacklist"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:100
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:100
 msgid "process"
 msgstr "processo"
+
+#: src/EBox/MailFilter/Model/AntispamACL.pm:165
+#: src/EBox/MailFilter/Model/VDomains.pm:148
+#, fuzzy
+msgid "Virtual Domains"
+msgstr "Dominio di posta"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
 #, fuzzy
@@ -364,14 +387,18 @@ msgid "mail address"
 msgstr "indirizzo email"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
-#, fuzzy
-msgid "General  settings"
-msgstr "Impostazioni blocchi modificata"
+msgid "General"
+msgstr "Generale"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
 #, perl-brace-format
 msgid "The port {port} is already used by module {mod}"
 msgstr "La porta {port} è già usato dal modulo {mod}"
+
+#: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:77
+#, fuzzy
+msgid "Sender policy for virtual domain"
+msgstr "Soglia di spam per il dominio virtuale {domain}"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
 msgid "File extension"
@@ -567,12 +594,12 @@ msgstr ""
 "Questa opzione ti permette di impostare la stringa che il tuo ISP usa se\n"
 "filtra lo SPAM"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:94
 #, fuzzy
-msgid "POP transparent proxy configuration"
+msgid "Configuration"
 msgstr "Opzioni antispam"
 
-#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
+#: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:114
 #, fuzzy
 msgid ""
 "The POP transparent proxy must scan for something to be useful. If you do "
@@ -599,7 +626,7 @@ msgstr "Politica header cattivi"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
 #, fuzzy
-msgid "SMTP filter policies"
+msgid "Filter Policies"
 msgstr "Porta del filtro posta"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:60
@@ -694,10 +721,6 @@ msgstr ""
 #, fuzzy
 msgid "Antispam sender policy"
 msgstr "Elenco accessi mittente antispam"
-
-#: src/EBox/MailFilter/Model/VDomains.pm:148
-msgid "Virtual domains configuration"
-msgstr "Configurazione dei domini virtuali"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:159
 #, fuzzy
@@ -861,7 +884,7 @@ msgstr "Domini di posta esterni"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:59
 #, fuzzy
-msgid "Attached files filter"
+msgid "Attached Files Filter"
 msgstr "Filtro posta"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:61
@@ -890,6 +913,17 @@ msgstr "Rapporto proxy POP trasparente"
 #: stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
 msgstr "Rilevato [Virus] in una mail per te:"
+
+#, fuzzy
+#~ msgid "General  settings"
+#~ msgstr "Impostazioni blocchi modificata"
+
+#, fuzzy
+#~ msgid "POP transparent proxy configuration"
+#~ msgstr "Opzioni antispam"
+
+#~ msgid "Virtual domains configuration"
+#~ msgstr "Configurazione dei domini virtuali"
 
 #, fuzzy
 #~ msgid "Antivirus database update status"
@@ -1141,14 +1175,8 @@ msgstr "Rilevato [Virus] in una mail per te:"
 #~ msgid "Use default spam threshold (current value is {v})"
 #~ msgstr "Usa la soglia di spam di default (il valore attuale è {v})"
 
-#~ msgid "Spam threshold for {domain} virtual domain"
-#~ msgstr "Soglia di spam per il dominio virtuale {domain}"
-
 #~ msgid "Mail filter options"
 #~ msgstr "Opzioni filtro posta"
-
-#~ msgid "General"
-#~ msgstr "Generale"
 
 #~ msgid "Extensions filter"
 #~ msgstr "Filtro estensioni"

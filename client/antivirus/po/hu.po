@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:47+0000\n"
+"POT-Creation-Date: 2009-12-21 16:58+0100\n"
 "PO-Revision-Date: 2009-07-27 14:32+0200\n"
 "Last-Translator: Érdi Olivér <freeoli@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:378
-#: src/EBox/AntiVirus.pm:383
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:390
+#: src/EBox/AntiVirus.pm:395 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
 msgid "Antivirus"
 msgstr "Vírusirtó"
 
@@ -44,10 +44,10 @@ msgstr "Dátum"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 #, fuzzy
-msgid "Antivirus Database Update Status"
+msgid "Database Update Status"
 msgstr "Vírusirtó adatbázis frissítési állapot"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
 #, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
@@ -55,12 +55,12 @@ msgstr ""
 "A vírusirtó adatbázis frissítése nem történt meg    mail szűrő eBox modul "
 "telepítve."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
 #, fuzzy
 msgid "The last update failed."
 msgstr "Az utolsó frissítés sikertelen."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
 #, perl-brace-format
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
@@ -71,11 +71,11 @@ msgstr ""
 "A vírusirtó nem fogja tudni használni az összes mintát. Kérlek, telepítsd a "
 "{version} verziót vagy magasabbat."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
 msgid "Last update successful."
 msgstr "Az utolsó frissítés sikeres."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:144
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Ismeretlen esemény {event}."

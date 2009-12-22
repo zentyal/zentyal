@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2009-08-28 09:27+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -76,13 +76,13 @@ msgstr "port"
 msgid "protocol"
 msgstr "protokoll"
 
-#: src/EBox/Firewall.pm:825
+#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "Pakke filter"
 
 #: src/EBox/Firewall.pm:828
-msgid "Redirects"
-msgstr "Videresendinger"
+msgid "Port Forwarding"
+msgstr ""
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -135,8 +135,8 @@ msgid "Packet filtering"
 msgstr "Pakke filtrering"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
+#, fuzzy
+msgid "Traffic coming out from eBox"
 msgstr "Filtrerings regler for trafikk ut fra eBox"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
@@ -148,8 +148,8 @@ msgid "rule"
 msgstr "regel"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
+#, fuzzy
+msgid "External networks to internal networks"
 msgstr "Filtrerings regler fra eksterne nettverk til interne nettverk"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
@@ -219,10 +219,14 @@ msgid "Description"
 msgstr "Beskrivelse"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
-msgid "Port redirections"
-msgstr "Port viderekobling"
+msgid "List of forwarded ports"
+msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+msgid "Port Forwading"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:364
 msgid "redirect"
 msgstr "viderekobling"
 
@@ -250,19 +254,24 @@ msgstr ""
 "Hvis omvendt treff er huket av, hvilken som helst tjeneste enn den valgte "
 "vil treffe denne regelen"
 
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#, fuzzy
+msgid "Configure Rules"
+msgstr "Konfigurer regler"
+
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "Filtreringsregler fra  eksterne nettverk til eBox"
+#, fuzzy
+msgid "External networks to eBox"
+msgstr "Filtrerings regler fra eksterne nettverk til eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
+#, fuzzy
+msgid "Internal networks to eBox"
 msgstr "Filtrerings regler fra interne nettverk til eBox"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
-msgid "Filtering rules for internal networks"
-msgstr "Filtrerings regler for interne nettverk"
+msgid "Internal networks"
+msgstr ""
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
@@ -297,6 +306,10 @@ msgstr "Pakke trafikk rapport"
 msgid "Firewall packet traffic report"
 msgstr "Brannmur pakke trafikk rapport"
 
+#: src/templates/filter.mas:6
+msgid "Filtering rules from internal networks to eBox"
+msgstr "Filtrerings regler fra interne nettverk til eBox"
+
 #: src/templates/filter.mas:8
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
@@ -311,6 +324,10 @@ msgstr ""
 msgid "Configure rules"
 msgstr "Konfigurer regler"
 
+#: src/templates/filter.mas:13
+msgid "Filtering rules for internal networks"
+msgstr "Filtrerings regler for interne nettverk"
+
 #: src/templates/filter.mas:15
 msgid ""
 "These rules allow you to control access  from your internal networks to the "
@@ -320,6 +337,10 @@ msgstr ""
 "Disse reglene lar deg og kontrollere tilgang  fra interne nettverk til "
 "internett, og trafikk mellom dine interne nettverk. Hvis du vil tillate "
 "tilgang til dine eBox tjenester, må du bruke feltet over"
+
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "Filtrerings regler for trafikk ut fra eBox"
 
 #: src/templates/filter.mas:23
 msgid "These rules allow you to control access from eBox to external services"
@@ -348,6 +369,10 @@ msgstr ""
 "sikkerhet siden du kan gi tilgang fra usikre nettverk. Vennligst ikke bruk "
 "dette med mindre du vet hva du driver med"
 
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr "Filtrerings regler fra eksterne nettverk til interne nettverk"
+
 #: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
@@ -355,6 +380,15 @@ msgid ""
 msgstr ""
 "Disse reglene lar deg kontrollere tilgang fra eksterne nettverk til interne "
 "nettverk."
+
+#~ msgid "Redirects"
+#~ msgstr "Videresendinger"
+
+#~ msgid "Port redirections"
+#~ msgstr "Port viderekobling"
+
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "Filtreringsregler fra  eksterne nettverk til eBox"
 
 #~ msgid "firewall"
 #~ msgstr "brannmur"

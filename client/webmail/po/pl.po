@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:09+0000\n"
+"POT-Creation-Date: 2009-12-21 17:06+0100\n"
 "PO-Revision-Date: 2009-10-16 11:59+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Operation mode"
 msgstr ""
 
-#: src/EBox/WebMail/Model/OperationMode.pm:86
+#: src/EBox/WebMail/Model/OperationMode.pm:87
 msgid "eBox's mail service"
 msgstr ""
 
-#: src/EBox/WebMail/Model/OperationMode.pm:97
+#: src/EBox/WebMail/Model/OperationMode.pm:98
 msgid "Remote server"
 msgstr ""
 
@@ -128,7 +128,11 @@ msgid ""
 "The name of the webmail will be used in the login screen and page titles"
 msgstr ""
 
-#: src/EBox/WebMail/Model/Options.pm:61 src/EBox/WebMail.pm:221
+#: src/EBox/WebMail/Model/Options.pm:61
+msgid "Configuration"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:62 src/EBox/WebMail.pm:221
 msgid "Options"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:50+0000\n"
+"POT-Creation-Date: 2009-12-21 16:59+0100\n"
 "PO-Revision-Date: 2009-06-06 19:03+0200\n"
 "Last-Translator: Fernando Aguilar <aguilar.arce@hotmail.com>\n"
 "Language-Team: <es@li.org>\n"
@@ -316,7 +316,7 @@ msgstr ""
 "La fecha de caducidad del certificado es mayor que la del certificado de la "
 "Autoridad de Certificación"
 
-#: src/EBox/CA.pm:2487
+#: src/EBox/CA.pm:2526
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "No se puede comenzar el intérprete para OpenSSL ({errval})"

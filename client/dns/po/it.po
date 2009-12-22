@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:53+0000\n"
+"POT-Creation-Date: 2009-12-22 08:14+0100\n"
 "PO-Revision-Date: 2009-11-15 18:01+0100\n"
 "Last-Translator: gabriele <g.garis@inwind.it>\n"
 "Language-Team: none\n"
@@ -16,11 +16,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:51 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/DNS.pm.in:51 src/EBox/Model/DomainTable.pm:110
+#: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:115
+#: src/EBox/DNS.pm.in:394 src/EBox/Model/DomainTable.pm:117
 msgid "domain"
 msgstr "dominio"
 
@@ -33,10 +34,6 @@ msgstr "configurazione file per zona {zone}"
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "configuratzione file per reverse resolution zone {zone}"
-
-#: src/EBox/DNS.pm.in:856
-msgid "Infrastructure"
-msgstr "Infrastruttura"
 
 #: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
@@ -62,16 +59,16 @@ msgstr "indirizzo IP"
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Model/HostnameTable.pm:186
+#: src/EBox/Model/HostnameTable.pm:187
 #, fuzzy
 msgid "Host names"
 msgstr "Nomi host"
 
-#: src/EBox/Model/HostnameTable.pm:192 src/EBox/Model/DomainTable.pm:74
+#: src/EBox/Model/HostnameTable.pm:194 src/EBox/Model/DomainTable.pm:74
 msgid "Hostnames"
 msgstr "Nomi host"
 
-#: src/EBox/Model/HostnameTable.pm:193
+#: src/EBox/Model/HostnameTable.pm:195
 msgid "host name"
 msgstr "nome host"
 
@@ -89,10 +86,11 @@ msgid "Name Servers"
 msgstr "Server DNS"
 
 #: src/EBox/Model/DomainTable.pm:109
-msgid "Domains"
+#, fuzzy
+msgid "List of Domains"
 msgstr "Domini"
 
-#: src/EBox/Model/DNSComposite.pm:77
+#: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr ""
 "Il server DNS permette la risoluzione dei nomi all'interno del dominio."
@@ -237,6 +235,9 @@ msgstr "Lista di host per il dominio {domain}"
 #: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
+
+#~ msgid "Infrastructure"
+#~ msgstr "Infrastruttura"
 
 #~ msgid "Owner domain"
 #~ msgstr "Proprietario dominio"

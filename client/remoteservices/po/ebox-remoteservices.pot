@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:02+0000\n"
+"POT-Creation-Date: 2009-12-21 17:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,87 +122,124 @@ msgstr ""
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr ""
 
-#: src/EBox/RemoteServices/Base.pm:213
+#: src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
 msgstr ""
 
-#: src/EBox/RemoteServices/Base.pm:258
+#: src/EBox/RemoteServices/Base.pm:259
 #, perl-brace-format
 msgid "Server {s} not found via DNS server {d}"
 msgstr ""
 
-#: src/EBox/RemoteServices/Base.pm:341
+#: src/EBox/RemoteServices/Base.pm:367
 msgid "Cannot create SOAP connection"
 msgstr ""
 
-#: src/EBox/RemoteServices/Base.pm:355
+#: src/EBox/RemoteServices/Base.pm:381
 msgid "No domain key found for this service"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:149
+#: src/EBox/RemoteServices/Model/Subscription.pm:151
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
-"propagated throughout the system"
+"propagated throughout the system."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:152
-msgid "Subscription data retrieved correctly"
+#: src/EBox/RemoteServices/Model/Subscription.pm:154
+msgid "Subscription data retrieved correctly."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:177
+#: src/EBox/RemoteServices/Model/Subscription.pm:156
+msgid "Please, save changes"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:181
 msgid "Done"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:267
+#: src/EBox/RemoteServices/Model/Subscription.pm:259
 msgid ""
-"Prior to make a subscription on remote services, enable the OpenVPN module "
-"and save or discard its changes"
+"Subscribing an eBox will configure OpenVPN module by running these actions "
+"and modifying these files: "
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:288
-msgid "User name"
+#: src/EBox/RemoteServices/Model/Subscription.pm:263
+msgid "Subscribing an eBox will enable the OpenVPN module."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:296
-msgid "eBox common name"
+#: src/EBox/RemoteServices/Model/Subscription.pm:266
+msgid ""
+"Take into account that subscribing an eBox could take a minute. Do not touch "
+"anything until subscribing process is done."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:306
+#: src/EBox/RemoteServices/Model/Subscription.pm:304
+msgid ""
+"Prior to make a subscription on remote services, save or discard changes in "
+"the OpenVPN module"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:324
+msgid "User Name or Email Address"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:332
+msgid "eBox Name"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:337
+msgid "Choose a name for your eBox which is a valid domain name"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:344
 msgid "Password"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:314
+#: src/EBox/RemoteServices/Model/Subscription.pm:352
 msgid "eBox subscription details"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:315
+#: src/EBox/RemoteServices/Model/Subscription.pm:353
 msgid "Delete data"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:318
+#: src/EBox/RemoteServices/Model/Subscription.pm:356
 msgid "Subscription to remote services"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:319
+#: src/EBox/RemoteServices/Model/Subscription.pm:357
 msgid "Subscribe"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:329
+#: src/EBox/RemoteServices/Model/Subscription.pm:367
 #, perl-brace-format
 msgid ""
 "In order to subscribe an eBox remote services {url}. You will have remote "
 "backup facilities and much more"
 msgstr ""
 
+#: src/EBox/RemoteServices/Model/Subscription.pm:437
+msgid "Action"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:438
+#: src/EBox/RemoteServices/Model/Subscription.pm:451
+msgid "Reason"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:450
+msgid "File"
+msgstr ""
+
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/AccessSettings.pm:86
+#: src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
 msgstr ""
 
-#: src/EBox/RemoteServices/Backup.pm:211
+#: src/EBox/RemoteServices/Backup.pm:260
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
@@ -233,18 +270,31 @@ msgstr ""
 msgid "Control center"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:74
+#: src/EBox/RemoteServices.pm:76
 msgid "Control Center Client"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:157
+#: src/EBox/RemoteServices.pm:160
 msgid "Not subscribed"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:159
+#: src/EBox/RemoteServices.pm:162
 msgid "Subscribed"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:191
+#: src/EBox/RemoteServices.pm:194 src/EBox/RemoteServices.pm:580
 msgid "Control Center"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:245
+msgid "eBox Control Center Connection"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:573
+#, perl-brace-format
+msgid "Not connected. Check VPN logs in {path}"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:577
+msgid "Connected"
 msgstr ""

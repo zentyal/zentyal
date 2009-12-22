@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:02+0000\n"
+"POT-Creation-Date: 2009-12-21 17:05+0100\n"
 "PO-Revision-Date: 2008-11-10 19:05+0000\n"
 "Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
@@ -101,12 +101,12 @@ msgstr "Configuración"
 msgid "List of services"
 msgstr "Listado de servizos"
 
-#: src/EBox/Model/ServiceTable.pm:162
-#: src/EBox/Model/ServiceConfigurationTable.pm:171
+#: src/EBox/Model/ServiceTable.pm:163
+#: src/EBox/Model/ServiceConfigurationTable.pm:172
 msgid "service"
 msgstr "Servizo"
 
-#: src/EBox/Model/ServiceTable.pm:543
+#: src/EBox/Model/ServiceTable.pm:544
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
@@ -134,6 +134,6 @@ msgstr "Porto destino"
 msgid "Service configuration"
 msgstr "Configuración do servizo"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:194
+#: src/EBox/Model/ServiceConfigurationTable.pm:195
 msgid "This protocol does not use ports"
 msgstr "Este protocolo non emprega portos"

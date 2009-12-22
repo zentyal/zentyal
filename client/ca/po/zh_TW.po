@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:50+0000\n"
+"POT-Creation-Date: 2009-12-21 16:59+0100\n"
 "PO-Revision-Date: 2009-08-04 00:26+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -285,7 +285,7 @@ msgstr "已更新憑證資料庫。 {number} 個憑證已過期"
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "到期日晚於 CA 憑證到期日"
 
-#: src/EBox/CA.pm:2487
+#: src/EBox/CA.pm:2526
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "不能啟動 OpenSSL 系統殼。 ({errval})"

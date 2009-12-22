@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2009-03-08 15:17+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -107,7 +107,7 @@ msgid "Alert Graph"
 msgstr ""
 
 #: src/EBox/Composite/General.pm:71
-msgid "Intrusion Detection System Configuration"
+msgid "Intrusion Detection System"
 msgstr ""
 
 #: src/EBox/Composite/Report/AlertReport.pm:66

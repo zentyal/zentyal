@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 15:23+0000\n"
+"POT-Creation-Date: 2009-12-21 17:10+0100\n"
 "PO-Revision-Date: 2007-09-28 10:49+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -41,7 +41,7 @@ msgstr "{data} {value} findes ikke."
 msgid "Interface"
 msgstr "Brugerflade"
 
-#: src/EBox/CGI/Base.pm:196
+#: src/EBox/CGI/Base.pm:197
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -49,7 +49,7 @@ msgstr ""
 "Ugyldigt input. Kun bogstaver og tal plus disse tegn: /.?&+:-@ og mellemrum "
 "er tilladt."
 
-#: src/EBox/CGI/Base.pm:346
+#: src/EBox/CGI/Base.pm:347
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -57,7 +57,7 @@ msgstr ""
 "En intern fejl relateret til \"template\" er opstået. Dette er en fejl. "
 "Relevant info kan findes i logs."
 
-#: src/EBox/CGI/Base.pm:563
+#: src/EBox/CGI/Base.pm:564
 #, fuzzy
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
@@ -66,7 +66,7 @@ msgstr ""
 "En intern fejl er opstået. Dette er højst sandsynligt en fejl. Relevant "
 "information kan findes i logs."
 
-#: src/EBox/CGI/Base.pm:569
+#: src/EBox/CGI/Base.pm:570
 #, fuzzy
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
@@ -75,17 +75,17 @@ msgstr ""
 "En uventet intern fejl er opstået. Dette er en fejl. Relevant information "
 "kan findes i dine logs."
 
-#: src/EBox/CGI/Base.pm:575
+#: src/EBox/CGI/Base.pm:576
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr "Du har fundet en fejl i eBox. Kontakt venligst teknisk support."
 
-#: src/EBox/CGI/Base.pm:662
+#: src/EBox/CGI/Base.pm:663
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Din anmodning kunne ikke sendes, fordi den indeholdt ukorrekte parametre."
 
-#: src/EBox/CGI/Base.pm:677
+#: src/EBox/CGI/Base.pm:678
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -93,11 +93,11 @@ msgstr ""
 "Din anmodning kunne ikke sendes, fordi alle nødvendige parametre ikke er "
 "udfyldt."
 
-#: src/EBox/CGI/Base.pm:828
+#: src/EBox/CGI/Base.pm:829
 msgid "Invalid uploaded file."
 msgstr "Den uploadede fil er ikke tilgængelig."
 
-#: src/EBox/CGI/Base.pm:834
+#: src/EBox/CGI/Base.pm:835
 msgid "Cannot create a temporally file for the upload"
 msgstr "Det er ikke muligt at danne en midlertidig fil for dette upload."
 
@@ -178,9 +178,25 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:110
+#: src/templates/ajax/tableBody.mas:117
 msgid "Add new"
 msgstr "Tilføj ny"
+
+#: src/templates/ajax/tableBody.mas:446
+msgid "Edit"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:448
+msgid "Delete"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:453
+msgid "Read-only row: edit disabled"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:454
+msgid "Read-only row: delete disabled"
+msgstr ""
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -207,7 +223,7 @@ msgstr "Fra"
 msgid "To"
 msgstr "Til"
 
-#: src/templates/ajax/modelViewer.mas:261
+#: src/templates/ajax/modelViewer.mas:256
 msgid "Optional"
 msgstr ""
 
@@ -263,11 +279,11 @@ msgstr "Vi undskylder."
 msgid "The page cannot be found"
 msgstr "Siden kan ikke vises."
 
-#: src/templates/title.mas:12
+#: src/templates/title.mas:25
 msgid "show help"
 msgstr "Vis hjælp"
 
-#: src/templates/title.mas:13
+#: src/templates/title.mas:26
 msgid "hide help"
 msgstr "Skjul hjælp"
 

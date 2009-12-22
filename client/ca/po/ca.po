@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:50+0000\n"
+"POT-Creation-Date: 2009-12-21 16:59+0100\n"
 "PO-Revision-Date: 2006-11-06 16:01+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -280,7 +280,7 @@ msgstr ""
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
 
-#: src/EBox/CA.pm:2487
+#: src/EBox/CA.pm:2526
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr ""

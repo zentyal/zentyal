@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:58+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2009-09-30 11:48+0200\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -18,10 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/JabberLdapUser.pm:252
+#: src/EBox/JabberLdapUser.pm:262
+#, fuzzy
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
-"continue connected until jabber authorization is again required"
+"continue connected until jabber authorization is again required."
 msgstr ""
 "Cet utilisateur a un compte Jabber. Si l'utilisateur présentement connecté "
 "reste en ligne, il le sera jusqu'à ce qu'une autorisation Jabber lui soit "

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:00+0000\n"
+"POT-Creation-Date: 2009-12-21 17:04+0100\n"
 "PO-Revision-Date: 2009-03-21 14:31+0000\n"
 "Last-Translator: Eduardo Gonzalez <egrueda@gmail.com>\n"
 "Language-Team: \n"
@@ -672,11 +672,11 @@ msgstr ""
 msgid "Hostname"
 msgstr "Nombre de máquina"
 
-#: src/EBox/Model/DynDNS.pm:115
-msgid "Dynamic DNS"
+#: src/EBox/Model/DynDNS.pm:116
+msgid "Configuration"
 msgstr ""
 
-#: src/EBox/Model/DynDNS.pm:119
+#: src/EBox/Model/DynDNS.pm:120
 #, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "

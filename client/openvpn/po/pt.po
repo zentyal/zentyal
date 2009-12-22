@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:01+0000\n"
+"POT-Creation-Date: 2009-12-21 17:04+0100\n"
 "PO-Revision-Date: 2009-11-05 00:57+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -244,7 +244,7 @@ msgid "Server configuration"
 msgstr "Configuração do servidor"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:148
-#: src/EBox/OpenVPN/Model/Servers.pm:113
+#: src/EBox/OpenVPN/Model/Servers.pm:114
 msgid "server"
 msgstr "servidor"
 
@@ -341,19 +341,15 @@ msgid "Additional server address (optional)"
 msgstr "Endereço de servidor adicional (opcional)"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
-msgid "Configure bundle"
-msgstr "Configurar pacote"
-
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
-#: src/EBox/OpenVPN/Model/Servers.pm:94
-msgid "Download client bundle"
+#, fuzzy
+msgid "Download Client Bundle"
 msgstr "Descarregar o pacote de cliente"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:140
 msgid "EBox to EBox tunnel"
 msgstr "Túnel eBox para eBox"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:174
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
@@ -361,25 +357,25 @@ msgstr ""
 "Não é possível gerar o pacote de configuração porque o servidor não está "
 "totalmente configurado; Edite a configuração e tente de novo"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:189
 msgid "Cannot use for the bundle the server's certificate"
 msgstr ""
 "Não é possível usar o certificado de servidor no pacote de configuração"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:209
 msgid "Invalid client type: the server does not allow eBox-to-eBox tunnels"
 msgstr "Tipo de cliente inválido: O servidor não permite túneis eBox-eBox"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:219
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:218
 msgid "Invalid client type: the server is intended for eBox-to-eBox tunnels"
 msgstr ""
 "Tipo de cliente inválido: O servidor está configurado para túneis eBox-eBox"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
 msgstr "O programa de instalação só está disponível para clientes Windows"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:297
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:296
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
@@ -387,7 +383,7 @@ msgstr ""
 "O pacote de configuração contém uma configuração pronta a ser usada nos seus "
 "clientes"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:335
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:344
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
@@ -396,20 +392,16 @@ msgstr ""
 "totalmente configurado; Edite a configuração e tente de novo"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:76
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
 msgid "Advertised network"
 msgstr "Rede publicada"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
-msgid "List of networks"
-msgstr "Lista de redes"
-
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:70
-#: src/EBox/OpenVPN/Model/Servers.pm:85
-msgid "Advertised networks"
+#, fuzzy
+msgid "List of Advertised Networks"
 msgstr "Redes publicadas"
 
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:90
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:100
 #, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
@@ -459,7 +451,7 @@ msgid "Client configuration"
 msgstr "Configuração do cliente"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:150
-#: src/EBox/OpenVPN/Model/Clients.pm:100
+#: src/EBox/OpenVPN/Model/Clients.pm:102
 msgid "client"
 msgstr "cliente"
 
@@ -482,10 +474,16 @@ msgid "daemon"
 msgstr "rotina"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
-msgid "VPN clients"
+#, fuzzy
+msgid "List of Clients"
+msgstr "Lista de redes"
+
+#: src/EBox/OpenVPN/Model/Clients.pm:95
+#, fuzzy
+msgid "VPN Clients"
 msgstr "Clientes VPN"
 
-#: src/EBox/OpenVPN/Model/Clients.pm:143
+#: src/EBox/OpenVPN/Model/Clients.pm:145
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
@@ -493,9 +491,17 @@ msgstr ""
 "Não pode activar o cliente porque não está totalmente configurado; edite a "
 "configuração e tente de novo"
 
-#: src/EBox/OpenVPN/Model/Clients.pm:180
+#: src/EBox/OpenVPN/Model/Clients.pm:182
 msgid "RIP password is mandatory"
 msgstr "Palavra-passe RIP é obrigatória"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:85
+msgid "Advertised networks"
+msgstr "Redes publicadas"
+
+#: src/EBox/OpenVPN/Model/Servers.pm:94
+msgid "Download client bundle"
+msgstr "Descarregar o pacote de cliente"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
@@ -505,7 +511,7 @@ msgstr "Lista de servidores"
 msgid "VPN servers"
 msgstr "Servidores VPN"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:158
+#: src/EBox/OpenVPN/Model/Servers.pm:159
 #, perl-brace-format
 msgid ""
 "{openpar}You can't create VPN servers because there aren't enough "
@@ -518,11 +524,11 @@ msgstr ""
 "certificados{closehref} e emita novos certificados.{closepar}{openpar}"
 "Precisa, pelo menos, de um CA e um certificado.{closepar}"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:173
+#: src/EBox/OpenVPN/Model/Servers.pm:174
 msgid "Server creation"
 msgstr "Configuração do servidor"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:271
+#: src/EBox/OpenVPN/Model/Servers.pm:272
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
@@ -530,11 +536,11 @@ msgstr ""
 "Não é possível activar o servidor porque não está totalmente configurado; "
 "Verifique a configuração e tente novamente"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:278
+#: src/EBox/OpenVPN/Model/Servers.pm:279
 msgid "Server activation"
 msgstr "Activação do servidor"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:305
+#: src/EBox/OpenVPN/Model/Servers.pm:306
 #, perl-brace-format
 msgid ""
 "{act} not possible because there aren'tany available certificate. Please, go "
@@ -543,7 +549,7 @@ msgstr ""
 "{act} não é possível porque não existem certificados disponíveis, vá para o "
 "módulo de gestão de certificados e emita novos certificados."
 
-#: src/EBox/OpenVPN/Model/Servers.pm:318
+#: src/EBox/OpenVPN/Model/Servers.pm:319
 #, perl-brace-format
 msgid ""
 "{openpar}You can configure openVPN servers to easily connect remote offices "
@@ -731,6 +737,9 @@ msgstr "OpenVPN"
 #: src/EBox/OpenVPN.pm:1673
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "tem que definir insegure_rip_conf para sim ou não"
+
+#~ msgid "Configure bundle"
+#~ msgstr "Configurar pacote"
 
 #~ msgid "openVPN"
 #~ msgstr "OpenVPN"

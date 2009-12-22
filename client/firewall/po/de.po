@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"POT-Creation-Date: 2009-12-21 17:00+0100\n"
 "PO-Revision-Date: 2009-06-29 14:32+0200\n"
 "Last-Translator: Benjamin Höglinger <nefarius@darkhosters.net>\n"
 "Language-Team: none\n"
@@ -87,13 +87,14 @@ msgstr "Port"
 msgid "protocol"
 msgstr "Protokoll"
 
-#: src/EBox/Firewall.pm:825
+#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "Paketfilter"
 
 #: src/EBox/Firewall.pm:828
-msgid "Redirects"
-msgstr "Weiterleitungen"
+#, fuzzy
+msgid "Port Forwarding"
+msgstr "Regeln für Weiterleitung"
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -146,8 +147,8 @@ msgid "Packet filtering"
 msgstr "Paketfilter"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#: src/templates/filter.mas:21
-msgid "Filtering rules for traffic coming out from eBox"
+#, fuzzy
+msgid "Traffic coming out from eBox"
 msgstr "Filter-Regeln für Verkehr von der eBox nach anderswo"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
@@ -159,8 +160,8 @@ msgid "rule"
 msgstr "Regel"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#: src/templates/filter.mas:40
-msgid "Filtering rules from external networks to internal networks"
+#, fuzzy
+msgid "External networks to internal networks"
 msgstr ""
 "Filter-Regeln für Verkehr von externen Netzwerken nach interne Netzwerke"
 
@@ -231,10 +232,15 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
-msgid "Port redirections"
-msgstr "Port-Weiterleitung"
+msgid "List of forwarded ports"
+msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+#, fuzzy
+msgid "Port Forwading"
+msgstr "Regeln für Weiterleitung"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:364
 msgid "redirect"
 msgstr "umleiten"
 
@@ -263,19 +269,25 @@ msgstr ""
 "Wenn 'Bedeutung umkehren' aktiviert ist, dann trifft die Regel auf alle "
 "Dienste bis auf den Ausgewählten zu."
 
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#, fuzzy
+msgid "Configure Rules"
+msgstr "Regeln festlegen"
+
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-msgid "Filtering rules from  external networks to eBox"
-msgstr "Filter-Regeln für Verkehr von externen Netzwerken zur eBox"
+#, fuzzy
+msgid "External networks to eBox"
+msgstr "Filter-Regeln zwischen internen Netzwerken"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#: src/templates/filter.mas:6
-msgid "Filtering rules from internal networks to eBox"
+#, fuzzy
+msgid "Internal networks to eBox"
 msgstr "Filter-Regeln für Verkehr zwischen internen Netzwerken zu der eBox"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#: src/templates/filter.mas:13
-msgid "Filtering rules for internal networks"
-msgstr "Filter-Regeln für interne Netzwerke"
+#, fuzzy
+msgid "Internal networks"
+msgstr "Externer Port"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
@@ -310,6 +322,10 @@ msgstr "Paket-Traffic Bericht"
 msgid "Firewall packet traffic report"
 msgstr "Firewall Paket-Traffic Bericht"
 
+#: src/templates/filter.mas:6
+msgid "Filtering rules from internal networks to eBox"
+msgstr "Filter-Regeln für Verkehr zwischen internen Netzwerken zu der eBox"
+
 #: src/templates/filter.mas:8
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
@@ -324,6 +340,10 @@ msgstr ""
 msgid "Configure rules"
 msgstr "Regeln festlegen"
 
+#: src/templates/filter.mas:13
+msgid "Filtering rules for internal networks"
+msgstr "Filter-Regeln für interne Netzwerke"
+
 #: src/templates/filter.mas:15
 msgid ""
 "These rules allow you to control access  from your internal networks to the "
@@ -333,6 +353,10 @@ msgstr ""
 "Diese Regeln erlauben Ihnen den Zugriff auf das Internet für interne "
 "Netzwerkkarten zu regeln. Wenn Sie den Zugriff auf Dienste der eBox "
 "konfigurieren möchten, benutzen Sie die obige Auswahl"
+
+#: src/templates/filter.mas:21
+msgid "Filtering rules for traffic coming out from eBox"
+msgstr "Filter-Regeln für Verkehr von der eBox nach anderswo"
 
 #: src/templates/filter.mas:23
 msgid "These rules allow you to control access from eBox to external services"
@@ -363,6 +387,11 @@ msgstr ""
 "vertrauenswürdige Netzwerke gestatten. Falls Sie sich nicht sicher sind, was "
 "sie tun, lassen Sie besser diese Konfiguration stehen"
 
+#: src/templates/filter.mas:40
+msgid "Filtering rules from external networks to internal networks"
+msgstr ""
+"Filter-Regeln für Verkehr von externen Netzwerken nach interne Netzwerke"
+
 #: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
@@ -371,15 +400,21 @@ msgstr ""
 "Diese Regeln erlauben Ihnen den Zugriff auf interne Netzwerke für externe "
 "Netzwerke zu konfigurieren"
 
+#~ msgid "Redirects"
+#~ msgstr "Weiterleitungen"
+
+#~ msgid "Port redirections"
+#~ msgstr "Port-Weiterleitung"
+
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "Filter-Regeln für Verkehr von externen Netzwerken zur eBox"
+
 #~ msgid "firewall"
 #~ msgstr "Firewall"
 
 #, fuzzy
 #~ msgid "UTM"
 #~ msgstr "UTM"
-
-#~ msgid "External port"
-#~ msgstr "Externer Port"
 
 #~ msgid "Global services' filtering rules"
 #~ msgstr "Global services' filtering rules"
@@ -674,9 +709,6 @@ msgstr ""
 #~ "#-#-#-#-#  de.po (ebox-firewall 0.8.99)  #-#-#-#-#\n"
 #~ "Mit diesem Link gelangen Sie zu den Filter-Einstellungen, die den Filter-"
 #~ "Einstellungen weiter unten überlegen sind"
-
-#~ msgid "Forwarding rules"
-#~ msgstr "Regeln für Weiterleitung"
 
 #~ msgid "Rules for internet access"
 #~ msgstr "Regeln für Internetzugang"

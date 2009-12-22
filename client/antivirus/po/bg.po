@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:47+0000\n"
+"POT-Creation-Date: 2009-12-21 16:58+0100\n"
 "PO-Revision-Date: 2009-10-04 07:29+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:378
-#: src/EBox/AntiVirus.pm:383
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:390
+#: src/EBox/AntiVirus.pm:395 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
 msgid "Antivirus"
 msgstr "Антивирусна система"
 
@@ -42,21 +42,22 @@ msgid "Date"
 msgstr "Дата"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-msgid "Antivirus Database Update Status"
+#, fuzzy
+msgid "Database Update Status"
 msgstr "Обновления на антивирусната база данни"
 
 # Филтър на поща
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:126
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
 #, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr "Антивирусната база данни не е обновявана откакто модулът е инсталиран."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:129
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
 msgid "The last update failed."
 msgstr "Последното обновяване е неуспешно."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
 #, perl-brace-format
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
@@ -67,11 +68,11 @@ msgstr ""
 "Антивирусната система няма да може да използва всички дефиниции. Моля, "
 "инсталирайте версия {version} или по-нова."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:140
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
 msgid "Last update successful."
 msgstr "Последното обновяване е успешно."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:143
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:144
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Непознато събитие {event}."

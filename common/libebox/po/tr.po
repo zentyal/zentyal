@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 15:23+0000\n"
+"POT-Creation-Date: 2009-12-21 17:10+0100\n"
 "PO-Revision-Date: 2009-07-06 12:07+0200\n"
 "Last-Translator: Akin Sagbilge <akinsagbilge@crypttech.com>\n"
 "Language-Team: none\n"
@@ -42,7 +42,7 @@ msgstr "{data} {value} mevcut değil."
 msgid "Interface"
 msgstr "Arabirim"
 
-#: src/EBox/CGI/Base.pm:196
+#: src/EBox/CGI/Base.pm:197
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -50,7 +50,7 @@ msgstr ""
 "Giriş geçersiz karakter içeriyor. Tüm alfanümerik karakterlere ilaveten şu "
 "alfanümerik olmayan karakterler: /.?&+:-@ ve boşluk kullanılabilir."
 
-#: src/EBox/CGI/Base.pm:346
+#: src/EBox/CGI/Base.pm:347
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -58,7 +58,7 @@ msgstr ""
 "Şablonla ilgili bir dahili hata oluştu. Bu bir bug(hata), ilgili bilgi log "
 "dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:563
+#: src/EBox/CGI/Base.pm:564
 #, fuzzy
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
@@ -67,7 +67,7 @@ msgstr ""
 "Dahili bir hata oluştu. Bu genelde bir bug(hata)'dır, ilgili bilgi log "
 "dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:569
+#: src/EBox/CGI/Base.pm:570
 #, fuzzy
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
@@ -76,26 +76,26 @@ msgstr ""
 "Beklenmeyen dahili bir hata oluştu. Bu bir bug(hata), ilgili bilgi log "
 "dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:575
+#: src/EBox/CGI/Base.pm:576
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr "eBox'da bir hata yakaladınız. Lütfen teknik destek araştırın."
 
-#: src/EBox/CGI/Base.pm:662
+#: src/EBox/CGI/Base.pm:663
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr "İsteğiniz işleme konulamadı çünkü yanlış parametreler içermekte"
 
-#: src/EBox/CGI/Base.pm:677
+#: src/EBox/CGI/Base.pm:678
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr "İsteğiniz işleme konulamadı çünkü bazı parametreleri eksik"
 
-#: src/EBox/CGI/Base.pm:828
+#: src/EBox/CGI/Base.pm:829
 msgid "Invalid uploaded file."
 msgstr "Geçersiz gönderilen dosya."
 
-#: src/EBox/CGI/Base.pm:834
+#: src/EBox/CGI/Base.pm:835
 msgid "Cannot create a temporally file for the upload"
 msgstr "Dosya göndermek için geçici dosya yaratılamıyor"
 
@@ -176,9 +176,25 @@ msgstr "İndirmek"
 msgid "Remove"
 msgstr "Silmek"
 
-#: src/templates/ajax/tableBody.mas:110
+#: src/templates/ajax/tableBody.mas:117
 msgid "Add new"
 msgstr "Yeni ekle"
+
+#: src/templates/ajax/tableBody.mas:446
+msgid "Edit"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:448
+msgid "Delete"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:453
+msgid "Read-only row: edit disabled"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:454
+msgid "Read-only row: delete disabled"
+msgstr ""
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -205,7 +221,7 @@ msgstr "Gönderen"
 msgid "To"
 msgstr "Kime"
 
-#: src/templates/ajax/modelViewer.mas:261
+#: src/templates/ajax/modelViewer.mas:256
 msgid "Optional"
 msgstr "Opsiyonel"
 
@@ -261,11 +277,11 @@ msgstr "Çok üzgünüz"
 msgid "The page cannot be found"
 msgstr "Sayfa bulunamadı"
 
-#: src/templates/title.mas:12
+#: src/templates/title.mas:25
 msgid "show help"
 msgstr "Yardımı göster"
 
-#: src/templates/title.mas:13
+#: src/templates/title.mas:26
 msgid "hide help"
 msgstr "Yardımları gizle"
 
