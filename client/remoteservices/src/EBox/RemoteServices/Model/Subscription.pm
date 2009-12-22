@@ -250,9 +250,9 @@ sub viewCustomizer
 {
     my ($self) = @_;
 
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
     if ( not $self->eBoxSubscribed() ) {
-        my $customizer = new EBox::View::Customizer();
-        $customizer->setModel($self);
         my $vpnMod = EBox::Global->modInstance('openvpn');
         my $msg = '';
         if ( not $vpnMod->configured() ) {
@@ -266,10 +266,8 @@ sub viewCustomizer
             $msg . __('Take into account that subscribing an eBox could take a '
                       . 'minute. Do not touch anything until subscribing process is done.')
            );
-        return $customizer;
-    } else {
-        return undef;
     }
+    return $customizer;
 
 }
 
