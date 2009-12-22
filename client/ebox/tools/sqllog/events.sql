@@ -1,13 +1,13 @@
 CREATE TABLE events(
                       id SERIAL,
-  
-                      timestamp TIMESTAMP, 
+
+                      timestamp TIMESTAMP,
                       lastTimestamp  TIMESTAMP,
                       nRepeated      INTEGER DEFAULT 1,
 
                       level  VARCHAR(6),
                       source VARCHAR(20),
-                      message VARCHAR(40)
+                      message VARCHAR(256)
 );
 
 

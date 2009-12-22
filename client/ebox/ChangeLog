@@ -1,6 +1,7 @@
 HEAD
 	+ Cron script for manage logs does not run if another is already
 	  running, hope that this will avoid problems with large logs
+	+ Increased maximum size of message field in events
 1.3.12
 	+ Added type for EBox::Dashboard::Value to stand out warning
 	  messages in dashboard
