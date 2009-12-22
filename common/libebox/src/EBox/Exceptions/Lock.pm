@@ -23,8 +23,13 @@ sub new # (module)
 {
 	my $class = shift;
 	my $mod = shift;
-	$mod->isa('EBox::Module') or die;
-	my $err = "Could not get lock for module: " . $mod->name;
+
+        my $err;
+        if ($mod->isa('EBox::Module')) {
+            $err = "Could not get lock for module: " . $mod->name;
+        } else {
+            $err = "Could not get lock for service: $mod";
+        }
 
 	local $Error::Depth = $Error::Depth + 1;
 	local $Error::Debug = 1;

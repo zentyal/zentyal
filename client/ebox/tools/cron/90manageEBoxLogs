@@ -6,22 +6,37 @@ use EBox;
 use EBox::Global;
 
 use EBox::Logs::Consolidate;
+use EBox::Util::Lock;
+use Error qw(:try);
+
+use constant LOCK_NAME => 'manageEBoxLogs';
 
 EBox::init();
+try {
+    EBox::Util::Lock::lock(LOCK_NAME);
+} catch EBox::Exceptions::Lock with {
+    print "Already a manageEBoxLogs process running. Exiting\n";
+    exit 0;
+};
 
-my $logs = EBox::Global->modInstance('logs');
-defined $logs or
- die 'Cannot instanstiate eBox logs module';
+try {
+    my $logs = EBox::Global->modInstance('logs');
+    defined $logs or
+        die 'Cannot instanstiate eBox logs module';
 
-# we consolidate before the purge to not lose any data
-EBox::Logs::Consolidate->consolidate('all');
+    # we consolidate before the purge to not lose any data
+    EBox::Logs::Consolidate->consolidate('all');
+    
+    # do report consolidation
+    my @mods =  @{ EBox::Global->modInstancesOfType('EBox::LogObserver')  };
+    for my $mod (@mods) {
+        $mod->consolidateReportFromLogs();
+    }
 
-# do report consolidation
-my @mods =  @{ EBox::Global->modInstancesOfType('EBox::LogObserver')  };
-for my $mod (@mods) {
-    $mod->consolidateReportFromLogs();
-}
+    $logs->purge();
+} finally {
+    EBox::Util::Lock::unlock(LOCK_NAME);
+};
 
-$logs->purge();
 
 1;
