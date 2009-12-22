@@ -1,4 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -503,7 +504,7 @@ sub _logEnabled
     my $logs = EBox::Global->modInstance('logs');
     defined $logs or
         return undef;
-    $logs->isEnabled() or 
+    $logs->isEnabled() or
         return undef;
 
     # check if log for events module is enabled
@@ -519,11 +520,11 @@ sub _foldingEventInLog
 
     if (not exists $self->{selectStmt}) {
          my $selectStmt = $dbh->prepare(
-         'SELECT id, lastTimestamp FROM '. LOG_TABLE . ' ' 
+         'SELECT id, lastTimestamp FROM '. LOG_TABLE . ' '
           . 'WHERE level = ? '
-          . 'AND source = ? ' 
-          . 'AND message = ? ' 
-          . 'ORDER BY lastTimestamp DESC ' 
+          . 'AND source = ? '
+          . 'AND message = ? '
+          . 'ORDER BY lastTimestamp DESC '
           . 'LIMIT 1'
                                        );
 
@@ -541,7 +542,7 @@ sub _foldingEventInLog
         # not matching event found ...
         return undef;
     }
-    
+
     my ($year, $mon, $mday, $hour, $min, $sec) = split /[\s\-:]/, $storedEvent->{lasttimestamp};
     $year -= 1900;
     $mon -= 1;
@@ -566,7 +567,7 @@ sub _updateFoldingEventInLog
     my @tsParts = localtime($ts);
     $tsParts[5] += 1900;
     $tsParts[4] += 1;
-    my $lastTimestamp = join('-', @tsParts[5,4,3]) . ' ' . 
+    my $lastTimestamp = join('-', @tsParts[5,4,3]) . ' ' .
                         join(':', @tsParts[2,1,0]);
 
     my $dbh = $self->{dbengine}->{dbh};
