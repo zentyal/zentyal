@@ -18,6 +18,17 @@
     </test>
 
     <test type="selenium">
+        <name>SetMaster</name>
+        <desc>
+        Configure eBox as LDAP master and set the password.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-master</dir>
+        <var name="PASSWORD" value="master-foobar"/>
+    </test>
+
+    <test type="selenium">
         <name>EnableModules</name>
         <desc>
         Enable jabber, network, firewall and users modules.
@@ -35,18 +46,6 @@
 
         <host>ebox-server</host>
         <dir>config-disk-space</dir>
-    </test>
-
-    <test type="selenium">
-        <name>ConfigLogDispatcher</name>
-        <desc>
-        Config event dispatcher to log file.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>config-log-dispatcher</dir>
-
-        <var name="DISPATCHER" value="Log"/>
     </test>
 
     <test>

@@ -8,7 +8,7 @@ then
     echo "deb http://ppa.launchpad.net/ebox/1.3/ubuntu hardy main " >> $SOURCES
 fi
 
-if ! grep -q "leela" $SOURCES
+if ! grep -q "trunk" $SOURCES
 then
     echo "deb http://leela/ebox/trunk ./" >> $SOURCES
 fi
