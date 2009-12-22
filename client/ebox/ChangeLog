@@ -1,4 +1,5 @@
 HEAD
+	+ Bug fix: critical error in EventDaemon that prevented properly start
 	+ Cron script for manage logs does not run if another is already
 	  running, hope that this will avoid problems with large logs
 	+ Increased maximum size of message field in events
