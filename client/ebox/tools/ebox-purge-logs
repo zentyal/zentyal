@@ -1,0 +1,36 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+
+EBox::init();
+
+my $logs = EBox::Global->modInstance('logs');
+defined $logs or
+    die 'Cannot instanstiate eBox logs module';
+
+
+my $mode = $ARGV[0];
+defined $mode or
+    $mode ='';
+if ($mode eq '--force') {
+    $logs->forcePurge(0.00001);
+} elsif ($mode eq '--schenduled') {
+    $logs->purge();
+} else {
+    help();
+}
+
+1;
+
+
+sub help
+{
+    print "$0 [--force|--schenduled]\n";
+    print "\t--schenduled\tProceed with the schenduled log purge\n"; 
+    print "\t--force\tForce the purge of all logs\n"; 
+    exit 0;
+}
+
