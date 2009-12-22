@@ -7,16 +7,6 @@
     <scenario>network/multigw.xml</scenario>
 
     <test type="selenium">
-        <name>EnableModules</name>
-        <desc>
-        Enable network and firewall modules.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>enable-modules</dir>
-    </test>
-
-    <test type="selenium">
         <name>ConfigNetwork</name>
         <desc>
         Sets the interface as external.
@@ -28,13 +18,13 @@
     </test>
 
     <test type="selenium">
-        <name>RemoveGateway</name>
-        <desc>Remote the default gateway on the anste's communication
-        interface.
+        <name>EnableModules</name>
+        <desc>
+        Enable network and firewall modules.
         </desc>
 
         <host>ebox-server</host>
-        <dir>remove-default-gw</dir>
+        <dir>enable-modules</dir>
     </test>
 
     <test type="selenium">
