@@ -17,7 +17,7 @@ defined $mode or
     $mode ='';
 if ($mode eq '--force') {
     $logs->forcePurge(0.00001);
-} elsif ($mode eq '--schenduled') {
+} elsif ($mode eq '--scheduled') {
     $logs->purge();
 } else {
     help();
@@ -28,9 +28,9 @@ if ($mode eq '--force') {
 
 sub help
 {
-    print "$0 [--force|--schenduled]\n";
-    print "\t--schenduled\tProceed with the schenduled log purge\n"; 
-    print "\t--force\tForce the purge of all logs\n"; 
+    print "$0 [--force|--scheduled]\n";
+    print "\t--scheduled\tProceed with the scheduled log purge\n";
+    print "\t--force\tForce the purge of all logs\n";
     exit 0;
 }
 
