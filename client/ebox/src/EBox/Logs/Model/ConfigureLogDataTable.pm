@@ -48,6 +48,7 @@ use EBox::Exceptions::External;
 
 # Core modules
 use Error qw(:try);
+use List::Util;
 
 use base 'EBox::Model::DataTable';
 
@@ -180,15 +181,14 @@ sub updatedRowNotify
 
   my $logs = EBox::Global->modInstance('logs');
   my $tables = $logs->getAllTables();
+  my $index = List::Util::first { $tables->{$_}->{helper}->name() eq $domain }
+      keys %{ $tables };
 
-  unless (exists $tables->{$domain}) {
+  if ($index) {
+      $tables->{$index}->{helper}->enableLog($enabled);
+  } else {
       EBox::warn("Domain: $domain does not exist in logs");
   }
-
-
-  my $helper = $tables->{$domain}->{'helper'};
-  $helper->enableLog($enabled);
-
 }
 
 # Group: Callback functions
