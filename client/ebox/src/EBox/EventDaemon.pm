@@ -55,8 +55,6 @@ use POSIX;
 use UNIVERSAL;
 use Time::Local qw(timelocal);
 
-
-
 # Constants:
 #
 #      WATCHERS_DIR - String directory where the Watchers lie
@@ -65,6 +63,7 @@ use Time::Local qw(timelocal);
 #      dispatch
 #      SCANNING_INTERVAL - Integer interval between scannings
 #
+use constant LOG_TABLE => 'events';
 use constant WATCHERS_DIR      => EBox::Config::conf() . 'events/WatcherEnabled/';
 use constant DISPATCHERS_DIR   => EBox::Config::conf() . 'events/DispatcherEnabled/';
 use constant EVENTS_FIFO       => EBox::Config::tmp() . 'events-fifo';
