@@ -134,7 +134,7 @@ sub init
 
 	my $user = EBox::Config::user();
 	my $uid = getpwnam($user);
-	setuid($uid) or die "Cannot change user to $user";
+	setuid($uid) or die "Cannot change user to $user. Are you root?";
 
         EBox::initLogger('eboxlog.conf');
         dbusInit();
