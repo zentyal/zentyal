@@ -28,18 +28,6 @@
         <var name="IFACE" value="eth2"/>
     </test>
 
-<!--
-    <test type="selenium">
-        <name>RemoveGateway</name>
-        <desc>Remote the default gateway on the anste's communication
-        interface.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>remove-default-gw</dir>
-    </test>
--->
-
     <test type="selenium">
         <name>AddGateways</name>
         <desc>Adds the two routers as gateways</desc>

@@ -56,23 +56,6 @@
     </test>
 
     <test type="selenium">
-        <name>RemoveGW</name>
-        <desc>Remove a GW from eBox</desc>
-
-        <host>ebox-test</host>
-        <dir>remove-default-gw</dir>
-    </test>
-
-    <test>
-        <name>TestRemoveGw</name>
-        <desc>Check if a gateway has been removed</desc>
-
-        <host>ebox-test</host>
-        <dir>test-gw-removed</dir>
-    </test>
-
-
-    <test type="selenium">
         <name>AddGW</name>
         <desc>Add a GW to eBox</desc>
 
@@ -103,6 +86,23 @@
         <host>ebox-test</host>
         <dir>test-gw-changed</dir>
     </test>
+
+    <test type="selenium">
+        <name>RemoveGW</name>
+        <desc>Remove a GW from eBox</desc>
+
+        <host>ebox-test</host>
+        <dir>remove-default-gw</dir>
+    </test>
+
+    <test>
+        <name>TestRemoveGw</name>
+        <desc>Check if a gateway has been removed</desc>
+
+        <host>ebox-test</host>
+        <dir>test-gw-removed</dir>
+    </test>
+
 
 
 </suite>
