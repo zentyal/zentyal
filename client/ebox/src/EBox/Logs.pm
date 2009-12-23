@@ -304,6 +304,11 @@ sub getTableInfo
     my ($self, $index) = @_;
 
     my $tables = $self->getAllTables();
+    unless (exists $tables->{$index}) {
+        $self->{tables} = undef; # Delete cache
+        $tables = $self->getAllTables(); # Ask again
+    }
+
     return $tables->{$index};
 }
 

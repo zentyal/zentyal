@@ -1,6 +1,7 @@
 HEAD
 	+ Create events table
 	+ Bug fix: log watcher works again
+	+ Bug fix: delete cache if log index is not found as it could be disabled
 1.3.13
 	+ Bug fix: critical error in EventDaemon that prevented properly start
 	+ Cron script for manage logs does not run if another is already
