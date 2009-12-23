@@ -106,7 +106,7 @@
     </test>
 
     <test type="selenium">
-        <name>ConfigureDomainList</name>
+        <name>ConfigureDomainListAllowPorn</name>
         <desc>
         Set porn domains as allowd
         </desc>
@@ -118,7 +118,7 @@
     </test>
 
     <test type="selenium">
-        <name>ConfigureDomainList</name>
+        <name>ConfigureDomainListFilterAggressive</name>
         <desc>
         Set filter policy for aggressive domains
         </desc>
@@ -130,7 +130,7 @@
     </test>
 
     <test type="selenium">
-        <name>ConfigureDomainList</name>
+        <name>ConfigureDomainListDenyAstronomy</name>
         <desc>
         Block astronomy domains
         </desc>
@@ -141,10 +141,8 @@
         <var name="POLICY" value="deny" />
     </test>
 
-
-
     <test>
-        <name>TestAllowDomain</name>
+        <name>TestAllowPornDomain</name>
         <desc>
           Test a domain of the allowed porn category. If the categroy
            was not allowed it will be blocked by the content filter
@@ -156,7 +154,7 @@
     </test>
 
     <test>
-        <name>TestFilteredDomain</name>
+        <name>TestFilteredAggressiveDomain</name>
         <desc>
           Check a domain of the filtered 'aggressive' category
         </desc>
@@ -167,7 +165,7 @@
     </test>
 
     <test>
-        <name>TestDeniedDomain</name>
+        <name>TestDeniedAstronomyDomain</name>
         <desc>
           Check a domain of the blocked astronomy category
         </desc>
