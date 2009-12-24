@@ -58,7 +58,7 @@ sub executeGConf
 		$self->_setCurrentGConfVersion();
 		$self->_saveGConfChanges();
 	} else {
-		EBox::debug("Skipping migration to $version  in $name");
+		EBox::debug("Skipping migration to $version in $name");
 	}
 }
 
