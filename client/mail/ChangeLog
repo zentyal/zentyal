@@ -1,5 +1,5 @@
-HEAD
-	+ Fixed bug in GUI: now we can set properly the maximum message size
+1.3.13
+	+ Fixed bug in UI: now we can set properly the maximum message size
 1.3.12
 	+ Add migration to rename mail table to mail_message
 	+ Add breadcrumbs
