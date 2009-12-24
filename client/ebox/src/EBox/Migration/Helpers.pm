@@ -4,13 +4,17 @@ use warnings;
 
 use EBox;
 
+use String::ShellQuote;
+
+
 # SQL helpers
 
 sub runQuery
 {
     my ($query) = @_;
 
-    my $cmd = qq{echo "$query" | sudo su postgres -c 'psql eboxlogs' > /dev/null 2>&1};
+    my $psql = String::ShellQuote::shell_quote("psql eboxlogs -c \"$query\"");
+    my $cmd = qq{sudo su postgres -c $psql > /dev/null 2>&1};
     system $cmd;
 }
 
