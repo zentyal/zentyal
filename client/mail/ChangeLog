@@ -1,4 +1,6 @@
-1.3.12
+HEAD
+	+ Fixed bug in GUI: now we can set properly the maximum message size
+xs1.3.12
 	+ Add migration to rename mail table to mail_message
 	+ Add breadcrumbs
 1.3.11
