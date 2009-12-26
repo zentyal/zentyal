@@ -90,7 +90,8 @@ base = <% $usersDn %>
 #
 # There are also other special fields which can be returned, see
 # http://wiki.dovecot.org/UserDatabase/ExtraFields
-user_attrs = =mail=<% $mailboxesDir%>/%d/%n,homeDirectory=home, \
+user_attrs = =mail=<% $mailboxesDir%>/%d/%n, \
+             =home=<% $mailboxesDir%>/%d/%n, \
              quota=quota_rule=*:storage=%$M,  \
              =quota_rule2=Trash:storage=110%%
 

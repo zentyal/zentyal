@@ -1,4 +1,9 @@
 HEAD
+	+ Fixed bug in GUI: now we can set properly the maximum message
+	size
+	+ Added precondition in ObjectPolicy model
+	+ Account home in dovecot set to its maildir, this is necesary for
+	some SIEVE features like vacation autoreply
 	+ Added autocreation of drafts and sent mail folders
 1.3.13
 	+ Fixed bug in UI: now we can set properly the maximum message size
