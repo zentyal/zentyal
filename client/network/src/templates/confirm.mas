@@ -5,6 +5,8 @@
 	$method
 	$address
 	$netmask
+	$ppp_user
+	$ppp_pass
 	$external
 </%args>
 <%init>
@@ -24,12 +26,14 @@ use EBox::Gettext;
 	<input type="hidden" name="method"   value="<% $method %>"/>
 	<input type="hidden" name="if_address"  value="<% $address %>"/>
 	<input type="hidden" name="if_netmask"  value="<% $netmask %>"/>
+	<input type="hidden" name="if_ppp_user"  value="<% $ppp_user %>"/>
+	<input type="hidden" name="if_ppp_pass"  value="<% $ppp_pass %>"/>
 % if (defined($external)) {
 	<input type="hidden" name="external" value="yes"/>
 % }
-	<input class="inputButton" type="submit" name="accept" 
+	<input class="inputButton" type="submit" name="accept"
 	       value="<% __('Ok') %>"/>
-	<input class="inputButton" type="submit" name="cancel" 
+	<input class="inputButton" type="submit" name="cancel"
 	       value="<% __('Cancel') %>"/>
 </form>
 </p>
