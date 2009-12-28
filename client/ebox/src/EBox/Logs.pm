@@ -325,7 +325,7 @@ sub getModTableInfos
     }
     elsif (ref $ti eq 'HASH') {
         EBox::warn('tableInfo() in ' . $mod->name .
-                   'must return a reference to a list of hashes not the hash itself');
+                   ' must return a reference to a list of hashes not the hash itself');
         @tableInfos = ( $ti );
     }
     else {
