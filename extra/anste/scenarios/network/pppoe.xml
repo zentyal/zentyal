@@ -48,7 +48,7 @@
     </host>
 
     <host>
-        <name>client</name>
+        <name>test-client</name>
         <desc>Client in the eBox internal network</desc>
         <baseimage>hardy-mini</baseimage>
         <memory>64</memory>
