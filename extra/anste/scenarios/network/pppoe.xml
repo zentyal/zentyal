@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <name>eBox basic PPPoE scenario</name>
+    <desc>Scenario for basic testing of the PPPoE in eBox</desc>
+
+    <manual-bridging/>
+    <bridges>
+        <bridge id="2">192.168.2.254</bridge>
+        <bridge id="3">192.168.3.254</bridge>
+    </bridges>
+
+    <host type="pppoe-router">
+        <name>pppoe-router</name>
+        <desc>Host that acts like a PPPoE router</desc>
+        <baseimage>hardy-mini</baseimage>
+        <memory>128</memory>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <bridge>2</bridge>
+                <address>192.168.2.1</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+        </network>
+    </host>
+
+    <host>
+        <name>ebox-server</name>
+        <desc>Host used to test that ebox works properly.</desc>
+        <baseimage>{$dist}-ebox-base</baseimage>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <bridge>3</bridge>
+                <address>192.168.3.1</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+            <interface type="unset">
+                <name>eth2</name>
+                <bridge>2</bridge>
+            </interface>
+        </network>
+
+        <post-install>
+            <script>ebox-import-network.sh</script>
+            <script>ebox-wait-start.sh</script>
+        </post-install>
+    </host>
+
+    <host>
+        <name>client</name>
+        <desc>Client in the eBox internal network</desc>
+        <baseimage>hardy-mini</baseimage>
+        <memory>64</memory>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <bridge>3</bridge>
+                <address>192.168.3.2</address>
+                <netmask>255.255.255.0</netmask>
+                <gateway>192.168.3.1</gateway>
+            </interface>
+        </network>
+        <packages>
+            <package>host</package>
+            <package>wget</package>
+        </packages>
+    </host>
+</scenario>

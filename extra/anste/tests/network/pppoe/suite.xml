@@ -1,0 +1,90 @@
+<suite>
+    <name>eBox PPPoE Test Suite</name>
+    <desc>Contains a set of tests to ensure
+    that a client in the internal network can
+    access internet with the PPPoE support of eBox.
+    </desc>
+
+    <scenario>network/pppoe.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigPPPoE</name>
+        <desc>
+        Configure eth2 as PPPoE and set it as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-pppoe</dir>
+        <var name="IFACE" value="eth2"/>
+        <var name="USER" value="ppp_user"/>
+        <var name="PASS" value="ppp_pass"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable network and firewall modules and save changes.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test>
+        <name>DumpRoutes</name>
+        <desc>
+        Dump routes and iptables info
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>dump-routes</dir>
+    </test>
+
+    <test>
+        <name>eBoxTestPingExternalIP</name>
+        <desc>Checks if we can ping an IP on the internet from eBox</desc>
+
+        <host>ebox-server</host>
+        <dir>test-ping-ip</dir>
+    </test>
+
+    <test>
+        <name>eBoxTestResolveHost</name>
+        <desc>Checks if we can resolve a host from eBox</desc>
+
+        <host>ebox-server</host>
+        <dir>test-resolve</dir>
+    </test>
+
+    <test>
+        <name>eBoxTestWWW</name>
+        <desc>Test if we can get a webpage from eBox</desc>
+
+        <host>ebox-server</host>
+        <dir>test-wget</dir>
+    </test>
+
+    <test>
+        <name>ClientTestPingExternalIP</name>
+        <desc>Checks if we can ping an IP on the internet from the client</desc>
+
+        <host>test-client</host>
+        <dir>test-ping-ip</dir>
+    </test>
+
+    <test>
+        <name>ClientTestResolveHost</name>
+        <desc>Checks if we can resolve a host from the client</desc>
+
+        <host>test-client</host>
+        <dir>test-resolve</dir>
+    </test>
+
+    <test>
+        <name>ClientTestWWW</name>
+        <desc>Test if we can get a webpage from the client</desc>
+
+        <host>test-client</host>
+        <dir>test-wget</dir>
+    </test>
+</suite>
