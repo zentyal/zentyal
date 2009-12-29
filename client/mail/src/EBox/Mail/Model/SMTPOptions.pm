@@ -163,11 +163,11 @@ sub _table
                                 __('Expiration period for deleted mails'),
                               subtypes => [
                               new EBox::Types::Union::Text(
-                                  'fieldName' => 'never',
+                                  'fieldName' => 'neverExpireDeleted',
                                   'printableName' => __('Never'),
                                   ),
                               new EBox::Types::Int(
-                                  'fieldName' => 'days',
+                                  'fieldName' => 'daysExpireDeleted',
                                   'printableName' => __('days'),
                                   'editable'  => 1,
                                   'min'       => 1,
@@ -180,11 +180,11 @@ sub _table
                                 __('Expiration period for spam mails'),
                               subtypes => [
                               new EBox::Types::Union::Text(
-                                  'fieldName' => 'never',
+                                  'fieldName' => 'neverExpireSpam',
                                   'printableName' => __('Never'),
                                   ),
                               new EBox::Types::Int(
-                                  'fieldName' => 'days',
+                                  'fieldName' => 'daysExpireSpam',
                                   'printableName' => __('days'),
                                   'editable'  => 1,
                                   'min'       => 1,
@@ -255,21 +255,21 @@ sub mailboxQuota
 sub expirationForDeleted
 {
     my ($self) = @_;
-    return $self->_expiration('deletedExpire');
+    return $self->_expiration('deletedExpire', 'neverExpireDeleted');
 }
 
 sub expirationForSpam
 {
     my ($self) = @_;
-    return $self->_expiration('spamExpire');
+    return $self->_expiration('spamExpire', 'neverExpireSpam');
 }
 
 
 sub _expiration
 {
-    my ($self, $element) = @_;
+    my ($self, $element, $neverTypeName) = @_;
     my $expiration = $self->row()->elementByName($element);
-    if ($expiration->selectedType eq 'never') {
+    if ($expiration->selectedType eq $neverTypeName) {
         # 0 means unlimited 
         return 0;
     }
