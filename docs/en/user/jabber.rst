@@ -28,7 +28,7 @@ ICQ, AIM, MSN or Yahoo! Messenger, whose operation is essentially privative and
 centralized.
 
 However, Jabber/XMPP is a set of protocols and technologies that enable the
-development of distributed messaging. These protocol are public, open,
+development of distributed messaging. These protocols are public, open,
 flexible, extensible, distributed and secure. Moreover, although Jabber/XMPP is
 still in the process of becoming an international standard, it has been adopted
 by Cisco or Google (for its messaging service Google Talk) among others.
@@ -61,7 +61,7 @@ following parameters:
 
 :guilabel:`Connect to other servers`:
   To allow our users contact users in external servers, and the other way
-  arround, check this box. Otherwise, if you want a private server for your
+  around, check this box. Otherwise, if you want a private server for your
   internal network, it should be left unchecked.
 
 :guilabel:`Enable Multi User Chat (MUC)`:
@@ -72,8 +72,8 @@ following parameters:
            resolved from the clients too.
 
 :guilabel:`SSL Support`:
-  It specifies whether the communications (authentification and chat messages) with
-  the server are encrypted or plaintext. You can disable it, make it mandatory or leave
+  It specifies whether the communications (authentication and chat messages) with
+  the server are encrypted or plain text. You can disable it, make it mandatory or leave
   it as optional. If you set it as optional, this setting will be selected from the
   Jabber client.
 
@@ -97,7 +97,7 @@ notice to all users connected (broadcast).
 Setting up a Jabber client
 --------------------------
 
-To ilustrate the configuration of a Jabber client, we will use **Pidgin**
+To illustrate the configuration of a Jabber client, we will use **Pidgin**
 and **Psi**, but if you use another client, the next steps should be very similar.
 
 Pidgin
@@ -237,14 +237,14 @@ creates a room is the administrator for that room. This administrator can
 set up all the settings, add other users as moderators or administrators
 and destroy the room.
 
-One of the settings that we should highligh is :guilabel:`Make Room Persistent`.
+One of the settings that we should highlight is :guilabel:`Make Room Persistent`.
 By default all the rooms are destroyed shortly after the last participant leaves.
-These are called dynamic rooms and are the preferred method for multiparticipant chats.
+These are called dynamic rooms and are the preferred method for multi-user chats.
 On the other hand, persistent rooms must be destroyed by one of its administrators and are
-usually setup for workgroups or topics.
+usually setup for work-groups or topics.
 
-On Pidgin to join a chatroom go to :guilabel:`Buddies --> Join a Chat...`.
-A :guilabel:`Join a Chat` window will popup asking for some information like the
+On Pidgin to join a chat room go to :guilabel:`Buddies --> Join a Chat...`.
+A :guilabel:`Join a Chat` window will pop up asking for some information like the
 :guilabel:`Room` name, the :guilabel:`Server` which should be *conference.domain*,
 the user :guilabel:`Handle` or nickname and the room :guilabel:`Password` if needed.
 
@@ -252,7 +252,7 @@ the user :guilabel:`Handle` or nickname and the room :guilabel:`Password` if nee
    :scale: 60
    :align: center
 
-First user in joining a non existant room will lock it and will be asked whether
+First user in joining a non existent room will lock it and will be asked whether
 :guilabel:`Configure Room` or :guilabel:`Accept Defaults`.
 
 .. image:: images/jabber/pidgin6.png
@@ -273,8 +273,8 @@ the room unlocked ready to use.
    :scale: 60
    :align: center
 
-On Psi to join a chatroom we should go to :guilabel:`General --> Join Groupchat`.
-A :guilabel:`Join Groupchat` window will popup asking for some information like the
+On Psi to join a chat room we should go to :guilabel:`General --> Join Groupchat`.
+A :guilabel:`Join Groupchat` window will pop up asking for some information like the
 :guilabel:`Host` which should be *conference.domain*, the :guilabel:`Room` name,
 the user :guilabel:`Nickname` and the room :guilabel:`Password` if needed.
 
@@ -282,7 +282,7 @@ the user :guilabel:`Nickname` and the room :guilabel:`Password` if needed.
    :scale: 60
    :align: center
 
-First user joining a non existant room will lock it and will be asked to configure it. On the
+First user joining a non existent room will lock it and will be asked to configure it. On the
 top right corner, a button will show a context menu with the :guilabel:`Configure Room` option.
 
 .. image:: images/jabber/psi9.png
