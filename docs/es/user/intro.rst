@@ -686,6 +686,29 @@ o varios servidores de nombres en :menuselection:`Red --> DNS`.
 
    Configuración de servidores DNS
 
+Si tu conexión a Internet tiene una IP pública dinámica y quieres que un nombre
+de dominio apunte a ella, se necesita un proveedor de DNS dinámico. eBox tiene
+soporte para algunos de los proveedores de DNS dinámico más populares.
+
+Para configurar un nombre de DNS dinámico en eBox desde :menuselection:`Red -->
+DynDNS` selecciona el proveedor del servicio y configura el nombre de usuario,
+contraseña y nombre de dominio que queremos actualizar cuando la dirección
+pública cambie. Solo resta :guilabel:`Activar DNS Dinámico` y :guilabel:`Guardar
+Cambios`.
+
+.. figure:: images/intro/dyndns.png
+   :scale: 80
+   :alt: Configuración de DNS Dinámico
+   :align: center
+
+   Configuración de DNS Dinámico
+
+eBox se conecta al proveedor para conseguir la dirección IP pública evitando
+cualquier NAT que haya entre nosotros e Internet. Si estamos utilizando esta
+funcionalidad en un escenario con multipasarela, no hay que olvidar crear una
+regla que haga que las conexiones al proveedor use siempre la misma puerta
+de enlace.
+
 Diagnóstico de redes
 ====================
 
