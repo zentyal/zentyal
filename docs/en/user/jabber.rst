@@ -73,7 +73,7 @@ following parameters:
 
 :guilabel:`SSL Support`:
   It specifies whether the communications (authentication and chat messages) with
-  the server are encrypted or plain text. You can disable it, make it mandatory or leave
+  the server are encrypted or plaintext. You can disable it, make it mandatory or leave
   it as optional. If you set it as optional, this setting will be selected from the
   Jabber client.
 
