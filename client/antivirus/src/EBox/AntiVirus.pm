@@ -275,6 +275,7 @@ sub _setConf
     # regenerate freshclam cron hourly script
     EBox::Module::Base::writeConfFileNoCheck(FRESHCLAM_CRON_SCRIPT, "antivirus/freshclam-cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . FRESHCLAM_CRON_SCRIPT);
+    
   }
   else {
     # remove freshclam cron hourly entry
@@ -330,13 +331,16 @@ sub freshclamState
 
 sub freshclamEBoxDir
 {
-    EBox::Config::conf() . 'freshclam';
+#    EBox::Config::conf() . 'freshclam';
+    return '/var/lib/clamav';
 }
 
 sub freshclamStateFile
 {
     return freshclamEBoxDir() . '/freshclam.state';
 }
+
+
 
 sub notifyFreshclamEvent
 {
@@ -368,7 +372,8 @@ sub notifyFreshclamEvent
 
 
   my $statePairs = "date,$date,update,$update,error,$error,outdated,$outdated";
-  write_file($class->freshclamStateFile(), $statePairs);
+  my $stateFile = $class->freshclamStateFile();
+  write_file($stateFile, $statePairs);
 }
 
 
