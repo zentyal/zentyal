@@ -1,0 +1,108 @@
+<suite>
+    <name>eBox DHCP Test Suite</name>
+    <desc>Contains a set of tests to ensure
+    that a client in the internal network can
+    access internet with the DHCP support of eBox.
+    </desc>
+
+    <scenario>network/dhcp.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigDHCP</name>
+        <desc>
+        Configure eth2 as DHCP and set it as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-dhcp</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable network and firewall modules and save changes.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test>
+        <name>DumpRoutes</name>
+        <desc>
+        Dump routes and iptables info
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>dump-routes</dir>
+    </test>
+
+    <test>
+        <name>eBoxTestPingExternalIP</name>
+        <desc>Checks if we can ping an IP on the internet from eBox</desc>
+
+        <host>ebox-server</host>
+        <dir>test-ping-ip</dir>
+    </test>
+
+    <test>
+        <name>eBoxTestResolveHost</name>
+        <desc>Checks if we can resolve a host from eBox</desc>
+
+        <host>ebox-server</host>
+        <dir>test-resolve</dir>
+    </test>
+
+    <test>
+        <name>eBoxTestWWW</name>
+        <desc>Test if we can get a webpage from eBox</desc>
+
+        <host>ebox-server</host>
+        <dir>test-wget</dir>
+    </test>
+
+    <test>
+        <name>ClientTestPingExternalIP</name>
+        <desc>Checks if we can ping an IP on the internet from the client</desc>
+
+        <host>test-client</host>
+        <dir>test-ping-ip-client</dir>
+    </test>
+
+    <test>
+        <name>ClientTestResolveHost</name>
+        <desc>Checks if we can resolve a host from the client</desc>
+
+        <host>test-client</host>
+        <dir>test-resolve</dir>
+    </test>
+
+    <test>
+        <name>ClientTestWWWDenied</name>
+        <desc>Test if we can't get a webpage with FW active</desc>
+
+        <assert>failed</assert>
+
+        <host>test-client</host>
+        <dir>test-wget</dir>
+    </test>
+
+    <test type="selenium">
+        <name>FirewallAllowAllInternal</name>
+        <desc>
+        Allow all internal traffic to internet.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>fw-allow-internal</dir>
+    </test>
+
+    <test>
+        <name>ClientTestWWWAllowed</name>
+        <desc>Test if we can get a webpage from the client</desc>
+
+        <host>test-client</host>
+        <dir>test-wget</dir>
+    </test>
+</suite>

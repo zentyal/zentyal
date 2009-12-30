@@ -1,0 +1,3 @@
+#!/bin/sh
+
+wget --timeout=10 http://www.google.com

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Showing default route..."
+ip route ls table main | grep default
+
+if ! ip route ls table main | grep default | grep ppp0
+then
+    echo "Error: the default route is not via ppp0!"
+    exit 1
+fi
+
+echo "Trying to ping a external IP..."
+ping -c3 155.210.33.4
