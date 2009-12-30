@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Showing default route (it should be the eBox address)..."
+ip route ls table main | grep default
+
+echo "Trying to ping a external IP..."
+ping -c3 155.210.33.4

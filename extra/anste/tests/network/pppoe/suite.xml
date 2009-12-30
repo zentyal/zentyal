@@ -69,7 +69,7 @@
         <desc>Checks if we can ping an IP on the internet from the client</desc>
 
         <host>test-client</host>
-        <dir>test-ping-ip</dir>
+        <dir>test-ping-ip-client</dir>
     </test>
 
     <test>
