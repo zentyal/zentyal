@@ -672,12 +672,12 @@ several domain name servers in :menuselection:`Network --> DNS`.
 
    Configuration of DNS servers
 
-If your Internet connection has a dynamic IP address and you want to point a
-domain name to your eBox, a third party dynamic DNS provider is needed. eBox
-supports some of the most popular dynamic DNS providers.
+If your Internet connection has a dynamic IP address and you want to map a
+domain name to your eBox, a third party dynamic DNS provider is required. eBox
+supports the connection to some of the most popular dynamic DNS providers.
 
 To configure dynamic DNS on eBox go to :menuselection:`Network -->
-DynDNS` and select your service provider and set up the username, password and
+DynDNS` and select your service provider and set up the user name, password and
 the domain name you want to update when your public address changes. Check
 the box :guilabel:`Enable Dynamic DNS` and :guilabel:`Save changes`.
 
@@ -689,9 +689,11 @@ the box :guilabel:`Enable Dynamic DNS` and :guilabel:`Save changes`.
    Dynamic DNS configuration
 
 eBox makes a connection to the provider getting your public IP address
-baypassing any NAT between you and Internet. If you are using this
-feature on a multigateway scenario, don't forget to create a rule that
+bypassing any NAT between you and Internet. If you are using this
+feature on a multigateway scenario [#]_, don't forget to create a rule that
 makes the connections to your provider use always the same gateway.
+
+.. [#] Check :ref:`multigw-section-ref` section for details.
 
 Network diagnosis
 =================

@@ -235,6 +235,8 @@ Para ello:
      Se muestran como resultado tres intentos satisfactorios de conexión con
      la máquina.
 
+.. _multigw-section-ref:
+
 Reglas multirouter y balanceo de carga
 ======================================
 

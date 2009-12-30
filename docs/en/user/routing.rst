@@ -273,6 +273,8 @@ To do so:
      Three satisfactory connection attempts to the host are displayed as
      the result.
 
+.. _multigw-section-ref:
+
 Multirouter rules and load balancing
 ====================================
 
