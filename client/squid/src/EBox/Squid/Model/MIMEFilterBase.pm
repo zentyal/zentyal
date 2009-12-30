@@ -143,7 +143,7 @@ sub checkMimeType
               )
   }
 
-  if (not $subType =~ m{^[\w\-\d]+$} ) {
+  if (not $subType =~ m{^[\w\-\d\.+]+$} ) {
       throw EBox::Exceptions::InvalidData(
               data   => __('MIME Type'),
               value  => $type,
