@@ -1,23 +1,22 @@
 HEAD
-       + Changed location of freshclam state file, maybe it could solve
-       some notification errors in some installations
+    + Changed location of freshclam state file, maybe it could solve
+      some notification errors in some installations
 1.3.12
-	+ Add page title
-
+    + Add page title
 1.3.10
-	+ Use disableApparmorProfile from EBox::Module::Service
-	  in setConf to avoid issues if apparmor is installed
-	  after antivirus.
+    + Use disableApparmorProfile from EBox::Module::Service
+      in setConf to avoid issues if apparmor is installed
+      after antivirus.
 1.3.6
-	+ bugfix: notify squid module when antivirus is enabled, so it
-	could change its configuration if needed
+    + bugfix: notify squid module when antivirus is enabled, so it
+      could change its configuration if needed
 1.1.20
-	+  run it as root for now to make it work samba-vscan
-	+  do not use upstart for clamd
-	+ use pidfiles() and pidfile
-	+ freshclam status file is store in a ebox directory with
-	clamav persmisions
+    + run it as root for now to make it work samba-vscan
+    + do not use upstart for clamd
+    + use pidfiles() and pidfile
+    + freshclam status file is store in a ebox directory with
+      clamav persmisions
 1.1.10
-	+ New release	
+    + New release
 1.1
-	+ Initial release
+    + Initial release
