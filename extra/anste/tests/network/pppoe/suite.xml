@@ -84,6 +84,8 @@
         <name>ClientTestWWWDenied</name>
         <desc>Test if we can't get a webpage with FW active</desc>
 
+        <assert>failed</assert>
+
         <host>test-client</host>
         <dir>test-wget</dir>
     </test>
