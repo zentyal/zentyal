@@ -81,7 +81,25 @@
     </test>
 
     <test>
-        <name>ClientTestWWW</name>
+        <name>ClientTestWWWDenied</name>
+        <desc>Test if we can't get a webpage with FW active</desc>
+
+        <host>test-client</host>
+        <dir>test-wget</dir>
+    </test>
+
+    <test type="selenium">
+        <name>FirewallAllowAllInternal</name>
+        <desc>
+        Allow all internal traffic to internet.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>fw-allow-internal</dir>
+    </test>
+
+    <test>
+        <name>ClientTestWWWAllowed</name>
         <desc>Test if we can get a webpage from the client</desc>
 
         <host>test-client</host>
