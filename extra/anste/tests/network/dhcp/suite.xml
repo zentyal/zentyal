@@ -19,6 +19,17 @@
     </test>
 
     <test type="selenium">
+        <name>ConfigDHCP</name>
+        <desc>
+        Configure eth3 as DHCP and set it as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-dhcp</dir>
+        <var name="IFACE" value="eth3"/>
+    </test>
+
+    <test type="selenium">
         <name>EnableModules</name>
         <desc>
         Enable network and firewall modules and save changes.

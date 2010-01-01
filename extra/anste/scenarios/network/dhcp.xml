@@ -7,6 +7,7 @@
     <bridges>
         <bridge id="2">192.168.2.254</bridge>
         <bridge id="3">192.168.3.254</bridge>
+        <bridge id="4">192.168.4.254</bridge>
     </bridges>
 
     <host type="dhcp-router">
@@ -19,6 +20,21 @@
                 <name>eth1</name>
                 <bridge>2</bridge>
                 <address>192.168.2.1</address>
+                <netmask>255.255.255.0</netmask>
+            </interface>
+        </network>
+    </host>
+
+    <host type="dhcp-router">
+        <name>dhcp-router2</name>
+        <desc>Host that acts like a DHCP router</desc>
+        <baseimage>hardy-mini</baseimage>
+        <memory>128</memory>
+        <network>
+            <interface type="static">
+                <name>eth1</name>
+                <bridge>4</bridge>
+                <address>192.168.4.1</address>
                 <netmask>255.255.255.0</netmask>
             </interface>
         </network>
@@ -38,6 +54,10 @@
             <interface type="unset">
                 <name>eth2</name>
                 <bridge>2</bridge>
+            </interface>
+            <interface type="unset">
+                <name>eth3</name>
+                <bridge>4</bridge>
             </interface>
         </network>
 
