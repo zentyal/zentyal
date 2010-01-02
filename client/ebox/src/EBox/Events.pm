@@ -87,21 +87,19 @@ use constant EVENTS_FIFO             => EBox::Config::tmp() . 'events-fifo';
 #        <EBox::Events> - the recently created module
 #
 sub _create
-  {
+{
+    my $class = shift;
 
-      my $class = shift;
+    my $self = $class->SUPER::_create( name => 'events',
+            domain => 'ebox-events',
+            printableName => __('Events'),
+            @_
+            );
 
-      my $self = $class->SUPER::_create( name => 'events',
-                                         domain => 'ebox-events',
-                                         printableName => __('Events'),
-                                         @_
-                                       );
+    bless ($self, $class);
 
-      bless ($self, $class);
-
-      return $self;
-
-  }
+    return $self;
+}
 
 
 sub _daemons
@@ -179,15 +177,15 @@ sub models
         $self->configureEventModel(),
         $self->configureDispatcherModel(),
         $self->_enableForm(),
-        
+
         $self->reportDetailsModel(),
         $self->reportGraphModel(),
         $self->reportOptionsModel(),
        );
-    
+
     push ( @models, @{$self->_obtainModelsByPrefix(CONF_DISPATCHER_MODEL_PREFIX)});
     push ( @models, @{$self->_obtainModelsByPrefix(CONF_WATCHER_MODEL_PREFIX)});
-    
+
     return \@models;
  }
 
@@ -302,10 +300,10 @@ sub configureDispatcherModel
 
   }
 
-sub reportDetailsModel 
+sub reportDetailsModel
 {
     my ( $self ) = @_;
-    
+
     # Check if it is already cached
     unless ( exists $self->{EventsDetailsModel} ) {
         $self->{EventsDetailsModel} =
@@ -314,15 +312,15 @@ sub reportDetailsModel
                                               directory   => 'EventsDetails'
                                              );
     }
-    
+
     return $self->{EventsDetailsModel};
-    
+
 }
 
 sub reportGraphModel
 {
     my ( $self ) = @_;
-    
+
     # Check if it is already cached
     unless ( exists $self->{EventsGraphModel} ) {
         $self->{EventsGraphModel} =
@@ -331,9 +329,9 @@ sub reportGraphModel
                                               directory   => 'EventsGraph'
                                              );
     }
-    
+
     return $self->{EventsGraphModel};
-    
+
 }
 
 
@@ -341,7 +339,7 @@ sub reportGraphModel
 sub reportOptionsModel
 {
     my ( $self ) = @_;
-    
+
     # Check if it is already cached
     unless ( exists $self->{EventsOptionModel} ) {
         $self->{EventsOptionModel} =
@@ -350,9 +348,9 @@ sub reportOptionsModel
                                               directory   => 'EventsReportOptions'
                                              );
     }
-    
+
     return $self->{EventsOptionModel};
-    
+
 }
 
 
@@ -550,12 +548,12 @@ sub _adminDumbness
 sub _logIsEnabled
 {
     my ($self) = @_;
-    
+
     my $log = EBox::Global->modInstance('logs');
     if (not $log->isEnabled()) {
         return undef;
     }
-    
+
     my $configureLogTable = $log->model('ConfigureLogTable');
     my $enabledLogs = $configureLogTable->enabledLogs();
     return $enabledLogs->{events};
@@ -751,7 +749,7 @@ sub _eventsComposite
 sub _configurationComposite
 {
     my ($self) = @_;
-      
+
     unless ( exists $self->{confComposite}) {
         $self->{confComposite} = new EBox::Events::Model::ConfigurationComposite();
     }
@@ -767,7 +765,7 @@ sub _reportComposite
     unless ( exists $self->{reportComposite}) {
         $self->{reportComposite} = new EBox::Events::Composite::Report::EventsReport( );
       }
-    
+
     return $self->{reportComposite};
 
 }
@@ -856,7 +854,7 @@ sub _consolidateTable
                                                 },
                                    source => { destination => 'source' },
                                   },
-           accummulateColumns    => { 
+           accummulateColumns    => {
                       info  => 0,
                       warn  => 0,
                       error  => 0,
@@ -874,41 +872,38 @@ sub _consolidateTable
 #  Returns:
 #    hash ref with a key for each source of event, the values will be
 #     a harsh ref with this fields:
-# 
+#
 #         info - number of informative events from the source
 #         warn - number of warning events from the source
 #         error - number of error events from the source
 #         fatal - number of fatal events from the source
-# 
-# 
-# Overrides: 
+#
+#
+# Overrides:
 #   <EBox::Module::Base::report>
 sub reportDeprecated
 {
     my ($self) = @_;
 
     my %report;
-    
+
     my $logs = EBox::Global->modInstance('logs');
     my $yesterday = $logs->yesterdayDate();
 
     my @sourcesLogs = @{ $logs->consolidatedLogForDay(
                                                'events_accummulated',
-                                                $yesterday 
+                                                $yesterday
                                                      )
                      };
 
     foreach my $sourceLog (@sourcesLogs) {
         delete $sourceLog->{date};
         my $source = delete $sourceLog->{source};
-        
+
         $report{$source} = $sourceLog;
     }
 
     return \%report;
 }
-
-
-
 
 1;

@@ -88,55 +88,50 @@ use constant EVENT_FOLDING_INTERVAL => 30 * 60; # half hour
 #      <EBox::EventDaemon> - the event daemon
 #
 sub new
-  {
+{
+    my ($class, $granularity) = @_;
 
-      my ($class, $granularity) = @_;
+    my $self = {
+        granularity => $granularity,
+        # Registered events is a hash ref indexed by watcher
+        # class name with two fields: deadOut (the number of
+        # seconds till next run) and instance (with an
+        # instance of the method).
+        registeredEvents => {},
+        registeredDispatchers => {},
+        lastWatcherScan => time(),
+        lastDispatcherScan => time(),
+    };
+    bless ($self, $class);
 
-      my $self = {
-                  granularity => $granularity,
-                  # Registered events is a hash ref indexed by watcher
-                  # class name with two fields: deadOut (the number of
-                  # seconds till next run) and instance (with an
-                  # instance of the method).
-                  registeredEvents => {},
-                  registeredDispatchers => {},
-                  lastWatcherScan => time(),
-                  lastDispatcherScan => time(),
-                 };
-      bless ( $self, $class);
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: run
 #
 #       Run the event daemon. It never dies
 #
 sub run
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    $self->_init();
 
-      $self->_init();
-
-      my $eventPipe;
-      my $pid = open($eventPipe, "|-");
-      $eventPipe->autoflush(1);
-      unless ( defined ( $pid )) {
-          die "$$: Cannot create a process error: $!";
-      } elsif ( $pid ) {
-          # Parent code
-          $self->_mainWatcherLoop($eventPipe);
-      } else {
-          # Child code
-          # STDIN will have the read code
-           $self->_mainDispatcherLoop();
-          exit;
-      }
-
-
-  }
+    my $eventPipe;
+    my $pid = open($eventPipe, "|-");
+    $eventPipe->autoflush(1);
+    unless ( defined ( $pid )) {
+        die "$$: Cannot create a process error: $!";
+    } elsif ( $pid ) {
+        # Parent code
+        $self->_mainWatcherLoop($eventPipe);
+    } else {
+        # Child code
+        # STDIN will have the read code
+        $self->_mainDispatcherLoop();
+        exit;
+    }
+}
 
 # Group: Private methods
 
@@ -147,45 +142,18 @@ sub run
 #      Catch the HUP and TERM signals.
 #
 sub _init
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    EBox::init();
 
-      EBox::init();
-
-      # Create the named pipe
-      unless ( -p EVENTS_FIFO ) {
-          unlink(EVENTS_FIFO);
-          POSIX::mkfifo(EVENTS_FIFO, 0700)
-              or die "Can't make a named pipe: $!";
-      }
-
-#      foreach my $fd (0 .. 64) { POSIX::close($fd); }
-#
-#      open(STDIN,  "+</tmp/stdin");
-#      open(STDOUT, "+>/tmp/stdout");
-#      open(STDERR, "+>/tmp/stderr");
-
-#      $SIG{'HUP'} = \&_reReadDirs($self);
-#      $SIG{'TERM'} = $SIG{'HUP'};
-
-  }
-
-# Method: _reReadDirs
-#
-#     Re-read the directories where the watchers/dispatchers in order
-#     to suppor dynamic add/removal
-#
-sub _reReadDirs
-  {
-
-      my ($self) = @_;
-
-      $self->_loadModules('Watcher');
-      $self->_loadModules('Dispatcher');
-      EBox::debug('Re-read: ' . Dumper($self));
-
-  }
+    # Create the named pipe
+    unless ( -p EVENTS_FIFO ) {
+        unlink(EVENTS_FIFO);
+        POSIX::mkfifo(EVENTS_FIFO, 0700)
+            or die "Can't make a named pipe: $!";
+    }
+}
 
 # Method: _mainWatcherLoop
 #
@@ -199,44 +167,42 @@ sub _reReadDirs
 #     eventPipe - Filehandle to write the events
 #
 sub _mainWatcherLoop
-  {
+{
+    my ($self, $eventPipe) = @_;
 
-      my ($self, $eventPipe) = @_;
-
-      # Load watchers classes
-      $self->_loadModules('Watcher');
-      while ('true') {
-          if ( time() - $self->{lastWatcherScan} > SCANNING_INTERVAL) {
-              $self->_loadModules('Watcher');
-          }
-          foreach my $registeredEvent (keys %{$self->{registeredEvents}}) {
-              my $queueElementRef = $self->{registeredEvents}->{$registeredEvent};
-              $queueElementRef->{deadOut} -= $self->{granularity};
-              if ( $queueElementRef->{deadOut} <= 0 ) {
-                  my $eventsRef = undef;
-                  try {
-                      # Run the event
-                      $eventsRef = $queueElementRef->{instance}->run();
-                  } otherwise {
-                      my $exception = shift;
-                      EBox::warn("Error executing run from $registeredEvent: $exception");
-                      # Deleting from registered events
-                      delete ($self->{registeredEvents}->{$registeredEvent});
-                  };
-                  # An event has happened
-                  if ( defined ( $eventsRef )) {
-                      foreach my $event (@{$eventsRef}) {
-                          # Send the events to the dispatcher
-                          $self->_addToDispatch($eventPipe, $event);
-                      }
-                  }
-                  $queueElementRef->{deadOut} = $queueElementRef->{instance}->period();
-              }
-          }
-          sleep ($self->{granularity});
-      }
-
-  }
+    # Load watchers classes
+    $self->_loadModules('Watcher');
+    while ('true') {
+        if ( time() - $self->{lastWatcherScan} > SCANNING_INTERVAL) {
+            $self->_loadModules('Watcher');
+        }
+        foreach my $registeredEvent (keys %{$self->{registeredEvents}}) {
+            my $queueElementRef = $self->{registeredEvents}->{$registeredEvent};
+            $queueElementRef->{deadOut} -= $self->{granularity};
+            if ( $queueElementRef->{deadOut} <= 0 ) {
+                my $eventsRef = undef;
+                try {
+                    # Run the event
+                    $eventsRef = $queueElementRef->{instance}->run();
+                } otherwise {
+                    my $exception = shift;
+                    EBox::warn("Error executing run from $registeredEvent: $exception");
+                    # Deleting from registered events
+                    delete ($self->{registeredEvents}->{$registeredEvent});
+                };
+                # An event has happened
+                if ( defined ( $eventsRef )) {
+                    foreach my $event (@{$eventsRef}) {
+                        # Send the events to the dispatcher
+                        $self->_addToDispatch($eventPipe, $event);
+                    }
+                }
+                $queueElementRef->{deadOut} = $queueElementRef->{instance}->period();
+            }
+        }
+        sleep ($self->{granularity});
+    }
+}
 
 # Method: _mainDispatcherLoop
 #
@@ -246,7 +212,6 @@ sub _mainWatcherLoop
 #
 sub _mainDispatcherLoop
 {
-
     my ($self) = @_;
 
     # load dbengine if neccessary
@@ -299,133 +264,127 @@ sub _mainDispatcherLoop
 #       prefix - String the prefix could 'Watcher' or 'Dispatcher'
 #
 sub _loadModules
-  {
+{
+    my ($self, $prefix) = @_;
 
-      my ($self, $prefix) = @_;
+    my ($prefixPath, $registeredField);
+    if ( $prefix eq 'Watcher' ) {
+        $prefixPath = WATCHERS_DIR;
+        $registeredField = 'registeredEvents';
+    } elsif ( $prefix eq 'Dispatcher' ) {
+        $prefixPath = DISPATCHERS_DIR;
+        $registeredField = 'registeredDispatchers';
+    } else {
+        return undef;
+    }
 
-      my ($prefixPath, $registeredField);
-      if ( $prefix eq 'Watcher' ) {
-          $prefixPath = WATCHERS_DIR;
-          $registeredField = 'registeredEvents';
-      } elsif ( $prefix eq 'Dispatcher' ) {
-          $prefixPath = DISPATCHERS_DIR;
-          $registeredField = 'registeredDispatchers';
-      } else {
-          return undef;
-      }
+    opendir ( my $dir, $prefixPath );
 
-      opendir ( my $dir, $prefixPath );
-
-      while ( defined ( my $file = readdir ( $dir ))) {
-#          next unless (-e "$prefixPath/$file");
-          unless ( -e "$prefixPath/$file" ) {
-              if ( -l "$prefixPath/$file" ) {
-                  EBox::info("Unlinking broken link $prefixPath/$file");
-                  unlink ( "$prefixPath/$file" )
+    while ( defined ( my $file = readdir ( $dir ))) {
+        unless ( -e "$prefixPath/$file" ) {
+            if ( -l "$prefixPath/$file" ) {
+                EBox::info("Unlinking broken link $prefixPath/$file");
+                unlink ( "$prefixPath/$file" )
                     or throw EBox::Exceptions::Internal("Cannot unlink $prefixPath/$file");
-              }
-              next;
-          }
-          next unless ( $file =~ m/.*\.pm/g );
-          my ($className) = ($file =~ m/(.*)\.pm/);
-          $className = 'EBox::Event::' . $prefix . '::' . $className;
-          my $instance;
-          # The class may not be included
-          if (not defined ( $self->{$registeredField}->{$className})) {
-#              eval "use $className";
-              eval qq{require "$prefixPath/$file"};
-              if ( $@ ) {
-                  EBox::warn("Error loading class: $className $@");
-                  next;
-              }
-              EBox::info("$className loaded from $registeredField");
-              if ( $prefix eq 'Watcher') {
-                  if ( $className->isa('EBox::Event::Watcher::Base') and
-                      (not ($className eq 'EBox::Event::Watcher::Base')) ) {
-                      $instance = $className->new();
-                      $self->{$registeredField}->{$className} = {
-                                                                 instance => $instance,
-                                                                 deadOut  => 0,
-                                                                };
-                  } else {
-                      EBox::info("Class $className not derived from EBox::Event::Watcher::Base");
-                  }
-              } else {
-                  if ( $className->isa('EBox::Event::Dispatcher::Abstract') and
-                       (not ($className eq 'EBox::Event::Dispatcher::Abstract')) ) {
-                      $instance = $className->new();
-                      $self->{$registeredField}->{$className} = $instance;
-                  } else {
-                      EBox::info("Class $className not derived from EBox::Event::Dispatcher::Abstract");
-                  }
-              }
-          } else {
-              # Check its last modification time in order to reload
-              # the module
-              my $statFile = stat ("$prefixPath/$file");
-              my $lastScan;
-              if (  $prefix eq 'Watcher' ) {
-                  $lastScan = $self->{lastWatcherScan};
-              } else {
-                  $lastScan = $self->{lastDispatcherScan};
-              }
-              if ( $statFile->mtime() > $lastScan ) {
-                  EBox::info("$className reloaded from $registeredField");
-                  $self->_deleteFromINC($className);
-#                  eval "use $className";
-                  eval qq{require "$prefixPath/$file";};
-                  if ( $@ ) {
-                      EBox::warn("Error loading class: $className");
-                      next;
-                  }
-                  $instance = $className->new();
-                  if ( $prefix eq 'Watcher' ) {
-                      my $registeredEvent = $self->{$registeredField}->{$className};
-                      $registeredEvent->{instance} = $instance;
-                      # If the period has plummered to be lower than
-                      # current dead out, set the new period
-                      if ( $registeredEvent->{deadOut} > $registeredEvent->{instance}->period() ) {
-                          $registeredEvent->{deadOut} = $registeredEvent->{instance}->period();
-                      }
-                  } elsif ( $prefix eq 'Dispatcher') {
-                      $self->{$registeredField}->{$className} = $instance;
-                  }
-              }
-          }
-      }
-      closedir ($dir);
+            }
+            next;
+        }
+        next unless ( $file =~ m/.*\.pm/g );
+        my ($className) = ($file =~ m/(.*)\.pm/);
+        $className = 'EBox::Event::' . $prefix . '::' . $className;
+        my $instance;
+        # The class may not be included
+        if (not defined ($self->{$registeredField}->{$className})) {
+            eval qq{require "$prefixPath/$file"};
+            if ( $@ ) {
+                EBox::warn("Error loading class: $className $@");
+                next;
+            }
+            EBox::info("$className loaded from $registeredField");
+            if ($prefix eq 'Watcher') {
+                if ($className->isa('EBox::Event::Watcher::Base') and
+                        (not ($className eq 'EBox::Event::Watcher::Base')) ) {
+                    $instance = $className->new();
+                    $self->{$registeredField}->{$className} = {
+                        instance => $instance,
+                        deadOut  => 0,
+                    };
+                } else {
+                    EBox::info("Class $className not derived from EBox::Event::Watcher::Base");
+                }
+            } else {
+                if ($className->isa('EBox::Event::Dispatcher::Abstract') and
+                        (not ($className eq 'EBox::Event::Dispatcher::Abstract')) ) {
+                    $instance = $className->new();
+                    $self->{$registeredField}->{$className} = $instance;
+                } else {
+                    EBox::info("Class $className not derived from EBox::Event::Dispatcher::Abstract");
+                }
+            }
+        } else {
+            # Check its last modification time in order to reload
+            # the module
+            my $statFile = stat ("$prefixPath/$file");
+            my $lastScan;
+            if (  $prefix eq 'Watcher' ) {
+                $lastScan = $self->{lastWatcherScan};
+            } else {
+                $lastScan = $self->{lastDispatcherScan};
+            }
+            if ( $statFile->mtime() > $lastScan ) {
+                EBox::info("$className reloaded from $registeredField");
+                $self->_deleteFromINC($className);
+                eval qq{require "$prefixPath/$file";};
+                if ( $@ ) {
+                    EBox::warn("Error loading class: $className");
+                    next;
+                }
+                $instance = $className->new();
+                if ( $prefix eq 'Watcher' ) {
+                    my $registeredEvent = $self->{$registeredField}->{$className};
+                    $registeredEvent->{instance} = $instance;
+                    # If the period has plummered to be lower than
+                    # current dead out, set the new period
+                    if ( $registeredEvent->{deadOut} > $registeredEvent->{instance}->period() ) {
+                        $registeredEvent->{deadOut} = $registeredEvent->{instance}->period();
+                    }
+                } elsif ($prefix eq 'Dispatcher') {
+                    $self->{$registeredField}->{$className} = $instance;
+                }
+            }
+        }
+    }
+    closedir ($dir);
 
-      # Check for deletion
-      foreach my $className ( keys (%{$self->{$registeredField}}) ){
-          my ($fileName) = $className =~ m/.*::(.*)$/g;
-          $fileName .= '.pm';
-          unless ( -e "$prefixPath/$fileName" ) {
-              EBox::info("$className deleted from $registeredField");
-              $self->_deleteFromINC($className);
-              if ( -l "$prefixPath/$fileName" ) {
-                  # Delete broken links
-                  EBox::info("Unlinking broken link $prefixPath/$fileName");
-                  unlink( "$prefixPath/$fileName" )
+    # Check for deletion
+    foreach my $className ( keys (%{$self->{$registeredField}}) ){
+        my ($fileName) = $className =~ m/.*::(.*)$/g;
+        $fileName .= '.pm';
+        unless ( -e "$prefixPath/$fileName" ) {
+            EBox::info("$className deleted from $registeredField");
+            $self->_deleteFromINC($className);
+            if ( -l "$prefixPath/$fileName" ) {
+                # Delete broken links
+                EBox::info("Unlinking broken link $prefixPath/$fileName");
+                unlink( "$prefixPath/$fileName" )
                     or throw EBox::Exceptions::Internal("Cannot unlink $prefixPath/$fileName");
-              }
-          }
+            }
+        }
 
-#          unless ( -f ( readlink ( "$prefixPath/$fileName" ))) {
-#              EBox::info("$className deleted from $registeredField since the link is broken");
-#              $self->_deleteFromINC($className);
-#              # Remove broken links
-#          }
-      }
+#       unless ( -f ( readlink ( "$prefixPath/$fileName" ))) {
+#           EBox::info("$className deleted from $registeredField since the link is broken");
+#           $self->_deleteFromINC($className);
+#           # Remove broken links
+#       }
+    }
 
-      # Updating timestamp
-      if ( $prefix eq 'Watcher') {
-          $self->{lastWatcherScan} = time();
-      } else {
-          $self->{lastDispatcherScan} = time();
-      }
-
-
-  }
+    # Updating timestamp
+    if ($prefix eq 'Watcher') {
+        $self->{lastWatcherScan} = time();
+    } else {
+        $self->{lastDispatcherScan} = time();
+    }
+}
 
 # Method: _deleteFromINC
 #
@@ -436,15 +395,13 @@ sub _loadModules
 #     className - String the class name in :: format
 #
 sub _deleteFromINC
-  {
+{
+    my ($self, $className) = @_;
 
-      my ($self, $className) = @_;
-
-      my $pathName = $className;
-      $pathName =~ s/::/\//g;
-      delete $INC{$pathName};
-
-  }
+    my $pathName = $className;
+    $pathName =~ s/::/\//g;
+    delete $INC{$pathName};
+}
 
 # Method: _dispatchEventByDispatcher
 #
@@ -457,7 +414,6 @@ sub _deleteFromINC
 #
 sub _dispatchEventByDispatcher
 {
-
     my ($self, $event) = @_;
 
     my @requestedDispatchers = ();
@@ -476,7 +432,7 @@ sub _dispatchEventByDispatcher
         }
     }
 
-# Dispatch the event
+    # Dispatch the event
     foreach my $dispatcher (@requestedDispatchers) {
         try {
             $dispatcher->enable();
@@ -485,11 +441,11 @@ sub _dispatchEventByDispatcher
             my ($exc) = @_;
             EBox::warn($dispatcher->name() . ' is not enabled to send messages');
             EBox::error($exc->stringify());
-# TODO: Disable dispatcher since it's not enabled to
-# send events
+            # TODO: Disable dispatcher since it's not enabled to
+            # send events
             eval { require 'EBox::Global'};
             my $events = EBox::Global->modInstance('events');
-# Disable the model
+            # Disable the model
             $events->enableDispatcher( ref ( $dispatcher ), 0);
             $events->configureDispatcherModel()->setMessage(
                     __x('Dispatcher {name} disabled since it is not able to '
@@ -548,7 +504,6 @@ sub _foldingEventInLog
     $mon -= 1;
     my $storedTimestamp =  timelocal($sec,$min,$hour,$mday,$mon,$year);
 
-
     if (($storedTimestamp + EVENT_FOLDING_INTERVAL) >  $event->timestamp()) {
         # Last event of the same type happened before last
         # half an hour
@@ -580,7 +535,6 @@ sub _updateFoldingEventInLog
            )  or die $dbh->errstr;;
         $self->{updateStmt} = $updateStmt;
     }
-
 
     $self->{updateStmt}->execute($lastTimestamp, $id);
 }
@@ -622,6 +576,7 @@ sub _logEvent
         $self->_insertEventInLog($event);
     }
 }
+
 # Method: _addToDispatch
 #
 #       Send to the Dispatcher daemon the given event through the
@@ -634,19 +589,17 @@ sub _logEvent
 #       event - <EBox::Event> the event to dispatch
 #
 sub _addToDispatch
-  {
+{
+    my ($self, $eventPipe, $event) = @_;
 
-      my ($self, $eventPipe, $event) = @_;
+    my $eventStr = Dumper($event);
 
-      my $eventStr = Dumper($event);
+    # Deleting the newline characters
+    $eventStr =~ s/\n//g;
 
-      # Deleting the newline characters
-      $eventStr =~ s/\n//g;
-
-      # Sending the dumpered event with a newline char
-      print $eventPipe ( $eventStr . $/ );
-
-  }
+    # Sending the dumpered event with a newline char
+    print $eventPipe ( $eventStr . $/ );
+}
 
 
 ###############
