@@ -5,7 +5,7 @@
     (WAN failover included)
     </desc>
 
-    <scenario>network/balance.xml</scenario>
+    <scenario>network/dhcp-balance.xml</scenario>
 
     <test type="selenium">
         <name>ConfigDHCP</name>
