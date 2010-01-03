@@ -31,7 +31,7 @@
     <test type="selenium">
         <name>EnableModules</name>
         <desc>
-        Enable jabber, network, firewall and users modules.
+        Enable events, logs, jabber, network, firewall and users modules.
         </desc>
 
         <host>ebox-server</host>
@@ -108,4 +108,5 @@
         <host>test-client</host>
         <dir>test-jabber</dir>
     </test>
+
 </suite>

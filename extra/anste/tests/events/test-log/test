@@ -1,3 +1,14 @@
 #!/bin/bash
 
-grep "no space left" /var/log/ebox/ebox.log
+for i in `seq 1 10`
+do
+    if grep "no space left" /var/log/ebox/ebox.log
+    then
+        echo "Event found in the log!"
+        exit 0
+    fi
+    sleep 3  
+done
+
+echo "Timeout!"
+exit 1
