@@ -70,21 +70,13 @@ sub html
 
 
 	foreach my $item (@{$self->items}) {
-		if(defined($current) and ($item->{url} eq $current)) {
-			$show = 1;
-		}
 		$item->{style} = "menu$self->{name}";
-		$html .= $item->html($current);
+		my $display = ($self->{name} eq  $current);
+		$html .= $item->html($display);
 	}
 
 	$html .= "</ul>\n";
 	$html .= "</li>\n";
-
-	if ($show) {
-		$html .= "<script type='text/javascript'><!--\n" .
-					"showMenu('menu$self->{name}');\n" .
-					"//--></script>\n";
-	}
 
 	return $html;
 }

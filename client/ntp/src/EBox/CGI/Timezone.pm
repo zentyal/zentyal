@@ -74,4 +74,13 @@ sub _process($) {
 
 }
 
+# Method: menuFolder
+#
+#   Overrides <EBox::CGI::ClientBase::menuFolder>
+#   to set the menu folder
+sub menuFolder
+{
+    return 'EBox';
+}
+
 1;

@@ -60,4 +60,13 @@ sub _process
 	$self->{params} = \@templateParams;
 }
 
+# Method: menuFolder
+#
+#   Overrides <EBox::CGI::ClientBase::menuFolder>
+#   to set the menu folder
+sub menuFolder
+{
+    return 'EBox';
+}
+
 1;

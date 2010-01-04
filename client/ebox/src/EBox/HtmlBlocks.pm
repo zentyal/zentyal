@@ -55,8 +55,8 @@ sub title
 #
 sub menu
 {
-    my ($current) = @_;
-	return EBox::Html::menu($current);
+    my ($self, $current) = @_;
+    return EBox::Html::menu($current);
 }
 
 # Method: footer

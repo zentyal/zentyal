@@ -63,7 +63,13 @@ sub html
     if($class) {
         $class = "class='$class'";
     }
-	$html .= "<li id='" . $self->{id} . "' $class>\n";
+
+    my $style = '';
+    if ($current) {
+       $style = qq/style='display:inline;'/;
+    }
+
+	$html .= "<li id='" . $self->{id} . "' $style $class>\n";
 
 	$html .= qq{<a title="$text" href="/ebox/$url" class="navc" }
 		 . qq{ target="_parent">$text</a>\n};

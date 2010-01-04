@@ -1,5 +1,6 @@
 HEAD
 	+ Added warning when we can't get lock for service
+	+ Bug fix: keep menu folders open during page reloads
 1.3.12
 	+ Change look&feel of readOnly row to make it obvious they are read-only
 1.3.11

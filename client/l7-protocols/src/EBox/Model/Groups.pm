@@ -81,6 +81,15 @@ sub _table
     return $dataTable;
 }
 
+# Method: menuFolder
+#
+#   Overrides <EBox::Model::Component::menuFolder> to
+#   set the menu folder
+sub menuFolder
+{
+    return 'TrafficShaping';
+}
+
 sub _helpL7
 {
     return __('Here you can modify and create new groups of application ' .

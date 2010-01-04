@@ -46,6 +46,7 @@ sub _process
 	my $global = EBox::Global->getInstance();
 
         my $model = $self->{'tableModel'};
+        $self->setMenuFolder($model->menuFolder());
         my $directory = $self->param('directory');
         if ($directory) {
             $model->setDirectory($directory);

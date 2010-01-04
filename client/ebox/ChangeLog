@@ -1,4 +1,5 @@
 HEAD
+	+ Bug fix: keep menu folders open during page reloads
 	+ Bug fix: enable the log events dispatcher by default now works
 1.3.14
 	+ Bug fix: fix critical bug in migration helper that caused some log

@@ -57,6 +57,40 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 	return $self;
 }
 
+# Method: setMenuFolder
+#
+#   Set the name of the menu folder
+#
+# Parameters:
+#
+#   folder - string (Positional)
+sub setMenuFolder
+{
+    my ($self, $folder) = @_;
+    $self->{menuFolder} = $folder;
+}
+
+# Method: menuFolder
+#
+#   Fetch the menu folder. If it's not set it tries
+#   to guess it from the URL
+#
+sub menuFolder
+{
+    my ($self) = @_;
+
+    unless ($self->{menuFolder}) {
+        my @split = split ('/', $ENV{'script'});
+        if (@split) {
+            return $split[0];
+        } else {
+            return undef;
+        }
+
+    }
+    return $self->{menuFolder};
+}
+
 sub _header
 {
 	my $self = shift;
@@ -73,7 +107,7 @@ sub _top
 sub _menu
 {
 	my $self = shift;
-	print($self->{htmlblocks}->menu($self->menuNamespace()));
+	print($self->{htmlblocks}->menu($self->menuFolder()));
 }
 
 sub _footer

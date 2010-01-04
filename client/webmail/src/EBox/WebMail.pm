@@ -202,7 +202,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder(
-                      'name' => 'webmail',
+                      'name' => 'WebMail',
                       'text' => $self->printableName(),
                       'separator' => 'Communications',
                       'order' => 700,

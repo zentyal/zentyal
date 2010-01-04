@@ -446,7 +446,7 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'VoIP',
+    my $folder = new EBox::Menu::Folder('name' => 'Asterisk',
                                         'text' => $self->printableName(),
                                         'separator' => 'Communications',
                                         'order' => 630);

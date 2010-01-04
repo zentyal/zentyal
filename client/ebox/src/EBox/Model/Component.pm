@@ -212,5 +212,13 @@ sub setParent
 
 }
 
+# Method: menuFolder
+#
+#	Override this function if you model is placed within a folder
+#	from other module
+sub menuFolder
+{
+	return undef;
+}
 
 1;
