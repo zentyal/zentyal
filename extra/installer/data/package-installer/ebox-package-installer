@@ -91,8 +91,9 @@ my $USERS_ADVANCED_TITLE = __("Advanced configuration modes");
 my $USERS_ADVANCED_MESSAGE = __x("In this beta version we don't support the advanced autoconfiguration yet. You can learn more about these features here:
 {url}",
 url => 'http://trac.ebox-platform.com/wiki/Document/AdvancedSetup_1.3');
-my $IFACES_TITLE = __('Select external interfaces');
-my $IFACES_MESSAGE = __('Strict default policies are applied to incoming traffic through external interfaces.');
+my $IFACES_TITLE = __('Select External (WAN) interfaces');
+my $IFACES_MESSAGE = __('WARNING: By default you will not be able to access the web interface through them.');
+my $GATEWAY_WARNING = __('You have installed a gateway profile. It needs at least two network interfaces and your machine has only one. You can still enjoy the rest of the eBox features but it will not act as a gateway unless you add another network card.');
 my $PASS_TITLE = __('Enter password for eBox interface');
 my $PASS_MSG = __('You will need to use this password to log into the eBox interface:');
 my $PASS_CONFIRM_TITLE = __('Confirm password for eBox interface');
@@ -252,6 +253,15 @@ sub selectIfacesMenu # returns array
     my $ifaceList = `$INSTALL_FILES/ebox-get-ifaces`;
     my @ifaces = split (' ', $ifaceList);
     my @ifacePairs = map ( [ $_, '' ] , @ifaces);
+
+    my $gateway = grep /gateway/, @packages;
+
+    return () unless $gateway;
+
+    if (scalar (@ifaces) < 2) {
+        showDialog(__('Warning'), $GATEWAY_WARNING);
+        return ();
+    }
 
     my @selection;
     my $option = '';
