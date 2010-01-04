@@ -197,8 +197,8 @@ sub actions
 {
     return [
         {
-         'action' => _('Initialize event dispatchers table'),
-         'reason' => _('Enable default log dispatcher'),
+         'action' => __('Initialize event dispatchers table'),
+         'reason' => __('Enable default log dispatcher'),
          'module' => 'events'
         }
     ];
