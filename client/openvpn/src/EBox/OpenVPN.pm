@@ -1459,7 +1459,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder(
-                                        'name' => 'VPN',
+                                        'name' => 'OpenVPN',
                                         'text' => $self->printableName(),
                                         'separator' => 'UTM',
                                         'order' => 330

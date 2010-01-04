@@ -218,10 +218,10 @@ sub validateTypedRow
 
     $self->_checkRipPasswd($action, $params_r, $actual_r);
 
-    $self->_checkMasqueradeIsAvailable($action, $params_r, $actual_r);
+#    $self->_checkMasqueradeIsAvailable($action, $params_r, $actual_r);
 
     $self->_checkIface($action, $params_r, $actual_r);
-    $self->_checkIfaceAndMasquerade($action, $params_r, $actual_r);
+#    $self->_checkIfaceAndMasquerade($action, $params_r, $actual_r);
 
     $self->_checkTlsRemote($action, $params_r, $actual_r);
 

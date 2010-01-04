@@ -33,10 +33,18 @@ use EBox::Exceptions::DataExists;
 use EBox::Types::HasMany;
 use EBox::Types::Text::WriteOnce;
 use EBox::Types::Boolean;
+use EBox::NetWrappers;
 
 use EBox::OpenVPN::Server;
 
 #use EBox::OpenVPN::Model::ServerConfiguration;
+use List::Util; # first
+
+use constant START_ADDRESS_PREFIX => '192.168.';
+use constant FROM_RANGE => 160;
+use constant TO_RANGE => 200;
+use constant PORTS => (1194, 11194 .. 11234);
+
 
 # Group: Public and protected methods
 
@@ -60,7 +68,7 @@ sub _table
                                       printableName => __('Enabled'),
                                       editable => 1,
 
-                                      defaultValue => 0,
+                                      defaultValue => 1,
                                      ),
             new EBox::Types::Text::WriteOnce
                             (
@@ -105,7 +113,7 @@ sub _table
             'tableName'              => __PACKAGE__->name(),
             'printableTableName' => __('List of servers'),
             'pageTitle' => __('VPN servers'),
-	    'HTTPUrlView' => 'OpenVPN/View/Servers',
+            'HTTPUrlView' => 'OpenVPN/View/Servers',
             'automaticRemove' => 1,
             'defaultController' => '/ebox/OpenVPN/Controller/Servers',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
@@ -138,10 +146,8 @@ sub name
 sub precondition
 {
     my $global = EBox::Global->getInstance();
-    my $openvpn = $global->modInstance('openvpn');
-
-    my $certsAvailable = @{  $openvpn->availableCertificates() };
-    return undef unless ($certsAvailable);
+    my $ca = $global->modInstance('ca');
+    return ($ca->isCreated());
 }
 
 # Method: preconditionFailMsg
@@ -156,10 +162,9 @@ sub precondition
 #
 sub preconditionFailMsg
 {
-    return  __x(q/{openpar}You can't create VPN servers because there aren't enough/
-        . ' certificates.{closepar}{openpar}Please, go to the {openhref}certification '
-        . 'authority module{closehref} and create new certificates.{closepar}'
-        . '{openpar}You will need, at least, one CA and one certificate.{closepar}',
+    return  __x('{openpar}You need to create a CA certificate to use this module.'
+        . ' {closepar}{openpar}Please, go to the {openhref}certification '
+        . 'authority module{closehref} and create it.{closepar}',
         openhref => qq{<a href='/ebox/CA/Index'>}, closehref => qq{</a>},
         openpar => '<p>', closepar => '</p>' );
 
@@ -173,6 +178,7 @@ sub validateTypedRow
         $self->_checkCertificatesAvailable(
                   __('Server creation')
                                           );
+        return;
     }
 
     $self->_validateService($action, $params_r, $actual_r);
@@ -223,6 +229,12 @@ sub addedRowNotify
 
     EBox::OpenVPN::Model::InterfaceTable::addedRowNotify($self, $row);
 
+    $self->_configureVPN($row);
+    unless ($row->subModel('configuration')->configured()) {
+        my $service = $row->elementByName('service');
+        $service->setValue(0);
+        $row->store();
+    }
     my $service = $row->elementByName('service');
 
     if ($service->value()) {
@@ -275,9 +287,11 @@ sub _validateService
                                             )
         }
 
-        $self->_checkCertificatesAvailable(
-                  __('Server activation')
-                                          );
+    unless ($self->precondition()) {
+        throw EBox::Exceptions::External(
+                __('Cannot create a server because there is not a CA certificate')
+                );
+    }
 }
 
 
@@ -298,9 +312,7 @@ sub _checkCertificatesAvailable
 {
     my ($self, $printableAction) = @_;
 
-    my $openvpn = EBox::Global->modInstance('openvpn');
-    my $certsAvailable = @{  $openvpn->availableCertificates() };
-    if (not $certsAvailable) {
+    unless ($self->precondition()) {
         throw EBox::Exceptions::External(
                    __x(
                        q/{act} not possible because there aren't/
@@ -328,5 +340,77 @@ sub _help
 
 }
 
+# Configure VPN address, port and create a server certificate automatically
+sub _configureVPN
+{
+    my ($self, $row) = @_;
+
+    my $name = $row->valueByName('name');
+
+    # Configure network
+    my $networkMod = EBox::Global->modInstance('network');
+    my @addresses;
+    for my $iface (@{$networkMod->allIfaces()}) {
+        my $address = $networkMod->ifaceAddress($iface);
+        push (@addresses, $address) if ($address);
+    }
+
+    for my $id (@{$self->ids()}) {
+        next if ($id eq $row->id());
+        my $subModel = $self->row($id)->subModel('configuration');
+        my $vpn = $subModel->row()->elementByName('vpn')->printableValue();
+        my $name = $self->row($id)->valueByName('name');
+        push (@addresses, $vpn) if ($vpn);
+    }
+    my $network;
+    for my $postfix (FROM_RANGE .. TO_RANGE) {
+        my $net = START_ADDRESS_PREFIX . $postfix;
+        next if (List::Util::first {$_ =~ /^$net.*/ } @addresses);
+        $network= "${net}.0/24";
+        last;
+    }
+
+    # Configure  port
+    my $port;
+    my $firewall = EBox::Global->modInstance('firewall');
+    $port = List::Util::first { $firewall->availablePort('udp', $_) } PORTS;
+
+    # Create server certificate
+    my $ca = EBox::Global->modInstance('ca');
+    my $certName = "vpn-$name";
+    my @certs = @{$ca->listCertificates()};
+    unless (List::Util::first { $_->{dn}->{commonName} eq $certName } @certs ) {
+        my $caExpiration = $ca->getCACertificateMetadata()->{expiryDate};
+        $ca->issueCertificate(commonName => $certName , endDate => $caExpiration);
+    }
+
+    if ($port and $network) {
+        my $conf = $row->subModel('configuration');
+        my $subRow = $conf->row();
+        $subRow->elementByName('vpn')->setValue($network);
+        $subRow->elementByName('portAndProtocol')->setValue("$port/udp");
+        $subRow->elementByName('masquerade')->setValue(1);
+        $subRow->elementByName('certificate')->setValue($certName);
+        $subRow->store();
+    }
+
+    # Advertise local networks
+    for my $iface (@{$networkMod->InternalIfaces()}) {
+        next unless ($networkMod->ifaceMethod($iface) eq 'static');
+        for my $ifaceAddress (@{$networkMod->ifaceAddresses($iface)}) {
+            my $netAddress = EBox::NetWrappers::ip_network(
+                    $ifaceAddress->{address},
+                    $ifaceAddress->{netmask}
+                    );
+            my $advertise = $row->subModel('advertisedNetworks');
+            $advertise->add(
+                    network => EBox::NetWrappers::to_network_with_mask(
+                        $netAddress,
+                        $ifaceAddress->{netmask}
+                        )
+                    );
+        }
+    }
+}
 
 1;
