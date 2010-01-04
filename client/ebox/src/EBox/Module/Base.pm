@@ -215,7 +215,7 @@ sub _unlock
 sub _lock
 {
     my ($self) = @_;
-    EBox::Util::Lock::unlock($self->name);
+    EBox::Util::Lock::lock($self->name);
 }
 
 # Method: setAsChanged
@@ -1144,7 +1144,7 @@ sub runCompositeQuery
             $new_where = "$date_where";
         }
         my $regex = '_' . $key . '_';
-        $new_where =~ s/$regex/$k/; 
+        $new_where =~ s/$regex/$k/;
         $next_query->{'where'} = $new_where;
 
         $results = $db->query_hash($next_query);
