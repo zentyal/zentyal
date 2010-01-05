@@ -2167,7 +2167,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
-                                        'text' => __('Users and Groups'),
+                                        'text' => $self->printableName(),
                                         'separator' => 'Office',
                                         'order' => 510);
 
