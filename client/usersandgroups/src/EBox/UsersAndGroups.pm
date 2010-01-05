@@ -2166,8 +2166,8 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'Users',
-                                        'text' => __('Users'),
+    my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
+                                        'text' => __('Users And Groups'),
                                         'separator' => 'Office',
                                         'order' => 510);
 
@@ -2177,11 +2177,17 @@ sub menu
 
         if ($mode eq 'master') {
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
-                                              'text' => __('Add User')));
-        }
-        $folder->add(new EBox::Menu::Item(
-            'url' => '/Users/View/Users',
-            'text' => __('Edit User')));
+                                              'text' => __('Users')));
+            $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
+                                              'text' => __('Groups')));
+        } else {
+		$folder->add(new EBox::Menu::Item(
+		    'url' => '/Users/View/Users',
+		    'text' => __('Users')));
+		$folder->add(new EBox::Menu::Item(
+		    'url' => '/Users/View/Groups',
+		    'text' => __('Groups')));
+	}
         if ($mode eq 'master') {
 	        $folder->add(new EBox::Menu::Item(
 		                    'url' => 'Users/Composite/SlaveInfo',
@@ -2192,19 +2198,6 @@ sub menu
                             'text' => __('AD Sync Settings')));
         }
 
-        $root->add($folder);
-
-        $folder = new EBox::Menu::Folder('name' => 'Group',
-                                     'text' => __('Groups'),
-                                     'separator' => 'Office',
-                                     'order' => 520);
-
-        if ($mode eq 'master') {
-            $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
-                'text' => __('Add Group')));
-        }
-        $folder->add(new EBox::Menu::Item('url' => 'Users/View/Groups',
-            'text' => __('Edit Group')));
         $root->add($folder);
     } else {
         $folder->add(new EBox::Menu::Item('url' => 'Users/View/Mode',

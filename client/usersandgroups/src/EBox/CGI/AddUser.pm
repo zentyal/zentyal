@@ -81,9 +81,13 @@ sub _process($) {
 						$user->{'group'});
 	}
 
-	# FIXME Is there a better way to pass parameters to redirect/chain
-	# cgi's
-        $self->{redirect} = "UsersAndGroups/User?username=" . $user->{'user'};
+	if ($self->param('addAndEdit')) {
+	        $self->{redirect} = 
+			"UsersAndGroups/User?username=" . $user->{'user'};
+	} else {
+	        $self->{redirect} = "UsersAndGroups/Users";
+
+	}
 }
 
 

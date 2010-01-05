@@ -57,6 +57,17 @@ sub _process($) {
 	push(@args, 'components' => $components);
 	push(@args, 'slave' => $usersandgroups->mode() ne 'master');
 
+	if ($usersandgroups->mode() eq 'master') {
+        	$self->{crumbs} = [
+			{title => __('Users'),
+		         link => '/ebox/UsersAndGroups/Users'
+		        },
+        		{title => $user,
+			link => undef,
+        		},
+	    	];
+	}
+
 	$self->{params} = \@args;
 }
 

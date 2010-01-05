@@ -3,12 +3,10 @@
 </%args>
 <%init>
 use EBox::Gettext;
-use Data::Dumper;
+use EBox::Global;
+my $groupsModel = EBox::Global->modInstance('users')->model('Groups');
+
 </%init>
-<div class="note">
-	<div><%__('Changes in user accounts take effect inmediately, they do not need to be saved.')%></div><br/>
-	<div><% __('Changes related to printing, file sharing and Jabber service do need to be saved in order to be effective.') %></div>
-</div>
 <h3><% __('Add Group') %></h3>
 	<form action='AddGroup' method='POST'>
 	<table class='formTable'>
@@ -36,46 +34,16 @@ use Data::Dumper;
 		<tr>
 			<td></td>
 			<td>
-				<input class='inputButton' type='submit' name='group' 
-					   value="<% __('Create') %>"
-					   alt="<% __('Create') %>">
+				<input class='inputButton' type='submit' name='addAndEdit' 
+					   value="<% __('Add and Edit') %>"
+					   alt="<% __('Add and Edit') %>"/>
+				<input class='inputButton' type='submit' name='add' 
+					   value="<% __('Add') %>"
+					   alt="<% __('Add') %>"/>
+
 			</td>
 		</tr>
 	</table>
 	</form>
 
-
-%   if(@groups) {
-<h3><% __('Edit Group') %></h3>
-		<table class="dataTable">
-		<thead>
-			<th widht="66%" class="tleft"><% __("Group name") %></th>
-			<th class="thOptions"><% __("Actions") %></th>
-		</thead>
-		<tbody>
-%           foreach my $gr (@groups){
-			<tr class="border">
-				<td>
-                    <% $gr->{'account'} %>
-				</td>
-    			<form action='Del' method='post'>
-				<td class="tcenter">
-					<a href="Group?group=<% $gr->{'account'} %>" >
-        			<img src='/data/images/edit.gif'
-							alt="<% __('Edit') %> <% $gr->{'account'} %>"
-							title="<% __('Edit') %> <% $gr->{'account'} %>" />
-					</a>
-					<img src="/data/images/sep.gif" alt=" | " />
-					<input type="hidden" name="objectname" value="<% $gr->{'account'} %>" />
-        			<input 	type='image' name='delgroup' 
-							src='/data/images/delete.gif'
-							alt="<% __('Remove') %> <% $gr->{'account'} %>"
-							title="<% __('Remove') %> <% $gr->{'account'} %>"
-							value="<% __('Remove') %>" />
-				</td>
-			</tr>
-    		</form>
-%           }
-		</tbody>
-		</table>
-%  }
+<& '/ajax/tableBodyWithoutActions.mas', model => $groupsModel &>

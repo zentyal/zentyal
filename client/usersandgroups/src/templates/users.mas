@@ -6,11 +6,9 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Global;
+my $usersModel = EBox::Global->modInstance('users')->model('Users');
 </%init>
-<div class="note">
-	<div><%__('Changes in user accounts take effect inmediately, they do not need to be saved.')%></div><br/>
-	<div><% __('Changes related to printing, file sharing and Jabber service do need to be saved in order to be effective.') %></div>
-</div>
 <h3><% __('Add User') %></h3>
 	<form action='AddUser' method='POST'>
 	<table class='formTable'>
@@ -67,13 +65,19 @@ use EBox::Gettext;
 		<tr>
 			<td></td>
 			<td>
-				<input class='inputButton' type='submit' name='user' 
-					   value="<% __('Create') %>"
-					   alt="<% __('Create') %>">
-				</form>
+				<input class='inputButton' type='submit' name='addAndEdit' 
+					   value="<% __('Add and Edit') %>"
+					   alt="<% __('Add and Edit') %>">
+				</input>
+				<input class='inputButton' type='submit' name='add' 
+					   value="<% __('Add') %>"
+					   alt="<% __('Add') %>">
+				</input>
+
 			</td>
 		</tr>
 	</table>
+	</form>
 
 
 
@@ -95,3 +99,6 @@ use EBox::Gettext;
     </select>
 </td>
 </%def>
+
+
+<& '/ajax/tableBodyWithoutActions.mas', model => $usersModel &>

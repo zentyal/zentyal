@@ -1,6 +1,13 @@
+HEAD
+	+ Usability enhancements: (Closes #1649)
+		* Create a unique Users And Group Folder
+		* Unify Add User/Edit User in a single page
+		* Unify Add Group/Edit Group in a single page
+		* Two buttons: "Add and Edit" and "Add"
+		* Add breadcrumbs
 1.3.12
 	+ Add EBox::Ldap::lastModificationTime to know when the master LDAP
- 	  database was modified for the last time
+	  database was modified for the last time
 	+ Index uid and memberUid to avoid some warnings and improve performance,
 	  plus remove some old code and fix some broken one in that part of the code
 	+ Bugfix: disable edition of users and groups in ad-slave mode
