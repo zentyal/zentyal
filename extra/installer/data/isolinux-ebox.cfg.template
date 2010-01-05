@@ -2,7 +2,7 @@ DEFAULT /install/vmlinuz
 GFXBOOT bootlogo
 APPEND  file=/cdrom/preseed/ubuntu-server-auto.seed initrd=/install/initrd.gz quiet --
 LABEL install
-  menu label ^Install eBox Platform VERSION (deletes all disk)
+  menu label ^Install eBox Platform VERSION (delete all disk)
   kernel /install/vmlinuz
   append  file=/cdrom/preseed/ubuntu-server-auto.seed initrd=/install/initrd.gz quiet --
 LABEL auto
