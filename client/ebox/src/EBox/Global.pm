@@ -799,6 +799,16 @@ sub modRevDepends # (module)
     return \@revdeps;
 }
 
+
+# Name: sortModulesByDependencies
+#
+#  Sort a list of modules objects by its dependencies. The dependencies are get
+# using a method that returns the names of the dependencies of each module. 
+#
+#  Parameters:
+#        modules_r          - reference to list of modules
+#        dependenciesMethod - name of the method called in each module
+#                             to get its dependencies
 sub sortModulesByDependencies
 {
     my ($package, $modules_r, $dependenciesMethod) = @_;
