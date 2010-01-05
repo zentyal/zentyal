@@ -61,7 +61,7 @@ my @PACKAGES = (
 #    ['improxy', __('Instant Messaging Proxy')],
 );
 
-my $ASTERISK_EXTRAS = 'dahdi-modules-2.6.24-24-l7filter dahdi-linux dahdi';
+my $ASTERISK_EXTRAS = 'dahdi-modules-ebox dahdi-linux dahdi';
 
 #################
 # -- constants --
