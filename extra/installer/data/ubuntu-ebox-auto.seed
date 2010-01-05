@@ -25,7 +25,7 @@ d-i partman-lvm/confirm boolean true
 d-i partman-auto/choose_recipe select home
 d-i partman/confirm_write_new_label boolean true
 d-i partman/choose_partition select Finish partitioning and write changes to disk
-#d-i partman/confirm boolean true
+d-i partman/confirm boolean true
 
 ### ebox custom
 #d-i partman-auto/disk string /dev/sda
