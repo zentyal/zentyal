@@ -814,13 +814,23 @@ sub sortModulesByDependencies
     my ($package, $modules_r, $dependenciesMethod) = @_;
 
     my @modules = @{ $modules_r };
+    my %availableModulesAndDependencies = map {
+        $_->name() => undef;
+    } @modules;
 
     my $i =0;
     while ($i < @modules) {
         my $mod = $modules[$i];
+        my $modName = $mod->name();
         my @depends = ();
-        if ($mod->can($dependenciesMethod)) {
+        if (defined $availableModulesAndDependencies{$modName}) {
+            @depends = @{ $availableModulesAndDependencies{$modName} }
+        } elsif ($mod->can($dependenciesMethod)) {
             @depends  = @{ $mod->$dependenciesMethod() };
+            @depends = grep {
+                exists $availableModulesAndDependencies{$_}
+            } @depends;
+            $availableModulesAndDependencies{$modName} = \@depends;
         }
 
         my $depOk = 1;
