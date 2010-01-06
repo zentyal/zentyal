@@ -415,7 +415,7 @@ sub serviceExists
     my ($self, %params) = @_;
 
     unless (exists $params{'id'} or exists $params{'name'}) {
-        throw EBox::Exceptions::MissingArgument('service');
+        throw EBox::Exceptions::MissingArgument('service id or name');
     }
 
     my $model =  $self->{'serviceModel'};
