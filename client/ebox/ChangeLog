@@ -1,4 +1,8 @@
 HEAD
+	+ Bug fix: Call EBox::Global::sortModulesByDependencies when
+	  saving all modules and remove infinite loop in that method.
+	  EBox::Global::modifiedModules now requires an argument to sort
+	  its result dependending on enableDepends or depends attribute.
 	+ Bug fix: keep menu folders open during page reloads
 	+ Bug fix: enable the log events dispatcher by default now works
 	+ Bug fix: fixed _lock function in EBox::Module::Base

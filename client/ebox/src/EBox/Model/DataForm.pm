@@ -581,13 +581,12 @@ sub updatedRowNotify
 #
 # Parameters:
 #
-#      oldRow - hash ref containing the old row content, return the
-#      same hash ref as <EBox::Model::DataForm::row> does
+#      oldRow - <EBox::Model::Row> containing the old row
 #
 sub formSubmitted
-  {
+{
 
-  }
+}
 
 # Method: printableActionName
 #

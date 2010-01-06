@@ -699,8 +699,7 @@ sub validateTypedRow
 #
 # Arguments:
 #
-#     row - hash ref containing fields and values of the new
-#     row
+#     row - <EBox::Model::Row> the new row to add
 #
 sub addedRowNotify
 {
@@ -733,7 +732,7 @@ sub deletedRowNotify
 #
 # Arguments:
 #
-#     row - hash ref containing fields and values of the moved row
+#     row - <EBox::Model::Row> containing fields and values of the moved row
 #
 sub movedUpRowNotify
 {
@@ -747,7 +746,7 @@ sub movedUpRowNotify
 #
 # Arguments:
 #
-#     row - hash ref containing fields and values of the moved row
+#     row - <EBox::Model::Row> containing fields and values of the moved row
 #
 sub movedDownRowNotify
 {
@@ -4626,16 +4625,21 @@ sub filesPathsForRow
 
 
 
-#  Method: parentRow
+# Method: parentRow
 #
-#    if the DataTaBele is a submodel of a DataTable return the row where the
+#    if the DataTable is a submodel of a DataTable return the row where the
 #    submodel resides
 #
-#   Returns:
+# Returns:
+#
 #       row object or undef if there is not
 #
-# Warning: this method is affected fby the bug in ::Composite::parent() in case
-#      that the datatable is contained in a Composite
+# Warning:
+#
+#     this method is affected by the bug in
+#     EBox::Model::Composite::parent() in case that the datatable is
+#     contained in a Composite
+#
 sub parentRow
 {
     my ($self) = @_;

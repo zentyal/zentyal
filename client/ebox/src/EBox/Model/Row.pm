@@ -328,7 +328,7 @@ sub GConfModule
 #
 # Parameters:
 #
-#   element - A class implementing <EBox::Type::Abstract> intterface
+#   element - A class implementing <EBox::Type::Abstract> interface
 #
 #
 sub addElement

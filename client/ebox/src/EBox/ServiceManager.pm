@@ -211,7 +211,7 @@ sub checkFiles
 
     my $global = EBox::Global->getInstance();
     my @mods;
-    for my $modName (@{$global->modifiedModules()}) {
+    for my $modName (@{$global->modifiedModules('enable')}) {
         my $modIns = $global->modInstance($modName);
         push (@mods, $modIns) if ($modIns->isa(CLASS));
     }

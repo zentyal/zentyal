@@ -26,6 +26,7 @@ use EBox::Exceptions::Command;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
 use Error qw(:try);
 use EBox::Config;
@@ -341,9 +342,26 @@ sub revokeAllModules
         throw EBox::Exceptions::Internal($errorText);
 }
 
+# Method: modifiedModules
+#
+#      Return the list of modified modules sorted by from parameter
+#
+# Parameters:
+#
+#      from - String the result is sorted depending on this parameter:
+#             'enable' - the sort is done by enableDepends attribute
+#             'save'   - the sort is done by depends attribute
+#
+# Returns:
+#
+#      array ref - containing the list of modified module names
+#
 sub modifiedModules
 {
-    my ($self) = @_;
+    my ($self, $from) = @_;
+
+    defined($from) or throw EBox::Exceptions::MissingArgument('from');
+
     my @names = @{$self->modNames};
     my @mods;
 
@@ -365,8 +383,18 @@ sub modifiedModules
         }
     }
 
-    my $sorted = sortModulesEnableModDepends(\@mods);
-    return $sorted;
+    @mods = map { __PACKAGE__->modInstance($_) } @mods;
+
+    my $sorted;
+    if ( $from eq 'enable' ) {
+        $sorted = sortModulesEnableModDepends(\@mods);
+    } else {
+        $sorted = __PACKAGE__->sortModulesByDependencies(\@mods, 'depends');
+    }
+
+    my @sorted = map { $_->name() } @{$sorted};
+
+    return \@sorted;
 }
 
 sub sortModulesEnableModDepends
@@ -382,7 +410,7 @@ sub prepareSaveAllModules
 {
     my ($self) = @_;
 
-    my $totalTicks = scalar @{$self->modifiedModules()}
+    my $totalTicks = scalar @{$self->modifiedModules('save')}
       + $self->_nScripts(PRESAVE_SUBDIR, POSTSAVE_SUBDIR);
 
     return $self->_prepareActionScript('saveAllModules', $totalTicks);
@@ -423,9 +451,9 @@ sub saveAllModules
         my $progress = $options{progress};
         if (not $progress) {
             $progress = EBox::ProgressIndicator::Dummy->create();
-        }
+       }
 
-        my @mods = @{$self->modifiedModules()};
+        my @mods = @{$self->modifiedModules('save')};
         my $modNames = join (' ', @mods);
 
         $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
