@@ -81,6 +81,31 @@ sub _table
     return $dataTable;
 }
 
+
+
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields) = @_;
+
+    if (not exists $changedFields->{network}) {
+        return;
+    }
+
+    my $net = $changedFields->{network}->printableValue();
+    my $serverConf = 
+  $self->parentRow()->elementByName('configuration')->foreignModelInstance();
+    my $vpn = $serverConf->row()->elementByName('vpn')->printableValue();
+
+    if ($net eq $vpn) {
+        throw EBox::Exceptions::External(
+__('The advertised network address could not be the same than the VPN address' )
+                                        );
+    }
+
+}
+
+
+
 # Method: pageTitle
 #
 #   Overrides <EBox::Model::DataTable::pageTitle>
@@ -91,6 +116,7 @@ sub pageTitle
 
         return $self->parentRow()->printableValueByName('name');
 }
+
 
 # Group: Private methods
 

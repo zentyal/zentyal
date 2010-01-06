@@ -214,6 +214,8 @@ sub validateTypedRow
 
     $self->_uniqPortAndProtocol($action, $params_r, $actual_r);
 
+    $self->_checkVPN($action, $params_r, $actual_r);
+
     $self->_checkServerCertificate($action, $params_r, $actual_r);
 
     $self->_checkRipPasswd($action, $params_r, $actual_r);
@@ -253,6 +255,31 @@ sub _checkRipPasswd
           __('eBox to eBox tunel option requieres a RIP password')
                                         );
 }
+
+sub _checkVPN
+{
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+    return unless ( exists $params_r->{vpn} );
+
+    my $vpnAddress = $params_r->{vpn}->printableValue();
+
+    my $advertisedNetwork = 
+   $self->parentRow()->elementByName('advertisedNetworks')->foreignModelInstance();
+    foreach my $id (@{ $advertisedNetwork->ids() }) {
+        my $row = $advertisedNetwork->row($id);
+        my $net = $row->elementByName('network')->printableValue();
+
+        if ($vpnAddress eq $net) {
+            throw EBox::Exceptions::External(
+__('The VPN address could not be the same than one of its advertised networks')
+                                            )
+        }
+        
+    }
+
+}
+
 
 sub _uniqPortAndProtocol
 {

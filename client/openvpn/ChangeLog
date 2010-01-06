@@ -3,6 +3,7 @@ HEAD
 	  and also create a server certificate and advertise local networks.
 	  (Closes #1628)
 	+ Keep folder open
+	+ VPN adddress cannot be the same of any exposed network and viceversa
 1.3.12
 	+ Add breadcrumbs
 1.3.11
