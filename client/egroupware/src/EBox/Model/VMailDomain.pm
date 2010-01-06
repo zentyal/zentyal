@@ -96,11 +96,20 @@ sub preconditionFailMsg
     my $numDomains = scalar (@{$model->ids()});
 
     unless ($numDomains > 0) {
-        return __('You must have at least one virtual mail domain defined.');
+        return __x(
+'You must have at least one virtual mail domain defined. You can define the at {ohref}Virtual Domains section{chref}',
+ohref => q{<a href='/ebox/Mail/View/VDomains/'>},
+chref => q{</a>},
+
+);
     }
 
     unless ($mail->imap()) {
-        return __('You must have IMAP service enabled.');
+        return __x(
+'You must have IMAP service enabled. You can enable it at {ohref} Mail General Configuration{chref}.',
+ohref => q{<a href='/ebox/Mail/Composite/General/'>},
+chref => q{</a>},
+                  );
     }
 }
 
