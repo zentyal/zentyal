@@ -311,6 +311,7 @@ sub compositeClasses
 {
     return [
         'EBox::UsersAndGroups::Composite::SlaveInfo',
+        'EBox::UsersAndGroups::Composite::UserTemplate',
     ];
 }
 # Method: groupsDn
@@ -2016,6 +2017,21 @@ sub _modsLdapUserBase
     return \@modules;
 }
 
+# Method: defaultUserModels
+#
+#   Returns all the defaultUserModels from modules implementing
+#   <EBox::LdapUserBase>
+sub defaultUserModels
+{
+    my ($self) = @_;
+    my @models;
+    for my $module  (@{$self->_modsLdapUserBase()}) {
+        my $model = $module->defaultUserModel();
+        push (@models, $model) if (defined($model));
+    }
+    return \@models;
+}
+
 # Method: allUserAddOns
 #
 #       Returns all the mason components from those modules implementing
@@ -2180,22 +2196,26 @@ sub menu
                                               'text' => __('Users')));
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
                                               'text' => __('Groups')));
+            $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
+                                              'text' => __('Default User Template')));
         } else {
-		$folder->add(new EBox::Menu::Item(
-		    'url' => '/Users/View/Users',
-		    'text' => __('Users')));
-		$folder->add(new EBox::Menu::Item(
-		    'url' => '/Users/View/Groups',
-		    'text' => __('Groups')));
-	}
+            $folder->add(new EBox::Menu::Item(
+                        'url' => '/Users/View/Users',
+                        'text' => __('Users')));
+            $folder->add(new EBox::Menu::Item(
+                        'url' => '/Users/View/Groups',
+                        'text' => __('Groups')));
+            $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
+                                              'text' => __('Default User Template')));
+        }
         if ($mode eq 'master') {
-	        $folder->add(new EBox::Menu::Item(
-		                    'url' => 'Users/Composite/SlaveInfo',
-                            'text' => __('Slave Status')));
+            $folder->add(new EBox::Menu::Item(
+                        'url' => 'Users/Composite/SlaveInfo',
+                        'text' => __('Slave Status')));
         } elsif ($mode eq 'ad-slave') {
-	        $folder->add(new EBox::Menu::Item(
-		                    'url' => 'Users/View/ADSyncSettings',
-                            'text' => __('AD Sync Settings')));
+            $folder->add(new EBox::Menu::Item(
+                        'url' => 'Users/View/ADSyncSettings',
+                        'text' => __('AD Sync Settings')));
         }
 
         $root->add($folder);

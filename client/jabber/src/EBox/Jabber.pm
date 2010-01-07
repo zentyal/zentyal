@@ -21,6 +21,7 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::LdapModule
             EBox::FirewallObserver
+            EBox::Model::ModelProvider
             );
 
 use EBox::Exceptions::DataExists;
@@ -122,6 +123,19 @@ sub enableActions
     $self->performLDAPActions();
 
     root(EBox::Config::share() . '/ebox-jabber/ebox-jabber-enable');
+}
+
+# Method: modelClasses
+#
+# Overrides:
+#
+#       <EBox::Model::ModelProvider::modelClasses>
+#
+sub modelClasses
+{
+    my ($self) = @_;
+
+    return  [ 'EBox::Jabber::Model::JabberUser' ];
 }
 
 #  Method: _daemons

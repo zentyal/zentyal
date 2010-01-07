@@ -72,6 +72,7 @@ sub _process
 
     my $composite = $self->{'composite'};
     my $directory = $self->param('directory');
+    $self->setMenuFolder($composite->menuFolder());
 
     if (defined $directory) {
         $composite->setDirectory($directory);

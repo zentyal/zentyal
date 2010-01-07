@@ -267,6 +267,7 @@ sub modelClasses
             'EBox::Mail::Model::ExternalAliases',
             'EBox::Mail::Model::VDomainSettings',
             'EBox::Mail::Model::ExternalFilter',
+            'EBox::Mail::Model::MailUser',
 
             'EBox::Mail::Model::Dispatcher::Mail',
 

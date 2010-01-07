@@ -5,6 +5,10 @@ HEAD
 		* Unify Add Group/Edit Group in a single page
 		* Two buttons: "Add and Edit" and "Add"
 		* Add breadcrumbs
+	+ Add UserTemplate composite to configure default options that are used when
+	a new user is created
+	+ Add defaultUserModel to LdapUserBase.pm
+	+ Specify folder for SlaveInfo
 1.3.12
 	+ Add EBox::Ldap::lastModificationTime to know when the master LDAP
 	  database was modified for the last time

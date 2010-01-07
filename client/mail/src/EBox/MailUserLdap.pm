@@ -26,6 +26,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
+use EBox::Model::ModelManager;
 use EBox::Gettext;
 
 use Perl6::Junction qw(any);
@@ -374,6 +375,29 @@ sub existsUserLdapValue
 }
 
 
+# Method: _addUser
+#
+#   Overrides <EBox::UsersAndGroups::LdapUserBase> to create a default mail
+#   account user@domain if the admin has enabled the auto email account creation
+#   feature
+sub _addUser
+{
+    my ($self, $user, $passwd) = @_;
+
+    return unless (EBox::Global->modInstance('mail')->configured());
+
+    my $mail = EBox::Global->modInstance('mail');
+    my @vdomains = $mail->{vdomains}->vdomains();
+    return unless (@vdomains);
+
+    my $model = EBox::Model::ModelManager::instance()->model('mail/MailUser');
+    return unless ($model->enabledValue());
+    my $vdomain = $model->domainValue();
+    return unless ($vdomain  and $mail->{vdomains}->vdomainExists($vdomain));
+
+    $self->setUserAccount($user, $user, $vdomain);
+
+}
 
 sub _delGroup
 {
@@ -904,6 +928,13 @@ sub acls
             "by * none" ];
 }
 
-
+# Method: defaultUserModel
+#
+#   Overrides <EBox::UsersAndGrops::LdapUserBase::defaultUserModel>
+#   to return our default user template
+sub defaultUserModel
+{
+    return 'mail/MailUser';
+}
 
 1;

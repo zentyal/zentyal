@@ -20,11 +20,13 @@ use warnings;
 
 use EBox::Sudo qw( :all );
 use EBox::Global;
+use EBox::Model::ModelManager;
 use EBox::Network;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
+
 use EBox::Gettext;
 
 use Perl6::Junction qw(any all);
@@ -41,6 +43,7 @@ use constant SMBPWDCANCHANGE    => '0';
 use constant SMBPWDMUSTCHANGE   => '2147483647';
 use constant SMBGROUP           => '513';
 use constant SMBACCTFLAGS       => '[U]';
+use constant SMBACCTFLAGSDISABLED       => '[UD]';
 use constant GECOS              => 'Ebox file sharing user ';
 use constant USERGROUP          => 513;
 use constant DEFAULT_SHELL      => '/bin/false';
@@ -110,6 +113,16 @@ sub _domainUser
 sub _userCommonLdapAttrs
 {
     my ($self) = @_;
+
+    my $defaultFlags;
+    my $model =
+        EBox::Model::ModelManager::instance()->model('samba/SambaUser');
+    if ($model->enabledValue()) {
+        $defaultFlags = SMBACCTFLAGS;
+    } else {
+        $defaultFlags = SMBACCTFLAGSDISABLED;
+    }
+
     my $attrs = {
         sambaLogonTime       => SMBLOGONTIME,
         sambaLogoffTime      => SMBLOGOFFTIME,
@@ -120,7 +133,7 @@ sub _userCommonLdapAttrs
         sambaPasswordHistory => '0' x56,
         sambaPwdLastSet      => time(),
 
-        sambaAcctFlags       => SMBACCTFLAGS,
+        sambaAcctFlags       => $defaultFlags,
 
         loginShell            => _loginShell(),
     };
@@ -1289,6 +1302,15 @@ sub acls
     return [ "to attrs=sambaNTPassword,sambaLMPassword " .
             "by dn=\"" . $self->{ldap}->rootDn() . "\" write by self write " .
             "by * none" ];
+}
+
+# Method: defaultUserModel
+#
+#   Overrides <EBox::UsersAndGrops::LdapUserBase::defaultUserModel>
+#   to return our default user template
+sub defaultUserModel
+{
+    return 'samba/SambaUser';
 }
 
 1;

@@ -87,6 +87,7 @@ sub modelClasses
         'EBox::Asterisk::Model::Localnets',
         'EBox::Asterisk::Model::Meetings',
         'EBox::Asterisk::Model::Voicemail',
+        'EBox::Asterisk::Model::AsteriskUser',
     ];
 }
 

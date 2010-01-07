@@ -30,6 +30,7 @@ use EBox::Global;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
 use EBox::Asterisk::Extensions;
+use EBox::Model::ModelManager;
 
 # Group: Public methods
 
@@ -69,10 +70,16 @@ sub new
 #
 sub _addUser
 {
-    my ($self, $user, $passwd) = @_;
+    my ($self, $user, $passwd, $skipDefault) = @_;
 
     unless ($self->{asterisk}->configured()) {
         return;
+    }
+
+    unless ($skipDefault) {
+        my $model = EBox::Model::ModelManager::instance()
+            ->model('asterisk/AsteriskUser');
+        return unless ($model->enabledValue());
     }
 
     my $users = EBox::Global->modInstance('users');
@@ -241,7 +248,7 @@ sub setHasAccount
         return;
 
     if ($option) {
-        $self->_addUser($username);
+        $self->_addUser($username, undef, 1);
     } else {
         $self->_delUser($username);
     }
@@ -291,6 +298,15 @@ sub acls
         "by dn.regex=\"" . $self->{ldap}->rootDn() . "\" write " .
         "by self write " .
         "by * none" ];
+}
+
+# Method: defaultUserModel
+#
+#   Overrides <EBox::UsersAndGrops::LdapUserBase::defaultUserModel>
+#   to return our default user template
+sub defaultUserModel
+{
+    return 'asterisk/AsteriskUser';
 }
 
 1;

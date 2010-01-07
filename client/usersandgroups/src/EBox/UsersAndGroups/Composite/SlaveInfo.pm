@@ -55,11 +55,11 @@ sub _description
 
       my $description =
         {
-         components      => [
-			     'Slaves',
-			     'PendingSync',
-			     'ForceSync',
-                            ],
+            components      => [
+                'Slaves',
+                'PendingSync',
+                'ForceSync',
+            ],
          layout          => 'top-bottom',
          name            => 'SlaveInfo',
          compositeDomain => 'Users',
@@ -71,6 +71,12 @@ sub _description
 
 sub pageTitle
 {
-	return __('Slave status');
+    return __('Slave status');
 }
+
+sub menuFolder
+{
+    return 'UsersAndGroups';
+}
+
 1;

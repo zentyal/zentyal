@@ -66,11 +66,13 @@ sub _table
              fieldName => 'tls',
              printableName => 'TLS for SMTP server',
              editable => 1,
+             defaultValue => 1,
              ),
          new EBox::Types::Boolean(
              fieldName => 'sasl',
              printableName => 'Require authentication',
              editable => 1,
+             defaultValue => 1,
              help => __('Users will have to authenticate to be able to send ' .
                         'mails through this server'),
              ),

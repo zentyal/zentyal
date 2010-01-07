@@ -233,4 +233,18 @@ sub localAttributes
     return [];
 }
 
+# Method: defaultUserModel
+#
+#   Returns the name of model that is used to compose a default template for
+#   new user
+#
+# Returns:
+#
+#   string - model name
+#
+sub defaultUserModel
+{
+    return undef;
+}
+
 1;

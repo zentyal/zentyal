@@ -197,6 +197,7 @@ sub modelClasses
                'EBox::Samba::Model::AntivirusExceptions',
                'EBox::Samba::Model::RecycleDefault',
                'EBox::Samba::Model::RecycleExceptions',
+               'EBox::Samba::Model::SambaUser',
            ];
 
 }

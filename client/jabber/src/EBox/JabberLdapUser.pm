@@ -23,6 +23,7 @@ use EBox::Global;
 use EBox::Ldap;
 use EBox::Network;
 use EBox::Exceptions::Internal;
+use EBox::Model::ModelManager;
 use EBox::Gettext;
 use EBox::UsersAndGroups;
 
@@ -175,7 +176,7 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
 		    filter => "jabberUid=$username");
 	my $mesg = $ldap->search(\%args);
 
-	if (!$mesg->count && $option){
+	if (!$mesg->count and ($option)){
 	    my %attrs = (
 			  changes => [
 				       add => [
@@ -188,7 +189,7 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
 	    my $result = $ldap->modify($dn, \%attrs );
 	    ($result->is_error) and
 		throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-	} elsif ($mesg->count && !$option) {
+	} elsif ($mesg->count and not ($option)) {
 	    my %attrs = (
 			  changes => [
 				       delete => [
@@ -201,10 +202,6 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
 	    my $result = $ldap->modify($dn, \%attrs );
 	    ($result->is_error) and
 		throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-	} elsif ($mesg->count && $option){
-
-	} else {
-	    throw EBox::Exceptions::Internal ('Unknown error');
 	}
 
 	return 0;
@@ -244,8 +241,8 @@ sub _addUser
    unless ($self->{jabber}->configured()) {
        return;
    }
- 
-   $self->setHasAccount($user, 1);
+   my $model = EBox::Model::ModelManager::instance()->model('jabber/JabberUser');
+   $self->setHasAccount($user, $model->enabledValue());
 }
 
 
@@ -264,5 +261,15 @@ sub _delUserWarning
 
     return $txt;
 }
+
+# Method: defaultUserModel
+#
+#   Overrides <EBox::UsersAndGrops::LdapUserBase::defaultUserModel>
+#   to return our default user template
+sub defaultUserModel
+{
+    return 'jabber/JabberUser';
+}
+
 
 1;

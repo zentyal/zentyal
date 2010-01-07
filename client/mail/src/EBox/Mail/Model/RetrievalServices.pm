@@ -65,21 +65,25 @@ sub _table
                                   fieldName => 'pop3',
                                   printableName => __('POP3 service enabled'),
                                   editable => 1,
+                                  defaultValue => 1,
                                  ),
          new EBox::Types::Boolean(
                                   fieldName => 'pop3s',
                                   printableName => __('Secure POP3S service enabled'),
                                   editable => 1,
+                                  defaultValue => 1,
                                  ),
          new EBox::Types::Boolean(
                                   fieldName => 'imap',
                                   printableName => __('IMAP service enabled'),
                                   editable => 1,
+                                  defaultValue => 1,
                                  ),
          new EBox::Types::Boolean(
                                   fieldName => 'imaps',
                                   printableName => __('Secure IMAPS service enabled'),
                                   editable => 1,
+                                  defaultValue => 1,
                                  ),
          new EBox::Types::Boolean(
                                   fieldName => 'fetchmail',
@@ -94,6 +98,7 @@ sub _table
                                   help =>
  __(q{This service allows to a use to manage his SIEVE mail filtering scripts from a local client} ),
                                   editable => 1,
+                                  defaultValue => 1,
                                  ),
         );
 
