@@ -109,7 +109,6 @@ other protocols such as IRC, ICQ, AIM, MSN and Yahoo!.
 
 .. [#] **Pidgin**, *the universal chat client* <http://www.pidgin.im/>.
 
-
 Pidgin was included by default in the Ubuntu desktop edition until *Karmic*,
 but still is the most popular IM client. You can find
 it in the menu :menuselection:`Internet --> Pidgin Internet Messenger`.
@@ -217,8 +216,8 @@ Once published, this error won't appear again.
 
 .. _jabber-exercise-ref:
 
-Setting up a Jabber MUC (Multi User Chat) room
-----------------------------------------------
+Setting up Jabber MUC (Multi User Chat) rooms
+---------------------------------------------
 
 Jabber MUC or Multi User Chat is a service that allows multiple users exchange
 messages in the context of a room. Features like room topics, invitations, 
@@ -335,6 +334,6 @@ clients are able to resolve.
      eBox shows the progress while applying the changes. When it finish, a
      message will be displayed.
 
-     Now the Jabber/XMPP Service is ready to be used.
+     Now the Jabber/XMPP service is ready to be used.
 
 .. include:: jabber-exercises.rst
