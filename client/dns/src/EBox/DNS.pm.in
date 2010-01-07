@@ -42,6 +42,7 @@ use constant BIND9CONFLOCALFILE => "@BIND9CONFLOCAL@";
 use constant BIND9INIT     => "@BIND9_INIT@";
 use constant PIDFILE       => "/var/run/bind/run/named.pid";
 use constant NAMESERVER_HOST => 'ns';
+use constant KEYSFILE => BIND9CONFDIR . '/keys';
 
 sub _create
 {
@@ -154,7 +155,7 @@ sub _exposedMethods
                                  path    => [ 'DomainTable', 'mailExchangers' ],
                                  indexes => [ 'domain' ],
                                },
-         # Both last two methods are only working with custom MX records
+         # Both following two methods are only working with custom MX records
          'changeMXPreference' => { action  => 'set',
                                    path    => [ 'DomainTable', 'mailExchangers' ],
                                    indexes => [ 'domain', 'hostName' ],
@@ -193,11 +194,11 @@ sub compositeClasses
 #
 sub addDomain
 {
- my ($self, $domainData) = @_;
+    my ($self, $domainData) = @_;
 
- my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
+    my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
 
- $domainModel->addDomain($domainData);
+    $domainModel->addDomain($domainData);
 }
 
 # Method: domains
@@ -207,8 +208,9 @@ sub addDomain
 #
 #  Array ref - containing hash refs with the following elements:
 #
-#           name - String the domain's name
-#           ipaddr - String the domain's ip address
+#    name    - String the domain's name
+#    ipaddr  - String the domain's ip address
+#    dynamic - Boolean indicating if the domain is dynamically updated
 #
 sub domains
 {
@@ -224,6 +226,7 @@ sub domains
 
         $domaindata->{'name'} = $row->valueByName('domain');
 	$domaindata->{'ipaddr'} = $row->valueByName('ipaddr');
+	$domaindata->{'dynamic'} = $row->valueByName('dynamic');
 
         push(@array, $domaindata);
     }
@@ -231,144 +234,6 @@ sub domains
     return \@array;
 }
 
-# Method: _hostnames
-#  returns an array with all hostname structure
-#
-# Parameters:
-#   model to iterate over
-#
-# Returns:
-#  array ref with this structure data:
-#  
-#  'name': hostname
-#  'ip': ip address of hostname
-#  'aliases': an array ref returned by <EBox::DNS::aliases> method.
-#  
-sub _hostnames
-{
-    my ($self, $model) = @_;
-    my @array;
-
-    foreach my $id (@{$model->ids()})
-    {
-        my $hostname = $model->row($id);
-        my $hostdata;
-
-        $hostdata->{'name'} = $hostname->valueByName('hostname');
-        $hostdata->{'ip'} = $hostname->valueByName('ipaddr');
-        $hostdata->{'aliases'} = 
-            $self->aliases($hostname->subModel('alias'));
-
-        push(@array, $hostdata);
-    }
-
-    return \@array;
-}
-
-# Method: _formatMailExchangers
-#
-#       Format the mail exchangers to write configuration settings
-#       properly. That is, custom MX records appends a full stop after
-#       the type value.
-#
-# Parameters:
-#
-#       mailExchangers - model to iterate over 
-#
-#            hostName - String the host's name
-#            id - String the row identifier
-#            preference - Int the preference attribute
-#            ownerDomain - if the hostname owns to the same domain.
-#            custom - if the hostname is a foreign one
-#
-# Returns:
-#
-#   Array ref of hashes containing the following keys:
-#
-#      hostName
-#       preference
-sub _formatMailExchangers
-{
-    my ($self, $mailExchangers) = @_;
-
-    my @mailExchangers;
-    foreach my $id (@{$mailExchangers->ids()}) {
-        my $mx = $mailExchangers->row($id);
-        my $hostName = $mx->valueByName('hostName');
-        if ($mx->elementByName('hostName')->selectedType() eq 'custom') {
-            unless ( $hostName =~ m:\.$: ) {
-                $hostName .= '.';
-            }
-        } else {
-            $hostName = $mx->parentRow()
-               ->subModel('hostnames')
-               ->row($hostName)
-               ->valueByName('hostname');
-        }
-        push (@mailExchangers, { 
-                hostName => $hostName, 
-                preference => $mx->valueByName('preference')
-                });
-    }
-    return \@mailExchangers;
-}
-
-# Method: _formatNameServers
-#
-#       Format the name servers to write configuration settings
-#       properly. That is, custom NS records appends a full stop after
-#       the type value.
-#
-#       If it has none configured, it will configure the following:
-#
-#       @ NS 127.0.0.1 # If there is no hostname named NS
-#       @ NS ns        # If there is a hostname whose name is 'ns'
-#
-# Parameters:
-#
-#       nameServers - model to iterate over
-#
-#            hostName - String the host's name
-#            id - String the row identifier
-#            ownerDomain - if the hostname owns to the same domain.
-#            custom - if the hostname is a foreign one
-#
-#       hostnames   - model with hostnames for that domain
-#
-# Returns:
-#
-#   Array ref of the name servers to set on
-#
-sub _formatNameServers
-{
-    my ($self, $nameServers, $hostnames) = @_;
-
-    my @nameservers;
-    foreach my $id (@{$nameServers->ids()}) {
-        my $ns = $nameServers->row($id);
-        my $hostName = $ns->valueByName('hostName');
-        if ($ns->elementByName('hostName')->selectedType() eq 'custom') {
-            unless ( $hostName =~ m:\.$: ) {
-                $hostName .= '.';
-            }
-        } else {
-            $hostName = $ns->parentRow()
-               ->subModel('hostnames')
-               ->row($hostName)
-               ->valueByName('hostname');
-        }
-        push (@nameservers, $hostName);
-    }
-    if ( @nameservers == 0 ) {
-        # Look for any hostname whose name is 'ns'
-        my $matchedId = $hostnames->findId(hostname => __PACKAGE__->NameserverHost());
-        if ( defined($matchedId) ) {
-            push(@nameservers, __PACKAGE__->NameserverHost());
-        }
-    }
-
-    return \@nameservers;
-}
 
 # Method: getHostnames
 #
@@ -494,43 +359,6 @@ sub NameserverHost
     return NAMESERVER_HOST;
 }
 
-# Method: _completeDomain
-#
-#  Return a structure with all required data to build bind db config files
-#
-# Parameters:
-#
-#  domain - String the domain's name
-#
-# Returns:
-#
-# hash ref - structure data with:
-#
-#  'name': domain name
-#  'ipaddr': domain ip address
-#  'hosts': an array ref returned by <EBox::DNS::_hostnames> method.
-#  'mailExchangers' : an array ref returned by <EBox::DNS::_formatMailExchangers>
-#  'nameServers' : an array ref returned by <EBox::DNS::_formatNameServers>
-#
-sub _completeDomain # (domain)
-{
-    my ($self, $domain) = @_;
-    my $model = $self->model('DomainTable');
-    my $domdata;
-
-    my $row = $model->find(domain => $domain->{'name'});
-    $domdata->{'name'} = $domain->{'name'};
-    $domdata->{'ipaddr'} = $domain->{'ipaddr'};
-    $domdata->{'hosts'} = $self->_hostnames(
-            $row->subModel('hostnames'));
-
-    my $subModel = $row->subModel('mailExchangers');
-    $domdata->{'mailExchangers'} = $self->_formatMailExchangers($subModel);
-    $domdata->{'nameServers'} = $self->_formatNameServers($row->subModel('nameServers'),
-                                                          $row->subModel('hostnames'));
-
-    return $domdata;
-}
 
 # Method: createHostDataArray
 #  returns host and their alias info in a single hosts array ref.
@@ -681,34 +509,39 @@ sub usedFiles
     my $files = [{
             'file' => BIND9CONFFILE,
             'module' => 'dns',
-            'reason' => 'main bind9 configuration file'
+            'reason' => __('main bind9 configuration file'),
         },
        {
            'file' => BIND9CONFOPTIONSFILE,
            'module' => 'dns',
-           'reason' => 'bind9 options configuration file'
+           'reason' => __('bind9 options configuration file'),
        },
        {
            'file' => BIND9CONFLOCALFILE ,
            'module' => 'dns',
-           'reason' => 'local bind9 configuration file'
-       }
+           'reason' => __('local bind9 configuration file'),
+       },
+       {
+           'file'   => KEYSFILE,
+           'module' => 'dns',
+           'reason' => __('Keys configuration file'),
+       },
     ];
 
 
-    my @domains = @{$self->domains()};
+    my @domainIds = @{$self->_domainIds()};
 
     my @domainData;
-    foreach my $domain (@domains)
+    foreach my $domainId (@domainIds)
     {
-        my $domdata = $self->_completeDomain($domain);
+        my $domdata = $self->_completeDomain($domainId);
         push(@domainData, $domdata);
         my $file = BIND9CONFDIR . "/db." . $domdata->{'name'};
         push (@{$files},
                 {
                 'file' => $file,
                 'module' => 'dns',
-                'reason' => __x('configuration file for zone {zone}', 
+                'reason' => __x('configuration file for zone {zone}',
                     zone => $file )
                 });
 
@@ -731,6 +564,23 @@ sub usedFiles
     }
 
     return $files;
+}
+
+# Method: actions
+#
+# Overrides:
+#
+#    <EBox::Module::Service::actions>
+#
+sub actions
+{
+    return [
+        { 'action' => __x('Change the permissions for {dir} to allow writing to bind group',
+                          dir => BIND9CONFDIR),
+          'reason' => __('Let the bind daemon to be dynamically updated'),
+          'module' => 'dns' },
+        ];
+
 }
 
 # Method: enableActions 
@@ -766,7 +616,7 @@ sub enableService
     my ($self, $status) = @_;
 
     $self->SUPER::enableService($status);
-    $self->configureFirewall();    
+    $self->configureFirewall();
 }
 
 # Method: _setConf
@@ -777,37 +627,39 @@ sub enableService
 #
 sub _setConf
 {
-    my $self = shift;
+    my ($self) = @_;
     my @array = ();
 
-    $self->writeConfFile(BIND9CONFFILE, 
-            "dns/named.conf.mas", 
+    $self->writeConfFile(BIND9CONFFILE,
+            "dns/named.conf.mas",
             \@array);
     $self->writeConfFile(BIND9CONFOPTIONSFILE, 
-            "dns/named.conf.options.mas", 
+            "dns/named.conf.options.mas",
             \@array);
 
-    my @domains = @{$self->domains()};
-
-# push(@array, 'domains' => \@domains);
-# $self->writeConfFile(BIND9CONFLOCALFILE, 
-#    "dns/named.conf.local.mas", 
-#    \@array);
-
-# root("/bin/rm -rf " . BIND9CONFDIR . "/zones/");
-# root("/bin/mkdir " . BIND9CONFDIR . "/zones/");
+    my @domainIds = @{$self->_domainIds()};
+    # Hash to store the keys indexed by name, storing the secret
+    my %keys = ();
 
     my @domainData;
-    foreach my $domain (@domains)
-    {
-        my $domdata = $self->_completeDomain($domain);
+    foreach my $domainId (@domainIds) {
+        my $domdata = $self->_completeDomain($domainId);
         push(@domainData, $domdata);
 
         my $file = BIND9CONFDIR . "/db." . $domdata->{'name'};
         @array = ();
         push(@array, 'domain' => $domdata);
         push(@array, 'nameserverHostname' => __PACKAGE__->NameserverHost());
-        $self->writeConfFile($file,"dns/db.mas",\@array);
+        # Prevent to write the file again if this is dynamic and the
+        # journal file has been already created
+        unless ( $domdata->{'dynamic'} and -e "${file}.jnl" ) {
+            $self->writeConfFile($file,"dns/db.mas",\@array);
+        }
+
+        # Add the updater key if the zone is dynamic
+        if ( $domdata->{'dynamic'} ) {
+            $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
+        }
     }
 
     my $reversedData = $self->switchToReverseInfoData(\@domainData);
@@ -820,13 +672,21 @@ sub _setConf
         @array = ();
         push(@array, 'rdata' => $reversedDataItem);
         $self->writeConfFile($file, "dns/dbrev.mas", \@array);
+
+        # TODO: reversed zone
     }
+
+    my @domains = @{$self->domains()};
 
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
             \@array);
+
+    @array = ( 'keys' => \%keys );
+    $self->writeConfFile(KEYSFILE, 'dns/keys.mas', \@array);
+
 }
 
 sub configureFirewall
@@ -902,6 +762,212 @@ sub report
     }, { 'name' => 'domains' });
 
     return $report;
+}
+
+# Method: keysFile
+#
+#     Get the keys file path
+#
+# Returns:
+#
+#     String - the keys file path
+#
+sub keysFile
+{
+    return KEYSFILE;
+}
+
+# Group: Private methods
+
+# Method: _hostnames
+#  returns an array with all hostname structure
+#
+# Parameters:
+#   model to iterate over
+#
+# Returns:
+#  array ref with this structure data:
+#  
+#  'name': hostname
+#  'ip': ip address of hostname
+#  'aliases': an array ref returned by <EBox::DNS::aliases> method.
+#  
+sub _hostnames
+{
+    my ($self, $model) = @_;
+    my @array;
+
+    foreach my $id (@{$model->ids()})
+    {
+        my $hostname = $model->row($id);
+        my $hostdata;
+
+        $hostdata->{'name'} = $hostname->valueByName('hostname');
+        $hostdata->{'ip'} = $hostname->valueByName('ipaddr');
+        $hostdata->{'aliases'} = 
+            $self->aliases($hostname->subModel('alias'));
+
+        push(@array, $hostdata);
+    }
+
+    return \@array;
+}
+
+# Method: _formatMailExchangers
+#
+#       Format the mail exchangers to write configuration settings
+#       properly. That is, custom MX records appends a full stop after
+#       the type value.
+#
+# Parameters:
+#
+#       mailExchangers - model to iterate over 
+#
+#            hostName - String the host's name
+#            id - String the row identifier
+#            preference - Int the preference attribute
+#            ownerDomain - if the hostname owns to the same domain.
+#            custom - if the hostname is a foreign one
+#
+# Returns:
+#
+#   Array ref of hashes containing the following keys:
+#
+#      hostName
+#       preference
+sub _formatMailExchangers
+{
+    my ($self, $mailExchangers) = @_;
+
+    my @mailExchangers;
+    foreach my $id (@{$mailExchangers->ids()}) {
+        my $mx = $mailExchangers->row($id);
+        my $hostName = $mx->valueByName('hostName');
+        if ($mx->elementByName('hostName')->selectedType() eq 'custom') {
+            unless ( $hostName =~ m:\.$: ) {
+                $hostName .= '.';
+            }
+        } else {
+            $hostName = $mx->parentRow()
+               ->subModel('hostnames')
+               ->row($hostName)
+               ->valueByName('hostname');
+        }
+        push (@mailExchangers, { 
+                hostName => $hostName, 
+                preference => $mx->valueByName('preference')
+                });
+    }
+    return \@mailExchangers;
+}
+
+# Method: _formatNameServers
+#
+#       Format the name servers to write configuration settings
+#       properly. That is, custom NS records appends a full stop after
+#       the type value.
+#
+#       If it has none configured, it will configure the following:
+#
+#       @ NS 127.0.0.1 # If there is no hostname named NS
+#       @ NS ns        # If there is a hostname whose name is 'ns'
+#
+# Parameters:
+#
+#       nameServers - model to iterate over
+#
+#            hostName - String the host's name
+#            id - String the row identifier
+#            ownerDomain - if the hostname owns to the same domain.
+#            custom - if the hostname is a foreign one
+#
+#       hostnames   - model with hostnames for that domain
+#
+# Returns:
+#
+#   Array ref of the name servers to set on
+#
+sub _formatNameServers
+{
+    my ($self, $nameServers, $hostnames) = @_;
+
+    my @nameservers;
+    foreach my $id (@{$nameServers->ids()}) {
+        my $ns = $nameServers->row($id);
+        my $hostName = $ns->valueByName('hostName');
+        if ($ns->elementByName('hostName')->selectedType() eq 'custom') {
+            unless ( $hostName =~ m:\.$: ) {
+                $hostName .= '.';
+            }
+        } else {
+            $hostName = $ns->parentRow()
+               ->subModel('hostnames')
+               ->row($hostName)
+               ->valueByName('hostname');
+        }
+        push (@nameservers, $hostName);
+    }
+    if ( @nameservers == 0 ) {
+        # Look for any hostname whose name is 'ns'
+        my $matchedId = $hostnames->findId(hostname => __PACKAGE__->NameserverHost());
+        if ( defined($matchedId) ) {
+            push(@nameservers, __PACKAGE__->NameserverHost());
+        }
+    }
+
+    return \@nameservers;
+}
+
+# Method: _completeDomain
+#
+#  Return a structure with all required data to build bind db config files
+#
+# Parameters:
+#
+#  domain - String the domain's identifier
+#
+# Returns:
+#
+# hash ref - structure data with:
+#
+#  'name': domain name
+#  'ipaddr': domain ip address
+#  'dynamic' : the domain is dynamically updated
+#  'tsigKey' : the TSIG key is the domain is dynamic
+#  'hosts': an array ref returned by <EBox::DNS::_hostnames> method.
+#  'mailExchangers' : an array ref returned by <EBox::DNS::_formatMailExchangers>
+#  'nameServers' : an array ref returned by <EBox::DNS::_formatNameServers>
+#
+sub _completeDomain # (domainId)
+{
+    my ($self, $domainId) = @_;
+
+    my $model = $self->model('DomainTable');
+    my $row = $model->row($domainId);
+
+    my $domdata;
+    $domdata->{'name'} = $row->valueByName('domain');
+    foreach my $key (qw(ipaddr dynamic tsigKey)) {
+        $domdata->{$key} = $row->valueByName($key);
+    }
+    $domdata->{'hosts'} = $self->_hostnames(
+            $row->subModel('hostnames'));
+
+    my $subModel = $row->subModel('mailExchangers');
+    $domdata->{'mailExchangers'} = $self->_formatMailExchangers($subModel);
+    $domdata->{'nameServers'} = $self->_formatNameServers($row->subModel('nameServers'),
+                                                          $row->subModel('hostnames'));
+
+    return $domdata;
+}
+
+# Return the domain row ids in an array ref
+sub _domainIds
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainTable');
+    return $model->ids();
 }
 
 1;

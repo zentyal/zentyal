@@ -1,4 +1,4 @@
-test_scripts = exposeDNSAPI.t
+test_scripts = exposeDNSAPI.t dynamic.t
 
 EXTRA_DIST = $(test_scripts)
 

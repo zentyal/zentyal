@@ -15,6 +15,12 @@
 zone "<% $dom->{'name'} %>" {
 	type master;
 	file "/etc/bind/db.<% $dom->{'name'} %>";
+%                  if ( $dom->{'dynamic'} ) {
+        update-policy {
+          // The only allowed dynamic updates are A records
+          grant <% $dom->{'name'} %>. subdomain <% $dom->{'name'} %>. A TXT;
+        };
+%                  }
 };
 %		}
 %	}

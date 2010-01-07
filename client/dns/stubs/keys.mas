@@ -1,0 +1,18 @@
+<%doc>
+  Template to write down the TSIG keys for zones whose update is done
+  dynamically using external programs
+
+  Parameters:
+
+    keys - Hash indexed by key name, stores the TSIG secret
+</%doc>
+<%args>
+  %keys
+</%args>
+# Symmetric TSIG keys to update dynamic zones
+% foreach my $keyName (keys(%keys)) {
+key "<% $keyName %>." {
+    algorithm HMAC-MD5;
+    secret "<% $keys{$keyName} %>";
+};
+% }

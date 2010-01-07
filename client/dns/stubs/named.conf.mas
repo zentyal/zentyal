@@ -1,4 +1,5 @@
 include "/etc/bind/named.conf.options";
+include "/etc/bind/keys";
 
 // prime the server with knowledge of the root servers
 zone "." {

@@ -30,19 +30,24 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
+use EBox::Types::Boolean;
 use EBox::Types::DomainName;
 use EBox::Types::HasMany;
 use EBox::Types::HostIP;
-use EBox::Sudo;
+use EBox::Types::Text;
 
 use EBox::Model::ModelManager;
 
-use Net::IP;
+# Dependencies
+use Crypt::OpenSSL::Random;
+use MIME::Base64;
 
 use strict;
 use warnings;
 
 use base 'EBox::Model::DataTable';
+
+# Group: Public methods
 
 sub new
 {
@@ -55,75 +60,9 @@ sub new
     return $self;
 }
 
-sub _table
-{
-    my @tableHead =
-        (
-
-            new EBox::Types::DomainName
-                            (
-                                'fieldName' => 'domain',
-                                'printableName' => __('Domain'),
-                                'size' => '20',
-                                'unique' => 1,
-                                'editable' => 1
-                             ),
-            new EBox::Types::HasMany
-                            (
-                                'fieldName' => 'hostnames',
-                                'printableName' => __('Hostnames'),
-                                'foreignModel' => 'HostnameTable',
-                                'view' => '/ebox/DNS/View/HostnameTable',
-                                'backView' => '/ebox/DNS/View/DomainTable',
-                                'size' => '1',
-                             ),
-            new EBox::Types::HasMany
-                            (
-                                'fieldName' => 'mailExchangers',
-                                'printableName' => __('Mail Exchangers'),
-                                'foreignModel' => 'MailExchanger',
-                                'view' => '/ebox/DNS/View/MailExchanger',
-                                'backView' => '/ebox/DNS/View/DomainTable',
-                             ),
-            new EBox::Types::HasMany
-                            (
-                                'fieldName' => 'nameServers',
-                                'printableName' => __('Name Servers'),
-                                'foreignModel' => 'NameServer',
-                                'view' => '/ebox/DNS/View/NameServer',
-                                'backView' => '/ebox/DNS/View/DomainTable',
-                             ),
-            new EBox::Types::HostIP
-                            (
-                                'fieldName' => 'ipaddr',
-                                'printableName' => __('IP Address'),
-                                'size' => '20',
-                                'optional' => 1,
-                                'editable' => 1
-                            ),
-          );
-
-    my $dataTable =
-        {
-            'tableName' => 'DomainTable',
-            'printableTableName' => __('List of Domains'),
-	    'pageTitle' => __('DNS'),
-            'automaticRemove' => 1,
-            'defaultController' => '/ebox/Dns/Controller/DomainTable',
-            'HTTPUrlView'=> 'DNS/View/DomainTable',
-            'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
-            'tableDescription' => \@tableHead,
-            'class' => 'dataTable',
-            'printableRowName' => __('domain'),
-            'sortedBy' => 'domain',
-        };
-
-    return $dataTable;
-}
-
 # Method: addDomain
 #
-#   Add a domain to the domainss table. Note this method must exist
+#   Add a domain to the domains table. Note this method must exist
 #   because we must provide an easy way to migrate old dns module
 #   to this new one.
 #
@@ -175,6 +114,129 @@ sub addDomain
    foreach my $hostname (@{$hostnames}) {
        $hostnameModel->addHostname(%{$hostname});
    }
+}
+
+# Method: addedRowNotify
+#
+#     If the domain is dynamic, generate the TSIG key automatically
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::addedRowNotify>
+#
+sub addedRowNotify
+{
+    my ($self, $newRow) = @_;
+
+    if ( $newRow->valueByName('dynamic') ) {
+        # Generate the TSIG key
+        my $secret = $self->_generateSecret();
+        $newRow->elementByName('tsigKey')->setValue($secret);
+        $newRow->store();
+    }
+
+}
+
+# Group: Protected methods
+
+sub _table
+{
+    my @tableHead =
+        (
+
+            new EBox::Types::DomainName
+                            (
+                                'fieldName' => 'domain',
+                                'printableName' => __('Domain'),
+                                'size' => '20',
+                                'unique' => 1,
+                                'editable' => 1
+                             ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'hostnames',
+                                'printableName' => __('Hostnames'),
+                                'foreignModel' => 'HostnameTable',
+                                'view' => '/ebox/DNS/View/HostnameTable',
+                                'backView' => '/ebox/DNS/View/DomainTable',
+                                'size' => '1',
+                             ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'mailExchangers',
+                                'printableName' => __('Mail Exchangers'),
+                                'foreignModel' => 'MailExchanger',
+                                'view' => '/ebox/DNS/View/MailExchanger',
+                                'backView' => '/ebox/DNS/View/DomainTable',
+                             ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'nameServers',
+                                'printableName' => __('Name Servers'),
+                                'foreignModel' => 'NameServer',
+                                'view' => '/ebox/DNS/View/NameServer',
+                                'backView' => '/ebox/DNS/View/DomainTable',
+                             ),
+            new EBox::Types::HostIP
+                            (
+                                'fieldName' => 'ipaddr',
+                                'printableName' => __('IP Address'),
+                                'size' => '20',
+                                'optional' => 1,
+                                'editable' => 1
+                            ),
+            new EBox::Types::Boolean(
+                # This field indicates if the domain is dynamic, so not editable from interface
+                                'fieldName'     => 'dynamic',
+                                'printableName' => __('Dynamic'),
+                                'editable'      => 0,
+                                'hidden'        => 0,
+                                'defaultValue'  => 0,
+                                'help'          => __('A domain is dynamic when the DHCP server '
+                                                      . 'updates the domain'),
+                                ),
+            new EBox::Types::Text(
+                # This field is filled when the zone is dynamic and
+                # indicates the TSIG key for the direct mapping and
+                # the reversed zones for this domain hosts
+                                'fieldName'    => 'tsigKey',
+                                'editable'     => 0,
+                                'optional'     => 1,
+                                'hidden'       => 1,
+                               ),
+          );
+
+    my $dataTable =
+        {
+            'tableName' => 'DomainTable',
+            'printableTableName' => __('List of Domains'),
+	    'pageTitle' => __('DNS'),
+            'automaticRemove' => 1,
+            'defaultController' => '/ebox/Dns/Controller/DomainTable',
+            'HTTPUrlView'=> 'DNS/View/DomainTable',
+            'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
+            'tableDescription' => \@tableHead,
+            'class' => 'dataTable',
+            'printableRowName' => __('domain'),
+            'sortedBy' => 'domain',
+        };
+
+    return $dataTable;
+}
+
+# Group: Private methods
+
+# Generate the secret key using HMAC-MD5 algorithm
+sub _generateSecret
+{
+    my ($self) = @_;
+
+    Crypt::OpenSSL::Random::random_seed(time() . rand(2**512));
+    Crypt::OpenSSL::Random::random_egd('/dev/urandom');
+
+    # Generate a key of 512 bits = 64Bytes
+    return MIME::Base64::encode(Crypt::OpenSSL::Random::random_bytes(64), '');
+
 }
 
 1;
