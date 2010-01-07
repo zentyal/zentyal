@@ -180,6 +180,18 @@ sub validateTypedRow
             }
         }
     }
+    # Validate WINS server
+    if ( exists $changedFields->{wins_server} ) {
+        # Check if chosen is WINS to check if it is enabled
+        if ( $changedFields->{wins_server}->selectedType() eq 'eboxWINS' ) {
+            my $sambaMod = EBox::Global->modInstance('samba');
+            unless ( $sambaMod->isEnabled() and $sambaMod->pdc() ) {
+                throw EBox::Exceptions::External(
+                    __('Samba module must be enabled and in PDC mode '
+                       . 'to be able to select eBox as WINS server'));
+            }
+        }
+    }
 
 }
 
@@ -300,6 +312,32 @@ sub ntpServer
 
 }
 
+# Method: winsServer
+#
+#     Get the current IP address from the WINS server
+#
+# Returns:
+#
+#     String - the current WINS server if any, otherwise undef is returned
+#
+sub winsServer
+{
+    my ($self) = @_;
+
+    my $row = $self->row();
+
+    my $selectedType = $row->elementByName('wins_server')->selectedType();
+
+    if ( $selectedType eq 'none' ) {
+        return undef;
+    } elsif ( $selectedType eq 'eboxWINS' ) {
+        my $ifaceAddr = $self->{netMod}->ifaceAddress($self->{interface});
+        return $ifaceAddr;
+    } elsif ( $selectedType eq 'custom_wins' ) {
+        return $row->valueByName('custom_wins');
+    }
+
+}
 
 # Method: headTitle
 #
@@ -381,6 +419,20 @@ sub _table
                                  editable      => 1)
         );
 
+    my @winsSubtypes = ( new EBox::Types::Union::Text(fieldName    => 'none',
+                                                      printableName => __('None')));
+
+    if ( $gl->modExists('samba') ) {
+        push(@winsSubtypes,
+             new EBox::Types::Union::Text(fieldName     => 'eboxWINS',
+                                          printableName => __('local eBox')));
+    }
+    push(@winsSubtypes,
+         new EBox::Types::HostIP(fieldName     => 'custom_wins',
+                                 printableName => __('Custom'),
+                                 editable      => 1)
+        );
+
     my @tableDesc =
       (
        new EBox::Types::Union(
@@ -442,9 +494,17 @@ sub _table
                               printableName  => __('NTP server'),
                               editable       => 1,
                               subtypes       => \@ntpSubtypes,
-                              help           => __('If "eBox NTP is present and selected, '
+                              help           => __('If "eBox NTP" is present and selected, '
                                                    . 'eBox will be the NTP server for DHCP clients'),
                               ),
+       new EBox::Types::Union(
+                              fieldName      => 'wins_server',
+                              printableName  => __('WINS server'),
+                              editable       => 1,
+                              subtypes       => \@winsSubtypes,
+                              help           => __('If "eBox Samba" is present and selected, '
+                                                   . 'eBox will be the WINS server for DHCP clients'),
+                             ),
       );
 
       my $dataForm = {

@@ -53,6 +53,9 @@
 % if ( defined($info{'ntpServer'}) ) {
                 option ntp-servers <% $info{'ntpServer'} %>;
 % }
+% if ( defined($info{'winsServer'}) ) {
+                option netbios-name-servers <% $info{'winsServer'} %>;
+% }
 % if(defined($info{'defaultLeasedTime'})) {
                 default-lease-time <% $info{'defaultLeasedTime'} %>;
 % }

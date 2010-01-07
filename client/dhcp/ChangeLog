@@ -1,4 +1,6 @@
 HEAD
+	+ Added WINS server configuration setting to DHCP common options,
+	  you may use eBox as PDC or any other WINS server
 	+ Added description optional field to fixed address table
 	+ Added NTP server configuration setting to DHCP common options,
 	  you may use eBox or any other NTP server

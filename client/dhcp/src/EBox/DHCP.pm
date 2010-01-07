@@ -569,6 +569,52 @@ sub ntpServer # (iface)
 
 }
 
+# Method: winsServer
+#
+#       Get the WINS server that will be sent to DHCP clients for a
+#       given interface
+#
+# Parameters:
+#
+#       iface - String the interface name
+#
+# Returns:
+#
+#       String - the IP address for the WINS server, undef if no
+#                WINS server has been configured
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the interface is not
+#       static or the given type is none of the suggested ones
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if the interface is
+#       not found
+#
+#       <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#       argument is missing
+#
+sub winsServer # (iface)
+{
+    my ($self, $iface) = @_;
+
+    my $network = EBox::Global->modInstance('network');
+    #if iface doesn't exists throw exception
+    if (not $iface or not $network->ifaceExists($iface)) {
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                             value => $iface);
+    }
+
+    #if iface is not static, throw exception
+    if($network->ifaceMethod($iface) ne 'static') {
+        throw EBox::Exceptions::External(__x("{iface} is not static",
+                                             iface => $iface));
+    }
+
+    return $self->_getModel('optionsModel', $iface)->winsServer();
+
+}
+
 # Method: staticRoutes
 #
 #	Get the static routes. It polls the eBox modules which
@@ -1416,7 +1462,12 @@ sub _ifacesInfo
       my $ntpServer = $self->ntpServer($iface);
       if ( defined($ntpServer) and $ntpServer ne "") {
           $iflist{$iface}->{'ntpServer'} = $ntpServer;
-      } 
+      }
+      # WINS/Netbios server option
+      my $winsServer = $self->winsServer($iface);
+      if ( defined($winsServer) and $winsServer ne "") {
+          $iflist{$iface}->{'winsServer'} = $winsServer;
+      }
       # Leased times
       my $defaultLeasedTime = $self->_leasedTime('default', $iface);
       if (defined($defaultLeasedTime)) {
