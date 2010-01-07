@@ -5,6 +5,14 @@ HEAD
 	+ Added autocreation of drafts and sent mail folders
 	+ Fixed bug in UI: now we can set properly the number of
 	expiration days for spam and deleted messages
+	+ Added per domain catch-all accounts
+	+ Logs fixes
+	+ Added aliases to external accounts
+	+ Added multiple aliases per group
+	+ Improved queue management
+	+ Added dovecot-antispam plugin integration
+	+ Added email retrieval for external accounts
+	+ Added more connections check to avoid spammers
 1.3.13
 	+ Fixed bug in UI: now we can set properly the maximum message size
 1.3.12

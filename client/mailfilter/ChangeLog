@@ -1,6 +1,9 @@
 HEAD
 	+ Removed addition of 127.0.0.1 to trusted networks, is already added
 	by spamassassin
+	+ Add dovecot-antispam plugin support
+	+ Moved bayes database to postgres
+	+ Added pyzor and dkim tests
 1.3.12
 	+ Add breadcrumbs
 1.3.11
