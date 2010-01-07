@@ -166,29 +166,22 @@ sub validateTypedRow
         if ( $changedFields->{primary_ns}->selectedType() eq 'eboxDNS' ) {
             my $dns = EBox::Global->modInstance('dns');
             unless ( $dns->isEnabled() ) {
-                throw EBox::Exceptions::External(__('DNS service must be active to be able to select eBox as primary DNS server'));
+                throw EBox::Exceptions::External(__('DNS module must be enabled to be able to select eBox as primary DNS server'));
+            }
+        }
+    }
+    # Validate NTP server
+    if ( exists $changedFields->{ntp_server} ) {
+        # Check if chosen is NTP to check if it is enabled
+        if ( $changedFields->{ntp_server}->selectedType() eq 'eboxNTP' ) {
+            my $ntp = EBox::Global->modInstance('ntp');
+            unless ( $ntp->isEnabled() ) {
+                throw EBox::Exceptions::External(__('NTP module must be enabled to be able to select eBox as NTP server'));
             }
         }
     }
 
 }
-
-# Method: formSubmitted
-#
-#       When the form is submitted, the model must set up the jabber
-#       dispatcher client service and sets the output rule in the
-#       firewall
-#
-# Overrides:
-#
-#      <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
-  {
-
-      my ($self, $oldRow) = @_;
-
-  }
 
 # Method: defaultGateway
 #
@@ -280,6 +273,34 @@ sub nameserver
 
 }
 
+# Method: ntpServer
+#
+#     Get the current IP address from the NTP server
+#
+# Returns:
+#
+#     String - the current NTP server if any, otherwise undef is returned
+#
+sub ntpServer
+{
+    my ($self) = @_;
+
+    my $row = $self->row();
+
+    my $selectedType = $row->elementByName('ntp_server')->selectedType();
+
+    if ( $selectedType eq 'none' ) {
+        return undef;
+    } elsif ( $selectedType eq 'eboxNTP' ) {
+        my $ifaceAddr = $self->{netMod}->ifaceAddress($self->{interface});
+        return $ifaceAddr;
+    } elsif ( $selectedType eq 'custom_ntp' ) {
+        return $row->valueByName('custom_ntp');
+    }
+
+}
+
+
 # Method: headTitle
 #
 # Overrides:
@@ -290,8 +311,6 @@ sub headTitle
 {
     return undef;
 }
-
-
 
 # Group: Protected methods
 
@@ -348,6 +367,20 @@ sub _table
                                         printableName => __('None'),
                                        ));
 
+    my @ntpSubtypes = ( new EBox::Types::Union::Text(fieldName     => 'none',
+                                                     printableName => __('None')));
+
+    if ( $gl->modExists('ntp') ) {
+        push(@ntpSubtypes,
+             new EBox::Types::Union::Text(fieldName     => 'eboxNTP',
+                                          printableName => __('local eBox NTP')));
+    }
+    push(@ntpSubtypes,
+         new EBox::Types::HostIP(fieldName     => 'custom_ntp',
+                                 printableName => __('Custom'),
+                                 editable      => 1)
+        );
+
     my @tableDesc =
       (
        new EBox::Types::Union(
@@ -403,6 +436,14 @@ sub _table
                                printableName => __('Secondary nameserver'),
                                editable      => 1,
                                optional      => 1,
+                              ),
+       new EBox::Types::Union(
+                              fieldName      => 'ntp_server',
+                              printableName  => __('NTP server'),
+                              editable       => 1,
+                              subtypes       => \@ntpSubtypes,
+                              help           => __('If "eBox NTP is present and selected, '
+                                                   . 'eBox will be the NTP server for DHCP clients'),
                               ),
       );
 

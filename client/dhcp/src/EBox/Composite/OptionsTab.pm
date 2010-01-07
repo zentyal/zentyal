@@ -16,8 +16,8 @@
 # Class: EBox::DHCP::Composite::OptionsTab
 #
 #   This class is used to manage dhcp server general options
-#   configuration on a given interface. It stores two models for
-#   simple options and advanced ones indexed by interface
+#   configuration on a given interface. It stores three models for
+#   simple options, dynamic DNS ones and advanced ones indexed by interface
 #
 package EBox::DHCP::Composite::OptionsTab;
 
@@ -110,6 +110,7 @@ sub _description
       {
        components      => [
                            '/' . $dhcp->name() . '/Options/' . $self->{interface},
+                           '/' . $dhcp->name() . '/DynamicDNS/' . $self->{interface},
                            '/' . $dhcp->name() . '/AdvancedOptions/' . $self->{interface},
                           ],
        layout          => 'tabbed',

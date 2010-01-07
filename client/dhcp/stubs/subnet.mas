@@ -19,7 +19,7 @@
 %	my $fixedAddresses = $info{'fixed'};
 %	if(@{$fixedAddresses}){
 	group {
-                <& .options, info => \%info &>
+                <& .options, info => \%info, fixed => 1 &>
 %       	foreach my $fixed (@{$fixedAddresses}) {
 		host <% $fixed->{'name'} %> {
 			hardware ethernet <% $fixed->{'mac'} %>;
@@ -35,6 +35,7 @@
 <%def .options>
 <%args>
         %info
+        $fixed => 0
 </%args>
 % # Common options for the shared network
                 option routers <% $info{'gateway'} %>;
@@ -49,6 +50,9 @@
 ;
 %       }
 % }
+% if ( defined($info{'ntpServer'}) ) {
+                option ntp-servers <% $info{'ntpServer'} %>;
+% }
 % if(defined($info{'defaultLeasedTime'})) {
                 default-lease-time <% $info{'defaultLeasedTime'} %>;
 % }
@@ -61,5 +65,33 @@
 % }
 % if(defined($info{'filename'})) {
                 filename "<% $info{'filename'} %>";
+% }
+% if( defined($info{'dynamicDomain'}) ) {
+                option host-name = config-option server.ddns-hostname;
+%     if ( $fixed ) {
+<%doc>
+  Check dhcp-eval and dhcp-options to know what this function does to
+  add A record to DNS server
+</%doc>
+                ddns-hostname = pick-first-value ( host-decl-name,
+                                                   option fqdn.hostname,
+                                                   concat("static-", binary-to-ascii(10, 8, "-", leased-address)));
+                ddns-domainname      "<% $info{'staticDomain'} %>.";
+                zone <% $info{'staticDomain'} %>. {
+                    primary 127.0.0.1;
+                    key <% $info{'staticDomain'} %>.;
+                }
+%     } else {
+<%doc>
+  This ignores the data sent by the DHCP client and always set
+  dhcp-leased-IP.domain name
+</%doc>
+                ddns-hostname = concat("dhcp-", binary-to-ascii(10, 8, "-", leased-address));
+                ddns-domainname      "<% $info{'dynamicDomain'} %>.";
+                zone <% $info{'dynamicDomain'} %>. {
+                    primary 127.0.0.1;
+                    key <% $info{'dynamicDomain'} %>.;
+                }               
+%     }
 % }
 </%def>

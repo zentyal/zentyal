@@ -10,6 +10,8 @@ Parameters:
                        options have been used or not
     dnsone - String the default primary DNS server
     dnstwo - String the default secondary DNS server
+    dynamicDNSEnabled - Boolean indicating whether the dynamic DNS feature is on or not
+    keysFile - String with the file path to shared secret keys to update DNS server
 </%doc>
 <%args>
 	%ifaces
@@ -17,6 +19,8 @@ Parameters:
         $thinClientOption => 0
 	$dnsone => ""
 	$dnstwo => ""
+        $dynamicDNSEnabled => 0
+        $keysFile => ""
 </%args>
 # DHCP server is authoritative for all networks
 authoritative;
@@ -27,7 +31,13 @@ option rfc3442-classless-static-routes code 121 = array of integer 8;
 # MS routes
 option ms-classless-static-routes code 249 = array of integer 8;
 
+%       if ( $dynamicDNSEnabled ) {
+ddns-update-style    interim;
+ddns-updates         on;
+update-static-leases on;
+%       } else {
 ddns-update-style none;
+%       }
 
 %	if(length($dnsone) != 0) {
 option domain-name-servers <% $dnsone %>\
@@ -45,6 +55,10 @@ allow bootp;
 
 default-lease-time 1800;
 max-lease-time 7200;
+
+% if ($keysFile) {
+include "<% $keysFile %>";
+% }
 
 <%perl>
 	foreach my $iface (keys(%real_ifaces)) {

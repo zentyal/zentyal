@@ -55,6 +55,7 @@ use EBox::DHCP::Composite::InterfaceConfiguration;
 use EBox::DHCP::Composite::General;
 use EBox::DHCP::Composite::Interfaces;
 use EBox::DHCP::Composite::OptionsTab;
+use EBox::DHCP::Model::DynamicDNS;
 use EBox::DHCP::Model::FixedAddressTable;
 use EBox::DHCP::Model::LeaseTimes;
 use EBox::DHCP::Model::Options;
@@ -169,6 +170,28 @@ sub menu
                                         'order' => 410));
 }
 
+# Method: depends
+#
+#     DHCP depends on DNS configuration only if the Dynamic DNS
+#     feature is done.
+#
+# Overrides:
+#
+#     <EBox::Module::Base::depends>
+#
+sub depends
+{
+    my ($self) = @_;
+
+    my $dependsList = $self->SUPER::depends();
+    if ( $self->_dynamicDNSEnabled() ) {
+        push(@{$dependsList}, 'dns');
+    }
+
+    return $dependsList;
+
+}
+
 # Method: models
 #
 # Overrides:
@@ -216,6 +239,12 @@ sub models
                                                        directory   => "ThinClientOptions/$iface",
                                                        interface   => $iface);
             push ( @models, $self->{thinClientModel}->{$iface} );
+            $self->{dynamicDNSModel}->{$iface} =
+              new EBox::DHCP::Model::DynamicDNS(
+                                                gconfmodule => $self,
+                                                directory   => "DynamicDNS/$iface",
+                                                interface   => $iface);
+            push ( @models, $self->{dynamicDNSModel}->{$iface} );
             $self->{rangeInfoModel}->{$iface} =
               new EBox::DHCP::Model::RangeInfo(
                                                gconfmodule => $self,
@@ -492,6 +521,52 @@ sub nameserver # (iface,number)
 
 #	$self->get_string("$iface/nameserver$number");
         return $self->_getModel('optionsModel', $iface)->nameserver($number);
+}
+
+# Method: ntpServer
+#
+#       Get the NTP server that will be sent to DHCP clients for a
+#       given interface
+#
+# Parameters:
+#
+#       iface - String the interface name
+#
+# Returns:
+#
+#       String - the IP address for the NTP server, undef if no
+#                NTP server has been configured
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the interface is not
+#       static or the given type is none of the suggested ones
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if the interface is
+#       not found
+#
+#       <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#       argument is missing
+#
+sub ntpServer # (iface)
+{
+    my ($self, $iface) = @_;
+
+    my $network = EBox::Global->modInstance('network');
+    #if iface doesn't exists throw exception
+    if (not $iface or not $network->ifaceExists($iface)) {
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                             value => $iface);
+    }
+
+    #if iface is not static, throw exception
+    if($network->ifaceMethod($iface) ne 'static') {
+        throw EBox::Exceptions::External(__x("{iface} is not static",
+                                             iface => $iface));
+    }
+
+    return $self->_getModel('optionsModel', $iface)->ntpServer();
+
 }
 
 # Method: staticRoutes
@@ -1264,6 +1339,11 @@ sub _setDHCPConf
                    $self->_areThereThinClientOptions($ifacesInfo));
     push @params, ('ifaces' => $ifacesInfo);
     push @params, ('real_ifaces' => $self->_realIfaces());
+    my $dynamicDNSEnabled = $self->_dynamicDNSEnabled($ifacesInfo);
+    if ( $dynamicDNSEnabled ) {
+        push @params, ('dynamicDNSEnabled' => $dynamicDNSEnabled);
+        push @params, ('keysFile' => $self->_keysFile());
+    }
 
     $self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@params);
 }
@@ -1332,6 +1412,11 @@ sub _ifacesInfo
       if (defined($nameserver2) and $nameserver2 ne "") {
 	$iflist{$iface}->{'nameserver2'} = $nameserver2;
       }
+      # NTP option
+      my $ntpServer = $self->ntpServer($iface);
+      if ( defined($ntpServer) and $ntpServer ne "") {
+          $iflist{$iface}->{'ntpServer'} = $ntpServer;
+      } 
       # Leased times
       my $defaultLeasedTime = $self->_leasedTime('default', $iface);
       if (defined($defaultLeasedTime)) {
@@ -1349,6 +1434,11 @@ sub _ifacesInfo
       my $filename = $self->_thinClientOption('filename', $iface);
       if (defined($filename)) {
         $iflist{$iface}->{'filename'} = $filename;
+      }
+      my $dynamicDomain = $self->_dynamicDNS('dynamic', $iface);
+      if (defined($dynamicDomain)) {
+          $iflist{$iface}->{'dynamicDomain'} = $dynamicDomain;
+          $iflist{$iface}->{'staticDomain'}  = $self->_dynamicDNS('static', $iface);
       }
     }
   }
@@ -1457,6 +1547,78 @@ sub _thinClientOption # (option, iface)
     }
 
 }
+
+# Method: _dynamicDNS
+#
+#    Get the domains to be updated by DHCP server (dynamic or statics)
+#
+# Returns:
+#
+#    undef - if the dynamic DNS feature is not enabled
+#
+sub _dynamicDNS # (which, iface)
+{
+    my ($self, $which, $iface) = @_;
+
+    my $dynamicDNSModel = $self->_getModel('dynamicDNSModel', $iface);
+
+    my $dynamicOptionsRow = $dynamicDNSModel->row();
+    if ( $dynamicOptionsRow->valueByName('enabled') ) {
+        if ( $which eq 'dynamic' ) {
+            return $dynamicOptionsRow->valueByName('dynamic_domain');
+        } elsif ( $which eq 'static' ) {
+            my $staticOption = $dynamicOptionsRow->elementByName('static_domain');
+            if ( $staticOption->selectedType() eq 'same' ) {
+                return $dynamicOptionsRow->valueByName('dynamic_domain');
+            } elsif ( $staticOption->selectedType() eq 'custom' ) {
+                return $dynamicOptionsRow->valueByName('static_domain');
+            }
+        }
+    }
+    return undef;
+
+}
+
+# Return the key file to update DNS
+sub _keysFile
+{
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('dns') ) {
+        my $dnsMod = EBox::Global->modInstance('dns');
+        if ( $dnsMod->configured() ) {
+            return $dnsMod->keysFile();
+        }
+    }
+    return '';
+
+}
+
+# Return if the dynamic DNS feature is enabled for this DHCP server or
+# not given the iface list info
+sub _dynamicDNSEnabled # (ifacesInfo)
+{
+    my ($self, $ifacesInfo) = @_;
+
+    if ( defined($ifacesInfo) ) {
+        my $nDynamicOptionsOn = grep { defined($ifacesInfo->{$_}->{'dynamicDomain'}) } keys %{$ifacesInfo};
+        return ($nDynamicOptionsOn > 0);
+    } else {
+        my $net = EBox::Global->modInstance('network');
+        my $ifaces = $net->allIfaces();
+        foreach my $iface (@{$ifaces}) {
+            if ( $net->ifaceMethod($iface) eq 'static' ) {
+                my $mod = $self->_getModel('dynamicDNSModel', $iface);
+                if ( $mod->row()->valueByName('enabled') ) {
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
+}
+
 
 # Configure the firewall rules to add
 # XXX maybe this is dead code?

@@ -1,4 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,6 +22,7 @@
 # - name : Text
 # - mac  : MACAddr
 # - ip   : HostIP
+# - description : Text
 #
 package EBox::DHCP::Model::FixedAddressTable;
 
@@ -225,6 +227,12 @@ sub _table
                                help          => __('You cannot use an IP' .
                                 ' address contained in the above ranges.')
                               ),
+       new EBox::Types::Text(
+                             fieldName     => 'description',
+                             printableName => __('Description'),
+                             editable      => 1,
+                             optional      => 1,
+                            ),
       );
 
       my $dataTable = {
