@@ -30,6 +30,23 @@ HEAD
 	the default port continues to be 25)
 	+ bugfix: fixed regresion in logs and added greylist event for
 	connections to remote SMTPs
+	+ bugfix: SMTPS port 465 now works properly
+	+ added quota support
+	+ added autocreation of trash and spam folders
+	+ added flush of spam and trash folders
+	+ add sieve and manage sieve support
+	+ added retrieval of emails from external accounts
+	+ added catch-all account per domain
+	+ added external mail accounts aliases
+	+ added 'remove all' and 'flush all' options to mail queue
+	management 
+	+ bugfix, in mail queue management now the mail recipients and th
+	messages being delivered appears correctly
+	+ added multiples alias for groups
+	+ added more SMTP checks for new mail for avoidin spam
+	+ aded support for spam learn from IMAP folders (see mailfilter
+	module)
+	+ added autocreation of drafts and sent mail folders
 1.3.4
 	+ tableInfo returns an array of hash refs
 1.1.41

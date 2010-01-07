@@ -88,17 +88,16 @@ sub setUserAccount
     }
 
     $self->_checkMaildirNotExists($lhs, $rhs);
-
-
     
     my $quota = $mail->defaultMailboxQuota();
-    my $dn = "uid=$user," .  $users->usersDn;
 
+    my $dn = "uid=$user," .  $users->usersDn;
     my %attrs = (
                  changes => [
                              add => [
                                      objectClass => 'couriermailaccount',
                                      objectClass => 'usereboxmail',
+                                     objectClass => 'fetchmailUser',
                                      mail            => $email,
                                      mailbox => $rhs.'/'.$lhs.'/',
                                      userMaildirSize    => 0,
@@ -109,15 +108,16 @@ sub setUserAccount
                 );
     my $add = $ldap->modify($dn, \%attrs );
 
-
     $self->_createMaildir($lhs, $rhs);
-
 
 
     my @list = $mail->{malias}->listMailGroupsByUser($user);
     foreach my $item(@list) {
-        my $alias = $mail->{malias}->groupAlias($item);
-        $mail->{malias}->addMaildrop($alias, $email);
+        my @aliases = @{ $mail->{malias}->groupAliases($item) };
+        foreach my $alias (@aliases) {
+            $mail->{malias}->addMaildrop($alias, $email);
+        }
+
     }
 }
 
@@ -213,9 +213,52 @@ sub userAccount
                );
 
     my $result = $self->{ldap}->search(\%args);
+    if ($result->count() == 0) {
+        return undef;
+    }
+
+
     my $entry = $result->entry(0);
 
     my $usermail = $entry->get_value('mail');
+
+    return $usermail;
+}
+
+
+# Method: userByAccount
+#
+#    given an account returns the user that has it assigened. It does not work
+#    with alias. (I suggest to use EBox::MailAliasLdap::getAccountsByAlias or
+#    EBox::MailAliasLdap::getAccountsByAlia::aliasExist) before to take care of
+#    alias) 
+#
+#   Params:
+#       account -email account
+#
+#   Returns:
+#          the user or undef if there is not account
+sub userByAccount
+{
+    my ($self, $account) = @_;
+
+    my $mail = EBox::Global->modInstance('mail');
+    my $users = EBox::Global->modInstance('users');
+
+    my %args = (
+                base => $users->usersDn,
+                filter => "&(objectclass=*)(mail=$account)",
+                scope => 'one',
+                attrs => ['uid'],
+               );
+
+    my $result = $self->{ldap}->search(\%args);
+    if ($result->count() == 0) {
+        return undef;
+    }
+
+    my $entry = $result->entry(0);
+    my $usermail = $entry->get_value('uid');
 
     return $usermail;
 }
@@ -243,12 +286,14 @@ sub delAccountsFromVDomain   #vdomain
 
 # Method: getUserLdapValue
 #
-#  This method returns the value of an atribute in users leaf
+#  This method returns the value of an attribute in users leaf
 #
 # Parameters:
 #
-#               uid - uid of the user
-#               value - the atribute name
+#               uid - uid of the user value - the atribute name 
+#  Return: 
+#    - value of the attribute, undef wil be returned if attribute or user is not
+#    found, please remind that the attribute coulb be set to undef itself!
 sub getUserLdapValue   #uid, ldap value
 {
     my ($self, $uid, $value) = @_;
@@ -262,7 +307,12 @@ sub getUserLdapValue   #uid, ldap value
                );
 
     my $result = $self->{ldap}->search(\%args);
+    if ($result->count() == 0) {
+        return undef;
+    }
+
     my $entry = $result->entry(0);
+
 
     return $entry->get_value($value);
 }
@@ -328,12 +378,14 @@ sub existsUserLdapValue
 sub _delGroup
 {
     my ($self, $group) = @_;
-
-    return unless (EBox::Global->modInstance('mail')->configured());
-
     my $mail = EBox::Global->modInstance('mail');
-    $mail->{malias}->delAliasGroup($group);
 
+    return unless ($mail->configured());
+
+    my @groupAliases = @{ $mail->{malias}->groupAliases($group) };
+    foreach my $alias (@groupAliases) {
+        $mail->{malias}->delAlias($alias);
+    }
 }
 
 sub _delGroupWarning
@@ -413,10 +465,6 @@ sub _userAddOns
      return { path => '/mail/account.mas', params => { @paramsList } };
  }
 
-
-
-
-
 sub _groupAddOns
  {
      my ($self, $group) = @_;
@@ -424,31 +472,14 @@ sub _groupAddOns
      return unless (EBox::Global->modInstance('mail')->configured());
 
      my $mail = EBox::Global->modInstance('mail');
-     my $users = EBox::Global->modInstance('users');
-
-
-     my %args = (
-                 base => $mail->{malias}->aliasDn,
-                 filter => "&(objectclass=*)(uid=$group)",
-                 scope => 'one',
-                 attrs => ['mail'],
-                 service => $mail->service,
-                );
-
-     my $alias = undef;
-     my $result = $self->{ldap}->search(\%args);
-
-
-     if ($result->count > 0) {
-         my $entry = $result->entry(0);
-         $alias = $entry->get_value('mail');
-     }
+     my $aliases = $mail->{malias}->groupAliases($group);
 
      my @vd =  $mail->{vdomains}->vdomains();
 
      my $args = {    'group' => $group,
-                        'vdomains'      =>      \@vd,
-                     'alias'         => $alias,
+                     'vdomains'      =>      \@vd,
+                     'aliases'         => $aliases,
+                     'service'        => $mail->service(),
                      'nacc' => scalar ($self->usersWithMailInGroup($group)),
                 };
 
@@ -462,21 +493,7 @@ sub _modifyGroup
      return unless (EBox::Global->modInstance('mail')->configured());
 
      my $mail = EBox::Global->modInstance('mail');
-
-     my %args = (
-                base => $mail->{malias}->aliasDn,
-                 filter => "&(objectclass=couriermailalias)(uid=$group)",
-                 scope => 'one',
-                 attrs => ['mail']
-                );
-
-     my $result = $self->{ldap}->search(\%args);
-
-     if($result->count > 0) {
-         my $alias = ($result->sorted('mail'))[0]->get_value('mail');
-         $mail->{malias}->updateGroupAlias($group, $alias);
-     }
-
+     $mail->{malias}->updateGroupAliases($group);
  }
 
 # Method: _accountExists
@@ -677,6 +694,7 @@ sub maildirQuota
     return $self->getUserLdapValue($user, 'quota');
 }
 
+
 #  Method: maildirQuotaType
 #
 #     get the type of the quota assigned to the user
@@ -789,8 +807,6 @@ sub regenMaildirQuotas
     }
 }
 
-
-
 # Method: gidvmail
 #
 #  This method returns the gid value of ebox user
@@ -849,18 +865,45 @@ sub _accountAddOn
 
 
 
-
-
-
-sub schemas
-{
-    return [ EBox::Config::share() . '/ebox-mail/authldap.ldif',
-             EBox::Config::share() . '/ebox-mail/eboxmail.ldif' ];
-}
-
 sub localAttributes
 {
-    return ['quota'];
+    my @attrs = qw(
+          mailbox  quota  clearPassword 
+          maildrop  mailsource  virtualdomain 
+          virtualdomainuser  defaultdelivery 
+                      
+          mailProtocol clientOption
+
+         mailHomeDirectory userMaildirSize 
+         vddftMaildirSize
+                );
+
+   return \@attrs;
 }
+
+    
+sub schemas
+{
+    return [ 
+             EBox::Config::share() . '/ebox-mail/authldap.ldif',
+             EBox::Config::share() . '/ebox-mail/eboxmail.ldif',
+             EBox::Config::share() . '/ebox-mail/eboxfetchmail.ldif',
+
+           ];
+}
+
+
+
+
+sub acls
+{
+    my ($self) = @_;
+
+    return [ "to attrs=fetchmailAccount " .
+            "by dn=\"" . $self->{ldap}->rootDn() . "\" write by self write " .
+            "by * none" ];
+}
+
+
 
 1;

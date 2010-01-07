@@ -114,6 +114,22 @@ sub _table
                                                         )
                                   ],
              ),
+         new EBox::Types::Union(
+                              fieldName => 'mailname',
+                              printableName =>
+                                __('Server mailname'),
+                              subtypes => [
+                              new EBox::Types::Union::Text(
+                                  'fieldName' => 'fqdn',
+                                  'printableName' => __('FQDN hostname'),
+                                  ),
+                              new EBox::Types::Text(
+                                  'fieldName' => 'custom',
+                                  'printableName' => __('custom'),
+                                  'editable'  => 1,
+                                      ),
+                                  ],
+             ),
          new EBox::Types::MailAddress(
              fieldName => 'bounceReturnAddress',
              printableName => __('Return address for mail bounced back to the sender'),
@@ -310,6 +326,20 @@ sub _validateSmarthost
     }
 
 
+}
+
+
+sub customMailname
+{
+    my ($self) = @_;
+
+    my $mailname = $self->row()->elementByName('mailname');
+    if ($mailname->selectedType eq 'fqdn') {
+        # no custom mailname, use fqdn
+        return undef;
+    }
+
+    return $mailname->subtype()->value();
 }
 
 

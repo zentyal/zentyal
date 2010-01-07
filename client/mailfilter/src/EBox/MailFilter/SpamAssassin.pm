@@ -26,6 +26,7 @@ use EBox::Service;
 use EBox::Gettext;
 use EBox::NetWrappers;
 use EBox::MailFilter::VDomainsLdap;
+use Error qw(:try);
 
 use constant {
   SA_SERVICE          => 'ebox.spamd',
@@ -34,6 +35,8 @@ use constant {
   SA_CONF_FILE       => '/etc/spamassassin/local.cf',
 
   CONF_USER          => 'amavis',
+
+  BAYES_DB_USER      => 'amavis',
 };
 
 sub new
@@ -370,47 +373,47 @@ sub bayesPath
     return $self->dbPath . '/bayes';
 }
 
+
+# this assume that the input is reeadable by the ebox user
 sub learn
 {
   my ($self, %params) = @_;
 
   exists $params{isSpam} or throw EBox::Exceptions::MissingArgument($_);
   exists $params{input} or throw EBox::Exceptions::MissingArgument($_);
+  exists $params{username} or throw EBox::Exceptions::MissingArgument('username');
 
   # check wether the current spamassassin conf has bayesian filter enabled
-  my $eboxRO = EBox::Global->getInstance(1);
-  my $saRO   = $eboxRO->modInstance('mailfilter')->antispam();
+  my $mailfilterRO =  EBox::Global->getInstance(1)->modInstance('mailfilter');
+  my $saRO   = $mailfilterRO->antispam();
   if (not $saRO->bayes()) {
     throw EBox::Exceptions::External(__('Cannot learn because bayesian filter is disabled in the' .
                                         ' current configuration. ' .
                                         'In order to be able to learn enable the bayesian filter and save changes')
                                     );
   }
-
-
-  my $typeArg = $params{isSpam} ? '--spam' : '--ham';
-
-  my $formatArg = '';
-  # currently only mbox supported
-  if ($params{format} eq 'mbox') {
-    $formatArg = '--mbox';
+  
+  
+  my $username =  $params{username};
+  if ($username =~ m/@/) {
+      # XXX and what about alias?
+      my ($user, $vdomain) = split '@', $username;
+      my $vdomains = $mailfilterRO->model('VDomains');
+      if (not $vdomains->vdomainAllowedToLearnFromIMAPFolder($vdomain)) {
+          throw EBox::Exceptions::External(
+__x('Accounts from the domain {d} cannot train the bayesian filter',
+          d => $vdomain)
+                                          );
+      }
   }
-  elsif  (exists $params{format}) {
-    throw EBox::Exceptions::External(__x('Unsupported or incorrect input source fonrmat: {format}', format => $params{format}))
-  }
 
 
-  my $dbpathArg = "--dbpath " . $self->dbPath();
 
-  my $cmd;
+  my $typeArg  = $params{isSpam} ? '--spam' : '--ham';
+  my $input = $params{input};
 
-  $cmd = "sa-learn $dbpathArg  $typeArg $formatArg " . $params{input};
+  my $cmd =  q{su } . BAYES_DB_USER . qq{ -c 'sa-learn $typeArg  $input'};
   EBox::Sudo::root($cmd);
-
-  my $user     = $self->confUser();
-  $cmd = "chown -R $user.$user "  . $self->dbPath();
-  EBox::Sudo::root($cmd);
-
 }
 
 

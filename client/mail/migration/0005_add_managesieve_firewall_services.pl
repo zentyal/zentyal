@@ -47,3 +47,4 @@ my $migration =  __PACKAGE__->new(
         'version' => 5,
         );
 $migration->execute();
+1;

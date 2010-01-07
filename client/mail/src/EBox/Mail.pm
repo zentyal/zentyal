@@ -21,6 +21,7 @@ use warnings;
 
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::Model::ModelProvider EBox::Model::CompositeProvider
+            EBox::UserCorner::Provider
             EBox::FirewallObserver EBox::LogObserver
             EBox::Report::DiskUsageProvider
            );
@@ -37,6 +38,7 @@ use EBox::MailAliasLdap;
 use EBox::MailLogHelper;
 use EBox::MailFirewall;
 use EBox::Mail::Greylist;
+use EBox::Mail::FetchmailLdap;
 use EBox::Service;
 
 use EBox::Exceptions::InvalidData;
@@ -70,6 +72,9 @@ use constant {
 
  ARCHIVEMAIL_CRON_FILE              => '/etc/cron.daily/archivemail',
 
+ FETCHMAIL_SERVICE                   => 'ebox.fetchmail',
+
+ ALWAYS_BCC_TABLE_FILE              => '/etc/postfix/alwaysbcc',
 };
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
@@ -89,6 +94,7 @@ sub _create
     $self->{musers} = new EBox::MailUserLdap;
     $self->{malias} = new EBox::MailAliasLdap;
     $self->{greylist} = new EBox::Mail::Greylist;
+    $self->{fetchmail} = new EBox::Mail::FetchmailLdap;
 
     bless($self, $class);
     return $self;
@@ -147,6 +153,14 @@ sub actions
               ),
               'module' => 'mail'
             },
+            {
+              'action' => __('Add fetchmail update cron job'),
+              'reason' => __(
+ 'eBox will scheduel a cron job to update fetchmail configuration when the user add extrnal accounts' 
+                            ),
+              'module' => 'mail'
+            },
+
     ];
 }
 
@@ -250,6 +264,8 @@ sub modelClasses
             'EBox::Mail::Model::ObjectPolicy',
             'EBox::Mail::Model::VDomains',
             'EBox::Mail::Model::VDomainAliases',
+            'EBox::Mail::Model::ExternalAliases',
+            'EBox::Mail::Model::VDomainSettings',
             'EBox::Mail::Model::ExternalFilter',
 
             'EBox::Mail::Model::Dispatcher::Mail',
@@ -259,6 +275,9 @@ sub modelClasses
             'EBox::Mail::Model::Report::TrafficGraph',
             'EBox::Mail::Model::Report::TrafficDetails',
             'EBox::Mail::Model::Report::TrafficReportOptions',
+
+            # user corner classes
+            'EBox::Mail::Model::ExternalAccounts',
            ];
 }
 
@@ -338,8 +357,8 @@ sub _setMailConf
     my @array = ();
     my $users = EBox::Global->modInstance('users');
     my $ldap = EBox::Ldap->instance();
-    my $allowedaddrs = "127.0.0.0/8";
 
+    my $allowedaddrs = "127.0.0.0/8";
     foreach my $addr (@{ $self->allowedAddresses }) {
         $allowedaddrs .= " $addr";
     }
@@ -368,6 +387,8 @@ sub _setMailConf
     push(@array, 'filter', $self->service('filter'));
     push(@array, 'ipfilter', $self->ipfilter());
     push(@array, 'portfilter', $self->portfilter());
+    my $alwaysBcc = $self->_alwaysBcc();
+    push(@array, 'bccMaps' => $alwaysBcc);
     # greylist parameters
     my $greylist = $self->greylist();
     push(@array, 'greylist',     $greylist->isEnabled() );
@@ -382,13 +403,17 @@ sub _setMailConf
     push(@array, 'ipfilter', $self->ipfilter());
     $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
 
+    $self->_setHeloChecks();
+
+    if ($alwaysBcc) {
+        $self->_setAlwaysBccTable();
+    }
+
     # dovecot configuration
     $self->_setDovecotConf();
 
-
     # sync users with quota conf
     $self->{musers}->regenMaildirQuotas();
-
 
     # greylist configuration files
     $greylist->writeConf();
@@ -413,8 +438,48 @@ sub _setMailConf
     unless ($manager->skipModification('mail', SASL_PASSWD_FILE)) {
         EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
     }
+
+    $self->{fetchmail}->writeConf();
 }
 
+
+sub _alwaysBcc
+{
+    my ($self) = @_;
+
+    my $vdomains = $self->model('VDomains');
+    my $alwaysBcc =  $vdomains->alwaysBcc();
+    if ($alwaysBcc) {
+        return 'hash:' . ALWAYS_BCC_TABLE_FILE;
+    }
+
+    return undef;
+}
+
+sub _setAlwaysBccTable
+{
+    my ($self) = @_;
+    my $vdomains = $self->model('VDomains');
+    my $bccByDomain = $vdomains->alwaysBccByVDomain();
+
+    my $data;
+    while (my ($vdomain, $address) = each %{ $bccByDomain }) {
+        $data .= "\@$vdomain $address\n";
+    }
+
+    EBox::Module::Base::writeFile(ALWAYS_BCC_TABLE_FILE,
+                                  $data,
+                                  {
+                                      uid => 0,
+                                      gid => 0,
+                                      mode => '0644',
+                                  }
+                                 );
+
+    my $postmapCmd = '/usr/sbin/postmap hash:' . ALWAYS_BCC_TABLE_FILE;
+    EBox::Sudo::root($postmapCmd);
+    
+}
 
 
 sub _setDovecotConf
@@ -437,6 +502,7 @@ sub _setDovecotConf
     push @params, (firstValidGid => $gid);
     push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
     push @params, (postmasterAddress => $postmasterAddress);
+    push @params, (antispamPlugin => $self->_getDovecotAntispamPluginConf());
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
 
@@ -451,9 +517,31 @@ sub _setDovecotConf
     }
     push @params, ('usersDn', $users->usersDn());
     push @params, ('mailboxesDir' =>  VDOMAINS_MAILBOXES_DIR);
+    push @params, ('mailboxesDir' =>  VDOMAINS_MAILBOXES_DIR);
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
 
 }
+
+
+
+sub _getDovecotAntispamPluginConf
+{
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance();
+    my @mods = grep {
+        $_->can('dovecotAntispamPluginConf')
+    } @{ $global->modInstances() };
+
+    if (@mods == 0) {
+        return { enabled => 0 };
+    } elsif (@mods > 0) {
+        EBox::warn('More than one module offers configuration for dovecot plugin. We will take the first one');
+    }
+
+    my $mod = shift @mods;
+    return $mod->dovecotAntispamPluginConf();
+}
+
 
 sub _setArchivemailConf
 {
@@ -507,18 +595,42 @@ sub defaultMailboxQuota
 }
 
 
-
 sub _setMailname
 {
     my ($self) = @_;
     my $tmpFile = EBox::Config::tmp() . 'mailname.tmp';
-    my $fqdn = $self->_fqdn();
 
-    system "echo $fqdn > $tmpFile";
-    system "chmod 644 $tmpFile";
-    EBox::Sudo::root("chown root.root $tmpFile");
-    EBox::Sudo::root("mv $tmpFile " . MAILNAME_FILE);
+    my $smtpOptions = $self->model('SMTPOptions');
+    my $mailname = $smtpOptions->customMailname();
+    if (not defined $mailname) {
+        $mailname = $self->_fqdn();
+    }
+
+    $mailname .= "\n";
+
+    EBox::Module::Base::writeFile(MAILNAME_FILE, 
+                                  $mailname, 
+                                  {
+                                      uid => 0,
+                                      gid => 0,
+                                      mode => '0644'
+                                     }
+                                 );
 }
+
+sub _setHeloChecks
+{
+    my ($self) = @_;
+    my $fqdn = $self->_fqdn();
+    my @params = ( hostnames => [$fqdn]);
+     EBox::Module::Base::writeConfFileNoCheck(
+                         '/etc/postfix/helo_checks.pcre', 
+                         'mail/helo_checks.pcre.mas',
+                         \@params);
+}
+
+
+
 
 
 sub _retrievalProtocols
@@ -642,6 +754,10 @@ sub _daemons
         {
          name => DOVECOT_SERVICE,
         },
+        {
+            name => FETCHMAIL_SERVICE,
+            precondition => \&fetchmailMustRun,
+        },
 
     ];
 
@@ -651,6 +767,13 @@ sub _daemons
 
     return $daemons;
 }
+
+sub fetchmailMustRun
+{
+    my ($self) = @_;
+    return $self->{fetchmail}->daemonMustRun();
+}
+
 
 # Method: isRunning
 #
@@ -1355,6 +1478,20 @@ sub menu
     $root->add($folder);
 }
 
+
+# Method: userMenu
+#
+#   This function returns is similar to EBox::Module::Base::menu but
+#   returns UserCorner CGIs for the eBox UserCorner. Override as needed.
+sub userMenu
+{
+    my ($self, $root) = @_;
+
+    $root->add(new EBox::Menu::Item('url' => '/Mail/View/ExternalAccounts',
+                                    'text' => __('Mail retrieval from external accounts')));
+}
+
+
 sub tableInfo
 {
     my $self = shift;
@@ -1621,6 +1758,7 @@ sub certificates
            ];
 }
 
+
 sub consolidateReportQueries
 {
     return [
@@ -1634,6 +1772,7 @@ sub consolidateReportQueries
         }
     ];
 }
+
 
 # Method: report
 #
@@ -1706,5 +1845,27 @@ sub report
 
     return $report;
 }
+
+
+
+sub fetchmailRegenTs
+{
+    my ($self) = @_;
+    my $ts =  $self->st_get_int('fetchmailRegenTs');
+    defined $ts or
+        $ts = 0;
+    return $ts;
+}
+
+sub setFetchmailRegenTs
+{
+    my ($self, $ts) = @_;
+    $self->st_set_int('fetchmailRegenTs', $ts);
+}
+
+
+
+
+
 
 1;

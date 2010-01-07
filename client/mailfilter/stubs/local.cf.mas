@@ -2,7 +2,6 @@
 $spamThreshold
 
 $bayes      
-$bayesPath
 
 $bayesAutolearn 
 $bayesAutolearnSpamThreshold 
@@ -47,11 +46,16 @@ required_score <% $spamThreshold %>
 rewrite_header  subject  <% $spamSubject %>
 % }
 
+
+
 #   Use Bayesian classifier
 
 <& .bool, 'use_bayes', $bayes &>
+bayes_store_module      Mail::SpamAssassin::BayesStore::PgSQL
+bayes_sql_dsn           DBI:Pg:dbname=spamassassin
+bayes_sql_username      amavis
+bayes_sql_override_username	amavis
 
-bayes_path <% $bayesPath %>
 
 <& .autolearn,
             active => $bayesAutolearn,
@@ -76,8 +80,19 @@ blacklist_from <% $addr %>
 bayes_ignore_header X-Bogosity
 bayes_ignore_header X-Spam-Flag
 bayes_ignore_header X-Spam-Status
+bayes_ignore_header X-DSPAM-Result
+bayes_ignore_header X-DSPAM-Processed
+bayes_ignore_header X-DSPAM-Confidence
+bayes_ignore_header X-DSPAM-Probability
+bayes_ignore_header X-DSPAM-Signature
+
 
 ok_locales <% "@okLocales" %>
+
+
+loadplugin Mail::SpamAssassin::Plugin::DKIM
+full DKIM_VALID     eval:check_dkim_valid()
+full DKIM_VALID_AU  eval:check_dkim_valid_author_sig()
 
 
 <%def .autolearn>

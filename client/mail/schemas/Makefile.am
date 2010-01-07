@@ -3,7 +3,7 @@
 moduledir   = @DATADIR@/ebox/modules
 module_DATA = mail.yaml
 
-pkgdata_DATA = authldap.ldif eboxmail.ldif
+pkgdata_DATA = authldap.ldif eboxmail.ldif eboxfetchmail.ldif
 
 
 EXTRA_DIST = $(module_DATA) $(pkgdata_DATA)

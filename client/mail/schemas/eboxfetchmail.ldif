@@ -1,0 +1,6 @@
+dn: cn=eboxfetchmail,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: eboxfetchmail
+olcAttributeTypes: ( 1.3.6.1.4.1.31607.2.1.3.1.21 NAME 'mailProtocol' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+olcAttributeTypes: ( 1.3.6.1.4.1.31607.2.1.3.1.22 NAME 'clientOption' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+olcObjectClasses: (1.3.6.1.4.1.31607.2.1.3.2.3  NAME 'fetchmailAccount' DESC 'Mail account form which retrieve mail' SUP top STRUCTURAL MUST ( mail $ maildrop $ clearPassword $ host $ mailProtocol $ ipServicePort  )  MAY (clientOption) )

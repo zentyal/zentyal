@@ -20,6 +20,7 @@ use warnings;
 
 use EBox::Config;
 use EBox::Sudo qw( :all );
+use EBox::Gettext;
 
 BEGIN {
     use Exporter ();
@@ -29,7 +30,8 @@ BEGIN {
     @EXPORT = qw();
         %EXPORT_TAGS  = (all => [qw{
                                         mailQueueList
-                                        removeMail
+                                        removeMail removeAllMail
+                                        flushAll
                                         requeueMail
                                         infoMail
                                 } ],
@@ -58,41 +60,45 @@ sub mailQueueList
 {
     my ($class) =  @_;
 
-    my $entry = {
-                 recipients => [],
-                };
+    my $entry = {};
+
     my @mqarray = ();
-#    use Data::Dumper;
 
     my $mailqOutput = EBox::Sudo::root('/usr/bin/mailq');
-
-
     foreach my $line (@{ $mailqOutput  }) {
         if ($line =~ m/^-/) {
             next;
-        } elsif ($line =~ m/^\w+\s/) {
+        } elsif ($line =~ m/^[\w*]+\s/) {
             # this is the id + info line
             my ($qid, $size, $dweek, $month, $day, $time, $sender) =
                 split '\s+', $line;
+            if ($qid =~ m/\*$/) {
+                $qid =~ s/\*$//;
+                # the msg could be rewrote later vi a specific message line
+                $entry->{'msg'} =
+                    __('This message is being delivered');
+            }
+
             $entry->{'qid'} = $qid;
             $entry->{'size'} = $size;
             $entry->{'atime'} = $dweek.' '.$month.' '.$day.' '.$time;
             $entry->{'sender'} = $sender;
+            $entry->{'recipients'}  = [];
         } elsif ($line =~ m/^\s*\(.*$/) {
             # this is amessage line
             my ($msg) = $line =~ m/^\s*\((.*)\)$/;
             $entry->{'msg'} = $msg;
-        } elsif ($line =~ m/^\s+[^\s]+\@.*$/) {
-            # this a recipient line
+        } elsif ($line =~ m/^\s+.*\@.*$/) {
+            # this a recipient line. Warning! this check is position dependent
             my ($rec) = $line =~ m/^\s+([^\s]+\@.*).*$/;
             push(@{$entry->{'recipients'}}, $rec);
         } elsif ($line =~ m/^$/) {
             # empty line signals the boundary between messages
             push(@mqarray, $entry);
-#           $entry = { recipients => [] };
             $entry = ();
         }
     }
+
     return \@mqarray;
 }
 
@@ -110,6 +116,30 @@ sub removeMail {
     my ($qid) = @_;
 
     root("/usr/sbin/postsuper -d $qid");
+}
+
+#
+# Method: removeAll
+#
+#  This method removes all mail from queue.
+#
+#
+sub removeAll
+{
+
+    root("/usr/sbin/postsuper -d ALL");
+}
+
+#
+# Method: reflushAll
+#
+#  This method attempts to deliver all queued mail
+#
+#
+sub flushAll
+{
+
+    root("/usr/sbin/postqueue -f");
 }
 
 #

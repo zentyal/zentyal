@@ -19,24 +19,24 @@ use EBox::Gettext;
 			<th class='tleft'><% __('Date') %></th>
 			<th class='tleft'><% __('Sender') %></th>
 			<th class='tleft'><% __('Recipients') %></th>
-			<th class='tleft'><% __('Message') %></th>
-			<th class='tleft'><% __('Operate') %></th>
+			<th class='tleft'><% __('Status') %></th>
+			<th class='tleft'><% __('Action') %></th>
 		</tr>
 	</thead>
 	<tbody>
 % my @order = ('qid', 'size', 'atime', 'sender', 'recipients', 'msg');
 % foreach my $row (@{$mqlist}) {
 	<tr>
-%	foreach my $it (@order) {
-%		if ($it eq 'recipients') {
-%                  if ((exists $row->{$it}) and (defined $row->{it})) {
-			<td><% join(', ', @{$row->{$it}}) %></td>
-%                  } else {
-                        <td></td>
+%	foreach my $field (@order) {
+                
+%               if (not exists $row->{$field}) {
+			<td><% $row->{$field} %></td>
+%		} elsif ((ref $row->{$field}) eq 'ARRAY') {
+			<td><% join(', ', @{$row->{$field}}) %></td>
+%               } else {
+                        <td><% $row->{$field} %></td>
 %                  }
-%		} else {
-			<td><% $row->{$it} %></td>
-%		}
+
 %	}
 		<td class='tcenter'>
 			<a href="MQRequeue?qid=<% $row->{'qid'} %>">
@@ -71,6 +71,26 @@ use EBox::Gettext;
 %	}
 % }
 	</tbody>
+</table>
+
+<table class='formTable' >
+
+<tr>
+
+<td>
+ <form action='MQFlushAll' method='POST'>
+   <input type='submit' value='<% __('Attempt to deliver all queued mail') %>'
+   size=30 />
+ </form>
+</td>
+
+<td>
+   <form action='MQRemoveAll' method='POST'>
+      <input type='submit' value='<% __('Remove all messages') %>' size=30 />
+  </form>
+</td>
+</tr>
+
 </table>
 
 <form action='QueueManager' method='POST'>
@@ -126,4 +146,6 @@ use EBox::Gettext;
 	<% __('There is no messages in queue or the service is stopped') %>
 </div>
 % }
+
+
 

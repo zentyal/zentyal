@@ -1,0 +1,7 @@
+<%args>
+$binPath
+</%args>
+# Cron file for package ebox-mail
+
+# see if fetchmail daemon needs relaod each 10 minutes
+1,11,21,31,41,51 * * * * root [ -x <% $binPath %> ] && <% $binPath %>

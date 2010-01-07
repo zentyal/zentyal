@@ -61,13 +61,25 @@ sub _table
                                       ),
                new EBox::Types::HasMany(
                       fieldName => 'aliases',
-                       printableName => __('Aliases'),
-
-                                 foreignModel => 'mail/VDomainAliases',
-
-                                 'view' => '/ebox/Mail/View/VDomainAliases',
-                                 'backView' => '/ebox/Mail/View/VDomains',
-                                ),
+                       printableName => __('Virtual domain aliases'),
+                      foreignModel => 'mail/VDomainAliases',
+                      'view' => '/ebox/Mail/View/VDomainAliases',
+                      'backView' => '/ebox/Mail/View/VDomains',
+                     ),
+               new EBox::Types::HasMany(
+                      fieldName => 'externalAliases',
+                       printableName => __('External accounts aliases'),
+                      foreignModel => 'mail/ExternalAliases',
+                      'view' => '/ebox/Mail/View/ExternalAliases',
+                      'backView' => '/ebox/Mail/View/VDomains',
+                     ),
+               new EBox::Types::HasMany(
+                      fieldName => 'settings',
+                       printableName => __('Settings'),
+                      foreignModel => 'mail/VDomainSettings',
+                      'view' => '/ebox/Mail/View/VDomainSettings',
+                      'backView' => '/ebox/Mail/View/VDomains',
+                     ),
 
 
          );
@@ -123,8 +135,107 @@ sub preconditionFailMsg
 }
 
 
+sub alwaysBccByVDomain
+{
+    my ($self) = @_;
+    my %alwaysBcc;
+
+    my @ids = @{ $self->ids() };
+    foreach my $id (@ids) {
+        my $row = $self->row($id);
+        my $settings = $row->elementByName('settings')->foreignModelInstance();
+        my $address  = $settings->bccAddress();
+        if ($address) {
+            my $vdomain = $row->valueByName('vdomain');
+            $alwaysBcc{$vdomain} = $address;
+        }
+    }
+
+    return \%alwaysBcc;
+}
+
+sub alwaysBcc
+{
+    my ($self) = @_;
+    my %alwaysBcc;
+
+    my @ids = @{ $self->ids() };
+    foreach my $id (@ids) {
+        my $row = $self->row($id);
+        my $settings = $row->elementByName('settings')->foreignModelInstance();
+        my $address  = $settings->bccAddress();
+        if ($address) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
 
 
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    if (not exists $changedFields->{vdomain}) {
+        return;
+    }
+
+    my $vdomain = $changedFields->{vdomain}->value();
+    if ($self->existsVDomainAlias($vdomain)) {
+        throw EBox::Exceptions::External(
+__x('Cannot add virtual domain {vd} because is a virtual domain alias with the same name',
+   vd => $vdomain)
+                                        );
+    }
+
+    $self->_checkVDomainIsNotInExternalAliases($vdomain);
+}
+
+
+
+
+sub existsVDomain
+{
+    my ($self, $vdomain) = @_;
+
+    my $res = $self->findValue(vdomain => $vdomain);
+    return defined $res;
+}
+
+
+sub existsVDomainAlias
+{
+    my ($self, $alias) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $vdomainAlias = $row->elementByName('aliases')->foreignModelInstance();
+        if ($vdomainAlias->existsAlias($alias)) {
+            return 1;
+        }
+    }
+
+    return undef;
+}
+
+sub _checkVDomainIsNotInExternalAliases
+{
+    my ($self, $vdomain) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $externalAliases = $row->elementByName('externalAliases')->foreignModelInstance();
+        my $alias = $externalAliases->firstAliasForExternalVDomain($vdomain);
+        if ($alias) {
+            throw EBox::Exceptions::External(
+                                             __x(
+'Cannot add virtual domain {vd} because it appears as external domain in the account referecned by the alias {al}',
+vd => $vdomain, al => $alias
+                                                )
+                                            );
+
+        }
+    }
+}
 
 1;
 

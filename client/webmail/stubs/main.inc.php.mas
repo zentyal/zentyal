@@ -21,7 +21,7 @@ if (($imapServer =~ m/127\.0\.\0\.1/) or ($imapServer eq 'localhost')) {
    $enableCaching = 1;
 }
 
-my @plugins = ();
+my @plugins = (q{'markasjunk'});
 if ($managesieve) {
     push @plugins, q{'managesieve'};
 }

@@ -5,64 +5,89 @@
 use EBox::Gettext;
 </%init>
 % settextdomain('ebox-mail');
-%if($params->{'alias'} eq undef) {
-<form action='/ebox/Mail/CreateGroupAlias' method='POST'>
-    <input type="hidden" name="group" value="<% $params->{'group'} %>">
-	<h3><% __('Create alias mail account to group') %></h3>
+<h3><% __('Mail alias settings') %></h3>
 
-
-
-	<div class='help'>
-		<p><% __("When the last member of a group is removed, the mail alias account will be deleted")%></p>
-	</div>
 
 %	if($params->{'nacc'} eq 0) {
 	<div class='warning'>
 		<p><% __('There are no users in the group or the users do not have a mail account, so an alias account cannot be created') %></p>
 	</div>
-%	}
-%      elsif (not $params->{service} ) {
-           <& /mail/moduleDisabled.mas &>
-%      }
-
-	
-	<p><input type='text' class='inputText' name='lhs'
-%	if($params->{'nacc'} eq 0) {
-		disabled
-%	}
-	>
-	<select name="rhs"
-%	if($params->{'nacc'} eq 0) {
-		disabled
-%	}
-	>
-%	foreach my $vd (@{$params->{vdomains}}) {
-		<option value= <% $vd %> > <% __($vd) %> </option>
-%	}
-	</select>
-
-	<input class='inputButton' type='submit' name='change'
-%	if($params->{'nacc'} eq 0) {
-			disabled
-%	}
-			value="<% __('Create') %>"
-			alt="<% __('Create') %>"></p>
-% settextdomain('ebox-usersandgroups');
-</form>
-%} else {
-<form action='/ebox/Mail/DelGroupAlias' method='POST'>
-	<h3><% __('Mail alias settings') %></h3>
-
-% if (not $params->{service} ) {
-      <& /mail/moduleDisabled.mas &>
+%      } else {
+%            if (not $params->{service} ) {
+                   <& /mail/moduleDisabled.mas &>
+%            }
+	<table cellspacing='0' class='dataTable'>
+		<thead>
+			<tr>
+				<th width='66%' class='tleft'>
+					<% __('Mail alias') %>
+				</th>
+				<th class='thOptions'>
+					<% __('Action') %>
+				</th>
+			</tr>
+		</thead>
+          	<tbody>
+       <& .addAlias, 
+           group => $params->{group}, 
+           vdomains => $params->{vdomains},
+       &>
+       <& .aliasList,
+             group => $params->{group}, 
+             aliases => $params->{aliases},
+        &>
+	    </tbody>
+	</table>
 % }
 
-    <input type="hidden" name="alias" value="<% $params->{'alias'} %>">
-    <input type="hidden" name="group" value="<% $params->{'group'} %>">
-	<% __('Mail alias') %>:<span class='stitle'><% $params->{'alias'} %></span>
-	<input class='inputButton' type='submit' name='change'
-			value="<% __('Delete') %>"
-			alt="<% __('Delete') %>">
+
+
+<%def .addAlias>
+<%args>
+$group
+@vdomains
+</%args>
+<form action='/ebox/Mail/CreateGroupAlias' method='POST'>
+    <input type="hidden" name="group" value="<% $group %>">
+			<tr>
+				<td>
+					<input type='text' class='inputText' name='lhs'>
+					<select name="rhs" enabled>
+%					foreach my $vd (@vdomains) {
+						<option value= <% $vd %> > <% __($vd) %> </option>
+%					}
+					</select>
+				</td>
+				<td class='tcenter'>
+					<input class='inputButton' 
+							type='image' 
+							src='/data/images/add.gif'
+							name='change'
+							value="<% __('Create') %>"
+							title="<% __('Create') %>"
+							alt="<% __('Create') %>">
+				</td>
+			</tr>
+
 </form>
-%}
-% settextdomain('ebox-usersandgroups');
+</%def>
+
+
+<%def .aliasList>
+<%args>
+$group
+@aliases
+</%args>
+%	foreach my $alias (@aliases) {
+			<tr class='border'>
+				<td><% $alias %></td>
+				<td class='tcenter'>
+					<a href='../Mail/DelGroupAlias?alias=<% $alias %>&group=<% $group %>'>
+					<img src='/data/images/delete.gif' 
+						title="<% __('Delete') %>"
+						alt="<% __('Delete') %>"/></a>
+				</td>
+			</tr>
+
+%	}
+</%def>

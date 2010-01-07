@@ -36,20 +36,23 @@ sub new {
 }
 
 sub _process($) {
-	my $self = shift;
-	my $mail = EBox::Global->modInstance('mail');
+        my $self = shift;
+        my $mail = EBox::Global->modInstance('mail');
 
-	$self->_requireParam('group', __('group'));
-	my @group = $self->param('group');
+        $self->_requireParam('group', __('group'));
+        my $group = $self->param('group');
 
-	$self->{redirect} = "UsersAndGroups/Group?group=".$group[0];
+        $self->_requireParam('alias', __('alias'));
+        my $alias = $self->param('alias');
 
-	$self->_requireParam('alias', __('group alias mail'));
-	my $alias = $self->param('alias');
+        $self->{redirect} = "UsersAndGroups/Group?group=".$group;
 
-	$self->keepParam('group');
+        $self->_requireParam('alias', __('group alias mail'));
+        my $alias = $self->param('alias');
 
-	$mail->{malias}->delAlias($alias);
+        $self->keepParam('group');
+
+        $mail->{malias}->delAlias($alias);
 }
 
 1;

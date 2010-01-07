@@ -30,7 +30,7 @@ use EBox::Gettext;
 use EBox::Validate;
 use EBox::MailVDomainsLdap;
 
-use constant ALIASDN     => 'ou=mailalias, ou=postfix';
+use constant ALIASDN     => 'ou=mailalias,ou=postfix';
 
 sub new
 {
@@ -50,24 +50,70 @@ sub new
 #     alias - The mail alias account to create
 #       maildrop - The mail account(s) to send all mail
 #       id - the username or groupname
-sub addAlias ($$$$) {
-    my $self = shift;
-    my $alias = shift;
-    my $maildrop = shift;
-    my $id = shift;
+sub addAlias 
+{
+    my ($self, $alias, $maildrop, $id) = @_;
 
-#   RFC compliant
-    unless ($alias =~ /^[^\.\-][\w\.\-]+\@[^\.\-][\w\.\-]+$/) {
-        throw EBox::Exceptions::InvalidData('data' => __('mail account'),
-                                                        'value' => $alias);
-   }
-    # Verify mail exists
+    $self->_checkAccountAlias($alias, $maildrop);
+
+    my $user = $self->_accountUser($maildrop);
+    if (not $user) {
+        throw EBox::Exceptions::External(
+               __x('{ac} is not a internal account', ac => $maildrop)
+                                        );
+    }
+
+    $self->_addCouriermailAliasLdapElement($id, $alias, $maildrop);
+}
+
+
+sub addExternalAlias
+{
+    my ($self, $alias, $maildrop) = @_;
+
+    $self->_checkAccountAlias($alias, $maildrop);
+
+    my $user = $self->_accountUser($maildrop);
+    if ($user) {
+        throw EBox::Exceptions::External(
+               __x('{ac} is not a external account', ac => $maildrop)
+                                        );
+    }
+
+    my ($left, $vdomain) = split '@', $alias;
+
+
+    $self->_addCouriermailAliasLdapElement("\@$vdomain", $alias, $maildrop);
+}
+
+
+sub _accountUser
+{
+    my ($self, $account) = @_;
+    my $musers = EBox::Global->modInstance('mail')->{musers};
+    return $musers->userByAccount($account);
+}
+
+sub _checkAccountAlias
+{
+    my ($self, $alias, $maildrop) = @_;
+
+    EBox::Validate::checkEmailAddress($alias, __('mail alias'));
+
+    # Verify alias not exists
     if ($self->accountExists($alias)) {
         throw EBox::Exceptions::DataExists('data' => __('mail account'),
                                                         'value' => $alias);
     }
 
-        $self->_addCouriermailAliasLdapElement($id, $alias, $maildrop);
+    # Verify maildrop is not an aliases (For now is not allowed alias of
+    # aliases) 
+    if ($self->aliasExists($maildrop)) {
+        throw EBox::Exceptions::External(
+__x('{ac} is a mail alias. Alias of aliasese are not allowed',
+     ac => $maildrop)
+                                         );
+    }
 }
 
 # Method: addGroupAlias
@@ -78,16 +124,12 @@ sub addAlias ($$$$) {
 #
 #     alias - The mail alias account to create
 #       groupname - The group name.
-sub addGroupAlias ($$$) { #mail alias, groupname
-    my $self = shift;
-    my $alias = shift;
-    my $groupname = shift;
+sub addGroupAlias 
+{
+    my ($self, $alias, $groupname) = @_;
     my $users = EBox::Global->modInstance('users');
 
-    unless ($alias =~ /^[^\.\-][\w\.\-]+\@[^\.\-][\w\.\-]+$/) {
-        throw EBox::Exceptions::InvalidData('data' => __('mail account'),
-                                                        'value' => $alias);
-   }
+    EBox::Validate::checkEmailAddress($alias, __('group alias'));
 
     if ($self->accountExists($alias)) {
         throw EBox::Exceptions::DataExists('data' => __('mail account'),
@@ -126,7 +168,6 @@ sub addVDomainAlias
 {
     my ($self, $vdomain, $alias) = @_;
 
-
     EBox::Validate::checkDomainName($alias, __('Domain alias'));
 
     my $vdomainsLdap =  EBox::MailVDomainsLdap->new();
@@ -150,10 +191,9 @@ sub addVDomainAlias
         throw EBox::Exceptions::DataExists(data => __('Domain alias'));
     }
 
-    my $id = 0;
     $alias = '@' . $alias;
     $vdomain = '@' . $vdomain;
-    $self->_addCouriermailAliasLdapElement($id, $alias, $vdomain);
+    $self->_addCouriermailAliasLdapElement($vdomain, $alias, $vdomain);
 }
 
 
@@ -193,6 +233,40 @@ sub vdomainAliases
 
 
 
+sub externalAccountAliases
+{
+    my ($self, $vdomain) = @_;
+    my $vdomainsLdap =  EBox::MailVDomainsLdap->new();
+    if (not $vdomainsLdap->vdomainExists($vdomain)) {
+        throw EBox::Exceptions::External(__x(
+                                             'Mail domain {d} does not exists',
+                                             d => $vdomain
+                                            )
+                                        );
+    }
+
+    my %attrs = (
+            base => $self->aliasDn,
+            filter => "&(objectclass=couriermailalias)(uid=\@$vdomain)",
+            scope => 'sub'
+                );
+
+    my $result = $self->{'ldap'}->search(\%attrs);
+
+    my @alias;
+    foreach my $entry ($result->sorted('maildrop')) {
+        my $mail = $entry->get_value('mail');
+        if ($mail =~ m/^\@/) {
+            # vdomain alias, skipping
+            next;
+        }
+
+        push @alias, $mail;
+    }
+
+    return \@alias;
+}
+
 
 
 
@@ -215,7 +289,7 @@ sub _addCouriermailAliasLdapElement
 
 }
 
-# Method: updateGroupAlias
+# Method: updateGroupAliases
 #
 #  When a change on users of a group this method updates the maildrops of the
 #  mail alias account.
@@ -223,19 +297,15 @@ sub _addCouriermailAliasLdapElement
 # Parameters:
 #
 #       group - The group name
-#     alias - The mail alias account to create
-sub updateGroupAlias ($$$) {
-    my ($self, $group, $alias) = @_;
+sub updateGroupAliases
+{
+    my ($self, $group) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
-    unless ($self->accountExists($alias)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('mail account'),
-                                                        'value' => $alias);
+    foreach my $alias (@{ $self->groupAliases($group) }) {
+        $self->delAlias($alias);
+        $self->addGroupAlias($alias,$group);
     }
 
-    $self->delAliasGroup($group);
-    $self->addGroupAlias($alias,$group);
 }
 
 # Method: addMaildrop
@@ -247,11 +317,10 @@ sub updateGroupAlias ($$$) {
 #
 #     alias - The mail alias account to create
 #       maildrop - The mail account to add to the alias account
-sub addMaildrop ($$$) { #alias account, mail account to add
-    my $self = shift;
-    my $alias = shift;
-    my $maildrop = shift;
-
+sub addMaildrop 
+{
+    my ($self, $alias, $maildrop) = @_;
+    
     unless ($self->aliasExists($alias)) {
         throw EBox::Exceptions::DataNotFound('data' => __('mail alias account'),
                                                         'value' => $alias);
@@ -277,10 +346,9 @@ sub addMaildrop ($$$) { #alias account, mail account to add
 #
 #     alias - The mail alias account to create
 #       maildrop - The mail account to add to the alias account
-sub delMaildrop ($$$) { #alias account, mail account to remove
-    my $self = shift;
-    my $alias = shift;
-    my $maildrop = shift;
+sub delMaildrop 
+{
+    my ($self, $alias, $maildrop) = @_;
 
     unless ($self->aliasExists($alias)) {
         throw EBox::Exceptions::DataNotFound('data' => __('mail alias account'),
@@ -313,9 +381,9 @@ sub delMaildrop ($$$) { #alias account, mail account to remove
 # Parameters:
 #
 #     alias - The mail alias account to create
-sub delAlias($$) { #mail alias account
-    my $self = shift;
-    my $alias = shift;
+sub delAlias 
+{ 
+    my ($self, $alias) = @_;
 
     unless ($self->aliasExists($alias)) {
         throw EBox::Exceptions::DataNotFound('data' => __('mail alias account'),
@@ -334,7 +402,8 @@ sub delAlias($$) { #mail alias account
 # Parameters:
 #
 #       vdomain - The Virtual domain name
-sub delAliasesFromVDomain () {
+sub delAliasesFromVDomain 
+{
     my ($self, $vdomain) = @_;
 
     my @aliases = @{$self->_allAliasFromVDomain($vdomain)};
@@ -345,31 +414,6 @@ sub delAliasesFromVDomain () {
 
 }
 
-# Method: delAliasGroup
-#
-#   This method removes the mail alias account of a group
-#
-# Parameters:
-#
-#     group - The group name
-sub delAliasGroup($$) {
-    my ($self, $group) = @_;
-
-    my %args = (
-        base => $self->aliasDn,
-        filter => "&(objectclass=couriermailalias)(userid=$group)",
-        scope => 'one',
-        attrs => ['mail']
-    );
-
-    my $result = $self->{ldap}->search(\%args);
-
-    if ($result->count > 0) {
-        my $alias = ($result->sorted('mail'))[0]->get_value('mail');
-        $self->delAlias($alias);
-    }
-}
-
 # Method: accountAlias
 #
 #   This method returns all mail alias accounts that have a mail account of
@@ -378,9 +422,9 @@ sub delAliasGroup($$) {
 # Parameters:
 #
 #     mail - The mail account
-sub accountAlias($$) { #mail account
-    my $self = shift;
-    my $mail = shift;
+sub accountAlias 
+{ 
+    my ($self, $mail) = @_;
 
     my %args = (
         base => $self->aliasDn,
@@ -402,15 +446,15 @@ sub accountAlias($$) { #mail account
 
 # Method: groupAccountAlias
 #
-#   This method returns all mail alias accounts that have a mail account of
-#   a group
+#   This method returns all mail group alias accounts that have a mail account
+#   of a user
 #
 # Parameters:
 #
 #     mail - The mail account
-sub groupAccountAlias($$) { #mail account
-    my $self = shift;
-    my $mail = shift;
+sub groupAccountAlias
+{
+    my ($self, $mail) = @_;
 
     my %args = (
         base => $self->aliasDn,
@@ -439,7 +483,8 @@ sub groupAccountAlias($$) { #mail account
 #     mail - The mail aliasaccount
 # Returns:
 #       array ref - Array that contains mail accounts
-sub accountListByAliasGroup() {
+sub accountListByAliasGroup
+{
     my ($self, $mail) = @_;
 
     my %args = (
@@ -465,7 +510,7 @@ sub accountListByAliasGroup() {
 #     string - DN of alias leaf
 sub aliasDn
 {
-    my $self = shift;
+    my ($self) = @_;
     return ALIASDN . ", " . $self->{ldap}->dn;
 }
 
@@ -481,9 +526,10 @@ sub aliasDn
 # Returns:
 #
 #       array - With the group's name list
-sub listMailGroupsByUser($$) {
+sub listMailGroupsByUser
+{
     my ($self, $user) = @_;
-    my @list;
+    my %groupsWithAlias;
     my $users = EBox::Global->modInstance('users');
 
     # We get also system groups (gid < 2000)
@@ -491,40 +537,42 @@ sub listMailGroupsByUser($$) {
 
     foreach my $group (@groups) {
         if ($self->groupHasAlias($group)) {
-            push(@list, $group);
+            $groupsWithAlias{$group} = 1;
         }
     }
-    return @list;
+    return keys %groupsWithAlias;
 }
 
-# Method: groupAlias
+# Method: groupAliases
 #
-#   This method returns the mail alias account of a group
+#   This method returns the mail alias accounts of a group
 #
 # Parameters:
 #
 #     group - The group name
 #
 # Returns:
-#       string - mail alias account
-sub groupAlias ($$) {
+#       array reference - mail alias accounts
+sub groupAliases
+{
     my ($self, $group) = @_;
 
     my %args = (
         base => $self->aliasDn,
         filter => "&(objectclass=couriermailalias)(uid=$group)",
-        scope => 'one',
+        scope => 'sub',
         attrs => ['mail']
     );
 
     my $result = $self->{ldap}->search(\%args);
 
-    return (($result->sorted('mail'))[0]->get_value('mail'));
+    my @aliases = map { $_->get_value('mail')  }$result->sorted('mail');
+    return \@aliases;
 }
 
 # Method: groupHasAlias
 #
-#   This method returns if the group has a mail alias account
+#   This method returns if the group has any mail alias account
 #
 # Parameters:
 #
@@ -532,8 +580,9 @@ sub groupAlias ($$) {
 #
 # Returns:
 #
-#       true if the group has an account, false otherwise
-sub groupHasAlias ($$) {
+#       true if the group has any alias account, false otherwise
+sub groupHasAlias 
+{
     my ($self, $group) = @_;
 
     my %args = (
@@ -555,9 +604,9 @@ sub groupHasAlias ($$) {
 # Parameters:
 #
 #     mail - The mail account
-sub aliasExists($$) { #mail alias
-    my $self = shift;
-    my $alias = shift;
+sub aliasExists 
+{
+    my ($self, $alias) = @_;
 
     my %attrs = (
         base => $self->aliasDn,
@@ -581,9 +630,9 @@ sub aliasExists($$) { #mail alias
 # Returns
 #
 #       true if the account exists, false otherwise
-sub accountExists($$) { #mail alias account
-    my $self = shift;
-    my $alias = shift;
+sub accountExists
+{ 
+    my ($self, $alias) = @_;
     my $users = EBox::Global->modInstance('users');
 
     my %attrs = (
@@ -595,6 +644,37 @@ sub accountExists($$) { #mail alias account
     my $result = $self->{'ldap'}->search(\%attrs);
 
     return (($result->count > 0) || ($self->aliasExists($alias)));
+}
+
+# Method: accountsByAlias
+#
+#   given an alias address return all the accounts that are alaised
+#
+#   Params:
+#       alias - alias addres
+#
+# Returns: 
+#    - reference a list with the accounts  or undef if there is not alias or
+#      not aliased addresses
+sub accountsByAlias
+{
+    my ($self, $alias) = @_;
+
+    my %attrs = (
+        base => $self->aliasDn,
+        filter => "&(objectclass=couriermailalias)(mail=$alias)",
+        scope => 'one'
+    );
+
+    my $result = $self->{'ldap'}->search(\%attrs);
+    if ($result->count() == 0) {
+        return [];
+    }
+
+    my $entry = $result->entry(0);
+    my @accounts = $entry->get_value('maildrop');
+    return \@accounts;
+
 }
 
 # Method: _allAliasFromVDomain
@@ -609,7 +689,8 @@ sub accountExists($$) { #mail alias account
 # Returns:
 #
 #       array ref - with all alias account from a virtual domain.
-sub _allAliasFromVDomain () { #vdomain
+sub _allAliasFromVDomain 
+{ 
     my ($self, $vdomain) = @_;
 
     my %attrs = (
@@ -628,7 +709,7 @@ sub _allAliasFromVDomain () { #vdomain
 }
 
 
-sub _syncAliasTable
+sub _syncVDomainAliasTable
 {
     my ($self, $vdomain, $aliasTable) = @_;
 
@@ -654,6 +735,31 @@ sub _syncAliasTable
         $self->delAlias($alias);
     }
 }
+
+sub _syncExternalAliasTable
+{
+    my ($self, $vdomain, $aliasTable) = @_;
+
+    my %aliasToDelete = map { $_ => 1 } @{ $self->externalAccountAliases($vdomain) };
+
+
+    foreach my $alias_r (@{ $aliasTable->aliasesAndExternalAccounts() }) {
+        my ($alias, $account) = @{ $alias_r };
+
+        if (not $self->aliasExists($alias)) {
+            $self->addExternalAlias($alias, $account);
+        }
+
+        delete $aliasToDelete{$alias};
+    }
+
+
+    # alias no present in the table must be deleted
+    foreach my $alias (keys %aliasToDelete) {
+        $self->delAlias($alias);
+    }
+}
+
 
 
 1;

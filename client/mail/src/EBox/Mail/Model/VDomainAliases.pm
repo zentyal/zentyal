@@ -85,6 +85,33 @@ sub _table
         return $dataTable;
 }
 
+
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    if (not exists $changedFields->{alias}) {
+        return;
+    }
+
+    my $alias = $changedFields->{alias}->value();
+    my $vdomainsModel = EBox::Global->modInstance('mail')->model('VDomains');
+    if ($vdomainsModel->existsVDomain($alias)) {
+        throw EBox::Exceptions::External(
+__x('Cannot add  alias {al} because is akready a virtual domain  with the same name',
+   al => $alias)
+                                        );
+    }
+
+    if ($vdomainsModel->existsVDomainAlias($alias)) {
+        throw EBox::Exceptions::External(
+__x('Cannot add  alias {al} because is already an identical alias for another virtual domain',
+   al => $alias)
+                                        );
+    }
+}
+
+
 # Method: precondition
 #
 #       Check if the module is configured
@@ -111,6 +138,7 @@ sub preconditionFailMsg
                   'status section in order to use it.');
 }
 
+
 # Method: pageTitle
 #
 #   Overrides <EBox::Model::DataTable::pageTitle>
@@ -118,10 +146,16 @@ sub preconditionFailMsg
 sub pageTitle
 {
         my ($self) = @_;
-
         return $self->parentRow()->printableValueByName('vdomain');
 }
 
+
+sub existsAlias
+{
+    my ($self, $alias) = @_;
+    my $res = $self->findValue(alias => $alias);
+    return defined $res;
+}
 
 
 1;

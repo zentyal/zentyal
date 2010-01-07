@@ -8,6 +8,8 @@
     $firstValidUid
     $firstValidGid
     $postmasterAddress 
+
+    $antispamPlugin 
 </%args>
 ## Dovecot configuration file
 
@@ -556,7 +558,9 @@ protocol imap {
 
   # Support for dynamically loadable plugins. mail_plugins is a space separated
   # list of plugins to load.
-  mail_plugins = quota imap_quota autocreate
+% my @imapPlugins = qw(quota imap_quota autocreate);
+% push @imapPlugins, 'antispam' if $antispamPlugin->{enabled};  
+  mail_plugins = <% "@imapPlugins" %>
   #mail_plugin_dir = /usr/lib/dovecot/modules/imap
 
   # Send IMAP capabilities in greeting message. This makes it unnecessary for
@@ -1040,8 +1044,12 @@ plugin {
   # autocreate plugin http://wiki.dovecot.org/Plugins/Autocreate
   autocreate = Trash
   autocreate2 = Spam
+  autocreate3 = Sent
+  autocreate4 = Drafts
   autosubscribe = Trash
   autosubscribe2 = Spam
+  autosubscribe3 = Sent
+  autosubscribe4 = Drafts
 
   # sieve script location
   sieve = /var/sieve-scripts/%d/%u/sieve-script
@@ -1053,4 +1061,97 @@ plugin {
   # Directory for :global include scripts (for v1.1 include extension)
   #sieve_global_dir =
 
+% if ($antispamPlugin->{enabled} ) {
+  <& .antispamPlugin, %{ $antispamPlugin } &>
+% }    
 }
+
+
+<%def .antispamPlugin>
+<%args>
+$enabled
+$mailtrain
+$args
+$spamArgs
+$hamArgs
+</%args>
+
+  # Antispam plugin
+    ##################
+    # GENERIC OPTIONS
+
+    # mail signature (used with any backend requiring a signature)
+    antispam_signature = X-Spam-Flag
+
+    # action to take on mails without signature
+    # (used with any backend requiring a signature)
+    # (we recommend only setting this to 'move' after verifying that the
+    # whole setup is working)
+    # antispam_signature_missing = move # move silently without training
+    antispam_signature_missing = error
+
+    # The list of folders for trash, spam and unsure can be given
+    # with three options, e.g. "trash" matches the given folders
+    # exactly as written, "trash_pattern" accept the * wildcard at
+    # the end of the foldername, "trash_pattern_ignorecase"
+    # accepts the * wildcard at the end of the foldername _and_
+    # matches the name case insensitivly.
+
+    # the *-wildcard with the following meaning:
+    #    * at the end: any folder that _start_ with the string
+    # e.g.:
+    #	antispam_trash_pattern = deleted *;Gel&APY-schte *
+    # match any folders that start with "deleted " or "Gelöschte "
+    # match is _case_senstive_!
+    #
+    #	antispam_trash_pattern_ignorecase = deleted *;Gel&APY-schte *
+    # match any folders that start with "deleted " or "gelöschte "
+    # match is _case_insenstive_, except the non-USASCII letters,
+    # "ö" in this example.
+    # To match the upper-case Ö, too, you need to add yet another
+    # pattern "gel&ANY-schte *", note the different UTF7 encoding:
+    # &ANY- instead of &APY-.
+
+
+    # semicolon-separated list of Trash folders (default unset i.e. none)
+    antispam_trash = Trash
+    # antispam_trash = trash;Trash;Deleted Items; Deleted Messages
+    # antispam_trash_pattern = trash;Trash;Deleted *
+    # antispam_trash_pattern_ignorecase = trash;Deleted *
+
+    # semicolon-separated list of spam folders
+    antispam_spam = Spam
+    # antispam_spam_pattern = SPAM
+    # antispam_spam_pattern_ignorecase = SPAM
+
+    # semicolon-separated list of unsure folders (default unset i.e. none)
+    # antispam_unsure =
+    # antispam_unsure_pattern =
+    # antispam_unsure_pattern_ignorecase =
+
+    # Whether to allow APPENDing to SPAM folders or not. Must be set to
+    # "yes" (case insensitive) to be activated. Before activating, please
+    # read the discussion below.
+    # antispam_allow_append_to_spam = no
+
+
+    #=====================
+    # antispam mail sending plugin
+    #
+    # Because of the way this plugin works, you can also use it
+    # to train via an arbitrary program that receives the message
+    # on standard input, in that case you can use the config
+    # options antispam_mail_spam and antispam_mail_notspam for
+    # the argument that distinguishes between ham and spam.
+
+    # temporary directory
+    antispam_mail_tmpdir = /tmp
+
+    # spam/not-spam addresses (default unset which will give errors)
+     antispam_mail_spam =<% $spamArgs %>
+     antispam_mail_notspam =<% $hamArgs %>
+
+    # sendmail binary
+    antispam_mail_sendmail = <% $mailtrain %>
+    antispam_mail_sendmail_args = <% $args %>  
+</%def>

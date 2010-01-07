@@ -10,7 +10,7 @@ use EBox::Sudo qw(root);
 
 
 
-EBox::init();
+
 
 
 sub update
@@ -80,6 +80,10 @@ sub usage
     exit 1;
 }
 
+
+
+EBox::init();
+
 unless ($#ARGV == 0) {
     usage();
 }
@@ -91,6 +95,8 @@ if ($ARGV[0] eq 'update') {
 } else {
     usage();
 }
+
+
 
 1;
 

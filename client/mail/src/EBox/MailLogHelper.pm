@@ -1,7 +1,6 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
 #
 # This program is free software; you can redistribute it and/or modify
-
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -12,14 +11,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailLogHelper;
-
 use strict;
 use warnings;
 
-use EBox::Gettext;
-
+package EBox::MailLogHelper;
 use base qw(EBox::LogHelper);
+
+use EBox::Gettext;
+use EBox::Global;
 
 use constant MAILOG => "/var/log/mail.log";
 use constant TABLENAME => "mail_message";
@@ -102,7 +101,9 @@ sub processLine
         } elsif ($msg =~ m/.*554.*$/) {
             $event = 'norelay';
         } elsif ($msg =~ m/.*552.*$/) {
-            $event = 'maxmsgsize';
+            $event = 'maxmsgsize'; # XXX dont know if this case either continues
+                                   # to work nor if it has worked somewhere in
+                                   # the time
         } elsif ($msg =~ m/Greylisted/) {
             $event = 'greylist';
         }
@@ -142,6 +143,25 @@ sub processLine
 
         $temp{$qid}{'msgid'} = $msg_id;
     } elsif ($line =~ m/deliver\((.*?)\): msgid=<(.*?)>: rejected: Quota exceeded \((.*?)\)/) {
+        # quota exceeded, insert maxusrsize event
+        my $to    = $1;
+        my $msgid = $2;
+        my $msg = $3; # XXX thois not works!
+        my $qid = _qidFromMessageId($msgid);
+        defined $qid or
+            return;
+        exists $temp{$qid} or
+            return;
+
+        $temp{$qid}{'to'}    = $to;
+        $temp{$qid}{'event'} = 'maxusrsize';
+        $temp{$qid}{'status'} = 'rejected';
+        $temp{$qid}{'message'} = $msg;
+        $temp{$qid}{'date'} = $self->_getDate($line);
+        $temp{$qid}{'relay'} = 'dovecot';
+
+        $self->_insertEvent($qid, $dbengine);
+    } elsif ($line =~ m/deliver\((.*?)\): msgid=<(.*?)>: rejected: Quota exceeded \((.*?)\)/) {
         # quta exceeded, insert maxusrsize event
         my $to    = $1;
         my $msgid = $2;
@@ -160,6 +180,16 @@ sub processLine
         $temp{$qid}{'relay'} = 'dovecot';
 
         $self->_insertEvent($qid, $dbengine);
+    } elsif ($line =~ m/warning: (.*?): queue file size limit exceeded/) {
+        # mesage max sieze exceeded, insert maxmsgsize event
+        my $qid = $1;
+
+        $temp{$qid}{'event'} = 'maxmsgsize';
+        $temp{$qid}{'status'} = 'rejected';
+        $temp{$qid}{'date'} = $self->_getDate($line);
+
+        $self->_insertEvent($qid, $dbengine);
+
     } elsif ($line =~ m/client=/) {
         # this is the ponit of entry for messages, we could only get a new qid
         # here 
@@ -179,13 +209,21 @@ sub processLine
 
         $temp{$qid}{'from'} = $from;
         $temp{$qid}{'size'} = $size;
-    } elsif ($line =~ m/.*: (.*): to=<(.*)>, relay=(.*?), .*, status=(.*?) \((.*)\)$/) {
+    } elsif ($line =~ m/.*: (.*): to=<(.*?)>(, orig_to=<.*?>)?, relay=(.*?), .*, status=(.*?) \((.*)\)$/) {
         # to, relay, date, msg and status
-        my ($qid, $to, $relay, $status, $msg) = ($1, $2, $3, $4, $5);
+        my ($qid, $to, $origTo, $relay, $status, $msg) = 
+                                     ($1, $2, $3, $4, $5, $6);
         exists $temp{$qid} or
             return;
 
-        $temp{$qid}{'to'} = $to;
+        if (not $origTo) {
+            $temp{$qid}{'to'} = $to;
+        } else {
+            $origTo =~ m/<(.*)>/;
+            $temp{$qid}{'to'} = $1;
+        }
+
+
         $temp{$qid}{'relay'} = $relay;
         $temp{$qid}{'status'} = $status;
         $temp{$qid}{'msg'} = $msg;
@@ -264,6 +302,7 @@ sub _insertEvent
 
     $self->_insert($dbengine, $values);
 }
+
 
 sub _insert
 {

@@ -173,6 +173,7 @@ sub smtpFilterLogTest : Test(65)
 {
     my ($self) = @_;
 
+    my $year = _currentYear();
     my @cases = (
                  {
                   name => 'Spam detected, pass policy',
@@ -184,7 +185,7 @@ sub smtpFilterLogTest : Test(65)
                                    event => 'SPAM',
                                    action => 'Passed',
                                    'spam_hits' => '4.637',
-                                   date => '2008-Aug-27 04:57:10',
+                                   date => "$year-Aug-27 04:57:10",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                   },
@@ -199,7 +200,7 @@ sub smtpFilterLogTest : Test(65)
                                    event => 'SPAM',
                                    action => 'Blocked',
                                    'spam_hits' => '4.736',
-                                   date => '2008-Aug-27 05:00:30',
+                                   date => "$year-Aug-27 05:00:30",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                   },
@@ -215,7 +216,7 @@ sub smtpFilterLogTest : Test(65)
                                    event => 'SPAM',
                                    action => 'Blocked',
                                    'spam_hits' => '4.906',
-                                   date => '2008-Aug-27 05:03:30',
+                                   date => "$year-Aug-27 05:03:30",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                   },
@@ -231,7 +232,7 @@ sub smtpFilterLogTest : Test(65)
                   expectedData => {
                                    event => 'INFECTED',
                                    action => 'Blocked',
-                                   date => '2008-Aug-27 05:32:12',
+                                   date => "$year-Aug-27 05:32:12",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                   },
@@ -246,7 +247,7 @@ sub smtpFilterLogTest : Test(65)
                   expectedData => {
                                    event => 'INFECTED',
                                    action => 'Passed',
-                                   date => '2008-Aug-27 05:35:12',
+                                   date => "$year-Aug-27 05:35:12",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                   },
@@ -261,7 +262,7 @@ sub smtpFilterLogTest : Test(65)
                   expectedData => {
                                    event => 'BANNED',
                                    action => 'Blocked',
-                                   date => '2008-Aug-27 06:03:13',
+                                   date => "$year-Aug-27 06:03:13",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                   },
@@ -276,7 +277,7 @@ sub smtpFilterLogTest : Test(65)
                   expectedData => {
                                    event => 'BANNED',
                                    action => 'Passed',
-                                   date => '2008-Aug-27 06:09:44',
+                                   date => "$year-Aug-27 06:09:44",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                   },
@@ -292,7 +293,7 @@ sub smtpFilterLogTest : Test(65)
                   expectedData => {
                                    event => 'BANNED',
                                    action => 'Blocked',
-                                   date => '2008-Aug-27 06:00:52',
+                                   date => "$year-Aug-27 06:00:52",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                   },
@@ -307,7 +308,7 @@ sub smtpFilterLogTest : Test(65)
                   expectedData => {
                                    event => 'BANNED',
                                    action => 'Passed',
-                                   date => '2008-Aug-27 06:10:37',
+                                   date => "$year-Aug-27 06:10:37",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                   },
@@ -322,7 +323,7 @@ sub smtpFilterLogTest : Test(65)
                   expectedData => {
                                    event => 'BLACKLISTED',
                                    action => 'Blocked',
-                                   date => '2008-Aug-27 06:16:53',
+                                   date => "$year-Aug-27 06:16:53",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                   },
@@ -338,7 +339,7 @@ sub smtpFilterLogTest : Test(65)
                   expectedData => {
                                    event => 'BAD-HEADER',
                                    action => 'Passed',
-                                   date => '2008-Aug-27 06:38:30',
+                                   date => "$year-Aug-27 06:38:30",
                                    from_address => 'bb@gm.com',
                                    to_address   => 'macaco@monos.org',
                                    'spam_hits'  => 12.019,
@@ -354,7 +355,7 @@ sub smtpFilterLogTest : Test(65)
                   expectedData => {
                                    event => 'BAD-HEADER',
                                    action => 'Blocked',
-                                   date => '2008-Aug-27 06:42:59',
+                                   date => "$year-Aug-27 06:42:59",
                                    from_address => 'c@aa.com',
                                    to_address   => 'macaco@monos.org',
                                    'spam_hits' => 8.92,
@@ -370,7 +371,7 @@ sub smtpFilterLogTest : Test(65)
                   expectedData => {
                                    event => 'CLEAN',
                                    action => 'Passed',
-                                   date => '2008-Jul-29 06:44:16',
+                                   date => "$year-Jul-29 06:44:16",
                                    from_address => 'spam@warp.es',
                                    to_address   => 'macaco@monos.org',
                                    'spam_hits' => 3.904,
@@ -387,10 +388,19 @@ sub smtpFilterLogTest : Test(65)
 }
 
 
+sub _currentYear
+{
+    my ($sec,$min,$hour,$mday,$mon,$year) = localtime(time());
+    $year += 1900;
+    return $year;
+}
+
 
 sub popProxyLogTest : Test(25)
 {
-  my ($self) = @_;
+  my ($self) = @_;;
+
+  my $year = _currentYear();
 
   my @cases = (
                {
@@ -413,7 +423,7 @@ q{Oct 30 11:26:46 ebox011101 p3scan[25124]: Session done (Clean Exit). Mails: 0 
                       clientConn => '192.168.9.1',
 
 
-                      date => '2008-Oct-30 11:26:46',
+                      date => "$year-Oct-30 11:26:46",
                      },
                },
                {
@@ -444,7 +454,7 @@ q{Oct 30 11:25:33 ebox011101 p3scan[25070]: Session done (Clean Exit). Mails: 1 
                       clientConn => '192.168.9.1',
 
 
-                      date => '2008-Oct-30 11:25:33',
+                      date => "$year-Oct-30 11:25:33",
                      },
                },
 
@@ -476,7 +486,7 @@ q{Oct 30 11:24:25 ebox011101 p3scan[24992]: Session done (Clean Exit). Mails: 2 
                       clientConn => '192.168.9.1',
 
 
-                      date => '2008-Oct-30 11:24:25',
+                      date => "$year-Oct-30 11:24:25",
                      },
                },
 
@@ -506,7 +516,7 @@ q{Oct 30 11:34:31 ebox011101 p3scan[26596]: Session done (Clean Exit). Mails: 1 
                       clientConn => '192.168.9.1',
 
 
-                      date => '2008-Oct-30 11:34:31',
+                      date => "$year-Oct-30 11:34:31",
                      },
                },
 
@@ -529,7 +539,7 @@ q{Oct 30 11:34:31 ebox011101 p3scan[26596]: Session done (Clean Exit). Mails: 1 
 
                       clientConn => '192.168.9.1',
 
-                      date => '2008-Oct-30 11:27:55',
+                      date => "$year-Oct-30 11:27:55",
                      },
                },
               );

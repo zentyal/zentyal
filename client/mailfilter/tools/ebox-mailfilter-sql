@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+
+sub update
+{
+    my $createCmd=q{su postgres -c'psql -c"create database spamassassin"  > /dev/null 2>&1'};
+    system $createCmd;
+
+    my $cmd =q{su postgres -c'psql spamassassin < /usr/share/ebox-mailfilter/sql/spamassassin.sql  > /dev/null 2>&1'};
+    system $cmd;
+}
+
+
+sub clean
+{
+    my @cleanCmds = (
+                     q{su postgres -c 'psql -c"drop database spamassassin"},
+                     # caution, next line could broke something in the future if
+                     # the postgre sql user 'ebox' is used in morem odules
+                     q{su postgres -c 'psql -c"drop user ebox"},
+                     # caution, next line could broke something in the future
+                     q{su postgres -c 'psql -c"drop language plpgsql"}, 
+
+                    );
+
+    foreach my $cmd (@cleanCmds) {
+        system $cmd;
+    }
+
+}
+
+
+sub usage
+{
+    print "Usage: $0 update | clean\n";
+    exit 1;
+}
+
+unless ($#ARGV == 0) {
+    usage();
+}
+
+if ($ARGV[0] eq 'update') {
+    update();
+} elsif ($ARGV[0] eq 'clean') {
+    clean();
+} else {
+    usage();
+}
+
+
+1;

@@ -47,6 +47,7 @@ use EBox::MailFilter::SpamAssassin;
 use EBox::MailFilter::POPProxy;
 
 
+use constant SA_LEARN_SCRIPT => '/usr/share/ebox-mailfilter/saLearn.pl';
 
 #
 # Method: _create
@@ -473,6 +474,33 @@ sub mailFilter
   my ($self) = @_;
   return $self->smtpFilter()->mailFilter();
 }
+
+
+sub dovecotAntispamPluginConf
+{
+    my ($self) = @_;
+
+
+    my $enabled =  $self->isEnabled();
+    if ($enabled) {
+        my $vdomains = $self->model('VDomains');
+        if (not $vdomains->anyAllowedToLearnFromIMAPFolder()) {
+            $enabled = 0;
+        }
+    }
+
+
+    my $conf = { 
+                enabled => $enabled,
+                mailtrain => SA_LEARN_SCRIPT,
+                args       => '%u@%d',
+                spamArgs  => '1',
+                hamArgs   => '0',
+               };
+    
+    return $conf;
+}
+
 
 sub mailFilterWidget
 {

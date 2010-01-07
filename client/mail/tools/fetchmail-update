@@ -1,0 +1,52 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::Service;
+use Error qw(:try);
+
+EBox::init();
+
+my $global = EBox::Global->getInstance(1);
+my $mailRo = EBox::Global->modInstance('mail');
+
+$mailRo->isEnabled() or
+    exit 0;
+$mailRo->{fetchmail}->isEnabled() or
+    exit 0;
+
+my $modifyTimestamp = $mailRo->{fetchmail}->modifyTimestamp();
+if ($modifyTimestamp == 0) {
+    # no fetchmail users..
+    exit 0;
+}
+
+my $regenTimestamp  = $mailRo->{fetchmail}->fetchmailRegenTs;
+if ($regenTimestamp >= $modifyTimestamp) {
+    # nothing to do then
+    exit 0;
+}
+
+$mailRo->{fetchmail}->writeConf();
+$mailRo->{fetchmail}->setFetchmailRegenTs($modifyTimestamp);
+
+my $mustRun = $mailRo->{fetchmail}->daemonMustRun();
+if ($mailRo->{fetchmail}->running()) {
+# stop it if needed
+    if (not $mustRun) {
+        $mailRo->{fetchmail}->stop();
+    }
+} else {
+# make it run if needed
+    if ($mustRun) {
+        $mailRo->{fetchmail}->start();
+    }
+    
+}
+
+
+
+1;

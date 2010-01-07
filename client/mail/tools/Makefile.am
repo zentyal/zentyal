@@ -3,7 +3,7 @@
 SUBDIRS = sqllog
 
 
-pkgdata_SCRIPTS = ebox-mail-ldap ebox-mail-enable ebox-create-certificate courier-dovecot-migrate.pl
+pkgdata_SCRIPTS = ebox-mail-ldap ebox-mail-enable ebox-create-certificate courier-dovecot-migrate.pl fetchmail-update 
 
 
 MAINTAINERCLEANFILES = Makefile.in

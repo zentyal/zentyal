@@ -1,0 +1,26 @@
+<%args>
+$pollTime => 180
+@usersAccounts
+</%args>
+set daemon <% $pollTime %>
+set syslog           
+
+% foreach  my $userAccounts (@usersAccounts) {
+<& .userAccounts,
+    localAccount      => $userAccounts->{localAccount},
+    externalAccounts  => $userAccounts->{externalAccounts},
+&>
+% }
+
+
+<%def .userAccounts>
+<%args>
+$localAccount
+@externalAccounts
+</%args>
+% foreach my $account (@externalAccounts) {
+poll <% $account->{server} %> proto <% $account->{mailProtocol} %> port <% $account->{port} %>:
+   user <% $account->{user} %>, with password <% $account->{password} %>, is <% $localAccount %> here <% exists $account->{options} ? $account->{options} : '' %>;
+% }
+
+</%def>

@@ -20,6 +20,8 @@
         $ipfilter
         $portfilter
 
+        $bccMaps
+
         $greylist
         $greylistAddr 
         $greylistPort 
@@ -27,12 +29,25 @@
 <%init>
 use EBox::Gettext;
 
-my $smtpRecipientRestrictions = '';
+my $smtpRecipientRestrictions ;
+$smtpRecipientRestrictions .= 'reject_non_fqdn_sender, ';  
+$smtpRecipientRestrictions .= 'reject_unknown_sender_domain, '; 
+$smtpRecipientRestrictions .= 'reject_non_fqdn_recipient, ';
+$smtpRecipientRestrictions .=  'reject_unknown_recipient_domain, ';
+
 if ($sasl) {
     $smtpRecipientRestrictions = 'permit_sasl_authenticated, ';
 }
+$smtpRecipientRestrictions .=  'permit_mynetworks, ';
 
-$smtpRecipientRestrictions .=  'permit_mynetworks, reject_unauth_destination';
+$smtpRecipientRestrictions .= 'reject_unauth_destination';
+# at his point all mail for whom the server isn't the final point or the
+# forwarder has been rejected so the next restrictions only applies in this two cases
+
+
+$smtpRecipientRestrictions .= ', reject_invalid_helo_hostname';
+$smtpRecipientRestrictions .= ', reject_non_fqdn_helo_hostname';
+$smtpRecipientRestrictions .= ', check_helo_access pcre:/etc/postfix/helo_checks.pcre';
 
 if ($greylist) {
     my $greylistRecipientRestriction = "check_policy_service inet:" . 
@@ -152,5 +167,8 @@ smtpd_sasl_local_domain = <% $fqdn %>
 content_filter=smtp-amavis:<% $ipfilter %>:<% $portfilter %>
 % }
 
-
+% if ($bccMaps) {
+sender_bcc_maps = <% $bccMaps %>
+recipient_bcc_maps = <% $bccMaps %>
+% }
 

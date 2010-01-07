@@ -82,6 +82,13 @@ sub _table
                                   editable => 1,
                                  ),
          new EBox::Types::Boolean(
+                                  fieldName => 'fetchmail',
+                                  printableName => __('Retrieve mail for external accounts'),
+                                  help =>
+ __(q{This allow users to retrieve mail for external accounts, the mail would be delivered to their local account. External account can be configured in the user's corner.} ),
+                                  editable => 1,
+                                 ),
+         new EBox::Types::Boolean(
                                   fieldName => 'managesieve',
                                   printableName => __('Manage SIEVE scripts'),
                                   help =>

@@ -25,7 +25,10 @@ addgroup clamav p3scan
 ## update ldap
 #/usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
 #/etc/init.d/slapd restart
+
 /usr/share/ebox-mailfilter/ebox-mailfilter-ldap update
+
+/usr/share/ebox-mailfilter/ebox-mailfilter-sql update
 
 
 

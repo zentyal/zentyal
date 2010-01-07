@@ -109,6 +109,16 @@ sub _table
 
                                ),
      new EBox::Types::Boolean(
+                              fieldName => 'learnFromFolder',
+                              printableName => 
+                                 __(q{Learn from accounts' Spam IMAP folders}),
+                              help => 
+__( 'Every time that a email moved into or out of the IMAP spam folder ' .
+    'the filter will be trained with it'),
+                              defaultValue => 0,
+                              editable => 1,
+                             ),
+     new EBox::Types::Boolean(
                               fieldName     => 'hamAccount',
                               printableName => __('Learning ham account'),
                               help => __('An address (ham@domain) will be ' .
@@ -163,6 +173,23 @@ sub _table
 }
 
 
+sub precondition
+{
+    my ($self) = @_;
+    my $vdomainModel = $self->_vdomainModel();
+    return @{$vdomainModel->ids() } > 0;
+}
+
+
+sub preconditionFailMsg
+{
+    return __x(
+'There are no virtual mail domains managed by this server. You can create some in the {openA}virtual domains mail page{closeA}.',
+               openA  => q{<a href='/ebox/Mail/View/VDomains'>},
+               closeA => q{</a>},
+
+   );
+}
 
 
 sub _vdomainModel
@@ -292,6 +319,46 @@ sub addVDomainSenderACL
 
 }
 
+
+sub vdomainAllowedToLearnFromIMAPFolder
+{
+    my ($self, $vdomain) = @_;
+    my $row =  $self->_findRowByVDomain($vdomain);
+    $row or 
+        return undef;
+
+    return $row->elementByName('learnFromFolder')->value();
+}
+sub anyAllowedToLearnFromIMAPFolder
+{
+    my ($self) = @_;
+    foreach my $id (@{ $self->ids()  }) {
+        my $row = $self->row($id);
+        if ( $row->elementByName('learnFromFolder')->value()) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub _anotherAllowedToLearnFromIMAPFolder
+{
+    my ($self, $vdomain) = @_;
+    foreach my $id (@{ $self->ids()  }) {
+        my $row = $self->row($id);
+        if ( $row->elementByName('learnFromFolder')->value()) {
+            if ($row->valueByName('vdomain') eq $vdomain) {
+                next;
+            }
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+
 # Method: headTitle
 #
 #   Overrides <EBox::Model::Component::headTitle> to not
@@ -300,6 +367,53 @@ sub headTitle
 {
     return undef;
 }
+
+
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+
+    if ($row->valueByName('learnFromFolder')) {
+        # if this is the first domain with learn form folder mail should be
+        # notified 
+        my $vdomain = $row->valueByName('vdomain');
+        if (not $self->_anotherAllowedToLearnFromIMAPFolder($vdomain)) {
+            my $mail = EBox::Global->modInstance('mail');
+            defined $mail and
+                $mail->setAsChanged();
+        }
+    }
+
+}
+
+
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+    
+    if ($row->valueByName('learnFromFolder')) {
+        # if there are not learnFromFolder elemnts mail should be notified
+        if (not $self->anyAllowedToLearnFromIMAPFolder()) {
+            my $mail = EBox::Global->modInstance('mail');
+            defined $mail and 
+                $mail->setAsChanged();
+        }
+    }
+
+}
+
+sub updatedRowNotify
+{
+    my ($self, $row) = @_;
+    # ideally we should watch if the anyAllowedToLearnFromIMAPFolder status has
+    # changed but to avoid corner cases we will always notifiy to mail
+    my $mail = EBox::Global->modInstance('mail');
+    defined $mail and
+        $mail->setAsChanged();
+}
+
+
+
 
 1;
 

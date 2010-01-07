@@ -48,15 +48,18 @@ sub update {
 	]);
 
 	($result->is_error) and warn "Cant initialize mail alias leaf.";
+
+        
 }
 
 sub clean {
 	$vdomain->{ldap}->ldapCon;
 	my $ldap = $vdomain->{ldap}->{ldap};
+
 	my $pdn = "ou=postfix, " . $vdomain->{ldap}->dn;
 	my $adn = $alias->aliasDn;
 	my $vdn = $vdomain->vdomainDn;
-	
+
 	my @domains = $vdomain->vdomains;
 
 	foreach (@domains) {
@@ -66,11 +69,12 @@ sub clean {
 	}
 	
 	my $result = $ldap->delete($adn);
-	($result->is_error) and warn "Can not remove postfix leaf ".$result->error;
+        ($result->is_error) and warn "Can not remove postfix vdomains leaf ".$result->error;
 	$result = $ldap->delete($vdn);
-	($result->is_error) and warn "Can not remove postfix leaf ".$result->error;
+        ($result->is_error) and warn "Can not remove postfix alias leaf ".$result->error;
 	$result = $ldap->delete($pdn);
 	($result->is_error) and warn "Can not remove postfix parent leaf ".$result->error;
+
 	
 	root("/bin/rm -rf /var/vmail/*");
 }

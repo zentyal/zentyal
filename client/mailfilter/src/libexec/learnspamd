@@ -24,6 +24,7 @@ use EBox::Config;
 use EBox::MailFilter::VDomainsLdap;
 
 use constant WAIT_INTERVAL => 5;
+use constant BAYES_DB_USER => 'amavis';
 
 my %mailDirsByType;
 
@@ -142,9 +143,15 @@ sub _mainloop
                     next;
                 }
 
-                my $path = "$dir/$msg";
+                my $oldPath = "$dir/$msg";
+                my $path = "/tmp/$msg";
+                EBox::Sudo::root("mv $oldPath $path");
+
+                my $chownCmd = 'chown ' . BAYES_DB_USER . '.' . BAYES_DB_USER . ' ' . $path;
+                EBox::Sudo::root($chownCmd);
 
                 $antispam->learn(
+                                 username => 'learnspamd',
                                  input => $path,
                                  isSpam => $isSpam,
                                 );
