@@ -183,6 +183,13 @@ sub formSubmitted
         }
         $msg .= $self->_manageZone(newDomain => $newDomain, oldDomain => $oldDomain, dns => $dnsMod,
                                    domainsData => $domains);
+
+        # Enable again if necessary for notifying other models using
+        # the same previous domain
+        my $currentRow = $self->row();
+        $currentRow->elementByName('enabled')->setValue(1);
+        $currentRow->store();
+
     } elsif ( $oldRow->valueByName('enabled') ) {
         # If it was enabled, remove old domains
         $msg .= $self->_manageZone(newDomain => undef,
@@ -276,6 +283,36 @@ sub headTitle
     return undef;
 }
 
+# Method: notifyForeignModelAction
+#
+#     Disable DynamicDNS configuration for this model if the domain is
+#     deleted from the interface or from another interface in DHCP
+#     configuration
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::notifyForeignModelAction>
+#
+sub notifyForeignModelAction
+{
+    my ($self, $model, $action, $row) = @_;
+
+    # TODO: update action is not yet supported, since we do not have
+    # the old row to check the usage of the domain, currently, it is
+    # not possible to edit a dynamic domain
+    if ($action eq 'del') {
+        if ( $row->valueByName('domain') eq $self->row()->valueByName('dynamic_domain')
+             or $row->valueByName('domain') eq $self->row()->valueByName('static_domain') ) {
+            # Disable the dynamic DNS feature, in formSubmitted we
+            # have to enable again (:-S)
+            my $row = $self->row();
+            $row->elementByName('enabled')->setValue(0);
+            $row->store();
+        }
+    }
+    return '';
+}
+
 # Group: Protected methods
 
 # Method: _table
@@ -327,6 +364,8 @@ sub _table
                                                . 'DNS module in read-only mode'),
                       # The support may be enabled or not
                       enableProperty     => 1,
+                      # Notify when changes in DomainTable
+                      notifyActions      => [ 'DomainTable' ],
                      };
 
       return $dataForm;
