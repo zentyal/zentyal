@@ -24,6 +24,7 @@
 #
 package EBox::DNS::Model::DomainTable;
 
+use EBox::DNS::View::DomainTableCustomizer;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -134,6 +135,24 @@ sub addedRowNotify
         $newRow->elementByName('tsigKey')->setValue($secret);
         $newRow->store();
     }
+
+}
+
+# Method: viewCustomizer
+#
+#     Use our own customizer to hide dynamic field in add form
+#
+# Overrides:
+#
+#     <EBox::Model::Component::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::DNS::View::DomainTableCustomizer();
+    $customizer->setModel($self);
+    return $customizer;
 
 }
 
