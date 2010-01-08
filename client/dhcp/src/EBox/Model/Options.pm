@@ -185,10 +185,10 @@ sub validateTypedRow
         # Check if chosen is WINS to check if it is enabled
         if ( $changedFields->{wins_server}->selectedType() eq 'eboxWINS' ) {
             my $sambaMod = EBox::Global->modInstance('samba');
-            unless ( $sambaMod->isEnabled() and $sambaMod->pdc() ) {
+            unless ( $sambaMod->isEnabled() ) {
                 throw EBox::Exceptions::External(
-                    __('Samba module must be enabled and in PDC mode '
-                       . 'to be able to select eBox as WINS server'));
+                    __('Samba module must be enabled to be able to select eBox as WINS server')
+                   );
             }
         }
     }
