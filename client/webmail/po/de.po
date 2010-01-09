@@ -8,17 +8,18 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-21 17:06+0100\n"
-"PO-Revision-Date: 2009-10-16 11:59+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2009-12-22 17:03+0100\n"
+"Last-Translator: Pascal <comfreak89@googlemail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:50
 msgid "Mode"
-msgstr ""
+msgstr "Modus"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:59
 msgid "Operation mode"
@@ -30,55 +31,55 @@ msgstr ""
 
 #: src/EBox/WebMail/Model/OperationMode.pm:98
 msgid "Remote server"
-msgstr ""
+msgstr "Remote Server"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:57
 msgid "IMAP Server"
-msgstr ""
+msgstr "IMAP Server"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:63
 msgid "IMAP connection type"
-msgstr ""
+msgstr "IMAP Verbindungstyp"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:70
 msgid "IMAP server port"
-msgstr ""
+msgstr "IMAP Serverport"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:76
 msgid "SMTP Server"
-msgstr ""
+msgstr "SMTP Server"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:82
 msgid "SMTP connection type"
-msgstr ""
+msgstr "SMTP Verbindungstyp"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:89
 msgid "SMTP server port"
-msgstr ""
+msgstr "SMTP Serverport"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:96
 msgid "SMTP authentication"
-msgstr ""
+msgstr "SMTP Authentifizierung"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:104
 msgid "None"
-msgstr ""
+msgstr "Keine"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:108
 msgid "Same user and password than IMAP"
-msgstr ""
+msgstr "Selber Benutzer und Passwort wie IMAP"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:112
 msgid "User and password"
-msgstr ""
+msgstr "Benutzer und Passwort"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:118
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:124
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:137
 msgid "Manage sieve enabled in IMAP server"
@@ -94,19 +95,19 @@ msgstr ""
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:159
 msgid "External server connection"
-msgstr ""
+msgstr "Externe Serververbindung"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:177
 msgid "unencrypted"
-msgstr ""
+msgstr "unverschlüsselt"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:181
 msgid "SSL"
-msgstr ""
+msgstr "SSL"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:185
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:294
 msgid ""
@@ -116,40 +117,40 @@ msgstr ""
 
 #: src/EBox/WebMail/Model/Options.pm:50
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: src/EBox/WebMail/Model/Options.pm:52
 msgid "eBox webmail"
-msgstr ""
+msgstr "eBox webmail"
 
 #: src/EBox/WebMail/Model/Options.pm:54
 msgid ""
 "The name of the webmail will be used in the login screen and page titles"
-msgstr ""
+msgstr "Der Webmail-Name wird im Loginbildschirm und Seitentiteln genutzt"
 
 #: src/EBox/WebMail/Model/Options.pm:61
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
 #: src/EBox/WebMail/Model/Options.pm:62 src/EBox/WebMail.pm:221
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #: src/EBox/WebMail/Composite/Backend.pm:64
 msgid "WebMail backend"
-msgstr ""
+msgstr "WebMail Backend"
 
 #: src/EBox/WebMail.pm:66
 msgid "Web Mail"
-msgstr ""
+msgstr "Web Mail"
 
 #: src/EBox/WebMail.pm:170
 msgid "Neither IMAP nor IMAPS service enabled"
-msgstr ""
+msgstr "Weder IMAP noch IMAPS Service aktiviert"
 
 #: src/EBox/WebMail.pm:214
 msgid "Backend"
-msgstr ""
+msgstr "Backend"
 
 #: src/EBox/WebMail.pm:277
 msgid "To configure roundcube"
@@ -161,7 +162,7 @@ msgstr ""
 
 #: src/EBox/WebMail.pm:300
 msgid "Create PostgreSQL webmail database"
-msgstr ""
+msgstr "Erzeuge ProstgreSQL Webmail Datenbank"
 
 #: src/EBox/WebMail.pm:301
 msgid "This database will store the data needed by Roundcube"
@@ -173,7 +174,7 @@ msgstr ""
 
 #: src/EBox/WebMail.pm:306
 msgid "Webmail will be accesible at http://ip/webmail"
-msgstr ""
+msgstr "Webmail wird unter http://ip/webmail erreichbar sein"
 
 #: src/EBox/WebMail.pm:329
 #, perl-brace-format

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-21 16:58+0100\n"
-"PO-Revision-Date: 2009-09-29 10:36+0200\n"
+"PO-Revision-Date: 2010-01-08 15:01+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:390
@@ -44,15 +44,13 @@ msgid "Date"
 msgstr "Дата"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-#, fuzzy
 msgid "Database Update Status"
 msgstr "Состояние обновления антивирусной базы"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
-#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
-msgstr "Антивирусная база не обновлялась с момента установки модуля"
+msgstr "Антивирусная база не обновлялась с момента включения модуля"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
 msgid "The last update failed."

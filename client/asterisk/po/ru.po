@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-21 16:59+0100\n"
-"PO-Revision-Date: 2009-09-29 10:58+0200\n"
+"PO-Revision-Date: 2010-01-08 15:07+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
@@ -70,7 +70,7 @@ msgstr "Общие"
 
 #: src/EBox/Asterisk.pm:460 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
-msgstr "Meetings"
+msgstr "Конференции"
 
 #: src/EBox/Asterisk.pm:477
 msgid "Voicemail"
@@ -151,13 +151,12 @@ msgid "Description"
 msgstr "Описание"
 
 #: src/EBox/Model/Meetings.pm:184
-#, fuzzy
 msgid "List of Meetings"
-msgstr "Meetings"
+msgstr "Список конференции"
 
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
-msgstr "meeting"
+msgstr "конференция"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -180,9 +179,8 @@ msgid "Delete sent messages"
 msgstr "Удалить отправленные сообщения"
 
 #: src/EBox/Model/Voicemail.pm:126
-#, fuzzy
 msgid "Change your Voicemail settings"
-msgstr "Настройки голосовой почты"
+msgstr "Изменить настройки вашей голосовой почты"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
@@ -190,10 +188,10 @@ msgstr "Настройки обновлены успешно"
 
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
-msgstr ""
+msgstr "Вы не имеете аккаунта VoIP. Возможно VoIP не включен на этом сервере."
 
 #: src/EBox/Model/Localnets.pm:88
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."

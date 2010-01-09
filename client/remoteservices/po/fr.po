@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-21 17:05+0100\n"
-"PO-Revision-Date: 2009-12-12 23:09+0100\n"
+"PO-Revision-Date: 2009-12-24 10:17+0100\n"
 "Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -160,7 +160,7 @@ msgstr "Les données d'inscription ont été récupérées correctement"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:156
 msgid "Please, save changes"
-msgstr ""
+msgstr "Veuillez sauvegarder les modifications"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:181
 msgid "Done"
@@ -171,16 +171,20 @@ msgid ""
 "Subscribing an eBox will configure OpenVPN module by running these actions "
 "and modifying these files: "
 msgstr ""
+"L'inscription d'un serveur eBox configurera le module OpenVPN en effectuant "
+"ces actions et en modifiant ces fichiers:"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:263
 msgid "Subscribing an eBox will enable the OpenVPN module."
-msgstr ""
+msgstr "L'inscription d'un serveur eBox activera le module OpenVPN"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:266
 msgid ""
 "Take into account that subscribing an eBox could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
+"Sachez que l'inscription d'un serveur eBox peut durer jusqu'à une minute. Ne "
+"toucher à rien jusqu'à ce que l'inscription soit terminée"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:304
 #, fuzzy

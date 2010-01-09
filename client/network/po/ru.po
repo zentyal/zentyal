@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-21 17:04+0100\n"
-"PO-Revision-Date: 2009-10-28 07:32+0100\n"
-"Last-Translator: Vladimir Popov <adminlug@gmail.com>\n"
+"PO-Revision-Date: 2010-01-09 08:43+0100\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Iface.pm:43 src/EBox/CGI/Iface.pm:60 src/EBox/CGI/Vlan.pm:41
@@ -36,14 +36,12 @@ msgid "netmask"
 msgstr "маска подсети"
 
 #: src/EBox/CGI/Iface.pm:95
-#, fuzzy
 msgid "user name"
-msgstr "Имя пользователя"
+msgstr "имя пользователя"
 
 #: src/EBox/CGI/Iface.pm:96
-#, fuzzy
 msgid "password"
-msgstr "Пароль"
+msgstr "пароль"
 
 #: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1360 src/EBox/Network.pm:1389
 #: src/templates/ifaces.mas:188
@@ -121,12 +119,16 @@ msgid ""
 "Events module is not enabled. You have to enable it and also enable the WAN "
 "Failover event in order to use this feature."
 msgstr ""
+"Модуль событий не включен. Вам необходимо включить его и включить WAN "
+"Failover события, чтобы использовать это."
 
 #: src/EBox/Network/Composite/WANFailover.pm:82
 msgid ""
 "WAN Failover event is not enabled. You have to enable it in order to use "
 "this feature"
 msgstr ""
+"Событие WAN Failover не включено. Вам необходимо включить его, чтобы "
+"использовать это."
 
 #: src/EBox/Network/Composite/DNS.pm:61
 msgid "Domain Name Server Resolver"
@@ -137,7 +139,6 @@ msgid "Balance Traffic"
 msgstr "Балансировка траффика"
 
 #: src/EBox/Network/Composite/MultiGw.pm:83
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
@@ -276,12 +277,11 @@ msgstr "eBox установит конфигурацию ddclient"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
 msgid "eBox will store your PPPoE passwords"
-msgstr ""
+msgstr "Ebox запомнит пароли PPPoE"
 
 #: src/EBox/Network.pm:152
-#, fuzzy
 msgid "eBox will add a DSL provider configuration for PPPoE"
-msgstr "eBox установит DNS конфигурацию"
+msgstr "eBox добавит конфигурацию провайдера DSL для PPPoE"
 
 #: src/EBox/Network.pm:773 src/EBox/Network.pm:777
 msgid "Virtual interface name"
@@ -669,7 +669,7 @@ msgstr "Имя узла"
 
 #: src/EBox/Model/DynDNS.pm:116
 msgid "Configuration"
-msgstr ""
+msgstr "Конфигурация"
 
 #: src/EBox/Model/DynDNS.pm:120
 msgid ""
@@ -851,15 +851,14 @@ msgstr ""
 "нескольких модулей, которые используют этот сетевой интерфейс."
 
 #: src/templates/confirmremove.mas:14 src/templates/confirmVlanDel.mas:12
-#, fuzzy
 msgid ""
 "If you choose to continue, all modules that make use of this network "
 "interface will delete the relevant parts of their configuration. Choose "
 "\"Cancel\" if you are not sure about this."
 msgstr ""
-"Если Вы продолжите то все модули, использующие текущую конфигурацию этого "
-"сетевого интерфейса удалят важные части своей конфигурации. Выберите \"Отмена"
-"\" если вы не хотите этого."
+"Если Вы продолжите то все модули, использующие этого сетевой интерфейс "
+"удалят важные части своей конфигурации. Выберите \"Отмена\" если вы не хотите "
+"этого."
 
 #: src/templates/confirmremove.mas:24 src/templates/confirmVlanDel.mas:22
 #: src/templates/confirm.mas:31
@@ -902,12 +901,10 @@ msgid "Not set"
 msgstr "Не задано"
 
 #: src/templates/ifaces.mas:80
-#, fuzzy
 msgid "External (WAN)"
-msgstr "Внешний"
+msgstr "Внешний (WAN)"
 
 #: src/templates/ifaces.mas:148
-#, fuzzy
 msgid "User name"
 msgstr "Имя пользователя"
 
@@ -940,13 +937,12 @@ msgid "Virtual Interfaces"
 msgstr "Виртуальные интерфейсы"
 
 #: src/templates/confirmVlanDel.mas:9
-#, fuzzy
 msgid ""
 "The removal of the vlan interface will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
-"Изменение, которое Вы пытаетесь сделать скажется на конфигурации одного или "
-"нескольких модулей, которые используют этот сетевой интерфейс."
+"Удаление интерфейса vlan скажется на конфигурации одного или нескольких "
+"модулей, которые используют этот сетевой интерфейс."
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"

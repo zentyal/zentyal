@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-21 17:05+0100\n"
-"PO-Revision-Date: 2009-12-12 23:54+0100\n"
+"PO-Revision-Date: 2009-12-24 10:01+0100\n"
 "Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -279,13 +279,13 @@ msgid "Permissions"
 msgstr "Permissions"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
-#, fuzzy
 msgid "Access Control"
 msgstr "Contrôle d'accès"
 
+# Access Control List (Liste de controle d'accès)
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "ACL"
-msgstr ""
+msgstr "ACL (Liste de contrôle d'accès)"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid ""
