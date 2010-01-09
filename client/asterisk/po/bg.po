@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 16:59+0100\n"
+"POT-Creation-Date: 2010-01-09 16:06+0100\n"
 "PO-Revision-Date: 2009-10-04 07:55+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
@@ -26,89 +26,89 @@ msgstr "eBox VoIP система"
 msgid "VoIP"
 msgstr "VoIP"
 
-#: src/EBox/Asterisk.pm:120
+#: src/EBox/Asterisk.pm:121
 msgid "To configure enabled and disabled modules."
 msgstr "Настройване на Астериск модули, включени и изключени"
 
-#: src/EBox/Asterisk.pm:125
+#: src/EBox/Asterisk.pm:126
 msgid "To configure the Realtime interface."
 msgstr "Настройване на интерфейса Реално време"
 
-#: src/EBox/Asterisk.pm:130
+#: src/EBox/Asterisk.pm:131
 msgid "To configure the LDAP Realtime driver."
 msgstr "Настройване на драйвера Реално време LDAP"
 
-#: src/EBox/Asterisk.pm:135
+#: src/EBox/Asterisk.pm:136
 msgid "To configure the common SIP and IAX users."
 msgstr "Настройване на общите SIP и IAX потребители"
 
-#: src/EBox/Asterisk.pm:140
+#: src/EBox/Asterisk.pm:141
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
 "Настройване на SIP свързаността за локални потребители и външни доставчици"
 
-#: src/EBox/Asterisk.pm:145
+#: src/EBox/Asterisk.pm:146
 msgid "To configure the RTP port ranges."
 msgstr "Настройване на обхватите от RTP портове"
 
-#: src/EBox/Asterisk.pm:150
+#: src/EBox/Asterisk.pm:151
 msgid "To configure the dialplan."
 msgstr "Настройване на номерационния план"
 
-#: src/EBox/Asterisk.pm:155
+#: src/EBox/Asterisk.pm:156
 msgid "To configure the voicemail."
 msgstr "Настройване на гласовата поща"
 
-#: src/EBox/Asterisk.pm:160
+#: src/EBox/Asterisk.pm:161
 msgid "To configure the conferences."
 msgstr "Настройване на конференциите"
 
-#: src/EBox/Asterisk.pm:456
+#: src/EBox/Asterisk.pm:457
 msgid "General"
 msgstr "Общи"
 
-#: src/EBox/Asterisk.pm:460 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:461 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "Събрания"
 
-#: src/EBox/Asterisk.pm:477
+#: src/EBox/Asterisk.pm:478
 msgid "Voicemail"
 msgstr "Гласова поща"
 
-#: src/EBox/Asterisk.pm:487 src/EBox/Asterisk.pm:574
+#: src/EBox/Asterisk.pm:488 src/EBox/Asterisk.pm:575
 msgid "User"
 msgstr "Потребител"
 
-#: src/EBox/Asterisk.pm:487
+#: src/EBox/Asterisk.pm:488
 msgid "Address"
 msgstr "Адрес"
 
-#: src/EBox/Asterisk.pm:487
+#: src/EBox/Asterisk.pm:488
 msgid "NAT"
 msgstr "NAT"
 
-#: src/EBox/Asterisk.pm:487
+#: src/EBox/Asterisk.pm:488
 msgid "Status"
 msgstr "Състояние"
 
-#: src/EBox/Asterisk.pm:501 src/EBox/Asterisk.pm:583
+#: src/EBox/Asterisk.pm:502 src/EBox/Asterisk.pm:584
 msgid "No users connected."
 msgstr "Няма свързани потребители."
 
-#: src/EBox/Asterisk.pm:571
+#: src/EBox/Asterisk.pm:572
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr "Стая {name} активна {rtime}"
 
-#: src/EBox/Asterisk.pm:574
+#: src/EBox/Asterisk.pm:575
 msgid "Time Connected"
 msgstr "Време на връзка"
 
-#: src/EBox/Asterisk.pm:604
+#: src/EBox/Asterisk.pm:605
 msgid "VoIP Online Users"
 msgstr "Включени потребители на VoIP"
 
-#: src/EBox/Asterisk.pm:609
+#: src/EBox/Asterisk.pm:610
 msgid "VoIP Users in Meetings"
 msgstr "Потребители на VoIP в срещи"
 
@@ -157,6 +157,15 @@ msgstr "Събрания"
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
 msgstr "среща"
+
+#: src/EBox/Model/AsteriskUser.pm:50
+#, fuzzy
+msgid "Asterisk Account"
+msgstr "Астериск сметка"
+
+#: src/EBox/Model/AsteriskUser.pm:58
+msgid "Asterisk"
+msgstr "Астериск"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -318,9 +327,6 @@ msgstr "Промяна"
 
 #~ msgid "Administrator password"
 #~ msgstr "Администраторска парола"
-
-#~ msgid "Asterisk"
-#~ msgstr "Астериск"
 
 #~ msgid "To add the Asterisk schema and ACLs."
 #~ msgstr "Добавяне на Астериск схемата и списъци за контрол на достъпа"

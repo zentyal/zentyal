@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:05+0100\n"
+"POT-Creation-Date: 2010-01-09 16:11+0100\n"
 "PO-Revision-Date: 2009-12-04 16:01+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -21,64 +21,64 @@ msgstr ""
 msgid "File sharing (Samba) protocol"
 msgstr "Fil deling (Samba) protokoll"
 
-#: src/EBox/SambaLdapUser.pm:291
+#: src/EBox/SambaLdapUser.pm:304
 msgid "This user has a sharing directory associated which contains data"
 msgstr "Denne brukeren har en delt mappe tildelt som inneholder data"
 
-#: src/EBox/SambaLdapUser.pm:354
+#: src/EBox/SambaLdapUser.pm:367
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
 msgstr "Feil SID: {s}"
 
-#: src/EBox/SambaLdapUser.pm:358
+#: src/EBox/SambaLdapUser.pm:371
 #, perl-brace-format
 msgid "User {u} does not exists"
 msgstr "Bruker {u} eksisterer ikke"
 
-#: src/EBox/SambaLdapUser.pm:362
+#: src/EBox/SambaLdapUser.pm:375
 #, perl-brace-format
 msgid "User {u} is not a samba user"
 msgstr "Bruker {u} er ikke en samba bruker"
 
-#: src/EBox/SambaLdapUser.pm:373
+#: src/EBox/SambaLdapUser.pm:386
 #, perl-brace-format
 msgid "Incoorect SID: {s}"
 msgstr "Feil SID: {s}"
 
-#: src/EBox/SambaLdapUser.pm:377
+#: src/EBox/SambaLdapUser.pm:390
 #, perl-brace-format
 msgid "Group {g} does not exists"
 msgstr "Gruppen {g} eksisterer ikke"
 
-#: src/EBox/SambaLdapUser.pm:381
+#: src/EBox/SambaLdapUser.pm:394
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
 msgstr "Gruppen {g} er ikke en samba gruppe"
 
-#: src/EBox/SambaLdapUser.pm:424
+#: src/EBox/SambaLdapUser.pm:437
 msgid "This group has a sharing directory associatedwhich conatins data"
 msgstr "Denne gruppen har et delt område tildelt som inneholder data"
 
-#: src/EBox/SambaLdapUser.pm:628
+#: src/EBox/SambaLdapUser.pm:641
 #, perl-brace-format
 msgid "{g} group does not exist"
 msgstr "{g} gruppen eksisterer ikke"
 
-#: src/EBox/SambaLdapUser.pm:712 src/EBox/SambaLdapUser.pm:741
-#: src/EBox/SambaLdapUser.pm:792 src/EBox/CGI/ActivePrinting.pm:48
+#: src/EBox/SambaLdapUser.pm:725 src/EBox/SambaLdapUser.pm:754
+#: src/EBox/SambaLdapUser.pm:805 src/EBox/CGI/ActivePrinting.pm:48
 #: src/EBox/CGI/ActiveSharing.pm:44
 msgid "group name"
 msgstr "gruppe navn"
 
-#: src/EBox/SambaLdapUser.pm:746
+#: src/EBox/SambaLdapUser.pm:759
 msgid "A name should be provided for the share"
 msgstr "Et navn bør oppgis for det delte område"
 
-#: src/EBox/SambaLdapUser.pm:754
+#: src/EBox/SambaLdapUser.pm:767
 msgid "sharing resource"
 msgstr "delings resurs"
 
-#: src/EBox/SambaLdapUser.pm:858 src/EBox/Samba.pm:1215 src/EBox/Samba.pm:1247
+#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248
 msgid "group"
 msgstr "gruppe"
 
@@ -97,6 +97,16 @@ msgstr "aktiv"
 #: src/EBox/CGI/ActiveSharing.pm:71
 msgid "Disk quota limit"
 msgstr "Disk kvote begrensning"
+
+#: src/EBox/Samba/Model/SambaUser.pm:50
+#, fuzzy
+msgid "File Sharing Account"
+msgstr "PDC/Fil delings konto"
+
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba.pm:76
+msgid "File Sharing"
+msgstr "Fil Deling"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:114
 msgid "path"
@@ -259,8 +269,8 @@ msgstr "Administrator"
 msgid "User/Group"
 msgstr "Bruker/Gruppe"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:125 src/EBox/Samba.pm:650
-#: src/EBox/Samba.pm:1661 src/templates/ajax/viewer/shareViewer.mas:8
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125 src/EBox/Samba.pm:651
+#: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
 msgstr "Bruker"
 
@@ -347,7 +357,7 @@ msgid "User homes"
 msgstr "Bruker mapper"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
-#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:629
+#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:630
 #: src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "Delt område"
@@ -396,10 +406,6 @@ msgstr "Søppel Kasse standard instillinger"
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
 msgstr "Søppel Kasse"
-
-#: src/EBox/Samba/Composite/General.pm:67 src/EBox/Samba.pm:76
-msgid "File Sharing"
-msgstr "Fil Deling"
 
 #: src/EBox/Samba/Composite/General.pm:68
 msgid "File sharing options"
@@ -469,123 +475,123 @@ msgstr "For å legge til kvote støtte til /home partisjonen"
 msgid "To set the antivirus settings for Samba"
 msgstr "For å sette antivirus innstillinger for Samba"
 
-#: src/EBox/Samba.pm:629 src/EBox/Samba.pm:650
+#: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
 msgid "Source machine"
 msgstr "Kilde maskin"
 
-#: src/EBox/Samba.pm:629 src/EBox/Samba.pm:650
+#: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
 msgid "Connected since"
 msgstr "Tilkoblet siden"
 
-#: src/EBox/Samba.pm:670
+#: src/EBox/Samba.pm:671
 msgid "Shares by user"
 msgstr "Delinger etter bruker"
 
-#: src/EBox/Samba.pm:675
+#: src/EBox/Samba.pm:676
 msgid "Users by share"
 msgstr "Brukere etter delinger"
 
-#: src/EBox/Samba.pm:1211 src/EBox/Samba.pm:1233
+#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
 msgid "user"
 msgstr "bruker"
 
-#: src/EBox/Samba.pm:1220
+#: src/EBox/Samba.pm:1221
 msgid "printer"
 msgstr "skriver"
 
-#: src/EBox/Samba.pm:1328
+#: src/EBox/Samba.pm:1329
 msgid "quota"
 msgstr "kvote"
 
-#: src/EBox/Samba.pm:1641
+#: src/EBox/Samba.pm:1642
 msgid "User's files"
 msgstr "Brukers filer"
 
-#: src/EBox/Samba.pm:1643
+#: src/EBox/Samba.pm:1644
 msgid "Group's files"
 msgstr "Gruppens filer"
 
-#: src/EBox/Samba.pm:1659 src/EBox/Samba.pm:1679 src/EBox/Samba.pm:1689
+#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
 msgid "Date"
 msgstr "Dato"
 
-#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680
+#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
 msgid "Client address"
 msgstr "Klient adresse"
 
-#: src/EBox/Samba.pm:1662
+#: src/EBox/Samba.pm:1663
 msgid "Action"
 msgstr "Handling"
 
-#: src/EBox/Samba.pm:1663
+#: src/EBox/Samba.pm:1664
 msgid "Resource"
 msgstr "Resurs"
 
-#: src/EBox/Samba.pm:1667
+#: src/EBox/Samba.pm:1668
 msgid "Connect"
 msgstr "Koble til"
 
-#: src/EBox/Samba.pm:1668
+#: src/EBox/Samba.pm:1669
 msgid "Access to directory"
 msgstr "Tilgang til mappe"
 
-#: src/EBox/Samba.pm:1669
+#: src/EBox/Samba.pm:1670
 msgid "Read file"
 msgstr "Les fil"
 
-#: src/EBox/Samba.pm:1670
+#: src/EBox/Samba.pm:1671
 msgid "Write file"
 msgstr "Skriv fil"
 
-#: src/EBox/Samba.pm:1671
+#: src/EBox/Samba.pm:1672
 msgid "Disconnect"
 msgstr "Frakoble"
 
-#: src/EBox/Samba.pm:1672
+#: src/EBox/Samba.pm:1673
 msgid "Remove"
 msgstr "Fjern"
 
-#: src/EBox/Samba.pm:1673
+#: src/EBox/Samba.pm:1674
 msgid "Create directory"
 msgstr "Opprett mappe"
 
-#: src/EBox/Samba.pm:1674
+#: src/EBox/Samba.pm:1675
 msgid "Remove directory"
 msgstr "Fjern mappe"
 
-#: src/EBox/Samba.pm:1675
+#: src/EBox/Samba.pm:1676
 msgid "Rename"
 msgstr "Gi nytt navn"
 
-#: src/EBox/Samba.pm:1681 src/EBox/Samba.pm:1690
+#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
 msgid "File name"
 msgstr "Fil navn"
 
-#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1686
+#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
 msgid "Virus"
 msgstr "Virus"
 
-#: src/EBox/Samba.pm:1683
+#: src/EBox/Samba.pm:1684
 msgid "Type"
 msgstr "Type"
 
-#: src/EBox/Samba.pm:1691
+#: src/EBox/Samba.pm:1692
 msgid "Quarantined file name"
 msgstr "Karantene filnavn"
 
-#: src/EBox/Samba.pm:1692 src/EBox/Samba.pm:1695
+#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
 msgid "Quarantine"
 msgstr "Karantene"
 
-#: src/EBox/Samba.pm:1698
+#: src/EBox/Samba.pm:1699
 msgid "Samba access"
 msgstr "Samba tilgang"
 
-#: src/EBox/Samba.pm:1709
+#: src/EBox/Samba.pm:1710
 msgid "Samba virus"
 msgstr "Samba virus"
 
-#: src/EBox/Samba.pm:1720
+#: src/EBox/Samba.pm:1721
 msgid "Samba quarantine"
 msgstr "Samba karantene"
 
@@ -686,11 +692,11 @@ msgstr "skriver modul"
 msgid "file sharing module"
 msgstr "fil delings modul"
 
-#: stubs/smb.conf.mas:103
+#: stubs/smb.conf.mas:104
 msgid "Home Directories"
 msgstr "Hjemme Mapper"
 
-#: stubs/smb.conf.mas:129
+#: stubs/smb.conf.mas:132
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group} delings mappe"

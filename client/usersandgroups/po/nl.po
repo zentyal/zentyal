@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:06+0100\n"
+"POT-Creation-Date: 2010-01-09 16:12+0100\n"
 "PO-Revision-Date: 2008-12-03 08:49+0000\n"
 "Last-Translator: Ronald van Eendenburg <ronald@kovoks.nl>\n"
 "Language-Team: <es@li.org>\n"
@@ -26,9 +26,11 @@ msgstr ""
 msgid "This group contains users"
 msgstr "Deze groep bevat gebruikers"
 
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Groups.pm:52 src/EBox/CGI/Users.pm:31
-#: src/EBox/CGI/Users.pm:56 src/EBox/UsersAndGroups/Model/Users.pm:78
-#: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2170
+#: src/EBox/CGI/User.pm:42 src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52
+#: src/EBox/CGI/Users.pm:31 src/EBox/CGI/Users.pm:56
+#: src/EBox/UsersAndGroups/Model/Users.pm:78
+#: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2196
+#: src/EBox/UsersAndGroups.pm:2204
 msgid "Users"
 msgstr "Gebruikers"
 
@@ -53,11 +55,17 @@ msgstr "groep"
 msgid "Edit group"
 msgstr "Groep wijzigen"
 
+#: src/EBox/CGI/Group.pm:61 src/EBox/CGI/Groups.pm:43
+#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2198
+#: src/EBox/UsersAndGroups.pm:2207
+msgid "Groups"
+msgstr "Groepen"
+
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1344 src/EBox/UsersAndGroups.pm:1349
-#: src/EBox/UsersAndGroups.pm:1513 src/EBox/UsersAndGroups.pm:1647
-#: src/EBox/UsersAndGroups.pm:1681 src/EBox/UsersAndGroups.pm:1798
-#: src/EBox/UsersAndGroups.pm:1901
+#: src/EBox/UsersAndGroups.pm:1345 src/EBox/UsersAndGroups.pm:1350
+#: src/EBox/UsersAndGroups.pm:1514 src/EBox/UsersAndGroups.pm:1648
+#: src/EBox/UsersAndGroups.pm:1682 src/EBox/UsersAndGroups.pm:1799
+#: src/EBox/UsersAndGroups.pm:1902
 msgid "group name"
 msgstr "Naam groep"
 
@@ -66,17 +74,12 @@ msgstr "Naam groep"
 msgid "comment"
 msgstr "Commentaar"
 
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups/Model/Groups.pm:77
-#: src/EBox/UsersAndGroups.pm:2198
-msgid "Groups"
-msgstr "Groepen"
-
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:699 src/EBox/UsersAndGroups.pm:705
-#: src/EBox/UsersAndGroups.pm:945 src/EBox/UsersAndGroups.pm:995
-#: src/EBox/UsersAndGroups.pm:1047 src/EBox/UsersAndGroups.pm:1479
-#: src/EBox/UsersAndGroups.pm:1541 src/EBox/UsersAndGroups.pm:1642
-#: src/EBox/UsersAndGroups.pm:1676 src/EBox/UsersAndGroups.pm:1747
+#: src/EBox/UsersAndGroups.pm:700 src/EBox/UsersAndGroups.pm:706
+#: src/EBox/UsersAndGroups.pm:946 src/EBox/UsersAndGroups.pm:996
+#: src/EBox/UsersAndGroups.pm:1048 src/EBox/UsersAndGroups.pm:1480
+#: src/EBox/UsersAndGroups.pm:1542 src/EBox/UsersAndGroups.pm:1643
+#: src/EBox/UsersAndGroups.pm:1677 src/EBox/UsersAndGroups.pm:1748
 msgid "user name"
 msgstr "Naam gebruiker"
 
@@ -214,7 +217,7 @@ msgstr ""
 msgid "The secret key needs to have 16 characters."
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2211
+#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2224
 msgid "Mode"
 msgstr ""
 
@@ -314,7 +317,7 @@ msgid "Re-type new password"
 msgstr "Wachtwoord herhalen"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:75
-#: src/EBox/UsersAndGroups.pm:2225 src/templates/users.mas:51
+#: src/EBox/UsersAndGroups.pm:2238 src/templates/users.mas:49
 #: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
 msgid "Password"
 msgstr "Wachtwoord"
@@ -389,6 +392,20 @@ msgstr "Er zijn geen gebruikers op het moment."
 msgid "Slave status"
 msgstr ""
 
+#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:66
+msgid ""
+"These configuration options are used when a new user account is created."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:80
+msgid "There isn't any configurable option"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
+#: src/EBox/UsersAndGroups.pm:2200 src/EBox/UsersAndGroups.pm:2209
+msgid "Default User Template"
+msgstr ""
+
 #: src/EBox/UsersAndGroups/Setup.pm:137
 msgid "Can't bind to LDAP with the provided password"
 msgstr ""
@@ -449,16 +466,16 @@ msgid ""
 "access LDAP"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:694
+#: src/EBox/UsersAndGroups.pm:695
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Gebruikersnaam mag niet langer zijn dan {maxuserlength} tekens"
 
-#: src/EBox/UsersAndGroups.pm:792 src/EBox/UsersAndGroups.pm:1408
+#: src/EBox/UsersAndGroups.pm:793 src/EBox/UsersAndGroups.pm:1409
 msgid "Maximum number of system users reached"
 msgstr "Maximum aantal gebruikers voor systeem bereikt"
 
-#: src/EBox/UsersAndGroups.pm:809
+#: src/EBox/UsersAndGroups.pm:810
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -466,23 +483,23 @@ msgstr ""
 "Incorrecte UID {uid} voor een gebruiker . UID moet gelijk zijn aan of groter "
 "dan {min}"
 
-#: src/EBox/UsersAndGroups.pm:820
+#: src/EBox/UsersAndGroups.pm:821
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Incorrecte UID {uid} voor een systeemgebruiker . UID moet lager zijn dan "
 "{max}"
 
-#: src/EBox/UsersAndGroups.pm:1332
+#: src/EBox/UsersAndGroups.pm:1333
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Groepnaam mag niet langer zijn dan {maxGroupLength} tekens"
 
-#: src/EBox/UsersAndGroups.pm:1338
+#: src/EBox/UsersAndGroups.pm:1339
 msgid "The group name is not valid because it is used internally"
 msgstr "De naam van de groep is niet geldig omdat hij intern gereserveerd is"
 
-#: src/EBox/UsersAndGroups.pm:1425
+#: src/EBox/UsersAndGroups.pm:1426
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
@@ -490,58 +507,42 @@ msgstr ""
 "Incorrecte GID {gid} voor een groep . GID moet gelijk zijn aan of groter dan "
 "{min}"
 
-#: src/EBox/UsersAndGroups.pm:1435
+#: src/EBox/UsersAndGroups.pm:1436
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Incorrecte GID {gid} voor een systeemgroep . GID moet minder zijn dan {max}"
 
-#: src/EBox/UsersAndGroups.pm:1977
+#: src/EBox/UsersAndGroups.pm:1978
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Wachtwoord mag niet langer zijn dan {maxPwdLength} tekens"
 
-#: src/EBox/UsersAndGroups.pm:2180 src/templates/users.mas:14
-msgid "Add User"
-msgstr "Gebruiker toevoegen"
-
-#: src/EBox/UsersAndGroups.pm:2184
-msgid "Edit User"
-msgstr "Gebruiker wijzigen"
-
-#: src/EBox/UsersAndGroups.pm:2188
+#: src/EBox/UsersAndGroups.pm:2214
 msgid "Slave Status"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2192
+#: src/EBox/UsersAndGroups.pm:2218
 msgid "AD Sync Settings"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2204 src/templates/groups.mas:12
-msgid "Add Group"
-msgstr "Groep toevoegen"
-
-#: src/EBox/UsersAndGroups.pm:2207 src/templates/groups.mas:49
-msgid "Edit Group"
-msgstr "Groep wijzigen"
-
-#: src/EBox/UsersAndGroups.pm:2438
+#: src/EBox/UsersAndGroups.pm:2451
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2445
+#: src/EBox/UsersAndGroups.pm:2458
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2464
+#: src/EBox/UsersAndGroups.pm:2477
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2574
+#: src/EBox/UsersAndGroups.pm:2587
 msgid "Replication failed"
 msgstr ""
 
@@ -619,68 +620,57 @@ msgstr "Verwijderen"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/templates/groups.mas:9 src/templates/users.mas:11
-msgid ""
-"Changes in user accounts take effect inmediately, they do not need to be "
-"saved."
-msgstr ""
-"Wijzigingen in gebruikers instellingen worden onmiddellijk toegepast en "
-"hoeven te niet worden opgeslagen."
+#: src/templates/groups.mas:10
+msgid "Add Group"
+msgstr "Groep toevoegen"
 
-#: src/templates/groups.mas:10 src/templates/users.mas:12
-msgid ""
-"Changes related to printing, file sharing and Jabber service do need to be "
-"saved in order to be effective."
-msgstr ""
-"Wijzigingen aan printer-, bestandsdeel- en Jabberinstellingen moeten wel "
-"opgeslagen worden om toegepast te worden."
-
-#: src/templates/groups.mas:18 src/templates/groups.mas:52
+#: src/templates/groups.mas:16
 msgid "Group name"
 msgstr "Naam groep"
 
-#: src/templates/groups.mas:28 src/templates/users.mas:43
+#: src/templates/groups.mas:26 src/templates/users.mas:41
 #: src/templates/group.mas:20 src/templates/user.mas:41
 msgid "Comment"
 msgstr "Commentaar"
 
-#: src/templates/groups.mas:33
+#: src/templates/groups.mas:31
 msgid "Optional value"
 msgstr "Optionele waarde"
 
-#: src/templates/groups.mas:40 src/templates/groups.mas:41
-#: src/templates/users.mas:71 src/templates/users.mas:72
-msgid "Create"
-msgstr "Aanmaken"
+#: src/templates/groups.mas:38 src/templates/groups.mas:39
+#: src/templates/users.mas:69 src/templates/users.mas:70
+msgid "Add and Edit"
+msgstr ""
 
-#: src/templates/groups.mas:53
-msgid "Actions"
-msgstr "Acties"
+#: src/templates/groups.mas:41 src/templates/groups.mas:42
+#: src/templates/users.mas:73 src/templates/users.mas:74
+#, fuzzy
+msgid "Add"
+msgstr "Nieuwe gebruiker toevoegen"
 
-#: src/templates/groups.mas:74 src/templates/group.mas:61
-#: src/templates/user.mas:114
-msgid "Remove"
-msgstr "Verwijderen"
+#: src/templates/users.mas:12
+msgid "Add User"
+msgstr "Gebruiker toevoegen"
 
-#: src/templates/users.mas:19 src/templates/usercorner/login/index.mas:29
+#: src/templates/users.mas:17 src/templates/usercorner/login/index.mas:29
 msgid "User name"
 msgstr "Gebruikersnaam"
 
-#: src/templates/users.mas:27 src/templates/user.mas:21
+#: src/templates/users.mas:25 src/templates/user.mas:21
 #, fuzzy
 msgid "First name"
 msgstr "Naam gebruiker"
 
-#: src/templates/users.mas:35 src/templates/user.mas:31
+#: src/templates/users.mas:33 src/templates/user.mas:31
 #, fuzzy
 msgid "Last name"
 msgstr "Naam gebruiker"
 
-#: src/templates/users.mas:58 src/templates/user.mas:62
+#: src/templates/users.mas:56 src/templates/user.mas:62
 msgid "Retype password"
 msgstr "Wachtwoord herhalen"
 
-#: src/templates/users.mas:85
+#: src/templates/users.mas:89
 msgid "Group"
 msgstr "Groep"
 
@@ -710,6 +700,10 @@ msgstr "Gebruikers niet in groep"
 #: src/templates/user.mas:106 src/templates/user.mas:141
 msgid "Empty list"
 msgstr "Lege lijst"
+
+#: src/templates/group.mas:61 src/templates/user.mas:114
+msgid "Remove"
+msgstr "Verwijderen"
 
 #: src/templates/group.mas:64
 msgid "Remove users from group"
@@ -773,6 +767,32 @@ msgstr ""
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr ""
+
+#~ msgid "Edit User"
+#~ msgstr "Gebruiker wijzigen"
+
+#~ msgid "Edit Group"
+#~ msgstr "Groep wijzigen"
+
+#~ msgid ""
+#~ "Changes in user accounts take effect inmediately, they do not need to be "
+#~ "saved."
+#~ msgstr ""
+#~ "Wijzigingen in gebruikers instellingen worden onmiddellijk toegepast en "
+#~ "hoeven te niet worden opgeslagen."
+
+#~ msgid ""
+#~ "Changes related to printing, file sharing and Jabber service do need to "
+#~ "be saved in order to be effective."
+#~ msgstr ""
+#~ "Wijzigingen aan printer-, bestandsdeel- en Jabberinstellingen moeten wel "
+#~ "opgeslagen worden om toegepast te worden."
+
+#~ msgid "Create"
+#~ msgstr "Aanmaken"
+
+#~ msgid "Actions"
+#~ msgstr "Acties"
 
 #, fuzzy
 #~ msgid ""

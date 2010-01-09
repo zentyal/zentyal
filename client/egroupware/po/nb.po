@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:00+0100\n"
+"POT-Creation-Date: 2010-01-09 16:09+0100\n"
 "PO-Revision-Date: 2009-12-04 09:39+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -113,15 +113,21 @@ msgstr ""
 msgid "No domain selected"
 msgstr "Ingen domene valgt"
 
-#: src/EBox/Model/VMailDomain.pm:99
-msgid "You must have at least one virtual mail domain defined."
+#: src/EBox/Model/VMailDomain.pm:100
+#, fuzzy, perl-brace-format
+msgid ""
+"You must have at least one virtual mail domain defined. You can define the "
+"at {ohref}Virtual Domains section{chref}"
 msgstr "Du må ha minst et virtuelt domene definert."
 
-#: src/EBox/Model/VMailDomain.pm:103
-msgid "You must have IMAP service enabled."
-msgstr "Du må aktivere IMAP tjenesten."
+#: src/EBox/Model/VMailDomain.pm:109
+#, perl-brace-format
+msgid ""
+"You must have IMAP service enabled. You can enable it at {ohref} Mail "
+"General Configuration{chref}."
+msgstr ""
 
-#: src/EBox/Model/VMailDomain.pm:128
+#: src/EBox/Model/VMailDomain.pm:137
 msgid ""
 "The deleted virtual domain was selected for eGroupware. Maybe you want to "
 "select another one now."
@@ -129,15 +135,15 @@ msgstr ""
 "Det slettede virtuelle domenet var valgt for eGroupware. Kansje du vil velge "
 "et annet nå?"
 
-#: src/EBox/Model/VMailDomain.pm:143
+#: src/EBox/Model/VMailDomain.pm:152
 msgid "Virtual Domain"
 msgstr "Virtuelt Domene"
 
-#: src/EBox/Model/VMailDomain.pm:152
+#: src/EBox/Model/VMailDomain.pm:161
 msgid "Virtual Mail Domain"
 msgstr "Virtuelt E-Post Domene"
 
-#: src/EBox/Model/VMailDomain.pm:157
+#: src/EBox/Model/VMailDomain.pm:166
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Velg det virtuelle E-Post domenet som skal brukes med eGroupware"
 
@@ -153,6 +159,9 @@ msgid ""
 msgstr ""
 "Når modulen er aktivert og du har opprettet en bruker konto, kan du finne "
 "eGroupware grensesnittet på http://<ebox_ip>/egroupware"
+
+#~ msgid "You must have IMAP service enabled."
+#~ msgstr "Du må aktivere IMAP tjenesten."
 
 #~ msgid "eGroupware Configuration"
 #~ msgstr "eGroupware Konfigurasjon"

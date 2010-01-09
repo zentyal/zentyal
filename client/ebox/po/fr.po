@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 16:59+0100\n"
+"POT-Creation-Date: 2010-01-09 16:09+0100\n"
 "PO-Revision-Date: 2009-12-12 22:31+0100\n"
 "Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
 "Language-Team: <es@li.org>\n"
@@ -161,7 +161,7 @@ msgstr "Observateur d'évènements"
 #: src/EBox/Events/Model/GeneralComposite.pm:77
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:325 src/EBox/Events.pm:96
-#: src/EBox/Events.pm:826
+#: src/EBox/Events.pm:823
 msgid "Events"
 msgstr "Evénements"
 
@@ -275,7 +275,7 @@ msgstr "Récepteur"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4524
+#: src/EBox/Model/DataTable.pm:4523
 msgid "Enabled"
 msgstr "Activé"
 
@@ -464,7 +464,7 @@ msgstr "Erreur"
 msgid "Fatal error"
 msgstr ""
 
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:702
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
 #: src/templates/finish.mas:105 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
@@ -495,7 +495,7 @@ msgstr "Rapport sélectionné"
 msgid "Events report"
 msgstr "Rapport sélectionné"
 
-#: src/EBox/EventDaemon.pm:495
+#: src/EBox/EventDaemon.pm:451
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr ""
@@ -518,7 +518,7 @@ msgstr ""
 msgid "Logs"
 msgstr "Journaux"
 
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:686
+#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:691
 msgid "Query Logs"
 msgstr "Journaux de requêtes"
 
@@ -696,7 +696,7 @@ msgstr "Restauration à partir de la sauvegarde"
 msgid "Restoring modules"
 msgstr "Restauration des modules"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:704
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
 msgstr "Module"
@@ -1297,12 +1297,22 @@ msgstr "Service désactivé"
 msgid "Enable service"
 msgstr "Activer le service"
 
-#: src/EBox/Events.pm:485
+#: src/EBox/Events.pm:200
+#, fuzzy
+msgid "Initialize event dispatchers table"
+msgstr "Activer/désactiver chaque événement de l'exéditeur"
+
+#: src/EBox/Events.pm:201
+#, fuzzy
+msgid "Enable default log dispatcher"
+msgstr "Activer/désactiver chaque événement de l'exéditeur"
+
+#: src/EBox/Events.pm:499
 #, fuzzy
 msgid "The events module is not enabled to send events"
 msgstr "Le module évènement n'est pas activé pour envoyer des évènements"
 
-#: src/EBox/Events.pm:726
+#: src/EBox/Events.pm:732
 msgid "Event service status"
 msgstr "Statut du service d'événements"
 
@@ -1330,42 +1340,42 @@ msgstr "événement"
 msgid "Message"
 msgstr "Message"
 
-#: src/EBox/Logs.pm:435
+#: src/EBox/Logs.pm:440
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "Tableau {table} n'existe pas"
 
-#: src/EBox/Logs.pm:689
+#: src/EBox/Logs.pm:694
 msgid "Configure Logs"
 msgstr "Configurer les journaux d'activité"
 
-#: src/EBox/Logs.pm:703
+#: src/EBox/Logs.pm:708
 msgid "Client Address"
 msgstr "Adresse du client"
 
-#: src/EBox/Logs.pm:705 src/EBox/Model/Composite.pm:653
+#: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2129
+#: src/EBox/Model/DataTable.pm:2128
 msgid "Action"
 msgstr "Action"
 
-#: src/EBox/Logs.pm:706
+#: src/EBox/Logs.pm:711
 msgid "Params"
 msgstr "Paramètres"
 
-#: src/EBox/Logs.pm:707
+#: src/EBox/Logs.pm:712
 msgid "Committed"
 msgstr "Effectué"
 
-#: src/EBox/Logs.pm:712
+#: src/EBox/Logs.pm:717
 msgid "Admin"
 msgstr "Admin"
 
-#: src/EBox/Logs.pm:806
+#: src/EBox/Logs.pm:811
 msgid "Log messages"
 msgstr "Messages du journal"
 
-#: src/EBox/Logs.pm:833
+#: src/EBox/Logs.pm:838
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Le paramètre de durée de vie doit être une nombre positif d'heures"
 
@@ -1379,13 +1389,13 @@ msgstr "L'objet fourni avec l'index {i} n'existe pas"
 msgid "Remove data from {model}{br}"
 msgstr "Supprimer les données de {model}{br}"
 
-#: src/EBox/Model/DataForm.pm:605 src/templates/password.mas:53
+#: src/EBox/Model/DataForm.pm:604 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
 msgstr "Modifier"
 
-#: src/EBox/Model/DataForm.pm:710 src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:709 src/templates/progress.mas:22
 msgid "Done"
 msgstr "Réussit"
 
@@ -1432,48 +1442,48 @@ msgstr "à"
 msgid "field"
 msgstr "champs"
 
-#: src/EBox/Model/DataTable.pm:1466
+#: src/EBox/Model/DataTable.pm:1465
 msgid "page"
 msgstr "Page"
 
-#: src/EBox/Model/DataTable.pm:1469
+#: src/EBox/Model/DataTable.pm:1468
 msgid "Page must be a number equal or greater than zero"
 msgstr "La page doit être un nombre égal ou plus grand que zéro"
 
-#: src/EBox/Model/DataTable.pm:2831
+#: src/EBox/Model/DataTable.pm:2830
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Effacer {num} colonnes de {rowName} depuis {model}{br}"
 
-#: src/EBox/Model/DataTable.pm:2902
+#: src/EBox/Model/DataTable.pm:2901
 msgid "Page size"
 msgstr "Taille de la page"
 
-#: src/EBox/Model/DataTable.pm:2905
+#: src/EBox/Model/DataTable.pm:2904
 msgid "Must be either a positive number or zero"
 msgstr "Cela doit être soit un nombre positif soit un zéro"
 
-#: src/EBox/Model/DataTable.pm:3212
+#: src/EBox/Model/DataTable.pm:3211
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} ajoutée(s)"
 
-#: src/EBox/Model/DataTable.pm:3213
+#: src/EBox/Model/DataTable.pm:3212
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} effacée(s)"
 
-#: src/EBox/Model/DataTable.pm:3214
+#: src/EBox/Model/DataTable.pm:3213
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} mise-à-jours"
 
-#: src/EBox/Model/DataTable.pm:3215
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} montée(s)"
 
-#: src/EBox/Model/DataTable.pm:3216
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} descendue(s)"
@@ -1594,12 +1604,12 @@ msgstr "port"
 msgid "eBox internal web server"
 msgstr "Serveur web interne d'eBox"
 
-#: src/EBox/Global.pm:444 src/EBox/Global.pm:465
+#: src/EBox/Global.pm:472 src/EBox/Global.pm:493
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Sauvegarde en cours du module {modName}"
 
-#: src/EBox/Global.pm:961
+#: src/EBox/Global.pm:1009
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "Script {scriptName} en cours d'exécution"

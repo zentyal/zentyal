@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:03+0100\n"
+"POT-Creation-Date: 2010-01-09 16:10+0100\n"
 "PO-Revision-Date: 2009-08-04 06:23+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -24,43 +24,66 @@ msgstr ""
 msgid "eBox Mail System"
 msgstr "eBox 郵件系統"
 
-#: src/EBox/MailUserLdap.pm:81 src/EBox/MailUserLdap.pm:86
-#: src/EBox/MailAliasLdap.pm:61 src/EBox/MailAliasLdap.pm:66
-#: src/EBox/MailAliasLdap.pm:88 src/EBox/MailAliasLdap.pm:93
-#: src/EBox/MailAliasLdap.pm:233
+#: src/EBox/MailUserLdap.pm:82 src/EBox/MailUserLdap.pm:87
+#: src/EBox/MailAliasLdap.pm:105 src/EBox/MailAliasLdap.pm:135
 msgid "mail account"
 msgstr "郵件帳號"
 
-#: src/EBox/MailUserLdap.pm:348
+#: src/EBox/MailUserLdap.pm:424
 msgid "This group has a mail alias"
 msgstr "這個群組是郵件別名"
 
-#: src/EBox/MailUserLdap.pm:375
+#: src/EBox/MailUserLdap.pm:451
 msgid "This user has a mail account"
 msgstr "這個使用者是郵件帳號"
 
-#: src/EBox/MailUserLdap.pm:761
+#: src/EBox/MailUserLdap.pm:803
 msgid "Quota can only be a postitive number or zero for unlimited quota"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:130 src/EBox/MailAliasLdap.pm:150
+#: src/EBox/MailAliasLdap.pm:62
+#, perl-brace-format
+msgid "{ac} is not a internal account"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:79
+#, perl-brace-format
+msgid "{ac} is not a external account"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
+msgid "mail alias"
+msgstr "郵件別名"
+
+#: src/EBox/MailAliasLdap.pm:113
+#, perl-brace-format
+msgid "{ac} is a mail alias. Alias of aliasese are not allowed"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:132
+#, fuzzy
+msgid "group alias"
+msgstr "群組別名郵件"
+
+#: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
 msgid "Domain alias"
 msgstr "網域別名"
 
-#: src/EBox/MailAliasLdap.pm:135 src/EBox/MailAliasLdap.pm:175
+#: src/EBox/MailAliasLdap.pm:176 src/EBox/MailAliasLdap.pm:215
+#: src/EBox/MailAliasLdap.pm:242
 #, perl-brace-format
 msgid "Mail domain {d} does not exists"
 msgstr "郵件網域 {d} 不存在"
 
-#: src/EBox/MailAliasLdap.pm:142
+#: src/EBox/MailAliasLdap.pm:183
 #, perl-brace-format
 msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr "不能使用 {d} 作為郵件網域的別名，因為以此為名的網域已經存在"
 
-#: src/EBox/MailAliasLdap.pm:256 src/EBox/MailAliasLdap.pm:286
-#: src/EBox/MailAliasLdap.pm:321
+#: src/EBox/MailAliasLdap.pm:325 src/EBox/MailAliasLdap.pm:354
+#: src/EBox/MailAliasLdap.pm:389
 msgid "mail alias account"
 msgstr "郵件別名帳號"
 
@@ -69,15 +92,15 @@ msgstr "郵件別名帳號"
 msgid "Queue ID"
 msgstr "佇列 ID"
 
-#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
+#: src/EBox/CGI/CreateGroupAlias.pm:43 src/EBox/CGI/DelGroupAlias.pm:42
 msgid "group"
 msgstr "群組"
 
-#: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:49
+#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:49
 msgid "account name"
 msgstr "帳號名稱"
 
-#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:50
+#: src/EBox/CGI/CreateGroupAlias.pm:50 src/EBox/CGI/CreateAlias.pm:50
 msgid "domain name"
 msgstr "網域名稱"
 
@@ -86,10 +109,6 @@ msgstr "網域名稱"
 #: src/EBox/CGI/CreateAlias.pm:42
 msgid "username"
 msgstr "使用者名稱"
-
-#: src/EBox/CGI/DelAlias.pm:46
-msgid "mail alias"
-msgstr "郵件別名"
 
 #: src/EBox/CGI/DelAccount.pm:46
 msgid "user mail"
@@ -100,7 +119,7 @@ msgid "Quota must be a amount of MB greter than zero"
 msgstr ""
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
-#: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:89
+#: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:101
 msgid "virtual domain"
 msgstr "虛擬網域"
 
@@ -108,7 +127,12 @@ msgstr "虛擬網域"
 msgid "Mail address"
 msgstr "郵件位址"
 
-#: src/EBox/CGI/DelGroupAlias.pm:47
+#: src/EBox/CGI/DelGroupAlias.pm:45
+#, fuzzy
+msgid "alias"
+msgstr "郵件別名"
+
+#: src/EBox/CGI/DelGroupAlias.pm:50
 msgid "group alias mail"
 msgstr "群組別名郵件"
 
@@ -117,7 +141,7 @@ msgid "maildrop"
 msgstr "maildrop"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1341
+#: src/EBox/Mail.pm:1465
 msgid "Queue Management"
 msgstr "佇列管理"
 
@@ -125,8 +149,8 @@ msgstr "佇列管理"
 msgid "Admin mail recipient"
 msgstr "管理郵件收件"
 
-#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:83
-#: src/EBox/Mail.pm:1258 src/EBox/Mail.pm:1396
+#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
+#: src/EBox/Mail.pm:88 src/EBox/Mail.pm:1382 src/EBox/Mail.pm:1534
 msgid "Mail"
 msgstr "郵件"
 
@@ -176,16 +200,80 @@ msgstr "單位的 relay 政策"
 msgid "You may allow mail relay per network object"
 msgstr "這裡您可以允許每一個網路單位的郵件 relay"
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:74
+#: src/EBox/Mail/Model/ObjectPolicy.pm:222
+#, perl-brace-format
+msgid ""
+"There are not network objects in the system. You can create them in the "
+"{openurl}Object's page{closeurl}"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:54
+#, fuzzy
+msgid "Alias"
+msgstr "別名"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:59
+msgid "The mail domain is apended automaticallu"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:63
+#, fuzzy
+msgid "External account"
+msgstr "郵件帳號"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:75
+#: src/EBox/Mail/Model/VDomainAliases.pm:57
+msgid "Aliases"
+msgstr "別名"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:84
+#, fuzzy
+msgid "External account alias"
+msgstr "郵件帳號設定"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:86
+#, fuzzy
+msgid "External account alias added. You must save changes to use this alias"
+msgstr "虛擬網域已新增。您需要儲存變更來使用這個網域"
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:126
+#, perl-brace-format
+msgid ""
+"Cannot add alias because domain {vd} is a alias and aliases belonging to "
+"virtual domain aliases are not supported. Please add the alias belonging to "
+"a real domain"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:133
+#, perl-brace-format
+msgid ""
+"Cannot add alias because domain {vd} is not a virtual domain managed by this "
+"server"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:151
+msgid ""
+"The alias account should be provided without domain portion. It will be "
+"appended automatically"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:229
+#: src/EBox/Mail/Model/VDomainAliases.pm:137
+#: src/EBox/Mail/Model/VDomains.pm:133
+msgid ""
+"You must enable the mail module in module status section in order to use it."
+msgstr "為了使用郵件模組您必須在模組狀態中啟用它。"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:76
 msgid ""
 "Users will have to authenticate to be able to send mails through this server"
 msgstr "使用者將透過這個伺服器驗證來傳送郵件"
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:82
+#: src/EBox/Mail/Model/SMTPAuth.pm:84
 msgid "Authentication"
 msgstr "驗證"
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:112
+#: src/EBox/Mail/Model/SMTPAuth.pm:114
 msgid "Cannot require authentication when TLS is inactive"
 msgstr "當 TLS 沒有啟動時無法提供驗證"
 
@@ -214,12 +302,60 @@ msgid "none"
 msgstr "沒有"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:162
+#: src/EBox/Mail/Model/SMTPOptions.pm:128
 msgid "custom"
 msgstr "自訂"
 
-#: src/EBox/Mail/Model/VDomainAliases.pm:57 src/EBox/Mail/Model/VDomains.pm:64
-msgid "Aliases"
-msgstr "別名"
+#: src/EBox/Mail/Model/ExternalAccounts.pm:66
+#: src/EBox/Mail/Model/ExternalAccounts.pm:118
+#, fuzzy
+msgid "External mail accounts"
+msgstr "建立郵件帳號"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:85
+#, fuzzy
+msgid "External mail address"
+msgstr "郵件位址"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:92
+#: src/EBox/Mail/Model/SMTPOptions.pm:107
+msgid "Password"
+msgstr "密碼"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:99
+#: src/EBox/Mail/Composite/General.pm:78
+#, fuzzy
+msgid "Mail server"
+msgstr "郵件 SMTP 伺服器"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:119
+#, fuzzy
+msgid "external mail account"
+msgstr "建立郵件帳號"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:142
+msgid "Secure POP3"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:150
+#, fuzzy
+msgid "Secure IMAP"
+msgstr "設置 IMAP"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:281
+msgid "External account added"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:305
+#, perl-brace-format
+msgid "External account {ac} removed"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:399
+msgid ""
+"Cannot retrieve mail from external ccounts because do you dont have a email "
+"account in a local mail domain"
+msgstr ""
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
 #, fuzzy
@@ -234,11 +370,19 @@ msgstr "虛擬網域別名"
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr "虛擬網域已新增。您需要儲存變更來使用這個網域"
 
-#: src/EBox/Mail/Model/VDomainAliases.pm:110
-#: src/EBox/Mail/Model/VDomains.pm:121
+#: src/EBox/Mail/Model/VDomainAliases.pm:101
+#, perl-brace-format
 msgid ""
-"You must enable the mail module in module status section in order to use it."
-msgstr "為了使用郵件模組您必須在模組狀態中啟用它。"
+"Cannot add  alias {al} because is akready a virtual domain  with the same "
+"name"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:108
+#, perl-brace-format
+msgid ""
+"Cannot add  alias {al} because is already an identical alias for another "
+"virtual domain"
+msgstr ""
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "Smarthost to send mail"
@@ -264,103 +408,161 @@ msgstr "使用者與密碼"
 msgid "User"
 msgstr "使用者"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:107
-msgid "Password"
-msgstr "密碼"
+#: src/EBox/Mail/Model/SMTPOptions.pm:120
+msgid "Server mailname"
+msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:119
+#: src/EBox/Mail/Model/SMTPOptions.pm:124
+#, fuzzy
+msgid "FQDN hostname"
+msgstr "從主機名稱"
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:135
 msgid "Return address for mail bounced back to the sender"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:126
+#: src/EBox/Mail/Model/SMTPOptions.pm:142
 #, fuzzy
 msgid "Maximum mailbox size allowed"
 msgstr "允許最大的郵件大小"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:128
+#: src/EBox/Mail/Model/SMTPOptions.pm:144
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:132
-#: src/EBox/Mail/Model/SMTPOptions.pm:149 src/templates/createaccount.mas:78
+#: src/EBox/Mail/Model/SMTPOptions.pm:148
+#: src/EBox/Mail/Model/SMTPOptions.pm:165 src/templates/createaccount.mas:78
 msgid "Unlimited size"
 msgstr "不限大小"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:136
-#: src/EBox/Mail/Model/SMTPOptions.pm:153
+#: src/EBox/Mail/Model/SMTPOptions.pm:152
+#: src/EBox/Mail/Model/SMTPOptions.pm:169
 msgid "size in Mb"
 msgstr "MB 的大小"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:145
+#: src/EBox/Mail/Model/SMTPOptions.pm:161
 msgid "Maximum message size accepted"
 msgstr "允許最大的郵件大小"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:163
+#: src/EBox/Mail/Model/SMTPOptions.pm:179
 msgid "Expiration period for deleted mails"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:167
-#: src/EBox/Mail/Model/SMTPOptions.pm:184
+#: src/EBox/Mail/Model/SMTPOptions.pm:183
+#: src/EBox/Mail/Model/SMTPOptions.pm:200
 msgid "Never"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:171
-#: src/EBox/Mail/Model/SMTPOptions.pm:188
+#: src/EBox/Mail/Model/SMTPOptions.pm:187
+#: src/EBox/Mail/Model/SMTPOptions.pm:204
 msgid "days"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:180
+#: src/EBox/Mail/Model/SMTPOptions.pm:196
 msgid "Expiration period for spam mails"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:199
+#: src/EBox/Mail/Model/SMTPOptions.pm:215
 msgid "Options"
 msgstr "選項"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:306
-#: src/EBox/Mail/Model/SMTPOptions.pm:310
+#: src/EBox/Mail/Model/SMTPOptions.pm:320
+#: src/EBox/Mail/Model/SMTPOptions.pm:324
 msgid "Smarthost's address"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:307
+#: src/EBox/Mail/Model/SMTPOptions.pm:321
 msgid "Smarthost's port"
 msgstr ""
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:58
+msgid "Send a copy of all mail domains"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:60
+msgid "The mail will be a blind carbon copy."
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:64
+#, fuzzy
+msgid "Disabled"
+msgstr "停用"
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:68
+msgid "Address to sent the copy"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:79
+#, fuzzy
+msgid "Virtual domain settings"
+msgstr "虛擬網域"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:66
 #, fuzzy
 msgid "POP3 service enabled"
 msgstr "POP3 服務"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:71
+#: src/EBox/Mail/Model/RetrievalServices.pm:72
 #, fuzzy
 msgid "Secure POP3S service enabled"
 msgstr "POP3S 服務"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:76
+#: src/EBox/Mail/Model/RetrievalServices.pm:78
 #, fuzzy
 msgid "IMAP service enabled"
 msgstr "IMAP 服務"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:81
+#: src/EBox/Mail/Model/RetrievalServices.pm:84
 #, fuzzy
 msgid "Secure IMAPS service enabled"
 msgstr "IMAPS 服務"
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:86
+#: src/EBox/Mail/Model/RetrievalServices.pm:90
+msgid "Retrieve mail for external accounts"
+msgstr ""
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:92
+msgid ""
+"This allow users to retrieve mail for external accounts, the mail would be "
+"delivered to their local account. External account can be configured in the "
+"user's corner."
+msgstr ""
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:97
 msgid "Manage SIEVE scripts"
 msgstr ""
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:88
+#: src/EBox/Mail/Model/RetrievalServices.pm:99
 msgid ""
 "This service allows to a use to manage his SIEVE mail filtering scripts from "
 "a local client"
 msgstr ""
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:95 src/EBox/Mail.pm:1614
+#: src/EBox/Mail/Model/RetrievalServices.pm:107 src/EBox/Mail.pm:1752
 msgid "Mail retrieval services"
 msgstr "郵件檢索服務"
+
+#: src/EBox/Mail/Model/MailUser.pm:52
+#, fuzzy
+msgid "Mail Account"
+msgstr "郵件帳號"
+
+#: src/EBox/Mail/Model/MailUser.pm:55
+#, fuzzy
+msgid "Create mail account user@domain"
+msgstr "建立郵件帳號"
+
+#: src/EBox/Mail/Model/MailUser.pm:59
+#, fuzzy
+msgid "Default Domain"
+msgstr "額度大小"
+
+#: src/EBox/Mail/Model/MailUser.pm:97
+#, fuzzy
+msgid "You haven't create a mail domain yet"
+msgstr "點擊這裡來建立新虛擬網域郵件"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
 msgid "Enabled"
@@ -400,19 +602,47 @@ msgstr "灰名單組態"
 msgid "Name"
 msgstr "名稱"
 
+#: src/EBox/Mail/Model/VDomains.pm:64
+#, fuzzy
+msgid "Virtual domain aliases"
+msgstr "虛擬網域別名"
+
+#: src/EBox/Mail/Model/VDomains.pm:71
+#, fuzzy
+msgid "External accounts aliases"
+msgstr "郵件帳號設定"
+
 #: src/EBox/Mail/Model/VDomains.pm:78
+msgid "Settings"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:90
 #, fuzzy
 msgid "List of Domains"
 msgstr "虛擬郵件網域"
 
-#: src/EBox/Mail/Model/VDomains.pm:79
+#: src/EBox/Mail/Model/VDomains.pm:91
 #, fuzzy
 msgid "Virtual Domains"
 msgstr "虛擬郵件網域"
 
-#: src/EBox/Mail/Model/VDomains.pm:91
+#: src/EBox/Mail/Model/VDomains.pm:103
 msgid "Virtual domain added. You must save changes to use this domain"
 msgstr "虛擬網域已新增。您需要儲存變更來使用這個網域"
+
+#: src/EBox/Mail/Model/VDomains.pm:187
+#, perl-brace-format
+msgid ""
+"Cannot add virtual domain {vd} because is a virtual domain alias with the "
+"same name"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:231
+#, perl-brace-format
+msgid ""
+"Cannot add virtual domain {vd} because it appears as external domain in the "
+"account referecned by the alias {al}"
+msgstr ""
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
@@ -423,7 +653,7 @@ msgstr "主旨"
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] 一個事件發生在 {hostName}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1365
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1503
 msgid "To"
 msgstr "到"
 
@@ -467,7 +697,7 @@ msgstr "完成的郵件"
 msgid "Rejected messages"
 msgstr "完成的郵件"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:63 src/EBox/Mail.pm:1362
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:63 src/EBox/Mail.pm:1500
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "日期"
@@ -499,11 +729,6 @@ msgstr ""
 msgid "Mail server options"
 msgstr "郵件伺服器選項"
 
-#: src/EBox/Mail/Composite/General.pm:78
-#, fuzzy
-msgid "Mail server"
-msgstr "郵件 SMTP 伺服器"
-
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:70
 msgid "Mail traffic reports"
 msgstr ""
@@ -512,243 +737,261 @@ msgstr ""
 msgid "Mail traffic report"
 msgstr ""
 
-#: src/EBox/Mail.pm:129
+#: src/EBox/Mail.pm:135
 msgid "Generate mail aliases"
 msgstr "產生郵件別名"
 
-#: src/EBox/Mail.pm:131
+#: src/EBox/Mail.pm:137
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
 msgstr "eBox 將執行 {cmd}"
 
-#: src/EBox/Mail.pm:136
+#: src/EBox/Mail.pm:142
 msgid "Add LDAP schemas"
 msgstr "新增 LDAP schemas"
 
-#: src/EBox/Mail.pm:138
+#: src/EBox/Mail.pm:144
 #, fuzzy
 msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
 msgstr "eBox 將會新增兩個 LDAP 架構： authldap.schema 和 eboximail.schema。"
 
-#: src/EBox/Mail.pm:144
+#: src/EBox/Mail.pm:150
 msgid "Create certificates"
 msgstr "建立憑證"
 
-#: src/EBox/Mail.pm:146
+#: src/EBox/Mail.pm:152
 msgid "eBox will create certificates to use in mail services"
 msgstr "eBox 將會建立用於郵件服務中的憑證"
 
-#: src/EBox/Mail.pm:166
+#: src/EBox/Mail.pm:157
+msgid "Add fetchmail update cron job"
+msgstr ""
+
+#: src/EBox/Mail.pm:159
+msgid ""
+"eBox will scheduel a cron job to update fetchmail configuration when the "
+"user add extrnal accounts"
+msgstr ""
+
+#: src/EBox/Mail.pm:180
 msgid "To configure postfix"
 msgstr "設置 postfix"
 
-#: src/EBox/Mail.pm:172
+#: src/EBox/Mail.pm:186
 msgid "To define how client programs connect to services in  postfix"
 msgstr "在 postfix 中確定如何讓客戶端程式連到服務"
 
-#: src/EBox/Mail.pm:179
+#: src/EBox/Mail.pm:193
 #, fuzzy
 msgid "To configure host mail name"
 msgstr "設置 postfix"
 
-#: src/EBox/Mail.pm:185
+#: src/EBox/Mail.pm:199
 msgid "To configure dovecot"
 msgstr "設定 dovecot"
 
-#: src/EBox/Mail.pm:190
+#: src/EBox/Mail.pm:204
 msgid "To configure dovecot to authenticate against LDAP"
 msgstr "設定 dovecot 來驗證 LDAP"
 
-#: src/EBox/Mail.pm:195
+#: src/EBox/Mail.pm:209
 msgid "To configure smart host authentication"
 msgstr "設置 smart host 驗證"
 
-#: src/EBox/Mail.pm:766
+#: src/EBox/Mail.pm:890
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "在沒有自訂過濾器下無法變更這個參數"
 
-#: src/EBox/Mail.pm:782 src/EBox/Mail.pm:802
+#: src/EBox/Mail.pm:906 src/EBox/Mail.pm:926
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr "郵件過濾器不存在.請設定其他的郵件過濾器或是停用它"
 
-#: src/EBox/Mail.pm:809
+#: src/EBox/Mail.pm:933
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr "郵件過濾器 $name 沒有啟動。請設定其他的郵件過濾器或是停用它"
 
-#: src/EBox/Mail.pm:1206
+#: src/EBox/Mail.pm:1330
 msgid "SMTP service"
 msgstr "SMTP 服務"
 
-#: src/EBox/Mail.pm:1213
+#: src/EBox/Mail.pm:1337
 msgid "POP3 service"
 msgstr "POP3 服務"
 
-#: src/EBox/Mail.pm:1219
+#: src/EBox/Mail.pm:1343
 msgid "POP3S service"
 msgstr "POP3S 服務"
 
-#: src/EBox/Mail.pm:1225
+#: src/EBox/Mail.pm:1349
 msgid "IMAP service"
 msgstr "IMAP 服務"
 
-#: src/EBox/Mail.pm:1231
+#: src/EBox/Mail.pm:1355
 msgid "IMAPS service"
 msgstr "IMAPS 服務"
 
-#: src/EBox/Mail.pm:1272
+#: src/EBox/Mail.pm:1396
 msgid "enabled"
 msgstr "啟用"
 
-#: src/EBox/Mail.pm:1272
+#: src/EBox/Mail.pm:1396
 msgid "disabled"
 msgstr "停用"
 
-#: src/EBox/Mail.pm:1274 src/EBox/Mail.pm:1371
+#: src/EBox/Mail.pm:1398 src/EBox/Mail.pm:1509 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr "狀態"
 
-#: src/EBox/Mail.pm:1277
+#: src/EBox/Mail.pm:1401
 msgid "Mail server's filter"
 msgstr "郵件伺服器的過濾器"
 
-#: src/EBox/Mail.pm:1286 src/EBox/Mail.pm:1293
+#: src/EBox/Mail.pm:1410 src/EBox/Mail.pm:1417
 msgid "Filter type"
 msgstr "過濾器類型"
 
-#: src/EBox/Mail.pm:1287
+#: src/EBox/Mail.pm:1411
 msgid "Custom"
 msgstr "自訂"
 
-#: src/EBox/Mail.pm:1289
+#: src/EBox/Mail.pm:1413
 msgid "Address"
 msgstr "位址"
 
-#: src/EBox/Mail.pm:1322
+#: src/EBox/Mail.pm:1446
 msgid "General"
 msgstr "一般"
 
-#: src/EBox/Mail.pm:1329
+#: src/EBox/Mail.pm:1453
 msgid "Virtual Mail Domains"
 msgstr "虛擬郵件網域"
 
-#: src/EBox/Mail.pm:1335
+#: src/EBox/Mail.pm:1459
 msgid "Greylist"
 msgstr "灰名單"
 
-#: src/EBox/Mail.pm:1363
+#: src/EBox/Mail.pm:1492
+#, fuzzy
+msgid "Mail retrieval from external accounts"
+msgstr "郵件檢索服務"
+
+#: src/EBox/Mail.pm:1501
 msgid "Message ID"
 msgstr "郵件 ID"
 
-#: src/EBox/Mail.pm:1364
+#: src/EBox/Mail.pm:1502
 msgid "From"
 msgstr "從"
 
-#: src/EBox/Mail.pm:1366
+#: src/EBox/Mail.pm:1504
 msgid "From hostname"
 msgstr "從主機名稱"
 
-#: src/EBox/Mail.pm:1367
+#: src/EBox/Mail.pm:1505
 msgid "From host ip"
 msgstr "從主機 IP"
 
-#: src/EBox/Mail.pm:1368 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1506 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "大小 (位元組)"
 
-#: src/EBox/Mail.pm:1369
+#: src/EBox/Mail.pm:1507
 msgid "Relay"
 msgstr "Relay"
 
-#: src/EBox/Mail.pm:1370
+#: src/EBox/Mail.pm:1508
 #, fuzzy
 msgid "Message type"
 msgstr "郵件"
 
-#: src/EBox/Mail.pm:1372
+#: src/EBox/Mail.pm:1510
 msgid "Event"
 msgstr "事件"
 
-#: src/EBox/Mail.pm:1373
+#: src/EBox/Mail.pm:1511
 #, fuzzy
 msgid "Additional Info"
 msgstr "新增資訊"
 
-#: src/EBox/Mail.pm:1384
+#: src/EBox/Mail.pm:1522
 msgid "Successful messages"
 msgstr "完成的郵件"
 
-#: src/EBox/Mail.pm:1385
+#: src/EBox/Mail.pm:1523
 msgid "Maximum message size exceeded"
 msgstr "超過最大郵件大小"
 
-#: src/EBox/Mail.pm:1386
+#: src/EBox/Mail.pm:1524
 msgid "User quote exceeded"
 msgstr "使用者額度已滿"
 
-#: src/EBox/Mail.pm:1387
+#: src/EBox/Mail.pm:1525
 msgid "Relay access denied"
 msgstr "禁止 relay 存取"
 
-#: src/EBox/Mail.pm:1388
+#: src/EBox/Mail.pm:1526
 msgid "Account does not exist"
 msgstr "帳號不存在"
 
-#: src/EBox/Mail.pm:1389
+#: src/EBox/Mail.pm:1527
 msgid "Host unreachable"
 msgstr "主機無法連線"
 
-#: src/EBox/Mail.pm:1390
+#: src/EBox/Mail.pm:1528
 msgid "Authentication error"
 msgstr "驗證失敗"
 
-#: src/EBox/Mail.pm:1391
+#: src/EBox/Mail.pm:1529
 #, fuzzy
 msgid "Greylisted"
 msgstr "灰名單"
 
-#: src/EBox/Mail.pm:1392
+#: src/EBox/Mail.pm:1530
 msgid "Other events"
 msgstr "其他事件"
 
-#: src/EBox/Mail.pm:1579
+#: src/EBox/Mail.pm:1717
 msgid "Mailboxes"
 msgstr "信箱"
 
-#: src/EBox/Mail.pm:1607
+#: src/EBox/Mail.pm:1745
 msgid "Mail SMTP server"
 msgstr "郵件 SMTP 伺服器"
 
-#: src/templates/groupalias.mas:11
-msgid "Create alias mail account to group"
-msgstr "建立別名帳號到群組"
+#: src/EBox/MailQueue.pm:79
+msgid "This message is being delivered"
+msgstr ""
 
-#: src/templates/groupalias.mas:16
-msgid ""
-"When the last member of a group is removed, the mail alias account will be "
-"deleted"
-msgstr "當在群組中最後一個帳號移除,此郵件別名帳號將被刪除"
+#: src/templates/groupalias.mas:8
+msgid "Mail alias settings"
+msgstr "郵件別名設定"
 
-#: src/templates/groupalias.mas:21
+#: src/templates/groupalias.mas:13
 msgid ""
 "There are no users in the group or the users do not have a mail account, so "
 "an alias account cannot be created"
 msgstr "這個群組中沒有使用者或是使用者並沒有郵件帳號,所以帳號別名不能建立"
 
-#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
-#: src/templates/createaccount.mas:46 src/templates/createaccount.mas:47
-#: src/templates/alias.mas:62 src/templates/alias.mas:63
-#: src/templates/alias.mas:64
+#: src/templates/groupalias.mas:23 src/templates/alias.mas:38
+msgid "Mail alias"
+msgstr "郵件別名"
+
+#: src/templates/groupalias.mas:26 src/templates/qmanager.mas:23
+#: src/templates/alias.mas:41
+msgid "Action"
+msgstr "動作"
+
+#: src/templates/groupalias.mas:66 src/templates/groupalias.mas:67
+#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:46
+#: src/templates/createaccount.mas:47 src/templates/alias.mas:62
+#: src/templates/alias.mas:63 src/templates/alias.mas:64
 msgid "Create"
 msgstr "建立"
 
-#: src/templates/groupalias.mas:54
-msgid "Mail alias settings"
-msgstr "郵件別名設定"
-
-#: src/templates/groupalias.mas:64 src/templates/groupalias.mas:65
+#: src/templates/groupalias.mas:87 src/templates/groupalias.mas:88
 #: src/templates/alias.mas:21 src/templates/alias.mas:22
 #: src/templates/alias.mas:23 src/templates/alias.mas:75
 #: src/templates/alias.mas:76 src/templates/warnvd.mas:29
@@ -762,14 +1005,6 @@ msgstr "寄件者"
 #: src/templates/qmanager.mas:21
 msgid "Recipients"
 msgstr "收件者"
-
-#: src/templates/qmanager.mas:22
-msgid "Message"
-msgstr "郵件"
-
-#: src/templates/qmanager.mas:23
-msgid "Operate"
-msgstr "操作"
 
 #: src/templates/qmanager.mas:44 src/templates/qmanager.mas:45
 msgid "Requeue"
@@ -787,23 +1022,32 @@ msgstr "移除"
 msgid "Hide Info"
 msgstr "隱藏資訊"
 
-#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
+#: src/templates/qmanager.mas:82
+msgid "Attempt to deliver all queued mail"
+msgstr ""
+
+#: src/templates/qmanager.mas:89
+#, fuzzy
+msgid "Remove all messages"
+msgstr "完成的郵件"
+
+#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "first"
 msgstr "第一"
 
-#: src/templates/qmanager.mas:91 src/templates/qmanager.mas:92
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "prev"
 msgstr "上一"
 
-#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
+#: src/templates/qmanager.mas:131 src/templates/qmanager.mas:132
 msgid "next"
 msgstr "下一"
 
-#: src/templates/qmanager.mas:115 src/templates/qmanager.mas:116
+#: src/templates/qmanager.mas:135 src/templates/qmanager.mas:136
 msgid "last"
 msgstr "最後"
 
-#: src/templates/qmanager.mas:126
+#: src/templates/qmanager.mas:146
 msgid "There is no messages in queue or the service is stopped"
 msgstr "這裡沒有郵件佇列或是服務已停止"
 
@@ -830,14 +1074,6 @@ msgstr "郵件帳號設定"
 #: src/templates/alias.mas:33
 msgid "Create mail aliases"
 msgstr "建立郵件別名"
-
-#: src/templates/alias.mas:38
-msgid "Mail alias"
-msgstr "郵件別名"
-
-#: src/templates/alias.mas:41
-msgid "Action"
-msgstr "動作"
 
 #: src/templates/alias.mas:124
 #, fuzzy
@@ -896,6 +1132,20 @@ msgstr "以下的設定只會影響到當郵件模組是啟用的情況時"
 msgid "Change"
 msgstr "變更"
 
+#~ msgid "Create alias mail account to group"
+#~ msgstr "建立別名帳號到群組"
+
+#~ msgid ""
+#~ "When the last member of a group is removed, the mail alias account will "
+#~ "be deleted"
+#~ msgstr "當在群組中最後一個帳號移除,此郵件別名帳號將被刪除"
+
+#~ msgid "Message"
+#~ msgstr "郵件"
+
+#~ msgid "Operate"
+#~ msgstr "操作"
+
 #~ msgid "Mail virtual domains"
 #~ msgstr "虛擬網域郵件"
 
@@ -943,9 +1193,6 @@ msgstr "變更"
 
 #~ msgid "To configure POP3 with SSL support"
 #~ msgstr "設置讓 POP3 支援 SSL"
-
-#~ msgid "To configure IMAP"
-#~ msgstr "設置 IMAP"
 
 #~ msgid "To configure IMAP with SSL support"
 #~ msgstr "設置讓 IMAP 支援 SSL"

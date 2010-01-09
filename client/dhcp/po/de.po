@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 16:59+0100\n"
+"POT-Creation-Date: 2010-01-09 16:08+0100\n"
 "PO-Revision-Date: 2009-10-13 06:02+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -41,26 +41,26 @@ msgstr "Status des Moduls"
 
 #: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:397
-#: src/EBox/DHCP.pm:433 src/EBox/DHCP.pm:483 src/EBox/DHCP.pm:581
-#: src/EBox/DHCP.pm:635 src/EBox/DHCP.pm:696 src/EBox/DHCP.pm:752
-#: src/EBox/DHCP.pm:1143
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:426
+#: src/EBox/DHCP.pm:462 src/EBox/DHCP.pm:512 src/EBox/DHCP.pm:558
+#: src/EBox/DHCP.pm:604 src/EBox/DHCP.pm:702 src/EBox/DHCP.pm:756
+#: src/EBox/DHCP.pm:817 src/EBox/DHCP.pm:873 src/EBox/DHCP.pm:1264
 msgid "Interface"
 msgstr "Netzwerkkarte"
 
-#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:216
-#: src/EBox/DHCP.pm:1144 src/EBox/DHCP.pm:1212 src/templates/fixed.mas:9
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:218
+#: src/EBox/DHCP.pm:1265 src/EBox/DHCP.pm:1333 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC Adresse"
 
 #: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:242
-#: src/EBox/Model/FixedAddressTable.pm:222 src/EBox/DHCP.pm:1212
+#: src/EBox/Model/FixedAddressTable.pm:224 src/EBox/DHCP.pm:1333
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "IP Adresse"
 
 #: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
-#: src/EBox/Model/FixedAddressTable.pm:210 src/EBox/Model/RangeTable.pm:213
+#: src/EBox/Model/FixedAddressTable.pm:212 src/EBox/Model/RangeTable.pm:213
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
 msgstr "Name"
@@ -80,9 +80,9 @@ msgid "module status"
 msgstr "Status des Moduls"
 
 #: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
-#: src/EBox/Model/FixedAddressTable.pm:94 src/EBox/Model/RangeInfo.pm:108
-#: src/EBox/Model/Options.pm:119 src/EBox/Model/RangeTable.pm:95
-#: src/EBox/Composite/OptionsTab.pm:87
+#: src/EBox/Model/FixedAddressTable.pm:96 src/EBox/Model/DynamicDNS.pm:111
+#: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/Options.pm:119
+#: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/OptionsTab.pm:87
 #: src/EBox/Composite/InterfaceConfiguration.pm:87
 #: src/EBox/Composite/AdvancedOptions.pm:88
 #, perl-brace-format
@@ -130,12 +130,13 @@ msgstr ""
 msgid "Next server"
 msgstr "Nächster Server"
 
-#: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:337
-#: src/EBox/Model/Options.pm:348 src/EBox/Model/Options.pm:371
+#: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:394
+#: src/EBox/Model/Options.pm:405 src/EBox/Model/Options.pm:409
+#: src/EBox/Model/Options.pm:423 src/EBox/Model/Options.pm:456
 msgid "None"
 msgstr "Keine"
 
-#: src/EBox/Model/ThinClientOptions.pm:239 src/EBox/Model/Options.pm:361
+#: src/EBox/Model/ThinClientOptions.pm:239 src/EBox/Model/Options.pm:446
 msgid "eBox"
 msgstr "eBox"
 
@@ -209,36 +210,36 @@ msgstr ""
 "Die Lease-Time ist die Zeitspanne, für welche der DHCP-Server eine bestimmte "
 "IP-Adresse als gültig erachtet"
 
-#: src/EBox/Model/FixedAddressTable.pm:120
+#: src/EBox/Model/FixedAddressTable.pm:122
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
 msgstr "Die IP Adresse {ip} ist nicht im Netzwerk {net}"
 
-#: src/EBox/Model/FixedAddressTable.pm:131
+#: src/EBox/Model/FixedAddressTable.pm:133
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
 msgstr ""
 "Die gewählte IP-Adresse ist die IP-Adresse einer Netzwerkkarte: {ifaceIP}"
 
-#: src/EBox/Model/FixedAddressTable.pm:148
+#: src/EBox/Model/FixedAddressTable.pm:150
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "Die IP Adresse {ip} ist im Bereich \"{range}\": {from}-{to}"
 
-#: src/EBox/Model/FixedAddressTable.pm:160
+#: src/EBox/Model/FixedAddressTable.pm:162
 #, perl-brace-format
 msgid "{name} cannot contain spaces"
 msgstr "Der {name} kann keine Leerzeichen enthalten"
 
-#: src/EBox/Model/FixedAddressTable.pm:178
+#: src/EBox/Model/FixedAddressTable.pm:180
 msgid "update"
 msgstr "Aktualisieren"
 
-#: src/EBox/Model/FixedAddressTable.pm:180
+#: src/EBox/Model/FixedAddressTable.pm:182
 msgid "add"
 msgstr "Hinzufügen"
 
-#: src/EBox/Model/FixedAddressTable.pm:182
+#: src/EBox/Model/FixedAddressTable.pm:184
 #, perl-brace-format
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
@@ -247,17 +248,95 @@ msgstr ""
 "Sie können einen feste Adresse nicht {action} mit einem Namen, der bereits "
 "in einer anderen Tabelle mit festen Adressen verzeichnet ist"
 
-#: src/EBox/Model/FixedAddressTable.pm:225
+#: src/EBox/Model/FixedAddressTable.pm:227
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr "Sie können keine IP-Addresse verwende, welche im oberen Bereich liegt."
 
-#: src/EBox/Model/FixedAddressTable.pm:232 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:232
+msgid "Description"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:240 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Feste Adressen"
 
-#: src/EBox/Model/FixedAddressTable.pm:239
+#: src/EBox/Model/FixedAddressTable.pm:247
 msgid "fixed address"
 msgstr "Feste Adresse"
+
+#: src/EBox/Model/DynamicDNS.pm:132 src/EBox/Model/DynamicDNS.pm:140
+#: src/EBox/Model/DynamicDNS.pm:387
+#, perl-brace-format
+msgid "Domain {domain} has already been defined manually in DNS section"
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:241
+msgid "DNS module must be configured to work with this feature"
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:244
+#, perl-brace-format
+msgid "{pkg} must be installed to use this feature"
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:266
+msgid ""
+"Domains will be added/set automatically in DNS section in read-only mode."
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:268
+msgid "DNS module must be enabled to make this feature work. "
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:332
+#, fuzzy
+msgid "Dynamic domain"
+msgstr "Suche in Domäne"
+
+#: src/EBox/Model/DynamicDNS.pm:334
+msgid ""
+"Domain name appended to the hostname from those clients whose leased IP "
+"address comes from a range"
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:339
+#, fuzzy
+msgid "Static domain"
+msgstr "Suche in Domäne"
+
+#: src/EBox/Model/DynamicDNS.pm:341
+msgid ""
+"Domain name appended to the hostname from those clients with a fixed address "
+"mapping"
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:346
+msgid "Same as Dynamic Domain"
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:371
+#: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
+#: src/EBox/Model/Options.pm:432
+msgid "Custom"
+msgstr "Benutzerdefiniert"
+
+#: src/EBox/Model/DynamicDNS.pm:358
+msgid "Dynamic DNS Options"
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:363
+msgid "The domains will be added automatically to DNS module in read-only mode"
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:395
+#, perl-brace-format
+msgid "Domain \"{domain}\" added to DNS section"
+msgstr ""
+
+#: src/EBox/Model/DynamicDNS.pm:406
+#, perl-brace-format
+msgid "Domain \"{domain}\" removed from DNS section"
+msgstr ""
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
@@ -281,37 +360,58 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} liegt nicht im aktuellen Netzwerk"
 
 #: src/EBox/Model/Options.pm:169
+#, fuzzy
 msgid ""
-"DNS service must be active to be able to select eBox as primary DNS server"
+"DNS module must be enabled to be able to select eBox as primary DNS server"
 msgstr ""
 "Der DNS-Dienst muss aktiv sein, damit Sie als primären DNS-Server diese eBox "
 "wählen können"
 
-#: src/EBox/Model/Options.pm:314 src/EBox/Model/Options.pm:342
-msgid "Custom"
-msgstr "Benutzerdefiniert"
+#: src/EBox/Model/Options.pm:179
+#, fuzzy
+msgid "NTP module must be enabled to be able to select eBox as NTP server"
+msgstr ""
+"Der DNS-Dienst muss aktiv sein, damit Sie als primären DNS-Server diese eBox "
+"wählen können"
 
-#: src/EBox/Model/Options.pm:322
+#: src/EBox/Model/Options.pm:190
+#, fuzzy
+msgid "Samba module must be enabled to be able to select eBox as WINS server"
+msgstr ""
+"Der DNS-Dienst muss aktiv sein, damit Sie als primären DNS-Server diese eBox "
+"wählen können"
+
+#: src/EBox/Model/Options.pm:379
 msgid "eBox's domain"
 msgstr "Domäne der eBox"
 
-#: src/EBox/Model/Options.pm:330
+#: src/EBox/Model/Options.pm:387
 msgid "local eBox DNS"
 msgstr "Lokale eBox DNS"
 
-#: src/EBox/Model/Options.pm:355 src/templates/options.mas:18
+#: src/EBox/Model/Options.pm:414
+#, fuzzy
+msgid "local eBox NTP"
+msgstr "Lokale eBox DNS"
+
+#: src/EBox/Model/Options.pm:428
+#, fuzzy
+msgid "local eBox"
+msgstr "Lokale eBox DNS"
+
+#: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
 msgstr "Standardgateway"
 
-#: src/EBox/Model/Options.pm:365
+#: src/EBox/Model/Options.pm:450
 msgid "Custom IP address"
 msgstr "Benutzerdefinierte IP Adresse"
 
-#: src/EBox/Model/Options.pm:375
+#: src/EBox/Model/Options.pm:460
 msgid "Configured ones"
 msgstr "Konfigurierte"
 
-#: src/EBox/Model/Options.pm:381
+#: src/EBox/Model/Options.pm:466
 msgid ""
 "Setting \"eBox\" as default gateway will set the interface IP address as "
 "gateway"
@@ -319,11 +419,11 @@ msgstr ""
 "Wenn Sie \"eBox\" als Standard-Gateway definieren, wird die IP-Adresse der "
 "Netzwerkkarte als Gateway verwendet"
 
-#: src/EBox/Model/Options.pm:387 src/templates/options.mas:29
+#: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
 msgid "Search domain"
 msgstr "Suche in Domäne"
 
-#: src/EBox/Model/Options.pm:390
+#: src/EBox/Model/Options.pm:475
 #, fuzzy
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
@@ -332,26 +432,52 @@ msgstr ""
 "Die ausgewählte Domäne wird nicht voll qualifizierte DNS-Anfragen "
 "vervollständigen"
 
-#: src/EBox/Model/Options.pm:395 src/templates/options.mas:41
+#: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
 msgid "Primary nameserver"
 msgstr "Erster Nameserver"
 
-#: src/EBox/Model/Options.pm:398
+#: src/EBox/Model/Options.pm:483
 msgid ""
 "If \"eBox DNS\" is present and selected, the eBox server will act as cache "
 "DNS server"
 msgstr ""
 "Wenn \"eBox DNS\" aktiviert ist, arbeitet der eBox Server als DNS-Cache"
 
-#: src/EBox/Model/Options.pm:403 src/templates/options.mas:52
+#: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
 msgid "Secondary nameserver"
 msgstr "Zweiter Nameserver"
 
-#: src/EBox/Model/Options.pm:411
+#: src/EBox/Model/Options.pm:494
+#, fuzzy
+msgid "NTP server"
+msgstr "Nächster Server"
+
+#: src/EBox/Model/Options.pm:497
+#, fuzzy
+msgid ""
+"If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
+"DHCP clients"
+msgstr ""
+"Wenn \"eBox DNS\" aktiviert ist, arbeitet der eBox Server als DNS-Cache"
+
+#: src/EBox/Model/Options.pm:502
+#, fuzzy
+msgid "WINS server"
+msgstr "Nächster Server"
+
+#: src/EBox/Model/Options.pm:505
+#, fuzzy
+msgid ""
+"If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
+"DHCP clients"
+msgstr ""
+"Wenn \"eBox DNS\" aktiviert ist, arbeitet der eBox Server als DNS-Cache"
+
+#: src/EBox/Model/Options.pm:512
 msgid "Common options"
 msgstr "Gemeinsame Optionen"
 
-#: src/EBox/Model/Options.pm:416
+#: src/EBox/Model/Options.pm:517
 #, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
@@ -406,23 +532,24 @@ msgstr "Bereiche"
 msgid "range"
 msgstr "Bereich"
 
-#: src/EBox/DHCP.pm:403 src/EBox/DHCP.pm:439 src/EBox/DHCP.pm:489
-#: src/EBox/DHCP.pm:587 src/EBox/DHCP.pm:702 src/EBox/DHCP.pm:758
+#: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
+#: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708
+#: src/EBox/DHCP.pm:823 src/EBox/DHCP.pm:879
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} ist nicht statisch"
 
-#: src/EBox/DHCP.pm:573
+#: src/EBox/DHCP.pm:694
 msgid "Not a valid action: add, set and del are available"
 msgstr ""
 "Ungültiger Befehl, \"Hinzufügen\", \"Setzen\" und \"Löschen\" sind verfügbar"
 
-#: src/EBox/DHCP.pm:688
+#: src/EBox/DHCP.pm:809
 msgid "No valid action. Available ones are: add, set and del"
 msgstr ""
 "Ungültiger Befehl, \"Hinzufügen\", \"Setzen\" und \"Löschen\" sind verfügbar"
 
-#: src/EBox/DHCP.pm:927
+#: src/EBox/DHCP.pm:1048
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -434,7 +561,7 @@ msgstr ""
 "entfernen Sie diese bevor Sie die Adresse einer virtuellen Netzwerkkarte "
 "hinzufügen."
 
-#: src/EBox/DHCP.pm:946
+#: src/EBox/DHCP.pm:1067
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -446,35 +573,35 @@ msgstr ""
 "entfernen Sie diese bevor Sie die Adresse einer virtuellen Netzwerkkarte "
 "hinzufügen."
 
-#: src/EBox/DHCP.pm:1142
+#: src/EBox/DHCP.pm:1263
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/DHCP.pm:1145
+#: src/EBox/DHCP.pm:1266
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1146
+#: src/EBox/DHCP.pm:1267
 msgid "Event"
 msgstr "Event"
 
-#: src/EBox/DHCP.pm:1149
+#: src/EBox/DHCP.pm:1270
 msgid "Leased"
 msgstr "Vergeben"
 
-#: src/EBox/DHCP.pm:1149
+#: src/EBox/DHCP.pm:1270
 msgid "Released"
 msgstr "Zurückgesetzt"
 
-#: src/EBox/DHCP.pm:1152
+#: src/EBox/DHCP.pm:1273
 msgid "DHCP"
 msgstr "DHCP"
 
-#: src/EBox/DHCP.pm:1212
+#: src/EBox/DHCP.pm:1333
 msgid "Host name"
 msgstr "Host Name"
 
-#: src/EBox/DHCP.pm:1239
+#: src/EBox/DHCP.pm:1360
 msgid "DHCP leases"
 msgstr "DHCP-Zuweisungen"
 

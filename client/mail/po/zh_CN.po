@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:03+0100\n"
+"POT-Creation-Date: 2010-01-09 16:10+0100\n"
 "PO-Revision-Date: 2005-10-26 18:53+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,43 +24,65 @@ msgstr ""
 msgid "eBox Mail System"
 msgstr ""
 
-#: src/EBox/MailUserLdap.pm:81 src/EBox/MailUserLdap.pm:86
-#: src/EBox/MailAliasLdap.pm:61 src/EBox/MailAliasLdap.pm:66
-#: src/EBox/MailAliasLdap.pm:88 src/EBox/MailAliasLdap.pm:93
-#: src/EBox/MailAliasLdap.pm:233
+#: src/EBox/MailUserLdap.pm:82 src/EBox/MailUserLdap.pm:87
+#: src/EBox/MailAliasLdap.pm:105 src/EBox/MailAliasLdap.pm:135
 msgid "mail account"
 msgstr ""
 
-#: src/EBox/MailUserLdap.pm:348
+#: src/EBox/MailUserLdap.pm:424
 msgid "This group has a mail alias"
 msgstr ""
 
-#: src/EBox/MailUserLdap.pm:375
+#: src/EBox/MailUserLdap.pm:451
 msgid "This user has a mail account"
 msgstr ""
 
-#: src/EBox/MailUserLdap.pm:761
+#: src/EBox/MailUserLdap.pm:803
 msgid "Quota can only be a postitive number or zero for unlimited quota"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:130 src/EBox/MailAliasLdap.pm:150
+#: src/EBox/MailAliasLdap.pm:62
+#, perl-brace-format
+msgid "{ac} is not a internal account"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:79
+#, perl-brace-format
+msgid "{ac} is not a external account"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
+msgid "mail alias"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:113
+#, perl-brace-format
+msgid "{ac} is a mail alias. Alias of aliasese are not allowed"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:132
+msgid "group alias"
+msgstr ""
+
+#: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
 msgid "Domain alias"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:135 src/EBox/MailAliasLdap.pm:175
+#: src/EBox/MailAliasLdap.pm:176 src/EBox/MailAliasLdap.pm:215
+#: src/EBox/MailAliasLdap.pm:242
 #, perl-brace-format
 msgid "Mail domain {d} does not exists"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:142
+#: src/EBox/MailAliasLdap.pm:183
 #, perl-brace-format
 msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:256 src/EBox/MailAliasLdap.pm:286
-#: src/EBox/MailAliasLdap.pm:321
+#: src/EBox/MailAliasLdap.pm:325 src/EBox/MailAliasLdap.pm:354
+#: src/EBox/MailAliasLdap.pm:389
 msgid "mail alias account"
 msgstr ""
 
@@ -69,15 +91,15 @@ msgstr ""
 msgid "Queue ID"
 msgstr ""
 
-#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
+#: src/EBox/CGI/CreateGroupAlias.pm:43 src/EBox/CGI/DelGroupAlias.pm:42
 msgid "group"
 msgstr ""
 
-#: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:49
+#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:49
 msgid "account name"
 msgstr ""
 
-#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:50
+#: src/EBox/CGI/CreateGroupAlias.pm:50 src/EBox/CGI/CreateAlias.pm:50
 msgid "domain name"
 msgstr ""
 
@@ -85,10 +107,6 @@ msgstr ""
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:41 src/EBox/CGI/CreateAccount.pm:42
 #: src/EBox/CGI/CreateAlias.pm:42
 msgid "username"
-msgstr ""
-
-#: src/EBox/CGI/DelAlias.pm:46
-msgid "mail alias"
 msgstr ""
 
 #: src/EBox/CGI/DelAccount.pm:46
@@ -100,7 +118,7 @@ msgid "Quota must be a amount of MB greter than zero"
 msgstr ""
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
-#: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:89
+#: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:101
 msgid "virtual domain"
 msgstr ""
 
@@ -108,7 +126,11 @@ msgstr ""
 msgid "Mail address"
 msgstr ""
 
-#: src/EBox/CGI/DelGroupAlias.pm:47
+#: src/EBox/CGI/DelGroupAlias.pm:45
+msgid "alias"
+msgstr ""
+
+#: src/EBox/CGI/DelGroupAlias.pm:50
 msgid "group alias mail"
 msgstr ""
 
@@ -117,7 +139,7 @@ msgid "maildrop"
 msgstr ""
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1341
+#: src/EBox/Mail.pm:1465
 msgid "Queue Management"
 msgstr ""
 
@@ -125,8 +147,8 @@ msgstr ""
 msgid "Admin mail recipient"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail.pm:83
-#: src/EBox/Mail.pm:1258 src/EBox/Mail.pm:1396
+#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
+#: src/EBox/Mail.pm:88 src/EBox/Mail.pm:1382 src/EBox/Mail.pm:1534
 msgid "Mail"
 msgstr ""
 
@@ -174,16 +196,76 @@ msgstr ""
 msgid "You may allow mail relay per network object"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:74
+#: src/EBox/Mail/Model/ObjectPolicy.pm:222
+#, perl-brace-format
+msgid ""
+"There are not network objects in the system. You can create them in the "
+"{openurl}Object's page{closeurl}"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:54
+msgid "Alias"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:59
+msgid "The mail domain is apended automaticallu"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:63
+msgid "External account"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:75
+#: src/EBox/Mail/Model/VDomainAliases.pm:57
+msgid "Aliases"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:84
+msgid "External account alias"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:86
+msgid "External account alias added. You must save changes to use this alias"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:126
+#, perl-brace-format
+msgid ""
+"Cannot add alias because domain {vd} is a alias and aliases belonging to "
+"virtual domain aliases are not supported. Please add the alias belonging to "
+"a real domain"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:133
+#, perl-brace-format
+msgid ""
+"Cannot add alias because domain {vd} is not a virtual domain managed by this "
+"server"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:151
+msgid ""
+"The alias account should be provided without domain portion. It will be "
+"appended automatically"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:229
+#: src/EBox/Mail/Model/VDomainAliases.pm:137
+#: src/EBox/Mail/Model/VDomains.pm:133
+msgid ""
+"You must enable the mail module in module status section in order to use it."
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:76
 msgid ""
 "Users will have to authenticate to be able to send mails through this server"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:82
+#: src/EBox/Mail/Model/SMTPAuth.pm:84
 msgid "Authentication"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPAuth.pm:112
+#: src/EBox/Mail/Model/SMTPAuth.pm:114
 msgid "Cannot require authentication when TLS is inactive"
 msgstr ""
 
@@ -212,11 +294,54 @@ msgid "none"
 msgstr ""
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:162
+#: src/EBox/Mail/Model/SMTPOptions.pm:128
 msgid "custom"
 msgstr ""
 
-#: src/EBox/Mail/Model/VDomainAliases.pm:57 src/EBox/Mail/Model/VDomains.pm:64
-msgid "Aliases"
+#: src/EBox/Mail/Model/ExternalAccounts.pm:66
+#: src/EBox/Mail/Model/ExternalAccounts.pm:118
+msgid "External mail accounts"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:85
+msgid "External mail address"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:92
+#: src/EBox/Mail/Model/SMTPOptions.pm:107
+msgid "Password"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:99
+#: src/EBox/Mail/Composite/General.pm:78
+msgid "Mail server"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:119
+msgid "external mail account"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:142
+msgid "Secure POP3"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:150
+msgid "Secure IMAP"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:281
+msgid "External account added"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:305
+#, perl-brace-format
+msgid "External account {ac} removed"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:399
+msgid ""
+"Cannot retrieve mail from external ccounts because do you dont have a email "
+"account in a local mail domain"
 msgstr ""
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
@@ -231,10 +356,18 @@ msgstr ""
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr ""
 
-#: src/EBox/Mail/Model/VDomainAliases.pm:110
-#: src/EBox/Mail/Model/VDomains.pm:121
+#: src/EBox/Mail/Model/VDomainAliases.pm:101
+#, perl-brace-format
 msgid ""
-"You must enable the mail module in module status section in order to use it."
+"Cannot add  alias {al} because is akready a virtual domain  with the same "
+"name"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:108
+#, perl-brace-format
+msgid ""
+"Cannot add  alias {al} because is already an identical alias for another "
+"virtual domain"
 msgstr ""
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:74
@@ -261,97 +394,148 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:107
-msgid "Password"
+#: src/EBox/Mail/Model/SMTPOptions.pm:120
+msgid "Server mailname"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:119
+#: src/EBox/Mail/Model/SMTPOptions.pm:124
+msgid "FQDN hostname"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:135
 msgid "Return address for mail bounced back to the sender"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:126
+#: src/EBox/Mail/Model/SMTPOptions.pm:142
 msgid "Maximum mailbox size allowed"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:128
+#: src/EBox/Mail/Model/SMTPOptions.pm:144
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:132
-#: src/EBox/Mail/Model/SMTPOptions.pm:149 src/templates/createaccount.mas:78
+#: src/EBox/Mail/Model/SMTPOptions.pm:148
+#: src/EBox/Mail/Model/SMTPOptions.pm:165 src/templates/createaccount.mas:78
 msgid "Unlimited size"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:136
-#: src/EBox/Mail/Model/SMTPOptions.pm:153
+#: src/EBox/Mail/Model/SMTPOptions.pm:152
+#: src/EBox/Mail/Model/SMTPOptions.pm:169
 msgid "size in Mb"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:145
+#: src/EBox/Mail/Model/SMTPOptions.pm:161
 msgid "Maximum message size accepted"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:163
+#: src/EBox/Mail/Model/SMTPOptions.pm:179
 msgid "Expiration period for deleted mails"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:167
-#: src/EBox/Mail/Model/SMTPOptions.pm:184
+#: src/EBox/Mail/Model/SMTPOptions.pm:183
+#: src/EBox/Mail/Model/SMTPOptions.pm:200
 msgid "Never"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:171
-#: src/EBox/Mail/Model/SMTPOptions.pm:188
+#: src/EBox/Mail/Model/SMTPOptions.pm:187
+#: src/EBox/Mail/Model/SMTPOptions.pm:204
 msgid "days"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:180
+#: src/EBox/Mail/Model/SMTPOptions.pm:196
 msgid "Expiration period for spam mails"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:199
+#: src/EBox/Mail/Model/SMTPOptions.pm:215
 msgid "Options"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:306
-#: src/EBox/Mail/Model/SMTPOptions.pm:310
+#: src/EBox/Mail/Model/SMTPOptions.pm:320
+#: src/EBox/Mail/Model/SMTPOptions.pm:324
 msgid "Smarthost's address"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:307
+#: src/EBox/Mail/Model/SMTPOptions.pm:321
 msgid "Smarthost's port"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:58
+msgid "Send a copy of all mail domains"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:60
+msgid "The mail will be a blind carbon copy."
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:64
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:68
+msgid "Address to sent the copy"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainSettings.pm:79
+msgid "Virtual domain settings"
 msgstr ""
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:66
 msgid "POP3 service enabled"
 msgstr ""
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:71
+#: src/EBox/Mail/Model/RetrievalServices.pm:72
 msgid "Secure POP3S service enabled"
 msgstr ""
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:76
+#: src/EBox/Mail/Model/RetrievalServices.pm:78
 msgid "IMAP service enabled"
 msgstr ""
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:81
+#: src/EBox/Mail/Model/RetrievalServices.pm:84
 msgid "Secure IMAPS service enabled"
 msgstr ""
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:86
+#: src/EBox/Mail/Model/RetrievalServices.pm:90
+msgid "Retrieve mail for external accounts"
+msgstr ""
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:92
+msgid ""
+"This allow users to retrieve mail for external accounts, the mail would be "
+"delivered to their local account. External account can be configured in the "
+"user's corner."
+msgstr ""
+
+#: src/EBox/Mail/Model/RetrievalServices.pm:97
 msgid "Manage SIEVE scripts"
 msgstr ""
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:88
+#: src/EBox/Mail/Model/RetrievalServices.pm:99
 msgid ""
 "This service allows to a use to manage his SIEVE mail filtering scripts from "
 "a local client"
 msgstr ""
 
-#: src/EBox/Mail/Model/RetrievalServices.pm:95 src/EBox/Mail.pm:1614
+#: src/EBox/Mail/Model/RetrievalServices.pm:107 src/EBox/Mail.pm:1752
 msgid "Mail retrieval services"
+msgstr ""
+
+#: src/EBox/Mail/Model/MailUser.pm:52
+msgid "Mail Account"
+msgstr ""
+
+#: src/EBox/Mail/Model/MailUser.pm:55
+msgid "Create mail account user@domain"
+msgstr ""
+
+#: src/EBox/Mail/Model/MailUser.pm:59
+msgid "Default Domain"
+msgstr ""
+
+#: src/EBox/Mail/Model/MailUser.pm:97
+msgid "You haven't create a mail domain yet"
 msgstr ""
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
@@ -392,16 +576,42 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
+#: src/EBox/Mail/Model/VDomains.pm:64
+msgid "Virtual domain aliases"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:71
+msgid "External accounts aliases"
+msgstr ""
+
 #: src/EBox/Mail/Model/VDomains.pm:78
+msgid "Settings"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:90
 msgid "List of Domains"
 msgstr ""
 
-#: src/EBox/Mail/Model/VDomains.pm:79
+#: src/EBox/Mail/Model/VDomains.pm:91
 msgid "Virtual Domains"
 msgstr ""
 
-#: src/EBox/Mail/Model/VDomains.pm:91
+#: src/EBox/Mail/Model/VDomains.pm:103
 msgid "Virtual domain added. You must save changes to use this domain"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:187
+#, perl-brace-format
+msgid ""
+"Cannot add virtual domain {vd} because is a virtual domain alias with the "
+"same name"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:231
+#, perl-brace-format
+msgid ""
+"Cannot add virtual domain {vd} because it appears as external domain in the "
+"account referecned by the alias {al}"
 msgstr ""
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
@@ -413,7 +623,7 @@ msgstr ""
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1365
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1503
 msgid "To"
 msgstr ""
 
@@ -453,7 +663,7 @@ msgstr ""
 msgid "Rejected messages"
 msgstr ""
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:63 src/EBox/Mail.pm:1362
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:63 src/EBox/Mail.pm:1500
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr ""
@@ -483,10 +693,6 @@ msgstr ""
 msgid "Mail server options"
 msgstr ""
 
-#: src/EBox/Mail/Composite/General.pm:78
-msgid "Mail server"
-msgstr ""
-
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:70
 msgid "Mail traffic reports"
 msgstr ""
@@ -495,238 +701,255 @@ msgstr ""
 msgid "Mail traffic report"
 msgstr ""
 
-#: src/EBox/Mail.pm:129
+#: src/EBox/Mail.pm:135
 msgid "Generate mail aliases"
 msgstr ""
 
-#: src/EBox/Mail.pm:131
+#: src/EBox/Mail.pm:137
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
 msgstr ""
 
-#: src/EBox/Mail.pm:136
+#: src/EBox/Mail.pm:142
 msgid "Add LDAP schemas"
 msgstr ""
 
-#: src/EBox/Mail.pm:138
+#: src/EBox/Mail.pm:144
 msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
 msgstr ""
 
-#: src/EBox/Mail.pm:144
+#: src/EBox/Mail.pm:150
 msgid "Create certificates"
 msgstr ""
 
-#: src/EBox/Mail.pm:146
+#: src/EBox/Mail.pm:152
 msgid "eBox will create certificates to use in mail services"
 msgstr ""
 
-#: src/EBox/Mail.pm:166
+#: src/EBox/Mail.pm:157
+msgid "Add fetchmail update cron job"
+msgstr ""
+
+#: src/EBox/Mail.pm:159
+msgid ""
+"eBox will scheduel a cron job to update fetchmail configuration when the "
+"user add extrnal accounts"
+msgstr ""
+
+#: src/EBox/Mail.pm:180
 msgid "To configure postfix"
 msgstr ""
 
-#: src/EBox/Mail.pm:172
+#: src/EBox/Mail.pm:186
 msgid "To define how client programs connect to services in  postfix"
 msgstr ""
 
-#: src/EBox/Mail.pm:179
+#: src/EBox/Mail.pm:193
 msgid "To configure host mail name"
 msgstr ""
 
-#: src/EBox/Mail.pm:185
+#: src/EBox/Mail.pm:199
 msgid "To configure dovecot"
 msgstr ""
 
-#: src/EBox/Mail.pm:190
+#: src/EBox/Mail.pm:204
 msgid "To configure dovecot to authenticate against LDAP"
 msgstr ""
 
-#: src/EBox/Mail.pm:195
+#: src/EBox/Mail.pm:209
 msgid "To configure smart host authentication"
 msgstr ""
 
-#: src/EBox/Mail.pm:766
+#: src/EBox/Mail.pm:890
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:782 src/EBox/Mail.pm:802
+#: src/EBox/Mail.pm:906 src/EBox/Mail.pm:926
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:809
+#: src/EBox/Mail.pm:933
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:1206
+#: src/EBox/Mail.pm:1330
 msgid "SMTP service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1213
+#: src/EBox/Mail.pm:1337
 msgid "POP3 service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1219
+#: src/EBox/Mail.pm:1343
 msgid "POP3S service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1225
+#: src/EBox/Mail.pm:1349
 msgid "IMAP service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1231
+#: src/EBox/Mail.pm:1355
 msgid "IMAPS service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1272
+#: src/EBox/Mail.pm:1396
 msgid "enabled"
 msgstr ""
 
-#: src/EBox/Mail.pm:1272
+#: src/EBox/Mail.pm:1396
 msgid "disabled"
 msgstr ""
 
-#: src/EBox/Mail.pm:1274 src/EBox/Mail.pm:1371
+#: src/EBox/Mail.pm:1398 src/EBox/Mail.pm:1509 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Mail.pm:1277
+#: src/EBox/Mail.pm:1401
 msgid "Mail server's filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:1286 src/EBox/Mail.pm:1293
+#: src/EBox/Mail.pm:1410 src/EBox/Mail.pm:1417
 msgid "Filter type"
 msgstr ""
 
-#: src/EBox/Mail.pm:1287
+#: src/EBox/Mail.pm:1411
 msgid "Custom"
 msgstr ""
 
-#: src/EBox/Mail.pm:1289
+#: src/EBox/Mail.pm:1413
 msgid "Address"
 msgstr ""
 
-#: src/EBox/Mail.pm:1322
+#: src/EBox/Mail.pm:1446
 msgid "General"
 msgstr ""
 
-#: src/EBox/Mail.pm:1329
+#: src/EBox/Mail.pm:1453
 msgid "Virtual Mail Domains"
 msgstr ""
 
-#: src/EBox/Mail.pm:1335
+#: src/EBox/Mail.pm:1459
 msgid "Greylist"
 msgstr ""
 
-#: src/EBox/Mail.pm:1363
+#: src/EBox/Mail.pm:1492
+msgid "Mail retrieval from external accounts"
+msgstr ""
+
+#: src/EBox/Mail.pm:1501
 msgid "Message ID"
 msgstr ""
 
-#: src/EBox/Mail.pm:1364
+#: src/EBox/Mail.pm:1502
 msgid "From"
 msgstr ""
 
-#: src/EBox/Mail.pm:1366
+#: src/EBox/Mail.pm:1504
 msgid "From hostname"
 msgstr ""
 
-#: src/EBox/Mail.pm:1367
+#: src/EBox/Mail.pm:1505
 msgid "From host ip"
 msgstr ""
 
-#: src/EBox/Mail.pm:1368 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1506 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr ""
 
-#: src/EBox/Mail.pm:1369
+#: src/EBox/Mail.pm:1507
 msgid "Relay"
 msgstr ""
 
-#: src/EBox/Mail.pm:1370
+#: src/EBox/Mail.pm:1508
 msgid "Message type"
 msgstr ""
 
-#: src/EBox/Mail.pm:1372
+#: src/EBox/Mail.pm:1510
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Mail.pm:1373
+#: src/EBox/Mail.pm:1511
 msgid "Additional Info"
 msgstr ""
 
-#: src/EBox/Mail.pm:1384
+#: src/EBox/Mail.pm:1522
 msgid "Successful messages"
 msgstr ""
 
-#: src/EBox/Mail.pm:1385
+#: src/EBox/Mail.pm:1523
 msgid "Maximum message size exceeded"
 msgstr ""
 
-#: src/EBox/Mail.pm:1386
+#: src/EBox/Mail.pm:1524
 msgid "User quote exceeded"
 msgstr ""
 
-#: src/EBox/Mail.pm:1387
+#: src/EBox/Mail.pm:1525
 msgid "Relay access denied"
 msgstr ""
 
-#: src/EBox/Mail.pm:1388
+#: src/EBox/Mail.pm:1526
 msgid "Account does not exist"
 msgstr ""
 
-#: src/EBox/Mail.pm:1389
+#: src/EBox/Mail.pm:1527
 msgid "Host unreachable"
 msgstr ""
 
-#: src/EBox/Mail.pm:1390
+#: src/EBox/Mail.pm:1528
 msgid "Authentication error"
 msgstr ""
 
-#: src/EBox/Mail.pm:1391
+#: src/EBox/Mail.pm:1529
 msgid "Greylisted"
 msgstr ""
 
-#: src/EBox/Mail.pm:1392
+#: src/EBox/Mail.pm:1530
 msgid "Other events"
 msgstr ""
 
-#: src/EBox/Mail.pm:1579
+#: src/EBox/Mail.pm:1717
 msgid "Mailboxes"
 msgstr ""
 
-#: src/EBox/Mail.pm:1607
+#: src/EBox/Mail.pm:1745
 msgid "Mail SMTP server"
 msgstr ""
 
-#: src/templates/groupalias.mas:11
-msgid "Create alias mail account to group"
+#: src/EBox/MailQueue.pm:79
+msgid "This message is being delivered"
 msgstr ""
 
-#: src/templates/groupalias.mas:16
-msgid ""
-"When the last member of a group is removed, the mail alias account will be "
-"deleted"
+#: src/templates/groupalias.mas:8
+msgid "Mail alias settings"
 msgstr ""
 
-#: src/templates/groupalias.mas:21
+#: src/templates/groupalias.mas:13
 msgid ""
 "There are no users in the group or the users do not have a mail account, so "
 "an alias account cannot be created"
 msgstr ""
 
-#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
-#: src/templates/createaccount.mas:46 src/templates/createaccount.mas:47
-#: src/templates/alias.mas:62 src/templates/alias.mas:63
-#: src/templates/alias.mas:64
+#: src/templates/groupalias.mas:23 src/templates/alias.mas:38
+msgid "Mail alias"
+msgstr ""
+
+#: src/templates/groupalias.mas:26 src/templates/qmanager.mas:23
+#: src/templates/alias.mas:41
+msgid "Action"
+msgstr ""
+
+#: src/templates/groupalias.mas:66 src/templates/groupalias.mas:67
+#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:46
+#: src/templates/createaccount.mas:47 src/templates/alias.mas:62
+#: src/templates/alias.mas:63 src/templates/alias.mas:64
 msgid "Create"
 msgstr ""
 
-#: src/templates/groupalias.mas:54
-msgid "Mail alias settings"
-msgstr ""
-
-#: src/templates/groupalias.mas:64 src/templates/groupalias.mas:65
+#: src/templates/groupalias.mas:87 src/templates/groupalias.mas:88
 #: src/templates/alias.mas:21 src/templates/alias.mas:22
 #: src/templates/alias.mas:23 src/templates/alias.mas:75
 #: src/templates/alias.mas:76 src/templates/warnvd.mas:29
@@ -739,14 +962,6 @@ msgstr ""
 
 #: src/templates/qmanager.mas:21
 msgid "Recipients"
-msgstr ""
-
-#: src/templates/qmanager.mas:22
-msgid "Message"
-msgstr ""
-
-#: src/templates/qmanager.mas:23
-msgid "Operate"
 msgstr ""
 
 #: src/templates/qmanager.mas:44 src/templates/qmanager.mas:45
@@ -765,23 +980,31 @@ msgstr ""
 msgid "Hide Info"
 msgstr ""
 
-#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
+#: src/templates/qmanager.mas:82
+msgid "Attempt to deliver all queued mail"
+msgstr ""
+
+#: src/templates/qmanager.mas:89
+msgid "Remove all messages"
+msgstr ""
+
+#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "first"
 msgstr ""
 
-#: src/templates/qmanager.mas:91 src/templates/qmanager.mas:92
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "prev"
 msgstr ""
 
-#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
+#: src/templates/qmanager.mas:131 src/templates/qmanager.mas:132
 msgid "next"
 msgstr ""
 
-#: src/templates/qmanager.mas:115 src/templates/qmanager.mas:116
+#: src/templates/qmanager.mas:135 src/templates/qmanager.mas:136
 msgid "last"
 msgstr ""
 
-#: src/templates/qmanager.mas:126
+#: src/templates/qmanager.mas:146
 msgid "There is no messages in queue or the service is stopped"
 msgstr ""
 
@@ -807,14 +1030,6 @@ msgstr ""
 
 #: src/templates/alias.mas:33
 msgid "Create mail aliases"
-msgstr ""
-
-#: src/templates/alias.mas:38
-msgid "Mail alias"
-msgstr ""
-
-#: src/templates/alias.mas:41
-msgid "Action"
 msgstr ""
 
 #: src/templates/alias.mas:124

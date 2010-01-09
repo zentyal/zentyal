@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:04+0100\n"
+"POT-Creation-Date: 2010-01-09 16:10+0100\n"
 "PO-Revision-Date: 2005-11-11 13:12+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -783,7 +783,7 @@ msgstr ""
 msgid "These are the physical interfaces which are available in your system."
 msgstr ""
 
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:16
 msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
@@ -797,12 +797,12 @@ msgid ""
 msgstr ""
 
 #: src/templates/confirmremove.mas:24 src/templates/confirmVlanDel.mas:22
-#: src/templates/confirm.mas:31
+#: src/templates/confirm.mas:35
 msgid "Ok"
 msgstr ""
 
 #: src/templates/confirmremove.mas:26 src/templates/confirmVlanDel.mas:24
-#: src/templates/confirm.mas:33
+#: src/templates/confirm.mas:37
 msgid "Cancel"
 msgstr ""
 
@@ -901,7 +901,7 @@ msgstr ""
 msgid "Output"
 msgstr ""
 
-#: src/templates/confirm.mas:17
+#: src/templates/confirm.mas:19
 msgid ""
 "If you choose to continue, all modules that make use of the current "
 "configuration of this network interface will delete the relevant parts of "

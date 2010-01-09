@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:00+0100\n"
+"POT-Creation-Date: 2010-01-09 16:09+0100\n"
 "PO-Revision-Date: 2007-04-11 16:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,33 +16,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/JabberLdapUser.pm:262
+#: src/EBox/JabberLdapUser.pm:259
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
 msgstr ""
 
-#: src/EBox/Jabber.pm:71
+#: src/EBox/Jabber.pm:72
 msgid "Add Jabber LDAP schema"
 msgstr ""
 
-#: src/EBox/Jabber.pm:72
+#: src/EBox/Jabber.pm:73
 msgid "eBox will need this schema to store jabber users"
 msgstr ""
 
-#: src/EBox/Jabber.pm:89 src/EBox/Jabber.pm:94 src/EBox/Jabber.pm:99
+#: src/EBox/Jabber.pm:90 src/EBox/Jabber.pm:95 src/EBox/Jabber.pm:100
 msgid "To properly configure jabberd2"
 msgstr ""
 
-#: src/EBox/Jabber.pm:104 src/EBox/Jabber.pm:109
+#: src/EBox/Jabber.pm:105 src/EBox/Jabber.pm:110
 msgid "To properly configure jabberd2 muc"
 msgstr ""
 
-#: src/EBox/Jabber.pm:266 src/EBox/CGI/JabberConf.pm:42
+#: src/EBox/Jabber.pm:280 src/EBox/CGI/JabberConf.pm:42
 msgid "domain"
 msgstr ""
 
-#: src/EBox/Jabber.pm:380
+#: src/EBox/Jabber.pm:394
 msgid "Jabber server certificate"
 msgstr ""
 
@@ -51,11 +51,16 @@ msgid "module status"
 msgstr ""
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
+#: src/EBox/Jabber/Model/JabberUser.pm:58
 msgid "Jabber"
 msgstr ""
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
+msgstr ""
+
+#: src/EBox/Jabber/Model/JabberUser.pm:50 src/templates/jabber.mas:8
+msgid "Jabber Account"
 msgstr ""
 
 #: src/templates/index.mas:17
@@ -102,10 +107,6 @@ msgstr ""
 #: src/templates/index.mas:81 src/templates/index.mas:82
 #: src/templates/jabber.mas:48 src/templates/jabber.mas:49
 msgid "Change"
-msgstr ""
-
-#: src/templates/jabber.mas:8
-msgid "Jabber Account"
 msgstr ""
 
 #: src/templates/jabber.mas:9

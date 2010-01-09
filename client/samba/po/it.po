@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:05+0100\n"
+"POT-Creation-Date: 2010-01-09 16:11+0100\n"
 "PO-Revision-Date: 2009-11-16 10:00+0100\n"
 "Last-Translator: gabriele garis <g.garis@inwind.it>\n"
 "Language-Team: none\n"
@@ -20,64 +20,64 @@ msgstr ""
 msgid "File sharing (Samba) protocol"
 msgstr "Protocollo (Samba) condivisione file"
 
-#: src/EBox/SambaLdapUser.pm:291
+#: src/EBox/SambaLdapUser.pm:304
 msgid "This user has a sharing directory associated which contains data"
 msgstr "Questo utente ha associata una directory condivisa contenente dati"
 
-#: src/EBox/SambaLdapUser.pm:354
+#: src/EBox/SambaLdapUser.pm:367
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
 msgstr "SID: {s} non corretto"
 
-#: src/EBox/SambaLdapUser.pm:358
+#: src/EBox/SambaLdapUser.pm:371
 #, perl-brace-format
 msgid "User {u} does not exists"
 msgstr "L'utente {u} non esiste"
 
-#: src/EBox/SambaLdapUser.pm:362
+#: src/EBox/SambaLdapUser.pm:375
 #, perl-brace-format
 msgid "User {u} is not a samba user"
 msgstr "L'utente {u} non è un utente samba"
 
-#: src/EBox/SambaLdapUser.pm:373
+#: src/EBox/SambaLdapUser.pm:386
 #, perl-brace-format
 msgid "Incoorect SID: {s}"
 msgstr "SID: {s} non corretto"
 
-#: src/EBox/SambaLdapUser.pm:377
+#: src/EBox/SambaLdapUser.pm:390
 #, perl-brace-format
 msgid "Group {g} does not exists"
 msgstr "Il gruppo {g} non esiste"
 
-#: src/EBox/SambaLdapUser.pm:381
+#: src/EBox/SambaLdapUser.pm:394
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
 msgstr "Il gruppo {g} non è un gruppo samba"
 
-#: src/EBox/SambaLdapUser.pm:424
+#: src/EBox/SambaLdapUser.pm:437
 msgid "This group has a sharing directory associatedwhich conatins data"
 msgstr "Questo gruppo ha una directory condivisa associata che contiene dati"
 
-#: src/EBox/SambaLdapUser.pm:628
+#: src/EBox/SambaLdapUser.pm:641
 #, perl-brace-format
 msgid "{g} group does not exist"
 msgstr "{g} gruppo non esiste"
 
-#: src/EBox/SambaLdapUser.pm:712 src/EBox/SambaLdapUser.pm:741
-#: src/EBox/SambaLdapUser.pm:792 src/EBox/CGI/ActivePrinting.pm:48
+#: src/EBox/SambaLdapUser.pm:725 src/EBox/SambaLdapUser.pm:754
+#: src/EBox/SambaLdapUser.pm:805 src/EBox/CGI/ActivePrinting.pm:48
 #: src/EBox/CGI/ActiveSharing.pm:44
 msgid "group name"
 msgstr "nome gruppo"
 
-#: src/EBox/SambaLdapUser.pm:746
+#: src/EBox/SambaLdapUser.pm:759
 msgid "A name should be provided for the share"
 msgstr "E' previsto un nome per la condivisione"
 
-#: src/EBox/SambaLdapUser.pm:754
+#: src/EBox/SambaLdapUser.pm:767
 msgid "sharing resource"
 msgstr "risorsa di condivisione"
 
-#: src/EBox/SambaLdapUser.pm:858 src/EBox/Samba.pm:1215 src/EBox/Samba.pm:1247
+#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248
 msgid "group"
 msgstr "gruppo"
 
@@ -96,6 +96,16 @@ msgstr "attivo"
 #: src/EBox/CGI/ActiveSharing.pm:71
 msgid "Disk quota limit"
 msgstr "Limite quota disco"
+
+#: src/EBox/Samba/Model/SambaUser.pm:50
+#, fuzzy
+msgid "File Sharing Account"
+msgstr "Account PDC/condivisione file"
+
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba.pm:76
+msgid "File Sharing"
+msgstr "Condivisione file"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:114
 msgid "path"
@@ -264,8 +274,8 @@ msgstr "Amministratore"
 msgid "User/Group"
 msgstr "Utente/Gruppo"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:125 src/EBox/Samba.pm:650
-#: src/EBox/Samba.pm:1661 src/templates/ajax/viewer/shareViewer.mas:8
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125 src/EBox/Samba.pm:651
+#: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
 msgstr "Utente"
 
@@ -354,7 +364,7 @@ msgid "User homes"
 msgstr "File dell'utente"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
-#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:629
+#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:630
 #: src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "Condivisione"
@@ -409,10 +419,6 @@ msgstr "Impostazioni generali antivirus"
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
 msgstr ""
-
-#: src/EBox/Samba/Composite/General.pm:67 src/EBox/Samba.pm:76
-msgid "File Sharing"
-msgstr "Condivisione file"
 
 #: src/EBox/Samba/Composite/General.pm:68
 #, fuzzy
@@ -482,133 +488,133 @@ msgstr "Per aggiungere il supporto quota alla partizione /home"
 msgid "To set the antivirus settings for Samba"
 msgstr "Per fissare le impostazioni dell'antivirus per Samba"
 
-#: src/EBox/Samba.pm:629 src/EBox/Samba.pm:650
+#: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
 msgid "Source machine"
 msgstr "Macchina sorgente"
 
-#: src/EBox/Samba.pm:629 src/EBox/Samba.pm:650
+#: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
 msgid "Connected since"
 msgstr "Connesso da"
 
-#: src/EBox/Samba.pm:670
+#: src/EBox/Samba.pm:671
 msgid "Shares by user"
 msgstr "Condivisioni in base a utente"
 
-#: src/EBox/Samba.pm:675
+#: src/EBox/Samba.pm:676
 msgid "Users by share"
 msgstr "Utenti in base a condivisione"
 
-#: src/EBox/Samba.pm:1211 src/EBox/Samba.pm:1233
+#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
 msgid "user"
 msgstr "utente"
 
-#: src/EBox/Samba.pm:1220
+#: src/EBox/Samba.pm:1221
 msgid "printer"
 msgstr "stampante"
 
-#: src/EBox/Samba.pm:1328
+#: src/EBox/Samba.pm:1329
 msgid "quota"
 msgstr "quota"
 
-#: src/EBox/Samba.pm:1641
+#: src/EBox/Samba.pm:1642
 msgid "User's files"
 msgstr "File dell'utente"
 
-#: src/EBox/Samba.pm:1643
+#: src/EBox/Samba.pm:1644
 msgid "Group's files"
 msgstr "File del gruppo"
 
-#: src/EBox/Samba.pm:1659 src/EBox/Samba.pm:1679 src/EBox/Samba.pm:1689
+#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
 #, fuzzy
 msgid "Date"
 msgstr "attivo"
 
-#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680
+#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
 msgid "Client address"
 msgstr "Indirizzo client"
 
-#: src/EBox/Samba.pm:1662
+#: src/EBox/Samba.pm:1663
 msgid "Action"
 msgstr "Azione"
 
-#: src/EBox/Samba.pm:1663
+#: src/EBox/Samba.pm:1664
 msgid "Resource"
 msgstr "Risorsa"
 
-#: src/EBox/Samba.pm:1667
+#: src/EBox/Samba.pm:1668
 #, fuzzy
 msgid "Connect"
 msgstr "Connesso da"
 
-#: src/EBox/Samba.pm:1668
+#: src/EBox/Samba.pm:1669
 #, fuzzy
 msgid "Access to directory"
 msgstr "Controllo accesso"
 
-#: src/EBox/Samba.pm:1669
+#: src/EBox/Samba.pm:1670
 #, fuzzy
 msgid "Read file"
 msgstr "Solo lettura"
 
-#: src/EBox/Samba.pm:1670
+#: src/EBox/Samba.pm:1671
 msgid "Write file"
 msgstr "Scrivi file"
 
-#: src/EBox/Samba.pm:1671
+#: src/EBox/Samba.pm:1672
 msgid "Disconnect"
 msgstr "Disconnetti"
 
-#: src/EBox/Samba.pm:1672
+#: src/EBox/Samba.pm:1673
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: src/EBox/Samba.pm:1673
+#: src/EBox/Samba.pm:1674
 #, fuzzy
 msgid "Create directory"
 msgstr "{group} cartella condivisa"
 
-#: src/EBox/Samba.pm:1674
+#: src/EBox/Samba.pm:1675
 #, fuzzy
 msgid "Remove directory"
 msgstr "Directory home"
 
-#: src/EBox/Samba.pm:1675
+#: src/EBox/Samba.pm:1676
 #, fuzzy
 msgid "Rename"
 msgstr "nome utente"
 
-#: src/EBox/Samba.pm:1681 src/EBox/Samba.pm:1690
+#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
 #, fuzzy
 msgid "File name"
 msgstr "nome utente"
 
-#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1686
+#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
 msgid "Virus"
 msgstr "Virus"
 
-#: src/EBox/Samba.pm:1683
+#: src/EBox/Samba.pm:1684
 msgid "Type"
 msgstr "Tipo"
 
-#: src/EBox/Samba.pm:1691
+#: src/EBox/Samba.pm:1692
 msgid "Quarantined file name"
 msgstr "Nome del file in quarantena"
 
-#: src/EBox/Samba.pm:1692 src/EBox/Samba.pm:1695
+#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
 msgid "Quarantine"
 msgstr "Quarantena"
 
-#: src/EBox/Samba.pm:1698
+#: src/EBox/Samba.pm:1699
 #, fuzzy
 msgid "Samba access"
 msgstr "Condivisioni samba"
 
-#: src/EBox/Samba.pm:1709
+#: src/EBox/Samba.pm:1710
 #, fuzzy
 msgid "Samba virus"
 msgstr "Condivisioni samba"
 
-#: src/EBox/Samba.pm:1720
+#: src/EBox/Samba.pm:1721
 #, fuzzy
 msgid "Samba quarantine"
 msgstr "Condivisioni samba"
@@ -712,11 +718,11 @@ msgstr "modulo stampanti"
 msgid "file sharing module"
 msgstr "modulo condivisione file"
 
-#: stubs/smb.conf.mas:103
+#: stubs/smb.conf.mas:104
 msgid "Home Directories"
 msgstr "Directory home"
 
-#: stubs/smb.conf.mas:129
+#: stubs/smb.conf.mas:132
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group} cartella condivisa"

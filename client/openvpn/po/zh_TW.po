@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:04+0100\n"
+"POT-Creation-Date: 2010-01-09 16:10+0100\n"
 "PO-Revision-Date: 2009-08-04 07:37+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -68,7 +68,7 @@ msgid "Server {name}"
 msgstr "伺服器 {name}"
 
 #: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
-#: src/EBox/OpenVPN/Model/Servers.pm:60
+#: src/EBox/OpenVPN/Model/Servers.pm:68
 msgid "Enabled"
 msgstr "已啟用"
 
@@ -237,7 +237,7 @@ msgid "Server configuration"
 msgstr "伺服器組態"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:148
-#: src/EBox/OpenVPN/Model/Servers.pm:114
+#: src/EBox/OpenVPN/Model/Servers.pm:122
 msgid "server"
 msgstr "伺服器"
 
@@ -245,50 +245,55 @@ msgstr "伺服器"
 msgid "All network interfaces"
 msgstr "所有的網路介面"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:253
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:255
 msgid "eBox to eBox tunel option requieres a RIP password"
 msgstr "eBox 對 eBox 通道選擇需要 RIP 密碼"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:279
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:275
+msgid ""
+"The VPN address could not be the same than one of its advertised networks"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:306
 msgid "Other server is listening on the same port"
 msgstr "其他伺服器正聽取同樣的連接埠"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:326
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:353
 #, perl-brace-format
 msgid "Port {p} is not available"
 msgstr "連接埠 {p} 無法使用"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:385
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:412
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
 msgstr "介面 {iface} 不存在"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:390
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:417
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
 msgstr "介面 {iface} 尚未設定"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:411
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:438
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
 "不能使用網路位址轉譯(NAT)，因為它需要防火牆模組。該模組可能尚未安裝或沒有使用"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:418
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:445
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
 "不能使用網路位址轉譯(NAT)，因為它需要啟用防火牆模組。請將它啟用後再試一次"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:450
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:477
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr "除非啟用網路位址轉譯選項，否則要連接至此伺服器至少需要一個外部介面"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:459
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:486
 #, fuzzy
 msgid ""
 "The interface must be a external interface, unless Network Address "
@@ -381,7 +386,12 @@ msgstr "宣告的網路"
 msgid "List of Advertised Networks"
 msgstr "宣告的網路"
 
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:100
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
+msgid ""
+"The advertised network address could not be the same than the VPN address"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
 #, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
@@ -392,7 +402,7 @@ msgstr ""
 "{openpar}通常，我們會允許存取 LAN，只要在這裡宣告它的網路位址{closepar}"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
-#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:76
+#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
 msgid "Configuration"
 msgstr "組態"
 
@@ -440,7 +450,7 @@ msgid "No file supplied or already setted for {f}"
 msgstr "沒有提供檔案或已經為 {f} 設定"
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
-#: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:68
+#: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:76
 msgid "Name"
 msgstr "名稱"
 
@@ -472,49 +482,49 @@ msgstr "因為此客戶端尚未完全設定好，不能使用它；請編輯組
 msgid "RIP password is mandatory"
 msgstr "RIP 密碼是強制的"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:85
+#: src/EBox/OpenVPN/Model/Servers.pm:93
 msgid "Advertised networks"
 msgstr "宣告的網路"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:94
+#: src/EBox/OpenVPN/Model/Servers.pm:102
 msgid "Download client bundle"
 msgstr "下載客戶端綁定程式"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:106
+#: src/EBox/OpenVPN/Model/Servers.pm:114
 msgid "List of servers"
 msgstr "伺服器清單"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:107
+#: src/EBox/OpenVPN/Model/Servers.pm:115
 msgid "VPN servers"
 msgstr "VPN 伺服器"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:159
+#: src/EBox/OpenVPN/Model/Servers.pm:165
 #, fuzzy, perl-brace-format
 msgid ""
-"{openpar}You can't create VPN servers because there aren't enough "
-"certificates.{closepar}{openpar}Please, go to the {openhref}certification "
-"authority module{closehref} and create new certificates.{closepar}{openpar}"
-"You will need, at least, one CA and one certificate.{closepar}"
+"{openpar}You need to create a CA certificate to use this module. {closepar}"
+"{openpar}Please, go to the {openhref}certification authority module"
+"{closehref} and create it.{closepar}"
 msgstr ""
 "{openpar}您不能建立 VPN 伺服器，因為沒有足夠的憑證。{closepar}{openpar}請到"
 "{openhref}憑證管理程式模組{closehref}建立新的憑證。{closepar}{openpar}您需要"
 "至少一個 CA 與一個憑證。{closepar}"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:174
+#: src/EBox/OpenVPN/Model/Servers.pm:179
 msgid "Server creation"
 msgstr "伺服器建立"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:272
+#: src/EBox/OpenVPN/Model/Servers.pm:284
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr "不能使用此伺服器，因為設定尚未完全；請編輯它的組態後再試一次"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:279
-msgid "Server activation"
-msgstr "伺服器啟用"
+#: src/EBox/OpenVPN/Model/Servers.pm:292
+#, fuzzy
+msgid "Cannot create a server because there is not a CA certificate"
+msgstr "不能取得伺服器 {name} 的金鑰，因為它沒有被分配憑證"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:306
+#: src/EBox/OpenVPN/Model/Servers.pm:318
 #, perl-brace-format
 msgid ""
 "{act} not possible because there aren'tany available certificate. Please, go "
@@ -522,7 +532,7 @@ msgid ""
 msgstr ""
 "無法執行 {act} ，因為沒有任何可用的憑證。請移至憑證中心模組並建立新的模組"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:319
+#: src/EBox/OpenVPN/Model/Servers.pm:331
 #, perl-brace-format
 msgid ""
 "{openpar}You can configure openVPN servers to easily connect remote offices "
@@ -697,6 +707,9 @@ msgstr "OpenVPN"
 #: src/EBox/OpenVPN.pm:1673
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "您必須將 insecure_rip_conf 設定為 yes 或 no"
+
+#~ msgid "Server activation"
+#~ msgstr "伺服器啟用"
 
 #~ msgid "Configure bundle"
 #~ msgstr "設定預裝程式"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:00+0100\n"
+"POT-Creation-Date: 2010-01-09 16:09+0100\n"
 "PO-Revision-Date: 2009-11-11 19:35+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -113,15 +113,21 @@ msgstr ""
 msgid "No domain selected"
 msgstr "Não foi seleccionado um domínio"
 
-#: src/EBox/Model/VMailDomain.pm:99
-msgid "You must have at least one virtual mail domain defined."
+#: src/EBox/Model/VMailDomain.pm:100
+#, fuzzy, perl-brace-format
+msgid ""
+"You must have at least one virtual mail domain defined. You can define the "
+"at {ohref}Virtual Domains section{chref}"
 msgstr "Tem que estar pelo menos um domínio de correio virtual definido."
 
-#: src/EBox/Model/VMailDomain.pm:103
-msgid "You must have IMAP service enabled."
-msgstr "Tem que estar o serviço IMAP activado"
+#: src/EBox/Model/VMailDomain.pm:109
+#, perl-brace-format
+msgid ""
+"You must have IMAP service enabled. You can enable it at {ohref} Mail "
+"General Configuration{chref}."
+msgstr ""
 
-#: src/EBox/Model/VMailDomain.pm:128
+#: src/EBox/Model/VMailDomain.pm:137
 msgid ""
 "The deleted virtual domain was selected for eGroupware. Maybe you want to "
 "select another one now."
@@ -129,15 +135,15 @@ msgstr ""
 "O domínio virtual apagado foi seleccionado pelo eGroupware. Talvez queira "
 "seleccionar outro agora"
 
-#: src/EBox/Model/VMailDomain.pm:143
+#: src/EBox/Model/VMailDomain.pm:152
 msgid "Virtual Domain"
 msgstr "Domínio virtual"
 
-#: src/EBox/Model/VMailDomain.pm:152
+#: src/EBox/Model/VMailDomain.pm:161
 msgid "Virtual Mail Domain"
 msgstr "Domínio de correio virtual"
 
-#: src/EBox/Model/VMailDomain.pm:157
+#: src/EBox/Model/VMailDomain.pm:166
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr ""
 "Seleccionar o domínio virtual de correio para ser usado pelo eGroupware"
@@ -152,6 +158,9 @@ msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+
+#~ msgid "You must have IMAP service enabled."
+#~ msgstr "Tem que estar o serviço IMAP activado"
 
 #~ msgid "eGroupware Configuration"
 #~ msgstr "Configuração do eGroupware"

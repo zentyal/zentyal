@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 16:59+0100\n"
+"POT-Creation-Date: 2010-01-09 16:09+0100\n"
 "PO-Revision-Date: 2009-07-17 09:32+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -161,7 +161,7 @@ msgstr "Наблюдатель журнала"
 #: src/EBox/Events/Model/GeneralComposite.pm:77
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:325 src/EBox/Events.pm:96
-#: src/EBox/Events.pm:826
+#: src/EBox/Events.pm:823
 msgid "Events"
 msgstr "События"
 
@@ -274,7 +274,7 @@ msgstr "Получатель"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4524
+#: src/EBox/Model/DataTable.pm:4523
 msgid "Enabled"
 msgstr "Включено"
 
@@ -463,7 +463,7 @@ msgstr "Ошибка"
 msgid "Fatal error"
 msgstr ""
 
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:702
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
 #: src/templates/finish.mas:105 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
@@ -494,7 +494,7 @@ msgstr "Выборочный отчет"
 msgid "Events report"
 msgstr "Выборочный отчет"
 
-#: src/EBox/EventDaemon.pm:495
+#: src/EBox/EventDaemon.pm:451
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr "Диспетчер {name} отключен, поэтому невозможно послать событие"
@@ -515,7 +515,7 @@ msgstr ""
 msgid "Logs"
 msgstr "Журналы"
 
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:686
+#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:691
 msgid "Query Logs"
 msgstr "Журнал запросов"
 
@@ -691,7 +691,7 @@ msgstr "Восстановление из резервной копии"
 msgid "Restoring modules"
 msgstr "Модуль восстановления"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:704
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
 msgid "Module"
 msgstr "Модуль"
@@ -1291,12 +1291,22 @@ msgstr "Служба отключена"
 msgid "Enable service"
 msgstr "Включенная служба"
 
-#: src/EBox/Events.pm:485
+#: src/EBox/Events.pm:200
+#, fuzzy
+msgid "Initialize event dispatchers table"
+msgstr "Включить / Выключить каждый диспетчер событий"
+
+#: src/EBox/Events.pm:201
+#, fuzzy
+msgid "Enable default log dispatcher"
+msgstr "Включить / Выключить каждый диспетчер событий"
+
+#: src/EBox/Events.pm:499
 #, fuzzy
 msgid "The events module is not enabled to send events"
 msgstr "Диспетчер {name} отключен, поэтому невозможно послать событие"
 
-#: src/EBox/Events.pm:726
+#: src/EBox/Events.pm:732
 msgid "Event service status"
 msgstr "Статус службы событий"
 
@@ -1324,42 +1334,42 @@ msgstr "событие"
 msgid "Message"
 msgstr "Сообщение"
 
-#: src/EBox/Logs.pm:435
+#: src/EBox/Logs.pm:440
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "Таблица {table} не существует"
 
-#: src/EBox/Logs.pm:689
+#: src/EBox/Logs.pm:694
 msgid "Configure Logs"
 msgstr "Настройки журналов"
 
-#: src/EBox/Logs.pm:703
+#: src/EBox/Logs.pm:708
 msgid "Client Address"
 msgstr "Адрес Клиента"
 
-#: src/EBox/Logs.pm:705 src/EBox/Model/Composite.pm:653
+#: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2129
+#: src/EBox/Model/DataTable.pm:2128
 msgid "Action"
 msgstr "Действие"
 
-#: src/EBox/Logs.pm:706
+#: src/EBox/Logs.pm:711
 msgid "Params"
 msgstr "Параметры"
 
-#: src/EBox/Logs.pm:707
+#: src/EBox/Logs.pm:712
 msgid "Committed"
 msgstr "Подтвержденный"
 
-#: src/EBox/Logs.pm:712
+#: src/EBox/Logs.pm:717
 msgid "Admin"
 msgstr "Админ"
 
-#: src/EBox/Logs.pm:806
+#: src/EBox/Logs.pm:811
 msgid "Log messages"
 msgstr "Журнал сообщений"
 
-#: src/EBox/Logs.pm:833
+#: src/EBox/Logs.pm:838
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Параметр времени жизни должен быть положительным числом в часах"
 
@@ -1373,13 +1383,13 @@ msgstr "Предусмотренный объект с индексом {i} не
 msgid "Remove data from {model}{br}"
 msgstr "Удалить данные из {model}{br}"
 
-#: src/EBox/Model/DataForm.pm:605 src/templates/password.mas:53
+#: src/EBox/Model/DataForm.pm:604 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
 msgstr "Изменить"
 
-#: src/EBox/Model/DataForm.pm:710 src/templates/progress.mas:22
+#: src/EBox/Model/DataForm.pm:709 src/templates/progress.mas:22
 msgid "Done"
 msgstr "Готово"
 
@@ -1426,48 +1436,48 @@ msgstr "около"
 msgid "field"
 msgstr "поле"
 
-#: src/EBox/Model/DataTable.pm:1466
+#: src/EBox/Model/DataTable.pm:1465
 msgid "page"
 msgstr "страница"
 
-#: src/EBox/Model/DataTable.pm:1469
+#: src/EBox/Model/DataTable.pm:1468
 msgid "Page must be a number equal or greater than zero"
 msgstr "Число страниц должно быть большим или равным 0"
 
-#: src/EBox/Model/DataTable.pm:2831
+#: src/EBox/Model/DataTable.pm:2830
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Удалить {num} строк {rowName} из {model}{br}"
 
-#: src/EBox/Model/DataTable.pm:2902
+#: src/EBox/Model/DataTable.pm:2901
 msgid "Page size"
 msgstr "Размер страницы"
 
-#: src/EBox/Model/DataTable.pm:2905
+#: src/EBox/Model/DataTable.pm:2904
 msgid "Must be either a positive number or zero"
 msgstr "Должно быть положительным числом или 0"
 
-#: src/EBox/Model/DataTable.pm:3212
+#: src/EBox/Model/DataTable.pm:3211
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} добавленно"
 
-#: src/EBox/Model/DataTable.pm:3213
+#: src/EBox/Model/DataTable.pm:3212
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} удаленно"
 
-#: src/EBox/Model/DataTable.pm:3214
+#: src/EBox/Model/DataTable.pm:3213
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} обновлено "
 
-#: src/EBox/Model/DataTable.pm:3215
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} перемещено вверх"
 
-#: src/EBox/Model/DataTable.pm:3216
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} перемещено вниз"
@@ -1589,12 +1599,12 @@ msgstr "порт"
 msgid "eBox internal web server"
 msgstr "Внутренний веб сервер eBox"
 
-#: src/EBox/Global.pm:444 src/EBox/Global.pm:465
+#: src/EBox/Global.pm:472 src/EBox/Global.pm:493
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Сохранение {modName} модуля"
 
-#: src/EBox/Global.pm:961
+#: src/EBox/Global.pm:1009
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "запуск {scriptName} скрипта"

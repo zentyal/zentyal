@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 16:59+0100\n"
+"POT-Creation-Date: 2010-01-09 16:06+0100\n"
 "PO-Revision-Date: 2009-08-04 00:13+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -26,96 +26,96 @@ msgstr "eBox VoIP 系統"
 msgid "VoIP"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:120
+#: src/EBox/Asterisk.pm:121
 msgid "To configure enabled and disabled modules."
 msgstr "設定 Asterisk 模組啟用或停用。"
 
-#: src/EBox/Asterisk.pm:125
+#: src/EBox/Asterisk.pm:126
 msgid "To configure the Realtime interface."
 msgstr "設定同步界面"
 
 # LDAP（Light-weighted Directory Access Protocol）是一種集中管理使用者與認證資訊的一種機制。
-#: src/EBox/Asterisk.pm:130
+#: src/EBox/Asterisk.pm:131
 msgid "To configure the LDAP Realtime driver."
 msgstr "設定LDAP(單一帳號)同步驅動程式"
 
 # LDAP（Light-weighted Directory Access Protocol）是一種集中管理使用者與認證資訊的一種機制。
-#: src/EBox/Asterisk.pm:135
+#: src/EBox/Asterisk.pm:136
 msgid "To configure the common SIP and IAX users."
 msgstr "設定一般 SIP 和 IAX 使用者。"
 
 # SIP TRUNK是一個由網路電話服務供應商提供的服務
 # ，SIP TRUNK允許企業利用已安裝的交換機去使用 VoIP，
 # 以和網路連線一樣的方式連接外部網路
-#: src/EBox/Asterisk.pm:140
+#: src/EBox/Asterisk.pm:141
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr "設定區域使用者及外部供應商的SIP Trunk "
 
-#: src/EBox/Asterisk.pm:145
+#: src/EBox/Asterisk.pm:146
 msgid "To configure the RTP port ranges."
 msgstr "設定 RTP 連接埠範圍。"
 
-#: src/EBox/Asterisk.pm:150
+#: src/EBox/Asterisk.pm:151
 #, fuzzy
 msgid "To configure the dialplan."
 msgstr "設定Asterisk速撥功能"
 
-#: src/EBox/Asterisk.pm:155
+#: src/EBox/Asterisk.pm:156
 msgid "To configure the voicemail."
 msgstr "設定語音郵件。"
 
-#: src/EBox/Asterisk.pm:160
+#: src/EBox/Asterisk.pm:161
 msgid "To configure the conferences."
 msgstr "設定會議。"
 
-#: src/EBox/Asterisk.pm:456
+#: src/EBox/Asterisk.pm:457
 msgid "General"
 msgstr "一般"
 
-#: src/EBox/Asterisk.pm:460 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:461 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "會議"
 
-#: src/EBox/Asterisk.pm:477
+#: src/EBox/Asterisk.pm:478
 msgid "Voicemail"
 msgstr "語音郵件"
 
-#: src/EBox/Asterisk.pm:487 src/EBox/Asterisk.pm:574
+#: src/EBox/Asterisk.pm:488 src/EBox/Asterisk.pm:575
 #, fuzzy
 msgid "User"
 msgstr "帳號"
 
-#: src/EBox/Asterisk.pm:487
+#: src/EBox/Asterisk.pm:488
 #, fuzzy
 msgid "Address"
 msgstr "郵件位址"
 
-#: src/EBox/Asterisk.pm:487
+#: src/EBox/Asterisk.pm:488
 msgid "NAT"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:487
+#: src/EBox/Asterisk.pm:488
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:501 src/EBox/Asterisk.pm:583
+#: src/EBox/Asterisk.pm:502 src/EBox/Asterisk.pm:584
 msgid "No users connected."
 msgstr ""
 
-#: src/EBox/Asterisk.pm:571
+#: src/EBox/Asterisk.pm:572
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:574
+#: src/EBox/Asterisk.pm:575
 msgid "Time Connected"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:604
+#: src/EBox/Asterisk.pm:605
 msgid "VoIP Online Users"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:609
+#: src/EBox/Asterisk.pm:610
 msgid "VoIP Users in Meetings"
 msgstr ""
 
@@ -162,6 +162,15 @@ msgstr "會議"
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
 msgstr "會議"
+
+#: src/EBox/Model/AsteriskUser.pm:50
+#, fuzzy
+msgid "Asterisk Account"
+msgstr "Asterisk帳號"
+
+#: src/EBox/Model/AsteriskUser.pm:58
+msgid "Asterisk"
+msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
@@ -325,9 +334,6 @@ msgstr "修改"
 
 #~ msgid "Administrator password"
 #~ msgstr "系統管理者密碼"
-
-#~ msgid "Asterisk"
-#~ msgstr "Asterisk"
 
 #~ msgid "To add the Asterisk schema and ACLs."
 #~ msgstr "加入 Asterisk 配置和 ACLs。"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:05+0100\n"
+"POT-Creation-Date: 2010-01-09 16:11+0100\n"
 "PO-Revision-Date: 2009-12-04 10:01+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -180,7 +180,7 @@ msgid ""
 "anything until subscribing process is done."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:304
+#: src/EBox/RemoteServices/Model/Subscription.pm:302
 #, fuzzy
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
@@ -189,40 +189,40 @@ msgstr ""
 "Før man oppretter abonnement på eksterne tjenester, aktiver OpenVPN modulen "
 "og lagre eller forkast dens endringer"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:324
+#: src/EBox/RemoteServices/Model/Subscription.pm:322
 msgid "User Name or Email Address"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:332
+#: src/EBox/RemoteServices/Model/Subscription.pm:330
 #, fuzzy
 msgid "eBox Name"
 msgstr "eBox vanlig navn"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:337
+#: src/EBox/RemoteServices/Model/Subscription.pm:335
 msgid "Choose a name for your eBox which is a valid domain name"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:344
+#: src/EBox/RemoteServices/Model/Subscription.pm:342
 msgid "Password"
 msgstr "Passord"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:352
+#: src/EBox/RemoteServices/Model/Subscription.pm:350
 msgid "eBox subscription details"
 msgstr "eBox abonnement detaljer"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:353
+#: src/EBox/RemoteServices/Model/Subscription.pm:351
 msgid "Delete data"
 msgstr "Slett data"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:356
+#: src/EBox/RemoteServices/Model/Subscription.pm:354
 msgid "Subscription to remote services"
 msgstr "Abonnement på ekstern tjeneste"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:357
+#: src/EBox/RemoteServices/Model/Subscription.pm:355
 msgid "Subscribe"
 msgstr "Abonner"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:367
+#: src/EBox/RemoteServices/Model/Subscription.pm:365
 #, perl-brace-format
 msgid ""
 "In order to subscribe an eBox remote services {url}. You will have remote "
@@ -231,17 +231,17 @@ msgstr ""
 "For å abbonere på en eBox ekstern tjeneste {url}. Må du ha ekstern "
 "sikkerhetskopi muligheter og mye mer"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:437
+#: src/EBox/RemoteServices/Model/Subscription.pm:435
 msgid "Action"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:438
-#: src/EBox/RemoteServices/Model/Subscription.pm:451
+#: src/EBox/RemoteServices/Model/Subscription.pm:436
+#: src/EBox/RemoteServices/Model/Subscription.pm:449
 #, fuzzy
 msgid "Reason"
 msgstr "Gjenopprett"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:450
+#: src/EBox/RemoteServices/Model/Subscription.pm:448
 msgid "File"
 msgstr ""
 

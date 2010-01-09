@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:00+0100\n"
+"POT-Creation-Date: 2010-01-09 16:09+0100\n"
 "PO-Revision-Date: 2009-08-13 14:25+0200\n"
 "Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
 "Language-Team: none\n"
@@ -114,29 +114,35 @@ msgstr ""
 msgid "No domain selected"
 msgstr "Geen domein geselekteerd"
 
-#: src/EBox/Model/VMailDomain.pm:99
-msgid "You must have at least one virtual mail domain defined."
+#: src/EBox/Model/VMailDomain.pm:100
+#, fuzzy, perl-brace-format
+msgid ""
+"You must have at least one virtual mail domain defined. You can define the "
+"at {ohref}Virtual Domains section{chref}"
 msgstr "U dient minstens 1 virtueel domein te definieren"
 
-#: src/EBox/Model/VMailDomain.pm:103
-msgid "You must have IMAP service enabled."
-msgstr "U dient de IMAP service te activeren"
+#: src/EBox/Model/VMailDomain.pm:109
+#, perl-brace-format
+msgid ""
+"You must have IMAP service enabled. You can enable it at {ohref} Mail "
+"General Configuration{chref}."
+msgstr ""
 
-#: src/EBox/Model/VMailDomain.pm:128
+#: src/EBox/Model/VMailDomain.pm:137
 msgid ""
 "The deleted virtual domain was selected for eGroupware. Maybe you want to "
 "select another one now."
 msgstr ""
 
-#: src/EBox/Model/VMailDomain.pm:143
+#: src/EBox/Model/VMailDomain.pm:152
 msgid "Virtual Domain"
 msgstr "Virtueel Domein"
 
-#: src/EBox/Model/VMailDomain.pm:152
+#: src/EBox/Model/VMailDomain.pm:161
 msgid "Virtual Mail Domain"
 msgstr "Virtueel Mail Domein"
 
-#: src/EBox/Model/VMailDomain.pm:157
+#: src/EBox/Model/VMailDomain.pm:166
 msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Selecteer het virtueel mail domein voor gebruik met eGroupware"
 
@@ -150,6 +156,9 @@ msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+
+#~ msgid "You must have IMAP service enabled."
+#~ msgstr "U dient de IMAP service te activeren"
 
 #~ msgid "eGroupware Configuration"
 #~ msgstr "eGroupware Configuratie"

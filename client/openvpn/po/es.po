@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:04+0100\n"
+"POT-Creation-Date: 2010-01-09 16:10+0100\n"
 "PO-Revision-Date: 2009-03-19 22:50+0000\n"
 "Last-Translator: Victor Campillo Acebo <victor.campillo@gmail.com>\n"
 "Language-Team: none\n"
@@ -70,7 +70,7 @@ msgid "Server {name}"
 msgstr "Servidor {name}"
 
 #: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
-#: src/EBox/OpenVPN/Model/Servers.pm:60
+#: src/EBox/OpenVPN/Model/Servers.pm:68
 msgid "Enabled"
 msgstr "Activado"
 
@@ -245,7 +245,7 @@ msgid "Server configuration"
 msgstr "Configuración del servidor {name} "
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:148
-#: src/EBox/OpenVPN/Model/Servers.pm:114
+#: src/EBox/OpenVPN/Model/Servers.pm:122
 msgid "server"
 msgstr "Servidor"
 
@@ -254,49 +254,54 @@ msgstr "Servidor"
 msgid "All network interfaces"
 msgstr "Todas las interfaces externas"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:253
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:255
 #, fuzzy
 msgid "eBox to eBox tunel option requieres a RIP password"
 msgstr "Permitir túneles eBox a eBox"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:279
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:275
+msgid ""
+"The VPN address could not be the same than one of its advertised networks"
+msgstr ""
+
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:306
 msgid "Other server is listening on the same port"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:326
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:353
 #, perl-brace-format
 msgid "Port {p} is not available"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:385
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:412
 #, fuzzy, perl-brace-format
 msgid "The interface {iface} does not exist"
 msgstr "El certificado {cn} no existe"
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:390
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:417
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:411
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:438
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:418
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:445
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:450
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:477
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:459
+#: src/EBox/OpenVPN/Model/ServerConfiguration.pm:486
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
@@ -392,7 +397,13 @@ msgstr "Redes anunciadas"
 msgid "List of Advertised Networks"
 msgstr "Redes anunciadas"
 
-#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:100
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
+#, fuzzy
+msgid ""
+"The advertised network address could not be the same than the VPN address"
+msgstr "El certificado del cliente no puede ser el mismo que el del servidor"
+
+#: src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
 #, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
@@ -401,7 +412,7 @@ msgid ""
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
-#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:76
+#: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
 #, fuzzy
 msgid "Configuration"
 msgstr "Configuración del cliente {name}"
@@ -454,7 +465,7 @@ msgid "No file supplied or already setted for {f}"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
-#: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:68
+#: src/EBox/OpenVPN/Model/Clients.pm:60 src/EBox/OpenVPN/Model/Servers.pm:76
 msgid "Name"
 msgstr "Nombre"
 
@@ -487,53 +498,55 @@ msgstr ""
 msgid "RIP password is mandatory"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:85
+#: src/EBox/OpenVPN/Model/Servers.pm:93
 msgid "Advertised networks"
 msgstr "Redes anunciadas"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:94
+#: src/EBox/OpenVPN/Model/Servers.pm:102
 msgid "Download client bundle"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:106
+#: src/EBox/OpenVPN/Model/Servers.pm:114
 msgid "List of servers"
 msgstr "Lista de servidores"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:107
+#: src/EBox/OpenVPN/Model/Servers.pm:115
 msgid "VPN servers"
 msgstr "Servidores VPN"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:159
+#: src/EBox/OpenVPN/Model/Servers.pm:165
 #, perl-brace-format
 msgid ""
-"{openpar}You can't create VPN servers because there aren't enough "
-"certificates.{closepar}{openpar}Please, go to the {openhref}certification "
-"authority module{closehref} and create new certificates.{closepar}{openpar}"
-"You will need, at least, one CA and one certificate.{closepar}"
+"{openpar}You need to create a CA certificate to use this module. {closepar}"
+"{openpar}Please, go to the {openhref}certification authority module"
+"{closehref} and create it.{closepar}"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:174
+#: src/EBox/OpenVPN/Model/Servers.pm:179
 msgid "Server creation"
 msgstr "Creación de servidor"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:272
+#: src/EBox/OpenVPN/Model/Servers.pm:284
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:279
-msgid "Server activation"
-msgstr "Activación de servidor"
+#: src/EBox/OpenVPN/Model/Servers.pm:292
+#, fuzzy
+msgid "Cannot create a server because there is not a CA certificate"
+msgstr ""
+"No se puede obtener la clave del servidor {name} debido a que no tiene "
+"ningún certificado asignado"
 
-#: src/EBox/OpenVPN/Model/Servers.pm:306
+#: src/EBox/OpenVPN/Model/Servers.pm:318
 #, perl-brace-format
 msgid ""
 "{act} not possible because there aren'tany available certificate. Please, go "
 "tothe certificate authority moduleand create new certificates"
 msgstr ""
 
-#: src/EBox/OpenVPN/Model/Servers.pm:319
+#: src/EBox/OpenVPN/Model/Servers.pm:331
 #, perl-brace-format
 msgid ""
 "{openpar}You can configure openVPN servers to easily connect remote offices "
@@ -720,6 +733,9 @@ msgstr "OpenVPN"
 #: src/EBox/OpenVPN.pm:1673
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr ""
+
+#~ msgid "Server activation"
+#~ msgstr "Activación de servidor"
 
 #, fuzzy
 #~ msgid "Configure bundle"
@@ -1097,10 +1113,6 @@ msgstr ""
 #~ msgid "OpenVPN service status changed"
 #~ msgstr "Estado del servicio OpenVPN cambiado"
 
-#~ msgid "The client certificate can't be the same than the server"
-#~ msgstr ""
-#~ "El certificado del cliente no puede ser el mismo que el del servidor"
-
 #~ msgid "Net address {net} with netmask {mask} is not a valid net"
 #~ msgstr ""
 #~ "La dirección de red {net} combinada con la mascara {mask} no es una red "
@@ -1218,13 +1230,6 @@ msgstr ""
 
 #~ msgid "The server {name} has not certificate assigned"
 #~ msgstr "El servidor {name} no tiene ningún certificado asignado"
-
-#~ msgid ""
-#~ "Can not get key of server {name} because it has not any certificate "
-#~ "assigned"
-#~ msgstr ""
-#~ "No se puede obtener la clave del servidor {name} debido a que no tiene "
-#~ "ningún certificado asignado"
 
 #~ msgid "Can't get address for this server"
 #~ msgstr "No se puede obtener la dirección para este servidor"
