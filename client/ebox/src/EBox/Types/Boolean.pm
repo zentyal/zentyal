@@ -31,7 +31,7 @@ sub new
             $opts{'HTMLSetter'} ='/ajax/setter/booleanSetter.mas';
         }
         unless (exists $opts{'HTMLViewer'}) {
-            $opts{'HTMLViewer'} ='/ajax/viewer/booleanViewer.mas';
+            $opts{'HTMLViewer'} ='/ajax/viewer/booleanInPlaceViewer.mas';
         }
         $opts{'type'} = 'boolean';
 

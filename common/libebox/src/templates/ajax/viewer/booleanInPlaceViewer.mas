@@ -1,0 +1,32 @@
+<%args>
+$data
+</%args>
+<%init>
+my $checked = '';
+if (defined ( $data->printableValue()) and ($data->printableValue() == 1)) {
+	$checked = 'checked';
+}
+my $tableName = $data->model()->table()->{'tableName'};
+my $id = $tableName . '_' . $data->fieldName() . '_' . $data->row()->id();
+my $controller = $data->model()->table()->{'actions'}->{editField},
+my $rowId = $data->row()->id();
+my $dir = $data->model()->{gconfdir};
+my $disabled = '';
+if ($data->row()->readOnly()) {
+	$disabled = 'disabled';
+}
+</%init>
+<input 
+	type='checkbox' <% $checked %> 
+	id='<% $id %>' 
+	onChange='sendInPlaceBooleanValue(
+		"<% $controller %>", 
+		"<% $tableName %>", 
+		"<% $rowId %>", 
+		"<% $dir %>", 
+		"<% $data->fieldName() %>",
+		this
+	)'
+	<% $disabled %>
+/>
+<div id='<% $id %>_loading'></div>

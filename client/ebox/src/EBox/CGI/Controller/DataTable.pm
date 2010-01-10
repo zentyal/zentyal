@@ -140,6 +140,26 @@ sub editField
 }
 
 
+sub editBoolean
+{
+    my $self = shift;
+
+    my $model = $self->{'tableModel'};
+    my $id = $self->param('id');
+    my $field = $self->param('field');
+    my $value = 0;
+    if ($self->param('value')) {
+        $value = 1;
+    }
+
+    my $currentRow = $model->row($id);
+    my $element = $currentRow->elementByName($field);
+    $element->setValue($value);
+    $model->setTypedRow( $id, { $field => $element},
+                        force => 1,
+                        readOnly => 0);
+    $model->popMessage();
+}
 
 
 # Method to refresh the table by calling rows method
@@ -231,6 +251,9 @@ sub _process
         # from ClientRawBase instead of ClientBase
         $self->{template} = $model->Viewer();
         $self->refreshTable();
+    } elsif ($action eq 'editBoolean') {
+        delete $self->{template};
+        $self->editBoolean();
     }
 }
 

@@ -708,6 +708,64 @@ function markFileToRemove(id)
 }
 
 /*
+Function: sendInPlaceBooleanValue
+
+    This function is used to send the value change of a boolean type with in-place 
+    edtion
+
+Parameters:
+
+    controller - url
+    model - model
+    id - row id
+    dir - gconf dir
+    field - field name
+    element - HTML element
+*/
+function sendInPlaceBooleanValue(controller, model, id, dir, field, element)
+{
+	startAjaxRequest();
+	cleanError(model);
+
+	var parameters = new Hash();
+	parameters.set('action', 'editBoolean');
+	parameters.set('model', model);
+	parameters.set('dir', dir);
+	parameters.set('field', field);
+	if ($F(element) == 'on') {
+		parameters.set('value', 1);
+	}
+	parameters.set('id', id);
+
+	hide(element.id);
+	setLoading(element.id + '_loading');
+	
+	var MyAjax = new Ajax.Updater(
+                {
+                        failure: 'error_' + model 
+                },
+		controller,
+		{
+			method: 'post',
+			parameters: parameters,
+			asyncrhonous: false,
+			onFailure: function(t) {
+			  completedAjaxRequest();
+			  show(element.id);
+			  $(element.id + '_loading').innerHTML = '';
+			  element.checked = ! element.checked;
+			},
+			onSuccess: function(t) {
+			  completedAjaxRequest();
+			  show(element.id);
+			  $(element.id + '_loading').innerHTML = '';
+
+			}
+		});
+
+
+}
+/*
 Function: startAjaxRequest
 
 	This function is used to mark we start an ajax request.
