@@ -1,6 +1,8 @@
 HEAD
 	+ Bug fix: configuration of PPPoE interfaces now works when
 	  confirmation is required because of other modules
+	+ Default field in gateways model uses '/ajax/viewer/booleanViewer.mas'
+	  instead of in-place edition
 1.3.11
 	+ Bug fix: fix issue with virtual interfaces on vlan interfaces
 	+ Add breadcrumbs
