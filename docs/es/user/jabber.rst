@@ -82,7 +82,7 @@ izquierdo, definiendo los siguientes parámetros:
 
 Para crear cuentas de usuario de Jabber/XMPP iremos a
 :menuselection:`Usuarios --> Añadir usuario` si queremos crear una nueva
-cuenta o a :menuselection:`Usuarios --> Editar usuario` si sólamente
+cuenta o a :menuselection:`Usuarios --> Editar usuario` si solamente
 queremos habilitar la cuenta de Jabber para un usuario ya existente.
 
 .. figure:: images/jabber/jabber-account.png
@@ -113,7 +113,7 @@ como IRC, ICQ, AIM, MSN y Yahoo!.
 
 .. [#] **Pidgin**, *the universal chat client* <http://www.pidgin.im/>.
 
-Pidgin era el cliente por omisión del escritorio Ubuntu hasta la version *Karmic*,
+Pidgin era el cliente por omisión del escritorio Ubuntu hasta la versión *Karmic*,
 pero todavía sigue siendo el cliente de mensajería más popular. Lo podemos encontrar
 en :menuselection:`Internet --> Cliente de mensajería Internet Pidgin`. Al arrancar
 Pidgin, si no tenemos ninguna cuenta configurada, nos aparecerá la ventana de
@@ -143,7 +143,7 @@ contactos.
 
 En la pestaña :guilabel:`Avanzada` está la configuración de SSL/TLS.
 Por defecto :guilabel:`Requerir SSL/TLS` está marcado, así que si hemos
-desabilitado :guilabel:`Soporte SSL` debemos desmarcar esto y marcar
+deshabilitado :guilabel:`Soporte SSL` debemos desmarcar esto y marcar
 :guilabel:`Permitir autentificación en texto plano sobre hilos no cifrados`.
 
 .. image:: images/jabber/pidgin3.png
@@ -232,7 +232,7 @@ posibilidad de expulsar y prohibir la entrada a usuarios, requerir contraseña y
 muchas más están disponibles en las salas de Jabber. Para una especificación
 completa, comprueba el borrador XEP-0045 [#]_.
 
-.. [#] La especificación de las salas de chat Jabber/XMPP está disponible en <http://xmpp.org/extensions/xep-0045.html>.
+.. [#] La especificación de las salas de conversación Jabber/XMPP está disponible en <http://xmpp.org/extensions/xep-0045.html>.
 
 Una vez que hayamos habilitado :guilabel:`Habilitar MUC (Multi User Chat)`: en
 la sección :menuselection:`Jabber` del menú de eBox, el resto de la configuración
@@ -243,11 +243,13 @@ que la crea se convierte en el administrador para esa sala. Este administrador
 puede definir todos los parámetros de configuración, añadir otros usuarios
 como moderadores o administradores y destruir la sala.
 
-Uno de los parámetros que deberíamos destacar es :guilabel:`Make Room Persistent`.
-Por omisión, todas las salas se destruyen al poco después de que su último participante
-salga. Estas son llamadas salas dinámicas y es el método preferido para conversaciones
-de varios usuarios. Por otra parte, las salas persistentes deben ser destruidas por uno
-de sus administradores y se utilizan habitualmente para grupos de trabajo o asuntos.
+Uno de los parámetros que deberíamos destacar es :guilabel:`Hacer Sala
+Persistente`.  Por omisión, todas las salas se destruyen al poco
+después de que su último participante salga. Estas son llamadas salas
+dinámicas y es el método preferido para conversaciones de varios
+usuarios. Por otra parte, las salas persistentes deben ser destruidas
+por uno de sus administradores y se utilizan habitualmente para grupos
+de trabajo o asuntos.
 
 En Pidgin para entrar en una sala hay que ir a :guilabel:`Contactos --> Entrar en una Sala...`.
 Aparecerá una ventana de :guilabel:`Entrar en una Sala` preguntando alguna información
