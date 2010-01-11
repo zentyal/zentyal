@@ -65,7 +65,10 @@ sub _updateData
         my $hasFetchmailClass = grep {
             my $class = lc $_;
             $class eq 'fetchmailuser'
-        } $result->entries();
+        } $entry->get_value('objectClass');
+
+        $hasFetchmailClass and
+            next;
 
         $entry->add(objectClass => 'fetchmailUser');
         $entry->update($ldap->ldapCon());
