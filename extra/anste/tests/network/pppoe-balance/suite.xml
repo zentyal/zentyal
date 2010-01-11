@@ -93,7 +93,8 @@
 
         <host>ebox-server</host>
         <dir>add-failover-tests</dir>
-        <var name="GATEWAY" value="router-a"/>
+        <var name="GATEWAY" value="dynamic-gw-eth2"/>
+        <var name="IP" value="195.235.113.3"/>
         <var name="HOST" value="ebox-platform.com"/>
     </test>
 
@@ -105,7 +106,8 @@
 
         <host>ebox-server</host>
         <dir>add-failover-tests</dir>
-        <var name="GATEWAY" value="router-b"/>
+        <var name="GATEWAY" value="dynamic-gw-eth3"/>
+        <var name="IP" value="195.235.113.3"/>
         <var name="HOST" value="ebox-platform.com"/>
     </test>
 
@@ -137,7 +139,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway router-a disconnected"/>
+        <var name="EVENT" value="Gateway dynamic-gw-eth2 disconnected"/>
     </test>
 
     <test>
@@ -148,7 +150,6 @@
 
         <host>client</host>
         <dir>test-trace</dir>
-        <var name="GATEWAY" value="192.168.4.2"/>
     </test>
 
     <test>
@@ -171,7 +172,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway router-a connected"/>
+        <var name="EVENT" value="Gateway dynamic-gw-eth2 connected"/>
     </test>
 
     <test>
@@ -205,7 +206,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway router-b disconnected"/>
+        <var name="EVENT" value="Gateway dynamic-gw-eth3 disconnected"/>
     </test>
 
     <test>
@@ -216,7 +217,6 @@
 
         <host>client</host>
         <dir>test-trace</dir>
-        <var name="GATEWAY" value="192.168.3.2"/>
     </test>
 
     <test>
@@ -239,7 +239,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway router-b connected"/>
+        <var name="EVENT" value="Gateway dynamic-gw-eth3 connected"/>
     </test>
 
     <test>

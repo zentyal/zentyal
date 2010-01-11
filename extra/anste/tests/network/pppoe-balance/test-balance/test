@@ -7,10 +7,15 @@ do
     traceroute -n -m 6 "192.168.45.$i" | grep '192.168.' >> $LOG
 done
 
-GW1=$(grep '192.168.3.2' $LOG | wc -l)
-GW2=$(grep '192.168.4.2' $LOG | wc -l)
+ROUTER1=$(grep ^" 2" $LOG | cut -d' ' -f4 | head -1)
+ROUTER2=$(grep ^" 2" $LOG | cut -d' ' -f4 | grep -v $ROUTER1 | head -1)
 
-test $GW1 -ge 7 && test $GW2 -ge 7
+NUM1=$(grep $ROUTER1 $LOG | wc -l)
+NUM2=$(grep $ROUTER2 $LOG | wc -l)
+
+echo "Number of ocurrences of $ROUTER1: $NUM1"
+echo "Number of ocurrences of $ROUTER2: $NUM2"
+test $NUM1 -ge 7 && test $NUM2 -ge 7
 
 RET=$?
 
