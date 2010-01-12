@@ -160,6 +160,10 @@ sub editBoolean
                         readOnly => 0);
     $model->popMessage();
     my $global = EBox::Global->getInstance();
+    # XXX Factor this class to be able to print 'application/json'
+    #     and 'text/html' headers. This way we could just return
+    #     a json object { changes_menu: true } and get it evaled
+    #     using prototype. That's the right way :)
     if ($global->unsaved()) {
         print '$("changes_menu").className = "changed"';
     }
