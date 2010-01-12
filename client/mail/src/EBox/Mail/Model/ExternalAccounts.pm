@@ -34,7 +34,7 @@ use EBox::Types::Select;
 use EBox::Types::Port;
 use EBox::Global;
 use Apache2::RequestUtil;
-
+use EBox;
 
 
 sub new
@@ -119,7 +119,7 @@ sub _table
         printableRowName    => __('external mail account'),
 #                         'defaultController' =>
 #             '/ebox/Mail/Controller/ExternalAccounts',
-        defaultActions     => ['add', 'del', 'changeView' ],
+        defaultActions     => ['add', 'editField', 'del', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
         help               => 'Add and remove external account for mail retrieval',
@@ -193,7 +193,7 @@ sub ids
         return [];
     } 
 
-    my @ids = (0 .. ($nAccounts-1));
+    my @ids = (1 .. ($nAccounts));
     return \@ids;
         
 }
@@ -209,12 +209,13 @@ sub ids
 sub row
 {
     my ($self, $id) = @_;
+  
     my $userAccounts = $self->_userExternalAccounts();
-    if (not exists $userAccounts->[$id]) {
+    if (not exists $userAccounts->[$id - 1]) {
         return undef;
     }
 
-    my $account =  $userAccounts->[$id];
+    my $account =  $userAccounts->[$id - 1];
 
     # direct correspondende values
     my %values      =  (
@@ -317,6 +318,7 @@ sub setTypedRow
 
     my $oldRow = $self->row($id);
     my $allHashElements = $oldRow->hashElements();
+    my $oldAccount = $oldRow->printableValueByName('externalAccount');
 
     # check externalAccount is unique
     if (exists $paramsRef->{externalAccount}) {
@@ -333,7 +335,7 @@ sub setTypedRow
     my $newAccount = $self->_elementsToParamsForFetchmailLdapCall($paramsRef);
     $self->{mailMod}->{fetchmail}->modifyExternalAccount(
                                                  $self->_user,
-                                                 $paramsRef->{externalAccount},
+                                                 $oldAccount, 
                                                  $newAccount
                                                         );
 
@@ -398,6 +400,16 @@ sub preconditionFailMsg
     return
 __('Cannot retrieve mail from external ccounts because do you dont have a email account in a local mail domain')
         ;
+}
+
+# Method: _checkRowExist
+#
+#   Override <EBox::Model::DataTable::_checkRowExist> as DataTable try to check
+#   if a row exists checking the existance of the gconf directory
+sub _checkRowExist
+{
+    my ($self, $id) = @_;
+    return 1;
 }
 
 1;
