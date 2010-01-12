@@ -332,7 +332,8 @@ sub setTypedRow
 
 
 
-    my $newAccount = $self->_elementsToParamsForFetchmailLdapCall($paramsRef);
+    my $newAccount =
+          $self->_elementsToParamsForFetchmailLdapCall($allHashElements);
     $self->{mailMod}->{fetchmail}->modifyExternalAccount(
                                                  $self->_user,
                                                  $oldAccount, 

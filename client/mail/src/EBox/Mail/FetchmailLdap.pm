@@ -237,36 +237,8 @@ sub removeExternalAccount
 sub modifyExternalAccount
 {
     my ($self, $user, $account, $newAccountHash) = @_;
-
-    my %attrs = (
-        base => EBox::Global->modInstance('users')->usersDn,
-        filter => "&(objectclass=fetchmailUser)(uid=$user)",
-        scope => 'one'
-    );
-
-    my $result = $self->{'ldap'}->search(\%attrs);
-    my ($entry) = $result->entries();
-    if (not $result->count() > 0) {
-        throw EBox::Exceptions::Internal( "Cannot find user $user" );
-    }
-
-
-
-    my @fetchmailAccounts = $entry->get_value('fetchmailAccount');
-    foreach my $fetchmailAccount (@fetchmailAccounts) {
-        if ($fetchmailAccount =~ m/^$account:/) {
-            my $newAccountString = 
-                 $self->_externalAccountString($newAccountHash);
-            $entry->delete(fetchmailAccount => [$fetchmailAccount]);
-            $entry->add(fetchmailAccount => $newAccountString);
-            $entry->update($self->{'ldap'}->ldapCon());
-            return;
-        }
-    }
-
-    throw EBox::Exceptions::Internal(
-          "Cannot find external account $account for user $user"
-                                    );
+    $self->removeExternalAccount($user, $account);
+    $self->addExternalAccount(user => $user, @{ $newAccountHash});
 }
 
 
