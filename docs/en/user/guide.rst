@@ -52,6 +52,7 @@ eBox Office
    printers
    groupware
 
+
 .. _ebox-comm-ref:
 
 eBox Unified Communications
@@ -62,6 +63,7 @@ eBox Unified Communications
 
    communication
    mail
+   webmail
    jabber
    voip
 
