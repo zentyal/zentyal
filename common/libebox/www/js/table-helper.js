@@ -756,6 +756,7 @@ function sendInPlaceBooleanValue(controller, model, id, dir, field, element)
 			  element.checked = ! element.checked;
 			},
 			onSuccess: function(t) {
+			  eval(t.responseText);
 			  completedAjaxRequest();
 			  show(element.id);
 			  $(element.id + '_loading').innerHTML = '';

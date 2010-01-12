@@ -159,6 +159,10 @@ sub editBoolean
                         force => 1,
                         readOnly => 0);
     $model->popMessage();
+    my $global = EBox::Global->getInstance();
+    if ($global->unsaved()) {
+        print '$("changes_menu").className = "changed"';
+    }
 }
 
 
