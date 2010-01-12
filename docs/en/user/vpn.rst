@@ -98,7 +98,7 @@ used to verify identities and is called **Certification Authority** (CA).
 CA configuration with eBox Platform
 ===================================
 
-eBox Platform has integrated management of the Certification Authority and 
+eBox Platform has integrated management of the Certification Authority and
 the life cycle of the certificates. It uses the **OpenSSL** [#]_ tools for this.
 
 
@@ -226,16 +226,23 @@ The goal is to connect the client number 3 with the other two remote clients
 (1 and 2) and also connect these two among themselves.
 
 To do this, we need to create a **Certification Authority** and certificates for
-all the elements present in the system, the OpenVPN server and the two remote
-clients. Here, the eBox machine also acts as a CA.
+the two remote clients. Note that you also need a certificate for the openVPN
+server itself, however, this certificate is automatically created when you add a
+new OpenVPN server. Here, the eBox machine also acts as a CA.
 
 Once we have the certificates, we should configure the OpenVPN server
-in eBox using :guilabel:`Create a new server`. You should enter
-a *name*, a *port/protocol* pair, a *certificate* (the one you
-have just created in the previous example) and a *network address* for
-the VPN. Addresses belonging to the VPN network are assigned to the
-server and the clients. To avoid conflicts, you have to make sure that the
-network address is not used in any other part of your network.
+in eBox using :guilabel:`Create a new server`. To only parameter that you need
+to create a working OpenVPN server is its name. An OpenVPN server needs more
+parameters to work properly. eBox makes this easy and will try to
+automatically set valid parameters for you.
+
+The following configuration parameters will be added by eBox, feel free to
+adapt them to your needs: a *port/protocol* pair, a *certificate* ( eBox
+will create a certificate using the OpenVPN server's name) and a *network
+address* for the VPN. Addresses belonging to the VPN network are assigned
+to the server and the clients. In case you need to change the *network
+address* and to avoid conflicts, you have to make sure that the network
+address is not used in any other part of your network.
 
 The OpenVPN server will be listening on all the external interfaces. Therefore,
 we have to mark at least one of our interfaces as external via
@@ -258,10 +265,11 @@ After creating the OpenVPN server you have to enable the service and
 save the changes. Subsequently, you should check in
 :menuselection:`Dashboard` that the VPN service is running.
 
-After that, you have to advertise networks. These networks will be accessible by
-OpenVPN authorized clients. To achieve this, you need networks that are
-accessible from the eBox machine. In our example scenario, you have to add the
-local network to make visible the client number 3 to the two other clients.
+After that, you may want to advertise networks. These networks will be
+accessible by OpenVPN authorized clients. Note that eBox will advertise all
+your local networks by default. Obviously, you can remove or add routes at
+your leisure. In our example scenario, a local has been added automatically
+to make visible the client number 3 to the two other clients.
 
 Once done, it's time to configure the clients.
 The easiest way to configure an OpenVPN client is using
@@ -340,36 +348,6 @@ To do this:
 
     Effect:
       The new server appears in the list of servers.
-
-#. **Action:**
-    In the server list, click on the :guilabel:`Configuration` section
-    corresponding to your server. Change the following parameters:
-
-      * :guilabel:`Server port`: select a port that is not in use, e.g. 7777.
-      * :guilabel:`VPN Address`: enter a private network address that is not in
-        use. For example, 192.168.68.0.
-      * :guilabel:`Server Certificate`: select the certificate called *server*.
-        If it does not exist, you can create it as indicated in the previous
-        example.
-      * :guilabel:`Interface to listen on`: Select the external interface
-        connected to the network where the computer that you are going to use
-        as client is located.
-
-    Once you have made the changes click on :guilabel:`Change`.
-
-    Effect: Changes will be saved in the server configuration.
-
-#. **Action:**
-    Go back to the server list and enter the :guilabel:`Advertised networks`
-    section for your server. In the list of networks, click :guilabel:`Add new`.
-    Add the private network address to the list of advertised networks.
-    Then come back to the server list and click on :guilabel:`edit` in
-    the :guilabel:`Action` column, as the server is already configured, tick
-    :guilabel:`Enabled`.
-
-    Effect:
-      You already have the server fully configured.
-      It will be active when saving changes.
 
 #. **Action:**
     Click on :guilabel:`Save Changes` and accept all the changes.
@@ -530,22 +508,12 @@ networks can connect with each other.
     Once you are in the :menuselection:`VPN -> Servers` section, create
     a new server with the following settings:
 
-       * :guilabel:`Port`: choose a port that is not in use, such as 7766.
-       * :guilabel:`VPN address`: enter a private network address
-         not used in any part of your infrastructure, e.g. 192.168.77.0/24.
        * Enable :guilabel:`Allow eBox-to-eBox tunnels`. This is the option
          indicating that it will be a tunnel server.
        * Enter a :guilabel:`Password for eBox-to-eBox tunnel`.
        * Finally, in the :guilabel:`Interfaces where the server will listen`
          section, choose the external interface that the eBox client will
          connect to.
-
-    To complete the configuration of the server the networks have to be
-    advertised following the same steps as in the previous examples. Advertise
-    the private network you want to give access from the client.
-    Remember that this step is not necessary on the client, it
-    will supply all its routes to the server automatically.
-    The only step left is enabling the server and save changes.
 
     Effect:
       Once all the above steps are done you have the server running. You can
