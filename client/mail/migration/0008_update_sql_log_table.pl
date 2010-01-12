@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 #
-# This is a migration script to add the LDAP data for fetchmail feature
+# This is a migration script to remove the NOT NULL condition for te column
+# status in log table. NOT NULL conditon must be removed to avoid ilog insert fails 
 #
 #
 package EBox::Migration;
@@ -22,7 +23,7 @@ sub runGConf
     my ($self) = @_;
 
     my $cmdFile    = '/tmp/0007updateSqlTableXAZ';
-    my $sqlCommand = 'ALTER TABLE message ALTER COLUMN status DROP NOT NULL';
+    my $sqlCommand = 'ALTER TABLE mail_message ALTER COLUMN status DROP NOT NULL';
     File::Slurp::write_file($cmdFile, $sqlCommand);
     my $shellCommand = qq{su postgres -c'psql -f $cmdFile eboxlogs'};
     EBox::Sudo::root($shellCommand);

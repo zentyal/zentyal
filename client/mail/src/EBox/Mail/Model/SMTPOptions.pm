@@ -144,11 +144,11 @@ sub _table
  __('When a mailbox reaches this size futher messages will be rejected. This can be overidden by account'),
                               subtypes => [
                               new EBox::Types::Union::Text(
-                                  'fieldName' => 'unlimited',
+                                  'fieldName' => 'mailboxUnlimited',
                                   'printableName' => __('Unlimited size'),
                                   ),
                               new EBox::Types::Int(
-                                  'fieldName' => 'size',
+                                  'fieldName' => 'mailboxSize',
                                   'printableName' => __('size in Mb'),
                                   'editable'  => 1,
                                   'min'       => 1,
@@ -257,7 +257,7 @@ sub mailboxQuota
     my ($self) = @_;
 
     my $mailboxQuota = $self->row()->elementByName('mailboxQuota');
-    if ($mailboxQuota->selectedType eq 'unlimited') {
+    if ($mailboxQuota->selectedType eq 'mailboxUnlimited') {
         # 0 means unlimited for dovecot's quota plugin..
         return 0;
     }

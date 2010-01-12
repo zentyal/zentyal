@@ -8,7 +8,7 @@ nobase_Migrations_SCRIPTS = 0001_add_firewall_services.pl 0002_to_new_framework.
         0005_add_managesieve_firewall_services.pl \
         0006_update_db.pl \
         0007_add_fetchmail_ldap.pl \
-        0008_update_sql_log_table.pl 
+        0008_update_sql_log_table.pl  0009_add_defaults.pl
 
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
