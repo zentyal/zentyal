@@ -124,7 +124,9 @@ user who sends the email and the server which is the real message
 sender. The following settings can be configured:
 
 :guilabel:`Smarthost to send mail`:
-  Domain name or IP address.
+  Domain name or IP address. You could also specify a port including
+  ':[port_number ]'
+  after the address. The default port is the standard SMTP port, 25.
 :guilabel:`Smarthost authentication`:
   Whether the smarthost requires authentication using
   user and password or not.
