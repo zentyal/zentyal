@@ -23,6 +23,7 @@ sub runGConf
     EBox::Migration::Helpers::renameTable('message', 'mail_message');
     EBox::Migration::Helpers::renameConsolidationTable('mail_traffic', 'mail_message_traffic');
     EBox::Migration::Helpers::createTimestampIndex('mail_message');
+    EBox::Migration::Helpers::addColumn('mail_message', 'message_type', 'VARCHAR(10) NOT NULL');
 }
 
 EBox::init();

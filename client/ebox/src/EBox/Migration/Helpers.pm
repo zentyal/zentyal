@@ -16,6 +16,7 @@ sub runQuery
     my $psql = String::ShellQuote::shell_quote("psql eboxlogs -c \"$query\"");
     my $cmd = qq{sudo su postgres -c $psql > /dev/null 2>&1};
     system $cmd;
+    return $?;
 }
 
 sub renameTable
@@ -78,5 +79,24 @@ sub dropIndex
     my $query = "DROP INDEX $index"; 
     runQuery($query);
 }
+
+
+sub addColumn
+{
+    my ($table, $column, $columnData) = @_;
+    my $exists_query = "SELECT $column FROM $table LIMIT 1";
+    my $exists = runQuery($exists_query) == 0;
+    if ($exists) {
+        return;
+    }
+
+
+    my $addColumnQuery = "ALTER TABLE $table " .
+                         "ADD COLUMN $column " .
+                         "$columnData";
+    runQuery($addColumnQuery);
+        
+}
+
 
 1;
