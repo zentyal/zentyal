@@ -716,9 +716,7 @@ sub _syncVDomainAliasTable
     my %aliasToDelete = map { $_ => 1 } @{ $self->vdomainAliases($vdomain) };
 
 
-    foreach my $id (@{ $aliasTable->ids() }) {
-        my $row = $aliasTable->row($id);
-        my $alias     = $row->valueByName('alias');
+    foreach my $alias (@{ $aliasTable->aliases() }) {
         my $fullAlias = '@' . $alias;
 
 
