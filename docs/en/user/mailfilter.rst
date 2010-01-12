@@ -8,7 +8,7 @@ Mail Filter
                    Víctor Jímenez <vjimenez@warp.es>
                    Javi Vázquez <javivazquez@ebox-technologies.com>
 
-The main issues when talking about email are spam and viruses.
+The main threats when talking about email are spam and viruses.
 
 Spam, or not desired email, makes the user waste time looking for the right
 emails in the inbox. Moreover, spam generates a lot of network traffic that
@@ -129,25 +129,41 @@ modules: *SMTP proxy*, *POP proxy*, *HTTP proxy* and even *file sharing*.
 Antispam
 --------
 
-eBox employs a **Bayesian filter** to detect spam. It is
-necessary to train the filter, indicating what is junk mail and what
-is not. The latter kind of mail is often called *ham*. The filter will
-detect statistical patterns to classify the mail as spam or ham.
+The spam filter works giving to each mail a spam score, if the mail reaches the
+spam threshold is considered as junk mail if not is considered as legit
+mail. The latter kind of mail is often called *ham*. 
 
-eBox uses **Spamassassin** [#]_ as spam detector, based on rules
-of content similarity. It can use a Bayesian filter or network rules such as:
+The spam scanner uses the following techniques to assign scores:
 
  - DNS published blacklists (*DNSBL*).
  - URI blacklists that track spam websites.
  - Filters based on the checksum of messages.
  - Sender Policy Framework (SPF): RFC: `4408`.
- - Others. [#]_
+ - DomainKeys Identified Mail (DKIM)
+ - Bayesian filter
+ - Sets of static rules 
+
+Among this techniques the *Bayesian filter* should be further explained. This
+kind of filter does a statistical analysis content of the text of the message,
+giving a score which reflects the probability of being spam for the
+message.However the  analysis is not done against
+a set of static rules but depends on supplying ham and spam messages to the
+filter so it could learn from them what a spam or a ham looks alike.
+The upside of this technique is that the filter could adapt to the ever-changing
+flow of spam messages, the downside is that the filter needs to be trained and
+its accuracy will reflect the nature of the training received.
+
+
+eBox uses **Spamassassin** [#]_ as spam detector [#]_
 
 .. [#] *The Powerful #1 Open-Source Spam Filter*
        http://spamassassin.apache.org .
 
 .. [#] A long list of *antispam* techniques can be found in
        http://en.wikipedia.org/wiki/Anti-spam_techniques_(e-mail)
+
+
+
 
 The general configuration of the filter is done from
 :menuselection:`Mail filter --> Antispam`:
@@ -160,9 +176,8 @@ Spam threshold:
 Spam subject tag:
   Tag to be added to the mail subject when it is classified as spam.
 Use the Bayesian classifier:
-  If it is marked, the Bayesian filter will be used. Otherwise, only lists of
-  allowed (*whitelist*) and blocked (*blacklist*) addresses will be taken into
-  account.
+  If it is marked, the Bayesian filter will be used. Otherwise, it will be
+  ignored.
 Automatic whitelist:
    It takes into account the history of the sender when rating the message.
    That is, if the sender has sent some ham emails, it is highly probable
@@ -269,6 +284,10 @@ Use virus filtering / spam:
    for viruses or spam.
 Spam threshold:
    You can use the default threshold score for spam or a custom value.
+Learn from accounts' Spam IMAP folders:
+   If enabled, when a email is put in the `Spam` IMAP folder the email is
+   automatically learned as spam. Likewise if a email is moved from the `Spam`
+   folder to a normal folder is learned as ham.
 Learning account for ham / spam:
    If enabled, `ham@domain` and `spam@domain` accounts will be created.
    Users can send emails to these accounts to train the filter. All mail sent to
