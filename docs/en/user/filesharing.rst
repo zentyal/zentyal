@@ -136,6 +136,9 @@ users in this directory.
 
 .. image:: images/filesharing/09-share-acl.png
 
+Going to :menuselection:`Users and Groups -->  Groups --> Edit Group` a shared directory for
+a group can also be created. Every member of this group will have
+access to this directory, being able to read and write all the files.
 
 
 SMB/CIFS clients configuration
@@ -224,8 +227,8 @@ Linux client
        MSHOME               SHINNER
        WARP                 WARP-JIMBO
 
-eBox as authentication server
-=============================
+eBox as a authentication server
+===============================
 
 You have to go to :menuselection:`File Sharing --> General Configuration`
 and check the :guilabel:`Enable PDC` option in order to have eBox
@@ -253,7 +256,7 @@ Finally, you can define user policy passwords through :menuselection:`File Shari
 * :guilabel:`Minimum Password Length`
 * :guilabel:`Maximum Password Age`. The password has to be changed
   after this period.
-* :guilabel:`Enforce Password History`. Stores a number of 
+* :guilabel:`Enforce Password History`. Stores a number of
   passwords once modified.
 
 This policy only applies when a password is changed from
@@ -268,7 +271,7 @@ PDC Client Configuration
 
 An account with administration rights will be needed in order to
 configure a PDC client, this can be done going to
-:menuselection:`Users --> Edit User --> File Sharing or PDC
+:menuselection:`Users and Groups -->  Users --> Edit User --> File Sharing or PDC
 Account`. You can also establish a :guilabel:`Disk Quota`.
 
 .. image:: images/filesharing/11-share-user.png

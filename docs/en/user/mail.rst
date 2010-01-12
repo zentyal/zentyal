@@ -168,12 +168,16 @@ to send an email to one virtual domain or any of their aliases.
 .. image:: images/mail/mail-vdomains.png
    :align: center
 
-In order to set up email accounts, you have to follow the same rules than 
+In order to set up email accounts, you have to follow the same rules than
 when configuring file sharing. From
-:menuselection:`Users --> Edit User --> Create mail account`.
+:menuselection:`Users and Groups --> Users --> Edit Users --> Create mail account`.
 There, you select the main virtual domain for the user. If you want to
 assign to the user more than a single email address, you can use aliases.
 Behind the scenes, the email messages are kept just once in a mailbox.
+
+Note that you can decide whether an email account should be created by
+default when a new user is added or not. You can change this behaviour in
+`Users and Groups --> Default User Template --> Mail Account`.
 
 .. TODO: Explain how to authenticate using alias since they are not
          real accounts
@@ -248,16 +252,19 @@ with the new account to an external mail account.
      Now you may use the newly created virtual mail domain.
 
 #. **Action:**
-   Enter :menuselection:`Users --> Add User`,
-   fill up the user data and click the :guilabel:`Create` button.
+   Enter :menuselection:`Users and Groups --> Users --> Add User`,
+   fill up the user data and click the :guilabel:`Create and Edit` button.
 
    Effect:
      The user is added immediately without saving changes. The edition
      screen is displayed for the newly created user.
 
 #. **Action:**
-   Introduce a name for the user mail account in
-   :guilabel:`Create mail account` and create it.
+
+     (This action is only required if you have disable the automatic creation
+     of email accounts in `Users and Groups --> Default User Template
+      --> Mail Account`). Introduce a name for the user mail account in
+     :guilabel:`Create mail account` and create it.
 
    Effect:
      The account has been added immediately and options to delete it

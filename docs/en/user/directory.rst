@@ -42,13 +42,13 @@ privileges in relation to the resources of the organization.
 Management of users and groups in eBox
 --------------------------------------
 
-A group can be created from the :menuselection:`Groups -->
-Add group` menu. A group is identified by its name and can contain
+A group can be created from the :menuselection:`Users and Groups -->
+Groups` menu. A group is identified by its name and can contain
 a description.
 
 .. image:: images/directory/01-groupadd.png
 
-Through :menuselection:`Groups --> Edit group`, the existing groups
+Through :menuselection:`Users and Groups --> Groups`, the existing groups
 are displayed for edition or deletion.
 
 While a group is being edited, the users belonging to the group can be
@@ -86,7 +86,7 @@ Password:
 Group:
   The user can be added to a group during its creation.
 
-From :menuselection:`Users --> Edit user`, a list of users can be
+From :menuselection:`Users and Groups --> Users`, a list of users can be
 obtained, edited or deleted.
 
 .. image:: images/directory/04-users.png
@@ -155,7 +155,7 @@ To do so:
      The module is enabled and ready for use.
 
 #. **Action:**
-   Access :menuselection:`Groups`. Add **accountancy** as a group. The
+   Access :menuselection:`Users and Groups --> Groups`. Add **accountancy** as a group. The
    **comments** parameter is optional.
 
    Effect:
@@ -170,7 +170,7 @@ Create the user **peter** and add him to the **accountancy** group.
 To do so:
 
 #. **Action:**
-   Access :menuselection:`Users --> Add user`. Complete
+   Access :menuselection:`Users and Groups --> Users`. Complete
    the different fields for the new user. The user
    **peter** can be added to the **accountancy** group from this screen.
 

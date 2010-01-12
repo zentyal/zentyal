@@ -2,7 +2,9 @@ Groupware Service
 *****************
 
 .. sectionauthor:: José A. Calvo <jacalvo@ebox-technologies.com>
-                   Ignacio Correas <icorreas@ebox-technologies.com>
+                   Ignacio Correas <icorreas@ebox-technologies.com>,
+                   Javier Uruen <juruen@ebox-platform.com>
+
 
 Groupware, also known as collaborative software, is a set of
 applications integrating the work of different users in common projects.
@@ -68,7 +70,7 @@ usual, this action does not take effect until the button
 
 In order for users to be able to use the mail service they will
 need to have their own accounts created on it. The image below
-(:menuselection:`Users --> Edit User`) shows that during the
+(:menuselection:`Users --> Users --> Edit User`) shows that during the
 configuration of eGroupware a notice is displayed indicating the
 name of the mail account that should be used from eGroupware.
 

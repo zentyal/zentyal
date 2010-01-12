@@ -4,7 +4,8 @@ Voice over IP service
 .. sectionauthor:: Enrique J. Hernández <ejhernandez@ebox-technologies.com>
                    Jorge Salamero <jsalamero@ebox-technologies.com>
                    Jorge Bernal <jbernal@ebox-technologies.com>
-		           Javi Vázquez <javivazquez@ebox-technologies.com>
+                   Javi Vázquez <javivazquez@ebox-technologies.com>
+                   Javier Uruen <juruen@ebox-technologies.com>
 
 **Voice over IP** or **VoIP** involves transmitting voice over data networks
 using different protocols to send the digital signal through packets, instead
@@ -340,8 +341,8 @@ Create a user with a VoIP account. Change the extension to 1500.
      VoIP service is ready to be used.
 
 #. **Action:**
-   Access the :menuselection:`Users --> Add User` menu. Fill in the form to
-   create a new user.  Click on :guilabel:`Create User`.
+   Access the :menuselection:`Users and Groups --> Users --> Add User` menu. Fill in the form to
+   create a new user.  Click on :guilabel:`Create and Edit`.
 
    Effect:
      eBox creates a new user and shows you its profile.
