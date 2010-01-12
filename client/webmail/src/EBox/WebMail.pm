@@ -232,6 +232,7 @@ sub menu
                  new EBox::Menu::Item(
                         'url' => 'WebMail/View/Options',
                         'text' => $self->printableName(),
+                        'separator' => 'Communications',
                    )
         
 
