@@ -48,13 +48,14 @@ Protocol* (IMAP), by logging into mx.b.org and reading it directly, or
 by using a **Webmail** service.
 
 The sending and reception of emails between mail servers is done through SMTP
-but the users pick up their email using POP3 or IMAP. Using these protocols
+but the users pick up their email using POP3, IMAP or their secure versions
+(POP3S and IMAPS). Using these protocols
 provides interoperability among different servers and email clients. There
 are also proprietary protocols such as the ones used by *Microsoft Exchange* 
 and *IBM Lotus Notes*.
 
-POP3 vs IMAP
-------------
+POP3 and IMAP
+-------------
 
 The POP3 design to retrieve email messages is useful for slow connections,
 allowing users to pick up all their email all at once to see and
@@ -77,6 +78,11 @@ the client side. The main advantages over POP3 are:
   folders) allowing to make some of them public.
 - Server-side searches
 - Built-in extension mechanism
+
+Both POP3 and IMAP have secure versions, called respectively POP3S and
+IMAPS. The difference with the normal version is that they use TSL encryption so
+the content of the mail messages cannot be sniffed.
+
 
 SMTP/POP3-IMAP4 server configuration with eBox
 ==============================================
@@ -122,13 +128,27 @@ sender. The following settings can be configured:
 :guilabel:`Smarthost authentication`:
   Whether the smarthost requires authentication using
   user and password or not.
+:guilabel:`Server mailname`: 
+  This sets the visible mail name of the system, it will be used by the mail server as the local address of the system.
+:guilabel:`Return address for mail bounced back to the sender`: 
+  This is the address that will appear as return addresses in notifications to the sender, such the ones generated when the mailbox limit is exceeded.
+:guilabel:`Maximum mailbox size allowed`: In this option you could indicate a
+  maximum size in Mb for any user mailboxes. All mail which surpasses the limit
+  will be rejected and the sender will be emailed a notification. This setting
+  could be overridden for any user in the :menuselection:`Users -> Edit User`page.
 :guilabel:`Maximum message size accepted`:
   Indicates, if necessary, the maximum message size accepted by the
-  smarthost in MB.
+  smarthost in MB. This is enforced regardless of any mailbox size limit.
+:guilabel:`Expiration period for deleted mails`: 
+  if you enable this option mail in the trash folder will be deleted when their dates passes the day period.
+:guilabel:`Expiration period for spam mails`: 
+   this work the same than the previous option but it affects to the "spam" folder.
 
 In order to configure the mail retrieval services go to
 the :guilabel:`Mail retrieval services` section. There eBox may be
 configured as POP3 and/or IMAP4 server, both allowing SSL support.
+Also the retrieve email for external accounts and ManageSIEVE services could be
+enabled, we will discuss those services in their own section.
 
 In addition to this, eBox may be configured to act as a *smarthost*. To
 do so, you can add relay policies for network objects through
@@ -174,13 +194,12 @@ when configuring file sharing. From
 There, you select the main virtual domain for the user. If you want to
 assign to the user more than a single email address, you can use aliases.
 Behind the scenes, the email messages are kept just once in a mailbox.
+However is not possible to use the alias to authenticate, you have always to use
+the real account.
 
 Note that you can decide whether an email account should be created by
 default when a new user is added or not. You can change this behaviour in
 `Users and Groups --> Default User Template --> Mail Account`.
-
-.. TODO: Explain how to authenticate using alias since they are not
-         real accounts
 
 .. image:: images/mail/03-user.png
    :align: center
@@ -190,9 +209,15 @@ Likewise, you may set up *aliases* for user groups. Messages received
 by these aliases are sent to every user of the group. Group aliases are
 created through
 :menuselection:`Groups --> Edit Group --> Create alias mail account to
-group`.
+group`. The group aliases are only available when at least one user of the
+group has a email account.
 
-.. FIXME: group mail alias account is required
+You too can define alias to external accounts. The mail sent to
+those aliases will be forwarded to the external account. This kind of aliases
+does not require any email account and could be set in :menuselection:`Mail -->
+Virtual Domains --> External accounts aliases `.
+
+
 
 Queue Management
 ----------------
@@ -202,10 +227,133 @@ email messages that haven't already been delivered. All
 the information about the messages is displayed. The allowed actions to perform
 are:
 deletion, content viewing or send retrying (*re-queuing* the
-message again).
+message again). There are also two buttons to delete or requeue all messages in queue.
 
 .. image:: images/mail/04-queue.png
    :align: center
+
+
+Mail retrieval from external accounts
+------------------------------------
+
+eBox could configured to retrieve email from external accounts and deliver it to
+the user's mailboxes. To do so in :guilabel:`Retrieval services` you had to
+enable this service. Once is enabled the users will have their mail fetched from
+their external accounts and delivered to their account's mailbox. Each user can
+configure its external accounts through the usercorner. The user must have a
+email account to be able to do this and the external servers are pooled
+periodically so email retrieval is not instantaneous.
+
+
+For retrieving external emails, eBox uses  Fetchmail [#f3]_ ,
+
+.. rubric:: Footnotes
+
+.. [#f3] **Fetchmail** The Fetchmail Home Page http://fetchmail.berlios.de/ .
+
+
+SIEVE scripts and ManageSIEVE protocol
+---------------------------------------
+The SIEVE language [#f4]_  allows to control how the mail is delivered, so is
+possible to classify it in IMAP folders, forward it or use a vacation message
+among other things.
+
+The ManageSIEVE is a network protocol that allows to any user to easily manage
+its SIEVE scripts. To be able to use ManageSIEVE, it i need that the email
+client could understand the protocol. [#f5]_
+
+To enable ManageSIEVE in eBox you have to turn on the service in :menuselection:`Mail --> General --> Mail server
+options -> Retrieval services` and it could be used by all the users with email
+account. Additionally if ManageSIEVE is enabled and the webmail module in use, a
+management interface for SIEVE scripts will be available in the webmail.
+
+The ManageSIEVE authentication is done with the email account of the user and
+its password.
+
+.. rubric:: Footnotes
+
+.. [#f4] For more info see this page http://sieve.info/ .
+.. [#f5] See a list of clients in this page http://sieve.info/clients .
+
+
+Email client configuration
+--------------------------
+Unless the are using only the webmail or the egroupware module users would have
+to configure their email clients to use eBox's mail server. The exact parameters
+which are required would depend on the exact configuration of the module.
+
+Please note that different email clients could use other names for this
+parameters, so due to the great number of clients available this section is orientative.
+
+SMTP parameters
+===============
+ * SMTP server: here you must enter the address or your eBox server. It could be
+   either an IP address or a domain name.
+ * SMTP port: 25, if you are using TLS you could instead use the port 465.
+ * Secure connection: You must select `TLS` if you have enabled :guilabel:`TLS
+   for SMTP server:`, otherwise select `none`.
+ * SMTP username: you must use this if you have enabled :guilabel:`Require
+   authentication`. Use as username the full email address of the user, don't
+   use the username neither one of its alias. 
+ * SMTP password: is the same that the user password
+
+POP3 parameters
+==============
+You can only use POP settings when POP or POPS services are enabled in eBox.
+ * POP3 server: enter your eBox address like in the SMTP server
+ * POP3 port: 100, 995 if you are using POPS
+ * Secure connection: select 'SSL' if you are using POP3S, otherwise
+   `none`. If you are using POP3S please read the warning below about SSL/TSL
+ * POP3 username: full email address
+ * POP3 password: user's password.
+
+
+IMAP parameters
+===============
+IMAP configuration could be only used if either IMAP or IMAPS services are
+enabled. As you will see the parameters are almost identical to POP3 parameters.
+
+ * IMAP server: enter your eBox address like in the SMTP server
+ * IMAP port: 443, 993 if you are using IMAPS
+ * Secure connection: select 'SSL' if you are using IMAPS, otherwise
+   `none`. If you are using IMAPS please read the warning below about SSL/TSL
+ * IMAP username: full email address
+ * IMAP password: user's password.
+
+.. warning::
+
+ In  client implementations is some confusion about the use of
+ SSL and TSL protocol. Some clients use `SSL` to mean that they will try to
+ connect with `TSL`, others use `TSL` as means to say that they will try to
+ connect to the secure service using the non-secure port. In fact in some clients
+ you will need to try both `SSL` and `TSL` modes to find which one will work.
+
+ You have more information about this issue in this page
+ http://wiki.dovecot.org/SSL , from the dovecot's wiki.
+
+
+
+ManageSIEVE client parameters
+=============================
+To connect to sieve, you will need the following parameters:
+ * SIEVE server: the same than your IMAP or POP server.
+ * Port: 4190. Be warned that some applications use, mistakenly, the port 2000
+   as default for SIEVE.
+ * Username: full mail address
+ * Password: user's password. Some clients allows you to select the same
+   authentication than your IMAP or POP3 account if this is allowed, select it.
+ * Secure connection: true
+
+Catch-all account
+-----------------
+
+A catch-all account is an account that receives a copy of all the mail sent and
+received by a mail domain. eBox allows define a catch-all account for each of the
+virtual domains; to define it you must go to :menuselection:`Mail --> Virtual
+Mail Domains` and then click in the :guilabel:`Settings` cell. 
+
+All the messages sent and received by the domain will be emailed as blind
+carbon copy to the defined address. If the mail to the catch-all address bounces it will be returned to the sender. 
 
 .. _mail-conf-exercise-ref:
 
