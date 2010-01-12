@@ -148,6 +148,12 @@ sub alwaysBccByVDomain
         if ($address) {
             my $vdomain = $row->valueByName('vdomain');
             $alwaysBcc{$vdomain} = $address;
+            # add vdomain alias too
+            my $vdomainAlias = $row->elementByName('aliases')->foreignModelInstance();
+            my @aliases = @{ $vdomainAlias->aliases() };
+            foreach my $alias (@aliases) {
+                $alwaysBcc{$alias} = $address;
+            }
         }
     }
 

@@ -157,6 +157,19 @@ sub existsAlias
     return defined $res;
 }
 
+sub aliases
+{
+    my ($self) = @_;
+    my @aliases;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $alias = $row->valueByName('alias');
+        push @aliases, $alias;
+    }
+
+    return \@aliases;
+}
+
 
 1;
 
