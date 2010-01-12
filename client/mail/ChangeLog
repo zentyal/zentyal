@@ -17,6 +17,7 @@ HEAD
 	  template. Admins can select if they wish to create an email account  automatically
 	  by default when creating new users.
 	+ Enable mail services by default
+	+ Reverted UI component name to be compatible with previous versionsx
 1.3.13
 	+ Fixed bug in UI: now we can set properly the maximum message size
 1.3.12
