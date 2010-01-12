@@ -92,5 +92,5 @@ mailman   unix  -       n       n       -       -       pipe
 % if ($filter) {
 smtp-amavis     unix    -       -       y       -       2       smtp -o smtp_data_done_timeout=1200 -o disable_dns_lookup=yes
 
-127.0.0.1:<% $fwport %> inet    n       -       y       -       -       smtpd -o content_filter= -o local_recipient_maps= -o relay_recipient_maps= -o smtpd_restriction_classes= -o smtpd_client_restrictions= -o smtpd_helo_restrictions= -o smtpd_sender_restrictions= -o smtpd_recipient_restrictions=permit_mynetworks,reject -o mynetworks=127.0.0.0/8,<% $ipfilter %>/32 -o strict_rfc821_envelopes=yes
+127.0.0.1:<% $fwport %> inet    n       -       y       -       -       smtpd -o content_filter= -o local_recipient_maps= -o relay_recipient_maps= -o smtpd_restriction_classes= -o smtpd_client_restrictions= -o smtpd_helo_restrictions= -o smtpd_sender_restrictions= -osmtpd_recipient_restrictions=permit_mynetworks,reject -o mynetworks=127.0.0.0/8,<% $ipfilter %>/32 -o strict_rfc821_envelopes=yes -o receive_override_options=no_address_mappings
 % }
