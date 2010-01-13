@@ -5,6 +5,7 @@ HEAD
 	+ Add sendInPlaceBooleanValue() to table-helper.js
 	+ eval() response from sendInPlaceBooleanValue() to set "Save Changes"
 	  button properly
+	+ Accept 255.255.255.255 in checkIPNetmask as valid (needed for PPPoE)
 1.3.12
 	+ Change look&feel of readOnly row to make it obvious they are read-only
 1.3.11

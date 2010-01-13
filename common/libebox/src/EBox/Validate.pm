@@ -289,6 +289,9 @@ sub checkIPNetmask # (ip, mask, name_ip?, name_mask?)
         my $error = 0;
 
         checkIP($ip,$name_ip);
+        if ($mask eq '255.255.255.255') {
+            return 1;
+        }
         checkNetmask($mask,$name_mask);
 
         my $ip_bpack = pack("CCCC", split(/\./, $ip));
