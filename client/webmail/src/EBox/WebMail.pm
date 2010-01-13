@@ -118,8 +118,7 @@ sub _managesieveEnabled
         my $mail = EBox::Global->modInstance('mail');
         return $mail->managesieve();
     } else {
-        return 
-          my $remoteConfRow = $self->model('RemoteServerConfiguration')->row();
+        my $remoteConfRow = $self->model('RemoteServerConfiguration')->row();
         return $remoteConfRow->elementByName('managesieve')->value();
     }
 }
