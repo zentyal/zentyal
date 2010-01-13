@@ -128,7 +128,7 @@ sub restoreFile
     my $url = $self->_remoteUrl();
     my $rFile = $file;
     $rFile =~ s:^.::;
-    my $cmd = DUPLICITY_WRAPPER .  "--force -t $time --file-to-restore $rFile $url $file";
+    my $cmd = DUPLICITY_WRAPPER .  " --force -t $time --file-to-restore $rFile $url $file";
 
     EBox::Sudo::root($cmd);
 }
@@ -153,6 +153,7 @@ sub remoteArguments
     my $excludes = '';
     my $includes = '';
     my $regexps = '';
+    my $directory;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         if ($row->valueByName('type') eq 'exclude_path') {
@@ -190,7 +191,7 @@ sub remoteDelOldArguments
     my $freq = $model->row()->valueByName('full');
     my $time = uc(substr($freq, 0, 1));
 
-    return DUPLICITY_WRAPPER . " remove-older-than ${toKeep}${time} " . $self->_remoteUrl();
+    return DUPLICITY_WRAPPER . " remove-older-than ${toKeep}${time} --force " . $self->_remoteUrl();
 }
 
 # Method: remoteListFileArguments

@@ -72,7 +72,7 @@ sub ids
 
     my @status = @{$self->{gconfmodule}->remoteListFiles()};
     return [] unless (@status);
-    return [0 .. (scalar(@status) -1)];
+    return [1 .. (scalar(@status))];
 }
 
 # Method: customFilterIds
@@ -92,7 +92,7 @@ sub customFilterIds
     my @status = @{$self->{gconfmodule}->remoteListFiles()};
     return [] unless (@status);
     my @filtered;
-    for my $id (0 .. (scalar(@status) -1)) {
+    for my $id (1 .. (scalar(@status))) {
         push (@filtered, $id) if ($status[$id] =~ /$filter/);
     }
 
@@ -111,7 +111,7 @@ sub row
 
     my @status = @{$self->{gconfmodule}->remoteListFiles()};
 
-    my $row = $self->_setValueRow(file => $status[$id]);
+    my $row = $self->_setValueRow(file => $status[$id - 1]);
     $row->setId($id);
     return $row;
 }
