@@ -1,0 +1,180 @@
+# Indonesian translations for ebox-ebackup package.
+# Copyright (C) 2010 Warp S.L.
+# This file is distributed under the same license as the ebox-ebackup package.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-ebackup 1.3.12"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2009-12-03 12:57+0000\n"
+"PO-Revision-Date: 2009-12-03 12:57+0000\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/EBackup.pm:61 src/EBox/Event/Watcher/EBackup.pm:111
+msgid "Backup"
+msgstr ""
+
+#: src/EBox/Event/Watcher/EBackup.pm:129
+msgid "Check if eBox backup was not successfull."
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:143
+msgid "There is no information about backuped files yet"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:162
+msgid "File"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:166
+msgid "Backup Date"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:177
+msgid "Restore Files"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:178
+msgid "file restore operation"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:204
+msgid "File already exists if you continue  the currentwill be deleted"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:220
+msgid "File restored successfully"
+msgstr ""
+
+#: src/EBox/Model/RemoteFileList.pm:266
+#, perl-brace-format
+msgid "Remote URL to be used with duplicity for manual restores: {url}"
+msgstr ""
+
+#: src/EBox/Model/RemoteStatus.pm:117
+msgid "There is no information about the backuped files yet"
+msgstr ""
+
+#: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:74
+msgid "Type"
+msgstr ""
+
+#: src/EBox/Model/RemoteStatus.pm:140
+msgid "Date"
+msgstr ""
+
+#: src/EBox/Model/RemoteStatus.pm:147
+msgid "Remote Backup Status"
+msgstr ""
+
+#: src/EBox/Model/RemoteStatus.pm:148
+msgid "backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:138
+msgid "Method"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:144
+msgid "Host or destination"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:150
+msgid "User"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:156
+msgid "Password"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:162
+msgid "GPG key"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:169
+msgid "Full Backup Frequency"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:175
+msgid "Number of full copies to keep"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:182
+msgid "Incremental Backup Frequency"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:188
+msgid "Backup process starts at"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:197
+msgid "General Configuration"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:200
+msgid "General remote backup server configuration"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:203
+msgid "General backup server configuration updated"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:217
+msgid "Daily"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:221
+msgid "Weekly"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:225
+msgid "Monthly"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:234 src/EBox/Model/RemoteSettings.pm:340
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:356
+#, perl-brace-format
+msgid ""
+"By creating the iBackup account through this {ohref}link{chref} you support "
+"the development of eBox with no extra charge"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:80
+msgid "Exlcude or Include"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:91
+msgid "Includes and Excludes"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:92
+msgid "exclude"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:111
+msgid "Exclude path"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:115
+msgid "Exclude file regexp"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:119
+msgid "Include Path"
+msgstr ""
+
+#: src/EBox/Composite/RemoteGeneral.pm:65
+msgid "Configuration and Status"
+msgstr ""
+
+#: src/EBox/Composite/Remote.pm:64
+msgid "Backup module"
+msgstr ""
