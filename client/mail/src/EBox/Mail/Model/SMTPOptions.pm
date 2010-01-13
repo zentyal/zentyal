@@ -263,7 +263,6 @@ sub mailboxQuota
     }
 
     my $size = $mailboxQuota->subtype()->value();
-    $size .= 'M';
     return $size;
 }
 
