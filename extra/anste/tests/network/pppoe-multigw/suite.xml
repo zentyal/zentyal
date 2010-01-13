@@ -1,0 +1,117 @@
+<suite>
+    <name>eBox PPPoE multi-gateway Test Suite</name>
+    <desc>Contains a set of tests to ensure
+    that ebox multi-gateway capabilities work ok.
+    </desc>
+
+    <scenario>network/pppoe-multigw.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigPPPoE</name>
+        <desc>
+        Configure eth2 as PPPoE and set it as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-pppoe</dir>
+        <var name="IFACE" value="eth2"/>
+        <var name="USER" value="ppp_user"/>
+        <var name="PASS" value="ppp_pass"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigPPPoE2</name>
+        <desc>
+        Configure eth3 as PPPoE and set it as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-pppoe</dir>
+        <var name="IFACE" value="eth3"/>
+        <var name="USER" value="ppp_user"/>
+        <var name="PASS" value="ppp_pass"/>
+    </test>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable network and firewall modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddGateways</name>
+        <desc>Adds the two routers as gateways</desc>
+
+        <host>ebox-server</host>
+        <dir>add-two-gateways</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigMultiGateway</name>
+        <desc>
+        Configure client A through router A and
+        client B through router B.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-multigw</dir>
+    </test>
+
+    <test type="selenium">
+        <name>EnableBalance</name>
+        <desc>
+        Enable traffic balance.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-traffic-balance</dir>
+    </test>
+
+    <test>
+        <name>DumpRoutes</name>
+        <desc>
+        Dump routes and iptables info
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>dump-routes</dir>
+    </test>
+
+    <test>
+        <name>TestBalanceRouteA</name>
+        <desc>
+        Checks if client A reach google.com through router A
+        with traffic balance enabled.
+        </desc>
+
+        <host>client-a</host>
+        <dir>test-route-a</dir>
+    </test>
+
+    <test>
+        <name>TestBalanceRouteB</name>
+        <desc>
+        Checks if client B reach google.com through router B
+        with traffic balance enabled.
+        </desc>
+
+        <host>client-b</host>
+        <dir>test-route-b</dir>
+    </test>
+
+    <test>
+        <name>DumpRoutes2</name>
+        <desc>
+        Dump routes and iptables info
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>dump-routes</dir>
+    </test>
+
+
+</suite>
