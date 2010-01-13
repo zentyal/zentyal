@@ -21,7 +21,7 @@ sub runGConf
 
     my $service = EBox::Global->getInstance()->modInstance('services');
     my $firewall = EBox::Global->getInstance()->modInstance('firewall');
-    my $serviceName = 'manageSIEVE';
+    my $serviceName = 'ManageSieve';
     if (not $service->serviceExists(name => $serviceName)) {
         $service->addService(
                 'name' => $serviceName,
