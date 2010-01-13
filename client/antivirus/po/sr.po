@@ -1,0 +1,73 @@
+# Serbian translations for ebox-antivirus package.
+# Copyright (C) 2010 Warp S.L.
+# This file is distributed under the same license as the ebox-antivirus package.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-antivirus 1.3.12"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2010-01-09 16:06+0100\n"
+"PO-Revision-Date: 2010-01-09 16:06+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:395
+#: src/EBox/AntiVirus.pm:400 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
+msgid "Antivirus"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:212
+msgid " To configure clamd daemon"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:217
+msgid "To configure freshclam updater"
+msgstr ""
+
+#: src/EBox/AntiVirus.pm:222
+msgid "To schedule the launch of the updater"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
+msgid "Status"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
+msgid "Date"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
+msgid "Database Update Status"
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
+msgid ""
+"The antivirus database has not been updated since the module was enabled."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
+msgid "The last update failed."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
+#, perl-brace-format
+msgid ""
+"Update successful but your freshclam version is outdated.\n"
+"The antivirus will not be able to use all the signatures.Please, install "
+"version {version} or higher."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
+msgid "Last update successful."
+msgstr ""
+
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:144
+#, perl-brace-format
+msgid "Unknown event {event}."
+msgstr ""
