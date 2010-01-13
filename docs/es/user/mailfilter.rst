@@ -147,28 +147,43 @@ de ficheros.
 Antispam
 --------
 
-eBox utiliza un **Filtro Bayesiano** para la detección de *Spam*. Es
-necesario entrenar al filtro indicándole aquel correo que es basura
-*Spam*, y aquel correo que no lo es. Este tipo de correo se le suele
-denominar *Ham*. El filtro detectará patrones estadísticos que
-le servirán para puntuar mediante cálculos de probabilidades el correo
-nuevo según se parezca más al *Spam* (mayor puntuación), o al *Ham*.
+El filtro antispam asigna a cada correo un puntuación de spam, si el correo
+alcanza la puntuación umbral de spam es considerado spam, si no es considerado
+correo legitimo. A este ultimo tipo de correo se le denomina *Ham*.
 
-eBox usa **Spamassassin** [#]_ como detector de *spam* basado en reglas
-de igualdad en el contenido. Puede usar un **filtro bayesiano** o
-reglas de redes como por ejemplo:
+El detector de spam usa las siguientes técnicas para asignar la puntuación:
 
  - Listas negras publicadas vía DNS (*DNSBL*).
  - Listas negras de URI que siguen los sitios *Web* de *Spam*.
  - Filtros basados en el *checksum* de los mensajes.
  - Entorno de política de emisor (*Sender Policy Framework* o SPF) :RFC:`4408`.
+ - DomainKeys Identified Mail (DKIM)
+ - Filtro bayesiano
+ - Reglas estáticas
  - Otros. [#]_
+
+Entre estas técnicas el *filtro bayesiano* debe ser explicado con mas
+detenimiento. Este tipo de filtro hace un análisis estadístico del texto del
+mensaje obteniendo una puntuación que refleja la probabilidad de que el mensaje
+sea spam. Sin embargo, el análisis no se hace contra un conjunto estático de
+reglas sino contra un conjunto dinámico, que es creado suministrando mensajes ham y
+spam al filtro de manera que pueda aprender cuales son las características
+estadísticas de cada tipo.
+
+La ventaja de esta técnica es que el filtro se puede adaptar al siempre
+cambiante flujo de spam, las desventajas es que el filtro necesita ser entrenado
+y que su precisión reflejara la calidad del entrenamiento recibido.
+
+
+eBox usa **Spamassassin** [#]_ como detector de *spam*.
+
+
+.. [#] Existe una lista muy larga de técnicas *antispam* que se puede
+       consultar en http://en.wikipedia.org/wiki/Anti-spam_techniques_(e-mail)
 
 .. [#] *The Powerful #1 Open-Source Spam Filter*
        http://spamassassin.apache.org .
 
-.. [#] Existe una lista muy larga de técnicas *antispam* que se puede
-       consultar en http://en.wikipedia.org/wiki/Anti-spam_techniques_(e-mail)
 
 La configuración general del filtro se realiza desde
 :menuselection:`Filtro de correo --> Antispam`:
@@ -181,17 +196,15 @@ Umbral de *Spam*:
 Etiqueta de asunto *Spam*:
   Etiqueta para añadir al asunto del correo en caso de que sea *Spam*.
 Usar el clasificador bayesiano:
-  Si está marcado se empleará el filtro bayesiano, si no sólo se
-  tendrán en cuenta las listas de direcciones permitidas (*whitelist*
-  o listas blancas) y bloqueadas (*blacklist* o listas negras).
+  Si está marcado se empleará el filtro bayesiano, si no sera ignorado.
 Auto-lista blanca:
   Tiene en cuenta el historial del remitente a la hora de puntuar el
   mensaje. Esto es, si el remitente ha enviado mucho correo como *ham*
   es altamente probable que el próximo correo que envíe sea *ham* y no
   *spam*.
 Auto-aprendizaje:
-  Si está marcado, el filtro aprenderá de los mensajes que son claramente *Spam*
-  o *Ham*.
+  Si está marcado, el filtro aprenderá de los mensajes recibidos, cuya
+  puntuación traspase los umbrales de auto-aprendizaje.
 Umbral de auto-aprendizaje de *spam*:
   Puntuación a partir de la cual el filtro aprenderá automáticamente un correo
   como *spam*. No es conveniente poner un valor bajo, ya que puede
@@ -210,7 +223,8 @@ el filtro antispam (*procesar*).
 Desde :guilabel:`Entrenar filtro de spam bayesiano` podemos entrenar
 al filtro bayesiano enviándole un buzón de correo en formato *Mbox*
 [#]_ que únicamente contenga *spam* o *ham*. Existen en *Internet* muchos
-ficheros de ejemplo para entrenar al filtro bayesiano. Conforme más
+ficheros de ejemplo para entrenar al filtro bayesiano, pero suele ser mas
+exacto entrenarlo con correo recibido en los sitios a filtrar. Conforme más
 entrenado esté el filtro, mejor será el resultado de la decisión de
 tomar un correo como basura o no.
 
@@ -300,6 +314,11 @@ Usar filtrado de virus / *spam*:
 Umbral de *spam*:
   Se puede usar la puntuación por defecto de corte para los correos *Spam*, o
   un valor personalizado.
+Aprender de las carpetas IMAP de Spam de las cuentas:
+  Si esta activado, cuando mensajes de correo se coloquen en la carpeta de Spam
+  serán aprendidos por el filtro como spam. De manera similar si movemos un
+  mensaje desde la carpeta de spam a una carpeta normal, sera aprendido como
+  ham. 
 Cuenta de aprendizaje de *ham* / *spam*:
   Si están activados se crearán las cuentas `ham@dominio` y `spam@dominio`
   respectivamente. Los usuarios pueden enviar correos a estas cuentas para

@@ -141,26 +141,31 @@ The spam scanner uses the following techniques to assign scores:
  - Sender Policy Framework (SPF): RFC: `4408`.
  - DomainKeys Identified Mail (DKIM)
  - Bayesian filter
- - Sets of static rules 
+ - Static rules 
+ - Other tests [#]_
 
-Among this techniques the *Bayesian filter* should be further explained. This
+Among this techniques the *bayesian filter* should be further explained. This
 kind of filter does a statistical analysis content of the text of the message,
 giving a score which reflects the probability of being spam for the
 message.However the  analysis is not done against
-a set of static rules but depends on supplying ham and spam messages to the
-filter so it could learn from them what a spam or a ham looks alike.
+a set of static rules but against a dynamic one, which is created supplying ham and spam messages to the 
+filter so it could learn from them what are the statistical features of each
+type.
+
 The upside of this technique is that the filter could adapt to the ever-changing
-flow of spam messages, the downside is that the filter needs to be trained and
-its accuracy will reflect the nature of the training received.
+flow of spam messages, the downsides are that the filter needs to be trained and
+its accuracy will reflect the quality of the training received.
 
 
-eBox uses **Spamassassin** [#]_ as spam detector [#]_
+eBox uses **Spamassassin** [#]_ as spam detector.
+
+.. [#] A long list of *antispam* techniques can be found in
+       http://en.wikipedia.org/wiki/Anti-spam_techniques_(e-mail)
 
 .. [#] *The Powerful #1 Open-Source Spam Filter*
        http://spamassassin.apache.org .
 
-.. [#] A long list of *antispam* techniques can be found in
-       http://en.wikipedia.org/wiki/Anti-spam_techniques_(e-mail)
+
 
 
 
@@ -183,8 +188,8 @@ Automatic whitelist:
    That is, if the sender has sent some ham emails, it is highly probable
    that the next email sent by that sender is also ham.
 Automatic learning:
-  If it is enabled, the filter will learn from messages that are obviously
-  spam or ham.
+  If it is enabled, the filter will learn from messages which hit the self
+  learning thresholds.
 Threshold of self-learning spam:
    The automatic learning system will learn from spam emails that have a score
    above this value. It is not appropriate to set a low value, since it can
@@ -203,7 +208,8 @@ by the spam filter (*process*).
 From :guilabel:`Train Bayesian spam filter` we can train the
 Bayesian filter sending it a mailbox in *mbox* format [#] _
 containing only spam or ham. There are many sample files in the
-Internet to train a Bayesian filter. The more trained the filter is,
+Internet to train a Bayesian filter but normally is more accurate to use mail
+received by the sites which will be filtered. The more trained the filter is,
 the better the spam detection.
 
 .. [#] *Mbox* and *maildir* are email storage formats, most email clients and
@@ -274,7 +280,7 @@ on: guilabel: `add new`.
 
 .. image:: images/mailfilter/09-filter-domains.png
 
-The parameters that can be overriden are the following:
+The parameters that can be overridden are the following:
 
 Domain:
    Virtual domain that we want to customize, from those configured in
