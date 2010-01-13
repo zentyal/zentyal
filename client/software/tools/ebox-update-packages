@@ -44,12 +44,13 @@ my $progress = EBox::ProgressIndicator->retrieve($progressId);
 $progress->started() or
   die('progress executable not run');
 
+my $dpkgOpts = '-o DPkg::Options::="--force-confold"';
 my ($retValue, $errorMsg) = (0, '');
 try {
   foreach my $pkg (@packages) {
     $progress->notifyTick();
     $progress->setMessage($pkg);
-    my $cmd ='/usr/bin/apt-get install --no-download -q --yes';
+    my $cmd ="/usr/bin/apt-get install --no-download -q --yes $dpkgOpts";
     EBox::Sudo::root(qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && $cmd $pkg'});
   }
 } catch EBox::Exceptions::Sudo::Command with {
@@ -60,7 +61,7 @@ try {
 } finally {
     try {
         EBox::Sudo::root(
-          qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes'});
+          qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes $dpkgOpts'});
         my $global = EBox::Global->getInstance(1);
         my $software = $global->modInstance('software');
 
