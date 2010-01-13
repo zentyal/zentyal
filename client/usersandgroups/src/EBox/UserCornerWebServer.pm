@@ -168,7 +168,7 @@ sub certificates
 
     return [
             {
-             service =>  __(q{Users corner certificates}),
+             service =>  __(q{User Corner web server}),
              path    =>  '/var/lib/ebox-usercorner/ssl/ssl.pem',
              user => 'ebox-usercorner',
              group => 'ebox-usercorner',

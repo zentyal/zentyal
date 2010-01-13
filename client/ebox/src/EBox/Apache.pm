@@ -588,7 +588,7 @@ sub certificates
 
     return [
             {
-             service =>  __('eBox internal web server'),
+             service =>  __('eBox web server'),
              path    =>  '/var/lib/ebox/conf/ssl/ssl.pem',
              user => 'ebox',
              group => 'ebox',

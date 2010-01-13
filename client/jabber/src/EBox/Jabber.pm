@@ -391,7 +391,7 @@ sub certificates
 
     return [
             {
-             service =>  __('Jabber server certificate'),
+             service =>  __('Jabber server'),
              path    =>  ' /etc/jabberd2/ebox.pem',
              user => 'jabber',
              group => 'jabber',

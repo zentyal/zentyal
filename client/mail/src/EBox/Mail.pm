@@ -1751,7 +1751,7 @@ sub certificates
              mode => '0400',
             },
             {
-             service =>  __('Mail retrieval services'),
+             service =>  __('Mail POP/IMAP server'),
              path    =>  '/etc/dovecot/ssl/dovecot.pem',
              user => 'root',
              group => 'root',
