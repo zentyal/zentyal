@@ -704,7 +704,7 @@ sub mailname
 # Method: managesieve
 #
 #  Returns:
-#     bool - wether the MANAGESIEVE service is enabled
+#     bool - wether the ManageSieve service is enabled
 sub managesieve
 {
     my ($self) = @_;

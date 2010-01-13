@@ -94,9 +94,9 @@ sub _table
                                  ),
          new EBox::Types::Boolean(
                                   fieldName => 'managesieve',
-                                  printableName => __('Manage SIEVE scripts'),
+                                  printableName => __('Manage Sieve scripts'),
                                   help =>
- __(q{This service allows to a use to manage his SIEVE mail filtering scripts from a local client} ),
+ __(q{This service allows to a use to manage his Sieve mail filtering scripts from a local client which speaks the ManageSieve protocol} ),
                                   editable => 1,
                                   defaultValue => 1,
                                  ),
