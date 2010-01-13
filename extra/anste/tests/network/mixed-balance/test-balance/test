@@ -1,0 +1,26 @@
+#!/bin/bash
+
+LOG="/tmp/anste-traceroute-$(date +%y%m%d%H%M%S)"
+
+for i in `seq 1 20`
+do
+    traceroute -n -m 6 "192.168.45.$i" | grep '192.168.' >> $LOG
+done
+
+ROUTER1=$(grep ^" 2" $LOG | cut -d' ' -f4 | head -1)
+ROUTER2=$(grep ^" 2" $LOG | cut -d' ' -f4 | grep -v $ROUTER1 | head -1)
+
+NUM1=$(grep $ROUTER1 $LOG | wc -l)
+NUM2=$(grep $ROUTER2 $LOG | wc -l)
+
+echo "Number of ocurrences of $ROUTER1: $NUM1"
+echo "Number of ocurrences of $ROUTER2: $NUM2"
+test $NUM1 -ge 7 && test $NUM2 -ge 7
+
+RET=$?
+
+cat $LOG
+
+rm $LOG
+
+exit $RET
