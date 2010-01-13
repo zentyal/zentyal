@@ -80,8 +80,8 @@ the client side. The main advantages over POP3 are:
 - Built-in extension mechanism
 
 Both POP3 and IMAP have secure versions, called respectively POP3S and
-IMAPS. The difference with the normal version is that they use TSL encryption so
-the content of the mail messages cannot be sniffed.
+IMAPS. The difference with the normal version is that they use TLS encryption so
+the content of the messages cannot be sniffed.
 
 
 SMTP/POP3-IMAP4 server configuration with eBox
@@ -124,8 +124,8 @@ user who sends the email and the server which is the real message
 sender. The following settings can be configured:
 
 :guilabel:`Smarthost to send mail`:
-  Domain name or IP address. You could also specify a port including
-  ':[port_number ]'
+  Domain name or IP address of the smarthost. You could also specify a port
+  appending the text ':[port_number ]'
   after the address. The default port is the standard SMTP port, 25.
 :guilabel:`Smarthost authentication`:
   Whether the smarthost requires authentication using
@@ -134,29 +134,33 @@ sender. The following settings can be configured:
   This sets the visible mail name of the system, it will be used by the mail server as the local address of the system.
 :guilabel:`Return address for mail bounced back to the sender`: 
   This is the address that will appear as return addresses in notifications to the sender, such the ones generated when the mailbox limit is exceeded.
-:guilabel:`Maximum mailbox size allowed`: In this option you could indicate a
+:guilabel:`Maximum mailbox size allowed`: 
+  In this option you could indicate a
   maximum size in Mb for any user mailboxes. All mail which surpasses the limit
   will be rejected and the sender will be emailed a notification. This setting
-  could be overridden for any user in the :menuselection:`Users -> Edit User`page.
+  could be overridden for any user in the :menuselection:`Users -> Edit User` page.
 :guilabel:`Maximum message size accepted`:
   Indicates, if necessary, the maximum message size accepted by the
   smarthost in MB. This is enforced regardless of any mailbox size limit.
 :guilabel:`Expiration period for deleted mails`: 
-  if you enable this option mail in the trash folder will be deleted when their dates passes the day period.
+  if you enable this option mail in the users' trash folder will be deleted when
+  their dates passes the day limit.
 :guilabel:`Expiration period for spam mails`: 
-   this work the same than the previous option but it affects to the "spam" folder.
+   this work the same than the previous option but it affects to the users' spam folder.
 
 In order to configure the mail retrieval services go to
 the :guilabel:`Mail retrieval services` section. There eBox may be
-configured as POP3 and/or IMAP4 server, both allowing SSL support.
-Also the retrieve email for external accounts and ManageSIEVE services could be
-enabled, we will discuss those services in their own section.
+configured as POP3 and/or IMAP server, their secure versions POP3S and IMAPS are
+available too.
+Also the retrieve email for external accounts and ManageSieve services could be
+enabled in this section, we will discuss those services in their own section.
 
-In addition to this, eBox may be configured to act as a *smarthost*. To
+In addition to this, eBox may be configured to relay mail without authentication
+from some network addresses. To
 do so, you can add relay policies for network objects through
 :menuselection:`Mail --> General --> Relay policy for network objects`.
 The policies are based on the source mail server IP address. If the relay is
-allowed from a object, then each object member may send emails through eBox.
+allowed from a object, then each object member may relay emails through eBox.
 
 .. image:: images/mail/02-relay.png
 
@@ -201,21 +205,22 @@ the real account.
 
 Note that you can decide whether an email account should be created by
 default when a new user is added or not. You can change this behaviour in
-`Users and Groups --> Default User Template --> Mail Account`.
+:menuselection:`Users and Groups --> Default User Template --> Mail Account`.
 
 .. image:: images/mail/03-user.png
    :align: center
    :scale: 80
 
 Likewise, you may set up *aliases* for user groups. Messages received
-by these aliases are sent to every user of the group. Group aliases are
+by these aliases are sent to every user of the group which has email account.  Group aliases are
 created through
 :menuselection:`Groups --> Edit Group --> Create alias mail account to
 group`. The group aliases are only available when at least one user of the
 group has a email account.
 
 You too can define alias to external accounts. The mail sent to
-those aliases will be forwarded to the external account. This kind of aliases
+an  alias will be forwarded to the external account. This kind of aliases are
+set on a virtual domain basis and
 does not require any email account and could be set in :menuselection:`Mail -->
 Virtual Domains --> External accounts aliases `.
 
@@ -236,40 +241,40 @@ message again). There are also two buttons to delete or requeue all messages in 
 
 
 Mail retrieval from external accounts
-------------------------------------
+-------------------------------------
 
 eBox could configured to retrieve email from external accounts and deliver it to
-the user's mailboxes. To do so in :guilabel:`Retrieval services` you had to
+the user's mailboxes. To allow this, in :guilabel:`Retrieval services` you had to
 enable this service. Once is enabled the users will have their mail fetched from
-their external accounts and delivered to their account's mailbox. Each user can
-configure its external accounts through the usercorner. The user must have a
-email account to be able to do this and the external servers are pooled
+their external accounts and delivered to their internal account's mailbox. Each user can
+configure its external accounts through the user corner. The user must have a
+email account to be able to do this. The external servers are pooled
 periodically so email retrieval is not instantaneous.
 
 
-For retrieving external emails, eBox uses  Fetchmail [#f3]_ ,
+For retrieving external emails, eBox uses  Fetchmail [#f3]_ .
 
 .. rubric:: Footnotes
 
 .. [#f3] **Fetchmail** The Fetchmail Home Page http://fetchmail.berlios.de/ .
 
 
-SIEVE scripts and ManageSIEVE protocol
+Sieve scripts and ManageSieve protocol
 ---------------------------------------
-The SIEVE language [#f4]_  allows to control how the mail is delivered, so is
+The Sieve language [#f4]_  allows the user to control how his mail is delivered, so is
 possible to classify it in IMAP folders, forward it or use a vacation message
 among other things.
 
-The ManageSIEVE is a network protocol that allows to any user to easily manage
-its SIEVE scripts. To be able to use ManageSIEVE, it i need that the email
+The ManageSieve is a network protocol that allows to the users to easily manage
+their Sieve scripts. To be able to use ManageSieve, it is needed that the email
 client could understand the protocol. [#f5]_
 
-To enable ManageSIEVE in eBox you have to turn on the service in :menuselection:`Mail --> General --> Mail server
+To enable ManageSieve in eBox you have to turn on the service in :menuselection:`Mail --> General --> Mail server
 options -> Retrieval services` and it could be used by all the users with email
-account. Additionally if ManageSIEVE is enabled and the webmail module in use, a
-management interface for SIEVE scripts will be available in the webmail.
+account. Additionally if ManageSieve is enabled and the webmail module in use, a
+management interface for Sieve scripts will be available in the webmail.
 
-The ManageSIEVE authentication is done with the email account of the user and
+The ManageSieve authentication is done with the email account of the user and
 its password.
 
 .. rubric:: Footnotes
@@ -280,32 +285,32 @@ its password.
 
 Email client configuration
 --------------------------
-Unless the are using only the webmail or the egroupware module users would have
-to configure their email clients to use eBox's mail server. The exact parameters
-which are required would depend on the exact configuration of the module.
+Unless the are using email only through  the webmail or the egroupware module, users would have
+to configure their email clients to use eBox's mail server. The values of the
+required parameters would depend on the exact configuration of the module.
 
 Please note that different email clients could use other names for this
 parameters, so due to the great number of clients available this section is orientative.
 
 SMTP parameters
 ===============
- * SMTP server: here you must enter the address or your eBox server. It could be
+ * SMTP server: here you must enter the address of your eBox server. It could be
    either an IP address or a domain name.
  * SMTP port: 25, if you are using TLS you could instead use the port 465.
  * Secure connection: You must select `TLS` if you have enabled :guilabel:`TLS
-   for SMTP server:`, otherwise select `none`.
+   for SMTP server:`, otherwise select `none`. If you are using TLS please read the warning below about SSL/TLS
  * SMTP username: you must use this if you have enabled :guilabel:`Require
    authentication`. Use as username the full email address of the user, don't
-   use the username neither one of its alias. 
+   use the username neither one of his mail aliases. 
  * SMTP password: is the same that the user password
 
 POP3 parameters
-==============
-You can only use POP settings when POP or POPS services are enabled in eBox.
+================
+You can only use POP3 settings when POP3 or POP3S services are enabled in eBox.
  * POP3 server: enter your eBox address like in the SMTP server
- * POP3 port: 100, 995 if you are using POPS
+ * POP3 port: 110, 995 if you are using POPS
  * Secure connection: select 'SSL' if you are using POP3S, otherwise
-   `none`. If you are using POP3S please read the warning below about SSL/TSL
+   `none`. If you are using POP3S please read the warning below about SSL/TLS
  * POP3 username: full email address
  * POP3 password: user's password.
 
@@ -317,34 +322,36 @@ enabled. As you will see the parameters are almost identical to POP3 parameters.
 
  * IMAP server: enter your eBox address like in the SMTP server
  * IMAP port: 443, 993 if you are using IMAPS
- * Secure connection: select 'SSL' if you are using IMAPS, otherwise
-   `none`. If you are using IMAPS please read the warning below about SSL/TSL
+ * Secure connection: select `SSL` if you are using IMAPS, otherwise
+   `none`. If you are using IMAPS please read the warning below about SSL/TLS
  * IMAP username: full email address
  * IMAP password: user's password.
 
 .. warning::
 
  In  client implementations is some confusion about the use of
- SSL and TSL protocol. Some clients use `SSL` to mean that they will try to
- connect with `TSL`, others use `TSL` as means to say that they will try to
- connect to the secure service using the non-secure port. In fact in some clients
- you will need to try both `SSL` and `TSL` modes to find which one will work.
+ SSL and TLS protocols. Some clients use `SSL` to mean that they will try to
+ connect with `TLS`, others use `TLS` as means to say that they will try to
+ connect to the secure service through a port used normally by the non-secure
+ version of the protocol.. In fact in some clients
+ you will need to try both `SSL` and `TLS` modes to find which one will work.
 
  You have more information about this issue in this page
  http://wiki.dovecot.org/SSL , from the dovecot's wiki.
 
 
 
-ManageSIEVE client parameters
+ManageSieve client parameters
 =============================
-To connect to sieve, you will need the following parameters:
- * SIEVE server: the same than your IMAP or POP server.
+To connect to ManageSieve, you will need the following parameters:
+ * Sieve server: the same than your IMAP or POP server.
  * Port: 4190. Be warned that some applications use, mistakenly, the port 2000
-   as default for SIEVE.
+   as default for ManageSieve.
+ * Secure connection: true
  * Username: full mail address
  * Password: user's password. Some clients allows you to select the same
    authentication than your IMAP or POP3 account if this is allowed, select it.
- * Secure connection: true
+
 
 Catch-all account
 -----------------
