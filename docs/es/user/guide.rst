@@ -61,6 +61,7 @@ eBox Unified Communications
 
    communication
    mail
+   webmail
    jabber
    voip
 
