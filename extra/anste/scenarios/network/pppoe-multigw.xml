@@ -3,7 +3,7 @@
     <name>eBox PPPoE multigateway scenario</name>
     <desc>One eBox, two routers and two clients.</desc>
 
-    <host type="router">
+    <host type="pppoe-router">
         <name>router-a</name>
         <desc>Host that acts like a router</desc>
         <baseimage>hardy-mini</baseimage>
@@ -17,7 +17,7 @@
         </network>
     </host>
 
-    <host type="router">
+    <host type="pppoe-router">
         <name>router-b</name>
         <desc>Host that acts like a router</desc>
         <baseimage>hardy-mini</baseimage>
