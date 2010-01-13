@@ -75,6 +75,8 @@ use constant {
  FETCHMAIL_SERVICE                   => 'ebox.fetchmail',
 
  ALWAYS_BCC_TABLE_FILE              => '/etc/postfix/alwaysbcc',
+
+ SIEVE_SCRIPTS_DIR                          => '/var/sieve-scripts',
 };
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
@@ -1656,7 +1658,7 @@ sub restoreConfig
 sub _storageMailDirs
 {
     my @dirs;
-    foreach my $dir (qw(/var/mail /var/vmail)) {
+    foreach my $dir (qw(/var/mail /var/vmail), SIEVE_SCRIPTS_DIR) {
         push(@dirs, $dir) if (-d $dir);
     }
     return @dirs;
