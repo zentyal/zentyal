@@ -93,7 +93,7 @@
 
         <host>ebox-server</host>
         <dir>add-failover-tests</dir>
-        <var name="GATEWAY" value="dynamic-gw-eth2"/>
+        <var name="GATEWAY" value="ppp-gw-eth2"/>
         <var name="IP" value="195.235.113.3"/>
         <var name="HOST" value="ebox-platform.com"/>
     </test>
@@ -106,7 +106,7 @@
 
         <host>ebox-server</host>
         <dir>add-failover-tests</dir>
-        <var name="GATEWAY" value="dynamic-gw-eth3"/>
+        <var name="GATEWAY" value="ppp-gw-eth3"/>
         <var name="IP" value="195.235.113.3"/>
         <var name="HOST" value="ebox-platform.com"/>
     </test>
@@ -139,7 +139,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway dynamic-gw-eth2 disconnected"/>
+        <var name="EVENT" value="Gateway ppp-gw-eth2 disconnected"/>
     </test>
 
     <test>
@@ -172,7 +172,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway dynamic-gw-eth2 connected"/>
+        <var name="EVENT" value="Gateway ppp-gw-eth2 connected"/>
     </test>
 
     <test>
@@ -206,7 +206,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway dynamic-gw-eth3 disconnected"/>
+        <var name="EVENT" value="Gateway ppp-gw-eth3 disconnected"/>
     </test>
 
     <test>
@@ -239,7 +239,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway dynamic-gw-eth3 connected"/>
+        <var name="EVENT" value="Gateway ppp-gw-eth3 connected"/>
     </test>
 
     <test>

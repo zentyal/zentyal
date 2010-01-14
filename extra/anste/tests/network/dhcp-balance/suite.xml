@@ -40,14 +40,6 @@
     </test>
 
     <test type="selenium">
-        <name>SaveChanges2</name>
-        <desc>Save the changes.</desc>
-
-        <host>ebox-server</host>
-        <dir>save-changes</dir>
-    </test>
-
-    <test type="selenium">
         <name>EnableBalance</name>
         <desc>
         Enable traffic balance.
@@ -97,7 +89,7 @@
 
         <host>ebox-server</host>
         <dir>add-failover-tests</dir>
-        <var name="GATEWAY" value="dynamic-gw-eth2"/>
+        <var name="GATEWAY" value="dhcp-gw-eth2"/>
         <var name="HOST" value="ebox-platform.com"/>
     </test>
 
@@ -109,12 +101,12 @@
 
         <host>ebox-server</host>
         <dir>add-failover-tests</dir>
-        <var name="GATEWAY" value="dynamic-gw-eth3"/>
+        <var name="GATEWAY" value="dhcp-gw-eth3"/>
         <var name="HOST" value="ebox-platform.com"/>
     </test>
 
     <test type="selenium">
-        <name>SaveChanges2</name>
+        <name>SaveChanges</name>
         <desc>Save the changes.</desc>
 
         <host>ebox-server</host>
@@ -124,7 +116,7 @@
     <test>
         <name>Gateway-A-Down</name>
         <desc>
-        Simulate a fail in dynamic-gw-eth2.
+        Simulate a fail in dhcp-gw-eth2.
         </desc>
 
         <host>router-a</host>
@@ -141,7 +133,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway dynamic-gw-eth2 disconnected"/>
+        <var name="EVENT" value="Gateway dhcp-gw-eth2 disconnected"/>
     </test>
 
     <test>
@@ -158,7 +150,7 @@
     <test>
         <name>Gateway-A-Up</name>
         <desc>
-        Simulate recovery in dynamic-gw-eth2.
+        Simulate recovery in dhcp-gw-eth2.
         </desc>
 
         <host>router-a</host>
@@ -175,7 +167,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway dynamic-gw-eth2 connected"/>
+        <var name="EVENT" value="Gateway dhcp-gw-eth2 connected"/>
     </test>
 
     <test>
@@ -192,7 +184,7 @@
     <test>
         <name>Gateway-B-Down</name>
         <desc>
-        Simulate a fail in dynamic-gw-eth3.
+        Simulate a fail in dhcp-gw-eth3.
         </desc>
 
         <host>router-b</host>
@@ -209,7 +201,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway dynamic-gw-eth3 disconnected"/>
+        <var name="EVENT" value="Gateway dhcp-gw-eth3 disconnected"/>
     </test>
 
     <test>
@@ -226,7 +218,7 @@
     <test>
         <name>Gateway-B-Up</name>
         <desc>
-        Simulate recovery in dynamic-gw-eth3.
+        Simulate recovery in dhcp-gw-eth3.
         </desc>
 
         <host>router-b</host>
@@ -243,7 +235,7 @@
 
         <host>ebox-server</host>
         <dir>test-log</dir>
-        <var name="EVENT" value="Gateway dynamic-gw-eth3 connected"/>
+        <var name="EVENT" value="Gateway dhcp-gw-eth3 connected"/>
     </test>
 
     <test>
