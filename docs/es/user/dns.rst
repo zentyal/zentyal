@@ -88,10 +88,27 @@ recursivamente en el árbol hasta encontrarla. Cada '.' en una dirección (por
 ejemplo, *home.example.com*) indica una rama del árbol de DNS diferente y un
 ámbito de consulta diferente que se irá recorriendo de derecha a izquierda.
 
+.. _dns-tree-fig:
+
 .. figure:: images/dns/domain-name-space.png
    :scale: 70
 
    Árbol de DNS
+
+Como se puede ver en la figura :ref:`dns-tree-fig`, cada zona tiene un
+servidor de nombre autorizado [#]_. Cuando un cliente hace una
+petición a un servidor de nombres, delega la resolución a aquel
+servidor de nombres apuntado por el registro **NS** que dice ser
+autoridad para esa zona. Por ejemplo, un cliente pide la dirección IP
+de *www.casa.example.com* a un servidor que es autoridad para
+*example.com*. Como el servidor tiene un registro que le indica el
+servidor de nombres que es autoridad para la zona *casa.example.com*
+(el registro NS), entonces delega la respuesta a ese servidor que
+debería saber la dirección IP para esa máquina.
+
+.. [#] Un servidor DNS es autoridad para un dominio cuando es aquel
+   que tiene toda la información para resolver la consulta para ese
+   dominio
 
 Otro aspecto importante es la resolución inversa (*in-addr.arpa*), ya
 que desde una dirección IP podemos traducirla a un nombre del
@@ -111,9 +128,9 @@ La configuración en eBox se realiza a través del menú
 DNS como deseemos.
 
 Para configurar un nuevo dominio, desplegamos el formulario pulsando
-:guilabel:`Añadir nuevo`. Desde allí se configura el nombre del
-dominio y una dirección IP opcional a la que hará referencia el
-dominio.
+:guilabel:`Añadir nuevo`. Desde allí se configura el :guilabel:`nombre
+del dominio` y una :guilabel:`dirección IP` opcional a la que hará
+referencia el dominio.
 
 .. image:: images/dns/03-dns.png
    :scale: 70
@@ -128,17 +145,23 @@ tantos alias como se deseen.
 .. image:: images/dns/04-dns-hostname.png
    :scale: 70
 
+Con eBox se establece automáticamente el servidor autorizado para los
+dominios configurados a la máquina con nombre **ns**. Si esa máquina
+no existe, entonces se usa 127.0.0.1 como servidor de nombres
+autorizado. Si quieres configurar el servidor de nombres autorizado
+manualmente para tus dominios (registros **NS**), ve a
+:guilabel:`servidores de nombres` y elige una de las máquinas del
+dominio o una personalizada. En el escenario típico, se configurará
+una máquina con nombre **ns** usando como dirección IP una de las
+configuradas en la sección :menuselection:`Red --> Interfaces`.
+
 Como característica adicional, podemos añadir nombres de servidores de
 correo a través de los :guilabel:`intercambiadores de correo` (*Mail
 Exchangers*) eligiendo un nombre de los dominios en los que eBox es
-autoridad [#]_ o uno externo. Además
-se le puede dar una :guilabel:`preferencia` cuyo menor valor es el que da
-mayor prioridad, es decir, un cliente de correo intentará
-primero aquel servidor con menor número de preferencia.
-
-.. [#] Un servidor DNS es autoridad para un dominio cuando es aquel
-   que tiene toda la información para resolver la consulta para ese
-   dominio
+autoridad o uno externo. Además se le puede dar una
+:guilabel:`preferencia` cuyo menor valor es el que da mayor prioridad,
+es decir, un cliente de correo intentará primero aquel servidor con
+menor número de preferencia.
 
 .. image:: images/dns/05-dns-mx.png
    :scale: 70

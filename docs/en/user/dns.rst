@@ -88,10 +88,26 @@ is recursively searched until it is found. Each '.' in an address (e.g.
 *home.example.com*) indicates a different branch of the DNS tree and a different
 query area. The name will be traversed from right to left.
 
+.. _dns-tree-fig:
+
 .. figure:: images/dns/domain-name-space.png
    :scale: 70
 
    DNS tree
+
+As you may see on figure :ref:`dns-tree-fig`, each zone has an
+authority name server [#]_. When a client performs a query to a name
+server, it delegates the resolution to the name server pointed by a
+**NS** record which claims to be authoritative for that zone. For
+instance, a client queries for *www.home.example.com* IP address to a
+name server which is authoritative for *example.com*. As the name
+server has a record which indicates the authoritative name server for
+*home.example.com* zone (the NS record), then it delegates the answer
+to that server who should know the IP address for that host.
+
+.. [#] A DNS server is the authority for a domain when it has
+   all the data to resolve the query for that
+   domain.
 
 Another important aspect is reverse resolution (*in-addr.arpa*), as
 it is possible to translate an IP address to a domain
@@ -111,15 +127,17 @@ The configuration in eBox is done through the
 can be configured.
 
 To configure a new domain, drop down the form by clicking on
-:guilabel:`Add new`. From here, the domain name and an
-optional IP address to which the domain will refer can be
+:guilabel:`Add new`. From here, the :guilabel:`domain name` and an
+optional :guilabel:`IP address` which the domain will refer to can be
 configured.
 
 .. image:: images/dns/03-dns.png
    :scale: 70
 
+.. FIXME: Use Zapp to show the shot
+
 Once a correct domain has been created, e.g. *home.example.com*,
-it is possible to complete the **hostnames** list for
+it is possible to complete the :guilabel:`hostnames` list for
 the domain. As many IP addresses as required can be added
 using the names decided. Reverse resolution is added
 automatically. Furthermore, as many aliases as required can also be
@@ -128,20 +146,32 @@ used for each mapping.
 .. image:: images/dns/04-dns-hostname.png
    :scale: 70
 
+.. FIXME: Use Zapp to show the shot
+
+eBox set automatically the authoritative name server for the
+configured domains to **ns** host name. If none is set, then 127.0.0.1
+is set as authoritative name server for those domains. If you want to
+configure the authoritative name server manually for your domains
+(**NS** records), go to :guilabel:`name servers` and choose one of the
+configured host names for that domain or set a custom one. In a
+typical scenario, you may configure a **ns** host name using as IP
+address one of the configured in :menuselection:`Network -->
+Interfaces` section.
+
+.. FIXME: Shot adding the name server
+
 As an additional feature, e-mail server names can be added
 through :guilabel:`mail exchangers`
 by selecting a name for the domains in which eBox is
-the authority [#]_ or an external one. Furthermore,
+the authority or an external one. Furthermore,
 a :guilabel:`preference` can be given, the lowest value of which gives
 highest priority, i.e. an e-mail client will first try
 the server with the lowest preference number.
 
-.. [#] A DNS server is the authority for a domain when it has
-   all the data to resolve the query for that
-   domain.
-
 .. image:: images/dns/05-dns-mx.png
    :scale: 70
+
+.. FIXME: Use Zapp to show the shot
 
 For a more in-depth look into the operation of the DNS, let us see what happens depending
 on the query made through the **dig** diagnosis tool located
@@ -150,7 +180,7 @@ in :menuselection:`Network --> Diagnosis`.
 If a query is made for one of the domains added, eBox will reply with the
 appropriate answer immediately. Otherwise, the DNS server will query the
 root DNS servers and will reply to the user as soon as it gets an answer.
-It is important to be aware of the fact that the nameservers configured in
+It is important to be aware of the fact that the name servers configured in
 :menuselection:`Network --> DNS` are used by client applications to
 resolve names, but are not used in any way by the DNS server. If you want
 eBox to resolve names using its own DNS server, you have to set up
@@ -162,13 +192,13 @@ Practical example B
 ^^^^^^^^^^^^^^^^^^^
 
 Add a new domain to the DNS service. Within this domain, assign
-a network address to a hostname. From another host, check that
+a network address to a host name. From another host, check that
 it resolves correctly using the **dig** tool.
 
-#. **Action:**
+#. **Action:** 
    Check that the DNS service is active through
-   :menuselection:`Dashboard` in the :guilabel:`Module
-   status` *widget*. If it is not active, enable it in :menuselection:`Module
+   :menuselection:`Dashboard` in the :guilabel:`Module status`
+   *widget*. If it is not active, enable it in :menuselection:`Module
    status`.
 
 #. **Action:**
@@ -177,7 +207,7 @@ it resolves correctly using the **dig** tool.
      table will drop down where hostnames, mail
      servers for the domain and the domain address itself
      can be added.  In :guilabel:`Hostnames` do the same by
-     adding the hostname and its associated
+     adding the host name and its associated
      IP address.
 
 #. **Action:**
