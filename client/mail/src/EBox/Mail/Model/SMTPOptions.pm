@@ -161,11 +161,11 @@ sub _table
                                 __('Maximum message size accepted'),
                               subtypes => [
                               new EBox::Types::Union::Text(
-                                  'fieldName' => 'unlimited',
+                                  'fieldName' => 'unlimitedMsgSize',
                                   'printableName' => __('Unlimited size'),
                                   ),
                               new EBox::Types::Int(
-                                  'fieldName' => 'size',
+                                  'fieldName' => 'msgSize',
                                   'printableName' => __('size in Mb'),
                                   'editable'  => 1,
                                   'min'       => 1,
