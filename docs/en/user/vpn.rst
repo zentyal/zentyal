@@ -4,7 +4,8 @@ Secure interconnection between local networks
 
 .. sectionauthor:: Javier Amor García <javier.amor.garcia@ebox-technologies.com>,
                    Enrique J. Hernández <ejhernandez@ebox-technologies.com>,
-                   José A. Calvo <jacalvo@ebox-technologies.com>
+                   José A. Calvo <jacalvo@ebox-technologies.com>,
+                   Jorge Salamero Sanz <jsalamero@ebox-technologies.com>
 
 .. _vpn-ref:
 
@@ -95,95 +96,141 @@ used to verify identities and is called **Certification Authority** (CA).
    *GRAPHIC: Diagram to issue a certificate*
 
 
-CA configuration with eBox Platform
-===================================
+Certification Authority configuration with eBox
+===============================================
 
 eBox Platform has integrated management of the Certification Authority and
-the life cycle of the certificates. It uses the **OpenSSL** [#]_ tools for this.
+the life cycle of the issued certificates for your organization.
+It uses the **OpenSSL** [#]_ tools for this service.
 
+.. [#] **OpenSSL** - *The open source toolkit for SSL/TLS* <http://www.openssl.org/>.
 
-.. [#] **OpenSSL**: *The open source toolkit for SSL/TLS*
-   http://www.openssl.org/.
+First of all, you need to generate the keys and issue the certificate of the
+CA itself. This step is needed to sign new certificates, so the
+remaining features of the module will not be available until the CA keys
+are generated and its certificate, which is autosigned, is issued. Note that
+this module runs unmanaged and you don't need to enable it in
+:guilabel:`Module Status`.
 
-First, you need to issue the certificate of the *CA* itself, which is
-autosigned. The *CA* certificate is needed to issue new certificates, so the
-remaining features of the module will not be available until the CA
-certificate is issued.
+.. image:: images/vpn/ebox-ca-01.png
+   :align: center
+   :scale: 80
 
-To issue it, go to :menuselection:`Certification Authority -> General` and you
-will find a form to issue the CA certificate. It is required to fill the
-:guilabel:`Organization Name` and :guilabel:`Days to expire` fields. When
-setting the duration of the certificate you have to take in account that its
-expiration will revoke all certificates issued by it, stopping all services
-depending on those certificates. It is possible to add this optional fields to
-the CA certificate:
+Go to :menuselection:`Certification Authority --> General` and you will find the
+form to issue the CA certificate after generating automatically the key pair. It
+is required to fill in the :guilabel:`Organization Name` and
+:guilabel:`Days to expire` fields. When setting this duration you have to take
+in account that its expiration will revoke all certificates issued by this CA,
+stopping all services depending on those certificates. It is possible to add
+also these optional fields to the CA certificate:
+
 - :guilabel:`Country Code`
 - :guilabel:`City`
 - :guilabel:`State`
 
-Once the CA certificate is issued, you will be able to issue certificates
-signed by it. To issue them, use the form available at
-:menuselection:`Certification Authority -> General`. The required data are the
-:guilabel:`common name` of the certificate and the :guilabel:`Days to
+.. image:: images/vpn/ebox-ca-02.png
+   :align: center
+   :scale: 80
+
+Once the CA has been created, you will be able to issue certificates
+signed by the CA. To do this, use the form now available at
+:menuselection:`Certification Authority --> General`. The required data are the
+:guilabel:`Common Name` of the certificate and the :guilabel:`Days to
 expire`. This last field sets the number of days that the certificate will
-remain valid and the duration cannot surpass the duration of the CA certificate.
+remain valid and the duration cannot surpass the duration of the CA.
+In case we are using the certificate for a service server like it could be a
+web server or mail server, the :guilabel:`Common Name` of the certificate should
+match the hostname or domain name of that server.
 
 When the certificate is issued, it will appear in the list of certificates and
 it will be available to eBox services that use certificates and to external
 applications. Furthermore, several actions can be applied to the certificates
-through the certificate list. The available actions are the following:
+through the certificate list:
 
-- Download an archive containing the public key, private key and the
+- Download a tarball containing the public key, private key and the
   certificate.
-- Revoke the certificate.
 - Renew the certificate.
+- Revoke the certificate.
 
+If you renew a certificate, the current certificate will be revoked and a new
+one with the new expiration date will be issued along with the key pair.
 
-.. image:: images/vpn/01-ca.png
+.. image:: images/vpn/ebox-ca-03.png
+   :align: center
+   :scale: 80
+
+If you revoke a certificate you won't be able to use it anymore as this
+action is permantent and you can't go backwards. Optionally you can select
+the reason of the certificate revocation:
+
+- :guilabel:`unspecified`
+- :guilabel:`keyCompromise`
+- :guilabel:`CACompromise`
+- :guilabel:`affilliationChanged`
+- :guilabel:`superseded`
+- :guilabel:`cessationOfOperation`
+- :guilabel:`certificateHold`
+- :guilabel:`removeFromCRL`
+
+.. image:: images/vpn/ebox-ca-04.png
    :align: center
    :scale: 80
 
 If you renew the CA certificate then all the certificates will be renewed with
-the new public key of the CA. The old expiration date will be kept, if this is
+the new the CA. The old expiration date will be kept, if this is
 not possible it means that the old expiration date is a later date than the new
 CA expiration date, in this case the expiration date of the certificate will be
-set to the expiration date of the CA. When a certificate expires all the modules
-are notified. The expiration date of each certificate is checked every night and
-also whenever the certificate list is shown.
+set to the expiration date of the CA.
 
+When a certificate expires all the modules are notified. The expiration date of
+each certificate is automatically checked once a day and everytime you access
+the certificate list page.
 
+Services Certificates
+^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: images/vpn/ebox-ca-05.png
+   :align: center
+   :scale: 80
+
+On :menuselection:`Certification Authority --> Services Certificates` we can
+find the list of eBox modules using certificates for its services. By default
+these are generated by each module, but if we are using the CA we can replace
+these selfsigned certificates with ones issued by our organization CA. For each
+service you can define the :guilabel:`Common Name` of the certificate and if
+there isn't a certificate with that :guilabel:`Common Name` available, the CA
+will issue one. To push this key pair and signed certificate to the service you
+have to :guilabel:`Enable` the certificate for that service.
+
+Everytime a certificate is renewed is pushed again to the eBox module but you
+need to restart that service to force it to use the new certificate.
 
 Practical example A
 ^^^^^^^^^^^^^^^^^^^
 
-Creation of a Certification Authority and certificates.
-
-This example has the following objective: to create a certification
-authority which will be valid for a year, to create a certificate called
-*server* and to create two certificates for clients called *client1* and
+Create a Certification Authority which will be valid for a year, then create a
+certificate called *server* and two client certificates called *client1* and
 *client2*.
 
-To do so:
-
 #. **Action:**
 
-    Access eBox interface and go to :menuselection:`Certification Authority
-    --> General`. In the form called :guilabel:`Issue certificate of the
-    Certification Authority`, fill in the fields
-    :guilabel:`Organization name` and :guilabel:`Days to expire`
-    with reasonable values. Press :guilabel:`Issue` to issue
-    the certificate of the Certification Authority.
+    Go to :menuselection:`Certification Authority --> General`. In the form
+    called :guilabel:`Create Certification Authority Certificate`, fill in
+    the fields :guilabel:`Organization Name` and :guilabel:`Days to expire`
+    with reasonable values. Press :guilabel:`Create` to generate the
+    Certification Authority.
 
     Effect:
-     The certificate of the Certification Authority will be issued and displayed
-     in the list of certificates. The form for issuing the CA certificate will
-     be replaced by another one intended to issue normal certificates.
+     The key pair of the Certification Authority is generated and its certificate
+     will be issued. Our new CA will be displayed in the list of certificates. The
+     form for creating the CA will be replaced by another one intended to issue
+     normal certificates.
 
 #. **Action:**
-     Use the form :guilabel:`Issue a new certificate` to issue certificates. To
-     do this you have to enter *server* as :guilabel:`Common Name` and then, in
+     Using the form :guilabel:`Issue a New Certificate` to issue certificates,
+     enter *server* as :guilabel:`Common Name` and then, in
      :guilabel:`Days to expire`, a number of days less than or equal to the one
-     you entered for the CA certificate.  Repeat these steps with the names
+     you entered for the CA certificate. Repeat these steps with the names
      *client1* and *client2*.
 
     Effect:

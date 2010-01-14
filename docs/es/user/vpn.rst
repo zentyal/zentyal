@@ -3,7 +3,9 @@ Interconexión segura entre redes locales
 ****************************************
 
 .. sectionauthor:: Javier Amor García <javier.amor.garcia@ebox-platform.com>,
-                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
+                   Enrique J. Hernández <ejhernandez@ebox-platform.com>,
+                   José A. Calvo <jacalvo@ebox-technologies.com>,
+                   Jorge Salamero Sanz <jsalamero@ebox-technologies.com>
 
 .. _vpn-ref:
 
@@ -102,107 +104,146 @@ identidades se le denomina **autoridad de certificación**
 
    *GRAPHIC: Diagram to issue a certificate*
 
-Configuración de una CA con eBox
-================================
+Configuración de una Autoridad de Certificación con eBox
+========================================================
 
-eBox tiene integrada la gestión de autoridad de certificación y del
-ciclo de vida de los certificados expedidos por esta. Lo hace a través
-de las herramienta de consola que ofrece **OpenSSL** [#]_.
+eBox tiene integrada la gestión de la Autoridad de Certificación y del
+ciclo de vida de los certificados expedidos por esta para tu organización.
+Utiliza las herramienta de consola **OpenSSL** [#]_ para este servicio.
 
-.. [#] **OpenSSL**: *The open source toolkit for SSL/TLS*
-   http://www.openssl.org/.
+.. [#] **OpenSSL** - *The open source toolkit for SSL/TLS* <http://www.openssl.org/>.
 
-Primero, es necesario expedir el certificado de la *CA*, que es firmado
-por sí mismo. El certificado de la *CA* es necesario para expedir nuevos
-certificados, así que el resto de funcionalidad del módulo no estará
-disponible hasta que ésta sea creada.
+Primero, es necesario generar las claves y expedir el certificado de la *CA*.
+Este paso es necesario para firmar nuevos certificados, así que el resto de
+funcionalidades del módulo no estarán disponibles hasta que las claves de la
+*CA* se generen y su certificado, que es autofirmado, sea expedido. Téngase
+en cuenta que este módulo es independiente y no necesita ser activado en
+:guilabel:`Estado del Módulo`.
 
-Para crearlo simplemente entraremos en la página del módulo a través
-de :menuselection:`Autoridad de Certificación` y nos encontraremos
-ante el formulario para crear el certificado de la *CA*. Se requerirá
-el :guilabel:`Nombre de la organización` y el :guilabel:`número de
-días` que transcurrirán antes de la expiración del certificado. A la
-hora de establecer la duración del certificado hay que tener en cuenta
-que su expiración revocará todos los certificados expedidos por él,
-resultando en la parada de todos los servicios que dependan de
-ellos. También es posible dar los siguientes datos de manera opcional:
+.. image:: images/vpn/ebox-ca-01.png
+   :align: center
+   :scale: 80
 
-- :guilabel:`Código de País`
+Accederemos a :menuselection:`Autoridad de Certificación --> General` y nos
+encontraremos ante el formulario para expedir el certificado de la *CA* tras
+generar automáticamente el par de claves. Se requerirá el
+:guilabel:`Nombre de la Organización` y el :guilabel:`Número de
+Días para Expirar`. A la hora de establecer la duración hay que tener en cuenta
+que su expiración revocará todos los certificados expedidos por esta *CA*,
+provocando la parada de todos los servicios que dependan de estos certificados.
+También es posible dar los siguientes datos de manera opcional:
+
+- :guilabel:`Código del País`
 - :guilabel:`Ciudad`
-- :guilabel:`País`
+- :guilabel:`Estado o Región`
 
-Una vez creado el certificado de la *CA*, seremos capaces de generar
-certificados con él. Para generarlos tan sólo tendremos que usar el
-formulario que aparece en la parte superior de la página de la
-autoridad de certificación. Los datos necesarios son el
-:guilabel:`nombre común` del certificado y los :guilabel:`días` que
-permanecerá activo antes de expirar. Este último dato está limitado
-por el hecho de que ningún certificado puede ser válido durante más tiempo
-que el certificado de la *CA*.
+.. image:: images/vpn/ebox-ca-02.png
+   :align: center
+   :scale: 80
+
+Una vez que la *CA* ha sido creada, seremos capaces de expedir certificados
+firmados por esta *CA*. Para hacer esto, usaremos el formulario que aparece
+ahora en :menuselection:`Autoridad de Certificación --> General`. Los datos
+necesarios son el :guilabel:`Nombre Común` del certificado y los :guilabel:`Días
+para Expirar`. Este último dato está limitado por el hecho de que ningún
+certificado puede ser válido durante más tiempo que la *CA*. En el caso de
+que estemos usando estos certificados para un servicio como podría ser
+un servidor web o un servidor de correo, el :guilabel:`Nombre Común` deberá
+coincidir con el nombre de dominio del servidor.
 
 Una vez el certificado haya sido creado, aparecerá en la lista de
 certificados y estará disponible para los módulos de eBox que usen
 certificados y para las demás aplicaciones externas. Además, a través de la
-lista de certificados podemos realizar distintas acciones con ellos.
-Las acciones disponibles son las siguientes:
+lista de certificados podemos realizar distintas acciones con ellos:
 
-- Descargar las claves pública, privada y el certificado de un nombre
-  común.
-- Revocar un certificado.
+- Descargar las claves pública, privada y el certificado.
 - Renovar un certificado.
+- Revocar un certificado.
 
-.. image:: images/vpn/01-ca.png
+Si renovamos un certificado, el certificado actual será revocado y uno
+nuevo con la nueva fecha de expiración será expedido junto al par de claves.
+
+.. image:: images/vpn/ebox-ca-03.png
    :align: center
    :scale: 80
 
-Si se renueva el certificado del *CA*, entonces todos los certificados
-se renovarán con la nueva clave pública del *CA* tratando de mantener
-la antigua fecha de expiración, si esto no es posible debido a que es
-superior a la fecha de expiración del certificado del *CA*, entonces
-se establecerá la fecha de expiración del certificado del *CA*. Si un
-certificado expira, se informará al resto de módulos sobre su
-expiración. Esta se comprueba cada noche y cada vez que se visualiza
-la lista de certificados.
+Si revocamos un certificado no podremos utilizarlo más ya que esta acción
+es permanente y no se puede deshacer. Opcionalmente podemos seleccionar
+la razón para revocarlo:
+
+- :guilabel:`unspecified` (no especificado)
+- :guilabel:`keyCompromise` (claves comprometidas)
+- :guilabel:`CACompromise` (*CA* comprometida)
+- :guilabel:`affilliationChanged` (cambio en la afiliación)
+- :guilabel:`superseded` (reemplazado)
+- :guilabel:`cessationOfOperation` (cese de operaciones)
+- :guilabel:`certificateHold` (certificado suspendido)
+- :guilabel:`removeFromCRL` (eliminado del *CRL*)
+
+.. image:: images/vpn/ebox-ca-04.png
+   :align: center
+   :scale: 80
+
+Si se renueva la *CA*, todos los certificados se renovarán con la nueva
+*CA* tratando de mantener la antigua fecha de expiración, si esto no es
+posible debido a que es posterior a la fecha de expiración de la *CA*,
+entonces se establecerá la fecha de expiración de la *CA*.
+
+Cuando un certificado expire, el resto de módulos serán notificados. La
+fecha de expiración de cada certificado se comprueba una vez al día y cada
+vez que se accede al listado de certificados.
+
+Certificados de Servicios
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: images/vpn/ebox-ca-05.png
+   :align: center
+   :scale: 80
+
+En :menuselection:`Autoridad de Certificación --> Certificados de Servicios` 
+podemos encontrar la lista de módulos de eBox usando certificados para sus
+servicios. Por omisión estos son generados por cada módulo, pero si estamos
+usando la *CA* podemos remplazar estos certificados autofirmados por uno
+expedido por la *CA* de nuestra organización. Para cada servicio podemos
+definir el :guilabel:`Nombre Común` del certificado y si no hay un certificado
+con ese :guilabel:`Nombre Común`, la *CA* expedirá uno. Para ofrecer este
+par de claves y el certificado firmado al servicio deberemos :guilabel:`Activar`
+el certificado para ese servicio.
+
+Cada vez que un certificado se renueva se ofrece de nuevo al módulo de eBox
+pero es necesario reiniciar ese servicio para forzarlo a usar el nuevo
+certificado.
 
 Ejemplo práctico A
 ^^^^^^^^^^^^^^^^^^
 
-Creación de una autoridad de certificación y certificados.
-
-Este ejercicio tiene los siguientes objetivos: crear una autoridad de
-certificación válida durante un año, crear un certificado
-llamado *servidor* y crear dos certificados para clientes llamados
-*cliente1* y *cliente2*.
-
-Para ello:
+Crear una autoridad de certificación (*CA*) válida durante un año, después
+crear un certificado llamado *servidor* y crear dos certificados para clientes
+llamados *cliente1* y *cliente2*.
 
 #. **Acción:**
-   Acceder a la interfaz de eBox, entrar en :menuselection:`Autoridad
-   de Certificación`, en el formulario :guilabel:`Expedir el
-   certificado de la Autoridad de Certificación` rellenamos los campos
-   :guilabel:`Nombre de Organización` y :guilabel:`Días para expirar`
-   con valores razonables. Pulsamos :guilabel:`Expedir` para expedir
-   el certificado de la Autoridad de Certificación.
+   En :menuselection:`Autoridad de Certificación --> General`, en el
+   formulario :guilabel:`Expedir el Certificado de la Autoridad de
+   Certificación` rellenamos los campos :guilabel:`Nombre de la
+   Organización` y :guilabel:`Días para Expirar` con valores razonables.
+   Pulsamos :guilabel:`Expedir` para generar la Autoridad de Certificación.
 
    Efecto:
-    Se expedirá el certificado de la Autoridad de Certificación
-    y se mostrará en la lista de certificados expedidos.  El
-    formulario para expedir el certificado de la autoridad de
-    certificación será sustituido por uno para expedir certificados
-    normales.
+    El par de claves de la Autoridad de Certificación es generados y su
+    certificado expedido. La nueva *CA* se mostrará en el listado de
+    certificados. El formulario para crear la Autoridad de Certificación
+    será sustituido por uno para expedir certificados normales.
 
 #. **Acción:**
-    Vamos a usar el formulario :guilabel:`Expedir un nuevo
-    certificado` para expedir certificados. Para ello en
-    :guilabel:`Nombre común` escribiremos *servidor* y en
-    :guilabel:`Días para expirar` un número de días menor o igual que
-    el puesto en el certificado de la Autoridad de
-    Certificación. Repetiremos estos pasos con los nombres *cliente1*
-    y *cliente2*.
+    Usando el formulario :guilabel:`Expedir un Nuevo Certificado` para
+    expedir certificados, escribiremos *servidor* en :guilabel:`Nombre Común`
+    y en :guilabel:`Días para Expirar` un número de días menor o igual que
+    el puesto en el certificado de la *CA*. Repetiremos estos pasos con los
+    nombres *cliente1* y *cliente2*.
 
    Efecto:
-    Los nuevos certificados aparecerán en la lista de certificados,
-    listos para su uso.
+    Los nuevos certificados aparecerán en el listado de certificados,
+    listos para ser usados.
 
 Configuración de una VPN con eBox
 =================================
