@@ -1,3 +1,5 @@
+.. _ntp-chapter-ref:
+
 Time synchronization service (NTP)
 **********************************
 

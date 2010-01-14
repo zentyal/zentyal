@@ -18,7 +18,7 @@ The DHCP service [#]_ is also used to obtain many other parameters, such as the
 *default gateway*, the *network mask*, the *IP addresses for the
 name servers* or the *search domain*, among others. Hence,
 access to the network is made easier, without the need for
-manual configuration by clients.
+manual configuration done by clients.
 
 .. [#] eBox uses "*ISC DHCP Software*" (https://www.isc.org/software/dhcp)
        to configure the DHCP service.
@@ -26,7 +26,7 @@ manual configuration by clients.
 When a DHCP client connects to the network, it sends a
 *broadcast* request and the DHCP server responds to valid requests
 with an IP address, the lease time granted for that IP and the
-parameters explained above. The request normally occurs during
+parameters explained above. The request usually happens during
 the client booting period and must be completed before
 going on with the remaining network services.
 
@@ -59,18 +59,17 @@ IP address. These parameters can be configured in the
 :menuselection:`Common options` tab.
 
 Default gateway:
-  This is the gateway to be used
-  by the client if it is unaware of another route to send the package
-  to its destination. Its value can be eBox, a gateway already
-  configured in the :menuselection:`Network --> Routers` section or a
-  custom IP address.
+  This is the gateway to be used by the client if it is unaware of
+  another route to send the package to its destination. Its value can
+  be :guilabel:`eBox`, a gateway already configured in the
+  :menuselection:`Network --> Gateways` section or a :guilabel:`custom
+  IP address`.
 
 Search domain:
-  In a network with hosts named in line with
-  *<host>.domain.com*, the search domain can be configured
-  as "domain.com". Hence, when seeking to resolve an
-  unsuccessful domain name, another attempt can be made by adding the
-  search domain to the end of it.
+  In a network with hosts named in line with *<host>.sub.domain.com*,
+  the search domain can be configured as "sub.domain.com". Hence, when
+  seeking to resolve an unsuccessful domain name, another attempt can
+  be made by adding the search domain to the end of it or parts of it.
 
   For example, if *smtp* cannot be resolved as a domain,
   *smtp.domain.com* will be tried on the client host.
@@ -79,15 +78,37 @@ Search domain:
   service can be selected.
 
 Primary name server:
-  This is the DNS server that the client will use
-  when a name is to be resolved or an IP address needs to be
-  translated into a name. Its value can be eBox (if the eBox DNS server
-  is to be queried) or an IP address of another
-  DNS server.
+  This is the DNS server [#]_ that the client will use when a name is to be
+  resolved or an IP address needs to be translated into a name. Its
+  value can be :guilabel:`local eBox DNS` (if the eBox DNS server is to be
+  queried, take into account **dns** module must be enabled) or an IP
+  address of another DNS server.
+
+.. [#] Go to :ref:`dns-chapter-ref` section for more details about
+       this service.
 
 Secondary name server:
   DNS server that the client will use if the primary one is not
   available. Its value must be the IP address of a DNS server.
+
+NTP server:
+  This is the **NTP** (Network Transport Protocol) [#]_ server that the
+  client will use when it wants to synchronize its clock using the
+  network. Its value can be none, :guilabel:`local eBox NTP` (take into account
+  **ntp** module must be enabled) or a :guilabel:`custom` NTP server.
+
+.. [#] Check out :ref:`ntp-chapter-ref` section for details about the
+       time synchronization service
+
+WINS server:
+  This is the **WINS** (Windows Internet Name Service) [#]_ server the
+  client will use to resolve NetBIOS names. Its value can be none,
+  :guilabel:`local eBox` (take into account **samba** must be enabled)
+  or a :guilabel:`custom` one.
+
+.. [#] WINS is the implementation for **NBNS** (NetBIOS Name
+       Service). For more information about it, check out
+       :ref:`filesharing-chapter-ref` section.
 
 The common options display the ranges of addresses distributed by DHCP
 and the addresses assigned manually. For the DHCP service to be
@@ -101,17 +122,17 @@ from a certain interface are determined by the static address
 assigned to that interface. Any free IP address from the corresponding
 subnet can be used in ranges or static assignments.
 
-To add a new range, click on :guilabel:`Add new` in the
-:guilabel:`Ranges` section. Then enter a name by which to
-identify the range and the values to be assigned within the
-range appearing above.
+Adding a range in the :guilabel:`Ranges` section is done by entering a
+:guilabel:`name` by which to identify the range and the values to be
+assigned within the range appearing above.
 
-Static assignments of IP addresses are possible to
-determined physical addresses in the
-:guilabel:`Static assignments` section. An address assigned in this
-way cannot form part of any range.
+Static assignments of IP addresses are possible to determined physical
+addresses in the :guilabel:`Fixed Addresses` section. An address
+assigned in this way cannot form part of any range. You may add an
+optional :guilabel:`description` for that assignment as well.
 
 .. figure:: images/dhcp/02-dhcp-adv.png
+   :scale: 70
    :alt: appearance of the advanced configuration for DHCP
 
    Appearance of the advanced configuration for DHCP
@@ -146,7 +167,40 @@ the image file can be loaded.
 Dynamic DNS updates
 ^^^^^^^^^^^^^^^^^^^
 
-.. TODO
+The DHCP server has the ability to dynamically update the DNS server
+[#]_. That is, the DHCP server will update in real time the **A** and
+**PTR** records to map an IP address to a host name and vice versa
+when an IP address is leased and released. The way that is done, it
+depends on the DHCP server configuration.
+
+.. [#] The :rfc:`2136` explains how to do dynamic updates in the
+       Domain Name System
+
+eBox provides dynamic DNS feature integrating **dhcp** and **dns**
+modules from the same box in :menuselection:`Dynamic DNS Options` tab. In
+order to enable this feature, the DNS module must be enabled as
+well. You may provide a :guilabel:`Dynamic domain` and a
+:guilabel:`Static domain`, which both will be added automatically to
+the DNS configuration. The dynamic domain maps the host names whose IP
+address corresponds from a range and the associated name follows this
+pattern: *dhcp-<leased-IP-address>.<dynamic-domain>*. Regarding to the
+static domain, the host name will follow this pattern:
+*<name>.<static-domain>* being the name the one you set on
+:guilabel:`Fixed addresses` table. Take into account that any DHCP
+client name update is ignored from eBox.
+
+.. figure:: images/dhcp/03-dhcp-dns-updates.png
+   :alt: Dynamic DNS updates configuration
+   :scale: 70
+
+   Dynamic DNS updates configuration
+
+The update is done using a secure protocol [#]_ and, currently, only
+direct mapping is supported.
+
+.. [#] Communication is done using **TSIG** (Transaction SIGnature) to
+       authenticate the dynamic update requests using a shared secret
+       key.
 
 Practical example
 ^^^^^^^^^^^^^^^^^

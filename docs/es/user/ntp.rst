@@ -1,3 +1,5 @@
+.. _ntp-chapter-ref:
+
 Servicio de sincronización de hora (NTP)
 ****************************************
 

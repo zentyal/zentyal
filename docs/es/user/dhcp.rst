@@ -10,15 +10,17 @@ Servicio de configuración de red (DHCP)
                    Jorge Salamero <jsalamero@ebox-platform.com>,
                    Javier Uruen <juruen@ebox-platform.com>,
 
-Como hemos comentado, **DHCP** (*Dynamic Host Configuration Protocol*) es un
-protocolo que permite a un dispositivo pedir y obtener una dirección IP
-desde un servidor que tiene una lista de direcciones disponibles para asignar.
+Como hemos comentado, **DHCP** (*Dynamic Host Configuration Protocol*)
+es un protocolo que permite a un dispositivo pedir y obtener una
+dirección IP desde un servidor que tiene una lista de direcciones
+disponibles para asignar.
 
-El servicio DHCP [#]_ se usa también para obtener otros muchos parámetros tales como la
-*puerta de enlace por defecto*, la *máscara de red*, las *direcciones IP de los
-servidores de nombres* o el *dominio de búsqueda* entre otros. De esta
-manera, se facilita el acceso a la red sin la necesidad de una
-configuración manual por parte del cliente.
+El servicio DHCP [#]_ se usa también para obtener otros muchos
+parámetros tales como la *puerta de enlace por defecto*, la *máscara
+de red*, las *direcciones IP de los servidores de nombres* o el
+*dominio de búsqueda* entre otros. De esta manera, se facilita el
+acceso a la red sin la necesidad de una configuración manual por parte
+del cliente.
 
 .. [#] eBox usa "*ISC DHCP Software*" (https://www.isc.org/software/dhcp)
        para configurar el servicio de DHCP
@@ -60,18 +62,18 @@ dirección IP, estos parámetros se pueden configurar en la pestaña de
 :menuselection:`Opciones comunes`.
 
 Puerta de enlace por defecto:
-  Es la puerta de enlace que va a emplear
-  el cliente si no conoce otra ruta por la que enviar el paquete a su
-  destino. Su valor puede ser eBox, una puerta de enlace ya
-  configurada en el apartado :menuselection:`Red --> Routers` o una
-  dirección IP personalizada.
+  Es la puerta de enlace que va a emplear el cliente si no conoce otra
+  ruta por la que enviar el paquete a su destino. Su valor puede ser
+  :guilabel:`eBox`, una puerta de enlace ya configurada en el apartado
+  :menuselection:`Red --> Routers` o una :guilabel:`dirección IP
+  personalizada`.
 
 Dominio de búsqueda:
   En una red cuyas máquinas estuvieran nombradas siguiendo la forma
-  *<máquina>.dominio.com*, se podría configurar el dominio de búsqueda
-  como "dominio.com". De esta forma, cuando se intente resolver un
+  *<máquina>.sub.dominio.com*, se podría configurar el dominio de búsqueda
+  como "sub.dominio.com". De esta forma, cuando se intente resolver un
   nombre de dominio sin éxito, se intentará de nuevo añadiéndole el
-  dominio de búsqueda al final.
+  dominio de búsqueda al final o partes de ese dominio.
 
   Por ejemplo, si *smtp* no se puede resolver como dominio, se
   intentará resolver *smtp.dominio.com* en la máquina cliente.
@@ -80,15 +82,40 @@ Dominio de búsqueda:
   que se haya configurado en el servicio de DNS.
 
 Servidor de nombres primario:
-  Se trata de aquel servidor DNS con el que contactará el cliente en
-  primer lugar cuando tenga que resolver un nombre o traducir una
-  dirección IP a un nombre. Su valor puede ser eBox (si queremos que se
-  consulte el propio servidor DNS de eBox) o una dirección IP de otro
-  servidor DNS.
+  Se trata de aquel servidor DNS [#]_ con el que contactará el cliente
+  en primer lugar cuando tenga que resolver un nombre o traducir una
+  dirección IP a un nombre. Su valor puede ser :guilabel:`eBox DNS
+  local` (si queremos que se consulte el propio servidor DNS de eBox,
+  hay que tener en cuenta que el módulo **dns** debe estar habilitado)
+  o una dirección IP de otro servidor DNS.
+
+.. [#] Ir a la sección :ref:`dns-chapter-ref` para tener más detalles
+       sobre este servicio.
 
 Servidor de nombres secundario:
   Servidor DNS con el que contactará el cliente si el primario no está
   disponible. Su valor debe ser una dirección IP de un servidor DNS.
+
+Servidor NTP:
+  Este es el servidor **NTP** (*Network Transport Protocol*) [#]_ que
+  el cliente usará cuando quiera sincronizar su reloj usando la
+  red. Su valor puede ser ninguno, :guilabel:`eBox NTP local` (hay que
+  tener en cuenta que el módulo **ntp** debe estar habilitado) o un
+  servidor NTP :guilabel:`personalizado`.
+
+.. [#] Comprobar la sección :ref:`ntp-chapter-ref` para obtener
+       detalles sobre el servicio de sincronización de hora
+
+Servidor WINS:
+  Este es el servidor **WINS** (*Windows Internet Name Service*) [#]_
+  que el cliente usará para resolver nombres NetBIOS. Su valor puede
+  ser ninguno, :guilabel:`eBox local` (hay que tener en cuenta que el
+  módulo **samba** debe estar habilitado) o uno
+  :guilabel:`personalizado`.
+
+.. [#] WINS es una implementación para **NBNS** (*NetBIOS Name
+       Service*). Para obtener más información sobre ello, ir a la
+       sección :ref:`filesharing-chapter-ref`.
 
 Debajo de las opciones comunes, se nos muestran los rangos de
 direcciones que se distribuyen mediante DHCP y las direcciones
@@ -97,20 +124,21 @@ menos debe haber un rango de direcciones a distribuir o una asignación
 estática. En caso contrario, el servidor DHCP **no** servirá direcciones
 IP aunque esté escuchando en todas las interfaces de red.
 
-Los rangos de direcciones y las direcciones estáticas disponibles para asignar
-desde una determinada interfaz vienen determinados por la dirección estática
-asignada a dicha interfaz. Cualquier dirección IP libre de la subred
-correspondiente puede utilizarse en rangos o asignaciones estáticas.
+Los rangos de direcciones y las direcciones estáticas disponibles para
+asignar desde una determinada interfaz vienen determinados por la
+dirección estática asignada a dicha interfaz. Cualquier dirección IP
+libre de la subred correspondiente puede utilizarse en rangos o
+asignaciones estáticas.
 
-Para añadir un nuevo rango, pulsar en :guilabel:`Añadir nuevo` en la
-sección :guilabel:`Rangos`. Allí introducimos un nombre con el que
-identificar el rango y los valores que se quieran asignar dentro del
-rango que aparece encima.
+Añadir un rango en la sección :guilabel:`Rangos` se hace introduciendo
+un :guilabel:`nombre` con el que identificar el rango y los valores
+que se quieran asignar dentro del rango que aparece encima.
 
 Se pueden realizar asignaciones estáticas de direcciones IP a
 determinadas direcciones físicas en el apartado
 :guilabel:`Asignaciones estáticas`. Una dirección asignada de este
-modo no puede formar parte de ningún rango.
+modo no puede formar parte de ningún rango. Se puede añadir una
+:guilabel:`descripción` opcional para la asignación también.
 
 .. figure:: images/dhcp/02-dhcp-adv.png
    :alt: Aspecto de las configuración avanzada para DHCP
@@ -148,7 +176,43 @@ caso se puede cargar el fichero de la imagen.
 Actualizaciones dinámicas de DNS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. TODO:
+El servidor DHCP tiene la habilidad de actualizar dinámicamente el
+servidor DNS [#]_. Esto es, el servidor DHCP actualizará en tiempo
+real los registros **A** y **PTR** para mapear una dirección IP a un
+nombre de máquina y viceversa cuando se sirva una dirección IP. La
+manera que esto se hace es dependiente de la configuración del
+servidor DHCP.
+
+.. [#] El :rfc:`2136` explica como hacer actualizaciones automáticas
+       en el Sistema de Nombres de Dominio (DNS).
+
+Con eBox es posible usar la actualización dinámica de DNS integrando
+los módulos de **dhcp** y **dns** de la misma máquina dentro la
+pestaña :menuselection:`Opciones de DNS dinámico`. Para habilitar esta
+característica, el módulo DNS debe ser habilitado también. Se debe
+disponer un :guilabel:`Dominio dinámico` y un :guilabel:`Dominio
+estático`, que ambos se añadirán a la configuración de DNS
+automáticamente. El dominio dinámico mapea los nombres de máquinas
+cuya dirección IP corresponde a una del rango y el nombre asociado
+sigue este patrón:
+*dhcp-<dirección-IP-ofrecida>.<dominio-dinámico>*. Con respecto al
+dominio estático, el nombre de máquina seguirá este patrón:
+*<nombre>.<dominio-estático>* siendo el nombre que se establece en la
+tabla de :guilabel:`Asignaciones estáticas`. Hay que tener en cuenta
+que una actualización desde el cliente DHCP es ignorada por eBox.
+
+.. figure:: images/dhcp/03-dhcp-dns-updates.png
+   :alt: Configuración de actualizaciones DNS dinámicas
+   :scale: 70
+
+   Configuración de actualizaciones DNS dinámicas
+
+La actualización se hace usando un protocolo seguro [#]_ y,
+actualmente, sólo el mapeo directo está soportado por eBox.
+
+.. [#] La comunicación se realiza usando **TSIG** (*Transaction
+       SIGnature*) para autenticar las peticiones de actualizaciones
+       dinámicas usando una clave secreta compartida.
 
 Ejemplo práctico
 ^^^^^^^^^^^^^^^^

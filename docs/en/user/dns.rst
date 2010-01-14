@@ -1,3 +1,5 @@
+.. _dns-chapter-ref:
+
 Name resolution service (DNS)
 *****************************
 

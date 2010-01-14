@@ -1,3 +1,5 @@
+.. _dns-chapter-ref:
+
 Servicio de resolución de nombres (DNS)
 ***************************************
 
@@ -160,7 +162,7 @@ tantos alias como se deseen.
 
 Con eBox se establece automáticamente el servidor autorizado para los
 dominios configurados a la máquina con nombre **ns**. Si esa máquina
-no existe, entonces se usa 127.0.0.1 c omo servidor de nombres
+no existe, entonces se usa 127.0.0.1 como servidor de nombres
 autorizado. Si quieres configurar el servidor de nombres autorizado
 manualmente para tus dominios (registros **NS**), ve a
 :guilabel:`servidores de nombres` y elige una de las máquinas del
