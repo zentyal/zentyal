@@ -44,13 +44,13 @@ diferentes privilegios con respecto a los recursos de la organización.
 Gestión de los usuarios y grupos en eBox
 ----------------------------------------
 
-Se puede crear un grupo desde el menú :menuselection:`Grupos -->
-Añadir grupo`. Un grupo se identifica por su nombre, y puede contener
+Se puede crear un grupo desde el menú :menuselection:`Usuarios y Grupos -->
+Grupos`. Un grupo se identifica por su nombre, y puede contener
 una descripción.
 
 .. image:: images/directory/01-groupadd.png
 
-A través de :menuselection:`Grupos --> Editar grupo` se pueden ver
+A través de :menuselection:`Usarios y Grupos --> Grupos` se pueden ver
 todos los grupos existentes para poder editarlos o borrarlos.
 
 Mientras se edita un grupo, se pueden elegir los usuarios que pertenecen al
@@ -69,8 +69,8 @@ Entre otras cosas con grupos de usuarios es posible:
 * Asignar permisos de acceso a las distintas aplicaciones de eGroupware a
   todos los usuarios de un grupo.
 
-Los usuarios se crean desde el menú :menuselection:`Usuarios -->
-Añadir Usuario`, donde tendremos que rellenar la siguiente
+Los usuarios se crean desde el menú :menuselection:`Usuarios y Grupos-->
+Usuarios`, donde tendremos que rellenar la siguiente
 información:
 
 .. image:: images/directory/03-useradd.png
@@ -89,7 +89,7 @@ Contraseña:
 Grupo:
   Es posible añadir el usuario a un grupo en el momento de su creación.
 
-Desde :menuselection:`Usuarios --> Editar Usuario` se puede obtener un
+Desde :menuselection:`Usuarios y Groups --> Usuarios --> Editar Usuario` se puede obtener un
 listado de los usuarios, editarlos o eliminarlos.
 
 .. image:: images/directory/04-users.png
@@ -162,7 +162,7 @@ Para ello:
      El módulo está activado y listo para ser usado.
 
 #. **Acción:**
-   Acceder a :menuselection:`Grupos`. Añadir **contabilidad** como grupo. El parámetro
+   Acceder a :menuselection:`Usuarios y Grupos --> Grupos`. Añadir **contabilidad** como grupo. El parámetro
    **comentario** es opcional.
 
    Efecto:

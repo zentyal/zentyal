@@ -380,9 +380,10 @@ Crear un usuario que tenga una cuenta de Voz IP. Cambiarle la extensión a
      El servicio de Voz IP está preparado para usarse.
 
 #. **Acción:**
-   Acceder al menú :menuselection:`Usuarios --> Añadir Usuario`. Completar la
-   información del formulario para crear un nuevo usuario. Pulsar el botón
-   :guilabel:`Crear Usuario`.
+
+     Acceder al menú :menuselection:`Usuarios y Grupos --> Usuarios -->
+     Añadir Usuario`. Completar la información del formulario para crear un
+     nuevo usuario. Pulsar el botón :guilabel:`Crear Usuario`.
 
    Efecto:
      eBox crea un nuevo usuario y nos muestra el perfil con las opciones de

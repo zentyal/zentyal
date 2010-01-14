@@ -210,7 +210,7 @@ sea indiferente.
 
 Para crear cuentas de correo lo haremos de manera análoga a la compartición de
 ficheros, acudimos a
-:menuselection:`Usuarios --> Editar Usuario --> Crear cuenta de correo`.
+:menuselection:`Usuarios y Grupos --> Usuarios --> Editar Usuario --> Crear cuenta de correo`.
 Es ahí donde seleccionamos el dominio virtual principal del usuario. Si
 queremos asignar al usuario a más de una cuenta de correo lo podemos hacer a
 través de los alias. Indiferentemente de si se ha usado un alias o no, el correo
@@ -218,9 +218,10 @@ sera almacenado una única vez en el buzón del usuario.
 sin embargo, no es posible usar un alias para autenticarse, se debe usar siempre
 la cuenta normal.
 
-Hay que tener en cuenta que se puede decidir si una cuenta de correo debe
-crearse automáticamente cada vez que un usuario sea añadido. Este comportamiento
-puede ser modificado en la sección :menuselection:`Usuarios y Grupos --> Plantilla por defecto de usuario --> Cuenta de correo`.
+Te en cuenta que puedes decidir si deseas que a un usuario se le cree
+automáticamente una cuena de correo cuando se crea. Este comportamiento
+puede ser configurado en `Usuarios y Grupos -> Plantilla de Usuario por
+defecto --> Cuenta de correo`.
 
 .. image:: images/mail/03-user.png
    :align: center
@@ -228,7 +229,7 @@ puede ser modificado en la sección :menuselection:`Usuarios y Grupos --> Planti
 
 De la misma manera, se pueden crear *alias* para grupos. Los mensajes recibidos
 por estos alias son enviado a todo los usuarios del grupo con cuenta de
-correo. Los alias de grupo son creados a  través de :menuselection:`Grupos -->
+correo. Los alias de grupo son creados a  través de :menuselection:`Usuarios y Grupos --> Grupos -->
 Editar grupo --> Crear un alias de cuenta de correo al grupo`.  Los alias de
 grupo están solo disponibles cuando al menos un usuario del grupo tiene cuenta
 de correo.
@@ -437,7 +438,7 @@ creada a una cuenta externa.
      Ahora ya podemos usar el dominio de correo que hemos añadido.
 
 #. **Acción:**
-   Acceder a :menuselection:`Usuarios --> Añadir usuario`,
+   Acceder a :menuselection:`Usuarios y Grupos --> Uusarios --> Añadir usuario`,
    rellenar sus datos y pulsar el botón :guilabel:`Crear`.
 
    Efecto:
@@ -445,8 +446,11 @@ creada a una cuenta externa.
      Aparece la pantalla de edición del usuario recién creado.
 
 #. **Acción:**
-   Escribir un nombre para la cuenta de correo del usuario en la sección
-   :guilabel:`Crear cuenta de correo` y pulsar el botón :guilabel:`Crear`.
+    (Este paso solo es necesario si has deshabilitado la opción de crear
+    cuentas de correo automáticamente en `Usuarios y Grupos --> Plantilla de
+    Usuario por defecto --> Cuenta de correo`). Escribir un nombre para la
+    cuenta de correo del usuario en la sección :guilabel:`Crear cuenta de
+    correo` y pulsar el botón :guilabel:`Crear`.
 
    Efecto:
      La cuenta se ha añadido inmediatamente y nos aparecen opciones para

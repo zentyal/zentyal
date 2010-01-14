@@ -135,6 +135,10 @@ borrar ficheros de cualquier otro usuario dentro de dicho directorio.
 
 .. image:: images/filesharing/09-share-acl.png
 
+También se puede crear un directorio compartido para un grupo desde
+:menuselection:`Usuarios y Grupos --> Grrupos --> Editar grupo`. Todos los miembros del grupo
+tendrán acceso a ese directorio y podrán leer o escribir los ficheros y
+directorios dentro de dicho directorio compartido.
 
 
 Configuración de clientes SMB/CIFS
