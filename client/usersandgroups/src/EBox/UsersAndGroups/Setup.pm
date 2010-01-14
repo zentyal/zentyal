@@ -28,6 +28,7 @@ use EBox::Module::Base;
 use EBox::Sudo qw(:all);
 use EBox::Exceptions::Internal;
 use EBox::UserCorner;
+use EBox::Model::ModelManager;
 
 use constant LDAPCONFDIR    => '/etc/ldap/';
 
@@ -93,64 +94,13 @@ sub GenRandom {
       return $data;
 }
 
-sub update_acls
-{
-    my ($dn, $pass) = @_;
-
-    my $ldap = Net::LDAP->new("ldap://127.0.0.1");
-    $ldap->bind("cn=admin,cn=config", password => $pass);
-
-    my $rootdn = "cn=admin,$dn";
-    my $eboxdn = "cn=ebox,$dn";
-
-    $dn = 'olcDatabase={1}hdb,cn=config';
-
-    my $result = $ldap->search(
-        'base' => $dn,
-        'scope' => 'base',
-        'filter' => '(objectclass=*)',
-        'attrs' => ['olcAccess']
-    );
-    my $entry = ($result->entries)[0];
-    my $attr = ($entry->attributes)[0];
-    my @new_acls = map {
-        s/(by dn="$rootdn" write)/$1 by dn="$eboxdn" write/; $_
-    } $entry->get_value($attr);
-
-    my %args = (
-        replace => [ 'olcAccess' => \@new_acls]
-    );
-    $ldap->modify($dn, %args);
-}
-
 # Setup a master
 sub master
 {
-    my ($ldappass) = @_;
-
-    my $ldap = Net::LDAP->new("ldap://127.0.0.1");
-    if (not defined($ldap)) {
-        throw EBox::Exceptions::Internal("Can't connect to LDAP server");
-    }
-    my $result = $ldap->bind('cn=admin,cn=config', 'password' => $ldappass);
-    if ($result->is_error()) {
-        throw EBox::Exceptions::External(__("Can't bind to LDAP with the provided password"));
-    }
-    my %args = (
-        'base' => '',
-        'scope' => 'base',
-        'filter' => '(objectclass=*)',
-        'attrs' => ['namingContexts']
-    );
-    $result = $ldap->search(%args);
-    my $entry = ($result->entries)[0];
-    my $attr = ($entry->attributes)[0];
-    my $dn = $entry->get_value($attr);
-
-    EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default /etc/default/slapd");
-    EBox::Sudo::root("invoke-rc.d slapd restart");
-
     my $pass = new_pass();
+
+    my $model = EBox::Model::ModelManager->instance()->model('Mode');
+    my $dn = $model->dnValue();
 
     EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
         'slapd-master.ldif',
@@ -168,13 +118,11 @@ sub master
           'password' => $pass
         ]);
 
-    EBox::Sudo::command("ldapadd -c -x -D 'cn=admin,cn=config' -f " .
-        EBox::Config::tmp() . "slapd-master.ldif -w $ldappass");
+    EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
+        EBox::Config::tmp() . "slapd-master.ldif");
 
-    EBox::Sudo::command("ldapadd -c -x -D 'cn=admin,$dn' -f " .
-        EBox::Config::tmp() . "slapd-master-db.ldif -w $ldappass");
-
-    update_acls($dn,$ldappass);
+    EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
+        EBox::Config::tmp() . "slapd-master-db.ldif");
 
     my $users = EBox::Global->modInstance('users');
 

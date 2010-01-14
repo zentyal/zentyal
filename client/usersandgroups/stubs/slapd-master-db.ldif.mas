@@ -2,6 +2,17 @@
 $dn
 $password
 </%args>
+<%init>
+my @parts = split(/,/, $dn);
+my $dc = (split(/=/, $parts[0]))[1];
+</%init>
+dn: <% $dn %>
+objectClass: organization
+objectClass: dcObject
+objectClass: top
+dc: <% $dc %>
+o: <% $dc %>
+
 dn: ou=Users,<% $dn %>
 objectClass: organizationalUnit
 ou: Users

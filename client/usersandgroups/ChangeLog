@@ -9,6 +9,8 @@ HEAD
 	a new user is created
 	+ Add defaultUserModel to LdapUserBase.pm
 	+ Specify folder for SlaveInfo
+	+ Add menu entry with information about LDAP including password
+	+ Change enableActions to use the new LDAP default structure from Karmic
 1.3.12
 	+ Add EBox::Ldap::lastModificationTime to know when the master LDAP
 	  database was modified for the last time

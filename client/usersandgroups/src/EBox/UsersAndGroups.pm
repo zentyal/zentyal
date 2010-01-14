@@ -297,6 +297,7 @@ sub modelClasses
         'EBox::UsersAndGroups::Model::Groups',
         'EBox::UsersAndGroups::Model::Password',
         'EBox::UsersAndGroups::Model::Slaves',
+        'EBox::UsersAndGroups::Model::LdapInfo',
         'EBox::UsersAndGroups::Model::PendingSync',
         'EBox::UsersAndGroups::Model::ForceSync',
         'EBox::UsersAndGroups::Model::ADSyncSettings',
@@ -2207,6 +2208,11 @@ sub menu
                         'text' => __('Groups')));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
                                               'text' => __('Default User Template')));
+        }
+        if (($mode eq 'master') or ($mode eq 'ad-slave')) {
+            $folder->add(new EBox::Menu::Item(
+                'url' => '/Users/View/LdapInfo',
+                'text' => __('LDAP Info')));
         }
         if ($mode eq 'master') {
             $folder->add(new EBox::Menu::Item(

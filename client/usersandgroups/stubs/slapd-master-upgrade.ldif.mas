@@ -1,0 +1,50 @@
+<%args>
+$acls
+</%args>
+# Allow querying the root DSE
+dn: olcDatabase={-1}frontend,cn=config
+changetype: modify
+add: olcAccess
+olcAccess: to dn.base="" by * read
+olcAccess: to dn.base="cn=subschema" by * read
+
+# Load syncprov module
+dn: cn=module{0},cn=config
+changetype: modify
+add: olcModuleLoad
+olcModuleLoad: syncprov
+
+include: file:///usr/share/ebox-usersandgroups/master.ldif
+include: file:///usr/share/ebox-usersandgroups/slaves.ldif
+
+dn: olcOverlay=syncprov,olcDatabase={1}hdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+olcSpCheckpoint: 10 60
+olcSpSessionlog: 100
+
+dn: olcDatabase={1}hdb,cn=config
+changetype: modify
+delete: olcRootDN
+-
+delete: olcRootPW
+-
+delete: olcAccess
+-
+add: olcAccess
+<% $acls %>
+-
+delete: olcDbIndex
+-
+add: olcDbIndex
+olcDbIndex: objectclass eq
+olcDbIndex: entryCSN eq
+olcDbIndex: entryUUID eq
+olcDbIndex: uid eq
+olcDbIndex: memberUid eq
+
+dn: olcDatabase={0}config,cn=config
+changetype: modify
+add: olcAccess
+olcAccess: to * by dn="cn=ebox,dc=ebox" manage by * break

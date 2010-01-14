@@ -22,6 +22,8 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
+use EBox::Model::ModelManager;
+
 use EBox::Gettext;
 
 use Net::LDAP;
@@ -267,8 +269,7 @@ sub rootPw
 #
 sub slapdConfFile
 {
-    return SLAPDCONFFILE;
-}
+    return SLAPDCONFFILE;}
 
 # Method: ldapConf
 #
@@ -875,13 +876,40 @@ sub _loadLdapConfig
 sub restoreLdapMaster
 {
     my ($self, $dir) = @_;
-    $self->_loadLdapConfig($dir, 'master');
-    my $ldifFile = $self->ldifFile($dir, 'master', 'data');
-    my $content = read_file($ldifFile);
-    my $passline = 'userPassword: ' . $self->getPassword();
-    $content =~ s/(^dn: cn=ebox,.*?)userPassword:.*?$/$1$passline/ms;
-    write_file($ldifFile, $content);
-    $self->_loadLdapData($dir, 'master');
+
+    if (-f "$dir/ldap.ldif") {
+        EBox::Sudo::root("rm -rf /var/lib/ldap/*");
+
+        my $model = EBox::Model::ModelManager->instance()->model('Mode');
+        my $dn = $model->dnValue();
+        my @parts = split(/,/, $dn);
+        my $dc = (split(/=/, $parts[0]))[1];
+
+        EBox::Sudo::root("cp $dir/ldap.ldif /var/lib/ebox/tmp/ldap.ldif");
+        EBox::Sudo::root("sed -i -e 's/dc=ebox/$dn/' /var/lib/ebox/tmp/ldap.ldif");
+        EBox::Sudo::root("sed -i -e 's/dc: ebox/dc: $dc/' /var/lib/ebox/tmp/ldap.ldif");
+        EBox::Sudo::rootWithoutException("/usr/sbin/slapadd -c -F /etc/ldap/slapd.d < /var/lib/ebox/tmp/ldap.ldif");
+        EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
+            'slapd-master-upgrade-ebox.ldif',
+            'usersandgroups/slapd-master-upgrade-ebox.ldif.mas',
+            [
+                'dn' => $dn,
+                'password' => $self->getPassword()
+            ]);
+        EBox::Sudo::root('chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' /var/lib/ldap');
+        EBox::Sudo::root('/etc/init.d/slapd start');
+        sleep(1);
+        EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
+            EBox::Config::tmp() . "slapd-master-upgrade-ebox.ldif");
+    } else {
+        $self->_loadLdapConfig($dir, 'master');
+        my $ldifFile = $self->ldifFile($dir, 'master', 'data');
+        my $content = read_file($ldifFile);
+        my $passline = 'userPassword: ' . $self->getPassword();
+        $content =~ s/(^dn: cn=ebox,.*?)userPassword:.*?$/$1$passline/ms;
+        write_file($ldifFile, $content);
+        $self->_loadLdapData($dir, 'master');
+    }
 }
 
 sub restoreLdapReplica
