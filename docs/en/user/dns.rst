@@ -136,6 +136,17 @@ configured.
 
 .. FIXME: Use Zapp to show the shot
 
+When a new domain is added, you may have noticed a field called
+:guilabel:`dynamic` is set to false. A domain is set as dynamic when
+it is updated automatically by a process without restarting the
+server. A typical example for this is a DHCP server which updates the
+DNS records when it leases/releases an IP address for a host. Check out
+:ref:`dynamic-dns-updates-ref` section for details about this
+configuration with eBox. Currently, if a domain is set as dynamic, then
+no manual configuration can be done using eBox interface.
+
+.. FIXME: Shot with dynamic zones
+
 Once a correct domain has been created, e.g. *home.example.com*,
 it is possible to complete the :guilabel:`hostnames` list for
 the domain. As many IP addresses as required can be added

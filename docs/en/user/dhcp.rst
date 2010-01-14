@@ -141,6 +141,13 @@ The PXE server may be an IP address or a name, in which case the path
 to the boot image or eBox must be indicated, in which case
 the image file can be loaded.
 
+.. _dynamic-dns-updates-ref:
+
+Dynamic DNS updates
+^^^^^^^^^^^^^^^^^^^
+
+.. TODO
+
 Practical example
 ^^^^^^^^^^^^^^^^^
 
