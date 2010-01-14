@@ -143,6 +143,13 @@ El servidor PXE puede ser una dirección IP o un nombre, en cuyo caso será
 necesario indicar la ruta de la imagen de arranque, o eBox, en cuyo
 caso se puede cargar el fichero de la imagen.
 
+.. _dynamic-dns-updates-ref:
+
+Actualizaciones dinámicas de DNS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. TODO:
+
 Ejemplo práctico
 ^^^^^^^^^^^^^^^^
 

@@ -135,6 +135,16 @@ referencia el dominio.
 .. image:: images/dns/03-dns.png
    :scale: 70
 
+Cuando se añade un nuevo dominio, se puede apreciar la presencia de un
+campo llamado :guilabel:`dinámico` con valor falso. Un dominio se
+establece como dinámico cuando es actualizado automáticamente por un
+proceso sin reiniciar el servidor. Un ejemplo típico para esto es
+cuando un servidor DHCP actualiza los registros DNS para un dominio
+cuando ofrece una dirección IP a una máquina. Ve a la sección
+:ref:`dynamic-dns-updates-ref` para obtener detalles sobre esta
+configuración con eBox. Actualmente, si un dominio se establece como
+dinámico, no se puede configurar manualmente desde el interfaz de eBox.
+
 Una vez que hemos creado un dominio correcto, por ejemplo *casa.example.com*,
 tenemos la posibilidad de rellenar la lista de **máquinas** (*hostnames*) para
 el dominio. Se podrán añadir tantas direcciones IP como se deseen
