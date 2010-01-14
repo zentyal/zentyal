@@ -119,9 +119,9 @@ puede tener varios nombres asociados.
 Una característica también importante del DNS es el registro
 **MX**. Dicho registro indica el lugar donde se enviarán los correos
 electrónicos que quieran enviarse a un determinado dominio. Por
-ejemplo, si queremos enviar un correo a alguien@casa.example.com, el
-servidor de correo preguntará por el registro MX de *casa.example.com*
-y el servicio responderá que es *mail.casa.example.com*.
+ejemplo, si queremos enviar un correo a alguien@example.com, el
+servidor de correo preguntará por el registro MX de *example.com*
+y el servicio responderá que es *mail.example.com*.
 
 La configuración en eBox se realiza a través del menú
 :menuselection:`DNS`. En eBox, se pueden configurar tantos dominios
@@ -145,6 +145,9 @@ cuando ofrece una dirección IP a una máquina. Ve a la sección
 configuración con eBox. Actualmente, si un dominio se establece como
 dinámico, no se puede configurar manualmente desde el interfaz de eBox.
 
+.. image:: images/dns/01-dns-domains.png
+   :scale: 70
+
 Una vez que hemos creado un dominio correcto, por ejemplo *casa.example.com*,
 tenemos la posibilidad de rellenar la lista de **máquinas** (*hostnames*) para
 el dominio. Se podrán añadir tantas direcciones IP como se deseen
@@ -157,13 +160,16 @@ tantos alias como se deseen.
 
 Con eBox se establece automáticamente el servidor autorizado para los
 dominios configurados a la máquina con nombre **ns**. Si esa máquina
-no existe, entonces se usa 127.0.0.1 como servidor de nombres
+no existe, entonces se usa 127.0.0.1 c omo servidor de nombres
 autorizado. Si quieres configurar el servidor de nombres autorizado
 manualmente para tus dominios (registros **NS**), ve a
 :guilabel:`servidores de nombres` y elige una de las máquinas del
 dominio o una personalizada. En el escenario típico, se configurará
 una máquina con nombre **ns** usando como dirección IP una de las
 configuradas en la sección :menuselection:`Red --> Interfaces`.
+
+.. image:: images/dns/02-dns-ns.png
+   :scale: 70
 
 Como característica adicional, podemos añadir nombres de servidores de
 correo a través de los :guilabel:`intercambiadores de correo` (*Mail

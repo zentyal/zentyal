@@ -118,9 +118,9 @@ can have several associated names.
 Another important characteristic of the DNS is the **MX**
 record. This record indicates the place where the e-mails to be
 sent to a certain domain are to be sent. For
-example, where an e-mail is to be sent to someone@home.example.com, the
-e-mail server will ask for the MX record of *home.example.com*
-and the service will reply that it is *mail.home.example.com*.
+example, where an e-mail is to be sent to someone@example.com, the
+e-mail server will ask for the MX record of *example.com*
+and the service will reply that it is *mail.example.com*.
 
 The configuration in eBox is done through the
 :menuselection:`DNS` menu. In eBox, as many DNS domains as required
@@ -145,7 +145,8 @@ DNS records when it leases/releases an IP address for a host. Check out
 configuration with eBox. Currently, if a domain is set as dynamic, then
 no manual configuration can be done using eBox interface.
 
-.. FIXME: Shot with dynamic zones
+.. image:: images/dns/01-dns-domains.png
+   :scale: 70
 
 Once a correct domain has been created, e.g. *home.example.com*,
 it is possible to complete the :guilabel:`hostnames` list for
@@ -157,8 +158,6 @@ used for each mapping.
 .. image:: images/dns/04-dns-hostname.png
    :scale: 70
 
-.. FIXME: Use Zapp to show the shot
-
 eBox set automatically the authoritative name server for the
 configured domains to **ns** host name. If none is set, then 127.0.0.1
 is set as authoritative name server for those domains. If you want to
@@ -169,7 +168,8 @@ typical scenario, you may configure a **ns** host name using as IP
 address one of the configured in :menuselection:`Network -->
 Interfaces` section.
 
-.. FIXME: Shot adding the name server
+.. image:: images/dns/02-dns-ns.png
+   :scale: 70
 
 As an additional feature, e-mail server names can be added
 through :guilabel:`mail exchangers`
