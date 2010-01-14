@@ -213,6 +213,7 @@ sub _table
                                 'defaultValue'  => 0,
                                 'help'          => __('A domain is dynamic when the DHCP server '
                                                       . 'updates the domain'),
+                                'HTMLViewer'    => '/ajax/viewer/booleanViewer.mas',
                                 ),
             new EBox::Types::Text(
                 # This field is filled when the zone is dynamic and
