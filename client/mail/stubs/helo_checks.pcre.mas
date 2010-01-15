@@ -1,7 +1,6 @@
 <%args>
 @hostnames
 </%args>
-/^localhost\./            501 Dont use localhost
 % foreach my $hostname (@hostnames) {
 /^<% $hostname %>$/ 501 Dont use my own domain/hostname
 % }
