@@ -8,12 +8,25 @@ EBox::init();
 
 my $domain = $ARGV[0];
 
-my $mail = EBox::Global->modInstance('mail');
+my $global = EBox::Global->getInstance();
+
+my $mail = $global->modInstance('mail');
 my $model = $mail->model('VDomains');
 
 $model->addRow(vdomain => $domain, aliases => []);
 
 $mail->save();
+
+if ($global->modExists('egroupware')) {
+    my $egw = $global->modInstance('egroupware');
+    my $model = $egw->model('VMailDomain');
+
+    my $row = $model->row();
+    $row->elementByName('vdomain')->setValue($domain);
+    $row->store();
+
+    $egw->save();
+}
 
 1;
 
