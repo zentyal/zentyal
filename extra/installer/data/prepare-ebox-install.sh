@@ -16,6 +16,7 @@ cp -r /tmp/locale /usr/share/
 
 # copy installer files
 cp -r /tmp/package-installer/* /var/tmp/
+cp /tmp/ebox-installer.auto /var/tmp
 
 # copy *.deb files from CD to hard disk
 PKG_DIR=/var/tmp/ebox-packages

@@ -20,6 +20,3 @@ test -r data/extra-packages.list || exit 1
 cat data/extra-packages.list | xargs sudo chroot $CHROOT apt-get install --download-only --allow-unauthenticated --yes
 
 cp $CHROOT/var/cache/apt/archives/*.deb $EXTRAS_DIR/
-
-#FIXME: Remove this definitely when we have kernel and dahdi in the ppa
-#cp l7filter-custom/* $EXTRAS_DIR/

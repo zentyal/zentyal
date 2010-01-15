@@ -56,24 +56,6 @@ tasksel tasksel/first multiselect
 # postfix answers
 postfix postfix/main_mailer_type select No configuration
 
-# ldap answers
-slapd slapd/password1 password
-slapd slapd/password2 password
-ldap-auth-config ldap-auth-config/ldapns/ldap_version select 3
-ldap-auth-config ldap-auth-config/binddn string cn=proxyuser,dc=example,dc=net
-ldap-auth-config ldap-auth-config/ldapns/ldap-server string ldapi:///findme
-ldap-auth-config ldap-auth-config/ldapns/base-dn string dc=example,dc=netfindme
-ldap-auth-config ldap-auth-config/dblogin boolean false
-ldap-auth-config ldap-auth-config/dbrootlogin boolean false
-ldap-auth-config ldap-auth-config/rootbinddn string cn=manager,dc=example,dc=net
-ldap-auth-config ldap-auth-config/rootbindpw password
-
-# egroupware answers
-egroupware-core egroupware/configuration/note note
-egroupware-core egroupware/header/user string admin
-egroupware-core egroupware/header/password password
-egroupware-core egroupware/header/password/confirm password
-
 # late command (we prepare here the ebox custom installer)
 d-i preseed/late_command string \
     cp -r /cdrom/ebox/* /target/tmp/ || \
