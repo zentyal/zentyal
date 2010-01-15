@@ -183,32 +183,6 @@ sub menu
     $root->add($settings);
 }
 
-# Method: extendedBackup
-#
-#   Overrides EBox::Module::Base::extendedBackup
-#
-sub extendedBackup
-{
-    my ($self, %options) = @_;
-    my $dir = $options{dir};
-
-    my $command = "ebox-egroupware-backup create $dir/egw-backup.bz2";
-    EBox::Sudo::root(EBox::Config::share() . "/ebox-egroupware/$command");
-}
-
-# Method: extendedRestore
-#
-#   Overrides EBox::Module::Base::extendedRestore
-#
-sub extendedRestore
-{
-    my ($self, %options) = @_;
-    my $dir = $options{dir};
-
-    my $command = "ebox-egroupware-backup restore $dir/egw-backup.bz2";
-    EBox::Sudo::root(EBox::Config::share() . "/ebox-egroupware/$command");
-}
-
 
 # Private functions
 
