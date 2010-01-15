@@ -315,7 +315,7 @@ save the changes. Subsequently, you should check in
 After that, you may want to advertise networks. These networks will be
 accessible by OpenVPN authorized clients. Note that eBox will advertise all
 your local networks by default. Obviously, you can remove or add routes at
-your leisure. In our example scenario, a local has been added automatically
+your leisure. In our example scenario, the local network has been added automatically
 to make visible the client number 3 to the two other clients.
 
 Once done, it's time to configure the clients.

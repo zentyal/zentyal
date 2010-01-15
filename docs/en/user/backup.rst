@@ -42,187 +42,181 @@ that an unauthorized access on the main server can reach the backup server.
 Backup configuration with eBox
 ------------------------------
 
-A very complex backup system can be deployed over any eBox Platform
-host, but we began introducing some preliminary backup support so
-you can configure through the interface a simple incremental backup to
-a local disk.
+First of all, we need to decide if we are going to store our backups locally or
+remotely. In case of using the latter we also need to spicify what protocol will
+be used to connect to the remote server.
 
-*rdiff-backup* [#]_ is the chosen tool to make the copies. The copies
-are incremental but a bit different from how they are usually made. This
-tool, instead of having an initial copy plus differences on top, has
-a full copy of the last version and differences backwards. Thanks to
-this feature, we can access and restore the last copy in a straightforward
-manner.  It uses the *rsync* [#]_ protocol to compare source and destination,
-transfering only the differences and making an efficient usage of the
-bandwith. It also uses *SSH*, which simplifies the deployment over the
-network.
-
-.. [#] *rdiff-backup* <http://rdiff-backup.nongnu.org/>.
-.. [#] *rsync* <http://rsync.samba.org/>.
-
-Although we could make the backups on the same hard disk where is the system,
-this option is not recommended because in the case of a hard disk failure, the
-backup copy could be damaged. The first step is to install an additional disk
-on the server. Hard disks are usually identified by the system as `/dev/sdx`
-giving a letter to *x* for each disk: a, b, c, etc.
-
-The following step is to create a partition and a file system on the hard disk.
-The file `/proc/partitions` shows details about the connected disks and the
-partitions they have. The following example is a host where the system is
-on the first hard disk (`/dev/sda`) using LVM [#]_ and a second disk (`/dev/sdb`)
-still without partitions::
-
-    # cat /proc/partitions
-    major minor  #blocks  name
-
-       8        0  8388608 sda  <- first disk
-       8        1   248976 sda1 <- first partition on the first disk
-       8        2  8136922 sda2 <- second partition on the first disk
-       8       16  1048576 sdb  <- second disk still without partitions
-     254        0  4194394 dm-0 <- first LVM volume
-     254        1   524288 dm-1 <- second LVM volume
-     254        2  2097152 dm-2 <- third LVM volume
-
-.. [#] :ref:`LVM-section`
-
-To create a partition we are going to run the command **cfdisk**, followed by
-the disk name, on the example presented above, `/dev/sdb`. This is a critial
-step. We have to be especially careful to not modify the partitions on the
-system disk because we could break it::
-
-    # cfdisk /dev/sdb
-
-Using the bottom menu, we create the partition:
-
-.. figure:: images/backup/ebox_backup_01.png
-   :scale: 50
-   :alt: Select *[New]*
+.. figure:: images/backup/ebox_ebackup_01.png
+   :scale: 80
+   :alt: Configuration
    :align: center
 
-   Select *[New]*
+   Select Configuration
 
-.. figure:: images/backup/ebox_backup_02.png
-   :scale: 50
-   :alt: Select partition type *[Primary]*
+
+:guilabel:`Method`:
+The current supported methods are *iBackup*, *RSYNC*, *FTP*, *SCP* and *File
+System*. Note that depending on the method you select you will have to provide
+more or less information such as the remote host addres or user and password. All methods
+except *File System* are used to access remote servers. This means you will have
+to provide proper credentials to connect to the server. You can create an
+*iBackup* account clicking on the link, by doing that you will be supporting the
+development of eBox platform with no extra charge. If you use *iBackup* you will
+not need to introduce the remote server address as eBox will have it configured
+automatically. On the other hand, if you select *RSYNC*, *FTP* or *SCP* you will
+need to provide the remote server address.
+
+.. warning::
+    If you use *SCP*, you will need to execute `sudo ssh user@server` to add
+    the remote server to the list of SSH known hosts. If you don't do this,
+    the backup software will fail to connect to the server.
+
+:guilabel:`Host or Destination`:
+For *RSYNC*, *FTP* and *SCP* you will need to provide the remote host name or IP
+address to connect. In case of using *File System*, introduce a local file
+system path.
+
+:guilabel:`User`:
+User name to authenticate in the remote host.
+
+:guilabel:`Password`:
+Password to authenticate in the remote host.
+
+:guilabel:`GPG Key`:
+You can select a GPG key to encrypt and decrypt your backup data. Learn how to
+create a GPG Key here.
+
+:guilabel:`Full Backup Frequency`:
+This is used to tell the module how often a full backup is carried out. Values
+are: *Daily*, *Weekly*, *Monthly*.
+
+:guilabel:`Number of full copies to keep`:
+This value is used to limit the number of full copies that are stored. This is
+an important value and you should understand what actually means. It is
+related to the *Full Backup Frequency*. If you set the frequency to *Weekly*, and
+the number of full copies to 2, your oldest backup copy will be two weeks old.
+Similarly, if you set it to *Monthly* and 4, your oldest backup copy will be 4
+months old. Set this value according to how long you wish to store backups and
+how much disk space you have.
+
+:guilabel:`Incremental Backup Frequency`:
+This value is also related to *Number of full copies to keep*. A normal backup
+setting might consist of taking incremental copies between full copies. Incremental copies
+should be done more frequently than full copies. This means that if you make
+weekly full copies, incremental copies should be set to daily, but it does not
+make sense to set it to same frequency as the full copies. To understand better this field let's see an
+example:
+
+*Full Backup Frequency* is set to weekly. *Number of full copies to keep* is set
+to 4. *Incremental Backup Frequency* to daily. This means that you will end up
+having 4 weekly full backups, and between every weekly backup you will have
+daily backups. That is a month worth of backed up data. And it also means that you
+could restore any arbitrary day of that month.
+
+:guilabel:`Backup process starts at`:
+This field is used to set the time at when the backup process starts. It is
+a good idea to set it to times when nobody is in the office as it can consume a
+lot of upload bandwidth.
+
+Configuring what directories and files are backed up
+----------------------------------------------------
+The default configuration will backup the whole file system. This means that in
+the event of a disaster you will be able to restore the machine completely. It is
+a good idea not change this configuration unless the space on your remote server
+is very limited. A full backup of an eBox machine with all its modules takes
+around 300 MB.
+
+.. figure:: images/backup/ebox_ebackup_03.png
+   :scale: 80
+   :alt: Include and exclude list
    :align: center
 
-   Select partition type *[Primary]*
+   Include and exclude list
 
-.. figure:: images/backup/ebox_backup_03.png
-   :scale: 50
-   :alt: Select the default size *Size (in MB)* (full disk)
+The default list of excluded directories is: */mnt*, */dev*, */media*, */sys*,
+and */proc*. It is usually a bad idea to include those directories, and in some
+cases, the backup process will fail.
+
+The default list of included directories is: */*.
+
+You can also exclude file extension using shell characteres. For example, if you
+want to skip *AVI* files from the backup, you can select *Exclude file regexp*
+and add *.avi*.
+
+Checking backup status
+----------------------
+You can check the status of your backup under the section *Remote Backup
+Status*. In that table, you will see the type of backup, full or
+incremental, and the date when it was taken.
+
+.. figure:: images/backup/ebox_ebackup_02.png
+   :scale: 80
+   :alt: Backup status
    :align: center
 
-   Select the default size *Size (in MB)* (full disk)
+   Backup status
 
-.. figure:: images/backup/ebox_backup_04.png
-   :scale: 50
-   :alt: Save changes on the partition table with *[Write]*
+Restoring files
+---------------
+There are two ways of restoring a file. It depends on the size and type of the
+file or directory that you need to restore.
+
+It is possible to restore files directly from the eBox interface. In the section
+*Restore Files* you have access to the list of all the remote files and
+directories, and also the available dates to be restored. Use this method with
+small data files, if they are too big it will take too long and you won't be
+able to use the web interface during the process of the operation. You must be
+very careful with the type of file you are restoring. It is usually safe to
+restore data files that are not used by applications at the moment of the
+restoring process. This data files will be placed under  */home/samba/*.
+However, it is very dangerous to restore system directories such as */lib*,
+*/var*, */usr* while the system is running. Do not do that unless you know what
+you are doing.
+
+.. figure:: images/backup/ebox_ebackup_04.png
+   :scale: 80
+   :alt: Restore file
    :align: center
 
-   Save changes on the partition table with *[Write]*
+   Restore file
 
-.. figure:: images/backup/ebox_backup_05.png
-   :scale: 50
-   :alt: Confirm changes with *yes*
+Big files and system directories must be restored manually. Depending on the use
+of the file, you can restore it safely while your system is running. However,
+for system directories you will have to use a rescue CD and proceed as we
+explain later.
+
+In any case, you must know how the underneath used software works. *duplicity*
+is tool used by eBox. The process to restore a file or directory is actually
+very simple. You must run the following command: `duplicity restore
+--file-to-restore -t 3D <file or dir to restore> <remote url and args> <destination>`.
+
+.. [#] *duplicity* <http://duplicity.nongnu.org/>.
+
+The flag *-t* is used to select the backup date to restore. In this case, *3D*
+means to restore a copy that is three days old. Using *now* you can restore the
+latest available copy.
+
+You can fetch the *<remote url and args>* on the top note in the section
+*Restore Files* in the eBox interface.
+
+.. figure:: images/backup/ebox_ebackup_05.png
+   :scale: 80
+   :alt: <remote url and args>
    :align: center
 
-   Confirm changes with *yes*
+   Remote url and arguments
 
-.. figure:: images/backup/ebox_backup_06.png
-   :scale: 50
-   :alt: Finish with *[Quit]*
-   :align: center
+For example, if you need to recover the file
+*/home/samba/users/john/balance.odc* you would run the following command::
+    
+    # duplicity restore --file-to-restore home/samba/users/john/balance.odc \
+      scp://backupuser@192.168.122.1 --ssh-askpass --no-encryption /tmp/balance.odc
 
-   Finish with *[Quit]*
-
-Now we can see the newly created partition in the example as `/dev/sdb1`::
-
-    # cat /proc/partitions
-    major minor  #blocks  name
-
-       8        0  8388608 sda  <- first disk
-       8        1   248976 sda1 <- first partition on the first disk
-       8        2  8136922 sda2 <- second partition on the first disk
-       8       16  1048576 sdb  <- second disk
-       8       17  1044193 sdb1 <- first partition on the second disk (recently created)
-     254        0  4194394 dm-0 <- first LVM volume
-     254        1   524288 dm-1 <- second LVM volume
-     254        2  2097152 dm-2 <- third LVM volume
-
-It is time to create the file system on the new partition. Again we have to be
-very careful in order to create the file system on the right partition,
-otherwise we would destroy all the existing data in other partition. In this
-example we are going to use the *ext3* filesystem with the *dir_index* parameter
-for better performance::
-
-    # mkfs.ext3 -O dir_index /dev/sdb1
-    Filesystem label=
-    OS type: Linux
-    Block size=4096 (log=2)
-    Fragment size=4096 (log=2)
-    65280 inodes, 261048 blocks
-    13052 blocks (5.00%) reserved for the super user
-    First data block=0
-    Maximum filesystem blocks=268435456
-    8 block groups
-    32768 blocks per group, 32768 fragments per group
-    8160 inodes per group
-    Superblock backups stored on blocks:
-            32768, 98304, 163840, 229376
-
-    Writing inode tables: done
-    Creating journal (4096 blocks): done
-    Writing superblocks and filesystem accounting information: done
-
-    This filesystem will be automatically checked every 31 mounts or
-    180 days, whichever comes first.  Use tune2fs -c or -i to override.
-
-We can create the mount point now::
-
-    # mkdir /mnt/backup
-
-Add the following line to your `/etc/fstab` file so it mounts it at boot time::
-
-    /dev/sdb1       /mnt/backup      ext3    noatime        0       1
-
-And finally mount it and you are ready::
-
-    # mount /mnt/backup
-
-Once you have the hard disk where you will store the backup, you can enable
-the backup module from :menuselection:`Module Status`. Once enabled, click on
-:guilabel:`Save Changes` and go to :menuselection:`Backup`. There
-are three parameters we can configure here.
-
-.. figure:: images/backup/ebox_ebackup.png
-   :scale: 70
-   :alt: **ebox-ebackup** configuration
-   :align: center
-
-   **ebox-ebackup** configuration
+The above command would restore the file in */tmp/balance.odc*. If you need to
+overwrite a file or directory during a restoring operation you will need to add
+the flag *--force*, otherwise duplicity will refuse to overwrite.
 
 
-:guilabel:`Backup path`:
-  This is the path where you have mounted the disk where the backup is going
-  to be stored. Defaults to `/mnt/backup/`.
-
-:guilabel:`Days to keep`:
-  This is the number of days from when the backups are going to be rotated.
-  Copies older than this number of days will be deleted after the next
-  successful copy.
-
-After clicking :guilabel:`Save Changes`, you can check if the first copy has
-finished and the current state of the backup with the following command::
-
-    # rdiff-backup -l /mnt/backup/
-    Found 0 increments:
-    Current mirror: Wed May 20 21:56:32 2009
-
-Note that the current module version still lacks the posibility to configure
-which directories are being included in the backup and all of them are included
-except `/dev`, `/proc` and `/sys` which are generated by the system at boot time.
-There is a *rdiff-backup* log on `/mnt/backup/ebox-backup.log`.
 
 How to recover on a disaster
 ----------------------------
@@ -232,129 +226,87 @@ restore a backup in a critial situation is as important as making backups.
 You should be able to restore services as soon as posible when a disaster
 interrupts the systems.
 
-Restoring a file or a directory is as easy as running `rdiff-backup` with the
-`-r` parameter giving `now` for the last copy or the number of days we want to
-go back with the backup, followed by the origin and the destination where the
-files will be restored::
+To recover from a total disaster, you would have to boot the system using rescue
+CD-ROM that includes the backup software duplicity. We wil be using *grml*.
 
-    # rdiff-backup -r now /mnt/backup/etc/ebox /etc/ebox
-    # rdiff-backup -r 10D /mnt/backup/home/samba/users/john /home/samba/users/john
+.. [#] *grml* <http://www.grml.org/>.
 
-On a total disaster, you would have to boot the system using a CD-ROM like the
-eBox Platform installer (or any other Ubuntu installer) in *rescue mode* and
-use the option *Rescue a broken system*.
+Download the *grml* image and boot the machine with it. You can use the
+parameter *nofb* if you have isssues with your screen size.
 
 .. figure:: images/backup/ebox_restore_01.png
-   :scale: 70
-   :alt: Boot with *Rescue a broken system*
+   :scale: 80
+   :alt: boot grml
    :align: center
 
-   Boot with *Rescue a broken system*
+   boot grml
 
-At the beginning, you will have to follow the same steps than on system install.
-Those questions only set up the temporary system without modifying the
-installed one. Continue until the rescue menu appears.
 
-In this menu, select the partition where `/boot` is if you have the partition
-scheme recommended by the developers (`/boot` + LVM). Otherwise, select the
-partition where `/` is mounted. In this case, you will already have
-the system mounted under `/target` and you will only have to mount the
-remaining partitions.
+Once the boot process has finished you can start a shell by pressing return.
 
 .. figure:: images/backup/ebox_restore_02.png
-   :scale: 50
-   :alt: Select `/dev/sda1`
+   :scale: 80
+   :alt: start a shell
    :align: center
 
-   Select `/dev/sda1`
+   start a shell
 
-.. figure:: images/backup/ebox_restore_03.png
-   :scale: 50
-   :alt: Select *Execute a shell in the installer environment*
-   :align: center
+If your network is not properly configured, you can run the command
+`netcardconfig` to configure it.
 
-   Select *Execute a shell in the installer environment*
+Now you need to mount the hard disk where files will be restored. In this case,
+we suppose we have our root partition in `/dev/sda1`. So we need to run::
+    
+    # mount /dev/sda1 /mnt
 
-.. figure:: images/backup/ebox_restore_04.png
-   :scale: 50
-   :alt: An info message
-   :align: center
+The above command will mount the partition under the `/mnt` directory. During
+this example, we make a full restore. And to do that we remove all existing
+directories in the partition. Of course, you could just remove and restore one
+dirctory if you need to do so.
 
-   An info message
+To remove the existing files to proceed with the full restore, run::
 
-.. figure:: images/backup/ebox_restore_05.png
-   :scale: 50
-   :alt: A restricted *shell*
-   :align: center
+    # rm -rf /mnt/*
 
-   A restricted *shell*
+We need to install duplicity if it's not already installed with::
 
-First of all, we have to create a mount point for the backup hard disk and mount
-it. The partition in the example is `/dev/sdb1` with an *ext3* file system::
+    # apt-get update
+    # apt-get install duplicity
 
-    # mkdir /mnt/backup
-    # mount -t ext3 /dev/sdb1 /mnt/backup
+Before restoring a full backup we need to restore `/etc/passwd` and
+`/etc/group`. Otherwise we can end up with a wrong file owner. The main
+issue is that *duplicity* saves the user and group names of a file and not
+its numerical values. We will run into problems if we restore the file with
+a system that has different UID or GID number. To avoid this we can just
+overwrite `/etc/passwd` and `/etc/group` on the rescue system first. Run::
 
-Now you have to create another mount point for the system root and mount it.
-Once mounted, delete everything to start from a clean environment::
+    # duplicity restore --file-to-restore etc/passwd \
+    # scp://backupuser@192.168.122.1 /etc/passwd --ssh-askpass --no-encryption --force
 
-    # mkdir /mnt/ebox
-    # mount -t ext3 /dev/ebox/root /mnt/ebox
-    # rm -fr /mnt/ebox/*
+    # duplicity restore --file-to-restore etc/group \
+    # scp://backupuser@192.168.122.1 /etc/group --ssh-askpass --no-encryption --force
 
-If you had other partitions which needed to be restored as well, like
-usually happens with `/var`, just do the same. Also with the
-other partitions if they have been compromised (`/home`, `/var/vmail`,
-etc.)::
+.. warning::
+    If you use *SCP*, you will need to execute `sudo ssh user@server` to add
+    the remote server to the list of SSH known hosts. If you don't do this,
+    duplicity will fail to connect. 
 
-    # mkdir /mnt/ebox/var
-    # mount -t xfs /dev/ebox/var /mnt/ebox/var
-    # rm -fr /mnt/ebox/var/*
+Now, we are ready to proceed with the a full restore running *duplicity*
+manually::
 
-And now you can restore the backup::
+    # duplicity restore  scp://backupuser@192.168.122.1 /mnt/ --ssh-askpass --no-encryption --force
 
-    # cd /mnt/backup/
-    # cp -ra * /mnt/ebox/
-
-There are some issues that have to be dealt with to get the system booting.
 You have to create the directories excluded from the backup. You should also
-clean up the temporal directories and the *rdiff-backup* metadata file::
+clean up the temporal directories.::
 
-    # mkdir -p /mnt/ebox/dev
-    # mkdir -p /mnt/ebox/sys
-    # mkdir -p /mnt/ebox/proc
-    # rm -fr /mnt/ebox/var/run/*
-    # rm -fr /mnt/ebox/var/lock/*
-    # rm -fr /mnt/ebox/rdiff-backup-data
+    # mkdir -p /mnt/dev
+    # mkdir -p /mnt/sys
+    # mkdir -p /mnt/proc
+    # rm -fr /mnt/var/run/*
+    # rm -fr /mnt/var/lock/*
 
-Now you just need to restore the `/boot` partition mounted on `/target`. If 
-you are using the same partition for `/boot` and `/` you must skip this step or
-you will lose your files in `/`. The commands for restore the `/boot` partition 
-are::
-
-    # rm -fr /target/*
-    # mv /mnt/ebox/boot/* /target/
-
-If you had mounted more partitions under `/mnt/ebox`, unmount them::
-
-    # umount /mnt/ebox/var
-
-Create `/var/run` and `/var/lock` which are needed to boot the system.
-Finally, unmount and exit::
-
-    # mkdir -p /mnt/ebox/var/run
-    # mkdir -p /mnt/ebox/var/lock
-    # umount /mnt/ebox
-    # exit
 
 The restoring proccess has finished and you can reboot now.
-
-.. figure:: images/backup/ebox_restore_06.png
-   :scale: 50
-   :alt: Select *Reboot the system*
-   :align: center
-
-   Select *Reboot the system*
 
 
 Configuration backups
