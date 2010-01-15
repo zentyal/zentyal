@@ -1,4 +1,4 @@
-HEAD
+1.3.13
 	+ Bug fix: configuration of PPPoE interfaces now works when
 	  confirmation is required because of other modules
 	+ Default field in gateways model uses '/ajax/viewer/booleanViewer.mas'

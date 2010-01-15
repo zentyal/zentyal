@@ -1,4 +1,4 @@
-HEAD
+1.3.13
 	+ Show the email address is available to authenticate with
 	+ Fix EBox::RemoteServices::Model::viewCustomizer to return always
 	  a customizer instance to match the new API

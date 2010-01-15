@@ -1,4 +1,4 @@
-HEAD
+1.3.13
 	+ Removed addition of 127.0.0.1 to trusted networks, is already added
 	by spamassassin
 	+ Add dovecot-antispam plugin support
