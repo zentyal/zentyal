@@ -157,22 +157,23 @@ sub delUserAccount   #username, mail
     my $mailbox = $self->getUserLdapValue($username, "mailbox");
 
     # Now we remove all mail atributes from user ldap leaf
-    my @toDelete = (
-                    mail                    => $self->getUserLdapValue($username, "mail"),
-                    mailbox                 => $mailbox,
-                    userMaildirSize            => 
-                        $self->getUserLdapValue($username, "userMaildirSize"),
-                    quota                   => 
-                        $self->getUserLdapValue($username, "quota"),
+    my @mailAttrs = grep {  
+                    $self->existsUserLdapValue($username, $_) 
+                } qw(mail mailbox userMaildirSize quota mailHomeDirectory 
+                     fetchmailAccount);
 
-                    mailHomeDirectory => $self->getUserLdapValue($username, "mailHomeDirectory"),
+
+
+    my @toDelete = map {
+        my $attr = $_;
+        $attr => $self->getUserLdapValue($username, $attr)
+    } @mailAttrs;
+
+    push @toDelete, (
                     objectClass     => 'couriermailaccount',
                     objectClass => 'usereboxmail',
-                   );
-
-
-
-
+                    objectClass => 'fetchmailUser',
+                    );
 
     my %attrs = (
                  changes => [
