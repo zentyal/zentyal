@@ -283,18 +283,24 @@ Nuestro objetivo es conectar al cliente 3 con los otros 2 clientes
 lejanos (1 y 2) y estos últimos entre sí.
 
 Para ello, necesitamos crear una **Autoridad de Certificación** y
-certificados para todos los elementos presentes en el sistema, el
-servidor OpenVPN y los dos clientes lejanos. Aquí, la máquina eBox
-actúa también como **autoridad de certificación**.
+certificados para los dos clientes remotos. Tenga en cuenta que también se
+necesita un certificado para el servidor OpenVPN. Sin emabargo, eBox creará este
+certificado automáticamente cuando cree un nuevo servidor OpenVPN. En este
+escenario, eBox actúa como una **Autoridad de Certificación**.
 
 Una vez tenemos los certificados, deberíamos poner a punto el servidor
-OpenVPN en eBox mediante :guilabel:`Crear un nuevo servidor`. Se debe dar
-un *nombre*, un par *protocolo/puerto*, un *certificado* (aquel que
-acabamos de crear en el ejercicio anterior) y una *dirección de red* para
-la VPN. Tanto al servidor como a los clientes que se conecten se les
-asignarán direcciones pertenecientes a la red de VPN. Para evitar
-conflictos debemos asegurarnos de que la dirección de red no se usa en
-ninguna otra parte de nuestra red.
+OpenVPN en eBox mediante :guilabel:`Crear un nuevo servidor`. El único parámetro
+que necesitamos introducir para crear un servidor es el nombre. eBox hace que la
+tarea de configurar un servidor OpenVPN sea sencilla, ya que establece valores
+de forma automática.
+
+Los siguientes parámetros de configuración son añadidos automáticamente por
+eBox, y pueden ser modificados si es neceario: una pareja de *puerto/protocolo*,
+un *certificado* (eBox creará uno automáticamente usando el nombre del servidor
+OpenVPN) y una *dirección de red*. Las direcciones de la red VPN se asignan
+tanto al servidor como a los clientes. Si se necesita cambiar la *dirección de
+red* nos deberemos asegurar que no entra en conflicto con una red local.
+
 
 Como vemos, el servidor OpenVPN estará escuchando en todas las
 interfaces externas. Por tanto, debemos poner al menos una de nuestras
@@ -321,9 +327,10 @@ guardar los cambios. Posteriormente, se debe comprobar en
 :menuselection:`Dashboard` que un servidor OpenVPN está funcionando.
 
 Tras ello, debemos anunciar redes, dichas redes serán accesibles por
-los clientes OpenVPN autorizados. Para conseguirlo, necesitamos redes
-que sean accesibles desde la máquina eBox. En nuestro escenario,
-deberemos añadir la red local para hacer visible el cliente 3 a los
+los clientes OpenVPN autorizados. Hay que tener en cuenta que eBox anunciará
+todas las redes internas automáticamente. Por supuesto, podemos añadir o
+eliminar las rutas que necesitemos. En nuestro escenario,
+se habrá añadido automáticamente la red local para hacer visible el cliente 3 a los
 otros dos clientes.
 
 Una vez hecho esto, es momento de configurar los clientes.
@@ -402,45 +409,10 @@ Para ello:
    :menuselection:`VPN --> Servidores`, pulsar sobre :guilabel:`Añadir
    nuevo`, aparecerá un formulario con los campos
    :guilabel:`Habilitado` y :guilabel:`Nombre`. Introduciremos un
-   nombre para el servidor y lo dejaremos deshabilitado hasta que esté
-   configurado correctamente.
+   nombre para el servidor.
 
    Efecto:
      El nuevo servidor aparecerá en la lista de servidores.
-
-#. **Acción:**
-   En la lista de servidores pulsar en el apartado
-   :guilabel:`Configuración` de nuestro servidor. Cambiar los siguientes
-   parámetros:
-
-      * :guilabel:`Puerto`: poner un puerto que no este en eso como el 7777.
-      * :guilabel:`Dirección de la VPN`: introducir una dirección
-        privada de red que no esté en uso. Por ejemplo, la
-        192.168.68.0.
-      * :guilabel:`Certificado del servidor`: seleccionar el
-        certificado con el nombre *servidor*. Si no existe, se crea como
-        se indica en el ejercicio anterior.
-      * :guilabel:`Interfaz donde escuchar`: seleccionar la
-        interfaz externa conectada a la red donde se encuentra el
-        computador donde vamos a montar el cliente.
-
-   Una vez realizados los cambios pulsaremos sobre *Cambiar*.
-
-   Efecto:
-     Se guardarán los cambios en la configuración del servidor.
-
-#. **Acción:**
-   Volvemos a la lista de servidores y entramos en la sección
-   :guilabel:`Redes anunciadas` de nuestro servidor. En la lista de
-   redes pulsamos sobre :guilabel:`Añadir nueva`.  Añadiremos la
-   dirección de la red privada a la lista de redes anunciadas.  A
-   continuación volveremos a la lista de servidores y pulsaremos en
-   :guilabel:`editar` en la columna :guilabel:`Acción`, como ya tenemos el
-   servidor configurado, marcaremos la casilla *Habilitado*.
-
-   Efecto:
-     Ya tenemos el servidor completamente configurado, solo nos resta
-     guardar los cambios para que esté activo.
 
 #. **Acción:**
    Pulsar en :guilabel:`Guardar cambios` y aceptar todos los cambios.
