@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI UsersAndGroups UserCorner UserCornerWebServer rootTests
+SUBDIRS = CGI UsersAndGroups UserCorner UserCornerWebServer Migration rootTests
 
 perldir = @PERLPATH@/EBox
 

@@ -1,9 +1,45 @@
+#
+# Copyright (c) 2007-2009 Suretec Systems Ltd. - <http://www.suretecsystems.com/>
+#
+# Version: 3.2.0
+#
+# Changes:
+# - Fixed typo - 13/08/2009
+# - https://issues.asterisk.org/view.php?id=13725 - 12/08/2009
+# - Added AsteriskVoiceMail Object class and AstAccountCallLimit attribute - 28/05/2009
+#   https://issues.asterisk.org/view.php?id=15155
+# - Added AstAccountLastQualifyMilliseconds - 28/05/2009
+#   https://issues.asterisk.org/view.php?id=15156
+# - http://bugs.digium.com/view.php?id=12860 - 04/07/2008
+# - Fixed wrong DESC - 07/05/2008
+#
+# Author: Gavin Henry - <ghenry@suretecsystems.com>
+#
+# Asterisk LDAP Schema ldif
+#
+# Digium root OID (http://www.iana.org/assignments/enterprise-numbers)
+#
+#  1.3.6.1.4.1.22736
+#  1.3.6.1.4.1.22736.5      LDAP elements
+#  1.3.6.1.4.1.22736.5.4    Attribute Types
+#  1.3.6.1.4.1.22736.5.5    Object Classes
+#
 dn: cn=asterisk,cn=schema,cn=config
 objectClass: olcSchemaConfig
 cn: asterisk
+#
 olcObjectIdentifier: AsteriskRoot 1.3.6.1.4.1.22736
 olcObjectIdentifier: AsteriskLDAP AsteriskRoot:5
+#
+#############################################################################
+# Attribute group OIDs.  e.g.: olcObjectIdentifier: AstAttrType AsteriskLDAP:4
+#############################################################################
 olcObjectIdentifier: AstAttrType AsteriskLDAP:4
+#
+#
+#############################################################################
+# Attribute OIDs e.g.: olcObjectIdentifier: AstContext AstAttrType:1
+#############################################################################
 olcObjectIdentifier: AstContext AstAttrType:1
 olcObjectIdentifier: AstExtension AstAttrType:2
 olcObjectIdentifier: AstPriority AstAttrType:3
@@ -52,210 +88,1201 @@ olcObjectIdentifier: AstConfigCommented AstAttrType:45
 olcObjectIdentifier: AstAccountIPAddress AstAttrType:46
 olcObjectIdentifier: AstAccountDefaultUser AstAttrType:47
 olcObjectIdentifier: AstAccountRegistrationServer AstAttrType:48
-olcObjectIdentifier: AstAccountUserAgent AstAttrType:49
-olcObjectIdentifier: AstAccountVMPassword AstAttrType:50
-olcObjectIdentifier: AstAccountLastms AstAttrType:51
-olcObjectIdentifier: AstAccountVMAttach AstAttrType:52
-olcObjectIdentifier: AstAccountVMMail AstAttrType:53
-olcObjectIdentifier: AstAccountVMDelete AstAttrType:54
+olcObjectIdentifier: AstAccountLastQualifyMilliseconds AstAttrType:49
+olcObjectIdentifier: AstAccountCallLimit AstAttrType:50
+olcObjectIdentifier: AstVoicemailMailbox AstAttrType:51
+olcObjectIdentifier: AstVoicemailPassword AstAttrType:52
+olcObjectIdentifier: AstVoicemailFullname AstAttrType:53
+olcObjectIdentifier: AstVoicemailEmail AstAttrType:54
+olcObjectIdentifier: AstVoicemailPager AstAttrType:55
+olcObjectIdentifier: AstVoicemailOptions AstAttrType:56
+olcObjectIdentifier: AstVoicemailTimestamp AstAttrType:57
+olcObjectIdentifier: AstVoicemailContext AstAttrType:58
+olcObjectIdentifier: AstAccountSubscribeContext AstAttrType:59
+olcObjectIdentifier: AstAccountUserAgent AstAttrType:61
+olcObjectIdentifier: AstAccountLanguage AstAttrType:62
+olcObjectIdentifier: AstAccountTransport AstAttrType:63
+olcObjectIdentifier: AstAccountPromiscRedir AstAttrType:64
+olcObjectIdentifier: AstAccountAccountCode AstAttrType:65
+olcObjectIdentifier: AstAccountSetVar AstAttrType:66
+olcObjectIdentifier: AstAccountAllowOverlap AstAttrType:67
+olcObjectIdentifier: AstAccountVideoSupport AstAttrType:68
+olcObjectIdentifier: AstAccountIgnoreSDPVersion AstAttrType:69
+olcObjectIdentifier: AstVoicemailAttach AstAttrType:70
+olcObjectIdentifier: AstVoicemailDelete AstAttrType:71
+olcObjectIdentifier: AstQueueName AstAttrType:72
+olcObjectIdentifier: AstQueueMoh AstAttrType:73
+olcObjectIdentifier: AstQueueAnnounce AstAttrType:74
+olcObjectIdentifier: AstQueueContext AstAttrType:75
+olcObjectIdentifier: AstQueueTimeout AstAttrType:76
+olcObjectIdentifier: AstQueueMonjoin AstAttrType:77
+olcObjectIdentifier: AstQueueMonformat AstAttrType:78
+olcObjectIdentifier: AstQueueYouarenext AstAttrType:79
+olcObjectIdentifier: AstQueueThereare AstAttrType:80
+olcObjectIdentifier: AstQueueCallswaiting AstAttrType:81
+olcObjectIdentifier: AstQueueHoldtime AstAttrType:82
+olcObjectIdentifier: AstQueueMinutes AstAttrType:83
+olcObjectIdentifier: AstQueueSeconds AstAttrType:84
+olcObjectIdentifier: AstQueueLessthan AstAttrType:85
+olcObjectIdentifier: AstQueueThankyou AstAttrType:86
+olcObjectIdentifier: AstQueueReporthold AstAttrType:87
+olcObjectIdentifier: AstQueueFrequency AstAttrType:88
+olcObjectIdentifier: AstQueueRoundseconds AstAttrType:89
+olcObjectIdentifier: AstQueueAnnounceholdtime AstAttrType:90
+olcObjectIdentifier: AstQueueRetry AstAttrType:91
+olcObjectIdentifier: AstQueueWrapuptime AstAttrType:92
+olcObjectIdentifier: AstQueueMaxlen AstAttrType:93
+olcObjectIdentifier: AstQueueServicelevel AstAttrType:94
+olcObjectIdentifier: AstQueueStrategy AstAttrType:95
+olcObjectIdentifier: AstQueueJoinempty AstAttrType:96
+olcObjectIdentifier: AstQueueLeavewhenempty AstAttrType:97
+olcObjectIdentifier: AstQueueEventmemberstatus AstAttrType:98
+olcObjectIdentifier: AstQueueEventwhencalled AstAttrType:99
+olcObjectIdentifier: AstQueueReportholdtime AstAttrType:100
+olcObjectIdentifier: AstQueueMemberdelay AstAttrType:101
+olcObjectIdentifier: AstQueueWeight AstAttrType:102
+olcObjectIdentifier: AstQueueTimeoutrestart AstAttrType:103
+olcObjectIdentifier: AstQueuePeriodicannounce AstAttrType:104
+olcObjectIdentifier: AstQueuePeriodicannouncefrequency AstAttrType:105
+olcObjectIdentifier: AstQueueMembername AstAttrType:106
+olcObjectIdentifier: AstQueueInterface AstAttrType:107
+olcObjectIdentifier: AstQueuePenality AstAttrType:108
+olcObjectIdentifier: AstQueuePaused AstAttrType:109
+olcObjectIdentifier: AstQueueMemberof AstAttrType:110
+olcObjectIdentifier: AstMeetmeConfno AstAttrType:111
+olcObjectIdentifier: AstMeetmeUsername AstAttrType:112
+olcObjectIdentifier: AstMeetmeDomain AstAttrType:113
+olcObjectIdentifier: AstMeetmePin AstAttrType:114
+olcObjectIdentifier: AstMeetmeAdminpin AstAttrType:115
+olcObjectIdentifier: AstMeetmeMembers AstAttrType:116
+#
+#
+#############################################################################
+# Object Class OIDs
+#############################################################################
 olcObjectIdentifier: AstObjectClass AsteriskLDAP:2
 olcObjectIdentifier: AsteriskExtension AstObjectClass:1
 olcObjectIdentifier: AsteriskIAXUser AstObjectClass:2
 olcObjectIdentifier: AsteriskSIPUser AstObjectClass:3
-olcObjectIdentifier: AsteriskVoicemail AstObjectClass:4
-olcObjectIdentifier: AsteriskConfig AstObjectClass:5
-olcAttributeTypes: ( AstContext NAME 'AstContext' DESC 'Asterisk Context' E
- QUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1
- 466.115.121.1.15 )
-olcAttributeTypes: ( AstExtension NAME 'AstExtension' DESC 'Asterisk Extens
- ion' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1
- .4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstPriority NAME 'AstPriority' DESC 'Asterisk Priority
- ' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.
- 1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstApplication NAME 'AstApplication' DESC 'Asterisk Ap
- plication' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1
- .3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstApplicationData NAME 'AstApplicationData' DESC 'Ast
- erisk Application Data' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsM
- atch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountAMAFlags NAME 'AstAccountAMAFlags' DESC 'Ast
- erisk Account AMA Flags' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstrings
- Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountCallerID NAME 'AstAccountCallerID' DESC 'Ast
- erisk Account CallerID' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsM
- atch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountContext NAME 'AstAccountContext' DESC 'Aster
- isk Account Context' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatc
- h SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountMailbox NAME 'AstAccountMailbox' DESC 'Aster
- isk Account Mailbox' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatc
- h SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstMD5secret NAME 'AstMD5secret' DESC 'Asterisk Accoun
- t MD5 Secret' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTA
- X 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountDeny NAME 'AstAccountDeny' DESC 'Asterisk A
- ccount Deny' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX
-  1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountPermit NAME 'AstAccountPermit' DESC 'Asteri
- sk Account Permit' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch 
- SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountQualify NAME 'AstAccountQualify' DESC 'Aste
- risk Account Qualify' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMat
- ch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountType NAME 'AstAccountType' DESC 'Asterisk A
- ccount Type' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX
-  1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountDisallowedCodec NAME 'AstAccountDisallowedC
- odec' DESC 'Asterisk Account Disallowed Codec' EQUALITY caseIgnoreMatch SUBST
- R caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountExpirationTimestamp NAME 'AstAccountExpirat
- ionTimestamp' DESC 'Asterisk Account Expiration Timestamp' EQUALITY caseIgnor
- eMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
- )
-olcAttributeTypes: ( AstAccountRegistrationContext NAME 'AstAccountRegistr
- ationContext' DESC 'Asterisk Account Registration Context' EQUALITY caseIgnor
- eMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
- )
-olcAttributeTypes: ( AstAccountRegistrationExten NAME 'AstAccountRegistrat
- ionExten' DESC 'Asterisk Account Registration Extension' EQUALITY caseIgnoreM
- atch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountNoTransfer NAME 'AstAccountNoTransfer' DESC
-  'Asterisk Account No Transfer' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSub
- stringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountCallGroup NAME 'AstAccountCallGroup' DESC '
- Asterisk Account Call Group' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstr
- ingsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountCanReinvite NAME 'AstAccountCanReinvite' DE
- SC 'Asterisk Account Can Reinvite' EQUALITY caseIgnoreMatch SUBSTR caseIgnore
- SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountDTMFMode NAME 'AstAccountDTMFMode' DESC 'As
- terisk Account DTMF Flags' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstrin
- gsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountFromUser NAME 'AstAccountFromUser' DESC 'As
- terisk Account From User' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountFromDomain NAME 'AstAccountFromDomain' DESC
-  'Asterisk Account From Domain' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSub
- stringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountFullContact NAME 'AstAccountFullContact' DE
- SC 'Asterisk Account Full Contact' EQUALITY caseIgnoreMatch SUBSTR caseIgnore
- SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountHost NAME 'AstAccountHost' DESC 'Asterisk A
- ccount Host' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX
-  1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountInsecure NAME 'AstAccountInsecure' DESC 'As
- terisk Account Insecure' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstrings
- Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountNAT NAME 'AstAccountNAT' DESC 'Asterisk Acc
- ount NAT' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.
- 3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountPickupGroup NAME 'AstAccountPickupGroup' DE
- SC 'Asterisk Account PickupGroup' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreS
- ubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountPort NAME 'AstAccountPort' DESC 'Asterisk A
- ccount Port' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX
-  1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountRestrictCID NAME 'AstAccountRestrictCID' DE
- SC 'Asterisk Account Restrict CallerID' EQUALITY caseIgnoreMatch SUBSTR caseI
- gnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountRTPTimeout NAME 'AstAccountRTPTimeout' DESC
-  'Asterisk Account RTP Timeout' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSub
- stringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountRTPHoldTimeout NAME 'AstAccountRTPHoldTimeo
- ut' DESC 'Asterisk Account RTP Hold Timeout' EQUALITY caseIgnoreMatch SUBSTR 
- caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountRealmedPassword NAME 'AstAccountRealmedPass
- word' DESC 'Asterisk Account Realmed Password' EQUALITY caseIgnoreMatch SUBST
- R caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountAllowedCodec NAME 'AstAccountAllowedCodec' 
- DESC 'Asterisk Account Allowed Codec' EQUALITY caseIgnoreMatch SUBSTR caseIgn
- oreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountMusicOnHold NAME 'AstAccountMusicOnHold' DE
- SC 'Asterisk Account Music On Hold' EQUALITY caseIgnoreMatch SUBSTR caseIgnor
- eSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountCanCallForward NAME 'AstAccountCanCallForwa
- rd' DESC 'Asterisk Account Can Call Forward' EQUALITY caseIgnoreMatch SUBSTR 
- caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountSecret NAME 'AstAccountSecret' DESC 'Asteri
- sk Account Secret' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch 
- SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountName NAME 'AstAccountName' DESC 'Asterisk A
- ccount Username' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SY
- NTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstConfigFilename NAME 'AstConfigFilename' DESC 'Aste
- risk LDAP Configuration Filename' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreS
- ubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstConfigCategory NAME 'AstConfigCategory' DESC 'Aste
- risk LDAP Configuration Category' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreS
- ubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstConfigCategoryMetric NAME 'AstConfigCategoryMetric
- ' DESC 'Asterisk LDAP Configuration Category Metric' EQUALITY caseIgnoreMatch
-  SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstConfigVariableName NAME 'AstConfigVariableName' DE
- SC 'Asterisk LDAP Configuration Variable Name' EQUALITY caseIgnoreMatch SUBST
- R caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstConfigVariableValue NAME 'AstConfigVariableValue' 
- DESC 'Asterisk LDAP Configuration Variable Value' EQUALITY caseIgnoreMatch SU
- BSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstConfigCommented NAME 'AstConfigCommented' DESC 'As
- terisk LDAP Configuration Commented' EQUALITY caseIgnoreMatch SUBSTR caseIgno
- reSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountIPAddress NAME 'AstAccountIPAddress' DESC '
- Asterisk Account IP Address' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstr
- ingsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountDefaultUser NAME 'AstAccountDefaultUser' DE
- SC 'Asterisk Account Default User' EQUALITY caseIgnoreMatch SUBSTR caseIgnore
- SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountRegistrationServer NAME 'AstAccountRegistra
- tionServer' DESC 'Asterisk Account Registration Server' EQUALITY caseIgnoreMa
- tch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountUserAgent NAME 'AstAccountUserAgent' DESC '
- Asterisk Account User Agent' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstr
- ingsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountVMPassword NAME 'AstAccountVMPassword' DESC
-  'Asterisk Account Voicemail Password' EQUALITY caseIgnoreMatch SUBSTR caseIg
- noreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountLastms NAME 'AstAccountLastms' DESC 'Asteri
- sk Realtime Qualify' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatc
- h SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountVMAttach NAME 'AstAccountVMAttach' DESC 'As
- terisk Account Voicemail Attachment' EQUALITY caseIgnoreMatch SUBSTR caseIgno
- reSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountVMMail NAME 'AstAccountVMMail' DESC 'Asteri
- sk Account Voicemail Mail' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstrin
- gsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcAttributeTypes: ( AstAccountVMDelete NAME 'AstAccountVMDelete' DESC 'As
- terisk Account Voicemail Delete' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSu
- bstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-olcObjectClasses: ( AsteriskExtension NAME 'AsteriskExtension' DESC 'PBX Ex
- tension Information for Asterisk' SUP top AUXILIARY MUST cn MAY ( AstContext 
- $ AstExtension $ AstPriority $ AstApplication $ AstApplicationData ) )
-olcObjectClasses: ( AsteriskIAXUser NAME 'AsteriskIAXUser' DESC 'IAX2 User 
- information for Asterisk' SUP AsteriskExtension AUXILIARY MUST cn MAY ( AstAc
- countAMAFlags $ AstAccountCallerID $ AstAccountContext $ AstAccountFullContac
- t $ AstAccountHost $ AstAccountMailbox $ AstMD5secret $ AstAccountDeny $ AstA
- ccountPermit $ AstAccountPort $ AstAccountQualify $ AstAccountType $ AstAccou
- ntDisallowedCodec $ AstAccountExpirationTimestamp $ AstAccountRegistrationCon
- text $ AstAccountRegistrationExten $ AstAccountNoTransfer $ AstAccountName ) 
- )
-olcObjectClasses: ( AsteriskSIPUser NAME 'AsteriskSIPUser' DESC 'SIP User i
- nformation for Asterisk' SUP AsteriskExtension AUXILIARY MUST cn MAY ( AstAcc
- ountAMAFlags $ AstAccountCallGroup $ AstAccountCallerID $ AstAccountCanReinvi
- te $ AstAccountContext $ AstAccountDefaultUser $ AstAccountDTMFMode $ AstAcco
- untFromUser $ AstAccountFromDomain $ AstAccountFullContact $ AstAccountHost $
-  AstAccountInsecure $ AstAccountIPAddress $ AstAccountMailbox $ AstAccountRea
- lmedPassword $ AstAccountNAT $ AstAccountDeny $ AstAccountPermit $ AstAccount
- PickupGroup $ AstAccountPort $ AstAccountQualify $ AstAccountRestrictCID $ As
- tAccountRTPTimeout $ AstAccountRTPHoldTimeout $ AstAccountType $ AstAccountDi
- sallowedCodec $ AstAccountAllowedCodec $ AstAccountMusicOnHold $ AstAccountEx
- pirationTimestamp $ AstAccountRegistrationContext $ AstAccountRegistrationExt
- en $ AstAccountRegistrationServer $ AstAccountUserAgent $ AstAccountCanCallFo
- rward $ AstAccountSecret $ AstAccountName $ AstAccountLastms ) )
-olcObjectClasses: ( AsteriskVoicemail NAME 'AsteriskVoicemail' DESC 'Voicem
- ail' SUP AsteriskExtension AUXILIARY MUST cn MAY ( AstAccountMailbox $ AstAcc
- ountVMPassword $ AstAccountVMMail $ AstAccountVMAttach $ AstAccountVMDelete )
-  )
-olcObjectClasses: ( AsteriskConfig NAME 'AsteriskConfig' DESC 'Asterisk con
- figuration Information' SUP top AUXILIARY MUST cn MAY ( AstConfigFilename $ A
- stConfigCategory $ AstConfigCategoryMetric $ AstConfigVariableName $ AstConfi
- gVariableValue $ AstConfigCommented ) )
+olcObjectIdentifier: AsteriskConfig AstObjectClass:4
+olcObjectIdentifier: AsteriskVoiceMail AstObjectClass:5
+olcObjectIdentifier: AsteriskDialplan AstObjectClass:6
+olcObjectIdentifier: AsteriskAccount AstObjectClass:7
+olcObjectIdentifier: AsteriskMailbox AstObjectClass:8
+olcObjectIdentifier: AsteriskQueue AstObjectClass:9
+olcObjectIdentifier: AsteriskQueueMember AstObjectClass:10
+olcObjectIdentifier: AsteriskMeetme AstObjectClass:11
+#
+#
+#############################################################################
+# attribute definitions
+#
+# OID (the first arg) comes from the olcObjectIdentifier: defined above
+#
+# NAME should be the same as olcObjectIdentifier:
+#
+# DESC should be the description of the attribute
+#
+# EQUALITY is the rule to use when doing a search/compare for an
+# attribute value.
+#
+# SUBSTR is the rule to use when doing a substring search (*foo*)
+#
+# SYNTAX is the syntax (i.e., type) of the attribute. We should
+# probably stick to syntaxes:
+#
+#       1.3.6.1.4.1.1466.115.121.1.15   -> directoryString (UTF-8 string)
+#       1.3.6.1.4.1.1466.115.121.1.26   -> IA5String (ASCII String)
+#       1.3.6.1.4.1.1466.115.121.1.27   -> integer (Integer value)
+#
+# SINGLE-VALUE should be present if only one instance of this
+# attribute is allowed within an entry.
+#
+# {32} is the allowed length
+#
+# e.g.:
+#
+# olcAttributeTypes: ( AstExample
+#    NAME ( 'AstExample' )
+#    DESC 'Asterisk Example Attribute'
+#    EQUALITY caseIgnoreMatch
+#    SUBSTR caseIgnoreSubstringsMatch
+#    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+#    SINGLE-VALUE )
+#
+#############################################################################
+#
+olcAttributeTypes: ( AstContext
+        NAME 'AstContext'
+        DESC 'Asterisk Context'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstExtension
+        NAME 'AstExtension'
+        DESC 'Asterisk Extension'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstPriority
+        NAME 'AstPriority'
+        DESC 'Asterisk Priority'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstApplication
+        NAME 'AstApplication'
+        DESC 'Asterisk Application'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstApplicationData
+        NAME 'AstApplicationData'
+        DESC 'Asterisk Application Data'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountAMAFlags
+        NAME 'AstAccountAMAFlags'
+        DESC 'Asterisk Account AMA Flags'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountCallerID
+        NAME 'AstAccountCallerID'
+        DESC 'Asterisk Account CallerID'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountContext
+        NAME 'AstAccountContext'
+        DESC 'Asterisk Account Context'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountMailbox
+        NAME 'AstAccountMailbox'
+        DESC 'Asterisk Account Mailbox'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstMD5secret
+        NAME 'AstMD5secret'
+        DESC 'Asterisk Account MD5 Secret'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountDeny
+        NAME 'AstAccountDeny'
+        DESC 'Asterisk Account Deny'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountPermit
+        NAME 'AstAccountPermit'
+        DESC 'Asterisk Account Permit'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountQualify
+        NAME 'AstAccountQualify'
+        DESC 'Asterisk Account Qualify'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountType
+        NAME 'AstAccountType'
+        DESC 'Asterisk Account Type'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountDisallowedCodec
+        NAME 'AstAccountDisallowedCodec'
+        DESC 'Asterisk Account Disallowed Codec'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountExpirationTimestamp
+        NAME 'AstAccountExpirationTimestamp'
+        DESC 'Asterisk Account Expiration Timestamp'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountRegistrationContext
+        NAME 'AstAccountRegistrationContext'
+        DESC 'Asterisk Account Registration Context'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountRegistrationExten
+        NAME 'AstAccountRegistrationExten'
+        DESC 'Asterisk Account Registration Extension'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountNoTransfer
+        NAME 'AstAccountNoTransfer'
+        DESC 'Asterisk Account No Transfer'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountCallGroup
+        NAME 'AstAccountCallGroup'
+        DESC 'Asterisk Account Call Group'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountCanReinvite
+        NAME 'AstAccountCanReinvite'
+        DESC 'Asterisk Account Can Reinvite'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountDTMFMode
+        NAME 'AstAccountDTMFMode'
+        DESC 'Asterisk Account DTMF Flags'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountFromUser
+        NAME 'AstAccountFromUser'
+        DESC 'Asterisk Account From User'
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountFromDomain
+        NAME 'AstAccountFromDomain'
+        DESC 'Asterisk Account From Domain'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountFullContact
+        NAME 'AstAccountFullContact'
+        DESC 'Asterisk Account Full Contact'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountHost
+        NAME 'AstAccountHost'
+        DESC 'Asterisk Account Host'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountInsecure
+        NAME 'AstAccountInsecure'
+        DESC 'Asterisk Account Insecure'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountNAT
+        NAME 'AstAccountNAT'
+        DESC 'Asterisk Account NAT'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountPickupGroup
+        NAME 'AstAccountPickupGroup'
+        DESC 'Asterisk Account PickupGroup'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountPort
+        NAME 'AstAccountPort'
+        DESC 'Asterisk Account Port'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountRestrictCID
+        NAME 'AstAccountRestrictCID'
+        DESC 'Asterisk Account Restrict CallerID'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountRTPTimeout
+        NAME 'AstAccountRTPTimeout'
+        DESC 'Asterisk Account RTP Timeout'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountRTPHoldTimeout
+        NAME 'AstAccountRTPHoldTimeout'
+        DESC 'Asterisk Account RTP Hold Timeout'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountRealmedPassword
+        NAME 'AstAccountRealmedPassword'
+        DESC 'Asterisk Account Realmed Password'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountAllowedCodec
+        NAME 'AstAccountAllowedCodec'
+        DESC 'Asterisk Account Allowed Codec'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountMusicOnHold
+        NAME 'AstAccountMusicOnHold'
+        DESC 'Asterisk Account Music On Hold'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountCanCallForward
+        NAME 'AstAccountCanCallForward'
+        DESC 'Asterisk Account Can Call Forward'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountSecret
+        NAME 'AstAccountSecret'
+        DESC 'Asterisk Account Secret'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountName
+        NAME 'AstAccountName'
+        DESC 'Asterisk Account Username'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstConfigFilename
+        NAME 'AstConfigFilename'
+        DESC 'Asterisk LDAP Configuration Filename'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstConfigCategory
+        NAME 'AstConfigCategory'
+        DESC 'Asterisk LDAP Configuration Category'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstConfigCategoryMetric
+        NAME 'AstConfigCategoryMetric'
+        DESC 'Asterisk LDAP Configuration Category Metric'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstConfigVariableName
+        NAME 'AstConfigVariableName'
+        DESC 'Asterisk LDAP Configuration Variable Name'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstConfigVariableValue
+        NAME 'AstConfigVariableValue'
+        DESC 'Asterisk LDAP Configuration Variable Value'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstConfigCommented
+        NAME 'AstConfigCommented'
+        DESC 'Asterisk LDAP Configuration Commented'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountIPAddress
+        NAME 'AstAccountIPAddress'
+        DESC 'Asterisk Account IP Address'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountDefaultUser
+        NAME 'AstAccountDefaultUser'
+        DESC 'Asterisk Account Default User'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountRegistrationServer
+        NAME 'AstAccountRegistrationServer'
+        DESC 'Asterisk Account Registration Server'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountLastQualifyMilliseconds
+        NAME 'AstAccountLastQualifyMilliseconds'
+        DESC 'Asterisk Account Last Qualify Milliseconds'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountCallLimit
+        NAME 'AstAccountCallLimit'
+        DESC 'Asterisk Account Call Limit'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstVoicemailMailbox
+        NAME 'AstVoicemailMailbox'
+        DESC 'Asterisk voicemail mailbox'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstVoicemailPassword
+        NAME 'AstVoicemailPassword'
+        DESC 'Asterisk voicemail password'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstVoicemailFullname
+        NAME 'AstVoicemailFullname'
+        DESC 'Asterisk voicemail fullname'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstVoicemailEmail
+        NAME 'AstVoicemailEmail'
+        DESC 'Asterisk voicemail email'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstVoicemailPager
+        NAME 'AstVoicemailPager'
+        DESC 'Asterisk voicemail pager'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstVoicemailOptions
+        NAME 'AstVoicemailOptions'
+        DESC 'Asterisk voicemail options'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstVoicemailTimestamp
+        NAME 'AstVoicemailTimestamp'
+        DESC 'Asterisk voicemail timestamp'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstVoicemailContext
+        NAME 'AstVoicemailContext'
+        DESC 'Asterisk voicemail context'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountSubscribeContext
+        NAME 'AstAccountSubscribeContext'
+        DESC 'Asterisk subscribe context'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountUserAgent
+        NAME 'AstAccountUserAgent'
+        DESC 'Asterisk account user context'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountLanguage
+        NAME 'AstAccountLanguage'
+        DESC 'Asterisk account user language'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountTransport
+        NAME 'AstAccountTransport'
+        DESC 'Asterisk account transport type'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountPromiscRedir
+        NAME 'AstAccountPromiscRedir'
+        DESC 'Asterisk account promiscous redirects'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountAccountCode
+        NAME 'AstAccountAccountCode'
+        DESC 'Asterisk account billing code'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountSetVar
+        NAME 'AstAccountSetVar'
+        DESC 'Asterisk account setvar'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountAllowOverlap
+        NAME 'AstAccountAllowOverlap'
+        DESC 'Asterisk account allow overlap dialing'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountVideoSupport
+        NAME 'AstAccountVideoSupport'
+        DESC 'Asterisk account video support'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstAccountIgnoreSDPVersion
+        NAME 'AstAccountIgnoreSDPVersion'
+        DESC 'Asterisk account ignore SDP version'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstVoicemailAttach
+        NAME 'AstVoicemailAttach'
+        DESC 'Asterisk voicemail attach'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstVoicemailDelete
+        NAME 'AstVoicemailDelete'
+        DESC 'Asterisk voicemail delete'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueName
+        NAME 'AstQueueName'
+        DESC 'Queue Name'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueMoh
+        NAME 'AstQueueMoh'
+        DESC 'Queue Music On Hold'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueAnnounce
+        NAME 'AstQueueAnnounce'
+        DESC 'Queue Announce'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueContext
+        NAME 'AstQueueContext'
+        DESC 'Queue Context'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueTimeout
+        NAME 'AstQueueTimeout'
+        DESC 'Queue Timeout'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueMonjoin
+        NAME 'AstQueueMonjoin'
+        DESC 'Queue Monitor Join'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueMonformat
+        NAME 'AstQueueMonformat'
+        DESC 'Queue Monitor Format'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueYouarenext
+        NAME 'AstQueueYouarenext'
+        DESC 'Queue Youarenext'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueThereare
+        NAME 'AstQueueThereare'
+        DESC 'Queue Thereare'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueCallswaiting
+        NAME 'AstQueueCallswaiting'
+        DESC 'Queue Callswaiting'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueHoldtime
+        NAME 'AstQueueHoldtime'
+        DESC 'Queue Holdtime'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueMinutes
+        NAME 'AstQueueMinutes'
+        DESC 'Queue Minutes'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueSeconds
+        NAME 'AstQueueSeconds'
+        DESC 'Queue Seconds'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueLessthan
+        NAME 'AstQueueLessthan'
+        DESC 'Queue Lessthan'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueThankyou
+        NAME 'AstQueueThankyou'
+        DESC 'Queue Thankyou'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueReporthold
+        NAME 'AstQueueReporthold'
+        DESC 'Queue Reporthold'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueFrequency
+        NAME 'AstQueueFrequency'
+        DESC 'Queue Frequency'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueRoundseconds
+        NAME 'AstQueueRoundseconds'
+        DESC 'Queue Roundseconds'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueAnnounceholdtime
+        NAME 'AstQueueAnnounceholdtime'
+        DESC 'Queue Announceholdtime'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueRetry
+        NAME 'AstQueueRetry'
+        DESC 'Queue QueueRetry'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueWrapuptime
+        NAME 'AstQueueWrapuptime'
+        DESC 'Queue Wrapuptime'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueMaxlen
+        NAME 'AstQueueMaxlen'
+        DESC 'Queue Maxlen'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueServicelevel
+        NAME 'AstQueueServicelevel'
+        DESC 'Queue Service Level'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueStrategy
+        NAME 'AstQueueStrategy'
+        DESC 'Queue Strategy'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueJoinempty
+        NAME 'AstQueueJoinempty'
+        DESC 'Queue QueueJoinempty'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueLeavewhenempty
+        NAME 'AstQueueLeavewhenempty'
+        DESC 'Queue Leavewhenempty'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueEventmemberstatus
+        NAME 'AstQueueEventmemberstatus'
+        DESC 'Queue Eventmemberstatus'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueEventwhencalled
+        NAME 'AstQueueEventwhencalled'
+        DESC 'Queue Eventwhencalled'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueReportholdtime
+        NAME 'AstQueueReportholdtime'
+        DESC 'Queue Reportholdtime'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueMemberdelay
+        NAME 'AstQueueMemberdelay'
+        DESC 'Queue Memberdelay'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueWeight
+        NAME 'AstQueueWeight'
+        DESC 'Queue Weight'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueTimeoutrestart
+        NAME 'AstQueueTimeoutrestart'
+        DESC 'Queue Timeoutrestart'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueuePeriodicannounce
+        NAME 'AstQueuePeriodicannounce'
+        DESC 'Queue Periodicannounce'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueuePeriodicannouncefrequency
+        NAME 'AstQueuePeriodicannouncefrequency'
+        DESC 'Queue Periodicannouncefrequency'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueMembername
+        NAME 'AstQueueMembername'
+        DESC 'Queue Membername'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueMemberof
+        NAME 'AstQueueMemberof'
+        DESC 'Queue Memberof'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueueInterface
+        NAME 'AstQueueInterface'
+        DESC 'Queue Interface'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueuePenality
+        NAME 'AstQueuePenality'
+        DESC 'Queue Penality'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstQueuePaused
+        NAME 'AstQueuePaused'
+        DESC 'Queue Paused'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstMeetmeConfno 
+        NAME 'AstMeetmeConfno'
+        DESC 'Meetme Confno'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstMeetmeUsername
+        NAME 'AstMeetmeUsername'
+        DESC 'Meetme Username'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstMeetmeDomain
+        NAME 'AstMeetmeDomain'
+        DESC 'Meetme Domain'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstMeetmePin
+        NAME 'AstMeetmePin'
+        DESC 'Meetme Pin'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstMeetmeAdminpin
+        NAME 'AstMeetmeAdminpin'
+        DESC 'Meetme Adminpin'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+olcAttributeTypes: ( AstMeetmeMembers
+        NAME 'AstMeetmeMembers'
+        DESC 'Meetme Members'
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15)
+#
+#
+#############################################################################
+# Object Class definitions
+#
+# This is where to define the object classes. Object classes are used
+# to define which attribute MAY (optional) or MUST (required) belong
+# to an entry.
+#
+# Classes can be AUXILIARY or STRUCTURAL. An entry in the directory
+# must have one and only one structural class, but can have many
+# AUXILIARY classes.
+#
+#############################################################################
+#
+olcObjectClasses: ( AsteriskExtension
+    NAME 'AsteriskExtension'
+    DESC 'PBX Extension Information for Asterisk'
+    SUP top AUXILIARY
+    MUST cn
+    MAY (
+        AstContext $
+        AstExtension $
+        AstPriority $
+        AstApplication $
+        AstApplicationData
+    )
+    )
+#
+#############################################################################
+#
+# AsteriskIAXUser and AsteriskSIPUser extend AsteriskExtension. These
+# represent real accounts in Asterisk.
+#
+# NOTE: They are defined as AUXILIARY in case they need to be mixed with an
+# existing directory deployment.
+#
+#############################################################################
+#
+olcObjectClasses: ( AsteriskIAXUser
+    NAME 'AsteriskIAXUser'
+    DESC 'IAX2 User information for Asterisk'
+    SUP AsteriskExtension AUXILIARY
+    MUST cn
+    MAY (
+        AstAccountAMAFlags $
+        AstAccountCallerID $
+        AstAccountContext $
+        AstAccountFullContact $
+        AstAccountHost $
+        AstAccountMailbox $
+        AstMD5secret $
+        AstAccountDeny $
+        AstAccountPermit $
+        AstAccountPort $
+        AstAccountQualify $
+        AstAccountType $
+        AstAccountLanguage $
+        AstAccountDisallowedCodec $
+        AstAccountExpirationTimestamp $
+        AstAccountRegistrationContext $
+        AstAccountRegistrationExten $
+        AstAccountNoTransfer $
+        AstAccountName $
+        AstAccountLastQualifyMilliseconds $
+        AstAccountCallLimit $
+        AstAccountSubscribeContext $
+        AstAccountIPAddress $
+        AstAccountUserAgent
+    )
+    )
+#
+olcObjectClasses: ( AsteriskSIPUser
+    NAME 'AsteriskSIPUser'
+    DESC 'SIP User information for Asterisk'
+    SUP AsteriskExtension AUXILIARY
+    MUST cn
+    MAY (
+        AstAccountAccountCode $
+        AstAccountAllowOverlap $
+        AstAccountAllowedCodec $
+        AstAccountAMAFlags $
+        AstAccountCallGroup $
+        AstAccountCallLimit $
+        AstAccountCallerID $
+        AstAccountCanCallForward $
+        AstAccountCanReinvite $
+        AstAccountContext $
+        AstAccountDTMFMode $
+        AstAccountDefaultUser $
+        AstAccountDeny $
+        AstAccountDisallowedCodec $
+        AstAccountExpirationTimestamp $
+        AstAccountFromDomain $
+        AstAccountFromUser $
+        AstAccountFullContact $
+        AstAccountHost $
+        AstAccountIgnoreSDPVersion $
+        AstAccountInsecure $
+        AstAccountIPAddress $
+        AstAccountLanguage $
+        AstAccountLastQualifyMilliseconds $
+        AstAccountMailbox $
+        AstAccountMusicOnHold $
+        AstAccountNAT $
+        AstAccountName $
+        AstAccountPermit $
+        AstAccountPickupGroup $
+        AstAccountPort $
+        AstAccountPromiscRedir $
+        AstAccountQualify $
+        AstAccountRTPHoldTimeout $
+        AstAccountRTPTimeout $
+        AstAccountRealmedPassword $
+        AstAccountRegistrationContext $
+        AstAccountRegistrationExten $
+        AstAccountRegistrationServer $
+        AstAccountRestrictCID $
+        AstAccountSecret $
+        AstAccountSetVar $
+        AstAccountSubscribeContext $
+        AstAccountTransport $
+        AstAccountType $
+        AstAccountUserAgent $
+        AstAccountVideoSupport
+    )
+    )
+#
+#############################################################################
+#
+# AsteriskConfig and AsteriskVoiceMail extend AsteriskExtension. These
+# represent real accounts in Asterisk.
+#
+# NOTE: They are defined as AUXILIARY in case they need to be mixed with an
+# existing directory deployment.
+#
+#############################################################################
+#
+olcObjectClasses: ( AsteriskConfig
+    NAME 'AsteriskConfig'
+    DESC 'Asterisk configuration Information'
+    SUP top AUXILIARY
+    MUST cn
+    MAY (
+        AstConfigFilename $
+        AstConfigCategory $
+        AstConfigCategoryMetric $
+        AstConfigVariableName $
+        AstConfigVariableValue $
+        AstConfigCommented
+    )
+    )
+#
+olcObjectClasses: ( AsteriskVoiceMail
+    NAME 'AsteriskVoiceMail'
+    DESC 'Asterisk voicemail information'
+    SUP top AUXILIARY
+    MUST (
+        cn $
+        AstContext $
+        AstVoicemailMailbox $
+        AstVoicemailPassword
+    )
+    MAY (
+        AstVoicemailFullname $
+        AstVoicemailEmail $
+        AstVoicemailPager $
+        AstVoicemailOptions $
+        AstVoicemailTimestamp $
+        AstVoicemailContext $
+        AstVoicemailAttach $
+        AstVoicemailDelete
+    )
+    )
+#
+olcObjectClasses: ( AsteriskDialplan
+    NAME 'AsteriskDialplan'
+    DESC 'Asterisk Dialplan Information'
+    SUP top STRUCTURAL
+    MUST (
+        AstExtension
+    )
+    )
+#
+olcObjectClasses: ( AsteriskAccount
+    NAME 'AsteriskAccount'
+    DESC 'Asterisk Account Information'
+    SUP top STRUCTURAL
+    MUST (
+        AstAccountName
+    )
+    )
+#
+olcObjectClasses: ( AsteriskMailbox
+    NAME 'AsteriskMailbox'
+    DESC 'Asterisk Mailbox Information'
+    SUP top STRUCTURAL
+    MUST (
+        AstVoicemailMailbox
+    )
+    )
+#
+olcObjectClasses: ( AsteriskQueue 
+    NAME 'AsteriskQueue'
+    DESC 'Asterisk Queue'
+    SUP top AUXILIARY
+    MUST AstQueueName 
+    MAY (
+        AstQueueMoh $ 
+        AstQueueAnnounce $ 
+        AstQueueContext $
+        AstQueueTimeout $ 
+        AstQueueMonjoin $ 
+        AstQueueMonformat $ 
+        AstQueueYouarenext $ 
+        AstQueueThereare $ 
+        AstQueueCallswaiting $ 
+        AstQueueHoldtime $ 
+        AstQueueMinutes $ 
+        AstQueueSeconds $ 
+        AstQueueLessthan $
+        AstQueueThankyou $ 
+        AstQueueReporthold $ 
+        AstQueueFrequency $ 
+        AstQueueRoundseconds $ 
+        AstQueueAnnounceholdtime $ 
+        AstQueueRetry $ 
+        AstQueueWrapuptime $ 
+        AstQueueMaxlen $ 
+        AstQueueServicelevel $ 
+        AstQueueStrategy $ 
+        AstQueueJoinempty $ 
+        AstQueueLeavewhenempty $ 
+        AstQueueEventmemberstatus $ 
+        AstQueueEventwhencalled $ 
+        AstQueueReportholdtime $ 
+        AstQueueMemberdelay $ 
+        AstQueueWeight $ 
+        AstQueueTimeoutrestart $ 
+        AstQueuePeriodicannounce $ 
+        AstQueuePeriodicannouncefrequency
+    )
+    )
+#
+olcObjectClasses: ( AsteriskQueueMember
+    NAME 'AsteriskQueueMember'
+    DESC 'Asterisk Queue Member'
+    SUP top AUXILIARY
+    MUST cn
+    MAY (
+        AstQueueMembername $ 
+        AstQueueMemberof $ 
+        AstQueueInterface $ 
+        AstQueuePenality $ 
+        AstQueuePaused
+    )
+    )
+#
+olcObjectClasses: ( AsteriskMeetme
+    NAME 'AsteriskMeetme'
+    DESC 'Asterisk Meetme'
+    SUP top AUXILIARY
+    MUST cn
+    MAY (
+        AstMeetmeConfno $
+        AstMeetmeUsername $
+        AstMeetmeDomain $
+        AstMeetmePin $
+        AstMeetmeAdminpin $
+        AstMeetmeMembers 
+    )
+    )

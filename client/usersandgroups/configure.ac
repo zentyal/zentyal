@@ -61,6 +61,7 @@ conf/user-eboxlog.conf
 src/Makefile
 src/cgi/Makefile
 src/EBox/Makefile
+src/EBox/Migration/Makefile
 src/EBox/UserCorner/Makefile
 src/EBox/UserCorner/CGI/Makefile
 src/EBox/UserCorner/CGI/Dashboard/Makefile
