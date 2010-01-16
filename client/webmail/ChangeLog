@@ -2,6 +2,7 @@
 	+ Change menu name to keep folder open
 	+ Added support for 'markasjunk' plugin
 	+ Hidden external server configuration until it works for more cases
+	+ Bugfix: added disableCache option to operation mode field
 1.3.12
 	+ Fix titles and headers
 1.3.10

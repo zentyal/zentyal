@@ -49,15 +49,15 @@ sub _table
                                fieldName => 'mode',
                                printableName => __('Mode'),
                                editable => 1,
+                               disableCache => 1,
                                populate => \&_populateMode,
                               ),
- 
         );
 
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
                       printableTableName => __('Operation mode'),
-                      headTitle          => undef,         		     
+                      headTitle          => undef,
                       modelDomain        => 'WebMail',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
@@ -84,7 +84,7 @@ sub _populateMode
 
     my $eboxOption = {
                       value => 'ebox',
-                      printableValue => __(q{eBox's mail service}),
+                      printableValue => __('eBox mail service'),
                      };
     if (not $mailEnabled) {
         $eboxOption->{disabled} = 'disabled';
