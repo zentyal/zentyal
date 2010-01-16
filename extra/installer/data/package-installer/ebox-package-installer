@@ -167,9 +167,6 @@ if (system ("$INSTALL_FILES/ebox-module-installed mail") == 0) {
     $CNF_domain = askMailDomain();
 }
 
-# TODO: If webmail or egroupware are installed, auto-enable IMAP
-# configure also the virtual mail domain for egroupware
-
 preconfiguration();
 
 # Fetch internal addresses
