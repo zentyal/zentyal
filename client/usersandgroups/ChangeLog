@@ -1,3 +1,7 @@
+HEAD
+	+ Change button order to "Add" and "Add and Edit" in Add User
+	  template. If users press return in the form it adds a new user
+	  and stays on the same page.
 1.3.13
 	+ Usability enhancements: (Closes #1649)
 		* Create a unique Users And Group Folder

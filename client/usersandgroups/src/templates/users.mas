@@ -65,15 +65,14 @@ my $usersModel = EBox::Global->modInstance('users')->model('Users');
 		<tr>
 			<td></td>
 			<td>
-				<input class='inputButton' type='submit' name='addAndEdit' 
-					   value="<% __('Add and Edit') %>"
-					   alt="<% __('Add and Edit') %>">
-				</input>
 				<input class='inputButton' type='submit' name='add' 
 					   value="<% __('Add') %>"
 					   alt="<% __('Add') %>">
 				</input>
-
+				<input class='inputButton' type='submit' name='addAndEdit' 
+					   value="<% __('Add and Edit') %>"
+					   alt="<% __('Add and Edit') %>">
+				</input>
 			</td>
 		</tr>
 	</table>
