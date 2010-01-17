@@ -2,6 +2,7 @@
     @ifaces
     $iface
     @vlans => ()
+    $externalWarning
 </%args>
 <%init>
 use EBox::Gettext;
@@ -15,7 +16,13 @@ use EBox::NetWrappers qw(:all);
 </div>
 <& network/iftabs.mas, ifaces=> \@ifaces, selected => $iface->{name}&>
 <br/>
-
+% if ($externalWarning) {
+<div class='warning'>
+ <% __x('You are connecting to eBox through this interface. If you set it as external the firewall will lock you out unless you add firewall rules to {openhref}Filtering rules from external networks to eBox{closehref} to allow access to the eBox administration port, SSH, etc...',
+  openhref  => '<a href="/ebox/Firewall/View/ExternalToEBoxRuleTable">',
+  closehref => '</a>') %>
+</div>
+% }
 <form action='Iface' method='post'>
     <input type="hidden" name="ifname" value="<% $iface->{"name"} %>"/>
     <table class='formTable'>
