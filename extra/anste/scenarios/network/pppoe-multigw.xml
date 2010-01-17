@@ -52,7 +52,6 @@
                 <netmask>255.255.255.0</netmask>
             </interface>
         </network>
-        </network>
 
         <post-install>
             <script>ebox-import-network.sh</script>

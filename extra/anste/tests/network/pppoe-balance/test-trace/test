@@ -9,7 +9,7 @@ done
 
 cat $LOG
 
-GATEWAY=$(grep ^" 2" $LOG | cut -d' ' -f4 | head -1)
+GATEWAY=$(grep ^" 2" $LOG | cut -d' ' -f4 | grep -v '*' | head -1)
 
 CNT=$(grep $GATEWAY $LOG | wc -l)
 

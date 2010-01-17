@@ -7,8 +7,8 @@ do
     traceroute -n -m 6 "192.168.45.$i" | grep '192.168.' >> $LOG
 done
 
-ROUTER1=$(grep ^" 2" $LOG | cut -d' ' -f4 | head -1)
-ROUTER2=$(grep ^" 2" $LOG | cut -d' ' -f4 | grep -v $ROUTER1 | head -1)
+ROUTER1=$(grep ^" 2" $LOG | cut -d' ' -f4 | grep -v '*' | head -1)
+ROUTER2=$(grep ^" 2" $LOG | cut -d' ' -f4 | grep -v '*' | grep -v $ROUTER1 | head -1)
 
 NUM1=$(grep $ROUTER1 $LOG | wc -l)
 NUM2=$(grep $ROUTER2 $LOG | wc -l)
