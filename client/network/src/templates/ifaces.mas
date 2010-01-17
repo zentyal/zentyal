@@ -18,7 +18,7 @@ use EBox::NetWrappers qw(:all);
 <br/>
 % if ($externalWarning) {
 <div class='warning'>
- <% __x('You are connecting to eBox through this interface. If you set it as external the firewall will lock you out unless you add firewall rules to {openhref}Filtering rules from external networks to eBox{closehref} to allow access to the eBox administration port, SSH, etc...',
+ <% __x('You are connecting to eBox through this interface. If you set it as external the firewall will lock you out unless you add firewall rules to {openhref}Filtering rules from external networks to eBox{closehref} to allow access to the eBox administration port, SSH, ...',
   openhref  => '<a href="/ebox/Firewall/View/ExternalToEBoxRuleTable">',
   closehref => '</a>') %>
 </div>
