@@ -134,6 +134,7 @@ if (-f "$INSTALL_FILES/ebox-installer.auto") {
 }
 
 my @packages = selectPackagesMenu();
+push (@packages, 'remoteservices');
 @packages = map ("ebox-$_", @packages);
 
 installPackages(@packages);
