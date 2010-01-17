@@ -50,6 +50,16 @@
     </test>
 
     <test>
+        <name>DumpRoutes</name>
+        <desc>
+        Dump routes and iptables info
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>dump-routes</dir>
+    </test>
+
+    <test>
         <name>TestBalance</name>
         <desc>
         Checks if the traffic is balanced between
@@ -137,6 +147,16 @@
     </test>
 
     <test>
+        <name>DumpRoutesAfter-A-Disconnected</name>
+        <desc>
+        Dump routes and iptables info
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>dump-routes</dir>
+    </test>
+
+    <test>
         <name>TestBalanceWith-A-Down</name>
         <desc>
         Checks if the traffic goes through router B.
@@ -168,6 +188,16 @@
         <host>ebox-server</host>
         <dir>test-log</dir>
         <var name="EVENT" value="Gateway dhcp-gw-eth2 connected"/>
+    </test>
+
+    <test>
+        <name>DumpRoutesAfter-A-Connected</name>
+        <desc>
+        Dump routes and iptables info
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>dump-routes</dir>
     </test>
 
     <test>
@@ -205,6 +235,17 @@
     </test>
 
     <test>
+        <name>DumpRoutesAfter-B-Disconnected</name>
+        <desc>
+        Dump routes and iptables info
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>dump-routes</dir>
+    </test>
+
+
+    <test>
         <name>TestBalanceWith-B-Down</name>
         <desc>
         Checks if the traffic goes through router A.
@@ -236,6 +277,16 @@
         <host>ebox-server</host>
         <dir>test-log</dir>
         <var name="EVENT" value="Gateway dhcp-gw-eth3 connected"/>
+    </test>
+
+    <test>
+        <name>DumpRoutesAfter-B-Connected</name>
+        <desc>
+        Dump routes and iptables info
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>dump-routes</dir>
     </test>
 
     <test>
