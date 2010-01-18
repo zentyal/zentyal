@@ -98,16 +98,16 @@ d-i partman/confirm boolean true
 #d-i netcfg/get_domain string unassigned-domain
 
 # mirror
-#d-i mirror/http/proxy string
+d-i mirror/http/proxy string
 
 # clock
-#d-i clock-setup/utc boolean true
+d-i clock-setup/utc boolean true
 
 # to create a normal user account
-#d-i passwd/user-fullname string user
-#d-i passwd/username string user
-#d-i passwd/user-password password user
-#d-i passwd/user-password-again password user
+d-i passwd/user-fullname string 'eBox Administrator'
+d-i passwd/username string eboxadmin
+d-i passwd/user-password password eboxadmin
+d-i passwd/user-password-again password eboxadmin
 
 # grub
 d-i grub-installer/only_debian boolean true

@@ -98,6 +98,10 @@ my $PASS_TITLE = __('Enter password for eBox interface');
 my $PASS_MSG = __('You will need to use this password to log into the eBox interface:');
 my $PASS_CONFIRM_TITLE = __('Confirm password for eBox interface');
 my $PASS_CONFIRM_MSG = '';
+my $PASS_ADMIN_TITLE = __('Enter password for admin user');
+my $PASS_ADMIN_MSG = __('You will need to use this password to log into the system:');
+my $PASS_ADMIN_CONFIRM_TITLE = __('Confirm password for admin user');
+my $PASS_ADMIN_CONFIRM_MSG = '';
 my $MAIL_TITLE = __('Mail configuration');
 my $MAIL_MESSAGE = __('Enter default virtual mail domain:');
 my $FINAL_TITLE = __('Installation finished');
@@ -113,6 +117,8 @@ my $WHIPTAIL_ARGS = "--clear --backtitle \"$INSTALLER_TITLE\"";
 ########################
 
 my $CNF_password;
+my $CNF_admin_user = 'eboxadmin';
+my $CNF_admin_password;
 my $CNF_users = '';
 my $CNF_ldap_pass;
 my @CNF_selectedIfaces;
@@ -132,6 +138,9 @@ if (-f "$INSTALL_FILES/ebox-installer.auto") {
         exit (1);
     }
 }
+
+# Choose password for admin user
+$CNF_admin_password = askAdminPassword();
 
 my @packages = selectPackagesMenu();
 push (@packages, 'remoteservices');
@@ -298,6 +307,22 @@ sub askPassword # returns string
     return $password;
 }
 
+sub askAdminPassword # returns string
+{
+    my $password;
+    my $confirm;
+    do {
+        $password = showPasswordDialog($PASS_ADMIN_TITLE, $PASS_ADMIN_MSG);
+        $confirm = showPasswordDialog($PASS_ADMIN_CONFIRM_TITLE, $PASS_ADMIN_CONFIRM_MSG);
+
+        if ($password ne $confirm) {
+            showDialog(__('Error'), __("Passwords don't match"));
+        }
+    } until ($password eq $confirm);
+
+    return $password;
+}
+
 sub askUsersMode # returns string
 {
     my $arg1 = "$USERS_STANDALONE \"$USERS_STANDALONE_DESC\"";
@@ -422,6 +447,8 @@ sub preconfiguration
     }
 
     print $PROGRESS "100\n";
+
+    system ("$INSTALL_FILES/ebox-set-admin-password $CNF_admin_user $CNF_admin_password >> $LOG 2>&1");
 
     close ($PROGRESS);
 }
