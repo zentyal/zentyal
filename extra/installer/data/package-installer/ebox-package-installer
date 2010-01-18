@@ -112,6 +112,8 @@ my $LOG = ($ENV{LOG} or '/tmp/ebox-installer.log');
 
 my $WHIPTAIL_ARGS = "--clear --backtitle \"$INSTALLER_TITLE\"";
 
+my $EBOX_AUTO_INSTALLER_FILE = "$INSTALL_FILES/ebox-installer.auto";
+
 ########################
 # -- global variables --
 ########################
@@ -123,7 +125,6 @@ my $CNF_users = '';
 my $CNF_ldap_pass;
 my @CNF_selectedIfaces;
 my $CNF_domain = undef;
-my $ebox_auto_installer_file = $INSTALL_FILES/ebox-installer.auto
 
 ############################
 # -- installation process --
@@ -131,7 +132,7 @@ my $ebox_auto_installer_file = $INSTALL_FILES/ebox-installer.auto
 
 # Check if there is enough space before starting the installation
 # Only if we are in non-expert mode
-if (-f $ebox_auto_installer_file) {
+if (-f $EBOX_AUTO_INSTALLER_FILE) {
     my $root_space = `df -Pm /|awk 'NR>1{ print \$2 }'`;
     chomp($root_space);
     if ($root_space < 2000) {
@@ -140,7 +141,7 @@ if (-f $ebox_auto_installer_file) {
     }
 }
 
-if (-f $ebox_auto_installer_file) {
+if (-f $EBOX_AUTO_INSTALLER_FILE) {
     # Choose password for admin user
     $CNF_admin_password = askAdminPassword();
 }
@@ -451,7 +452,7 @@ sub preconfiguration
 
     print $PROGRESS "100\n";
 
-    if (-f "$INSTALL_FILES/ebox-installer.auto") {
+    if (-f $EBOX_AUTO_INSTALLER_FILE) {
         system ("$INSTALL_FILES/ebox-set-admin-password $CNF_admin_user $CNF_admin_password >> $LOG 2>&1");
     }
 
