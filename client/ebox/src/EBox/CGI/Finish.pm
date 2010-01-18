@@ -28,12 +28,12 @@ use EBox::ServiceManager;
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Save configuration'),
-				      'template' => '/finish.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('Save configuration'),
+            'template' => '/finish.mas',
+            @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
@@ -54,6 +54,7 @@ sub _process
             my @array = ();
             push(@array, 'unsaved' => 'yes');
             push(@array, 'askPermission' => $askPermission);
+            push(@array, 'disabledModules' => _disabledModules());
             #FIXME: uncomment to enable logadmin stuff
             #push(@array, 'actions' => pendingActions());
             $self->{params} = \@array;
@@ -109,5 +110,19 @@ sub revokeAllModulesAction
        );
 }
 
-
+# Method: _disabledModules
+#
+#   Return those modules with unsaved changes that are disabled
+sub _disabledModules
+{
+    my $global = EBox::Global->getInstance();
+    my @modules;
+    for my $modName (@{$global->modifiedModules('save')}) {
+        my $modInstance = $global->modInstance($modName);
+        next unless ($modInstance->isa('EBox::Module::Service'));
+        next if ($modInstance->isEnabled());
+        push (@modules, $modInstance->printableName());
+    }
+    return \@modules;
+}
 1;

@@ -3,6 +3,7 @@
 <%args>
 	@actions => ()
 	$unsaved => 'no'
+	@disabledModules => ()
     $askPermission => undef
 </%args>
 <%init>
@@ -92,9 +93,19 @@ function sendAcceptedFiles()
 % }
 
 % if($unsaved eq 'yes') {
+
 <div class='warning'>
+%   if (@disabledModules) {
+        <% __x('The following modules have unsaved changes but are <b>disabled</b>. If you need to enable them go to {openref}Module Status{closeref}.', openref => '<a href="/ebox/ServiceModule/StatusView">', closeref => '</a>') %>
+        <ul>
+%      for my $module (@disabledModules) {
+         <li><% $module %></li>
+%      }
+        </ul>
+%   } else {
 	<% __('There are unsaved changes in one or more modules, you can save or discard those changes.')%>
 	<br/>
+%   }
 	<br/>
 	<%__('If you made changes to the network interfaces or the administration port, you may need to manually rewrite the url in order to access this administration interface again.') %>
 </div>

@@ -1,5 +1,7 @@
 HEAD
 	+ Move enable field to first row in ConfigureDispatcherDataTable
+	+ Add a warning to let users know that a module with unsaved changes
+	  is disabled
 1.3.15
 	+ Bug fix: Call EBox::Global::sortModulesByDependencies when
 	  saving all modules and remove infinite loop in that method.
