@@ -98,9 +98,9 @@ my $PASS_TITLE = __('Enter password for eBox interface');
 my $PASS_MSG = __('You will need to use this password to log into the eBox interface:');
 my $PASS_CONFIRM_TITLE = __('Confirm password for eBox interface');
 my $PASS_CONFIRM_MSG = '';
-my $PASS_ADMIN_TITLE = __('Enter password for admin user');
-my $PASS_ADMIN_MSG = __('You will need to use this password to log into the system:');
-my $PASS_ADMIN_CONFIRM_TITLE = __('Confirm password for admin user');
+my $PASS_ADMIN_TITLE = __('Enter password for eboxadmin user');
+my $PASS_ADMIN_MSG = __('This is the password for the eboxadmin system user:');
+my $PASS_ADMIN_CONFIRM_TITLE = __('Confirm password for eboxadmin user');
 my $PASS_ADMIN_CONFIRM_MSG = '';
 my $MAIL_TITLE = __('Mail configuration');
 my $MAIL_MESSAGE = __('Enter default virtual mail domain:');
@@ -123,6 +123,7 @@ my $CNF_users = '';
 my $CNF_ldap_pass;
 my @CNF_selectedIfaces;
 my $CNF_domain = undef;
+my $ebox_auto_installer_file = $INSTALL_FILES/ebox-installer.auto
 
 ############################
 # -- installation process --
@@ -130,7 +131,7 @@ my $CNF_domain = undef;
 
 # Check if there is enough space before starting the installation
 # Only if we are in non-expert mode
-if (-f "$INSTALL_FILES/ebox-installer.auto") {
+if (-f $ebox_auto_installer_file) {
     my $root_space = `df -Pm /|awk 'NR>1{ print \$2 }'`;
     chomp($root_space);
     if ($root_space < 2000) {
@@ -139,8 +140,10 @@ if (-f "$INSTALL_FILES/ebox-installer.auto") {
     }
 }
 
-# Choose password for admin user
-$CNF_admin_password = askAdminPassword();
+if (-f $ebox_auto_installer_file) {
+    # Choose password for admin user
+    $CNF_admin_password = askAdminPassword();
+}
 
 my @packages = selectPackagesMenu();
 push (@packages, 'remoteservices');
@@ -448,7 +451,9 @@ sub preconfiguration
 
     print $PROGRESS "100\n";
 
-    system ("$INSTALL_FILES/ebox-set-admin-password $CNF_admin_user $CNF_admin_password >> $LOG 2>&1");
+    if (-f "$INSTALL_FILES/ebox-installer.auto") {
+        system ("$INSTALL_FILES/ebox-set-admin-password $CNF_admin_user $CNF_admin_password >> $LOG 2>&1");
+    }
 
     close ($PROGRESS);
 }
