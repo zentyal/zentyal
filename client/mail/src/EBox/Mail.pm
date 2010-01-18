@@ -199,7 +199,7 @@ sub usedFiles
             },
             {
               'file' => MAIL_ALIAS_FILE,
-              'reason' => __('To configure postfix'),
+              'reason' => __('To configure postfix aliases'),
               'module' => 'mail'
             },
 

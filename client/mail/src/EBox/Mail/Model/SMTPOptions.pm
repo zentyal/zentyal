@@ -135,7 +135,7 @@ sub _table
                               printableName =>
                                 __('Postmaster addresss'),
                               help => 
- __('When '),
+                      __('Address used to report mail problems'),
                               subtypes => [
                               new EBox::Types::Union::Text(
                                   'fieldName' => 'postmasterRoot',
