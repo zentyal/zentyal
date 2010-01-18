@@ -308,6 +308,7 @@ clean up the temporal directories.::
 
 The restoring proccess has finished and you can reboot now.
 
+.. _conf-backup-ref:
 
 Configuration backups
 ---------------------

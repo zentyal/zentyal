@@ -325,6 +325,7 @@ respaldo así como limpiar los directorios temporales::
 El proceso de restauración ha finalizado y podemos reiniciar el sistema
 original.
 
+.. _conf-backup-ref:
 
 Copias de seguridad de la configuración
 ---------------------------------------

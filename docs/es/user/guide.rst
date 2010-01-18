@@ -93,5 +93,6 @@ eBox Core
    events
    backup
    software
+   controlcenter
 
 .. endno_elearning

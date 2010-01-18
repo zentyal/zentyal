@@ -20,8 +20,8 @@ Subscribing eBox to the Control Center
 In order to configure eBox to subscribe to the Control Center, you
 must install `ebox-remoteservices` package which is installed by
 default if you have used eBox installer. In addition to this, the
-Internet connection should be available. Go to :menuselection:`Control
-Center` and fill the following fields:
+Internet connection should be available. Once everything is ready, go
+to :menuselection:`Control Center` and fill the following fields:
 
 User Name or Email Address:
   You must set the user name or the email address you use to sign in
@@ -32,9 +32,10 @@ Password:
 
 eBox Name:
   The unique name for your eBox within Control Center. This name is
-  displayed from the control panel. Each eBox should have a different
-  name, if two eBoxes use the same name for connecting to the Control
-  Center, just one will be connected.
+  displayed from the control panel and it must be a valid domain name.
+   Each eBox should have a different name, if two eBoxes use the same
+  name for connecting to the Control Center, just one will be
+  connected.
 
 .. figure:: images/controlcenter/01-subscribe.png
    :scale: 70
@@ -43,9 +44,13 @@ eBox Name:
 
    Subscribing eBox to the Control Center
 
-After entering the data, the subscription will take a minute. Be
-sure after subscribing, save changes. This will enable a VPN
-connection to the Control Center, this will enable **vpn** module. 
+After entering the data, the subscription will take about a minute. Be
+sure after subscribing, save changes. This process sets a VPN
+connection to the Control Center, therefore it enables **vpn**
+module. [#]_
+
+.. [#] For more information about VPN module, go to :ref:`vpn-ref`
+       section.
 
 .. figure:: images/controlcenter/02-after-subscribe.png
    :scale: 70
@@ -86,7 +91,7 @@ backed up correctly in eBox Control Center.
    
    Remote configuration backup
 
-You may restore or download that configuration backup from the Control
+You may restore, delete or download that configuration backup from the Control
 Center. Additionally, to improve the disaster recovery, you may restore
 or download the configuration backup from other subscribed eBoxes
 using your name/email address and password pair. To do so, go to the
