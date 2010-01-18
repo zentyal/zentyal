@@ -76,12 +76,32 @@ sub modifyUser
     return $class->_soapResult(0);
 }
 
+sub modifyGroup
+{
+    my ($class, $group, @params) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    $users->updateGroup($group, @params);
+
+    return $class->_soapResult(0);
+}
+
 sub delUser
 {
     my ($class, $user) = @_;
 
     my $users = EBox::Global->modInstance('users');
     $users->delUserSlave($user);
+
+    return $class->_soapResult(0);
+}
+
+sub delGroup
+{
+    my ($class, $group) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    $users->delGroupSlave($group);
 
     return $class->_soapResult(0);
 }

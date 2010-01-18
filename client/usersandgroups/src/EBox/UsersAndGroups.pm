@@ -1448,16 +1448,36 @@ sub _checkGid
 
 
 
-sub _updateGroup
+sub updateGroup
 {
-    my ($self, $group) = @_;
+    my ($self, $group, @params) = @_;
 
     # Tell modules depending on groups and groups
     # a group  has been updated
     my @mods = @{$self->_modsLdapUserBase()};
 
     foreach my $mod (@mods){
-        $mod->_modifyGroup($group);
+        $mod->_modifyGroup($group, @params);
+    }
+}
+
+sub _updateGroupSlaves
+{
+    my ($self, $group, @params) = @_;
+
+    for my $slave (@{$self->listSlaves()}) {
+        my $client = $self->soapClient($slave);
+        $self->soapRun($slave, 'modifyGroup', $group, @params);
+    }
+}
+
+sub _delGroupSlaves
+{
+    my ($self, $group) = @_;
+
+    for my $slave (@{$self->listSlaves()}) {
+        my $client = $self->soapClient($slave);
+        $self->soapRun($slave, 'delGroup', $group);
     }
 }
 
@@ -1472,7 +1492,7 @@ sub _updateGroup
 #
 sub modifyGroup # (\%groupdata))
 {
-    my ($self, $groupdata) = @_;
+    my ($self, $groupdata, @params) = @_;
 
     my $cn = $groupdata->{'groupname'};
     my $dn = "cn=$cn," . $self->groupsDn;
@@ -1483,6 +1503,8 @@ sub modifyGroup # (\%groupdata))
     }
 
     $self->_changeAttribute($dn, 'description', $groupdata->{'comment'});
+
+    $self->_updateGroupSlaves($groupdata->{'groupname'}, @params);
 }
 
 # Clean group stuff when deleting a user
@@ -1520,6 +1542,22 @@ sub delGroup # (group)
         my $dn = "cn=" . $group . "," . $self->groupsDn;
         my $result = $self->ldap->delete($dn);
 
+    $self->_delGroupSlaves($group);
+}
+
+# Method: delGroupSlave
+#
+#       Removes a given group in a slave
+#
+# Parameters:
+#
+#       group - group name to be deleted
+#
+sub delGroupSlave # (group)
+{
+    my ($self, $group) = @_;
+
+    $self->_cleanGroup($group);
 }
 
 # Method: groupInfo
@@ -1655,7 +1693,7 @@ sub addUserToGroup # (user, group)
     my %attrs = ( add => { memberUid => $user } );
     $self->ldap->modify($dn, \%attrs);
 
-    $self->_updateGroup($group);
+    $self->updateGroup($group, op => 'add', user => $user);
 }
 
 # Method: delUserFromGroup
@@ -1688,7 +1726,7 @@ sub delUserFromGroup # (user, group)
     my %attrs = ( delete => {  memberUid => $user  } );
         $self->ldap->modify($dn, \%attrs);
 
-    $self->_updateGroup($group);
+    $self->updateGroup($group, op => 'del', user => $user);
 }
 
 # Method: groupsOfUser
