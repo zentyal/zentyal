@@ -1,9 +1,11 @@
 <%args>
 $pollTime => 180
+$postmaster
 @usersAccounts
 </%args>
 set daemon <% $pollTime %>
-set syslog           
+set syslog 
+set postmaster <% $postmaster %>
 
 % foreach  my $userAccounts (@usersAccounts) {
 <& .userAccounts,

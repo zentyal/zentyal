@@ -49,11 +49,13 @@ use EBox::DBEngineFactory;
 
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
+use File::Slurp;
 
 use constant {
  MAILMAINCONFFILE                   => '/etc/postfix/main.cf',
  MAILMASTERCONFFILE                 => '/etc/postfix/master.cf',
  MASTER_PID_FILE                    => '/var/spool/postfix/pid/master.pid',
+ MAIL_ALIAS_FILE                    => '/etc/aliases',
 
  DOVECOT_CONFFILE                   => '/etc/dovecot/dovecot.conf',
  DOVECOT_LDAP_CONFFILE              =>  '/etc/dovecot/dovecot-ldap.conf',
@@ -191,10 +193,16 @@ sub usedFiles
               'module' => 'mail'
             },
             {
-              'file' => MAILNAME_FILE,
+              'file' => MAILNAME_FILE, 
               'reason' => __('To configure host mail name'),
               'module' => 'mail'             
             },
+            {
+              'file' => MAIL_ALIAS_FILE,
+              'reason' => __('To configure postfix'),
+              'module' => 'mail'
+            },
+
 
             {
               'file' => DOVECOT_CONFFILE,
@@ -412,6 +420,8 @@ sub _setMailConf
         $self->_setAlwaysBccTable();
     }
 
+    $self->_setAliasTable();
+
     # dovecot configuration
     $self->_setDovecotConf();
 
@@ -485,6 +495,39 @@ sub _setAlwaysBccTable
 }
 
 
+sub _setAliasTable
+{
+    my ($self) = @_;
+    
+    my @aliases = File::Slurp::read_file(MAIL_ALIAS_FILE);
+    # remove  postmaster alias and text comment added by ebox
+    @aliases = grep {
+        my $line = $_;
+        my $eboxComment = $line =~ m/^#.*eBox/;
+        my $postmasterLine = $line =~ m/postmaster:/;
+        (not $eboxComment) and (not $postmasterLine)
+    } @aliases;
+
+    
+    my $postmasterAddress = $self->postmasterAddress();
+    my $aliasesContents = join '', @aliases;
+   $aliasesContents .= "#Added by eBox. Postmaster alias will be rewritten in each eBox's mail system restart but other aliases will be kept\n";
+   $aliasesContents .=   "postmaster: $postmasterAddress\n";
+
+    EBox::Module::Base::writeFile(
+                                MAIL_ALIAS_FILE,
+                                  $aliasesContents,
+                                  {
+                                   uid => 0,
+                                   gid => 0,
+                                   mode => '0644',
+                                  }
+                                 );
+
+    EBox::Sudo::root('postalias ' . MAIL_ALIAS_FILE);
+}
+
+
 sub _setDovecotConf
 {
     my ($self) = @_;
@@ -495,8 +538,6 @@ sub _setDovecotConf
     @params = ();
     my $uid =  scalar(getpwnam('ebox'));
     my $gid = scalar(getgrnam('ebox'));
-    my $postmasterAddress = 
-         $self->model('SMTPOptions')->row()->valueByName('bounceReturnAddress');
 
     push @params, (uid => $uid);
     push @params, (gid => $gid);
@@ -504,7 +545,7 @@ sub _setDovecotConf
     push @params, (firstValidUid => $uid);
     push @params, (firstValidGid => $gid);
     push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
-    push @params, (postmasterAddress => $postmasterAddress);
+    push @params, (postmasterAddress => $self->postmasterAddress(0, 1));
     push @params, (antispamPlugin => $self->_getDovecotAntispamPluginConf());
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
@@ -1867,7 +1908,37 @@ sub setFetchmailRegenTs
 }
 
 
+sub postmasterAddress
+{
+    my ($self, $alwaysFqdn, $notUnaliasLocal) = @_;
+    my $smtpOptions = $self->model('SMTPOptions');
+    my $address = $smtpOptions->postmasterAddress();
+    if (($notUnaliasLocal) and  ($address eq 'root')) {
+        # not need to unalias root
+        $address = 'postmaster';
+    }
+    
 
+    if (not $alwaysFqdn) {
+        return $address;
+    }
+
+    if ($address =~ m/@/) {
+        return $address;
+    } 
+
+
+    
+    my $mailname = $smtpOptions->customMailname();
+    if (not defined $mailname) {
+        $mailname = $self->_fqdn();
+    }
+    
+
+
+    return $address . '@' .  $mailname;
+
+}
 
 
 

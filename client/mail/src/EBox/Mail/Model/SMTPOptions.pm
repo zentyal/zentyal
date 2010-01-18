@@ -130,12 +130,24 @@ sub _table
                                       ),
                                   ],
              ),
-         new EBox::Types::MailAddress(
-             fieldName => 'bounceReturnAddress',
-             printableName => __('Return address for mail bounced back to the sender'),
-             defaultValue => 'noreply@example.com',
-             editable => 1,
-         ),
+         new EBox::Types::Union(
+                              fieldName => 'postmasterAddress',
+                              printableName =>
+                                __('Postmaster addresss'),
+                              help => 
+ __('When '),
+                              subtypes => [
+                              new EBox::Types::Union::Text(
+                                  'fieldName' => 'postmasterRoot',
+                                  'printableName' => __('Local root account'),
+                                  ),
+                              new EBox::Types::MailAddress(
+                                  'fieldName' => 'postmasterCustom',
+                                  'printableName' => __('Custom address'),
+                                  'editable'  => 1,
+                                      ),
+                                  ],
+             ),
          new EBox::Types::Union(
                               fieldName => 'mailboxQuota',
                               printableName =>
@@ -340,6 +352,19 @@ sub customMailname
 
     return $mailname->subtype()->value();
 }
+
+
+sub postmasterAddress
+{
+    my ($self) = @_;
+    my $postmaster = $self->row()->elementByName('postmasterAddress');
+    if ($postmaster->selectedType eq 'postmasterRoot') {
+        return 'root';
+    }
+
+    return $postmaster->subtype()->value();
+}
+
 
 
 

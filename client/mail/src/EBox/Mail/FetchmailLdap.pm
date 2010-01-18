@@ -251,20 +251,14 @@ sub writeConf
         return;
     }
 
-    EBox::Module::Base::writeConfFileNoCheck(FETCHMAIL_CRON_FILE,
-                         'mail/fetchmail-update.cron.mas',
-                         [
-                          binPath => EBox::Config::share() . 'ebox-mail/fetchmail-update',
-                         ],                    
-                         {
-                             uid  => 'root',
-                             gid  => 'root',
-                             mode =>  '0644',
-                         }
-                        );
+
+
+    my $mail = EBox::Global->modInstance('mail');
+    my $postmasterAddress =  $mail->postmasterAddress(1, 1);
 
     my $usersAccounts = [ values %{ $self->allExternalAccountsByLocalAccount }];
     my @params = (
+        postmaster    => $postmasterAddress,        
         usersAccounts => $usersAccounts,
        );
 
@@ -280,7 +274,17 @@ sub writeConf
                         );
 
 
-
+    EBox::Module::Base::writeConfFileNoCheck(FETCHMAIL_CRON_FILE,
+                         'mail/fetchmail-update.cron.mas',
+                         [
+                          binPath => EBox::Config::share() . 'ebox-mail/fetchmail-update',
+                         ],                    
+                         {
+                             uid  => 'root',
+                             gid  => 'root',
+                             mode =>  '0644',
+                         }
+                        );
 }
 
 
