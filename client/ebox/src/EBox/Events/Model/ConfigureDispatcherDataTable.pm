@@ -282,6 +282,20 @@ sub _table
 
       my @tableHeader =
         (
+         new EBox::Types::Boolean(
+                                  fieldName     => 'enabled',
+                                  printableName => __('Enabled'),
+                                  class         => 'tcenter',
+                                  type          => 'boolean',
+                                  size          => 1,
+                                  unique        => 0,
+                                  trailingText  => '',
+                                  editable      => 1,
+                                  # Set in order to store the type
+                                  # metadata since sometimes the field
+                                  # is editable and some not
+                                  storeMetadata => 1,
+                                  ),
          new EBox::Types::Text(
                                fieldName     => 'eventDispatcher',
                                printableName => __('Name'),
@@ -330,20 +344,6 @@ sub _table
                                                              ),
                                 ]
                                ),
-         new EBox::Types::Boolean(
-                                  fieldName     => 'enabled',
-                                  printableName => __('Enabled'),
-                                  class         => 'tcenter',
-                                  type          => 'boolean',
-                                  size          => 1,
-                                  unique        => 0,
-                                  trailingText  => '',
-                                  editable      => 1,
-                                  # Set in order to store the type
-                                  # metadata since sometimes the field
-                                  # is editable and some not
-                                  storeMetadata => 1,
-                                  )
         );
 
       my $dataTable =
