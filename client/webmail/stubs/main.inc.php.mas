@@ -15,7 +15,7 @@ $desKey
 </%args>
 <%init>
 my $enableCaching;
-if (($imapServer =~ m/127\.0\.\0\.1/) or ($imapServer eq 'localhost')) {
+if (($imapServer eq '127.0.0.1') or ($imapServer eq 'localhost')) {
    $enableCaching = 0;
 }  else {
    $enableCaching = 1;
