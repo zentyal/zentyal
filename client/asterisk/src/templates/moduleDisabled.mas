@@ -1,0 +1,6 @@
+<%init>
+use EBox::Gettext;
+</%init>
+<div class='warning'>
+<%  __('The following settings only will take effect when the Asterisk module is enabled.')  %>
+</div>

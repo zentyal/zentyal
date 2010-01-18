@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/Asterisk
 
-nobase_perl_DATA = AsteriskUserOptions.pm
+nobase_perl_DATA = AsteriskUserOptions.pm AsteriskGroupOptions.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

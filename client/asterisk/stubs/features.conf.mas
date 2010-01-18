@@ -1,0 +1,12 @@
+;
+; features.conf
+;
+
+[general]
+parkext => 700
+parkpos => 701-720
+context => parkedcalls       
+parkingtime => 300
+
+[applicationmap]
+automon =>*1,self,Macro,automon

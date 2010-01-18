@@ -48,7 +48,6 @@ rtautoclear=yes
 
 alwaysauthreject=yes
 
-[authentication]
 % if ($outgoingcalls) {
 register => <% $username %>:<% $password %>@<% $server %>/<% $incoming %>
 [<% $name %>]
@@ -58,8 +57,9 @@ secret=<% $password %>
 host=<% $server %>
 fromuser=<% $username %>
 context=default
-allow=g729,alaw,ulaw,gsm,ilbc ; we support ulaw,alaw,ilbc,gsm,g723.1,g726,g729a
+allow=alaw,ulaw,gsm,ilbc
 trustrpid = yes
 sendrpid = yes
 canreinvite = no
+insecure = port,invite
 % }

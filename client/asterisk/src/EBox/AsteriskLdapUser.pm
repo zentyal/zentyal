@@ -32,6 +32,8 @@ use EBox::UsersAndGroups;
 use EBox::Asterisk::Extensions;
 use EBox::Model::ModelManager;
 
+use Perl6::Junction qw(any);
+
 # Group: Public methods
 
 # Constructor: new
@@ -103,7 +105,9 @@ sub _addUser
                                      AstAccountNAT => 'yes',
                                      AstAccountQualify => 'yes',
                                      AstAccountCanReinvite => 'no',
-                                     AstAccountLastms => '0',
+                                     AstAccountDTMFMode => 'rfc2833',
+                                     AstAccountInsecure => 'port',
+                                     AstAccountLastQualifyMilliseconds => '0',
                                      AstAccountIPAddress => '0.0.0.0',
                                      AstAccountPort => '0',
                                      AstAccountExpirationTimestamp => '0',
@@ -111,10 +115,15 @@ sub _addUser
                                      AstAccountUserAgent => '0',
                                      AstAccountFullContact => 'sip:0.0.0.0',
                                      objectClass => 'AsteriskVoicemail',
-                                     AstAccountVMPassword => $extn, #FIXME random?
-                                     AstAccountVMMail => $mail,
-                                     AstAccountVMAttach => 'yes',
-                                     AstAccountVMDelete => 'no',
+                                     AstContext => 'users',
+                                     AstVoicemailMailbox => $extn,
+                                     AstVoicemailPassword => $extn, #FIXME random?
+                                     AstVoicemailEmail => $mail,
+                                     AstVoicemailAttach => 'yes',
+                                     AstVoicemailDelete => 'no',
+                                     objectClass => 'AsteriskQueueMember',
+                                     AstQueueMembername => $user,
+                                     AstQueueInterface => "SIP/$user"
                                     ],
                             ]
                 );
@@ -142,7 +151,7 @@ sub _getUserMail
                  scope => 'one'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
 
     my $entry = $result->entry(0);
     if ( $entry->get_value('mail') ) {
@@ -179,7 +188,7 @@ sub _userAddOns
         'service' => $asterisk->isEnabled(),
     };
 
-    return { path => '/asterisk/asterisk.mas',
+    return { path => '/asterisk/user.mas',
              params => $args };
 }
 
@@ -194,9 +203,8 @@ sub _delUser
 {
     my ($self, $user) = @_;
 
-    unless ($self->{asterisk}->configured()) {
-        return;
-    }
+    my $asterisk = $self->{asterisk};
+    return unless ($asterisk->configured());
 
     $self->_removeVoicemail($user);
 
@@ -204,13 +212,12 @@ sub _delUser
     $extensions->delUserExtension($user);
 
     my $users = EBox::Global->modInstance('users');
-    my $uid = $users->userInfo($user)->{uid};
-
     my $ldap = $users->{ldap};
     my $dn = "uid=$user," . $users->usersDn;
 
     $ldap->delObjectclass($dn, 'AsteriskSIPUser');
-    $ldap->delObjectclass($dn, 'AsteriskVoicemail');
+    $ldap->delObjectclass($dn, 'AsteriskVoiceMail');
+    $ldap->delObjectclass($dn, 'AsteriskQueueMember');
 }
 
 
@@ -227,6 +234,74 @@ sub _removeVoicemail
     }
 }
 
+
+sub _delGroup
+{
+    my ($self, $group) = @_;
+
+    my $asterisk = $self->{asterisk};
+    return unless ($asterisk->configured());
+
+    my $extensions = new EBox::Asterisk::Extensions;
+
+    my @users = $self->asteriskUsersInQueue($group);
+    foreach my $user (@users) {
+        $extensions->delQueueMember($user, $group);
+    }
+
+    $extensions->delQueue($group) if $self->hasQueue($group);
+}
+
+
+sub _groupAddOns
+{
+    my ($self, $group) = @_;
+
+    my $asterisk = $self->{asterisk};
+    return unless ($asterisk->configured());
+
+    my $active = 'no';
+    $active = 'yes' if ($self->hasQueue($group));
+
+    my $extensions = new EBox::Asterisk::Extensions;
+    my $extn = $extensions->getQueueExtension($group);
+
+    my $args = {
+        'nacc' => scalar ($self->asteriskUsersInQueue($group)),
+        'group' => $group,
+        'extension' => $extn,
+        'active'   => $active,
+        'service' => $asterisk->isEnabled(),
+    };
+
+    return { path => '/asterisk/group.mas',
+             params => $args };
+}
+
+
+sub _modifyGroup
+{
+    my ($self, $group, %params) = @_;
+
+    my $asterisk = $self->{asterisk};
+    return unless ($asterisk->configured());
+
+    return unless $self->hasQueue($group);
+
+    return unless (any($self->asteriskUsersInQueue($group)) eq $params{'user'});
+
+    my $extensions = new EBox::Asterisk::Extensions;
+
+    if ( $params{'op'} eq 'del' ) {
+        $extensions->delQueueMember($params{'user'}, $group);
+    }
+
+    if ( $params{'op'} eq 'add' ) {
+        $extensions->addQueueMember($params{'user'}, $group);
+    }
+}
+
+
 # Method: setHasAccount
 #
 #       Enable or disable the Asterisk account for this user. The way it's
@@ -240,12 +315,12 @@ sub _removeVoicemail
 sub setHasAccount
 {
     my ($self, $username, $option) = @_;
-    defined $option or
-        $option = 0;
+
+    defined $option or $option = 0;
 
     my $hasAccount = $self->hasAccount($username);
-    ($hasAccount xor $option) or
-        return;
+
+    ($hasAccount xor $option) or return;
 
     if ($option) {
         $self->_addUser($username, undef, 1);
@@ -283,27 +358,123 @@ sub hasAccount #($username)
     return 0;
 }
 
+
+sub hasQueue
+{
+    my ($self, $group) = @_;
+
+    my $extensions = new EBox::Asterisk::Extensions;
+
+    my $ldap = $self->{ldap};
+
+    my %attrs = (
+                 base => $extensions->queuesDn,
+                 filter => "&(objectClass=AsteriskQueue)(AstQueueName=$group)",
+                 scope => 'one'
+                );
+
+    my $result = $ldap->search(\%attrs);
+
+    return ($result->count > 0);
+}
+
+
+sub setHasQueue
+{
+    my ($self, $group, $option) = @_;
+
+    my $extensions = new EBox::Asterisk::Extensions;
+
+    defined $option or $option = 0;
+
+    my $hasQueue = $self->hasQueue($group);
+
+    ($hasQueue xor $option) or return;
+
+    if ($option) {
+        $self->genQueue($group);
+    } else {
+        $self->_delGroup($group);
+    }
+}
+
+
+sub genQueue
+{
+    my ($self, $group) = @_;
+
+    my $asterisk = $self->{asterisk};
+    return unless ($asterisk->configured());
+
+    my $extensions = new EBox::Asterisk::Extensions;
+
+    my $extn = $extensions->firstFreeExtension($extensions->QUEUEMINEXTN, $extensions->QUEUEMAXEXTN);
+    $extensions->addQueueExtension($group, $extn);
+
+    $extensions->addQueue($group);
+
+    my @users = $self->asteriskUsersInQueue($group);
+    foreach my $user (@users) {
+        $extensions->addQueueMember($user, $group);
+    }
+}
+
+
+sub asteriskUsersInQueue
+{
+    # XXX not very nice design but i try to make it fast
+    my ($self, $group) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+
+    my %args = (
+                base => $users->usersDn,
+                filter => 'objectclass=AsteriskSIPUser',
+                scope => 'one',
+               );
+
+    my $result = $self->{ldap}->search(\%args);
+
+    my @asteriskusers;
+    foreach my $entry ($result->entries()) {
+        push @asteriskusers, $entry->get_value('uid');
+    }
+
+    my $anyUserInGroup = any( @{ $users->usersInGroup($group) } );
+
+    # the intersection between users with asterisk account and users of the group
+    my @asteriskusersingroup = grep {
+        $_ eq $anyUserInGroup
+    } @asteriskusers;
+
+    return @asteriskusersingroup;
+}
+
+
 sub schemas
 {
     return [ EBox::Config::share() . '/ebox-asterisk/asterisk.ldif' ];
 }
+
 
 sub acls
 {
     my ($self) = @_;
 
     return [
-        "to attrs=AstAccountVMPassword,AstAccountVMMail,AstAccountVMAttach," .
-        "AstAccountVMDelete " .
+        "to attrs=AstVoicemailPassword, AstVoicemailEmail," .
+        "AstVoicemailAttach, AstVoicemailDelete" .
         "by dn.regex=\"" . $self->{ldap}->rootDn() . "\" write " .
         "by self write " .
         "by * none" ];
 }
 
+
 # Method: defaultUserModel
 #
 #   Overrides <EBox::UsersAndGrops::LdapUserBase::defaultUserModel>
-#   to return our default user template
+#   to return our default user template.
+#
 sub defaultUserModel
 {
     return 'asterisk/AsteriskUser';

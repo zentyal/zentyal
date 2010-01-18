@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::Settings;
 
 # Class: EBox::Asterisk::Model::Settings
 #
-#       Form to set the general configuration for the Asterisk server
+#       Form to set the general configuration for the Asterisk server.
 #
 
 use base 'EBox::Model::DataForm';
@@ -38,7 +38,7 @@ use EBox::Asterisk::Extensions;
 
 # Constructor: new
 #
-#       Create the new Settings model
+#       Create the new Settings model.
 #
 # Overrides:
 #
@@ -46,7 +46,7 @@ use EBox::Asterisk::Extensions;
 #
 # Returns:
 #
-#       <EBox::Asterisk::Model::Settings> - the recently created model
+#       <EBox::Asterisk::Model::Settings> - the recently created model.
 #
 sub new
 {
@@ -62,7 +62,7 @@ sub new
 
 # Method: validateTypedRow
 #
-#      Check the row to add or update if contains a valid extension
+#      Check the row to add or update if contains a valid extension.
 #
 # Overrides:
 #
@@ -70,7 +70,7 @@ sub new
 #
 # Exceptions:
 #
-#      <EBox::Exceptions::InvalidData> - thrown if the extension is not valid
+#      <EBox::Exceptions::InvalidData> - thrown if the extension is not valid.
 #
 sub validateTypedRow
 {
@@ -83,13 +83,13 @@ sub validateTypedRow
                                             $changedFields->{voicemailExtn}->value(),
                                             __(q{extension}),
                                             EBox::Asterisk::Extensions->MEETINGMINEXTN,
-                                            EBox::Asterisk::Extensions->MEETINGMAXEXTN,
+                                            EBox::Asterisk::Extensions->MEETINGMAXEXTN
                                         );
 
             my $extensions = new EBox::Asterisk::Extensions;
             if ($extensions->extensionExists($changedFields->{voicemailExtn}->value())) {
                 throw EBox::Exceptions::DataExists(
-                          'data'  => __('Voicemail extension'),
+                          'data'  => __('Extension'),
                           'value' => $changedFields->{voicemailExtn}->value(),
                       );
             }
@@ -148,7 +148,7 @@ sub _table
         class              => 'dataForm',
         help               => __('General Asterisk server configuration'),
         messages           => {
-                                  update => __('General Asterisk server configuration updated'),
+                                  update => __('General Asterisk server configuration updated.')
                               },
         modelDomain        => 'Asterisk',
     };

@@ -149,10 +149,10 @@ sub row
     my $user = $request->user();
     my $dn = "uid=$user," . $users->usersDn();
 
-    my $pass = $ldap->getAttribute($dn, 'AstAccountVMPassword');
-    my $mail = $ldap->getAttribute($dn, 'AstAccountVMMail');
-    my $attach = $ldap->getAttribute($dn, 'AstAccountVMAttach');
-    my $delete = $ldap->getAttribute($dn, 'AstAccountVMDelete');
+    my $pass = $ldap->getAttribute($dn, 'AstVoicemailPassword');
+    my $mail = $ldap->getAttribute($dn, 'AstVoicemailEmail');
+    my $attach = $ldap->getAttribute($dn, 'AstVoicemailAttach');
+    my $delete = $ldap->getAttribute($dn, 'AstVoicemailDelete');
 
     my $row = $self->_setValueRow(pass   => $pass,
                                   mail   => $mail,
@@ -196,10 +196,10 @@ sub _addTypedRow
     my $user = $request->user();
     my $dn = "uid=$user," . $users->usersDn();
 
-    $ldap->setAttribute($dn, 'AstAccountVMPassword', $pass);
-    $ldap->setAttribute($dn, 'AstAccountVMMail', $mail);
-    $ldap->setAttribute($dn, 'AstAccountVMAttach', $attach);
-    $ldap->setAttribute($dn, 'AstAccountVMDelete', $delete);
+    $ldap->setAttribute($dn, 'AstVoicemailPassword', $pass);
+    $ldap->setAttribute($dn, 'AstVoicemailEmail', $mail);
+    $ldap->setAttribute($dn, 'AstVoicemailAttach', $attach);
+    $ldap->setAttribute($dn, 'AstVoicemailDelete', $delete);
 
     $self->setMessage(__('Settings successfully updated'));
 }

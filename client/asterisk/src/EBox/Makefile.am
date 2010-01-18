@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox
 
 SUBDIRS = Asterisk Model Composite CGI
 
-nobase_perl_DATA = Asterisk.pm AsteriskLdapUser.pm AsteriskFirewall.pm
+nobase_perl_DATA = Asterisk.pm AsteriskLdapUser.pm AsteriskFirewall.pm AsteriskLogHelper.pm
 
 DISTCLEANFILES =
 

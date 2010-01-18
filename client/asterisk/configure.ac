@@ -62,6 +62,7 @@ src/EBox/CGI/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile
+tools/sqllog/Makefile
 migration/Makefile
 Makefile
 ])

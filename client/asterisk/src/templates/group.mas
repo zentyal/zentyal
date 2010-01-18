@@ -1,0 +1,58 @@
+<%args>
+    $params
+</%args>
+<%init>
+    use EBox::Gettext;
+    settextdomain('ebox-asterisk');
+</%init>
+   <h3><% __('Asterisk group queue') %></h3>
+
+%   if ($params->{'nacc'} eq 0) {
+    <div class='warning'>
+      <p><% __('There are no users in this group or the users do not have an Asterisk account, so a queue cannot be created.') %></p>
+    </div>
+%   } else {
+%       if (not $params->{service} ) {
+            <& /asterisk/moduleDisabled.mas &>
+%       }
+
+    <table class='formTable'>
+    <form action='/ebox/Asterisk/AsteriskGroupOptions' method='POST'>
+        <input type="hidden" name="group" value="<% $params->{group} %>">
+        <tr>
+        <td class="tright">
+            <span class="ftitle"><% __('Group queue') %>:</span>
+        </td>
+        <td>
+            <select name="active" enabled>
+%       if ($params->{'active'} eq 'yes') {
+            <option value="no" ><% __('Disabled') %></option>
+            <option selected value="yes" ><% __('Enabled') %></option>
+%       } else {
+            <option selected value="no" ><% __('Disabled') %></option>
+            <option value="yes" ><% __('Enabled') %></option>
+%       }
+            </select>
+        </td>
+        </tr>
+%       if ($params->{'active'} eq 'yes') {
+        <tr>
+        <td class="tright">
+            <span class="ftitle"><% __('Extension') %>:</span>
+        </td>
+        <td>
+            <input type="text" class="inputText" size="4" maxlenght="4" name="extension" value="<% $params->{'extension'} %>">
+        </td>
+        </tr>
+%       }
+        <tr>
+        <td></td>
+        <td>
+            <input class="inputButton" type="submit" name="change"
+                    value="<% __('Change') %>"
+                    alt="<% __('Change') %>">
+        </td>
+        </tr>
+    </form>
+    </table>
+%   }

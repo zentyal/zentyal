@@ -1,0 +1,10 @@
+;
+;  musiconhold.conf
+;
+
+[general]
+
+[default]
+mode=custom
+directory=/var/lib/asterisk/mohmp3/
+application=/usr/bin/mpg123 -q -r 8000 -f 8192 -b 2048 --mono -s

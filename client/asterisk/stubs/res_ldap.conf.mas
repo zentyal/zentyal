@@ -22,7 +22,7 @@ variable_name = AstConfigVariableName
 variable_value = AstConfigVariableValue
 cat_metric = AstConfigCategoryMetric
 commented = AstConfigCommented
-additionalFilter=(objectClass=AstConfig)
+additionalFilter=(objectClass=AsteriskConfig)
 
 [extensions]
 context = AstContext
@@ -36,6 +36,7 @@ additionalFilter=(objectClass=AsteriskExtension)
 allow = AstAccountAllowedCodec
 amaflags = AstAccountAMAFlags
 callerid = AstAccountCallerID
+directmedia = AstAccountCanReinvite
 callgroup = AstAccountCallGroup
 cancallforward = AstAccountCanCallForward
 canreinvite = AstAccountCanReinvite
@@ -50,7 +51,7 @@ fullcontact = AstAccountFullContact
 host = AstAccountHost
 insecure = AstAccountInsecure
 ipaddr = AstAccountIPAddress
-lastms = AstAccountLastms
+lastms = AstAccountLastQualifyMilliseconds
 mailbox = AstAccountMailbox
 md5secret = eboxRealmPassword
 musiconhold = AstAccountMusicOnHold
@@ -72,30 +73,30 @@ useragent = AstAccountUserAgent
 additionalFilter=(objectClass=AsteriskSIPUser)
 
 [voicemail]
-attach = AstAccountVMAttach
-callback = AstAccountVMCallback
-context = AstAccountContext
-delete = AstAccountVMDelete
-dialout = AstAccountVMDialout
-email = AstAccountVMMail
-envelope = AstAccountVMEnvelope
-forcegreetings = AstAccountVMForcegreetings
-forcename = AstAccountVMForcename
-fullname = sn
-hidefromdir = AstAccountVMHidefromdir
-mailbox = AstAccountMailbox
-nextaftercmd = AstAccountVMNextastercmd
-operator = AstAccountVMOperator
-pager = AstAccountVMPager
-password = AstAccountVMPassword
-review = AstAccountVMReview
-saycid = AstAccountVMSaycid
-sayduration = AstAccountVMSayduration
-saydurationm = AstAccountVMSaydurationm
-sendvoicemail = AstAccountVMSendvoicemail
-stamp = AstAccountVMStamp
-tz = AstAccountVMTz
-additionalFilter = (objectClass=AsteriskVoicemail)
+attach = AstVoicemailAttach
+#callback = AstAccountVMCallback
+context = AstContext
+delete = AstVoicemailDelete
+#dialout = AstAccountVMDialout
+email = AstVoicemailEmail
+#envelope = AstAccountVMEnvelope
+#forcegreetings = AstAccountVMForcegreetings
+#forcename = AstAccountVMForcename
+fullname = uid
+#hidefromdir = AstAccountVMHidefromdir
+mailbox = AstVoicemailMailbox
+#nextaftercmd = AstAccountVMNextastercmd
+#operator = AstAccountVMOperator
+pager = AstVoicemailPager
+password = AstVoicemailPassword
+#review = AstAccountVMReview
+#saycid = AstAccountVMSaycid
+#sayduration = AstAccountVMSayduration
+#saydurationm = AstAccountVMSaydurationm
+#sendvoicemail = AstAccountVMSendvoicemail
+stamp = AstVoicemailTimestamp
+#tz = AstAccountVMTz
+additionalFilter = (objectClass=AsteriskVoiceMail)
 
 [iax]
 allow = AstAccountAllowedCodec
@@ -106,9 +107,11 @@ deny = AstAccountDeny
 disallow = AstAccountDisallowedCodec
 fullcontact = AstAccountFullContact
 host = AstAccountHost
-lastms = AstAccountLastms
+ipaddr = AstAccountIPAddress
+lastms = AstAccountLastQualifyMilliseconds
 mailbox = AstAccountMailbox
 md5secret = eboxRealmPassword
+name = uid
 notransfer = AstAccountNoTransfer
 permit = AstAccountPermit
 port = AstAccountPort
@@ -117,6 +120,55 @@ regcontext = AstAccountRegistrationContext
 regexten = AstAccountRegistrationExten
 regseconds = AstAccountExpirationTimestamp
 type = AstAccountType
-additionalFilter=(objectClass=AstAccountIAX)
+useragent = AstAccountUserAgent
+additionalFilter=(objectClass=AsteriskIAXUser)
 
 ;[accounts] not implemented
+
+[queue]
+name=AstQueueName
+musiconhold=AstQueueMoh
+announce=AstQueueAnnounce
+context=AstQueueContext
+timeout=AstQueueTimeout
+monitor_join=AstQueueMonjoin
+monitor_format=AstQueueMonformat
+queue_youarenext=AstQueueYouarenext
+queue_thereare=AstQueueThereare
+queue_callswaiting=AstQueueCallswaiting
+queue_holdtime=AstQueueHoldtime
+queue_minutes=AstQueueMinutes
+queue_seconds=AstQueueSeconds
+queue_lessthan=AstQueueLessthan
+queue_thankyou=AstQueueThankyou
+queue_reporthold=AstQueueReporthold
+announce_frequency=AstQueueFrequency
+announce_round_seconds=AstQueueRoundseconds
+announce_holdtime=AstQueueAnnounceholdtime
+retry=AstQueueRetry
+wrapuptime=AstQueueWrapuptime
+maxlen=AstQueueMaxlen
+servicelevel=AstQueueServicelevel
+strategy=AstQueueStrategy
+joinempty=AstQueueJoinempty
+leavewhenempty=AstQueueLeavewhenempty
+eventmemberstatus=AstQueueEventmemberstatus
+eventwhencalled=AstQueueEventwhencalled
+reportholdtime=AstQueueReportholdtime
+memberdelay=AstQueueMemberdelay
+weight=AstQueueWeight
+timeoutrestart=AstQueueTimeoutrestart
+periodic_announce=AstQueuePeriodicannounce
+periodic_announce_frequency=AstQueuePeriodicannouncefrequency
+additionalFilter=(objectClass=AsteriskQueue)
+
+[queue_member]
+uniqueid=AstAccountCallerID
+membername=AstQueueMembername
+queue_name=AstQueueMemberof
+interface=AstQueueInterface
+penalty=AstQueuePenality
+paused=AstQueuePaused
+additionalFilter=(objectClass=AsteriskQueueMember)
+
+;[meetme] not implemented

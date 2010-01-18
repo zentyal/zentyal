@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::NAT;
 
 # Class: EBox::Asterisk::Model::NAT
 #
-#       Form to set the NAT configuration for the Asterisk server
+#       Form to set the NAT configuration for the Asterisk server.
 #
 
 use base 'EBox::Model::DataForm';
@@ -37,7 +37,7 @@ use EBox::Types::DomainName;
 
 # Constructor: new
 #
-#       Create the new NAT model
+#       Create the new NAT model.
 #
 # Overrides:
 #
@@ -45,7 +45,7 @@ use EBox::Types::DomainName;
 #
 # Returns:
 #
-#       <EBox::Asterisk::Model::NAT> - the recently created model
+#       <EBox::Asterisk::Model::NAT> - the recently created model.
 #
 sub new
 {
@@ -123,7 +123,7 @@ sub _table
         class              => 'dataForm',
         help               => __("NAT Asterisk server configuration"),
         messages           => {
-                                  update => __('NAT Asterisk server configuration updated'),
+                                  update => __('NAT Asterisk server configuration updated.')
                               },
         modelDomain        => 'Asterisk',
     };

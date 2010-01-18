@@ -22,7 +22,8 @@ package EBox::Asterisk;
 
 use base qw(EBox::Module::Service EBox::Model::ModelProvider
             EBox::Model::CompositeProvider EBox::LdapModule
-            EBox::FirewallObserver EBox::UserCorner::Provider);
+            EBox::FirewallObserver EBox::LogObserver
+            EBox::UserCorner::Provider);
 
 use strict;
 use warnings;
@@ -34,6 +35,7 @@ use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
 use EBox::AsteriskLdapUser;
 use EBox::AsteriskFirewall;
+use EBox::AsteriskLogHelper;
 use EBox::Asterisk::Extensions;
 
 use Net::IP;
@@ -47,6 +49,8 @@ use constant RTPCONFFILE          => '/etc/asterisk/rtp.conf';
 use constant EXTNCONFFILE         => '/etc/asterisk/extensions.conf';
 use constant MEETMECONFFILE       => '/etc/asterisk/meetme.conf';
 use constant VOICEMAILCONFFILE    => '/etc/asterisk/voicemail.conf';
+use constant MOHCONFFILE          => '/etc/asterisk/musiconhold.conf';
+use constant FEATURESCONFFILE     => '/etc/asterisk/features.conf';
 
 use constant VOICEMAIL_DIR        => '/var/spool/asterisk/voicemail';
 
@@ -68,6 +72,7 @@ sub _create
             @_);
 
     bless($self, $class);
+
     return $self;
 }
 
@@ -160,6 +165,14 @@ sub usedFiles
                         'module' => 'asterisk',
                         'reason' => __('To configure the conferences.')
                       });
+    push (@usedFiles, { 'file' => MOHCONFFILE,
+                        'module' => 'asterisk',
+                        'reason' => __('To configure the music on hold.')
+                      });
+    push (@usedFiles, { 'file' => FEATURESCONFFILE,
+                        'module' => 'asterisk',
+                        'reason' => __('To configure DTMF behaviour.')
+                      });
     return \@usedFiles;
 }
 
@@ -179,6 +192,7 @@ sub enableActions
     EBox::Sudo::root(EBox::Config::share() .
                      '/ebox-asterisk/ebox-asterisk-enable');
 }
+ 
 
 # Method: _daemons
 #
@@ -246,7 +260,10 @@ sub _setConf
     $self->writeConfFile(EXTCONFIGCONFFILE, "asterisk/extconfig.conf.mas",
         \@params);
     $self->writeConfFile(USERSCONFFILE, "asterisk/users.conf.mas");
+    $self->writeConfFile(MOHCONFFILE, "asterisk/musiconhold.conf.mas");
+    $self->writeConfFile(FEATURESCONFFILE, "asterisk/features.conf.mas");
     $self->writeConfFile(VOICEMAILCONFFILE, "asterisk/voicemail.conf.mas");
+
     $self->_setRealTime();
     $self->_setExtensions();
     $self->_setVoicemail();
@@ -309,15 +326,14 @@ sub _setExtensions
 sub _setVoicemail
 {
     my ($self) = @_;
-
+    
     my $model = $self->model('Settings');
     my $vmextn = $model->voicemailExtnValue();
 
     my $extensions = new EBox::Asterisk::Extensions;
 
-    if ($extensions->extensionExists($vmextn)) {
-        $extensions->delExtension("$vmextn-1"); #FIXME not so cool
-    }
+    $extensions->cleanUpVoicemail();
+
     $extensions->addExtension($vmextn, 1, 'VoicemailMain', 'users');
 }
 
@@ -392,7 +408,7 @@ sub _setMeetings
         my $exten = $row->valueByName('exten');
         #my $alias = $row->valueByName('alias'); FIXME not implemented yet
         my $pin = $row->valueByName('pin');
-        my $options = ",s";
+        my $options = "|s";
         my $data = $exten . $options;
         push (@meetings, { exten => $exten,
                            pin => $pin,
@@ -612,6 +628,66 @@ sub widgets
                 'default' => 1
         }
     };
+}
+
+
+# Method: logHelper
+#
+# Overrides:
+#
+#       <EBox::LogObserver::logHelper>
+#
+sub logHelper
+{
+    my ($self) = @_;
+
+    return (new EBox::AsteriskLogHelper);
+}
+
+
+# Method: tableInfo
+#
+# Overrides:
+#
+#       <EBox::LogObserver::tableInfo>
+#
+sub tableInfo
+{
+    my $self = shift;
+    my $titles = {
+                   'timestamp' => __('Date'),
+                   'src' => __('From'),
+                   'dst' => __('To'),
+                   'duration' => __('Duration'),
+                   'channel' => __('Channel'),
+                   'dstchannel' => __('Destination Channel'),
+                   'lastapp' => __('Application'),
+                   'lastdata' => __('Application Data'),
+                   'disposition' => __('Event')
+    };
+    my @order = (
+                 'timestamp', 'src', 'dst',
+                 'duration', 'lastapp', 'disposition'
+    );
+
+    my $events = {
+                   'ANSWERED' => __('Answered'),
+                   'NO ANSWER' => __('No Answer'),
+                   'BUSY' => __('Busy'),
+                   'FAILED' => __('Failed')
+    };
+
+    return [{
+            'name' => __('VoIP'),
+            'index' => 'asterisk',
+            'titles' => $titles,
+            'order' => \@order,
+            'tablename' => 'asterisk_cdr',
+            'timecol' => 'timestamp',
+            'filter' => ['src', 'dst'],
+            'events' => $events,
+            'eventcol' => 'disposition'
+    }];
 }
 
 

@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::Provider;
 
 # Class: EBox::Asterisk::Model::Provider
 #
-#      Form to set the configuration for the SIP provider
+#      Form to set the configuration for the SIP provider.
 #
 
 use base 'EBox::Model::DataForm';
@@ -36,7 +36,7 @@ use EBox::Types::Host;
 
 # Constructor: new
 #
-#      Create the new Provider model
+#      Create the new Provider model.
 #
 # Overrides:
 #
@@ -44,7 +44,7 @@ use EBox::Types::Host;
 #
 # Returns:
 #
-#      <EBox::Asterisk::Model::Provider> - the recently created model
+#      <EBox::Asterisk::Model::Provider> - the recently created model.
 #
 sub new
 {
@@ -115,9 +115,9 @@ sub _table
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataForm',
-        help               => __('SIP provider for outgoing calls configuration'),
+        help               => __('SIP provider for outgoing calls configuration.'),
         messages           => {
-                                  update => __('SIP provider configuration updated'),
+                                  update => __('SIP provider configuration updated.')
                               },
         modelDomain        => 'Asterisk',
     };

@@ -1,3 +1,14 @@
+HEAD
+	+ Add call parking (extension 700 and above)
+	+ URI dialing has been deleted
+	+ Music on Hold for meetings and parking (testing on extension 400)
+	+ Add queues support mapped to user groups
+	+ Updated LDAP schemas to follow upstream changes
+	+ Bugfix: incoming calls from SIP provider go to selected extension
+	+ Add call logs
+	+ Bugfix: old voicemail extension is deleted from dialplan
+	+ Deleted IAX and IAX2 port from firewall as we are not using it
+	+ Add call transfer and recording
 1.3.13
 	+ Change menu name to keep folder open
 	+ Add AsteriskUser model to be used in users and groups default user

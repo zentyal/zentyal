@@ -13,6 +13,7 @@ sub update {
 	$extensions->{ldap}->ldapCon;
 	my $ldap = $extensions->{ldap}->{ldap};
 	my $edn = $extensions->extensionsDn;
+	my $qdn = $extensions->queuesDn;
 
 	my $result = $ldap->add($edn, attr => [
 		'ou' => 'Extensions',
@@ -20,12 +21,20 @@ sub update {
 		'objectClass' => 'organizationalUnit'
 	]);
 	($result->is_error) and warn "Can't initialize Extensions leaf ".$result->error;
+
+	my $result = $ldap->add($qdn, attr => [
+		'ou' => 'Queues',
+		'objectClass' => 'top',
+		'objectClass' => 'organizationalUnit'
+	]);
+	($result->is_error) and warn "Can't initialize Queues leaf ".$result->error;
 }
 
 sub clean {
 	$extensions->{ldap}->ldapCon;
-	my $edn = $extensions->extensionsDn;
 	my $ldap = $extensions->{ldap}->{ldap};
+	my $edn = $extensions->extensionsDn;
+	my $qdn = $extensions->queuesDn;
 
 	my @extns = $extensions->extensions;
 	foreach (@extns) {
@@ -34,6 +43,9 @@ sub clean {
 
 	my $result = $ldap->delete($edn);
 	($result->is_error) and warn "Can't remove Extensions leaf ".$result->error;
+
+	my $result = $ldap->delete($qdn);
+	($result->is_error) and warn "Can't remove Queues leaf ".$result->error;
 }
 
 sub usage {

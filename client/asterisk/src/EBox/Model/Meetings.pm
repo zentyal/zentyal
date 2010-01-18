@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::Meetings;
 
 # Class: EBox::Asterisk::Model::Meetings
 #
-#      Form to set the configuration settings for the meetings
+#      Form to set the configuration settings for the meetings.
 #
 
 use base 'EBox::Model::DataTable';
@@ -37,7 +37,7 @@ use EBox::Asterisk::Extensions;
 
 # Constructor: new
 #
-#       Create the new Meetings model
+#       Create the new Meetings model.
 #
 # Overrides:
 #
@@ -45,7 +45,7 @@ use EBox::Asterisk::Extensions;
 #
 # Returns:
 #
-#       <EBox::Asterisk::Model::Meetings> - the recently created model
+#       <EBox::Asterisk::Model::Meetings> - the recently created model.
 #
 sub new
 {
@@ -88,13 +88,13 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __('You must install dahdi-linux and dahdi-tools packages to use Meetings.');
+    return __('You must install dahdi and dahdi-modules-ebox packages to use Meetings.');
 }
 
 
 # Method: validateTypedRow
 #
-#       Check the row to add or update if contains a valid extension
+#       Check the row to add or update if contains a valid extension.
 #
 # Overrides:
 #
@@ -102,7 +102,7 @@ sub preconditionFailMsg
 #
 # Exceptions:
 #
-#       <EBox::Exceptions::InvalidData> - thrown if the extension is not valid
+#       <EBox::Exceptions::InvalidData> - thrown if the extension is not valid.
 #
 sub validateTypedRow
 {
@@ -121,7 +121,7 @@ sub validateTypedRow
     if ($extensions->extensionExists($changedFields->{exten}->value())) {
         throw EBox::Exceptions::DataExists(
                   'data'  => __('extension'),
-                  'value' => $changedFields->{extn}->value(),
+                  'value' => $changedFields->{exten}->value(),
               );
     }
 }
@@ -146,7 +146,7 @@ sub _table
                                 size          => 4,
                                 unique        => 1,
                                 editable      => 1,
-                                help          => __x('A number between {min} and {max}',
+                                help          => __x('A number between {min} and {max}.',
                                                     min => EBox::Asterisk::Extensions->MEETINGMINEXTN,
                                                     max => EBox::Asterisk::Extensions->MEETINGMAXEXTN
                                                     ),

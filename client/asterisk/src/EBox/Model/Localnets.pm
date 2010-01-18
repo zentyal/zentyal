@@ -18,7 +18,7 @@ package EBox::Asterisk::Model::Localnets;
 
 # Class: EBox::Asterisk::Model::Localnets
 #
-#      Form to set the configuration settings for the localnets
+#      Form to set the configuration settings for the localnets.
 #
 
 use base 'EBox::Model::DataTable';
@@ -37,7 +37,7 @@ use Net::IP;
 
 # Constructor: new
 #
-#       Create the new Localnets model
+#       Create the new Localnets model.
 #
 # Overrides:
 #
@@ -45,7 +45,7 @@ use Net::IP;
 #
 # Returns:
 #
-#       <EBox::Asterisk::Model::Localnets> - the recently created model
+#       <EBox::Asterisk::Model::Localnets> - the recently created model.
 #
 sub new
 {
@@ -61,7 +61,7 @@ sub new
 
 # Method: validateTypedRow
 #
-#       Check the row to add or update if contains an existing network
+#       Check the row to add or update if contains an existing network.
 #
 # Overrides:
 #
@@ -69,7 +69,7 @@ sub new
 #
 # Exceptions:
 #
-#       <EBox::Exceptions::InvalidData> - thrown if the network is not valid
+#       <EBox::Exceptions::InvalidData> - thrown if the network is not valid.
 #
 sub validateTypedRow
 {

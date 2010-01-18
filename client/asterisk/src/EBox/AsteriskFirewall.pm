@@ -40,7 +40,7 @@ use constant RTPUDPPORTRANGE => '10000:20000';
 
 # Constructor: new
 #
-#       Create the new Firewall helper
+#       Create the new Firewall helper.
 #
 # Overrides:
 #
@@ -48,7 +48,7 @@ use constant RTPUDPPORTRANGE => '10000:20000';
 #
 # Returns:
 #
-#       <EBox::AsteriskFirewall> - the recently created model
+#       <EBox::AsteriskFirewall> - the recently created model.
 #
 sub new
 {
@@ -70,7 +70,7 @@ sub new
 #
 # Returns:
 #
-#      array ref - containing output rules
+#      array ref - containing output rules.
 #
 sub output
 {
@@ -84,8 +84,8 @@ sub output
 	push(@AsteriskPorts, SIPUDPPORT);
 	#push(@AsteriskPorts, H323UDPPORTRANGE);
 	push(@AsteriskPorts, RTPUDPPORTRANGE);
-	push(@AsteriskPorts, IAXUDPPORT);
-	push(@AsteriskPorts, IAX2UDPPORT);
+	#push(@AsteriskPorts, IAXUDPPORT);
+	#push(@AsteriskPorts, IAX2UDPPORT);
 
 	foreach my $port (@AsteriskPorts){
 	    foreach my $ifc (@ifaces) {
