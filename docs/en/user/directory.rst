@@ -17,7 +17,7 @@ A directory service can be considered similar to the yellow
 pages. Its characteristics include:
 
 * The data is much more often read than written.
-* Hierarchical structure that simulates organisational architecture.
+* Hierarchical structure that simulates organizational architecture.
 * Properties are defined for each type of object, standardized by the IANA [#]_,
   on which access control lists (ACLs) can be defined.
 
@@ -38,6 +38,63 @@ the concept of **user** or **group**. For easier shared
 resource administration, the difference is made between
 users and their groups. Each one may have different
 privileges in relation to the resources of the organization.
+
+Modes
+-----
+As it has been explained, eBox has a modular design, allowing an administrator
+to distribute services among several machines in the network. In order for this
+to be feasible, the **users and groups** module supports a master/slave
+architecture to share users between different eBoxes.
+
+By default, and unless indicated otherwise in the
+:menuselection:`Users and Groups --> Mode` menu entry, the module will set up
+a master LDAP directory. By default, the Distinguished Name (DN) of
+the directory is set according to the current hostname, if a different one is
+desired, it can be set in the :guilabel:`LDAP DN` text entry.
+
+Other eBoxes can be configured to use a master as the source of their users,
+thus becoming directory slaves. In order to do this, the *slave* mode has to be
+selected in :menuselection:`Users and Groups --> Mode`. The slave setup requires
+two extra parameters, the IP or hostname of the master directory and its LDAP
+password. This password is not the eBox one, but the one generated automatically
+when enabling the **users and groups** module. Its value can be obtained in the
+*Password* field in :menuselection:`Users and Groups --> LDAP Info` in the
+master eBox.
+
+There is one extra requirement before registering a slave in a master. The
+master has to be able to resolve the slave's hostname via DNS. There are
+different ways to achieve this. The easiest one is adding an entry for the
+slave in the master's */etc/hosts*. Other option is to set up a DNS server
+with eBox, including the slave hostname and IP address.
+
+Once these parameters are set and the slave hostname can be resolved from the
+master, the slave can be registered in the master by enabling the
+**users and groups** module in :menuselection:`Module Status`.
+
+Slaves create a replica of the master directory when they register for the
+first time, and that replica is kept up to date automatically when new users
+and groups are added. A list of the slaves can be seen in the master in
+:menuselection:`Users and Groups --> Slave Status`.
+
+Modules that work with users such as **mail** or **samba** can be installed now
+in the slaves and they will use the users available in the master eBox. Some
+modules require some actions to be executed when new users are added, such as
+**samba**, which needs to create the home server. In order to do this, the
+master will notify the slaves about new users and groups when they are created,
+giving a chance to slaves to perform the appropriate actions.
+
+There might be problems executing these actions in some circumstances, for
+example if one of the slaves is down. In this case the master will remember that
+there are pending actions to be performed and will retry periodically. The user
+can also check the status of the slaves in
+:menuselection:`Users and Groups --> Slave Status` and force a retry manually.
+A slave can be deleted in this section as well.
+
+There is an important limitation in the current master/slave architecture. The
+master eBox cannot have any module depending on **users and groups**
+installed, for example, **samba** or **mail** among others. If the master has
+any of these modules installed, they have to be uninstalled before trying to
+register a slave on it.
 
 Management of users and groups in eBox
 --------------------------------------
