@@ -52,7 +52,7 @@ sub _fix
 
     my $selectedTypeKey = "$dir/$selectedType";
     my $selectedValue = $mail->get_string($selectedTypeKey);
-    if (not $selectedTypeKey) {
+    if (not $selectedValue) {
         # uninitialized field, nothing to do
         return;
     } elsif (($selectedValue eq $unlimitedGoodType) or 

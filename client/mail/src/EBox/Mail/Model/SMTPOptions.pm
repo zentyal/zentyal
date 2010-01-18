@@ -249,7 +249,7 @@ sub maxMsgSize
     my ($self) = @_;
 
     my $maxSize = $self->row()->elementByName('maxSize');
-    if ($maxSize->selectedType eq 'unlimited') {
+    if ($maxSize->selectedType eq 'unlimitedMsgSize') {
         return 0;
     }
 
