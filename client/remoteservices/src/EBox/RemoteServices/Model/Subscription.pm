@@ -54,7 +54,6 @@ use Error qw(:try);
 
 # Constants
 use constant {
-    EBOX_SERVICES_URL => 'http://www.ebox-technologies.com/contact/',
     MAX_LENGTH => 20,
 };
 
@@ -351,7 +350,7 @@ sub _table
         $actionName = __('Delete data');
     } else {
         splice(@tableDesc, 1, 0, $passType);
-        $printableTableName = __('Subscription to remote services');
+        $printableTableName = __('Subscription to eBox Control Center');
         $actionName = __('Subscribe');
     }
 
@@ -361,12 +360,6 @@ sub _table
                     modelDomain        => 'RemoteServices',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
-                    class              => 'dataForm',
-                    help               => __x('In order to subscribe an eBox '
-                                              . 'remote services {url}. '
-                                              . 'You will have remote backup '
-                                              . 'facilities and much more',
-                                              url => EBOX_SERVICES_URL),
                     printableActionName => $actionName,
                    };
 
