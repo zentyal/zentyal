@@ -1,4 +1,6 @@
 HEAD
+	+ Add operation name and username on updateGroup
+	+ Add slave notification for group modify and delete
 	+ Change button order to "Add" and "Add and Edit" in Add User
 	  template. If users press return in the form it adds a new user
 	  and stays on the same page.
