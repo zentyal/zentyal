@@ -1,6 +1,11 @@
 HEAD
 	+ Add a warning if a user sets an interface as external and we detect
 	  the connection is made through that interface
+	+ Remove migration scrips:
+		- 0001_import_default_gateway.pl
+		- 0002_add_weight_to_gateway.pl
+		- 0003_import_routes_to_mvc.pl
+		- 0004_import_dns_to_mvc.pl
 1.3.13
 	+ Bug fix: configuration of PPPoE interfaces now works when
 	  confirmation is required because of other modules
