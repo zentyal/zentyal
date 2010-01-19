@@ -52,7 +52,6 @@ fi
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
-migration/Makefile
 schemas/Makefile
 src/Makefile
 src/EBox/Makefile

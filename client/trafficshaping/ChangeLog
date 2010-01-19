@@ -3,6 +3,7 @@ HEAD
 	+ Bug fix: RulesTable is notified by changes on InterfaceRate
 	+ Disable ifaceExternalChanged until network observers are complete
 	+ Disable logging of iptable rules
+	+ Remove migration directory
 1.3.6
 	+ bug fix: l7 filter rules need to be added to both external and internal
 	interfaces to be able to detect traffic properly
