@@ -93,7 +93,7 @@ sub customFilterIds
     return [] unless (@status);
     my @filtered;
     for my $id (1 .. (scalar(@status))) {
-        push (@filtered, $id) if ($status[$id] =~ /$filter/);
+        push (@filtered, $id) if ($status[$id - 1] =~ /$filter/);
     }
 
     return \@filtered;

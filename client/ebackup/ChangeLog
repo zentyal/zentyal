@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: off-by-one error on remote file search
 1.3.13
 	+ Bug fix: add --force to delete old backup sets
 	+ Bug fix: fix restoring of the first file
