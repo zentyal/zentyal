@@ -462,8 +462,8 @@ sub acls
     my ($self) = @_;
 
     return [
-        "to attrs=AstVoicemailPassword, AstVoicemailEmail," .
-        "AstVoicemailAttach, AstVoicemailDelete" .
+        "to attrs=AstVoicemailPassword,AstVoicemailEmail," .
+        "AstVoicemailAttach,AstVoicemailDelete " .
         "by dn.regex=\"" . $self->{ldap}->rootDn() . "\" write " .
         "by self write " .
         "by * none" ];
