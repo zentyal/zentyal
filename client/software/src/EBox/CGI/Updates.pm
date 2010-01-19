@@ -47,9 +47,10 @@ sub _process($) {
 	}
 
 	my @array = ();
-	my $upg = $software->listUpgradablePkgs();
+	my $upg = $software->listUpgradablePkgs(0, 1);
 	if (@{$upg} == 0) {
-		$self->{msg} = __('The system is up to date');
+		$self->{msg} = __('The system components are up to date.');
+                $self->{params} = [ updateStatus => $software->updateStatus()];
 		return;
 	}
 	push(@array, 'upgradables' => $upg);

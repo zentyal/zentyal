@@ -36,7 +36,6 @@ use Digest::MD5;
 use Error qw(:try);
 use Storable qw(fd_retrieve store retrieve);
 use Fcntl qw(:flock);
-use File::stat;
 
 # Constants
 use constant {
@@ -310,7 +309,8 @@ sub _packageListFile
 #
 # Parameters:
 #
-# 	clear - if set to 1, forces the cache to be cleared
+# 	clear - if set to 1, forces the cache to be cleared excludeEBoxPackages
+#       - not return ebox packages (but they are saved in the cahce anyway)
 #
 # Returns:
 #
@@ -328,7 +328,7 @@ sub _packageListFile
 #
 sub listUpgradablePkgs
 {
-	my ($self,$clear) = @_;
+	my ($self,$clear, $excludeEBoxPackages) = @_;
 
 	my $upgrade = [];
 
@@ -341,6 +341,9 @@ sub listUpgradablePkgs
 	}else{
 		if (-f "$file" ) {
 			$upgrade = retrieve($file);
+                        if ($excludeEBoxPackages) {
+                            return $self->_excludeEBoxPackages($upgrade);
+                        }
 			return $upgrade;
 		}
 	}
@@ -350,7 +353,25 @@ sub listUpgradablePkgs
 	$upgrade = _getUpgradablePkgs();
 
 	store($upgrade, $file);
+
+        if ($excludeEBoxPackages) {
+            return $self->_excludeEBoxPackages($upgrade);
+        }
+
 	return $upgrade;
+}
+
+
+sub _excludeEBoxPackages
+{
+    my ($self, $list) = @_;
+    my @withoutEBox = grep {
+        my $name = $_->{'name'};
+        ($name ne 'libebox') and 
+         ($name ne 'ebox')    and
+          not ($name =~ /^ebox-/)
+      } @{ $list };
+    return \@withoutEBox;
 }
 
 # Method: listPackageInstallDepends
@@ -625,7 +646,14 @@ sub _isModLocked
 
 }
 
-
+# Method: updateStatus
+#
+#  Return the status of the package list
+#
+#  Returns:
+#  -1 if currently updating
+#   0 if never successfully updated
+#   otherwise tiemstamp of the last update
 sub updateStatus
 {
     my ($self) = @_;

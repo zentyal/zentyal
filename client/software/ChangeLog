@@ -1,5 +1,6 @@
 HEAD
 	+ Added note with the last update time
+	+ eBox packages are not longer shown in system updates view
 1.3.13
 	+ Bug fix: add -o DPkg::Options::='--force-confold'"
 1.3.10
