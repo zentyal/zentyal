@@ -736,11 +736,17 @@ sub ifaceExternalChanged # (iface, external)
 
     my ($self, $iface, $external) = @_;
 
-    # Check if any interface is being shaped
-    if ( defined ( $self->{ruleModels}->{$iface} )) {
-        return not $self->enoughInterfaces();
-    }
+    # XXX Disabled until network observers work properly.
+    #     We need to be notified when there's a change
+    #     from external to internal, not only  interntal
+    #     to external
     return 0;
+
+    # Check if any interface is being shaped
+    # if ( defined ( $self->{ruleModels}->{$iface} )) {
+    #    return not $self->enoughInterfaces();
+    # }
+    # return 0;
 
 }
 
@@ -1719,7 +1725,7 @@ sub _executeIptablesCmds # (iptablesCmds_ref)
     my ($self, $iptablesCmds_ref) = @_;
 
     foreach my $ipTablesCmd (@{$iptablesCmds_ref}) {
-      EBox::info("iptables $ipTablesCmd");
+      #EBox::info("iptables $ipTablesCmd");
       $self->_pf($ipTablesCmd);
     }
 
