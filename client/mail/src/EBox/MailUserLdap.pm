@@ -896,11 +896,12 @@ sub localAttributes
           mailbox  quota  clearPassword 
           maildrop  mailsource  virtualdomain 
           virtualdomainuser  defaultdelivery 
-                      
-          mailProtocol clientOption
-
+          description
+          
          mailHomeDirectory userMaildirSize 
-         vddftMaildirSize
+         vddftMaildirSize 
+
+         fetchmailAccount
                 );
 
    return \@attrs;
