@@ -82,11 +82,9 @@ sub new
     my $netMod = EBox::Global->modInstance('network');
     if ( $netMod->ifaceIsExternal($self->{interface}) ) {
         $self->{interfaceType} = 'external';
-        EBox::debug("setting external to " . $self->{ts}->uploadRate($self->{interface}));
         $self->_setStateRate($self->{ts}->uploadRate($self->{interface}));
     } else {
         $self->{interfaceType} = 'internal';
-        EBox::debug("setting internal to " .$self->{ts}->totalDownloadRate());
         $self->_setStateRate($self->{ts}->totalDownloadRate());
     }
 
