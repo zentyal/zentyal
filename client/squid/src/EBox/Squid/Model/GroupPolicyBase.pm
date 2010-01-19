@@ -229,12 +229,22 @@ sub precondition
 
 sub preconditionFailMsg
 {
-    return __x(
-'There are not user groups in the system. {open}Create{close} at least one group  if you want to set a group policy',
+    my $users = EBox::Global->modInstance('users');
+    my $mode = $users->mode();
+    if ($mode eq 'master') {
+        return __x(
+'There are no user groups in the system. {open}Create{close} at least one group  if you want to set a group policy',
 open => q{<a href='/ebox/UsersAndGroups/Groups'>},
 close => q{</a>}
-);
-
+        );
+    } elsif ($mode eq 'slave') {
+        my $master = $users->model('Mode')->remoteValue();
+        return __x(
+'There are no user groups in the system. {open}Create{close} at least one group  if you want to set a group policy',
+open => "<a href='https://$master/ebox/UsersAndGroups/Groups'>",
+close => "</a>"
+        );
+    }
 }
 
 1;
