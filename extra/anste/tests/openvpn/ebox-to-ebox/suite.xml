@@ -28,16 +28,6 @@
     </test>
 
     <test type="selenium">
-        <name>RemoveGatewayServer</name>
-        <desc>Remote the default gateway on the anste's communication
-        interface.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>remove-default-gw</dir>
-    </test>
-
-    <test type="selenium">
         <name>AddGatewayServer</name>
         <desc>Adds the scenario router as gateway</desc>
 
@@ -77,16 +67,6 @@
 
         <host>ebox-client</host>
         <dir>enable-modules</dir>
-    </test>
-
-    <test type="selenium">
-        <name>RemoveGatewayClient</name>
-        <desc>Remote the default gateway on the anste's communication
-        interface.
-        </desc>
-
-        <host>ebox-client</host>
-        <dir>remove-default-gw</dir>
     </test>
 
     <test type="selenium">
