@@ -28,16 +28,6 @@
     </test>
 
     <test type="selenium">
-        <name>RemoveGateway</name>
-        <desc>Remote the default gateway on the anste's communication
-        interface.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>remove-default-gw</dir>
-    </test>
-
-    <test type="selenium">
         <name>AddGateway</name>
         <desc>Adds the scenario router as gateway</desc>
 
@@ -105,42 +95,6 @@
     </test>
 
     <test>
-        <name>TestFailVPN</name>
-        <desc>
-        Assure we can't access to the
-        internal machine if there's no
-        rule in the firewall for it.
-        </desc>
-
-        <host>external</host>
-        <dir>test-vpn</dir>
-        <var name="CLIENT" value="client"/>
-        <var name="HOST" value="192.168.2.2"/>
-
-        <assert>failed</assert>
-    </test>
-
-    <test>
-        <name>KillFailVPN</name>
-        <desc>
-        Kill openvpn connection.
-        </desc>
-
-        <host>external</host>
-        <dir>kill-vpn</dir>
-    </test>
-
-    <test type="selenium">
-        <name>FirewallAllowInternal</name>
-        <desc>
-        Allow traffic from internal.
-        </desc>
-
-        <host>ebox-server</host>
-        <dir>firewall-allow-internal</dir>
-    </test>
-
-    <test>
         <name>TestVPN</name>
         <desc>
         Connect to the VPN and try to access
@@ -151,8 +105,6 @@
         <dir>test-vpn</dir>
         <var name="CLIENT" value="client"/>
         <var name="HOST" value="192.168.2.2"/>
-
-        <assert>passed</assert>
     </test>
 
     <test type="selenium">
@@ -211,8 +163,6 @@
         <dir>test-vpn</dir>
         <var name="CLIENT" value="client"/>
         <var name="HOST" value="192.168.2.2"/>
-
-        <assert>passed</assert>
     </test>
 
 </suite>

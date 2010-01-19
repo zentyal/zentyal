@@ -4,9 +4,6 @@ TESTFILE=/tmp/anste-openvpn-ready-$$
 
 cd $CLIENT
 
-# FIXME: temporary workaround until fixed in ebox-openvpn
-sed -i 's/^dev uninitialized/dev tap/g' foobar-server-client.conf
-
 openvpn --config foobar-server-client.conf --daemon --route-up "touch $TESTFILE" --log $TESTFILE.log
 
 for i in `seq 1 20`
