@@ -2,12 +2,14 @@
 -->
 <%args>
     @eboxpkgs => ()
+    $updateStatus
 </%args>
 <%init>
 use EBox::Gettext;
 my $eboxupgbutton = 'no';
 my $upgpkgs = 0;
 </%init>
+    <& /software/updateNote.mas, status => $updateStatus &>
     <table class='dataTable' cellspacing='0'>
     <thead>
         <tr>
@@ -75,3 +77,4 @@ my $upgpkgs = 0;
             value="<%__("Update all packages")%>"/>
     </form>
 %   }
+

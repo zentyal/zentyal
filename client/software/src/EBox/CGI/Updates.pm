@@ -53,6 +53,7 @@ sub _process($) {
 		return;
 	}
 	push(@array, 'upgradables' => $upg);
+	push(@array, 'updateStatus' => $software->updateStatus());
 	$self->{params} = \@array;
 }
 

@@ -1,0 +1,32 @@
+<%args>
+$status
+</%args>
+<%init>
+my $msg;
+if ($status == -1) {
+   $msg = __('Please wait, the update of the software available list is in process right now');
+} elsif ($status == 0) {
+  $msg = __(
+'The component list was never succefully downloaded so the information shown is probably outdated. ' .
+q{The list is updated each night or you can force the update with the console command 'ebox-software'}
+  );     
+} else {
+      my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
+            localtime($status);
+      $mon +=1;
+      $year += 1900;
+      
+      $msg = 
+__x('The component list was updated on {mon}/{mday}/{year} {hour}:{min}. ' .
+q{It will be updated again at night or you can force the update with the console command 'ebox-software'},
+    mon => $mon,
+    mday => $mday,
+    year => $year,
+    hour => $hour,
+    min  => $min,
+  );   
+}
+</%init>
+<div class='note'>
+<% $msg %>
+</div>

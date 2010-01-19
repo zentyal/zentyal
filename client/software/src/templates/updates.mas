@@ -2,10 +2,12 @@
 -->
 <%args>
 	@upgradables => ()
+        $updateStatus
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
+  <& /software/updateNote.mas, status => $updateStatus &>
 % if (@upgradables != 0) {
         <script src="/data/js/scriptaculous/scriptaculous.js" type="text/javascript"></script>
 	<p><%__('Updates are available for the following system components')%>:</p>

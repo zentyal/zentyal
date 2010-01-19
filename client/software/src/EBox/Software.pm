@@ -36,6 +36,7 @@ use Digest::MD5;
 use Error qw(:try);
 use Storable qw(fd_retrieve store retrieve);
 use Fcntl qw(:flock);
+use File::stat;
 
 # Constants
 use constant {
@@ -73,6 +74,12 @@ sub enableActions
 sub actions
 {
 	return [
+	{
+		'action' => __(''),
+		'reason' => __('eBox software will download the available updates' .
+					' from your configured apt sources. '),
+		'module' => 'software'
+	},
 	{
 		'action' => __('Enable cron script to download updates'),
 		'reason' => __('eBox software will download the available updates' .
@@ -115,7 +122,7 @@ sub listEBoxPkgs
 
 	my $eboxlist = [];
 
-	my $file = EBox::Config::tmp . "eboxpackagelist";
+	my $file = $self->_packageListFile();
 
 	if(defined($clear) and $clear == 1){
 		if ( -f "$file" ) {
@@ -289,6 +296,14 @@ sub fetchAllPkgs
 	};
 }
 
+
+
+sub _packageListFile
+{
+    my $file = EBox::Config::tmp . "packagelist";
+    return $file;
+}
+
 # Method: listUpgradablePkgs
 #
 #	Returns a list of those packages which are ready to be upgraded
@@ -317,7 +332,7 @@ sub listUpgradablePkgs
 
 	my $upgrade = [];
 
-	my $file = EBox::Config::tmp . "packagelist";
+	my $file = $self->_packageListFile();
 
 	if(defined($clear) and $clear == 1){
 		if ( -f "$file" ) {
@@ -610,5 +625,24 @@ sub _isModLocked
 
 }
 
+
+sub updateStatus
+{
+    my ($self) = @_;
+    my $lockedBy = $self->st_get_string(LOCKED_BY_KEY);
+    if (defined $lockedBy) {
+        if ($lockedBy eq 'ebox-software') {
+            return -1;
+        }
+    }
+
+    my $file = $self->_packageListFile();
+    if (not -f $file) {
+        return 0;
+    }
+
+    my $stat = File::stat::stat($file);
+    return $stat->mtime;
+}
 
 1;
