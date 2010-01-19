@@ -5,6 +5,11 @@ if [ -n "$HOST" ]; then
 DEST=`grep $HOST /var/log/daemon.log|grep DHCP|cut -d':' -f4-|cut -d' ' -f4|head -1`
 fi
 
+# Workaround for PPPoE
+if [ -n "$IFACE" ]; then
+DEST=`ifconfig $IFACE | grep P-t-P |cut -d: -f3 | cut -d' ' -f1`
+fi
+
 if [ -n "$IP" ]; then
  iptables -t nat -I PREROUTING -i eth2 -j DNAT -d $IP --to-destination $DEST
 else
