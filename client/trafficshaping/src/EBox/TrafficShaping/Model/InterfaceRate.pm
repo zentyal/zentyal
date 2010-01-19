@@ -52,7 +52,9 @@ sub syncRows
 
     my %storedIfaces;
     for my $id (@{$currentIds}) {
-        my $iface = $self->row($id)->valueByName('interface');
+        my $row = $self->row($id);
+        next unless ($row);
+        my $iface = $row->valueByName('interface');
         if (not exists $currentIfaces{$iface}) {
             $self->removeRow($id);
             $anyChange = 1;
@@ -116,6 +118,28 @@ sub _table
     };
 
     return $dataTable;
+}
+
+# Method: precondition
+#
+#   Overrid <EBox::Model::DataTable::precondition>
+#
+#   Num of external interfaces > 0
+sub precondition
+{
+    my $network = EBox::Global->modInstance('network');
+    return ((scalar(@{$network->ExternalIfaces()}) > 0)
+            and (scalar(@{$network->InternalIfaces()}) > 0)
+    );
+}
+
+# Method: preconditionFailMsg
+#
+#   Overrid <EBox::Model::DataTable::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    return __('You need at least one internal interface and one external interface');
 }
 
 1;

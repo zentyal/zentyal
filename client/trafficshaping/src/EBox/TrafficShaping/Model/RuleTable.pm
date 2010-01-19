@@ -82,9 +82,11 @@ sub new
     my $netMod = EBox::Global->modInstance('network');
     if ( $netMod->ifaceIsExternal($self->{interface}) ) {
         $self->{interfaceType} = 'external';
+        EBox::debug("setting external to " . $self->{ts}->uploadRate($self->{interface}));
         $self->_setStateRate($self->{ts}->uploadRate($self->{interface}));
     } else {
         $self->{interfaceType} = 'internal';
+        EBox::debug("setting internal to " .$self->{ts}->totalDownloadRate());
         $self->_setStateRate($self->{ts}->totalDownloadRate());
     }
 
@@ -120,78 +122,6 @@ sub priority
 
 }
 
-# Method: warnOnChangeOnId
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::warnOnChangeOnId>
-#
-sub warnOnChangeOnId
-{
-
-    my ($self, %params) = @_;
-
-    my ($modelName, $id, $changedData, $oldRow) = ( $params{modelName},
-            $params{id},
-            $params{changedData},
-            $params{oldRow} );
-
-    my $strToShow = __x('Change or remove some rules on {contextName}',
-            contextName => $self->printableContextName());
-
-    if ( $modelName =~ m/GatewayTable/ ) {
-        if ( exists $changedData->{interface} ) {
-            my $oldGatewayIface = $oldRow->valueByName('interface');
-            if ( ($oldGatewayIface eq $self->{interface}) &&
-                    ($self->size() > 0) ) {
-                return $strToShow;
-            }
-        } else {
-            if ( $self->isUsingId($modelName, $id) ) {
-                if ( exists $changedData->{upload} ) {
-                    return $strToShow;
-                }
-                if ( exists $changedData->{download} ) {
-                    return $strToShow;
-                }
-            }
-        }
-    }
-
-    return '';
-
-}
-
-# Method: isUsingId
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::isUsingId>
-#
-sub isUsingId
-{
-
-    my ($self, $modelName, $id) = @_;
-
-    if ( $modelName eq 'GatewayTable' ) {
-        if ( $self->{interfaceType} eq 'external' ) {
-            my $manager = EBox::Model::ModelManager->instance();
-            my $observableModel = $manager->model($modelName);
-
-            my $gateway = $observableModel->row($id);
-            my $gatewayIface = $gateway->valueByName('interface');
-            return ($gatewayIface eq $self->{interface}) && ($self->size() > 0);
-        } else {
-            # Every time a gateway is changed,
-            # call a warning from an internal interface
-            return ($self->size() > 0);
-        }
-    }
-
-    return 0;
-
-}
-
 # Method: notifyForeignModelAction
 #
 #      Called whenever an action is performed on a gateway whose
@@ -207,13 +137,7 @@ sub notifyForeignModelAction
     my ($self, $modelName, $action, $row) = @_;
 
     my $userNotes = '';
-    if ( $action eq 'add' ) {
-        # Do nothing, it is also better
-        return $userNotes;
-    } elsif ( $action eq 'del' or
-              $action eq 'update') {
-
-        if ( $row->valueByName('interface') eq $self->{interface} ) {
+    if ($action eq 'update') {
             # Check new bandwidth
             my $netMod = EBox::Global->modInstance('network');
             my $limitRate;
@@ -229,16 +153,8 @@ sub notifyForeignModelAction
                 $userNotes = $self->_normalize($self->_stateRate(), $limitRate);
             }
             $self->_setStateRate( $limitRate );
-        } else {
-            # Check if there are any download rate
-            if ( $self->{ts}->totalDownloadRate() == 0) {
-                # Remove our rules anyway
-                $userNotes = $self->_removeRules();
-            }
-        }
     }
-        return $userNotes;
-
+    return $userNotes;
 }
 
 # Method: index
@@ -593,7 +509,7 @@ sub _table
                                    'around'),
         'rowUnique'          => 1,  # Set each row is unique
         'printableRowName'   => __('rule'),
-        'notifyActions'      => [ 'GatewayTable' ],
+        'notifyActions'      => [ 'InterfaceRate' ],
         'automaticRemove' => 1,    # Related to objects,
                                    # remove rules with an
                                    # object when that

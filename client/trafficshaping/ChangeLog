@@ -1,3 +1,6 @@
+HEAD
+	+ Bug fix: InterfaceRate doesn't show duplicates any more
+	+ Bug fix: RulesTable is notified by changes on InterfaceRate
 1.3.6
 	+ bug fix: l7 filter rules need to be added to both external and internal
 	interfaces to be able to detect traffic properly

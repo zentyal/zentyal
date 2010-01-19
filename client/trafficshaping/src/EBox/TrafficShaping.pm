@@ -1760,6 +1760,23 @@ sub l7FilterEnabled
     return ( $? == 0 );
 }
 
+# Method: modelsBackupFiles
+#
+#   Override <EBox::Model::ModelProvider::modelsBackupFiles>
+#   to avoid nasty issues with InterfaceRate and recursive loops
+sub modelsBackupFiles
+{
+
+}
+
+# Method: modelsRestoreFiles
+#
+#   Override <EBox::Model::ModelProvider::modelsRestoreFiles>
+#   to avoid nasty issues with InterfaceRate and recursive loops
+sub modelsRestoreFiles
+{
+
+}
 
 1;
 
