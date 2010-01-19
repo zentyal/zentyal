@@ -79,7 +79,6 @@ src/EBox/OpenVPN/t/Makefile
 schemas/Makefile
 stubs/Makefile
 stubs/quagga/Makefile
-migration/Makefile
 tools/installer/Makefile
 tools/sqllog/Makefile
 tools/Makefile
