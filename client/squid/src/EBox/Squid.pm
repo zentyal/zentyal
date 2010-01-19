@@ -573,9 +573,10 @@ sub usesPort # (protocol, port, iface)
 sub restartService
 {
     my ($self, @params) = @_;
-    $self->SUPER::restartService(@params);
 
     $self->_cleanDomainFilterFiles();
+
+    $self->SUPER::restartService(@params);
 }
 
 
