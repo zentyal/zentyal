@@ -168,6 +168,18 @@ incremental, y la fecha de cuando fue tomada.
 
    Estado de las copias
 
+Cómo comenzar un proceso de copia de respaldo manualmente
+---------------------------------------------------------
+El proceso de copia de respaldo se inicia automáticamente a la hora configurada.
+Sin embargo, si necesitamos comenzarlo manualmente podemos ejecutar:
+
+    # /usr/share/ebox-ebackup/ebox-remote-ebackup --full
+
+O para iniciar una copia incremental::
+
+    # /usr/share/ebox-ebackup/ebox-remote-ebackup --incremental
+
+
 Restaurar archivos
 ------------------
 Hay dos formas de restaurar un archivo. Dependiendo del tamño del fichero o del
