@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+    <name>eBox POP/IMAP tests from external with PPPoE</name>
+    <desc>
+    Contains a set of tests to check
+    that the eBox mail module works properly.
+    </desc>
+
+    <scenario>mail/pppoe.xml</scenario>
+
+    <test type="selenium">
+        <name>ConfigPPPoE</name>
+        <desc>
+        Configure eth2 as PPPoE and set it as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-pppoe</dir>
+        <var name="IFACE" value="eth2"/>
+        <var name="USER" value="ppp_user"/>
+        <var name="PASS" value="ppp_pass"/>
+    </test>
+
+<!-- if (master/slave) -->
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>EnableUsersEboxMaster</name>
+        <desc>
+        Enable users module on ebox-master.
+        </desc>
+
+        <host>ebox-master</host>
+        <dir>enable-users</dir>
+    </test>
+
+    <test type="selenium">
+        <precondition var="master-slave" eq="1"/>
+
+        <name>SetSlave</name>
+        <desc>
+        Configure eBox as LDAP slave of ebox-master and set the password.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-slave</dir>
+        <var name="IP" value="192.168.2.169"/>
+        <var name="PASSWORD" value="ebox-foobar"/>
+    </test>
+
+<!-- end if -->
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>Enable network, users and mail modules.</desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveGateway</name>
+        <desc>Remote the default gateway on the anste's communication
+        interface.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>remove-default-gw</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddVDomain</name>
+        <desc>
+        Config the mail account.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>config-mail-account</dir>
+        <var name="VDOMAIN" value="foobar"/>
+<!--        <var name="USERNAME" value="eboxtest"/> -->
+<!--        <var name="PASSWORD" value="eboxtest"/> -->
+    </test>
+
+    <test type="selenium">
+        <name>AddUser</name>
+        <desc>Adds an user</desc>
+
+        <host var="master-slave" eq="1">ebox-master</host>
+        <host var="master-slave" eq="0">ebox-server</host>
+
+        <dir>add-user</dir>
+        <var name="USERNAME" value="eboxtest"/>
+        <var name="PASSWORD" value="eboxtest"/>
+    </test>
+
+
+    <test type="selenium">
+        <name>AllowMailFromExternal</name>
+        <desc>Allow mail access from external clients.</desc>
+
+        <host>ebox-server</host>
+        <dir>allow-mail-from-external</dir>
+    </test>
+
+    <test>
+        <name>SetupRouter</name>
+        <desc>
+        Setup redirection to eBox machine.
+        </desc>
+
+        <host>router</host>
+        <dir>setup-router</dir>
+        <var name="IFACE" value="ppp0"/>
+    </test>
+
+
+<!-- POP tests -->
+
+<!--
+    <test>
+        <name>Test-POP-Disabled</name>
+        <desc>Checks if POP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+
+
+    <test type="selenium">
+        <name>EnablePOP</name>
+        <desc>
+        Enables POP.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-pop-imap</dir>
+        <var name="SERVICE" value="pop3"/>
+    </test>
+-->
+
+    <test>
+        <name>Test-POP</name>
+        <desc>Checks if POP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+
+<!--
+    <test>
+        <name>Test-NOT-POPS</name>
+        <desc>Checks if POPS access not works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-NOT-IMAP</name>
+        <desc>Checks if IMAP access not works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-NOT-IMAPS</name>
+        <desc>Checks if IMAPS access not works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+-->
+
+<!-- POPS tests -->
+
+<!--
+    <test>
+        <name>Test-POP-SSL-Disabled</name>
+        <desc>Checks if POPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>EnablePOPS</name>
+        <desc>
+        Enables POPS.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-pop-imap</dir>
+        <var name="SERVICE" value="pop3s"/>
+    </test>
+-->
+
+<!--
+    <test>
+        <name>Test-NOT-POP</name>
+        <desc>Checks if POP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+       <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-POPS</name>
+        <desc>Checks if POPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+    </test>
+
+    <test>
+        <name>Test-NOT-IMAP</name>
+        <desc>Checks if IMAP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-NOT-IMAPS</name>
+        <desc>Checks if IMAPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+-->
+
+<!-- IMAP test -->
+
+<!--
+    <test>
+        <name>Test-IMAP-Disabled</name>
+        <desc>Checks if IMAP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>EnableIMAP</name>
+        <desc>
+        Enables IMAP.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-pop-imap</dir>
+        <var name="SERVICE" value="imap"/>
+    </test>
+
+    <test>
+        <name>Test-NOT-POP</name>
+        <desc>Checks if POP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-NOT_POPS</name>
+        <desc>Checks if POPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+-->
+
+    <test>
+        <name>Test-IMAP</name>
+        <desc>Checks if IMAP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+
+<!--
+    <test>
+        <name>Test-NOT-IMAPS</name>
+        <desc>Checks if IMAPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+-->
+
+<!-- IMAPS test -->
+
+<!--
+    <test>
+        <name>Test-IMAP-SSL-Disabled</name>
+        <desc>Checks if IMAPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test type="selenium">
+        <name>EnableIMAPS</name>
+        <desc>
+        Enables IMAPS.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-pop-imap</dir>
+        <var name="SERVICE" value="imaps"/>
+    </test>
+
+    <test>
+        <name>Test-NOT-POP</name>
+        <desc>Checks if POP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-NOT-POPS</name>
+        <desc>Checks if POPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-pop-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-NOT-IMAP</name>
+        <desc>Checks if IMAP access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+
+        <assert>failed</assert>
+    </test>
+
+    <test>
+        <name>Test-IMAPS</name>
+        <desc>Checks if IMAPS access works for the user.</desc>
+
+        <host>test-client</host>
+        <dir>test-imap-ssl</dir>
+        <var name="SERVER" value="192.168.4.2"/>
+    </test>
+-->
+
+</suite>
