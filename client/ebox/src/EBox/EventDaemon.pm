@@ -543,8 +543,10 @@ sub _insertEventInLog
 {
     my ($self, $event) = @_;
 
-    my $timeStmp = $event->strTimestamp();
-
+    # We don't use names on the date to avoid issues
+    # with DB insertions and localisation
+    my $timeStmp = strftime("%F %H:%M:%S %z",
+                    localtime($event->timestamp()));
     my $values = {
         timestamp => $timeStmp,
         lastTimestamp  => $timeStmp,
