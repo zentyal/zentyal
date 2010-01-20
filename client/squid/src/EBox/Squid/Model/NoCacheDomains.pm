@@ -70,14 +70,14 @@ sub _table
         (
          new EBox::Types::DomainName(
                                fieldName     => 'domain',
-                               printableName => __('Domain'),
+                               printableName => __('Domain Name Address'),
                                unique        => 1,
                                editable      => 1,
                                optional      => 0,
                               ),
          new EBox::Types::Boolean(
                                fieldName     => 'noCache',
-                               printableName => __('Exempt domain from caching'),
+                               printableName => __('Exempt address from caching'),
                                defaultValue  => 1,
                                editable      => 1,
                               ),
@@ -99,12 +99,12 @@ sub _table
           class              => 'dataTable',
           order              => 0,
           rowUnique          => 1,
-          printableRowName   => __('internet domain'),
-          help               => __('You can exempt some domains from caching'),
+          printableRowName   => __('domain name address'),
+          help               => __('You can exempt some addresses from caching'),
           messages           => {
-                                  add => __('Domain added'),
-                                  del => __('Domain removed'),
-                                  update => __('Domain updated'),
+                                  add => __('Address added'),
+                                  del => __('Address removed'),
+                                  update => __('Address updated'),
 
                                 },
           sortedBy           => 'domain',
