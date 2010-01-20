@@ -168,5 +168,12 @@ sub pageTitle
     return $title;
 }
 
+
+sub _timePeriodHelp
+{
+    return 
+  __('Time period when the access is allowed. It is ignored if the group has a deny policy, time constraints of parent object are always ignored');
+}
+
 1;
 

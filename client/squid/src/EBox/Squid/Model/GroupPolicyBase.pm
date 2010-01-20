@@ -65,6 +65,10 @@ sub new
 
 sub tableHeader
 {
+    my ($self) = @_;
+    
+
+
  my @tableHeader =
     (
      new EBox::Types::Select(
@@ -101,11 +105,19 @@ sub tableHeader
      new EBox::Squid::Types::TimePeriod(
                            fieldName => 'timePeriod',
                            printableName => __('Time period'),
+                           help => $self->_timePeriodHelp(),
                            editable => 1,
                           ),
     );
 
  return \@tableHeader;
+}
+
+
+sub _timePeriodHelp
+{
+    return 
+  __('Time period when the access is allowed. It is ignored with a deny policy');
 }
 
 sub populateGroups

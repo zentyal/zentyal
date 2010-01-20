@@ -87,7 +87,7 @@ sub _table
      new EBox::Squid::Types::TimePeriod(
                            fieldName => 'timePeriod',
                            printableName => __('Allowed time period'),
-                           help          => __('Time period when the access is allowed'),
+                           help          => __('Time period when the access is allowed. It is ignored with a deny policy'),
                            editable => 1,
                           ),
 
