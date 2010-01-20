@@ -1,3 +1,3 @@
 class: 'EBox::Radius'
-depends:
+enabledepends:
     - users
