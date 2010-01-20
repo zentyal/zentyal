@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Warp Networks S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -177,7 +178,8 @@ sub vpnClientForServices
 {
     my ($self) = @_;
 
-    my $openvpn = EBox::Global->modInstance('openvpn');
+    my $gl = EBox::Global->getInstance();
+    my $openvpn = $gl->modInstance('openvpn');
 
     my $client;
     my $clientName = $self->clientNameForRemoteServices();
@@ -187,13 +189,16 @@ sub vpnClientForServices
     } else {
         my ($address, $port, $protocol, $vpnServerName) = @{$self->vpnLocation()};
 
-        # Configure and enable VPN module
-        if (not $openvpn->configured() ) {
-            $openvpn->setConfigured(1);
-            $openvpn->enableActions();
-        }
-        if (not $openvpn->isEnabled() ) {
-            $openvpn->enableService(1);
+        # Configure and enable VPN module and its dependencies
+        foreach my $depName ((@{$openvpn->depends()}, $openvpn->name())) {
+            my $mod = $gl->modInstance($depName);
+            if (not $mod->configured() ) {
+                $mod->setConfigured(1);
+                $mod->enableActions();
+            }
+            if (not $mod->isEnabled() ) {
+                $mod->enableService(1);
+            }
         }
 
         $client = $openvpn->newClient(

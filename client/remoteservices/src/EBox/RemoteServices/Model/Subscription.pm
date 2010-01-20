@@ -1,5 +1,5 @@
 # Copyright (C) 2008 Warp Networks S.L.
-# Copyright (C) 2009 eBox Technologies S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -255,11 +255,11 @@ sub viewCustomizer
         my $vpnMod = EBox::Global->modInstance('openvpn');
         my $msg = '';
         if ( not $vpnMod->configured() ) {
-            $msg = __('Subscribing an eBox will configure OpenVPN module '
+            $msg = __('Subscribing an eBox will configure OpenVPN module and its dependencies '
                       . 'by running these actions and modifying these files: ') . '<br/>'
                       . $self->_actionsStr($vpnMod) . '<br/>' . $self->_filesStr($vpnMod);
         } elsif ( not $vpnMod->isEnabled() ) {
-            $msg = __('Subscribing an eBox will enable the OpenVPN module.')
+            $msg = __('Subscribing an eBox will enable the OpenVPN module and its dependencies.')
         }
         $customizer->setPermanentMessage(
             $msg . __('Take into account that subscribing an eBox could take a '
@@ -423,11 +423,19 @@ sub _actionsStr
 {
     my ($self, $mod) = @_;
 
+    my $gl = EBox::Global->getInstance();
+
     my $retStr = '';
-    foreach my $action (@{$mod->actions()}) {
-        $retStr .= __('Action') . ':' . $action->{action} . '<br/>';
-        $retStr .= __('Reason') . ':' . $action->{reason} . '<br/>';
+    foreach my $depName ((@{$mod->depends()}, $mod->name())) {
+        my $depMod = $gl->modInstance($depName);
+        unless ( $depMod->configured() ) {
+            foreach my $action (@{$mod->actions()}) {
+                $retStr .= __('Action') . ':' . $action->{action} . '<br/>';
+                $retStr .= __('Reason') . ':' . $action->{reason} . '<br/>';
+            }
+        }
     }
+
     return $retStr;
 }
 
@@ -436,10 +444,17 @@ sub _filesStr
 {
     my ($self, $mod) = @_;
 
+    my $gl = EBox::Global->getInstance();
+
     my $retStr = '';
-    foreach my $file (@{$mod->usedFiles()}) {
-        $retStr .= __('File') . ':' . $file->{file} . '<br/>';
-        $retStr .= __('Reason') . ':' . $file->{reason} . '<br/>';
+    foreach my $depName ((@{$mod->depends()}, $mod->name())) {
+        my $depMod = $gl->modInstance($depName);
+        unless ( $depMod->configured() ) {
+            foreach my $file (@{$mod->usedFiles()}) {
+                $retStr .= __('File') . ':' . $file->{file} . '<br/>';
+                $retStr .= __('Reason') . ':' . $file->{reason} . '<br/>';
+            }
+        }
     }
     return $retStr;
 }
