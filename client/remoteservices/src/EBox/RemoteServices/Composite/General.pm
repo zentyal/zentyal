@@ -82,7 +82,7 @@ sub _description
           pageTitle       => $printableName,
           help            => __x(' {openhref}Subscribing{closehref} your eBox to the Control Center '
                                  . 'lets you have automatic configuration backup and much more',
-                                 openhref  => '<a href="' . EBOX_SERVICES_URL . '">',
+                                 openhref  => '<a href="' . EBOX_SERVICES_URL . '" target="_blank">',
                                  closehref => '</a>'),
       };
 
