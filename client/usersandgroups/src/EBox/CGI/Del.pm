@@ -78,9 +78,9 @@ sub _process($) {
 		$deluser = 1;
 	} elsif ($self->param('delgroupforce')) {
 		$delgroup = 1;
-	} elsif ($self->param('deluser')) {
+	} elsif ($self->unsafeParam('deluser')) {
 		$deluser = not $self->_warnUser('user', $name);
-	} elsif ($self->param('delgroup')) {
+	} elsif ($self->unsafeParam('delgroup')) {
 		$delgroup = not $self->_warnUser('group', $name);
 	}
 

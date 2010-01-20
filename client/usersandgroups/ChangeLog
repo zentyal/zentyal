@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: issue with user deletion in French (Closes #1651)
 1.3.14
 	+ Synchronize all the users from the AD and not only from CN=Users
 	+ Add operation name and username on updateGroup
