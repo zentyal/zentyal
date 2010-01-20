@@ -156,6 +156,17 @@ incremental, and the date when it was taken.
 
    Backup status
 
+How to start a backup process manually
+--------------------------------------
+The backup process is started automatically at configured time. However,
+if you need to start a backup process manually, you can run::
+
+    # /usr/share/ebox-ebackup/ebox-remote-ebackup --full
+
+Or, to  start an incremental backup::
+
+    # /usr/share/ebox-ebackup/ebox-remote-ebackup --incremental
+
 Restoring files
 ---------------
 There are two ways of restoring a file. It depends on the size and type of the
