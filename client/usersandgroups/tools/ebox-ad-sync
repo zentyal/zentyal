@@ -158,8 +158,8 @@ sub usersAD
 
     my %args = (
                 base => $base,
-                filter => '(&(objectclass=user)(!(objectclass=computer))(!(isCriticalSystemObject=TRUE)))',
-                scope => 'one',
+                filter => '(&(objectclass=user)(userPrincipalName=*))',
+                scope => 'sub',
                 attrs => ['userPrincipalName', 'cn', 'givenName', 'sn', 'description']
                );
 
@@ -167,28 +167,11 @@ sub usersAD
 
     foreach my $user ($result->sorted('userPrincipalName')) {
         my $username = $user->get_value('userPrincipalName');
-        if (userExistsAD($username)) {
-            my $info = userInfoAD($username, $user);
-            $users{$info->{user}} = $info;
-        }
+        my $info = userInfoAD($username, $user);
+        $users{$info->{user}} = $info;
     }
 
     return %users;
-}
-
-sub userExistsAD # (user)
-{
-    my ($user) = @_;
-
-    my %attrs = (
-                 base => $base,
-                 filter => "(userPrincipalName=$user)",
-                 scope => 'one'
-                );
-
-    my $result = $ldapAD->search(%attrs);
-
-    return ($result->count > 0);
 }
 
 sub userInfoAD # (user, entry)
@@ -262,7 +245,7 @@ sub groupsAD
     my %args = (
                 base => $base,
                 filter => '(objectclass=group)',
-                scope => 'one',
+                scope => 'sub',
                 attrs => ['cn', 'member']
                );
 

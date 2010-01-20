@@ -1,4 +1,5 @@
 HEAD
+	+ Synchronize all the users from the AD and not only from CN=Users
 	+ Add operation name and username on updateGroup
 	+ Add slave notification for group modify and delete
 	+ Change button order to "Add" and "Add and Edit" in Add User
@@ -28,7 +29,6 @@ HEAD
 	+ Add page title
 	+ Separate the Windows AD options in a different model
 	+ Fixed the warning of "Edit User" when there are no users in a slave
-	+ Synchronize all the users from the AD and not only from CN=Users
 	+ Remove 'optional' from remote in Mode and also useless validateRow
 1.3.10
 	+ Use disableApparmorProfile from EBox::Module::Service twice.
