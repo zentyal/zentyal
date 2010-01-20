@@ -26,6 +26,9 @@
 #
 #   --full default
 
+use strict;
+use warnings;
+
 use EBox;
 use EBox::Config;
 use EBox::Global;
@@ -34,12 +37,47 @@ use EBox::Event;
 
 use Error qw(:try);
 
+sub _sendEvent
+{
+    my ($success, $msgError) = @_;
+
+    # Generate event
+    my $global = EBox::Global->getInstance(1);
+    if ($global->modExists('events')) {
+        my $events = $global->modInstance('events');
+        if ((defined $events)  and ($events->isRunning())) {
+            my $enabled = $events
+                ->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
+            if ($enabled) {
+                my $msg;
+                my $level;
+                if ($success) {
+                    $msg = 'eBox backup succeeded';
+                    $level = 'info';
+                } else {
+                    $msg = "eBox backup failed $msgError";
+                    $level = 'error';
+                }
+                $events->sendEvent(message => $msg,
+                        source  => 'EBackup',
+                        level   => $level);
+            }
+        }
+    }
+}
+
+
 EBox::init();
 
 my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
 unless ($ebackup->isEnabled() ) {
     print "Backup module is disabled\n";
     exit 0;
+}
+unless ($ebackup->lock()) {
+     print "There's other backup process taking place";
+     _sendEvent(0, " couldn't get lock");
+     exit 1;
 }
 
 my $type = 'full';
@@ -74,29 +112,7 @@ try {
     $success = 0;
 };
 
-# Generate event
-my $global = EBox::Global->getInstance(1);
-if ($global->modExists('events')) {
-    my $events = $global->modInstance('events');
-    if ((defined $events)  and ($events->isRunning())) {
-        my $enabled = $events
-            ->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
-        if ($enabled) {
-            my $msg;
-            my $level;
-            if ($success) {
-                $msg = 'eBox backup succeeded';
-                $level = 'info';
-            } else {
-                $msg = 'eBox backup failed';
-                $level = 'error';
-            }
-            $events->sendEvent(message => $msg,
-                               source  => 'EBackup',
-                               level   => $level);
-        }
-    }
-}
+_sendEvent($success, '');
 
 # Create status
 $ebackup->remoteGenerateStatusCache();
@@ -107,3 +123,6 @@ my $tmpFile = $ebackup->tmpFileList();
 EBox::Sudo::root("$collection > $tmpFile");
 EBox::Sudo::root("chown ebox:ebox $tmpFile");
 
+$ebackup->unlock();
+
+exit 0;

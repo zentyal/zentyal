@@ -35,6 +35,7 @@ use File::Slurp;
 use String::ShellQuote;
 use Date::Parse;
 use Error qw(:try);
+use Fcntl qw(:flock);
 
 use EBox::Exceptions::MissingArgument;
 
@@ -43,7 +44,7 @@ use constant EBACKUP_CONF_FILE => EBox::Config::etc() . '82ebackup.conf';
 use constant EBACKUP_MENU_ENTRY => 'ebackup_menu_enabled';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/ebox-ebackup/ebox-duplicity-wrapper';
 use constant DUPLICITY_PASSWORD =>  EBox::Config::conf . '/ebox-ebackup.password';
-
+use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
 
 # Constructor: _create
 #
@@ -396,6 +397,35 @@ sub menu
             'text' => $self->printableName()));
     }
 }
+
+# Method: lock
+#
+#      Lock backup process to avoid overlapping of two processes
+#
+#
+sub lock
+{
+    my ($self) = @_;
+
+    open( $self->{lock}, '>', LOCK_FILE);
+    my $ret = flock( $self->{lock}, LOCK_EX | LOCK_NB );
+    return $ret;
+}
+
+# Method: unlock
+#
+#      Unlock backup process to avoid overlapping of two processes
+#
+#
+sub unlock
+{
+    my ($self) = @_;
+
+    flock( $self->{lock}, LOCK_UN );
+    close($self->{lock});
+}
+
+
 
 sub _remoteUrl
 {
