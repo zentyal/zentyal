@@ -1,4 +1,5 @@
 HEAD
+	+ Added migration script for configured modules
 	+ Remove migration scripts 0001_import_to_data_table_model.pl
 	  0002_fix_active_to_enabled.pl
 1.3.13

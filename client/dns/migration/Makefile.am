@@ -2,7 +2,7 @@
 
 Migrationsdir = @DATADIR@/ebox-dns/migration
 
-nobase_Migrations_SCRIPTS = 0003_add_dns_service.pl
+nobase_Migrations_SCRIPTS = 0003_add_dns_service.pl 0004_add_bind_group_etc.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 
