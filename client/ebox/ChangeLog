@@ -5,7 +5,6 @@ HEAD
 	+ Remove events migration directory:
 		- 0001_add_conf_configureeventtable.pl
 		- 0002_add_conf_diskfree_watcher.pl
-	+ Remove migration script logs/0001_update_configurelogtable.pl
 	+ Bug fix: We don't use names to stringify date to avoid issues
 	  with DB insertions and localisation in event logging
 	+ Bug fix: do not warn about disabled services which return false from
