@@ -1,12 +1,11 @@
 HEAD
-	+ Added postmaster option and deprecated bounceReturnAddress
-	  option
+        + Added postmaster option and deprecated bounceReturnAddress
+	option
 	+ Fixed migration script and ulimited mail message size
-	  multiplication warning. The error in migration dont corrupted
-	  configuration but made new installations fail the last migration
-	  script.
+	multiplication warning. The error in migration dont corrupted
+	configuration but made new installations fail the last migration
+	script.
 	+ Updated localAttributes in MailUserLdap
-	+ Remove migration script 0002_to_new_framework.pl
 1.3.14
 	+ Added precondition in ObjectPolicy model
 	+ Account home in dovecot set to its maildir, this is necesary for
