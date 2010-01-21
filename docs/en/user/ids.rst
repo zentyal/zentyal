@@ -46,12 +46,13 @@ and press the button :guilabel:`Change`.
 
 On the :guilabel:`Rules` tab you can see a table that is
 preloaded with all the Snort rulesets installed on your system
-(files under the directory `/etc/snort/rules`). By default, for increased
-security, all of them are enabled. But if you want to save CPU time,
+(files under the directory `/etc/snort/rules`). A typical set of rules is
+enabled by default. If you want to save CPU time,
 it is advisable to disable those that are not of interest, for example, the
-ones related to services not available in your network.
-The procedure for activating or disabling a rule is the same as for the
-interfaces.
+ones related to services not available in your network. Also you can
+enable any other rules you find interesting if your hardware is powerful
+enough. The procedure for activating or disabling a rule is the same as for
+the interfaces.
 
 .. image:: images/ids/ids-02-rules.png
    :scale: 80

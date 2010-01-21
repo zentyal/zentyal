@@ -49,11 +49,13 @@ y pulsar el botón :guilabel:`Cambiar`.
 
 En la pestaña :guilabel:`Reglas` tenemos una tabla en la que se encuentran
 precargados todos los conjuntos de reglas de *Snort* instaladas en nuestro sistema
-(ficheros bajo el directorio `/etc/snort/rules`). Por defecto, para una mayor
-seguridad, todas ellas se encuentran habilitadas. Pero para ahorrar tiempo de CPU
-es recomendable que desactivemos aquellas que no nos interesen, por ejemplo, las
-relativas a servicios que no existen en nuestra red. El procedimiento para activar
-o desactivar una regla es el mismo que para las interfaces.
+(ficheros bajo el directorio `/etc/snort/rules`). Por defecto, se encuentra
+habilitado un conjunto típico de reglas. Podemos ahorrar tiempo de CPU
+desactivando aquellas que no nos interesen, por ejemplo, las
+relativas a servicios que no existen en nuestra red. Si tenemos recursos hardware
+de sobra podemos también activar otras reglas adicionales que nos puedan interesar.
+El procedimiento para activar o desactivar una regla es el mismo que para las
+interfaces.
 
 .. image:: images/ids/ids-02-rules.png
    :scale: 80
