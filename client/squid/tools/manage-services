@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+
+
+my ($action) = @ARGV;
+
+EBox::init();
+
+my $squid = EBox::Global->modInstance('squid');
+$squid->isEnabled() or exit 0;
+
+if ($action eq 'start') {
+    $squid->_startService(); 
+} elsif ($action eq 'stop') {
+    $squid->_stopService();
+} else {
+    die "Bad action: $action. Must be start or stop";
+}
+
+
+1;

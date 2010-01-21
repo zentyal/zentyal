@@ -2,9 +2,10 @@
 	rotate 5
 	daily
 	prerotate
-		/etc/init.d/ebox squid stop > /dev/null 2>&1 || true
+                
+		/usr/share/ebox-squid/manage-services stop > /dev/null 2>&1 || true
 	endscript
 	postrotate
-		/etc/init.d/ebox squid start > /dev/null 2>&1
+		/usr/share/ebox-squid/manage-services start > /dev/null 2>&1 || true
 	endscript
 }

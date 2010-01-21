@@ -2,7 +2,7 @@
 
 SUBDIRS = sqllog
 
-pkgdata_SCRIPTS =  ebox-squid-enable
+pkgdata_SCRIPTS =  ebox-squid-enable manage-services
 
 MAINTAINERCLEANFILES = Makefile.in
 
