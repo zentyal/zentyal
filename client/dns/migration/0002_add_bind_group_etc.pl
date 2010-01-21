@@ -32,6 +32,6 @@ EBox::init();
 my $dnsMod = EBox::Global->modInstance('dns');
 my $migration =  __PACKAGE__->new(
     'gconfmodule' => $dnsMod,
-    'version' => 4
+    'version' => 2
 );
 $migration->execute();

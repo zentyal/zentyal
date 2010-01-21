@@ -2,6 +2,7 @@ HEAD
 	+ Added migration script for configured modules
 	+ Remove migration scripts 0001_import_to_data_table_model.pl
 	  0002_fix_active_to_enabled.pl
+	+ Move 0003_add_dns_service.pl to 0001_add_dns_service.pl
 1.3.13
 	+ Added support for dynamic zones to be updated using a shared
 	  secret key available at `/etc/bind/keys`. This feature is
