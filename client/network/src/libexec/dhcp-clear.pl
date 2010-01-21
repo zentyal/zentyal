@@ -12,7 +12,7 @@ EBox::init();
 my $global = EBox::Global->getInstance(1);
 my $network = $global->modInstance("network");
 
-my $iface = shift;
+my ($iface) = @ARGV;
 $iface or exit;
 
 try {

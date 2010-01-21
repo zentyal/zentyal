@@ -9,13 +9,19 @@ use Error qw(:try);
 
 EBox::init();
 
-my $global = EBox::Global->getInstance(1);
-my $network = $global->modInstance("network");
+my $network = EBox::Global->modInstance('network');
 
-my $router = shift;
+my ($iface, $router) = @ARGV;
 
 try {
-	$network->setDHCPGateway($router);
+    $network->setDHCPGateway($iface, $router);
+
+    # Do not call regenGateways if we are restarting changes, they
+    # are already going to be regenerated and also this way we
+    # avoid nested lock problems
+    unless (-f '/var/lib/ebox/tmp/ifup.lock') {
+        $network->regenGateways();
+    }
 } finally {
-	exit;
+    exit;
 };

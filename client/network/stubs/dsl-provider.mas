@@ -1,6 +1,7 @@
 <%args>
     $iface
     $ppp_user
+    $usepeerdns
 </%args>
 # Configuration file for PPP, using PPP over Ethernet
 # to connect to a DSL provider.
@@ -38,11 +39,15 @@ user <% $ppp_user %>
 # Assumes that your IP address is allocated dynamically
 # by your DSL provider...
 noipdefault
+
+% if ($usepeerdns) {
 # Try to get the name server addresses from the ISP.
 usepeerdns
+% }
+
 # Use this connection as the default route.
 # Comment out if you already have the correct default route installed.
-defaultroute
+#defaultroute
 
 ##
 # Section 2
@@ -75,5 +80,9 @@ mtu 1492
 noaccomp
 # Asynchronous-Control-Character-Map (ACCM)
 default-asyncmap
+
+# Added for eBox
+# Used to pass the name of the ethernet interface to the ip-up.d script
+ipparam <% $iface %>
 
 plugin rp-pppoe.so <% $iface %>

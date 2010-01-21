@@ -12,8 +12,11 @@ EBox::init();
 my $global = EBox::Global->getInstance(1);
 my $network = $global->modInstance("network");
 
+my ($iface) = @ARGV;
+$iface or exit;
+
 try {
-	$network->DHCPGatewayCleanUp();
+	$network->DHCPGatewayCleanUp($iface);
 } finally {
 	exit;
 };

@@ -34,11 +34,14 @@ use constant INTERFACES_FILE => '/etc/network/interfaces';
 use constant DDCLIENT_FILE => '/etc/ddclient.conf';
 use constant DEFAULT_DDCLIENT_FILE => '/etc/default/ddclient';
 use constant RESOLV_FILE => '/etc/resolv.conf';
+use constant DHCLIENTCONF_FILE => '/etc/dhcp3/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/ebox-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
+use constant IFUP_LOCK_FILE => '/var/lib/ebox/tmp/ifup.lock';
 
 use Net::IP;
+use IO::Interface::Simple;
 use Perl6::Junction qw(any);
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
@@ -51,6 +54,7 @@ use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Lock;
 use Error qw(:try);
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
@@ -64,6 +68,7 @@ use EBox::Gettext;
 #use EBox::LogAdmin qw( :all );
 use File::Basename;
 use EBox::Common::Model::EnableForm;
+use EBox::Util::Lock;
 
 # XXX uncomment when DynLoader bug with locales is fixed
 # use EBox::Network::Report::ByteRate;
@@ -123,6 +128,11 @@ sub usedFiles
     {
         'file' => RESOLV_FILE,
         'reason' => __('eBox will set your DNS configuration'),
+        'module' => 'network'
+    },
+    {
+        'file' => DHCLIENTCONF_FILE,
+        'reason' => __('eBox will set your DHCP client configuration'),
         'module' => 'network'
     },
     {
@@ -645,6 +655,27 @@ sub allIfaces
     return $self->_allIfaces($self->ifaces());
 }
 
+# Method: dhcpIfaces
+#
+#       Returns the names for all the DHCP interfaces.
+#
+# Returns:
+#
+#       an array ref - holding the name of the interfaces.
+#
+sub dhcpIfaces
+{
+    my ($self) = @_;
+    my @dhcpifaces;
+
+    foreach my $iface (@{$self->ifaces()}) {
+        if ($self->ifaceMethod($iface) eq 'dhcp') {
+            push (@dhcpifaces, $iface);
+        }
+    }
+    return \@dhcpifaces;
+}
+
 # Method: pppIfaces
 #
 #       Returns the names for all the PPPoE interfaces.
@@ -1006,15 +1037,13 @@ sub setIfaceDHCP # (interface, external, force)
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
 
-    $self->_routersReachableIfChange($name);
-
     my $oldm = $self->ifaceMethod($name);
-
-    if ($oldm eq 'trunk') {
+    if ($oldm eq any('dhcp', 'ppp')) {
+        $self->DHCPCleanUp($name);
+    } elsif ($oldm eq 'trunk') {
         $self->_trunkIfaceIsUsed($name);
-    }
-
-    if ($oldm eq 'static') {
+    } elsif ($oldm eq 'static') {
+        $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
     }
 
@@ -1108,7 +1137,11 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
                     'value' => $address);
     }
 
-    $self->_routersReachableIfChange($name, $address, $netmask);
+    if ($oldm eq any('dhcp', 'ppp')) {
+        $self->DHCPCleanUp($name);
+    } elsif ($oldm eq 'static') {
+        $self->_routersReachableIfChange($name, $address, $netmask);
+    }
 
     # Calling observers
     my $global = EBox::Global->getInstance();
@@ -1222,9 +1255,11 @@ sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
 
     if ($oldm eq 'trunk') {
         $self->_trunkIfaceIsUsed($name);
+    } elsif ($oldm eq any('dhcp', 'ppp')) {
+        $self->DHCPCleanUp($name);
+    } elsif ($oldm eq 'static') {
+        $self->_routersReachableIfChange($name);
     }
-
-    $self->_routersReachableIfChange($name);
 
     # Calling observers
     my $global = EBox::Global->getInstance();
@@ -1296,7 +1331,9 @@ sub setIfaceTrunk # (iface, force)
 
     ($oldm eq 'trunk') and return;
 
-    if ($oldm eq 'static') {
+    if ($oldm eq any('dhcp', 'ppp')) {
+        $self->DHCPCleanUp($name);
+    } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
     }
@@ -1462,7 +1499,7 @@ sub vlan # (vlan)
         $vlan =~ s/^vlan//;
     }
     if ($vlan =~ /:/) {
-	$vlan =~ s/:.*$//;
+        $vlan =~ s/:.*$//;
     }
     $self->dir_exists("vlans/$vlan") or return undef;
     return $self->hash_from_dir("vlans/$vlan");
@@ -1490,13 +1527,12 @@ sub unsetIface # (interface, force)
 
     my $oldm = $self->ifaceMethod($name);
 
-    $self->_routersReachableIfChange($name);
-
-    if ($oldm eq 'trunk') {
+    if ($oldm eq any('dhcp', 'ppp')) {
+        $self->DHCPCleanUp($name);
+    } elsif ($oldm eq 'trunk') {
         $self->_trunkIfaceIsUsed($name);
-    }
-
-    if ($oldm eq 'static') {
+    } elsif ($oldm eq 'static') {
+        $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
     }
 
@@ -1607,6 +1643,36 @@ sub ifacePPPPass # (name)
     } else {
         return undef;
     }
+}
+
+# Method: realIface
+#
+#   Returns the associated PPP interface in case of a Ethernet
+#   interface configured for PPPoE, or the same value in any other case.
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For ppp interfaces: the associated interface, if it is up
+#   - For the rest: the unaltered name
+#
+sub realIface # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'ppp') {
+        my $ppp_iface = $self->st_get_string("interfaces/$name/ppp_iface");
+        if ($ppp_iface) {
+            return $ppp_iface;
+        }
+    }
+    return $name;
 }
 
 # Method: ifaceNetmask
@@ -1951,16 +2017,24 @@ sub _setChanged # (interface)
     }
 }
 
-# Generate the '/etc/resolv.conf' configuration file
-sub _generateResolver
+# Generate the '/etc/resolv.conf' configuration file and modify
+# the '/etc/dhcp3/dhclient.conf' to request nameservers only
+# if there are no manually configured ones.
+sub _generateDNSConfig
 {
     my ($self) = @_;
+
+    my $nameservers = $self->nameservers();
+    my $request_nameservers = scalar (@{$nameservers}) == 0;
 
     $self->writeConfFile(RESOLV_FILE,
                          'network/resolv.conf.mas',
                          [ searchDomain => $self->searchdomain(),
-                           nameservers  => $self->nameservers() ]);
+                           nameservers  => $nameservers ]);
 
+    $self->writeConfFile(DHCLIENTCONF_FILE,
+                         'network/dhclient.conf.mas',
+                         [ request_nameservers => $request_nameservers ]);
 }
 
 #
@@ -2004,6 +2078,8 @@ sub _generatePPPConfig
 
     my $pppSecrets = {};
 
+    my $usepeerdns = scalar (@{$self->nameservers()}) == 0;
+
     foreach my $iface (@{$self->pppIfaces()}) {
         my $user = $self->ifacePPPUser($iface);
         my $pass = $self->ifacePPPPass($iface);
@@ -2011,7 +2087,8 @@ sub _generatePPPConfig
         $self->writeConfFile(PPP_PROVIDER_FILE . $iface,
                              'network/dsl-provider.mas',
                              [ iface => $iface,
-                               ppp_user => $user
+                               ppp_user => $user,
+                               usepeerdns => $usepeerdns
                              ]);
     }
 
@@ -2187,20 +2264,35 @@ sub _multigwRoutes
     # We enclose iptables rules containing CONNMARK target
     # within a try/catch block because
     # kernels < 2.6.12 do not include such module.
-    #
-    # We modify the dhclient script behaviour to add the
-    # default route where we need it.
 
 
     root(EBox::Config::share() . "ebox-network/ebox-flush-fwmarks");
     my $marks = $self->marksForRouters();
     my $routers = $self->gatewaysWithMac();
     for my $router (@{$routers}) {
-        my $mark = $marks->{$router->{'id'}};
+
+        # Skip gateways with unassigned address
         my $ip = $router->{'ip'};
+        next unless $ip;
+
+        my $iface = $router->{'interface'};
+        my $method = $self->ifaceMethod($iface);
+
+        my $mark = $marks->{$router->{'id'}};
         root("/sbin/ip rule add fwmark $mark table $mark");
         root("/sbin/ip route flush table $mark");
-        root("/sbin/ip route add default via $ip table $mark");
+
+        $iface = $self->realIface($iface);
+
+        my $if = new IO::Interface::Simple($iface);
+        next unless $if->address;
+
+        my $route = "via $ip";
+        if ($method eq 'ppp') {
+            $route = "dev $iface";
+        }
+
+        root("/sbin/ip route add default $route table $mark");
     }
     root("/sbin/ip rule add table main");
 
@@ -2217,24 +2309,35 @@ sub _multigwRoutes
     my $defaultRouterMark;
     foreach my $router (@{$routers}) {
 
-        next unless $router->{'id'};
+        # Skip gateways with unassigned address
+        next unless $router->{'ip'};
 
         if ($router->{'default'}) {
             $defaultRouterMark = $marks->{$router->{'id'}};
         }
 
-        my $mac = $router->{'mac'};
-        next if ( $mac eq 'unknown');
-        root("/sbin/iptables -t mangle -A PREROUTING  "
-         . "-m mark --mark 0/0xff -m mac --mac-source $mac "
-         . "-j MARK --set-mark $marks->{$router->{'id'}}");
-    }
+        my $mark = $marks->{$router->{'id'}};
 
+        # Match interface instead of mac for pppoe and dhcp
+        my $mac = $router->{'mac'};
+        my $origin;
+        if ($mac) {
+            # Skip unknown macs for static interfaces
+            next if ($mac eq 'unknown');
+
+            $origin = "-m mac --mac-source $mac";
+        } else {
+            my $iface = $self->realIface($router->{'interface'});
+            $origin = "-i $iface";
+        }
+        root("/sbin/iptables -t mangle -A PREROUTING  "
+         . "-m mark --mark 0/0xff $origin "
+         . "-j MARK --set-mark $mark");
+    }
 
     for my $rule (@{$self->model('MultiGwRulesDataTable')->iptablesRules()}) {
         root("/sbin/iptables $rule");
     }
-
 
     # If traffic balancing is disabled, send unmarked packets
     # through default router
@@ -2272,7 +2375,6 @@ sub _preSetConf
     my %opts = @_;
     my $file = INTERFACES_FILE;
     my $restart = delete $opts{restart};
-    $self->{'skipdns'} = undef;
 
     try {
         root("/sbin/modprobe 8021q");
@@ -2281,9 +2383,7 @@ sub _preSetConf
         root("/sbin/vconfig set_name_type VLAN_PLUS_VID_NO_PAD");
     } catch EBox::Exceptions::Internal with {};
 
-    $self->DHCPGatewayCleanUpFix();
-
-    #bring down changed interfaces
+    # Bring down changed interfaces
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $if (@{$iflist}) {
         if ($self->_hasChanged($if) or $restart) {
@@ -2304,15 +2404,10 @@ sub _preSetConf
                 }
             }
         }
-        if ($self->ifaceMethod($if) eq any('dhcp', 'ppp')) {
-            my @servers = @{$self->DHCPNameservers($if)};
-            if (scalar(@servers) > 0) {
-                $self->{'skipdns'} = 1;
-            }
-        } else {
-            #clean up dhcp state if interface is not DHCP
-            #it should be done by the dhcp hook, but sometimes
-            #cruft is left
+        # Clean up dhcp state if interface is not DHCP or
+        # PPPoE it should be done by the dhcp, but sometimes
+        # cruft is left
+        unless ($self->ifaceMethod($if) eq any('dhcp', 'ppp')) {
             $self->DHCPCleanUp($if);
         }
     }
@@ -2336,18 +2431,8 @@ sub _setConf
 
     $self->generateInterfaces();
     $self->_generatePPPConfig();
-    $self->_generateDDClient;
-    unless ($self->{'skipdns'}) {
-        # FIXME: there is a corner case when this won't be enough:
-        # if the dhcp server serves some dns serves, those will be used,
-        # but if it stops serving them at some point, the statically
-        # configured ones will not be restored from the dhcp hook.
-        #
-        # If the server never gives dns servers, everything should work
-        # Ok.
-        $self->_generateResolver;
-    }
-
+    $self->_generateDDClient();
+    $self->_generateDNSConfig();
 }
 
 # Method: _enforceServiceState
@@ -2372,22 +2457,18 @@ sub _enforceServiceState
             push(@ifups, $iface);
         }
     }
+
+    open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
     foreach my $iface (@ifups) {
         root(EBox::Config::pkgdata() . "ebox-unblock-exec /sbin/ifup --force -i $file $iface");
         unless ($self->isReadOnly()) {
             $self->_unsetChanged($iface);
         }
     }
+    unlink (IFUP_LOCK_FILE);
 
-    my $dhcpgw = $self->DHCPGateway();
-    unless ($dhcpgw) {
-        try {
-            root("/sbin/ip route del default table default");
-        } catch EBox::Exceptions::Internal with {};
-        try {
-            root("/sbin/ip route del default");
-        } catch EBox::Exceptions::Internal with {};
-    }
+    EBox::Sudo::silentRoot("/sbin/ip route del default table default");
+    EBox::Sudo::silentRoot("/sbin/ip route del default");
 
     my $cmd = $self->_multipathCommand();
     if ($cmd) {
@@ -2453,7 +2534,10 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
     }
 
     foreach my $gw (@{$self->model('GatewayTable')->gateways()}) {
-        push (@gws, $gw->{'ip'});
+        next if $gw->{'auto'};
+        my $ip = $gw->{'ip'};
+        next unless $ip;
+        push (@gws, $ip);
     }
 
     foreach my $gw (@gws) {
@@ -2477,8 +2561,7 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
         }
         ($reachable) or throw EBox::Exceptions::External(
             __('The requested operation will cause one of the '.
-               '
-configured gateways to become unreachable. ' .
+               'configured gateways to become unreachable. ' .
                'Please remove it first if you really want to '.
                'make this change.'));
     }
@@ -2598,21 +2681,50 @@ sub setDHCPAddress # (interface, ip, mask)
 #
 # Parameters:
 #
+#   iface   - ethernet interface
 #   gateway - gateway's IPv4 address
-sub setDHCPGateway # (gateway)
+sub setDHCPGateway # (iface, gateway)
 {
-    my ($self, $gw) = @_;
+    my ($self, $iface, $gw) = @_;
     checkIP($gw, __("IP address"));
-    $self->st_set_string("dhcp/gateway", $gw);
+    $self->ifaceExists($iface) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $iface);
+
+    $self->st_set_string("dhcp/$iface/gateway", $gw);
+}
+
+# Method: setRealPPPIface
+#
+#   Sets the real PPP interface associated with the Ethernet one.
+#
+# Parameters:
+#
+#   iface     - ethernet interface name
+#   ppp_iface - ppp interface name
+#   ppp_addr  - IP address of the ppp interface
+#
+sub setRealPPPIface # (iface, ppp_iface, ppp_addr)
+{
+    my ($self, $iface, $ppp_iface, $ppp_addr) = @_;
+    $self->ifaceExists($iface) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $iface);
+    $self->st_set_string("interfaces/$iface/ppp_iface", $ppp_iface);
+
+    checkIP($ppp_addr, __("IP address"));
+    $self->st_set_string("interfaces/$iface/ppp_addr", $ppp_addr);
 }
 
 # Method: DHCPCleanUp
 #
-#   Removes the dhcp configuration  for a given interface
+#   Removes the dhcp configuration for a given interface
+#   Also removes the PPPoE iface if exists
 #
 # Parameters:
 #
 #   interface - interface name
+#
 sub DHCPCleanUp # (interface)
 {
     my ($self, $iface) = @_;
@@ -2620,18 +2732,8 @@ sub DHCPCleanUp # (interface)
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $iface);
 
-    my $gw = $self->DHCPGateway();
-    if ($gw) {
-        my $host = $self->DHCPAddress($iface);
-        my $mask = $self->DHCPNetmask($iface);
-        if ($host and $mask) {
-            if (isIPInNetwork($host, $mask, "$gw/$mask")) {
-                $self->DHCPGatewayCleanUp();
-            }
-        }
-    }
-
     $self->st_delete_dir("dhcp/$iface");
+    $self->st_unset("interfaces/$iface/ppp_iface");
 }
 
 # Method: selectedDefaultGateway
@@ -2664,41 +2766,22 @@ sub storeSelectedDefaultGateway # (gateway
 #
 #   Returns the gateway from a dhcp configured interface
 #
+# Parameters:
+#
+#   iface - interface name (DHCP or PPPoE)
+#
 # Returns:
 #
 #   string - gateway
 sub DHCPGateway
 {
-    my ($self) = @_;
-    return $self->st_get_string("dhcp/gateway");
-}
+    my ($self, $iface) = @_;
 
-# Method: DHCPGatewayCleanUp
-#
-#   Removes the gateway obtained via dhcp
-#
-sub DHCPGatewayCleanUp
-{
-    my ($self) = @_;
-    $self->st_unset("dhcp/gateway");
-}
+    $self->ifaceExists($iface) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $iface);
 
-# Method: DHCPGatewayCleanUpFix
-#
-#   Remove gateway if there's a dhcp gateway and no ifaces
-#   configured via dhcp
-#
-# XXX: rant: This module has turned into a pile of evil hacks and methods
-#        We should schedule it for surgery -total rework- ASAP
-sub DHCPGatewayCleanUpFix
-{
-    my ($self) = @_;
-
-    return unless ($self->DHCPGateway());
-
-    unless ($self->st_all_dirs("dhcp")) {
-        $self->DHCPGatewayCleanUp();
-    }
+    return $self->st_get_string("dhcp/$iface/gateway");
 }
 
 # Method: DHCPAddress
@@ -3098,9 +3181,57 @@ sub setBalanceTraffic
 
 }
 
+# Method: regenGateways
+#
+#   Recreate the default route table. This method is currently used
+#   for the WAN failover and dynamic multi-gateway.
+#
+#
+sub regenGateways
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+
+    my $timeout = 60;
+    my $locked = 0;
+
+    while ((not $locked) and ($timeout > 0)) {
+        try {
+            EBox::Util::Lock::lock('network');
+            $locked = 1;
+        } catch EBox::Exceptions::Lock with {
+            sleep 5;
+            $timeout -= 5;
+        };
+    }
+
+    unless ($locked) {
+        EBox::error('Network module has been locked for 60 seconds');
+        return;
+    }
+
+    $self->saveConfig();
+    my @commands;
+    push (@commands, '/sbin/ip route del table default');
+    my $cmd = $self->_multipathCommand();
+    if ($cmd) {
+        push (@commands, $cmd);
+    }
+    try {
+        EBox::Sudo::root(@commands);
+    } otherwise {
+        EBox::error('Something bad happened reseting default gateways');
+    };
+    $self->_multigwRoutes();
+    $global->modRestarted('network');
+
+    EBox::Util::Lock::unlock('network');
+}
+
 sub _multipathCommand
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my @gateways = @{$self->gateways()};
 
@@ -3113,19 +3244,45 @@ sub _multipathCommand
                 return undef;
             }
             my $ip = $row->valueByName('ip');
+            my $iface = $row->valueByName('interface');
             my $weight = $row->valueByName('weight');
-            push (@gateways, {ip => $ip, weight => $weight});
+            push (@gateways, {ip => $ip, interface => $iface, weight => $weight});
         } else {
             return undef;
         }
     }
 
+    my $numGWs = 0;
+
     my $cmd = 'ip route add table default default';
     for my $gw (@gateways) {
-        $cmd .= " nexthop via $gw->{'ip'} weight $gw->{'weight'}";
+
+        # Skip gateways with unassigned address
+        my $ip = $gw->{'ip'};
+        next unless $ip;
+
+        my $iface = $gw->{'interface'};
+        my $method = $self->ifaceMethod($iface);
+
+        $iface = $self->realIface($iface);
+        my $if = new IO::Interface::Simple($iface);
+        next unless $if->address;
+
+        my $route = "via $ip";
+        if ($method eq 'ppp') {
+            $route = "dev $iface";
+        }
+
+        $cmd .= " nexthop $route weight $gw->{'weight'}";
+
+        $numGWs++;
     }
 
-    return $cmd;
+    if ($numGWs) {
+        return $cmd;
+    } else {
+        return undef;
+    }
 }
 
 1;

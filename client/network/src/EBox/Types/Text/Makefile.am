@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Network Model View Types Event t
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Network/Types/Text
 
-nobase_perl_DATA = Network.pm NetworkObserver.pm NetworkUtil.pm
+nobase_perl_DATA = AutoReadOnly.pm
 
 DISTCLEANFILES =
 

@@ -366,6 +366,7 @@ sub _buildIptablesRule
             for my $riface (@ifaces) {
                 for my $rsrc (@src) {
                     for my $rdst (@dst) {
+                        $riface = $network->realIface($riface);
                         my $wrule = $rule . " -i $riface";
                         if ($rsrc ne '') {
                             $wrule .= " -s $rsrc";

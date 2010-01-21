@@ -25,7 +25,6 @@ use EBox::Event;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate;
-use EBox::Util::Lock;
 
 use Error qw(:try);
 
@@ -96,6 +95,8 @@ sub run
 {
     my ($self) = @_;
 
+    #EBox::debug('Entering failover event...');
+
     $self->{eventList} = [];
     $self->{failed} = {};
 
@@ -113,12 +114,15 @@ sub run
     $self->{marks} = $network->marksForRouters();
 
     foreach my $id (@{$rules->enabledRows()}) {
+        #EBox::debug("Testing rules for gateway with id $id...");
         my $row = $rules->row($id);
         $self->_testRule($row);
     }
 
     # We don't do anything if there are unsaved changes
     return [] if $global->modIsChanged('network');
+
+    #EBox::debug('Applying changes in the gateways table...');
 
     my $needSave = 0;
     foreach my $id (@{$gateways->ids()}) {
@@ -128,6 +132,8 @@ sub run
 
         # It must be enabled if all tests are passed
         my $enable = not($self->{failed}->{$id});
+
+        #EBox::debug("Properties for gateway $gwName ($id): enabled=$enabled, enable=$enable");
 
         # We don't do anything if the previous state is the same
         if ($enable xor $enabled) {
@@ -145,17 +151,21 @@ sub run
 
     # Check if default gateway has been disabled and choose another
     my $default = $gateways->findValue('default' => 1);
+
     unless ($default and $default->valueByName('enabled')) {
         # If the original default gateway is alive, restore it
         my $originalId = $network->selectedDefaultGateway();
+        #EBox::debug("The preferred default gateway is $originalId");
         my $original = $gateways->row($originalId);
         if ($original and $original->valueByName('enabled')) {
             $default->elementByName('default')->setValue(0);
             $default->store();
             $original->elementByName('default')->setValue(1);
             $original->store();
+            #EBox::debug('The original default gateway has been restored');
             $needSave = 1;
         } else {
+            #EBox::debug('Checking if there is another enabled gateway to set as default');
             # Check if we can find another enabled to set it as default
             my $other = $gateways->findValue('enabled' => 1);
             if ($other) {
@@ -163,29 +173,21 @@ sub run
                 $default->store();
                 $other->elementByName('default')->setValue(1);
                 $other->store();
+                my $otherName = $other->valueByName('name');
+                #EBox::debug("The gateway $otherName is now the default");
                 $needSave = 1;
             }
         }
     }
 
     if ($needSave) {
-        EBox::Util::Lock::lock('network');
-        $network->saveConfig();
-        my @commands;
-        push (@commands, '/sbin/ip route del table default');
-        my $cmd = $network->_multipathCommand();
-        if ($cmd) {
-            push (@commands, $cmd);
-        }
-        try {
-            EBox::Sudo::root(@commands);
-        } otherwise {
-            EBox::error('Something bad happened reseting default gateways');
-        };
-        $network->_multigwRoutes();
-        $global->modRestarted('network');
-        EBox::Util::Lock::unlock('network');
+        #EBox::debug('Regenerating rules for the gateways');
+        $network->regenGateways();
+    } else {
+        #EBox::debug('No need to regenerate the rules for the gateways');
     }
+
+    #EBox::debug('Leaving failover event...');
 
     return $self->{eventList};
 }
@@ -196,6 +198,8 @@ sub _testRule # (row)
 
     my $gw = $row->valueByName('gateway');
 
+    #EBox::debug("Entering _testRule for gateway $gw...");
+
     # First test on this gateway, initialize its entry on the hash
     unless (exists $self->{failed}->{$gw}) {
         $self->{failed}->{$gw} = 0;
@@ -203,6 +207,8 @@ sub _testRule # (row)
 
     # If a test for this gw has already failed we don't test any other
     return if ($self->{failed}->{$gw});
+
+    #EBox::debug("Running $typeName tests for gateway $gw...");
 
     my $gwName = $self->{gateways}->row($gw)->valueByName('name');
 
@@ -213,26 +219,36 @@ sub _testRule # (row)
     if ($type eq 'gw_ping') {
         my $gwRow = $self->{gateways}->row($gw);
         $host = $gwRow->valueByName('ip');
+        return unless $host;
     }
 
     my $probes = $row->valueByName('probes');
-    my $ratio = $row->valueByName('ratio');
+    my $ratio = $row->valueByName('ratio') / 100;
+    my $neededSuccesses = $probes * $ratio;
+    my $maxFailRatio = 1 - $ratio;
+    my $maxFails = $probes * $maxFailRatio;
 
+    my $successes = 0;
     my $fails = 0;
 
     # Set rule for outgoing traffic through the gateway we are testing
     $self->_setIptablesRule($gw, 1);
 
     for (1..$probes) {
-        unless ($self->_runTest($type, $host)) {
+        if ($self->_runTest($type, $host)) {
+            #EBox::debug("Probe number $_ succeded.");
+            $successes++;
+            last if ($successes >= $neededSuccesses);
+        } else {
+            #EBox::debug("Probe number $_ failed.");
             $fails++;
+            last if ($fails >= $maxFails);
         }
     }
 
     # Clean rule
     $self->_setIptablesRule($gw, 0);
 
-    my $maxFailRatio = 1 - ($ratio/100);
     my $failRatio = $fails / $probes;
 
     if ($failRatio > $maxFailRatio) {
@@ -284,6 +300,7 @@ sub _setIptablesRule # (gw, set)
     my $rule = "/sbin/iptables -t mangle $action OUTPUT "
              . "-m owner --gid-owner ebox -j MARK --set-mark $mark";
 
+    #EBox::debug("Setting rule: $rule\n");
     EBox::Sudo::root($rule);
 }
 

@@ -2,5 +2,9 @@
 
 libexec=@DATADIR@/ebox
 
-$libexec/dhcp-clear-gateway.pl
-$libexec/dhcp-clear.pl
+ppp_iface=$1
+local_address=$4
+remote_address=$5
+eth_iface=$6
+
+$libexec/dhcp-clear.pl $eth_iface

@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-pkgdata_SCRIPTS =
+SUBDIRS = Text
 
-SUBDIRS = sqllog
+perldir = @PERLPATH@/EBox/Network/Types
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkgdata_SCRIPTS)

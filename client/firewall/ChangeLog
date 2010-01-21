@@ -1,4 +1,5 @@
 HEAD
+	+ Added multi-gateway support for DHCP and PPPoE
 	+ Add an allow rule by default from internal
 	  networks to internet
 	+ Remove migration script 0001_import_rules_to_new_model.pl

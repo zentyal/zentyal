@@ -33,6 +33,7 @@ use EBox::Firewall::IptablesHelper;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use Error qw( :try );
+use Perl6::Junction qw( any );
 use EBox::Sudo qw( :all );
 
 my $new = " -m state --state NEW ";
@@ -55,7 +56,6 @@ sub new
     $self->{objects} = EBox::Global->modInstance('objects');
     $self->{net} = EBox::Global->modInstance('network');
     $self->{deny} = $self->{firewall}->denyAction;
-
 
     bless($self, $class);
     return $self;
@@ -245,8 +245,8 @@ sub _setStructure
 #
 sub _setDNS # (dns)
 {
-    my $self = shift;
-    my $dns = shift;
+    my ($self, $dns) = @_;
+
     my @commands = (
             pf("-A ointernal $new -p udp --dport 53 -d $dns -j ACCEPT"),
             pf("-A fdns $new -p udp --dport 53 -d $dns -j ACCEPT"),
@@ -265,6 +265,8 @@ sub _setDNS # (dns)
 sub _setDHCP
 {
     my ($self, $interface) = @_;
+
+    $interface = $self->{net}->realIface($interface);
     return [ pf("-A ointernal $new -o $interface -p udp --dport 67 -j ACCEPT") ];
 }
 
@@ -338,8 +340,10 @@ sub _setRemoteServices
 
 sub _nospoof # (interface, \@addresses)
 {
-    my $self = shift;
-    my ($iface, $addresses) = @_;
+    my ($self, $iface, $addresses) = @_;
+
+    $iface = $self->{net}->realIface($iface);
+
     my @commands;
     foreach (@{$addresses}) {
         my $addr = $_->{address};
@@ -371,6 +375,7 @@ sub _localRedirects
         my @ifaces = @{$self->{net}->InternalIfaces()};
         foreach my $ifc (@ifaces) {
             my $addr = $self->{net}->ifaceAddress($ifc);
+            $ifc = $self->{net}->realIface($ifc);
             (defined($addr) && $addr ne "") or next;
             push(@commands,
                     pf("-t nat -A PREROUTING -i $ifc -p $protocol ".
@@ -453,14 +458,16 @@ sub start
 
     my @ifaces = @{$self->{net}->ifaces()};
     foreach my $ifc (@ifaces) {
-        my $addrs = $self->{net}->ifaceAddresses($ifc);
-        push(@commands, @{$self->_nospoof($ifc, $addrs)});
-        if ($self->{net}->ifaceMethod($ifc) eq 'dhcp') {
-            push(@commands, @{$self->_setDHCP($ifc)});;
+        if ($self->{net}->ifaceMethod($ifc) eq any('dhcp', 'ppp')) {
+            push(@commands, @{$self->_setDHCP($ifc)});
             my $dnsSrvs = $self->{net}->DHCPNameservers($ifc);
             foreach my $srv (@{$dnsSrvs}) {
                 push(@commands, @{$self->_setDNS($srv)});
             }
+        } else {
+            # Anti-spoof rules only for static interfaces
+            my $addrs = $self->{net}->ifaceAddresses($ifc);
+            push(@commands, @{$self->_nospoof($ifc, $addrs)});
         }
     }
 
@@ -470,6 +477,9 @@ sub start
 
     @ifaces = @{$self->{net}->ExternalIfaces()};
     foreach my $if (@ifaces) {
+        my $method = $self->{net}->ifaceMethod($if);
+        $if = $self->{net}->realIface($if);
+
         push(@commands,
                 pf("-A fnoexternal $new -i $if -j fdrop"),
                 pf("-A inoexternal $new -i $if -j idrop"),
@@ -478,13 +488,13 @@ sub start
 
         next unless (_natEnabled());
 
-        if ($self->{net}->ifaceMethod($if) eq 'static') {
+        if ($method eq 'static') {
             my $addr = $self->{net}->ifaceAddress($if);
             push(@commands,
                     pf("-t nat -A POSTROUTING -s ! $addr -o $if " .
                         "-j SNAT --to $addr")
                 );
-        } elsif ($self->{net}->ifaceMethod($if) eq 'dhcp') {
+        } elsif (($method eq 'dhcp') or ($method eq 'ppp')) {
             push(@commands,
                     pf("-t nat -A POSTROUTING -o $if -j MASQUERADE")
                 );
@@ -551,6 +561,16 @@ sub start
     }
     my @sortedRules = sort { $a->{'priority'} <=> $b->{'priority'} } @modRules;
     push(@commands, map { pf($_->{'rule'}) } @sortedRules);
+
+    # Special rule for PPPoE interfaces to avoid problems with large packets
+    foreach my $if (@{$self->{net}->pppIfaces()}) {
+        $if = $self->{net}->realIface($if);
+        push(@commands,
+                pf("-t mangle -A FORWARD -o $if -p tcp -m tcp " .
+                   "--tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu")
+            );
+    }
+
     root(@commands);
 }
 
@@ -592,8 +612,8 @@ sub _doRuleset # (table, chain, \@rules)
 
 # Method: _iexternalCheckInit
 #
-# 	Add checks to iexternalmodules and iexternal to only affect
-# 	packates coming from external interfaces
+#	Add checks to iexternalmodules and iexternal to only affect
+#	packates coming from external interfaces
 sub _iexternalCheckInit
 {
     my ($self) = @_;
@@ -602,6 +622,7 @@ sub _iexternalCheckInit
 
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
+        $if = $self->{net}->realIface($if);
         push(@commands,
             pf("-A iexternalmodules -i $if -j RETURN"),
             pf("-A iexternal -i $if -j RETURN"),
@@ -692,6 +713,7 @@ sub _ffwdrules
 
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
+        $if = $self->{net}->realIface($if);
         push(@commands, pf("-A ffwdrules -i $if -j RETURN"));
     }
     my $iptHelper = new EBox::Firewall::IptablesHelper;
