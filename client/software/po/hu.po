@@ -8,111 +8,117 @@ msgstr ""
 "Project-Id-Version: ebox-software 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:11+0100\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-19 22:29+0100\n"
+"Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "HTTP szoftver"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "apt csomagkezelő segítségével frissítő szoftverszolgáltatás"
 
 #: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
-msgstr ""
+msgstr "apt frissítéseket engedélyező szabály"
 
 #: src/EBox/Software.pm:53
 msgid "Software Management"
-msgstr ""
+msgstr "Szoftvermenedzsment"
 
 #: src/EBox/Software.pm:77
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "Frissítések letöltését végző cron parancsfájl engedélyezése"
 
 #: src/EBox/Software.pm:78
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr ""
+"Az eBox le fogja tölteni az elérhető frissítéseket a beállított apt "
+"forrásokból. "
 
 #: src/EBox/Software.pm:162 src/EBox/Software.pm:365
 msgid ""
 "The software management module must be enabled to be able to install packages"
-msgstr ""
+msgstr "A csomagok telepítéséhez engedélyezni kell a szoftvermenedzsment modult"
 
 #: src/EBox/Software.pm:206 src/EBox/Software.pm:399
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
+"A csomagok eltávolításához engedélyezni kell a szoftvermenedzsment modult"
 
 #: src/EBox/Software.pm:509
 msgid "eBox Components"
-msgstr ""
+msgstr "eBox komponensek"
 
 #: src/EBox/Software.pm:511
 msgid "System Updates"
-msgstr ""
+msgstr "Rendszerfrissítések"
 
 #: src/EBox/Software.pm:513
 msgid "Automatic Updates"
-msgstr ""
+msgstr "Automatikus frissítések"
 
 #: src/EBox/Software.pm:604
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"A szoftvermenedzsment jelenleg blokkolva van a(z) {locker} által. Próbálja "
+"újra később."
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Automatikus szoftverfrissítések"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "automatikus frissítések beállítása"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
-msgstr ""
+msgstr "eBox komponensek"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
-msgstr ""
+msgstr "Rendszerfrissítések"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "A szoftverfrissítéseket a rendszer automatikusan kezeli"
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "A rendszer naprakész"
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
 msgid "Upgrading"
-msgstr ""
+msgstr "Frissítés"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
-msgstr ""
+msgstr "Nincsenek frissítendő csomagok"
 
 #: src/EBox/CGI/InstallPkgs.pm:149
 msgid "Upgrading packages"
-msgstr ""
+msgstr "Csomagok frissítése"
 
 #: src/EBox/CGI/InstallPkgs.pm:150 src/EBox/CGI/InstallPkgs.pm:170
 msgid "Current package"
-msgstr ""
+msgstr "Aktuális csomag"
 
 #: src/EBox/CGI/InstallPkgs.pm:151
 msgid "packages left to install"
-msgstr ""
+msgstr "telepítendő csomag van hátra"
 
 #: src/EBox/CGI/InstallPkgs.pm:152
 msgid ""
@@ -120,24 +126,29 @@ msgid ""
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully restarted"
 msgstr ""
+"A csomagok telepítése sikerült. Az adminisztrációs felület lehet, hogy pár "
+"másodpercig nem fog válaszolni. Várjon türelmesen, amíg a rendszer "
+"újraindul."
 
 #: src/EBox/CGI/InstallPkgs.pm:156
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"A csomagok telepítése sikertelen volt. Bővebb információkat a naplókban "
+"talál."
 
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "Removing package"
-msgstr ""
+msgstr "Csomag eltávolítása"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "A kijelölt csomag és függőségeinek eltávolítása"
 
 #: src/EBox/CGI/InstallPkgs.pm:171
 msgid "packages left to remove"
-msgstr ""
+msgstr "eltávolítandó csomag van hátra"
 
 #: src/EBox/CGI/InstallPkgs.pm:172
 msgid ""
@@ -145,83 +156,90 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"A csomagok eltávolítása sikerült. Az adminisztrációs felület lehet, hogy pár "
+"másodpercig nem fog válaszolni. Várjon türelmesen, amíg a rendszer "
+"újraindul."
 
 #: src/EBox/CGI/InstallPkgs.pm:176
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"A csomagok eltávolítása sikertelen volt. Bővebb információkat a naplókban "
+"talál."
 
 #: src/templates/ebox.mas:14 src/templates/updates.mas:16
 msgid "Component"
-msgstr ""
+msgstr "Komponens"
 
 #: src/templates/ebox.mas:15
 msgid "Installed version "
-msgstr ""
+msgstr "Telepített verzió"
 
 #: src/templates/ebox.mas:16
 msgid "Latest version"
-msgstr ""
+msgstr "Utolsó verzió"
 
 #: src/templates/ebox.mas:17
 msgid "Actions"
-msgstr ""
+msgstr "Műveletek"
 
 #: src/templates/ebox.mas:28 src/templates/updates.mas:19
 msgid "Update"
-msgstr ""
+msgstr "Frissítés"
 
 #: src/templates/ebox.mas:34
 msgid "Install"
-msgstr ""
+msgstr "Telepítés"
 
 #: src/templates/ebox.mas:36
 msgid "none"
-msgstr ""
+msgstr "semmi"
 
 #: src/templates/ebox.mas:58
 msgid "Remove"
-msgstr ""
+msgstr "Eltávolítás"
 
 #: src/templates/ebox.mas:75 src/templates/updates.mas:53
 msgid "Update all packages"
-msgstr ""
+msgstr "Minden csomag frissítése"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "A következő csomagok lesznek telepítve"
 
 #: src/templates/del.mas:16
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "A következő csomagok leszek eltávolítva"
 
 #: src/templates/del.mas:32
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/templates/del.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "Mégse"
 
 #: src/templates/updates.mas:11
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "A következő rendszerkomponensekhez érhetők el frissítések"
 
 #: src/templates/updates.mas:17
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: src/templates/updates.mas:18
 msgid "Version"
-msgstr ""
+msgstr "Verzió"
 
 #: src/templates/updates.mas:64
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"A művelet eltarthat egy ideig, ne aggódjon ha az eBox nem válaszol a "
+"Frissítés gomb megnyomása után."
 
 #: src/templates/updates.mas:67
 msgid "Upgrade"
-msgstr ""
+msgstr "Frissítés"

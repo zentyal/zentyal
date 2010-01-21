@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:11+0100\n"
-"PO-Revision-Date: 2009-12-04 16:01+0100\n"
+"PO-Revision-Date: 2010-01-15 14:56+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -99,9 +99,8 @@ msgid "Disk quota limit"
 msgstr "Disk kvote begrensning"
 
 #: src/EBox/Samba/Model/SambaUser.pm:50
-#, fuzzy
 msgid "File Sharing Account"
-msgstr "PDC/Fil delings konto"
+msgstr "Fil Delings Konto"
 
 #: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
 #: src/EBox/Samba.pm:76
@@ -286,13 +285,12 @@ msgid "Permissions"
 msgstr "Rettigheter"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
-#, fuzzy
 msgid "Access Control"
-msgstr "Tilgangs kontroll"
+msgstr "Tilgangs Kontroll"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "ACL"
-msgstr ""
+msgstr "ACL"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid ""

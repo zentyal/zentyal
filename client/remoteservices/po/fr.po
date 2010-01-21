@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:11+0100\n"
-"PO-Revision-Date: 2009-12-24 10:17+0100\n"
-"Last-Translator: Jean Migisha <migisha_jean@yahoo.fr>\n"
+"PO-Revision-Date: 2010-01-18 13:06+0100\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -145,18 +145,16 @@ msgid "No domain key found for this service"
 msgstr "La clé de domaine pour ce service n'a pas été trouvée"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:151
-#, fuzzy
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system."
 msgstr ""
-"Inscription s'est effectuée correctement. Attendez un moment afin que "
+"L'abonnement s'est effectué correctement. Attendez un moment afin que "
 "l'inscription se propage au travers du système"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:154
-#, fuzzy
 msgid "Subscription data retrieved correctly."
-msgstr "Les données d'inscription ont été récupérées correctement"
+msgstr "Les données d'abonnement ont été récupérées correctement"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:156
 msgid "Please, save changes"
@@ -187,26 +185,24 @@ msgstr ""
 "toucher à rien jusqu'à ce que l'inscription soit terminée"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:302
-#, fuzzy
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
-"Avant de s'inscrire à un service distant, activer le module OpenVPN et "
+"Avant de s'abonner à un service distant, activer le module OpenVPN et "
 "enregistrer les changements"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:322
 msgid "User Name or Email Address"
-msgstr ""
+msgstr "Nom d'utilisateur ou adresse email"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:330
-#, fuzzy
 msgid "eBox Name"
-msgstr "nom pour eBox"
+msgstr "Nom d'eBox"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:335
 msgid "Choose a name for your eBox which is a valid domain name"
-msgstr ""
+msgstr "Choisissez un nom pour eBox qui est un nom de domaine valide"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:342
 msgid "Password"
@@ -238,19 +234,17 @@ msgstr ""
 "possibilité de faire des sauvegardes à distances et bien d'autres choses"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:435
-#, fuzzy
 msgid "Action"
-msgstr "Actions"
+msgstr "Action"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:436
 #: src/EBox/RemoteServices/Model/Subscription.pm:449
-#, fuzzy
 msgid "Reason"
-msgstr "Restaurer"
+msgstr "Raison"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:448
 msgid "File"
-msgstr ""
+msgstr "Fichier"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -310,19 +304,17 @@ msgid "Control Center"
 msgstr "Centre de contrôle"
 
 #: src/EBox/RemoteServices.pm:245
-#, fuzzy
 msgid "eBox Control Center Connection"
-msgstr "Centre de contrôle client"
+msgstr "Centre de contrôle des connections eBox"
 
 #: src/EBox/RemoteServices.pm:573
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
-msgstr ""
+msgstr "Pas connecté. Vérifier les journaux VPN dans {path}"
 
 #: src/EBox/RemoteServices.pm:577
-#, fuzzy
 msgid "Connected"
-msgstr "Erreur de connexion"
+msgstr "Connecté"
 
 #~ msgid "User name"
 #~ msgstr "Nom d'utilisateur"

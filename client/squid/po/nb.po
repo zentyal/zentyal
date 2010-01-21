@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:11+0100\n"
-"PO-Revision-Date: 2009-12-07 09:47+0100\n"
+"PO-Revision-Date: 2010-01-15 15:00+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -87,9 +87,8 @@ msgid "Dansguardian's log rotation configuration"
 msgstr "Dansguardian's logg rotering konfigurasjon"
 
 #: src/EBox/Squid.pm:277
-#, fuzzy
 msgid "Dansguardian's antivirus canner configuration"
-msgstr "Dansguardian's logg rotering konfigurasjon"
+msgstr "Dansguardian's antivirus scanner konfigurasjon"
 
 #: src/EBox/Squid.pm:313
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -397,9 +396,8 @@ msgid "Use default profile threshold"
 msgstr "Bruk standard profil terskel"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:75
-#, fuzzy
 msgid "Threshold a"
-msgstr "Terskel"
+msgstr "Terskel a"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:84
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:78
@@ -593,7 +591,6 @@ msgstr ""
 "noen objekter"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:185
-#, fuzzy
 msgid "You need to use authorization policies wuth global group policies"
 msgstr "Du må bruke autoriserings instrukser med globale gruppe instrukser"
 
@@ -637,9 +634,8 @@ msgid "Group policy"
 msgstr "Gruppe instruks"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:109
-#, fuzzy
 msgid "Object Policies"
-msgstr "Objekts instruks"
+msgstr "Objekts Instrukser"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:110
 msgid "List of objects"
@@ -746,9 +742,8 @@ msgstr ""
 "klassifiserte svarte lister"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
-#, fuzzy
 msgid "Group policies"
-msgstr "Gruppe instruks"
+msgstr "Gruppe instrukser"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:79
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:76
@@ -936,9 +931,8 @@ msgid "Filter profiles"
 msgstr "Filter profiler"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:71
-#, fuzzy
 msgid "List of profiles"
-msgstr "Liste med grupper"
+msgstr "Liste med profiler"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:83
 msgid "filter profile"

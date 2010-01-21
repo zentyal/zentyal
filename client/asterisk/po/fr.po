@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:06+0100\n"
-"PO-Revision-Date: 2009-09-30 11:39+0200\n"
+"PO-Revision-Date: 2010-01-18 11:17+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -153,16 +153,14 @@ msgid "Description"
 msgstr "Description"
 
 #: src/EBox/Model/Meetings.pm:184
-#, fuzzy
 msgid "List of Meetings"
-msgstr "Meetings"
+msgstr "Liste des Meetings"
 
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
 msgstr "meeting"
 
 #: src/EBox/Model/AsteriskUser.pm:50
-#, fuzzy
 msgid "Asterisk Account"
 msgstr "Compte Asterisk"
 
@@ -191,9 +189,8 @@ msgid "Delete sent messages"
 msgstr "Effacer les messages envoyés"
 
 #: src/EBox/Model/Voicemail.pm:126
-#, fuzzy
 msgid "Change your Voicemail settings"
-msgstr "Réglages Voicemail"
+msgstr "Réglages de votre répondeur"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
@@ -202,9 +199,11 @@ msgstr "Configuration mise à jour"
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
+"Vous n'avez pas de compte VoIP. Peut-être que VoIP n'est pas activé sur ce "
+"serveur"
 
 #: src/EBox/Model/Localnets.pm:88
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:07+0100\n"
-"PO-Revision-Date: 2009-12-04 09:10+0100\n"
+"PO-Revision-Date: 2010-01-20 13:38+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -28,20 +28,19 @@ msgstr "domene"
 
 #: src/EBox/DNS.pm.in:512
 msgid "main bind9 configuration file"
-msgstr ""
+msgstr "hoved bind9 konfigurasjons fil"
 
 #: src/EBox/DNS.pm.in:517
 msgid "bind9 options configuration file"
-msgstr ""
+msgstr "bind9 alternativer konfigurasjons fil"
 
 #: src/EBox/DNS.pm.in:522
 msgid "local bind9 configuration file"
-msgstr ""
+msgstr "lokal bind9 konfigurasjons fil"
 
 #: src/EBox/DNS.pm.in:527
-#, fuzzy
 msgid "Keys configuration file"
-msgstr "konfigurasjons fil for sone {zone}"
+msgstr "Nøkkel konfigurasjons fil"
 
 #: src/EBox/DNS.pm.in:544
 #, perl-brace-format
@@ -56,11 +55,11 @@ msgstr "konfigurasjons fil for revers oppslags sone {zone}"
 #: src/EBox/DNS.pm.in:578
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr ""
+msgstr "Endre rettighetene for {dir} for å tillate skriving til bind gruppe"
 
 #: src/EBox/DNS.pm.in:580
 msgid "Let the bind daemon to be dynamically updated"
-msgstr ""
+msgstr "La bind daemon å bli dynamisk oppdatert"
 
 #: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
@@ -73,7 +72,7 @@ msgstr ""
 
 #: src/EBox/Model/HostnameTable.pm:169
 msgid "The domain is set as read only. You cannot add host names"
-msgstr ""
+msgstr "Domenet er skrivebeskyttet. Du kan ikke legge til verts navn"
 
 #: src/EBox/Model/HostnameTable.pm:187 src/EBox/Model/MailExchanger.pm:151
 #: src/EBox/Model/NameServer.pm:131 src/templates/edit.mas:20
@@ -116,16 +115,15 @@ msgstr "Navn Server"
 
 #: src/EBox/Model/DomainTable.pm:210
 msgid "Dynamic"
-msgstr ""
+msgstr "Dynamisk"
 
 #: src/EBox/Model/DomainTable.pm:214
 msgid "A domain is dynamic when the DHCP server updates the domain"
-msgstr ""
+msgstr "Et domene er dynamisk når DHCP serveren oppdaterer domenet"
 
 #: src/EBox/Model/DomainTable.pm:231
-#, fuzzy
 msgid "List of Domains"
-msgstr "Domener"
+msgstr "Liste med Domener"
 
 #: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
@@ -147,7 +145,7 @@ msgstr ""
 
 #: src/EBox/Model/MailExchanger.pm:132
 msgid "The domain is set as read only. You cannot add mail exchangers"
-msgstr ""
+msgstr "Domenet er skrivebeskyttet. Du kan ikke legge til epost servere"
 
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:134
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
@@ -222,7 +220,7 @@ msgstr ""
 
 #: src/EBox/Model/NameServer.pm:112
 msgid "The domain is set as read only. You cannot add name servers"
-msgstr ""
+msgstr "Domenet er skrivebeskyttet. Du kan ikke legge til navne servere"
 
 #: src/EBox/Model/NameServer.pm:159
 msgid "Name servers"

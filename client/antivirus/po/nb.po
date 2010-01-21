@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:06+0100\n"
-"PO-Revision-Date: 2009-12-04 09:04+0100\n"
+"PO-Revision-Date: 2010-01-15 09:34+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -43,9 +43,8 @@ msgid "Date"
 msgstr "Dato"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-#, fuzzy
 msgid "Database Update Status"
-msgstr "Antivirus Database Oppdater Status"
+msgstr "Database Oppdaterings Status"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
 msgid ""

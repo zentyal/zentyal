@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:07+0100\n"
-"PO-Revision-Date: 2007-02-02 18:08+0000\n"
-"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
+"PO-Revision-Date: 2010-01-14 12:44+0100\n"
+"Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Pootle 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:232
 #: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
@@ -63,7 +63,7 @@ msgstr ""
 
 #: src/EBox/DNS.pm.in:580
 msgid "Let the bind daemon to be dynamically updated"
-msgstr ""
+msgstr "Permitir que demonio bind sea actualizado automáticamente"
 
 #: src/EBox/Model/HostnameTable.pm:135
 #, perl-brace-format
@@ -115,17 +115,16 @@ msgid "Mail Exchangers"
 msgstr "Intercambiadores de correo"
 
 #: src/EBox/Model/DomainTable.pm:194
-#, fuzzy
 msgid "Name Servers"
-msgstr "Servidor DNS"
+msgstr "Servidores de nombres"
 
 #: src/EBox/Model/DomainTable.pm:210
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinámico"
 
 #: src/EBox/Model/DomainTable.pm:214
 msgid "A domain is dynamic when the DHCP server updates the domain"
-msgstr ""
+msgstr "Un dominio es dinámico cuando el servidor DHCP actualiza el dominio"
 
 #: src/EBox/Model/DomainTable.pm:231
 #, fuzzy
@@ -226,11 +225,12 @@ msgstr ""
 #: src/EBox/Model/NameServer.pm:112
 msgid "The domain is set as read only. You cannot add name servers"
 msgstr ""
+"El dominio está establecido como de sólo lectura. No puedes añadir "
+"servidores de nombres"
 
 #: src/EBox/Model/NameServer.pm:159
-#, fuzzy
 msgid "Name servers"
-msgstr "Servidor DNS"
+msgstr "Servidores de nombres"
 
 #: src/EBox/Model/NameServer.pm:165
 msgid "It manages the name server (NS) records for this domain"

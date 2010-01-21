@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:10+0100\n"
-"PO-Revision-Date: 2009-12-04 09:50+0100\n"
+"PO-Revision-Date: 2010-01-20 16:05+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -45,12 +45,12 @@ msgstr "Kvote kan bare være et positiv nummer vra null til uendelig kvote"
 #: src/EBox/MailAliasLdap.pm:62
 #, perl-brace-format
 msgid "{ac} is not a internal account"
-msgstr ""
+msgstr "{ac} er ikke en intern konto"
 
 #: src/EBox/MailAliasLdap.pm:79
 #, perl-brace-format
 msgid "{ac} is not a external account"
-msgstr ""
+msgstr "{ac} er ikke en ekstern konto"
 
 #: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
@@ -59,12 +59,11 @@ msgstr "e-post alias"
 #: src/EBox/MailAliasLdap.pm:113
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliasese are not allowed"
-msgstr ""
+msgstr "{ac} er et epost alias. Alias av aliaser er ikke tillatt"
 
 #: src/EBox/MailAliasLdap.pm:132
-#, fuzzy
 msgid "group alias"
-msgstr "gruppe alias e-post"
+msgstr "gruppe alias"
 
 #: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
 msgid "Domain alias"
@@ -131,9 +130,8 @@ msgid "Mail address"
 msgstr "E-post adresse"
 
 #: src/EBox/CGI/DelGroupAlias.pm:45
-#, fuzzy
 msgid "alias"
-msgstr "e-post alias"
+msgstr "alias"
 
 #: src/EBox/CGI/DelGroupAlias.pm:50
 msgid "group alias mail"
@@ -209,36 +207,33 @@ msgid ""
 "There are not network objects in the system. You can create them in the "
 "{openurl}Object's page{closeurl}"
 msgstr ""
+"Det er ingen nettverks objekter i systemet. Du kan opprette dem i "
+"{openurl}Object's page{closeurl}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
-#, fuzzy
 msgid "Alias"
 msgstr "Alias"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:59
 msgid "The mail domain is apended automaticallu"
-msgstr ""
+msgstr "Epost domenet blir lagt til automatisk"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:63
-#, fuzzy
 msgid "External account"
-msgstr "e-post konto"
+msgstr "Ekstern konto"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
 #: src/EBox/Mail/Model/VDomainAliases.pm:57
 msgid "Aliases"
-msgstr "Alias"
+msgstr "Aliaser"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
-#, fuzzy
 msgid "External account alias"
-msgstr "E-post konto innstillinger"
+msgstr "Eksterne konto aliaser"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:86
-#, fuzzy
 msgid "External account alias added. You must save changes to use this alias"
-msgstr ""
-"Virtuelt domene lagt til. Du må lagre endringer for å bruke dette domenet"
+msgstr "Ekstern konto lagt til. Du må lagre endringer for å bruke dette aliaset"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:126
 #, perl-brace-format
@@ -247,6 +242,9 @@ msgid ""
 "virtual domain aliases are not supported. Please add the alias belonging to "
 "a real domain"
 msgstr ""
+"Kan ikke legge til alias fordi domene {vd} er et alias og aliaser tilhørende "
+"virtuelle domene aliaser er ikke støttet. Vennligst legg til alias "
+"tilhørende et ekte domene"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:133
 #, perl-brace-format
@@ -254,12 +252,15 @@ msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
 "server"
 msgstr ""
+"Can ikke legge til alias fordi domene {vd} er ikke et virtuelt domene "
+"administrert av denne serveren"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:151
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
 msgstr ""
+"Alias kontoen bør skrives uten domene delen. Det vil bli lagt til automatisk"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:229
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
@@ -314,14 +315,12 @@ msgstr "tilpasset"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:66
 #: src/EBox/Mail/Model/ExternalAccounts.pm:118
-#, fuzzy
 msgid "External mail accounts"
-msgstr "Opprett e-post konto"
+msgstr "Eksterne epost kontoer"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:85
-#, fuzzy
 msgid "External mail address"
-msgstr "E-post adresse"
+msgstr "Ekstern epost konto"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:92
 #: src/EBox/Mail/Model/SMTPOptions.pm:107
@@ -330,42 +329,41 @@ msgstr "Passord"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:99
 #: src/EBox/Mail/Composite/General.pm:78
-#, fuzzy
 msgid "Mail server"
-msgstr "E-post SMTP server"
+msgstr "Epost server"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:119
-#, fuzzy
 msgid "external mail account"
-msgstr "Opprett e-post konto"
+msgstr "Ekstern epost konto"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:142
 msgid "Secure POP3"
-msgstr ""
+msgstr "Sikker POP3"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:150
 msgid "Secure IMAP"
-msgstr ""
+msgstr "Sikker IMAP"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:281
 msgid "External account added"
-msgstr ""
+msgstr "Ekstern konto lagt til"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:305
 #, perl-brace-format
 msgid "External account {ac} removed"
-msgstr ""
+msgstr "Ekstern konto {ac} fjernet"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:399
 msgid ""
 "Cannot retrieve mail from external ccounts because do you dont have a email "
 "account in a local mail domain"
 msgstr ""
+"Kan ikke hente epost fra eksterne kontoer fordi du ikke har en epost konto "
+"på et lokalt domene"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
-#, fuzzy
 msgid "List of Aliases"
-msgstr "Alias"
+msgstr "Liste med Alias"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:78
 msgid "virtual domain alias"
@@ -416,12 +414,11 @@ msgstr "Bruker"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:120
 msgid "Server mailname"
-msgstr ""
+msgstr "Sever epost navn"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:124
-#, fuzzy
 msgid "FQDN hostname"
-msgstr "Fra verts navn"
+msgstr "FQDN verts navn"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:135
 msgid "Return address for mail bounced back to the sender"
@@ -486,49 +483,43 @@ msgstr "Smarthosts port"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "Send a copy of all mail domains"
-msgstr ""
+msgstr "Send en kopi av alle epost domener"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:60
 msgid "The mail will be a blind carbon copy."
-msgstr ""
+msgstr "Eposten vil bli en blind kopi."
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:64
-#, fuzzy
 msgid "Disabled"
-msgstr "deaktivert"
+msgstr "Deaktivert"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:68
 msgid "Address to sent the copy"
-msgstr ""
+msgstr "Adressen kopien skal sendes til"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:79
-#, fuzzy
 msgid "Virtual domain settings"
-msgstr "virtuelt domene"
+msgstr "Virtuelt domene instillinger"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:66
-#, fuzzy
 msgid "POP3 service enabled"
-msgstr "POP3 tjeneste"
+msgstr "POP3 tjeneste aktivert"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:72
-#, fuzzy
 msgid "Secure POP3S service enabled"
-msgstr "POP3S tjeneste"
+msgstr "Sikker POP3S tjeneste aktivert"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:78
-#, fuzzy
 msgid "IMAP service enabled"
-msgstr "IMAP tjeneste"
+msgstr "IMAP tjeneste aktivert"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:84
-#, fuzzy
 msgid "Secure IMAPS service enabled"
-msgstr "IMAPS tjeneste"
+msgstr "Sikker IMAPS tjeneste aktivert"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:90
 msgid "Retrieve mail for external accounts"
-msgstr ""
+msgstr "Hente epost for eksterne kontoer"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:92
 msgid ""
@@ -536,10 +527,12 @@ msgid ""
 "delivered to their local account. External account can be configured in the "
 "user's corner."
 msgstr ""
+"Dette lar brukere å hente epost for eksterne kontoer, eposten vil bli levert "
+"til deres lokale konto. Ekstere kontoer kan konfigureres i bruker hjørne."
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:97
 msgid "Manage SIEVE scripts"
-msgstr ""
+msgstr "Behandle SIEVE skript"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:99
 msgid ""
@@ -554,24 +547,20 @@ msgid "Mail retrieval services"
 msgstr "E-post hente tjenester"
 
 #: src/EBox/Mail/Model/MailUser.pm:52
-#, fuzzy
 msgid "Mail Account"
-msgstr "E-post konto"
+msgstr "E-post Konto"
 
 #: src/EBox/Mail/Model/MailUser.pm:55
-#, fuzzy
 msgid "Create mail account user@domain"
-msgstr "Opprett e-post konto"
+msgstr "Opprett e-post konto bruker@domene"
 
 #: src/EBox/Mail/Model/MailUser.pm:59
-#, fuzzy
 msgid "Default Domain"
-msgstr "Standard kvote"
+msgstr "Standard Domene"
 
 #: src/EBox/Mail/Model/MailUser.pm:97
-#, fuzzy
 msgid "You haven't create a mail domain yet"
-msgstr "Trykk her for å opprette et nytt e-post virtuelt domene"
+msgstr "Du har ikke opprettet epost domene enda"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
 msgid "Enabled"
@@ -612,28 +601,24 @@ msgid "Name"
 msgstr "Navn"
 
 #: src/EBox/Mail/Model/VDomains.pm:64
-#, fuzzy
 msgid "Virtual domain aliases"
-msgstr "virtuelt domene alias"
+msgstr "Virtuelt domene alias"
 
 #: src/EBox/Mail/Model/VDomains.pm:71
-#, fuzzy
 msgid "External accounts aliases"
-msgstr "E-post konto innstillinger"
+msgstr "Eksterne konto aliaser"
 
 #: src/EBox/Mail/Model/VDomains.pm:78
 msgid "Settings"
-msgstr ""
+msgstr "Instillinger"
 
 #: src/EBox/Mail/Model/VDomains.pm:90
-#, fuzzy
 msgid "List of Domains"
-msgstr "Virtuelle E-post Domener"
+msgstr "Domene liste"
 
 #: src/EBox/Mail/Model/VDomains.pm:91
-#, fuzzy
 msgid "Virtual Domains"
-msgstr "Virtuelle E-post Domener"
+msgstr "Virtuelle Domener"
 
 #: src/EBox/Mail/Model/VDomains.pm:103
 msgid "Virtual domain added. You must save changes to use this domain"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:11+0100\n"
-"PO-Revision-Date: 2009-12-04 10:01+0100\n"
+"PO-Revision-Date: 2010-01-20 13:53+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -143,22 +143,20 @@ msgid "No domain key found for this service"
 msgstr "Ingen domene nøkkel funnet for denne tjenesten"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:151
-#, fuzzy
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system."
 msgstr ""
 "Abonnement ble utført korrekt. Vent et minutt for å la abonnementet utbre "
-"seg gjennom systemet"
+"seg gjennom systemet."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:154
-#, fuzzy
 msgid "Subscription data retrieved correctly."
-msgstr "Abonnements data mottatt korrekt"
+msgstr "Abonnements data mottatt korrekt."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:156
 msgid "Please, save changes"
-msgstr ""
+msgstr "Vennligst, lagre endringer"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:181
 msgid "Done"
@@ -169,38 +167,40 @@ msgid ""
 "Subscribing an eBox will configure OpenVPN module by running these actions "
 "and modifying these files: "
 msgstr ""
+"Abbonering på en eBox vil konfigurere OpenVPN modulen ved kjøring av disse "
+"handlingene og endre disse filene: "
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:263
 msgid "Subscribing an eBox will enable the OpenVPN module."
-msgstr ""
+msgstr "Abbonering av en eBox vil aktivere OpenVPN modulen."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:266
 msgid ""
 "Take into account that subscribing an eBox could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
+"Vær oppmerksom på at abbonering av en eBox kan ta noen minutter. Ikke rør "
+"noe intill abbonerings prosessen er ferdig."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:302
-#, fuzzy
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
-"Før man oppretter abonnement på eksterne tjenester, aktiver OpenVPN modulen "
-"og lagre eller forkast dens endringer"
+"Før man oppretter abonnement på eksterne tjenester, lagre eller forkast "
+"endringer i OpenVPN modulen"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:322
 msgid "User Name or Email Address"
-msgstr ""
+msgstr "Bruker Navn eller Epost Adresse"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:330
-#, fuzzy
 msgid "eBox Name"
-msgstr "eBox vanlig navn"
+msgstr "eBox Navn"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:335
 msgid "Choose a name for your eBox which is a valid domain name"
-msgstr ""
+msgstr "Velg et navn for din eBox som er et gyldig domene navn"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:342
 msgid "Password"
@@ -233,17 +233,16 @@ msgstr ""
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:435
 msgid "Action"
-msgstr ""
+msgstr "Handling"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:436
 #: src/EBox/RemoteServices/Model/Subscription.pm:449
-#, fuzzy
 msgid "Reason"
-msgstr "Gjenopprett"
+msgstr "Årsak"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:448
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -302,19 +301,17 @@ msgid "Control Center"
 msgstr "Kontroll Senter"
 
 #: src/EBox/RemoteServices.pm:245
-#, fuzzy
 msgid "eBox Control Center Connection"
-msgstr "Kontroll Senter Klient"
+msgstr "eBox Kontroll Senter Tilkobling"
 
 #: src/EBox/RemoteServices.pm:573
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
-msgstr ""
+msgstr "Ikke tilkoblet. Kontroller VPN logger i {path}"
 
 #: src/EBox/RemoteServices.pm:577
-#, fuzzy
 msgid "Connected"
-msgstr "Tilkoblings feil"
+msgstr "Tilkoblet"
 
 #~ msgid "User name"
 #~ msgstr "Bruker navn"

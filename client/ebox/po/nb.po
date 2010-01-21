@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:09+0100\n"
-"PO-Revision-Date: 2009-12-04 09:37+0100\n"
+"PO-Revision-Date: 2010-01-15 14:53+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -165,9 +165,8 @@ msgstr "Hendelser"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:390
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
-#, fuzzy
 msgid "Log Observer Watcher"
-msgstr "Logg overvåker"
+msgstr "Logg Observatør Overvåker"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
@@ -219,9 +218,8 @@ msgid "Configure disk free space watcher"
 msgstr "Konfigurer disk ledig plass overvåker"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
-#, fuzzy
 msgid "Free Disk Space Watcher"
-msgstr "Konfigurer disk ledig plass overvåker"
+msgstr "Ledig Disk Plass Overvåker"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
@@ -370,9 +368,8 @@ msgid "Jabber dispatcher configuration updated"
 msgstr "Jabber tildeler konfigurasjon oppdatert"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
-#, fuzzy
 msgid "Jabber Dispatcher"
-msgstr "Konfigurer Jabber tildeler"
+msgstr "Jabber Tildeler"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
 msgid "It should follow the pattern 'user@domain[/resource]'"
@@ -427,22 +424,19 @@ msgid "RSS dispatcher configuration updated"
 msgstr "RSS fordeler konfigurasjon oppdatert"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:329
-#, fuzzy
 msgid "RSS Dispatcher"
-msgstr "tildeler"
+msgstr "RSS Tildeler"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:50
 #: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:808
-#, fuzzy
 msgid "Source"
-msgstr "Tjeneste"
+msgstr "Kilde"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:51
 #: src/EBox/Events/Model/Report/EventsDetails.pm:80
 #: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:815
-#, fuzzy
 msgid "Informative"
-msgstr "System Informasjon"
+msgstr "Informativ"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
@@ -455,13 +449,13 @@ msgstr "Advarsel"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:88
 #: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:817
 msgid "Error"
-msgstr ""
+msgstr "Feil"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:54
 #: src/EBox/Events/Model/Report/EventsDetails.pm:92
 #: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
 msgid "Fatal error"
-msgstr ""
+msgstr "Fatal feil"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
 #: src/templates/finish.mas:105 src/templates/backup.mas:128
@@ -470,29 +464,24 @@ msgid "Date"
 msgstr "Dato"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:101
-#, fuzzy
 msgid "Events details"
-msgstr "Hendelser"
+msgstr "Hendelses detaljer"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:60
-#, fuzzy
 msgid "Events summarized chart"
-msgstr "Hendelses tjeneste status"
+msgstr "Hendelses sammenlagt oversikt"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:77
-#, fuzzy
 msgid "Events summarized graph"
-msgstr "Oppsumert rapport"
+msgstr "Hendelses oppsumert graf"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:70
-#, fuzzy
 msgid "Events reports"
-msgstr "Velg rapport"
+msgstr "Hendelses rapporter"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:71
-#, fuzzy
 msgid "Events report"
-msgstr "Velg rapport"
+msgstr "Hendelses rapport"
 
 #: src/EBox/EventDaemon.pm:451
 #, perl-brace-format
@@ -520,9 +509,8 @@ msgid "Query Logs"
 msgstr "Spørre logger"
 
 #: src/EBox/CGI/Logs/Index.pm:329
-#, fuzzy
 msgid "Full Reports"
-msgstr "Full rapport"
+msgstr "Fulle rapporter"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
@@ -969,18 +957,17 @@ msgid "spare"
 msgstr "reserve"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "Følgende moduler kjører ikke: {modules}\n"
+msgstr "Følgende moduler kjører ikke men er aktivert: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
 msgstr "Tjeneste"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
-#, fuzzy
 msgid "Check if any eBox service is not running when it is enabled"
-msgstr "Kontroller om noen eBox tjenester ikke kjører når de burde"
+msgstr "Kontroller om noen eBox tjenester ikke kjører når de er aktivert"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -1284,14 +1271,12 @@ msgid "Enable service"
 msgstr "Aktiver tjeneste"
 
 #: src/EBox/Events.pm:200
-#, fuzzy
 msgid "Initialize event dispatchers table"
-msgstr "Aktiver/Deaktiver hver hendelses tildeler"
+msgstr "Initsialiser hendelses tildeler tabell"
 
 #: src/EBox/Events.pm:201
-#, fuzzy
 msgid "Enable default log dispatcher"
-msgstr "Aktiver/Deaktiver hver hendelses tildeler"
+msgstr "Aktiver standard logg tildeler"
 
 #: src/EBox/Events.pm:499
 msgid "The events module is not enabled to send events"
@@ -1302,24 +1287,20 @@ msgid "Event service status"
 msgstr "Hendelses tjeneste status"
 
 #: src/EBox/Events.pm:804
-#, fuzzy
 msgid "Date of first event"
-msgstr "Lagre som hendelse"
+msgstr "Datoen til første hendelse"
 
 #: src/EBox/Events.pm:805
-#, fuzzy
 msgid "Date of last event"
-msgstr "Lagre som hendelse"
+msgstr "Datoen til siste hendelse"
 
 #: src/EBox/Events.pm:806
-#, fuzzy
 msgid "Repetitions"
-msgstr "Rapport alternativer"
+msgstr "Repetisjoner"
 
 #: src/EBox/Events.pm:807
-#, fuzzy
 msgid "Level"
-msgstr "hendelse"
+msgstr "Nivå"
 
 #: src/EBox/Events.pm:809 src/templates/finish.mas:107
 msgid "Message"
@@ -1878,9 +1859,8 @@ msgid "Starting..."
 msgstr "Starter..."
 
 #: src/templates/logs/index.mas:20
-#, fuzzy
 msgid "Log Domain"
-msgstr "Domene"
+msgstr "Logg Domene"
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"

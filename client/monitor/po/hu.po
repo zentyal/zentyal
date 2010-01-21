@@ -8,52 +8,57 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:58+0000\n"
-"PO-Revision-Date: 2009-01-21 10:15+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-15 14:23+0100\n"
+"Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:133
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:147
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:157
 msgid "not applicable"
-msgstr ""
+msgstr "nem alkalmazható"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:145
 msgid "any"
-msgstr ""
+msgstr "bármi (valami)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr ""
+msgstr "Legalább egy határértéket (minimum vagy maximum) be kell állítani!"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 msgid "This threshold rule will override the current ones"
-msgstr ""
+msgstr "Ez a határérték felülírja az aktuális (meglévő) értéket!"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:156
 msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr ""
+"Az aktuális monitoring eszköz nem támogatja a különbségtételt az "
+"adatforrások között."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:221
 msgid "Failure minimum"
-msgstr ""
+msgstr "Hiba (minimum értéke)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:224
 msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr ""
+"Be kell állítani a legkisebb elfogadható értéket. Ha nincs beállítva az "
+"alapértelmezett érték, akkor negatív (?)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:229
 msgid "Warning minimum"
-msgstr ""
+msgstr "Figyelmeztetés (minimum értéke)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #, perl-brace-format
@@ -61,15 +66,17 @@ msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
+"Ha az érték kisebb mint ez az érték és nagyobb mint {fmin}, akkor "
+"figyelmeztetést küld."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:234
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
 msgid "failure minimum"
-msgstr ""
+msgstr "Hiba (minimum értéke)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
 msgid "Warning maximum"
-msgstr ""
+msgstr "Figyelmeztetés (minimum értéke)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #, perl-brace-format
@@ -77,25 +84,29 @@ msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr ""
+"Ha az érték nagyobb mint ez az érték és kisebb mint {fmax}, akkor "
+"figyelmeztetést küld."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
 msgid "failure maximum"
-msgstr ""
+msgstr "Hiba (maximum értéke)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:247
 msgid "Failure maximum"
-msgstr ""
+msgstr "Hiba (maximum értéke)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:250
 msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
 msgstr ""
+"Be kell állítani a legnagyobb elfogadható értéket. Ha nincs beállítva az "
+"alapértelmezett érték, akkor pozítív (?)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
 msgid "Invert"
-msgstr ""
+msgstr "inverz (csere)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #, perl-brace-format
@@ -103,18 +114,20 @@ msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
 msgstr ""
+"Ha a beállítás igaz, akkor a tartomány elfogadható értékeit cserélni kell, "
+"azaz az {fmin} és {fmax} ({wmin} és {wmax}), amíg nem lesz jó."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning minimum"
-msgstr ""
+msgstr "Figyelmeztetés (minimum értéke)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning maximum"
-msgstr ""
+msgstr "Figyelmeztetés (maximum értéke)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:265
 msgid "Persistent"
-msgstr ""
+msgstr "állandó"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:268
 msgid ""
@@ -122,36 +135,39 @@ msgid ""
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
 msgstr ""
+"Ha a beállítás igaz, akkor egy jelentés generálódik minden értékről, amely "
+"kívül esik az elfogadható tartományon. Ha a beállítás hamis, akkor csak az "
+"elfogadhatatlan értékekről küld értesítést."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "Measure instance"
-msgstr ""
+msgstr "mértékegység értékek (?)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
 msgid "Type"
-msgstr ""
+msgstr "típus"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:287
 msgid "Data Source"
-msgstr ""
+msgstr "adatforrás"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
 msgid "Threshold configuration"
-msgstr ""
+msgstr "határérték beállítás"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 msgid "Threshold's list"
-msgstr ""
+msgstr "határérték lista"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:298
 msgid "Threshold"
-msgstr ""
+msgstr "határérték"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:302
 #, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
-msgstr ""
+msgstr "Mindig ellenőrzi a legmagasabb felbontást: {nSec} másodperc"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:304
 #, perl-brace-format
@@ -159,122 +175,130 @@ msgid ""
 "Take into account this configuration will be only applied if monitor "
 "{openhref}event watcher is enabled{closehref}"
 msgstr ""
+"Csak akkor veszi figyelembe a konfigurációnál alkalmazott értékeket, ha a "
+"monitor {openhref}eseményőr bekapcsolt állapotú{closehref}."
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:122
 msgid "Measure"
-msgstr ""
+msgstr "mértékegység"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:129
 msgid "Thresholds"
-msgstr ""
+msgstr "határértékek"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:138
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "beállítja a monitorőrzőt"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:139
 msgid "measure"
-msgstr ""
+msgstr "mértékegység"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:144
 msgid "Every measure may have several thresholds to monitor"
-msgstr ""
+msgstr "Minden mértékegységhez több határérték tartozhat?"
 
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr ""
+msgstr "legutóbbi óra"
 
 #: src/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr ""
+msgstr "legutóbbi nap"
 
 #: src/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr ""
+msgstr "legutóbbi hónap"
 
 #: src/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr ""
+msgstr "legutóbbi év"
 
 #: src/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
-msgstr ""
+msgstr "rendszerterheltség (?)"
 
 #: src/EBox/Monitor/Measure/Load.pm:56
 msgid "Collect the system load that gives a rough overview of the system usage"
 msgstr ""
+"Összegyűjti a rendszerterhelésről a hozzávetőleges rendszerhasználati "
+"adatokat (áttekintést nyújt)."
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "short term"
-msgstr ""
+msgstr "rövidtávú időszak"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "mid term"
-msgstr ""
+msgstr "középtávú időszak"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "long term"
-msgstr ""
+msgstr "hosszú időszak"
 
 #: src/EBox/Monitor/Measure/Df.pm:76
 #, perl-brace-format
 msgid "used in {partition}"
-msgstr ""
+msgstr "használatban {partiton}"
 
 #: src/EBox/Monitor/Measure/Df.pm:78
 #, perl-brace-format
 msgid "free in {partition}"
-msgstr ""
+msgstr "szabadon {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:83
 msgid "File system usage"
-msgstr ""
+msgstr "fájlrendszer használat"
 
 #: src/EBox/Monitor/Measure/Df.pm:84
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
 msgstr ""
+"Összegyűjti a fájlrendszer használatával összefüggő információkat (a \"df\" "
+"parancs mintájára)."
 
 #: src/EBox/Monitor/Measure/Thermal.pm:111
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 msgid "temperature"
-msgstr ""
+msgstr "hőmérséklet"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:129
 msgid "cooling device"
-msgstr ""
+msgstr "hűtőberendezés"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:131
 msgid "sensor"
-msgstr ""
+msgstr "érzékelő"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:133
 #, perl-brace-format
 msgid "Temperature for {what}"
-msgstr ""
+msgstr "hőmérséklet {what}"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:139
 msgid "Thermal"
-msgstr ""
+msgstr "processzor (CPU) hőmérséklet"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:140
 #, perl-brace-format
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
 msgstr ""
+"Összegyűjti a processzor (CPU) érzékelő hőmérséklet értékeit, ha lehetséges "
+"{dir}"
 
 #: src/EBox/Monitor/Measure/Base.pm:621
 msgid "value"
-msgstr ""
+msgstr "érték"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
 msgid "CPU {no} usage"
-msgstr ""
+msgstr "processzor (CPU) {no} használat"
 
 #: src/EBox/Monitor/Measure/CPU.pm:65
 msgid "CPU usage"
-msgstr ""
+msgstr "processzor (CPU) használat"
 
 #: src/EBox/Monitor/Measure/CPU.pm:66
 msgid ""
@@ -285,63 +309,63 @@ msgstr ""
 
 #: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "idle"
-msgstr ""
+msgstr "üresjárat"
 
 #: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "user"
-msgstr ""
+msgstr "felhasználó"
 
 #: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "interrupt"
-msgstr ""
+msgstr "megszakítás (IRQ)"
 
 #: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "nice"
-msgstr ""
+msgstr "pontos (?)"
 
 #: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
-msgstr ""
+msgstr "szoftveres megszakítás"
 
 #: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "steal"
-msgstr ""
+msgstr "előzés (?)"
 
 #: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
-msgstr ""
+msgstr "rendszer"
 
 #: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
-msgstr ""
+msgstr "várakozás"
 
 #: src/EBox/Monitor/Measure/Memory.pm:55
 msgid "Physical memory usage"
-msgstr ""
+msgstr "fizikai memória használat"
 
 #: src/EBox/Monitor/Measure/Memory.pm:56
 msgid "Collect the physical memory usage"
-msgstr ""
+msgstr "Összegyűjti a fizikai memória használat értékeit."
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "free"
-msgstr ""
+msgstr "szabad"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
-msgstr ""
+msgstr "lap gyorsítótár (page cache)"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "buffer cache"
-msgstr ""
+msgstr "puffer (átmeneti) gyorsítótár (buffer cache)"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
-msgstr ""
+msgstr "használt"
 
 #: src/EBox/CGI/Index.pm:44
 msgid "Monitoring"
-msgstr ""
+msgstr "monitoring"
 
 #: src/EBox/CGI/Index.pm:70
 #, perl-brace-format
@@ -361,36 +385,37 @@ msgstr ""
 #: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
 #: src/EBox/Monitor.pm:164
 msgid "Monitor"
-msgstr ""
+msgstr "Monitor"
 
 #: src/EBox/Event/Watcher/Monitor.pm:162
 msgid "Notify when a certain value has reached a certain threshold"
-msgstr ""
+msgstr "Értesít mikor egyes érték(ek) elérnek bizonyos határérték(ek)et."
 
 #: src/EBox/Event/Watcher/Monitor.pm:302
 #, perl-brace-format
 msgid "{what} \"{dS}\" is currently {value}."
-msgstr ""
+msgstr "{what} \"{dS}\" jelenlegi értéke {value}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:308
 #, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}."
 msgstr ""
+"Ennek {severity} a tartományon belül kell lennie {minBound} és {maxBound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:315
 #, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}."
-msgstr ""
+msgstr "Ennek {severity} a határérték {bound} fölött kell lennie."
 
 #: src/EBox/Event/Watcher/Monitor.pm:318
 #, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}."
-msgstr ""
+msgstr "Ennek {severity} a határérték {bound} alatt kell lennie."
 
 #: src/EBox/Monitor.pm:133
 msgid "Collectd main configuration file"
-msgstr ""
+msgstr "A 'Collectd' a fő beállító (konfigurációs) fájl."
 
 #: src/EBox/Monitor.pm:137
 msgid "Collectd threshold configuration file"
-msgstr ""
+msgstr "'Collectd' határérték beállító (konfigurációs) fájl."

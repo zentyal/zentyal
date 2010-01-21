@@ -5,155 +5,156 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 1.3.14"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-ebox 1.3.14Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-22 10:47+0100\n"
-"PO-Revision-Date: 2009-01-22 10:47+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-15 13:40+0100\n"
+"Last-Translator: Zoran <zoran@atlantisti.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "Admin Jabber nalog"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
-msgstr ""
+msgstr "Jabber server {serverName} ne radi ili nije dozvoljena konekcija"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "Podpis neuspešan : {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "Autorizacija neuspešna: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "RSS datoteka: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
-msgstr ""
+msgstr "eBox alarmni kanali za {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
-msgstr ""
+msgstr "Ovaj kanal prati dešavanja svo vreme na eBox mašini "
 
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
-msgstr ""
+msgstr "Desilo se nešto na eBox-u {hostname} od {source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "Idi na svoju {url} da bi proverio status."
 
 #: src/EBox/Event/Dispatcher/Log.pm:116
 msgid "Log file"
-msgstr ""
+msgstr "Log datoteka"
 
 #: src/EBox/Event/Dispatcher/Log.pm:129
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr ""
+msgstr "Dispečer {name} nije konfigurisan da bi radio"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
-msgstr ""
+msgstr "Kontrolna tabla"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:161
 msgid "Control center"
-msgstr ""
+msgstr "Kontrolni centar"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr ""
+msgstr "HDisk format {fs}, montiran na {mp}, nema slobodnog prostora"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr ""
+msgstr "Slobodan prostor na HDD-u"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
-msgstr ""
+msgstr "Proveri da li je i na jednoj particiji ostalo slobodnog prostora"
 
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
-msgstr ""
+msgstr "Proveri da li se nešto desilo na RAID podsistemu"
 
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr ""
+msgstr "Informacija o novom nizu  RAID uređaja {devName} :"
 
+# State of what
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
-msgstr ""
+msgstr "Stanje: {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
-msgstr ""
+msgstr "Tip: {type}"
 
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
-msgstr ""
+msgstr "Potreban je aktivan uređaj: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
-msgstr ""
+msgstr "Aktivni uređaj: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
-msgstr ""
+msgstr "U toku je operacija: {operation}"
 
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
-msgstr ""
+msgstr "Procenat kompletirane operacije je: {per}"
 
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
-msgstr ""
+msgstr "Predviđeno vreme za završetak operacije je: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
-msgstr ""
+msgstr "Raid komponenta {nb}: uređaj {device} stanje {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format
@@ -161,11 +162,13 @@ msgid ""
 "RAID device {name} has dissappeared: A RAID array which previously was "
 "configured appears to no longer be configured"
 msgstr ""
+"RAID uređaj {name} je nestao: Predhodno konfigurisani RAID niz izgleda da se "
+"ne može više konfigurisati"
 
 #: src/EBox/Event/Watcher/RAID.pm:355
 #, perl-brace-format
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
-msgstr ""
+msgstr "RAID uređaj {name} je promenio stanje od {oldState} do {newState}"
 
 #: src/EBox/Event/Watcher/RAID.pm:375
 #, perl-brace-format
@@ -173,37 +176,40 @@ msgid ""
 "RAID device {name} has changed its number of active components from {oldNum} "
 "to {newNum}"
 msgstr ""
+"RAID uređaj {name} je promenio broj aktivnih komponenti od {oldNum} do "
+"{newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}"
-msgstr ""
+msgstr "RAID uređaj {name} je odpočeo operaciju {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:405
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted"
-msgstr ""
+msgstr "RAID uređaj {name} je završio operaciju {opName} ili je otkazao istu"
 
 #: src/EBox/Event/Watcher/RAID.pm:411
 #, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started {newOpName}"
 msgstr ""
+"RAID uređaj {name} je završio operaciju {oldOpName} i odpočeo {newOpName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:421
 #, perl-brace-format
 msgid "RAID device {name} is performing operation {opName}"
-msgstr ""
+msgstr "RAID uređaj {name} obavlja operaciju {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:430
 #, perl-brace-format
 msgid "Status: {percentage} completed"
-msgstr ""
+msgstr "Stanje: {percentage} kompletirano"
 
 #: src/EBox/Event/Watcher/RAID.pm:432
 #, perl-brace-format
 msgid "Estimated finish time: {time}"
-msgstr ""
+msgstr "Očekivano vreme završetka: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:463
 #, perl-brace-format
@@ -211,6 +217,8 @@ msgid ""
 "Active component {compName} from RAID array {arrayName} has been marked as "
 "faulty"
 msgstr ""
+"Aktivna komponenta {compName} iz RAID niza {arrayName} je markirana kao "
+"neispravna"
 
 #: src/EBox/Event/Watcher/RAID.pm:472
 #, perl-brace-format
@@ -218,6 +226,8 @@ msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
 "rebuilt to replace a faulty device has failed"
 msgstr ""
+"Rezervna komponenta {compName} iz RAID niza {arrayName} koji je obnavljen da "
+"bi zamenili pokvaren uređaj je neispravna"
 
 #: src/EBox/Event/Watcher/RAID.pm:482
 #, perl-brace-format
@@ -226,6 +236,8 @@ msgid ""
 "rebuilt to replace a faulty device has been successfully rebuilt and has "
 "been made active"
 msgstr ""
+"Rezervna komponenta {compName} iz RAID niza {arrayName} koji je obnavljen da "
+"bi zamenili pokvaren uređaj je uspešno obnovljena i aktivna"
 
 #: src/EBox/Event/Watcher/RAID.pm:495
 #, perl-brace-format
@@ -233,6 +245,8 @@ msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
 "with status {status}"
 msgstr ""
+"Nova komponenta {compName} je (hot) dodata  RAID uređaju {arrayName} sa "
+"statusom {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:508
 #, perl-brace-format
@@ -240,97 +254,101 @@ msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
 "its status was {status}"
 msgstr ""
+"Komponenta {compName} je (hot) odstranjena sa RAID niza {arrayName} kada je "
+"imala status {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
 #: src/templates/report/raid.mas:101
 msgid "active"
-msgstr ""
+msgstr "aktivan"
 
 #: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:103
 msgid "degraded"
-msgstr ""
+msgstr "degradiranih"
 
 #: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:105
 msgid "recovering"
-msgstr ""
+msgstr "oporavlja"
 
 #: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:107
 msgid "resyncing"
-msgstr ""
+msgstr "resinhonizacija"
 
 #: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:111
 msgid "rebuilding"
-msgstr ""
+msgstr "obnova"
 
 #: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:109
 msgid "reshaping"
-msgstr ""
+msgstr "reoblikovanje"
 
 #: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:113
 msgid "failed"
-msgstr ""
+msgstr "neuspešno"
 
 #: src/EBox/Event/Watcher/RAID.pm:558
 msgid "resync"
-msgstr ""
+msgstr "resinhonizacija"
 
 #: src/EBox/Event/Watcher/RAID.pm:560
 msgid "rebuild"
-msgstr ""
+msgstr "obnoviti"
 
 #: src/EBox/Event/Watcher/RAID.pm:562
 msgid "reshape"
-msgstr ""
+msgstr "reoblikovanu"
 
 #: src/EBox/Event/Watcher/RAID.pm:564
 msgid "recovery"
-msgstr ""
+msgstr "oporavak"
 
+# pogrešan
 #: src/EBox/Event/Watcher/RAID.pm:577
+#, fuzzy
 msgid "faulty"
-msgstr ""
+msgstr "neipravan"
 
 #: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:223
 msgid "spare"
-msgstr ""
+msgstr "rezervni"
 
 #: src/EBox/Event/Watcher/State.pm:126
 msgid "eBox is up and running"
-msgstr ""
+msgstr "eBox je podignut i radi"
 
 #: src/EBox/Event/Watcher/State.pm:132
 msgid "eBox is critically down"
-msgstr ""
+msgstr "eBox je oboren "
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:216
 msgid "State"
-msgstr ""
+msgstr "Stanje"
 
 #: src/EBox/Event/Watcher/State.pm:174
 msgid "Check if eBox is currently up or down"
-msgstr ""
+msgstr "Proverite da li je eBox trenutno oboren ili radi"
 
 #: src/EBox/Event/Watcher/Log.pm:203
 msgid "Log observer"
-msgstr ""
+msgstr "Pratilac log-ova"
 
 #: src/EBox/Event/Watcher/Log.pm:230
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
-msgstr ""
+msgstr "Obavesti da li je logger ({loggers}) logovao nešto"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr ""
+msgstr "Moduli koji ne rade su: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
-msgstr ""
+msgstr "Servis"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it should"
-msgstr ""
+msgstr "Proverite da li ijedan  eBox servis ne radi a trebalo bi da radi"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
@@ -338,171 +356,180 @@ msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
+"Servis {service} je restartovan {restart} toliko puta {time} u sekundi a "
+"onda stopiran"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
-msgstr ""
+msgstr "Servis podignut"
 
 #: src/EBox/Common/Model/EnableForm.pm:102
 msgid "Service disabled"
-msgstr ""
+msgstr "Servis oboren"
 
 #: src/EBox/Common/Model/EnableForm.pm:146
 msgid "Enable service"
-msgstr ""
+msgstr "Podigni servis"
 
 #: src/EBox/Types/Select.pm:260
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
-msgstr ""
+msgstr "Izaberi vrednosti iz liste: {set}"
 
 #: src/EBox/Types/Int.pm:155
 msgid "Enter an integer number"
-msgstr ""
+msgstr "Unesite ceo broj"
 
 #: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:105
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
-msgstr ""
+msgstr "Vrednost ne sme biti veća od {m}"
 
 #: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:114
 #, perl-brace-format
 msgid "The value shouldn't be less than {m}"
-msgstr ""
+msgstr "Vrednost ne sme biti manja od {m}"
 
 #: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/templates/logs/index.mas:185
 msgid "Any"
-msgstr ""
+msgstr "Svaki"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
-msgstr ""
+msgstr "svaki"
 
 #: src/EBox/Types/PortRange.pm:398
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr ""
+msgstr "\"Od\" {from} mora biti veći \"Do\" {to}"
 
 #: src/EBox/Types/Password.pm:132
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
-msgstr ""
+msgstr "Lozinka bi najmanje trebalo da ima {minLength} karaktera"
 
 #: src/EBox/Types/Password.pm:142
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
-msgstr ""
+msgstr "Lozinka bi najviše trebalo da ima {maxLength} karaktera"
 
 #: src/EBox/Types/Float.pm:97
+#, fuzzy
 msgid "Enter a float number"
-msgstr ""
+msgstr "Unesite floating-point broj"
 
 #: src/EBox/Model/DataTable.pm:322
 #, perl-brace-format
+#, fuzzy
 msgid "{model} in {module} module"
-msgstr ""
+msgstr "{model} u {module} modul"
 
 #: src/EBox/Model/DataTable.pm:326
 msgid "at"
-msgstr ""
+msgstr "u"
 
 #: src/EBox/Model/DataTable.pm:547
 msgid "field"
-msgstr ""
+msgstr "polje"
 
 #: src/EBox/Model/DataTable.pm:1442
 msgid "page"
-msgstr ""
+msgstr "strana"
 
 #: src/EBox/Model/DataTable.pm:1445
 msgid "Page must be a number equal or greater than zero"
-msgstr ""
+msgstr "Broj strana mora biti jednak ili veći od nule"
 
 #: src/EBox/Model/DataTable.pm:1963 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
 #: src/EBox/Logs.pm:641
 msgid "Action"
-msgstr ""
+msgstr "Akcija"
 
 #: src/EBox/Model/DataTable.pm:2622
 #, perl-brace-format
+#, fuzzy
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgstr "Ukloni {num} red-a-ova {rowName} od {model}{br}"
 
 #: src/EBox/Model/DataTable.pm:2693
 msgid "Page size"
-msgstr ""
+msgstr "Veličina strane"
 
 #: src/EBox/Model/DataTable.pm:2696
 msgid "Must be either a positive number or zero"
-msgstr ""
+msgstr "Mora biti 0 ili pozitivan broj"
 
 #: src/EBox/Model/DataTable.pm:2937
 #, perl-brace-format
 msgid "{row} added"
-msgstr ""
+msgstr "{row} dodaj"
 
 #: src/EBox/Model/DataTable.pm:2938
 #, perl-brace-format
 msgid "{row} deleted"
-msgstr ""
+msgstr "{row} obriši"
 
 #: src/EBox/Model/DataTable.pm:2939
 #, perl-brace-format
 msgid "{row} updated"
-msgstr ""
+msgstr "{row} ažuriraj"
 
 #: src/EBox/Model/DataTable.pm:2940
 #, perl-brace-format
 msgid "{row} moved up"
-msgstr ""
+msgstr "{row} pomeren gore"
 
 #: src/EBox/Model/DataTable.pm:2941
 #, perl-brace-format
 msgid "{row} moved down"
-msgstr ""
+msgstr "{row} pomeren dole"
 
 #: src/EBox/Model/DataTable.pm:4222
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Enabled"
-msgstr ""
+msgstr "Omogućen"
 
 #: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
 msgid "Provided object with index {i} does not exist"
-msgstr ""
+msgstr "Dati objekat sa indexom {i} nepostoji"
 
 #: src/EBox/Model/ModelManager.pm:466
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
+"Podaci koji se uklanjaju se koriste od strane \n"
+"                    u sledećim delovima:"
 
 #: src/EBox/Model/ModelManager.pm:513
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
+"Podaci koji se menjaju se koriste od strane\n"
+"\t\t\tu sledećim delovima:"
 
 #: src/EBox/Model/DataForm.pm:544
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
-msgstr ""
+msgstr "Ukloni podatke od {model}{br}"
 
 #: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
-msgstr ""
+msgstr "Promeni"
 
 #: src/EBox/Model/DataForm.pm:699
 #: src/EBox/RemoteServices/Model/Subscription.pm:171
 #: src/templates/progress.mas:22
 msgid "Done"
-msgstr ""
+msgstr "Gotovo"
 
 #: src/EBox/Model/Composite.pm:322
 #, perl-brace-format

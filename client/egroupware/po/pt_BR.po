@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:09+0100\n"
-"PO-Revision-Date: 2009-08-16 11:34+0200\n"
-"Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
+"PO-Revision-Date: 2010-01-17 17:36+0100\n"
+"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,9 +75,8 @@ msgid "DefaultApplications"
 msgstr "Aplicações padrão"
 
 #: src/EBox/Model/DefaultApplications.pm:50
-#, fuzzy
 msgid "Default Applications"
-msgstr "Aplicações padrão"
+msgstr "Aplicações Padrão"
 
 #: src/EBox/Model/DefaultApplications.pm:51
 msgid ""
@@ -92,13 +91,12 @@ msgid "Name"
 msgstr "Nome"
 
 #: src/EBox/Model/PermissionTemplates.pm:63
-#, fuzzy
 msgid "Applications Allowed"
-msgstr "Aplicações permitidas"
+msgstr "Aplicações Permitidas"
 
 #: src/EBox/Model/PermissionTemplates.pm:71
 msgid "User Defined Permission Templates"
-msgstr ""
+msgstr "Permissão de Modelos Definidos de Usuário"
 
 #: src/EBox/Model/PermissionTemplates.pm:75
 msgid "template"
@@ -117,11 +115,13 @@ msgid "No domain selected"
 msgstr "Nenhum domínio selecionado"
 
 #: src/EBox/Model/VMailDomain.pm:100
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must have at least one virtual mail domain defined. You can define the "
 "at {ohref}Virtual Domains section{chref}"
-msgstr "É necessário ter ao menos um domínio de correio virtual definido."
+msgstr ""
+"Você deve ter pelo menos um domínio de correio virtual definido. Você pode "
+"definir o {ohref} em seção domínios virtuais {chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
 #, perl-brace-format
@@ -129,6 +129,8 @@ msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
+"Você deve ter o serviço IMAP habilitado. Você pode habilitá-lo em {ohref} "
+"Configuração Geral de Correio {chref}."
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
@@ -151,7 +153,6 @@ msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Selecione o domínio virtual de correio que será usado pelo eGroupware"
 
 #: src/EBox/Composite/General.pm:76
-#, fuzzy
 msgid "eGroupware"
 msgstr "eGroupware"
 
@@ -160,6 +161,8 @@ msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+"Uma vez que o módulo é ativado e você tiver criado uma conta de usuário, "
+"você pode acessar a interface web eGroupware em http://<ebox_ip>/ egroupware"
 
 #~ msgid "You must have IMAP service enabled."
 #~ msgstr "É necessário que o serviço IMAP esteja habilitado."

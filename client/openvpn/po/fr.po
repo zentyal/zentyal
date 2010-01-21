@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:10+0100\n"
-"PO-Revision-Date: 2009-09-30 17:19+0200\n"
+"PO-Revision-Date: 2010-01-18 13:44+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -266,6 +266,7 @@ msgstr "Le tunnel eBox-à-eBox requière un mot de passe RIP"
 msgid ""
 "The VPN address could not be the same than one of its advertised networks"
 msgstr ""
+"L'adresse VPN ne peut pas être la même que l'un de ses réseaux annoncés "
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:306
 msgid "Other server is listening on the same port"
@@ -351,7 +352,6 @@ msgid "Additional server address (optional)"
 msgstr "Adresse supplémentaire du serveur (optionnelle)"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
-#, fuzzy
 msgid "Download Client Bundle"
 msgstr "Télécharger le paquetage client (client bundle)"
 
@@ -408,15 +408,13 @@ msgid "Advertised network"
 msgstr "Réseau diffusé (Advertised network)"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
-#, fuzzy
 msgid "List of Advertised Networks"
-msgstr "Réseaux publiés (Advertised networks)"
+msgstr "Réseaux diffusés (Advertised networks)"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
-#, fuzzy
 msgid ""
 "The advertised network address could not be the same than the VPN address"
-msgstr "Le certificat du client ne peut pas être le même que celui du serveur"
+msgstr "Le réseau diffusé ne peut pas être le même que l'adresse du VPN"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
 #, perl-brace-format
@@ -491,12 +489,10 @@ msgid "daemon"
 msgstr "Démon (daemon)"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
-#, fuzzy
 msgid "List of Clients"
-msgstr "Liste des réseaux"
+msgstr "Liste des Clients"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:95
-#, fuzzy
 msgid "VPN Clients"
 msgstr "Clients RPV (VPN)"
 
@@ -529,17 +525,15 @@ msgid "VPN servers"
 msgstr "Serveurs RPV (VPN)"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:165
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to use this module. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Vous ne pouvez pas créer un serveur RPV (VPN), car il n'y a pas "
-"assez de certificats.{closepar}{openpar}Veuillez aller au {openhref}module "
-"d'autorité de certification{closehref} et créer un nouveau certificat. "
-"{closepar}{openpar}. Vous avez besoin d'au moins un CA et un certificat."
-"{closepar}"
+"{openpar}Vous devez créer un certificat CA pour utiliser ce module. "
+"{closepar}{openpar}Veuillez vous rendre {openhref}au module de certificats "
+"d'autorité{closehref} et en créer un.{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:179
 msgid "Server creation"
@@ -554,11 +548,8 @@ msgstr ""
 "Éditez la configuration et essayez de nouveau"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:292
-#, fuzzy
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
-"Ne peut pas obtenir la clef du serveur {name}, car Le serveur n'a aucun "
-"certificat d'assigné"
+msgstr "Impossible de créer un serveur, car il n'y a aucun certificat CA"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
 #, perl-brace-format

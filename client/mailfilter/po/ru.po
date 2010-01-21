@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:10+0100\n"
-"PO-Revision-Date: 2009-07-17 10:19+0200\n"
+"PO-Revision-Date: 2010-01-20 08:05+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0004_add_firewall_services.pl:32
@@ -48,12 +48,13 @@ msgstr "Clamav необходим доступ к p3scan полям, чтобы 
 
 #: src/EBox/MailFilter.pm:95
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Добавить системных пользователей spam и ham"
 
 #: src/EBox/MailFilter.pm:97
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Эти пользователи электронной почты используются для обучения фильтра Байеса"
 
 #: src/EBox/MailFilter.pm:102
 msgid "Update LDAP"
@@ -302,9 +303,8 @@ msgstr "процесс"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:165
 #: src/EBox/MailFilter/Model/VDomains.pm:158
-#, fuzzy
 msgid "Virtual Domains"
-msgstr "виртуальный домен"
+msgstr "Виртуальные домены"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
 msgid "MIME Type"
@@ -358,7 +358,7 @@ msgstr "почтовый адрес"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
 msgid "General"
-msgstr ""
+msgstr "Общие"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
 #, perl-brace-format
@@ -366,9 +366,8 @@ msgid "The port {port} is already used by module {mod}"
 msgstr "Порт {port} уже используется модулем {mod}"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:77
-#, fuzzy
 msgid "Sender policy for virtual domain"
-msgstr "виртуальный домен"
+msgstr "Политика для отправителей виртуального домена"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
 msgid "File extension"
@@ -388,7 +387,7 @@ msgstr "Внешний почтовый сервер"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:71
 msgid "IP address of the server"
-msgstr ""
+msgstr "IP адрес сервера"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:75
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:76
@@ -551,9 +550,8 @@ msgstr ""
 ", он обрабатывает почтовый спам."
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:94
-#, fuzzy
 msgid "Configuration"
-msgstr "Настройка антиспам"
+msgstr "Конфигурация"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:114
 msgid ""
@@ -580,9 +578,8 @@ msgid "Bad header policy"
 msgstr "Политика плохих заголовков"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
-#, fuzzy
 msgid "Filter Policies"
-msgstr "Политики SMTP фильтра"
+msgstr "Политики фильтра"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:60
 msgid "Mailbox"
@@ -602,7 +599,7 @@ msgstr "Обучение по сообщениям"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:83
 msgid "Train"
-msgstr ""
+msgstr "Учить"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:98
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
@@ -642,13 +639,15 @@ msgstr "пользовательский порог"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:114
 msgid "Learn from accounts' Spam IMAP folders"
-msgstr ""
+msgstr "Учится из каталога IMAP аккаунта spam "
 
 #: src/EBox/MailFilter/Model/VDomains.pm:116
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
 msgstr ""
+"Каждый раз когда почта перемещена или отправлена в каталог spam IMAP "
+"спам-фильтр будет обучатся на нем"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:123
 msgid "Learning ham account"
@@ -690,6 +689,8 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"Нет виртуальных доменов управляемых этим сервером. Вы должны создать хотя бы "
+"один в openA}virtual domains mail page{closeA}."
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
 msgid "Mail filter graph"
@@ -823,14 +824,13 @@ msgstr ""
 #: src/EBox/MailFilter/SpamAssassin.pm:404
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
-msgstr ""
+msgstr "Аккаунты из домена {d} не могут обучать фильтр Байеса"
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
 msgid "External connections"
 msgstr "Внешние соединения"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:59
-#, fuzzy
 msgid "Attached Files Filter"
 msgstr "Фильтр почтовых вложений"
 

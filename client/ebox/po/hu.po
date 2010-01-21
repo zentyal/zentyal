@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:09+0100\n"
-"PO-Revision-Date: 2009-10-10 07:08+0000\n"
-"Last-Translator: Sepi <sepi@freemail.hu>\n"
+"PO-Revision-Date: 2010-01-18 21:54+0100\n"
+"Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,39 +19,41 @@ msgstr ""
 
 #: src/EBox/SysInfo.pm:46
 msgid "System Information"
-msgstr ""
+msgstr "Rendszerinformáció"
 
 #: src/EBox/SysInfo.pm:81
 msgid "Time"
-msgstr ""
+msgstr "Idő"
 
 #: src/EBox/SysInfo.pm:82
 msgid "Hostname"
-msgstr ""
+msgstr "kiszolgálónév"
 
 #: src/EBox/SysInfo.pm:84
 msgid "eBox version"
-msgstr ""
+msgstr "eBox verzió"
 
 #: src/EBox/SysInfo.pm:87
 msgid "System load"
-msgstr ""
+msgstr "rendszerterhelés"
 
 #: src/EBox/SysInfo.pm:133 src/EBox/SysInfo.pm:226
+#, fuzzy
 msgid "Module Status"
-msgstr ""
+msgstr "Modul állapot"
 
 #: src/EBox/SysInfo.pm:138
 msgid "General Information"
-msgstr ""
+msgstr "Általános információ"
 
 #: src/EBox/SysInfo.pm:143
+#, fuzzy
 msgid "Process List"
-msgstr ""
+msgstr "Folyamatlista"
 
 #: src/EBox/SysInfo.pm:150
 msgid "Support & Services"
-msgstr ""
+msgstr "Támogatás és szolgáltatások"
 
 #: src/EBox/SysInfo.pm:221 src/EBox/CGI/Dashboard/Index.pm:32
 msgid "Dashboard"
@@ -59,11 +61,11 @@ msgstr "Műszerfal"
 
 #: src/EBox/SysInfo.pm:232 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
-msgstr ""
+msgstr "Rendszer"
 
 #: src/EBox/SysInfo.pm:236
 msgid "General"
-msgstr ""
+msgstr "Általános"
 
 #: src/EBox/SysInfo.pm:239 src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
@@ -81,49 +83,50 @@ msgstr "Biztonsági mentés"
 
 #: src/EBox/SysInfo.pm:251
 msgid "Halt/Reboot"
-msgstr ""
+msgstr "Leállítás/Újraindítás"
 
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
-msgstr ""
+msgstr "összes jelölés"
 
 #: src/EBox/ProgressIndicator.pm:43
 msgid "It must be a non-zero positive number"
-msgstr ""
+msgstr "Pozitív, nem nulla számnak kell lennie"
 
 #: src/EBox/ProgressIndicator.pm:51
 #, perl-brace-format
+#, fuzzy
 msgid "Cannot execute {exe}"
-msgstr ""
+msgstr "Nem hajtható végre a {exe}"
 
 #: src/EBox/ProgressIndicator.pm:101
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
-msgstr ""
+msgstr "A folyamatjelző nem találja ezt: {id}"
 
 #: src/EBox/ProgressIndicator.pm:139
 msgid "Number of ticks to notify"
-msgstr ""
+msgstr "megjelölt megjegyzések száma"
 
 #: src/EBox/ProgressIndicator.pm:141
 msgid "must be greater than zero"
-msgstr ""
+msgstr "nullánál nagyobbnak kell lennie"
 
 #: src/EBox/ProgressIndicator.pm:147
 msgid "Executable has not been run"
-msgstr ""
+msgstr "végrehajtás nem futtatható"
 
 #: src/EBox/ProgressIndicator.pm:264
 msgid "The executable has not run"
-msgstr ""
+msgstr "végrehajtás nem fut"
 
 #: src/EBox/ProgressIndicator.pm:395
 msgid "The executable has already been started"
-msgstr ""
+msgstr "végrehajtás már elindult"
 
 #: src/EBox/ProgressIndicator.pm:399
 msgid "The executable has already finished"
-msgstr ""
+msgstr "végrehajtás már véget ért"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:215
 #: src/EBox/Events/Model/Watcher/Log.pm:239
@@ -131,16 +134,18 @@ msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr ""
+"Figyelem! A log figyelő (őrző) nincs bekapcsolva. Kapcsolja be, ha a "
+"megjegyzések fordulnak elő a 'log'-ban."
 
 #: src/EBox/Events/Model/Watcher/Log.pm:263
 #: src/EBox/Logs/Model/SelectLog.pm:143
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
 msgid "Domain"
-msgstr ""
+msgstr "domain"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:268
 msgid "Filtering"
-msgstr ""
+msgstr "szűrés"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:276
 msgid "Configure log watchers"
@@ -148,7 +153,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/Watcher/Log.pm:278
 msgid "Log watcher"
-msgstr ""
+msgstr "napló figyelő"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:386
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:212
@@ -159,7 +164,7 @@ msgstr ""
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:325 src/EBox/Events.pm:96
 #: src/EBox/Events.pm:823
 msgid "Events"
-msgstr ""
+msgstr "Események"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:390
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
@@ -176,12 +181,12 @@ msgstr ""
 #: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
 #: src/templates/logs/index.mas:185
 msgid "Any"
-msgstr ""
+msgstr "bármi (valami)"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
 #: src/templates/logs/index.mas:183
 msgid "Event"
-msgstr ""
+msgstr "Esemény"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
 #, perl-brace-format
@@ -196,59 +201,61 @@ msgstr ""
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
 msgid "filter"
-msgstr ""
+msgstr "szűrő"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:101
 msgid "Minimum free disk space per filesystem"
-msgstr ""
+msgstr "Minimum szabad lemezterület fájlrendszerenként"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:106
+#, fuzzy
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr ""
+"Előidézi az eseményt, ha a szabad terület százaléka ezen érték alatt van."
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
 msgid "Configure disk free space watcher"
-msgstr ""
+msgstr "A (merev)lemez szabad terület figyelő beállítása"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
 msgid "Free Disk Space Watcher"
-msgstr ""
+msgstr "(merev)lemez szabad terület figyelő"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 msgid "Name"
-msgstr ""
+msgstr "Név"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
 #: src/templates/backup.mas:44 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:36
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
 msgid "Configuration"
-msgstr ""
+msgstr "Beállítás"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
 msgid "None"
-msgstr ""
+msgstr "nincs"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
 msgid "Configure Events"
-msgstr ""
+msgstr "események beállítása"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
-msgstr ""
+msgstr "esemény"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
 msgid "Enable/Disable each event watcher monitoring"
-msgstr ""
+msgstr "Összes eseményt figyelő (őrző) monitoring ki-/bekapcsolása"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
 msgid ""
@@ -256,28 +263,30 @@ msgid ""
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
+"Figyelem! A domain naplózás nincs bekapcsolva! Kérem, hogy menjen a "
+"'Beállítások' menüpontba, és legalább egy megjegyzést kapcsoljon be."
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
 msgid "Receiver"
-msgstr ""
+msgstr "vevő"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
 #: src/EBox/Model/DataTable.pm:4523
 msgid "Enabled"
-msgstr ""
+msgstr "bekapcsolva"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 msgid "Configure Dispatchers"
-msgstr ""
+msgstr "jelentések beállítása"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
 msgid "dispatcher"
-msgstr ""
+msgstr "jelentés"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
 msgid "Enable/Disable each event dispatcher"
-msgstr ""
+msgstr "Az összes esemény jelentésének ki-/bekapcsolása"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
 msgid ""
@@ -292,19 +301,19 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
 msgid "Jabber server name"
-msgstr ""
+msgstr "Jabber kiszolgáló neve"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:196
 msgid "Jabber server to send the messages"
-msgstr ""
+msgstr "Jabber kiszolgáló üzenetet küld"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:200
 msgid "Port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:207
 msgid "Jabber user name"
-msgstr ""
+msgstr "Jabber felhasználói neve"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
 msgid ""
@@ -314,11 +323,11 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
 msgid "User password"
-msgstr ""
+msgstr "felhasználói jelszó"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid "Subscribe"
-msgstr ""
+msgstr "aláírás"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
 msgid ""
@@ -359,27 +368,27 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:150
 msgid "Nobody"
-msgstr ""
+msgstr "senki"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:154
 msgid "IP address"
-msgstr ""
+msgstr "IP cím"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:161
 msgid "Object"
-msgstr ""
+msgstr "objektum"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:170
 msgid "Public"
-msgstr ""
+msgstr "nyilvános"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:177
 msgid "Channel link"
-msgstr ""
+msgstr "csatorna hivatkozás"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:184
 msgid "Allowed readers"
-msgstr ""
+msgstr "engedélyezett olvasók"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:187
 msgid "Use this field to set the access control for the channel"
@@ -418,48 +427,48 @@ msgstr "Szolgáltatás"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:80
 #: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:815
 msgid "Informative"
-msgstr ""
+msgstr "Tájékoztatás"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
 #: src/templates/finish.mas:82
 msgid "Warning"
-msgstr ""
+msgstr "Figyelmeztetés"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:53
 #: src/EBox/Events/Model/Report/EventsDetails.pm:88
 #: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:817
 msgid "Error"
-msgstr ""
+msgstr "Hiba!"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:54
 #: src/EBox/Events/Model/Report/EventsDetails.pm:92
 #: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
 msgid "Fatal error"
-msgstr ""
+msgstr "Végzetes hiba!"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
 #: src/templates/finish.mas:105 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
-msgstr ""
+msgstr "dátum"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:101
 msgid "Events details"
-msgstr ""
+msgstr "események részletei"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:60
 msgid "Events summarized chart"
-msgstr ""
+msgstr "események összefoglaló diagramja"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:77
 msgid "Events summarized graph"
-msgstr ""
+msgstr "események összefoglaló grafikonja"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:70
 msgid "Events reports"
-msgstr ""
+msgstr "eseményriportok"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:71
 #, fuzzy
@@ -473,7 +482,7 @@ msgstr ""
 
 #: src/EBox/Auth.pm:155
 msgid "Password changed"
-msgstr ""
+msgstr "jelszó megváltozott"
 
 #: src/EBox/CGI/ClientRawBase.pm:209
 msgid ""
@@ -489,7 +498,7 @@ msgstr "Napló bejegyzések"
 
 #: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:691
 msgid "Query Logs"
-msgstr ""
+msgstr "szűrési naplók"
 
 #: src/EBox/CGI/Logs/Index.pm:329
 #, fuzzy
@@ -524,7 +533,7 @@ msgstr "Ki lettél léptetve, mert egy új munkafázis lett elindítva."
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
 msgid "Module Status Configuration"
-msgstr "Modul állaot beállítások"
+msgstr "Modul állapot beállítások"
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"
@@ -536,7 +545,7 @@ msgstr "Általános beállítások"
 
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or Reboot"
-msgstr "Leállítás vagy Újra indítás"
+msgstr "Leállítás vagy Újraindítás"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
 msgid "eBox is going down for halt"
@@ -548,7 +557,7 @@ msgstr "eBox újra fog indulni"
 
 #: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:49
 msgid "Password"
-msgstr ""
+msgstr "jelszó"
 
 #: src/EBox/CGI/EBox/Password.pm:52
 msgid "Incorrect password."
@@ -572,12 +581,12 @@ msgstr "Hiba riport"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 msgid "Configuration Backup"
-msgstr "Beállítások mentése"
+msgstr "A (biztonsági) mentés beállításai"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr ""
-"Kérlek erősísd meg, hogy törölni akarod a következő biztonsági mentést:"
+"Kérlek erősítsd meg, hogy törölni akarod a következő biztonsági mentést:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
 #: src/templates/backup.mas:173
@@ -588,7 +597,7 @@ msgstr "Törlés"
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:130
 msgid "Please confirm that you want to restore using this backup file:"
 msgstr ""
-"Kérlek erősísd meg, hogy biztosan vissza akarod állítani a biztonsági "
+"Kérlek erősítsd meg, hogy biztosan vissza akarod állítani a biztonsági "
 "beállításokat:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
@@ -833,12 +842,12 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:436
 #, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr ""
+msgstr "Státusz: {percentage} kész."
 
 #: src/EBox/Event/Watcher/RAID.pm:439
 #, perl-brace-format
 msgid "Estimated finish time: {time}."
-msgstr ""
+msgstr "Hátralévő időtartam: {time}."
 
 #: src/EBox/Event/Watcher/RAID.pm:471
 #, perl-brace-format
@@ -879,27 +888,27 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:542 src/EBox/Event/Watcher/RAID.pm:586
 #: src/templates/report/raid.mas:111
 msgid "active"
-msgstr ""
+msgstr "aktív"
 
 #: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:113
 msgid "degraded"
-msgstr ""
+msgstr "degradál (?)"
 
 #: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:115
 msgid "recovering"
-msgstr ""
+msgstr "helyreállítás"
 
 #: src/EBox/Event/Watcher/RAID.pm:548 src/templates/report/raid.mas:117
 msgid "resyncing"
-msgstr ""
+msgstr "újraszinkronizálás"
 
 #: src/EBox/Event/Watcher/RAID.pm:550 src/templates/report/raid.mas:121
 msgid "rebuilding"
-msgstr ""
+msgstr "újraépítés"
 
 #: src/EBox/Event/Watcher/RAID.pm:552 src/templates/report/raid.mas:119
 msgid "reshaping"
-msgstr ""
+msgstr "átalakítás"
 
 #: src/EBox/Event/Watcher/RAID.pm:554 src/templates/report/raid.mas:123
 msgid "failed"
@@ -907,31 +916,31 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/RAID.pm:566
 msgid "resync"
-msgstr ""
+msgstr "újraszinkronizál"
 
 #: src/EBox/Event/Watcher/RAID.pm:568
 msgid "rebuild"
-msgstr ""
+msgstr "újjáépít"
 
 #: src/EBox/Event/Watcher/RAID.pm:570
 msgid "reshape"
-msgstr ""
+msgstr "átalakít"
 
 #: src/EBox/Event/Watcher/RAID.pm:572
 msgid "recovery"
-msgstr ""
+msgstr "visszaállítás"
 
 #: src/EBox/Event/Watcher/RAID.pm:574
 msgid "check"
-msgstr ""
+msgstr "ellenőrzés"
 
 #: src/EBox/Event/Watcher/RAID.pm:588
 msgid "faulty"
-msgstr ""
+msgstr "hibák"
 
 #: src/EBox/Event/Watcher/RAID.pm:590 src/templates/report/raid.mas:233
 msgid "spare"
-msgstr ""
+msgstr "tartalék"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, fuzzy, perl-brace-format
@@ -958,11 +967,11 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/State.pm:126
 msgid "eBox is up and running"
-msgstr "eBox felállt és működik"
+msgstr "Az eBox elindult és fut."
 
 #: src/EBox/Event/Watcher/State.pm:132
 msgid "eBox is critically down"
-msgstr "eBox kritikus hiba miatt leállt"
+msgstr "Az eBox kritikus hiba miatt leállt."
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
@@ -970,7 +979,7 @@ msgstr "Státusz"
 
 #: src/EBox/Event/Watcher/State.pm:174
 msgid "Check if eBox is currently up or down"
-msgstr "Ellenőrizze, ha eBox pillanatnyilag működik-e vagy sem"
+msgstr "Ellenőrizze, hogy az eBox pillanatnyilag működik-e vagy sem!"
 
 #: src/EBox/Event/Watcher/Log.pm:203
 msgid "Log observer"
@@ -1044,7 +1053,7 @@ msgstr "RSS"
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
-msgstr ""
+msgstr "eBox riasztási csatorna {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
@@ -1074,53 +1083,53 @@ msgstr ""
 #: src/EBox/PgDBEngine.pm:377
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
-msgstr ""
+msgstr "Az adatbázis dump fájl nem olvasható: {file}"
 
 #: src/EBox/Types/Int.pm:155
 msgid "Enter an integer number"
-msgstr ""
+msgstr "Adjon meg egy egész számot!"
 
 #: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:121
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
-msgstr ""
+msgstr "Ennek az értéknek nem kellene nagyobbnak lennie mint {m}"
 
 #: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:130
 #, perl-brace-format
 msgid "The value shouldn't be less than {m}"
-msgstr ""
+msgstr "Ennek az értéknek nem kellene kisebbnek lennie mint {m}"
 
 #: src/EBox/Types/Password.pm:134
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
-msgstr ""
+msgstr "A jelszó minimális hossza {minLength} karakter!"
 
 #: src/EBox/Types/Password.pm:145
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
-msgstr ""
+msgstr "A jelszó maximális hossza {maxLength} karakter!"
 
 #: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "Az IP címek nincsenek engedélyezve!"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
-msgstr ""
+msgstr "bármi (valami)"
 
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr ""
+msgstr "Ennek {from} nagyobbnak kell lennie ennél {to}"
 
 #: src/EBox/Types/Float.pm:113
 msgid "Enter a float number"
-msgstr ""
+msgstr "Adjon meg egy tört számot!"
 
 #: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
-msgstr ""
+msgstr "Adjon meg egy értéket ezen az értéken belül: {set}."
 
 #: src/EBox/Logs/Model/SelectLog.pm:151
 msgid "Full report"
@@ -1146,42 +1155,42 @@ msgstr ""
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:234
 #: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
-msgstr ""
+msgstr "egy óra"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:238
 #: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
-msgstr ""
+msgstr "tizenkét óra"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:242
 #: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
-msgstr ""
+msgstr "egy nap"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:246
 #: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
-msgstr ""
+msgstr "három nap"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:250
 #: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
-msgstr ""
+msgstr "egy hét"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:254
 #: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
-msgstr ""
+msgstr "tizenöt nap"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:258
 #: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
-msgstr ""
+msgstr "harminc nap"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:262
 #: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
-msgstr ""
+msgstr "kilencven nap"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:349
 #: src/EBox/Logs/Model/ForcePurge.pm:100
@@ -1206,29 +1215,29 @@ msgstr ""
 
 #: src/EBox/Logs/Model/ForcePurge.pm:112
 msgid "Purge"
-msgstr ""
+msgstr "tisztítás"
 
 #: src/EBox/Logs/Model/Report/Details.pm:226
 #: src/EBox/Logs/Model/Report/Details.pm:234
 #: src/EBox/Logs/Model/Report/Details.pm:269
 msgid "All"
-msgstr ""
+msgstr "összes"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
-msgstr ""
+msgstr "óra"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:41
 msgid "day"
-msgstr ""
+msgstr "nap"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:42
 msgid "week"
-msgstr ""
+msgstr "hét"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:43
 msgid "month"
-msgstr ""
+msgstr "hónap"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
@@ -1240,15 +1249,15 @@ msgstr ""
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
-msgstr ""
+msgstr "Szolgáltatás bekapcsolva."
 
 #: src/EBox/Common/Model/EnableForm.pm:102
 msgid "Service disabled"
-msgstr ""
+msgstr "Szolgáltatás kikapcsolva."
 
 #: src/EBox/Common/Model/EnableForm.pm:146
 msgid "Enable service"
-msgstr ""
+msgstr "A szolgáltatás bekapcsolása."
 
 #: src/EBox/Events.pm:200
 msgid "Initialize event dispatchers table"
@@ -1268,11 +1277,11 @@ msgstr ""
 
 #: src/EBox/Events.pm:804
 msgid "Date of first event"
-msgstr ""
+msgstr "Első esemény dátuma"
 
 #: src/EBox/Events.pm:805
 msgid "Date of last event"
-msgstr ""
+msgstr "Legutóbbi esemény dátuma"
 
 #: src/EBox/Events.pm:806
 #, fuzzy
@@ -1281,34 +1290,34 @@ msgstr "Művelet"
 
 #: src/EBox/Events.pm:807
 msgid "Level"
-msgstr ""
+msgstr "szint"
 
 #: src/EBox/Events.pm:809 src/templates/finish.mas:107
 msgid "Message"
-msgstr ""
+msgstr "üzenet"
 
 #: src/EBox/Logs.pm:440
 #, perl-brace-format
 msgid "Table {table} does not exist"
-msgstr ""
+msgstr "Ez a tábla nem létezik: {table}."
 
 #: src/EBox/Logs.pm:694
 msgid "Configure Logs"
-msgstr ""
+msgstr "naplók beállítása"
 
 #: src/EBox/Logs.pm:708
 msgid "Client Address"
-msgstr ""
+msgstr "kliens (ügyfél) címe"
 
 #: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/DataTable.pm:2128
 msgid "Action"
-msgstr ""
+msgstr "művelet"
 
 #: src/EBox/Logs.pm:711
 msgid "Params"
-msgstr ""
+msgstr "paraméterek"
 
 #: src/EBox/Logs.pm:712
 msgid "Committed"
@@ -1320,7 +1329,7 @@ msgstr ""
 
 #: src/EBox/Logs.pm:811
 msgid "Log messages"
-msgstr ""
+msgstr "napló üzenetek"
 
 #: src/EBox/Logs.pm:838
 msgid "Lifetime parameter must be a positive number of hours"
@@ -1383,57 +1392,59 @@ msgstr ""
 
 #: src/EBox/Model/DataTable.pm:542
 msgid "field"
-msgstr ""
+msgstr "mező"
 
 #: src/EBox/Model/DataTable.pm:1465
 msgid "page"
-msgstr ""
+msgstr "oldal"
 
 #: src/EBox/Model/DataTable.pm:1468
 msgid "Page must be a number equal or greater than zero"
 msgstr ""
+"Az oldal számozásának (?) nagyobb vagy egyenlőnek kell lennie mint 0!Az "
+"oldalak számának (?)"
 
 #: src/EBox/Model/DataTable.pm:2830
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgstr "Innen {model}{br} eltávolítva a {rowName} -ból/-ből ennyi {num} sor!"
 
 #: src/EBox/Model/DataTable.pm:2901
 msgid "Page size"
-msgstr ""
+msgstr "Oldalméret"
 
 #: src/EBox/Model/DataTable.pm:2904
 msgid "Must be either a positive number or zero"
-msgstr ""
+msgstr "Ide 0 vagy pozitív egész szám kell!"
 
 #: src/EBox/Model/DataTable.pm:3211
 #, perl-brace-format
 msgid "{row} added"
-msgstr ""
+msgstr "{row} sor hozzáadva"
 
 #: src/EBox/Model/DataTable.pm:3212
 #, perl-brace-format
 msgid "{row} deleted"
-msgstr ""
+msgstr "{row} sor törölve"
 
 #: src/EBox/Model/DataTable.pm:3213
 #, perl-brace-format
 msgid "{row} updated"
-msgstr ""
+msgstr "{row} sor frissítve"
 
 #: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} moved up"
-msgstr ""
+msgstr "{row} sor fölfelé mozgatva"
 
 #: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} moved down"
-msgstr ""
+msgstr "{row} sor lefelé mozgatva"
 
 #: src/EBox/Html.pm:39
 msgid "Save changes"
-msgstr ""
+msgstr "módosítások mentése"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
@@ -1474,34 +1485,41 @@ msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
 msgstr ""
+"Néhány modul módosítása nincs elmentve. Mielőtt hozzáfog a biztonsági mentés "
+"elkészítésének, előtte ezeket mentse vagy a változtatásokat vesse el!"
 
 #: src/EBox/Backup.pm:827
 msgid "Incorrect or corrupt backup file"
-msgstr ""
+msgstr "Érvénytelen vagy rossz (sérült) mentési állomány!"
 
 #: src/EBox/Backup.pm:856
 msgid "The backup file is corrupt: could not open archive"
-msgstr ""
+msgstr "A mentési állomány rossz (sérült): nem lehet megnyitni!"
 
 #: src/EBox/Backup.pm:868
 msgid "The backup file is corrupt: could not open backup checksum"
-msgstr ""
+msgstr "A mentési állomány rossz (sérült): az ellenőrzőösszeg (CRC) hibás!"
 
 #: src/EBox/Backup.pm:875
 msgid "The backup file is corrupt."
-msgstr ""
+msgstr "A mentési állomány rossz (sérült)!"
 
 #: src/EBox/Backup.pm:893
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr ""
+"A mentési állomány érvénytelen típusú! Lehet, hogy rossz (sérült) vagy "
+"korábbi (inkompatibilis) eBox verziót használt a mentéshez!"
 
 #: src/EBox/Backup.pm:899
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
+"A biztonsági állomány nem tartalmaz egy teljes mentést, így a teljes "
+"visszaállítás lehetetlen! A visszaállítás beállításainak módosításával_ "
+"_talán lehetséges válik!"
 
 #: src/EBox/Backup.pm:934
 #, perl-brace-format
@@ -1509,6 +1527,8 @@ msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
+"A merevlemezen nincs elég hely a teljes visszaállítási folyamathoz, még "
+"{size} kB szükséges hozzá. Szabadítson fel elegendő helyet és próbálja újra."
 
 #: src/EBox/Backup.pm:1215
 #, perl-brace-format
@@ -1551,7 +1571,7 @@ msgstr "{scriptName} szkript fut"
 #: src/EBox/Report/DiskUsage.pm:61
 #, perl-brace-format
 msgid "No usage data for {d}. Are you sure is a valid disk?"
-msgstr ""
+msgstr "Ez az adat {d} nincs használatban. Biztos, hogy ez egy érvényes lemez?"
 
 #: src/EBox/Report/DiskUsage.pm:210
 #, perl-brace-format
@@ -1559,34 +1579,36 @@ msgid ""
 "Invalid file system: {f}. Only regular and no removable media file systems "
 "are accepted"
 msgstr ""
+"Érvénytelen fájlrendszer: {f}. Csak szabványos és nem eltávolítható "
+"fájlrendszer használata megengedett."
 
 #: src/EBox/Report/DiskUsage.pm:333
 msgid "Free space"
-msgstr ""
+msgstr "szabad hely"
 
 #: src/templates/configurationFiles.mas:28
 msgid "Do you wish to overwrite these files?"
-msgstr ""
+msgstr "Biztos felül kívánja írni ezeket a fájlokat?"
 
 #: src/templates/configurationFiles.mas:35
 msgid "Keep current file"
-msgstr ""
+msgstr "Az aktuális fájl megtartása."
 
 #: src/templates/configurationFiles.mas:39
 msgid "Modify"
-msgstr ""
+msgstr "módosítás"
 
 #: src/templates/headTitle.mas:20
 msgid "Remote services control panel"
-msgstr ""
+msgstr "távoli szolgáltatások vezérlőpultja"
 
 #: src/templates/backupTabs.mas:13
 msgid "Local Backup"
-msgstr ""
+msgstr "helyi biztonsági mentés"
 
 #: src/templates/backupTabs.mas:18
 msgid "Remote Backup"
-msgstr ""
+msgstr "távoli biztonsági mentés"
 
 #: src/templates/backupTabs.mas:23
 msgid "Remote Backup from Other Subscribed Hosts"
@@ -1621,27 +1643,27 @@ msgstr ""
 
 #: src/templates/dashboard/status.mas:10
 msgid "Restart"
-msgstr ""
+msgstr "újraindítás"
 
 #: src/templates/dashboard/status.mas:16
 msgid "Running"
-msgstr ""
+msgstr "futtatás"
 
 #: src/templates/dashboard/status.mas:17
 msgid "The service is enabled and running"
-msgstr ""
+msgstr "A szolgáltatás bekapcsolva és jelenleg fut."
 
 #: src/templates/dashboard/status.mas:20
 msgid "Stopped"
-msgstr ""
+msgstr "leállítás"
 
 #: src/templates/dashboard/status.mas:21
 msgid "The service is enabled, but not running"
-msgstr ""
+msgstr "A szolgáltatás bekapcsolva és jelenleg NEM fut."
 
 #: src/templates/dashboard/status.mas:23
 msgid "Start"
-msgstr ""
+msgstr "Indítás"
 
 #: src/templates/dashboard/status.mas:25
 msgid "Running unmanaged"
@@ -1649,49 +1671,49 @@ msgstr ""
 
 #: src/templates/dashboard/status.mas:26
 msgid "The service is running, but not enabled in eBox"
-msgstr ""
+msgstr "A szolgáltatás jelenleg fut, de nincs bekapcsolva az eBoxban."
 
 #: src/templates/dashboard/status.mas:29
 msgid "Disabled"
-msgstr ""
+msgstr "kikapcsolva"
 
 #: src/templates/dashboard/status.mas:30
 msgid "The service is not enabled in eBox"
-msgstr ""
+msgstr "A szolgáltatás jelenleg nincs bekapcsolva az eBoxban."
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
+msgstr "Az internetkapcsolat megszakadhat a számítógép leállításakor."
 
 #: src/templates/halt.mas:14
 msgid "Halt"
-msgstr ""
+msgstr "leállítás"
 
 #: src/templates/halt.mas:16
 msgid "Reboot"
-msgstr ""
+msgstr "újraindítás"
 
 #: src/templates/moduleStatusTable.mas:59
 msgid "Depends"
-msgstr ""
+msgstr "felfüggesztés"
 
 #: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
 msgid "Status"
-msgstr ""
+msgstr "státusz (állapot)"
 
 #: src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
 msgid "Configure module: {module}"
-msgstr ""
+msgstr "modul beállítása: {module}"
 
 #: src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
-msgstr ""
+msgstr "Nem létező RAID tömb: {a}."
 
 #: src/templates/report/raid.mas:42
 msgid "RAID is not enabled in this system."
-msgstr ""
+msgstr "Ebben a rendszerben nincs bekapcsolva a RAID funkció."
 
 #: src/templates/report/raid.mas:94
 msgid "left-asymmetric"
@@ -1712,83 +1734,83 @@ msgstr ""
 #: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
 #: src/templates/backup.mas:127 src/templates/confirm-backup.mas:44
 msgid "Type"
-msgstr ""
+msgstr "típus"
 
 #: src/templates/report/raid.mas:142
 msgid "Active RAID devices"
-msgstr ""
+msgstr "aktív RAID eszközök"
 
 #: src/templates/report/raid.mas:143
 msgid "Active RAID devices needed"
-msgstr ""
+msgstr "szükséges (?) aktív RAID eszközök"
 
 #: src/templates/report/raid.mas:144
 msgid "Size in blocks"
-msgstr ""
+msgstr "méret blokkokban"
 
 #: src/templates/report/raid.mas:145
 msgid "Chunk size"
-msgstr ""
+msgstr "nagy (?) méret"
 
 #: src/templates/report/raid.mas:148
 msgid "Parity algorithm"
-msgstr ""
+msgstr "paritás algoritmus"
 
 #: src/templates/report/raid.mas:180
 msgid "Array properties"
-msgstr ""
+msgstr "tömb tulajdonságai"
 
 #: src/templates/report/raid.mas:195
 msgid "Resyncing array"
-msgstr ""
+msgstr "tömb (újra)szinkronizálás"
 
 #: src/templates/report/raid.mas:196
 msgid "Rebuild array"
-msgstr ""
+msgstr "tömb (újra)építés"
 
 #: src/templates/report/raid.mas:197
 msgid "Reshape array"
-msgstr ""
+msgstr "tömb átalakítás"
 
 #: src/templates/report/raid.mas:205
 msgid "Operation type"
-msgstr ""
+msgstr "művelet típusa"
 
 #: src/templates/report/raid.mas:207
 msgid "Percentage completed"
-msgstr ""
+msgstr "százalékos készültség"
 
 #: src/templates/report/raid.mas:209
 msgid "Estimated time left"
-msgstr ""
+msgstr "hátralévő idő"
 
 #: src/templates/report/raid.mas:211
 msgid "Operation speed"
-msgstr ""
+msgstr "művelet sebessége"
 
 #: src/templates/report/raid.mas:224
 msgid "RAID device number"
-msgstr ""
+msgstr "RAID eszköz száma"
 
 #: src/templates/report/raid.mas:225
 msgid "Device"
-msgstr ""
+msgstr "eszköz"
 
 #: src/templates/report/raid.mas:231
 msgid "up"
-msgstr ""
+msgstr "föl"
 
 #: src/templates/report/raid.mas:232
 msgid "failure"
-msgstr ""
+msgstr "hiba"
 
 #: src/templates/report/raid.mas:261
 msgid "No unused RAID devices"
-msgstr ""
+msgstr "??? nem használt RAID eszközök"
 
 #: src/templates/report/raid.mas:264
 msgid "Unused RAID arrays"
-msgstr ""
+msgstr "nem használt RAID tömbök"
 
 #: src/templates/report/diskUsage.mas:29
 msgid "Mounted on"
@@ -1853,47 +1875,47 @@ msgstr ""
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "March"
-msgstr ""
+msgstr "március"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "April"
-msgstr ""
+msgstr "április"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "May"
-msgstr ""
+msgstr "május"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "June"
-msgstr ""
+msgstr "június"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "July"
-msgstr ""
+msgstr "július"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "August"
-msgstr ""
+msgstr "augusztus"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "September"
-msgstr ""
+msgstr "szeptember"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "October"
-msgstr ""
+msgstr "október"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "November"
-msgstr ""
+msgstr "november"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "December"
-msgstr ""
+msgstr "december"
 
 #: src/templates/logs/index.mas:108
 msgid "Refresh logs"
-msgstr ""
+msgstr "naplók frissítése"
 
 #: src/templates/logs/index.mas:116
 msgid "To date:"
@@ -1901,11 +1923,11 @@ msgstr ""
 
 #: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
 msgid "Search"
-msgstr ""
+msgstr "keresés"
 
 #: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
 msgid "Save as event"
-msgstr ""
+msgstr "egy esemény mentése"
 
 #: src/templates/logs/index.mas:235
 msgid "No logs matching current criterion"
@@ -1921,21 +1943,23 @@ msgstr ""
 
 #: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
 msgid "prev"
-msgstr ""
+msgstr "előző"
 
 #: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
 msgid "next"
-msgstr ""
+msgstr "következő"
 
 #: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
 msgid "last"
-msgstr ""
+msgstr "utolsó"
 
 #: src/templates/finish.mas:96
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
 msgstr ""
+"Egy vagy több modulban nem mentett módosítások találhatóak. Mentse vagy "
+"vesse el ezeket."
 
 #: src/templates/finish.mas:99
 msgid ""
@@ -1946,11 +1970,11 @@ msgstr ""
 
 #: src/templates/finish.mas:123
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 #: src/templates/finish.mas:125
 msgid "Discard changes"
-msgstr ""
+msgstr "Módosítások elvetése"
 
 #: src/templates/finish.mas:130
 msgid "There are no unsaved changes."
@@ -1958,7 +1982,7 @@ msgstr ""
 
 #: src/templates/backup.mas:17
 msgid "Full Backup"
-msgstr ""
+msgstr "Teljes mentés"
 
 #: src/templates/backup.mas:24
 #, perl-brace-format
@@ -1970,7 +1994,7 @@ msgstr ""
 
 #: src/templates/backup.mas:26
 msgid "Backup the Current State"
-msgstr ""
+msgstr "Mentés aktuális állapota"
 
 #: src/templates/backup.mas:35
 msgid ""
@@ -1980,7 +2004,7 @@ msgstr ""
 
 #: src/templates/backup.mas:52
 msgid "Backup mode"
-msgstr ""
+msgstr "Mentés mód"
 
 #: src/templates/backup.mas:74
 msgid "Restore Backup from File"
@@ -1998,97 +2022,101 @@ msgstr ""
 
 #: src/templates/backup.mas:114
 msgid "Full"
-msgstr ""
+msgstr "Teljes"
 
 #: src/templates/backup.mas:115
 msgid "Configuration only"
-msgstr ""
+msgstr "csak beállítások"
 
 #: src/templates/backup.mas:116
 msgid "Unknown type"
-msgstr ""
+msgstr "ismeretlen típus"
 
 #: src/templates/backup.mas:122
 msgid "Backups' list"
-msgstr ""
+msgstr "mentések listája"
 
 #: src/templates/backup.mas:129 src/templates/confirm-backup.mas:53
 msgid "Archive size"
-msgstr ""
+msgstr "mentés mérete"
 
 #: src/templates/backup.mas:130
 msgid "Actions"
-msgstr ""
+msgstr "műveletek"
 
 #: src/templates/backup.mas:160
 msgid "Restore configuration using this file"
-msgstr ""
+msgstr "Ez a fájl állítja be a visszaállítás tulajdonságait."
 
 #: src/templates/backup.mas:161
 msgid "Restore from backup"
-msgstr ""
+msgstr "mentésből történő visszaállítás"
 
 #: src/templates/backup.mas:166 src/templates/backup.mas:167
 msgid "Download"
-msgstr ""
+msgstr "letöltés"
 
 #: src/templates/backup.mas:186
 msgid "download"
-msgstr ""
+msgstr "letöltés"
 
 #: src/templates/backup.mas:188
 msgid "restore"
-msgstr ""
+msgstr "visszaállítás"
 
 #: src/templates/backup.mas:190
 msgid "delete"
-msgstr ""
+msgstr "törlés"
 
 #: src/templates/bug.mas:9
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a bug in eBox."
 msgstr ""
+"Ez az oldal állítja elő és tárolja a rendszerinformációkat egy fájlba. Ez a "
+"fájl szükséges az eBox hibakeresési riportok küldéséhez (a közreműködés "
+"önkéntes alapon történik)."
 
 #: src/templates/bug.mas:14
 msgid "Download bug report file"
-msgstr ""
+msgstr "hibajelentési fájl letöltése"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
 msgstr ""
+"Nem mentett módosítások vannak, ha most kilép a naplóból, ezek elvesznek!"
 
 #: src/templates/logout/index.mas:15
 msgid "There are no unsaved changes in this session."
-msgstr ""
+msgstr "Ebben a munkamenetben nem mentett módosítások vannak!"
 
 #: src/templates/logout/index.mas:19
 msgid "Exit"
-msgstr ""
+msgstr "kilépés"
 
 #: src/templates/password.mas:4
 msgid "Change Password"
-msgstr ""
+msgstr "jelszócsere"
 
 #: src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
-msgstr ""
+msgstr "A jelszó minimális hossza 6 karakter!"
 
 #: src/templates/password.mas:11
 msgid "Current password"
-msgstr ""
+msgstr "jelenlegi jelszó"
 
 #: src/templates/password.mas:25
 msgid "New password"
-msgstr ""
+msgstr "új jelszó"
 
 #: src/templates/password.mas:39
 msgid "Confirm password"
-msgstr ""
+msgstr "jelszó megerősítése"
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Figyelem! A Caps Lock billentyű aktív!"
 
 #: src/templates/login/index.mas:43
 #, perl-brace-format
@@ -2096,6 +2124,8 @@ msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on eBox. "
 "Please use {url} instead."
 msgstr ""
+"Figyelem! Az Internet Explorer nincs támogatva az eBox alatt. Használjon "
+"másik böngészőt, pl. {url}."
 
 #: src/templates/login/index.mas:46
 #, perl-brace-format
@@ -2107,23 +2137,23 @@ msgstr ""
 
 #: src/templates/login/index.mas:58
 msgid "Enter"
-msgstr ""
+msgstr "Belépés"
 
 #: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
 msgid "Cancel"
-msgstr ""
+msgstr "Mégsem"
 
 #: src/templates/confirm-backup.mas:110
 msgid "Full Restore"
-msgstr ""
+msgstr "Teljes visszaállítás"
 
 #: src/templates/confirm-backup.mas:111
 msgid "Configuration Restore"
-msgstr ""
+msgstr "Visszaállítás beállításai"
 
 #: src/templates/confirm-backup.mas:116
 msgid "Restore mode"
-msgstr ""
+msgstr "Visszaállítás mód"
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"

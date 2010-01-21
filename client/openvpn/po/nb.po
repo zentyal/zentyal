@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:10+0100\n"
-"PO-Revision-Date: 2009-09-30 17:29+0200\n"
+"PO-Revision-Date: 2010-01-20 13:45+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -262,7 +262,7 @@ msgstr "eBox til eBox tunnel valget krever et RIP passord"
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:275
 msgid ""
 "The VPN address could not be the same than one of its advertised networks"
-msgstr ""
+msgstr "VPN adressen kan ikke være samme som en av dens egne nettverk"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:306
 msgid "Other server is listening on the same port"
@@ -349,9 +349,8 @@ msgid "Additional server address (optional)"
 msgstr "Tilleggs server adresse (valgfri)"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
-#, fuzzy
 msgid "Download Client Bundle"
-msgstr "Last ned klient pakke"
+msgstr "Last ned Klient Pakke"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:140
 msgid "EBox to EBox tunnel"
@@ -403,14 +402,13 @@ msgid "Advertised network"
 msgstr "Opplyst nettverk"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
-#, fuzzy
 msgid "List of Advertised Networks"
-msgstr "Opplyste nettverk"
+msgstr "Liste med Opplyste Nettverk"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
 msgid ""
 "The advertised network address could not be the same than the VPN address"
-msgstr ""
+msgstr "Den opplyste nettverks adressen kan ikke være samme som VPN adressen"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
 #, perl-brace-format
@@ -484,14 +482,12 @@ msgid "daemon"
 msgstr "tjeneste"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
-#, fuzzy
 msgid "List of Clients"
-msgstr "Liste av nettverk"
+msgstr "Liste med klienter"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:95
-#, fuzzy
 msgid "VPN Clients"
-msgstr "VPN klienter"
+msgstr "VPN Klienter"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:145
 msgid ""
@@ -522,16 +518,15 @@ msgid "VPN servers"
 msgstr "VPN servere"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:165
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to use this module. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Du kan ikke opprette VPN servere fordi det er ikke nok sertifikater."
-"{closepar}{openpar}Vennligst gå til {openhref}sertifikat behandler modulen"
-"{closehref} og opprett nye sertifikater{closepar}{openpar}Du vil trenge "
-"minst en CA og et sertifikat.{closepar}"
+"{openpar}Du må opprette et CA sertifikat for å bruke denne "
+"modulen.{closepar}{openpar}Vennligst gå til {openhref}sertifikat behandler "
+"modulen{closehref} og opprett det{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:179
 msgid "Server creation"
@@ -546,11 +541,8 @@ msgstr ""
 "vennligst rediger konfigurasjonen og prøv igjen"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:292
-#, fuzzy
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
-"Kan ikke få nøkkelen til server {name} fordi den ikke har tildelt noe "
-"sertifikat"
+msgstr "Kan ikke opprette en server fordi det ikke er noe CA sertifikat"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
 #, perl-brace-format

@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:08+0100\n"
-"PO-Revision-Date: 2007-07-24 15:13+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-20 11:45+0100\n"
+"Last-Translator: Jesper Lindeberg <jlindeberg@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
@@ -151,25 +152,26 @@ msgstr ""
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
-msgstr "Default tildelt tid må være mere end 0 sekunder"
+msgstr "Standard tildelt tid skal være mere end 0 sekunder"
 
 #: src/EBox/Model/LeaseTimes.pm:138
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr "Default tildelt tid {default} må være mindre end maximum tiden {max}"
+msgstr "Standard tildelt tid {default} skal være mindre end maximum tiden {max}"
 
 #: src/EBox/Model/LeaseTimes.pm:150
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr "Maximum tildelt tid må være mere end 0 sekunder"
+msgstr "Maximum tildelt tid skal være mere end 0 sekunder"
 
 #: src/EBox/Model/LeaseTimes.pm:156
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr "Maximum tildelt tid {max} må være større end default tildelt {default}"
+msgstr ""
+"Maximum tildelt tid {max} skal være større end standard tildelt {default}"
 
 #: src/EBox/Model/LeaseTimes.pm:200
 msgid "Default leased time"
-msgstr "Default tildelt tid"
+msgstr "Standard tildelt tid"
 
 #: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
 msgid "seconds"
@@ -187,7 +189,7 @@ msgstr "Tildelt tid"
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
-"Tildelt tid er den tid som en tildelt IP adresse er gyldig hos en DHCP server"
+"Tildelt tid er den tid som en given IP adresse er gyldig på DHCP serveren"
 
 #: src/EBox/Model/FixedAddressTable.pm:122
 #, perl-brace-format
@@ -215,7 +217,7 @@ msgstr "opdater"
 
 #: src/EBox/Model/FixedAddressTable.pm:182
 msgid "add"
-msgstr "Tilføj"
+msgstr "tilføj"
 
 #: src/EBox/Model/FixedAddressTable.pm:184
 #, perl-brace-format
@@ -223,16 +225,16 @@ msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr ""
-"Du kan ikke {action} en fast adresse med et navn, der allerede er brugt til "
+"Du kan ikke {action}e en fast adresse med et navn, der allerede er brugt til "
 "en anden fast adresse"
 
 #: src/EBox/Model/FixedAddressTable.pm:227
 msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
+msgstr "Du kan ikke bruge en IP adresse i det overstående område"
 
 #: src/EBox/Model/FixedAddressTable.pm:232
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: src/EBox/Model/FixedAddressTable.pm:240 src/templates/fixed.mas:5
 msgid "Fixed addresses"
@@ -240,36 +242,36 @@ msgstr "Faste adresser"
 
 #: src/EBox/Model/FixedAddressTable.pm:247
 msgid "fixed address"
-msgstr "Fast adresse"
+msgstr "fast adresse"
 
 #: src/EBox/Model/DynamicDNS.pm:132 src/EBox/Model/DynamicDNS.pm:140
 #: src/EBox/Model/DynamicDNS.pm:387
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr ""
+msgstr "Domæne {domain} er allerede blevet manuelt defineret i DNS sektionen "
 
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "DNS modulet skal være sat op til at virke med denne funktion"
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
+msgstr "{pkg} skal være installeret for at bruge denne funktion"
 
 #: src/EBox/Model/DynamicDNS.pm:266
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
+"Domæner vil automatisk blive tilføjet/sat i læse-tilstand i DNS sektionen "
 
 #: src/EBox/Model/DynamicDNS.pm:268
 msgid "DNS module must be enabled to make this feature work. "
-msgstr ""
+msgstr "DNS modulet skal være aktiveret for at denne funktion virker."
 
 #: src/EBox/Model/DynamicDNS.pm:332
-#, fuzzy
 msgid "Dynamic domain"
-msgstr "Søge domæne"
+msgstr "Dynamisk domæne"
 
 #: src/EBox/Model/DynamicDNS.pm:334
 msgid ""
@@ -296,7 +298,7 @@ msgstr ""
 #: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
 #: src/EBox/Model/Options.pm:432
 msgid "Custom"
-msgstr "Defineret"
+msgstr "Brugerdefineret"
 
 #: src/EBox/Model/DynamicDNS.pm:358
 msgid "Dynamic DNS Options"

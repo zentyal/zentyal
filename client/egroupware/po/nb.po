@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:09+0100\n"
-"PO-Revision-Date: 2009-12-04 09:39+0100\n"
+"PO-Revision-Date: 2010-01-20 13:14+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -114,11 +114,13 @@ msgid "No domain selected"
 msgstr "Ingen domene valgt"
 
 #: src/EBox/Model/VMailDomain.pm:100
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must have at least one virtual mail domain defined. You can define the "
 "at {ohref}Virtual Domains section{chref}"
-msgstr "Du må ha minst et virtuelt domene definert."
+msgstr ""
+"Du må ha minst et virtuelt domene definert. Du kan definere dem på "
+"{ohref}Virtuell Domene seksjonen{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
 #, perl-brace-format
@@ -126,6 +128,8 @@ msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
+"Du må ha IMAP tjenesten aktivert. Du kan aktivere den på {ohref} Mail "
+"General Configuration{chref}."
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
@@ -148,9 +152,8 @@ msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Velg det virtuelle E-Post domenet som skal brukes med eGroupware"
 
 #: src/EBox/Composite/General.pm:76
-#, fuzzy
 msgid "eGroupware"
-msgstr "Gruppevare"
+msgstr "eGroupware"
 
 #: src/EBox/Composite/General.pm:78
 msgid ""

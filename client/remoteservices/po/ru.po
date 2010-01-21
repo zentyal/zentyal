@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:11+0100\n"
-"PO-Revision-Date: 2010-01-09 08:59+0100\n"
+"PO-Revision-Date: 2010-01-20 13:58+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
@@ -144,18 +144,16 @@ msgid "No domain key found for this service"
 msgstr "Не найдены ключи домена для этой службы"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:151
-#, fuzzy
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system."
 msgstr ""
 "Подписка была сделана правильно. Подождите минуту, чтобы подписка была "
-"применена по всей системе"
+"применена ко всей системе"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:154
-#, fuzzy
 msgid "Subscription data retrieved correctly."
-msgstr "Подписка на данные получена правильно"
+msgstr "Данные подписки получены правильно"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:156
 msgid "Please, save changes"
@@ -170,35 +168,40 @@ msgid ""
 "Subscribing an eBox will configure OpenVPN module by running these actions "
 "and modifying these files: "
 msgstr ""
+"Подписка eBox настраивает модуль OpenVPN запустив следующие действия и "
+"изменив следующие файлы: "
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:263
 msgid "Subscribing an eBox will enable the OpenVPN module."
-msgstr ""
+msgstr "Подписка eBox включает модуль OpenVPN"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:266
 msgid ""
 "Take into account that subscribing an eBox could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
+"Примите во внимание, что подписка eBox может занять минуты. Ничего не "
+"трогайте пока процесс подписки не окончится."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:302
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
+"Перед подпиской на удаленные услуги, сохраните или отклоните изменения в "
+"модуле OpenVPN"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:322
 msgid "User Name or Email Address"
-msgstr ""
+msgstr "Имя пользователя или адрес электронной почты"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:330
-#, fuzzy
 msgid "eBox Name"
-msgstr "eBox общепринятое название"
+msgstr "Имя eBox"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:335
 msgid "Choose a name for your eBox which is a valid domain name"
-msgstr ""
+msgstr "Выберите имя для вашего Ebox чтобы оно было правильным доменным именем"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:342
 msgid "Password"
@@ -226,21 +229,21 @@ msgid ""
 "In order to subscribe an eBox remote services {url}. You will have remote "
 "backup facilities and much more"
 msgstr ""
+"При подписке eBox на удаленные услуги {url}. Вы получите удаленное резервное "
+"копирование и многое другое."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:435
-#, fuzzy
 msgid "Action"
-msgstr "Действия"
+msgstr "Действие"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:436
 #: src/EBox/RemoteServices/Model/Subscription.pm:449
-#, fuzzy
 msgid "Reason"
-msgstr "Восстановление"
+msgstr "Причины"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:448
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -271,7 +274,7 @@ msgstr "Удаленные службы"
 
 #: src/EBox/RemoteServices/Composite/General.pm:74
 msgid "eBox Control Center is paid services to enhance your eBox experience"
-msgstr ""
+msgstr "Платные услуги центра управления eBox повысят ваш опыт eBox :)"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
@@ -282,9 +285,8 @@ msgid "Control center"
 msgstr "Центр управления"
 
 #: src/EBox/RemoteServices.pm:76
-#, fuzzy
 msgid "Control Center Client"
-msgstr "Центр управления"
+msgstr "Клиент центра управления"
 
 #: src/EBox/RemoteServices.pm:160
 msgid "Not subscribed"
@@ -295,19 +297,17 @@ msgid "Subscribed"
 msgstr "Подписчики"
 
 #: src/EBox/RemoteServices.pm:194 src/EBox/RemoteServices.pm:580
-#, fuzzy
 msgid "Control Center"
 msgstr "Центр управления"
 
 #: src/EBox/RemoteServices.pm:245
-#, fuzzy
 msgid "eBox Control Center Connection"
-msgstr "Центр управления"
+msgstr "Соединение с eBox центром управления"
 
 #: src/EBox/RemoteServices.pm:573
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
-msgstr ""
+msgstr "Нет подключения. Проверьте журналы VPN в {path} "
 
 #: src/EBox/RemoteServices.pm:577
 msgid "Connected"

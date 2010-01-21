@@ -5,17 +5,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:12+0100\n"
-"PO-Revision-Date: 2009-01-21 10:16+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-18 17:19+0100\n"
+"Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_usercorner_add_webserver_service.pl:54
 msgid "User Corner Web Server"
@@ -23,7 +24,7 @@ msgstr ""
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
-msgstr ""
+msgstr "Ez a csoport tartalmaz felhasználókat"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52
 #: src/EBox/CGI/Users.pm:31 src/EBox/CGI/Users.pm:56
@@ -31,34 +32,34 @@ msgstr ""
 #: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2196
 #: src/EBox/UsersAndGroups.pm:2204
 msgid "Users"
-msgstr ""
+msgstr "Felhasználók"
 
 #: src/EBox/CGI/User.pm:46
 msgid "username"
-msgstr ""
+msgstr "felhasználónév"
 
 #: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:49
 #: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/DelGroupFromUser.pm:45
 #: src/EBox/UsersAndGroups/Model/Users.pm:86
 msgid "user"
-msgstr ""
+msgstr "felhasználó"
 
 #: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/Group.pm:45
 #: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/DelUserFromGroup.pm:45
 #: src/EBox/CGI/DelGroupFromUser.pm:50
 #: src/EBox/UsersAndGroups/Model/Groups.pm:85
 msgid "group"
-msgstr ""
+msgstr "csoport"
 
 #: src/EBox/CGI/Group.pm:30
 msgid "Edit group"
-msgstr ""
+msgstr "Csoport szerkesztése"
 
 #: src/EBox/CGI/Group.pm:61 src/EBox/CGI/Groups.pm:43
 #: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2198
 #: src/EBox/UsersAndGroups.pm:2207
 msgid "Groups"
-msgstr ""
+msgstr "Csoportok"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
 #: src/EBox/UsersAndGroups.pm:1345 src/EBox/UsersAndGroups.pm:1350
@@ -66,12 +67,12 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:1682 src/EBox/UsersAndGroups.pm:1799
 #: src/EBox/UsersAndGroups.pm:1902
 msgid "group name"
-msgstr ""
+msgstr "csoportnév"
 
 #: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
 #: src/EBox/CGI/AddUser.pm:47
 msgid "comment"
-msgstr ""
+msgstr "megjegyzés"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
 #: src/EBox/UsersAndGroups.pm:700 src/EBox/UsersAndGroups.pm:706
@@ -80,44 +81,44 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:1542 src/EBox/UsersAndGroups.pm:1643
 #: src/EBox/UsersAndGroups.pm:1677 src/EBox/UsersAndGroups.pm:1748
 msgid "user name"
-msgstr ""
+msgstr "felhasználónév"
 
 #: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
 msgid "last name"
-msgstr ""
+msgstr "vezetéknév"
 
 #: src/EBox/CGI/ModifyUser.pm:49
 msgid "password"
-msgstr ""
+msgstr "jelszó"
 
 #: src/EBox/CGI/ModifyUser.pm:50
 msgid "confirm password"
-msgstr ""
+msgstr "jelszó megerősítés"
 
 #: src/EBox/CGI/ModifyUser.pm:76 src/EBox/CGI/AddUser.pm:73
 #: src/EBox/UsersAndGroups/Model/Password.pm:98
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Nem egyeznek a jelszavak."
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
-msgstr ""
+msgstr "objektum név"
 
 #: src/EBox/CGI/Del.pm:70
 msgid "object type"
-msgstr ""
+msgstr "objektum típus"
 
 #: src/EBox/CGI/Del.pm:90
 msgid "User removed successfully"
-msgstr ""
+msgstr "Felhasználó sikeresen eltávolítva"
 
 #: src/EBox/CGI/Del.pm:94
 msgid "Group removed successfully"
-msgstr ""
+msgstr "Csoport sikeresen eltávolítva"
 
 #: src/EBox/UserCornerWebServer.pm:37
 msgid "User Corner"
-msgstr ""
+msgstr "Felhasználó sarok"
 
 #: src/EBox/UserCornerWebServer.pm:63
 msgid "Migrate configured modules"
@@ -139,15 +140,15 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:64
 msgid "Operation"
-msgstr ""
+msgstr "művelet"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:69
 msgid "Parameter"
-msgstr ""
+msgstr "paraméter"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:78
 msgid "List of pending operations on slaves"
-msgstr ""
+msgstr "A függőben lévő műveletek listája a ... [on slaves]"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:85
 msgid ""
@@ -157,36 +158,38 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
 msgid "operation"
-msgstr ""
+msgstr "művelet"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:129
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:114
 msgid "You must enable the module Users in master mode."
-msgstr ""
+msgstr "Itt lehet bekapcsolni a Felhasználói modult 'mester' üzemmódba."
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:131
 msgid "There are no pending operations at the moment."
-msgstr ""
+msgstr "Jelenleg nincsenek függőben lévő műveletek."
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
 msgid "AD user"
-msgstr ""
+msgstr "AD felhasználó"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:68
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
 msgstr ""
+"A felhasználónév kötődik a Windows Active Directoryhoz (ott lett "
+"létrehozva)."
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
 msgid "AD password"
-msgstr ""
+msgstr "AD jelszó"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:74
 msgid "Password for the above user"
-msgstr ""
+msgstr "föntebbi felhasználó jelszava"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:78
 msgid "Listen port"
-msgstr ""
+msgstr "hallgatózási port"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
 msgid "Port for listening password sync notifications from Windows"
@@ -194,7 +197,7 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
 msgid "AD Secret Key"
-msgstr ""
+msgstr "AD titkos kulcs"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
 msgid "Secret key to be shared between Windows and eBox (16 chars)"
@@ -206,15 +209,15 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:114
 msgid "The secret key needs to have 16 characters."
-msgstr ""
+msgstr "A titkos kulcshoz 16 karakter szükséges."
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2224
 msgid "Mode"
-msgstr ""
+msgstr "(üzem)mód"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:71
 msgid "Master"
-msgstr ""
+msgstr "mester"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:73
 msgid "Windows AD Slave"
@@ -230,7 +233,7 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:86
 msgid "LDAP password"
-msgstr ""
+msgstr "LDAP jelszó"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:88
 msgid "Master eBox LDAP password"
@@ -238,25 +241,25 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:94
 msgid "Configuration"
-msgstr ""
+msgstr "beállítás"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:95
 msgid "eBox Users Mode"
-msgstr ""
+msgstr "eBox felhasználói (üzem)mód"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:59
 #: src/EBox/UsersAndGroups/Model/Users.pm:60
 msgid "Name"
-msgstr ""
+msgstr "név"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:64
 msgid "Description"
-msgstr ""
+msgstr "leírás"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:69
 #: src/EBox/UsersAndGroups/Model/Users.pm:70
 msgid "Edit"
-msgstr ""
+msgstr "szerkesztés"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:130
 #: src/EBox/UsersAndGroups/Model/Users.pm:129
@@ -288,29 +291,29 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
-msgstr ""
+msgstr "jelszó kezelés"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:59
 msgid "New password"
-msgstr ""
+msgstr "új jelszó"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:66
 msgid "Re-type new password"
-msgstr ""
+msgstr "új jelszó megerősítése"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:75
 #: src/EBox/UsersAndGroups.pm:2238 src/templates/users.mas:49
 #: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
 msgid "Password"
-msgstr ""
+msgstr "jelszó"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:117
 msgid "Password successfully updated"
-msgstr ""
+msgstr "jelszó sikeresen frissítve"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:91
 msgid "Force sync"
-msgstr ""
+msgstr "kényszerített szinkronizálás"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:93
 msgid "on slaves"
@@ -318,15 +321,15 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:99
 msgid "Force sync of pending operations"
-msgstr ""
+msgstr "Függőben lévő műveletek kényszerített szinkronizálása."
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:102
 msgid "Sync now"
-msgstr ""
+msgstr "szinkronizálás most"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:65
 msgid "Full name"
-msgstr ""
+msgstr "teljes név"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:135
 #, perl-brace-format
@@ -381,7 +384,7 @@ msgstr ""
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
 #: src/EBox/UsersAndGroups.pm:2200 src/EBox/UsersAndGroups.pm:2209
 msgid "Default User Template"
-msgstr ""
+msgstr "alapértelmezett felhasználói sablon"
 
 #: src/EBox/UsersAndGroups/Setup.pm:137
 msgid "Can't bind to LDAP with the provided password"
@@ -389,7 +392,7 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:77
 msgid "Users and Groups"
-msgstr ""
+msgstr "felhasználók és csoportok"
 
 #: src/EBox/UsersAndGroups.pm:96
 msgid ""
@@ -445,47 +448,55 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:695
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
-msgstr ""
+msgstr "A felhasználónév nem lehet hosszabb {maxuserlength} karakternél!"
 
 #: src/EBox/UsersAndGroups.pm:793 src/EBox/UsersAndGroups.pm:1409
 msgid "Maximum number of system users reached"
-msgstr ""
+msgstr "rendszergazdák maximális száma"
 
 #: src/EBox/UsersAndGroups.pm:810
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
+"Érvénytelen felhasználói UID: {uid}.\n"
+"Ennek az értéknek egyenlőnek vagy nagyobbnak kell lenni mint {min}."
 
 #: src/EBox/UsersAndGroups.pm:821
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
+"Érvénytelen rendszergazdai UID: {uid}.\n"
+"Ennek az értéknek kisebbnek kell lenni mint {max}."
 
 #: src/EBox/UsersAndGroups.pm:1333
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
-msgstr ""
+msgstr "A csoportnév nem lehet hosszabb {maxGrouplength} karakternél!"
 
 #: src/EBox/UsersAndGroups.pm:1339
 msgid "The group name is not valid because it is used internally"
-msgstr ""
+msgstr "Csoportnév érvénytelen, mert már belső használatban van!"
 
 #: src/EBox/UsersAndGroups.pm:1426
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
+"Érvénytelen csoport GID: {gid}.\n"
+"Ennek az értéknek egyenlőnek vagy nagyobbnak kell lenni mint {min}."
 
 #: src/EBox/UsersAndGroups.pm:1436
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
+"Érvénytelen rendszer csoporti GID: {gid}.\n"
+"Ennek az értéknek kisebbnek kell lenni mint {max}."
 
 #: src/EBox/UsersAndGroups.pm:1978
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
-msgstr ""
+msgstr "A jelszó nem lehet hosszabb {maxPwdLength} karakternél!"
 
 #: src/EBox/UsersAndGroups.pm:2214
 msgid "Slave Status"
@@ -517,7 +528,7 @@ msgstr ""
 
 #: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
 msgid "User"
-msgstr ""
+msgstr "felhasználó"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:62
 msgid ""
@@ -527,7 +538,7 @@ msgstr ""
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:66
 msgid "Incorrect password"
-msgstr ""
+msgstr "érvénytelen jelszó"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:69
 msgid "For security reasons your session has expired due to inactivity"
@@ -575,62 +586,62 @@ msgstr ""
 
 #: src/templates/del.mas:43
 msgid "Delete"
-msgstr ""
+msgstr "törlés"
 
 #: src/templates/del.mas:46
 msgid "Cancel"
-msgstr ""
+msgstr "mégsem"
 
 #: src/templates/groups.mas:10
 msgid "Add Group"
-msgstr ""
+msgstr "csoport hozzáadása"
 
 #: src/templates/groups.mas:16
 msgid "Group name"
-msgstr ""
+msgstr "csoport név"
 
 #: src/templates/groups.mas:26 src/templates/users.mas:41
 #: src/templates/group.mas:20 src/templates/user.mas:41
 msgid "Comment"
-msgstr ""
+msgstr "megjegyzés"
 
 #: src/templates/groups.mas:31
 msgid "Optional value"
-msgstr ""
+msgstr "opcionális érték"
 
 #: src/templates/groups.mas:38 src/templates/groups.mas:39
 #: src/templates/users.mas:69 src/templates/users.mas:70
 msgid "Add and Edit"
-msgstr ""
+msgstr "hozzáadás és szerkesztés"
 
 #: src/templates/groups.mas:41 src/templates/groups.mas:42
 #: src/templates/users.mas:73 src/templates/users.mas:74
 msgid "Add"
-msgstr ""
+msgstr "hozzáadás"
 
 #: src/templates/users.mas:12
 msgid "Add User"
-msgstr ""
+msgstr "felhasználó hozzáadása"
 
 #: src/templates/users.mas:17 src/templates/usercorner/login/index.mas:29
 msgid "User name"
-msgstr ""
+msgstr "felhasználói név"
 
 #: src/templates/users.mas:25 src/templates/user.mas:21
 msgid "First name"
-msgstr ""
+msgstr "Utónév"
 
 #: src/templates/users.mas:33 src/templates/user.mas:31
 msgid "Last name"
-msgstr ""
+msgstr "Családnév"
 
 #: src/templates/users.mas:56 src/templates/user.mas:62
 msgid "Retype password"
-msgstr ""
+msgstr "jelszó megerősítése"
 
 #: src/templates/users.mas:89
 msgid "Group"
-msgstr ""
+msgstr "csoport"
 
 #: src/templates/group.mas:14
 msgid ""
@@ -641,52 +652,54 @@ msgstr ""
 #: src/templates/group.mas:25 src/templates/group.mas:26
 #: src/templates/user.mas:74 src/templates/user.mas:75
 msgid "Change"
-msgstr ""
+msgstr "módosítás"
 
 #: src/templates/group.mas:33
 msgid "Users in group"
-msgstr ""
+msgstr "A felhasználó tagja a csoportnak."
 
 #: src/templates/group.mas:35
 msgid "Users not in group"
-msgstr ""
+msgstr "A felhasználó NEM tagja a csoportnak."
 
 #: src/templates/group.mas:51 src/templates/group.mas:92
 #: src/templates/user.mas:106 src/templates/user.mas:141
 msgid "Empty list"
-msgstr ""
+msgstr "üres lista"
 
 #: src/templates/group.mas:61 src/templates/user.mas:114
 msgid "Remove"
-msgstr ""
+msgstr "eltávolít"
 
 #: src/templates/group.mas:64
 msgid "Remove users from group"
-msgstr ""
+msgstr "felhasználók törlése a csoportból"
 
 #: src/templates/group.mas:75 src/templates/group.mas:78
 #: src/templates/user.mas:125 src/templates/user.mas:128
 msgid "Add users to group"
-msgstr ""
+msgstr "felhasználók hozzáadása a csoporthoz"
 
 #: src/templates/group.mas:108 src/templates/group.mas:117
 #: src/templates/group.mas:118
 msgid "Delete group"
-msgstr ""
+msgstr "csoport törlése"
 
 #: src/templates/group.mas:110
 msgid ""
 "If you remove this group all its data within its shared directory will be "
 "deleted"
 msgstr ""
+"Ha ezt a csoportot eltávolítja, akkor az összes adat a megosztott "
+"könyvtárakból automatikusan törlődni fog."
 
 #: src/templates/user.mas:88
 msgid "User groups"
-msgstr ""
+msgstr "felhasználói csoportok"
 
 #: src/templates/user.mas:90
 msgid "Other groups"
-msgstr ""
+msgstr "egyéb csoportok"
 
 #: src/templates/user.mas:117
 msgid "Remove groups from user"
@@ -695,21 +708,23 @@ msgstr ""
 #: src/templates/user.mas:159 src/templates/user.mas:167
 #: src/templates/user.mas:168
 msgid "Delete user"
-msgstr ""
+msgstr "felhasználó törlése"
 
 #: src/templates/user.mas:161
 msgid ""
 "This operation will cause the removal of the user and all the dependent "
 "data; such as mail accounts, user files, ..."
 msgstr ""
+"Ez a művelet törli a felhasználót, valamint minden egyéb vele összefüggő "
+"adatát is: postafiók, fájlok, stb."
 
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"
-msgstr ""
+msgstr "kijelentkezés"
 
 #: src/templates/usercorner/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Figyelem: a Caps Lock bekapcsolva!"
 
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"

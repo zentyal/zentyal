@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:09+0100\n"
-"PO-Revision-Date: 2009-08-28 09:27+0200\n"
+"PO-Revision-Date: 2010-01-20 13:17+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "Pakke filter"
 
 #: src/EBox/Firewall.pm:828
 msgid "Port Forwarding"
-msgstr ""
+msgstr "Port Videresending"
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -135,9 +135,8 @@ msgid "Packet filtering"
 msgstr "Pakke filtrering"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#, fuzzy
 msgid "Traffic coming out from eBox"
-msgstr "Filtrerings regler for trafikk ut fra eBox"
+msgstr "Trafikk ut fra eBox"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
@@ -148,9 +147,8 @@ msgid "rule"
 msgstr "regel"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#, fuzzy
 msgid "External networks to internal networks"
-msgstr "Filtrerings regler fra eksterne nettverk til interne nettverk"
+msgstr "Eksterne nettverk til interne nettverk"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
@@ -220,11 +218,11 @@ msgstr "Beskrivelse"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
 msgid "List of forwarded ports"
-msgstr ""
+msgstr "Liste over videresendte porter"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "Port Forwading"
-msgstr ""
+msgstr "Port Videresending"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:364
 msgid "redirect"
@@ -255,23 +253,20 @@ msgstr ""
 "vil treffe denne regelen"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:227
-#, fuzzy
 msgid "Configure Rules"
-msgstr "Konfigurer regler"
+msgstr "Konfigurer Regler"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "External networks to eBox"
-msgstr "Filtrerings regler fra eksterne nettverk til eBox"
+msgstr "Eksterne nettverk til eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "Internal networks to eBox"
-msgstr "Filtrerings regler fra interne nettverk til eBox"
+msgstr "Interne nettverk til eBox"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 msgid "Internal networks"
-msgstr ""
+msgstr "Interne nettverk"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46

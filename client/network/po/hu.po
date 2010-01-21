@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:10+0100\n"
-"PO-Revision-Date: 2009-11-25 14:29+0100\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-01-15 09:57+0100\n"
+"Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,11 +47,11 @@ msgstr "Jelszó"
 #: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1360 src/EBox/Network.pm:1389
 #: src/templates/ifaces.mas:188
 msgid "VLAN Id"
-msgstr "VLAN id"
+msgstr "VLAN azonosító (ID)"
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
-msgstr "virtual interface action"
+msgstr "virtuális interfész művelet"
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:776 src/EBox/Network.pm:781
 #: src/EBox/Network.pm:1086 src/EBox/Network.pm:1107 src/EBox/Network.pm:2590
@@ -73,15 +73,15 @@ msgstr "Hálózati diagnosztikai eszközök"
 #: src/EBox/Model/WANFailoverRules.pm:95 src/templates/diag.mas:14
 #: src/templates/diag.mas:23
 msgid "Host"
-msgstr "Host"
+msgstr "Kiszolgáló"
 
 #: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2846
 msgid "host name"
-msgstr "host név"
+msgstr "kiszolgáló neve"
 
 #: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:2939
 msgid "Network Interfaces"
-msgstr "Hálózati interfész"
+msgstr "Hálózati csatoló"
 
 #: src/EBox/CGI/EnableBalanceTraffic.pm:42
 msgid "traffic balance"
@@ -90,7 +90,7 @@ msgstr "forgalom kiegyenlítés"
 #: src/EBox/Event/Watcher/Gateways.pm:138
 #, perl-brace-format
 msgid "Gateway {gw} connected"
-msgstr "A {gw} átjáró csatlakozva"
+msgstr "A {gw} átjáró csatlakoztatva."
 
 #: src/EBox/Event/Watcher/Gateways.pm:245
 #, perl-brace-format
@@ -108,7 +108,7 @@ msgstr "WAN feladatátvétel"
 
 #: src/EBox/Event/Watcher/Gateways.pm:321
 msgid "Check if gateways are connected or disconnected."
-msgstr "Ellenőrzöm, hogy az átjáró elérhető vagy sem."
+msgstr "Ellenőrzi az átjáró állapotát (csatlakozott-e vagy sem)."
 
 #: src/EBox/Network/Composite/ByteRate.pm:74
 #: src/EBox/Network/Report/ByteRate.pm:134
@@ -120,8 +120,8 @@ msgid ""
 "Events module is not enabled. You have to enable it and also enable the WAN "
 "Failover event in order to use this feature."
 msgstr ""
-"Az Esemény modul nincs bekapcsolva. Ezt be kell kapcsolni, illetve még a WAN "
-"Failover eseménykövetés is szükséges a funkció használatához."
+"Az Esemény modul nincs bekapcsolva. Ha bekapcsolod, akkor a WAN Failover "
+"(átterhelés[t]?) szintén be kell kapcsolni."
 
 #: src/EBox/Network/Composite/WANFailover.pm:82
 msgid ""
@@ -133,7 +133,7 @@ msgstr ""
 
 #: src/EBox/Network/Composite/DNS.pm:61
 msgid "Domain Name Server Resolver"
-msgstr "Domain Name Server feloldó"
+msgstr "Domain Name Server (megoldó?) feloldó"
 
 #: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:2970
 msgid "Balance Traffic"
@@ -149,7 +149,7 @@ msgstr ""
 
 #: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2891
 msgid "Status"
-msgstr "Státus"
+msgstr "Státusz"
 
 #: src/EBox/Network/Report/ByteRate.pm:136
 msgid "Running"
@@ -167,24 +167,24 @@ msgstr "Forgalom a forráshoz"
 #: src/EBox/Network/Report/ByteRate.pm:843
 #, perl-brace-format
 msgid "Network traffic from {src}"
-msgstr "Hálózati forgalom a {src} felől"
+msgstr "Hálózati forgalom a(z) {src} felől"
 
 #: src/EBox/Network/Report/ByteRate.pm:877
 msgid "Traffic data not found for service"
-msgstr "A szolgáltatás forgalomadatai nem elérhetők"
+msgstr "A szolgáltatás forgalomadatai nem találhatóak."
 
 #: src/EBox/Network/Report/ByteRate.pm:887
 #, perl-brace-format
 msgid "Network traffic for {service}"
-msgstr "A {service} szolgáltatás hálózati forgalma"
+msgstr "A {service} szolgáltatás hálózati forgalma."
 
 #: src/EBox/Network/Report/ByteRate.pm:937
 msgid "Traffic data for service"
-msgstr "A szolgáltatás hálózati forgalma"
+msgstr "A szolgáltatás hálózati forgalma."
 
 #: src/EBox/Network/Report/ByteRate.pm:946
 msgid "Traffic data not found for source and service pair"
-msgstr "Forgalomadatok nem elérhetőek a forrás és szolgáltatás páros esetén"
+msgstr "Forgalomadatok nem elérhetőek a forrás és szolgáltatás páros esetén."
 
 #: src/EBox/Network/Report/ByteRate.pm:948
 #, perl-brace-format
@@ -199,7 +199,7 @@ msgstr ""
 
 #: src/EBox/Network/Report/ByteRate.pm:989
 msgid "All active services"
-msgstr "Minden aktív szolgáltatás"
+msgstr "Az összes szolgáltatás aktív."
 
 #: src/EBox/Network/Report/ByteRate.pm:994
 msgid "Traffic data for "
@@ -211,20 +211,20 @@ msgstr "minden szolgáltatás"
 
 #: src/EBox/Network/Report/ByteRate.pm:1040
 msgid "All active sources"
-msgstr "Minden aktív forrás"
+msgstr "Minden forrás aktív."
 
 #: src/EBox/Network/Report/ByteRate.pm:1045
 msgid "Traffic data for"
-msgstr "Forgalom adatok"
+msgstr "Forgalmi adatok"
 
 #: src/EBox/Network/Report/ByteRate.pm:1046
 msgid "all sources"
-msgstr "minden forrás"
+msgstr "összes forrás"
 
 #: src/EBox/Network/Report/ByteRate.pm:1084
 #, perl-brace-format
 msgid "Total traffic rate from {src}"
-msgstr "{src}-től eredő teljes forgalom"
+msgstr "{src}-ból/ből eredő összes forgalom"
 
 #: src/EBox/Network/Report/ByteRate.pm:1099
 #, perl-brace-format
@@ -243,19 +243,19 @@ msgstr "Hálózat"
 
 #: src/EBox/Network.pm:94
 msgid "Add default routers to the default table"
-msgstr "Adja hozzá az alapértelmezett routeokat az alapértelmezett táblához"
+msgstr "Adja hozzá az alapértelmezett útvonalakat az alapértelmezett táblához"
 
 #: src/EBox/Network.pm:95
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
 msgstr ""
-"Ez szükséges a többátjárós működéshez. Az alapértelmezett routeok kiírásához "
-"le kell futtatni: "
+"Ez szükséges a többátjárós működéshez. Az alapértelmezett útvonalak "
+"megjelenítéséhez le kell futtatni: _"
 
 #: src/EBox/Network.pm:101
 msgid "Enable eBox DHCP hook"
-msgstr "A DHCP hook bekapcsolása"
+msgstr "A DHCP (horgony?) hook bekapcsolása"
 
 #: src/EBox/Network.pm:102
 msgid ""
@@ -279,7 +279,7 @@ msgstr "Az eBox beállítja a ddclient beállításokat"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
 msgid "eBox will store your PPPoE passwords"
-msgstr ""
+msgstr "Az eBox eltárolta a PPPoE jelszavát."
 
 #: src/EBox/Network.pm:152
 #, fuzzy

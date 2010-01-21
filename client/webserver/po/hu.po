@@ -8,33 +8,34 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-21 17:06+0100\n"
-"PO-Revision-Date: 2009-01-21 10:17+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-18 16:48+0100\n"
+"Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "HyperText Transport Protocol (HTTP)"
 
 #: src/EBox/WebServer.pm:77 src/EBox/WebServer/Composite/General.pm:81
 msgid "Web Server"
-msgstr ""
+msgstr "webszerver"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
-msgstr ""
+msgstr "beállítja a webszerver figyelő (hallgatózási) portját"
 
 #: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
-msgstr ""
+msgstr "beállítja a nyilvános HTML könyvtárat"
 
 #: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "bekapcsolja az Apache LDAP felhasználói modulját"
 
 #: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"
@@ -42,32 +43,37 @@ msgstr ""
 
 #: src/EBox/WebServer.pm:171
 msgid "Web service status"
-msgstr ""
+msgstr "web szolgáltatás állapota"
 
 #: src/EBox/WebServer.pm:348
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "A {userDirConfFile} hiányzik! Kérem visszaállítani!"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
+msgstr "figyelő (hallgatózási) port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:101
 msgid ""
 "To allow HTML directories for users is needed that the file sharing module "
 "is installed and configured"
 msgstr ""
+"A felhasználók részére engedélyezed a HTML könyvtárakat, akkor szükség van a "
+"fájlmegosztási modul telepítésére és beállítására is."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:107
 msgid ""
 "To allow HTML directories for user os needed to have the file sharing module "
 "configured. To configure it enable it at least one time"
 msgstr ""
+"A felhasználók részére engedélyezed a HTML könyvtárakat, akkor szükség van a "
+"fájlmegosztási modul beállítására is. A beállításhoz legalább egyszer be "
+"kell kapcsolni."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
-msgstr ""
+msgstr "figyelő (hallgatózási) port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:175
 #, perl-brace-format
@@ -79,10 +85,12 @@ msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
+"Ha ezt a mezőt bejelöld, akkor minden felhasználó számára engedélyezed a "
+"weboldalon a saját könyvtárában a 'public_html' opciót."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:189
 msgid "General configuration settings"
-msgstr ""
+msgstr "Általános konfigurációs beállítások"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:193
 #, perl-brace-format
@@ -95,17 +103,17 @@ msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "Általános webszerver konfigurációs beállítások frissítése."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 #: src/EBox/WebServer/Model/VHostTable.pm:98
 #: src/EBox/WebServer/Model/VHostTable.pm:104
 msgid "Virtual host's name"
-msgstr ""
+msgstr "virtuális kiszolgáló neve"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:100
 msgid "The virtual host name supplied is a top domain name"
-msgstr ""
+msgstr "A virtuális kiszolgáló név támogatva a top domain névben."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:107
 #, perl-brace-format
@@ -113,6 +121,8 @@ msgid ""
 "The virtual host name supplied is a domain name (Maybe you want instead "
 "{url}?)."
 msgstr ""
+"A virtuális kiszolgáló név támogatva a domain névben. (Talán az {url} "
+"helyett akarod?)"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:162
 #, perl-brace-format
@@ -127,29 +137,35 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
+"Virtuális kiszolgáló {vhost} hozzáadva. A felismert név {name} és IP cím "
+"{ip} hozzáadva a(z) {domain} domainhez."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:195
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
+"Virtuális kiszolgáló {vhost} hozzáadva aliasként {alias} kiszolgálóhoz "
+"{hostname}."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:201
 #: src/EBox/WebServer/Model/VHostTable.pm:206
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
-msgstr ""
+msgstr "virtuális kiszolgáló {vhost} hozzáadva"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:211
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
+"Ez nem egy belső statikus csatoló (interface) webkiszolgáló IP címének "
+"beállítására szolgál."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:237
 msgid "Name"
-msgstr ""
+msgstr "név"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:247
 msgid "Virtual hosts"
-msgstr ""
+msgstr "virtuális kiszolgálók"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:251
 #, perl-brace-format
@@ -164,7 +180,7 @@ msgstr ""
 
 #: src/EBox/WebServer/Model/VHostTable.pm:261
 msgid "virtual host"
-msgstr ""
+msgstr "virtuális kiszolgáló"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:283
 #, perl-brace-format
@@ -175,7 +191,7 @@ msgstr ""
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Configuration"
-msgstr ""
+msgstr "Beállítások"
 
 #: src/EBox/WebServer/Composite/General.pm:83
 msgid ""

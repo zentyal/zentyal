@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:09+0100\n"
-"PO-Revision-Date: 2009-09-30 17:04+0200\n"
+"PO-Revision-Date: 2010-01-18 13:52+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -85,9 +85,8 @@ msgid "Packet Filter"
 msgstr "Filtrage de paquets"
 
 #: src/EBox/Firewall.pm:828
-#, fuzzy
 msgid "Port Forwarding"
-msgstr "Règles d'expédition"
+msgstr "Transfert de ports"
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -140,9 +139,8 @@ msgid "Packet filtering"
 msgstr "Filtrage de paquets"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#, fuzzy
 msgid "Traffic coming out from eBox"
-msgstr "Règles de filtrage pour le trafic sortant d'eBox"
+msgstr "Trafic sortant d'eBox"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
@@ -153,9 +151,8 @@ msgid "rule"
 msgstr "règle"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#, fuzzy
 msgid "External networks to internal networks"
-msgstr "Règles de filtrages entre les réseaux externes et internes"
+msgstr "Réseaux externes à réseau internes"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
@@ -225,12 +222,11 @@ msgstr "Description"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
 msgid "List of forwarded ports"
-msgstr ""
+msgstr "Liste des ports transférés"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:355
-#, fuzzy
 msgid "Port Forwading"
-msgstr "Règles d'expédition"
+msgstr "Transfert de ports"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:364
 msgid "redirect"
@@ -261,24 +257,20 @@ msgstr ""
 "compte la règle"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:227
-#, fuzzy
 msgid "Configure Rules"
-msgstr "Configurer les règles"
+msgstr "Configurer des règles"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "External networks to eBox"
-msgstr "Règles de filtrages entre les réseaux externes et eBox"
+msgstr "Réseaux externes à eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "Internal networks to eBox"
-msgstr "Règles de filtrages depuis les réseaux internes vers eBox"
+msgstr "Réseaux internes à eBox"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#, fuzzy
 msgid "Internal networks"
-msgstr "Port externe"
+msgstr "Réseaux internes"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46

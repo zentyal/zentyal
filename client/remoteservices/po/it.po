@@ -8,93 +8,96 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:11+0100\n"
-"PO-Revision-Date: 2009-02-19 16:28+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-09 20:13+0100\n"
+"Last-Translator: Marcello Teodori <marcello.teodori@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
-msgstr ""
+msgstr "Backup eliminato"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
-msgstr ""
+msgstr "Creo backup remoto"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
 msgid "Backing up modules "
-msgstr ""
+msgstr "Backup moduli in corso"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
 msgid "Operation"
-msgstr ""
+msgstr "Operazione"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "Operazioni rimasti per terminare backup"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
 msgid "Backup successful"
-msgstr ""
+msgstr "Backup effettuato con successo"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
 msgid "Restoring remote backup"
-msgstr ""
+msgstr "Ripristino backup remoto"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
 msgid "Restoring modules from remote backup"
-msgstr ""
+msgstr "Ripristino moduli da backup remoto"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
 msgid "Module"
-msgstr ""
+msgstr "Modulo"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
 msgid "modules left to restore"
-msgstr ""
+msgstr "moduli rimanenti da ripristinare"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
 msgid "Restore successful"
-msgstr ""
+msgstr "Ripristino effettuato con successo"
 
 #: src/EBox/CGI/Backup/Index.pm:36
 msgid "Remote system backups"
-msgstr ""
+msgstr "Backup di sistema remoti"
 
 #: src/EBox/CGI/Backup/Confirm.pm:35
 msgid "Configuration backup"
-msgstr ""
+msgstr "Backup configurazione"
 
 #: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
 msgid ""
 "Please confirm that you want to restore the configuraction using the "
 "following remote backup:"
 msgstr ""
+"Prego conferma di voler ripristinare la configurazione usando il seguente "
+"backup remoto:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
 msgid "Restore"
-msgstr ""
+msgstr "Ripristina"
 
 #: src/EBox/CGI/Backup/Confirm.pm:119
 msgid "Please confirm that you want to delete the following remote backup:"
-msgstr ""
+msgstr "Prego conferma di voler eliminare il seguente backup remoto:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:125
 msgid "Delete"
-msgstr ""
+msgstr "Elimina"
 
 #: src/EBox/CGI/Backup/Confirm.pm:173
 #, perl-brace-format
 msgid "Inexistent action: {a}"
-msgstr ""
+msgstr "Azione inesistente: {a}"
 
 #: src/EBox/CGI/Backup/Proxy.pm:35
 msgid "Remote system backups proxy"

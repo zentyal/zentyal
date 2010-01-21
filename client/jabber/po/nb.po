@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:09+0100\n"
-"PO-Revision-Date: 2009-09-30 16:22+0200\n"
+"PO-Revision-Date: 2010-01-20 13:09+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,13 +18,12 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/JabberLdapUser.pm:259
-#, fuzzy
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
 msgstr ""
 "Denne brukeren har en jabber konto. Hvis brukeren er tilkoblet vil den "
-"fortsette tilkoblet inntil jabber autoriseringen trengs igjen"
+"fortsette tilkoblet inntil jabber autoriseringen trengs igjen."
 
 #: src/EBox/Jabber.pm:72
 msgid "Add Jabber LDAP schema"

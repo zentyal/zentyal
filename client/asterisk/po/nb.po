@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:06+0100\n"
-"PO-Revision-Date: 2009-12-04 09:06+0100\n"
+"PO-Revision-Date: 2010-01-15 09:36+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -147,18 +147,16 @@ msgid "Description"
 msgstr "Beskrivelse"
 
 #: src/EBox/Model/Meetings.pm:184
-#, fuzzy
 msgid "List of Meetings"
-msgstr "Møter"
+msgstr "Møte liste"
 
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
 msgstr "møte"
 
 #: src/EBox/Model/AsteriskUser.pm:50
-#, fuzzy
 msgid "Asterisk Account"
-msgstr "Asterisk konto"
+msgstr "Asterisk Konto"
 
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
@@ -185,9 +183,8 @@ msgid "Delete sent messages"
 msgstr "Slett sendte meldinger"
 
 #: src/EBox/Model/Voicemail.pm:126
-#, fuzzy
 msgid "Change your Voicemail settings"
-msgstr "Talepost instillinger"
+msgstr "Endre dine Talepost instillinger"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
@@ -196,6 +193,7 @@ msgstr "Innstillinger oppdatert"
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
+"Du har ikke en VoIP konto. Kansje VoIP ikke er aktivert på denne serveren"
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format

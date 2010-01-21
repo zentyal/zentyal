@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:57+0000\n"
-"PO-Revision-Date: 2009-09-29 11:04+0200\n"
-"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2010-01-18 13:41+0100\n"
+"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EBackup.pm:61 src/EBox/Event/Watcher/EBackup.pm:111
@@ -32,12 +32,12 @@ msgstr ""
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 #: src/EBox/Model/RemoteFileList.pm:166
 #, fuzzy
 msgid "Backup Date"
-msgstr "Резервное копирование"
+msgstr "Дата резервного копирования"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:08+0100\n"
-"PO-Revision-Date: 2009-09-09 11:28+0200\n"
+"PO-Revision-Date: 2010-01-20 13:07+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -233,7 +233,7 @@ msgstr "Du kan ikke bruke en IP adresse som er bruk i rekkene over"
 
 #: src/EBox/Model/FixedAddressTable.pm:232
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: src/EBox/Model/FixedAddressTable.pm:240 src/templates/fixed.mas:5
 msgid "Fixed addresses"
@@ -247,51 +247,51 @@ msgstr "fast adresse"
 #: src/EBox/Model/DynamicDNS.pm:387
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr ""
+msgstr "Domene {domain} er allerede definert manuelt i DNS seksjonen"
 
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "DNS modulen må være konfigurert for å virke med denne funksjonen"
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
+msgstr "{pkg} må være installert for å bruke denne funksjonen"
 
 #: src/EBox/Model/DynamicDNS.pm:266
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
+"Domener vil bli lagt til/satt automatisk i DNS seksjonen i skrivebeskyttet "
+"modus."
 
 #: src/EBox/Model/DynamicDNS.pm:268
 msgid "DNS module must be enabled to make this feature work. "
-msgstr ""
+msgstr "DNS modulen må være aktivert for at denne funksjonen skal virke."
 
 #: src/EBox/Model/DynamicDNS.pm:332
-#, fuzzy
 msgid "Dynamic domain"
-msgstr "Søke domene"
+msgstr "Dynamisk domene"
 
 #: src/EBox/Model/DynamicDNS.pm:334
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
-msgstr ""
+msgstr "Domene navn lagt til vertsnavnet fra de klientene med dynamisk adresse"
 
 #: src/EBox/Model/DynamicDNS.pm:339
-#, fuzzy
 msgid "Static domain"
-msgstr "Søke domene"
+msgstr "Statisk domene"
 
 #: src/EBox/Model/DynamicDNS.pm:341
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
-msgstr ""
+msgstr "Domene navn lagt til vertsnavnet fra klientene med fast adresse"
 
 #: src/EBox/Model/DynamicDNS.pm:346
 msgid "Same as Dynamic Domain"
-msgstr ""
+msgstr "Samme som Dynamisk Domene"
 
 #: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:371
 #: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
@@ -301,21 +301,22 @@ msgstr "Tilpasset"
 
 #: src/EBox/Model/DynamicDNS.pm:358
 msgid "Dynamic DNS Options"
-msgstr ""
+msgstr "Dynamiske DNS Alternativer"
 
 #: src/EBox/Model/DynamicDNS.pm:363
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
+"Domenene vil automatisk bli lagt til i DNS modulen i skrivebeskyttet modus"
 
 #: src/EBox/Model/DynamicDNS.pm:395
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
-msgstr ""
+msgstr "Domene \"{domain}\" lagt til DNS seksjon"
 
 #: src/EBox/Model/DynamicDNS.pm:406
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
-msgstr ""
+msgstr "Domene \"{domain}\" fjernet fra DNS seksjon"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
@@ -339,23 +340,17 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} er ikke på nåværende nettverk"
 
 #: src/EBox/Model/Options.pm:169
-#, fuzzy
 msgid ""
 "DNS module must be enabled to be able to select eBox as primary DNS server"
-msgstr ""
-"DNS tjenesten må være aktiv for å kunne velge eBox som primær DNS server"
+msgstr "DNS modulen må være aktiv for å kunne velge eBox som primær DNS server"
 
 #: src/EBox/Model/Options.pm:179
-#, fuzzy
 msgid "NTP module must be enabled to be able to select eBox as NTP server"
-msgstr ""
-"DNS tjenesten må være aktiv for å kunne velge eBox som primær DNS server"
+msgstr "DNS modulen må være aktiv for å kunne velge eBox som primær DNS server"
 
 #: src/EBox/Model/Options.pm:190
-#, fuzzy
 msgid "Samba module must be enabled to be able to select eBox as WINS server"
-msgstr ""
-"DNS tjenesten må være aktiv for å kunne velge eBox som primær DNS server"
+msgstr "DNS modulen må være aktiv for å kunne velge eBox som primær DNS server"
 
 #: src/EBox/Model/Options.pm:379
 msgid "eBox's domain"
@@ -366,14 +361,12 @@ msgid "local eBox DNS"
 msgstr "lokal eBox DNS"
 
 #: src/EBox/Model/Options.pm:414
-#, fuzzy
 msgid "local eBox NTP"
-msgstr "lokal eBox DNS"
+msgstr "lokal eBox NTP"
 
 #: src/EBox/Model/Options.pm:428
-#, fuzzy
 msgid "local eBox"
-msgstr "lokal eBox DNS"
+msgstr "lokal eBox"
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
@@ -424,32 +417,28 @@ msgid "Secondary nameserver"
 msgstr "Sekundær navneserver"
 
 #: src/EBox/Model/Options.pm:494
-#, fuzzy
 msgid "NTP server"
-msgstr "Neste server"
+msgstr "NTP server"
 
 #: src/EBox/Model/Options.pm:497
-#, fuzzy
 msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
 msgstr ""
-"Hvis \"eBox DNS\" er tilgjengelig og valgt, eBox serveren vil oppføre seg "
-"som en mellomlagrings DNS server"
+"Hvis \"eBox NTP\" er tilgjengelig og valgt, vil eBox være NTP serveren for "
+"DHCP klienter"
 
 #: src/EBox/Model/Options.pm:502
-#, fuzzy
 msgid "WINS server"
-msgstr "Neste server"
+msgstr "WINS server"
 
 #: src/EBox/Model/Options.pm:505
-#, fuzzy
 msgid ""
 "If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
 "DHCP clients"
 msgstr ""
-"Hvis \"eBox DNS\" er tilgjengelig og valgt, eBox serveren vil oppføre seg "
-"som en mellomlagrings DNS server"
+"Hvis \"eBox Samba\" er tilgjengelig og valgt, vil eBox være serveren WINS "
+"serveren for DHCP klienter"
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"

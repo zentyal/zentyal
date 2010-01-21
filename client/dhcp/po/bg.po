@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:08+0100\n"
-"PO-Revision-Date: 2009-07-01 09:53+0200\n"
+"PO-Revision-Date: 2010-01-13 22:15+0100\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -238,25 +238,25 @@ msgstr "Не можете да използвате IP адрес, съдърж�
 
 #: src/EBox/Model/FixedAddressTable.pm:232
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: src/EBox/Model/FixedAddressTable.pm:240 src/templates/fixed.mas:5
 msgid "Fixed addresses"
-msgstr "Фиксирани адреси"
+msgstr "Постоянни адреси"
 
 #: src/EBox/Model/FixedAddressTable.pm:247
 msgid "fixed address"
-msgstr "фиксиран адрес"
+msgstr "Постоянен адрес"
 
 #: src/EBox/Model/DynamicDNS.pm:132 src/EBox/Model/DynamicDNS.pm:140
 #: src/EBox/Model/DynamicDNS.pm:387
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr ""
+msgstr "Областта {domain} вече е зададена ръчно в раздел DNS."
 
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "DNS модулът трябва да е настроен да работи с това свойство."
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format

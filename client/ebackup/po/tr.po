@@ -8,41 +8,42 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:57+0000\n"
-"PO-Revision-Date: 2009-07-31 13:14+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-17 21:53+0100\n"
+"Last-Translator: Ersan YILDIRIM <yakazan@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EBackup.pm:61 src/EBox/Event/Watcher/EBackup.pm:111
 msgid "Backup"
-msgstr ""
+msgstr "Yedekleme"
 
 #: src/EBox/Event/Watcher/EBackup.pm:129
 msgid "Check if eBox backup was not successfull."
-msgstr ""
+msgstr "eBox yedeklemesi başarılı olamadı kontrol edin."
 
 #: src/EBox/Model/RemoteFileList.pm:143
 msgid "There is no information about backuped files yet"
-msgstr ""
+msgstr "Yedeklenen dosyaları hakkında henüz bilgi yok."
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "Dosya"
 
 #: src/EBox/Model/RemoteFileList.pm:166
 msgid "Backup Date"
-msgstr ""
+msgstr "Yedekleme Tarihi"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
-msgstr ""
+msgstr "Geri Yükleme Dosyası"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "dosya geri yükleme işlemi"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue  the currentwill be deleted"
@@ -50,7 +51,7 @@ msgstr ""
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr ""
+msgstr "Dosya başarıyla geri yüklendi"
 
 #: src/EBox/Model/RemoteFileList.pm:266
 #, perl-brace-format
@@ -59,55 +60,57 @@ msgstr ""
 
 #: src/EBox/Model/RemoteStatus.pm:117
 msgid "There is no information about the backuped files yet"
-msgstr ""
+msgstr "Yedeklenen dosyalar hakkında henüz hiçbir bilgi yok."
 
 #: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:74
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #: src/EBox/Model/RemoteStatus.pm:140
 msgid "Date"
-msgstr ""
+msgstr "Tarih"
 
 #: src/EBox/Model/RemoteStatus.pm:147
 msgid "Remote Backup Status"
-msgstr ""
+msgstr "Uzaktan Yedekleme Durumu"
 
 #: src/EBox/Model/RemoteStatus.pm:148
 msgid "backup"
-msgstr ""
+msgstr "yedek"
 
 #: src/EBox/Model/RemoteSettings.pm:138
 msgid "Method"
-msgstr ""
+msgstr "Yöntem"
 
 #: src/EBox/Model/RemoteSettings.pm:144
 msgid "Host or destination"
-msgstr ""
+msgstr "Ana makine ya da hedef"
 
 #: src/EBox/Model/RemoteSettings.pm:150
 msgid "User"
-msgstr ""
+msgstr "Kullanıcı"
 
 #: src/EBox/Model/RemoteSettings.pm:156
 msgid "Password"
-msgstr ""
+msgstr "Şifre"
 
 #: src/EBox/Model/RemoteSettings.pm:162
 msgid "GPG key"
-msgstr ""
+msgstr "GPG anahtar"
 
 #: src/EBox/Model/RemoteSettings.pm:169
+#, fuzzy
 msgid "Full Backup Frequency"
-msgstr ""
+msgstr "Tam Yedekleme Sıklığı"
 
 #: src/EBox/Model/RemoteSettings.pm:175
 msgid "Number of full copies to keep"
 msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:182
+#, fuzzy
 msgid "Incremental Backup Frequency"
-msgstr ""
+msgstr "Artan Yedekleme Sıklığı"
 
 #: src/EBox/Model/RemoteSettings.pm:188
 msgid "Backup process starts at"
@@ -115,27 +118,27 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:197
 msgid "General Configuration"
-msgstr ""
+msgstr "Genel Yapılandırma"
 
 #: src/EBox/Model/RemoteSettings.pm:200
 msgid "General remote backup server configuration"
-msgstr ""
+msgstr "Uzaktan yedekleme sunucusu genel yapılandırması"
 
 #: src/EBox/Model/RemoteSettings.pm:203
 msgid "General backup server configuration updated"
-msgstr ""
+msgstr "Genel yedekleme sunucu yapılandırması güncellendi"
 
 #: src/EBox/Model/RemoteSettings.pm:217
 msgid "Daily"
-msgstr ""
+msgstr "Günlük"
 
 #: src/EBox/Model/RemoteSettings.pm:221
 msgid "Weekly"
-msgstr ""
+msgstr "Haftalık"
 
 #: src/EBox/Model/RemoteSettings.pm:225
 msgid "Monthly"
-msgstr ""
+msgstr "Aylık"
 
 #: src/EBox/Model/RemoteSettings.pm:234 src/EBox/Model/RemoteSettings.pm:340
 msgid "Disabled"
@@ -149,20 +152,23 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Model/RemoteExcludes.pm:80
+#, fuzzy
 msgid "Exlcude or Include"
-msgstr ""
+msgstr "Dahil et veya dışında tut"
 
 #: src/EBox/Model/RemoteExcludes.pm:91
+#, fuzzy
 msgid "Includes and Excludes"
-msgstr ""
+msgstr "Dahil etmek ve Dışında Tutmak"
 
 #: src/EBox/Model/RemoteExcludes.pm:92
 msgid "exclude"
-msgstr ""
+msgstr "dışında"
 
 #: src/EBox/Model/RemoteExcludes.pm:111
+#, fuzzy
 msgid "Exclude path"
-msgstr ""
+msgstr "Dış yol"
 
 #: src/EBox/Model/RemoteExcludes.pm:115
 msgid "Exclude file regexp"
@@ -174,8 +180,8 @@ msgstr ""
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
-msgstr ""
+msgstr "Yapılandırma ve Durum"
 
 #: src/EBox/Composite/Remote.pm:64
 msgid "Backup module"
-msgstr ""
+msgstr "Yedekleme modülü"

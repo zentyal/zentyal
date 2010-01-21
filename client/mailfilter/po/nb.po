@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.12.99Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-mailfilter 0.12.99Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:10+0100\n"
-"PO-Revision-Date: 2009-12-04 10:02+0100\n"
+"PO-Revision-Date: 2010-01-20 14:02+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -49,12 +49,13 @@ msgstr ""
 
 #: src/EBox/MailFilter.pm:95
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Legg til søppel og gull system brukere"
 
 #: src/EBox/MailFilter.pm:97
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Disse brukerene er for epost kontoene brukt til trening av bayesisk filter"
 
 #: src/EBox/MailFilter.pm:102
 msgid "Update LDAP"
@@ -301,9 +302,8 @@ msgstr "prosess"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:165
 #: src/EBox/MailFilter/Model/VDomains.pm:158
-#, fuzzy
 msgid "Virtual Domains"
-msgstr "virtuelt domene"
+msgstr "Virtuelle Domener"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
 msgid "MIME Type"
@@ -357,7 +357,7 @@ msgstr "e-post adresse"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
 msgid "General"
-msgstr ""
+msgstr "Generell"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
 #, perl-brace-format
@@ -365,9 +365,8 @@ msgid "The port {port} is already used by module {mod}"
 msgstr "Porten {port} er allerede i bruk av modul {mod}"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:77
-#, fuzzy
 msgid "Sender policy for virtual domain"
-msgstr "virtuelt domene"
+msgstr "Avsender instruks for virtuelt domene"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
 msgid "File extension"
@@ -550,9 +549,8 @@ msgstr ""
 "den kontrollerer dine e-poster for søppel."
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:94
-#, fuzzy
 msgid "Configuration"
-msgstr "Anti søppel konfigurasjon"
+msgstr "Konfigurasjon"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:114
 msgid ""
@@ -579,9 +577,8 @@ msgid "Bad header policy"
 msgstr "Ugyldig emne instruks"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
-#, fuzzy
 msgid "Filter Policies"
-msgstr "SMTP filter instruks"
+msgstr "Filter instruks"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:60
 msgid "Mailbox"
@@ -641,13 +638,15 @@ msgstr "tilpasset terskel"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:114
 msgid "Learn from accounts' Spam IMAP folders"
-msgstr ""
+msgstr "Lær fra kontoers Søppel IMAP mapper"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:116
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
 msgstr ""
+"Hver gang en epsot er flytting inn eller ut av IMAP spam mappen vil filteret "
+"bli opplært med den"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:123
 msgid "Learning ham account"
@@ -691,6 +690,8 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"Det er ingen virtuelle domener administrert av denne serveren. Du kan "
+"opprette noen i {openA}virtual domains mail page{closeA}."
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
 msgid "Mail filter graph"
@@ -825,16 +826,15 @@ msgstr ""
 #: src/EBox/MailFilter/SpamAssassin.pm:404
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
-msgstr ""
+msgstr "Kontoer fra domenet {d} kan ikke trene bayesiske filteret"
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
 msgid "External connections"
 msgstr "Eksterne tilkoblinger"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:59
-#, fuzzy
 msgid "Attached Files Filter"
-msgstr "Vedleggs filter"
+msgstr "Vedlagte Filer Filter"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:61
 msgid ""
