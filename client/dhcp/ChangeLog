@@ -1,5 +1,3 @@
-HEAD
-	+ Remove migration script 0001_import_to_mvc.pl
 1.3.13
 	+ Added WINS server configuration setting to DHCP common options,
 	  you may use eBox as PDC or any other WINS server
