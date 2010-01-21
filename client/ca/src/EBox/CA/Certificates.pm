@@ -189,9 +189,11 @@ sub _genCert
     return undef unless (defined($cn));
 
     unless (defined($ca->getCertificateMetadata(cn => $cn))) {
+        # Check the expiration date
+        my $caMD = $ca->getCACertificateMetadata();
         $ca->issueCertificate(
             commonName => $cn,
-            days => '365',
+            endDate => $caMD->{expiryDate},
         );
     }
 

@@ -1,3 +1,6 @@
+HEAD
+	+ Service certificates are issued using CA expiration date
+	+ Adding some help text to Service certificates model
 1.1.30
 	+ Do not show CA in module status
 	+ Do not show a restart button for CA

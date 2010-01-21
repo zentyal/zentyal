@@ -1,4 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -41,7 +42,7 @@ use EBox::CA;
 #
 # Overrides:
 #
-#       <EBox::Model::DataForm::new>
+#       <EBox::Model::DataTable::new>
 #
 # Returns:
 #
@@ -89,7 +90,7 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __x('You must create a Certification Authority. '
+    return __x('You must create a Certification Authority first. '
               . 'Go to {openhref}Certification Authority{closehref} to do so',
               openhref  => qq{<a href='/ebox/CA/Index'>},
               closehref => qq{</a>});
@@ -239,6 +240,8 @@ sub _table
                                 fieldName     => 'enable',
                                 printableName => __('Enable'),
                                 editable      => 1,
+                                help          => __('Generate the certificate using CA '
+                                                    . 'with the common name set above'),
                                ),
       );
 
@@ -252,6 +255,8 @@ sub _table
         class              => 'dataTable',
         sortedBy           => 'module',
         modelDomain        => 'CA',
+        help               => __('Here you may set certificates from this CA for those '
+                                 . 'secure services managed by eBox'),
     };
 
     return $dataTable;
