@@ -1,4 +1,5 @@
 HEAD
+    + Ask for administration username forbidding the 'ebox' username
     + Preseeds system user and proxy conf, asks for password on ebox-installer
     + Install remoteservices by default
 1.3.15

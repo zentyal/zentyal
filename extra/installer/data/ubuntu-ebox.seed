@@ -36,10 +36,10 @@ d-i pkgsel/include string ssh bc linux-image-2.6.24-26-ebox
 #d-i clock-setup/utc boolean true
 
 # to create a normal user account
-#d-i passwd/user-fullname string user
-#d-i passwd/username string user
-#d-i passwd/user-password password user
-#d-i passwd/user-password-again password user
+d-i passwd/user-fullname string 'eBox Administrator'
+d-i passwd/username string eboxadmin
+d-i passwd/user-password password eboxadmin
+d-i passwd/user-password-again password eboxadmin
 
 # grub
 #d-i grub-installer/only_debian boolean true

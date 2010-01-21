@@ -94,18 +94,16 @@ url => 'http://trac.ebox-platform.com/wiki/Document/AdvancedSetup_1.3');
 my $IFACES_TITLE = __('Select External (WAN) interfaces');
 my $IFACES_MESSAGE = __('WARNING: By default you will not be able to access the web interface through them.');
 my $GATEWAY_WARNING = __('You have installed a gateway profile. It needs at least two network interfaces and your machine has only one. You can still enjoy the rest of the eBox features but it will not act as a gateway unless you add another network card.');
-my $PASS_TITLE = __('Enter password for eBox interface');
-my $PASS_MSG = __('You will need to use this password to log into the eBox interface:');
-my $PASS_CONFIRM_TITLE = __('Confirm password for eBox interface');
+my $USERNAME_TITLE = __('Enter administration user');
+my $USERNAME_MSG = __('You will need this username to log into the local console or access remotely by SSH:');
+my $PASS_TITLE = __('Enter administration password');
+my $PASS_MSG = __('You will need to use this password to log into the eBox interface or in the console with the username that you have just entered:');
+my $PASS_CONFIRM_TITLE = __('Confirm administration password');
 my $PASS_CONFIRM_MSG = '';
-my $PASS_ADMIN_TITLE = __('Enter password for eboxadmin user');
-my $PASS_ADMIN_MSG = __('This is the password for the eboxadmin system user:');
-my $PASS_ADMIN_CONFIRM_TITLE = __('Confirm password for eboxadmin user');
-my $PASS_ADMIN_CONFIRM_MSG = '';
 my $MAIL_TITLE = __('Mail configuration');
 my $MAIL_MESSAGE = __('Enter default virtual mail domain:');
 my $FINAL_TITLE = __('Installation finished');
-my $FINAL_MESSAGE = __('Now you can access the eBox interface at: ');
+my $FINAL_MESSAGE = __('Now you can access the eBox interface browsing the following address from any computer in your network: ');
 my $NO_SPACE_MESSAGE = __('The size of your root filesystem is less than 2GB. This is not enough for a typical setup. If you really know what you are doing you can install in expert mode and define your own partition layout.');
 
 my $LOG = ($ENV{LOG} or '/tmp/ebox-installer.log');
@@ -118,9 +116,8 @@ my $EBOX_AUTO_INSTALLER_FILE = "$INSTALL_FILES/ebox-installer.auto";
 # -- global variables --
 ########################
 
+my $CNF_user;
 my $CNF_password;
-my $CNF_admin_user = 'eboxadmin';
-my $CNF_admin_password;
 my $CNF_users = '';
 my $CNF_ldap_pass;
 my @CNF_selectedIfaces;
@@ -141,11 +138,14 @@ if (-f $EBOX_AUTO_INSTALLER_FILE) {
     }
 }
 
-if (-f $EBOX_AUTO_INSTALLER_FILE) {
-    # Choose password for admin user
-    $CNF_admin_password = askAdminPassword();
-}
+# Choose administration user and password
+$CNF_user = askAdminUser();
+$CNF_password = askPassword();
 
+# Set the new user and password
+system ("$INSTALL_FILES/ebox-set-admin-password $CNF_user $CNF_password >> $LOG 2>&1");
+
+# Package selection
 my @packages = selectPackagesMenu();
 push (@packages, 'remoteservices');
 @packages = map ("ebox-$_", @packages);
@@ -167,9 +167,6 @@ if (system ("$INSTALL_FILES/ebox-module-installed users") == 0) {
         showDialog($USERS_ADVANCED_TITLE, $USERS_ADVANCED_MESSAGE);
     }
 }
-
-# Choose password for eBox interface
-$CNF_password = askPassword();
 
 # Choose interfaces to mark as external if ebox-network is installed
 if (system ("$INSTALL_FILES/ebox-module-installed network") == 0) {
@@ -311,20 +308,18 @@ sub askPassword # returns string
     return $password;
 }
 
-sub askAdminPassword # returns string
+sub askAdminUser # returns string
 {
-    my $password;
-    my $confirm;
+    my $user;
     do {
-        $password = showPasswordDialog($PASS_ADMIN_TITLE, $PASS_ADMIN_MSG);
-        $confirm = showPasswordDialog($PASS_ADMIN_CONFIRM_TITLE, $PASS_ADMIN_CONFIRM_MSG);
+        $user = showUserDialog($USERNAME_TITLE, $USERNAME_MSG);
 
-        if ($password ne $confirm) {
-            showDialog(__('Error'), __("Passwords don't match"));
+        if ($user eq 'ebox') {
+            showDialog(__('Error'), __("The username 'ebox' is reserved. Please choose another."));
         }
-    } until ($password eq $confirm);
+    } until ($user);
 
-    return $password;
+    return $user;
 }
 
 sub askUsersMode # returns string
@@ -404,7 +399,6 @@ sub preconfiguration
         }
     }
 
-
     # load LANG variable with default locale
     my @lines = arrayFromFile('/etc/default/locale');
     my $LANG = (split ('"', $lines[0]))[1];
@@ -451,10 +445,6 @@ sub preconfiguration
     }
 
     print $PROGRESS "100\n";
-
-    if (-f $EBOX_AUTO_INSTALLER_FILE) {
-        system ("$INSTALL_FILES/ebox-set-admin-password $CNF_admin_user $CNF_admin_password >> $LOG 2>&1");
-    }
 
     close ($PROGRESS);
 }
