@@ -244,7 +244,6 @@ sub _archiveChanged
         return 1;
     }
 
-    EBox::debug("archive $path timestamp $timestampFile");
 
     my $lastSetupStat = EBox::Sudo::stat($timestampFile);    
     my $lastSetupTs =  ($lastSetupStat->mtime > $lastSetupStat->ctime) ? 
@@ -255,7 +254,6 @@ sub _archiveChanged
         $archiveStat->mtime : $archiveStat->ctime;
 
 
-    EBox::debug("$archiveTs > $lastSetupTs");
 
     return $archiveTs > $lastSetupTs;
 }
