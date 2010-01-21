@@ -121,7 +121,7 @@ sub _disabledModules
         my $modInstance = $global->modInstance($modName);
         next unless ($modInstance->isa('EBox::Module::Service'));
         next if ($modInstance->isEnabled());
-        next if ($modInstance->showModuleStatus());
+        next unless ($modInstance->showModuleStatus());
         push (@modules, $modInstance->printableName());
     }
     return \@modules;
