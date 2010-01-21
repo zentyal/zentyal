@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:09+0100\n"
+"POT-Creation-Date: 2010-01-21 17:43+0100\n"
 "PO-Revision-Date: 2009-08-21 00:43+0200\n"
 "Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
 "Language-Team: none\n"
@@ -43,7 +43,8 @@ msgid "domain"
 msgstr "domein"
 
 #: src/EBox/Jabber.pm:394
-msgid "Jabber server certificate"
+#, fuzzy
+msgid "Jabber server"
 msgstr "Jabber Server certificaat"
 
 #: src/EBox/CGI/Enable.pm:41

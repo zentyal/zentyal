@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:10+0100\n"
+"POT-Creation-Date: 2010-01-21 18:02+0100\n"
 "PO-Revision-Date: 2009-01-21 10:19+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -111,29 +111,29 @@ msgstr ""
 msgid "Directory not found: {d}"
 msgstr ""
 
-#: src/EBox/Validate.pm:393 src/EBox/Validate.pm:407
+#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
 msgstr ""
 
-#: src/EBox/Validate.pm:697
+#: src/EBox/Validate.pm:700
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
 
-#: src/EBox/Validate.pm:702
+#: src/EBox/Validate.pm:705
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 
-#: src/EBox/Validate.pm:777
+#: src/EBox/Validate.pm:780
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
 
-#: src/EBox/Validate.pm:805
+#: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
 msgstr ""
 

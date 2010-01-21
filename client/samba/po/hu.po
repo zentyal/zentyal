@@ -58,7 +58,8 @@ msgstr "A csoport {g} nem egy Samba csoport!"
 
 #: src/EBox/SambaLdapUser.pm:437
 msgid "This group has a sharing directory associatedwhich conatins data"
-msgstr "A csoport társított egy megosztási könyvtárat, mely adatokat tartalmaz."
+msgstr ""
+"A csoport társított egy megosztási könyvtárat, mely adatokat tartalmaz."
 
 #: src/EBox/SambaLdapUser.pm:641
 #, perl-brace-format

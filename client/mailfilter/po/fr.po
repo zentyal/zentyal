@@ -56,8 +56,7 @@ msgstr "Ajouter les utilisateurs du système filtrage anti-pourriel"
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
-"Ces utilisateurs sont destinés aux comptes d'apprentissage du filtre "
-"bayésien"
+"Ces utilisateurs sont destinés aux comptes d'apprentissage du filtre bayésien"
 
 #: src/EBox/MailFilter.pm:102
 msgid "Update LDAP"

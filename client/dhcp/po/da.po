@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:08+0100\n"
+"POT-Creation-Date: 2010-01-21 17:48+0100\n"
 "PO-Revision-Date: 2010-01-20 11:45+0100\n"
 "Last-Translator: Jesper Lindeberg <jlindeberg@gmail.com>\n"
 "Language-Team: none\n"
@@ -157,7 +157,8 @@ msgstr "Standard tildelt tid skal være mere end 0 sekunder"
 #: src/EBox/Model/LeaseTimes.pm:138
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
-msgstr "Standard tildelt tid {default} skal være mindre end maximum tiden {max}"
+msgstr ""
+"Standard tildelt tid {default} skal være mindre end maximum tiden {max}"
 
 #: src/EBox/Model/LeaseTimes.pm:150
 msgid "Maximum leased time must be higher than 0 seconds"

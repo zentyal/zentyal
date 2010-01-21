@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:10+0100\n"
+"POT-Creation-Date: 2010-01-21 18:02+0100\n"
 "PO-Revision-Date: 2009-02-04 06:31+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -125,11 +125,11 @@ msgstr "اجرای فرمان '{cmd}' به عنوان {user} با شکست مو�
 msgid "Directory not found: {d}"
 msgstr "دایرکتوری پیدا نشد: {d}"
 
-#: src/EBox/Validate.pm:393 src/EBox/Validate.pm:407
+#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
 msgstr ""
 
-#: src/EBox/Validate.pm:697
+#: src/EBox/Validate.pm:700
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -138,12 +138,12 @@ msgstr ""
 "Cannot stat dir: {dir} این ممکن است به این معنی باشد که دایرکتوری موجود نمی "
 "باشد یا مجوزها دسترسی به آن را منع کرده اند"
 
-#: src/EBox/Validate.pm:702
+#: src/EBox/Validate.pm:705
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr "دایرکتوری {dir} خصوصی نمی باشد؛ زیرا توسط کاربر دیگری شخصی شده است"
 
-#: src/EBox/Validate.pm:777
+#: src/EBox/Validate.pm:780
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -151,7 +151,7 @@ msgstr ""
 "مسیر تعیین شده برای فایل معتبر نمی باشد. (در حال حاضر تمام کاراکتر های معتبر "
 "فایل پشتیبانی نمی شوند)"
 
-#: src/EBox/Validate.pm:805
+#: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
 msgstr "مسیر فایل باید کامل باشد"
 

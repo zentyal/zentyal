@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:11+0100\n"
+"POT-Creation-Date: 2010-01-21 17:51+0100\n"
 "PO-Revision-Date: 2009-09-30 17:37+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -33,11 +33,7 @@ msgstr "regel for å tillate apt oppdateringer"
 msgid "Software Management"
 msgstr "Programvare behandling"
 
-#: src/EBox/Software.pm:77
-msgid "Enable cron script to download updates"
-msgstr "Aktiver cron skript for nedlasting av oppdateringer"
-
-#: src/EBox/Software.pm:78
+#: src/EBox/Software.pm:78 src/EBox/Software.pm:84
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
@@ -45,33 +41,37 @@ msgstr ""
 "eBox programmvare vil laste ned tilgjengelige oppdateringer fra dine "
 "konfigurerte apt kilder."
 
-#: src/EBox/Software.pm:162 src/EBox/Software.pm:365
+#: src/EBox/Software.pm:83
+msgid "Enable cron script to download updates"
+msgstr "Aktiver cron skript for nedlasting av oppdateringer"
+
+#: src/EBox/Software.pm:168 src/EBox/Software.pm:401
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr ""
 "Programvare behandlings modulen må først aktiviseres for å kunne installere "
 "pakker"
 
-#: src/EBox/Software.pm:206 src/EBox/Software.pm:399
+#: src/EBox/Software.pm:212 src/EBox/Software.pm:435
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
 "Programvare behandlings modulen må først aktiviseres for å kunne fjerne "
 "pakker"
 
-#: src/EBox/Software.pm:509
+#: src/EBox/Software.pm:545
 msgid "eBox Components"
 msgstr "eBox Komponenter"
 
-#: src/EBox/Software.pm:511
+#: src/EBox/Software.pm:547
 msgid "System Updates"
 msgstr "System Oppdateringer"
 
-#: src/EBox/Software.pm:513
+#: src/EBox/Software.pm:549
 msgid "Automatic Updates"
 msgstr "Automatiske Oppdateringer"
 
-#: src/EBox/Software.pm:604
+#: src/EBox/Software.pm:640
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -100,7 +100,8 @@ msgid "Software updates are being handled automatically"
 msgstr "Programmvare oppdateringer håndteres automatisk"
 
 #: src/EBox/CGI/Updates.pm:52
-msgid "The system is up to date"
+#, fuzzy
+msgid "The system components are up to date."
 msgstr "Systemet er oppdatert"
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
@@ -165,39 +166,39 @@ msgid ""
 "logs"
 msgstr "Pakke fjerningen feilet. Mer informasjon i loggene"
 
-#: src/templates/ebox.mas:14 src/templates/updates.mas:16
+#: src/templates/ebox.mas:16 src/templates/updates.mas:18
 msgid "Component"
 msgstr "Komponent"
 
-#: src/templates/ebox.mas:15
+#: src/templates/ebox.mas:17
 msgid "Installed version "
 msgstr "Installert versjon "
 
-#: src/templates/ebox.mas:16
+#: src/templates/ebox.mas:18
 msgid "Latest version"
 msgstr "Siste versjon"
 
-#: src/templates/ebox.mas:17
+#: src/templates/ebox.mas:19
 msgid "Actions"
 msgstr "Handlinger"
 
-#: src/templates/ebox.mas:28 src/templates/updates.mas:19
+#: src/templates/ebox.mas:30 src/templates/updates.mas:21
 msgid "Update"
 msgstr "Oppdater"
 
-#: src/templates/ebox.mas:34
+#: src/templates/ebox.mas:36
 msgid "Install"
 msgstr "Installer"
 
-#: src/templates/ebox.mas:36
+#: src/templates/ebox.mas:38
 msgid "none"
 msgstr "ingen"
 
-#: src/templates/ebox.mas:58
+#: src/templates/ebox.mas:60
 msgid "Remove"
 msgstr "Fjern"
 
-#: src/templates/ebox.mas:75 src/templates/updates.mas:53
+#: src/templates/ebox.mas:77 src/templates/updates.mas:55
 msgid "Update all packages"
 msgstr "Oppdater alle pakker"
 
@@ -217,19 +218,19 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/templates/updates.mas:11
+#: src/templates/updates.mas:13
 msgid "Updates are available for the following system components"
 msgstr "Oppdateringer er tilgjengelig for følgende system komponenter"
 
-#: src/templates/updates.mas:17
+#: src/templates/updates.mas:19
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: src/templates/updates.mas:18
+#: src/templates/updates.mas:20
 msgid "Version"
 msgstr "Versjon"
 
-#: src/templates/updates.mas:64
+#: src/templates/updates.mas:66
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -237,9 +238,30 @@ msgstr ""
 "Denne operasjonen vil ta tid, ikke bekymre deg hvis eBox ser uresponsiv ut "
 "etter at Oppgraderings knappen er trykket."
 
-#: src/templates/updates.mas:67
+#: src/templates/updates.mas:69
 msgid "Upgrade"
 msgstr "Oppgrader"
+
+#: src/templates/updateNote.mas:7
+msgid ""
+"Please wait, the update of the software available list is in process right "
+"now"
+msgstr ""
+
+#: src/templates/updateNote.mas:10
+msgid ""
+"The component list was never succefully downloaded so the information shown "
+"is probably outdated. The list is updated each night or you can force the "
+"update with the console command 'ebox-software'"
+msgstr ""
+
+#: src/templates/updateNote.mas:20
+#, perl-brace-format
+msgid ""
+"The component list was updated on {mon}/{mday}/{year} {hour}:{min}. It will "
+"be updated again at night or you can force the update with the console "
+"command 'ebox-software'"
+msgstr ""
 
 #~ msgid "eBox - Backup"
 #~ msgstr "eBox - Sikkerhetskopi"

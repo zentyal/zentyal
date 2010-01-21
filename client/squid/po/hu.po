@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:11+0100\n"
+"POT-Creation-Date: 2010-01-21 17:51+0100\n"
 "PO-Revision-Date: 2010-01-17 23:41+0100\n"
 "Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
 "Language-Team: none\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:969 src/EBox/Squid.pm:1045
+#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:970 src/EBox/Squid.pm:1046
 #: src/EBox/Squid/Composite/General.pm:76
 msgid "HTTP Proxy"
 msgstr "HTTP Proxy"
@@ -94,55 +94,55 @@ msgstr "DansGuardian vírusirtó szkenner (kereső?) beállítása"
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr "Itt kell megadni a cache_mem változó értékét az eBox beállító fájlhoz."
 
-#: src/EBox/Squid.pm:941
+#: src/EBox/Squid.pm:942
 msgid "Enabled"
 msgstr "bekapcsolt"
 
-#: src/EBox/Squid.pm:943 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+#: src/EBox/Squid.pm:944 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
 msgstr "kikapcsolt"
 
-#: src/EBox/Squid.pm:945
+#: src/EBox/Squid.pm:946
 msgid "Transparent proxy"
 msgstr "transzparens proxy"
 
-#: src/EBox/Squid.pm:948 src/EBox/Squid/Model/MIMEFilterBase.pm:60
-#: src/EBox/Squid/Model/GroupPolicyBase.pm:89
+#: src/EBox/Squid.pm:949 src/EBox/Squid/Model/MIMEFilterBase.pm:60
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:93
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:100
 msgid "Allow"
 msgstr "engedélyezés"
 
-#: src/EBox/Squid.pm:950 src/EBox/Squid/Model/GroupPolicyBase.pm:93
+#: src/EBox/Squid.pm:951 src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Deny"
 msgstr "tiltás"
 
-#: src/EBox/Squid.pm:952 src/EBox/Squid/Types/DomainPolicy.pm:35
+#: src/EBox/Squid.pm:953 src/EBox/Squid/Types/DomainPolicy.pm:35
 #: src/EBox/Squid/Types/Policy.pm:65
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
 msgstr "szűrő"
 
-#: src/EBox/Squid.pm:955
+#: src/EBox/Squid.pm:956
 msgid "Global policy"
 msgstr "globális házirend"
 
-#: src/EBox/Squid.pm:957
+#: src/EBox/Squid.pm:958
 msgid "Listening port"
 msgstr "hallgatózó (figyelő) port"
 
-#: src/EBox/Squid.pm:989
+#: src/EBox/Squid.pm:990
 msgid "General"
 msgstr "általános"
 
-#: src/EBox/Squid.pm:993
+#: src/EBox/Squid.pm:994
 msgid "Objects' Policy"
 msgstr "objektumok házirendje"
 
-#: src/EBox/Squid.pm:996
+#: src/EBox/Squid.pm:997
 msgid "Groups' Policy"
 msgstr "csoportok házirendje"
 
-#: src/EBox/Squid.pm:999
+#: src/EBox/Squid.pm:1000
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
 #: src/EBox/Squid/Model/DomainFilterCategories.pm:113
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
@@ -150,48 +150,48 @@ msgstr "csoportok házirendje"
 msgid "Filter Profiles"
 msgstr "szűrőprofilok"
 
-#: src/EBox/Squid.pm:1030 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+#: src/EBox/Squid.pm:1031 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
 msgstr "dátum"
 
-#: src/EBox/Squid.pm:1031
+#: src/EBox/Squid.pm:1032
 msgid "Host"
 msgstr "kiszolgáló"
 
-#: src/EBox/Squid.pm:1032 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Squid.pm:1033 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
 msgstr "felhasználó"
 
-#: src/EBox/Squid.pm:1033
+#: src/EBox/Squid.pm:1034
 msgid "URL"
 msgstr "URL"
 
-#: src/EBox/Squid.pm:1034
+#: src/EBox/Squid.pm:1035
 msgid "Bytes"
 msgstr "bájt"
 
-#: src/EBox/Squid.pm:1035
+#: src/EBox/Squid.pm:1036
 msgid "Mime/type"
 msgstr "MIME típus"
 
-#: src/EBox/Squid.pm:1036
+#: src/EBox/Squid.pm:1037
 msgid "Event"
 msgstr "esemény"
 
-#: src/EBox/Squid.pm:1041
+#: src/EBox/Squid.pm:1042
 msgid "Accepted"
 msgstr "elfogadás"
 
-#: src/EBox/Squid.pm:1042
+#: src/EBox/Squid.pm:1043
 msgid "Denied"
 msgstr "tiltás (visszautasítás)"
 
-#: src/EBox/Squid.pm:1043
+#: src/EBox/Squid.pm:1044
 msgid "Filtered"
 msgstr "szűrés"
 
-#: src/EBox/Squid.pm:1120
+#: src/EBox/Squid.pm:1121
 msgid "HTTP Proxy's cache files"
 msgstr "HTTP proxy gyorsítótár állományai"
 
@@ -410,7 +410,7 @@ msgid "Content filter threshold changed"
 msgstr "tartalomszűrő határértékének módosítása"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:60
-#: src/EBox/Squid/Model/GroupPolicyBase.pm:72
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:76
 msgid "Group"
 msgstr "csoport"
 
@@ -427,13 +427,13 @@ msgid "group"
 msgstr "csoport"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:73
-#: src/EBox/Squid/Model/DomainFilterBase.pm:36
-#: src/EBox/Squid/Model/DomainFilterBase.pm:62
-msgid "Domain"
-msgstr "domain"
+#, fuzzy
+msgid "Domain Name Address"
+msgstr "domain vagy IP cím"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:80
-msgid "Exempt domain from caching"
+#, fuzzy
+msgid "Exempt address from caching"
 msgstr "gyorsítótárból (cache) kivételezett domainek"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:89
@@ -441,32 +441,28 @@ msgid "Cache exemptions"
 msgstr "gyorsítótár (cache) kivételek"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:102
-#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
-#: src/EBox/Squid/Model/DomainFilter.pm:78
-msgid "internet domain"
-msgstr "internet domain"
+#, fuzzy
+msgid "domain name address"
+msgstr "domain vagy IP cím"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:103
-msgid "You can exempt some domains from caching"
+#, fuzzy
+msgid "You can exempt some addresses from caching"
 msgstr "Itt adhatóak meg a gyorsítótárból (cache) kivételezett domainek"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:105
-#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
-#: src/EBox/Squid/Model/DomainFilter.pm:81
-msgid "Domain added"
-msgstr "domain hozzáadva"
+msgid "Address added"
+msgstr ""
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:106
-#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
-#: src/EBox/Squid/Model/DomainFilter.pm:82
-msgid "Domain removed"
-msgstr "domain törölve"
+#, fuzzy
+msgid "Address removed"
+msgstr "kiterjesztés eltávolítva"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:107
-#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
-#: src/EBox/Squid/Model/DomainFilter.pm:83
-msgid "Domain updated"
-msgstr "domain frissítve"
+#, fuzzy
+msgid "Address updated"
+msgstr "kiterjesztés frissítve"
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
@@ -590,7 +586,10 @@ msgstr ""
 "néhány objektummal."
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:185
-msgid "You need to use authorization policies wuth global group policies"
+#, fuzzy
+msgid ""
+"An authorization policy is required because you are using global group "
+"policies"
 msgstr ""
 "Az azonosítási házirendhez szükséges a globális csoport házirendek "
 "használata."
@@ -615,7 +614,7 @@ msgstr "objektum"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:85
 #: src/EBox/Squid/Model/DomainFilterBase.pm:43
-#: src/EBox/Squid/Model/GroupPolicyBase.pm:84
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:88
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:81
 msgid "Policy"
 msgstr "házirend"
@@ -625,7 +624,10 @@ msgid "Allowed time period"
 msgstr "idő intervallum engedélyezve"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:90
-msgid "Time period when the access is allowed"
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:120
+#, fuzzy
+msgid ""
+"Time period when the access is allowed. It is ignored with a deny policy"
 msgstr "Idő intervallum (értéke ?), ha a hozzáférés engedélyezett."
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:97
@@ -677,7 +679,7 @@ msgstr ""
 #: src/EBox/Squid/Model/ObjectPolicy.pm:442
 #, perl-brace-format
 msgid ""
-"There are not netowrk objects in the system. {open}Create{close} at least "
+"There are not network objects in the system. {open}Create{close} at least "
 "one object  if you want to set a object policy"
 msgstr ""
 
@@ -691,6 +693,11 @@ msgstr "MIME típusok"
 msgid "Set policy for all MIME types"
 msgstr "összes MIME típus házirendjének megadása"
 
+#: src/EBox/Squid/Model/DomainFilterBase.pm:36
+#: src/EBox/Squid/Model/DomainFilterBase.pm:62
+msgid "Domain"
+msgstr "domain"
+
 #: src/EBox/Squid/Model/DomainFilterBase.pm:64
 msgid "You must not prefix the domain with www."
 msgstr "Itt kell beállítani, ha nem kell a domainhez a www előtag."
@@ -699,14 +706,15 @@ msgstr "Itt kell beállítani, ha nem kell a domainhez a www előtag."
 msgid "Domain or IP address"
 msgstr "domain vagy IP cím"
 
-#: src/EBox/Squid/Model/GroupPolicyBase.pm:103
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:107
 msgid "Time period"
 msgstr "idő intervallum"
 
-#: src/EBox/Squid/Model/GroupPolicyBase.pm:233
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:248
+#: src/EBox/Squid/Model/GroupPolicyBase.pm:255
 #, perl-brace-format
 msgid ""
-"There are not user groups in the system. {open}Create{close} at least one "
+"There are no user groups in the system. {open}Create{close} at least one "
 "group  if you want to set a group policy"
 msgstr ""
 
@@ -726,7 +734,7 @@ msgstr ""
 msgid "Inexistent archive file"
 msgstr "nem létező archív fájl"
 
-#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:243
+#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:286
 msgid ""
 "Plain lists not allowed: is only allowed compressed archives of classified "
 "black lists"
@@ -901,12 +909,32 @@ msgstr "alapértelmezett profil beállítása"
 msgid "Domains rules"
 msgstr "domain szabályok"
 
+#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
+#: src/EBox/Squid/Model/DomainFilter.pm:78
+msgid "internet domain"
+msgstr "internet domain"
+
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #: src/EBox/Squid/Model/DomainFilter.pm:79
 msgid "Allow/Deny the HTTP traffic from/to the listed internet domains."
 msgstr ""
 "engedélyezi/tiltja a HTTP forgalmat a listában található internet "
 "domainekről/domainekre."
+
+#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
+#: src/EBox/Squid/Model/DomainFilter.pm:81
+msgid "Domain added"
+msgstr "domain hozzáadva"
+
+#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
+#: src/EBox/Squid/Model/DomainFilter.pm:82
+msgid "Domain removed"
+msgstr "domain törölve"
+
+#: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
+#: src/EBox/Squid/Model/DomainFilter.pm:83
+msgid "Domain updated"
+msgstr "domain frissítve"
 
 #: src/EBox/Squid/Model/FilterGroupAntiVirus.pm:61
 #: src/EBox/Squid/Model/DefaultAntiVirus.pm:61
@@ -976,6 +1004,12 @@ msgstr ""
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:163
 #, perl-brace-format
 msgid "Configure object {ob} user groups policies"
+msgstr ""
+
+#: src/EBox/Squid/Model/ObjectGroupPolicy.pm:175
+msgid ""
+"Time period when the access is allowed. It is ignored if the group has a "
+"deny policy, time constraints of parent object are always ignored"
 msgstr ""
 
 #: src/EBox/Squid/Model/AntiVirusBase.pm:51

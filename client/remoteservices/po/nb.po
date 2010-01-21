@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:11+0100\n"
+"POT-Creation-Date: 2010-01-21 17:50+0100\n"
 "PO-Revision-Date: 2010-01-20 13:53+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -107,20 +107,20 @@ msgstr "Ekstern system sikkerhetskopi proxy"
 msgid "Connection error"
 msgstr "Tilkoblings feil"
 
-#: src/EBox/RemoteServices/Auth.pm:124
+#: src/EBox/RemoteServices/Auth.pm:125
 msgid "Key for service URN not found"
 msgstr "Nøkkel for tjeneste URN ikke funnet"
 
-#: src/EBox/RemoteServices/Auth.pm:160
+#: src/EBox/RemoteServices/Auth.pm:161
 #, perl-brace-format
 msgid "Value for key {k} not found"
 msgstr "Verdi for nøkkel {k} ikke funnet"
 
-#: src/EBox/RemoteServices/Subscription.pm:108
+#: src/EBox/RemoteServices/Subscription.pm:109
 msgid "Key for web subscription service not found"
 msgstr "Nøkkel for web abonnement tjeneste ble ikke funnet"
 
-#: src/EBox/RemoteServices/Subscription.pm:311
+#: src/EBox/RemoteServices/Subscription.pm:312
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Kan ikke kontakte {host}. Kontroller din tilkobling til Internett"
@@ -142,7 +142,7 @@ msgstr "Kan ikke opprette SOAP forbindelse"
 msgid "No domain key found for this service"
 msgstr "Ingen domene nøkkel funnet for denne tjenesten"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:151
+#: src/EBox/RemoteServices/Model/Subscription.pm:150
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system."
@@ -150,31 +150,34 @@ msgstr ""
 "Abonnement ble utført korrekt. Vent et minutt for å la abonnementet utbre "
 "seg gjennom systemet."
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:154
+#: src/EBox/RemoteServices/Model/Subscription.pm:153
 msgid "Subscription data retrieved correctly."
 msgstr "Abonnements data mottatt korrekt."
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:156
+#: src/EBox/RemoteServices/Model/Subscription.pm:155
 msgid "Please, save changes"
 msgstr "Vennligst, lagre endringer"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:181
+#: src/EBox/RemoteServices/Model/Subscription.pm:180
 msgid "Done"
 msgstr "Fullført"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:259
+#: src/EBox/RemoteServices/Model/Subscription.pm:258
+#, fuzzy
 msgid ""
-"Subscribing an eBox will configure OpenVPN module by running these actions "
-"and modifying these files: "
+"Subscribing an eBox will configure OpenVPN module and its dependencies by "
+"running these actions and modifying these files: "
 msgstr ""
 "Abbonering på en eBox vil konfigurere OpenVPN modulen ved kjøring av disse "
 "handlingene og endre disse filene: "
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:263
-msgid "Subscribing an eBox will enable the OpenVPN module."
+#: src/EBox/RemoteServices/Model/Subscription.pm:262
+#, fuzzy
+msgid ""
+"Subscribing an eBox will enable the OpenVPN module and its dependencies."
 msgstr "Abbonering av en eBox vil aktivere OpenVPN modulen."
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:266
+#: src/EBox/RemoteServices/Model/Subscription.pm:265
 msgid ""
 "Take into account that subscribing an eBox could take a minute. Do not touch "
 "anything until subscribing process is done."
@@ -182,7 +185,7 @@ msgstr ""
 "Vær oppmerksom på at abbonering av en eBox kan ta noen minutter. Ikke rør "
 "noe intill abbonerings prosessen er ferdig."
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:302
+#: src/EBox/RemoteServices/Model/Subscription.pm:301
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
@@ -190,57 +193,49 @@ msgstr ""
 "Før man oppretter abonnement på eksterne tjenester, lagre eller forkast "
 "endringer i OpenVPN modulen"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:322
+#: src/EBox/RemoteServices/Model/Subscription.pm:321
 msgid "User Name or Email Address"
 msgstr "Bruker Navn eller Epost Adresse"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:330
+#: src/EBox/RemoteServices/Model/Subscription.pm:329
 msgid "eBox Name"
 msgstr "eBox Navn"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:335
+#: src/EBox/RemoteServices/Model/Subscription.pm:334
 msgid "Choose a name for your eBox which is a valid domain name"
 msgstr "Velg et navn for din eBox som er et gyldig domene navn"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:342
+#: src/EBox/RemoteServices/Model/Subscription.pm:341
 msgid "Password"
 msgstr "Passord"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:350
+#: src/EBox/RemoteServices/Model/Subscription.pm:349
 msgid "eBox subscription details"
 msgstr "eBox abonnement detaljer"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:351
+#: src/EBox/RemoteServices/Model/Subscription.pm:350
 msgid "Delete data"
 msgstr "Slett data"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:354
-msgid "Subscription to remote services"
+#: src/EBox/RemoteServices/Model/Subscription.pm:353
+#, fuzzy
+msgid "Subscription to eBox Control Center"
 msgstr "Abonnement på ekstern tjeneste"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:355
+#: src/EBox/RemoteServices/Model/Subscription.pm:354
 msgid "Subscribe"
 msgstr "Abonner"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:365
-#, perl-brace-format
-msgid ""
-"In order to subscribe an eBox remote services {url}. You will have remote "
-"backup facilities and much more"
-msgstr ""
-"For å abbonere på en eBox ekstern tjeneste {url}. Må du ha ekstern "
-"sikkerhetskopi muligheter og mye mer"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:435
+#: src/EBox/RemoteServices/Model/Subscription.pm:433
 msgid "Action"
 msgstr "Handling"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:436
-#: src/EBox/RemoteServices/Model/Subscription.pm:449
+#: src/EBox/RemoteServices/Model/Subscription.pm:434
+#: src/EBox/RemoteServices/Model/Subscription.pm:455
 msgid "Reason"
 msgstr "Årsak"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:448
+#: src/EBox/RemoteServices/Model/Subscription.pm:454
 msgid "File"
 msgstr "Fil"
 
@@ -267,14 +262,17 @@ msgstr "Ingen sikkerhetskopi for vert: {h}"
 msgid "Key for proxy backup service not found"
 msgstr "Nøkkel for proxy sikkerhetskopi tjeneste ikke funnet"
 
-#: src/EBox/RemoteServices/Composite/General.pm:73
-msgid "Remote services"
-msgstr "Eksterne tjenester"
+#: src/EBox/RemoteServices/Composite/General.pm:70
+#, fuzzy
+msgid "eBox Control Center"
+msgstr "Kontroll Senter"
 
-#: src/EBox/RemoteServices/Composite/General.pm:74
-msgid "eBox Control Center is paid services to enhance your eBox experience"
+#: src/EBox/RemoteServices/Composite/General.pm:83
+#, perl-brace-format
+msgid ""
+" {openhref}Subscribing{closehref} your eBox to the Control Center lets you "
+"have automatic configuration backup and much more"
 msgstr ""
-"eBox Kontroll Senter er betalte tjenester for å forbedre din eBox opplevelse"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
@@ -312,6 +310,21 @@ msgstr "Ikke tilkoblet. Kontroller VPN logger i {path}"
 #: src/EBox/RemoteServices.pm:577
 msgid "Connected"
 msgstr "Tilkoblet"
+
+#~ msgid ""
+#~ "In order to subscribe an eBox remote services {url}. You will have remote "
+#~ "backup facilities and much more"
+#~ msgstr ""
+#~ "For å abbonere på en eBox ekstern tjeneste {url}. Må du ha ekstern "
+#~ "sikkerhetskopi muligheter og mye mer"
+
+#~ msgid "Remote services"
+#~ msgstr "Eksterne tjenester"
+
+#~ msgid "eBox Control Center is paid services to enhance your eBox experience"
+#~ msgstr ""
+#~ "eBox Kontroll Senter er betalte tjenester for å forbedre din eBox "
+#~ "opplevelse"
 
 #~ msgid "User name"
 #~ msgstr "Bruker navn"

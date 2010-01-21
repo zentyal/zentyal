@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:11+0100\n"
+"POT-Creation-Date: 2010-01-21 17:51+0100\n"
 "PO-Revision-Date: 2009-11-05 00:42+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -33,11 +33,7 @@ msgstr "regra para permitir actualizações de apt"
 msgid "Software Management"
 msgstr "Gestão de software"
 
-#: src/EBox/Software.pm:77
-msgid "Enable cron script to download updates"
-msgstr "Activar os scripts cron para descarregar actualizações"
-
-#: src/EBox/Software.pm:78
+#: src/EBox/Software.pm:78 src/EBox/Software.pm:84
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
@@ -45,33 +41,37 @@ msgstr ""
 "O módulo eBox software descarregará as actualizações disponíveis a partir "
 "das fontes apt configuradas"
 
-#: src/EBox/Software.pm:162 src/EBox/Software.pm:365
+#: src/EBox/Software.pm:83
+msgid "Enable cron script to download updates"
+msgstr "Activar os scripts cron para descarregar actualizações"
+
+#: src/EBox/Software.pm:168 src/EBox/Software.pm:401
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr ""
 "O módulo de Gestão de Software necessita de estar activo para conseguir "
 "instalar pacotes de software"
 
-#: src/EBox/Software.pm:206 src/EBox/Software.pm:399
+#: src/EBox/Software.pm:212 src/EBox/Software.pm:435
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
 "O módulo de Gestão de Software necessita de estar activo para conseguir "
 "remover pacotes de software"
 
-#: src/EBox/Software.pm:509
+#: src/EBox/Software.pm:545
 msgid "eBox Components"
 msgstr "Componentes eBox"
 
-#: src/EBox/Software.pm:511
+#: src/EBox/Software.pm:547
 msgid "System Updates"
 msgstr "Actualizações do sistema"
 
-#: src/EBox/Software.pm:513
+#: src/EBox/Software.pm:549
 msgid "Automatic Updates"
 msgstr "Actualizações automáticas"
 
-#: src/EBox/Software.pm:604
+#: src/EBox/Software.pm:640
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -99,7 +99,8 @@ msgid "Software updates are being handled automatically"
 msgstr "As actualizações de software estão a ser processadas automáticamente"
 
 #: src/EBox/CGI/Updates.pm:52
-msgid "The system is up to date"
+#, fuzzy
+msgid "The system components are up to date."
 msgstr "O sistema está actualizado"
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
@@ -170,39 +171,39 @@ msgstr ""
 "A remoção de pacotes não terminou correctamente. para mais informação "
 "consulte os registos"
 
-#: src/templates/ebox.mas:14 src/templates/updates.mas:16
+#: src/templates/ebox.mas:16 src/templates/updates.mas:18
 msgid "Component"
 msgstr "Componente"
 
-#: src/templates/ebox.mas:15
+#: src/templates/ebox.mas:17
 msgid "Installed version "
 msgstr "Versão instalada"
 
-#: src/templates/ebox.mas:16
+#: src/templates/ebox.mas:18
 msgid "Latest version"
 msgstr "Ultima versão"
 
-#: src/templates/ebox.mas:17
+#: src/templates/ebox.mas:19
 msgid "Actions"
 msgstr "Acções"
 
-#: src/templates/ebox.mas:28 src/templates/updates.mas:19
+#: src/templates/ebox.mas:30 src/templates/updates.mas:21
 msgid "Update"
 msgstr "Actualizar"
 
-#: src/templates/ebox.mas:34
+#: src/templates/ebox.mas:36
 msgid "Install"
 msgstr "Instalação"
 
-#: src/templates/ebox.mas:36
+#: src/templates/ebox.mas:38
 msgid "none"
 msgstr "nenhum"
 
-#: src/templates/ebox.mas:58
+#: src/templates/ebox.mas:60
 msgid "Remove"
 msgstr "Remover"
 
-#: src/templates/ebox.mas:75 src/templates/updates.mas:53
+#: src/templates/ebox.mas:77 src/templates/updates.mas:55
 msgid "Update all packages"
 msgstr "Actualizar todos os pacotes"
 
@@ -222,20 +223,20 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/templates/updates.mas:11
+#: src/templates/updates.mas:13
 msgid "Updates are available for the following system components"
 msgstr ""
 "Estão disponíveis actualizações para os seguintes componentes do sistema"
 
-#: src/templates/updates.mas:17
+#: src/templates/updates.mas:19
 msgid "Description"
 msgstr "Descrição"
 
-#: src/templates/updates.mas:18
+#: src/templates/updates.mas:20
 msgid "Version"
 msgstr "Versão"
 
-#: src/templates/updates.mas:64
+#: src/templates/updates.mas:66
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -243,9 +244,30 @@ msgstr ""
 "Esta operação pode demorar algum tempo. Não se preocupe se a ebox não "
 "responder depois de premir o botão de actualização"
 
-#: src/templates/updates.mas:67
+#: src/templates/updates.mas:69
 msgid "Upgrade"
 msgstr "Actualização"
+
+#: src/templates/updateNote.mas:7
+msgid ""
+"Please wait, the update of the software available list is in process right "
+"now"
+msgstr ""
+
+#: src/templates/updateNote.mas:10
+msgid ""
+"The component list was never succefully downloaded so the information shown "
+"is probably outdated. The list is updated each night or you can force the "
+"update with the console command 'ebox-software'"
+msgstr ""
+
+#: src/templates/updateNote.mas:20
+#, perl-brace-format
+msgid ""
+"The component list was updated on {mon}/{mday}/{year} {hour}:{min}. It will "
+"be updated again at night or you can force the update with the console "
+"command 'ebox-software'"
+msgstr ""
 
 #~ msgid "eBox - Backup"
 #~ msgstr "eBox - Backup"

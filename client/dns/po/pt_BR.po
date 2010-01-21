@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:07+0100\n"
-"PO-Revision-Date: 2010-01-17 16:58+0100\n"
+"POT-Creation-Date: 2010-01-21 17:39+0100\n"
+"PO-Revision-Date: 2010-01-21 17:42+0100\n"
 "Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:232
+#: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:233
 #: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:239
+#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:240
 msgid "domain"
 msgstr "domínio"
 
@@ -122,7 +122,7 @@ msgstr "Dinâmico"
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Um domínio é dinâmico quando o servidor DHCP atualiza o domínio"
 
-#: src/EBox/Model/DomainTable.pm:231
+#: src/EBox/Model/DomainTable.pm:232
 msgid "List of Domains"
 msgstr "Lista de Domínios"
 
@@ -143,7 +143,7 @@ msgid ""
 "mx.{name}?"
 msgstr ""
 "O nome do host fornecido não é um nome de domínio totalmente qualificado "
-"(FQDN). Você quer dizer mx. {Nome}?"
+"(FQDN). Você quer dizer mx. {name}?"
 
 #: src/EBox/Model/MailExchanger.pm:132
 msgid "The domain is set as read only. You cannot add mail exchangers"
@@ -224,7 +224,7 @@ msgid ""
 "ns.{name}?"
 msgstr ""
 "O nome do host fornecido não é um nome de domínio totalmente qualificado "
-"(FQDN). Você quer dizer ns. {Name}?"
+"(FQDN). Você quer dizer ns. {name}?"
 
 #: src/EBox/Model/NameServer.pm:112
 msgid "The domain is set as read only. You cannot add name servers"

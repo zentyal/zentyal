@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:12+0100\n"
+"POT-Creation-Date: 2010-01-21 17:56+0100\n"
 "PO-Revision-Date: 2007-02-27 21:41+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -27,8 +27,8 @@ msgstr "Iste grupo contiene usuarios"
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52
 #: src/EBox/CGI/Users.pm:31 src/EBox/CGI/Users.pm:56
 #: src/EBox/UsersAndGroups/Model/Users.pm:78
-#: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2196
-#: src/EBox/UsersAndGroups.pm:2204
+#: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2235
+#: src/EBox/UsersAndGroups.pm:2243
 msgid "Users"
 msgstr "Usuarios"
 
@@ -54,16 +54,16 @@ msgid "Edit group"
 msgstr "Editar grupo"
 
 #: src/EBox/CGI/Group.pm:61 src/EBox/CGI/Groups.pm:43
-#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2198
-#: src/EBox/UsersAndGroups.pm:2207
+#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2237
+#: src/EBox/UsersAndGroups.pm:2246
 msgid "Groups"
 msgstr "Grupos"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1345 src/EBox/UsersAndGroups.pm:1350
-#: src/EBox/UsersAndGroups.pm:1514 src/EBox/UsersAndGroups.pm:1648
-#: src/EBox/UsersAndGroups.pm:1682 src/EBox/UsersAndGroups.pm:1799
-#: src/EBox/UsersAndGroups.pm:1902
+#: src/EBox/UsersAndGroups.pm:1346 src/EBox/UsersAndGroups.pm:1351
+#: src/EBox/UsersAndGroups.pm:1537 src/EBox/UsersAndGroups.pm:1687
+#: src/EBox/UsersAndGroups.pm:1721 src/EBox/UsersAndGroups.pm:1838
+#: src/EBox/UsersAndGroups.pm:1941
 msgid "group name"
 msgstr "nombre de grupo"
 
@@ -73,11 +73,11 @@ msgid "comment"
 msgstr "comentario"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:700 src/EBox/UsersAndGroups.pm:706
-#: src/EBox/UsersAndGroups.pm:946 src/EBox/UsersAndGroups.pm:996
-#: src/EBox/UsersAndGroups.pm:1048 src/EBox/UsersAndGroups.pm:1480
-#: src/EBox/UsersAndGroups.pm:1542 src/EBox/UsersAndGroups.pm:1643
-#: src/EBox/UsersAndGroups.pm:1677 src/EBox/UsersAndGroups.pm:1748
+#: src/EBox/UsersAndGroups.pm:701 src/EBox/UsersAndGroups.pm:707
+#: src/EBox/UsersAndGroups.pm:947 src/EBox/UsersAndGroups.pm:997
+#: src/EBox/UsersAndGroups.pm:1049 src/EBox/UsersAndGroups.pm:1501
+#: src/EBox/UsersAndGroups.pm:1581 src/EBox/UsersAndGroups.pm:1682
+#: src/EBox/UsersAndGroups.pm:1716 src/EBox/UsersAndGroups.pm:1787
 msgid "user name"
 msgstr "nombre d'usuario"
 
@@ -129,8 +129,9 @@ msgid "Required for usercorner access to configured modules"
 msgstr ""
 
 #: src/EBox/UserCornerWebServer.pm:171
-msgid "Users corner certificates"
-msgstr ""
+#, fuzzy
+msgid "User Corner web server"
+msgstr "Nombre d'usuario"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:72
@@ -211,7 +212,7 @@ msgstr ""
 msgid "The secret key needs to have 16 characters."
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2224
+#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2268
 msgid "Mode"
 msgstr ""
 
@@ -225,28 +226,36 @@ msgid "Windows AD Slave"
 msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:80
+msgid "LDAP DN"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:85
+msgid "Only for master and AD slave configuration"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:89
 #, fuzzy
 msgid "Master host"
 msgstr "usuario"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:82
+#: src/EBox/UsersAndGroups/Model/Mode.pm:91
 msgid "Only for slave configuration: IP of the master eBox or Windows AD"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:86
+#: src/EBox/UsersAndGroups/Model/Mode.pm:95
 #, fuzzy
 msgid "LDAP password"
 msgstr "parabra de paso"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:88
+#: src/EBox/UsersAndGroups/Model/Mode.pm:97
 msgid "Master eBox LDAP password"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:94
+#: src/EBox/UsersAndGroups/Model/Mode.pm:103
 msgid "Configuration"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:95
+#: src/EBox/UsersAndGroups/Model/Mode.pm:104
 msgid "eBox Users Mode"
 msgstr ""
 
@@ -309,7 +318,8 @@ msgid "Re-type new password"
 msgstr "Confirme parabra de paso"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:75
-#: src/EBox/UsersAndGroups.pm:2238 src/templates/users.mas:49
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:73
+#: src/EBox/UsersAndGroups.pm:2282 src/templates/users.mas:49
 #: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
 msgid "Password"
 msgstr "Parabra de paso"
@@ -332,6 +342,34 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:102
 msgid "Sync now"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:67
+msgid "Base DN"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:79
+#, fuzzy
+msgid "Users DN"
+msgstr "Usuarios"
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:85
+#, fuzzy
+msgid "Groups DN"
+msgstr "Grupos"
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
+#: src/EBox/UsersAndGroups.pm:2253
+msgid "LDAP Info"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:94
+msgid "LDAP Information"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
+msgid ""
+"You must enable the Users and Groups module to access the LDAP information"
 msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:65
@@ -393,12 +431,8 @@ msgid "There isn't any configurable option"
 msgstr ""
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
-#: src/EBox/UsersAndGroups.pm:2200 src/EBox/UsersAndGroups.pm:2209
+#: src/EBox/UsersAndGroups.pm:2239 src/EBox/UsersAndGroups.pm:2248
 msgid "Default User Template"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Setup.pm:137
-msgid "Can't bind to LDAP with the provided password"
 msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:77
@@ -457,76 +491,76 @@ msgid ""
 "access LDAP"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:695
+#: src/EBox/UsersAndGroups.pm:696
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "O nombre d'usuario no debe estar mayor de {maxuserlength} carauters"
 
-#: src/EBox/UsersAndGroups.pm:793 src/EBox/UsersAndGroups.pm:1409
+#: src/EBox/UsersAndGroups.pm:794 src/EBox/UsersAndGroups.pm:1410
 msgid "Maximum number of system users reached"
 msgstr "Adubito lo masimo numero d'usuarios d'o sistema"
 
-#: src/EBox/UsersAndGroups.pm:810
+#: src/EBox/UsersAndGroups.pm:811
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:821
+#: src/EBox/UsersAndGroups.pm:822
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:1333
+#: src/EBox/UsersAndGroups.pm:1334
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "O nombre de grupo no debe estar mayor de {maxGroupLength} carauters"
 
-#: src/EBox/UsersAndGroups.pm:1339
+#: src/EBox/UsersAndGroups.pm:1340
 msgid "The group name is not valid because it is used internally"
 msgstr "O nombre de grupo no ye balito porque s'emplega internamén"
 
-#: src/EBox/UsersAndGroups.pm:1426
+#: src/EBox/UsersAndGroups.pm:1427
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:1436
+#: src/EBox/UsersAndGroups.pm:1437
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:1978
+#: src/EBox/UsersAndGroups.pm:2017
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "A parabra de paso no debe estar mayor que {maxPwdLength} carauters"
 
-#: src/EBox/UsersAndGroups.pm:2214
+#: src/EBox/UsersAndGroups.pm:2258
 msgid "Slave Status"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2218
+#: src/EBox/UsersAndGroups.pm:2262
 msgid "AD Sync Settings"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2451
+#: src/EBox/UsersAndGroups.pm:2495
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2458
+#: src/EBox/UsersAndGroups.pm:2502
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2477
+#: src/EBox/UsersAndGroups.pm:2521
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:2587
+#: src/EBox/UsersAndGroups.pm:2631
 msgid "Replication failed"
 msgstr ""
 
@@ -622,12 +656,12 @@ msgid "Optional value"
 msgstr "Balor ozional"
 
 #: src/templates/groups.mas:38 src/templates/groups.mas:39
-#: src/templates/users.mas:69 src/templates/users.mas:70
+#: src/templates/users.mas:73 src/templates/users.mas:74
 msgid "Add and Edit"
 msgstr ""
 
 #: src/templates/groups.mas:41 src/templates/groups.mas:42
-#: src/templates/users.mas:73 src/templates/users.mas:74
+#: src/templates/users.mas:69 src/templates/users.mas:70
 #, fuzzy
 msgid "Add"
 msgstr "Adibir usuario"
@@ -654,7 +688,7 @@ msgstr "nombre d'usuario"
 msgid "Retype password"
 msgstr "Confirme parabra de paso"
 
-#: src/templates/users.mas:89
+#: src/templates/users.mas:88
 msgid "Group"
 msgstr "Grupo"
 

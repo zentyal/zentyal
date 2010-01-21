@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:12+0100\n"
+"POT-Creation-Date: 2010-01-21 17:56+0100\n"
 "PO-Revision-Date: 2010-01-20 07:18+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_usercorner_add_webserver_service.pl:54
@@ -29,8 +29,8 @@ msgstr "Эта группа содержит пользователей"
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52
 #: src/EBox/CGI/Users.pm:31 src/EBox/CGI/Users.pm:56
 #: src/EBox/UsersAndGroups/Model/Users.pm:78
-#: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2196
-#: src/EBox/UsersAndGroups.pm:2204
+#: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2235
+#: src/EBox/UsersAndGroups.pm:2243
 msgid "Users"
 msgstr "Пользователи"
 
@@ -56,16 +56,16 @@ msgid "Edit group"
 msgstr "Редактировать группу"
 
 #: src/EBox/CGI/Group.pm:61 src/EBox/CGI/Groups.pm:43
-#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2198
-#: src/EBox/UsersAndGroups.pm:2207
+#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2237
+#: src/EBox/UsersAndGroups.pm:2246
 msgid "Groups"
 msgstr "Группы"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1345 src/EBox/UsersAndGroups.pm:1350
-#: src/EBox/UsersAndGroups.pm:1514 src/EBox/UsersAndGroups.pm:1648
-#: src/EBox/UsersAndGroups.pm:1682 src/EBox/UsersAndGroups.pm:1799
-#: src/EBox/UsersAndGroups.pm:1902
+#: src/EBox/UsersAndGroups.pm:1346 src/EBox/UsersAndGroups.pm:1351
+#: src/EBox/UsersAndGroups.pm:1537 src/EBox/UsersAndGroups.pm:1687
+#: src/EBox/UsersAndGroups.pm:1721 src/EBox/UsersAndGroups.pm:1838
+#: src/EBox/UsersAndGroups.pm:1941
 msgid "group name"
 msgstr "имя группы"
 
@@ -75,11 +75,11 @@ msgid "comment"
 msgstr "комментарий"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:700 src/EBox/UsersAndGroups.pm:706
-#: src/EBox/UsersAndGroups.pm:946 src/EBox/UsersAndGroups.pm:996
-#: src/EBox/UsersAndGroups.pm:1048 src/EBox/UsersAndGroups.pm:1480
-#: src/EBox/UsersAndGroups.pm:1542 src/EBox/UsersAndGroups.pm:1643
-#: src/EBox/UsersAndGroups.pm:1677 src/EBox/UsersAndGroups.pm:1748
+#: src/EBox/UsersAndGroups.pm:701 src/EBox/UsersAndGroups.pm:707
+#: src/EBox/UsersAndGroups.pm:947 src/EBox/UsersAndGroups.pm:997
+#: src/EBox/UsersAndGroups.pm:1049 src/EBox/UsersAndGroups.pm:1501
+#: src/EBox/UsersAndGroups.pm:1581 src/EBox/UsersAndGroups.pm:1682
+#: src/EBox/UsersAndGroups.pm:1716 src/EBox/UsersAndGroups.pm:1787
 msgid "user name"
 msgstr "Имя пользователя"
 
@@ -129,8 +129,9 @@ msgid "Required for usercorner access to configured modules"
 msgstr "Требуется для доступа к модулю настройки уголка пользователя"
 
 #: src/EBox/UserCornerWebServer.pm:171
-msgid "Users corner certificates"
-msgstr "Сертификаты уголка пользователей"
+#, fuzzy
+msgid "User Corner web server"
+msgstr "Веб-сервер уголка пользователя"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:72
@@ -211,7 +212,7 @@ msgstr "Настройки синхронизации Windows AD"
 msgid "The secret key needs to have 16 characters."
 msgstr "Секретный ключ должен иметь 16 символов"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2224
+#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2268
 msgid "Mode"
 msgstr "Режим"
 
@@ -224,26 +225,34 @@ msgid "Windows AD Slave"
 msgstr "Windows AD Slave"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:80
+msgid "LDAP DN"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:85
+msgid "Only for master and AD slave configuration"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Mode.pm:89
 msgid "Master host"
 msgstr "Мастер хост"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:82
+#: src/EBox/UsersAndGroups/Model/Mode.pm:91
 msgid "Only for slave configuration: IP of the master eBox or Windows AD"
 msgstr "Только для настроек slave: IP мастер eBox или Windows AD"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:86
+#: src/EBox/UsersAndGroups/Model/Mode.pm:95
 msgid "LDAP password"
 msgstr "LDAP пароль"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:88
+#: src/EBox/UsersAndGroups/Model/Mode.pm:97
 msgid "Master eBox LDAP password"
 msgstr "Пароль LDAP Мастер eBox"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:94
+#: src/EBox/UsersAndGroups/Model/Mode.pm:103
 msgid "Configuration"
 msgstr "Конфигурация"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:95
+#: src/EBox/UsersAndGroups/Model/Mode.pm:104
 msgid "eBox Users Mode"
 msgstr "eBox режим пользователя"
 
@@ -311,7 +320,8 @@ msgid "Re-type new password"
 msgstr "Повторите новый пароль"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:75
-#: src/EBox/UsersAndGroups.pm:2238 src/templates/users.mas:49
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:73
+#: src/EBox/UsersAndGroups.pm:2282 src/templates/users.mas:49
 #: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
 msgid "Password"
 msgstr "Пароль"
@@ -335,6 +345,37 @@ msgstr "Отложенная операция принудительной си�
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:102
 msgid "Sync now"
 msgstr "Синхронизировать сейчас"
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:67
+msgid "Base DN"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:79
+#, fuzzy
+msgid "Users DN"
+msgstr "Пользователи"
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:85
+#, fuzzy
+msgid "Groups DN"
+msgstr "Группы"
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
+#: src/EBox/UsersAndGroups.pm:2253
+msgid "LDAP Info"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:94
+msgid "LDAP Information"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
+#, fuzzy
+msgid ""
+"You must enable the Users and Groups module to access the LDAP information"
+msgstr ""
+"Необходимо включить модуль Пользователи в секции Статус для того чтобы "
+"использовать это."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:65
 msgid "Full name"
@@ -392,21 +433,16 @@ msgstr "Состояние slave"
 msgid ""
 "These configuration options are used when a new user account is created."
 msgstr ""
-"Эти настройки будут использоваться при создании нового аккаунта "
-"пользователя."
+"Эти настройки будут использоваться при создании нового аккаунта пользователя."
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:80
 msgid "There isn't any configurable option"
 msgstr "Нет настраиваемых опций "
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
-#: src/EBox/UsersAndGroups.pm:2200 src/EBox/UsersAndGroups.pm:2209
+#: src/EBox/UsersAndGroups.pm:2239 src/EBox/UsersAndGroups.pm:2248
 msgid "Default User Template"
 msgstr "Шаблон пользователя по умолчанию"
-
-#: src/EBox/UsersAndGroups/Setup.pm:137
-msgid "Can't bind to LDAP with the provided password"
-msgstr "Не возможно связаться с LDAP с данным паролем"
 
 #: src/EBox/UsersAndGroups.pm:77
 msgid "Users and Groups"
@@ -470,16 +506,16 @@ msgstr ""
 "Скопировать пароль LDAP сгенированный eBox разрешающий другим модулям доступ "
 "к LDAP"
 
-#: src/EBox/UsersAndGroups.pm:695
+#: src/EBox/UsersAndGroups.pm:696
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Логин не должен быть длинее {maxuserlength} символов"
 
-#: src/EBox/UsersAndGroups.pm:793 src/EBox/UsersAndGroups.pm:1409
+#: src/EBox/UsersAndGroups.pm:794 src/EBox/UsersAndGroups.pm:1410
 msgid "Maximum number of system users reached"
 msgstr "Достигнуто макс. кол-во пользователей системы"
 
-#: src/EBox/UsersAndGroups.pm:810
+#: src/EBox/UsersAndGroups.pm:811
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -487,64 +523,64 @@ msgstr ""
 "Некорректный UID {uid} для пользователя. UID должен быть равен или больше "
 "{min}"
 
-#: src/EBox/UsersAndGroups.pm:821
+#: src/EBox/UsersAndGroups.pm:822
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Некорректный UID {uid} системного пользователя. UID должен быть меньше {max}"
 
-#: src/EBox/UsersAndGroups.pm:1333
+#: src/EBox/UsersAndGroups.pm:1334
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Имя группы не должно быть длинее {maxGroupLength} символов"
 
-#: src/EBox/UsersAndGroups.pm:1339
+#: src/EBox/UsersAndGroups.pm:1340
 msgid "The group name is not valid because it is used internally"
 msgstr "Имя группы не действительно поскольку используется внутри"
 
-#: src/EBox/UsersAndGroups.pm:1426
+#: src/EBox/UsersAndGroups.pm:1427
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 "Некорректный GID {gid} для группы. GID должен быть равен или выше {min}"
 
-#: src/EBox/UsersAndGroups.pm:1436
+#: src/EBox/UsersAndGroups.pm:1437
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "НЕ корректный GID {gid} для системной группы. GID должен быть меньше {max}"
 
-#: src/EBox/UsersAndGroups.pm:1978
+#: src/EBox/UsersAndGroups.pm:2017
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Пароль не должен быть длинее {maxPwdLength} символов"
 
-#: src/EBox/UsersAndGroups.pm:2214
+#: src/EBox/UsersAndGroups.pm:2258
 msgid "Slave Status"
 msgstr "Состояние Slave"
 
-#: src/EBox/UsersAndGroups.pm:2218
+#: src/EBox/UsersAndGroups.pm:2262
 msgid "AD Sync Settings"
 msgstr "Настройки синхронизации AD "
 
-#: src/EBox/UsersAndGroups.pm:2451
+#: src/EBox/UsersAndGroups.pm:2495
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr "Не возможно подключится к мастер eBox {remote}"
 
-#: src/EBox/UsersAndGroups.pm:2458
+#: src/EBox/UsersAndGroups.pm:2502
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr "Не возможно подключится к мастер eBox {remote} с таким паролем LDAP"
 
-#: src/EBox/UsersAndGroups.pm:2477
+#: src/EBox/UsersAndGroups.pm:2521
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr "Хост с таким именем {host} уже зарегистрирован в этом eBox"
 
-#: src/EBox/UsersAndGroups.pm:2587
+#: src/EBox/UsersAndGroups.pm:2631
 msgid "Replication failed"
 msgstr "Репликация не удалась"
 
@@ -640,12 +676,12 @@ msgid "Optional value"
 msgstr "Необязательная величина"
 
 #: src/templates/groups.mas:38 src/templates/groups.mas:39
-#: src/templates/users.mas:69 src/templates/users.mas:70
+#: src/templates/users.mas:73 src/templates/users.mas:74
 msgid "Add and Edit"
 msgstr "Добавить и редактировать"
 
 #: src/templates/groups.mas:41 src/templates/groups.mas:42
-#: src/templates/users.mas:73 src/templates/users.mas:74
+#: src/templates/users.mas:69 src/templates/users.mas:70
 msgid "Add"
 msgstr "Добавить"
 
@@ -669,7 +705,7 @@ msgstr "Фамилия"
 msgid "Retype password"
 msgstr "Повторите пароль"
 
-#: src/templates/users.mas:89
+#: src/templates/users.mas:88
 msgid "Group"
 msgstr "Группа"
 
@@ -759,6 +795,12 @@ msgstr "Предупреждение: включен Caps Lock "
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr "Вход"
+
+#~ msgid "Users corner certificates"
+#~ msgstr "Сертификаты уголка пользователей"
+
+#~ msgid "Can't bind to LDAP with the provided password"
+#~ msgstr "Не возможно связаться с LDAP с данным паролем"
 
 #~ msgid "Edit User"
 #~ msgstr "Редактировать пользователя"

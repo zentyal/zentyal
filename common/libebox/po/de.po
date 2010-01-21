@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:10+0100\n"
+"POT-Creation-Date: 2010-01-21 18:02+0100\n"
 "PO-Revision-Date: 2009-06-29 14:13+0200\n"
 "Last-Translator: Benjamin Höglinger <nefarius@darkhosters.net>\n"
 "Language-Team: none\n"
@@ -133,11 +133,11 @@ msgstr "{user} konnte den Befehl \"{cmd}\" nicht ausführen"
 msgid "Directory not found: {d}"
 msgstr "Der Ordner {d} wurde nicht gefunden"
 
-#: src/EBox/Validate.pm:393 src/EBox/Validate.pm:407
+#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
 msgstr ""
 
-#: src/EBox/Validate.pm:697
+#: src/EBox/Validate.pm:700
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -148,7 +148,7 @@ msgstr ""
 "Informationen zum Verzeichnis \"{dir}\" konnten nicht abgerufen werden. "
 "Vielleicht sind Sie nicht zugriffsberechtigt"
 
-#: src/EBox/Validate.pm:702
+#: src/EBox/Validate.pm:705
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
@@ -156,7 +156,7 @@ msgstr ""
 "#-#-#-#-#  de.po (libebox 0.8.99)  #-#-#-#-#\n"
 "Der Ordner {dir} ist nicht privat weil er einem anderen Benutzer gehört"
 
-#: src/EBox/Validate.pm:777
+#: src/EBox/Validate.pm:780
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -164,7 +164,7 @@ msgstr ""
 "Sie haben einen ungültigen Dateipfad angegeben. (Zum jetztigen Zeitpunkt "
 "sind noch nicht alle gültigen Zeichen unterstützt)"
 
-#: src/EBox/Validate.pm:805
+#: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
 msgstr "Geben Sie einen absoluter Dateipfad an"
 

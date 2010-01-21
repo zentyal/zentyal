@@ -524,9 +524,9 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Du må opprette et CA sertifikat for å bruke denne "
-"modulen.{closepar}{openpar}Vennligst gå til {openhref}sertifikat behandler "
-"modulen{closehref} og opprett det{closepar}"
+"{openpar}Du må opprette et CA sertifikat for å bruke denne modulen.{closepar}"
+"{openpar}Vennligst gå til {openhref}sertifikat behandler modulen{closehref} "
+"og opprett det{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:179
 msgid "Server creation"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:09+0100\n"
+"POT-Creation-Date: 2010-01-21 17:49+0100\n"
 "PO-Revision-Date: 2010-01-17 21:34+0100\n"
 "Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
@@ -223,7 +223,7 @@ msgid "Free Disk Space Watcher"
 msgstr "Espaço Livre em Disco para o Monitor"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr "Nome"
 
@@ -234,12 +234,12 @@ msgid "Description"
 msgstr "Descrição"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
 msgstr "Configuração"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr "Nenhum"
 
@@ -266,15 +266,15 @@ msgstr ""
 "ativar pelo menos um para poder ser notificado quando houver um registro "
 "neste domínio."
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
-msgid "Receiver"
-msgstr "Receptor"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
 #: src/EBox/Model/DataTable.pm:4523
 msgid "Enabled"
 msgstr "Ativado"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+msgid "Receiver"
+msgstr "Receptor"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 #, fuzzy
@@ -447,7 +447,7 @@ msgstr "Informativo"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
-#: src/templates/finish.mas:82
+#: src/templates/finish.mas:83
 msgid "Warning"
 msgstr "Cuidado"
 
@@ -464,7 +464,7 @@ msgid "Fatal error"
 msgstr ""
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
-#: src/templates/finish.mas:105 src/templates/backup.mas:128
+#: src/templates/finish.mas:116 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "Data"
@@ -698,7 +698,7 @@ msgid "Restoring modules"
 msgstr "Restaurando módulos"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
 msgstr "Módulos"
 
@@ -714,27 +714,27 @@ msgstr "Restauração concluida com sucesso"
 msgid "Save configuration"
 msgstr "Salvar a configuração"
 
-#: src/EBox/CGI/Finish.pm:76
+#: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes"
 msgstr "Salvando alterações"
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:78
 msgid "Saving changes in modules"
 msgstr "Salvando alterações em módulos"
 
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr "Operação atual"
 
-#: src/EBox/CGI/Finish.pm:79
+#: src/EBox/CGI/Finish.pm:80
 msgid "operations performed"
 msgstr "Operação otimizada"
 
-#: src/EBox/CGI/Finish.pm:80
+#: src/EBox/CGI/Finish.pm:81
 msgid "Changes saved"
 msgstr "Alterações salvas"
 
-#: src/EBox/CGI/Finish.pm:81
+#: src/EBox/CGI/Finish.pm:82
 #, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
@@ -743,27 +743,27 @@ msgstr ""
 "Algum(ns) módulo(s) relatou(aram) erro(s) ao salvar as alterações. Mais "
 "informações sobre os logs em {dir}"
 
-#: src/EBox/CGI/Finish.pm:100
+#: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
 msgstr "Revogando alterações"
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
 msgstr "Revogando alterações nos módulos"
 
-#: src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:103
 msgid "Current module"
 msgstr "Módulo atual"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
 msgstr "Módulos revogados"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
 msgstr "Alterações revogadas"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
@@ -1338,7 +1338,7 @@ msgstr "Repetições"
 msgid "Level"
 msgstr "Nível"
 
-#: src/EBox/Events.pm:809 src/templates/finish.mas:107
+#: src/EBox/Events.pm:809 src/templates/finish.mas:118
 msgid "Message"
 msgstr "Mensagem"
 
@@ -1606,7 +1606,8 @@ msgid "port"
 msgstr "porta"
 
 #: src/EBox/Apache.pm:591
-msgid "eBox internal web server"
+#, fuzzy
+msgid "eBox web server"
 msgstr "eBox Servidor web interno"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
@@ -2015,7 +2016,14 @@ msgstr "próximo"
 msgid "last"
 msgstr "último"
 
-#: src/templates/finish.mas:96
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+
+#: src/templates/finish.mas:106
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
@@ -2023,7 +2031,7 @@ msgstr ""
 "Existem configurações não salvas em um ou mais módulos, você pode salvar ou "
 "descartar essas mudanças."
 
-#: src/templates/finish.mas:99
+#: src/templates/finish.mas:110
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
@@ -2033,15 +2041,15 @@ msgstr ""
 "você precisa reescrever manualmente a url para acessar essa interface de "
 "administração novamente."
 
-#: src/templates/finish.mas:123
+#: src/templates/finish.mas:134
 msgid "Save"
 msgstr "Salvar"
 
-#: src/templates/finish.mas:125
+#: src/templates/finish.mas:136
 msgid "Discard changes"
 msgstr "Descartar alterações"
 
-#: src/templates/finish.mas:130
+#: src/templates/finish.mas:141
 msgid "There are no unsaved changes."
 msgstr "Não existem alterações não salvas"
 

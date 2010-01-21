@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:06+0100\n"
+"POT-Creation-Date: 2010-01-21 17:59+0100\n"
 "PO-Revision-Date: 2010-01-15 11:26+0100\n"
 "Last-Translator: Leonel I. P. Augusto <leonel.augusto@tdm.co.mz>\n"
 "Language-Team: none\n"
@@ -26,7 +26,8 @@ msgid "Operation mode"
 msgstr "Modo de operação"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:87
-msgid "eBox's mail service"
+#, fuzzy
+msgid "eBox mail service"
 msgstr "Serviço de correio do eBox"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:98
@@ -132,7 +133,7 @@ msgstr ""
 msgid "Configuration"
 msgstr "Configuração"
 
-#: src/EBox/WebMail/Model/Options.pm:62 src/EBox/WebMail.pm:221
+#: src/EBox/WebMail/Model/Options.pm:62
 msgid "Options"
 msgstr "Opções"
 
@@ -144,46 +145,42 @@ msgstr ""
 msgid "Web Mail"
 msgstr ""
 
-#: src/EBox/WebMail.pm:170
+#: src/EBox/WebMail.pm:169
 msgid "Neither IMAP nor IMAPS service enabled"
 msgstr ""
 
-#: src/EBox/WebMail.pm:214
-msgid "Backend"
-msgstr ""
-
-#: src/EBox/WebMail.pm:277
+#: src/EBox/WebMail.pm:288
 msgid "To configure roundcube"
 msgstr ""
 
-#: src/EBox/WebMail.pm:282
+#: src/EBox/WebMail.pm:293
 msgid "To configure managesieve plugin"
 msgstr ""
 
-#: src/EBox/WebMail.pm:300
+#: src/EBox/WebMail.pm:311
 msgid "Create PostgreSQL webmail database"
 msgstr "Criar a base de dados PostgreSQL do webmail"
 
-#: src/EBox/WebMail.pm:301
+#: src/EBox/WebMail.pm:312
 msgid "This database will store the data needed by Roundcube"
 msgstr ""
 
-#: src/EBox/WebMail.pm:305
+#: src/EBox/WebMail.pm:316
 msgid "Add webmail link to www data directory"
 msgstr ""
 
-#: src/EBox/WebMail.pm:306
+#: src/EBox/WebMail.pm:317
 msgid "Webmail will be accesible at http://ip/webmail"
 msgstr "O webmail será acessível em http://ip/webmail"
 
-#: src/EBox/WebMail.pm:329
+#: src/EBox/WebMail.pm:340
 #, perl-brace-format
 msgid ""
 "WebMail module needs IMAP or IMAPS service enabled as long it uses eBox's "
 "mail service. You can enable it at {openurl}Mail -> General{closeurl}"
 msgstr ""
 
-#: src/EBox/WebMail.pm:392
+#: src/EBox/WebMail.pm:403
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "webmail module"

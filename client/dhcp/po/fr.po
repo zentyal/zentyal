@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:08+0100\n"
+"POT-Creation-Date: 2010-01-21 17:48+0100\n"
 "PO-Revision-Date: 2010-01-18 11:36+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -324,8 +324,8 @@ msgstr "Options de DNS dynamique"
 #: src/EBox/Model/DynamicDNS.pm:363
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
-"Les domaines vont être automatiquement ajoutés au module DNS en mode "
-"lecture-seule"
+"Les domaines vont être automatiquement ajoutés au module DNS en mode lecture-"
+"seule"
 
 #: src/EBox/Model/DynamicDNS.pm:395
 #, perl-brace-format
@@ -450,8 +450,8 @@ msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
 msgstr ""
-"Si \"eBox NTP\" est présent et sélectionné, le serveur eBox agira en tant que "
-"serveur de temps pour les clients DHCP"
+"Si \"eBox NTP\" est présent et sélectionné, le serveur eBox agira en tant "
+"que serveur de temps pour les clients DHCP"
 
 #: src/EBox/Model/Options.pm:502
 msgid "WINS server"

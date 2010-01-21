@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:09+0100\n"
+"POT-Creation-Date: 2010-01-21 17:49+0100\n"
 "PO-Revision-Date: 2010-01-09 20:08+0100\n"
 "Last-Translator: Marcello Teodori <marcello.teodori@gmail.com>\n"
 "Language-Team: none\n"
@@ -225,7 +225,7 @@ msgid "Free Disk Space Watcher"
 msgstr "Configura osservatore spazio libero su disco"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr "Nome"
 
@@ -236,12 +236,12 @@ msgid "Description"
 msgstr "Descrizione"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
 msgstr "Configurazione"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr "Nessuno"
 
@@ -269,15 +269,15 @@ msgstr ""
 "su 'Configurazione' per attivarne almeno uno e ricevere notifiche quando si "
 "verifica un evento nel dominio."
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
-msgid "Receiver"
-msgstr "Destinatario"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
 #: src/EBox/Model/DataTable.pm:4523
 msgid "Enabled"
 msgstr "Attivo"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+msgid "Receiver"
+msgstr "Destinatario"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 #, fuzzy
@@ -448,7 +448,7 @@ msgstr "Informazioni RAID"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
-#: src/templates/finish.mas:82
+#: src/templates/finish.mas:83
 msgid "Warning"
 msgstr "Avviso"
 
@@ -465,7 +465,7 @@ msgid "Fatal error"
 msgstr ""
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
-#: src/templates/finish.mas:105 src/templates/backup.mas:128
+#: src/templates/finish.mas:116 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "Data"
@@ -693,7 +693,7 @@ msgid "Restoring modules"
 msgstr "Ripristino moduli"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
 msgstr "Modulo"
 
@@ -709,27 +709,27 @@ msgstr "Ripristino eseguito correttamente"
 msgid "Save configuration"
 msgstr "Registra configurazione"
 
-#: src/EBox/CGI/Finish.pm:76
+#: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes"
 msgstr "Salva modifiche"
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:78
 msgid "Saving changes in modules"
 msgstr "Salvo le modifiche nei moduli"
 
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr "Operazione attuale"
 
-#: src/EBox/CGI/Finish.pm:79
+#: src/EBox/CGI/Finish.pm:80
 msgid "operations performed"
 msgstr "operazioni eseguite"
 
-#: src/EBox/CGI/Finish.pm:80
+#: src/EBox/CGI/Finish.pm:81
 msgid "Changes saved"
 msgstr "Modifica salvata"
 
-#: src/EBox/CGI/Finish.pm:81
+#: src/EBox/CGI/Finish.pm:82
 #, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
@@ -738,27 +738,27 @@ msgstr ""
 "Qualche modulo ha riportato errori durante il salvataggio. Maggiori "
 "informazioni nel log {dir}"
 
-#: src/EBox/CGI/Finish.pm:100
+#: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
 msgstr "Revoca modifiche"
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
 msgstr "Revoca modifiche nei moduli"
 
-#: src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:103
 msgid "Current module"
 msgstr "Modulo corrente"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
 msgstr "moduli revocati"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
 msgstr "Modifiche revocate"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
@@ -1333,7 +1333,7 @@ msgstr "Opzioni report"
 msgid "Level"
 msgstr "evento"
 
-#: src/EBox/Events.pm:809 src/templates/finish.mas:107
+#: src/EBox/Events.pm:809 src/templates/finish.mas:118
 msgid "Message"
 msgstr "Messaggio"
 
@@ -1602,7 +1602,8 @@ msgid "port"
 msgstr "porta"
 
 #: src/EBox/Apache.pm:591
-msgid "eBox internal web server"
+#, fuzzy
+msgid "eBox web server"
 msgstr "eBox web server interno"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
@@ -2008,7 +2009,14 @@ msgstr "successivo"
 msgid "last"
 msgstr "ultimo"
 
-#: src/templates/finish.mas:96
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+
+#: src/templates/finish.mas:106
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
@@ -2016,7 +2024,7 @@ msgstr ""
 "Ci sono modifiche non registrate in uno o più moduli, puoi registrare o "
 "annullare tali modifiche."
 
-#: src/templates/finish.mas:99
+#: src/templates/finish.mas:110
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
@@ -2026,15 +2034,15 @@ msgstr ""
 "amministrazione, deve riscrivere a mano la url per accedere nuovamente a "
 "questa interfaccia di amministrazione."
 
-#: src/templates/finish.mas:123
+#: src/templates/finish.mas:134
 msgid "Save"
 msgstr "Registra"
 
-#: src/templates/finish.mas:125
+#: src/templates/finish.mas:136
 msgid "Discard changes"
 msgstr "Annulla modifiche"
 
-#: src/templates/finish.mas:130
+#: src/templates/finish.mas:141
 msgid "There are no unsaved changes."
 msgstr "Ci sono modifiche non registrate."
 

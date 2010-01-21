@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:10+0100\n"
+"POT-Creation-Date: 2010-01-21 18:02+0100\n"
 "PO-Revision-Date: 2007-09-28 10:49+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -124,11 +124,11 @@ msgstr "Dit forsøg med kommandoen '{cmd}' som {user} mislykkedes."
 msgid "Directory not found: {d}"
 msgstr "Directory blev ikke fundet: {d}"
 
-#: src/EBox/Validate.pm:393 src/EBox/Validate.pm:407
+#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
 msgstr ""
 
-#: src/EBox/Validate.pm:697
+#: src/EBox/Validate.pm:700
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -137,19 +137,19 @@ msgstr ""
 "Kan ikke få status på {dir}. Det kan skyldes at folderen ikke findes, eller "
 "at der ikke er nok rettigheder til det"
 
-#: src/EBox/Validate.pm:702
+#: src/EBox/Validate.pm:705
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr "Directoriet {dir} er ikke privat, det er ejet af en anden bruger"
 
-#: src/EBox/Validate.pm:777
+#: src/EBox/Validate.pm:780
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
 "Filnavnet er ugyldigt. (I øjeblikket er alle gyldige tegn ikke supporteret)"
 
-#: src/EBox/Validate.pm:805
+#: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
 msgstr "Stien til filen skal være absolut"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:09+0100\n"
+"POT-Creation-Date: 2010-01-21 17:49+0100\n"
 "PO-Revision-Date: 2007-04-06 19:32+0000\n"
 "Last-Translator: Tomasz Kasprzak <tomasz.kasprzak@gmail.com>\n"
 "Language-Team: none\n"
@@ -228,7 +228,7 @@ msgid "Free Disk Space Watcher"
 msgstr "Porzuć zmiany"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr ""
 
@@ -239,13 +239,13 @@ msgid "Description"
 msgstr "Opis"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 #, fuzzy
 msgid "Configuration"
 msgstr "Przywrócenie konfiguracji"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr ""
 
@@ -271,17 +271,17 @@ msgid ""
 "domain happens. "
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
-#, fuzzy
-msgid "Receiver"
-msgstr "Grudzień"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
 #: src/EBox/Model/DataTable.pm:4523
 #, fuzzy
 msgid "Enabled"
 msgstr "Wyłączone"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+#, fuzzy
+msgid "Receiver"
+msgstr "Grudzień"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 #, fuzzy
@@ -448,7 +448,7 @@ msgstr "Informacja ogólna"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
-#: src/templates/finish.mas:82
+#: src/templates/finish.mas:83
 msgid "Warning"
 msgstr ""
 
@@ -465,7 +465,7 @@ msgid "Fatal error"
 msgstr ""
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
-#: src/templates/finish.mas:105 src/templates/backup.mas:128
+#: src/templates/finish.mas:116 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "Data"
@@ -697,7 +697,7 @@ msgid "Restoring modules"
 msgstr "Tryb przywracania"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
 msgstr "Moduł"
 
@@ -714,63 +714,63 @@ msgstr "Tryb przywracania"
 msgid "Save configuration"
 msgstr "Zapisz konfigurację"
 
-#: src/EBox/CGI/Finish.pm:76
+#: src/EBox/CGI/Finish.pm:77
 #, fuzzy
 msgid "Saving changes"
 msgstr "Zapisz zmiany"
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:78
 #, fuzzy
 msgid "Saving changes in modules"
 msgstr "Tryb kopii zapasowej"
 
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
 #, fuzzy
 msgid "Current operation"
 msgstr "Bieżące hasło"
 
-#: src/EBox/CGI/Finish.pm:79
+#: src/EBox/CGI/Finish.pm:80
 msgid "operations performed"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:80
+#: src/EBox/CGI/Finish.pm:81
 #, fuzzy
 msgid "Changes saved"
 msgstr "Zmień hasło"
 
-#: src/EBox/CGI/Finish.pm:81
+#: src/EBox/CGI/Finish.pm:82
 #, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:100
+#: src/EBox/CGI/Finish.pm:101
 #, fuzzy
 msgid "Revoking changes"
 msgstr "Zapisz zmiany"
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:102
 #, fuzzy
 msgid "Revoking changes in modules"
 msgstr "Tryb przywracania"
 
-#: src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:103
 #, fuzzy
 msgid "Current module"
 msgstr "Bieżące hasło"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:104
 #, fuzzy
 msgid "modules revoked"
 msgstr "nazwa modułu"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:105
 #, fuzzy
 msgid "Changes revoked"
 msgstr "Zmień hasło"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
@@ -1331,7 +1331,7 @@ msgstr "Opis"
 msgid "Level"
 msgstr "Zdarzenie"
 
-#: src/EBox/Events.pm:809 src/templates/finish.mas:107
+#: src/EBox/Events.pm:809 src/templates/finish.mas:118
 msgid "Message"
 msgstr "Komunikat"
 
@@ -1601,8 +1601,9 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:591
-msgid "eBox internal web server"
-msgstr ""
+#, fuzzy
+msgid "eBox web server"
+msgstr "Usługi"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
 #, fuzzy, perl-brace-format
@@ -2009,7 +2010,14 @@ msgstr "następna"
 msgid "last"
 msgstr "ostatnia"
 
-#: src/templates/finish.mas:96
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+
+#: src/templates/finish.mas:106
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
@@ -2017,7 +2025,7 @@ msgstr ""
 "W jednym z modułów są niezapisane zmiany. Możesz zapisać lub zignorować te "
 "zmiany."
 
-#: src/templates/finish.mas:99
+#: src/templates/finish.mas:110
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
@@ -2027,15 +2035,15 @@ msgstr ""
 "administracyjnym może zajść konieczność ręcznego poprawienia adresu w pasku "
 "adresu przeglądarki aby uzyskać ponownie dostęp do panelu administracyjnego."
 
-#: src/templates/finish.mas:123
+#: src/templates/finish.mas:134
 msgid "Save"
 msgstr "Zapisz"
 
-#: src/templates/finish.mas:125
+#: src/templates/finish.mas:136
 msgid "Discard changes"
 msgstr "Porzuć zmiany"
 
-#: src/templates/finish.mas:130
+#: src/templates/finish.mas:141
 msgid "There are no unsaved changes."
 msgstr "Nie ma żadnych niezapisanych zmian."
 
@@ -2294,10 +2302,6 @@ msgstr "Numer portu TCP dla interfejsu administracyjnego"
 #, fuzzy
 #~ msgid "Delete data"
 #~ msgstr "Usuń"
-
-#, fuzzy
-#~ msgid "Remote services"
-#~ msgstr "Usługi"
 
 #, fuzzy
 #~ msgid "Enter user and password"

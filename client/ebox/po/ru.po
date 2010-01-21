@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:09+0100\n"
+"POT-Creation-Date: 2010-01-21 17:49+0100\n"
 "PO-Revision-Date: 2010-01-18 18:01+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/SysInfo.pm:46
@@ -224,7 +224,7 @@ msgid "Free Disk Space Watcher"
 msgstr "Конфигурация наблюдателя свободного дискового пространства"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr "Имя"
 
@@ -235,12 +235,12 @@ msgid "Description"
 msgstr "Описание"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
 msgstr "Конфигурация"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr "Ничего"
 
@@ -268,15 +268,15 @@ msgstr ""
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
-msgid "Receiver"
-msgstr "Получатель"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
 #: src/EBox/Model/DataTable.pm:4523
 msgid "Enabled"
 msgstr "Включено"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+msgid "Receiver"
+msgstr "Получатель"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 msgid "Configure Dispatchers"
@@ -447,7 +447,7 @@ msgstr "Информация о RAID"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
-#: src/templates/finish.mas:82
+#: src/templates/finish.mas:83
 msgid "Warning"
 msgstr "Предупреждение"
 
@@ -464,7 +464,7 @@ msgid "Fatal error"
 msgstr "Фатальная ошибка"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
-#: src/templates/finish.mas:105 src/templates/backup.mas:128
+#: src/templates/finish.mas:116 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "Дата"
@@ -692,7 +692,7 @@ msgid "Restoring modules"
 msgstr "Модуль восстановления"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
 msgstr "Модуль"
 
@@ -708,30 +708,30 @@ msgstr "Восстановление успешно"
 msgid "Save configuration"
 msgstr "Сохранить настройки"
 
-#: src/EBox/CGI/Finish.pm:76
+#: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes"
 msgstr "Сохранение изменений"
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:78
 msgid "Saving changes in modules"
 msgstr "Сохранение изменений в модулях"
 
 # Instead of word "operation" there was "password" as well.  Fixed.
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr "Текущая операция"
 
-#: src/EBox/CGI/Finish.pm:79
+#: src/EBox/CGI/Finish.pm:80
 msgid "operations performed"
 msgstr "выполненные операции"
 
 # The value for this field actually was "Change password", I changed it to "Changes saved" as it should be.  
 # No fuzzyness anymore.
-#: src/EBox/CGI/Finish.pm:80
+#: src/EBox/CGI/Finish.pm:81
 msgid "Changes saved"
 msgstr "Изменения сохранены"
 
-#: src/EBox/CGI/Finish.pm:81
+#: src/EBox/CGI/Finish.pm:82
 #, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
@@ -740,27 +740,27 @@ msgstr ""
 "Некоторые модули сообщили об ошибках при сохранении. Больше информации можно "
 "узнать из журналов {dir}"
 
-#: src/EBox/CGI/Finish.pm:100
+#: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
 msgstr "Отмена изменений"
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
 msgstr "Отмена изменений в модулях"
 
-#: src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:103
 msgid "Current module"
 msgstr "Текущий модуль"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
 msgstr "модули отозваны"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
 msgstr "Изменения отозваны"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
@@ -1330,7 +1330,7 @@ msgstr "Опции отчета"
 msgid "Level"
 msgstr "событие"
 
-#: src/EBox/Events.pm:809 src/templates/finish.mas:107
+#: src/EBox/Events.pm:809 src/templates/finish.mas:118
 msgid "Message"
 msgstr "Сообщение"
 
@@ -1596,7 +1596,8 @@ msgid "port"
 msgstr "порт"
 
 #: src/EBox/Apache.pm:591
-msgid "eBox internal web server"
+#, fuzzy
+msgid "eBox web server"
 msgstr "Внутренний веб сервер eBox"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
@@ -1998,7 +1999,14 @@ msgstr "следующая"
 msgid "last"
 msgstr "последняя"
 
-#: src/templates/finish.mas:96
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+
+#: src/templates/finish.mas:106
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
@@ -2006,7 +2014,7 @@ msgstr ""
 "Есть несохраненные изменения в одном или нескольких модулях. Вы можете "
 "сохранить или отменить эти изменения."
 
-#: src/templates/finish.mas:99
+#: src/templates/finish.mas:110
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
@@ -2016,15 +2024,15 @@ msgstr ""
 "Вам придется вручную перезаписать URL в строке адреса что б попасть в "
 "интерфейс администратора снова."
 
-#: src/templates/finish.mas:123
+#: src/templates/finish.mas:134
 msgid "Save"
 msgstr "Сохранить"
 
-#: src/templates/finish.mas:125
+#: src/templates/finish.mas:136
 msgid "Discard changes"
 msgstr "Отменить изменения"
 
-#: src/templates/finish.mas:130
+#: src/templates/finish.mas:141
 msgid "There are no unsaved changes."
 msgstr "Несохраненных изменений нет."
 

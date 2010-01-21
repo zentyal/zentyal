@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 16:59+0100\n"
+"POT-Creation-Date: 2010-01-21 17:48+0100\n"
 "PO-Revision-Date: 2006-11-06 16:01+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -58,7 +58,7 @@ msgstr ""
 #: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/ShowForm.pm:64
 #: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:747 src/EBox/CA.pm:910
 #: src/EBox/CA.pm:1247 src/EBox/CA.pm:1289 src/EBox/CA.pm:1383
-#: src/EBox/Model/Certificates.pm:234 src/EBox/CA/TestStub.pm:438
+#: src/EBox/Model/Certificates.pm:235 src/EBox/CA/TestStub.pm:438
 #: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
 #: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
 #: src/templates/index.mas:23
@@ -196,7 +196,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:248
+#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:249
 msgid "Services Certificates"
 msgstr ""
 
@@ -285,26 +285,26 @@ msgstr ""
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr ""
 
-#: src/EBox/Model/Certificates.pm:92
+#: src/EBox/Model/Certificates.pm:93
 #, perl-brace-format
 msgid ""
-"You must create a Certification Authority. Go to {openhref}Certification "
-"Authority{closehref} to do so"
+"You must create a Certification Authority first. Go to {openhref}"
+"Certification Authority{closehref} to do so"
 msgstr ""
 
-#: src/EBox/Model/Certificates.pm:216
+#: src/EBox/Model/Certificates.pm:217
 msgid "Module"
 msgstr ""
 
-#: src/EBox/Model/Certificates.pm:228
+#: src/EBox/Model/Certificates.pm:229
 msgid "Service"
 msgstr ""
 
-#: src/EBox/Model/Certificates.pm:240
+#: src/EBox/Model/Certificates.pm:241
 msgid "Enable"
 msgstr ""
 
-#: src/EBox/Model/Certificates.pm:249
+#: src/EBox/Model/Certificates.pm:250
 msgid "certificate"
 msgstr ""
 

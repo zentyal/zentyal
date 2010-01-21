@@ -119,8 +119,8 @@ msgid ""
 "You must have at least one virtual mail domain defined. You can define the "
 "at {ohref}Virtual Domains section{chref}"
 msgstr ""
-"Du må ha minst et virtuelt domene definert. Du kan definere dem på "
-"{ohref}Virtuell Domene seksjonen{chref}"
+"Du må ha minst et virtuelt domene definert. Du kan definere dem på {ohref}"
+"Virtuell Domene seksjonen{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
 #, perl-brace-format

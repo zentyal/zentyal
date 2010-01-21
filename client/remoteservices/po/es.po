@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:11+0100\n"
+"POT-Creation-Date: 2010-01-21 17:50+0100\n"
 "PO-Revision-Date: 2010-01-18 19:59+0100\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: none\n"
@@ -107,20 +107,20 @@ msgstr ""
 msgid "Connection error"
 msgstr "Error de conexion"
 
-#: src/EBox/RemoteServices/Auth.pm:124
+#: src/EBox/RemoteServices/Auth.pm:125
 msgid "Key for service URN not found"
 msgstr "Clave para el servicio URN no encontrada"
 
-#: src/EBox/RemoteServices/Auth.pm:160
+#: src/EBox/RemoteServices/Auth.pm:161
 #, perl-brace-format
 msgid "Value for key {k} not found"
 msgstr "Valor para la clave {k} no encontrado "
 
-#: src/EBox/RemoteServices/Subscription.pm:108
+#: src/EBox/RemoteServices/Subscription.pm:109
 msgid "Key for web subscription service not found"
 msgstr "Clave para el servicio de suscripción web no encontrada"
 
-#: src/EBox/RemoteServices/Subscription.pm:311
+#: src/EBox/RemoteServices/Subscription.pm:312
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "No se puede contactar con {host}. Comprueba tu conexión a Internet"
@@ -142,7 +142,7 @@ msgstr "No se ha podido crear la conexion SOAP"
 msgid "No domain key found for this service"
 msgstr "Clave de dominio para este servicio no encontrada"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:151
+#: src/EBox/RemoteServices/Model/Subscription.pm:150
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system."
@@ -150,31 +150,34 @@ msgstr ""
 "Suscripción realizada correctamente. Espere un minuto para que la "
 "suscripción se propague por el sistema"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:154
+#: src/EBox/RemoteServices/Model/Subscription.pm:153
 msgid "Subscription data retrieved correctly."
 msgstr "Datos de la suscripción recuperados correctamente"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:156
+#: src/EBox/RemoteServices/Model/Subscription.pm:155
 msgid "Please, save changes"
 msgstr "Por favor, guardar cambios"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:181
+#: src/EBox/RemoteServices/Model/Subscription.pm:180
 msgid "Done"
 msgstr "Realizado"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:259
+#: src/EBox/RemoteServices/Model/Subscription.pm:258
+#, fuzzy
 msgid ""
-"Subscribing an eBox will configure OpenVPN module by running these actions "
-"and modifying these files: "
+"Subscribing an eBox will configure OpenVPN module and its dependencies by "
+"running these actions and modifying these files: "
 msgstr ""
 "Subscribir eBox configurará el módulo OpenVPN ejecutando estas acciones y "
 "modificando estos ficheros:"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:263
-msgid "Subscribing an eBox will enable the OpenVPN module."
+#: src/EBox/RemoteServices/Model/Subscription.pm:262
+#, fuzzy
+msgid ""
+"Subscribing an eBox will enable the OpenVPN module and its dependencies."
 msgstr "Subscribir eBox habilitará el módulo OpenVPN"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:266
+#: src/EBox/RemoteServices/Model/Subscription.pm:265
 msgid ""
 "Take into account that subscribing an eBox could take a minute. Do not touch "
 "anything until subscribing process is done."
@@ -182,7 +185,7 @@ msgstr ""
 "Ten en cuenta que la subscripción podría tardar un minuto. No toques nada "
 "hasta que el proceso de subscripción haya acabado."
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:302
+#: src/EBox/RemoteServices/Model/Subscription.pm:301
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
@@ -190,57 +193,49 @@ msgstr ""
 "Antes de realizar una suscripción a servicios remotos, habilite el módulo "
 "OpenVPN y guarde o descarte los cambios"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:322
+#: src/EBox/RemoteServices/Model/Subscription.pm:321
 msgid "User Name or Email Address"
 msgstr "Nombre de usuario o dirección de correo"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:330
+#: src/EBox/RemoteServices/Model/Subscription.pm:329
 msgid "eBox Name"
 msgstr "Nombre de eBox"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:335
+#: src/EBox/RemoteServices/Model/Subscription.pm:334
 msgid "Choose a name for your eBox which is a valid domain name"
 msgstr "Elije un nombre para tu eBox que sea un nombre de dominio válido"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:342
+#: src/EBox/RemoteServices/Model/Subscription.pm:341
 msgid "Password"
 msgstr "Contraseña"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:350
+#: src/EBox/RemoteServices/Model/Subscription.pm:349
 msgid "eBox subscription details"
 msgstr "Detalles de suscripción eBox"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:351
+#: src/EBox/RemoteServices/Model/Subscription.pm:350
 msgid "Delete data"
 msgstr "Borrar datos"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:354
-msgid "Subscription to remote services"
+#: src/EBox/RemoteServices/Model/Subscription.pm:353
+#, fuzzy
+msgid "Subscription to eBox Control Center"
 msgstr "Suscripción a servicios remotos"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:355
+#: src/EBox/RemoteServices/Model/Subscription.pm:354
 msgid "Subscribe"
 msgstr "Suscribir"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:365
-#, fuzzy, perl-brace-format
-msgid ""
-"In order to subscribe an eBox remote services {url}. You will have remote "
-"backup facilities and much more"
-msgstr ""
-"Ordenando la suscripción de servicios remotos eBox {url}. Usted tendrá "
-"facilidades de backup remoto y mucho más"
-
-#: src/EBox/RemoteServices/Model/Subscription.pm:435
+#: src/EBox/RemoteServices/Model/Subscription.pm:433
 msgid "Action"
 msgstr "Acción"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:436
-#: src/EBox/RemoteServices/Model/Subscription.pm:449
+#: src/EBox/RemoteServices/Model/Subscription.pm:434
+#: src/EBox/RemoteServices/Model/Subscription.pm:455
 msgid "Reason"
 msgstr "Razón"
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:448
+#: src/EBox/RemoteServices/Model/Subscription.pm:454
 msgid "File"
 msgstr "Fichero"
 
@@ -267,15 +262,17 @@ msgstr "No hay backups en el servidor para esta maquina: {h}"
 msgid "Key for proxy backup service not found"
 msgstr "Clave para el servicio backup proxy no encontrada"
 
-#: src/EBox/RemoteServices/Composite/General.pm:73
-msgid "Remote services"
-msgstr "Servicios remotos"
+#: src/EBox/RemoteServices/Composite/General.pm:70
+#, fuzzy
+msgid "eBox Control Center"
+msgstr "Centro de Control"
 
-#: src/EBox/RemoteServices/Composite/General.pm:74
-msgid "eBox Control Center is paid services to enhance your eBox experience"
+#: src/EBox/RemoteServices/Composite/General.pm:83
+#, perl-brace-format
+msgid ""
+" {openhref}Subscribing{closehref} your eBox to the Control Center lets you "
+"have automatic configuration backup and much more"
 msgstr ""
-"el Centro de Control eBox son servicios pagados para mejorar tu experiencia "
-"eBox"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
@@ -313,6 +310,22 @@ msgstr "No conectado. Comprueba los registros de VPN en {path}"
 #: src/EBox/RemoteServices.pm:577
 msgid "Connected"
 msgstr "Conectado"
+
+#, fuzzy
+#~ msgid ""
+#~ "In order to subscribe an eBox remote services {url}. You will have remote "
+#~ "backup facilities and much more"
+#~ msgstr ""
+#~ "Ordenando la suscripción de servicios remotos eBox {url}. Usted tendrá "
+#~ "facilidades de backup remoto y mucho más"
+
+#~ msgid "Remote services"
+#~ msgstr "Servicios remotos"
+
+#~ msgid "eBox Control Center is paid services to enhance your eBox experience"
+#~ msgstr ""
+#~ "el Centro de Control eBox son servicios pagados para mejorar tu "
+#~ "experiencia eBox"
 
 #~ msgid "User name"
 #~ msgstr "Nombre de usuario"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 1.3.12"
+"Project-Id-Version: ebox-dns 1.3.12Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:07+0100\n"
+"POT-Creation-Date: 2010-01-21 17:39+0100\n"
 "PO-Revision-Date: 2010-01-09 16:07+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:232
+#: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:233
 #: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:239
+#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:240
 msgid "domain"
 msgstr ""
 
@@ -119,7 +119,7 @@ msgstr ""
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr ""
 
-#: src/EBox/Model/DomainTable.pm:231
+#: src/EBox/Model/DomainTable.pm:232
 msgid "List of Domains"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:07+0100\n"
+"POT-Creation-Date: 2010-01-21 17:39+0100\n"
 "PO-Revision-Date: 2010-01-18 11:42+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:232
+#: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:233
 #: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:239
+#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:240
 msgid "domain"
 msgstr "domaine"
 
@@ -125,7 +125,7 @@ msgstr "Dynamique"
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Un domaine est dynamique lorsque le serveur DHCP le met-à-jour"
 
-#: src/EBox/Model/DomainTable.pm:231
+#: src/EBox/Model/DomainTable.pm:232
 msgid "List of Domains"
 msgstr "Liste de domaines"
 
@@ -232,8 +232,7 @@ msgstr ""
 #: src/EBox/Model/NameServer.pm:112
 msgid "The domain is set as read only. You cannot add name servers"
 msgstr ""
-"Le domaine est en lecture-seule. Vous ne pouvez pas ajouter de serveur de "
-"nom"
+"Le domaine est en lecture-seule. Vous ne pouvez pas ajouter de serveur de nom"
 
 #: src/EBox/Model/NameServer.pm:159
 msgid "Name servers"

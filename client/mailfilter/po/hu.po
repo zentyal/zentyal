@@ -786,8 +786,7 @@ msgstr "Adjon meg egy számot (tizedesvessző engedélyezett)"
 #: src/EBox/MailFilter/SpamAssassin.pm:346
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
 msgstr ""
-"A SPAM határértéke nem lehet nagyobb mint az automatikus tanulás "
-"határértéke!"
+"A SPAM határértéke nem lehet nagyobb mint az automatikus tanulás határértéke!"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:350
 msgid ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:10+0100\n"
+"POT-Creation-Date: 2010-01-21 18:02+0100\n"
 "PO-Revision-Date: 2007-04-05 10:50+0000\n"
 "Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
 "Language-Team: none\n"
@@ -128,11 +128,11 @@ msgstr "Uruchomienie komendy '{cmd}' jako użytkownik {user} nie powiodło się.
 msgid "Directory not found: {d}"
 msgstr ""
 
-#: src/EBox/Validate.pm:393 src/EBox/Validate.pm:407
+#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
 msgstr ""
 
-#: src/EBox/Validate.pm:697
+#: src/EBox/Validate.pm:700
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -141,13 +141,13 @@ msgstr ""
 "Nie mogę odczytać katalogu: {dir}. Może to oznaczać, że katalog nie istnieje "
 "lub uprawnienia nie pozwalają na dostęp do niego."
 
-#: src/EBox/Validate.pm:702
+#: src/EBox/Validate.pm:705
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "Katalog {dir} nie jest katalogiem prywatnym ponieważ należy do innej osoby."
 
-#: src/EBox/Validate.pm:777
+#: src/EBox/Validate.pm:780
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -155,7 +155,7 @@ msgstr ""
 "Podana ścieżka do pliku jest nieprawidłowa. (Obecnie nie wszystkie dozwolone "
 "w nazwach plików znaki są obsługiwane)."
 
-#: src/EBox/Validate.pm:805
+#: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
 msgstr "Ścieżka do pliku nie może być względna."
 

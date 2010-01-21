@@ -2,12 +2,12 @@
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
 # Automatically generated, 2007.
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:114
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:116
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:02+0000\n"
+"POT-Creation-Date: 2010-01-21 17:51+0100\n"
 "PO-Revision-Date: 2007-05-16 13:07+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: none\n"
@@ -73,137 +73,132 @@ msgstr "Identificador de la clase hoja"
 msgid "Address"
 msgstr "Dirección"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:139
-#, perl-brace-format
-msgid "Change or remove some rules on {contextName}"
-msgstr "Cambiar o borrar algunas reglas en {contextName}"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:271
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:185
 #, fuzzy, perl-brace-format
 msgid "{iface} (internal interface)"
 msgstr "Listas de reglas por interfaz"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:274
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:188
 #, fuzzy, perl-brace-format
 msgid "{iface} (external interface)"
 msgstr "Elije un interfaz externo para moldear"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:301
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:215
 msgid "Guaranteed rate"
 msgstr "Tasa garantizada"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:306
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:220
 msgid "Limited rate"
 msgstr "Tasa limitada"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:317
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:231
 #, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:344
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:258
 #, fuzzy
 msgid "If service is any, some source ordestination should be provided"
 msgstr "Si el servicio es cualquiera, se debe dar algún origen o destino"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:479
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:393
 msgid "Service"
 msgstr "Servicio"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:484
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:398
 msgid "Port based service"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:496
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:410
 msgid "Source"
 msgstr "Origen"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:501
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:529
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:415
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:443
 msgid "Any"
 msgstr "Cualquiera"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:504
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:418
 msgid "Source IP"
 msgstr "IP Origen"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:509
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:423
 msgid "Source MAC"
 msgstr "MAC Origen"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:514
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:428
 msgid "Source object"
 msgstr "Objeto origen"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:524
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:438
 msgid "Destination"
 msgstr "Destino"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:532
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:446
 msgid "Destination IP"
 msgstr "IP destino"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:537
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:451
 msgid "Destination object"
 msgstr "Objeto destino"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:547
-#: src/EBox/TrafficShaping.pm:1558
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:461
+#: src/EBox/TrafficShaping.pm:1564
 msgid "Priority"
 msgstr "Prioridad"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:551
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:465
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:555
-#: src/EBox/TrafficShaping.pm:1556
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:469
+#: src/EBox/TrafficShaping.pm:1562
 msgid "Guaranteed Rate"
 msgstr "Tasa garantizada"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:558
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:572
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:472
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:486
 msgid "Kbit/s"
 msgstr "Kbit/s"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:560
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:474
 msgid ""
 "Note that  The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:567
-#: src/EBox/TrafficShaping.pm:1557
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:481
+#: src/EBox/TrafficShaping.pm:1563
 msgid "Limited Rate"
 msgstr "Tasa limitada"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:574
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:488
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:581
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:495
 #, fuzzy, perl-brace-format
 msgid "Rules list for {printableIndex}"
 msgstr "Listas de reglas para el interfaz {iface}"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:590
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:504
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:595
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:509
 msgid "rule"
 msgstr "regla"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:656
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:570
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr "Borrar {num} reglas de {modelName}"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:703
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:617
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -216,49 +211,53 @@ msgstr ""
 "mantener la misma proporción que existía antes y {removeNum} se han borrado "
 "porque su tasa garantizada resultante era menor que la mínima permitida"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:760
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:674
 msgid ""
 "Port based protocols use the port number to match a service, while "
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:776
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:793
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:690
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:707
 msgid "Application based service"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:784
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:800
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:698
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:714
 msgid "Application based service group"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:83
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:85
 #, fuzzy
 msgid "External Interface"
 msgstr "Elije un interfaz externo para moldear"
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:88
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:90
 msgid "Upload"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:92
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:100
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
 msgid "Upload rate in Kbits/s for through this interface"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:96
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
 msgid "Download"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:108
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:109
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:110
 #, fuzzy
 msgid "External Interface Rates"
 msgstr "Elije un interfaz externo para moldear"
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:117
 msgid "rate"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:142
+msgid "You need at least one internal interface and one external interface"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
@@ -336,7 +335,7 @@ msgid "Interface Rates"
 msgstr "Interfaz"
 
 #: src/EBox/TrafficShaping.pm:441 src/EBox/TrafficShaping.pm:592
-#: src/EBox/TrafficShaping.pm:980 src/EBox/TC.pm:107
+#: src/EBox/TrafficShaping.pm:986 src/EBox/TC.pm:107
 msgid "Interface"
 msgstr "Interfaz"
 
@@ -349,11 +348,11 @@ msgstr ""
 "El máximo número de reglas {max} se ha alcanzado, por favor borra al menos "
 "una para añadir una nueva"
 
-#: src/EBox/TrafficShaping.pm:1066
+#: src/EBox/TrafficShaping.pm:1072
 msgid "type"
 msgstr "tipo"
 
-#: src/EBox/TrafficShaping.pm:1089
+#: src/EBox/TrafficShaping.pm:1095
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -362,17 +361,20 @@ msgstr ""
 "Interfaz {iface} debe tener una tasa máxima de ancho de banda para hacer "
 "moldeado de tráfico"
 
-#: src/EBox/TrafficShaping.pm:1554
+#: src/EBox/TrafficShaping.pm:1560
 msgid "Protocol"
 msgstr "Protocolo"
 
-#: src/EBox/TrafficShaping.pm:1555
+#: src/EBox/TrafficShaping.pm:1561
 msgid "Port"
 msgstr "Puerto"
 
 #: src/EBox/TC.pm:69
 msgid "options"
 msgstr "opciones"
+
+#~ msgid "Change or remove some rules on {contextName}"
+#~ msgstr "Cambiar o borrar algunas reglas en {contextName}"
 
 #~ msgid "traffic shaping"
 #~ msgstr "moldeado de tráfico"

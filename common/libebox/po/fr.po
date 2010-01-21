@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-21 17:10+0100\n"
+"POT-Creation-Date: 2010-01-21 18:02+0100\n"
 "PO-Revision-Date: 2010-01-18 14:15+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: \n"
@@ -127,11 +127,11 @@ msgstr "Exécution de la commande '{cmd}' comme {user} échoué"
 msgid "Directory not found: {d}"
 msgstr "Dossier non trouvé : {d}"
 
-#: src/EBox/Validate.pm:393 src/EBox/Validate.pm:407
+#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
 msgstr "Doit être un nombre compris entre 1 et 4096"
 
-#: src/EBox/Validate.pm:697
+#: src/EBox/Validate.pm:700
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -140,13 +140,13 @@ msgstr ""
 "Impossible d'accéder au dossier : {dir}. Il est peut-être inexistant ou vous "
 "n'avez pas de droits suffisants"
 
-#: src/EBox/Validate.pm:702
+#: src/EBox/Validate.pm:705
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "Le répertoire {dir} n'est pas privé, car il appartient à un autre utilisateur"
 
-#: src/EBox/Validate.pm:777
+#: src/EBox/Validate.pm:780
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -154,7 +154,7 @@ msgstr ""
 "Le chemin au fichier désiré est invalide. (Actuellement, tous les caractères "
 "de fichier ne sont pas supportés)"
 
-#: src/EBox/Validate.pm:805
+#: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
 msgstr "Le chemin du fichier doit être absolut"
 

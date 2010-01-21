@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:09+0100\n"
+"POT-Creation-Date: 2010-01-21 17:49+0100\n"
 "PO-Revision-Date: 2009-07-19 11:57+0200\n"
 "Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
@@ -225,7 +225,7 @@ msgid "Free Disk Space Watcher"
 msgstr "Konfigurera övervakare för fritt diskutrymme"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr "Namn"
 
@@ -236,12 +236,12 @@ msgid "Description"
 msgstr "Beskrivning"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
 msgstr "Konfiguration"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr "Ingen"
 
@@ -268,15 +268,15 @@ msgstr ""
 "till \"Konfiguration\" och aktivera iallafall en som blir notifierad när ett "
 "login på denna domän händer."
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
-msgid "Receiver"
-msgstr "Mottagare"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
 #: src/EBox/Model/DataTable.pm:4523
 msgid "Enabled"
 msgstr "Aktiverad"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+msgid "Receiver"
+msgstr "Mottagare"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 #, fuzzy
@@ -449,7 +449,7 @@ msgstr "RAID information"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
-#: src/templates/finish.mas:82
+#: src/templates/finish.mas:83
 msgid "Warning"
 msgstr "Varning"
 
@@ -466,7 +466,7 @@ msgid "Fatal error"
 msgstr ""
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
-#: src/templates/finish.mas:105 src/templates/backup.mas:128
+#: src/templates/finish.mas:116 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "Datum"
@@ -692,7 +692,7 @@ msgid "Restoring modules"
 msgstr "Återskapar moduler"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
 msgstr "Modul"
 
@@ -708,27 +708,27 @@ msgstr "Återskapning lyckad"
 msgid "Save configuration"
 msgstr "Spara konfiguration"
 
-#: src/EBox/CGI/Finish.pm:76
+#: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes"
 msgstr "Sparar ändringar"
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:78
 msgid "Saving changes in modules"
 msgstr "Sparar ändringar i moduler"
 
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
 msgid "Current operation"
 msgstr "Aktuellt åtgärd"
 
-#: src/EBox/CGI/Finish.pm:79
+#: src/EBox/CGI/Finish.pm:80
 msgid "operations performed"
 msgstr "Utförda åtgärder"
 
-#: src/EBox/CGI/Finish.pm:80
+#: src/EBox/CGI/Finish.pm:81
 msgid "Changes saved"
 msgstr "Sparade ändringar"
 
-#: src/EBox/CGI/Finish.pm:81
+#: src/EBox/CGI/Finish.pm:82
 #, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
@@ -737,27 +737,27 @@ msgstr ""
 "Några moduler rapporterade fel när ändringarna sparades. Mer information "
 "finns i loggarna i {dir}"
 
-#: src/EBox/CGI/Finish.pm:100
+#: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
 msgstr "Upphäver ändringar"
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
 msgstr "Upphäver ändringar i moduler"
 
-#: src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:103
 msgid "Current module"
 msgstr "Aktuell modul"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
 msgstr "moduler upphävda"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
 msgstr "Ändringar upphävda"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
@@ -1330,7 +1330,7 @@ msgstr "Rapportinställningar"
 msgid "Level"
 msgstr "Händelse"
 
-#: src/EBox/Events.pm:809 src/templates/finish.mas:107
+#: src/EBox/Events.pm:809 src/templates/finish.mas:118
 msgid "Message"
 msgstr "Meddelande"
 
@@ -1599,7 +1599,8 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:591
-msgid "eBox internal web server"
+#, fuzzy
+msgid "eBox web server"
 msgstr "Intern webb-server för eBox"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
@@ -2006,7 +2007,14 @@ msgstr "nästa"
 msgid "last"
 msgstr "sista"
 
-#: src/templates/finish.mas:96
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+
+#: src/templates/finish.mas:106
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
@@ -2014,7 +2022,7 @@ msgstr ""
 "Det finns osparade ändringar i en eller flera moduler. Du kan spara eller "
 "förkasta dessa ändringar."
 
-#: src/templates/finish.mas:99
+#: src/templates/finish.mas:110
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
@@ -2024,15 +2032,15 @@ msgstr ""
 "du manuellt behöva skriva om url:en för att komma åt "
 "administrationsgränssnitten igen. "
 
-#: src/templates/finish.mas:123
+#: src/templates/finish.mas:134
 msgid "Save"
 msgstr "Spara"
 
-#: src/templates/finish.mas:125
+#: src/templates/finish.mas:136
 msgid "Discard changes"
 msgstr "Förkasta ändringar"
 
-#: src/templates/finish.mas:130
+#: src/templates/finish.mas:141
 msgid "There are no unsaved changes."
 msgstr "Det finns inga osparade ändringar."
 

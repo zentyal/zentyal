@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:07+0100\n"
+"POT-Creation-Date: 2010-01-21 17:39+0100\n"
 "PO-Revision-Date: 2010-01-14 12:44+0100\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:232
+#: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:233
 #: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:239
+#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:240
 msgid "domain"
 msgstr "dominio"
 
@@ -126,7 +126,7 @@ msgstr "Dinámico"
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Un dominio es dinámico cuando el servidor DHCP actualiza el dominio"
 
-#: src/EBox/Model/DomainTable.pm:231
+#: src/EBox/Model/DomainTable.pm:232
 #, fuzzy
 msgid "List of Domains"
 msgstr "Dominios"

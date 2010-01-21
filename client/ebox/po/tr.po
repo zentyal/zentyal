@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:09+0100\n"
+"POT-Creation-Date: 2010-01-21 17:49+0100\n"
 "PO-Revision-Date: 2007-05-13 00:27+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -229,7 +229,7 @@ msgid "Free Disk Space Watcher"
 msgstr "İşlemci zamanlayıcılarını yapılandır"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr "İsim"
 
@@ -240,12 +240,12 @@ msgid "Description"
 msgstr "Açıklama"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:309
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
 msgstr "Yapılandırma"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:329
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr "Hiçbiri"
 
@@ -270,15 +270,15 @@ msgid ""
 "domain happens. "
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:297
-msgid "Receiver"
-msgstr "Alıcı"
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:335
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
 #: src/EBox/Model/DataTable.pm:4523
 msgid "Enabled"
 msgstr "Etkinleşti"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
+msgid "Receiver"
+msgstr "Alıcı"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 #, fuzzy
@@ -448,7 +448,7 @@ msgstr "Genel Bilgiler"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
-#: src/templates/finish.mas:82
+#: src/templates/finish.mas:83
 msgid "Warning"
 msgstr ""
 
@@ -465,7 +465,7 @@ msgid "Fatal error"
 msgstr ""
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
-#: src/templates/finish.mas:105 src/templates/backup.mas:128
+#: src/templates/finish.mas:116 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "Tarih"
@@ -701,7 +701,7 @@ msgid "Restoring modules"
 msgstr "Geri yükleme modu"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
-#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:106
+#: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
 msgstr "Moduller"
 
@@ -718,64 +718,64 @@ msgstr "Geri yükleme modu"
 msgid "Save configuration"
 msgstr "Ayarları kaydet"
 
-#: src/EBox/CGI/Finish.pm:76
+#: src/EBox/CGI/Finish.pm:77
 #, fuzzy
 msgid "Saving changes"
 msgstr "Değişiklikleri kaydet"
 
-#: src/EBox/CGI/Finish.pm:77
+#: src/EBox/CGI/Finish.pm:78
 #, fuzzy
 msgid "Saving changes in modules"
 msgstr "Yedekleme modu"
 
-#: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:213
+#: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
 #, fuzzy
 msgid "Current operation"
 msgstr "Güncel parola"
 
-#: src/EBox/CGI/Finish.pm:79
+#: src/EBox/CGI/Finish.pm:80
 #, fuzzy
 msgid "operations performed"
 msgstr "Seçmeli Integer değeri"
 
-#: src/EBox/CGI/Finish.pm:80
+#: src/EBox/CGI/Finish.pm:81
 #, fuzzy
 msgid "Changes saved"
 msgstr "Parolayı değiştir"
 
-#: src/EBox/CGI/Finish.pm:81
+#: src/EBox/CGI/Finish.pm:82
 #, perl-brace-format
 msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
 msgstr ""
 
-#: src/EBox/CGI/Finish.pm:100
+#: src/EBox/CGI/Finish.pm:101
 #, fuzzy
 msgid "Revoking changes"
 msgstr "Değişiklikleri kaydet"
 
-#: src/EBox/CGI/Finish.pm:101
+#: src/EBox/CGI/Finish.pm:102
 #, fuzzy
 msgid "Revoking changes in modules"
 msgstr "Geri yükleme modu"
 
-#: src/EBox/CGI/Finish.pm:102
+#: src/EBox/CGI/Finish.pm:103
 #, fuzzy
 msgid "Current module"
 msgstr "Güncel parola"
 
-#: src/EBox/CGI/Finish.pm:103
+#: src/EBox/CGI/Finish.pm:104
 #, fuzzy
 msgid "modules revoked"
 msgstr "Modul ismi"
 
-#: src/EBox/CGI/Finish.pm:104
+#: src/EBox/CGI/Finish.pm:105
 #, fuzzy
 msgid "Changes revoked"
 msgstr "Parolayı değiştir"
 
-#: src/EBox/CGI/Finish.pm:105
+#: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
 msgid ""
 "Some modules reported error when discarding changes . More information on "
@@ -1340,7 +1340,7 @@ msgstr "Diğer seçenekler"
 msgid "Level"
 msgstr "olay"
 
-#: src/EBox/Events.pm:809 src/templates/finish.mas:107
+#: src/EBox/Events.pm:809 src/templates/finish.mas:118
 msgid "Message"
 msgstr "Mesajlar"
 
@@ -1618,8 +1618,9 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:591
-msgid "eBox internal web server"
-msgstr ""
+#, fuzzy
+msgid "eBox web server"
+msgstr "Olay servisi durumu"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
 #, fuzzy, perl-brace-format
@@ -2030,7 +2031,14 @@ msgstr "sonraki"
 msgid "last"
 msgstr "sonuncu"
 
-#: src/templates/finish.mas:96
+#: src/templates/finish.mas:99
+#, perl-brace-format
+msgid ""
+"The following modules have unsaved changes but are <b>disabled</b>. If you "
+"need to enable them go to {openref}Module Status{closeref}."
+msgstr ""
+
+#: src/templates/finish.mas:106
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
@@ -2038,7 +2046,7 @@ msgstr ""
 "Bir veya birden fazla modul üzerinde kaydolmamış değişiklikler mevcut. "
 "Kaydolsun mu yoksa vazmı geçmek istersiniz?"
 
-#: src/templates/finish.mas:99
+#: src/templates/finish.mas:110
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
@@ -2048,15 +2056,15 @@ msgstr ""
 "penceresine tekrardan ulaşmak için URL adresini tekrardan kendiniz girmeniz "
 "gereklidir."
 
-#: src/templates/finish.mas:123
+#: src/templates/finish.mas:134
 msgid "Save"
 msgstr "Kaydet"
 
-#: src/templates/finish.mas:125
+#: src/templates/finish.mas:136
 msgid "Discard changes"
 msgstr "Değişikliklerden vazgeç"
 
-#: src/templates/finish.mas:130
+#: src/templates/finish.mas:141
 msgid "There are no unsaved changes."
 msgstr "Kaydolmamış değişiklikler mevcut değil."
 
@@ -2329,10 +2337,6 @@ msgstr "Yönetici arayüzü TCP portu"
 #, fuzzy
 #~ msgid "Delete data"
 #~ msgstr "Sil"
-
-#, fuzzy
-#~ msgid "Remote services"
-#~ msgstr "Olay servisi durumu"
 
 #, fuzzy
 #~ msgid "Enter user and password"

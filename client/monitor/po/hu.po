@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:58+0000\n"
-"PO-Revision-Date: 2010-01-15 14:23+0100\n"
+"PO-Revision-Date: 2010-01-21 17:47+0100\n"
 "Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -239,7 +239,7 @@ msgstr "hosszú időszak"
 #: src/EBox/Monitor/Measure/Df.pm:76
 #, perl-brace-format
 msgid "used in {partition}"
-msgstr "használatban {partiton}"
+msgstr "használatban {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:78
 #, perl-brace-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:11+0100\n"
+"POT-Creation-Date: 2010-01-21 17:51+0100\n"
 "PO-Revision-Date: 2010-01-19 22:29+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
@@ -33,11 +33,7 @@ msgstr "apt frissítéseket engedélyező szabály"
 msgid "Software Management"
 msgstr "Szoftvermenedzsment"
 
-#: src/EBox/Software.pm:77
-msgid "Enable cron script to download updates"
-msgstr "Frissítések letöltését végző cron parancsfájl engedélyezése"
-
-#: src/EBox/Software.pm:78
+#: src/EBox/Software.pm:78 src/EBox/Software.pm:84
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
@@ -45,30 +41,35 @@ msgstr ""
 "Az eBox le fogja tölteni az elérhető frissítéseket a beállított apt "
 "forrásokból. "
 
-#: src/EBox/Software.pm:162 src/EBox/Software.pm:365
+#: src/EBox/Software.pm:83
+msgid "Enable cron script to download updates"
+msgstr "Frissítések letöltését végző cron parancsfájl engedélyezése"
+
+#: src/EBox/Software.pm:168 src/EBox/Software.pm:401
 msgid ""
 "The software management module must be enabled to be able to install packages"
-msgstr "A csomagok telepítéséhez engedélyezni kell a szoftvermenedzsment modult"
+msgstr ""
+"A csomagok telepítéséhez engedélyezni kell a szoftvermenedzsment modult"
 
-#: src/EBox/Software.pm:206 src/EBox/Software.pm:399
+#: src/EBox/Software.pm:212 src/EBox/Software.pm:435
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
 "A csomagok eltávolításához engedélyezni kell a szoftvermenedzsment modult"
 
-#: src/EBox/Software.pm:509
+#: src/EBox/Software.pm:545
 msgid "eBox Components"
 msgstr "eBox komponensek"
 
-#: src/EBox/Software.pm:511
+#: src/EBox/Software.pm:547
 msgid "System Updates"
 msgstr "Rendszerfrissítések"
 
-#: src/EBox/Software.pm:513
+#: src/EBox/Software.pm:549
 msgid "Automatic Updates"
 msgstr "Automatikus frissítések"
 
-#: src/EBox/Software.pm:604
+#: src/EBox/Software.pm:640
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -97,7 +98,8 @@ msgid "Software updates are being handled automatically"
 msgstr "A szoftverfrissítéseket a rendszer automatikusan kezeli"
 
 #: src/EBox/CGI/Updates.pm:52
-msgid "The system is up to date"
+#, fuzzy
+msgid "The system components are up to date."
 msgstr "A rendszer naprakész"
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
@@ -127,8 +129,7 @@ msgid ""
 "until the system has been fully restarted"
 msgstr ""
 "A csomagok telepítése sikerült. Az adminisztrációs felület lehet, hogy pár "
-"másodpercig nem fog válaszolni. Várjon türelmesen, amíg a rendszer "
-"újraindul."
+"másodpercig nem fog válaszolni. Várjon türelmesen, amíg a rendszer újraindul."
 
 #: src/EBox/CGI/InstallPkgs.pm:156
 msgid ""
@@ -157,8 +158,7 @@ msgid ""
 "system has been fully restarted"
 msgstr ""
 "A csomagok eltávolítása sikerült. Az adminisztrációs felület lehet, hogy pár "
-"másodpercig nem fog válaszolni. Várjon türelmesen, amíg a rendszer "
-"újraindul."
+"másodpercig nem fog válaszolni. Várjon türelmesen, amíg a rendszer újraindul."
 
 #: src/EBox/CGI/InstallPkgs.pm:176
 msgid ""
@@ -168,39 +168,39 @@ msgstr ""
 "A csomagok eltávolítása sikertelen volt. Bővebb információkat a naplókban "
 "talál."
 
-#: src/templates/ebox.mas:14 src/templates/updates.mas:16
+#: src/templates/ebox.mas:16 src/templates/updates.mas:18
 msgid "Component"
 msgstr "Komponens"
 
-#: src/templates/ebox.mas:15
+#: src/templates/ebox.mas:17
 msgid "Installed version "
 msgstr "Telepített verzió"
 
-#: src/templates/ebox.mas:16
+#: src/templates/ebox.mas:18
 msgid "Latest version"
 msgstr "Utolsó verzió"
 
-#: src/templates/ebox.mas:17
+#: src/templates/ebox.mas:19
 msgid "Actions"
 msgstr "Műveletek"
 
-#: src/templates/ebox.mas:28 src/templates/updates.mas:19
+#: src/templates/ebox.mas:30 src/templates/updates.mas:21
 msgid "Update"
 msgstr "Frissítés"
 
-#: src/templates/ebox.mas:34
+#: src/templates/ebox.mas:36
 msgid "Install"
 msgstr "Telepítés"
 
-#: src/templates/ebox.mas:36
+#: src/templates/ebox.mas:38
 msgid "none"
 msgstr "semmi"
 
-#: src/templates/ebox.mas:58
+#: src/templates/ebox.mas:60
 msgid "Remove"
 msgstr "Eltávolítás"
 
-#: src/templates/ebox.mas:75 src/templates/updates.mas:53
+#: src/templates/ebox.mas:77 src/templates/updates.mas:55
 msgid "Update all packages"
 msgstr "Minden csomag frissítése"
 
@@ -220,19 +220,19 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Mégse"
 
-#: src/templates/updates.mas:11
+#: src/templates/updates.mas:13
 msgid "Updates are available for the following system components"
 msgstr "A következő rendszerkomponensekhez érhetők el frissítések"
 
-#: src/templates/updates.mas:17
+#: src/templates/updates.mas:19
 msgid "Description"
 msgstr "Leírás"
 
-#: src/templates/updates.mas:18
+#: src/templates/updates.mas:20
 msgid "Version"
 msgstr "Verzió"
 
-#: src/templates/updates.mas:64
+#: src/templates/updates.mas:66
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -240,6 +240,27 @@ msgstr ""
 "A művelet eltarthat egy ideig, ne aggódjon ha az eBox nem válaszol a "
 "Frissítés gomb megnyomása után."
 
-#: src/templates/updates.mas:67
+#: src/templates/updates.mas:69
 msgid "Upgrade"
 msgstr "Frissítés"
+
+#: src/templates/updateNote.mas:7
+msgid ""
+"Please wait, the update of the software available list is in process right "
+"now"
+msgstr ""
+
+#: src/templates/updateNote.mas:10
+msgid ""
+"The component list was never succefully downloaded so the information shown "
+"is probably outdated. The list is updated each night or you can force the "
+"update with the console command 'ebox-software'"
+msgstr ""
+
+#: src/templates/updateNote.mas:20
+#, perl-brace-format
+msgid ""
+"The component list was updated on {mon}/{mday}/{year} {hour}:{min}. It will "
+"be updated again at night or you can force the update with the console "
+"command 'ebox-software'"
+msgstr ""

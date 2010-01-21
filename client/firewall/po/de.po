@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:09+0100\n"
+"POT-Creation-Date: 2010-01-21 17:49+0100\n"
 "PO-Revision-Date: 2009-06-29 14:32+0200\n"
 "Last-Translator: Benjamin Höglinger <nefarius@darkhosters.net>\n"
 "Language-Team: none\n"
@@ -23,14 +23,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Iptables.pm:738 src/EBox/Iptables.pm:775
+#: src/EBox/Iptables.pm:760 src/EBox/Iptables.pm:797
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
 "Sie müssen die Variable iptables_log_limit in der eBox-Konfigurationsdatei "
 "setzen"
 
-#: src/EBox/Iptables.pm:744 src/EBox/Iptables.pm:781
+#: src/EBox/Iptables.pm:766 src/EBox/Iptables.pm:803
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
