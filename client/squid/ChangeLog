@@ -5,6 +5,8 @@ HEAD
 	address' to make clearer the actual working of the feature
 	+ Better help messages for time period parameters
 	+ Added custom script to delay downtime while log rotation is done
+	+ Only unzip domain categoris archives when they have changed,
+	this speeds up the module startup
 1.3.13
 	+ Switching antivirus from clamavscan to clamdscan
 	+ Better MIME type check, removed false negatives with some subtypes

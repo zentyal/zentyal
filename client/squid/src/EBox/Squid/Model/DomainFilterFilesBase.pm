@@ -223,14 +223,59 @@ sub _setUpArchive
     }
 
     my $path = $fileList->path();
-
     my $fileId =  $self->_fileId($row);
-    $self->_cleanArchive($fileId);
-    $self->_extractArchive($path, $fileId);
-    $self->_populateCategories($row);
+
+    if ($self->_archiveChanged($path, $fileId)) {
+        $self->_cleanArchive($fileId);
+        $self->_extractArchive($path, $fileId);
+        $self->_populateCategories($row);
+        $self->_setArchiveLastSetUpTimestamp($fileId);
+    }
 
 }
 
+
+
+sub _archiveChanged
+{
+    my ($self , $path, $fileId) = @_;
+    my $timestampFile = $self->_archiveLastSetupTimestampFile($fileId);
+    if (not -f $timestampFile) {
+        return 1;
+    }
+
+    EBox::debug("archive $path timestamp $timestampFile");
+
+    my $lastSetupStat = EBox::Sudo::stat($timestampFile);    
+    my $lastSetupTs =  ($lastSetupStat->mtime > $lastSetupStat->ctime) ? 
+         $lastSetupStat->mtime : $lastSetupStat->ctime;
+
+    my $archiveStat   = EBox::Sudo::stat($path);    
+    my $archiveTs = ($archiveStat->mtime > $archiveStat->ctime)  ? 
+        $archiveStat->mtime : $archiveStat->ctime;
+
+
+    EBox::debug("$archiveTs > $lastSetupTs");
+
+    return $archiveTs > $lastSetupTs;
+}
+
+
+sub _setArchiveLastSetUpTimestamp
+{
+    my ($self, $fileId) = @_;
+    my $timestampFile = $self->_archiveLastSetupTimestampFile($fileId);
+    EBox::Sudo::root("touch $timestampFile");
+
+}
+
+sub _archiveLastSetupTimestampFile
+{
+    my ($self, $fileId) = @_;
+    my $dir = $self->archiveContentsDir($fileId);
+    my $timestampFile = "$dir/timestamp.ebox";
+    return $timestampFile;
+}
 
 sub _checkFileList
 {
@@ -437,9 +482,7 @@ sub _extractArchive
     my $dir = $self->archiveContentsDir($id);
     EBox::Sudo::root("mkdir -p $dir");
 
-    my $cmd = "tar  xzf $path -C $dir --keep-old-files ";
-      # --keep-old-files -> the archive wil be extracted serveral time so we try
-      # to keep the proceess fast
+    my $cmd = "tar  xzf $path -C $dir  ";
     EBox::Sudo::root($cmd);
     my $owner = $self->_archiveFilesOwner();
 

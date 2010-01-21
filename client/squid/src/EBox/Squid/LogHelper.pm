@@ -76,7 +76,7 @@ sub processLine # (file, line, logger)
 	}
 	
 	my $event;
-	if ($fields[3] eq 'TCP_DENIED/403' and $file eq  DANSGUARDIANLOGFILE) {
+	if (($fields[3] eq 'TCP_DENIED/403') and ($file eq  DANSGUARDIANLOGFILE)) {
 		$event = 'filtered';
 	} elsif ($fields[3] eq 'TCP_DENIED/403')  {
 		$event = 'denied';
