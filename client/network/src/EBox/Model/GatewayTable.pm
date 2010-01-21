@@ -223,6 +223,7 @@ sub _table
                     'printableName' => __('Default'),
                     'size' => '1',
                     'editable' => 1,
+                    'HTMLViewer' => '/ajax/viewer/booleanViewer.mas',
                 )
      );
 
