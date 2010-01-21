@@ -312,7 +312,7 @@ sub askAdminUser # returns string
 {
     my $user;
     do {
-        $user = showUserDialog($USERNAME_TITLE, $USERNAME_MSG);
+        $user = showInputDialog($USERNAME_TITLE, $USERNAME_MSG);
 
         if ($user eq 'ebox') {
             showDialog(__('Error'), __("The username 'ebox' is reserved. Please choose another."));
