@@ -67,9 +67,10 @@ automatically. On the other hand, if you select *RSYNC*, *FTP* or *SCP* you will
 need to provide the remote server address.
 
 .. warning::
-    If you use *SCP*, you will need to execute `sudo ssh user@server` to add
-    the remote server to the list of SSH known hosts. If you don't do this,
-    the backup software will fail to connect to the server.
+    If you use *SCP*, you will need to execute `sudo ssh user@server` and
+    accept the remote server's fingerprint to add it to the list of SSH
+    known hosts. If you don't do this, the backup software will fail to
+    connect to the server.
 
 :guilabel:`Host or Destination`:
 For *RSYNC*, *FTP* and *SCP* you will need to provide the remote host name or IP
