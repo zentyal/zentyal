@@ -1,5 +1,5 @@
 HEAD
-        + Added postmaster option and deprecated bounceReturnAddress
+	+ Added postmaster option and deprecated bounceReturnAddress
 	option
 	+ Fixed migration script and ulimited mail message size
 	multiplication warning. The error in migration dont corrupted
