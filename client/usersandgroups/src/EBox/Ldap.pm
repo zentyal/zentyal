@@ -82,7 +82,7 @@ sub instance
 
 # Method: ldapCon
 #
-#       Returns the Net::LDAP connection
+#       Returns the Net::LDAP connection used by the module
 #
 # Returns:
 #
@@ -110,23 +110,8 @@ sub ldapCon
     }
 
     if ((not defined $self->{ldap}) or $reconnect) {
-        # We try to connect 5 times in 5 seconds, as we might need to
-        # give slapd some time to accept connections after a
-        # slapd restart
-        my $connected = undef;
-        for (0..4) {
-            $self->{ldap} = Net::LDAP->new (LDAPI);
-            if ($self->{ldap}) {
-                $connected = 1;
-                last;
-            } else {
-                sleep (1);
-            }
-        }
-        unless ($connected) {
-            throw EBox::Exceptions::Internal(
-                    "Can't create ldapi connection");
-        }
+        $self->{ldap} = $self->anonymousLdapCon();
+  
         my $global = EBox::Global->getInstance();
         my ($dn, $pass);
         my $auth_type = undef;
@@ -154,6 +139,47 @@ sub ldapCon
     }
     return $self->{ldap};
 }
+
+
+# Method: anonymousLdapCon
+#
+#       returns a LDAP connection without any binding
+#
+# Returns:
+#
+#       An object of class Net::LDAP 
+#
+# Exceptions:
+#
+#       Internal - If connection can't be created
+sub anonymousLdapCon
+{
+    my ($self) = @_;
+    # We try to connect 5 times in 5 seconds, as we might need to
+    # give slapd some time to accept connections after a
+    # slapd restart
+
+    my $ldap;
+
+    my $connected = undef;
+    for (0..4) {
+        $ldap = Net::LDAP->new (LDAPI);
+        if ($ldap) {
+            $connected = 1;
+            last;
+        } else {
+            sleep (1);
+        }
+    }
+
+    unless ($connected) {
+        throw EBox::Exceptions::Internal("Can't create ldapi connection");
+    }
+
+
+    return $ldap;
+}
+
 
 # Method: getPassword
 #
@@ -210,11 +236,13 @@ sub getSlavePassword
 #
 #       string - dn
 #
-sub dn {
+sub dn 
+{
     my ($self) = @_;
     if(!defined($self->{dn})) {
-        my $ldap = Net::LDAP->new (LDAPI);
+        my $ldap = $self->anonymousLdapCon();
         $ldap->bind();
+
         my %args = (
             'base' => '',
             'scope' => 'base',
