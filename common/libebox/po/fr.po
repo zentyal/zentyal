@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-21 17:10+0100\n"
-"PO-Revision-Date: 2009-09-30 15:49+0200\n"
+"PO-Revision-Date: 2010-01-18 14:15+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -189,19 +189,19 @@ msgstr "Ajouter un nouveau"
 
 #: src/templates/ajax/tableBody.mas:446
 msgid "Edit"
-msgstr ""
+msgstr "Editer"
 
 #: src/templates/ajax/tableBody.mas:448
 msgid "Delete"
-msgstr ""
+msgstr "Effacer"
 
 #: src/templates/ajax/tableBody.mas:453
 msgid "Read-only row: edit disabled"
-msgstr ""
+msgstr "Ligne en lecture-seule : édition désactivée"
 
 #: src/templates/ajax/tableBody.mas:454
 msgid "Read-only row: delete disabled"
-msgstr ""
+msgstr "Ligne en lecture-seule : suppression désactivée"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"

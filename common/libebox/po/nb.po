@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-21 17:10+0100\n"
-"PO-Revision-Date: 2009-09-30 16:22+0200\n"
+"PO-Revision-Date: 2010-01-20 13:18+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -184,19 +184,19 @@ msgstr "Legg til ny"
 
 #: src/templates/ajax/tableBody.mas:446
 msgid "Edit"
-msgstr ""
+msgstr "Rediger"
 
 #: src/templates/ajax/tableBody.mas:448
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: src/templates/ajax/tableBody.mas:453
 msgid "Read-only row: edit disabled"
-msgstr ""
+msgstr "Skrivebeskyttet rad: redigering deaktivert"
 
 #: src/templates/ajax/tableBody.mas:454
 msgid "Read-only row: delete disabled"
-msgstr ""
+msgstr "Skrivebeskyttet rad: sletting deaktivert"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
