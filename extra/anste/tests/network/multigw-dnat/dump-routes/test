@@ -1,0 +1,20 @@
+#!/bin/sh
+
+echo "# ip rule ls"
+ip rule ls
+echo
+
+echo "# ip route ls table 1"
+ip route ls table 1
+echo
+
+echo "# ip route ls table 2"
+ip route ls table 2
+echo
+
+echo "# ip route ls table default"
+ip route ls table default
+echo
+
+echo "# iptables -t mangle -L -n -v"
+iptables -t mangle -L -n -v
