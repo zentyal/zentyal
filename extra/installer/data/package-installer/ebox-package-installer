@@ -88,9 +88,9 @@ my $USERS_ADVANCED_DESC = __('Advanced configuration (Master/Slave/AD Sync)');
 my $USERS_STANDALONE = __('standalone');
 my $USERS_ADVANCED = __('advanced');
 my $USERS_ADVANCED_TITLE = __("Advanced configuration modes");
-my $USERS_ADVANCED_MESSAGE = __x("In this beta version we don't support the advanced autoconfiguration yet. You can learn more about these features here:
+my $USERS_ADVANCED_MESSAGE = __x("If you need the advanced features you have to configure them manually. You can find all the information here:
 {url}",
-url => 'http://trac.ebox-platform.com/wiki/Document/AdvancedSetup_1.3');
+url => 'http://trac.ebox-platform.com/wiki/Document/AdvancedSetup');
 my $IFACES_TITLE = __('Select External (WAN) interfaces');
 my $IFACES_MESSAGE = __('WARNING: By default you will not be able to access the web interface through them.');
 my $GATEWAY_WARNING = __('You have installed a gateway profile. It needs at least two network interfaces and your machine has only one. You can still enjoy the rest of the eBox features but it will not act as a gateway unless you add another network card.');
