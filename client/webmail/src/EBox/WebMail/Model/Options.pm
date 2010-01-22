@@ -1,4 +1,4 @@
-# Copyright (C) 2009 eBox Technologies
+# Copyright (C) 2009 eBox Technologies S. L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -39,8 +39,6 @@ sub new
     return $self;
 }
 
-
-
 sub _table
 {
     my @tableDesc =
@@ -50,23 +48,20 @@ sub _table
                                printableName => __('Name'),
                                editable => 1,
                                defaultValue => __('eBox webmail'),
-                               help => 
+                               help =>
 __('The name of the webmail will be used in the login screen and page titles')
                               ),
- 
         );
 
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
                       printableTableName => __('Configuration'),
-                      pageTitle          => __('Options'),
+                      pageTitle          => __('Web Mail'),
                       modelDomain        => 'WebMail',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
 
                      };
-
-
 
     return $dataForm;
 }
@@ -77,8 +72,4 @@ sub productName
     return $self->row()->valueByName('productName');
 }
 
-
-
-
 1;
-
