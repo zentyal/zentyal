@@ -188,7 +188,8 @@ sub _genCert
     my $cn = $model->cnByService($service);
     return undef unless (defined($cn));
 
-    unless (defined($ca->getCertificateMetadata(cn => $cn))) {
+    my $certMD = $ca->getCertificateMetadata(cn => $cn);
+    if ((not defined($certMD)) or ($certMD->{state} ne 'V')) {
         # Check the expiration date
         my $caMD = $ca->getCACertificateMetadata();
         $ca->issueCertificate(

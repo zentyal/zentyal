@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: Service certificates are issued again if they were
+	  revoked or they expired
 	+ Service certificates are issued using CA expiration date
 	+ Adding some help text to Service certificates model
 1.1.30

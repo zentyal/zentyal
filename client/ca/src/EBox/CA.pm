@@ -1807,7 +1807,9 @@ sub _supportActions
 # Group: Private methods
 
 # Method: _setConf # # Overrides: # # <EBox::Module::Service::_setConf> #
-sub _setConf { my ($self) = @_;
+sub _setConf {
+
+    my ($self) = @_;
 
     EBox::CA::Certificates->genCerts();
 }
