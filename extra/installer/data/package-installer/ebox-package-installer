@@ -44,7 +44,7 @@ my @PACKAGES = (
     ['squid', __('HTTP proxy and content filter')],
     ['usersandgroups', __('LDAP users and groups management')],
     ['monitor', __('System monitor with graphs and alerts')],
-    ['software', __('System and eBox package managmenet')],
+    ['software', __('System and eBox package management')],
     ['ntp', __('NTP server')],
     ['printers', __('Printing server')],
     ['jabber', __('Jabber/XMPP server')],
@@ -143,7 +143,8 @@ $CNF_user = askAdminUser();
 $CNF_password = askPassword();
 
 # Set the new user and password
-system ("$INSTALL_FILES/ebox-set-admin-password $CNF_user $CNF_password >> $LOG 2>&1");
+my $cryptpass = crypt ($CNF_password, substr($CNF_password, 0, 2));
+system ("$INSTALL_FILES/ebox-set-admin-password $CNF_user $cryptpass >> $LOG 2>&1");
 
 # Package selection
 my @packages = selectPackagesMenu();
@@ -316,6 +317,7 @@ sub askAdminUser # returns string
 
         if ($user eq 'ebox') {
             showDialog(__('Error'), __("The username 'ebox' is reserved. Please choose another."));
+            $user = undef;
         }
     } until ($user);
 
@@ -527,7 +529,7 @@ sub showGenericInputDialog # (type, title, message) returns input string
 {
     my ($type, $title, $message) = @_;
 
-    my $height = 8;
+    my $height = 9;
     my $width = get_dialog_width($title, $message);
 
     my $command = "whiptail $WHIPTAIL_ARGS --separate-output " .
