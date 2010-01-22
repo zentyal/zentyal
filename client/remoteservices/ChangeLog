@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: Show as disconnected if the eBox is not subscribed
 	+ Bugfix: Configure and enable openvpn module dependencies when
 	  subscribing an eBox to the Control Center
 	+ Fix some misleading text to use coherent discourse

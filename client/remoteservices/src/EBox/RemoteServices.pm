@@ -405,6 +405,8 @@ sub vpnSettings
 #
 #         Check whether eBox is connected to the Control Center or not
 #
+#         If the eBox is not subscribed, it returns false too
+#
 # Return:
 #
 #         Boolean - indicating the state
@@ -412,6 +414,8 @@ sub vpnSettings
 sub isConnected
 {
     my ($self) = @_;
+
+    return 0 unless $self->eBoxSubscribed();
 
     my $authRS = new EBox::RemoteServices::Backup();
     return $authRS->isConnected();
