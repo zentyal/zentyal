@@ -33,6 +33,8 @@ use EBox::Types::Select;
 use EBox::Types::Password;
 use EBox::Types::Int;
 use EBox::View::Customizer;
+use EBox::Validate;
+
 
 # Group: Public methods
 
@@ -359,5 +361,209 @@ sub _message
          chref => '</a>'
     );
 }
+
+
+sub validateTypedRow
+{
+    my ($self, $action, $paramsRef, $allFieldsRef) = @_;
+    my $actualValues = $self->_actualValues($paramsRef, $allFieldsRef);
+
+    my $method = $actualValues->{method}->value();
+
+    if ($method ne 'file') {
+        # all methods excepts 'file' needs a username/password
+        my $user = $actualValues->{user}->value();
+        if (not $user) {
+            throw EBox::Exceptions::MissingArgument(__('User') );
+        }
+        
+        my $password = $actualValues->{password}->value();
+        if (not $password) {
+        throw EBox::Exceptions::MissingArgument(__('Password') );
+    }
+    }
+
+
+    my $target = $actualValues->{target}->value();
+    if ($method ne 'ibackup') {
+        # all methods except ibackup need a target
+        my $checkMethod = '_validateTargetFor' . (ucfirst $method);
+        $self->$checkMethod($target);
+    } 
+
+    my $incrementalFreq = $actualValues->{incremental}->value();
+    if ($incrementalFreq ne 'disable') {
+        my $fullFreq = $actualValues->{full}->value();
+        $self->_validateFrequencies($fullFreq, $incrementalFreq);
+    }
+
+
+
+}
+
+
+sub _validateTargetForFtp
+{
+    my ($self, $target) = @_;
+    $self->_validateTargetForFtpAndScp($target);
+}
+
+
+sub _validateTargetForScp
+{
+    my ($self, $target) = @_;
+    $self->_validateTargetForFtpAndScp($target);
+}
+
+
+sub _validateTargetForFtpAndScp
+{
+    my ($self, $target) = @_;
+
+    if (not $target) {
+         throw EBox::Exceptions::MissingArgument(
+   __(q{The target parameter that must be like 'other.host[:port]/some_dir}) 
+                                               );
+    }
+
+    my $checkRegex = qr{^([^/:]*?) # host
+                       (?::(\d+))? # optional port
+                       /([^/].*?)$ # dir
+
+                      }x;
+    if (not $target =~ m/$checkRegex/)  {
+        throw EBox::Exceptions::InvalidData(
+             data => __('target'),
+             value => $target,
+             advice => __(q{Must be a like 'other.host[:port]/some_dir'})
+                                           );
+    }
+
+
+    my ($host, $port, $dir) = ($1, $2, $3);
+
+    EBox::Validate::checkHost($host, __('host'));
+    if (defined $port) {
+        EBox::Validate::checkPort($port, __('port'));
+    }
+    EBox::Validate::checkFilePath($dir, __('directory'));
+
+}
+
+sub _validateTargetForRsync
+{
+    my ($self, $target) = @_;
+
+   if (not $target) {
+         throw EBox::Exceptions::MissingArgument(
+   __(q{The RSYNC target parameter that must be like 'other.host[:port]/relative_path' or 'other.host[:port]/absolute_path'}) 
+                                               );
+    }
+
+    my $checkRegex = qr{^([^/:]*?) # host
+                       (?::(\d+))? # optional port
+                       /(.*?)$ # dir
+
+                      }x;
+    if (not $target =~ m/$checkRegex/)  {
+        throw EBox::Exceptions::InvalidData(
+             data => __('target'),
+             value => $target,
+             advice =>
+ __(q{Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/absolute_path'})
+                                           );
+    }
+
+
+    my ($host, $port, $dir) = ($1, $2, $3);
+
+    EBox::Validate::checkHost($host, __('host'));
+    if (defined $port) {
+        EBox::Validate::checkPort($port, __('port'));
+    }
+    if ($dir =~ m{^/}) {
+        EBox::Validate::checkAbsoluteFilePath($dir, __('absolute directory'));        
+    } else {
+        EBox::Validate::checkFilePath($dir, __('relative directory'));        
+    }
+
+
+
+}
+
+
+
+
+sub _validateTargetForFile
+{
+    my ($self, $target) = @_;
+
+
+    if (not $target) {
+        throw EBox::Exceptions::MissingArgument(
+__('File system method need a target parameter that should be a directory path')
+                                               );
+    }
+                                               
+
+    EBox::Validate::checkAbsoluteFilePath($target,
+                                 __('Directory for backup'));
+
+    if ((-e $target) and (not -d $target)) {
+        throw EBox::Exceptions::InvalidData(
+                                            data => __('Directory for backup'),
+                                            value => $target,
+                                            advice =>
+                                    __('File exists and it is not a directory')
+                                            
+                                           );
+    }
+
+}
+
+
+sub _validateFrequencies
+{
+    my ($self, $full, $partial) = @_;
+    my %values = (
+                  daily => 3,
+                  weekly => 2,
+                  monthly => 1, 
+                 );
+
+    if ($values{$partial} > $values{$full}) {
+        throw EBox::Exceptions::External(
+    __('Incremental backup cannot be more frequent than full backup')
+                                        );
+    }
+}
+
+
+sub formSubmitted
+{
+    my ($self) = @_;
+    my $method = $self->row()->valueByName('method');
+    if ($method eq 'scp') {
+        $self->setMessage(
+ __('General backup server configuration updated. SCP method selected; <em>remember</em> to add your target host to the list of known hosts by SSH')
+                         );
+
+    }
+
+}
+
+sub _actualValues
+{
+    my ($self,  $paramsRef, $allFieldsRef) = @_;
+    my %actualValues = %{ $allFieldsRef };
+    while (my ($key, $value) = each %{ $paramsRef }) {
+        $actualValues{$key} = $value;
+    }
+
+    return \%actualValues;
+}
+
+
+
 
 1;

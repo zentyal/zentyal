@@ -432,7 +432,6 @@ sub _remoteUrl
     my ($self) = @_;
 
     my $user;
-    my $password;
 
     my $model = $self->model('RemoteSettings');
     my $method = $model->row()->valueByName('method');
