@@ -153,6 +153,8 @@ push (@packages, 'remoteservices');
 
 installPackages(@packages);
 
+workarounds();
+
 # Apache is the most basic module, if it's not installed correctly,
 # we assume that the installation has failed
 if (system ("$INSTALL_FILES/ebox-module-installed apache") != 0) {
@@ -161,8 +163,26 @@ if (system ("$INSTALL_FILES/ebox-module-installed apache") != 0) {
         exit (1);
 }
 
+# After eBox is installed we can load its packages
+eval 'use EBox';
+eval 'use EBox::Global';
+eval 'use EBox::ServiceManager';
+eval 'use Error qw(:try)';
+
+chown ('ebox', 'ebox', $LOG);
+EBox::init();
+chdir ('/var/lib/ebox/tmp');
+
+my $global = EBox::Global->getInstance();
+my $mgr = EBox::ServiceManager->new();
+
+my $network;
+if ($global->modExists('network')) {
+    $network = $global->modInstance('network');
+}
+
 # Choose mode if users module is installed
-if (system ("$INSTALL_FILES/ebox-module-installed users") == 0) {
+if ($global->modExists('users')) {
     $CNF_users = askUsersMode();
     if ($CNF_users eq $USERS_ADVANCED) {
         showDialog($USERS_ADVANCED_TITLE, $USERS_ADVANCED_MESSAGE);
@@ -170,12 +190,12 @@ if (system ("$INSTALL_FILES/ebox-module-installed users") == 0) {
 }
 
 # Choose interfaces to mark as external if ebox-network is installed
-if (system ("$INSTALL_FILES/ebox-module-installed network") == 0) {
+if ($network) {
     @CNF_selectedIfaces = selectIfacesMenu();
 }
 
 # Choose mail domain if mail module is installed
-if (system ("$INSTALL_FILES/ebox-module-installed mail") == 0) {
+if ($global->modExists('mail')) {
     $CNF_domain = askMailDomain();
 }
 
@@ -183,11 +203,12 @@ preconfiguration();
 
 # Fetch internal addresses
 my $haveAddress = 0;
-my $output = `$INSTALL_FILES/ebox-get-addresses`;
-if ( $? == 0 ) {
-    for my $address ( split(/ /, $output ) ) {
-        $FINAL_MESSAGE .= "https://$address ";
-        $haveAddress = 1;
+if ($network) {
+    for my $iface (@{$network->InternalIfaces()}) {
+        for my $address (@{$network->ifaceAddresses($iface)}) {
+            $FINAL_MESSAGE .= "https://$address->{address} ";
+            $haveAddress = 1;
+        }
     }
 }
 unless ($haveAddress) {
@@ -234,6 +255,21 @@ sub installPackages # (packages)
     }
 }
 
+sub workarounds
+{
+    # Workaround buggy squid without FQDN
+    if (-f '/etc/squid/squid.conf') {
+        system('echo "visible_hostname localhost" >> /etc/squid/squid.conf');
+        system('/etc/init.d/squid stop > /dev/null 2>&1');
+        system('/etc/init.d/squid start > /dev/null 2>&1');
+    }
+
+    # Disable cdrom and delete file from apt sources
+    system('sed -i "s/^deb cdrom/#deb cdrom/" /etc/apt/sources.list');
+    system('sed -i "s/^deb file:.*$//" /etc/apt/sources.list');
+}
+
+
 sub selectPackagesMenu # returns array
 {
     my @selection;
@@ -266,8 +302,7 @@ sub selectPackagesMenu # returns array
 
 sub selectIfacesMenu # returns array
 {
-    my $ifaceList = `$INSTALL_FILES/ebox-get-ifaces`;
-    my @ifaces = split (' ', $ifaceList);
+    my @ifaces = @{$network->ifaces()};
     my @ifacePairs = map ( [ $_, '' ] , @ifaces);
 
     my $gateway = grep /gateway/, @packages;
@@ -350,33 +385,25 @@ sub askMailDomain # returns string
 
 sub preconfiguration
 {
-    # Workaround buggy squid without FQDN
-    if (-f '/etc/squid/squid.conf') {
-        system('echo "visible_hostname localhost" >> /etc/squid/squid.conf');
-        system('/etc/init.d/squid stop > /dev/null 2>&1');
-        system('/etc/init.d/squid start > /dev/null 2>&1');
-    }
-
-    # Disable cdrom and delete file from apt sources
-    system('sed -i "s/^deb cdrom/#deb cdrom/" /etc/apt/sources.list');
-    system('sed -i "s/^deb file:.*$//" /etc/apt/sources.list');
-
     my $message = __('Preconfiguring eBox packages...');
     my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$message\" 7 64 0";
     my $PROGRESS;
     open ($PROGRESS, '|-', $whipCmd);
 
-    # Set LDAP as master before enabling usersandgroups
-    if ($CNF_users) {
-        system("$INSTALL_FILES/ebox-set-master >> $LOG 2>&1");
+    if ($network) {
+        setExternal(@CNF_selectedIfaces);
     }
 
-    # Enable all eBox installed modules
-    my $moduleList = `$INSTALL_FILES/ebox-enable-list`;
-    print $PROGRESS "1\n";
+    print $PROGRESS "3\n";
 
-    chomp($moduleList);
-    my @modules = split (/\n/, $moduleList);
+    if (defined $CNF_domain) {
+        setMailDomain($CNF_domain);
+    }
+
+    print $PROGRESS "6\n";
+
+    my @modules = @{$mgr->_dependencyTree()};
+
     my $numModules = scalar (@modules);
     # Do not enable anything if advanced mode is selected
     if (($numModules > 0) and ($CNF_users ne $USERS_ADVANCED)) {
@@ -384,18 +411,14 @@ sub preconfiguration
         my $counter = $step;
         foreach my $module (@modules) {
             next if ($module eq 'dhcp'); # Skip dhcp module
-            system("$INSTALL_FILES/ebox-enable-module $module >> $LOG 2>&1");
-            print $PROGRESS int($counter) . "\n";
+            enableModule($module);
+            print $PROGRESS 10+int($counter) . "\n";
             $counter += $step;
         }
 
-        system("$INSTALL_FILES/ebox-update-digests >> $LOG 2>&1");
-        $counter = 45;
-        print $PROGRESS "$counter\n";
-
         # save changes
         foreach my $module (@modules) {
-            system("$INSTALL_FILES/ebox-save-module $module >> $LOG 2>&1");
+            my $module = $global->modInstance($module)->save();
             print $PROGRESS int($counter) . "\n";
             $counter += $step;
         }
@@ -406,7 +429,7 @@ sub preconfiguration
     my $LANG = (split ('"', $lines[0]))[1];
     $ENV{LANG} = $LANG;
 
-    print $PROGRESS "86\n";
+    print $PROGRESS "85\n";
 
     # Append eBox support languages to generate to current supported
     # locales
@@ -416,16 +439,16 @@ sub preconfiguration
     system("sort $TMP | uniq > $LOCALES_FILE");
     unlink($TMP);
 
-    print $PROGRESS "87\n";
+    print $PROGRESS "90\n";
 
     # Regenerate locales to update the new messages from eBox
     system("/usr/sbin/locale-gen >> $LOG 2>&1");
 
-    print $PROGRESS "96\n";
+    print $PROGRESS "94\n";
 
     system("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
 
-    print $PROGRESS "97\n";
+    print $PROGRESS "98\n";
 
     # Run ebox-software in order to update packages list (which is done
     # nightly)
@@ -434,22 +457,11 @@ sub preconfiguration
     # eBox initial setup
     system ("$INSTALL_FILES/ebox-set-password $CNF_password >> $LOG 2>&1");
 
-    print $PROGRESS "98\n";
-
-    foreach my $iface (@CNF_selectedIfaces) {
-        system ("$INSTALL_FILES/ebox-set-external $iface >> $LOG 2>&1");
-    }
-
-    print $PROGRESS "99\n";
-
-    if (defined $CNF_domain) {
-        system ("$INSTALL_FILES/ebox-set-maildomain $CNF_domain >> $LOG 2>&1");
-    }
-
     print $PROGRESS "100\n";
 
     close ($PROGRESS);
 }
+
 
 #################################
 # -- whiptail helper functions --
@@ -558,6 +570,63 @@ sub showDialog # (title, message)
                   "--msgbox \"$message\" $height $width";
 
     system ($command);
+}
+
+#############################
+# -- eBox helper functions --
+#############################
+
+sub enableModule # (name)
+{
+    my ($name) = @_;
+
+    my $module = $global->modInstance($name);
+    $module->setConfigured(1);
+    $module->enableService(1);
+    try {
+        $module->enableActions();
+    } otherwise {
+        my ($ex) = @_;
+        $module->setConfigured(0);
+        $module->enableService(0);
+        EBox::warn("Failed to enable module $name: " . $ex->text());
+    };
+}
+
+sub setExternal # (@ifaces)
+{
+    my (@ifaces) = @_;
+
+    foreach my $iface (@ifaces) {
+        if ($network->ifaceExists($iface)) {
+            $network->set_bool("interfaces/$iface/external", 1);
+        }
+    }
+
+    #EBox::Global->getInstance()->saveAllModules();
+}
+
+sub setMailDomain # (domain)
+{
+    my ($domain) = @_;
+
+    my $mail = $global->modInstance('mail');
+    my $model = $mail->model('VDomains');
+
+    $model->addRow(vdomain => $domain, aliases => []);
+
+    #$mail->save();
+
+    if ($global->modExists('egroupware')) {
+        my $egw = $global->modInstance('egroupware');
+        my $model = $egw->model('VMailDomain');
+
+        my $row = $model->row();
+        $row->elementByName('vdomain')->setValue($domain);
+        $row->store();
+
+        #$egw->save();
+    }
 }
 
 ##############################
