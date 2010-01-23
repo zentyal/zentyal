@@ -96,7 +96,7 @@ sub _table
                                   fieldName => 'managesieve',
                                   printableName => __('Manage Sieve scripts'),
                                   help =>
- __(q{This service allows to a use to manage his Sieve mail filtering scripts from a local client which speaks the ManageSieve protocol} ),
+ __(q{This service allows to a user to manage his Sieve mail filtering scripts from a local client which speaks the ManageSieve protocol} ),
                                   editable => 1,
                                   defaultValue => 1,
                                  ),
@@ -155,11 +155,11 @@ sub validateTypedRow
     if ((not exists $params_r->{imap}) and (not exists $params_r->{imaps}) ) {
         return;
     }
-    
+
     my $imap = exists $params_r->{imap} ? $params_r->{imap}->value() :
-                                          $actual_r->{imap}->value(); 
+                                          $actual_r->{imap}->value();
     my $imaps = exists $params_r->{imaps} ? $params_r->{imaps}->value() :
-                                          $actual_r->{imaps}->value();   
+                                          $actual_r->{imaps}->value();
 
     my $global = EBox::Global->getInstance();
 
