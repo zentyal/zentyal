@@ -98,14 +98,14 @@ sub validateTypedRow
     my $vdomainsModel = EBox::Global->modInstance('mail')->model('VDomains');
     if ($vdomainsModel->existsVDomain($alias)) {
         throw EBox::Exceptions::External(
-__x('Cannot add  alias {al} because is akready a virtual domain  with the same name',
+__x('Cannot add alias {al} because it is already a virtual domain with the same name',
    al => $alias)
                                         );
     }
 
     if ($vdomainsModel->existsVDomainAlias($alias)) {
         throw EBox::Exceptions::External(
-__x('Cannot add  alias {al} because is already an identical alias for another virtual domain',
+__x('Cannot add  alias {al} because it is already an identical alias for another virtual domain',
    al => $alias)
                                         );
     }

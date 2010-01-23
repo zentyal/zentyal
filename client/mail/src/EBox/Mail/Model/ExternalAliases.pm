@@ -56,7 +56,7 @@ sub _table
                                        'editable' => 1,
                                        'unique' => 1,
                                        'help' =>
-        __('The mail domain is apended automaticallu')
+        __('The mail domain is appended automatically')
                                       ),
           new EBox::Types::MailAddress(
                                        'fieldName' => 'externalAccount',
@@ -179,7 +179,7 @@ sub firstAliasForExternalVDomain
             my $right = $self->_vdomain();
             return "$left\@$right";
         }
-        
+
     }
 
     return undef;

@@ -86,7 +86,7 @@ sub _table
             size          => '14',
             unique        => 1,
             editable      => 1
-        ),        
+        ),
         new EBox::Types::Password(
             fieldName     => 'password',
             printableName => __('Password'),
@@ -110,7 +110,7 @@ sub _table
             printableName => ('Port'),
             editable => 1,
            ),
-  
+
     );
     my $dataTable =
     {
@@ -169,7 +169,7 @@ sub _userExternalAccounts
     my ($self) = @_;
     my $user = $self->_user();
 
-    my $accounts = 
+    my $accounts =
       $self->{mailMod}->{fetchmail}->externalAccountsForUser($user);
     return $accounts;
 }
@@ -191,11 +191,11 @@ sub ids
     my $nAccounts = scalar @{ $accounts };
     if ($nAccounts == 0) {
         return [];
-    } 
+    }
 
     my @ids = (1 .. ($nAccounts));
     return \@ids;
-        
+
 }
 
 # Method: row
@@ -209,7 +209,7 @@ sub ids
 sub row
 {
     my ($self, $id) = @_;
-  
+
     my $userAccounts = $self->_userExternalAccounts();
     if (not exists $userAccounts->[$id - 1]) {
         return undef;
@@ -336,7 +336,7 @@ sub setTypedRow
           $self->_elementsToParamsForFetchmailLdapCall($allHashElements);
     $self->{mailMod}->{fetchmail}->modifyExternalAccount(
                                                  $self->_user,
-                                                 $oldAccount, 
+                                                 $oldAccount,
                                                  $newAccount
                                                         );
 
@@ -355,7 +355,7 @@ sub _elementsToParamsForFetchmailLdapCall
         port           => $params_r->{port}->value(),
        );
 
-    
+
     my $mailProtocol = $params_r->{protocol}->value();
     if ($mailProtocol eq 'pop3') {
         push @callParams, (
@@ -399,7 +399,7 @@ sub precondition
 sub preconditionFailMsg
 {
     return
-__('Cannot retrieve mail from external ccounts because do you dont have a email account in a local mail domain')
+__('Cannot retrieve mail from external accounts because you do not have a email account in a local mail domain')
         ;
 }
 
