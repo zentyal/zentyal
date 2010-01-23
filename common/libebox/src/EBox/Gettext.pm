@@ -141,7 +141,7 @@ sub _unset_packagedomain
 my $langs;
 $langs->{'an_ES.UTF-8'} = 'Aragonés';
 $langs->{'bg_BG.UTF-8'} = 'Български';
-$langs->{'es_ES.UTF-8'} = 'Castellano';
+$langs->{'es_ES.UTF-8'} = 'Español (España)';
 $langs->{'ca_ES.UTF-8'} = 'Català';
 $langs->{'da_DK.UTF-8'} = 'Dansk';
 $langs->{'de_DE.UTF-8'} = 'Deutsch';
