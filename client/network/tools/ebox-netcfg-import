@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # Simple script to import network configuration
 # from a debian based system to ebox
-use warnings;
+#use warnings;
 use strict;
 
 use EBox;
