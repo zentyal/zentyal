@@ -130,7 +130,7 @@ my @quotaTypeOptions = (
 <table class='formTable'>
 <input type="hidden" name="username" value="<% $params->{'username'} %>">
         <tr>
-        <td class='tright'><% __('Quta type') %></td>
+        <td class='tright'><% __('Quota type') %></td>
         <td>
         <& /input/select.mas,
                 name => 'quotaType',
