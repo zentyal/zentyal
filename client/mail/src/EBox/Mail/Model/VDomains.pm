@@ -234,7 +234,7 @@ sub _checkVDomainIsNotInExternalAliases
         if ($alias) {
             throw EBox::Exceptions::External(
                                              __x(
-'Cannot add virtual domain {vd} because it appears as external domain in the account referecned by the alias {al}',
+'Cannot add virtual domain {vd} because it appears as external domain in the account referenced by the alias {al}',
 vd => $vdomain, al => $alias
                                                 )
                                             );
