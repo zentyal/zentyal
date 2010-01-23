@@ -77,7 +77,7 @@ sub _table
         ),
         new EBox::Types::Text(
             fieldName     => 'target',
-            printableName => __('Exlcude or Include'),
+            printableName => __('Exclude or Include'),
             size          => 30,
             unique        => 1,
             editable      => 1,
