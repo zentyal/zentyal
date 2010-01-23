@@ -160,7 +160,7 @@ sub actions
             {
               'action' => __('Add fetchmail update cron job'),
               'reason' => __(
- 'eBox will scheduel a cron job to update fetchmail configuration when the user add extrnal accounts' 
+ 'eBox will schedule a cron job to update fetchmail configuration when the user add external accounts'
                             ),
               'module' => 'mail'
             },
@@ -193,9 +193,9 @@ sub usedFiles
               'module' => 'mail'
             },
             {
-              'file' => MAILNAME_FILE, 
+              'file' => MAILNAME_FILE,
               'reason' => __('To configure host mail name'),
-              'module' => 'mail'             
+              'module' => 'mail'
             },
             {
               'file' => MAIL_ALIAS_FILE,
@@ -491,14 +491,14 @@ sub _setAlwaysBccTable
 
     my $postmapCmd = '/usr/sbin/postmap hash:' . ALWAYS_BCC_TABLE_FILE;
     EBox::Sudo::root($postmapCmd);
-    
+
 }
 
 
 sub _setAliasTable
 {
     my ($self) = @_;
-    
+
     my @aliases = File::Slurp::read_file(MAIL_ALIAS_FILE);
     # remove  postmaster alias and text comment added by ebox
     @aliases = grep {
@@ -508,7 +508,7 @@ sub _setAliasTable
         (not $eboxComment) and (not $postmasterLine)
     } @aliases;
 
-    
+
     my $postmasterAddress = $self->postmasterAddress();
     my $aliasesContents = join '', @aliases;
    $aliasesContents .= "#Added by eBox. Postmaster alias will be rewritten in each eBox's mail system restart but other aliases will be kept\n";
@@ -553,7 +553,7 @@ sub _setDovecotConf
     # ldap dovecot conf file
     @params = ();
     my $users = EBox::Global->modInstance('users');
-    
+
     if ($users->mode() eq 'master') {
         push(@params, 'ldapport', $self->ldap->ldapConf->{'port'});
     } else {
@@ -590,7 +590,7 @@ sub _getDovecotAntispamPluginConf
 sub _setArchivemailConf
 {
     my ($self) = @_;
-    
+
     my $smtpOptions      = $self->model('SMTPOptions');
     my $expireDaysTrash = $smtpOptions->expirationForDeleted();
     my $expireDaysSpam  = $smtpOptions->expirationForSpam();
@@ -607,10 +607,10 @@ sub _setArchivemailConf
                   mailDir =>  $self->{musers}->DIRVMAIL,
                   expireDaysTrash  => $expireDaysTrash,
                   expireDaysSpam   => $expireDaysSpam,
-                  
+
                  );
 
-    EBox::Module::Base::writeConfFileNoCheck(ARCHIVEMAIL_CRON_FILE, 
+    EBox::Module::Base::writeConfFileNoCheck(ARCHIVEMAIL_CRON_FILE,
                          "mail/archivemail.mas",
                          \@params,
                          {
@@ -652,8 +652,8 @@ sub _setMailname
 
     $mailname .= "\n";
 
-    EBox::Module::Base::writeFile(MAILNAME_FILE, 
-                                  $mailname, 
+    EBox::Module::Base::writeFile(MAILNAME_FILE,
+                                  $mailname,
                                   {
                                       uid => 0,
                                       gid => 0,
@@ -668,7 +668,7 @@ sub _setHeloChecks
     my $fqdn = $self->_fqdn();
     my @params = ( hostnames => [$fqdn]);
      EBox::Module::Base::writeConfFileNoCheck(
-                         '/etc/postfix/helo_checks.pcre', 
+                         '/etc/postfix/helo_checks.pcre',
                          'mail/helo_checks.pcre.mas',
                          \@params);
 }
@@ -1591,7 +1591,7 @@ sub consolidate
 {
     my ($self) = @_;
     my %vdomains = map { $_ => 1 } $self->{vdomains}->vdomains();
-    
+
 
     my $table = 'mail_traffic';
 
@@ -1618,7 +1618,7 @@ sub consolidate
                             if ($isAddrInVD->($toAddr)) {
                                 return 'received';
                             }
-                            
+
                             return 'sent';
 
                         } else {
@@ -1637,7 +1637,7 @@ sub consolidate
                            if ($vd) {
                                return $vd;
                            }
-                           
+
                            $vd = $isAddrInVD->($row->{to_address});
                            if ($vd) {
                                return $vd;
@@ -1648,7 +1648,7 @@ sub consolidate
                       }, # end from_address column
             }, # end consoldiateColumns section
 
-           accummulateColumns    => { 
+           accummulateColumns    => {
                       sent  => 0,
                       received  => 0,
                       rejected  => 0,
@@ -1820,7 +1820,7 @@ sub consolidateReportQueries
 
 # Method: report
 #
-# Overrides: 
+# Overrides:
 #   <EBox::Module::Base::report>
 sub report
 {
@@ -1917,7 +1917,7 @@ sub postmasterAddress
         # not need to unalias root
         $address = 'postmaster';
     }
-    
+
 
     if (not $alwaysFqdn) {
         return $address;
@@ -1925,15 +1925,15 @@ sub postmasterAddress
 
     if ($address =~ m/@/) {
         return $address;
-    } 
+    }
 
 
-    
+
     my $mailname = $smtpOptions->customMailname();
     if (not defined $mailname) {
         $mailname = $self->_fqdn();
     }
-    
+
 
 
     return $address . '@' .  $mailname;
