@@ -50,7 +50,7 @@ sub new
 #     alias - The mail alias account to create
 #       maildrop - The mail account(s) to send all mail
 #       id - the username or groupname
-sub addAlias 
+sub addAlias
 {
     my ($self, $alias, $maildrop, $id) = @_;
 
@@ -106,11 +106,11 @@ sub _checkAccountAlias
                                                         'value' => $alias);
     }
 
-    # Verify maildrop is not an aliases (For now is not allowed alias of
-    # aliases) 
+    # Verify maildrop is not an alias
+    # (For now it is not allowed alias of aliases)
     if ($self->aliasExists($maildrop)) {
         throw EBox::Exceptions::External(
-__x('{ac} is a mail alias. Alias of aliasese are not allowed',
+__x('{ac} is a mail alias. Alias of aliases are not allowed',
      ac => $maildrop)
                                          );
     }
@@ -124,7 +124,7 @@ __x('{ac} is a mail alias. Alias of aliasese are not allowed',
 #
 #     alias - The mail alias account to create
 #       groupname - The group name.
-sub addGroupAlias 
+sub addGroupAlias
 {
     my ($self, $alias, $groupname) = @_;
     my $users = EBox::Global->modInstance('users');
@@ -317,10 +317,10 @@ sub updateGroupAliases
 #
 #     alias - The mail alias account to create
 #       maildrop - The mail account to add to the alias account
-sub addMaildrop 
+sub addMaildrop
 {
     my ($self, $alias, $maildrop) = @_;
-    
+
     unless ($self->aliasExists($alias)) {
         throw EBox::Exceptions::DataNotFound('data' => __('mail alias account'),
                                                         'value' => $alias);
@@ -346,7 +346,7 @@ sub addMaildrop
 #
 #     alias - The mail alias account to create
 #       maildrop - The mail account to add to the alias account
-sub delMaildrop 
+sub delMaildrop
 {
     my ($self, $alias, $maildrop) = @_;
 
@@ -381,8 +381,8 @@ sub delMaildrop
 # Parameters:
 #
 #     alias - The mail alias account to create
-sub delAlias 
-{ 
+sub delAlias
+{
     my ($self, $alias) = @_;
 
     unless ($self->aliasExists($alias)) {
@@ -402,7 +402,7 @@ sub delAlias
 # Parameters:
 #
 #       vdomain - The Virtual domain name
-sub delAliasesFromVDomain 
+sub delAliasesFromVDomain
 {
     my ($self, $vdomain) = @_;
 
@@ -422,8 +422,8 @@ sub delAliasesFromVDomain
 # Parameters:
 #
 #     mail - The mail account
-sub accountAlias 
-{ 
+sub accountAlias
+{
     my ($self, $mail) = @_;
 
     my %args = (
@@ -581,7 +581,7 @@ sub groupAliases
 # Returns:
 #
 #       true if the group has any alias account, false otherwise
-sub groupHasAlias 
+sub groupHasAlias
 {
     my ($self, $group) = @_;
 
@@ -604,7 +604,7 @@ sub groupHasAlias
 # Parameters:
 #
 #     mail - The mail account
-sub aliasExists 
+sub aliasExists
 {
     my ($self, $alias) = @_;
 
@@ -631,7 +631,7 @@ sub aliasExists
 #
 #       true if the account exists, false otherwise
 sub accountExists
-{ 
+{
     my ($self, $alias) = @_;
     my $users = EBox::Global->modInstance('users');
 
@@ -653,7 +653,7 @@ sub accountExists
 #   Params:
 #       alias - alias addres
 #
-# Returns: 
+# Returns:
 #    - reference a list with the accounts  or undef if there is not alias or
 #      not aliased addresses
 sub accountsByAlias
@@ -689,8 +689,8 @@ sub accountsByAlias
 # Returns:
 #
 #       array ref - with all alias account from a virtual domain.
-sub _allAliasFromVDomain 
-{ 
+sub _allAliasFromVDomain
+{
     my ($self, $vdomain) = @_;
 
     my %attrs = (

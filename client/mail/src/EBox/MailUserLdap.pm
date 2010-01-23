@@ -89,7 +89,7 @@ sub setUserAccount
     }
 
     $self->_checkMaildirNotExists($lhs, $rhs);
-    
+
     my $quota = $mail->defaultMailboxQuota();
 
     my $dn = "uid=$user," .  $users->usersDn;
@@ -133,7 +133,7 @@ sub setUserAccount
 sub delUserAccount   #username, mail
 {
     my ($self, $username, $usermail) = @_;
- 
+
     ($self->_accountExists($username)) or return;
 
     if (not defined $usermail) {
@@ -157,9 +157,9 @@ sub delUserAccount   #username, mail
     my $mailbox = $self->getUserLdapValue($username, "mailbox");
 
     # Now we remove all mail atributes from user ldap leaf
-    my @mailAttrs = grep {  
-                    $self->existsUserLdapValue($username, $_) 
-                } qw(mail mailbox userMaildirSize quota mailHomeDirectory 
+    my @mailAttrs = grep {
+                    $self->existsUserLdapValue($username, $_)
+                } qw(mail mailbox userMaildirSize quota mailHomeDirectory
                      fetchmailAccount);
 
 
@@ -189,7 +189,7 @@ sub delUserAccount   #username, mail
     root("/bin/rm -rf ".DIRVMAIL.$mailbox);
 
     # remove user's sieve scripts dir
-    my ($lhs, $rhs) = split '@', $usermail; 
+    my ($lhs, $rhs) = split '@', $usermail;
     my $sieveDir   = $self->_sieveDir($usermail, $rhs);
     root("/bin/rm -rf $sieveDir");
 }
@@ -233,7 +233,7 @@ sub userAccount
 #    given an account returns the user that has it assigened. It does not work
 #    with alias. (I suggest to use EBox::MailAliasLdap::getAccountsByAlias or
 #    EBox::MailAliasLdap::getAccountsByAlia::aliasExist) before to take care of
-#    alias) 
+#    alias)
 #
 #   Params:
 #       account -email account
@@ -292,8 +292,8 @@ sub delAccountsFromVDomain   #vdomain
 #
 # Parameters:
 #
-#               uid - uid of the user value - the atribute name 
-#  Return: 
+#               uid - uid of the user value - the atribute name
+#  Return:
 #    - value of the attribute, undef wil be returned if attribute or user is not
 #    found, please remind that the attribute coulb be set to undef itself!
 sub getUserLdapValue   #uid, ldap value
@@ -328,7 +328,7 @@ sub getUserLdapValue   #uid, ldap value
 #               uid - uid of the user
 #               attr  - the atribute name
 #               value - new value for the attribute
-#  
+#
 
 sub setUserLdapValue
 {
@@ -349,7 +349,7 @@ sub setUserLdapValue
 #
 #               uid - uid of the user
 #               value - the atribute name
-#  
+#
 #  Returns:
 #          - boolean
 sub existsUserLdapValue
@@ -478,10 +478,10 @@ sub _userAddOns
                        mail        =>      $usermail,
                        aliases     => \@aliases,
                        vdomains    => \@vdomains,
-                       
+
                        maildirQuotaType => $quotaType,
                        maildirQuota => $quota,
-                       
+
                        service => $mail->service,
                       );
 
@@ -735,7 +735,7 @@ sub maildirQuota
 sub maildirQuotaType
 {
     my ($self, $user)  = @_;
-    
+
     my $userQuota = $self->getUserLdapValue($user, 'userMaildirSize');
     if (not $userQuota) {
         return 'default';
@@ -792,7 +792,7 @@ sub setMaildirQuota
         throw EBox::Exceptions::MissingArgument('user');
     defined $quota or
         throw EBox::Exceptions::MissingArgument('quota');
-    
+
     if (not $self->userAccount($user)) {
         throws EBox::Exceptions::Internal(
              "User $user has not mail account"
@@ -801,7 +801,7 @@ sub setMaildirQuota
 
     if ($quota < 0) {
         throw EBox::Exceptions::External(
-            __('Quota can only be a postitive number or zero for unlimited quota')
+            __('Quota can only be a positive number or zero for unlimited quota')
            )
     }
 
@@ -889,17 +889,16 @@ sub _accountAddOn
 }
 
 
-
 sub localAttributes
 {
     my @attrs = qw(
-          mailbox  quota  clearPassword 
-          maildrop  mailsource  virtualdomain 
-          virtualdomainuser  defaultdelivery 
+          mailbox  quota  clearPassword
+          maildrop  mailsource  virtualdomain
+          virtualdomainuser  defaultdelivery
           description
-          
-         mailHomeDirectory userMaildirSize 
-         vddftMaildirSize 
+
+         mailHomeDirectory userMaildirSize
+         vddftMaildirSize
 
          fetchmailAccount
                 );
@@ -907,18 +906,16 @@ sub localAttributes
    return \@attrs;
 }
 
-    
+
 sub schemas
 {
-    return [ 
+    return [
              EBox::Config::share() . '/ebox-mail/authldap.ldif',
              EBox::Config::share() . '/ebox-mail/eboxmail.ldif',
              EBox::Config::share() . '/ebox-mail/eboxfetchmail.ldif',
 
            ];
 }
-
-
 
 
 sub acls
