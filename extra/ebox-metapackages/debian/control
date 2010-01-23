@@ -19,7 +19,7 @@ Description: eBox - All Modules
 
 Package: ebox-gateway
 Architecture: all
-Depends: ebox-network, ebox-squid, ebox-firewall, ebox-trafficshaping, ebox-l7-protocols, ebox-ebackup, ebox-software, ebox-monitor, ebox-radius
+Depends: ebox-network, ebox-squid, ebox-firewall, ebox-trafficshaping, ebox-l7-protocols, ebox-ebackup, ebox-software, ebox-monitor, ebox-radius, ebox-remoteservices
 Description: eBox - Gateway Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
@@ -30,7 +30,7 @@ Description: eBox - Gateway Suite
 
 Package: ebox-security
 Architecture: all
-Depends: ebox-firewall, ebox-ids, ebox-squid, ebox-openvpn, ebox-mailfilter, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor
+Depends: ebox-firewall, ebox-ids, ebox-squid, ebox-openvpn, ebox-mailfilter, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor, ebox-remoteservices
 Description: eBox - UTM Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
@@ -41,7 +41,7 @@ Description: eBox - UTM Suite
 
 Package: ebox-infrastructure
 Architecture: all
-Depends:ebox-network, ebox-dhcp, ebox-dns, ebox-openvpn, ebox-webserver, ebox-ntp, ebox-ebackup, ebox-software, ebox-monitor
+Depends:ebox-network, ebox-dhcp, ebox-dns, ebox-openvpn, ebox-webserver, ebox-ntp, ebox-ebackup, ebox-software, ebox-monitor, ebox-remoteservices
 Description: eBox - Network Infrastructure Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
@@ -52,7 +52,7 @@ Description: eBox - Network Infrastructure Suite
 
 Package: ebox-office
 Architecture: all
-Depends:ebox-samba, ebox-printers, ebox-egroupware, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor, ebox-webmail
+Depends:ebox-samba, ebox-printers, ebox-egroupware, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor, ebox-webmail, ebox-remoteservices
 Description: eBox - Office Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
@@ -63,7 +63,7 @@ Description: eBox - Office Suite
 
 Package: ebox-communication
 Architecture: all
-Depends: ebox-mail, ebox-jabber, ebox-asterisk, ebox-mailfilter, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor, ebox-webmail
+Depends: ebox-mail, ebox-jabber, ebox-asterisk, ebox-mailfilter, ebox-antivirus, ebox-ebackup, ebox-software, ebox-monitor, ebox-webmail, ebox-remoteservices
 Description: eBox - Communications Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
