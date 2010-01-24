@@ -11,7 +11,7 @@ nobase_perl_DATA = AddPrinterUI.pm AddPrinter.pm NetworkPrinterUI.pm \
 		   Manufacturer.pm ModelUI.pm Model.pm DriverUI.pm \
 		   Driver.pm DrvoptsUI.pm Drvopts.pm ShowPrintersUI.pm \
 		   DeleteUI.pm ManagePrinter.pm  ManagePrinterUI.pm \
-		   CancelJob.pm GeneralSettings.pm
+		   CancelJob.pm GeneralSettings.pm PrintTest.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

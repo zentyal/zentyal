@@ -22,6 +22,8 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Exceptions::External;
+use Error qw(:try);
 
 ## arguments:
 ## 	title [required]
@@ -43,9 +45,16 @@ sub _process($) {
 
 	my $printers = EBox::Global->modInstance('printers');
 	$printers->setModel($id, $model);
-	if ($self->param('modelui')) {
-		$self->keepParam('printerid');
-		$self->{chain} = "Printers/DriverUI";
+	$self->keepParam('printerid');
+	if (not @{$printers->driversForPrinter($id)}) {
+		#$self->setChain('Printers/ModelUI');
+		$self->setErrorchain('Printers/ModelUI');
+		throw EBox::Exceptions::External(
+			__x('Printer {printer} has no available drivers', 
+			printer => $model)
+		);
+        } elsif ($self->param('modelui')) {
+		$self->setChain('Printers/DriverUI');
 	}
 }
 

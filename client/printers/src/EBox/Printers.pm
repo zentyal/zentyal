@@ -48,6 +48,7 @@ use constant CUPSD              => '/etc/cups/cupsd.conf';
 use constant CUPSPPD 		=> '/etc/cups/ppd/';
 use constant START_TAG		=> '# __EBOX__ TAG #';
 use constant END_TAG		=> '# END __EBOX__ TAG #';
+use constant TEST_PAGE		=> '/usr/share/cups/data/testprint.ps';
 
 sub _create
 {
@@ -1132,14 +1133,13 @@ sub printerJobs # (printerid, completed)
 
 	my @jobs;
 	if ($printer) {
-		@jobs = $printer->getJobs(0, $completed);
+		for my $jobId  ($printer->getJobs(0, $completed)) {
+			push (@jobs, $printer->getJob($jobId));
+		}
 	}
+	
+	return \@jobs;
 
-	if (@jobs and ($jobs[0])) {
-		return \@jobs;
-	} else {
-		return [];
-	}
 }
 
 sub cancelJob # (printername, jobid)
@@ -1153,7 +1153,44 @@ sub cancelJob # (printername, jobid)
 						     'value' => "$printer");
 	}
 
-	cupsCancelJob($printer, $jobid);
+	my $dest = $self->{'cups'}->getDestination($printer);
+	$dest->cancelJob($jobid);
+}
+
+# Method: isPrinterInCups
+#
+#	Check if a printers is already available in CUPS
+# Return:
+#
+#	boolean - 1 available, 0 false
+sub isPrinterInCups
+{
+	my ($self, $printer) = @_;
+	my $cups = Net::CUPS->new();
+	for my $dest ($cups->getDestinations()) {
+		return 1 if ($printer eq $dest->getName());
+	}
+	return 0;
+}
+
+# Method: printTestPage
+#
+#	Print a test page
+sub printTestPage
+{
+	my ($self, $id) = @_;
+
+	unless ($self->_printerIdExists($id)) {
+		throw EBox::Exceptions::DataNotFound('data'  => __('Printer'),
+						     'value' => "$id");
+	}
+	unless ($self->_printerConfigured($id)) {
+		throw EBox::Exceptions::External(__('Printer not configured'));
+	}
+
+	my $info = $self->_printerInfo($id);
+	my $printer = $self->{'cups'}->getDestination($info->{'name'});
+	$printer->printFile(TEST_PAGE, 'test page');
 }
 
 sub usbDevices

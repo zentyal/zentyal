@@ -12,6 +12,7 @@ $methconf
 @devices => ();
 @tabs
 $selected
+$isInCups => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -33,6 +34,7 @@ use EBox::Gettext;
 % if ($selected eq 'drvopts') {
 
 	<& /printers/drvopts.mas, opts => $opts, printerid => $printerid, ip => $methconf->{host}, port => $methconf->{port}, button_val => $button_val, button_name => 'manageprinterui' &>
+
 
 % } elsif ($selected eq 'config') {
 
@@ -172,4 +174,17 @@ use EBox::Gettext;
 	</table>
 
 	</form>
+	<br/>
+%	unless ($isInCups) {
+	<div class='warning'><% __('You need to save changes in order to print a test page') %></div>
+%	}
+	<form action='PrintTest'>
+		<input type='hidden' name='printerid' value='<% $printerid %>' />
+		<input class='inputButton' type='submit' name='managemodelui' 
+				   value="<% __('Print Test Page') %>"
+				   alt="<% __('Print Test Page') %>"
+				   <% $isInCups ? '' : 'disabled' %>
+		/>
+	</form>
+	
 % }

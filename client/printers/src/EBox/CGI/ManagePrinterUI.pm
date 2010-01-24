@@ -62,6 +62,7 @@ sub _process($) {
 
 	my @array;
         push (@array, 'printerid' => $id);
+        push (@array, 'isInCups' => $printers->isPrinterInCups($info->{'name'}));
 	push (@array, 'name' => $info->{'name'});
 	push (@array, 'manufacturer' => $info->{'manufacturer'});
 	push (@array, 'model' => $info->{'model'});

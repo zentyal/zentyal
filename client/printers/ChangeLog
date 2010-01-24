@@ -1,3 +1,9 @@
+HEAD
+	+ Bug fix: cancel jobs
+	+ Add a button to print a test page
+	+ Check if a model has not available drivers instead of showing
+	  an empty select
+	+ Add function to check if a printer is already available in CUPS
 1.1.30
 	+ Added IPP and LPD printers
 1.1.20
