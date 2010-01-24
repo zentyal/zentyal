@@ -67,7 +67,7 @@ sub _table
             ['changeView'],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'UsersAndGroups/Slaves',
-        'help' => __x('This a list of those eBox slaves which are subscribed to this eBox.'),
+        'help' => __x('This is a list of those eBox slaves which are subscribed to this eBox.'),
         'printableRowName' => __('slave'),
         'sortedBy' => 'name',
     };
