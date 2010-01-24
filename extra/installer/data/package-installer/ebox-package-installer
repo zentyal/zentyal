@@ -45,6 +45,7 @@ my @PACKAGES = (
     ['usersandgroups', __('LDAP users and groups management')],
     ['monitor', __('System monitor with graphs and alerts')],
     ['software', __('System and eBox package management')],
+    ['ebackup', __('Remote or local Backup')],
     ['ntp', __('NTP server')],
     ['printers', __('Printing server')],
     ['jabber', __('Jabber/XMPP server')],
@@ -153,8 +154,6 @@ push (@packages, 'remoteservices');
 
 installPackages(@packages);
 
-workarounds();
-
 # Apache is the most basic module, if it's not installed correctly,
 # we assume that the installation has failed
 if (system ("$INSTALL_FILES/ebox-module-installed apache") != 0) {
@@ -162,6 +161,8 @@ if (system ("$INSTALL_FILES/ebox-module-installed apache") != 0) {
                    __("Check contents of $LOG to see what happened"));
         exit (1);
 }
+
+workarounds();
 
 # After eBox is installed we can load its packages
 eval 'use EBox';

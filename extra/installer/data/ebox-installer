@@ -25,7 +25,12 @@ get_base_packages() {
 # Generic Bailout
 bail_out() {
     echo "Installation failed. Check contents of $LOG to see what happened."
-    echo "You may log in as root and re-run the installer from /etc/rc.local"
+    if [ -f /var/tmp/ebox-installer.pwdchanged ]
+    then
+        echo "You may log in with the user and password you entered and re-run the installer from /etc/rc.local"
+    else
+        echo "You may log in using 'eboxadmin' as user and password and re-run the installer from /etc/rc.local"
+    fi
     exit 1 # Indicate failure
 }
 
@@ -58,9 +63,9 @@ update_if_network() {
 }
 
 purge_config() {
-    echo "Critical Error! Restoring original configuration state by purging libebox."
+    echo "Critical Error! Restoring original configuration state by purging libebox..."
     # Wipe out all configuration.
-    apt-get remove --purge -y --force-yes libebox >> $LOG 2>&1
+    apt-get remove --purge -y --force-yes libebox >/dev/null 2>&1
     # We need libebox installed again.
     rm -f /var/tmp/ebox-base-packages.installed
 }

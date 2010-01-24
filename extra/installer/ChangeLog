@@ -1,4 +1,5 @@
 HEAD
+    + Included ebackup in the advanced package selection
     + Optimized code to improve speed
     + Ask for administration username forbidding the 'ebox' username
     + Preseeds system user and proxy conf, asks for password on ebox-installer
