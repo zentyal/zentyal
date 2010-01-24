@@ -5,7 +5,7 @@ echo "All your LDAP data and the eBox modules depending on it are going to be er
 echo "Press Control-C now if you are not sure of what you are doing."
 read
 
-INSTALLED_MODULES=`dpkg -l | grep 'ebox-' | cut -d' ' -f3| xargs`
+INSTALLED_MODULES=`dpkg -l | grep 'ebox-' | grep ^ii | cut -d' ' -f3| xargs`
 
 sudo /usr/share/ebox/ebox-unconfigure-module users
 sudo apt-get -y --force-yes remove --purge slapd
