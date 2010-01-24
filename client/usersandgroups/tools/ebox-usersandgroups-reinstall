@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "WARNING!!"
+echo "All your LDAP data and the eBox modules depending on it are going to be erased."
+echo "Press Control-C now if you are not sure of what you are doing."
+read
+
+INSTALLED_MODULES=`dpkg -l | grep 'ebox-' | cut -d' ' -f3| xargs`
+
+sudo /usr/share/ebox/ebox-unconfigure-module users
+sudo apt-get -y --force-yes remove --purge slapd
+sudo rm -rf /var/lib/ldap* /etc/ldap/*
+
+echo "Removal complete. Reinstalling the removed eBox modules..."
+
+sudo apt-get -y --force-yes install $INSTALLED_MODULES || exit 1
+
+echo "Done."
+echo "Now you can go to 'Users and Groups -> Mode' and configure it again."

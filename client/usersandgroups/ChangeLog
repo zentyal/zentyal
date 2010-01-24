@@ -1,4 +1,5 @@
 HEAD
+	+ Added ebox-usersandgroups-reinstall to easily reset the LDAP mode
 	+ Bug fix: issue with user deletion in French (Closes #1651)
 	+ Bug fix: anonymous connection for getting DN is retried several
 	times, this fixes a bug when restoring configuration backup
