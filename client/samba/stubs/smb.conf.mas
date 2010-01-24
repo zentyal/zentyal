@@ -97,6 +97,7 @@ use EBox::Gettext;
  csc policy = disable
  valid users = %U
  admin users = @"Domain Admins"
+ hide files = /desktop.ini/outlook*.lnk/*Briefcase*/
 
 % }
 

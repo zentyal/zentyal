@@ -1,3 +1,5 @@
+HEAD
+	+ Added 'hide files' directive by default in smb.conf.mas
 1.3.14
 	+ Add DefaultUser model to be used in users and groups default user
 	  template. Admins can select if they wish to enable the file sharing
