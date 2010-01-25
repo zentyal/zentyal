@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:48+0100\n"
+"POT-Creation-Date: 2010-01-25 20:39+0100\n"
 "PO-Revision-Date: 2007-07-24 15:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -208,38 +208,38 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:249
+#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:251
 #, fuzzy
 msgid "Services Certificates"
 msgstr "Annulerer certifikat"
 
-#: src/EBox/CA.pm:2277
+#: src/EBox/CA.pm:2279
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Det var ikke muligt at underskrive. Forkert CA password eller er den private "
 "nøgle forsvundet ?"
 
-#: src/EBox/CA.pm:2279
+#: src/EBox/CA.pm:2281
 msgid "Database corruption"
 msgstr "Korrupt database"
 
-#: src/EBox/CA.pm:2281
+#: src/EBox/CA.pm:2283
 msgid "Identifier duplicated in Database"
 msgstr "Der er en dublet af navnet i databasen"
 
-#: src/EBox/CA.pm:2283
+#: src/EBox/CA.pm:2285
 msgid "Certificate already revoked"
 msgstr "Certifikatet er allerede trukket tilbage"
 
-#: src/EBox/CA.pm:2286
+#: src/EBox/CA.pm:2288
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 feltet er for langt. Max størrelse: "
 
-#: src/EBox/CA.pm:2288
+#: src/EBox/CA.pm:2290
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Ukendt fejl. OpenSSL gav følgende output:"
 
-#: src/EBox/CA.pm:2363
+#: src/EBox/CA.pm:2365
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -248,38 +248,38 @@ msgstr ""
 "Certifikat autoritet er blet oprettet med navnet {orgName} og gyldighed på "
 "{days} dage"
 
-#: src/EBox/CA.pm:2365
+#: src/EBox/CA.pm:2367
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "Certifikat autoriteten med navnet {orgName} er blevet slettet"
 
-#: src/EBox/CA.pm:2367
+#: src/EBox/CA.pm:2369
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr ""
 "CA certifikatet er blevet trukket tilbage på grund af {reason}. Årsag: "
 "{force}"
 
-#: src/EBox/CA.pm:2369
+#: src/EBox/CA.pm:2371
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr "Udstedt CA certifikat med navnet {orgName} og gyldighed {days} dage"
 
-#: src/EBox/CA.pm:2371
+#: src/EBox/CA.pm:2373
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr "Fornyet CA certifikat med navnet {orgName} og gyldighed {days} dage"
 
-#: src/EBox/CA.pm:2373
+#: src/EBox/CA.pm:2375
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr "Udstedt certifikat men navnet {cn} og en gyldighed på {days} dage"
 
-#: src/EBox/CA.pm:2375
+#: src/EBox/CA.pm:2377
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -287,21 +287,21 @@ msgstr ""
 "Certifikatet med navnet {cn} er trukket tilbage på grud af {reason}. Årsag: "
 "{force}"
 
-#: src/EBox/CA.pm:2377
+#: src/EBox/CA.pm:2379
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr "Fornyet certifikatet med navnet {cn} og gyldighed {days} dage"
 
-#: src/EBox/CA.pm:2379
+#: src/EBox/CA.pm:2381
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr "Certifikat databasen er opdateret. {number} certifikater er udløbet"
 
-#: src/EBox/CA.pm:2399 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:2401 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "Udløbsdatoen er senere end CA certifikatets udløb"
 
-#: src/EBox/CA.pm:2526
+#: src/EBox/CA.pm:2528
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Kan ikke starte OpenSLL programmet. ({errval})"
@@ -325,10 +325,20 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: src/EBox/Model/Certificates.pm:250
+#: src/EBox/Model/Certificates.pm:243
+msgid "Generate the certificate using CA with the common name set above"
+msgstr ""
+
+#: src/EBox/Model/Certificates.pm:252
 #, fuzzy
 msgid "certificate"
 msgstr "Certifikatfil"
+
+#: src/EBox/Model/Certificates.pm:258
+msgid ""
+"Here you may set certificates from this CA for those secure services managed "
+"by eBox"
+msgstr ""
 
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format

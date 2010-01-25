@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:11+0100\n"
+"POT-Creation-Date: 2010-01-25 20:53+0100\n"
 "PO-Revision-Date: 2009-11-11 19:25+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -113,7 +113,7 @@ msgid "path"
 msgstr "caminho"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
-#: src/EBox/Samba/Model/SambaShares.pm:146
+#: src/EBox/Samba/Model/SambaShares.pm:147
 msgid "share"
 msgstr "partilha"
 
@@ -193,58 +193,59 @@ msgstr "Nesta página pode usar definições gerais diferentes no Samba"
 msgid "All users"
 msgstr "Todos os utilizadores"
 
-#: src/EBox/Samba/Model/SambaShares.pm:97
+#: src/EBox/Samba/Model/SambaShares.pm:98
 msgid "Share name"
 msgstr "Nome da partilha"
 
-#: src/EBox/Samba/Model/SambaShares.pm:103
+#: src/EBox/Samba/Model/SambaShares.pm:104
 msgid "Share path"
 msgstr "Caminho da partilha"
 
-#: src/EBox/Samba/Model/SambaShares.pm:109
+#: src/EBox/Samba/Model/SambaShares.pm:110
 msgid "Directory under eBox"
 msgstr "Directório na eBox"
 
-#: src/EBox/Samba/Model/SambaShares.pm:115
+#: src/EBox/Samba/Model/SambaShares.pm:116
 msgid "File system path"
 msgstr "Caminho do sistema de ficheiros"
 
-#: src/EBox/Samba/Model/SambaShares.pm:123
+#: src/EBox/Samba/Model/SambaShares.pm:124
 msgid "Comment"
 msgstr "Comentário"
 
-#: src/EBox/Samba/Model/SambaShares.pm:128
+#: src/EBox/Samba/Model/SambaShares.pm:129
 msgid "Access control"
 msgstr "Controle de acesso"
 
-#: src/EBox/Samba/Model/SambaShares.pm:138
+#: src/EBox/Samba/Model/SambaShares.pm:139
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:186
 msgid "Shares"
 msgstr "Partilhas"
 
-#: src/EBox/Samba/Model/SambaShares.pm:176
+#: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
 msgstr "O caminho não é permitido"
 
-#: src/EBox/Samba/Model/SambaShares.pm:184
+#: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr "Só os caracteres alfanuméricos mais _ são válidos para o caminho"
 
-#: src/EBox/Samba/Model/SambaShares.pm:218
+#: src/EBox/Samba/Model/SambaShares.pm:219
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "O directório não está vazio. Tem a certeza que o deseja remover?"
 
-#: src/EBox/Samba/Model/SambaShares.pm:276
+#: src/EBox/Samba/Model/SambaShares.pm:277
+#, fuzzy, perl-brace-format
 msgid ""
-"<i>Directory under eBox</i> will automatically create the share.directory "
-"in /home/samba/shares <br><i>File system path</i> will allow you to share an "
-"existing directory within your file system. "
+"{openit}Directory under eBox{closeit} will automatically create the share."
+"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
+"allow you to share an existing directory within your file system"
 msgstr ""
 "<i>O directório na eBox</i> criará a partilha automáticamente.O directório "
 "em /home/samba/shares <br><i>O caminho do sistema de ficheiros</i> permite-"
 "lhe partilhar um directório existente no seu sistema de ficheiros."
 
-#: src/EBox/Samba/Model/SambaShares.pm:286
+#: src/EBox/Samba/Model/SambaShares.pm:290
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
@@ -699,11 +700,11 @@ msgstr "módulo das impressoras"
 msgid "file sharing module"
 msgstr "módulo de partilha de ficheiros"
 
-#: stubs/smb.conf.mas:104
+#: stubs/smb.conf.mas:105
 msgid "Home Directories"
 msgstr "Directórios raíz"
 
-#: stubs/smb.conf.mas:132
+#: stubs/smb.conf.mas:133
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "Directírio partilhado de {group}"

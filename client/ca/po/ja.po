@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:48+0100\n"
+"POT-Creation-Date: 2010-01-25 20:39+0100\n"
 "PO-Revision-Date: 2008-01-08 15:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -207,97 +207,97 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:249
+#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:251
 #, fuzzy
 msgid "Services Certificates"
 msgstr "証明書を無効化しています"
 
-#: src/EBox/CA.pm:2277
+#: src/EBox/CA.pm:2279
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "署名できません。CAパスフレーズが誤っているか、プライベート鍵をなくしていませ"
 "んか？"
 
-#: src/EBox/CA.pm:2279
+#: src/EBox/CA.pm:2281
 msgid "Database corruption"
 msgstr "データベース破損"
 
-#: src/EBox/CA.pm:2281
+#: src/EBox/CA.pm:2283
 msgid "Identifier duplicated in Database"
 msgstr "データベースで識別子が重複しています"
 
-#: src/EBox/CA.pm:2283
+#: src/EBox/CA.pm:2285
 msgid "Certificate already revoked"
 msgstr "証明書はすでに無効化されています"
 
-#: src/EBox/CA.pm:2286
+#: src/EBox/CA.pm:2288
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1フィールドが長すぎます。最大値:"
 
-#: src/EBox/CA.pm:2288
+#: src/EBox/CA.pm:2290
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "不明なエラーです。OpenSSLの出力:"
 
-#: src/EBox/CA.pm:2363
+#: src/EBox/CA.pm:2365
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
 "validity for {days} days"
 msgstr "組織名 {orgName} 、有効日数 {days} で認証局が作成されました"
 
-#: src/EBox/CA.pm:2365
+#: src/EBox/CA.pm:2367
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "組織名 {orgName} の認証局が削除されました"
 
-#: src/EBox/CA.pm:2367
+#: src/EBox/CA.pm:2369
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "{reason} が強制されたため、CA証明書が無効化されました: {force}"
 
-#: src/EBox/CA.pm:2369
+#: src/EBox/CA.pm:2371
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr "組織名 {orgName} 、有効日数 {days} でCA証明書が発行されました"
 
-#: src/EBox/CA.pm:2371
+#: src/EBox/CA.pm:2373
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr "組織名 {orgName} 有効日数 {days} でCA証明書が更新されました"
 
-#: src/EBox/CA.pm:2373
+#: src/EBox/CA.pm:2375
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr "共通名 {cn} 有効日数 {days} で証明書が発行されました"
 
-#: src/EBox/CA.pm:2375
+#: src/EBox/CA.pm:2377
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
 msgstr ""
 "{reason}が強制されたため共通名 {cn} を持つ証明書は無効化されました: {force}"
 
-#: src/EBox/CA.pm:2377
+#: src/EBox/CA.pm:2379
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr "共通名 {cn} 有効日数 {days} で証明書が更新されました"
 
-#: src/EBox/CA.pm:2379
+#: src/EBox/CA.pm:2381
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "証明書データベースが更新されました。 {number} 個の証明書が期限切れになりまし"
 "た"
 
-#: src/EBox/CA.pm:2399 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:2401 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "CA証明書期限よりも後に有効期限が設定されています"
 
-#: src/EBox/CA.pm:2526
+#: src/EBox/CA.pm:2528
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "OpenSSLシェルを開始できません。({errval})"
@@ -321,10 +321,20 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: src/EBox/Model/Certificates.pm:250
+#: src/EBox/Model/Certificates.pm:243
+msgid "Generate the certificate using CA with the common name set above"
+msgstr ""
+
+#: src/EBox/Model/Certificates.pm:252
 #, fuzzy
 msgid "certificate"
 msgstr "証明書ファイル"
+
+#: src/EBox/Model/Certificates.pm:258
+msgid ""
+"Here you may set certificates from this CA for those secure services managed "
+"by eBox"
+msgstr ""
 
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format

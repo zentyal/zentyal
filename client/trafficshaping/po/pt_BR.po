@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:51+0100\n"
+"POT-Creation-Date: 2010-01-25 20:57+0100\n"
 "PO-Revision-Date: 2009-05-18 22:57+0200\n"
 "Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
 "Language-Team: none\n"
@@ -100,7 +100,8 @@ msgstr ""
 "adicionar regras usando este objeto"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
-msgid "If service is any, some source ordestination should be provided"
+#, fuzzy
+msgid "If service is any, some source or destination should be provided"
 msgstr "Se o serviço é qualquer um, deve ser disponibilizado um destino"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:393
@@ -166,7 +167,7 @@ msgstr "Kbit/s"
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:474
 #, fuzzy
 msgid ""
-"Note that  The sum of all guaranteed rates cannot exceed your total "
+"Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
 "Veja que a soma de todas as taxas garantidas não podem exceder  a largura de "
@@ -248,7 +249,7 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
-msgid "Upload rate in Kbits/s for through this interface"
+msgid "Upload rate in Kbits/s through this interface"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98

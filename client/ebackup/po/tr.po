@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:43+0100\n"
+"POT-Creation-Date: 2010-01-25 20:39+0100\n"
 "PO-Revision-Date: 2010-01-17 21:53+0100\n"
 "Last-Translator: Ersan YILDIRIM <yakazan@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,6 +18,7 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EBackup.pm:62 src/EBox/Event/Watcher/EBackup.pm:111
+#: src/EBox/Composite/Remote.pm:64
 msgid "Backup"
 msgstr "Yedekleme"
 
@@ -46,7 +47,7 @@ msgid "file restore operation"
 msgstr "dosya geri yükleme işlemi"
 
 #: src/EBox/Model/RemoteFileList.pm:204
-msgid "File already exists if you continue  the currentwill be deleted"
+msgid "File already exists if you continue the currentwill be deleted"
 msgstr ""
 
 #: src/EBox/Model/RemoteFileList.pm:220
@@ -62,7 +63,7 @@ msgstr ""
 msgid "There is no information about the backuped files yet"
 msgstr "Yedeklenen dosyalar hakkında henüz hiçbir bilgi yok."
 
-#: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:74
+#: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
 msgstr "Tip"
 
@@ -78,110 +79,195 @@ msgstr "Uzaktan Yedekleme Durumu"
 msgid "backup"
 msgstr "yedek"
 
-#: src/EBox/Model/RemoteSettings.pm:138
+#: src/EBox/Model/RemoteSettings.pm:140
 msgid "Method"
 msgstr "Yöntem"
 
-#: src/EBox/Model/RemoteSettings.pm:144
+#: src/EBox/Model/RemoteSettings.pm:146
 msgid "Host or destination"
 msgstr "Ana makine ya da hedef"
 
-#: src/EBox/Model/RemoteSettings.pm:150
+#: src/EBox/Model/RemoteSettings.pm:152 src/EBox/Model/RemoteSettings.pm:377
 msgid "User"
 msgstr "Kullanıcı"
 
-#: src/EBox/Model/RemoteSettings.pm:156
+#: src/EBox/Model/RemoteSettings.pm:158 src/EBox/Model/RemoteSettings.pm:382
 msgid "Password"
 msgstr "Şifre"
 
-#: src/EBox/Model/RemoteSettings.pm:162
+#: src/EBox/Model/RemoteSettings.pm:164
 msgid "GPG key"
 msgstr "GPG anahtar"
 
-#: src/EBox/Model/RemoteSettings.pm:169
+#: src/EBox/Model/RemoteSettings.pm:171
 #, fuzzy
 msgid "Full Backup Frequency"
 msgstr "Tam Yedekleme Sıklığı"
 
-#: src/EBox/Model/RemoteSettings.pm:175
+#: src/EBox/Model/RemoteSettings.pm:177
 msgid "Number of full copies to keep"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:182
+#: src/EBox/Model/RemoteSettings.pm:184
 #, fuzzy
 msgid "Incremental Backup Frequency"
 msgstr "Artan Yedekleme Sıklığı"
 
-#: src/EBox/Model/RemoteSettings.pm:188
+#: src/EBox/Model/RemoteSettings.pm:190
 msgid "Backup process starts at"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:197
+#: src/EBox/Model/RemoteSettings.pm:199
 msgid "General Configuration"
 msgstr "Genel Yapılandırma"
 
-#: src/EBox/Model/RemoteSettings.pm:200
+#: src/EBox/Model/RemoteSettings.pm:202
 msgid "General remote backup server configuration"
 msgstr "Uzaktan yedekleme sunucusu genel yapılandırması"
 
-#: src/EBox/Model/RemoteSettings.pm:203
+#: src/EBox/Model/RemoteSettings.pm:205
 msgid "General backup server configuration updated"
 msgstr "Genel yedekleme sunucu yapılandırması güncellendi"
 
-#: src/EBox/Model/RemoteSettings.pm:217
+#: src/EBox/Model/RemoteSettings.pm:219
 msgid "Daily"
 msgstr "Günlük"
 
-#: src/EBox/Model/RemoteSettings.pm:221
+#: src/EBox/Model/RemoteSettings.pm:223
 msgid "Weekly"
 msgstr "Haftalık"
 
-#: src/EBox/Model/RemoteSettings.pm:225
+#: src/EBox/Model/RemoteSettings.pm:227
 msgid "Monthly"
 msgstr "Aylık"
 
-#: src/EBox/Model/RemoteSettings.pm:234 src/EBox/Model/RemoteSettings.pm:340
+#: src/EBox/Model/RemoteSettings.pm:236 src/EBox/Model/RemoteSettings.pm:342
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:356
+#: src/EBox/Model/RemoteSettings.pm:358
 #, perl-brace-format
 msgid ""
 "By creating the iBackup account through this {ohref}link{chref} you support "
 "the development of eBox with no extra charge"
 msgstr ""
 
-#: src/EBox/Model/RemoteExcludes.pm:80
+#: src/EBox/Model/RemoteSettings.pm:425
+msgid "The target parameter that must be like 'other.host[:port]/some_dir"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:436 src/EBox/Model/RemoteSettings.pm:470
+msgid "target"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:438
+msgid "Must be a like 'other.host[:port]/some_dir'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:445 src/EBox/Model/RemoteSettings.pm:480
+msgid "host"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:447 src/EBox/Model/RemoteSettings.pm:482
+msgid "port"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:449
+msgid "directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:459
+msgid ""
+"The RSYNC target parameter that must be like 'other.host[:port]/"
+"relative_path' or 'other.host[:port]/absolute_path'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:473
+msgid ""
+"Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
+"absolute_path'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:485
+msgid "absolute directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:487
+msgid "relative directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:504
+msgid ""
+"File system method need a target parameter that should be a directory path"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:510 src/EBox/Model/RemoteSettings.pm:514
+msgid "Directory for backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:517
+msgid "File exists and it is not a directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:536
+msgid "Full backup cannot be more frequent than incremental backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:548
+msgid ""
+"General backup server configuration updated. SCP method selected; "
+"<em>remember</em> to add your target host to the list of known hosts by SSH"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:82
 #, fuzzy
-msgid "Exlcude or Include"
+msgid "Exclude or Include"
 msgstr "Dahil et veya dışında tut"
 
-#: src/EBox/Model/RemoteExcludes.pm:91
+#: src/EBox/Model/RemoteExcludes.pm:93
 #, fuzzy
 msgid "Includes and Excludes"
 msgstr "Dahil etmek ve Dışında Tutmak"
 
-#: src/EBox/Model/RemoteExcludes.pm:92
+#: src/EBox/Model/RemoteExcludes.pm:94
 msgid "exclude"
 msgstr "dışında"
 
-#: src/EBox/Model/RemoteExcludes.pm:111
+#: src/EBox/Model/RemoteExcludes.pm:113
 #, fuzzy
 msgid "Exclude path"
 msgstr "Dış yol"
 
-#: src/EBox/Model/RemoteExcludes.pm:115
-msgid "Exclude file regexp"
-msgstr ""
+#: src/EBox/Model/RemoteExcludes.pm:117
+#, fuzzy
+msgid "Exclude regexp"
+msgstr "Dış yol"
 
-#: src/EBox/Model/RemoteExcludes.pm:119
+#: src/EBox/Model/RemoteExcludes.pm:121
 msgid "Include Path"
 msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:143
+#, fuzzy
+msgid "exclude path"
+msgstr "Dış yol"
+
+#: src/EBox/Model/RemoteExcludes.pm:156
+msgid "exclude path regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:158
+msgid "Incorrect regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:171
+#, fuzzy
+msgid "include path"
+msgstr "Dış yol"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
 msgstr "Yapılandırma ve Durum"
 
-#: src/EBox/Composite/Remote.pm:64
-msgid "Backup module"
-msgstr "Yedekleme modülü"
+#~ msgid "Backup module"
+#~ msgstr "Yedekleme modülü"

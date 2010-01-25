@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:50+0100\n"
+"POT-Creation-Date: 2010-01-25 20:53+0100\n"
 "PO-Revision-Date: 2009-08-04 07:47+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Cups printer server port"
 msgstr "Cups 印表機伺服器連接埠"
 
-#: src/EBox/CGI/Model.pm:39 src/EBox/CGI/LPDPrinterUI.pm:46
+#: src/EBox/CGI/Model.pm:41 src/EBox/CGI/LPDPrinterUI.pm:46
 #: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/CGI/SambaPrinterUI.pm:46
 #: src/EBox/CGI/DrvoptsUI.pm:46 src/EBox/CGI/USBPrinterUI.pm:46
 #: src/EBox/CGI/Driver.pm:39 src/EBox/CGI/ManagePrinter.pm:40
@@ -31,25 +31,31 @@ msgstr "Cups 印表機伺服器連接埠"
 #: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/LPDPrinter.pm:41
 #: src/EBox/CGI/IPPPrinter.pm:42 src/EBox/CGI/Manufacturer.pm:39
 #: src/EBox/CGI/ManufacturerUI.pm:46 src/EBox/CGI/Drvopts.pm:39
-#: src/EBox/CGI/ParallelPrinter.pm:40 src/EBox/Printers.pm:252
-#: src/EBox/Printers.pm:387 src/EBox/Printers.pm:400 src/EBox/Printers.pm:417
-#: src/EBox/Printers.pm:473 src/EBox/Printers.pm:525 src/EBox/Printers.pm:567
-#: src/EBox/Printers.pm:584 src/EBox/Printers.pm:606 src/EBox/Printers.pm:632
-#: src/EBox/Printers.pm:659 src/EBox/Printers.pm:691 src/EBox/Printers.pm:721
-#: src/EBox/Printers.pm:749 src/EBox/Printers.pm:790 src/EBox/Printers.pm:804
-#: src/EBox/Printers.pm:830 src/EBox/Printers.pm:844 src/EBox/Printers.pm:870
-#: src/EBox/Printers.pm:884 src/EBox/Printers.pm:909 src/EBox/Printers.pm:932
-#: src/EBox/Printers.pm:957 src/EBox/Printers.pm:1029
-#: src/EBox/Printers.pm:1078 src/EBox/Printers.pm:1123
-#: src/EBox/Printers.pm:1152 src/EBox/Printers.pm:1207
-#: src/EBox/Printers.pm:1222 src/EBox/Printers.pm:1253
+#: src/EBox/CGI/PrintTest.pm:39 src/EBox/CGI/ParallelPrinter.pm:40
+#: src/EBox/Printers.pm:253 src/EBox/Printers.pm:388 src/EBox/Printers.pm:401
+#: src/EBox/Printers.pm:418 src/EBox/Printers.pm:474 src/EBox/Printers.pm:526
+#: src/EBox/Printers.pm:568 src/EBox/Printers.pm:585 src/EBox/Printers.pm:607
+#: src/EBox/Printers.pm:633 src/EBox/Printers.pm:660 src/EBox/Printers.pm:692
+#: src/EBox/Printers.pm:722 src/EBox/Printers.pm:750 src/EBox/Printers.pm:791
+#: src/EBox/Printers.pm:805 src/EBox/Printers.pm:831 src/EBox/Printers.pm:845
+#: src/EBox/Printers.pm:871 src/EBox/Printers.pm:885 src/EBox/Printers.pm:910
+#: src/EBox/Printers.pm:933 src/EBox/Printers.pm:958 src/EBox/Printers.pm:1030
+#: src/EBox/Printers.pm:1079 src/EBox/Printers.pm:1124
+#: src/EBox/Printers.pm:1152 src/EBox/Printers.pm:1184
+#: src/EBox/Printers.pm:1244 src/EBox/Printers.pm:1259
+#: src/EBox/Printers.pm:1290
 msgid "Printer"
 msgstr "印表機"
 
-#: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:848 src/EBox/Printers.pm:888
-#: src/templates/printer.mas:149 src/templates/printerback.mas:29
+#: src/EBox/CGI/Model.pm:42 src/EBox/Printers.pm:849 src/EBox/Printers.pm:889
+#: src/templates/printer.mas:151 src/templates/printerback.mas:29
 msgid "Model"
 msgstr "型號"
+
+#: src/EBox/CGI/Model.pm:53
+#, perl-brace-format
+msgid "Printer {printer} has no available drivers"
+msgstr ""
 
 #: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:30
 #: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
@@ -71,16 +77,16 @@ msgid "Next"
 msgstr "下一步"
 
 #: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/CGI/LPDPrinter.pm:42
-#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/Printers.pm:663
-#: src/EBox/Printers.pm:725 src/EBox/Printers.pm:753 src/templates/ipp.mas:23
+#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/Printers.pm:664
+#: src/EBox/Printers.pm:726 src/EBox/Printers.pm:754 src/templates/ipp.mas:23
 #: src/templates/lpd.mas:23 src/templates/printerback.mas:182
 #: src/templates/network.mas:23
 msgid "IP"
 msgstr "IP"
 
 #: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/CGI/LPDPrinter.pm:43
-#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:664
-#: src/EBox/Printers.pm:726 src/EBox/Printers.pm:754 src/templates/ipp.mas:31
+#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:665
+#: src/EBox/Printers.pm:727 src/EBox/Printers.pm:755 src/templates/ipp.mas:31
 #: src/templates/lpd.mas:31 src/templates/printerback.mas:190
 #: src/templates/network.mas:31
 msgid "Port"
@@ -98,7 +104,7 @@ msgstr "獨立 cups 已停用"
 msgid "Add a new printer (VI)"
 msgstr "新增新的印表機 (VI)"
 
-#: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:157
+#: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:159
 #: src/templates/printerback.mas:37
 msgid "Driver"
 msgstr "驅動程式"
@@ -167,12 +173,12 @@ msgid "Add a new printer (IV)"
 msgstr "新增新的印表機 (IV)"
 
 #: src/EBox/CGI/USBPrinter.pm:41 src/EBox/CGI/ParallelPrinter.pm:41
-#: src/EBox/Printers.pm:612 src/EBox/Printers.pm:638
+#: src/EBox/Printers.pm:613 src/EBox/Printers.pm:639
 #: src/templates/parallel.mas:18 src/templates/usb.mas:18
 msgid "Device"
 msgstr "裝置"
 
-#: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:357
+#: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:358
 msgid "Manage printers"
 msgstr "管理印表機"
 
@@ -184,8 +190,8 @@ msgstr "刪除印表機"
 msgid "Add a new printer (V)"
 msgstr "新增新的印表機 (V)"
 
-#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:496
-#: src/EBox/Printers.pm:588 src/templates/addprinter.mas:23
+#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:497
+#: src/EBox/Printers.pm:589 src/templates/addprinter.mas:23
 msgid "Method"
 msgstr "Method"
 
@@ -193,8 +199,8 @@ msgstr "Method"
 msgid "Printer description"
 msgstr "印表機說明"
 
-#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:809
-#: src/templates/printer.mas:141 src/templates/printerback.mas:21
+#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:810
+#: src/templates/printer.mas:143 src/templates/printerback.mas:21
 msgid "Manufacturer"
 msgstr "製造商"
 
@@ -206,126 +212,126 @@ msgstr "新增新的印表機 (III)"
 msgid "Add a new printer (I)"
 msgstr "新增新的印表機 (I)"
 
-#: src/EBox/Printers.pm:56
+#: src/EBox/Printers.pm:57
 #, fuzzy
 msgid "Printer Sharing"
 msgstr "印表機分享"
 
-#: src/EBox/Printers.pm:76
+#: src/EBox/Printers.pm:77
 msgid "Create spool directory for printers"
 msgstr "建立印表機的 spool 目錄"
 
-#: src/EBox/Printers.pm:77
+#: src/EBox/Printers.pm:78
 msgid "eBox will create a spool directory under /var/spool/samba"
 msgstr "eBox 將會建立 spool 目錄在 /var/spool/samba"
 
-#: src/EBox/Printers.pm:82
+#: src/EBox/Printers.pm:83
 msgid "Add user ebox to lpadmin group"
 msgstr "新增使用者 ebox 到 lpadmin 群組"
 
-#: src/EBox/Printers.pm:83
+#: src/EBox/Printers.pm:84
 msgid "In order to manage printers and queues from the eBox web interface"
 msgstr "從 eBox 網頁介面來管理印表機和佇列"
 
-#: src/EBox/Printers.pm:88
+#: src/EBox/Printers.pm:89
 msgid "Create log table"
 msgstr "建立日誌表"
 
-#: src/EBox/Printers.pm:89
+#: src/EBox/Printers.pm:90
 msgid ""
 "eBox will create a new table into its log database to store printers logs"
 msgstr "eBox 將會建立新表單到日誌資料庫來儲存印表日誌"
 
-#: src/EBox/Printers.pm:105
+#: src/EBox/Printers.pm:106
 msgid "To add and manage printers"
 msgstr "新增和管理印表機"
 
-#: src/EBox/Printers.pm:110
+#: src/EBox/Printers.pm:111
 msgid "To enable standalone cupsd listen on internal interfaces"
 msgstr "啟用獨立 cupsd 在內部網路介面來監聽"
 
-#: src/EBox/Printers.pm:295
+#: src/EBox/Printers.pm:296
 msgid "Add Printer"
 msgstr "新增印表機"
 
-#: src/EBox/Printers.pm:492
+#: src/EBox/Printers.pm:493
 msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
 msgstr "印表機名稱裡面的有無效的字元.只接受數字的字元"
 
-#: src/EBox/Printers.pm:501 src/templates/addprinter.mas:15
-#: src/templates/printer.mas:77 src/templates/printers.mas:37
+#: src/EBox/Printers.pm:502 src/templates/addprinter.mas:15
+#: src/templates/printer.mas:79 src/templates/printers.mas:37
 msgid "Name"
 msgstr "名稱"
 
-#: src/EBox/Printers.pm:508
+#: src/EBox/Printers.pm:509
 msgid "The given name is alreaday used as "
 msgstr "規定的名稱已被使用"
 
-#: src/EBox/Printers.pm:529 src/EBox/Printers.pm:1082
-#: src/EBox/Printers.pm:1127
+#: src/EBox/Printers.pm:530 src/EBox/Printers.pm:1083
+#: src/EBox/Printers.pm:1128 src/EBox/Printers.pm:1188
 msgid "Printer not configured"
 msgstr "印表機尚未設置"
 
-#: src/EBox/Printers.pm:617
+#: src/EBox/Printers.pm:618
 msgid "It is not a usb printer"
 msgstr "這不是 usb 印表機"
 
-#: src/EBox/Printers.pm:643
+#: src/EBox/Printers.pm:644
 msgid "It is not a parallel printer"
 msgstr "這不是 parallel 印表機"
 
-#: src/EBox/Printers.pm:669
+#: src/EBox/Printers.pm:670
 msgid "It is not a network printer"
 msgstr "這不是網路印表機"
 
-#: src/EBox/Printers.pm:698
+#: src/EBox/Printers.pm:699
 msgid "It is not a samba printer"
 msgstr "這不是 samba 印表機"
 
-#: src/EBox/Printers.pm:731
+#: src/EBox/Printers.pm:732
 msgid "It is not a IPP printer"
 msgstr "這不是 IPP 印表機"
 
-#: src/EBox/Printers.pm:759
+#: src/EBox/Printers.pm:760
 msgid "It is not a LPD printer"
 msgstr "這不是 LPD 印表機"
 
-#: src/EBox/Printers.pm:990 src/EBox/Printers.pm:1016
+#: src/EBox/Printers.pm:991 src/EBox/Printers.pm:1017
 msgid "is not a valid option"
 msgstr "不正確的選項"
 
-#: src/EBox/Printers.pm:1107
+#: src/EBox/Printers.pm:1108
 #, perl-brace-format
 msgid "Parameter '{name}' does not exist"
 msgstr "參數 '{name}' 是不存在"
 
-#: src/EBox/Printers.pm:1252 src/templates/printer.mas:75
+#: src/EBox/Printers.pm:1289 src/templates/printer.mas:77
 msgid "Job ID"
 msgstr "列印 ID"
 
-#: src/EBox/Printers.pm:1254 src/templates/printer.mas:76
+#: src/EBox/Printers.pm:1291 src/templates/printer.mas:78
 msgid "Owner"
 msgstr "擁有者"
 
-#: src/EBox/Printers.pm:1255
+#: src/EBox/Printers.pm:1292
 msgid "Queued at"
 msgstr "佇列在"
 
-#: src/EBox/Printers.pm:1256
+#: src/EBox/Printers.pm:1293
 msgid "Event"
 msgstr "事件"
 
-#: src/EBox/Printers.pm:1259
+#: src/EBox/Printers.pm:1296
 msgid "Queued"
 msgstr "佇列"
 
-#: src/EBox/Printers.pm:1259
+#: src/EBox/Printers.pm:1296
 msgid "Canceled"
 msgstr "取消"
 
-#: src/EBox/Printers.pm:1262
+#: src/EBox/Printers.pm:1299
 msgid "Printers"
 msgstr "印表機"
 
@@ -366,8 +372,8 @@ msgstr "本機 parallel 印表機設置"
 msgid "Are you sure you want to delete the printer '{name}'?"
 msgstr "您確定要刪除這個印表機 '{name}' 嗎?"
 
-#: src/templates/del.mas:21 src/templates/printer.mas:119
-#: src/templates/printer.mas:120 src/templates/printer.mas:121
+#: src/templates/del.mas:21 src/templates/printer.mas:121
+#: src/templates/printer.mas:122 src/templates/printer.mas:123
 #: src/templates/printers.mas:64 src/templates/printers.mas:65
 #: src/templates/printers.mas:66
 msgid "Delete"
@@ -381,32 +387,41 @@ msgstr "取消"
 msgid "Local USB printer configuration"
 msgstr "本機 USB 印表機設置"
 
-#: src/templates/printer.mas:32 src/templates/printer.mas:167
-#: src/templates/printer.mas:168 src/templates/printerback.mas:96
+#: src/templates/printer.mas:33 src/templates/printer.mas:169
+#: src/templates/printer.mas:170 src/templates/printerback.mas:96
 #: src/templates/printerback.mas:97 src/templates/printerback.mas:200
 #: src/templates/printerback.mas:201 src/templates/printers.mas:19
 msgid "Change"
 msgstr "改變"
 
-#: src/templates/printer.mas:69
+#: src/templates/printer.mas:71
 msgid "Job queue"
 msgstr "列印佇列"
 
-#: src/templates/printer.mas:78
+#: src/templates/printer.mas:80
 msgid "Size(KB)"
 msgstr "大小(KB)"
 
-#: src/templates/printer.mas:79
+#: src/templates/printer.mas:81
 msgid "Creation time"
 msgstr "建立時間"
 
-#: src/templates/printer.mas:80
+#: src/templates/printer.mas:82
 msgid "Action"
 msgstr "動作"
 
-#: src/templates/printer.mas:129
+#: src/templates/printer.mas:131
 msgid "This printer has no pending job in queue at the moment"
 msgstr "這個印表機現在沒有緊急的列印工作在佇列上"
+
+#: src/templates/printer.mas:179
+msgid "You need to save changes in order to print a test page"
+msgstr ""
+
+#: src/templates/printer.mas:184 src/templates/printer.mas:185
+#, fuzzy
+msgid "Print Test Page"
+msgstr "印表機名稱"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"

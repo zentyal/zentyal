@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:43+0100\n"
+"POT-Creation-Date: 2010-01-25 20:39+0100\n"
 "PO-Revision-Date: 2010-01-18 11:45+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -18,6 +18,7 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EBackup.pm:62 src/EBox/Event/Watcher/EBackup.pm:111
+#: src/EBox/Composite/Remote.pm:64
 msgid "Backup"
 msgstr "Sauvegarde"
 
@@ -47,7 +48,8 @@ msgid "file restore operation"
 msgstr "opération de restauration de fichier"
 
 #: src/EBox/Model/RemoteFileList.pm:204
-msgid "File already exists if you continue  the currentwill be deleted"
+#, fuzzy
+msgid "File already exists if you continue the currentwill be deleted"
 msgstr "Le fichier existe déjà, si vous continuez, il sera effacé"
 
 #: src/EBox/Model/RemoteFileList.pm:220
@@ -64,7 +66,7 @@ msgstr ""
 msgid "There is no information about the backuped files yet"
 msgstr "Il n'existe pas encore d'information concernant le fichier sauvegardé"
 
-#: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:74
+#: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
 msgstr "Type"
 
@@ -80,71 +82,71 @@ msgstr "Statut de la sauvegarde distante"
 msgid "backup"
 msgstr "Sauvegarde"
 
-#: src/EBox/Model/RemoteSettings.pm:138
+#: src/EBox/Model/RemoteSettings.pm:140
 msgid "Method"
 msgstr "Méthode"
 
-#: src/EBox/Model/RemoteSettings.pm:144
+#: src/EBox/Model/RemoteSettings.pm:146
 msgid "Host or destination"
 msgstr "Hôte ou destination"
 
-#: src/EBox/Model/RemoteSettings.pm:150
+#: src/EBox/Model/RemoteSettings.pm:152 src/EBox/Model/RemoteSettings.pm:377
 msgid "User"
 msgstr "Utilisateur"
 
-#: src/EBox/Model/RemoteSettings.pm:156
+#: src/EBox/Model/RemoteSettings.pm:158 src/EBox/Model/RemoteSettings.pm:382
 msgid "Password"
 msgstr "Mot de passe"
 
-#: src/EBox/Model/RemoteSettings.pm:162
+#: src/EBox/Model/RemoteSettings.pm:164
 msgid "GPG key"
 msgstr "Clé GPG"
 
-#: src/EBox/Model/RemoteSettings.pm:169
+#: src/EBox/Model/RemoteSettings.pm:171
 msgid "Full Backup Frequency"
 msgstr "Fréquence des sauvegardes complètes"
 
-#: src/EBox/Model/RemoteSettings.pm:175
+#: src/EBox/Model/RemoteSettings.pm:177
 msgid "Number of full copies to keep"
 msgstr "Nombre de copie complètes à garder"
 
-#: src/EBox/Model/RemoteSettings.pm:182
+#: src/EBox/Model/RemoteSettings.pm:184
 msgid "Incremental Backup Frequency"
 msgstr "Fréquence des sauvegardes incrémentielles"
 
-#: src/EBox/Model/RemoteSettings.pm:188
+#: src/EBox/Model/RemoteSettings.pm:190
 msgid "Backup process starts at"
 msgstr "Le processus de sauvegarde commence à"
 
-#: src/EBox/Model/RemoteSettings.pm:197
+#: src/EBox/Model/RemoteSettings.pm:199
 msgid "General Configuration"
 msgstr "Configuration Générale "
 
-#: src/EBox/Model/RemoteSettings.pm:200
+#: src/EBox/Model/RemoteSettings.pm:202
 msgid "General remote backup server configuration"
 msgstr "Configuration générale du serveur de sauvegarde distant"
 
-#: src/EBox/Model/RemoteSettings.pm:203
+#: src/EBox/Model/RemoteSettings.pm:205
 msgid "General backup server configuration updated"
 msgstr "Mise à jour de la configuration générale du serveur de sauvegarde"
 
-#: src/EBox/Model/RemoteSettings.pm:217
+#: src/EBox/Model/RemoteSettings.pm:219
 msgid "Daily"
 msgstr "Quotidien"
 
-#: src/EBox/Model/RemoteSettings.pm:221
+#: src/EBox/Model/RemoteSettings.pm:223
 msgid "Weekly"
 msgstr "Hebdomadaire"
 
-#: src/EBox/Model/RemoteSettings.pm:225
+#: src/EBox/Model/RemoteSettings.pm:227
 msgid "Monthly"
 msgstr "Mensuel"
 
-#: src/EBox/Model/RemoteSettings.pm:234 src/EBox/Model/RemoteSettings.pm:340
+#: src/EBox/Model/RemoteSettings.pm:236 src/EBox/Model/RemoteSettings.pm:342
 msgid "Disabled"
 msgstr "inactif"
 
-#: src/EBox/Model/RemoteSettings.pm:356
+#: src/EBox/Model/RemoteSettings.pm:358
 #, perl-brace-format
 msgid ""
 "By creating the iBackup account through this {ohref}link{chref} you support "
@@ -153,38 +155,124 @@ msgstr ""
 "En créant le compte iBackup au tyravers de ce {ohref}lien{chref} , vous "
 "participez au développement d'eBox gratuitement"
 
-#: src/EBox/Model/RemoteExcludes.pm:80
-msgid "Exlcude or Include"
+#: src/EBox/Model/RemoteSettings.pm:425
+msgid "The target parameter that must be like 'other.host[:port]/some_dir"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:436 src/EBox/Model/RemoteSettings.pm:470
+msgid "target"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:438
+msgid "Must be a like 'other.host[:port]/some_dir'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:445 src/EBox/Model/RemoteSettings.pm:480
+msgid "host"
+msgstr "hôte"
+
+#: src/EBox/Model/RemoteSettings.pm:447 src/EBox/Model/RemoteSettings.pm:482
+msgid "port"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:449
+msgid "directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:459
+msgid ""
+"The RSYNC target parameter that must be like 'other.host[:port]/"
+"relative_path' or 'other.host[:port]/absolute_path'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:473
+msgid ""
+"Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
+"absolute_path'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:485
+msgid "absolute directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:487
+msgid "relative directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:504
+msgid ""
+"File system method need a target parameter that should be a directory path"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:510 src/EBox/Model/RemoteSettings.pm:514
+msgid "Directory for backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:517
+msgid "File exists and it is not a directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:536
+msgid "Full backup cannot be more frequent than incremental backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:548
+msgid ""
+"General backup server configuration updated. SCP method selected; "
+"<em>remember</em> to add your target host to the list of known hosts by SSH"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:82
+#, fuzzy
+msgid "Exclude or Include"
 msgstr "Exclu ou inclu"
 
-#: src/EBox/Model/RemoteExcludes.pm:91
+#: src/EBox/Model/RemoteExcludes.pm:93
 msgid "Includes and Excludes"
 msgstr "Inclus et exclus"
 
-#: src/EBox/Model/RemoteExcludes.pm:92
+#: src/EBox/Model/RemoteExcludes.pm:94
 msgid "exclude"
 msgstr "exclu"
 
-#: src/EBox/Model/RemoteExcludes.pm:111
+#: src/EBox/Model/RemoteExcludes.pm:113
 msgid "Exclude path"
 msgstr "Chemin exclu"
 
 # ou fichier d'exclusion regexp ?
-#: src/EBox/Model/RemoteExcludes.pm:115
-msgid "Exclude file regexp"
+#: src/EBox/Model/RemoteExcludes.pm:117
+#, fuzzy
+msgid "Exclude regexp"
 msgstr "Regexp d'exclusion de fichiers"
 
-#: src/EBox/Model/RemoteExcludes.pm:119
+#: src/EBox/Model/RemoteExcludes.pm:121
 msgid "Include Path"
 msgstr "Chemin inclu"
+
+#: src/EBox/Model/RemoteExcludes.pm:143
+#, fuzzy
+msgid "exclude path"
+msgstr "Chemin exclu"
+
+#: src/EBox/Model/RemoteExcludes.pm:156
+msgid "exclude path regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:158
+msgid "Incorrect regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:171
+#, fuzzy
+msgid "include path"
+msgstr "Chemin exclu"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
 msgstr "Configuration et statut"
 
-#: src/EBox/Composite/Remote.pm:64
-msgid "Backup module"
-msgstr "Module de sauvegarde"
+#~ msgid "Backup module"
+#~ msgstr "Module de sauvegarde"
 
 #~ msgid "Hostname"
 #~ msgstr "Nom de l'hôte"
@@ -203,9 +291,6 @@ msgstr "Module de sauvegarde"
 
 #~ msgid "Hosts"
 #~ msgstr "Hôtes"
-
-#~ msgid "host"
-#~ msgstr "hôte"
 
 #~ msgid "Local backup directory {p} does not exist"
 #~ msgstr "Le répertoire de sauvegarde local {p} n'existe pas"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:59+0100\n"
+"POT-Creation-Date: 2010-01-25 21:08+0100\n"
 "PO-Revision-Date: 2010-01-21 18:00+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
@@ -118,36 +118,32 @@ msgstr ""
 "Nem kell beállítani kapcsolatot távoli kiszolgálóhoz, mert a WebMail az eBox "
 "levelezőszolgáltatásának használatára van beállítva."
 
-#: src/EBox/WebMail/Model/Options.pm:50
+#: src/EBox/WebMail/Model/Options.pm:48
 msgid "Name"
 msgstr "Név"
 
-#: src/EBox/WebMail/Model/Options.pm:52
+#: src/EBox/WebMail/Model/Options.pm:50
 msgid "eBox webmail"
 msgstr "eBox webmail"
 
-#: src/EBox/WebMail/Model/Options.pm:54
+#: src/EBox/WebMail/Model/Options.pm:52
 msgid ""
 "The name of the webmail will be used in the login screen and page titles"
 msgstr ""
 "A WebMail neve a bejelentkezési képernyőn és az oldalak fejlécében jelenik "
 "meg."
 
-#: src/EBox/WebMail/Model/Options.pm:61
+#: src/EBox/WebMail/Model/Options.pm:58
 msgid "Configuration"
 msgstr "Beállítások"
 
-#: src/EBox/WebMail/Model/Options.pm:62
-msgid "Options"
-msgstr "Beállítások"
+#: src/EBox/WebMail/Model/Options.pm:59 src/EBox/WebMail.pm:66
+msgid "Web Mail"
+msgstr "WebMail"
 
 #: src/EBox/WebMail/Composite/Backend.pm:64
 msgid "WebMail backend"
 msgstr "WebMail háttérprogramja"
-
-#: src/EBox/WebMail.pm:66
-msgid "Web Mail"
-msgstr "WebMail"
 
 #: src/EBox/WebMail.pm:169
 msgid "Neither IMAP nor IMAPS service enabled"
@@ -194,6 +190,9 @@ msgid ""
 msgstr ""
 "Nem kapcsolható ki egyszerre az IMAP és IMAPS szolgáltatás, mert a WebMail "
 "modul használja ezeket."
+
+#~ msgid "Options"
+#~ msgstr "Beállítások"
 
 #~ msgid "Backend"
 #~ msgstr "Háttérprogram"

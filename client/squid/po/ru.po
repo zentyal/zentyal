@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:51+0100\n"
+"POT-Creation-Date: 2010-01-25 20:54+0100\n"
 "PO-Revision-Date: 2010-01-23 20:54+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
@@ -88,7 +88,8 @@ msgid "Dansguardian's log rotation configuration"
 msgstr "Конфигурация ротации журналов Dansguardian"
 
 #: src/EBox/Squid.pm:277
-msgid "Dansguardian's antivirus canner configuration"
+#, fuzzy
+msgid "Dansguardian's antivirus scanner configuration"
 msgstr "Конфигурациямантивирусного сканера Dansguardian"
 
 #: src/EBox/Squid.pm:313
@@ -373,8 +374,8 @@ msgid "internet domain list"
 msgstr "Список интернет доменов"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
-#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
-msgid "You can uplaod fiels whith list of domains"
+#, fuzzy
+msgid "You can upload files with lists of domains"
 msgstr "Вы можете загрузить файлы со списками доменов"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
@@ -487,7 +488,8 @@ msgid "MIME Type"
 msgstr "MIME тип"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:130
-msgid "A MIME Type must follows this syntax: type/subtype"
+#, fuzzy
+msgid "A MIME Type must follow this syntax: type/subtype"
 msgstr "MIME тип должен быть такого синтаксиса: type/subtype"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:140
@@ -519,10 +521,11 @@ msgid "Block not listed domains"
 msgstr "Блокировать не перечисленные домены"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
+#, fuzzy
 msgid ""
-"If this is enabled, any domain which is neither present neither in the "
-"<i>Domains rules</i> nor in the <i>Domain list files</i> sections below will "
-"be forbidden."
+"If this option is enabled, any domain which is not present in the <i>Domains "
+"rules</i> nor in the <i>Domain list files</i> sections below will be "
+"forbidden."
 msgstr ""
 "Если это включено, любой домен не перечисленный в <i>Список доменов</i> или "
 "<i>Правила доменов</i> будет запрещен"
@@ -680,10 +683,10 @@ msgstr ""
 "групповые политики"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:442
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"There are not network objects in the system. {open}Create{close} at least "
-"one object  if you want to set a object policy"
+"There are no network objects in the system. {open}Create{close} at least one "
+"object if you want to set a object policy"
 msgstr ""
 "В системе нет объектов. {open}Создайте{close} хотябы один, если хотите "
 "использовать политику объектов"
@@ -1001,6 +1004,11 @@ msgstr "Максимальное число групп в фильтре"
 msgid "Domains lists files for filter group"
 msgstr "Файлы списков доменов для группового фильтра"
 
+#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
+#, fuzzy
+msgid "You can upload files whith lists of domains"
+msgstr "Вы можете загрузить файлы со списками доменов"
+
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:91
 msgid ""
 "Here you can deny or allow access depending on the user group. Filtering "
@@ -1010,9 +1018,10 @@ msgstr ""
 "пользователя. Фильтрация произойдет, если политика объекта указывает на это"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:148
+#, fuzzy
 msgid ""
-"The object needs to be set to a policy with authorization for be able to use "
-"groups policies"
+"The object needs to be set to a policy with authorization in order to to use "
+"group policies"
 msgstr ""
 "Объект должен быть установлен в политике авторизации для использования в "
 "групповых политиках"

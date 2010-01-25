@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:43+0100\n"
+"POT-Creation-Date: 2010-01-25 20:39+0100\n"
 "PO-Revision-Date: 2009-12-04 09:20+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -18,6 +18,7 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EBackup.pm:62 src/EBox/Event/Watcher/EBackup.pm:111
+#: src/EBox/Composite/Remote.pm:64
 msgid "Backup"
 msgstr "Sikkerhetskopi"
 
@@ -46,7 +47,8 @@ msgid "file restore operation"
 msgstr "fil gjennoprettings handling"
 
 #: src/EBox/Model/RemoteFileList.pm:204
-msgid "File already exists if you continue  the currentwill be deleted"
+#, fuzzy
+msgid "File already exists if you continue the currentwill be deleted"
 msgstr ""
 "Filen eksisterer allerede hvis du fortsetter  vil gjeldende bli slettet"
 
@@ -64,7 +66,7 @@ msgstr ""
 msgid "There is no information about the backuped files yet"
 msgstr "Det er ingen informasjon om sikkerhetskopierte filer enda"
 
-#: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:74
+#: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
 msgstr "Type"
 
@@ -80,71 +82,71 @@ msgstr "Ekstern Sikkerhets kopi Status"
 msgid "backup"
 msgstr "sikkerhets kopi"
 
-#: src/EBox/Model/RemoteSettings.pm:138
+#: src/EBox/Model/RemoteSettings.pm:140
 msgid "Method"
 msgstr "Metode"
 
-#: src/EBox/Model/RemoteSettings.pm:144
+#: src/EBox/Model/RemoteSettings.pm:146
 msgid "Host or destination"
 msgstr "Vert eller destinasjon"
 
-#: src/EBox/Model/RemoteSettings.pm:150
+#: src/EBox/Model/RemoteSettings.pm:152 src/EBox/Model/RemoteSettings.pm:377
 msgid "User"
 msgstr "Bruker"
 
-#: src/EBox/Model/RemoteSettings.pm:156
+#: src/EBox/Model/RemoteSettings.pm:158 src/EBox/Model/RemoteSettings.pm:382
 msgid "Password"
 msgstr "Passord"
 
-#: src/EBox/Model/RemoteSettings.pm:162
+#: src/EBox/Model/RemoteSettings.pm:164
 msgid "GPG key"
 msgstr "GPG nøkkel"
 
-#: src/EBox/Model/RemoteSettings.pm:169
+#: src/EBox/Model/RemoteSettings.pm:171
 msgid "Full Backup Frequency"
 msgstr "Full Sikkehets kopi Frekvens"
 
-#: src/EBox/Model/RemoteSettings.pm:175
+#: src/EBox/Model/RemoteSettings.pm:177
 msgid "Number of full copies to keep"
 msgstr "Antall fulle kopier som skal beholdes"
 
-#: src/EBox/Model/RemoteSettings.pm:182
+#: src/EBox/Model/RemoteSettings.pm:184
 msgid "Incremental Backup Frequency"
 msgstr "Endrings Sikkerhets kopi Frekvens"
 
-#: src/EBox/Model/RemoteSettings.pm:188
+#: src/EBox/Model/RemoteSettings.pm:190
 msgid "Backup process starts at"
 msgstr "Sikkerhets kopi starter"
 
-#: src/EBox/Model/RemoteSettings.pm:197
+#: src/EBox/Model/RemoteSettings.pm:199
 msgid "General Configuration"
 msgstr "Generell Konfigurering"
 
-#: src/EBox/Model/RemoteSettings.pm:200
+#: src/EBox/Model/RemoteSettings.pm:202
 msgid "General remote backup server configuration"
 msgstr "Generell ekstern sikkerhetskopi server konfigurering"
 
-#: src/EBox/Model/RemoteSettings.pm:203
+#: src/EBox/Model/RemoteSettings.pm:205
 msgid "General backup server configuration updated"
 msgstr "Generell sikkerhetskopi server konfigurasjon oppdatert"
 
-#: src/EBox/Model/RemoteSettings.pm:217
+#: src/EBox/Model/RemoteSettings.pm:219
 msgid "Daily"
 msgstr "Daglig"
 
-#: src/EBox/Model/RemoteSettings.pm:221
+#: src/EBox/Model/RemoteSettings.pm:223
 msgid "Weekly"
 msgstr "Ukentlig"
 
-#: src/EBox/Model/RemoteSettings.pm:225
+#: src/EBox/Model/RemoteSettings.pm:227
 msgid "Monthly"
 msgstr "Månedlig"
 
-#: src/EBox/Model/RemoteSettings.pm:234 src/EBox/Model/RemoteSettings.pm:340
+#: src/EBox/Model/RemoteSettings.pm:236 src/EBox/Model/RemoteSettings.pm:342
 msgid "Disabled"
 msgstr "Deaktivert"
 
-#: src/EBox/Model/RemoteSettings.pm:356
+#: src/EBox/Model/RemoteSettings.pm:358
 #, perl-brace-format
 msgid ""
 "By creating the iBackup account through this {ohref}link{chref} you support "
@@ -153,37 +155,123 @@ msgstr ""
 "Ved å opprette iBackup kontoen gjennom dette {ohref}link{chref} Støtter du "
 "utviklingen av eBox uten ekstra kostnad"
 
-#: src/EBox/Model/RemoteExcludes.pm:80
-msgid "Exlcude or Include"
+#: src/EBox/Model/RemoteSettings.pm:425
+msgid "The target parameter that must be like 'other.host[:port]/some_dir"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:436 src/EBox/Model/RemoteSettings.pm:470
+msgid "target"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:438
+msgid "Must be a like 'other.host[:port]/some_dir'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:445 src/EBox/Model/RemoteSettings.pm:480
+msgid "host"
+msgstr "Vert"
+
+#: src/EBox/Model/RemoteSettings.pm:447 src/EBox/Model/RemoteSettings.pm:482
+msgid "port"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:449
+msgid "directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:459
+msgid ""
+"The RSYNC target parameter that must be like 'other.host[:port]/"
+"relative_path' or 'other.host[:port]/absolute_path'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:473
+msgid ""
+"Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
+"absolute_path'"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:485
+msgid "absolute directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:487
+msgid "relative directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:504
+msgid ""
+"File system method need a target parameter that should be a directory path"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:510 src/EBox/Model/RemoteSettings.pm:514
+msgid "Directory for backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:517
+msgid "File exists and it is not a directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:536
+msgid "Full backup cannot be more frequent than incremental backup"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:548
+msgid ""
+"General backup server configuration updated. SCP method selected; "
+"<em>remember</em> to add your target host to the list of known hosts by SSH"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:82
+#, fuzzy
+msgid "Exclude or Include"
 msgstr "Ekskluder eller Inkluder"
 
-#: src/EBox/Model/RemoteExcludes.pm:91
+#: src/EBox/Model/RemoteExcludes.pm:93
 msgid "Includes and Excludes"
 msgstr "Inkluderinger og Ekskluderinger"
 
-#: src/EBox/Model/RemoteExcludes.pm:92
+#: src/EBox/Model/RemoteExcludes.pm:94
 msgid "exclude"
 msgstr "eksluder"
 
-#: src/EBox/Model/RemoteExcludes.pm:111
+#: src/EBox/Model/RemoteExcludes.pm:113
 msgid "Exclude path"
 msgstr "Ekskluder sti"
 
-#: src/EBox/Model/RemoteExcludes.pm:115
-msgid "Exclude file regexp"
+#: src/EBox/Model/RemoteExcludes.pm:117
+#, fuzzy
+msgid "Exclude regexp"
 msgstr "Eksluder fil regxp"
 
-#: src/EBox/Model/RemoteExcludes.pm:119
+#: src/EBox/Model/RemoteExcludes.pm:121
 msgid "Include Path"
 msgstr "Inkluder Sti"
+
+#: src/EBox/Model/RemoteExcludes.pm:143
+#, fuzzy
+msgid "exclude path"
+msgstr "Ekskluder sti"
+
+#: src/EBox/Model/RemoteExcludes.pm:156
+msgid "exclude path regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:158
+msgid "Incorrect regular expression"
+msgstr ""
+
+#: src/EBox/Model/RemoteExcludes.pm:171
+#, fuzzy
+msgid "include path"
+msgstr "Ekskluder sti"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
 msgstr "Konfigurering og Status"
 
-#: src/EBox/Composite/Remote.pm:64
-msgid "Backup module"
-msgstr "Sikkerhetskopi module"
+#~ msgid "Backup module"
+#~ msgstr "Sikkerhetskopi module"
 
 #~ msgid "Hostname"
 #~ msgstr "Vertsnavn"
@@ -202,9 +290,6 @@ msgstr "Sikkerhetskopi module"
 
 #~ msgid "Hosts"
 #~ msgstr "Verter"
-
-#~ msgid "host"
-#~ msgstr "Vert"
 
 #~ msgid "Local backup directory {p} does not exist"
 #~ msgstr "Lokal sikkerhetskopi mappe {p} eksisterer ikke"

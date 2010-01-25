@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:51+0100\n"
+"POT-Creation-Date: 2010-01-25 20:57+0100\n"
 "PO-Revision-Date: 2009-09-04 14:01+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -101,7 +101,8 @@ msgstr ""
 "til regler med dette objektet"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
-msgid "If service is any, some source ordestination should be provided"
+#, fuzzy
+msgid "If service is any, some source or destination should be provided"
 msgstr ""
 "Hvis tjenesten er hvilken som helst, bør kilde eller destinasjon oppgis"
 
@@ -166,8 +167,9 @@ msgid "Kbit/s"
 msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:474
+#, fuzzy
 msgid ""
-"Note that  The sum of all guaranteed rates cannot exceed your total "
+"Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
 "NB. Summen av alle garanterte rater kan ikke overstige din totale båndvidde. "
@@ -247,7 +249,8 @@ msgstr "Opplasting"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
-msgid "Upload rate in Kbits/s for through this interface"
+#, fuzzy
+msgid "Upload rate in Kbits/s through this interface"
 msgstr "Opplastings rate i Kbits/s for dette grensesnittet"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98

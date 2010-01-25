@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:51+0100\n"
-"PO-Revision-Date: 2010-01-25 17:06+0100\n"
+"POT-Creation-Date: 2010-01-25 20:54+0100\n"
+"PO-Revision-Date: 2010-01-25 20:56+0100\n"
 "Last-Translator: Heidi Vilppola <hvilppola@ebox-technologies.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -94,7 +94,8 @@ msgid "Dansguardian's log rotation configuration"
 msgstr "Configuración de la rotación de los registros de Dansguardian"
 
 #: src/EBox/Squid.pm:277
-msgid "Dansguardian's antivirus canner configuration"
+#, fuzzy
+msgid "Dansguardian's antivirus scanner configuration"
 msgstr "Configuración del escáner antivirus de Dansguardian"
 
 #: src/EBox/Squid.pm:313
@@ -386,8 +387,8 @@ msgid "internet domain list"
 msgstr "Lista de dominios de Internet"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
-#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
-msgid "You can uplaod fiels whith list of domains"
+#, fuzzy
+msgid "You can upload files with lists of domains"
 msgstr "Puede subir ficheros con lista de dominios"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
@@ -470,11 +471,11 @@ msgstr ""
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:106
 msgid "Address removed"
-msgstr "Extensión
+msgstr "Dirección borrada"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:107
 msgid "Address updated"
-msgstr "Filtro de extensiones"
+msgstr "Dirección actualizada"
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
@@ -498,7 +499,8 @@ msgid "MIME Type"
 msgstr "Tipo MIME"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:130
-msgid "A MIME Type must follows this syntax: type/subtype"
+#, fuzzy
+msgid "A MIME Type must follow this syntax: type/subtype"
 msgstr "Tipo MIME debe seguir la siguiente sintaxis: tipo/subtipo"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:140
@@ -530,10 +532,11 @@ msgid "Block not listed domains"
 msgstr "Bloquear dominios que no están listados"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
+#, fuzzy
 msgid ""
-"If this is enabled, any domain which is neither present neither in the "
-"<i>Domains rules</i> nor in the <i>Domain list files</i> sections below will "
-"be forbidden."
+"If this option is enabled, any domain which is not present in the <i>Domains "
+"rules</i> nor in the <i>Domain list files</i> sections below will be "
+"forbidden."
 msgstr ""
 "Si esta opción está habilitada, cualquier dominio que no está en el "
 "<i>Domains rules</i>, ni en el <i>Domain list files</i> secciones abajo, "
@@ -681,8 +684,7 @@ msgstr "Política de objeto actualizada"
 #: src/EBox/Squid/Model/ObjectPolicy.pm:173
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr ""
-"La política de autorización es incompatible con el modo de proxy "
-"transparente"
+"La política de autorización es incompatible con el modo de proxy transparente"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:196
 msgid "Filter policies are incompatible with restricted time periods"
@@ -696,10 +698,10 @@ msgstr ""
 "No puede elegir política sin autorización si tiene alguna política de grupo"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:442
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"There are not network objects in the system. {open}Create{close} at least "
-"one object  if you want to set a object policy"
+"There are no network objects in the system. {open}Create{close} at least one "
+"object if you want to set a object policy"
 msgstr ""
 "No existen objetos de red en el sistema. {open}Create{close} al menos un "
 "objeto si quiere configurar una política de objeto. "
@@ -816,7 +818,8 @@ msgstr ""
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:175
 msgid "Global group policy need a global policy with authentication"
-msgstr "Política de grupo global requiere una política global con autenticación"
+msgstr ""
+"Política de grupo global requiere una política global con autenticación"
 
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:51
 #: src/EBox/Squid/Model/ExtensionFilter.pm:66
@@ -903,8 +906,8 @@ msgid ""
 "Extensions not listed here are allowed.\n"
 "The extension filter needs a 'filter' policy to be in effect"
 msgstr ""
-"Permitir / Denegar el tráfico HTTP de los ficheros con las extensiones "
-"dado.\\ NLas extensiones que no figuran en esta lista están permitidos.\\ NEl "
+"Permitir / Denegar el tráfico HTTP de los ficheros con las extensiones dado."
+"\\ NLas extensiones que no figuran en esta lista están permitidos.\\ NEl "
 "filtro de extensión necesita una política de 'filter' para funcionar"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:128
@@ -1022,6 +1025,11 @@ msgstr ""
 msgid "Domains lists files for filter group"
 msgstr "Ficheros de las listas de dominios para el filtrado de grupo"
 
+#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
+#, fuzzy
+msgid "You can upload files whith lists of domains"
+msgstr "Puede subir ficheros con lista de dominios"
+
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:91
 msgid ""
 "Here you can deny or allow access depending on the user group. Filtering "
@@ -1031,10 +1039,12 @@ msgstr ""
 "Filtrado ocurriría si la política de objeto lo requiere."
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:148
+#, fuzzy
 msgid ""
-"The object needs to be set to a policy with authorization for be able to use "
-"groups policies"
+"The object needs to be set to a policy with authorization in order to to use "
+"group policies"
 msgstr ""
+"No puede elegir política sin autorización si tiene alguna política de grupo"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:163
 #, perl-brace-format

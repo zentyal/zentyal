@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:50+0100\n"
+"POT-Creation-Date: 2010-01-25 20:53+0100\n"
 "PO-Revision-Date: 2010-01-15 13:20+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -284,7 +284,7 @@ msgstr "Nincs regisztrálva"
 msgid "Subscribed"
 msgstr "Regisztrálva"
 
-#: src/EBox/RemoteServices.pm:194 src/EBox/RemoteServices.pm:580
+#: src/EBox/RemoteServices.pm:194 src/EBox/RemoteServices.pm:584
 msgid "Control Center"
 msgstr "Vezérlőközpont"
 
@@ -292,12 +292,12 @@ msgstr "Vezérlőközpont"
 msgid "eBox Control Center Connection"
 msgstr "eBox vezérlőközpont kapcsolat"
 
-#: src/EBox/RemoteServices.pm:573
+#: src/EBox/RemoteServices.pm:577
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
 msgstr "Nincs kapcsolat. Ellenőrizze a VPN logokat: {path}"
 
-#: src/EBox/RemoteServices.pm:577
+#: src/EBox/RemoteServices.pm:581
 msgid "Connected"
 msgstr "Csatlakozva"
 

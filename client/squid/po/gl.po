@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:51+0100\n"
+"POT-Creation-Date: 2010-01-25 20:54+0100\n"
 "PO-Revision-Date: 2009-01-26 18:35+0000\n"
 "Last-Translator: Tomás Vilariño <tomas.vilarino@aitire.es>\n"
 "Language-Team: none\n"
@@ -96,7 +96,7 @@ msgid "Dansguardian's log rotation configuration"
 msgstr ""
 
 #: src/EBox/Squid.pm:277
-msgid "Dansguardian's antivirus canner configuration"
+msgid "Dansguardian's antivirus scanner configuration"
 msgstr ""
 
 #: src/EBox/Squid.pm:313
@@ -389,8 +389,7 @@ msgid "internet domain list"
 msgstr "dominio de internet"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
-#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
-msgid "You can uplaod fiels whith list of domains"
+msgid "You can upload files with lists of domains"
 msgstr ""
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
@@ -506,7 +505,8 @@ msgid "MIME Type"
 msgstr "Tipo MIME"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:130
-msgid "A MIME Type must follows this syntax: type/subtype"
+#, fuzzy
+msgid "A MIME Type must follow this syntax: type/subtype"
 msgstr "Un tipo MIME debe seguir esta sintaxe: tipo/subtipo"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:140
@@ -540,9 +540,9 @@ msgstr "Bloquear os dominios non listados"
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
 #, fuzzy
 msgid ""
-"If this is enabled, any domain which is neither present neither in the "
-"<i>Domains rules</i> nor in the <i>Domain list files</i> sections below will "
-"be forbidden."
+"If this option is enabled, any domain which is not present in the <i>Domains "
+"rules</i> nor in the <i>Domain list files</i> sections below will be "
+"forbidden."
 msgstr ""
 "Se esta opción está habilitada, calquer dominio que non esté permitido na "
 "sección de abaixo <i>listado de Dominios</i> estará prohibido."
@@ -698,8 +698,8 @@ msgstr ""
 #: src/EBox/Squid/Model/ObjectPolicy.pm:442
 #, perl-brace-format
 msgid ""
-"There are not network objects in the system. {open}Create{close} at least "
-"one object  if you want to set a object policy"
+"There are no network objects in the system. {open}Create{close} at least one "
+"object if you want to set a object policy"
 msgstr ""
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
@@ -1025,6 +1025,10 @@ msgstr ""
 msgid "Domains lists files for filter group"
 msgstr ""
 
+#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
+msgid "You can upload files whith lists of domains"
+msgstr ""
+
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:91
 msgid ""
 "Here you can deny or allow access depending on the user group. Filtering "
@@ -1033,8 +1037,8 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:148
 msgid ""
-"The object needs to be set to a policy with authorization for be able to use "
-"groups policies"
+"The object needs to be set to a policy with authorization in order to to use "
+"group policies"
 msgstr ""
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:163

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:11+0100\n"
+"POT-Creation-Date: 2010-01-25 20:53+0100\n"
 "PO-Revision-Date: 2010-01-15 14:56+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -112,7 +112,7 @@ msgid "path"
 msgstr "sti"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
-#: src/EBox/Samba/Model/SambaShares.pm:146
+#: src/EBox/Samba/Model/SambaShares.pm:147
 msgid "share"
 msgstr "delings område"
 
@@ -192,58 +192,59 @@ msgstr ""
 msgid "All users"
 msgstr "Alle brukere"
 
-#: src/EBox/Samba/Model/SambaShares.pm:97
+#: src/EBox/Samba/Model/SambaShares.pm:98
 msgid "Share name"
 msgstr "Delings område navn"
 
-#: src/EBox/Samba/Model/SambaShares.pm:103
+#: src/EBox/Samba/Model/SambaShares.pm:104
 msgid "Share path"
 msgstr "Delings sti"
 
-#: src/EBox/Samba/Model/SambaShares.pm:109
+#: src/EBox/Samba/Model/SambaShares.pm:110
 msgid "Directory under eBox"
 msgstr "Mappe under eBox"
 
-#: src/EBox/Samba/Model/SambaShares.pm:115
+#: src/EBox/Samba/Model/SambaShares.pm:116
 msgid "File system path"
 msgstr "Fil system sti"
 
-#: src/EBox/Samba/Model/SambaShares.pm:123
+#: src/EBox/Samba/Model/SambaShares.pm:124
 msgid "Comment"
 msgstr "Kommenter"
 
-#: src/EBox/Samba/Model/SambaShares.pm:128
+#: src/EBox/Samba/Model/SambaShares.pm:129
 msgid "Access control"
 msgstr "Tilgangs kontroll"
 
-#: src/EBox/Samba/Model/SambaShares.pm:138
+#: src/EBox/Samba/Model/SambaShares.pm:139
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:186
 msgid "Shares"
 msgstr "Delings områder"
 
-#: src/EBox/Samba/Model/SambaShares.pm:176
+#: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
 msgstr "Sti ikke tillatt"
 
-#: src/EBox/Samba/Model/SambaShares.pm:184
+#: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr "Bare alfanumeriske tegn pluss _ er gyldig for sti"
 
-#: src/EBox/Samba/Model/SambaShares.pm:218
+#: src/EBox/Samba/Model/SambaShares.pm:219
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "Mappen er ikke tom. Er du sikker på at du vil fjerne den?"
 
-#: src/EBox/Samba/Model/SambaShares.pm:276
+#: src/EBox/Samba/Model/SambaShares.pm:277
+#, fuzzy, perl-brace-format
 msgid ""
-"<i>Directory under eBox</i> will automatically create the share.directory "
-"in /home/samba/shares <br><i>File system path</i> will allow you to share an "
-"existing directory within your file system. "
+"{openit}Directory under eBox{closeit} will automatically create the share."
+"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
+"allow you to share an existing directory within your file system"
 msgstr ""
 "<i>Mappen under eBox</i> vill automatisk opprette delings.mappe /home/samba/"
 "shares <br><i>Fil system sti</i> vil tillate deg å dele en eksisterende "
 "mappe innenfor ditt filsystem. "
 
-#: src/EBox/Samba/Model/SambaShares.pm:286
+#: src/EBox/Samba/Model/SambaShares.pm:290
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
@@ -690,11 +691,11 @@ msgstr "skriver modul"
 msgid "file sharing module"
 msgstr "fil delings modul"
 
-#: stubs/smb.conf.mas:104
+#: stubs/smb.conf.mas:105
 msgid "Home Directories"
 msgstr "Hjemme Mapper"
 
-#: stubs/smb.conf.mas:132
+#: stubs/smb.conf.mas:133
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group} delings mappe"

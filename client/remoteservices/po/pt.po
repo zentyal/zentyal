@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:50+0100\n"
+"POT-Creation-Date: 2010-01-25 20:53+0100\n"
 "PO-Revision-Date: 2009-11-05 00:15+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -294,7 +294,7 @@ msgstr "Não subscritos"
 msgid "Subscribed"
 msgstr "Subscritos"
 
-#: src/EBox/RemoteServices.pm:194 src/EBox/RemoteServices.pm:580
+#: src/EBox/RemoteServices.pm:194 src/EBox/RemoteServices.pm:584
 msgid "Control Center"
 msgstr "Centro de controle"
 
@@ -303,12 +303,12 @@ msgstr "Centro de controle"
 msgid "eBox Control Center Connection"
 msgstr "Cliente do Centro de controle"
 
-#: src/EBox/RemoteServices.pm:573
+#: src/EBox/RemoteServices.pm:577
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:577
+#: src/EBox/RemoteServices.pm:581
 #, fuzzy
 msgid "Connected"
 msgstr "Erro de ligação"

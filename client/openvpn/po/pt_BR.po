@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:10+0100\n"
+"POT-Creation-Date: 2010-01-25 20:53+0100\n"
 "PO-Revision-Date: 2009-05-18 15:38+0200\n"
 "Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
 "Language-Team: none\n"
@@ -79,7 +79,6 @@ msgid "Disabled"
 msgstr "Desabilitado"
 
 #: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:314
-#: src/EBox/OpenVPN/Model/Clients.pm:67
 msgid "Service"
 msgstr "Serviço"
 
@@ -316,28 +315,28 @@ msgstr ""
 "A interface precisa ser uma interface externa, a menos que o \"disfarce\" "
 "esteja habilitado"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:60
 msgid "Client's type"
 msgstr "Tipo de cliente"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:69
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:111
 msgid "Client's certificate"
 msgstr "Certificado do cliente"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:75
 msgid "Add OpenVPN's installer to bundle"
 msgstr "Adicionar instalador OpenVPN ao pacote"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:77
 msgid "OpenVPN installer for Microsoft Windows"
 msgstr "Instalador OpenVPN para o Microsoft Windows"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:81
 msgid "Server address"
 msgstr "Endereço do servidor"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:82
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:83
 msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
@@ -345,21 +344,22 @@ msgstr ""
 "Este é o endereço que seus clientes irão usar para conectar com o servidor. "
 "Tipicamente, este é um nome host ou IP público"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:88
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:94
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:89
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:95
 msgid "Additional server address (optional)"
 msgstr "Endereço de servidor adicional (opcional)"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
 #, fuzzy
 msgid "Download Client Bundle"
 msgstr "Baixar o pacote de cliente"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:140
-msgid "EBox to EBox tunnel"
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
+#, fuzzy
+msgid "eBox to eBox tunnel"
 msgstr "Túnel entre eBox'es"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:174
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
@@ -367,24 +367,24 @@ msgstr ""
 "Impossível criar pacote porque o o servidor não está totalmente configurado; "
 "por favor edite a configuração e tente denovo"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:189
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
 msgid "Cannot use for the bundle the server's certificate"
 msgstr "Impossível usar o certificado do servidor para o pacote"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:209
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
 msgid "Invalid client type: the server does not allow eBox-to-eBox tunnels"
 msgstr "Tipo de cliente inválido: o servidor não permite túneis entre eBox'es"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:218
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:219
 msgid "Invalid client type: the server is intended for eBox-to-eBox tunnels"
 msgstr ""
 "Tipo de cliente inválido: o servidor é necessário para túneis entre eBox'es"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
 msgid "Installer is only available for Windows clients"
 msgstr "Instalador está disponível apenas para clientes Windows"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:296
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:297
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
@@ -392,7 +392,7 @@ msgstr ""
 "O pacote cliente é um arquivo que contém uma configuração pronta pra uso em "
 "seus clientes"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:344
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:345
 #, fuzzy
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
@@ -488,6 +488,11 @@ msgstr "Daemons deletados"
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
 msgid "daemon"
 msgstr "daemon"
+
+#: src/EBox/OpenVPN/Model/Clients.pm:67
+#, fuzzy
+msgid "Enable"
+msgstr "Habilitado"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
 #, fuzzy

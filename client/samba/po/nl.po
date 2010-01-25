@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:11+0100\n"
+"POT-Creation-Date: 2010-01-25 20:53+0100\n"
 "PO-Revision-Date: 2008-12-03 14:20+0000\n"
 "Last-Translator: Ronald van Eendenburg <ronald@kovoks.nl>\n"
 "Language-Team: none\n"
@@ -114,7 +114,7 @@ msgid "path"
 msgstr "pad"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
-#: src/EBox/Samba/Model/SambaShares.pm:146
+#: src/EBox/Samba/Model/SambaShares.pm:147
 msgid "share"
 msgstr "gedeelde map"
 
@@ -197,58 +197,59 @@ msgstr ""
 msgid "All users"
 msgstr "gebruiker"
 
-#: src/EBox/Samba/Model/SambaShares.pm:97
+#: src/EBox/Samba/Model/SambaShares.pm:98
 msgid "Share name"
 msgstr "Gedeelde map naam"
 
-#: src/EBox/Samba/Model/SambaShares.pm:103
+#: src/EBox/Samba/Model/SambaShares.pm:104
 msgid "Share path"
 msgstr "Pad van gedeelde mappen"
 
-#: src/EBox/Samba/Model/SambaShares.pm:109
+#: src/EBox/Samba/Model/SambaShares.pm:110
 msgid "Directory under eBox"
 msgstr "Naam van map onder eBox"
 
-#: src/EBox/Samba/Model/SambaShares.pm:115
+#: src/EBox/Samba/Model/SambaShares.pm:116
 msgid "File system path"
 msgstr "Pad van bestandssyteem"
 
-#: src/EBox/Samba/Model/SambaShares.pm:123
+#: src/EBox/Samba/Model/SambaShares.pm:124
 msgid "Comment"
 msgstr "Commentaar"
 
-#: src/EBox/Samba/Model/SambaShares.pm:128
+#: src/EBox/Samba/Model/SambaShares.pm:129
 msgid "Access control"
 msgstr "Toegangscontrole "
 
-#: src/EBox/Samba/Model/SambaShares.pm:138
+#: src/EBox/Samba/Model/SambaShares.pm:139
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:186
 msgid "Shares"
 msgstr "Gedeelde mappen"
 
-#: src/EBox/Samba/Model/SambaShares.pm:176
+#: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
 msgstr "Pad niet toegestaan"
 
-#: src/EBox/Samba/Model/SambaShares.pm:184
+#: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr "Alleen alfanummerieke karakters en _ zijn toegestaan voor een padnaam"
 
-#: src/EBox/Samba/Model/SambaShares.pm:218
+#: src/EBox/Samba/Model/SambaShares.pm:219
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "De map is niet leeg. Weet je zeker dat je deze wil verwijderen?"
 
-#: src/EBox/Samba/Model/SambaShares.pm:276
+#: src/EBox/Samba/Model/SambaShares.pm:277
+#, fuzzy, perl-brace-format
 msgid ""
-"<i>Directory under eBox</i> will automatically create the share.directory "
-"in /home/samba/shares <br><i>File system path</i> will allow you to share an "
-"existing directory within your file system. "
+"{openit}Directory under eBox{closeit} will automatically create the share."
+"directory in /home/samba/shares {br}{openit}File system path{closeit} will "
+"allow you to share an existing directory within your file system"
 msgstr ""
 "<i>Directory onder eBox</i> zal automatisch de gedeelde map creëren in /home/"
 "samba/shares <br><i>Bestandssystem pad</i> staat toe om een map te delen "
 "binnen het bestandssysteem. "
 
-#: src/EBox/Samba/Model/SambaShares.pm:286
+#: src/EBox/Samba/Model/SambaShares.pm:290
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
@@ -723,11 +724,11 @@ msgstr "printers module"
 msgid "file sharing module"
 msgstr "Bestanden delen module"
 
-#: stubs/smb.conf.mas:104
+#: stubs/smb.conf.mas:105
 msgid "Home Directories"
 msgstr "Home mappen"
 
-#: stubs/smb.conf.mas:132
+#: stubs/smb.conf.mas:133
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group} gedeelde map"

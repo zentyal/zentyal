@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-monitor 0.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:58+0000\n"
+"POT-Creation-Date: 2010-01-25 20:52+0100\n"
 "PO-Revision-Date: 2009-02-05 07:40+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -370,7 +370,7 @@ msgstr "مانیتورینگ"
 #, perl-brace-format
 msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
-"Status section{closehref}"
+"Status{closehref} section."
 msgstr ""
 
 #: src/EBox/CGI/Index.pm:98
@@ -415,5 +415,6 @@ msgid "Collectd main configuration file"
 msgstr "فایل پیکربندی اصلی را جمع آوری کن"
 
 #: src/EBox/Monitor.pm:137
-msgid "Collectd threshold configuration file"
+#, fuzzy
+msgid "Collectd thresholds configuration file"
 msgstr "فایل پیکربندی سطح آستانه را جمع آوری کن"

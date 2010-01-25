@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:48+0100\n"
+"POT-Creation-Date: 2010-01-25 20:49+0100\n"
 "PO-Revision-Date: 2010-01-25 19:28+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
@@ -95,8 +95,7 @@ msgstr ""
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr ""
-"Meg kell adnia a rendszerindító lemezkép elérési útvonalát a távoli "
-"szerveren"
+"Meg kell adnia a rendszerindító lemezkép elérési útvonalát a távoli szerveren"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
 msgid ""
@@ -155,7 +154,8 @@ msgstr ""
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
-msgstr "Az alapértelmezett IP-bérleti időnek többnek kell lennie 0 másodpercnél"
+msgstr ""
+"Az alapértelmezett IP-bérleti időnek többnek kell lennie 0 másodpercnél"
 
 #: src/EBox/Model/LeaseTimes.pm:138
 #, perl-brace-format

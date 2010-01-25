@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:51+0100\n"
+"POT-Creation-Date: 2010-01-25 20:54+0100\n"
 "PO-Revision-Date: 2009-10-13 06:11+0000\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -103,7 +103,7 @@ msgid "Dansguardian's log rotation configuration"
 msgstr ""
 
 #: src/EBox/Squid.pm:277
-msgid "Dansguardian's antivirus canner configuration"
+msgid "Dansguardian's antivirus scanner configuration"
 msgstr ""
 
 #: src/EBox/Squid.pm:313
@@ -394,8 +394,8 @@ msgid "internet domain list"
 msgstr "Internetdomänen-Liste"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
-#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
-msgid "You can uplaod fiels whith list of domains"
+#, fuzzy
+msgid "You can upload files with lists of domains"
 msgstr "Du kannst Dateien mit Domain-Listen hochladen"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
@@ -508,7 +508,8 @@ msgid "MIME Type"
 msgstr "MIME-Typ"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:130
-msgid "A MIME Type must follows this syntax: type/subtype"
+#, fuzzy
+msgid "A MIME Type must follow this syntax: type/subtype"
 msgstr ""
 "Eine neuer MIME-Typ muss folgendes Schema haben: \"kategorie/unterkategorie"
 "\"."
@@ -544,9 +545,9 @@ msgstr "Nicht aufgeliste Domänen verbieten"
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
 #, fuzzy
 msgid ""
-"If this is enabled, any domain which is neither present neither in the "
-"<i>Domains rules</i> nor in the <i>Domain list files</i> sections below will "
-"be forbidden."
+"If this option is enabled, any domain which is not present in the <i>Domains "
+"rules</i> nor in the <i>Domain list files</i> sections below will be "
+"forbidden."
 msgstr ""
 "Wenn dies aktiviert ist, wird jede Domain, welche nicht in der unten "
 "angeführten  <i>Domain-Liste</i> erlaubt ist, gesperrt."
@@ -703,8 +704,8 @@ msgstr ""
 #: src/EBox/Squid/Model/ObjectPolicy.pm:442
 #, perl-brace-format
 msgid ""
-"There are not network objects in the system. {open}Create{close} at least "
-"one object  if you want to set a object policy"
+"There are no network objects in the system. {open}Create{close} at least one "
+"object if you want to set a object policy"
 msgstr ""
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
@@ -1026,6 +1027,11 @@ msgstr "Maximum an Filter-Gruppen erreicht"
 msgid "Domains lists files for filter group"
 msgstr ""
 
+#: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
+#, fuzzy
+msgid "You can upload files whith lists of domains"
+msgstr "Du kannst Dateien mit Domain-Listen hochladen"
+
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:91
 msgid ""
 "Here you can deny or allow access depending on the user group. Filtering "
@@ -1034,8 +1040,8 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:148
 msgid ""
-"The object needs to be set to a policy with authorization for be able to use "
-"groups policies"
+"The object needs to be set to a policy with authorization in order to to use "
+"group policies"
 msgstr ""
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:163

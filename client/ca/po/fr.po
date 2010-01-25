@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:48+0100\n"
+"POT-Creation-Date: 2010-01-25 20:39+0100\n"
 "PO-Revision-Date: 2009-09-30 11:32+0200\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -210,37 +210,37 @@ msgstr ""
 msgid "General"
 msgstr "Général"
 
-#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:249
+#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:251
 msgid "Services Certificates"
 msgstr "Services des Certificats"
 
-#: src/EBox/CA.pm:2277
+#: src/EBox/CA.pm:2279
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Impossible de signer. Phrase secrète invalide ou la clef privée de CA a-t-"
 "elle disparue?"
 
-#: src/EBox/CA.pm:2279
+#: src/EBox/CA.pm:2281
 msgid "Database corruption"
 msgstr "Base de donnée corrompue"
 
-#: src/EBox/CA.pm:2281
+#: src/EBox/CA.pm:2283
 msgid "Identifier duplicated in Database"
 msgstr "Identifiant dupliqué dans la base de données"
 
-#: src/EBox/CA.pm:2283
+#: src/EBox/CA.pm:2285
 msgid "Certificate already revoked"
 msgstr "Certificat déjà révoqué"
 
-#: src/EBox/CA.pm:2286
+#: src/EBox/CA.pm:2288
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "Champs ASN1 trop long. Taille maximum :"
 
-#: src/EBox/CA.pm:2288
+#: src/EBox/CA.pm:2290
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Erreur inconnue. Voici le résultat d'OpenSSL:"
 
-#: src/EBox/CA.pm:2363
+#: src/EBox/CA.pm:2365
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -249,19 +249,19 @@ msgstr ""
 "L'autorité de certification avec le nom d'organisation {orgName} a été créé "
 "pour une  période de validité de {days} jours"
 
-#: src/EBox/CA.pm:2365
+#: src/EBox/CA.pm:2367
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr ""
 "L'autorité de certification avec le nom d'organisation {orgName} a été "
 "détruite"
 
-#: src/EBox/CA.pm:2367
+#: src/EBox/CA.pm:2369
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "Révocation du certificat CA à cause de {reason} : {force}"
 
-#: src/EBox/CA.pm:2369
+#: src/EBox/CA.pm:2371
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -270,7 +270,7 @@ msgstr ""
 "Le certificat CA avec le nom d'organisation {orgName} a été créé pour une "
 "période de validité de {days} jours"
 
-#: src/EBox/CA.pm:2371
+#: src/EBox/CA.pm:2373
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -279,14 +279,14 @@ msgstr ""
 "Le certificat CA avec le nom d'organisation {orgName} a été renouvelé pour "
 "une période de validité de {days} jours"
 
-#: src/EBox/CA.pm:2373
+#: src/EBox/CA.pm:2375
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Publication du certificat avec le nom commun {cn} et une validité de {days} "
 "jours"
 
-#: src/EBox/CA.pm:2375
+#: src/EBox/CA.pm:2377
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -294,25 +294,25 @@ msgstr ""
 "Le certificat avec le nom commun {cn} a été révoqué à cause de {reason} : "
 "{force}"
 
-#: src/EBox/CA.pm:2377
+#: src/EBox/CA.pm:2379
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Le certificat avec le nom commun {cn} et la période de validité de {days} "
 "jours a été renouvelé"
 
-#: src/EBox/CA.pm:2379
+#: src/EBox/CA.pm:2381
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "Mise-à-jour de la base de donnée des certificats. {number} certificats ont "
 "expirés"
 
-#: src/EBox/CA.pm:2399 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:2401 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "La date d'expiration excède la date d'expiration du certificat CA"
 
-#: src/EBox/CA.pm:2526
+#: src/EBox/CA.pm:2528
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Ne peut pas démarrer l'interface OpenSSL. ({errval})"
@@ -338,9 +338,19 @@ msgstr "Service"
 msgid "Enable"
 msgstr "Activé"
 
-#: src/EBox/Model/Certificates.pm:250
+#: src/EBox/Model/Certificates.pm:243
+msgid "Generate the certificate using CA with the common name set above"
+msgstr ""
+
+#: src/EBox/Model/Certificates.pm:252
 msgid "certificate"
 msgstr "certificat "
+
+#: src/EBox/Model/Certificates.pm:258
+msgid ""
+"Here you may set certificates from this CA for those secure services managed "
+"by eBox"
+msgstr ""
 
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format

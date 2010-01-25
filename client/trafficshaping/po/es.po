@@ -1,16 +1,3 @@
-msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-25 12:11+0200\n"
-"PO-Revision-Date: 2010-01-25 17:19+0100\n"
-"Last-Translator: Heidi Vilppola <hvilppola@ebox-technologies.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
-"X-Generator: Pootle 1.1.0\n"
-
 # Spanish translations for ebox-trafficshaping package.
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
@@ -20,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:51+0100\n"
+"POT-Creation-Date: 2010-01-25 20:57+0100\n"
 "PO-Revision-Date: 2007-05-16 13:07+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: none\n"
@@ -114,7 +101,7 @@ msgstr ""
 "reglas para usar este objeto."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
-msgid "If service is any, some source ordestination should be provided"
+msgid "If service is any, some source or destination should be provided"
 msgstr "Si el servicio es cualquiera, se debe dar algún origen o destino"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:393
@@ -178,8 +165,9 @@ msgid "Kbit/s"
 msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:474
+#, fuzzy
 msgid ""
-"Note that  The sum of all guaranteed rates cannot exceed your total "
+"Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
 "Tenga en cuenta que la suma de todas las tasas garantizadas no puede superar "
@@ -262,7 +250,8 @@ msgstr "Subida de datos"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
-msgid "Upload rate in Kbits/s for through this interface"
+#, fuzzy
+msgid "Upload rate in Kbits/s through this interface"
 msgstr "Tasa de subida de datos en Kbits/s a través de esta interfaz"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
@@ -291,12 +280,11 @@ msgid ""
 msgstr ""
 "El moldeado de tráfico se aplica cuando eBox actua como una puerta de "
 "enlace. Para conseguirlo, se requiere al menos una interfaz interna y otra "
-"externa. Comprueba que tu configuración es correcta en "
-"{openhref}Red->Interfaces{closehref}"
+"externa. Comprueba que tu configuración es correcta en {openhref}Red-"
+">Interfaces{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "Traffic Shaping is applied only if there are gateways with an upload rate "
 "set associated with an external interface. In order to do so, create a "
@@ -397,6 +385,9 @@ msgstr "Puerto"
 msgid "options"
 msgstr "opciones"
 
+#~ msgid "If service is any, some source ordestination should be provided"
+#~ msgstr "Si el servicio es cualquiera, se debe dar algún origen o destino"
+
 #~ msgid "Change or remove some rules on {contextName}"
 #~ msgstr "Cambiar o borrar algunas reglas en {contextName}"
 
@@ -409,9 +400,6 @@ msgstr "opciones"
 #~ msgstr ""
 #~ "El moldeado de tráfico sólo puede hacerse en interfaces externos que "
 #~ "tienen asociados puertas de enlace"
-
-#~ msgid "If service is any, some source or destination should be provided"
-#~ msgstr "Si el servicio es cualquiera, se debe dar algún origen o destino"
 
 #, fuzzy
 #~ msgid ""

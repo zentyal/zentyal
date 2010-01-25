@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:50+0100\n"
+"POT-Creation-Date: 2010-01-25 20:53+0100\n"
 "PO-Revision-Date: 2009-08-16 11:21+0200\n"
 "Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
 "Language-Team: none\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Cups printer server port"
 msgstr "Porta do servidor CUPS"
 
-#: src/EBox/CGI/Model.pm:39 src/EBox/CGI/LPDPrinterUI.pm:46
+#: src/EBox/CGI/Model.pm:41 src/EBox/CGI/LPDPrinterUI.pm:46
 #: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/CGI/SambaPrinterUI.pm:46
 #: src/EBox/CGI/DrvoptsUI.pm:46 src/EBox/CGI/USBPrinterUI.pm:46
 #: src/EBox/CGI/Driver.pm:39 src/EBox/CGI/ManagePrinter.pm:40
@@ -31,25 +31,31 @@ msgstr "Porta do servidor CUPS"
 #: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/LPDPrinter.pm:41
 #: src/EBox/CGI/IPPPrinter.pm:42 src/EBox/CGI/Manufacturer.pm:39
 #: src/EBox/CGI/ManufacturerUI.pm:46 src/EBox/CGI/Drvopts.pm:39
-#: src/EBox/CGI/ParallelPrinter.pm:40 src/EBox/Printers.pm:252
-#: src/EBox/Printers.pm:387 src/EBox/Printers.pm:400 src/EBox/Printers.pm:417
-#: src/EBox/Printers.pm:473 src/EBox/Printers.pm:525 src/EBox/Printers.pm:567
-#: src/EBox/Printers.pm:584 src/EBox/Printers.pm:606 src/EBox/Printers.pm:632
-#: src/EBox/Printers.pm:659 src/EBox/Printers.pm:691 src/EBox/Printers.pm:721
-#: src/EBox/Printers.pm:749 src/EBox/Printers.pm:790 src/EBox/Printers.pm:804
-#: src/EBox/Printers.pm:830 src/EBox/Printers.pm:844 src/EBox/Printers.pm:870
-#: src/EBox/Printers.pm:884 src/EBox/Printers.pm:909 src/EBox/Printers.pm:932
-#: src/EBox/Printers.pm:957 src/EBox/Printers.pm:1029
-#: src/EBox/Printers.pm:1078 src/EBox/Printers.pm:1123
-#: src/EBox/Printers.pm:1152 src/EBox/Printers.pm:1207
-#: src/EBox/Printers.pm:1222 src/EBox/Printers.pm:1253
+#: src/EBox/CGI/PrintTest.pm:39 src/EBox/CGI/ParallelPrinter.pm:40
+#: src/EBox/Printers.pm:253 src/EBox/Printers.pm:388 src/EBox/Printers.pm:401
+#: src/EBox/Printers.pm:418 src/EBox/Printers.pm:474 src/EBox/Printers.pm:526
+#: src/EBox/Printers.pm:568 src/EBox/Printers.pm:585 src/EBox/Printers.pm:607
+#: src/EBox/Printers.pm:633 src/EBox/Printers.pm:660 src/EBox/Printers.pm:692
+#: src/EBox/Printers.pm:722 src/EBox/Printers.pm:750 src/EBox/Printers.pm:791
+#: src/EBox/Printers.pm:805 src/EBox/Printers.pm:831 src/EBox/Printers.pm:845
+#: src/EBox/Printers.pm:871 src/EBox/Printers.pm:885 src/EBox/Printers.pm:910
+#: src/EBox/Printers.pm:933 src/EBox/Printers.pm:958 src/EBox/Printers.pm:1030
+#: src/EBox/Printers.pm:1079 src/EBox/Printers.pm:1124
+#: src/EBox/Printers.pm:1152 src/EBox/Printers.pm:1184
+#: src/EBox/Printers.pm:1244 src/EBox/Printers.pm:1259
+#: src/EBox/Printers.pm:1290
 msgid "Printer"
 msgstr "Impressora"
 
-#: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:848 src/EBox/Printers.pm:888
-#: src/templates/printer.mas:149 src/templates/printerback.mas:29
+#: src/EBox/CGI/Model.pm:42 src/EBox/Printers.pm:849 src/EBox/Printers.pm:889
+#: src/templates/printer.mas:151 src/templates/printerback.mas:29
 msgid "Model"
 msgstr "Modelo"
+
+#: src/EBox/CGI/Model.pm:53
+#, perl-brace-format
+msgid "Printer {printer} has no available drivers"
+msgstr ""
 
 #: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:30
 #: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
@@ -71,16 +77,16 @@ msgid "Next"
 msgstr "Próximo"
 
 #: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/CGI/LPDPrinter.pm:42
-#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/Printers.pm:663
-#: src/EBox/Printers.pm:725 src/EBox/Printers.pm:753 src/templates/ipp.mas:23
+#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/Printers.pm:664
+#: src/EBox/Printers.pm:726 src/EBox/Printers.pm:754 src/templates/ipp.mas:23
 #: src/templates/lpd.mas:23 src/templates/printerback.mas:182
 #: src/templates/network.mas:23
 msgid "IP"
 msgstr "IP"
 
 #: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/CGI/LPDPrinter.pm:43
-#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:664
-#: src/EBox/Printers.pm:726 src/EBox/Printers.pm:754 src/templates/ipp.mas:31
+#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:665
+#: src/EBox/Printers.pm:727 src/EBox/Printers.pm:755 src/templates/ipp.mas:31
 #: src/templates/lpd.mas:31 src/templates/printerback.mas:190
 #: src/templates/network.mas:31
 msgid "Port"
@@ -98,7 +104,7 @@ msgstr "Cups desligado"
 msgid "Add a new printer (VI)"
 msgstr "Adicionar uma nova impressora (VI)"
 
-#: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:157
+#: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:159
 #: src/templates/printerback.mas:37
 msgid "Driver"
 msgstr "Driver"
@@ -167,12 +173,12 @@ msgid "Add a new printer (IV)"
 msgstr "Adicionar uma nova impressora (IV)"
 
 #: src/EBox/CGI/USBPrinter.pm:41 src/EBox/CGI/ParallelPrinter.pm:41
-#: src/EBox/Printers.pm:612 src/EBox/Printers.pm:638
+#: src/EBox/Printers.pm:613 src/EBox/Printers.pm:639
 #: src/templates/parallel.mas:18 src/templates/usb.mas:18
 msgid "Device"
 msgstr "Dispositivo"
 
-#: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:357
+#: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:358
 msgid "Manage printers"
 msgstr "Gerenciar impressoras"
 
@@ -184,8 +190,8 @@ msgstr "Remover impressora"
 msgid "Add a new printer (V)"
 msgstr "Adicionar uma nova impressora (V)"
 
-#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:496
-#: src/EBox/Printers.pm:588 src/templates/addprinter.mas:23
+#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:497
+#: src/EBox/Printers.pm:589 src/templates/addprinter.mas:23
 msgid "Method"
 msgstr "Método"
 
@@ -193,8 +199,8 @@ msgstr "Método"
 msgid "Printer description"
 msgstr "Descrição da impressora"
 
-#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:809
-#: src/templates/printer.mas:141 src/templates/printerback.mas:21
+#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:810
+#: src/templates/printer.mas:143 src/templates/printerback.mas:21
 msgid "Manufacturer"
 msgstr "Fabricante"
 
@@ -206,52 +212,52 @@ msgstr "Adicionar uma nova impressora (III)"
 msgid "Add a new printer (I)"
 msgstr "Adicionar uma nova impressora (I)"
 
-#: src/EBox/Printers.pm:56
+#: src/EBox/Printers.pm:57
 #, fuzzy
 msgid "Printer Sharing"
 msgstr "Compartilhamento de impressora"
 
-#: src/EBox/Printers.pm:76
+#: src/EBox/Printers.pm:77
 msgid "Create spool directory for printers"
 msgstr "Criar diretório de spool para impressoras"
 
-#: src/EBox/Printers.pm:77
+#: src/EBox/Printers.pm:78
 msgid "eBox will create a spool directory under /var/spool/samba"
 msgstr "o eBox irá criar um diretório de spool em /var/spool/samba"
 
-#: src/EBox/Printers.pm:82
+#: src/EBox/Printers.pm:83
 msgid "Add user ebox to lpadmin group"
 msgstr "Adicione o usuário ebox ao grupo lpadmin"
 
-#: src/EBox/Printers.pm:83
+#: src/EBox/Printers.pm:84
 msgid "In order to manage printers and queues from the eBox web interface"
 msgstr "Para gerenciar as impressoras e filas na interface web do eBox"
 
-#: src/EBox/Printers.pm:88
+#: src/EBox/Printers.pm:89
 msgid "Create log table"
 msgstr "Criar tabela de registro"
 
-#: src/EBox/Printers.pm:89
+#: src/EBox/Printers.pm:90
 msgid ""
 "eBox will create a new table into its log database to store printers logs"
 msgstr ""
 "o eBox irá criar uma nova tabela no banco de registros para guardar os "
 "registros das impressoras"
 
-#: src/EBox/Printers.pm:105
+#: src/EBox/Printers.pm:106
 msgid "To add and manage printers"
 msgstr "Para adicionar e gerenciar impressoras"
 
-#: src/EBox/Printers.pm:110
+#: src/EBox/Printers.pm:111
 msgid "To enable standalone cupsd listen on internal interfaces"
 msgstr "Para ligar o serviço cupsd nas interfaces internas"
 
-#: src/EBox/Printers.pm:295
+#: src/EBox/Printers.pm:296
 #, fuzzy
 msgid "Add Printer"
 msgstr "Adicionar impressora"
 
-#: src/EBox/Printers.pm:492
+#: src/EBox/Printers.pm:493
 msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
@@ -259,78 +265,78 @@ msgstr ""
 "O nome da impressora contem caracteres inválidos. Somente caracteres alfa-"
 "numéricos são permitidos"
 
-#: src/EBox/Printers.pm:501 src/templates/addprinter.mas:15
-#: src/templates/printer.mas:77 src/templates/printers.mas:37
+#: src/EBox/Printers.pm:502 src/templates/addprinter.mas:15
+#: src/templates/printer.mas:79 src/templates/printers.mas:37
 msgid "Name"
 msgstr "Nome"
 
-#: src/EBox/Printers.pm:508
+#: src/EBox/Printers.pm:509
 msgid "The given name is alreaday used as "
 msgstr "O nome já esta sendo utilizado como "
 
-#: src/EBox/Printers.pm:529 src/EBox/Printers.pm:1082
-#: src/EBox/Printers.pm:1127
+#: src/EBox/Printers.pm:530 src/EBox/Printers.pm:1083
+#: src/EBox/Printers.pm:1128 src/EBox/Printers.pm:1188
 msgid "Printer not configured"
 msgstr "Impressora não configurada"
 
-#: src/EBox/Printers.pm:617
+#: src/EBox/Printers.pm:618
 msgid "It is not a usb printer"
 msgstr "Não é uma impressora USB"
 
-#: src/EBox/Printers.pm:643
+#: src/EBox/Printers.pm:644
 msgid "It is not a parallel printer"
 msgstr "Não é uma impressora Paralela"
 
-#: src/EBox/Printers.pm:669
+#: src/EBox/Printers.pm:670
 msgid "It is not a network printer"
 msgstr "Não é uma impressora de Rede"
 
-#: src/EBox/Printers.pm:698
+#: src/EBox/Printers.pm:699
 msgid "It is not a samba printer"
 msgstr "Não é uma impressora do Samba"
 
-#: src/EBox/Printers.pm:731
+#: src/EBox/Printers.pm:732
 msgid "It is not a IPP printer"
 msgstr "Não é uma impressora IPP"
 
-#: src/EBox/Printers.pm:759
+#: src/EBox/Printers.pm:760
 msgid "It is not a LPD printer"
 msgstr "Não é uma impressora LPD"
 
-#: src/EBox/Printers.pm:990 src/EBox/Printers.pm:1016
+#: src/EBox/Printers.pm:991 src/EBox/Printers.pm:1017
 msgid "is not a valid option"
 msgstr "não é uma opção válida"
 
-#: src/EBox/Printers.pm:1107
+#: src/EBox/Printers.pm:1108
 #, perl-brace-format
 msgid "Parameter '{name}' does not exist"
 msgstr "o parâmetro '{name}' não existe"
 
-#: src/EBox/Printers.pm:1252 src/templates/printer.mas:75
+#: src/EBox/Printers.pm:1289 src/templates/printer.mas:77
 msgid "Job ID"
 msgstr "ID do Trabalho"
 
-#: src/EBox/Printers.pm:1254 src/templates/printer.mas:76
+#: src/EBox/Printers.pm:1291 src/templates/printer.mas:78
 msgid "Owner"
 msgstr "Dono"
 
-#: src/EBox/Printers.pm:1255
+#: src/EBox/Printers.pm:1292
 msgid "Queued at"
 msgstr "Enfileirado em"
 
-#: src/EBox/Printers.pm:1256
+#: src/EBox/Printers.pm:1293
 msgid "Event"
 msgstr "Evento"
 
-#: src/EBox/Printers.pm:1259
+#: src/EBox/Printers.pm:1296
 msgid "Queued"
 msgstr "Enfileirado"
 
-#: src/EBox/Printers.pm:1259
+#: src/EBox/Printers.pm:1296
 msgid "Canceled"
 msgstr "Cancelado"
 
-#: src/EBox/Printers.pm:1262
+#: src/EBox/Printers.pm:1299
 msgid "Printers"
 msgstr "Impressoras"
 
@@ -371,8 +377,8 @@ msgstr "Configuração de impressora paralela"
 msgid "Are you sure you want to delete the printer '{name}'?"
 msgstr "Deseja realmente remover a impressora '{name}'?"
 
-#: src/templates/del.mas:21 src/templates/printer.mas:119
-#: src/templates/printer.mas:120 src/templates/printer.mas:121
+#: src/templates/del.mas:21 src/templates/printer.mas:121
+#: src/templates/printer.mas:122 src/templates/printer.mas:123
 #: src/templates/printers.mas:64 src/templates/printers.mas:65
 #: src/templates/printers.mas:66
 msgid "Delete"
@@ -386,32 +392,41 @@ msgstr "Cancelar"
 msgid "Local USB printer configuration"
 msgstr "Configuração de impressora USB"
 
-#: src/templates/printer.mas:32 src/templates/printer.mas:167
-#: src/templates/printer.mas:168 src/templates/printerback.mas:96
+#: src/templates/printer.mas:33 src/templates/printer.mas:169
+#: src/templates/printer.mas:170 src/templates/printerback.mas:96
 #: src/templates/printerback.mas:97 src/templates/printerback.mas:200
 #: src/templates/printerback.mas:201 src/templates/printers.mas:19
 msgid "Change"
 msgstr "Alterar"
 
-#: src/templates/printer.mas:69
+#: src/templates/printer.mas:71
 msgid "Job queue"
 msgstr "Fila de trabalho"
 
-#: src/templates/printer.mas:78
+#: src/templates/printer.mas:80
 msgid "Size(KB)"
 msgstr "Tamanho(KB)"
 
-#: src/templates/printer.mas:79
+#: src/templates/printer.mas:81
 msgid "Creation time"
 msgstr "Data de criação"
 
-#: src/templates/printer.mas:80
+#: src/templates/printer.mas:82
 msgid "Action"
 msgstr "Ação"
 
-#: src/templates/printer.mas:129
+#: src/templates/printer.mas:131
 msgid "This printer has no pending job in queue at the moment"
 msgstr "Esta impressora não tem trabalho pendente no momento"
+
+#: src/templates/printer.mas:179
+msgid "You need to save changes in order to print a test page"
+msgstr ""
+
+#: src/templates/printer.mas:184 src/templates/printer.mas:185
+#, fuzzy
+msgid "Print Test Page"
+msgstr "Nome da impressora"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"

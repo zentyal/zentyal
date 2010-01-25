@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:51+0100\n"
+"POT-Creation-Date: 2010-01-25 20:57+0100\n"
 "PO-Revision-Date: 2009-07-28 04:33+0200\n"
 "Last-Translator: David Ande <david@andeprasfamily.ath.cx>\n"
 "Language-Team: none\n"
@@ -100,7 +100,7 @@ msgstr ""
 "pouvoir ajouter des règles sur cet objet"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
-msgid "If service is any, some source ordestination should be provided"
+msgid "If service is any, some source or destination should be provided"
 msgstr ""
 "Si le service est défini sur \"n'importe lequel /tous\", une source ou une "
 "destination doit être définie"
@@ -166,8 +166,9 @@ msgid "Kbit/s"
 msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:474
+#, fuzzy
 msgid ""
-"Note that  The sum of all guaranteed rates cannot exceed your total "
+"Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
 "Noter que la somme de tout les taux garantis ne peut excéder votre bande "
@@ -249,7 +250,8 @@ msgstr "Envoyer (Upload)"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
-msgid "Upload rate in Kbits/s for through this interface"
+#, fuzzy
+msgid "Upload rate in Kbits/s through this interface"
 msgstr "Taux d'envoi en Kbits/s au travers de l'interface"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
@@ -376,6 +378,11 @@ msgstr "Port"
 msgid "options"
 msgstr "options"
 
+#~ msgid "If service is any, some source ordestination should be provided"
+#~ msgstr ""
+#~ "Si le service est défini sur \"n'importe lequel /tous\", une source ou "
+#~ "une destination doit être définie"
+
 #~ msgid "Change or remove some rules on {contextName}"
 #~ msgstr "Modifier ou effacer les règles sur {contextName}"
 
@@ -391,11 +398,6 @@ msgstr "options"
 #~ msgstr ""
 #~ "Le lissage de trafic ne peut être appliqué qu'aux interfaces externes qui "
 #~ "ont une passerelle associée"
-
-#~ msgid "If service is any, some source or destination should be provided"
-#~ msgstr ""
-#~ "Si le service est défini sur \"n'importe lequel /tous\", une source ou "
-#~ "une destination doit être définie"
 
 #, fuzzy
 #~ msgid ""

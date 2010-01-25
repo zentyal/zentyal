@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:51+0100\n"
+"POT-Creation-Date: 2010-01-25 20:57+0100\n"
 "PO-Revision-Date: 2009-04-19 17:51+0200\n"
 "Last-Translator: R. Hempel <ruben@hempelr.de>\n"
 "Language-Team: none\n"
@@ -104,10 +104,10 @@ msgstr ""
 "Computer hinzu, bevor Sie Regeln für diese Gruppe vergeben"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
-msgid "If service is any, some source ordestination should be provided"
+msgid "If service is any, some source or destination should be provided"
 msgstr ""
-"Wenn alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel angegeben "
-"werden"
+"Wenn der alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel "
+"angegeben werden"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:393
 msgid "Service"
@@ -172,7 +172,7 @@ msgstr "kbit/s"
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:474
 #, fuzzy
 msgid ""
-"Note that  The sum of all guaranteed rates cannot exceed your total "
+"Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
 "Beachten Sie, dass die Summe aller Mindest- Bandbreiten nicht Ihre "
@@ -257,7 +257,7 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
-msgid "Upload rate in Kbits/s for through this interface"
+msgid "Upload rate in Kbits/s through this interface"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
@@ -389,6 +389,11 @@ msgstr "Port"
 msgid "options"
 msgstr "Optionen"
 
+#~ msgid "If service is any, some source ordestination should be provided"
+#~ msgstr ""
+#~ "Wenn alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel "
+#~ "angegeben werden"
+
 #~ msgid "Change or remove some rules on {contextName}"
 #~ msgstr "Ändern oder Entfernen einiger Regeln von {contextName}"
 
@@ -401,11 +406,6 @@ msgstr "Optionen"
 #~ msgstr ""
 #~ "Die Bandbreitenbegrenzung kann nur auf externe Netzwerkkarten mit einem "
 #~ "Gateway angewendet werden"
-
-#~ msgid "If service is any, some source or destination should be provided"
-#~ msgstr ""
-#~ "Wenn der alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel "
-#~ "angegeben werden"
 
 #~ msgid ""
 #~ "Adding a rule to the interface should be done following maximum rate "

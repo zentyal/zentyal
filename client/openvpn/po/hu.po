@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:10+0100\n"
+"POT-Creation-Date: 2010-01-25 20:53+0100\n"
 "PO-Revision-Date: 2010-01-25 11:03+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -79,7 +79,6 @@ msgid "Disabled"
 msgstr "kikapcsolva"
 
 #: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:314
-#: src/EBox/OpenVPN/Model/Clients.pm:67
 msgid "Service"
 msgstr "szolgáltatás"
 
@@ -311,28 +310,28 @@ msgid ""
 "Translation option is on"
 msgstr "Az interfész külső kell legyen, hogy bekapcsolható legyen a NAT opció"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:60
 msgid "Client's type"
 msgstr "kliens (ügyfél) típusa"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:68
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:69
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:111
 msgid "Client's certificate"
 msgstr "kliens (ügyfél) tanúsítványa"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:74
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:75
 msgid "Add OpenVPN's installer to bundle"
 msgstr "Egy OpenVPN telepítő hozzáadása a csomaghoz."
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:77
 msgid "OpenVPN installer for Microsoft Windows"
 msgstr "Egy OpenVPN telepítő a MS Windowshoz."
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:80
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:81
 msgid "Server address"
 msgstr "kiszolgáló címe"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:82
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:83
 msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
@@ -340,20 +339,21 @@ msgstr ""
 "Ezt a címet használja az ügyfél a szerverhez történő kapcsolódáskor. "
 "Tipikusan ez egy publikus IP cím vagy egy gépnév"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:88
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:94
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:89
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:95
 msgid "Additional server address (optional)"
 msgstr "További szerver címek (opcionális)"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
 msgid "Download Client Bundle"
 msgstr "Kliens kapcsolatcsomag letöltése"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:140
-msgid "EBox to EBox tunnel"
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
+#, fuzzy
+msgid "eBox to eBox tunnel"
 msgstr "eBox-eBox csatorna"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:174
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
@@ -361,23 +361,23 @@ msgstr ""
 "Nem készíthető ügyfélcsomag mivel a szerver nincs megfelelően beállítva; "
 "kérem egészítse ki a beállításokat és próbálja újra"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:189
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
 msgid "Cannot use for the bundle the server's certificate"
 msgstr "Nem használható a csomaghoz a szerver tanúsítványa"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:209
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
 msgid "Invalid client type: the server does not allow eBox-to-eBox tunnels"
 msgstr "Érvénytelen ügyfél: a szerver nem engedélyezett eBox-eBox kapcsolathoz"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:218
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:219
 msgid "Invalid client type: the server is intended for eBox-to-eBox tunnels"
 msgstr "Érvénytelen ügyfél: a szerver eBox-eBox kapcsolatot kíván létesíteni"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
 msgid "Installer is only available for Windows clients"
 msgstr "Telepítő csak a Windows ügyfelek számára érhető el"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:296
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:297
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
@@ -385,7 +385,7 @@ msgstr ""
 "Az ügyfélcsomag az egy fájl ami tartalmaz egy azonnal használható "
 "beállításcsomagot az ügyfeleknek"
 
-#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:344
+#: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:345
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
@@ -478,6 +478,11 @@ msgstr "démonok törölve"
 msgid "daemon"
 msgstr "démon"
 
+#: src/EBox/OpenVPN/Model/Clients.pm:67
+#, fuzzy
+msgid "Enable"
+msgstr "bekapcsolva"
+
 #: src/EBox/OpenVPN/Model/Clients.pm:94
 msgid "List of Clients"
 msgstr "kliensek (ügyfelek) listája"
@@ -522,8 +527,8 @@ msgid ""
 "{closehref} and create it.{closepar}"
 msgstr ""
 "{openpar}Létre kell hoznia egy CA tanúsítványt, a modul használatához. "
-"{closepar}{openpar}Kérem menjen a {openhref}tanúsító hatóság "
-"modulba{closehref} és hozza létre.{closepar}"
+"{closepar}{openpar}Kérem menjen a {openhref}tanúsító hatóság modulba"
+"{closehref} és hozza létre.{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:179
 msgid "Server creation"
@@ -561,12 +566,12 @@ msgid ""
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
 "{openpar}Beállíthat egy openVPN szerver, hogy becsatlakoztathasson távoli "
-"irodákat vagy személyeket.{closepar}{openpar}Kattintson a "
-"{openit}Beállításokra{closeit} a VPN beállítására.{closepar}{openpar}A "
-"{openit}Hozzárendelt hálózatok{closeit}-ban beállíthatja milyen hálózatok "
-"legyenek elérhetőek a távoli ügyfelek számára.{openpar}Ha kész van a "
-"beállításokkal, letölthet egy ügyfélcsomagot a használt operációs "
-"rendszerhez az ügyfelek számára."
+"irodákat vagy személyeket.{closepar}{openpar}Kattintson a {openit}"
+"Beállításokra{closeit} a VPN beállítására.{closepar}{openpar}A {openit}"
+"Hozzárendelt hálózatok{closeit}-ban beállíthatja milyen hálózatok legyenek "
+"elérhetőek a távoli ügyfelek számára.{openpar}Ha kész van a beállításokkal, "
+"letölthet egy ügyfélcsomagot a használt operációs rendszerhez az ügyfelek "
+"számára."
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"
@@ -621,7 +626,8 @@ msgstr "A(z) {n} nevet nem használhatja mivel már van egy hasonló nevű ügyf
 #: src/EBox/OpenVPN.pm:694
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
-msgstr "A(z) {n} nevet nem használhatja mivel ezt a nevet egy szerver használja"
+msgstr ""
+"A(z) {n} nevet nem használhatja mivel ezt a nevet egy szerver használja"
 
 #: src/EBox/OpenVPN.pm:716
 #, perl-brace-format

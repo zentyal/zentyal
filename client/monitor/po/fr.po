@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-monitor 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 12:58+0000\n"
+"POT-Creation-Date: 2010-01-25 20:52+0100\n"
 "PO-Revision-Date: 2009-09-30 15:53+0200\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -380,10 +380,10 @@ msgid "Monitoring"
 msgstr "Monitorage"
 
 #: src/EBox/CGI/Index.pm:70
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
-"Status section{closehref}"
+"Status{closehref} section."
 msgstr ""
 "Vous devez activer le module de surveillance pour visualiser les graphiques "
 "dans la section {openhref}Statut du module{closehref}"
@@ -436,5 +436,6 @@ msgid "Collectd main configuration file"
 msgstr "Fichier de configuration principal Collectd"
 
 #: src/EBox/Monitor.pm:137
-msgid "Collectd threshold configuration file"
+#, fuzzy
+msgid "Collectd thresholds configuration file"
 msgstr "Fichier de configuration des seuils Collectd"

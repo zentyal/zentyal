@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:56+0100\n"
+"POT-Creation-Date: 2010-01-25 21:02+0100\n"
 "PO-Revision-Date: 2010-01-20 07:18+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -28,9 +28,9 @@ msgstr "Эта группа содержит пользователей"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52
 #: src/EBox/CGI/Users.pm:31 src/EBox/CGI/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:78
-#: src/EBox/UsersAndGroups/Model/Users.pm:85 src/EBox/UsersAndGroups.pm:2235
-#: src/EBox/UsersAndGroups.pm:2243
+#: src/EBox/UsersAndGroups/Model/Users.pm:79
+#: src/EBox/UsersAndGroups/Model/Users.pm:86 src/EBox/UsersAndGroups.pm:2262
+#: src/EBox/UsersAndGroups.pm:2270
 msgid "Users"
 msgstr "Пользователи"
 
@@ -40,7 +40,7 @@ msgstr "логин"
 
 #: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:49
 #: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/DelGroupFromUser.pm:45
-#: src/EBox/UsersAndGroups/Model/Users.pm:86
+#: src/EBox/UsersAndGroups/Model/Users.pm:87
 msgid "user"
 msgstr "пользователь"
 
@@ -56,16 +56,16 @@ msgid "Edit group"
 msgstr "Редактировать группу"
 
 #: src/EBox/CGI/Group.pm:61 src/EBox/CGI/Groups.pm:43
-#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2237
-#: src/EBox/UsersAndGroups.pm:2246
+#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2264
+#: src/EBox/UsersAndGroups.pm:2273
 msgid "Groups"
 msgstr "Группы"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1346 src/EBox/UsersAndGroups.pm:1351
-#: src/EBox/UsersAndGroups.pm:1537 src/EBox/UsersAndGroups.pm:1687
-#: src/EBox/UsersAndGroups.pm:1721 src/EBox/UsersAndGroups.pm:1838
-#: src/EBox/UsersAndGroups.pm:1941
+#: src/EBox/UsersAndGroups.pm:1373 src/EBox/UsersAndGroups.pm:1378
+#: src/EBox/UsersAndGroups.pm:1564 src/EBox/UsersAndGroups.pm:1714
+#: src/EBox/UsersAndGroups.pm:1748 src/EBox/UsersAndGroups.pm:1865
+#: src/EBox/UsersAndGroups.pm:1968
 msgid "group name"
 msgstr "имя группы"
 
@@ -75,11 +75,11 @@ msgid "comment"
 msgstr "комментарий"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:701 src/EBox/UsersAndGroups.pm:707
-#: src/EBox/UsersAndGroups.pm:947 src/EBox/UsersAndGroups.pm:997
-#: src/EBox/UsersAndGroups.pm:1049 src/EBox/UsersAndGroups.pm:1501
-#: src/EBox/UsersAndGroups.pm:1581 src/EBox/UsersAndGroups.pm:1682
-#: src/EBox/UsersAndGroups.pm:1716 src/EBox/UsersAndGroups.pm:1787
+#: src/EBox/UsersAndGroups.pm:728 src/EBox/UsersAndGroups.pm:734
+#: src/EBox/UsersAndGroups.pm:974 src/EBox/UsersAndGroups.pm:1024
+#: src/EBox/UsersAndGroups.pm:1076 src/EBox/UsersAndGroups.pm:1528
+#: src/EBox/UsersAndGroups.pm:1608 src/EBox/UsersAndGroups.pm:1709
+#: src/EBox/UsersAndGroups.pm:1743 src/EBox/UsersAndGroups.pm:1814
 msgid "user name"
 msgstr "Имя пользователя"
 
@@ -212,7 +212,7 @@ msgstr "Настройки синхронизации Windows AD"
 msgid "The secret key needs to have 16 characters."
 msgstr "Секретный ключ должен иметь 16 символов"
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2268
+#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2295
 msgid "Mode"
 msgstr "Режим"
 
@@ -257,7 +257,7 @@ msgid "eBox Users Mode"
 msgstr "eBox режим пользователя"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:59
-#: src/EBox/UsersAndGroups/Model/Users.pm:60
+#: src/EBox/UsersAndGroups/Model/Users.pm:61
 msgid "Name"
 msgstr "Имя"
 
@@ -266,12 +266,12 @@ msgid "Description"
 msgstr "Описание"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:69
-#: src/EBox/UsersAndGroups/Model/Users.pm:70
+#: src/EBox/UsersAndGroups/Model/Users.pm:71
 msgid "Edit"
 msgstr "Редактировать"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:130
-#: src/EBox/UsersAndGroups/Model/Users.pm:129
+#: src/EBox/UsersAndGroups/Model/Users.pm:130
 msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
@@ -280,15 +280,11 @@ msgstr ""
 "использовать это."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:136
-#, perl-brace-format
-msgid ""
-"There are no groups at the moment. You may want to add some in {openhref}Add "
-"group section{closehref}."
-msgstr ""
-"В данный момент нет групп. Вам необходимо добавить {openhref}Раздел Добавить "
-"группу{closehref}."
+#, fuzzy
+msgid "There are no groups at the moment"
+msgstr "На данный момент не существуют slave."
 
-#: src/EBox/UsersAndGroups/Model/Groups.pm:142
+#: src/EBox/UsersAndGroups/Model/Groups.pm:139
 #, perl-brace-format
 msgid ""
 "This eBox is configured as slave and there are no groups at the moment. You "
@@ -297,7 +293,7 @@ msgstr ""
 "eBox сконфигурирован в slave режиме и не имеет групп в данный момент. Вам "
 "необходимо добавить {openhref}master{closehref}."
 
-#: src/EBox/UsersAndGroups/Model/Groups.pm:146
+#: src/EBox/UsersAndGroups/Model/Groups.pm:143
 msgid ""
 "This eBox is configured as Windows AD slave and there are no groups at the "
 "moment. If there are groups in your Domain Controller, maybe the "
@@ -321,7 +317,7 @@ msgstr "Повторите новый пароль"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:75
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:73
-#: src/EBox/UsersAndGroups.pm:2282 src/templates/users.mas:49
+#: src/EBox/UsersAndGroups.pm:2309 src/templates/users.mas:49
 #: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
 msgid "Password"
 msgstr "Пароль"
@@ -361,7 +357,7 @@ msgid "Groups DN"
 msgstr "Группы"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
-#: src/EBox/UsersAndGroups.pm:2253
+#: src/EBox/UsersAndGroups.pm:2280
 msgid "LDAP Info"
 msgstr ""
 
@@ -377,20 +373,16 @@ msgstr ""
 "Необходимо включить модуль Пользователи в секции Статус для того чтобы "
 "использовать это."
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:65
+#: src/EBox/UsersAndGroups/Model/Users.pm:66
 msgid "Full name"
 msgstr "Полное имя"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:135
-#, perl-brace-format
-msgid ""
-"There are no users at the moment. You may want to add some in {openhref}Add "
-"user section{closehref}."
-msgstr ""
-"В данный момент нет пользователей. Вам необходимо добавить {openhref} Раздел "
-"Добавить пользователя {closehref}"
+#: src/EBox/UsersAndGroups/Model/Users.pm:136
+#, fuzzy
+msgid "There are no users at the moment"
+msgstr "На данный момент не существуют slave."
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:141
+#: src/EBox/UsersAndGroups/Model/Users.pm:139
 #, perl-brace-format
 msgid ""
 "This eBox is configured as slave and there are no users at the moment. You "
@@ -399,7 +391,7 @@ msgstr ""
 "Этот eBox сконфигурирован как slave и не имеет пользователей в данный "
 "момент. Вы можете добавить их {openhref}master{closehref}"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:145
+#: src/EBox/UsersAndGroups/Model/Users.pm:143
 msgid ""
 "This eBox is configured as Windows AD slave and there are no users at the "
 "moment. If there are users in your Domain Controller, maybe the "
@@ -414,7 +406,8 @@ msgid "List of slaves"
 msgstr "Список slaves"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:70
-msgid "This a list of those eBox slaves which are subscribed to this eBox."
+#, fuzzy
+msgid "This is a list of those eBox slaves which are subscribed to this eBox."
 msgstr "Это список тех slave eBox которые подписчики этого eBox"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:71
@@ -440,7 +433,7 @@ msgid "There isn't any configurable option"
 msgstr "Нет настраиваемых опций "
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
-#: src/EBox/UsersAndGroups.pm:2239 src/EBox/UsersAndGroups.pm:2248
+#: src/EBox/UsersAndGroups.pm:2266 src/EBox/UsersAndGroups.pm:2275
 msgid "Default User Template"
 msgstr "Шаблон пользователя по умолчанию"
 
@@ -506,16 +499,16 @@ msgstr ""
 "Скопировать пароль LDAP сгенированный eBox разрешающий другим модулям доступ "
 "к LDAP"
 
-#: src/EBox/UsersAndGroups.pm:696
+#: src/EBox/UsersAndGroups.pm:723
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Логин не должен быть длинее {maxuserlength} символов"
 
-#: src/EBox/UsersAndGroups.pm:794 src/EBox/UsersAndGroups.pm:1410
+#: src/EBox/UsersAndGroups.pm:821 src/EBox/UsersAndGroups.pm:1437
 msgid "Maximum number of system users reached"
 msgstr "Достигнуто макс. кол-во пользователей системы"
 
-#: src/EBox/UsersAndGroups.pm:811
+#: src/EBox/UsersAndGroups.pm:838
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -523,64 +516,64 @@ msgstr ""
 "Некорректный UID {uid} для пользователя. UID должен быть равен или больше "
 "{min}"
 
-#: src/EBox/UsersAndGroups.pm:822
+#: src/EBox/UsersAndGroups.pm:849
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Некорректный UID {uid} системного пользователя. UID должен быть меньше {max}"
 
-#: src/EBox/UsersAndGroups.pm:1334
+#: src/EBox/UsersAndGroups.pm:1361
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Имя группы не должно быть длинее {maxGroupLength} символов"
 
-#: src/EBox/UsersAndGroups.pm:1340
+#: src/EBox/UsersAndGroups.pm:1367
 msgid "The group name is not valid because it is used internally"
 msgstr "Имя группы не действительно поскольку используется внутри"
 
-#: src/EBox/UsersAndGroups.pm:1427
+#: src/EBox/UsersAndGroups.pm:1454
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 "Некорректный GID {gid} для группы. GID должен быть равен или выше {min}"
 
-#: src/EBox/UsersAndGroups.pm:1437
+#: src/EBox/UsersAndGroups.pm:1464
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "НЕ корректный GID {gid} для системной группы. GID должен быть меньше {max}"
 
-#: src/EBox/UsersAndGroups.pm:2017
+#: src/EBox/UsersAndGroups.pm:2044
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Пароль не должен быть длинее {maxPwdLength} символов"
 
-#: src/EBox/UsersAndGroups.pm:2258
+#: src/EBox/UsersAndGroups.pm:2285
 msgid "Slave Status"
 msgstr "Состояние Slave"
 
-#: src/EBox/UsersAndGroups.pm:2262
+#: src/EBox/UsersAndGroups.pm:2289
 msgid "AD Sync Settings"
 msgstr "Настройки синхронизации AD "
 
-#: src/EBox/UsersAndGroups.pm:2495
+#: src/EBox/UsersAndGroups.pm:2522
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr "Не возможно подключится к мастер eBox {remote}"
 
-#: src/EBox/UsersAndGroups.pm:2502
+#: src/EBox/UsersAndGroups.pm:2529
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr "Не возможно подключится к мастер eBox {remote} с таким паролем LDAP"
 
-#: src/EBox/UsersAndGroups.pm:2521
+#: src/EBox/UsersAndGroups.pm:2548
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr "Хост с таким именем {host} уже зарегистрирован в этом eBox"
 
-#: src/EBox/UsersAndGroups.pm:2631
+#: src/EBox/UsersAndGroups.pm:2669
 msgid "Replication failed"
 msgstr "Репликация не удалась"
 
@@ -710,9 +703,10 @@ msgid "Group"
 msgstr "Группа"
 
 #: src/templates/group.mas:14
+#, fuzzy
 msgid ""
-"There are no users at the moment. You need at least one  to manage this "
-"group properly"
+"There are no users at the moment. You need at least one to manage this group "
+"properly"
 msgstr ""
 "В данный момент нет пользователей. Вам необходим хотя бы один для управления "
 "свойствами этой группы"
@@ -795,6 +789,20 @@ msgstr "Предупреждение: включен Caps Lock "
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr "Вход"
+
+#~ msgid ""
+#~ "There are no groups at the moment. You may want to add some in {openhref}"
+#~ "Add group section{closehref}."
+#~ msgstr ""
+#~ "В данный момент нет групп. Вам необходимо добавить {openhref}Раздел "
+#~ "Добавить группу{closehref}."
+
+#~ msgid ""
+#~ "There are no users at the moment. You may want to add some in {openhref}"
+#~ "Add user section{closehref}."
+#~ msgstr ""
+#~ "В данный момент нет пользователей. Вам необходимо добавить {openhref} "
+#~ "Раздел Добавить пользователя {closehref}"
 
 #~ msgid "Users corner certificates"
 #~ msgstr "Сертификаты уголка пользователей"

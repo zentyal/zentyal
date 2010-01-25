@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:59+0100\n"
+"POT-Creation-Date: 2010-01-25 21:08+0100\n"
 "PO-Revision-Date: 2010-01-25 11:48+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
@@ -118,36 +118,32 @@ msgstr ""
 "No necesita configurar la conexión a un servidor remoto pues WebMail está "
 "configurado para usar el servicio mail de eBox"
 
-#: src/EBox/WebMail/Model/Options.pm:50
+#: src/EBox/WebMail/Model/Options.pm:48
 msgid "Name"
 msgstr "Nombre"
 
-#: src/EBox/WebMail/Model/Options.pm:52
+#: src/EBox/WebMail/Model/Options.pm:50
 msgid "eBox webmail"
 msgstr "Webmail de eBox"
 
-#: src/EBox/WebMail/Model/Options.pm:54
+#: src/EBox/WebMail/Model/Options.pm:52
 msgid ""
 "The name of the webmail will be used in the login screen and page titles"
 msgstr ""
 "El nombre de webmail será usado enla ventana de login y en los títulos de "
 "las páginas"
 
-#: src/EBox/WebMail/Model/Options.pm:61
+#: src/EBox/WebMail/Model/Options.pm:58
 msgid "Configuration"
 msgstr "Configuración"
 
-#: src/EBox/WebMail/Model/Options.pm:62
-msgid "Options"
-msgstr "Opciones"
+#: src/EBox/WebMail/Model/Options.pm:59 src/EBox/WebMail.pm:66
+msgid "Web Mail"
+msgstr "Correo Web"
 
 #: src/EBox/WebMail/Composite/Backend.pm:64
 msgid "WebMail backend"
 msgstr "Backend de WebMail"
-
-#: src/EBox/WebMail.pm:66
-msgid "Web Mail"
-msgstr "Correo Web"
 
 #: src/EBox/WebMail.pm:169
 msgid "Neither IMAP nor IMAPS service enabled"
@@ -198,3 +194,6 @@ msgid ""
 msgstr ""
 "Tu no puedes deshabilitar IMAP e IMAPS a la vez porque están siendo usados "
 "por el modulo webmail"
+
+#~ msgid "Options"
+#~ msgstr "Opciones"
