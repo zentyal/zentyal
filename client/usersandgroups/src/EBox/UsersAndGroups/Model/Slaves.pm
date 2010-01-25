@@ -64,7 +64,7 @@ sub _table
         'defaultController' =>
             '/ebox/Users/Controller/Slaves',
         'defaultActions' =>
-            ['changeView'],
+            ['changeView', 'del'],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'UsersAndGroups/Slaves',
         'help' => __x('This is a list of those eBox slaves which are subscribed to this eBox.'),
@@ -146,13 +146,21 @@ sub row
 
     my $row = $self->_setValueRow(slave => $id);
     $row->setId($id);
-    $row->setReadOnly(1);
+    $row->setReadOnly(0);
     return $row;
 }
 
-sub Viewer
+# Method: removeRow
+#
+#   Override <EBox::Model::DataTable::removeRow> 
+#   to remove a slave
+#
+sub removeRow
 {
-    return '/ajax/tableBodyWithoutActions.mas';
+	my ($self, $id) = @_;
+
+        my $users = EBox::Global->modInstance('users');
+        $users->deleteSlave($id);
 }
 
 1;
