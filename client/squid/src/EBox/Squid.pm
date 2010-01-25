@@ -274,7 +274,7 @@ sub usedFiles
             {
                 'file' => CLAMD_SCANNER_CONF_FILE,
                 'module' => 'squid',
-             'reason' => __(q{Dansguardian's antivirus canner configuration}),
+             'reason' => __(q{Dansguardian's antivirus scanner configuration}),
             },
 
            ];
@@ -717,7 +717,7 @@ sub _writeDgConf
   if ($antivirus) {
       my $avMod = EBox::Global->modInstance('antivirus');
       $self->writeConfFile(CLAMD_SCANNER_CONF_FILE,
-                           "squid/clamdscan.conf.mas", 
+                           "squid/clamdscan.conf.mas",
                            [
                                clamdSocket => $avMod->localSocket(),
                            ]

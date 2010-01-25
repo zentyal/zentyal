@@ -95,7 +95,7 @@ sub _table
           order              => 0,
           rowUnique          => 1,
           printableRowName   => __('internet domain list'),
-          help               => __('You can uplaod fiels whith list of domains'),
+          help               => __('You can upload files with lists of domains'),
           messages           => {
                                   add => __('Domain list added'),
                                   del => __('Domain list removed'),
