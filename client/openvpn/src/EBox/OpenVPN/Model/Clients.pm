@@ -64,7 +64,7 @@ sub _table
                              ),
             new EBox::Types::Boolean (
                                       fieldName => 'service',
-                                      printableName => __('Service'),
+                                      printableName => __('Enable'),
                                       editable => 1,
                                       defaultValue => 0,
                                      ),
