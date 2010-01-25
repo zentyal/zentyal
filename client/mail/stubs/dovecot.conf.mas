@@ -798,7 +798,7 @@ auth default {
   # Space separated list of wanted authentication mechanisms:
   #   plain login digest-md5 cram-md5 ntlm rpa apop anonymous gssapi
   # NOTE: See also disable_plaintext_auth setting.
-  mechanisms = plain
+  mechanisms = plain login
 
   #
   # Password database is used to verify user's password (and nothing more).

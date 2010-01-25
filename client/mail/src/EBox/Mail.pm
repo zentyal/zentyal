@@ -374,7 +374,6 @@ sub _setMailConf
         $allowedaddrs .= " $addr";
     }
 
-    push(@array, fqdn => $self->mailname());
     unless ($users->mode() eq 'slave') {
         push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
     } else {
@@ -734,15 +733,6 @@ sub imaps
     return $model->imapsValue();
 }
 
-# Method: mailname
-#
-#  Returns:
-#     string - the mailname for the machine
-sub mailname
-{
-    my ($self) = @_;
-    return $self->_fqdn();
-}
 
 # Method: managesieve
 #
