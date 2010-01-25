@@ -433,13 +433,13 @@ sub precondition
     my ($self) = @_;
     my $objects = EBox::Global->modInstance('objects');
 
-    return @{ $objects->objects() } > 0; 
+    return @{ $objects->objects() } > 0;
 }
 
 sub preconditionFailMsg
 {
     return __x(
-'There are not network objects in the system. {open}Create{close} at least one object  if you want to set a object policy',
+'There are no network objects in the system. {open}Create{close} at least one object if you want to set a object policy',
 open => q{<a href='/ebox/Objects/View/ObjectTable'>},
 close => q{</a>},
 );
