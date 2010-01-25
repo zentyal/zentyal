@@ -50,7 +50,7 @@ $('changes_menu').className = '<% $className %>';
 stripe('dataTable', '#ecf5da', '#ffffff');
 
 </script>
-
+<br/>
 <form id="statusForm">
     <table class='dataTable'>
 <thead>
