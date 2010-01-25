@@ -91,7 +91,7 @@ sub _table
                 editable => 1,
                 size => '4',
                 trailingText => 'Kb/s',
-                help => __('Upload rate in Kbits/s for through this interface')
+                help => __('Upload rate in Kbits/s through this interface')
             ),
             new EBox::Types::Int(
                 fieldName => 'download',
@@ -99,7 +99,7 @@ sub _table
                 editable => 1,
                 size => '4',
                 trailingText => 'Kb/s',
-                help => __('Upload rate in Kbits/s for through this interface')
+                help => __('Upload rate in Kbits/s through this interface')
             )
      );
 
