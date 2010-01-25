@@ -2,7 +2,9 @@ dn: cn=slaves,cn=schema,cn=config
 objectClass: olcSchemaConfig
 cn: slaves
 olcAttributeTypes: ( 1.3.6.1.4.1.31607.2.1.6.1.201 NAME 'hostname' EQU
- ALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+ ALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.31607.2.1.6.1.202 NAME 'port' EQU
+ ALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
 olcObjectClasses: ( 1.3.6.1.4.1.31607.2.1.6.2.3 NAME 'slaveHost'
  DESC 'Abstraction for holding the information about an eBox slave host'
- SUP top STRUCTURAL MUST hostname )
+ SUP top STRUCTURAL MUST ( hostname $ port ) )

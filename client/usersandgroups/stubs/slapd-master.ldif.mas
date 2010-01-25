@@ -2,6 +2,17 @@
 $dn
 $password
 </%args>
+dn: cn=config
+changetype: modify
+add: olcTLSCACertificateFile
+olcTLSCACertificateFile: /etc/ldap/ssl/ssl.cert
+-
+add: olcTLSCertificateFile
+olcTLSCertificateFile: /etc/ldap/ssl/ssl.cert
+-
+add: olcTLSCertificateKeyFile
+olcTLSCertificateKeyFile: /etc/ldap/ssl/ssl.key
+
 # Allow querying the root DSE
 dn: olcDatabase={-1}frontend,cn=config
 changetype: modify

@@ -1,7 +1,8 @@
-# Default location of the slapd.conf file. If empty, use the compiled-in
-# default (/etc/ldap/slapd.conf). If using the cn=config backend to store
-# configuration in LDIF, set this variable to the directory containing the
-# cn=config data.
+# Location of the slapd configuration to use.  If using the cn=config          
+# backend to store configuration in LDIF, set this variable to the             
+# directory containing the cn=config data; otherwise set it to the location    
+# of your slapd.conf file.  If empty, use the compiled-in default              
+# (/etc/ldap/slapd.d). 
 SLAPD_CONF=
 
 # System account to run the slapd server under. If empty the server
@@ -13,7 +14,7 @@ SLAPD_USER="openldap"
 SLAPD_GROUP="openldap"
 
 # Path to the pid file of the slapd server. If not set the init.d script
-# will try to figure it out from $SLAPD_CONF (/etc/ldap/slapd.conf by
+# will try to figure it out from $SLAPD_CONF (/etc/ldap/slapd.d by
 # default)
 SLAPD_PIDFILE=
 
@@ -22,7 +23,7 @@ SLAPD_PIDFILE=
 # sockets.
 # Example usage:
 # SLAPD_SERVICES="ldap://127.0.0.1:389/ ldaps:/// ldapi:///"
-SLAPD_SERVICES="ldap://0.0.0.0 ldapi://%2fvar%2frun%2fslapd%2fldapi/????x-mod=0777"
+SLAPD_SERVICES="ldap:/// ldapi:/// ldaps:///"
 
 # If SLAPD_NO_START is set, the init script will not start or restart
 # slapd (but stop will still work).  Uncomment this if you are
