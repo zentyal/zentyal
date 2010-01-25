@@ -1,4 +1,4 @@
-# Copyright (C) 2009 eBox Technologies S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,10 +18,9 @@ package EBox::Mail::Model::ExternalAccounts;
 use base 'EBox::Model::DataTable';
 
 #
-#      Yo manage retrieval of email form external ccounts in the user cornes
+#  To manage email retrieval form external accounts in the user corner
+#  section
 #
-
-
 
 use strict;
 use warnings;

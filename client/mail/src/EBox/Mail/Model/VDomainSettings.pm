@@ -1,4 +1,4 @@
-# Copyright (C) 2009 eBox Technologies S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -57,7 +57,7 @@ sub _table
                               printableName =>
                                 __('Send a copy of all mail domains'),
                               help => 
- __('The mail will be a blind carbon copy.'),
+ __('The mail will be a Blind Carbon Copy (BCC).'),
                               subtypes => [
                               new EBox::Types::Union::Text(
                                   'fieldName' => 'disabled',

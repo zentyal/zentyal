@@ -133,7 +133,7 @@ sub _table
          new EBox::Types::Union(
                               fieldName => 'postmasterAddress',
                               printableName =>
-                                __('Postmaster addresss'),
+                                __('Postmaster address'),
                               help => 
                       __('Address used to report mail problems'),
                               subtypes => [
