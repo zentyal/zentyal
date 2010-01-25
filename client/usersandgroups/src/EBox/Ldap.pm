@@ -230,13 +230,13 @@ sub getSlavePassword
 
 # Method: dn
 #
-#       Returns the base dn
+#       Returns the base DN (Distinguished Name)
 #
 # Returns:
 #
-#       string - dn
+#       string - DN
 #
-sub dn 
+sub dn
 {
     my ($self) = @_;
     if(!defined($self->{dn})) {

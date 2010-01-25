@@ -133,10 +133,7 @@ sub preconditionFailMsg
         my $users = $self->parentModule();
         my $mode = $users->mode();
         if ($mode eq 'master') {
-            return __x('There are no groups at the moment. '
-                . 'You may want to add some in {openhref}Add group section{closehref}.',
-                openhref => '<a href="/ebox/UsersAndGroups/Groups">',
-                closehref => '</a>');
+            return __x('There are no groups at the moment');
         } elsif ($mode eq 'slave') {
             my $master = $users->model('Mode')->remoteValue();
             return __x('This eBox is configured as slave and there are no groups at the moment. You may want to add some in the {openhref}master{closehref}.',

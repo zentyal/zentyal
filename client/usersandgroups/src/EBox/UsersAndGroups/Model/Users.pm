@@ -1,5 +1,6 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
-# Copyright (C) 2009 eBox Technologies S.L.
+# Copyright (C) 2006-2008 Warp Networks S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -132,10 +133,7 @@ sub preconditionFailMsg
         my $users = $self->parentModule();
         my $mode = $users->mode();
         if ($mode eq 'master') {
-            return __x('There are no users at the moment. '
-                       . 'You may want to add some in {openhref}Add user section{closehref}.',
-                       openhref => '<a href="/ebox/UsersAndGroups/Users">',
-                       closehref => '</a>');
+            return __x('There are no users at the moment');
         } elsif ($mode eq 'slave') {
             my $master = $users->model('Mode')->remoteValue();
             return __x('This eBox is configured as slave and there are no users at the moment. You may want to add some in the {openhref}master{closehref}.',
