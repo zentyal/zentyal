@@ -20,7 +20,7 @@ de no ser satisfactoria se bloqueará el acceso.
 
 .. warning::
   Hay que tener en cuenta que, por una limitación técnica de la
-  autenticación HTTP, las políticas de filtrado son incompatibles con
+  autenticación HTTP, las políticas con autenticación  son incompatibles con
   el modo transparente.
 
 Si tenemos establecida una política global con autorización podremos
