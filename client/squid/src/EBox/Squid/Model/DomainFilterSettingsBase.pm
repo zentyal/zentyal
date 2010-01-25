@@ -41,8 +41,8 @@ sub _tableHeader
             printableName => __('Block not listed domains'),
             defaultValue     => 0,
             editable         => 1,
-            help         => __('If this is enabled, ' .
-                                   'any domain which is neither present neither in the ' .
+            help         => __('If this option is enabled, ' .
+                               'any domain which is not present in the ' .
                                 '<i>Domains rules</i> nor in the <i>Domain list files</i> sections below will be ' .
                                 'forbidden.'),
 
