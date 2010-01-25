@@ -11,7 +11,7 @@ use EBox::Gettext;
 <h3><% __('Administration of group ') %> <span class='stitle'><% $groupinfo->{'groupname'} %></span></h3>
 % unless (@groupusers or @remainusers) {
 <div class='note'>
-    <% __("There are no users at the moment. You need at least one  to manage this group properly")%>
+    <% __("There are no users at the moment. You need at least one to manage this group properly")%>
 </div>
 <br />
 % }

@@ -255,7 +255,7 @@ sub validateTypedRow
            and $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
 
             throw EBox::Exceptions::External(
-                __('If service is any, some source or' .
+                __('If service is any, some source or ' .
                    'destination should be provided'));
 
         }
@@ -471,7 +471,7 @@ sub _table
              editable      => 1, # editable
              trailingText  => __('Kbit/s'),
              defaultValue  => 0,
-             help          => __('Note that  ' .
+             help          => __('Note that ' .
                  'The sum of all guaranteed ' .
                  'rates cannot exceed your ' .
                  'total bandwidth. 0 means unguaranteed rate.')

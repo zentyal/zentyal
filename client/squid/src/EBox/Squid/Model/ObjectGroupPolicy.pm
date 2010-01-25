@@ -145,7 +145,7 @@ sub _checkObjectPolicy
     my $policy = $row->elementByName('policy');
     if (not $policy->usesAuth()) {
         throw EBox::Exceptions::External(
-  __('The object needs to be set to a policy with authorization for be able to use groups policies')
+  __('The object needs to be set to a policy with authorization in order to to use group policies')
                                         );
     }
 }
@@ -171,7 +171,7 @@ sub pageTitle
 
 sub _timePeriodHelp
 {
-    return 
+    return
   __('Time period when the access is allowed. It is ignored if the group has a deny policy, time constraints of parent object are always ignored');
 }
 
