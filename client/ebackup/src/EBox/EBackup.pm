@@ -157,14 +157,16 @@ sub remoteArguments
     my $directory;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
-        if ($row->valueByName('type') eq 'exclude_path') {
+        my $type = $row->valueByName('type');
+        if ($type eq 'exclude_path') {
             my $path = shell_quote($row->valueByName('target'));
             $excludes .= "--exclude=$path ";
-        } elsif ($row->valueByName('type') eq 'include_path') {
+        } elsif ($type eq 'include_path') {
             my $path = shell_quote($row->valueByName('target'));
             next if ($path eq '/');
             $includes .= "--include=$path ";
-        } else {
+        } elsif ($type eq 'exclude_regexp') {
+        } {
             my $regexp = $row->valueByName('target');
             $regexps .= "--exclude-regexp $regexp";
         }

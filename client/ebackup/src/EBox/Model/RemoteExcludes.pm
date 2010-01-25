@@ -30,6 +30,8 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
+use EBox::Validate;
+
 
 # Group: Public methods
 
@@ -111,14 +113,77 @@ sub _types
             printableValue => __('Exclude path')
         },
         {
-            value => 'exlude_regexp',
-            printableValue => __('Exclude file regexp')
+            value => 'exclude_regexp',
+            printableValue => __('Exclude regexp')
         },
         {
             value => 'include_path',
             printableValue => __('Include Path')
         },
     ];
+}
+
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    my $values = $self->_actualValues($changedFields, $allFields);
+    my $type   = $values->{type}->value();
+    my $target = $values->{target}->value();
+
+    my $checkMethod = "_validate_" . $type;
+    $self->$checkMethod($target);
+
+}
+
+sub _validate_exclude_path
+{
+    my ($self, $target) = @_;
+    EBox::Validate::checkAbsoluteFilePath($target,
+                                          __('exclude path')
+                                          );
+}
+
+sub _validate_exclude_regexp
+{
+    my ($self, $target) = @_;
+
+    eval {
+        my $regex = qr/$target/;
+    } ;
+    if ($@) {
+        throw EBox::Exceptions::InvalidData(
+                      data => __('exclude path regular expression'),
+                      value => $target,
+                      advice => __('Incorrect regular expression'),
+                                           );
+    }
+
+}
+
+
+
+
+sub _validate_include_path
+{
+    my ($self, $target) = @_;
+    EBox::Validate::checkAbsoluteFilePath($target,
+                                          __('include path')
+                                          );
+}
+
+
+
+
+sub _actualValues
+{
+    my ($self,  $paramsRef, $allFieldsRef) = @_;
+    my %actualValues = %{ $allFieldsRef };
+    while (my ($key, $value) = each %{ $paramsRef }) {
+        $actualValues{$key} = $value;
+    }
+
+    return \%actualValues;
 }
 
 1;
