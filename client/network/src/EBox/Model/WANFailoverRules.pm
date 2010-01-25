@@ -24,6 +24,7 @@ use EBox::Types::Host;
 use EBox::View::Customizer;
 use EBox::Validate;
 use EBox::Exceptions::External;
+use Perl6::Junction qw(any);
 
 use strict;
 use warnings;

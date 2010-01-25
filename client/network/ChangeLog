@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: warning instead of error if can't add failover rule
 1.3.14
 	+ Added multi-gateway support for DHCP and PPPoE
 	+ Add a warning if a user sets an interface as external and we detect
