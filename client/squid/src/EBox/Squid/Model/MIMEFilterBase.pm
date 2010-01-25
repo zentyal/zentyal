@@ -127,7 +127,7 @@ sub checkMimeType
       throw EBox::Exceptions::InvalidData(
               data  => __('MIME Type'),
               value => $type,
-              advice => __('A MIME Type must follows this syntax: type/subtype'),
+              advice => __('A MIME Type must follow this syntax: type/subtype'),
               )
   }
 
