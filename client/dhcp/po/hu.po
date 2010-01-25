@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:48+0100\n"
-"PO-Revision-Date: 2010-01-19 14:56+0100\n"
-"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"PO-Revision-Date: 2010-01-25 19:28+0100\n"
+"Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,15 +19,15 @@ msgstr ""
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
-msgstr "Triviális Fájlátviteli Protokol"
+msgstr "Triviális fájlátviteli protokoll"
 
 #: migration/0002_add_services.pl:126
 msgid "Dynamic Host Configuration Protocol"
-msgstr "Dinamikus állomáskonfiguráló protokol"
+msgstr "DHCP"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
-msgstr "Modul Állapot"
+msgstr "Modul állapota"
 
 #: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -36,18 +36,18 @@ msgstr "Modul Állapot"
 #: src/EBox/DHCP.pm:604 src/EBox/DHCP.pm:702 src/EBox/DHCP.pm:756
 #: src/EBox/DHCP.pm:817 src/EBox/DHCP.pm:873 src/EBox/DHCP.pm:1264
 msgid "Interface"
-msgstr "Adapter"
+msgstr "Csatoló"
 
 #: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:218
 #: src/EBox/DHCP.pm:1265 src/EBox/DHCP.pm:1333 src/templates/fixed.mas:9
 msgid "MAC address"
-msgstr "MAC cím"
+msgstr "MAC-cím"
 
 #: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:242
 #: src/EBox/Model/FixedAddressTable.pm:224 src/EBox/DHCP.pm:1333
 #: src/templates/fixed.mas:10
 msgid "IP address"
-msgstr "IP cím"
+msgstr "IP-cím"
 
 #: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
 #: src/EBox/Model/FixedAddressTable.pm:212 src/EBox/Model/RangeTable.pm:213
@@ -58,16 +58,16 @@ msgstr "Név"
 #: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
 #: src/templates/ranges.mas:54
 msgid "From"
-msgstr "Tól"
+msgstr "Innen:"
 
 #: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
 #: src/templates/ranges.mas:55
 msgid "To"
-msgstr "Hoz"
+msgstr "Ide:"
 
 #: src/EBox/CGI/Enable.pm:39
 msgid "module status"
-msgstr "modul állapot"
+msgstr "Modul állapota"
 
 #: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
 #: src/EBox/Model/FixedAddressTable.pm:96 src/EBox/Model/DynamicDNS.pm:111
@@ -77,29 +77,32 @@ msgstr "modul állapot"
 #: src/EBox/Composite/AdvancedOptions.pm:88
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr "{iface} adapter "
+msgstr "{iface} csatoló"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
 msgid "You need to upload a boot image to eBox if you set it as next server"
 msgstr ""
-"Fel kell töltsön egy boot képfájlt hogy az eBoxot következő szervernek "
-"állítsa be"
+"Fel kell töltenie egy rendszerindító lemezképet az eBoxnak, ha következő "
+"kiszolgálónak állítja be"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
 msgstr ""
-"Ha felölt egy boot képfájlt, az eBoxot következő szervernek kell beállítsa"
+"Rendszerindító lemezkép feltöltéséhez az eBoxot következő kiszolgálónak kell "
+"beállítania"
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
-msgstr "Meg kell adja a boot image elérési útvonalát a távoli szerveren"
+msgstr ""
+"Meg kell adnia a rendszerindító lemezkép elérési útvonalát a távoli "
+"szerveren"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
 msgstr ""
-"Csak a fájlnevet kell megadja, ha van egy következő szervere és az nem egy "
+"Csak fájlnevet adhat meg ha van egy következő kiszolgálója, és az nem egy "
 "eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
@@ -108,12 +111,12 @@ msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
-"Törölje le az előzőleg feltöltött boot imaget amielőtt a következő szerver "
-"beállításait átállítaná eBox-ról {option}-ra"
+"Az előzőleg feltöltött rendszerindító lemezkép törlése, mivel a következő "
+"kiszolgáló beállítása módosult eBox-ról a következőre: {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
-msgstr "Következő szerver"
+msgstr "Következő kiszolgáló"
 
 #: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:394
 #: src/EBox/Model/Options.pm:405 src/EBox/Model/Options.pm:409
@@ -135,7 +138,7 @@ msgstr "Fájlnév"
 
 #: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
-msgstr "A fájl elérési útvonala a következő szerveren"
+msgstr "A fájl elérési útvonala a következő kiszolgálón"
 
 #: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
@@ -148,33 +151,33 @@ msgid ""
 "all the files you require under {path} directory"
 msgstr ""
 "Ha személyre szeretné szabni a vékonykliens beállításait, akkor minden ehhez "
-"szükséges fájlt másoljon be a {path} mappába"
+"szükséges fájlt másoljon be a(z) {path} mappába"
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
-msgstr ""
-"Alapértelmezett IP bérleti idő, aminek magasabbnak kell lennie 0 másodpercnél"
+msgstr "Az alapértelmezett IP-bérleti időnek többnek kell lennie 0 másodpercnél"
 
 #: src/EBox/Model/LeaseTimes.pm:138
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
-"Alapértelmezett IP bérleti idő {default} alacsonyabbnak kell lennie mint "
+"Az alapértelmezett IP-bérleti időnek ({default}) kisebbnek kell lennie, mint "
 "{max}"
 
 #: src/EBox/Model/LeaseTimes.pm:150
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr "Maximális IP bérleti időnek magasabbnak kell lennie mint 0 másodperc"
+msgstr "A maximális IP-bérleti időnek többnek kell lennie, mint 0 másodperc"
 
 #: src/EBox/Model/LeaseTimes.pm:156
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
-"Maximális  {max} IP bérleti időnek magasabbnak kell lennie mint {default}"
+"A maximális IP-bérleti időnek ({max}) magasabbnak kell lennie, mint az "
+"alapértelmezett {default}"
 
 #: src/EBox/Model/LeaseTimes.pm:200
 msgid "Default leased time"
-msgstr "Alapértelmezett IP bérleti idő"
+msgstr "Alapértelmezett IP-bérleti idő"
 
 #: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
 msgid "seconds"
@@ -182,11 +185,11 @@ msgstr "másodperc"
 
 #: src/EBox/Model/LeaseTimes.pm:207
 msgid "Maximum leased time"
-msgstr "Maximális IP bérleti idő"
+msgstr "Maximális IP-bérleti idő"
 
 #: src/EBox/Model/LeaseTimes.pm:216
 msgid "Lease times"
-msgstr "Bérleti idők "
+msgstr "Bérleti idők"
 
 #: src/EBox/Model/LeaseTimes.pm:221
 msgid ""

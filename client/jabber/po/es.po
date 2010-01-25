@@ -12,45 +12,46 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:43+0100\n"
-"PO-Revision-Date: 2006-11-28 14:15+0100\n"
-"Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
+"PO-Revision-Date: 2010-01-25 02:27+0100\n"
+"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/JabberLdapUser.pm:259
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
 msgstr ""
+"Este usuario tiene una cuenta de Jabber. Si el usuario está correctamente "
+"conectado, continuará así así que la autorización le sea requerida de nuevo."
 
 #: src/EBox/Jabber.pm:72
 msgid "Add Jabber LDAP schema"
-msgstr ""
+msgstr "Añadir schema LDAP de Jabber"
 
 #: src/EBox/Jabber.pm:73
 msgid "eBox will need this schema to store jabber users"
-msgstr ""
+msgstr "eBox necesitará este schema para almacenar los usuarios Jabber"
 
 #: src/EBox/Jabber.pm:90 src/EBox/Jabber.pm:95 src/EBox/Jabber.pm:100
 msgid "To properly configure jabberd2"
-msgstr ""
+msgstr "Configurar adecuadamente jabberd2"
 
 #: src/EBox/Jabber.pm:105 src/EBox/Jabber.pm:110
 msgid "To properly configure jabberd2 muc"
-msgstr ""
+msgstr "Configurar adecuadamente jabberd2 MUC"
 
 #: src/EBox/Jabber.pm:280 src/EBox/CGI/JabberConf.pm:42
 msgid "domain"
 msgstr "dominio"
 
 #: src/EBox/Jabber.pm:394
-#, fuzzy
 msgid "Jabber server"
-msgstr "Servicio Jabber"
+msgstr "Certificado del servidor Jabber"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
@@ -66,13 +67,12 @@ msgid "username"
 msgstr "nombre de usuario"
 
 #: src/EBox/Jabber/Model/JabberUser.pm:50 src/templates/jabber.mas:8
-#, fuzzy
 msgid "Jabber Account"
 msgstr "Cuenta Jabber"
 
 #: src/templates/index.mas:17
 msgid "General Configuration"
-msgstr ""
+msgstr "Configuración General"
 
 #: src/templates/index.mas:19
 msgid ""
@@ -88,16 +88,14 @@ msgid "Domain name"
 msgstr "Nombre de dominio"
 
 #: src/templates/index.mas:33
-#, fuzzy
 msgid "Connect to other servers"
-msgstr "Conectar a la red Jabber global"
+msgstr "Conectarse a otros servidores"
 
 #: src/templates/index.mas:45
 msgid "Enable MUC (Multi User Chat)"
-msgstr ""
+msgstr "Activar MUC (Chat Multi Usuario)"
 
 #: src/templates/index.mas:57
-#, fuzzy
 msgid "SSL support"
 msgstr "Soporte SSL"
 
@@ -122,7 +120,6 @@ msgid "Change"
 msgstr "Cambiar"
 
 #: src/templates/jabber.mas:9
-#, fuzzy
 msgid "Password for Jabber service is the user password."
 msgstr "La contraseña para el servicio Jabber es la contraseña del usuario"
 

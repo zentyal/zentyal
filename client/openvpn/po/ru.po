@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:10+0100\n"
-"PO-Revision-Date: 2009-02-08 19:13+0000\n"
-"Last-Translator: vadim glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2010-01-24 16:25+0100\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/OpenVPN/Server.pm:84
@@ -263,7 +263,7 @@ msgstr "Настройка туннель eBox-to-eBox требующего па
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:275
 msgid ""
 "The VPN address could not be the same than one of its advertised networks"
-msgstr ""
+msgstr "Адрес VPN не может быть таким же как один из объявленных в сети"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:306
 msgid "Other server is listening on the same port"
@@ -285,22 +285,20 @@ msgid "The interface {iface} is not configured"
 msgstr "Интерфейс {iface} не настроен"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:438
-#, fuzzy
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
-"Не возможно использовать Network Address Translation так как требуется "
-"модуль файрвола. Модуль  или не установлен или не активизирован."
+"Не возможно использовать NAT, так как требуется модуль файрвола. Модуль  или "
+"не установлен или не активизирован."
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:445
-#, fuzzy
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
-"Не возможно использовать Network Address Translation так как требуется "
-"модуль файрвола. Пожалуйста активизируйте его и попробуйте еще раз"
+"Не возможно использовать NAT так как требуется модуль файрвола. Пожалуйста "
+"активизируйте его и попробуйте еще раз"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:477
 msgid ""
@@ -311,11 +309,10 @@ msgstr ""
 "один внешний интерфейс для поключения к серверу. "
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:486
-#, fuzzy
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
-msgstr "Необходим внешний интерфейс, если не получается с маскарадингом."
+msgstr "Необходим внешний интерфейс, если NAT включён"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:59
 msgid "Client's type"
@@ -352,7 +349,6 @@ msgid "Additional server address (optional)"
 msgstr "Дополнительный адрес сервера (не обязательный)"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
-#, fuzzy
 msgid "Download Client Bundle"
 msgstr "Загрузить клиентский пакет"
 
@@ -393,13 +389,12 @@ msgstr ""
 "клиентов."
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:344
-#, fuzzy
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
-"Невозможно сделать пакет, сервер не сконфигурирован. Пожалуйста "
-"отредактируйте конфигурацию и попытайтесь заново."
+"Невозможно сделать пакет, сервер полностью не сконфигурирован. Пожалуйста "
+"завершите конфигурацию и попытайтесь заново."
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
@@ -407,15 +402,13 @@ msgid "Advertised network"
 msgstr "Объявленные сети"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
-#, fuzzy
 msgid "List of Advertised Networks"
-msgstr "Объявленные сети"
+msgstr "Списко объявленных сетей"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
-#, fuzzy
 msgid ""
 "The advertised network address could not be the same than the VPN address"
-msgstr "Сертификат клиента не может быть таким же как у сервера"
+msgstr "Объявленный сетевой адрес не может быть таким же, как адрес VPN"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
 #, perl-brace-format
@@ -424,6 +417,9 @@ msgid ""
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
 "access to your LAN by advertising its network address here{closepar}"
 msgstr ""
+"{openpar}Сюда можно добавить те сети, которые должны быть доступны клиентам "
+"VPN.{closepar}{openpar}Обычно, для разрешения доступа к вашей LAN необходимо "
+"объявить адрес сети здесь{closepar}"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
 #: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
@@ -431,13 +427,12 @@ msgid "Configuration"
 msgstr "Конфигурация"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:69
-#, fuzzy
 msgid "Manual Configuration"
-msgstr "Конфигурация"
+msgstr "Ручная конфигурация"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
 msgid "eBox bundle"
-msgstr ""
+msgstr "Пакет eBox"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:78
 msgid "Upload configuration's bundle"
@@ -487,12 +482,10 @@ msgid "daemon"
 msgstr "демон"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
-#, fuzzy
 msgid "List of Clients"
-msgstr "Список сетей"
+msgstr "Список клиентов"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:95
-#, fuzzy
 msgid "VPN Clients"
 msgstr "VPN клиенты"
 
@@ -501,8 +494,8 @@ msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
-"Не возможно активировать клиента так как не полностью сконфигурирован. "
-"Пожалуйста отредактируйте конфиграцию и вернитесь сюда позже."
+"Не возможно активировать клиента так как он не полностью сконфигурирован. "
+"Пожалуйста отредактируйте конфиграцию и повторите."
 
 #: src/EBox/OpenVPN/Model/Clients.pm:182
 msgid "RIP password is mandatory"
@@ -525,17 +518,15 @@ msgid "VPN servers"
 msgstr "VPN сервера"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:165
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to use this module. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Вы не можете создать VPN сервера поскольку не имеете необходимого "
-"числа сертификатов.{closepar}{openpar}Пожалуйста, перейдите{openhref} в "
-"модуль менеджера сертификатов{closehref} и создайте новые сертификаты."
-"{closepar}{openpar}Вам по крайне мере необходим один CA и один сертификат."
-"{closepar}"
+"{openpar}Вам необходимо создать сертификат CA для использования этого "
+"модуля.{closepar}{openpar}Пожалуйста, перейдите{openhref} в модуль менеджера "
+"сертификатов{closehref} и создайте его.{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:179
 msgid "Server creation"
@@ -550,7 +541,6 @@ msgstr ""
 "отредактируйте конфигурацию и вернитесь"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:292
-#, fuzzy
 msgid "Cannot create a server because there is not a CA certificate"
 msgstr ""
 "Не могу получить ключ сервера {name} т.к. он не имеет ни одного "
@@ -718,13 +708,12 @@ msgid "Initialization sequence completed"
 msgstr "Последовательность инициализации закончена"
 
 #: src/EBox/OpenVPN.pm:1636
-#, fuzzy
 msgid "Certificate issuer not authorized"
-msgstr "Не разрешенный сертификат"
+msgstr "Сертификат эмитента не авторизован"
 
 #: src/EBox/OpenVPN.pm:1637
 msgid "Certificate common name not authorized"
-msgstr "Не разрешенный сертификат имени"
+msgstr "Сертифкат канонического имени не авторизован"
 
 #: src/EBox/OpenVPN.pm:1638
 msgid "Certificate verification failed"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:49+0100\n"
-"PO-Revision-Date: 2010-01-18 14:43+0100\n"
+"PO-Revision-Date: 2010-01-23 20:36+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -140,7 +140,6 @@ msgid "Packet filtering"
 msgstr "Фильтрация пакетов"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#, fuzzy
 msgid "Traffic coming out from eBox"
 msgstr "Правила фильтрации для трафика исходящего из eBox"
 
@@ -153,7 +152,6 @@ msgid "rule"
 msgstr "правило"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#, fuzzy
 msgid "External networks to internal networks"
 msgstr "Правила фильтрации из внешних сетей на внутренние сети"
 
@@ -260,24 +258,20 @@ msgstr ""
 "будет соответствовать этому правилу"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:227
-#, fuzzy
 msgid "Configure Rules"
 msgstr "Настроить правила"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "External networks to eBox"
 msgstr "Правила фильтрации из внешних сетей на eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "Internal networks to eBox"
 msgstr "Правила фильтрации из внутренних сетей на eBox"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#, fuzzy
 msgid "Internal networks"
-msgstr "Внешний порт"
+msgstr "Внутренние сети"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46

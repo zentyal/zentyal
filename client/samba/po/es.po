@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:11+0100\n"
-"PO-Revision-Date: 2009-01-19 17:39+0000\n"
+"PO-Revision-Date: 2010-01-25 20:05+0100\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,9 +22,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_samba_service.pl:113
-#, fuzzy
 msgid "File sharing (Samba) protocol"
-msgstr "Compartir ficheros"
+msgstr "Protocol de compartición de ficheros (Samba)"
 
 #: src/EBox/SambaLdapUser.pm:304
 #, fuzzy
@@ -60,7 +59,7 @@ msgstr ""
 #: src/EBox/SambaLdapUser.pm:394
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
-msgstr ""
+msgstr "El grupo {g} no es un grupo samba"
 
 #: src/EBox/SambaLdapUser.pm:437
 msgid "This group has a sharing directory associatedwhich conatins data"
@@ -107,13 +106,11 @@ msgid "Disk quota limit"
 msgstr "Límite de cuota"
 
 #: src/EBox/Samba/Model/SambaUser.pm:50
-#, fuzzy
 msgid "File Sharing Account"
 msgstr "Cuenta de compartición de ficheros o de PDC"
 
 #: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
 #: src/EBox/Samba.pm:76
-#, fuzzy
 msgid "File Sharing"
 msgstr "Compartir ficheros"
 
@@ -182,9 +179,8 @@ msgid "Drive letter"
 msgstr "Eliminar"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:142
-#, fuzzy
 msgid "Samba group"
-msgstr "Recursos compartidos Samba"
+msgstr "Grupo Samba"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:146
 msgid ""
@@ -193,13 +189,12 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:152
-#, fuzzy
 msgid "General settings"
 msgstr "Configuración general"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:156
 msgid "On this page you can set different general settings for Samba"
-msgstr ""
+msgstr "En esta página puedes establecer la configuración general de Samba"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:209
 #, fuzzy
@@ -233,7 +228,7 @@ msgstr "Control de acceso"
 #: src/EBox/Samba/Model/SambaShares.pm:138
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:186
 msgid "Shares"
-msgstr ""
+msgstr "Directorios compartidos"
 
 #: src/EBox/Samba/Model/SambaShares.pm:176
 msgid "Path not allowed"
@@ -311,9 +306,8 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Samba/Model/PDC.pm:77
-#, fuzzy
 msgid "File sharing module is not enabled."
-msgstr "Compartir ficheros"
+msgstr "El módulo de compartición de ficheros no está habilitado"
 
 #: src/EBox/Samba/Model/PDC.pm:78
 msgid "PDC is not enabled."
@@ -423,9 +417,8 @@ msgid "Recycle Bin"
 msgstr ""
 
 #: src/EBox/Samba/Composite/General.pm:68
-#, fuzzy
 msgid "File sharing options"
-msgstr "Compartir ficheros"
+msgstr "Opciones de compartición de ficheros"
 
 #: src/EBox/Samba/Composite/Antivirus.pm:64
 msgid "Antivirus"
@@ -714,9 +707,8 @@ msgid "printers module"
 msgstr "impresora"
 
 #: src/templates/samba.mas:180
-#, fuzzy
 msgid "file sharing module"
-msgstr "Compartir ficheros"
+msgstr "módulo de compartición de ficheros"
 
 #: stubs/smb.conf.mas:104
 msgid "Home Directories"

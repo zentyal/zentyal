@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:49+0100\n"
-"PO-Revision-Date: 2010-01-20 16:05+0100\n"
+"PO-Revision-Date: 2010-01-22 12:57+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -381,6 +381,8 @@ msgid ""
 "Cannot add  alias {al} because is akready a virtual domain  with the same "
 "name"
 msgstr ""
+"Kan ikke legge til alias {al} fordi det allerede finnes et virtuelt domene "
+"med samme navn"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:108
 #, perl-brace-format
@@ -388,6 +390,8 @@ msgid ""
 "Cannot add  alias {al} because is already an identical alias for another "
 "virtual domain"
 msgstr ""
+"Kan ikke legge til alias {al} fordi det allerede finnes et identisk alias "
+"for et annet virtuelt domene"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "Smarthost to send mail"
@@ -649,6 +653,8 @@ msgid ""
 "Cannot add virtual domain {vd} because is a virtual domain alias with the "
 "same name"
 msgstr ""
+"Kan ikke legge til virtuelt domene {vd} fordi det allerede finnes et "
+"virtuelt domene alias med samme navn"
 
 #: src/EBox/Mail/Model/VDomains.pm:237
 #, perl-brace-format
@@ -656,6 +662,8 @@ msgid ""
 "Cannot add virtual domain {vd} because it appears as external domain in the "
 "account referecned by the alias {al}"
 msgstr ""
+"Kan ikke legge til virtuelt domene {vd} fordi det ser ut som at det eksterne "
+"domenet i kontoen er referert til av alias {al}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
@@ -688,29 +696,25 @@ msgstr "E-post tildeler konfigurasjonen oppdatert"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:48
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:69
-#, fuzzy
 msgid "Virtual domain"
-msgstr "virtuelt domene"
+msgstr "Virtuelt Domene"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:49
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:51
-#, fuzzy
 msgid "Sent messsages"
-msgstr "Fullførte meldinger"
+msgstr "Sendte meldinger"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:50
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:79
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:52
-#, fuzzy
 msgid "Received messages"
-msgstr "Fullførte meldinger"
+msgstr "Motatte meldinger"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:83
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:53
-#, fuzzy
 msgid "Rejected messages"
-msgstr "Fullførte meldinger"
+msgstr "Avviste meldinger"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:63 src/EBox/Mail.pm:1543
 #: src/templates/qmanager.mas:19
@@ -718,26 +722,24 @@ msgid "Date"
 msgstr "Dato"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:75
-#, fuzzy
 msgid "Sent messages"
-msgstr "Fullførte meldinger"
+msgstr "Sendte meldinger"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:92
-#, fuzzy
 msgid "Mail traffic details"
-msgstr "E-post alias innstillinger"
+msgstr "E-post trafikk detaljer"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:100
 msgid "traffic"
-msgstr ""
+msgstr "trafikk"
 
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:62
 msgid "Traffic summary chart"
-msgstr ""
+msgstr "Trafikk sammendrags oversikt"
 
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:84
 msgid "Traffic summary graph"
-msgstr ""
+msgstr "Trafikk sammendrags graf"
 
 #: src/EBox/Mail/Composite/General.pm:77
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
@@ -746,11 +748,11 @@ msgstr "E-post server alternativer"
 
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:70
 msgid "Mail traffic reports"
-msgstr ""
+msgstr "Epost trafikk rapporter"
 
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:71
 msgid "Mail traffic report"
-msgstr ""
+msgstr "Epost trafikk rapport"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"
@@ -779,13 +781,15 @@ msgstr "eBox vil opprette sertifikater for bruk i e-post tjenester"
 
 #: src/EBox/Mail.pm:161
 msgid "Add fetchmail update cron job"
-msgstr ""
+msgstr "Legg til fetchmail oppdaterings cron jobb"
 
 #: src/EBox/Mail.pm:163
 msgid ""
 "eBox will scheduel a cron job to update fetchmail configuration when the "
 "user add extrnal accounts"
 msgstr ""
+"eBox vil planlegge en cron jobb for å oppdatere fetchmail konfigurasjonen "
+"når brukeren legger til eksterne kontoer"
 
 #: src/EBox/Mail.pm:184
 msgid "To configure postfix"
@@ -897,9 +901,8 @@ msgid "Greylist"
 msgstr "Grå listing"
 
 #: src/EBox/Mail.pm:1535
-#, fuzzy
 msgid "Mail retrieval from external accounts"
-msgstr "E-post hente tjenester"
+msgstr "Epost henting fra eksterne kontoer"
 
 #: src/EBox/Mail.pm:1544
 msgid "Message ID"
@@ -926,18 +929,16 @@ msgid "Relay"
 msgstr "Videresende"
 
 #: src/EBox/Mail.pm:1551
-#, fuzzy
 msgid "Message type"
-msgstr "Melding"
+msgstr "Meldings type"
 
 #: src/EBox/Mail.pm:1553
 msgid "Event"
 msgstr "Hendelse"
 
 #: src/EBox/Mail.pm:1554
-#, fuzzy
 msgid "Additional Info"
-msgstr "Tilleggs informasjon"
+msgstr "Tilleggs Informasjon"
 
 #: src/EBox/Mail.pm:1565
 msgid "Successful messages"
@@ -990,7 +991,7 @@ msgstr "E-post SMTP server"
 
 #: src/EBox/MailQueue.pm:79
 msgid "This message is being delivered"
-msgstr ""
+msgstr "Denne meldingen leveres nå"
 
 #: src/templates/groupalias.mas:8
 msgid "Mail alias settings"
@@ -1053,12 +1054,11 @@ msgstr "Skjul Informasjon"
 
 #: src/templates/qmanager.mas:82
 msgid "Attempt to deliver all queued mail"
-msgstr ""
+msgstr "Forsøk å levere all epost i kø"
 
 #: src/templates/qmanager.mas:89
-#, fuzzy
 msgid "Remove all messages"
-msgstr "Fullførte meldinger"
+msgstr "Fjern alle meldinger"
 
 #: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "first"

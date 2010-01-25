@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:06+0100\n"
-"PO-Revision-Date: 2009-06-06 18:44+0200\n"
-"Last-Translator: Fernando Aguilar <aguilar.arce@hotmail.com>\n"
+"PO-Revision-Date: 2010-01-23 17:39+0100\n"
+"Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,9 +23,8 @@ msgid "Antivirus"
 msgstr "Antivirus"
 
 #: src/EBox/AntiVirus.pm:212
-#, fuzzy
 msgid " To configure clamd daemon"
-msgstr "Configurar clamd daemon"
+msgstr "Configurar demonio clamd"
 
 #: src/EBox/AntiVirus.pm:217
 msgid "To configure freshclam updater"
@@ -44,44 +43,40 @@ msgid "Date"
 msgstr "Fecha"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-#, fuzzy
 msgid "Database Update Status"
 msgstr "Estado de actualización de la base de datos de virus"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
-#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr ""
-"La base de datos de virus no ha sido actualizada desde que el módulo filtro "
-"de correo de Ebox fue instalado"
+"La base de datos de virus no ha sido actualizada desde que el módulo  fue "
+"instalado"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
-#, fuzzy
 msgid "The last update failed."
-msgstr "La ultima actualización ha fallado"
+msgstr "La última actualización ha fallado"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Update successful but your freshclam version is outdated.\n"
 "The antivirus will not be able to use all the signatures.Please, install "
 "version {version} or higher."
 msgstr ""
-"Actualizacion exitosa pero su version de freshclam esta vencida.\n"
+"Actualizacion exitosa, pero su version de freshclam está desactualizada.\n"
 "El antivirus no será capaz de utilizar todos las firmas.Por favor, instale "
 "la version {version} or mayor."
 
 # falta una mejor definicion para signatures.
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
-#, fuzzy
 msgid "Last update successful."
-msgstr "La ultima actualización se ha realizado con exito"
+msgstr "La última actualización se ha realizado con éxito"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:144
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unknown event {event}."
-msgstr "Evento {event} desconocido"
+msgstr "Evento  desconocido {event}"
 
 #~ msgid "Update status"
 #~ msgstr "Estado de la actualización"

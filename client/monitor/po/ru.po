@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 12:58+0000\n"
-"PO-Revision-Date: 2009-09-21 00:57+0200\n"
-"Last-Translator: Albert Kadyrov <albert.kadyrov@mail.ru>\n"
+"PO-Revision-Date: 2010-01-24 19:53+0100\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:133
@@ -115,6 +115,8 @@ msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
 msgstr ""
+"Если установлено в true, тогда диапазон возможных значений инвертирован, "
+"т.е. значение между {fmin} и {fmax} ({wmin} и {wmax}) не в порядке."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning minimum"
@@ -134,6 +136,9 @@ msgid ""
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
 msgstr ""
+"Если установлено в true, то для каждого значения вне диапазона будет "
+"отмечено событие. Если установлено false, то будут отмечены изменение от "
+"примлемого значения к непремлемому"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "Measure instance"
@@ -173,6 +178,8 @@ msgid ""
 "Take into account this configuration will be only applied if monitor "
 "{openhref}event watcher is enabled{closehref}"
 msgstr ""
+"Примите во внимание, что такая конфигурация будет применяться только при "
+"включенном мониторе {openhref}event watcher is enabled{closehref}"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:122
 msgid "Measure"
@@ -369,6 +376,8 @@ msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
 "Status section{closehref}"
 msgstr ""
+"Вы должны включить монитор для графического мониторинга в {openhref}Module "
+"Status section{closehref}"
 
 #: src/EBox/CGI/Index.pm:98
 #, perl-brace-format
@@ -377,6 +386,9 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
+"Вы должны записать изменения в модуле состояния для графического мониторинга "
+"в{openhref}Save changes{closehref}. IВ случае если он уже включен, "
+"необходимо подождать несколько секунд для сбора информации"
 
 #: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
 #: src/EBox/Monitor.pm:164

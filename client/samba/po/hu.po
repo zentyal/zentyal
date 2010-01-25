@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:11+0100\n"
-"PO-Revision-Date: 2010-01-15 15:59+0100\n"
+"PO-Revision-Date: 2010-01-23 21:18+0100\n"
 "Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -243,12 +243,18 @@ msgid ""
 "in /home/samba/shares <br><i>File system path</i> will allow you to share an "
 "existing directory within your file system. "
 msgstr ""
+"Az <i>eBox könyvtára alatt</i> automatikusan létrejön a share.directory "
+"könyvtár a /home/samba/shares könyvtár alatt.<br><i>Fájlrendszer útvonal</i> "
+"engedélyezi egy már létező könyvtár megosztását. (?)"
 
 #: src/EBox/Samba/Model/SambaShares.pm:286
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
 msgstr ""
+"Itt lehet létrehozni megosztásokat részletesen szabályozható engedélyekkel. "
+"Egy már létező könyvtárat akar használni vagy kijelölni egy nevet, akkor az "
+"eBox ... (?)"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:91
 msgid "Read only"
@@ -295,6 +301,9 @@ msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"
 msgstr ""
+"Körültekintően bánjunk az <i> adminisztrátori</i> jogkörrel. Az \"átlagos, "
+"normál\" felhasználó is képes olvasni/írni a megfelelő módon megosztott "
+"fájlokat."
 
 #: src/EBox/Samba/Model/PDC.pm:77
 msgid "File sharing module is not enabled."
@@ -373,7 +382,7 @@ msgstr "kivétel"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:121
 msgid "Samba shares Recycle Bin exceptions"
-msgstr ""
+msgstr "Samba megosztások kuka kivételekkel"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:126
 msgid "Add exceptions to the default Recycle Bin settings"
@@ -413,13 +422,15 @@ msgstr "vírusirtó"
 
 #: src/EBox/Samba.pm:96
 msgid "Create Samba home directory for users and groups"
-msgstr ""
+msgstr "Samba home könyvtár létrehozása felhasználóknak és csoportoknak"
 
 #: src/EBox/Samba.pm:97
 msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
 msgstr ""
+"Az eBox létrehozza a home könyvtárat a Samba felhasználóknak és csoportoknak "
+"a /home/samba alatt."
 
 #: src/EBox/Samba.pm:102
 msgid "Add LDAP schemas"
@@ -427,15 +438,15 @@ msgstr "LDAP séma hozzáadása"
 
 #: src/EBox/Samba.pm:103
 msgid "eBox will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr ""
+msgstr "Az eBox hozzáad két LDAP sémát az LDAP könyvtárhoz: samba és ebox."
 
 #: src/EBox/Samba.pm:108
 msgid "Set Samba LDAP admin dn password"
-msgstr ""
+msgstr "Samba LDAP adminisztrátorának dn (?) jelszavának beállítása."
 
 #: src/EBox/Samba.pm:109
 msgid "eBox will configure Samba to use the LDAP admin dn password."
-msgstr ""
+msgstr "Az eBox beállítja a Samba LDAP adminisztrátorának dn (?) jelszavát."
 
 #: src/EBox/Samba.pm:125
 msgid "To set up Samba according to your configuration"
@@ -469,11 +480,11 @@ msgstr "Samba alapértelmezett vírusirtójának beállításai"
 
 #: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
 msgid "Source machine"
-msgstr ""
+msgstr "forrás számítógép (?)"
 
 #: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
 msgid "Connected since"
-msgstr ""
+msgstr "A csatlakozás óta eltelt idő."
 
 #: src/EBox/Samba.pm:671
 msgid "Shares by user"
@@ -497,11 +508,11 @@ msgstr "kvóta"
 
 #: src/EBox/Samba.pm:1642
 msgid "User's files"
-msgstr ""
+msgstr "felhasználók fájljai"
 
 #: src/EBox/Samba.pm:1644
 msgid "Group's files"
-msgstr ""
+msgstr "csoportok fájljai"
 
 #: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
 msgid "Date"
@@ -529,15 +540,15 @@ msgstr "könyvtárhoz való hozzáférés"
 
 #: src/EBox/Samba.pm:1670
 msgid "Read file"
-msgstr ""
+msgstr "fájl olvasás"
 
 #: src/EBox/Samba.pm:1671
 msgid "Write file"
-msgstr ""
+msgstr "fájl írás"
 
 #: src/EBox/Samba.pm:1672
 msgid "Disconnect"
-msgstr ""
+msgstr "Szétkapcsolódás"
 
 #: src/EBox/Samba.pm:1673
 msgid "Remove"

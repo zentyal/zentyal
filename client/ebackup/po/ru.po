@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:43+0100\n"
-"PO-Revision-Date: 2010-01-18 13:41+0100\n"
-"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
+"PO-Revision-Date: 2010-01-24 18:23+0100\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,132 +20,128 @@ msgstr ""
 
 #: src/EBox/EBackup.pm:62 src/EBox/Event/Watcher/EBackup.pm:111
 msgid "Backup"
-msgstr "Резервное копирование"
+msgstr "Бэкап"
 
 #: src/EBox/Event/Watcher/EBackup.pm:129
 msgid "Check if eBox backup was not successfull."
-msgstr "Проверить, удалось ли выполнить резервное копирование."
+msgstr "Проверить, удалось ли выполнить бэкап"
 
 #: src/EBox/Model/RemoteFileList.pm:143
 msgid "There is no information about backuped files yet"
-msgstr ""
+msgstr "Нет информации о файлах бэкапа"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "Файл"
 
 #: src/EBox/Model/RemoteFileList.pm:166
-#, fuzzy
 msgid "Backup Date"
-msgstr "Дата резервного копирования"
+msgstr "Дата бэкапа"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
-msgstr ""
+msgstr "Восстановление файлов"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "операция востановления файлов"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue  the currentwill be deleted"
-msgstr ""
+msgstr "Файл уже существует, если вы продолжите, существующий будет удален"
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr ""
+msgstr "Файлы востановленны успешно"
 
 #: src/EBox/Model/RemoteFileList.pm:266
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
-msgstr ""
+msgstr "Удаленный URL  используемый для ручного восстановления: {url}"
 
 #: src/EBox/Model/RemoteStatus.pm:117
 msgid "There is no information about the backuped files yet"
-msgstr ""
+msgstr "Пока не существует какой-либо информации о файлах бэкапа"
 
 #: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:74
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: src/EBox/Model/RemoteStatus.pm:140
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: src/EBox/Model/RemoteStatus.pm:147
 msgid "Remote Backup Status"
-msgstr ""
+msgstr "Состояние удаленного бэкапа"
 
 #: src/EBox/Model/RemoteStatus.pm:148
-#, fuzzy
 msgid "backup"
-msgstr "Резервное копирование"
+msgstr "бэкап"
 
 #: src/EBox/Model/RemoteSettings.pm:138
 msgid "Method"
-msgstr ""
+msgstr "Метод"
 
 #: src/EBox/Model/RemoteSettings.pm:144
-#, fuzzy
 msgid "Host or destination"
-msgstr "Каталог резервной копии"
+msgstr "Хост или приемник"
 
 #: src/EBox/Model/RemoteSettings.pm:150
 msgid "User"
-msgstr ""
+msgstr "Пользователь"
 
 #: src/EBox/Model/RemoteSettings.pm:156
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: src/EBox/Model/RemoteSettings.pm:162
 msgid "GPG key"
-msgstr ""
+msgstr "Ключ GPG"
 
 #: src/EBox/Model/RemoteSettings.pm:169
 msgid "Full Backup Frequency"
-msgstr ""
+msgstr "Переодичность полного бэкапа"
 
 #: src/EBox/Model/RemoteSettings.pm:175
 msgid "Number of full copies to keep"
-msgstr ""
+msgstr "Число хранимых полных копий"
 
 #: src/EBox/Model/RemoteSettings.pm:182
 msgid "Incremental Backup Frequency"
-msgstr ""
+msgstr "Переодичность инкреметальных бэкапов"
 
 #: src/EBox/Model/RemoteSettings.pm:188
 msgid "Backup process starts at"
-msgstr ""
+msgstr "Процесс бэкапа начат в"
 
 #: src/EBox/Model/RemoteSettings.pm:197
 msgid "General Configuration"
 msgstr "Общие настройки"
 
 #: src/EBox/Model/RemoteSettings.pm:200
-#, fuzzy
 msgid "General remote backup server configuration"
-msgstr "Общие настройки резервного копирования сервера"
+msgstr "Общие настройки сервера удаленного бэкапа"
 
 #: src/EBox/Model/RemoteSettings.pm:203
 msgid "General backup server configuration updated"
-msgstr "Общие настройки резервного копирования сервера обновлены"
+msgstr "Общие настройки сервера бэкапа обновлены"
 
 #: src/EBox/Model/RemoteSettings.pm:217
 msgid "Daily"
-msgstr ""
+msgstr "Ежедневный"
 
 #: src/EBox/Model/RemoteSettings.pm:221
 msgid "Weekly"
-msgstr ""
+msgstr "Еженедельный"
 
 #: src/EBox/Model/RemoteSettings.pm:225
 msgid "Monthly"
-msgstr ""
+msgstr "Ежемесячный"
 
 #: src/EBox/Model/RemoteSettings.pm:234 src/EBox/Model/RemoteSettings.pm:340
 msgid "Disabled"
-msgstr ""
+msgstr "Отключенный"
 
 #: src/EBox/Model/RemoteSettings.pm:356
 #, perl-brace-format
@@ -153,34 +149,36 @@ msgid ""
 "By creating the iBackup account through this {ohref}link{chref} you support "
 "the development of eBox with no extra charge"
 msgstr ""
+"Создав аккаунт iBackup используя ссылку {ohpref}link{chpref} вы оказываете "
+"поддержку разработчикам eBox"
 
 #: src/EBox/Model/RemoteExcludes.pm:80
 msgid "Exlcude or Include"
-msgstr ""
+msgstr "Исключить или включить"
 
 #: src/EBox/Model/RemoteExcludes.pm:91
 msgid "Includes and Excludes"
-msgstr ""
+msgstr "Влючённые и исключённые"
 
 #: src/EBox/Model/RemoteExcludes.pm:92
 msgid "exclude"
-msgstr ""
+msgstr "исключить"
 
 #: src/EBox/Model/RemoteExcludes.pm:111
 msgid "Exclude path"
-msgstr ""
+msgstr "Исключить путь"
 
 #: src/EBox/Model/RemoteExcludes.pm:115
 msgid "Exclude file regexp"
-msgstr ""
+msgstr "Исключить по регулярному выражению"
 
 #: src/EBox/Model/RemoteExcludes.pm:119
 msgid "Include Path"
-msgstr ""
+msgstr "Включить путь"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
-msgstr ""
+msgstr "Конфигурация и состояние"
 
 #: src/EBox/Composite/Remote.pm:64
 msgid "Backup module"

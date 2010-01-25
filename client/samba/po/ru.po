@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:11+0100\n"
-"PO-Revision-Date: 2009-07-17 11:19+0200\n"
-"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2010-01-23 20:33+0100\n"
+"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_samba_service.pl:113
@@ -100,7 +100,6 @@ msgid "Disk quota limit"
 msgstr "Ограничение дисковых квот"
 
 #: src/EBox/Samba/Model/SambaUser.pm:50
-#, fuzzy
 msgid "File Sharing Account"
 msgstr "PDC/File sharing аккаунт "
 
@@ -123,13 +122,12 @@ msgid "Netbios and workgroup must have different names"
 msgstr "Netbios и рабочая группа должны иметь разные имена"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:78
-#, fuzzy
 msgid "Netbios name cannot be longer than 15 characters"
-msgstr "Имя этого ресурса длиннее 12 символов"
+msgstr "Netbios имя ресурса не может быть длиннее 15 символов"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:88
 msgid "Enable PDC"
-msgstr "Включение PDC"
+msgstr "Включить PDC"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:94
 msgid "Domain name"
@@ -171,15 +169,16 @@ msgid "Drive letter"
 msgstr "Буква диска"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:142
-#, fuzzy
 msgid "Samba group"
-msgstr "Вирус самбы"
+msgstr "Группа самбы"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:146
 msgid ""
 "Only users belonging to this group will have a samba account. Sync happens "
 "every hour"
 msgstr ""
+"Только пользователи входящие в эту группу, будут иметь аккаунты в самбе. "
+"Синхронизация каждый час"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:152
 msgid "General settings"
@@ -190,9 +189,8 @@ msgid "On this page you can set different general settings for Samba"
 msgstr "На этой странице вы можете установить основные настройки Samba"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:209
-#, fuzzy
 msgid "All users"
-msgstr "пользователь"
+msgstr "Все пользователи"
 
 #: src/EBox/Samba/Model/SambaShares.pm:97
 msgid "Share name"
@@ -286,13 +284,12 @@ msgid "Permissions"
 msgstr "Разрешения"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
-#, fuzzy
 msgid "Access Control"
 msgstr "Контроль доступа"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "ACL"
-msgstr ""
+msgstr "Список контроля доступа"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid ""
@@ -376,14 +373,12 @@ msgid "exception"
 msgstr "исключения"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:121
-#, fuzzy
 msgid "Samba shares Recycle Bin exceptions"
-msgstr "Антивирусные исключение ресурсов Самбы"
+msgstr "Исключения корзины"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:126
-#, fuzzy
 msgid "Add exceptions to the default Recycle Bin settings"
-msgstr "Добавить исключения настройки по умолчанию антивируса"
+msgstr "Добавить исключения в настройки по умолчанию для корзины"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
@@ -394,26 +389,24 @@ msgid "Antivirus default settings"
 msgstr "Общие настройки антивируса"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:45
-#, fuzzy
 msgid "Recycle default settings"
-msgstr "Общие настройки антивируса"
+msgstr "Общие настройки корзины"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:55
 msgid "Enable Recycle Bin"
-msgstr ""
+msgstr "Разрешить Корзину"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:63
-#, fuzzy
 msgid "Recycle Bin default settings"
-msgstr "Общие настройки антивируса"
+msgstr "Общие настройки корзины"
 
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
-msgstr ""
+msgstr "Корзина"
 
 #: src/EBox/Samba/Composite/General.pm:68
 msgid "File sharing options"
-msgstr "Настройки совместное использование файлов"
+msgstr "Настройки совместного использования файлов"
 
 #: src/EBox/Samba/Composite/Antivirus.pm:64
 msgid "Antivirus"
@@ -435,9 +428,8 @@ msgid "Add LDAP schemas"
 msgstr "Добавить схемы LDAP"
 
 #: src/EBox/Samba.pm:103
-#, fuzzy
 msgid "eBox will add two LDAP schemas to the LDAP directory: samba and ebox."
-msgstr "eBox создаст две схемы LDAP: samba.schema и ebox.schema."
+msgstr "eBox создаст две схемы в LDAP`e: samba.schema и ebox.schema."
 
 #: src/EBox/Samba.pm:108
 msgid "Set Samba LDAP admin dn password"
@@ -529,7 +521,7 @@ msgstr "Действие"
 
 #: src/EBox/Samba.pm:1664
 msgid "Resource"
-msgstr ""
+msgstr "Ресурс"
 
 #: src/EBox/Samba.pm:1668
 msgid "Connect"

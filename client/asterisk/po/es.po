@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:34+0100\n"
-"PO-Revision-Date: 2009-07-03 12:15+0200\n"
+"PO-Revision-Date: 2010-01-25 12:12+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -25,12 +25,11 @@ msgstr "Sistema Voz IP de eBox"
 #: src/EBox/Asterisk.pm:70 src/EBox/Asterisk.pm:681
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
-msgstr ""
+msgstr "Voz sobre IP"
 
 #: src/EBox/Asterisk.pm:126
-#, fuzzy
 msgid "To configure enabled and disabled modules."
-msgstr "Para configurar Asterisk habilite o deshabilite modulos."
+msgstr "Para configurar los módulos habilitados o deshabilitados."
 
 #: src/EBox/Asterisk.pm:131
 msgid "To configure the Realtime interface."
@@ -41,9 +40,8 @@ msgid "To configure the LDAP Realtime driver."
 msgstr "Para configurar el controlador LDAP Realtime"
 
 #: src/EBox/Asterisk.pm:141
-#, fuzzy
 msgid "To configure the common SIP and IAX users."
-msgstr "Para configurar el controlador LDAP Realtime"
+msgstr "Para configurar los usarios comunes de  SIP e IAX"
 
 #: src/EBox/Asterisk.pm:146
 msgid "To configure the SIP trunk for local users and external providers."
@@ -51,24 +49,21 @@ msgstr ""
 "Para configurar el troncal SIP para usuarios locales y proveedores externos."
 
 #: src/EBox/Asterisk.pm:151
-#, fuzzy
 msgid "To configure the RTP port ranges."
-msgstr "Para configurar la interface Realtime."
+msgstr "Para configurar el rango del puerto RTP."
 
 #: src/EBox/Asterisk.pm:156
-#, fuzzy
 msgid "To configure the dialplan."
-msgstr "Para configurar el plan de marcado de Asterisk."
+msgstr "Para configurar el plan de marcado."
 
 #: src/EBox/Asterisk.pm:161
-#, fuzzy
 msgid "To configure the voicemail."
-msgstr "Para configurar el plan de marcado de Asterisk."
+msgstr "Para configurar el buzón de voz."
 
+# sala de conferencias?
 #: src/EBox/Asterisk.pm:166
-#, fuzzy
 msgid "To configure the conferences."
-msgstr "Para configurar la interface Realtime."
+msgstr "Para configurar las conferencias."
 
 #: src/EBox/Asterisk.pm:170
 #, fuzzy
@@ -93,43 +88,42 @@ msgid "Voicemail"
 msgstr "Buzón de voz"
 
 #: src/EBox/Asterisk.pm:504 src/EBox/Asterisk.pm:591
-#, fuzzy
 msgid "User"
 msgstr "Usuario"
 
 #: src/EBox/Asterisk.pm:504
-#, fuzzy
 msgid "Address"
-msgstr "Dirección de correo"
+msgstr "Dirección"
 
 #: src/EBox/Asterisk.pm:504
 msgid "NAT"
-msgstr ""
+msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:504
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: src/EBox/Asterisk.pm:518 src/EBox/Asterisk.pm:600
 msgid "No users connected."
-msgstr ""
+msgstr "No hay usuarios conectados."
 
 #: src/EBox/Asterisk.pm:588
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr ""
+msgstr "Sala {name} activa durante {rtime}"
 
 #: src/EBox/Asterisk.pm:591
 msgid "Time Connected"
-msgstr ""
+msgstr "Tiempo conectado"
 
 #: src/EBox/Asterisk.pm:621
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "Usarios on-line de VoIP"
 
+# salas de reuniones?
 #: src/EBox/Asterisk.pm:626
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "Usuarios de VoIP en reuniones"
 
 #: src/EBox/Asterisk.pm:658
 msgid "Date"
@@ -189,7 +183,7 @@ msgstr "Habilitado"
 #: src/EBox/Asterisk/Extensions.pm:230
 #, fuzzy
 msgid "User extension"
-msgstr "Extensión de usuario"
+msgstr "Extensión del usuario"
 
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
 #: src/EBox/Model/Meetings.pm:145 src/EBox/Model/Settings.pm:92
@@ -236,16 +230,14 @@ msgid "Description"
 msgstr "Descripción"
 
 #: src/EBox/Model/Meetings.pm:184
-#, fuzzy
 msgid "List of Meetings"
-msgstr "Reuniones"
+msgstr "Listas de Conferencia"
 
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
-msgstr "reunión"
+msgstr "conferencia"
 
 #: src/EBox/Model/AsteriskUser.pm:50
-#, fuzzy
 msgid "Asterisk Account"
 msgstr "Cuenta Asterisk"
 
@@ -258,9 +250,8 @@ msgid "Voicemail settings"
 msgstr "Configuración de buzón de voz"
 
 #: src/EBox/Model/Voicemail.pm:94
-#, fuzzy
 msgid "New password"
-msgstr "Contraseña"
+msgstr "Nueva contraseña"
 
 #: src/EBox/Model/Voicemail.pm:101
 msgid "Mail address"
@@ -275,9 +266,8 @@ msgid "Delete sent messages"
 msgstr "Borrar mensajes enviados"
 
 #: src/EBox/Model/Voicemail.pm:126
-#, fuzzy
 msgid "Change your Voicemail settings"
-msgstr "Configuración de buzón de voz"
+msgstr "Cambiar configuración del buzón de voz"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
@@ -286,6 +276,8 @@ msgstr "Configuración actualizada"
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
+"No dispone de una cuenta de VoIP. Tal vez el módulo de VoIP esté desactivado "
+"en este servidor"
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -293,6 +285,8 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
+"Las redes asociadas directamente a interfaces internos, como {net} son "
+"siempre consideradas redes locales, así que es no necesario añadirlas."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
@@ -323,19 +317,16 @@ msgid "VoIP domain"
 msgstr "Dominio Voz IP"
 
 #: src/EBox/Model/Settings.pm:145
-#, fuzzy
 msgid "General configuration"
-msgstr "Ajustes de configuración general"
+msgstr "Ajustes de la configuración general"
 
 #: src/EBox/Model/Settings.pm:149
-#, fuzzy
 msgid "General Asterisk server configuration"
-msgstr "Configuración General del servidor de Asterisk"
+msgstr "Configuración general del servidor Asterisk"
 
 #: src/EBox/Model/Settings.pm:151
-#, fuzzy
 msgid "General Asterisk server configuration updated."
-msgstr "Ajustes de configuración General del servidor Asterisk actualizado"
+msgstr "Configuración general del servidor Asterisk actualizada"
 
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
@@ -350,51 +341,46 @@ msgid "Server"
 msgstr "Servidor"
 
 #: src/EBox/Model/Provider.pm:104
-#, fuzzy
 msgid "Recipient of incoming calls"
-msgstr "Llamadas entrates habilitada."
+msgstr "Receptor de llamadas entrantes"
 
 #: src/EBox/Model/Provider.pm:114
 msgid "SIP provider"
 msgstr "Proveedor SIP"
 
 #: src/EBox/Model/Provider.pm:118
-#, fuzzy
 msgid "SIP provider for outgoing calls configuration."
-msgstr "Configuracion del Proveedor SIP"
+msgstr "Configuración del proveedor SIP para llamadas salientes"
 
 #: src/EBox/Model/Provider.pm:120
-#, fuzzy
 msgid "SIP provider configuration updated."
-msgstr "Configuración actualizada del Proveedor SIP "
+msgstr "Configuración del proveedor SIP actualizada"
 
 #: src/EBox/Model/NAT.pm:96
 #, fuzzy
 msgid "eBox is behind NAT"
-msgstr "Asterisk está detrás de NAT"
+msgstr "eBox está detrás de NAT"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
 msgstr "No"
 
 #: src/EBox/Model/NAT.pm:120
-#, fuzzy
 msgid "NAT configuration"
-msgstr "Configuracion del Proveedor SIP"
+msgstr "Configuración NAT"
 
 #: src/EBox/Model/NAT.pm:124
-#, fuzzy
 msgid "NAT Asterisk server configuration"
-msgstr "Configuración General del servidor de Asterisk"
+msgstr "Configuración NAT del servidor Asterisk"
 
 #: src/EBox/Model/NAT.pm:126
 #, fuzzy
 msgid "NAT Asterisk server configuration updated."
-msgstr "Ajustes de configuración General del servidor Asterisk actualizado"
+msgstr "Configuración NAT del servidor Asterisk actualizada"
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
-msgstr "Modulo Asterisk"
+msgstr "Módulo Asterisk"
 
 #: src/templates/group.mas:8
 #, fuzzy

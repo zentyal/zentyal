@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.3.14Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:49+0100\n"
-"PO-Revision-Date: 2010-01-15 13:40+0100\n"
+"PO-Revision-Date: 2010-01-22 11:23+0100\n"
 "Last-Translator: Zoran <zoran@atlantisti.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -444,89 +444,89 @@ msgstr ""
 #: src/templates/finish.mas:116 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
-msgstr ""
+msgstr "Trebalo bi da bude jedna od sledećih vrednosti: {values}"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:101
 msgid "Events details"
-msgstr ""
+msgstr "Radnje koje preduzimate dozvoljene su za: {view} i {cView}"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:60
 msgid "Events summarized chart"
-msgstr ""
+msgstr "Izabrati jedno od:"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:77
 msgid "Events summarized graph"
-msgstr ""
+msgstr "Sistem backup"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:70
 msgid "Events reports"
-msgstr ""
+msgstr "Nepoznati backup mode: {mode}"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:71
 msgid "Events report"
-msgstr ""
+msgstr "Unos sadrži nevažeće karaktere"
 
 #: src/EBox/EventDaemon.pm:451
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
-msgstr ""
+msgstr "Nepoznat restore mode: {mode}"
 
 #: src/EBox/Auth.pm:155
 msgid "Password changed"
-msgstr ""
+msgstr "Backing up"
 
 #: src/EBox/CGI/ClientRawBase.pm:209
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
-msgstr ""
+msgstr "Backing up moduli"
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58
 msgid "Logs"
-msgstr ""
+msgstr "Operacija"
 
 #: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:691
 msgid "Query Logs"
-msgstr ""
+msgstr "operacija ostalo do završetka backup-a"
 
 #: src/EBox/CGI/Logs/Index.pm:329
 msgid "Full Reports"
-msgstr ""
+msgstr "Backup uspešan"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
 msgid "Configure Widgets"
-msgstr ""
+msgstr "Restoring backup"
 
 #: src/EBox/CGI/Login/Index.pm:62
 msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
-msgstr ""
+msgstr "Restoring module"
 
 #: src/EBox/CGI/Login/Index.pm:66
 msgid "Incorrect password"
-msgstr ""
+msgstr "Modul"
 
 #: src/EBox/CGI/Login/Index.pm:69
 msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
+msgstr "modula ostalo za restore"
 
 #: src/EBox/CGI/Login/Index.pm:72
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "Restore uspešan"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
 msgid "Module Status Configuration"
-msgstr ""
+msgstr "ime modula"
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"
-msgstr ""
+msgstr "Modul je ispravno restartovan."
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General Configuration"
-msgstr ""
+msgstr "Nadgrađujem"
 
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or Reboot"

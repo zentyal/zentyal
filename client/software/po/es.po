@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:51+0100\n"
-"PO-Revision-Date: 2007-02-02 18:12+0000\n"
-"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
+"PO-Revision-Date: 2010-01-25 12:50+0100\n"
+"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <info@ebox-platform.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 0.10.1\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
@@ -24,15 +24,13 @@ msgstr ""
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "Servicio de software para actualizar paquetes vía pat"
 
 #: migration/0001_add_http_software_rule.pl:45
-#, fuzzy
 msgid "rule to allow apt updates"
-msgstr "Actualizaciones automáticas de software"
+msgstr "regla para permitir actualizaciones de paquetes"
 
 #: src/EBox/Software.pm:53
-#, fuzzy
 msgid "Software Management"
 msgstr "Gestión de software"
 
@@ -41,6 +39,8 @@ msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr ""
+"eBox software descargará las actualizaciones disponibles desde las fuentes "
+"apt que tenga configuradas"
 
 #: src/EBox/Software.pm:83
 msgid "Enable cron script to download updates"
@@ -50,32 +50,35 @@ msgstr ""
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr ""
+"El módulo de gestión del software debe estar habilitado para poder instalar "
+"paquetes"
 
 #: src/EBox/Software.pm:212 src/EBox/Software.pm:435
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
+"El módulo de gestión del software debe estar habilitado para poder eliminar "
+"paquetes"
 
 #: src/EBox/Software.pm:545
-#, fuzzy
 msgid "eBox Components"
 msgstr "Componentes eBox"
 
 #: src/EBox/Software.pm:547
-#, fuzzy
 msgid "System Updates"
 msgstr "Actualizaciones del sistema"
 
 #: src/EBox/Software.pm:549
-#, fuzzy
 msgid "Automatic Updates"
-msgstr "Actualizaciones automáticas de software"
+msgstr "Actualizaciones automáticas"
 
 #: src/EBox/Software.pm:640
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"La gestión del software está actualmente bloqueada por {locker}. Por favor, "
+"inténtelo más tarde"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
@@ -111,9 +114,8 @@ msgid "There were no packages to update"
 msgstr "No hay paquetes para actualizar"
 
 #: src/EBox/CGI/InstallPkgs.pm:149
-#, fuzzy
 msgid "Upgrading packages"
-msgstr "Actualizando"
+msgstr "Actualizando paquetes"
 
 #: src/EBox/CGI/InstallPkgs.pm:150 src/EBox/CGI/InstallPkgs.pm:170
 msgid "Current package"
@@ -129,21 +131,25 @@ msgid ""
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully restarted"
 msgstr ""
+"La instalación de los paquetes se ha completado con éxito. La interfaz de "
+"administración puede no responder durante unos pocos segundos. Por favor, "
+"espere pacientemente hasta que el sistema se haya reiniciado completamente"
 
 #: src/EBox/CGI/InstallPkgs.pm:156
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"La instalación de los paquetes no se ha completado de forma correcta. Más "
+"información en los logs"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
-#, fuzzy
 msgid "Removing package"
-msgstr "Actualizando"
+msgstr "Eliminando paquete"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Eliminando los paquetes seleccionados y sus paquetes dependientes"
 
 #: src/EBox/CGI/InstallPkgs.pm:171
 msgid "packages left to remove"
@@ -155,12 +161,17 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"La eliminación de los paquetes se ha completado con éxito. La interfaz de "
+"administración puede no responder durante unos pocos segundos. Por favor, "
+"espere pacientemente hasta que el sistema se haya reiniciado completamente"
 
 #: src/EBox/CGI/InstallPkgs.pm:176
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"La eliminación de los paquetes se ha completado con éxito. Más información "
+"en los logs"
 
 #: src/templates/ebox.mas:16 src/templates/updates.mas:18
 msgid "Component"
@@ -225,7 +236,7 @@ msgstr "Descripción"
 
 #: src/templates/updates.mas:20
 msgid "Version"
-msgstr ""
+msgstr "Versión"
 
 #: src/templates/updates.mas:66
 msgid ""

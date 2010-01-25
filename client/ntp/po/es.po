@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:01+0000\n"
-"PO-Revision-Date: 2009-01-26 18:58+0000\n"
-"Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
+"PO-Revision-Date: 2010-01-23 16:52+0100\n"
+"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,13 +73,12 @@ msgid "continent"
 msgstr "continente"
 
 #: src/EBox/CGI/Datetime.pm:30
-#, fuzzy
 msgid "Date and Time Configuration"
-msgstr "Opciones de fecha y hora"
+msgstr "Configuración de Fecha y Hora"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Time Zone Configuration"
-msgstr ""
+msgstr "Configuración de Zona Horaria"
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
@@ -128,14 +127,12 @@ msgid "System"
 msgstr "Sistema"
 
 #: src/EBox/NTP.pm:402
-#, fuzzy
 msgid "Date/Time"
-msgstr "Fecha/hora"
+msgstr "Fecha/Hora"
 
 #: src/EBox/NTP.pm:405
-#, fuzzy
 msgid "Time Zone"
-msgstr "Zona horaria"
+msgstr "Zona Horaria"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
@@ -165,7 +162,6 @@ msgid "Enabled"
 msgstr "Activado"
 
 #: src/templates/date.mas:10
-#, fuzzy
 msgid ""
 "A change in the date or time will cause all eBox services to be restarted."
 msgstr ""
