@@ -81,4 +81,12 @@ sub _description
     return $description;
 }
 
+# Method: pageTitle
+#
+#   Overrides <EBox::Model::Composite::pageTitle>
+sub pageTitle
+{
+    return __('EGroupware');
+}
+
 1;

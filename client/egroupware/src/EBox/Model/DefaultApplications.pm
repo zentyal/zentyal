@@ -53,4 +53,13 @@ sub _table
     return $table;
 }
 
+# Method: headTitle
+#
+#   Override <EBox::Model::DataTable::headTitle>
+sub headTitle
+{
+    return undef;
+}
+
+
 1;

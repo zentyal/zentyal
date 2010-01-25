@@ -169,4 +169,12 @@ sub _table
     return $dataTable;
 }
 
+# Method: headTitle
+#
+#   Override <EBox::Model::DataTable::headTitle>
+sub headTitle
+{
+    return undef;
+}
+
 1;
