@@ -867,13 +867,14 @@ sub _loadLdap
     my $ldifFile = $self->ldifFile($dir, $slapd, $type);
 
     my $backupCommand = $self->_backupSystemDirectory();
+    my $mkCommand = $self->_mkLdapDirCmd($ldapDir);
     my $rmCommand = $self->_rmLdapDirCmd($ldapDir);
     my $slapaddCommand = $self->_slapaddCmd($ldifFile, $slapd, $type);
     my $chownConfCommand = $self->_chownConfDir($slapd);
     my $chownDataCommand = $self->_chownDataDir($slapd);
 
     $self->_execute(
-                cmds => [$backupCommand, $rmCommand,
+                cmds => [$backupCommand, $mkCommand, $rmCommand,
                          $slapaddCommand, $chownConfCommand, $chownDataCommand
                         ]);
 }
@@ -1007,12 +1008,23 @@ sub _slapaddCmd
     return  "/usr/sbin/slapadd -c $options -F " . confDir($slapd) .  " -b '$base' < $ldifFile";
 }
 
+sub _mkLdapDirCmd
+{
+    my ($self, $ldapDir)   = @_;
+
+    return "mkdir -p $ldapDir";
+}
+
 sub _rmLdapDirCmd
 {
     my ($self, $ldapDir)   = @_;
-    $ldapDir .= '/*' if defined $ldapDir ;
 
-    return "sh -c '/bin/rm -rf $ldapDir'";
+    if (defined($ldapDir)) {
+        $ldapDir .= '/*';
+        return "sh -c '/bin/rm -rf $ldapDir'";
+    } else {
+        return "true";
+    }
 }
 
 sub _backupSystemDirectory

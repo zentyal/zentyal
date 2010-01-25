@@ -102,6 +102,8 @@ sub master
     my $model = EBox::Model::ModelManager->instance()->model('Mode');
     my $dn = $model->dnValue();
 
+    EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default /etc/default/slapd");
+
     EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
         'slapd-master.ldif',
         'usersandgroups/slapd-master.ldif.mas',

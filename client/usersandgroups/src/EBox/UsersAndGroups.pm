@@ -267,8 +267,14 @@ sub _loadCertificates
     my $ca;
     my $cert;
 
+    my $ldapca;
+
     $cert = read_file(SSL_DIR . "ssl.cert");
     $ca = $cert;
+
+    EBox::Sudo::root('chown -R ebox.ebox /etc/ldap/ssl');
+    $ldapca = read_file("/etc/ldap/ssl/ssl.cert");
+    EBox::Sudo::root('chown -R openldap.openldap /etc/ldap/ssl');
 
     my $dn = $self->masterDn();
 
@@ -280,7 +286,8 @@ sub _loadCertificates
     my %args = ('attr' => [
         'objectClass' => 'masterHost',
         'masterCertificate' => $cert,
-        'masterCACertificate' => $ca
+        'masterCACertificate' => $ca,
+        'masterLDAPCACertificate' => $ldapca
     ]);
     $self->ldap->add($dn, \%args);
 }
@@ -558,6 +565,26 @@ sub restoreState
 {
     my ($self) = @_;
     $self->_enforceServiceState();
+}
+
+# Method: configured
+#
+#    Overrides EBox::Module::Service::configured method. The normal method
+#    calls usedFiles() and actions() and it might cause migrations to not work
+#
+sub configured
+{
+    my ($self) = @_;
+
+    if (-d EBox::Config::conf() . "configured/") {
+        return -f (EBox::Config::conf() . "configured/" . $self->name());
+    }
+
+    unless ($self->st_get_bool('_serviceConfigured')) {
+        return undef;
+    }
+
+    return $self->st_get_bool('_serviceConfigured');
 }
 
 sub rewriteObjectClasses
@@ -2521,10 +2548,14 @@ sub _registerHostname
         throw EBox::Exceptions::External(__x('A host with the name {host} is already registered in this eBox', host => $hostname));
     }
 
+    my $apache = EBox::Global->modInstance('apache');
+    my $port = $apache->port();
+
     %args = (
         attr => [
             'objectClass' => 'slaveHost',
-            'hostname' => $hostname
+            'hostname' => $hostname,
+            'port' => $port,
         ]
     );
     $result = $ldap->add("hostname=$hostname,ou=slaves,$dn", %args);
@@ -2546,6 +2577,7 @@ sub _getCertificates
     my $entry = ($result->entries)[0];
     my $cert = $entry->get_value('masterCertificate');
     my $cacert = $entry->get_value('masterCACertificate');
+    my $ldapcacert = $entry->get_value('masterLDAPCACertificate');
 
     write_file(SSL_DIR . 'master.cert', $cert);
     write_file(CA_DIR . 'masterca.pem', $cacert);
@@ -2559,6 +2591,12 @@ sub _getCertificates
         }
     }
     EBox::Sudo::command('ln -s masterca.pem ' . CA_DIR . '`openssl x509 -hash -noout -in ' . CA_DIR . 'masterca.pem`.0');
+
+    write_file('/etc/ldap/ssl/masterldapca.pem', $ldapcacert);
+    EBox::Module::Base::writeConfFileNoCheck('/etc/ldap/ldap.conf',
+            'usersandgroups/ldap.conf.mas',
+    );
+
 }
 
 sub _setupReplication
