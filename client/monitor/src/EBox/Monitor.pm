@@ -57,7 +57,7 @@ use Error qw(:try);
 # Constants
 use constant COLLECTD_SERVICE    => 'ebox.collectd';
 use constant COLLECTD_CONF_FILE  => '/etc/collectd/collectd.conf';
-use constant THRESHOLD_CONF_FILE => '/etc/collectd/thresholds.conf';
+use constant THRESHOLDS_CONF_FILE => '/etc/collectd/thresholds.conf';
 
 # Method: _create
 #
@@ -132,9 +132,9 @@ sub usedFiles
           module => 'monitor',
           reason => __('Collectd main configuration file'),
         },
-        { file   => THRESHOLD_CONF_FILE,
+        { file   => THRESHOLDS_CONF_FILE,
           module => 'monitor',
-          reason => __('Collectd threshold configuration file'),
+          reason => __('Collectd thresholds configuration file'),
         },
        ];
 }
@@ -526,7 +526,7 @@ sub _setThresholdConf
         $self->{thresholdConfigured} = 1;
     }
 
-    $self->writeConfFile(THRESHOLD_CONF_FILE,
+    $self->writeConfFile(THRESHOLDS_CONF_FILE,
                          'monitor/thresholds.conf.mas',
                          [
                              (thresholds => \%thresholds),

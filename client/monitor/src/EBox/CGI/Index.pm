@@ -68,7 +68,7 @@ sub masonParameters
     if ( not $mon->configured() ) {
         $self->setTemplate('/msg.mas');
         return [ msg => __x('You must enable monitor module to see monitor graphs '
-                            . 'in {openhref}Module Status section{closehref}',
+                            . 'in {openhref}Module Status{closehref} section.',
                             openhref  => qq{<a href="/ebox/ServiceModule/StatusView">},
                             closehref => qq{</a>}),
                  class => 'note' ];
