@@ -4,6 +4,7 @@ HEAD
 	  backup processes (Closes #1680)
 	+ Added validation of parameters in RemoteSettings and notice
 	about SHH known hosts
+	+ Cannot choose a higher frequency of full backups  than incremental backups
 1.3.13
 	+ Bug fix: add --force to delete old backup sets
 	+ Bug fix: fix restoring of the first file

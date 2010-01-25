@@ -531,11 +531,11 @@ sub _validateFrequencies
                   monthly => 1, 
                  );
 
-    if ($values{$partial} > $values{$full}) {
+    if ($values{$full} > $values{$partial}) {
         throw EBox::Exceptions::External(
-    __('Incremental backup cannot be more frequent than full backup')
+    __('Full backup cannot be more frequent than incremental backup')
                                         );
-    }
+    } 
 }
 
 
