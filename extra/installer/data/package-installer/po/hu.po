@@ -5,198 +5,201 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-. \n"
+"Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-01-21 19:02+0100\n"
-"PO-Revision-Date: 2009-05-05 02:23+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-24 19:32+0100\n"
+"Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n !=1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: ebox-package-installer:29
 msgid "Firewall, HTTP proxy, traffic shaping, etc."
-msgstr ""
+msgstr "tűzfal, HTTP proxy, forgalomirányítás, stb."
 
 #: ebox-package-installer:30
 msgid "Firewall, IDS, AV, VPN, content & mail filter, etc."
-msgstr ""
+msgstr "tűzfal, IDS, vírusirtó, VPN, tartalom- és levélszűrő, stb."
 
 #: ebox-package-installer:31
 msgid "DHCP, DNS, NTP, HTTP server, etc."
-msgstr ""
+msgstr "DHCP, DNS, NTP, HTTP kiszolgáló, stb."
 
 #: ebox-package-installer:32
 msgid "File sharing and printing, groupware, etc."
-msgstr ""
+msgstr "fájl és nyomtató megosztás, csoportmunka, stb."
 
 #: ebox-package-installer:33
 msgid "Mail, Jabber/XMPP, VoIP, etc."
-msgstr ""
+msgstr "levelezés, Jabber/XMPP, VoIP, stb."
 
 #: ebox-package-installer:37
 msgid "Networking"
-msgstr ""
+msgstr "hálózati munka"
 
 #: ebox-package-installer:38
 msgid "Firewall and redirections"
-msgstr ""
+msgstr "tűzfal és átirányítás"
 
 #: ebox-package-installer:39
 msgid "Traffic shaping"
-msgstr ""
+msgstr "forgalomirányítás"
 
 #: ebox-package-installer:40
 msgid "File sharing server and Windows PDC"
-msgstr ""
+msgstr "fájl megosztó kiszolgáló és Windows tartományi kiszolgáló (PDC)"
 
 #: ebox-package-installer:41
 msgid "DNS server"
-msgstr ""
+msgstr "DNS kiszolgáló"
 
 #: ebox-package-installer:42
 msgid "DHCP server"
-msgstr ""
+msgstr "DHCP kiszolgáló"
 
 #: ebox-package-installer:43
 msgid "RADIUS server"
-msgstr ""
+msgstr "RADIUS kiszolgáló"
 
 #: ebox-package-installer:44
 msgid "HTTP proxy and content filter"
-msgstr ""
+msgstr "HTTP proxy és tartalomszűrő"
 
 #: ebox-package-installer:45
 msgid "LDAP users and groups management"
-msgstr ""
+msgstr "LDAP felhasználók és csoportok kezelése"
 
 #: ebox-package-installer:46
 msgid "System monitor with graphs and alerts"
-msgstr ""
+msgstr "rendszermonitor grafikonnal és riasztásfigyeléssel"
 
 #: ebox-package-installer:47
 msgid "System and eBox package managmenet"
-msgstr ""
+msgstr "rendszer és eBox csomag kezelés"
 
 #: ebox-package-installer:48
 msgid "NTP server"
-msgstr ""
+msgstr "NTP kiszolgáló"
 
 #: ebox-package-installer:49
 msgid "Printing server"
-msgstr ""
+msgstr "nyomtató kiszolgáló"
 
 #: ebox-package-installer:50
 msgid "Jabber/XMPP server"
-msgstr ""
+msgstr "Jabber/XMPP kiszolgáló"
 
 #: ebox-package-installer:51
 msgid "VPN server"
-msgstr ""
+msgstr "VPN kiszolgáló"
 
 #: ebox-package-installer:52
 msgid "HTTP server"
-msgstr ""
+msgstr "HTTP kiszolgáló"
 
 #: ebox-package-installer:53
 msgid "Mail system: SMTP, POP3, IMAP4"
-msgstr ""
+msgstr "levelezőrendszer: SMTP, POP3, IMAP4"
 
 #: ebox-package-installer:54
 msgid "WWW Mail Client"
-msgstr ""
+msgstr "www levelező kliens"
 
 #: ebox-package-installer:55
 msgid "Antispam, antivirus, transparent POP3 proxy"
-msgstr ""
+msgstr "SPAM szűrő, vírusirtó, transzparens POP3 proxy"
 
 #: ebox-package-installer:56
 msgid "Antivirus"
-msgstr ""
+msgstr "vírusirtó"
 
 #: ebox-package-installer:57
 msgid "Shared calendar and address book, webmail, etc"
-msgstr ""
+msgstr "megosztott naptár és címjegyzék, webmail, stb."
 
 #: ebox-package-installer:58
 msgid "Intrusion Detection System"
-msgstr ""
+msgstr "behatolás (betörés ?) érzékelő rendszer"
 
 #: ebox-package-installer:60
 msgid "VoIP PBX"
-msgstr ""
+msgstr "VoIP PBX"
 
 #: ebox-package-installer:73
 msgid "eBox Platform Installer"
-msgstr ""
+msgstr "eBox platform telepítő"
 
 #: ebox-package-installer:74
 msgid "Choose package selection method"
-msgstr ""
+msgstr "válasszon csomagkezelési módszert (eljárást ?)"
 
 #: ebox-package-installer:75
 msgid "Select the method that better fits your needs."
-msgstr ""
+msgstr "Válasszon egy eljárást a legjobb kitöltéshez! (?)"
 
 #: ebox-package-installer:76
 msgid "simple"
-msgstr ""
+msgstr "egyszerű"
 
 #: ebox-package-installer:77
 msgid "Select packages by task"
-msgstr ""
+msgstr "Válasszon csomagokat a feladathoz!"
 
 #: ebox-package-installer:78 ebox-package-installer:89
 msgid "advanced"
-msgstr ""
+msgstr "haladó"
 
 #: ebox-package-installer:79
 msgid "Select packages manually"
-msgstr ""
+msgstr "csomagok egyedi kiválasztása"
 
 #: ebox-package-installer:80
 msgid "Select eBox tasks to install"
-msgstr ""
+msgstr "Válasszon eBox feladatokat a telepítéshez!"
 
 #: ebox-package-installer:81
 msgid "Select one or more tasks:"
-msgstr ""
+msgstr "Válasszon egy vagy több feladatot!"
 
 #: ebox-package-installer:82
 msgid "Select eBox packages to install"
-msgstr ""
+msgstr "Válasszon eBox csomagokat a telepítéshez!"
 
 #: ebox-package-installer:83
 msgid "Select the desired packages:"
-msgstr ""
+msgstr "Válassza ki a kívánt csomagokat!"
 
 #: ebox-package-installer:84
 msgid "Select the type of the server"
-msgstr ""
+msgstr "Válassza ki a kiszolgáló típusát!"
 
 #: ebox-package-installer:85
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
+"Válasszon egyedülálló kiszolgálót (?), kivéve ha az LDAP replikációt vagy "
+"szinkronizációt akar az AD-val."
 
 #: ebox-package-installer:86
 msgid "Standalone server"
-msgstr ""
+msgstr "önálló kiszolgáló"
 
 #: ebox-package-installer:87
 msgid "Advanced configuration (Master/Slave/AD Sync)"
-msgstr ""
+msgstr "haladó beállítások (mester/szolga/AD szinkronizálás)"
 
 #: ebox-package-installer:88
 msgid "standalone"
-msgstr ""
+msgstr "önálló"
 
 #: ebox-package-installer:90
 msgid "Advanced configuration modes"
-msgstr ""
+msgstr "haladó beállítási módok"
 
 #: ebox-package-installer:91
 #, perl-brace-format
@@ -205,16 +208,21 @@ msgid ""
 "You can learn more about these features here:\n"
 "{url}"
 msgstr ""
+"Ez a béta verzió nem támogatja a haladó, automatikus beállításokat. Erről "
+"többet megtudhat itt:\n"
+"{url}"
 
 #: ebox-package-installer:94
 msgid "Select External (WAN) interfaces"
-msgstr ""
+msgstr "Válassza ki a külső (WAN) csatoló(ka)t!"
 
 #: ebox-package-installer:95
 msgid ""
 "WARNING: By default you will not be able to access the web interface through "
 "them."
 msgstr ""
+"Figyelem! Az alapértelmezett módon nem érhető el a web csatlakozón "
+"(interface) keresztül a (?)."
 
 #: ebox-package-installer:96
 msgid ""
@@ -223,48 +231,58 @@ msgid ""
 "the eBox features but it will not act as a gateway unless you add another "
 "network card."
 msgstr ""
+"Telepítette az átjáró profilját. Szükséges legalább két hálózati csatoló és "
+"a saját gépébe elég egy is. Használja (élvezheti) az eBox ezen "
+"szolgáltatását, de lehet, hogy hozzá kell adni az átjáró használatához egy "
+"másik hálózati csatolót (interface) is."
 
 #: ebox-package-installer:97
 msgid "Enter administration user"
-msgstr ""
+msgstr "Adja meg az adminisztrációt végző felhasználót"
 
 #: ebox-package-installer:98
 msgid ""
 "You will need this username to log into the local console or access remotely "
 "by SSH:"
 msgstr ""
+"A bejelentkezéshez kell a felhasználói név a helyi konzolon vagy a távoli "
+"hozzáférésű SSH kapcsolaton keresztül."
 
 #: ebox-package-installer:99
 msgid "Enter administration password"
-msgstr ""
+msgstr "Adja meg az adminisztrációs jelszót"
 
 #: ebox-package-installer:100
 msgid ""
 "You will need to use this password to log into the eBox interface or in the "
 "console with the username that you have just entered:"
 msgstr ""
+"Az eBox csatolón (interface) keresztüli belépéshez szükséges a jelszó "
+"használata vagy a konzolon meg kell adni a felhasználói nevet:"
 
 #: ebox-package-installer:101
 msgid "Confirm administration password"
-msgstr ""
+msgstr "Erősítse meg az adminisztrációs jelszót"
 
 #: ebox-package-installer:103
 msgid "Mail configuration"
-msgstr ""
+msgstr "levelezés beállítása"
 
 #: ebox-package-installer:104
 msgid "Enter default virtual mail domain:"
-msgstr ""
+msgstr "Adja meg az alapértelmezett virtuális levelező domaint:"
 
 #: ebox-package-installer:105
 msgid "Installation finished"
-msgstr ""
+msgstr "A telepítés véget ért."
 
 #: ebox-package-installer:106
 msgid ""
 "Now you can access the eBox interface browsing the following address from "
 "any computer in your network: "
 msgstr ""
+"Ön most hozzáférhet az eBox csatolóval (interface) a következő címen a "
+"hálózaton csatlakozó számítógéphez:_ (?)"
 
 #: ebox-package-installer:107
 msgid ""
@@ -272,42 +290,45 @@ msgid ""
 "typical setup. If you really know what you are doing you can install in "
 "expert mode and define your own partition layout."
 msgstr ""
+"A root fájlrendszer mérete kisebb mint 2 GB. Ez nem elegendő a tipikus "
+"(általános) telepítéshez. Ha szakértői üzemmódban akar telepíteni, akkor "
+"adjon meg egy saját partíciót."
 
 #: ebox-package-installer:136 ebox-package-installer:158
 #: ebox-package-installer:257 ebox-package-installer:305
 #: ebox-package-installer:319
 msgid "Error"
-msgstr ""
+msgstr "hiba"
 
 #: ebox-package-installer:158
 msgid "Installation failed."
-msgstr ""
+msgstr "telepítési hiba"
 
 #: ebox-package-installer:159
 #, perl-brace-format
 msgid "Check contents of {log} to see what happened"
-msgstr ""
+msgstr "Ellenőrizze a {log} tartalmát, hogy lássa a történéseket."
 
 #: ebox-package-installer:223
 msgid "Installing eBox packages..."
-msgstr ""
+msgstr "eBox csomagok telepítése..."
 
 #: ebox-package-installer:258
 msgid "You must select at least one package."
-msgstr ""
+msgstr "Adjon meg legalább egy csomagot!"
 
 #: ebox-package-installer:278
 msgid "Warning"
-msgstr ""
+msgstr "figyelmeztetés"
 
 #: ebox-package-installer:305
 msgid "Passwords don't match"
-msgstr ""
+msgstr "a jelszavak nem egyeznek"
 
 #: ebox-package-installer:319
 msgid "The username 'ebox' is reserved. Please choose another."
-msgstr ""
+msgstr "Az eBox felhasználói név már foglalt, kérem válasszon másikat!"
 
 #: ebox-package-installer:363
 msgid "Preconfiguring eBox packages..."
-msgstr ""
+msgstr "eBox csomagok előzetes beállítása..."

@@ -5,144 +5,145 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-. \n"
+"Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-01-21 19:02+0100\n"
-"PO-Revision-Date: 2009-05-05 02:23+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-22 13:42+0100\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: ebox-package-installer:29
 msgid "Firewall, HTTP proxy, traffic shaping, etc."
-msgstr ""
+msgstr "Brannmur, HTTP proxy, trafikk styring, etc."
 
 #: ebox-package-installer:30
 msgid "Firewall, IDS, AV, VPN, content & mail filter, etc."
-msgstr ""
+msgstr "Brannmur, IDS, AV, VPN, innholds & epost filter, etc."
 
 #: ebox-package-installer:31
 msgid "DHCP, DNS, NTP, HTTP server, etc."
-msgstr ""
+msgstr "DHCP, DNS, NTP, HTTP server, etc."
 
 #: ebox-package-installer:32
 msgid "File sharing and printing, groupware, etc."
-msgstr ""
+msgstr "Fil og printer deling, gruppevare, etc."
 
 #: ebox-package-installer:33
 msgid "Mail, Jabber/XMPP, VoIP, etc."
-msgstr ""
+msgstr "Epost, Jabber/XMPP, VoIP, etc."
 
 #: ebox-package-installer:37
 msgid "Networking"
-msgstr ""
+msgstr "Nettverk"
 
 #: ebox-package-installer:38
 msgid "Firewall and redirections"
-msgstr ""
+msgstr "Brannmur og viderekoblinger"
 
 #: ebox-package-installer:39
 msgid "Traffic shaping"
-msgstr ""
+msgstr "Trafikk styring"
 
 #: ebox-package-installer:40
 msgid "File sharing server and Windows PDC"
-msgstr ""
+msgstr "Fil delings server og Windows PDC"
 
 #: ebox-package-installer:41
 msgid "DNS server"
-msgstr ""
+msgstr "DNS server"
 
 #: ebox-package-installer:42
 msgid "DHCP server"
-msgstr ""
+msgstr "DHCP server"
 
 #: ebox-package-installer:43
 msgid "RADIUS server"
-msgstr ""
+msgstr "RADIUS server"
 
 #: ebox-package-installer:44
 msgid "HTTP proxy and content filter"
-msgstr ""
+msgstr "HTTP proxy og innholds filter"
 
 #: ebox-package-installer:45
 msgid "LDAP users and groups management"
-msgstr ""
+msgstr "LDAP brukere og gruppe behandling"
 
 #: ebox-package-installer:46
 msgid "System monitor with graphs and alerts"
-msgstr ""
+msgstr "System monitor med grafer og varsler"
 
 #: ebox-package-installer:47
 msgid "System and eBox package managmenet"
-msgstr ""
+msgstr "System og eBox pakke behandling"
 
 #: ebox-package-installer:48
 msgid "NTP server"
-msgstr ""
+msgstr "NTP server"
 
 #: ebox-package-installer:49
 msgid "Printing server"
-msgstr ""
+msgstr "Print server"
 
 #: ebox-package-installer:50
 msgid "Jabber/XMPP server"
-msgstr ""
+msgstr "Jabber/XMPP server"
 
 #: ebox-package-installer:51
 msgid "VPN server"
-msgstr ""
+msgstr "VPN server"
 
 #: ebox-package-installer:52
 msgid "HTTP server"
-msgstr ""
+msgstr "HTTP server"
 
 #: ebox-package-installer:53
 msgid "Mail system: SMTP, POP3, IMAP4"
-msgstr ""
+msgstr "Epost system: SMTP, POP3, IMAP4"
 
 #: ebox-package-installer:54
 msgid "WWW Mail Client"
-msgstr ""
+msgstr "WWW Epost Klient"
 
 #: ebox-package-installer:55
 msgid "Antispam, antivirus, transparent POP3 proxy"
-msgstr ""
+msgstr "Antisøppel, antivirus, gjennomsiktig POP3 proxy"
 
 #: ebox-package-installer:56
 msgid "Antivirus"
-msgstr ""
+msgstr "Antivirus"
 
 #: ebox-package-installer:57
 msgid "Shared calendar and address book, webmail, etc"
-msgstr ""
+msgstr "Delt kalender og adressebok, web epost, etc"
 
 #: ebox-package-installer:58
 msgid "Intrusion Detection System"
-msgstr ""
+msgstr "Innbrudds Detekterings System"
 
 #: ebox-package-installer:60
 msgid "VoIP PBX"
-msgstr ""
+msgstr "VoIP PBX"
 
 #: ebox-package-installer:73
 msgid "eBox Platform Installer"
-msgstr ""
+msgstr "eBox Platform Installer"
 
 #: ebox-package-installer:74
 msgid "Choose package selection method"
-msgstr ""
+msgstr "Velg pakke valg metode"
 
 #: ebox-package-installer:75
 msgid "Select the method that better fits your needs."
-msgstr ""
+msgstr "Velg metoden som passer deg best."
 
 #: ebox-package-installer:76
 msgid "simple"
-msgstr ""
+msgstr "enkel"
 
 #: ebox-package-installer:77
 msgid "Select packages by task"
