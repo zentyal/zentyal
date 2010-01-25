@@ -21,9 +21,9 @@ pages. Its characteristics include:
 * Properties are defined for each type of object, standardized by the IANA [#]_,
   on which access control lists (ACLs) can be defined.
 
-.. [#] *Internet Assigned Numbers Authority* (IANA) is responsible
-   for assigning public IP addresses,
-   top level domain (TLD) names, etc. http://www.iana.org/
+.. [#] *Internet Assigned Numbers Authority* (IANA) is responsible for
+   assigning public IP addresses, top level domain (TLD) names,
+   etc. http://www.iana.org/
 
 There are many different implementations of the directory service,
 including NIS, OpenLDAP, ActiveDirectory, etc. eBox uses
@@ -39,8 +39,12 @@ resource administration, the difference is made between
 users and their groups. Each one may have different
 privileges in relation to the resources of the organization.
 
+Management of users and groups in eBox
+--------------------------------------
+
 Modes
------
+^^^^^
+
 As it has been explained, eBox has a modular design, allowing an administrator
 to distribute services among several machines in the network. In order for this
 to be feasible, the **users and groups** module supports a master/slave
@@ -52,6 +56,8 @@ a master LDAP directory. By default, the Distinguished Name (DN) of
 the directory is set according to the current hostname, if a different one is
 desired, it can be set in the :guilabel:`LDAP DN` text entry.
 
+.. FIXME: Shot mode
+
 Other eBoxes can be configured to use a master as the source of their users,
 thus becoming directory slaves. In order to do this, the *slave* mode has to be
 selected in :menuselection:`Users and Groups --> Mode`. The slave setup requires
@@ -61,11 +67,13 @@ when enabling the **users and groups** module. Its value can be obtained in the
 *Password* field in :menuselection:`Users and Groups --> LDAP Info` in the
 master eBox.
 
+.. FIXME: Shot LDAP info
+
 There is one extra requirement before registering a slave in a master. The
 master has to be able to resolve the slave's hostname via DNS. There are
 different ways to achieve this. The easiest one is adding an entry for the
-slave in the master's */etc/hosts*. Other option is to set up a DNS server
-with eBox, including the slave hostname and IP address.
+slave in the master's */etc/hosts*. Other option is to set up the DNS service
+in eBox, including the slave hostname and IP address.
 
 Once these parameters are set and the slave hostname can be resolved from the
 master, the slave can be registered in the master by enabling the
@@ -75,6 +83,8 @@ Slaves create a replica of the master directory when they register for the
 first time, and that replica is kept up to date automatically when new users
 and groups are added. A list of the slaves can be seen in the master in
 :menuselection:`Users and Groups --> Slave Status`.
+
+.. FIXME: Shot slave status
 
 Modules that work with users such as **mail** or **samba** can be installed now
 in the slaves and they will use the users available in the master eBox. Some
@@ -96,14 +106,15 @@ installed, for example, **samba** or **mail** among others. If the master has
 any of these modules installed, they have to be uninstalled before trying to
 register a slave on it.
 
-Management of users and groups in eBox
---------------------------------------
+Users and groups creation
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A group can be created from the :menuselection:`Users and Groups -->
-Groups` menu. A group is identified by its name and can contain
-a description.
+Groups` menu in the master eBox. A group is identified by its name and
+can contain a description.
 
 .. image:: images/directory/01-groupadd.png
+   :scale: 80
 
 Through :menuselection:`Users and Groups --> Groups`, the existing groups
 are displayed for edition or deletion.
@@ -113,6 +124,7 @@ chosen. Some options belonging to the installed eBox modules with some
 specific configuration for the user groups can be changed too.
 
 .. image:: images/directory/02-groupedit.png
+   :scale: 80
 
 The following are possible with user groups, among others:
 
@@ -123,23 +135,26 @@ The following are possible with user groups, among others:
 * Assign access permission to the different eGroupware applications for
   all users of a group.
 
-The users are created from the :menuselection:`Users -->
-Add user` menu, where the following data must be
+The users are created from the :menuselection:`Users and Groups -->
+Users` menu, where the following data must be
 completed:
 
 .. image:: images/directory/03-useradd.png
+   :scale: 80
 
 User name:
   Name of the user in the system, which will be the name used for
   identification in the authentication processes.
-Name:
-  User's name.
-Surnames:
-  User's surnames.
-Comments:
+First Name:
+  User's first name.
+Last Name:
+  User's last name.
+Comment:
   Additional data on the user.
 Password:
-  Password to be used by the user in the authentication processes.
+  Password to be used by the user in the authentication
+  processes. This info must be provided twice to avoid misspellings in
+  this vital data.
 Group:
   The user can be added to a group during its creation.
 
@@ -147,6 +162,7 @@ From :menuselection:`Users and Groups --> Users`, a list of users can be
 obtained, edited or deleted.
 
 .. image:: images/directory/04-users.png
+   :scale: 80
 
 While a user is being edited, all the previous data can be changed,
 except for the user name. The data regarding the installed eBox modules
@@ -154,6 +170,7 @@ that have some specific configuration for users can also be changed, as
 well as the list of groups to which the user belongs.
 
 .. image:: images/directory/05-useredit.png
+   :scale: 80
 
 It is possible to edit a user to:
 
@@ -162,45 +179,46 @@ It is possible to edit a user to:
 * Provide permission for the user to use a printer.
 * Create an e-mail account for the user and *aliases* for it.
 * Assign access permission to the different eGroupware applications.
-* Enable and assign a telephone extension to the user.
+* Assign a phone extension to the user.
 
 .. _usercorner-ref:
 
 User Corner
 -----------
 
-The user data can only be modified by the eBox
-administrator, which becomes non-scalable when the number of
-users managed becomes large. Administration
-tasks, such as changing a user's password, may cause the person
-responsible to waste a lot of time. Hence
-the need for the **user corner**. This
-corner is an eBox service that allows users to change their own data.
-This function must be enabled like the other
-modules. The user corner is listening in another port
+The user data can only be modified by the eBox administrator, which
+becomes non-scalable when the number of users managed becomes
+large. Administration tasks, such as changing a user's password, may
+cause the person responsible to waste a lot of time. Hence the need
+for the **user corner**. This corner is an eBox service that allows
+users to change their own data.  This function must be enabled like
+the other modules. The user corner is listening in another port
 through another process to increase system security.
 
 .. image:: images/directory/06-usercorner-server.png
-   :scale: 50
+   :scale: 80
 
 Users can enter the user corner through:
 
   https://<eBox_ip>:<user_corner_port>/
 
 Once users have entered their user name and password, changes can be made
-to their personal configuration. For now, the functions provided
-are:
+to their personal configuration. The features provided so far are:
 
 * Change current password
 * User voicemail configuration
+* Configure an external personal account to fetch mail to synchronize
+  with the user's mailbox in the eBox mail server.
 
 .. image:: images/directory/07-usercorner-user.png
-   :scale: 50
+   :scale: 80
 
 Practical example A
 ^^^^^^^^^^^^^^^^^^^
 
 Create a group in eBox called **accountancy**.
+
+.. FIXME: This is wrong with new master/slave arch
 
 To do so:
 

@@ -116,7 +116,7 @@ Utiliza las herramienta de consola **OpenSSL** [#]_ para este servicio.
 Primero, es necesario generar las claves y expedir el certificado de la *CA*.
 Este paso es necesario para firmar nuevos certificados, así que el resto de
 funcionalidades del módulo no estarán disponibles hasta que las claves de la
-*CA* se generen y su certificado, que es autofirmado, sea expedido. Téngase
+*CA* se generen y su certificado, que es auto firmado, sea expedido. Téngase
 en cuenta que este módulo es independiente y no necesita ser activado en
 :guilabel:`Estado del Módulo`.
 
@@ -133,9 +133,12 @@ que su expiración revocará todos los certificados expedidos por esta *CA*,
 provocando la parada de todos los servicios que dependan de estos certificados.
 También es posible dar los siguientes datos de manera opcional:
 
-- :guilabel:`Código del País`
-- :guilabel:`Ciudad`
-- :guilabel:`Estado o Región`
+:guilabel:`Código del País`
+  Un acrónimo de dos letras que sigue el estándar ISO-XXX.
+
+:guilabel:`Ciudad`
+
+:guilabel:`Estado o Región`
 
 .. image:: images/vpn/ebox-ca-02.png
    :align: center
@@ -171,14 +174,31 @@ Si revocamos un certificado no podremos utilizarlo más ya que esta acción
 es permanente y no se puede deshacer. Opcionalmente podemos seleccionar
 la razón para revocarlo:
 
-- :guilabel:`unspecified` (no especificado)
-- :guilabel:`keyCompromise` (claves comprometidas)
-- :guilabel:`CACompromise` (*CA* comprometida)
-- :guilabel:`affilliationChanged` (cambio en la afiliación)
-- :guilabel:`superseded` (reemplazado)
-- :guilabel:`cessationOfOperation` (cese de operaciones)
-- :guilabel:`certificateHold` (certificado suspendido)
-- :guilabel:`removeFromCRL` (eliminado del *CRL*)
+:guilabel:`unspecified`
+  Motivo no especificado
+
+:guilabel:`keyCompromise`
+  La clave privada ha sido comprometida
+
+:guilabel:`CACompromise` 
+  La clave privada de la autoridad de certificación ha sido comprometida
+
+:guilabel:`affilliationChanged` 
+  Se ha producido un cambio en la afiliación de la clave pública
+  firmada hacia otra organización.
+
+:guilabel:`superseded`
+  El certificado ha sido renovado y por tanto reemplaza al emitido.
+
+:guilabel:`cessationOfOperation`
+  Cese de operaciones de la entidad certificada.
+
+:guilabel:`certificateHold`
+  Certificado suspendido.
+
+:guilabel:`removeFromCRL`
+  Actualmente sin implementar da soporte a los *CRLs* delta o
+  diferenciales.
 
 .. image:: images/vpn/ebox-ca-04.png
    :align: center
@@ -203,7 +223,7 @@ Certificados de Servicios
 En :menuselection:`Autoridad de Certificación --> Certificados de Servicios` 
 podemos encontrar la lista de módulos de eBox usando certificados para sus
 servicios. Por omisión estos son generados por cada módulo, pero si estamos
-usando la *CA* podemos remplazar estos certificados autofirmados por uno
+usando la *CA* podemos remplazar estos certificados auto firmados por uno
 expedido por la *CA* de nuestra organización. Para cada servicio podemos
 definir el :guilabel:`Nombre Común` del certificado y si no hay un certificado
 con ese :guilabel:`Nombre Común`, la *CA* expedirá uno. Para ofrecer este
@@ -284,7 +304,7 @@ lejanos (1 y 2) y estos últimos entre sí.
 
 Para ello, necesitamos crear una **Autoridad de Certificación** y
 certificados para los dos clientes remotos. Tenga en cuenta que también se
-necesita un certificado para el servidor OpenVPN. Sin emabargo, eBox creará este
+necesita un certificado para el servidor OpenVPN. Sin embargo, eBox creará este
 certificado automáticamente cuando cree un nuevo servidor OpenVPN. En este
 escenario, eBox actúa como una **Autoridad de Certificación**.
 
@@ -294,13 +314,16 @@ que necesitamos introducir para crear un servidor es el nombre. eBox hace que la
 tarea de configurar un servidor OpenVPN sea sencilla, ya que establece valores
 de forma automática.
 
-Los siguientes parámetros de configuración son añadidos automáticamente por
-eBox, y pueden ser modificados si es neceario: una pareja de *puerto/protocolo*,
-un *certificado* (eBox creará uno automáticamente usando el nombre del servidor
-OpenVPN) y una *dirección de red*. Las direcciones de la red VPN se asignan
-tanto al servidor como a los clientes. Si se necesita cambiar la *dirección de
-red* nos deberemos asegurar que no entra en conflicto con una red local.
-
+Los siguientes parámetros de configuración son añadidos
+automáticamente por eBox, y pueden ser modificados si es necesario:
+una pareja de :guilabel:`puerto/protocolo`, un :guilabel:`certificado`
+(eBox creará uno automáticamente usando el nombre del servidor
+OpenVPN) y una :guilabel:`dirección de red`. Las direcciones de la red
+VPN se asignan tanto al servidor como a los clientes. Si se necesita
+cambiar la *dirección de red* nos deberemos asegurar que no entra en
+conflicto con una red local. Además, las redes locales, es decir, las
+redes conectadas directamente a los interfaces de red de la máquina,
+se anunciarán automáticamente a través de la red privada.
 
 Como vemos, el servidor OpenVPN estará escuchando en todas las
 interfaces externas. Por tanto, debemos poner al menos una de nuestras
@@ -333,13 +356,13 @@ eliminar las rutas que necesitemos. En nuestro escenario,
 se habrá añadido automáticamente la red local para hacer visible el cliente 3 a los
 otros dos clientes.
 
-Una vez hecho esto, es momento de configurar los clientes.
-La forma más sencilla de configurar un cliente OpenVPN es utilizando
-nuestros *bundles*. Estos están disponibles en la tabla que aparece en
-:menuselection:`VPN --> Servidores`, pulsando el icono de la
-columna :guilabel:`Descargar bundle del cliente`. Se han creado dos
-*bundles* para dos tipos de sistema operativo. Si se usa un entorno
-como MacOS™ o GNU/Linux, se debe elegir el sistema Linux. Al crear un
+Una vez hecho esto, es momento de configurar los clientes.  La forma
+más sencilla de configurar un cliente OpenVPN es utilizando nuestros
+*bundles*. Estos están disponibles en la tabla que aparece en
+:menuselection:`VPN --> Servidores`, pulsando el icono de la columna
+:guilabel:`Descargar bundle del cliente`. Se han creado dos *bundles*
+para dos tipos de sistema operativo. Si se usa un entorno como MacOS™
+o GNU/Linux, se debe elegir el sistema :guilabel:`Linux`. Al crear un
 *bundle* se seleccionan aquellos certificados que se van dar al
 cliente y se establece la dirección IP externa a la cual los clientes
 VPN se deben conectar. Si el sistema seleccionado es Windows™, se
@@ -365,17 +388,24 @@ para que usen eBox como servidor de nombres. Es por ello que no
 podremos acceder a los servicios de las máquinas de la LAN por nombre,
 únicamente podremos hacerlo por dirección IP. Eso mismo ocurre con el
 servicio de NetBIOS [#]_ para acceder a recursos compartidos por
-Windows.
+Windows, para navegar en los recursos compartidos desde la VPN se
+deben explícitamente permitir el tráfico de difusión del servidor
+SMB/CIFS.
 
 .. [#] Para más información sobre compartición de ficheros ir a la
        sección :ref:`filesharing-chapter-ref`
 
 Para conectar entre sí los clientes remotos, necesitamos activar la
-opción :guilabel:`Habilitar conexiones cliente-a-cliente` dentro de la
+opción :guilabel:`Permitir conexiones cliente-a-cliente` dentro de la
 configuración del servidor OpenVPN. Para comprobar que la
 configuración es correcta, observar en la tabla de rutas del cliente
 donde las nuevas redes anunciadas se han añadido al interfaz virtual
 **tapX**.
+
+Los usuarios conectados actualmente al servicio VPN se muestran en el
+:guilabel:`Dashboard` de eBox.
+
+.. FIXME: VPN dashboard image 
 
 .. _vpn-example-b-ref:
 
@@ -587,7 +617,7 @@ miembros de ambas redes se puedan conectar entre sí.
       * Habilitar :guilabel:`Permitir túneles eBox-a-eBox`. Esta es la opción
         que indica que va a ser un servidor de túneles.
       * Introducir una :guilabel:`contraseña para túneles eBox-a-eBox`.
-      * Finalmente, en el apartado :guilabel:`Interfaces donde escuchará el
+      * Finalmente, desde la selección de :guilabel:`Interfaces donde escuchará el
         servidor`, elegir la interfaz externa con la que podrá conectar la eBox
         cliente.
 
@@ -632,7 +662,7 @@ miembros de ambas redes se puedan conectar entre sí.
 
 #. **Acción:**
    Acceder a la interfaz *Web* del servidor eBox que va a tener el papel de
-   cliente. Ccomprobar que el módulo **VPN** está activo, ir a la sección
+   cliente. Comprobar que el módulo **VPN** está activo, ir a la sección
    :menuselection:`VPN --> Clientes`. En esta sección se ve una lista
    vacía de clientes, para crear uno pulsar sobre :guilabel:`Añadir
    cliente` e introducir un *nombre* para él. Como no está configurado

@@ -82,30 +82,39 @@ usuarios.
 El directorio personal de cada usuario es compartido automáticamente y solo puede
 ser accedido por el correspondiente usuario.
 
+.. FIXME: Show only the directory to share
+
 .. image:: images/filesharing/10-share-group.png
+   :scale: 80
 
 También se puede crear un directorio compartido para un grupo desde
 :menuselection:`Grupos --> Editar grupo`. Todos los miembros del grupo
 tendrán acceso a ese directorio y podrán leer o escribir los ficheros y
 directorios dentro de dicho directorio compartido.
 
-
+.. FIXME: Update the shot
 
 .. image:: images/filesharing/06-sharing.png
-   :scale: 60
+   :scale: 80
 
-Establecemos como :guilabel:`dominio` dónde se trabajará dentro de la red local
-dentro de *Windows*, y como :guilabel:`nombre NetBIOS` el nombre que
-identificará a eBox dentro de la red *Windows*. Se le puede dar una
-:guilabel:`descripción` larga para describir el dominio. Además se
-puede establecer de manera opcional un :guilabel:`límite de cuota`.
+Ir a :menuselection:`Compartir Ficheros --> Configuración general`
+para configurar los parámetros generales del servicio de compartición
+de ficheros. Establecemos como :guilabel:`dominio` dónde se trabajará
+dentro de la red local dentro de *Windows*, y como :guilabel:`nombre
+NetBIOS` el nombre que identificará a eBox dentro de la red
+*Windows*. Se le puede dar una :guilabel:`descripción` larga para
+describir el dominio. Además se puede establecer de manera opcional un
+:guilabel:`límite de cuota`. Con el :guilabel:`Grupo Samba` se puede
+opcionalmente configurar un grupo exclusivo en el que sus usuarios
+tenga cuenta de compartición de ficheros en vez de todos los usuarios,
+la sincronización se hace cada hora.
 
 Para crear un directorio compartido, se accede a
 :menuselection:`Compartir Ficheros --> Directorios compartidos`
 y se pulsa :guilabel:`Añadir nuevo`.
 
 .. image:: images/filesharing/07-share-add.png
-   :scale: 60
+   :scale: 80
 
 Habilitado:
   Lo dejaremos marcado si queremos que este directorio esté
@@ -118,13 +127,15 @@ Nombre del directorio compartido:
 Ruta del directorio compartido:
   Ruta del directorio a compartir. Se puede crear un subdirectorio dentro del
   directorio de eBox */home/samba/shares*, o usar directamente una
-  ruta existente del sistema.
+  ruta existente del sistema si se elige :guilabel:`Ruta del sistema
+  de ficheros`.
 
 Comentario:
   Una descripción más extensa del directorio compartido para facilitar
   la gestión de los elementos compartidos.
 
 .. image:: images/filesharing/08-shares.png
+   :scale: 80
 
 Desde la lista de directorios compartidos podemos editar el
 :guilabel:`control de acceso`. Allí, pulsando en :guilabel:`Añadir
@@ -134,11 +145,12 @@ administrador de un directorio compartido podrá leer, escribir y
 borrar ficheros de cualquier otro usuario dentro de dicho directorio.
 
 .. image:: images/filesharing/09-share-acl.png
+   :scale: 80
 
 También se puede crear un directorio compartido para un grupo desde
-:menuselection:`Usuarios y Grupos --> Grrupos --> Editar grupo`. Todos los miembros del grupo
-tendrán acceso a ese directorio y podrán leer o escribir los ficheros y
-directorios dentro de dicho directorio compartido.
+:menuselection:`Usuarios y Grupos --> Grupos`. Todos los miembros del
+grupo tendrán acceso a ese directorio y podrán leer o escribir los
+ficheros y directorios dentro de dicho directorio compartido.
 
 
 Configuración de clientes SMB/CIFS
@@ -173,9 +185,9 @@ Cliente Linux
 
   2. Nautilus (Gnome)
 
-     En Nautilus vamos a :menuselection:`Servidores de Red --> Red de
-     Windows`, ahí encontramos nuestro dominio y dentro del mismo el
-     servidor eBox donde compartir los recursos.
+     En Nautilus vamos a :menuselection:`Lugares --> Servidores de Red
+     --> Red de Windows`, ahí encontramos nuestro dominio y dentro del
+     mismo el servidor eBox donde compartir los recursos.
 
      .. image:: images/filesharing/14-gnome-shares.png
         :scale: 70
@@ -227,16 +239,18 @@ Cliente Linux
        MSHOME               SHINNER
        WARP                 WARP-JIMBO
 
-eBox como servidor de autenticación
-===================================
+eBox como un servidor de autenticación
+======================================
 
 Para aprovechar las posibilidades del PDC como servidor de
 autenticación y su implementación **Samba** para GNU/Linux debemos
 marcar la casilla :guilabel:`Habilitar PDC` a través de
 :menuselection:`Compartir ficheros --> Configuración General`.
 
+.. FIXME: Updte the shot
+
 .. image:: images/filesharing/06-pdc-enabled.png
-   :scale: 60
+   :scale: 80
 
 Si la opción :guilabel:`Perfiles Móviles` está activada, el servidor PDC no
 sólo realizará la autenticación, sino que también almacenará los
@@ -253,7 +267,8 @@ directorio personal del usuario tras autenticar contra el PDC en
 Windows.
 
 Es posible definir políticas para las contraseñas de
-los usuarios a través de :menuselection:`Compartir ficheros --> PDC`
+los usuarios a través de :menuselection:`Compartir ficheros -->
+PDC`. Estas políticas suelen ser forzadas por la ley.
 
 * :guilabel:`Longitud mínima de contraseña`.
 * :guilabel:`Edad máxima de contraseña`. Dicha contraseña deberá
@@ -267,19 +282,20 @@ dominio. De hecho, Windows forzará el cumplimiento de dicha política
 al entrar en una máquina registrada en el dominio.
 
 .. image:: images/filesharing/06-pdc-settings.png
-   :scale: 60
+   :scale: 80
 
 Configuración de clientes PDC
 =============================
 
 Para poder configurar la autenticación PDC en una máquina, se necesita
 utilizar una cuenta que tenga privilegios de administrador en el
-servidor PDC. Esto se configura en :menuselection:`Usuarios --> Editar
-Usuario --> Cuenta de compartición de ficheros o de
+servidor PDC. Esto se configura en :menuselection:`Usuarios y
+Grupos--> Usuarios --> Cuenta de compartición de ficheros o de
 PDC`. Adicionalmente, se puede establecer una :guilabel:`Cuota de
 disco`.
 
 .. image:: images/filesharing/11-share-user.png
+   :scale: 80
 
 Ahora vamos a otra máquina dentro de la misma red de área local (hay
 que tener en cuenta que el protocolo SMB/CIFS funciona en modo
@@ -299,7 +315,7 @@ Una vez hemos entrado con uno de los usuarios, podemos entrar en
 determinada en la configuración de eBox.
 
 .. image:: images/filesharing/15-windows-partition.png
-   :scale: 70
+   :scale: 80
    :align: center
 
 .. include:: filesharing-exercises.rst

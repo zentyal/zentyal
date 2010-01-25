@@ -44,13 +44,22 @@ diferentes privilegios con respecto a los recursos de la organización.
 Gestión de los usuarios y grupos en eBox
 ----------------------------------------
 
+Modos
+^^^^^
+
+.. FIXME: The mode data
+
+Creación de usuarios y grupos
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Se puede crear un grupo desde el menú :menuselection:`Usuarios y Grupos -->
 Grupos`. Un grupo se identifica por su nombre, y puede contener
 una descripción.
 
 .. image:: images/directory/01-groupadd.png
+   :scale: 80
 
-A través de :menuselection:`Usarios y Grupos --> Grupos` se pueden ver
+A través de :menuselection:`Usuarios y Grupos --> Grupos` se pueden ver
 todos los grupos existentes para poder editarlos o borrarlos.
 
 Mientras se edita un grupo, se pueden elegir los usuarios que pertenecen al
@@ -59,6 +68,7 @@ instalados que poseen alguna configuración específica para los grupos de
 usuarios.
 
 .. image:: images/directory/02-groupedit.png
+   :scale: 80
 
 Entre otras cosas con grupos de usuarios es posible:
 
@@ -74,6 +84,7 @@ Usuarios`, donde tendremos que rellenar la siguiente
 información:
 
 .. image:: images/directory/03-useradd.png
+   :scale: 80
 
 Nombre de usuario:
   Nombre que tendrá el usuario en el sistema, será el nombre que use para
@@ -85,14 +96,17 @@ Apellidos:
 Comentario:
   Información adicional sobre el usuario.
 Contraseña:
-  Contraseña que empleará el usuario en los procesos de autenticación.
+  Contraseña que empleará el usuario en los procesos de
+  autenticación. Esta información se tendrá que dar dos veces para
+  evitar introducirla incorrectamente.
 Grupo:
   Es posible añadir el usuario a un grupo en el momento de su creación.
 
-Desde :menuselection:`Usuarios y Groups --> Usuarios --> Editar Usuario` se puede obtener un
+Desde :menuselection:`Usuarios y Grupos --> Usuarios` se puede obtener un
 listado de los usuarios, editarlos o eliminarlos.
 
 .. image:: images/directory/04-users.png
+   :scale: 80
 
 Mientras se edita un usuario se pueden cambiar todos los datos
 anteriores exceptuando el nombre del usuario, además de la información
@@ -101,6 +115,7 @@ alguna configuración específica para los usuarios. También se puede
 modificar la lista de grupos a los que pertenece.
 
 .. image:: images/directory/05-useredit.png
+   :scale: 80
 
 Editando un usuario es posible:
 
@@ -111,7 +126,7 @@ Editando un usuario es posible:
 * Crear una cuenta de correo electrónico para el usuario y *aliases*
   para la misma.
 * Asignar permisos de acceso a las distintas aplicaciones de eGroupware.
-* Habilitar y asignar una extensión telefónica a dicho usuario.
+* Asignar una extensión telefónica a dicho usuario.
 
 .. _usercorner-ref:
 
@@ -130,7 +145,7 @@ módulos. El rincón del usuario se encuentra escuchando en otro puerto
 por otro proceso para aumentar la seguridad del sistema.
 
 .. image:: images/directory/06-usercorner-server.png
-   :scale: 50
+   :scale: 80
 
 El usuario puede entrar en el rincón del usuario a través de:
 
@@ -142,15 +157,19 @@ se presenta es la siguiente:
 
 * Cambiar la contraseña actual.
 * Configuración del buzón de voz del usuario.
+* Configurar una cuenta personal externa para recoger el correo y
+  sincronizarlo con el contenido en su cuenta del servidor de correo
+  en eBox.
 
 .. image:: images/directory/07-usercorner-user.png
-   :scale: 50
-
+   :scale: 80
 
 Ejemplo práctico A
 ^^^^^^^^^^^^^^^^^^
 
 Crear un grupo en eBox llamado **contabilidad**.
+
+.. FIXME: This is wrong with new master/slave arch
 
 Para ello:
 
@@ -160,7 +179,7 @@ Para ello:
 
    Efecto:
      El módulo está activado y listo para ser usado.
-
+     
 #. **Acción:**
    Acceder a :menuselection:`Usuarios y Grupos --> Grupos`. Añadir **contabilidad** como grupo. El parámetro
    **comentario** es opcional.
