@@ -81,8 +81,6 @@ have a shared directory for all its users.
 The personal directory for the user is automatically shared and can only be
 accessed  by the user.
 
-.. FIXME: Show only the directory to share
-
 .. image:: images/filesharing/10-share-group.png
    :scale: 80
 
@@ -92,8 +90,6 @@ access to this directory, being able to read and write all the files.
 
 .. image:: images/filesharing/06-sharing.png
    :scale: 80
-
-.. FIXME: Update the shot
 
 Go to :menuselection:`File Sharing --> General Settings` to configure
 the general settings of file sharing service. :guilabel:`Domain` will
@@ -127,8 +123,6 @@ Share path:
 Comment:
   A more detailed description of the share can be provided in
   this field.
-
-.. FIXME: Update the shot
 
 .. image:: images/filesharing/08-shares.png
    :scale: 80
@@ -240,8 +234,6 @@ eBox as an authentication server
 You have to go to :menuselection:`File Sharing --> General Settings`
 and check the :guilabel:`Enable PDC` option in order to have eBox
 working as an authentication server (PDC).
-
-.. FIXME: Update the shot
 
 .. image:: images/filesharing/06-pdc-enabled.png
    :scale: 80

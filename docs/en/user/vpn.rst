@@ -389,8 +389,6 @@ virtual interface.
 The current users connected to the VPN service are displayed in eBox
 :guilabel:`Dashobard`.
 
-.. FIXME: VPN dashboard image
-
 .. _vpn-example-b-ref:
 
 Practical example B
