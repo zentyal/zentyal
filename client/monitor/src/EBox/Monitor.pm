@@ -1,4 +1,4 @@
-# Copyright 2008 (C) eBox Technologies S.L.
+# Copyright 2008-2010 (C) eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -130,11 +130,13 @@ sub usedFiles
     return [
         { file   => COLLECTD_CONF_FILE,
           module => 'monitor',
-          reason => __('Collectd main configuration file'),
+          reason => __x('{daemon} main configuration file',
+                        daemon => 'collectd'),
         },
         { file   => THRESHOLDS_CONF_FILE,
           module => 'monitor',
-          reason => __('Collectd thresholds configuration file'),
+          reason => __x('{daemon} thresholds configuration file',
+                       daemon => 'collectd'),
         },
        ];
 }
