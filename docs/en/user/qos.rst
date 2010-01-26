@@ -67,17 +67,17 @@ priority to certain types of data flows through the
 .. [#] Linux Advanced Routing & Traffic Control http://lartc.org
 
 In order to perform traffic shaping, it is required to have, at least, an
-internal network interface and an external one. A configured *gateway*
-with a download and upload rates different from zero is required. The shaping
+internal network interface and an external one. You need, at least, one configured *gateway*.
+And you have also to set your bandwith information in `Traffic Shaping -->
+Interface Rates`. Set the upload and download rate that provide the router that
+is connected to every external interface. The shaping
 rules are specific for each interface and they may be selected for those
 external network interfaces with assigned upload rate and all internal ones.
 
 If the external network interface is shaped, then you are limiting
-eBox output traffic to the Internet. The maximum output rate is the
-sum of all the upload rates provided by the *gateways*. If, however, you
-shape an internal network interface, then the eBox output to internal
-networks is limited. The maximum rate will be the sum of all download
-*gateway* rates. As it can be seen, shaping input traffic is not
+eBox output traffic to the Internet. The maximum output rate and the minimum input
+rate is given by the configuration in `Traffic Shaping --> Interface Rates`.
+As it can be seen, shaping input traffic is not
 possible directly, that is because input traffic is not predictable nor
 controllable in almost any way. There are specific techniques from
 various protocols to handle the incoming traffic, for instance TCP
