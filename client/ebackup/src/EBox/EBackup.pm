@@ -168,7 +168,7 @@ sub remoteArguments
         } elsif ($type eq 'exclude_regexp') {
         } {
             my $regexp = $row->valueByName('target');
-            $regexps .= "--exclude-regexp $regexp";
+            $regexps .= "--exclude-regexp $regexp " ;
         }
     }
     # Include configuration backup
