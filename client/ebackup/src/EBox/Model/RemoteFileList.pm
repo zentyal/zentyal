@@ -202,7 +202,7 @@ sub validateTypedRowBak
     if (EBox::Sudo::fileTest('-e', $file)) {
         throw EBox::Exceptions::DataInUse(
                 __('File already exists if you continue the current'.
-                    'will be deleted'
+                   ' will be deleted'
                   )
                 );
     }
