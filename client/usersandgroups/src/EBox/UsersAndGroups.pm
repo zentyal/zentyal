@@ -2352,6 +2352,7 @@ sub restoreConfig
         $self->ldap->restoreLdapTranslucent($dir);
         $self->ldap->restoreLdapFrontend($dir);
         $self->_manageService('start');
+        $self->waitSync();
         for my $user ($self->users()) {
             $self->initUser($user->{'username'});
         }
