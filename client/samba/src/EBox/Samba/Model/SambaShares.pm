@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Warp Networks S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -273,11 +274,14 @@ sub createDirs
 # Private methods
 sub _pathHelp
 {
-    return __( '<i>Directory under eBox</i> will ' .
+    return __x( '{openit}Directory under eBox{closeit} will ' .
             'automatically create the share.' .
-            'directory in /home/samba/shares <br>' .
-            '<i>File system path</i> will allow you to share '.
-            'an existing directory within your file system. ');
+            'directory in /home/samba/shares {br}' .
+            '{openit}File system path{closeit} will allow you to share '.
+            'an existing directory within your file system',
+               openit  => '<i>',
+               closeit => '</i>',
+               br      => '<br>');
 
 }
 
