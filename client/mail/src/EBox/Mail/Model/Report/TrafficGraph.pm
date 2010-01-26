@@ -40,7 +40,7 @@ sub new
 
 sub dbTableName
 {
-    return 'mail_traffic';
+    return 'mail_message_traffic';
 }
 
 sub dbFields

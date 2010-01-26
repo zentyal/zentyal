@@ -1583,7 +1583,7 @@ sub consolidate
     my %vdomains = map { $_ => 1 } $self->{vdomains}->vdomains();
 
 
-    my $table = 'mail_traffic';
+    my $table = 'mail_message_traffic';
 
     my $isAddrInVD = sub {
         my ($addr) = @_;
@@ -1797,7 +1797,7 @@ sub consolidateReportQueries
 {
     return [
         {
-            'target_table' => 'mail_report',
+            'target_table' => 'mail_message_report',
             'query' => {
                 'select' => 'client_host_ip, split_part(from_address, \'@\', 1) AS user_from, split_part(from_address, \'@\', 2) AS domain_from, split_part(to_address, \'@\', 1) AS user_to, split_part(to_address, \'@\', 2) AS domain_to, SUM(COALESCE(message_size,0)) as bytes, COUNT(*) as messages, message_type, status, event',
                 'from' => 'mail_message',
@@ -1822,21 +1822,21 @@ sub report
 
     $report->{'mail_sent_traffic'} = $self->runMonthlyQuery($beg, $end, {
         'select' => 'event, SUM(bytes) AS bytes, SUM(messages) AS messages',
-        'from' => 'mail_report',
+        'from' => 'mail_message_report',
         'where' => "event='msgsent' AND (message_type = 'sent' OR message_type = 'internal')",
         'group' => "event"
     }, { 'key' => 'event' });
 
     $report->{'mail_received_traffic'} = $self->runMonthlyQuery($beg, $end, {
         'select' => 'event, SUM(bytes) AS bytes, SUM(messages) AS messages',
-        'from' => 'mail_report',
+        'from' => 'mail_message_report',
         'where' => "event='msgsent' AND (message_type = 'received' OR message_type = 'internal')",
         'group' => "event"
     }, { 'key' => 'event' });
 
     $report->{'mail_relayed_traffic'} = $self->runMonthlyQuery($beg, $end, {
         'select' => 'event, SUM(bytes) AS bytes, SUM(messages) AS messages',
-        'from' => 'mail_report',
+        'from' => 'mail_message_report',
         'where' => "event='msgsent' AND message_type = 'relay'",
         'group' => "event"
     }, { 'key' => 'event' });
@@ -1845,14 +1845,14 @@ sub report
         $beg, $end,
     {
         'select' => 'DISTINCT domain_from',
-        'from' => 'mail_report',
+        'from' => 'mail_message_report',
         'where' => "event = 'msgsent' AND (message_type = 'sent' OR message_type = 'internal')",
         'order' => 'domain_from'
     },
     'domain_from',
     {
         'select' => 'domain_to AS domain, SUM(bytes) AS traffic_bytes, SUM(messages) AS messages',
-        'from' => 'mail_report',
+        'from' => 'mail_message_report',
         'where' => "event = 'msgsent' AND (message_type = 'sent' OR message_type = 'internal') AND domain_from = '_domain_from_'",
         'group' => 'domain',
         'limit' => $options->{'max_domains_top_sent_mail_domains_by_domain'},
@@ -1863,14 +1863,14 @@ sub report
         $beg, $end,
     {
         'select' => 'DISTINCT domain_to',
-        'from' => 'mail_report',
+        'from' => 'mail_message_report',
         'where' => "event = 'msgsent' AND (message_type = 'received' OR message_type = 'internal')",
         'order' => 'domain_to'
     },
     'domain_to',
     {
         'select' => 'domain_from AS domain, SUM(bytes) AS traffic_bytes, SUM(messages) AS messages',
-        'from' => 'mail_report',
+        'from' => 'mail_message_report',
         'where' => "event = 'msgsent' AND (message_type = 'received' OR message_type = 'internal') AND domain_to = '_domain_to_'",
         'group' => 'domain',
         'limit' => $options->{'max_domains_top_received_mail_domains_by_domain'},

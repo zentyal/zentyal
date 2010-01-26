@@ -37,7 +37,7 @@ sub new
 
 sub dbTableName
 {
-    return 'mail_traffic';
+    return 'mail_message_traffic';
 }
 
 sub dbFields
@@ -56,7 +56,6 @@ sub dbFields
 
 sub _table
 {
-    
     my $tableHead = [
                      new EBox::Types::Text(
                          'fieldName' => 'date',

@@ -1,4 +1,7 @@
 HEAD
+	+ Change UI for maximum message limits and expiration limits
+	+ Bugfix: The report tables changed its name and they are used by
+ 	  code correctly
 	+ Added postmaster option and deprecated bounceReturnAddress
 	option
 	+ Fixed migration script and ulimited mail message size
