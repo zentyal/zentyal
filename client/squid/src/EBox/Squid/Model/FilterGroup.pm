@@ -320,7 +320,7 @@ sub _setFilterGroupDomainsPolicy
                                   ];
 
     $group->{exceptionurllist} = [
-                                  domains => [],
+                                  urls =>  $domainFilter->allowedUrls(),
                                   includes => $domainFilterFiles->allowedUrls(),
                                  ];
 
@@ -330,13 +330,13 @@ sub _setFilterGroupDomainsPolicy
                              ];
 
     $group->{greyurllist} = [
-                             domains => [],
+                             urls => $domainFilter->filteredUrls(),
                              includes => $domainFilterFiles->filteredUrls(),
                             ];
 
 
     $group->{bannedurllist} = [
-                               domains => [],
+                               urls =>  => $domainFilter->bannedUrls(),
                                includes => $domainFilterFiles->bannedUrls(),
                               ];
 
@@ -384,7 +384,7 @@ sub _defaultFilterGroup
                        ];
 
     $default->{exceptionurllist} = [
-                                    domains => [],
+                                    urls => $domainFilter->allowedUrls(),
                                     includes => $domainFilterFiles->allowedUrls(),
                                    ];
 
@@ -394,14 +394,14 @@ sub _defaultFilterGroup
                        ];
 
     $default->{greyurllist} = [
-                        domains => [],
+                        urls => $domainFilter->filteredUrls(),
                         includes => $domainFilterFiles->filteredUrls(),
                        ];
 
 
 
     $default->{bannedurllist} = [
-                        domains => [],
+                        urls     => $domainFilter->bannedUrls(),
                         includes => $domainFilterFiles->bannedUrls(),
                        ];
 

@@ -62,7 +62,7 @@ sub _table
       my $dataTable =
       {
           tableName          => 'DomainFilter',
-          printableTableName => __('Domains rules'),
+          printableTableName => __('Domains and URL rules'),
           modelDomain        => 'Squid',
           'defaultController' => '/ebox/Squid/Controller/DomainFilter',
           'defaultActions' =>
@@ -75,12 +75,12 @@ sub _table
           class              => 'dataTable',
           order              => 0,
           rowUnique          => 1,
-          printableRowName   => __('internet domain'),
-          help               => __('Allow/Deny the HTTP traffic from/to the listed internet domains.'),
+          printableRowName   => __('internet domain or URL'),
+          help               => __('Allow/Deny the HTTP traffic from/to the listed internet domains and URLs.'),
           messages           => {
-                                  add => __('Domain added'),
-                                  del => __('Domain removed'),
-                                  update => __('Domain updated'),
+                                  add => __('Domain or URL added'),
+                                  del => __('Domain or URL removed'),
+                                  update => __('Domain or URL updated'),
 
                                 },
           sortedBy           => 'domain',

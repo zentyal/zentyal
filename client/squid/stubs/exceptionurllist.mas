@@ -1,5 +1,5 @@
 <%args>
-    @domains
+    @urls
     @includes => ()
 </%args>
 #URLs in exception list
@@ -18,8 +18,8 @@
 #Another example:
 #generallybadsite.tld/partthatsok/
 
-% foreach my $domain (@domains) {
-<% $domain %>
+% foreach my $url (@urls) {
+<% $url %>
 	
 % }
 

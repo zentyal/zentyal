@@ -1,6 +1,6 @@
 
 <%args>
-    @domains
+    @urls
     @includes => ()
 </%args>
 #URLs in grey list
@@ -31,8 +31,8 @@
 
 #members.home.net/nice
 
-% foreach my $domain (@domains) {
-<% $domain %>
+% foreach my $url (@urls) {
+<% $url %>
 	
 % }
 

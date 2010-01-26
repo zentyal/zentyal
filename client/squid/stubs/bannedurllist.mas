@@ -1,5 +1,5 @@
 <%args>
-    @domains
+    @urls
     @includes => ()
 </%args>
 #URLs in banned list
@@ -28,8 +28,8 @@
 
 #List other URLs to block:
 
-% foreach my $domain (@domains) {
-<% $domain %>
+% foreach my $url (@urls) {
+<% $url %>
 	
 % }
 

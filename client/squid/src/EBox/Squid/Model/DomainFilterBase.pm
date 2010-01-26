@@ -33,7 +33,7 @@ sub _tableHeader
     my @tableHeader = (
         new EBox::Types::Text(
             fieldName     => 'domain',
-            printableName => __('Domain'),
+            printableName => __('Domain or URL'),
             unique        => 1,
                                editable      => 1,
             optional      => 0,
@@ -56,14 +56,37 @@ sub validateTypedRow
   return unless (exists $params_r->{domain});
 
   my $domain = $params_r->{domain}->value();
+  if ($domain =~ m{/}) {
+      # treat as url
+      $self->_validateUrl($domain);
+  } else {
+      $self->_validateDomain($domain);
+  }
 
-  if ($domain =~ m{^www\.}) {
-    throw EBox::Exceptions::InvalidData(
+
+}
+
+
+sub _validateUrl
+{
+    my ($self, $url) = @_;
+    my ($domain, $dir) = split '/', $url, 2;
+    $dir = '/' . $dir;
+
+    EBox::Validate::checkDomainName($domain, __('Domain or IP address'));
+}
+
+sub _validateDomain
+{
+    my ($self, $domain) = @_;
+
+    if ($domain =~ m{^www\.}) {
+        throw EBox::Exceptions::InvalidData(
             data => __('Domain'),
             value => $domain,
             advice => __('You must not prefix the domain with www.'),
             );
-  }
+    }
 
   EBox::Validate::checkDomainName($domain, __('Domain or IP address'));
 }
@@ -112,6 +135,48 @@ sub filtered
 
 
 
+# Function: bannedUrls
+#
+#       Fetch the banned urls
+#
+# Returns:
+#
+#       Array ref - containing the urls
+sub bannedUrls
+{
+  my ($self) = @_;
+  return $self->_urlsByPolicy('deny');
+}
+
+
+# Function: allowedUrls
+#
+#       Fetch the allowed urls
+#
+# Returns:
+#
+#       Array ref - containing the urls
+sub allowedUrls
+{
+  my ($self) = @_;
+  return $self->_urlsByPolicy('allow');
+}
+
+
+# Function: filteredUrls
+#
+#       Fetch the filtered urls
+#
+# Returns:
+#
+#       Array ref - containing the urls
+sub filteredUrls
+{
+  my ($self) = @_;
+  return $self->_urlsByPolicy('filter');
+}
+
+
 sub _domainsByPolicy
 {
   my ($self, $policy) = @_;
@@ -119,8 +184,13 @@ sub _domainsByPolicy
   my @domains;
   for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
+        my $domain = $row->valueByName('domain');
+        if ($domain =~ m{/}) {
+            next;
+        }
+
         if ($row->valueByName('policy') eq $policy) {
-            push (@domains, $row->valueByName('domain'));
+            push (@domains,  $domain);
         }
   }
 
@@ -128,6 +198,25 @@ sub _domainsByPolicy
 }
 
 
+sub _urlsByPolicy
+{
+    my ($self, $policy) = @_;
+
+  my @urls;
+  for my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        my $url = $row->valueByName('domain');
+        if (not $url =~ m{/}) {
+            next;
+        }
+
+        if ($row->valueByName('policy') eq $policy) {
+            push (@urls, $url);
+        }
+  }
+
+  return \@urls;
+}
 
 1;
 
