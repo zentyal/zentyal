@@ -47,6 +47,7 @@ cat <<EOT >  $DB_CONF_FILE
 \$dbserver='';
 \$dbport='';
 \$dbtype='pgsql';
+?>
 EOT
 
 }
