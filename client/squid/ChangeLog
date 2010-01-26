@@ -7,7 +7,7 @@ HEAD
 	+ Added custom script to delay downtime while log rotation is done
 	+ Only unzip domain categoris archives when they have changed,
 	this speeds up the module startup
-	+ You can establish the same politics for ULRs than for full domains
+	+ You can establish the same policies for ULRs than for full domains
 1.3.13
 	+ Switching antivirus from clamavscan to clamdscan
 	+ Better MIME type check, removed false negatives with some subtypes
