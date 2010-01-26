@@ -383,7 +383,7 @@ sub setGroupSID
     my ($self, $group, $sid) = @_;
 
     checkSID($sid) or
-    throw EBox::Exceptions::External(__('Incoorect SID: {s}', 's' => $sid));
+    throw EBox::Exceptions::External(__('Incorrect SID: {s}', 's' => $sid));
 
     my $users = EBox::Global->modInstance('users');
     $users->groupExists($group)  or
@@ -434,8 +434,8 @@ sub _delGroupWarning
 
     my $path = BASEPATH . "/groups/$group";
     settextdomain('ebox-samba');
-    my $txt = __('This group has a sharing directory associated' .
-                               'which conatins data');
+    my $txt = __('This group has a sharing directory associated ' .
+                 'that contains data');
     settextdomain('ebox-usersandgroups');
 
     unless ($self->_directoryEmpty($path)) {
@@ -706,9 +706,9 @@ sub groupShareDirectories
         my $group = $entry->get_value('cn');
         my $name  = $entry->get_value('displayResource');
         ($name) or next;
-        push (@share, { path      =>  BASEPATH . "/groups/$group",
-                groupname => $group,
-                sharename => $name
+        push (@share, { path      => BASEPATH . "/groups/$group",
+                        groupname => $group,
+                        sharename => $name
                   });
     }
     return \@share;
