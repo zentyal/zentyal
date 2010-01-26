@@ -72,18 +72,21 @@ de datos (protocolo y puerto) a través del menú
 
 Para poder realizar moldeado de tráfico es necesario disponer de al
 menos una interfaz interna y una interfaz externa. También debe existir un
-*router* configurado para la externa con un ancho de banda de subida y
-de bajada distinto de cero. Las reglas de moldeado son específicas
+*router*. Además debemos configurar las tasas de subida y bajada de los
+*routers* en `Moldeado de tráfico --> Tasas de Interfaces`, estableciendo
+el ancho de banda que nos proporciona cada *router* que está conectado
+a una interfaz externa.  Las reglas de moldeado son específicas
 para cada interfaz y pueden asignarse a las interfaces externas con
 ancho de banda asignado y a todas las interfaces internas.
 
 Si se moldea la interfaz externa, entonces se estará limitando el
-tráfico de salida de eBox hacia Internet, el límite máximo de tasa de
-salida será la suma de tasas de subida que tenemos en nuestros
-*routers*. En cambio, si se moldea la interfaz interna, entonces se
-estará limitando la salida de eBox hacia sus redes internas donde la
-tasa máxima será la suma de la tasa de bajada de todos los
-*routers*. Como se puede observar, no se puede moldear el tráfico
+tráfico de salida de eBox hacia Internet En cambio,
+si se moldea la interfaz interna, entonces se
+estará limitando la salida de eBox hacia sus redes internas.
+El límite máximo de tasa de
+salida y entrada viene dado por la configuración
+en `Moldeado de tráfico --> Tasas de Interfaces`.
+Como se puede observar, no se puede moldear el tráfico
 entrante en sí, eso es debido a que el tráfico proveniente de la red no
 es predecible y controlable de casi ninguna forma. Existen técnicas
 específicas a diversos protocolos para tratar de controlar el tráfico
