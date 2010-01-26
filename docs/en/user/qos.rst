@@ -75,8 +75,8 @@ rules are specific for each interface and they may be selected for those
 external network interfaces with assigned upload rate and all internal ones.
 
 If the external network interface is shaped, then you are limiting
-eBox output traffic to the Internet. The maximum output rate and the minimum input
-rate is given by the configuration in `Traffic Shaping --> Interface Rates`.
+eBox output traffic to the Internet. The maximum output and input rates
+are given by the configuration in `Traffic Shaping --> Interface Rates`.
 As it can be seen, shaping input traffic is not
 possible directly, that is because input traffic is not predictable nor
 controllable in almost any way. There are specific techniques from
