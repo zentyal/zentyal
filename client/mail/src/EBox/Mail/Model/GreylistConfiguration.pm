@@ -37,6 +37,7 @@ use EBox::Types::Port;
 # eBox exceptions used
 use EBox::Exceptions::External;
 
+# Group: Public methods
 
 sub new
 {
@@ -48,6 +49,18 @@ sub new
     return $self;
 }
 
+# Method: headTitle
+#
+# Overrides:
+#
+#   <EBox::Model::Component::headTitle>
+#
+sub headTitle
+{
+    return undef;
+}
+
+# Group: Protected methods
 
 # Method:  _table
 #
@@ -95,13 +108,14 @@ sub _table
                              ),
         );
 
+      my $printableTableName = __('Greylist configuration');
       my $dataForm = {
                       tableName          => 'GreylistConfiguration',
-                      printableTableName => __('Greylist configuration'),
+                      printableTableName => $printableTableName,
                       modelDomain        => 'Mail',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
-
+                      pageTitle          => $printableTableName,
                      };
 
 
