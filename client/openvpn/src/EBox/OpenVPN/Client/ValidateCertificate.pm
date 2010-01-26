@@ -109,7 +109,7 @@ sub  _verifyCertWithCa
   my $verifyOk = _opensslVerify($verifyParams);
   unless ($verifyOk) {
     throw EBox::Exceptions::External(
-       __(q{File supplied as client's certficate doesn't match with file supplied as CA's certificate})
+       __(q{File supplied as client's certificate doesn't match with file supplied as CA's certificate})
 				    );
   }
 }
@@ -138,7 +138,7 @@ sub _verifyCertWithPrivKey
   }
   otherwise {
     throw EBox::Exceptions::External(
-				     __(q{File supplied as client's certficate doesn't match with file supplied as certificate's private key})
+				     __(q{File supplied as client's certificate doesn't match with file supplied as certificate's private key})
 				    );
   };
 }

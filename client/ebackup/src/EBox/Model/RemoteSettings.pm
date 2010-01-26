@@ -68,13 +68,13 @@ sub new
 # Returns:
 #
 #	Hash ref:
-#		
+#
 #		full => scheduling crontab line for full backup
 #		incremental => scheduling crontab line for incremental backup
 #
 #	Note that, it only returns the scheduling part '30 1 * * * *' and not
 #	the command
-#		
+#
 sub crontabStrings
 {
     my ($self) = @_;
@@ -85,7 +85,7 @@ sub crontabStrings
     my $incrValue = $self->row()->valueByName('incremental');
     my $incr = undef;
     unless ($incrValue eq 'disabled') {
-        $incr =  _crontabStringIncr($time, $fullFreq, 
+        $incr =  _crontabStringIncr($time, $fullFreq,
                 $self->row()->valueByName('incremental')
                 );
     }
@@ -376,7 +376,7 @@ sub validateTypedRow
         if (not $user) {
             throw EBox::Exceptions::MissingArgument(__('User') );
         }
-        
+
         my $password = $actualValues->{password}->value();
         if (not $password) {
         throw EBox::Exceptions::MissingArgument(__('Password') );
@@ -389,7 +389,7 @@ sub validateTypedRow
         # all methods except ibackup need a target
         my $checkMethod = '_validateTargetFor' . (ucfirst $method);
         $self->$checkMethod($target);
-    } 
+    }
 
     my $incrementalFreq = $actualValues->{incremental}->value();
     if ($incrementalFreq ne 'disable') {
@@ -422,7 +422,7 @@ sub _validateTargetForFtpAndScp
 
     if (not $target) {
          throw EBox::Exceptions::MissingArgument(
-   __(q{The target parameter that must be like 'other.host[:port]/some_dir}) 
+   __(q{The target parameter that must be like 'other.host[:port]/some_dir})
                                                );
     }
 
@@ -456,7 +456,7 @@ sub _validateTargetForRsync
 
    if (not $target) {
          throw EBox::Exceptions::MissingArgument(
-   __(q{The RSYNC target parameter that must be like 'other.host[:port]/relative_path' or 'other.host[:port]/absolute_path'}) 
+   __(q{The RSYNC target parameter that must be like 'other.host[:port]/relative_path' or 'other.host[:port]/absolute_path'})
                                                );
     }
 
@@ -482,9 +482,9 @@ sub _validateTargetForRsync
         EBox::Validate::checkPort($port, __('port'));
     }
     if ($dir =~ m{^/}) {
-        EBox::Validate::checkAbsoluteFilePath($dir, __('absolute directory'));        
+        EBox::Validate::checkAbsoluteFilePath($dir, __('absolute directory'));
     } else {
-        EBox::Validate::checkFilePath($dir, __('relative directory'));        
+        EBox::Validate::checkFilePath($dir, __('relative directory'));
     }
 
 
@@ -501,10 +501,9 @@ sub _validateTargetForFile
 
     if (not $target) {
         throw EBox::Exceptions::MissingArgument(
-__('File system method need a target parameter that should be a directory path')
+__('File system method needs a target parameter that should be a directory path')
                                                );
     }
-                                               
 
     EBox::Validate::checkAbsoluteFilePath($target,
                                  __('Directory for backup'));
@@ -515,7 +514,7 @@ __('File system method need a target parameter that should be a directory path')
                                             value => $target,
                                             advice =>
                                     __('File exists and it is not a directory')
-                                            
+
                                            );
     }
 
@@ -528,14 +527,14 @@ sub _validateFrequencies
     my %values = (
                   daily => 3,
                   weekly => 2,
-                  monthly => 1, 
+                  monthly => 1,
                  );
 
     if ($values{$full} > $values{$partial}) {
         throw EBox::Exceptions::External(
     __('Full backup cannot be more frequent than incremental backup')
                                         );
-    } 
+    }
 }
 
 
