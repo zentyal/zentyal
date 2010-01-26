@@ -273,7 +273,7 @@ sub _validateCerts
                 if (not $file->exist()) {
                     throw EBox::Exceptions::External(
                             __x(
-                                'No file supplied or already setted for {f}',
+                                'No file supplied or already set for {f}',
                                 f => $file->printableName
                                )
                             );
