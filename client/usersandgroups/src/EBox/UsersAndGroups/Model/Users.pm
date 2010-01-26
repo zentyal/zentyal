@@ -83,7 +83,6 @@ sub _table
             ['changeView'],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'UsersAndGroups/Users',
-        'help' => __x('Users'),
         'printableRowName' => __('user'),
         'sortedBy' => 'name',
     };
