@@ -25,7 +25,6 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
 
-
 # eBox exceptions used
 use EBox::Exceptions::External;
 
@@ -49,14 +48,14 @@ sub _table
                                editable => 1,
                                defaultValue => __('eBox webmail'),
                                help =>
-__('The name of the webmail will be used in the login screen and page titles')
+__('The name of the webmail will be used in the login screen and page titles.')
                               ),
         );
 
       my $dataForm = {
                       tableName          => __PACKAGE__->nameFromClass(),
-                      printableTableName => __('Configuration'),
-                      pageTitle          => __('Web Mail'),
+                      printableTableName => __('General configuration'),
+                      pageTitle          => __('Webmail'),
                       modelDomain        => 'WebMail',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
@@ -69,6 +68,7 @@ __('The name of the webmail will be used in the login screen and page titles')
 sub productName
 {
     my ($self) = @_;
+
     return $self->row()->valueByName('productName');
 }
 

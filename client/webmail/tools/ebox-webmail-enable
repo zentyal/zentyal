@@ -11,9 +11,8 @@ POPULATE_SCRIPT=/usr/share/dbconfig-common/data/roundcube/install/pgsql
 PG_PASS_FILE=/var/lib/postgresql/.pgpass
 
 
-create_db() 
+create_db()
 {
-
 
     su postgres -c 'psql -Alt' | grep -q '^$db_name|' && db_exists=1 || db_exists=0 || true
     if [ $db_exists -eq 0 ]; then
@@ -24,7 +23,6 @@ create_db()
     fi
 
 }
-
 
 generate_debian_db()
 {
@@ -51,14 +49,12 @@ cat <<EOT >  $DB_CONF_FILE
 \$dbtype='pgsql';
 EOT
 
-
-
 }
 
 initialize_db()
 {
 
-test -e $PG_PASS_FILE && mv $PG_PASS_FILE  $PG_PASS_FILE.bak
+test -e $PG_PASS_FILE && mv $PG_PASS_FILE $PG_PASS_FILE.bak
 
 echo "*:*:$db_name:$db_user:$db_pass" > $PG_PASS_FILE
 chmod 0600 $PG_PASS_FILE
@@ -68,14 +64,17 @@ su postgres -c "psql -U $db_user -f $POPULATE_SCRIPT --host localhost $db_name"
 
 rm $PG_PASS_FILE
 test -e $PG_PASS_FILE.bak && mv $PG_PASS_FILE.bak $PG_PASS_FILE
+
 }
 
 update_pghba()
 {
+
 if ! grep -q $db_user $PG_HBA_FILE; then
     echo "# Added by ebox-webmail" >> $PG_HBA_FILE
     echo "host $db_name $db_user  127.0.0.1/32 password" >> $PG_HBA_FILE
 fi
+
 }
 
 

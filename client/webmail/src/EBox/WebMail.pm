@@ -36,12 +36,10 @@ use File::Slurp;
 
 use constant {
     MAIN_INC_FILE => '/etc/roundcube/main.inc.php',
-    DES_KEY_FILE  => EBox::Config::conf() .  'roundcube.key',
-
+    DES_KEY_FILE  => EBox::Config::conf() . 'roundcube.key',
     SIEVE_PLUGIN_INC_FILE => 
            '/usr/share/roundcube/plugins/managesieve/config.inc.php',
 };
-
 
 
 # Group: Protected methods
@@ -63,7 +61,7 @@ sub _create
         my $class = shift;
         my $self = $class->SUPER::_create(
                                           name => 'webmail',
-                                          printableName =>__('Web Mail'),
+                                          printableName =>__('Webmail'),
                                           domain => 'ebox-webmail',
                                          );
         bless($self, $class);
@@ -89,10 +87,10 @@ sub _setConf
         $params = $self->_confForRemoteServer();
     }
 
-    my $managesieve =  $self->_managesieveEnabled();
+    my $managesieve = $self->_managesieveEnabled();
 
     my $options = $self->model('Options');
-    push @{  $params }, 
+    push @{ $params }, 
         (
          managesieve => $managesieve,
          productName => $options->productName,
@@ -110,7 +108,6 @@ sub _setConf
     }
 }
 
-
 sub _managesieveEnabled
 {
     my ($self) = @_;
@@ -122,7 +119,6 @@ sub _managesieveEnabled
         return $remoteConfRow->elementByName('managesieve')->value();
     }
 }
-
 
 sub _setManageSievePluginConf
 {
@@ -145,7 +141,6 @@ sub _setManageSievePluginConf
                          'webmail/managesieve-config.php.inc.mas',
                          $params
                         );
-
 }
 
 sub _confFromMail
@@ -166,7 +161,7 @@ sub _confFromMail
                 );
     } else {
         throw EBox::Exceptions::External(
-__('Neither IMAP nor IMAPS service enabled')
+__('Neither IMAP nor IMAPS service enabled.')
                                         );
     }
 
@@ -183,7 +178,6 @@ sub _confForRemoteServer
     my ($self) = @_;
     return $self->model('RemoteServerConfiguration')->getConfiguration();
 }
-
 
 
 # Group: Public methods
@@ -220,23 +214,17 @@ sub menu
 #                         'url' => 'WebMail/View/Options',
 #                         'text' => __('Options')
 #                    )
-        
-
-#        );
-
+#     );
 
 #     $root->add($folder);
 
     $root->add(
-                 new EBox::Menu::Item(
-                        'url' => 'WebMail/View/Options',
-                        'text' => $self->printableName(),
-                        'separator' => 'Communications',
-                   )
-        
-
-       );
-
+               new EBox::Menu::Item(
+                   'url' => 'WebMail/View/Options',
+                   'text' => $self->printableName(),
+                   'separator' => 'Communications',
+              )
+    );
 }
 
 # Method: modelClasses
@@ -285,12 +273,12 @@ sub usedFiles
     return [
             {
               'file' => MAIN_INC_FILE,
-              'reason' => __('To configure roundcube'),
+              'reason' => __('To configure Roundcube webmail.'),
               'module' => 'webmail'
             },
             {
               'file' => SIEVE_PLUGIN_INC_FILE,
-              'reason' => __('To configure managesieve plugin'),
+              'reason' => __('To configure managesieve Roundcube webmail plugin.'),
               'module' => 'webmail'
             },
            ];
@@ -308,13 +296,13 @@ sub actions
 {
     return [
             {
-             'action' => __('Create PostgreSQL webmail database'),
-             'reason' => __('This database will store the data needed by Roundcube'),
+             'action' => __('Create PostgreSQL Roundcube webmail database.'),
+             'reason' => __('This database will store the data needed by Roundcube.'),
              'module' => 'webmail'
             },
             {
-             'action' => __('Add webmail link to www data directory'),
-             'reason' => __('Webmail will be accesible at http://ip/webmail'),
+             'action' => __('Add webmail link to www data directory.'),
+             'reason' => __('Webmail will be accesible at http://ip/webmail/.'),
              'module' => 'webmail'
             },
 
@@ -337,14 +325,13 @@ sub enableActions
         my $mail = EBox::Global->modInstance('mail');
         if ((not $mail->imap())and (not $mail->imaps()) ) {
             throw EBox::Exceptions::External( __x(
-q{WebMail module needs IMAP or IMAPS service enabled as long it uses eBox's mail service. You can enable it at {openurl}Mail -> General{closeurl}},
+q{Webmail module needs IMAP or IMAPS service enabled if using eBox mail service. You can enable it at {openurl}Mail -> General{closeurl}.},
 openurl => q{<a href='/ebox/Mail/Composite/General'>},
 closeurl => q{</a>}
 
                                                 ) );
         }
     }
-
 
     EBox::Sudo::root(EBox::Config::share() . '/ebox-webmail/ebox-webmail-enable');
     $self->_generateDesKeyFile();
@@ -378,16 +365,12 @@ sub enableModDepends
     return ['webserver'];
 }
 
-
-
 sub _usesEBoxMail
 {
     my ($self) = @_;
+
     return $self->model('OperationMode')->usesEBoxMail();
 }
-
-
-
 
 sub validateIMAPChanges
 {
@@ -400,14 +383,11 @@ sub validateIMAPChanges
         $self->setAsChanged();
     } else {
         throw EBox::Exceptions::External( __(
-'You cannot disable both IMAP and IMAPS service because they are used by webmail module'
+'You cannot disable both IMAP and IMAPS service because they are used by Webmail module.'
                                             )
                                         );
-        
     }
-
 }
-
 
 sub _generateDesKeyFile
 {
@@ -425,21 +405,17 @@ sub _generateDesKeyFile
         $desKey .= $chars[$i];
     }
 
-
     EBox::Sudo::root('rm -f ' . DES_KEY_FILE);
     
     EBox::Sudo::command('touch ' . DES_KEY_FILE);
     EBox::Sudo::command('chmod og-rwx ' . DES_KEY_FILE);
     File::Slurp::write_file(DES_KEY_FILE, $desKey);
-    
 }
-
 
 sub desKey
 {
     my $desKey = File::Slurp::read_file(DES_KEY_FILE);
     return $desKey;
 }
-
 
 1;
