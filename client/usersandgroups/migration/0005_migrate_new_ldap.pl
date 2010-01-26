@@ -69,6 +69,8 @@ sub runGConf
             $aclLines .= "olcAccess: {$i}$acl\n";
             $i++;
         }
+        #remove trailing end-line as otherwise the LDIF breaks
+        chomp($aclLines);
         EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
             'slapd-master-upgrade.ldif',
             'usersandgroups/slapd-master-upgrade.ldif.mas',
@@ -101,6 +103,8 @@ sub runGConf
 # Main
 
 EBox::init();
+
+exit;
 
 my $module = EBox::Global->modInstance('users');
 my $migration = new EBox::Migration(
