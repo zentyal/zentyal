@@ -966,9 +966,9 @@ protocol managesieve {
     mail_executable = /usr/lib/dovecot/managesieve
     managesieve_max_line_length = 65536
     managesieve_implementation_string = dovecot
-    sieve = /var/sieve-scripts/%d/%u/sieve-script
-    sieve_storage = /var/sieve-scripts/%d/%u
-    mail_debug=yes # XXX debug!
+    sieve = /var/vmail/sieve/%d/%u/sieve-script
+    sieve_storage = /var/vmail/sieve/%d/%u
+#    mail_debug=yes # uncomment to debug sieve 
 }
 
 ##
@@ -1052,7 +1052,7 @@ plugin {
   autosubscribe4 = Drafts
 
   # sieve script location
-  sieve = /var/sieve-scripts/%d/%u/sieve-script
+  sieve = /var/vmail/sieve/%d/%u/sieve-script
   # Path to a global sieve script file, which gets executed ONLY if
   # user's private Sieve script doesn't exist. (e.g. /etc/dovecot/default.sieve)
   # (v1.0.1 and older called this setting "global_script_path")

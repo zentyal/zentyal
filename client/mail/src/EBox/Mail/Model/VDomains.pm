@@ -190,12 +190,20 @@ sub validateTypedRow
     my $vdomain = $changedFields->{vdomain}->value();
     if ($self->existsVDomainAlias($vdomain)) {
         throw EBox::Exceptions::External(
-__x('Cannot add virtual domain {vd} because is a virtual domain alias with the same name',
+__x(
+'Cannot add virtual domain {vd} because is a virtual domain alias' .
+    ' with the same name',
    vd => $vdomain)
                                         );
-    }
+    } 
 
     $self->_checkVDomainIsNotInExternalAliases($vdomain);
+
+    if ($vdomain eq 'sieve') {
+        throw EBox::Exceptions::External( __(
+q{'sieve' is a reserved name in this context, please choose another name}
+                                            ));
+    }
 }
 
 
@@ -234,7 +242,8 @@ sub _checkVDomainIsNotInExternalAliases
         if ($alias) {
             throw EBox::Exceptions::External(
                                              __x(
-'Cannot add virtual domain {vd} because it appears as external domain in the account referenced by the alias {al}',
+'Cannot add virtual domain {vd} because it appears as external domain' .
+' in the account referenced by the alias {al}',
 vd => $vdomain, al => $alias
                                                 )
                                             );

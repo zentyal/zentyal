@@ -33,7 +33,7 @@ use Perl6::Junction qw(any);
 
 
 use constant DIRVMAIL   =>      '/var/vmail/';
-use constant SIEVE_SCRIPTS_DIR => '/var/sieve-scripts';
+use constant SIEVE_SCRIPTS_DIR => '/var/vmail/sieve';
 
 
 use base qw(EBox::LdapUserBase);
