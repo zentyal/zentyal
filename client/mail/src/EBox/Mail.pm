@@ -78,7 +78,7 @@ use constant {
 
  ALWAYS_BCC_TABLE_FILE              => '/etc/postfix/alwaysbcc',
 
- SIEVE_SCRIPTS_DIR                          => '/var/sieve-scripts',
+ SIEVE_SCRIPTS_DIR                          => '/var/vmail/sieve',
 };
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
@@ -681,7 +681,10 @@ sub checkMailname
     if (not $mailname =~ m/\./) {
         my $advice;
         if ($mailname eq $self->_fqdn()) {
-            $advice =              __('Cannot use the hostname as mailname because it is a no-full qualified hostname. Please, define a custom server mailname');
+            $advice = __(
+'Cannot use the hostname as mailname because it is a no-full' . '
+ qualified hostname. Please, define a custom server mailname'
+                        );
         } else {
             $advice = 
                 __('the mail name must be a full qualified host name');
@@ -1727,7 +1730,7 @@ sub restoreConfig
 sub _storageMailDirs
 {
     my @dirs;
-    foreach my $dir (qw(/var/mail /var/vmail), SIEVE_SCRIPTS_DIR) {
+    foreach my $dir (qw(/var/mail /var/vmail)) {
         push(@dirs, $dir) if (-d $dir);
     }
     return @dirs;
