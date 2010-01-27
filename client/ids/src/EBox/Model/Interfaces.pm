@@ -136,8 +136,10 @@ sub _table
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
         modelDomain        => 'IDS',
-        printableRowName   => __('rule'),
-        help               => __('help message'),
+        sortedBy           =>    'iface',
+        printableRowName   => __('interface'),
+        help               => 
+     __('Select in which interfaces IDS system will be enabled'),
     };
     return $dataTable;
 }
