@@ -72,7 +72,7 @@ sub _tableDesc
              printableName  => $printableName,
              editable       => 1,
              help           => __('Use this field to change the value of ' .
-                    ' all the above rows at once')
+                    'all the above rows at once')
 #			      defaultValue   => 1,
              ),
         );
@@ -161,11 +161,7 @@ END
             $onCompleteJS
             );
 
-
-
     return $JS;
-
 }
-
 
 1;
