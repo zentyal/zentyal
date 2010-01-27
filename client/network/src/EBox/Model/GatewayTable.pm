@@ -29,7 +29,6 @@ use EBox::Types::Union;
 use EBox::Network::Types::Text::AutoReadOnly;
 use EBox::Network::View::GatewayTableCustomizer;
 use EBox::Sudo;
-use EBox::View::Customizer;
 
 use Net::ARP;
 
@@ -356,6 +355,12 @@ sub viewCustomizer
 
     my $customizer = new EBox::Network::View::GatewayTableCustomizer();
     $customizer->setModel($self);
+
+    $customizer->setOnChangeActions({ auto => {
+              0 => { enable  => ['ip'] },
+              1 => { disable  => ['ip'] } }
+	    });
+
     return $customizer;
 }
 
@@ -455,21 +460,6 @@ sub _getRouterMac
         return $mac if ($mac ne '00:00:00:00:00:00');
     }
     return $mac;
-}
-
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-
-    $customizer->setOnChangeActions({ auto => {
-              0 => { enable  => ['ip'] },
-              1 => { disable  => ['ip'] } }
-	    });
-
-    return $customizer;
 }
 
 1;
