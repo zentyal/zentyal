@@ -5,14 +5,14 @@ use EBox::Gettext;
 
 <h3><% __('Filtering rules from internal networks to eBox') %></h3>
 <div class=''>
-	<% __('These rules are meant to control access from internal network interfaces to services running on your eBox machine') %> </div>
+	<% __('These rules allow you to control access from internal networks to services running on your eBox machine.') %> </div>
 	<p>
 		<a href="/ebox/Firewall/View/InternalToEBoxRuleTable"><% __('Configure rules') %></a>
 	</p>
  
 <h3><% __('Filtering rules for internal networks') %></h3>
 <div class=''>
-	<% __('These rules allow you to control access  from your internal networks to the Internet, and traffic between your internal networks. If you wish to provide access to your eBox services, you must use the above section') %>
+	<% __('These rules allow you to control access from internal networks to the Internet and traffic between internal networks. If you wish to provide access to your eBox services, you must use the above section.') %>
 </div>
 	<p>
 		<a href="/ebox/Firewall/View/ToInternetRuleTable"><% __('Configure rules') %></a>
@@ -20,7 +20,7 @@ use EBox::Gettext;
 
 <h3><% __('Filtering rules for traffic coming out from eBox') %></h3>
 <div class=''>
-	<% __('These rules allow you to control access from eBox to external services') %>
+	<% __('These rules allow you to control access from your eBox to external services.') %>
 </div>
 	<p>
 		<a href="/ebox/Firewall/View/EBoxOutputRuleTable"><% __('Configure rules') %></a>
@@ -31,7 +31,7 @@ use EBox::Gettext;
 	<% __('These rules allow you to control access from external networks to sevices running on your eBox machine.') %>
 </div>
 <div class='warning'>
-	<% __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing') %>
+	<% __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing.') %>
 </div>
 	<p>
 		<a href="/ebox/Firewall/View/ExternalToEBoxRuleTable"><% __('Configure rules') %></a>
@@ -42,7 +42,7 @@ use EBox::Gettext;
 	<% __('These rules allow you to control access from external networks to internal networks.') %>
 </div>
 <div class='warning'>
-	<% __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing') %>
+	<% __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing.') %>
 </div>
 	<p>
 		<a href="/ebox/Firewall/View/ExternalToInternalRuleTable"><% __('Configure rules') %></a>
