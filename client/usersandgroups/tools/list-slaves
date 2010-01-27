@@ -10,5 +10,5 @@ EBox::init();
 my $users = EBox::Global->modInstance('users');
 my $slaves = $users->listSlaves();
 for my $slave (@{$slaves}) {
-    print "$slave\n";
+    print $slave->{'hostname'} . ':' . $slave->{'port'} . "\n";
 }

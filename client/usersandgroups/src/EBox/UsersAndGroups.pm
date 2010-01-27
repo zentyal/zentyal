@@ -644,11 +644,14 @@ sub initUser
 
 sub soapClient
 {
-    my ($self, $hostname) = @_;
+    my ($self, $slave) = @_;
+
+    my $hostname = $slave->{'hostname'};
+    my $port = $slave->{'port'};
 
     my $client = EBox::SOAPClient->instance(
         name  => 'urn:EBox/Users',
-        proxy => "https://$hostname/slave",
+        proxy => "https://$hostname:$port/slave",
         certs => {
             cert => SSL_DIR . 'ssl.pem',
             private => SSL_DIR . 'ssl.key'
@@ -661,7 +664,7 @@ sub soapRun
 {
     my ($self, $slave, $method, $param) = @_;
 
-    my $journaldir = $self->_journalsDir . $slave;
+    my $journaldir = $self->_journalsDir . $slave->{'hostname'};
     (-d $journaldir) or EBox::Sudo::command("mkdir -p $journaldir");
 
     my $client = $self->soapClient($slave);
@@ -2853,7 +2856,12 @@ sub listSlaves
     );
     my $result = $self->ldap->search(\%args);
 
-    my @slaves = map { $_->get_value('hostname') } $result->entries();
+    my @slaves = map {
+        {
+            'hostname' => $_->get_value('hostname'),
+            'port' => $_->get_value('port')
+        }
+    } $result->entries();
     return \@slaves;
 }
 

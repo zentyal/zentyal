@@ -103,7 +103,7 @@ sub _addTypedRow
 
     my $slaves = $users->listSlaves();
     for my $slave (@{$slaves}) {
-        my $journaldir = EBox::UserCorner::usercornerdir() . "userjournal/$slave";
+        my $journaldir = EBox::UserCorner::usercornerdir() . "userjournal/" . $slave->{'hostname'};
         (-d $journaldir) or `mkdir -p $journaldir`;
 
         my ($fh, $filename) = tempfile("modifyUser-XXXX", DIR => $journaldir);

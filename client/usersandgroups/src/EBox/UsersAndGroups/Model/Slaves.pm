@@ -55,6 +55,10 @@ sub _table
              'printableName' => __('Slave'),
              'size' => '12',
              ),
+         new EBox::Types::Int(
+             'fieldName' => 'port',
+             'printableName' => __('Port'),
+             ),
         );
 
     my $dataTable =
@@ -132,7 +136,9 @@ sub ids
         return [];
     }
 
-    return $users->listSlaves();
+    my @slaves = map { $_->{'hostname'} } @{$users->listSlaves()};
+
+    return \@slaves;
 }
 
 # Method: row
@@ -144,7 +150,16 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my $row = $self->_setValueRow(slave => $id);
+    my $users = EBox::Global->modInstance('users');
+    my $slaves = $users->listSlaves();
+    my $port;
+    for my $slave (@{$slaves}) {
+        if ($slave->{'hostname'} eq $id) {
+            $port = $slave->{'port'};
+        }
+    }
+
+    my $row = $self->_setValueRow(slave => $id, port => $port);
     $row->setId($id);
     $row->setReadOnly(0);
     return $row;
@@ -161,6 +176,11 @@ sub removeRow
 
         my $users = EBox::Global->modInstance('users');
         $users->deleteSlave($id);
+}
+
+sub Viewer
+{
+    return '/ajax/tableBodyWithoutEdit.mas';
 }
 
 1;
