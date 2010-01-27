@@ -11,7 +11,7 @@ use EBox::Gettext;
 <h3><% __('Administration of group ') %> <span class='stitle'><% $groupinfo->{'groupname'} %></span></h3>
 % unless (@groupusers or @remainusers) {
 <div class='note'>
-    <% __("There are no users at the moment. You need at least one to manage this group properly")%>
+    <% __("There are no users at the moment. You need at least one to manage this group properly.")%>
 </div>
 <br />
 % }
@@ -107,7 +107,7 @@ use EBox::Gettext;
 % unless ($slave) {
 <h3><% __("Delete group") %></h3>
 <div class='note'>
-	<% __('If you remove this group all its data within its shared directory will be deleted') %>
+	<% __('This operation will cause the removal of the group and all dependent data such as shared directory, etc.') %>
 </div>
 
 <br />

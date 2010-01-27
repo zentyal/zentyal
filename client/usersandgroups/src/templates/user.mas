@@ -158,7 +158,7 @@ use EBox::Gettext;
 
 <h3><%__('Delete user')%></h3>
 <div class='note'>
-    <% __('This operation will cause the removal of the user and all the dependent data; such as mail accounts, user files, ...') %>
+    <% __('This operation will cause the removal of the user and all dependent data such as mail accounts, user files, etc.') %>
 </div>
 <form action='Del' method='POST'>
 <p>
