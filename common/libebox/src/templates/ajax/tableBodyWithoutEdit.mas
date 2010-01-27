@@ -1,0 +1,70 @@
+<%flags>
+  inherit => '/ajax/tableBody.mas'
+</%flags>
+<%args>
+  $model
+  $action => 'view'
+  $editid => ''
+  $hasChanged => 1
+  $filter => ''
+  $page => 0
+  $tpages => 0
+  %presetParams => ()
+</%args>
+<%init>
+use EBox::Gettext;
+use EBox::Model::DataTable;
+</%init>
+<& PARENT:view,
+   model      => $model,
+   hasChanged => $hasChanged,
+   action     => $action,
+&>
+<%method actionCell>
+<%doc>
+    Print the action cell for the row
+    In this case we don't need actionCell so we don't print anything...
+</%doc>
+<%args>
+$model
+$actions
+$firstRow
+$lastRow
+$row
+$changeView
+$page
+</%args>
+        <td class='tcenter'
+            id='actionsCell_<%
+                              $row->{id}
+                            %>'>
+%      my $disabled = $row->readOnly() ? 'disabled' : '';
+          <input class='inputButton'
+              <%
+                $disabled
+              %>
+              type='image'
+              name='del'
+              value="Del"
+              title="Del"
+              alt="Del"
+              src='/data/images/delete.gif'
+              onClick='<%
+                          $model->actionClickedJS('del',
+                             $row->{id},
+                            '' ,
+                            $page)
+                       %>'
+          />
+
+</%method>
+
+<%doc>
+  Method: buttons
+
+     Show the button to submit the form
+
+
+</%doc>
+<%method buttons>
+</%method>
