@@ -11,6 +11,8 @@ HEAD
 	+ Updated localAttributes in MailUserLdap
 	+ Added LOGIN to authorization mechanisms
 	+ Using /etc/mailname in hostname and sasl_domain paramteres
+	+ Better check of mailname, assure that mailname is correct before
+	enabling module
 1.3.14
 	+ Added precondition in ObjectPolicy model
 	+ Account home in dovecot set to its maildir, this is necesary for

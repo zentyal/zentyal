@@ -232,6 +232,10 @@ sub enableActions
 {
     my ($self) = @_;
 
+    # check that we have a correct mailnae
+    $self->checkMailname($self->mailname());
+
+
     $self->performLDAPActions();
 
     root(EBox::Config::share() . '/ebox-mail/ebox-mail-enable');
@@ -643,12 +647,7 @@ sub _setMailname
     my ($self) = @_;
     my $tmpFile = EBox::Config::tmp() . 'mailname.tmp';
 
-    my $smtpOptions = $self->model('SMTPOptions');
-    my $mailname = $smtpOptions->customMailname();
-    if (not defined $mailname) {
-        $mailname = $self->_fqdn();
-    }
-
+    my $mailname = $self->mailname();
     $mailname .= "\n";
 
     EBox::Module::Base::writeFile(MAILNAME_FILE,
@@ -659,6 +658,45 @@ sub _setMailname
                                       mode => '0644'
                                      }
                                  );
+}
+
+
+sub mailname
+{
+    my ($self) = @_;
+
+    my $smtpOptions = $self->model('SMTPOptions');
+    my $mailname = $smtpOptions->customMailname();
+    if (not defined $mailname) {
+        $mailname = $self->_fqdn();
+    }
+
+    return $mailname;
+}
+
+sub checkMailname
+{
+    my ($self, $mailname) = @_;
+
+    if (not $mailname =~ m/\./) {
+        my $advice;
+        if ($mailname eq $self->_fqdn()) {
+            $advice =              __('Cannot use the hostname as mailname because it is a no-full qualified hostname. Please, define a custom server mailname');
+        } else {
+            $advice = 
+                __('the mail name must be a full qualified host name');
+        }
+
+
+        throw EBox::Exceptions::InvalidData(
+                                            data => __('Host mail name'),
+                                            value => $mailname,
+                                            advice => $advice,
+                                           );
+    }
+
+    EBox::Validate::checkDomainName($mailname, __('Host mail name'));
+
 }
 
 sub _setHeloChecks

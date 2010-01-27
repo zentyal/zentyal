@@ -320,6 +320,9 @@ sub validateTypedRow
         $self->_validateSmarthost($changedFields);
     }
 
+    if (exists $changedFields->{mailname}) {
+        $self->_validateMailname($changedFields->{mailname});
+    }
 }
 
 
@@ -345,6 +348,25 @@ sub _validateSmarthost
     }
 
 
+}
+
+
+
+sub _validateMailname
+{
+    my ($self, $mailname) = @_;
+
+    my $mail = EBox::Global->modInstance('mail');
+
+    my $value;
+    if ($mailname->selectedType eq 'fqdn') {
+        # no custom mailname, use fqdn
+        $value = $mail->_fqdn();
+    } else {
+        $value =  $mailname->subtype()->value();
+    }
+
+    $mail->checkMailname($value);
 }
 
 
