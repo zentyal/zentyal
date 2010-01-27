@@ -36,7 +36,7 @@ use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Types::Boolean;
-use  EBox::Squid::Types::WeightedPhrasesThreshold;
+use EBox::Squid::Types::WeightedPhrasesThreshold;
 
 
 # eBox exceptions used
@@ -58,7 +58,6 @@ sub new
 # This method overrides <EBox::Model::DataTable::_table> to return
 # a table model description.
 #
-
 #
 sub _table
 {
@@ -70,13 +69,11 @@ sub _table
                   defaultValue => 0,
                   editable     => 1,
           ),
-         new  EBox::Squid::Types::WeightedPhrasesThreshold(
+         new EBox::Squid::Types::WeightedPhrasesThreshold(
              fieldName => 'contentFilterThreshold',
-             printableName => __('Threshold a'),
+             printableName => __('Threshold'),
              editable => 1,
              ),
-
-
         );
 
     my $dataForm = {
@@ -90,8 +87,6 @@ sub _table
             update => __('Content filter threshold changed'),
         },
     };
-
-
 
     return $dataForm;
 }
