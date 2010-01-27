@@ -32,6 +32,9 @@ use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::Password;
 use EBox::Types::Int;
+use EBox::Types::Union::Text;
+use EBox::Types::Union;
+use EBox::Types::Password;
 use EBox::View::Customizer;
 use EBox::Validate;
 
@@ -104,14 +107,14 @@ sub viewCustomizer
     my ($self) = @_;
     my $customizer = new EBox::View::Customizer();
     my $userPass = [qw/user password/];
-    my $allFields = [qw/user password target/];
-    my $target = [qw/target/];
+    my $allFields = [qw/user password/];
     $customizer->setModel($self);
     $customizer->setOnChangeActions(
             { method =>
                 {
-                ibackup => { disable => $target, enable=> $userPass },
-                file => { disable => $userPass, enable => $target },
+                ebox_eu => {  enable => $userPass },
+                ebox_us_w => { enable => $userPass },
+                file => { disable => $userPass },
                 rsync => { enable => $allFields },
                 scp => { enable => $allFields },
                 ftp => { enable => $allFields },
@@ -145,27 +148,43 @@ sub _table
            fieldName     => 'target',
            printableName => __('Host or destination'),
            editable      => 1,
-           optional      => 1,
        ),
        new EBox::Types::Text(
            fieldName     => 'user',
            printableName => __('User'),
            editable      => 1,
-           optional      => 1,
        ),
        new EBox::Types::Password(
            fieldName     => 'password',
            printableName => __('Password'),
            editable      => 1,
-           optional      => 1,
        ),
-       new EBox::Types::Select(
-           fieldName     => 'gpg_key',
-           printableName => __('GPG key'),
-           editable      => 1,
-           populate      => \&_gpgKeys,
-           disabledCache  => 1,
-       ),
+        new EBox::Types::Union(
+            'fieldName' => 'encryption',
+            'printableName' => __('Encryption'),
+            'subtypes' =>
+                [
+                new EBox::Types::Union::Text(
+                    'fieldName' => 'disabled',
+                    'printableName' => __('Disabled'),
+                    'optional' => 1
+                ),
+                new EBox::Types::Password(
+                    'fieldName' => 'symmetric',
+                    'printableName' => __('Symmetric Key'),
+                    'editable'=> 1,
+                ),
+                new EBox::Types::Select(
+                    fieldName     => 'asymmetric',
+                    printableName => __('GPG Key'),
+                    editable      => 1,
+                    populate      => \&_gpgKeys,
+                    disabledCache  => 1,
+                ),
+                ],
+            'unique' => 1,
+            'editable' => 1,
+            ),
        new EBox::Types::Select(
            fieldName     => 'full',
            printableName => __('Full Backup Frequency'),
@@ -299,8 +318,12 @@ sub _method
 {
     return ([
             {
-            value => 'ibackup',
-            printableValue => 'iBackup',
+            value => 'ebox_eu',
+            printableValue => 'eBox Remote Storage (EU)',
+            },
+            {
+            value => 'ebox_us_w',
+            printableValue => 'eBox Remote Storage (US West Coast)',
             },
             {
             value => 'file',
@@ -355,9 +378,10 @@ sub _gpgKeys
 sub _message
 {
     my $ibackup =  __x(
-        'By creating the iBackup account through this {ohref}link{chref} you ' .
-        'support the development of eBox with no extra charge',
-         ohref => '<a href="https://www.ibackup.com/p=ebox_technologies">',
+        'You can create your <i>eBox Remote Storage</i> account in our ' .
+        '{ohref}on-line store{chref}. Use this service to have a quick ' .
+        'and safe remote location to store your data',
+         ohref => '<a href="http://store.ebox-technologies.com">',
          chref => '</a>'
     );
 }
@@ -369,23 +393,21 @@ sub validateTypedRow
     my $actualValues = $self->_actualValues($paramsRef, $allFieldsRef);
 
     my $method = $actualValues->{method}->value();
-
-    if ($method ne 'file') {
-        # all methods excepts 'file' needs a username/password
-        my $user = $actualValues->{user}->value();
-        if (not $user) {
-            throw EBox::Exceptions::MissingArgument(__('User') );
-        }
-
-        my $password = $actualValues->{password}->value();
-        if (not $password) {
-        throw EBox::Exceptions::MissingArgument(__('Password') );
-    }
-    }
-
-
     my $target = $actualValues->{target}->value();
-    if ($method ne 'ibackup') {
+
+    if ($method =~ /^ebo/) {
+        my $target = $actualValues->{target}->value();
+        if (defined($target)) {
+            my $excepTxt = __('Destination must be a relative directory');
+            if ($target =~ m:^/:) {
+                throw EBox::Exceptions::External($excepTxt);
+            }
+            EBox::Validate::checkFilePath(
+                    $target,
+                    $excepTxt
+                    );
+        }
+    } else {
         # all methods except ibackup need a target
         my $checkMethod = '_validateTargetFor' . (ucfirst $method);
         $self->$checkMethod($target);
@@ -524,6 +546,8 @@ __('File system method needs a target parameter that should be a directory path'
 sub _validateFrequencies
 {
     my ($self, $full, $partial) = @_;
+
+    return if ($partial eq 'disabled');
     my %values = (
                   daily => 3,
                   weekly => 2,

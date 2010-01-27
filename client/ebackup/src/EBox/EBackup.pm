@@ -39,12 +39,19 @@ use Fcntl qw(:flock);
 
 use EBox::Exceptions::MissingArgument;
 
-use constant RSYNC_IBACKUP_URL => '206.221.209.44::/ibackup';
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . '82ebackup.conf';
 use constant EBACKUP_MENU_ENTRY => 'ebackup_menu_enabled';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/ebox-ebackup/ebox-duplicity-wrapper';
 use constant DUPLICITY_PASSWORD =>  EBox::Config::conf . '/ebox-ebackup.password';
+use constant DUPLICITY_SYMMETRIC_PASSWORD =>  EBox::Config::conf . '/ebox-ebackup-symmetric.password';
 use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
+use constant EBACKUP_EBOX_FINGERPRINT_FILE => EBox::Config::share() . '/ebox-ebackup/server-fingerprints';
+
+my %servers = (
+    'ebox_eu' => 'ch-s010.rsync.net',
+    'ebox_us_w' => 'usw-s001.rsync.net'
+);
+
 
 # Constructor: _create
 #
@@ -370,11 +377,16 @@ sub _setConf
     my $model = $self->model('RemoteSettings');
     my $pass = $model->row()->valueByName('password');
     $pass = '' unless (defined($pass));
+    my $symPass = $model->row->valueByName('encryption');
+    $symPass = '' unless (defined($symPass));
     EBox::Module::Base::writeFile(
             DUPLICITY_PASSWORD,
             $pass, { uid => 'ebox', gid => 'ebox', mode => '0600'}
     );
-
+    EBox::Module::Base::writeFile(
+            DUPLICITY_SYMMETRIC_PASSWORD,
+            $symPass, { uid => 'ebox', gid => 'ebox', mode => '0600'}
+    );
     $self->setRemoteBackupCrontab();
 }
 
@@ -427,8 +439,6 @@ sub unlock
     close($self->{lock});
 }
 
-
-
 sub _remoteUrl
 {
     my ($self) = @_;
@@ -437,10 +447,15 @@ sub _remoteUrl
 
     my $model = $self->model('RemoteSettings');
     my $method = $model->row()->valueByName('method');
+    my $origMethod = $method;
     my $target = $model->row()->valueByName('target');
-    if ($method eq 'ibackup') {
-        $method = 'rsync';
-        $target = RSYNC_IBACKUP_URL;
+    if ($method =~ /^ebox/) {
+        if (defined($target)) {
+            $target = "$servers{$method}/$target";
+        } else {
+            $target = "$servers{$method}";
+        }
+        $method = 'scp';
     }
     my $url = "$method://";
     if ($method ne 'file') {
@@ -456,11 +471,20 @@ sub _remoteUrl
         $url .= ' --ssh-askpass';
     }
 
-    my $gpgKey = $model->row()->valueByName('gpg_key');
-    if ($gpgKey eq 'disabled') {
+    if ($origMethod =~ /^ebox/) {
+        $url .= ' --ssh-options="-oUserKnownHostsFile='
+            . EBACKUP_EBOX_FINGERPRINT_FILE . '"';
+    }
+
+    my $encryption = $model->row()->elementByName('encryption');
+    my $encValue = $encryption->value();
+    my $encSelected = $encryption->selectedType();
+    if ($encValue eq 'disabled') {
         $url .= ' --no-encryption';
     } else {
-        $url .= " --encrypt-key $gpgKey";
+        if ($encSelected eq 'asymmetric') {
+            $url .= " --encrypt-key $encValue";
+        }
     }
 
     return $url;

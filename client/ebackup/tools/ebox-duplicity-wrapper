@@ -16,7 +16,7 @@
 
 # Script: ebox-duplicity-wrapper
 #
-# Wrapper to not expose duplicity password via sh -c 
+# Wrapper to not expose duplicity password via sh -c
 
 
 
@@ -29,7 +29,9 @@ use EBox::EBackup;
 use File::Slurp;
 
 my $password = File::Slurp::read_file(EBox::EBackup::DUPLICITY_PASSWORD);
+my $symmPassword = File::Slurp::read_file(EBox::EBackup::DUPLICITY_SYMMETRIC_PASSWORD);
 $ENV{FTP_PASSWORD} = $password;
 $ENV{RSYNC_PASSWORD} = $password;
+$ENV{PASSPHRASE} = $symmPassword;
 
 exec "/usr/bin/duplicity @ARGV";
