@@ -1,4 +1,4 @@
-AC_INIT([EBox-webmail], [1.3.13])
+AC_INIT([EBox-webmail], [1.3.14])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/WebMail.pm])
