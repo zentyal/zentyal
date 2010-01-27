@@ -236,11 +236,6 @@ sub remoteStatus
 {
     my ($self) = @_;
 
-    my $storedTime = $self->{remoteCacheTime};
-    if ($storedTime and ($storedTime + 1000 > time())) {
-        return $self->{remoteCache};
-    }
-
     my @status;
     if (-f tmpCurrentStatus()) {
         my @lines = File::Slurp::read_file(tmpCurrentStatus());
@@ -258,9 +253,6 @@ sub remoteStatus
             }
         }
     }
-
-    $self->{remoteCacheTime} = time();
-    $self->{remoteCache} = \@status;
 
     return \@status;
 }

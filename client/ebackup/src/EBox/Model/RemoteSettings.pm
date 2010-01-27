@@ -450,7 +450,7 @@ sub _validateTargetForFtpAndScp
 
     my $checkRegex = qr{^([^/:]*?) # host
                        (?::(\d+))? # optional port
-                       /([^/].*?)$ # dir
+                       (/([^/].*?))?$ # dir
 
                       }x;
     if (not $target =~ m/$checkRegex/)  {
@@ -484,7 +484,7 @@ sub _validateTargetForRsync
 
     my $checkRegex = qr{^([^/:]*?) # host
                        (?::(\d+))? # optional port
-                       /(.*?)$ # dir
+                       (/(.*?))?$ # dir
 
                       }x;
     if (not $target =~ m/$checkRegex/)  {

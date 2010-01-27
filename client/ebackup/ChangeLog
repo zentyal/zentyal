@@ -11,6 +11,8 @@ HEAD
 	+ Add eBox remote storage servers
 	+ Add file to distribute remote server fingerprints
 	+ Add support for symmetric encryption
+	+ Disable cache of backup status as is useless
+	+ Allow to write destination URLs without relative directory
 1.3.13
 	+ Bug fix: add --force to delete old backup sets
 	+ Bug fix: fix restoring of the first file
