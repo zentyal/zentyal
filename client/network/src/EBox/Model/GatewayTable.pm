@@ -197,6 +197,10 @@ sub _table
                     'fieldName' => 'ip',
                     'printableName' => __('IP address'),
                     'size' => '16',
+                    # FIXME: this has to be removed
+                    # once viewCustomizer is working
+                    # with DataTable!
+                    'optional' => 1,
                     'unique' => 1,
                     'editable' => 1
                       ),
@@ -263,28 +267,29 @@ sub validateRow()
 {
     my ($self, $action, %params) = @_;
 
+    my $currentRow = $self->row($params{'id'});
+    my $auto = 0;
+    $auto = $currentRow->valueByName('auto') if ($currentRow);
+
     my $network = EBox::Global->modInstance('network');
 
-    # Do not check for valid IP in case of ppp interfaces
-    unless ($network->ifaceMethod($params{'interface'}) eq 'ppp') {
+    # Do not check for valid IP in case of auto-added ifaces
+    unless ($auto) {
         checkIP($params{'ip'}, __("ip address"));
     }
 
     # Only check if gateway is reachable on static interfaces
     if ($network->ifaceMethod($params{'interface'}) eq 'static') {
         $network->gatewayReachable($params{'ip'}, 'LaunchException');
-    } else {
-        unless ($params{'auto'}) {
-            throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
-        }
+    } elsif (($action eq 'add') and (not $auto)) {
+        throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
     }
 
-    return unless ($params{'default'});
+    return unless ($currentRow and $params{'default'});
 
     # Check if there's only one default gw
-    my $currentRow = $params{'id'};
     my $defaultRow = $self->find('default' => 1);
-    if (defined($defaultRow) and ($currentRow ne $defaultRow->id())) {
+    if (defined($defaultRow) and ($currentRow->id() ne $defaultRow->id())) {
         my $default = $defaultRow->elementByName('default');
         $default->setValue(undef);
         $defaultRow->storeElementByName('default');
@@ -449,6 +454,21 @@ sub _getRouterMac
         return $mac if ($mac ne '00:00:00:00:00:00');
     }
     return $mac;
+}
+
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    $customizer->setOnChangeActions({ auto => {
+              0 => { enable  => ['ip'] },
+              1 => { disable  => ['ip'] } }
+	    });
+
+    return $customizer;
 }
 
 1;
