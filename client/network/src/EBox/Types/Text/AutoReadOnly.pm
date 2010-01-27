@@ -54,4 +54,13 @@ sub editable
     return (not $auto);
 }
 
+sub setMemValue
+{
+    my ($self, $params) = @_;
+
+    if ($self->_paramIsSet($params)) {
+        $self->SUPER::setMemValue($params);
+    }
+}
+
 1;

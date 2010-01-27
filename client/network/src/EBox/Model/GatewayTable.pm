@@ -197,10 +197,6 @@ sub _table
                     'fieldName' => 'ip',
                     'printableName' => __('IP address'),
                     'size' => '16',
-                    # FIXME: this has to be removed
-                    # once viewCustomizer is working
-                    # with DataTable!
-                    'optional' => 1,
                     'unique' => 1,
                     'editable' => 1
                       ),
@@ -275,7 +271,11 @@ sub validateRow()
 
     # Do not check for valid IP in case of auto-added ifaces
     unless ($auto) {
-        checkIP($params{'ip'}, __("ip address"));
+        my $printableName = __("IP address");
+        unless ($params{'ip'}) {
+            throw EBox::Exceptions::MissingArgument($printableName);
+        }
+        checkIP($params{'ip'}, $printableName);
     }
 
     # Only check if gateway is reachable on static interfaces
@@ -355,11 +355,6 @@ sub viewCustomizer
 
     my $customizer = new EBox::Network::View::GatewayTableCustomizer();
     $customizer->setModel($self);
-
-    $customizer->setOnChangeActions({ auto => {
-              0 => { enable  => ['ip'] },
-              1 => { disable  => ['ip'] } }
-	    });
 
     return $customizer;
 }
