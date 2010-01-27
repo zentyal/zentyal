@@ -62,7 +62,7 @@ sub _table
      order              => 0,
      rowUnique          => 1,
      printableRowName   => __('MIME type'),
-     help               => __("Allow/Deny the HTTP traffic of the files which the given MIME types.MIME types not listed here are allowed.\nThe  filter needs a 'filter' policy to be in effect"),
+     help               => __("Allow/Deny the HTTP traffic of the files which the given MIME types.MIME types not listed here are allowed.\nThe filter needs a 'filter' policy to be in effect"),
 
      messages           => {
          add => __('MIME type added'),
@@ -74,8 +74,4 @@ sub _table
 
 }
 
-
-
-
 1;
-
