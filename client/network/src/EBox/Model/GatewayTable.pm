@@ -29,6 +29,7 @@ use EBox::Types::Union;
 use EBox::Network::Types::Text::AutoReadOnly;
 use EBox::Network::View::GatewayTableCustomizer;
 use EBox::Sudo;
+use EBox::View::Customizer;
 
 use Net::ARP;
 
