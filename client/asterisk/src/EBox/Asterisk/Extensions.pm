@@ -233,12 +233,12 @@ sub addUserExtension
     }
 
     if ($user ne $extn) {
-        $self->addExtension($user, '1', 'Goto', "$extn|1");
+        $self->addExtension($user, '1', 'Goto', "$extn,1");
     }
-    $self->addExtension($extn, '1', 'Dial', "SIP/$user|15|tTwWr"); #FIXME SECURITY RISK T here
-    $self->addExtension($extn, '2', 'Voicemail', "$extn|u");
+    $self->addExtension($extn, '1', 'Dial', "SIP/$user,15,tTwWr"); #FIXME SECURITY RISK T here
+    $self->addExtension($extn, '2', 'Voicemail', "$extn,u");
     $self->addExtension($extn, '3', 'HangUp', 0);
-    $self->addExtension($extn, '102', 'Voicemail', "$extn|b");
+    $self->addExtension($extn, '102', 'Voicemail', "$extn,b");
     $self->addExtension($extn, '103', 'HangUp', 0);
 }
 
@@ -647,7 +647,7 @@ sub addQueueExtension
     #if ($group ne $extn) {
     #    $self->addExtension($group, '1', 'Goto', "$extn,1");
     #}
-    $self->addExtension($extn, '1', 'Queue', "$group|tTwW");
+    $self->addExtension($extn, '1', 'Queue', "$group,tTwW");
 }
 
 
