@@ -106,7 +106,7 @@ sub _addBaseServices
         $apachePort = 443;
     };
     my %adminService = ('name' => __d('eBox administration'),
-                        'description' => __d('eBox Administration port'),
+                        'description' => __d('eBox Administration Web Server'),
                         'domain' => __d('ebox-services'),
                         'protocol' => 'tcp',
                         'sourcePort' => 'any',
@@ -119,9 +119,9 @@ sub _addBaseServices
         $serviceMod->addService(%adminService);
     }
 
-    unless ($serviceMod->serviceExists('name' => 'ssh')) {
-        $serviceMod->addService('name' => 'ssh',
-                'description' => 'ssh',
+    unless ($serviceMod->serviceExists('name' => 'SSH')) {
+        $serviceMod->addService('name' => 'SSH',
+                'description' => 'SSH',
                 'domain' => __d('ebox-services'),
                 'protocol' => 'tcp',
                 'sourcePort' => 'any',

@@ -50,7 +50,7 @@ sub runGConf
 
   my $port = $self->_availablePort();
   $self->addInternalService(
-				    'name'            => 'usercorner',
+				    'name'            => 'User Corner',
 				    'description'     => __('User Corner Web Server'),
 				    'protocol'        => 'tcp',
 				    'sourcePort'      => 'any',

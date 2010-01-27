@@ -98,7 +98,8 @@ sub runGConf
 
 
   $self->addInternalService(
-			    'name' => 'ldap',
+			    'name' => 'LDAP',
+			    'description' => 'LDAP',
 			    'protocol' => 'tcp',
 			    'sourcePort' => 'any',
 			    'destinationPort' => 389,
