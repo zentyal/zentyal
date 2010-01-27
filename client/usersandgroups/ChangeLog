@@ -1,5 +1,6 @@
 HEAD
 	+ Add support for ldaps
+	+ Add support for slaves running Apache in ports different than 443
 	+ Allow to remove slaves from slave list
 	+ Added ebox-usersandgroups-reinstall to easily reset the LDAP mode
 	+ Bug fix: issue with user deletion in French (Closes #1651)
