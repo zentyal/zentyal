@@ -976,8 +976,10 @@ sub _fetchDomainAttrs
     return {} unless defined($entry);
     my %attributes;
     for my $attr (@attrs) {
-        $attributes{$attr} = $entry->get_value($attr);
-        return {} unless defined($attributes{$attr});
+       my $value = $entry->get_value($attr);
+       if (defined($value)) {
+               $attributes{$attr} = $value;
+       }
     }
     return \%attributes;
 }
