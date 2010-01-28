@@ -97,7 +97,9 @@ sub runGConf
         # remove the database so enabling it doesn't fail?
     }
     EBox::Sudo::root('chmod 700 /var/lib/ebox/conf/ssl');
+    EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default /etc/default/slapd");
     EBox::UsersAndGroups::Setup::createJournalsDirs();
+    $mod->restartService();
 }
 
 # Main
