@@ -261,7 +261,8 @@ sub installPackages # (packages)
 sub failed
 {
     showDialog(__('Error'), __('Installation failed.') . "\n\n" .
-               __("Check contents of $LOG to see what happened"));
+               __x('Check {logfile} content to see what happened',
+                   logfile => $LOG));
     exit (1);
 }
 
