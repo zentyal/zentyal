@@ -28,6 +28,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Model::ModelManager;
 use EBox::Gettext;
+use Error qw( :try );
 
 use Perl6::Junction qw(any);
 
@@ -396,7 +397,11 @@ sub _addUser
     my $vdomain = $model->domainValue();
     return unless ($vdomain  and $mail->{vdomains}->vdomainExists($vdomain));
 
-    $self->setUserAccount($user, $user, $vdomain);
+    try {
+        $self->setUserAccount($user, $user, $vdomain);
+    } otherwise {
+       EBox::info("Creation of email account for $user failed");
+    };
 
 }
 
