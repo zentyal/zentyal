@@ -42,7 +42,7 @@ sub new
 
 sub pageTitle
 {
-    return __('User corner');
+    return __('User Corner');
 }
 
 sub _table
@@ -60,7 +60,7 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'Settings',
-        'printableTableName' => __('User Corner webserver settings'),
+        'printableTableName' => __('General configuration'),
         'modelDomain' => 'UserCorner',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,

@@ -100,6 +100,11 @@ sub _table
     return $dataForm;
 }
 
+sub menuFolder
+{
+    return 'UsersAndGroups';
+}
+
 sub _acquirer
 {
     my ($type) = @_;
