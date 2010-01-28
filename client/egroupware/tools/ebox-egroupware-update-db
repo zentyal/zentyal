@@ -1,0 +1,12 @@
+#!/bin/sh
+
+EGROUPWARE_DB_PASS=/var/lib/ebox/conf/ebox-egroupware.passwd
+
+export EGW_CLI_PASSWORD=`cat $EGROUPWARE_DB_PASS`
+
+cd /usr/share/egroupware/setup
+
+./setup-cli.php --update
+
+# Back to the previous directory
+cd -
