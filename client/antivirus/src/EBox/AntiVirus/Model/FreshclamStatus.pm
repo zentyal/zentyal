@@ -130,12 +130,7 @@ sub _content
         $msg = __('The last update failed.');
     }
     elsif ($event eq 'outdated') {
-        my $version = $eventInfo;
-        $msg = __x("Update successful but your freshclam version is outdated.\n" .
-                      'The antivirus will not be able to use all the signatures.' .
-                      'Please, install version {version} or higher.',
-                      version => $version,
-                     );
+        $msg = __('Last update successful.');
     }
     elsif ($event eq 'update') {
         $msg = __('Last update successful.');
