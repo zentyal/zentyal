@@ -418,16 +418,16 @@ sub viewCustomizer
         my $msg;
         if ($mailname eq $mail->_fqdn()) {
             $msg = __(
-q{The mailname is setted to the server's hostname and the hostname si not } .
+q{The mailname is set to the server's hostname and the hostname is not } .
 'fully qualified. '
                      );
         } else {
-            $msg = __('The selected mailname is not a full qualified hostname. ')
+            $msg = __('The selected mailname is not a fully qualified hostname. ')
         }
 
         $msg .= __(
-'Not having a full qualified hostname could cause some mail servers to reject ' .
-'mail and incorrect reply addresses of system users'
+'Not having a fully qualified hostname could lead to some mail servers to reject ' .
+'the mail and incorrect reply addresses from system users'
 
                   );
 

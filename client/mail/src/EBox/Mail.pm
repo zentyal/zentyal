@@ -678,12 +678,12 @@ sub checkMailname
         my $advice;
         if ($mailname eq $self->_fqdn()) {
             $advice = __(
-'Cannot use the hostname as mailname because it is a no-full' . 
-' qualified hostname. Please, define a custom server mailname'
+'Cannot use the hostname as mailname because it is not a fully' .
+' qualified name. Please, define a custom server mailname'
                         );
         } else {
             $advice = 
-                __('the mail name must be a full qualified host name');
+                __('The mail name must be a fully qualified name');
         }
 
 
@@ -702,8 +702,8 @@ sub checkMailname
                                             data => __('Host mail name'),
                                             value => $mailname,
                                             advice => 
-__('The mail name is identical to the name of a virtual mail domain')
-                                           );   
+__('The mail name and virtual mail domain name are equal')
+                                           );
         }
     }
 

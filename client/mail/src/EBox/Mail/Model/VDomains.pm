@@ -211,8 +211,8 @@ q{'sieve' is a reserved name in this context, please choose another name}
                                data => __('Mail virtual domain'),
                                value => $vdomain,
                                advice => 
-__('The virtual domain name could not be named equal than the mailname')
-                                           );          
+__('The virtual domain name cannot be equal to the mailname')
+                                           );
     }
 }
 
