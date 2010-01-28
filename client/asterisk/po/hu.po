@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:34+0100\n"
-"PO-Revision-Date: 2010-01-15 16:07+0100\n"
+"PO-Revision-Date: 2010-01-27 01:43+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -64,14 +64,12 @@ msgid "To configure the conferences."
 msgstr "A konferenciabeszélgetések beállítása."
 
 #: src/EBox/Asterisk.pm:170
-#, fuzzy
 msgid "To configure the music on hold."
-msgstr "A hangposta beállítása."
+msgstr "A várakoztatási zene beállítása."
 
 #: src/EBox/Asterisk.pm:174
-#, fuzzy
 msgid "To configure DTMF behaviour."
-msgstr "A hangposta beállítása."
+msgstr "A DMTF viselkedés beállítása."
 
 #: src/EBox/Asterisk.pm:473
 msgid "General"
@@ -124,61 +122,57 @@ msgstr "A beszélgetésben résztvevő felhasználók"
 
 #: src/EBox/Asterisk.pm:658
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #: src/EBox/Asterisk.pm:659
 msgid "From"
-msgstr ""
+msgstr "Innen:"
 
 #: src/EBox/Asterisk.pm:660
 msgid "To"
-msgstr ""
+msgstr "Ide:"
 
 #: src/EBox/Asterisk.pm:661
-#, fuzzy
 msgid "Duration"
-msgstr "Leírás"
+msgstr "Hossz"
 
 #: src/EBox/Asterisk.pm:662
-#, fuzzy
 msgid "Channel"
-msgstr "Módosítás"
+msgstr "Csatorna"
 
 #: src/EBox/Asterisk.pm:663
 msgid "Destination Channel"
-msgstr ""
+msgstr "Célcsatorna"
 
 #: src/EBox/Asterisk.pm:664
 msgid "Application"
-msgstr ""
+msgstr "Alkalmazás"
 
 #: src/EBox/Asterisk.pm:665
 msgid "Application Data"
-msgstr ""
+msgstr "Alkalmazásadatok"
 
 #: src/EBox/Asterisk.pm:666
 msgid "Event"
-msgstr ""
+msgstr "Esemény"
 
 #: src/EBox/Asterisk.pm:674
 msgid "Answered"
-msgstr ""
+msgstr "Megválaszolva"
 
 #: src/EBox/Asterisk.pm:675
 msgid "No Answer"
-msgstr ""
+msgstr "Nincs válasz"
 
 #: src/EBox/Asterisk.pm:676
 msgid "Busy"
-msgstr ""
+msgstr "Foglalt"
 
 #: src/EBox/Asterisk.pm:677
-#, fuzzy
 msgid "Failed"
-msgstr "Bekapcsolva"
+msgstr "Sikertelen"
 
 #: src/EBox/Asterisk/Extensions.pm:230
-#, fuzzy
 msgid "User extension"
 msgstr "Felhasználó melléke"
 
@@ -189,23 +183,21 @@ msgid "Extension"
 msgstr "Mellék"
 
 #: src/EBox/Asterisk/Extensions.pm:642
-#, fuzzy
 msgid "Queue extension"
-msgstr "mellék"
+msgstr "Sormellék"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "csoport"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
 msgstr "felhasználói név"
 
 #: src/EBox/Model/Meetings.pm:91
-#, fuzzy
 msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
 msgstr ""
-"A találkozók használatához telepíteni kell a dahdi-linux és a dahdi-tools "
+"A találkozók használatához telepítenie kell a dahdi és a dahdi-modules-ebox "
 "csomagokat."
 
 #: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
@@ -214,9 +206,9 @@ msgid "extension"
 msgstr "mellék"
 
 #: src/EBox/Model/Meetings.pm:149
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A number between {min} and {max}."
-msgstr "{min} és {max} közötti szám"
+msgstr "{min} és {max} közötti szám."
 
 #: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:90
 msgid "Password"
@@ -323,9 +315,8 @@ msgid "General Asterisk server configuration"
 msgstr "Asterisk kiszolgáló általános beállításai"
 
 #: src/EBox/Model/Settings.pm:151
-#, fuzzy
 msgid "General Asterisk server configuration updated."
-msgstr "Az Asterisk kiszolgáló általános beállításai frissültek"
+msgstr "Az Asterisk kiszolgáló általános beállításai frissültek."
 
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
@@ -348,14 +339,12 @@ msgid "SIP provider"
 msgstr "SIP szolgáltató"
 
 #: src/EBox/Model/Provider.pm:118
-#, fuzzy
 msgid "SIP provider for outgoing calls configuration."
-msgstr "SIP szolgáltató a kimenő hívások beállításához"
+msgstr "SIP szolgáltató a kimenő hívások beállításához."
 
 #: src/EBox/Model/Provider.pm:120
-#, fuzzy
 msgid "SIP provider configuration updated."
-msgstr "A SIP szolgáltató beállításai frissültek"
+msgstr "A SIP szolgáltató beállításai frissültek."
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
@@ -374,28 +363,28 @@ msgid "NAT Asterisk server configuration"
 msgstr "NAT Asterisk kiszolgáló beállításai"
 
 #: src/EBox/Model/NAT.pm:126
-#, fuzzy
 msgid "NAT Asterisk server configuration updated."
-msgstr "A NAT Asterisk kiszolgáló beállításai frissültek"
+msgstr "A NAT Asterisk kiszolgáló beállításai frissültek."
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk modul"
 
 #: src/templates/group.mas:8
-#, fuzzy
 msgid "Asterisk group queue"
-msgstr "Asterisk modul"
+msgstr "Asterisk csoportsor"
 
 #: src/templates/group.mas:12
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
+"Nincsenek felhasználók a csoportban, vagy a felhasználóknak nincs Asterisk "
+"fiókjuk, így nem hozható létre sor."
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "Csoportsor"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
@@ -417,6 +406,8 @@ msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
+"A következő beállítások csak az Asterisk modul bekapcsolásakor lépnek "
+"életbe."
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"

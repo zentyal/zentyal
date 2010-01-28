@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:43+0100\n"
-"PO-Revision-Date: 2009-11-25 15:06+0100\n"
+"PO-Revision-Date: 2010-01-27 09:08+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,14 +18,13 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/JabberLdapUser.pm:259
-#, fuzzy
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
 msgstr ""
 "Ennek a felhasználónak van jabber fiókja. Ha a felhasználó csatlakoztatva "
-"van, továbbra is csatlakozva maradhat ami után újra igényelt jabber "
-"hitelesítést"
+"van, továbbra is csatlakozva maradhat ameddig újra hitelesíttetnie kell "
+"magát."
 
 #: src/EBox/Jabber.pm:72
 msgid "Add Jabber LDAP schema"
@@ -37,20 +36,19 @@ msgstr "Az eBox a jabber felhasználók tárolására használja ezt a sémát"
 
 #: src/EBox/Jabber.pm:90 src/EBox/Jabber.pm:95 src/EBox/Jabber.pm:100
 msgid "To properly configure jabberd2"
-msgstr ""
+msgstr "A jabberd2 helyes beállítása érdekében"
 
 #: src/EBox/Jabber.pm:105 src/EBox/Jabber.pm:110
 msgid "To properly configure jabberd2 muc"
-msgstr ""
+msgstr "A jabber2 muc helyes beállítása érdekében"
 
 #: src/EBox/Jabber.pm:280 src/EBox/CGI/JabberConf.pm:42
 msgid "domain"
 msgstr "tartomány"
 
 #: src/EBox/Jabber.pm:394
-#, fuzzy
 msgid "Jabber server"
-msgstr "Jabber szervertanúsítvány"
+msgstr "Jabber szerver"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-services 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-21 17:05+0100\n"
-"PO-Revision-Date: 2010-01-16 14:40+0100\n"
+"PO-Revision-Date: 2010-01-27 21:46+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: migration/0001_import_services_from_firewall.pl:69
 msgid "any"
-msgstr "any"
+msgstr "bármely"
 
 #: migration/0001_import_services_from_firewall.pl:70
 msgid "any protocol and port"
@@ -125,7 +125,7 @@ msgstr "Forrás port"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:147
 msgid "This field is usually set to any"
-msgstr "Ennek a mezőnek az értéke általában any"
+msgstr "Ennek a mezőnek az értéke általában „bármely”"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:151
 msgid "Destination port"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:08+0100\n"
-"PO-Revision-Date: 2010-01-25 02:26+0100\n"
+"PO-Revision-Date: 2010-01-26 03:25+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "Estado del servicio Web"
 #: src/EBox/WebServer.pm:348
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr "El {userDirConfFile} falta! Por favor recuperelo"
+msgstr "No se encuentra el fichero {userDirConfFile}! Por favor recupérelo"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
@@ -63,7 +63,6 @@ msgstr ""
 "para permitir directorios de HTML para los usuarios"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:107
-#, fuzzy
 msgid ""
 "To allow HTML directories for user is needed to have the file sharing module "
 "configured. To configure it enable it at least one time"

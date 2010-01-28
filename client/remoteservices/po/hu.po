@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-remoteservices 1.1Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-remoteservices 1.1Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:53+0100\n"
-"PO-Revision-Date: 2010-01-15 13:20+0100\n"
+"PO-Revision-Date: 2010-01-27 11:39+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -148,10 +148,12 @@ msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system."
 msgstr ""
+"A feliratkozás sikeresen befejeződött. Várjon egy percet, hogy a "
+"feliratkozás szinkronizálódjon a rendszerben."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:153
 msgid "Subscription data retrieved correctly."
-msgstr ""
+msgstr "A feliratkozási információk sikeresen betöltve."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:155
 msgid "Please, save changes"
@@ -166,23 +168,31 @@ msgid ""
 "Subscribing an eBox will configure OpenVPN module and its dependencies by "
 "running these actions and modifying these files: "
 msgstr ""
+"Az eBoxra való feliratkozás beállítja az OpenVPN modult és függőségeit hogy "
+"hajtsák végre a következő változtatásokat: "
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:262
 msgid ""
 "Subscribing an eBox will enable the OpenVPN module and its dependencies."
 msgstr ""
+"Az eBoxra faló feliratkozás következtében aktiválva lesz az OpenVPN modul és "
+"annak függőségei."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:265
 msgid ""
 "Take into account that subscribing an eBox could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
+"Az eBoxra való feliratkozás végrehajtása egy kis időbe telik. Kérem ne "
+"csináljon semmit ameddig a feliratkozási eljárás véget nem ér."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:301
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
+"Mielőtt feliratkozna egy távoli szolgáltatásra, mentse vagy vesse el a "
+"OpenVPN modul beállításait"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:321
 msgid "User Name or Email Address"
@@ -202,7 +212,7 @@ msgstr "Jelszó"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:349
 msgid "eBox subscription details"
-msgstr ""
+msgstr "eBox feliratkozás részletei"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:350
 msgid "Delete data"
@@ -210,7 +220,7 @@ msgstr "Adat törtlése"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:353
 msgid "Subscription to eBox Control Center"
-msgstr ""
+msgstr "Feliratkozás az eBox Vezérlőközpontra"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:354
 msgid "Subscribe"
@@ -253,9 +263,8 @@ msgid "Key for proxy backup service not found"
 msgstr "A proxy mentési szolgáltatáshoz nem található kulcs"
 
 #: src/EBox/RemoteServices/Composite/General.pm:70
-#, fuzzy
 msgid "eBox Control Center"
-msgstr "Vezérlőközpont"
+msgstr "eBox vezérlőközpont"
 
 #: src/EBox/RemoteServices/Composite/General.pm:83
 #, perl-brace-format
@@ -263,6 +272,8 @@ msgid ""
 " {openhref}Subscribing{closehref} your eBox to the Control Center lets you "
 "have automatic configuration backup and much more"
 msgstr ""
+"A {openhref}Feliratkozás{closehref} az eBox Vezérlőközpontjába lehetővé "
+"teszi az automatikus beállításmentés és sok mást is"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"

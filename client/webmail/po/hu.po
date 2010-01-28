@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:08+0100\n"
-"PO-Revision-Date: 2010-01-21 18:00+0100\n"
+"PO-Revision-Date: 2010-01-27 21:51+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,6 @@ msgid "Operation mode"
 msgstr "Működési mód"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:87
-#, fuzzy
 msgid "eBox mail service"
 msgstr "Az eBox levelezőszolgáltatása"
 
@@ -68,7 +67,7 @@ msgstr "Nincs"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:108
 msgid "Same user and password than IMAP"
-msgstr "Ugyanaz a felhasználó és jelszó, mint az IMAP-ban."
+msgstr "Ugyanaz a felhasználó és jelszó, mint az IMAP-ban"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:112
 msgid "User and password"
@@ -84,7 +83,7 @@ msgstr "Jelszó"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:137
 msgid "Manage sieve enabled in IMAP server"
-msgstr "A szűrőkezelés bekapcsolása az IMAP kiszolgálón."
+msgstr "A szűrőkezelés bekapcsolása az IMAP kiszolgálón"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:142
 msgid "Manage sieve port"
@@ -92,11 +91,11 @@ msgstr "Szűrőkezelési port"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:149
 msgid "Manage sieve connection uses TLS"
-msgstr "A szűrőkezelő TLS kapcsolatot használ."
+msgstr "A szűrőkezelő TLS kapcsolatot használ"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:159
 msgid "External server connection"
-msgstr "Külső kiszolgálókapcsolat."
+msgstr "Külső kiszolgálókapcsolat"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:177
 msgid "unencrypted"
@@ -116,7 +115,7 @@ msgid ""
 "configured to use eBox's mail service'"
 msgstr ""
 "Nem kell beállítani kapcsolatot távoli kiszolgálóhoz, mert a WebMail az eBox "
-"levelezőszolgáltatásának használatára van beállítva."
+"levelezőszolgáltatásának használatára van beállítva"
 
 #: src/EBox/WebMail/Model/Options.pm:48
 msgid "Name"
@@ -131,7 +130,7 @@ msgid ""
 "The name of the webmail will be used in the login screen and page titles"
 msgstr ""
 "A WebMail neve a bejelentkezési képernyőn és az oldalak fejlécében jelenik "
-"meg."
+"meg"
 
 #: src/EBox/WebMail/Model/Options.pm:58
 msgid "Configuration"
@@ -159,19 +158,19 @@ msgstr "Szűrőkezelő bővítmény beállítása"
 
 #: src/EBox/WebMail.pm:311
 msgid "Create PostgreSQL webmail database"
-msgstr "PostgreSQL adatbázis létrehozása a WebMailhez."
+msgstr "PostgreSQL adatbázis létrehozása a WebMailhez"
 
 #: src/EBox/WebMail.pm:312
 msgid "This database will store the data needed by Roundcube"
-msgstr "Az adatbázis a RoundCube-hoz szükséges adatokat fogja tárolni."
+msgstr "Az adatbázis a RoundCube-hoz szükséges adatokat fogja tárolni"
 
 #: src/EBox/WebMail.pm:316
 msgid "Add webmail link to www data directory"
-msgstr "WebMail link hozzáadása a www data könyvtárhoz."
+msgstr "WebMail link hozzáadása a www data könyvtárhoz"
 
 #: src/EBox/WebMail.pm:317
 msgid "Webmail will be accesible at http://ip/webmail"
-msgstr "A WebMail a http://ip/webmail címen lesz elérhető."
+msgstr "A WebMail a http://ip/webmail címen lesz elérhető"
 
 #: src/EBox/WebMail.pm:340
 #, perl-brace-format
@@ -180,8 +179,8 @@ msgid ""
 "mail service. You can enable it at {openurl}Mail -> General{closeurl}"
 msgstr ""
 "A WebMail modulhoz be kell kapcsolni az IMAP vagy IMAPS szolgáltatást, mert "
-"erre épül az eBox levelezőszolgáltatása. A(z) {openurl}Levelezés -> Általános"
-"{closeurl}alatt tudja bekapcsolni."
+"erre épül az eBox levelezőszolgáltatása. Ezt a {openurl}Levelezés -> "
+"Általános{closeurl}alatt tudja bekapcsolni."
 
 #: src/EBox/WebMail.pm:403
 msgid ""
@@ -189,7 +188,7 @@ msgid ""
 "webmail module"
 msgstr ""
 "Nem kapcsolható ki egyszerre az IMAP és IMAPS szolgáltatás, mert a WebMail "
-"modul használja ezeket."
+"modul használja ezeket"
 
 #~ msgid "Options"
 #~ msgstr "Beállítások"

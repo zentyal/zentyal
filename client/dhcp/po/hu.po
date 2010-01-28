@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:49+0100\n"
-"PO-Revision-Date: 2010-01-25 19:28+0100\n"
+"PO-Revision-Date: 2010-01-27 21:32+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -195,28 +195,28 @@ msgstr "Bérleti idők"
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
-"A bérleti idő, az az időmennyiség ameddig a DHCP szerver által kiosztott IP "
-"cím érvényes."
+"A bérleti idő az az idő, amíg a DHCP kiszolgáló által kiosztott IP-cím "
+"érvényes."
 
 #: src/EBox/Model/FixedAddressTable.pm:122
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
-msgstr "{ip} IP cím nem a {net} alhálózatban található"
+msgstr "{ip} IP-cím nem a(z) {net} alhálózatban található"
 
 #: src/EBox/Model/FixedAddressTable.pm:133
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr "A kiválasztott IP cím a hálózati adapter IP címe: {ifaceIP}"
+msgstr "A kiválasztott IP-cím a hálózati csatoló IP-címe: {ifaceIP}"
 
 #: src/EBox/Model/FixedAddressTable.pm:150
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr "A {ip} cím a '{range}' tartományban van: {from}-{to}"
+msgstr "A(z) {ip} cím a(z) „{range}” tartományban van: {from}-{to}"
 
 #: src/EBox/Model/FixedAddressTable.pm:162
 #, perl-brace-format
 msgid "{name} cannot contain spaces"
-msgstr "{name} nem tartalmazhat szóközt"
+msgstr "A(z) {name} nem tartalmazhat szóközt"
 
 #: src/EBox/Model/FixedAddressTable.pm:180
 msgid "update"
@@ -224,7 +224,7 @@ msgstr "frissítés"
 
 #: src/EBox/Model/FixedAddressTable.pm:182
 msgid "add"
-msgstr "hozzáad"
+msgstr "hozzáadás"
 
 #: src/EBox/Model/FixedAddressTable.pm:184
 #, perl-brace-format
@@ -232,12 +232,12 @@ msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr ""
-"Nem lehet {action} műveletet végrehajtani egy fix címen, ha az a név már "
-"használatban van más táblákban"
+"Nem lehet {action} műveletet végrehajtani fix címen, ha az a név már "
+"használatban van más fix címtáblákban"
 
 #: src/EBox/Model/FixedAddressTable.pm:227
 msgid "You cannot use an IP address contained in the above ranges."
-msgstr "Nem tud olyan IP címet használni, amely mind a két tartomány része."
+msgstr "Nem használhat a fenti tartományokban lévő IP-címet."
 
 #: src/EBox/Model/FixedAddressTable.pm:232
 msgid "Description"
@@ -245,37 +245,38 @@ msgstr "Leírás"
 
 #: src/EBox/Model/FixedAddressTable.pm:240 src/templates/fixed.mas:5
 msgid "Fixed addresses"
-msgstr "Állandó IP címek"
+msgstr "Statikus IP-címek"
 
 #: src/EBox/Model/FixedAddressTable.pm:247
 msgid "fixed address"
-msgstr "állandó IP címek"
+msgstr "statikus IP-címek"
 
 #: src/EBox/Model/DynamicDNS.pm:132 src/EBox/Model/DynamicDNS.pm:140
 #: src/EBox/Model/DynamicDNS.pm:387
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr "A {domain} kézileg hozzá lett adva a DNS modulban"
+msgstr "A(z) {domain} már saját kezűleg meg lett adva a DNS szakaszban"
 
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
-msgstr "A DNS modult konfigurálni kell ennek a funkciónak a működéséhez"
+msgstr "A DNS modult be kell állítani ezen szolgáltatás kezeléséhez"
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr "A {pkg} csomag telepítése szükséges ehhez a funkcióhoz"
+msgstr ""
+"A(z) {pkg} csomagnak telepítve kell lennie ezen szolgáltatás használatához"
 
 #: src/EBox/Model/DynamicDNS.pm:266
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
-"A hozzáadott/beállított tartományok automatikusan csak olvasható módban "
-"érhetők el a DNS modulban."
+"A tartományok csak olvasható módban lesznek automatikusan "
+"hozzáadva/beállítva a DNS szakaszban."
 
 #: src/EBox/Model/DynamicDNS.pm:268
 msgid "DNS module must be enabled to make this feature work. "
-msgstr "A DNS modult aktiválni kell ezen funkció működéséhez. "
+msgstr "A DNS modult aktiválni kell ezen szolgáltatás működéséhez."
 
 #: src/EBox/Model/DynamicDNS.pm:332
 msgid "Dynamic domain"
@@ -286,8 +287,8 @@ msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
-"A tartománynév amely a megadott tartományból kiosztott IP címek "
-"tulajdonosainak egészíti ki a gépnevét"
+"Ez a tartománynév a megadott tartományból kiosztott IP-címmel rendelkező "
+"kliensek gépnevét egészíti ki"
 
 #: src/EBox/Model/DynamicDNS.pm:339
 msgid "Static domain"
@@ -298,12 +299,12 @@ msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
 msgstr ""
-"A tartománynév amely a fix kiosztott címmel rendelkező ügyfelek gépnevét "
+"Ez a tartománynév a statikusan kiosztott címmel rendelkező kliensek gépnevét "
 "egészíti ki"
 
 #: src/EBox/Model/DynamicDNS.pm:346
 msgid "Same as Dynamic Domain"
-msgstr "Hasonló a dinamikus tartományhoz"
+msgstr "Egyezik a dinamikus tartománnyal"
 
 #: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:371
 #: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
@@ -313,27 +314,27 @@ msgstr "Egyéni"
 
 #: src/EBox/Model/DynamicDNS.pm:358
 msgid "Dynamic DNS Options"
-msgstr "Dinamikus DNS beállítások"
+msgstr "Dinamikus DNS beállításai"
 
 #: src/EBox/Model/DynamicDNS.pm:363
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
-"A tartományok automatikusan hozzá lesznek adva a DNS modulhoz csak olvasható "
-"módban"
+"A tartományok csak olvasható módban lesznek automatikusan hozzáadva a DNS "
+"modulhoz"
 
 #: src/EBox/Model/DynamicDNS.pm:395
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
-msgstr "A \"{domain}\" tartomány hozzáadva a DNS modulhoz"
+msgstr "A(z) „{domain}” tartomány hozzáadva a DNS szakaszhoz"
 
 #: src/EBox/Model/DynamicDNS.pm:406
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
-msgstr "A \"{domain}\" tartomány törölve a DNS modulból"
+msgstr "A(z) „{domain}” tartomány törölve a DNS szakaszból"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
-msgstr "Adapter IP cím"
+msgstr "Csatoló IP-címe"
 
 #: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
 msgid "Subnet"
@@ -341,39 +342,39 @@ msgstr "Alhálózat"
 
 #: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
-msgstr "Elérhető IP tartomány"
+msgstr "Elérhető tartomány"
 
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr "DHCP tartomány"
+msgstr "DHCP tartományok"
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
-msgstr "a {gateway} nem az aktuális hálózat része"
+msgstr "A(z) {gateway} nem az aktuális hálózat része"
 
 #: src/EBox/Model/Options.pm:169
 msgid ""
 "DNS module must be enabled to be able to select eBox as primary DNS server"
 msgstr ""
-"A DNS modul aktív kell legyen, ha az eBoxot elsődleges DNS szerverként "
-"szeretné használni"
+"A DNS modulnak aktívnak kell lennie, ha az eBoxot elsődleges DNS "
+"kiszolgálóként szeretné használni"
 
 #: src/EBox/Model/Options.pm:179
 msgid "NTP module must be enabled to be able to select eBox as NTP server"
 msgstr ""
-"Az NTP modul aktív kell legyen, ha az eBoxot NTP szerverként szeretné "
-"használni"
+"Az NTP modulnak aktívnak kell lennie, ha az eBoxot NTP kiszogálóként "
+"szeretné használni"
 
 #: src/EBox/Model/Options.pm:190
 msgid "Samba module must be enabled to be able to select eBox as WINS server"
 msgstr ""
-"A Samba modul aktív kell legyen, ha az eBoxot WINS szerverként szeretné "
-"használni"
+"A Samba modulnak aktívnak kell lennie, ha az eBoxot WINS kiszolgálóként "
+"szeretné használni"
 
 #: src/EBox/Model/Options.pm:379
 msgid "eBox's domain"
-msgstr "az eBox tartománya"
+msgstr "Az eBox tartománya"
 
 #: src/EBox/Model/Options.pm:387
 msgid "local eBox DNS"
@@ -393,71 +394,71 @@ msgstr "Alapértelmezett átjáró"
 
 #: src/EBox/Model/Options.pm:450
 msgid "Custom IP address"
-msgstr "Egyéni IP cím"
+msgstr "Egyéni IP-cím"
 
 #: src/EBox/Model/Options.pm:460
 msgid "Configured ones"
-msgstr "Beállított"
+msgstr "Beállítottak"
 
 #: src/EBox/Model/Options.pm:466
 msgid ""
 "Setting \"eBox\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
-"Az \"eBox\" beállítása alapértelmezett átjáróként az interfész IP címét "
-"állítja be átjárócímnek"
+"Az „eBox” alapértelmezett átjáróként való beállításakor a csatoló IP-címe "
+"lesz beállítva átjárócímként"
 
 #: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
 msgid "Search domain"
-msgstr "Keresett tartomány"
+msgstr "Keresési tartomány"
 
 #: src/EBox/Model/Options.pm:475
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
-"A kiválasztott tartomány kiegészíti a kliensgépek kéréseit amennyiben azok "
-"nem teljes tartománylekérések"
+"A kiválasztott tartomány kiegészíti a kliensgépek nem teljes képzésű DNS-"
+"lekérdezéseit"
 
 #: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
 msgid "Primary nameserver"
-msgstr "Elsődleges névszerver"
+msgstr "Elsődleges névkiszolgáló"
 
 #: src/EBox/Model/Options.pm:483
 msgid ""
 "If \"eBox DNS\" is present and selected, the eBox server will act as cache "
 "DNS server"
 msgstr ""
-"Ha az \"eBox DNS\" létezik és be van jelölve, az eBox szerver DNS gyorsító "
-"szerverként működik"
+"Ha az „eBox DNS” létezik és be van jelölve, akkor az eBox kiszolgáló DNS-"
+"gyorsítótár kiszolgálóként fog működni"
 
 #: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
 msgid "Secondary nameserver"
-msgstr "Másodlagos névszerver"
+msgstr "Másodlagos névkiszolgáló"
 
 #: src/EBox/Model/Options.pm:494
 msgid "NTP server"
-msgstr "NTP szerver"
+msgstr "NTP kiszolgáló"
 
 #: src/EBox/Model/Options.pm:497
 msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
 msgstr ""
-"Ha az \"eBox NTP\" létezik és be van jelölve, az eBox szerver NTP "
-"szerverként működik a DHCP-t használók számára"
+"Ha az „eBox NTP” létezik és be van jelölve, akkor az eBox kiszolgáló a DHCP-"
+"kliensek NTP kiszolgálója lesz"
 
 #: src/EBox/Model/Options.pm:502
 msgid "WINS server"
-msgstr "WINS szerver"
+msgstr "WINS kiszolgáló"
 
 #: src/EBox/Model/Options.pm:505
 msgid ""
 "If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
 "DHCP clients"
 msgstr ""
-"Ha az \"eBox Samba\" létezik és be van jelölve, az eBox szerver WINS "
-"szerverként működik a DHCP-t használók számára"
+"Ha az „eBox Samba” létezik és be van jelölve, akkor az eBox kiszolgáló a "
+"DHCP-kliensek WINS kiszolgálója lesz"
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"
@@ -470,57 +471,57 @@ msgid ""
 "domains on eBox might be chosen. All fields are optionals setting its value "
 "as \"None\" or leaving blank."
 msgstr ""
-"Ha a \"Beállított\" opció van kijelölve alapértelmezett átjárónak, akkor az "
-"egyik már beállított átjáróból lehet választani. \"Keresett tartomány\"-nak "
-"egy a DNS-ben beállított tartományt lehet kiválasztani. Az összes mező "
-"opcionális ha a \"None\" vagy semmi sincs kiválasztva."
+"Ha a „Beállítottak” van kijelölve alapértelmezett átjárónak, akkor "
+"kiválaszthatja a már beállított átjárók egyikét. A „Keresési tartomány” "
+"értékéül az eBox egyik DNS tartományát választhatja. Az összes mező "
+"opcionális, ha az érték „None”, vagy üresen hagyja."
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
-msgstr "{from} - {to} érvénytelen IP tartomány"
+msgstr "Érvénytelen IP-tartomány: {from} - {to}"
 
 #: src/EBox/Model/RangeTable.pm:128
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr "{from}-{to} IP tartomány nincs a {net} hálózatban"
+msgstr "A(z) {from}-{to} IP-tartomány nincs a(z) {net} hálózatban"
 
 #: src/EBox/Model/RangeTable.pm:141
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr "{from}-{to} IP tartományban, adapter {ifaceIP} IP címmel "
+msgstr "A(z) {from}-{to} IP-tartomány tartalmaz egy {ifaceIP} IP-című csatolót"
 
 #: src/EBox/Model/RangeTable.pm:164
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
-"{newFrom}-{newTo} IP tartományban átfedés van a : '{range}': {oldFrom}-"
-"{oldTo} IP tartománnyal"
+"A(z) {newFrom}-{newTo} IP-tartomány átfedi a(z) „{range}” tartományt: "
+"{oldFrom}-{oldTo}"
 
 #: src/EBox/Model/RangeTable.pm:182
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr "{from}-{to} IP tartományban fix IP cím található '{name}': {fixedIP}"
+msgstr "A(z) {from}-{to} a(z) „{name}” fix IP-címet tartalmazza: {fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
 msgid "Ranges"
-msgstr "IP Tartományok"
+msgstr "Tartományok"
 
 #: src/EBox/Model/RangeTable.pm:240
 msgid "range"
-msgstr "IP tartomány"
+msgstr "tartomány"
 
 #: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
 #: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708
 #: src/EBox/DHCP.pm:823 src/EBox/DHCP.pm:879
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr "{iface} nem statikus"
+msgstr "A(z) {iface} nem statikus"
 
 #: src/EBox/DHCP.pm:694
 msgid "Not a valid action: add, set and del are available"
-msgstr "Érvénytelen művelet: Hozzáadás, beállítás és törlés elérhetőek"
+msgstr "Érvénytelen művelet: a hozzáadás, beállítás és törlés érhető el"
 
 #: src/EBox/DHCP.pm:809
 msgid "No valid action. Available ones are: add, set and del"
@@ -533,9 +534,9 @@ msgid ""
 "used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
 "it before trying to add a virtual interface using it."
 msgstr ""
-"A '{iface}' virtuális adapterhez próbálja hozzáadni az IP címet, de a cím "
-"használatban van a DHCP szerver '{range}' címtartományában. Kérem távolítsa "
-"el mielőtt újra próbálja hozzáadni az adapterhez."
+"A felvenni kívánt virtuális csatoló IP-címe már használatban van a(z) "
+"„{range}” DHCP tartomány által a(z) „{iface}” csatolón. Távolítsa el az "
+"IP-címet, mielőtt megpróbál hozzáadni egy azt használó virtuális csatolót."
 
 #: src/EBox/DHCP.pm:1067
 #, perl-brace-format
@@ -544,9 +545,9 @@ msgid ""
 "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
 "remove it before trying to add a virtual interface using it."
 msgstr ""
-"Az '{fixed}' cím amit próbál hozzáadni az '{iface}' adapterhez, az "
-"használatban van a DHCP szerveren, fix IP-ként. Kérem távolítsa el, mielőtt "
-"megpróbálja ismét hozzáadni."
+"A felvenni kívánt virtuális csatoló IP-címe már használatban van a(z) "
+"„{fixes}” statikus DHCP cím által a(z) „{iface}” csatolón. Távolítsa el az "
+"IP-címet, mielőtt megpróbál hozzáadni egy azt használó virtuális csatolót."
 
 #: src/EBox/DHCP.pm:1263
 msgid "Date"
@@ -562,11 +563,11 @@ msgstr "Esemény"
 
 #: src/EBox/DHCP.pm:1270
 msgid "Leased"
-msgstr "Bérelt"
+msgstr "Bérelve"
 
 #: src/EBox/DHCP.pm:1270
 msgid "Released"
-msgstr "Felszabadított"
+msgstr "Felszabadítva"
 
 #: src/EBox/DHCP.pm:1273
 msgid "DHCP"
@@ -574,11 +575,11 @@ msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1333
 msgid "Host name"
-msgstr "Host név"
+msgstr "Gépnév"
 
 #: src/EBox/DHCP.pm:1360
 msgid "DHCP leases"
-msgstr "DHCP bérlet"
+msgstr "DHCP-bérlések"
 
 #: src/EBox/Composite/General.pm:79
 #, perl-brace-format
@@ -586,13 +587,13 @@ msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
-"Az interfész IP címe statikus kell legyen, hogy DHCP szolgáltatás fusson "
-"rajta. Ehhez változtassa meg az {openhref}interfész beállítása{closehref}-t "
-"a hálózat modulban"
+"Egy csatolót statikus IP-cím használatára kell beállítani, hogy a DHCP "
+"szolgáltatás futtatható legyen rajta. Ehhez változtassa meg a "
+"{openhref}csatolók beállításait{closehref} a hálózat modulban."
 
 #: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
-msgstr "Válasszon egy statikus adaptert a beállításhoz:"
+msgstr "Válassza ki a beállítandó statikus csatolót:"
 
 #: src/EBox/Composite/Interfaces.pm:109
 msgid "Service configuration"
@@ -603,8 +604,8 @@ msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
 msgstr ""
-"Ahhoz, hogy IP címeket tudjon a szerver egy adapteren szolgáltatni, létre "
-"kell hozni egy tartományt vagy egy fix címet."
+"Létre kell hozni legalább egy tartományt vagy egy statikus címet az IP-címek "
+"szolgáltatásához a csatolón."
 
 #: src/EBox/Composite/InterfaceConfiguration.pm:112
 #, perl-brace-format
@@ -612,12 +613,12 @@ msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
 msgstr ""
-"Ahhoz, hogy egy külső interfészen tudjon kiosztani IP címeket, engedélyeznie "
-"kell a szolgáltatást a {openhref}tűzfal modul{closehref}ban"
+"Ahhoz, hogy a külső csatolón IP-címeket tudjon szolgáltatni, meg kell "
+"nyitnia a szolgáltatást a {openhref}tűzfal modulban{closehref}."
 
 #: src/EBox/Composite/AdvancedOptions.pm:133
 msgid "Advanced options"
-msgstr "Haladó beállítások"
+msgstr "Speciális beállítások"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
@@ -627,12 +628,12 @@ msgstr "Művelet"
 #: src/templates/fixed.mas:38 src/templates/ranges.mas:74
 #: src/templates/ranges.mas:75 src/templates/ranges.mas:76
 msgid "Add"
-msgstr "Hozzáad"
+msgstr "Hozzáadás"
 
 #: src/templates/fixed.mas:51 src/templates/fixed.mas:53
 #: src/templates/fixed.mas:54
 msgid "Remove"
-msgstr "Töröl"
+msgstr "Eltávolítás"
 
 #: src/templates/ranges.mas:30
 msgid "Subnet netmask"
@@ -641,7 +642,7 @@ msgstr "Alhálózati maszk"
 #: src/templates/ranges.mas:91 src/templates/ranges.mas:92
 #: src/templates/ranges.mas:93
 msgid "Delete"
-msgstr "Töröl"
+msgstr "Törlés"
 
 #: src/templates/options.mas:8
 msgid "Options"
@@ -652,12 +653,12 @@ msgid ""
 "You can leave empty the Default Gateway field to use eBox as default gateway "
 "for this subnet"
 msgstr ""
-"Üresen hagyhatja az Alapértelmezett átjáró mezőt, ha az eBoxot szeretné "
-"alapértelmezettként használni ebben az alhálózatban"
+"Az Alapértelmezett átjáró mezőt üresen hagyhatja, ha az eBoxot szeretné "
+"alapértelmezett átjáróként használni ebben az alhálózatban"
 
 #: src/templates/options.mas:64
 msgid "Apply"
-msgstr "Alkalmaz"
+msgstr "Alkalmazás"
 
 #~ msgid "Infrastructure"
 #~ msgstr "Infrastruktúra"

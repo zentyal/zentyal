@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:50+0100\n"
-"PO-Revision-Date: 2010-01-25 02:19+0100\n"
+"PO-Revision-Date: 2010-01-25 20:44+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -173,7 +173,7 @@ msgstr "Destino original"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:261
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
 msgid "IP Address"
@@ -258,6 +258,8 @@ msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
+"Si la selección inversa está marcada, la regla será aplicada cualquier "
+"servicio excepto el seleccionado"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:227
 msgid "Configure Rules"

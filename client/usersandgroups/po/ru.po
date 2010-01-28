@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:02+0100\n"
-"PO-Revision-Date: 2010-01-20 07:18+0100\n"
+"PO-Revision-Date: 2010-01-27 18:24+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_usercorner_add_webserver_service.pl:54
@@ -129,7 +129,6 @@ msgid "Required for usercorner access to configured modules"
 msgstr "Требуется для доступа к модулю настройки уголка пользователя"
 
 #: src/EBox/UserCornerWebServer.pm:171
-#, fuzzy
 msgid "User Corner web server"
 msgstr "Веб-сервер уголка пользователя"
 
@@ -226,11 +225,11 @@ msgstr "Windows AD Slave"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:80
 msgid "LDAP DN"
-msgstr ""
+msgstr "LDAP DN"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:85
 msgid "Only for master and AD slave configuration"
-msgstr ""
+msgstr "Настройка только для мастер и AD slave"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
 msgid "Master host"
@@ -280,9 +279,8 @@ msgstr ""
 "использовать это."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:136
-#, fuzzy
 msgid "There are no groups at the moment"
-msgstr "На данный момент не существуют slave."
+msgstr "На данный момент не существуют группы"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:139
 #, perl-brace-format
@@ -344,43 +342,39 @@ msgstr "Синхронизировать сейчас"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:67
 msgid "Base DN"
-msgstr ""
+msgstr "Базовый DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:79
-#, fuzzy
 msgid "Users DN"
-msgstr "Пользователи"
+msgstr "DN пользователи"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:85
-#, fuzzy
 msgid "Groups DN"
-msgstr "Группы"
+msgstr "DN группы"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
 #: src/EBox/UsersAndGroups.pm:2280
 msgid "LDAP Info"
-msgstr ""
+msgstr "Инфа LDAP"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:94
 msgid "LDAP Information"
-msgstr ""
+msgstr "Информация LDAP"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
-#, fuzzy
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information"
 msgstr ""
-"Необходимо включить модуль Пользователи в секции Статус для того чтобы "
-"использовать это."
+"Необходимо включить модуль Пользователи И Группы для доступа к информации "
+"LDAP."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:66
 msgid "Full name"
 msgstr "Полное имя"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:136
-#, fuzzy
 msgid "There are no users at the moment"
-msgstr "На данный момент не существуют slave."
+msgstr "На данный момент не существуют пользователи"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:139
 #, perl-brace-format
@@ -406,9 +400,8 @@ msgid "List of slaves"
 msgstr "Список slaves"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:70
-#, fuzzy
 msgid "This is a list of those eBox slaves which are subscribed to this eBox."
-msgstr "Это список тех slave eBox которые подписчики этого eBox"
+msgstr "Список тех slave eBox, которые яляются подписчиками этого eBox"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:71
 msgid "slave"
@@ -703,7 +696,6 @@ msgid "Group"
 msgstr "Группа"
 
 #: src/templates/group.mas:14
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly"

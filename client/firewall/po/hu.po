@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:50+0100\n"
-"PO-Revision-Date: 2009-10-29 16:53+0100\n"
+"PO-Revision-Date: 2010-01-27 09:03+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: src/EBox/Firewall.pm:311
 msgid "action"
-msgstr ""
+msgstr "művelet"
 
 #: src/EBox/Firewall.pm:432 src/EBox/Firewall.pm:477 src/EBox/Firewall.pm:501
 #, perl-brace-format
@@ -86,7 +86,7 @@ msgstr "Csomagszűrő"
 
 #: src/EBox/Firewall.pm:828
 msgid "Port Forwarding"
-msgstr ""
+msgstr "Port átirányítás"
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -139,7 +139,6 @@ msgid "Packet filtering"
 msgstr "Csomag szűrés"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#, fuzzy
 msgid "Traffic coming out from eBox"
 msgstr "Az eBoxon kívülről jövő forgalom szűrő szabályai"
 
@@ -152,10 +151,8 @@ msgid "rule"
 msgstr "szabály"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#, fuzzy
 msgid "External networks to internal networks"
-msgstr ""
-"A külső hálózatból a belső hálózat fele haladó szűrő szabályok szabályok"
+msgstr "A külső hálózatból a belső hálózat fele haladó szűrő szabályok"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
@@ -225,11 +222,11 @@ msgstr "Leírás"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
 msgid "List of forwarded ports"
-msgstr ""
+msgstr "A továbbított portok listája"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "Port Forwading"
-msgstr ""
+msgstr "Port továbbítás"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:364
 msgid "redirect"
@@ -260,23 +257,20 @@ msgstr ""
 "szolgáltatásra vonatkozik a szabály"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:227
-#, fuzzy
 msgid "Configure Rules"
 msgstr "Szabályok beállítása"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "External networks to eBox"
 msgstr "A külső hálózatokból az eBox felé szűrő szabályok"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "Internal networks to eBox"
 msgstr "A belső hálózatból az eBox fele haladó szűrő szabályok"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 msgid "Internal networks"
-msgstr ""
+msgstr "Belső hálózatok"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46

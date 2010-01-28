@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:08+0100\n"
-"PO-Revision-Date: 2010-01-18 16:48+0100\n"
-"Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
+"PO-Revision-Date: 2010-01-27 11:31+0100\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgstr "bekapcsolja az Apache LDAP felhasználói modulját"
 
 #: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"
-msgstr ""
+msgstr "Hogy összevesse a saját mappákat az LDAPpal"
 
 #: src/EBox/WebServer.pm:171
 msgid "Web service status"
@@ -63,7 +63,6 @@ msgstr ""
 "fájlmegosztási modul telepítésére és beállítására is."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:107
-#, fuzzy
 msgid ""
 "To allow HTML directories for user is needed to have the file sharing module "
 "configured. To configure it enable it at least one time"
@@ -74,12 +73,12 @@ msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
-msgstr "figyelő (hallgatózási) port"
+msgstr "Figyelő port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:175
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Felhasználónként engedélyezett {dirName}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:179
 msgid ""
@@ -101,6 +100,10 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"Általános webszerver beállítások. A figyelő port nem lehet azonos egy másik "
+"szolgáltatáséval. Ha engedélyezi a felhasználóknak egyéni weblapok "
+"közzétételét, a weblapok a {dirName} mappából töltődnek be, a samba-n "
+"elérhető saját mappáikból"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"
@@ -131,6 +134,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip}. {noDnsWarning} "
 msgstr ""
+"A {vhost} virtuális név hozzáadva. A {domain} tartomány létre lett hozva "
+"{name} néven - IP címe: {ip}. {noDnsWarning}  "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:181
 #, perl-brace-format
@@ -162,11 +167,11 @@ msgstr ""
 
 #: src/EBox/WebServer/Model/VHostTable.pm:237
 msgid "Name"
-msgstr "név"
+msgstr "Név"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:247
 msgid "Virtual hosts"
-msgstr "virtuális kiszolgálók"
+msgstr "Virtuális kiszolgálók"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:251
 #, perl-brace-format
@@ -178,6 +183,11 @@ msgid ""
 "particular configuration you want to add must be placed at {userConf} "
 "directory"
 msgstr ""
+"A virtuális kiszolgálók egy formája a webkiszolgálóknak, amellyel egy "
+"fizikai szerveren több oldal is futhat. Különböző nevek mutathatnak "
+"ugyanarra az oldalra. A DNS bejegyzések automatikusan létre lesznek hozva, "
+"ha ez lehetséges. A tartalmat a {docRoot} mappa alá kell helyezni. Bármely "
+"egyéni beállítást a {userConf} mappába kell helyezni"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:261
 msgid "virtual host"
@@ -189,6 +199,8 @@ msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"
 msgstr ""
+"{open} A DNS modul ki van kapcsolva. A hozzáadott beállítások nem lesznek "
+"alkalmazva a modul bekapcsolásáig"
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Configuration"
@@ -199,3 +211,5 @@ msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
+"Az eBox webszolgáltatása megengedi a weblapok sima HTML-ben tárolását "
+"virtuális nevek nélkül"

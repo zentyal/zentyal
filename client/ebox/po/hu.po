@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:50+0100\n"
-"PO-Revision-Date: 2010-01-25 20:48+0100\n"
+"PO-Revision-Date: 2010-01-27 11:44+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +92,7 @@ msgid "It must be a non-zero positive number"
 msgstr "Pozitív, nem nulla számnak kell lennie"
 
 #: src/EBox/ProgressIndicator.pm:51
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "Nem hajtható végre a(z) {exe}"
 
@@ -425,7 +425,6 @@ msgid "RSS dispatcher configuration updated"
 msgstr "Az RSS diszpécser beállításai frissítve"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:329
-#, fuzzy
 msgid "RSS Dispatcher"
 msgstr "RSS diszpécser"
 
@@ -588,7 +587,7 @@ msgstr "A jelszó sikeresen meg lett változtatva."
 
 #: src/EBox/CGI/EBox/Bug.pm:29
 msgid "Bug report"
-msgstr "Hiba riport"
+msgstr "Hiba jelentés"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 msgid "Configuration Backup"
@@ -936,7 +935,7 @@ msgstr "átalakítás"
 
 #: src/EBox/Event/Watcher/RAID.pm:554 src/templates/report/raid.mas:123
 msgid "failed"
-msgstr ""
+msgstr "hibás"
 
 #: src/EBox/Event/Watcher/RAID.pm:566
 msgid "resync"
@@ -1044,7 +1043,7 @@ msgstr ""
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "Sikertelen feliratkozás: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
@@ -1172,9 +1171,8 @@ msgid "logs"
 msgstr "naplóbejegyzések"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:230
-#, fuzzy
 msgid "never purge"
-msgstr "soha el nem dobott"
+msgstr "soha el nem vetett"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:234
 #: src/EBox/Logs/Model/ForcePurge.pm:126
@@ -1308,7 +1306,6 @@ msgid "Date of last event"
 msgstr "Legutóbbi esemény dátuma"
 
 #: src/EBox/Events.pm:806
-#, fuzzy
 msgid "Repetitions"
 msgstr "Ismétlődések"
 
@@ -1416,7 +1413,7 @@ msgstr "{model} a(z) {module} modulban"
 
 #: src/EBox/Model/DataTable.pm:331
 msgid "at"
-msgstr ""
+msgstr "at"
 
 #: src/EBox/Model/DataTable.pm:542
 msgid "field"
@@ -1585,9 +1582,8 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:591
-#, fuzzy
 msgid "eBox web server"
-msgstr "eBox belső web szerver"
+msgstr "eBox webkiszolgáló"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
 #, perl-brace-format
@@ -1993,6 +1989,9 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
+"A következő moduloknak vannak elmentetlen beállításaikt, de ezeket "
+"<b>kikapcsoltak</b>. Ha ezeket aktiválni akarja, menjen a {openref}Modulok "
+"Állapota{closeref} lapra."
 
 #: src/templates/finish.mas:106
 msgid ""
@@ -2212,4 +2211,4 @@ msgstr "Visszaállítás mód"
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
-msgstr ""
+msgstr "Adminisztrációs felület TCP porja"

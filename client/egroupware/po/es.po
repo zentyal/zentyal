@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:09+0100\n"
-"PO-Revision-Date: 2010-01-24 22:57+0100\n"
+"PO-Revision-Date: 2010-01-25 20:32+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -95,11 +95,11 @@ msgstr "Aplicaciones permitidas"
 
 #: src/EBox/Model/PermissionTemplates.pm:71
 msgid "User Defined Permission Templates"
-msgstr ""
+msgstr "Plantillas de permisos definidas por el usuario"
 
 #: src/EBox/Model/PermissionTemplates.pm:75
 msgid "template"
-msgstr "Plantillas"
+msgstr "plantilla"
 
 #: src/EBox/Model/PermissionTemplates.pm:76
 msgid ""

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:54+0100\n"
-"PO-Revision-Date: 2010-01-23 20:54+0100\n"
-"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
+"PO-Revision-Date: 2010-01-27 19:18+0100\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid.pm:70 src/EBox/Squid.pm:970 src/EBox/Squid.pm:1046
@@ -88,9 +88,8 @@ msgid "Dansguardian's log rotation configuration"
 msgstr "Конфигурация ротации журналов Dansguardian"
 
 #: src/EBox/Squid.pm:277
-#, fuzzy
 msgid "Dansguardian's antivirus scanner configuration"
-msgstr "Конфигурациямантивирусного сканера Dansguardian"
+msgstr "Конфигурация антивирусного сканера Dansguardian"
 
 #: src/EBox/Squid.pm:313
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -374,9 +373,8 @@ msgid "internet domain list"
 msgstr "Список интернет доменов"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
-#, fuzzy
 msgid "You can upload files with lists of domains"
-msgstr "Вы можете загрузить файлы со списками доменов"
+msgstr "Можно загрузить файлы со списками доменов"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
@@ -429,42 +427,36 @@ msgid "group"
 msgstr "группа"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:73
-#, fuzzy
 msgid "Domain Name Address"
-msgstr "Домен или IP-адрес"
+msgstr "Адрес доменного имени"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:80
-#, fuzzy
 msgid "Exempt address from caching"
-msgstr "Исключенные от кэширования домены"
+msgstr "Исключенные из кэширования адреса"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:89
 msgid "Cache exemptions"
 msgstr "Исключенные из кэша"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:102
-#, fuzzy
 msgid "domain name address"
-msgstr "Домен или IP-адрес"
+msgstr "адрес доменного имени"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:103
-#, fuzzy
 msgid "You can exempt some addresses from caching"
-msgstr "Вы можете исключить несколько доменов от кэширования"
+msgstr "Вы можете исключить несколько адресов из кэширования"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address added"
-msgstr ""
+msgstr "Адрес добавлен"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:106
-#, fuzzy
 msgid "Address removed"
-msgstr "Расширение удалено"
+msgstr "Адрес удален"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:107
-#, fuzzy
 msgid "Address updated"
-msgstr "Расширение обновлено"
+msgstr "Адрес обновлен"
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
@@ -488,7 +480,6 @@ msgid "MIME Type"
 msgstr "MIME тип"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:130
-#, fuzzy
 msgid "A MIME Type must follow this syntax: type/subtype"
 msgstr "MIME тип должен быть такого синтаксиса: type/subtype"
 
@@ -521,14 +512,13 @@ msgid "Block not listed domains"
 msgstr "Блокировать не перечисленные домены"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
-#, fuzzy
 msgid ""
 "If this option is enabled, any domain which is not present in the <i>Domains "
 "rules</i> nor in the <i>Domain list files</i> sections below will be "
 "forbidden."
 msgstr ""
-"Если это включено, любой домен не перечисленный в <i>Список доменов</i> или "
-"<i>Правила доменов</i> будет запрещен"
+"Если эта опция включена, любой домен не перечисленный в <i>Список "
+"доменов</i> или <i>Файлы списков доменов</i> будет запрещен"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:52
 msgid "Block sites specified only as IP"
@@ -629,10 +619,10 @@ msgstr "Разрешенный период времени"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:90
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:120
-#, fuzzy
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
-msgstr "Период времени, когда доступ разрешен"
+msgstr ""
+"Период времени, когда доступ разрешен. Игнорируется если политика запрета."
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:97
 msgid "Group policy"
@@ -683,7 +673,7 @@ msgstr ""
 "групповые политики"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:442
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
 "object if you want to set a object policy"
@@ -1005,9 +995,8 @@ msgid "Domains lists files for filter group"
 msgstr "Файлы списков доменов для группового фильтра"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
-#, fuzzy
 msgid "You can upload files whith lists of domains"
-msgstr "Вы можете загрузить файлы со списками доменов"
+msgstr "Можно загрузить файлы со списками доменов"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:91
 msgid ""
@@ -1018,7 +1007,6 @@ msgstr ""
 "пользователя. Фильтрация произойдет, если политика объекта указывает на это"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:148
-#, fuzzy
 msgid ""
 "The object needs to be set to a policy with authorization in order to to use "
 "group policies"
@@ -1036,6 +1024,8 @@ msgid ""
 "Time period when the access is allowed. It is ignored if the group has a "
 "deny policy, time constraints of parent object are always ignored"
 msgstr ""
+"Период времени когда доступ разрешен. Игнорируется, если групповая политика "
+"запрета, время ограничений родительского объекта всегда игнорируется."
 
 #: src/EBox/Squid/Model/AntiVirusBase.pm:51
 msgid "Use antivirus"

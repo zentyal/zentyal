@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:52+0100\n"
-"PO-Revision-Date: 2010-01-23 15:14+0100\n"
-"Last-Translator: Nacho Correas <icorreas@eboxplatform.com>\n"
+"PO-Revision-Date: 2010-01-27 03:10+0100\n"
+"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,40 +21,44 @@ msgstr ""
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:147
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:157
 msgid "not applicable"
-msgstr ""
+msgstr "no aplicable"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:145
 msgid "any"
-msgstr ""
+msgstr "cualquiera"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr ""
+msgstr "Se debe establecer al menos un umbral (máximo o mínimo)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 msgid "This threshold rule will override the current ones"
-msgstr ""
+msgstr "Esta regla de umbral reemplazará las existentes"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:156
 msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr ""
+"La versión actual de la herramienta de monitorización no soporta distinción "
+"entre fuentes de datos"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:221
 msgid "Failure minimum"
-msgstr ""
+msgstr "Mínimo para fallo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:224
 msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr ""
+"Establece un límite inferior para valores aceptables. Si no se especifica se "
+"toma -infinito por defecto."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:229
 msgid "Warning minimum"
-msgstr ""
+msgstr "Mínimo para aviso"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #, perl-brace-format
@@ -62,15 +66,17 @@ msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
+"Si el valor es menor que este valor y mayor que {fmin} se enviará un evento "
+"de aviso"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:234
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
 msgid "failure minimum"
-msgstr ""
+msgstr "mínimo para fallo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
 msgid "Warning maximum"
-msgstr ""
+msgstr "Máximo para aviso"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #, perl-brace-format
@@ -78,25 +84,29 @@ msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr ""
+"Si el valor es mayor que este valor y menor que {fmax} se enviará un evento "
+"de aviso"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
 msgid "failure maximum"
-msgstr ""
+msgstr "máximo para fallo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:247
 msgid "Failure maximum"
-msgstr ""
+msgstr "Máximo para fallo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:250
 msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
 msgstr ""
+"Establece un límite superior para valores aceptables. Si no se especifica se "
+"toma +infinito por defecto."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
 msgid "Invert"
-msgstr ""
+msgstr "Invertir"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #, perl-brace-format
@@ -104,18 +114,20 @@ msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
 msgstr ""
+"Si se habilita, el rango de valores aceptables se invierte, esto es, valores "
+"entre {fmin} y {fmax} ({wmin} y {wmax}) no son correctos."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning minimum"
-msgstr ""
+msgstr "mínimo para aviso"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning maximum"
-msgstr ""
+msgstr "máximo para aviso"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:265
 msgid "Persistent"
-msgstr ""
+msgstr "Persistente"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:268
 msgid ""
@@ -123,26 +135,29 @@ msgid ""
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
 msgstr ""
+"Si se activa, un evento será emitido para cada valor fuera del rango "
+"aceptable. Si no, sólo un cambio de un valor aceptable a uno inaceptable "
+"será notificado"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "Measure instance"
-msgstr ""
+msgstr "Ejemplar de medida"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:287
 msgid "Data Source"
-msgstr ""
+msgstr "Fuente de datos"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
 msgid "Threshold configuration"
-msgstr ""
+msgstr "Configuración de umbral"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 msgid "Threshold's list"
-msgstr ""
+msgstr "Lista de umbrales"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:298
 msgid "Threshold"
@@ -162,10 +177,12 @@ msgid ""
 "Take into account this configuration will be only applied if monitor "
 "{openhref}event watcher is enabled{closehref}"
 msgstr ""
+"Tenga en cuenta que esta configuración sólo será aplicada si el "
+"{openhref}evento de monitorización está habilitado{closehref}"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:122
 msgid "Measure"
-msgstr ""
+msgstr "Medida"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:129
 msgid "Thresholds"
@@ -173,31 +190,31 @@ msgstr "Umbrales"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:138
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "Configurar observadores de monitorización"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:139
 msgid "measure"
-msgstr ""
+msgstr "medida"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:144
 msgid "Every measure may have several thresholds to monitor"
-msgstr ""
+msgstr "Cada medida puede tener varios umbrales a monitorizar"
 
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr ""
+msgstr "Última hora"
 
 #: src/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr ""
+msgstr "Último día"
 
 #: src/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr ""
+msgstr "Último mes"
 
 #: src/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr ""
+msgstr "Último año"
 
 #: src/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
@@ -224,53 +241,57 @@ msgstr "termino largo"
 #: src/EBox/Monitor/Measure/Df.pm:76
 #, perl-brace-format
 msgid "used in {partition}"
-msgstr ""
+msgstr "usado en {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:78
 #, perl-brace-format
 msgid "free in {partition}"
-msgstr ""
+msgstr "disponible en {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:83
 msgid "File system usage"
-msgstr ""
+msgstr "Uso del sistema de ficheros"
 
 #: src/EBox/Monitor/Measure/Df.pm:84
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
 msgstr ""
+"Recoge la información de los sistemas de ficheros montados de la misma forma "
+"que lo hace el comando \"df\""
 
 #: src/EBox/Monitor/Measure/Thermal.pm:111
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 msgid "temperature"
-msgstr ""
+msgstr "temperatura"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:129
 msgid "cooling device"
-msgstr ""
+msgstr "ventilador"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:131
 msgid "sensor"
-msgstr ""
+msgstr "sensor"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:133
 #, perl-brace-format
 msgid "Temperature for {what}"
-msgstr ""
+msgstr "Temperatura de {what}"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:139
 msgid "Thermal"
-msgstr ""
+msgstr "Termal"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:140
 #, perl-brace-format
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
 msgstr ""
+"Recoge información termal (temperatura de sensores de CPU), si es posible, "
+"desde {dir}"
 
 #: src/EBox/Monitor/Measure/Base.pm:621
 msgid "value"
-msgstr ""
+msgstr "valor"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
@@ -287,66 +308,69 @@ msgid ""
 "executing user code, executing system code, waiting for IO operations and "
 "being idle"
 msgstr ""
+"Recoge la cantidad de tiempo empleada por la CPU en varios estados, los más "
+"notables son ejecutando código de usuario, de sistema, esperando una "
+"operación E/S e inactivo"
 
 #: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "idle"
-msgstr ""
+msgstr "inactivo"
 
 #: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "user"
-msgstr ""
+msgstr "usuario"
 
 #: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "interrupt"
-msgstr ""
+msgstr "interrupción"
 
 #: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "nice"
-msgstr ""
+msgstr "nice"
 
 #: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
-msgstr ""
+msgstr "interrupción software"
 
 #: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "steal"
-msgstr ""
+msgstr "tiempo 'robado'"
 
 #: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
-msgstr ""
+msgstr "sistema"
 
 #: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
-msgstr ""
+msgstr "espera"
 
 #: src/EBox/Monitor/Measure/Memory.pm:55
 msgid "Physical memory usage"
-msgstr ""
+msgstr "Uso de la memoria física"
 
 #: src/EBox/Monitor/Measure/Memory.pm:56
 msgid "Collect the physical memory usage"
-msgstr ""
+msgstr "Recoger el uso de la memoria física"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "free"
-msgstr ""
+msgstr "libre"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
-msgstr ""
+msgstr "caché de página"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "buffer cache"
-msgstr ""
+msgstr "caché de buffer"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
-msgstr ""
+msgstr "usada"
 
 #: src/EBox/CGI/Index.pm:44
 msgid "Monitoring"
-msgstr ""
+msgstr "Monitorización"
 
 #: src/EBox/CGI/Index.pm:70
 #, perl-brace-format
@@ -354,6 +378,8 @@ msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
 "Status{closehref} section."
 msgstr ""
+"Se debe habilitar el módulo de monitorización en la sección {openhref}Estado "
+"de los Módulos{closeref} para poder ver las gráficas de monitorización."
 
 #: src/EBox/CGI/Index.pm:98
 #, perl-brace-format
@@ -362,41 +388,44 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
+"Se necesita {openhref}salvar los cambios{closehref} en estado de los módulos "
+"para ver gráficas de monitorazión. En caso de que ya haya sido habilitado, "
+"quizá haya que esperar unos secundos a que se recogan los datos de "
+"monitorización"
 
 #: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
 #: src/EBox/Monitor.pm:164
 msgid "Monitor"
-msgstr ""
+msgstr "Monitorización"
 
 #: src/EBox/Event/Watcher/Monitor.pm:162
 msgid "Notify when a certain value has reached a certain threshold"
-msgstr ""
+msgstr "Notificar cuando un valor en concreto ha llegado un cierto umbral"
 
 #: src/EBox/Event/Watcher/Monitor.pm:302
 #, perl-brace-format
 msgid "{what} \"{dS}\" is currently {value}."
-msgstr ""
+msgstr "{what} \"{dS}\" es actualmente {value}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:308
 #, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}."
-msgstr ""
+msgstr "Está dentro de la región {severity} entre {minBound} y {maxBound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:315
 #, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}."
-msgstr ""
+msgstr "Esto está por encima del umbral de {severity} que es {bound}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:318
 #, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}."
-msgstr ""
+msgstr "Esto está por debajo del umbral de {severity} que es {bound}."
 
 #: src/EBox/Monitor.pm:133
 msgid "Collectd main configuration file"
-msgstr "Colectada la configuración del archivo principal"
+msgstr "Fichero de configuración principal de Collectd"
 
 #: src/EBox/Monitor.pm:137
-#, fuzzy
 msgid "Collectd thresholds configuration file"
-msgstr "Colectada la configuración del archivo principal"
+msgstr "Fichero de configuración de umbrales de Collectd"

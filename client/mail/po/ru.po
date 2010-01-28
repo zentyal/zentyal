@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:51+0100\n"
-"PO-Revision-Date: 2010-01-24 15:28+0100\n"
+"PO-Revision-Date: 2010-01-27 19:00+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
@@ -40,7 +40,6 @@ msgid "This user has a mail account"
 msgstr "Этот пользователь имеет почтовую учетную запись"
 
 #: src/EBox/MailUserLdap.pm:804
-#, fuzzy
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr "Квота может быть только положительной или нулем для безлимитной квоты."
 
@@ -59,7 +58,7 @@ msgid "mail alias"
 msgstr "почтовый псевдоним"
 
 #: src/EBox/MailAliasLdap.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
 msgstr "{ac} почтовый псевдоним. Псевдонимы псевдонимов не допускаются"
 
@@ -218,7 +217,6 @@ msgid "Alias"
 msgstr "Псевдоним"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:59
-#, fuzzy
 msgid "The mail domain is appended automatically"
 msgstr "Почтовый домен добавляется автоматически"
 
@@ -361,13 +359,12 @@ msgid "External account {ac} removed"
 msgstr "Внешний аккаунт {ac} удалён"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:401
-#, fuzzy
 msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
 msgstr ""
-"Немогу доставить почту из внешнего почтового ящика, потому что у вас нет "
-"почтового аккаунта в локальном почтовом домене "
+"Невозможно доставить почту из внешнего почтового ящика,  пока у вас нет "
+"почтового аккаунта в локальном почтовом домене"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
 msgid "List of Aliases"
@@ -385,7 +382,7 @@ msgstr ""
 
 # Чтото нетак
 #: src/EBox/Mail/Model/VDomainAliases.pm:101
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add alias {al} because it is already a virtual domain with the same "
 "name"
@@ -394,7 +391,7 @@ msgstr ""
 "именем"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:108
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add  alias {al} because it is already an identical alias for another "
 "virtual domain"
@@ -435,23 +432,20 @@ msgid "FQDN hostname"
 msgstr "FQDN хоста"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:136
-#, fuzzy
 msgid "Postmaster address"
-msgstr "Адрес smarthost"
+msgstr "Адрес админа почты"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:138
 msgid "Address used to report mail problems"
-msgstr ""
+msgstr "Адрес используется для почтовых отчетов о проблемах"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:142
-#, fuzzy
 msgid "Local root account"
-msgstr "почтовые учетные записи"
+msgstr "Локальный аккаунт root"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:146
-#, fuzzy
 msgid "Custom address"
-msgstr "Пользовательские фильтры IP-адресов"
+msgstr "Пользовательские адреса"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:154
 msgid "Maximum mailbox size allowed"
@@ -515,9 +509,8 @@ msgid "Send a copy of all mail domains"
 msgstr "Отправить копию всех почтовых доменов"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:60
-#, fuzzy
 msgid "The mail will be a Blind Carbon Copy (BCC)."
-msgstr "Почта будет со скрытыми копиями"
+msgstr "Почта будет со скрытыми копиями (BCC)"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:64
 msgid "Disabled"
@@ -561,18 +554,16 @@ msgstr ""
 "получателям. Внешние аккаунты должны быть настроены в уголке пользователя. "
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:97
-#, fuzzy
 msgid "Manage Sieve scripts"
-msgstr "Управление скриптами SIEVE"
+msgstr "Управление скриптами Sieve"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:99
-#, fuzzy
 msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
 msgstr ""
 "Эта служба позволяет управлять скриптами фильтрации почты SIEVE для "
-"локальных клиентов"
+"локальных клиентов по протоколу ManageSieve"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:107
 msgid "Mail retrieval services"
@@ -670,12 +661,12 @@ msgstr ""
 "домена имеет такое же имя."
 
 #: src/EBox/Mail/Model/VDomains.pm:237
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add virtual domain {vd} because it appears as external domain in the "
 "account referenced by the alias {al}"
 msgstr ""
-"Немогу добавить виртуальный домен {vd} поскольку он выступает как внешний "
+"Невозможно добавить виртуальный домен {vd} пока он выступает как внешний "
 "домен в аккаунте на который ссылается псевдоним {al}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
@@ -797,13 +788,12 @@ msgid "Add fetchmail update cron job"
 msgstr "Добавить в cron обновление fethmail"
 
 #: src/EBox/Mail.pm:163
-#, fuzzy
 msgid ""
 "eBox will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
-"eBox добавит задание в Cron для fechmail`a когда пользователь добавит "
-"внешние ящики"
+"eBox добавит задание в Cron для обновления настроек fechmail`a когда "
+"пользователь добавит внешние ящики"
 
 #: src/EBox/Mail.pm:184
 msgid "To configure postfix"
@@ -818,9 +808,8 @@ msgid "To configure host mail name"
 msgstr "Настроить почтовое имя хоста"
 
 #: src/EBox/Mail.pm:202
-#, fuzzy
 msgid "To configure postfix aliases"
-msgstr "Настроить postfix"
+msgstr "Настроить псевдонимы postfix"
 
 #: src/EBox/Mail.pm:209
 msgid "To configure dovecot"
@@ -998,9 +987,8 @@ msgid "Mail SMTP server"
 msgstr "Почтовый SMTP сервер"
 
 #: src/EBox/Mail.pm:1785
-#, fuzzy
 msgid "Mail POP/IMAP server"
-msgstr "Почтовый SMTP сервер"
+msgstr "Почтовый POP/IMAP сервер"
 
 #: src/EBox/MailQueue.pm:79
 msgid "This message is being delivered"
@@ -1130,7 +1118,6 @@ msgid "Custom quota"
 msgstr "Пользовательская квота"
 
 #: src/templates/alias.mas:133
-#, fuzzy
 msgid "Quota type"
 msgstr "Тип квоты"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:39+0100\n"
-"PO-Revision-Date: 2010-01-20 10:22+0100\n"
+"PO-Revision-Date: 2010-01-27 08:59+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,6 @@ msgstr "fájl visszaállítási művelet"
 
 # Mintha az angolt változat hibás lenne.
 #: src/EBox/Model/RemoteFileList.pm:204
-#, fuzzy
 msgid "File already exists if you continue the currentwill be deleted"
 msgstr "A fájl már létezik. Ha folytatja, a jelenlegi törlődik."
 
@@ -157,79 +156,88 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:425
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr ""
+msgstr "A cél paramétere hasonló kell legyen: \"másig.gép[:port]/cél_mappa\""
 
 #: src/EBox/Model/RemoteSettings.pm:436 src/EBox/Model/RemoteSettings.pm:470
 msgid "target"
-msgstr ""
+msgstr "cél"
 
 #: src/EBox/Model/RemoteSettings.pm:438
 msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr ""
+msgstr "Hasonló kell legyen: \"másig.gép[:port]/cél_mappa\""
 
 #: src/EBox/Model/RemoteSettings.pm:445 src/EBox/Model/RemoteSettings.pm:480
 msgid "host"
-msgstr "hoszt"
+msgstr "gép"
 
 #: src/EBox/Model/RemoteSettings.pm:447 src/EBox/Model/RemoteSettings.pm:482
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Model/RemoteSettings.pm:449
 msgid "directory"
-msgstr ""
+msgstr "mappa"
 
 #: src/EBox/Model/RemoteSettings.pm:459
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
+"Az RSYNC cél paramétere hasonló kell "
+"legyen:'másik_gép[:port]/relatív_elérés' vagy "
+"'másig_gép[:port]/abszolút_elérés'"
 
 #: src/EBox/Model/RemoteSettings.pm:473
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
+"Hasonló kell legyen: 'másik_gép[:port]/relatív_elérés' vagy "
+"'másig_gép[:port]/abszolút_elérés'"
 
 #: src/EBox/Model/RemoteSettings.pm:485
 msgid "absolute directory"
-msgstr ""
+msgstr "abszolút mappa"
 
 #: src/EBox/Model/RemoteSettings.pm:487
 msgid "relative directory"
-msgstr ""
+msgstr "relatív mappa"
 
 #: src/EBox/Model/RemoteSettings.pm:504
 msgid ""
 "File system method need a target parameter that should be a directory path"
 msgstr ""
+"A fájlrendszer metódus igényel egy cél paramétert ami például egy mappa "
+"lehet"
 
 #: src/EBox/Model/RemoteSettings.pm:510 src/EBox/Model/RemoteSettings.pm:514
 msgid "Directory for backup"
-msgstr ""
+msgstr "Mentés célmappája"
 
 #: src/EBox/Model/RemoteSettings.pm:517
 msgid "File exists and it is not a directory"
-msgstr ""
+msgstr "A fájl létezik és nem egy mappa"
 
 #: src/EBox/Model/RemoteSettings.pm:536
 msgid "Full backup cannot be more frequent than incremental backup"
-msgstr ""
+msgstr "A teljes mentés nem lehet sűrűbb mint a különbözeti mentés"
 
 #: src/EBox/Model/RemoteSettings.pm:548
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
+"Általános backup szerver beállításai frissítve. SCP metódus kiválasztva; "
+"<em>megjegyzendő</em>, hogy adja hozzá a célgépet az SSH known_host "
+"listájához"
 
 #: src/EBox/Model/RemoteExcludes.pm:82
-#, fuzzy
 msgid "Exclude or Include"
-msgstr "kizárva vagy beleértve"
+msgstr "Kizárva vagy beleértve"
 
 #: src/EBox/Model/RemoteExcludes.pm:93
 msgid "Includes and Excludes"
-msgstr "kizárva és beleértve"
+msgstr "Beleértve vagy kizárva"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
 msgid "exclude"
@@ -240,31 +248,28 @@ msgid "Exclude path"
 msgstr "kizárási útvonal"
 
 #: src/EBox/Model/RemoteExcludes.pm:117
-#, fuzzy
 msgid "Exclude regexp"
-msgstr "kizárt állományok 'reguláris kifejezése' (?)"
+msgstr "Reguláris kifejezések kizárása"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
 msgid "Include Path"
-msgstr "benne foglalt (beleértett) útvonal"
+msgstr "A mentésbe belefoglalt útvonal"
 
 #: src/EBox/Model/RemoteExcludes.pm:143
-#, fuzzy
 msgid "exclude path"
 msgstr "kizárási útvonal"
 
 #: src/EBox/Model/RemoteExcludes.pm:156
 msgid "exclude path regular expression"
-msgstr ""
+msgstr "reguláris kifejezések kizárási útvonala"
 
 #: src/EBox/Model/RemoteExcludes.pm:158
 msgid "Incorrect regular expression"
-msgstr ""
+msgstr "Hibás reguláris kifejezések"
 
 #: src/EBox/Model/RemoteExcludes.pm:171
-#, fuzzy
 msgid "include path"
-msgstr "kizárási útvonal"
+msgstr "mentésbe foglalt útvonal"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"

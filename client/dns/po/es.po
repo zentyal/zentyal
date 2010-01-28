@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:39+0100\n"
-"PO-Revision-Date: 2010-01-14 12:44+0100\n"
-"Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
+"PO-Revision-Date: 2010-01-26 04:50+0100\n"
+"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,25 +31,24 @@ msgstr "dominio"
 
 #: src/EBox/DNS.pm.in:512
 msgid "main bind9 configuration file"
-msgstr ""
+msgstr "fichero de configuración principal de bind9"
 
 #: src/EBox/DNS.pm.in:517
 msgid "bind9 options configuration file"
-msgstr ""
+msgstr "fichero de configuración de opciones de bind9"
 
 #: src/EBox/DNS.pm.in:522
 msgid "local bind9 configuration file"
-msgstr ""
+msgstr "fichero de configuración local de bind9"
 
 #: src/EBox/DNS.pm.in:527
-#, fuzzy
 msgid "Keys configuration file"
-msgstr "fichero de configuración para zona {zone}"
+msgstr "Fichero de configuración de claves"
 
 #: src/EBox/DNS.pm.in:544
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
-msgstr "fichero de configuración para zona {zone}"
+msgstr "fichero de configuración para la zona {zone}"
 
 #: src/EBox/DNS.pm.in:560
 #, perl-brace-format
@@ -59,7 +58,7 @@ msgstr "fichero de configuración para zona de resolución inversa {zone}"
 #: src/EBox/DNS.pm.in:578
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr ""
+msgstr "Cambiar los permisos de {dir} para permitir escritura al grupo bind"
 
 #: src/EBox/DNS.pm.in:580
 msgid "Let the bind daemon to be dynamically updated"
@@ -77,6 +76,8 @@ msgstr ""
 #: src/EBox/Model/HostnameTable.pm:169
 msgid "The domain is set as read only. You cannot add host names"
 msgstr ""
+"El dominio está configurado como sólo lectura. No se pueden añadir nombres "
+"de máquina"
 
 #: src/EBox/Model/HostnameTable.pm:187 src/EBox/Model/MailExchanger.pm:151
 #: src/EBox/Model/NameServer.pm:131 src/templates/edit.mas:20
@@ -94,7 +95,6 @@ msgid "Alias"
 msgstr "Alias"
 
 #: src/EBox/Model/HostnameTable.pm:215
-#, fuzzy
 msgid "Host names"
 msgstr "Nombres de máquinas"
 
@@ -127,9 +127,8 @@ msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Un dominio es dinámico cuando el servidor DHCP actualiza el dominio"
 
 #: src/EBox/Model/DomainTable.pm:232
-#, fuzzy
 msgid "List of Domains"
-msgstr "Dominios"
+msgstr "Lista de Dominios"
 
 #: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
@@ -146,19 +145,24 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
+"El dominio introducido no es un nombre de dominio completamente cualificado "
+"(FQDN). Quizá debería ser mx.{name}?"
 
 #: src/EBox/Model/MailExchanger.pm:132
 msgid "The domain is set as read only. You cannot add mail exchangers"
 msgstr ""
+"El dominio está configurado como sólo lectura. No se pueden añadir "
+"intercambiadores de correo"
 
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:134
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
+"Si se elige \"Personalizado\", se necesita un nombre de dominio completamente "
+"cualificado (FQDN)."
 
 #: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:140
-#, fuzzy
 msgid "This domain"
-msgstr "dominio"
+msgstr "Este dominio"
 
 #: src/EBox/Model/MailExchanger.pm:168 src/EBox/Model/NameServer.pm:148
 msgid "Custom"
@@ -204,12 +208,13 @@ msgstr ""
 "Hay un nombre de máquina con el mismo nombre \"{name}\" en el mismo dominio"
 
 #: src/EBox/Model/AliasTable.pm:102
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
 msgstr ""
-"Hay un nombre de máquina con el mismo nombre \"{name}\" en el mismo dominio"
+"Existe un alias para la máquina {hostname} con el mismo nombre \"{name}\" en "
+"el mismo dominio"
 
 #: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
@@ -221,6 +226,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "ns.{name}?"
 msgstr ""
+"El nombre de máquina introducido no es un nombre de dominio completamente "
+"cualificado (FQDN). ¿Quizá debería ser ns.{name}?"
 
 #: src/EBox/Model/NameServer.pm:112
 msgid "The domain is set as read only. You cannot add name servers"
@@ -234,12 +241,11 @@ msgstr "Servidores de nombres"
 
 #: src/EBox/Model/NameServer.pm:165
 msgid "It manages the name server (NS) records for this domain"
-msgstr ""
+msgstr "Gestiona los regristros de servidores de nombres (NS) para este dominio"
 
 #: src/EBox/Model/NameServer.pm:166
-#, fuzzy
 msgid "name server record"
-msgstr "Registro intercambiador de correo"
+msgstr "registro de servidor de nombres"
 
 #: src/templates/index.mas:16
 msgid "Domain list"

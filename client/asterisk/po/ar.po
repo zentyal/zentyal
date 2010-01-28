@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:34+0100\n"
-"PO-Revision-Date: 2009-07-31 10:43+0200\n"
-"Last-Translator: Mustafa M. EL-Sebaie <mustsebaie@hotmail.com>\n"
+"PO-Revision-Date: 2010-01-28 00:00+0100\n"
+"Last-Translator: Mostafa Salem <m@isalem.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,46 +106,46 @@ msgstr ""
 
 #: src/EBox/Asterisk.pm:518 src/EBox/Asterisk.pm:600
 msgid "No users connected."
-msgstr ""
+msgstr "لا أحد متصل"
 
 #: src/EBox/Asterisk.pm:588
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr ""
+msgstr "الغرفة {name} مفعلة منذ {rtime}"
 
 #: src/EBox/Asterisk.pm:591
+#, fuzzy
 msgid "Time Connected"
-msgstr ""
+msgstr "مدة الاتصال"
 
 #: src/EBox/Asterisk.pm:621
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "المستخدمين المتصلين بخدمة الصوت عبر بروتوكول الإنترنت (VoIP)."
 
 #: src/EBox/Asterisk.pm:626
+#, fuzzy
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "مستخدمو (VoIP) المجتمعون حاليا"
 
 #: src/EBox/Asterisk.pm:658
 msgid "Date"
-msgstr ""
+msgstr "التاريخ"
 
 #: src/EBox/Asterisk.pm:659
 msgid "From"
-msgstr ""
+msgstr "من"
 
 #: src/EBox/Asterisk.pm:660
 msgid "To"
-msgstr ""
+msgstr "الى"
 
 #: src/EBox/Asterisk.pm:661
-#, fuzzy
 msgid "Duration"
-msgstr "الوصف"
+msgstr "المدة"
 
 #: src/EBox/Asterisk.pm:662
-#, fuzzy
 msgid "Channel"
-msgstr "تغيير"
+msgstr ""
 
 #: src/EBox/Asterisk.pm:663
 msgid "Destination Channel"
@@ -153,37 +153,36 @@ msgstr ""
 
 #: src/EBox/Asterisk.pm:664
 msgid "Application"
-msgstr ""
+msgstr "البرنامج"
 
 #: src/EBox/Asterisk.pm:665
 msgid "Application Data"
 msgstr ""
 
 #: src/EBox/Asterisk.pm:666
+#, fuzzy
 msgid "Event"
-msgstr ""
+msgstr "الحدث"
 
 #: src/EBox/Asterisk.pm:674
 msgid "Answered"
-msgstr ""
+msgstr "تم الرد"
 
 #: src/EBox/Asterisk.pm:675
 msgid "No Answer"
-msgstr ""
+msgstr "لم يتم الرد"
 
 #: src/EBox/Asterisk.pm:676
 msgid "Busy"
-msgstr ""
+msgstr "مشغول"
 
 #: src/EBox/Asterisk.pm:677
-#, fuzzy
 msgid "Failed"
-msgstr "فعال"
+msgstr "فشلت"
 
 #: src/EBox/Asterisk/Extensions.pm:230
-#, fuzzy
 msgid "User extension"
-msgstr "تحويلة المستخدم"
+msgstr "رقم تحويلة المستخدم"
 
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
 #: src/EBox/Model/Meetings.pm:145 src/EBox/Model/Settings.pm:92
@@ -192,24 +191,22 @@ msgid "Extension"
 msgstr "التحويلة"
 
 #: src/EBox/Asterisk/Extensions.pm:642
-#, fuzzy
 msgid "Queue extension"
-msgstr "التحويلة"
+msgstr "رقم تحويلة صف الانتظار"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "المجموعة"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
 msgstr "إسم المستخدم"
 
 #: src/EBox/Model/Meetings.pm:91
-#, fuzzy
 msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
 msgstr ""
-"يجب أن تقوم بتنصيب حزمتي ال dahdi-linux و dahdi-tools لكي تتمكن من إستخدام "
-"خدمة اﻹجتماعات."
+"لكي تستخدم ميزة الاجتماعات، يجب عليك تنصيب البرامج: (dahdi) و (dahdi-"
+"modules-ebox)."
 
 #: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
 #: src/EBox/Model/Settings.pm:84
@@ -217,9 +214,9 @@ msgid "extension"
 msgstr "التحويلة"
 
 #: src/EBox/Model/Meetings.pm:149
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A number between {min} and {max}."
-msgstr "رقم يبتديء من {min} وحتى {max}"
+msgstr "رقم بين {min} و {max}"
 
 #: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:90
 msgid "Password"
@@ -230,16 +227,14 @@ msgid "Description"
 msgstr "الوصف"
 
 #: src/EBox/Model/Meetings.pm:184
-#, fuzzy
 msgid "List of Meetings"
-msgstr "اﻹجتماعات"
+msgstr "لائحة اﻹجتماعات"
 
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
 msgstr "إجتماع"
 
 #: src/EBox/Model/AsteriskUser.pm:50
-#, fuzzy
 msgid "Asterisk Account"
 msgstr "حساب Asterisk"
 
@@ -268,7 +263,6 @@ msgid "Delete sent messages"
 msgstr "حذف الرسائل المرسلة"
 
 #: src/EBox/Model/Voicemail.pm:126
-#, fuzzy
 msgid "Change your Voicemail settings"
 msgstr "إعدادات البريد الصوتي"
 
@@ -278,7 +272,7 @@ msgstr "تم تحديث اﻹعدادات بنجاح"
 
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
-msgstr ""
+msgstr "ليس لديك حساب VoIP. ربما لم يتم تفعيل هذه الخدمة في هذا المزود"
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -289,15 +283,15 @@ msgstr ""
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
-msgstr "شبكة محلية"
+msgstr "الشبكة المحلية"
 
 #: src/EBox/Model/Localnets.pm:130
 msgid "Local networks"
-msgstr "شبكات محلية"
+msgstr "الشبكات المحلية"
 
 #: src/EBox/Model/Localnets.pm:131
 msgid "local network"
-msgstr "شبكة محلية"
+msgstr "الشبكة المحلية"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
@@ -309,11 +303,11 @@ msgstr "تفعيل المكالمات الصادرة"
 
 #: src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
-msgstr "تحويلة البريد الصوتي"
+msgstr "رقم تحويلة البريد الصوتي"
 
 #: src/EBox/Model/Settings.pm:136
 msgid "VoIP domain"
-msgstr "نطاق VoIP"
+msgstr "النطاق الخاص بخدمة الـ VoIP"
 
 #: src/EBox/Model/Settings.pm:145
 msgid "General configuration"
@@ -324,9 +318,8 @@ msgid "General Asterisk server configuration"
 msgstr "إعدادات خادم Asterisk العامة"
 
 #: src/EBox/Model/Settings.pm:151
-#, fuzzy
 msgid "General Asterisk server configuration updated."
-msgstr "تم تحديث إعدادات خادم Asterisk العامة"
+msgstr "تم تحديث إعدادات خادم Asterisk العامة بنجاح"
 
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
@@ -338,7 +331,7 @@ msgstr "إسم المستخدم"
 
 #: src/EBox/Model/Provider.pm:97
 msgid "Server"
-msgstr "الخادم"
+msgstr "المزود"
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Recipient of incoming calls"
@@ -349,19 +342,17 @@ msgid "SIP provider"
 msgstr "مزود خدمة SIP"
 
 #: src/EBox/Model/Provider.pm:118
-#, fuzzy
 msgid "SIP provider for outgoing calls configuration."
 msgstr "إعدادات مزود خدمة SIP للمكالمات الصادرة"
 
 #: src/EBox/Model/Provider.pm:120
-#, fuzzy
 msgid "SIP provider configuration updated."
-msgstr "تم تحديث إعدادات مزود خدمة SIP"
+msgstr "تم تحديث إعدادات مزود خدمة SIP بنجاح"
 
 #: src/EBox/Model/NAT.pm:96
 #, fuzzy
 msgid "eBox is behind NAT"
-msgstr "يقع Asterisk وراء ال NAT"
+msgstr "يقع هذا المزود وراء NAT"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
@@ -369,20 +360,19 @@ msgstr "ﻻ"
 
 #: src/EBox/Model/NAT.pm:120
 msgid "NAT configuration"
-msgstr "إعدادات ال NAT"
+msgstr "إعدادات الـ NAT"
 
 #: src/EBox/Model/NAT.pm:124
 msgid "NAT Asterisk server configuration"
 msgstr "إعددات NAT لخادم Asterisk"
 
 #: src/EBox/Model/NAT.pm:126
-#, fuzzy
 msgid "NAT Asterisk server configuration updated."
-msgstr "تم تحديث إعدادات NAT لخادم Asterisk"
+msgstr "تم تحديث إعدادات NAT لخادم الـ Asterisk بنجاح"
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
-msgstr "وحدة Asterisk"
+msgstr "خاصية Asterisk"
 
 #: src/templates/group.mas:8
 #, fuzzy
@@ -402,12 +392,12 @@ msgstr ""
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
 msgid "Disabled"
-msgstr "مبطل"
+msgstr "غير مفعل"
 
 #: src/templates/group.mas:30 src/templates/group.mas:33
 #: src/templates/user.mas:27 src/templates/user.mas:30
 msgid "Enabled"
-msgstr "فعال"
+msgstr "مفعل"
 
 #: src/templates/group.mas:52 src/templates/group.mas:53
 #: src/templates/user.mas:49 src/templates/user.mas:50
@@ -418,7 +408,7 @@ msgstr "تغيير"
 msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
-msgstr ""
+msgstr "الاعدادات التالية سيتم تطبيقها فقط عند تشغيل خدمة الـ Asterisk"
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
@@ -426,7 +416,7 @@ msgstr "حساب Asterisk"
 
 #: src/templates/user.mas:10
 msgid "Password for Asterisk service is the user password"
-msgstr "كلمة السر لAsterisk هي نفس كلمة سر المستخدم."
+msgstr "كلمة السر لـ Asterisk هي نفس كلمة سر المستخدم."
 
 #: src/templates/user.mas:21
 msgid "User account"

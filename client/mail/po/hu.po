@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:51+0100\n"
-"PO-Revision-Date: 2009-11-18 10:59+0100\n"
+"PO-Revision-Date: 2010-01-27 10:00+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
 msgid "protocol for editing SIEVE filters"
-msgstr ""
+msgstr "a SIEVE szűrő módosítására szolgáló protokoll"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
@@ -32,7 +32,7 @@ msgstr "postafiók"
 
 #: src/EBox/MailUserLdap.pm:425
 msgid "This group has a mail alias"
-msgstr "Ennek a csoportnak van virtuális emailcíme"
+msgstr "Ennek a csoportnak van levelező álneve"
 
 #: src/EBox/MailUserLdap.pm:452
 msgid "This user has a mail account"
@@ -40,35 +40,36 @@ msgstr "Ennek a felhasználónak van levelező fiókja"
 
 #: src/EBox/MailUserLdap.pm:804
 msgid "Quota can only be a positive number or zero for unlimited quota"
-msgstr ""
+msgstr "A Kvóta csak pozitív szám lehet vagy nulla korlátlan kvóta esetén"
 
 #: src/EBox/MailAliasLdap.pm:62
 #, perl-brace-format
 msgid "{ac} is not a internal account"
-msgstr ""
+msgstr "A(z) {ac} nem egy belső felhasználói fiók"
 
 #: src/EBox/MailAliasLdap.pm:79
 #, perl-brace-format
 msgid "{ac} is not a external account"
-msgstr ""
+msgstr "A(z) {ac} nem egy külső felhasználói fiók"
 
 #: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
-msgstr "virtuális emailcím"
+msgstr "email álnév"
 
 #: src/EBox/MailAliasLdap.pm:113
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
 msgstr ""
+"A(z) {ac} egy levelező álnév. A levelező álnévhez rendelt újabb álnév nem "
+"megengedett"
 
 #: src/EBox/MailAliasLdap.pm:132
-#, fuzzy
 msgid "group alias"
-msgstr "csoport virtuális emailcíme"
+msgstr "csoport álneve"
 
 #: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
 msgid "Domain alias"
-msgstr "Tartomány alias"
+msgstr "Tartomány álneve"
 
 #: src/EBox/MailAliasLdap.pm:176 src/EBox/MailAliasLdap.pm:215
 #: src/EBox/MailAliasLdap.pm:242
@@ -88,7 +89,7 @@ msgstr ""
 #: src/EBox/MailAliasLdap.pm:325 src/EBox/MailAliasLdap.pm:354
 #: src/EBox/MailAliasLdap.pm:389
 msgid "mail alias account"
-msgstr "felhasználó virtuális email címe"
+msgstr "levelező álnév felhasználói fiók"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:17
@@ -119,7 +120,7 @@ msgstr "felhasználói levél"
 
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
-msgstr ""
+msgstr "A Kvóta nullánál nagyobb MB-k összege"
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
 #: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:101
@@ -131,9 +132,8 @@ msgid "Mail address"
 msgstr "Email cím"
 
 #: src/EBox/CGI/DelGroupAlias.pm:45
-#, fuzzy
 msgid "alias"
-msgstr "virtuális emailcím"
+msgstr "álnév"
 
 #: src/EBox/CGI/DelGroupAlias.pm:50
 msgid "group alias mail"
@@ -170,9 +170,8 @@ msgstr ""
 "SMTP-n keresztül"
 
 #: src/EBox/Mail/Greylist.pm:55
-#, fuzzy
 msgid "To configure whitelist for greylisting"
-msgstr "whitelistek beállítása greylistre"
+msgstr "Whitelistek beállítása greylist szűrésre"
 
 #: src/EBox/Mail/Greylist.pm:279
 msgid "Greylist service"
@@ -187,7 +186,6 @@ msgid "Allow relay"
 msgstr "Levéltovábbítás engedélyezése"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:99
-#, fuzzy
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
@@ -213,37 +211,35 @@ msgid ""
 "There are not network objects in the system. You can create them in the "
 "{openurl}Object's page{closeurl}"
 msgstr ""
+"Nincsenek hálózati objektumok a rendszerben. Ezeket létrehozhatja az "
+"{openurl}Objektum{closeurl} lapon"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
-#, fuzzy
 msgid "Alias"
-msgstr "Aliasok"
+msgstr "Álnév"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:59
 msgid "The mail domain is appended automatically"
-msgstr ""
+msgstr "A levelező tartomány automatikusan hozzácsatolódik"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:63
-#, fuzzy
 msgid "External account"
-msgstr "postafiók"
+msgstr "Külső postafiók"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
 #: src/EBox/Mail/Model/VDomainAliases.pm:57
 msgid "Aliases"
-msgstr "Aliasok"
+msgstr "Álnevek"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
-#, fuzzy
 msgid "External account alias"
-msgstr "Postafiók beállításai"
+msgstr "Külső postafiók álneve"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:86
-#, fuzzy
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
-"Virtuális tartomány aliasok hozzáadva. El kell mentenie a beállításokat a "
-"tartomány használatához"
+"Külső postafiók álneve hozzáadva. El kell mentenie a beállításokat az álnév "
+"használatához"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:126
 #, perl-brace-format
@@ -252,6 +248,9 @@ msgid ""
 "virtual domain aliases are not supported. Please add the alias belonging to "
 "a real domain"
 msgstr ""
+"Az álnevet nem lehet hozzárendelni a {vd} tartományhoz, mivel az egy másik "
+"álnév és a virtuális tartomány álneveihez nem lehet további álneveket "
+"rendelni. Kérem egy valós tartományhoz rendelje az álnevet"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:133
 #, perl-brace-format
@@ -259,12 +258,16 @@ msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
 "server"
 msgstr ""
+"Az álnév nem rendelhető hozzá a {vd} tartományhoz, mivel az nem a szerver "
+"által kezelt virtuális tartomány"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:151
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
 msgstr ""
+"Az állfiók tartománynév nélkül lett megadva. Ez automatikusan hozzá lesz "
+"rendelve "
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:229
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
@@ -319,14 +322,12 @@ msgstr "személyreszabott"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:65
 #: src/EBox/Mail/Model/ExternalAccounts.pm:117
-#, fuzzy
 msgid "External mail accounts"
-msgstr "Postafiók létrehozása"
+msgstr "Külső levelezési fiók"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:84
-#, fuzzy
 msgid "External mail address"
-msgstr "Email cím"
+msgstr "Külső email cím"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:91
 #: src/EBox/Mail/Model/SMTPOptions.pm:107
@@ -335,51 +336,50 @@ msgstr "Jelszó"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:98
 #: src/EBox/Mail/Composite/General.pm:78
-#, fuzzy
 msgid "Mail server"
-msgstr "Levelező SMTP szerver"
+msgstr "Levelező szerver"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:118
-#, fuzzy
 msgid "external mail account"
-msgstr "Postafiók létrehozása"
+msgstr "külső levelező fiók"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:141
 msgid "Secure POP3"
-msgstr ""
+msgstr "Titkosított POP3"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:149
 msgid "Secure IMAP"
-msgstr ""
+msgstr "Titkosított IMAP"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:281
 msgid "External account added"
-msgstr ""
+msgstr "Külső fiók hozzáadva"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:305
 #, perl-brace-format
 msgid "External account {ac} removed"
-msgstr ""
+msgstr "A(z) {ac} külső fiók törölve"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:401
 msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
 msgstr ""
+"Nem tölthetőek le a levelek a külső levelezőfiókból mivel önnek nincs "
+"levelezőfiókja a helyi levelezőtartományban"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
-#, fuzzy
 msgid "List of Aliases"
-msgstr "Aliasok"
+msgstr "Álnevek listája"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:78
 msgid "virtual domain alias"
-msgstr "virtuális tartomány alisok"
+msgstr "virtuális tartomány-álnevek"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:80
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr ""
-"Virtuális tartomány aliasok hozzáadva. El kell mentenie a beállításokat a "
+"Virtuális tartomány álnév hozzáadva. El kell mentenie a beállításokat a "
 "tartomány használatához"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:101
@@ -388,6 +388,8 @@ msgid ""
 "Cannot add alias {al} because it is already a virtual domain with the same "
 "name"
 msgstr ""
+"A(z) {al} álnevet nem lehet hozzáadni mivel már létezik egy virtuális "
+"tartomány ezen a néven"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:108
 #, perl-brace-format
@@ -395,6 +397,8 @@ msgid ""
 "Cannot add  alias {al} because it is already an identical alias for another "
 "virtual domain"
 msgstr ""
+"A(z) {al} álnév nem adható hozzá mivel egy másik tartománynak már van "
+"hasonló álneve"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "Smarthost to send mail"
@@ -423,42 +427,39 @@ msgstr "Felhasználónév"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:120
 msgid "Server mailname"
-msgstr ""
+msgstr "Szerver levelezési neve"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:124
-#, fuzzy
 msgid "FQDN hostname"
-msgstr "From hostname"
+msgstr "FQDN gépnév"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:136
-#, fuzzy
 msgid "Postmaster address"
-msgstr "Levéltovábbító címe"
+msgstr "Postmaster címe"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:138
 msgid "Address used to report mail problems"
-msgstr ""
+msgstr "Levelezési gondok esetén használt cím"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:142
-#, fuzzy
 msgid "Local root account"
-msgstr "postafiók"
+msgstr "Helyi root felhasználó"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:146
-#, fuzzy
 msgid "Custom address"
-msgstr "Saját szűrő IP címe"
+msgstr "Saját email cím"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:154
-#, fuzzy
 msgid "Maximum mailbox size allowed"
-msgstr "Maximálisan elfogadott üzenethossz"
+msgstr "Maximálisan elfogadott postafiókméret"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:156
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
+"Ha a postafiók mérete meghaladja ezt a korlátot, az új levelek el lesznek "
+"vetve."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
 #: src/EBox/Mail/Model/SMTPOptions.pm:177 src/templates/createaccount.mas:78
@@ -476,21 +477,21 @@ msgstr "Maximálisan elfogadott üzenethossz"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:191
 msgid "Expiration period for deleted mails"
-msgstr ""
+msgstr "A törölt levelek végleges törlésének időtartama"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:195
 #: src/EBox/Mail/Model/SMTPOptions.pm:212
 msgid "Never"
-msgstr ""
+msgstr "Soha"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:199
 #: src/EBox/Mail/Model/SMTPOptions.pm:216
 msgid "days"
-msgstr ""
+msgstr "napok"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:208
 msgid "Expiration period for spam mails"
-msgstr ""
+msgstr "A levélszemét végleges törlésének időtartama"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:227
 msgid "Options"
@@ -507,49 +508,43 @@ msgstr "Levéltovábbító portja"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "Send a copy of all mail domains"
-msgstr ""
+msgstr "Küldjön egy másolatot minden levelezőtartományról"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:60
 msgid "The mail will be a Blind Carbon Copy (BCC)."
-msgstr ""
+msgstr "A levélnek legyen egy rejtett másolata (BCC)."
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:64
-#, fuzzy
 msgid "Disabled"
-msgstr "kikapcsolva"
+msgstr "Kikapcsolva"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:68
 msgid "Address to sent the copy"
-msgstr ""
+msgstr "A másolat címzettje"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:79
-#, fuzzy
 msgid "Virtual domain settings"
-msgstr "virtuális tartomány"
+msgstr "Virtuális tartomány beállításai"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:66
-#, fuzzy
 msgid "POP3 service enabled"
-msgstr "POP3 szolgáltatás"
+msgstr "POP3 szolgáltatás bekapcsolva"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:72
-#, fuzzy
 msgid "Secure POP3S service enabled"
-msgstr "POP3S szolgáltatás"
+msgstr "POP3S szolgáltatás bekapcsolva"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:78
-#, fuzzy
 msgid "IMAP service enabled"
-msgstr "IMAP szolgáltatás"
+msgstr "IMAP szolgáltatás bekapcsolva"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:84
-#, fuzzy
 msgid "Secure IMAPS service enabled"
-msgstr "IMAPS szolgáltatás"
+msgstr "IMAPS szolgáltatás bekapcsolva"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:90
 msgid "Retrieve mail for external accounts"
-msgstr ""
+msgstr "Levelek letöltése külső fiókból"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:92
 msgid ""
@@ -557,40 +552,42 @@ msgid ""
 "delivered to their local account. External account can be configured in the "
 "user's corner."
 msgstr ""
+"Ez megengedi a felhasználóknak a levelek külső fiókból történő letöltését, a "
+"levelek a saját fiókjukba lesznek kézbesítve. A külső fiókokat a "
+"Felhasználói sarokban lehet beállítani."
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:97
 msgid "Manage Sieve scripts"
-msgstr ""
+msgstr "Sieve szkriptek kezelése"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:99
 msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
 msgstr ""
+"Ez a szolgáltatás engedélyezi a felhasználóknak, hogy kezelni tudják a saját "
+"Sieve levélszűrő szkriptjeiket a levelezőkliensükön keresztül ha támogatja "
+"a ManageSieve protokollt"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:107
 msgid "Mail retrieval services"
 msgstr "Levél letöltő szolgáltatások"
 
 #: src/EBox/Mail/Model/MailUser.pm:52
-#, fuzzy
 msgid "Mail Account"
 msgstr "Levelező fiók"
 
 #: src/EBox/Mail/Model/MailUser.pm:55
-#, fuzzy
 msgid "Create mail account user@domain"
-msgstr "Postafiók létrehozása"
+msgstr "Postafiók létrehozása felhasználó@tartomány"
 
 #: src/EBox/Mail/Model/MailUser.pm:59
-#, fuzzy
 msgid "Default Domain"
-msgstr "Quota mérete"
+msgstr "Alapértelmezett tartomány"
 
 #: src/EBox/Mail/Model/MailUser.pm:97
-#, fuzzy
 msgid "You haven't create a mail domain yet"
-msgstr "Kattintson ide egy új virtuális levelezőtartomány létrehozásához"
+msgstr "Jelenleg nincs létrehozva levelező tartomány"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:64
 msgid "Enabled"
@@ -633,28 +630,24 @@ msgid "Name"
 msgstr "Név"
 
 #: src/EBox/Mail/Model/VDomains.pm:64
-#, fuzzy
 msgid "Virtual domain aliases"
-msgstr "virtuális tartomány alisok"
+msgstr "Virtuális tartomány álnevek"
 
 #: src/EBox/Mail/Model/VDomains.pm:71
-#, fuzzy
 msgid "External accounts aliases"
-msgstr "Postafiók beállításai"
+msgstr "Külső fiókok álnevei"
 
 #: src/EBox/Mail/Model/VDomains.pm:78
 msgid "Settings"
-msgstr ""
+msgstr "Beállítások"
 
 #: src/EBox/Mail/Model/VDomains.pm:90
-#, fuzzy
 msgid "List of Domains"
-msgstr "Virtuális mail tartomány"
+msgstr "Tartományok listája"
 
 #: src/EBox/Mail/Model/VDomains.pm:91
-#, fuzzy
 msgid "Virtual Domains"
-msgstr "Virtuális mail tartomány"
+msgstr "Virtuális tartományok"
 
 #: src/EBox/Mail/Model/VDomains.pm:103
 msgid "Virtual domain added. You must save changes to use this domain"
@@ -668,6 +661,8 @@ msgid ""
 "Cannot add virtual domain {vd} because is a virtual domain alias with the "
 "same name"
 msgstr ""
+"A(z) {vd} virtuális tartományt nem lehet hozzáadni mivel hasonló már létezik "
+"álnév formájában"
 
 #: src/EBox/Mail/Model/VDomains.pm:237
 #, perl-brace-format
@@ -675,6 +670,8 @@ msgid ""
 "Cannot add virtual domain {vd} because it appears as external domain in the "
 "account referenced by the alias {al}"
 msgstr ""
+"A(z) {vd} virtuális tartományt nem lehet hozzáadni mivel a(z) {al} álnévvel "
+"mint külső tartomány be van már állítva"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
@@ -707,29 +704,25 @@ msgstr "Levél diszpécser beállításai frissítve"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:48
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:69
-#, fuzzy
 msgid "Virtual domain"
-msgstr "virtuális tartomány"
+msgstr "Virtuális tartomány"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:49
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:51
-#, fuzzy
 msgid "Sent messsages"
 msgstr "Elküldött levelek"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:50
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:79
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:52
-#, fuzzy
 msgid "Received messages"
-msgstr "Elküldött levelek"
+msgstr "Fogadott levelek"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:83
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:53
-#, fuzzy
 msgid "Rejected messages"
-msgstr "Elküldött levelek"
+msgstr "Elvetett levelek"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:63 src/EBox/Mail.pm:1533
 #: src/templates/qmanager.mas:19
@@ -737,26 +730,24 @@ msgid "Date"
 msgstr "Dátum"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:75
-#, fuzzy
 msgid "Sent messages"
 msgstr "Elküldött levelek"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:92
-#, fuzzy
 msgid "Mail traffic details"
-msgstr "Virtuális emailcím beállítások"
+msgstr "Levelező forgalom részletei"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:100
 msgid "traffic"
-msgstr ""
+msgstr "forgalom"
 
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:62
 msgid "Traffic summary chart"
-msgstr ""
+msgstr "Forgalom összesítő diagram"
 
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:84
 msgid "Traffic summary graph"
-msgstr ""
+msgstr "Forgalom összesítő grafikon"
 
 #: src/EBox/Mail/Composite/General.pm:77
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
@@ -765,20 +756,20 @@ msgstr "Levelezőszerver beállításai"
 
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:70
 msgid "Mail traffic reports"
-msgstr ""
+msgstr "Levelező forgalom összesítései"
 
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:71
 msgid "Mail traffic report"
-msgstr ""
+msgstr "Levelező forgalom összesítése"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"
-msgstr "Virtuális emailcím generálása"
+msgstr "Levelező álnevek generálása"
 
 #: src/EBox/Mail.pm:141
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
-msgstr "az eBox végrehajta: {cmd}"
+msgstr "az eBox végrehajtja: {cmd}"
 
 #: src/EBox/Mail.pm:146
 msgid "Add LDAP schemas"
@@ -798,13 +789,15 @@ msgstr "Az eBox a levelezési szolgáltatás számára tanúsítványt generál"
 
 #: src/EBox/Mail.pm:161
 msgid "Add fetchmail update cron job"
-msgstr ""
+msgstr "A fetchmail frissítésének automatizálása"
 
 #: src/EBox/Mail.pm:163
 msgid ""
 "eBox will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
+"Az eBox időzíti egy cron bejegyzés segítségével a fetchmail beállításainak "
+"frissítését ha a felhasználó egy külső fiókot állít be"
 
 #: src/EBox/Mail.pm:184
 msgid "To configure postfix"
@@ -815,14 +808,12 @@ msgid "To define how client programs connect to services in  postfix"
 msgstr "Hogy beállítsa hány kliens csatlakozhat a postfix szolgáltatásaihoz"
 
 #: src/EBox/Mail.pm:197
-#, fuzzy
 msgid "To configure host mail name"
-msgstr "Hogy beállítsa a postfixet"
+msgstr "Hogy beállítsa a gép levelezőnevét"
 
 #: src/EBox/Mail.pm:202
-#, fuzzy
 msgid "To configure postfix aliases"
-msgstr "Hogy beállítsa a postfixet"
+msgstr "Hogy beállítsa a postfix álneveit"
 
 #: src/EBox/Mail.pm:209
 msgid "To configure dovecot"
@@ -909,16 +900,15 @@ msgstr "Általános"
 
 #: src/EBox/Mail.pm:1486
 msgid "Virtual Mail Domains"
-msgstr "Virtuális mail tartomány"
+msgstr "Virtuális levelező tartomány"
 
 #: src/EBox/Mail.pm:1492
 msgid "Greylist"
 msgstr "Greylist"
 
 #: src/EBox/Mail.pm:1525
-#, fuzzy
 msgid "Mail retrieval from external accounts"
-msgstr "Levél letöltő szolgáltatások"
+msgstr "Levél letöltése külső fiókból"
 
 #: src/EBox/Mail.pm:1534
 msgid "Message ID"
@@ -945,16 +935,14 @@ msgid "Relay"
 msgstr "Levéltovábbító"
 
 #: src/EBox/Mail.pm:1541
-#, fuzzy
 msgid "Message type"
-msgstr "Üzenet"
+msgstr "Üzenet típusa"
 
 #: src/EBox/Mail.pm:1543
 msgid "Event"
 msgstr "Esemény"
 
 #: src/EBox/Mail.pm:1544
-#, fuzzy
 msgid "Additional Info"
 msgstr "További információk"
 
@@ -1003,13 +991,12 @@ msgid "Mail SMTP server"
 msgstr "Levelező SMTP szerver"
 
 #: src/EBox/Mail.pm:1785
-#, fuzzy
 msgid "Mail POP/IMAP server"
-msgstr "Levelező SMTP szerver"
+msgstr "Levelező POP/IMAP szerver"
 
 #: src/EBox/MailQueue.pm:79
 msgid "This message is being delivered"
-msgstr ""
+msgstr "Ez az levél el lett küldve"
 
 #: src/templates/groupalias.mas:8
 msgid "Mail alias settings"
@@ -1072,12 +1059,11 @@ msgstr "Információk elrejtése"
 
 #: src/templates/qmanager.mas:82
 msgid "Attempt to deliver all queued mail"
-msgstr ""
+msgstr "Kísérlet az összes sorban álló levél elküldésére"
 
 #: src/templates/qmanager.mas:89
-#, fuzzy
 msgid "Remove all messages"
-msgstr "Elküldött levelek"
+msgstr "Összes levél törlése"
 
 #: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "first"
@@ -1124,28 +1110,24 @@ msgid "Create mail aliases"
 msgstr "Virtuális emailcím létrehozása"
 
 #: src/templates/alias.mas:124
-#, fuzzy
 msgid "No quota"
-msgstr "Quota mérete"
+msgstr "Nincs kvóta"
 
 #: src/templates/alias.mas:125
-#, fuzzy
 msgid "Default quota"
-msgstr "Quota mérete"
+msgstr "Alapértelmezett kvóta"
 
 #: src/templates/alias.mas:126
-#, fuzzy
 msgid "Custom quota"
-msgstr "Személyreszabott"
+msgstr "Személyre szabott kvóta"
 
 #: src/templates/alias.mas:133
-#, fuzzy
 msgid "Quota type"
-msgstr "Szűrő típusa"
+msgstr "Kvóta típusa"
 
 #: src/templates/alias.mas:146
 msgid "Maximum mailbox size in MB"
-msgstr ""
+msgstr "Postafiók maximális mérete MB-ban"
 
 #: src/templates/alias.mas:162 src/templates/alias.mas:163
 msgid "Modify"

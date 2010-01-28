@@ -1,3 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-27 12:50+0200\n"
+"PO-Revision-Date: 2010-01-28 10:24+0100\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"X-Generator: Pootle 1.1.0\n"
+
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:116
 msgid ""
 msgstr ""
@@ -16,11 +29,11 @@ msgstr ""
 # Copyright (C) 2009 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
 # Automatically generated, 2009.
-#
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr "A garantlt sebessg tllpi az engedlyezett sebessget: {rate} kbit/sec."
+msgstr ""
+"A garantált sebesség túllépi az engedélyezett sebességet: {rate} kbit/sec."
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:225
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:410
@@ -28,7 +41,7 @@ msgstr "A garantlt sebessg tllpi az engedlyezett sebessget: {rate} kbit/sec."
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
-"Itt kell megadni a garantlt sebessg intervallumt: ({minRate}, {maxRate}) "
+"Itt kell megadni a garantált sebesség intervallumát: ({minRate}, {maxRate}) "
 "kbit/sec"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:237
@@ -37,8 +50,8 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
-"A limitlt sebessg {lR} kbit/sec nagyobbnak kell lennie mint a garantlt "
-"sebessgnek {gR}."
+"A limitált sebesség {lR} kbit/sec nagyobbnak kell lennie mint a garantált "
+"sebességnek {gR}."
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:244
 #, perl-brace-format
@@ -47,14 +60,14 @@ msgid ""
 "increase maximum upload traffic to the gateways associated to this external "
 "interface"
 msgstr ""
-"A limitlt sebessg {lR} kbit/sec kisebb kell legyen mint {maxLR}kbit/s vagy "
-"nvelje meg a maximlis feltltsi sebessget az ehhez a kls interfszhez tartoz "
-"tjrnl"
+"A limitált sebesség {lR} kbit/sec kisebb kell legyen mint {maxLR}kbit/s vagy "
+"növelje meg a maximális feltöltési sebességet az ehhez a külső interfészhez "
+"tartozó átjárónál"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:401
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr "garantlt sebessg tllpsre engedlyezett sebessg: {rate}"
+msgstr "A garantált sebesség túllépi az engedélyezett sebességet: {rate}"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:430
 #, perl-brace-format
@@ -62,35 +75,35 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
-"A limitlt sebessgnek {lR} kbit/sec alacsonyabbnak kell lennie mint a "
-"maximlis sebessg {maxLR} vagy nvelni kellene a maximlisan engedlyezett "
+"A limitált sebességnek {lR} kbit/sec alacsonyabbnak kell lennie mint a "
+"maximális sebesség {maxLR} vagy növelni kellene a maximálisan engedélyezett "
 "forgalmat."
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
 msgid "Leaf class identifier"
-msgstr "Alrendelt (?) osztly azonost"
+msgstr "Alárendelt osztály azonosító"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"
-msgstr "Cm"
+msgstr "Cím"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:185
 #, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr "bels csatol (interface): {iface}"
+msgstr "belső csatoló: {iface}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:188
 #, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr "kls csatol (interface): {iface}"
+msgstr "külső csatoló: {iface}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:215
 msgid "Guaranteed rate"
-msgstr "garantlt sebessg"
+msgstr "Garantált sebesség"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:220
 msgid "Limited rate"
-msgstr "limitlt sebessg"
+msgstr "Korlátozott sebesség"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:231
 #, perl-brace-format
@@ -98,114 +111,113 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
-"A(z) {object} objektumnak nincsenek tagjai. Adjon hozz legalbb egyet hogy "
-"szablyokban hasznlhassa az objektumot"
+"A(z) {object} objektumnak nincsenek tagjai. Adjon hozzá legalább egyet hogy "
+"szabályokban használhassa az objektumot"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
-#, fuzzy
 msgid "If service is any, some source or destination should be provided"
-msgstr "Ha a szolgltats brmely, meg kell adni a forrst vagy a clt"
+msgstr "Ha a szolgáltat bármely, meg kell adni a forrást vagy a célt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:393
 msgid "Service"
-msgstr "Szolgltats"
+msgstr "Szolgáltatás"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:398
 msgid "Port based service"
-msgstr "Port alap szolgltats"
+msgstr "Port alapú szolgáltatás"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:410
 msgid "Source"
-msgstr "forrs"
+msgstr "Forrás"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:415
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:443
 msgid "Any"
-msgstr "brmi (valami)"
+msgstr "Bármi"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:418
 msgid "Source IP"
-msgstr "forrs IP"
+msgstr "Forrás IP"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:423
 msgid "Source MAC"
-msgstr "forrs MAC"
+msgstr "Forrás MAC"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:428
 msgid "Source object"
-msgstr "forrs objektum"
+msgstr "Forrás objektum"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:438
 msgid "Destination"
-msgstr "cl(lloms)"
+msgstr "Cél"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:446
 msgid "Destination IP"
-msgstr "cl(lloms) IP"
+msgstr "Cél IP"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:451
 msgid "Destination object"
-msgstr "cl(lloms) objektum"
+msgstr "Cél objektum"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:461
 #: src/EBox/TrafficShaping.pm:1564
 msgid "Priority"
-msgstr "priorits (elsbbsg)"
+msgstr "Prioritás"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:465
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr "Legalacsonyabb priorits: 7, legmagasabb priorits: 0."
+msgstr "Legalacsonyabb prioritás: 7, legmagasabb prioritás: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:469
 #: src/EBox/TrafficShaping.pm:1562
 msgid "Guaranteed Rate"
-msgstr "garantlt sebessg"
+msgstr "Garantált sebesség"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:472
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:486
 msgid "Kbit/s"
-msgstr "kbit/sec"
+msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:474
-#, fuzzy
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
-"Megjegyzs: A garantlt svok sszege nem haladhatja meg a teljes tviteli "
-"sebessget. A 0 a nem garantlt sebessget jelenti."
+"Megjegyzés: A garantált sávok összege nem haladhatja meg a teljes átviteli "
+"sebességet. A 0 a nem garantált sebességet jelenti."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:481
 #: src/EBox/TrafficShaping.pm:1563
 msgid "Limited Rate"
-msgstr "Korltozott sebessg"
+msgstr "Korlátozott sebesség"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:488
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr ""
-"A forgalom nem haladhatja meg ezt a korltot. A 0 korltlan sebessget jell."
+"A forgalom nem haladhatja meg ezt a korlátot. A 0 korlátlan sebességet "
+"jelöl."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:495
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr "Szablyok listja: {printableIndex}"
+msgstr "Szabályok listája: {printableIndex}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:504
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
-"Megjegyzs: ha az interfsz bels, a forgalom az Internetrl jn a bels hlzatra s "
-"a klsre ms forrsokbl"
+"Megjegyzés: ha az interfész belső, a forgalom az Internetről jön a belső "
+"hálózatra és a külsőre más forrásból"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:509
 msgid "rule"
-msgstr "szably"
+msgstr "szabály"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:570
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
-msgstr "A {num} szably trlse a {modelName} all"
+msgstr "A {num} szabály törlése a {modelName} alól"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:617
 #, perl-brace-format
@@ -215,10 +227,10 @@ msgid ""
 "maintain the same proportion that it has previously and {removeNum} have "
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
-"Korltok normalizlsa: {limitNum} szably le lett korltozva {limitRate}, "
-"{guaranNum} szably le lett szablyozva gy, hogy arnyosan megriztk az elz "
-"rtkket s {removeNum} trlve lett mivel a garantlt tvitel kisebb mint a "
-"megengedett minimum"
+"Korlátok normalizálása: {limitNum} szabály le lett korlátozva {limitRate}, "
+"{guaranNum} szabály le lett szabályozva úgy, hogy arányosan megőrizték az "
+"előző érteket és {removeNum} törölve lett mivel a garantált átvitel kisebb "
+"mint a megengedett minimum"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:674
 msgid ""
@@ -226,50 +238,49 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
-"A porthoz kttt protokollokat a port segtsgvel lehet egy szolgltatshoz ktni, "
-"ameddig a Programalap protokollokat erforrsignyesebben a csomagok tartalmnak "
-"megvizsglsval lehet egy szolgltatshoz ktni."
+"A porthoz kötött protokollokat a port segítségével lehet egy szolgáltatáshoz "
+"kötni, ameddig a Programalapú protokollokat erőforrásigényesebben a "
+"csomagok tartalmának megvizsgálásával lehet egy szolgáltatáshoz kötni."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:690
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:707
 msgid "Application based service"
-msgstr "alkalmazs alap szolgltats"
+msgstr "Alkalmazás alapú szolgáltatás"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:698
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:714
 msgid "Application based service group"
-msgstr "alkalmazs alap szolgltatscsoport"
+msgstr "Alkalmazás alapú szolgáltatáscsoport"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:85
 msgid "External Interface"
-msgstr "kls csatol (interface)"
+msgstr "Külső csatoló"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:90
 msgid "Upload"
-msgstr "feltlts"
+msgstr "Feltöltés"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
-#, fuzzy
 msgid "Upload rate in Kbits/s through this interface"
-msgstr "Feltltsi sebessg (kbit/sec) ezen a csatoln (interface) keresztl."
+msgstr "Feltöltési sebesség (kbit/sec) ezen a csatolón keresztül."
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
 msgid "Download"
-msgstr "letlts"
+msgstr "Letöltés"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:109
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:110
 msgid "External Interface Rates"
-msgstr "bels csatol (interface) sebessgek"
+msgstr "Belső csatoló sebességek"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:117
 msgid "rate"
-msgstr "sebessg"
+msgstr "sebesség"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:142
 msgid "You need at least one internal interface and one external interface"
-msgstr ""
+msgstr "Szüksége van legalább egy belső és egy külső csatolóra"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
 #, perl-brace-format
@@ -278,9 +289,10 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"A tartalomszrs akkor lesz hatkony, ha az eBox tjrknt mkdik. Ennek elrse "
-"rdekben szksg van egy bels s egy kls interfszre. Ennek rdekben ellenrizze az "
-"interfszek belltsait, a {openhref}Hlzat->Interfszek{closehref} rszben"
+"A tartalomszűrés akkor lesz hatékony, ha az eBox átjáróként működik. Ennek "
+"elérése érdekében szükség van egy belső s egy külső interfészre. Ennek "
+"érdekében ellenőrizze az interfészek beállításait, a "
+"{openhref}Hálózat->Interfészek{closehref} részben"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
 #, perl-brace-format
@@ -290,59 +302,59 @@ msgid ""
 "gateway at {openhref}Network->Gateways{closehref} setting as interface an "
 "external one."
 msgstr ""
-"A tartalomszrs akkor lesz alkalmazva ha az tjrk amelyeknl be vannak lltva a "
-"feltltsi korltok egy kls interfszhez vannak rendelve. Ennek rdekben hozzon "
-"ltre egy tjrt a {openhref}Hlzat->tjrk{closehref} rszben, s lltsa be a "
-"megfelel interfszt klsnek."
+"A tartalomszűrés akkor lesz alkalmazva ha az átjárók amelyeknél be vannak "
+"állítva a feltöltési korlátok egy külső interfészhez vannak rendelve. Ennek "
+"érdekében hozzon létre egy átjárót a {openhref}Hálózat->Átjárók{closehref} "
+"részben, s állítsa be a megfelel interfészt külsőnek."
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
 msgid "Rules list per interface"
-msgstr "Csatolnknti szablylista"
+msgstr "Csatolónkénti szabálylista"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
 msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
 msgstr ""
-"Vlasszon ki egy interfszt tartalomszr szablyok hozzadshoz. Ha egy bels "
-"interfszre lltja be a szrst, behatolsi szrt llt fel."
+"Válasszon ki egy interfészt tartalomszűrő szabályok hozzáadáshoz. Ha egy "
+"belső interfészre állítja be a szűrést, behatolási szűrőt állít fel."
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
 msgid "Choose an interface to shape"
-msgstr "Vlasszon ki egy szrni kvnt interfszt"
+msgstr "Válasszon ki egy szűrni kívánt interfészt"
 
 #: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:95
 msgid "Traffic Shaping"
-msgstr "Forgalomszrs"
+msgstr "Forgalomszűrés"
 
 #: src/EBox/TrafficShaping.pm:133
 msgid "Add iptables rules to mangle table"
-msgstr "iptables szablyok hozzadsa a mangle tblhoz"
+msgstr "iptables szabályok hozzáadása a mangle táblához"
 
 #: src/EBox/TrafficShaping.pm:134
 msgid "To mark packets with different priorities and rates"
-msgstr "A csomagok klnbz prioritsnak s elsbbsgnek megjellse rdekben."
+msgstr "A csomagok különböző prioritásnak és elsőbbségnek megjelölése érdekben."
 
 #: src/EBox/TrafficShaping.pm:138
 msgid "Add tc rules"
-msgstr "tc szablyok hozzadsa"
+msgstr "tc szabályok hozzáadása"
 
 #: src/EBox/TrafficShaping.pm:139
 msgid "To implement the traffic shaping rules"
-msgstr "A forgalomszr szablyok alkalmazsa rdekben"
+msgstr "A forgalomszűrő szabályok alkalmazása érdekben"
 
 #: src/EBox/TrafficShaping.pm:384
 msgid "Rules"
-msgstr "szablyok"
+msgstr "Szabályok"
 
 #: src/EBox/TrafficShaping.pm:386
 msgid "Interface Rates"
-msgstr "csatol (interface) sebessgek"
+msgstr "Csatoló sebességek"
 
 #: src/EBox/TrafficShaping.pm:441 src/EBox/TrafficShaping.pm:592
 #: src/EBox/TrafficShaping.pm:986 src/EBox/TC.pm:107
 msgid "Interface"
-msgstr "csatol (interface)"
+msgstr "Csatoló"
 
 #: src/EBox/TrafficShaping.pm:454
 #, perl-brace-format
@@ -350,12 +362,12 @@ msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
-"A maximlis szrszm ({max}) tllpve, krem trljn legalbb egyet egy j hozzadsa "
-"rdekben"
+"A maximális szabályszám {max} túllépve, kérem töröljön legalább egyet egy új "
+"hozzáadása érdekében"
 
 #: src/EBox/TrafficShaping.pm:1072
 msgid "type"
-msgstr "tpus"
+msgstr "Típus"
 
 #: src/EBox/TrafficShaping.pm:1095
 #, perl-brace-format
@@ -363,20 +375,20 @@ msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
-"A(z) {iface} esetben a maximlis tvitel van belltva, amellyel szrni lehet a "
-"forgalmat"
+"A(z) {iface} esetben a maximális átvitel van beállítva, amellyel szűrni "
+"lehet a forgalmat"
 
 #: src/EBox/TrafficShaping.pm:1560
 msgid "Protocol"
-msgstr "protokoll"
+msgstr "Protokoll"
 
 #: src/EBox/TrafficShaping.pm:1561
 msgid "Port"
-msgstr "port"
+msgstr "Port"
 
 #: src/EBox/TC.pm:69
 msgid "options"
-msgstr "opcik"
+msgstr "Opciók"
 
 #~ msgid "Change or remove some rules on {contextName}"
 #~ msgstr "mdosult vagy trlsre kerlt nhny szably itt: {contextName}"

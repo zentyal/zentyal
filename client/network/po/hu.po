@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:52+0100\n"
-"PO-Revision-Date: 2010-01-15 09:57+0100\n"
-"Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
+"PO-Revision-Date: 2010-01-27 10:49+0100\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,14 +35,12 @@ msgid "netmask"
 msgstr "hálózati maszk"
 
 #: src/EBox/CGI/Iface.pm:95
-#, fuzzy
 msgid "user name"
-msgstr "Felhasználónév"
+msgstr "felhasználónév"
 
 #: src/EBox/CGI/Iface.pm:96
-#, fuzzy
 msgid "password"
-msgstr "Jelszó"
+msgstr "jelszó"
 
 #: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1397 src/EBox/Network.pm:1426
 #: src/templates/ifaces.mas:195
@@ -73,11 +71,11 @@ msgstr "Hálózati diagnosztikai eszközök"
 #: src/EBox/Model/WANFailoverRules.pm:96 src/templates/diag.mas:14
 #: src/templates/diag.mas:23
 msgid "Host"
-msgstr "Kiszolgáló"
+msgstr "Gép"
 
 #: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2929
 msgid "host name"
-msgstr "kiszolgáló neve"
+msgstr "gép neve"
 
 #: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3022
 msgid "Network Interfaces"
@@ -274,9 +272,8 @@ msgid "eBox will set your DNS configuration"
 msgstr "Az eBox beállítja a DNS beállításokat"
 
 #: src/EBox/Network.pm:135
-#, fuzzy
 msgid "eBox will set your DHCP client configuration"
-msgstr "Az eBox beállítja a ddclient beállításokat"
+msgstr "Az eBox beállítja a DHCP kliens beállításokat"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
 msgid "eBox will set your ddclient configuration"
@@ -287,9 +284,8 @@ msgid "eBox will store your PPPoE passwords"
 msgstr "Az eBox eltárolta a PPPoE jelszavát."
 
 #: src/EBox/Network.pm:162
-#, fuzzy
 msgid "eBox will add a DSL provider configuration for PPPoE"
-msgstr "Az eBox beállítja a DNS beállításokat"
+msgstr "Az eBox hozzáadja a DSL szolgáltató adatai a PPPoE beállításaihoz"
 
 #: src/EBox/Network.pm:804 src/EBox/Network.pm:808
 msgid "Virtual interface name"
@@ -335,7 +331,6 @@ msgstr ""
 "kell helyezni."
 
 #: src/EBox/Network.pm:2563
-#, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -493,6 +488,8 @@ msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
+"A csomagok bejövő csatolója. Ahhoz, hogy egy teljes alhálózatot be tudjon "
+"azonosítani válassza ki az alhálózat hálózati csatolóját"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:110
 #: src/EBox/Model/ByteRateGraphControl.pm:111
@@ -629,7 +626,7 @@ msgstr "Hostnév"
 
 #: src/EBox/Model/DynDNS.pm:116
 msgid "Configuration"
-msgstr ""
+msgstr "Beállítás"
 
 #: src/EBox/Model/DynDNS.pm:120
 msgid ""
@@ -702,7 +699,7 @@ msgstr ""
 
 #: src/EBox/Model/WANFailoverRules.pm:191
 msgid "WAN Failover is only available for static interfaces"
-msgstr ""
+msgstr "A WAN Failover szolgáltatás csak statikus csatolók számára elérhető"
 
 #: src/EBox/Model/WANFailoverRules.pm:195
 msgid "Invalid value for Host"
@@ -725,9 +722,8 @@ msgid "These options affect to all the tests."
 msgstr "Ezek a beállítások befolyásolják az összes többit."
 
 #: src/EBox/Model/GatewayTable.pm:185
-#, fuzzy
 msgid "Auto"
-msgstr "Action"
+msgstr "Automatikus"
 
 #: src/EBox/Model/GatewayTable.pm:191 src/templates/ifaces.mas:33
 #: src/templates/ifaces.mas:252
@@ -759,7 +755,6 @@ msgid "Gateways List"
 msgstr "Átjárók listája"
 
 #: src/EBox/Model/GatewayTable.pm:250
-#, fuzzy
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your Internet traffic through several links. Note that if you "
@@ -767,7 +762,9 @@ msgid ""
 "automatically."
 msgstr ""
 "Tetszőleges számú átjárót adhat hozzá. Ez nagyon hasznos lehet amennyiben "
-"többfelé szeretné elosztani az internetes forgalmát."
+"többfelé szeretné elosztani az internetes forgalmát. Megjegyzés: ha a "
+"csatolót DHCP vagy PPPoE kapcsolattal állítja be az átjárók automatikusan be "
+"lesznek állítva."
 
 #: src/EBox/Model/GatewayTable.pm:252
 msgid "gateway"
@@ -775,11 +772,11 @@ msgstr "átjáró"
 
 #: src/EBox/Model/GatewayTable.pm:278
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
-msgstr ""
+msgstr "DHCP vagy PPPoE csatolók esetében kézileg nem állíthatja be az átjárót"
 
 #: src/EBox/Model/GatewayTable.pm:339
 msgid "Automatically added gateways can not be manually deleted"
-msgstr ""
+msgstr "Automatikusan hozzáadott átjárók nem törölhető kézileg"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
@@ -792,6 +789,9 @@ msgid ""
 "based on /etc/services, may be required by the graph type. The flow view "
 "will change accordingly"
 msgstr ""
+"Több nézet megjelenik, a paraméterek fügvényében. A gép IP címe és a "
+"szolgáltatás neve az /etc/services fájl alapján, ha a grafikon típusa "
+"megengedi. A nézetet meg lehet változtatni"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:78
 msgid "Graph type"
@@ -880,12 +880,10 @@ msgid "Not set"
 msgstr "Nincs beállítva"
 
 #: src/templates/ifaces.mas:87
-#, fuzzy
 msgid "External (WAN)"
-msgstr "Külső"
+msgstr "Külső (WAN)"
 
 #: src/templates/ifaces.mas:155
-#, fuzzy
 msgid "User name"
 msgstr "Felhasználónév"
 

@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:02+0100\n"
-"PO-Revision-Date: 2009-10-13 05:59+0000\n"
-"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
+"PO-Revision-Date: 2010-01-28 12:05+0100\n"
+"Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -124,7 +124,7 @@ msgstr "Die Gruppe wurde entfernt"
 #: src/EBox/UserCornerWebServer.pm:37
 #, fuzzy
 msgid "User Corner"
-msgstr "Benutzername"
+msgstr "Benutzerbereich"
 
 #: src/EBox/UserCornerWebServer.pm:63
 msgid "Migrate configured modules"
@@ -133,11 +133,13 @@ msgstr "Konfigurierte Module übernehmen"
 #: src/EBox/UserCornerWebServer.pm:64
 msgid "Required for usercorner access to configured modules"
 msgstr ""
+"Erforderlich für den Zugriff auf konfigurierte Module über den "
+"Benutzerbereich"
 
 #: src/EBox/UserCornerWebServer.pm:171
 #, fuzzy
 msgid "User Corner web server"
-msgstr "Benutzername"
+msgstr "Benutzerbereich-Webserver"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:72
@@ -165,11 +167,10 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
 msgid "operation"
-msgstr ""
+msgstr "Programmschritt"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:129
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:114
-#, fuzzy
 msgid "You must enable the module Users in master mode."
 msgstr ""
 "Sie müssen das Modul Benutzer im Bereich Modul Status aktivieren um es zu "
@@ -203,24 +204,26 @@ msgid "Listen port"
 msgstr "abhörender Port"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
+#, fuzzy
 msgid "Port for listening password sync notifications from Windows"
-msgstr ""
+msgstr "Port für den Empfang für die Passwort-Abgleichung von Windows"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
 msgid "AD Secret Key"
-msgstr ""
+msgstr "AD geheimer Schlüssel"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
 msgid "Secret key to be shared between Windows and eBox (16 chars)"
 msgstr ""
+"Geheimer Schlüssel, von Windows und eBox gemeinsam genutzt  (16 Zeichen)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
 msgid "Windows AD Sync Settings"
-msgstr ""
+msgstr "Windows Active Directory Synchronisationseinstellungen"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:114
 msgid "The secret key needs to have 16 characters."
-msgstr ""
+msgstr "Der geheime Schlüssel muss 16 Zeichen lang sein."
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2295
 msgid "Mode"
@@ -231,24 +234,30 @@ msgid "Master"
 msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:73
+#, fuzzy
 msgid "Windows AD Slave"
-msgstr ""
+msgstr "Windows AD Satellitenrechner (Slave)"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:80
+#, fuzzy
 msgid "LDAP DN"
-msgstr ""
+msgstr "LDAP Domänenname"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:85
+#, fuzzy
 msgid "Only for master and AD slave configuration"
-msgstr ""
+msgstr "Nur für die AD Haupt- und Satellitenrechner Konfiguration"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
 msgid "Master host"
 msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:91
+#, fuzzy
 msgid "Only for slave configuration: IP of the master eBox or Windows AD"
 msgstr ""
+"Nur für die Satellitenrechner(Slave)-Konfiguration: IP vom eBox-Server "
+"(Master) oder Windows AD-Server"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:95
 #, fuzzy
@@ -256,16 +265,18 @@ msgid "LDAP password"
 msgstr "Passwort"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:97
+#, fuzzy
 msgid "Master eBox LDAP password"
-msgstr ""
+msgstr "Master eBox LDAP Passwort"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:103
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:104
+#, fuzzy
 msgid "eBox Users Mode"
-msgstr ""
+msgstr "eBox Benutzer Modus"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:59
 #: src/EBox/UsersAndGroups/Model/Users.pm:61
@@ -287,13 +298,12 @@ msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
-"Sie müssen das Modul Benutzer im Bereich Modul Status aktivieren um es zu "
-"nutzen"
+"Sie müssen das Modul Benutzer im Bereich Modul Status aktivieren um es "
+"benutzen zu können."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:136
-#, fuzzy
 msgid "There are no groups at the moment"
-msgstr "Derzeit sind keine Benutzer angelegt."
+msgstr "Derzeit sind keine Gruppen angelegt."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:139
 #, fuzzy, perl-brace-format
@@ -303,11 +313,15 @@ msgid ""
 msgstr "Es gibt im Moment noch keine Benutzer. "
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:143
+#, fuzzy
 msgid ""
 "This eBox is configured as Windows AD slave and there are no groups at the "
 "moment. If there are groups in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
+"Diese eBox ist als Windows AD Slave konfiguriert und derzeit sind keine "
+"Gruppen angelegt. Wenn bereits Gruppen in der Domänencontroller existieren, "
+"ist die Synchronisation fehlgeschlagen oder ist noch nicht beendet."
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
@@ -365,11 +379,11 @@ msgstr "Gruppen"
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
 #: src/EBox/UsersAndGroups.pm:2280
 msgid "LDAP Info"
-msgstr ""
+msgstr "LDAP Info"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:94
 msgid "LDAP Information"
-msgstr ""
+msgstr "LDAP Information"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
 #, fuzzy
@@ -396,15 +410,20 @@ msgid ""
 msgstr "Es gibt im Moment noch keine Benutzer. "
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:143
+#, fuzzy
 msgid ""
 "This eBox is configured as Windows AD slave and there are no users at the "
 "moment. If there are users in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
+"Diese eBox ist als Windows AD Slave konfiguriert und derzeit sind keine "
+"Benutzer angelegt. Wenn bereits Benutzer im Domänencontroller existieren, "
+"ist die Synchronisation fehlgeschlagen oder ist noch nicht beendet."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:63
+#, fuzzy
 msgid "List of slaves"
-msgstr ""
+msgstr "Liste der Satellitenrechner (Slaves)"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:70
 msgid "This is a list of those eBox slaves which are subscribed to this eBox."
@@ -429,13 +448,15 @@ msgid ""
 msgstr ""
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:80
+#, fuzzy
 msgid "There isn't any configurable option"
-msgstr ""
+msgstr "Es gibt keine konfigurierbare Einstellungen"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
 #: src/EBox/UsersAndGroups.pm:2266 src/EBox/UsersAndGroups.pm:2275
+#, fuzzy
 msgid "Default User Template"
-msgstr ""
+msgstr "Standard Benutzer-Vorlage"
 
 #: src/EBox/UsersAndGroups.pm:77
 msgid "Users and Groups"
@@ -480,11 +501,13 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:125
 msgid "Install /etc/cron.d/ebox-ad-sync."
-msgstr ""
+msgstr "Installiere /etc/cron.d/ebox-ad-sync."
 
 #: src/EBox/UsersAndGroups.pm:126
 msgid "eBox will run a script each 5 minutes to sync with Windows AD."
 msgstr ""
+"eBox wird ein Skript alle 5 Minuten ausführen, um mit Windows AD zu "
+"synchronisieren."
 
 #: src/EBox/UsersAndGroups.pm:146
 msgid "To make openLDAP listen on TCP and Unix sockets"
@@ -503,7 +526,7 @@ msgstr "Der Benutzername darf nicht länger als {maxuserlength} Zeichen sein"
 
 #: src/EBox/UsersAndGroups.pm:821 src/EBox/UsersAndGroups.pm:1437
 msgid "Maximum number of system users reached"
-msgstr "Maximale Anzahl der Benutzer für dieses System erreicht"
+msgstr "Maximale Anzahl der Benutzer für dieses System ist erreicht"
 
 #: src/EBox/UsersAndGroups.pm:838
 #, perl-brace-format
@@ -557,14 +580,18 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:2522
 #, perl-brace-format
+#, fuzzy
 msgid "Can't connect to master eBox at {remote}"
-msgstr ""
+msgstr "Keine Verbindung zur Master eBox bei {remote}"
 
 #: src/EBox/UsersAndGroups.pm:2529
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr ""
+"Keine Verbindung zur Master eBox bei {remote} mit dem zur Verfügung "
+"gestellten LDAP Passwort"
 
 #: src/EBox/UsersAndGroups.pm:2548
 #, perl-brace-format
@@ -603,7 +630,7 @@ msgstr "Du bist nicht angemeldet"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User corner"
-msgstr ""
+msgstr "Benutzerbereich"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
 msgid "Port"
@@ -611,11 +638,11 @@ msgstr "Port"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
 msgid "User Corner webserver settings"
-msgstr ""
+msgstr "Benutzerbereich-Webserver-Einstellungen"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
-msgstr "abhörender Port"
+msgstr "lauschender Port"
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
@@ -665,7 +692,7 @@ msgstr "Optionaler Name"
 #: src/templates/groups.mas:38 src/templates/groups.mas:39
 #: src/templates/users.mas:73 src/templates/users.mas:74
 msgid "Add and Edit"
-msgstr ""
+msgstr "Hinzufügen und bearbeiten"
 
 #: src/templates/groups.mas:41 src/templates/groups.mas:42
 #: src/templates/users.mas:69 src/templates/users.mas:70
@@ -698,7 +725,6 @@ msgid "Group"
 msgstr "Gruppe"
 
 #: src/templates/group.mas:14
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly"
@@ -773,7 +799,7 @@ msgid ""
 "data; such as mail accounts, user files, ..."
 msgstr ""
 "Dieser Vorgang löscht den Benutzer und alle zugehörigen Daten wie E-Mails, "
-"Benutzerdaten, ..."
+"Benutzerdateien, ..."
 
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"
@@ -785,7 +811,7 @@ msgstr "Achtung: Feststelltaste ist aktiviert"
 
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
-msgstr ""
+msgstr "Enter"
 
 #, fuzzy
 #~ msgid ""

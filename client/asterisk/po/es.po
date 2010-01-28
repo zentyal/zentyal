@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:34+0100\n"
-"PO-Revision-Date: 2010-01-25 12:12+0100\n"
+"PO-Revision-Date: 2010-01-27 01:25+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Para configurar el controlador LDAP Realtime"
 
 #: src/EBox/Asterisk.pm:141
 msgid "To configure the common SIP and IAX users."
-msgstr "Para configurar los usarios comunes de  SIP e IAX"
+msgstr "Para configurar los usarios comunes de SIP e IAX"
 
 #: src/EBox/Asterisk.pm:146
 msgid "To configure the SIP trunk for local users and external providers."
@@ -66,14 +66,12 @@ msgid "To configure the conferences."
 msgstr "Para configurar las conferencias."
 
 #: src/EBox/Asterisk.pm:170
-#, fuzzy
 msgid "To configure the music on hold."
-msgstr "Para configurar el plan de marcado de Asterisk."
+msgstr "Para configurar la música en espera."
 
 #: src/EBox/Asterisk.pm:174
-#, fuzzy
 msgid "To configure DTMF behaviour."
-msgstr "Para configurar el plan de marcado de Asterisk."
+msgstr "Para configurar el comportamiento DTMF."
 
 #: src/EBox/Asterisk.pm:473
 msgid "General"
@@ -81,7 +79,7 @@ msgstr "General"
 
 #: src/EBox/Asterisk.pm:477 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
-msgstr "Reuniones"
+msgstr "Conferencias"
 
 #: src/EBox/Asterisk.pm:494
 msgid "Voicemail"
@@ -127,61 +125,57 @@ msgstr "Usuarios de VoIP en reuniones"
 
 #: src/EBox/Asterisk.pm:658
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #: src/EBox/Asterisk.pm:659
 msgid "From"
-msgstr ""
+msgstr "De"
 
 #: src/EBox/Asterisk.pm:660
 msgid "To"
-msgstr ""
+msgstr "Para"
 
 #: src/EBox/Asterisk.pm:661
-#, fuzzy
 msgid "Duration"
-msgstr "Descripción"
+msgstr "Duración"
 
 #: src/EBox/Asterisk.pm:662
-#, fuzzy
 msgid "Channel"
-msgstr "Cambiar"
+msgstr "Canal"
 
 #: src/EBox/Asterisk.pm:663
 msgid "Destination Channel"
-msgstr ""
+msgstr "Canal destino"
 
 #: src/EBox/Asterisk.pm:664
 msgid "Application"
-msgstr ""
+msgstr "Aplicación"
 
 #: src/EBox/Asterisk.pm:665
 msgid "Application Data"
-msgstr ""
+msgstr "Datos de aplicación"
 
 #: src/EBox/Asterisk.pm:666
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 #: src/EBox/Asterisk.pm:674
 msgid "Answered"
-msgstr ""
+msgstr "Respondida"
 
 #: src/EBox/Asterisk.pm:675
 msgid "No Answer"
-msgstr ""
+msgstr "Sin respuesta"
 
 #: src/EBox/Asterisk.pm:676
 msgid "Busy"
-msgstr ""
+msgstr "Ocupado"
 
 #: src/EBox/Asterisk.pm:677
-#, fuzzy
 msgid "Failed"
-msgstr "Habilitado"
+msgstr "Fallada"
 
 #: src/EBox/Asterisk/Extensions.pm:230
-#, fuzzy
 msgid "User extension"
 msgstr "Extensión del usuario"
 
@@ -192,24 +186,22 @@ msgid "Extension"
 msgstr "Extensión"
 
 #: src/EBox/Asterisk/Extensions.pm:642
-#, fuzzy
 msgid "Queue extension"
-msgstr "extensión"
+msgstr "Extensión de cola"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "grupo"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
 msgstr "usuario"
 
 #: src/EBox/Model/Meetings.pm:91
-#, fuzzy
 msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
 msgstr ""
-"Debes instalar los paquetes dahdi-linux y dahdi-tools para poder usar las "
-"Reuniones."
+"Debes instalar los paquetes dahdi y dahdi-modules-ebox para usar las "
+"conferencias."
 
 #: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
 #: src/EBox/Model/Settings.pm:84
@@ -217,7 +209,7 @@ msgid "extension"
 msgstr "extensión"
 
 #: src/EBox/Model/Meetings.pm:149
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "Un número entre {min} y {max}"
 
@@ -357,7 +349,6 @@ msgid "SIP provider configuration updated."
 msgstr "Configuración del proveedor SIP actualizada"
 
 #: src/EBox/Model/NAT.pm:96
-#, fuzzy
 msgid "eBox is behind NAT"
 msgstr "eBox está detrás de NAT"
 
@@ -374,7 +365,6 @@ msgid "NAT Asterisk server configuration"
 msgstr "Configuración NAT del servidor Asterisk"
 
 #: src/EBox/Model/NAT.pm:126
-#, fuzzy
 msgid "NAT Asterisk server configuration updated."
 msgstr "Configuración NAT del servidor Asterisk actualizada"
 
@@ -383,19 +373,20 @@ msgid "Asterisk module"
 msgstr "Módulo Asterisk"
 
 #: src/templates/group.mas:8
-#, fuzzy
 msgid "Asterisk group queue"
-msgstr "Modulo Asterisk"
+msgstr "Cola de Asterisk del grupo"
 
 #: src/templates/group.mas:12
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
+"No hay usuarios en este grupo o los usuarios no tienen una cuenta Asterisk, "
+"por tanto la cola no puede ser creada."
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "Cola de grupo"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
@@ -417,6 +408,8 @@ msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
+"Las siguientes opciones solo serán efectivas cuando se active el módulo de "
+"Voz IP."
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"

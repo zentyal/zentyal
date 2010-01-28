@@ -9,8 +9,8 @@ msgstr ""
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:02+0100\n"
-"PO-Revision-Date: 2010-01-20 15:58+0100\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-01-28 07:23+0100\n"
+"Last-Translator: John Martin <john.martin@musicus.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,9 +18,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+# "User Corner" should be translated as "Brukerhjørne".
 #: migration/0001_usercorner_add_webserver_service.pl:54
 msgid "User Corner Web Server"
-msgstr "Bruker Hjørne Web Server"
+msgstr "Brukerhjørne Web Server"
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
@@ -61,19 +62,21 @@ msgstr "Rediger gruppe"
 msgid "Groups"
 msgstr "Grupper"
 
+# "group name" should be translated as "gruppenavn"
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
 #: src/EBox/UsersAndGroups.pm:1373 src/EBox/UsersAndGroups.pm:1378
 #: src/EBox/UsersAndGroups.pm:1564 src/EBox/UsersAndGroups.pm:1714
 #: src/EBox/UsersAndGroups.pm:1748 src/EBox/UsersAndGroups.pm:1865
 #: src/EBox/UsersAndGroups.pm:1968
 msgid "group name"
-msgstr "gruppe navn"
+msgstr "gruppenavn"
 
 #: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
 #: src/EBox/CGI/AddUser.pm:47
 msgid "comment"
 msgstr "kommentar"
 
+# "user name" should be translated as "brukernavn"
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
 #: src/EBox/UsersAndGroups.pm:728 src/EBox/UsersAndGroups.pm:734
 #: src/EBox/UsersAndGroups.pm:974 src/EBox/UsersAndGroups.pm:1024
@@ -81,11 +84,12 @@ msgstr "kommentar"
 #: src/EBox/UsersAndGroups.pm:1608 src/EBox/UsersAndGroups.pm:1709
 #: src/EBox/UsersAndGroups.pm:1743 src/EBox/UsersAndGroups.pm:1814
 msgid "user name"
-msgstr "bruker navn"
+msgstr "brukernavn"
 
+# "last name" should be translated as "etternavn"
 #: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
 msgid "last name"
-msgstr "etter navn"
+msgstr "etternavn"
 
 #: src/EBox/CGI/ModifyUser.pm:49
 msgid "password"
@@ -100,13 +104,15 @@ msgstr "verifiser passord"
 msgid "Passwords do not match."
 msgstr "Passordene er ikke like."
 
+# "object name" should be translated as "objektnavn"
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
-msgstr "objekt navn"
+msgstr "objektnavn"
 
+# "object type" should be translated as "objekttype"
 #: src/EBox/CGI/Del.pm:70
 msgid "object type"
-msgstr "objekt type"
+msgstr "objekttype"
 
 #: src/EBox/CGI/Del.pm:90
 msgid "User removed successfully"
@@ -116,22 +122,25 @@ msgstr "Bruker fjernet"
 msgid "Group removed successfully"
 msgstr "Gruppe fjernet"
 
+# "User Corner" should be tranlated as "Brukerhjørne"
 #: src/EBox/UserCornerWebServer.pm:37
 msgid "User Corner"
-msgstr "Bruker Hjørne"
+msgstr "Brukerhjørne"
 
 #: src/EBox/UserCornerWebServer.pm:63
 msgid "Migrate configured modules"
 msgstr "Migrer konfigurerte moduler"
 
+# "usercorner" should be translated as "brukerhjørne"
 #: src/EBox/UserCornerWebServer.pm:64
 msgid "Required for usercorner access to configured modules"
-msgstr "Nødvendig for bruker hjørne tilgang til konfigurerte moduler"
+msgstr "Nødvendig for brukerhjørne tilgang til konfigurerte moduler"
 
+# "User Corner" should be translated as "Brukerhjørne"
 #: src/EBox/UserCornerWebServer.pm:171
 #, fuzzy
 msgid "User Corner web server"
-msgstr "Bruker Hjørne Web Server"
+msgstr "Brukerhjørne web-server"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:72
@@ -172,29 +181,33 @@ msgstr "Du må aktivere modulen Brukere i sjefs modus."
 msgid "There are no pending operations at the moment."
 msgstr "Det er ingen ventende oppgaver akkurat nå."
 
+# "AD user" should be translated as "AD-bruker"
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
 msgid "AD user"
-msgstr "AD bruker"
+msgstr "AD-bruker"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:68
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
 msgstr "Brukernavn for binding til Windows AD (den må opprettes i AD)"
 
+# "AD password" should be translated as "AD-passord"
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
 msgid "AD password"
-msgstr "AD passord"
+msgstr "AD-passord"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:74
 msgid "Password for the above user"
 msgstr "Passord for brukeren over"
 
+# "Listen port" should be translated as "Lytteport"
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:78
 msgid "Listen port"
-msgstr "Lytte port"
+msgstr "Lytteport"
 
+# "password sync notifications" should be translated as "passordsynkroniseringsvarsling"
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
 msgid "Port for listening password sync notifications from Windows"
-msgstr "Port for passord synkroniserings varsling fra Windows"
+msgstr "Port for passordsynkroniseringsvarsling fra Windows"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
 msgid "AD Secret Key"
@@ -204,9 +217,10 @@ msgstr "AD Hemmelig Nøkkel"
 msgid "Secret key to be shared between Windows and eBox (16 chars)"
 msgstr "Hemmelig Nøkkel for deling mellom Windows og eBox (16 tegn)"
 
+# "Sync Settings" should be translated "Synkroniseringsinstillinger"
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
 msgid "Windows AD Sync Settings"
-msgstr "Windows AD Synkroniserings Instillinger"
+msgstr "Windows AD Synkroniseringsinstillinger"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:114
 msgid "The secret key needs to have 16 characters."
@@ -226,15 +240,15 @@ msgstr "Windows AD Slave"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:80
 msgid "LDAP DN"
-msgstr ""
+msgstr "LDAP DN"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:85
 msgid "Only for master and AD slave configuration"
-msgstr ""
+msgstr "Bare for sjef og slavekonfigurasjon"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
 msgid "Master host"
-msgstr "Sjefs vert"
+msgstr "Sjefsvert"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:91
 msgid "Only for slave configuration: IP of the master eBox or Windows AD"
@@ -242,11 +256,11 @@ msgstr "Bare for slave konfigurasjon: IP til sjefs eBoxen eller Windows AD"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:95
 msgid "LDAP password"
-msgstr "LDAP passord"
+msgstr "LDAP-passord"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:97
 msgid "Master eBox LDAP password"
-msgstr "Sjefs eBox LDAP passord"
+msgstr "Sjefs eBox LDAP-passord"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:103
 msgid "Configuration"
@@ -254,7 +268,7 @@ msgstr "Konfigurasjon"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:104
 msgid "eBox Users Mode"
-msgstr "eBox Brukeres Modus"
+msgstr "eBox Brukermodus"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:59
 #: src/EBox/UsersAndGroups/Model/Users.pm:61
@@ -276,8 +290,7 @@ msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
-"Du må aktivere modulen Brukere i modul status seksjonen for å kunne bruke "
-"den."
+"Du må aktivere modulen Brukere i modulstatusseksjonen for å kunne bruke den."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:136
 #, fuzzy
@@ -305,7 +318,7 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
-msgstr "Passord behandling"
+msgstr "Passordbehandling"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:59
 msgid "New password"
@@ -344,26 +357,26 @@ msgstr "Synkroniser nå"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:67
 msgid "Base DN"
-msgstr ""
+msgstr "Base DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:79
 #, fuzzy
 msgid "Users DN"
-msgstr "Brukere"
+msgstr "Users DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:85
 #, fuzzy
 msgid "Groups DN"
-msgstr "Grupper"
+msgstr "Groups DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
 #: src/EBox/UsersAndGroups.pm:2280
 msgid "LDAP Info"
-msgstr ""
+msgstr "LDAP-info"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:94
 msgid "LDAP Information"
-msgstr ""
+msgstr "LDAP-informasjon"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
 #, fuzzy
@@ -408,7 +421,7 @@ msgstr "Liste med slaver"
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:70
 #, fuzzy
 msgid "This is a list of those eBox slaves which are subscribed to this eBox."
-msgstr "Dette er en liste med eBox slavene som abbonerer på denne eBoxen."
+msgstr "Dette er en liste med eBox slavene som abonnerer på denne eBoxen."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:71
 msgid "slave"
@@ -420,22 +433,22 @@ msgstr "Det er ingen slaver akkurat nå."
 
 #: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:74
 msgid "Slave status"
-msgstr "Slave status"
+msgstr "Slavestatus"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:66
 msgid ""
 "These configuration options are used when a new user account is created."
 msgstr ""
-"Disse konfigurasjons instillingene er brukt når ny bruker konto er opprettet."
+"Disse konfigurasjonsinstillingene er brukt når ny brukerkonto er opprettet."
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:80
 msgid "There isn't any configurable option"
-msgstr "Det er ingen konfigurasjons instillinger"
+msgstr "Det er ingen konfigurasjonsinnstillinger"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
 #: src/EBox/UsersAndGroups.pm:2266 src/EBox/UsersAndGroups.pm:2275
 msgid "Default User Template"
-msgstr "Standard Bruker Mal"
+msgstr "Standard Brukermal"
 
 #: src/EBox/UsersAndGroups.pm:77
 msgid "Users and Groups"
@@ -444,13 +457,12 @@ msgstr "Brukere og Grupper"
 #: src/EBox/UsersAndGroups.pm:96
 msgid ""
 "Your openLDAP database will be populated with some basic organizational units"
-msgstr ""
-"Din openLDAP database vil bli fylt med noen enkle organiserings enheter"
+msgstr "Din openLDAP database vil bli fylt med noen enkle organisasjonsenheter"
 
 #: src/EBox/UsersAndGroups.pm:97
 msgid "eBox needs this organizational units to add users and groups into them"
 msgstr ""
-"eBox trenger disse organiserings enhetene for å legge til brukere og grupper "
+"eBox trenger disse organisasjonsenhetene for å legge til brukere og grupper "
 "i dem"
 
 #: src/EBox/UsersAndGroups.pm:101
@@ -471,7 +483,7 @@ msgstr "Denne eBoxen trenger å ha ekstern tilgang til brukere i eBox sjefen"
 
 #: src/EBox/UsersAndGroups.pm:116
 msgid "Apparmor profile will be disabled"
-msgstr "Programbeskyttelses profil vil bli deaktivert"
+msgstr "Programbeskyttelsesprofil vil bli deaktivert"
 
 #: src/EBox/UsersAndGroups.pm:117
 msgid "It is not ready to work with more than one slapd"
@@ -488,15 +500,15 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:146
 msgid "To make openLDAP listen on TCP and Unix sockets"
-msgstr "For å la openLDAP høre på TCP og Unix porter"
+msgstr "For å la openLDAP lytte på TCP og Unix porter"
 
 #: src/EBox/UsersAndGroups.pm:151
 msgid ""
 "To copy LDAP admin password generated by  eBox and allow other modules to "
 "access LDAP"
 msgstr ""
-"For å kopiere LDAP admin passord generert av  eBox og tillate andre moduler "
-"å aksessere LDAP"
+"For å kopiere LDAP adminpassord generert av  eBox og tillate andre moduler å "
+"aksessere LDAP"
 
 #: src/EBox/UsersAndGroups.pm:723
 #, perl-brace-format
@@ -505,7 +517,7 @@ msgstr "Brukernavn må ikke være lenger enn {maxuserlength} tegn"
 
 #: src/EBox/UsersAndGroups.pm:821 src/EBox/UsersAndGroups.pm:1437
 msgid "Maximum number of system users reached"
-msgstr "Maksimalt antall system brukere nådd"
+msgstr "Maksimalt antall systembrukere nådd"
 
 #: src/EBox/UsersAndGroups.pm:838
 #, perl-brace-format
@@ -516,7 +528,7 @@ msgstr "Feil UID {uid} for en bruker. UID må være større eller lik {min}"
 #: src/EBox/UsersAndGroups.pm:849
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
-msgstr "Feil UID {uid} for en system bruker. UID må være mindre enn {max}"
+msgstr "Feil UID {uid} for en systembruker. UID må være mindre enn {max}"
 
 #: src/EBox/UsersAndGroups.pm:1361
 #, perl-brace-format
@@ -537,7 +549,7 @@ msgstr "Feil GID {gid} for en gruppe. GID må være lik eller større enn {min}"
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
-"Feil GID {gid} for en system gruppe. GID må være lik eller større enn {max}"
+"Feil GID {gid} for en systemgruppe. GID må være lik eller større enn {max}"
 
 #: src/EBox/UsersAndGroups.pm:2044
 #, perl-brace-format
@@ -546,11 +558,11 @@ msgstr "Passord må ikke være lenger enn {maxPwdLength} tegn"
 
 #: src/EBox/UsersAndGroups.pm:2285
 msgid "Slave Status"
-msgstr "Slave Status"
+msgstr "Slavestatus"
 
 #: src/EBox/UsersAndGroups.pm:2289
 msgid "AD Sync Settings"
-msgstr "AD Synkroniserings Instillinger"
+msgstr "AD Synkroniseringsinnstillinger"
 
 #: src/EBox/UsersAndGroups.pm:2522
 #, perl-brace-format
@@ -590,7 +602,7 @@ msgstr "Feil passord"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:69
 msgid "For security reasons your session has expired due to inactivity"
-msgstr "Av sikkerhets grunner er sesjonen din utgått på grunn av inaktivitet"
+msgstr "Av sikkerhetsårsaker er sesjonen din utgått på grunn av inaktivitet"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:72
 msgid "You have been logged out because a new session has been opened"
@@ -602,7 +614,7 @@ msgstr "Du er ikke logget inn"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User corner"
-msgstr "Bruker hjørne"
+msgstr "Brukerhjørne"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
 msgid "Port"
@@ -610,11 +622,11 @@ msgstr "Port"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
 msgid "User Corner webserver settings"
-msgstr "Bruker hjørne web server instillinger"
+msgstr "Brukerhjørne web-server innstillinger"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
-msgstr "lytte port"
+msgstr "lytteport"
 
 #: src/templates/ajax/tableUser.mas:88
 msgid "Add new"
@@ -650,7 +662,7 @@ msgstr "Legg til Gruppe"
 
 #: src/templates/groups.mas:16
 msgid "Group name"
-msgstr "Gruppe navn"
+msgstr "Gruppenavn"
 
 #: src/templates/groups.mas:26 src/templates/users.mas:41
 #: src/templates/group.mas:20 src/templates/user.mas:41
@@ -677,15 +689,15 @@ msgstr "Legg til Bruker"
 
 #: src/templates/users.mas:17 src/templates/usercorner/login/index.mas:29
 msgid "User name"
-msgstr "Bruker navn"
+msgstr "Brukernavn"
 
 #: src/templates/users.mas:25 src/templates/user.mas:21
 msgid "First name"
-msgstr "For navn"
+msgstr "Fornavn"
 
 #: src/templates/users.mas:33 src/templates/user.mas:31
 msgid "Last name"
-msgstr "Etter navn"
+msgstr "Etternavn"
 
 #: src/templates/users.mas:56 src/templates/user.mas:62
 msgid "Retype password"
@@ -750,7 +762,7 @@ msgstr ""
 
 #: src/templates/user.mas:88
 msgid "User groups"
-msgstr "Bruker grupper"
+msgstr "Brukergrupper"
 
 #: src/templates/user.mas:90
 msgid "Other groups"

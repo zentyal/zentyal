@@ -1,3 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-26 04:06+0200\n"
+"PO-Revision-Date: 2010-01-26 04:12+0100\n"
+"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"X-Generator: Pootle 1.1.0\n"
+
 # Spanish translations for ebox-trafficshaping package.
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
@@ -74,14 +87,14 @@ msgid "Address"
 msgstr "Dirección"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:185
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr "Listas de reglas por interfaz"
+msgstr "{iface} (interfaz interna)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:188
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr "Elije un interfaz externo para moldear"
+msgstr "{iface} (interfaz externa)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:215
 msgid "Guaranteed rate"
@@ -97,7 +110,7 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
-"Objeto {object} no tiene miembros. Añada al menos un miembro para añadir "
+"El objeto {object} no tiene miembros. Añada al menos un miembro para añadir "
 "reglas para usar este objeto."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
@@ -110,7 +123,7 @@ msgstr "Servicio"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:398
 msgid "Port based service"
-msgstr "Servicio basado en puerta"
+msgstr "Servicio basado en puerto"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:410
 msgid "Source"
@@ -165,7 +178,6 @@ msgid "Kbit/s"
 msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:474
-#, fuzzy
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
@@ -188,7 +200,6 @@ msgid "Rules list for {printableIndex}"
 msgstr "Lista de reglas para {printableIndex}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:504
-#, fuzzy
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
@@ -219,26 +230,25 @@ msgstr ""
 "porque su tasa garantizada resultante era menor que la mínima permitida"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:674
-#, fuzzy
 msgid ""
 "Port based protocols use the port number to match a service, while "
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
-"Protocolos basados en puertos usan el número de puerto para que coincida con "
-"un servicio, mientras que los Protocolos basadas en aplicaciones con más "
-"lentas pero más eficaces, ya que comproban el contenido de cualquier paquete "
-"para que coincida con un servicio."
+"Los protocolos basados en puertos usan el número de puerto para comprobar si "
+"coincide con un servicio, mientras que los protocolos basados en aplicación "
+"son más lentos pero más eficaces, ya que comprueban el contenido de "
+"cualquier paquete para comprobar si coincide con un servicio."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:690
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:707
 msgid "Application based service"
-msgstr "Servicio basada en aplicación"
+msgstr "Servicio basado en aplicación"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:698
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:714
 msgid "Application based service group"
-msgstr "Grupo de servicios basada en aplicación"
+msgstr "Grupo de servicios basados en aplicación"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:85
 msgid "External Interface"
@@ -246,17 +256,16 @@ msgstr "Interfaz externa"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:90
 msgid "Upload"
-msgstr "Subida de datos"
+msgstr "Subida"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
-#, fuzzy
 msgid "Upload rate in Kbits/s through this interface"
 msgstr "Tasa de subida de datos en Kbits/s a través de esta interfaz"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
 msgid "Download"
-msgstr "Descarga de datos"
+msgstr "Bajada"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:109
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:110
@@ -269,7 +278,7 @@ msgstr "tasa"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:142
 msgid "You need at least one internal interface and one external interface"
-msgstr ""
+msgstr "Se necesita al menos una interfaz interna y otra externa"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
 #, perl-brace-format
@@ -284,7 +293,7 @@ msgstr ""
 ">Interfaces{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied only if there are gateways with an upload rate "
 "set associated with an external interface. In order to do so, create a "
@@ -292,9 +301,9 @@ msgid ""
 "external one."
 msgstr ""
 "El moldeado de tráfico sólo se aplica a interfaces externas que tienen "
-"puertas de enlace con una tasa máxima de subida. Para conseguirlo, crea una "
-"puerta de enlace en {openhref}Red->Gateways{closehref} poniendo como "
-"interfaz a una externa."
+"puertas de enlace con una tasa máxima de subida. Para ello, se debe crear "
+"una puerta de enlace en {openhref}Red->Gateways{closehref} seleccionando "
+"como interfaz una externa."
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
 msgid "Rules list per interface"
@@ -318,27 +327,22 @@ msgid "Traffic Shaping"
 msgstr "Moldeado de tráfico"
 
 #: src/EBox/TrafficShaping.pm:133
-#, fuzzy
 msgid "Add iptables rules to mangle table"
-msgstr "Añadir reglas de iptables para gestionar tabla"
+msgstr "Añadir reglas de iptables para la tabla mangle"
 
 #: src/EBox/TrafficShaping.pm:134
-#, fuzzy
 msgid "To mark packets with different priorities and rates"
-msgstr "Marcar paquetes con distintas prioridades y tasas"
+msgstr "Para marcar paquetes con distintas prioridades y tasas"
 
 #: src/EBox/TrafficShaping.pm:138
-#, fuzzy
 msgid "Add tc rules"
 msgstr "Añadir reglas de tc"
 
 #: src/EBox/TrafficShaping.pm:139
-#, fuzzy
 msgid "To implement the traffic shaping rules"
 msgstr "Para implementar las reglas de moldeado de tráfico"
 
 #: src/EBox/TrafficShaping.pm:384
-#, fuzzy
 msgid "Rules"
 msgstr "Reglas"
 

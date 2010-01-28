@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:53+0100\n"
-"PO-Revision-Date: 2010-01-16 19:43+0100\n"
+"PO-Revision-Date: 2010-01-27 21:44+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr "Modell"
 #: src/EBox/CGI/Model.pm:53
 #, perl-brace-format
 msgid "Printer {printer} has no available drivers"
-msgstr ""
+msgstr "A(z) {printer} nyomtatóhoz nem érhető el meghajtóprogram"
 
 #: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:30
 #: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
@@ -263,8 +263,8 @@ msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
 msgstr ""
-"A nyomtató neve érvénytelen karaktereket tartalmaz! Csak alfanumerikus "
-"karakterek engedélyezettek!"
+"A nyomtató neve érvénytelen karaktereket tartalmaz. Csak alfanumerikus "
+"karakterek engedélyezettek."
 
 #: src/EBox/Printers.pm:502 src/templates/addprinter.mas:15
 #: src/templates/printer.mas:79 src/templates/printers.mas:37
@@ -311,7 +311,7 @@ msgstr "Érvénytelen beállítás"
 #: src/EBox/Printers.pm:1108
 #, perl-brace-format
 msgid "Parameter '{name}' does not exist"
-msgstr "Nem létező paraméter: '{name}'"
+msgstr "Nem létező paraméter: „{name}”"
 
 #: src/EBox/Printers.pm:1289 src/templates/printer.mas:77
 msgid "Job ID"
@@ -376,7 +376,7 @@ msgstr "Helyi, párhuzamos nyomtató beállítása"
 #: src/templates/del.mas:12
 #, perl-brace-format
 msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr "Biztos, hogy törölni akarja ezt a nyomtatót: '{name}'?"
+msgstr "Biztos, hogy törölni akarja ezt a nyomtatót: „{name}”?"
 
 #: src/templates/del.mas:21 src/templates/printer.mas:121
 #: src/templates/printer.mas:122 src/templates/printer.mas:123
@@ -418,16 +418,15 @@ msgstr "Művelet"
 
 #: src/templates/printer.mas:131
 msgid "This printer has no pending job in queue at the moment"
-msgstr "Jelenleg a nyomtatóra nem vár feladat a nyomtatási sorban"
+msgstr "Jelenleg nem vár feladat a nyomtatási sorban a nyomtatóra"
 
 #: src/templates/printer.mas:179
 msgid "You need to save changes in order to print a test page"
-msgstr ""
+msgstr "El kell mentenie a beállításokat a tesztoldal kinyomtatása előtt"
 
 #: src/templates/printer.mas:184 src/templates/printer.mas:185
-#, fuzzy
 msgid "Print Test Page"
-msgstr "Nyomtató neve"
+msgstr "Tesztoldal nyomtatása"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"
@@ -467,12 +466,12 @@ msgstr "Megosztott Samba nyomtató beállítása"
 
 #: src/templates/printerback.mas:112 src/templates/samba.mas:24
 msgid "Share resource"
-msgstr "Megosztott erőforrás"
+msgstr "Erőforrás megosztása"
 
 #: src/templates/printerback.mas:126 src/templates/printerback.mas:128
 #: src/templates/samba.mas:38 src/templates/samba.mas:40
 msgid "Anonymous"
-msgstr "Anonymous (névtelen felhasználó)"
+msgstr "Anonymous"
 
 #: src/templates/printerback.mas:132 src/templates/printerback.mas:134
 #: src/templates/samba.mas:44 src/templates/samba.mas:46

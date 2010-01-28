@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:10+0100\n"
-"PO-Revision-Date: 2010-01-18 16:40+0100\n"
-"Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
+"PO-Revision-Date: 2010-01-27 10:26+0100\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -229,7 +229,7 @@ msgstr "Elutasít"
 
 #: src/EBox/MailFilter/Types/Policy.pm:32
 msgid "Bounce"
-msgstr ""
+msgstr "Kiszűr"
 
 #: src/EBox/MailFilter/Types/Policy.pm:33
 msgid "Discard"
@@ -427,7 +427,7 @@ msgstr "Az a küszöbérték ami fölött levélszemét minősítést kap az üz
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:71
 msgid "Spam subject tag"
-msgstr ""
+msgstr "Levélszemét tárgy bejegyzése"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:74
 msgid "Tag which will be added to the spam mail subject"
@@ -443,95 +443,109 @@ msgstr "automatikus fehér lista"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:87
 msgid "Change the score of mail according to the sender history"
-msgstr ""
+msgstr "A kiküldött levelek listája alapján változtassa meg a levél pontozását"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:91
 msgid "Auto-learn"
-msgstr "automatikus tanulás"
+msgstr "Automatikus tanulás"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
 msgid "Feedback the learning system with messages that reach the threshold"
-msgstr ""
+msgstr "Jelezze vissza a tanuló rendszernek a küszöbértéken átment leveleket"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:99
 msgid "Autolearn spam threshold"
-msgstr ""
+msgstr "Automatikus tanulási pontküszöb"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:103
 msgid ""
 "Spam messages with a score equal or greater than this threshold will be "
 "added to the learning system "
 msgstr ""
+"Azok a spam üzenetek amelyek egyenlő vagy nagyobb pontot kaptak ennél, hozzá "
+"lesznek adva a tanuló rendszerhez "
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:107
 msgid "Autolearn ham threshold"
-msgstr ""
+msgstr "Automatikus HAM küszöb"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:110
 msgid ""
 "Ham messages with a score below this threshold will be added to the learning "
 "system"
 msgstr ""
+"Azok a ham üzenetek amelyek határérték alatt lettek pontozva hozzá lesznek "
+"adva a tanuló rendszerhez"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:116
 msgid "Antispam configuration"
-msgstr ""
+msgstr "Levélszemétszűrő beállítása"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:168
 msgid ""
 "You must define autolearn spam threshold when autolearn option is active"
 msgstr ""
+"Be kell állítsa az automatikus tanulási küszöbértéket ha az automatikus "
+"tanulás aktív"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:174
 msgid "You must define autolearn ham threshold when autolearn option is active"
 msgstr ""
+"Be kell állítsa az automatikusa tanulási ham küszöbértéket ha az automatikus "
+"tanulás aktív"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:180
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
 msgstr ""
+"Az automatikus tanulási küszöb alacsonyabb mint az alapértelmezett "
+"levélszemét küszöbérték "
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:186
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
 msgstr ""
+"Az automatikus ham tanulási küszöb nagyobb vagy egyenlő mint az "
+"alapértelmezett levélszemét küszöbérték "
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:70
 msgid "External mail domain"
-msgstr ""
+msgstr "Külső levelezési tartomány"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:84
 msgid "External mail domains"
-msgstr ""
+msgstr "Külső levelezési tartományok"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:96
 msgid "external mail domain"
-msgstr ""
+msgstr "külső levelezési tartomány"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:97
 msgid ""
 "Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
+"Itt beállíthatja milyen külső levelezési tartományok csatlakozhatnak a "
+"levélszűrőre"
 
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:115
 #, perl-brace-format
 msgid "{d} is a internal eBox's virtual main domain"
-msgstr ""
+msgstr "{d} egy belső eBox virtuális levelezőtartomány"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:70
 msgid "Filter virus"
-msgstr "vírusszűrő"
+msgstr "Szűrje a vírust"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:76
 msgid "Filter spam"
-msgstr "SPAM szűrő"
+msgstr "Szűrje a SPAMet"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
 msgid "ISP spam subject"
-msgstr "SPAM esetén az internetszolgáltatónak a tárgyban szereplő szövege"
+msgstr "ISP spam tárgyszövege"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
 msgid ""
@@ -543,17 +557,19 @@ msgstr ""
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:94
 msgid "Configuration"
-msgstr "beállítás"
+msgstr "Beállítás"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:114
 msgid ""
 "The POP transparent proxy must scan for something to be useful. If you do "
 "not need either antivirus of spam scan we suggest you turn it off"
 msgstr ""
+"A POP transzparens proxy hasznos dolgokért szkennel. Ha önnek nincs szüksége "
+"sem vírus sem levélszemét szkennelésre javaslom, hogy kapcsolja ki"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:63
 msgid "Virus policy"
-msgstr "vírus házirend"
+msgstr "Vírus házirend"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:69
 msgid "Spam policy"
@@ -581,15 +597,15 @@ msgstr "postafiók tartalma"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:76
 msgid "Train bayesian spam filter"
-msgstr ""
+msgstr "Bayes alapú levélszemétszűrő tanítása"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:81
 msgid "Learned from messages"
-msgstr ""
+msgstr "Tanuljon a levelkből"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:83
 msgid "Train"
-msgstr ""
+msgstr "Tanul"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:98
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
@@ -600,20 +616,20 @@ msgstr "SPAM"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:99
 msgid "ham"
-msgstr ""
+msgstr "HAM"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:131
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
-msgstr "érvénytelen postafiók típus: {type}"
+msgstr "Érvénytelen postafiók típus: {type}"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:69
 msgid "Domain"
-msgstr "domain"
+msgstr "Tartomány"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:79
 msgid "Use virus filtering"
-msgstr "vírusszűrő használata"
+msgstr "Vírusszűrő használata"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:85
 msgid "Use spam filtering"
@@ -629,17 +645,19 @@ msgstr "egyedi határérték"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:114
 msgid "Learn from accounts' Spam IMAP folders"
-msgstr ""
+msgstr "Tanuljon a felhasználói fiókok IMAP Spam mappáiból"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:116
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
 msgstr ""
+"Minden alkalommal amikor egy levél be vagy kikerül az IMAP spam mappájából, "
+"a szűrő tanul ebből"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:123
 msgid "Learning ham account"
-msgstr ""
+msgstr "Ham tanulófiók"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:124
 msgid ""
@@ -647,10 +665,13 @@ msgid ""
 "incorrectly classified as spam may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Egy levelezőcím (ham@tartománynév) lesz létrehozva, és azok a leveleket "
+"lehet erre továbbítani amelyek hibásan lettek levélszemétnek jelölve, evvel "
+"tanítva a szűrőt"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:135
 msgid "Learning spam account"
-msgstr ""
+msgstr "Spam tanulófiók"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:136
 msgid ""
@@ -658,14 +679,17 @@ msgid ""
 "incorrectly classified as ham may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Egy levelezőcím (spam@tartománynév) lesz létrehozva, és azok a leveleket "
+"lehet erre továbbítani amelyek hibásan lettek jó levélnek jelölve, evvel "
+"tanítva a szűrőt"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:147
 msgid "Antispam sender policy"
-msgstr ""
+msgstr "Levélszemétszűrő küldő szabálya"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:169
 msgid "virtual domain"
-msgstr "virtuális domain"
+msgstr "virtuális tartomány"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:187
 #, perl-brace-format
@@ -673,10 +697,12 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"Nincsenek beállítva a szerveren virtuális levelezőtartományok. Ezt megteheti "
+"a {openA}virtuális tartományok{closeA} lapon."
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
 msgid "Mail filter graph"
-msgstr ""
+msgstr "Levélszűrő grafikonja"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:60
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:46
@@ -685,7 +711,7 @@ msgstr ""
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:80
 #: src/EBox/MailFilter/Model/Report/POPProxyGraph.pm:66
 msgid "clean messages"
-msgstr "(meg)tisztított üzenetek"
+msgstr "tiszta üzenetek"
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:68
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:52
@@ -715,7 +741,7 @@ msgstr "forgalomszűrő"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
 msgid "blacklisted senders"
-msgstr ""
+msgstr "feketelistára tett küldők"
 
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
 msgid "bad message header"
@@ -793,6 +819,7 @@ msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
 msgstr ""
+"A spam határérték nem lehet kisebb vagy egyenlő a ham tanulási határértéknél"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:390
 msgid ""
@@ -800,40 +827,44 @@ msgid ""
 "configuration. In order to be able to learn enable the bayesian filter and "
 "save changes"
 msgstr ""
+"Nem tanítható mivel a bayes féle szűrő ki van kapcsolva. Előbb kapcsolja be "
+"a bayes féle szűrőt majd mentse a változtatásokat"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:404
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
 msgstr ""
+"A(z) {d} tartomány levelezőfiókjai nem tudják tanítani a bayesféle szűrőt"
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
 msgid "External connections"
-msgstr "külső kapcsolatok"
+msgstr "Külső kapcsolatok"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:59
-#, fuzzy
 msgid "Attached Files Filter"
-msgstr "csatolt fájlok szűrője"
+msgstr "Csatolt fájlok szűrője"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:61
 msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
 msgstr ""
+"Szűre a csatolmánnyal rendelkező leveleket. A transzparens POP proxy csak "
+"kiterjesztés szerint tud szűrni"
 
 #: src/EBox/MailFilter/Composite/Report/FilterReport.pm:70
 #: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:70
 msgid "Mail filter report"
-msgstr "levélszűrő riport"
+msgstr "Levélszűrő jelentés"
 
 #: src/EBox/MailFilter/Composite/Report/FilterReport.pm:71
 msgid "Mail Filter report"
-msgstr "levélszűrő riport"
+msgstr "Levélszűrő jelentés"
 
 #: src/EBox/MailFilter/Composite/Report/POPProxyReport.pm:71
 msgid "Transparent POP proxy report"
-msgstr "transzparens POP proxy riport"
+msgstr "Transzparens POP proxy jelentés"
 
 #: stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
-msgstr "[Virus] nevű vírust találtam egy levélben!"
+msgstr "[Virus] nevű vírust találtam egy levélben:"

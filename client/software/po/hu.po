@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:53+0100\n"
-"PO-Revision-Date: 2010-01-19 22:29+0100\n"
+"PO-Revision-Date: 2010-01-27 21:57+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -98,7 +98,6 @@ msgid "Software updates are being handled automatically"
 msgstr "A szoftverfrissítéseket a rendszer automatikusan kezeli"
 
 #: src/EBox/CGI/Updates.pm:52
-#, fuzzy
 msgid "The system components are up to date."
 msgstr "A rendszer naprakész"
 
@@ -249,6 +248,7 @@ msgid ""
 "Please wait, the update of the software available list is in process right "
 "now"
 msgstr ""
+"Kis türelmet, az elérhető csomagok listájának frissítése folyamatban van"
 
 #: src/templates/updateNote.mas:10
 msgid ""
@@ -256,6 +256,9 @@ msgid ""
 "is probably outdated. The list is updated each night or you can force the "
 "update with the console command 'ebox-software'"
 msgstr ""
+"A komponens listája soha nem lett letöltve, emiatt az információk "
+"valószínűleg elavultak. A lista minden éjjel frissül, vagy saját kezűleg is "
+"frissítheti az „ebox-software” paranccsal"
 
 #: src/templates/updateNote.mas:20
 #, perl-brace-format
@@ -264,3 +267,6 @@ msgid ""
 "be updated again at night or you can force the update with the console "
 "command 'ebox-software'"
 msgstr ""
+"A komponenslista frissítésének ideje: {year}. {mon} {mday}. {hour}.{min}. "
+"Éjjel újra frissítve lesz, vagy saját kezűleg is frissítheti az „ebox-"
+"software” paranccsal"
