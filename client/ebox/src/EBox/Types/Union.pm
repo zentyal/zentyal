@@ -446,6 +446,8 @@ sub _restoreFromHash
         $self->_addToCache($selected);
     }
 
+    return unless (defined($selected));
+
     foreach my $type (@{$self->{'subtypes'}}) {
         next unless ($type->fieldName() eq $selected);
         $type->restoreFromHash();
