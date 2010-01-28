@@ -1,3 +1,6 @@
+HEAD
+        + managesieve plugin configuration file stored in /etc to shield
+	it from package upgrades
 1.3.14
 	+ Bugfix: assure cache is disabled when using a localhost
 	server. This is neccesary or otherwise we will be bitten for

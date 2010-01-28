@@ -37,8 +37,10 @@ use File::Slurp;
 use constant {
     MAIN_INC_FILE => '/etc/roundcube/main.inc.php',
     DES_KEY_FILE  => EBox::Config::conf() . 'roundcube.key',
-    SIEVE_PLUGIN_INC_FILE => 
+    SIEVE_PLUGIN_INC_USR_FILE => 
            '/usr/share/roundcube/plugins/managesieve/config.inc.php',
+    SIEVE_PLUGIN_INC_ETC_FILE => 
+           '/etc/roundcube/managesieve-config.inc.php',
 };
 
 
@@ -123,6 +125,7 @@ sub _managesieveEnabled
 sub _setManageSievePluginConf
 {
     my ($self) = @_;
+
     my $params;
     if ($self->_usesEBoxMail()) {
         $params = [
@@ -137,10 +140,15 @@ sub _setManageSievePluginConf
 
 
     $self->writeConfFile(
-                         SIEVE_PLUGIN_INC_FILE,
+                         SIEVE_PLUGIN_INC_ETC_FILE,
                          'webmail/managesieve-config.php.inc.mas',
                          $params
                         );
+    # removing /usr file  and creatign a link to avoid package upgrades troubles
+    EBox::Sudo::root('rm ' . SIEVE_PLUGIN_INC_USR_FILE);
+    EBox::Sudo::root('ln -s ' . SIEVE_PLUGIN_INC_ETC_FILE . ' ' . 
+                                SIEVE_PLUGIN_INC_USR_FILE);
+
 }
 
 sub _confFromMail
@@ -277,7 +285,7 @@ sub usedFiles
               'module' => 'webmail'
             },
             {
-              'file' => SIEVE_PLUGIN_INC_FILE,
+              'file' => SIEVE_PLUGIN_INC_USR_FILE,
               'reason' => __('To configure managesieve Roundcube webmail plugin.'),
               'module' => 'webmail'
             },
