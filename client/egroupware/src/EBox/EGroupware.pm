@@ -214,8 +214,17 @@ sub _setConf
                            config_passwd => $md5pass,
                            db_pass => getPassword()]);
 
+    $self->_update();
     $self->_setAuth();
     $self->_configVDomain();
+}
+
+sub _update
+{
+    my ($self) = @_;
+
+    my $path = EBox::Config::share() . '/ebox-egroupware';
+    EBox::Sudo::root("$path/ebox-egroupware-update-db");
 }
 
 sub _setAuth
