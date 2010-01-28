@@ -396,6 +396,47 @@ sub postmasterAddress
 }
 
 
+# Method: viewCustomizer
+#
+#      Return a custom view customizer to set a permanent message if
+#      the mailname is incorrect
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my $mail = EBox::Global->modInstance('mail');
+    my $mailname = $mail->mailname();
+    if (not $mailname =~ m/\./) {
+        my $msg;
+        if ($mailname eq $mail->_fqdn()) {
+            $msg = __(
+q{The mailname is setted to the server's hostname and the hostname si not } .
+'fully qualified. '
+                     );
+        } else {
+            $msg = __('The selected mailname is not a full qualified hostname. ')
+        }
+
+        $msg .= __(
+'Not having a full qualified hostname could cause some mail servers to reject ' .
+'mail and incorrect reply addresses of system users'
+
+                  );
+
+        $customizer->setPermanentMessage($msg);
+    }
+
+    return $customizer;
+
+}
 
 
 1;

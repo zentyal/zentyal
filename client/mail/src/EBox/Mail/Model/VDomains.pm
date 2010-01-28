@@ -204,6 +204,16 @@ __x(
 q{'sieve' is a reserved name in this context, please choose another name}
                                             ));
     }
+
+    my $mailname = EBox::Global->modInstance('mail')->mailname;
+    if ($vdomain eq $mailname) {
+            throw EBox::Exceptions::InvalidData(
+                               data => __('Mail virtual domain'),
+                               value => $vdomain,
+                               advice => 
+__('The virtual domain name could not be named equal than the mailname')
+                                           );          
+    }
 }
 
 

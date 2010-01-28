@@ -232,10 +232,6 @@ sub enableActions
 {
     my ($self) = @_;
 
-    # check that we have a correct mailnae
-    $self->checkMailname($self->mailname());
-
-
     $self->performLDAPActions();
 
     root(EBox::Config::share() . '/ebox-mail/ebox-mail-enable');
@@ -682,8 +678,8 @@ sub checkMailname
         my $advice;
         if ($mailname eq $self->_fqdn()) {
             $advice = __(
-'Cannot use the hostname as mailname because it is a no-full' . '
- qualified hostname. Please, define a custom server mailname'
+'Cannot use the hostname as mailname because it is a no-full' . 
+' qualified hostname. Please, define a custom server mailname'
                         );
         } else {
             $advice = 
@@ -697,6 +693,20 @@ sub checkMailname
                                             advice => $advice,
                                            );
     }
+
+    # check that the mailname is not equal to any vdomain
+    my @vdomains = $self->{vdomains}->vdomains();
+    foreach my $vdomain (@vdomains) {
+        if ($vdomain eq $mailname) {
+            throw EBox::Exceptions::InvalidData(
+                                            data => __('Host mail name'),
+                                            value => $mailname,
+                                            advice => 
+__('The mail name is identical to the name of a virtual mail domain')
+                                           );   
+        }
+    }
+
 
     EBox::Validate::checkDomainName($mailname, __('Host mail name'));
 
