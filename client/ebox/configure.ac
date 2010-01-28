@@ -1,7 +1,7 @@
-AC_INIT([EBox], [1.3.15])
+AC_INIT([EBox], [1.3.16])
 
 AC_CONFIG_AUX_DIR([config])
-AC_CONFIG_SRCDIR([src/EBox/SysInfo.pm])
+AC_CONFIG_SRCDIR([src/EBox/SysInfo.pm.in])
 
 AM_INIT_AUTOMAKE([foreign 1.8])
 
@@ -110,6 +110,7 @@ src/templates/logs/Makefile
 src/templates/js/Makefile
 src/templates/report/Makefile
 src/templates/Makefile
+src/EBox/SysInfo.pm
 src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/interactiveTest/Makefile

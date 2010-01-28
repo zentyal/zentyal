@@ -39,14 +39,18 @@ use EBox::Menu::Folder;
 use EBox::Report::DiskUsage;
 use EBox::Report::RAID;
 
+use constant LATEST_VERSION => '/var/lib/ebox/latestversion';
+
 sub _create
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'sysinfo',
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => 'sysinfo',
                                           printableName => __('System Information'),
                                           @_);
-	bless($self, $class);
-	return $self;
+    $self->{version} = "1.3.16";
+
+    bless($self, $class);
+    return $self;
 }
 
 
@@ -78,11 +82,22 @@ sub generalWidget
     my $time_command = "LC_TIME=" . EBox::locale() . " /bin/date";
     my $time = `$time_command`;
 
+    my $version = $self->{version};
+    my $lastVersion;
+    open (my $fh, LATEST_VERSION);
+    read ($fh, $lastVersion, 16);
+    close ($fh);
+    if ($lastVersion gt $version) {
+        my $url =
+           "http://trac.ebox-platform.com/wiki/Document/Documentation/Updates";
+        my $available = __('available');
+        $version .=
+           " (<a target='_blank' href='$url'>$lastVersion $available</a>)";
+    }
+
     $section->add(new EBox::Dashboard::Value(__("Time"), $time));
     $section->add(new EBox::Dashboard::Value(__("Hostname"), hostname));
-    $section->add(new EBox::Dashboard::Value(
-    __("eBox version"),
-    EBox::Config::version));
+    $section->add(new EBox::Dashboard::Value(__("Core version"), $version));
     $section->add(new EBox::Dashboard::Value(
         __("System load"), join(', ', Sys::CpuLoad::load)));
 }
@@ -204,58 +219,58 @@ sub toggledElements()
 #
 # Method: menu
 #
-#   	Overriden method that returns the core menu entries:
+#   Overriden method that returns the core menu entries:
 #
-#	- Summary
-#	- Save/Cancel
-#	- Logout
-#	- EBox/General
-#	- EBox/Backup
-#	- EBox/Halt
-#	- EBox/Bug
+#   - Summary
+#   - Save/Cancel
+#   - Logout
+#   - EBox/General
+#   - EBox/Backup
+#   - EBox/Halt
+#   - EBox/Bug
 sub menu
 {
-	my ($self, $root) = @_;
+    my ($self, $root) = @_;
 
-	$root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
-					'text' => __('Dashboard'),
-					'separator' => 'Core',
-					'order' => 10));
+    $root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
+                    'text' => __('Dashboard'),
+                    'separator' => 'Core',
+                    'order' => 10));
 
-	$root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
-					'text' => __('Module Status'),
-					'separator' => 'Core',
-					'order' => 20));
+    $root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
+                    'text' => __('Module Status'),
+                    'separator' => 'Core',
+                    'order' => 20));
 
 
-	my $folder = new EBox::Menu::Folder('name' => 'EBox',
-					    'text' => __('System'),
-					    'order' => 30);
+    my $folder = new EBox::Menu::Folder('name' => 'EBox',
+                        'text' => __('System'),
+                        'order' => 30);
 
-	$folder->add(new EBox::Menu::Item('url' => 'EBox/General',
-					  'text' => __('General')));
+    $folder->add(new EBox::Menu::Item('url' => 'EBox/General',
+                      'text' => __('General')));
 
-	$folder->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
-					  'text' => __('Disk Usage')));
+    $folder->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
+                      'text' => __('Disk Usage')));
 
-	$folder->add(new EBox::Menu::Item(
-			 'url' => 'Report/RAID',
+    $folder->add(new EBox::Menu::Item(
+             'url' => 'Report/RAID',
              'text' => __('RAID'))
-		    );
+            );
 
 
-	$folder->add(new EBox::Menu::Item('url' => 'EBox/Backup',
-					  'text' => __('Backup')));
+    $folder->add(new EBox::Menu::Item('url' => 'EBox/Backup',
+                      'text' => __('Backup')));
 
-	$folder->add(new EBox::Menu::Item('url' => 'EBox/Halt',
-					  'text' => __('Halt/Reboot')));
+    $folder->add(new EBox::Menu::Item('url' => 'EBox/Halt',
+                      'text' => __('Halt/Reboot')));
 
-#	$folder->add(new EBox::Menu::Item('url' => 'EBox/Bug',
-#					  'text' => __('Bug report')));
+#   $folder->add(new EBox::Menu::Item('url' => 'EBox/Bug',
+#                     'text' => __('Bug report')));
 
 
 
-	$root->add($folder);
+    $root->add($folder);
 }
 
 sub logReportInfo
