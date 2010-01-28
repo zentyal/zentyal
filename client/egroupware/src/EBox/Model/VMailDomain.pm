@@ -150,7 +150,7 @@ sub _table
         new EBox::Types::Select(
             'fieldName' => 'vdomain',
             'printableName' => __('Virtual Domain'),
-            'unique' => 1,
+            'disableCache' => 1,
             'populate' => \&vdomains,
             'editable' => 1,
         ),
