@@ -18,6 +18,7 @@ use warnings;
 use strict;
 
 use EBox::Gettext;
+use Error qw(:try);
 
 EBox::Gettext::settextdomain('ebox-package-installer');
 
@@ -154,27 +155,28 @@ push (@packages, 'remoteservices');
 
 installPackages(@packages);
 
-# Apache is the most basic module, if it's not installed correctly,
-# we assume that the installation has failed
-if (system ("$INSTALL_FILES/ebox-module-installed apache") != 0) {
-        showDialog(__('Error'), __('Installation failed.') . "\n\n" .
-                   __("Check contents of $LOG to see what happened"));
-        exit (1);
-}
-
 workarounds();
 
 # After eBox is installed we can load its packages
 eval 'use EBox';
 eval 'use EBox::Global';
 eval 'use EBox::ServiceManager';
-eval 'use Error qw(:try)';
+failed() if $@;
 
-chown ('ebox', 'ebox', $LOG);
+my (undef, undef, $uid, $gid) = getpwnam('ebox');
+chown ($uid, $gid, $LOG);
 EBox::init();
 chdir ('/var/lib/ebox/tmp');
 
 my $global = EBox::Global->getInstance();
+failed() unless defined $global;
+
+# Apache is the most basic module, if it's not installed correctly,
+# we assume that the installation has failed
+unless ($global->modExists('apache')) {
+    failed();
+}
+
 my $mgr = EBox::ServiceManager->new();
 
 my $network;
@@ -255,6 +257,14 @@ sub installPackages # (packages)
         exit (1);
     }
 }
+
+sub failed
+{
+    showDialog(__('Error'), __('Installation failed.') . "\n\n" .
+               __("Check contents of $LOG to see what happened"));
+    exit (1);
+}
+
 
 sub workarounds
 {
