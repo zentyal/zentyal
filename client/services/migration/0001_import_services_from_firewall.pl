@@ -119,8 +119,8 @@ sub _addBaseServices
         $serviceMod->addService(%adminService);
     }
 
-    unless ($serviceMod->serviceExists('name' => 'SSH')) {
-        $serviceMod->addService('name' => 'SSH',
+    unless ($serviceMod->serviceExists('name' => 'ssh')) {
+        $serviceMod->addService('name' => 'ssh',
                 'description' => 'SSH',
                 'domain' => __d('ebox-services'),
                 'protocol' => 'tcp',
