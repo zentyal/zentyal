@@ -25,7 +25,7 @@ sub runGConf
         return;
     }
 
-    EBox::Sudo::root("mv  $oldDir/* $newDir");
+    EBox::Sudo::root("mv -T $oldDir $newDir");
     EBox::Sudo::root("rm -rf $oldDir");
 }
 
