@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:28+0000\n"
+"POT-Creation-Date: 2010-01-28 15:21+0000\n"
 "PO-Revision-Date: 2009-08-04 06:23+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -373,8 +373,8 @@ msgstr "虛擬網域已新增。您需要儲存變更來使用這個網域"
 #: src/EBox/Mail/Model/VDomainAliases.pm:101
 #, perl-brace-format
 msgid ""
-"Cannot add alias {al} because it is already a virtual domain with the same "
-"name"
+"Cannot add {al} alias because there is already a virtual domain with the "
+"same name"
 msgstr ""
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:108

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:15+0000\n"
+"POT-Creation-Date: 2010-01-28 13:41+0000\n"
 "PO-Revision-Date: 2008-09-01 08:34+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -736,7 +736,7 @@ msgstr ""
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
 msgid ""
-"Here you can globaly block or allow access by user group. Filter options "
+"Here you can globally block or allow access by user group. Filter options "
 "will be by global policy or by object policy"
 msgstr ""
 
