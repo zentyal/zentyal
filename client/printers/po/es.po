@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:11+0000\n"
 "PO-Revision-Date: 2010-01-27 02:00+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: \n"
@@ -426,7 +426,8 @@ msgstr "Esta impresora no tiene ningún trabajo pendiente en estos momentos"
 
 #: src/templates/printer.mas:179
 msgid "You need to save changes in order to print a test page"
-msgstr "Se necesita salvar los cambios para poder imprimir una página de prueba"
+msgstr ""
+"Se necesita salvar los cambios para poder imprimir una página de prueba"
 
 #: src/templates/printer.mas:184 src/templates/printer.mas:185
 msgid "Print Test Page"

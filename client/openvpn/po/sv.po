@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:11+0000\n"
 "PO-Revision-Date: 2009-05-28 13:56+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
@@ -150,16 +150,18 @@ msgid "File supplied as client's private key is not valid"
 msgstr "Filen som angetts som klientens privata nyckelfil är inte giltig"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
 "Filen som angetts som klientcertifikat matchar inte med filen som angetts "
 "som CA certifikat"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
 "Filen som angetts som klientcertifikat matchar inte med filen som angetts "
@@ -452,7 +454,7 @@ msgstr "Klient"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
 #, perl-brace-format
-msgid "No file supplied or already setted for {f}"
+msgid "No file supplied or already set for {f}"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
@@ -538,10 +540,10 @@ msgid "Cannot create a server because there is not a CA certificate"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"{act} not possible because there aren'tany available certificate. Please, go "
-"tothe certificate authority moduleand create new certificates"
+"{act} not possible because there aren't any available certificate. Please, "
+"go to the certificate authority moduleand create new certificates"
 msgstr ""
 "{act} är inte möjlig eftersom det inte finns några tillgängliga certifikat. "
 "Vänligen gå till CA modulen och skapa nya certifikat"

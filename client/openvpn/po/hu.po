@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:11+0000\n"
 "PO-Revision-Date: 2010-01-27 11:49+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -151,16 +151,18 @@ msgid "File supplied as client's private key is not valid"
 msgstr "A fájl szolgáltatás mint kliens (ügyfél) privát kulcsfájl érvénytelen."
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
 "A kliens oldali tanúsítvány fájlja nem egyezik a CA kiszolgáló által "
 "tárolttal"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
 "A kliens oldali tanúsítvány fájlja nem egyezik a tanúsítványhoz tartozó "
@@ -462,8 +464,8 @@ msgid "client"
 msgstr "kliens (ügyfél)"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
-#, perl-brace-format
-msgid "No file supplied or already setted for {f}"
+#, fuzzy, perl-brace-format
+msgid "No file supplied or already set for {f}"
 msgstr "Nincs megadott fájt, vagy már be van állítva: {f}"
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
@@ -547,10 +549,10 @@ msgid "Cannot create a server because there is not a CA certificate"
 msgstr "Nem lehet létrehozni a kiszolgálót, mert nincs CA tanúsítványa!"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"{act} not possible because there aren'tany available certificate. Please, go "
-"tothe certificate authority moduleand create new certificates"
+"{act} not possible because there aren't any available certificate. Please, "
+"go to the certificate authority moduleand create new certificates"
 msgstr ""
 "{act} nem lehetséges mivel nincs használható tanúsítvány. Kérem menjen a "
 "tanúsító hatóság modulba és hozzon létre új tanúsítványt"

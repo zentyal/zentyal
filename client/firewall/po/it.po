@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:50+0100\n"
+"POT-Creation-Date: 2010-01-28 13:05+0000\n"
 "PO-Revision-Date: 2009-11-15 17:01+0100\n"
 "Last-Translator: gabriele <g.garis@inwind.it>\n"
 "Language-Team: none\n"
@@ -79,7 +79,8 @@ msgstr "porta"
 msgid "protocol"
 msgstr "protocollo"
 
-#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
+#: src/EBox/Firewall.pm:825 src/EBox/CGI/Filter.pm:28
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "Filtro Pacchetti"
 
@@ -133,10 +134,6 @@ msgstr "LASCIA"
 #: src/EBox/Firewall.pm:852 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
 msgstr "LOG"
-
-#: src/EBox/CGI/Filter.pm:28
-msgid "Packet filtering"
-msgstr "Filtraggio pacchetto"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 #, fuzzy
@@ -319,12 +316,13 @@ msgid "Filtering rules from internal networks to eBox"
 msgstr "Regole di filtro da reti interne ad eBox"
 
 #: src/templates/filter.mas:8
+#, fuzzy
 msgid ""
-"These rules are meant to control access from internal network interfaces to "
-"services running on your eBox machine"
+"These rules allow you to control access from internal networks to services "
+"running on your eBox machine."
 msgstr ""
-"Queste regole sono studiate per controllare l'accesso da parte delle "
-"interfacce di rete interna ai servizi in esecuzione sulla macchina di eBox"
+"Queste regole ti permettono di controllare l'accesso dalle reti esterne ai "
+"servizi in esecuzione sulla macchina di eBox."
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
@@ -337,10 +335,11 @@ msgid "Filtering rules for internal networks"
 msgstr "Regole di filtro per reti interne"
 
 #: src/templates/filter.mas:15
+#, fuzzy
 msgid ""
-"These rules allow you to control access  from your internal networks to the "
-"Internet, and traffic between your internal networks. If you wish to provide "
-"access to your eBox services, you must use the above section"
+"These rules allow you to control access from internal networks to the "
+"Internet and traffic between internal networks. If you wish to provide "
+"access to your eBox services, you must use the above section."
 msgstr ""
 "Queste regole ti permettono di controllare l'accesso dalle tue reti interne "
 "verso Internet, ed il traffico fra la tue reti interne. Se desideri fornire "
@@ -351,7 +350,9 @@ msgid "Filtering rules for traffic coming out from eBox"
 msgstr "Regole di filtro per il traffico proveniente da eBox"
 
 #: src/templates/filter.mas:23
-msgid "These rules allow you to control access from eBox to external services"
+#, fuzzy
+msgid ""
+"These rules allow you to control access from your eBox to external services."
 msgstr ""
 "Queste regole ti permettono di controllare l'accesso da eBox ai servizi "
 "esterni"
@@ -369,10 +370,11 @@ msgstr ""
 "servizi in esecuzione sulla macchina di eBox."
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
+#, fuzzy
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
-"this unless you know what you are doing"
+"this unless you know what you are doing."
 msgstr ""
 "Stai attento che aggiungere regole a questa sezione può compromettere la "
 "sicurezza della tua rete in quanto puoi garantire l'accesso a reti non "
@@ -389,6 +391,16 @@ msgid ""
 msgstr ""
 "Queste regole ti permettono di controllare l'accesso dalle reti esterne alle "
 "reti interne."
+
+#~ msgid "Packet filtering"
+#~ msgstr "Filtraggio pacchetto"
+
+#~ msgid ""
+#~ "These rules are meant to control access from internal network interfaces "
+#~ "to services running on your eBox machine"
+#~ msgstr ""
+#~ "Queste regole sono studiate per controllare l'accesso da parte delle "
+#~ "interfacce di rete interna ai servizi in esecuzione sulla macchina di eBox"
 
 #~ msgid "Redirects"
 #~ msgstr "Redirezioni"

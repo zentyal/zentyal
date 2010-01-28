@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:12+0000\n"
 "PO-Revision-Date: 2010-01-15 14:56+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -25,7 +25,7 @@ msgstr "Fil deling (Samba) protokoll"
 msgid "This user has a sharing directory associated which contains data"
 msgstr "Denne brukeren har en delt mappe tildelt som inneholder data"
 
-#: src/EBox/SambaLdapUser.pm:367
+#: src/EBox/SambaLdapUser.pm:367 src/EBox/SambaLdapUser.pm:386
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
 msgstr "Feil SID: {s}"
@@ -40,11 +40,6 @@ msgstr "Bruker {u} eksisterer ikke"
 msgid "User {u} is not a samba user"
 msgstr "Bruker {u} er ikke en samba bruker"
 
-#: src/EBox/SambaLdapUser.pm:386
-#, perl-brace-format
-msgid "Incoorect SID: {s}"
-msgstr "Feil SID: {s}"
-
 #: src/EBox/SambaLdapUser.pm:390
 #, perl-brace-format
 msgid "Group {g} does not exists"
@@ -56,7 +51,8 @@ msgid "Group {g} is not a samba group"
 msgstr "Gruppen {g} er ikke en samba gruppe"
 
 #: src/EBox/SambaLdapUser.pm:437
-msgid "This group has a sharing directory associatedwhich conatins data"
+#, fuzzy
+msgid "This group has a sharing directory associated that contains data"
 msgstr "Denne gruppen har et delt område tildelt som inneholder data"
 
 #: src/EBox/SambaLdapUser.pm:641
@@ -699,6 +695,9 @@ msgstr "Hjemme Mapper"
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group} delings mappe"
+
+#~ msgid "Incoorect SID: {s}"
+#~ msgstr "Feil SID: {s}"
 
 #~ msgid "Share configuration"
 #~ msgstr "Delings område konfigurasjon"

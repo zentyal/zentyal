@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
-"PO-Revision-Date: 2010-01-27 12:07+0100\n"
+"POT-Creation-Date: 2010-01-28 13:12+0000\n"
+"PO-Revision-Date: 2010-01-28 13:13+0000\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid "This user has a sharing directory associated which contains data"
 msgstr ""
 "A felhasználó társított egy megosztási könyvtárat, mely adatokat tartalmaz."
 
-#: src/EBox/SambaLdapUser.pm:367
+#: src/EBox/SambaLdapUser.pm:367 src/EBox/SambaLdapUser.pm:386
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
 msgstr "Érvénytelen SID: {s}"
@@ -41,11 +41,6 @@ msgstr "A felhasználó {u} nem létezik!"
 msgid "User {u} is not a samba user"
 msgstr "A felhasználó {u} nem Samba felhasználó!"
 
-#: src/EBox/SambaLdapUser.pm:386
-#, perl-brace-format
-msgid "Incoorect SID: {s}"
-msgstr "Érvénytelen SID: {s}"
-
 #: src/EBox/SambaLdapUser.pm:390
 #, perl-brace-format
 msgid "Group {g} does not exists"
@@ -57,7 +52,8 @@ msgid "Group {g} is not a samba group"
 msgstr "A csoport {g} nem egy Samba csoport!"
 
 #: src/EBox/SambaLdapUser.pm:437
-msgid "This group has a sharing directory associatedwhich conatins data"
+#, fuzzy
+msgid "This group has a sharing directory associated that contains data"
 msgstr ""
 "A csoport társított egy megosztási könyvtárat, mely adatokat tartalmaz."
 
@@ -244,9 +240,10 @@ msgid ""
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"Az <i>eBox könyvtára alatt</i> automatikusan létrejön a share.directory "
-"könyvtár a /home/samba/shares mappán belül. {br}A {openit}Fájlrendszer "
-"útvonal</i> engedélyezi egy már létező könyvtár megosztását."
+"Az {openit}eBox könyvtára alatt{closeit} automatikusan létrejön a share."
+"directory könyvtár a /home/samba/shares mappán belül. {br}A {openit}"
+"Fájlrendszer útvonal{closeit} engedélyezi egy már létező könyvtár "
+"megosztását."
 
 #: src/EBox/Samba/Model/SambaShares.pm:290
 msgid ""
@@ -708,3 +705,6 @@ msgstr "Saját mappák"
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group} megosztási könyvtár"
+
+#~ msgid "Incoorect SID: {s}"
+#~ msgstr "Érvénytelen SID: {s}"

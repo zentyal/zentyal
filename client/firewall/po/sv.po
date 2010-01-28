@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:50+0100\n"
+"POT-Creation-Date: 2010-01-28 13:05+0000\n"
 "PO-Revision-Date: 2009-07-19 12:17+0200\n"
 "Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
@@ -76,7 +76,8 @@ msgstr "port"
 msgid "protocol"
 msgstr "protokoll"
 
-#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
+#: src/EBox/Firewall.pm:825 src/EBox/CGI/Filter.pm:28
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "Paketfilter"
 
@@ -129,10 +130,6 @@ msgstr "SLÄPP"
 #: src/EBox/Firewall.pm:852 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
 msgstr "LOGGA"
-
-#: src/EBox/CGI/Filter.pm:28
-msgid "Packet filtering"
-msgstr "Paketfiltrering"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 #, fuzzy
@@ -314,12 +311,13 @@ msgid "Filtering rules from internal networks to eBox"
 msgstr "Filterregler från interna nätverk till eBox"
 
 #: src/templates/filter.mas:8
+#, fuzzy
 msgid ""
-"These rules are meant to control access from internal network interfaces to "
-"services running on your eBox machine"
+"These rules allow you to control access from internal networks to services "
+"running on your eBox machine."
 msgstr ""
-"De här reglerna är tänkt att kontrollera åtomst från interna "
-"nätverksgränssnitt till tjänster som körs på din eBox maskin"
+"De här reglerna tillåter dig att kontrollera acces från externa nätverk till "
+"tjänster som körs på din eBox maskin"
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
@@ -332,10 +330,11 @@ msgid "Filtering rules for internal networks"
 msgstr "Filterregler för interna nätverk"
 
 #: src/templates/filter.mas:15
+#, fuzzy
 msgid ""
-"These rules allow you to control access  from your internal networks to the "
-"Internet, and traffic between your internal networks. If you wish to provide "
-"access to your eBox services, you must use the above section"
+"These rules allow you to control access from internal networks to the "
+"Internet and traffic between internal networks. If you wish to provide "
+"access to your eBox services, you must use the above section."
 msgstr ""
 "Dessa regler tillåter dig att kontrollera access från dina interna nätverk "
 "till internet och trafik mellan dina interna nätverk. Om du önskar tillåta "
@@ -346,7 +345,9 @@ msgid "Filtering rules for traffic coming out from eBox"
 msgstr "Filterregler för trafik som går ut från eBox"
 
 #: src/templates/filter.mas:23
-msgid "These rules allow you to control access from eBox to external services"
+#, fuzzy
+msgid ""
+"These rules allow you to control access from your eBox to external services."
 msgstr ""
 "De här reglerna låter dig kontrollera access från eBox till externa tjänster"
 
@@ -363,10 +364,11 @@ msgstr ""
 "tjänster som körs på din eBox maskin"
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
+#, fuzzy
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
-"this unless you know what you are doing"
+"this unless you know what you are doing."
 msgstr ""
 "Var uppmärksam på att lägga till regler i den här sektionen kan försätta "
 "säkerheten på ditt nätverk i fara eftersom du kan ge access från okända "
@@ -383,6 +385,16 @@ msgid ""
 msgstr ""
 "De här reglerna låter dig kontrollera access från externa nätverk till "
 "interna nätverk"
+
+#~ msgid "Packet filtering"
+#~ msgstr "Paketfiltrering"
+
+#~ msgid ""
+#~ "These rules are meant to control access from internal network interfaces "
+#~ "to services running on your eBox machine"
+#~ msgstr ""
+#~ "De här reglerna är tänkt att kontrollera åtomst från interna "
+#~ "nätverksgränssnitt till tjänster som körs på din eBox maskin"
 
 #~ msgid "Redirects"
 #~ msgstr "Omdirigeringar"

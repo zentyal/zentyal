@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:50+0100\n"
+"POT-Creation-Date: 2010-01-28 13:04+0000\n"
 "PO-Revision-Date: 2007-04-06 19:32+0000\n"
 "Last-Translator: Tomasz Kasprzak <tomasz.kasprzak@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,78 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
-
-#: src/EBox/SysInfo.pm:46
-#, fuzzy
-msgid "System Information"
-msgstr "Informacja ogólna"
-
-#: src/EBox/SysInfo.pm:81
-msgid "Time"
-msgstr "Czas"
-
-#: src/EBox/SysInfo.pm:82
-#, fuzzy
-msgid "Hostname"
-msgstr "Nazwa hosta"
-
-#: src/EBox/SysInfo.pm:84
-msgid "eBox version"
-msgstr "wersja eBox"
-
-#: src/EBox/SysInfo.pm:87
-msgid "System load"
-msgstr "Obciążenie systemu"
-
-#: src/EBox/SysInfo.pm:133 src/EBox/SysInfo.pm:226
-#, fuzzy
-msgid "Module Status"
-msgstr "Moduł"
-
-#: src/EBox/SysInfo.pm:138
-#, fuzzy
-msgid "General Information"
-msgstr "Informacja ogólna"
-
-#: src/EBox/SysInfo.pm:143
-#, fuzzy
-msgid "Process List"
-msgstr "Lista kopii zapasowych"
-
-#: src/EBox/SysInfo.pm:150
-#, fuzzy
-msgid "Support & Services"
-msgstr "Bieżące hasło"
-
-#: src/EBox/SysInfo.pm:221 src/EBox/CGI/Dashboard/Index.pm:32
-msgid "Dashboard"
-msgstr ""
-
-#: src/EBox/SysInfo.pm:232 src/EBox/Report/DiskUsage.pm:336
-msgid "System"
-msgstr "System"
-
-#: src/EBox/SysInfo.pm:236
-msgid "General"
-msgstr "Ogólne"
-
-#: src/EBox/SysInfo.pm:239 src/EBox/CGI/Report/DiskUsage.pm:31
-msgid "Disk Usage"
-msgstr ""
-
-#: src/EBox/SysInfo.pm:243 src/EBox/CGI/Report/RAID.pm:30
-#: src/EBox/Event/Watcher/RAID.pm:182
-msgid "RAID"
-msgstr ""
-
-#: src/EBox/SysInfo.pm:248 src/EBox/CGI/EBox/Backup.pm:34
-#: src/EBox/Backup.pm:706 src/templates/backup.mas:64
-msgid "Backup"
-msgstr "Kopia zapasowa"
-
-#: src/EBox/SysInfo.pm:251
-msgid "Halt/Reboot"
-msgstr "Zatrzymaj/Uruchom ponownie"
 
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
@@ -523,6 +451,10 @@ msgstr ""
 msgid "Full Reports"
 msgstr "Raport błędów"
 
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:236
+msgid "Dashboard"
+msgstr ""
+
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
 #, fuzzy
@@ -652,6 +584,11 @@ msgstr "Moduł został pomyślnie zatrzymany i uruchomiony ponownie."
 msgid "Upgrading"
 msgstr ""
 
+#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
+#: src/EBox/SysInfo.pm.in:263 src/templates/backup.mas:64
+msgid "Backup"
+msgstr "Kopia zapasowa"
+
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
@@ -709,6 +646,15 @@ msgstr ""
 #, fuzzy
 msgid "Restore successful"
 msgstr "Tryb przywracania"
+
+#: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
+#: src/EBox/SysInfo.pm.in:258
+msgid "RAID"
+msgstr ""
+
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:254
+msgid "Disk Usage"
+msgstr ""
 
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
@@ -1595,6 +1541,65 @@ msgstr ""
 #, fuzzy
 msgid "Backup's archives"
 msgstr "Lista kopii zapasowych"
+
+#: src/EBox/SysInfo.pm.in:48
+#, fuzzy
+msgid "System Information"
+msgstr "Informacja ogólna"
+
+#: src/EBox/SysInfo.pm.in:93
+msgid "available"
+msgstr ""
+
+#: src/EBox/SysInfo.pm.in:98
+msgid "Time"
+msgstr "Czas"
+
+#: src/EBox/SysInfo.pm.in:99
+#, fuzzy
+msgid "Hostname"
+msgstr "Nazwa hosta"
+
+#: src/EBox/SysInfo.pm.in:100
+#, fuzzy
+msgid "Core version"
+msgstr "wersja eBox"
+
+#: src/EBox/SysInfo.pm.in:102
+msgid "System load"
+msgstr "Obciążenie systemu"
+
+#: src/EBox/SysInfo.pm.in:148 src/EBox/SysInfo.pm.in:241
+#, fuzzy
+msgid "Module Status"
+msgstr "Moduł"
+
+#: src/EBox/SysInfo.pm.in:153
+#, fuzzy
+msgid "General Information"
+msgstr "Informacja ogólna"
+
+#: src/EBox/SysInfo.pm.in:158
+#, fuzzy
+msgid "Process List"
+msgstr "Lista kopii zapasowych"
+
+#: src/EBox/SysInfo.pm.in:165
+#, fuzzy
+msgid "Support & Services"
+msgstr "Bieżące hasło"
+
+#: src/EBox/SysInfo.pm.in:247 src/EBox/Report/DiskUsage.pm:336
+msgid "System"
+msgstr "System"
+
+#: src/EBox/SysInfo.pm.in:251
+msgid "General"
+msgstr "Ogólne"
+
+#: src/EBox/SysInfo.pm.in:266
+msgid "Halt/Reboot"
+msgstr "Zatrzymaj/Uruchom ponownie"
 
 #: src/EBox/Apache.pm:268 src/EBox/Apache.pm:277
 msgid "port"

@@ -1,10 +1,11 @@
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:116
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-26 04:06+0200\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2010-01-25 20:57+0100\n"
 "PO-Revision-Date: 2010-01-26 04:12+0100\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"Last-Translator: Jos Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
@@ -15,25 +16,10 @@ msgstr ""
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
 # Automatically generated, 2007.
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:116
-msgid ""
-msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.12.2\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:57+0100\n"
-"PO-Revision-Date: 2007-05-16 13:07+0000\n"
-"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
-"Language-Team: none\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 0.10.1\n"
-
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr "La tasa garantizada excede de la tasa permitida máxima: {rate} kbit/s"
+msgstr "La tasa garantizada excede de la tasa permitida mxima: {rate} kbit/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:225
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:410
@@ -50,7 +36,7 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
-"La tasa límite {lR} kbit/s debe ser superior que la tasa garantizada {gR} "
+"La tasa lmite {lR} kbit/s debe ser superior que la tasa garantizada {gR} "
 "kbit/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:244
@@ -60,14 +46,14 @@ msgid ""
 "increase maximum upload traffic to the gateways associated to this external "
 "interface"
 msgstr ""
-"La tasa límite {lR} kbit/s debe ser menor que {maxLR} kbit/s o debes "
-"incrementar el tráfico máximo de subida en las puertas de enlace asociadas a "
+"La tasa lmite {lR} kbit/s debe ser menor que {maxLR} kbit/s o debes "
+"incrementar el trfico mximo de subida en las puertas de enlace asociadas a "
 "este interfaz externo"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:401
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr "Tasa garantizada execedida de la tasa límite: {rate}"
+msgstr "Tasa garantizada execedida de la tasa lmite: {rate}"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:430
 #, perl-brace-format
@@ -75,8 +61,8 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
-"La tasa límite {lR} kbit/s debe ser menor que {maxLR} o debes incrementar el "
-"máximo tráfico permitido"
+"La tasa lmite {lR} kbit/s debe ser menor que {maxLR} o debes incrementar el "
+"mximo trfico permitido"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
 msgid "Leaf class identifier"
@@ -84,7 +70,7 @@ msgstr "Identificador de la clase hoja"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"
-msgstr "Dirección"
+msgstr "Direccin"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:185
 #, perl-brace-format
@@ -110,12 +96,12 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
-"El objeto {object} no tiene miembros. Añada al menos un miembro para añadir "
+"El objeto {object} no tiene miembros. Aada al menos un miembro para aadir "
 "reglas para usar este objeto."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
 msgid "If service is any, some source or destination should be provided"
-msgstr "Si el servicio es cualquiera, se debe dar algún origen o destino"
+msgstr "Si el servicio es cualquiera, se debe dar algn origen o destino"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:393
 msgid "Service"
@@ -165,7 +151,7 @@ msgstr "Prioridad"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:465
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr "Prioridad más baja: 7 Prioridad más alta: 0"
+msgstr "Prioridad ms baja: 7 Prioridad ms alta: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:469
 #: src/EBox/TrafficShaping.pm:1562
@@ -192,7 +178,7 @@ msgstr "Tasa limitada"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:488
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
-msgstr "El tráfico no superará esta tasa. 0 significa tasa ilimitada."
+msgstr "El trfico no superar esta tasa. 0 significa tasa ilimitada."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:495
 #, perl-brace-format
@@ -204,8 +190,8 @@ msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
-"Tenga en cuenta que si la interfaz es interna, el flujo del tráfico procede "
-"desde Internet para el interior y el tráfico exterior es a la inversa"
+"Tenga en cuenta que si la interfaz es interna, el flujo del trfico procede "
+"desde Internet para el interior y el trfico exterior es a la inversa"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:509
 msgid "rule"
@@ -224,10 +210,10 @@ msgid ""
 "maintain the same proportion that it has previously and {removeNum} have "
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
-"Normalizando tasas: {limitNum} reglas han bajado su tasa límite a "
+"Normalizando tasas: {limitNum} reglas han bajado su tasa lmite a "
 "{limitRate}, {guaranNum} reglas han normalizado su tasa garantizada para "
-"mantener la misma proporción que existía antes y {removeNum} se han borrado "
-"porque su tasa garantizada resultante era menor que la mínima permitida"
+"mantener la misma proporcin que exista antes y {removeNum} se han borrado "
+"porque su tasa garantizada resultante era menor que la mnima permitida"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:674
 msgid ""
@@ -235,20 +221,20 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
-"Los protocolos basados en puertos usan el número de puerto para comprobar si "
-"coincide con un servicio, mientras que los protocolos basados en aplicación "
-"son más lentos pero más eficaces, ya que comprueban el contenido de "
-"cualquier paquete para comprobar si coincide con un servicio."
+"Los protocolos basados en puertos usan el nmero de puerto para comprobar si "
+"coincide con un servicio, mientras que los protocolos basados en aplicacin "
+"son ms lentos pero ms eficaces, ya que comprueban el contenido de cualquier "
+"paquete para comprobar si coincide con un servicio."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:690
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:707
 msgid "Application based service"
-msgstr "Servicio basado en aplicación"
+msgstr "Servicio basado en aplicacin"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:698
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:714
 msgid "Application based service group"
-msgstr "Grupo de servicios basados en aplicación"
+msgstr "Grupo de servicios basados en aplicacin"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:85
 msgid "External Interface"
@@ -261,7 +247,7 @@ msgstr "Subida"
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
 msgid "Upload rate in Kbits/s through this interface"
-msgstr "Tasa de subida de datos en Kbits/s a través de esta interfaz"
+msgstr "Tasa de subida de datos en Kbits/s a travs de esta interfaz"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
 msgid "Download"
@@ -287,10 +273,10 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"El moldeado de tráfico se aplica cuando eBox actua como una puerta de "
-"enlace. Para conseguirlo, se requiere al menos una interfaz interna y otra "
-"externa. Comprueba que tu configuración es correcta en {openhref}Red-"
-">Interfaces{closehref}"
+"El moldeado de trfico se aplica cuando eBox actua como una puerta de enlace. "
+"Para conseguirlo, se requiere al menos una interfaz interna y otra externa. "
+"Comprueba que tu configuracin es correcta en {openhref}Red->Interfaces"
+"{closehref}"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
 #, perl-brace-format
@@ -300,10 +286,10 @@ msgid ""
 "gateway at {openhref}Network->Gateways{closehref} setting as interface an "
 "external one."
 msgstr ""
-"El moldeado de tráfico sólo se aplica a interfaces externas que tienen "
-"puertas de enlace con una tasa máxima de subida. Para ello, se debe crear "
-"una puerta de enlace en {openhref}Red->Gateways{closehref} seleccionando "
-"como interfaz una externa."
+"El moldeado de trfico slo se aplica a interfaces externas que tienen puertas "
+"de enlace con una tasa mxima de subida. Para ello, se debe crear una puerta "
+"de enlace en {openhref}Red->Gateways{closehref} seleccionando como interfaz "
+"una externa."
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
 msgid "Rules list per interface"
@@ -314,9 +300,9 @@ msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
 msgstr ""
-"Seleccionar una interfaz para añadir reglas de moldeado de tráfico. Ten en "
-"cuenta que si estás moldeando un interfaz interno, estás haciendo moldeado "
-"de tráfico de entrada."
+"Seleccionar una interfaz para aadir reglas de moldeado de trfico. Ten en "
+"cuenta que si ests moldeando un interfaz interno, ests haciendo moldeado de "
+"trfico de entrada."
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
 msgid "Choose an interface to shape"
@@ -324,11 +310,11 @@ msgstr "Elije un interfaz para moldear"
 
 #: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:95
 msgid "Traffic Shaping"
-msgstr "Moldeado de tráfico"
+msgstr "Moldeado de trfico"
 
 #: src/EBox/TrafficShaping.pm:133
 msgid "Add iptables rules to mangle table"
-msgstr "Añadir reglas de iptables para la tabla mangle"
+msgstr "Aadir reglas de iptables para la tabla mangle"
 
 #: src/EBox/TrafficShaping.pm:134
 msgid "To mark packets with different priorities and rates"
@@ -336,11 +322,11 @@ msgstr "Para marcar paquetes con distintas prioridades y tasas"
 
 #: src/EBox/TrafficShaping.pm:138
 msgid "Add tc rules"
-msgstr "Añadir reglas de tc"
+msgstr "Aadir reglas de tc"
 
 #: src/EBox/TrafficShaping.pm:139
 msgid "To implement the traffic shaping rules"
-msgstr "Para implementar las reglas de moldeado de tráfico"
+msgstr "Para implementar las reglas de moldeado de trfico"
 
 #: src/EBox/TrafficShaping.pm:384
 msgid "Rules"
@@ -361,8 +347,8 @@ msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
-"El máximo número de reglas {max} se ha alcanzado, por favor borra al menos "
-"una para añadir una nueva"
+"El mximo nmero de reglas {max} se ha alcanzado, por favor borra al menos una "
+"para aadir una nueva"
 
 #: src/EBox/TrafficShaping.pm:1072
 msgid "type"
@@ -374,8 +360,8 @@ msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
-"Interfaz {iface} debe tener una tasa máxima de ancho de banda para hacer "
-"moldeado de tráfico"
+"Interfaz {iface} debe tener una tasa mxima de ancho de banda para hacer "
+"moldeado de trfico"
 
 #: src/EBox/TrafficShaping.pm:1560
 msgid "Protocol"
@@ -390,20 +376,20 @@ msgid "options"
 msgstr "opciones"
 
 #~ msgid "If service is any, some source ordestination should be provided"
-#~ msgstr "Si el servicio es cualquiera, se debe dar algún origen o destino"
+#~ msgstr "Si el servicio es cualquiera, se debe dar algn origen o destino"
 
 #~ msgid "Change or remove some rules on {contextName}"
 #~ msgstr "Cambiar o borrar algunas reglas en {contextName}"
 
 #~ msgid "traffic shaping"
-#~ msgstr "moldeado de tráfico"
+#~ msgstr "moldeado de trfico"
 
 #~ msgid ""
 #~ "Traffic shaping can be only done in external interfaces which have "
 #~ "gateways associated to"
 #~ msgstr ""
-#~ "El moldeado de tráfico sólo puede hacerse en interfaces externos que "
-#~ "tienen asociados puertas de enlace"
+#~ "El moldeado de trfico slo puede hacerse en interfaces externos que tienen "
+#~ "asociados puertas de enlace"
 
 #, fuzzy
 #~ msgid ""
@@ -414,24 +400,24 @@ msgstr "opciones"
 #~ "provided.In order to identify a rule, an attribute should be given."
 #~ "Highest priority: 0 lowest priority: 7."
 #~ msgstr ""
-#~ "Se debe añadir una regla al interfaz sin superar la máxima tasa permitida "
+#~ "Se debe aadir una regla al interfaz sin superar la mxima tasa permitida "
 #~ "por ese interfaz y la suma de las diferentes tasas garantizadas debe ser "
-#~ "como mucho la máxima tasa permitida. No tener tasa limitada o que sea "
-#~ "igual a cero significa que no hay límite en términos del ancho de banda "
-#~ "del enlace. Al menos, se debe dar un atributo para definir una regla. La "
-#~ "prioridad máxima es 0 y la mínima es 7"
+#~ "como mucho la mxima tasa permitida. No tener tasa limitada o que sea "
+#~ "igual a cero significa que no hay lmite en trminos del ancho de banda del "
+#~ "enlace. Al menos, se debe dar un atributo para definir una regla. La "
+#~ "prioridad mxima es 0 y la mnima es 7"
 
 #~ msgid "Traffic Shaping Management"
-#~ msgstr "Gestión del moldeado de red"
+#~ msgstr "Gestin del moldeado de red"
 
 #~ msgid "interface {iface}"
 #~ msgstr "interfaz {iface}"
 
 #~ msgid "Guaranteed rate or limited rate is required"
-#~ msgstr "Se necesita una tasa garantizada o tasa límite"
+#~ msgstr "Se necesita una tasa garantizada o tasa lmite"
 
 #~ msgid "Guaranteed rate or limited rate"
-#~ msgstr "Tasa garantizada o tasa límite"
+#~ msgstr "Tasa garantizada o tasa lmite"
 
 #~ msgid "Identifier"
 #~ msgstr "Identificador"
@@ -440,20 +426,20 @@ msgstr "opciones"
 #~ msgstr "Habilitado"
 
 #~ msgid "Traffic Shaping Rule"
-#~ msgstr "Regla de moldeado de tráfico"
+#~ msgstr "Regla de moldeado de trfico"
 
 #~ msgid "Rules list"
 #~ msgstr "Lista de reglas"
 
 #~ msgid "Traffic Shaping is applied when eBox is acting as "
-#~ msgstr "Moldeado de red se aplica cuando eBox está actuando como"
+#~ msgstr "Moldeado de red se aplica cuando eBox est actuando como"
 
 #~ msgid ""
 #~ "Select an external interface with gateways associated to add traffic "
 #~ "shaping rules"
 #~ msgstr ""
-#~ "Selecciona un interfaz externo con puertas de enlace asociadas para "
-#~ "añadir reglas de moldeado de red"
+#~ "Selecciona un interfaz externo con puertas de enlace asociadas para aadir "
+#~ "reglas de moldeado de red"
 
 #~ msgid ""
 #~ "Adding a rule to the interface should be done following maximum rate "
@@ -461,30 +447,30 @@ msgstr "opciones"
 #~ "should be at much as the total rate allowed. No limited rate or zero "
 #~ "means unlimited rate in terms of bandwidth link"
 #~ msgstr ""
-#~ "Se debe añadir una regla al interfaz sin superar la máxima tasa permitida "
+#~ "Se debe aadir una regla al interfaz sin superar la mxima tasa permitida "
 #~ "por ese interfaz y la suma de las diferentes tasas garantizadas debe ser "
-#~ "como mucho la máxima tasa permitida. No tener tasa limitada o que sea "
-#~ "igual a cero significa que no hay límite en términos del ancho de banda "
-#~ "del enlace"
+#~ "como mucho la mxima tasa permitida. No tener tasa limitada o que sea "
+#~ "igual a cero significa que no hay lmite en trminos del ancho de banda del "
+#~ "enlace"
 
 #~ msgid ""
 #~ "The maximum rule account {max} is reached, please delete at least one in "
 #~ "order to add a new one"
 #~ msgstr ""
-#~ "El máximo número de reglas {max} se ha alcanzado, por favor borra al "
-#~ "menos una para añadir una nueva"
+#~ "El mximo nmero de reglas {max} se ha alcanzado, por favor borra al menos "
+#~ "una para aadir una nueva"
 
 #~ msgid ""
 #~ "Traffic shaping can be only done in external interface and {iface} is not"
 #~ msgstr ""
-#~ "El moldeado de tráfico sólo puede hacerse en un interfaz externo y "
-#~ "{iface} no lo es"
+#~ "El moldeado de trfico slo puede hacerse en un interfaz externo y {iface} "
+#~ "no lo es"
 
 #~ msgid "Guaranteed Rate excedeed the allowed rate: {rate} kbit/s"
-#~ msgstr "Tasa garantizada excede la tasa máxima permitida: {rate} kbit/s"
+#~ msgstr "Tasa garantizada excede la tasa mxima permitida: {rate} kbit/s"
 
 #~ msgid "Traffic Shaping is applied only to external "
-#~ msgstr "Moldeado de red se hace únicamente a externas"
+#~ msgstr "Moldeado de red se hace nicamente a externas"
 
 #~ msgid "Rules lists per interface"
 #~ msgstr "Listas de reglas por interfaz"
@@ -495,8 +481,8 @@ msgstr "opciones"
 #~ "{openhref}Network->Gateways{closehref} setting as interface an external "
 #~ "one."
 #~ msgstr ""
-#~ "El moldeado de tráfico sólo se aplica a interfaces externos que tienen "
-#~ "puertas de enlace con una tasa máxima de subida. Para conseguirlo, crea "
+#~ "El moldeado de trfico slo se aplica a interfaces externos que tienen "
+#~ "puertas de enlace con una tasa mxima de subida. Para conseguirlo, crea "
 #~ "una puerta de enlace en {openhref}Red->Gateways{closehref} poniendo como "
 #~ "interfaz a uno externo."
 
@@ -505,9 +491,9 @@ msgstr "opciones"
 #~ "this feature create an external interface at {openhref}Network->Interfaces"
 #~ "{closehref}"
 #~ msgstr ""
-#~ "El moldeado de tráfico sólo se aplica a interfaces externos. Para usar "
-#~ "esta características, crea un interfaz externo en {openhref}Red-"
-#~ ">Interfaces{closehref}"
+#~ "El moldeado de trfico slo se aplica a interfaces externos. Para usar esta "
+#~ "caractersticas, crea un interfaz externo en {openhref}Red->Interfaces"
+#~ "{closehref}"
 
 #~ msgid "interface"
 #~ msgstr "interfaz"
@@ -521,9 +507,9 @@ msgstr "opciones"
 #~ "interface configuration to match so at {openhref}Network->Interfaces"
 #~ "{closehref}"
 #~ msgstr ""
-#~ "El moldeado de tráfico sólo se aplica cuando eBox es una puerta de "
-#~ "enlace. Para conseguirlo, se requiere al menos un interfaz interno y otro "
-#~ "externo. Comprueba que tu configuración es correcta en {openhref}Red-"
+#~ "El moldeado de trfico slo se aplica cuando eBox es una puerta de enlace. "
+#~ "Para conseguirlo, se requiere al menos un interfaz interno y otro "
+#~ "externo. Comprueba que tu configuracin es correcta en {openhref}Red-"
 #~ ">Interfaces{closehref}"
 
 #~ msgid ""
@@ -534,12 +520,12 @@ msgstr "opciones"
 #~ "provided.In order to identify a rule, an attribute should be given."
 #~ "Highest priority: 0 lowest priority: 7"
 #~ msgstr ""
-#~ "Se debe añadir una regla al interfaz sin superar la máxima tasa permitida "
+#~ "Se debe aadir una regla al interfaz sin superar la mxima tasa permitida "
 #~ "por ese interfaz y la suma de las diferentes tasas garantizadas debe ser "
-#~ "como mucho la máxima tasa permitida. No tener tasa limitada o que sea "
-#~ "igual a cero significa que no hay límite en términos del ancho de banda "
-#~ "del enlace. Al menos, se debe dar un atributo para definir una regla. La "
-#~ "prioridad máxima es 0 y la mínima es 7"
+#~ "como mucho la mxima tasa permitida. No tener tasa limitada o que sea "
+#~ "igual a cero significa que no hay lmite en trminos del ancho de banda del "
+#~ "enlace. Al menos, se debe dar un atributo para definir una regla. La "
+#~ "prioridad mxima es 0 y la mnima es 7"
 
 #~ msgid "Traffic Shaping rules"
 #~ msgstr "Reglas de moldeado de red"

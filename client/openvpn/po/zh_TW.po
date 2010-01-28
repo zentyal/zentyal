@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:11+0000\n"
 "PO-Revision-Date: 2009-08-04 07:37+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -149,14 +149,16 @@ msgid "File supplied as client's private key is not valid"
 msgstr "做為客戶端私密金鑰的檔案無效"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr "做為客戶端憑證的檔案與 CA 的憑證檔案不符"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr "做為客戶端憑證的檔案與憑證的私密金鑰檔案不符"
 
@@ -445,8 +447,8 @@ msgid "client"
 msgstr "客戶端"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
-#, perl-brace-format
-msgid "No file supplied or already setted for {f}"
+#, fuzzy, perl-brace-format
+msgid "No file supplied or already set for {f}"
 msgstr "沒有提供檔案或已經為 {f} 設定"
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
@@ -530,10 +532,10 @@ msgid "Cannot create a server because there is not a CA certificate"
 msgstr "不能取得伺服器 {name} 的金鑰，因為它沒有被分配憑證"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"{act} not possible because there aren'tany available certificate. Please, go "
-"tothe certificate authority moduleand create new certificates"
+"{act} not possible because there aren't any available certificate. Please, "
+"go to the certificate authority moduleand create new certificates"
 msgstr ""
 "無法執行 {act} ，因為沒有任何可用的憑證。請移至憑證中心模組並建立新的模組"
 

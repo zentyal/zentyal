@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-monitor 0.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:52+0100\n"
+"POT-Creation-Date: 2010-01-28 13:05+0000\n"
 "PO-Revision-Date: 2009-02-05 07:40+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -382,7 +382,7 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
-#: src/EBox/Monitor.pm:164
+#: src/EBox/Monitor.pm:166
 msgid "Monitor"
 msgstr "مانیتور"
 
@@ -411,10 +411,11 @@ msgid "That is below the {severity} threshold of {bound}."
 msgstr "آن زیر سطح آستانه {severity} از {bound} می باشد"
 
 #: src/EBox/Monitor.pm:133
-msgid "Collectd main configuration file"
+#, fuzzy, perl-brace-format
+msgid "{daemon} main configuration file"
 msgstr "فایل پیکربندی اصلی را جمع آوری کن"
 
-#: src/EBox/Monitor.pm:137
-#, fuzzy
-msgid "Collectd thresholds configuration file"
+#: src/EBox/Monitor.pm:138
+#, fuzzy, perl-brace-format
+msgid "{daemon} thresholds configuration file"
 msgstr "فایل پیکربندی سطح آستانه را جمع آوری کن"

@@ -157,8 +157,8 @@ msgstr ""
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:134
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
-"Si se elige \"Personalizado\", se necesita un nombre de dominio completamente "
-"cualificado (FQDN)."
+"Si se elige \"Personalizado\", se necesita un nombre de dominio "
+"completamente cualificado (FQDN)."
 
 #: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:140
 msgid "This domain"
@@ -241,7 +241,8 @@ msgstr "Servidores de nombres"
 
 #: src/EBox/Model/NameServer.pm:165
 msgid "It manages the name server (NS) records for this domain"
-msgstr "Gestiona los regristros de servidores de nombres (NS) para este dominio"
+msgstr ""
+"Gestiona los regristros de servidores de nombres (NS) para este dominio"
 
 #: src/EBox/Model/NameServer.pm:166
 msgid "name server record"

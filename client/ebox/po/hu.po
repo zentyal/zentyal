@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:50+0100\n"
+"POT-Creation-Date: 2010-01-28 13:04+0000\n"
 "PO-Revision-Date: 2010-01-27 11:44+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -16,72 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/SysInfo.pm:46
-msgid "System Information"
-msgstr "Rendszerinformáció"
-
-#: src/EBox/SysInfo.pm:81
-msgid "Time"
-msgstr "Idő"
-
-#: src/EBox/SysInfo.pm:82
-msgid "Hostname"
-msgstr "kiszolgálónév"
-
-#: src/EBox/SysInfo.pm:84
-msgid "eBox version"
-msgstr "eBox verzió"
-
-#: src/EBox/SysInfo.pm:87
-msgid "System load"
-msgstr "rendszerterhelés"
-
-#: src/EBox/SysInfo.pm:133 src/EBox/SysInfo.pm:226
-msgid "Module Status"
-msgstr "Modul állapot"
-
-#: src/EBox/SysInfo.pm:138
-msgid "General Information"
-msgstr "Általános információ"
-
-#: src/EBox/SysInfo.pm:143
-msgid "Process List"
-msgstr "Folyamatlista"
-
-#: src/EBox/SysInfo.pm:150
-msgid "Support & Services"
-msgstr "Támogatás és szolgáltatások"
-
-#: src/EBox/SysInfo.pm:221 src/EBox/CGI/Dashboard/Index.pm:32
-msgid "Dashboard"
-msgstr "Műszerfal"
-
-#: src/EBox/SysInfo.pm:232 src/EBox/Report/DiskUsage.pm:336
-msgid "System"
-msgstr "Rendszer"
-
-#: src/EBox/SysInfo.pm:236
-msgid "General"
-msgstr "Általános"
-
-#: src/EBox/SysInfo.pm:239 src/EBox/CGI/Report/DiskUsage.pm:31
-msgid "Disk Usage"
-msgstr "Merevlemez használat"
-
-#: src/EBox/SysInfo.pm:243 src/EBox/CGI/Report/RAID.pm:30
-#: src/EBox/Event/Watcher/RAID.pm:182
-msgid "RAID"
-msgstr "RAID"
-
-#: src/EBox/SysInfo.pm:248 src/EBox/CGI/EBox/Backup.pm:34
-#: src/EBox/Backup.pm:706 src/templates/backup.mas:64
-msgid "Backup"
-msgstr "Biztonsági mentés"
-
-#: src/EBox/SysInfo.pm:251
-msgid "Halt/Reboot"
-msgstr "Leállítás/Újraindítás"
 
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
@@ -515,6 +449,10 @@ msgstr "Szűrési naplók"
 msgid "Full Reports"
 msgstr "Teljes jelentések"
 
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:236
+msgid "Dashboard"
+msgstr "Műszerfal"
+
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
 msgid "Configure Widgets"
@@ -645,6 +583,11 @@ msgstr "A modul rendben újraindult."
 msgid "Upgrading"
 msgstr "Frissítés"
 
+#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
+#: src/EBox/SysInfo.pm.in:263 src/templates/backup.mas:64
+msgid "Backup"
+msgstr "Biztonsági mentés"
+
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
@@ -695,6 +638,15 @@ msgstr "visszaállításra maradt modulok"
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
 msgstr "Visszaállítás sikeresen befejeződött"
+
+#: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
+#: src/EBox/SysInfo.pm.in:258
+msgid "RAID"
+msgstr "RAID"
+
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:254
+msgid "Disk Usage"
+msgstr "Merevlemez használat"
 
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
@@ -1576,6 +1528,59 @@ msgstr ""
 #: src/EBox/Backup.pm:1333
 msgid "Backup's archives"
 msgstr "Mentések archívuma"
+
+#: src/EBox/SysInfo.pm.in:48
+msgid "System Information"
+msgstr "Rendszerinformáció"
+
+#: src/EBox/SysInfo.pm.in:93
+msgid "available"
+msgstr ""
+
+#: src/EBox/SysInfo.pm.in:98
+msgid "Time"
+msgstr "Idő"
+
+#: src/EBox/SysInfo.pm.in:99
+msgid "Hostname"
+msgstr "kiszolgálónév"
+
+#: src/EBox/SysInfo.pm.in:100
+#, fuzzy
+msgid "Core version"
+msgstr "eBox verzió"
+
+#: src/EBox/SysInfo.pm.in:102
+msgid "System load"
+msgstr "rendszerterhelés"
+
+#: src/EBox/SysInfo.pm.in:148 src/EBox/SysInfo.pm.in:241
+msgid "Module Status"
+msgstr "Modul állapot"
+
+#: src/EBox/SysInfo.pm.in:153
+msgid "General Information"
+msgstr "Általános információ"
+
+#: src/EBox/SysInfo.pm.in:158
+msgid "Process List"
+msgstr "Folyamatlista"
+
+#: src/EBox/SysInfo.pm.in:165
+msgid "Support & Services"
+msgstr "Támogatás és szolgáltatások"
+
+#: src/EBox/SysInfo.pm.in:247 src/EBox/Report/DiskUsage.pm:336
+msgid "System"
+msgstr "Rendszer"
+
+#: src/EBox/SysInfo.pm.in:251
+msgid "General"
+msgstr "Általános"
+
+#: src/EBox/SysInfo.pm.in:266
+msgid "Halt/Reboot"
+msgstr "Leállítás/Újraindítás"
 
 #: src/EBox/Apache.pm:268 src/EBox/Apache.pm:277
 msgid "port"

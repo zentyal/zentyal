@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:11+0000\n"
 "PO-Revision-Date: 2010-01-26 22:11+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
@@ -151,16 +151,18 @@ msgid "File supplied as client's private key is not valid"
 msgstr "El fichero suministrado como clave privada de cliente no es valido"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
 "El fichero suministrado como certificado de cliente no corresponde con el "
 "fichero suministrado como certificado de CA"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
 "El fichero suministrado como certificado de cliente no corresponde con el "
@@ -311,7 +313,8 @@ msgstr ""
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
-msgstr "La interfaz debe ser externa a menos que la opción de NAT esté activada"
+msgstr ""
+"La interfaz debe ser externa a menos que la opción de NAT esté activada"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:60
 msgid "Client's type"
@@ -366,7 +369,8 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
 msgid "Cannot use for the bundle the server's certificate"
-msgstr "No se puede usar el certificado del servidor para el paquete de cliente"
+msgstr ""
+"No se puede usar el certificado del servidor para el paquete de cliente"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
 msgid "Invalid client type: the server does not allow eBox-to-eBox tunnels"
@@ -469,8 +473,8 @@ msgid "client"
 msgstr "cliente"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
-#, perl-brace-format
-msgid "No file supplied or already setted for {f}"
+#, fuzzy, perl-brace-format
+msgid "No file supplied or already set for {f}"
 msgstr "No se suministró ningún fichero o ya estaba fijado para {f}"
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
@@ -533,9 +537,9 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Debe crear un certificado de CA para usar este módulo. "
-"{closepar}{openpar}Por favor, vaya al {openhref}módulo de autoridad de "
-"certificación{closehref} y créelo.{closepar}"
+"{openpar}Debe crear un certificado de CA para usar este módulo. {closepar}"
+"{openpar}Por favor, vaya al {openhref}módulo de autoridad de certificación"
+"{closehref} y créelo.{closepar}"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:179
 msgid "Server creation"
@@ -554,10 +558,10 @@ msgid "Cannot create a server because there is not a CA certificate"
 msgstr "No se puede crear un servidor porque no existe un certificado de CA"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"{act} not possible because there aren'tany available certificate. Please, go "
-"tothe certificate authority moduleand create new certificates"
+"{act} not possible because there aren't any available certificate. Please, "
+"go to the certificate authority moduleand create new certificates"
 msgstr ""
 "{act} es posible porque no hay ningún certificado disponible. Por favor, "
 "vaya al módulo de autoridad de certificación y cree nuevos certificados"
@@ -573,12 +577,12 @@ msgid ""
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
 "{openpar}Puede configurar servidores openVPN para conectar oficinas remotas "
-"o usuarios con facilidad.{closepar}{openpar}Haga click en "
-"{openit}Configuración{closeit} para configurar los parámetros de "
-"VPN.{closepar}{openpar}{openit}Las redes anunciadas{closeit} le permiten "
-"configurar qué redes quiere hacer accesibles a usuarios remotos.{openpar}Una "
-"vez que haya terminado la configuración podrá descargarse un paquete de "
-"configuración para el sistema operativo de sus clientes."
+"o usuarios con facilidad.{closepar}{openpar}Haga click en {openit}"
+"Configuración{closeit} para configurar los parámetros de VPN.{closepar}"
+"{openpar}{openit}Las redes anunciadas{closeit} le permiten configurar qué "
+"redes quiere hacer accesibles a usuarios remotos.{openpar}Una vez que haya "
+"terminado la configuración podrá descargarse un paquete de configuración "
+"para el sistema operativo de sus clientes."
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"

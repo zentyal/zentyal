@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:12+0000\n"
 "PO-Revision-Date: 2010-01-27 14:25+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: \n"
@@ -30,7 +30,7 @@ msgid "This user has a sharing directory associated which contains data"
 msgstr ""
 "Este usuario tiene asociado un directorio compartido que contiene datos"
 
-#: src/EBox/SambaLdapUser.pm:367
+#: src/EBox/SambaLdapUser.pm:367 src/EBox/SambaLdapUser.pm:386
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
 msgstr "SID erróneo: {s}"
@@ -45,11 +45,6 @@ msgstr "Usuario {u} no existe"
 msgid "User {u} is not a samba user"
 msgstr "Usuario {u} no es usuario de samba"
 
-#: src/EBox/SambaLdapUser.pm:386
-#, perl-brace-format
-msgid "Incoorect SID: {s}"
-msgstr "SID erróneo: {s}"
-
 #: src/EBox/SambaLdapUser.pm:390
 #, perl-brace-format
 msgid "Group {g} does not exists"
@@ -61,7 +56,8 @@ msgid "Group {g} is not a samba group"
 msgstr "El grupo {g} no es un grupo samba"
 
 #: src/EBox/SambaLdapUser.pm:437
-msgid "This group has a sharing directory associatedwhich conatins data"
+#, fuzzy
+msgid "This group has a sharing directory associated that contains data"
 msgstr "Este grupo tiene asociado un directorio compartido que contiene datos"
 
 #: src/EBox/SambaLdapUser.pm:641
@@ -245,8 +241,8 @@ msgid ""
 "allow you to share an existing directory within your file system"
 msgstr ""
 "{openit}Directory under eBox{closeit} creará automáticamente el directorio "
-"compartido share.directory en /home/samba/shares {br}{openit}File system "
-"path{closeit} permitirá compartir un directorio existente en su sistema de "
+"compartido share.directory en /home/samba/shares {br}{openit}File system path"
+"{closeit} permitirá compartir un directorio existente en su sistema de "
 "archivos"
 
 #: src/EBox/Samba/Model/SambaShares.pm:290
@@ -428,8 +424,8 @@ msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
 msgstr ""
-"eBox creará directorios personales para usuarios y grupos de Samba bajo "
-"/home/samba"
+"eBox creará directorios personales para usuarios y grupos de Samba bajo /"
+"home/samba"
 
 #: src/EBox/Samba.pm:102
 msgid "Add LDAP schemas"
@@ -706,6 +702,9 @@ msgstr "Directorios de usuario"
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "directorio compartido de {group}"
+
+#~ msgid "Incoorect SID: {s}"
+#~ msgstr "SID erróneo: {s}"
 
 #, fuzzy
 #~ msgid "file sharing"

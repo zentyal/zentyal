@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
-"PO-Revision-Date: 2010-01-27 19:22+0100\n"
+"POT-Creation-Date: 2010-01-28 13:12+0000\n"
+"PO-Revision-Date: 2010-01-28 13:14+0000\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_samba_service.pl:113
@@ -26,7 +26,7 @@ msgstr "Протокол файловых ресурсов (Samba)"
 msgid "This user has a sharing directory associated which contains data"
 msgstr "Этот пользователь имеет совместный каталог, который содержит данные"
 
-#: src/EBox/SambaLdapUser.pm:367
+#: src/EBox/SambaLdapUser.pm:367 src/EBox/SambaLdapUser.pm:386
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
 msgstr "Не корректный SID: {s}"
@@ -41,11 +41,6 @@ msgstr "Пользователь {u} не существует"
 msgid "User {u} is not a samba user"
 msgstr "Пользователь {u} не является пользователем Самбы"
 
-#: src/EBox/SambaLdapUser.pm:386
-#, perl-brace-format
-msgid "Incoorect SID: {s}"
-msgstr "Не корректный SID: {s}"
-
 #: src/EBox/SambaLdapUser.pm:390
 #, perl-brace-format
 msgid "Group {g} does not exists"
@@ -57,7 +52,8 @@ msgid "Group {g} is not a samba group"
 msgstr "Группа {g} не является группой Самбы"
 
 #: src/EBox/SambaLdapUser.pm:437
-msgid "This group has a sharing directory associatedwhich conatins data"
+#, fuzzy
+msgid "This group has a sharing directory associated that contains data"
 msgstr "Эта группа имеет совместный каталог, в котором содержатся данные"
 
 #: src/EBox/SambaLdapUser.pm:641
@@ -240,9 +236,9 @@ msgid ""
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"<i>Каталог для eBox</i> автоматически создает каталог ресурса в "
-"/home/samba/shares <br><i>Путь в фаловой системе</i> разрешает создавать "
-"ресурсы в рамках существующих каталогов в файловой системе.  "
+"{openit}Каталог для eBox{closeit} автоматически создает каталог ресурса в /"
+"home/samba/shares {br}{openit}Путь в фаловой системе{closeit} разрешает "
+"создавать ресурсы в рамках существующих каталогов в файловой системе.  "
 
 #: src/EBox/Samba/Model/SambaShares.pm:290
 msgid ""
@@ -699,6 +695,9 @@ msgstr "Домашний каталог"
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group} каталог ресурсов"
+
+#~ msgid "Incoorect SID: {s}"
+#~ msgstr "Не корректный SID: {s}"
 
 #, fuzzy
 #~ msgid "Share configuration"

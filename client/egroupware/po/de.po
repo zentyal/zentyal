@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:09+0100\n"
+"POT-Creation-Date: 2010-01-28 13:04+0000\n"
 "PO-Revision-Date: 2009-06-21 19:11+0200\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -163,6 +163,11 @@ msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+
+#: src/EBox/Composite/General.pm:89
+#, fuzzy
+msgid "EGroupware"
+msgstr "eGroupware"
 
 #~ msgid "You must have IMAP service enabled."
 #~ msgstr "Sie müssen den IMAP Dienst aktivieren."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:52+0100\n"
+"POT-Creation-Date: 2010-01-28 13:11+0000\n"
 "PO-Revision-Date: 2009-11-12 17:16+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -26,7 +26,7 @@ msgstr "interface de rede"
 msgid "method"
 msgstr "método"
 
-#: src/EBox/CGI/Iface.pm:88 src/EBox/Model/GatewayTable.pm:270
+#: src/EBox/CGI/Iface.pm:88
 msgid "ip address"
 msgstr "endereço IP"
 
@@ -57,7 +57,8 @@ msgstr "Acção do interface virtual"
 #: src/EBox/Network.pm:1115 src/EBox/Network.pm:1136 src/EBox/Network.pm:2673
 #: src/EBox/Network.pm:2689 src/EBox/Network.pm:2715 src/EBox/Network.pm:2846
 #: src/EBox/Network.pm:2985 src/EBox/Model/GatewayTable.pm:198
-#: src/templates/ifaces.mas:106 src/templates/ifaces.mas:253
+#: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:106
+#: src/templates/ifaces.mas:253
 msgid "IP address"
 msgstr "Endereço IP"
 
@@ -70,7 +71,7 @@ msgid "Network Diagnostic Tools"
 msgstr "Ferramentas de diagnóstico de rede"
 
 #: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58
-#: src/EBox/Model/WANFailoverRules.pm:96 src/templates/diag.mas:14
+#: src/EBox/Model/WANFailoverRules.pm:97 src/templates/diag.mas:14
 #: src/templates/diag.mas:23
 msgid "Host"
 msgstr "Hospedeiro"
@@ -476,7 +477,7 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:68
 #: src/EBox/Model/MultiGwRulesDataTable.pm:195
-#: src/EBox/Model/WANFailoverRules.pm:132
+#: src/EBox/Model/WANFailoverRules.pm:133
 msgid "rule"
 msgstr "regra"
 
@@ -655,39 +656,39 @@ msgstr ""
 "O monitor da taxa de tráfego pode ser parado ou iniciado sem que seja "
 "necessário gravar as alterações em primeiro lugar"
 
-#: src/EBox/Model/WANFailoverRules.pm:54
+#: src/EBox/Model/WANFailoverRules.pm:55
 msgid "Ping to gateway"
 msgstr "Ping para a gateway"
 
-#: src/EBox/Model/WANFailoverRules.pm:58
+#: src/EBox/Model/WANFailoverRules.pm:59
 msgid "Ping to host"
 msgstr "Ping para o hospedeiro"
 
-#: src/EBox/Model/WANFailoverRules.pm:62
+#: src/EBox/Model/WANFailoverRules.pm:63
 msgid "DNS resolve"
 msgstr "Resolução DNS"
 
-#: src/EBox/Model/WANFailoverRules.pm:66
+#: src/EBox/Model/WANFailoverRules.pm:67
 msgid "HTTP Request"
 msgstr "Pedido HTTP"
 
-#: src/EBox/Model/WANFailoverRules.pm:90
+#: src/EBox/Model/WANFailoverRules.pm:91
 msgid "Test type"
 msgstr "Tipo de teste"
 
-#: src/EBox/Model/WANFailoverRules.pm:102
+#: src/EBox/Model/WANFailoverRules.pm:103
 msgid "Number of probes"
 msgstr "Número de sondas"
 
-#: src/EBox/Model/WANFailoverRules.pm:111
+#: src/EBox/Model/WANFailoverRules.pm:112
 msgid "Required success ratio"
 msgstr "Taxa de sucesso necessária"
 
-#: src/EBox/Model/WANFailoverRules.pm:124
+#: src/EBox/Model/WANFailoverRules.pm:125
 msgid "Test rules"
 msgstr "Regras de teste"
 
-#: src/EBox/Model/WANFailoverRules.pm:131
+#: src/EBox/Model/WANFailoverRules.pm:132
 msgid ""
 "You can define different rules to test if a gateway is working properly. If "
 "one of the test fails the gateway will be disabled. It will be enabled again "
@@ -697,11 +698,11 @@ msgstr ""
 "testes falhar a gateway será desactivada. Será novamente activada quando "
 "todos os testes tiverem sido efectuados com sucesso"
 
-#: src/EBox/Model/WANFailoverRules.pm:191
+#: src/EBox/Model/WANFailoverRules.pm:192
 msgid "WAN Failover is only available for static interfaces"
 msgstr ""
 
-#: src/EBox/Model/WANFailoverRules.pm:195
+#: src/EBox/Model/WANFailoverRules.pm:196
 msgid "Invalid value for Host"
 msgstr "Valor para o hospedeiro é inválido"
 
@@ -770,11 +771,11 @@ msgstr ""
 msgid "gateway"
 msgstr "gateway"
 
-#: src/EBox/Model/GatewayTable.pm:278
+#: src/EBox/Model/GatewayTable.pm:285
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
 msgstr ""
 
-#: src/EBox/Model/GatewayTable.pm:339
+#: src/EBox/Model/GatewayTable.pm:344
 msgid "Automatically added gateways can not be manually deleted"
 msgstr ""
 

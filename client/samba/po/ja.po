@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:12+0000\n"
 "PO-Revision-Date: 2008-01-08 15:50+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,7 +24,7 @@ msgstr "ファイル共有(Samba)プロトコル"
 msgid "This user has a sharing directory associated which contains data"
 msgstr "このユーザはデータを含む共有ディレクトリを所有しています"
 
-#: src/EBox/SambaLdapUser.pm:367
+#: src/EBox/SambaLdapUser.pm:367 src/EBox/SambaLdapUser.pm:386
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
 msgstr "SIDが誤っています: {s}"
@@ -39,11 +39,6 @@ msgstr "ユーザ{u}は存在しません"
 msgid "User {u} is not a samba user"
 msgstr "ユーザ{u}はSambaユーザではありません"
 
-#: src/EBox/SambaLdapUser.pm:386
-#, perl-brace-format
-msgid "Incoorect SID: {s}"
-msgstr "SIDが誤っています: {s}"
-
 #: src/EBox/SambaLdapUser.pm:390
 #, perl-brace-format
 msgid "Group {g} does not exists"
@@ -55,7 +50,8 @@ msgid "Group {g} is not a samba group"
 msgstr "グループ{g}はSambaグループではありません"
 
 #: src/EBox/SambaLdapUser.pm:437
-msgid "This group has a sharing directory associatedwhich conatins data"
+#, fuzzy
+msgid "This group has a sharing directory associated that contains data"
 msgstr "このグループはデータを含んだ共有ディレクトリを所有しています"
 
 #: src/EBox/SambaLdapUser.pm:641
@@ -718,6 +714,9 @@ msgstr "ホームディレクトリ"
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group}共有ディレクトリ"
+
+#~ msgid "Incoorect SID: {s}"
+#~ msgstr "SIDが誤っています: {s}"
 
 #~ msgid "file sharing"
 #~ msgstr "ファイル共有"

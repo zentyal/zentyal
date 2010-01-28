@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:11+0000\n"
 "PO-Revision-Date: 2007-01-08 10:05+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -150,13 +150,13 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
 
@@ -436,7 +436,7 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
 #, perl-brace-format
-msgid "No file supplied or already setted for {f}"
+msgid "No file supplied or already set for {f}"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
@@ -515,8 +515,8 @@ msgstr ""
 #: src/EBox/OpenVPN/Model/Servers.pm:318
 #, perl-brace-format
 msgid ""
-"{act} not possible because there aren'tany available certificate. Please, go "
-"tothe certificate authority moduleand create new certificates"
+"{act} not possible because there aren't any available certificate. Please, "
+"go to the certificate authority moduleand create new certificates"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/Servers.pm:331

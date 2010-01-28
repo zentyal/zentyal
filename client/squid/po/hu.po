@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:54+0100\n"
+"POT-Creation-Date: 2010-01-28 13:15+0000\n"
 "PO-Revision-Date: 2010-01-27 12:49+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -390,20 +390,21 @@ msgstr "domain lista törölve"
 msgid "Domain list updated"
 msgstr "domain lista frissítve"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:69
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:68
 msgid "Use default profile threshold"
 msgstr "Alapértelmezett profil határértékének használata"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:75
-msgid "Threshold a"
-msgstr "Határértéke"
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:74
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
+msgid "Threshold"
+msgstr "Határérték"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:84
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:81
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:78
 msgid "Content filter threshold"
 msgstr "tartalomszűrő határérték"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:90
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:87
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:84
 msgid "Content filter threshold changed"
 msgstr "tartalomszűrő határértékének módosítása"
@@ -467,10 +468,6 @@ msgstr "Alapértelmezett profil beállításainak használata"
 msgid "Use default profile for domain filtering"
 msgstr "Alapértelmezett profil tartomány szűréssel"
 
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
-msgid "Threshold"
-msgstr "Határérték"
-
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:53
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:128
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:137
@@ -507,14 +504,16 @@ msgid "Use default profile for MIME filtering"
 msgstr "alapértelmezett profil MIME szűréssel"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:41
-msgid "Block not listed domains"
+#, fuzzy
+msgid "Block not listed domains and URLs"
 msgstr "listában nem szereplő blokkolt domainek"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
+#, fuzzy
 msgid ""
-"If this option is enabled, any domain which is not present in the <i>Domains "
-"rules</i> nor in the <i>Domain list files</i> sections below will be "
-"forbidden."
+"If this is enabled, any domain or URL which is neither present neither in "
+"the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
+"below will be forbidden."
 msgstr ""
 "Ha ez az opció be van kapcsolva, bármely tartomány amely nincs a "
 "<i>Tartomány szabályok</i> listában vagy a <i>Tartomány lista</i> fájlokban "
@@ -534,7 +533,8 @@ msgid "Allow all {elements}"
 msgstr "minden engedélyezve: {elements}"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:74
-msgid "Use this field to change the value of  all the above rows at once"
+#, fuzzy
+msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
 "E mező_ _értékének módosítása azonnal hatással van, minden e fölötti sorra."
 
@@ -696,17 +696,22 @@ msgid "Set policy for all MIME types"
 msgstr "összes MIME típus házirendjének megadása"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:36
-#: src/EBox/Squid/Model/DomainFilterBase.pm:62
+#, fuzzy
+msgid "Domain or URL"
+msgstr "domain"
+
+#: src/EBox/Squid/Model/DomainFilterBase.pm:76
+#: src/EBox/Squid/Model/DomainFilterBase.pm:91
+msgid "Domain or IP address"
+msgstr "domain vagy IP cím"
+
+#: src/EBox/Squid/Model/DomainFilterBase.pm:85
 msgid "Domain"
 msgstr "domain"
 
-#: src/EBox/Squid/Model/DomainFilterBase.pm:64
+#: src/EBox/Squid/Model/DomainFilterBase.pm:87
 msgid "You must not prefix the domain with www."
 msgstr "Itt kell beállítani, ha nem kell a domainhez a www előtag."
-
-#: src/EBox/Squid/Model/DomainFilterBase.pm:68
-msgid "Domain or IP address"
-msgstr "domain vagy IP cím"
 
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:107
 msgid "Time period"
@@ -759,9 +764,10 @@ msgid "group's policy"
 msgstr "Csoportok házirendje"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
+#, fuzzy
 msgid ""
-"Here you can globaly block or allow access per user group. Filter options "
-"will be per global policy or per object policy"
+"Here you can globaly block or allow access by user group. Filter options "
+"will be by global policy or by object policy"
 msgstr ""
 "Itt általánosan blokkolhat vagy csoportonként engedélyezheti a hozzáférést. "
 "A szűrő beállításai globális vagy objektumra vonatkozó szabályok lehetnek"
@@ -828,10 +834,11 @@ msgstr "MIME típus"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:65
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:61
+#, fuzzy
 msgid ""
-"Allow/Deny the HTTP traffic of the files which the given MIME types.MIME "
+"Allow/Deny the HTTP traffic of the files which the given MIME types. MIME "
 "types not listed here are allowed.\n"
-"The  filter needs a 'filter' policy to be in effect"
+"The filter needs a 'filter' policy to be in effect"
 msgstr ""
 "Engedélyezi/Tiltja a HTTP forgalmat a következő MIME típusú fájlok esetén. "
 "Az itt nem felsorolt MIME típusok megengedettek.\n"
@@ -883,7 +890,8 @@ msgid ""
 "Extensions not listed here are allowed.\n"
 "The extension filter needs a 'filter' policy to be in effect"
 msgstr ""
-"Engedélyezi/Tiltja a HTTP forgalmat a következő kiterjesztésű fájlok esetén.\n"
+"Engedélyezi/Tiltja a HTTP forgalmat a következő kiterjesztésű fájlok "
+"esetén.\n"
 " Az itt nem szereplő kiterjesztések engedélyezettek.\n"
 " A kiterjesztésszűrő használatához létre kell hozni egy szűrőszabályt"
 
@@ -918,34 +926,41 @@ msgstr "alapértelmezett profil beállítása"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #: src/EBox/Squid/Model/DomainFilter.pm:65
-msgid "Domains rules"
+#, fuzzy
+msgid "Domains and URL rules"
 msgstr "domain szabályok"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 #: src/EBox/Squid/Model/DomainFilter.pm:78
-msgid "internet domain"
+#, fuzzy
+msgid "internet domain or URL"
 msgstr "internet domain"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #: src/EBox/Squid/Model/DomainFilter.pm:79
-msgid "Allow/Deny the HTTP traffic from/to the listed internet domains."
+#, fuzzy
+msgid ""
+"Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
 "engedélyezi/tiltja a HTTP forgalmat a listában található internet "
 "domainekről/domainekre."
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 #: src/EBox/Squid/Model/DomainFilter.pm:81
-msgid "Domain added"
+#, fuzzy
+msgid "Domain or URL added"
 msgstr "domain hozzáadva"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 #: src/EBox/Squid/Model/DomainFilter.pm:82
-msgid "Domain removed"
+#, fuzzy
+msgid "Domain or URL removed"
 msgstr "domain törölve"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 #: src/EBox/Squid/Model/DomainFilter.pm:83
-msgid "Domain updated"
+#, fuzzy
+msgid "Domain or URL updated"
 msgstr "domain frissítve"
 
 #: src/EBox/Squid/Model/FilterGroupAntiVirus.pm:61
@@ -1161,3 +1176,6 @@ msgstr "-ba/-be"
 #: src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
 msgstr "hét napjai"
+
+#~ msgid "Threshold a"
+#~ msgstr "Határértéke"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.12Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:39+0100\n"
+"POT-Creation-Date: 2010-01-28 13:04+0000\n"
 "PO-Revision-Date: 2009-12-03 12:57+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/EBackup.pm:62 src/EBox/Event/Watcher/EBackup.pm:111
+#: src/EBox/EBackup.pm:69 src/EBox/Event/Watcher/EBackup.pm:111
 #: src/EBox/Composite/Remote.pm:64
 msgid "Backup"
 msgstr ""
@@ -45,7 +45,7 @@ msgid "file restore operation"
 msgstr ""
 
 #: src/EBox/Model/RemoteFileList.pm:204
-msgid "File already exists if you continue the currentwill be deleted"
+msgid "File already exists if you continue the current will be deleted"
 msgstr ""
 
 #: src/EBox/Model/RemoteFileList.pm:220
@@ -77,139 +77,153 @@ msgstr ""
 msgid "backup"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:140
+#: src/EBox/Model/RemoteSettings.pm:143
 msgid "Method"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:146
+#: src/EBox/Model/RemoteSettings.pm:149
 msgid "Host or destination"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:152 src/EBox/Model/RemoteSettings.pm:377
+#: src/EBox/Model/RemoteSettings.pm:154
 msgid "User"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:158 src/EBox/Model/RemoteSettings.pm:382
+#: src/EBox/Model/RemoteSettings.pm:159
 msgid "Password"
 msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:164
-msgid "GPG key"
+msgid "Encryption"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:171
-msgid "Full Backup Frequency"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:177
-msgid "Number of full copies to keep"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:184
-msgid "Incremental Backup Frequency"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:190
-msgid "Backup process starts at"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:199
-msgid "General Configuration"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:202
-msgid "General remote backup server configuration"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:205
-msgid "General backup server configuration updated"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:219
-msgid "Daily"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:223
-msgid "Weekly"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:227
-msgid "Monthly"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:236 src/EBox/Model/RemoteSettings.pm:342
+#: src/EBox/Model/RemoteSettings.pm:169 src/EBox/Model/RemoteSettings.pm:255
+#: src/EBox/Model/RemoteSettings.pm:365
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:358
-#, perl-brace-format
-msgid ""
-"By creating the iBackup account through this {ohref}link{chref} you support "
-"the development of eBox with no extra charge"
+#: src/EBox/Model/RemoteSettings.pm:174
+msgid "Symmetric Key"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:425
+#: src/EBox/Model/RemoteSettings.pm:179
+msgid "GPG Key"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:190
+msgid "Full Backup Frequency"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:196
+msgid "Number of full copies to keep"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:203
+msgid "Incremental Backup Frequency"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:209
+msgid "Backup process starts at"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:218
+msgid "General Configuration"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:221
+msgid "General remote backup server configuration"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:224
+msgid "General backup server configuration updated"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:238
+msgid "Daily"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:242
+msgid "Weekly"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:246
+msgid "Monthly"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:381
+#, perl-brace-format
+msgid ""
+"You can create your <i>eBox Remote Storage</i> account in our {ohref}on-line "
+"store{chref}. Use this service to have a quick and safe remote location to "
+"store your data"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:401
+msgid "Destination must be a relative directory"
+msgstr ""
+
+#: src/EBox/Model/RemoteSettings.pm:447
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:436 src/EBox/Model/RemoteSettings.pm:470
+#: src/EBox/Model/RemoteSettings.pm:458 src/EBox/Model/RemoteSettings.pm:492
 msgid "target"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:438
+#: src/EBox/Model/RemoteSettings.pm:460
 msgid "Must be a like 'other.host[:port]/some_dir'"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:445 src/EBox/Model/RemoteSettings.pm:480
+#: src/EBox/Model/RemoteSettings.pm:467 src/EBox/Model/RemoteSettings.pm:502
 msgid "host"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:447 src/EBox/Model/RemoteSettings.pm:482
+#: src/EBox/Model/RemoteSettings.pm:469 src/EBox/Model/RemoteSettings.pm:504
 msgid "port"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:449
+#: src/EBox/Model/RemoteSettings.pm:471
 msgid "directory"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:459
+#: src/EBox/Model/RemoteSettings.pm:481
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:473
+#: src/EBox/Model/RemoteSettings.pm:495
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:485
+#: src/EBox/Model/RemoteSettings.pm:507
 msgid "absolute directory"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:487
+#: src/EBox/Model/RemoteSettings.pm:509
 msgid "relative directory"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:504
+#: src/EBox/Model/RemoteSettings.pm:526
 msgid ""
-"File system method need a target parameter that should be a directory path"
+"File system method needs a target parameter that should be a directory path"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:510 src/EBox/Model/RemoteSettings.pm:514
+#: src/EBox/Model/RemoteSettings.pm:531 src/EBox/Model/RemoteSettings.pm:535
 msgid "Directory for backup"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:517
+#: src/EBox/Model/RemoteSettings.pm:538
 msgid "File exists and it is not a directory"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:536
+#: src/EBox/Model/RemoteSettings.pm:559
 msgid "Full backup cannot be more frequent than incremental backup"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:548
+#: src/EBox/Model/RemoteSettings.pm:571
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"

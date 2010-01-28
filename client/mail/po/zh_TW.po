@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:51+0100\n"
+"POT-Creation-Date: 2010-01-28 13:28+0000\n"
 "PO-Revision-Date: 2009-08-04 06:23+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -24,20 +24,20 @@ msgstr ""
 msgid "eBox Mail System"
 msgstr "eBox 郵件系統"
 
-#: src/EBox/MailUserLdap.pm:82 src/EBox/MailUserLdap.pm:87
+#: src/EBox/MailUserLdap.pm:83 src/EBox/MailUserLdap.pm:88
 #: src/EBox/MailAliasLdap.pm:105 src/EBox/MailAliasLdap.pm:135
 msgid "mail account"
 msgstr "郵件帳號"
 
-#: src/EBox/MailUserLdap.pm:425
+#: src/EBox/MailUserLdap.pm:430
 msgid "This group has a mail alias"
 msgstr "這個群組是郵件別名"
 
-#: src/EBox/MailUserLdap.pm:452
+#: src/EBox/MailUserLdap.pm:457
 msgid "This user has a mail account"
 msgstr "這個使用者是郵件帳號"
 
-#: src/EBox/MailUserLdap.pm:804
+#: src/EBox/MailUserLdap.pm:809
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 
@@ -141,7 +141,7 @@ msgid "maildrop"
 msgstr "maildrop"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1498
+#: src/EBox/Mail.pm:1549
 msgid "Queue Management"
 msgstr "佇列管理"
 
@@ -150,7 +150,7 @@ msgid "Admin mail recipient"
 msgstr "管理郵件收件"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1415 src/EBox/Mail.pm:1567
+#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1466 src/EBox/Mail.pm:1618
 msgid "Mail"
 msgstr "郵件"
 
@@ -380,7 +380,7 @@ msgstr ""
 #: src/EBox/Mail/Model/VDomainAliases.pm:108
 #, perl-brace-format
 msgid ""
-"Cannot add  alias {al} because it is already an identical alias for another "
+"Cannot add alias {al} because it is already an identical alias for another "
 "virtual domain"
 msgstr ""
 
@@ -448,48 +448,70 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
-#: src/EBox/Mail/Model/SMTPOptions.pm:177 src/templates/createaccount.mas:78
+#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:78
 msgid "Unlimited size"
 msgstr "不限大小"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:164
-#: src/EBox/Mail/Model/SMTPOptions.pm:181
-msgid "size in Mb"
-msgstr "MB 的大小"
+#: src/EBox/Mail/Model/SMTPOptions.pm:183
+#, fuzzy
+msgid "limited to"
+msgstr "不限大小"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:173
+#: src/EBox/Mail/Model/SMTPOptions.pm:175
 msgid "Maximum message size accepted"
 msgstr "允許最大的郵件大小"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:191
+#: src/EBox/Mail/Model/SMTPOptions.pm:195
 msgid "Expiration period for deleted mails"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:195
-#: src/EBox/Mail/Model/SMTPOptions.pm:212
+#: src/EBox/Mail/Model/SMTPOptions.pm:199
+#: src/EBox/Mail/Model/SMTPOptions.pm:218
 msgid "Never"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:199
-#: src/EBox/Mail/Model/SMTPOptions.pm:216
+#: src/EBox/Mail/Model/SMTPOptions.pm:203
+#: src/EBox/Mail/Model/SMTPOptions.pm:222
+msgid "expired in"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:204
+#: src/EBox/Mail/Model/SMTPOptions.pm:223
 msgid "days"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:208
+#: src/EBox/Mail/Model/SMTPOptions.pm:214
 msgid "Expiration period for spam mails"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:227
+#: src/EBox/Mail/Model/SMTPOptions.pm:235
 msgid "Options"
 msgstr "選項"
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:331
-#: src/EBox/Mail/Model/SMTPOptions.pm:335
+#: src/EBox/Mail/Model/SMTPOptions.pm:342
+#: src/EBox/Mail/Model/SMTPOptions.pm:346
 msgid "Smarthost's address"
 msgstr ""
 
-#: src/EBox/Mail/Model/SMTPOptions.pm:332
+#: src/EBox/Mail/Model/SMTPOptions.pm:343
 msgid "Smarthost's port"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:421
+msgid ""
+"The mailname is set to the server's hostname and the hostname is not fully "
+"qualified. "
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:425
+msgid "The selected mailname is not a fully qualified hostname. "
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPOptions.pm:429
+msgid ""
+"Not having a fully qualified hostname could lead to some mail servers to "
+"reject the mail and incorrect reply addresses from system users"
 msgstr ""
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
@@ -579,37 +601,37 @@ msgstr "額度大小"
 msgid "You haven't create a mail domain yet"
 msgstr "點擊這裡來建立新虛擬網域郵件"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:64
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:77
 msgid "Enabled"
 msgstr "啟用"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:70
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:83
 msgid "Greylist duration (seconds)"
 msgstr "灰名單(Greylist)時間(秒)"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:71
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:84
 msgid "During this interval, the mail sender is deferred"
 msgstr "在這段時間中，此郵件寄件者會被延遲"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:79
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:92
 msgid "Retry window (hours)"
 msgstr "再審視窗(小時)"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:80
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:93
 msgid ""
 "Time that mail sender has to retry to be added before it will be greylisted "
 "again"
 msgstr "在灰名單功能中要求郵件寄件者再次送信的時間"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:89
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:102
 msgid "Entries time to live (days)"
 msgstr "項目存活的時間(天)"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:90
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:103
 msgid "Period till unseen entries will be deleted"
 msgstr "未讀項目刪除前的期間"
 
-#: src/EBox/Mail/Model/GreylistConfiguration.pm:100
+#: src/EBox/Mail/Model/GreylistConfiguration.pm:111
 msgid "Greylist configuration"
 msgstr "灰名單組態"
 
@@ -645,14 +667,27 @@ msgstr "虛擬郵件網域"
 msgid "Virtual domain added. You must save changes to use this domain"
 msgstr "虛擬網域已新增。您需要儲存變更來使用這個網域"
 
-#: src/EBox/Mail/Model/VDomains.pm:193
+#: src/EBox/Mail/Model/VDomains.pm:194
 #, perl-brace-format
 msgid ""
 "Cannot add virtual domain {vd} because is a virtual domain alias with the "
 "same name"
 msgstr ""
 
-#: src/EBox/Mail/Model/VDomains.pm:237
+#: src/EBox/Mail/Model/VDomains.pm:204
+msgid "'sieve' is a reserved name in this context, please choose another name"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:211
+#, fuzzy
+msgid "Mail virtual domain"
+msgstr "虛擬網域郵件"
+
+#: src/EBox/Mail/Model/VDomains.pm:214
+msgid "The virtual domain name cannot be equal to the mailname"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomains.pm:255
 #, perl-brace-format
 msgid ""
 "Cannot add virtual domain {vd} because it appears as external domain in the "
@@ -668,7 +703,7 @@ msgstr "主旨"
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] 一個事件發生在 {hostName}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1536
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1587
 msgid "To"
 msgstr "到"
 
@@ -687,7 +722,7 @@ msgid "Mail dispatcher configuration updated"
 msgstr "郵件調整設置已更新"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:48
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:69
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:68
 #, fuzzy
 msgid "Virtual domain"
 msgstr "虛擬網域"
@@ -699,35 +734,35 @@ msgid "Sent messsages"
 msgstr "完成的郵件"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:50
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:79
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:78
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:52
 #, fuzzy
 msgid "Received messages"
 msgstr "完成的郵件"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:51
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:83
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:82
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:53
 #, fuzzy
 msgid "Rejected messages"
 msgstr "完成的郵件"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:63 src/EBox/Mail.pm:1533
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1584
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "日期"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:75
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:74
 #, fuzzy
 msgid "Sent messages"
 msgstr "完成的郵件"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:92
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:91
 #, fuzzy
 msgid "Mail traffic details"
 msgstr "郵件別名設定"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:100
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:99
 msgid "traffic"
 msgstr ""
 
@@ -818,170 +853,189 @@ msgstr "設定 dovecot 來驗證 LDAP"
 msgid "To configure smart host authentication"
 msgstr "設置 smart host 驗證"
 
-#: src/EBox/Mail.pm:923
+#: src/EBox/Mail.pm:681
+msgid ""
+"Cannot use the hostname as mailname because it is not a fully qualified "
+"name. Please, define a custom server mailname"
+msgstr ""
+
+#: src/EBox/Mail.pm:686
+msgid "The mail name must be a fully qualified name"
+msgstr ""
+
+#: src/EBox/Mail.pm:691 src/EBox/Mail.pm:702 src/EBox/Mail.pm:711
+#, fuzzy
+msgid "Host mail name"
+msgstr "網域名稱"
+
+#: src/EBox/Mail.pm:705
+msgid "The mail name and virtual mail domain name are equal"
+msgstr ""
+
+#: src/EBox/Mail.pm:974
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "在沒有自訂過濾器下無法變更這個參數"
 
-#: src/EBox/Mail.pm:939 src/EBox/Mail.pm:959
+#: src/EBox/Mail.pm:990 src/EBox/Mail.pm:1010
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr "郵件過濾器不存在.請設定其他的郵件過濾器或是停用它"
 
-#: src/EBox/Mail.pm:966
+#: src/EBox/Mail.pm:1017
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr "郵件過濾器 $name 沒有啟動。請設定其他的郵件過濾器或是停用它"
 
-#: src/EBox/Mail.pm:1363
+#: src/EBox/Mail.pm:1414
 msgid "SMTP service"
 msgstr "SMTP 服務"
 
-#: src/EBox/Mail.pm:1370
+#: src/EBox/Mail.pm:1421
 msgid "POP3 service"
 msgstr "POP3 服務"
 
-#: src/EBox/Mail.pm:1376
+#: src/EBox/Mail.pm:1427
 msgid "POP3S service"
 msgstr "POP3S 服務"
 
-#: src/EBox/Mail.pm:1382
+#: src/EBox/Mail.pm:1433
 msgid "IMAP service"
 msgstr "IMAP 服務"
 
-#: src/EBox/Mail.pm:1388
+#: src/EBox/Mail.pm:1439
 msgid "IMAPS service"
 msgstr "IMAPS 服務"
 
-#: src/EBox/Mail.pm:1429
+#: src/EBox/Mail.pm:1480
 msgid "enabled"
 msgstr "啟用"
 
-#: src/EBox/Mail.pm:1429
+#: src/EBox/Mail.pm:1480
 msgid "disabled"
 msgstr "停用"
 
-#: src/EBox/Mail.pm:1431 src/EBox/Mail.pm:1542 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1482 src/EBox/Mail.pm:1593 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr "狀態"
 
-#: src/EBox/Mail.pm:1434
+#: src/EBox/Mail.pm:1485
 msgid "Mail server's filter"
 msgstr "郵件伺服器的過濾器"
 
-#: src/EBox/Mail.pm:1443 src/EBox/Mail.pm:1450
+#: src/EBox/Mail.pm:1494 src/EBox/Mail.pm:1501
 msgid "Filter type"
 msgstr "過濾器類型"
 
-#: src/EBox/Mail.pm:1444
+#: src/EBox/Mail.pm:1495
 msgid "Custom"
 msgstr "自訂"
 
-#: src/EBox/Mail.pm:1446
+#: src/EBox/Mail.pm:1497
 msgid "Address"
 msgstr "位址"
 
-#: src/EBox/Mail.pm:1479
+#: src/EBox/Mail.pm:1530
 msgid "General"
 msgstr "一般"
 
-#: src/EBox/Mail.pm:1486
+#: src/EBox/Mail.pm:1537
 msgid "Virtual Mail Domains"
 msgstr "虛擬郵件網域"
 
-#: src/EBox/Mail.pm:1492
+#: src/EBox/Mail.pm:1543
 msgid "Greylist"
 msgstr "灰名單"
 
-#: src/EBox/Mail.pm:1525
+#: src/EBox/Mail.pm:1576
 #, fuzzy
 msgid "Mail retrieval from external accounts"
 msgstr "郵件檢索服務"
 
-#: src/EBox/Mail.pm:1534
+#: src/EBox/Mail.pm:1585
 msgid "Message ID"
 msgstr "郵件 ID"
 
-#: src/EBox/Mail.pm:1535
+#: src/EBox/Mail.pm:1586
 msgid "From"
 msgstr "從"
 
-#: src/EBox/Mail.pm:1537
+#: src/EBox/Mail.pm:1588
 msgid "From hostname"
 msgstr "從主機名稱"
 
-#: src/EBox/Mail.pm:1538
+#: src/EBox/Mail.pm:1589
 msgid "From host ip"
 msgstr "從主機 IP"
 
-#: src/EBox/Mail.pm:1539 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1590 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "大小 (位元組)"
 
-#: src/EBox/Mail.pm:1540
+#: src/EBox/Mail.pm:1591
 msgid "Relay"
 msgstr "Relay"
 
-#: src/EBox/Mail.pm:1541
+#: src/EBox/Mail.pm:1592
 #, fuzzy
 msgid "Message type"
 msgstr "郵件"
 
-#: src/EBox/Mail.pm:1543
+#: src/EBox/Mail.pm:1594
 msgid "Event"
 msgstr "事件"
 
-#: src/EBox/Mail.pm:1544
+#: src/EBox/Mail.pm:1595
 #, fuzzy
 msgid "Additional Info"
 msgstr "新增資訊"
 
-#: src/EBox/Mail.pm:1555
+#: src/EBox/Mail.pm:1606
 msgid "Successful messages"
 msgstr "完成的郵件"
 
-#: src/EBox/Mail.pm:1556
+#: src/EBox/Mail.pm:1607
 msgid "Maximum message size exceeded"
 msgstr "超過最大郵件大小"
 
-#: src/EBox/Mail.pm:1557
+#: src/EBox/Mail.pm:1608
 msgid "User quote exceeded"
 msgstr "使用者額度已滿"
 
-#: src/EBox/Mail.pm:1558
+#: src/EBox/Mail.pm:1609
 msgid "Relay access denied"
 msgstr "禁止 relay 存取"
 
-#: src/EBox/Mail.pm:1559
+#: src/EBox/Mail.pm:1610
 msgid "Account does not exist"
 msgstr "帳號不存在"
 
-#: src/EBox/Mail.pm:1560
+#: src/EBox/Mail.pm:1611
 msgid "Host unreachable"
 msgstr "主機無法連線"
 
-#: src/EBox/Mail.pm:1561
+#: src/EBox/Mail.pm:1612
 msgid "Authentication error"
 msgstr "驗證失敗"
 
-#: src/EBox/Mail.pm:1562
+#: src/EBox/Mail.pm:1613
 #, fuzzy
 msgid "Greylisted"
 msgstr "灰名單"
 
-#: src/EBox/Mail.pm:1563
+#: src/EBox/Mail.pm:1614
 msgid "Other events"
 msgstr "其他事件"
 
-#: src/EBox/Mail.pm:1750
+#: src/EBox/Mail.pm:1801
 msgid "Mailboxes"
 msgstr "信箱"
 
-#: src/EBox/Mail.pm:1778
+#: src/EBox/Mail.pm:1829
 msgid "Mail SMTP server"
 msgstr "郵件 SMTP 伺服器"
 
-#: src/EBox/Mail.pm:1785
+#: src/EBox/Mail.pm:1836
 #, fuzzy
 msgid "Mail POP/IMAP server"
 msgstr "郵件 SMTP 伺服器"
@@ -1157,6 +1211,9 @@ msgstr "以下的設定只會影響到當郵件模組是啟用的情況時"
 msgid "Change"
 msgstr "變更"
 
+#~ msgid "size in Mb"
+#~ msgstr "MB 的大小"
+
 #~ msgid "Create alias mail account to group"
 #~ msgstr "建立別名帳號到群組"
 
@@ -1170,9 +1227,6 @@ msgstr "變更"
 
 #~ msgid "Operate"
 #~ msgstr "操作"
-
-#~ msgid "Mail virtual domains"
-#~ msgstr "虛擬網域郵件"
 
 #~ msgid "maildir size"
 #~ msgstr "信箱目錄大小"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:52+0100\n"
+"POT-Creation-Date: 2010-01-28 13:11+0000\n"
 "PO-Revision-Date: 2010-01-28 02:31+0100\n"
 "Last-Translator: Heidi Vilppola <hvilppola@ebox-technologies.com>\n"
 "Language-Team: \n"
@@ -29,7 +29,7 @@ msgstr "interfaz de red"
 msgid "method"
 msgstr "método"
 
-#: src/EBox/CGI/Iface.pm:88 src/EBox/Model/GatewayTable.pm:270
+#: src/EBox/CGI/Iface.pm:88
 msgid "ip address"
 msgstr "dirección IP"
 
@@ -59,7 +59,8 @@ msgstr "acción sobre la interfaz virtual"
 #: src/EBox/Network.pm:1115 src/EBox/Network.pm:1136 src/EBox/Network.pm:2673
 #: src/EBox/Network.pm:2689 src/EBox/Network.pm:2715 src/EBox/Network.pm:2846
 #: src/EBox/Network.pm:2985 src/EBox/Model/GatewayTable.pm:198
-#: src/templates/ifaces.mas:106 src/templates/ifaces.mas:253
+#: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:106
+#: src/templates/ifaces.mas:253
 msgid "IP address"
 msgstr "Dirección IP"
 
@@ -73,7 +74,7 @@ msgid "Network Diagnostic Tools"
 msgstr "Herramientas de Diagnostico de Redes"
 
 #: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58
-#: src/EBox/Model/WANFailoverRules.pm:96 src/templates/diag.mas:14
+#: src/EBox/Model/WANFailoverRules.pm:97 src/templates/diag.mas:14
 #: src/templates/diag.mas:23
 msgid "Host"
 msgstr "Máquina"
@@ -97,8 +98,7 @@ msgid "Gateway {gw} connected"
 msgstr "Puerta de enlace {gw} conectada"
 
 #: src/EBox/Event/Watcher/Gateways.pm:261
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
 "failed, max={maxFailRatio}%)"
@@ -129,8 +129,7 @@ msgid ""
 "Failover event in order to use this feature."
 msgstr ""
 "El módulo Eventos no se ha habilitado. Debe habilitarlo así como habilitar "
-"el evento Tolerancia a los fallos en WAN para poder usar esta "
-"característica."
+"el evento Tolerancia a los fallos en WAN para poder usar esta característica."
 
 #: src/EBox/Network/Composite/WANFailover.pm:82
 #, fuzzy
@@ -159,8 +158,8 @@ msgid ""
 "can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Para poder usar esta funcionalidad, necesitará al menos dos puertas de "
-"enlace habilitadas. Puede añadirlas <a "
-"href=\"/ebox/Network/View/GatewayDataTable\">aquí</a>."
+"enlace habilitadas. Puede añadirlas <a href=\"/ebox/Network/View/"
+"GatewayDataTable\">aquí</a>."
 
 #: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2974
 msgid "Status"
@@ -508,7 +507,7 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:68
 #: src/EBox/Model/MultiGwRulesDataTable.pm:195
-#: src/EBox/Model/WANFailoverRules.pm:132
+#: src/EBox/Model/WANFailoverRules.pm:133
 msgid "rule"
 msgstr "regla"
 
@@ -610,9 +609,9 @@ msgid ""
 "that these settings may be overriden if you have any network interface "
 "configured via DHCP</p>"
 msgstr ""
-"<p>Aquí puede añadir los traductores de nombres de servidores que eBox "
-"usará.</p><p>Tenga en cuenta que esta configuración puede ser anulada si "
-"tiene alguna interfaz de red configurada a través de DHCP</p>"
+"<p>Aquí puede añadir los traductores de nombres de servidores que eBox usará."
+"</p><p>Tenga en cuenta que esta configuración puede ser anulada si tiene "
+"alguna interfaz de red configurada a través de DHCP</p>"
 
 #: src/EBox/Model/ByteRateSettings.pm:80
 msgid "Interface to listen"
@@ -692,42 +691,42 @@ msgstr ""
 "La monitorización de tasa de tráfico se para/inicia bajo demanda sin tener "
 "que guardar cambios primero"
 
-#: src/EBox/Model/WANFailoverRules.pm:54
+#: src/EBox/Model/WANFailoverRules.pm:55
 msgid "Ping to gateway"
 msgstr "Hacer ping a la puerta de enlace"
 
-#: src/EBox/Model/WANFailoverRules.pm:58
+#: src/EBox/Model/WANFailoverRules.pm:59
 msgid "Ping to host"
 msgstr "Hacer ping a la máquina"
 
-#: src/EBox/Model/WANFailoverRules.pm:62
+#: src/EBox/Model/WANFailoverRules.pm:63
 msgid "DNS resolve"
 msgstr "Resolución de DNS"
 
-#: src/EBox/Model/WANFailoverRules.pm:66
+#: src/EBox/Model/WANFailoverRules.pm:67
 msgid "HTTP Request"
 msgstr "Petición de HTTP"
 
-#: src/EBox/Model/WANFailoverRules.pm:90
+#: src/EBox/Model/WANFailoverRules.pm:91
 #, fuzzy
 msgid "Test type"
 msgstr "Tipo prueba"
 
 # probes/sondas?
-#: src/EBox/Model/WANFailoverRules.pm:102
+#: src/EBox/Model/WANFailoverRules.pm:103
 #, fuzzy
 msgid "Number of probes"
 msgstr "Número de probes"
 
-#: src/EBox/Model/WANFailoverRules.pm:111
+#: src/EBox/Model/WANFailoverRules.pm:112
 msgid "Required success ratio"
 msgstr "Ratio de éxito requerido"
 
-#: src/EBox/Model/WANFailoverRules.pm:124
+#: src/EBox/Model/WANFailoverRules.pm:125
 msgid "Test rules"
 msgstr "Reglas de prueba"
 
-#: src/EBox/Model/WANFailoverRules.pm:131
+#: src/EBox/Model/WANFailoverRules.pm:132
 #, fuzzy
 msgid ""
 "You can define different rules to test if a gateway is working properly. If "
@@ -739,14 +738,14 @@ msgstr ""
 "puerta de enlace. Será habilitada de nuevo cuando todas las pruebas están "
 "aprobados."
 
-#: src/EBox/Model/WANFailoverRules.pm:191
+#: src/EBox/Model/WANFailoverRules.pm:192
 #, fuzzy
 msgid "WAN Failover is only available for static interfaces"
 msgstr ""
 "Tolerancia a los fallos en WAN sólo está disponible para las interfaces "
 "estáticas"
 
-#: src/EBox/Model/WANFailoverRules.pm:195
+#: src/EBox/Model/WANFailoverRules.pm:196
 msgid "Invalid value for Host"
 msgstr "Valor inválido para la Máquina"
 
@@ -816,13 +815,13 @@ msgstr ""
 msgid "gateway"
 msgstr "puerta de enlace"
 
-#: src/EBox/Model/GatewayTable.pm:278
+#: src/EBox/Model/GatewayTable.pm:285
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
 msgstr ""
 "No puede añadir manualmente una puerta de enlace para las interfaces DHCP o "
 "PPPoE"
 
-#: src/EBox/Model/GatewayTable.pm:339
+#: src/EBox/Model/GatewayTable.pm:344
 msgid "Automatically added gateways can not be manually deleted"
 msgstr ""
 "No se pueden eliminar manualmente las puertas de enlace que han sido "

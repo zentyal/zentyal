@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.100Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:50+0100\n"
+"POT-Creation-Date: 2010-01-28 13:05+0000\n"
 "PO-Revision-Date: 2009-02-04 05:14+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -78,7 +78,8 @@ msgstr "پورت"
 msgid "protocol"
 msgstr "پروتکل"
 
-#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
+#: src/EBox/Firewall.pm:825 src/EBox/CGI/Filter.pm:28
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "فیلتر کردن بسته"
 
@@ -131,10 +132,6 @@ msgstr "رد کردن بدون پاسخ"
 #: src/EBox/Firewall.pm:852 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
 msgstr "ثبت رخداد"
-
-#: src/EBox/CGI/Filter.pm:28
-msgid "Packet filtering"
-msgstr "فیلتر کردن بسته ها"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 #, fuzzy
@@ -316,12 +313,13 @@ msgid "Filtering rules from internal networks to eBox"
 msgstr "قوانین فیلترینگ از شبکه های داخلی به eBox"
 
 #: src/templates/filter.mas:8
+#, fuzzy
 msgid ""
-"These rules are meant to control access from internal network interfaces to "
-"services running on your eBox machine"
+"These rules allow you to control access from internal networks to services "
+"running on your eBox machine."
 msgstr ""
-"این قوانین، راه هایی برای کنترل کردن دسترسی از واسط های شبکه داخلی به سرویس "
-"های در حال اجرای ماشین eBox شما هستند"
+"این قوانین به شما اجازه می دهند که دسترسی از شبکه های خارجی به سرویس های در "
+"حال اجرا روی ماشین eBox خود را کنترل کنید"
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
@@ -334,10 +332,11 @@ msgid "Filtering rules for internal networks"
 msgstr "قوانین فیلترینگ برای شبکه های داخلی"
 
 #: src/templates/filter.mas:15
+#, fuzzy
 msgid ""
-"These rules allow you to control access  from your internal networks to the "
-"Internet, and traffic between your internal networks. If you wish to provide "
-"access to your eBox services, you must use the above section"
+"These rules allow you to control access from internal networks to the "
+"Internet and traffic between internal networks. If you wish to provide "
+"access to your eBox services, you must use the above section."
 msgstr ""
 "این قوانین به شما اجازه می دهند که دسترسی از شبکه های داخلی خود به اینترنت و "
 "ترافیک میان شبکه های داخلی خود را کنترل کنید. اگر می خواهید دسترسی به سرویس "
@@ -348,7 +347,9 @@ msgid "Filtering rules for traffic coming out from eBox"
 msgstr "قوانین فیلترینگ برای ترافیکی که از eBox منتشر می شوند"
 
 #: src/templates/filter.mas:23
-msgid "These rules allow you to control access from eBox to external services"
+#, fuzzy
+msgid ""
+"These rules allow you to control access from your eBox to external services."
 msgstr ""
 "این قوانین به شما اجازه می دهند که دسترسی از eBox به سرویس های خارجی را "
 "کنترل کنید"
@@ -366,10 +367,11 @@ msgstr ""
 "حال اجرا روی ماشین eBox خود را کنترل کنید"
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
+#, fuzzy
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
-"this unless you know what you are doing"
+"this unless you know what you are doing."
 msgstr ""
 "اضافه کردن قوانین در این بخش ممکن است امنیت شبکه شما را توافقی کند، مثلا "
 "ممکن است شما از شبکه های غیر قابل اعتماد اجازه دسترسی برای اجرای دستورات را "
@@ -387,6 +389,16 @@ msgid ""
 msgstr ""
 "این قوانین به شما اجاز می دهند که دسترسی از شبکه های خارجی به شبکه های داخلی "
 "را کنترل کنید"
+
+#~ msgid "Packet filtering"
+#~ msgstr "فیلتر کردن بسته ها"
+
+#~ msgid ""
+#~ "These rules are meant to control access from internal network interfaces "
+#~ "to services running on your eBox machine"
+#~ msgstr ""
+#~ "این قوانین، راه هایی برای کنترل کردن دسترسی از واسط های شبکه داخلی به "
+#~ "سرویس های در حال اجرای ماشین eBox شما هستند"
 
 #~ msgid "Redirects"
 #~ msgstr "مسیریابی ترافیک ها"

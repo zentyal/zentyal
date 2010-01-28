@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:50+0100\n"
+"POT-Creation-Date: 2010-01-28 13:05+0000\n"
 "PO-Revision-Date: 2010-01-20 13:17+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -76,7 +76,8 @@ msgstr "port"
 msgid "protocol"
 msgstr "protokoll"
 
-#: src/EBox/Firewall.pm:825 src/EBox/Firewall/Model/BaseRuleTable.pm:213
+#: src/EBox/Firewall.pm:825 src/EBox/CGI/Filter.pm:28
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
 msgstr "Pakke filter"
 
@@ -129,10 +130,6 @@ msgstr "TAP"
 #: src/EBox/Firewall.pm:852 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
 msgstr "LOGG"
-
-#: src/EBox/CGI/Filter.pm:28
-msgid "Packet filtering"
-msgstr "Pakke filtrering"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 msgid "Traffic coming out from eBox"
@@ -306,12 +303,13 @@ msgid "Filtering rules from internal networks to eBox"
 msgstr "Filtrerings regler fra interne nettverk til eBox"
 
 #: src/templates/filter.mas:8
+#, fuzzy
 msgid ""
-"These rules are meant to control access from internal network interfaces to "
-"services running on your eBox machine"
+"These rules allow you to control access from internal networks to services "
+"running on your eBox machine."
 msgstr ""
-"Disse reglene er ment til å kontrollere tilgang fra interne nettverkskort "
-"til tjenester som kjører på din eBox maskin"
+"Disse reglene lar deg kontrollere tilgang fra eksterne nettverk til "
+"tjenester som kjører på din eBox maskin."
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
@@ -324,10 +322,11 @@ msgid "Filtering rules for internal networks"
 msgstr "Filtrerings regler for interne nettverk"
 
 #: src/templates/filter.mas:15
+#, fuzzy
 msgid ""
-"These rules allow you to control access  from your internal networks to the "
-"Internet, and traffic between your internal networks. If you wish to provide "
-"access to your eBox services, you must use the above section"
+"These rules allow you to control access from internal networks to the "
+"Internet and traffic between internal networks. If you wish to provide "
+"access to your eBox services, you must use the above section."
 msgstr ""
 "Disse reglene lar deg og kontrollere tilgang  fra interne nettverk til "
 "internett, og trafikk mellom dine interne nettverk. Hvis du vil tillate "
@@ -338,7 +337,9 @@ msgid "Filtering rules for traffic coming out from eBox"
 msgstr "Filtrerings regler for trafikk ut fra eBox"
 
 #: src/templates/filter.mas:23
-msgid "These rules allow you to control access from eBox to external services"
+#, fuzzy
+msgid ""
+"These rules allow you to control access from your eBox to external services."
 msgstr ""
 "Disse reglene lar deg å kontrollere tilgang fra eBox til eksterne tjenester"
 
@@ -355,10 +356,11 @@ msgstr ""
 "tjenester som kjører på din eBox maskin."
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
+#, fuzzy
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
-"this unless you know what you are doing"
+"this unless you know what you are doing."
 msgstr ""
 "NB. Regler du legger til i denne seksjonen kan kompromittere din nettverks "
 "sikkerhet siden du kan gi tilgang fra usikre nettverk. Vennligst ikke bruk "
@@ -375,6 +377,16 @@ msgid ""
 msgstr ""
 "Disse reglene lar deg kontrollere tilgang fra eksterne nettverk til interne "
 "nettverk."
+
+#~ msgid "Packet filtering"
+#~ msgstr "Pakke filtrering"
+
+#~ msgid ""
+#~ "These rules are meant to control access from internal network interfaces "
+#~ "to services running on your eBox machine"
+#~ msgstr ""
+#~ "Disse reglene er ment til å kontrollere tilgang fra interne nettverkskort "
+#~ "til tjenester som kjører på din eBox maskin"
 
 #~ msgid "Redirects"
 #~ msgstr "Videresendinger"

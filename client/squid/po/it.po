@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:54+0100\n"
+"POT-Creation-Date: 2010-01-28 13:15+0000\n"
 "PO-Revision-Date: 2009-11-16 09:56+0100\n"
 "Last-Translator: gabriele garis <g.garis@inwind.it>\n"
 "Language-Team: none\n"
@@ -413,21 +413,21 @@ msgstr "Elenco di domini eliminato"
 msgid "Domain list updated"
 msgstr "Elenco di domini aggiornato"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:69
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:68
 msgid "Use default profile threshold"
 msgstr "Usa la soglia del profilo predefinito"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:75
-#, fuzzy
-msgid "Threshold a"
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:74
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
+msgid "Threshold"
 msgstr "Soglia"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:84
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:81
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:78
 msgid "Content filter threshold"
 msgstr "Soglia filtro contenuti"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:90
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:87
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:84
 msgid "Content filter threshold changed"
 msgstr "Soglia filtro contenuti modificata"
@@ -498,10 +498,6 @@ msgid "Use default profile for domain filtering"
 msgstr ""
 "Usa le impostazioni del profilo predefinito per il filtraggio dei domini"
 
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
-msgid "Threshold"
-msgstr "Soglia"
-
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:53
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:128
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:137
@@ -539,15 +535,16 @@ msgid "Use default profile for MIME filtering"
 msgstr "Usa le impostazioni del profilo predefinito per il filtraggio MIME"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:41
-msgid "Block not listed domains"
+#, fuzzy
+msgid "Block not listed domains and URLs"
 msgstr "Blocca i domini non in elenco"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
 #, fuzzy
 msgid ""
-"If this option is enabled, any domain which is not present in the <i>Domains "
-"rules</i> nor in the <i>Domain list files</i> sections below will be "
-"forbidden."
+"If this is enabled, any domain or URL which is neither present neither in "
+"the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
+"below will be forbidden."
 msgstr ""
 "Se abilitato, ogni dominio non presente nè nelle <i>regole per i domini</i> "
 "nè nelle sezioni sottostanti <i>Files di liste di domini</i> sarà proibito"
@@ -566,7 +563,8 @@ msgid "Allow all {elements}"
 msgstr "Permetti tutti {elements}"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:74
-msgid "Use this field to change the value of  all the above rows at once"
+#, fuzzy
+msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
 "Usa questo campo per cambiare il valore di  ogniuna delle righe in basso"
 
@@ -727,17 +725,22 @@ msgid "Set policy for all MIME types"
 msgstr "Imposta politica per tutti i tipi MIME"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:36
-#: src/EBox/Squid/Model/DomainFilterBase.pm:62
+#, fuzzy
+msgid "Domain or URL"
+msgstr "Dominio"
+
+#: src/EBox/Squid/Model/DomainFilterBase.pm:76
+#: src/EBox/Squid/Model/DomainFilterBase.pm:91
+msgid "Domain or IP address"
+msgstr "Dominio o indirizzo IP"
+
+#: src/EBox/Squid/Model/DomainFilterBase.pm:85
 msgid "Domain"
 msgstr "Dominio"
 
-#: src/EBox/Squid/Model/DomainFilterBase.pm:64
+#: src/EBox/Squid/Model/DomainFilterBase.pm:87
 msgid "You must not prefix the domain with www."
 msgstr "Non devi aggiungere il prefisso www al dominio."
-
-#: src/EBox/Squid/Model/DomainFilterBase.pm:68
-msgid "Domain or IP address"
-msgstr "Dominio o indirizzo IP"
 
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:107
 msgid "Time period"
@@ -794,8 +797,8 @@ msgstr "Politica del gruppo"
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
 #, fuzzy
 msgid ""
-"Here you can globaly block or allow access per user group. Filter options "
-"will be per global policy or per object policy"
+"Here you can globaly block or allow access by user group. Filter options "
+"will be by global policy or by object policy"
 msgstr ""
 "Qui puoi bloccare o permettere globalmente l'accesso a seconda del gruppo.Le "
 "opzioni di filtraggio saranno definite nella politica globale o nelle "
@@ -864,10 +867,11 @@ msgstr "Tipo MIME"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:65
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:61
+#, fuzzy
 msgid ""
-"Allow/Deny the HTTP traffic of the files which the given MIME types.MIME "
+"Allow/Deny the HTTP traffic of the files which the given MIME types. MIME "
 "types not listed here are allowed.\n"
-"The  filter needs a 'filter' policy to be in effect"
+"The filter needs a 'filter' policy to be in effect"
 msgstr ""
 "Permetti/Blocca il traffico HTTP per i file con i dati tipi MIME. I tipi "
 "MIME non in elenco qui sono permessi.\n"
@@ -955,32 +959,38 @@ msgstr "Uso del profilo di configurazione di default"
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #: src/EBox/Squid/Model/DomainFilter.pm:65
 #, fuzzy
-msgid "Domains rules"
+msgid "Domains and URL rules"
 msgstr "Regole per i domini"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 #: src/EBox/Squid/Model/DomainFilter.pm:78
-msgid "internet domain"
+#, fuzzy
+msgid "internet domain or URL"
 msgstr "dominio internet"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #: src/EBox/Squid/Model/DomainFilter.pm:79
-msgid "Allow/Deny the HTTP traffic from/to the listed internet domains."
+#, fuzzy
+msgid ""
+"Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr "Permetti/Blocca il traffico HTTP da/a i seguenti domini internet."
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 #: src/EBox/Squid/Model/DomainFilter.pm:81
-msgid "Domain added"
+#, fuzzy
+msgid "Domain or URL added"
 msgstr "Dominio aggiunto"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 #: src/EBox/Squid/Model/DomainFilter.pm:82
-msgid "Domain removed"
+#, fuzzy
+msgid "Domain or URL removed"
 msgstr "Dominio eliminato"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 #: src/EBox/Squid/Model/DomainFilter.pm:83
-msgid "Domain updated"
+#, fuzzy
+msgid "Domain or URL updated"
 msgstr "Dominio aggiornato"
 
 #: src/EBox/Squid/Model/FilterGroupAntiVirus.pm:61
@@ -1202,6 +1212,10 @@ msgstr "A"
 #: src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
 msgstr "Giorni della settimana"
+
+#, fuzzy
+#~ msgid "Threshold a"
+#~ msgstr "Soglia"
 
 #~ msgid "Configure network objects' policies"
 #~ msgstr "Configura politiche oggetti di rete"

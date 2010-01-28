@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:08+0100\n"
-"PO-Revision-Date: 2010-01-27 23:38+0100\n"
+"PO-Revision-Date: 2010-01-28 13:18+0000\n"
 "Last-Translator: Mostafa Salem <m@isalem.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -46,8 +46,7 @@ msgid "Web service status"
 msgstr "حالة خدمة الويب"
 
 #: src/EBox/WebServer.pm:348
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr "الملف {userDirConfFile} مفقود! يرجى استعادته."
 
@@ -74,7 +73,7 @@ msgstr "منفذ الاستماع"
 #: src/EBox/WebServer/Model/GeneralSettings.pm:175
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr "التمكين لكل مستخدم"
+msgstr "التمكين لكل مستخدم {dirName}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:179
 msgid ""
@@ -117,8 +116,7 @@ msgid ""
 msgstr "الاسم المزود هو اسم نطاق.. هل ترغب بـ {url}؟؟"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:162
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip}. {noDnsWarning} "

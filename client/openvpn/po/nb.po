@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:11+0000\n"
 "PO-Revision-Date: 2010-01-20 13:45+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -152,16 +152,18 @@ msgid "File supplied as client's private key is not valid"
 msgstr "Filen er ikke en gyldig klient nøkkel"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
 "Filen du oppga som klient sertifikat stemmer ikke med filen som er oppgitt "
 "som CA's sertifikat"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
 "Filen du oppga som klient sertifikat stemmer ikke med filen som er oppgitt "
@@ -464,8 +466,8 @@ msgid "client"
 msgstr "klient"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
-#, perl-brace-format
-msgid "No file supplied or already setted for {f}"
+#, fuzzy, perl-brace-format
+msgid "No file supplied or already set for {f}"
 msgstr "Ingen fil er oppgitt eller er allerede satt for {f}"
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
@@ -550,10 +552,10 @@ msgid "Cannot create a server because there is not a CA certificate"
 msgstr "Kan ikke opprette en server fordi det ikke er noe CA sertifikat"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"{act} not possible because there aren'tany available certificate. Please, go "
-"tothe certificate authority moduleand create new certificates"
+"{act} not possible because there aren't any available certificate. Please, "
+"go to the certificate authority moduleand create new certificates"
 msgstr ""
 "{act} ikke mulig fordi det er ingen ledige sertifikat. Vennligst, gå til "
 "sertifikat autoritet modulen og opprett nye sertifikater"

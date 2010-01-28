@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:54+0100\n"
+"POT-Creation-Date: 2010-01-28 13:15+0000\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -408,22 +408,22 @@ msgstr "ドメインが削除されました"
 msgid "Domain list updated"
 msgstr "ドメインが更新されました"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:69
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:68
 #, fuzzy
 msgid "Use default profile threshold"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:75
-#, fuzzy
-msgid "Threshold a"
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:74
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
+msgid "Threshold"
 msgstr "しきい値"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:84
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:81
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:78
 msgid "Content filter threshold"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:90
+#: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:87
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:84
 msgid "Content filter threshold changed"
 msgstr "コンテンツフィルタのしきい値が変更されました"
@@ -491,10 +491,6 @@ msgstr ""
 msgid "Use default profile for domain filtering"
 msgstr ""
 
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
-msgid "Threshold"
-msgstr "しきい値"
-
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:53
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:128
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:137
@@ -532,14 +528,15 @@ msgid "Use default profile for MIME filtering"
 msgstr ""
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:41
-msgid "Block not listed domains"
+#, fuzzy
+msgid "Block not listed domains and URLs"
 msgstr "一覧に含まれないドメインをブロック"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
 msgid ""
-"If this option is enabled, any domain which is not present in the <i>Domains "
-"rules</i> nor in the <i>Domain list files</i> sections below will be "
-"forbidden."
+"If this is enabled, any domain or URL which is neither present neither in "
+"the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
+"below will be forbidden."
 msgstr ""
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:52
@@ -556,7 +553,7 @@ msgid "Allow all {elements}"
 msgstr "全ての {elements} を許可"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:74
-msgid "Use this field to change the value of  all the above rows at once"
+msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:58
@@ -703,18 +700,23 @@ msgid "Set policy for all MIME types"
 msgstr "全てのMIMEタイプにポリシーを設定"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:36
-#: src/EBox/Squid/Model/DomainFilterBase.pm:62
-msgid "Domain"
+#, fuzzy
+msgid "Domain or URL"
 msgstr "ドメイン"
 
-#: src/EBox/Squid/Model/DomainFilterBase.pm:64
-msgid "You must not prefix the domain with www."
-msgstr "ドメインにWWWというプリフィックスはつけないでください"
-
-#: src/EBox/Squid/Model/DomainFilterBase.pm:68
+#: src/EBox/Squid/Model/DomainFilterBase.pm:76
+#: src/EBox/Squid/Model/DomainFilterBase.pm:91
 #, fuzzy
 msgid "Domain or IP address"
 msgstr "ドメインが追加されました"
+
+#: src/EBox/Squid/Model/DomainFilterBase.pm:85
+msgid "Domain"
+msgstr "ドメイン"
+
+#: src/EBox/Squid/Model/DomainFilterBase.pm:87
+msgid "You must not prefix the domain with www."
+msgstr "ドメインにWWWというプリフィックスはつけないでください"
 
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:107
 msgid "Time period"
@@ -770,8 +772,8 @@ msgstr "Squidのポリシー"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
 msgid ""
-"Here you can globaly block or allow access per user group. Filter options "
-"will be per global policy or per object policy"
+"Here you can globaly block or allow access by user group. Filter options "
+"will be by global policy or by object policy"
 msgstr ""
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
@@ -837,10 +839,11 @@ msgstr "MIMEタイプ"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:65
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:61
+#, fuzzy
 msgid ""
-"Allow/Deny the HTTP traffic of the files which the given MIME types.MIME "
+"Allow/Deny the HTTP traffic of the files which the given MIME types. MIME "
 "types not listed here are allowed.\n"
-"The  filter needs a 'filter' policy to be in effect"
+"The filter needs a 'filter' policy to be in effect"
 msgstr ""
 "与えられたMIMEタイプを持つファイルのHTTPトラフィックを許可/拒否します。一覧に"
 "含まれないMIMEタイプが許可されています。フィルタを使うには'filter'ポリシーを"
@@ -930,32 +933,38 @@ msgstr ""
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #: src/EBox/Squid/Model/DomainFilter.pm:65
 #, fuzzy
-msgid "Domains rules"
+msgid "Domains and URL rules"
 msgstr "ドメイン一覧"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 #: src/EBox/Squid/Model/DomainFilter.pm:78
-msgid "internet domain"
+#, fuzzy
+msgid "internet domain or URL"
 msgstr "インターネットドメイン"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #: src/EBox/Squid/Model/DomainFilter.pm:79
-msgid "Allow/Deny the HTTP traffic from/to the listed internet domains."
+#, fuzzy
+msgid ""
+"Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr "一覧に含まれるインターネットドメインとのHTTPトラフィックを許可/拒否"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 #: src/EBox/Squid/Model/DomainFilter.pm:81
-msgid "Domain added"
+#, fuzzy
+msgid "Domain or URL added"
 msgstr "ドメインが追加されました"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 #: src/EBox/Squid/Model/DomainFilter.pm:82
-msgid "Domain removed"
+#, fuzzy
+msgid "Domain or URL removed"
 msgstr "ドメインが削除されました"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 #: src/EBox/Squid/Model/DomainFilter.pm:83
-msgid "Domain updated"
+#, fuzzy
+msgid "Domain or URL updated"
 msgstr "ドメインが更新されました"
 
 #: src/EBox/Squid/Model/FilterGroupAntiVirus.pm:61
@@ -1168,6 +1177,10 @@ msgstr ""
 #: src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Threshold a"
+#~ msgstr "しきい値"
 
 #~ msgid "Configure network objects' policies"
 #~ msgstr "ネットワークオブジェクトのポリシー設定"

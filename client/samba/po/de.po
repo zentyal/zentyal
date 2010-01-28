@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:12+0000\n"
 "PO-Revision-Date: 2010-01-28 12:47+0100\n"
 "Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: none\n"
@@ -20,7 +20,7 @@ msgstr "Dateifreigabe-Protokoll (Samba)"
 msgid "This user has a sharing directory associated which contains data"
 msgstr "Dieser Benutzer hat eine Freigabe zugeordnet, welche Daten enthält"
 
-#: src/EBox/SambaLdapUser.pm:367
+#: src/EBox/SambaLdapUser.pm:367 src/EBox/SambaLdapUser.pm:386
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
 msgstr "Ungültige SID: {s}"
@@ -35,12 +35,6 @@ msgstr "Benutzer {u} existiert nicht"
 msgid "User {u} is not a samba user"
 msgstr "Benutzer {u} ist kein Samba-Benutzer"
 
-# original has typo: incoorect --> incorrect
-#: src/EBox/SambaLdapUser.pm:386
-#, perl-brace-format
-msgid "Incoorect SID: {s}"
-msgstr "Ungültige SID: {s}"
-
 #: src/EBox/SambaLdapUser.pm:390
 #, perl-brace-format
 msgid "Group {g} does not exists"
@@ -52,7 +46,8 @@ msgid "Group {g} is not a samba group"
 msgstr "Gruppe {g} ist keine Samba-Gruppe"
 
 #: src/EBox/SambaLdapUser.pm:437
-msgid "This group has a sharing directory associatedwhich conatins data"
+#, fuzzy
+msgid "This group has a sharing directory associated that contains data"
 msgstr "Diese Gruppe hat eine Freigabe zugeordnet, welche Daten enthält"
 
 #: src/EBox/SambaLdapUser.pm:641
@@ -721,6 +716,10 @@ msgstr "Eigener Ordner"
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "{group} Freigabe-Verzeichnis"
+
+# original has typo: incoorect --> incorrect
+#~ msgid "Incoorect SID: {s}"
+#~ msgstr "Ungültige SID: {s}"
 
 #, fuzzy
 #~ msgid "Share configuration"

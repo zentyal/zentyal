@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-01-28 13:11+0000\n"
 "PO-Revision-Date: 2009-05-19 15:40+0200\n"
 "Last-Translator: Taro Yamazaki <taro@plum-systems.co.jp>\n"
 "Language-Team: none\n"
@@ -150,16 +150,18 @@ msgid "File supplied as client's private key is not valid"
 msgstr "クライアントプライベート鍵として渡されたファイルは無効です"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
 "クライアント証明書として渡されたファイルがCA証明書として渡されたファイルと一"
 "致しません"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
+#, fuzzy
 msgid ""
-"File supplied as client's certficate doesn't match with file supplied as "
+"File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
 "クライアント証明書として渡されたファイルが証明書のプライベート鍵として渡され"
@@ -457,7 +459,7 @@ msgstr "クライアント"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
 #, perl-brace-format
-msgid "No file supplied or already setted for {f}"
+msgid "No file supplied or already set for {f}"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
@@ -543,8 +545,8 @@ msgstr "サーバ {name} は証明書を保有していないため、鍵を取�
 #: src/EBox/OpenVPN/Model/Servers.pm:318
 #, perl-brace-format
 msgid ""
-"{act} not possible because there aren'tany available certificate. Please, go "
-"tothe certificate authority moduleand create new certificates"
+"{act} not possible because there aren't any available certificate. Please, "
+"go to the certificate authority moduleand create new certificates"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/Servers.pm:331
