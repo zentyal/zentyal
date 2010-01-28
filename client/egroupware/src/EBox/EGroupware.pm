@@ -214,7 +214,23 @@ sub _setConf
                            config_passwd => $md5pass,
                            db_pass => getPassword()]);
 
+    $self->_setAuth();
     $self->_configVDomain();
+}
+
+sub _setAuth
+{
+    my ($self) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    my $ldap = $users->ldap();
+    my $rootdn = $ldap->rootDn();
+    my $password = $ldap->getPassword();
+    my $usersdn = $users->usersDn();
+    my $groupsdn = $users->groupsDn();
+
+    my $path = EBox::Config::share() . '/ebox-egroupware';
+    EBox::Sudo::root("$path/ebox-egroupware-set-auth '$rootdn' '$password' '$usersdn' '$groupsdn'");
 }
 
 sub _configVDomain
