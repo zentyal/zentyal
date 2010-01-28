@@ -91,7 +91,7 @@ sub _table
       rowUnique          => 1,
       automaticRemove    => 1,
       printableRowName   => __("group's policy"),
-      help               => __("Here you can globaly block or allow access by user group. Filter options will be by global policy or by object policy"),
+      help               => __("Here you can globally block or allow access by user group. Filter options will be by global policy or by object policy"),
       messages           => {
           add => __(q{Added group's policy}),
           del =>  __(q{Removed group's policy}),
