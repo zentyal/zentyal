@@ -95,7 +95,8 @@ sub runGConf
     my ($self) = @_;
 
     $self->addInternalService(
-			      'name' => 'ntp',
+			      'name' => 'NTP',
+			      'description' => 'NTP',
 			      'protocol' => 'udp',
 			      'sourcePort' => 'any',
 			      'destinationPort' => 123,
