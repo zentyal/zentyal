@@ -1,4 +1,4 @@
-HEAD
+1.3.14
 	+ Bugfix: in restartService we assure that all files are in place
 	before restarting the daemons
 	+ Changed labels in cache exemptions form 'domain' to 'domain name

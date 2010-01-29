@@ -1,10 +1,10 @@
-HEAD
-        + managesieve plugin configuration file stored in /etc to shield
-	it from package upgrades
+1.3.15
+	+ managesieve plugin configuration file stored in /etc to shield
+    	  it from package upgrades
 1.3.14
 	+ Bugfix: assure cache is disabled when using a localhost
-	server. This is neccesary or otherwise we will be bitten for
-	roundcube check new email bug
+	  server. This is neccesary or otherwise we will be bitten for
+	  roundcube check new email bug
 1.3.13
 	+ Change menu name to keep folder open
 	+ Added support for 'markasjunk' plugin

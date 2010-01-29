@@ -1,4 +1,4 @@
-AC_INIT([EBox], [1.3.16])
+AC_INIT([EBox], [1.3.17])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/SysInfo.pm.in])

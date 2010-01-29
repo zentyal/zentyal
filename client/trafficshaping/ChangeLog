@@ -1,4 +1,4 @@
-HEAD
+1.3.13
 	+ Bug fix: InterfaceRate doesn't show duplicates any more
 	+ Bug fix: RulesTable is notified by changes on InterfaceRate
 	+ Disable ifaceExternalChanged until network observers are complete
