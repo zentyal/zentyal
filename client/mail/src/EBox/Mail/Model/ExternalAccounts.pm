@@ -121,7 +121,7 @@ sub _table
         defaultActions     => ['add', 'editField', 'del', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
-        help               => 'Add and remove external account for mail retrieval',
+        help               => __('Fetching mail is done every 10 minutes'),
         modelDomain        => 'mail',
 
     };
