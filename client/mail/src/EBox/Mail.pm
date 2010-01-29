@@ -1441,6 +1441,7 @@ sub mailServicesWidget
                                    enabled => $self->imaps
                                              );
     my $greylist = $self->greylist()->serviceWidget();
+    my $fetchmailWidget = $self->{fetchmail}->serviceWidget();
 
     $section->add($smtp);
     $section->add($pop);
@@ -1448,6 +1449,7 @@ sub mailServicesWidget
     $section->add($imap);
     $section->add($imaps);
     $section->add($greylist);
+    $section->add($fetchmailWidget);
 
     my $filterSection = $self->_filterDashboardSection();
     $widget->add($filterSection);

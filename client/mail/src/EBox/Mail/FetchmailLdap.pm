@@ -329,6 +329,28 @@ sub running
     EBox::Service::running(FETCHMAIL_SERVICE);
 }
 
+# Method: serviceWidget
+#
+#    Return the widget for fetchmail widget
+#
+# Returns:
+#
+#    <EBox::Dashboard::ModuleStatus> - the section for fetchmail service
+#
+sub serviceWidget
+{
+    my ($self) = @_;
+
+    my $widget = new EBox::Dashboard::ModuleStatus(
+        module        => 'mail',
+        printableName => __('External retrieval service'),
+        running       => $self->running(),
+        enabled       => $self->isEnabled(),
+       );
+
+    return $widget;
+
+}
 
 sub modifyTimestamp
 {
