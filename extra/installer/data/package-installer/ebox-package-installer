@@ -152,6 +152,7 @@ system ("$INSTALL_FILES/ebox-set-admin-password $CNF_user $cryptpass >> $LOG 2>&
 my @packages = selectPackagesMenu();
 push (@packages, 'remoteservices');
 @packages = map ("ebox-$_", @packages);
+push (@packages, 'xorg', 'firefox', 'gdm', 'xfce4-session', 'xfwm4', 'xterm');
 
 installPackages(@packages);
 
@@ -470,6 +471,9 @@ sub preconfiguration
     system ("$INSTALL_FILES/ebox-set-password $CNF_password >> $LOG 2>&1");
 
     print $PROGRESS "100\n";
+
+    # X11 setup
+    system ("$INSTALL_FILES/ebox-x11-setup $CNF_user >> $LOG 2>&1");
 
     close ($PROGRESS);
 }

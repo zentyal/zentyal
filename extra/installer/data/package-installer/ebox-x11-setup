@@ -1,0 +1,10 @@
+#!/bin/sh
+
+USER_NAME=$1
+
+sed -i 's/AutomaticLoginEnable=.*/AutomaticLoginEnable=true' /etc/gdm/gdm.conf
+sed -i "s/AutomaticLogin=.*/AutomaticLogin=$USER_NAME" /etc/gdm/gdm.conf
+
+mv /var/tmp/ebox-firefox /usr/local/bin/
+mkdir -p /home/$USER_NAME/.config/autostart
+cp /var/tmp/ebox-firefox.desktop /home/$USER_NAME/.config/autostart

@@ -78,6 +78,8 @@ installed_ok() {
     apt-get clean
     # Restore original rc.local
     mv /var/tmp/rc.local /etc/rc.local
+    # Restart gdm
+    /etc/init.d/gdm restart
     exit 0
 }
 
