@@ -86,6 +86,7 @@ sub generalWidget
     my $lastVersion;
     open (my $fh, LATEST_VERSION);
     read ($fh, $lastVersion, 16);
+    chomp($lastVersion);
     close ($fh);
     if ($lastVersion gt $version) {
         my $url =
