@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-01-28 13:31+0000\n"
-"PO-Revision-Date: 2010-01-22 13:42+0100\n"
+"PO-Revision-Date: 2010-01-29 13:23+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,19 +19,19 @@ msgstr ""
 
 #: ebox-package-installer:30
 msgid "Firewall, HTTP proxy, traffic shaping, etc."
-msgstr "Brannmur, HTTP proxy, trafikk styring, etc."
+msgstr "Brannmur, HTTP proxy, trafikkstyring, etc."
 
 #: ebox-package-installer:31
 msgid "Firewall, IDS, AV, VPN, content & mail filter, etc."
-msgstr "Brannmur, IDS, AV, VPN, innholds & epost filter, etc."
+msgstr "Brannmur, IDS, AV, VPN, innholds- og epostfilter, etc."
 
 #: ebox-package-installer:32
 msgid "DHCP, DNS, NTP, HTTP server, etc."
-msgstr "DHCP, DNS, NTP, HTTP server, etc."
+msgstr "DHCP-, DNS-, NTP-, HTTP-server, etc."
 
 #: ebox-package-installer:33
 msgid "File sharing and printing, groupware, etc."
-msgstr "Fil og printer deling, gruppevare, etc."
+msgstr "Fil- og printerdeling, gruppevare, etc."
 
 #: ebox-package-installer:34
 msgid "Mail, Jabber/XMPP, VoIP, etc."
@@ -47,23 +47,23 @@ msgstr "Brannmur og viderekoblinger"
 
 #: ebox-package-installer:40
 msgid "Traffic shaping"
-msgstr "Trafikk styring"
+msgstr "Trafikkstyring"
 
 #: ebox-package-installer:41
 msgid "File sharing server and Windows PDC"
-msgstr "Fil delings server og Windows PDC"
+msgstr "Fildelingsserver og Windows PDC"
 
 #: ebox-package-installer:42
 msgid "DNS server"
-msgstr "DNS server"
+msgstr "DNS-server"
 
 #: ebox-package-installer:43
 msgid "DHCP server"
-msgstr "DHCP server"
+msgstr "DHCP-server"
 
 #: ebox-package-installer:44
 msgid "RADIUS server"
-msgstr "RADIUS server"
+msgstr "RADIUS-server"
 
 #: ebox-package-installer:45
 msgid "HTTP proxy and content filter"
@@ -83,7 +83,7 @@ msgstr "System og eBox pakke behandling"
 
 #: ebox-package-installer:49
 msgid "Remote or local Backup"
-msgstr ""
+msgstr "Ekstern eller lokal Sikkerhetskopi"
 
 #: ebox-package-installer:50
 msgid "NTP server"
@@ -151,57 +151,59 @@ msgstr "enkel"
 
 #: ebox-package-installer:79
 msgid "Select packages by task"
-msgstr ""
+msgstr "Velg pakker etter oppgave"
 
 #: ebox-package-installer:80 ebox-package-installer:91
 msgid "advanced"
-msgstr ""
+msgstr "avansert"
 
 #: ebox-package-installer:81
 msgid "Select packages manually"
-msgstr ""
+msgstr "Velg pakker manuelt"
 
 #: ebox-package-installer:82
 msgid "Select eBox tasks to install"
-msgstr ""
+msgstr "Velg eBox oppgaver å installere"
 
 #: ebox-package-installer:83
 msgid "Select one or more tasks:"
-msgstr ""
+msgstr "Velg en eller flere oppgaver:"
 
 #: ebox-package-installer:84
 msgid "Select eBox packages to install"
-msgstr ""
+msgstr "Velg eBox pakker å installere"
 
 #: ebox-package-installer:85
 msgid "Select the desired packages:"
-msgstr ""
+msgstr "Velg ønskede pakker:"
 
 #: ebox-package-installer:86
 msgid "Select the type of the server"
-msgstr ""
+msgstr "Velg type server"
 
 #: ebox-package-installer:87
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
+"Velg selvstendig med mindre du vil ha LDAP replikering eller synkronisering "
+"med Active Directory."
 
 #: ebox-package-installer:88
 msgid "Standalone server"
-msgstr ""
+msgstr "Selvstendig server"
 
 #: ebox-package-installer:89
 msgid "Advanced configuration (Master/Slave/AD Sync)"
-msgstr ""
+msgstr "Avansert konfigurasjon (Master/Slave/AD Sync)"
 
 #: ebox-package-installer:90
 msgid "standalone"
-msgstr ""
+msgstr "selvstendig"
 
 #: ebox-package-installer:92
 msgid "Advanced configuration modes"
-msgstr ""
+msgstr "Avanserte konfigurasjons metoder"
 
 #: ebox-package-installer:93
 #, perl-brace-format
@@ -210,16 +212,21 @@ msgid ""
 "can find all the information here:\n"
 "{url}"
 msgstr ""
+"Hvis du trenger de avanserte tilleggene må du konfigurere dem manuelt. Du "
+"kan finne all informasjonen her:\n"
+"{url}"
 
 #: ebox-package-installer:96
 msgid "Select External (WAN) interfaces"
-msgstr ""
+msgstr "Velg Eksternt (WAN) grensesnitt"
 
 #: ebox-package-installer:97
 msgid ""
 "WARNING: By default you will not be able to access the web interface through "
 "them."
 msgstr ""
+"ADVARSEL: Som standard vil du ikke ha mulighet til å bruke web grensenittet "
+"gjennom dem."
 
 #: ebox-package-installer:98
 msgid ""
@@ -228,48 +235,58 @@ msgid ""
 "the eBox features but it will not act as a gateway unless you add another "
 "network card."
 msgstr ""
+"Du har installert en gateway profil. Dette krever minst to nettverks "
+"grensesnitt  og din maskin har bare ett. Du kan fortsatt nyte resten av eBox "
+"tilleggene men den vil ikke fungere som en gateway med mindre du legger til "
+"et nettverks grensenitt."
 
 #: ebox-package-installer:99
 msgid "Enter administration user"
-msgstr ""
+msgstr "Tast inn administrasjons bruker"
 
 #: ebox-package-installer:100
 msgid ""
 "You will need this username to log into the local console or access remotely "
 "by SSH:"
 msgstr ""
+"Du vil trenge dette brukernavnet for å logge inn på det lokale konsollet "
+"eller fjernstyrt tilgang over SSH:"
 
 #: ebox-package-installer:101
 msgid "Enter administration password"
-msgstr ""
+msgstr "Tast inn administratsjons passord"
 
 #: ebox-package-installer:102
 msgid ""
 "You will need to use this password to log into the eBox interface or in the "
 "console with the username that you have just entered:"
 msgstr ""
+"Du vil trenge dette passordet for å logge inn på eBox grensesnittet eller "
+"konsollet med brukernavnet du har tastet inn:"
 
 #: ebox-package-installer:103
 msgid "Confirm administration password"
-msgstr ""
+msgstr "Bekreft administratsjons passord"
 
 #: ebox-package-installer:105
 msgid "Mail configuration"
-msgstr ""
+msgstr "Epost konfigurasjon"
 
 #: ebox-package-installer:106
 msgid "Enter default virtual mail domain:"
-msgstr ""
+msgstr "Tast inn standard virtuelt epost domene:"
 
 #: ebox-package-installer:107
 msgid "Installation finished"
-msgstr ""
+msgstr "Installasjon fullført"
 
 #: ebox-package-installer:108
 msgid ""
 "Now you can access the eBox interface browsing the following address from "
 "any computer in your network: "
 msgstr ""
+"Nå kan du bruke eBox grensesnittet med følgende adresse fra hvilken som "
+"helst PC i ditt nettverk:"
 
 #: ebox-package-installer:109
 msgid ""
@@ -277,42 +294,45 @@ msgid ""
 "typical setup. If you really know what you are doing you can install in "
 "expert mode and define your own partition layout."
 msgstr ""
+"Størrelsen på ditt root filsystem er mindre enn 2GB. Dette er ikke nok for "
+"et typisk oppsett. Hvis du virkelig vet hva du gjør kan du installere i "
+"ekspert modus og definere ditt eget partisjons oppsett."
 
 #: ebox-package-installer:138 ebox-package-installer:263
 #: ebox-package-installer:305 ebox-package-installer:352
 #: ebox-package-installer:366
 msgid "Error"
-msgstr ""
+msgstr "Feil"
 
 #: ebox-package-installer:247
 msgid "Installing eBox packages..."
-msgstr ""
+msgstr "Installerer eBox pakker..."
 
 #: ebox-package-installer:263
 msgid "Installation failed."
-msgstr ""
+msgstr "Installasjon feilet."
 
 #: ebox-package-installer:264
 #, perl-brace-format
 msgid "Check {logfile} content to see what happened"
-msgstr ""
+msgstr "Kontroller {logfile} inhold for å se hva som skjedde"
 
 #: ebox-package-installer:306
 msgid "You must select at least one package."
-msgstr ""
+msgstr "Du må velge minst en pakke."
 
 #: ebox-package-installer:325
 msgid "Warning"
-msgstr ""
+msgstr "Advarsel"
 
 #: ebox-package-installer:352
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Passorene stemmer ikke"
 
 #: ebox-package-installer:366
 msgid "The username 'ebox' is reserved. Please choose another."
-msgstr ""
+msgstr "Brukernavnet 'eBox' er reservert. Vennligst velg et annet."
 
 #: ebox-package-installer:400
 msgid "Preconfiguring eBox packages..."
-msgstr ""
+msgstr "Prekonfigurerer eBox pakker..."

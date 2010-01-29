@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-01-28 13:31+0000\n"
-"PO-Revision-Date: 2010-01-23 16:58+0100\n"
+"PO-Revision-Date: 2010-01-28 17:09+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: ebox-package-installer:30
@@ -84,7 +84,7 @@ msgstr "Управление системным ПО и пакетами eBox"
 
 #: ebox-package-installer:49
 msgid "Remote or local Backup"
-msgstr ""
+msgstr "Удалённый или локальный бэкап"
 
 #: ebox-package-installer:50
 msgid "NTP server"
@@ -314,9 +314,9 @@ msgid "Installation failed."
 msgstr "Ошибка установки"
 
 #: ebox-package-installer:264
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Check {logfile} content to see what happened"
-msgstr "Смотрите содержание {log} для выяснения причин"
+msgstr "Смотрите содержание {logfile} для выяснения причин"
 
 #: ebox-package-installer:306
 msgid "You must select at least one package."
