@@ -37,6 +37,7 @@ use EBox::Gettext;
 use EBox::Config;
 #use EBox::LogAdmin qw ( :all );
 use EBox::Menu::Item;
+use EBox::Dashboard::ModuleStatus;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataMissing;
@@ -1790,6 +1791,33 @@ sub showModuleStatus
 {
     # we don't want it to appear in module status
     return undef;
+}
+
+# Method: addModuleStatus
+#
+#       Overrides to show a custom status for CA module
+#
+# Overrides:
+#
+#       <EBox::Module::Service::addModuleStatus>
+#
+sub addModuleStatus
+{
+    my ($self, $section) = @_;
+
+    my $caStatus = __('Not created');
+    if ( $self->isAvailable() ) {
+        $caStatus = __('Available');
+    } elsif ( $self->isCreated() ) {
+        $caStatus = __('Created but not available');
+    }
+
+    $section->add(new EBox::Dashboard::ModuleStatus(
+        module        => $self->name(),
+        printableName => $self->printableName(),
+        nobutton      => 1,
+        statusStr     => $caStatus));
+
 }
 
 # Method: _supportActions
