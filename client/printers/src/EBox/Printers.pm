@@ -230,7 +230,7 @@ sub manufacturerModels($$)
 	my $db = new Foomatic::DB;
 	my $manufacturer = $self->manufacturer($id);
 	my @models = sort ($db->get_models_by_make($manufacturer));
-	push (@models, 'Raw');
+	push (@models, 'Raw') unless (@models);
 	return \@models;
 }
 
@@ -273,8 +273,8 @@ sub driversForPrinter($$)
 		return ['Raw'];
 	}
 	my $db = new Foomatic::DB;
-	#my @drivers = grep(! /^(gimp.*)|(hpdj)/,
-	my @drivers = $db->get_drivers_for_printer($printer);
+	my @drivers = 
+		grep(! /^Postscript.+/, $db->get_drivers_for_printer($printer));
 	if (@drivers) {
 		return \@drivers;
 	} else {
