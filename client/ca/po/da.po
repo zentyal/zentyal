@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:39+0100\n"
+"POT-Creation-Date: 2010-01-29 23:28+0000\n"
 "PO-Revision-Date: 2007-07-24 15:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
 #: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:46
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:115
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:116
 #, fuzzy
 msgid "Certification Authority"
 msgstr "Certifikat udstedelses styring"
@@ -58,8 +58,8 @@ msgstr "Grund"
 
 #: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:74
 #: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/ShowForm.pm:64
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:747 src/EBox/CA.pm:910
-#: src/EBox/CA.pm:1247 src/EBox/CA.pm:1289 src/EBox/CA.pm:1383
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:748 src/EBox/CA.pm:911
+#: src/EBox/CA.pm:1248 src/EBox/CA.pm:1290 src/EBox/CA.pm:1384
 #: src/EBox/Model/Certificates.pm:235 src/EBox/CA/TestStub.pm:438
 #: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
 #: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
@@ -106,7 +106,7 @@ msgstr "Certifikatet er blevet fornyet"
 msgid "The new CA certificate has been renewed"
 msgstr "Det nye CA certifikat er blevet fornyet"
 
-#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:252 src/EBox/CA.pm:529
+#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:253 src/EBox/CA.pm:530
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
 #: src/templates/formRenew.mas:37 src/templates/formRevoke.mas:22
 #: src/templates/index.mas:22 src/templates/createCA.mas:7
@@ -140,28 +140,28 @@ msgstr "Navnet: {cn} er IKKE i databasen"
 msgid "Error creating file"
 msgstr "Fejl under oprettelse af fil"
 
-#: src/EBox/CA.pm:293 src/EBox/CA.pm:764 src/EBox/CA.pm:1362
+#: src/EBox/CA.pm:294 src/EBox/CA.pm:765 src/EBox/CA.pm:1363
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Maximum antal dage er sat {days}: år 2038 problem"
 
-#: src/EBox/CA.pm:388
+#: src/EBox/CA.pm:389
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Slette operationen kunn eikke gennemføres. Årsag: "
 
-#: src/EBox/CA.pm:543 src/EBox/CA/TestStub.pm:259
+#: src/EBox/CA.pm:544 src/EBox/CA/TestStub.pm:259
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
 "CA certifikaterne bør inddrages _ _ eller er udløbet før et nyt er udstedt"
 
-#: src/EBox/CA.pm:923 src/EBox/CA.pm:1258
+#: src/EBox/CA.pm:924 src/EBox/CA.pm:1259
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Certifikatet med navnet {cn} findes IKKE"
 
-#: src/EBox/CA.pm:927
+#: src/EBox/CA.pm:928
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -170,33 +170,33 @@ msgstr ""
 "Årsagen {reason} er IKKE en gyldig  årsag.\n"
 " Muligheder: "
 
-#: src/EBox/CA.pm:1070
+#: src/EBox/CA.pm:1071
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 
-#: src/EBox/CA.pm:1162
+#: src/EBox/CA.pm:1163
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "Enten navnet, unikke navn eller serienummer er overdraget"
 
-#: src/EBox/CA.pm:1384
+#: src/EBox/CA.pm:1385
 msgid "or"
 msgstr "eller"
 
-#: src/EBox/CA.pm:1385
+#: src/EBox/CA.pm:1386
 msgid "Certificate file"
 msgstr "Certifikatfil"
 
-#: src/EBox/CA.pm:1407
+#: src/EBox/CA.pm:1408
 msgid "The certificate to renew does NOT exist"
 msgstr "Certifikatet, der skulle fornys findes IKKE"
 
-#: src/EBox/CA.pm:1447
+#: src/EBox/CA.pm:1448
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Certifikatet med navnet {cn} findes IKKE hos denne autoritet"
 
-#: src/EBox/CA.pm:1475
+#: src/EBox/CA.pm:1476
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
@@ -204,42 +204,54 @@ msgstr ""
 "Det private password til at oprette en ny ansøgning. Ingen fornyelse blev "
 "lavet. Opret et nyt certifikat med nye nøgler"
 
-#: src/EBox/CA.pm:1717
+#: src/EBox/CA.pm:1718
 msgid "General"
 msgstr ""
 
-#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:251
+#: src/EBox/CA.pm:1721 src/EBox/Model/Certificates.pm:251
 #, fuzzy
 msgid "Services Certificates"
 msgstr "Annulerer certifikat"
 
-#: src/EBox/CA.pm:2279
+#: src/EBox/CA.pm:1808
+msgid "Not created"
+msgstr ""
+
+#: src/EBox/CA.pm:1810
+msgid "Available"
+msgstr ""
+
+#: src/EBox/CA.pm:1812
+msgid "Created but not available"
+msgstr ""
+
+#: src/EBox/CA.pm:2307
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Det var ikke muligt at underskrive. Forkert CA password eller er den private "
 "nøgle forsvundet ?"
 
-#: src/EBox/CA.pm:2281
+#: src/EBox/CA.pm:2309
 msgid "Database corruption"
 msgstr "Korrupt database"
 
-#: src/EBox/CA.pm:2283
+#: src/EBox/CA.pm:2311
 msgid "Identifier duplicated in Database"
 msgstr "Der er en dublet af navnet i databasen"
 
-#: src/EBox/CA.pm:2285
+#: src/EBox/CA.pm:2313
 msgid "Certificate already revoked"
 msgstr "Certifikatet er allerede trukket tilbage"
 
-#: src/EBox/CA.pm:2288
+#: src/EBox/CA.pm:2316
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 feltet er for langt. Max størrelse: "
 
-#: src/EBox/CA.pm:2290
+#: src/EBox/CA.pm:2318
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Ukendt fejl. OpenSSL gav følgende output:"
 
-#: src/EBox/CA.pm:2365
+#: src/EBox/CA.pm:2393
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -248,38 +260,38 @@ msgstr ""
 "Certifikat autoritet er blet oprettet med navnet {orgName} og gyldighed på "
 "{days} dage"
 
-#: src/EBox/CA.pm:2367
+#: src/EBox/CA.pm:2395
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "Certifikat autoriteten med navnet {orgName} er blevet slettet"
 
-#: src/EBox/CA.pm:2369
+#: src/EBox/CA.pm:2397
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr ""
 "CA certifikatet er blevet trukket tilbage på grund af {reason}. Årsag: "
 "{force}"
 
-#: src/EBox/CA.pm:2371
+#: src/EBox/CA.pm:2399
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr "Udstedt CA certifikat med navnet {orgName} og gyldighed {days} dage"
 
-#: src/EBox/CA.pm:2373
+#: src/EBox/CA.pm:2401
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr "Fornyet CA certifikat med navnet {orgName} og gyldighed {days} dage"
 
-#: src/EBox/CA.pm:2375
+#: src/EBox/CA.pm:2403
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr "Udstedt certifikat men navnet {cn} og en gyldighed på {days} dage"
 
-#: src/EBox/CA.pm:2377
+#: src/EBox/CA.pm:2405
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -287,21 +299,21 @@ msgstr ""
 "Certifikatet med navnet {cn} er trukket tilbage på grud af {reason}. Årsag: "
 "{force}"
 
-#: src/EBox/CA.pm:2379
+#: src/EBox/CA.pm:2407
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr "Fornyet certifikatet med navnet {cn} og gyldighed {days} dage"
 
-#: src/EBox/CA.pm:2381
+#: src/EBox/CA.pm:2409
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr "Certifikat databasen er opdateret. {number} certifikater er udløbet"
 
-#: src/EBox/CA.pm:2401 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:2429 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "Udløbsdatoen er senere end CA certifikatets udløb"
 
-#: src/EBox/CA.pm:2528
+#: src/EBox/CA.pm:2556
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Kan ikke starte OpenSLL programmet. ({errval})"

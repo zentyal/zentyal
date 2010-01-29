@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:11+0000\n"
+"POT-Creation-Date: 2010-01-29 23:34+0000\n"
 "PO-Revision-Date: 2010-01-28 18:02+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/OpenVPN/Server.pm:84
@@ -71,28 +71,28 @@ msgstr "Не поддерживаемый тип клиента: {ct}"
 msgid "Server {name}"
 msgstr "Сервер {name}"
 
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
+#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:330
 #: src/EBox/OpenVPN/Model/Servers.pm:68
 msgid "Enabled"
 msgstr "Включено"
 
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
+#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:330
 msgid "Disabled"
 msgstr "Отключено"
 
-#: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:314
+#: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:331
 msgid "Service"
 msgstr "Служба"
 
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:316
+#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:333
 msgid "Running"
 msgstr "Работает"
 
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:316
+#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:333
 msgid "Stopped"
 msgstr "Остановлено"
 
-#: src/EBox/OpenVPN/Server.pm:699 src/EBox/OpenVPN/Client.pm:317
+#: src/EBox/OpenVPN/Server.pm:699 src/EBox/OpenVPN/Client.pm:334
 msgid "Daemon status"
 msgstr "Статус демона"
 
@@ -117,11 +117,11 @@ msgid "VPN network interface"
 msgstr "VPN сетевой интерфейс"
 
 #: src/EBox/OpenVPN/Server.pm:718 src/EBox/OpenVPN/Server.pm:720
-#: src/EBox/OpenVPN/Client.pm:329 src/EBox/OpenVPN/Client.pm:331
+#: src/EBox/OpenVPN/Client.pm:346 src/EBox/OpenVPN/Client.pm:348
 msgid "VPN interface address"
 msgstr "VPN адрес интерфейса"
 
-#: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:331
+#: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:348
 msgid "No active"
 msgstr "Не активный"
 
@@ -172,12 +172,12 @@ msgstr ""
 msgid "disabled"
 msgstr "отключено"
 
-#: src/EBox/OpenVPN/Client.pm:311
+#: src/EBox/OpenVPN/Client.pm:328
 #, perl-brace-format
 msgid "Client {name}"
 msgstr "Клиент {name}"
 
-#: src/EBox/OpenVPN/Client.pm:325
+#: src/EBox/OpenVPN/Client.pm:342
 msgid "Connection target"
 msgstr "Объект подключения"
 

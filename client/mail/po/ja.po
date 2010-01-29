@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 15:21+0000\n"
+"POT-Creation-Date: 2010-01-29 23:33+0000\n"
 "PO-Revision-Date: 2008-01-08 15:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -142,7 +142,7 @@ msgid "maildrop"
 msgstr "メールドロップ"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1549
+#: src/EBox/Mail.pm:1551
 msgid "Queue Management"
 msgstr "キュー管理"
 
@@ -151,7 +151,7 @@ msgid "Admin mail recipient"
 msgstr "管理者宛メール受信者"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1466 src/EBox/Mail.pm:1618
+#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1468 src/EBox/Mail.pm:1620
 msgid "Mail"
 msgstr "メール"
 
@@ -228,9 +228,9 @@ msgid "External account"
 msgstr "メールアカウント"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
-#: src/EBox/Mail/Model/VDomainAliases.pm:57
-msgid "Aliases"
-msgstr ""
+#, fuzzy
+msgid "External Aliases"
+msgstr "メールアカウント設定"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
 #, fuzzy
@@ -343,6 +343,10 @@ msgstr "メールサービス"
 msgid "external mail account"
 msgstr "メールアカウントを作成"
 
+#: src/EBox/Mail/Model/ExternalAccounts.pm:124
+msgid "Fetching mail is done every 10 minutes"
+msgstr ""
+
 #: src/EBox/Mail/Model/ExternalAccounts.pm:141
 msgid "Secure POP3"
 msgstr ""
@@ -365,6 +369,10 @@ msgstr ""
 msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
+msgstr ""
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:57
+msgid "Aliases"
 msgstr ""
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
@@ -720,7 +728,7 @@ msgstr "題目"
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] {hostName} でイベントが発生しました"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1587
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1589
 msgid "To"
 msgstr "To"
 
@@ -766,7 +774,7 @@ msgstr "メッセージ"
 msgid "Rejected messages"
 msgstr "メッセージ"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1584
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1586
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "日付"
@@ -808,6 +816,11 @@ msgstr "メール転送ポート"
 #, fuzzy
 msgid "Mail traffic report"
 msgstr "メール転送ポート"
+
+#: src/EBox/Mail/FetchmailLdap.pm:347
+#, fuzzy
+msgid "External retrieval service"
+msgstr "メールサービス"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"
@@ -942,139 +955,139 @@ msgstr "IMAPサービス"
 msgid "IMAPS service"
 msgstr "IMAPサービス"
 
-#: src/EBox/Mail.pm:1480
+#: src/EBox/Mail.pm:1482
 msgid "enabled"
 msgstr "有効"
 
-#: src/EBox/Mail.pm:1480
+#: src/EBox/Mail.pm:1482
 msgid "disabled"
 msgstr "無効"
 
-#: src/EBox/Mail.pm:1482 src/EBox/Mail.pm:1593 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1484 src/EBox/Mail.pm:1595 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr "状態"
 
-#: src/EBox/Mail.pm:1485
+#: src/EBox/Mail.pm:1487
 #, fuzzy
 msgid "Mail server's filter"
 msgstr "メールサービス設定"
 
-#: src/EBox/Mail.pm:1494 src/EBox/Mail.pm:1501
+#: src/EBox/Mail.pm:1496 src/EBox/Mail.pm:1503
 #, fuzzy
 msgid "Filter type"
 msgstr "フィルタ"
 
-#: src/EBox/Mail.pm:1495
+#: src/EBox/Mail.pm:1497
 msgid "Custom"
 msgstr "カスタム"
 
-#: src/EBox/Mail.pm:1497
+#: src/EBox/Mail.pm:1499
 msgid "Address"
 msgstr "アドレス"
 
-#: src/EBox/Mail.pm:1530
+#: src/EBox/Mail.pm:1532
 msgid "General"
 msgstr "全般"
 
-#: src/EBox/Mail.pm:1537
+#: src/EBox/Mail.pm:1539
 #, fuzzy
 msgid "Virtual Mail Domains"
 msgstr "バーチャルドメイン"
 
-#: src/EBox/Mail.pm:1543
+#: src/EBox/Mail.pm:1545
 msgid "Greylist"
 msgstr ""
 
-#: src/EBox/Mail.pm:1576
+#: src/EBox/Mail.pm:1578
 #, fuzzy
 msgid "Mail retrieval from external accounts"
 msgstr "メールサービス"
 
-#: src/EBox/Mail.pm:1585
+#: src/EBox/Mail.pm:1587
 msgid "Message ID"
 msgstr "メッセージID"
 
-#: src/EBox/Mail.pm:1586
+#: src/EBox/Mail.pm:1588
 msgid "From"
 msgstr "From"
 
-#: src/EBox/Mail.pm:1588
+#: src/EBox/Mail.pm:1590
 msgid "From hostname"
 msgstr "ホスト名から"
 
-#: src/EBox/Mail.pm:1589
+#: src/EBox/Mail.pm:1591
 msgid "From host ip"
 msgstr "ホストIPから"
 
-#: src/EBox/Mail.pm:1590 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1592 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "サイズ (bytes)"
 
-#: src/EBox/Mail.pm:1591
+#: src/EBox/Mail.pm:1593
 msgid "Relay"
 msgstr "リレー"
 
-#: src/EBox/Mail.pm:1592
+#: src/EBox/Mail.pm:1594
 #, fuzzy
 msgid "Message type"
 msgstr "メッセージ"
 
-#: src/EBox/Mail.pm:1594
+#: src/EBox/Mail.pm:1596
 msgid "Event"
 msgstr "イベント"
 
-#: src/EBox/Mail.pm:1595
+#: src/EBox/Mail.pm:1597
 #, fuzzy
 msgid "Additional Info"
 msgstr "追加情報"
 
-#: src/EBox/Mail.pm:1606
+#: src/EBox/Mail.pm:1608
 msgid "Successful messages"
 msgstr "メッセージ"
 
-#: src/EBox/Mail.pm:1607
+#: src/EBox/Mail.pm:1609
 msgid "Maximum message size exceeded"
 msgstr "メッセージサイズ最大値を超えています"
 
-#: src/EBox/Mail.pm:1608
+#: src/EBox/Mail.pm:1610
 msgid "User quote exceeded"
 msgstr "ユーザクォータを超えています"
 
-#: src/EBox/Mail.pm:1609
+#: src/EBox/Mail.pm:1611
 msgid "Relay access denied"
 msgstr "リレーアクセスが拒否されました"
 
-#: src/EBox/Mail.pm:1610
+#: src/EBox/Mail.pm:1612
 msgid "Account does not exist"
 msgstr "アカウントが存在しません"
 
-#: src/EBox/Mail.pm:1611
+#: src/EBox/Mail.pm:1613
 msgid "Host unreachable"
 msgstr "ホストに到達できません"
 
-#: src/EBox/Mail.pm:1612
+#: src/EBox/Mail.pm:1614
 msgid "Authentication error"
 msgstr "認証エラー"
 
-#: src/EBox/Mail.pm:1613
+#: src/EBox/Mail.pm:1615
 #, fuzzy
 msgid "Greylisted"
 msgstr "メールサービス"
 
-#: src/EBox/Mail.pm:1614
+#: src/EBox/Mail.pm:1616
 msgid "Other events"
 msgstr "その他のイベント"
 
-#: src/EBox/Mail.pm:1801
+#: src/EBox/Mail.pm:1803
 msgid "Mailboxes"
 msgstr "メールボックス"
 
-#: src/EBox/Mail.pm:1829
+#: src/EBox/Mail.pm:1831
 #, fuzzy
 msgid "Mail SMTP server"
 msgstr "メールサービス"
 
-#: src/EBox/Mail.pm:1836
+#: src/EBox/Mail.pm:1838
 #, fuzzy
 msgid "Mail POP/IMAP server"
 msgstr "メールサービス"

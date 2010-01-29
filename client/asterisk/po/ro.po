@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:34+0100\n"
+"POT-Creation-Date: 2010-01-29 23:28+0000\n"
 "PO-Revision-Date: 2009-12-10 13:55+0100\n"
 "Last-Translator: Adrian Munteanu <adrimunteanu@gmail.com>\n"
 "Language-Team: none\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "Sistemul eBox VoIP"
 
-#: src/EBox/Asterisk.pm:70 src/EBox/Asterisk.pm:681
+#: src/EBox/Asterisk.pm:70 src/EBox/Asterisk.pm:698
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
@@ -72,104 +72,104 @@ msgstr ""
 msgid "To configure DTMF behaviour."
 msgstr ""
 
-#: src/EBox/Asterisk.pm:473
+#: src/EBox/Asterisk.pm:490
 msgid "General"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:477 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:494 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:494
+#: src/EBox/Asterisk.pm:511
 msgid "Voicemail"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:504 src/EBox/Asterisk.pm:591
+#: src/EBox/Asterisk.pm:521 src/EBox/Asterisk.pm:608
 msgid "User"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:504
+#: src/EBox/Asterisk.pm:521
 msgid "Address"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:504
+#: src/EBox/Asterisk.pm:521
 msgid "NAT"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:504
+#: src/EBox/Asterisk.pm:521
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:518 src/EBox/Asterisk.pm:600
+#: src/EBox/Asterisk.pm:535 src/EBox/Asterisk.pm:617
 msgid "No users connected."
 msgstr ""
 
-#: src/EBox/Asterisk.pm:588
+#: src/EBox/Asterisk.pm:605
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:591
+#: src/EBox/Asterisk.pm:608
 msgid "Time Connected"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:621
+#: src/EBox/Asterisk.pm:638
 msgid "VoIP Online Users"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:626
+#: src/EBox/Asterisk.pm:643
 msgid "VoIP Users in Meetings"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:658
+#: src/EBox/Asterisk.pm:675
 msgid "Date"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:659
+#: src/EBox/Asterisk.pm:676
 msgid "From"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:660
+#: src/EBox/Asterisk.pm:677
 msgid "To"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:661
+#: src/EBox/Asterisk.pm:678
 msgid "Duration"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:662
+#: src/EBox/Asterisk.pm:679
 msgid "Channel"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:663
+#: src/EBox/Asterisk.pm:680
 msgid "Destination Channel"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:664
+#: src/EBox/Asterisk.pm:681
 msgid "Application"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:665
+#: src/EBox/Asterisk.pm:682
 msgid "Application Data"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:666
+#: src/EBox/Asterisk.pm:683
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:674
+#: src/EBox/Asterisk.pm:691
 msgid "Answered"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:675
+#: src/EBox/Asterisk.pm:692
 msgid "No Answer"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:676
+#: src/EBox/Asterisk.pm:693
 msgid "Busy"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:677
+#: src/EBox/Asterisk.pm:694
 msgid "Failed"
 msgstr ""
 

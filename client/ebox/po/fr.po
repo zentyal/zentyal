@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:04+0000\n"
+"POT-Creation-Date: 2010-01-29 23:32+0000\n"
 "PO-Revision-Date: 2010-01-18 13:58+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -448,7 +448,7 @@ msgstr "Journaux de requêtes"
 msgid "Full Reports"
 msgstr "Rapports complets"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:236
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:237
 msgid "Dashboard"
 msgstr "Panneau de contrôle"
 
@@ -584,7 +584,7 @@ msgid "Upgrading"
 msgstr "Mise-à-jour"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:263 src/templates/backup.mas:64
+#: src/EBox/SysInfo.pm.in:264 src/templates/backup.mas:64
 msgid "Backup"
 msgstr "Sauvegarde"
 
@@ -640,11 +640,11 @@ msgid "Restore successful"
 msgstr "Restauration réussie"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:258
+#: src/EBox/SysInfo.pm.in:259
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:254
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:255
 msgid "Disk Usage"
 msgstr "Utilisation du disque"
 
@@ -1532,52 +1532,52 @@ msgstr "Archives des sauvegardes"
 msgid "System Information"
 msgstr "Information système"
 
-#: src/EBox/SysInfo.pm.in:93
+#: src/EBox/SysInfo.pm.in:94
 msgid "available"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:98
+#: src/EBox/SysInfo.pm.in:99
 msgid "Time"
 msgstr "Heure"
 
-#: src/EBox/SysInfo.pm.in:99
+#: src/EBox/SysInfo.pm.in:100
 msgid "Hostname"
 msgstr "Nom de l'hôte"
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:101
 #, fuzzy
 msgid "Core version"
 msgstr "Version de l'eBox"
 
-#: src/EBox/SysInfo.pm.in:102
+#: src/EBox/SysInfo.pm.in:103
 msgid "System load"
 msgstr "Charge du système"
 
-#: src/EBox/SysInfo.pm.in:148 src/EBox/SysInfo.pm.in:241
+#: src/EBox/SysInfo.pm.in:149 src/EBox/SysInfo.pm.in:242
 msgid "Module Status"
 msgstr "Statut des modules"
 
-#: src/EBox/SysInfo.pm.in:153
+#: src/EBox/SysInfo.pm.in:154
 msgid "General Information"
 msgstr "Information générale"
 
-#: src/EBox/SysInfo.pm.in:158
+#: src/EBox/SysInfo.pm.in:159
 msgid "Process List"
 msgstr "Liste des processus"
 
-#: src/EBox/SysInfo.pm.in:165
+#: src/EBox/SysInfo.pm.in:166
 msgid "Support & Services"
 msgstr "Support et services"
 
-#: src/EBox/SysInfo.pm.in:247 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:248 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "Système"
 
-#: src/EBox/SysInfo.pm.in:251
+#: src/EBox/SysInfo.pm.in:252
 msgid "General"
 msgstr "Général"
 
-#: src/EBox/SysInfo.pm.in:266
+#: src/EBox/SysInfo.pm.in:267
 msgid "Halt/Reboot"
 msgstr "Arrêt/Redémarrage"
 

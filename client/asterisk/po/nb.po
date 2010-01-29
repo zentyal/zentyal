@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:34+0100\n"
+"POT-Creation-Date: 2010-01-29 23:28+0000\n"
 "PO-Revision-Date: 2010-01-29 12:51+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "eBox VoIP system"
 
-#: src/EBox/Asterisk.pm:70 src/EBox/Asterisk.pm:681
+#: src/EBox/Asterisk.pm:70 src/EBox/Asterisk.pm:698
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
@@ -71,104 +71,104 @@ msgstr "For å konfigurere musikk på vent."
 msgid "To configure DTMF behaviour."
 msgstr "For å konfigurere DTMF håndtering."
 
-#: src/EBox/Asterisk.pm:473
+#: src/EBox/Asterisk.pm:490
 msgid "General"
 msgstr "Generell"
 
-#: src/EBox/Asterisk.pm:477 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:494 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "Møter"
 
-#: src/EBox/Asterisk.pm:494
+#: src/EBox/Asterisk.pm:511
 msgid "Voicemail"
 msgstr "Talepost"
 
-#: src/EBox/Asterisk.pm:504 src/EBox/Asterisk.pm:591
+#: src/EBox/Asterisk.pm:521 src/EBox/Asterisk.pm:608
 msgid "User"
 msgstr "Bruker"
 
-#: src/EBox/Asterisk.pm:504
+#: src/EBox/Asterisk.pm:521
 msgid "Address"
 msgstr "Adresse"
 
-#: src/EBox/Asterisk.pm:504
+#: src/EBox/Asterisk.pm:521
 msgid "NAT"
 msgstr "NAT"
 
-#: src/EBox/Asterisk.pm:504
+#: src/EBox/Asterisk.pm:521
 msgid "Status"
 msgstr "Status"
 
-#: src/EBox/Asterisk.pm:518 src/EBox/Asterisk.pm:600
+#: src/EBox/Asterisk.pm:535 src/EBox/Asterisk.pm:617
 msgid "No users connected."
 msgstr "Ingen brukere tilkoblet."
 
-#: src/EBox/Asterisk.pm:588
+#: src/EBox/Asterisk.pm:605
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr "Rom {name} aktiv i {rtime}"
 
-#: src/EBox/Asterisk.pm:591
+#: src/EBox/Asterisk.pm:608
 msgid "Time Connected"
 msgstr "Tid Tilkoblet"
 
-#: src/EBox/Asterisk.pm:621
+#: src/EBox/Asterisk.pm:638
 msgid "VoIP Online Users"
 msgstr "VoIP Tilkoblede Brukere"
 
-#: src/EBox/Asterisk.pm:626
+#: src/EBox/Asterisk.pm:643
 msgid "VoIP Users in Meetings"
 msgstr "VoIP Brukere i Møter"
 
-#: src/EBox/Asterisk.pm:658
+#: src/EBox/Asterisk.pm:675
 msgid "Date"
 msgstr "Dato"
 
-#: src/EBox/Asterisk.pm:659
+#: src/EBox/Asterisk.pm:676
 msgid "From"
 msgstr "Fra"
 
-#: src/EBox/Asterisk.pm:660
+#: src/EBox/Asterisk.pm:677
 msgid "To"
 msgstr "Til"
 
-#: src/EBox/Asterisk.pm:661
+#: src/EBox/Asterisk.pm:678
 msgid "Duration"
 msgstr "Varighet"
 
-#: src/EBox/Asterisk.pm:662
+#: src/EBox/Asterisk.pm:679
 msgid "Channel"
 msgstr "Kanal"
 
-#: src/EBox/Asterisk.pm:663
+#: src/EBox/Asterisk.pm:680
 msgid "Destination Channel"
 msgstr "Destinasjons Kanal"
 
-#: src/EBox/Asterisk.pm:664
+#: src/EBox/Asterisk.pm:681
 msgid "Application"
 msgstr "Applikasjon"
 
-#: src/EBox/Asterisk.pm:665
+#: src/EBox/Asterisk.pm:682
 msgid "Application Data"
 msgstr "Applikasjons Data"
 
-#: src/EBox/Asterisk.pm:666
+#: src/EBox/Asterisk.pm:683
 msgid "Event"
 msgstr "Hendelse"
 
-#: src/EBox/Asterisk.pm:674
+#: src/EBox/Asterisk.pm:691
 msgid "Answered"
 msgstr "Besvart"
 
-#: src/EBox/Asterisk.pm:675
+#: src/EBox/Asterisk.pm:692
 msgid "No Answer"
 msgstr "Ikke Svar"
 
-#: src/EBox/Asterisk.pm:676
+#: src/EBox/Asterisk.pm:693
 msgid "Busy"
 msgstr "Opptatt"
 
-#: src/EBox/Asterisk.pm:677
+#: src/EBox/Asterisk.pm:694
 msgid "Failed"
 msgstr "Feilet"
 
@@ -196,7 +196,8 @@ msgstr "brukernavn"
 
 #: src/EBox/Model/Meetings.pm:91
 msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
-msgstr "Du må installere dahdi og dahdi-modules-ebox pakkene for å bruke Møter."
+msgstr ""
+"Du må installere dahdi og dahdi-modules-ebox pakkene for å bruke Møter."
 
 #: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
 #: src/EBox/Model/Settings.pm:84

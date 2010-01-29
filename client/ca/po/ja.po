@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:39+0100\n"
+"POT-Creation-Date: 2010-01-29 23:28+0000\n"
 "PO-Revision-Date: 2008-01-08 15:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
 #: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:46
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:115
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:116
 #, fuzzy
 msgid "Certification Authority"
 msgstr "認証局の管理"
@@ -58,8 +58,8 @@ msgstr "理由"
 
 #: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:74
 #: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/ShowForm.pm:64
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:747 src/EBox/CA.pm:910
-#: src/EBox/CA.pm:1247 src/EBox/CA.pm:1289 src/EBox/CA.pm:1383
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:748 src/EBox/CA.pm:911
+#: src/EBox/CA.pm:1248 src/EBox/CA.pm:1290 src/EBox/CA.pm:1384
 #: src/EBox/Model/Certificates.pm:235 src/EBox/CA/TestStub.pm:438
 #: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
 #: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
@@ -106,7 +106,7 @@ msgstr "証明書は更新されました"
 msgid "The new CA certificate has been renewed"
 msgstr "新しいCA証明書は更新されました"
 
-#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:252 src/EBox/CA.pm:529
+#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:253 src/EBox/CA.pm:530
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
 #: src/templates/formRenew.mas:37 src/templates/formRevoke.mas:22
 #: src/templates/index.mas:22 src/templates/createCA.mas:7
@@ -140,16 +140,16 @@ msgstr "共通名: {cn} がデータベースに存在しません"
 msgid "Error creating file"
 msgstr "ファイル作成時にエラーが発生しました"
 
-#: src/EBox/CA.pm:293 src/EBox/CA.pm:764 src/EBox/CA.pm:1362
+#: src/EBox/CA.pm:294 src/EBox/CA.pm:765 src/EBox/CA.pm:1363
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "日数に許容最大値が設定されました {days}: 2038年バグ"
 
-#: src/EBox/CA.pm:388
+#: src/EBox/CA.pm:389
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "削除できません。理由:"
 
-#: src/EBox/CA.pm:543 src/EBox/CA/TestStub.pm:259
+#: src/EBox/CA.pm:544 src/EBox/CA/TestStub.pm:259
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -157,45 +157,45 @@ msgstr ""
 "新しい証明書を作る前にCA証明書は無効化されているか期限切れになっている必要が"
 "あります"
 
-#: src/EBox/CA.pm:923 src/EBox/CA.pm:1258
+#: src/EBox/CA.pm:924 src/EBox/CA.pm:1259
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "共通名 {cn} を持つ証明書が存在しません"
 
-#: src/EBox/CA.pm:927
+#: src/EBox/CA.pm:928
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr "理由 {reason} は無効です。オプション:"
 
-#: src/EBox/CA.pm:1070
+#: src/EBox/CA.pm:1071
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 
-#: src/EBox/CA.pm:1162
+#: src/EBox/CA.pm:1163
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "共通名、識別名、あるいはシリアルナンバーのいずれかが渡されました"
 
-#: src/EBox/CA.pm:1384
+#: src/EBox/CA.pm:1385
 msgid "or"
 msgstr "または"
 
-#: src/EBox/CA.pm:1385
+#: src/EBox/CA.pm:1386
 msgid "Certificate file"
 msgstr "証明書ファイル"
 
-#: src/EBox/CA.pm:1407
+#: src/EBox/CA.pm:1408
 msgid "The certificate to renew does NOT exist"
 msgstr "更新する証明書が存在しません"
 
-#: src/EBox/CA.pm:1447
+#: src/EBox/CA.pm:1448
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "このCAには共通名 {cn} を持つ証明書が存在しません"
 
-#: src/EBox/CA.pm:1475
+#: src/EBox/CA.pm:1476
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
@@ -203,101 +203,113 @@ msgstr ""
 "新規リクエストを作成するにはプライベート鍵パスフレーズが必要です。更新は行わ"
 "れませんでした。新しい鍵とともに証明書を発行してください"
 
-#: src/EBox/CA.pm:1717
+#: src/EBox/CA.pm:1718
 msgid "General"
 msgstr ""
 
-#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:251
+#: src/EBox/CA.pm:1721 src/EBox/Model/Certificates.pm:251
 #, fuzzy
 msgid "Services Certificates"
 msgstr "証明書を無効化しています"
 
-#: src/EBox/CA.pm:2279
+#: src/EBox/CA.pm:1808
+msgid "Not created"
+msgstr ""
+
+#: src/EBox/CA.pm:1810
+msgid "Available"
+msgstr ""
+
+#: src/EBox/CA.pm:1812
+msgid "Created but not available"
+msgstr ""
+
+#: src/EBox/CA.pm:2307
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "署名できません。CAパスフレーズが誤っているか、プライベート鍵をなくしていませ"
 "んか？"
 
-#: src/EBox/CA.pm:2281
+#: src/EBox/CA.pm:2309
 msgid "Database corruption"
 msgstr "データベース破損"
 
-#: src/EBox/CA.pm:2283
+#: src/EBox/CA.pm:2311
 msgid "Identifier duplicated in Database"
 msgstr "データベースで識別子が重複しています"
 
-#: src/EBox/CA.pm:2285
+#: src/EBox/CA.pm:2313
 msgid "Certificate already revoked"
 msgstr "証明書はすでに無効化されています"
 
-#: src/EBox/CA.pm:2288
+#: src/EBox/CA.pm:2316
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1フィールドが長すぎます。最大値:"
 
-#: src/EBox/CA.pm:2290
+#: src/EBox/CA.pm:2318
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "不明なエラーです。OpenSSLの出力:"
 
-#: src/EBox/CA.pm:2365
+#: src/EBox/CA.pm:2393
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
 "validity for {days} days"
 msgstr "組織名 {orgName} 、有効日数 {days} で認証局が作成されました"
 
-#: src/EBox/CA.pm:2367
+#: src/EBox/CA.pm:2395
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "組織名 {orgName} の認証局が削除されました"
 
-#: src/EBox/CA.pm:2369
+#: src/EBox/CA.pm:2397
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "{reason} が強制されたため、CA証明書が無効化されました: {force}"
 
-#: src/EBox/CA.pm:2371
+#: src/EBox/CA.pm:2399
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr "組織名 {orgName} 、有効日数 {days} でCA証明書が発行されました"
 
-#: src/EBox/CA.pm:2373
+#: src/EBox/CA.pm:2401
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr "組織名 {orgName} 有効日数 {days} でCA証明書が更新されました"
 
-#: src/EBox/CA.pm:2375
+#: src/EBox/CA.pm:2403
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr "共通名 {cn} 有効日数 {days} で証明書が発行されました"
 
-#: src/EBox/CA.pm:2377
+#: src/EBox/CA.pm:2405
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
 msgstr ""
 "{reason}が強制されたため共通名 {cn} を持つ証明書は無効化されました: {force}"
 
-#: src/EBox/CA.pm:2379
+#: src/EBox/CA.pm:2407
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr "共通名 {cn} 有効日数 {days} で証明書が更新されました"
 
-#: src/EBox/CA.pm:2381
+#: src/EBox/CA.pm:2409
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "証明書データベースが更新されました。 {number} 個の証明書が期限切れになりまし"
 "た"
 
-#: src/EBox/CA.pm:2401 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:2429 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "CA証明書期限よりも後に有効期限が設定されています"
 
-#: src/EBox/CA.pm:2528
+#: src/EBox/CA.pm:2556
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "OpenSSLシェルを開始できません。({errval})"

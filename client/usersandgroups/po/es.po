@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:17+0000\n"
+"POT-Creation-Date: 2010-01-29 23:36+0000\n"
 "PO-Revision-Date: 2010-01-29 18:17+0100\n"
 "Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -121,6 +121,7 @@ msgid "Group removed successfully"
 msgstr "Grupo eliminado correctamente"
 
 #: src/EBox/UserCornerWebServer.pm:37
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User Corner"
 msgstr "Rincón del Usuario"
 
@@ -371,7 +372,7 @@ msgstr "Datos LDAP"
 msgid "LDAP Information"
 msgstr "Datos de LDAP"
 
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:149
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information"
 msgstr ""
@@ -618,13 +619,10 @@ msgstr "La sesión se ha finalizado porque se ha abierto otra nueva"
 msgid "You are not logged in"
 msgstr "La sesión no está abierta"
 
-#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
-msgid "User corner"
-msgstr "Rincón del usuario"
-
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
-msgid "User Corner webserver settings"
-msgstr "Configuración del servidor web del rincón del usuario"
+#, fuzzy
+msgid "General configuration"
+msgstr "Configuración"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
@@ -797,6 +795,12 @@ msgstr "Aviso: La tecla Bloq. Mayús. está activada"
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr "Entrar"
+
+#~ msgid "User corner"
+#~ msgstr "Rincón del usuario"
+
+#~ msgid "User Corner webserver settings"
+#~ msgstr "Configuración del servidor web del rincón del usuario"
 
 #~ msgid ""
 #~ "If you remove this group all its data within its shared directory will be "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 15:21+0000\n"
+"POT-Creation-Date: 2010-01-29 23:33+0000\n"
 "PO-Revision-Date: 2010-01-29 16:25+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -142,7 +142,7 @@ msgid "maildrop"
 msgstr "e-post tap"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1549
+#: src/EBox/Mail.pm:1551
 msgid "Queue Management"
 msgstr "Kø Behandling"
 
@@ -151,7 +151,7 @@ msgid "Admin mail recipient"
 msgstr "Administrator e-post mottager"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1466 src/EBox/Mail.pm:1618
+#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1468 src/EBox/Mail.pm:1620
 msgid "Mail"
 msgstr "E-post"
 
@@ -223,9 +223,9 @@ msgid "External account"
 msgstr "Ekstern konto"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
-#: src/EBox/Mail/Model/VDomainAliases.pm:57
-msgid "Aliases"
-msgstr "Aliaser"
+#, fuzzy
+msgid "External Aliases"
+msgstr "Eksterne konto aliaser"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
 msgid "External account alias"
@@ -337,6 +337,10 @@ msgstr "Epost server"
 msgid "external mail account"
 msgstr "Ekstern epost konto"
 
+#: src/EBox/Mail/Model/ExternalAccounts.pm:124
+msgid "Fetching mail is done every 10 minutes"
+msgstr ""
+
 #: src/EBox/Mail/Model/ExternalAccounts.pm:141
 msgid "Secure POP3"
 msgstr "Sikker POP3"
@@ -361,6 +365,10 @@ msgid ""
 msgstr ""
 "Kan ikke hente epost fra eksterne kontoer fordi du ikke har en epost konto "
 "på et lokalt domene"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:57
+msgid "Aliases"
+msgstr "Aliaser"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
 msgid "List of Aliases"
@@ -708,7 +716,7 @@ msgstr "Emne"
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] En hendelse har oppstått på {hostName}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1587
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1589
 msgid "To"
 msgstr "Til"
 
@@ -750,7 +758,7 @@ msgstr "Motatte meldinger"
 msgid "Rejected messages"
 msgstr "Avviste meldinger"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1584
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1586
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Dato"
@@ -787,6 +795,11 @@ msgstr "Epost trafikk rapporter"
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:71
 msgid "Mail traffic report"
 msgstr "Epost trafikk rapport"
+
+#: src/EBox/Mail/FetchmailLdap.pm:347
+#, fuzzy
+msgid "External retrieval service"
+msgstr "E-post hente tjenester"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"
@@ -914,131 +927,131 @@ msgstr "IMAP tjeneste"
 msgid "IMAPS service"
 msgstr "IMAPS tjeneste"
 
-#: src/EBox/Mail.pm:1480
+#: src/EBox/Mail.pm:1482
 msgid "enabled"
 msgstr "aktivert"
 
-#: src/EBox/Mail.pm:1480
+#: src/EBox/Mail.pm:1482
 msgid "disabled"
 msgstr "deaktivert"
 
-#: src/EBox/Mail.pm:1482 src/EBox/Mail.pm:1593 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1484 src/EBox/Mail.pm:1595 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr "Status"
 
-#: src/EBox/Mail.pm:1485
+#: src/EBox/Mail.pm:1487
 msgid "Mail server's filter"
 msgstr "E-post servers filter"
 
-#: src/EBox/Mail.pm:1494 src/EBox/Mail.pm:1501
+#: src/EBox/Mail.pm:1496 src/EBox/Mail.pm:1503
 msgid "Filter type"
 msgstr "Filter type"
 
-#: src/EBox/Mail.pm:1495
+#: src/EBox/Mail.pm:1497
 msgid "Custom"
 msgstr "Tilpasset"
 
-#: src/EBox/Mail.pm:1497
+#: src/EBox/Mail.pm:1499
 msgid "Address"
 msgstr "Adresse"
 
-#: src/EBox/Mail.pm:1530
+#: src/EBox/Mail.pm:1532
 msgid "General"
 msgstr "Generell"
 
-#: src/EBox/Mail.pm:1537
+#: src/EBox/Mail.pm:1539
 msgid "Virtual Mail Domains"
 msgstr "Virtuelle E-post Domener"
 
-#: src/EBox/Mail.pm:1543
+#: src/EBox/Mail.pm:1545
 msgid "Greylist"
 msgstr "Grå listing"
 
-#: src/EBox/Mail.pm:1576
+#: src/EBox/Mail.pm:1578
 msgid "Mail retrieval from external accounts"
 msgstr "Epost henting fra eksterne kontoer"
 
-#: src/EBox/Mail.pm:1585
+#: src/EBox/Mail.pm:1587
 msgid "Message ID"
 msgstr "Meldings ID"
 
-#: src/EBox/Mail.pm:1586
+#: src/EBox/Mail.pm:1588
 msgid "From"
 msgstr "Fra"
 
-#: src/EBox/Mail.pm:1588
+#: src/EBox/Mail.pm:1590
 msgid "From hostname"
 msgstr "Fra verts navn"
 
-#: src/EBox/Mail.pm:1589
+#: src/EBox/Mail.pm:1591
 msgid "From host ip"
 msgstr "Fra verts ip"
 
-#: src/EBox/Mail.pm:1590 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1592 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Størrelse (bytes)"
 
-#: src/EBox/Mail.pm:1591
+#: src/EBox/Mail.pm:1593
 msgid "Relay"
 msgstr "Videresende"
 
-#: src/EBox/Mail.pm:1592
+#: src/EBox/Mail.pm:1594
 msgid "Message type"
 msgstr "Meldings type"
 
-#: src/EBox/Mail.pm:1594
+#: src/EBox/Mail.pm:1596
 msgid "Event"
 msgstr "Hendelse"
 
-#: src/EBox/Mail.pm:1595
+#: src/EBox/Mail.pm:1597
 msgid "Additional Info"
 msgstr "Tilleggs Informasjon"
 
-#: src/EBox/Mail.pm:1606
+#: src/EBox/Mail.pm:1608
 msgid "Successful messages"
 msgstr "Fullførte meldinger"
 
-#: src/EBox/Mail.pm:1607
+#: src/EBox/Mail.pm:1609
 msgid "Maximum message size exceeded"
 msgstr "Maksimal meldingsstørrelse overskredet"
 
-#: src/EBox/Mail.pm:1608
+#: src/EBox/Mail.pm:1610
 msgid "User quote exceeded"
 msgstr "Bruker kvote overskredet"
 
-#: src/EBox/Mail.pm:1609
+#: src/EBox/Mail.pm:1611
 msgid "Relay access denied"
 msgstr "Videresendings tilgang avvist"
 
-#: src/EBox/Mail.pm:1610
+#: src/EBox/Mail.pm:1612
 msgid "Account does not exist"
 msgstr "Kontoen eksisterer ikke"
 
-#: src/EBox/Mail.pm:1611
+#: src/EBox/Mail.pm:1613
 msgid "Host unreachable"
 msgstr "Kan ikke nå vert"
 
-#: src/EBox/Mail.pm:1612
+#: src/EBox/Mail.pm:1614
 msgid "Authentication error"
 msgstr "Autentiserings feil"
 
-#: src/EBox/Mail.pm:1613
+#: src/EBox/Mail.pm:1615
 msgid "Greylisted"
 msgstr "Grå listet"
 
-#: src/EBox/Mail.pm:1614
+#: src/EBox/Mail.pm:1616
 msgid "Other events"
 msgstr "Andre hendelser"
 
-#: src/EBox/Mail.pm:1801
+#: src/EBox/Mail.pm:1803
 msgid "Mailboxes"
 msgstr "E-post kasser"
 
-#: src/EBox/Mail.pm:1829
+#: src/EBox/Mail.pm:1831
 msgid "Mail SMTP server"
 msgstr "E-post SMTP server"
 
-#: src/EBox/Mail.pm:1836
+#: src/EBox/Mail.pm:1838
 #, fuzzy
 msgid "Mail POP/IMAP server"
 msgstr "E-post SMTP server"

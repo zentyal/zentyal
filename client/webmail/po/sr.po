@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3.12Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:17+0000\n"
+"POT-Creation-Date: 2010-01-29 23:36+0000\n"
 "PO-Revision-Date: 2009-12-21 17:06+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -132,7 +132,7 @@ msgstr ""
 msgid "General configuration"
 msgstr ""
 
-#: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:64
+#: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:66
 msgid "Webmail"
 msgstr ""
 
@@ -140,42 +140,42 @@ msgstr ""
 msgid "WebMail backend"
 msgstr ""
 
-#: src/EBox/WebMail.pm:164
+#: src/EBox/WebMail.pm:172
 msgid "Neither IMAP nor IMAPS service enabled."
 msgstr ""
 
-#: src/EBox/WebMail.pm:276
+#: src/EBox/WebMail.pm:284
 msgid "To configure Roundcube webmail."
 msgstr ""
 
-#: src/EBox/WebMail.pm:281
+#: src/EBox/WebMail.pm:289
 msgid "To configure managesieve Roundcube webmail plugin."
 msgstr ""
 
-#: src/EBox/WebMail.pm:299
+#: src/EBox/WebMail.pm:307
 msgid "Create PostgreSQL Roundcube webmail database."
 msgstr ""
 
-#: src/EBox/WebMail.pm:300
+#: src/EBox/WebMail.pm:308
 msgid "This database will store the data needed by Roundcube."
 msgstr ""
 
-#: src/EBox/WebMail.pm:304
+#: src/EBox/WebMail.pm:312
 msgid "Add webmail link to www data directory."
 msgstr ""
 
-#: src/EBox/WebMail.pm:305
+#: src/EBox/WebMail.pm:313
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr ""
 
-#: src/EBox/WebMail.pm:328
+#: src/EBox/WebMail.pm:336
 #, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
 
-#: src/EBox/WebMail.pm:386
+#: src/EBox/WebMail.pm:394
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."

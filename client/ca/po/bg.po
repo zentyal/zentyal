@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:39+0100\n"
+"POT-Creation-Date: 2010-01-29 23:28+0000\n"
 "PO-Revision-Date: 2009-09-28 09:03+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
 #: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:46
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:115
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:116
 msgid "Certification Authority"
 msgstr "Удостоверяващ орган"
 
@@ -56,8 +56,8 @@ msgstr "Причина"
 
 #: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:74
 #: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/ShowForm.pm:64
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:747 src/EBox/CA.pm:910
-#: src/EBox/CA.pm:1247 src/EBox/CA.pm:1289 src/EBox/CA.pm:1383
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:748 src/EBox/CA.pm:911
+#: src/EBox/CA.pm:1248 src/EBox/CA.pm:1290 src/EBox/CA.pm:1384
 #: src/EBox/Model/Certificates.pm:235 src/EBox/CA/TestStub.pm:438
 #: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
 #: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
@@ -103,7 +103,7 @@ msgstr "Удостоверението е подновено."
 msgid "The new CA certificate has been renewed"
 msgstr "Новото удостоверение на удостоверяващия орган е подновено."
 
-#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:252 src/EBox/CA.pm:529
+#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:253 src/EBox/CA.pm:530
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
 #: src/templates/formRenew.mas:37 src/templates/formRevoke.mas:22
 #: src/templates/index.mas:22 src/templates/createCA.mas:7
@@ -135,16 +135,16 @@ msgstr "Обичайното име \"{cn}\" не съществува в баз
 msgid "Error creating file"
 msgstr "Грешка при създаване на файл."
 
-#: src/EBox/CA.pm:293 src/EBox/CA.pm:764 src/EBox/CA.pm:1362
+#: src/EBox/CA.pm:294 src/EBox/CA.pm:765 src/EBox/CA.pm:1363
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Зададен е максимално допустимият брой дни {days}: Проблем 2038 г."
 
-#: src/EBox/CA.pm:388
+#: src/EBox/CA.pm:389
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Действието премахване не може да бъде завършено. Причина: "
 
-#: src/EBox/CA.pm:543 src/EBox/CA/TestStub.pm:259
+#: src/EBox/CA.pm:544 src/EBox/CA/TestStub.pm:259
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -152,12 +152,12 @@ msgstr ""
 "Удостоверението на удостоверяващия орган е прекратено или валидността му е "
 "изтекла преди издаване на ново."
 
-#: src/EBox/CA.pm:923 src/EBox/CA.pm:1258
+#: src/EBox/CA.pm:924 src/EBox/CA.pm:1259
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Удостоверението с обичайно име {cn} не съществува."
 
-#: src/EBox/CA.pm:927
+#: src/EBox/CA.pm:928
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -166,36 +166,36 @@ msgstr ""
 "Причината {reason} не е приемлива.\n"
 "Възможности:"
 
-#: src/EBox/CA.pm:1070
+#: src/EBox/CA.pm:1071
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 "Инфраструктурата на удостоверяващ орган не е налична, създайте я първо."
 
-#: src/EBox/CA.pm:1162
+#: src/EBox/CA.pm:1163
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "Подадено е обичайно име, уникално име или сериен номер."
 
-#: src/EBox/CA.pm:1384
+#: src/EBox/CA.pm:1385
 msgid "or"
 msgstr "или"
 
-#: src/EBox/CA.pm:1385
+#: src/EBox/CA.pm:1386
 msgid "Certificate file"
 msgstr "Файл на удостоверението"
 
-#: src/EBox/CA.pm:1407
+#: src/EBox/CA.pm:1408
 msgid "The certificate to renew does NOT exist"
 msgstr "Удостоверението за подновяване не съществува."
 
-#: src/EBox/CA.pm:1447
+#: src/EBox/CA.pm:1448
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr ""
 "Удостоверението с обичайно име {cn} не съществува в този удостоверителен "
 "орган."
 
-#: src/EBox/CA.pm:1475
+#: src/EBox/CA.pm:1476
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
@@ -203,41 +203,53 @@ msgstr ""
 "Паролата на частния ключ е необходима за създаване на нова заявка. Не "
 "извършено подновяване. Издайте ново удостоверение с нови ключове."
 
-#: src/EBox/CA.pm:1717
+#: src/EBox/CA.pm:1718
 msgid "General"
 msgstr "Общи"
 
-#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:251
+#: src/EBox/CA.pm:1721 src/EBox/Model/Certificates.pm:251
 msgid "Services Certificates"
 msgstr "Удостоверения на услуги"
 
-#: src/EBox/CA.pm:2279
+#: src/EBox/CA.pm:1808
+msgid "Not created"
+msgstr ""
+
+#: src/EBox/CA.pm:1810
+msgid "Available"
+msgstr ""
+
+#: src/EBox/CA.pm:1812
+msgid "Created but not available"
+msgstr ""
+
+#: src/EBox/CA.pm:2307
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Невъзможно подписване. Грешна парола на удостоверителен орган, да не би да е "
 "изчезнал частният ключ на удостоверителният орган?"
 
-#: src/EBox/CA.pm:2281
+#: src/EBox/CA.pm:2309
 msgid "Database corruption"
 msgstr "Повреда на базата данни."
 
-#: src/EBox/CA.pm:2283
+#: src/EBox/CA.pm:2311
 msgid "Identifier duplicated in Database"
 msgstr "Обозначителят се повтаря в базата данни."
 
-#: src/EBox/CA.pm:2285
+#: src/EBox/CA.pm:2313
 msgid "Certificate already revoked"
 msgstr "Удостоверението вече е прекратено."
 
-#: src/EBox/CA.pm:2288
+#: src/EBox/CA.pm:2316
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "Дължината на полето ASN1 е твърде голяма. Максимална дължина:"
 
-#: src/EBox/CA.pm:2290
+#: src/EBox/CA.pm:2318
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Непозната грешка. Изведеното от OpenSSL е:"
 
-#: src/EBox/CA.pm:2365
+#: src/EBox/CA.pm:2393
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -246,19 +258,19 @@ msgstr ""
 "Създаден е удостоверяващ орган с име на организация {orgName} и валидност "
 "{days} дни."
 
-#: src/EBox/CA.pm:2367
+#: src/EBox/CA.pm:2395
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "Унищожен е удостоверяващ орган с име на организация {orgName}."
 
-#: src/EBox/CA.pm:2369
+#: src/EBox/CA.pm:2397
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr ""
 "Прекратено е удостоверението на удостоверяващия орган, защото {reason} "
 "наложи: {force}"
 
-#: src/EBox/CA.pm:2371
+#: src/EBox/CA.pm:2399
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -267,7 +279,7 @@ msgstr ""
 "Издадено е удостоверение на удостоверяващия орган с име на организация "
 "{orgName} и валидност {days} дни."
 
-#: src/EBox/CA.pm:2373
+#: src/EBox/CA.pm:2401
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -276,12 +288,12 @@ msgstr ""
 "Подновено е удостоверението на удостоверяващия орган с име на организация "
 "{orgName} и валидност {days} дни."
 
-#: src/EBox/CA.pm:2375
+#: src/EBox/CA.pm:2403
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr "Издадено е удостоверение с обичайно име {cn} и валидност {days} дни."
 
-#: src/EBox/CA.pm:2377
+#: src/EBox/CA.pm:2405
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -289,26 +301,26 @@ msgstr ""
 "Прекратено е удостоверение с обичайно име {cn}, защото {reason} наложи: "
 "{force}"
 
-#: src/EBox/CA.pm:2379
+#: src/EBox/CA.pm:2407
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Подновено е удостоверението с име на организация {cn} и валидност {days} дни."
 
-#: src/EBox/CA.pm:2381
+#: src/EBox/CA.pm:2409
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "Обновена е базата данни с удостоверенията. Изтекла е валидността на {number} "
 "удостоверения."
 
-#: src/EBox/CA.pm:2401 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:2429 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
 "Крайната дата е по-късна от крайната дата на удостоверението на "
 "удостоверяващия орган."
 
-#: src/EBox/CA.pm:2528
+#: src/EBox/CA.pm:2556
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Невъзможно стартиране на OpenSSL обвивка. ({errval})"

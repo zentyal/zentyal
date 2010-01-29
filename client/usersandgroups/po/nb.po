@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12.99Report-Msgid-Bugs-To: "
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:17+0000\n"
+"POT-Creation-Date: 2010-01-29 23:36+0000\n"
 "PO-Revision-Date: 2010-01-28 07:23+0100\n"
 "Last-Translator: John Martin <john.martin@musicus.no>\n"
 "Language-Team: none\n"
@@ -123,6 +123,7 @@ msgstr "Gruppe fjernet"
 
 # "User Corner" should be tranlated as "Brukerhjørne"
 #: src/EBox/UserCornerWebServer.pm:37
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User Corner"
 msgstr "Brukerhjørne"
 
@@ -377,7 +378,7 @@ msgstr "LDAP-info"
 msgid "LDAP Information"
 msgstr "LDAP-informasjon"
 
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:149
 #, fuzzy
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information"
@@ -616,13 +617,10 @@ msgstr "Du har blitt logget ut fordi en ny sesjon har blitt åpnet"
 msgid "You are not logged in"
 msgstr "Du er ikke logget inn"
 
-#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
-msgid "User corner"
-msgstr "Brukerhjørne"
-
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
-msgid "User Corner webserver settings"
-msgstr "Brukerhjørne web-server innstillinger"
+#, fuzzy
+msgid "General configuration"
+msgstr "Konfigurasjon"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
@@ -798,6 +796,12 @@ msgstr "Advarsel: Caps Lock er aktivert"
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr "Tast inn"
+
+#~ msgid "User corner"
+#~ msgstr "Brukerhjørne"
+
+#~ msgid "User Corner webserver settings"
+#~ msgstr "Brukerhjørne web-server innstillinger"
 
 #~ msgid ""
 #~ "If you remove this group all its data within its shared directory will be "

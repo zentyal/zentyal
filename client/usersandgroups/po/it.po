@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:17+0000\n"
+"POT-Creation-Date: 2010-01-29 23:36+0000\n"
 "PO-Revision-Date: 2010-01-29 23:03+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
@@ -115,6 +115,7 @@ msgid "Group removed successfully"
 msgstr "Gruppo eliminato correttamente"
 
 #: src/EBox/UserCornerWebServer.pm:37
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User Corner"
 msgstr "Angolo utente"
 
@@ -375,7 +376,7 @@ msgstr ""
 msgid "LDAP Information"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:149
 #, fuzzy
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information"
@@ -504,8 +505,7 @@ msgstr "Installare /etc/cron.d/ebox-ad-sync."
 #: src/EBox/UsersAndGroups.pm:126
 msgid "eBox will run a script each 5 minutes to sync with Windows AD."
 msgstr ""
-"eBox farà partire uno script ogni 5 minuti per sincronizzarsi con Windows "
-"AD."
+"eBox farà partire uno script ogni 5 minuti per sincronizzarsi con Windows AD."
 
 #: src/EBox/UsersAndGroups.pm:146
 msgid "To make openLDAP listen on TCP and Unix sockets"
@@ -631,14 +631,10 @@ msgstr "La sessione è stata terminata perchè una nuova sessione è stata apert
 msgid "You are not logged in"
 msgstr "Non sei autenticato"
 
-#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
-msgid "User corner"
-msgstr "Angolo utente"
-
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
 #, fuzzy
-msgid "User Corner webserver settings"
-msgstr "Impostazioni del server web per l'angolo utente"
+msgid "General configuration"
+msgstr "Configurazione"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
@@ -817,6 +813,13 @@ msgstr "Attenzione: Caps Lock è abilitato"
 #, fuzzy
 msgid "Enter"
 msgstr "Entra"
+
+#~ msgid "User corner"
+#~ msgstr "Angolo utente"
+
+#, fuzzy
+#~ msgid "User Corner webserver settings"
+#~ msgstr "Impostazioni del server web per l'angolo utente"
 
 #~ msgid ""
 #~ "If you remove this group all its data within its shared directory will be "

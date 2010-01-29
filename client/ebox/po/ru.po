@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:04+0000\n"
+"POT-Creation-Date: 2010-01-29 23:32+0000\n"
 "PO-Revision-Date: 2010-01-28 17:48+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/ProgressIndicator.pm:41
@@ -441,7 +441,7 @@ msgstr "Журнал запросов"
 msgid "Full Reports"
 msgstr "Полные отчеты"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:236
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:237
 msgid "Dashboard"
 msgstr "Инструментальная панель"
 
@@ -575,7 +575,7 @@ msgid "Upgrading"
 msgstr "Модернизация"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:263 src/templates/backup.mas:64
+#: src/EBox/SysInfo.pm.in:264 src/templates/backup.mas:64
 msgid "Backup"
 msgstr "Резервная копия"
 
@@ -631,11 +631,11 @@ msgid "Restore successful"
 msgstr "Восстановление успешно"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:258
+#: src/EBox/SysInfo.pm.in:259
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:254
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:255
 msgid "Disk Usage"
 msgstr "Использование диска"
 
@@ -1522,51 +1522,51 @@ msgstr "Список архивов резервных копий"
 msgid "System Information"
 msgstr "Системная информация"
 
-#: src/EBox/SysInfo.pm.in:93
+#: src/EBox/SysInfo.pm.in:94
 msgid "available"
 msgstr "доступно"
 
-#: src/EBox/SysInfo.pm.in:98
+#: src/EBox/SysInfo.pm.in:99
 msgid "Time"
 msgstr "Время"
 
-#: src/EBox/SysInfo.pm.in:99
+#: src/EBox/SysInfo.pm.in:100
 msgid "Hostname"
 msgstr "Имя узла"
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:101
 msgid "Core version"
 msgstr "Версия ядра"
 
-#: src/EBox/SysInfo.pm.in:102
+#: src/EBox/SysInfo.pm.in:103
 msgid "System load"
 msgstr "Загрузка системы"
 
-#: src/EBox/SysInfo.pm.in:148 src/EBox/SysInfo.pm.in:241
+#: src/EBox/SysInfo.pm.in:149 src/EBox/SysInfo.pm.in:242
 msgid "Module Status"
 msgstr "Статус модуля"
 
-#: src/EBox/SysInfo.pm.in:153
+#: src/EBox/SysInfo.pm.in:154
 msgid "General Information"
 msgstr "Общая информация"
 
-#: src/EBox/SysInfo.pm.in:158
+#: src/EBox/SysInfo.pm.in:159
 msgid "Process List"
 msgstr "Список процессов"
 
-#: src/EBox/SysInfo.pm.in:165
+#: src/EBox/SysInfo.pm.in:166
 msgid "Support & Services"
 msgstr "Поддержка и Услуги"
 
-#: src/EBox/SysInfo.pm.in:247 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:248 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "Система"
 
-#: src/EBox/SysInfo.pm.in:251
+#: src/EBox/SysInfo.pm.in:252
 msgid "General"
 msgstr "Общее"
 
-#: src/EBox/SysInfo.pm.in:266
+#: src/EBox/SysInfo.pm.in:267
 msgid "Halt/Reboot"
 msgstr "Выключить/Перезагрузить"
 
@@ -1981,9 +1981,8 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
-"В данных модулях есть несохранённые изменения, но эти модули "
-"<b>ВЫКЛЮЧЕНЫ</b> Если есть необходимость, включите их в {openref}Module "
-"Status{closeref}."
+"В данных модулях есть несохранённые изменения, но эти модули <b>ВЫКЛЮЧЕНЫ</"
+"b> Если есть необходимость, включите их в {openref}Module Status{closeref}."
 
 #: src/templates/finish.mas:106
 msgid ""

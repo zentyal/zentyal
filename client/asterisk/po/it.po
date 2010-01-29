@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:34+0100\n"
+"POT-Creation-Date: 2010-01-29 23:28+0000\n"
 "PO-Revision-Date: 2010-01-29 23:19+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "eBox sistema Voip"
 
-#: src/EBox/Asterisk.pm:70 src/EBox/Asterisk.pm:681
+#: src/EBox/Asterisk.pm:70 src/EBox/Asterisk.pm:698
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
@@ -79,106 +79,106 @@ msgstr "Per configurare la casella vocale."
 msgid "To configure DTMF behaviour."
 msgstr "Per configurare la casella vocale."
 
-#: src/EBox/Asterisk.pm:473
+#: src/EBox/Asterisk.pm:490
 msgid "General"
 msgstr "Generale"
 
-#: src/EBox/Asterisk.pm:477 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:494 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "Riunioni"
 
-#: src/EBox/Asterisk.pm:494
+#: src/EBox/Asterisk.pm:511
 msgid "Voicemail"
 msgstr "Casella vocale"
 
-#: src/EBox/Asterisk.pm:504 src/EBox/Asterisk.pm:591
+#: src/EBox/Asterisk.pm:521 src/EBox/Asterisk.pm:608
 #, fuzzy
 msgid "User"
 msgstr "Utente"
 
-#: src/EBox/Asterisk.pm:504
+#: src/EBox/Asterisk.pm:521
 #, fuzzy
 msgid "Address"
 msgstr "Indirizzo"
 
-#: src/EBox/Asterisk.pm:504
+#: src/EBox/Asterisk.pm:521
 msgid "NAT"
 msgstr "NAT"
 
-#: src/EBox/Asterisk.pm:504
+#: src/EBox/Asterisk.pm:521
 msgid "Status"
 msgstr "Stato"
 
-#: src/EBox/Asterisk.pm:518 src/EBox/Asterisk.pm:600
+#: src/EBox/Asterisk.pm:535 src/EBox/Asterisk.pm:617
 msgid "No users connected."
 msgstr "Non ci sono utenti connessi."
 
-#: src/EBox/Asterisk.pm:588
+#: src/EBox/Asterisk.pm:605
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr "Stanza {name} attivo per {rtime}"
 
-#: src/EBox/Asterisk.pm:591
+#: src/EBox/Asterisk.pm:608
 msgid "Time Connected"
 msgstr "tempo di connessione"
 
-#: src/EBox/Asterisk.pm:621
+#: src/EBox/Asterisk.pm:638
 msgid "VoIP Online Users"
 msgstr "Utenti VoIP in linea"
 
-#: src/EBox/Asterisk.pm:626
+#: src/EBox/Asterisk.pm:643
 msgid "VoIP Users in Meetings"
 msgstr "Utenti VoIP in riunione"
 
-#: src/EBox/Asterisk.pm:658
+#: src/EBox/Asterisk.pm:675
 msgid "Date"
 msgstr "Data"
 
-#: src/EBox/Asterisk.pm:659
+#: src/EBox/Asterisk.pm:676
 msgid "From"
 msgstr "Da"
 
-#: src/EBox/Asterisk.pm:660
+#: src/EBox/Asterisk.pm:677
 msgid "To"
 msgstr "A"
 
-#: src/EBox/Asterisk.pm:661
+#: src/EBox/Asterisk.pm:678
 msgid "Duration"
 msgstr "Durata"
 
-#: src/EBox/Asterisk.pm:662
+#: src/EBox/Asterisk.pm:679
 msgid "Channel"
 msgstr "Canale"
 
-#: src/EBox/Asterisk.pm:663
+#: src/EBox/Asterisk.pm:680
 msgid "Destination Channel"
 msgstr "Canale di destinazione"
 
-#: src/EBox/Asterisk.pm:664
+#: src/EBox/Asterisk.pm:681
 msgid "Application"
 msgstr "Applicazione"
 
-#: src/EBox/Asterisk.pm:665
+#: src/EBox/Asterisk.pm:682
 msgid "Application Data"
 msgstr "Dati applicazione"
 
-#: src/EBox/Asterisk.pm:666
+#: src/EBox/Asterisk.pm:683
 msgid "Event"
 msgstr "Evento"
 
-#: src/EBox/Asterisk.pm:674
+#: src/EBox/Asterisk.pm:691
 msgid "Answered"
 msgstr "Risposte"
 
-#: src/EBox/Asterisk.pm:675
+#: src/EBox/Asterisk.pm:692
 msgid "No Answer"
 msgstr "Senza risposta"
 
-#: src/EBox/Asterisk.pm:676
+#: src/EBox/Asterisk.pm:693
 msgid "Busy"
 msgstr "Occupato"
 
-#: src/EBox/Asterisk.pm:677
+#: src/EBox/Asterisk.pm:694
 msgid "Failed"
 msgstr "Fallita"
 
@@ -425,8 +425,7 @@ msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
-"I settaggi seguenti avranno effetto quando il modulo Asterisk sarà "
-"abilitato."
+"I settaggi seguenti avranno effetto quando il modulo Asterisk sarà abilitato."
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"

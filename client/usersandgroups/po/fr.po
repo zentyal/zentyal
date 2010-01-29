@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:17+0000\n"
+"POT-Creation-Date: 2010-01-29 23:36+0000\n"
 "PO-Revision-Date: 2010-01-18 14:13+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -117,6 +117,7 @@ msgid "Group removed successfully"
 msgstr "Groupe enlevé avec succès"
 
 #: src/EBox/UserCornerWebServer.pm:37
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User Corner"
 msgstr "Espace utilisateur"
 
@@ -372,7 +373,7 @@ msgstr ""
 msgid "LDAP Information"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:149
 #, fuzzy
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information"
@@ -633,13 +634,10 @@ msgstr "Vous avez été déconnecté car une nouvelle session a été ouverte"
 msgid "You are not logged in"
 msgstr "Vous n'êtes pas connecté"
 
-#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
-msgid "User corner"
-msgstr "Espace utilisateur"
-
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
-msgid "User Corner webserver settings"
-msgstr "Paramètres du serveur web de l'espace utilisateur"
+#, fuzzy
+msgid "General configuration"
+msgstr "Configuration"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
@@ -817,6 +815,12 @@ msgstr "Attention: Verr.Maj (Caps Lock) est activé"
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr "Entrer"
+
+#~ msgid "User corner"
+#~ msgstr "Espace utilisateur"
+
+#~ msgid "User Corner webserver settings"
+#~ msgstr "Paramètres du serveur web de l'espace utilisateur"
 
 #~ msgid ""
 #~ "If you remove this group all its data within its shared directory will be "

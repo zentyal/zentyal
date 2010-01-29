@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:39+0100\n"
+"POT-Creation-Date: 2010-01-29 23:28+0000\n"
 "PO-Revision-Date: 2010-01-29 11:35+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
 #: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:46
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:115
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:116
 msgid "Certification Authority"
 msgstr "Hitelesítésszolgáltató (CA)"
 
@@ -59,8 +59,8 @@ msgstr "Ok"
 
 #: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:74
 #: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/ShowForm.pm:64
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:747 src/EBox/CA.pm:910
-#: src/EBox/CA.pm:1247 src/EBox/CA.pm:1289 src/EBox/CA.pm:1383
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:748 src/EBox/CA.pm:911
+#: src/EBox/CA.pm:1248 src/EBox/CA.pm:1290 src/EBox/CA.pm:1384
 #: src/EBox/Model/Certificates.pm:235 src/EBox/CA/TestStub.pm:438
 #: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
 #: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
@@ -106,7 +106,7 @@ msgstr "A tanúsítvány meg lett újítva"
 msgid "The new CA certificate has been renewed"
 msgstr "Az új CA tanúsítvány meg lett újítva"
 
-#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:252 src/EBox/CA.pm:529
+#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:253 src/EBox/CA.pm:530
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
 #: src/templates/formRenew.mas:37 src/templates/formRevoke.mas:22
 #: src/templates/index.mas:22 src/templates/createCA.mas:7
@@ -138,16 +138,16 @@ msgstr "Közös név: {cn} NEM létezik az adatbázisban"
 msgid "Error creating file"
 msgstr "Hiba a fájl létrehozásakor"
 
-#: src/EBox/CA.pm:293 src/EBox/CA.pm:764 src/EBox/CA.pm:1362
+#: src/EBox/CA.pm:294 src/EBox/CA.pm:765 src/EBox/CA.pm:1363
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Maximum megengedett napok száma {days}: Year 2038 Bug"
 
-#: src/EBox/CA.pm:388
+#: src/EBox/CA.pm:389
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "A törlés nem fejeződött be a következő ok miatt:"
 
-#: src/EBox/CA.pm:543 src/EBox/CA/TestStub.pm:259
+#: src/EBox/CA.pm:544 src/EBox/CA/TestStub.pm:259
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -155,12 +155,12 @@ msgstr ""
 "A CA tanúsítványokat vissza kellene vonni vagy a lejárat előtt új "
 "tanúsítványt kellene kiálítani"
 
-#: src/EBox/CA.pm:923 src/EBox/CA.pm:1258
+#: src/EBox/CA.pm:924 src/EBox/CA.pm:1259
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "{cn} nevű tanúsítvány NEM létezik"
 
-#: src/EBox/CA.pm:927
+#: src/EBox/CA.pm:928
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -169,34 +169,34 @@ msgstr ""
 "Ez a program {reason} nem egy futtatható program.\n"
 "Lehetőségek:"
 
-#: src/EBox/CA.pm:1070
+#: src/EBox/CA.pm:1071
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr "A tanúsító hatóság infrastruktúrája nem létezik, előbb hozza létre"
 
-#: src/EBox/CA.pm:1162
+#: src/EBox/CA.pm:1163
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
 "A közös név (cn), megkülönböztető név (dn) vagy a sorozat szám engedélyezett"
 
-#: src/EBox/CA.pm:1384
+#: src/EBox/CA.pm:1385
 msgid "or"
 msgstr "vagy"
 
-#: src/EBox/CA.pm:1385
+#: src/EBox/CA.pm:1386
 msgid "Certificate file"
 msgstr "Tanúsítvány fájl"
 
-#: src/EBox/CA.pm:1407
+#: src/EBox/CA.pm:1408
 msgid "The certificate to renew does NOT exist"
 msgstr "A megújítandó tanúsítvány NEM létezik"
 
-#: src/EBox/CA.pm:1447
+#: src/EBox/CA.pm:1448
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "A tanúsítvány a {cn} névvel NEM létezik ebben a CA-ban"
 
-#: src/EBox/CA.pm:1475
+#: src/EBox/CA.pm:1476
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
@@ -204,40 +204,52 @@ msgstr ""
 "A privát kulcs jelmondata szükséges egy új kérelemhez. Nem lett megújítva. "
 "Készíts egy új tanúsítványt új kulcsokkal"
 
-#: src/EBox/CA.pm:1717
+#: src/EBox/CA.pm:1718
 msgid "General"
 msgstr "Általános"
 
-#: src/EBox/CA.pm:1720 src/EBox/Model/Certificates.pm:251
+#: src/EBox/CA.pm:1721 src/EBox/Model/Certificates.pm:251
 msgid "Services Certificates"
 msgstr "Szolgáltatások Tanúsítványai"
 
-#: src/EBox/CA.pm:2279
+#: src/EBox/CA.pm:1808
+msgid "Not created"
+msgstr ""
+
+#: src/EBox/CA.pm:1810
+msgid "Available"
+msgstr ""
+
+#: src/EBox/CA.pm:1812
+msgid "Created but not available"
+msgstr ""
+
+#: src/EBox/CA.pm:2307
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Nem lehet aláírni. Hibás CA jelmondat vagy a CA privát kulcsa megsérült?"
 
-#: src/EBox/CA.pm:2281
+#: src/EBox/CA.pm:2309
 msgid "Database corruption"
 msgstr "Adatbázis sérülés"
 
-#: src/EBox/CA.pm:2283
+#: src/EBox/CA.pm:2311
 msgid "Identifier duplicated in Database"
 msgstr "Azonosító duplikáció található az adatbázisban"
 
-#: src/EBox/CA.pm:2285
+#: src/EBox/CA.pm:2313
 msgid "Certificate already revoked"
 msgstr "A tanúsítványt már vissza vonták"
 
-#: src/EBox/CA.pm:2288
+#: src/EBox/CA.pm:2316
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 mező túl hosszú. Maximum hossza:"
 
-#: src/EBox/CA.pm:2290
+#: src/EBox/CA.pm:2318
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Ismeretlen hiba. Használd az OpenSSL kimenetet:"
 
-#: src/EBox/CA.pm:2365
+#: src/EBox/CA.pm:2393
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -246,18 +258,18 @@ msgstr ""
 "A Tanúsító Hatóság (CA) elkészült a következő szervezeti névvel {orgName} és "
 "érvényességi idővel {days} (nap)"
 
-#: src/EBox/CA.pm:2367
+#: src/EBox/CA.pm:2395
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr ""
 "Megsemmisített Tanúsító Hatóság a következő szervezeti névvel {orgName}"
 
-#: src/EBox/CA.pm:2369
+#: src/EBox/CA.pm:2397
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "CA tanúsítványt visszavonta a következő ok miatt: {reason} {force}"
 
-#: src/EBox/CA.pm:2371
+#: src/EBox/CA.pm:2399
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -266,7 +278,7 @@ msgstr ""
 "Kiállított CA tanúsítvány a következő {orgName} szervezeti névvel és {days} "
 "nap érvényességi idővel"
 
-#: src/EBox/CA.pm:2373
+#: src/EBox/CA.pm:2401
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -275,14 +287,14 @@ msgstr ""
 "Megújított CA tanúsítvány a következő {orgName} szervezeti névvel és {days} "
 "nap érvényességi idővel"
 
-#: src/EBox/CA.pm:2375
+#: src/EBox/CA.pm:2403
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Kiállított tanúsítvány a következő {cn} közös névvel és {days} nap "
 "érvényességi idővel"
 
-#: src/EBox/CA.pm:2377
+#: src/EBox/CA.pm:2405
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -290,23 +302,23 @@ msgstr ""
 "Vissza lett vonva a tanúsítvány a következő {cn} közös névvel, mert {reason} "
 "{force}"
 
-#: src/EBox/CA.pm:2379
+#: src/EBox/CA.pm:2407
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "Meg lett újítva a tanúsítvány a következő {cn} közös névvel és {days} nap "
 "érvényességi idővel"
 
-#: src/EBox/CA.pm:2381
+#: src/EBox/CA.pm:2409
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr "Frissült a tanúsítvány adatbázis. {number} tanúsítvány van lejárva"
 
-#: src/EBox/CA.pm:2401 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:2429 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "A lejárati dátum későbbi mint a CA tanúsítvány lejárati dátuma"
 
-#: src/EBox/CA.pm:2528
+#: src/EBox/CA.pm:2556
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Nem lehet elindítani az OpenSSL parancssort. ({errval})"

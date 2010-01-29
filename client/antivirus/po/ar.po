@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:06+0100\n"
+"POT-Creation-Date: 2010-01-29 23:28+0000\n"
 "PO-Revision-Date: 2010-01-27 23:43+0100\n"
 "Last-Translator: Mostafa Salem <m@isalem.net>\n"
 "Language-Team: none\n"
@@ -54,26 +54,25 @@ msgstr "لم تتم أي عملية تحديث منذ تشغيل الخدمة."
 msgid "The last update failed."
 msgstr "فشلت آخر عملية تحديث"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
-#, perl-brace-format
-msgid ""
-"Update successful but your freshclam version is outdated.\n"
-"The antivirus will not be able to use all the signatures.Please, install "
-"version {version} or higher."
-msgstr ""
-"تم التحديث بنجاح. ولكن النشخة التي تستخدمها أصبحت قديمة.\n"
-"لن يتمكن مضاد الفايروسات من استعمال كافة الدلالات الموجودة\n"
-"\n"
-"يرجى التحديث الى النسخة {version} على الأقل."
-
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:136
 msgid "Last update successful."
 msgstr "تم التحديث بنجاح"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:144
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:139
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "الحدث {event} غير معرًف."
+
+#~ msgid ""
+#~ "Update successful but your freshclam version is outdated.\n"
+#~ "The antivirus will not be able to use all the signatures.Please, install "
+#~ "version {version} or higher."
+#~ msgstr ""
+#~ "تم التحديث بنجاح. ولكن النشخة التي تستخدمها أصبحت قديمة.\n"
+#~ "لن يتمكن مضاد الفايروسات من استعمال كافة الدلالات الموجودة\n"
+#~ "\n"
+#~ "يرجى التحديث الى النسخة {version} على الأقل."
 
 #~ msgid "UTM"
 #~ msgstr "إدارة الحماية الموحدة"

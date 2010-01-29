@@ -205,8 +205,8 @@ msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
-"Må være lik 'annen.vert[:port]/relativ_bane' eller "
-"'annen.vert[:port]/absolutt_bane'"
+"Må være lik 'annen.vert[:port]/relativ_bane' eller 'annen.vert[:port]/"
+"absolutt_bane'"
 
 #: src/EBox/Model/RemoteSettings.pm:507
 msgid "absolute directory"
@@ -231,7 +231,8 @@ msgstr "Filen eksisterer og er ikke en mappe"
 
 #: src/EBox/Model/RemoteSettings.pm:559
 msgid "Full backup cannot be more frequent than incremental backup"
-msgstr "Full sikkerhetskopi kan ikke utføres oftere enn endrings sikkerhetskopi"
+msgstr ""
+"Full sikkerhetskopi kan ikke utføres oftere enn endrings sikkerhetskopi"
 
 #: src/EBox/Model/RemoteSettings.pm:571
 msgid ""

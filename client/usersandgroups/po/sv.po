@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:17+0000\n"
+"POT-Creation-Date: 2010-01-29 23:36+0000\n"
 "PO-Revision-Date: 2007-06-06 09:41+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -116,6 +116,7 @@ msgid "Group removed successfully"
 msgstr "Gruppen togs bort"
 
 #: src/EBox/UserCornerWebServer.pm:37
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 #, fuzzy
 msgid "User Corner"
 msgstr "Användarnamn"
@@ -364,7 +365,7 @@ msgstr ""
 msgid "LDAP Information"
 msgstr ""
 
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:149
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information"
 msgstr ""
@@ -589,13 +590,8 @@ msgstr ""
 msgid "You are not logged in"
 msgstr ""
 
-#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
-#, fuzzy
-msgid "User corner"
-msgstr "Användarnamn"
-
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
-msgid "User Corner webserver settings"
+msgid "General configuration"
 msgstr ""
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
@@ -778,6 +774,10 @@ msgstr ""
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr ""
+
+#, fuzzy
+#~ msgid "User corner"
+#~ msgstr "Användarnamn"
 
 #~ msgid ""
 #~ "If you remove this group all its data within its shared directory will be "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:04+0000\n"
+"POT-Creation-Date: 2010-01-29 23:32+0000\n"
 "PO-Revision-Date: 2009-08-04 05:57+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -437,7 +437,7 @@ msgstr "查詢日誌"
 msgid "Full Reports"
 msgstr "完整報告"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:236
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:237
 msgid "Dashboard"
 msgstr "儀表板"
 
@@ -566,7 +566,7 @@ msgid "Upgrading"
 msgstr "正在更新"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:263 src/templates/backup.mas:64
+#: src/EBox/SysInfo.pm.in:264 src/templates/backup.mas:64
 msgid "Backup"
 msgstr "備份"
 
@@ -622,11 +622,11 @@ msgid "Restore successful"
 msgstr "還原成功"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:258
+#: src/EBox/SysInfo.pm.in:259
 msgid "RAID"
 msgstr "磁碟陣列"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:254
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:255
 msgid "Disk Usage"
 msgstr "磁碟使用量"
 
@@ -1490,53 +1490,53 @@ msgstr "備份的壓縮檔"
 msgid "System Information"
 msgstr "系統資訊"
 
-#: src/EBox/SysInfo.pm.in:93
+#: src/EBox/SysInfo.pm.in:94
 msgid "available"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:98
+#: src/EBox/SysInfo.pm.in:99
 msgid "Time"
 msgstr "時刻"
 
-#: src/EBox/SysInfo.pm.in:99
+#: src/EBox/SysInfo.pm.in:100
 msgid "Hostname"
 msgstr "主機名稱"
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:101
 #, fuzzy
 msgid "Core version"
 msgstr "eBox 版本"
 
-#: src/EBox/SysInfo.pm.in:102
+#: src/EBox/SysInfo.pm.in:103
 msgid "System load"
 msgstr "系統負載"
 
-#: src/EBox/SysInfo.pm.in:148 src/EBox/SysInfo.pm.in:241
+#: src/EBox/SysInfo.pm.in:149 src/EBox/SysInfo.pm.in:242
 msgid "Module Status"
 msgstr "模組狀態"
 
-#: src/EBox/SysInfo.pm.in:153
+#: src/EBox/SysInfo.pm.in:154
 msgid "General Information"
 msgstr "一般資訊"
 
-#: src/EBox/SysInfo.pm.in:158
+#: src/EBox/SysInfo.pm.in:159
 msgid "Process List"
 msgstr "程序清單"
 
-#: src/EBox/SysInfo.pm.in:165
+#: src/EBox/SysInfo.pm.in:166
 #, fuzzy
 msgid "Support & Services"
 msgstr "服務"
 
-#: src/EBox/SysInfo.pm.in:247 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:248 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "系統"
 
-#: src/EBox/SysInfo.pm.in:251
+#: src/EBox/SysInfo.pm.in:252
 msgid "General"
 msgstr "一般"
 
-#: src/EBox/SysInfo.pm.in:266
+#: src/EBox/SysInfo.pm.in:267
 msgid "Halt/Reboot"
 msgstr "關機/重新開機"
 

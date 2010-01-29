@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:04+0000\n"
+"POT-Creation-Date: 2010-01-29 23:32+0000\n"
 "PO-Revision-Date: 2010-01-29 22:22+0100\n"
 "Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -454,7 +454,7 @@ msgid "Full Reports"
 msgstr "Informes completos"
 
 # No existe traducción, se podría usar Tablón
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:236
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:237
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -586,7 +586,7 @@ msgid "Upgrading"
 msgstr "Actualizando"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:263 src/templates/backup.mas:64
+#: src/EBox/SysInfo.pm.in:264 src/templates/backup.mas:64
 msgid "Backup"
 msgstr "Backup"
 
@@ -642,11 +642,11 @@ msgid "Restore successful"
 msgstr "Restauración exitosa"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:258
+#: src/EBox/SysInfo.pm.in:259
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:254
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:255
 msgid "Disk Usage"
 msgstr "Uso de disco"
 
@@ -1540,52 +1540,52 @@ msgstr "Archivos de backup"
 msgid "System Information"
 msgstr "Información de sistema"
 
-#: src/EBox/SysInfo.pm.in:93
+#: src/EBox/SysInfo.pm.in:94
 msgid "available"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:98
+#: src/EBox/SysInfo.pm.in:99
 msgid "Time"
 msgstr "Fecha y hora"
 
-#: src/EBox/SysInfo.pm.in:99
+#: src/EBox/SysInfo.pm.in:100
 msgid "Hostname"
 msgstr "Nombre de máquina"
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:101
 #, fuzzy
 msgid "Core version"
 msgstr "Versión de eBox"
 
-#: src/EBox/SysInfo.pm.in:102
+#: src/EBox/SysInfo.pm.in:103
 msgid "System load"
 msgstr "Carga del sistema"
 
-#: src/EBox/SysInfo.pm.in:148 src/EBox/SysInfo.pm.in:241
+#: src/EBox/SysInfo.pm.in:149 src/EBox/SysInfo.pm.in:242
 msgid "Module Status"
 msgstr "Estado del módulo"
 
-#: src/EBox/SysInfo.pm.in:153
+#: src/EBox/SysInfo.pm.in:154
 msgid "General Information"
 msgstr "Información general"
 
-#: src/EBox/SysInfo.pm.in:158
+#: src/EBox/SysInfo.pm.in:159
 msgid "Process List"
 msgstr "Lista de procesos"
 
-#: src/EBox/SysInfo.pm.in:165
+#: src/EBox/SysInfo.pm.in:166
 msgid "Support & Services"
 msgstr "Servicios y soporte"
 
-#: src/EBox/SysInfo.pm.in:247 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:248 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "Sistema"
 
-#: src/EBox/SysInfo.pm.in:251
+#: src/EBox/SysInfo.pm.in:252
 msgid "General"
 msgstr "General"
 
-#: src/EBox/SysInfo.pm.in:266
+#: src/EBox/SysInfo.pm.in:267
 msgid "Halt/Reboot"
 msgstr "Apagar o reiniciar"
 
@@ -2004,8 +2004,8 @@ msgid ""
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
 "Los siguientes módulos tienen cambios sin guardar pero están "
-"<b>deshabilitados</b>. Si se necesitan, se pueden habilitar en "
-"{openref}Estado de los Módulos{closeref}."
+"<b>deshabilitados</b>. Si se necesitan, se pueden habilitar en {openref}"
+"Estado de los Módulos{closeref}."
 
 #: src/templates/finish.mas:106
 msgid ""

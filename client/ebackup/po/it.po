@@ -223,7 +223,8 @@ msgstr "Il file esiste e non è una directory"
 
 #: src/EBox/Model/RemoteSettings.pm:559
 msgid "Full backup cannot be more frequent than incremental backup"
-msgstr "Il backup completo non può essere più frequente del backup incrementale"
+msgstr ""
+"Il backup completo non può essere più frequente del backup incrementale"
 
 #: src/EBox/Model/RemoteSettings.pm:571
 msgid ""

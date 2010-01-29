@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:06+0100\n"
+"POT-Creation-Date: 2010-01-29 23:28+0000\n"
 "PO-Revision-Date: 2009-10-04 07:29+0200\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
@@ -57,25 +57,24 @@ msgstr "Антивирусната база данни не е обновява�
 msgid "The last update failed."
 msgstr "Последното обновяване е неуспешно."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
-#, perl-brace-format
-msgid ""
-"Update successful but your freshclam version is outdated.\n"
-"The antivirus will not be able to use all the signatures.Please, install "
-"version {version} or higher."
-msgstr ""
-"Обновяването е успешно, но тази версия на freshclam е стара.\n"
-"Антивирусната система няма да може да използва всички дефиниции. Моля, "
-"инсталирайте версия {version} или по-нова."
-
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:136
 msgid "Last update successful."
 msgstr "Последното обновяване е успешно."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:144
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:139
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "Непознато събитие {event}."
+
+#~ msgid ""
+#~ "Update successful but your freshclam version is outdated.\n"
+#~ "The antivirus will not be able to use all the signatures.Please, install "
+#~ "version {version} or higher."
+#~ msgstr ""
+#~ "Обновяването е успешно, но тази версия на freshclam е стара.\n"
+#~ "Антивирусната система няма да може да използва всички дефиниции. Моля, "
+#~ "инсталирайте версия {version} или по-нова."
 
 #~ msgid "UTM"
 #~ msgstr "Цялостно справяне със заплахи"

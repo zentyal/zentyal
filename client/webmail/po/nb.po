@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:17+0000\n"
+"POT-Creation-Date: 2010-01-29 23:36+0000\n"
 "PO-Revision-Date: 2010-01-15 14:56+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -137,7 +137,7 @@ msgstr "Navnet på Webmail vil bli bruk i login vinduet og side titler"
 msgid "General configuration"
 msgstr "Konfigurasjon"
 
-#: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:64
+#: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:66
 #, fuzzy
 msgid "Webmail"
 msgstr "Web E-post"
@@ -146,42 +146,42 @@ msgstr "Web E-post"
 msgid "WebMail backend"
 msgstr "WebE-post server"
 
-#: src/EBox/WebMail.pm:164
+#: src/EBox/WebMail.pm:172
 #, fuzzy
 msgid "Neither IMAP nor IMAPS service enabled."
 msgstr "Hverken IMAP eller IMAPS tjenesten er aktivert"
 
-#: src/EBox/WebMail.pm:276
+#: src/EBox/WebMail.pm:284
 #, fuzzy
 msgid "To configure Roundcube webmail."
 msgstr "For å konfigurere roundcube"
 
-#: src/EBox/WebMail.pm:281
+#: src/EBox/WebMail.pm:289
 #, fuzzy
 msgid "To configure managesieve Roundcube webmail plugin."
 msgstr "For å konfigurere behandle sieve tillegget"
 
-#: src/EBox/WebMail.pm:299
+#: src/EBox/WebMail.pm:307
 #, fuzzy
 msgid "Create PostgreSQL Roundcube webmail database."
 msgstr "Opprette PostgreSQL WebE-post database"
 
-#: src/EBox/WebMail.pm:300
+#: src/EBox/WebMail.pm:308
 #, fuzzy
 msgid "This database will store the data needed by Roundcube."
 msgstr "Denne databasen vil lagre dataene Rouncube trenger"
 
-#: src/EBox/WebMail.pm:304
+#: src/EBox/WebMail.pm:312
 #, fuzzy
 msgid "Add webmail link to www data directory."
 msgstr "Legg til webmail link til www data mappen"
 
-#: src/EBox/WebMail.pm:305
+#: src/EBox/WebMail.pm:313
 #, fuzzy
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "Webmail vil være tilgjengelig på http://ip/webmail"
 
-#: src/EBox/WebMail.pm:328
+#: src/EBox/WebMail.pm:336
 #, fuzzy, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
@@ -191,7 +191,7 @@ msgstr ""
 "bruker eBox's e-post tjeneste. Du kan aktivere den på {openurl}Mail -> "
 "General{closeurl}"
 
-#: src/EBox/WebMail.pm:386
+#: src/EBox/WebMail.pm:394
 #, fuzzy
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "

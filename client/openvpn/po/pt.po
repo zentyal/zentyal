@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:11+0000\n"
+"POT-Creation-Date: 2010-01-29 23:34+0000\n"
 "PO-Revision-Date: 2009-11-05 00:57+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -70,29 +70,29 @@ msgstr "O cliente não é suportado: {ct}"
 msgid "Server {name}"
 msgstr "Servidor {name}"
 
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
+#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:330
 #: src/EBox/OpenVPN/Model/Servers.pm:68
 msgid "Enabled"
 msgstr "Ligado"
 
 # e
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
+#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:330
 msgid "Disabled"
 msgstr "Desactivado"
 
-#: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:314
+#: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:331
 msgid "Service"
 msgstr "Serviço"
 
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:316
+#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:333
 msgid "Running"
 msgstr "A correr"
 
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:316
+#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:333
 msgid "Stopped"
 msgstr "Parado"
 
-#: src/EBox/OpenVPN/Server.pm:699 src/EBox/OpenVPN/Client.pm:317
+#: src/EBox/OpenVPN/Server.pm:699 src/EBox/OpenVPN/Client.pm:334
 msgid "Daemon status"
 msgstr "Estado da rotina"
 
@@ -117,11 +117,11 @@ msgid "VPN network interface"
 msgstr "Interface de rede VPN"
 
 #: src/EBox/OpenVPN/Server.pm:718 src/EBox/OpenVPN/Server.pm:720
-#: src/EBox/OpenVPN/Client.pm:329 src/EBox/OpenVPN/Client.pm:331
+#: src/EBox/OpenVPN/Client.pm:346 src/EBox/OpenVPN/Client.pm:348
 msgid "VPN interface address"
 msgstr "Endereço do interface VPN"
 
-#: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:331
+#: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:348
 msgid "No active"
 msgstr "Inactivo"
 
@@ -171,12 +171,12 @@ msgstr "O certificado de cliente não é compatível com a chave privada"
 msgid "disabled"
 msgstr "desactivado"
 
-#: src/EBox/OpenVPN/Client.pm:311
+#: src/EBox/OpenVPN/Client.pm:328
 #, perl-brace-format
 msgid "Client {name}"
 msgstr "Cliente {name}"
 
-#: src/EBox/OpenVPN/Client.pm:325
+#: src/EBox/OpenVPN/Client.pm:342
 msgid "Connection target"
 msgstr "Objectivo da ligação"
 

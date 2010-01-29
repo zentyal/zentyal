@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:17+0000\n"
+"POT-Creation-Date: 2010-01-29 23:36+0000\n"
 "PO-Revision-Date: 2010-01-27 21:51+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
@@ -138,7 +138,7 @@ msgstr ""
 msgid "General configuration"
 msgstr "Beállítások"
 
-#: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:64
+#: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:66
 #, fuzzy
 msgid "Webmail"
 msgstr "WebMail"
@@ -147,42 +147,42 @@ msgstr "WebMail"
 msgid "WebMail backend"
 msgstr "WebMail háttérprogramja"
 
-#: src/EBox/WebMail.pm:164
+#: src/EBox/WebMail.pm:172
 #, fuzzy
 msgid "Neither IMAP nor IMAPS service enabled."
 msgstr "Sem az IMAP, sem az IMAPS szolgáltatás nincs bekapcsolva"
 
-#: src/EBox/WebMail.pm:276
+#: src/EBox/WebMail.pm:284
 #, fuzzy
 msgid "To configure Roundcube webmail."
 msgstr "RoundCube beállítása"
 
-#: src/EBox/WebMail.pm:281
+#: src/EBox/WebMail.pm:289
 #, fuzzy
 msgid "To configure managesieve Roundcube webmail plugin."
 msgstr "Szűrőkezelő bővítmény beállítása"
 
-#: src/EBox/WebMail.pm:299
+#: src/EBox/WebMail.pm:307
 #, fuzzy
 msgid "Create PostgreSQL Roundcube webmail database."
 msgstr "PostgreSQL adatbázis létrehozása a WebMailhez"
 
-#: src/EBox/WebMail.pm:300
+#: src/EBox/WebMail.pm:308
 #, fuzzy
 msgid "This database will store the data needed by Roundcube."
 msgstr "Az adatbázis a RoundCube-hoz szükséges adatokat fogja tárolni"
 
-#: src/EBox/WebMail.pm:304
+#: src/EBox/WebMail.pm:312
 #, fuzzy
 msgid "Add webmail link to www data directory."
 msgstr "WebMail link hozzáadása a www data könyvtárhoz"
 
-#: src/EBox/WebMail.pm:305
+#: src/EBox/WebMail.pm:313
 #, fuzzy
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "A WebMail a http://ip/webmail címen lesz elérhető"
 
-#: src/EBox/WebMail.pm:328
+#: src/EBox/WebMail.pm:336
 #, fuzzy, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
@@ -192,7 +192,7 @@ msgstr ""
 "erre épül az eBox levelezőszolgáltatása. Ezt a {openurl}Levelezés -> "
 "Általános{closeurl}alatt tudja bekapcsolni."
 
-#: src/EBox/WebMail.pm:386
+#: src/EBox/WebMail.pm:394
 #, fuzzy
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "

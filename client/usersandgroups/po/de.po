@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:17+0000\n"
+"POT-Creation-Date: 2010-01-29 23:36+0000\n"
 "PO-Revision-Date: 2010-01-28 12:05+0100\n"
 "Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: none\n"
@@ -121,6 +121,7 @@ msgid "Group removed successfully"
 msgstr "Die Gruppe wurde entfernt"
 
 #: src/EBox/UserCornerWebServer.pm:37
+#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 #, fuzzy
 msgid "User Corner"
 msgstr "Benutzerbereich"
@@ -384,7 +385,7 @@ msgstr "LDAP Info"
 msgid "LDAP Information"
 msgstr "LDAP Information"
 
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:144
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:149
 #, fuzzy
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information"
@@ -630,13 +631,10 @@ msgstr "Du wurdest abgemeldet weil eine neue Sitzung geöffnet wurde"
 msgid "You are not logged in"
 msgstr "Du bist nicht angemeldet"
 
-#: src/EBox/UserCornerWebServer/Model/Settings.pm:45
-msgid "User corner"
-msgstr "Benutzerbereich"
-
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
-msgid "User Corner webserver settings"
-msgstr "Benutzerbereich-Webserver-Einstellungen"
+#, fuzzy
+msgid "General configuration"
+msgstr "Konfiguration"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
@@ -813,6 +811,12 @@ msgstr "Achtung: Feststelltaste ist aktiviert"
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr "Enter"
+
+#~ msgid "User corner"
+#~ msgstr "Benutzerbereich"
+
+#~ msgid "User Corner webserver settings"
+#~ msgstr "Benutzerbereich-Webserver-Einstellungen"
 
 #~ msgid ""
 #~ "If you remove this group all its data within its shared directory will be "

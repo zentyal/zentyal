@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-09 16:10+0100\n"
-"PO-Revision-Date: 2010-01-29 17:58+0100\n"
+"PO-Revision-Date: 2010-01-29 23:31+0000\n"
 "Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -416,7 +416,7 @@ msgstr ""
 #, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr ""
-"MTA externo {MTA} no valido. Las direcciones de red locales no están "
+"MTA externo {mta} no válido. Las direcciones de red locales no están "
 "permitidas"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:11+0000\n"
+"POT-Creation-Date: 2010-01-29 23:34+0000\n"
 "PO-Revision-Date: 2009-08-04 07:37+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -67,28 +67,28 @@ msgstr "不支援的客戶端類型：{ct}"
 msgid "Server {name}"
 msgstr "伺服器 {name}"
 
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
+#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:330
 #: src/EBox/OpenVPN/Model/Servers.pm:68
 msgid "Enabled"
 msgstr "已啟用"
 
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:313
+#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:330
 msgid "Disabled"
 msgstr "已停用"
 
-#: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:314
+#: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:331
 msgid "Service"
 msgstr "服務"
 
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:316
+#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:333
 msgid "Running"
 msgstr "執行中"
 
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:316
+#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:333
 msgid "Stopped"
 msgstr "已停止"
 
-#: src/EBox/OpenVPN/Server.pm:699 src/EBox/OpenVPN/Client.pm:317
+#: src/EBox/OpenVPN/Server.pm:699 src/EBox/OpenVPN/Client.pm:334
 msgid "Daemon status"
 msgstr "伺服程式狀態"
 
@@ -113,11 +113,11 @@ msgid "VPN network interface"
 msgstr "VPN 網路介面"
 
 #: src/EBox/OpenVPN/Server.pm:718 src/EBox/OpenVPN/Server.pm:720
-#: src/EBox/OpenVPN/Client.pm:329 src/EBox/OpenVPN/Client.pm:331
+#: src/EBox/OpenVPN/Client.pm:346 src/EBox/OpenVPN/Client.pm:348
 msgid "VPN interface address"
 msgstr "VPN 介面位址"
 
-#: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:331
+#: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:348
 msgid "No active"
 msgstr "不使用"
 
@@ -166,12 +166,12 @@ msgstr "做為客戶端憑證的檔案與憑證的私密金鑰檔案不符"
 msgid "disabled"
 msgstr "已停用"
 
-#: src/EBox/OpenVPN/Client.pm:311
+#: src/EBox/OpenVPN/Client.pm:328
 #, perl-brace-format
 msgid "Client {name}"
 msgstr "客戶端 {name}"
 
-#: src/EBox/OpenVPN/Client.pm:325
+#: src/EBox/OpenVPN/Client.pm:342
 msgid "Connection target"
 msgstr "連接目標"
 
