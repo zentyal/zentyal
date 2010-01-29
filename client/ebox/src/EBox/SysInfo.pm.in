@@ -38,6 +38,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Report::DiskUsage;
 use EBox::Report::RAID;
+use EBox::Util::Version;
 
 use constant LATEST_VERSION => '/var/lib/ebox/latestversion';
 
@@ -88,7 +89,7 @@ sub generalWidget
     read ($fh, $lastVersion, 16);
     chomp($lastVersion);
     close ($fh);
-    if ($lastVersion gt $version) {
+    if (EBox::Util::Version::compare($lastVersion,$version) == 1) {
         my $url =
            "http://trac.ebox-platform.com/wiki/Document/Documentation/Updates";
         my $available = __('available');
