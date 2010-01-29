@@ -200,6 +200,23 @@ sub confFileParams
     return \@templateParams;
 }
 
+# Method: limitRespawn
+#
+# Overrides:
+#
+#     <EBox::OpenVPN::Daemon>
+#
+sub limitRespawn
+{
+    my ($self) = @_;
+
+    if ( $self->internal() ) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 # Method: servers
 #
 #   Get the servers to which the client will try to connecet

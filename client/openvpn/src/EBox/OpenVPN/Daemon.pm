@@ -528,6 +528,20 @@ sub _rootCommandForStartDaemon
     return "$bin  --syslog $name  --config $confFilePath";
 }
 
+# Method: limitRespawn
+#
+#      Return if the respawn for the openvpn is limited to 5 times
+#      within 40 seconds
+#
+# Returns:
+#
+#      Boolean - indicating the respawning process is limited
+#
+sub limitRespawn
+{
+    return 0;
+}
+
 sub _pidFile
 {
     my ($self) = @_;
@@ -576,8 +590,9 @@ sub writeUpstartFile
 {
     my ($self) = @_;
 
-    my $path = $self->_upstartFile();
-    my $cmd  = $self->_rootCommandForStartDaemon();
+    my $path    = $self->_upstartFile();
+    my $cmd     = $self->_rootCommandForStartDaemon();
+    my $limited = $self->limitRespawn();
 
     my $fileAttrs    = {
                         uid  => 0,
@@ -587,7 +602,8 @@ sub writeUpstartFile
 
     EBox::Module::Base::writeConfFileNoCheck(
         $path,'/openvpn/upstart.mas',
-        [ cmd => $cmd],$fileAttrs
+        [ cmd => $cmd, limited => $limited],
+        $fileAttrs
        );
 
 }
