@@ -22,6 +22,7 @@ use EBox::Sudo qw( :all );
 use EBox::Global;
 use EBox::Ldap;
 use EBox::MailUserLdap;
+use EBox::Dashboard::ModuleStatus;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
