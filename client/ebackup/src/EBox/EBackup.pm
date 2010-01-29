@@ -106,6 +106,29 @@ sub compositeClasses
     ];
 }
 
+# Method: addModuleStatus
+#
+#       Overrides to show a custom status for ebackup module
+#
+# Overrides:
+#
+#       <EBox::Module::Service::addModuleStatus>
+#
+sub addModuleStatus
+{
+    my ($self, $section) = @_;
+
+    # FIXME: Change the remote settings configuration to know if the
+    # backup is being done correctly
+    $section->add(new EBox::Dashboard::ModuleStatus(
+        module        => $self->name(),
+        printableName => $self->printableName(),
+        enabled       => $self->isEnabled(),
+        running       => $self->isEnabled(),
+        nobutton      => 1));
+
+}
+
 
 # Method: restoreFile
 #
