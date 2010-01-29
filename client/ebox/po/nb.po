@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:04+0000\n"
-"PO-Revision-Date: 2010-01-15 14:53+0100\n"
+"PO-Revision-Date: 2010-01-29 15:45+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -1522,7 +1522,7 @@ msgstr "System Informasjon"
 
 #: src/EBox/SysInfo.pm.in:93
 msgid "available"
-msgstr ""
+msgstr "tilgjengelig"
 
 #: src/EBox/SysInfo.pm.in:98
 msgid "Time"
@@ -1533,9 +1533,8 @@ msgid "Hostname"
 msgstr "Vertsnavn"
 
 #: src/EBox/SysInfo.pm.in:100
-#, fuzzy
 msgid "Core version"
-msgstr "eBox versjon"
+msgstr "Kjerne versjon"
 
 #: src/EBox/SysInfo.pm.in:102
 msgid "System load"
@@ -1574,9 +1573,8 @@ msgid "port"
 msgstr "port"
 
 #: src/EBox/Apache.pm:591
-#, fuzzy
 msgid "eBox web server"
-msgstr "eBox intern web server"
+msgstr "eBox web server"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
 #, perl-brace-format
@@ -1983,6 +1981,8 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
+"Følgende moduler har ulagrede endringer men er <b>deaktivert</b>. Hvis du "
+"trenger å aktivere dem gå til {openref}Module Status{closeref}."
 
 #: src/templates/finish.mas:106
 msgid ""

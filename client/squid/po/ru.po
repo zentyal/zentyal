@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:41+0000\n"
-"PO-Revision-Date: 2010-01-27 19:18+0100\n"
-"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2010-01-28 18:26+0100\n"
+"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid.pm:70 src/EBox/Squid.pm:970 src/EBox/Squid.pm:1046
@@ -505,12 +505,10 @@ msgid "Use default profile for MIME filtering"
 msgstr "Использовать профиль по умолчанию для фильтрации MIME"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:41
-#, fuzzy
 msgid "Block not listed domains and URLs"
-msgstr "Блокировать не перечисленные домены"
+msgstr "Блокировать не перечисленные домены и адреса"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
-#, fuzzy
 msgid ""
 "If this is enabled, any domain or URL which is neither present neither in "
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
@@ -533,7 +531,6 @@ msgid "Allow all {elements}"
 msgstr "Разрешить все {elements}"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:74
-#, fuzzy
 msgid "Use this field to change the value of all the above rows at once"
 msgstr "Используйте это поле для изменения значений всех строк сразу"
 
@@ -692,9 +689,8 @@ msgid "Set policy for all MIME types"
 msgstr "Установить политику для всех MIME типов"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:36
-#, fuzzy
 msgid "Domain or URL"
-msgstr "Домен"
+msgstr "Домен или адрес"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:76
 #: src/EBox/Squid/Model/DomainFilterBase.pm:91
@@ -762,7 +758,6 @@ msgid "group's policy"
 msgstr "групповая политика"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
-#, fuzzy
 msgid ""
 "Here you can globally block or allow access by user group. Filter options "
 "will be by global policy or by object policy"
@@ -831,7 +826,6 @@ msgstr "MIME тип"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:65
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:61
-#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given MIME types. MIME "
 "types not listed here are allowed.\n"
@@ -922,19 +916,16 @@ msgstr "Использование конфигурации профиля по 
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #: src/EBox/Squid/Model/DomainFilter.pm:65
-#, fuzzy
 msgid "Domains and URL rules"
-msgstr "Правила доменов"
+msgstr "Правила доменов и адресов"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 #: src/EBox/Squid/Model/DomainFilter.pm:78
-#, fuzzy
 msgid "internet domain or URL"
-msgstr "интернет домен"
+msgstr "интернет домен или адрес"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #: src/EBox/Squid/Model/DomainFilter.pm:79
-#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
@@ -942,19 +933,16 @@ msgstr ""
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 #: src/EBox/Squid/Model/DomainFilter.pm:81
-#, fuzzy
 msgid "Domain or URL added"
 msgstr "Домен добавлен"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 #: src/EBox/Squid/Model/DomainFilter.pm:82
-#, fuzzy
 msgid "Domain or URL removed"
 msgstr "Домен удален"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 #: src/EBox/Squid/Model/DomainFilter.pm:83
-#, fuzzy
 msgid "Domain or URL updated"
 msgstr "Домен обновлен"
 

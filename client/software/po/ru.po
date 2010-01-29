@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:15+0000\n"
-"PO-Revision-Date: 2010-01-18 17:45+0100\n"
-"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
+"PO-Revision-Date: 2010-01-28 16:12+0100\n"
+"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:24
@@ -100,9 +100,8 @@ msgid "Software updates are being handled automatically"
 msgstr "Обновление программного обеспечения выполняется автоматически"
 
 #: src/EBox/CGI/Updates.pm:52
-#, fuzzy
 msgid "The system components are up to date."
-msgstr "Система уже обновлена"
+msgstr "Компоненты системы в актуальном состоянии"
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
 msgid "Upgrading"
@@ -251,6 +250,8 @@ msgid ""
 "Please wait, the update of the software available list is in process right "
 "now"
 msgstr ""
+"Пожалуйста, подождите, список доступного программного обеспечения "
+"обновляется"
 
 #: src/templates/updateNote.mas:10
 msgid ""
@@ -258,6 +259,9 @@ msgid ""
 "is probably outdated. The list is updated each night or you can force the "
 "update with the console command 'ebox-software'"
 msgstr ""
+"Не произошла успешная загрузка списка компонентов поэтому показываемая "
+"информация вероятно устарела. Список обновляется каждую ночь, , либо вы "
+"можете обновить его с помощью консольной команды 'ebox-software'"
 
 #: src/templates/updateNote.mas:20
 #, perl-brace-format
@@ -266,6 +270,9 @@ msgid ""
 "be updated again at night or you can force the update with the console "
 "command 'ebox-software'"
 msgstr ""
+"Список компонентов обновлен {mon}/{mday}/{year} {hour}:{min}. Он будет "
+"обновлен ночью, либо вы можете обновить его с помощью консольной команды "
+"'ebox-software'"
 
 #~ msgid "eBox - Backup"
 #~ msgstr "eBox - Резервное копирование"

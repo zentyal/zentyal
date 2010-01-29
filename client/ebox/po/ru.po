@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:04+0000\n"
-"PO-Revision-Date: 2010-01-24 14:15+0100\n"
-"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2010-01-28 17:48+0100\n"
+"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/ProgressIndicator.pm:41
@@ -1524,7 +1524,7 @@ msgstr "Системная информация"
 
 #: src/EBox/SysInfo.pm.in:93
 msgid "available"
-msgstr ""
+msgstr "доступно"
 
 #: src/EBox/SysInfo.pm.in:98
 msgid "Time"
@@ -1535,9 +1535,8 @@ msgid "Hostname"
 msgstr "Имя узла"
 
 #: src/EBox/SysInfo.pm.in:100
-#, fuzzy
 msgid "Core version"
-msgstr "Версия eBox"
+msgstr "Версия ядра"
 
 #: src/EBox/SysInfo.pm.in:102
 msgid "System load"
@@ -1576,9 +1575,8 @@ msgid "port"
 msgstr "порт"
 
 #: src/EBox/Apache.pm:591
-#, fuzzy
 msgid "eBox web server"
-msgstr "Внутренний веб сервер eBox"
+msgstr "Веб сервер eBox"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
 #, perl-brace-format
@@ -1983,6 +1981,9 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
+"В данных модулях есть несохранённые изменения, но эти модули "
+"<b>ВЫКЛЮЧЕНЫ</b> Если есть необходимость, включите их в {openref}Module "
+"Status{closeref}."
 
 #: src/templates/finish.mas:106
 msgid ""

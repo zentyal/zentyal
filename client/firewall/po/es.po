@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:05+0000\n"
-"PO-Revision-Date: 2010-01-25 20:44+0100\n"
-"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
+"PO-Revision-Date: 2010-01-29 15:41+0100\n"
+"Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -312,12 +312,11 @@ msgid "Filtering rules from internal networks to eBox"
 msgstr "Reglas de filtrado desde las redes internas a eBox"
 
 #: src/templates/filter.mas:8
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your eBox machine."
 msgstr ""
-"Estas reglas te permiten controlar el acceso desde redes externas a "
+"Estas reglas te permiten controlar el acceso desde redes internas a "
 "servicios que corren en tu máquina eBox"
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
@@ -331,7 +330,6 @@ msgid "Filtering rules for internal networks"
 msgstr "Reglas de filtrado para las redes internas"
 
 #: src/templates/filter.mas:15
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to the "
 "Internet and traffic between internal networks. If you wish to provide "
@@ -339,19 +337,17 @@ msgid ""
 msgstr ""
 "Estas reglas te permiten controlar el acceso desde tus redes internas a "
 "Internet, y el tráfico entre tus redes internas. Si deseas dar acceso a tus "
-"servicios eBox, debes usar la sección superior"
+"servicios eBox, debes usar la sección superior."
 
 #: src/templates/filter.mas:21
 msgid "Filtering rules for traffic coming out from eBox"
 msgstr "Reglas de filtrado para el tráfico saliente de eBox"
 
 #: src/templates/filter.mas:23
-#, fuzzy
 msgid ""
 "These rules allow you to control access from your eBox to external services."
 msgstr ""
-"Estas reglas te permiten control el acceso desde eBox a los servicios "
-"externos"
+"Estas reglas te permiten control el acceso desde eBox a servicios externos."
 
 #: src/templates/filter.mas:29
 msgid "Filtering rules from external networks to eBox"
@@ -366,15 +362,14 @@ msgstr ""
 "servicios que corren en tu máquina eBox"
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
-#, fuzzy
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing."
 msgstr ""
-"Ten cuidado ya que añadiendo reglas a esta sección puedes estar "
-"comprometiendo la seguridad de tu red, permitiendo el acceso desde redes no "
-"confiables. Por favor, no las uses a menos que sepas lo que estás haciendo"
+"Debes saber que añadiendo reglas a esta sección puedes estar comprometiendo "
+"la seguridad de tu red, permitiendo el acceso desde redes no confiables. Por "
+"favor, hazlo sólo si sabes lo que estás haciendo."
 
 #: src/templates/filter.mas:40
 msgid "Filtering rules from external networks to internal networks"

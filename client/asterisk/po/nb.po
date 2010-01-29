@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:34+0100\n"
-"PO-Revision-Date: 2010-01-15 09:36+0100\n"
+"PO-Revision-Date: 2010-01-29 12:51+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -64,14 +64,12 @@ msgid "To configure the conferences."
 msgstr "For å konfigurere konferanser."
 
 #: src/EBox/Asterisk.pm:170
-#, fuzzy
 msgid "To configure the music on hold."
-msgstr "For å konfigurere talepost."
+msgstr "For å konfigurere musikk på vent."
 
 #: src/EBox/Asterisk.pm:174
-#, fuzzy
 msgid "To configure DTMF behaviour."
-msgstr "For å konfigurere talepost."
+msgstr "For å konfigurere DTMF håndtering."
 
 #: src/EBox/Asterisk.pm:473
 msgid "General"
@@ -124,61 +122,57 @@ msgstr "VoIP Brukere i Møter"
 
 #: src/EBox/Asterisk.pm:658
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: src/EBox/Asterisk.pm:659
 msgid "From"
-msgstr ""
+msgstr "Fra"
 
 #: src/EBox/Asterisk.pm:660
 msgid "To"
-msgstr ""
+msgstr "Til"
 
 #: src/EBox/Asterisk.pm:661
-#, fuzzy
 msgid "Duration"
-msgstr "Beskrivelse"
+msgstr "Varighet"
 
 #: src/EBox/Asterisk.pm:662
-#, fuzzy
 msgid "Channel"
-msgstr "Endre"
+msgstr "Kanal"
 
 #: src/EBox/Asterisk.pm:663
 msgid "Destination Channel"
-msgstr ""
+msgstr "Destinasjons Kanal"
 
 #: src/EBox/Asterisk.pm:664
 msgid "Application"
-msgstr ""
+msgstr "Applikasjon"
 
 #: src/EBox/Asterisk.pm:665
 msgid "Application Data"
-msgstr ""
+msgstr "Applikasjons Data"
 
 #: src/EBox/Asterisk.pm:666
 msgid "Event"
-msgstr ""
+msgstr "Hendelse"
 
 #: src/EBox/Asterisk.pm:674
 msgid "Answered"
-msgstr ""
+msgstr "Besvart"
 
 #: src/EBox/Asterisk.pm:675
 msgid "No Answer"
-msgstr ""
+msgstr "Ikke Svar"
 
 #: src/EBox/Asterisk.pm:676
 msgid "Busy"
-msgstr ""
+msgstr "Opptatt"
 
 #: src/EBox/Asterisk.pm:677
-#, fuzzy
 msgid "Failed"
-msgstr "Aktivert"
+msgstr "Feilet"
 
 #: src/EBox/Asterisk/Extensions.pm:230
-#, fuzzy
 msgid "User extension"
 msgstr "Brukers nummer"
 
@@ -189,22 +183,20 @@ msgid "Extension"
 msgstr "Nummer"
 
 #: src/EBox/Asterisk/Extensions.pm:642
-#, fuzzy
 msgid "Queue extension"
-msgstr "nummer"
+msgstr "Kø nummer"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "gruppe"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
 msgstr "brukernavn"
 
 #: src/EBox/Model/Meetings.pm:91
-#, fuzzy
 msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
-msgstr "Du må installere dahdi-linux og dahdi-tools pakkene for å bruke Møter."
+msgstr "Du må installere dahdi og dahdi-modules-ebox pakkene for å bruke Møter."
 
 #: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
 #: src/EBox/Model/Settings.pm:84
@@ -212,9 +204,9 @@ msgid "extension"
 msgstr "nummer"
 
 #: src/EBox/Model/Meetings.pm:149
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A number between {min} and {max}."
-msgstr "Et nummer mellom {min} og {max}"
+msgstr "Et nummer mellom {min} og {max}."
 
 #: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:90
 msgid "Password"
@@ -319,9 +311,8 @@ msgid "General Asterisk server configuration"
 msgstr "Generell Asterisk server konfigurasjon"
 
 #: src/EBox/Model/Settings.pm:151
-#, fuzzy
 msgid "General Asterisk server configuration updated."
-msgstr "Generell Asterisk server konfigurasjon oppdatert"
+msgstr "Generell Asterisk server konfigurasjon oppdatert."
 
 #: src/EBox/Model/Provider.pm:76
 msgid "Name"
@@ -344,14 +335,12 @@ msgid "SIP provider"
 msgstr "SIP leverandør"
 
 #: src/EBox/Model/Provider.pm:118
-#, fuzzy
 msgid "SIP provider for outgoing calls configuration."
-msgstr "SIP leverandør for utgående samtaler konfigurasjon"
+msgstr "SIP leverandør for utgående samtaler konfigurasjon."
 
 #: src/EBox/Model/Provider.pm:120
-#, fuzzy
 msgid "SIP provider configuration updated."
-msgstr "SIP leverandør konfigurasjon oppdatert"
+msgstr "SIP leverandør konfigurasjon oppdatert."
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
@@ -370,28 +359,28 @@ msgid "NAT Asterisk server configuration"
 msgstr "NAT Asterisk server konfigurering"
 
 #: src/EBox/Model/NAT.pm:126
-#, fuzzy
 msgid "NAT Asterisk server configuration updated."
-msgstr "NAT Asterisk server konfigurasjon oppdatert"
+msgstr "NAT Asterisk server konfigurasjon oppdatert."
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Asterisk modul"
 
 #: src/templates/group.mas:8
-#, fuzzy
 msgid "Asterisk group queue"
-msgstr "Asterisk modul"
+msgstr "Asterisk gruppe kø"
 
 #: src/templates/group.mas:12
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
+"Det er ingen brukere i denne gruppen eller brukere har ikke en Asterisk "
+"konto, så en kø kan ikke opprettes."
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "Gruppe kø"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
@@ -413,6 +402,8 @@ msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
+"Følgende instillinger vil bare bli effektuert når Asterisk modulen er "
+"aktivert."
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:05+0000\n"
-"PO-Revision-Date: 2010-01-23 20:36+0100\n"
+"PO-Revision-Date: 2010-01-28 17:57+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Iptables.pm:760 src/EBox/Iptables.pm:797
@@ -308,12 +308,11 @@ msgid "Filtering rules from internal networks to eBox"
 msgstr "Правила фильтрации из внутренних сетей на eBox"
 
 #: src/templates/filter.mas:8
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your eBox machine."
 msgstr ""
-"Эти правила позволяют контролировать доступ из внешних сетей к службам "
+"Эти правила позволяют контролировать доступ из внутренних сетей к службам "
 "запущенным на машине eBox"
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
@@ -327,14 +326,13 @@ msgid "Filtering rules for internal networks"
 msgstr "Правила Фильтрации между внутренними сетями"
 
 #: src/templates/filter.mas:15
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to the "
 "Internet and traffic between internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section."
 msgstr ""
-"Эти правила разрешают контролировать доступ с ваших внутренних сетей к "
-"Интернет и трафиком между внутренними сетями. Если вы желаете иметь доступ к "
+"Эти правила позваляют контролировать доступ из ваших внутренних сетей к "
+"Интернет и трафик между внутренними сетями. Если вы желаете иметь доступ к "
 "службам eBox, вам необходимо использовать секцию выше."
 
 #: src/templates/filter.mas:21
@@ -342,7 +340,6 @@ msgid "Filtering rules for traffic coming out from eBox"
 msgstr "Правила фильтрации для трафика исходящего из eBox"
 
 #: src/templates/filter.mas:23
-#, fuzzy
 msgid ""
 "These rules allow you to control access from your eBox to external services."
 msgstr ""
@@ -361,7 +358,6 @@ msgstr ""
 "запущенным на машине eBox"
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
-#, fuzzy
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
@@ -369,7 +365,7 @@ msgid ""
 msgstr ""
 "Имейте ввиду что добавление правил в этой секции могут поставить под угрозу "
 "вашу сеть, поскольку вы можете предоставить доступ из ненадежных сетей. "
-"Пожалуйста, не используйте это, если вы знаете, что вы делаете"
+"Пожалуйста, не используйте это, если вы не знаете, что вы делаете"
 
 #: src/templates/filter.mas:40
 msgid "Filtering rules from external networks to internal networks"

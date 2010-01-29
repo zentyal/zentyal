@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 15:21+0000\n"
-"PO-Revision-Date: 2010-01-27 19:00+0100\n"
-"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2010-01-28 17:35+0100\n"
+"Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
@@ -382,7 +382,7 @@ msgstr ""
 
 # Чтото нетак
 #: src/EBox/Mail/Model/VDomainAliases.pm:101
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add {al} alias because there is already a virtual domain with the "
 "same name"
@@ -391,7 +391,7 @@ msgstr ""
 "именем"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:108
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add alias {al} because it is already an identical alias for another "
 "virtual domain"
@@ -466,9 +466,8 @@ msgstr "Безлимитный размер"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:164
 #: src/EBox/Mail/Model/SMTPOptions.pm:183
-#, fuzzy
 msgid "limited to"
-msgstr "Безлимитный размер"
+msgstr "ограничение"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:175
 msgid "Maximum message size accepted"
@@ -486,7 +485,7 @@ msgstr "Никогда"
 #: src/EBox/Mail/Model/SMTPOptions.pm:203
 #: src/EBox/Mail/Model/SMTPOptions.pm:222
 msgid "expired in"
-msgstr ""
+msgstr "истекает"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:204
 #: src/EBox/Mail/Model/SMTPOptions.pm:223
@@ -515,16 +514,19 @@ msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
 msgstr ""
+"Имя почтового сервера установлено из имени машины и имя машины не настроено"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:425
 msgid "The selected mailname is not a fully qualified hostname. "
-msgstr ""
+msgstr "Выбранное имя почтового сервера не является полным хостнэймом."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:429
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
 msgstr ""
+"Не имея правильно указанного имени хоста, ваша почта на некоторых серверах "
+"будет отвергнута"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "Send a copy of all mail domains"
@@ -684,16 +686,15 @@ msgstr ""
 
 #: src/EBox/Mail/Model/VDomains.pm:204
 msgid "'sieve' is a reserved name in this context, please choose another name"
-msgstr ""
+msgstr "'sieve' это зарезервированное имя, пожалуста выберите другое имя"
 
 #: src/EBox/Mail/Model/VDomains.pm:211
-#, fuzzy
 msgid "Mail virtual domain"
 msgstr "Почтовый виртуальный домен"
 
 #: src/EBox/Mail/Model/VDomains.pm:214
 msgid "The virtual domain name cannot be equal to the mailname"
-msgstr ""
+msgstr "Виртуальный домен не может совпадать с именем почтового сервера"
 
 #: src/EBox/Mail/Model/VDomains.pm:255
 #, perl-brace-format
@@ -863,19 +864,20 @@ msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
+"НЕ возможно использовать имя хоста как имя почтового сервера, так как оно не "
+"подходит. Пожалуста определите вручную имя почтового сервера"
 
 #: src/EBox/Mail.pm:686
 msgid "The mail name must be a fully qualified name"
-msgstr ""
+msgstr "Имя почтового сервера должно быть подходящим"
 
 #: src/EBox/Mail.pm:691 src/EBox/Mail.pm:702 src/EBox/Mail.pm:711
-#, fuzzy
 msgid "Host mail name"
-msgstr "доменное имя"
+msgstr "Имя почтового сервера"
 
 #: src/EBox/Mail.pm:705
 msgid "The mail name and virtual mail domain name are equal"
-msgstr ""
+msgstr "Имя почтового сервера и имя виртуального домена одинаковые"
 
 #: src/EBox/Mail.pm:974
 msgid "Cannot change this parameter for a non-custom filter"

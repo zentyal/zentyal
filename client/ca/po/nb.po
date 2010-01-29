@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 20:39+0100\n"
-"PO-Revision-Date: 2009-09-30 16:13+0200\n"
+"PO-Revision-Date: 2010-01-29 12:53+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -307,7 +307,7 @@ msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Kan ikke starte OpenSSL shell. ({errval})"
 
 #: src/EBox/Model/Certificates.pm:93
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
@@ -329,7 +329,7 @@ msgstr "Aktiver"
 
 #: src/EBox/Model/Certificates.pm:243
 msgid "Generate the certificate using CA with the common name set above"
-msgstr ""
+msgstr "Generer sertifikatet ved bruk av CA med det vanlige navnet satt over"
 
 #: src/EBox/Model/Certificates.pm:252
 msgid "certificate"
@@ -340,6 +340,8 @@ msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by eBox"
 msgstr ""
+"Her kan du sette sertifikater fra denne CA for de sikre tjenestene "
+"administrert av eBox"
 
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
