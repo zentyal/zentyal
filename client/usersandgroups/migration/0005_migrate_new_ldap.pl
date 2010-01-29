@@ -21,6 +21,7 @@ use EBox::Config;
 use EBox::Sudo;
 use EBox::UsersAndGroups;
 use EBox::UsersAndGroups::Setup;
+use EBox::Model::ModelManager;
 
 use Error qw(:try);
 
@@ -93,10 +94,27 @@ sub runGConf
             ($mod->name() eq 'users') and next;
             $mod->restartService();
         }
+        #set the DN to dc=ebox as we are in an upgrade from a previous eBox
+        #version
+        my $mode = $mod->model('Mode');
+        my $row = $mode->row();
+        $row->elementByName('dn')->setValue('dc=ebox');
+        $row->store();
     } else {
         # remove the database so enabling it doesn't fail?
     }
     EBox::Sudo::root('chmod 700 /var/lib/ebox/conf/ssl');
+
+    my $modelManager = EBox::Model::ModelManager->instance();
+    my $serviceModel = $modelManager->model('ServiceTable');
+    my $row = $serviceModel->findRow(name => 'ldap');
+    if ($row) {
+        my $confModel = $row->subModel('configuration');
+        my $id = $confModel->add(protocol => 'tcp', destination => '636', source => 'any');
+        my $row = $confModel->row($id);
+        $row->setReadOnly(1);
+        $row->store();
+    }
     EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default /etc/default/slapd");
     EBox::UsersAndGroups::Setup::createJournalsDirs();
     $mod->restartService();
