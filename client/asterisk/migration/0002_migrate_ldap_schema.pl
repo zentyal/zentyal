@@ -81,6 +81,13 @@ sub runGConf
         $ldap->modify($dn, %attrs);
         $extensions->addUserExtension($user, $extn);
     }
+
+    my $qdn = $extensions->queuesDn;
+    $ldap->add($qdn, attr => [
+                         'ou' => 'Queues',
+                         'objectClass' => 'top',
+                         'objectClass' => 'organizationalUnit'
+	                     ]);
 }
 
 EBox::init();

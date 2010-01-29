@@ -255,14 +255,22 @@ sub _setConf
     my $ldapConf = $self->ldap->ldapConf();
     push (@params, dn => $ldapConf->{'dn'});
 
-    $self->writeConfFile(MODULESCONFFILE, "asterisk/modules.conf.mas");
+    my $astuid = (getpwnam('asterisk'))[2];
+    my $astgid = (getpwnam('asterisk'))[3];
+
+    $self->writeConfFile(MODULESCONFFILE, "asterisk/modules.conf.mas",
+                         [], { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 
     $self->writeConfFile(EXTCONFIGCONFFILE, "asterisk/extconfig.conf.mas",
-        \@params);
-    $self->writeConfFile(USERSCONFFILE, "asterisk/users.conf.mas");
-    $self->writeConfFile(MOHCONFFILE, "asterisk/musiconhold.conf.mas");
-    $self->writeConfFile(FEATURESCONFFILE, "asterisk/features.conf.mas");
-    $self->writeConfFile(VOICEMAILCONFFILE, "asterisk/voicemail.conf.mas");
+        \@params, { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
+    $self->writeConfFile(USERSCONFFILE, "asterisk/users.conf.mas",
+                         [], { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
+    $self->writeConfFile(MOHCONFFILE, "asterisk/musiconhold.conf.mas",
+                         [], { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
+    $self->writeConfFile(FEATURESCONFFILE, "asterisk/features.conf.mas",
+                         [], { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
+    $self->writeConfFile(VOICEMAILCONFFILE, "asterisk/voicemail.conf.mas",
+                         [], { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 
     $self->_setRealTime();
     $self->_setExtensions();
@@ -287,8 +295,10 @@ sub _setRealTime
     push (@params, rootdn => $ldapConf->{'rootdn'});
     push (@params, password => $self->ldap->getPassword());
 
+    my $astuid = (getpwnam('asterisk'))[2];
+    my $astgid = (getpwnam('asterisk'))[3];
     $self->writeConfFile(RESLDAPCONFFILE, "asterisk/res_ldap.conf.mas", \@params,
-                            { 'uid' => 0, 'gid' => 0, mode => '640' });
+                            { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 }
 
 
@@ -318,7 +328,10 @@ sub _setExtensions
 
     push (@params, localaddrs => \@localaddrs);
 
-    $self->writeConfFile(EXTNCONFFILE, "asterisk/extensions.conf.mas", \@params);
+    my $astuid = (getpwnam('asterisk'))[2];
+    my $astgid = (getpwnam('asterisk'))[3];
+    $self->writeConfFile(EXTNCONFFILE, "asterisk/extensions.conf.mas", \@params,
+                         { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 }
 
 
@@ -386,8 +399,10 @@ sub _setSIP
     push (@params, server => $model->serverValue());
     push (@params, incoming => $model->incomingValue());
 
+    my $astuid = (getpwnam('asterisk'))[2];
+    my $astgid = (getpwnam('asterisk'))[3];
     $self->writeConfFile(SIPCONFFILE, "asterisk/sip.conf.mas", \@params,
-                            { 'uid' => 0, 'gid' => 0, mode => '640' });
+                            { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 }
 
 
@@ -419,8 +434,10 @@ sub _setMeetings
 
     my @params = ( meetings => \@meetings );
 
+    my $astuid = (getpwnam('asterisk'))[2];
+    my $astgid = (getpwnam('asterisk'))[3];
     $self->writeConfFile(MEETMECONFFILE, "asterisk/meetme.conf.mas", \@params,
-                            { 'uid' => 0, 'gid' => 0, mode => '640' });
+                            { 'uid' => $astuid, 'gid' => $astgid, mode => '640' });
 }
 
 
