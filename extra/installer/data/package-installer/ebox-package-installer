@@ -18,6 +18,7 @@ use warnings;
 use strict;
 
 use EBox::Gettext;
+use EBox::Sudo;
 use Error qw(:try);
 
 EBox::Gettext::settextdomain('ebox-package-installer');
@@ -156,7 +157,7 @@ push (@packages, 'remoteservices');
 @packages = map ("ebox-$_", @packages);
 if ($CNF_x11) {
     push (@packages, 'firefox', 'xorg', 'gdm', 'ubuntu-gdm-themes',
-                     'xfce4-session', 'xfwm4', 'xterm');
+                     'blackbox', 'xterm', 'libnss3-tools');
 }
 
 installPackages(@packages);
@@ -466,18 +467,18 @@ sub preconfiguration
     # locales
     my $LOCALES_FILE='/var/lib/locales/supported.d/local';
     my $TMP='/tmp/local.tmp';
-    system("cat /var/tmp/locale.gen $LOCALES_FILE > $TMP");
-    system("sort $TMP | uniq > $LOCALES_FILE");
+    EBox::Sudo::root("cat /var/tmp/locale.gen $LOCALES_FILE > $TMP");
+    EBox::Sudo::root("sort $TMP | uniq > $LOCALES_FILE");
     unlink($TMP);
 
     print $PROGRESS "90\n";
 
     # Regenerate locales to update the new messages from eBox
-    system("/usr/sbin/locale-gen >> $LOG 2>&1");
+    EBox::Sudo::root("/usr/sbin/locale-gen >> $LOG 2>&1");
 
     print $PROGRESS "94\n";
 
-    system("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
+    EBox::Sudo::root("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
 
     print $PROGRESS "98\n";
 
@@ -492,7 +493,7 @@ sub preconfiguration
 
     # X11 setup
     if ($CNF_x11) {
-        system ("$INSTALL_FILES/ebox-x11-setup $CNF_user >> $LOG 2>&1");
+        EBox::Sudo::root("$INSTALL_FILES/ebox-x11-setup $CNF_user >> $LOG 2>&1");
     }
 
     close ($PROGRESS);

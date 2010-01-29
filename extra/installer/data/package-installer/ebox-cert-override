@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use MIME::Base64;
+
+
+my $PROFILE = '.mozilla/firefox/ebox.default';
+my $ID = 'eBox Server';
+my $CERT = '/var/lib/ebox/conf/ssl/ssl.cert';
+
+`openssl x509 -in $CERT -inform PEM -outform DER -out /tmp/ssl.der`;
+my $fp = `cat /tmp/ssl.der | sha256sum | cut -d' ' -f1`;
+my $der = `cat /tmp/ssl.der`;
+`rm -f /tmp/ssl.der`;
+chomp($fp);
+
+$fp = uc($fp);
+$fp =~ s/(..)/$1:/g;
+chop($fp);
+
+my $serial;
+$serial = `certutil -d $PROFILE -L -n "$ID"|grep Serial -A1|tail -1|cut -d' ' -f17`;
+chomp($serial);
+
+my @der_parts = split('0', $der);
+my $issuer = '0' . $der_parts[4] . '0' . $der_parts[5];
+
+my @serial_bytes = map { hex($_) } split(/:/, $serial);
+$serial = pack("C" . scalar(@serial_bytes), @serial_bytes);
+my $buf = '';
+
+$buf .= pack("N", 0);
+$buf .= pack("N", 0);
+$buf .= pack("N", scalar(@serial_bytes));
+$buf .= pack("N", length($issuer));
+$buf .= $serial;
+$buf .= $issuer;
+
+my $key = encode_base64($buf);
+my @key_bits = ( $key =~ /.{1,64}/gs );
+$key = join("\t", @key_bits);
+
+print "localhost:443\tOID.2.16.840.1.101.3.4.2.1\t$fp\tMU\t$key";

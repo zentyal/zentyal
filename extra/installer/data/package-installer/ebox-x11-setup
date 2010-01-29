@@ -1,10 +1,24 @@
 #!/bin/sh
 
 USER_NAME=$1
+DIR=/home/$USER_NAME
 
 sed -i 's/AutomaticLoginEnable=.*/AutomaticLoginEnable=true/' /etc/gdm/gdm.conf
 sed -i "s/AutomaticLogin=.*/AutomaticLogin=$USER_NAME/" /etc/gdm/gdm.conf
 
-mv /var/tmp/ebox-firefox /usr/local/bin/
-mkdir -p /home/$USER_NAME/.config/autostart
-cp /var/tmp/ebox-firefox.desktop /home/$USER_NAME/.config/autostart
+echo "#!/bin/bash" > $DIR/.xsession
+echo "firefox https://localhost &" >> $DIR/.xsession
+echo "exec blackbox" >> $DIR/.xsession
+chmod +x $DIR/.xsession
+chown $USER_NAME:eboxadmin $DIR/.xsession
+
+mkdir $DIR/.mozilla
+cp -r /var/tmp/ebox-firefox-profile $DIR/.mozilla/firefox
+chown -R $USER_NAME:eboxadmin $DIR/.mozilla
+chmod -R +w $DIR/.mozilla
+
+CERT=/var/lib/ebox/conf/ssl/ssl.cert
+PROFILE=$DIR/.mozilla/firefox/ebox.default
+ID='eBox Server'
+certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
+/var/tmp/ebox-cert-override > $PROFILE/cert_override.txt
