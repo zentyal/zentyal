@@ -35,6 +35,7 @@ my @TASKS = (
 );
 
 my @PACKAGES = (
+    ['firefox', __('Window system with local browser')],
     ['network', __('Networking')],
     ['firewall', __('Firewall and redirections')],
     ['trafficshaping', __('Traffic shaping')],
@@ -124,6 +125,7 @@ my $CNF_users = '';
 my $CNF_ldap_pass;
 my @CNF_selectedIfaces;
 my $CNF_domain = undef;
+my $CNF_x11 = 0;
 
 ############################
 # -- installation process --
@@ -152,7 +154,10 @@ system ("$INSTALL_FILES/ebox-set-admin-password $CNF_user $cryptpass >> $LOG 2>&
 my @packages = selectPackagesMenu();
 push (@packages, 'remoteservices');
 @packages = map ("ebox-$_", @packages);
-push (@packages, 'xorg', 'firefox', 'gdm', 'xfce4-session', 'xfwm4', 'xterm');
+if ($CNF_x11) {
+    push (@packages, 'firefox', 'xorg', 'gdm', 'ubuntu-gdm-themes',
+                     'xfce4-session', 'xfwm4', 'xterm');
+}
 
 installPackages(@packages);
 
@@ -204,6 +209,13 @@ if ($global->modExists('mail')) {
 }
 
 preconfiguration();
+
+# If we have graphical environment, don't show final message
+# with instructions to use another browser, just start
+# firefox automagically
+if ($CNF_x11) {
+    exit 0;
+}
 
 # Fetch internal addresses
 my $haveAddress = 0;
@@ -296,6 +308,7 @@ sub selectPackagesMenu # returns array
         }
         if ($option eq $SIMPLE_METHOD) {
             $ret = showChecklist($TASK_TITLE, $TASK_MESSAGE, @TASKS);
+            $CNF_x11 = 1;
         } else {
             $ret = showChecklist($PACKAGE_TITLE, $PACKAGE_MESSAGE, @PACKAGES);
         }
@@ -309,6 +322,11 @@ sub selectPackagesMenu # returns array
             }
         }
     } while ($ret != 0);
+
+    if ($selection[0] eq 'firefox') {
+        shift @selection;
+        $CNF_x11 = 1;
+    }
 
     return @selection;
 }
@@ -473,7 +491,9 @@ sub preconfiguration
     print $PROGRESS "100\n";
 
     # X11 setup
-    system ("$INSTALL_FILES/ebox-x11-setup $CNF_user >> $LOG 2>&1");
+    if ($CNF_x11) {
+        system ("$INSTALL_FILES/ebox-x11-setup $CNF_user >> $LOG 2>&1");
+    }
 
     close ($PROGRESS);
 }
