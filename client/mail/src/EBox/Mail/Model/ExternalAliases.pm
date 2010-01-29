@@ -72,7 +72,7 @@ sub _table
         my $dataTable =
                 {
                         'tableName' => 'ExternalAliases',
-                        'printableTableName' => __('Aliases'),
+                        'printableTableName' => __('External Aliases'),
                         'defaultController' =>
             '/ebox/Mail/Controller/ExternalAliases',
                         'defaultActions' =>
@@ -230,9 +230,19 @@ sub preconditionFailMsg
                   'status section in order to use it.');
 }
 
+# Method: pageTitle
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::pageTitle>
+#
+sub pageTitle
+{
+    my ($self) = @_;
 
+    return $self->parentRow()->printableValueByName('vdomain');
 
-
+}
 
 1;
 

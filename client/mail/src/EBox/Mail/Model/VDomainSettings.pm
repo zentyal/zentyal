@@ -101,5 +101,20 @@ sub bccAddress
     my $address = $alwaysBcc->subtype()->value();
     return $address;
 }
+
+# Method: pageTitle
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::pageTitle>
+#
+sub pageTitle
+{
+    my ($self) = @_;
+
+    return $self->parentRow()->printableValueByName('vdomain');
+
+}
+
 1;
 
