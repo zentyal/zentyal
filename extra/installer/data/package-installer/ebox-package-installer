@@ -293,6 +293,11 @@ sub workarounds
     # Disable cdrom and delete file from apt sources
     system('sed -i "s/^deb cdrom/#deb cdrom/" /etc/apt/sources.list');
     system('sed -i "s/^deb file:.*$//" /etc/apt/sources.list');
+
+    # Fixes problems with font sizes in some systems
+    if (-f '/etc/gdm/gdm.conf') {
+        system('sed -i "s/^command=\/usr\/bin\/X -br -audit 0/command=\/usr\/bin\/X -br -audit 0 -dpi 96/" /etc/gdm/gdm.conf');
+    }
 }
 
 
