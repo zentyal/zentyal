@@ -62,14 +62,6 @@ update_if_network() {
     fi
 }
 
-purge_config() {
-    echo "Critical Error! Restoring original configuration state by purging libebox..."
-    # Wipe out all configuration.
-    apt-get remove --purge -y --force-yes libebox >/dev/null 2>&1
-    # We need libebox installed again.
-    rm -f /var/tmp/ebox-base-packages.installed
-}
-
 installed_ok() {
     echo "Installation Complete. Cleaning up eBox package installer files..."
     rm -f /var/tmp/locale.gen
@@ -100,7 +92,6 @@ package_installer() {
     if /var/tmp/ebox-package-installer; then
         installed_ok
     else
-        purge_config
         bail_out
     fi
     # Restore noisy logging
