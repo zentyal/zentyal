@@ -78,7 +78,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'network',
-                    printableName => __('Network'),
+                    printableName => __n('Network'),
                     domain => 'ebox-network',
                     @_);
     $self->{'actions'} = {};

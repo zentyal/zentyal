@@ -34,15 +34,6 @@ sub new
     return $self;
 }
 
-# Method: domain
-#
-#       Must return the text domain which the package belongs to
-#
-sub domain
-{
-    throw EBox::Exceptions::NotImplemented;
-}
-
 # Method: logHelper
 #
 # Returns:

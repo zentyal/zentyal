@@ -46,8 +46,9 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'sysinfo',
-                                          printableName => __('System Information'),
-                                          @_);
+                                      domain => 'ebox',
+                                      printableName => __n('System Information'),
+                                      @_);
     $self->{version} = "1.3.16";
 
     bless($self, $class);

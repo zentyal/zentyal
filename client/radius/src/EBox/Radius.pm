@@ -50,7 +50,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'radius',
-            printableName => __('RADIUS'),
+            printableName => 'RADIUS',
             domain => 'ebox-radius',
             @_);
 

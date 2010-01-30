@@ -73,7 +73,7 @@ sub _create
 
     my $self = $class->SUPER::_create( name => 'remoteservices',
                                        domain => 'ebox-remoteservices',
-                                       printableName => __('Control Center Client'),
+                                       printableName => __n('Control Center Client'),
                                        @_
                                       );
 

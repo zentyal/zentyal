@@ -89,7 +89,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
                                       name => 'mail',
-                                      printableName =>__('Mail'),
+                                      printableName => __n('Mail'),
                                       domain => 'ebox-mail',
                                       @_
     );

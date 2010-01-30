@@ -91,8 +91,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(name   => 'trafficshaping',
 				      domain => 'ebox-trafficshaping',
-				      title  => __('Traffic Shaping'),
-                      printableName => __('Traffic Shaping'),
+                      printableName => __n('Traffic Shaping'),
 				      @_);
 
     $self->{network} = EBox::Global->modInstance('network');

@@ -55,7 +55,7 @@ sub _create
     my $self = $class->SUPER::_create(
                                       name => 'logs',
                                       domain => 'ebox',
-                                      printableName => __('Logs'),
+                                      printableName => __n('Logs'),
                                      );
 
     bless($self, $class);

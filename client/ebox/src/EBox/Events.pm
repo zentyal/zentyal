@@ -93,7 +93,7 @@ sub _create
 
     my $self = $class->SUPER::_create( name => 'events',
             domain => 'ebox-events',
-            printableName => __('Events'),
+            printableName => __n('Events'),
             @_
             );
 

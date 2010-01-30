@@ -54,7 +54,7 @@ sub _create
     my $self =$class->SUPER::_create(
                                      name => 'firewall',
                                      domain => 'ebox-firewall',
-                                     printableName => __('Firewall'),
+                                     printableName => __n('Firewall'),
                                      @_);
     $self->{'ToInternetRuleModel'} =
         new EBox::Firewall::Model::ToInternetRuleTable(

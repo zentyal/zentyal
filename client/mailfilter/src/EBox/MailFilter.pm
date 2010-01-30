@@ -58,7 +58,8 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'mailfilter',
-                                      printableName => __('Mail Filter'));
+                                      domain => 'ebox-mailfilter',
+                                      printableName => __n('Mail Filter'));
     bless($self, $class);
 
     $self->{smtpFilter} = new EBox::MailFilter::Amavis();
@@ -66,12 +67,6 @@ sub _create
     $self->{popProxy}  = new EBox::MailFilter::POPProxy();
 
     return $self;
-}
-
-
-sub domain
-{
-    return 'ebox-mailfilter';
 }
 
 # Method: actions

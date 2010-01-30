@@ -74,7 +74,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
                                           name => 'webserver',
-                                          printableName => __('Web Server'),
+                                          printableName => __n('Web Server'),
                                           domain => 'ebox-webserver',
                                           @_,
                                          );

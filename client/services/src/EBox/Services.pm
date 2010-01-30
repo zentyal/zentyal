@@ -44,7 +44,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'services',
-            title => __n('Services'),
+            printableName => __n('Services'),
             domain => 'ebox-services',
             @_);
     $self->{'serviceModel'} =

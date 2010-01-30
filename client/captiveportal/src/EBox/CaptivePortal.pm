@@ -60,7 +60,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'captiveportal',
-            printableName => __('Captive Portal'),
+            printableName => __n('Captive Portal'),
             domain => 'ebox-captiveportal',
             @_);
     bless($self, $class);

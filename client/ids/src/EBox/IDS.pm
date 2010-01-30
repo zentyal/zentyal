@@ -59,7 +59,7 @@ sub _create
         my $class = shift;
         my $self = $class->SUPER::_create(name => 'ids',
             domain => 'ebox-ids',
-            printableName => __('IDS'),
+            printableName => __n('IDS'),
             @_);
         bless($self, $class);
         return $self;

@@ -50,7 +50,7 @@ sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'software',
-                        printableName => __('Software Management'),
+                        printableName => __n('Software Management'),
 						domain => 'ebox-software',
 						@_);
 	bless($self, $class);

@@ -36,7 +36,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'objects',
-                                      title => __n('Objects'),
+                                      printableName => __n('Objects'),
                                       domain => 'ebox-objects',
                                       @_);
 

@@ -73,16 +73,11 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'samba',
-            printableName => __('File Sharing'),
+            printableName => __n('File Sharing'),
             domain => 'ebox-samba',
             @_);
     bless($self, $class);
     return $self;
-}
-
-sub domain
-{
-    return 'ebox-samba';
 }
 
 # Method: actions

@@ -54,16 +54,11 @@ sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'printers',
-					  printableName => __('Printer Sharing'),
+					  printableName => __n('Printer Sharing'),
 					  domain => 'ebox-printers' );
 	bless($self, $class);
 	$self->{'cups'} = new Net::CUPS;
 	return $self;
-}
-
-sub domain
-{
-	return 'ebox-printers';
 }
 
 # Method: actions

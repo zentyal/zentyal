@@ -64,7 +64,9 @@ sub _create # (name, domain?)
     $self->{name} = delete $opts{name};
     $self->{domain} = delete $opts{domain};
     $self->{title} = delete $opts{title};
-    $self->{printableName} = delete $opts{printableName};
+    my $domain = settextdomain($self->{domain});
+    $self->{printableName} = __(delete $opts{printableName});
+    settextdomain($domain);
     unless (defined($self->{name})) {
         use Devel::StackTrace;
         my $trace = Devel::StackTrace->new;
@@ -546,6 +548,8 @@ sub title
     my ($self) = @_;
     if(defined($self->{title})) {
         return $self->{title};
+    } elsif ( $self->{printableName} ) {
+        return $self->{printableName};
     } else {
         return $self->{name};
     }

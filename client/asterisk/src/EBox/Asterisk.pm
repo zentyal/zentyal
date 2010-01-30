@@ -67,7 +67,7 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'asterisk',
-            printableName => __('VoIP'),
+            printableName => __n('VoIP'),
             domain => 'ebox-asterisk',
             @_);
 

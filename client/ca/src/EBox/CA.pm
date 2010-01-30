@@ -113,7 +113,7 @@ sub _create
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'ca',
 					  domain => 'ebox-ca',
-					  printableName => __('Certification Authority'),
+					  printableName => __n('Certification Authority'),
 #					  title => __n('Certification Authority'),
 					  @_);
 

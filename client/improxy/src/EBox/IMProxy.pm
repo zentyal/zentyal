@@ -56,7 +56,7 @@ sub _create
         my $class = shift;
         my $self = $class->SUPER::_create(name => 'improxy',
             domain => 'ebox-improxy',
-            printableName => __('IM Proxy'),
+            printableName => __n('IM Proxy'),
             @_);
         bless($self, $class);
         return $self;
