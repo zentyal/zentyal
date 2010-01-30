@@ -351,12 +351,18 @@ sub addModuleStatus
     my $running = $self->isRunning();
     my $name = $self->name();
     my $modPrintName = ucfirst($self->printableName());
+    my $nobutton;
+    if ($self->_supportActions()) {
+        $nobutton = 0;
+    } else {
+        $nobutton = 1;
+    }
     $section->add(new EBox::Dashboard::ModuleStatus(
         module        => $name,
         printableName => $modPrintName,
         enabled       => $enabled,
         running       => $running,
-        nobutton      => not $self->_supportActions()
+        nobutton      => $nobutton,
        ));
 }
 

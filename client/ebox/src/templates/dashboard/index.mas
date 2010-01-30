@@ -16,6 +16,32 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/flotr.js">//</script>
 <script type="text/javascript">
 //<![CDATA[
+var status_str = {
+    'running': {
+        'text': '<% __("Running") %>',
+        'tip': '<% __("The service is enabled and running") %>',
+        'class': 'summaryRunning'
+    },
+    'stopped': {
+        'text': '<% __("Stopped") %>',
+        'tip': '<% __("The service is enabled, but not running") %>',
+        'class': 'summaryStopped'
+    },
+    'unmanaged': {
+        'text': '<% __("Running unmanaged") %>',
+        'tip': '<% __("The service is running, but not enabled in eBox") %>',
+        'class': 'summaryDisabled'
+    },
+    'disabled': {
+        'text': '<% __("Disabled") %>',
+        'tip': '<% __("The service is not enabled in eBox") %>',
+        'class': 'summaryDisabled'
+    }
+};
+
+var start = '<% __("Start") %>';
+var restart = '<% __("Restart") %>';
+
 widget = function(m,w,full) {
     var opacity;
     var top_id;
@@ -160,6 +186,31 @@ Sortable.create("dashboard<% $i %>", {
 });
 % }
 
+var statusInfo = new Array();
+
+function equals(a,b)
+{
+    for (p in a)
+    {
+        switch(typeof(a[p]))
+        {
+            case 'object':
+                if (!a[p].equals(b[p])) { return false }; break;
+            case 'function':
+                if (typeof(b[p])=='undefined' || (p != 'equals' && a[p].toString() != b[p].toString())) { return false; }; break;
+            default:
+                if (a[p] != b[p]) { return false; }
+        }
+    }
+
+    for (p in b)
+    {
+        if(typeof(a[p])=='undefined') {return false;}
+    }
+
+    return true;
+}
+
 function updateWidget(widget) {
     if(widget == null) {
         return;
@@ -216,7 +267,7 @@ function updateWidget(widget) {
                 },
                 onComplete: function(res) {
                     res.request.element.visualEffect('highlight');
-                } 
+                }
             });
             req.element = newsection;
             prevsect = newsection;
@@ -230,16 +281,68 @@ function updateWidget(widget) {
                         element.update(item.value);
                         element.visualEffect('highlight');
                     }
-                } else if(item.type == 'graph') { 
+                } else if(item.type == 'status') {
+                    var skip = 0;
+                    var highlight = 1;
+                    if (statusInfo[itemname]) {
+                        if (equals(item,statusInfo[itemname])) {
+                            skip = 1;
+                        }
+                    } else {
+                        highlight = 0;
+                    }
+                    if(!skip) {
+                        statusInfo[itemname] = item;
+                        var status;
+                        var button = restart;
+                        if (item.enabled && item.running) {
+                            status = 'running';
+                        } else if (item.enabled && !item.running) { 
+                            status = 'stopped';
+                            button = start;
+                        } else if (!item.enabled && item.running) { 
+                            status = 'unmanaged';
+                        } else {
+                            status = 'disabled';
+                        }
+                        var text;
+                        var tooltip;
+                        if (item.statusStr) {
+                            text = item.statusStr;
+                            tooltip = '';
+                        } else {
+                            text = status_str[status]['text'];
+                            tooltip = status_str[status]['tip'];
+                        }
+                        var new_text = "<span title='" + tooltip
+                            + "' class='sleft'>" + text
+                            + '</span>';
+                        if (item.enabled && !item.nobutton) {
+                            var restart_form = "\
+    <form action='/ebox/EBox/RestartService'>\
+        <input type='hidden' name='module' value='" + item.module + "'/>\
+        <span class='sright'>\
+            <input class='inputButtonRestart' type='submit' name='restart' value='"
+    + button + "'/>\
+        </span>\
+    </form>";
+                            new_text += restart_form;
+                        }
+                        element.update(new_text);
+                        if (highlight) {
+                            element.visualEffect('highlight');
+                        }
+                    }
+                } else if(item.type == 'graph') {
                     updateGraph(element, item.value);
-                } else if(item.type == 'graphrow') { 
+                } else if(item.type == 'graphrow') {
                     var b;
                     for(var g = 0; g < item.graphs.length; g++) {
                         var graphname = itemname + '_' + g;
                         var graph = $(graphname);
                         updateGraph(graph, item.graphs[g].value);
                     }
-                } else if(item.type == 'list') { 
+                } else if(item.type == 'list') {
                     var listname = itemname + '_table';
                     var nonename = itemname + '_none';
                     var list = $(listname);

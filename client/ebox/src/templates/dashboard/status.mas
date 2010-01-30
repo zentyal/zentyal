@@ -1,5 +1,7 @@
 <%args>
+    $namespace
     $item
+    $i
 </%args>
 <%init>
 use EBox::Gettext;
@@ -34,7 +36,8 @@ if ( $item->{statusStr} ) {
 </%init>
 <tr>
 <td class='summaryKey'><% $item->{printableName} %></td>
-<td class='summaryValue'><span title='<% $status_tip_str %>' class='sleft'><% $status_str %></span>
+<td id='<% $namespace . '_' . $i %>' class='summaryValue'>
+<span title='<% $status_tip_str %>' class='sleft'><% $status_str %></span>
 % if ($item->{enabled} and not $item->{nobutton}) {
 <form action='/ebox/EBox/RestartService'>
     <input type='hidden' name='module' value='<% $item->{module} %>'/>

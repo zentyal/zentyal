@@ -45,9 +45,10 @@ sub new  # (key, prettykey, value)
 {
 	my ($class, %params) = @_;
 	my $self = $class->SUPER::new();
-        while(my ($key, $value) = each(%params)) {
-            $self->{$key} = $value;
-        }
+    while(my ($key, $value) = each(%params)) {
+        $self->{$key} = $value;
+    }
+    $self->{'type'} = 'status';
 	bless($self, $class);
 	return $self;
 }
