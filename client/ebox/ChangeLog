@@ -1,8 +1,9 @@
-1.3.18
+HEAD
 	+ Make the module dashboard widget update as the rest of the widgets
 	+ Fix problem regarding translation of module names: fixes untranslated
 	  module names in the dashboard, module status and everywhere else where
 	  a module name is written
+1.3.18
 	+ Add version comparing function and use it instead of 'gt' in the
 	  general widget
 1.3.17

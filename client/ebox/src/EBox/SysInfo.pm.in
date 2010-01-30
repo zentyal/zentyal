@@ -49,7 +49,7 @@ sub _create
                                       domain => 'ebox',
                                       printableName => __n('System Information'),
                                       @_);
-    $self->{version} = "1.3.16";
+    $self->{version} = "@VERSION@";
 
     bless($self, $class);
     return $self;
