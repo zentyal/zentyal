@@ -1,3 +1,6 @@
+HEAD
+	+ Add version comparing function and use it instead of 'gt' in the
+	  general widget
 1.3.17
 	+ Minor bug fix: check if value is defined in EBox::Type::Union
 1.3.16
