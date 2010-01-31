@@ -40,7 +40,7 @@ sub new
 
 sub dbTableName
 {
-    return 'mailfilter_traffic';
+    return 'mailfilter_smtp_traffic';
 }
 
 

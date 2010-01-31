@@ -117,7 +117,7 @@ sub _table
 
 sub dbTableName
 {
-    return 'mailfilter_pop_filter_traffic';
+    return 'mailfilter_pop_traffic';
 }
 
 sub tableName

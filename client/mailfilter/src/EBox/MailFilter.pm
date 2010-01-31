@@ -553,7 +553,7 @@ sub _smtpFilterTableInfo
 
 
     my $consolidate = {
-                       mailfilter_traffic => _filterTrafficConsolidationSpec(),
+                       mailfilter_smtp_traffic => _filterTrafficConsolidationSpec(),
                       };
 
 
@@ -684,7 +684,7 @@ sub _popProxyFilterConsolidationSpec
                                       },
                };
 
-    return { mailfilter_pop_filter_traffic => $spec };
+    return { mailfilter_pop_traffic => $spec };
 }
 
 sub menu
