@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: do not i18nify DefaultApplications table name
 1.3.14
 	+ Bug fix: set LDAP settings when saving changes
 	+ Bug fix: add title and remove head title from inside tabs
