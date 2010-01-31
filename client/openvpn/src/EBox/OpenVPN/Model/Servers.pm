@@ -318,7 +318,7 @@ sub _checkCertificatesAvailable
                        q/{act} not possible because there aren't/
                        . ' any available certificate. Please, go to'
                        . ' the certificate authority module'
-                       . 'and create new certificates',
+                       . ' and create new certificates',
                        act => $printableAction
                       )
                                         );
