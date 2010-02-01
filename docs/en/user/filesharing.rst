@@ -174,9 +174,9 @@ Linux client
 
   2. Nautilus (Gnome)
 
-     When using Nautilus (Gnome) go to :menuselection:`Places --> Network
-      --> Windows Network` in order to find the specified
-     domain and the eBox server inside.
+     When using Nautilus (Gnome) go to
+     :menuselection:`Places --> Network --> Windows Network` in order
+     to find the specified domain and the eBox server inside.
 
      .. image:: images/filesharing/14-gnome-shares.png
         :scale: 70

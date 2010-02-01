@@ -74,10 +74,11 @@ se selecciona *RSYNC*, *FTP* o *SCP* tendremos que introducir la dirección del
 servidor remoto.
 
 .. warning::
-    Si usamos *SCP*, tendremos que ejecutar `sudo ssh usuario@servidor`y aceptar el
-    el *fingerprint* del servidor remoto para añadirlo a la lista de servidores SSH conocidos.
-    Si no se realiza esta operación, la copia de respaldo no podrá ser realizada ya que
-    fallará la conexión con el servidor.
+    Si usamos *SCP*, tendremos que ejecutar `sudo ssh usuario@servidor`
+    y aceptar el el *fingerprint* del servidor
+    remoto para añadirlo a la lista de servidores SSH conocidos.  Si
+    no se realiza esta operación, la copia de respaldo no podrá ser
+    realizada ya que fallará la conexión con el servidor.
 
 :guilabel:`Servidor o destino`:
 Para *RSYNC*, *FTP*, y *SCP* tenemos que proporcionar el nombre del servidor
@@ -314,10 +315,11 @@ el sistema de rescate. Ejecutamos::
     # scp://backupuser@192.168.122.1 /etc/group --ssh-askpass --no-encryption --force
 
 .. warning::
-    Si usamos *SCP*, tendremos que ejecutar `sudo ssh usuario@servvidor`para
-    añadir el servidor remoto a la lista de servidores SSH conocidos. Si no se
-    realiza esta operación, la copia de respaldo no podrá ser realizada ya que
-    fallará la conexión con el servidor.
+    Si usamos *SCP*, tendremos que ejecutar `sudo ssh
+    usuario@servidor` para añadir el servidor remoto a la lista de
+    servidores SSH conocidos. Si no se realiza esta operación, la
+    copia de respaldo no podrá ser realizada ya que fallará la
+    conexión con el servidor.
 
 Ahora podemos proceder con la restauración completa ejecutando  *duplicity*
 manualmente::

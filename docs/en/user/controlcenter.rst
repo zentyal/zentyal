@@ -33,7 +33,7 @@ Password:
 eBox Name:
   The unique name for your eBox within Control Center. This name is
   displayed from the control panel and it must be a valid domain name.
-   Each eBox should have a different name, if two eBoxes use the same
+  Each eBox should have a different name, if two eBoxes use the same
   name for connecting to the Control Center, just one will be
   connected.
 
