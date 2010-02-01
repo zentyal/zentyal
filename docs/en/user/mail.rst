@@ -108,12 +108,13 @@ Receiving and relaying mail
 To undestand the configuration a distinction must be made between receiving mail
 and relaying mail.
 
-Receiving mail is when the server accepts mail which recipient is
-one of the addresses (or aliases) that belongs to the virtual mail domain
+Rececption is when the server accepts mail which recipient is
+an account that belongs to tany of he virtual mail domains
 managed by the server. Mail can be received from any client which will be able
 to connect to the server.
 
-Relaying mail is when the recipient of the mail doesn't belong to any of the
+In the other hand, relay is when the recipient of the mail doesn't belong 
+to any of the
 managed virtual mail domains, thus requiring forwarding it to other server.
 Mail relay is restricted by default, otherwise spammers could use our server to
 send spam over the Internet. 
