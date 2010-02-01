@@ -145,7 +145,7 @@ sub _setManageSievePluginConf
                          $params
                         );
     # removing /usr file  and creatign a link to avoid package upgrades troubles
-    EBox::Sudo::root('rm ' . SIEVE_PLUGIN_INC_USR_FILE);
+    EBox::Sudo::root('rm -f ' . SIEVE_PLUGIN_INC_USR_FILE);
     EBox::Sudo::root('ln -s ' . SIEVE_PLUGIN_INC_ETC_FILE . ' ' . 
                                 SIEVE_PLUGIN_INC_USR_FILE);
 
