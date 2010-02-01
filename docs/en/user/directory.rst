@@ -75,6 +75,11 @@ different ways to achieve this. The easiest one is adding an entry for the
 slave in the master's */etc/hosts*. Other option is to set up the DNS service
 in eBox, including the slave hostname and IP address.
 
+If the firewall module is enabled in the master eBox, it has to be configured
+in a way that allows incoming LDAP traffic from the slaves. By default, the
+firewall denies this traffic, so make sure to perform the necessary adjustments
+on the firewall before proceeding.
+
 Once these parameters are set and the slave hostname can be resolved from the
 master, the slave can be registered in the master by enabling the
 **users and groups** module in :menuselection:`Module Status`.
@@ -106,6 +111,13 @@ installed, for example, **samba** or **mail** among others. If the master has
 any of these modules installed, they have to be uninstalled before trying to
 register a slave on it.
 
+If at some point the mode of operation of the **users and groups** module needs
+to be changed, it can be done using the **ebox-usersandgroups-reinstall**
+script. This script can be found in **/usr/share/ebox-usersandgroups/** and
+when run will completely remove the LDAP directory, deleting all the current
+users and groups and reinstall it from scratch so it can be set up in a
+different mode.
+
 Users and groups creation
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -136,8 +148,7 @@ The following are possible with user groups, among others:
   all users of a group.
 
 The users are created from the :menuselection:`Users and Groups -->
-Users` menu, where the following data must be
-completed:
+Users` menu, where the following data must be completed:
 
 .. image:: images/directory/03-useradd.png
    :scale: 80
@@ -180,6 +191,10 @@ It is possible to edit a user to:
 * Create an e-mail account for the user and *aliases* for it.
 * Assign access permission to the different eGroupware applications.
 * Assign a phone extension to the user.
+
+In a master/slave setup, the basic fields of users and groups can be edited
+in the master, while any further attributes pertaining to a given module
+installed in a slave have to be edited in that slave.
 
 .. _usercorner-ref:
 
