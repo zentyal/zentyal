@@ -196,7 +196,6 @@ sub remoteArguments
             next if ($path eq '/');
             $includes .= "--include=$path ";
         } elsif ($type eq 'exclude_regexp') {
-        } {
             my $regexp = $row->valueByName('target');
             $regexps .= "--exclude-regexp $regexp " ;
         }

@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: do not duplicate includes with exclude-regexp
 1.3.15
 	+ Add custom module status section
 1.3.14
