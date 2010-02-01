@@ -47,6 +47,15 @@ sub new
         return $self;
 }
 
+# Method: headTitle
+#
+#   Override <EBox::Model::DataTable::headTitle>
+sub headTitle
+{
+    return undef;
+}
+
+
 sub _table
 {
 
@@ -60,11 +69,12 @@ sub _table
         ),
         new EBox::Types::HasMany(
             'fieldName' => 'applications',
-            'printableName' => __('Applications Allowed'),
+            'printableName' => __('Allowed Applications'),
             'foreignModel' => 'Applications',
             'view' => '/ebox/EGroupware/View/Applications',
         ),
     );
+
     my $dataTable =
     {
         'tableName' => 'PermissionTemplates',
@@ -77,14 +87,6 @@ sub _table
     };
 
     return $dataTable;
-}
-
-# Method: headTitle
-#
-#   Override <EBox::Model::DataTable::headTitle>
-sub headTitle
-{
-    return undef;
 }
 
 1;

@@ -101,6 +101,34 @@ sub syncRows
     }
 }
 
+# Method: viewCustomizer
+#
+#      Overriding to provide a custom HTML title with breadcrumbs
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $custom =  $self->SUPER::viewCustomizer();
+    if ( defined($self->parentRow()) ){
+        $custom->setHTMLTitle([
+            {
+                title => $self->parentRow()->model()->printableName(),
+                link  => '/ebox/EGroupware/Composite/General#PermissionTemplates',
+            },
+            {
+                title => $self->parentRow()->valueByName('name'),
+                link  => ''
+               }
+           ]);
+    }
+    return $custom;
+}
+
 sub _table
 {
 
