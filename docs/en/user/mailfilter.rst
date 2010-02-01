@@ -3,18 +3,19 @@
 Mail Filter
 ***********
 
-.. sectionauthor:: Jose A. Calvo <jacalvo@ebox-platform.com>
+.. sectionauthor:: Javier Amor García <jamor@ebox-platform.com>
+                   Jose A. Calvo <jacalvo@ebox-platform.com>
                    Enrique J. Hernandez <ejhernandez@ebox-platform.com>
                    Víctor Jímenez <vjimenez@warp.es>
                    Javi Vázquez <javivazquez@ebox-technologies.com>
 
-The main threats when talking about email are spam and viruses.
+The main threats in electronic mail system are **spam** and **virus**.
 
-Spam, or not desired email, makes the user waste time looking for the right
-emails in the inbox. Moreover, spam generates a lot of network traffic that
-could affect the network and email services.
+Spam, or not desired email, makes the user waste time looking for the
+legitimate emails in the inbox. Moreover, spam generates a lot of
+network traffic that could affect the network and email services.
 
-Although the viruses do not harm the system where eBox is installed, an infected
+Although the virus do not harm the system where eBox is installed, an infected
 email could affect other computers in the network.
 
 Mail filter schema in eBox
@@ -73,16 +74,16 @@ with the following options:
 Enabled:
   Set to enable greylisting.
 
-*Greylist* duration:
+*Greylist* duration (seconds):
   Seconds the sending server must wait before sending the mail again.
 
-Retry window:
+Retry window (hours):
   Time (in hours) when the sender server can send email.
   If the server has sent any mail during that time,
   that server will go down in the grey list. In a grey list, the
   mail server can send all the emails you want without temporary restrictions.
 
-Entry time-to-live:
+Entry time-to-live (days):
   Days that data will be stored in the servers evaluated in the greylist.
   After the configured days, the mail server will have to pass again through the
   greylisting process described above.
@@ -120,6 +121,8 @@ and up to date.
    :scale: 70
    :align: center
 
+.. FIXME: Update the shot with the new message
+
 You can update it from :menuselection:`Software Management`, as we will see
 in :ref:`software-ref`.
 
@@ -129,9 +132,10 @@ modules: *SMTP proxy*, *POP proxy*, *HTTP proxy* and even *file sharing*.
 Antispam
 --------
 
-The spam filter works giving to each mail a spam score, if the mail reaches the
-spam threshold is considered as junk mail if not is considered as legit
-mail. The latter kind of mail is often called *ham*. 
+The spam filter works giving to each mail a spam score, if the mail
+reaches the spam threshold is considered as junk mail if not is
+considered as legitimate mail. The latter kind of mail is often called
+*ham*.
 
 The spam scanner uses the following techniques to assign scores:
 
@@ -144,18 +148,18 @@ The spam scanner uses the following techniques to assign scores:
  - Static rules 
  - Other tests [#]_
 
-Among this techniques the *bayesian filter* should be further explained. This
-kind of filter does a statistical analysis content of the text of the message,
-giving a score which reflects the probability of being spam for the
-message.However the  analysis is not done against
-a set of static rules but against a dynamic one, which is created supplying ham and spam messages to the 
-filter so it could learn from them what are the statistical features of each
-type.
+Among this techniques the *Bayesian filter* should be further
+explained. This kind of filter does a statistical analysis content of
+the text of the message, giving a score which reflects the probability
+of being spam for the message. However, the analysis is not done
+against a set of static rules but against a dynamic one, which is
+created supplying ham and spam messages to the filter. So it could
+learn from them what are the statistical features from each type.
 
-The upside of this technique is that the filter could adapt to the ever-changing
-flow of spam messages, the downsides are that the filter needs to be trained and
-its accuracy will reflect the quality of the training received.
-
+The advantage of this technique is that the filter could adapt to the
+ever-changing flow of spam messages, the downsides are that the filter
+needs to be trained and its accuracy depends on the quality of the
+received training.
 
 eBox uses **Spamassassin** [#]_ as spam detector.
 
@@ -164,11 +168,6 @@ eBox uses **Spamassassin** [#]_ as spam detector.
 
 .. [#] *The Powerful #1 Open-Source Spam Filter*
        http://spamassassin.apache.org .
-
-
-
-
-
 
 The general configuration of the filter is done from
 :menuselection:`Mail filter --> Antispam`:
@@ -180,22 +179,22 @@ Spam threshold:
   Mail will be considered spam if the score is above this number.
 Spam subject tag:
   Tag to be added to the mail subject when it is classified as spam.
-Use the Bayesian classifier:
+Use Bayesian classifier:
   If it is marked, the Bayesian filter will be used. Otherwise, it will be
   ignored.
-Automatic whitelist:
+Auto-whitelist:
    It takes into account the history of the sender when rating the message.
    That is, if the sender has sent some ham emails, it is highly probable
    that the next email sent by that sender is also ham.
-Automatic learning:
+Auto-learn:
   If it is enabled, the filter will learn from messages which hit the self
   learning thresholds.
-Threshold of self-learning spam:
+Autolearn spam threshold:
    The automatic learning system will learn from spam emails that have a score
    above this value. It is not appropriate to set a low value, since it can
    subsequently lead to false positives. Its value must be greater
    than the spam threshold.
-Threshold of self-learning ham:
+Autolearn ham threshold:
    The automatic learning system will learn from ham emails that have a score
    below this value. It is not appropriate to put a high value, since it can
    cause false negatives. Its value should be less than 0.
@@ -221,13 +220,15 @@ File-based ACLs
 ---------------
 
 It is possible to filter files attached to mails using
-:menuselection:`Mail filter --> File based ACLs` (Access Control Lists).
+:menuselection:`Mail filter --> Files ACL` (Access Control Lists).
 
-There, we can allow or block mail according to the extensions of the files
+There, we can allow or deny mail according to the extensions of the files
 attached or their Multipurpose Internet Mail Extensions (MIME) types.
 
 .. image:: images/mailfilter/06-filter-files.png
    :scale: 80
+
+.. FIXME: Update the shot using new in-place edition
 
 .. _smtp-filter-ref:
 
@@ -241,22 +242,26 @@ the general behavior for every incoming email:
 
 .. image:: images/mailfilter/07-filter-smtp.png
 
+.. FIXME: Update the shot with new composite names
+
 Enabled:
   Check to enable the SMTP mail filter.
 Antivirus enabled:
   Check to make the filter look for viruses.
 Antispam enabled:
   Check to make the filter look for spam.
-Service port:
+Service's port:
   Port to be used by the SMTP filter.
-Notify about problematic email that is not spam:
+Notify of non-spam problematic messages:
   We can send notifications to a mailbox when problematic (but not spam) emails
   are received, e.g., emails infected by virus.
 
-From :menuselection:`SMTP filter policies`, it is possible to configure what
-the filter must do with any kind of email.
+From :menuselection:`Mail filter --> Filter Policies`, it is possible
+to configure what the filter must do with any kind of email.
 
 .. image:: images/mailfilter/08-filter-smtp-policies.png
+
+.. FIXME: Update the shot with new composite names
 
 For each kind of email problem, you can perform the following actions:
 
@@ -271,14 +276,16 @@ Discard:
    Discards the message before it reaches the destination, without notice
    to the sender.
 
-From :menuselection:`Virtual domain configuration` the behavior of the filter
+From :menuselection:`Mail Filter --> Virtual Domains`, the behavior of the filter
 for virtual email domains can be configured. These settings override
 the general settings defined previously.
 
 To customize the configuration of a virtual domain email, click
-on: guilabel: `add new`.
+on :guilabel:`Add new`.
 
 .. image:: images/mailfilter/09-filter-domains.png
+
+.. FIXME: Update the shot with new composite names and new option
 
 The parameters that can be overridden are the following:
 
@@ -300,7 +307,7 @@ Learning account for ham / spam:
    `ham@domain` will be learned as ham mail, while mail sent to `spam@domain`
    will be learned as spam.
 
-Once the domain is added, from :menuselection:`Anti-spam policy for senders`,
+Once the domain is added, from :menuselection:`Antispam policy for senders`,
 it is possible to add addresses to its whilelist and its blacklist or even
 force every mail for the domain to be processed.
 
@@ -320,6 +327,8 @@ to filter mail.
    :scale: 80
    :align: center
 
+.. FIXME: Update the shot with new composite names and the edit in-place
+
 .. _pop3-proxy-ref:
 
 Transparent proxy for POP3 mailboxes
@@ -332,7 +341,7 @@ eBox uses **p3scan** [#]_.
 
 .. [#] Transparent POP proxy http://p3scan.sourceforge.net/
 
-From :menuselection:`Mail Filter --> Transparent POP Proxy` you can configure
+From :menuselection:`Mail Filter --> POP Transparent Proxy` you can configure
 the behavior of the filtering:
 
 .. image:: images/mailfilter/10-filter-pop.png
@@ -343,7 +352,7 @@ Filter virus:
   If checked, POP email will be filtered to detect viruses.
 Filter spam:
   If checked, POP email will be filtered to detect spam.
-Spam subject tag from the ISP:
+ISP spam subject:
   If the server marks spam mail with a tag, it can be specified here
   and the filter will consider these emails as spam.
 
@@ -378,8 +387,8 @@ Check that the filter is working properly.
      message.
 
 #. **Action:**
-   Go to :menuselection:`Mail --> General --> Mail filter Options` and select
-   :guilabel:`Internal eBox Mail Filter`.
+   Go to :menuselection:`Mail --> General --> Mail filter options` and select
+   :guilabel:`eBox internal mail filter`.
 
    Effect:
      eBox will use its own filter system.
