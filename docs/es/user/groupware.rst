@@ -38,7 +38,7 @@ inapropiada el módulo podría quedar mal configurado y en un estado inestable.
 
 .. [#] Nota para usuarios avanzados de eGroupware: La contraseña se
        encuentra en el fichero `/var/lib/ebox/conf/ebox-egroupware.passwd` y
-       los nombres de usuario son 'admin' y 'ebox' para la configuración del
+       los nombres de usuario son *admin* y *ebox* para la configuración del
        encabezado y del dominio respectivamente.
 
 
@@ -61,9 +61,9 @@ recepción de correo IMAP. Las instrucciones relativas a la creación de
 un dominio de correo y configuración del servicio IMAP se explican con
 detenimiento en el capítulo :ref:`mail-service-ref`.
 
-Para la selección del dominio que usará eGroupware accederemos al menú
-:menuselection:`Groupware` y a la pestaña :guilabel:`Dominio Virtual de Correo`.
-La interfaz se muestra en la siguiente imagen, sólo tenemos que seleccionar
+Para la selección del dominio que usará eGroupware accederemos a
+través de la pestaña :menuselection:`Groupware --> Dominio Virtual de Correo`.
+El interfaz se muestra en la siguiente imagen, sólo tenemos que seleccionar
 el dominio deseado y pulsar el botón :guilabel:`Cambiar`. Aunque como de
 costumbre esto no tendrá efecto hasta que no pulsemos el botón
 :guilabel:`Guardar Cambios`.
@@ -74,7 +74,7 @@ costumbre esto no tendrá efecto hasta que no pulsemos el botón
 
 Para que nuestros usuarios puedan utilizar el servicio de correo tendrán que
 tener creadas sus respectivas cuentas en el mismo. En la imagen que se muestra
-a continuación (:menuselection:`Usuarios --> Editar Usuario`) podemos ver que
+a continuación (:menuselection:`Usuarios y Grupos --> Usuarios`) podemos ver que
 en la configuración de eGroupware se muestra un aviso indicando cuál debe
 ser el nombre de la cuenta de correo para que pueda ser usada desde eGroupware.
 
@@ -92,24 +92,24 @@ los usuarios del sistema tengan los mismos permisos, de modo que cuando
 creemos un nuevo usuario no tengamos que preocuparnos de asignarle permisos,
 ya que éstos serán asignados automáticamente.
 
-Para editar la plantilla por defecto accederemos al menú
-:menuselection:`Groupware` y a la pestaña
-:menuselection:`Aplicaciones predeterminadas`, como se muestra en la imagen.
+Para editar la plantilla por defecto accederemos a la pestaña
+:menuselection:`Groupware --> Aplicaciones predeterminadas`, como se muestra en la imagen.
 
 .. image:: images/groupware/egw-default-apps.png
    :scale: 80
    :align: center
+
 
 Para grupos reducidos de usuarios como es el caso de los administradores,
 podemos definir una plantilla de permisos personalizada y aplicarla
 manualmente a dichos usuarios.
 
 Para definir una nueva plantilla debemos acceder a la pestaña
-:guilabel:`Plantillas definidas por el usuario` del menú
-:menuselection:`Groupware` y pulsar en :guilabel:`Añadir nueva`. Una vez
-introducido el nombre deseado aparecerá en la tabla y podremos editar las
-aplicaciones pulsando en :guilabel:`Aplicaciones permitidas`, de forma
-análoga a como se hace con la plantilla por defecto.
+:menuselection:`Groupware --> Plantillas definidas por el usuario` y
+pulsar en :guilabel:`Añadir nueva`. Una vez introducido el nombre
+deseado aparecerá en la tabla y podremos editar las aplicaciones
+pulsando en :guilabel:`Aplicaciones permitidas`, de forma análoga a
+como se hace con la plantilla por defecto.
 
 .. image:: images/groupware/egw-user-templates.png
    :scale: 80

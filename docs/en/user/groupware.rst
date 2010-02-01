@@ -6,12 +6,12 @@ Groupware Service
                    Javier Uruen <juruen@ebox-platform.com>
 
 
-Groupware, also known as collaborative software, is a set of
+**Groupware**, also known as collaborative software, is a set of
 applications integrating the work of different users in common projects.
 Each user can connect to the system from various working stations on the
 local network or from anywhere in the world via the Internet.
 
-Some of the most important functions of groupware tools are:
+Some of the most important features of groupware tools are:
 
 * Communication between users: mail, chat rooms, etc.
 * Information sharing: shared calendars, task lists,
@@ -29,7 +29,7 @@ such an important feature in business environments.
 Setting up eGroupware with eBox Platform is very simple. The
 goal is for the user not to need to access the traditional configuration
 offered in eGroupware and to allow him to manage all the settings
-from eBox interface, unless some advanced customization is needed. In fact,
+from eBox interface, unless some advanced customization is required. In fact,
 the password for the configuration of eGroupware is auto-generated [#]_
 by eBox and the administrator should use it under her own responsibility:
 by taking any wrong action the module might become improperly configured and
@@ -37,7 +37,7 @@ left in an unstable status.
 
 .. [#] Note for eGroupware advanced users: The password is stored in
        the file `/var/lib/ebox/conf/ebox-egroupware.passwd` and
-       usernames are 'admin' and 'ebox' for header and domain configuration
+       usernames are *admin* and *ebox* for header and domain configuration
        respectively.
 
 Groupware service settings with eBox
@@ -50,15 +50,16 @@ be operating fully integrated with the eBox directory service (LDAP).
 All users being added to eBox from that moment on will be able
 to log in eGroupware without requiring any other action.
 
-In addition, we can integrate the webmail service
-provided by eGroupware with eBox **mail** module.
-For this the only action required is to select a pre-existing virtual
-domain and to enable the IMAP service, allowing for the reception of mail.
-Instructions for creating a mail domain and configuring the IMAP service
-are fully explained in chapter :ref:`mail-service-ref`.
+In addition, we can integrate the webmail service provided by
+eGroupware with eBox **mail** module.  For this the only action
+required is to select a pre-existing virtual domain and to enable the
+IMAP service, allowing for the reception of mail. This is done by the
+eBox installer automatically if you select **ebox-egroupware** to
+install.  Instructions for creating a mail domain and configuring the
+IMAP service are fully explained in chapter :ref:`mail-service-ref`.
 
-For the selection of the domain used by eGroupware, you should access the menu
-:menuselection:`Groupware` and the tab :guilabel:`Virtual Mail Domain`.
+For the domain selection used by eGroupware, you should access the
+:menuselection:`Groupware --> Virtual Mail Domain` tab.
 The interface is shown in the following image. It is only needed to select
 the desired domain and click the button :guilabel:`Change`. Although, as
 usual, this action does not take effect until the button
@@ -70,7 +71,7 @@ usual, this action does not take effect until the button
 
 In order for users to be able to use the mail service they will
 need to have their own accounts created on it. The image below
-(:menuselection:`Users --> Users --> Edit User`) shows that during the
+(:menuselection:`Users and Groups --> Users`) shows that during the
 configuration of eGroupware a notice is displayed indicating the
 name of the mail account that should be used from eGroupware.
 
@@ -87,28 +88,30 @@ The default permission template is useful for configuring most of
 the users of the system with the same permissions, so that when
 a new user is created permissions will be assigned automatically.
 
-To edit the default template go to the menu
-:menuselection:`Groupware` and tab
-:menuselection:`Default Applications`, as shown in the image.
+To edit the default template go to the :menuselection:`Groupware -->
+Default Applications` tab, as shown in the image.
 
 .. image:: images/groupware/egw-default-apps.png
    :scale: 80
    :align: center
 
+.. FIXME: Update shot to use edit-in place for booleans
+
 For small groups of users such as administrators,
 you can define a custom permission template and apply it
 manually for these users.
 
-To define a new template go to the tab
-:guilabel:`User Defined Permission Templates` in the menu
-:menuselection:`Groupware` and click on :guilabel:`Add New`. Once
-the name is entered it will appear on the table and you can edit the
-applications by clicking on :guilabel:`Allowed Applications`, in a
-similar way as with the default template.
+To define a new template go to :menuselection:`Groupware --> User
+Defined Permission Templates` in the menu and click on :guilabel:`Add
+New`. Once the name is entered it will appear on the table and you can
+edit the applications by clicking on :guilabel:`Allowed Applications`,
+in a similar way as with the default template.
 
 .. image:: images/groupware/egw-user-templates.png
    :scale: 80
    :align: center
+
+.. FIXME: Update shot to fix the field name issue
 
 Be aware that if you modify the default permission template,
 changes will only be applied to users that are created
