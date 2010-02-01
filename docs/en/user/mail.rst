@@ -105,24 +105,24 @@ servers support secure communication using SSL.
 Receiving and relaying mail
 ============================
 
-To undestand the configuration a distinction must be made between receiving mail
+To understand the configuration a distinction must be made between receiving mail
 and relaying mail.
 
-Rececption is when the server accepts mail which recipient is
-an account that belongs to tany of he virtual mail domains
+Reception is when the server accepts mail which recipient is
+an account that belongs to any of he virtual mail domains
 managed by the server. Mail can be received from any client which will be able
 to connect to the server.
 
 In the other hand, relay is when the recipient of the mail doesn't belong 
 to any of the
 managed virtual mail domains, thus requiring forwarding it to other server.
-Mail relay is restricted by default, otherwise spammers could use our server to
+Mail relay is restricted, otherwise spammers could use the server to
 send spam over the Internet. 
 
 eBox allows mail relay in two cases:
 
  * an authenticated user
- * a source address that has a allowed relay policy
+ * a source address that belongs to a network object which has a **allowed relay** policy
 
 
 General configuration
@@ -133,7 +133,8 @@ can manage the authentication options. The following options are
 available:
 
 :guilabel:`TLS for SMTP server`: 
-   Forces to the clients connecting to the mail server to use TLS encryption, thus avoiding 
+   Forces to the clients connecting to the mail server to use TLS encryption,
+   thus avoiding eavesdroppers.
 :guilabel:`Require authentication`: 
    This  setting enables the use of authentication. To authenticate a user must
    use his email address and his password, authenticated users can relay mail
@@ -143,7 +144,7 @@ available:
 .. image:: images/mail/01-general.png
 
 In the :menuselection:`Mail --> General --> Mail server options` section you
-can access the general configuration.  The following settings can be configured:
+can access the general settings.  The following settings can be configured:
 
 
 :guilabel:`Smarthost to send mail`:
@@ -154,7 +155,7 @@ can access the general configuration.  The following settings can be configured:
   If this option is used eBox will not send its messages directly but each received email will be forwarded to the *smarthost* without
   keeping a copy. In this case, eBox would be an intermediary between the
   user who sends the email and the server which is the real message
-  sender. The following settings can be configured:
+  sender. 
 :guilabel:`Smarthost authentication`:
   Whether the smarthost requires authentication using
   user and password or not.
@@ -164,8 +165,10 @@ can access the general configuration.  The following settings can be configured:
 :guilabel:`Postmaster address`: 
   The postmaster address by default is aliased to the root user but it could be
   setted to any account, belonging to the managed virtual mail domains or not. 
-  The account is intended to be a standard way to reach the administrator of the
-  mail server. Automatically-generated notification  mails will typically have his
+
+  This account is intended to be a standard way to reach the administrator of
+  the mail server. 
+  Automatically-generated notification  mails will typically have his
   reply address set to 'postmaster@domain'.
 :guilabel:`Maximum mailbox size allowed`: 
   In this option you could indicate a

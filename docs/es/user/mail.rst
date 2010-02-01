@@ -106,41 +106,79 @@ SSL.
 
 .. [#f2] **Dovecot** *Secure IMAP and POP3 Server* http://www.dovecot.org .
 
+
+Recibiendo y retransmitiendo correo
+===================================
+
+Para comprender la configuración se debe distinguir entre recibir y
+retransmitir correo.
+
+La recepción es cuando el servidor acepta correo en el que el destinatario es
+una cuenta pertenecientes a alguno de los dominio gestionados por el
+servidor. El correo puede ser recibido de cualquier cliente que pueda conectarse
+al servidor.
+
+Sin embargo, la retransmisión ocurre cuando el destinatario no pertenece a
+ninguno de los dominios virtuales de correo gestionados, requiriendo por tanto
+su reenvío a otro servidor. La retransmisión de correo esta restringida, de otra
+manera los spammers podrían usar el servidor para enviar spam en Internet.
+
+
+eBox permite la retransmisión de correo en dos casos:
+
+ * usuarios autenticados
+ * una dirección de origen que pertenezca a un objeto que tenga una política de
+   **retransmisión permitida**.
+
+
+
+
 Configuración general
 ---------------------
 
-A través de :menuselection:`Correo --> General --> Opciones` podemos acceder
-a la configuración general del correo para :guilabel:`exigir la autenticación`,
-para enviar correos a través del servidor o permitir el cifrado de la comunicación
-SMTP con la opción :guilabel:`TLS para el servidor SMTP`.
+A través de :menuselection:`Correo --> General --> Autenticacion` podemos
+gestionar las opciones de autenticacion. Estan disponibles las siguientes
+opciones:
+
+:guilabel:`TLS para el servidor SMTP`: 
+   Fuerza a los clientes a usar cifrado TLS, evitando la intercepcion del
+   contenido. 
+:guilabel:`Exigir la autenticación`:
+   Este parametro activa el uso de autenticacion. PAra autenticarse un usuario
+   debe usar su direccion de correo y su contrasena, una vez autenticado podra
+   retransmitir correo a traves del servidor. No se puede usar un alias de la
+   cuenta de correo para autenticarse.
 
 .. image:: images/mail/01-general.png
 
-Además se puede dar servicio de *relay*, esto es, reenviar correos
-cuyo origen y destino es diferente a cualquiera de los dominios
-gestionados por el servidor.
 
-También en :menuselection:`Correo --> General --> Opciones` podemos
-configurar eBox para que en vez de enviar directamente el correo, sea
-un *smarthost* el que lo haga. Así cada mensaje de correo que le
-llegue a eBox, será reenviado sin almacenarlo al *smarthost*
-configurado para ello. En ese caso, eBox sería un intermediario entre
-el usuario que envía el correo y el servidor que realmente lo
-envía. Se configuran los siguientes parámetros:
+En la sección :menuselection:`Correo --> General --> Opciones` puedes acceder a
+las opciones generales. Las siguientes opciones se pueden configurar:
+
 
 :guilabel:`Dirección del smarthost`:
   Dirección IP o nombre de dominio del smarthost. También se puede establecer un
   puerto añadiendo el texto `:[numero de puerto]` después de la dirección. El
   puerto por defecto, es el puerto estandard SMTP, 25.
+
+  Si esta opción esta establecida eBox no enviara directamente sus mensajes sino
+  que cada correo recibido sera reenviado al `smarthost` sin almacenar ninguna
+  copia. En este caso, eBox actuara como un intermediario entre el usuario que
+  envía el correo y el servidor que enviara finalmente el mensaje.
 :guilabel:`Autenticación del smarthost`:
   Determinar si el *smarthost* requiere autenticación y si es así
   proveer un usuario y contraseña.
 :guilabel:`Nombre de correo del servidor`:
   Determina el nombre de correo del sistema, sera usado por el servicio de como
   la dirección local del sistema.
-:guilabel:`Remite para el correo rebotado al remitente`: 
-  Esta es la dirección que aparecerá como remite en notificaciones enviadas al
-  emisor, como las generadas cuando se excede el tamaño limite del buzón.
+:guilabel:`Dirección del postmaster`: 
+  La dirección del `postmaster` por defecto es un alias del superusuario pero
+  puede establecerse a cualquier dirección, perteneciente a los dominios
+  virtuales de correo gestionados o no.
+
+  Esta cuenta esta pensada para tener una manera estandard de contactar con el
+  administrador de correo. Correos de notificación automáticos suelen usar
+  `postmaster` como dirección de respuesta.
 :guilabel:`Tamaño máximo de buzón`: 
   En esta opción se puede indica un tamaño máximo en MiB para los buzones del
   usuario. Todo el correo que exceda el limite sera rechazado y el remitente
@@ -291,7 +329,8 @@ uso una interfaz de gestión para scripts Sieve estará disponible en el correo 
 
 La autenticación en ManageSieve se hace con la cuenta de correo del usuario y su contraseña.
 
-
+Los scripts de Sieve de una cuenta son ejecutados independientemente de si
+ManageSieve esta activado o no.
 
 
 .. rubric:: Footnotes
