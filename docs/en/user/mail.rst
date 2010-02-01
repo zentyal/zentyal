@@ -101,39 +101,71 @@ servers support secure communication using SSL.
 
 .. [#f2] **Dovecot** Secure IMAP and POP3 Server http://www.dovecot.org .
 
+
+Receiving and relaying mail
+============================
+
+To undestand the configuration a distinction must be made between receiving mail
+and relaying mail.
+
+Receiving mail is when the server accepts mail which recipient is
+one of the addresses (or aliases) that belongs to the virtual mail domain
+managed by the server. Mail can be received from any client which will be able
+to connect to the server.
+
+Relaying mail is when the recipient of the mail doesn't belong to any of the
+managed virtual mail domains, thus requiring forwarding it to other server.
+Mail relay is restricted by default, otherwise spammers could use our server to
+send spam over the Internet. 
+
+eBox allows mail relay in two cases:
+
+ * an authenticated user
+ * a source address that has a allowed relay policy
+
+
 General configuration
 ---------------------
 
-Through :menuselection:`Mail --> General --> Mail server options` you
-can access the general configuration to :guilabel:`require authentication`,
-to send email messages through the server or allow the SMTP communication
-encryption using the :guilabel:`TLS for SMTP server` setting.
+Through :menuselection:`Mail --> General --> Authentication ` you
+can manage the authentication options. The following options are
+available:
+
+:guilabel:`TLS for SMTP server`: 
+   Forces to the clients connecting to the mail server to use TLS encryption, thus avoiding 
+:guilabel:`Require authentication`: 
+   This  setting enables the use of authentication. To authenticate a user must
+   use his email address and his password, authenticated users can relay mail
+   through the server. An account alias cannot be used to authenticate.
+
 
 .. image:: images/mail/01-general.png
 
-In addition, the *relay* service is provided, that is, forwarding email
-messages whose source and destination are different from any of the
-domains managed by the server.
+In the :menuselection:`Mail --> General --> Mail server options` section you
+can access the general configuration.  The following settings can be configured:
 
-Furthermore, in :menuselection:`Mail --> General --> Mail server
-options` you can configure eBox to not send messages directly but
-by using a *smarthost*, which is in charge of sending them.
-Each received email will be forwarded to the *smarthost* without
-keeping a copy. In this case, eBox would be an intermediary between the
-user who sends the email and the server which is the real message
-sender. The following settings can be configured:
 
 :guilabel:`Smarthost to send mail`:
   Domain name or IP address of the smarthost. You could also specify a port
   appending the text ':[port_number ]'
   after the address. The default port is the standard SMTP port, 25.
+
+  If this option is used eBox will not send its messages directly but each received email will be forwarded to the *smarthost* without
+  keeping a copy. In this case, eBox would be an intermediary between the
+  user who sends the email and the server which is the real message
+  sender. The following settings can be configured:
 :guilabel:`Smarthost authentication`:
   Whether the smarthost requires authentication using
   user and password or not.
 :guilabel:`Server mailname`: 
-  This sets the visible mail name of the system, it will be used by the mail server as the local address of the system.
-:guilabel:`Return address for mail bounced back to the sender`: 
-  This is the address that will appear as return addresses in notifications to the sender, such the ones generated when the mailbox limit is exceeded.
+  This sets the visible mail name of the system, it will be used by the mail
+  server as the local address of the system. 
+:guilabel:`Postmaster address`: 
+  The postmaster address by default is aliased to the root user but it could be
+  setted to any account, belonging to the managed virtual mail domains or not. 
+  The account is intended to be a standard way to reach the administrator of the
+  mail server. Automatically-generated notification  mails will typically have his
+  reply address set to 'postmaster@domain'.
 :guilabel:`Maximum mailbox size allowed`: 
   In this option you could indicate a
   maximum size in Mb for any user mailboxes. All mail which surpasses the limit
@@ -276,6 +308,10 @@ management interface for Sieve scripts will be available in the webmail.
 
 The ManageSieve authentication is done with the email account of the user and
 its password.
+
+Sieve scripts of an account are executed regardless whether the ManageSieve
+protocols is enabled or not.
+
 
 .. rubric:: Footnotes
 
