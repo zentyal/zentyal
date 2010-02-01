@@ -3,8 +3,9 @@
 Servicio de correo electrónico (SMTP/POP3-IMAP4)
 ************************************************
 
-.. sectionauthor:: Jose A. Calvo <jacalvo@ebox-platform.com>
-                   Enrique J. Hernandez <ejhernandez@ebox-platform.com>
+.. sectionauthor:: Javier Amor García <jamor@ebox-platform.com>
+                   Jose A. Calvo <jacalvo@ebox-platform.com>
+                   Enrique J. Hernández <ejhernandez@ebox-platform.com>
                    Víctor Jímenez <vjimenez@warp.es>
 
 El servicio de **correo electrónico** es un método de *almacenamiento y
@@ -57,7 +58,7 @@ clientes de correo. Lamentablemente, también existen protocolos
 propietarios como los que usan *Microsoft Exchange* o *Lotus Notes* de
 IBM.
 
-POP3 y IMAP
+POP3 vs. IMAP
 -------------
 
 El diseño de POP3 para recoger los mensajes del correo ayuda a las
@@ -84,10 +85,10 @@ principales de IMAP sobre POP3 son:
 - Búsquedas en el lado del servidor.
 - Mecanismos de extensión incluidos en el propio protocolo.
 
-Tanto POP3 como IMAP, tienen versiones seguras, llamadas respectivamente POP3S y
-IMAPS. La diferencia con la versión normal es que usan cifrado TLS por lo
-que el contenido de los mensajes no puede ser espiado.
-
+Tanto POP3 como IMAP, tienen versiones seguras, llamadas
+respectivamente POP3S y IMAPS. La diferencia con la versión simple es
+que usan cifrado TLS por lo que el contenido de los mensajes no puede
+ser escuchado sin permiso.
 
 Configuración de un servidor SMTP/POP3-IMAP4 con eBox
 =====================================================
@@ -110,106 +111,117 @@ SSL.
 Recibiendo y retransmitiendo correo
 ===================================
 
-Para comprender la configuración se debe distinguir entre recibir y
-retransmitir correo.
+Para comprender la configuración de un sistema de correo se debe
+distinguir entre recibir y retransmitir correo.
 
-La recepción es cuando el servidor acepta correo en el que el destinatario es
-una cuenta pertenecientes a alguno de los dominio gestionados por el
-servidor. El correo puede ser recibido de cualquier cliente que pueda conectarse
-al servidor.
+La **recepción** se realiza cuando el servidor acepta un mensaje de
+correo en el que uno de los destinatarios es una cuenta perteneciente
+a alguno de los dominio gestionados por el servidor. El correo puede
+ser recibido de cualquier cliente que pueda conectarse al servidor.
 
-Sin embargo, la retransmisión ocurre cuando el destinatario no pertenece a
-ninguno de los dominios virtuales de correo gestionados, requiriendo por tanto
-su reenvío a otro servidor. La retransmisión de correo esta restringida, de otra
-manera los spammers podrían usar el servidor para enviar spam en Internet.
-
+Sin embargo, la **retransmisión** ocurre cuando el servidor de correo
+recibe un mensaje de correo en el que ninguno de los destinatarios
+pertenecen a ninguno de us dominios virtuales de correo gestionados,
+requiriendo por tanto su reenvío a otro servidor. La retransmisión de
+correo está restringida, de otra manera los *spammers* podrían usar el
+servidor para enviar *spam* en *Internet*.
 
 eBox permite la retransmisión de correo en dos casos:
 
- * usuarios autenticados
- * una dirección de origen que pertenezca a un objeto que tenga una política de
-   **retransmisión permitida**.
-
-
-
+ 1. usuarios autenticados
+ 2. una dirección de origen que pertenezca a un objeto que tenga una política de
+    **retransmisión permitida**.
 
 Configuración general
 ---------------------
 
-A través de :menuselection:`Correo --> General --> Autenticacion` podemos
-gestionar las opciones de autenticacion. Estan disponibles las siguientes
-opciones:
+A través de :menuselection:`Correo --> General --> Opciones del
+servidor de correo --> Autenticacion` podemos gestionar las opciones
+de autenticacion. Estan disponibles las siguientes opciones:
 
 :guilabel:`TLS para el servidor SMTP`: 
    Fuerza a los clientes a usar cifrado TLS, evitando la intercepcion del
-   contenido. 
+   contenido por personas maliciosas. 
 :guilabel:`Exigir la autenticación`:
-   Este parametro activa el uso de autenticacion. PAra autenticarse un usuario
-   debe usar su direccion de correo y su contrasena, una vez autenticado podra
-   retransmitir correo a traves del servidor. No se puede usar un alias de la
-   cuenta de correo para autenticarse.
+   Este parámetro activa el uso de autenticación. Un usuario debe usar
+   su direccion de correo y su contraseña para identificarse, una vez
+   autenticado podra retransmitir correo a través del servidor. No se
+   puede usar un alias de la cuenta de correo para autenticarse.
 
 .. image:: images/mail/01-general.png
 
+.. FIXME: Update the shot
 
-En la sección :menuselection:`Correo --> General --> Opciones` puedes acceder a
-las opciones generales. Las siguientes opciones se pueden configurar:
-
+En la sección :menuselection:`Correo --> General --> Opciones del
+servidor de correo --> Opciones` puedes configurar los parámetros
+generales del servicio de correo:
 
 :guilabel:`Dirección del smarthost`:
-  Dirección IP o nombre de dominio del smarthost. También se puede establecer un
+  Dirección IP o nombre de dominio del *smarthost*. También se puede establecer un
   puerto añadiendo el texto `:[numero de puerto]` después de la dirección. El
-  puerto por defecto, es el puerto estandard SMTP, 25.
+  puerto por defecto, es el puerto estándar SMTP, 25.
 
-  Si esta opción esta establecida eBox no enviara directamente sus mensajes sino
-  que cada correo recibido sera reenviado al `smarthost` sin almacenar ninguna
-  copia. En este caso, eBox actuara como un intermediario entre el usuario que
-  envía el correo y el servidor que enviara finalmente el mensaje.
+  Si se establece esta opción eBox no enviará directamente sus
+  mensajes sino que cada mensaje de correo recibido sera reenviado al
+  *smarthost* sin almacenar ninguna copia. En este caso, eBox actuara
+  como un intermediario entre el usuario que envía el correo y el
+  servidor que enviará finalmente el mensaje.
+
 :guilabel:`Autenticación del smarthost`:
   Determinar si el *smarthost* requiere autenticación y si es así
   proveer un usuario y contraseña.
-:guilabel:`Nombre de correo del servidor`:
-  Determina el nombre de correo del sistema, sera usado por el servicio de como
-  la dirección local del sistema.
-:guilabel:`Dirección del postmaster`: 
-  La dirección del `postmaster` por defecto es un alias del superusuario pero
-  puede establecerse a cualquier dirección, perteneciente a los dominios
-  virtuales de correo gestionados o no.
 
-  Esta cuenta esta pensada para tener una manera estandard de contactar con el
+:guilabel:`Nombre de correo del servidor`:
+  Determina el nombre de correo del sistema, será usado por el
+  servicio de correo como la dirección local del sistema.
+
+:guilabel:`Dirección del postmaster`: 
+  La dirección del *postmaster* por defecto es un alias del
+  superusuario (`root`) pero puede establecerse a cualquier dirección,
+  perteneciente a los dominios virtuales de correo gestionados o no.
+
+  Esta cuenta está pensada para tener una manera estándar de contactar con el
   administrador de correo. Correos de notificación automáticos suelen usar
-  `postmaster` como dirección de respuesta.
+  **postmaster** como dirección de respuesta.
+
 :guilabel:`Tamaño máximo de buzón`: 
   En esta opción se puede indica un tamaño máximo en MiB para los buzones del
-  usuario. Todo el correo que exceda el limite sera rechazado y el remitente
+  usuario. Todo el correo que exceda el limite será rechazado y el remitente
   recibirá una notificación. Esta opción puede sustituirse para cada usuario en
-  la pagina :menuselection:`Usuarios -> Editar Usuario`.
+  la pagina :menuselection:`Usuarios y Grupos -> Usuarios`.
+
 :guilabel:`Tamaño máximo aceptado para los mensajes`:
   Señala, si es necesario, el tamaño máximo de mensaje aceptado por el
   *smarthost* en MiB. Esta opción tendrá efecto sin importar la existencia o no
-  de cualquier limite al tamaño del buzón de los usuarios.
-:guilabel:`Periodo de expiración para correos borrados`: 
-  si esta opción esta activada el correo en la carpeta de papelera de los
-  usuarios sera borrado cuando su fecha sobrepase el limite de días.
-:guilabel:`Periodo de expiración para correo de spam`: 
-   funciona igual que la opción anterior pero faceta a la carpeta de spam de los usuarios.
+  de cualquier límite al tamaño del buzón de los usuarios.
 
-Se puede también configurar la obtención de los mensajes en la sección
-guilabel:`Servicios de obtención de correo`. eBox puede configurarse
-como servidor de POP3 o/y IMAP, sus versiones seguras POP3S y IMAPS  también
-están disponibles.
-En esta sección también pueden activarse los servicios para obtener correo de
-direcciones externas y ManageSieve, estos servicios se explicaran en sus propias secciones.
+:guilabel:`Periodo de expiración para correos borrados`:
+  Si esta opción está activada el correo en la carpeta de papelera de
+  los usuarios será borrado cuando su fecha sobrepase el limite de
+  días establecido.
+
+:guilabel:`Periodo de expiración para correo de spam`: 
+   Esta opción se aplica de la misma manera que la opción anterior
+   pero con respecto a la carpeta de *spam* de los usuarios.
+
+Para configurar la obtención de los mensajes, hay que ir a la sección
+:guilabel:`Servicios de obtención de correo`. eBox puede configurarse
+como servidor de POP3 o IMAP además de sus versiones seguras POP3S y
+IMAPS. En esta sección también pueden activarse los servicios para
+obtener correo de direcciones externas y *ManageSieve*, estos servicios
+se explicarán a partir de la sección :ref:`fetchmail-sec-ref`.
 
 También se puede configurar eBox para que permita reenviar correo sin necesidad
 de autenticarse desde determinadas direcciones de red. Para
-ello se permite una política de reenvío con objetos de red de eBox a
-través de :menuselection:`Correo --> General --> Política de Relay sobre objetos`
-basándonos en la dirección IP del servidor de correo origen. Si se
+ello, se permite una política de reenvío con objetos de red de eBox a
+través de :menuselection:`Correo --> General --> Política de retransmisión para objetos de red`
+basándonos en la dirección IP del cliente de correo origen. Si se
 permite el reenvío de correos desde dicho objeto, cualquier miembro de
 dicho objeto podrá enviar correos a través de eBox.
 
 .. image:: images/mail/02-relay.png
+
+.. FIXME: Update the show with the new edit in-place option
 
 .. warning::
    Hay que tener cuidado con usar una política de *Open Relay*, es
@@ -246,37 +258,41 @@ sea indiferente.
 .. image:: images/mail/mail-vdomains.png
    :align: center
 
-Para crear cuentas de correo lo haremos de manera análoga a la compartición de
-ficheros, acudimos a
-:menuselection:`Usuarios y Grupos --> Usuarios --> Editar Usuario --> Crear cuenta de correo`.
-Es ahí donde seleccionamos el dominio virtual principal del usuario. Si
-queremos asignar al usuario a más de una cuenta de correo lo podemos hacer a
-través de los alias. Indiferentemente de si se ha usado un alias o no, el correo
-sera almacenado una única vez en el buzón del usuario.
-sin embargo, no es posible usar un alias para autenticarse, se debe usar siempre
-la cuenta normal.
+.. FIXME: Update the shot with new options
 
-Te en cuenta que puedes decidir si deseas que a un usuario se le cree
-automáticamente una cuena de correo cuando se crea. Este comportamiento
-puede ser configurado en `Usuarios y Grupos -> Plantilla de Usuario por
-defecto --> Cuenta de correo`.
+Para crear cuentas de correo lo haremos de manera análoga a la
+compartición de ficheros, acudimos a :menuselection:`Usuarios y Grupos
+--> Usuarios --> Crear cuenta de correo`.  Es ahí donde seleccionamos
+el dominio virtual principal del usuario. Si queremos asignar al
+usuario a más de una cuenta de correo lo podemos hacer a través de los
+alias. Indiferentemente de si se ha usado un alias o no, el correo
+sera almacenado una única vez en el buzón del usuario.  Sin embargo,
+no es posible usar un alias para autenticarse, se debe usar siempre la
+cuenta real.
 
 .. image:: images/mail/03-user.png
    :align: center
    :scale: 80
 
-De la misma manera, se pueden crear *alias* para grupos. Los mensajes recibidos
-por estos alias son enviado a todo los usuarios del grupo con cuenta de
-correo. Los alias de grupo son creados a  través de :menuselection:`Usuarios y Grupos --> Grupos -->
-Editar grupo --> Crear un alias de cuenta de correo al grupo`.  Los alias de
-grupo están solo disponibles cuando al menos un usuario del grupo tiene cuenta
-de correo.
+Ten en cuenta que puedes decidir si deseas que a un usuario se le cree
+automáticamente una cuenta de correo cuando se crea. Este comportamiento
+puede ser configurado en `Usuarios y Grupos -> Plantilla de Usuario por
+defecto --> Cuenta de correo`.
 
-También es posible definir alias hacia cuentas externas. El correo enviado a
-un alias sera reenviado a las correspondiente cuenta externa. Esta clase de alias
-se establecen por dominio virtual de correo, no requieren la existencia de
-ninguna cuenta de correo y pueden establecerse en  :menuselection:`Correo --> Dominios Virtuales --> Alias a cuentas externas`.
+De la misma manera, se pueden crear *alias* para grupos. Los mensajes
+recibidos por estos alias son enviados a todos los usuarios del grupo
+con cuenta de correo. Los alias de grupo son creados a través de
+:menuselection:`Usuarios y Grupos --> Grupos -->
+Crear un alias de cuenta de correo al grupo`.  Los alias de grupo
+están sólo disponibles cuando, al menos, un usuario del grupo tiene
+cuenta de correo.
 
+Finalmente, es posible definir *alias* hacia cuentas externas. El
+correo enviado a un alias será retransmitido a la correspondiente
+cuenta externa. Esta clase de alias se establecen por dominio virtual
+de correo, no requieren la existencia de ninguna cuenta de correo y
+pueden establecerse en :menuselection:`Correo --> Dominios Virtuales
+--> Alias a cuentas externas`.
 
 Gestión de cola
 ---------------
@@ -285,153 +301,209 @@ Desde :menuselection:`Correo --> Gestión de cola` podemos ver los correos que
 todavía no han sido enviados con la información acerca del mensaje. Las
 acciones que podemos realizar con estos mensajes son: eliminarlos, ver
 su contenido o volver a tratar de enviarlos (*reencolarlos*). También hay dos
-botones para borrar o reencolar  todos los mensajes en la cola.
+botones ue permiten borrar o reencolar todos los mensajes en la cola.
 
 .. image:: images/mail/04-queue.png
    :align: center
 
+.. FIXME: Update the shot with the new buttons
+
+.. _fetchmail-sec-ref:
+
 Obtención de correo desde cuentas externas
 ----------------------------------------------
 
-eBox puede ser configurado para recoger correo de cuentas externas y enviarlo a
-los buzones de los usuarios. Para permitir esto, en :guilabel:`Servicios de
-obtención de correo`. Una vez activado el correo de los usuarios sera obtenido
-desde sus cuentas externas y enviado al buzón de su cuenta interna. Cada usuario
-puede configurar sus cuentas externas a través del rincón del usuario. El
-usuario debe tener una cuenta de correo para poder hacer esto. Los servidores
-externos son consultados periódicamente, así que la obtención del correo no es
-instantánea.
+Se puede configurar eBox para recoger correo de cuentas externas y
+enviarlo a los buzones de los usuarios. Para ello, deberás activar en
+la sección :menuselection:`Correo --> General --> Opciones del
+servidor de corre --> Servicios de obtención de correo`. Una vez
+activado, los usuarios tendrán sus mensajes de correo de sus cuentas
+externas recogido en el buzón de su cuenta interna. Cada usuario puede
+configurar sus cuentas externas a través del rincón del usuario [#]_. El
+usuario debe tener una cuenta de correo para poder hacerlo. Los
+servidores externos son consultados periódicamente, así que la
+obtención del correo no es instántanea.
 
 Para obtener el correo externo, eBox usa Fetchmail [#f3]_ .
 
+.. FIXME: Explain user configuration about fetchmail with its
+.. configuration shot 
+
 .. rubric:: Footnotes
 
+.. [#] La configuración del rincón del usuario se explica en la
+       sección :ref:`usercorner-ref`.
 .. [#f3] **Fetchmail** The Fetchmail Home Page http://fetchmail.berlios.de/ .
 
+Lenguaje Sieve y protocolo ManageSieve
+--------------------------------------
 
+El **lenguaje Sieve** [#f4]_ permite el control al usuario de cómo su
+correo es recibido, permitiendo, entre otras cosas, clasificarlo en
+carpetas IMAP, reenviarlo o el uso de un mensaje por ausencia
+prolongada (o vacaciones).
 
+**ManageSieve** es un protocolo de red que permite a los usuarios gestionar sus
+*scripts* Sieve. Para usarlo, es necesario que el cliente de correo pueda entender
+dicho protocolo [#f5]_ .
 
-Scripts Sieve  y protocolo ManageSieve 
----------------------------------------
-El lenguaje Sieve [#f4]_ permite el control al usuario de como su correo es
-recibido, permitiendo, entre otras cosas, clasificarlo en carpetas IMAP, reenviarlo o el uso de un
-mensaje de vacaciones.
-
-ManageSieve es un protocolo de red que permite a los usuarios gestionar sus
-scripts Sieve. Para usarlo, es necesario que el cliente de correo pueda entender
-el protocolo [#f5]_ .
-
-Para usar ManageSieve en eBox, debes activar el servicio en
-:menuselection:`Correo--> General --> Opciones de servidor de coreo -> Servicios
+Para usar *ManageSieve* en eBox, debes activar el servicio en
+:menuselection:`Correo--> General --> Opciones de servidor de correo -> Servicios
 de obtención de correo`  y podrá ser usado por todos los usuarios con cuenta de
-correo. Adicionalmente si ManageSieve esta activado y el modulo de correo web en
-uso una interfaz de gestión para scripts Sieve estará disponible en el correo web.
+correo. Si *ManageSieve* está activado y el módulo de **correo web** [#f6]_ en
+uso, el interfaz de gestión para *scripts* Sieve estará disponible en el correo web.
 
-La autenticación en ManageSieve se hace con la cuenta de correo del usuario y su contraseña.
+La autenticación en *ManageSieve* se hace con la cuenta de correo del
+usuario y su contraseña.
 
-Los scripts de Sieve de una cuenta son ejecutados independientemente de si
-ManageSieve esta activado o no.
-
+Los *scripts* de Sieve de una cuenta son ejecutados independientemente de si
+*ManageSieve* está activado o no.
 
 .. rubric:: Footnotes
 
 .. [#f4] Para mas informacion sobre Sieve http://sieve.info/ .
 .. [#f5] Para tener una lista de clientes Sieve http://sieve.info/clients .
-
+.. [#f6] El módulo de **correo web** (*webmail*) se explica en el
+         capítulo :ref:`webmail-ref`.
 
 Configuración del cliente de correo
 -----------------------------------
-A no ser que los usuarios solo usen el correo a través de los módulos de
-egroupware o de correo web, deberán configurar su cliente de coreo para usar el
-servidor de correo de eBox. El valor de los parámetros necesarios dependerán de
-la configuración del servicio de correo.
+
+A no ser que los usuarios sólo usen el correo a través del módulo de
+de **correo web** o a través de la aplicación de correo de
+**groupware**, deberán configurar su cliente de correo para usar el
+servidor de correo de eBox. El valor de los parámetros necesarios
+dependerán de la configuración del servicio de correo.
 
 Hay que tener en cuenta que diferentes clientes de correo podrán usar distintos
 nombres para estos parámetros, por lo que debido a la multitud de clientes
-existente esta sección es orientativa.
+existente esta sección es meramente orientativa.
 
+Parámetros SMTP
+===============
 
+Servidor SMTP:
+   Introducir la dirección del servidor eBox. La dirección puede ser
+   descrita como una dirección IP o como nombre de dominio.
 
-Parámetros SMTP 
-=================
- * Servidor SMTP: En este parámetro se debe introducir la dirección del servidor
-   eBox. La dirección puede ser introducida como dirección IP o como nombre de
-   dominio. 
- * Puerto SMTP: 25, si usas TLS puedes usar en su lugar el puerto 465.
- * Conexión segura: Debes seleccionar `TLS` si tienes activada la opción
-   :guilabel:`TLS para el servidor SMTP`, en otro caso selecciona `ninguna`. Si
-   usas TLS lee la advertencia de mas abajo sobre TLS/SSL.
- * Usuario SMTP: Como nombre de usuario se debe usar la dirección de correo
+Puerto SMTP:
+   25, si usas TLS puedes usar en su lugar el puerto 465.
+
+Conexión segura:
+   Seleccionar `TLS` si tienes activada la opción :guilabel:`TLS para
+   el servidor SMTP`, en otro caso seleccionar `ninguna`. Si se usa
+   TLS lee la advertencia aparece más adelante sobre TLS/SSL.
+
+Usuario SMTP:
+   Como nombre de usuario se debe usar la dirección de correo
    completa del usuario, no uses su nombre de usuario o alguno de sus alias de
-   correo. 
- * Contraseña SMTP: es la misma que la contraseña del usuario.
+   correo. Esta opción sólo es obligatoria si está habilitado el
+   parámetro :guilabel:`Exigir autenticación`.
 
+Contraseña SMTP:
+   La contraseña del usuario.
 
 Parámetros POP3
-================
-Solo puedes usar configuración POP3 cuando el servicio POP3 o POP3S esta
-activados en eBox.
- * Servidor POP3: introduce la dirección de eBox, como en el servidor SMTP.
- * Puerto POP3: 110, 995 en el caso de usar POP3S.
- * Conexión segura: selecciona `SSL` en caso de que uses POP3S, `ninguno` si
-   usas POP3. Si usas POP3S lee la advertencia de mas abajo sobre TLS/SSL.
- * Usuario POP3: dirección de correo completa del usuario
- * Contraseña: es la misma que la contraseña del usuario
+===============
+
+Sólo puedes usar configuración POP3 cuando el servicio POP3 o POP3S
+está activado en eBox.
+
+Servidor POP3:
+   Introducir la dirección de eBox de la misma manera que la sección
+   de parámetros SMTP.
+
+Puerto POP3:
+   110 o 995 en el caso de usar POP3S.
+
+Conexión segura:
+   Selecciona `SSL` en caso de que se use POP3S, `ninguno` si
+   se usa POP3. Si se utiliza POP3S, ten en cuenta la advertencia que
+   aparece más adelante sobre TLS/SSL.
+
+Usuario POP3:
+   Dirección de correo completa del usuario, no se debe usar ni el
+   nombre de usuario ni ninguno de sus alias de correo.
+
+Contraseña POP3:
+   La contraseña del usaurio.
 
 Parámetros IMAP
 ===============
-solo se puede usar la configuración IMAP si el servicio IMAP o IMAPS esta
-activo. 
- * Servidor IMAP: introduce la dirección de eBox, como en el servidor SMTP.
- * Puerto IMAP: 443, 993 en el caso de usar IMAPS.
- * Conexión segura: selecciona `SSL` en caso de que uses IMAPS, `ninguno` si
-   usas IMAP. Si usas IMAPS lee la advertencia de mas abajo sobre TLS/SSL.
- * Usuario IMAP: dirección de correo completa del usuario
- * Contraseña: es la misma que la contraseña del usuario
 
+Sólo se puede usar la configuración IMAP si el servicio IMAP o IMAPS
+está activo.
 
+Servidor IMAP:
+   Introducir la dirección de eBox de la misma manera que la sección
+   de parámetros SMTP.
+
+Puerto IMAP:
+   443 o 993 en el caso de usar IMAPS.
+
+Conexión segura:
+   Seleccionar `SSL` en caso de que se use IMAPS, `ninguno` si
+   se utiliza IMAP. Si se usa IMAPS, leer la advertencia que aparece
+   más adelante sobre TLS/SSL.
+
+Usuario IMAP:
+   Dirección de correo completa del usuario, no se debe usar ni el
+   nombre de usuario ni ninguno de sus alias de correo.
+
+Contraseña IMAP:
+   La contraseña del usaurio.
 
 .. warning::
 
-En las implementaciones en los clientes de correo aveces hay confusión sobre el
-uso de los protocolos SSL y TLS. Algunos clientes usan `SSL` para indicar que
-van a conectar con `TLS`, otros usan `TLS` para indicar que van a tratar de
-conectar al servicio a través de un puerto tradicionalmente usado por las
-versiones del protocolo en claro. De hecho, en algunos clientes hará falta
-probar tanto los modos `SSL` como `TLS` para hallar cual funciona.
+   En las implementaciones de los clientes de correo a veces hay
+   confusión sobre el uso de los protocolos SSL y TLS. Algunos
+   clientes usan `SSL` para indicar que van a conectar con `TLS`,
+   otros usan `TLS` para indicar que van a tratar de conectar al
+   servicio a través de un puerto tradicionalmente usado por las
+   versiones del protocolo en claro. De hecho, en algunos clientes
+   hará falta probar tanto los modos `SSL` como `TLS` para averiguar
+   cual de los métodos funciona correctamente.
 
-Tienes mas información sobre este asunto en el wiki de Dovecot,
-http://wiki.dovecot.org/SSL .
+   Tienes mas información sobre este asunto en el wiki de Dovecot,
+   http://wiki.dovecot.org/SSL .
 
+Parámetros para ManageSieve
+===========================
 
+Para conectar a *ManageSieve*, se necesitan los siguientes parámetros:
 
+Servidor Sieve:
+   El mismo que tu servidor IMAP o POP3.
 
-Parámetros para ManageSieve 
-=============================
-Para conectar a ManageSieve, necesitaras los siguientes parámetros:
- * Servidor Sieve: el mismo que tu servidor IMAP o POP3.
- * Puerto: 4190. Hay que tener en cuenta que algunas aplicaciones usan, por error
-   el puerto 2000 como puerto por defecto para ManageSieve.
- * Conexión segura: activar esta opción.
- * Nombre de usuario: dirección de correo completa
- * Contraseña: contraseña del usuario. Algunos clientes permiten indicar que se
-   va a usar la misma autenticación que para IMAP o POP, si esto es posible
-   seleccionarlo. 
+Puerto:
+   4190, hay que tener en cuenta que algunas aplicaciones usan, por error
+   el puerto número 2000 como puerto por defecto para ManageSieve.
+
+Conexión segura:
+   Activar esta opción.
+
+Nombre de usuario:
+   Dirección de correo completa, como anteriormente evitar el nombre
+   de usaurio o cualquiera de sus alias de correo.
+
+Contraseña:
+   Contraseña del usuario. Algunos clientes permiten indicar que se
+   va a usar la misma autenticación que para IMAP o POP, si esto es posible,
+   hay que seleccionar dicha opción. 
 
 Cuenta para recoger todo el correo
 ------------------------------------
 
-Una cuenta para recoger todo el correo es una cuenta que recibe una copia de
-todo el correo enviado y recibido por un dominio de correo. eBox permite definir
-una de estas cuentas por cada dominio; para establecerla se debe ir a la pagina 
-:menuselection:`Correo --> Dominios Virtuales` y después hacer click en la celda
-:guilabel:`Opciones`.
+Una **cuenta para recoger todo el correo** es una cuenta que recibe
+una copia de todo el correo enviado y recibido por un dominio de
+correo. En eBox se permite definir una de estas cuentas por cada
+dominio; para establecerla se debe ir a la pagina
+:menuselection:`Correo --> Dominios Virtuales` y después hacer click
+en la celda :guilabel:`Opciones`.
 
-Todos los mensajes enviados y recibidos por el dominio serán enviados como copia
-oculta a la dirección definida. Si la dirección rebota el correo, sera retornado
-al remitente.
-
-
+Todos los mensajes enviados y recibidos por el dominio serán enviados
+como copia oculta (CCO ó BCC) a la dirección definida. Si la dirección
+rebota el correo, será devuelto al remitente.
 
 .. _mail-conf-exercise-ref:
 
@@ -485,7 +557,7 @@ creada a una cuenta externa.
      Aparece la pantalla de edición del usuario recién creado.
 
 #. **Acción:**
-    (Este paso solo es necesario si has deshabilitado la opción de crear
+    (Este paso sólo es necesario si has deshabilitado la opción de crear
     cuentas de correo automáticamente en `Usuarios y Grupos --> Plantilla de
     Usuario por defecto --> Cuenta de correo`). Escribir un nombre para la
     cuenta de correo del usuario en la sección :guilabel:`Crear cuenta de

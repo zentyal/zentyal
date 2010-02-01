@@ -1,4 +1,4 @@
-.. webmail-ref:
+.. _webmail-ref:
 
 Servicio de correo web
 ***********************
