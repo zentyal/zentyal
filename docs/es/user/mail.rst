@@ -4,7 +4,7 @@ Servicio de correo electrónico (SMTP/POP3-IMAP4)
 ************************************************
 
 .. sectionauthor:: Javier Amor García <jamor@ebox-platform.com>
-                   Jose A. Calvo <jacalvo@ebox-platform.com>
+                   José A. Calvo <jacalvo@ebox-platform.com>
                    Enrique J. Hernández <ejhernandez@ebox-platform.com>
                    Víctor Jímenez <vjimenez@warp.es>
 
@@ -121,7 +121,7 @@ ser recibido de cualquier cliente que pueda conectarse al servidor.
 
 Sin embargo, la **retransmisión** ocurre cuando el servidor de correo
 recibe un mensaje de correo en el que ninguno de los destinatarios
-pertenecen a ninguno de us dominios virtuales de correo gestionados,
+pertenecen a ninguno de sus dominios virtuales de correo gestionados,
 requiriendo por tanto su reenvío a otro servidor. La retransmisión de
 correo está restringida, de otra manera los *spammers* podrían usar el
 servidor para enviar *spam* en *Internet*.
@@ -137,15 +137,15 @@ Configuración general
 
 A través de :menuselection:`Correo --> General --> Opciones del
 servidor de correo --> Autenticacion` podemos gestionar las opciones
-de autenticacion. Estan disponibles las siguientes opciones:
+de autenticacion. Están disponibles las siguientes opciones:
 
 :guilabel:`TLS para el servidor SMTP`: 
-   Fuerza a los clientes a usar cifrado TLS, evitando la intercepcion del
+   Fuerza a los clientes a usar cifrado TLS, evitando la interceptación del
    contenido por personas maliciosas. 
 :guilabel:`Exigir la autenticación`:
    Este parámetro activa el uso de autenticación. Un usuario debe usar
-   su direccion de correo y su contraseña para identificarse, una vez
-   autenticado podra retransmitir correo a través del servidor. No se
+   su dirección de correo y su contraseña para identificarse, una vez
+   autenticado podrá retransmitir correo a través del servidor. No se
    puede usar un alias de la cuenta de correo para autenticarse.
 
 .. image:: images/mail/01-general.png
@@ -301,7 +301,7 @@ Desde :menuselection:`Correo --> Gestión de cola` podemos ver los correos que
 todavía no han sido enviados con la información acerca del mensaje. Las
 acciones que podemos realizar con estos mensajes son: eliminarlos, ver
 su contenido o volver a tratar de enviarlos (*reencolarlos*). También hay dos
-botones ue permiten borrar o reencolar todos los mensajes en la cola.
+botones que permiten borrar o reencolar todos los mensajes en la cola.
 
 .. image:: images/mail/04-queue.png
    :align: center
@@ -322,7 +322,7 @@ externas recogido en el buzón de su cuenta interna. Cada usuario puede
 configurar sus cuentas externas a través del rincón del usuario [#]_. El
 usuario debe tener una cuenta de correo para poder hacerlo. Los
 servidores externos son consultados periódicamente, así que la
-obtención del correo no es instántanea.
+obtención del correo no es instantánea.
 
 Para obtener el correo externo, eBox usa Fetchmail [#f3]_ .
 
@@ -361,7 +361,7 @@ Los *scripts* de Sieve de una cuenta son ejecutados independientemente de si
 
 .. rubric:: Footnotes
 
-.. [#f4] Para mas informacion sobre Sieve http://sieve.info/ .
+.. [#f4] Para mas información sobre Sieve http://sieve.info/ .
 .. [#f5] Para tener una lista de clientes Sieve http://sieve.info/clients .
 .. [#f6] El módulo de **correo web** (*webmail*) se explica en el
          capítulo :ref:`webmail-ref`.
@@ -426,7 +426,7 @@ Usuario POP3:
    nombre de usuario ni ninguno de sus alias de correo.
 
 Contraseña POP3:
-   La contraseña del usaurio.
+   La contraseña del usuario.
 
 Parámetros IMAP
 ===============
@@ -451,7 +451,7 @@ Usuario IMAP:
    nombre de usuario ni ninguno de sus alias de correo.
 
 Contraseña IMAP:
-   La contraseña del usaurio.
+   La contraseña del usuario.
 
 .. warning::
 
@@ -464,7 +464,7 @@ Contraseña IMAP:
    hará falta probar tanto los modos `SSL` como `TLS` para averiguar
    cual de los métodos funciona correctamente.
 
-   Tienes mas información sobre este asunto en el wiki de Dovecot,
+   Tienes mas información sobre este asunto en el *wiki* de Dovecot,
    http://wiki.dovecot.org/SSL .
 
 Parámetros para ManageSieve
@@ -484,7 +484,7 @@ Conexión segura:
 
 Nombre de usuario:
    Dirección de correo completa, como anteriormente evitar el nombre
-   de usaurio o cualquiera de sus alias de correo.
+   de usuario o cualquiera de sus alias de correo.
 
 Contraseña:
    Contraseña del usuario. Algunos clientes permiten indicar que se
@@ -498,7 +498,7 @@ Una **cuenta para recoger todo el correo** es una cuenta que recibe
 una copia de todo el correo enviado y recibido por un dominio de
 correo. En eBox se permite definir una de estas cuentas por cada
 dominio; para establecerla se debe ir a la pagina
-:menuselection:`Correo --> Dominios Virtuales` y después hacer click
+:menuselection:`Correo --> Dominios Virtuales` y después hacer clic
 en la celda :guilabel:`Opciones`.
 
 Todos los mensajes enviados y recibidos por el dominio serán enviados
@@ -510,8 +510,8 @@ rebota el correo, será devuelto al remitente.
 Ejemplo práctico
 ^^^^^^^^^^^^^^^^
 Crear un dominio virtual para el correo. Crear una cuenta de usuario y una
-cuenta de correo en el dominio creado para dicho usuario. Configurar el
-*relay* para el envío de correo. Enviar un correo de prueba con la cuenta
+cuenta de correo en el dominio creado para dicho usuario. Configurar la
+retransmisión para el envío de correo. Enviar un correo de prueba con la cuenta
 creada a una cuenta externa.
 
 #. **Acción:**
@@ -549,7 +549,7 @@ creada a una cuenta externa.
      Ahora ya podemos usar el dominio de correo que hemos añadido.
 
 #. **Acción:**
-   Acceder a :menuselection:`Usuarios y Grupos --> Uusarios --> Añadir usuario`,
+   Acceder a :menuselection:`Usuarios y Grupos --> Usuarios --> Añadir usuario`,
    rellenar sus datos y pulsar el botón :guilabel:`Crear`.
 
    Efecto:
