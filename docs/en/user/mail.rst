@@ -168,8 +168,8 @@ can access the general settings.  The following settings can be configured:
 
   This account is intended to be a standard way to reach the administrator of
   the mail server. 
-  Automatically-generated notification  mails will typically have his
-  reply address set to 'postmaster@domain'.
+  Automatically-generated notification mails will typically use **postmaster** as
+  reply address.
 :guilabel:`Maximum mailbox size allowed`: 
   In this option you could indicate a
   maximum size in Mb for any user mailboxes. All mail which surpasses the limit
