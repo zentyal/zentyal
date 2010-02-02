@@ -76,12 +76,12 @@ sub modifyUser
     return $class->_soapResult(0);
 }
 
-sub modifyGroup
+sub updateGroup
 {
     my ($class, $group, @params) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    $users->updateGroup($group, @params);
+    $users->updateGroupLocal($group, @params);
 
     return $class->_soapResult(0);
 }

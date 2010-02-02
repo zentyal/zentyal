@@ -662,7 +662,7 @@ sub soapClient
 
 sub soapRun
 {
-    my ($self, $slave, $method, $param) = @_;
+    my ($self, $slave, $method, $param, @params) = @_;
 
     my $journaldir = $self->_journalsDir . $slave->{'hostname'};
     (-d $journaldir) or EBox::Sudo::command("mkdir -p $journaldir");
@@ -670,7 +670,7 @@ sub soapRun
     my $client = $self->soapClient($slave);
 
     try {
-        $client->$method($param);
+        $client->$method($param, @params);
     } otherwise {
         EBox::debug("Unable to perform operation $method with parameter $param on slave $slave");
         my ($fh, $filename) = tempfile("$method-XXXX", DIR => $journaldir);
@@ -1477,8 +1477,15 @@ sub _checkGid
 
 
 
-
 sub updateGroup
+{
+    my ($self, $group, @params) = @_;
+
+    $self->updateGroupLocal($group, @params);
+    $self->_updateGroupSlaves($group, @params);
+}
+
+sub updateGroupLocal
 {
     my ($self, $group, @params) = @_;
 
@@ -1497,7 +1504,7 @@ sub _updateGroupSlaves
 
     for my $slave (@{$self->listSlaves()}) {
         my $client = $self->soapClient($slave);
-        $self->soapRun($slave, 'modifyGroup', $group, @params);
+        $self->soapRun($slave, 'updateGroup', $group, @params);
     }
 }
 
@@ -1533,8 +1540,6 @@ sub modifyGroup # (\%groupdata))
     }
 
     $self->_changeAttribute($dn, 'description', $groupdata->{'comment'});
-
-    $self->_updateGroupSlaves($groupdata->{'groupname'}, @params);
 }
 
 # Clean group stuff when deleting a user
@@ -2863,6 +2868,29 @@ sub listSlaves
         }
     } $result->entries();
     return \@slaves;
+}
+
+sub slaveInfo
+{
+    my ($self, $slave) = @_;
+
+    my %args = (
+        'base' => $self->slavesDn(),
+        'scope' => 'sub',
+        'filter' => "(hostname=$slave)"
+    );
+    my $result = $self->ldap->search(\%args);
+
+    my $slaveInfo;
+
+    if ($result->count()) {
+        my $entry = ($result->entries)[0];
+        $slaveInfo = {
+            'hostname' => $entry->get_value('hostname'),
+            'port' => $entry->get_value('port')
+        };
+    }
+    return $slaveInfo;
 }
 
 sub deleteSlave

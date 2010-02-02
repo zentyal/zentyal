@@ -31,11 +31,13 @@ sub processSlaveDir
 {
     my ($journaldir, $slave) = @_;
 
+    my $host = $slave->{'hostname'};
+
     if ($mode eq 'list') {
-        print "Slave: $slave\n";
+        print "Slave: $host\n";
     }
 
-    my $dir = "$journaldir$slave/";
+    my $dir = "$journaldir$host/";
 
     my $dh;
     opendir($dh, $dir) or
@@ -87,7 +89,10 @@ sub processDir
 
     while (defined(my $slave = readdir($jdir))) {
         ($slave=~ m/^\./) and next;
-        processSlaveDir($journaldir, $slave);
+        $slave = $users->slaveInfo($slave);
+        if ($slave) {
+            processSlaveDir($journaldir, $slave);
+        }
     }
     closedir($jdir);
 }
