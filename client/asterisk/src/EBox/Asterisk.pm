@@ -54,6 +54,9 @@ use constant FEATURESCONFFILE     => '/etc/asterisk/features.conf';
 
 use constant VOICEMAIL_DIR        => '/var/spool/asterisk/voicemail';
 
+use constant EBOX_VOIP_SRVNAME    => 'ebox-technologies';
+use constant EBOX_SIP_SERVER      => 'sip.ebox-technologies.com';
+
 # Constructor: _create
 #
 #      Create a new EBox::Asterisk module object
@@ -393,10 +396,18 @@ sub _setSIP
 
     $model = $self->model('Provider');
 
-    push (@params, name => $model->nameValue());
+    if ($model->providerValue() eq 'custom') {
+        push (@params, name => $model->nameValue());
+    } else {
+        push (@params, name => EBOX_VOIP_SRVNAME);
+    }
     push (@params, username => $model->usernameValue());
     push (@params, password => $model->passwordValue());
-    push (@params, server => $model->serverValue());
+    if ($model->providerValue() eq 'custom') {
+        push (@params, server => $model->serverValue());
+    } else {
+        push (@params, server => EBOX_SIP_SERVER);
+    }
     push (@params, incoming => $model->incomingValue());
 
     my $astuid = (getpwnam('asterisk'))[2];
