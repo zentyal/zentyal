@@ -192,8 +192,7 @@ msgid "virtual host"
 msgstr "virtual host"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:283
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"

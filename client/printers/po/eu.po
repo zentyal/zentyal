@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:34+0000\n"
+"POT-Creation-Date: 2010-02-02 17:17+0000\n"
 "PO-Revision-Date: 2007-02-02 19:15+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -32,22 +32,22 @@ msgstr ""
 #: src/EBox/CGI/IPPPrinter.pm:42 src/EBox/CGI/Manufacturer.pm:39
 #: src/EBox/CGI/ManufacturerUI.pm:46 src/EBox/CGI/Drvopts.pm:39
 #: src/EBox/CGI/PrintTest.pm:39 src/EBox/CGI/ParallelPrinter.pm:40
-#: src/EBox/Printers.pm:253 src/EBox/Printers.pm:388 src/EBox/Printers.pm:401
-#: src/EBox/Printers.pm:418 src/EBox/Printers.pm:474 src/EBox/Printers.pm:526
-#: src/EBox/Printers.pm:568 src/EBox/Printers.pm:585 src/EBox/Printers.pm:607
-#: src/EBox/Printers.pm:633 src/EBox/Printers.pm:660 src/EBox/Printers.pm:692
-#: src/EBox/Printers.pm:722 src/EBox/Printers.pm:750 src/EBox/Printers.pm:791
-#: src/EBox/Printers.pm:805 src/EBox/Printers.pm:831 src/EBox/Printers.pm:845
-#: src/EBox/Printers.pm:871 src/EBox/Printers.pm:885 src/EBox/Printers.pm:910
-#: src/EBox/Printers.pm:933 src/EBox/Printers.pm:958 src/EBox/Printers.pm:1030
-#: src/EBox/Printers.pm:1079 src/EBox/Printers.pm:1124
-#: src/EBox/Printers.pm:1152 src/EBox/Printers.pm:1184
-#: src/EBox/Printers.pm:1244 src/EBox/Printers.pm:1259
-#: src/EBox/Printers.pm:1290
+#: src/EBox/Printers.pm:248 src/EBox/Printers.pm:383 src/EBox/Printers.pm:396
+#: src/EBox/Printers.pm:413 src/EBox/Printers.pm:469 src/EBox/Printers.pm:521
+#: src/EBox/Printers.pm:563 src/EBox/Printers.pm:580 src/EBox/Printers.pm:602
+#: src/EBox/Printers.pm:628 src/EBox/Printers.pm:655 src/EBox/Printers.pm:687
+#: src/EBox/Printers.pm:717 src/EBox/Printers.pm:745 src/EBox/Printers.pm:786
+#: src/EBox/Printers.pm:800 src/EBox/Printers.pm:826 src/EBox/Printers.pm:840
+#: src/EBox/Printers.pm:866 src/EBox/Printers.pm:880 src/EBox/Printers.pm:905
+#: src/EBox/Printers.pm:928 src/EBox/Printers.pm:953 src/EBox/Printers.pm:1025
+#: src/EBox/Printers.pm:1074 src/EBox/Printers.pm:1119
+#: src/EBox/Printers.pm:1147 src/EBox/Printers.pm:1179
+#: src/EBox/Printers.pm:1239 src/EBox/Printers.pm:1254
+#: src/EBox/Printers.pm:1285
 msgid "Printer"
 msgstr ""
 
-#: src/EBox/CGI/Model.pm:42 src/EBox/Printers.pm:849 src/EBox/Printers.pm:889
+#: src/EBox/CGI/Model.pm:42 src/EBox/Printers.pm:844 src/EBox/Printers.pm:884
 #: src/templates/printer.mas:151 src/templates/printerback.mas:29
 msgid "Model"
 msgstr ""
@@ -77,16 +77,16 @@ msgid "Next"
 msgstr ""
 
 #: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/CGI/LPDPrinter.pm:42
-#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/Printers.pm:664
-#: src/EBox/Printers.pm:726 src/EBox/Printers.pm:754 src/templates/ipp.mas:23
+#: src/EBox/CGI/IPPPrinter.pm:43 src/EBox/Printers.pm:659
+#: src/EBox/Printers.pm:721 src/EBox/Printers.pm:749 src/templates/ipp.mas:23
 #: src/templates/lpd.mas:23 src/templates/printerback.mas:182
 #: src/templates/network.mas:23
 msgid "IP"
 msgstr ""
 
 #: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/CGI/LPDPrinter.pm:43
-#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:665
-#: src/EBox/Printers.pm:727 src/EBox/Printers.pm:755 src/templates/ipp.mas:31
+#: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:660
+#: src/EBox/Printers.pm:722 src/EBox/Printers.pm:750 src/templates/ipp.mas:31
 #: src/templates/lpd.mas:31 src/templates/printerback.mas:190
 #: src/templates/network.mas:31
 msgid "Port"
@@ -173,12 +173,12 @@ msgid "Add a new printer (IV)"
 msgstr ""
 
 #: src/EBox/CGI/USBPrinter.pm:41 src/EBox/CGI/ParallelPrinter.pm:41
-#: src/EBox/Printers.pm:613 src/EBox/Printers.pm:639
+#: src/EBox/Printers.pm:608 src/EBox/Printers.pm:634
 #: src/templates/parallel.mas:18 src/templates/usb.mas:18
 msgid "Device"
 msgstr ""
 
-#: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:358
+#: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:353
 msgid "Manage printers"
 msgstr ""
 
@@ -190,8 +190,8 @@ msgstr ""
 msgid "Add a new printer (V)"
 msgstr ""
 
-#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:497
-#: src/EBox/Printers.pm:589 src/templates/addprinter.mas:23
+#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:492
+#: src/EBox/Printers.pm:584 src/templates/addprinter.mas:23
 msgid "Method"
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Printer description"
 msgstr ""
 
-#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:810
+#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:805
 #: src/templates/printer.mas:143 src/templates/printerback.mas:21
 msgid "Manufacturer"
 msgstr ""
@@ -216,121 +216,121 @@ msgstr ""
 msgid "Printer Sharing"
 msgstr ""
 
-#: src/EBox/Printers.pm:77
+#: src/EBox/Printers.pm:72
 msgid "Create spool directory for printers"
 msgstr ""
 
-#: src/EBox/Printers.pm:78
+#: src/EBox/Printers.pm:73
 msgid "eBox will create a spool directory under /var/spool/samba"
 msgstr ""
 
-#: src/EBox/Printers.pm:83
+#: src/EBox/Printers.pm:78
 msgid "Add user ebox to lpadmin group"
 msgstr ""
 
-#: src/EBox/Printers.pm:84
+#: src/EBox/Printers.pm:79
 msgid "In order to manage printers and queues from the eBox web interface"
 msgstr ""
 
-#: src/EBox/Printers.pm:89
+#: src/EBox/Printers.pm:84
 msgid "Create log table"
 msgstr ""
 
-#: src/EBox/Printers.pm:90
+#: src/EBox/Printers.pm:85
 msgid ""
 "eBox will create a new table into its log database to store printers logs"
 msgstr ""
 
-#: src/EBox/Printers.pm:106
+#: src/EBox/Printers.pm:101
 msgid "To add and manage printers"
 msgstr ""
 
-#: src/EBox/Printers.pm:111
+#: src/EBox/Printers.pm:106
 msgid "To enable standalone cupsd listen on internal interfaces"
 msgstr ""
 
-#: src/EBox/Printers.pm:296
+#: src/EBox/Printers.pm:291
 msgid "Add Printer"
 msgstr ""
 
-#: src/EBox/Printers.pm:493
+#: src/EBox/Printers.pm:488
 msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
 msgstr ""
 
-#: src/EBox/Printers.pm:502 src/templates/addprinter.mas:15
+#: src/EBox/Printers.pm:497 src/templates/addprinter.mas:15
 #: src/templates/printer.mas:79 src/templates/printers.mas:37
 msgid "Name"
 msgstr ""
 
-#: src/EBox/Printers.pm:509
+#: src/EBox/Printers.pm:504
 msgid "The given name is alreaday used as "
 msgstr ""
 
-#: src/EBox/Printers.pm:530 src/EBox/Printers.pm:1083
-#: src/EBox/Printers.pm:1128 src/EBox/Printers.pm:1188
+#: src/EBox/Printers.pm:525 src/EBox/Printers.pm:1078
+#: src/EBox/Printers.pm:1123 src/EBox/Printers.pm:1183
 msgid "Printer not configured"
 msgstr ""
 
-#: src/EBox/Printers.pm:618
+#: src/EBox/Printers.pm:613
 msgid "It is not a usb printer"
 msgstr ""
 
-#: src/EBox/Printers.pm:644
+#: src/EBox/Printers.pm:639
 msgid "It is not a parallel printer"
 msgstr ""
 
-#: src/EBox/Printers.pm:670
+#: src/EBox/Printers.pm:665
 msgid "It is not a network printer"
 msgstr ""
 
-#: src/EBox/Printers.pm:699
+#: src/EBox/Printers.pm:694
 msgid "It is not a samba printer"
 msgstr ""
 
-#: src/EBox/Printers.pm:732
+#: src/EBox/Printers.pm:727
 msgid "It is not a IPP printer"
 msgstr ""
 
-#: src/EBox/Printers.pm:760
+#: src/EBox/Printers.pm:755
 msgid "It is not a LPD printer"
 msgstr ""
 
-#: src/EBox/Printers.pm:991 src/EBox/Printers.pm:1017
+#: src/EBox/Printers.pm:986 src/EBox/Printers.pm:1012
 msgid "is not a valid option"
 msgstr ""
 
-#: src/EBox/Printers.pm:1108
+#: src/EBox/Printers.pm:1103
 #, perl-brace-format
 msgid "Parameter '{name}' does not exist"
 msgstr ""
 
-#: src/EBox/Printers.pm:1289 src/templates/printer.mas:77
+#: src/EBox/Printers.pm:1284 src/templates/printer.mas:77
 msgid "Job ID"
 msgstr ""
 
-#: src/EBox/Printers.pm:1291 src/templates/printer.mas:78
+#: src/EBox/Printers.pm:1286 src/templates/printer.mas:78
 msgid "Owner"
 msgstr ""
 
-#: src/EBox/Printers.pm:1292
+#: src/EBox/Printers.pm:1287
 msgid "Queued at"
 msgstr ""
 
-#: src/EBox/Printers.pm:1293
+#: src/EBox/Printers.pm:1288
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Printers.pm:1296
+#: src/EBox/Printers.pm:1291
 msgid "Queued"
 msgstr ""
 
-#: src/EBox/Printers.pm:1296
+#: src/EBox/Printers.pm:1291
 msgid "Canceled"
 msgstr ""
 
-#: src/EBox/Printers.pm:1299
+#: src/EBox/Printers.pm:1294
 msgid "Printers"
 msgstr ""
 

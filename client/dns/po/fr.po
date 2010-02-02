@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:39+0100\n"
+"POT-Creation-Date: 2010-02-02 17:15+0000\n"
 "PO-Revision-Date: 2010-01-18 11:42+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -16,11 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
-
-#: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:233
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
-msgid "DNS"
-msgstr "DNS"
 
 #: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:240
 msgid "domain"
@@ -128,6 +123,11 @@ msgstr "Un domaine est dynamique lorsque le serveur DHCP le met-à-jour"
 #: src/EBox/Model/DomainTable.pm:232
 msgid "List of Domains"
 msgstr "Liste de domaines"
+
+#: src/EBox/Model/DomainTable.pm:233 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/Model/DNSComposite.pm:76
+msgid "DNS"
+msgstr "DNS"
 
 #: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:04+0000\n"
+"POT-Creation-Date: 2010-02-02 16:31+0000\n"
 "PO-Revision-Date: 2009-11-11 19:35+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -53,25 +53,21 @@ msgstr "utilizador"
 msgid "groupname"
 msgstr "grupo"
 
-#: src/EBox/Model/Applications.pm:111
+#: src/EBox/Model/Applications.pm:139
 msgid "Application"
 msgstr "Aplicação"
 
-#: src/EBox/Model/Applications.pm:117
+#: src/EBox/Model/Applications.pm:145
 msgid "Enabled"
 msgstr "Activado"
 
-#: src/EBox/Model/Applications.pm:124
+#: src/EBox/Model/Applications.pm:152
 msgid "Applications"
 msgstr "Aplicações"
 
-#: src/EBox/Model/Applications.pm:125
+#: src/EBox/Model/Applications.pm:153
 msgid "application"
 msgstr "aplicação"
-
-#: src/EBox/Model/DefaultApplications.pm:49
-msgid "DefaultApplications"
-msgstr "Aplicações pré-definidas"
 
 #: src/EBox/Model/DefaultApplications.pm:50
 msgid "Default Applications"
@@ -85,23 +81,24 @@ msgstr ""
 "Estas são as permissões de aplicação por omissão atribuídas aos novos "
 "utilizadores ou a existentes antes de activar o módulo eGroupware"
 
-#: src/EBox/Model/PermissionTemplates.pm:57
+#: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
 msgstr "Nome"
 
-#: src/EBox/Model/PermissionTemplates.pm:63
-msgid "Applications Allowed"
-msgstr "Aplicações permitidas"
+#: src/EBox/Model/PermissionTemplates.pm:72
+#, fuzzy
+msgid "Allowed Applications"
+msgstr "Aplicações"
 
-#: src/EBox/Model/PermissionTemplates.pm:71
+#: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
 msgstr "Modelos de permissão definidas para o utilizador"
 
-#: src/EBox/Model/PermissionTemplates.pm:75
+#: src/EBox/Model/PermissionTemplates.pm:85
 msgid "template"
 msgstr "modelo"
 
-#: src/EBox/Model/PermissionTemplates.pm:76
+#: src/EBox/Model/PermissionTemplates.pm:86
 msgid ""
 "Edit the permission templates with the allowed applications that can be "
 "assigned to users or groups."
@@ -163,6 +160,12 @@ msgstr ""
 #, fuzzy
 msgid "EGroupware"
 msgstr "eGroupware"
+
+#~ msgid "DefaultApplications"
+#~ msgstr "Aplicações pré-definidas"
+
+#~ msgid "Applications Allowed"
+#~ msgstr "Aplicações permitidas"
 
 #~ msgid "You must have IMAP service enabled."
 #~ msgstr "Tem que estar o serviço IMAP activado"

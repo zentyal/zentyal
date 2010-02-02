@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:12+0000\n"
+"POT-Creation-Date: 2010-02-02 17:17+0000\n"
 "PO-Revision-Date: 2009-02-11 09:39+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "sharing resource"
 msgstr "اشتراک‌گذاری منابع"
 
-#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248
+#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1211 src/EBox/Samba.pm:1243
 msgid "group"
 msgstr "گروه"
 
@@ -261,8 +261,8 @@ msgstr "مدیر"
 msgid "User/Group"
 msgstr "کاربر/گروه"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:125 src/EBox/Samba.pm:651
-#: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125 src/EBox/Samba.pm:646
+#: src/EBox/Samba.pm:1657 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
 msgstr "کاربر"
 
@@ -351,7 +351,7 @@ msgid "User homes"
 msgstr "فایل‌های کاربر"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
-#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:630
+#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:625
 #: src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "اشتراک"
@@ -416,189 +416,189 @@ msgstr "اشتراک‌گذاری فایل"
 msgid "Antivirus"
 msgstr ""
 
-#: src/EBox/Samba.pm:96
+#: src/EBox/Samba.pm:91
 msgid "Create Samba home directory for users and groups"
 msgstr ""
 
-#: src/EBox/Samba.pm:97
+#: src/EBox/Samba.pm:92
 msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
 msgstr ""
 
-#: src/EBox/Samba.pm:102
+#: src/EBox/Samba.pm:97
 msgid "Add LDAP schemas"
 msgstr "افزودن طرح‌های LDAP"
 
-#: src/EBox/Samba.pm:103
+#: src/EBox/Samba.pm:98
 msgid "eBox will add two LDAP schemas to the LDAP directory: samba and ebox."
 msgstr ""
 
-#: src/EBox/Samba.pm:108
+#: src/EBox/Samba.pm:103
 msgid "Set Samba LDAP admin dn password"
 msgstr "تنظیم گذرواژه dn مدیر LDAP سامبا"
 
-#: src/EBox/Samba.pm:109
+#: src/EBox/Samba.pm:104
 msgid "eBox will configure Samba to use the LDAP admin dn password."
 msgstr ""
 
-#: src/EBox/Samba.pm:125
+#: src/EBox/Samba.pm:120
 msgid "To set up Samba according to your configuration"
 msgstr "برای نصب سامبا برطبق پیکربندی شما"
 
-#: src/EBox/Samba.pm:130
+#: src/EBox/Samba.pm:125
 msgid "To set up smbldap-tools according to your configuration"
 msgstr ""
 
-#: src/EBox/Samba.pm:136
+#: src/EBox/Samba.pm:131
 msgid "To set up smbldap-tools according to your LDAP configuration"
 msgstr ""
 
-#: src/EBox/Samba.pm:142
+#: src/EBox/Samba.pm:137
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
 msgstr ""
 
-#: src/EBox/Samba.pm:148
+#: src/EBox/Samba.pm:143
 msgid "To let NSS know how to access LDAP accounts"
 msgstr ""
 
-#: src/EBox/Samba.pm:153
+#: src/EBox/Samba.pm:148
 msgid "To add quota support to /home partition"
 msgstr ""
 
-#: src/EBox/Samba.pm:158
+#: src/EBox/Samba.pm:153
 msgid "To set the antivirus settings for Samba"
 msgstr ""
 
-#: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
+#: src/EBox/Samba.pm:625 src/EBox/Samba.pm:646
 msgid "Source machine"
 msgstr "ماشین مبدا"
 
-#: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
+#: src/EBox/Samba.pm:625 src/EBox/Samba.pm:646
 msgid "Connected since"
 msgstr "متصل تاکنون"
 
-#: src/EBox/Samba.pm:671
+#: src/EBox/Samba.pm:666
 msgid "Shares by user"
 msgstr "اشتراک‌گذاشته توسط کاربر"
 
-#: src/EBox/Samba.pm:676
+#: src/EBox/Samba.pm:671
 msgid "Users by share"
 msgstr "کاربران توسط اشتراک"
 
-#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
+#: src/EBox/Samba.pm:1207 src/EBox/Samba.pm:1229
 msgid "user"
 msgstr "کاربر"
 
-#: src/EBox/Samba.pm:1221
+#: src/EBox/Samba.pm:1216
 msgid "printer"
 msgstr "چاپگر"
 
-#: src/EBox/Samba.pm:1329
+#: src/EBox/Samba.pm:1324
 msgid "quota"
 msgstr "سهمیه"
 
-#: src/EBox/Samba.pm:1642
+#: src/EBox/Samba.pm:1637
 msgid "User's files"
 msgstr "فایل‌های کاربر"
 
-#: src/EBox/Samba.pm:1644
+#: src/EBox/Samba.pm:1639
 msgid "Group's files"
 msgstr "فایل‌های گروه"
 
-#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
+#: src/EBox/Samba.pm:1655 src/EBox/Samba.pm:1675 src/EBox/Samba.pm:1685
 #, fuzzy
 msgid "Date"
 msgstr "فعال"
 
-#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
+#: src/EBox/Samba.pm:1656 src/EBox/Samba.pm:1676
 msgid "Client address"
 msgstr ""
 
-#: src/EBox/Samba.pm:1663
+#: src/EBox/Samba.pm:1658
 msgid "Action"
 msgstr ""
 
-#: src/EBox/Samba.pm:1664
+#: src/EBox/Samba.pm:1659
 msgid "Resource"
 msgstr ""
 
-#: src/EBox/Samba.pm:1668
+#: src/EBox/Samba.pm:1663
 #, fuzzy
 msgid "Connect"
 msgstr "متصل تاکنون"
 
-#: src/EBox/Samba.pm:1669
+#: src/EBox/Samba.pm:1664
 #, fuzzy
 msgid "Access to directory"
 msgstr "کنترل دسترسی"
 
-#: src/EBox/Samba.pm:1670
+#: src/EBox/Samba.pm:1665
 #, fuzzy
 msgid "Read file"
 msgstr "فقط خواندنی"
 
-#: src/EBox/Samba.pm:1671
+#: src/EBox/Samba.pm:1666
 msgid "Write file"
 msgstr ""
 
-#: src/EBox/Samba.pm:1672
+#: src/EBox/Samba.pm:1667
 msgid "Disconnect"
 msgstr ""
 
-#: src/EBox/Samba.pm:1673
+#: src/EBox/Samba.pm:1668
 msgid "Remove"
 msgstr ""
 
-#: src/EBox/Samba.pm:1674
+#: src/EBox/Samba.pm:1669
 #, fuzzy
 msgid "Create directory"
 msgstr "پوشه اشتراک‌گذاری {group}"
 
-#: src/EBox/Samba.pm:1675
+#: src/EBox/Samba.pm:1670
 #, fuzzy
 msgid "Remove directory"
 msgstr "پوشه‌های خانه"
 
-#: src/EBox/Samba.pm:1676
+#: src/EBox/Samba.pm:1671
 #, fuzzy
 msgid "Rename"
 msgstr "نام‌کاربری"
 
-#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
+#: src/EBox/Samba.pm:1677 src/EBox/Samba.pm:1686
 #, fuzzy
 msgid "File name"
 msgstr "نام‌کاربری"
 
-#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
+#: src/EBox/Samba.pm:1678 src/EBox/Samba.pm:1682
 msgid "Virus"
 msgstr ""
 
-#: src/EBox/Samba.pm:1684
+#: src/EBox/Samba.pm:1679
 msgid "Type"
 msgstr ""
 
-#: src/EBox/Samba.pm:1692
+#: src/EBox/Samba.pm:1687
 msgid "Quarantined file name"
 msgstr ""
 
-#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
+#: src/EBox/Samba.pm:1688 src/EBox/Samba.pm:1691
 msgid "Quarantine"
 msgstr ""
 
-#: src/EBox/Samba.pm:1699
+#: src/EBox/Samba.pm:1694
 #, fuzzy
 msgid "Samba access"
 msgstr "اشتراک‌گذاری‌های سامبا"
 
-#: src/EBox/Samba.pm:1710
+#: src/EBox/Samba.pm:1705
 #, fuzzy
 msgid "Samba virus"
 msgstr "اشتراک‌گذاری‌های سامبا"
 
-#: src/EBox/Samba.pm:1721
+#: src/EBox/Samba.pm:1716
 #, fuzzy
 msgid "Samba quarantine"
 msgstr "اشتراک‌گذاری‌های سامبا"

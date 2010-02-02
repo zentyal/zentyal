@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12.99Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:10+0100\n"
+"POT-Creation-Date: 2010-02-02 16:32+0000\n"
 "PO-Revision-Date: 2009-08-04 06:23+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -25,158 +25,158 @@ msgstr "POP 通透式代理伺服器"
 msgid "POP3 protocol"
 msgstr "POP3 通訊協定"
 
-#: src/EBox/MailFilter.pm:61
+#: src/EBox/MailFilter.pm:62
 msgid "Mail Filter"
 msgstr "郵件過濾"
 
-#: src/EBox/MailFilter.pm:85
+#: src/EBox/MailFilter.pm:80
 msgid "Add clamav user to amavis group"
 msgstr "新增 clamav 使用者帳戶到 amavis 群組中"
 
-#: src/EBox/MailFilter.pm:86
+#: src/EBox/MailFilter.pm:81
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr "Clamav 要正確的掃瞄郵件必須存取 amavis 這個區域"
 
-#: src/EBox/MailFilter.pm:90
+#: src/EBox/MailFilter.pm:85
 msgid "Add clamav user to p3scan group"
 msgstr "新增 clamav 使用者帳戶到 p3scan 群組中"
 
-#: src/EBox/MailFilter.pm:91
+#: src/EBox/MailFilter.pm:86
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr "Clamav 要正確的在 POP 代理伺服器中掃描必須存取 p3scan 這個群組"
 
-#: src/EBox/MailFilter.pm:95
+#: src/EBox/MailFilter.pm:90
 msgid "Add spam and ham system users"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:97
+#: src/EBox/MailFilter.pm:92
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:102
+#: src/EBox/MailFilter.pm:97
 msgid "Update LDAP"
 msgstr "更新 LDAP"
 
-#: src/EBox/MailFilter.pm:103
+#: src/EBox/MailFilter.pm:98
 msgid "Add amavis specific classes and fields"
 msgstr "加入 amavis 指定的類別與欄位"
 
-#: src/EBox/MailFilter.pm:362
+#: src/EBox/MailFilter.pm:357
 msgid "Cannot proceed because the filter is in use"
 msgstr "因為過濾器在使用中所以不能執行"
 
-#: src/EBox/MailFilter.pm:517
+#: src/EBox/MailFilter.pm:512
 msgid "Mail filter"
 msgstr "郵件過濾"
 
-#: src/EBox/MailFilter.pm:538 src/EBox/MailFilter.pm:584
+#: src/EBox/MailFilter.pm:533 src/EBox/MailFilter.pm:579
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 msgid "Date"
 msgstr "日期"
 
-#: src/EBox/MailFilter.pm:540
+#: src/EBox/MailFilter.pm:535
 msgid "Action"
 msgstr "動作"
 
-#: src/EBox/MailFilter.pm:541 src/EBox/MailFilter.pm:588
+#: src/EBox/MailFilter.pm:536 src/EBox/MailFilter.pm:583
 msgid "Event"
 msgstr "事件"
 
-#: src/EBox/MailFilter.pm:543
+#: src/EBox/MailFilter.pm:538
 msgid "Sender address"
 msgstr "寄件者地址"
 
-#: src/EBox/MailFilter.pm:544
+#: src/EBox/MailFilter.pm:539
 msgid "Recipient address"
 msgstr "收件者地址"
 
-#: src/EBox/MailFilter.pm:546
+#: src/EBox/MailFilter.pm:541
 msgid "Spam hits"
 msgstr "垃圾信符合條件次數"
 
-#: src/EBox/MailFilter.pm:551
+#: src/EBox/MailFilter.pm:546
 msgid "Bad header found"
 msgstr "找到錯誤表頭"
 
-#: src/EBox/MailFilter.pm:552
+#: src/EBox/MailFilter.pm:547
 msgid "Spam found"
 msgstr "找到垃圾信"
 
-#: src/EBox/MailFilter.pm:553
+#: src/EBox/MailFilter.pm:548
 msgid "Forbidden attached file  found"
 msgstr "找到禁止的附加檔案"
 
-#: src/EBox/MailFilter.pm:554
+#: src/EBox/MailFilter.pm:549
 msgid "Address in blacklist found"
 msgstr "在黑名單找到地址"
 
-#: src/EBox/MailFilter.pm:555
+#: src/EBox/MailFilter.pm:550
 msgid "Virus found"
 msgstr "找到病毒"
 
-#: src/EBox/MailFilter.pm:556
+#: src/EBox/MailFilter.pm:551
 msgid "Clean message"
 msgstr "乾淨的郵件"
 
-#: src/EBox/MailFilter.pm:566
+#: src/EBox/MailFilter.pm:561
 msgid "SMTP filter"
 msgstr "SMTP 過濾"
 
-#: src/EBox/MailFilter.pm:586
+#: src/EBox/MailFilter.pm:581
 msgid "Account"
 msgstr "帳號"
 
-#: src/EBox/MailFilter.pm:587
+#: src/EBox/MailFilter.pm:582
 msgid "Client's address"
 msgstr "客戶端位址"
 
-#: src/EBox/MailFilter.pm:590
+#: src/EBox/MailFilter.pm:585
 msgid "Total messages"
 msgstr "全部郵件"
 
-#: src/EBox/MailFilter.pm:591
+#: src/EBox/MailFilter.pm:586
 msgid "Clean messages"
 msgstr "乾淨的郵件"
 
-#: src/EBox/MailFilter.pm:592
+#: src/EBox/MailFilter.pm:587
 msgid "Virus messages"
 msgstr "有病毒的郵件"
 
-#: src/EBox/MailFilter.pm:593
+#: src/EBox/MailFilter.pm:588
 msgid "Spam messages"
 msgstr "垃圾郵件"
 
-#: src/EBox/MailFilter.pm:600
+#: src/EBox/MailFilter.pm:595
 msgid "POP3 transmission complete"
 msgstr "POP3 傳輸完畢"
 
-#: src/EBox/MailFilter.pm:602
+#: src/EBox/MailFilter.pm:597
 msgid "POP3 transmission aborted"
 msgstr "POP3 傳輸中止"
 
-#: src/EBox/MailFilter.pm:610
+#: src/EBox/MailFilter.pm:605
 msgid "POP3 proxy"
 msgstr "POP3 代理伺服器"
 
-#: src/EBox/MailFilter.pm:709 src/EBox/MailFilter/Composite/Amavis.pm:61
+#: src/EBox/MailFilter.pm:704 src/EBox/MailFilter/Composite/Amavis.pm:61
 msgid "SMTP Mail Filter"
 msgstr "SMTP 郵件過濾"
 
-#: src/EBox/MailFilter.pm:716
+#: src/EBox/MailFilter.pm:711
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 msgid "POP Transparent Proxy"
 msgstr "POP 通透式代理伺服器"
 
-#: src/EBox/MailFilter.pm:724 src/EBox/MailFilter/POPProxy.pm:350
+#: src/EBox/MailFilter.pm:719 src/EBox/MailFilter/POPProxy.pm:350
 #: src/EBox/MailFilter/Amavis.pm:468
 #: src/EBox/MailFilter/Composite/Antispam.pm:63
 #: src/EBox/MailFilter/Composite/Antispam.pm:64
 msgid "Antispam"
 msgstr "防垃圾信"
 
-#: src/EBox/MailFilter.pm:731
+#: src/EBox/MailFilter.pm:726
 msgid "Files ACL"
 msgstr "檔案 ACL"
 
@@ -428,7 +428,8 @@ msgid "Tag which will be added to the spam mail subject"
 msgstr "標籤將會新增到垃圾信的郵件主旨"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
-msgid "Use bayesian classifier"
+#, fuzzy
+msgid "Use Bayesian classifier"
 msgstr "使用貝氏(bayesian)過濾器"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:84

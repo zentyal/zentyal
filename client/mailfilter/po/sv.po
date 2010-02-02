@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:10+0100\n"
+"POT-Creation-Date: 2010-02-02 16:32+0000\n"
 "PO-Revision-Date: 2009-07-19 12:17+0200\n"
 "Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
@@ -25,161 +25,161 @@ msgstr "Transparent POP proxy"
 msgid "POP3 protocol"
 msgstr "POP3 protokoll"
 
-#: src/EBox/MailFilter.pm:61
+#: src/EBox/MailFilter.pm:62
 msgid "Mail Filter"
 msgstr "E-postfilter"
 
-#: src/EBox/MailFilter.pm:85
+#: src/EBox/MailFilter.pm:80
 msgid "Add clamav user to amavis group"
 msgstr "Lägg till clamav användare till amavis gruppen"
 
-#: src/EBox/MailFilter.pm:86
+#: src/EBox/MailFilter.pm:81
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr "Clamav behöver access till amavis fält för att kunna skanna e-post"
 
-#: src/EBox/MailFilter.pm:90
+#: src/EBox/MailFilter.pm:85
 msgid "Add clamav user to p3scan group"
 msgstr "Lägg till clamav användare till p3scan gruppen"
 
-#: src/EBox/MailFilter.pm:91
+#: src/EBox/MailFilter.pm:86
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
 "Clamav behöver access till p3scan gruppen för att kunna skanna i POP proxyn"
 
-#: src/EBox/MailFilter.pm:95
+#: src/EBox/MailFilter.pm:90
 msgid "Add spam and ham system users"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:97
+#: src/EBox/MailFilter.pm:92
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:102
+#: src/EBox/MailFilter.pm:97
 msgid "Update LDAP"
 msgstr "Uppdatera LDAP"
 
-#: src/EBox/MailFilter.pm:103
+#: src/EBox/MailFilter.pm:98
 msgid "Add amavis specific classes and fields"
 msgstr "Lägg till amavis specifika klasser och fält"
 
-#: src/EBox/MailFilter.pm:362
+#: src/EBox/MailFilter.pm:357
 msgid "Cannot proceed because the filter is in use"
 msgstr "Kan inte fortsätta eftersom filtret används"
 
-#: src/EBox/MailFilter.pm:517
+#: src/EBox/MailFilter.pm:512
 msgid "Mail filter"
 msgstr "E-postfilter"
 
-#: src/EBox/MailFilter.pm:538 src/EBox/MailFilter.pm:584
+#: src/EBox/MailFilter.pm:533 src/EBox/MailFilter.pm:579
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/MailFilter.pm:540
+#: src/EBox/MailFilter.pm:535
 msgid "Action"
 msgstr "Åtgärd"
 
-#: src/EBox/MailFilter.pm:541 src/EBox/MailFilter.pm:588
+#: src/EBox/MailFilter.pm:536 src/EBox/MailFilter.pm:583
 msgid "Event"
 msgstr "Händelse"
 
-#: src/EBox/MailFilter.pm:543
+#: src/EBox/MailFilter.pm:538
 msgid "Sender address"
 msgstr "Sändares adress"
 
-#: src/EBox/MailFilter.pm:544
+#: src/EBox/MailFilter.pm:539
 msgid "Recipient address"
 msgstr "Mottagares adress"
 
-#: src/EBox/MailFilter.pm:546
+#: src/EBox/MailFilter.pm:541
 msgid "Spam hits"
 msgstr "Skräppost träffar"
 
-#: src/EBox/MailFilter.pm:551
+#: src/EBox/MailFilter.pm:546
 msgid "Bad header found"
 msgstr "Dåligt e-post huvud funnet"
 
-#: src/EBox/MailFilter.pm:552
+#: src/EBox/MailFilter.pm:547
 msgid "Spam found"
 msgstr "Skräppost funnet"
 
-#: src/EBox/MailFilter.pm:553
+#: src/EBox/MailFilter.pm:548
 msgid "Forbidden attached file  found"
 msgstr "Förbjuden bifogad fil funnen"
 
-#: src/EBox/MailFilter.pm:554
+#: src/EBox/MailFilter.pm:549
 msgid "Address in blacklist found"
 msgstr "Adress från svartlista funnen"
 
-#: src/EBox/MailFilter.pm:555
+#: src/EBox/MailFilter.pm:550
 msgid "Virus found"
 msgstr "Virus upptäckt"
 
-#: src/EBox/MailFilter.pm:556
+#: src/EBox/MailFilter.pm:551
 msgid "Clean message"
 msgstr "Rent meddelande"
 
-#: src/EBox/MailFilter.pm:566
+#: src/EBox/MailFilter.pm:561
 msgid "SMTP filter"
 msgstr "SMTP filter"
 
-#: src/EBox/MailFilter.pm:586
+#: src/EBox/MailFilter.pm:581
 msgid "Account"
 msgstr "Konto"
 
-#: src/EBox/MailFilter.pm:587
+#: src/EBox/MailFilter.pm:582
 msgid "Client's address"
 msgstr "Klients adress"
 
-#: src/EBox/MailFilter.pm:590
+#: src/EBox/MailFilter.pm:585
 msgid "Total messages"
 msgstr "Totalt meddelanden"
 
-#: src/EBox/MailFilter.pm:591
+#: src/EBox/MailFilter.pm:586
 msgid "Clean messages"
 msgstr "Rena meddelanden"
 
-#: src/EBox/MailFilter.pm:592
+#: src/EBox/MailFilter.pm:587
 msgid "Virus messages"
 msgstr "Virus meddelanden"
 
-#: src/EBox/MailFilter.pm:593
+#: src/EBox/MailFilter.pm:588
 msgid "Spam messages"
 msgstr "Skräppostmeddelanden"
 
-#: src/EBox/MailFilter.pm:600
+#: src/EBox/MailFilter.pm:595
 msgid "POP3 transmission complete"
 msgstr "POP3 överföring färdig"
 
-#: src/EBox/MailFilter.pm:602
+#: src/EBox/MailFilter.pm:597
 msgid "POP3 transmission aborted"
 msgstr "POP3 överföring avbruten"
 
-#: src/EBox/MailFilter.pm:610
+#: src/EBox/MailFilter.pm:605
 msgid "POP3 proxy"
 msgstr "POP3 proxy"
 
-#: src/EBox/MailFilter.pm:709 src/EBox/MailFilter/Composite/Amavis.pm:61
+#: src/EBox/MailFilter.pm:704 src/EBox/MailFilter/Composite/Amavis.pm:61
 #, fuzzy
 msgid "SMTP Mail Filter"
 msgstr "SMTP e-postfilter"
 
-#: src/EBox/MailFilter.pm:716
+#: src/EBox/MailFilter.pm:711
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #, fuzzy
 msgid "POP Transparent Proxy"
 msgstr "Transparent POP proxy"
 
-#: src/EBox/MailFilter.pm:724 src/EBox/MailFilter/POPProxy.pm:350
+#: src/EBox/MailFilter.pm:719 src/EBox/MailFilter/POPProxy.pm:350
 #: src/EBox/MailFilter/Amavis.pm:468
 #: src/EBox/MailFilter/Composite/Antispam.pm:63
 #: src/EBox/MailFilter/Composite/Antispam.pm:64
 msgid "Antispam"
 msgstr "Skräppostfilter"
 
-#: src/EBox/MailFilter.pm:731
+#: src/EBox/MailFilter.pm:726
 msgid "Files ACL"
 msgstr "Fil ACL"
 
@@ -436,7 +436,8 @@ msgid "Tag which will be added to the spam mail subject"
 msgstr "Märking som kommer att adderas till skräppost ärenderad."
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
-msgid "Use bayesian classifier"
+#, fuzzy
+msgid "Use Bayesian classifier"
 msgstr "Använd bayesian klassificering"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:84

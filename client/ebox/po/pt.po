@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:32+0000\n"
+"POT-Creation-Date: 2010-02-02 17:15+0000\n"
 "PO-Revision-Date: 2009-11-11 20:56+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -459,12 +459,12 @@ msgstr "Consultar registos"
 msgid "Full Reports"
 msgstr "Relatório completo"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:237
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:238
 msgid "Dashboard"
 msgstr "Painel de informações"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:53
+#: src/templates/dashboard/index.mas:79
 msgid "Configure Widgets"
 msgstr "Configurar widgets"
 
@@ -590,7 +590,7 @@ msgid "Upgrading"
 msgstr "A actualizar"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:264 src/templates/backup.mas:64
+#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:64
 msgid "Backup"
 msgstr "Cópia de segurança"
 
@@ -646,11 +646,11 @@ msgid "Restore successful"
 msgstr "Restauro efectuado com sucesso"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:259
+#: src/EBox/SysInfo.pm.in:260
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:255
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:256
 msgid "Disk Usage"
 msgstr "Utilização do disco"
 
@@ -1545,57 +1545,57 @@ msgstr ""
 msgid "Backup's archives"
 msgstr "Arquivos de cópia de segurança"
 
-#: src/EBox/SysInfo.pm.in:48
+#: src/EBox/SysInfo.pm.in:50
 msgid "System Information"
 msgstr "Informação do sistema"
 
-#: src/EBox/SysInfo.pm.in:94
+#: src/EBox/SysInfo.pm.in:95
 msgid "available"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:99
+#: src/EBox/SysInfo.pm.in:100
 msgid "Time"
 msgstr "Hora"
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:101
 msgid "Hostname"
 msgstr "Nome do hospedeiro"
 
-#: src/EBox/SysInfo.pm.in:101
+#: src/EBox/SysInfo.pm.in:102
 #, fuzzy
 msgid "Core version"
 msgstr "Versão da eBox"
 
-#: src/EBox/SysInfo.pm.in:103
+#: src/EBox/SysInfo.pm.in:104
 msgid "System load"
 msgstr "Carga do sistema"
 
-#: src/EBox/SysInfo.pm.in:149 src/EBox/SysInfo.pm.in:242
+#: src/EBox/SysInfo.pm.in:150 src/EBox/SysInfo.pm.in:243
 msgid "Module Status"
 msgstr "Estado dos módulos"
 
-#: src/EBox/SysInfo.pm.in:154
+#: src/EBox/SysInfo.pm.in:155
 msgid "General Information"
 msgstr "Informação geral"
 
-#: src/EBox/SysInfo.pm.in:159
+#: src/EBox/SysInfo.pm.in:160
 msgid "Process List"
 msgstr "Lista de processos"
 
-#: src/EBox/SysInfo.pm.in:166
+#: src/EBox/SysInfo.pm.in:167
 #, fuzzy
 msgid "Support & Services"
 msgstr "Serviços"
 
-#: src/EBox/SysInfo.pm.in:248 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "Sistema"
 
-#: src/EBox/SysInfo.pm.in:252
+#: src/EBox/SysInfo.pm.in:253
 msgid "General"
 msgstr "Geral"
 
-#: src/EBox/SysInfo.pm.in:267
+#: src/EBox/SysInfo.pm.in:268
 msgid "Halt/Reboot"
 msgstr "Desligar/reiniciar"
 
@@ -1685,53 +1685,53 @@ msgstr "Ficheiros a modificar pela eBox"
 msgid "Accept"
 msgstr "Aceitar"
 
-#: src/templates/dashboard/index.mas:89
+#: src/templates/dashboard/index.mas:21 src/templates/dashboard/status.mas:18
+msgid "Running"
+msgstr "A correr"
+
+#: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
+msgid "The service is enabled and running"
+msgstr "O serviço está activo e a correr"
+
+#: src/templates/dashboard/index.mas:26 src/templates/dashboard/status.mas:22
+msgid "Stopped"
+msgstr "Parado"
+
+#: src/templates/dashboard/index.mas:27 src/templates/dashboard/status.mas:23
+msgid "The service is enabled, but not running"
+msgstr "O serviço está activo mas está parado"
+
+#: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
+msgid "Running unmanaged"
+msgstr "A correr sem gestão"
+
+#: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
+msgid "The service is running, but not enabled in eBox"
+msgstr "O serviço está a correr mas não está activo na eBox"
+
+#: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
+msgid "The service is not enabled in eBox"
+msgstr "O serviço não está activo na eBox"
+
+#: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
+msgid "Start"
+msgstr "Iniciar"
+
+#: src/templates/dashboard/index.mas:43 src/templates/dashboard/status.mas:12
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: src/templates/dashboard/index.mas:115
 msgid "Configure widgets"
 msgstr "Configurar widgets"
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
 msgstr "Não existem entradas nesta lista"
-
-#: src/templates/dashboard/status.mas:10
-msgid "Restart"
-msgstr "Reiniciar"
-
-#: src/templates/dashboard/status.mas:16
-msgid "Running"
-msgstr "A correr"
-
-#: src/templates/dashboard/status.mas:17
-msgid "The service is enabled and running"
-msgstr "O serviço está activo e a correr"
-
-#: src/templates/dashboard/status.mas:20
-msgid "Stopped"
-msgstr "Parado"
-
-#: src/templates/dashboard/status.mas:21
-msgid "The service is enabled, but not running"
-msgstr "O serviço está activo mas está parado"
-
-#: src/templates/dashboard/status.mas:23
-msgid "Start"
-msgstr "Iniciar"
-
-#: src/templates/dashboard/status.mas:25
-msgid "Running unmanaged"
-msgstr "A correr sem gestão"
-
-#: src/templates/dashboard/status.mas:26
-msgid "The service is running, but not enabled in eBox"
-msgstr "O serviço está a correr mas não está activo na eBox"
-
-#: src/templates/dashboard/status.mas:29
-msgid "Disabled"
-msgstr "Desactivado"
-
-#: src/templates/dashboard/status.mas:30
-msgid "The service is not enabled in eBox"
-msgstr "O serviço não está activo na eBox"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."

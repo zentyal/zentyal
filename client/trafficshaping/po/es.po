@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:57+0100\n"
+"POT-Creation-Date: 2010-02-02 17:18+0000\n"
 "PO-Revision-Date: 2010-01-26 04:12+0100\n"
 "Last-Translator: Jos Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -145,7 +145,7 @@ msgid "Destination object"
 msgstr "Objeto destino"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:461
-#: src/EBox/TrafficShaping.pm:1564
+#: src/EBox/TrafficShaping.pm:1563
 msgid "Priority"
 msgstr "Prioridad"
 
@@ -154,7 +154,7 @@ msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Prioridad ms baja: 7 Prioridad ms alta: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:469
-#: src/EBox/TrafficShaping.pm:1562
+#: src/EBox/TrafficShaping.pm:1561
 msgid "Guaranteed Rate"
 msgstr "Tasa garantizada"
 
@@ -172,7 +172,7 @@ msgstr ""
 "el total de su ancho de banda. 0 significa tasa no garantizada."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:481
-#: src/EBox/TrafficShaping.pm:1563
+#: src/EBox/TrafficShaping.pm:1562
 msgid "Limited Rate"
 msgstr "Tasa limitada"
 
@@ -308,40 +308,40 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Elije un interfaz para moldear"
 
-#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:95
+#: src/EBox/TrafficShaping.pm:94
 msgid "Traffic Shaping"
 msgstr "Moldeado de trfico"
 
-#: src/EBox/TrafficShaping.pm:133
+#: src/EBox/TrafficShaping.pm:132
 msgid "Add iptables rules to mangle table"
 msgstr "Aadir reglas de iptables para la tabla mangle"
 
-#: src/EBox/TrafficShaping.pm:134
+#: src/EBox/TrafficShaping.pm:133
 msgid "To mark packets with different priorities and rates"
 msgstr "Para marcar paquetes con distintas prioridades y tasas"
 
-#: src/EBox/TrafficShaping.pm:138
+#: src/EBox/TrafficShaping.pm:137
 msgid "Add tc rules"
 msgstr "Aadir reglas de tc"
 
-#: src/EBox/TrafficShaping.pm:139
+#: src/EBox/TrafficShaping.pm:138
 msgid "To implement the traffic shaping rules"
 msgstr "Para implementar las reglas de moldeado de trfico"
 
-#: src/EBox/TrafficShaping.pm:384
+#: src/EBox/TrafficShaping.pm:383
 msgid "Rules"
 msgstr "Reglas"
 
-#: src/EBox/TrafficShaping.pm:386
+#: src/EBox/TrafficShaping.pm:385
 msgid "Interface Rates"
 msgstr "Tasas de Interfaz"
 
-#: src/EBox/TrafficShaping.pm:441 src/EBox/TrafficShaping.pm:592
-#: src/EBox/TrafficShaping.pm:986 src/EBox/TC.pm:107
+#: src/EBox/TrafficShaping.pm:440 src/EBox/TrafficShaping.pm:591
+#: src/EBox/TrafficShaping.pm:985 src/EBox/TC.pm:107
 msgid "Interface"
 msgstr "Interfaz"
 
-#: src/EBox/TrafficShaping.pm:454
+#: src/EBox/TrafficShaping.pm:453
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -350,11 +350,11 @@ msgstr ""
 "El mximo nmero de reglas {max} se ha alcanzado, por favor borra al menos una "
 "para aadir una nueva"
 
-#: src/EBox/TrafficShaping.pm:1072
+#: src/EBox/TrafficShaping.pm:1071
 msgid "type"
 msgstr "tipo"
 
-#: src/EBox/TrafficShaping.pm:1095
+#: src/EBox/TrafficShaping.pm:1094
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -363,11 +363,11 @@ msgstr ""
 "Interfaz {iface} debe tener una tasa mxima de ancho de banda para hacer "
 "moldeado de trfico"
 
-#: src/EBox/TrafficShaping.pm:1560
+#: src/EBox/TrafficShaping.pm:1559
 msgid "Protocol"
 msgstr "Protocolo"
 
-#: src/EBox/TrafficShaping.pm:1561
+#: src/EBox/TrafficShaping.pm:1560
 msgid "Port"
 msgstr "Puerto"
 

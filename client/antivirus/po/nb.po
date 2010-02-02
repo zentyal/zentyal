@@ -55,18 +55,8 @@ msgstr "Antivirusdatabasen har ikke vært oppdatert siden modulen ble aktivert."
 msgid "The last update failed."
 msgstr "Siste oppdatering feilet."
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
-#, perl-brace-format
-msgid ""
-"Update successful but your freshclam version is outdated.\n"
-"The antivirus will not be able to use all the signatures.Please, install "
-"version {version} or higher."
-msgstr ""
-"Oppdateringen var vellykket men din freshclamversjon er utdatert.\n"
-"Antivirusprogrammet vil ikke klare å bruke alle signaturene. Vennligst "
-"installer versjon {version} eller høyere."
-
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:136
 msgid "Last update successful."
 msgstr "Siste oppdatering var vellykket."
 
@@ -80,9 +70,6 @@ msgstr "Ukjent hendelse {event}."
 #~ "The antivirus will not be able to use all the signatures.Please, install "
 #~ "version {version} or higher."
 #~ msgstr ""
-#~ "Oppdateringen var vellykket men din freshclam versjon er utdatert.\n"
-#~ "Antivirus programmet vil ikke klare å bruke alle signaturene. Vennligst "
+#~ "Oppdateringen var vellykket men din freshclamversjon er utdatert.\n"
+#~ "Antivirusprogrammet vil ikke klare å bruke alle signaturene. Vennligst "
 #~ "installer versjon {version} eller høyere."
-
-#~ msgid "UTM"
-#~ msgstr "UTM"

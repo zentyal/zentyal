@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:34+0000\n"
+"POT-Creation-Date: 2010-02-02 17:17+0000\n"
 "PO-Revision-Date: 2009-05-19 15:40+0200\n"
 "Last-Translator: Taro Yamazaki <taro@plum-systems.co.jp>\n"
 "Language-Team: none\n"
@@ -546,7 +546,7 @@ msgstr "サーバ {name} は証明書を保有していないため、鍵を取�
 #, perl-brace-format
 msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
-"go to the certificate authority moduleand create new certificates"
+"go to the certificate authority module and create new certificates"
 msgstr ""
 
 #: src/EBox/OpenVPN/Model/Servers.pm:331
@@ -579,28 +579,28 @@ msgstr ""
 msgid "The client certificate can't be the same than the server's one"
 msgstr "クライアント証明書はサーバ証明書と同一であってはいけません"
 
-#: src/EBox/OpenVPN.pm:70
+#: src/EBox/OpenVPN.pm:72
 #, fuzzy
 msgid "VPN"
 msgstr "OpenVPN"
 
-#: src/EBox/OpenVPN.pm:152
+#: src/EBox/OpenVPN.pm:154
 msgid "To configure Quagga to run ripd and zebra"
 msgstr "ripdとzebraを動作させるためにQuaggaを設定"
 
-#: src/EBox/OpenVPN.pm:158
+#: src/EBox/OpenVPN.pm:160
 msgid "To configure Quagga to listen on the given interfaces"
 msgstr "入力したインタフェースに応答するようQuaggaを設定"
 
-#: src/EBox/OpenVPN.pm:163
+#: src/EBox/OpenVPN.pm:165
 msgid "Main zebra configuration file"
 msgstr "zebraの主設定ファイル"
 
-#: src/EBox/OpenVPN.pm:169
+#: src/EBox/OpenVPN.pm:171
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr "ripdがクライアント間接続と経路を交換するよう設定"
 
-#: src/EBox/OpenVPN.pm:670
+#: src/EBox/OpenVPN.pm:672
 #, fuzzy, perl-brace-format
 msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
@@ -609,17 +609,17 @@ msgstr ""
 "{name} は無効な名前です。最大で20文字の半角英数字及びアンダースコア_のみ使用"
 "可能です"
 
-#: src/EBox/OpenVPN.pm:683
+#: src/EBox/OpenVPN.pm:685
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:694
+#: src/EBox/OpenVPN.pm:696
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:716
+#: src/EBox/OpenVPN.pm:718
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
@@ -628,7 +628,7 @@ msgstr ""
 "{name} は無効な名前です。プリフィックス {pf} から始まる名前は内部的に使用され"
 "ます"
 
-#: src/EBox/OpenVPN.pm:725
+#: src/EBox/OpenVPN.pm:727
 #, perl-brace-format
 msgid ""
 "Invalid name {name}. A internal daemon must have a name which begins with "
@@ -637,99 +637,99 @@ msgstr ""
 "名前{name}は無効です。内部デーモンにはプリフィックス{pf}で始まる名前を付けて"
 "ください。"
 
-#: src/EBox/OpenVPN.pm:1443
+#: src/EBox/OpenVPN.pm:1445
 #, fuzzy, perl-brace-format
 msgid "Client {c} does not exists"
 msgstr "インタフェース{iface}は存在しません"
 
-#: src/EBox/OpenVPN.pm:1471
+#: src/EBox/OpenVPN.pm:1473
 msgid "Servers"
 msgstr "サーバ"
 
-#: src/EBox/OpenVPN.pm:1477
+#: src/EBox/OpenVPN.pm:1479
 msgid "Clients"
 msgstr "クライアント"
 
-#: src/EBox/OpenVPN.pm:1490
+#: src/EBox/OpenVPN.pm:1492
 #, fuzzy
 msgid "Common name"
 msgstr "クライアント名"
 
-#: src/EBox/OpenVPN.pm:1490
+#: src/EBox/OpenVPN.pm:1492
 #, fuzzy
 msgid "Address"
 msgstr "ネットアドレス"
 
-#: src/EBox/OpenVPN.pm:1490
+#: src/EBox/OpenVPN.pm:1492
 #, fuzzy
 msgid "Connected since"
 msgstr "接続ターゲット"
 
-#: src/EBox/OpenVPN.pm:1517
+#: src/EBox/OpenVPN.pm:1519
 msgid "No users connected to the VPN"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1558
+#: src/EBox/OpenVPN.pm:1560
 msgid "OpenVPN daemons"
 msgstr "OpenVPNデーモン"
 
-#: src/EBox/OpenVPN.pm:1624
+#: src/EBox/OpenVPN.pm:1622
 msgid "Date"
 msgstr "日付"
 
-#: src/EBox/OpenVPN.pm:1625
+#: src/EBox/OpenVPN.pm:1623
 msgid "Event"
 msgstr "イベント"
 
-#: src/EBox/OpenVPN.pm:1627
+#: src/EBox/OpenVPN.pm:1625
 msgid "Type"
 msgstr "タイプ"
 
-#: src/EBox/OpenVPN.pm:1628
+#: src/EBox/OpenVPN.pm:1626
 msgid "Remote IP"
 msgstr "リモートIP"
 
-#: src/EBox/OpenVPN.pm:1629
+#: src/EBox/OpenVPN.pm:1627
 msgid "Remote Certificate"
 msgstr "リモート証明書"
 
-#: src/EBox/OpenVPN.pm:1634
+#: src/EBox/OpenVPN.pm:1632
 msgid "Initialization sequence completed"
 msgstr "初期化が終了しました"
 
-#: src/EBox/OpenVPN.pm:1636
+#: src/EBox/OpenVPN.pm:1634
 msgid "Certificate issuer not authorized"
 msgstr "証明書発行者は認証されていません"
 
-#: src/EBox/OpenVPN.pm:1637
+#: src/EBox/OpenVPN.pm:1635
 msgid "Certificate common name not authorized"
 msgstr "証明書共通名は認証されていません"
 
-#: src/EBox/OpenVPN.pm:1638
+#: src/EBox/OpenVPN.pm:1636
 msgid "Certificate verification failed"
 msgstr "証明書の確認に失敗しました"
 
-#: src/EBox/OpenVPN.pm:1640
+#: src/EBox/OpenVPN.pm:1638
 msgid "Client connection initiated"
 msgstr "クライアントとの接続が開始されました"
 
-#: src/EBox/OpenVPN.pm:1641
+#: src/EBox/OpenVPN.pm:1639
 msgid "Client connection terminated"
 msgstr "クライアントとの接続が切断されました"
 
-#: src/EBox/OpenVPN.pm:1643
+#: src/EBox/OpenVPN.pm:1641
 msgid "Connection to server initiated"
 msgstr "サーバとの接続が開始されました"
 
-#: src/EBox/OpenVPN.pm:1644
+#: src/EBox/OpenVPN.pm:1642
 msgid "Server connection terminated"
 msgstr "サーバとの接続が切断されました"
 
-#: src/EBox/OpenVPN.pm:1648
+#: src/EBox/OpenVPN.pm:1646
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
-#: src/EBox/OpenVPN.pm:1673
+#: src/EBox/OpenVPN.pm:1671
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr ""
 

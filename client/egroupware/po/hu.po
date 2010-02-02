@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:04+0000\n"
+"POT-Creation-Date: 2010-02-02 16:31+0000\n"
 "PO-Revision-Date: 2010-01-27 08:52+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -53,25 +53,21 @@ msgstr "felhasználónév"
 msgid "groupname"
 msgstr "csoportnév"
 
-#: src/EBox/Model/Applications.pm:111
+#: src/EBox/Model/Applications.pm:139
 msgid "Application"
 msgstr "Alkalmazás"
 
-#: src/EBox/Model/Applications.pm:117
+#: src/EBox/Model/Applications.pm:145
 msgid "Enabled"
 msgstr "Bekapcsolva"
 
-#: src/EBox/Model/Applications.pm:124
+#: src/EBox/Model/Applications.pm:152
 msgid "Applications"
 msgstr "Alkalmazások"
 
-#: src/EBox/Model/Applications.pm:125
+#: src/EBox/Model/Applications.pm:153
 msgid "application"
 msgstr "alkalmazás"
-
-#: src/EBox/Model/DefaultApplications.pm:49
-msgid "DefaultApplications"
-msgstr "AlapértelmezettAlkalmazások"
 
 #: src/EBox/Model/DefaultApplications.pm:50
 msgid "Default Applications"
@@ -86,23 +82,24 @@ msgstr ""
 "újonnan létrehozott vagy már létező felhasználók esetén, ha bekapcsolja az "
 "eGroupware modult."
 
-#: src/EBox/Model/PermissionTemplates.pm:57
+#: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
 msgstr "Név"
 
-#: src/EBox/Model/PermissionTemplates.pm:63
-msgid "Applications Allowed"
-msgstr "Engedélyezett alkalmazások"
+#: src/EBox/Model/PermissionTemplates.pm:72
+#, fuzzy
+msgid "Allowed Applications"
+msgstr "Alkalmazások"
 
-#: src/EBox/Model/PermissionTemplates.pm:71
+#: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
 msgstr "Felhasználói jogosultsági sablonok"
 
-#: src/EBox/Model/PermissionTemplates.pm:75
+#: src/EBox/Model/PermissionTemplates.pm:85
 msgid "template"
 msgstr "sablon"
 
-#: src/EBox/Model/PermissionTemplates.pm:76
+#: src/EBox/Model/PermissionTemplates.pm:86
 msgid ""
 "Edit the permission templates with the allowed applications that can be "
 "assigned to users or groups."
@@ -168,6 +165,12 @@ msgstr ""
 #, fuzzy
 msgid "EGroupware"
 msgstr "Csoportalkalmazás"
+
+#~ msgid "DefaultApplications"
+#~ msgstr "AlapértelmezettAlkalmazások"
+
+#~ msgid "Applications Allowed"
+#~ msgstr "Engedélyezett alkalmazások"
 
 #~ msgid "You must have IMAP service enabled."
 #~ msgstr "Az IMAP szolgáltatás be kell legyen kapcsolva."

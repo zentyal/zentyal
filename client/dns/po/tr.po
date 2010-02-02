@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 17:39+0100\n"
+"POT-Creation-Date: 2010-02-02 17:15+0000\n"
 "PO-Revision-Date: 2007-04-18 19:37+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -16,11 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
-
-#: src/EBox/DNS.pm.in:52 src/EBox/Model/DomainTable.pm:233
-#: src/EBox/Model/DNSComposite.pm:75 src/EBox/Model/DNSComposite.pm:76
-msgid "DNS"
-msgstr "DNS"
 
 #: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:240
 msgid "domain"
@@ -124,6 +119,11 @@ msgstr ""
 #, fuzzy
 msgid "List of Domains"
 msgstr "Alanlar"
+
+#: src/EBox/Model/DomainTable.pm:233 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/Model/DNSComposite.pm:76
+msgid "DNS"
+msgstr "DNS"
 
 #: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:32+0000\n"
+"POT-Creation-Date: 2010-02-02 17:15+0000\n"
 "PO-Revision-Date: 2009-02-11 09:39+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -441,12 +441,12 @@ msgstr "بازآوری وقایع ثبت‌شده"
 msgid "Full Reports"
 msgstr "گزارش ایراد"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:237
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:238
 msgid "Dashboard"
 msgstr "داشبورد"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:53
+#: src/templates/dashboard/index.mas:79
 #, fuzzy
 msgid "Configure Widgets"
 msgstr "پیکربندی ابزارک‌ها"
@@ -578,7 +578,7 @@ msgid "Upgrading"
 msgstr "به روز رسانی"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:264 src/templates/backup.mas:64
+#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:64
 #, fuzzy
 msgid "Backup"
 msgstr "پشتیبان"
@@ -635,11 +635,11 @@ msgid "Restore successful"
 msgstr "بازیابی موفق بود"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:259
+#: src/EBox/SysInfo.pm.in:260
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:255
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:256
 msgid "Disk Usage"
 msgstr "استفاده دیسک"
 
@@ -1506,62 +1506,62 @@ msgstr ""
 msgid "Backup's archives"
 msgstr "فهرست پشتیبان‌ها"
 
-#: src/EBox/SysInfo.pm.in:48
+#: src/EBox/SysInfo.pm.in:50
 #, fuzzy
 msgid "System Information"
 msgstr "اطلاعات سیستم"
 
-#: src/EBox/SysInfo.pm.in:94
+#: src/EBox/SysInfo.pm.in:95
 msgid "available"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:99
+#: src/EBox/SysInfo.pm.in:100
 msgid "Time"
 msgstr "زمان"
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:101
 #, fuzzy
 msgid "Hostname"
 msgstr "نام میزبان"
 
-#: src/EBox/SysInfo.pm.in:101
+#: src/EBox/SysInfo.pm.in:102
 #, fuzzy
 msgid "Core version"
 msgstr "نسخه ای‌باکس"
 
-#: src/EBox/SysInfo.pm.in:103
+#: src/EBox/SysInfo.pm.in:104
 msgid "System load"
 msgstr "فشار سامانه"
 
-#: src/EBox/SysInfo.pm.in:149 src/EBox/SysInfo.pm.in:242
+#: src/EBox/SysInfo.pm.in:150 src/EBox/SysInfo.pm.in:243
 #, fuzzy
 msgid "Module Status"
 msgstr "وضعیت ماجول"
 
-#: src/EBox/SysInfo.pm.in:154
+#: src/EBox/SysInfo.pm.in:155
 #, fuzzy
 msgid "General Information"
 msgstr "اطلاعات عمومی"
 
-#: src/EBox/SysInfo.pm.in:159
+#: src/EBox/SysInfo.pm.in:160
 #, fuzzy
 msgid "Process List"
 msgstr "فهرست برنامه‌ها"
 
-#: src/EBox/SysInfo.pm.in:166
+#: src/EBox/SysInfo.pm.in:167
 msgid "Support & Services"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:248 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
 #, fuzzy
 msgid "System"
 msgstr "فشار سامانه"
 
-#: src/EBox/SysInfo.pm.in:252
+#: src/EBox/SysInfo.pm.in:253
 msgid "General"
 msgstr "عمومی"
 
-#: src/EBox/SysInfo.pm.in:267
+#: src/EBox/SysInfo.pm.in:268
 msgid "Halt/Reboot"
 msgstr "خاموش/راه‌اندازی مجدد"
 
@@ -1651,54 +1651,54 @@ msgstr "فایل‌های برای تغییر توسط ای‌باکس"
 msgid "Accept"
 msgstr "تایید"
 
-#: src/templates/dashboard/index.mas:89
+#: src/templates/dashboard/index.mas:21 src/templates/dashboard/status.mas:18
+msgid "Running"
+msgstr "در حال اجرا"
+
+#: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
+#, fuzzy
+msgid "The service is enabled and running"
+msgstr "ای‌باکس بالا و در حال اجراست"
+
+#: src/templates/dashboard/index.mas:26 src/templates/dashboard/status.mas:22
+msgid "Stopped"
+msgstr "متوقف"
+
+#: src/templates/dashboard/index.mas:27 src/templates/dashboard/status.mas:23
+msgid "The service is enabled, but not running"
+msgstr ""
+
+#: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
+msgid "Running unmanaged"
+msgstr ""
+
+#: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
+msgid "The service is running, but not enabled in eBox"
+msgstr ""
+
+#: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
+msgid "Disabled"
+msgstr "غیرفعال"
+
+#: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
+msgid "The service is not enabled in eBox"
+msgstr ""
+
+#: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
+msgid "Start"
+msgstr "شروع"
+
+#: src/templates/dashboard/index.mas:43 src/templates/dashboard/status.mas:12
+msgid "Restart"
+msgstr "راه‌اندازی مجدد"
+
+#: src/templates/dashboard/index.mas:115
 msgid "Configure widgets"
 msgstr "پیکربندی ابزارک‌ها"
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
 msgstr "هیچ ورودی در این لیست نیست"
-
-#: src/templates/dashboard/status.mas:10
-msgid "Restart"
-msgstr "راه‌اندازی مجدد"
-
-#: src/templates/dashboard/status.mas:16
-msgid "Running"
-msgstr "در حال اجرا"
-
-#: src/templates/dashboard/status.mas:17
-#, fuzzy
-msgid "The service is enabled and running"
-msgstr "ای‌باکس بالا و در حال اجراست"
-
-#: src/templates/dashboard/status.mas:20
-msgid "Stopped"
-msgstr "متوقف"
-
-#: src/templates/dashboard/status.mas:21
-msgid "The service is enabled, but not running"
-msgstr ""
-
-#: src/templates/dashboard/status.mas:23
-msgid "Start"
-msgstr "شروع"
-
-#: src/templates/dashboard/status.mas:25
-msgid "Running unmanaged"
-msgstr ""
-
-#: src/templates/dashboard/status.mas:26
-msgid "The service is running, but not enabled in eBox"
-msgstr ""
-
-#: src/templates/dashboard/status.mas:29
-msgid "Disabled"
-msgstr "غیرفعال"
-
-#: src/templates/dashboard/status.mas:30
-msgid "The service is not enabled in eBox"
-msgstr ""
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."

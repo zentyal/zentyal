@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:33+0000\n"
+"POT-Creation-Date: 2010-02-02 17:16+0000\n"
 "PO-Revision-Date: 2010-02-01 09:28+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -207,8 +207,8 @@ msgid ""
 "There are not network objects in the system. You can create them in the "
 "{openurl}Object's page{closeurl}"
 msgstr ""
-"Det er ingen nettverksobjekter i systemet. Du kan opprette dem i "
-"{openurl}Object's page{closeurl}"
+"Det er ingen nettverksobjekter i systemet. Du kan opprette dem i {openurl}"
+"Object's page{closeurl}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 msgid "Alias"
@@ -685,8 +685,7 @@ msgstr ""
 #: src/EBox/Mail/Model/VDomains.pm:204
 msgid "'sieve' is a reserved name in this context, please choose another name"
 msgstr ""
-"'sieve' er et reservert navn i denne sammenheng, vennligst velg et annet "
-"navn"
+"'sieve' er et reservert navn i denne sammenheng, vennligst velg et annet navn"
 
 #: src/EBox/Mail/Model/VDomains.pm:211
 msgid "Mail virtual domain"
@@ -842,7 +841,8 @@ msgstr "For å konfigurere postfix"
 
 #: src/EBox/Mail.pm:190
 msgid "To define how client programs connect to services in  postfix"
-msgstr "For å definere hvordan klientprogrammer kobler til tjenester i  postfix"
+msgstr ""
+"For å definere hvordan klientprogrammer kobler til tjenester i  postfix"
 
 #: src/EBox/Mail.pm:197
 msgid "To configure host mail name"

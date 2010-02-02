@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:32+0000\n"
+"POT-Creation-Date: 2010-02-02 17:15+0000\n"
 "PO-Revision-Date: 2010-01-29 15:45+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -446,12 +446,12 @@ msgstr "Spørre logger"
 msgid "Full Reports"
 msgstr "Fulle rapporter"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:237
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:238
 msgid "Dashboard"
 msgstr "Dashbord"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: src/templates/dashboard/index.mas:53
+#: src/templates/dashboard/index.mas:79
 msgid "Configure Widgets"
 msgstr "Konfigurer Dingser"
 
@@ -577,7 +577,7 @@ msgid "Upgrading"
 msgstr "Oppgraderer"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:264 src/templates/backup.mas:64
+#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:64
 msgid "Backup"
 msgstr "Sikkerhetskopi"
 
@@ -633,11 +633,11 @@ msgid "Restore successful"
 msgstr "Gjenoppretting fullført"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:259
+#: src/EBox/SysInfo.pm.in:260
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:255
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:256
 msgid "Disk Usage"
 msgstr "Disk Bruk"
 
@@ -1516,55 +1516,55 @@ msgstr ""
 msgid "Backup's archives"
 msgstr "Sikkerhetskopiers arkiv"
 
-#: src/EBox/SysInfo.pm.in:48
+#: src/EBox/SysInfo.pm.in:50
 msgid "System Information"
 msgstr "System Informasjon"
 
-#: src/EBox/SysInfo.pm.in:94
+#: src/EBox/SysInfo.pm.in:95
 msgid "available"
 msgstr "tilgjengelig"
 
-#: src/EBox/SysInfo.pm.in:99
+#: src/EBox/SysInfo.pm.in:100
 msgid "Time"
 msgstr "Tid"
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:101
 msgid "Hostname"
 msgstr "Vertsnavn"
 
-#: src/EBox/SysInfo.pm.in:101
+#: src/EBox/SysInfo.pm.in:102
 msgid "Core version"
 msgstr "Kjerne versjon"
 
-#: src/EBox/SysInfo.pm.in:103
+#: src/EBox/SysInfo.pm.in:104
 msgid "System load"
 msgstr "System belastning"
 
-#: src/EBox/SysInfo.pm.in:149 src/EBox/SysInfo.pm.in:242
+#: src/EBox/SysInfo.pm.in:150 src/EBox/SysInfo.pm.in:243
 msgid "Module Status"
 msgstr "Modul Status"
 
-#: src/EBox/SysInfo.pm.in:154
+#: src/EBox/SysInfo.pm.in:155
 msgid "General Information"
 msgstr "Generell Informasjon"
 
-#: src/EBox/SysInfo.pm.in:159
+#: src/EBox/SysInfo.pm.in:160
 msgid "Process List"
 msgstr "Prosess Liste"
 
-#: src/EBox/SysInfo.pm.in:166
+#: src/EBox/SysInfo.pm.in:167
 msgid "Support & Services"
 msgstr "Støtte og Tjenester"
 
-#: src/EBox/SysInfo.pm.in:248 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "System"
 
-#: src/EBox/SysInfo.pm.in:252
+#: src/EBox/SysInfo.pm.in:253
 msgid "General"
 msgstr "Generelt"
 
-#: src/EBox/SysInfo.pm.in:267
+#: src/EBox/SysInfo.pm.in:268
 msgid "Halt/Reboot"
 msgstr "Avslutt/Restart"
 
@@ -1654,53 +1654,53 @@ msgstr "Filer til endring av eBox"
 msgid "Accept"
 msgstr "Godkjenn"
 
-#: src/templates/dashboard/index.mas:89
+#: src/templates/dashboard/index.mas:21 src/templates/dashboard/status.mas:18
+msgid "Running"
+msgstr "Kjører"
+
+#: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
+msgid "The service is enabled and running"
+msgstr "Tjenesten er aktivert og kjører"
+
+#: src/templates/dashboard/index.mas:26 src/templates/dashboard/status.mas:22
+msgid "Stopped"
+msgstr "Stoppet"
+
+#: src/templates/dashboard/index.mas:27 src/templates/dashboard/status.mas:23
+msgid "The service is enabled, but not running"
+msgstr "Tjenesten er aktivert, men kjører ikke"
+
+#: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
+msgid "Running unmanaged"
+msgstr "Kjører ubehandlet"
+
+#: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
+msgid "The service is running, but not enabled in eBox"
+msgstr "Tjenesten kjører, men er ikke aktivert i eBox"
+
+#: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
+msgid "Disabled"
+msgstr "Deaktivert"
+
+#: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
+msgid "The service is not enabled in eBox"
+msgstr "Tjenesten er ikke aktivert i eBox"
+
+#: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
+msgid "Start"
+msgstr "Start"
+
+#: src/templates/dashboard/index.mas:43 src/templates/dashboard/status.mas:12
+msgid "Restart"
+msgstr "Omstart"
+
+#: src/templates/dashboard/index.mas:115
 msgid "Configure widgets"
 msgstr "Konfigurer dingser"
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
 msgstr "Ingen inntastinger i denne listen"
-
-#: src/templates/dashboard/status.mas:10
-msgid "Restart"
-msgstr "Omstart"
-
-#: src/templates/dashboard/status.mas:16
-msgid "Running"
-msgstr "Kjører"
-
-#: src/templates/dashboard/status.mas:17
-msgid "The service is enabled and running"
-msgstr "Tjenesten er aktivert og kjører"
-
-#: src/templates/dashboard/status.mas:20
-msgid "Stopped"
-msgstr "Stoppet"
-
-#: src/templates/dashboard/status.mas:21
-msgid "The service is enabled, but not running"
-msgstr "Tjenesten er aktivert, men kjører ikke"
-
-#: src/templates/dashboard/status.mas:23
-msgid "Start"
-msgstr "Start"
-
-#: src/templates/dashboard/status.mas:25
-msgid "Running unmanaged"
-msgstr "Kjører ubehandlet"
-
-#: src/templates/dashboard/status.mas:26
-msgid "The service is running, but not enabled in eBox"
-msgstr "Tjenesten kjører, men er ikke aktivert i eBox"
-
-#: src/templates/dashboard/status.mas:29
-msgid "Disabled"
-msgstr "Deaktivert"
-
-#: src/templates/dashboard/status.mas:30
-msgid "The service is not enabled in eBox"
-msgstr "Tjenesten er ikke aktivert i eBox"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."

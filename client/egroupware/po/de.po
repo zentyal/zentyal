@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:04+0000\n"
+"POT-Creation-Date: 2010-02-02 16:31+0000\n"
 "PO-Revision-Date: 2009-06-21 19:11+0200\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -54,25 +54,21 @@ msgstr "Benutzername"
 msgid "groupname"
 msgstr "Gruppenname"
 
-#: src/EBox/Model/Applications.pm:111
+#: src/EBox/Model/Applications.pm:139
 msgid "Application"
 msgstr "Anwendung"
 
-#: src/EBox/Model/Applications.pm:117
+#: src/EBox/Model/Applications.pm:145
 msgid "Enabled"
 msgstr "aktiv"
 
-#: src/EBox/Model/Applications.pm:124
+#: src/EBox/Model/Applications.pm:152
 msgid "Applications"
 msgstr "Anwendungen"
 
-#: src/EBox/Model/Applications.pm:125
+#: src/EBox/Model/Applications.pm:153
 msgid "application"
 msgstr "Anwendung"
-
-#: src/EBox/Model/DefaultApplications.pm:49
-msgid "DefaultApplications"
-msgstr "Standartanwendungen"
 
 #: src/EBox/Model/DefaultApplications.pm:50
 #, fuzzy
@@ -88,25 +84,25 @@ msgstr ""
 "vorhandenen Benutzern gegeben werden, bevor die eGroupware Module Aktiviert "
 "werden."
 
-#: src/EBox/Model/PermissionTemplates.pm:57
+#: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
 msgstr "Name"
 
-#: src/EBox/Model/PermissionTemplates.pm:63
+#: src/EBox/Model/PermissionTemplates.pm:72
 #, fuzzy
-msgid "Applications Allowed"
-msgstr "Erlaubte Anwendungen"
+msgid "Allowed Applications"
+msgstr "Anwendungen"
 
-#: src/EBox/Model/PermissionTemplates.pm:71
+#: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
 msgstr ""
 
 # ggf. auch Schablone
-#: src/EBox/Model/PermissionTemplates.pm:75
+#: src/EBox/Model/PermissionTemplates.pm:85
 msgid "template"
 msgstr "Vorlage"
 
-#: src/EBox/Model/PermissionTemplates.pm:76
+#: src/EBox/Model/PermissionTemplates.pm:86
 #, fuzzy
 msgid ""
 "Edit the permission templates with the allowed applications that can be "
@@ -168,6 +164,13 @@ msgstr ""
 #, fuzzy
 msgid "EGroupware"
 msgstr "eGroupware"
+
+#~ msgid "DefaultApplications"
+#~ msgstr "Standartanwendungen"
+
+#, fuzzy
+#~ msgid "Applications Allowed"
+#~ msgstr "Erlaubte Anwendungen"
 
 #~ msgid "You must have IMAP service enabled."
 #~ msgstr "Sie müssen den IMAP Dienst aktivieren."

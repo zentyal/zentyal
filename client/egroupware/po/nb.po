@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:04+0000\n"
+"POT-Creation-Date: 2010-02-02 16:31+0000\n"
 "PO-Revision-Date: 2010-01-20 13:14+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -53,25 +53,21 @@ msgstr "brukernavn"
 msgid "groupname"
 msgstr "gruppenavn"
 
-#: src/EBox/Model/Applications.pm:111
+#: src/EBox/Model/Applications.pm:139
 msgid "Application"
 msgstr "Programm"
 
-#: src/EBox/Model/Applications.pm:117
+#: src/EBox/Model/Applications.pm:145
 msgid "Enabled"
 msgstr "Aktivert"
 
-#: src/EBox/Model/Applications.pm:124
+#: src/EBox/Model/Applications.pm:152
 msgid "Applications"
 msgstr "Programmer"
 
-#: src/EBox/Model/Applications.pm:125
+#: src/EBox/Model/Applications.pm:153
 msgid "application"
 msgstr "programm"
-
-#: src/EBox/Model/DefaultApplications.pm:49
-msgid "DefaultApplications"
-msgstr "StandardProgrammer"
 
 #: src/EBox/Model/DefaultApplications.pm:50
 msgid "Default Applications"
@@ -85,23 +81,24 @@ msgstr ""
 "Disse er standard programm rettighetene som er gitt til ny opprettede "
 "brukere eller eksisterende brukere før aktivering av eGroupware modulen."
 
-#: src/EBox/Model/PermissionTemplates.pm:57
+#: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
 msgstr "Navn"
 
-#: src/EBox/Model/PermissionTemplates.pm:63
-msgid "Applications Allowed"
-msgstr "Programmer Tillatt"
+#: src/EBox/Model/PermissionTemplates.pm:72
+#, fuzzy
+msgid "Allowed Applications"
+msgstr "Programmer"
 
-#: src/EBox/Model/PermissionTemplates.pm:71
+#: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
 msgstr "Bruker Definerte Maler"
 
-#: src/EBox/Model/PermissionTemplates.pm:75
+#: src/EBox/Model/PermissionTemplates.pm:85
 msgid "template"
 msgstr "mal"
 
-#: src/EBox/Model/PermissionTemplates.pm:76
+#: src/EBox/Model/PermissionTemplates.pm:86
 msgid ""
 "Edit the permission templates with the allowed applications that can be "
 "assigned to users or groups."
@@ -167,6 +164,12 @@ msgstr ""
 #, fuzzy
 msgid "EGroupware"
 msgstr "Gruppevare"
+
+#~ msgid "DefaultApplications"
+#~ msgstr "StandardProgrammer"
+
+#~ msgid "Applications Allowed"
+#~ msgstr "Programmer Tillatt"
 
 #~ msgid "You must have IMAP service enabled."
 #~ msgstr "Du må aktivere IMAP tjenesten."

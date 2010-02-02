@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-01-29 23:38+0000\n"
+"POT-Creation-Date: 2010-02-02 17:30+0000\n"
 "PO-Revision-Date: 2010-01-30 01:45+0100\n"
 "Last-Translator: Haluk <khaluk@yahoo.com>\n"
 "Language-Team: none\n"
@@ -17,197 +17,197 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: ebox-package-installer:30
+#: ebox-package-installer:31
 msgid "Firewall, HTTP proxy, traffic shaping, etc."
 msgstr ""
 
-#: ebox-package-installer:31
+#: ebox-package-installer:32
 msgid "Firewall, IDS, AV, VPN, content & mail filter, etc."
 msgstr ""
 
-#: ebox-package-installer:32
+#: ebox-package-installer:33
 msgid "DHCP, DNS, NTP, HTTP server, etc."
 msgstr ""
 
-#: ebox-package-installer:33
+#: ebox-package-installer:34
 msgid "File sharing and printing, groupware, etc."
 msgstr ""
 
-#: ebox-package-installer:34
+#: ebox-package-installer:35
 msgid "Mail, Jabber/XMPP, VoIP, etc."
 msgstr ""
 
-#: ebox-package-installer:38
+#: ebox-package-installer:39
 msgid "Window system with local browser"
 msgstr ""
 
-#: ebox-package-installer:39
+#: ebox-package-installer:40
 msgid "Networking"
 msgstr ""
 
-#: ebox-package-installer:40
+#: ebox-package-installer:41
 msgid "Firewall and redirections"
 msgstr ""
 
-#: ebox-package-installer:41
+#: ebox-package-installer:42
 msgid "Traffic shaping"
 msgstr ""
 
-#: ebox-package-installer:42
+#: ebox-package-installer:43
 msgid "File sharing server and Windows PDC"
 msgstr ""
 
-#: ebox-package-installer:43
+#: ebox-package-installer:44
 msgid "DNS server"
 msgstr "DNS sunucu"
 
-#: ebox-package-installer:44
+#: ebox-package-installer:45
 msgid "DHCP server"
 msgstr "DHCP sunucu"
 
-#: ebox-package-installer:45
+#: ebox-package-installer:46
 msgid "RADIUS server"
 msgstr "RADIUS sunucu"
 
-#: ebox-package-installer:46
+#: ebox-package-installer:47
 msgid "HTTP proxy and content filter"
 msgstr "HTTP proxy ve içerik filitresi"
 
-#: ebox-package-installer:47
+#: ebox-package-installer:48
 msgid "LDAP users and groups management"
 msgstr ""
 
-#: ebox-package-installer:48
+#: ebox-package-installer:49
 msgid "System monitor with graphs and alerts"
 msgstr ""
 
-#: ebox-package-installer:49
+#: ebox-package-installer:50
 msgid "System and eBox package management"
 msgstr ""
 
-#: ebox-package-installer:50
+#: ebox-package-installer:51
 msgid "Remote or local Backup"
 msgstr "Uzak veya yerel yedek"
 
-#: ebox-package-installer:51
+#: ebox-package-installer:52
 msgid "NTP server"
 msgstr "NTP sunucu"
 
-#: ebox-package-installer:52
+#: ebox-package-installer:53
 msgid "Printing server"
 msgstr "Yazdırma sunucusu"
 
-#: ebox-package-installer:53
+#: ebox-package-installer:54
 msgid "Jabber/XMPP server"
 msgstr "Jabber/XMPP sunucusu"
 
-#: ebox-package-installer:54
+#: ebox-package-installer:55
 msgid "VPN server"
 msgstr "VPN sunucu"
 
-#: ebox-package-installer:55
+#: ebox-package-installer:56
 msgid "HTTP server"
 msgstr "HTTP sunucu"
 
-#: ebox-package-installer:56
+#: ebox-package-installer:57
 msgid "Mail system: SMTP, POP3, IMAP4"
 msgstr "Mail sistemi: SMTP, POP3, IMAP4"
 
-#: ebox-package-installer:57
+#: ebox-package-installer:58
 msgid "WWW Mail Client"
 msgstr "Web tabanlı mail istemci"
 
-#: ebox-package-installer:58
+#: ebox-package-installer:59
 msgid "Antispam, antivirus, transparent POP3 proxy"
 msgstr ""
 
-#: ebox-package-installer:59
+#: ebox-package-installer:60
 msgid "Antivirus"
 msgstr "Antivirus"
 
-#: ebox-package-installer:60
+#: ebox-package-installer:61
 msgid "Shared calendar and address book, webmail, etc"
 msgstr ""
 
-#: ebox-package-installer:61
+#: ebox-package-installer:62
 msgid "Intrusion Detection System"
 msgstr "Saldırı Tespit Sistemi"
 
-#: ebox-package-installer:63
+#: ebox-package-installer:64
 msgid "VoIP PBX"
 msgstr "VoIP PBX"
 
-#: ebox-package-installer:76
+#: ebox-package-installer:77
 msgid "eBox Platform Installer"
 msgstr ""
 
-#: ebox-package-installer:77
+#: ebox-package-installer:78
 msgid "Choose package selection method"
 msgstr "Paket seçim metodunu belirleyin"
 
-#: ebox-package-installer:78
+#: ebox-package-installer:79
 msgid "Select the method that better fits your needs."
 msgstr "İhtiyaçlarınıza en uygun methodu seçin"
 
-#: ebox-package-installer:79
+#: ebox-package-installer:80
 msgid "simple"
 msgstr "basit"
 
-#: ebox-package-installer:80
+#: ebox-package-installer:81
 msgid "Select packages by task"
 msgstr "Paketleri görevlere göre seçin"
 
-#: ebox-package-installer:81 ebox-package-installer:92
+#: ebox-package-installer:82 ebox-package-installer:93
 msgid "advanced"
 msgstr "ileri düzey"
 
-#: ebox-package-installer:82
+#: ebox-package-installer:83
 msgid "Select packages manually"
 msgstr "Paketleri el ile seç"
 
-#: ebox-package-installer:83
+#: ebox-package-installer:84
 msgid "Select eBox tasks to install"
 msgstr ""
 
-#: ebox-package-installer:84
+#: ebox-package-installer:85
 msgid "Select one or more tasks:"
 msgstr ""
 
-#: ebox-package-installer:85
+#: ebox-package-installer:86
 msgid "Select eBox packages to install"
 msgstr ""
 
-#: ebox-package-installer:86
+#: ebox-package-installer:87
 msgid "Select the desired packages:"
 msgstr ""
 
-#: ebox-package-installer:87
+#: ebox-package-installer:88
 msgid "Select the type of the server"
 msgstr ""
 
-#: ebox-package-installer:88
+#: ebox-package-installer:89
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
 
-#: ebox-package-installer:89
+#: ebox-package-installer:90
 msgid "Standalone server"
 msgstr ""
 
-#: ebox-package-installer:90
+#: ebox-package-installer:91
 msgid "Advanced configuration (Master/Slave/AD Sync)"
 msgstr ""
 
-#: ebox-package-installer:91
+#: ebox-package-installer:92
 msgid "standalone"
 msgstr "standalone"
 
-#: ebox-package-installer:93
+#: ebox-package-installer:94
 msgid "Advanced configuration modes"
 msgstr "İleri düzey konfigürasyon modları"
 
-#: ebox-package-installer:94
+#: ebox-package-installer:95
 #, perl-brace-format
 msgid ""
 "If you need the advanced features you have to configure them manually. You "
@@ -215,11 +215,11 @@ msgid ""
 "{url}"
 msgstr ""
 
-#: ebox-package-installer:97
+#: ebox-package-installer:98
 msgid "Select External (WAN) interfaces"
 msgstr "Harici network arabirimini seçin (WAN)"
 
-#: ebox-package-installer:98
+#: ebox-package-installer:99
 msgid ""
 "WARNING: By default you will not be able to access the web interface through "
 "them."
@@ -227,7 +227,7 @@ msgstr ""
 "UYARI: Varsayılan olarak web tabanlı yönetim arayüzüne bu arabirim aracılığı "
 "ile erişemeyeceksiniz."
 
-#: ebox-package-installer:99
+#: ebox-package-installer:100
 msgid ""
 "You have installed a gateway profile. It needs at least two network "
 "interfaces and your machine has only one. You can still enjoy the rest of "
@@ -235,90 +235,90 @@ msgid ""
 "network card."
 msgstr ""
 
-#: ebox-package-installer:100
+#: ebox-package-installer:101
 msgid "Enter administration user"
 msgstr "Yönetici kullanıcı adını girin"
 
-#: ebox-package-installer:101
+#: ebox-package-installer:102
 msgid ""
 "You will need this username to log into the local console or access remotely "
 "by SSH:"
 msgstr ""
 
-#: ebox-package-installer:102
+#: ebox-package-installer:103
 msgid "Enter administration password"
 msgstr "Yönetici parolasını girin"
 
-#: ebox-package-installer:103
+#: ebox-package-installer:104
 msgid ""
 "You will need to use this password to log into the eBox interface or in the "
 "console with the username that you have just entered:"
 msgstr ""
 
-#: ebox-package-installer:104
+#: ebox-package-installer:105
 msgid "Confirm administration password"
 msgstr "Yönetici parolasını tekrar girin"
 
-#: ebox-package-installer:106
+#: ebox-package-installer:107
 msgid "Mail configuration"
 msgstr "Mail Ayarları"
 
-#: ebox-package-installer:107
+#: ebox-package-installer:108
 msgid "Enter default virtual mail domain:"
 msgstr "varsayılan sanal domain adını girin:"
 
-#: ebox-package-installer:108
+#: ebox-package-installer:109
 msgid "Installation finished"
 msgstr "Kurulum Bitti"
 
-#: ebox-package-installer:109
+#: ebox-package-installer:110
 msgid ""
 "Now you can access the eBox interface browsing the following address from "
 "any computer in your network: "
 msgstr ""
 
-#: ebox-package-installer:110
+#: ebox-package-installer:111
 msgid ""
 "The size of your root filesystem is less than 2GB. This is not enough for a "
 "typical setup. If you really know what you are doing you can install in "
 "expert mode and define your own partition layout."
 msgstr ""
 
-#: ebox-package-installer:140 ebox-package-installer:276
-#: ebox-package-installer:319 ebox-package-installer:371
-#: ebox-package-installer:385
+#: ebox-package-installer:141 ebox-package-installer:277
+#: ebox-package-installer:325 ebox-package-installer:377
+#: ebox-package-installer:391
 msgid "Error"
 msgstr "Hata"
 
-#: ebox-package-installer:260
+#: ebox-package-installer:261
 msgid "Installing eBox packages..."
 msgstr "eBox paketleri kuruluyor..."
 
-#: ebox-package-installer:276
+#: ebox-package-installer:277
 msgid "Installation failed."
 msgstr "Kurulum Bitti"
 
-#: ebox-package-installer:277
+#: ebox-package-installer:278
 #, perl-brace-format
 msgid "Check {logfile} content to see what happened"
 msgstr "{logfile} içeriğine göz atarak neler olup bittiğini görebilirsiniz."
 
-#: ebox-package-installer:320
+#: ebox-package-installer:326
 msgid "You must select at least one package."
 msgstr "En az bir paket seçmelisiniz."
 
-#: ebox-package-installer:344
+#: ebox-package-installer:350
 msgid "Warning"
 msgstr "Uyarı"
 
-#: ebox-package-installer:371
+#: ebox-package-installer:377
 msgid "Passwords don't match"
 msgstr "Parolalar uyuşmuyor"
 
-#: ebox-package-installer:385
+#: ebox-package-installer:391
 msgid "The username 'ebox' is reserved. Please choose another."
 msgstr "'ebox' kullanıcı adı rezerve edilmiştir. Başka bir tane seçiniz."
 
-#: ebox-package-installer:419
+#: ebox-package-installer:425
 msgid "Preconfiguring eBox packages..."
 msgstr "eBox paketleri ön yapılandırılıyor."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:10+0100\n"
+"POT-Creation-Date: 2010-02-02 16:32+0000\n"
 "PO-Revision-Date: 2010-01-21 17:44+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -26,159 +26,159 @@ msgstr "Прозрачный POP прокси"
 msgid "POP3 protocol"
 msgstr "Протокол POP3"
 
-#: src/EBox/MailFilter.pm:61
+#: src/EBox/MailFilter.pm:62
 msgid "Mail Filter"
 msgstr "Почтовый фильтр"
 
-#: src/EBox/MailFilter.pm:85
+#: src/EBox/MailFilter.pm:80
 msgid "Add clamav user to amavis group"
 msgstr "Добавить пользователя clamav в группу amavis"
 
-#: src/EBox/MailFilter.pm:86
+#: src/EBox/MailFilter.pm:81
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr "Clamav необходим доступ к amavis полям, чтобы сканировать почту"
 
-#: src/EBox/MailFilter.pm:90
+#: src/EBox/MailFilter.pm:85
 msgid "Add clamav user to p3scan group"
 msgstr "Добавить пользователя clamav в группу p3scan"
 
-#: src/EBox/MailFilter.pm:91
+#: src/EBox/MailFilter.pm:86
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr "Clamav необходим доступ к p3scan полям, чтобы сканировать POP прокси"
 
-#: src/EBox/MailFilter.pm:95
+#: src/EBox/MailFilter.pm:90
 msgid "Add spam and ham system users"
 msgstr "Добавить системных пользователей spam и ham"
 
-#: src/EBox/MailFilter.pm:97
+#: src/EBox/MailFilter.pm:92
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
 "Эти пользователи электронной почты используются для обучения фильтра Байеса"
 
-#: src/EBox/MailFilter.pm:102
+#: src/EBox/MailFilter.pm:97
 msgid "Update LDAP"
 msgstr "Обновить LDAP"
 
-#: src/EBox/MailFilter.pm:103
+#: src/EBox/MailFilter.pm:98
 msgid "Add amavis specific classes and fields"
 msgstr "Добавить определенные классы и поля amavis"
 
-#: src/EBox/MailFilter.pm:362
+#: src/EBox/MailFilter.pm:357
 msgid "Cannot proceed because the filter is in use"
 msgstr "Не воможно фильтр используется"
 
-#: src/EBox/MailFilter.pm:517
+#: src/EBox/MailFilter.pm:512
 msgid "Mail filter"
 msgstr "Почтовый фильтр"
 
-#: src/EBox/MailFilter.pm:538 src/EBox/MailFilter.pm:584
+#: src/EBox/MailFilter.pm:533 src/EBox/MailFilter.pm:579
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 msgid "Date"
 msgstr "Дата"
 
-#: src/EBox/MailFilter.pm:540
+#: src/EBox/MailFilter.pm:535
 msgid "Action"
 msgstr "Действие"
 
-#: src/EBox/MailFilter.pm:541 src/EBox/MailFilter.pm:588
+#: src/EBox/MailFilter.pm:536 src/EBox/MailFilter.pm:583
 msgid "Event"
 msgstr "Событие"
 
-#: src/EBox/MailFilter.pm:543
+#: src/EBox/MailFilter.pm:538
 msgid "Sender address"
 msgstr "Адрес отправителя"
 
-#: src/EBox/MailFilter.pm:544
+#: src/EBox/MailFilter.pm:539
 msgid "Recipient address"
 msgstr "Адрес получателя"
 
-#: src/EBox/MailFilter.pm:546
+#: src/EBox/MailFilter.pm:541
 msgid "Spam hits"
 msgstr "Спам хиты"
 
-#: src/EBox/MailFilter.pm:551
+#: src/EBox/MailFilter.pm:546
 msgid "Bad header found"
 msgstr "Обнаружен плохой заголовок"
 
-#: src/EBox/MailFilter.pm:552
+#: src/EBox/MailFilter.pm:547
 msgid "Spam found"
 msgstr "Обнаружен спам"
 
-#: src/EBox/MailFilter.pm:553
+#: src/EBox/MailFilter.pm:548
 msgid "Forbidden attached file  found"
 msgstr "Обнаружен запрещенный прикрепленный файл  "
 
-#: src/EBox/MailFilter.pm:554
+#: src/EBox/MailFilter.pm:549
 msgid "Address in blacklist found"
 msgstr "Обнаружен адрес из черного списка"
 
-#: src/EBox/MailFilter.pm:555
+#: src/EBox/MailFilter.pm:550
 msgid "Virus found"
 msgstr "Обнаружен вирус"
 
-#: src/EBox/MailFilter.pm:556
+#: src/EBox/MailFilter.pm:551
 msgid "Clean message"
 msgstr "Чистое сообщение"
 
-#: src/EBox/MailFilter.pm:566
+#: src/EBox/MailFilter.pm:561
 msgid "SMTP filter"
 msgstr "SMTP фильтр"
 
-#: src/EBox/MailFilter.pm:586
+#: src/EBox/MailFilter.pm:581
 msgid "Account"
 msgstr "Аккаунт"
 
-#: src/EBox/MailFilter.pm:587
+#: src/EBox/MailFilter.pm:582
 msgid "Client's address"
 msgstr "Адреса клиентов"
 
-#: src/EBox/MailFilter.pm:590
+#: src/EBox/MailFilter.pm:585
 msgid "Total messages"
 msgstr "Всего сообщений"
 
-#: src/EBox/MailFilter.pm:591
+#: src/EBox/MailFilter.pm:586
 msgid "Clean messages"
 msgstr "Чистые сообщения"
 
-#: src/EBox/MailFilter.pm:592
+#: src/EBox/MailFilter.pm:587
 msgid "Virus messages"
 msgstr "Зараженные сообщения"
 
-#: src/EBox/MailFilter.pm:593
+#: src/EBox/MailFilter.pm:588
 msgid "Spam messages"
 msgstr "Спам сообщения"
 
-#: src/EBox/MailFilter.pm:600
+#: src/EBox/MailFilter.pm:595
 msgid "POP3 transmission complete"
 msgstr "POP3 передача завершена"
 
-#: src/EBox/MailFilter.pm:602
+#: src/EBox/MailFilter.pm:597
 msgid "POP3 transmission aborted"
 msgstr "POP3 передача прервана"
 
-#: src/EBox/MailFilter.pm:610
+#: src/EBox/MailFilter.pm:605
 msgid "POP3 proxy"
 msgstr "POP3 прокси"
 
-#: src/EBox/MailFilter.pm:709 src/EBox/MailFilter/Composite/Amavis.pm:61
+#: src/EBox/MailFilter.pm:704 src/EBox/MailFilter/Composite/Amavis.pm:61
 msgid "SMTP Mail Filter"
 msgstr "Почтовый фильтр SMTP"
 
-#: src/EBox/MailFilter.pm:716
+#: src/EBox/MailFilter.pm:711
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 msgid "POP Transparent Proxy"
 msgstr "Прозрачный POP прокси"
 
-#: src/EBox/MailFilter.pm:724 src/EBox/MailFilter/POPProxy.pm:350
+#: src/EBox/MailFilter.pm:719 src/EBox/MailFilter/POPProxy.pm:350
 #: src/EBox/MailFilter/Amavis.pm:468
 #: src/EBox/MailFilter/Composite/Antispam.pm:63
 #: src/EBox/MailFilter/Composite/Antispam.pm:64
 msgid "Antispam"
 msgstr "Антиспам"
 
-#: src/EBox/MailFilter.pm:731
+#: src/EBox/MailFilter.pm:726
 msgid "Files ACL"
 msgstr "Файлы ACL"
 
@@ -435,7 +435,8 @@ msgid "Tag which will be added to the spam mail subject"
 msgstr "Признак спама, который будет добавлен в тему письма"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
-msgid "Use bayesian classifier"
+#, fuzzy
+msgid "Use Bayesian classifier"
 msgstr "Использовать классификатор Байеса"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:84

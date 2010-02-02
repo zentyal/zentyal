@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:57+0100\n"
+"POT-Creation-Date: 2010-02-02 17:18+0000\n"
 "PO-Revision-Date: 2009-09-04 14:01+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -148,7 +148,7 @@ msgid "Destination object"
 msgstr "Destinasjons objekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:461
-#: src/EBox/TrafficShaping.pm:1564
+#: src/EBox/TrafficShaping.pm:1563
 msgid "Priority"
 msgstr "Prioritet"
 
@@ -157,7 +157,7 @@ msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Laveste prioritet: 7 Høyeste prioritet: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:469
-#: src/EBox/TrafficShaping.pm:1562
+#: src/EBox/TrafficShaping.pm:1561
 msgid "Guaranteed Rate"
 msgstr "Garantert Rate"
 
@@ -176,7 +176,7 @@ msgstr ""
 "0 betyr ikke garantert rate."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:481
-#: src/EBox/TrafficShaping.pm:1563
+#: src/EBox/TrafficShaping.pm:1562
 msgid "Limited Rate"
 msgstr "Begrenset Rate"
 
@@ -310,40 +310,40 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Velg grensesnitt til forming"
 
-#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:95
+#: src/EBox/TrafficShaping.pm:94
 msgid "Traffic Shaping"
 msgstr "Trafikk Forming"
 
-#: src/EBox/TrafficShaping.pm:133
+#: src/EBox/TrafficShaping.pm:132
 msgid "Add iptables rules to mangle table"
 msgstr "Legg til ip tabell regler for å rulle tabell"
 
-#: src/EBox/TrafficShaping.pm:134
+#: src/EBox/TrafficShaping.pm:133
 msgid "To mark packets with different priorities and rates"
 msgstr "For å markere pakker med forskjellig prioritet og rater"
 
-#: src/EBox/TrafficShaping.pm:138
+#: src/EBox/TrafficShaping.pm:137
 msgid "Add tc rules"
 msgstr "Legg til tc regler"
 
-#: src/EBox/TrafficShaping.pm:139
+#: src/EBox/TrafficShaping.pm:138
 msgid "To implement the traffic shaping rules"
 msgstr "For å implementere trafikk formings regler"
 
-#: src/EBox/TrafficShaping.pm:384
+#: src/EBox/TrafficShaping.pm:383
 msgid "Rules"
 msgstr "Regeler"
 
-#: src/EBox/TrafficShaping.pm:386
+#: src/EBox/TrafficShaping.pm:385
 msgid "Interface Rates"
 msgstr "Grensesnitt Rater"
 
-#: src/EBox/TrafficShaping.pm:441 src/EBox/TrafficShaping.pm:592
-#: src/EBox/TrafficShaping.pm:986 src/EBox/TC.pm:107
+#: src/EBox/TrafficShaping.pm:440 src/EBox/TrafficShaping.pm:591
+#: src/EBox/TrafficShaping.pm:985 src/EBox/TC.pm:107
 msgid "Interface"
 msgstr "Grensesnitt"
 
-#: src/EBox/TrafficShaping.pm:454
+#: src/EBox/TrafficShaping.pm:453
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -352,11 +352,11 @@ msgstr ""
 "Maksimum regel kotno {max} er nådd, vennligst slett minst en for å kunne "
 "legge til en ny"
 
-#: src/EBox/TrafficShaping.pm:1072
+#: src/EBox/TrafficShaping.pm:1071
 msgid "type"
 msgstr "type"
 
-#: src/EBox/TrafficShaping.pm:1095
+#: src/EBox/TrafficShaping.pm:1094
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -365,11 +365,11 @@ msgstr ""
 "Grensesnitt {iface} bør ha maksimum båndbredde rate for å utføre trafikk "
 "forming"
 
-#: src/EBox/TrafficShaping.pm:1560
+#: src/EBox/TrafficShaping.pm:1559
 msgid "Protocol"
 msgstr "Protokoll"
 
-#: src/EBox/TrafficShaping.pm:1561
+#: src/EBox/TrafficShaping.pm:1560
 msgid "Port"
 msgstr "Port"
 

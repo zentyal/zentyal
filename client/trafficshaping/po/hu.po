@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 1.3.15\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:57+0100\n"
+"POT-Creation-Date: 2010-02-02 17:18+0000\n"
 "PO-Revision-Date: 2010-01-21 17:55+0100\n"
 "Last-Translator: Nagy kos <reg@pecska.ro>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -147,7 +147,7 @@ msgid "Destination object"
 msgstr "Cél objektum"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:461
-#: src/EBox/TrafficShaping.pm:1564
+#: src/EBox/TrafficShaping.pm:1563
 msgid "Priority"
 msgstr "Prioritás"
 
@@ -156,7 +156,7 @@ msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Legalacsonyabb prioritás: 7, legmagasabb prioritás: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:469
-#: src/EBox/TrafficShaping.pm:1562
+#: src/EBox/TrafficShaping.pm:1561
 msgid "Guaranteed Rate"
 msgstr "Garantált sebesség"
 
@@ -174,7 +174,7 @@ msgstr ""
 "sebességet. A 0 a nem garantált sebességet jelenti."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:481
-#: src/EBox/TrafficShaping.pm:1563
+#: src/EBox/TrafficShaping.pm:1562
 msgid "Limited Rate"
 msgstr "Korlátozott sebesség"
 
@@ -309,41 +309,41 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Válasszon ki egy szűrni kívánt interfészt"
 
-#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:95
+#: src/EBox/TrafficShaping.pm:94
 msgid "Traffic Shaping"
 msgstr "Forgalomszűrés"
 
-#: src/EBox/TrafficShaping.pm:133
+#: src/EBox/TrafficShaping.pm:132
 msgid "Add iptables rules to mangle table"
 msgstr "iptables szabályok hozzáadása a mangle táblához"
 
-#: src/EBox/TrafficShaping.pm:134
+#: src/EBox/TrafficShaping.pm:133
 msgid "To mark packets with different priorities and rates"
 msgstr ""
 "A csomagok különböző prioritásnak és elsőbbségnek megjelölése érdekben."
 
-#: src/EBox/TrafficShaping.pm:138
+#: src/EBox/TrafficShaping.pm:137
 msgid "Add tc rules"
 msgstr "tc szabályok hozzáadása"
 
-#: src/EBox/TrafficShaping.pm:139
+#: src/EBox/TrafficShaping.pm:138
 msgid "To implement the traffic shaping rules"
 msgstr "A forgalomszűrő szabályok alkalmazása érdekben"
 
-#: src/EBox/TrafficShaping.pm:384
+#: src/EBox/TrafficShaping.pm:383
 msgid "Rules"
 msgstr "Szabályok"
 
-#: src/EBox/TrafficShaping.pm:386
+#: src/EBox/TrafficShaping.pm:385
 msgid "Interface Rates"
 msgstr "Csatoló sebességek"
 
-#: src/EBox/TrafficShaping.pm:441 src/EBox/TrafficShaping.pm:592
-#: src/EBox/TrafficShaping.pm:986 src/EBox/TC.pm:107
+#: src/EBox/TrafficShaping.pm:440 src/EBox/TrafficShaping.pm:591
+#: src/EBox/TrafficShaping.pm:985 src/EBox/TC.pm:107
 msgid "Interface"
 msgstr "Csatoló"
 
-#: src/EBox/TrafficShaping.pm:454
+#: src/EBox/TrafficShaping.pm:453
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -352,11 +352,11 @@ msgstr ""
 "A maximális szabályszám {max} túllépve, kérem töröljön legalább egyet egy új "
 "hozzáadása érdekében"
 
-#: src/EBox/TrafficShaping.pm:1072
+#: src/EBox/TrafficShaping.pm:1071
 msgid "type"
 msgstr "Típus"
 
-#: src/EBox/TrafficShaping.pm:1095
+#: src/EBox/TrafficShaping.pm:1094
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -365,11 +365,11 @@ msgstr ""
 "A(z) {iface} esetben a maximális átvitel van beállítva, amellyel szűrni "
 "lehet a forgalmat"
 
-#: src/EBox/TrafficShaping.pm:1560
+#: src/EBox/TrafficShaping.pm:1559
 msgid "Protocol"
 msgstr "Protokoll"
 
-#: src/EBox/TrafficShaping.pm:1561
+#: src/EBox/TrafficShaping.pm:1560
 msgid "Port"
 msgstr "Port"
 

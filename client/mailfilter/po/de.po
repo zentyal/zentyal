@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-09 16:10+0100\n"
+"POT-Creation-Date: 2010-02-02 16:32+0000\n"
 "PO-Revision-Date: 2009-06-26 12:33+0200\n"
 "Last-Translator: Jörg Gronmayer <joerg@gronmayer.com>\n"
 "Language-Team: none\n"
@@ -31,168 +31,168 @@ msgstr "Transparenter POP-Proxy"
 msgid "POP3 protocol"
 msgstr "POP3-Protokoll"
 
-#: src/EBox/MailFilter.pm:61
+#: src/EBox/MailFilter.pm:62
 msgid "Mail Filter"
 msgstr "Mailfilter"
 
-#: src/EBox/MailFilter.pm:85
+#: src/EBox/MailFilter.pm:80
 msgid "Add clamav user to amavis group"
 msgstr "Füge Benutzer clamav zur Gruppe amavis hinzu"
 
-#: src/EBox/MailFilter.pm:86
+#: src/EBox/MailFilter.pm:81
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
 "Clamav braucht Zugriff auf die Datenfelder von amavis um Mails richtig zu "
 "überprüfen"
 
-#: src/EBox/MailFilter.pm:90
+#: src/EBox/MailFilter.pm:85
 msgid "Add clamav user to p3scan group"
 msgstr "Benutzer clamav zur Gruppe amavis hinzufügen"
 
-#: src/EBox/MailFilter.pm:91
+#: src/EBox/MailFilter.pm:86
 #, fuzzy
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
 "Clamav braucht Zugriff auf die Datenfelder von amavis um Mails richtig zu "
 "überprüfen"
 
-#: src/EBox/MailFilter.pm:95
+#: src/EBox/MailFilter.pm:90
 msgid "Add spam and ham system users"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:97
+#: src/EBox/MailFilter.pm:92
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:102
+#: src/EBox/MailFilter.pm:97
 msgid "Update LDAP"
 msgstr "LDAP aktualisieren"
 
-#: src/EBox/MailFilter.pm:103
+#: src/EBox/MailFilter.pm:98
 msgid "Add amavis specific classes and fields"
 msgstr "Füge amavis spezifische Klassen und Datenfelder hinzu"
 
-#: src/EBox/MailFilter.pm:362
+#: src/EBox/MailFilter.pm:357
 msgid "Cannot proceed because the filter is in use"
 msgstr "Kann nicht weitermachen, weil der Filter in Verwendung ist"
 
-#: src/EBox/MailFilter.pm:517
+#: src/EBox/MailFilter.pm:512
 msgid "Mail filter"
 msgstr "E-Mail Filter"
 
-#: src/EBox/MailFilter.pm:538 src/EBox/MailFilter.pm:584
+#: src/EBox/MailFilter.pm:533 src/EBox/MailFilter.pm:579
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/MailFilter.pm:540
+#: src/EBox/MailFilter.pm:535
 msgid "Action"
 msgstr "Aktion"
 
-#: src/EBox/MailFilter.pm:541 src/EBox/MailFilter.pm:588
+#: src/EBox/MailFilter.pm:536 src/EBox/MailFilter.pm:583
 msgid "Event"
 msgstr "Ereignis"
 
-#: src/EBox/MailFilter.pm:543
+#: src/EBox/MailFilter.pm:538
 msgid "Sender address"
 msgstr "Adresse des Senders"
 
-#: src/EBox/MailFilter.pm:544
+#: src/EBox/MailFilter.pm:539
 msgid "Recipient address"
 msgstr "Adresse des Empfängers"
 
-#: src/EBox/MailFilter.pm:546
+#: src/EBox/MailFilter.pm:541
 msgid "Spam hits"
 msgstr "Spam-Treffer"
 
-#: src/EBox/MailFilter.pm:551
+#: src/EBox/MailFilter.pm:546
 msgid "Bad header found"
 msgstr "Ungültige Kopfzeile gefunden"
 
-#: src/EBox/MailFilter.pm:552
+#: src/EBox/MailFilter.pm:547
 msgid "Spam found"
 msgstr "Spam gefunden"
 
-#: src/EBox/MailFilter.pm:553
+#: src/EBox/MailFilter.pm:548
 msgid "Forbidden attached file  found"
 msgstr "Nicht erlaubter Dateianhang gefunden"
 
-#: src/EBox/MailFilter.pm:554
+#: src/EBox/MailFilter.pm:549
 msgid "Address in blacklist found"
 msgstr "Adresse in Blacklist gefunden"
 
-#: src/EBox/MailFilter.pm:555
+#: src/EBox/MailFilter.pm:550
 msgid "Virus found"
 msgstr "Virus gefunden"
 
-#: src/EBox/MailFilter.pm:556
+#: src/EBox/MailFilter.pm:551
 msgid "Clean message"
 msgstr "Virenfreie Nachricht"
 
-#: src/EBox/MailFilter.pm:566
+#: src/EBox/MailFilter.pm:561
 msgid "SMTP filter"
 msgstr "SMTP-Filter"
 
 # Würde ich so übersetzen da Account ein geb. Deutsches Wort für ein Benutzer Konto ist.
-#: src/EBox/MailFilter.pm:586
+#: src/EBox/MailFilter.pm:581
 #, fuzzy
 msgid "Account"
 msgstr "Account"
 
-#: src/EBox/MailFilter.pm:587
+#: src/EBox/MailFilter.pm:582
 #, fuzzy
 msgid "Client's address"
 msgstr "Klient Adresse"
 
-#: src/EBox/MailFilter.pm:590
+#: src/EBox/MailFilter.pm:585
 msgid "Total messages"
 msgstr "Gesamte Nachrichten"
 
-#: src/EBox/MailFilter.pm:591
+#: src/EBox/MailFilter.pm:586
 msgid "Clean messages"
 msgstr "Saubere Nachrichten"
 
-#: src/EBox/MailFilter.pm:592
+#: src/EBox/MailFilter.pm:587
 msgid "Virus messages"
 msgstr "Nachrichten mit Virus"
 
-#: src/EBox/MailFilter.pm:593
+#: src/EBox/MailFilter.pm:588
 msgid "Spam messages"
 msgstr "Spam-Nachrichten"
 
-#: src/EBox/MailFilter.pm:600
+#: src/EBox/MailFilter.pm:595
 msgid "POP3 transmission complete"
 msgstr "POP3-Übertragung abgeschlossen"
 
-#: src/EBox/MailFilter.pm:602
+#: src/EBox/MailFilter.pm:597
 msgid "POP3 transmission aborted"
 msgstr "POP3-Übertragung abgebrochen"
 
-#: src/EBox/MailFilter.pm:610
+#: src/EBox/MailFilter.pm:605
 msgid "POP3 proxy"
 msgstr "POP3-Proxy"
 
-#: src/EBox/MailFilter.pm:709 src/EBox/MailFilter/Composite/Amavis.pm:61
+#: src/EBox/MailFilter.pm:704 src/EBox/MailFilter/Composite/Amavis.pm:61
 #, fuzzy
 msgid "SMTP Mail Filter"
 msgstr "SMTP-Mailfilter"
 
-#: src/EBox/MailFilter.pm:716
+#: src/EBox/MailFilter.pm:711
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #, fuzzy
 msgid "POP Transparent Proxy"
 msgstr "Transparenter POP-Proxy"
 
-#: src/EBox/MailFilter.pm:724 src/EBox/MailFilter/POPProxy.pm:350
+#: src/EBox/MailFilter.pm:719 src/EBox/MailFilter/POPProxy.pm:350
 #: src/EBox/MailFilter/Amavis.pm:468
 #: src/EBox/MailFilter/Composite/Antispam.pm:63
 #: src/EBox/MailFilter/Composite/Antispam.pm:64
 msgid "Antispam"
 msgstr "Antispam"
 
-#: src/EBox/MailFilter.pm:731
+#: src/EBox/MailFilter.pm:726
 #, fuzzy
 msgid "Files ACL"
 msgstr "Datei-ACL (Zugriffskontrolliste)"
@@ -456,7 +456,8 @@ msgstr ""
 "Etikett, das an die Betreffzeile unerwünschter Nachrichten angehängt wird"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
-msgid "Use bayesian classifier"
+#, fuzzy
+msgid "Use Bayesian classifier"
 msgstr "Bayesischen Filter verwenden"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:84

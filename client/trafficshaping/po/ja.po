@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:57+0100\n"
+"POT-Creation-Date: 2010-02-02 17:18+0000\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -147,7 +147,7 @@ msgid "Destination object"
 msgstr "送信先オブジェクト"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:461
-#: src/EBox/TrafficShaping.pm:1564
+#: src/EBox/TrafficShaping.pm:1563
 msgid "Priority"
 msgstr "優先順位"
 
@@ -156,7 +156,7 @@ msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:469
-#: src/EBox/TrafficShaping.pm:1562
+#: src/EBox/TrafficShaping.pm:1561
 msgid "Guaranteed Rate"
 msgstr "保証するレート"
 
@@ -172,7 +172,7 @@ msgid ""
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:481
-#: src/EBox/TrafficShaping.pm:1563
+#: src/EBox/TrafficShaping.pm:1562
 msgid "Limited Rate"
 msgstr "制限されたレート"
 
@@ -308,42 +308,42 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "整形するインタフェースを選んでください"
 
-#: src/EBox/TrafficShaping.pm:94 src/EBox/TrafficShaping.pm:95
+#: src/EBox/TrafficShaping.pm:94
 msgid "Traffic Shaping"
 msgstr "トラフィック整形"
 
-#: src/EBox/TrafficShaping.pm:133
+#: src/EBox/TrafficShaping.pm:132
 msgid "Add iptables rules to mangle table"
 msgstr "iptableルールをmangleテーブルに追加"
 
-#: src/EBox/TrafficShaping.pm:134
+#: src/EBox/TrafficShaping.pm:133
 msgid "To mark packets with different priorities and rates"
 msgstr "優先度とレートの異なるパケットをマーク"
 
-#: src/EBox/TrafficShaping.pm:138
+#: src/EBox/TrafficShaping.pm:137
 msgid "Add tc rules"
 msgstr "tcルールを追加"
 
-#: src/EBox/TrafficShaping.pm:139
+#: src/EBox/TrafficShaping.pm:138
 msgid "To implement the traffic shaping rules"
 msgstr "トラフィック整形ルールを実装"
 
-#: src/EBox/TrafficShaping.pm:384
+#: src/EBox/TrafficShaping.pm:383
 #, fuzzy
 msgid "Rules"
 msgstr "ルール"
 
-#: src/EBox/TrafficShaping.pm:386
+#: src/EBox/TrafficShaping.pm:385
 #, fuzzy
 msgid "Interface Rates"
 msgstr "インタフェース"
 
-#: src/EBox/TrafficShaping.pm:441 src/EBox/TrafficShaping.pm:592
-#: src/EBox/TrafficShaping.pm:986 src/EBox/TC.pm:107
+#: src/EBox/TrafficShaping.pm:440 src/EBox/TrafficShaping.pm:591
+#: src/EBox/TrafficShaping.pm:985 src/EBox/TC.pm:107
 msgid "Interface"
 msgstr "インタフェース"
 
-#: src/EBox/TrafficShaping.pm:454
+#: src/EBox/TrafficShaping.pm:453
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -352,11 +352,11 @@ msgstr ""
 "ルールアカウントが最大値 {max} に達しました。新規作成するには少なくとも一つは"
 "削除してください"
 
-#: src/EBox/TrafficShaping.pm:1072
+#: src/EBox/TrafficShaping.pm:1071
 msgid "type"
 msgstr "タイプ"
 
-#: src/EBox/TrafficShaping.pm:1095
+#: src/EBox/TrafficShaping.pm:1094
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -365,11 +365,11 @@ msgstr ""
 "トラフィック整形するためにはインタフェース {iface} が最大バンド幅を持っている"
 "必要ああります"
 
-#: src/EBox/TrafficShaping.pm:1560
+#: src/EBox/TrafficShaping.pm:1559
 msgid "Protocol"
 msgstr "プロトコル"
 
-#: src/EBox/TrafficShaping.pm:1561
+#: src/EBox/TrafficShaping.pm:1560
 msgid "Port"
 msgstr "ポート"
 

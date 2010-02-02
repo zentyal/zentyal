@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:12+0000\n"
+"POT-Creation-Date: 2010-02-02 17:17+0000\n"
 "PO-Revision-Date: 2010-01-31 18:01+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: \n"
@@ -78,7 +78,7 @@ msgstr "Se debe proporcionar un nombre para el directorio compartido"
 msgid "sharing resource"
 msgstr "recurso compartido"
 
-#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248
+#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1211 src/EBox/Samba.pm:1243
 msgid "group"
 msgstr "grupo"
 
@@ -268,8 +268,8 @@ msgstr "Administrador"
 msgid "User/Group"
 msgstr "Usuario/Grupo"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:125 src/EBox/Samba.pm:651
-#: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:125 src/EBox/Samba.pm:646
+#: src/EBox/Samba.pm:1657 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
 msgstr "Usuario"
 
@@ -355,7 +355,7 @@ msgid "User homes"
 msgstr "Directorios personales de usuario"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
-#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:630
+#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:625
 #: src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "Recurso"
@@ -414,11 +414,11 @@ msgstr "Opciones de compartición de ficheros"
 msgid "Antivirus"
 msgstr "Antivirus"
 
-#: src/EBox/Samba.pm:96
+#: src/EBox/Samba.pm:91
 msgid "Create Samba home directory for users and groups"
 msgstr "Crear directorio personal de Samba para usuarios y grupos"
 
-#: src/EBox/Samba.pm:97
+#: src/EBox/Samba.pm:92
 msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
@@ -426,35 +426,35 @@ msgstr ""
 "eBox creará directorios personales para usuarios y grupos de Samba bajo /"
 "home/samba"
 
-#: src/EBox/Samba.pm:102
+#: src/EBox/Samba.pm:97
 msgid "Add LDAP schemas"
 msgstr "Añadir esquemas de LDAP"
 
-#: src/EBox/Samba.pm:103
+#: src/EBox/Samba.pm:98
 msgid "eBox will add two LDAP schemas to the LDAP directory: samba and ebox."
 msgstr "eBox añadirá dos esquemas de LDAP al directorio de LDAP: samba y ebox."
 
-#: src/EBox/Samba.pm:108
+#: src/EBox/Samba.pm:103
 msgid "Set Samba LDAP admin dn password"
 msgstr "Establecer la password de administración del dn de LDAP para Samba"
 
-#: src/EBox/Samba.pm:109
+#: src/EBox/Samba.pm:104
 msgid "eBox will configure Samba to use the LDAP admin dn password."
 msgstr "eBox configurará samba para usar la password del admin dn de LDAP"
 
-#: src/EBox/Samba.pm:125
+#: src/EBox/Samba.pm:120
 msgid "To set up Samba according to your configuration"
 msgstr "Para configurar samba"
 
-#: src/EBox/Samba.pm:130
+#: src/EBox/Samba.pm:125
 msgid "To set up smbldap-tools according to your configuration"
 msgstr "Para configurar sambaldap-tools"
 
-#: src/EBox/Samba.pm:136
+#: src/EBox/Samba.pm:131
 msgid "To set up smbldap-tools according to your LDAP configuration"
 msgstr "Para configurar sambaldap-tools de acuerdo a la configuración de LDAP"
 
-#: src/EBox/Samba.pm:142
+#: src/EBox/Samba.pm:137
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
@@ -462,135 +462,135 @@ msgstr ""
 "Para hacer que NSS use resolución LDAP para cuentas de usuario y grupo. Se "
 "necesita para la configuración de Samba como PDC."
 
-#: src/EBox/Samba.pm:148
+#: src/EBox/Samba.pm:143
 msgid "To let NSS know how to access LDAP accounts"
 msgstr "Modificar NSS para acceda a cuentas LDAP"
 
-#: src/EBox/Samba.pm:153
+#: src/EBox/Samba.pm:148
 msgid "To add quota support to /home partition"
 msgstr "Para añadir soporte de quota a la partición /home"
 
-#: src/EBox/Samba.pm:158
+#: src/EBox/Samba.pm:153
 msgid "To set the antivirus settings for Samba"
 msgstr "Para modificar las opciones de antivirus para Samba"
 
-#: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
+#: src/EBox/Samba.pm:625 src/EBox/Samba.pm:646
 msgid "Source machine"
 msgstr "Máquina origen"
 
-#: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
+#: src/EBox/Samba.pm:625 src/EBox/Samba.pm:646
 msgid "Connected since"
 msgstr "Conectado desde"
 
-#: src/EBox/Samba.pm:671
+#: src/EBox/Samba.pm:666
 msgid "Shares by user"
 msgstr "Directorios compartidos por usuario"
 
-#: src/EBox/Samba.pm:676
+#: src/EBox/Samba.pm:671
 msgid "Users by share"
 msgstr "Usuarios por directorio compartido"
 
-#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
+#: src/EBox/Samba.pm:1207 src/EBox/Samba.pm:1229
 msgid "user"
 msgstr "usuario"
 
-#: src/EBox/Samba.pm:1221
+#: src/EBox/Samba.pm:1216
 msgid "printer"
 msgstr "impresora"
 
-#: src/EBox/Samba.pm:1329
+#: src/EBox/Samba.pm:1324
 msgid "quota"
 msgstr "cuota"
 
-#: src/EBox/Samba.pm:1642
+#: src/EBox/Samba.pm:1637
 msgid "User's files"
 msgstr "Ficheros del usuario"
 
-#: src/EBox/Samba.pm:1644
+#: src/EBox/Samba.pm:1639
 msgid "Group's files"
 msgstr "Ficheros del grupo"
 
-#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
+#: src/EBox/Samba.pm:1655 src/EBox/Samba.pm:1675 src/EBox/Samba.pm:1685
 msgid "Date"
 msgstr "Fecha"
 
-#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
+#: src/EBox/Samba.pm:1656 src/EBox/Samba.pm:1676
 msgid "Client address"
 msgstr "Dirección del cliente"
 
-#: src/EBox/Samba.pm:1663
+#: src/EBox/Samba.pm:1658
 msgid "Action"
 msgstr "Acción"
 
-#: src/EBox/Samba.pm:1664
+#: src/EBox/Samba.pm:1659
 msgid "Resource"
 msgstr "Recurso"
 
-#: src/EBox/Samba.pm:1668
+#: src/EBox/Samba.pm:1663
 msgid "Connect"
 msgstr "Conexión"
 
-#: src/EBox/Samba.pm:1669
+#: src/EBox/Samba.pm:1664
 msgid "Access to directory"
 msgstr "Acceso a directorio"
 
-#: src/EBox/Samba.pm:1670
+#: src/EBox/Samba.pm:1665
 msgid "Read file"
 msgstr "Lectura de fichero"
 
-#: src/EBox/Samba.pm:1671
+#: src/EBox/Samba.pm:1666
 msgid "Write file"
 msgstr "Escritura de fichero"
 
-#: src/EBox/Samba.pm:1672
+#: src/EBox/Samba.pm:1667
 msgid "Disconnect"
 msgstr "Desconexión"
 
-#: src/EBox/Samba.pm:1673
+#: src/EBox/Samba.pm:1668
 msgid "Remove"
 msgstr "Borrar"
 
-#: src/EBox/Samba.pm:1674
+#: src/EBox/Samba.pm:1669
 msgid "Create directory"
 msgstr "Crear directorio"
 
-#: src/EBox/Samba.pm:1675
+#: src/EBox/Samba.pm:1670
 msgid "Remove directory"
 msgstr "Borrar directorio"
 
-#: src/EBox/Samba.pm:1676
+#: src/EBox/Samba.pm:1671
 msgid "Rename"
 msgstr "Renombrar"
 
-#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
+#: src/EBox/Samba.pm:1677 src/EBox/Samba.pm:1686
 msgid "File name"
 msgstr "Fichero"
 
-#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
+#: src/EBox/Samba.pm:1678 src/EBox/Samba.pm:1682
 msgid "Virus"
 msgstr "Virus"
 
-#: src/EBox/Samba.pm:1684
+#: src/EBox/Samba.pm:1679
 msgid "Type"
 msgstr "Tipo"
 
-#: src/EBox/Samba.pm:1692
+#: src/EBox/Samba.pm:1687
 msgid "Quarantined file name"
 msgstr "Fichero en cuarentena"
 
-#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
+#: src/EBox/Samba.pm:1688 src/EBox/Samba.pm:1691
 msgid "Quarantine"
 msgstr "Cuarentena"
 
-#: src/EBox/Samba.pm:1699
+#: src/EBox/Samba.pm:1694
 msgid "Samba access"
 msgstr "Accesos a Samba"
 
-#: src/EBox/Samba.pm:1710
+#: src/EBox/Samba.pm:1705
 msgid "Samba virus"
 msgstr "Virus en Samba"
 
-#: src/EBox/Samba.pm:1721
+#: src/EBox/Samba.pm:1716
 msgid "Samba quarantine"
 msgstr "Cuarentena de Samba"
 

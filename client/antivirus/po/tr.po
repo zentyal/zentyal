@@ -62,18 +62,8 @@ msgstr ""
 msgid "The last update failed."
 msgstr "Son güncelleme başarısız"
 
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:134
-#, fuzzy, perl-brace-format
-msgid ""
-"Update successful but your freshclam version is outdated.\n"
-"The antivirus will not be able to use all the signatures.Please, install "
-"version {version} or higher."
-msgstr ""
-"Güncelleme başarılı ancak freshclam sürümünüz güncel değil.\n"
-" Antivirus tüm imzaları kullanamayacak. Lütfen {version} versiyonunu ya da "
-"üzerini yükleyiniz. "
-
-#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:141
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
+#: src/EBox/AntiVirus/Model/FreshclamStatus.pm:136
 #, fuzzy
 msgid "Last update successful."
 msgstr "Son güncelleme başarılı"
@@ -90,11 +80,5 @@ msgstr "Bilinmeyen olay {event}"
 #~ "version {version} or higher."
 #~ msgstr ""
 #~ "Güncelleme başarılı ancak freshclam sürümünüz güncel değil.\n"
-#~ " Antivirus tüm imzaları kullanamyacak. Lütfen {version} versiyonunu ya da "
-#~ "üzerini yükleyiniz. "
-
-#~ msgid "UTM"
-#~ msgstr "UTM"
-
-#~ msgid "Update status"
-#~ msgstr "Güncelleme durumu"
+#~ " Antivirus tüm imzaları kullanamayacak. Lütfen {version} versiyonunu ya "
+#~ "da üzerini yükleyiniz. "
