@@ -377,13 +377,14 @@ sub _gpgKeys
 
 sub _message
 {
-    my $ibackup =  __x(
+    my $backupmsg =  __x(
         'You can create your <i>eBox Remote Storage</i> account in our ' .
         '{ohref}on-line store{chref}. Use this service to have a quick ' .
         'and safe remote location to store your data',
          ohref => '<a href="http://store.ebox-technologies.com">',
          chref => '</a>'
     );
+    return $backupmsg;
 }
 
 
