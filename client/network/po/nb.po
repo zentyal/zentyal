@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:33+0000\n"
-"PO-Revision-Date: 2010-01-15 14:54+0100\n"
+"PO-Revision-Date: 2010-02-01 09:38+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -272,9 +272,8 @@ msgid "eBox will set your DNS configuration"
 msgstr "eBox vil sette din DNS konfigurasjon"
 
 #: src/EBox/Network.pm:135
-#, fuzzy
 msgid "eBox will set your DHCP client configuration"
-msgstr "eBox vil sette din ddclient konfigurasjon"
+msgstr "eBox vil sette din DHCP client konfigurasjon"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
 msgid "eBox will set your ddclient configuration"
@@ -332,14 +331,13 @@ msgstr ""
 "dem."
 
 #: src/EBox/Network.pm:2563
-#, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
-"Den ønskede oppgaven vil foråsake en av de \n"
-" konfigurerte gatewayene å bli utilgjengelige. Vennligst fjern den først "
-"hvis du virkelig vil gjøre denne endringen."
+"Den ønskede oppgaven vil få en av de konfigurerte gatewayene å bli "
+"utilgjengelige. Vennligst fjern den først hvis du virkelig vil gjøre denne "
+"endringen."
 
 #: src/EBox/Network.pm:2628 src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
@@ -700,7 +698,7 @@ msgstr ""
 
 #: src/EBox/Model/WANFailoverRules.pm:192
 msgid "WAN Failover is only available for static interfaces"
-msgstr ""
+msgstr "WAN Feilovergang er bare tilgjengelig for statiske grensesnitt"
 
 #: src/EBox/Model/WANFailoverRules.pm:196
 msgid "Invalid value for Host"
@@ -723,9 +721,8 @@ msgid "These options affect to all the tests."
 msgstr "Disse valgene påvirker alle testene."
 
 #: src/EBox/Model/GatewayTable.pm:185
-#, fuzzy
 msgid "Auto"
-msgstr "Handling"
+msgstr "Automatisk"
 
 #: src/EBox/Model/GatewayTable.pm:191 src/templates/ifaces.mas:33
 #: src/templates/ifaces.mas:252
@@ -757,7 +754,6 @@ msgid "Gateways List"
 msgstr "Gateway Liste"
 
 #: src/EBox/Model/GatewayTable.pm:250
-#, fuzzy
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your Internet traffic through several links. Note that if you "
@@ -765,7 +761,9 @@ msgid ""
 "automatically."
 msgstr ""
 "Du kan legge til så mange gatewayer du vil. Dette er veldig fordelaktig hvis "
-"du vil splitte din Internett trafikk mellom forskjellige forbindelser."
+"du vil splitte din Internett trafikk mellom forskjellige forbindelser. "
+"Noter deg at om du konfigurerer grensesnitt som DHCP eller PPPoE vil deres "
+"gatewayer legges til her automatisk."
 
 #: src/EBox/Model/GatewayTable.pm:252
 msgid "gateway"
@@ -773,11 +771,11 @@ msgstr "gateway"
 
 #: src/EBox/Model/GatewayTable.pm:285
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
-msgstr ""
+msgstr "Du kan ikke manuelt legge til gateway for DHCP eller PPPoE grensesnitt"
 
 #: src/EBox/Model/GatewayTable.pm:344
 msgid "Automatically added gateways can not be manually deleted"
-msgstr ""
+msgstr "Gatewayer som er automatisk lagt til kan ikke manuelt slettes"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"

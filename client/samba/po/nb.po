@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:12+0000\n"
-"PO-Revision-Date: 2010-01-15 14:56+0100\n"
+"PO-Revision-Date: 2010-02-01 10:42+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,6 @@ msgid "Group {g} is not a samba group"
 msgstr "Gruppen {g} er ikke en samba gruppe"
 
 #: src/EBox/SambaLdapUser.pm:437
-#, fuzzy
 msgid "This group has a sharing directory associated that contains data"
 msgstr "Denne gruppen har et delt område tildelt som inneholder data"
 
@@ -230,15 +229,15 @@ msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "Mappen er ikke tom. Er du sikker på at du vil fjerne den?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:277
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under eBox{closeit} will automatically create the share."
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"<i>Mappen under eBox</i> vill automatisk opprette delings.mappe /home/samba/"
-"shares <br><i>Fil system sti</i> vil tillate deg å dele en eksisterende "
-"mappe innenfor ditt filsystem. "
+"{openit}Directory under eBox{closeit} vill automatisk opprette delings.mappe "
+"/home/samba/shares {br}{openit}File system path{closeit} vil tillate deg å "
+"dele en eksisterende mappe innenfor ditt filsystem. "
 
 #: src/EBox/Samba/Model/SambaShares.pm:290
 msgid ""

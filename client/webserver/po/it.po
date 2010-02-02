@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:08+0100\n"
-"PO-Revision-Date: 2010-01-29 23:23+0100\n"
+"PO-Revision-Date: 2010-01-30 17:17+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -22,9 +22,8 @@ msgid "HyperText Transport Protocol"
 msgstr "HyperText Transport Protocol"
 
 #: src/EBox/WebServer.pm:77 src/EBox/WebServer/Composite/General.pm:81
-#, fuzzy
 msgid "Web Server"
-msgstr "Servizio Web"
+msgstr "Server Web"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
@@ -194,14 +193,17 @@ msgstr "virtual host"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:283
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"
 msgstr ""
+"{open} Il modulo DNS è disabilitato. I mappaggi aggiunti o i domini non "
+"funzioneranno finchè non lo abiliti"
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Configuration"
-msgstr ""
+msgstr "Configurazione"
 
 #: src/EBox/WebServer/Composite/General.pm:83
 msgid ""

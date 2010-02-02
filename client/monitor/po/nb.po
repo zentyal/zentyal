@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 0.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:05+0000\n"
-"PO-Revision-Date: 2009-12-03 12:59+0000\n"
+"PO-Revision-Date: 2010-02-01 09:32+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -362,13 +362,13 @@ msgid "Monitoring"
 msgstr "Overvåkning"
 
 #: src/EBox/CGI/Index.pm:70
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
 "Status{closehref} section."
 msgstr ""
-"Du må aktivere overvåknings modulen for å se overvåknings grafer i {openhref}"
-"Modul Status feltet{closehref}"
+"Du må aktivere overvåknings modulen for å se overvåknings grafer i "
+"{openhref}Modul Status{closehref} seksjonen."
 
 #: src/EBox/CGI/Index.pm:98
 #, perl-brace-format
@@ -411,11 +411,11 @@ msgid "That is below the {severity} threshold of {bound}."
 msgstr "Det er under {severity} terskelen av {bound}."
 
 #: src/EBox/Monitor.pm:133
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} main configuration file"
-msgstr "Innsamlet hoved konfigurasjons fil"
+msgstr "{daemon} hoved konfigurasjons fil"
 
 #: src/EBox/Monitor.pm:138
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} thresholds configuration file"
-msgstr "Innsamlet terskel konfigurasjons fil"
+msgstr "{daemon} terskel konfigurasjons fil"

@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:32+0000\n"
-"PO-Revision-Date: 2010-01-09 20:08+0100\n"
-"Last-Translator: Marcello Teodori <marcello.teodori@gmail.com>\n"
+"PO-Revision-Date: 2010-01-30 16:43+0100\n"
+"Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -366,9 +366,8 @@ msgstr "dispatcher"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:50
 #: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:808
-#, fuzzy
 msgid "Source"
-msgstr "Servizio"
+msgstr "Sorgente"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:51
 #: src/EBox/Events/Model/Report/EventsDetails.pm:80
@@ -394,7 +393,7 @@ msgstr "Errore"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:92
 #: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
 msgid "Fatal error"
-msgstr ""
+msgstr "Errore fatale"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
 #: src/templates/finish.mas:116 src/templates/backup.mas:128
@@ -403,9 +402,8 @@ msgid "Date"
 msgstr "Data"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:101
-#, fuzzy
 msgid "Events details"
-msgstr "Eventi"
+msgstr "Dettaglio Eventi"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:60
 #, fuzzy
@@ -454,7 +452,6 @@ msgid "Query Logs"
 msgstr "Effettua una query sui log"
 
 #: src/EBox/CGI/Logs/Index.pm:329
-#, fuzzy
 msgid "Full Reports"
 msgstr "Report completo"
 
@@ -464,7 +461,6 @@ msgstr "Dashboard"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:53
-#, fuzzy
 msgid "Configure Widgets"
 msgstr "Configura widgets"
 
@@ -489,7 +485,6 @@ msgid "You have been logged out because a new session has been opened"
 msgstr "Sei stato sloggato perchè è stata aperta una nuova sessione"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
-#, fuzzy
 msgid "Module Status Configuration"
 msgstr "Configurazione generale dei moduli"
 
@@ -804,7 +799,7 @@ msgstr ""
 "abortita"
 
 #: src/EBox/Event/Watcher/RAID.pm:411
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
@@ -927,16 +922,15 @@ msgid "spare"
 msgstr "riserva"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "I seguenti moduli non sono attivi: {modules}\n"
+msgstr "I seguenti moduli non sono attivi ma sono abilitati: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
 msgstr "Servizio"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
-#, fuzzy
 msgid "Check if any eBox service is not running when it is enabled"
 msgstr "Controlla che qualche servizio di eBox non sia attivo come dovrebbe"
 
@@ -1106,9 +1100,8 @@ msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"Da\" {from} deve essere superiore ad \"A\" {to}"
 
 #: src/EBox/Types/Float.pm:113
-#, fuzzy
 msgid "Enter a float number"
-msgstr "Scrivi un numero positivo"
+msgstr "Scrivi un numero in virgola mobile"
 
 #: src/EBox/Types/Select.pm:342
 #, perl-brace-format
@@ -1264,9 +1257,8 @@ msgid "Event service status"
 msgstr "Stato servizio eventi"
 
 #: src/EBox/Events.pm:804
-#, fuzzy
 msgid "Date of first event"
-msgstr "Registra come evento"
+msgstr "Data del primo evento"
 
 #: src/EBox/Events.pm:805
 #, fuzzy
@@ -1279,9 +1271,8 @@ msgid "Repetitions"
 msgstr "Opzioni report"
 
 #: src/EBox/Events.pm:807
-#, fuzzy
 msgid "Level"
-msgstr "evento"
+msgstr "Livello"
 
 #: src/EBox/Events.pm:809 src/templates/finish.mas:118
 msgid "Message"
@@ -1553,7 +1544,7 @@ msgstr "Informazioni sistema"
 
 #: src/EBox/SysInfo.pm.in:94
 msgid "available"
-msgstr ""
+msgstr "disponibile"
 
 #: src/EBox/SysInfo.pm.in:99
 msgid "Time"

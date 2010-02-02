@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:28+0000\n"
-"PO-Revision-Date: 2010-01-29 11:35+0100\n"
+"PO-Revision-Date: 2010-01-31 01:34+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -50,8 +50,7 @@ msgstr "A tanúsítvány NEM lett visszavonva."
 
 #: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
 msgid "Boolean indicating Certification Authority Certificate"
-msgstr ""
-"logikai kijelzés (megjelenítés) a tanúsítvány jogosultságának igazolása (?)"
+msgstr "Hitelesítésszolgáltatói tanúsítványt jelző logikai érték"
 
 #: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:57
 msgid "Reason"
@@ -66,7 +65,7 @@ msgstr "Ok"
 #: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
 #: src/templates/index.mas:23
 msgid "Common Name"
-msgstr "Közös Név"
+msgstr "Köznapi név"
 
 #: src/EBox/CGI/RevokeCertificate.pm:80 src/EBox/CGI/RenewCertificate.pm:78
 #: src/EBox/CGI/IssueCertificate.pm:140 src/EBox/CGI/ShowForm.pm:68
@@ -74,8 +73,9 @@ msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"A begépelt adat hibás karaktereket tartalmaz. Minden alfanumerikus és a "
-"következő nem alfanumerikus karakterek engedélyezettek: .?&+:-@* és a szóköz."
+"A megadott érték érvénytelen karaktereket tartalmaz. Minden alfanumerikus, "
+"és a következő nem alfanumerikus karakterek engedélyezettek: .?&+:-@* és a "
+"szóköz."
 
 #: src/EBox/CGI/RevokeCertificate.pm:138
 msgid "The certificate has been revoked"
@@ -123,16 +123,16 @@ msgstr "Az új CA tanúsítvány elkészült."
 
 #: src/EBox/CGI/ShowForm.pm:74
 msgid "Action"
-msgstr "Hatás"
+msgstr "Művelet"
 
 #: src/EBox/CGI/ShowForm.pm:83
 msgid "Only revoke and renew actions are performed"
-msgstr "Csak a visszavonás és a megújítás hajtódik végre"
+msgstr "Csak a visszavonás és a megújítás műveletek lesznek végrehajtva"
 
 #: src/EBox/CGI/ShowForm.pm:91 src/EBox/CGI/DownloadFiles.pm:79
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
-msgstr "Közös név: {cn} NEM létezik az adatbázisban"
+msgstr "A köznapi név ({cn}) NEM létezik az adatbázisban"
 
 #: src/EBox/CGI/DownloadFiles.pm:127
 msgid "Error creating file"
@@ -141,24 +141,24 @@ msgstr "Hiba a fájl létrehozásakor"
 #: src/EBox/CA.pm:294 src/EBox/CA.pm:765 src/EBox/CA.pm:1363
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr "Maximum megengedett napok száma {days}: Year 2038 Bug"
+msgstr "A napok száma a maximálisan megengedett {days}: 2038-as év hiba"
 
 #: src/EBox/CA.pm:389
 msgid "The remove operation cannot be finished. Reason: "
-msgstr "A törlés nem fejeződött be a következő ok miatt:"
+msgstr "Az eltávolítás művelet nem fejezhető be a következő ok miatt: "
 
 #: src/EBox/CA.pm:544 src/EBox/CA/TestStub.pm:259
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
-"A CA tanúsítványokat vissza kellene vonni vagy a lejárat előtt új "
-"tanúsítványt kellene kiálítani"
+"A CA tanúsítványokat vissza kellene vonni, vagy a lejárt az új tanúsítvány "
+"kiadása előtt"
 
 #: src/EBox/CA.pm:924 src/EBox/CA.pm:1259
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
-msgstr "{cn} nevű tanúsítvány NEM létezik"
+msgstr "{cn} köznapi nevű tanúsítvány NEM létezik"
 
 #: src/EBox/CA.pm:928
 #, perl-brace-format
@@ -166,13 +166,14 @@ msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
-"Ez a program {reason} nem egy futtatható program.\n"
+"A(z) {reason} ok nem fogadható el.\n"
 "Lehetőségek:"
 
 #: src/EBox/CA.pm:1071
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
-msgstr "A tanúsító hatóság infrastruktúrája nem létezik, előbb hozza létre"
+msgstr ""
+"A hitelesítésszolgáltató infrastruktúra nem érhető el, előbb hozza létre"
 
 #: src/EBox/CA.pm:1163
 msgid "Either common name, distinguished name or serial number has been passed"

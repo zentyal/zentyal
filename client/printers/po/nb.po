@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:34+0000\n"
-"PO-Revision-Date: 2009-09-30 17:30+0200\n"
+"PO-Revision-Date: 2010-02-01 10:37+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr "Modell"
 #: src/EBox/CGI/Model.pm:53
 #, perl-brace-format
 msgid "Printer {printer} has no available drivers"
-msgstr ""
+msgstr "Printeren {printer} har ingen tilgjengelige drivere"
 
 #: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:30
 #: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
@@ -419,12 +419,11 @@ msgstr "Denne skriveren har ingen ventende jobber i kø nå"
 
 #: src/templates/printer.mas:179
 msgid "You need to save changes in order to print a test page"
-msgstr ""
+msgstr "Du må lagre endringer før du kan skrive ut en test side"
 
 #: src/templates/printer.mas:184 src/templates/printer.mas:185
-#, fuzzy
 msgid "Print Test Page"
-msgstr "Printers navn"
+msgstr "Skriv ut Test Side"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"

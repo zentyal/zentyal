@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:12+0000\n"
-"PO-Revision-Date: 2007-04-18 22:16+0000\n"
-"Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
+"PO-Revision-Date: 2010-01-30 02:24+0100\n"
+"Last-Translator: Haluk <khaluk@yahoo.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_samba_service.pl:113
 #, fuzzy
@@ -35,22 +35,22 @@ msgstr ""
 #: src/EBox/SambaLdapUser.pm:371
 #, perl-brace-format
 msgid "User {u} does not exists"
-msgstr ""
+msgstr "Kullanıcı {u} mevcut değil"
 
 #: src/EBox/SambaLdapUser.pm:375
 #, perl-brace-format
 msgid "User {u} is not a samba user"
-msgstr ""
+msgstr "Kullanıcı {u} samba kullanıcısı değil"
 
 #: src/EBox/SambaLdapUser.pm:390
 #, perl-brace-format
 msgid "Group {g} does not exists"
-msgstr ""
+msgstr "Grup {g} mevcut değil"
 
 #: src/EBox/SambaLdapUser.pm:394
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
-msgstr ""
+msgstr "Grup {g} samba grubu değil"
 
 #: src/EBox/SambaLdapUser.pm:437
 #, fuzzy
@@ -60,13 +60,13 @@ msgstr "Bu grup içinde veri bulunan bir paylaşım dizinine bağlandı"
 #: src/EBox/SambaLdapUser.pm:641
 #, perl-brace-format
 msgid "{g} group does not exist"
-msgstr ""
+msgstr "grup {g} mevcut değil"
 
 #: src/EBox/SambaLdapUser.pm:725 src/EBox/SambaLdapUser.pm:754
 #: src/EBox/SambaLdapUser.pm:805 src/EBox/CGI/ActivePrinting.pm:48
 #: src/EBox/CGI/ActiveSharing.pm:44
 msgid "group name"
-msgstr "Grub ismi"
+msgstr "Grup ismi"
 
 #: src/EBox/SambaLdapUser.pm:759
 msgid "A name should be provided for the share"
@@ -110,16 +110,16 @@ msgstr "Dosya paylaşım"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:114
 msgid "path"
-msgstr ""
+msgstr "path"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
 #: src/EBox/Samba/Model/SambaShares.pm:147
 msgid "share"
-msgstr ""
+msgstr "paylaşım"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:73
 msgid "Netbios and workgroup must have different names"
-msgstr ""
+msgstr "Netbios ve çalışma grubu farklı isimlerde olmalı"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:78
 #, fuzzy
@@ -150,11 +150,11 @@ msgstr "Kota limiti"
 #: src/EBox/Samba/Model/GeneralSettings.pm:116 src/EBox/Samba/Model/PDC.pm:95
 #: src/EBox/Samba/Model/PDC.pm:113
 msgid "Limited to"
-msgstr ""
+msgstr "Limit değeri"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:118
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:124 src/EBox/Samba/Model/PDC.pm:91
 #: src/EBox/Samba/Model/PDC.pm:109 src/EBox/Samba/Model/PDC.pm:127
@@ -164,12 +164,12 @@ msgstr "Etkisiz"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:130
 msgid "Enable roaming profiles"
-msgstr ""
+msgstr "Gezici profili etkinleştir"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:136
 #, fuzzy
 msgid "Drive letter"
-msgstr "Sil"
+msgstr "Sürücü harfi"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:142
 #, fuzzy
@@ -181,6 +181,8 @@ msgid ""
 "Only users belonging to this group will have a samba account. Sync happens "
 "every hour"
 msgstr ""
+"Sadece bu grup üyeleri bir samba hesabına sahiptir. Senkronizasyon her saat "
+"yapılır."
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:152
 #, fuzzy
@@ -189,7 +191,7 @@ msgstr "Genel Ayarlar"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:156
 msgid "On this page you can set different general settings for Samba"
-msgstr ""
+msgstr "Bu sayfada farklı genel samba ayarlarını belirleyebilirsiniz."
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:209
 #, fuzzy
@@ -203,7 +205,7 @@ msgstr "Paylaşım ismi"
 
 #: src/EBox/Samba/Model/SambaShares.pm:104
 msgid "Share path"
-msgstr ""
+msgstr "Paylaşım Yolu"
 
 #: src/EBox/Samba/Model/SambaShares.pm:110
 #, fuzzy
@@ -212,32 +214,32 @@ msgstr "Dizin ismi"
 
 #: src/EBox/Samba/Model/SambaShares.pm:116
 msgid "File system path"
-msgstr ""
+msgstr "Dosya sistemi yolu"
 
 #: src/EBox/Samba/Model/SambaShares.pm:124
 msgid "Comment"
-msgstr ""
+msgstr "Açıklama"
 
 #: src/EBox/Samba/Model/SambaShares.pm:129
 msgid "Access control"
-msgstr ""
+msgstr "Erişim Kontrolü"
 
 #: src/EBox/Samba/Model/SambaShares.pm:139
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:186
 msgid "Shares"
-msgstr ""
+msgstr "Paylaşımlar"
 
 #: src/EBox/Samba/Model/SambaShares.pm:177
 msgid "Path not allowed"
-msgstr ""
+msgstr "Yol müsade edilmedi"
 
 #: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Only alphanumeric characters plus _ are valid for a path"
-msgstr ""
+msgstr "yol için sadece alfa nümerik karakterler ve _ karakteri geçerlidir"
 
 #: src/EBox/Samba/Model/SambaShares.pm:219
 msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr ""
+msgstr "Klasör boş değil. Silmek istediğinizden emin misiniz?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:277
 #, perl-brace-format
@@ -255,11 +257,11 @@ msgstr ""
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:91
 msgid "Read only"
-msgstr ""
+msgstr "Salt Okunur"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:95
 msgid "Read and write"
-msgstr ""
+msgstr "Okunabilir ve Yazılabilir"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:99
 #, fuzzy
@@ -268,7 +270,7 @@ msgstr "Yönetici hakları"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:120
 msgid "User/Group"
-msgstr ""
+msgstr "Kullanıcı/Grup"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:125 src/EBox/Samba.pm:651
 #: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
@@ -286,21 +288,23 @@ msgstr "Grup"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:137
 msgid "Permissions"
-msgstr ""
+msgstr "İzinler"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:146
 msgid "Access Control"
-msgstr ""
+msgstr "Erişim Kontrolü"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:153
 msgid "ACL"
-msgstr ""
+msgstr "Erişim Kontrol Listesi"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"
 msgstr ""
+"<i>administrator</i> yetkisi verirken dikkatli olunuz. Kullanıcı "
+"paylaşımdaki tüm dosyaları okuyabilir ve yazabilir."
 
 #: src/EBox/Samba/Model/PDC.pm:77
 #, fuzzy
@@ -309,27 +313,27 @@ msgstr "Dosya paylaşım"
 
 #: src/EBox/Samba/Model/PDC.pm:78
 msgid "PDC is not enabled."
-msgstr ""
+msgstr "PDC etkinleştirilmemiş"
 
 #: src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
-msgstr ""
+msgstr "Minimum parola uzunluğu"
 
 #: src/EBox/Samba/Model/PDC.pm:96
 msgid "characters"
-msgstr ""
+msgstr "karakterdir"
 
 #: src/EBox/Samba/Model/PDC.pm:105
 msgid "Maximum password age"
-msgstr ""
+msgstr "Maksimum parola geçerlilik süresi"
 
 #: src/EBox/Samba/Model/PDC.pm:114
 msgid "days"
-msgstr ""
+msgstr "gündür"
 
 #: src/EBox/Samba/Model/PDC.pm:123
 msgid "Enforce password history"
-msgstr ""
+msgstr "Daha önce kullanılan parolaların kullanımını engelle"
 
 #: src/EBox/Samba/Model/PDC.pm:131
 msgid "Keep history for"
@@ -350,13 +354,13 @@ msgstr ""
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:93
 #: src/EBox/Samba/Model/RecycleExceptions.pm:93
 msgid "User/Group/Share"
-msgstr ""
+msgstr "Kullanıcı/Grup/Paylaşım"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:99
 #: src/EBox/Samba/Model/RecycleExceptions.pm:99
 #, fuzzy
 msgid "User homes"
-msgstr "Kullanıcı ismi"
+msgstr "Kullanıcı ev dizini"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
 #: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:630
@@ -387,56 +391,61 @@ msgstr ""
 msgid "Add exceptions to the default Recycle Bin settings"
 msgstr ""
 
+# Virüs taraması yap şeklinde komut olarak da belirtilebilir.
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
-msgstr ""
+msgstr "Virüs Taraması"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:58
 #, fuzzy
 msgid "Antivirus default settings"
-msgstr "Genel Ayarlar"
+msgstr "Antivirüs Varsayılan Ayarlar"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:45
 #, fuzzy
 msgid "Recycle default settings"
-msgstr "Genel Ayarlar"
+msgstr "Geri Dönüşüm Kutusu Varsayılan Ayarları"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:55
 msgid "Enable Recycle Bin"
-msgstr ""
+msgstr "Geri Dönüşüm Kutusunu Etkinleştir"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:63
 #, fuzzy
 msgid "Recycle Bin default settings"
-msgstr "Genel Ayarlar"
+msgstr "Geri Dönüşüm Kutusu Genel Ayarları"
 
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
-msgstr ""
+msgstr "Geri Dönüşüm Kutusu"
 
+# seçenekleri kelimesi eklendi
 #: src/EBox/Samba/Composite/General.pm:68
 #, fuzzy
 msgid "File sharing options"
-msgstr "Dosya paylaşım"
+msgstr "Dosya paylaşım seçenekleri"
 
 #: src/EBox/Samba/Composite/Antivirus.pm:64
 msgid "Antivirus"
-msgstr ""
+msgstr "Antivirüs"
 
+# Eski hali: Grubun paylaşım dizinleri
 #: src/EBox/Samba.pm:96
 #, fuzzy
 msgid "Create Samba home directory for users and groups"
-msgstr "Grubun paylaşım dizinleri"
+msgstr "Kullanıcılar ve gruplar için samba ev dizinleri oluştur."
 
 #: src/EBox/Samba.pm:97
 msgid ""
 "eBox will create the home directories for Samba users and groups under /home/"
 "samba."
 msgstr ""
+"eBox Samba kullanıcı ve grupları için /home/samba klasörü altında ev "
+"klasörleri oluşturacak"
 
 #: src/EBox/Samba.pm:102
 msgid "Add LDAP schemas"
-msgstr ""
+msgstr "LDAP şemaları ekle"
 
 #: src/EBox/Samba.pm:103
 msgid "eBox will add two LDAP schemas to the LDAP directory: samba and ebox."
@@ -444,23 +453,23 @@ msgstr ""
 
 #: src/EBox/Samba.pm:108
 msgid "Set Samba LDAP admin dn password"
-msgstr ""
+msgstr "Samba LDAP admin dn parolasını belirle"
 
 #: src/EBox/Samba.pm:109
 msgid "eBox will configure Samba to use the LDAP admin dn password."
-msgstr ""
+msgstr "eBox Samba yı LDAP admin dn parolasını kullanması için konfigüre edecek"
 
 #: src/EBox/Samba.pm:125
 msgid "To set up Samba according to your configuration"
-msgstr ""
+msgstr "Samba yı kendi konfigürasyonunuza göre ayarlamak için"
 
 #: src/EBox/Samba.pm:130
 msgid "To set up smbldap-tools according to your configuration"
-msgstr ""
+msgstr "smbldap-tools u kendi konfigürasyonunuza göre ayarlamak için"
 
 #: src/EBox/Samba.pm:136
 msgid "To set up smbldap-tools according to your LDAP configuration"
-msgstr ""
+msgstr "smbldap-tools u kendi LDAP konfigürasyonunuza göre ayarlamak için"
 
 #: src/EBox/Samba.pm:142
 msgid ""
@@ -474,27 +483,27 @@ msgstr ""
 
 #: src/EBox/Samba.pm:153
 msgid "To add quota support to /home partition"
-msgstr ""
+msgstr "/home disk bölümüne kota desteği eklemek için"
 
 #: src/EBox/Samba.pm:158
 msgid "To set the antivirus settings for Samba"
-msgstr ""
+msgstr "Samba da antivirüs ayarları belirlemek için"
 
 #: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
 msgid "Source machine"
-msgstr ""
+msgstr "Kaynak Makine"
 
 #: src/EBox/Samba.pm:630 src/EBox/Samba.pm:651
 msgid "Connected since"
-msgstr ""
+msgstr "Bağlı olduğu süre"
 
 #: src/EBox/Samba.pm:671
 msgid "Shares by user"
-msgstr ""
+msgstr "Kullanıcılara göre paylaşımlar"
 
 #: src/EBox/Samba.pm:676
 msgid "Users by share"
-msgstr ""
+msgstr "Paylaşımlara göre kullanıcılar"
 
 #: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
 msgid "user"
@@ -510,20 +519,20 @@ msgstr "Kota"
 
 #: src/EBox/Samba.pm:1642
 msgid "User's files"
-msgstr ""
+msgstr "Kullanıcı dosyaları"
 
 #: src/EBox/Samba.pm:1644
 msgid "Group's files"
-msgstr ""
+msgstr "Grup dosyaları"
 
 #: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
 #, fuzzy
 msgid "Date"
-msgstr "Etkin"
+msgstr "Tarih"
 
 #: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
 msgid "Client address"
-msgstr ""
+msgstr "İstemci IP adresi"
 
 #: src/EBox/Samba.pm:1663
 msgid "Action"
@@ -531,11 +540,11 @@ msgstr ""
 
 #: src/EBox/Samba.pm:1664
 msgid "Resource"
-msgstr ""
+msgstr "Kaynak"
 
 #: src/EBox/Samba.pm:1668
 msgid "Connect"
-msgstr ""
+msgstr "Bağlan"
 
 #: src/EBox/Samba.pm:1669
 msgid "Access to directory"
@@ -551,7 +560,7 @@ msgstr ""
 
 #: src/EBox/Samba.pm:1672
 msgid "Disconnect"
-msgstr ""
+msgstr "Bağlantıyı kes"
 
 #: src/EBox/Samba.pm:1673
 msgid "Remove"
@@ -559,50 +568,50 @@ msgstr ""
 
 #: src/EBox/Samba.pm:1674
 msgid "Create directory"
-msgstr ""
+msgstr "Klasör Oluştur"
 
 #: src/EBox/Samba.pm:1675
 #, fuzzy
 msgid "Remove directory"
-msgstr "Ev dizinleri"
+msgstr "Klasör Sil"
 
 #: src/EBox/Samba.pm:1676
 #, fuzzy
 msgid "Rename"
-msgstr "Kullanıcı ismi"
+msgstr "İsmini değiştir"
 
 #: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
 #, fuzzy
 msgid "File name"
-msgstr "Kullanıcı ismi"
+msgstr "Dosya Adı"
 
 #: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
 msgid "Virus"
-msgstr ""
+msgstr "Virüs"
 
 #: src/EBox/Samba.pm:1684
 msgid "Type"
-msgstr ""
+msgstr "Tipi"
 
 #: src/EBox/Samba.pm:1692
 msgid "Quarantined file name"
-msgstr ""
+msgstr "Karantinaya alınan dosya adı"
 
 #: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
 msgid "Quarantine"
-msgstr ""
+msgstr "Karantina"
 
 #: src/EBox/Samba.pm:1699
 msgid "Samba access"
-msgstr ""
+msgstr "Samba Erişimi"
 
 #: src/EBox/Samba.pm:1710
 msgid "Samba virus"
-msgstr ""
+msgstr "Samba Virüs"
 
 #: src/EBox/Samba.pm:1721
 msgid "Samba quarantine"
-msgstr ""
+msgstr "Samba Karantina"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -711,7 +720,7 @@ msgstr "Ev dizinleri"
 #: stubs/smb.conf.mas:133
 #, perl-brace-format
 msgid "{group} share directory"
-msgstr ""
+msgstr "{group} için paylaşım klasörü"
 
 #, fuzzy
 #~ msgid "file sharing"

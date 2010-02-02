@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:34+0000\n"
-"PO-Revision-Date: 2010-01-20 13:45+0100\n"
+"PO-Revision-Date: 2010-02-01 09:43+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -152,7 +152,6 @@ msgid "File supplied as client's private key is not valid"
 msgstr "Filen er ikke en gyldig klient nøkkel"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
-#, fuzzy
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
@@ -161,7 +160,6 @@ msgstr ""
 "som CA's sertifikat"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
-#, fuzzy
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
@@ -354,7 +352,6 @@ msgid "Download Client Bundle"
 msgstr "Last ned Klient Pakke"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
-#, fuzzy
 msgid "eBox to eBox tunnel"
 msgstr "eBox til eBox tunnel"
 
@@ -466,7 +463,7 @@ msgid "client"
 msgstr "klient"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No file supplied or already set for {f}"
 msgstr "Ingen fil er oppgitt eller er allerede satt for {f}"
 
@@ -484,9 +481,8 @@ msgid "daemon"
 msgstr "tjeneste"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:67
-#, fuzzy
 msgid "Enable"
-msgstr "Aktivert"
+msgstr "Aktiver"
 
 #: src/EBox/OpenVPN/Model/Clients.pm:94
 msgid "List of Clients"
@@ -552,7 +548,7 @@ msgid "Cannot create a server because there is not a CA certificate"
 msgstr "Kan ikke opprette en server fordi det ikke er noe CA sertifikat"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority moduleand create new certificates"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:04+0000\n"
-"PO-Revision-Date: 2010-01-29 23:07+0100\n"
+"PO-Revision-Date: 2010-01-30 18:24+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,7 @@ msgstr "Ripristina files"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "operazione di riprinstino"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue the current will be deleted"
@@ -85,7 +85,7 @@ msgstr "Metodo"
 
 #: src/EBox/Model/RemoteSettings.pm:149
 msgid "Host or destination"
-msgstr ""
+msgstr "Host o destinazione"
 
 #: src/EBox/Model/RemoteSettings.pm:154
 msgid "User"
@@ -97,7 +97,7 @@ msgstr "Password"
 
 #: src/EBox/Model/RemoteSettings.pm:164
 msgid "Encryption"
-msgstr ""
+msgstr "Crittografia"
 
 #: src/EBox/Model/RemoteSettings.pm:169 src/EBox/Model/RemoteSettings.pm:255
 #: src/EBox/Model/RemoteSettings.pm:365

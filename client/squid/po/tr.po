@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:35+0000\n"
-"PO-Revision-Date: 2007-05-13 00:56+0000\n"
-"Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
+"PO-Revision-Date: 2010-01-30 02:50+0100\n"
+"Last-Translator: Haluk <khaluk@yahoo.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Squid.pm:70 src/EBox/Squid.pm:970 src/EBox/Squid.pm:1046
 #: src/EBox/Squid/Composite/General.pm:76
@@ -173,7 +173,7 @@ msgstr "Makina"
 #: src/EBox/Squid.pm:1033 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
-msgstr ""
+msgstr "Kullanıcı"
 
 #: src/EBox/Squid.pm:1034
 msgid "URL"
@@ -206,7 +206,7 @@ msgstr "Süzgeçlenen"
 #: src/EBox/Squid.pm:1121
 #, fuzzy
 msgid "HTTP Proxy's cache files"
-msgstr "HTTP vekil sunucu durumu"
+msgstr "HTTP vekil sunucu cache dosyaları"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
@@ -235,12 +235,12 @@ msgstr ""
 #: src/EBox/Squid/Types/DomainPolicy.pm:34 src/EBox/Squid/Types/Policy.pm:64
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:103
 msgid "Always allow"
-msgstr ""
+msgstr "Herzaman İzin Ver"
 
 #: src/EBox/Squid/Types/DomainPolicy.pm:36 src/EBox/Squid/Types/Policy.pm:66
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:105
 msgid "Always deny"
-msgstr ""
+msgstr "Herzaman Engelle"
 
 #: src/EBox/Squid/Types/DomainPolicy.pm:56
 msgid "Squid's domain policy"
@@ -248,7 +248,7 @@ msgstr ""
 
 #: src/EBox/Squid/Types/Policy.pm:67
 msgid "Authorize and allow"
-msgstr ""
+msgstr "Yetkilendir ve izin ver"
 
 #: src/EBox/Squid/Types/Policy.pm:68
 #, fuzzy
@@ -257,7 +257,7 @@ msgstr "Eklenti süzgeci"
 
 #: src/EBox/Squid/Types/Policy.pm:69
 msgid "Authorize and deny"
-msgstr ""
+msgstr "Yetkilendir ve engele"
 
 #: src/EBox/Squid/Types/Policy.pm:89
 msgid "Squid's policy"
@@ -293,100 +293,100 @@ msgstr ""
 
 #: src/EBox/Squid/Types/TimePeriod.pm:36
 msgid "Monday"
-msgstr ""
+msgstr "Pazartesi"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:37
 msgid "Tuesday"
-msgstr ""
+msgstr "Salı"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:38
 msgid "Wednesday"
-msgstr ""
+msgstr "Çarşamba"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:39
 msgid "Thursday"
-msgstr ""
+msgstr "Perşembe"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:40
 msgid "Friday"
-msgstr ""
+msgstr "Cuma"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:41
 msgid "Saturday"
-msgstr ""
+msgstr "Cumartesi"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:42
 msgid "Sunday"
-msgstr ""
+msgstr "Pazar"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:117
 msgid "All time"
-msgstr ""
+msgstr "Tüm zamanlarda"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:199
 #, fuzzy
 msgid "All week"
-msgstr "İzin verildi"
+msgstr "Tüm Hafta Boyunca"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:207
 msgid "Weekend"
-msgstr ""
+msgstr "Hafta sonunda"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:212
 msgid "Work days"
-msgstr ""
+msgstr "Mesai Günlerinde"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:468
 msgid "From hour.."
-msgstr ""
+msgstr "şu saatten..."
 
 #: src/EBox/Squid/Types/TimePeriod.pm:471
 msgid "to hour.."
-msgstr ""
+msgstr "şu saate kadar"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:475
 msgid "You must specify two diffrent hours to the range"
-msgstr ""
+msgstr "Aralık için farklı satler belirtmelisiniz"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:492
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
-msgstr ""
+msgstr "verilen saat hatalı: {h}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:498
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
-msgstr ""
+msgstr "verilen saat formatı hatalı: {h}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:505
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
-msgstr ""
+msgstr "verilen dakika hatalı: {mi}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:511
 #, perl-brace-format
 msgid "Bad minutes  format: {mi}"
-msgstr ""
+msgstr "verilen dakika formatı hatalı: {mi}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:524
 #: src/EBox/Squid/Types/TimePeriod.pm:530
 msgid "The end of the range is greater than the begin"
-msgstr ""
+msgstr "aralık için verilen bitiş başlangıçtan büyük"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:554
 msgid "The time period must be at least active on one day"
-msgstr ""
+msgstr "Zaman dilimi periyodu en azından bir gün için aktif olmalı"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:84
 #, fuzzy
 msgid "Domains lists files"
-msgstr "Alan ismi"
+msgstr "Alan ismi dosyaları"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:97
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
 #, fuzzy
 msgid "internet domain list"
-msgstr "Yasaklı alan isimleri"
+msgstr "internet alan ismi listesi"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
 msgid "You can upload files with lists of domains"
@@ -396,19 +396,19 @@ msgstr ""
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
 #, fuzzy
 msgid "Domain list added"
-msgstr "Alan ismi"
+msgstr "Alan ismi eklendi"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:101
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
 #, fuzzy
 msgid "Domain list removed"
-msgstr "Alan ismi"
+msgstr "Alan ismi silindi"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:102
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:96
 #, fuzzy
 msgid "Domain list updated"
-msgstr "Alan ismi"
+msgstr "Alan ismi güncellendi"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:68
 #, fuzzy
@@ -434,19 +434,19 @@ msgstr "İçerik süzgeç kapasitesi"
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:76
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:75
 msgid "Filter configuration"
-msgstr ""
+msgstr "İçerik Süzgeci konfigürasyonu"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:86
 msgid "User groups configuration"
-msgstr ""
+msgstr "Kullanıcı ve grup konfigürasyonu"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:97
 msgid "group"
-msgstr ""
+msgstr "grup"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:73
 #, fuzzy
@@ -472,17 +472,17 @@ msgstr ""
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address added"
-msgstr ""
+msgstr "Adres eklendi"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:106
 #, fuzzy
 msgid "Address removed"
-msgstr "Uzantı"
+msgstr "Adres silindi"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:107
 #, fuzzy
 msgid "Address updated"
-msgstr "Eklenti süzgeci"
+msgstr "Adres güncellendi"
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
@@ -532,12 +532,12 @@ msgstr "İzin verilen eklentileri ayarla"
 
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:67
 msgid "Use default profile for MIME filtering"
-msgstr ""
+msgstr "MIME süzgeci için varsayılşan profili kullan"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:41
 #, fuzzy
 msgid "Block not listed domains and URLs"
-msgstr "Yasaklı alan isimleri"
+msgstr "Listede olmayan alan adları ve URLleri engelle"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
 msgid ""
@@ -548,7 +548,7 @@ msgstr ""
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:52
 msgid "Block sites specified only as IP"
-msgstr ""
+msgstr "sadece IP olarak belirtilen siteleri engelle"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:56
 msgid "elements"
@@ -574,7 +574,7 @@ msgstr "Port"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:71
 msgid "Cache files size (MB)"
-msgstr ""
+msgstr "Cache dosya boyutu (MB)"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:79
 #, fuzzy
@@ -588,22 +588,24 @@ msgstr "Genel Ayarlar"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:92
 msgid "Settings changed"
-msgstr ""
+msgstr "Ayarlar değiştirildi"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:133
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr ""
+msgstr "{port} kullanımda. Lütfen başka bir tane seçin"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:160
 msgid "Transparent proxy option is not compatible with authorization policy"
-msgstr ""
+msgstr "Yetkilendirme işlemi için saydam tip vekil sunucu uyumlu değildir."
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:167
 msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
 msgstr ""
+"Bazı objelerde bulunan yetkilendirme ilkeleri saydam tip vekil sunucu ile "
+"uyumlu değildir."
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:185
 msgid ""
@@ -637,32 +639,32 @@ msgstr "İlkeler"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Allowed time period"
-msgstr ""
+msgstr "İzin verilen zaman aralığı"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:90
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:120
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
-msgstr ""
+msgstr "İzin verilen zaman aralığı, engeleme ilkesi tarafından dikkate alınmaz"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:97
 #, fuzzy
 msgid "Group policy"
-msgstr "Genel ilkeler"
+msgstr "Grup ilkeleri"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:109
 #, fuzzy
 msgid "Object Policies"
-msgstr "Genel ilkeler"
+msgstr "Nesne ilkeleri"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:110
 msgid "List of objects"
-msgstr ""
+msgstr "Nesneler"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:125
 #, fuzzy
 msgid "object's policy"
-msgstr "Genel ilkeler"
+msgstr "Nesnelerin ilkeleri"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:126
 msgid "Here you can establish a custom policy per network object"

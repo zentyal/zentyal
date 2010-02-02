@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:28+0000\n"
-"PO-Revision-Date: 2010-01-29 22:52+0100\n"
+"PO-Revision-Date: 2010-01-30 08:17+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -20,9 +20,8 @@ msgstr ""
 #: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:46
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
 #: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:116
-#, fuzzy
 msgid "Certification Authority"
-msgstr "Gestione della Autorita' di Certificazione"
+msgstr "Autorita' di Certificazione"
 
 #: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:115
 msgid "CA passphrases do NOT match"
@@ -35,9 +34,9 @@ msgstr "La passfrase CA dovrebbe essere lunga almeno {length} caratteri"
 
 #: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:95
 #: src/EBox/CGI/IssueCertificate.pm:133
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
-msgstr "Numero di giorni alla scadenza ({days}) deve essere un numero naturale"
+msgstr "Numero di giorni alla scadenza ({days}) deve essere un numero positivo"
 
 #: src/EBox/CGI/CreateCA.pm:140
 msgid "Problems creating Certification Authority has happened"
@@ -209,7 +208,6 @@ msgid "General"
 msgstr "Generale"
 
 #: src/EBox/CA.pm:1721 src/EBox/Model/Certificates.pm:251
-#, fuzzy
 msgid "Services Certificates"
 msgstr "Servizi certificati"
 
@@ -328,13 +326,13 @@ msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Impossibile avviare la shell OpenSSL. ({errval})"
 
 #: src/EBox/Model/Certificates.pm:93
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
-"Devi creare un Certification Authority. Vai al Go to {openhref}Certification "
-"Authority{closehref} a farlo"
+"Devi creare un Certification Authority. Vai al {openhref}Certification "
+"Authority{closehref} per farlo"
 
 #: src/EBox/Model/Certificates.pm:217
 msgid "Module"
@@ -353,7 +351,6 @@ msgid "Generate the certificate using CA with the common name set above"
 msgstr ""
 
 #: src/EBox/Model/Certificates.pm:252
-#, fuzzy
 msgid "certificate"
 msgstr "File certificato"
 

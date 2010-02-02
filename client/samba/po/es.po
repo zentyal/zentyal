@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:12+0000\n"
-"PO-Revision-Date: 2010-01-27 14:25+0100\n"
+"PO-Revision-Date: 2010-01-31 18:01+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,6 @@ msgid "Group {g} is not a samba group"
 msgstr "El grupo {g} no es un grupo samba"
 
 #: src/EBox/SambaLdapUser.pm:437
-#, fuzzy
 msgid "This group has a sharing directory associated that contains data"
 msgstr "Este grupo tiene asociado un directorio compartido que contiene datos"
 

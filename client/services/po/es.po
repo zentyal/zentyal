@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:15+0000\n"
-"PO-Revision-Date: 2010-01-25 02:30+0100\n"
+"PO-Revision-Date: 2010-01-31 18:00+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -56,9 +56,8 @@ msgid "eBox administration"
 msgstr "Administración eBox"
 
 #: migration/0001_import_services_from_firewall.pl:109
-#, fuzzy
 msgid "eBox Administration Web Server"
-msgstr "Puerto administración eBox"
+msgstr "Servidor Web de administración de eBox"
 
 #: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:153
 msgid "Services"

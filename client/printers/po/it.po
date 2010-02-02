@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:34+0000\n"
-"PO-Revision-Date: 2010-01-29 21:23+0100\n"
+"PO-Revision-Date: 2010-01-30 08:14+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -347,7 +347,6 @@ msgid "Parallel"
 msgstr "Parallela"
 
 #: src/templates/addprinter.mas:29
-#, fuzzy
 msgid "AppSocket"
 msgstr "AppSocket"
 
@@ -423,7 +422,6 @@ msgid "You need to save changes in order to print a test page"
 msgstr "Devi salvare i cambiamenti prima di stampare una pagina di prova"
 
 #: src/templates/printer.mas:184 src/templates/printer.mas:185
-#, fuzzy
 msgid "Print Test Page"
 msgstr "Stampa una pagina di prova"
 
@@ -487,7 +485,6 @@ msgid "Remote printer configuration"
 msgstr "Configurazione stampante remota"
 
 #: src/templates/network.mas:16
-#, fuzzy
 msgid "Configure AppSocket printer"
 msgstr "Configura stampante AppSocket"
 

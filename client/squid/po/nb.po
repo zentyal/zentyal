@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:35+0000\n"
-"PO-Revision-Date: 2010-01-15 15:00+0100\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-02-01 18:02+0100\n"
+"Last-Translator: John Martin <john.martin@musicus.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,76 +24,75 @@ msgstr "HTTP Proxy"
 
 #: src/EBox/Squid.pm:197
 msgid "HTTP Proxy configuration file"
-msgstr "HTTP Proxy konfigurasjons fil"
+msgstr "HTTP Proxy konfigurasjonsfil"
 
 #: src/EBox/Squid.pm:202
 msgid "Content filter configuration file"
-msgstr "Innholds filter konfigurasjons fil"
+msgstr "Innholds filter konfigurasjonsfil"
 
 #: src/EBox/Squid.pm:207
 msgid "Default filter group configuration"
-msgstr "Standard filter gruppe konfigurasjon"
+msgstr "Standard filter gruppekonfigurasjon"
 
 #: src/EBox/Squid.pm:212
 msgid "Filter groups membership"
-msgstr "Filter gruppe medlemskap"
+msgstr "Filter gruppemedlemskap"
 
 #: src/EBox/Squid.pm:217
 msgid "Content filter banned extension list"
-msgstr "Innholds filter forbudt etternavn liste"
+msgstr "Innholdsfilter liste over forbudte utvidelser"
 
 #: src/EBox/Squid.pm:222
 msgid "Content filter banned mime type list"
-msgstr "Innholds filter forbudt mime type liste"
+msgstr "Innholdsfilter liste over forbudte mimetyper"
 
 #: src/EBox/Squid.pm:227
 msgid "Content filter exception site list"
-msgstr "Innholds filter unntaks steds liste"
+msgstr "Innholdsfilter liste over unntatte adresser"
 
 #: src/EBox/Squid.pm:232
 msgid "Content filter grey site list"
-msgstr "Innholds filter grå steds liste"
+msgstr "Innholdsfilter liste over grå adresser"
 
 #: src/EBox/Squid.pm:237
 msgid "Content filter banned site list"
-msgstr "Innholds filter forbudt steds liste"
+msgstr "Innholdsfilter liste over forbudte adresser"
 
 #: src/EBox/Squid.pm:242
 msgid "Content filter exception URL list"
-msgstr "Innholds filter unntaks URL liste"
+msgstr "Innholdsfilter liste over unntatte URLer"
 
 #: src/EBox/Squid.pm:247
 msgid "Content filter grey URL list"
-msgstr "Innholds filter grå URL liste"
+msgstr "Innholdsfilter liste over grå URLer"
 
 #: src/EBox/Squid.pm:252
 msgid "Content filter banned URL list"
-msgstr "Innholds filter forbudt URL liste"
+msgstr "Innholdsfilter liste over forbudte URLer"
 
 #: src/EBox/Squid.pm:257
 msgid "Forbidden phrases list"
-msgstr "Forbudte tekster liste"
+msgstr "Liste over forbudte tekster"
 
 #: src/EBox/Squid.pm:262
 msgid "Exception phrases list"
-msgstr "Unntaks tekster liste"
+msgstr "Liste over unntatte tekster"
 
 #: src/EBox/Squid.pm:267
 msgid "PICS ratings configuration"
-msgstr "PICS rangerings konfigurasjon"
+msgstr "PICS rangeringskonfigurasjon"
 
 #: src/EBox/Squid.pm:272
 msgid "Dansguardian's log rotation configuration"
-msgstr "Dansguardian's logg rotering konfigurasjon"
+msgstr "Dansguardian's loggroteringskonfigurasjon"
 
 #: src/EBox/Squid.pm:277
-#, fuzzy
 msgid "Dansguardian's antivirus scanner configuration"
-msgstr "Dansguardian's antivirus scanner konfigurasjon"
+msgstr "Dansguardian's antiviruskonfigurasjon"
 
 #: src/EBox/Squid.pm:313
 msgid "You must set the cache_mem variable in the ebox configuration file"
-msgstr "Du må sette cache_mem variabelen i ebox konfigurasjons filen"
+msgstr "Du må sette cache_mem-variabelen i eboxkonfigurasjonsfilen"
 
 #: src/EBox/Squid.pm:942
 msgid "Enabled"
@@ -129,7 +128,7 @@ msgstr "Global instruks"
 
 #: src/EBox/Squid.pm:958
 msgid "Listening port"
-msgstr "Lytte port"
+msgstr "Lytteport"
 
 #: src/EBox/Squid.pm:990
 msgid "General"
@@ -373,9 +372,8 @@ msgid "internet domain list"
 msgstr "internett domene liste"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
-#, fuzzy
 msgid "You can upload files with lists of domains"
-msgstr "Du kan laste opp felter med liste av domener"
+msgstr "Du kan laste opp files med liste av domener"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
@@ -429,42 +427,36 @@ msgid "group"
 msgstr "gruppe"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:73
-#, fuzzy
 msgid "Domain Name Address"
-msgstr "Domene eller IP adresse"
+msgstr "Domene Navn Adresse"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:80
-#, fuzzy
 msgid "Exempt address from caching"
-msgstr "Unnta domene fra mellomlagring"
+msgstr "Unnta adresse fra mellomlagring"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:89
 msgid "Cache exemptions"
 msgstr "Mellomlagrings unntak"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:102
-#, fuzzy
 msgid "domain name address"
-msgstr "Domene eller IP adresse"
+msgstr "domene navn adresse"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:103
-#, fuzzy
 msgid "You can exempt some addresses from caching"
-msgstr "Du kan unnta noen domener fra mellomlagring"
+msgstr "Du kan unnta noen adresser fra mellomlagring"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address added"
-msgstr ""
+msgstr "Adresse lagt til"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:106
-#, fuzzy
 msgid "Address removed"
-msgstr "Etternavn fjernet"
+msgstr "Adresse fjernet"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:107
-#, fuzzy
 msgid "Address updated"
-msgstr "Etternavn oppdatert"
+msgstr "Adresse oppdatert"
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
@@ -484,7 +476,6 @@ msgid "MIME Type"
 msgstr "MIME Typer"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:130
-#, fuzzy
 msgid "A MIME Type must follow this syntax: type/subtype"
 msgstr "En MIME Type må følge denne syntaksen: type/subtype"
 

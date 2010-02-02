@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:34+0000\n"
-"PO-Revision-Date: 2010-01-26 22:11+0100\n"
+"PO-Revision-Date: 2010-01-31 18:06+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,6 @@ msgid "File supplied as client's private key is not valid"
 msgstr "El fichero suministrado como clave privada de cliente no es valido"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:112
-#, fuzzy
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
@@ -160,13 +159,12 @@ msgstr ""
 "fichero suministrado como certificado de CA"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:141
-#, fuzzy
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
 "El fichero suministrado como certificado de cliente no corresponde con el "
-"fichero suministrado como certificado de clave privada"
+"fichero suministrado como clave privada"
 
 #: src/EBox/OpenVPN/Types/TlsRemote.pm:52
 msgid "disabled"
@@ -473,7 +471,7 @@ msgid "client"
 msgstr "cliente"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No file supplied or already set for {f}"
 msgstr "No se suministró ningún fichero o ya estaba fijado para {f}"
 
@@ -558,12 +556,12 @@ msgid "Cannot create a server because there is not a CA certificate"
 msgstr "No se puede crear un servidor porque no existe un certificado de CA"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority moduleand create new certificates"
 msgstr ""
-"{act} es posible porque no hay ningún certificado disponible. Por favor, "
+"{act} no es posible porque no hay ningún certificado disponible. Por favor, "
 "vaya al módulo de autoridad de certificación y cree nuevos certificados"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:331
