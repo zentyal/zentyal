@@ -4,6 +4,7 @@ Copias de seguridad
 .. sectionauthor:: José Antonio Calvo <jacalvo@ebox-platform.com>
                    Enrique J. Hernández <ejhernandez@ebox-platform.com>
                    Jorge Salamero <jsalamero@ebox-platform.com>
+                   Javier Uruen Val <juruen@ebox-platform.com>
 
 Diseño de un sistema de copias de seguridad
 -------------------------------------------
@@ -30,134 +31,141 @@ disponibles.
 
 .. TODO: Graphic with differences between full backup and incremental backup
 
-Otra de las decisiones importantes es si realizaremos las copias de seguridad sobre
-la misma máquina o a otra remota. El uso de una máquina remota ofrece un
-nivel de seguridad mayor debido a la separación física. Un fallo de *hardware*, un
-fallo de *software*, un error humano o una intrusión en el servidor principal no
-deberían de afectar la integridad de las copias de seguridad. Para minimizar este
-riesgo el servidor de copias debería ser exclusivamente dedicado para tal fin y no
-ofrecer otros servicios adicionales más allá de los requeridos para realizar las copias.
-Tener dos servidores no dedicados realizando copias uno del otro es definitivamente
-una mala idea, ya que un compromiso en uno lleva a un compromiso del otro.
+Otra de las decisiones importantes es si realizaremos las copias de
+seguridad sobre la misma máquina o a otra remota. El uso de una
+máquina remota ofrece un nivel de seguridad mayor debido a la
+separación física. Un fallo de *hardware*, un fallo de *software*, un
+error humano o una intrusión en el servidor principal no deberían de
+afectar la integridad de las copias de seguridad. Para minimizar este
+riesgo el servidor de copias debería ser exclusivamente dedicado para
+tal fin y no ofrecer otros servicios adicionales más allá de los
+requeridos para realizar las copias.  Tener dos servidores no
+dedicados realizando copias uno del otro es definitivamente una mala
+idea, ya que un compromiso en uno lleva a un compromiso del otro.
 
-Por último, con los argumentos anteriores se justifica un diseño en el
-que el servidor de copias recoge los datos del servidor del que
-queremos hacer copias de seguridad, y no al revés. El acceso
-solamente es posible en este sentido, protegiendo las copias. El
-objetivo es otra vez, que ante un compromiso en dicho servidor, no se
-pueda obtener acceso a las copias.
+Configuración de las copias de seguridad con eBox
+-------------------------------------------------
 
-Backup configuration with eBox
-------------------------------
-
-Primeramente, debemos decidir si almacenamos nuestras copias de seguridad local
-o remótamente. En caso de éste último, necesitaremos especificar que protocolo
-se usa para conectarse al servidor remoto.
+En primer lugar, debemos decidir si almacenamos nuestras copias de
+seguridad local o remotamente. En caso de éste último, necesitaremos
+especificar que protocolo se usa para conectarse al servidor remoto.
 
 .. figure:: images/backup/ebox_ebackup_01.png
    :scale: 80
    :alt: Configuración
    :align: center
 
-   Select Configuración
+    Configuración
 
 
 :guilabel:`Método`:
-Los distintos métodos que son soportados actualmente son *iBackup*, *RSYNC*,
-*FTP*, *SCP* y *Sistema de ficheros*. Debemos tener en cuenta que dependiendo
-del método que seleccione deberemos proporcionar más o menos infomación:
-dirección del servidor remoto, usario o contraseña. Todos los métodos salvo
-*Sistema de ficheros* acceden servicios remotos. Ésto significa que
-proporcionaremos los credenciales adecuados para conectar con el servidor.
-Puedes crear una cuenta *TODO* haciendo click sobre el enlace. Por otro lado, si
-se selecciona *RSYNC*, *FTP* o *SCP* tendremos que introducir la dirección del
-servidor remoto.
+  Los distintos métodos que son soportados actualmente son *eBox
+  Remote Storage (EU)*, *eBox Remote Storage (US West Coast)*,
+  *FTP*, *SCP* y *Sistema de ficheros*. Debemos tener en
+  cuenta que dependiendo del método que seleccione deberemos
+  proporcionar más o menos información: dirección del servidor remoto,
+  usuario o contraseña. Todos los métodos salvo *Sistema de ficheros*
+  acceden servicios remotos. Ésto significa que proporcionaremos los
+  credenciales adecuados para conectar con el servidor.  Puedes crear
+  una cuenta en nuestra tienda [#]_ para los métodos *eBox Remote
+  Storage*, emplea este servicio para disfrutar de una ubicación
+  segura remota donde almacenar tus datos. Por otro lado, si
+  se selecciona *FTP* o *SCP* tendremos que introducir la
+  dirección del servidor remoto.
 
 .. warning::
-    Si usamos *SCP*, tendremos que ejecutar `sudo ssh usuario@servidor`
-    y aceptar el el *fingerprint* del servidor
-    remoto para añadirlo a la lista de servidores SSH conocidos.  Si
-    no se realiza esta operación, la copia de respaldo no podrá ser
-    realizada ya que fallará la conexión con el servidor.
+    Si usamos *SCP*, tendremos que ejecutar `sudo ssh
+    usuario@servidor` y aceptar la huella del servidor remoto para
+    añadirlo a la lista de servidores SSH conocidos.  Si no se realiza
+    esta operación, la copia de respaldo no podrá ser realizada ya que
+    fallará la conexión con el servidor.
 
-:guilabel:`Servidor o destino`:
-Para *RSYNC*, *FTP*, y *SCP* tenemos que proporcionar el nombre del servidor
-remoto o su dirección IP. En caso de usar *Sistema de ficheros*, introduciremos
-la ruta de un directorio local.
+:guilabel:`Servidor o destino`: Para *FTP*, y *SCP* tenemos que
+  proporcionar el nombre del servidor remoto o su dirección IP. En
+  caso de usar *Sistema de ficheros*, introduciremos la ruta de un
+  directorio local.
 
-.. warning::
-    Si usamos *Sistema de ficheros* deberemos crear manualmente el directorio.
-
-:guilabel:`Usario`:
-Nombre de usuario para autenticarse en la máquina remota.
+:guilabel:`Usuario`:
+  Nombre de usuario para autenticarse en la máquina remota.
 
 :guilabel:`Contraseña`:
-Contraseña para autenticarse en la máquina remota.
+  Contraseña para autenticarse en la máquina remota.
 
-:guilabel:`Clave GPG`:
-Podemos seleccionar una clave GPG para cifrar y descifrar nuestra copia de
-respaldo.
+:guilabel:`Cifrado`:
+  Se puede cifrar los datos de la copia de seguridad usando una clave
+  simétrica que se introduce en el formulario, o se puede seleccionar
+  una clave GPG ya creada para dar cifrado asimétrico a tus datos.  
 
 :guilabel:`Frecuencia de copia de seguridad completa`:
-Este parámetro se usa para determinar la frecuencia con la que las copias de
-seguridad completas se llevan a cabo. Los valores son: *Diario*, *Semanal* y
-*Mensual*.
+  Este parámetro se usa para determinar la frecuencia con la que las copias de
+  seguridad completas se llevan a cabo. Los valores son: *Diario*, *Semanal* y
+  *Mensual*.
 
-:guilabel:`Número de copias totales almacenadas`:
-Este valor se usa para limitar el número de copias totales que están
-almacenadas. Es importante y debemos familiarizarnos con lo que significa.
-Tiene relación directa con *Frecuencia de copia de seguridad completa*. Si
-seleccionamos una frecuencia *Semanal* y el número de copias almacenadas a 2, la
-copia de respalando más antigua será de dos semanas. De forma similar,
-seleccionando *Mensual* y 4, la copia de respaldo más antigua será de 4 meses.
-Deberemos seleccionar un valor acorde a el periodo que queramos almacenar de las
-copias de respaldo y el espacio en disco que tengamos.
+:guilabel:`Número de copias totales almacenadas`: 
+  Este valor se usa para limitar el número de copias totales que están
+  almacenadas. Es importante y debemos familiarizarnos con lo que
+  significa.  Tiene relación directa con *Frecuencia de copia de
+  seguridad completa*. Si seleccionamos una frecuencia *Semanal* y el
+  número de copias almacenadas a 2, la copia de respaldando más antigua
+  será de dos semanas. De forma similar, seleccionando *Mensual* y 4,
+  la copia de respaldo más antigua será de 4 meses.  Deberemos
+  seleccionar un valor acorde a el periodo que queramos almacenar de
+  las copias de respaldo y el espacio en disco que tengamos.
 
 :guilabel:`Frecuencia de copia incremental`:
-Este valor también está relacionado con *Frecuencia de copia de seguridad
-completa*. Una configuración típica de copias de respaldo consiste en realizar
-copias incrementales entre las copias completas. Estas copias deben hacerse con
-más frecuencia que las completas. Esto significa que si tenemos copias completas
-semanales, las copias incrementales se harán diarias. Por el contrario, no tiene
-sentido hacer copias incrementales con las misma frecuencia que las completas.
-Para entender ésto mejor veamos un ejemplo:
+  Este valor también está relacionado con *Frecuencia de copia de
+  seguridad completa*. Una configuración típica de copias de respaldo
+  consiste en realizar copias incrementales entre las copias
+  completas. Estas copias deben hacerse con más frecuencia que las
+  completas. Esto significa que si tenemos copias completas semanales,
+  las copias incrementales se harán diarias. Por el contrario, no
+  tiene sentido hacer copias incrementales con las misma frecuencia
+  que las completas.  Para entender ésto mejor veamos un ejemplo:
 
-El valor de *Frecuencia de copia complea*  es semanal. El *Numero de copias
-totales a almacenar* es 4. Con esta configuración tendremos cuatro copias de
-seguridad completas de cuatro semanas, y entre cada copia completa tendremos
-copias incrementales. Es decir, un mes entero de copias. Lo que significa que
-podemos restaurar cualquier día arbitrario del mes.
+  El valor de :guilabel:`Frecuencia de copia completa` es semanal. El
+  :guilabel:`Numero de copias totales a almacenar` es 4. Con esta
+  configuración tendremos cuatro copias de seguridad completas de
+  cuatro semanas, y entre cada copia completa tendremos copias
+  incrementales. Es decir, un mes entero de copias. Lo que significa
+  que podemos restaurar cualquier día arbitrario del mes.
 
 :guilabel:`Comienzo de copia de respaldo`:
-Este campo es usado para indicar cuando comieza el proceso de la toma de la
-copia de respaldo. Es una buena idea establecerlo a horas cuando no haya nadie
-en la oficina ya que puede consumir bastante ancho de banda.
+  Este campo es usado para indicar cuando comienza el proceso de la toma de la
+  copia de respaldo. Es una buena idea establecerlo a horas cuando no haya nadie
+  en la oficina ya que puede consumir bastante ancho de banda de subida.
 
 Configuración de los directorios y ficheros que son respaldados
----------------------------------------------------------------
-La configuración por defecto efectuará una copia de todo el sistema de ficheros.
-Esto significa que ante un eventual desastre seremos capaces de restaurar la
-máquina completamente. Es un buena idea no cambiar esta configuración al menos
-que tengas problemas de espacio. Una copia completa de una máuina eBox con todos
-sus módulos ocupa alrededor de 300 MB.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+La configuración por defecto efectuará una copia de todo el sistema de
+ficheros.  Esto significa que ante un eventual desastre seremos
+capaces de restaurar la máquina completamente. Es un buena idea no
+cambiar esta configuración al menos que tengas problemas de
+espacio. Una copia completa de una máquina eBox con todos sus módulos
+ocupa alrededor de 300 MB.
 
 .. figure:: images/backup/ebox_ebackup_03.png
    :scale: 80
-   :alt: Lista de inclusión y exclusióm
+   :alt: Lista de inclusión y exclusión
    :align: center
 
    Lista de inclusión y exclusión
 
-La lista por defecto de directorios excluídos es: */mnt*, */dev*, */media*, */sys*,
-y */proc*. Es una mala idea incluir alguno de estos directorios ya que como
-resultado el proceso de copia de respaldo podría fallar.
+La lista por defecto de directorios excluidos es: `/mnt`, `/dev`,
+`/media`, `/sys`, y `/proc`. Es una mala idea incluir alguno de estos
+directorios ya que como resultado el proceso de copia de respaldo
+podría fallar.
 
-La lista por defecto de directorios incluídos es: */*.
+La lista por defecto de directorios incluidos es: `/`.
 
-Podemos ignorar extensiones de fichero utilizando caracteres de shell.
+Podemos excluir extensiones de fichero utilizando caracteres de
+*shell*. Por ejemplo, si quieres saltarte ficheros de vídeo *AVI* de
+tu copia de seguridad, puedes seleccionar *Excluir expresión regular*
+y añadir `*.avi`.
 
 Comprobando el estado de las copias
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Podemos comprobar el estado de las copias de respaldo en la sección *Estado de
 las copias remotas*. En esta tabla podemos ver el tipo de copia, completa o
 incremental, y la fecha de cuando fue tomada.
@@ -170,9 +178,10 @@ incremental, y la fecha de cuando fue tomada.
    Estado de las copias
 
 Cómo comenzar un proceso de copia de respaldo manualmente
----------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 El proceso de copia de respaldo se inicia automáticamente a la hora configurada.
-Sin embargo, si necesitamos comenzarlo manualmente podemos ejecutar:
+Sin embargo, si necesitamos comenzarlo manualmente podemos ejecutar::
 
     # /usr/share/ebox-ebackup/ebox-remote-ebackup --full
 
@@ -181,23 +190,27 @@ O para iniciar una copia incremental::
     # /usr/share/ebox-ebackup/ebox-remote-ebackup --incremental
 
 
-Restaurar archivos
-------------------
-Hay dos formas de restaurar un archivo. Dependiendo del tamño del fichero o del
+Restaurar ficheros
+~~~~~~~~~~~~~~~~~~
+
+Hay dos formas de restaurar un fichero. Dependiendo del tamaño del fichero o del
 directorio que deseemos restaurar.
 
-Es posbile restaurar archivos directamente desde el panel de control de eBox. En
-la sección *Restaurar archivos* tenemos acceso a la lista de todos los ficheros
-y directorios que contiene la copia remota, así como las distintas fechas o
-versiones de los mismos. Podemos usar este metodo con archivos pequeños.Con
-archivos grandes, el proceso es costoso en tiempo y no se podrá usar el interfaz
-Web de eBox mientras la operación está en curso. Debemos ser especialmente
-cautos con el tipo de archivo que restauramos. Normalmente, será seguro
-restaurar archivos de datos que no estén siendo abiertos por aplicaciones en ese
+Es posible restaurar ficheros directamente desde el panel de control
+de eBox. En la sección :menuselection:`Copia de seguridad -->
+Restaurar ficheros` tenemos acceso a la lista de todos los ficheros y
+directorios que contiene la copia remota, así como las distintas
+fechas o versiones de los mismos. Podemos usar este método con
+ficheros pequeños. Con ficheros grandes, el proceso es costoso en
+tiempo y no se podrá usar el interfaz *Web* de eBox mientras la
+operación está en curso. Debemos ser especialmente cautos con el tipo
+de fichero que restauramos. Normalmente, será seguro restaurar
+ficheros de datos que no estén siendo abiertos por aplicaciones en ese
 momento. Estos archivos de datos están localizados bajo el directorio
-*/home/samba*. Sin embargo, restaurar ficheros del sistema de directorios como
-*/lib*, */var*, o */usr* mientras el sistema está en funcionamiento puede ser
-muy peligroso. No hagas ésto a no ser que sepas muy bien lo que estás haciendo.
+`/home/samba`. Sin embargo, restaurar ficheros del sistema de
+directorios como `/lib`, `/var` o `/usr` mientras el sistema está en
+funcionamiento puede ser muy peligroso. **No** hagas ésto a no ser que
+sepas muy bien lo que estás haciendo.
 
 .. figure:: images/backup/ebox_ebackup_04.png
    :scale: 80
@@ -206,24 +219,26 @@ muy peligroso. No hagas ésto a no ser que sepas muy bien lo que estás haciendo
 
    Restaurar un fichero
 
-Los archivos grande y los directorios y ficheros de sistema deben ser
-restaurados manualmente. Dependendiendo del archivo, podemos hacerlo mientras el
+Los ficheros grandes y los directorios y ficheros de sistema deben ser
+restaurados manualmente. Dependiendo del fichero, podemos hacerlo mientras el
 sistema está en funcionamiento. Sin embargo, para directorios de sistema
 usaremos un CD de rescate como explicamos más tarde.
 
 En cualquier caso, debemos familiarizarnos con la herramienta que usa este
-módulo: *duplicity*. El proceso de restauración de un fichero o directorio es
-muy simple. Se ejecuta el siguiente comando: `duplicity restore
---file-to-restore -t 3D <fichero o directorio a restaurar> <URL remota y argumentos> <destinos>`.
+módulo: **duplicity**. El proceso de restauración de un fichero o directorio es
+muy simple. Se ejecuta el siguiente comando::
 
-.. [#] *duplicity* <http://duplicity.nongnu.org/>.
+  duplicity restore --file-to-restore -t 3D <fichero o directorio a restaurar> <URL remota y argumentos> <destinos>
+
+.. [#] *duplicity*: Encrypted bandwidth-efficient backup using the
+       rsync algorithm <http://duplicity.nongnu.org/>.
 
 La opción *-t* se usa para seleccionar la fecha que queremos restaurar. En este
 caso, *3D* significa hace tres días. Usando *now* podemos restaurar la copia más
 actual.
 
-Podemos optener *<URL remota y argumentos* leyendo la nota que se encuentra
-encima de la sección *Restaurar archivos* en eBox.
+Podemos obtener *<URL remota y argumentos* leyendo la nota que se encuentra
+encima de la sección :guilabel:`Restaurar ficheros` en eBox.
 
 .. figure:: images/backup/ebox_ebackup_05.png
    :scale: 80
@@ -232,15 +247,15 @@ encima de la sección *Restaurar archivos* en eBox.
 
    URL remota y argumentos
 
-Por ejemplo, si queremos restaurar el archivo
-*/home/samba/users/john/balance.odc* ejecutaríamos el siguiente comando::
+Por ejemplo, si queremos restaurar el fichero
+`/home/samba/users/john/balance.odc` ejecutaríamos el siguiente comando::
     
     # duplicity restore --file-to-restore home/samba/users/john/balance.odc \
       scp://backupuser@192.168.122.1 --ssh-askpass --no-encryption /tmp/balance.odc
 
-El comando mostrado arriba restauraría el fichero en */tmp/balance.odc*. Si
+El comando mostrado arriba restauraría el fichero en `/tmp/balance.odc`. Si
 necesitamos sobreescribir un fichero o un directorio durante una operación de
-restauración necesitamos añadir la opción *--force*, de lo contrario duplicity
+restauración necesitamos añadir la opción *--force*, de lo contrario *duplicity*
 rechazará sobreescribir los archivos.
 
 Como recuperarse de un desastre
@@ -248,12 +263,12 @@ Como recuperarse de un desastre
 
 Tan importante es realizar copias de seguridad como conocer el procedimiento y
 tener la destreza y experiencia para llevar a cabo una recuperación en un
-momento crítico. Debemos ser capaces de reestablecer el servicio lo antes
+momento crítico. Debemos ser capaces de restablecer el servicio lo antes
 posible cuando ocurre un desastre que deja el sistema no operativo.
 
 Para recuperarnos de un desastre total, arrancaremos el sistema usando un
-CD-ROM de rescate que incluye el software de copia de respaldos duplicity.
-El nombre de este CD-ROm es *grml*.
+CD-ROM de rescate que incluye el software de copia de respaldos *duplicity*.
+El nombre de este CD-ROM es *grml*.
 
 .. [#] *grml* <http://www.grml.org/>.
 
@@ -262,21 +277,20 @@ Usaremos el parámetro *nofb* en caso de problemas con el tamaño de la pantalla
 
 .. figure:: images/backup/ebox_restore_01.png
    :scale: 80
-   :alt: arrancque grml
+   :alt: Arranque grml
    :align: center
 
-   arranque grml
-
+   Arranque grml
 
 Una vez que el proceso de arranque ha finalizado podemos obtener un
-intérprete de comandos pulsando la tecla *enter*.
+intérprete de comandos pulsando la tecla :kbd:`enter`.
 
 .. figure:: images/backup/ebox_restore_02.png
    :scale: 80
-   :alt: comenzar un intérprete de comandos
+   :alt: Comenzar un intérprete de comandos
    :align: center
 
-   comenzar un intérprete de comandos
+   Comenzar un intérprete de comandos
 
 Si nuestra red no está configurada correctamente, podemos ejecutar
 `netcardconfig` para configurarla.
@@ -288,22 +302,22 @@ suponer que nuestra partición raíz es `/dev/sda1`. Así que ejecutamos::
 
 El comando de arriba montará la partición en el directorio `/mnt`. En este ejemplo
 haremos una restauración completa. Primero eliminaremos todos los directorios existentes
-en la partición. Por supuesto, si no haces una restaruación completa este paso no es necesario.
+en la partición. Por supuesto, si no haces una restauración completa este paso no es necesario.
 
-Para elmiinar los ficheros existentes y pasar a la restauración ejecutamos::
+Para eliminar los ficheros existentes y pasar a la restauración ejecutamos::
 
     # rm -rf /mnt/*
 
-Instalaremos duplicity en caso de no tenerlo disponible::
+Instalaremos *duplicity* en caso de no tenerlo disponible::
 
     # apt-get update
     # apt-get install duplicity
 
 Antes de hacer una restauración completa necesitamos restaurar
-`/etc/passwd` y `/etc/group`. En caso contrario podemos tener problemas al
+`/etc/passwd` y `/etc/group`. En caso contrario, podemos tener problemas al
 restaurar archivos con el propietario incorrecto. El problema se debe a
 que *duplicity* almacena los nombres de usuario y grupo y no los valores
-númericos. Así pues, tendremos problemas si restauramos ficheros en un
+numéricos. Así pues, tendremos problemas si restauramos ficheros en un
 sistema en el que el nombre de usuario o grupo tienen distinto UID o GID.
 Para evitar este problema sobreescribimos `/etc/passwd` y `/etc/group` en
 el sistema de rescate. Ejecutamos::
@@ -326,7 +340,7 @@ manualmente::
 
     # duplicity restore  scp://backupuser@192.168.122.1 /mnt/ --ssh-askpass --no-encryption --force
 
-Por último debemos crear los directorios excluídos de la copia de
+Por último debemos crear los directorios excluidos de la copia de
 respaldo así como limpiar los directorios temporales::
 
     # mkdir -p /mnt/dev
@@ -380,7 +394,7 @@ disco, o borrar cualquiera de las copias guardadas. Así mismo aparecen
 como datos informativos el tipo de copia, la fecha de realización de la
 misma y el tamaño que ocupa.
 
-En la sección :guilabel:`Restaurar backup desde fichero` podemos enviar
+En la sección :guilabel:`Restaurar backup desde un archivo` podemos enviar
 un fichero de copia de seguridad que tengamos previamente descargado,
 por ejemplo, perteneciente a una instalación anterior de eBox Platform
 en otra máquina, y restaurarlo mediante :guilabel:`Restaurar`.
@@ -391,7 +405,7 @@ nos notificará el éxito de la operación si no se ha producido ningún error.
 
 
 Herramientas de linea de comandos para copias de seguridad de la configuración
-------------------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Existen dos herramientas disponibles a través de la línea de comandos
 que también nos permiten guardar y restaurar la configuración
