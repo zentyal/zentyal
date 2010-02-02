@@ -56,7 +56,8 @@ a master LDAP directory. By default, the Distinguished Name (DN) of
 the directory is set according to the current hostname, if a different one is
 desired, it can be set in the :guilabel:`LDAP DN` text entry.
 
-.. FIXME: Shot mode
+.. image:: images/directory/users-mode.png
+   :scale: 80
 
 Other eBoxes can be configured to use a master as the source of their users,
 thus becoming directory slaves. In order to do this, the *slave* mode has to be
@@ -67,7 +68,8 @@ when enabling the **users and groups** module. Its value can be obtained in the
 *Password* field in :menuselection:`Users and Groups --> LDAP Info` in the
 master eBox.
 
-.. FIXME: Shot LDAP info
+.. image:: images/directory/ldap-info.png
+   :scale: 80
 
 There is one extra requirement before registering a slave in a master. The
 master has to be able to resolve the slave's hostname via DNS. There are
@@ -89,7 +91,8 @@ first time, and that replica is kept up to date automatically when new users
 and groups are added. A list of the slaves can be seen in the master in
 :menuselection:`Users and Groups --> Slave Status`.
 
-.. FIXME: Shot slave status
+.. image:: images/directory/slave-status.png
+   :scale: 80
 
 Modules that work with users such as **mail** or **samba** can be installed now
 in the slaves and they will use the users available in the master eBox. Some
