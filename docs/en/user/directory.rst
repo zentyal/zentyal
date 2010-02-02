@@ -2,6 +2,7 @@ Directory service (LDAP)
 ************************
 
 .. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>
+                   Isaac Clerencia <iclerencia@ebox-platform.com>
                    Enrique J. Hernández <ejhernandez@ebox-platform.com>
                    Javier Uruen <juruen@ebox-platform.com>
 
