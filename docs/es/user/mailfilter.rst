@@ -7,14 +7,15 @@ Filtrado de correo electrónico
                    Enrique J. Hernandez <ejhernandez@ebox-platform.com>
                    Víctor Jímenez <vjimenez@warp.es>
 
-Los principales problemas del correo electrónico son el *spam* y los virus.
+Los principales problemas en el sistema de correo electrónico son el
+*spam* y los virus.
 
-El **Spam**, o correo electrónico no deseado, distrae la atención del usuario
+El **spam**, o correo electrónico no deseado, distrae la atención del usuario
 que tiene que bucear en su bandeja de entrada para encontrar los correos
-importantes. También genera una gran cantidad de tráfico que puede afectar al
+legítimos. También genera una gran cantidad de tráfico que puede afectar al
 funcionamiento normal de la red y del servicio de correo.
 
-Aunque los **Virus informáticos** no afectan al sistema en el que está instalado
+Aunque los **virus informáticos** no afectan al sistema en el que está instalado
 eBox, un correo electrónico que contenga un virus puede infectar otras máquinas
 clientes de la red.
 
@@ -42,7 +43,7 @@ emite a su receptor o se almacena en un buzón del servidor.
 En esta sección vamos a explicar paso a paso en qué consiste cada uno
 de estos filtros y cómo se configuran en eBox.
 
-Greylist
+Lista gris
 --------
 
 Una **greylist** (lista gris) [#]_ es un método de defensa contra el *spam*
@@ -73,7 +74,7 @@ no reenviarán el correo. Así habríamos evitado los mensajes de *Spam*.
    *GRAPHIC: Esquema del funcionamiento de una lista gris*
 
 
-El *Greylist* se configura desde :menuselection:`Correo --> Greylist`
+El *Greylist* se configura desde :menuselection:`Correo --> Lista gris`
 con las siguientes opciones:
 
 .. image:: images/mailfilter/05-greylist.png
@@ -82,17 +83,17 @@ con las siguientes opciones:
 Habilitado:
   Marcar para activar el *greylisting*.
 
-Duración del *Greylist*:
+Duración de la lista gris (segundos):
   Segundos que debe esperar el servidor remitente antes de reenviar el correo.
 
-Ventana de reintento:
+Ventana de reintento (minutos):
   Tiempo en horas en el que el servidor remitente puede enviar
   correos. Si el servidor ha enviado algún correo durante ese tiempo,
   dicho servidor pasará a la lista gris. En una lista gris, el
   servidor de correo puede enviar todos los correos que quiera sin
   restricciones temporales.
 
-Tiempo de vida de las entradas:
+Tiempo de vida de las entradas (días):
   Días que se almacenarán los datos de los servidores evaluados en la
   lista gris. Si pasan más de los días configurados, cuando el
   servidor quiera volver a enviar correos tendrá que pasar de nuevo por
@@ -110,7 +111,7 @@ que el correo no es *spam* ni contiene virus. Adicionalmente, esta interfaz
 realiza las siguientes comprobaciones:
 
  - Listas blancas y negras de ficheros y extensiones.
- - Filtrado de correos con cabeceras malformadas.
+ - Filtrado de correos con cabeceras mal-formadas.
 
 .. [#] **Amavisd-new**: http://www.ijs.si/software/amavisd/
 
@@ -147,9 +148,10 @@ de ficheros.
 Antispam
 --------
 
-El filtro antispam asigna a cada correo un puntuación de spam, si el correo
-alcanza la puntuación umbral de spam es considerado spam, si no es considerado
-correo legitimo. A este ultimo tipo de correo se le denomina *Ham*.
+El filtro anti*spam* asigna a cada correo un puntuación de *spam*, si
+el correo alcanza la puntuación umbral de *spam* es considerado correo
+basura, si no es considerado correo legitimo. A este ultimo tipo de
+correo se le suele denominar *ham*.
 
 El detector de spam usa las siguientes técnicas para asignar la puntuación:
 
@@ -162,21 +164,21 @@ El detector de spam usa las siguientes técnicas para asignar la puntuación:
  - Reglas estáticas
  - Otros. [#]_
 
-Entre estas técnicas el *filtro bayesiano* debe ser explicado con mas
-detenimiento. Este tipo de filtro hace un análisis estadístico del texto del
-mensaje obteniendo una puntuación que refleja la probabilidad de que el mensaje
-sea spam. Sin embargo, el análisis no se hace contra un conjunto estático de
-reglas sino contra un conjunto dinámico, que es creado suministrando mensajes ham y
-spam al filtro de manera que pueda aprender cuales son las características
+Entre estas técnicas el *filtro bayesiano* debe ser explicado con más
+detenimiento. Este tipo de filtro hace un análisis estadístico del
+texto del mensaje obteniendo una puntuación que refleja la
+probabilidad de que el mensaje sea *spam*. Sin embargo, el análisis no
+se hace contra un conjunto estático de reglas sino contra un conjunto
+dinámico, que es creado suministrando mensajes *ham* y *spam* al
+filtro de manera que pueda aprender cuales son las características
 estadísticas de cada tipo.
 
-La ventaja de esta técnica es que el filtro se puede adaptar al siempre
-cambiante flujo de spam, las desventajas es que el filtro necesita ser entrenado
-y que su precisión reflejara la calidad del entrenamiento recibido.
-
+La ventaja de esta técnica es que el filtro se puede adaptar al
+siempre cambiante flujo de *spam*, las desventajas es que el filtro
+necesita ser entrenado y que su precisión reflejará la calidad del
+entrenamiento recibido.
 
 eBox usa **Spamassassin** [#]_ como detector de *spam*.
-
 
 .. [#] Existe una lista muy larga de técnicas *antispam* que se puede
        consultar en http://en.wikipedia.org/wiki/Anti-spam_techniques_(e-mail)
@@ -195,8 +197,8 @@ Umbral de *Spam*:
   Puntuación a partir de la cual un correo se considera como *Spam*.
 Etiqueta de asunto *Spam*:
   Etiqueta para añadir al asunto del correo en caso de que sea *Spam*.
-Usar el clasificador bayesiano:
-  Si está marcado se empleará el filtro bayesiano, si no sera ignorado.
+Usar clasificador bayesiano:
+  Si está marcado se empleará el filtro bayesiano, si no será ignorado.
 Auto-lista blanca:
   Tiene en cuenta el historial del remitente a la hora de puntuar el
   mensaje. Esto es, si el remitente ha enviado mucho correo como *ham*
@@ -215,18 +217,18 @@ Umbral de auto-aprendizaje de *ham*:
   como *ham*. No es conveniente poner un valor alto, ya que puede provocar
   falsos negativos. Su valor debería ser menor que 0.
 
-Desde :guilabel:`Política de remitente` podemos marcar los remitentes
+Desde :guilabel:`Política de emisor` podemos marcar los remitentes
 para que siempre se acepten sus correos (*whitelist*), para que
 siempre se marquen como spam (*blacklist*) o que siempre los procese
 el filtro antispam (*procesar*).
 
 Desde :guilabel:`Entrenar filtro de spam bayesiano` podemos entrenar
 al filtro bayesiano enviándole un buzón de correo en formato *Mbox*
-[#]_ que únicamente contenga *spam* o *ham*. Existen en *Internet* muchos
-ficheros de ejemplo para entrenar al filtro bayesiano, pero suele ser mas
-exacto entrenarlo con correo recibido en los sitios a filtrar. Conforme más
-entrenado esté el filtro, mejor será el resultado de la decisión de
-tomar un correo como basura o no.
+[#]_ que únicamente contenga *spam* o *ham*. Existen en *Internet*
+muchos ficheros de ejemplo para entrenar al filtro bayesiano, pero
+suele ser más exacto entrenarlo con correo recibido en los sitios a
+filtrar. Conforme más entrenado esté el filtro, mejor será el
+resultado de la decisión de tomar un correo como basura o no.
 
 .. [#] *Mbox* y *maildir* son formatos de almacenamiento de
    correos electrónicos y es dependiente del cliente de correo
@@ -238,8 +240,8 @@ tomar un correo como basura o no.
 Listas de control basadas en ficheros
 -------------------------------------
 
-Es posible filtrar los ficheros adjuntos que se envían en los correos a través
-de :menuselection:`Filtro de correo --> Listas de control de acceso`
+Es posible filtrar los ficheros adjuntos que se envían en los correos
+a través de :menuselection:`Filtro de correo --> ACL por fichero`
 (*File Access Control Lists*).
 
 Allí podemos permitir o bloquear correos según las extensiones de los
@@ -253,9 +255,9 @@ ficheros adjuntos o de sus tipos MIME.
 Filtrado de Correo SMTP
 -----------------------
 
-Desde :menuselection:`Filtro de correo --> Filtrado de correo SMTP` se puede
+Desde :menuselection:`Filtro de correo --> Filtro de correo SMTP` se puede
 configurar el comportamiento de los filtros anteriores cuando eBox
-reciba correo por SMTP. Desde :menuselection:`Configuración general` podemos
+reciba correo por SMTP. Desde :menuselection:`General` podemos
 configurar el comportamiento general para todo el correo entrante:
 
 .. image:: images/mailfilter/07-filter-smtp.png
@@ -273,7 +275,7 @@ Notificar los mensajes problemáticos que no son *spam*:
   reciben correos problemáticos que no son *spam*, por ejemplo con
   virus.
 
-Desde :menuselection:`Políticas de filtrado SMTP` se puede configurar qué debe
+Desde :menuselection:`Políticas de filtrado` se puede configurar qué debe
 hacer el filtro con cada tipo de correo.
 
 .. image:: images/mailfilter/08-filter-smtp-policies.png
@@ -281,7 +283,7 @@ hacer el filtro con cada tipo de correo.
 Por cada tipo de correo problemático, se pueden realizar las siguientes
 acciones:
 
-Pasar:
+Aprobar:
   No hacer nada, dejar pasar el correo a su destinatario.
 Rechazar:
   Descartar el mensaje antes de que llegue al destinatario, avisando al
@@ -293,10 +295,10 @@ Descartar:
   Descarta el mensaje antes de que llegue al destinatario sin avisar al
   remitente.
 
-Desde :menuselection:`Configuración de dominios virtuales` se puede configurar
-el comportamiento del filtro para los dominios virtuales de correo. Estas
-configuraciones sobreescriben las configuraciones generales definidas
-previamente.
+Desde :menuselection:`Filtro de correo --> Filtro de correo SMTP -->
+Dominios virtuales` se puede configurar el comportamiento del filtro
+para los dominios virtuales de correo. Estas configuraciones
+sobreescriben las configuraciones generales definidas previamente.
 
 Para personalizar la configuración de un dominio virtual de correo, pulsamos
 sobre :guilabel:`Añadir nuevo`.
@@ -328,7 +330,7 @@ Cuenta de aprendizaje de *ham* / *spam*:
 
 Una vez añadido el dominio, se pueden añadir direcciones a su lista
 blanca, lista negra o que sea obligatorio procesar desde
-:menuselection:`Política antispam para remitentes`.
+:menuselection:`Política antispam para el emisor`.
 
 Listas de control de conexiones externas
 ========================================
@@ -399,9 +401,10 @@ Comprobar que el filtro surte efecto.
      Se ha activado el botón :guilabel:`Guardar Cambios`.
 
 #. **Acción:**
-   Acceder al menú :menuselection:`Filtro de Correo --> Filtro SMTP`,
-   marcar las casillas :guilabel:`Habilitado` y :guilabel:`Antivirus
-   habilitado` y pulsar el botón :guilabel:`Cambiar`.
+   Acceder al menú :menuselection:`Filtro de Correo --> Filtro de
+   correo SMTP`, marcar las casillas :guilabel:`Habilitado` y
+   :guilabel:`Antivirus habilitado` y pulsar el botón
+   :guilabel:`Cambiar`.
 
    Efecto:
      eBox nos avisa de que hemos modificado satisfactoriamente las opciones
