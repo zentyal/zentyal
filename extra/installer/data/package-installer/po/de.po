@@ -5,16 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-. \n"
+"Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-01-29 23:38+0000\n"
-"PO-Revision-Date: 2009-05-05 02:23+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-02-02 08:10+0100\n"
+"Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: ebox-package-installer:30
 msgid "Firewall, HTTP proxy, traffic shaping, etc."
@@ -289,33 +290,34 @@ msgstr ""
 
 #: ebox-package-installer:260
 msgid "Installing eBox packages..."
-msgstr ""
+msgstr "Installiere eBox Pakete..."
 
 #: ebox-package-installer:276
 msgid "Installation failed."
-msgstr ""
+msgstr "Installation fehlgeschlagen."
 
 #: ebox-package-installer:277
 #, perl-brace-format
+#, fuzzy
 msgid "Check {logfile} content to see what happened"
-msgstr ""
+msgstr "Überprüfe {logfile}, was passiert ist"
 
 #: ebox-package-installer:320
 msgid "You must select at least one package."
-msgstr ""
+msgstr "Sie müssen mindestens ein Paket auswählen."
 
 #: ebox-package-installer:344
 msgid "Warning"
-msgstr ""
+msgstr "Warnung"
 
 #: ebox-package-installer:371
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Passwörter stimmen nicht"
 
 #: ebox-package-installer:385
 msgid "The username 'ebox' is reserved. Please choose another."
-msgstr ""
+msgstr "Der Benutzername 'ebox' ist reserviert. Bitte wählen Sie einen anderen."
 
 #: ebox-package-installer:419
 msgid "Preconfiguring eBox packages..."
-msgstr ""
+msgstr "eBox Pakete werden vorkonfiguriert..."

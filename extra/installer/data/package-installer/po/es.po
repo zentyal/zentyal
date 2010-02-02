@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-01-29 23:38+0000\n"
-"PO-Revision-Date: 2010-01-25 21:52+0100\n"
+"PO-Revision-Date: 2010-01-31 17:59+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -314,9 +314,10 @@ msgid "Installation failed."
 msgstr "Instalación fallida."
 
 #: ebox-package-installer:277
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Check {logfile} content to see what happened"
-msgstr "Compruebe el contenido del fichero {log} para obtener más información"
+msgstr ""
+"Compruebe el contenido del fichero {logfile} para obtener más información"
 
 #: ebox-package-installer:320
 msgid "You must select at least one package."

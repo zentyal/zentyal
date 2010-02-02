@@ -5,16 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-. \n"
+"Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-01-29 23:38+0000\n"
-"PO-Revision-Date: 2009-05-05 02:23+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-01-30 01:45+0100\n"
+"Last-Translator: Haluk <khaluk@yahoo.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: ebox-package-installer:30
 msgid "Firewall, HTTP proxy, traffic shaping, etc."
@@ -58,19 +59,19 @@ msgstr ""
 
 #: ebox-package-installer:43
 msgid "DNS server"
-msgstr ""
+msgstr "DNS sunucu"
 
 #: ebox-package-installer:44
 msgid "DHCP server"
-msgstr ""
+msgstr "DHCP sunucu"
 
 #: ebox-package-installer:45
 msgid "RADIUS server"
-msgstr ""
+msgstr "RADIUS sunucu"
 
 #: ebox-package-installer:46
 msgid "HTTP proxy and content filter"
-msgstr ""
+msgstr "HTTP proxy ve içerik filitresi"
 
 #: ebox-package-installer:47
 msgid "LDAP users and groups management"
@@ -86,35 +87,35 @@ msgstr ""
 
 #: ebox-package-installer:50
 msgid "Remote or local Backup"
-msgstr ""
+msgstr "Uzak veya yerel yedek"
 
 #: ebox-package-installer:51
 msgid "NTP server"
-msgstr ""
+msgstr "NTP sunucu"
 
 #: ebox-package-installer:52
 msgid "Printing server"
-msgstr ""
+msgstr "Yazdırma sunucusu"
 
 #: ebox-package-installer:53
 msgid "Jabber/XMPP server"
-msgstr ""
+msgstr "Jabber/XMPP sunucusu"
 
 #: ebox-package-installer:54
 msgid "VPN server"
-msgstr ""
+msgstr "VPN sunucu"
 
 #: ebox-package-installer:55
 msgid "HTTP server"
-msgstr ""
+msgstr "HTTP sunucu"
 
 #: ebox-package-installer:56
 msgid "Mail system: SMTP, POP3, IMAP4"
-msgstr ""
+msgstr "Mail sistemi: SMTP, POP3, IMAP4"
 
 #: ebox-package-installer:57
 msgid "WWW Mail Client"
-msgstr ""
+msgstr "Web tabanlı mail istemci"
 
 #: ebox-package-installer:58
 msgid "Antispam, antivirus, transparent POP3 proxy"
@@ -122,7 +123,7 @@ msgstr ""
 
 #: ebox-package-installer:59
 msgid "Antivirus"
-msgstr ""
+msgstr "Antivirus"
 
 #: ebox-package-installer:60
 msgid "Shared calendar and address book, webmail, etc"
@@ -130,11 +131,11 @@ msgstr ""
 
 #: ebox-package-installer:61
 msgid "Intrusion Detection System"
-msgstr ""
+msgstr "Saldırı Tespit Sistemi"
 
 #: ebox-package-installer:63
 msgid "VoIP PBX"
-msgstr ""
+msgstr "VoIP PBX"
 
 #: ebox-package-installer:76
 msgid "eBox Platform Installer"
@@ -142,27 +143,27 @@ msgstr ""
 
 #: ebox-package-installer:77
 msgid "Choose package selection method"
-msgstr ""
+msgstr "Paket seçim metodunu belirleyin"
 
 #: ebox-package-installer:78
 msgid "Select the method that better fits your needs."
-msgstr ""
+msgstr "İhtiyaçlarınıza en uygun methodu seçin"
 
 #: ebox-package-installer:79
 msgid "simple"
-msgstr ""
+msgstr "basit"
 
 #: ebox-package-installer:80
 msgid "Select packages by task"
-msgstr ""
+msgstr "Paketleri görevlere göre seçin"
 
 #: ebox-package-installer:81 ebox-package-installer:92
 msgid "advanced"
-msgstr ""
+msgstr "ileri düzey"
 
 #: ebox-package-installer:82
 msgid "Select packages manually"
-msgstr ""
+msgstr "Paketleri el ile seç"
 
 #: ebox-package-installer:83
 msgid "Select eBox tasks to install"
@@ -200,11 +201,11 @@ msgstr ""
 
 #: ebox-package-installer:91
 msgid "standalone"
-msgstr ""
+msgstr "standalone"
 
 #: ebox-package-installer:93
 msgid "Advanced configuration modes"
-msgstr ""
+msgstr "İleri düzey konfigürasyon modları"
 
 #: ebox-package-installer:94
 #, perl-brace-format
@@ -216,13 +217,15 @@ msgstr ""
 
 #: ebox-package-installer:97
 msgid "Select External (WAN) interfaces"
-msgstr ""
+msgstr "Harici network arabirimini seçin (WAN)"
 
 #: ebox-package-installer:98
 msgid ""
 "WARNING: By default you will not be able to access the web interface through "
 "them."
 msgstr ""
+"UYARI: Varsayılan olarak web tabanlı yönetim arayüzüne bu arabirim aracılığı "
+"ile erişemeyeceksiniz."
 
 #: ebox-package-installer:99
 msgid ""
@@ -234,7 +237,7 @@ msgstr ""
 
 #: ebox-package-installer:100
 msgid "Enter administration user"
-msgstr ""
+msgstr "Yönetici kullanıcı adını girin"
 
 #: ebox-package-installer:101
 msgid ""
@@ -244,7 +247,7 @@ msgstr ""
 
 #: ebox-package-installer:102
 msgid "Enter administration password"
-msgstr ""
+msgstr "Yönetici parolasını girin"
 
 #: ebox-package-installer:103
 msgid ""
@@ -254,19 +257,19 @@ msgstr ""
 
 #: ebox-package-installer:104
 msgid "Confirm administration password"
-msgstr ""
+msgstr "Yönetici parolasını tekrar girin"
 
 #: ebox-package-installer:106
 msgid "Mail configuration"
-msgstr ""
+msgstr "Mail Ayarları"
 
 #: ebox-package-installer:107
 msgid "Enter default virtual mail domain:"
-msgstr ""
+msgstr "varsayılan sanal domain adını girin:"
 
 #: ebox-package-installer:108
 msgid "Installation finished"
-msgstr ""
+msgstr "Kurulum Bitti"
 
 #: ebox-package-installer:109
 msgid ""
@@ -285,37 +288,37 @@ msgstr ""
 #: ebox-package-installer:319 ebox-package-installer:371
 #: ebox-package-installer:385
 msgid "Error"
-msgstr ""
+msgstr "Hata"
 
 #: ebox-package-installer:260
 msgid "Installing eBox packages..."
-msgstr ""
+msgstr "eBox paketleri kuruluyor..."
 
 #: ebox-package-installer:276
 msgid "Installation failed."
-msgstr ""
+msgstr "Kurulum Bitti"
 
 #: ebox-package-installer:277
 #, perl-brace-format
 msgid "Check {logfile} content to see what happened"
-msgstr ""
+msgstr "{logfile} içeriğine göz atarak neler olup bittiğini görebilirsiniz."
 
 #: ebox-package-installer:320
 msgid "You must select at least one package."
-msgstr ""
+msgstr "En az bir paket seçmelisiniz."
 
 #: ebox-package-installer:344
 msgid "Warning"
-msgstr ""
+msgstr "Uyarı"
 
 #: ebox-package-installer:371
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Parolalar uyuşmuyor"
 
 #: ebox-package-installer:385
 msgid "The username 'ebox' is reserved. Please choose another."
-msgstr ""
+msgstr "'ebox' kullanıcı adı rezerve edilmiştir. Başka bir tane seçiniz."
 
 #: ebox-package-installer:419
 msgid "Preconfiguring eBox packages..."
-msgstr ""
+msgstr "eBox paketleri ön yapılandırılıyor."
