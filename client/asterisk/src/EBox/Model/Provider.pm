@@ -65,7 +65,7 @@ sub new
 sub providers
 {
       my @providers;
-      push @providers, { 'value' => 'custom', printableValue => 'Custom' };
+      push @providers, { 'value' => 'custom', printableValue => __('Custom') };
       push @providers, { 'value' => 'ebox', printableValue => 'eBox VoIP Credit' };
       return \@providers;
 }
