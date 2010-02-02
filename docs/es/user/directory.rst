@@ -54,7 +54,7 @@ configurarse siguiendo una arquitectura maestro/esclavo para compartir
 usuarios entre las diferentes eBoxes.
 
 Por defecto y a no ser que se indique lo contrario en el menú
-:menuselection:`Users and Groups --> Mode`, el módulo se configurará
+:menuselection:`Usuarios y Grupos --> Modo`, el módulo se configurará
 como un directorio LDAP maestro y el Nombre Distinguido (DN) del directorio
 se establecerá de acuerdo al nombre de la máquina. Si se desea configurar
 un DN diferente, se puede hacer en la entrada de texto :guilabel:`LDAP DN`.
@@ -65,12 +65,12 @@ un DN diferente, se puede hacer en la entrada de texto :guilabel:`LDAP DN`.
 Otras eBoxes pueden ser configuradas para usar un maestro como fuente de sus
 usuarios, convirtiéndose así en directorios esclavos. Para hacer esto, se
 debe seleccionar el modo *esclavo* en
-:menuselection:`Users and Groups --> Mode`. La configuración del esclavo
+:menuselection:`Usuarios y Grupos --> Modo`. La configuración del esclavo
 necesita dos datos más, la IP o nombre de máquina del directorio maestro
 y su clave de LDAP. Esta clave no es la de eBox, sino una generada
 automáticamente al activar el módulo **usuarios y grupos**. Su valor puede ser
 obtenido en el campo **Contraseña** de la opción de menú
-:menuselection:`Users and Groups --> LDAP Info` en la eBox maestra.
+:menuselection:`Usuarios y Grupos --> Datos LDAP` en la eBox maestra.
 
 .. image:: images/directory/ldap-info.png
    :scale: 80
@@ -78,13 +78,13 @@ obtenido en el campo **Contraseña** de la opción de menú
 Hay un requisito más antes de registrar una eBox esclava en una eBox maestra.
 El maestro debe de ser capaz de resolver el nombre de máquina del esclavo
 utilizando DNS. Hay varias maneras de conseguir esto. La más sencilla es añadir
-una entrada para el esclavo en el fichero */etc/hosts* del maestro. Otra opción
+una entrada para el esclavo en el fichero `/etc/hosts` del maestro. Otra opción
 es configurar el servicio DNS en eBox, incluyendo el nombre de máquina del
 esclavo y la dirección IP.
 
-Si el módulo cortafuegos está habilitado en la eBox maestra, debe ser
+Si el módulo **cortafuegos** está habilitado en la eBox maestra, debe ser
 configurado de manera que permita el tráfico entrante de los esclavos. Por
-defecto, el cortafuegos prohibe este tráfico, por lo que es necesario
+defecto, el cortafuegos prohíbe este tráfico, por lo que es necesario
 asegurarse de hacer los ajustes necesarios en el mismo antes de proseguir.
 
 Una vez todos los parámetros han sido establecidos y el nombre de máquina
@@ -101,7 +101,7 @@ maestra.
 .. image:: images/directory/slave-status.png
    :scale: 80
 
-Los módulos que utilizan usuarios como por ejemplo **correo* y **samba** pueden
+Los módulos que utilizan usuarios como por ejemplo **correo** y **samba** pueden
 instalarse ahora en los esclavos y utilizarán los usuarios disponibles en la
 eBox maestra. Algunos módulos necesitan que se ejecuten algunas acciones
 cuando se añaden usuarios, como por ejemplo **samba**, que necesita crear los
@@ -110,10 +110,10 @@ sobre nuevos usuarios y grupos cuando son creados, dando la oportunidad a los
 esclavos de ejecutar las acciones apropiadas.
 
 Puede haber problemas ejecutando estas acciones en ciertas circunstancias, por
-ejemplo si uno de los esclavos está apagado. En ese caso el maestro recordará
+ejemplo si uno de los esclavos está apagado. En ese caso, el maestro recordará
 que hay acciones pendientes que deben realizarse y lo reintentará
 periódicamente. El usuario puede comprobar también el estado de los esclavos en
-:menuselection:`Users and Groups --> Slave Status` y forzar el reintento de las
+:menuselection:`Usuarios y Grupos --> Estado de Esclavo` y forzar el reintento de las
 acciones manualmente. Desde esta sección también es posible borrar un esclavo.
 
 Hay una importante limitación en la arquitectura maestro/esclavo actual. El
@@ -123,12 +123,14 @@ tiene alguno de estos módulos instalados, deben ser desinstalados antes de
 intentar registrar un esclavo en él.
 
 Si en algún momento se desea cambiar el modo de operación del módulo
-**usuarios y grupos**, se puede hacer utilizando el script
-**ebox-usersandgroups-reinstall**. Este script se puede encontrar en
-**/usr/share/ebox-usersandgroups/** y cuando se ejecuta elimina completamente
-el contenido del directorio LDAP, borrando todos los usuarios y grupos actuales
-y reinstalando desde cero un directorio vacío que puede ser configurado en un
-modo diferente.
+**usuarios y grupos**, se puede hacer ejecutando el *script*::
+
+  # sudo /usr/share/ebox-usersandgroups/ebox-usersandgroups-reinstall
+
+Cuando se ejecuta elimina completamente el contenido del directorio
+LDAP, borrando todos los usuarios y grupos actuales y reinstalando
+desde cero un directorio vacío que puede ser configurado en un modo
+diferente.
 
 Creación de usuarios y grupos
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

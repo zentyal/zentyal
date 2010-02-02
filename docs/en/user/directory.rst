@@ -74,10 +74,10 @@ master eBox.
 There is one extra requirement before registering a slave in a master. The
 master has to be able to resolve the slave's hostname via DNS. There are
 different ways to achieve this. The easiest one is adding an entry for the
-slave in the master's */etc/hosts*. Other option is to set up the DNS service
+slave in the master's `/etc/hosts`. Other option is to set up the DNS service
 in eBox, including the slave hostname and IP address.
 
-If the firewall module is enabled in the master eBox, it has to be configured
+If the **firewall** module is enabled in the master eBox, it has to be configured
 in a way that allows incoming LDAP traffic from the slaves. By default, the
 firewall denies this traffic, so make sure to perform the necessary adjustments
 on the firewall before proceeding.
@@ -101,12 +101,12 @@ modules require some actions to be executed when new users are added, such as
 master will notify the slaves about new users and groups when they are created,
 giving a chance to slaves to perform the appropriate actions.
 
-There might be problems executing these actions in some circumstances, for
-example if one of the slaves is down. In this case the master will remember that
-there are pending actions to be performed and will retry periodically. The user
-can also check the status of the slaves in
-:menuselection:`Users and Groups --> Slave Status` and force a retry manually.
-A slave can be deleted in this section as well.
+There might be problems executing these actions in some circumstances,
+for example if one of the slaves is down. In this case the master will
+remember that there are pending actions to be performed and will retry
+periodically. The user can also check the status of the slaves in
+:menuselection:`Users and Groups --> Slave Status` and force a retry
+manually.  A slave can be deleted in this section as well.
 
 There is an important limitation in the current master/slave architecture. The
 master eBox cannot have any module depending on **users and groups**
@@ -115,9 +115,11 @@ any of these modules installed, they have to be uninstalled before trying to
 register a slave on it.
 
 If at some point the mode of operation of the **users and groups** module needs
-to be changed, it can be done using the **ebox-usersandgroups-reinstall**
-script. This script can be found in **/usr/share/ebox-usersandgroups/** and
-when run will completely remove the LDAP directory, deleting all the current
+to be changed, it can be done running this command::
+
+  # sudo /usr/share/ebox-usersandgroups/ebox-usersandgroups-reinstall
+
+when it executed will completely remove the LDAP directory, deleting all the current
 users and groups and reinstall it from scratch so it can be set up in a
 different mode.
 
