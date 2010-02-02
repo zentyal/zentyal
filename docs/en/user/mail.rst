@@ -322,6 +322,8 @@ For retrieving external emails, eBox uses Fetchmail [#f3]_ software.
 .. FIXME: Explain user configuration about fetchmail with its
 .. configuration shot
 
+.. _sieve-sec-ref:
+
 Sieve scripts and ManageSieve protocol
 ---------------------------------------
 

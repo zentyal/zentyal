@@ -11,11 +11,11 @@ Mail Filter
 
 The main threats in electronic mail system are **spam** and **virus**.
 
-Spam, or not desired email, makes the user waste time looking for the
+**Spam**, or not desired email, makes the user waste time looking for the
 legitimate emails in the inbox. Moreover, spam generates a lot of
 network traffic that could affect the network and email services.
 
-Although the virus do not harm the system where eBox is installed, an infected
+Although the **virus** do not harm the system where eBox is installed, an infected
 email could affect other computers in the network.
 
 Mail filter schema in eBox

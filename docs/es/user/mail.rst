@@ -335,6 +335,8 @@ Para obtener el correo externo, eBox usa Fetchmail [#f3]_ .
        sección :ref:`usercorner-ref`.
 .. [#f3] **Fetchmail** The Fetchmail Home Page http://fetchmail.berlios.de/ .
 
+.. _sieve-sec-ref:
+
 Lenguaje Sieve y protocolo ManageSieve
 --------------------------------------
 

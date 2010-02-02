@@ -3,58 +3,61 @@
 Servicio de correo web
 ***********************
 
-El servicio de correo web permite a los usuarios leer y enviar correo a través
-de una interface web ofrecida por el servidor de correo.
+El **servicio de correo web** permite a los usuarios leer y enviar correo a través
+de un interfaz web ofrecida por el servidor de correo.
 
-Tiene las ventajas de que el usuario no tiene que configurar nada y que puede
-acceder a su correo desde cualquier navegador web que pueda alcanzar al
-servidor. Sus desventajas es que la experiencia de usuario suele ser mas pobre
-que con un programa de correo de escritorio y que se debe permitir el acceso web
-al servidor de correo. Además incrementa la carga del servidor mas que un
-programa de correo en el lado del servidor.
+Sus principales ventajas de que el usuario no tiene que configurar
+nada y que puede acceder a su correo desde cualquier navegador *web*
+que pueda alcanzar al servidor. Sus desventajas es que la experiencia
+de usuario suele ser más pobre que con un programa de correo de
+escritorio y que se debe permitir el acceso web al servidor de
+correo. Además incrementa la carga del servidor para mostrar los
+mensajes de correo, este trabajo se realiza en el cliente con el
+*software* tradicional de gestión de correo electrónico.
 
-eBox usa Roundcube para implementar este servicio [#]_.
-
+eBox usa **Roundcube** para implementar este servicio [#]_.
 
 .. [#] Roundcube webmail http://roundcube.net/ .
 
+Configurando el correo web en eBox
+----------------------------------
 
+El **servicio de correo web** se puede habilitar de la misma manera
+que cualquier otro servicio de eBox. Sin embargo, requiere que el
+módulo de **correo** esté configurado para usar IMAP, IMAPS o ambos
+además de tener el módulo **webserver** habilitado. Si no lo está, el
+servicio rehusará activarse.
 
-Activando el servicio de correo web
-------------------------------------
-
-El servicio de correo web se puede activar de la misma manera que cualquier otro
-servicio de eBox. Sin embargo, requiere que el servicio de correo este
-configurado para usar IMAP, IMAPS o ambos. Si no lo esta, el servicio rehusara activarse.
-
+.. [#] La configuración de correo en eBox se explica de manera extensa
+       en la sección :ref:`mail-service-ref` y el módulo *web* se
+       explica en la sección :ref:`web-section-ref`.
 
 Opciones del correo web
------------------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
-Podemos acceder a las opciones pulsando en la sección :menuselection:`Webmail`
-de menú izquierdo. En el formulario de opciones podemos establecer el titulo que
-usara el correo web para identificarse, este titulo se mostrara en la pantalla
-de login y en los títulos de pagina.
-
-
+Podemos acceder a las opciones pulsando en la sección
+:menuselection:`Webmail` de menú izquierdo. Se puede establecer el
+titulo que usará el correo *web* para identificarse, este titulo se
+mostrará en la pantalla de entrada y en los títulos HTML de pagina.
 
 Entrar en el correo web
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
-Para entrar en el correo web primero necesitaremos que el trafico HTTP desde la
-dirección usada para conectar este permitido por el cortafuegos.
-
-Para acceder a la pantalla de entrada del correo web, el usuario debe apuntar
-su navegador web hacia la dirección `http://[direccion del servidor]/webmail`. 
-
-A continuación debe introducir su dirección de correo y su contraseña. Debe usar
-su dirección real, un alias no funcionara.
+Para entrar en el correo *web*, primero necesitaremos que el tráfico
+HTTP desde la dirección usada para conectar esté permitido por el
+cortafuegos. La pantalla de entrada del correo web está disponible en
+`http://[direccion del servidor]/webmail` desde el navegador. A
+continuación, debe introducir su dirección de correo y su
+contraseña. Debe usar su dirección real, un alias no funcionará.
 
 
-Filtros SIEVE 
---------------
+Filtros SIEVE
+~~~~~~~~~~~~~
 
-El correo web también incluye una interface para administrar filtros SIEVE. Esta
-interfaz solo esta disponible si el protocolo ManageSIEVE esta activo en el
-servicio de correo.
+El **correo web** también incluye una interface para administrar
+filtros SIEVE. Este interfaz sólo está disponible si el protocolo
+*ManageSIEVE* está activo en el servicio de correo.
+
+.. [#] Visita la sección :ref:`sieve-sec-ref` para obtener más información.
+
 
