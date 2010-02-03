@@ -7,6 +7,7 @@ lvm
 dmsetup
 devmapper
 crypt
+generic
 mdadm
 kpartx
 multipath
