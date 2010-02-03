@@ -210,7 +210,7 @@ sub viewCustomizer
         my $custom =  $self->SUPER::viewCustomizer();
         $custom->setHTMLTitle([
                 {
-                title => __('Packet Filter'),
+                title => __d('Packet Filter', 'ebox-firewall'),
                 link  => '/ebox/Firewall/Filter',
                 },
                 {
@@ -224,7 +224,7 @@ sub viewCustomizer
 
 sub headTitle
 {
-    return __('Configure Rules');
+    return __d('Configure Rules', 'ebox-firewall');
 }
 
 1;

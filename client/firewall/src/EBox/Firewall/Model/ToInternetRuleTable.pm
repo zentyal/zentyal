@@ -73,7 +73,6 @@ sub _table
         'menuNamespace' => 'Firewall/View/ToInternetRuleTable',
         'class' => 'dataTable',
         'order' => 1,
-        'help' => __x(''),
         'rowUnique' => 0,
         'printableRowName' => __('rule'),
     };

@@ -74,7 +74,6 @@ sub _table
         'tableDescription' => $self->_fieldDescription('source' => 1),
         'menuNamespace' => 'Firewall/View/InternalToEBoxRuleTable',
         'order' => 1,
-        'help' => __x(''),
         'printableRowName' => __('rule'),
     };
 

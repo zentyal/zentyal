@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: i18n
 1.3.14
 	+ Added multi-gateway support for DHCP and PPPoE
 	+ Add an allow rule by default from internal

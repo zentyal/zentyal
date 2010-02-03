@@ -360,7 +360,6 @@ sub _table
             [ 'add', 'del', 'editField', 'changeView' ],
         'tableDescription' => $self->_fieldDescription('source' => 1),
         'menuNamespace' => 'Firewall/View/RedirectsTable',
-        'help' => __x(''),
         'printableRowName' => __('redirect'),
     };
 

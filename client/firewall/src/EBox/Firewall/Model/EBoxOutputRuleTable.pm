@@ -74,7 +74,6 @@ sub _table
         'tableDescription' => $self->_fieldDescription('destination' => 1),
         'menuNamespace' => 'Firewall/View/EBoxOutputRuleTable',
         'order' => 1,
-        'help' => __x(''),
         'printableRowName' => __('rule'),
     };
 
