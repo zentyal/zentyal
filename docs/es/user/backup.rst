@@ -60,14 +60,14 @@ especificar que protocolo se usa para conectarse al servidor remoto.
 
 :guilabel:`Método`:
   Los distintos métodos que son soportados actualmente son *eBox
-  Remote Storage (EU)*, *eBox Remote Storage (US West Coast)*,
+  Backup Storage (EU)*, *eBox Backup Storage (US West Coast)*,
   *FTP*, *SCP* y *Sistema de ficheros*. Debemos tener en
   cuenta que dependiendo del método que seleccione deberemos
   proporcionar más o menos información: dirección del servidor remoto,
   usuario o contraseña. Todos los métodos salvo *Sistema de ficheros*
   acceden servicios remotos. Ésto significa que proporcionaremos los
   credenciales adecuados para conectar con el servidor.  Puedes crear
-  una cuenta en nuestra tienda [#]_ para los métodos *eBox Remote
+  una cuenta en nuestra tienda [#]_ para los métodos *eBox Backup
   Storage*, emplea este servicio para disfrutar de una ubicación
   segura remota donde almacenar tus datos. Por otro lado, si
   se selecciona *FTP* o *SCP* tendremos que introducir la

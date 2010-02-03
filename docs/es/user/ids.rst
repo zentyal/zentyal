@@ -39,9 +39,8 @@ A ambas opciones de configuración se accede a través del menú
 una tabla con la lista de todas las interfaces de red que tengamos
 configuradas. Por defecto, todas ellas se encuentran deshabilitadas
 debido al incremento en la latencia de red y consumo de CPU que genera
-la inspección de tráfico. Para habilitar alguna de ellas podemos
-pulsar en el icono del lápiz, marcar la casilla :guilabel:`Habilitada`
-y pulsar el botón :guilabel:`Cambiar`.
+la inspección de tráfico. Sin embargo, puedes habilitar cualquiera de
+ellas pinchando en la casilla de selección.
 
 .. image:: images/ids/ids-01-interfaces.png
    :scale: 80

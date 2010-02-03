@@ -36,9 +36,8 @@ Both settings are accessed via the :menuselection:`IDS` menu.
 On the :guilabel:`Interfaces` tab a table with a list of all network
 interfaces that are configured is shown.
 By default, all of them are disabled due to the increased network latency
-and CPU consumption caused by the traffic inspection.
-To enable any of them you can click the pencil icon, check :guilabel:`Enabled`
-and press the button :guilabel:`Change`.
+and CPU consumption caused by the traffic inspection. However, you may
+enable any of them by clicking on the checkbox.
 
 .. image:: images/ids/ids-01-interfaces.png
    :scale: 80

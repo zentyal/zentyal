@@ -52,16 +52,16 @@ be used to connect to the remote server.
 .. FIXME: Update the shot with new Encryption field
 
 :guilabel:`Method`:
-  The current supported methods are *eBox Remote Storage (EU)*, *eBox
-  Remote Storage (US West Coast)*, *FTP*, *SCP* and *File
+  The current supported methods are *eBox Backup Storage (EU)*, *eBox
+  Backup Storage (US West Coast)*, *FTP*, *SCP* and *File
   System*. Note that depending on the method you select you will have
   to provide more or less information such as the remote host address
   or user and password. All methods except *File System* are used to
   access remote servers. This means you will have to provide proper
   credentials to connect to the server. You may create an account in
-  our store [#]_ for *eBox Remote Storage* methods, use this service
+  our store [#]_ for *eBox Backup Storage* methods, use this service
   to have a quick and safe remote location to store your data. If you
-  use any of *eBox Remote Storage* options you will not need to
+  use any of *eBox Backup Storage* options you will not need to
   introduce the remote server address as eBox will have it configured
   automatically. On the other hand, if you select , *FTP* or *SCP* you
   will need to provide the remote server address.
