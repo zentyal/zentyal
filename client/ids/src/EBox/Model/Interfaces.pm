@@ -102,6 +102,15 @@ sub syncRows
     return $modified;
 }
 
+# Method: headTitle
+#
+#   Overrides <EBox::Model::DataTable::headTitle>
+#
+sub headTitle
+{
+    return undef;
+}
+
 # Group: Protected methods
 
 # Method: _table
