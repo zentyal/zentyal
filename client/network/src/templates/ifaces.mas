@@ -96,7 +96,7 @@ use EBox::NetWrappers qw(:all);
 %                   }
                 name="external" />
             <div class="field_help">
-            Check this if you are using eBox as a gateway and this interface is connected to your Internet router.
+            <% __('Check this if you are using eBox as a gateway and this interface is connected to your Internet router.') %>
             </div>
         </td>
     </tr>
