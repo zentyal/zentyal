@@ -105,11 +105,11 @@ sub _description
          layout          => 'select',
          name            => 'Interfaces',
          compositeDomain => 'DHCP',
-         selectMessage   => __('Choose a static interface to configure:'),
-         printableName   => __('Service configuration'),
-         help            => __('In order to serve IP addresses on an interface, '
+         selectMessage   => __d('Choose a static interface to configure:', 'ebox-dhcp'),
+         printableName   => __d('Service configuration', 'ebox-dhcp'),
+         help            => __d('In order to serve IP addresses on an interface, '
                                . 'it is required to set at least a range or a '
-                               . 'fixed address.'),
+                               . 'fixed address.', 'ebox-dhcp'),
         };
 
       return $description;
