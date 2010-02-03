@@ -24,7 +24,7 @@ Technically speaking, the best solution is to have a computer with two or more
 network cards that isolate the different connected networks (or segments thereof)
 so that the firewall software is responsible for connecting the network
 packages and determining which can be passed or not and to which network
-they will be sent. By configuring the host as a firewall and router, traffic
+they will be sent. By configuring the host as a firewall and gateway, traffic
 packages can be exchanged between networks in a more secure manner.
 
 The firewall in GNU/Linux: Netfilter
@@ -54,9 +54,9 @@ default security, in turn trying to minimize the work of the administrator
 regarding configuration when new services are added.
 
 When eBox acts as a firewall, it is normally installed between the local
-network and the *router* that connects that network to another, normally
+network and the gateway that connects that network to another, normally
 Internet. The network interfaces connecting the host to the external
-network (the *router*) must be marked as such. This enables the
+network (the gateway) must be marked as such. This enables the
 **Firewall** module to establish default filtering policies.
 
 .. figure:: images/firewall/filter-combo.png
@@ -75,10 +75,10 @@ Furthermore, eBox configures the firewall automatically to provide
 **NAT** for packages entering through an internal interface and exiting through an
 external interface. Where this function is not required, it may be disabled using
 the **nat_enabled** variable in the firewall module configuration
-file in **/etc/ebox/80firewall.conf**.
+file in `/etc/ebox/80firewall.conf`.
 
 Firewall configuration with eBox
-================================
+--------------------------------
 
 For easier handling of **iptables** in filtering tasks, the eBox
 interface in :menuselection:`Firewall --> Package
@@ -155,16 +155,16 @@ can be redirected by translating the destination address.
 
 To configure a redirection, the following fields need to be specified:
 :guilabel:`interface` where the translation is to be made, the
-:guilabel:`original target` (this could be eBox, an IP address or an
-object), the :guilabel:`original destination port` (this could be *any*,
-a range of ports or a single port), the :guilabel:`protocol`, the
-:guilabel:`source` from where the connection is to be started (in a
-normal configuration, its value will be *any*), the
-:guilabel:`target IP address` and, finally, the :guilabel:`destination
-port`, where the target host is to receive the requests, which may or
-may not be the same as the original. There is also a optional field
-called :guilabel:`description` that is useful to add a comment
-describing the purpose of the rule.
+:guilabel:`original destination` (this could be eBox, an IP address or
+an object), the :guilabel:`original destination port` (this could be
+*any*, a range of ports or a single port), the :guilabel:`protocol`,
+the :guilabel:`source` from where the connection is to be started (in
+a normal configuration, its value will be *any*), the
+:guilabel:`destination IP` and, finally, the :guilabel:`port`, where
+the target host is to receive the requests, which may or may not be
+the same as the original. There is also a optional field called
+:guilabel:`description` that is useful to add a comment describing the
+purpose of the rule.
 
 .. image:: images/firewall/07-redirection.png
    :scale: 70

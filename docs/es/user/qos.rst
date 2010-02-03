@@ -5,6 +5,7 @@ Moldeado de tráfico
 
 .. sectionauthor:: Isaac Clerencia <iclerencia@ebox-platform.com>,
                    Enrique J. Hernández <ejhernandez@ebox-platform.com>
+                   Javier Uruen <juruen@ebox-platform.com>
 
 Calidad de servicio (QoS)
 =========================

@@ -75,10 +75,10 @@ Además eBox configura el cortafuegos automáticamente de tal manera que hace
 **NAT** para los paquetes que provengan de una interfaz interna y salgan por una
 externa. Si no se desea esta funcionalidad, puede ser desactivada mediante
 la variable **nat_enabled** en el fichero de configuración del módulo
-cortafuegos en **/etc/ebox/80firewall.conf**.
+cortafuegos en `/etc/ebox/80firewall.conf`.
 
 Configuración de un cortafuegos con eBox
-========================================
+----------------------------------------
 
 Para facilitar el manejo de **iptables** en tareas de filtrado se usa
 el interfaz de eBox en :menuselection:`Cortafuegos --> Filtrado de
@@ -152,23 +152,23 @@ Redirecciones de puertos
 ------------------------
 
 Las redirecciones de puertos (NAT de destino) se configuran desde
-:menuselection:`Cortafuegos --> Redirecciones` donde se puede hacer
-que todo el tráfico dirigido a un puerto externo (o rango de puertos),
-se direccione a una máquina que está escuchando en un puerto determinado
-haciendo la traducción de la dirección destino.
+:menuselection:`Cortafuegos --> Redirecciones de puertos` donde se
+puede hacer que todo el tráfico dirigido a un puerto externo (o rango
+de puertos), se direccione a una máquina que está escuchando en un
+puerto determinado haciendo la traducción de la dirección destino.
 
 Para configurar una redirección hay que establecer la
 :guilabel:`interfaz` donde se va a hacer la traducción, el
 :guilabel:`destino original` (puede ser eBox, una dirección IP o un
-objeto), el :guilabel:`puerto destino original` (puede ser *cualquiera*,
-un rango de puertos o un único puerto), el :guilabel:`protocolo`, la
-:guilabel:`fuente` desde donde se iniciará la conexión (en una
-configuración usual su valor será *cualquiera*), la
-:guilabel:`dirección IP destino` y, finalmente, el :guilabel:`puerto
-destino` donde la máquina destino recibirá las peticiones, que puede
-ser el mismo que el original o no. Existe también un campo opcional
-llamado :guilabel:`descripción` que es útil para añadir un comentario
-que describa el propósito de la regla.
+objeto), el :guilabel:`puerto de destino original` (puede ser
+*cualquiera*, un rango de puertos o un único puerto), el
+:guilabel:`protocolo`, la :guilabel:`origen` desde donde se iniciará
+la conexión (en una configuración usual su valor será *cualquiera*),
+la :guilabel:`IP destino` y, finalmente, el :guilabel:`puerto` donde
+la máquina destino recibirá las peticiones, que puede ser el mismo que
+el original o no. Existe también un campo opcional llamado
+:guilabel:`descripción` que es útil para añadir un comentario que
+describa el propósito de la regla.
 
 .. image:: images/firewall/07-redirection.png
    :scale: 70
