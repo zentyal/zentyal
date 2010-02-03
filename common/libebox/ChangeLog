@@ -1,5 +1,6 @@
 HEAD
 	+ Bug fix: i18n
+	+ Add -k__dx to extract i18n strings
 1.3.14
 	+ Renamed Castilian to Spanish
 	+ Add tableBodyWithoutEdit.mas
