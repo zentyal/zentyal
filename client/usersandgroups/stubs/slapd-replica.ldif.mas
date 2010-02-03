@@ -91,5 +91,5 @@ olcLastMod: TRUE
 # Checkpoint the BerkeleyDB database periodically in case of system
 # failure and to speed slapd shutdown.
 olcDbCheckpoint: 512 30
-olcSyncrepl: rid=110 provider=ldaps://<% $remote %>/ bindmethod=simple timeout=0 network-timeout=0 binddn="cn=ebox,<% $remotedn %>" credentials="<% $password %>" starttls=no filter="(objectclass=*)" searchbase="ou=Users,<% $remotedn %>" scope=sub schemachecking=off type=refreshAndPersist retry="1 5 60 +"
-olcSyncrepl: rid=111 provider=ldaps://<% $remote %>/ bindmethod=simple timeout=0 network-timeout=0 binddn="cn=ebox,<% $remotedn %>" credentials="<% $password %>" starttls=no filter="(objectclass=*)" searchbase="ou=Groups,<% $remotedn %>" scope=sub schemachecking=off type=refreshAndPersist retry="1 5 60 +"
+olcSyncrepl: rid=110 provider=ldap://<% $remote %>/ bindmethod=simple timeout=0 network-timeout=0 binddn="cn=ebox,<% $remotedn %>" credentials="<% $password %>" starttls=no filter="(objectclass=*)" searchbase="ou=Users,<% $remotedn %>" scope=sub schemachecking=off type=refreshAndPersist retry="1 5 60 +"
+olcSyncrepl: rid=111 provider=ldap://<% $remote %>/ bindmethod=simple timeout=0 network-timeout=0 binddn="cn=ebox,<% $remotedn %>" credentials="<% $password %>" starttls=no filter="(objectclass=*)" searchbase="ou=Groups,<% $remotedn %>" scope=sub schemachecking=off type=refreshAndPersist retry="1 5 60 +"
