@@ -352,7 +352,7 @@ sub _table
         'tableName' => 'RedirectsTable',
         'printableTableName' =>
           __('List of forwarded ports'),
-        'pageTitle' => __('Port Forwading'),
+        'pageTitle' => __('Port Forwarding'),
         'automaticRemove' => 1,
         'defaultController' =>
             '/ebox/Firewall/Controller/RedirectsTable',
@@ -360,7 +360,7 @@ sub _table
             [ 'add', 'del', 'editField', 'changeView' ],
         'tableDescription' => $self->_fieldDescription('source' => 1),
         'menuNamespace' => 'Firewall/View/RedirectsTable',
-        'printableRowName' => __('redirect'),
+        'printableRowName' => __('forwarding'),
     };
 
     return $dataTable;
