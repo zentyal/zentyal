@@ -455,7 +455,15 @@ sub preconfiguration
 
         # save changes
         foreach my $module (@modules) {
-            my $module = $global->modInstance($module)->save();
+            system ("echo 'Saving changes of $module...' >> $LOG");
+            my $module = $global->modInstance($module);
+            try {
+                $module->save();
+            } otherwise {
+                my ($ex) = @_;
+                my $err = $ex->text();
+                system ("echo 'Error saving $module: $err' >> $LOG");
+            };
             print $PROGRESS int($counter) . "\n";
             $counter += $step;
         }
@@ -472,18 +480,18 @@ sub preconfiguration
     # locales
     my $LOCALES_FILE='/var/lib/locales/supported.d/local';
     my $TMP='/tmp/local.tmp';
-    EBox::Sudo::root("cat /var/tmp/locale.gen $LOCALES_FILE > $TMP");
-    EBox::Sudo::root("sort $TMP | uniq > $LOCALES_FILE");
+    EBox::Sudo::rootWithoutException("cat /var/tmp/locale.gen $LOCALES_FILE > $TMP");
+    EBox::Sudo::rootWithoutException("sort $TMP | uniq > $LOCALES_FILE");
     unlink($TMP);
 
     print $PROGRESS "90\n";
 
     # Regenerate locales to update the new messages from eBox
-    EBox::Sudo::root("/usr/sbin/locale-gen >> $LOG 2>&1");
+    EBox::Sudo::rootWithoutException("/usr/sbin/locale-gen >> $LOG 2>&1");
 
     print $PROGRESS "94\n";
 
-    EBox::Sudo::root("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
+    system ("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
 
     print $PROGRESS "98\n";
 
@@ -622,6 +630,7 @@ sub enableModule # (name)
 {
     my ($name) = @_;
 
+    system ("echo 'Enabling module $name...' >> $LOG");
     my $module = $global->modInstance($name);
     $module->setConfigured(1);
     $module->enableService(1);
@@ -629,9 +638,10 @@ sub enableModule # (name)
         $module->enableActions();
     } otherwise {
         my ($ex) = @_;
+        my $err = $ex->text();
         $module->setConfigured(0);
         $module->enableService(0);
-        EBox::warn("Failed to enable module $name: " . $ex->text());
+        system ("echo 'Failed to enable module $name: $err' >> $LOG");
     };
 }
 
