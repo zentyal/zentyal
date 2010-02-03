@@ -311,7 +311,26 @@ its external accounts through the user corner [#]_. The user must have a
 email account to be able to do this. The external servers are pooled
 periodically so email retrieval is not instantaneous.
 
-For retrieving external emails, eBox uses Fetchmail [#f3]_ software.
+To configure its external accounts, a user have to login in the user corner and
+clink in `Mail retrevail from external mail accounts` in the left menu. In this page a list of
+user's external accounts is shown, the user can add, edit and delete
+accounts. Each account has the following fields:
+
+:guilabel:`External mail address`: 
+   the external mail address, it must be the address used
+   to login in the retrieval services.
+:guilabel:`Password`: 
+   password to authenticate the external account.
+:guilabel:`Mail server`: 
+   address of the mail server which hosts the external account.
+:guilabel:`Protocol`: 
+   mail retrieval protocol used by the external account, it may be one of
+   the following: POP3, POP3S, IMAP or IMAPS.
+:guilabel:`Port`: 
+   port used to connect to the external mail server.
+
+
+For retrieving external emails, eBox uses the Fetchmail [#f3]_ software.
 
 .. rubric:: Footnotes
 
@@ -319,7 +338,7 @@ For retrieving external emails, eBox uses Fetchmail [#f3]_ software.
        :ref:`usercorner-ref` section
 .. [#f3] **Fetchmail** The Fetchmail Home Page http://fetchmail.berlios.de/ .
 
-.. FIXME: Explain user configuration about fetchmail with its
+.. FIXME: (only shot) Explain user configuration about fetchmail with its
 .. configuration shot
 
 .. _sieve-sec-ref:

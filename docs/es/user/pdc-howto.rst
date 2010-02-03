@@ -203,14 +203,7 @@ para el grupo y opcionalmente podrás establecer un comentario para el mismo.
 
 
 Si pulsas el botón de `Añadir y Editar` en vez del de `Añadir`, se te llevara a
-la pagina de `Editar grupAfter a group creation you will be forwarded to the Edit group
-page. We are not interested in any setting here right now, but
-remember you can come back to this page selecting in left menú
-Groups -> Edit group.
-
-We will create the group *TI* for this tutorial. You can also
-create any other necessary groups for your domain.
-o`. Ahora no estamos interesados en ninguno de los
+la pagina de `Editar grupo`. Ahora no estamos interesados en ninguno de los
 parametros de esa pagina, así que pulsaremos el botón de `Añadir`. En todo caso
 recuerda que puedes visitar esa pagina seleccionando la casilla `Editar` en la
 lista de usuarios.

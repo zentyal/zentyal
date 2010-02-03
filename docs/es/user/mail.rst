@@ -324,7 +324,26 @@ usuario debe tener una cuenta de correo para poder hacerlo. Los
 servidores externos son consultados periódicamente, así que la
 obtención del correo no es instantánea.
 
-Para obtener el correo externo, eBox usa Fetchmail [#f3]_ .
+Para configurar sus cuentas externas, un usuario debe entrar en el `Rincón del Usuario` 
+y hacer clic en `Recuperar correo de cuentas externas` en el menú izquierdo. En la pagina 
+se muestra la lista de cuentas de correo del usuario, el usuario puede añadir, borrar y editar
+cuentas. Cada cuenta tiene los siguientes parametros:
+
+:guilabel:`Dirección
+ de correo externa`: 
+   la dirección de correo externa, debe ser la dirección 
+   usada para recuperar correo.
+:guilabel:`Contrasena`: 
+   contrasena para autenticar la cuenta externa.
+:guilabel:`Servidor de correo`: 
+   dirección del servidor de correo que hospeda a la cuenta externa.
+:guilabel:`Protocolo`: 
+   protocolo de recuperación de correo usado por la cuenta externa, puede ser uno de los   
+   siguientes:  POP3, POP3S, IMAP o IMAPS.
+:guilabel:`Puerto`: 
+   puerto usado para conectar al servidor de correo externo.
+
+Para obtener el correo externo, eBox usa el programa Fetchmail [#f3]_ .
 
 .. FIXME: Explain user configuration about fetchmail with its
 .. configuration shot 

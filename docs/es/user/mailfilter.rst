@@ -44,7 +44,7 @@ En esta sección vamos a explicar paso a paso en qué consiste cada uno
 de estos filtros y cómo se configuran en eBox.
 
 Lista gris
---------
+-----------
 
 Una **greylist** (lista gris) [#]_ es un método de defensa contra el *spam*
 que no descarta correos, sólo le pone más difícil el trabajo a un
