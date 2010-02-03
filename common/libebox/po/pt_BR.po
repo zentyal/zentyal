@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-21 18:02+0100\n"
+"POT-Creation-Date: 2010-02-03 19:21+0000\n"
 "PO-Revision-Date: 2009-01-23 23:12+0000\n"
 "Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
 "Language-Team: <en@li.org>\n"
@@ -166,7 +166,7 @@ msgid "Enabled"
 msgstr "Ligado"
 
 #: src/templates/enable.mas:29 src/templates/enable.mas:30
-#: src/templates/language.mas:23
+#: src/templates/ajax/tableBody.mas:348 src/templates/language.mas:23
 msgid "Change"
 msgstr "Alterar"
 
@@ -182,19 +182,42 @@ msgstr "Remover"
 msgid "Add new"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:446
+#: src/templates/ajax/tableBody.mas:128
+#, perl-brace-format
+msgid "Adding a new {row}"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:134
+#, perl-brace-format
+msgid "Editing {row}"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:190
+msgid "Search"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:336
+msgid "Add"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:360
+#, fuzzy
+msgid "Cancel"
+msgstr "Alterar"
+
+#: src/templates/ajax/tableBody.mas:440
 msgid "Edit"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:448
+#: src/templates/ajax/tableBody.mas:442
 msgid "Delete"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:453
+#: src/templates/ajax/tableBody.mas:447
 msgid "Read-only row: edit disabled"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:454
+#: src/templates/ajax/tableBody.mas:448
 msgid "Read-only row: delete disabled"
 msgstr ""
 
@@ -227,21 +250,30 @@ msgstr "Para"
 msgid "Optional"
 msgstr "Opcional"
 
-#: src/templates/ajax/tablePager.mas:58 src/templates/ajax/tablePager.mas:64
+#: src/templates/ajax/tablePager.mas:46
+#, fuzzy
+msgid "Page"
+msgstr "Alterar"
+
+#: src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr ""
+
+#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
 msgstr "primeiro"
 
-#: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:65
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
 msgstr "anterior"
 
-#: src/templates/ajax/tablePager.mas:71 src/templates/ajax/tablePager.mas:72
-#: src/templates/ajax/tablePager.mas:83 src/templates/ajax/tablePager.mas:84
+#: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
+#: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
 msgid "next"
 msgstr "próximo"
 
-#: src/templates/ajax/tablePager.mas:77 src/templates/ajax/tablePager.mas:78
-#: src/templates/ajax/tablePager.mas:87 src/templates/ajax/tablePager.mas:88
+#: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
+#: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
 msgstr "último"
 
@@ -278,11 +310,11 @@ msgstr "desculpe-nos"
 msgid "The page cannot be found"
 msgstr "A página não foi encontrada"
 
-#: src/templates/title.mas:25
+#: src/templates/title.mas:24
 msgid "show help"
 msgstr "mostrar ajuda"
 
-#: src/templates/title.mas:26
+#: src/templates/title.mas:25
 msgid "hide help"
 msgstr "esconder ajuda"
 
