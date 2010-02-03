@@ -24,7 +24,7 @@ BEGIN {
 	our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
 	@ISA = qw(Exporter);
-	@EXPORT = qw{ __ __n __x __d settextdomain gettextdomain langs };
+	@EXPORT = qw{ __ __n __x __d __dx settextdomain gettextdomain langs };
 	%EXPORT_TAGS = ( DEFAULT => \@EXPORT );
 	@EXPORT_OK = qw();
 	$VERSION = EBox::Config::version;
@@ -98,6 +98,16 @@ sub __d # (text,domain)
 	$string = gettext($string);
 	textdomain($cur_domain);
 	return $string;
+}
+
+sub __dx # (text,domain, %variables)
+{
+	my ($string,$domain, %vars) = @_;
+	bindtextdomain($domain, EBox::Config::locale());
+	textdomain($domain);
+	$string = gettext($string);
+	textdomain($cur_domain);
+	return __expand($string, %vars);
 }
 
 sub __expand # (translation, %arguments)

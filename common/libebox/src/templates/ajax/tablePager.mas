@@ -42,12 +42,14 @@
        'onchange'    => qq{setLoading("$pageSizeId"); $changeViewJS;return false}
   &>
 
-     <span id="<% $pageSizeId %>"></span>&nbsp;	
+     <span id="<% $pageSizeId %>"></span>&nbsp;
+% my $pageStr = __d('Page', 'libebox');
+% my $ofStr = __d('of', 'libebox');
 
 %   if ($tpages <= 0) {
-        <% __('Page') %> <% $page + 1 %>
+        <% $pageStr %> <% $page + 1 %>
 %   } else {
-        <% __('Page') %> <% $page + 1 %> <% __('of') %> <%$tpages + 1%>
+        <% $pageStr %> <% $page + 1 %> <% $ofStr %> <%$tpages + 1%>
 %   }
 
 &nbsp;

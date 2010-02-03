@@ -125,18 +125,14 @@ use POSIX;
 %  {
 %   if ( $action eq 'changeAdd' )
 %    {
-<& PARENT:title,
-   title => __x('Adding a new {row}',
-                row => $printableRowName)
-&>
+%     my $addingStr = __dx('Adding a new {row}', 'libebox', row => $printableRowName);
+<& PARENT:title, title => $addingStr &>
 %    }
 %   elsif ( $action eq 'changeEdit' ) 
 %    {
 <h3>
-<& PARENT:title,
-   title => __x('Editing {row}',
-                row => $printableRowName)
-&>
+%     my $editingStr = __dx('Editing {row}', 'libebox', row => $printableRowName);
+<& PARENT:title, title => $editingStr &>
 %   }
 
 <form name="<% $tableName . '_ajaxform' %>">
@@ -191,9 +187,7 @@ use POSIX;
   />
   <input type='submit' 
       name='filter' 
-      value="<% 
-               __d('Search', 'libebox') 
-             %>" 
+      value="<% __d('Search', 'libebox') %>" 
       title="Apply" 
       onClick='setLoading("<% 
                              $filterId 
@@ -339,7 +333,7 @@ use POSIX;
     <input class='inputButton' 
            type='submit' 
            name='add'
-           value="Add" 
+           value='<% __d('Add', 'libebox') %>'
            title="Add"
            onClick='<% 
                       $model->addNewRowJS($page) 
