@@ -379,9 +379,11 @@ sub _message
 {
     my $backupmsg =  __x(
 
-        '<i>{brand}</i>: quick and safe remote location to store the data ' .
+        '{oi}{brand}{ci} is a quick and safe remote location to store the data ' .
         'you keep on your eBox servers. Purchase the backup storage ' .
-        'space you need at the {ohref}eBox on-line store{chref}!',
+        'space you need at the {ohref}eBox on-line store{chref}.',
+         oi => '<i>',
+         ci => '</i>',
          ohref => '<a href="http://store.ebox-technologies.com">',
          brand => 'eBox Backup Storage',
          chref => '</a>'
