@@ -194,7 +194,7 @@ You can disable any other module to save resources on your system.
 =======================================
 
 You may need user groups in your domain. To create a group, in the
-left menu select Groups -> Add group. You will be asked for a group
+left menu select `Users and Groups -> Groups`. You will be asked for a group
 name and an optional commentary.
    
    
@@ -202,11 +202,13 @@ name and an optional commentary.
    :scale: 80   
    :alt:    add group form 
 
-
+You can create the group either clicking in `Add group` or `Add and edit group`.
 After a group creation you will be forwarded to the Edit group
-page. We are not interested in any setting here right now, but
-remember you can come back to this page selecting in left menu
-Groups -> Edit group.
+page. We are not interested in any setting here right now, so we click in `Add
+group` however you can enter in the `Edit user` page through the `Edit` field in
+the group list.
+
+
 
 We will create the group *IT* for this tutorial. You can also
 create any other necessary groups for your domain.
@@ -214,8 +216,8 @@ create any other necessary groups for your domain.
 6. Creating users
 =======================================
 
-To create your domain users, in the left menu select Users -> Add
-user. You will be show a form for adding the new user. This form
+To create your domain users, in the left menu select `Users and Groups ->
+Users`. You will be show a form for adding the new user. This form
 has the following fields:
 
 -  User name: user name for the user.
@@ -236,10 +238,12 @@ has the following fields:
 
 
 For this tutorial we will create a user with *pdcadmin* as user
-name. Other fields will be filled in with the appropiate vaules.
-After a user creation you will be forwarded to the Edit user page.
-Remember that you can come back to this page selecting in the left
-menu Users -> Edit user.
+name. Other fields will be filled in with the appropriate values.
+We will click in the button `Add and edit` so we will be forwarded to the Edit
+user page.
+
+Remember that you can come back to this page clicking in the user list the
+`Edit` control .
 
 There are some PDC user settings on this page, under the PDC/File
 sharing account heading.
@@ -632,7 +636,7 @@ to the drive *Y:*. Remember to create this share and grant access
 to it before trying this logon script!.
 ::
 
-    # contents of logon.bat search server
+    # contents of logon.bat 
     # map timetable share
     echo "Mapping timetable share to drive Y: ..."
     net use y: \\ebox-server\timetable
