@@ -91,7 +91,7 @@ The installer will try to pre-configure some basic configuration
 parameters. 
 
 First, it will ask you if any of your network
-interfaces are external (not within the local network), i.e. used
+interfaces are external (not connected the local network), i.e. used
 to connect to the Internet. Strict policies for all incoming
 traffic through external network interfaces will be applied.
 Depending on the role the server plays, i.e. placed inside your
@@ -186,7 +186,6 @@ The modules needed for the PDC server are:
 -  Logs
 -  Users and Groups
 -  File Sharing
--  Printers
 -  Antivirus
 
 You can disable any other module to save resources on your system.
@@ -247,7 +246,9 @@ sharing account heading.
 
 You can enable or disable the user account, a disabled account
 cannot login or be used in the domain. We will leave our new user
-account enabled. Also you can give administration rights to the
+account enabled. 
+
+You can give also administration rights to the
 user. An user with administration rights can add computers to the
 domain so you will need at least one user with administration
 rights. For this reason, we will enable this option for the
@@ -300,8 +301,8 @@ The `Drive letter` field assigns which letter will be used for the
 virtual drive containing the user home.
    
 The last field left is `Samba group`, with this setting we could restrict the
-users that could login and share fiels in the domain to one single group. In the
-example we don't want to restrict any use so we left it set to `All users`.
+users that could login and share files in the domain to one single group. In the
+tutorial we don't want to restrict any use so we left it set to `All users`.
    
 .. image:: images/pdc-howto/general-settings.png
    :scale: 80   
@@ -317,7 +318,7 @@ because left to users themselves they will choose weak passwords
 and rarely will change them.
 
 In the PDC tab we will see three passwords settings to configure:
-The first one is `Password Length`, We want that all users choose a
+The first one is `Minimum Password Length`, We want that all users choose a
 password with 8 character at least, so we raise this value to 8
 characters.
 
@@ -367,7 +368,7 @@ eBox would not be able to commit your configuration.
 
 Then you will show a screen which displays the progress in
 committing the new configuration. When it finish a
-*Changes saved message* will be show.
+*Changes saved* message will be show.
 
 .. warning:: 
    Changes in user and groups are committed immediately, so
@@ -383,7 +384,7 @@ For this we will need to know the name of our domain
 and the user name and password of a user with administration
 rights. In our example the user *pdcadmin* fits the bills.
 
-The computer to be added must be in the same network and need to
+The computer to be added must be in the same local network and need to
 have a CIFS- capable Windows (i.e. Windows XP Professional). The
 eBox network interface that connects to this network must **not**
 be marked as external interface. In the following instructions we

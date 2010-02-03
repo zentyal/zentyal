@@ -96,3 +96,11 @@ eBox Core
    controlcenter
 
 .. endno_elearning
+
+Appendix 
+-------- 
+      
+.. toctree:: 
+   :maxdepth: 2  
+      
+   pdc-howto 
