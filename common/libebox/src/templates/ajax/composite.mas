@@ -107,7 +107,7 @@ Parameters:
 
 % if ($title) {
 <h3>
-  <% $title | h %>
+  <% $title %>
 </h3>
 % }
 

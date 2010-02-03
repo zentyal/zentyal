@@ -57,7 +57,7 @@ foreach my $component (@{$components}) {
 <div id="<% qq{errorSelectData_$compName} | h %>">
 </div>
 <form id="<% qq{selector_$compName} | h %>">
-  <span><% $composite->selectMessage() | h %></span>
+  <span><% $composite->selectMessage()  %></span>
   <& /input/select.mas,
      name    => 'selection_' . $compName,
      options => \@selectOptions,
@@ -71,7 +71,6 @@ foreach my $component (@{$components}) {
   &>
   <span id="<% qq{loadingTable_$compName} | h %>"></span>
 </form>
-
 <!-- The content will lay on here -->
 <div id="<% qq{selectData_$compName} | h %>">
   <& $defaultComponent->Viewer(),
