@@ -26,15 +26,16 @@ congestion in network, otherwise such QoS mechanisms are not required.
 
 There are several techniques to give quality of service:
 
-* Reserving network resources: using *Resource
-  reSerVation Protocol* (RSVP) to request and reserve resources in the
-  routers. However, this option has been neglected because it does not scale
-  well with Internet growth
-* Differentiated services (*DiffServ*): in this model, packets are
-  marked according to the type of service they need. In response to
-  these marks, routers and switches use various queuing strategies
-  to tailor performance to requirements. This approach is currently
-  widely accepted.
+Reserving network resources:
+  Using *Resource reSerVation Protocol* (RSVP) to request and reserve
+  resources in the routers. However, this option has been neglected
+  because it does not scale well with Internet growth.
+
+Differentiated services (*DiffServ*):
+  In this model, packets are marked according to the type of service
+  they need. In response to these marks, routers and switches use
+  various queuing strategies to tailor performance to
+  requirements. This approach is currently widely accepted.
 
 In addition to these systems, *bandwidth management* mechanisms may be
 used to further improve performance such as  **traffic shaping**, **Scheduling
@@ -59,6 +60,9 @@ Regarding traffic shaping, there are two predominant methods:
   *constant rate*, which is equivalent to the size of the hole in the
   bucket.
 
+QoS configuration in eBox
+=========================
+
 eBox uses Linux kernel features [#]_ to shape traffic using *token bucket*
 mechanisms that allow to assign a limited rate, a guaranteed rate and a
 priority to certain types of data flows through the
@@ -66,25 +70,29 @@ priority to certain types of data flows through the
 
 .. [#] Linux Advanced Routing & Traffic Control http://lartc.org
 
-In order to perform traffic shaping, it is required to have, at least, an
-internal network interface and an external one. You need, at least, one configured *gateway*.
-And you have also to set your bandwith information in `Traffic Shaping -->
-Interface Rates`. Set the upload and download rate that provide the router that
-is connected to every external interface. The shaping
-rules are specific for each interface and they may be selected for those
-external network interfaces with assigned upload rate and all internal ones.
+In order to perform traffic shaping, it is required to have, at least,
+an internal network interface and an external one. You need, at least,
+one configured *gateway* as well.  And you have also to set your bandwidth
+information in :menuselection:`Traffic Shaping --> Interface
+Rates`. Set the upload and download rate that provide the router that
+is connected to every external interface. The shaping rules are
+specific for each interface and they may be selected for those
+external network interfaces with assigned upload rate and all internal
+ones.
+
+.. FIXME: New shot with interface rates page
 
 If the external network interface is shaped, then you are limiting
-eBox output traffic to the Internet. If, however, you
-shape an internal network interface, then the eBox output to internal
-networks is limited. The maximum output and input rates
-are given by the configuration in `Traffic Shaping --> Interface Rates`.
-As it can be seen, shaping input traffic is not
-possible directly, that is because input traffic is not predictable nor
-controllable in almost any way. There are specific techniques from
-various protocols to handle the incoming traffic, for instance TCP
-by artificially adjusting the TCP window size as well as controlling
-the rate of acknowledgements (ACK) being returned to the sender.
+eBox output traffic to the Internet. If, however, you shape an
+internal network interface, then the eBox output to internal networks
+is limited. The maximum output and input rates are given by the
+configuration in :menuselection:`Traffic Shaping --> Interface Rates`.
+As it can be seen, shaping input traffic is not possible directly,
+that is because input traffic is not predictable nor controllable in
+almost any way. There are specific techniques from various protocols
+to handle the incoming traffic, for instance, TCP by artificially
+adjusting the window size as well as controlling the rate of
+acknowledgements (ACK) segments being returned to the sender.
 
 Each network interface has a rule table to give
 :guilabel:`priority` (0: highest priority, 7: lowest priority),
@@ -99,9 +107,7 @@ a :guilabel:`source` and/or a :guilabel:`destination`.
 
    Traffic shaping rules
 
-.. FIXME: traffic shaping image is in Spanish
-
-Practice example
+Practise example
 ^^^^^^^^^^^^^^^^
 
 Set up a rule to shape incoming HTTP traffic by limiting it to 20KB/s. Check if

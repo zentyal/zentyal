@@ -28,15 +28,17 @@ la red, en caso contrario no se debería aplicarse dichos mecanismos.
 
 Existen diversas técnicas para dar calidad de servicio:
 
-* Reserva de recursos de red: usando el protocolo *Resource
-  reSerVation Protocol* (RSVP) para pedir y reservar espacio en los
-  encaminadores. Sin embargo, esta opción se ha relegado ya que no
-  escala bien en el crecimiento de Internet.
-* Uso de servicios diferenciados (*DiffServ*): mediante el marcado de
-  paquetes dependiendo el servicio al que sirven. Dependiendo de las
-  marcas, los encaminadores usarán diversas técnicas de encolamiento
-  para adaptarse a los requisitos de las aplicaciones. Esta técnica
-  está actualmente aceptada.
+Reserva de recursos de red:
+  Usando el protocolo *Resource reSerVation Protocol* (RSVP) para
+  pedir y reservar espacio en los encaminadores. Sin embargo, esta
+  opción se ha relegado ya que no escala bien en el crecimiento de
+  Internet.
+
+Uso de servicios diferenciados (*DiffServ*):
+  Mediante el marcado de paquetes dependiendo el servicio al que
+  sirven. Dependiendo de las marcas, los encaminadores usarán diversas
+  técnicas de encolamiento para adaptarse a los requisitos de las
+  aplicaciones. Esta técnica está actualmente aceptada.
 
 Como añadido a estos sistemas, existen mecanismos de *gestión de ancho
 de banda* para mejorar la calidad de servicio basada en el **moldeado
@@ -62,6 +64,9 @@ Para el moldeado de tráfico existen básicamente dos algoritmos:
 
 .. [#] Término conocido como *burst*.
 
+Configuración de la calidad de servicio en eBox
+===============================================
+
 eBox utiliza las capacidades del núcleo de Linux [#]_ para hacer
 moldeado de tráfico usando *token bucket* que permite una tasa
 garantizada, limitada y una prioridad a determinados tipos de flujos
@@ -71,28 +76,29 @@ de datos (protocolo y puerto) a través del menú
 .. [#] Linux Advanced Routing & Traffic Control http://lartc.org
 
 Para poder realizar moldeado de tráfico es necesario disponer de al
-menos una interfaz interna y una interfaz externa. También debe existir un
-*router*. Además debemos configurar las tasas de subida y bajada de los
-*routers* en `Moldeado de tráfico --> Tasas de Interfaces`, estableciendo
-el ancho de banda que nos proporciona cada *router* que está conectado
-a una interfaz externa.  Las reglas de moldeado son específicas
-para cada interfaz y pueden asignarse a las interfaces externas con
-ancho de banda asignado y a todas las interfaces internas.
+menos una interfaz interna y una interfaz externa. También debe
+existir un *router*. Además debemos configurar las tasas de subida y
+bajada de los *routers* en :menuselection:`Moldeado de tráfico -->
+Tasas de Interfaz`, estableciendo el ancho de banda que nos
+proporciona cada *router* que está conectado a una interfaz externa.
+Las reglas de moldeado son específicas para cada interfaz y pueden
+asignarse a las interfaces externas con ancho de banda asignado y a
+todas las interfaces internas.
+
+.. FIXME: New shot with interface rates page
 
 Si se moldea la interfaz externa, entonces se estará limitando el
-tráfico de salida de eBox hacia Internet En cambio,
-si se moldea la interfaz interna, entonces se
-estará limitando la salida de eBox hacia sus redes internas.
-El límite máximo de tasa de
-salida y entrada viene dado por la configuración
-en `Moldeado de tráfico --> Tasas de Interfaces`.
-Como se puede observar, no se puede moldear el tráfico
-entrante en sí, eso es debido a que el tráfico proveniente de la red no
-es predecible y controlable de casi ninguna forma. Existen técnicas
-específicas a diversos protocolos para tratar de controlar el tráfico
-entrante a eBox, como por ejemplo TCP con el ajuste artificial del
-tamaño de ventana de flujo de la conexión TCP o controlando la tasa de
-confirmaciones (*ACK*) devueltas al emisor.
+tráfico de salida de eBox hacia Internet En cambio, si se moldea la
+interfaz interna, entonces se estará limitando la salida de eBox hacia
+sus redes internas.  El límite máximo de tasa de salida y entrada
+viene dado por la configuración en :menuselection:`Moldeado de tráfico
+--> Tasas de Interfaz`.  Como se puede observar, no se puede moldear
+el tráfico entrante en sí, eso es debido a que el tráfico proveniente
+de la red no es predecible y controlable de casi ninguna
+forma. Existen técnicas específicas a diversos protocolos para tratar
+de controlar el tráfico entrante a eBox, como por ejemplo, TCP con el
+ajuste artificial del tamaño de ventana de flujo de la conexión TCP o
+controlando la tasa de confirmaciones (*ACK*) devueltas al emisor.
 
 Para cada interfaz se pueden añadir reglas para dar
 :guilabel:`prioridad` (0: máxima prioridad, 7: mínima prioridad),
