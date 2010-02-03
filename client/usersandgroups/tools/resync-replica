@@ -1,0 +1,5 @@
+#!/bin/sh
+
+stop ebox.slapd-replica
+rm -rf /var/lib/ldap-replica/*
+start ebox.slapd-replica
