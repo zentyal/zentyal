@@ -2,12 +2,12 @@
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
 # Automatically generated, 2007.
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:116
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:125
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:18+0000\n"
+"POT-Creation-Date: 2010-02-03 21:01+0000\n"
 "PO-Revision-Date: 2009-05-18 22:57+0200\n"
 "Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
 "Language-Team: none\n"
@@ -238,39 +238,39 @@ msgstr "Serviço baseado em aplicação"
 msgid "Application based service group"
 msgstr "Grupo de serviço baseado em aplicação"
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:85
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #, fuzzy
 msgid "External Interface"
 msgstr "{iface} (interface externa)"
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:90
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:99
 msgid "Upload"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
 msgid "Upload rate in Kbits/s through this interface"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 msgid "Download"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:109
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:110
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:118
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:119
 #, fuzzy
 msgid "External Interface Rates"
 msgstr "{iface} (interface externa)"
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:117
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:126
 msgid "rate"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:142
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:151
 msgid "You need at least one internal interface and one external interface"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:85
 #, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
@@ -282,7 +282,7 @@ msgstr ""
 "externa. Verifique se sua configuração de interface corresponde, em "
 "{openhref}Network->Interfaces{closehref}"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:94
 #, perl-brace-format
 msgid ""
 "Traffic Shaping is applied only if there are gateways with an upload rate "
@@ -295,11 +295,11 @@ msgstr ""
 "{openhref}Network->Gateways{closehref} tornando a interface uma interface "
 "externa."
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:117
 msgid "Rules list per interface"
 msgstr "Lista de regras por interface"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:128
 msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
@@ -308,7 +308,7 @@ msgstr ""
 "mente que se estiver usando shaping em uma interface você está fazendo "
 "\"ingress shaping\"."
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:130
 msgid "Choose an interface to shape"
 msgstr "Escolha uma interface para aplicar traffic shaping"
 

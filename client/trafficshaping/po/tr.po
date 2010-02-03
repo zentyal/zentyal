@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the ebox-trafficshaping package.
 # Automatically generated, 2007.
 #
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:116
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:125
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:18+0000\n"
+"POT-Creation-Date: 2010-02-03 21:01+0000\n"
 "PO-Revision-Date: 2007-05-15 13:09+0000\n"
 "Last-Translator: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
 "Language-Team: none\n"
@@ -224,38 +224,38 @@ msgstr ""
 msgid "Application based service group"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:85
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #, fuzzy
 msgid "External Interface"
 msgstr "Arabirim"
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:90
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:99
 msgid "Upload"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
 msgid "Upload rate in Kbits/s through this interface"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 msgid "Download"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:109
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:110
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:118
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:119
 msgid "External Interface Rates"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:117
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:126
 msgid "rate"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:142
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:151
 msgid "You need at least one internal interface and one external interface"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:85
 #, fuzzy, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
@@ -266,7 +266,7 @@ msgstr ""
 "arabirimlerde uygulanır. Bunu yapmak için, {openhref}Network->Gateways"
 "{closehref} altında arabirimlerden biri harici olarak bir gateway oluşturun. "
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:94
 #, fuzzy, perl-brace-format
 msgid ""
 "Traffic Shaping is applied only if there are gateways with an upload rate "
@@ -278,12 +278,12 @@ msgstr ""
 "arabirimlerde uygulanır. Bunu yapmak için, {openhref}Network->Gateways"
 "{closehref} altında arabirimlerden biri harici olarak bir gateway oluşturun. "
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:117
 #, fuzzy
 msgid "Rules list per interface"
 msgstr "Herbir arabirim için kurallar listesi"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:128
 msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
@@ -291,7 +291,7 @@ msgstr ""
 "Trafik şekillendirme kuralları eklemek için bir arabirim seçin. Bir iç "
 "arabirim şekillendirdiğinizde giriş şekillendirmesi yaptığınızı unutmayın. "
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:130
 msgid "Choose an interface to shape"
 msgstr "Şekillendirilecek arayüzü seçin"
 

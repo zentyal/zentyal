@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the ebox-trafficshaping package.
 # Automatically generated, 2008.
 #
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:116
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:125
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:18+0000\n"
+"POT-Creation-Date: 2010-02-03 21:01+0000\n"
 "PO-Revision-Date: 2009-08-04 08:16+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -226,39 +226,39 @@ msgstr "基於應用程式的服務"
 msgid "Application based service group"
 msgstr "基於應用程式的服務群組"
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:85
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 #, fuzzy
 msgid "External Interface"
 msgstr "{iface} (外部介面)"
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:90
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:99
 msgid "Upload"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:102
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
 msgid "Upload rate in Kbits/s through this interface"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 msgid "Download"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:109
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:110
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:118
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:119
 #, fuzzy
 msgid "External Interface Rates"
 msgstr "{iface} (外部介面)"
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:117
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:126
 msgid "rate"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:142
+#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:151
 msgid "You need at least one internal interface and one external interface"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:85
 #, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
@@ -268,7 +268,7 @@ msgstr ""
 "流量控管只有當 eBox 做為閘道器時才有用。要做為閘道器，您至少需要一個內部與一"
 "個外部介面。請在{openhref}網路->介面{closehref}檢查您的介面組態是否符合"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:94
 #, perl-brace-format
 msgid ""
 "Traffic Shaping is applied only if there are gateways with an upload rate "
@@ -279,11 +279,11 @@ msgstr ""
 "流量控管只有在閘道器的外部介面有設定上傳速率時才有用。為了做到這點，請在"
 "{openhref}網路->閘道器{closehref}建立閘道器的外部介面設定值。"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:117
 msgid "Rules list per interface"
 msgstr "每介面的規則清單"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:128
 msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
@@ -291,7 +291,7 @@ msgstr ""
 "選擇要加入流量控管的介面。請牢記在心當您控管一個內部介面時，您進行的是進入流"
 "量的控管。"
 
-#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:130
 msgid "Choose an interface to shape"
 msgstr "選擇要控管的介面"
 
