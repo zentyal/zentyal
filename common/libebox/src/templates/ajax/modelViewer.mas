@@ -168,7 +168,7 @@
 </%args>
 <h3>
   <%
-    $title | h
+    $title 
   %>
 </h3>
 </%method>
@@ -253,7 +253,7 @@
     <% $type->printableName() %>:
 % if ($type->optional()) {
     <div class='optional_field'>
-        <% __('Optional') %>
+        <% __d('Optional', 'libebox') %>
     </div>
 % }
   </td>

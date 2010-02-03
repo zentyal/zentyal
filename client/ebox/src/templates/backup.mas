@@ -123,11 +123,11 @@ my %printableTypeById = (
 <table class='dataTable' cellspacing='0'>
 	<thead>
 		<tr>
-			<th class="tleft"><%__('Description') | h %>  </th>
+			<th class="tleft"><%__('Description') %>  </th>
 			<th><% __('Type') %> </th>
 			<th><%__('Date')%> </th>
                         <th><% __('Archive size') %> </th>
-			<th class="thOptions"><%__('Actions') | h %></th>
+			<th class="thOptions"><%__('Actions') %></th>
 		</tr>
 	</thead>
 	<tbody>

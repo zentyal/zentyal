@@ -128,7 +128,7 @@ sub _setupTable
 {
     my ($self) = @_;
 
-    $self->_setDomain();
+    $self->setDomain();
 
     my $table = $self->_table();
     $self->checkTable($table);
@@ -3594,11 +3594,16 @@ sub _removeHasManyTables
 # Method: _setDomain
 #
 #     Set the translation domain to the one stored in the model, if any
-sub _setDomain
+sub setDomain
 {
     my ($self) = @_;
 
     my $domain = $self->{'domain'};
+    unless ($domain) {
+	if (exists $self->{gconfmodule}->{domain})  {
+		$domain = $self->{gconfmodule}->{domain};
+	}
+    }
     if ($domain) {
         $self->{'oldDomain'} = settextdomain($domain);
     }
@@ -4669,8 +4674,5 @@ sub parentRow
 
     return $row;
 }
-
-
-
 
 1;

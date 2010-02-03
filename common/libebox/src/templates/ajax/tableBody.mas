@@ -114,7 +114,7 @@ use POSIX;
                       editId => "undefined", 
                       page => $page,
                       isFilter => 0) 
-                %>;return false'><% __d('Add new', 'ebox') %></a>
+                %>;return false'><% __d('Add new', 'libebox') %></a>
    <br/>
    <br/>
 %    }
@@ -192,7 +192,7 @@ use POSIX;
   <input type='submit' 
       name='filter' 
       value="<% 
-               __('Search') 
+               __d('Search', 'libebox') 
              %>" 
       title="Apply" 
       onClick='setLoading("<% 
@@ -351,7 +351,7 @@ use POSIX;
     <input class='inputButton' 
            type='submit' 
            name='change'
-           value="Change" 
+           value="<% __d('Change', 'libebox') %>" 
            title="Change"
            onClick='<% 
                       $model->changeRowJS($editid, $page) 
@@ -363,7 +363,7 @@ use POSIX;
     <input class='inputButton' 
            type='submit' 
            name='cancel'
-           value="Cancel"
+           value="<% __d('Cancel', 'libebox') %>"
            title="Cancel"
            onClick='<% 
                       $model->changeViewJS( changeType => "changeList", 
@@ -409,7 +409,7 @@ Parameteres:
 
       <th class='thOptions'>
         <%
-          __('Action') 
+          __d('Action', 'libebox') 
         %>
       </th>
     </thead>
@@ -443,15 +443,15 @@ $page
                             %>'>
 %      my $disabled = '';
 %      my $edit = 'edit';
-%      my $edit_msg = __('Edit');
+%      my $edit_msg = __d('Edit', 'libebox');
 %      my $delete = 'delete';
-%      my $delete_msg = __('Delete');
+%      my $delete_msg = __d('Delete', 'libebox');
 %      if ($row->readOnly()) {
 %          $disabled = 'disabled';
 %          $edit = 'edit-inactive';
 %          $delete = 'delete-inactive';
-%          $edit_msg = __('Read-only row: edit disabled');
-%          $delete_msg = __('Read-only row: delete disabled');
+%          $edit_msg = __d('Read-only row: edit disabled', 'libebox');
+%          $delete_msg = __d('Read-only row: delete disabled', 'libebox');
 %      }
 
 %      if ($actions->{'del'}) 

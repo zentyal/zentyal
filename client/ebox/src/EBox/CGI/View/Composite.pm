@@ -81,7 +81,7 @@ sub _process
         $composite->setDirectory('');
     }
 
-
+    $composite->setDomain();
     $self->{params} = $self->masonParameters();
 }
 

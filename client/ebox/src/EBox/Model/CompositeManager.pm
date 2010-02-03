@@ -349,6 +349,9 @@ sub _setUpCompositesFromProvider
     my ($self, $provider) = @_;
 
     foreach my $composite (@{$provider->composites()}) {
+        if ($provider->can('domain')) {
+            $composite->setInitialDomain($provider->domain());
+        }
         push ( @{$self->{composites}->{$provider->name()}->{$composite->name()}},
                $composite);
     }

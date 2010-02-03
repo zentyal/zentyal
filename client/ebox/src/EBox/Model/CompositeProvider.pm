@@ -22,6 +22,8 @@ package EBox::Model::CompositeProvider;
 
 use base 'EBox::Model::ProviderBase';
 
+use EBox::Gettext;
+
 use strict;
 use warnings;
 
@@ -54,12 +56,24 @@ sub composite
 #
 # Returns:
 #
-#	array ref - containing instances of the composites
+#   array ref - containing instances of the composites
 #
 sub composites
 {
   my ($self, $name) = @_;
-  return  $self->providedInstances(TYPE, $name);
+
+  # Try to automatically set the domain
+  my $domain;
+  if ($self->can('domain')) {
+      $domain = $self->domain();
+      settextdomain($self->domain());
+  }
+  my $instances =  $self->providedInstances(TYPE, $name);
+  for my $instance (@{$instances}) {
+      $instance->setInitialDomain($domain);
+  }
+
+  return $instances;
 }
 
 # Method: reloadCompositesOnChange

@@ -4,7 +4,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-my $domain = settextdomain('libebox');
 </%init>
 <div>
 % if ($title or ($crumbs and @$crumbs)) {
@@ -22,10 +21,9 @@ my $domain = settextdomain('libebox');
     <span class='title'><% $title %></span>
 % }
     <span id='helpbutton'>
-        <a id='showhelp' href="#" onclick="switchHelp(); return false; " title="<% __('Display help notes') %>">(<% __("show help")%>)</a>
-        <a style='display:none;' id='hidehelp' href="#" onclick="switchHelp(); return false; " title="<% __('Hide help notes') %>">(<% __("hide help")%>)</a>
+        <a id='showhelp' href="#" onclick="switchHelp(); return false; " title="<% __d('Display help notes', 'libebox') %>">(<% __d("show help", 'libebox')%>)</a>
+        <a style='display:none;' id='hidehelp' href="#" onclick="switchHelp(); return false; " title="<% __d('Hide help notes', 'libebox') %>">(<% __d("hide help", 'libebox')%>)</a>
     </span>
 % }
 </div>
 
-% settextdomain($domain);

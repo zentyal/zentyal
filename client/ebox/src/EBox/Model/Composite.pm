@@ -1102,6 +1102,7 @@ sub pageTitle
 {
 	my ($self) = @_;
 
+	$self->setDomain();
 	my $desc = $self->_description();
 	if (exists $desc->{pageTitle}) {
 		return $desc->{pageTitle};
@@ -1114,6 +1115,7 @@ sub headTitle
 {
 	my ($self) = @_;
 
+	$self->setDomain();
 	my $desc = $self->_description();
 	if (exists $desc->{headTitle}) {
 		return $desc->{headTitle};
@@ -1134,6 +1136,33 @@ sub HTMLTitle
              link  => undef 
             }];
 
+}
+
+# Method: setInitialDomain
+#
+#   Set the initial domain. gettext is not actually
+#   called here. setDomain does call gettext
+#   using the domain provided by this method
+#
+# Parameters:
+#
+#   domain - string
+#
+sub setInitialDomain
+{
+    my ($self, $domain) = @_;
+    $self->{domain} = $domain;
+}
+
+# Method: setDomain
+#
+#   Call settextdomain with the $self->{domain}
+sub setDomain
+{
+    my ($self) = @_;
+    if ($self->{domain})  {
+        settextdomain($self->{domain});
+    }
 }
 
 1;

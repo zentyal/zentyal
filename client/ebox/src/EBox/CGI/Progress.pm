@@ -29,6 +29,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
+use Encode;
 
 ## arguments:
 ## 	title [required]
@@ -51,9 +52,9 @@ sub _process
   my @params = ();
   push @params, (progressId     => $self->_progressId);
 
-  my $title = $self->param('title');
+  my $title = ($self->param('title'));
   if ($title) {
-    $self->{title} = $title;
+    $self->{title} = encode (utf8 => $title);
   }
 
   my @paramsNames = qw( text currentItemCaption itemsLeftMessage
@@ -62,7 +63,9 @@ sub _process
     # We use unsafeParam because these paramaters can be i18'ed.
     # Also, these parameters are only used to generate html, no command
     # or so is run.
-    my $value = $self->unsafeParam($name);
+    use Encode;
+    my $value = encode (utf8 => $self->unsafeParam($name));
+    
     $value or
       next;
 

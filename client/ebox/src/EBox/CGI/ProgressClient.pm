@@ -47,10 +47,8 @@ sub showProgress
   my $url               = delete $params{url};
 
   $self->cgi()->delete(@{ $self->params() });
-
   $self->cgi()->param('progress' => $progressIndicator->id());
   $self->keepParam('progress');
-
   # put the optional parameters in the CGI
   while (my ($param, $value) = each %params) {
     $self->cgi()->param($param, $value);
