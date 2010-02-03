@@ -1,4 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -113,6 +114,7 @@ sub preconditionFailMsg
 sub _description
 {
 
+    my $printableName = __('Rules list per interface');
     my $description =
       {
        components      => [
@@ -120,7 +122,8 @@ sub _description
                           ],
        layout          => 'select',
        name            => 'DynamicGeneral',
-       printableName   => __('Rules list per interface'),
+       printableName   => $printableName,
+       pageTitle       => $printableName,
        compositeDomain => 'TrafficShaping',
        help            => __('Select an interface to add traffic shaping rules. Keep in mind that if you are ' .
                              'shaping an internal interface, you are doing ingress shaping.'),
