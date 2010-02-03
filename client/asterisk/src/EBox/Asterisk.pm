@@ -39,6 +39,7 @@ use EBox::AsteriskLogHelper;
 use EBox::Asterisk::Extensions;
 
 use Net::IP;
+use Error qw(:try);
 
 use constant MODULESCONFFILE      => '/etc/asterisk/modules.conf';
 use constant EXTCONFIGCONFFILE    => '/etc/asterisk/extconfig.conf';
@@ -551,8 +552,19 @@ sub _sipShowPeers
 {
     my ($self) = @_;
 
+    return [] unless ($self->isEnabled());
+
     my $peers = [];
-    my @output = @{ EBox::Sudo::root("asterisk -rx 'sip show peers'") };
+    my @output;
+    my $error;
+    try {
+        @output= @{ EBox::Sudo::root("asterisk -rx 'sip show peers'") };
+    } otherwise {
+        $error = 1;
+    };
+
+    return [] if ($error);
+
     for my $line (@output) {
         chomp($line);
         # jbernal/jbernal            87.218.95.20     D   N      1050     OK (214 ms) Cached RT
@@ -575,8 +587,19 @@ sub _meetmeList
 {
     my ($self) = @_;
 
-    my $rooms = [];
-    my @output = @{ EBox::Sudo::root("asterisk -rx 'meetme list'") };
+    return [] unless ($self->isEnabled());
+
+    my $rooms= [];
+    my @output;
+    my $error;
+    try {
+        @output= @{ EBox::Sudo::root("asterisk -rx 'meetme list'") };
+    } otherwise {
+        $error = 1;
+    };
+
+    return [] if ($error);
+
     for my $line (@output) {
         chomp($line);
         # 8989           0001           N/A        02:03:32  Static    No
