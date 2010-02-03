@@ -43,6 +43,8 @@ enable any of them by clicking on the checkbox.
    :scale: 80
    :align: center
 
+.. FIXME: Update shots to show edit in-place boolean
+
 On the :guilabel:`Rules` tab you can see a table that is
 preloaded with all the Snort rulesets installed on your system
 (files under the directory `/etc/snort/rules`). A typical set of rules is
@@ -56,6 +58,8 @@ the interfaces.
 .. image:: images/ids/ids-02-rules.png
    :scale: 80
    :align: center
+
+.. FIXME: Update shots to show edit in-place boolean
 
 IDS Alerts
 ==========
