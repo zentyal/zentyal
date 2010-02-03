@@ -319,11 +319,11 @@ sub _method
     return ([
             {
             value => 'ebox_eu',
-            printableValue => 'eBox Remote Storage (EU)',
+            printableValue => 'eBox Backup Storage (EU)',
             },
             {
             value => 'ebox_us_w',
-            printableValue => 'eBox Remote Storage (US West Coast)',
+            printableValue => 'eBox Backup Storage (US West Coast)',
             },
             {
             value => 'file',
@@ -378,10 +378,12 @@ sub _gpgKeys
 sub _message
 {
     my $backupmsg =  __x(
-        'You can create your <i>eBox Remote Storage</i> account in our ' .
-        '{ohref}on-line store{chref}. Use this service to have a quick ' .
-        'and safe remote location to store your data',
+
+        '<i>{brand}</i>: quick and safe remote location to store the data ' .
+        'you keep on your eBox servers. Purchase the backup storage ' .
+        'space you need at the {ohref}eBox on-line store{chref}!',
          ohref => '<a href="http://store.ebox-technologies.com">',
+         brand => 'eBox Backup Storage',
          chref => '</a>'
     );
     return $backupmsg;
