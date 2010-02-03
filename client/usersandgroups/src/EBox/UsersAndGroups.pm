@@ -676,6 +676,9 @@ sub soapRun
         my ($fh, $filename) = tempfile("$method-XXXX", DIR => $journaldir);
         print $fh "$method\n";
         print $fh "$param\n";
+        for my $p (@params) {
+            print $fh "$p\n";
+        }
         $fh->close();
         rename($filename, "$filename.pending");
     };

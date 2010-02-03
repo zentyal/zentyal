@@ -60,16 +60,17 @@ sub processFile
     my ($slave, $file) = @_;
 
     open(FILE, $file);
-    my ($method, $param) = <FILE>;
+    my ($method, $param, @params) = <FILE>;
     close(FILE);
     chomp($method);
     chomp($param);
+    @params = map { chomp($_); $_ } @params;
 
     my $client = $users->soapClient($slave);
 
     if ($mode eq 'run') {
         try {
-            $client->$method($param);
+            $client->$method($param, @params);
             #remove with sudo because it can be a usercorner file
             EBox::Sudo::root("rm -f $file");
         } otherwise {
