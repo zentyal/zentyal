@@ -160,13 +160,15 @@ haciendo la traducción de la dirección destino.
 Para configurar una redirección hay que establecer la
 :guilabel:`interfaz` donde se va a hacer la traducción, el
 :guilabel:`destino original` (puede ser eBox, una dirección IP o un
-objeto), el :guilabel:`puerto destino original` (puede ser *cualquiera*, un rango de
-puertos o un único puerto), el :guilabel:`protocolo`, la
+objeto), el :guilabel:`puerto destino original` (puede ser *cualquiera*,
+un rango de puertos o un único puerto), el :guilabel:`protocolo`, la
 :guilabel:`fuente` desde donde se iniciará la conexión (en una
 configuración usual su valor será *cualquiera*), la
 :guilabel:`dirección IP destino` y, finalmente, el :guilabel:`puerto
 destino` donde la máquina destino recibirá las peticiones, que puede
-ser el mismo que el original o no.
+ser el mismo que el original o no. Existe también un campo opcional
+llamado :guilabel:`descripción` que es útil para añadir un comentario
+que describa el propósito de la regla.
 
 .. image:: images/firewall/07-redirection.png
    :scale: 70

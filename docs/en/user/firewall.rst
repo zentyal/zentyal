@@ -145,11 +145,11 @@ easier rule management. Finally, each rule has a
   :guilabel:`Firewall`, it is possible to see whether a rule is working
   properly.
 
-Port redirection
-----------------
+Port forwarding
+---------------
 
 Port redirections (destination NAT) are configured through
-:menuselection:`Firewall --> Redirection`, where an external port
+:menuselection:`Firewall --> Port Forwarding`, where an external port
 can be given and all traffic routed to a host listening on a certain port
 can be redirected by translating the destination address.
 
@@ -162,7 +162,9 @@ a range of ports or a single port), the :guilabel:`protocol`, the
 normal configuration, its value will be *any*), the
 :guilabel:`target IP address` and, finally, the :guilabel:`destination
 port`, where the target host is to receive the requests, which may or
-may not be the same as the original.
+may not be the same as the original. There is also a optional field
+called :guilabel:`description` that is useful to add a comment
+describing the purpose of the rule.
 
 .. image:: images/firewall/07-redirection.png
    :scale: 70
