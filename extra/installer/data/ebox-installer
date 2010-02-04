@@ -5,7 +5,7 @@
 # Define some quick variables
 export LOG=/tmp/ebox-installer.log
 SOURCES_LIST=/etc/apt/sources.list
-PPA_URL="http://ppa.launchpad.net/ebox/1.3/ubuntu"
+PPA_URL="http://ppa.launchpad.net/ebox/1.4/ubuntu"
 EBOX_SOURCES="deb $PPA_URL hardy main"
 PKG_DIR=/var/tmp/ebox-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
@@ -68,6 +68,9 @@ installed_ok() {
     rm -fr /var/tmp/ebox-*
     rm -fr /var/tmp/po
     apt-get clean
+    # Disable cdrom and delete file from apt sources
+    sed -i "s/^deb cdrom/#deb cdrom/" /etc/apt/sources.list
+    sed -i "s/^deb file:.*$//" /etc/apt/sources.list
     # Restore original rc.local
     mv /var/tmp/rc.local /etc/rc.local
     # Restart gdm
