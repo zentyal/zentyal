@@ -12,7 +12,7 @@ Documentación de Usuario
 Documentación para el desarrollador de un módulo
 ================================================
 
- * :ref:`Guía del desarrollador de un módulo <module-developer-guide>`
+.. * :ref:`Guía del desarrollador de un módulo <module-developer-guide>`
 
 Documentación para el desarrollador del núcleo
 ==============================================
