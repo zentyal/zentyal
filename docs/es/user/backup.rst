@@ -55,7 +55,7 @@ especificar que protocolo se usa para conectarse al servidor remoto.
    :alt: Configuración
    :align: center
 
-    Configuración
+   Configuración
 
 
 :guilabel:`Método`:
