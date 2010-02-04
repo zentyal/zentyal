@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 16:31+0000\n"
-"PO-Revision-Date: 2010-01-31 17:51+0100\n"
+"PO-Revision-Date: 2010-02-02 23:59+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -86,9 +86,8 @@ msgid "Name"
 msgstr "Nombre"
 
 #: src/EBox/Model/PermissionTemplates.pm:72
-#, fuzzy
 msgid "Allowed Applications"
-msgstr "Aplicaciones"
+msgstr "Aplicaciones permitidas"
 
 #: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"

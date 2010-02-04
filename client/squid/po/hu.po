@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:18+0000\n"
-"PO-Revision-Date: 2010-01-27 12:49+0100\n"
+"PO-Revision-Date: 2010-02-03 15:39+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -504,12 +504,10 @@ msgid "Use default profile for MIME filtering"
 msgstr "alapértelmezett profil MIME szűréssel"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:41
-#, fuzzy
 msgid "Block not listed domains and URLs"
-msgstr "listában nem szereplő blokkolt domainek"
+msgstr "Blokkolja a listában nem szereplő hivatkozásokat"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
-#, fuzzy
 msgid ""
 "If this is enabled, any domain or URL which is neither present neither in "
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
@@ -530,37 +528,35 @@ msgstr "elemek"
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:64
 #, perl-brace-format
 msgid "Allow all {elements}"
-msgstr "minden engedélyezve: {elements}"
+msgstr "Mind engedélyezve: {elements}"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:74
-#, fuzzy
 msgid "Use this field to change the value of all the above rows at once"
-msgstr ""
-"E mező_ _értékének módosítása azonnal hatással van, minden e fölötti sorra."
+msgstr "Használja ezt a mezőt a fenti sorok értékeinek felülírására"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:58
 msgid "Transparent Proxy"
-msgstr "transzparens proxy"
+msgstr "Transzparens proxy"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:65
 msgid "Port"
-msgstr "port"
+msgstr "Port"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:71
 msgid "Cache files size (MB)"
-msgstr "gyorsítótár (cache) állományainak mérete (MB)"
+msgstr "Gyorsítótár állományainak mérete (MB)"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:79
 msgid "Default policy"
-msgstr "alapértelmezett házirend"
+msgstr "Alapértelmezett házirend"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:87
 msgid "General Settings "
-msgstr "általános beállítások"
+msgstr "Általános beállítások "
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:92
 msgid "Settings changed"
-msgstr "beállítások módosítása"
+msgstr "Beállítások módosítva"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:133
 #, perl-brace-format
@@ -696,18 +692,17 @@ msgid "Set policy for all MIME types"
 msgstr "összes MIME típus házirendjének megadása"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:36
-#, fuzzy
 msgid "Domain or URL"
-msgstr "domain"
+msgstr "Tartomány vagy hivatkozás"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:76
 #: src/EBox/Squid/Model/DomainFilterBase.pm:91
 msgid "Domain or IP address"
-msgstr "domain vagy IP cím"
+msgstr "Tartomány vagy IP cím"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:85
 msgid "Domain"
-msgstr "domain"
+msgstr "Tartomány"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:87
 msgid "You must not prefix the domain with www."
@@ -764,7 +759,6 @@ msgid "group's policy"
 msgstr "Csoportok házirendje"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
-#, fuzzy
 msgid ""
 "Here you can globally block or allow access by user group. Filter options "
 "will be by global policy or by object policy"
@@ -834,14 +828,13 @@ msgstr "MIME típus"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:65
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:61
-#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given MIME types. MIME "
 "types not listed here are allowed.\n"
 "The filter needs a 'filter' policy to be in effect"
 msgstr ""
-"Engedélyezi/Tiltja a HTTP forgalmat a következő MIME típusú fájlok esetén. "
-"Az itt nem felsorolt MIME típusok megengedettek.\n"
+"Engedélyezi/Tiltja a HTTP forgalmat a következő fájltípusok esetén. Az itt "
+"nem felsorolt MIME típusok megengedettek.\n"
 " A szűrő használatához szükség van egy szűrő szabályra"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:68
@@ -926,42 +919,36 @@ msgstr "alapértelmezett profil beállítása"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #: src/EBox/Squid/Model/DomainFilter.pm:65
-#, fuzzy
 msgid "Domains and URL rules"
-msgstr "domain szabályok"
+msgstr "Tartomány és hivatkozás szabályok"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 #: src/EBox/Squid/Model/DomainFilter.pm:78
-#, fuzzy
 msgid "internet domain or URL"
-msgstr "internet domain"
+msgstr "internettartomány vagy hivatkozás"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #: src/EBox/Squid/Model/DomainFilter.pm:79
-#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
-"engedélyezi/tiltja a HTTP forgalmat a listában található internet "
-"domainekről/domainekre."
+"Engedélyezi/Tiltja a HTTP forgalmat a listában található internettartományok "
+"és hivatkozások esetében."
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 #: src/EBox/Squid/Model/DomainFilter.pm:81
-#, fuzzy
 msgid "Domain or URL added"
-msgstr "domain hozzáadva"
+msgstr "Tartomány vagy hivatkozás hozzáadva"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 #: src/EBox/Squid/Model/DomainFilter.pm:82
-#, fuzzy
 msgid "Domain or URL removed"
-msgstr "domain törölve"
+msgstr "Tartomány vagy hivatkozás törölve"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 #: src/EBox/Squid/Model/DomainFilter.pm:83
-#, fuzzy
 msgid "Domain or URL updated"
-msgstr "domain frissítve"
+msgstr "Tartomány vagy hivatkozás frissítve"
 
 #: src/EBox/Squid/Model/FilterGroupAntiVirus.pm:61
 #: src/EBox/Squid/Model/DefaultAntiVirus.pm:61

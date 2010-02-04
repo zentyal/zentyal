@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:28+0000\n"
-"PO-Revision-Date: 2010-01-26 01:03+0100\n"
+"PO-Revision-Date: 2010-02-03 00:09+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -221,15 +221,15 @@ msgstr "Certificados para los servicios"
 
 #: src/EBox/CA.pm:1808
 msgid "Not created"
-msgstr ""
+msgstr "No creada"
 
 #: src/EBox/CA.pm:1810
 msgid "Available"
-msgstr ""
+msgstr "Disponible"
 
 #: src/EBox/CA.pm:1812
 msgid "Created but not available"
-msgstr ""
+msgstr "Creada pero no disponible"
 
 #: src/EBox/CA.pm:2307
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 16:31+0000\n"
-"PO-Revision-Date: 2010-01-27 08:52+0100\n"
+"PO-Revision-Date: 2010-02-03 15:23+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -87,9 +87,8 @@ msgid "Name"
 msgstr "Név"
 
 #: src/EBox/Model/PermissionTemplates.pm:72
-#, fuzzy
 msgid "Allowed Applications"
-msgstr "Alkalmazások"
+msgstr "Engedélyezett alkalmazások"
 
 #: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
@@ -162,9 +161,8 @@ msgstr ""
 "válik az eGroupware webes kezelőfelülete a http://<ebox_ip>/egroupware linken"
 
 #: src/EBox/Composite/General.pm:89
-#, fuzzy
 msgid "EGroupware"
-msgstr "Csoportalkalmazás"
+msgstr "EGroupware"
 
 #~ msgid "DefaultApplications"
 #~ msgstr "AlapértelmezettAlkalmazások"

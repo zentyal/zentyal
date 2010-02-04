@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:18+0000\n"
-"PO-Revision-Date: 2010-01-27 11:22+0100\n"
+"PO-Revision-Date: 2010-02-03 15:41+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -612,9 +612,8 @@ msgid "You are not logged in"
 msgstr "Nincs bejelentkezve"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
-#, fuzzy
 msgid "General configuration"
-msgstr "beállítás"
+msgstr "Általános beállítások"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
@@ -700,13 +699,12 @@ msgid "Group"
 msgstr "Csoport"
 
 #: src/templates/group.mas:14
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
 msgstr ""
 "Jelenleg nincsenek felhasználók. Legalább egyre szükség van a csoport "
-"beállításaihoz"
+"beállításához."
 
 #: src/templates/group.mas:25 src/templates/group.mas:26
 #: src/templates/user.mas:74 src/templates/user.mas:75
@@ -745,13 +743,12 @@ msgid "Delete group"
 msgstr "Csoport törlése"
 
 #: src/templates/group.mas:110
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
 "Ez a művelet törli a felhasználót, valamint minden egyéb vele összefüggő "
-"adatát is: postafiók, fájlok, stb."
+"adatát is: postafiók, megosztott mappa, stb."
 
 #: src/templates/user.mas:88
 msgid "User groups"
@@ -771,13 +768,12 @@ msgid "Delete user"
 msgstr "Ffelhasználó törlése"
 
 #: src/templates/user.mas:161
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
 "such as mail accounts, user files, etc."
 msgstr ""
 "Ez a művelet törli a felhasználót, valamint minden egyéb vele összefüggő "
-"adatát is: postafiók, fájlok, stb."
+"adatát is: postafiók, saját fájlok, stb."
 
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"

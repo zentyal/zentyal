@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-21 17:43+0100\n"
-"PO-Revision-Date: 2010-01-20 13:09+0100\n"
+"PO-Revision-Date: 2010-02-03 16:03+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -46,9 +46,8 @@ msgid "domain"
 msgstr "domene"
 
 #: src/EBox/Jabber.pm:394
-#, fuzzy
 msgid "Jabber server"
-msgstr "Jabber server sertifikat"
+msgstr "Jabber server"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"

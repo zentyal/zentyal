@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:15+0000\n"
-"PO-Revision-Date: 2010-01-27 09:03+0100\n"
+"PO-Revision-Date: 2010-02-03 15:09+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -307,7 +307,6 @@ msgid "Filtering rules from internal networks to eBox"
 msgstr "A belső hálózatból az eBox fele haladó szűrő szabályok"
 
 #: src/templates/filter.mas:8
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your eBox machine."
@@ -326,23 +325,21 @@ msgid "Filtering rules for internal networks"
 msgstr "A belső hálózatra vonatkozó szűrő szabályok"
 
 #: src/templates/filter.mas:15
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to the "
 "Internet and traffic between internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section."
 msgstr ""
 "Ezek a szabályok megengedik a hozzáférés szabályozását  a belső hálózatból "
-"az internet felé, és a belső hálózatok közti forgalmomszabályozást. Ha "
+"az internet felé, és a belső hálózatok közti forgalomszabályozást. Ha "
 "hozzáférést szeretne adni az eBox szolgáltatásaihoz, használja a fenti "
-"szakaszt"
+"szakaszt."
 
 #: src/templates/filter.mas:21
 msgid "Filtering rules for traffic coming out from eBox"
 msgstr "Az eBoxon kívülről jövő forgalom szűrő szabályai"
 
 #: src/templates/filter.mas:23
-#, fuzzy
 msgid ""
 "These rules allow you to control access from your eBox to external services."
 msgstr ""
@@ -362,15 +359,14 @@ msgstr ""
 "szolgáltatásait elérni kívánó forgalmat"
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
-#, fuzzy
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing."
 msgstr ""
 "Tudnia kell arról, hogy ha ezeken a szabálylistákon módosít, kockára teheti "
-"a hálózata biztonságát, mivel nem biztonságos hálózatokból engedélyezi a "
-"hozzáférést. Kérjük ne használja ezt, ha nem tudja biztosan mint csinál"
+"a hálózata biztonságát, mivel nem biztonságos hálózatokból engedélyezheti a "
+"hozzáférést. Kérjük ne használja ezt, ha nem tudja biztosan mint csinál."
 
 #: src/templates/filter.mas:40
 msgid "Filtering rules from external networks to internal networks"

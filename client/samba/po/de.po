@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:17+0000\n"
-"PO-Revision-Date: 2010-01-28 12:47+0100\n"
+"PO-Revision-Date: 2010-02-03 20:50+0100\n"
 "Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -46,9 +46,8 @@ msgid "Group {g} is not a samba group"
 msgstr "Gruppe {g} ist keine Samba-Gruppe"
 
 #: src/EBox/SambaLdapUser.pm:437
-#, fuzzy
 msgid "This group has a sharing directory associated that contains data"
-msgstr "Diese Gruppe hat eine Freigabe zugeordnet, welche Daten enthält"
+msgstr "Diese Gruppe hat eine Freigabe, welche Daten enthält"
 
 #: src/EBox/SambaLdapUser.pm:641
 #, perl-brace-format
@@ -159,7 +158,6 @@ msgid "Drive letter"
 msgstr "Laufwerksbuchstabe"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:142
-#, fuzzy
 msgid "Samba group"
 msgstr "Samba-Gruppe"
 
@@ -228,15 +226,16 @@ msgstr ""
 "Das Verzeichnis ist nicht leer. Sind Sie sicher, dass Sie es löschen wollen?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:277
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under eBox{closeit} will automatically create the share."
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"<i>Verzeichnis in eBox</i> wird automatisch das Freigabe-Verzeichnis in /"
-"home/samba/shares erstellen<br><i>Dateisystempfad</i> erlaubt es Ihnen ein "
-"bestehendes Verzeichnis in Ihrem Dateisystem freizugeben."
+"{openit}Verzeichnis in eBox{closeit} wird automatisch das Freigabe-"
+"Verzeichnis in /home/samba/shares "
+"erstellen{br}{openit}Dateisystempfad{closeit} erlaubt Ihnen ein bestehendes "
+"Verzeichnis in Ihrem Dateisystem freizugeben."
 
 #: src/EBox/Samba/Model/SambaShares.pm:290
 msgid ""
@@ -321,7 +320,6 @@ msgid "days"
 msgstr "Tage"
 
 #: src/EBox/Samba/Model/PDC.pm:123
-#, fuzzy
 msgid "Enforce password history"
 msgstr "Erzwinge Passwort-Historie"
 
@@ -429,14 +427,13 @@ msgid "Add LDAP schemas"
 msgstr "Füge LDAP Shemas hinzu"
 
 #: src/EBox/Samba.pm:98
-#, fuzzy
 msgid "eBox will add two LDAP schemas to the LDAP directory: samba and ebox."
 msgstr "eBox wird zwei LDAP Schemas hinzufügen: samba.schema und ebox.schema"
 
 # not sure what 'dn' means
 #: src/EBox/Samba.pm:103
 msgid "Set Samba LDAP admin dn password"
-msgstr "Setze das Passwort der DN LDAP-admin"
+msgstr "Setze das Passwort des DN LDAP-Admin"
 
 # not sure what 'dn' means
 #: src/EBox/Samba.pm:104
@@ -565,17 +562,16 @@ msgstr "{group} Freigabe-Verzeichnis"
 #: src/EBox/Samba.pm:1670
 #, fuzzy
 msgid "Remove directory"
-msgstr "Eigener Ordner"
+msgstr "Lösche Freigabe-Verzeichnis"
 
 #: src/EBox/Samba.pm:1671
 #, fuzzy
 msgid "Rename"
-msgstr "Benutzername"
+msgstr "Umbenennen"
 
 #: src/EBox/Samba.pm:1677 src/EBox/Samba.pm:1686
-#, fuzzy
 msgid "File name"
-msgstr "Benutzername"
+msgstr "Dateiname"
 
 #: src/EBox/Samba.pm:1678 src/EBox/Samba.pm:1682
 msgid "Virus"
@@ -586,7 +582,6 @@ msgid "Type"
 msgstr "Typ"
 
 #: src/EBox/Samba.pm:1687
-#, fuzzy
 msgid "Quarantined file name"
 msgstr "Datei in Quarantäne"
 

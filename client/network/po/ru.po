@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:16+0000\n"
-"PO-Revision-Date: 2010-01-28 17:07+0100\n"
+"PO-Revision-Date: 2010-02-04 01:09+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Iface.pm:43 src/EBox/CGI/Iface.pm:60 src/EBox/CGI/Vlan.pm:41
@@ -359,19 +359,19 @@ msgstr "Имя узла"
 
 #: src/EBox/Network.pm:2959
 msgid "down"
-msgstr "опустить"
+msgstr "лежит"
 
 #: src/EBox/Network.pm:2965
 msgid "up"
-msgstr "поднять"
+msgstr "поднят"
 
 #: src/EBox/Network.pm:2969
 msgid "link ok"
-msgstr "link ok"
+msgstr "линк в норме"
 
 #: src/EBox/Network.pm:2971
 msgid "no link"
-msgstr "no link"
+msgstr "нет линка"
 
 #: src/EBox/Network.pm:2979
 msgid "MAC address"

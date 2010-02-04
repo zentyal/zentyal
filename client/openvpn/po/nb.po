@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:17+0000\n"
-"PO-Revision-Date: 2010-02-01 09:43+0100\n"
+"PO-Revision-Date: 2010-02-03 16:02+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -548,7 +548,7 @@ msgid "Cannot create a server because there is not a CA certificate"
 msgstr "Kan ikke opprette en server fordi det ikke er noe CA sertifikat"
 
 #: src/EBox/OpenVPN/Model/Servers.pm:318
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 16:32+0000\n"
-"PO-Revision-Date: 2010-01-27 10:26+0100\n"
+"PO-Revision-Date: 2010-02-03 15:25+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -434,7 +434,6 @@ msgid "Tag which will be added to the spam mail subject"
 msgstr "A levélszemétnek ítélt levelek tárgyába beszúrt jelölés"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
-#, fuzzy
 msgid "Use Bayesian classifier"
 msgstr "A bayes besorolás használata"
 

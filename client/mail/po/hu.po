@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:16+0000\n"
-"PO-Revision-Date: 2010-01-30 18:55+0100\n"
-"Last-Translator: Tóth Attila <tothawsx@freestart.hu>\n"
+"PO-Revision-Date: 2010-02-03 15:18+0100\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -227,7 +227,6 @@ msgid "External account"
 msgstr "Külső postafiók"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
-#, fuzzy
 msgid "External Aliases"
 msgstr "Külső fiókok álnevei"
 
@@ -345,7 +344,7 @@ msgstr "külső levelező fiók"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:124
 msgid "Fetching mail is done every 10 minutes"
-msgstr ""
+msgstr "A levelek minden 10 percben letöltődnek"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:141
 msgid "Secure POP3"
@@ -391,7 +390,7 @@ msgstr ""
 "tartomány használatához"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:101
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add {al} alias because there is already a virtual domain with the "
 "same name"
@@ -400,7 +399,7 @@ msgstr ""
 "tartomány ezen a néven"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:108
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot add alias {al} because it is already an identical alias for another "
 "virtual domain"
@@ -476,9 +475,8 @@ msgstr "Korlátlan méret"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:164
 #: src/EBox/Mail/Model/SMTPOptions.pm:183
-#, fuzzy
 msgid "limited to"
-msgstr "Korlátlan méret"
+msgstr "a következőre korlátozva: "
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:175
 msgid "Maximum message size accepted"
@@ -495,9 +493,8 @@ msgstr "Soha"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:203
 #: src/EBox/Mail/Model/SMTPOptions.pm:222
-#, fuzzy
 msgid "expired in"
-msgstr "lejárt levelek (?)"
+msgstr "elévülési idő: "
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:204
 #: src/EBox/Mail/Model/SMTPOptions.pm:223
@@ -526,19 +523,22 @@ msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
 msgstr ""
+"A levelezési név a szerver nevére van állítva, viszont az nem egy teljes "
+"képzésű tartománynév."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:425
-#, fuzzy
 msgid "The selected mailname is not a fully qualified hostname. "
 msgstr ""
-"A kiválasztott levelezési név nem egy teljesen minősített kiszolgáló neve "
-"(FQHN)."
+"A kiválasztott levelezési név nem egy teljesen képzésű tartománynév (FQHN)."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:429
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
 msgstr ""
+"Mivel nincs beállítva teljes képzésű tartománynév, ezért fennáll a "
+"kockázata, hogy egyes szerverek visszadobják az elküldött leveleket, a hibás "
+"válaszcím miatt"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "Send a copy of all mail domains"
@@ -700,16 +700,15 @@ msgstr ""
 
 #: src/EBox/Mail/Model/VDomains.pm:204
 msgid "'sieve' is a reserved name in this context, please choose another name"
-msgstr ""
+msgstr "A 'sieve' szó le van foglalva. Kérem válaszon más nevet."
 
 #: src/EBox/Mail/Model/VDomains.pm:211
-#, fuzzy
 msgid "Mail virtual domain"
-msgstr "Virtuális levelező tartományok"
+msgstr "Virtuális levelező tartomány"
 
 #: src/EBox/Mail/Model/VDomains.pm:214
 msgid "The virtual domain name cannot be equal to the mailname"
-msgstr ""
+msgstr "A virtuális levelező tartomány nem lehet egyenlő a levelezőnévvel"
 
 #: src/EBox/Mail/Model/VDomains.pm:255
 #, perl-brace-format
@@ -810,9 +809,8 @@ msgid "Mail traffic report"
 msgstr "Levelező forgalom összesítése"
 
 #: src/EBox/Mail/FetchmailLdap.pm:347
-#, fuzzy
 msgid "External retrieval service"
-msgstr "Levél letöltő szolgáltatások"
+msgstr "Külső levél-letöltő szolgáltatások"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"
@@ -884,19 +882,20 @@ msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
+"Nem használhatja a gépnevet levelezőnévnek, mivel nem egy teljes képzésű "
+"tartománynév. Kérem adjon megy egy másik levelezőnevet"
 
 #: src/EBox/Mail.pm:686
 msgid "The mail name must be a fully qualified name"
-msgstr ""
+msgstr "A levelezőnév teljes képzésű tartománynév kell legyen"
 
 #: src/EBox/Mail.pm:691 src/EBox/Mail.pm:702 src/EBox/Mail.pm:711
-#, fuzzy
 msgid "Host mail name"
-msgstr "tartománynév"
+msgstr "Gép levelezőneve"
 
 #: src/EBox/Mail.pm:705
 msgid "The mail name and virtual mail domain name are equal"
-msgstr ""
+msgstr "A levelezőnév és a virtuális levelező tartománynév ugyanaz"
 
 #: src/EBox/Mail.pm:974
 msgid "Cannot change this parameter for a non-custom filter"

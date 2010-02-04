@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:16+0000\n"
-"PO-Revision-Date: 2010-01-28 17:35+0100\n"
+"PO-Revision-Date: 2010-02-03 21:06+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
@@ -225,9 +225,8 @@ msgid "External account"
 msgstr "Внешний аккаунт"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
-#, fuzzy
 msgid "External Aliases"
-msgstr "Псевдонимы внешнего аккаунта"
+msgstr "Внешние псевдонимы  "
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
 msgid "External account alias"
@@ -343,7 +342,7 @@ msgstr "Внешние почтовые ящики"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:124
 msgid "Fetching mail is done every 10 minutes"
-msgstr ""
+msgstr "Получение почты проходит каждые 10 минут"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:141
 msgid "Secure POP3"
@@ -803,9 +802,8 @@ msgid "Mail traffic report"
 msgstr "Отчет по почтовому трафику"
 
 #: src/EBox/Mail/FetchmailLdap.pm:347
-#, fuzzy
 msgid "External retrieval service"
-msgstr "Поисковые службы почты"
+msgstr "Внешние службы доставки"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"

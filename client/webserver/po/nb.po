@@ -5,11 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-webserver 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:08+0100\n"
-"PO-Revision-Date: 2010-01-15 14:57+0100\n"
+"PO-Revision-Date: 2010-02-03 15:42+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -64,12 +63,11 @@ msgstr ""
 "modulen er installert og konfigurert"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:107
-#, fuzzy
 msgid ""
 "To allow HTML directories for user is needed to have the file sharing module "
 "configured. To configure it enable it at least one time"
 msgstr ""
-"For å tillate HTML mapper for bruker os, er det nødvendig at fil delings "
+"For å tillate HTML mapper for bruker, er det nødvendig at fil delings "
 "modulen er konfigurert. For å konfigurere den aktiver den minst en gang"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:169

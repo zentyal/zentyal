@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:28+0000\n"
-"PO-Revision-Date: 2010-01-29 12:53+0100\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-02-03 21:46+0100\n"
+"Last-Translator: John Martin <john.martin@musicus.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
 #: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:116
 msgid "Certification Authority"
-msgstr "Sertifiserings Autoritet"
+msgstr "Sertifiseringsautoritet"
 
 #: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:115
 msgid "CA passphrases do NOT match"
@@ -41,7 +41,7 @@ msgstr "Dager til utløp ({days}) må være et positivt tall"
 
 #: src/EBox/CGI/CreateCA.pm:140
 msgid "Problems creating Certification Authority has happened"
-msgstr "Problemer med å opprette Sertifiserings Autoritet"
+msgstr "Problemer med å opprette Sertifiseringsautoritet"
 
 #: src/EBox/CGI/RevokeCertificate.pm:64
 msgid "The certificate has NOT been revoked."
@@ -49,7 +49,7 @@ msgstr "Sertifikatet er IKKE tilbakekalt."
 
 #: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
 msgid "Boolean indicating Certification Authority Certificate"
-msgstr "Boolsk anvisning Sertifiserings Autoritets Sertifikat"
+msgstr "Boolsk anvisning Sertifiseringsautoritets sertifikat"
 
 #: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:57
 msgid "Reason"
@@ -171,12 +171,12 @@ msgstr ""
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
-"Sertifiserings Autoritets Infrastrukturen er ikke tilgjengelig, opprett den "
+"Sertifiseringsautoritets infrastruktur er ikke tilgjengelig, opprett den "
 "først"
 
 #: src/EBox/CA.pm:1163
 msgid "Either common name, distinguished name or serial number has been passed"
-msgstr "Enten vanlig navn, eksklusivt navn eller serie nummer har blitt sendt"
+msgstr "Enten vanlig navn, eksklusivt navn eller serienummer har blitt sendt"
 
 #: src/EBox/CA.pm:1385
 msgid "or"
@@ -184,7 +184,7 @@ msgstr "eller"
 
 #: src/EBox/CA.pm:1386
 msgid "Certificate file"
-msgstr "Sertifikat fil"
+msgstr "Sertifikatfil"
 
 #: src/EBox/CA.pm:1408
 msgid "The certificate to renew does NOT exist"
@@ -209,19 +209,19 @@ msgstr "Generell"
 
 #: src/EBox/CA.pm:1721 src/EBox/Model/Certificates.pm:251
 msgid "Services Certificates"
-msgstr "Tjeneste Sertifikat"
+msgstr "Tjenestesertifikat"
 
 #: src/EBox/CA.pm:1808
 msgid "Not created"
-msgstr ""
+msgstr "Ikke opprettet"
 
 #: src/EBox/CA.pm:1810
 msgid "Available"
-msgstr ""
+msgstr "Tilgjengelig"
 
 #: src/EBox/CA.pm:1812
 msgid "Created but not available"
-msgstr ""
+msgstr "Opprettet men ikke tilgjengelig"
 
 #: src/EBox/CA.pm:2307
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -231,7 +231,7 @@ msgstr ""
 
 #: src/EBox/CA.pm:2309
 msgid "Database corruption"
-msgstr "Database korrupsjon"
+msgstr "Database ødelagt"
 
 #: src/EBox/CA.pm:2311
 msgid "Identifier duplicated in Database"
@@ -255,13 +255,13 @@ msgid ""
 "Created Certification Authority with organization name {orgName} and "
 "validity for {days} days"
 msgstr ""
-"Opprettet Sertifikasjons Autoritet emd organisasjonsnavn {orgName} og "
+"Opprettet Sertifikasjonsautoritet med organisasjonsnavn {orgName} og "
 "validitet for {days} dager"
 
 #: src/EBox/CA.pm:2395
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
-msgstr "Ødelagt Sertifiserings Autoritet med organisasjon {orgName}"
+msgstr "Ødelagt Sertifiseringsautoritet med organisasjon {orgName}"
 
 #: src/EBox/CA.pm:2397
 #, perl-brace-format
@@ -274,7 +274,7 @@ msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
-"Utstedet CA sertifikat med organisasjons navn{orgName} og validitet for "
+"Utstedet CA sertifikat med organisasjonsnavn{orgName} og validitet for "
 "{days} dager"
 
 #: src/EBox/CA.pm:2401
@@ -283,8 +283,8 @@ msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
-"Fornyet CA sertifikat med organisasjons navn{orgName} og validitet for "
-"{days} dager"
+"Fornyet CA sertifikat med organisasjonsnavn{orgName} og validitet for {days} "
+"dager"
 
 #: src/EBox/CA.pm:2403
 #, perl-brace-format
@@ -307,7 +307,7 @@ msgstr "Fornyet sertifikat med vanlig navn {cn} og gyldighet på {days} dager"
 #: src/EBox/CA.pm:2409
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
-msgstr "Oppdater sertifikat database. {number} sertifikater har utløpt"
+msgstr "Oppdater sertifikatdatabase. {number} sertifikater har utløpt"
 
 #: src/EBox/CA.pm:2429 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
@@ -324,7 +324,7 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
-"Du må opprette Sertifiserings Autoritet. Gå til {openhref}Sertifiserings "
+"Du må opprette Sertifiseringsautoritet. Gå til {openhref}Sertifiserings "
 "Autoritet{closehref} for å gjøre det"
 
 #: src/EBox/Model/Certificates.pm:217
@@ -396,7 +396,7 @@ msgstr "Tilbakekalle"
 
 #: src/templates/index.mas:41 src/templates/createCA.mas:9
 msgid "Country code"
-msgstr "Lands kode"
+msgstr "Landskode"
 
 #: src/templates/index.mas:44 src/templates/createCA.mas:13
 msgid "City"
@@ -413,7 +413,7 @@ msgstr "Utgi"
 
 #: src/templates/index.mas:62
 msgid "Certificate changes will take effect immediately"
-msgstr "Sertifikat endringer vil skje umiddelbart"
+msgstr "Sertifikatendringer vil skje umiddelbart"
 
 #: src/templates/index.mas:64
 msgid "The CA passphrase is optional"
@@ -421,7 +421,7 @@ msgstr "CA passordet er valgfritt"
 
 #: src/templates/index.mas:68
 msgid "Issue the Certification Authority Certificate"
-msgstr "Utgi Sertifiserings Sertifiserings Autoritet Sertifikatet"
+msgstr "Utgi CA sertifikatet"
 
 #: src/templates/index.mas:70
 msgid "Issue a New Certificate"
@@ -429,14 +429,14 @@ msgstr "Utgi et Nytt Sertifikat"
 
 #: src/templates/index.mas:77
 msgid "Current Certificate List"
-msgstr "Gjeldende Sertifikat Liste"
+msgstr "Gjeldende Sertifikatliste"
 
 #: src/templates/index.mas:79
 msgid ""
 "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
 "Revoked certificates respectively"
 msgstr ""
-"Dato refererer til Utløps Dato i Gyldig/Utløpt og for Tilbakekallings Dato i "
+"Dato refererer til utløpsdato i Gyldig/Utløpt og for tilbakekallingsdato i "
 "Tilbakekalt sertifikat henholdsvis"
 
 #: src/templates/index.mas:83
@@ -477,7 +477,7 @@ msgstr "Opprett"
 
 #: src/templates/createCA.mas:34
 msgid "Create Certification Authority Certificate"
-msgstr "Opprett Sertifiserings Autoritet Sertifikat"
+msgstr "Opprett CA Sertifikat"
 
 #: src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
@@ -496,7 +496,7 @@ msgid ""
 msgstr ""
 "Denne tilbakekallingen kan berøre funksjonaliteten til andre moduler, "
 "vennligst forsikre deg om at du er sikker på å tilbakekalle hele denne "
-"sertifiserings autoriteten fra {on} og gjøre tjenesten(e) ustabile eller "
+"sertifiseringsautoriteten (CA) fra {on} og gjøre tjenesten(e) ustabile eller "
 "deaktivert"
 
 #: src/templates/forceRevoke.mas:24

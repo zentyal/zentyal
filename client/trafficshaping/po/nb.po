@@ -1,3 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-03 15:58+0200\n"
+"PO-Revision-Date: 2010-02-03 16:00+0100\n"
+"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"X-Generator: Pootle 1.1.0\n"
+
 # Norwegian Bokmal translations for ebox-trafficshaping package.
 # Copyright (C) 2008 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
@@ -101,7 +114,6 @@ msgstr ""
 "til regler med dette objektet"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
-#, fuzzy
 msgid "If service is any, some source or destination should be provided"
 msgstr ""
 "Hvis tjenesten er hvilken som helst, bør kilde eller destinasjon oppgis"
@@ -167,7 +179,6 @@ msgid "Kbit/s"
 msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:474
-#, fuzzy
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
@@ -249,9 +260,8 @@ msgstr "Opplasting"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
-#, fuzzy
 msgid "Upload rate in Kbits/s through this interface"
-msgstr "Opplastings rate i Kbits/s for dette grensesnittet"
+msgstr "Opplastings rate i Kbits/s gjennom dette grensesnittet"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 msgid "Download"
@@ -268,7 +278,7 @@ msgstr "rate"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:151
 msgid "You need at least one internal interface and one external interface"
-msgstr ""
+msgstr "Du trenger minst et internt grensesnitt og et eksternt grensesnitt"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:85
 #, perl-brace-format

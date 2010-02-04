@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.12.99Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-mailfilter 0.12.99Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 16:32+0000\n"
-"PO-Revision-Date: 2010-01-20 14:02+0100\n"
+"PO-Revision-Date: 2010-02-03 16:04+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -433,7 +433,6 @@ msgid "Tag which will be added to the spam mail subject"
 msgstr "Tekst som vil bli lagt til søppel e-post emnet"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
-#, fuzzy
 msgid "Use Bayesian classifier"
 msgstr "Bruk bayesiansk klassifisering"
 

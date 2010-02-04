@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:16+0000\n"
-"PO-Revision-Date: 2010-02-01 09:28+0100\n"
+"PO-Revision-Date: 2010-02-03 15:47+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -223,9 +223,8 @@ msgid "External account"
 msgstr "Ekstern konto"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
-#, fuzzy
 msgid "External Aliases"
-msgstr "Eksterne konto aliaser"
+msgstr "Eksterne Aliaser"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
 msgid "External account alias"
@@ -337,7 +336,7 @@ msgstr "Ekstern epostkonto"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:124
 msgid "Fetching mail is done every 10 minutes"
-msgstr ""
+msgstr "Henting av epost uføres hvert 10 minutt"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:141
 msgid "Secure POP3"
@@ -794,9 +793,8 @@ msgid "Mail traffic report"
 msgstr "Epost trafikkrapport"
 
 #: src/EBox/Mail/FetchmailLdap.pm:347
-#, fuzzy
 msgid "External retrieval service"
-msgstr "E-post hente tjenester"
+msgstr "Eksterne hente tjeneste"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"

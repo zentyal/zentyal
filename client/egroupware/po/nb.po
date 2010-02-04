@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 16:31+0000\n"
-"PO-Revision-Date: 2010-01-20 13:14+0100\n"
+"PO-Revision-Date: 2010-02-03 16:03+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -86,9 +86,8 @@ msgid "Name"
 msgstr "Navn"
 
 #: src/EBox/Model/PermissionTemplates.pm:72
-#, fuzzy
 msgid "Allowed Applications"
-msgstr "Programmer"
+msgstr "Tillatte Programmer"
 
 #: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
@@ -161,9 +160,8 @@ msgstr ""
 "eGroupware grensesnittet på http://<ebox_ip>/egroupware"
 
 #: src/EBox/Composite/General.pm:89
-#, fuzzy
 msgid "EGroupware"
-msgstr "Gruppevare"
+msgstr "EGroupware"
 
 #~ msgid "DefaultApplications"
 #~ msgstr "StandardProgrammer"

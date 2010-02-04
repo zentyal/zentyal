@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:17+0000\n"
-"PO-Revision-Date: 2010-01-28 13:13+0000\n"
+"PO-Revision-Date: 2010-02-03 15:31+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -52,15 +52,13 @@ msgid "Group {g} is not a samba group"
 msgstr "A csoport {g} nem egy Samba csoport!"
 
 #: src/EBox/SambaLdapUser.pm:437
-#, fuzzy
 msgid "This group has a sharing directory associated that contains data"
-msgstr ""
-"A csoport társított egy megosztási könyvtárat, mely adatokat tartalmaz."
+msgstr "Ennek a csoportnak van egy megosztott mappája, mely adatokat tartalmaz"
 
 #: src/EBox/SambaLdapUser.pm:641
 #, perl-brace-format
 msgid "{g} group does not exist"
-msgstr "A {g} csoport nem létezik!"
+msgstr "A {g} csoport nem létezik"
 
 #: src/EBox/SambaLdapUser.pm:725 src/EBox/SambaLdapUser.pm:754
 #: src/EBox/SambaLdapUser.pm:805 src/EBox/CGI/ActivePrinting.pm:48

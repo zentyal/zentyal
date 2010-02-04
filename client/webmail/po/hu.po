@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:36+0000\n"
-"PO-Revision-Date: 2010-01-27 21:51+0100\n"
-"Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
+"PO-Revision-Date: 2010-02-03 15:47+0100\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -126,74 +126,63 @@ msgid "eBox webmail"
 msgstr "eBox webmail"
 
 #: src/EBox/WebMail/Model/Options.pm:51
-#, fuzzy
 msgid ""
 "The name of the webmail will be used in the login screen and page titles."
 msgstr ""
-"A WebMail neve a bejelentkezési képernyőn és az oldalak fejlécében jelenik "
-"meg"
+"A név amely a webmail-felület bejelentkezési képernyőjén és az oldalak "
+"fejlécében jelenik meg"
 
 #: src/EBox/WebMail/Model/Options.pm:57
-#, fuzzy
 msgid "General configuration"
-msgstr "Beállítások"
+msgstr "Általános beállítások"
 
 #: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:66
-#, fuzzy
 msgid "Webmail"
-msgstr "WebMail"
+msgstr "Webmail"
 
 #: src/EBox/WebMail/Composite/Backend.pm:64
 msgid "WebMail backend"
 msgstr "WebMail háttérprogramja"
 
 #: src/EBox/WebMail.pm:172
-#, fuzzy
 msgid "Neither IMAP nor IMAPS service enabled."
-msgstr "Sem az IMAP, sem az IMAPS szolgáltatás nincs bekapcsolva"
+msgstr "Sem az IMAP, sem az IMAPS szolgáltatás nincs bekapcsolva."
 
 #: src/EBox/WebMail.pm:284
-#, fuzzy
 msgid "To configure Roundcube webmail."
-msgstr "RoundCube beállítása"
+msgstr "Hogy beállítsa a Roundcube webmailt."
 
 #: src/EBox/WebMail.pm:289
-#, fuzzy
 msgid "To configure managesieve Roundcube webmail plugin."
-msgstr "Szűrőkezelő bővítmény beállítása"
+msgstr "Hogy beállítsa a managesieve Roundcube kiegészítőt."
 
 #: src/EBox/WebMail.pm:307
-#, fuzzy
 msgid "Create PostgreSQL Roundcube webmail database."
-msgstr "PostgreSQL adatbázis létrehozása a WebMailhez"
+msgstr "PostgreSQL adatbázis létrehozása a webmailhez."
 
 #: src/EBox/WebMail.pm:308
-#, fuzzy
 msgid "This database will store the data needed by Roundcube."
-msgstr "Az adatbázis a RoundCube-hoz szükséges adatokat fogja tárolni"
+msgstr "Az adatbázis a Roundcubehoz szükséges adatokat fogja tárolni"
 
 #: src/EBox/WebMail.pm:312
-#, fuzzy
 msgid "Add webmail link to www data directory."
-msgstr "WebMail link hozzáadása a www data könyvtárhoz"
+msgstr "Webmail link hozzáadása a www adatkönyvtárhoz."
 
 #: src/EBox/WebMail.pm:313
-#, fuzzy
 msgid "Webmail will be accesible at http://ip/webmail/."
-msgstr "A WebMail a http://ip/webmail címen lesz elérhető"
+msgstr "A Webmail a http://ip/webmail címen lesz elérhető."
 
 #: src/EBox/WebMail.pm:336
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
-"A WebMail modulhoz be kell kapcsolni az IMAP vagy IMAPS szolgáltatást, mert "
-"erre épül az eBox levelezőszolgáltatása. Ezt a {openurl}Levelezés -> "
-"Általános{closeurl}alatt tudja bekapcsolni."
+"A Webmail modulhoz be kell kapcsolni az IMAP vagy IMAPS szolgáltatást, ha az "
+"eBox levelezőszolgáltatását használja. Ezt a {openurl}Levelezés -> "
+"Általános{closeurl} alatt tudja bekapcsolni."
 
 #: src/EBox/WebMail.pm:394
-#, fuzzy
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
