@@ -98,8 +98,8 @@ eBox Core
 
 .. endno_elearning
 
-Appendix 
--------- 
+Apendice
+--------- 
       
 .. toctree:: 
    :maxdepth: 2  
