@@ -144,7 +144,7 @@ following options are available:
 
 .. image:: images/mail/01-general.png
 
-.. FIXME: Update the showt with new options
+
 
 In the :menuselection:`Mail --> General --> Mail server options -->
 Options` section you may configure the general settings for the mail
@@ -215,7 +215,6 @@ object, then each object member may relay emails through eBox.
 
 .. image:: images/mail/02-relay.png
 
-.. FIXME: Update the shot with new edit in-place option
 
 .. warning::
    Be careful when using an *Open Relay* policy, i.e., forwarding
@@ -247,7 +246,6 @@ to send an email to one virtual domain or any of its aliases.
 .. image:: images/mail/mail-vdomains.png
    :align: center
 
-.. FIXME: Update shot with new options
 
 In order to set up email accounts, you have to follow the same rules
 applied configuring any other user-based service . From
@@ -293,7 +291,6 @@ all messages in queue.
 .. image:: images/mail/04-queue.png
    :align: center
 
-.. FIXME: Update the shot with the new buttons
 
 .. _fetchmail-sec-ref:
 

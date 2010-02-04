@@ -150,7 +150,6 @@ de autenticacion. Están disponibles las siguientes opciones:
 
 .. image:: images/mail/01-general.png
 
-.. FIXME: Update the shot
 
 En la sección :menuselection:`Correo --> General --> Opciones del
 servidor de correo --> Opciones` puedes configurar los parámetros
@@ -221,7 +220,6 @@ dicho objeto podrá enviar correos a través de eBox.
 
 .. image:: images/mail/02-relay.png
 
-.. FIXME: Update the show with the new edit in-place option
 
 .. warning::
    Hay que tener cuidado con usar una política de *Open Relay*, es
@@ -258,7 +256,6 @@ sea indiferente.
 .. image:: images/mail/mail-vdomains.png
    :align: center
 
-.. FIXME: Update the shot with new options
 
 Para crear cuentas de correo lo haremos de manera análoga a la
 compartición de ficheros, acudimos a :menuselection:`Usuarios y Grupos
@@ -306,7 +303,6 @@ botones que permiten borrar o reencolar todos los mensajes en la cola.
 .. image:: images/mail/04-queue.png
    :align: center
 
-.. FIXME: Update the shot with the new buttons
 
 .. _fetchmail-sec-ref:
 
