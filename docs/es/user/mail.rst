@@ -343,10 +343,11 @@ cuentas. Cada cuenta tiene los siguientes parametros:
 :guilabel:`Puerto`: 
    puerto usado para conectar al servidor de correo externo.
 
+.. image:: images/mail/usercorner-external-mail.png
+   :align: center
+
 Para obtener el correo externo, eBox usa el programa Fetchmail [#f3]_ .
 
-.. FIXME: Explain user configuration about fetchmail with its
-.. configuration shot 
 
 .. rubric:: Footnotes
 

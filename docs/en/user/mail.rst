@@ -330,6 +330,9 @@ accounts. Each account has the following fields:
    port used to connect to the external mail server.
 
 
+.. image:: images/mail/usercorner-external-mail.png
+   :align: center
+
 For retrieving external emails, eBox uses the Fetchmail [#f3]_ software.
 
 .. rubric:: Footnotes
@@ -338,8 +341,6 @@ For retrieving external emails, eBox uses the Fetchmail [#f3]_ software.
        :ref:`usercorner-ref` section
 .. [#f3] **Fetchmail** The Fetchmail Home Page http://fetchmail.berlios.de/ .
 
-.. FIXME: (only shot) Explain user configuration about fetchmail with its
-.. configuration shot
 
 .. _sieve-sec-ref:
 
