@@ -102,9 +102,6 @@ sub isAdmin #($username)
 sub setIsAdmin #($username, [01]) 0=disable, 1=enable
 {
         my ($self, $username, $option) = @_;
-
-	return unless ($self->isAdmin($username) xor $option);
-
 	my $global = EBox::Global->getInstance(1);
 	my $users = $global->modInstance('users');
 	my $dn = "uid=$username,".$users->usersDn;
