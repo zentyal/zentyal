@@ -35,6 +35,7 @@ eBox Gateway
    firewall
    routing
    qos
+   radius
    proxy
 
 .. _ebox-office-ref:
