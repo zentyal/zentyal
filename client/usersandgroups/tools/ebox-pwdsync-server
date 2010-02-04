@@ -98,9 +98,9 @@ sub handleRequest
     }
 
     my ($userLength, $passLength, $encodedLength) = unpack ('NNN', $buf);
-    EBox::debug("[ad-pwdsync] received username length: $userLength");
-    EBox::debug("[ad-pwdsync] received password length: $passLength");
-    EBox::debug("[ad-pwdsync] received encoded data length: $encodedLength");
+    #EBox::debug("[ad-pwdsync] received username length: $userLength");
+    #EBox::debug("[ad-pwdsync] received password length: $passLength");
+    #EBox::debug("[ad-pwdsync] received encoded data length: $encodedLength");
 
     my $encodedData;
     unless ($sock->read($encodedData, $encodedLength)) {
@@ -120,7 +120,7 @@ sub handleRequest
     my $username = substr ($data, 0, $userLength - 1);
     my $password = substr ($data, $userLength, $passLength - 1);
     EBox::debug("[ad-pwdsync] username = $username");
-    EBox::debug("[ad-pwdsync] password = $password");
+    #EBox::debug("[ad-pwdsync] password = $password");
 
     my $ok = 1;
     try {
