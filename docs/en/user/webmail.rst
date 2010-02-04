@@ -37,7 +37,9 @@ the left menu. You may establish the title that will use the
 webmail to identify itself, this title will be shown in the login screen
 and in the page HTML titles.
 
-.. FIXME: Screenshot for webmail configuration
+
+.. image:: images/webmail/general-settings.png
+   :scale: 80
 
 Login into the webmail
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -46,9 +48,12 @@ In order to log into the webmail, firstly HTTP traffic must be allowed by the
 firewall from the source address used. The webmail login screen is
 available at `http://[eBox's address]/webmail` from the browser. 
 Then it has to enter his email address and his password. He has to use his real
-email address, an alias does not work.
+email address, an alias will not work.
 
-.. FIXME: Shot with the webmail roundcube login screen
+.. image:: images/webmail/roundcube-login.png
+   :scale: 70
+
+
 
 SIEVE filters
 ~~~~~~~~~~~~~

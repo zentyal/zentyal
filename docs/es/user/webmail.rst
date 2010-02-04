@@ -40,6 +40,11 @@ Podemos acceder a las opciones pulsando en la sección
 titulo que usará el correo *web* para identificarse, este titulo se
 mostrará en la pantalla de entrada y en los títulos HTML de pagina.
 
+.. image:: images/webmail/general-settings.png
+   :scale: 80
+
+
+
 Entrar en el correo web
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -49,6 +54,9 @@ cortafuegos. La pantalla de entrada del correo web está disponible en
 `http://[direccion del servidor]/webmail` desde el navegador. A
 continuación, debe introducir su dirección de correo y su
 contraseña. Debe usar su dirección real, un alias no funcionará.
+
+.. image:: images/webmail/roundcube-login.png
+   :scale: 70
 
 
 Filtros SIEVE
