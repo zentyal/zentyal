@@ -121,7 +121,6 @@ and up to date.
    :scale: 70
    :align: center
 
-.. FIXME: Update the shot with the new message
 
 You can update it from :menuselection:`Software Management`, as we will see
 in :ref:`software-ref`.
@@ -228,7 +227,6 @@ attached or their Multipurpose Internet Mail Extensions (MIME) types.
 .. image:: images/mailfilter/06-filter-files.png
    :scale: 80
 
-.. FIXME: Update the shot using new in-place edition
 
 .. _smtp-filter-ref:
 
@@ -242,7 +240,6 @@ the general behavior for every incoming email:
 
 .. image:: images/mailfilter/07-filter-smtp.png
 
-.. FIXME: Update the shot with new composite names
 
 Enabled:
   Check to enable the SMTP mail filter.
@@ -261,7 +258,6 @@ to configure what the filter must do with any kind of email.
 
 .. image:: images/mailfilter/08-filter-smtp-policies.png
 
-.. FIXME: Update the shot with new composite names
 
 For each kind of email problem, you can perform the following actions:
 
@@ -285,7 +281,6 @@ on :guilabel:`Add new`.
 
 .. image:: images/mailfilter/09-filter-domains.png
 
-.. FIXME: Update the shot with new composite names and new option
 
 The parameters that can be overridden are the following:
 
@@ -327,7 +322,6 @@ to filter mail.
    :scale: 80
    :align: center
 
-.. FIXME: Update the shot with new composite names and the edit in-place
 
 .. _pop3-proxy-ref:
 
