@@ -50,7 +50,7 @@ try {
   foreach my $pkg (@packages) {
     $progress->notifyTick();
     $progress->setMessage($pkg);
-    my $cmd ="/usr/bin/apt-get install --no-download -q --yes $dpkgOpts";
+    my $cmd ="/usr/bin/apt-get install --no-download -q --yes --force-yes $dpkgOpts";
     EBox::Sudo::root(qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && $cmd $pkg'});
   }
 } catch EBox::Exceptions::Sudo::Command with {
@@ -61,7 +61,7 @@ try {
 } finally {
     try {
         EBox::Sudo::root(
-          qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes $dpkgOpts'});
+          qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes --force-yes $dpkgOpts'});
         my $global = EBox::Global->getInstance(1);
         my $software = $global->modInstance('software');
 
