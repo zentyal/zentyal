@@ -143,8 +143,8 @@ following options are available:
    used to authenticate.
 
 .. image:: images/mail/01-general.png
-
-
+   :scale: 80
+   :alt: Mail general configuration
 
 In the :menuselection:`Mail --> General --> Mail server options -->
 Options` section you may configure the general settings for the mail
@@ -214,7 +214,8 @@ on the source mail client IP address. If the relay is allowed from an
 object, then each object member may relay emails through eBox.
 
 .. image:: images/mail/02-relay.png
-
+   :scale: 80
+   :alt: Relay policy for network objects
 
 .. warning::
    Be careful when using an *Open Relay* policy, i.e., forwarding
@@ -244,8 +245,9 @@ possible to set *aliases* for a virtual domain. It does not make any difference
 to send an email to one virtual domain or any of its aliases.
 
 .. image:: images/mail/mail-vdomains.png
+   :scale: 80
    :align: center
-
+   :alt: Mail virtual domains
 
 In order to set up email accounts, you have to follow the same rules
 applied configuring any other user-based service . From
@@ -260,6 +262,7 @@ account.
 .. image:: images/mail/03-user.png
    :align: center
    :scale: 80
+   :alt: Mail settings for a user
 
 Note that you can decide whether an email account should be created by
 default when a new user is added or not. You can change this behaviour in
@@ -290,7 +293,8 @@ all messages in queue.
 
 .. image:: images/mail/04-queue.png
    :align: center
-
+   :scale: 80
+   :alt: Queue management
 
 .. _fetchmail-sec-ref:
 
@@ -308,24 +312,24 @@ its external accounts through the user corner [#]_. The user must have a
 email account to be able to do this. The external servers are pooled
 periodically so email retrieval is not instantaneous.
 
-To configure its external accounts, a user have to login in the user corner and
-clink in `Mail retrevail from external mail accounts` in the left menu. In this page a list of
-user's external accounts is shown, the user can add, edit and delete
-accounts. Each account has the following fields:
+To configure its external accounts, a user have to login in the user
+corner and click on :menuselection:`Mail retrieval from external mail
+accounts` in the left menu. In this page a list of user's external
+accounts is shown, the user can add, edit and delete accounts. Each
+account has the following fields:
 
 :guilabel:`External mail address`: 
-   the external mail address, it must be the address used
+   The external mail address, it must be the address used
    to login in the retrieval services.
 :guilabel:`Password`: 
-   password to authenticate the external account.
+   Password to authenticate the external account.
 :guilabel:`Mail server`: 
-   address of the mail server which hosts the external account.
+   Address of the mail server which hosts the external account.
 :guilabel:`Protocol`: 
-   mail retrieval protocol used by the external account, it may be one of
+   Mail retrieval protocol used by the external account, it may be one of
    the following: POP3, POP3S, IMAP or IMAPS.
 :guilabel:`Port`: 
-   port used to connect to the external mail server.
-
+   Port used to connect to the external mail server.
 
 .. image:: images/mail/usercorner-external-mail.png
    :align: center

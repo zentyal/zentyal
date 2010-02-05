@@ -149,7 +149,8 @@ de autenticacion. Están disponibles las siguientes opciones:
    puede usar un alias de la cuenta de correo para autenticarse.
 
 .. image:: images/mail/01-general.png
-
+   :scale: 80
+   :alt: Configuración general del correo
 
 En la sección :menuselection:`Correo --> General --> Opciones del
 servidor de correo --> Opciones` puedes configurar los parámetros
@@ -219,7 +220,8 @@ permite el reenvío de correos desde dicho objeto, cualquier miembro de
 dicho objeto podrá enviar correos a través de eBox.
 
 .. image:: images/mail/02-relay.png
-
+   :scale: 80
+   :alt: Política de retransmisión para objetos de red
 
 .. warning::
    Hay que tener cuidado con usar una política de *Open Relay*, es
@@ -255,7 +257,8 @@ sea indiferente.
 
 .. image:: images/mail/mail-vdomains.png
    :align: center
-
+   :scale: 80
+   :alt: Dominios virtuales de correo
 
 Para crear cuentas de correo lo haremos de manera análoga a la
 compartición de ficheros, acudimos a :menuselection:`Usuarios y Grupos
@@ -270,6 +273,7 @@ cuenta real.
 .. image:: images/mail/03-user.png
    :align: center
    :scale: 80
+   :alt: Configuración del correo para un usuario
 
 Ten en cuenta que puedes decidir si deseas que a un usuario se le cree
 automáticamente una cuenta de correo cuando se crea. Este comportamiento
@@ -302,7 +306,8 @@ botones que permiten borrar o reencolar todos los mensajes en la cola.
 
 .. image:: images/mail/04-queue.png
    :align: center
-
+   :scale: 80
+   :alt: Gestión de cola
 
 .. _fetchmail-sec-ref:
 
@@ -323,27 +328,25 @@ obtención del correo no es instantánea.
 Para configurar sus cuentas externas, un usuario debe entrar en el `Rincón del Usuario` 
 y hacer clic en `Recuperar correo de cuentas externas` en el menú izquierdo. En la pagina 
 se muestra la lista de cuentas de correo del usuario, el usuario puede añadir, borrar y editar
-cuentas. Cada cuenta tiene los siguientes parametros:
+cuentas. Cada cuenta tiene los siguientes parámetros:
 
-:guilabel:`Dirección
- de correo externa`: 
-   la dirección de correo externa, debe ser la dirección 
+:guilabel:`Dirección de correo externa`: 
+   La dirección de correo externa, debe ser la dirección 
    usada para recuperar correo.
-:guilabel:`Contrasena`: 
-   contrasena para autenticar la cuenta externa.
+:guilabel:`Contraseña`: 
+   Contraseña para autenticar la cuenta externa.
 :guilabel:`Servidor de correo`: 
-   dirección del servidor de correo que hospeda a la cuenta externa.
+   Dirección del servidor de correo que hospeda a la cuenta externa.
 :guilabel:`Protocolo`: 
-   protocolo de recuperación de correo usado por la cuenta externa, puede ser uno de los   
+   Protocolo de recuperación de correo usado por la cuenta externa, puede ser uno de los   
    siguientes:  POP3, POP3S, IMAP o IMAPS.
 :guilabel:`Puerto`: 
-   puerto usado para conectar al servidor de correo externo.
+   Puerto usado para conectar al servidor de correo externo.
 
 .. image:: images/mail/usercorner-external-mail.png
    :align: center
 
 Para obtener el correo externo, eBox usa el programa Fetchmail [#f3]_ .
-
 
 .. rubric:: Footnotes
 

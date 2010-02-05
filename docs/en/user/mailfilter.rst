@@ -118,8 +118,9 @@ In :menuselection:`Antivirus`, you can check if the antivirus is installed
 and up to date.
 
 .. image:: images/mailfilter/11-antivirus.png
-   :scale: 70
+   :scale: 80
    :align: center
+   :alt: Antivirus message
 
 
 You can update it from :menuselection:`Software Management`, as we will see
@@ -239,10 +240,11 @@ On the other hand, from :menuselection:`General configuration` we can set
 the general behavior for every incoming email:
 
 .. image:: images/mailfilter/07-filter-smtp.png
-
+   :scale: 80
+   :alt: General settings for SMTP filter
 
 Enabled:
-  Check to enable the SMTP mail filter.
+  Check to enable the SMTP filter.
 Antivirus enabled:
   Check to make the filter look for viruses.
 Antispam enabled:
@@ -257,7 +259,8 @@ From :menuselection:`Mail filter --> Filter Policies`, it is possible
 to configure what the filter must do with any kind of email.
 
 .. image:: images/mailfilter/08-filter-smtp-policies.png
-
+   :scale: 80
+   :alt: SMTP filter policies
 
 For each kind of email problem, you can perform the following actions:
 
@@ -280,7 +283,8 @@ To customize the configuration of a virtual domain email, click
 on :guilabel:`Add new`.
 
 .. image:: images/mailfilter/09-filter-domains.png
-
+   :scale: 80
+   :alt: Filter settings per mail virtual domain
 
 The parameters that can be overridden are the following:
 

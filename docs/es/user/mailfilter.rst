@@ -134,8 +134,9 @@ En :menuselection:`Antivirus` se puede comprobar
 si está instalado y actualizado el *antivirus* en el sistema.
 
 .. image:: images/mailfilter/11-antivirus.png
-   :scale: 70
+   :scale: 80
    :align: center
+   :alt: Mensaje del antivirus
 
 Se puede actualizar desde :menuselection:`Gestión de Software`, como
 veremos en :ref:`software-ref`.
@@ -261,6 +262,8 @@ reciba correo por SMTP. Desde :menuselection:`General` podemos
 configurar el comportamiento general para todo el correo entrante:
 
 .. image:: images/mailfilter/07-filter-smtp.png
+   :scale: 80
+   :alt: Parámetros generales para el filtro SMTP
 
 Habilitado:
   Marcar para activar el filtro SMTP.
@@ -279,6 +282,8 @@ Desde :menuselection:`Políticas de filtrado` se puede configurar qué debe
 hacer el filtro con cada tipo de correo.
 
 .. image:: images/mailfilter/08-filter-smtp-policies.png
+   :scale: 80
+   :alt: Políticas del filtrado SMTP
 
 Por cada tipo de correo problemático, se pueden realizar las siguientes
 acciones:
@@ -304,6 +309,8 @@ Para personalizar la configuración de un dominio virtual de correo, pulsamos
 sobre :guilabel:`Añadir nuevo`.
 
 .. image:: images/mailfilter/09-filter-domains.png
+   :scale: 80
+   :alt: Parámetros de filtrado por dominio virtual de correo
 
 Los parámetros que se pueden sobreescribir son los siguientes:
 
