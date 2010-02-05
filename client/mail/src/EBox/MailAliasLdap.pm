@@ -511,7 +511,7 @@ sub accountListByAliasGroup
 sub aliasDn
 {
     my ($self) = @_;
-    return ALIASDN . ", " . $self->{ldap}->dn;
+    return ALIASDN . "," . $self->{ldap}->dn;
 }
 
 # Method: listMailGroupsByUser
