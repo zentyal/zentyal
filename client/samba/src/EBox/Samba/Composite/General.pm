@@ -61,6 +61,7 @@ sub _description
                                 'samba/GeneralSettings',
                                 'PDC',
                                 'SambaShares',
+                                'RecycleBin',
                                ],
             layout          => 'tabbed',
             name            =>  __PACKAGE__->nameFromClass,
