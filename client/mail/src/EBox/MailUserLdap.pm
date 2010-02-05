@@ -654,7 +654,9 @@ sub _checkMaildirNotExists
 
 
     if (EBox::Sudo::fileTest('-e', $dir)) {
-        my $backupDir = $dir . '.bak';
+        my $backupDir = $dir ;
+        $backupDir =~ s{/$}{};
+        $backupDir .= '.bak';
         EBox::Sudo::root("mv $dir $backupDir");
         EBox::warn(
            "Mail directory $dir already existed, moving it to $backupDir"
