@@ -1,5 +1,6 @@
 HEAD
-        + Bugfix, when create a maildir if a leftover maildir already
+	+ Bugfix, fix incorrect alias dn breaking aliases in postfix
+	+ Bugfix, when create a maildir if a leftover maildir already
 	exists now is correctly backedup with the extensionbak
 1.3.18
 	+ Add widget for external retrieval service (fetchmail)
