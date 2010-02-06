@@ -35,71 +35,76 @@ sub runGConf
 
     my $mod = $self->{'gconfmodule'};
     if ($mod->configured()) {
-        my $output = EBox::Sudo::root("slapcat -b 'cn=config' -s 'olcDatabase={1}hdb,cn=config'");
-        my $aclLines = '';
-        my @acls;
-        push(@acls, 'to * by dn.exact=cn=localroot,cn=config manage by * break');
-        my $acl = '';
-        for my $line (@{$output}) {
-            if ($line =~/olcAccess: {\d+}(.*)$/) {
-                if ($acl ne '') {
-                    $acl =~s/cn=admin,/cn=ebox,/;
-                    push(@acls, $acl);
-                    $acl = '';
-                }
-                $acl = $1;
-            } elsif ($line =~/^ (.*)$/) {
-                if ($acl ne '') {
-                    $acl .= $1;
-                }
-            } else {
-                if ($acl ne '') {
-                    $acl =~s/cn=admin,/cn=ebox,/;
-                    push(@acls, $acl);
-                    $acl = '';
+        try {
+            my $output = EBox::Sudo::root(
+                "slapcat -b 'cn=config' -s 'olcDatabase={1}hdb,cn=config'");
+            my $aclLines = '';
+            my @acls;
+            push(@acls,
+                'to * by dn.exact=cn=localroot,cn=config manage by * break');
+            my $acl = '';
+            for my $line (@{$output}) {
+                if ($line =~/olcAccess: {\d+}(.*)$/) {
+                    if ($acl ne '') {
+                        $acl =~s/cn=admin,/cn=ebox,/;
+                        push(@acls, $acl);
+                        $acl = '';
+                    }
+                    $acl = $1;
+                } elsif ($line =~/^ (.*)$/) {
+                    if ($acl ne '') {
+                        $acl .= $1;
+                    }
+                } else {
+                    if ($acl ne '') {
+                        $acl =~s/cn=admin,/cn=ebox,/;
+                        push(@acls, $acl);
+                        $acl = '';
+                    }
                 }
             }
-        }
-        if ($acl ne '') {
-            $acl =~s/cn=admin,/cn=ebox,/;
-            push(@acls, $acl);
-            $acl = '';
-        }
-        my $i = 0;
-        for my $acl (@acls) {
-            $aclLines .= "olcAccess: {$i}$acl\n";
-            $i++;
-        }
-        #remove trailing end-line as otherwise the LDIF breaks
-        chomp($aclLines);
-        EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
-            'slapd-master-upgrade.ldif',
-            'usersandgroups/slapd-master-upgrade.ldif.mas',
-            [
-                'acls' => $aclLines,
-            ]);
-        EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
-            'slapd-master-upgrade-ebox.ldif',
-            'usersandgroups/slapd-master-upgrade-ebox.ldif.mas',
-            [
-                'dn' => 'dc=ebox',
-                'password' => $mod->ldap()->getPassword()
-            ]);
-        EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
-            EBox::Config::tmp() . "slapd-master-upgrade.ldif");
-        EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
-            EBox::Config::tmp() . "slapd-master-upgrade-ebox.ldif");
-        my @mods = @{EBox::Global->modInstancesOfType('EBox::LdapModule')};
-        for my $mod (@mods) {
-            ($mod->name() eq 'users') and next;
-            $mod->restartService();
-        }
-        #set the DN to dc=ebox as we are in an upgrade from a previous eBox
-        #version
-        my $mode = $mod->model('Mode');
-        my $row = $mode->row();
-        $row->elementByName('dn')->setValue('dc=ebox');
-        $row->store();
+            if ($acl ne '') {
+                $acl =~s/cn=admin,/cn=ebox,/;
+                push(@acls, $acl);
+                $acl = '';
+            }
+            my $i = 0;
+            for my $acl (@acls) {
+                $aclLines .= "olcAccess: {$i}$acl\n";
+                $i++;
+            }
+            #remove trailing end-line as otherwise the LDIF breaks
+            chomp($aclLines);
+            EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
+                'slapd-master-upgrade.ldif',
+                'usersandgroups/slapd-master-upgrade.ldif.mas',
+                [
+                    'acls' => $aclLines,
+                ]);
+            EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
+                'slapd-master-upgrade-ebox.ldif',
+                'usersandgroups/slapd-master-upgrade-ebox.ldif.mas',
+                [
+                    'dn' => 'dc=ebox',
+                    'password' => $mod->ldap()->getPassword()
+                ]);
+            EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
+                EBox::Config::tmp() . "slapd-master-upgrade.ldif");
+            EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
+                EBox::Config::tmp() . "slapd-master-upgrade-ebox.ldif");
+            my @mods = @{EBox::Global->modInstancesOfType('EBox::LdapModule')};
+            for my $mod (@mods) {
+                ($mod->name() eq 'users') and next;
+                $mod->restartService();
+            }
+            #set the DN to dc=ebox as we are in an upgrade from a previous eBox
+            #version
+            my $mode = $mod->model('Mode');
+            my $row = $mode->row();
+            $row->elementByName('dn')->setValue('dc=ebox');
+            $row->store();
+        } otherwise {
+        };
     } else {
         # remove the database so enabling it doesn't fail?
     }
@@ -127,7 +132,7 @@ EBox::init();
 my $module = EBox::Global->modInstance('users');
 my $migration = new EBox::Migration(
         'gconfmodule' => $module,
-        'version' => 5,
+        'version' => 6,
 );
 $migration->execute();
 
