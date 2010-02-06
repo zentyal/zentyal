@@ -779,7 +779,8 @@ sub report
     }, { 'key' => 'event'});
 
     $report->{'pop'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'SUM(clean) AS clean', 'SUM(spam) AS spam, SUM(virus) AS virus',
+        'select' => 'SUM(clean) AS clean, SUM(spam) AS spam,' . 
+            'SUM(virus) AS virus',
         'from' => 'mailfilter_pop_report',
         'where' => "event = 'pop3_fetch_ok'"
     });
