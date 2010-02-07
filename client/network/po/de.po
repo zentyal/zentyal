@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:16+0000\n"
-"PO-Revision-Date: 2009-10-20 13:17+0200\n"
-"Last-Translator: Ralph Gottschalkson <ralph@gottschalkson.eu>\n"
+"PO-Revision-Date: 2010-02-04 13:47+0100\n"
+"Last-Translator: Daniel F <sek@daniel2k.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,13 +40,11 @@ msgid "netmask"
 msgstr "Netzmaske"
 
 #: src/EBox/CGI/Iface.pm:95
-#, fuzzy
 msgid "user name"
-msgstr "Benutzer"
+msgstr "Benutzername"
 
 # P
 #: src/EBox/CGI/Iface.pm:96
-#, fuzzy
 msgid "password"
 msgstr "Passwort"
 
@@ -73,9 +71,8 @@ msgid "virtual interface name"
 msgstr "Name der virtuellen Netzwerkkarte"
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-#, fuzzy
 msgid "Network Diagnostic Tools"
-msgstr "Netzwerkdiagnose"
+msgstr "Netzwerkdiagnose-Werkzeuge"
 
 #: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/Diag.pm:58
 #: src/EBox/Model/WANFailoverRules.pm:97 src/templates/diag.mas:14
@@ -96,9 +93,9 @@ msgid "traffic balance"
 msgstr "Netzverkehr aufteilen"
 
 #: src/EBox/Event/Watcher/Gateways.pm:144
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Gateway {gw} connected"
-msgstr "Gateway {gw} ist erreichbar"
+msgstr "Gateway {gw} verbunden"
 
 #: src/EBox/Event/Watcher/Gateways.pm:261
 #, perl-brace-format
@@ -128,34 +125,34 @@ msgid ""
 "Events module is not enabled. You have to enable it and also enable the WAN "
 "Failover event in order to use this feature."
 msgstr ""
+"Ereignis-Modul ist nicht aktiviert. Sie müssen es aktivieren und zusätzlich "
+"auch das WAN-Failover-Ereignis, damit es funktioniert."
 
 #: src/EBox/Network/Composite/WANFailover.pm:82
 msgid ""
 "WAN Failover event is not enabled. You have to enable it in order to use "
 "this feature"
 msgstr ""
-"WAN Failover ist nicht aktiviert. Zur Benutzung muss es aktivuert werden."
+"WAN Failover Ereignis ist nicht aktiviert. Zur Benutzung muss es aktivuert "
+"werden."
 
 # there's no german expression for 'name server' and 'resolver'
 #: src/EBox/Network/Composite/DNS.pm:61
-#, fuzzy
 msgid "Domain Name Server Resolver"
-msgstr "Name Server Resolver"
+msgstr "Domänen-Namen-Server Auflösung"
 
 #: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3053
-#, fuzzy
 msgid "Balance Traffic"
-msgstr "Netzverkehr aufteilen"
+msgstr "Netzverkehr verteilen"
 
 #: src/EBox/Network/Composite/MultiGw.pm:83
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
 msgstr ""
-"Um diese Funktion verwenden zu können, müssen Sie zumindest zwei Gateways "
-"konfiguriert haben. Sie können diese <a href=\"/ebox/Network/View/"
-"GatewayDataTable\">hier</a> hinzufügen"
+"Um diese Funktion verwenden zu können, brauchen sie mindestens zwei "
+"aktivierte Gateways. Sie können diese <a "
+"href=\"/ebox/Network/View/GatewayTable\">hier</a> hinzufügen"
 
 #: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2974
 msgid "Status"
@@ -265,7 +262,7 @@ msgstr ""
 # what is a dhcp hook? or what is that doing. maybe then it's possible to translate.
 #: src/EBox/Network.pm:106
 msgid "Enable eBox DHCP hook"
-msgstr ""
+msgstr "eBox DHCP-Hook aktivieren"
 
 #: src/EBox/Network.pm:107
 msgid ""
@@ -285,9 +282,8 @@ msgid "eBox will set your DNS configuration"
 msgstr "eBox wird Ihre DNS-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:135
-#, fuzzy
 msgid "eBox will set your DHCP client configuration"
-msgstr "eBox wird Ihre dynamische DNS-Konfiguration durchführen"
+msgstr "eBox wird Ihre DHCP-Client-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
 msgid "eBox will set your ddclient configuration"
@@ -295,16 +291,15 @@ msgstr "eBox wird Ihre dynamische DNS-Konfiguration durchführen"
 
 #: src/EBox/Network.pm:150 src/EBox/Network.pm:155
 msgid "eBox will store your PPPoE passwords"
-msgstr ""
+msgstr "eBox wird ihre PPPoE Passwörter speichern"
 
 #: src/EBox/Network.pm:162
-#, fuzzy
 msgid "eBox will add a DSL provider configuration for PPPoE"
-msgstr "eBox wird Ihre DNS-Konfiguration durchführen"
+msgstr "eBox wird eine DSL-Provider Konfiguration für PPPoE hinzufügen"
 
 #: src/EBox/Network.pm:804 src/EBox/Network.pm:808
 msgid "Virtual interface name"
-msgstr "Name der virtuellen Netzwerkkarte"
+msgstr "Name der virtuellen Schnittstelle"
 
 #: src/EBox/Network.pm:807 src/EBox/Network.pm:1115 src/EBox/Network.pm:2673
 #: src/templates/ifaces.mas:119 src/templates/ifaces.mas:254
@@ -322,7 +317,7 @@ msgstr "Netzmaske"
 #: src/EBox/Network.pm:2866 src/EBox/Model/MultiGwRulesDataTable.pm:101
 #: src/EBox/Model/GatewayTable.pm:205
 msgid "Interface"
-msgstr "Netzwerkkarte"
+msgstr "Schnittstelle"
 
 #: src/EBox/Network.pm:1326
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
@@ -346,14 +341,13 @@ msgstr ""
 "können"
 
 #: src/EBox/Network.pm:2563
-#, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
-"Die gewünschte Operation wird einen der konfigurierten Router unerreichbar "
-"machen. Bitte entfernen Sie den Gateway zuerst, falls Sie diese Operation "
-"wirklich machen möchten"
+"Die gewünschte Operation wird einen der konfigurierten Gateways unerreichbar "
+"machen. Bitte entfernen Sie den Gateway zuerst, falls Sie diese Änderung "
+"wirklich durchführen möchten"
 
 #: src/EBox/Network.pm:2628 src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
@@ -392,7 +386,7 @@ msgstr "Keine Verbindung"
 
 #: src/EBox/Network.pm:2979
 msgid "MAC address"
-msgstr "Hardware-Adresse"
+msgstr "MAC-Adresse"
 
 #: src/EBox/Network.pm:2996
 msgid "Tx bytes"
@@ -404,16 +398,15 @@ msgstr "Rx Bytes"
 
 #: src/EBox/Network.pm:3043
 msgid "Interfaces"
-msgstr "Netzwerkkarten"
+msgstr "Schnittstellen"
 
 #: src/EBox/Network.pm:3049 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "Gateways"
 
 #: src/EBox/Network.pm:3051 src/EBox/Model/StaticRoute.pm:177
-#, fuzzy
 msgid "Static Routes"
-msgstr "Statisches Routing"
+msgstr "Statische Routen"
 
 #: src/EBox/Network.pm:3057
 msgid "Diagnostic Tools"
@@ -425,8 +418,7 @@ msgstr "IP oder Netzwerkadresse"
 
 #: src/EBox/Model/StaticRoute.pm:162
 msgid "Gateway used to reach the above network  address"
-msgstr ""
-"Gateway, welches benutzt wird um das oben genannte Netzwerk zu erreichen"
+msgstr "Gateway, um die oben genannte Netzwerk-Adresse zu erreichen"
 
 #: src/EBox/Model/StaticRoute.pm:167 src/templates/ifaces.mas:196
 msgid "Description"
@@ -437,22 +429,20 @@ msgid "Optional description for this route"
 msgstr "Optionale Beschreibung für diese Route"
 
 #: src/EBox/Model/StaticRoute.pm:176
-#, fuzzy
 msgid "Static Routes List"
-msgstr "Statisches Routing-Liste"
+msgstr "Liste statischer Routen"
 
 #: src/EBox/Model/StaticRoute.pm:182
-#, fuzzy
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured."
 msgstr ""
-"Alle Gateways, die Sie hier eingeben, müssen durch eine der konfigurierten "
-"Netzwerkkarten erreichbar sein"
+"Alle Gateways, die Sie hier angeben, müssen durch eine der aktuell "
+"konfigurierten Schnittstellen erreichbar sein"
 
 #: src/EBox/Model/StaticRoute.pm:185
 msgid "static route"
-msgstr "Statisches Routing"
+msgstr "Statische Route"
 
 #: src/EBox/Model/SearchDomain.pm:72
 msgid "Domain"
@@ -467,12 +457,12 @@ msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
 msgstr ""
-"Diese Domäne wird angehängt wenn die Namensauflösung eines Hosts ohne diese "
-"fehlgeschlagen ist."
+"Diese Domäne wird angehängt wenn die Namensauflösung eines Hosts, ohne diese "
+"anzuhängen, fehlgeschlagen ist."
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:43
 msgid "Enable"
-msgstr "aktivieren"
+msgstr "Aktivieren"
 
 #: src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -583,14 +573,13 @@ msgstr ""
 
 # there's no german expression for 'name server'
 #: src/EBox/Model/DNSResolver.pm:84
-#, fuzzy
 msgid "Domain Name Server"
-msgstr "DNS Server"
+msgstr "Domänen-Namen-Server"
 
 # there's no german expression for 'name server' and 'resolver'
 #: src/EBox/Model/DNSResolver.pm:93
 msgid "Domain Name Server Resolver List"
-msgstr "DNS Server-Liste"
+msgstr "DNS Auflösungs-Liste"
 
 #: src/EBox/Model/DNSResolver.pm:99
 msgid "name server"
@@ -651,13 +640,12 @@ msgid "Password"
 msgstr "Passwort"
 
 #: src/EBox/Model/DynDNS.pm:108
-#, fuzzy
 msgid "Hostname"
-msgstr "Computername"
+msgstr "Hostname"
 
 #: src/EBox/Model/DynDNS.pm:116
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
 #: src/EBox/Model/DynDNS.pm:120
 msgid ""
@@ -731,7 +719,7 @@ msgstr ""
 
 #: src/EBox/Model/WANFailoverRules.pm:192
 msgid "WAN Failover is only available for static interfaces"
-msgstr ""
+msgstr "WAN-Failover ist nur für statische Schnittstellen erreichbar"
 
 #: src/EBox/Model/WANFailoverRules.pm:196
 msgid "Invalid value for Host"
@@ -754,9 +742,8 @@ msgid "These options affect to all the tests."
 msgstr "Diese Optionen beeinflussen alle Tests."
 
 #: src/EBox/Model/GatewayTable.pm:185
-#, fuzzy
 msgid "Auto"
-msgstr "Aktion"
+msgstr "Automatisch"
 
 #: src/EBox/Model/GatewayTable.pm:191 src/templates/ifaces.mas:33
 #: src/templates/ifaces.mas:252
@@ -807,10 +794,12 @@ msgstr "Gateway"
 #: src/EBox/Model/GatewayTable.pm:285
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
 msgstr ""
+"Sie können manuell keinen Gateway für DHCP- oder PPPoE-Schnittstellen "
+"hinzufügen"
 
 #: src/EBox/Model/GatewayTable.pm:344
 msgid "Automatically added gateways can not be manually deleted"
-msgstr ""
+msgstr "Automatisch hinzugefügte Gateways können nicht manuell entfernt werden"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"

@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:15+0000\n"
-"PO-Revision-Date: 2010-01-17 21:34+0100\n"
-"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
+"PO-Revision-Date: 2010-02-04 20:55+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -105,7 +106,7 @@ msgstr "Monitor de log"
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
 msgid "Log domain {logDomain}"
-msgstr "Log domain {logDomain}"
+msgstr "Domínio de log {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
@@ -212,7 +213,7 @@ msgstr "Receptor"
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 #, fuzzy
 msgid "Configure Dispatchers"
-msgstr "Configurar expedidores"
+msgstr "Configurar Expedidores"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
 msgid "dispatcher"
@@ -305,7 +306,7 @@ msgstr "Jabber expedidor configuração esta atualizada"
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
 #, fuzzy
 msgid "Jabber Dispatcher"
-msgstr "Configurar Jabber expedidor"
+msgstr "Configurar Expedidor Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
 msgid "It should follow the pattern 'user@domain[/resource]'"
@@ -382,7 +383,7 @@ msgstr "Informativo"
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
 #: src/templates/finish.mas:83
 msgid "Warning"
-msgstr "Cuidado"
+msgstr "Aviso"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:53
 #: src/EBox/Events/Model/Report/EventsDetails.pm:88
@@ -394,7 +395,7 @@ msgstr "Erro"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:92
 #: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
 msgid "Fatal error"
-msgstr ""
+msgstr "Erro fatal"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
 #: src/templates/finish.mas:116 src/templates/backup.mas:128
@@ -467,7 +468,7 @@ msgstr "Dashboard"
 #: src/templates/dashboard/index.mas:79
 #, fuzzy
 msgid "Configure Widgets"
-msgstr "Configurar widgets"
+msgstr "Configurar Widgets"
 
 #: src/EBox/CGI/Login/Index.pm:62
 msgid ""
@@ -691,8 +692,8 @@ msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
 msgstr ""
-"Algum(ns) módulo(s) relatou(aram) erro(s) ao salvar as alterações. Mais "
-"informações sobre os logs em {dir}"
+"Alguns módulos relataram erros ao salvar as alterações. Mais informações "
+"sobre os logs em {dir}"
 
 #: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
@@ -720,8 +721,8 @@ msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
 msgstr ""
-"Algum(ns) módulo(s) relatou(aram) erro(s) quando descartado(s)(as) "
-"alterações. Mais informações sobre os logs em {dir}"
+"Alguns módulos relataram erros quando descartando as alterações. Mais "
+"informações sobre os logs em {dir}"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
@@ -821,7 +822,7 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:436
 #, fuzzy, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr "Status: {percentage} completos"
+msgstr "Status: {percentage} completo."
 
 #: src/EBox/Event/Watcher/RAID.pm:439
 #, fuzzy, perl-brace-format
@@ -907,7 +908,7 @@ msgstr "falhou"
 
 #: src/EBox/Event/Watcher/RAID.pm:566
 msgid "resync"
-msgstr "resincronizar"
+msgstr "re-sincronizar"
 
 #: src/EBox/Event/Watcher/RAID.pm:568
 msgid "rebuild"
@@ -1558,7 +1559,7 @@ msgstr "Informações do Sistema"
 
 #: src/EBox/SysInfo.pm.in:95
 msgid "available"
-msgstr ""
+msgstr "disponível"
 
 #: src/EBox/SysInfo.pm.in:100
 msgid "Time"
@@ -1714,11 +1715,11 @@ msgstr "O serviço está habilitado, mas não está funcionando"
 
 #: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
 msgid "Running unmanaged"
-msgstr ""
+msgstr "Rodando não-gerenciado"
 
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
 msgid "The service is running, but not enabled in eBox"
-msgstr ""
+msgstr "O serviço está rodando, mas não está habilitado no eBox"
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
@@ -1726,7 +1727,7 @@ msgstr "Desabilitado"
 
 #: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
 msgid "The service is not enabled in eBox"
-msgstr ""
+msgstr "O serviço não está habilitado no eBox"
 
 #: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
 msgid "Start"
@@ -1778,23 +1779,23 @@ msgstr "Dispositivo RAID {a} inexistente"
 #: src/templates/report/raid.mas:42
 #, fuzzy
 msgid "RAID is not enabled in this system."
-msgstr "RAID não está habilitado neste sistema"
+msgstr "O RAID não está habilitado neste sistema"
 
 #: src/templates/report/raid.mas:94
 msgid "left-asymmetric"
-msgstr "left-asymmetric"
+msgstr "esquerda-assimétrica"
 
 #: src/templates/report/raid.mas:95
 msgid "right-asymmetric"
-msgstr "right-asymmetric"
+msgstr "direita-assimétrica"
 
 #: src/templates/report/raid.mas:96
 msgid "left-symmetric"
-msgstr "left-symmetric"
+msgstr "esquerda-simétrica"
 
 #: src/templates/report/raid.mas:97
 msgid "right-symmetric"
-msgstr "right-symmetric"
+msgstr "direita-assimétrica"
 
 #: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
 #: src/templates/backup.mas:127 src/templates/confirm-backup.mas:44
@@ -2027,6 +2028,9 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
+"Os seguintes módulos tem alterações que não foram salvas mas estão "
+"<b>desabilitados</b>. Se você precisar habilitá-los, então vá para os "
+"{openref}Status dos Módulos{closeref}."
 
 #: src/templates/finish.mas:106
 msgid ""

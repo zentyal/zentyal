@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:17+0000\n"
-"PO-Revision-Date: 2008-11-05 14:47+0000\n"
-"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
+"PO-Revision-Date: 2010-02-04 13:21+0100\n"
+"Last-Translator: Daniel F <sek@daniel2k.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,7 +62,7 @@ msgstr "Modell"
 #: src/EBox/CGI/Model.pm:53
 #, perl-brace-format
 msgid "Printer {printer} has no available drivers"
-msgstr ""
+msgstr "Drucker {printer} hat keine vorhandenen Treiber"
 
 #: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:30
 #: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
@@ -220,9 +220,8 @@ msgid "Add a new printer (I)"
 msgstr "Drucker hinzufügen (I)"
 
 #: src/EBox/Printers.pm:57
-#, fuzzy
 msgid "Printer Sharing"
-msgstr "Drucker teilen"
+msgstr "Drucker freigeben"
 
 #: src/EBox/Printers.pm:72
 msgid "Create spool directory for printers"
@@ -262,7 +261,6 @@ msgstr ""
 "Schnittstelle abhört"
 
 #: src/EBox/Printers.pm:291
-#, fuzzy
 msgid "Add Printer"
 msgstr "Drucker hinzufügen"
 
@@ -305,14 +303,12 @@ msgid "It is not a samba printer"
 msgstr "Das ist kein Samba-Drucker"
 
 #: src/EBox/Printers.pm:727
-#, fuzzy
 msgid "It is not a IPP printer"
-msgstr "Das ist kein USB-Drucker"
+msgstr "Das ist kein IPP-Drucker"
 
 #: src/EBox/Printers.pm:755
-#, fuzzy
 msgid "It is not a LPD printer"
-msgstr "Das ist kein USB-Drucker"
+msgstr "Das ist kein LPD-Drucker"
 
 #: src/EBox/Printers.pm:986 src/EBox/Printers.pm:1012
 msgid "is not a valid option"
@@ -361,7 +357,7 @@ msgstr "Parallel"
 
 #: src/templates/addprinter.mas:29
 msgid "AppSocket"
-msgstr ""
+msgstr "AppSocket"
 
 #: src/templates/addprinter.mas:30
 msgid "Samba"
@@ -369,11 +365,11 @@ msgstr "Samba"
 
 #: src/templates/addprinter.mas:31
 msgid "IPP: Internet printing protocol"
-msgstr ""
+msgstr "IPP: Internet-Druck-Protokoll (Internet-Printing-Protocol)"
 
 #: src/templates/addprinter.mas:32
 msgid "LPD: Line Printer Daemon"
-msgstr ""
+msgstr "LPD: Line Printer Daemon"
 
 #: src/templates/manufacturer.mas:12
 msgid "Choose manufacturer"
@@ -432,12 +428,11 @@ msgstr "Dieser Drucker hat im Moment keine wartenden Druckaufträge"
 
 #: src/templates/printer.mas:179
 msgid "You need to save changes in order to print a test page"
-msgstr ""
+msgstr "Die Änderungen müssen gespeichert werden um eine Testseite zu drucken"
 
 #: src/templates/printer.mas:184 src/templates/printer.mas:185
-#, fuzzy
 msgid "Print Test Page"
-msgstr "Name des Druckers"
+msgstr "Testseite drucken"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"
@@ -448,22 +443,20 @@ msgid "Choose a printer model"
 msgstr "Wählen Sie ein Druckermodell"
 
 #: src/templates/ipp.mas:16
-#, fuzzy
 msgid "Configure IPP printer"
-msgstr "Entfernten Drucker konfigurieren"
+msgstr "IPP-Drucker konfigurieren"
 
 #: src/templates/driver.mas:12
 msgid "Choose a driver for the printer"
-msgstr "Wählen Sie einen Druckertreiber"
+msgstr "Wählen Sie einen Treiber für den Drucker"
 
 #: src/templates/lpd.mas:16
-#, fuzzy
 msgid "Configure LPD printer"
-msgstr "Entfernten Drucker konfigurieren"
+msgstr "LPD-Drucker konfigurieren"
 
 #: src/templates/drivers.mas:13
 msgid "Choose a dirver for the printer"
-msgstr "Wählen Sie einen Druckertreiber"
+msgstr "Wählen Sie einen Treiber für den Drucker"
 
 #: src/templates/drivers.mas:20
 msgid "driver"
@@ -501,9 +494,8 @@ msgid "Remote printer configuration"
 msgstr "Konfiguration für entfernte Drucker"
 
 #: src/templates/network.mas:16
-#, fuzzy
 msgid "Configure AppSocket printer"
-msgstr "Entfernten Drucker konfigurieren"
+msgstr "AppSocket-Drucker konfigurieren"
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"

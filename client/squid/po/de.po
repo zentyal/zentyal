@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:18+0000\n"
-"PO-Revision-Date: 2009-10-13 06:11+0000\n"
-"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
+"PO-Revision-Date: 2010-02-04 13:09+0100\n"
+"Last-Translator: Daniel F <sek@daniel2k.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,82 +29,72 @@ msgid "HTTP Proxy"
 msgstr "HTTP-Proxy"
 
 #: src/EBox/Squid.pm:197
-#, fuzzy
 msgid "HTTP Proxy configuration file"
-msgstr "Speicherdateien des HTTP-Proxy-Dienstes"
+msgstr "Konfigurationsdatei des HTTP-Proxy"
 
 #: src/EBox/Squid.pm:202
-#, fuzzy
 msgid "Content filter configuration file"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Konfigurationsdatei für Inhaltsfilter"
 
 #: src/EBox/Squid.pm:207
 msgid "Default filter group configuration"
-msgstr ""
+msgstr "Standard Filtergruppen-Konfiguration"
 
 #: src/EBox/Squid.pm:212
 msgid "Filter groups membership"
-msgstr ""
+msgstr "Filtergruppen Mitgliedschaft"
 
 #: src/EBox/Squid.pm:217
-#, fuzzy
 msgid "Content filter banned extension list"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Inhaltsfilter Liste für verbannte Erweiterungen"
 
 #: src/EBox/Squid.pm:222
-#, fuzzy
 msgid "Content filter banned mime type list"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Inhaltsfilter Liste für verbannte MIME-Typen"
 
 #: src/EBox/Squid.pm:227
-#, fuzzy
 msgid "Content filter exception site list"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Inhaltsfilter Liste für ausgenommene Seiten"
 
 #: src/EBox/Squid.pm:232
-#, fuzzy
 msgid "Content filter grey site list"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Inhaltsfilter Liste für graue Seiten"
 
 #: src/EBox/Squid.pm:237
-#, fuzzy
 msgid "Content filter banned site list"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Inhaltsfilter Liste für verbannte Seiten"
 
 #: src/EBox/Squid.pm:242
-#, fuzzy
 msgid "Content filter exception URL list"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Inhaltsfilter Liste für ausgenommen URLs"
 
 #: src/EBox/Squid.pm:247
-#, fuzzy
 msgid "Content filter grey URL list"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Inhaltsfilter Liste für graue URLs"
 
 #: src/EBox/Squid.pm:252
-#, fuzzy
 msgid "Content filter banned URL list"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Inhaltsfilter Liste für verbannte URLs"
 
 #: src/EBox/Squid.pm:257
 msgid "Forbidden phrases list"
-msgstr ""
+msgstr "Liste für verbotene Begriffe"
 
 #: src/EBox/Squid.pm:262
 msgid "Exception phrases list"
-msgstr ""
+msgstr "Liste für ausgenommene Begriffe"
 
 #: src/EBox/Squid.pm:267
 msgid "PICS ratings configuration"
-msgstr ""
+msgstr "PICS Bewertungs-Einstellungen"
 
 #: src/EBox/Squid.pm:272
 msgid "Dansguardian's log rotation configuration"
-msgstr ""
+msgstr "Log-Rotation Einstellungen von DansGuardian"
 
 #: src/EBox/Squid.pm:277
 msgid "Dansguardian's antivirus scanner configuration"
-msgstr ""
+msgstr "Antivirus-Scanner Einstellungen von DansGuardian"
 
 #: src/EBox/Squid.pm:313
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -153,21 +143,19 @@ msgstr "Allgemein"
 
 #: src/EBox/Squid.pm:994
 msgid "Objects' Policy"
-msgstr "Vorgehen für Computergruppe"
+msgstr "Regeln für Objekte"
 
 #: src/EBox/Squid.pm:997
-#, fuzzy
 msgid "Groups' Policy"
-msgstr "Vorgehen für Computergruppe"
+msgstr "Regeln für Gruppen"
 
 #: src/EBox/Squid.pm:1000
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
 #: src/EBox/Squid/Model/DomainFilterCategories.pm:113
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
 #: src/EBox/Squid/Composite/FilterSettings.pm:93
-#, fuzzy
 msgid "Filter Profiles"
-msgstr "Gefilterte Anforderungen"
+msgstr "Filter-Profile"
 
 #: src/EBox/Squid.pm:1031 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
@@ -175,12 +163,12 @@ msgstr "Datum"
 
 #: src/EBox/Squid.pm:1032
 msgid "Host"
-msgstr "Computer"
+msgstr "Host"
 
 #: src/EBox/Squid.pm:1033 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
 #: src/EBox/Squid.pm:1034
 msgid "URL"
@@ -192,7 +180,7 @@ msgstr "Bytes"
 
 #: src/EBox/Squid.pm:1036
 msgid "Mime/type"
-msgstr "MIME/type"
+msgstr "MIME/Typ"
 
 #: src/EBox/Squid.pm:1037
 msgid "Event"
@@ -212,15 +200,15 @@ msgstr "Gefiltert"
 
 #: src/EBox/Squid.pm:1121
 msgid "HTTP Proxy's cache files"
-msgstr "Speicherdateien des HTTP-Proxy-Dienstes"
+msgstr "Zwischenspeicher des HTTP-Proxy-Dienstes"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
-msgstr "Beide Augen zudrücken"
+msgstr "Sehr großzügig"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:57
 msgid "Permissive"
-msgstr "Ein Auge zudrücken"
+msgstr "Etwas großzügig"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:58
 msgid "Medium"
@@ -249,140 +237,137 @@ msgid "Always deny"
 msgstr "Immer verbieten"
 
 #: src/EBox/Squid/Types/DomainPolicy.pm:56
-#, fuzzy
 msgid "Squid's domain policy"
-msgstr "Vorgehen für Squid"
+msgstr "Squid Domain Regeln"
 
 #: src/EBox/Squid/Types/Policy.pm:67
 msgid "Authorize and allow"
-msgstr ""
+msgstr "Authorisieren und erlauben"
 
 #: src/EBox/Squid/Types/Policy.pm:68
-#, fuzzy
 msgid "Authorize and filter"
-msgstr "Internetdomänen filtern"
+msgstr "Authorisieren und filtern"
 
 #: src/EBox/Squid/Types/Policy.pm:69
 msgid "Authorize and deny"
-msgstr ""
+msgstr "Authorisieren und erlauben"
 
 #: src/EBox/Squid/Types/Policy.pm:89
 msgid "Squid's policy"
-msgstr "Vorgehen für Squid"
+msgstr "Squid Regeln"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:26
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:27
 msgid "T"
-msgstr ""
+msgstr "D"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:28
 msgid "W"
-msgstr ""
+msgstr "M"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:29
 msgid "H"
-msgstr ""
+msgstr "H"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:30
 msgid "F"
-msgstr ""
+msgstr "F"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:31
 msgid "A"
-msgstr ""
+msgstr "A"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:32
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:36
 msgid "Monday"
-msgstr ""
+msgstr "Montag"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:37
 msgid "Tuesday"
-msgstr ""
+msgstr "Dienstag"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:38
 msgid "Wednesday"
-msgstr ""
+msgstr "Mittwoch"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:39
 msgid "Thursday"
-msgstr ""
+msgstr "Donnerstag"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:40
 msgid "Friday"
-msgstr ""
+msgstr "Freitag"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:41
 msgid "Saturday"
-msgstr ""
+msgstr "Samstag"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:42
 msgid "Sunday"
-msgstr ""
+msgstr "Sonntag"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:117
 msgid "All time"
-msgstr ""
+msgstr "Jederzeit"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:199
-#, fuzzy
 msgid "All week"
-msgstr "Erlaubt"
+msgstr "Ganze Woche"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:207
 msgid "Weekend"
-msgstr ""
+msgstr "Wochenende"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:212
 msgid "Work days"
-msgstr ""
+msgstr "Arbeitstage"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:468
 msgid "From hour.."
-msgstr ""
+msgstr "Von Stunde.."
 
 #: src/EBox/Squid/Types/TimePeriod.pm:471
 msgid "to hour.."
-msgstr ""
+msgstr "zu Stunde.."
 
 #: src/EBox/Squid/Types/TimePeriod.pm:475
 msgid "You must specify two diffrent hours to the range"
-msgstr ""
+msgstr "Sie müssen zwei verschiedene Stunden für den Bereich angeben"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:492
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
-msgstr ""
+msgstr "Ungünstige Stunde des Tages Wert: {h}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:498
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
-msgstr ""
+msgstr "Ungünstige Stunde des Tages Format: {h}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:505
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
-msgstr ""
+msgstr "Ungünstige Minuten Wert: {mi}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:511
 #, perl-brace-format
 msgid "Bad minutes  format: {mi}"
-msgstr ""
+msgstr "Ungünstige Minuten  Format: {mi}"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:524
 #: src/EBox/Squid/Types/TimePeriod.pm:530
 msgid "The end of the range is greater than the begin"
-msgstr ""
+msgstr "Das Ende des Bereiches ist größer als der Anfang"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:554
 msgid "The time period must be at least active on one day"
-msgstr ""
+msgstr "Die Zeitspanne muss mindestens an einem Tag aktiv sein"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:84
 msgid "Domains lists files"
@@ -394,9 +379,8 @@ msgid "internet domain list"
 msgstr "Internetdomänen-Liste"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
-#, fuzzy
 msgid "You can upload files with lists of domains"
-msgstr "Du kannst Dateien mit Domain-Listen hochladen"
+msgstr "Sie können Dateien mit Listen von Domänen hochladen"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
@@ -414,24 +398,23 @@ msgid "Domain list updated"
 msgstr "Domänen-Liste aktualisiert"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:68
-#, fuzzy
 msgid "Use default profile threshold"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Standard-Profil Grenzbereich verwenden"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:74
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
 msgid "Threshold"
-msgstr "Speicher"
+msgstr "Grenzbereich"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:81
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:78
 msgid "Content filter threshold"
-msgstr "Speicher für Inhaltsfilter"
+msgstr "Grenzbereich für Inhaltsfilter"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:87
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:84
 msgid "Content filter threshold changed"
-msgstr "Speicher für Inhaltsfilter geändert"
+msgstr "Grenzbereich für Inhaltsfilter geändert"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:76
@@ -451,50 +434,46 @@ msgid "group"
 msgstr "Gruppe"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:73
-#, fuzzy
 msgid "Domain Name Address"
-msgstr "Domäne oder IP-Adresse"
+msgstr "Domänen-Namen-Adresse"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:80
 msgid "Exempt address from caching"
-msgstr ""
+msgstr "Adresse vom Zwischenspeichern ausschließen"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:89
 msgid "Cache exemptions"
-msgstr ""
+msgstr "Ausnahmen von Zwischenspeicherung"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:102
-#, fuzzy
 msgid "domain name address"
-msgstr "Domäne"
+msgstr "Domänen-Namen-Adresse"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:103
 msgid "You can exempt some addresses from caching"
-msgstr ""
+msgstr "Sie können Adressen vom Zwischenspeichern ausschließen"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address added"
-msgstr ""
+msgstr "Adresse hinzugefügt"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:106
-#, fuzzy
 msgid "Address removed"
-msgstr "Dateiendung entfernt"
+msgstr "Adresse entfernt"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:107
-#, fuzzy
 msgid "Address updated"
-msgstr "Dateiendung aktualisiert"
+msgstr "Adresse aktualisiert"
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
 #: src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:57
 msgid "Use default profile configuration"
-msgstr ""
+msgstr "Benutze Standard-Profil Konfiguration"
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:68
 msgid "Use default profile for domain filtering"
-msgstr ""
+msgstr "Benutze Standard-Profil für Domänen-Filterung"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:53
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:128
@@ -504,11 +483,9 @@ msgid "MIME Type"
 msgstr "MIME-Typ"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:130
-#, fuzzy
 msgid "A MIME Type must follow this syntax: type/subtype"
 msgstr ""
-"Eine neuer MIME-Typ muss folgendes Schema haben: \"kategorie/unterkategorie"
-"\"."
+"Eine neuer MIME-Typ muss folgende Syntax haben: kategorie/unterkategorie"
 
 #: src/EBox/Squid/Model/MIMEFilterBase.pm:140
 #, perl-brace-format
@@ -523,35 +500,34 @@ msgstr "Der Subtyp {t} hat eine falsche Syntax"
 #: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:26
 #: src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
 msgid "extensions"
-msgstr "Dateiendungen"
+msgstr "Erweiterungen"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:33
 #: src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
 msgid "Set policy for all extensions"
-msgstr "Vorgehen für alle Dateiendungen einstellen"
+msgstr "Regeln für alle Erweiterungen einstellen"
 
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:67
 msgid "Use default profile for MIME filtering"
-msgstr ""
+msgstr "Benutze Standard-Profil zur MIME-Filterung"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:41
-#, fuzzy
 msgid "Block not listed domains and URLs"
-msgstr "Nicht aufgeliste Domänen verbieten"
+msgstr "Nicht aufgeliste Domänen und URLs verweigern"
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:44
-#, fuzzy
 msgid ""
 "If this is enabled, any domain or URL which is neither present neither in "
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
 "below will be forbidden."
 msgstr ""
-"Wenn dies aktiviert ist, wird jede Domain, welche nicht in der unten "
-"angeführten  <i>Domain-Liste</i> erlaubt ist, gesperrt."
+"Wenn dies aktiviert ist, wird jede Domain, welche weder in den unten "
+"aufgeführten <i>Domänen- und URL-Regeln</i> noch in den <i>Domänen-Listen-"
+"Dateien</i> erlaubt ist, gesperrt."
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:52
 msgid "Block sites specified only as IP"
-msgstr "Seiten, die eine IP-Adresse in der URL haben verbieten"
+msgstr "Verweigert Seiten, die nur als IP-Adresse angegeben sind"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:56
 msgid "elements"
@@ -563,10 +539,10 @@ msgid "Allow all {elements}"
 msgstr "Alle {elements} erlauben"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:74
-#, fuzzy
 msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
-"Benutzen Sie dieses Feld um den Wert aller darüberliegenden Reihen zu ändern"
+"Benutzen Sie dieses Feld um den Wert all der darüberliegenden Reihen in "
+"einem Schritt zu ändern"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:58
 msgid "Transparent Proxy"
@@ -582,7 +558,7 @@ msgstr "Größe der Cache-Datei (MB)"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:79
 msgid "Default policy"
-msgstr "Allgemeines Vorgehen"
+msgstr "Standard Regeln"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:87
 msgid "General Settings "
@@ -595,23 +571,29 @@ msgstr "Einstellungen geändert"
 #: src/EBox/Squid/Model/GeneralSettings.pm:133
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr "Der Port {port} wird bereits verwendet. Bitte wählen Sie einen anderen"
+msgstr "{port} wird bereits verwendet. Bitte wählen Sie einen anderen"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:160
 msgid "Transparent proxy option is not compatible with authorization policy"
 msgstr ""
+"Auswahl des transparenten Proxy ist nicht kompatibel mit Berechtigungs-"
+"Regeln"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:167
 msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
 msgstr ""
+"Auswahl des transparenten Proxy ist nicht kompatibel mit Berechtigungs-"
+"Regeln, die in bestimmten Objekten gefunden wurden"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:185
 msgid ""
 "An authorization policy is required because you are using global group "
 "policies"
 msgstr ""
+"Es wird eine Berechtigungs-Regel benötigt, da sie globale Gruppen-"
+"Richtlinien anwenden"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:194
 msgid ""
@@ -648,19 +630,19 @@ msgstr "Erlaubtes Zeitfenster"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:90
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:120
-#, fuzzy
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
-msgstr "Zeitfenster, in welchem der Zugriff gestattet ist"
+msgstr ""
+"Zeitfenster, in dem der Zugriff erlaubt ist. Wird ignoriert bei "
+"Verweigerungs-Richtlinien"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:97
 msgid "Group policy"
 msgstr "Gruppen-Regel"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:109
-#, fuzzy
 msgid "Object Policies"
-msgstr "Vorgehen für Computergruppe"
+msgstr "Objekt-Regeln"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:110
 msgid "List of objects"
@@ -689,15 +671,18 @@ msgstr "Vorgehen für die aktualisierte Computergruppe"
 #: src/EBox/Squid/Model/ObjectPolicy.pm:173
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr ""
+"Berechtigungs-Regel ist nicht kompatibel mit dem transparenten Proxy-Modus"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:196
 msgid "Filter policies are incompatible with restricted time periods"
-msgstr ""
+msgstr "Filter Regeln sind inkompatibel zu eingeschränkten Zeitspannen"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:222
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr ""
+"Sie können keine Regel ohne Berechtigung wählen wenn sie eine Gruppen-Regel "
+"haben"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:442
 #, perl-brace-format
@@ -705,6 +690,8 @@ msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
 "object if you want to set a object policy"
 msgstr ""
+"Es existieren keine Netzwerk-Objekte im System. {open}Erstellen{close} sie "
+"mindestens ein Objekt falls sie eine Objekt-Regel definieren wollen"
 
 #: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
 #: src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
@@ -717,9 +704,8 @@ msgid "Set policy for all MIME types"
 msgstr "Vorgehen für alle MIME-Typen einstellen"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:36
-#, fuzzy
 msgid "Domain or URL"
-msgstr "Domäne"
+msgstr "Domäne oder URL"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:76
 #: src/EBox/Squid/Model/DomainFilterBase.pm:91
@@ -745,86 +731,84 @@ msgid ""
 "There are no user groups in the system. {open}Create{close} at least one "
 "group  if you want to set a group policy"
 msgstr ""
+"Es existieren keine Benutzer-Gruppen im System. {open}Erstellen{close} sie "
+"mindestens eine Gruppe falls sie eine Gruppen-Regel definieren wollen"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:61
 msgid "Categories"
-msgstr ""
+msgstr "Kategorien"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:69
-#, fuzzy
 msgid "File"
-msgstr "Filter"
+msgstr "Datei"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:179
-#, fuzzy
 msgid "You must supply a domains list"
-msgstr "Die Domäne muss ohne das \"www.\" Präfix eingegeben werden"
+msgstr "Sie müssen eine Domänen-Liste übermitteln"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:221
-#, fuzzy
 msgid "Inexistent archive file"
-msgstr "Internetdomänen filtern"
+msgstr "Nichtexistente Archiv-Datei"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:286
 msgid ""
 "Plain lists not allowed: is only allowed compressed archives of classified "
 "black lists"
 msgstr ""
+"Leere Listen nicht zulässig: Es ist nur erlaubt komprimierte Archive mit "
+"klassifizierten Ausschlusslisten zu verwenden"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
-#, fuzzy
 msgid "Group policies"
 msgstr "Gruppen-Regel"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:79
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:76
-#, fuzzy
 msgid "List of groups"
-msgstr "Objektliste"
+msgstr "Gruppen-Liste"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
-#, fuzzy
 msgid "group's policy"
-msgstr "Vorgehen für Squid"
+msgstr "Regeln der Gruppe"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
 msgid ""
 "Here you can globally block or allow access by user group. Filter options "
 "will be by global policy or by object policy"
 msgstr ""
+"Hier können sie den Zugriff für Benutzer-Gruppen global verweigern oder "
+"erlauben. Die Filter-Optionen gibt es für globale Regeln oder Objekt-Regeln"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
-#, fuzzy
 msgid "Added group's policy"
-msgstr "Vorgehen für die hinzugefügte Computergruppe"
+msgstr "Regeln der hinzugefügten Gruppe"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
-#, fuzzy
 msgid "Removed group's policy"
-msgstr "Vorgehen für die entfernte Computergruppe"
+msgstr "Regeln der entfernten Gruppe"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:98
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:95
-#, fuzzy
 msgid "Updated group's policy"
-msgstr "Vorgehen für die aktualisierte Computergruppe"
+msgstr "Regeln der aktualisierten Gruppe"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:114
-#, fuzzy
 msgid "Filter profile"
-msgstr "Gefiltert"
+msgstr "Filter-Profil"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:162
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:130
 msgid "User group policies are not compatible with transparent proxy mode"
 msgstr ""
+"Benutzer-Gruppen-Regeln sind nicht kompatibel mit dem transparenten Proxy-"
+"Modus"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:175
 msgid "Global group policy need a global policy with authentication"
-msgstr ""
+msgstr "Globale Gruppen-Regel benötigt eine globale Regel mit Authentikation"
 
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:51
 #: src/EBox/Squid/Model/ExtensionFilter.pm:66
@@ -935,70 +919,63 @@ msgstr "Dateiendung aktualisiert"
 
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:106
 msgid "Ignore"
-msgstr ""
+msgstr "Ingorieren"
 
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:120
 msgid "This list has not categories"
-msgstr ""
+msgstr "Die Liste enthält keine Kategorien"
 
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:87
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:94
 #: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:83
 msgid "Using default profile configuration"
-msgstr ""
+msgstr "Benutze Standard-Profil Konfiguration"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #: src/EBox/Squid/Model/DomainFilter.pm:65
-#, fuzzy
 msgid "Domains and URL rules"
-msgstr "Domänen-Regeln"
+msgstr "Domänen- und URL-Regeln"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 #: src/EBox/Squid/Model/DomainFilter.pm:78
-#, fuzzy
 msgid "internet domain or URL"
-msgstr "Internetdomäne"
+msgstr "Internetdomäne oder URL"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #: src/EBox/Squid/Model/DomainFilter.pm:79
-#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
-msgstr "HTTP-Verkehr der aufgelisteten Internetdomänen erlauben oder verbieten"
+msgstr ""
+"HTTP-Verkehr von/zu den aufgelisteten Internetdomänen erlauben oder "
+"verbieten"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 #: src/EBox/Squid/Model/DomainFilter.pm:81
-#, fuzzy
 msgid "Domain or URL added"
-msgstr "Domäne hinzugefügt"
+msgstr "Domäne oder URL hinzugefügt"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 #: src/EBox/Squid/Model/DomainFilter.pm:82
-#, fuzzy
 msgid "Domain or URL removed"
-msgstr "Domäne entfernt"
+msgstr "Domäne oder URL entfernt"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 #: src/EBox/Squid/Model/DomainFilter.pm:83
-#, fuzzy
 msgid "Domain or URL updated"
-msgstr "Domäne aktualisiert"
+msgstr "Domäne oder URL aktualisiert"
 
 #: src/EBox/Squid/Model/FilterGroupAntiVirus.pm:61
 #: src/EBox/Squid/Model/DefaultAntiVirus.pm:61
-#, fuzzy
 msgid "Filter virus"
-msgstr "Gefilterte Viren"
+msgstr "Virusfilter"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:70
-#, fuzzy
 msgid "Filter profiles"
-msgstr "Gefilterte Anforderungen"
+msgstr "Profilfilter"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:71
-#, fuzzy
 msgid "List of profiles"
-msgstr "Objektliste"
+msgstr "Profilliste"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:83
 msgid "filter profile"
@@ -1018,9 +995,8 @@ msgstr "Filter-Profil aktualisiert"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:103
 #: src/EBox/Squid/Model/FilterGroup.pm:147
-#, fuzzy
 msgid "Filter group"
-msgstr "Filtere Gruppe"
+msgstr "Filtergruppe"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:108
 msgid "Configuration"
@@ -1028,47 +1004,53 @@ msgstr "Konfiguration"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:154
 msgid "Filter group policy"
-msgstr ""
+msgstr "Filtergruppen-Regel"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:201
 msgid "Maximum number of filter groups reached"
-msgstr "Maximum an Filter-Gruppen erreicht"
+msgstr "Maximale Anzahl an Filtergruppen erreicht"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:78
 msgid "Domains lists files for filter group"
-msgstr ""
+msgstr "Domänen-Listen-Dateien für Filtergruppe"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
-#, fuzzy
 msgid "You can upload files whith lists of domains"
-msgstr "Du kannst Dateien mit Domain-Listen hochladen"
+msgstr "Sie können Dateien mit Domänen-Listen hochladen"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:91
 msgid ""
 "Here you can deny or allow access depending on the user group. Filtering "
 "would occur if the object policy requires it"
 msgstr ""
+"Hier können sie den Zugang abhängig von der Benutzer-Gruppe verweigern oder "
+"erlauben. Filtern würde stattfinden wenn die Objekt-Regel es verlangt"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:148
 msgid ""
 "The object needs to be set to a policy with authorization in order to to use "
 "group policies"
 msgstr ""
+"Das Objekt muss an eine Regel mit Berechtigung gebunden sein um Gruppen-"
+"Regeln zu verwenden"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:163
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configure object {ob} user groups policies"
-msgstr "Vorgehen für Computergruppen konfigurieren"
+msgstr "Einstellungen für Gruppen-Regeln des Objekts {ob}"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:175
 msgid ""
 "Time period when the access is allowed. It is ignored if the group has a "
 "deny policy, time constraints of parent object are always ignored"
 msgstr ""
+"Zeitspanne, in der der Zugang erlaubt ist. Wird ignoriert, falls für die "
+"Gruppe eine Verweigerungs-Regel besteht, Zeitbeschränkungen der "
+"Elternobjekte werden immer ignoriert"
 
 #: src/EBox/Squid/Model/AntiVirusBase.pm:51
 msgid "Use antivirus"
-msgstr ""
+msgstr "Antivirus verwenden"
 
 #: src/EBox/Squid/Model/AntiVirusBase.pm:93
 #, perl-brace-format
@@ -1077,6 +1059,9 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
+"Sie können den Antivirus-Filter nicht aktivieren, weil das Antivirus-Modul "
+"deaktiviert ist. Falls sie Viren filtern möchten, sollten sie zuerst "
+"{openhref}das Modul aktivieren{closehref} und hierher zurück kehren"
 
 #: src/EBox/Squid/Model/AntiVirusBase.pm:99
 #, perl-brace-format
@@ -1085,6 +1070,10 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
+"Sie können den Antivirus-Filter nicht aktivieren, weil das Antivirus-Modul "
+"nicht installiert ist. Falls sie Viren filtern möchten, sollten sie es "
+"zuerst installieren, {openhref}das Modul aktivieren{closehref} und hierher "
+"zurück kehren"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
@@ -1162,14 +1151,13 @@ msgid "File extensions filtering"
 msgstr "Dateiendungen filtern"
 
 #: src/EBox/Squid/Composite/FilterGroupDomains.pm:84
-#, fuzzy
 msgid "Domains filtering for filter group"
-msgstr "Domänen-Filter"
+msgstr "Domänen-Filter für Filtergruppe"
 
 #: src/EBox/Squid/Composite/MIME.pm:91
 #: src/EBox/Squid/Composite/FilterGroupMIME.pm:92
 msgid "MIME types filtering"
-msgstr "Nach MIME-Typ filtern"
+msgstr "MIME-Typ Filterung"
 
 #: src/EBox/Squid/Composite/FilterSettings.pm:77
 msgid "Filter settings"
@@ -1182,15 +1170,15 @@ msgstr "HTTP-Proxy Traffic Bericht"
 
 #: src/templates/ajax/setter/timePeriod.mas:16
 msgid "From"
-msgstr ""
+msgstr "Von"
 
 #: src/templates/ajax/setter/timePeriod.mas:21
 msgid "To"
-msgstr ""
+msgstr "Bis"
 
 #: src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
-msgstr ""
+msgstr "Tage der Woche"
 
 #, fuzzy
 #~ msgid "Threshold a"

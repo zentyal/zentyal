@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ebox-radius 1.3.10Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:17+0000\n"
-"PO-Revision-Date: 2009-12-22 16:54+0100\n"
-"Last-Translator: Pascal <comfreak89@googlemail.com>\n"
+"PO-Revision-Date: 2010-02-04 13:26+0100\n"
+"Last-Translator: Daniel F <sek@daniel2k.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr "Alle Benutzer"
 
 #: src/EBox/Model/Auth.pm:128
 msgid "Group allowed to authenticate"
-msgstr ""
+msgstr "Gruppe mit Erlaubnis sich zu authentifizieren"
 
 #: src/EBox/Model/Auth.pm:138
 msgid "General configuration"
@@ -74,23 +74,23 @@ msgstr ""
 
 #: src/EBox/Radius.pm:120
 msgid "To configure allowed LDAP group."
-msgstr ""
+msgstr "Erlaubte LDAP-Gruppe konfigurieren"
 
 #: src/EBox/Radius.pm:124
 msgid "To configure RADIUS LDAP module."
-msgstr ""
+msgstr "RADIUS LDAP Modul konfigurieren"
 
 #: src/EBox/Radius.pm:128
 msgid "To configure RADIUS clients."
-msgstr ""
+msgstr "RADIUS Clients konfigurieren"
 
 #: src/EBox/Radius.pm:132
 msgid "To configure default RADIUS vhost."
-msgstr ""
+msgstr "Standard RADIUS vhost konfigurieren"
 
 #: src/EBox/Radius.pm:136
 msgid "To configure RADIUS inner-tunnel vhost."
-msgstr ""
+msgstr "RADIUS Innerer-Tunnel vhost konfigurieren"
 
 #: src/EBox/Radius.pm:276 src/EBox/Composite/General.pm:64
 msgid "RADIUS"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:28+0000\n"
-"PO-Revision-Date: 2009-11-14 18:35+0100\n"
+"PO-Revision-Date: 2010-02-05 10:19+0100\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -43,15 +43,13 @@ msgid "Date"
 msgstr "Dátum"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-#, fuzzy
 msgid "Database Update Status"
-msgstr "Stav Antivírusovej Databázy"
+msgstr "Stav Aktualizácie Antivírusovej Databázy"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
-#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
-msgstr "Antivírusová databáza nebola aktualizovaná od inštalácie modulu"
+msgstr "Antivírusová databáza nebola aktualizovaná od aktivácie modulu"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
 msgid "The last update failed."
