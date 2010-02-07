@@ -18,7 +18,6 @@ use File::Slurp;
 use Error qw(:try);
 
 EBox::init();
-system("echo > /var/log/ebox/ebox.log");
 my $global = EBox::Global->getInstance(1);
 
 sub moduleList {
