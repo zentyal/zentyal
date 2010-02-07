@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-02-02 17:30+0000\n"
-"PO-Revision-Date: 2010-01-29 22:41+0100\n"
+"PO-Revision-Date: 2010-02-04 21:39+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -82,9 +82,8 @@ msgid "System monitor with graphs and alerts"
 msgstr "Monitor di sistema con grafici e avvisi"
 
 #: ebox-package-installer:50
-#, fuzzy
 msgid "System and eBox package management"
-msgstr "Gestione pacchetti sistema e eBox"
+msgstr "Gestione pacchetti sistema/eBox"
 
 #: ebox-package-installer:51
 msgid "Remote or local Backup"
@@ -140,7 +139,7 @@ msgstr "VoIP PBX"
 
 #: ebox-package-installer:77
 msgid "eBox Platform Installer"
-msgstr "eBox Platform Installer"
+msgstr "Installazione di eBox Platform"
 
 #: ebox-package-installer:78
 msgid "Choose package selection method"
@@ -224,7 +223,6 @@ msgid "Select External (WAN) interfaces"
 msgstr "Seleziona l'interfaccia esterna (WAN)"
 
 #: ebox-package-installer:99
-#, fuzzy
 msgid ""
 "WARNING: By default you will not be able to access the web interface through "
 "them."
@@ -245,12 +243,10 @@ msgstr ""
 "aggiungi un'altra scheda di rete."
 
 #: ebox-package-installer:101
-#, fuzzy
 msgid "Enter administration user"
-msgstr "Inserisci l'utente di amministrazione"
+msgstr "Inserisci l'utente amministratore"
 
 #: ebox-package-installer:102
-#, fuzzy
 msgid ""
 "You will need this username to log into the local console or access remotely "
 "by SSH:"

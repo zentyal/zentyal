@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-02-02 17:30+0000\n"
-"PO-Revision-Date: 2010-01-27 09:05+0100\n"
+"PO-Revision-Date: 2010-02-03 15:24+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -31,31 +31,31 @@ msgstr "DHCP, DNS, NTP, HTTP kiszolgáló, stb."
 
 #: ebox-package-installer:34
 msgid "File sharing and printing, groupware, etc."
-msgstr "fájl és nyomtató megosztás, csoportmunka, stb."
+msgstr "Fájl és nyomtató megosztás, csoportmunka, stb."
 
 #: ebox-package-installer:35
 msgid "Mail, Jabber/XMPP, VoIP, etc."
-msgstr "levelezés, Jabber/XMPP, VoIP, stb."
+msgstr "Levelezés, Jabber/XMPP, VoIP, stb."
 
 #: ebox-package-installer:39
 msgid "Window system with local browser"
-msgstr ""
+msgstr "Ablakkezelő rendszer helyi böngészővel"
 
 #: ebox-package-installer:40
 msgid "Networking"
-msgstr "hálózati munka"
+msgstr "Hálózatok"
 
 #: ebox-package-installer:41
 msgid "Firewall and redirections"
-msgstr "tűzfal és átirányítás"
+msgstr "Tűzfal és átirányítás"
 
 #: ebox-package-installer:42
 msgid "Traffic shaping"
-msgstr "forgalomirányítás"
+msgstr "Forgalomirányítás"
 
 #: ebox-package-installer:43
 msgid "File sharing server and Windows PDC"
-msgstr "fájl megosztó kiszolgáló és Windows tartományi kiszolgáló (PDC)"
+msgstr "Fájl megosztó kiszolgáló és Windows tartományi kiszolgáló (PDC)"
 
 #: ebox-package-installer:44
 msgid "DNS server"
@@ -317,9 +317,9 @@ msgid "Installation failed."
 msgstr "Meghiúsult telepítés."
 
 #: ebox-package-installer:278
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Check {logfile} content to see what happened"
-msgstr "Ellenőrizze a {log} tartalmát, hogy lássa a történéseket."
+msgstr "Ellenőrizze a {logfile} tartalmát, hogy lássa mi történt"
 
 #: ebox-package-installer:326
 msgid "You must select at least one package."
