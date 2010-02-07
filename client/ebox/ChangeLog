@@ -1,3 +1,6 @@
+HEAD
+	+ Remove network workarounds from /etc/init.d/ebox as we don't bring
+	  interfaces down anymore
 1.4
 	+ Bug fix: i18n. setDomain in composites and models.
 1.3.19

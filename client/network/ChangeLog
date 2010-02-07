@@ -1,3 +1,7 @@
+HEAD
+	+ Do not run ifdown for network interfaces when network is started from
+	  /etc/init.d/ebox start This seems to avoid some issues with DHCP
+	  configured gateways at boot time
 1.4
 	+ i18n help string
 1.3.15

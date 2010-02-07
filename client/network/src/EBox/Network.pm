@@ -2386,7 +2386,7 @@ sub _preSetConf
     # Bring down changed interfaces
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $if (@{$iflist}) {
-        if ($self->_hasChanged($if) or $restart) {
+        if ($self->_hasChanged($if)) {
             try {
                 my $ifname = $if;
                 if ($self->ifaceMethod($if) eq 'ppp') {
