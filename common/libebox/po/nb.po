@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-03 19:21+0000\n"
-"PO-Revision-Date: 2010-01-20 13:18+0100\n"
-"Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
+"PO-Revision-Date: 2010-02-03 21:34+0100\n"
+"Last-Translator: John Martin <john.martin@musicus.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,16 +63,16 @@ msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
-"En intern feil har oppstått. Dette er mest sansyling en feil, relevant "
-"informasjon kan bli funnet i loggene. "
+"En intern feil har oppstått. Dette er mest sannsynlig en feil i kildekoden, "
+"relevant informasjon kan bli funnet i loggene. "
 
 #: src/EBox/CGI/Base.pm:570
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
-"En uventet intern feil har oppstått. Dette er en feil, relevant informasjon "
-"kan bli funnet i loggene."
+"En uventet intern feil har oppstått. Dette er en feil i kildekoden, relevant "
+"informasjon kan bli funnet i loggene."
 
 #: src/EBox/CGI/Base.pm:576
 msgid "You have just hit a bug in eBox. Please seek technical support."
@@ -185,26 +185,24 @@ msgstr "Legg til ny"
 #: src/templates/ajax/tableBody.mas:128
 #, perl-brace-format
 msgid "Adding a new {row}"
-msgstr ""
+msgstr "Legger en ny {row}"
 
 #: src/templates/ajax/tableBody.mas:134
 #, perl-brace-format
 msgid "Editing {row}"
-msgstr ""
+msgstr "Redigerer {row}"
 
 #: src/templates/ajax/tableBody.mas:190
 msgid "Search"
-msgstr ""
+msgstr "Søk"
 
 #: src/templates/ajax/tableBody.mas:336
-#, fuzzy
 msgid "Add"
-msgstr "Legg til ny"
+msgstr "Legg til"
 
 #: src/templates/ajax/tableBody.mas:360
-#, fuzzy
 msgid "Cancel"
-msgstr "Endre"
+msgstr "Kanseller"
 
 #: src/templates/ajax/tableBody.mas:440
 msgid "Edit"
@@ -252,13 +250,13 @@ msgid "Optional"
 msgstr "Valgfritt"
 
 #: src/templates/ajax/tablePager.mas:46
-#, fuzzy
 msgid "Page"
-msgstr "Endre"
+msgstr "Side"
 
+# av
 #: src/templates/ajax/tablePager.mas:47
 msgid "of"
-msgstr ""
+msgstr "av"
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"

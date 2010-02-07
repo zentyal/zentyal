@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-03 19:21+0000\n"
-"PO-Revision-Date: 2010-01-25 02:33+0100\n"
+"PO-Revision-Date: 2010-02-04 02:15+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -202,17 +202,15 @@ msgstr "Editando {row}"
 
 #: src/templates/ajax/tableBody.mas:190
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 #: src/templates/ajax/tableBody.mas:336
-#, fuzzy
 msgid "Add"
-msgstr "Añade nuevo"
+msgstr "Añadir"
 
 #: src/templates/ajax/tableBody.mas:360
-#, fuzzy
 msgid "Cancel"
-msgstr "Cambiar"
+msgstr "Cancelar"
 
 #: src/templates/ajax/tableBody.mas:440
 msgid "Edit"
@@ -260,21 +258,20 @@ msgid "Optional"
 msgstr "Opcional"
 
 #: src/templates/ajax/tablePager.mas:46
-#, fuzzy
 msgid "Page"
-msgstr "Cambiar"
+msgstr "Página"
 
 #: src/templates/ajax/tablePager.mas:47
 msgid "of"
-msgstr ""
+msgstr "de"
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
-msgstr "primero"
+msgstr "primera"
 
 #: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:67
 msgid "prev"
-msgstr "previo"
+msgstr "anterior"
 
 #: src/templates/ajax/tablePager.mas:73 src/templates/ajax/tablePager.mas:74
 #: src/templates/ajax/tablePager.mas:85 src/templates/ajax/tablePager.mas:86
@@ -284,11 +281,11 @@ msgstr "siguiente"
 #: src/templates/ajax/tablePager.mas:79 src/templates/ajax/tablePager.mas:80
 #: src/templates/ajax/tablePager.mas:89 src/templates/ajax/tablePager.mas:90
 msgid "last"
-msgstr "último"
+msgstr "última"
 
 #: src/templates/ebox/pageNotFound.mas:3
 msgid "eBox's homepage"
-msgstr "página principal de eBox"
+msgstr "Página principal de eBox"
 
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
