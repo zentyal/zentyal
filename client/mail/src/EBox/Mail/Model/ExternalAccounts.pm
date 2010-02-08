@@ -25,6 +25,8 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
+
+use EBox;
 use EBox::Gettext;
 use EBox::Types::Password;
 use EBox::Types::MailAddress;
@@ -32,9 +34,10 @@ use EBox::Types::Host;
 use EBox::Types::Select;
 use EBox::Types::Port;
 use EBox::Global;
-use Apache2::RequestUtil;
-use EBox;
+use EBox::Validate;
 
+
+use Apache2::RequestUtil;
 
 sub new
 {
@@ -79,9 +82,9 @@ sub _table
 
     my @tableHeader =
     (
-        new EBox::Types::MailAddress(
+        new EBox::Types::Text(
             fieldName     => 'externalAccount',
-            printableName => __('External mail address'),
+            printableName => __('External account'),
             size          => '14',
             unique        => 1,
             editable      => 1
@@ -255,6 +258,37 @@ sub row
 
 
 
+sub validateTypedRow
+{
+    my ($self, $action, $params_r, $all_r) = @_;
+
+    if (exists $params_r->{externalAccount}) {
+        my $externalAccount =  $params_r->{externalAccount}->value();
+        if ($externalAccount =~ m/\@/) {
+            EBox::Validate::checkEmailAddress(
+                $externalAccount,
+                __('External account')
+               );
+        } else {            
+            # no info found on valid usernames for fetchmail..
+            if ($externalAccount =~ m/\s/) {
+                throw EBox::Exceptions::InvalidData (
+                    'data' => __('External account username'), 
+                    'value' => $externalAccount,
+                    'advice' => __('No spaces allowed')
+                   );
+            }
+            unless ($externalAccount =~ m/^[\w.-_]+$/) {
+                throw EBox::Exceptions::InvalidData (
+                    'data' => __('External account username'), 
+                    'value' => $externalAccount);
+            }
+        }
+    }
+
+
+}
+
 # Method: _addTypedRow
 #
 # Overrides:
@@ -271,6 +305,8 @@ sub addTypedRow
     # check externalAccount is unique
     $self->_checkFieldIsUnique($params_r->{externalAccount});
 
+    # validate row to add
+    $self->validateTypedRow('add', $params_r, $params_r);
 
     my $addParams = $self->_elementsToParamsForFetchmailLdapCall($params_r);
     push @{ $addParams}, user => $self->_user();
@@ -323,6 +359,8 @@ sub setTypedRow
     if (exists $paramsRef->{externalAccount}) {
         $self->_checkFieldIsUnique($paramsRef->{externalAccount});
     }
+
+    $self->validateTypedRow('update', $paramsRef, $allHashElements);
 
     # replace old values with setted ones
     while (my ($name, $value) = each %{ $paramsRef } ) {
