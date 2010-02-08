@@ -2,10 +2,8 @@
 @badExtensions
 </%args>
 <%init>
-#use EBox::Gettext;
-
-#my $warningText = 
-
+my $dummyGoodExtension   = '_GOOD_DUMMY';
+my $dummyBannedExtension = '_BAN_DUMMY';
 </%init>
 
 # renattach 1.2.3 recognizes the following configuration directives.
@@ -184,7 +182,7 @@ search_zip = yes
 # insensitive extensions separated by commas.
 #
 # goodlist = DOC, PDF, RTF, SXC, SXW, TXT, ZIP
-
+goodlist = <% $dummyGoodExtension %>
 
 # A list of bad (known-dangerous) attachment file extensions to use
 # in badlist filtering mode. This is an additive option, so there
@@ -205,4 +203,6 @@ search_zip = yes
 
 % if (@badExtensions) {
 badlist = <% join(',', @badExtensions) %>
+% } else {
+badlist = <% $dummyBannedExtension %>
 % }

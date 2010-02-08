@@ -1,3 +1,6 @@
+HEAD
+        + Bugfix: when no banned extensions are present p3scan/renattach
+	no longer blocks anything. Thanks to rsalgado to point this out
 1.4.1
 	+ Bugfix: Fix the report query for POP filtering
 1.3.14
