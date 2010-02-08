@@ -1,5 +1,5 @@
-HEAD
-        + Bug fix: only set module as changed when there's an actual change in
+1.4.1
+	+ Bug fix: only set module as changed when there's an actual change in
 	  admin permissions.
 1.3.13
 	+ Add JabberUser model to be used in users and groups default user

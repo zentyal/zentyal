@@ -1,4 +1,4 @@
-HEAD
+1.4.1
 	+ Bug fix: surround LDAP migration with a try/catch to make sure the rest
 	  it is run
 	+ Bug fix: do not allow \w with localized characters as LDAP schema does not

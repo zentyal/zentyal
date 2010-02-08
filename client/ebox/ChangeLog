@@ -1,4 +1,4 @@
-HEAD
+1.4.1
 	+ Remove network workarounds from /etc/init.d/ebox as we don't bring
 	  interfaces down anymore
 1.4
