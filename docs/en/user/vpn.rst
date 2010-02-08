@@ -122,8 +122,7 @@ stopping all services depending on those certificates. It is possible to add
 also these optional fields to the CA certificate:
 
 :guilabel:`Country Code`
-  An acronym consisted of two letter
-  following the ISO-XXXX.
+  An acronym consisted of two letters defined in ISO-3166.
 
 :guilabel:`City`
 

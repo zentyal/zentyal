@@ -134,7 +134,7 @@ provocando la parada de todos los servicios que dependan de estos certificados.
 También es posible dar los siguientes datos de manera opcional:
 
 :guilabel:`Código del País`
-  Un acrónimo de dos letras que sigue el estándar ISO-XXX.
+  Un acrónimo de dos letras que sigue el estándar ISO-3166.
 
 :guilabel:`Ciudad`
 
