@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:17+0000\n"
+"POT-Creation-Date: 2010-02-08 06:44+0000\n"
 "PO-Revision-Date: 2009-11-13 11:07+0100\n"
 "Last-Translator: gabriele <g.garis@inwind.it>\n"
 "Language-Team: none\n"
@@ -170,7 +170,7 @@ msgstr ""
 "La rimozione dei pacchetti non è andata a buon fine. Consultare i logs per "
 "informazioni"
 
-#: src/templates/ebox.mas:16 src/templates/updates.mas:18
+#: src/templates/ebox.mas:16 src/templates/updates.mas:20
 msgid "Component"
 msgstr "Componente"
 
@@ -186,7 +186,7 @@ msgstr "Ultima versione"
 msgid "Actions"
 msgstr "Azioni"
 
-#: src/templates/ebox.mas:30 src/templates/updates.mas:21
+#: src/templates/ebox.mas:30 src/templates/updates.mas:23
 msgid "Update"
 msgstr "Aggiornamento"
 
@@ -202,7 +202,7 @@ msgstr "nessuno"
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: src/templates/ebox.mas:77 src/templates/updates.mas:55
+#: src/templates/ebox.mas:77 src/templates/updates.mas:57
 msgid "Update all packages"
 msgstr "Aggiorna tutti i pacchetti"
 
@@ -222,19 +222,19 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Annulla"
 
-#: src/templates/updates.mas:13
+#: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"
 msgstr "Sono disponibili aggiornamenti per i seguenti componenti di sistema"
 
-#: src/templates/updates.mas:19
+#: src/templates/updates.mas:21
 msgid "Description"
 msgstr "Descrizione"
 
-#: src/templates/updates.mas:20
+#: src/templates/updates.mas:22
 msgid "Version"
 msgstr "Versione"
 
-#: src/templates/updates.mas:66
+#: src/templates/updates.mas:68
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -242,7 +242,7 @@ msgstr ""
 "Questa operazione può richiedere del tempo, non preoccuparti se eBox sembra "
 "non rispondere dopo aver premuto il bottone Aggiorna."
 
-#: src/templates/updates.mas:69
+#: src/templates/updates.mas:71
 msgid "Upgrade"
 msgstr "Aggiorna"
 

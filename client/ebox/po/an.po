@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2007-01-27 21:44+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -199,7 +199,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4523
+#: src/EBox/Model/DataTable.pm:4528
 msgid "Enabled"
 msgstr "Abilitato"
 
@@ -1585,7 +1585,7 @@ msgstr "Lista de backups"
 
 #: src/EBox/SysInfo.pm.in:167
 #, fuzzy
-msgid "Support & Services"
+msgid "Resources & Services"
 msgstr "Serbizios"
 
 #: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336

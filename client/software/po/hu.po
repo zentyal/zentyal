@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:17+0000\n"
+"POT-Creation-Date: 2010-02-08 06:44+0000\n"
 "PO-Revision-Date: 2010-01-27 21:57+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
@@ -167,7 +167,7 @@ msgstr ""
 "A csomagok eltávolítása sikertelen volt. Bővebb információkat a naplókban "
 "talál."
 
-#: src/templates/ebox.mas:16 src/templates/updates.mas:18
+#: src/templates/ebox.mas:16 src/templates/updates.mas:20
 msgid "Component"
 msgstr "Komponens"
 
@@ -183,7 +183,7 @@ msgstr "Utolsó verzió"
 msgid "Actions"
 msgstr "Műveletek"
 
-#: src/templates/ebox.mas:30 src/templates/updates.mas:21
+#: src/templates/ebox.mas:30 src/templates/updates.mas:23
 msgid "Update"
 msgstr "Frissítés"
 
@@ -199,7 +199,7 @@ msgstr "semmi"
 msgid "Remove"
 msgstr "Eltávolítás"
 
-#: src/templates/ebox.mas:77 src/templates/updates.mas:55
+#: src/templates/ebox.mas:77 src/templates/updates.mas:57
 msgid "Update all packages"
 msgstr "Minden csomag frissítése"
 
@@ -219,19 +219,19 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Mégse"
 
-#: src/templates/updates.mas:13
+#: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"
 msgstr "A következő rendszerkomponensekhez érhetők el frissítések"
 
-#: src/templates/updates.mas:19
+#: src/templates/updates.mas:21
 msgid "Description"
 msgstr "Leírás"
 
-#: src/templates/updates.mas:20
+#: src/templates/updates.mas:22
 msgid "Version"
 msgstr "Verzió"
 
-#: src/templates/updates.mas:66
+#: src/templates/updates.mas:68
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -239,7 +239,7 @@ msgstr ""
 "A művelet eltarthat egy ideig, ne aggódjon ha az eBox nem válaszol a "
 "Frissítés gomb megnyomása után."
 
-#: src/templates/updates.mas:69
+#: src/templates/updates.mas:71
 msgid "Upgrade"
 msgstr "Frissítés"
 

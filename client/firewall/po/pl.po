@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2007-04-05 20:49+0000\n"
 "Last-Translator: Mariusz Gruszka <golden@interia.pl>\n"
 "Language-Team: none\n"
@@ -76,7 +76,7 @@ msgstr "protokół"
 msgid "Packet Filter"
 msgstr "Filtracja Pakietów"
 
-#: src/EBox/Firewall.pm:828
+#: src/EBox/Firewall.pm:828 src/EBox/Firewall/Model/RedirectsTable.pm:355
 #, fuzzy
 msgid "Port Forwarding"
 msgstr "Reguły przekierowań"
@@ -136,11 +136,11 @@ msgstr ""
 msgid "Traffic coming out from eBox"
 msgstr "Reguły dostępu do internetu"
 
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
 msgid "rule"
 msgstr "reguła"
 
@@ -226,15 +226,10 @@ msgstr "Docelowy"
 msgid "List of forwarded ports"
 msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+#: src/EBox/Firewall/Model/RedirectsTable.pm:363
 #, fuzzy
-msgid "Port Forwading"
+msgid "forwarding"
 msgstr "Reguły przekierowań"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:364
-#, fuzzy
-msgid "redirect"
-msgstr "Przekierowania"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
@@ -384,6 +379,14 @@ msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr "Reguły dostępu do internetu"
+
+#, fuzzy
+#~ msgid "Port Forwading"
+#~ msgstr "Reguły przekierowań"
+
+#, fuzzy
+#~ msgid "redirect"
+#~ msgstr "Przekierowania"
 
 #~ msgid "Packet filtering"
 #~ msgstr "Filtracja pakietów"

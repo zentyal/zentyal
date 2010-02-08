@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2010-01-29 15:45+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -201,7 +201,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4523
+#: src/EBox/Model/DataTable.pm:4528
 msgid "Enabled"
 msgstr "Aktivert"
 
@@ -1553,7 +1553,8 @@ msgid "Process List"
 msgstr "Prosess Liste"
 
 #: src/EBox/SysInfo.pm.in:167
-msgid "Support & Services"
+#, fuzzy
+msgid "Resources & Services"
 msgstr "Støtte og Tjenester"
 
 #: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336

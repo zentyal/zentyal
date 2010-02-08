@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:28+0000\n"
+"POT-Creation-Date: 2010-02-08 06:37+0000\n"
 "PO-Revision-Date: 2010-01-27 18:45+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -23,154 +23,154 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "Система eBox VoIP "
 
-#: src/EBox/Asterisk.pm:70 src/EBox/Asterisk.pm:698
+#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:732
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
 
-#: src/EBox/Asterisk.pm:126
+#: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
 msgstr "Для включения и отключения модулей Asterisk"
 
-#: src/EBox/Asterisk.pm:131
+#: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
 msgstr "Для настройки интерфейса Realtime"
 
-#: src/EBox/Asterisk.pm:136
+#: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
 msgstr "Для настройки LDAP драйвера Realtime"
 
-#: src/EBox/Asterisk.pm:141
+#: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
 msgstr "Для настройки общих пользователей SIP и IAX"
 
-#: src/EBox/Asterisk.pm:146
+#: src/EBox/Asterisk.pm:150
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
 "Для настройки SIP транка для локальных пользователей и внешних провайдеров."
 
-#: src/EBox/Asterisk.pm:151
+#: src/EBox/Asterisk.pm:155
 msgid "To configure the RTP port ranges."
 msgstr "Для настройки диапазона портов RTP"
 
-#: src/EBox/Asterisk.pm:156
+#: src/EBox/Asterisk.pm:160
 msgid "To configure the dialplan."
 msgstr "Для настройки плана набора"
 
-#: src/EBox/Asterisk.pm:161
+#: src/EBox/Asterisk.pm:165
 msgid "To configure the voicemail."
 msgstr "Для настройки голосовой почты"
 
-#: src/EBox/Asterisk.pm:166
+#: src/EBox/Asterisk.pm:170
 msgid "To configure the conferences."
 msgstr "Для настройки конференций"
 
-#: src/EBox/Asterisk.pm:170
+#: src/EBox/Asterisk.pm:174
 msgid "To configure the music on hold."
 msgstr "Для настройки музыки на удержании"
 
-#: src/EBox/Asterisk.pm:174
+#: src/EBox/Asterisk.pm:178
 msgid "To configure DTMF behaviour."
 msgstr "Для настройки поведения DTMF"
 
-#: src/EBox/Asterisk.pm:490
+#: src/EBox/Asterisk.pm:502
 msgid "General"
 msgstr "Общие"
 
-#: src/EBox/Asterisk.pm:494 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:506 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "Конференции"
 
-#: src/EBox/Asterisk.pm:511
+#: src/EBox/Asterisk.pm:523
 msgid "Voicemail"
 msgstr "Голосовая почта"
 
-#: src/EBox/Asterisk.pm:521 src/EBox/Asterisk.pm:608
+#: src/EBox/Asterisk.pm:533 src/EBox/Asterisk.pm:642
 msgid "User"
 msgstr "Имя пользователя"
 
-#: src/EBox/Asterisk.pm:521
+#: src/EBox/Asterisk.pm:533
 msgid "Address"
 msgstr "Адрес"
 
-#: src/EBox/Asterisk.pm:521
+#: src/EBox/Asterisk.pm:533
 msgid "NAT"
 msgstr "NAT"
 
-#: src/EBox/Asterisk.pm:521
+#: src/EBox/Asterisk.pm:533
 msgid "Status"
 msgstr "Статус"
 
-#: src/EBox/Asterisk.pm:535 src/EBox/Asterisk.pm:617
+#: src/EBox/Asterisk.pm:547 src/EBox/Asterisk.pm:651
 msgid "No users connected."
 msgstr "Нет подключенных пользователей."
 
-#: src/EBox/Asterisk.pm:605
+#: src/EBox/Asterisk.pm:639
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr "Комната {name} до {rtime}"
 
-#: src/EBox/Asterisk.pm:608
+#: src/EBox/Asterisk.pm:642
 msgid "Time Connected"
 msgstr "Время подключения"
 
-#: src/EBox/Asterisk.pm:638
+#: src/EBox/Asterisk.pm:672
 msgid "VoIP Online Users"
 msgstr "Пользователи VoIP он-лайн"
 
-#: src/EBox/Asterisk.pm:643
+#: src/EBox/Asterisk.pm:677
 msgid "VoIP Users in Meetings"
 msgstr "Пользователи VoIP на конференциях"
 
-#: src/EBox/Asterisk.pm:675
+#: src/EBox/Asterisk.pm:709
 msgid "Date"
 msgstr "Дата"
 
-#: src/EBox/Asterisk.pm:676
+#: src/EBox/Asterisk.pm:710
 msgid "From"
 msgstr "От"
 
-#: src/EBox/Asterisk.pm:677
+#: src/EBox/Asterisk.pm:711
 msgid "To"
 msgstr "Для"
 
-#: src/EBox/Asterisk.pm:678
+#: src/EBox/Asterisk.pm:712
 msgid "Duration"
 msgstr "Продолжительность"
 
-#: src/EBox/Asterisk.pm:679
+#: src/EBox/Asterisk.pm:713
 msgid "Channel"
 msgstr "Канал"
 
-#: src/EBox/Asterisk.pm:680
+#: src/EBox/Asterisk.pm:714
 msgid "Destination Channel"
 msgstr "Канал назначения"
 
-#: src/EBox/Asterisk.pm:681
+#: src/EBox/Asterisk.pm:715
 msgid "Application"
 msgstr "Приложение"
 
-#: src/EBox/Asterisk.pm:682
+#: src/EBox/Asterisk.pm:716
 msgid "Application Data"
 msgstr "Данные приложения"
 
-#: src/EBox/Asterisk.pm:683
+#: src/EBox/Asterisk.pm:717
 msgid "Event"
 msgstr "Событие"
 
-#: src/EBox/Asterisk.pm:691
+#: src/EBox/Asterisk.pm:725
 msgid "Answered"
 msgstr "Ответил"
 
-#: src/EBox/Asterisk.pm:692
+#: src/EBox/Asterisk.pm:726
 msgid "No Answer"
 msgstr "Нет ответа"
 
-#: src/EBox/Asterisk.pm:693
+#: src/EBox/Asterisk.pm:727
 msgid "Busy"
 msgstr "Занято"
 
-#: src/EBox/Asterisk.pm:694
+#: src/EBox/Asterisk.pm:728
 msgid "Failed"
 msgstr "Ошибка"
 
@@ -212,7 +212,7 @@ msgstr "расширение"
 msgid "A number between {min} and {max}."
 msgstr "Число от {min} до {max}"
 
-#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:90
+#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:111
 msgid "Password"
 msgstr "Пароль"
 
@@ -317,33 +317,59 @@ msgstr "Общие настройки сервера Astreisk"
 msgid "General Asterisk server configuration updated."
 msgstr "Общие параметры сервера Asterisk обновлены"
 
-#: src/EBox/Model/Provider.pm:76
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:89
+#, fuzzy
+msgid "Provider"
+msgstr "Провайдер SIP"
+
+#: src/EBox/Model/Provider.pm:95
 msgid "Name"
 msgstr "Имя"
 
-#: src/EBox/Model/Provider.pm:83
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:104
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: src/EBox/Model/Provider.pm:97
+#: src/EBox/Model/Provider.pm:118
 msgid "Server"
 msgstr "Сервер"
 
-#: src/EBox/Model/Provider.pm:104
+#: src/EBox/Model/Provider.pm:126
 msgid "Recipient of incoming calls"
 msgstr "Получатель входящих вызовов"
 
-#: src/EBox/Model/Provider.pm:114
+#: src/EBox/Model/Provider.pm:130
+#, fuzzy
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "Получатель входящих вызовов"
+
+#: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
 msgstr "Провайдер SIP"
 
-#: src/EBox/Model/Provider.pm:118
+#: src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
 msgstr "Настройки провайдера SIP для исходящих вызовов"
 
-#: src/EBox/Model/Provider.pm:120
+#: src/EBox/Model/Provider.pm:143
 msgid "SIP provider configuration updated."
 msgstr "Настройки провайдера SIP обновлены"
+
+#: src/EBox/Model/Provider.pm:195
+#, perl-brace-format
+msgid ""
+"eBox VoIP Credit: make low-cost VoIP calls to mobile phones and landlines "
+"directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
+"eBox on-line store{chref}! "
+msgstr ""
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"

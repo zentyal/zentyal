@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:16+0000\n"
+"POT-Creation-Date: 2010-02-08 06:43+0000\n"
 "PO-Revision-Date: 2009-11-12 17:16+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -885,6 +885,12 @@ msgstr "Não está definido"
 #, fuzzy
 msgid "External (WAN)"
 msgstr "Exterior"
+
+#: src/templates/ifaces.mas:99
+msgid ""
+"Check this if you are using eBox as a gateway and this interface is "
+"connected to your Internet router."
+msgstr ""
 
 #: src/templates/ifaces.mas:155
 #, fuzzy

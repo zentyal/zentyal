@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:17+0000\n"
+"POT-Creation-Date: 2010-02-08 06:44+0000\n"
 "PO-Revision-Date: 2010-01-28 16:12+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -169,7 +169,7 @@ msgstr ""
 "Удаление пакетов завершено некорректно. Дополнительную информацию смотрите в "
 "журналах системы"
 
-#: src/templates/ebox.mas:16 src/templates/updates.mas:18
+#: src/templates/ebox.mas:16 src/templates/updates.mas:20
 msgid "Component"
 msgstr "Компонент"
 
@@ -185,7 +185,7 @@ msgstr "Последняя версия"
 msgid "Actions"
 msgstr "Действия"
 
-#: src/templates/ebox.mas:30 src/templates/updates.mas:21
+#: src/templates/ebox.mas:30 src/templates/updates.mas:23
 msgid "Update"
 msgstr "Обновление"
 
@@ -201,7 +201,7 @@ msgstr "ничего"
 msgid "Remove"
 msgstr "Удалить"
 
-#: src/templates/ebox.mas:77 src/templates/updates.mas:55
+#: src/templates/ebox.mas:77 src/templates/updates.mas:57
 msgid "Update all packages"
 msgstr "Обновить все пакеты"
 
@@ -221,19 +221,19 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Отмена"
 
-#: src/templates/updates.mas:13
+#: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"
 msgstr "Возможно обновление нескольких системных компонент"
 
-#: src/templates/updates.mas:19
+#: src/templates/updates.mas:21
 msgid "Description"
 msgstr "Описание"
 
-#: src/templates/updates.mas:20
+#: src/templates/updates.mas:22
 msgid "Version"
 msgstr "Версия"
 
-#: src/templates/updates.mas:66
+#: src/templates/updates.mas:68
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -241,7 +241,7 @@ msgstr ""
 "Эта операция может занять некоторое время, не беспокойтесь, если eBox "
 "выглядит недоступным, после нажатия кнопки обновления."
 
-#: src/templates/updates.mas:69
+#: src/templates/updates.mas:71
 msgid "Upgrade"
 msgstr "Обновление"
 

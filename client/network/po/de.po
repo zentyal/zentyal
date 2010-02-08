@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:16+0000\n"
+"POT-Creation-Date: 2010-02-08 06:43+0000\n"
 "PO-Revision-Date: 2010-02-04 13:47+0100\n"
 "Last-Translator: Daniel F <sek@daniel2k.de>\n"
 "Language-Team: none\n"
@@ -151,8 +151,8 @@ msgid ""
 "can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Um diese Funktion verwenden zu können, brauchen sie mindestens zwei "
-"aktivierte Gateways. Sie können diese <a "
-"href=\"/ebox/Network/View/GatewayTable\">hier</a> hinzufügen"
+"aktivierte Gateways. Sie können diese <a href=\"/ebox/Network/View/"
+"GatewayTable\">hier</a> hinzufügen"
 
 #: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2974
 msgid "Status"
@@ -911,6 +911,12 @@ msgstr "Nicht konfigurieren"
 #, fuzzy
 msgid "External (WAN)"
 msgstr "Extern"
+
+#: src/templates/ifaces.mas:99
+msgid ""
+"Check this if you are using eBox as a gateway and this interface is "
+"connected to your Internet router."
+msgstr ""
 
 #: src/templates/ifaces.mas:155
 #, fuzzy

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2009-07-19 12:17+0200\n"
 "Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
@@ -81,7 +81,7 @@ msgstr "protokoll"
 msgid "Packet Filter"
 msgstr "Paketfilter"
 
-#: src/EBox/Firewall.pm:828
+#: src/EBox/Firewall.pm:828 src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "Port Forwarding"
 msgstr ""
 
@@ -136,11 +136,11 @@ msgstr "LOGGA"
 msgid "Traffic coming out from eBox"
 msgstr "Filterregler för trafik som går ut från eBox"
 
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
 msgid "rule"
 msgstr "regel"
 
@@ -221,13 +221,9 @@ msgstr "Beskrivning"
 msgid "List of forwarded ports"
 msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:355
-msgid "Port Forwading"
+#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+msgid "forwarding"
 msgstr ""
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:364
-msgid "redirect"
-msgstr "omdirigera"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
@@ -385,6 +381,9 @@ msgid ""
 msgstr ""
 "De här reglerna låter dig kontrollera access från externa nätverk till "
 "interna nätverk"
+
+#~ msgid "redirect"
+#~ msgstr "omdirigera"
 
 #~ msgid "Packet filtering"
 #~ msgstr "Paketfiltrering"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -76,7 +76,7 @@ msgstr "protocol"
 msgid "Packet Filter"
 msgstr "Filtrat de paquets"
 
-#: src/EBox/Firewall.pm:828
+#: src/EBox/Firewall.pm:828 src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "Port Forwarding"
 msgstr ""
 
@@ -138,11 +138,11 @@ msgstr ""
 msgid "Traffic coming out from eBox"
 msgstr ""
 
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
 msgid "rule"
 msgstr "regla"
 
@@ -228,14 +228,9 @@ msgstr "port de destinació"
 msgid "List of forwarded ports"
 msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:355
-msgid "Port Forwading"
+#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+msgid "forwarding"
 msgstr ""
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:364
-#, fuzzy
-msgid "redirect"
-msgstr "Redireccions de ports"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
@@ -380,6 +375,10 @@ msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
+
+#, fuzzy
+#~ msgid "redirect"
+#~ msgstr "Redireccions de ports"
 
 #~ msgid "Packet filtering"
 #~ msgstr "Filtrat de paquets"

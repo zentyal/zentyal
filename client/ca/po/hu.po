@@ -264,12 +264,14 @@ msgstr ""
 #: src/EBox/CA.pm:2395
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
-msgstr "A hitelesítésszolgáltató megsemmisítve a(z) {orgName} szervezeti névvel"
+msgstr ""
+"A hitelesítésszolgáltató megsemmisítve a(z) {orgName} szervezeti névvel"
 
 #: src/EBox/CA.pm:2397
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
-msgstr "A CA tanúsítvány visszavonva a(z) {reason} kényszerítése miatt: {force}"
+msgstr ""
+"A CA tanúsítvány visszavonva a(z) {reason} kényszerítése miatt: {force}"
 
 #: src/EBox/CA.pm:2399
 #, perl-brace-format
@@ -293,8 +295,7 @@ msgstr ""
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
-"Tanúsítvány kiállítva {cn} általános névvel és {days} nap érvényességi "
-"idővel"
+"Tanúsítvány kiállítva {cn} általános névvel és {days} nap érvényességi idővel"
 
 #: src/EBox/CA.pm:2405
 #, perl-brace-format
@@ -308,8 +309,7 @@ msgstr ""
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
-"Tanúsítvány megújítva {cn} általános névvel és {days} nap érvényességi "
-"idővel"
+"Tanúsítvány megújítva {cn} általános névvel és {days} nap érvényességi idővel"
 
 #: src/EBox/CA.pm:2409
 #, perl-brace-format
@@ -331,8 +331,8 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
-"Először létre kell hoznia egy hitelesítésszolgáltatót. Ezt a "
-"{openhref}Hitelesítésszolgáltatót{closehref} modulban teheti meg."
+"Először létre kell hoznia egy hitelesítésszolgáltatót. Ezt a {openhref}"
+"Hitelesítésszolgáltatót{closehref} modulban teheti meg."
 
 #: src/EBox/Model/Certificates.pm:217
 msgid "Module"
@@ -348,7 +348,8 @@ msgstr "Engedélyezés"
 
 #: src/EBox/Model/Certificates.pm:243
 msgid "Generate the certificate using CA with the common name set above"
-msgstr "Tanúsítvány előállítása a fent megadott általános nevű CA használatával"
+msgstr ""
+"Tanúsítvány előállítása a fent megadott általános nevű CA használatával"
 
 #: src/EBox/Model/Certificates.pm:252
 msgid "certificate"

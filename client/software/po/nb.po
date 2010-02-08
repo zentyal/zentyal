@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:17+0000\n"
+"POT-Creation-Date: 2010-02-08 06:44+0000\n"
 "PO-Revision-Date: 2010-02-01 10:43+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -165,7 +165,7 @@ msgid ""
 "logs"
 msgstr "Pakke fjerningen feilet. Mer informasjon i loggene"
 
-#: src/templates/ebox.mas:16 src/templates/updates.mas:18
+#: src/templates/ebox.mas:16 src/templates/updates.mas:20
 msgid "Component"
 msgstr "Komponent"
 
@@ -181,7 +181,7 @@ msgstr "Siste versjon"
 msgid "Actions"
 msgstr "Handlinger"
 
-#: src/templates/ebox.mas:30 src/templates/updates.mas:21
+#: src/templates/ebox.mas:30 src/templates/updates.mas:23
 msgid "Update"
 msgstr "Oppdater"
 
@@ -197,7 +197,7 @@ msgstr "ingen"
 msgid "Remove"
 msgstr "Fjern"
 
-#: src/templates/ebox.mas:77 src/templates/updates.mas:55
+#: src/templates/ebox.mas:77 src/templates/updates.mas:57
 msgid "Update all packages"
 msgstr "Oppdater alle pakker"
 
@@ -217,19 +217,19 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/templates/updates.mas:13
+#: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"
 msgstr "Oppdateringer er tilgjengelig for følgende system komponenter"
 
-#: src/templates/updates.mas:19
+#: src/templates/updates.mas:21
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: src/templates/updates.mas:20
+#: src/templates/updates.mas:22
 msgid "Version"
 msgstr "Versjon"
 
-#: src/templates/updates.mas:66
+#: src/templates/updates.mas:68
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -237,7 +237,7 @@ msgstr ""
 "Denne operasjonen vil ta tid, ikke bekymre deg hvis eBox ser uresponsiv ut "
 "etter at Oppgraderings knappen er trykket."
 
-#: src/templates/updates.mas:69
+#: src/templates/updates.mas:71
 msgid "Upgrade"
 msgstr "Oppgrader"
 

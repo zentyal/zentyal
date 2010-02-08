@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2009-11-15 17:01+0100\n"
 "Last-Translator: gabriele <g.garis@inwind.it>\n"
 "Language-Team: none\n"
@@ -84,7 +84,7 @@ msgstr "protocollo"
 msgid "Packet Filter"
 msgstr "Filtro Pacchetti"
 
-#: src/EBox/Firewall.pm:828
+#: src/EBox/Firewall.pm:828 src/EBox/Firewall/Model/RedirectsTable.pm:355
 #, fuzzy
 msgid "Port Forwarding"
 msgstr "Regole di inoltro"
@@ -140,11 +140,11 @@ msgstr "LOG"
 msgid "Traffic coming out from eBox"
 msgstr "Regole di filtro per il traffico proveniente da eBox"
 
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
 msgid "rule"
 msgstr "regola"
 
@@ -225,14 +225,10 @@ msgstr "Descrizione"
 msgid "List of forwarded ports"
 msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+#: src/EBox/Firewall/Model/RedirectsTable.pm:363
 #, fuzzy
-msgid "Port Forwading"
+msgid "forwarding"
 msgstr "Regole di inoltro"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:364
-msgid "redirect"
-msgstr "redirezione"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
@@ -391,6 +387,13 @@ msgid ""
 msgstr ""
 "Queste regole ti permettono di controllare l'accesso dalle reti esterne alle "
 "reti interne."
+
+#, fuzzy
+#~ msgid "Port Forwading"
+#~ msgstr "Regole di inoltro"
+
+#~ msgid "redirect"
+#~ msgstr "redirezione"
 
 #~ msgid "Packet filtering"
 #~ msgstr "Filtraggio pacchetto"

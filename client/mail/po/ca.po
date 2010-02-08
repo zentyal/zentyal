@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:16+0000\n"
+"POT-Creation-Date: 2010-02-08 06:43+0000\n"
 "PO-Revision-Date: 2005-10-26 18:53+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "This user has a mail account"
 msgstr ""
 
-#: src/EBox/MailUserLdap.pm:809
+#: src/EBox/MailUserLdap.pm:811
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 

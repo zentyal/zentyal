@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:16+0000\n"
+"POT-Creation-Date: 2010-02-08 06:43+0000\n"
 "PO-Revision-Date: 2010-02-02 23:52+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <es@li.org>\n"
@@ -43,7 +43,7 @@ msgstr "Este grupo tiene una cuenta alias de correo"
 msgid "This user has a mail account"
 msgstr "Este usuario tiene cuenta de correo"
 
-#: src/EBox/MailUserLdap.pm:809
+#: src/EBox/MailUserLdap.pm:811
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 "La cuota sólo puede ser un número positivo, o cero para una cuota ilimitada"

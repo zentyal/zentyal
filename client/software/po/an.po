@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:17+0000\n"
+"POT-Creation-Date: 2010-02-08 06:44+0000\n"
 "PO-Revision-Date: 2005-11-11 13:07+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -160,7 +160,7 @@ msgid ""
 "logs"
 msgstr ""
 
-#: src/templates/ebox.mas:16 src/templates/updates.mas:18
+#: src/templates/ebox.mas:16 src/templates/updates.mas:20
 msgid "Component"
 msgstr "Component"
 
@@ -176,7 +176,7 @@ msgstr "Zaguera bersión"
 msgid "Actions"
 msgstr "Aizions"
 
-#: src/templates/ebox.mas:30 src/templates/updates.mas:21
+#: src/templates/ebox.mas:30 src/templates/updates.mas:23
 msgid "Update"
 msgstr "Autualizar"
 
@@ -192,7 +192,7 @@ msgstr "denguna"
 msgid "Remove"
 msgstr "Eliminar"
 
-#: src/templates/ebox.mas:77 src/templates/updates.mas:55
+#: src/templates/ebox.mas:77 src/templates/updates.mas:57
 msgid "Update all packages"
 msgstr "Autualizar toz os paquez"
 
@@ -212,20 +212,20 @@ msgstr "Azeutar"
 msgid "Cancel"
 msgstr "Canzelar"
 
-#: src/templates/updates.mas:13
+#: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"
 msgstr ""
 "Bi ha autualizazions disponibles ta os siguients components d'o sistema"
 
-#: src/templates/updates.mas:19
+#: src/templates/updates.mas:21
 msgid "Description"
 msgstr "Descrizión"
 
-#: src/templates/updates.mas:20
+#: src/templates/updates.mas:22
 msgid "Version"
 msgstr ""
 
-#: src/templates/updates.mas:66
+#: src/templates/updates.mas:68
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -233,7 +233,7 @@ msgstr ""
 "Ista operazión puede gastar un tiempo, no se procupe si eBox no responde "
 "dimpués de presionar o botón d'Autualizar."
 
-#: src/templates/updates.mas:69
+#: src/templates/updates.mas:71
 msgid "Upgrade"
 msgstr "Autualizar"
 

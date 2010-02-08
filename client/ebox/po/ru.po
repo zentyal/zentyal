@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2010-01-28 17:48+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
@@ -199,7 +199,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4523
+#: src/EBox/Model/DataTable.pm:4528
 msgid "Enabled"
 msgstr "Включено"
 
@@ -1555,8 +1555,9 @@ msgid "Process List"
 msgstr "Список процессов"
 
 #: src/EBox/SysInfo.pm.in:167
-msgid "Support & Services"
-msgstr "Поддержка и Услуги"
+#, fuzzy
+msgid "Resources & Services"
+msgstr "Статус службы событий"
 
 #: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
@@ -2203,6 +2204,9 @@ msgstr "Режим восстановления"
 msgid "Administration Interface TCP Port"
 msgstr "TCP-порт администраторского интерфейса"
 
+#~ msgid "Support & Services"
+#~ msgstr "Поддержка и Услуги"
+
 #~ msgid "Create logs database"
 #~ msgstr "Создание журналов базы данных"
 
@@ -2301,10 +2305,6 @@ msgstr "TCP-порт администраторского интерфейса"
 
 #~ msgid "Access settings"
 #~ msgstr "Нет вхождений в этот список"
-
-#, fuzzy
-#~ msgid "Remote services"
-#~ msgstr "Статус службы событий"
 
 #~ msgid "No RAID devices present"
 #~ msgstr "RAID устройства не представлены"

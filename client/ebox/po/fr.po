@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2010-01-18 13:58+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -202,7 +202,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4523
+#: src/EBox/Model/DataTable.pm:4528
 msgid "Enabled"
 msgstr "Activé"
 
@@ -1566,8 +1566,9 @@ msgid "Process List"
 msgstr "Liste des processus"
 
 #: src/EBox/SysInfo.pm.in:167
-msgid "Support & Services"
-msgstr "Support et services"
+#, fuzzy
+msgid "Resources & Services"
+msgstr "service"
 
 #: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
@@ -2221,6 +2222,9 @@ msgstr "Mode de restauraton"
 msgid "Administration Interface TCP Port"
 msgstr "Port TCP de l'interface d'administration"
 
+#~ msgid "Support & Services"
+#~ msgstr "Support et services"
+
 #~ msgid "Create logs database"
 #~ msgstr "Créer la base de donnée des journaux"
 
@@ -2332,10 +2336,6 @@ msgstr "Port TCP de l'interface d'administration"
 
 #, fuzzy
 #~ msgid "Subscription to remote services"
-#~ msgstr "service"
-
-#, fuzzy
-#~ msgid "Remote services"
 #~ msgstr "service"
 
 #, fuzzy

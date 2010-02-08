@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2009-11-11 20:56+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -203,7 +203,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4523
+#: src/EBox/Model/DataTable.pm:4528
 msgid "Enabled"
 msgstr "Activado"
 
@@ -1584,8 +1584,8 @@ msgstr "Lista de processos"
 
 #: src/EBox/SysInfo.pm.in:167
 #, fuzzy
-msgid "Support & Services"
-msgstr "Serviços"
+msgid "Resources & Services"
+msgstr "Estado do serviço de eventos"
 
 #: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
@@ -2226,6 +2226,10 @@ msgstr "Modo de restauro"
 msgid "Administration Interface TCP Port"
 msgstr "Interface de administração do porto TCP"
 
+#, fuzzy
+#~ msgid "Support & Services"
+#~ msgstr "Serviços"
+
 #~ msgid "Create logs database"
 #~ msgstr "Criar base de dados de registos"
 
@@ -2319,10 +2323,6 @@ msgstr "Interface de administração do porto TCP"
 #, fuzzy
 #~ msgid "Delete data"
 #~ msgstr "Apagar"
-
-#, fuzzy
-#~ msgid "Remote services"
-#~ msgstr "Estado do serviço de eventos"
 
 #~ msgid "No RAID devices present"
 #~ msgstr "Não existem dispositivos RAID presentes"

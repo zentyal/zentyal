@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:17+0000\n"
+"POT-Creation-Date: 2010-02-08 06:44+0000\n"
 "PO-Revision-Date: 2006-11-20 14:33+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -96,7 +96,7 @@ msgstr ""
 msgid "File Sharing Account"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:68
 #: src/EBox/Samba.pm:76
 msgid "File Sharing"
 msgstr ""
@@ -389,7 +389,7 @@ msgstr ""
 msgid "Recycle Bin"
 msgstr ""
 
-#: src/EBox/Samba/Composite/General.pm:68
+#: src/EBox/Samba/Composite/General.pm:69
 msgid "File sharing options"
 msgstr ""
 

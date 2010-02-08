@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: "
-"bugs@warp.es\n"
+"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: bugs@warp."
+"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:18+0000\n"
+"POT-Creation-Date: 2010-02-08 06:45+0000\n"
 "PO-Revision-Date: 2010-02-03 15:41+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -28,8 +28,8 @@ msgstr "Ez a csoport tartalmaz felhasználókat"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52
 #: src/EBox/CGI/Users.pm:31 src/EBox/CGI/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:79 src/EBox/UsersAndGroups.pm:2270
-#: src/EBox/UsersAndGroups.pm:2278
+#: src/EBox/UsersAndGroups/Model/Users.pm:79 src/EBox/UsersAndGroups.pm:2273
+#: src/EBox/UsersAndGroups.pm:2281
 msgid "Users"
 msgstr "Felhasználók"
 
@@ -55,16 +55,16 @@ msgid "Edit group"
 msgstr "Csoport szerkesztése"
 
 #: src/EBox/CGI/Group.pm:61 src/EBox/CGI/Groups.pm:43
-#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2272
-#: src/EBox/UsersAndGroups.pm:2281
+#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2275
+#: src/EBox/UsersAndGroups.pm:2284
 msgid "Groups"
 msgstr "Csoportok"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1376 src/EBox/UsersAndGroups.pm:1381
-#: src/EBox/UsersAndGroups.pm:1572 src/EBox/UsersAndGroups.pm:1722
-#: src/EBox/UsersAndGroups.pm:1756 src/EBox/UsersAndGroups.pm:1873
-#: src/EBox/UsersAndGroups.pm:1976
+#: src/EBox/UsersAndGroups.pm:1379 src/EBox/UsersAndGroups.pm:1384
+#: src/EBox/UsersAndGroups.pm:1575 src/EBox/UsersAndGroups.pm:1725
+#: src/EBox/UsersAndGroups.pm:1759 src/EBox/UsersAndGroups.pm:1876
+#: src/EBox/UsersAndGroups.pm:1979
 msgid "group name"
 msgstr "csoportnév"
 
@@ -74,11 +74,11 @@ msgid "comment"
 msgstr "megjegyzés"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:731 src/EBox/UsersAndGroups.pm:737
-#: src/EBox/UsersAndGroups.pm:977 src/EBox/UsersAndGroups.pm:1027
-#: src/EBox/UsersAndGroups.pm:1079 src/EBox/UsersAndGroups.pm:1538
-#: src/EBox/UsersAndGroups.pm:1616 src/EBox/UsersAndGroups.pm:1717
-#: src/EBox/UsersAndGroups.pm:1751 src/EBox/UsersAndGroups.pm:1822
+#: src/EBox/UsersAndGroups.pm:734 src/EBox/UsersAndGroups.pm:740
+#: src/EBox/UsersAndGroups.pm:980 src/EBox/UsersAndGroups.pm:1030
+#: src/EBox/UsersAndGroups.pm:1082 src/EBox/UsersAndGroups.pm:1541
+#: src/EBox/UsersAndGroups.pm:1619 src/EBox/UsersAndGroups.pm:1720
+#: src/EBox/UsersAndGroups.pm:1754 src/EBox/UsersAndGroups.pm:1825
 msgid "user name"
 msgstr "felhasználónév"
 
@@ -212,7 +212,7 @@ msgstr "Windows AD szinkronizálási beállítások"
 msgid "The secret key needs to have 16 characters."
 msgstr "A titkos kulcshoz 16 karakter szükséges."
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2303
+#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2306
 msgid "Mode"
 msgstr "Mód"
 
@@ -316,7 +316,7 @@ msgstr "Új jelszó megerősítése"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:75
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:73
-#: src/EBox/UsersAndGroups.pm:2317 src/templates/users.mas:49
+#: src/EBox/UsersAndGroups.pm:2320 src/templates/users.mas:49
 #: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
 msgid "Password"
 msgstr "Jelszó"
@@ -354,7 +354,7 @@ msgid "Groups DN"
 msgstr "Groups DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
-#: src/EBox/UsersAndGroups.pm:2288
+#: src/EBox/UsersAndGroups.pm:2291
 msgid "LDAP Info"
 msgstr "LDAP Infó"
 
@@ -435,7 +435,7 @@ msgid "There isn't any configurable option"
 msgstr "Nincsenek változtatható beállítások"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
-#: src/EBox/UsersAndGroups.pm:2274 src/EBox/UsersAndGroups.pm:2283
+#: src/EBox/UsersAndGroups.pm:2277 src/EBox/UsersAndGroups.pm:2286
 msgid "Default User Template"
 msgstr "Alapértelmezett felhasználói sablon"
 
@@ -501,16 +501,16 @@ msgstr ""
 "Hogy lemásolja az LDAP eBox által generált admin jelszavát más modulok LDAP "
 "eléréséhez"
 
-#: src/EBox/UsersAndGroups.pm:726
+#: src/EBox/UsersAndGroups.pm:729
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "A felhasználónév nem lehet hosszabb {maxuserlength} karakternél!"
 
-#: src/EBox/UsersAndGroups.pm:824 src/EBox/UsersAndGroups.pm:1440
+#: src/EBox/UsersAndGroups.pm:827 src/EBox/UsersAndGroups.pm:1443
 msgid "Maximum number of system users reached"
 msgstr "rendszergazdák maximális száma"
 
-#: src/EBox/UsersAndGroups.pm:841
+#: src/EBox/UsersAndGroups.pm:844
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -518,23 +518,23 @@ msgstr ""
 "Érvénytelen felhasználói UID: {uid}.\n"
 "Ennek az értéknek egyenlőnek vagy nagyobbnak kell lenni mint {min}."
 
-#: src/EBox/UsersAndGroups.pm:852
+#: src/EBox/UsersAndGroups.pm:855
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Érvénytelen rendszergazdai UID: {uid}.\n"
 "Ennek az értéknek kisebbnek kell lenni mint {max}."
 
-#: src/EBox/UsersAndGroups.pm:1364
+#: src/EBox/UsersAndGroups.pm:1367
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "A csoportnév nem lehet hosszabb {maxGroupLength} karakternél!"
 
-#: src/EBox/UsersAndGroups.pm:1370
+#: src/EBox/UsersAndGroups.pm:1373
 msgid "The group name is not valid because it is used internally"
 msgstr "Csoportnév érvénytelen, mert már belső használatban van!"
 
-#: src/EBox/UsersAndGroups.pm:1457
+#: src/EBox/UsersAndGroups.pm:1460
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
@@ -542,44 +542,44 @@ msgstr ""
 "Érvénytelen csoport GID: {gid}.\n"
 "Ennek az értéknek egyenlőnek vagy nagyobbnak kell lenni mint {min}."
 
-#: src/EBox/UsersAndGroups.pm:1467
+#: src/EBox/UsersAndGroups.pm:1470
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Érvénytelen rendszer csoporti GID: {gid}.\n"
 "Ennek az értéknek kisebbnek kell lenni mint {max}."
 
-#: src/EBox/UsersAndGroups.pm:2052
+#: src/EBox/UsersAndGroups.pm:2055
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "A jelszó nem lehet hosszabb {maxPwdLength} karakternél!"
 
-#: src/EBox/UsersAndGroups.pm:2293
+#: src/EBox/UsersAndGroups.pm:2296
 msgid "Slave Status"
 msgstr "Slave Status"
 
-#: src/EBox/UsersAndGroups.pm:2297
+#: src/EBox/UsersAndGroups.pm:2300
 msgid "AD Sync Settings"
 msgstr "AD Sync beállítások"
 
-#: src/EBox/UsersAndGroups.pm:2531
+#: src/EBox/UsersAndGroups.pm:2534
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr "Nem tud csatlakozni a master eBox-hoz a {remote}"
 
-#: src/EBox/UsersAndGroups.pm:2538
+#: src/EBox/UsersAndGroups.pm:2541
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr ""
 "Nem tud csatlakozni a master eBox-hoz a {remote} a megadott LDAP jelszóval"
 
-#: src/EBox/UsersAndGroups.pm:2557
+#: src/EBox/UsersAndGroups.pm:2560
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr "A {host} nevű gép már regisztrálva van az eBoxban"
 
-#: src/EBox/UsersAndGroups.pm:2679
+#: src/EBox/UsersAndGroups.pm:2682
 msgid "Replication failed"
 msgstr "A replikáció meghiúsult"
 

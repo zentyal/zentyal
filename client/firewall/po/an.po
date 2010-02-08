@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2007-02-27 22:38+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -74,7 +74,7 @@ msgstr "protocolo"
 msgid "Packet Filter"
 msgstr "Colato de paquez"
 
-#: src/EBox/Firewall.pm:828
+#: src/EBox/Firewall.pm:828 src/EBox/Firewall/Model/RedirectsTable.pm:355
 #, fuzzy
 msgid "Port Forwarding"
 msgstr "Regles de colato"
@@ -134,11 +134,11 @@ msgstr ""
 msgid "Traffic coming out from eBox"
 msgstr "Regles ta l'azeso á internet"
 
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
 msgid "rule"
 msgstr "regle"
 
@@ -225,15 +225,10 @@ msgstr "Destín"
 msgid "List of forwarded ports"
 msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:355
+#: src/EBox/Firewall/Model/RedirectsTable.pm:363
 #, fuzzy
-msgid "Port Forwading"
+msgid "forwarding"
 msgstr "Regles de colato"
-
-#: src/EBox/Firewall/Model/RedirectsTable.pm:364
-#, fuzzy
-msgid "redirect"
-msgstr "Reendrezeras"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
@@ -382,6 +377,14 @@ msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr "Regles de filtrato ta l'azeso á Internet"
+
+#, fuzzy
+#~ msgid "Port Forwading"
+#~ msgstr "Regles de colato"
+
+#, fuzzy
+#~ msgid "redirect"
+#~ msgstr "Reendrezeras"
 
 #~ msgid "Packet filtering"
 #~ msgstr "Colato de paquez"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:17+0000\n"
+"POT-Creation-Date: 2010-02-08 06:44+0000\n"
 "PO-Revision-Date: 2009-11-11 19:25+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -99,7 +99,7 @@ msgstr "Limite de quota do disco"
 msgid "File Sharing Account"
 msgstr "Conta de partilha PDC/Ficheiro"
 
-#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:68
 #: src/EBox/Samba.pm:76
 msgid "File Sharing"
 msgstr "Partilha de ficheiros"
@@ -409,7 +409,7 @@ msgstr "Definições gerais do Anti-vírus"
 msgid "Recycle Bin"
 msgstr ""
 
-#: src/EBox/Samba/Composite/General.pm:68
+#: src/EBox/Samba/Composite/General.pm:69
 msgid "File sharing options"
 msgstr "Opções da partilha de ficheiros"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:28+0000\n"
+"POT-Creation-Date: 2010-02-08 06:37+0000\n"
 "PO-Revision-Date: 2009-08-21 00:36+0200\n"
 "Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
 "Language-Team: none\n"
@@ -22,161 +22,161 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "eBox VoIP systeem"
 
-#: src/EBox/Asterisk.pm:70 src/EBox/Asterisk.pm:698
+#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:732
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:126
+#: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
 msgstr "Om in en uitgeschakelde modules te beheren"
 
-#: src/EBox/Asterisk.pm:131
+#: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
 msgstr "Om de Realtime Interface te configureren"
 
-#: src/EBox/Asterisk.pm:136
+#: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
 msgstr "Om de LDAP Realtime driver te beheren."
 
-#: src/EBox/Asterisk.pm:141
+#: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
 msgstr "Om de gewone SIP en IAX gebruikers te configureren."
 
-#: src/EBox/Asterisk.pm:146
+#: src/EBox/Asterisk.pm:150
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
 "Om de SIP trunk voor lokale gebruikers en externe leveranciers te "
 "configureren."
 
-#: src/EBox/Asterisk.pm:151
+#: src/EBox/Asterisk.pm:155
 msgid "To configure the RTP port ranges."
 msgstr "Om het RTP poort bereik te configureren."
 
-#: src/EBox/Asterisk.pm:156
+#: src/EBox/Asterisk.pm:160
 msgid "To configure the dialplan."
 msgstr "Om het belplan te configureren."
 
-#: src/EBox/Asterisk.pm:161
+#: src/EBox/Asterisk.pm:165
 msgid "To configure the voicemail."
 msgstr "Om het antwoordapparaat in te stellen"
 
-#: src/EBox/Asterisk.pm:166
+#: src/EBox/Asterisk.pm:170
 msgid "To configure the conferences."
 msgstr "Om conferenties te configureren."
 
-#: src/EBox/Asterisk.pm:170
+#: src/EBox/Asterisk.pm:174
 #, fuzzy
 msgid "To configure the music on hold."
 msgstr "Om het antwoordapparaat in te stellen"
 
-#: src/EBox/Asterisk.pm:174
+#: src/EBox/Asterisk.pm:178
 #, fuzzy
 msgid "To configure DTMF behaviour."
 msgstr "Om het antwoordapparaat in te stellen"
 
-#: src/EBox/Asterisk.pm:490
+#: src/EBox/Asterisk.pm:502
 msgid "General"
 msgstr "Algemeen"
 
-#: src/EBox/Asterisk.pm:494 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:506 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "Vergaderingen"
 
-#: src/EBox/Asterisk.pm:511
+#: src/EBox/Asterisk.pm:523
 msgid "Voicemail"
 msgstr "Antwoordapparaat"
 
-#: src/EBox/Asterisk.pm:521 src/EBox/Asterisk.pm:608
+#: src/EBox/Asterisk.pm:533 src/EBox/Asterisk.pm:642
 #, fuzzy
 msgid "User"
 msgstr "Gebruikersnaam"
 
-#: src/EBox/Asterisk.pm:521
+#: src/EBox/Asterisk.pm:533
 #, fuzzy
 msgid "Address"
 msgstr "E-mail Adress"
 
-#: src/EBox/Asterisk.pm:521
+#: src/EBox/Asterisk.pm:533
 msgid "NAT"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:521
+#: src/EBox/Asterisk.pm:533
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:535 src/EBox/Asterisk.pm:617
+#: src/EBox/Asterisk.pm:547 src/EBox/Asterisk.pm:651
 msgid "No users connected."
 msgstr ""
 
-#: src/EBox/Asterisk.pm:605
+#: src/EBox/Asterisk.pm:639
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:608
+#: src/EBox/Asterisk.pm:642
 msgid "Time Connected"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:638
+#: src/EBox/Asterisk.pm:672
 msgid "VoIP Online Users"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:643
+#: src/EBox/Asterisk.pm:677
 msgid "VoIP Users in Meetings"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:675
+#: src/EBox/Asterisk.pm:709
 msgid "Date"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:676
+#: src/EBox/Asterisk.pm:710
 msgid "From"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:677
+#: src/EBox/Asterisk.pm:711
 msgid "To"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:678
+#: src/EBox/Asterisk.pm:712
 #, fuzzy
 msgid "Duration"
 msgstr "Omschrijving"
 
-#: src/EBox/Asterisk.pm:679
+#: src/EBox/Asterisk.pm:713
 #, fuzzy
 msgid "Channel"
 msgstr "Wijzig"
 
-#: src/EBox/Asterisk.pm:680
+#: src/EBox/Asterisk.pm:714
 msgid "Destination Channel"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:681
+#: src/EBox/Asterisk.pm:715
 msgid "Application"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:682
+#: src/EBox/Asterisk.pm:716
 msgid "Application Data"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:683
+#: src/EBox/Asterisk.pm:717
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:691
+#: src/EBox/Asterisk.pm:725
 msgid "Answered"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:692
+#: src/EBox/Asterisk.pm:726
 msgid "No Answer"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:693
+#: src/EBox/Asterisk.pm:727
 msgid "Busy"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:694
+#: src/EBox/Asterisk.pm:728
 #, fuzzy
 msgid "Failed"
 msgstr "Ingeschakeld"
@@ -225,7 +225,7 @@ msgstr "Toestel"
 msgid "A number between {min} and {max}."
 msgstr "Een nummer tussen {min} en {max}"
 
-#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:90
+#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:111
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -333,35 +333,61 @@ msgstr "Algemene Asterisk server configuratie"
 msgid "General Asterisk server configuration updated."
 msgstr "Algemene Asterisk server configuratie opgeslagen"
 
-#: src/EBox/Model/Provider.pm:76
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:89
+#, fuzzy
+msgid "Provider"
+msgstr "SIP leverancier"
+
+#: src/EBox/Model/Provider.pm:95
 msgid "Name"
 msgstr "Naam"
 
-#: src/EBox/Model/Provider.pm:83
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:104
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: src/EBox/Model/Provider.pm:97
+#: src/EBox/Model/Provider.pm:118
 msgid "Server"
 msgstr "Server"
 
-#: src/EBox/Model/Provider.pm:104
+#: src/EBox/Model/Provider.pm:126
 msgid "Recipient of incoming calls"
 msgstr "Ontvanger van inkomende gesprekken"
 
-#: src/EBox/Model/Provider.pm:114
+#: src/EBox/Model/Provider.pm:130
+#, fuzzy
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "Ontvanger van inkomende gesprekken"
+
+#: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
 msgstr "SIP leverancier"
 
-#: src/EBox/Model/Provider.pm:118
+#: src/EBox/Model/Provider.pm:141
 #, fuzzy
 msgid "SIP provider for outgoing calls configuration."
 msgstr "SIP leverancier voor uitgaande gesprekken configuratie"
 
-#: src/EBox/Model/Provider.pm:120
+#: src/EBox/Model/Provider.pm:143
 #, fuzzy
 msgid "SIP provider configuration updated."
 msgstr "SIP leverancier configuratie aangepast"
+
+#: src/EBox/Model/Provider.pm:195
+#, perl-brace-format
+msgid ""
+"eBox VoIP Credit: make low-cost VoIP calls to mobile phones and landlines "
+"directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
+"eBox on-line store{chref}! "
+msgstr ""
 
 #: src/EBox/Model/NAT.pm:96
 #, fuzzy

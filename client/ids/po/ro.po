@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:16+0000\n"
+"POT-Creation-Date: 2010-02-08 06:42+0000\n"
 "PO-Revision-Date: 2009-03-08 15:17+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -53,39 +53,39 @@ msgstr ""
 msgid "Alert"
 msgstr ""
 
-#: src/EBox/Model/Interfaces.pm:120
+#: src/EBox/Model/Interfaces.pm:129
 msgid "Interface"
 msgstr ""
 
-#: src/EBox/Model/Interfaces.pm:125 src/EBox/Model/Rules.pm:149
+#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
 msgid "Enabled"
 msgstr ""
 
-#: src/EBox/Model/Interfaces.pm:134
+#: src/EBox/Model/Interfaces.pm:143
 msgid "Interfaces"
 msgstr ""
 
-#: src/EBox/Model/Interfaces.pm:140
+#: src/EBox/Model/Interfaces.pm:149
 msgid "interface"
 msgstr ""
 
-#: src/EBox/Model/Interfaces.pm:142
+#: src/EBox/Model/Interfaces.pm:151
 msgid "Select in which interfaces IDS system will be enabled"
 msgstr ""
 
-#: src/EBox/Model/Rules.pm:144
+#: src/EBox/Model/Rules.pm:153
 msgid "Rule Set"
 msgstr ""
 
-#: src/EBox/Model/Rules.pm:158
+#: src/EBox/Model/Rules.pm:167
 msgid "Rules"
 msgstr ""
 
-#: src/EBox/Model/Rules.pm:163
+#: src/EBox/Model/Rules.pm:172
 msgid "rule"
 msgstr ""
 
-#: src/EBox/Model/Rules.pm:164
+#: src/EBox/Model/Rules.pm:173
 msgid "help message"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:17+0000\n"
+"POT-Creation-Date: 2010-02-08 06:44+0000\n"
 "PO-Revision-Date: 2010-02-01 10:42+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -97,7 +97,7 @@ msgstr "Disk kvote begrensning"
 msgid "File Sharing Account"
 msgstr "Fil Delings Konto"
 
-#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:68
 #: src/EBox/Samba.pm:76
 msgid "File Sharing"
 msgstr "Fil Deling"
@@ -401,7 +401,7 @@ msgstr "Søppel Kasse standard instillinger"
 msgid "Recycle Bin"
 msgstr "Søppel Kasse"
 
-#: src/EBox/Samba/Composite/General.pm:68
+#: src/EBox/Samba/Composite/General.pm:69
 msgid "File sharing options"
 msgstr "Fil delings alternativer"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:28+0000\n"
+"POT-Creation-Date: 2010-02-08 06:37+0000\n"
 "PO-Revision-Date: 2010-01-27 01:43+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
@@ -21,154 +21,154 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "eBox VoIP rendszer"
 
-#: src/EBox/Asterisk.pm:70 src/EBox/Asterisk.pm:698
+#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:732
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
 
-#: src/EBox/Asterisk.pm:126
+#: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
 msgstr "Az engedélyezett és letiltott modulok beállítása."
 
-#: src/EBox/Asterisk.pm:131
+#: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
 msgstr "A valós idejű felület beállítása."
 
-#: src/EBox/Asterisk.pm:136
+#: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
 msgstr "A valós idejű LDAP illesztőprogram beállítása."
 
-#: src/EBox/Asterisk.pm:141
+#: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
 msgstr "Az általános SIP és IAX felhasználók beállítása."
 
-#: src/EBox/Asterisk.pm:146
+#: src/EBox/Asterisk.pm:150
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
 "A SIP trönk beállítása a helyi felhasználók és a külső szolgáltatók számára."
 
-#: src/EBox/Asterisk.pm:151
+#: src/EBox/Asterisk.pm:155
 msgid "To configure the RTP port ranges."
 msgstr "Az RTP porttartomány beállítása."
 
-#: src/EBox/Asterisk.pm:156
+#: src/EBox/Asterisk.pm:160
 msgid "To configure the dialplan."
 msgstr "A tárcsázási terv beállítása."
 
-#: src/EBox/Asterisk.pm:161
+#: src/EBox/Asterisk.pm:165
 msgid "To configure the voicemail."
 msgstr "A hangposta beállítása."
 
-#: src/EBox/Asterisk.pm:166
+#: src/EBox/Asterisk.pm:170
 msgid "To configure the conferences."
 msgstr "A konferenciabeszélgetések beállítása."
 
-#: src/EBox/Asterisk.pm:170
+#: src/EBox/Asterisk.pm:174
 msgid "To configure the music on hold."
 msgstr "A várakoztatási zene beállítása."
 
-#: src/EBox/Asterisk.pm:174
+#: src/EBox/Asterisk.pm:178
 msgid "To configure DTMF behaviour."
 msgstr "A DMTF viselkedés beállítása."
 
-#: src/EBox/Asterisk.pm:490
+#: src/EBox/Asterisk.pm:502
 msgid "General"
 msgstr "Általános"
 
-#: src/EBox/Asterisk.pm:494 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:506 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "Találkozók"
 
-#: src/EBox/Asterisk.pm:511
+#: src/EBox/Asterisk.pm:523
 msgid "Voicemail"
 msgstr "Hangposta"
 
-#: src/EBox/Asterisk.pm:521 src/EBox/Asterisk.pm:608
+#: src/EBox/Asterisk.pm:533 src/EBox/Asterisk.pm:642
 msgid "User"
 msgstr "Felhasználó"
 
-#: src/EBox/Asterisk.pm:521
+#: src/EBox/Asterisk.pm:533
 msgid "Address"
 msgstr "Cím"
 
-#: src/EBox/Asterisk.pm:521
+#: src/EBox/Asterisk.pm:533
 msgid "NAT"
 msgstr "NAT"
 
-#: src/EBox/Asterisk.pm:521
+#: src/EBox/Asterisk.pm:533
 msgid "Status"
 msgstr "Állapot"
 
-#: src/EBox/Asterisk.pm:535 src/EBox/Asterisk.pm:617
+#: src/EBox/Asterisk.pm:547 src/EBox/Asterisk.pm:651
 msgid "No users connected."
 msgstr "Nincs csatlakozott felhasználó."
 
-#: src/EBox/Asterisk.pm:605
+#: src/EBox/Asterisk.pm:639
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr "A(z) {name} szoba {rtime} ideje aktív"
 
-#: src/EBox/Asterisk.pm:608
+#: src/EBox/Asterisk.pm:642
 msgid "Time Connected"
 msgstr "Kapcsolat ideje"
 
-#: src/EBox/Asterisk.pm:638
+#: src/EBox/Asterisk.pm:672
 msgid "VoIP Online Users"
 msgstr "Online VoIP felhasználók"
 
-#: src/EBox/Asterisk.pm:643
+#: src/EBox/Asterisk.pm:677
 msgid "VoIP Users in Meetings"
 msgstr "A beszélgetésben résztvevő felhasználók"
 
-#: src/EBox/Asterisk.pm:675
+#: src/EBox/Asterisk.pm:709
 msgid "Date"
 msgstr "Dátum"
 
-#: src/EBox/Asterisk.pm:676
+#: src/EBox/Asterisk.pm:710
 msgid "From"
 msgstr "Innen:"
 
-#: src/EBox/Asterisk.pm:677
+#: src/EBox/Asterisk.pm:711
 msgid "To"
 msgstr "Ide:"
 
-#: src/EBox/Asterisk.pm:678
+#: src/EBox/Asterisk.pm:712
 msgid "Duration"
 msgstr "Hossz"
 
-#: src/EBox/Asterisk.pm:679
+#: src/EBox/Asterisk.pm:713
 msgid "Channel"
 msgstr "Csatorna"
 
-#: src/EBox/Asterisk.pm:680
+#: src/EBox/Asterisk.pm:714
 msgid "Destination Channel"
 msgstr "Célcsatorna"
 
-#: src/EBox/Asterisk.pm:681
+#: src/EBox/Asterisk.pm:715
 msgid "Application"
 msgstr "Alkalmazás"
 
-#: src/EBox/Asterisk.pm:682
+#: src/EBox/Asterisk.pm:716
 msgid "Application Data"
 msgstr "Alkalmazásadatok"
 
-#: src/EBox/Asterisk.pm:683
+#: src/EBox/Asterisk.pm:717
 msgid "Event"
 msgstr "Esemény"
 
-#: src/EBox/Asterisk.pm:691
+#: src/EBox/Asterisk.pm:725
 msgid "Answered"
 msgstr "Megválaszolva"
 
-#: src/EBox/Asterisk.pm:692
+#: src/EBox/Asterisk.pm:726
 msgid "No Answer"
 msgstr "Nincs válasz"
 
-#: src/EBox/Asterisk.pm:693
+#: src/EBox/Asterisk.pm:727
 msgid "Busy"
 msgstr "Foglalt"
 
-#: src/EBox/Asterisk.pm:694
+#: src/EBox/Asterisk.pm:728
 msgid "Failed"
 msgstr "Sikertelen"
 
@@ -210,7 +210,7 @@ msgstr "mellék"
 msgid "A number between {min} and {max}."
 msgstr "{min} és {max} közötti szám."
 
-#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:90
+#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:111
 msgid "Password"
 msgstr "Jelszó"
 
@@ -318,33 +318,59 @@ msgstr "Asterisk kiszolgáló általános beállításai"
 msgid "General Asterisk server configuration updated."
 msgstr "Az Asterisk kiszolgáló általános beállításai frissültek."
 
-#: src/EBox/Model/Provider.pm:76
+#: src/EBox/Model/Provider.pm:68
+msgid "Custom"
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:89
+#, fuzzy
+msgid "Provider"
+msgstr "SIP szolgáltató"
+
+#: src/EBox/Model/Provider.pm:95
 msgid "Name"
 msgstr "Név"
 
-#: src/EBox/Model/Provider.pm:83
+#: src/EBox/Model/Provider.pm:100
+msgid "VoIP service provider name."
+msgstr ""
+
+#: src/EBox/Model/Provider.pm:104
 msgid "Username"
 msgstr "Felhasználói név"
 
-#: src/EBox/Model/Provider.pm:97
+#: src/EBox/Model/Provider.pm:118
 msgid "Server"
 msgstr "Kiszolgáló"
 
-#: src/EBox/Model/Provider.pm:104
+#: src/EBox/Model/Provider.pm:126
 msgid "Recipient of incoming calls"
 msgstr "Bejövő hívások címzettje"
 
-#: src/EBox/Model/Provider.pm:114
+#: src/EBox/Model/Provider.pm:130
+#, fuzzy
+msgid "Extension recipient of incoming calls through the provider."
+msgstr "Bejövő hívások címzettje"
+
+#: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
 msgstr "SIP szolgáltató"
 
-#: src/EBox/Model/Provider.pm:118
+#: src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
 msgstr "SIP szolgáltató a kimenő hívások beállításához."
 
-#: src/EBox/Model/Provider.pm:120
+#: src/EBox/Model/Provider.pm:143
 msgid "SIP provider configuration updated."
 msgstr "A SIP szolgáltató beállításai frissültek."
+
+#: src/EBox/Model/Provider.pm:195
+#, perl-brace-format
+msgid ""
+"eBox VoIP Credit: make low-cost VoIP calls to mobile phones and landlines "
+"directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
+"eBox on-line store{chref}! "
+msgstr ""
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"

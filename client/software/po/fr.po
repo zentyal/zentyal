@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:17+0000\n"
+"POT-Creation-Date: 2010-02-08 06:44+0000\n"
 "PO-Revision-Date: 2009-09-30 15:26+0200\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -172,7 +172,7 @@ msgstr ""
 "La suppression des paquets a rencontré des problèmes. Plus d'information "
 "disponible dans les logs."
 
-#: src/templates/ebox.mas:16 src/templates/updates.mas:18
+#: src/templates/ebox.mas:16 src/templates/updates.mas:20
 msgid "Component"
 msgstr "Composant"
 
@@ -188,7 +188,7 @@ msgstr "Dernière version"
 msgid "Actions"
 msgstr "Actions"
 
-#: src/templates/ebox.mas:30 src/templates/updates.mas:21
+#: src/templates/ebox.mas:30 src/templates/updates.mas:23
 msgid "Update"
 msgstr "Actualiser"
 
@@ -204,7 +204,7 @@ msgstr "aucun"
 msgid "Remove"
 msgstr "Effacer"
 
-#: src/templates/ebox.mas:77 src/templates/updates.mas:55
+#: src/templates/ebox.mas:77 src/templates/updates.mas:57
 msgid "Update all packages"
 msgstr "Actualiser tous les paquets"
 
@@ -224,20 +224,20 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: src/templates/updates.mas:13
+#: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"
 msgstr ""
 "Des mises-à-jour sont disponibles pour les composants suivants du système"
 
-#: src/templates/updates.mas:19
+#: src/templates/updates.mas:21
 msgid "Description"
 msgstr "Description"
 
-#: src/templates/updates.mas:20
+#: src/templates/updates.mas:22
 msgid "Version"
 msgstr "Version"
 
-#: src/templates/updates.mas:66
+#: src/templates/updates.mas:68
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -245,7 +245,7 @@ msgstr ""
 "Cette opération peut prendre un certain temps, ne vous inquiétez pas si eBox "
 "semble ne plus répondre après avoir appuyé sur le bouton de mise-à-jour."
 
-#: src/templates/updates.mas:69
+#: src/templates/updates.mas:71
 msgid "Upgrade"
 msgstr "Mise-à-jour"
 

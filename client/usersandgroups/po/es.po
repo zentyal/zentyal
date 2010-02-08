@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:18+0000\n"
+"POT-Creation-Date: 2010-02-08 06:45+0000\n"
 "PO-Revision-Date: 2010-02-02 23:24+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -33,8 +33,8 @@ msgstr "Este grupo contiene usuarios"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52
 #: src/EBox/CGI/Users.pm:31 src/EBox/CGI/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:79 src/EBox/UsersAndGroups.pm:2270
-#: src/EBox/UsersAndGroups.pm:2278
+#: src/EBox/UsersAndGroups/Model/Users.pm:79 src/EBox/UsersAndGroups.pm:2273
+#: src/EBox/UsersAndGroups.pm:2281
 msgid "Users"
 msgstr "Usuarios"
 
@@ -60,16 +60,16 @@ msgid "Edit group"
 msgstr "Editar grupo"
 
 #: src/EBox/CGI/Group.pm:61 src/EBox/CGI/Groups.pm:43
-#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2272
-#: src/EBox/UsersAndGroups.pm:2281
+#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2275
+#: src/EBox/UsersAndGroups.pm:2284
 msgid "Groups"
 msgstr "Grupos"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1376 src/EBox/UsersAndGroups.pm:1381
-#: src/EBox/UsersAndGroups.pm:1572 src/EBox/UsersAndGroups.pm:1722
-#: src/EBox/UsersAndGroups.pm:1756 src/EBox/UsersAndGroups.pm:1873
-#: src/EBox/UsersAndGroups.pm:1976
+#: src/EBox/UsersAndGroups.pm:1379 src/EBox/UsersAndGroups.pm:1384
+#: src/EBox/UsersAndGroups.pm:1575 src/EBox/UsersAndGroups.pm:1725
+#: src/EBox/UsersAndGroups.pm:1759 src/EBox/UsersAndGroups.pm:1876
+#: src/EBox/UsersAndGroups.pm:1979
 msgid "group name"
 msgstr "nombre de grupo"
 
@@ -79,11 +79,11 @@ msgid "comment"
 msgstr "comentario"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:731 src/EBox/UsersAndGroups.pm:737
-#: src/EBox/UsersAndGroups.pm:977 src/EBox/UsersAndGroups.pm:1027
-#: src/EBox/UsersAndGroups.pm:1079 src/EBox/UsersAndGroups.pm:1538
-#: src/EBox/UsersAndGroups.pm:1616 src/EBox/UsersAndGroups.pm:1717
-#: src/EBox/UsersAndGroups.pm:1751 src/EBox/UsersAndGroups.pm:1822
+#: src/EBox/UsersAndGroups.pm:734 src/EBox/UsersAndGroups.pm:740
+#: src/EBox/UsersAndGroups.pm:980 src/EBox/UsersAndGroups.pm:1030
+#: src/EBox/UsersAndGroups.pm:1082 src/EBox/UsersAndGroups.pm:1541
+#: src/EBox/UsersAndGroups.pm:1619 src/EBox/UsersAndGroups.pm:1720
+#: src/EBox/UsersAndGroups.pm:1754 src/EBox/UsersAndGroups.pm:1825
 msgid "user name"
 msgstr "nombre de usuario"
 
@@ -221,7 +221,7 @@ msgstr "Sincronización Windows AD"
 msgid "The secret key needs to have 16 characters."
 msgstr "La clave secreta debe ser de 16 caracteres."
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2303
+#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2306
 msgid "Mode"
 msgstr "Modo"
 
@@ -326,7 +326,7 @@ msgstr "Confirme contraseña"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:75
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:73
-#: src/EBox/UsersAndGroups.pm:2317 src/templates/users.mas:49
+#: src/EBox/UsersAndGroups.pm:2320 src/templates/users.mas:49
 #: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
 msgid "Password"
 msgstr "Contraseña"
@@ -364,7 +364,7 @@ msgid "Groups DN"
 msgstr "DN de Grupos"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
-#: src/EBox/UsersAndGroups.pm:2288
+#: src/EBox/UsersAndGroups.pm:2291
 msgid "LDAP Info"
 msgstr "Datos LDAP"
 
@@ -444,7 +444,7 @@ msgid "There isn't any configurable option"
 msgstr "No hay ninguna opción de configuración"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
-#: src/EBox/UsersAndGroups.pm:2274 src/EBox/UsersAndGroups.pm:2283
+#: src/EBox/UsersAndGroups.pm:2277 src/EBox/UsersAndGroups.pm:2286
 msgid "Default User Template"
 msgstr "Plantilla de Usuario por Defecto"
 
@@ -510,70 +510,70 @@ msgstr ""
 "Para copiar las contraseñas de administración de LDAP generados por eBox y "
 "permitir que otros módulos puedan acceder a LDAP"
 
-#: src/EBox/UsersAndGroups.pm:726
+#: src/EBox/UsersAndGroups.pm:729
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Nombre de usuario no debe más largo de {maxuserlength} caracteres "
 
-#: src/EBox/UsersAndGroups.pm:824 src/EBox/UsersAndGroups.pm:1440
+#: src/EBox/UsersAndGroups.pm:827 src/EBox/UsersAndGroups.pm:1443
 msgid "Maximum number of system users reached"
 msgstr "Máximo número de usuarios de sistema alcanzado"
 
-#: src/EBox/UsersAndGroups.pm:841
+#: src/EBox/UsersAndGroups.pm:844
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
 "UID {uid} incorrecto para el usuario. UID deber ser mayor o igual que {min}"
 
-#: src/EBox/UsersAndGroups.pm:852
+#: src/EBox/UsersAndGroups.pm:855
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "UID incorrecto {uid} para el usuario de sistema. UID debe ser menor de {max}"
 
-#: src/EBox/UsersAndGroups.pm:1364
+#: src/EBox/UsersAndGroups.pm:1367
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr ""
 "El nombre del grupo no debe ser más largo de {maxGroupLength} caracteres "
 
-#: src/EBox/UsersAndGroups.pm:1370
+#: src/EBox/UsersAndGroups.pm:1373
 msgid "The group name is not valid because it is used internally"
 msgstr "El nombre de grupo no es válido porque se utiliza internamente"
 
-#: src/EBox/UsersAndGroups.pm:1457
+#: src/EBox/UsersAndGroups.pm:1460
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 "GID {gid} incorrecto para el grupo. GID debe ser mayor o igual que {min}"
 
-#: src/EBox/UsersAndGroups.pm:1467
+#: src/EBox/UsersAndGroups.pm:1470
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "GID {gid} incorrecto para un grupo de sistema. GID debe ser menor de {max}"
 
-#: src/EBox/UsersAndGroups.pm:2052
+#: src/EBox/UsersAndGroups.pm:2055
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "La contraseña no debe ser más larga de {maxPwdLength} caracteres"
 
-#: src/EBox/UsersAndGroups.pm:2293
+#: src/EBox/UsersAndGroups.pm:2296
 msgid "Slave Status"
 msgstr "Estado de Esclavo"
 
-#: src/EBox/UsersAndGroups.pm:2297
+#: src/EBox/UsersAndGroups.pm:2300
 msgid "AD Sync Settings"
 msgstr "Opciones de AD Sync"
 
-#: src/EBox/UsersAndGroups.pm:2531
+#: src/EBox/UsersAndGroups.pm:2534
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr "No se puede conectar con el eBox maestro en {remote}"
 
-#: src/EBox/UsersAndGroups.pm:2538
+#: src/EBox/UsersAndGroups.pm:2541
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
@@ -581,12 +581,12 @@ msgstr ""
 "No se puede conectar con el eBox maestro en {remote} con la contraseña de "
 "LDAP proporcionada"
 
-#: src/EBox/UsersAndGroups.pm:2557
+#: src/EBox/UsersAndGroups.pm:2560
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr "Ya existe un host llamado {host} registrado en esta eBox"
 
-#: src/EBox/UsersAndGroups.pm:2679
+#: src/EBox/UsersAndGroups.pm:2682
 msgid "Replication failed"
 msgstr "La replicación ha fallado"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-02-02 17:30+0000\n"
+"POT-Creation-Date: 2010-02-08 06:47+0000\n"
 "PO-Revision-Date: 2010-02-02 08:10+0100\n"
 "Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: none\n"
@@ -283,8 +283,8 @@ msgid ""
 msgstr ""
 
 #: ebox-package-installer:141 ebox-package-installer:277
-#: ebox-package-installer:325 ebox-package-installer:377
-#: ebox-package-installer:391
+#: ebox-package-installer:321 ebox-package-installer:373
+#: ebox-package-installer:387
 msgid "Error"
 msgstr ""
 
@@ -301,23 +301,23 @@ msgstr "Installation fehlgeschlagen."
 msgid "Check {logfile} content to see what happened"
 msgstr "Überprüfe {logfile}, was passiert ist"
 
-#: ebox-package-installer:326
+#: ebox-package-installer:322
 msgid "You must select at least one package."
 msgstr "Sie müssen mindestens ein Paket auswählen."
 
-#: ebox-package-installer:350
+#: ebox-package-installer:346
 msgid "Warning"
 msgstr "Warnung"
 
-#: ebox-package-installer:377
+#: ebox-package-installer:373
 msgid "Passwords don't match"
 msgstr "Passwörter stimmen nicht"
 
-#: ebox-package-installer:391
+#: ebox-package-installer:387
 msgid "The username 'ebox' is reserved. Please choose another."
 msgstr ""
 "Der Benutzername 'ebox' ist reserviert. Bitte wählen Sie einen anderen."
 
-#: ebox-package-installer:425
+#: ebox-package-installer:421
 msgid "Preconfiguring eBox packages..."
 msgstr "eBox Pakete werden vorkonfiguriert..."

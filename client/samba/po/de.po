@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:17+0000\n"
+"POT-Creation-Date: 2010-02-08 06:44+0000\n"
 "PO-Revision-Date: 2010-02-04 11:57+0100\n"
 "Last-Translator: Daniel F <sek@daniel2k.de>\n"
 "Language-Team: none\n"
@@ -92,7 +92,7 @@ msgstr "Festplatten-Speicherlimit"
 msgid "File Sharing Account"
 msgstr "Domänencontroller-/Freigabekonto"
 
-#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:67
+#: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:68
 #: src/EBox/Samba.pm:76
 msgid "File Sharing"
 msgstr "Dateifreigabe"
@@ -233,9 +233,9 @@ msgid ""
 "allow you to share an existing directory within your file system"
 msgstr ""
 "{openit}Verzeichnis in eBox{closeit} wird automatisch das Freigabe-"
-"Verzeichnis in /home/samba/shares "
-"erstellen{br}{openit}Dateisystempfad{closeit} erlaubt Ihnen ein bestehendes "
-"Verzeichnis in Ihrem Dateisystem freizugeben."
+"Verzeichnis in /home/samba/shares erstellen{br}{openit}Dateisystempfad"
+"{closeit} erlaubt Ihnen ein bestehendes Verzeichnis in Ihrem Dateisystem "
+"freizugeben."
 
 #: src/EBox/Samba/Model/SambaShares.pm:290
 msgid ""
@@ -402,7 +402,7 @@ msgstr "Allgemeine Einstellungen für Papierkorb"
 msgid "Recycle Bin"
 msgstr "Papierkorb"
 
-#: src/EBox/Samba/Composite/General.pm:68
+#: src/EBox/Samba/Composite/General.pm:69
 msgid "File sharing options"
 msgstr "Dateifreigabe-Einstellungen"
 
