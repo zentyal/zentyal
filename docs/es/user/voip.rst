@@ -379,16 +379,16 @@ Usando las funcionalidades de eBox Voz IP
 Transferencia de llamadas
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 La transferencia de llamadas es muy sencilla. Durante el transcurso de una conversación,
-apretando # y después introduciendo la extensión a dónde queremos reenviar la llamada
+pulsando # y después introduciendo la extensión a dónde queremos reenviar la llamada
 podremos realizar una transferencia. En ese momento podremos colgar ya que esta llamada
 estará marcando la extensión a donde ha sido transferida.
 
 Aparcamiento de llamadas
 ^^^^^^^^^^^^^^^^^^^^^^^^
 El aparcamiento de llamadas se realiza sobre la extensión 700. Durante el transcurso
-de una conversación, apretaremos # y después marcaremos 700. La extensión dónde la
-llamada ha sido aparcada será anunciada a la parte llamada y quіen estaba llamando
-comenzará a escuchar la música de espera si está configurada. Podremos colgar en ese
+de una conversación, pulsaremos # y después marcaremos 700. La extensión donde la
+llamada ha sido aparcada será anunciada a la parte llamada y quien estaba llamando
+comenzará a escuchar la música de espera, si está configurada. Podremos colgar en ese
 momento. Desde un teléfono distinto u otro usuario distinto marcando la extensión
 anunciada podremos recoger la llamada aparcada y restablecer la conversación.
 
