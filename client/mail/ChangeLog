@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix, mail to local accounts is delivered correctly, changed
+	some parameters to take in account myorigin
 	+ Fixed typo in regualr expression that checks external accounts names
 	+ Plain usernames without mail domain now are allowed for mail
 	retrieval from external accounts 

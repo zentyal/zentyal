@@ -374,6 +374,7 @@ sub _setMailConf
         $allowedaddrs .= " $addr";
     }
 
+    push (@array, 'hostname' , $self->_fqdn());
     unless ($users->mode() eq 'slave') {
         push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
     } else {
@@ -1971,11 +1972,7 @@ sub postmasterAddress
     }
 
 
-
-    my $mailname = $smtpOptions->customMailname();
-    if (not defined $mailname) {
-        $mailname = $self->_fqdn();
-    }
+    my $mailname = $self->mailname();
 
 
 
