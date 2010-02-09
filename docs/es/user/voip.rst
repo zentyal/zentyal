@@ -39,19 +39,6 @@ Protocol*) y su tarea es transportar la voz codificada desde el origen hasta
 el destino. Este protocolo se pone en marcha una vez establecida la llamada
 por los protocolos de señalización.
 
-IAX2
-^^^^
-**IAX2** es la versión 2 del protocolo *Inter Asterisk eXchange* creado para la
-interconexión de centralitas *Asterisk* [#]_. Las características más importantes
-de este protocolo es que la voz y la señalización va por el mismo flujo de
-datos y además éste puede ser cifrado. Esto tiene la ventaja directa de poder
-atravesar NAT con facilidad y que la sobrecarga es menor a la hora de mantener
-varios canales de comunicación simultáneos entre servidores. IAX2 funciona
-sobre el puerto UDP/4569.
-
-.. [#] **Asterisk** es un *software* para centralitas telefónicas que
-       eBox usa para implementar el módulo de Voz IP (http://www.asterisk.org/).
-
 SIP
 ^^^
 **SIP** o *Session Initiation Protocol* es un protocolo creado en el
@@ -67,6 +54,19 @@ rango de puertos UDP/10000-20000.
 .. TODO: explicar funcionamiento de SIP y SIP+NAT
 .. TODO: protocolo H323
 
+IAX2
+^^^^
+**IAX2** es la versión 2 del protocolo *Inter Asterisk eXchange* creado para la
+interconexión de centralitas *Asterisk* [#]_. Las características más importantes
+de este protocolo es que la voz y la señalización va por el mismo flujo de
+datos y además éste puede ser cifrado. Esto tiene la ventaja directa de poder
+atravesar NAT con facilidad y que la sobrecarga es menor a la hora de mantener
+varios canales de comunicación simultáneos entre servidores. IAX2 funciona
+sobre el puerto UDP/4569.
+
+.. [#] **Asterisk** es un *software* para centralitas telefónicas que
+       eBox usa para implementar el módulo de Voz IP <http://www.asterisk.org/>.
+
 Códecs
 ------
 
@@ -80,7 +80,7 @@ speex son códecs habituales dentro de la Voz IP.
   Es uno de los códecs más utilizados, con dos versiones, una
   americana (*ulaw*) y otra europea (*alaw*). Este códec ofrece buena
   calidad pero su consumo de ancho de banda es bastante significativo
-  con 64kbps. Es ideal para la comunicación por voz en redes locales.
+  con 64kbps. Es el más habitual para la comunicación por voz en redes locales.
 
 **G.729**:
   Tiene una compresión mucho mayor usando solamente 8kbps siendo
@@ -147,9 +147,14 @@ están disponibles tanto para Windows y OSX como para GNU/Linux. Ekiga
 .. figure:: images/voip/qutecom.png
    :scale: 40
    :align: center
+
+   Qutecom
+
 .. figure:: images/voip/twinkle.png
    :scale: 40
    :align: center
+
+   Twinkle
 
 Centralitas IP
 ^^^^^^^^^^^^^^
@@ -176,6 +181,8 @@ existentes a una nueva red de telefonía IP.
 .. figure:: images/voip/tdm422e.png
    :scale: 30
 
+   Digium TDM422E FXO and FXS card
+
 Configuración de un servidor *Asterisk* con eBox
 ------------------------------------------------
 El módulo de Voz IP de eBox permite gestionar un servidor *Asterisk* con los
@@ -186,7 +193,7 @@ funcionalidades más habituales configuradas de una forma sencilla.
    :scale: 50
 
 Como ya es habitual, en primer lugar deberemos habilitar el
-módulo. Iremos a la sección :menuselection:`Estado del módulo` del
+módulo. Iremos a la sección :menuselection:`Estado del Módulo` del
 menú de eBox y seleccionaremos la casilla :guilabel:`Voz IP`. Si no
 tenemos habilitado el módulo :guilabel:`Usuarios y Grupos` deberá ser
 habilitado previamente ya que depende de él.
@@ -199,16 +206,16 @@ A la configuración general del servidor se accede a través del menú
 configurar los siguientes parámetros generales:
 
 :guilabel:`Habilitar extensiones demo`:
-  Habilita las extensiones 500 y 600. Si llamamos a la extensión 500
+  Habilita las extensiones 400, 500 y 600. Si llamamos a la extensión
+  400 podremos escuchar la música de espera, llamando a la 500
   se realiza una llamada mediante el protocolo IAX a
   guest@pbx.digium.com. En la extensión 600 se dispone de una *prueba
   de eco* para darnos una idea de la latencia en las llamadas. En
-  definitiva estas dos extensiones nos permiten comprobar que nuestro
+  definitiva estas extensiones nos permiten comprobar que nuestro
   cliente esta correctamente configurado.
 
 :guilabel:`Habilitar llamadas salientes`:
-  Habilita las llamadas salientes a otros servidores (por ejemplo:
-  usuario@dominio.tld) o a través del proveedor SIP que tengamos
+  Habilita las llamadas salientes a través del proveedor SIP que tengamos
   configurado para llamar a teléfonos convencionales. Para realizar
   llamadas a través del proveedor SIP tendremos que añadir un cero
   adicional antes del número a llamar, por ejemplo si queremos llamar
@@ -226,7 +233,7 @@ configurar los siguientes parámetros generales:
   nuestro servidor, no aceptará llamadas entrantes de otros servidores
   por seguridad.
 
-.. [#] **El rincón del usuario** se explica en la sección :ref:`usercorner-ref`.
+.. [#] **El Rincón del Usuario** se explica en la sección :ref:`usercorner-ref`.
 
 :guilabel:`Dominio Voz IP`:
   Es el dominio que se asignará a las direcciones de nuestros
@@ -237,6 +244,10 @@ En la sección de :guilabel:`Proveedor SIP` introduciremos los datos
 suministrados por nuestro proveedor SIP para que eBox pueda redirigir
 las llamadas a través de él:
 
+:guilabel:`Proveedor`:
+  Si estamos usando :guilabel:`eBox VoIP Credit`, seleccionaremos esta opción
+  que preconfigurará el nombre del proveedor y el servidor. En otro caso usaremos
+  :guilabel:`Personalizado`.
 :guilabel:`Nombre`:
   Es el identificador que se da al proveedor dentro de eBox.
 :guilabel:`Nombre de usuario`:
@@ -279,11 +290,27 @@ extension@dominio.tld.
 .. figure:: images/voip/ebox-asterisk_meetings.png
    :scale: 80
 
+Cuando editemos un usuario, podremos habilitar o deshabilitar la cuenta de VozIP de este usuario y 
+cambiar su extensión. Hay que tener en cuenta que una extensión sólamente puede asignarse a un usuario
+y no a más, si necesitas llamar a más de un usuario desde una extensión será necesario utilizar colas.
+
+.. figure:: images/voip/ebox-asterisk_user.png
+   :scale: 80
+
+Cuando editemos un grupo, podremos habilitar o deshabilitar la cola de este grupo. Una cola es una
+extensión dónde al recibir una llamada, se llama a todos los usuarios que pertenecen a este grupo.
+
+.. figure:: images/voip/ebox-asterisk_group.png
+   :scale: 80
+
+Si queremos configurar la música de espera, colocaremos las canciones en formato MP3 en
+`/var/lib/asterisk/mohmp3/` e instalaremos el paquete *mpg123*.
+
 Configurando un *softphone* para conectar a eBox
 ------------------------------------------------
 
 Ekiga (Gnome)
--------------
+^^^^^^^^^^^^^
 
 **Ekiga** [#]_ es el *softphone* o cliente de voz IP recomendado en el
 *entorno de escritorio Gnome*. Al lanzarlo por primera vez
@@ -292,7 +319,7 @@ dispositivos de sonido y vídeo, la conexión a *Internet* y los
 servicios de *Ekiga.net*. Podemos omitir la configuración tanto de la
 cuenta en *Ekiga.net* como de *Ekiga Call Out*.
 
-.. [#] http://ekiga.org
+.. [#] <http://ekiga.org/>
 
 Desde :guilabel:`Editar --> Cuentas`, seleccionando :guilabel:`Cuentas
 --> Añadir una cuenta SIP` podremos configurar la cuenta de Voz IP de
@@ -345,6 +372,28 @@ usan los botones verde / rojo en la parte inferior para llamar y colgar.
 .. figure:: images/voip/qutecom_02.png
    :scale: 50
    :align: center
+
+Usando las funcionalidades de eBox Voz IP
+-----------------------------------------
+
+Transferencia de llamadas
+^^^^^^^^^^^^^^^^^^^^^^^^^
+La transferencia de llamadas es muy sencilla. Durante el transcurso de una conversación,
+apretando # y después introduciendo la extensión a dónde queremos reenviar la llamada
+podremos realizar una transferencia. En ese momento podremos colgar ya que esta llamada
+estará marcando la extensión a donde ha sido transferida.
+
+Aparcamiento de llamadas
+^^^^^^^^^^^^^^^^^^^^^^^^
+El aparcamiento de llamadas se realiza sobre la extensión 700. Durante el transcurso
+de una conversación, apretaremos # y después marcaremos 700. La extensión dónde la
+llamada ha sido aparcada será anunciada a la parte llamada y quіen estaba llamando
+comenzará a escuchar la música de espera si está configurada. Podremos colgar en ese
+momento. Desde un teléfono distinto u otro usuario distinto marcando la extensión
+anunciada podremos recoger la llamada aparcada y restablecer la conversación.
+
+En eBox el aparcamiento de llamadas soporta 20 conversaciones y el periodo máximo que
+una llamada puede esperar son 300 segundos.
 
 Ejemplo práctico
 ^^^^^^^^^^^^^^^^
@@ -402,5 +451,3 @@ Crear un usuario que tenga una cuenta de Voz IP. Cambiarle la extensión a
    Efecto:
      eBox aplica los cambios realizados inmediatamente, el usuario ya puede
      recibir llamadas sobre esa extensión.
-
-.. include:: voip-exercises.rst
