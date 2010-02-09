@@ -135,6 +135,8 @@ The services currently offered are:
        http://www.ebox-technologies.com/products/controlcenter/
        the company behind eBox Platform development.
 
+.. _installation-section-ref:
+
 Installation
 ************
 
@@ -363,7 +365,7 @@ Here *network_address* is the IP address or a host name that resolves to
 the address where eBox is running.
 
 .. warning::
-   
+
    To access the web interface you should use Mozilla Firefox as they are
    some known issues with another browsers such as Microsoft Internet Explorer.
 
@@ -467,7 +469,7 @@ Running:
   network clients. You can restart the service using
   :guilabel:`Restart`.
 
-Running unmanaged: 
+Running unmanaged:
   If you haven't configured the service yet, it is
   possible to find it running with the default configuration from the
   distribution. Therefore it is not managed by eBox yet.
@@ -518,7 +520,7 @@ Modules status configuration
 
 As it is discussed above, eBox is built up with modules. The majority
 of the modules are intended to manage network services that you must
-enable them through :menuselection:`Module Status`. 
+enable them through :menuselection:`Module Status`.
 
 .. figure:: images/intro/module-status-conf.png
    :scale: 50
@@ -550,7 +552,7 @@ modifications. Likewise, you may disable a module by unchecking the
    Confirm dialog to **configure** a module
 
 .. [#] This process is mandatory to comply the Debian Policy
-   http://www.debian.org/doc/debian-policy/ 
+   http://www.debian.org/doc/debian-policy/
 
 .. _ebox-working-ref:
 
