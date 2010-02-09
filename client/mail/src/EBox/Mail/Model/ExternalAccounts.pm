@@ -278,7 +278,7 @@ sub validateTypedRow
                     'advice' => __('No spaces allowed')
                    );
             }
-            unless ($externalAccount =~ m/^[\w.-_]+$/) {
+            unless ($externalAccount =~ m/^[\w.\-_]+$/) {
                 throw EBox::Exceptions::InvalidData (
                     'data' => __('External account username'), 
                     'value' => $externalAccount);

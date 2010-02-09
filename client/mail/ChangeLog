@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed typo in regualr expression that checks external accounts names
 	+ Plain usernames without mail domain now are allowed for mail
 	retrieval from external accounts 
 1.4.1
