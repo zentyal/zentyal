@@ -89,7 +89,7 @@ Configuración del Punto de Acceso
 =================================
 
 En cada dispositivo *NAS* necesitaremos configurar la dirección de
-eBox como el servidor RADIUS, el puerto, normalmente el **UDP/1812 **y
+eBox como el servidor RADIUS, el puerto, normalmente el **UDP/1812** y
 la contraseña compartida. Tanto *WPA* como *WPA2*, usando *TKIP* o
 *AES* (recomendado) pueden usarse con eBox RADIUS. El modo deberá ser
 *EAP*.

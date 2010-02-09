@@ -290,7 +290,7 @@ extension@dominio.tld.
 .. figure:: images/voip/ebox-asterisk_meetings.png
    :scale: 80
 
-Cuando editemos un usuario, podremos habilitar o deshabilitar la cuenta de VozIP de este usuario y 
+Cuando editemos un usuario, podremos habilitar o deshabilitar la cuenta de VozIP de este usuario y
 cambiar su extensión. Hay que tener en cuenta que una extensión sólamente puede asignarse a un usuario
 y no a más, si necesitas llamar a más de un usuario desde una extensión será necesario utilizar colas.
 
