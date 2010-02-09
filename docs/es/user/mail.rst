@@ -330,9 +330,9 @@ y hacer clic en `Recuperar correo de cuentas externas` en el menú izquierdo. En
 se muestra la lista de cuentas de correo del usuario, el usuario puede añadir, borrar y editar
 cuentas. Cada cuenta tiene los siguientes parámetros:
 
-:guilabel:`Dirección de correo externa`: 
-   La dirección de correo externa, debe ser la dirección 
-   usada para recuperar correo.
+:guilabel:`Cuenta externa`: 
+   El nombre de usuario o dirección de correo requerida para identificarse en el 
+   servicio externo de recuperación de correo.
 :guilabel:`Contraseña`: 
    Contraseña para autenticar la cuenta externa.
 :guilabel:`Servidor de correo`: 

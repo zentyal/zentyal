@@ -318,9 +318,9 @@ accounts` in the left menu. In this page a list of user's external
 accounts is shown, the user can add, edit and delete accounts. Each
 account has the following fields:
 
-:guilabel:`External mail address`: 
-   The external mail address, it must be the address used
-   to login in the retrieval services.
+:guilabel:`External account`: 
+   The username or the mail address required
+   to login in the external mail retrieval service.
 :guilabel:`Password`: 
    Password to authenticate the external account.
 :guilabel:`Mail server`: 
