@@ -195,23 +195,65 @@ The eBox Platform installer is based on the *Ubuntu* installer and
 therefore those who are already familiar with it will find the
 installation process very similar.
 
-.. figure:: images/intro/eBox-installer.png
+.. figure:: images/intro/ebox_installer-language.png
    :scale: 50
-   :alt: Installer home screen
+   :alt: Installer language select
    :align: center
 
-   Installer home screen
+   Installer language select
+
+You can install using the default mode which deletes all disk contents
+and creates the partitions needed by eBox using *LVM* and asking less
+questions or using the expert mode which allows you to make your own
+partitioning. Most people should choose the default option unless they
+are installing on a server with special requeriments, like software RAID.
+
+.. figure:: images/intro/ebox_installer-menu.png
+   :scale: 50
+   :alt: Installer menu
+   :align: center
+
+   Installer menu
 
 After installing the base system and rebooting, you can start installing
-eBox Platform. There are two methods for selecting the functionalities
-you want to include in your system.
+eBox Platform. First step will be to create a user on the system. This
+user will be able to login on the system and will have *sudo* privileges.
 
-.. figure:: images/intro/package-selection-method.png
+.. figure:: images/intro/ebox_installer-user1.png
    :scale: 50
-   :alt: Selection of the installation method
+   :alt: Administration user
    :align: center
 
-   Selection of the installation method
+   Administration user
+
+Then you will be asked for a password for this user you just created.
+This password will be used to login on the eBox interface too.
+
+.. figure:: images/intro/ebox_installer-user2.png
+   :scale: 50
+   :alt: Administration password
+   :align: center
+
+   Administration password
+
+You have to enter this password twice.
+
+.. figure:: images/intro/ebox_installer-user3.png
+   :scale: 50
+   :alt: Confirm administration password
+   :align: center
+
+   Confirm administration password
+
+Now is time to select which functionalities do you want to include
+on your system. There are two methods for this selection:
+
+.. figure:: images/intro/ebox_installer-pkgsel.png
+   :scale: 50
+   :alt: Package selection method
+   :align: center
+
+   Package selection method
 
 Simple:
   Depending on the task the server will be dedicated to, you
@@ -229,12 +271,12 @@ manual.
 
 .. _profiles-img-ref:
 
-.. figure:: images/intro/profiles.png
+.. figure:: images/intro/ebox_installer-pkgsimple.png
    :scale: 50
-   :alt: Selection of the profiles
+   :alt: eBox tasks to install
    :align: center
 
-   Selection of the profiles
+   eBox tasks to install
 
 :ref:`ebox-gateway-ref`:
    eBox is the local network gateway that provides secure and
@@ -256,102 +298,91 @@ manual.
    organization, including mail, instant messaging and voice over IP.
 
 You can select several profiles to combine different functionalities.
-In addition, the selection is not final and later you can install and
-remove packages according to your needs.
 
 However, if you select the advanced installation method, you get the
 complete list of eBox Platform modules and you can select individually
-the modules you are interested in. Once you have completed the
-selection, also the necessary additional packages will be installed.
+the modules you are interested in. 
 
-.. figure:: images/intro/module-selection.png
+.. figure:: images/intro/ebox_installer-pkgadv.png
    :scale: 70
-   :alt: Selection of the modules
+   :alt: eBox packages to install
    :align: center
 
-   Selection of the modules
+   eBox packages to install
+
+Once you have completed the selection, the necessary additional packages
+will be installed. This selection is not final and you can install and
+remove packages according to your needs later.
 
 After you have selected the components to install, the installation
 process will begin and you will be shown a progress bar with the
 installation status.
 
-.. figure:: images/intro/installing-eBox.png
+.. figure:: images/intro/ebox_installer-installing.png
    :scale: 70
-   :alt: Installing eBox Platform
+   :alt: Installing eBox packages
    :align: center
 
-   Installing eBox Platform
+   Installing eBox packages
 
-Once the installation is completed, you are requested to enter a password to
-access the eBox Platform web administration interface:
+The installer will try to preconfigure some important configuration
+parameters. First will have to select the type of the server for the
+*Users and Groups* mode. If we just have one server choose
+:guilabel:`standalone`. If we are deploying a master-slave infrastructure
+or if we want to syncronize the users with a Microsoft Windows Active
+Directory, choose :guilabel:`advanced`. This step will appear only if
+*ebox-usersandgroups* was installed.
 
-.. image:: images/intro/password.png
+.. figure:: images/intro/ebox_installer-server.png
    :scale: 70
-   :alt: Enter password to access the web interface
+   :alt: Type of the server
    :align: center
 
-You need to confirm the inserted password:
+   Type of the server
 
-.. image:: images/intro/repassword.png
+Also, it will ask if some of the network interfaces are external (not within
+the local network, used to connect to the Internet or other external networks).
+Strict policies for all incoming traffic through external network interfaces
+will be applied. This step will appear only if *ebox-network* was installed and
+the server has more than one network interface.
+
+.. figure:: images/intro/ebox_installer-interfaces.png
    :scale: 70
-   :alt: Confirm password to access the web interface
+   :alt: Select external interfaces
    :align: center
 
-The installer will try to pre-configure some important configuration
-parameters. First, it will ask if some of the network interfaces are external
-(not within the local network), i.e., used to connect to the Internet. Strict
-policies for all incoming traffic through external network interfaces
-will be applied. Depending on the role the server plays, there might be
-no external interfaces at all.
+   Select external interfaces
 
-.. figure:: images/intro/select-external-iface.png
+Then, we will follow with the mail configuration, defining the default
+virtual domain. This step will appear only if *ebox-mail* was installed.
+
+.. figure:: images/intro/ebox_installer-vdomain.png
    :scale: 70
-   :alt: Selection of the external interface
+   :alt: Mail configuration
    :align: center
 
-   Selection of the external interface
+   Mail configuration
 
-Second, if you installed the mail module, you will be requested
-to enter the default virtual domain that will be the main virtual
-domain of the system.
+Once you have answered these questions, every module you installed
+will be preconfigured and ready to be used via the web interface.
 
-.. figure:: images/intro/vmaildomain.png
-   :scale: 70
-   :alt: Primary virtual mail domain
-   :align: center
-
-   Primary virtual mail domain
-
-Once you have answered these questions, each module you installed
-will be pre-configured and ready to be used via the web interface.
-
-.. figure:: images/intro/preconfiguring-ebox.png
+.. figure:: images/intro/ebox_installer-preconfiguring.png
    :scale: 50
-   :alt: Configuration progress
+   :alt: Preconfiguring eBox packages
    :align: center
 
-   Configuration progress
+   Preconfiguring eBox packages
 
-After this process is completed, a message informs you about how to connect
-to the web interface of eBox Platform.
+Once the eBox Platform installation process is completed, you get graphical
+interface with a browser to authenticate in the eBox web interface using
+the password given in the firsts steps of the installer.
 
-.. figure:: images/intro/ebox-ready-to-use.png
+.. figure:: images/intro/ebox_installer-desktop.png
    :scale: 50
-   :alt: Installation completed
+   :alt: eBox administration web interface
    :align: center
 
-   Installation completed
-
-Once the eBox Platform installation process is completed you get a system
-console to authenticate with the user created during the *Ubuntu* installation.
-eBox Platform password is exclusive to the web interface and it has nothing
-to do with the administrator user password of the host. When you log in to
-the console, you will get the following eBox Platform specific message:
-
-.. image:: images/intro/motd.png
-   :scale: 50
-   :align: center
-   :alt: Console access message
+   eBox administration web interface
 
 Administration web interface
 ****************************

@@ -197,23 +197,66 @@ El instalador de eBox Platform
 El instalador de eBox Platform está basado en el instalador de *Ubuntu* así
 que el proceso de instalación resultará muy familiar a quien ya lo conozca.
 
-.. figure:: images/intro/eBox-installer.png
+.. figure:: images/intro/ebox_installer-language.png
+   :scale: 50
+   :alt: Selección del idioma
+   :align: center
+
+   Selección del idioma
+
+Podemos instalar utilizando la opción por omisión que elimina todo el contenido
+del disco duro y crea las particiones necesarias para eBox usando *LVM* y 
+realizando menos preguntas o utilizando la opción *expert mode* que permite
+realizar un particionado personalizado. La mayoría de los usuarios deberían
+elegir la opción por omisión a no ser que estén instalando en un servidor
+con requerimientos especiales, como por ejemplo RAID por software.
+
+.. figure:: images/intro/ebox_installer-menu.png
    :scale: 50
    :alt: Pantalla de inicio del instalador
    :align: center
 
    Pantalla de inicio del instalador
 
-Tras instalar el sistema base y reiniciar, comenzará la
-instalación de eBox Platform. Existen dos métodos para la selección de
-funcionalidades a incluir en nuestro sistema.
+Tras instalar el sistema base y reiniciar, comenzará la instalación de
+eBox Platform. El primer paso será crear un usuario en el sistema. Este
+usuario podrá entrar en el sistema y tendrá privilegios de *sudo*.
 
-.. figure:: images/intro/package-selection-method.png
+.. figure:: images/intro/ebox_installer-user1.png
    :scale: 50
-   :alt: Selección del método de instalación
+   :alt: Usuario administrador
    :align: center
 
-   Selección del método de instalación
+   Usuario administrador
+
+Después preguntará la contraseña para este usuario recién creado. Esta
+contraseña además se usará para identificarse en el interfaz de eBox.
+
+.. figure:: images/intro/ebox_installer-user2.png
+   :scale: 50
+   :alt: Contraseña administrativa
+   :align: center
+
+   Contraseña administrativa
+
+Se preguntará de nuevo la contraseña.
+
+.. figure:: images/intro/ebox_installer-user3.png
+   :scale: 50
+   :alt: Confirmar contraseña administrativa
+   :align: center
+
+   Confirmar contraseña administrativa
+
+Ahora podremos seleccionar que funcionalidades queremos incluir en
+nuestro sistema. Existen dos métodos para esta selección:
+
+.. figure:: images/intro/ebox_installer-pkgsel.png
+   :scale: 50
+   :alt: Método de instalación de paquetes
+   :align: center
+
+   Método de instalación de paquetes
 
 Simple:
   Se instalarán un conjunto de paquetes que agrupan una serie de
@@ -230,12 +273,12 @@ siguientes de este manual.
 
 .. _profiles-img-ref:
 
-.. figure:: images/intro/profiles.png
+.. figure:: images/intro/ebox_installer-pkgsimple.png
    :scale: 50
-   :alt: Selección de perfiles
+   :alt: Perfiles de eBox a instalar
    :align: center
 
-   Selección de perfiles
+   Perfiles de eBox a instalar
 
 :ref:`ebox-gateway-ref`:
    eBox es la puerta de enlace de la red local ofreciendo un acceso
@@ -249,7 +292,7 @@ siguientes de este manual.
    básicos: DHCP, DNS, NTP, servidor HTTP, etc.
 :ref:`ebox-office-ref`:
    eBox es el servidor de recursos compartidos de la red local: ficheros,
-   impresoras, calendarios y contactos, autenticación y perfiles de
+   impresoras, calendarios, contactos, autenticación, perfiles de
    usuarios y grupos, etc.
 :ref:`ebox-comm-ref`:
    eBox se convierte en el centro de comunicaciones de
@@ -257,105 +300,94 @@ siguientes de este manual.
    sobre IP.
 
 Podemos seleccionar varios perfiles para combinar sus funcionalidades.
-Además la selección no es definitiva, pudiendo posteriormente instalar y
-desinstalar paquetes según se necesite.
 
 Sin embargo, si el método seleccionado es avanzado, entonces aparecerá
 la larga lista de módulos de eBox Platform y se podrán seleccionar
-individualmente aquellos que se necesiten. Al terminar la selección,
-es posible que se instalen también paquetes del resto ya que
-dependencias de alguno de los seleccionados.
+individualmente aquellos que se necesiten.
 
-.. figure:: images/intro/module-selection.png
+.. figure:: images/intro/ebox_installer-pkgadv.png
    :scale: 70
-   :alt: Selección de módulos
+   :alt: Paquetes de eBox a instalar
    :align: center
 
-   Selección de módulos
+   Paquetes de eBox a instalar
+
+Al terminar la selección, se instalarán también los paquetes adicionales
+necesarios. Además esta selección no es definitiva, pudiendo posteriormente
+instalar y desinstalar paquetes según se necesite.
 
 Una vez seleccionados los componentes a instalar, comenzará la
-instalación que irá informando de su estado con una barra de progreso:
+instalación que irá informando de su estado con una barra de progreso.
 
-.. figure:: images/intro/installing-eBox.png
+.. figure:: images/intro/ebox_installer-installing.png
    :scale: 70
    :alt: Instalando eBox Platform
    :align: center
 
    Instalando eBox Platform
 
-Tras la instalación, se pide la contraseña para acceder a la interfaz web de
-administración de eBox Platform:
+El instalador tratará de preconfigurar algunos parámetros importantes dentro
+de la configuración. Primero tendremos que seleccionar el tipo de servidor
+para el modo de operación de *Usuarios y Grupos*. Si sólo vamos a tener un
+servidor elegiremos :guilabel:`Un sólo servidor`. Si por el contrario estamos
+desplegando una infrastructura maestro-esclavo o si queremos sincronizar
+los usuarios con un Microsoft Windows Active Directory, elegiremos
+:guilabel:`Avanzado`. Este paso aparecerá sólamente si *ebox-usersandgroups*
+fue instalado.
 
-.. image:: images/intro/password.png
+.. figure:: images/intro/ebox_installer-server.png
    :scale: 70
-   :alt: Introducir contraseña de acceso a la interfaz web
+   :alt: Tipo de servidor
    :align: center
 
-Se tiene que confirmar la contraseña anterior:
+   Tipo de servidor
 
-.. image:: images/intro/repassword.png
-   :scale: 70
-   :alt: Confirmar contraseña de acceso a la interfaz web
-   :align: center
+También preguntará, si alguna de las interfaces de red es externa a la red local,
+es decir, si va a ser utilizada para conectarse a Internet u otras redes externas.
+Se aplicarán políticas estrictas para todo el tráfico entrante a través de
+interfaces de red externas. Este paso aparecerá sólamente si *ebox-network* fue
+instalado y el servidor tiene más de una interfaz de red.
 
-El instalador tratará de preconfigurar algunos parámetros
-importantes dentro de la configuración. En primer lugar, si alguna de las
-interfaces de red es externa a la red local, es decir, si va a ser utilizada
-para conectarse a Internet. Se aplicarán políticas estrictas para todo el
-tráfico entrante a través de interfaces de red externas. Puede no haber
-ninguna interfaz externa dependiendo del papel que desempeñe servidor.
-
-.. figure:: images/intro/select-external-iface.png
+.. figure:: images/intro/ebox_installer-interfaces.png
    :scale: 70
    :alt: Selección de la interfaz de red externa
    :align: center
 
    Selección de la interfaz de red externa
 
-En segundo lugar, si se ha instalado el módulo de correo, se
-solicitará que se introduzca el dominio virtual por defecto que será
-el principal del sistema.
+Después, seguiremos con la configuración del correo, definiendo el principal
+dominio virtual. Este paso solo presentará si hemos instalado el módulo de
+correo. Este paso aparecerá sólamente si *ebox-mail* fue instalado.
 
-.. figure:: images/intro/vmaildomain.png
+.. figure:: images/intro/ebox_installer-vdomain.png
    :scale: 70
-   :alt: Dominio virtual de correo principal
+   :alt: Configuración del servidor de correo
    :align: center
 
-   Dominio virtual de correo principal
+   Configuración del servidor de correo
 
 Una vez hayan sido respondidas estas preguntas, se realizará la
 preconfiguración de cada uno de los módulos instalados preparados para
 su utilización desde la interfaz web.
 
-.. figure:: images/intro/preconfiguring-ebox.png
+.. figure:: images/intro/ebox_installer-preconfiguring.png
    :scale: 50
-   :alt: Progreso de la configuración
+   :alt: Preconfiguración de los paquetes
    :align: center
 
-   Progreso de la configuración
+   Preconfiguración de los paquetes
 
-Una vez terminado este proceso, aparecerá un mensaje informando como
-conectarse a la interfaz web de eBox Platform.
+Una vez terminado el proceso de instalación de eBox Platform, obtendremos
+un interfaz gráfico con un navegador para autentificarnos en la interfaz
+web de administración de eBox utilizando la contraseña introducida en los
+primeros pasos del instalador.
 
-.. figure:: images/intro/ebox-ready-to-use.png
+.. figure:: images/intro/ebox_installer-desktop.png
    :scale: 50
-   :alt: Instalación finalizada
+   :alt: Interfaz web de administración de eBox
    :align: center
 
-   Instalación finalizada
-
-El proceso de instalación de eBox Platform ha finalizado y aparecerá
-la consola del sistema donde podremos autenticarnos con el usuario
-creado durante la instalación de *Ubuntu*. La contraseña de eBox
-Platform es exclusiva de la interfaz web y no tiene nada que ver con
-la de este usuario administrador de la máquina. Al iniciar sesión en la consola,
-se ofrece un mensaje informativo específico de eBox Platform como el
-que aparece en la imagen.
-
-.. image:: images/intro/motd.png
-   :scale: 50
-   :align: center
-   :alt: Mensaje de entrada a la consola
+   Interfaz web de administración de eBox
 
 La interfaz web de administración
 *********************************
