@@ -750,8 +750,11 @@ sub _drop
     my @commands;
     push(@commands, pf('-I drop -j DROP'));
 
-    # If logging is disabled we are done
-    if($self->{firewall}->logging()) {
+    my $logDrops = EBox::Config::configkey('iptables_log_drops');
+    defined($logDrops) or $logDrops = 'yes';
+
+    # If logging is disabled or we don't want to log drops, then we are done
+    if($self->{firewall}->logging() and ($logDrops eq 'yes')) {
 
         my $limit = EBox::Config::configkey('iptables_log_limit');
         my $burst = EBox::Config::configkey('iptables_log_burst');
