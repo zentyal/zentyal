@@ -60,6 +60,10 @@ de servicio en este momento, inténtalo en 300 segundos.*" [#]_, si el servidor
 remitente cumple la especificación reenviará el correo pasado ese tiempo y eBox
 lo apuntará como un servidor correcto.
 
+En eBox la lista gris exime al correo enviado desde redes internas, al enviado
+desde objetos con política de permitir retransmisión y al que tiene como
+remitente una dirección que se encuentra en la lista blanca del antispam.
+
 .. [#] Realmente el servidor de correo envía como respuesta
    *Greylisted*, es decir, puesto en la lista gris en espera de
    permitir el envío de correo o no pasado el tiempo configurado.
