@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite>
+    <name>eBox Proxy tests with balance/failover</name>
+    <desc>
+    Contains a set of tests to check
+    that the eBox HTTP Proxy module works properly
+    simulating connection losses when having 2 gateways.
+    </desc>
+
+    <scenario>proxy/failover.xml</scenario>
+
+    <test type="selenium">
+        <name>EnableModules</name>
+        <desc>
+        Enable network and firewall modules.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-modules</dir>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigNetworkSetExternal</name>
+        <desc>
+        Sets the interface as external.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-external</dir>
+        <var name="IFACE" value="eth2"/>
+    </test>
+
+    <test type="selenium">
+        <name>RemoveDefaultGWs</name>
+        <desc>Adds the two routers as gateways</desc>
+
+        <host>ebox-server</host>
+        <dir>remove-default-gw</dir>
+    </test>
+
+    <test type="selenium">
+        <name>AddGateways</name>
+        <desc>Adds the two routers as gateways</desc>
+
+        <host>ebox-server</host>
+        <dir>add-two-gateways</dir>
+    </test>
+
+    <test type="selenium">
+        <name>EnableBalance</name>
+        <desc>
+        Enable traffic balance.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-traffic-balance</dir>
+    </test>
+
+    <test>
+        <name>TestBalance</name>
+        <desc>
+        Checks if the traffic is balanced between
+        the two gateways.
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-balance</dir>
+    </test>
+
+    <test type="selenium">
+        <name>EnableFailoverEvent</name>
+        <desc>
+        Enable WAN failover watcher.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>enable-failover</dir>
+    </test>
+
+    <test type="selenium">
+        <name>SetFailoverPeriod</name>
+        <desc>
+        Set period to 10 seconds.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-failover-period</dir>
+        <var name="PERIOD" value="10"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddFailoverTestsA</name>
+        <desc>
+        Add failover tests to router A.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-failover-tests</dir>
+        <var name="GATEWAY" value="router-a"/>
+        <var name="HOST" value="ebox-platform.com"/>
+    </test>
+
+    <test type="selenium">
+        <name>AddFailoverTestsB</name>
+        <desc>
+        Add failover tests to router B.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>add-failover-tests</dir>
+        <var name="GATEWAY" value="router-b"/>
+        <var name="HOST" value="ebox-platform.com"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigProxyFilter</name>
+        <desc>
+        Config the proxy with filter mode.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-global-policy</dir>
+        <var name="POLICY" value="Filter"/>
+    </test>
+
+    <test type="selenium">
+        <name>ForbidHost</name>
+        <desc>
+        Forbid a host.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>forbid-host</dir>
+        <var name="HOST" value="marca.com"/>
+    </test>
+
+    <test>
+        <name>FilterAllowDownload</name>
+        <desc>Try to download a file of an allowed host</desc>
+
+        <host>test-client</host>
+        <dir>test-allow</dir>
+        <var name="HOST" value="www.google.com"/>
+    </test>
+    <test type="selenium">
+        <name>TestLogFilterAllowDownload</name>
+        <desc>Tests if proxy logs works ok</desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="URL" value="www.google.com"/>
+        <var name="EVENT" value="Accepted"/>
+    </test>
+
+    <test>
+        <name>TestBalance</name>
+        <desc>
+        Checks if the traffic is balanced between
+        the two gateways.
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-balance</dir>
+    </test>
+
+    <test>
+        <name>FilterForbidDownload</name>
+        <desc>Try to download a file of a forbidden host</desc>
+
+        <host>test-client</host>
+        <dir>test-filter-deny</dir>
+        <var name="HOST" value="www.marca.com"/>
+        <var name="LOOK_FOR" value="Banned site"/>
+    </test>
+
+    <test type="selenium">
+        <name>TestLogFilterForbidDownload</name>
+        <desc>Tests if proxy logs works ok</desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="URL" value="www.marca.com"/>
+        <var name="EVENT" value="Filtered"/>
+    </test>
+
+    <test type="selenium">
+        <name>ContentFilterStrict</name>
+        <desc>
+	    Configure content filter setting its threshold to very strict.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>content-filter-strict</dir>
+    </test>
+
+    <test>
+        <name>AccessAdultContent</name>
+        <desc>Try to access adult content with "very strict" filter mode</desc>
+
+        <host>test-client</host>
+        <dir>test-filter-deny</dir>
+        <var name="HOST" value="www.lupaland.com"/>
+        <var name="LOOK_FOR" value="Weighted phrase limit exceeded"/>
+    </test>
+    <test type="selenium">
+        <name>TestLogAdultContent</name>
+        <desc>Tests if proxy logs works ok</desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="URL" value="www.lupaland.com"/>
+        <var name="EVENT" value="Filtered"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigProxyDeny</name>
+        <desc>
+        Config the proxy with deny mode.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-global-policy</dir>
+        <var name="POLICY" value="Always deny"/>
+    </test>
+
+    <test>
+        <name>TestDenyAll</name>
+        <desc>Try to access google with deny all mode.</desc>
+
+        <host>test-client</host>
+        <dir>test-proxy-deny</dir>
+		<var name="HOST" value="www.google.com"/>
+		<var name="ERROR" value="403"/>
+    </test>
+    <test type="selenium">
+        <name>TestLogDenyAll</name>
+        <desc>Tests if proxy logs works ok</desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="URL" value="www.google.com"/>
+        <var name="EVENT" value="Denied"/>
+    </test>
+
+    <test type="selenium">
+        <name>ConfigProxyAllow</name>
+        <desc>
+        Config the proxy with allow mode.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>set-global-policy</dir>
+        <var name="POLICY" value="Always allow"/>
+    </test>
+
+    <test>
+        <name>TestAllowAll</name>
+        <desc>Try to access adult content with allow all mode.</desc>
+
+        <host>test-client</host>
+        <dir>test-allow</dir>
+        <var name="HOST" value="www.lupaland.com"/>
+    </test>
+    <test type="selenium">
+        <name>TestLogAllowAll</name>
+        <desc>Tests if proxy logs works ok</desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="URL" value="www.lupaland.com"/>
+        <var name="EVENT" value="Accepted"/>
+    </test>
+
+    <test>
+        <name>Gateway-A-Down</name>
+        <desc>
+        Simulate a fail in router-a.
+        </desc>
+
+        <host>router-a</host>
+        <dir>router-updown</dir>
+        <var name="ACTION" value="down"/>
+        <var name="WAIT" value="20"/>
+    </test>
+
+    <test>
+        <name>CheckLog-A-Disconnected</name>
+        <desc>
+        Checks event of A disconnected in the log.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-log</dir>
+        <var name="EVENT" value="Gateway router-a disconnected"/>
+    </test>
+
+    <test>
+        <name>TestBalanceWith-A-Down</name>
+        <desc>
+        Checks if the traffic goes through router B.
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-trace</dir>
+        <var name="GATEWAY" value="192.168.3.3"/>
+    </test>
+
+    <test>
+        <name>TestAllowAllAfterFail</name>
+        <desc>Try to access adult content with allow all mode.</desc>
+
+        <host>test-client</host>
+        <dir>test-allow</dir>
+        <var name="HOST" value="www.ebox-platform.com"/>
+    </test>
+    <test type="selenium">
+        <name>TestLogAllowAllAfterFail</name>
+        <desc>Tests if proxy logs works ok</desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="URL" value="www.ebox-platform.com"/>
+        <var name="EVENT" value="Accepted"/>
+    </test>
+
+    <test>
+        <name>Gateway-A-Up</name>
+        <desc>
+        Simulate recovery in router-a.
+        </desc>
+
+        <host>router-a</host>
+        <dir>router-updown</dir>
+        <var name="ACTION" value="up"/>
+        <var name="WAIT" value="20"/>
+    </test>
+
+    <test>
+        <name>CheckLog-A-Connected</name>
+        <desc>
+        Checks event of A connected in the log.
+        </desc>
+
+        <host>ebox-server</host>
+        <dir>test-log</dir>
+        <var name="EVENT" value="Gateway router-a connected"/>
+    </test>
+
+    <test>
+        <name>TestBalanceAfter-A-Connected</name>
+        <desc>
+        Checks if the traffic is balanced between
+        the two gateways.
+        </desc>
+
+        <host>test-client</host>
+        <dir>test-balance</dir>
+    </test>
+
+    <test>
+        <name>TestAllowAllAfterRecover</name>
+        <desc>Try to access adult content with allow all mode.</desc>
+
+        <host>test-client</host>
+        <dir>test-allow</dir>
+        <var name="HOST" value="www.ebox-technologies.com"/>
+    </test>
+    <test type="selenium">
+        <name>TestLogAllowAllAfterRecover</name>
+        <desc>Tests if proxy logs works ok</desc>
+
+        <host>ebox-server</host>
+        <dir>test-logs</dir>
+        <var name="URL" value="www.ebox-technologies.com"/>
+        <var name="EVENT" value="Accepted"/>
+    </test>
+</suite>
