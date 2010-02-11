@@ -1,3 +1,5 @@
+.. _events-ref:
+
 Events and alerts
 *****************
 
@@ -23,7 +25,7 @@ is enabled. Go to :menuselection `Module status` and check the
 Unlike in the Logs module, where all services are enabled by default except
 the **firewall**, you have to enable those events that might be of your interest.
 
-To enable any events, you have to click on the menu entry 
+To enable any events, you have to click on the menu entry
 :menuselection:`Events --> Configure Events`. You can edit an event state by
 clicking on the pencil icon. Tick the :guilabel: `Enabled` box and click on
 the :guilabel:`Change` button.
@@ -62,7 +64,7 @@ Go to the :menuselection:`Configure dispatchers` tab.
 .. figure:: images/events/07-config-dispatchers.png
    :alt: Configure dispatchers
 
-   Configure dispatchers page 
+   Configure dispatchers page
 
 The procedure to enable event dispatchers is similar to enabling event watchers.
 You have to configure all the watchers except the log watcher. The latter will
@@ -95,16 +97,16 @@ running* in ``/var/log/ebox/ebox.log``. This message will be generated
 periodically, and every time the **events** module is restarted.
 
 #. **Action:**
-   Access the eBox web interface, go to :menuselection:`Module Status` and 
-   enable :guilabel:`events`.  
+   Access the eBox web interface, go to :menuselection:`Module Status` and
+   enable :guilabel:`events`.
 
    Effect:
      The :guilabel:`Save Changes` button has turned red.
 
 #. **Action:**
-   Go to :menuselection:`Events` and click on the tab labeled 
+   Go to :menuselection:`Events` and click on the tab labeled
    :menuselection:`Configure Events`. Click on the pencil icon that is placed
-   in the  :guilabel:`Status` column. Check the  
+   in the  :guilabel:`Status` column. Check the
    :guilabel:`Enabled` field and click on:`Change`.
 
    Effect:
@@ -129,7 +131,7 @@ periodically, and every time the **events** module is restarted.
     `/var/log/ebox/ebox.log`.
 
 #. **Action:**
-   From the console on the eBox machine run: 
+   From the console on the eBox machine run:
    `sudo /etc/init.d/ebox events restart`.
 
    Effect:

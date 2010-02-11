@@ -142,6 +142,24 @@ shared directory for a group can also be created. Every member of this
 group will have access to this directory, being able to read and write
 all the files.
 
+If you want to save the deleted files inside a special directory
+called `RecycleBin`, just go to :menuselection:`File Sharing --> Recycle
+Bin` and check the :guilabel:`Enable Recycle Bin` option. If you
+don't want to apply it to all your shares you can add exceptions in the
+:guilabel:`Samba shares Recycle Bin exceptions` section. You can also
+modify some default settings for this feature, like the name of the
+directory, by editing the `/etc/ebox/80samba.conf` file.
+
+.. image:: images/filesharing/recycle-bin.png
+   :scale: 80
+
+Under :menuselection:`File Sharing --> Antivirus` there is also a checkbox
+to enable or disable the check for viruses in your shares and the
+possibility to add exceptions if there are shares that you don't want to
+check. Note that if you want to access the antivirus configuration for the
+filesharing module the **samba-vscan** package must be installed in the
+system. The Antivirus module must be installed and enabled as well.
+
 SMB/CIFS clients configuration
 ==============================
 

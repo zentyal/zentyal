@@ -44,7 +44,7 @@ Metrics
 System load
 -----------
 
-The **system load** tries to measure the rate of pending work over the 
+The **system load** tries to measure the rate of pending work over the
 completed work.
 This value is computed using the number of active process in the CPU.
 
@@ -153,7 +153,7 @@ can also set other parameters.
 
 Once you have configured and enabled the event you will need to configure, at
 least, one observer. The observer configuration is the same as the
-configuration of any other event. Check the **Events** chapter for further
+configuration of any other event. Check the :ref:`events-ref` chapter for further
 information.
 
 .. include:: monitor-exercises.rst

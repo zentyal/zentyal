@@ -177,6 +177,6 @@ para la carga puede ser útil la carga a corto plazo, etc.
 Una vez configurado y activado el evento deberemos configurar al menos un
 observador para recibir las alertas. La configuración de los observadores es
 igual que la de cualquier evento, así que deberemos seguir las indicaciones
-contenida en el capítulo de **Eventos**.
+contenida en el capítulo de :ref:`events-ref`.
 
 .. include:: monitor-exercises.rst

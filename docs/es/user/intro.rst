@@ -591,7 +591,7 @@ cambios para llevar a acabo las modificaciones.
 
 
 .. [#] Este proceso es obligatorio para cumplir la política de Debian
-   http://www.debian.org/doc/debian-policy/ 
+   http://www.debian.org/doc/debian-policy/
 
 .. _ebox-working-ref:
 
@@ -707,6 +707,19 @@ dirección.
    :align: center
 
    Configuración estática de interfaces de red
+
+Si no se dispone de un *router* con soporte PPPoE, eBox puede gestionar
+también este tipo de conexiones. Para ello, solo hay que seleccionar
+:guilabel:`PPPoE` como :guilabel:`Método` e introducir el
+:guilabel:`Nombre de usuario` y :guilabel:`Contraseña` proporcionado por el
+proveedor de ADSL.
+
+.. figure:: images/intro/networkppp.png
+   :scale: 60
+   :alt: Configuración PPPoE de interfaces de red
+   :align: center
+
+   Configuración PPPoE de interfaces de red
 
 Para que eBox sea capaz de resolver nombres de dominio debemos indicarle la dirección de uno
 o varios servidores de nombres en :menuselection:`Red --> DNS`.

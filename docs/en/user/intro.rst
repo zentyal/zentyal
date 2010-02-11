@@ -301,7 +301,7 @@ You can select several profiles to combine different functionalities.
 
 However, if you select the advanced installation method, you get the
 complete list of eBox Platform modules and you can select individually
-the modules you are interested in. 
+the modules you are interested in.
 
 .. figure:: images/intro/ebox_installer-pkgadv.png
    :scale: 70
@@ -694,6 +694,18 @@ different address.
    :align: center
 
    Static configuration of network interfaces
+
+If you don't have a router with PPPoE support, eBox can also manage PPPoE
+connections just selecting :guilabel:`PPPoE` as :guilabel:`Method` and
+entering the :guilabel:`User name` and :guilabel:`Password` given by your DSL
+provider.
+
+.. figure:: images/intro/networkppp.png
+   :scale: 60
+   :alt: PPPoE configuration of network interfaces
+   :align: center
+
+   PPPoE configuration of network interfaces
 
 To enable eBox to resolve domain names, you must indicate the address of one or
 several domain name servers in :menuselection:`Network --> DNS`.
