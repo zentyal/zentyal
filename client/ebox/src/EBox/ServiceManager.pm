@@ -467,6 +467,18 @@ sub checkUserModifications
 
 }
 
+# Method: modulesInDependOrder
+#
+#     Return a module list ordered by the dependencies
+#
+sub modulesInDependOrder
+{
+    my ($self) = @_;
+    my @modules = map { EBox::Global->modInstance($_) }
+        (@{$self->_dependencyTree()});
+    return \@modules;
+}
+
 # Group: Private methods
 
 sub _dependencyTree

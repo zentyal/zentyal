@@ -14,6 +14,7 @@ use warnings;
 use EBox::Global;
 use EBox;
 use EBox::Sudo;
+use EBox::ServiceManager;
 use File::Slurp;
 use Error qw(:try);
 
@@ -51,7 +52,8 @@ sub checkModule {
 }
 
 sub start() {
-    my @mods = @{$global->modInstancesOfType('EBox::Module::Service')};
+    my $serviceManager = new EBox::ServiceManager;
+    my @mods = @{$serviceManager->modulesInDependOrder()};
 	my @names = map { $_->{'name'} } @mods;
     @names = grep { $_ ne 'apache' } @names;
 	push(@names, 'apache');
