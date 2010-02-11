@@ -175,7 +175,6 @@ CustomLog @LOGPATH@/access.log combined
 
 ServerSignature Off
 ServerTokens Min
-AddDefaultCharset on
 
 <IfModule mod_ssl.c>
 SSLEngine on
