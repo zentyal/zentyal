@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: Not allow "." character in common name
 1.3.14
 	+ Bugfix: Show as disconnected if the eBox is not subscribed
 	+ Bugfix: Configure and enable openvpn module dependencies when

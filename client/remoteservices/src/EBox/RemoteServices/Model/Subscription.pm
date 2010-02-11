@@ -44,6 +44,7 @@ use EBox::Model::ModelManager;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Monitor;
 use EBox::RemoteServices::Subscription;
+use EBox::RemoteServices::Types::EBoxCommonName;
 use EBox::Types::Password;
 use EBox::Types::Text;
 use EBox::Validate;
@@ -80,27 +81,6 @@ sub new
     bless ( $self, $class);
 
     return $self;
-
-}
-
-# Method: validatedTypedRow
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::validateTypedRow>
-#
-sub validateTypedRow
-{
-    my ($self, $action, $changedFields, $allFields) = @_;
-
-    if ( exists($changedFields->{eboxCommonName}) ) {
-        my $cn = $changedFields->{eboxCommonName}->value();
-        # Check if this does not contain underscores
-        unless (EBox::Validate::checkDomainName($cn) and length($cn) < MAX_LENGTH) {
-            throw EBox::Exceptions::InvalidData( data => $changedFields->{eboxCommonName}->printableName(),
-                                                 value => $cn);
-        }
-    }
 
 }
 
@@ -324,7 +304,7 @@ sub _table
                              acquirer      => \&_acquireFromGConfState,
                              storer        => \&_storeInGConfState,
                              ),
-       new EBox::Types::Text(
+       new EBox::RemoteServices::Types::EBoxCommonName(
                              fieldName      => 'eboxCommonName',
                              printableName  => __('eBox Name'),
                              editable       => (not $self->eBoxSubscribed()),

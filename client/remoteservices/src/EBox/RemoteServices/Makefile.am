@@ -11,6 +11,6 @@ SOURCES = $(nobase_perl_DATA)
 
 EXTRA_DIST = $(mods)
 
-SUBDIRS = Composite Model Server t
+SUBDIRS = Composite Model Server t Types
 
 MAINTAINERCLEANFILES = Makefile.in
