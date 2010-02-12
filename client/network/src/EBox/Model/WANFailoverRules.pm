@@ -192,6 +192,8 @@ sub validateTypedRow
             throw EBox::Exceptions::External(__('WAN Failover is only available for static interfaces'));
         }
 
+    return if $type eq 'gw_ping';
+
     unless (EBox::Validate::checkHost($host)) {
         throw EBox::Exceptions::External(__('Invalid value for Host'));
     }

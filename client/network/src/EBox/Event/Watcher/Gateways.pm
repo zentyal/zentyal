@@ -25,6 +25,7 @@ use EBox::Event;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate;
+use EBox::Exceptions::Lock;
 
 use Error qw(:try);
 
@@ -183,6 +184,24 @@ sub run
     if ($needSave) {
         #EBox::debug('Regenerating rules for the gateways');
         $network->regenGateways();
+
+        # Workaround for squid problem
+        if ($global->modExists('squid')) {
+            my $squid = $global->modInstance('squid');
+            my $timeout = 60;
+            while ($timeout) {
+            	try {
+            		$squid->restartService();
+                    last;
+                } catch EBox::Exceptions::Lock with {
+            		sleep 5;
+            		$timeout -= 5;
+            	};
+            }
+            if ($timeout <= 0) {
+                EBox::error('WAN Failover: proxy module has been locked for 60 seconds.');
+            }
+        }
     } else {
         #EBox::debug('No need to regenerate the rules for the gateways');
     }
