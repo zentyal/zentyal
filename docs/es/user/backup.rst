@@ -59,9 +59,8 @@ especificar que protocolo se usa para conectarse al servidor remoto.
 
 
 :guilabel:`Método`:
-  Los distintos métodos que son soportados actualmente son *eBox
-  Backup Storage (EU)*, *eBox Backup Storage (US West Coast)*,
-  *FTP*, *SCP* y *Sistema de ficheros*. Debemos tener en
+  Los distintos métodos que son soportados actualmente son
+  *eBox Backup Storage*, *FTP*, *SCP* y *Sistema de ficheros*. Debemos tener en
   cuenta que dependiendo del método que seleccione deberemos
   proporcionar más o menos información: dirección del servidor remoto,
   usuario o contraseña. Todos los métodos salvo *Sistema de ficheros*
@@ -94,14 +93,14 @@ especificar que protocolo se usa para conectarse al servidor remoto.
 :guilabel:`Cifrado`:
   Se puede cifrar los datos de la copia de seguridad usando una clave
   simétrica que se introduce en el formulario, o se puede seleccionar
-  una clave GPG ya creada para dar cifrado asimétrico a tus datos.  
+  una clave GPG ya creada para dar cifrado asimétrico a tus datos.
 
 :guilabel:`Frecuencia de copia de seguridad completa`:
   Este parámetro se usa para determinar la frecuencia con la que las copias de
   seguridad completas se llevan a cabo. Los valores son: *Diario*, *Semanal* y
   *Mensual*.
 
-:guilabel:`Número de copias totales almacenadas`: 
+:guilabel:`Número de copias totales almacenadas`:
   Este valor se usa para limitar el número de copias totales que están
   almacenadas. Es importante y debemos familiarizarnos con lo que
   significa.  Tiene relación directa con *Frecuencia de copia de
@@ -249,7 +248,7 @@ encima de la sección :guilabel:`Restaurar ficheros` en eBox.
 
 Por ejemplo, si queremos restaurar el fichero
 `/home/samba/users/john/balance.odc` ejecutaríamos el siguiente comando::
-    
+
     # duplicity restore --file-to-restore home/samba/users/john/balance.odc \
       scp://backupuser@192.168.122.1 --ssh-askpass --no-encryption /tmp/balance.odc
 
@@ -297,7 +296,7 @@ Si nuestra red no está configurada correctamente, podemos ejecutar
 
 El siguiente paso es montar el disco duro de nuestro sistema. En este caso, vamos a
 suponer que nuestra partición raíz es `/dev/sda1`. Así que ejecutamos::
-    
+
     # mount /dev/sda1 /mnt
 
 El comando de arriba montará la partición en el directorio `/mnt`. En este ejemplo

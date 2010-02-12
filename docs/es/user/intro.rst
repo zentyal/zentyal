@@ -1,6 +1,6 @@
-####################################################
- eBox Platform: servidor unificado de red para PYMEs
-####################################################
+#########################################
+ eBox Platform: servidor Linux para PYMEs
+#########################################
 
 .. sectionauthor:: José A. Calvo <jacalvo@ebox-platform.com>,
                    Isaac Clerencia <iclerencia@ebox-platform.com>,
