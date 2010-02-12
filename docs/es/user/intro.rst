@@ -8,46 +8,32 @@
                    Víctor Jímenez <vjimenez@warp.es>,
                    Jorge Salamero <jsalamero@ebox-platform.com>,
                    Javier Uruen <juruen@ebox-platform.com>,
+                   Ignacio Correas <icorreas@ebox-technologies.com>,
 
 Presentación
 ************
 
-**eBox Platform** (<http://ebox-platform.com/>) es un servidor unificado de
-red que ofrece una administración sencilla y eficiente de
-las redes de ordenadores para la pequeña y mediana empresa
-(PYME). Puede actuar gestionando la infraestructura de red, como puerta de enlace a Internet,
-gestionando las amenazas de seguridad (UTM) [#]_, como servidor de oficina, como
-servidor de comunicaciones o una combinación de estas. Este
-manual está escrito para la versión |version| de eBox Platform.
+Aunque las PYMEs constituyen la inmensa mayoría del tejido empresarial mundial, sorprendentemente suelen carecer de soluciones tecnológicas que se ajusten a sus necesidades o recursos (humanos, monetarios o técnicos) disponibles. En el mercado de los servidores, esto ha significado que hasta ahora las PYMEs han dispuesto de pocas opciones donde elegir, consistentes por lo general en soluciones sobredimensionadas a sus necesidades reales y con elevados costes de licencia, sin que tampoco tuvieran alternativas de gestión de redes que integrasen todos los componentes necesarios y que fueran sencillas de administrar.
 
-.. [#] **UTM** (*Unified Threat Management*): Término que agrupa una
-       serie de funcionalidades relacionadas con la seguridad de las
-       redes informáticas: cortafuegos, detección de intrusos, antivirus, etc.
+Aparentemente es una buena oportunidad para que el software libre entre en el mercado con una solución potente, escalable, flexible y de bajo coste que pueda ser soportada por una multitud de proveedores externos potenciales. De hecho, Linux parece ser una opción perfecta como servidor para PYMEs, gestionando la totalidad de la infraestructura de red y comunicaciones de organizaciones pequeñas. Sin emabrgo, el uso de Linux como servidor de PYME es ínfimo, siendo Microsoft el principal actor del mercado con Windows Small Business Server. ¿Por qué?
 
-Todas estas funcionalidades están profundamente integradas,
-automatizando la mayoría de tareas, evitando errores y ahorrando tiempo para el
-administrador de sistemas. Esta amplia gama de servicios de
-red son administrados a través de una cómoda e intuitiva interfaz web.
-eBox Platform tiene un diseño modular pensado para poder ser extendido
-fácilmente, pudiendo instalar solamente los módulos que se necesiten en
-cada servidor. Además está publicado bajo una licencia de Software Libre (GPL) [#f1]_. Sus
-principales características son:
+Linux, combinado con otras herramientas de software libre para la gestión de redes (Samba, Postfix, Squid, Snort, eGroupware, Spamassasin, ClamAV, etc) tiene un potencial disruptivo enorme en el mercado de servidores para PYMEs, puesto que aportan una gran ventaja en precio (de hecho, son gratis). Además, de igual manera que otras tecnologías disruptivas, empezaron ofreciendo un nivel de funcionalidad menor que sus alternativas en software propietario, pero han evolucionado y las alcanzado o incluso superado en muchos mercados (cerca del 90% de los supercomputadores del mundo funcionan con Linux, lo que es un buen indicador del nivel de calidad que ha alcanzado esta tecnología).
 
-.. [#f1] **GPL** (*GNU General Public License*): Licencia de software que
-         permite la libertad de redistribución, adaptación, uso y creación de
-         obras derivadas con la misma licencia.
+Sin embargo, a pesar de estas condiciones, las soluciones de software libre tienen una presencia muy reducida como servidores de PYMEs. La razón es sencilla: para que una solución de servidor sea adoptada en una PYME necesita que todos sus componentes estén estrechamente integrados y que sea fácil de administrar. Las PYMEs no disponen de los recursos ni del tiempo para desplegar soluciones complejas de altas prestaciones, por lo que productos bien integrados como el SBS de Microsoft cubren bien las necesidades tecnológicas de las PYMEs.
 
-* Gestión unificada y eficiente de los servicios:
+Es aquí donde una solución como **eBox Platform** (<http://ebox-platform.com/>) encuentra su encaje en el mercado. eBox Platform es un servidor Linux para PYMEs, la alternativa en software libre a Windows Small Business Server. Basado en Ubuntu, eBox Platform permite a profesionales TIC y a proveedores de servicios gestionados administrar todos los servicios de una red informática, tales como el acceso a Internet, la seguridad y la infraestructura de la red, los recursos compartidos o las comunicaciones, a través de una única plataforma. Todas estas funcionalidades están estrechamente integradas, automatizando la mayoría de las tareas y ahorrando tiempo en la administración de sistemas. Estas características pueden desplegarse en distintas máquinas o en un único servidor, eligiendo para cada caso la combinación funcional y de hardware más conveniente.
 
-  * Automatización de tareas.
-  * Integración de servicios.
+Todas estas características son de gran importancia para los departamentos TIC de PYMEs y proveedores de servicio técnico, ya que tienen que hacerse cargo de un cada vez mayor tráfico de redes y crecientes demandas de fiabilidad, seguridad y servicios adicionales con recursos mínimos. En este panorama, eBox Platform aumenta significativamente la capacidad de estos recursos, permitiendo disminuir la curva de aprendizaje de los nuevos administradores de sistemas, ahorrar tiempo de los profesionales experimentados, eliminar riesgos de cometer errores de configuración y aumentar la seguridad de los sistemas automatizando la mayoría de las tareas.
 
-* Interfaz cómoda e intuitiva.
-* Extensible y adaptable a necesidades específicas.
-* Independiente del hardware.
-* Software Libre.
+Además, eBox Platform es un software de código abierto, el cual se puede descargar libremente de Internet. Actualmente, existen decenas de miles de implantaciones en todo el mundo, superando las 12.000 descargas mensuales y con una comunidad de unos 2.500 colaboradores activos. Igualmente, eBox Platform es parte integral de la distribución Ubuntu desde hace tres años, lo que ayuda a aumentar su difusión y credibilidad como producto tecnológico. Su uso está extendido a prácticamente todos los países del globo, siendo Estados Unidos, Alemania, España, Italia y Brasil los países que cuentan con más instalaciones. eBox Platform se usa principalmente en PYMEs, pero también en otros entornos como centros educativos, administraciones públicas, hospitales o incluso en instituciones de alto prestigio como la propia NASA.
 
-Los servicios que actualmente ofrece son:
+Los diversos despliegues de eBox Platform pueden ser gestionados desde un punto central, llamado **eBox Control Center**, un producto alojado en la nube que permite la administración y monitorización centralizada, segura y a tiempo real de múltiples redes eBox. Además, posibilita la programación de tareas para grupos de redes, la aplicación masiva de actualizaciones de seguridad o la realización de informes de actividad periódicos. Adicionalmente, a través de eBox Control Center se ofrecen una serie de servicios de subscripción complementarios, como pueden ser backup remoto y seguro de datos para la recuperación rápida de desastres o la contratación de crédito VoIP para la realización de llamadas a bajo coste a cualquier teléfono del mundo a través de eBox como centralita telefónica.
+
+eBox Platform junto con eBox Control Center y los servicios remotos asociados constituyen una solución muy atractiva tanto para las PYMEs como para proveedores de servicios gestionados (MSPs) y revendedores de valor añadido (VARs) puesto que pueden obtener toda la tecnología y servicios necesarios para gestionar de forma sencilla sus redes y las de sus clientes desde un único proveedor, llegando a un nivel de integración que alcanza todos los aspectos que influyen en la gestión de redes.
+
+eBox Technologies es la empresa detrás del desarrollo y comercialización de eBox Platform y sus productos y servicios asociados, basando su modelo de negocio en la subscripción a eBox Control Center y a los servicios remotos asociados, además de soporte técnico y formación certificada, tanto de forma directa como a través de su red Global de Partners.
+
+Este manual describe las principales características técnicas incluidas en la versión |version| de eBox Platform, incluyendo los siguientes servicios:
 
 * **Gestión de redes:**
 
@@ -205,7 +191,7 @@ que el proceso de instalación resultará muy familiar a quien ya lo conozca.
    Selección del idioma
 
 Podemos instalar utilizando la opción por omisión que elimina todo el contenido
-del disco duro y crea las particiones necesarias para eBox usando *LVM* y 
+del disco duro y crea las particiones necesarias para eBox usando *LVM* y
 realizando menos preguntas o utilizando la opción *expert mode* que permite
 realizar un particionado personalizado. La mayoría de los usuarios deberían
 elegir la opción por omisión a no ser que estén instalando en un servidor
@@ -220,8 +206,8 @@ con requerimientos especiales, como por ejemplo RAID por software.
 
 Tras instalar el sistema base y reiniciar, comenzará la instalación de
 eBox Platform. El primer paso será crear un usuario en el sistema. Este
-usuario podrá entrar en el sistema y tendrá privilegios de *sudo*
-(administrador del sistema).
+usuario podrá entrar en el sistema y tendrá privilegios de
+administrador mediante el comando *sudo*.
 
 .. figure:: images/intro/ebox_installer-user1.png
    :scale: 50
@@ -301,7 +287,7 @@ siguientes de este manual.
    sobre IP.
 
 Podemos seleccionar varios perfiles para hacer que eBox tenga
-diferentes roles en la red.         
+diferentes roles en la red.
 
 Sin embargo, si el método seleccionado es avanzado, entonces aparecerá
 la larga lista de módulos de eBox Platform y se podrán seleccionar
