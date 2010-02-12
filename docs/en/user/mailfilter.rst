@@ -52,8 +52,8 @@ server wants to send a new mail, eBox says "*I'm out of service at this time,
 try in 300 seconds*" [#]_. If the server meets the specification, it will send
 the message again a bit later and eBox will consider it as a valid server.
 
-In eBox the greylist exempts the mail sent from internal networks, from objects
-with a mail relay policy and from addresses that are in the antispam whitelist
+In eBox, the greylist exempts the mail sent from internal networks, from objects
+with an allowed mail relay policy and from addresses that are in the antispam whitelist.
 
 .. [#] Actually the mail server sends as response "Greylisted", say, put on the
        greylist.

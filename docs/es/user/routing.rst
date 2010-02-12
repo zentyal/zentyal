@@ -86,7 +86,7 @@ automáticamente. A pesar de eso, se pueden seguir activando o desactivando,
 editando su :guilabel:`Peso` o elegir el :guilabel:`Predeterminado`,
 pero no se pueden editar el resto de los atributos.
 
-.. image:: images/routing/dynamic-gateways.png
+.. figure:: images/routing/dynamic-gateways.png
    :scale: 80
    :alt: Lista de puertas de enlace con DHCP y PPPoE
    :align: center
@@ -364,74 +364,90 @@ Para ello:
 Tolerancia a fallos (WAN Failover)
 ==================================
 
-Si se está balanceando tráfico entre dos o más routers esta característica
+Si se está balanceando tráfico entre dos o más *routers* esta característica
 es realmente útil. En un escenario normal sin tolerancia a fallos, supóngase
-que se está balanceando el tráfico entre dos routers y uno de ellos se cae.
-Asumiendo que los dos routers tengan el mismo peso, la mitad del tráfico
-seguiría intentando salir por el router caído, causando problemas de
+que se está balanceando el tráfico entre dos *routers* y uno de ellos se cae.
+Asumiendo que los dos *routers* tengan el mismo peso, la mitad del tráfico
+seguiría intentando salir por el *router* caído, causando problemas de
 conectividad a todos los clientes de la red.
 
 En la configuración del *failover* se pueden definir conjuntos de reglas
-para cada router que necesite ser comprobado. Estas reglas pueden ser un
-*ping* al router, a un host externo, una resolución de DNS o una petición
+para cada *router* que necesite ser comprobado. Estas reglas pueden ser un
+*ping* al *router*, a una máquina externa, una resolución de DNS o una petición
 HTTP. También se puede definir cuántas pruebas se quieren realizar así
 como el porcentaje de aceptación exigido. Si cualquiera de las pruebas falla,
-no llegando al porcentaje de aceptación, el router asociado a ella será
+no llegando al porcentaje de aceptación, el *router* asociado a ella será
 desactivado. Pero las pruebas se siguen ejecutando, por tanto, en cuanto
-el router vuelva a estar operativo, todas las pruebas se ejecutarán
-satisfactoriamente y el router será activado de nuevo.
+el *router* vuelva a estar operativo, todas las pruebas se ejecutarán
+satisfactoriamente y el *router* será activado de nuevo.
 
-
-El deshabilitar un router sin conexión tiene como consecuencia que todo
-el tráfico salga por el otro router que sigue habilitado, en lugar de
-ser balanceado. De esta forma los usuarios de la red no deberían sufrir
-grandes inconvenientes con la conexión. Una vez que eBox detecta que el
-router caído está completamente operativo se restaura el comportamiento
+Deshabilitar un *router* sin conexión tiene como consecuencia que todo
+el tráfico salga por el otro *router* que sigue habilitado, en lugar de
+ser balanceado. De esta forma, los usuarios de la red no deberían sufrir
+problemas con su conexión a *Internet*. Una vez que eBox detecta que el
+*router* caído está completamente operativo se restaura el comportamiento
 normal de balanceo de tráfico.
-
 
 El *failover* está implementado como un evento de eBox. Para usarlo,
 primero se necesita tener el módulo :guilabel:`Eventos` habilitado, y
-posteriormente habilitar el evento :guilabel:`WAN Failover`. Para más
-detalles acerca de cómo funcionan y como se configuran los eventos en
-eBox se puede consultar el capítulo :ref:`events-ref`.
+posteriormente habilitar el evento :guilabel:`WAN Failover`. [#]_
+
+.. [#] Para más detalles acerca de cómo funcionan y como se configuran
+       los eventos en eBox se puede consultar el capítulo :ref:`events-ref`.
 
 .. image:: images/routing/failover.png
    :scale: 80
    :align: center
 
 Para configurar las opciones y reglas del *failover* se debe acudir
-al menú :menuselection:`Network --> WAN Failover`. Se puede especificar
+al menú :menuselection:`Red --> WAN Failover`. Se puede especificar
 el periodo del evento modificando el valor de la opción
 :guilabel:`Tiempo entre revisiones`. Para añadir una regla simplemente
 hay que pulsar la opción :guilabel:`Añadir nueva` y aparecerá un
 formulario con los siguientes campos:
 
-- :guilabel:`Habilitado`: Indica si la regla va a ser aplicada o no
-  durante la comprobación de conectividad de los routers. Se pueden
+:guilabel:`Habilitado`:
+  Indica si la regla va a ser aplicada o no
+  durante la comprobación de conectividad de los *routers*. Se pueden
   añadir distintas reglas y habilitarlas o deshabilitarlas de acuerdo
   las necesidades, sin tener que borrarlas y añadirlas de nuevo.
-- :guilabel:`Router`: Se encuentra previamente rellenado con la lista de
-  routers configurados, solo se necesita seleccionar uno de ellos.
-- :guilabel:`Tipo de prueba`: Puede tomar uno de los siguientes valores:
 
-  - :guilabel:`Ping a puerta de enlace`: Envía un paquete ICMP echo con
-    la dirección de la puerta de enlace como destino.
-  - :guilabel:`Ping a máquina`: Envía un paquete ICMP echo con la dirección
-    IP de la máquina externa especificada abajo como destino.
-  - :guilabel:`Resolución DNS`: Intenta obtener la dirección IP para el
-    nombre de máquina especificado abajo.
-  - :guilabel:`Petición HTTP`: Se descarga el contenido del sitio web
-    especificado abajo.
+:guilabel:`Router`:
+  Se encuentra previamente rellenado con la lista de
+  *routers* configurados, sólo se necesita seleccionar uno de ellos.
 
-- :guilabel:`Máquina`: El servidor que se va a usar como objetivo en la prueba.
+:guilabel:`Tipo de prueba`:
+   Puede tomar uno de los siguientes valores:
+
+   :guilabel:`Ping a puerta de enlace`:
+     Envía un paquete ICMP *echo* con
+     la dirección de la puerta de enlace como destino.
+   
+   :guilabel:`Ping a máquina`:
+     Envía un paquete ICMP *echo* con la dirección
+     IP de la máquina externa especificada abajo como destino.
+   
+   :guilabel:`Resolución DNS`:
+     Intenta obtener la dirección IP para el
+     nombre de máquina especificado abajo.
+
+   :guilabel:`Petición HTTP`:
+      Se descarga el contenido del sitio web
+      especificado abajo.
+
+:guilabel:`Máquina`:
+  El servidor que se va a usar como objetivo en la prueba.
   No es aplicable en caso de :guilabel:`Ping a puerta de enlace`.
-- :guilabel:`Número de pruebas`: Número de veces que se repite la prueba.
-- :guilabel:`Ratio de éxito requerido`: Indica que proporción de intentos
+
+:guilabel:`Número de pruebas`:
+  Número de veces que se repite la prueba.
+
+:guilabel:`Ratio de éxito requerido`:
+  Indica que proporción de intentos
   satisfactorios es necesaria para considerar correcta la prueba.
 
-Se recomienda configurar un emisor de eventos para enterarse de las conexiones
-y desconexiones de routers que puedan producirse. Si no se hace esto, los
-eventos serán registrados sólamente en el fichero `/var/log/ebox/ebox.log`.
+Se recomienda configurar un emisor de eventos para estar al tanto de las conexiones
+y desconexiones de *routers* que puedan producirse. Si no se hace esto, los
+eventos serán registrados solamente en el fichero `/var/log/ebox/ebox.log`.
 
 .. include:: routing-exercises.rst

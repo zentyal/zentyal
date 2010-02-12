@@ -80,8 +80,7 @@ for them as they are managed automatically. You still can enable and disable
 them, edit their :guilabel:`Weight` or set the :guilabel:`Default` one,
 but not the rest of attributes.
 
-.. FIXME: This screenshot doesn't appear, why??
-.. image:: images/routing/dynamic-gateways.png
+.. figure:: images/routing/dynamic-gateways.png
    :scale: 80
    :alt: Gateway list showing DHCP and PPPoE gateways
    :align: center
@@ -396,68 +395,85 @@ To do so:
 WAN Failover
 ============
 
-If you are balancing traffic among two or more gateways this feature is
-really useful. In a normal scenario without failover, imagine you are
+If you are balancing traffic among two or more gateways, this feature is
+really useful. In a standard scenario without failover, imagine you are
 balancing the traffic between two routers and one of them goes down.
 Assuming both gateways have the same weight, half of the traffic will keep
 going through the downed gateway, causing connectivity problems to all the
 clients in the network.
 
-In the failover configuration you can define a set of rules for each gateway
+In the failover configuration, you can define a set of rules for each gateway
 that needs to be checked. These rules can be a *ping* to the gateway, to
-another external host, a DNS resolution or an HTTP request. You can also
-define how many probes do you want and the percentage of acceptation. If any
-of the tests fails not reaching the acceptation percentage, the associated
-gateway will be disabled. But the tests keep running so if the gateway comes
+another external host, a DNS resolution or a HTTP request. You can also
+define how many probes you need and the acceptation percentage. If any
+of the tests fails to reach the acceptation percentage, the associated
+gateway will be disabled. But the tests keep running, so if the gateway comes
 back to life all the tests should run successfully and it will be enabled
 again.
 
-The disable of the gateway without connection results in all the traffic
+The gateway disabling without connection heads to all the traffic
 coming out through the other gateway instead of being balanced. That way the
 users in the network shouldn't notice any big issue with the connection.
-Once eBox detects that the downed gateway is fully operative the normal
+Once eBox detects that the downed gateway is fully operative, the normal
 behavior of the traffic balance is restored.
 
-The failover is implemented as an eBox event. To use it you first need to
+The failover is implemented as an eBox event. In order to use it, you first need to
 make sure that the :guilabel:`Events` module is enabled and also enable
-:guilabel:`WAN Failover` event. For details about how events work in eBox
-and how to configure them, refer to the :ref:`events-ref` chapter.
+:guilabel:`WAN Failover` event. [#]_
+
+.. [#] Check out :ref:`events-ref` chapter for details about how events work in eBox
+       and how to configure them.
 
 .. image:: images/routing/failover.png
    :scale: 80
    :align: center
 
 To configure the failover options and rules go to the
-:menuselection:`Network --> WAN Failover` menu. You can specify the period
-of the event modifying the value of the :guilabel:`Time between checks`
-option. For adding a new rule just click :guilabel:`Add new` and a form with
+:menuselection:`Network --> WAN Failover` menu. You can specify the
+event period modifying the value of the :guilabel:`Time between checks`
+option. For adding a new rule, just click :guilabel:`Add new` and a form with
 the following fields will appear:
 
-- :guilabel:`Enabled`: Indicates if the rule is going to be applied or not
+:guilabel:`Enabled`:
+  It indicates whether the rule is going to be applied or not
   when checking the connectivity of the gateways. You add different rules
   and enable or disable according to your needs instead of deleting and
   adding them again.
-- :guilabel:`Gateway`: It is already filled with the list of configured
+
+:guilabel:`Gateway`:
+  It is already filled with the list of configured
   gateways, so you just need to select one of them.
-- :guilabel:`Test type`: It can have any of the following values:
 
-  - :guilabel:`Ping to gateway`: Sends a ICMP echo packet with the IP
+:guilabel:`Test type`:
+  It may have any of the following values:
+
+  :guilabel:`Ping to gateway`:
+    It sends a ICMP echo packet with the IP
     address of the gateway as destination.
-  - :guilabel:`Ping to host`: Sends a ICMP echo packet with the IP
+  
+  :guilabel:`Ping to host`:
+    It sends a ICMP echo packet with the IP
     address of a external host specified below as destination.
-  - :guilabel:`DNS resolve`: Tries to get the IP address for the host name
-    specified below.
-  - :guilabel:`HTTP request`: Downloads the contents of the website
+  
+  :guilabel:`DNS resolve`:
+    It tries to get the IP address for the host name
     specified below.
 
-- :guilabel:`Host`: The server to be used as target in the test, it's not
-  applicable in case of the :guilabel:`Ping to gateway` type.
-- :guilabel:`Number of probes`: Number of times that the test is tried.
-- :guilabel:`Required success ratio`: Indicates how many sucessful attempts
-  are needed to consider the test as passed.
+  :guilabel:`HTTP request`:
+    It downloads the website content specified below.
 
-It's recommended to configure a event dispatcher in order to be aware of the
-connections and disconnections of the gateways. Otherwise they will be
+:guilabel:`Host`:
+   The server to be used as target in the test, it is not
+   applicable in case of the :guilabel:`Ping to gateway` type.
+
+:guilabel:`Number of probes`:
+   Number of times that the test is tried.
+
+:guilabel:`Required success ratio`:
+   Indicates how many successful attempts are needed to consider the test as passed.
+
+It is recommended to configure a event dispatcher in order to be aware of the
+connections and disconnections of the gateways. Otherwise, they will be
 logged only to the `/var/log/ebox/ebox.log` file.
 
 .. include:: routing-exercises.rst

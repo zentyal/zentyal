@@ -245,7 +245,7 @@ suministrados por nuestro proveedor SIP para que eBox pueda redirigir
 las llamadas a través de él:
 
 :guilabel:`Proveedor`:
-  Si estamos usando :guilabel:`eBox VoIP Credit`, seleccionaremos esta opción
+  Si estamos usando :guilabel:`eBox VoIP Credit` [#]_, seleccionaremos esta opción
   que preconfigurará el nombre del proveedor y el servidor. En otro caso usaremos
   :guilabel:`Personalizado`.
 :guilabel:`Nombre`:
@@ -259,6 +259,10 @@ las llamadas a través de él:
 :guilabel:`Destino de las llamadas entrantes`:
   Es la extensión interna a la que se redirigen las llamadas realizadas
   a la cuenta del proveedor.
+
+.. [#] Puedes comprar **eBox VoIP credit** en nuestra tienda_.
+
+.. _tienda: http://store.ebox-technologies.com/?utm_source=doc_es
 
 En la sección de :guilabel:`Configuración NAT` definiremos la posición
 en la red de nuestra máquina eBox. Si tiene una IP pública la opción
@@ -297,8 +301,9 @@ y no a más, si necesitas llamar a más de un usuario desde una extensión será
 .. figure:: images/voip/ebox-asterisk_user.png
    :scale: 80
 
-Cuando editemos un grupo, podremos habilitar o deshabilitar la cola de este grupo. Una cola es una
-extensión dónde al recibir una llamada, se llama a todos los usuarios que pertenecen a este grupo.
+Cuando editemos un grupo, podremos habilitar o deshabilitar la cola de
+este grupo. Una **cola** es una extensión dónde al recibir una
+llamada, se llama a todos los usuarios que pertenecen a este grupo.
 
 .. figure:: images/voip/ebox-asterisk_group.png
    :scale: 80
@@ -319,7 +324,7 @@ dispositivos de sonido y vídeo, la conexión a *Internet* y los
 servicios de *Ekiga.net*. Podemos omitir la configuración tanto de la
 cuenta en *Ekiga.net* como de *Ekiga Call Out*.
 
-.. [#] <http://ekiga.org/>
+.. [#] Ekiga: *Free your speech* <http://ekiga.org/>
 
 Desde :guilabel:`Editar --> Cuentas`, seleccionando :guilabel:`Cuentas
 --> Añadir una cuenta SIP` podremos configurar la cuenta de Voz IP de
@@ -360,7 +365,7 @@ está disponible en las tres plataformas más extendidas: Linux, OSX y
 Windows. También al lanzarlo por primera vez nos presentará un
 asistente para configurar la cuenta de Voz IP.
 
-.. [#] http://www.qutecom.org
+.. [#] QuteCom: *Free VOIP Softphone* http://www.qutecom.org
 
 .. figure:: images/voip/qutecom_01.png
    :scale: 50
@@ -378,21 +383,26 @@ Usando las funcionalidades de eBox Voz IP
 
 Transferencia de llamadas
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-La transferencia de llamadas es muy sencilla. Durante el transcurso de una conversación,
-pulsando # y después introduciendo la extensión a dónde queremos reenviar la llamada
-podremos realizar una transferencia. En ese momento podremos colgar ya que esta llamada
+
+La **transferencia de llamadas** es muy sencilla. Durante el
+transcurso de una conversación, pulsando :kbd:`#` y después introduciendo la
+extensión a dónde queremos reenviar la llamada podremos realizar una
+transferencia. En ese momento, podremos colgar ya que esta llamada
 estará marcando la extensión a donde ha sido transferida.
 
 Aparcamiento de llamadas
 ^^^^^^^^^^^^^^^^^^^^^^^^
-El aparcamiento de llamadas se realiza sobre la extensión 700. Durante el transcurso
-de una conversación, pulsaremos # y después marcaremos 700. La extensión donde la
-llamada ha sido aparcada será anunciada a la parte llamada y quien estaba llamando
-comenzará a escuchar la música de espera, si está configurada. Podremos colgar en ese
-momento. Desde un teléfono distinto u otro usuario distinto marcando la extensión
-anunciada podremos recoger la llamada aparcada y restablecer la conversación.
 
-En eBox el aparcamiento de llamadas soporta 20 conversaciones y el periodo máximo que
+El **aparcamiento de llamadas** se realiza sobre la extensión 700. Durante
+el transcurso de una conversación, pulsaremos :kbd:`#` y después
+marcaremos 700. La extensión donde la llamada ha sido aparcada será
+anunciada a la parte llamada y quien estaba llamando comenzará a
+escuchar la música de espera, si está configurada. Podremos colgar en
+ese momento. Desde un teléfono distinto u otro usuario distinto
+marcando la extensión anunciada podremos recoger la llamada aparcada y
+restablecer la conversación.
+
+En eBox, el aparcamiento de llamadas soporta 20 conversaciones y el periodo máximo que
 una llamada puede esperar son 300 segundos.
 
 Ejemplo práctico

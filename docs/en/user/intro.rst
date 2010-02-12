@@ -183,9 +183,8 @@ repositories and to install the packages you are interested in.
 
 .. endweb
 
-Nevertheless, in the first case eBox Platform installation and
-deployment is easy as all the dependencies are in a single CD and
-in addition, some pre-configuration is made during the
+Nevertheless, the former one is easier since all the dependencies are
+in a single CD. Moreover, some pre-configuration is made during the
 installation process.
 
 eBox Platform installer
@@ -202,11 +201,11 @@ installation process very similar.
 
    Installer language select
 
-You can install using the default mode which deletes all disk contents
+You can install using the default mode which deletes all disk content
 and creates the partitions needed by eBox using *LVM* and asking less
 questions or using the expert mode which allows you to make your own
 partitioning. Most people should choose the default option unless they
-are installing on a server with special requeriments, like software RAID.
+are installing on a server with special requirements, for instance software RAID.
 
 .. figure:: images/intro/ebox_installer-menu.png
    :scale: 50
@@ -216,8 +215,8 @@ are installing on a server with special requeriments, like software RAID.
    Installer menu
 
 After installing the base system and rebooting, you can start installing
-eBox Platform. First step will be to create a user on the system. This
-user will be able to login on the system and will have *sudo* privileges.
+eBox Platform. The first step will be create a user on the system. This
+user will be able to log on the system and will have *sudo* privileges.
 
 .. figure:: images/intro/ebox_installer-user1.png
    :scale: 50
@@ -226,8 +225,8 @@ user will be able to login on the system and will have *sudo* privileges.
 
    Administration user
 
-Then you will be asked for a password for this user you just created.
-This password will be used to login on the eBox interface too.
+Then, you will be asked for a password for this user you just created.
+This password will be used to log on the eBox interface too.
 
 .. figure:: images/intro/ebox_installer-user2.png
    :scale: 50
@@ -245,7 +244,7 @@ You have to enter this password twice.
 
    Confirm administration password
 
-Now is time to select which functionalities do you want to include
+Now it is time to select which features you want to include
 on your system. There are two methods for this selection:
 
 .. figure:: images/intro/ebox_installer-pkgsel.png
@@ -258,7 +257,7 @@ on your system. There are two methods for this selection:
 Simple:
   Depending on the task the server will be dedicated to, you
   can install a set of packages that provides several
-  functionalities.
+  features.
 Advanced:
   You can select the packages individually. If a package has
   dependencies on other packages, these will be automatically
@@ -297,7 +296,8 @@ manual.
    eBox becomes the unified communications server of your
    organization, including mail, instant messaging and voice over IP.
 
-You can select several profiles to combine different functionalities.
+You can select several profiles to make eBox play different roles in
+your network.
 
 However, if you select the advanced installation method, you get the
 complete list of eBox Platform modules and you can select individually
@@ -331,7 +331,7 @@ parameters. First will have to select the type of the server for the
 :guilabel:`standalone`. If we are deploying a master-slave infrastructure
 or if we want to syncronize the users with a Microsoft Windows Active
 Directory, choose :guilabel:`advanced`. This step will appear only if
-*ebox-usersandgroups* was installed.
+**usersandgroups** module is installed.
 
 .. figure:: images/intro/ebox_installer-server.png
    :scale: 70
@@ -340,11 +340,12 @@ Directory, choose :guilabel:`advanced`. This step will appear only if
 
    Type of the server
 
-Also, it will ask if some of the network interfaces are external (not within
-the local network, used to connect to the Internet or other external networks).
-Strict policies for all incoming traffic through external network interfaces
-will be applied. This step will appear only if *ebox-network* was installed and
-the server has more than one network interface.
+Also, it will ask if some of the network interfaces attached to the
+host are external (not within the local network, used to connect to
+the Internet or other external networks).  Strict policies for all
+incoming traffic through external network interfaces will be
+applied. This step will appear only if **network** module was installed
+and the server has more than one network interface.
 
 .. figure:: images/intro/ebox_installer-interfaces.png
    :scale: 70
@@ -353,8 +354,8 @@ the server has more than one network interface.
 
    Select external interfaces
 
-Then, we will follow with the mail configuration, defining the default
-virtual domain. This step will appear only if *ebox-mail* was installed.
+After that, you will do the mail configuration, defining the default
+virtual domain. This step will appear only if **mail** is installed.
 
 .. figure:: images/intro/ebox_installer-vdomain.png
    :scale: 70
@@ -375,7 +376,7 @@ will be preconfigured and ready to be used via the web interface.
 
 Once the eBox Platform installation process is completed, you get graphical
 interface with a browser to authenticate in the eBox web interface using
-the password given in the firsts steps of the installer.
+the password given in the first steps of the installer.
 
 .. figure:: images/intro/ebox_installer-desktop.png
    :scale: 50

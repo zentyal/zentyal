@@ -157,7 +157,7 @@ especial llamado `RecycleBin`, se puede marcar
 la casilla :guilabel:`Habilitar Papelera de Reciclaje` dentro de
 :menuselection:`Compartir ficheros --> Papelera de Reciclaje`. Si no se
 desea activar la papelera para todos los recursos compartidos, se pueden
-añadir excepciones en la sección :guilabel:`Recursos excludiso de la
+añadir excepciones en la sección :guilabel:`Recursos excluidos de la
 Papelera de Reciclaje`. También se pueden modificar algunos otros valores
 por defecto para esta característica, como por ejemplo el nombre del
 directorio, editando el fichero `/etc/ebox/80samba.conf`.
@@ -170,7 +170,7 @@ casilla para habilitar o deshabilitar la búsqueda de virus en los recursos
 compartidos y la posibilidad de añadir excepciones para aquellos en los que
 no se desee buscar. Nótese que para acceder la configuración del antivirus
 para el módulo de compartir ficheros es requisito tener instalado el paquete
-**samba-vscan** en el sistema. El módulo Antivirus de eBox debe estar así
+**samba-vscan** en el sistema. El módulo **antivirus** de eBox debe estar así
 mismo instalado y habilitado.
 
 Configuración de clientes SMB/CIFS

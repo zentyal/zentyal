@@ -11,16 +11,18 @@ Voice over IP service
 using different protocols to send the digital signal through packets instead
 of using analog circuits.
 
-Any IP network can be used for this purpose, including private or public
-networks such as *Internet*. There are huge cost savings using the same
-network for data and voice without losing quality or reliability. The main
-issues of VoIP deployments over data networks are NAT [#]_ with its management
-difficulties and QoS [#]_, because of the need to offer a quality real-time
-service where latency (the time it takes for data to arrive at destination), *jitter* (variations on latency) and bandwidth have to be considered.
+Any IP network can be used for this purpose, including private or
+public networks such as *Internet*. There are huge cost savings using
+the same network for data and voice without losing quality or
+reliability. The main issues of VoIP deployments over data networks
+are NAT [#]_ with its management difficulties and QoS [#]_, because of
+the need to offer a quality real-time service where latency (the time
+it takes for data to arrive at destination), *jitter* (variations on
+latency) and bandwidth have to be considered.
 
-.. [#] Concept explained in section :ref:`firewall-ref`.
+.. [#] Concept explained in :ref:`firewall-ref` section.
 
-.. [#] Concept explained in section :ref:`qos-ref`.
+.. [#] Concept explained in :ref:`qos-ref` section.
 
 Protocols
 ---------
@@ -49,7 +51,7 @@ by RTP over the port range UDP/10000-20000.
 .. [#] **Internet Engineering Task Force** develops and promotes communication
        standards used on *Internet*.
 
-.. TODO: developt further SIP and SIP+NAT
+.. TODO: develop further SIP and SIP+NAT
 .. TODO: H323 protocol
 
 
@@ -57,9 +59,9 @@ IAX2
 ^^^^
 
 **IAX2** is the second version of the *Inter Asterisk eXchange* protocol,
-created for connecting *Asterisk* [#]_ PBX systems. The main feature of this
+created for connecting *Asterisk* [#]_ PBX systems. The main feature for this
 protocol is that voice and signaling travel through the same data stream, this
-is called trunking. This way it can traverse NAT easily and there is less overhead
+is called **trunking**. This way it can traverse NAT easily and there is less overhead
 when trying to keep multiple communication channels open among servers. Also with
 this protocol the communication can be encrypted. IAX2 works on UDP/4569 port.
 
@@ -87,7 +89,7 @@ not very good and it uses around 13kbps.
 
 **speex**: It is a patent-free codec specially designed for voice. It is very
 versatile, though it uses more CPU than others. It can work at different
-bitrates, such as 8KHz, 16KHz and 32KHz, usually referred as *narrowband*,
+bit rates, such as 8KHz, 16KHz and 32KHz, usually referred as *narrowband*,
 *wideband* and *ultra-wideband*, each consuming 15.2kbps, 28kbps and 36kbps
 respectively.
 
@@ -101,7 +103,7 @@ IP Phones
 
 They are *phones* with a traditional look but with a RJ45
 connector to plug them to an *Ethernet* data network instead of the RJ11 connector
-for analog telephone networks. They add also new features like addressook or call
+for analog telephone networks. They add also new features like address book or call
 automation not present in regular analog phones. These phones talk usually SIP
 directly with the server and any other clients.
 
@@ -156,7 +158,7 @@ transmission.
 *Asterisk* is a software only application that works in commodity servers,
 providing the features of a PBX (*Private Branch eXchange*): connect multiple
 phones amongst them and with a VoIP provider or the analog telephone network. It
-also offers services such as voicemail, conferences, interactive voice responses,
+also offers services such as voice mail, conferences, interactive voice responses,
 etc.
 
 To connect the *Asterisk* server to the public network, it needs extra cards
@@ -192,14 +194,14 @@ Once there, the following general parameters should be configured:
    :scale: 50
 
 :guilabel:`Enable demo extensions`:
-  Enables extensions 400, 500 and 600. A call to extension 400 starts music on hold
+  It enables extensions 400, 500 and 600. A call to extension 400 starts music on hold
   if configured. Extension 500 starts an IAX call
   to guest@pbx.digium.com. Extension 600 provides an echo test to estimate your
   call latency. These extensions can help to check if a client is well
   configured.
 
 :guilabel:`Enable outgoing calls`:
-  Enables outgoing calls through a
+  It enables outgoing calls through a
   SIP provider to call regular phones. To call through the SIP provider, add an
   additional zero before the number to call. For instance, to call eBox
   Technologies offices (+34 976733507 or 0034976733506) dial 00034976733506.
@@ -216,26 +218,31 @@ Once there, the following general parameters should be configured:
 .. [#] Explained in the section :ref:`usercorner-ref`.
 
 :guilabel:`VoIP domain`:
-  It is the domain assigned to the user addresses. For example, an user **user** with an
+  It is the domain assigned to the user addresses. For example, a user **user** with an
   extension 1122 can be called at user@domain.tld or 1122@domain.tld.
 
 In the :guilabel:`SIP provider` section, enter the credentials supplied by the
 SIP provider, so eBox can route calls through it:
 
 :guilabel:`Provider`:
-  If you are using :guilabel:`eBox VoIP Credit`, select this option which will
-  configure your provider name and server. Otherwise use :guilabel:`Custom`.
+  If you are using :guilabel:`eBox VoIP Credit` [#]_, select this option which will
+  configure your provider name and server. Otherwise use
+  :guilabel:`Custom`. 
 :guilabel:`Name`:
   It is the identifier of the provider in eBox.
 :guilabel:`User name`:
-  It is the user name to login in the provider.
+  It is the user name to log in the provider.
 :guilabel:`Password`:
-  It is the password to login in the provider.
+  It is the password to log in the provider.
 :guilabel:`Server`:
   It is the provider server.
 :guilabel:`Recipient of incoming calls`:
   It is the internal extension that will receive the incoming calls to the
   provider account.
+
+.. [#] You may buy **eBox VoIP credit** in our store_.
+
+.. _store: http://store.ebox-technologies.com/?utm_source=doc
 
 The :guilabel:`NAT configuration` section defines the network location of
 your eBox host.  If it has a public IP address, the default option
@@ -262,13 +269,14 @@ extensions can be accessed from any server by dialing extension@domain.tld.
 
 When editing a user, you will be able to enable and disable this user VoIP account and change his extension.
 Take in account that an extension can only be assigned to one user and no more, if you need to call more
-than one users from an extension you should use queues.
+than one user from an extension, you must use queues.
 
 .. figure:: images/voip/ebox-asterisk_user.png
    :scale: 80
 
-When editing a group, you will be able to enable and disable this group queue. A queue is an extension
-where when you call, it rings all the users who belong to this group.
+When editing a group, you will be able to enable and disable this
+group queue. A queue is an extension where all the users who belong to
+this queue ring when is called.
 
 .. figure:: images/voip/ebox-asterisk_group.png
    :scale: 80
@@ -288,7 +296,7 @@ the user's personal data, audio and video devices, the connection to the
 Internet and the *Ekiga.net*'s services. We can skip the configuration of both
 *Ekiga.net* and *Ekiga Call Out*.
 
-.. [#] <http://ekiga.org/>
+.. [#] Ekiga: Free your speech <http://ekiga.org/>
 
 From :guilabel:`Edit --> Accounts`, selecting :guilabel:`Accounts
 --> Add a SIP Account` you can configure your VoIP account in eBox Platform.
@@ -328,7 +336,7 @@ available for the three more popular operating systems: GNU/Linux, OSX and
 Windows. When launched first time it shows a wizard to configure the VoIP
 account, as Ekiga does.
 
-.. [#] http://www.qutecom.org
+.. [#] QuteCom: Free VOIP Softphone <http://www.qutecom.org>
 
 .. figure:: images/voip/qutecom_01.png
    :scale: 50
@@ -344,22 +352,25 @@ at the bottom to call and hang up.
 Using eBox VoIP features
 ------------------------
 
-Call transfering
-^^^^^^^^^^^^^^^^
-The call transfering feature is quite simple. While you are on a conversation,
-press # and then dial the extension where you want to transfer the current call.
-You can hang up now as the call will be ringing on the called extension.
+Call transferring
+^^^^^^^^^^^^^^^^^
+
+The **call transferring** feature is quite simple. While you are on a
+conversation, press :kbd:`#` and then dial the extension where you want to
+transfer the current call. You can hang up at that time as the call will be
+ringing on the called extension.
 
 Call parking
 ^^^^^^^^^^^^
-The extension 700 is the call parking. While you are on a conversation, press #
+
+The extension 700 is the **call parking**. While you are on a conversation, press :kbd:`#`
 to initiate a transfer, then dial 700. The extension where the call has been
 parked will the announced to the called, and the caller will listen the music
-on hold if configured. You can hang up now. From a different phone or different
+on hold, if configured. You can hang up now. From a different phone or different
 user dial that announced extension and you will wake up the parked user and you
 will be able to speak with him.
 
-On eBox the call parking can hold up to 20 current calls and the maximum time
+On eBox, the call parking can hold up to 20 current calls and the maximum time
 a call can wait parked is 300 seconds.
 
 Example

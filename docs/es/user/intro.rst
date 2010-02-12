@@ -220,7 +220,8 @@ con requerimientos especiales, como por ejemplo RAID por software.
 
 Tras instalar el sistema base y reiniciar, comenzará la instalación de
 eBox Platform. El primer paso será crear un usuario en el sistema. Este
-usuario podrá entrar en el sistema y tendrá privilegios de *sudo*.
+usuario podrá entrar en el sistema y tendrá privilegios de *sudo*
+(administrador del sistema).
 
 .. figure:: images/intro/ebox_installer-user1.png
    :scale: 50
@@ -299,7 +300,8 @@ siguientes de este manual.
    tu organización incluyendo el correo, mensajería instantánea y voz
    sobre IP.
 
-Podemos seleccionar varios perfiles para combinar sus funcionalidades.
+Podemos seleccionar varios perfiles para hacer que eBox tenga
+diferentes roles en la red.         
 
 Sin embargo, si el método seleccionado es avanzado, entonces aparecerá
 la larga lista de módulos de eBox Platform y se podrán seleccionar
@@ -330,10 +332,10 @@ El instalador tratará de preconfigurar algunos parámetros importantes dentro
 de la configuración. Primero tendremos que seleccionar el tipo de servidor
 para el modo de operación de *Usuarios y Grupos*. Si sólo vamos a tener un
 servidor elegiremos :guilabel:`Un sólo servidor`. Si por el contrario estamos
-desplegando una infrastructura maestro-esclavo o si queremos sincronizar
+desplegando una infraestructura maestro-esclavo o si queremos sincronizar
 los usuarios con un Microsoft Windows Active Directory, elegiremos
-:guilabel:`Avanzado`. Este paso aparecerá sólamente si *ebox-usersandgroups*
-fue instalado.
+:guilabel:`Avanzado`. Este paso aparecerá solamente si el módulo
+**usuarios y grupos** está instalado.
 
 .. figure:: images/intro/ebox_installer-server.png
    :scale: 70
@@ -345,8 +347,8 @@ fue instalado.
 También preguntará, si alguna de las interfaces de red es externa a la red local,
 es decir, si va a ser utilizada para conectarse a Internet u otras redes externas.
 Se aplicarán políticas estrictas para todo el tráfico entrante a través de
-interfaces de red externas. Este paso aparecerá sólamente si *ebox-network* fue
-instalado y el servidor tiene más de una interfaz de red.
+interfaces de red externas. Este paso aparecerá solamente si el módulo
+de **red** está instalado y el servidor tiene más de una interfaz de red.
 
 .. figure:: images/intro/ebox_installer-interfaces.png
    :scale: 70
@@ -357,7 +359,7 @@ instalado y el servidor tiene más de una interfaz de red.
 
 Después, seguiremos con la configuración del correo, definiendo el principal
 dominio virtual. Este paso solo presentará si hemos instalado el módulo de
-correo. Este paso aparecerá sólamente si *ebox-mail* fue instalado.
+**correo**.
 
 .. figure:: images/intro/ebox_installer-vdomain.png
    :scale: 70
@@ -378,7 +380,7 @@ su utilización desde la interfaz web.
    Preconfiguración de los paquetes
 
 Una vez terminado el proceso de instalación de eBox Platform, obtendremos
-un interfaz gráfico con un navegador para autentificarnos en la interfaz
+un interfaz gráfico con un navegador para autenticarnos en la interfaz
 web de administración de eBox utilizando la contraseña introducida en los
 primeros pasos del instalador.
 
