@@ -1,4 +1,4 @@
-HEAD
+1.4.2
 	+ Bugfix: when no banned extensions are present p3scan/renattach
 	  no longer blocks anything. Thanks to rsalgado to point this out
 	+ Bugfix: regular expresion in file extensions matched too

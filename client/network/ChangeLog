@@ -1,4 +1,4 @@
-HEAD
+1.4.2
 	+ Restart squid when failover events are produced to avoid problems
 	+ Do not check host when adding a ping to gateway rule in WAN Failover
 1.4.1
