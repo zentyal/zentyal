@@ -50,6 +50,12 @@
     crumbs => $model->viewCustomizer()->HTMLTitle()
 &>
 
+% if ($model->help()) {
+<div class="help">
+  <% $model->help() %>
+</div>
+% }
+
 <& PARENT:title,
    title => $model->headTitle()
 &>
