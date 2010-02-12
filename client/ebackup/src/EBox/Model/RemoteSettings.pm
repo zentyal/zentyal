@@ -218,7 +218,9 @@ sub _table
         printableTableName => __('General Configuration'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
-        help               => __('General remote backup server configuration'),
+        help               => __x('If you choose {brand}, then the destination field '
+                                  . 'may be the target directory in the backup server',
+                                 brand => 'eBox Backup Storage'),
         messages           =>
             {
                 update => __('General backup server configuration updated'),
@@ -384,7 +386,7 @@ sub _message
         'space you need at the {ohref}eBox on-line store{chref}.',
          oi => '<i>',
          ci => '</i>',
-         ohref => '<a href="http://store.ebox-technologies.com">',
+         ohref => '<a href="http://store.ebox-technologies.com/?utm_source=ebox&utm_medium=ebox&utm_campaign=ebackup">',
          brand => 'eBox Backup Storage',
          chref => '</a>'
     );
