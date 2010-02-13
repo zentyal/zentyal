@@ -383,8 +383,8 @@ sub askAdminUser # returns string
     do {
         $user = showInputDialog($USERNAME_TITLE, $USERNAME_MSG);
 
-        if ($user eq 'ebox') {
-            showDialog(__('Error'), __("The username 'ebox' is reserved. Please choose another."));
+        if (($user eq 'root') or ($user eq 'ebox')) {
+            showDialog(__('Error'), __x("The username '{user}' is reserved. Please choose another.", user => $user));
             $user = undef;
         }
     } until ($user);

@@ -1,3 +1,5 @@
+HEAD
+    + Do not allow to enter 'root' as admin user to avoid conflicts
 1.4
     + Included blackbox and firefox to show the eBox UI after the install
     + Added firefox bookmarks to eBox webpages
