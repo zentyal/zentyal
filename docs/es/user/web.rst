@@ -63,7 +63,7 @@ Una solicitud del cliente contiene los siguientes elementos:
 Hay varios métodos [#]_ con los que el cliente puede pedir información. Los más
 comunes son GET y POST:
 
-.. [#] Una explicación más detallada se puede encontrar en la sección 9
+.. [#] Una explicación más detallada se puede encontrar en la sección 9 del
        :RFC:`2616`
 
 GET:
@@ -106,7 +106,7 @@ respuesta y a un texto con la explicación respectivamente.
 
 Los códigos de respuesta [#]_ más comunes son:
 
-.. [#] En la sección 10 de :RFC:`2616` se pueden encontrar el listado
+.. [#] En la sección 10 del :RFC:`2616` se pueden encontrar el listado
        completo de códigos de respuesta del servidor HTTP.
 
 200 OK:
@@ -248,7 +248,7 @@ cambio surte efecto.
    :guilabel:`Aceptar`.
 
    Efecto:
-     Se ha activado el botón guilabel:`Guardar Cambios`.
+     Se ha activado el botón :guilabel:`Guardar Cambios`.
 
 #. **Acción:**
    Guardar los cambios.
@@ -272,7 +272,7 @@ cambio surte efecto.
    1234 y pulsar el botón :guilabel:`Cambiar`.
 
    Efecto:
-     Se ha activado el botón guilabel:`Guardar Cambios`.
+     Se ha activado el botón :guilabel:`Guardar Cambios`.
 
 #. **Acción:**
    Guardar los cambios.

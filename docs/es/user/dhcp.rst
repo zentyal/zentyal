@@ -141,9 +141,9 @@ modo no puede formar parte de ningún rango. Se puede añadir una
 :guilabel:`descripción` opcional para la asignación también.
 
 .. figure:: images/dhcp/02-dhcp-adv.png
-   :alt: Aspecto de las configuración avanzada para DHCP
+   :alt: Aspecto de la configuración avanzada para DHCP
 
-   Aspecto de las configuración avanzada para DHCP
+   Aspecto de la configuración avanzada para DHCP
 
 La concesión dinámica de direcciones tiene un tiempo límite. Una vez
 expirado este tiempo se tiene que pedir la renovación (configurable en la
@@ -180,7 +180,7 @@ El servidor DHCP tiene la habilidad de actualizar dinámicamente el
 servidor DNS [#]_. Esto es, el servidor DHCP actualizará en tiempo
 real los registros **A** y **PTR** para mapear una dirección IP a un
 nombre de máquina y viceversa cuando se sirva una dirección IP. La
-manera que esto se hace es dependiente de la configuración del
+manera en que esto se hace es dependiente de la configuración del
 servidor DHCP.
 
 .. [#] El :rfc:`2136` explica como hacer actualizaciones automáticas

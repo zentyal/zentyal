@@ -16,8 +16,8 @@ un Controlador Primario de Dominio (PDC) de Windows. Cuando lo cabemos
 estará usando eBox Platform para la gestión de usuarios y recursos
 compartidos de tu dominio Windows.
 
-1. Entrando al interfaz *web*
-=============================
+Entrando al interfaz *web*
+==========================
 
 Ya estás listo para entrar por primera vez al interfaz *web* de eBox.  Apunta tu
 navegador hacia `https://dirección/` siendo la dirección aquella que te
@@ -47,8 +47,8 @@ servicios del servidor.
    Pantalla de sumario
 
 
-2. Activando y desactivando módulos
-===================================
+Activando y desactivando módulos
+================================
 
 El siguiente paso es desactivar los módulos que no son necesarios para
 el servidor PDC. Para hacerlo en el menú de la izquierda selecciona
@@ -75,8 +75,8 @@ que necesita el PDC son los siguientes:
 
 Puedes desactivar cualquier otro modulo para ahorrar recursos de tu sistema.
 
-3. Creando grupos
-=================
+Creando grupos
+==============
 
 Puedes necesitar grupos de usuarios en tu dominio. Para crear grupos,
 en el menú de la izquierda selecciona :menuselection:`Usuarios y
@@ -94,8 +94,8 @@ Puedes pulsar el botón de :guilabel:`Añadir y Editar` o de
 el grupo *TI*. También puedes crear cualquier grupo que veas necesario
 para tu dominio.
 
-4. Creando usuarios
-===================
+Creando usuarios
+================
 
 Para crear tus usuarios de dominio, selecciona en el menú izquierdo
 :menuselection:`Usuarios y Grupos --> Añadir usuario`. Se te mostrará
@@ -161,8 +161,8 @@ Ahora puedes crear mas cuentas de usuarios para tus usuarios normales. Solo
 necesitan una cuenta activada sin derechos de administración. Si crees que su
 cuota de disco es demasiada pequeña o grande puedes editarla también.
 
-5. Configurando parámetros generales de PDC
-============================================
+Configurando parámetros generales de PDC
+========================================
 
 Para configurar los parámetros generales de PDC y compartición de ficheros, en
 el menú izquierdo selecciona :menuselection:`Compartir ficheros`.
@@ -204,8 +204,8 @@ así que los dejaremos con el valor por defecto de :guilabel:`Todos los usuarios
 
    Configuración general del PDC
 
-6. Configurando la política de contraseña del PDC
-=================================================
+Configurando la política de contraseña del PDC
+==============================================
 
 Los administradores de dominio normalmente establecen algún tipo de
 política de contraseñas debido a que sino los usuarios elegirán
@@ -233,8 +233,8 @@ usuarios no pueden reutilizar sus cinco últimas contraseñas.
 
 .. _saving-changes-sec:
 
-7. Guardando cambios
-====================
+Guardando cambios
+=================
 
 Ahora que tenemos la configuración básica del PDC lista, necesitamos
 guardar los cambios para establecerlos en el sistema. Para eso,
@@ -269,8 +269,8 @@ mensaje de *Cambios guardados*.
    necesario guardarlos y no es posible descartarlos.
 
 
-8. Añadiendo ordenadores al PDC
-================================
+Añadiendo ordenadores al PDC
+============================
 
 Ahora que tenemos nuestro PDC en funcionamiento, es el momento de
 añadir algunos ordenadores al dominio.
@@ -323,8 +323,8 @@ Si necesitas ayuda para unirte al dominio puedes leer la
 sobre esta operación.
 
 
-9. Configurando recursos compartidos
-=====================================
+Configurando recursos compartidos
+=================================
 
 Ya tenemos nuestro dominio activo con sus usuarios, grupos y ordenadores. Ahora
 queremos usar el servido de compartición de ficheros para facilitar que los
@@ -419,8 +419,8 @@ leer la documentación y **pdcadmin** subirla, borrarla y editarla.
    `ebox-quarantine` que contiene los archivos infectados por virus.
 
 
-10. Antivirus para los recursos compartidos
-===========================================
+Antivirus para los recursos compartidos
+=======================================
 
 Se puede detectar virus en los ficheros de los recursos compartidos
 con eBox. La comprobación se hace cuando el fichero es escrito o
@@ -453,8 +453,8 @@ serán examinados sin importar el valor del parámetro general.
    Configuración de antivirus
 
 
-11. Accediendo a los recursos
-=============================
+Accediendo a los recursos
+=========================
 
 Tenemos nuestros recursos definidos así que quedemos acceder a ellos ahora. Pero
 antes de acceder, aseguremos de que hemos salvado los últimos cambios en la
@@ -497,8 +497,8 @@ fichero infectado. Para pruebas recomendamos el uso del `archivo de
 prueba EICAR <http://www.eicar.org/anti_virus_test_file.htm>`_ ya que
 es inofensivo.
 
-12. *Script* de entrada
-=======================
+*Script* de entrada
+===================
 
 Con eBox se permite el uso de **scripts de entrada**. Este *script* será
 descargado y ejecutado cada vez que un usuario entre en un ordenador

@@ -7,7 +7,7 @@
                    Javier Uruen <juruen@ebox-platform.com>,
 
 En este apartado explicaremos varios de los servicios para gestionar y
-optimizar el tráfico interno y la infraestructura de tu red local,
+optimizar el tráfico interno y la infraestructura de una red local,
 incluyendo la gestión de dominio, la auto-configuración de red en los
 clientes, la publicación de sitios Web internos y la
 sincronización de la hora via Internet. La configuración de dichos
