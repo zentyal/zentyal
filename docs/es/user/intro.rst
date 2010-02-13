@@ -17,7 +17,13 @@ Aunque las PYMEs constituyen la inmensa mayoría del tejido empresarial mundial,
 
 Aparentemente es una buena oportunidad para que el software libre entre en el mercado con una solución potente, escalable, flexible y de bajo coste que pueda ser soportada por una multitud de proveedores externos potenciales. De hecho, Linux parece ser una opción perfecta como servidor para PYMEs, gestionando la totalidad de la infraestructura de red y comunicaciones de organizaciones pequeñas. Sin emabrgo, el uso de Linux como servidor de PYME es ínfimo, siendo Microsoft el principal actor del mercado con Windows Small Business Server. ¿Por qué?
 
-Linux, combinado con otras herramientas de software libre para la gestión de redes (Samba, Postfix, Squid, Snort, eGroupware, Spamassasin, ClamAV, etc) tiene un potencial disruptivo enorme en el mercado de servidores para PYMEs, puesto que aportan una gran ventaja en precio (de hecho, son gratis). Además, de igual manera que otras tecnologías disruptivas, empezaron ofreciendo un nivel de funcionalidad menor que sus alternativas en software propietario, pero han evolucionado y las alcanzado o incluso superado en muchos mercados (cerca del 90% de los supercomputadores del mundo funcionan con Linux, lo que es un buen indicador del nivel de calidad que ha alcanzado esta tecnología).
+Linux, combinado con otras herramientas de software libre para la gestión de
+redes (Samba, Postfix, Squid, Snort, eGroupware, Spamassasin, ClamAV, etc)
+tiene un potencial disruptivo enorme en el mercado de servidores para PYMEs,
+puesto que aportan una gran ventaja en precio (de hecho, son gratis).
+Además, de igual manera que otras tecnologías disruptivas, empezaron
+ofreciendo un nivel de funcionalidad menor que sus alternativas en software
+propietario. Pero han evolucionado y las han alcanzado o incluso superado en muchos mercados (cerca del 90% de los supercomputadores del mundo funcionan con Linux, lo que es un buen indicador del nivel de calidad que ha alcanzado esta tecnología).
 
 Sin embargo, a pesar de estas condiciones, las soluciones de software libre tienen una presencia muy reducida como servidores de PYMEs. La razón es sencilla: para que una solución de servidor sea adoptada en una PYME necesita que todos sus componentes estén estrechamente integrados y que sea fácil de administrar. Las PYMEs no disponen de los recursos ni del tiempo para desplegar soluciones complejas de altas prestaciones, por lo que productos bien integrados como el SBS de Microsoft cubren bien las necesidades tecnológicas de las PYMEs.
 
@@ -45,6 +51,7 @@ Este manual describe las principales características técnicas incluidas en la 
     * Soporte para múltiples puertas de enlace, balanceo de carga y
       auto-adaptación ante la pérdida de conectividad.
     * Moldeado de tráfico (soportando filtrado a nivel de aplicación)
+    * RADIUS
     * Monitorización de tráfico
     * Soporte de DNS dinámico
 
@@ -72,6 +79,7 @@ Este manual describe las principales características técnicas incluidas en la 
     * Filtro de Spam y Antivirus
     * Filtro transparente de POP3
     * Listas blancas, negras y grises
+    * Servicio de correo web
 
   * Servidor web
 
@@ -121,8 +129,7 @@ Este manual describe las principales características técnicas incluidas en la 
     eBox desde un único punto [#]_
 
 .. [#] Para más información sobre este servicio ir a
-       http://www.ebox-technologies.com/products/controlcenter/
-       empresa encargada del desarrollo de eBox Platform.
+       http://www.ebox-technologies.com/products/controlcenter/.
 
 Instalación
 ***********
@@ -192,10 +199,11 @@ que el proceso de instalación resultará muy familiar a quien ya lo conozca.
 
 Podemos instalar utilizando la opción por omisión que elimina todo el contenido
 del disco duro y crea las particiones necesarias para eBox usando *LVM* y
-realizando menos preguntas o utilizando la opción *expert mode* que permite
-realizar un particionado personalizado. La mayoría de los usuarios deberían
+realizando menos preguntas. También podemos seleccionar la opción
+*expert mode* que permite realizar un particionado personalizado.
+La mayoría de los usuarios deberían
 elegir la opción por omisión a no ser que estén instalando en un servidor
-con requerimientos especiales, como por ejemplo RAID por software.
+con requisitos especiales, como por ejemplo RAID por software.
 
 .. figure:: images/intro/ebox_installer-menu.png
    :scale: 50
@@ -217,7 +225,7 @@ administrador mediante el comando *sudo*.
    Usuario administrador
 
 Después preguntará la contraseña para este usuario recién creado. Esta
-contraseña además se usará para identificarse en el interfaz de eBox.
+contraseña además se usará para identificarse en la interfaz de eBox.
 
 .. figure:: images/intro/ebox_installer-user2.png
    :scale: 50
@@ -226,7 +234,8 @@ contraseña además se usará para identificarse en el interfaz de eBox.
 
    Contraseña administrativa
 
-Se preguntará de nuevo la contraseña.
+Se preguntará de nuevo la contraseña para confirmar que no ha habido
+ninguna equivación al teclearla.
 
 .. figure:: images/intro/ebox_installer-user3.png
    :scale: 50
@@ -283,11 +292,11 @@ siguientes de este manual.
    usuarios y grupos, etc.
 :ref:`ebox-comm-ref`:
    eBox se convierte en el centro de comunicaciones de
-   tu organización incluyendo el correo, mensajería instantánea y voz
+   la empresa incluyendo correo, mensajería instantánea y voz
    sobre IP.
 
-Podemos seleccionar varios perfiles para hacer que eBox tenga
-diferentes roles en la red.
+Podemos seleccionar varios perfiles para hacer que eBox tenga, de
+forma simultánea, diferentes roles en la red.
 
 Sin embargo, si el método seleccionado es avanzado, entonces aparecerá
 la larga lista de módulos de eBox Platform y se podrán seleccionar
@@ -381,7 +390,7 @@ La interfaz web de administración
 *********************************
 
 Una vez instalado eBox Platform, la dirección para acceder a la
-interfaz web de administración es:
+interfaz web de administración, desde cualquier máquina de la red interna, es:
 
   https://direccion_de_red/ebox/
 
@@ -578,7 +587,7 @@ cambios para llevar a acabo las modificaciones.
    Diálogo de confirmación para **configurar** un módulo
 
 
-.. [#] Este proceso es obligatorio para cumplir la política de Debian
+.. [#] Este proceso es obligatorio para cumplir la política de Debian/Ubuntu
    http://www.debian.org/doc/debian-policy/
 
 .. _ebox-working-ref:
@@ -742,7 +751,7 @@ e *Internet*. Si estamos utilizando esta funcionalidad en un escenario
 con *multirouter* [#]_, no hay que olvidar crear una regla que haga que
 las conexiones al proveedor use siempre la misma puerta de enlace.
 
-.. [#] Acude a :ref:`multigw-section-ref` para obtener más detalles.
+.. [#] Consultar :ref:`multigw-section-ref` para obtener más detalles.
 
 Diagnóstico de redes
 ====================
