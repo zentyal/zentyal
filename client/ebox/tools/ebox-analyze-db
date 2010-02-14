@@ -1,5 +1,0 @@
-#!/bin/bash
-
-db_name=$(perl -e 'use EBox::Config; print EBox::Config::configkey("eboxlogs_dbname")');
-
-su postgres -c "psql -c \"ANALYZE\" $db_name" > /dev/null 2>&1 || true;

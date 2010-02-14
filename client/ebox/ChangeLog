@@ -1,5 +1,3 @@
-HEAD
-	+ Add analyze call in the daily cron to speed up the database access
 1.4.2
 	+ Start services in the appropriate order (by dependencies) to fix a problem
 	  when running /etc/init.d/ebox start in slaves (mail and other modules
