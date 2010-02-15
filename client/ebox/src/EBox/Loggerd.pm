@@ -148,6 +148,10 @@ sub _mainloop
             }
         }
     }
+
+    # If we don't have any file to watch we just sleep otherwise the process
+    # will finish and upstart will try to start it over again and again.
+    sleep (3600);
 }
 
 1;

@@ -1,3 +1,13 @@
+1.5
+	+ Use built-in authentication
+	+ Use new upstart directory "init" instead of "event.d"
+	+ Use new libjson-perl API
+	+ Increase PerlInterpMaxRequests to 200
+	+ Increase MaxRequestsPerChild (mpm-worker) to 200
+	+ Fix issue with enconding in Ajax error responses
+	+ Loggerd: if we don't have any file to watch we just sleep otherwise the process
+	  will finish and upstart will try to start it over again and again.
+	+ Make /etc/init.d/ebox depend on $network virtual facility
 1.4.2
 	+ Start services in the appropriate order (by dependencies) to fix a problem
 	  when running /etc/init.d/ebox start in slaves (mail and other modules

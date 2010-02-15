@@ -57,14 +57,14 @@ PidFile <% $tmpdir %>/apache.pid
 # MaxRequestsPerChild: maximum number of requests a server process serves
 <IfModule mpm_worker_module>
     StartServers         1 
-    MaxClients         	 5 
+    MaxClients         	 1 
     MinSpareThreads      1 
     MaxSpareThreads      1 
     ThreadsPerChild      1
-    MaxRequestsPerChild   20
+    MaxRequestsPerChild   200
 </IfModule>
 
-PerlInterpMaxRequests 20
+PerlInterpMaxRequests 200
 
 Include /etc/apache2/mods-available/auth_basic.load
 Include /etc/apache2/mods-available/authn_file.load

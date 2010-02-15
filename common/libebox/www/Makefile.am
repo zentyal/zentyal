@@ -25,17 +25,9 @@ images = images/delete.gif images/show.gif \
   images/edit-inactive.gif images/delete-inactive.gif
 
 js = js/base64.js js/csshover.htc js/common.js \
-  js/help.js js/table-helper.js js/prototype.js \
+  js/help.js js/table-helper.js  \
   js/fileUpload.js js/image-helper.js js/tabMenu.js \
-  js/format.js js/modalbox.js js/flotr.js js/excanvas.js \
-  js/scriptaculous/controls.js \
-  js/scriptaculous/unittest.js \
-  js/scriptaculous/sound.js \
-  js/scriptaculous/slider.js \
-  js/scriptaculous/builder.js \
-  js/scriptaculous/scriptaculous.js \
-  js/scriptaculous/effects.js \
-  js/scriptaculous/dragdrop.js
+  js/format.js js/modalbox.js js/flotr.js js/excanvas.js
 
 css = css/modalbox.css
 

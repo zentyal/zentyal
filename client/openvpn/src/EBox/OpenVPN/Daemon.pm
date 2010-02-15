@@ -12,7 +12,7 @@ use Error qw(:try);
 use EBox::NetWrappers;
 use EBox::Service;
 
-use constant UPSTART_DIR => '/etc/event.d';
+use constant UPSTART_DIR => '/etc/init';
 
 sub new
 {
@@ -121,7 +121,7 @@ sub upstartNameForDaemon
 sub _upstartFile
 {
     my ($self) = @_;
-    return  UPSTART_DIR . '/' . $self->upstartName();
+    return  UPSTART_DIR . '/' . $self->upstartName() . '.conf';
 }
 
 sub _upstartFileForDaemon

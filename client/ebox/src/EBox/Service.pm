@@ -37,17 +37,17 @@ use EBox::Sudo qw( :all );
 sub manage # (daemon,action)
 {
 	my ($daemon, $action) = @_;
-	(-f "/etc/event.d/$daemon") or
+	(-f "/etc/init/$daemon.conf") or
 		throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
 	if ( $action eq 'start' ) {
 		root("start '$daemon'");
 	}
 	elsif ( $action eq 'stop' ) {
-		root("stop '$daemon'");
+		root("stop '$daemon'") if (running($daemon));
 	}
 	elsif ( $action eq 'restart') {
-		root("stop '$daemon'");
+		root("stop '$daemon'") if (running($daemon));
 		root("start '$daemon'");
 	}
 	else {
@@ -71,7 +71,7 @@ sub manage # (daemon,action)
 sub running # (daemon)
 {
 	my ($daemon) = @_;
-	(-f "/etc/event.d/$daemon") or
+	(-f "/etc/init/$daemon.conf") or
 		throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
 	my $output = root("status '$daemon'");
@@ -81,7 +81,7 @@ sub running # (daemon)
 	# 		Post-start
 	# 		....
 	# 		Not it's running or stopped
-	if ($status =~ m{^$daemon .* running}) {
+	if ($status =~ m{^$daemon start/running.*}) {
 		return 1;
 	} else {
 		return undef;

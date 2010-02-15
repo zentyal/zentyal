@@ -110,6 +110,7 @@ sub _print_error
 	$interp->exec($comp, @params);
 
 	$r->status(ERROR_STATUS);
+	$r->subprocess_env('suppress-error-charset' => 1) ;
 	$r->custom_response(ERROR_STATUS, $output);
 
 }
@@ -139,6 +140,7 @@ sub _print_warning
 	$interp->exec($comp, @params);
 
 	$r->status(DATA_IN_USE_STATUS);
+	$r->subprocess_env('suppress-error-charset' => 1) ;
 	$r->custom_response(DATA_IN_USE_STATUS, $output);
 }
 

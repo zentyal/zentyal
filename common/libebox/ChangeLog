@@ -1,4 +1,8 @@
-HEAD
+1.5
+	+ Use external libraries:  scriptaculous and prototype
+	  and don't ship them as third-party stuff
+	+ Bugfix: Show help text from DataForm
+	+ Set override_user_modification to no
 	+ Bugfix: Show help text from DataForm
 1.4.2
 	+ Added Estonian language
