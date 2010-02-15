@@ -200,7 +200,7 @@ sub clientBundle
 
     my $bundle;
     my $tmpDir = EBox::Config::tmp() . $server->name . '-client.tmp';
-    system "rm -rf $tmpDir";
+    system "rm -rf '$tmpDir'";
     EBox::FileSystem::makePrivateDir($tmpDir);
 
     try {
@@ -210,7 +210,7 @@ sub clientBundle
         $bundle  =  $class->_createBundle($server,  $tmpDir, %params);
     }
     finally {
-        system "rm -rf $tmpDir";
+        system "rm -rf '$tmpDir'";
     };
 
     return  basename($bundle);
@@ -253,15 +253,15 @@ sub _createBundle
             EBox::Sudo::root($cmd);
         }
 
-        EBox::Sudo::root("chmod 0600 $bundle");
+        EBox::Sudo::root("chmod 0600 '$bundle'");
         my ($egid) = split '\s+', $EGID;
-        EBox::Sudo::root("chown $EUID.$egid $bundle");
+        EBox::Sudo::root("chown $EUID.$egid '$bundle'");
     }
     otherwise {
         my $ex = shift;
 
         if (defined $bundle) {
-            EBox::Sudo::root("rm -f $bundle");
+            EBox::Sudo::root("rm -f '$bundle'");
         }
 
         $ex->throw();

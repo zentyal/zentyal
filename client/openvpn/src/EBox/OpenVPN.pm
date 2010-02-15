@@ -260,13 +260,13 @@ sub _prepareLogFiles
     foreach my $name (@{$self->daemonsNames()}) {
         for my $file ("$logDir/$name.log", "$logDir/status-$name.log") {
             try {
-                EBox::Sudo::root("test -e $file");
+                EBox::Sudo::root("test -e '$file'");
             }
             otherwise {
-                EBox::Sudo::root("touch $file");
+                EBox::Sudo::root("touch '$file'");
             };
-            EBox::Sudo::root("chown root:ebox $file");
-            EBox::Sudo::root("chmod 0640 $file");
+            EBox::Sudo::root("chown root:ebox '$file'");
+            EBox::Sudo::root("chmod 0640 '$file'");
         }
     }
 
@@ -1423,7 +1423,7 @@ sub _setClientConf
     # remove leftover upload temporary files bz they aren't needed anymore
     foreach my $f (qw(caCertificate certificate certificateKey)) {
         my $path =  EBox::Config::tmp() . $f . '_path';
-        EBox::Sudo::root("rm -rf $path");
+        EBox::Sudo::root("rm -rf '$path'");
     }
 }
 

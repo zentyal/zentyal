@@ -116,7 +116,7 @@ sub privateDirForName
         }
 
         # create dir if it does not exist
-        EBox::Sudo::root("mkdir --mode 0700  $dir");
+        EBox::Sudo::root("mkdir --mode 0700 '$dir'");
     }
 
     return $dir;
@@ -364,7 +364,7 @@ sub backupCertificates
         my $orig = $self->$cert();
         if (EBox::Sudo::fileTest('-r', $orig)) {
             my $dest = "$d/$cert";
-            EBox::Sudo::root("cp $orig $dest");
+            EBox::Sudo::root("cp '$orig' '$dest'");
         }
         else {
             # all certifcates or nothing bz validation issues between
@@ -378,7 +378,7 @@ sub backupCertificates
     if ($dirEmpty) {
         # we remove the directory as to signal that the client is uninitialized
         # (no certificates)
-        EBox::Sudo::root("rm -rf $d");
+        EBox::Sudo::root("rm -rf '$d'");
         return;
     }
 
@@ -461,11 +461,11 @@ sub setCertificatesFilesForName
 # the destination must be firstly the same as the value obtained with
 # tmpPath in the EBox::Type::File to assure the checks and then the final destination
         my $tmpDest =  EBox::Config::tmp() . $f . '_path';
-        EBox::Sudo::root('cp ' . $pathByFile{$f} . " $tmpDest");
+        EBox::Sudo::root("cp '" . $pathByFile{$f} . "' '$tmpDest'");
 
         my $finalDest = "$clientConfDir/$f";
-        EBox::Sudo::root('cp ' . $pathByFile{$f} . " $finalDest");
-        EBox::Sudo::root("chmod 0400 $finalDest");
+        EBox::Sudo::root("cp '" . $pathByFile{$f} . "' '$finalDest'");
+        EBox::Sudo::root("chmod 0400 '$finalDest'");
         $retValue{$f} = $finalDest;
     }
 
