@@ -267,7 +267,7 @@ autenticación y su implementación **Samba** para GNU/Linux debemos
 marcar la casilla :guilabel:`Habilitar PDC` a través de
 :menuselection:`Compartir ficheros --> Configuración General`.
 
-.. FIXME: Updte the shot
+.. FIXME: Update the shot
 
 .. image:: images/filesharing/06-pdc-enabled.png
    :scale: 80
@@ -294,7 +294,8 @@ PDC`. Estas políticas suelen ser forzadas por la ley.
 * :guilabel:`Edad máxima de contraseña`. Dicha contraseña deberá
   renovarse tras superar los días configurados.
 * :guilabel:`Forzar historial de contraseñas`. Esta opción forzará a
-  almacenar un máximo de contraseñas tras modificarlas.
+  almacenar un máximo de contraseñas, impidiendo que puedan ser
+  repetidas en sucesivas modificaciones.
 
 Estas políticas son únicamente aplicables cuando se cambia la
 contraseña desde Windows con una máquina que está conectada a nuestro

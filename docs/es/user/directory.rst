@@ -30,7 +30,7 @@ amarillas. Entre sus características destacan:
 Existen múltiples implementaciones del servicio de directorio entre
 las que destacamos NIS, OpenLDAP, ActiveDirectory, etc. eBox usa
 **OpenLDAP** como servicio de directorio con tecnología *Samba* para
-controlador de dominios *Windows* además de para compartir ficheros e
+controlador de dominios *Windows* además de para compartición de ficheros e
 impresoras.
 
 Usuarios y grupos
@@ -102,10 +102,10 @@ maestra.
 .. image:: images/directory/slave-status.png
    :scale: 80
 
-Los módulos que utilizan usuarios como por ejemplo **correo** y **samba** pueden
+Los módulos que utilizan usuarios como por ejemplo **correo** y **compartición de ficheros** pueden
 instalarse ahora en los esclavos y utilizarán los usuarios disponibles en la
 eBox maestra. Algunos módulos necesitan que se ejecuten algunas acciones
-cuando se añaden usuarios, como por ejemplo **samba**, que necesita crear los
+cuando se añaden usuarios, como por ejemplo **compartición de ficheros**, que necesita crear los
 directorios de usuario. Para hacer esto, el maestro notifica a los esclavos
 sobre nuevos usuarios y grupos cuando son creados, dando la oportunidad a los
 esclavos de ejecutar las acciones apropiadas.
@@ -119,7 +119,7 @@ acciones manualmente. Desde esta sección también es posible borrar un esclavo.
 
 Hay una importante limitación en la arquitectura maestro/esclavo actual. El
 maestro eBox no puede tener instalados módulos que dependan de
-**usuarios y grupos**, como por ejemplo **samba** o **mail**. Si el maestro
+**usuarios y grupos**, como por ejemplo **compartición de ficheros** o **correo**. Si el maestro
 tiene alguno de estos módulos instalados, deben ser desinstalados antes de
 intentar registrar un esclavo en él.
 
@@ -257,8 +257,6 @@ Ejemplo práctico A
 
 Crear un grupo en eBox llamado **contabilidad**.
 
-.. FIXME: This is wrong with new master/slave arch
-
 Para ello:
 
 #. **Acción:** Activar el módulo **usuarios y grupos**. Entrar en
@@ -267,7 +265,7 @@ Para ello:
 
    Efecto:
      El módulo está activado y listo para ser usado.
-     
+
 #. **Acción:**
    Acceder a :menuselection:`Usuarios y Grupos --> Grupos`. Añadir **contabilidad** como grupo. El parámetro
    **comentario** es opcional.

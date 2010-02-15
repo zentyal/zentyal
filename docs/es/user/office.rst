@@ -2,7 +2,7 @@
 
 Uno de los fundamentos de la creación de las redes de computadores,
 fue la compartición de recursos y de información [#]_. A lo largo de
-todo este capítulo, se van a ir explorando los diferentes recursos y
+todo este capítulo, se van a ir explorando los diferentes recursos de
 información disponibles en una red de área local dispuesta en casa o
 en la oficina.
 
