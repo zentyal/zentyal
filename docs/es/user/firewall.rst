@@ -229,7 +229,7 @@ Para ello:
 
    - :guilabel:`Decisión` : *ACEPTAR*
    - :guilabel:`Fuente` : *Cualquiera*
-   - :guilabel:`Servicio` : *netcat*. Creado en esta acción
+   - :guilabel:`Servicio` : *netcat*. Creado en esta acción.
 
    Una vez hecho esto. :guilabel:`Guardar cambios` para confirmar la
    configuración.

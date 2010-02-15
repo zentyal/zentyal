@@ -1,3 +1,5 @@
+.. _events-ref:
+
 Incidencias (eventos y alertas)
 *******************************
 

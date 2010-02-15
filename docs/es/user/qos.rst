@@ -21,7 +21,7 @@ retraso por paquete [#]_ pueden estar fijadas por diversas
 aplicaciones de flujo de datos multimedia como voz o
 TV sobre IP. Estos mecanismos sólo aplican cuando los recursos son
 limitados (redes inalámbricas celulares) o cuando hay congestión en
-la red, en caso contrario no se debería aplicarse dichos mecanismos.
+la red, en caso contrario no se deberían aplicarse dichos mecanismos.
 
 .. [#] *jitter* o *Packet Delay Variation* (PDV) es la diferencia en
        el retraso entre el emisor y el receptor entre los paquetes
@@ -89,7 +89,7 @@ todas las interfaces internas.
 .. FIXME: New shot with interface rates page
 
 Si se moldea la interfaz externa, entonces se estará limitando el
-tráfico de salida de eBox hacia Internet En cambio, si se moldea la
+tráfico de salida de eBox hacia Internet. En cambio, si se moldea la
 interfaz interna, entonces se estará limitando la salida de eBox hacia
 sus redes internas.  El límite máximo de tasa de salida y entrada
 viene dado por la configuración en :menuselection:`Moldeado de tráfico

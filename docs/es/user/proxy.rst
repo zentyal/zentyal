@@ -134,8 +134,8 @@ nuestro cortafuegos.
 
 Una manera de evitar la necesidad de configurar cada navegador es usar
 el **modo transparente**. En este modo, eBox debe ser establecido como
-puerta de enlace y las conexiones HTTP hacia las redes externas
-(Internet) a eBox serán redirigidas al *proxy*.  Para activar este
+puerta de enlace y las conexiones HTTP hacia las redes externas a eBox
+(Internet) serán redirigidas al *proxy*.  Para activar este
 modo debemos ir a la página :menuselection:`Proxy HTTP --> General` y
 marcar la opción :guilabel:`proxy transparente`. Como veremos en
 :ref:`advanced-proxy-ref`, el modo transparente es incompatible con
@@ -175,7 +175,7 @@ Es posible indicar dominios que estén exentos del uso de la *caché*. Por
 ejemplo, si tenemos servidores web locales no se acelerará su
 funcionamiento usando la *caché* HTTP y se malgastaría memoria que
 podría ser usada por elementos de servidores remotos. Si un dominio
-está exento de la *caché*, cuando se reciba una petición con destino dicho
+está exento de la *caché*, cuando se reciba una petición con destino a dicho
 dominio se ignorará la *caché* y se devolverán directamente los datos
 recibidos desde el servidor sin almacenarlos.
 
@@ -259,7 +259,7 @@ ficheros que se transmiten. Un ejemplo de tipo MIME es **text/html**
 que son las páginas *Web*. El primero de los elementos determina el
 tipo de contenido que almacena (texto, vídeo, audio, imagen, binario,
 ...) y el segundo el formato específico para representar dicho
-contenido (HTML, MPEG, gzip, ...).  
+contenido (HTML, MPEG, gzip, ...).
 
 En la pestaña de :guilabel:`Filtro de dominios` encontraremos los parametros que
 controlan el filtrado de paginas en base al dominio al que pertenecen. Existen dos opciones de carácter general:
@@ -272,7 +272,7 @@ controlan el filtrado de paginas en base al dominio al que pertenecen. Existen d
   dominios que no estén presentes en la seccion :guilabel:`Reglas de dominios` o
   en las categorias presentes en  :guilabel:`Archivos de listas de dominios`. En
   este último caso, las categorias con una política de *Ignorar* no son
-  consideradas como listadas. 
+  consideradas como listadas.
 
 A continuación tenemos, la lista de dominios, donde podemos introducir nombres de
 dominio y seleccionar una política para ellos entre las siguientes:

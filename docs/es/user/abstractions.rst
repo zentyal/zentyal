@@ -45,8 +45,8 @@ y ahí se crean nuevos objetos, que tendrán asociado un
    Aspecto general del módulo de objetos de red
 
 Se puede crear, editar y borrar objetos. Estos objetos serán usados
-más tarde por otros módulos como por ejemplo en el cortafuegos, el *Web
-caché proxy* o en el correo.
+más tarde por otros módulos como por ejemplo el cortafuegos, el *Proxy
+caché Web* o el de correo.
 
 Cada uno de ellos tendrá al menos los siguientes valores:
 :guilabel:`nombre`, :guilabel:`dirección IP` y :guilabel:`máscara de

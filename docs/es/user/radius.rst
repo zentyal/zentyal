@@ -6,11 +6,11 @@ RADIUS
 .. sectionauthor:: Jorge Salamero Sanz <jsalamero@ebox-platform.com>
 
 *RADIUS* (*Remote Authentication Dial In User Service*) es un protocolo de
-red que proporciona autentificación, autorización y gestión de la tarificación,
+red que proporciona autenticación, autorización y gestión de la tarificación,
 en inglés *AAA* (*Authentication*, *Authorization* and *Accounting*) para
 ordenadores que se conectan y usan una red.
 
-El flujo de autentificación y autorización en RADIUS funciona de la
+El flujo de autenticación y autorización en RADIUS funciona de la
 siguiente manera: el usuario o máquina envía una petición a un *NAS*
 (*Network Access Server*) como podría ser un punto de acceso
 inalámbrico, utilizando el protocolo de enlace pertinente para obtener
@@ -20,7 +20,7 @@ solicitando autorización para acceder a la red, incluyendo todos los
 credenciales de acceso necesarios, no solo nombre de usuario y
 contraseña, pero probablemente también *realm*, dirección IP, *VLAN*
 asignada y tiempo máximo que podrá permanecer conectado. Esta
-información se comprueba utilizando esquemas de autentificación como
+información se comprueba utilizando esquemas de autenticación como
 *Password Authentication Protocol*
 (PAP), *Challenge-Handshake Authentication Protocol* (CHAP) or
 *Extensible Authentication Protocol* (EAP) [#]_ y se envía una respuesta al *NAS*:
@@ -31,7 +31,7 @@ información se comprueba utilizando esquemas de autentificación como
 *Access Challenge*:
   Cuando se solicita información adicional, como en TTLS donde un
   diálogo a través de un túnel establecido entre el servidor RADIUS y
-  el cliente realiza una segunda autentificación.
+  el cliente realiza una segunda autenticación.
 
 *Access Accept*:
   Cuando se autoriza el acceso al usuario.
@@ -39,14 +39,14 @@ información se comprueba utilizando esquemas de autentificación como
 .. [#] Estos protocolos de autenticación están definidos en :rfc:`1334`.
 
 Los puertos oficialmente asignados por el *IANA* son **1812/UDP** para
-autentificación y **1813/UDP** para tarificación. Este protocolo no transmite
+autenticación y **1813/UDP** para tarificación. Este protocolo no transmite
 las contraseñas en texto plano entre el *NAS* y el servidor (incluso
 utilizando el protocolo PAP) ya que existe una contraseña compartida que
 cifra la comunicación entre ambas partes.
 
 El servidor **FreeRADIUS** [#]_ es el elegido para el servicio de RADIUS en eBox.
 
-.. [#] **FreeRADIUS** - *El servidor RADIUS más popular en el mundo* <http://freeradius.org/>.
+.. [#] **FreeRADIUS** - *El servidor RADIUS más popular del mundo* <http://freeradius.org/>.
 
 Configuración del servidor RADIUS con eBox
 ==========================================
@@ -67,7 +67,7 @@ izquierdo. Allí podremos definir si :guilabel:`Todos los usuarios` o sólamente
 los usuarios que pertenecen a uno de los grupos existentes podrán acceder al
 servicio.
 
-Todos los dispositivos *NAS* que vayan a enviar solicitudes de autentificación
+Todos los dispositivos *NAS* que vayan a enviar solicitudes de autenticación
 a eBox deben ser especificados en :guilabel:`Clientes RADIUS`. Para cada uno
 podemos definir:
 
@@ -83,13 +83,13 @@ podemos definir:
 
 :guilabel:`Contraseña compartida`:
   Contraseña compartida entre el servidor RADIUS y el *NAS* para
-  autentificar y cifrar sus comunicaciones.
+  autenticar y cifrar sus comunicaciones.
 
 Configuración del Punto de Acceso
 =================================
 
 En cada dispositivo *NAS* necesitaremos configurar la dirección de
-eBox como el servidor RADIUS, el puerto, normalmente el **UDP/1812** y
+eBox como el servidor RADIUS, el puerto, normalmente el **UDP/1812**, y
 la contraseña compartida. Tanto *WPA* como *WPA2*, usando *TKIP* o
 *AES* (recomendado) pueden usarse con eBox RADIUS. El modo deberá ser
 *EAP*.

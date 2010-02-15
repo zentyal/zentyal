@@ -410,7 +410,7 @@ formulario con los siguientes campos:
   Indica si la regla va a ser aplicada o no
   durante la comprobación de conectividad de los *routers*. Se pueden
   añadir distintas reglas y habilitarlas o deshabilitarlas de acuerdo
-  las necesidades, sin tener que borrarlas y añadirlas de nuevo.
+  a las necesidades, sin tener que borrarlas y añadirlas de nuevo.
 
 :guilabel:`Router`:
   Se encuentra previamente rellenado con la lista de
@@ -422,11 +422,11 @@ formulario con los siguientes campos:
    :guilabel:`Ping a puerta de enlace`:
      Envía un paquete ICMP *echo* con
      la dirección de la puerta de enlace como destino.
-   
+
    :guilabel:`Ping a máquina`:
      Envía un paquete ICMP *echo* con la dirección
      IP de la máquina externa especificada abajo como destino.
-   
+
    :guilabel:`Resolución DNS`:
      Intenta obtener la dirección IP para el
      nombre de máquina especificado abajo.
