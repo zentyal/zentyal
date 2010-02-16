@@ -270,7 +270,7 @@ sub _testRule # (row)
 
     my $failRatio = $fails / $probes;
 
-    if ($failRatio > $maxFailRatio) {
+    if ($failRatio >= $maxFailRatio) {
         $self->{failed}->{$gw} = 1;
 
         # Only generate event if gateway was not already disabled
