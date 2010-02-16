@@ -30,7 +30,7 @@ amarillas. Entre sus características destacan:
 Existen múltiples implementaciones del servicio de directorio entre
 las que destacamos NIS, OpenLDAP, ActiveDirectory, etc. eBox usa
 **OpenLDAP** como servicio de directorio con tecnología *Samba* para
-controlador de dominios *Windows* además de para compartición de ficheros e
+controlador de dominios *Windows* además de para la compartición de ficheros e
 impresoras.
 
 Usuarios y grupos
