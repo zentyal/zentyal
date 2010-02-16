@@ -49,7 +49,8 @@ use constant EBACKUP_EBOX_FINGERPRINT_FILE => EBox::Config::share() . '/ebox-eba
 
 my %servers = (
     'ebox_eu' => 'ch-s010.rsync.net',
-    'ebox_us_w' => 'usw-s001.rsync.net'
+    'ebox_us_denver' => 'usw-s008.rsync.net',
+    'ebox_us_w' => 'usw-s004.rsync.net',
 );
 
 

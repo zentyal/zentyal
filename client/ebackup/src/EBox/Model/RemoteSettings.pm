@@ -148,6 +148,8 @@ sub _table
            fieldName     => 'target',
            printableName => __('Host or destination'),
            editable      => 1,
+           help          => __x('If the selected method is {brand}, only set the target directory',
+                                brand => 'eBox Backup Storage'),
        ),
        new EBox::Types::Text(
            fieldName     => 'user',
@@ -218,7 +220,8 @@ sub _table
         printableTableName => __('General Configuration'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
-        help               => __x('If you choose {brand}, then the destination field '
+        help               => __x('If you choose {brand} or file system methods '
+                                  . ', then the destination field '
                                   . 'may be the target directory in the backup server',
                                  brand => 'eBox Backup Storage'),
         messages           =>
@@ -324,6 +327,10 @@ sub _method
             printableValue => 'eBox Backup Storage (EU)',
             },
             {
+            value => 'ebox_us_denver',
+            printableValue => 'eBox Backup Storage (US Denver)',
+            },
+            {
             value => 'ebox_us_w',
             printableValue => 'eBox Backup Storage (US West Coast)',
             },
@@ -415,7 +422,7 @@ sub validateTypedRow
                     );
         }
     } else {
-        # all methods except ibackup need a target
+        # all methods except eBox need a target
         my $checkMethod = '_validateTargetFor' . (ucfirst $method);
         $self->$checkMethod($target);
     }
