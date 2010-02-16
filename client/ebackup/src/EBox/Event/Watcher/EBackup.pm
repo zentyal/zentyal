@@ -1,4 +1,5 @@
-# Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2007-2009 Warp Networks S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,9 +16,9 @@
 
 package EBox::Event::Watcher::EBackup;
 
-# Class: EBox::Watcher::State;
+# Class: EBox::Event::Watcher::EBackup;
 #
-# This class is a watcher which checks current state from eBox
+# This class is a watcher which checks the data backup status
 #
 use base 'EBox::Event::Watcher::Base';
 
@@ -72,12 +73,24 @@ sub ConfigurationMethod
 
 }
 
+# Method: DisabledByDefault
+#
+#       Backup event is enabled by default
+#
+# Overrides:
+#
+#       <EBox::Event::Component::DisabledByDefault>
+#
+sub DisabledByDefault
+{
+
+    return 0;
+
+}
 
 # Method: run
 #
-#        Check that Apache-perl from Web UI is up and running.
-#        Optionally, if the soap module is already installed, check if
-#        the corresponding Apache-soap is up and running.
+#        Do nothing.
 #
 # Overrides:
 #
@@ -126,7 +139,7 @@ sub _name
 sub _description
 {
 
-    return __('Check if eBox backup was not successfull.');
+    return __('Check if eBox backup was not successful.');
 
 }
 
