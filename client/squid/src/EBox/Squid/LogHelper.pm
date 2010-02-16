@@ -57,7 +57,7 @@ sub logFiles
 #	the associated file. You must parse the line, and generate
 #	the messages which will be logged to ebox through an object
 #	implementing EBox::AbstractLogger interface.
-#
+
 # Parameters:
 #
 #	file - file name
@@ -93,7 +93,8 @@ sub processLine # (file, line, logger)
             'code' => $fields[3],
             'bytes' => $fields[4], 
             'method' => $fields[5],
-            'url' => $fields[6], 
+             # Trim URL string as DB stores it as a varchar(1024)
+            'url' => substr($fields[6], 0, 1023),
             'rfc931' => $fields[7],
             'peer' => $fields[8], 
             'mimetype' => $fields[9],
