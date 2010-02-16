@@ -171,7 +171,7 @@ sub syncRows
           # XXX Enable Log dispatcher by default and not allow user
           # to disable it
           if ( $enabled ) {
-              $self->{'gconfmodule'}->enableEventElement('dispatcher', 
+              $self->parentModule()->enableEventElement('dispatcher',
                 $dispatcher, 1);
           }
           my %params = (

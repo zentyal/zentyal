@@ -150,11 +150,15 @@ sub syncRows
       foreach my $watcher (keys ( %currentEventWatchers )) {
           next if ( exists ( $storedEventWatchers{$watcher} ));
           eval "use $watcher";
+          my $enabled = not $watcher->DisabledByDefault();
+          # Those dispatchers that are enabled by default must be enabled
+          if ( $enabled ) {
+              $self->parentModule()->enableEventElement('watcher', $watcher, 1);
+          }
           my %params = ('eventWatcher' => $watcher,
                          # The value is obtained dynamically
                          'description'  => undef,
-                         # The events are disabled by default
-                         'enabled'      => 0,
+                         'enabled'      => $enabled,
                          'configuration_selected' => 'configuration_'
                                                     . $watcher->ConfigurationMethod(),
                          'readOnly'     => not $self->_checkWatcherAbility($watcher),

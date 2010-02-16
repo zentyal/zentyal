@@ -1,3 +1,5 @@
+HEAD
+	+ Events: Add possibility to enable watchers by default
 1.5
 	+ Use built-in authentication
 	+ Use new upstart directory "init" instead of "event.d"
