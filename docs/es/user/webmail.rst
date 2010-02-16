@@ -6,12 +6,12 @@ Servicio de correo web
 El **servicio de correo web** permite a los usuarios leer y enviar correo a través
 de un interfaz web ofrecida por el servidor de correo.
 
-Sus principales ventajas de que el usuario no tiene que configurar
-nada y que puede acceder a su correo desde cualquier navegador *web*
-que pueda alcanzar al servidor. Sus desventajas es que la experiencia
+Sus principales ventajas son que el usuario no tiene que configurar
+nada. Y que puede acceder a su correo desde cualquier navegador *web*
+que pueda alcanzar al servidor. Sus desventajas son que la experiencia
 de usuario suele ser más pobre que con un programa de correo de
 escritorio y que se debe permitir el acceso web al servidor de
-correo. Además incrementa la carga del servidor para mostrar los
+correo. Además, incrementa la carga del servidor para mostrar los
 mensajes de correo, este trabajo se realiza en el cliente con el
 *software* tradicional de gestión de correo electrónico.
 
@@ -52,8 +52,9 @@ Para entrar en el correo *web*, primero necesitaremos que el tráfico
 HTTP desde la dirección usada para conectar esté permitido por el
 cortafuegos. La pantalla de entrada del correo web está disponible en
 `http://[direccion del servidor]/webmail` desde el navegador. A
-continuación, debe introducir su dirección de correo y su
-contraseña. Debe usar su dirección real, un alias no funcionará.
+continuación, se debe introducir su dirección de correo y su
+contraseña. Los alias no funcionarán, por tanto
+se debe usar la dirección real.
 
 .. image:: images/webmail/roundcube-login.png
    :scale: 70
@@ -62,8 +63,8 @@ contraseña. Debe usar su dirección real, un alias no funcionará.
 Filtros SIEVE
 ~~~~~~~~~~~~~
 
-El **correo web** también incluye una interface para administrar
-filtros SIEVE. Este interfaz sólo está disponible si el protocolo
+El **correo web** también incluye una interfaz para administrar
+filtros SIEVE. Esta interfaz sólo está disponible si el protocolo
 *ManageSIEVE* está activo en el servicio de correo.
 
 .. [#] Visita la sección :ref:`sieve-sec-ref` para obtener más información.

@@ -139,9 +139,9 @@ A través de :menuselection:`Correo --> General --> Opciones del
 servidor de correo --> Autenticacion` podemos gestionar las opciones
 de autenticacion. Están disponibles las siguientes opciones:
 
-:guilabel:`TLS para el servidor SMTP`: 
+:guilabel:`TLS para el servidor SMTP`:
    Fuerza a los clientes a usar cifrado TLS, evitando la interceptación del
-   contenido por personas maliciosas. 
+   contenido por personas maliciosas.
 :guilabel:`Exigir la autenticación`:
    Este parámetro activa el uso de autenticación. Un usuario debe usar
    su dirección de correo y su contraseña para identificarse, una vez
@@ -153,7 +153,7 @@ de autenticacion. Están disponibles las siguientes opciones:
    :alt: Configuración general del correo
 
 En la sección :menuselection:`Correo --> General --> Opciones del
-servidor de correo --> Opciones` puedes configurar los parámetros
+servidor de correo --> Opciones` se pueden configurar los parámetros
 generales del servicio de correo:
 
 :guilabel:`Dirección del smarthost`:
@@ -175,7 +175,7 @@ generales del servicio de correo:
   Determina el nombre de correo del sistema, será usado por el
   servicio de correo como la dirección local del sistema.
 
-:guilabel:`Dirección del postmaster`: 
+:guilabel:`Dirección del postmaster`:
   La dirección del *postmaster* por defecto es un alias del
   superusuario (`root`) pero puede establecerse a cualquier dirección,
   perteneciente a los dominios virtuales de correo gestionados o no.
@@ -184,7 +184,7 @@ generales del servicio de correo:
   administrador de correo. Correos de notificación automáticos suelen usar
   **postmaster** como dirección de respuesta.
 
-:guilabel:`Tamaño máximo de buzón`: 
+:guilabel:`Tamaño máximo de buzón`:
   En esta opción se puede indica un tamaño máximo en MiB para los buzones del
   usuario. Todo el correo que exceda el limite será rechazado y el remitente
   recibirá una notificación. Esta opción puede sustituirse para cada usuario en
@@ -200,7 +200,7 @@ generales del servicio de correo:
   los usuarios será borrado cuando su fecha sobrepase el limite de
   días establecido.
 
-:guilabel:`Periodo de expiración para correo de spam`: 
+:guilabel:`Periodo de expiración para correo de spam`:
    Esta opción se aplica de la misma manera que la opción anterior
    pero con respecto a la carpeta de *spam* de los usuarios.
 
@@ -325,22 +325,22 @@ usuario debe tener una cuenta de correo para poder hacerlo. Los
 servidores externos son consultados periódicamente, así que la
 obtención del correo no es instantánea.
 
-Para configurar sus cuentas externas, un usuario debe entrar en el `Rincón del Usuario` 
-y hacer clic en `Recuperar correo de cuentas externas` en el menú izquierdo. En la pagina 
+Para configurar sus cuentas externas, un usuario debe entrar en el `Rincón del Usuario`
+y hacer clic en `Recuperar correo de cuentas externas` en el menú izquierdo. En la pagina
 se muestra la lista de cuentas de correo del usuario, el usuario puede añadir, borrar y editar
 cuentas. Cada cuenta tiene los siguientes parámetros:
 
-:guilabel:`Cuenta externa`: 
-   El nombre de usuario o dirección de correo requerida para identificarse en el 
+:guilabel:`Cuenta externa`:
+   El nombre de usuario o dirección de correo requerida para identificarse en el
    servicio externo de recuperación de correo.
-:guilabel:`Contraseña`: 
+:guilabel:`Contraseña`:
    Contraseña para autenticar la cuenta externa.
-:guilabel:`Servidor de correo`: 
+:guilabel:`Servidor de correo`:
    Dirección del servidor de correo que hospeda a la cuenta externa.
-:guilabel:`Protocolo`: 
-   Protocolo de recuperación de correo usado por la cuenta externa, puede ser uno de los   
+:guilabel:`Protocolo`:
+   Protocolo de recuperación de correo usado por la cuenta externa, puede ser uno de los
    siguientes:  POP3, POP3S, IMAP o IMAPS.
-:guilabel:`Puerto`: 
+:guilabel:`Puerto`:
    Puerto usado para conectar al servidor de correo externo.
 
 .. image:: images/mail/usercorner-external-mail.png
@@ -510,7 +510,7 @@ Nombre de usuario:
 Contraseña:
    Contraseña del usuario. Algunos clientes permiten indicar que se
    va a usar la misma autenticación que para IMAP o POP, si esto es posible,
-   hay que seleccionar dicha opción. 
+   hay que seleccionar dicha opción.
 
 Cuenta para recoger todo el correo
 ------------------------------------
