@@ -1,3 +1,7 @@
 #!/bin/bash
 
+if [ -n "$1" ]; then
+    exit 0
+fi
+
 exec /usr/share/ebox/ebox-start-script-session 0
