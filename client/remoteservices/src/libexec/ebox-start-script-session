@@ -1,8 +1,42 @@
 #!/usr/bin/perl
 
+# Copyright (C) 2007-2009 Warp Networks S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This script is intended to start a session with eBox
+
 use EBox;
 use EBox::Config;
 use Fcntl qw(:flock);
+use Getopt::Long;
+use Pod::Usage;
+
+my ($readOnly, $usage) = (0, 0);
+my $correct = GetOptions(
+    'read-only'  => \$readOnly,
+    'usage|help' => \$usage,
+   );
+
+if ( $usage or (not $correct) ) {
+    pod2usage(1);
+}
+
+if ($readOnly) {
+    exit(0);
+}
 
 EBox::init();
 
@@ -30,3 +64,22 @@ print $sessionFile "$time$/";
 # Release the lock and close the file
 flock($sessionFile, LOCK_UN);
 close($sessionFile);
+
+__END__
+
+=head1 NAME
+
+ebox-start-script-session - Start a session in eBox Platform
+
+=head1 SYNOPSIS
+
+ebox-start-script-session [--usage|help] [--read-only] [time]
+
+ Options:
+    --read-only    Start the session in read only mode so it does not kick out
+                   the admin from the session
+    --usage|help   Print this help
+
+    time           The UNIX timestamp for starting the session
+
+=cut
