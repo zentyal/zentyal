@@ -59,9 +59,10 @@ sub _process
     my $self = shift;
 
     # If it comes from forceRevoke with a cancel button
-    if ( defined($self->param("cancel")) ) {
-      $self->{chain} = "CA/Index";
+    if ( defined($self->param('cancel')) ) {
+      $self->setRedirect( 'CA/Index' );
       $self->setMsg( __("The certificate has NOT been revoked.") );
+      $self->cgi()->delete_all();
       return;
     }
 

@@ -7,11 +7,11 @@
 use EBox::Gettext;
 </%init>
 <!-- Form to revoke a certificate -->
-<h3><% __('Revoke a Certificate') | h%></h3>
+<h3><% __('Revoke a Certificate') %></h3>
 % if ( $metaDataCert->{"isCACert"} ) {
   <div class="warning">
     <% __("This operation will revoke all the issued user certificates
-    and the CA Certificate.") | h %>
+    and the CA Certificate.")  %>
   </div>
 % }
 <div class="help">
@@ -19,24 +19,24 @@ use EBox::Gettext;
 </div>
 <div>
 % if ( $metaDataCert->{'isCACert'} ) {
-  <span class="ftitle"><% __('Organization Name') | h %>: </span>
+  <span class="ftitle"><% __('Organization Name')  %>: </span>
   <span class="ftitle">
-    <% $metaDataCert->{dn}->attribute('organizationName') | h %>
+    <% $metaDataCert->{dn}->attribute('organizationName')  %>
   </span>
 % }
 % else {
-  <span class="ftitle"><% __("Common Name") | h%>: </span> 
+  <span class="ftitle"><% __("Common Name") %>: </span> 
   <span class="ftitle">
-    <%$metaDataCert->{dn}->attribute('commonName') | h %>
+    <%$metaDataCert->{dn}->attribute('commonName')  %>
   </span>
 % }
-  <span class="ftitle"><% __("Expiration Date") | h %>: </span>
+  <span class="ftitle"><% __("Expiration Date")  %>: </span>
   <span class="ftitle">
 % my $date = $metaDataCert->{'expiryDate'};
   <%
     sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->year(),
 	    $date->month(), $date->day(), $date->hours(),
-	    $date->minutes(), $date->seconds()) | h
+	    $date->minutes(), $date->seconds()) 
   %>
   </span>
 </div>

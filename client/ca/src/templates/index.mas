@@ -65,25 +65,25 @@ use EBox::CA::DN;
 % }
 </div>
 % if ($caNeeded) {
-  <h3><% __('Issue the Certification Authority Certificate') | h  %></h3>
+  <h3><% __('Issue the Certification Authority Certificate') %></h3>
 % } else {
-  <h3><% __('Issue a New Certificate') |h %></h3>
+  <h3><% __('Issue a New Certificate')  %></h3>
 % }
 <form action="IssueCertificate" method="post" >
   <& formTable.mas, rows => \@issueTable &>
 </form>
 
 <!-- List current certificates in a table -->
-<h3><% __("Current Certificate List") |h %></h3>
+<h3><% __("Current Certificate List")  %></h3>
 <div class="help">
-  <% __("Date refers to Expiration Date in Valid/Expired and to Revokation Date in Revoked certificates respectively") | h %>.
+  <% __("Date refers to Expiration Date in Valid/Expired and to Revokation Date in Revoked certificates respectively") %>.
 </div>  
 <table class="dataTable">
   <thead>
-    <th><% __("Name") |h %></th>
-    <th><% __("State") |h %></th>
-    <th><% __("Date") |h %></th>
-    <th class="thOptions"><% __("Actions") |h%></th>
+    <th><% __("Name")  %></th>
+    <th><% __("State") %></th>
+    <th><% __("Date")  %></th>
+    <th class="thOptions"><% __("Actions") %></th>
   </thead>
   <tbody>
 %   foreach my $cert (@{$certs}) {
@@ -93,12 +93,12 @@ use EBox::CA::DN;
 %     }
 	 <td class="tleft">
 %     if ( $cert->{'isCACert'} ) {
-	    <% $cert->{'dn'}->attribute('commonName') | h %>
+	    <% $cert->{'dn'}->attribute('commonName') %>
 	    <% __('from') %>
-            <% $cert->{'dn'}->attribute('organizationName') | h %>
+            <% $cert->{'dn'}->attribute('organizationName') %>
 %     }
 %     else {
-            <% $cert->{'dn'}->attribute('commonName') |h %>
+            <% $cert->{'dn'}->attribute('commonName') %>
 %     }
          </td>
     <!-- Print the state string -->
@@ -113,7 +113,7 @@ use EBox::CA::DN;
    }
 </%perl>
       <td class="tcenter">
-        <% $stateStr | h %>
+        <% $stateStr %>
       </td>
       <td>
   <!-- Print the expiration or revocation date -->
@@ -128,7 +128,7 @@ use EBox::CA::DN;
         <%
 	  sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->year(),
 		  $date->month(), $date->day(), $date->hours(),
-		  $date->minutes(), $date->seconds()) | h
+		  $date->minutes(), $date->seconds()) 
         %>		
       </td>
       <td class="tcenter">
@@ -138,7 +138,7 @@ use EBox::CA::DN;
 | u%>"
 	>
 	  <img src="/data/images/deny-active.gif"
-	       alt="<% __('Revoke') |h %>" />
+	       alt="<% __('Revoke') %>" />
 	</a>   
         <img src="/data/images/sep.gif" alt="-" />
 %	} 
@@ -147,7 +147,7 @@ use EBox::CA::DN;
 	href="DownloadFiles?cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
 	>
 	  <img src="/data/images/install.gif"
-	       alt="<% __('Download Key(s) and Certificate') |h%>" />
+	       alt="<% __('Download Key(s) and Certificate') %>" />
 	</a>   
         <img src="/data/images/sep.gif" alt="-" />
 %	} 
@@ -157,7 +157,7 @@ use EBox::CA::DN;
 	| u%>"
 	>
 	  <img src="/data/images/reload.gif"
-	       alt="<% __('Renew') |h%>" />
+	       alt="<% __('Renew') %>" />
 	</a>   
         <img src="/data/images/sep.gif" alt="-" />
 %	} 

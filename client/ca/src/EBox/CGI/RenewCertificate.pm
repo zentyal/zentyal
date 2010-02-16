@@ -60,8 +60,9 @@ sub _process
     my $ca = EBox::Global->modInstance('ca');
 
     if ( $self->param('cancel') ) {
-      $self->{chain} = 'CA/Index';
+      $self->setRedirect( 'CA/Index' );
       $self->setMsg( __("The certificate has NOT been renewed") );
+      $self->cgi()->delete_all();
       return;
     }
 
