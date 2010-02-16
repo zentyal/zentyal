@@ -153,9 +153,9 @@ de ficheros.
 Antispam
 --------
 
-El filtro anti*spam* asigna a cada correo un puntuación de *spam*, si
+El filtro *antispam* asigna a cada correo un puntuación de *spam*, si
 el correo alcanza la puntuación umbral de *spam* es considerado correo
-basura, si no es considerado correo legitimo. A este ultimo tipo de
+basura, si no es considerado correo legítimo. A este último tipo de
 correo se le suele denominar *ham*.
 
 El detector de spam usa las siguientes técnicas para asignar la puntuación:
@@ -331,7 +331,7 @@ Aprender de las carpetas IMAP de Spam de las cuentas:
   Si esta activado, cuando mensajes de correo se coloquen en la carpeta de Spam
   serán aprendidos por el filtro como spam. De manera similar si movemos un
   mensaje desde la carpeta de spam a una carpeta normal, sera aprendido como
-  ham. 
+  ham.
 Cuenta de aprendizaje de *ham* / *spam*:
   Si están activados se crearán las cuentas `ham@dominio` y `spam@dominio`
   respectivamente. Los usuarios pueden enviar correos a estas cuentas para
