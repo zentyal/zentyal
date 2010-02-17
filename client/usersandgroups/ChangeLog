@@ -1,4 +1,6 @@
 1.5
+	+ Bug fix: don't try to contact slaves from within a slave when groups
+	  are updated
 	+ Use built-in EBox::ThirdParty::Apache2::AuthCookie
 1.4.2
 	+ Bug fix: fix wrong migration number
