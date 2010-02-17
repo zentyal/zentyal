@@ -1,5 +1,7 @@
 HEAD
 	+ Events: Add possibility to enable watchers by default
+	+ Bugfix: Adding a new field to a model now uses default
+	  value instead of an empty value
 1.5
 	+ Use built-in authentication
 	+ Use new upstart directory "init" instead of "event.d"

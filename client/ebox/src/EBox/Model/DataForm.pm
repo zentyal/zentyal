@@ -953,6 +953,9 @@ sub _row
           my $element = $type->clone();
           $element->setRow($row);
           $element->restoreFromHash();
+          if ( (not defined($element->value())) and $element->defaultValue()) {
+              $element->setValue($element->defaultValue());
+          }
           $row->addElement($element);
       }
       # Dummy id for dataform
