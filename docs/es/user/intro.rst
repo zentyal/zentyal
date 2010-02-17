@@ -131,6 +131,8 @@ Este manual describe las principales características técnicas incluidas en la 
 .. [#] Para más información sobre este servicio ir a
        http://www.ebox-technologies.com/products/controlcenter/.
 
+.. _installation-section-ref:
+
 Instalación
 ***********
 

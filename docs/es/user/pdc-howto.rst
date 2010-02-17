@@ -7,21 +7,21 @@ Apéndice D: Usando eBox como Controlador Primario de Dominio
 `eBox Platform <http://www.ebox-platform.com>`_ es un servidor de código abierto
 para pequeñas y medianas empresas que te permite gestionar tus servicios, tales
 como cortafuegos,  DHCP, DNS, VPN, *proxy*, IDS, correo electrónico, ficheros e impresoras
-compartidas, VoIP, IM y muchos más. Esta funcionalidades están fuertemente
+compartidas, VoIP, IM y muchos más. Estas funcionalidades están fuertemente
 integradas, automatizando tareas, evitando errores y ahorrando tiempo a los
 administradores de sistemas.
 
 Este tutorial te mostrará, paso a paso, como usar eBox actuando como
-un Controlador Primario de Dominio (PDC) de Windows. Cuando lo cabemos
-estará usando eBox Platform para la gestión de usuarios y recursos
+un Controlador Primario de Dominio (PDC) de Windows. Al finalizarlo,
+estarás usando eBox Platform para la gestión de usuarios y recursos
 compartidos de tu dominio Windows.
 
 Entrando al interfaz *web*
 ==========================
 
-Ya estás listo para entrar por primera vez al interfaz *web* de eBox.  Apunta tu
-navegador hacia `https://dirección/` siendo la dirección aquella que te
-suministro el instalador en el paso anterior.
+Ya estás listo para entrar por primera vez al interfaz *web* de eBox. Apunta tu
+navegador hacia `https://dirección/` siendo la dirección la correspondiente
+a la máquina eBox en tu red local.
 
 Como el servidor eBox tiene un nuevo certificado auto-firmado, tu navegador
 probablemente te preguntará si puede considerarlo de confianza. Haz que tu
@@ -37,7 +37,7 @@ proceso de instalación.
 
    Pantalla de entrada
 
-Después de entrar, se te mostrará el sumario del estado de los
+Después de entrar, se te mostrará el resumen del estado de los
 servicios del servidor.
 
 .. figure:: images/pdc-howto/02-homepage.png
@@ -51,7 +51,7 @@ Activando y desactivando módulos
 ================================
 
 El siguiente paso es desactivar los módulos que no son necesarios para
-el servidor PDC. Para hacerlo en el menú de la izquierda selecciona
+el servidor PDC. Para hacerlo, en el menú de la izquierda selecciona
 :menuselection:`Estado del modulo`. En dicha pagina se te mostrará la
 lista de los módulos de eBox instalados y una casilla para activarlos
 o desactivarlos.
@@ -159,7 +159,7 @@ hace falta modificar ese campo ahora.
 
 Ahora puedes crear mas cuentas de usuarios para tus usuarios normales. Solo
 necesitan una cuenta activada sin derechos de administración. Si crees que su
-cuota de disco es demasiada pequeña o grande puedes editarla también.
+cuota de disco es demasiado pequeña o grande puedes editarla también.
 
 Configurando parámetros generales de PDC
 ========================================

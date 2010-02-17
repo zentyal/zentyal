@@ -72,6 +72,8 @@ especificar que protocolo se usa para conectarse al servidor remoto.
   se selecciona *FTP* o *SCP* tendremos que introducir la
   dirección del servidor remoto.
 
+.. [#] Tienda de eBox Technologies en https://store.ebox-technologies.com
+
 .. warning::
     Si usamos *SCP*, tendremos que ejecutar `sudo ssh
     usuario@servidor` y aceptar la huella del servidor remoto para
