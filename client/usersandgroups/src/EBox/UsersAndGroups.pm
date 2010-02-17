@@ -1485,7 +1485,9 @@ sub updateGroup
     my ($self, $group, @params) = @_;
 
     $self->updateGroupLocal($group, @params);
-    $self->_updateGroupSlaves($group, @params);
+    if (mode() ne 'slave') {
+        $self->_updateGroupSlaves($group, @params);
+    }
 }
 
 sub updateGroupLocal
