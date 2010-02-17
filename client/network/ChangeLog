@@ -1,6 +1,8 @@
 HEAD
 	+ Bug fix: use '>='  and not '>' to check if a test exceeds $maxRatio
 	  in Failover watcher
+	+ Bug fix: do not run failover probes when all are disabled because
+	  they enable a disabled gateway.
 1.4.2
 	+ Restart squid when failover events are produced to avoid problems
 	+ Do not check host when adding a ping to gateway rule in WAN Failover
