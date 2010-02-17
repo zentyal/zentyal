@@ -114,12 +114,12 @@ sub run
     $self->{gateways} = $gateways;
     $self->{marks} = $network->marksForRouters();
 
-    my @enabledProbes = @{$rules->enabledRows()};
+    my @enabledRules = @{$rules->enabledRows()};
 
-    # If we don't have any probe anbled we finish here
-    return [] if not @enabledProbes;
+    # If we don't have any enabled rule we finish here
+    return [] unless @enabledRules;
 
-    foreach my $id (@enabledProbes) {
+    foreach my $id (@enabledRules) {
         #EBox::debug("Testing rules for gateway with id $id...");
         my $row = $rules->row($id);
         $self->_testRule($row);
