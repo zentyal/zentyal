@@ -106,20 +106,26 @@ sub moduleAction
 
 sub status
 {
-  my ($modname, $action, $actionName) = @_;
+    my ($modname, $action, $actionName) = @_;
 
-  my $mod = checkModule($modname); #exits if module is not manageable
-  
-  my $status;
-  my $msg = "EBox: status module $modname:\t\t\t";
-  if ($mod->isEnabled()) {
-   print STDOUT $msg . "[ ENABLED ]\n";
-   exit 0;
-  } else {
-   print STDOUT $msg . "[ DISABLED ]\n";
-   exit 3;
-  }
+    my $mod = checkModule($modname); #exits if module is not manageable
 
+    my $msg = "EBox: status module $modname:\t\t\t";
+    my $enabled = $mod->isEnabled();
+    my $running = $mod->isRunning();
+    if ($enabled and $running) {
+        print STDOUT $msg . "[ RUNNING ]\n";
+        exit 0;
+    } elsif ($enabled and not $running) {
+        print STDOUT $msg . "[ STOPPED ]\n";
+        exit 0;
+    } elsif ((not $enabled) and $running) {
+        print STDOUT $msg . "[ RUNNING UNMANAGED ]\n";
+        exit 3;
+    } else {
+        print STDOUT $msg . "[ DISABLED ]\n";
+        exit 3;
+    }
 }
 
 sub _logActionFunction

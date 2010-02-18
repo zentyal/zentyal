@@ -1,4 +1,6 @@
 HEAD
+	+ Improve the output of ebox module status, to be consistent with the one
+	  shown in the interface
 	+ Events: Add possibility to enable watchers by default
 	+ Bugfix: Adding a new field to a model now uses default
 	  value instead of an empty value
