@@ -8,203 +8,228 @@ msgstr ""
 "Project-Id-Version: ebox-package-installer 1.4\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-02-08 07:02+0000\n"
-"PO-Revision-Date: 2010-02-08 07:02+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-02-16 15:02+0100\n"
+"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: ebox-package-installer:31
 msgid "Firewall, HTTP proxy, traffic shaping, etc."
-msgstr ""
+msgstr "Tulemüür, HTTP puhverserver, võrguliikluse kujundamine jne"
 
+# sisu ja E-posti filter ?
 #: ebox-package-installer:32
 msgid "Firewall, IDS, AV, VPN, content & mail filter, etc."
-msgstr ""
+msgstr "Tulemüür, IDS, AV, VPN, sisu- ja e-posti filter jne"
 
 #: ebox-package-installer:33
 msgid "DHCP, DNS, NTP, HTTP server, etc."
-msgstr ""
+msgstr "DHCP, DNS, NTP, HTTP server, jne"
 
 #: ebox-package-installer:34
 msgid "File sharing and printing, groupware, etc."
-msgstr ""
+msgstr "Failide jagamine ja printimine, grupitöö jne"
 
 #: ebox-package-installer:35
 msgid "Mail, Jabber/XMPP, VoIP, etc."
-msgstr ""
+msgstr "E-post, Jabber/XMPP, VoIP jne"
 
+# vbla akendussüsteem ja lihtsalt sirvija (v mõni muu n. failisirvija), ei saa kontekstist hästi aru
 #: ebox-package-installer:39
+#, fuzzy
 msgid "Window system with local browser"
-msgstr ""
+msgstr "Aknasüsteem kohaliku veebilehitsejaga"
 
 #: ebox-package-installer:40
 msgid "Networking"
-msgstr ""
+msgstr "Võrk"
 
 #: ebox-package-installer:41
 msgid "Firewall and redirections"
-msgstr ""
+msgstr "Tulemüür ja ümbersuunamine"
 
 #: ebox-package-installer:42
 msgid "Traffic shaping"
-msgstr ""
+msgstr "Võrguliikluse kujundamine"
 
 #: ebox-package-installer:43
 msgid "File sharing server and Windows PDC"
-msgstr ""
+msgstr "Failiserver ja Windowsi primaarne domeenikontroller"
 
 #: ebox-package-installer:44
 msgid "DNS server"
-msgstr ""
+msgstr "DNS server"
 
 #: ebox-package-installer:45
 msgid "DHCP server"
-msgstr ""
+msgstr "DHCP server"
 
 #: ebox-package-installer:46
 msgid "RADIUS server"
-msgstr ""
+msgstr "RADIUS server"
 
+# ei leia hea tõlget väljendile 'content filter', kas sisufilter on hää?
 #: ebox-package-installer:47
 msgid "HTTP proxy and content filter"
-msgstr ""
+msgstr "HTTP puhverserver ja sisufilter"
 
 #: ebox-package-installer:48
 msgid "LDAP users and groups management"
-msgstr ""
+msgstr "LDAP kasutajate ja gruppide haldamine"
 
+# vbla Süsteemi monitooring graafikute ja hoiatustega, või lihtsalt Süsteemi graafiline monitooring
 #: ebox-package-installer:49
+#, fuzzy
 msgid "System monitor with graphs and alerts"
-msgstr ""
+msgstr "Graafikute ja hoiatustega süsteemi jälgija"
 
 #: ebox-package-installer:50
 msgid "System and eBox package management"
-msgstr ""
+msgstr "Süsteemi ja eBoxi paketihaldus"
 
 #: ebox-package-installer:51
 msgid "Remote or local Backup"
-msgstr ""
+msgstr "Kaug või kohalik varundamine"
 
 #: ebox-package-installer:52
 msgid "NTP server"
-msgstr ""
+msgstr "NTP server"
 
+# vallaste - prindiserver
 #: ebox-package-installer:53
 msgid "Printing server"
-msgstr ""
+msgstr "Printserver"
 
 #: ebox-package-installer:54
 msgid "Jabber/XMPP server"
-msgstr ""
+msgstr "Jabber/XMPP server"
 
 #: ebox-package-installer:55
 msgid "VPN server"
-msgstr ""
+msgstr "VPN server"
 
 #: ebox-package-installer:56
 msgid "HTTP server"
-msgstr ""
+msgstr "HTTP server"
 
+# vbla Meiliprotokoll v  E-posti protokoll
+# 
 #: ebox-package-installer:57
+#, fuzzy
 msgid "Mail system: SMTP, POP3, IMAP4"
-msgstr ""
+msgstr "Postisüsteem: SMTP, POP3, IMAP4"
 
+# vbla Veebipõhine E-posti klient
 #: ebox-package-installer:58
+#, fuzzy
 msgid "WWW Mail Client"
-msgstr ""
+msgstr "WWW E-posti klient"
 
 #: ebox-package-installer:59
 msgid "Antispam, antivirus, transparent POP3 proxy"
-msgstr ""
+msgstr "Viirus- ja räpmsposti tõrje, nähtamatu POP3 puhverserver"
 
 #: ebox-package-installer:60
 msgid "Antivirus"
-msgstr ""
+msgstr "Viirustõrje"
 
 #: ebox-package-installer:61
 msgid "Shared calendar and address book, webmail, etc"
-msgstr ""
+msgstr "Jagatud kalender ja aadressiraamat, veebipõhine e-post jne"
 
 #: ebox-package-installer:62
 msgid "Intrusion Detection System"
-msgstr ""
+msgstr "Sissetungi tuvastamise süsteem"
 
 #: ebox-package-installer:64
 msgid "VoIP PBX"
-msgstr ""
+msgstr "VoIP PBX"
 
 #: ebox-package-installer:77
 msgid "eBox Platform Installer"
-msgstr ""
+msgstr "eBoxi platvormi paigaldaja"
 
+# vbla Vali paketivaliku meetod
 #: ebox-package-installer:78
+#, fuzzy
 msgid "Choose package selection method"
-msgstr ""
+msgstr "Vali meetod pakettide valikuks"
 
 #: ebox-package-installer:79
 msgid "Select the method that better fits your needs."
-msgstr ""
+msgstr "Vali endale sobiv meetod."
 
 #: ebox-package-installer:80
 msgid "simple"
-msgstr ""
+msgstr "lihtne"
 
+# vbla tööülesannete järgi?
 #: ebox-package-installer:81
+#, fuzzy
 msgid "Select packages by task"
-msgstr ""
+msgstr "Vali paketid ülesannete järgi"
 
 #: ebox-package-installer:82 ebox-package-installer:93
 msgid "advanced"
-msgstr ""
+msgstr "laiendatud"
 
 #: ebox-package-installer:83
 msgid "Select packages manually"
-msgstr ""
+msgstr "Vali paketid käsitsi"
 
+# ? tööülesanded
 #: ebox-package-installer:84
+#, fuzzy
 msgid "Select eBox tasks to install"
-msgstr ""
+msgstr "Vali paigaldamiseks eBoxi ülesanded"
 
 #: ebox-package-installer:85
 msgid "Select one or more tasks:"
-msgstr ""
+msgstr "Vali üks või rohkem ülesandeid:"
 
 #: ebox-package-installer:86
 msgid "Select eBox packages to install"
-msgstr ""
+msgstr "Vali paigalduseks eBoxi paketid"
 
 #: ebox-package-installer:87
 msgid "Select the desired packages:"
-msgstr ""
+msgstr "Vali soovitud paketid:"
 
 #: ebox-package-installer:88
 msgid "Select the type of the server"
-msgstr ""
+msgstr "Vali serveri tüüp"
 
+# Vali autonoomne kui sa ei soovi kasutada LDAP dubleerimist või Active Directory sünkroniseerimist.
 #: ebox-package-installer:89
+#, fuzzy
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
+"Vali autonoomne kui sa ei soovi LDAP dubleerimist või Active Directory "
+"sünkroniseerimist."
 
 #: ebox-package-installer:90
 msgid "Standalone server"
-msgstr ""
+msgstr "Autonoomne server"
 
 #: ebox-package-installer:91
 msgid "Advanced configuration (Master/Slave/AD Sync)"
-msgstr ""
+msgstr "Laiendatud seadistamine (Master/Slave/AD Sync)"
 
+# ilma kontekstita muidugi küsitav
 #: ebox-package-installer:92
+#, fuzzy
 msgid "standalone"
-msgstr ""
+msgstr "autonoomne"
 
 #: ebox-package-installer:94
 msgid "Advanced configuration modes"
-msgstr ""
+msgstr "Laiendatud seadistamise režiimid"
 
 #: ebox-package-installer:95
 #, perl-brace-format
@@ -213,109 +238,137 @@ msgid ""
 "can find all the information here:\n"
 "{url}"
 msgstr ""
+"Kui sa vajad laiendatud võimalusi, siis pead need seadistama käsitsi. "
+"Vajaliku informatsiooni leiad siit:\n"
+"{url}"
 
 #: ebox-package-installer:98
 msgid "Select External (WAN) interfaces"
-msgstr ""
+msgstr "Vali välised (WAN) liidesed"
 
+# ei saa kontekstist aru täpselt
 #: ebox-package-installer:99
+#, fuzzy
 msgid ""
 "WARNING: By default you will not be able to access the web interface through "
 "them."
-msgstr ""
+msgstr "HOIATUS: Vaikimisi puudub sul ligipääs veebiliidesele."
 
+# gateway profile - lüüs v lüüsiprofiil ???
 #: ebox-package-installer:100
+#, fuzzy
 msgid ""
 "You have installed a gateway profile. It needs at least two network "
 "interfaces and your machine has only one. You can still enjoy the rest of "
 "the eBox features but it will not act as a gateway unless you add another "
 "network card."
 msgstr ""
+"Sa oled paigaldanud lüüsi. See vajab vähemalt kahte võrguliidest, kuid sinu "
+"masinal on neid ainult üks. Sa võid küll kasutada ülejäänud eBoxi võimalusi, "
+"kuid see ei toimi lüüsina, kui pole lisatud teist võrgukaarti."
 
 #: ebox-package-installer:101
 msgid "Enter administration user"
-msgstr ""
+msgstr "Sisesta administreerija kasutajanimi"
 
+# Kasutajanime vajatakse konsooli logimiseks või SSH kaugligipääsuks.
 #: ebox-package-installer:102
+#, fuzzy
 msgid ""
 "You will need this username to log into the local console or access remotely "
 "by SSH:"
 msgstr ""
+"Kasutajanime vajatakse sisselogimiseks kohalikku konsooli või SSH "
+"kaugligipääsuks:"
 
+# Sisesta administreerija parool
 #: ebox-package-installer:103
 msgid "Enter administration password"
-msgstr ""
+msgstr "Sisesta administreerija parool"
 
 #: ebox-package-installer:104
 msgid ""
 "You will need to use this password to log into the eBox interface or in the "
 "console with the username that you have just entered:"
 msgstr ""
+"Parooli ja kasutajanime vajatakse sisselogimisel eBoxi liidesesse või "
+"kohalikku konsooli:"
 
 #: ebox-package-installer:105
 msgid "Confirm administration password"
-msgstr ""
+msgstr "Kinnita administraatori parool"
 
 #: ebox-package-installer:107
 msgid "Mail configuration"
-msgstr ""
+msgstr "E-posti seadistamine"
 
 #: ebox-package-installer:108
 msgid "Enter default virtual mail domain:"
-msgstr ""
+msgstr "Sisesta virtuaalse meilidomeeni vaikeväärtus:"
 
 #: ebox-package-installer:109
 msgid "Installation finished"
-msgstr ""
+msgstr "Paigaldamine on lõppenud"
 
+# v kui kirjutad veebilehitseja aadressiribale: Muidu: Kas kohtvõrk on OK ja kas saab ka mõne muu lehitsejaga?
 #: ebox-package-installer:110
+#, fuzzy
 msgid ""
 "Now you can access the eBox interface browsing the following address from "
 "any computer in your network: "
 msgstr ""
+"Nüüd saad sa kohtvõrgu arvutitest eBoxi kasutajaliidesesse siseneda, kui "
+"kirjutad veebilehitsejasse aadressi: _"
 
+# mis ajahetkel seda kuvatakse, kas sealt on võimalik paigaldamist jätkata?
 #: ebox-package-installer:111
+#, fuzzy
 msgid ""
 "The size of your root filesystem is less than 2GB. This is not enough for a "
 "typical setup. If you really know what you are doing you can install in "
 "expert mode and define your own partition layout."
 msgstr ""
+"Juurfailisüsteem on väiksem kui 2GB, mis ei ole piisav tüüpiliseks "
+"seadistuseks. Kui omad vastavaid kogemusi võid paigaldamist jätkata "
+"ekspertrežiimis ja määrata enda jaoks sobiv partitsioonide paigutus."
 
 #: ebox-package-installer:141 ebox-package-installer:277
 #: ebox-package-installer:321 ebox-package-installer:373
 #: ebox-package-installer:387
 msgid "Error"
-msgstr ""
+msgstr "Viga"
 
 #: ebox-package-installer:261
 msgid "Installing eBox packages..."
-msgstr ""
+msgstr "eBoxi pakettide paigaldamine..."
 
 #: ebox-package-installer:277
 msgid "Installation failed."
-msgstr ""
+msgstr "Paigaldamine ebaõnnestus."
 
 #: ebox-package-installer:278
 #, perl-brace-format
 msgid "Check {logfile} content to see what happened"
-msgstr ""
+msgstr "Vaata faili {logfile}, et teada saada mis juhtus"
 
 #: ebox-package-installer:322
 msgid "You must select at least one package."
-msgstr ""
+msgstr "Sa pead valima vähemalt ühe paketi."
 
 #: ebox-package-installer:346
 msgid "Warning"
-msgstr ""
+msgstr "Hoiatus"
 
+# vbla Paroolid ei kattu ?
 #: ebox-package-installer:373
+#, fuzzy
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Paroolid ei kattunud"
 
 #: ebox-package-installer:387
 msgid "The username 'ebox' is reserved. Please choose another."
-msgstr ""
+msgstr "Kasutajanimi 'eBox' on reserveeritud. Palun vali uus kasutajanimi."
 
 #: ebox-package-installer:421
 msgid "Preconfiguring eBox packages..."
-msgstr ""
+msgstr "eBoxi pakettide eelseadistamine..."
