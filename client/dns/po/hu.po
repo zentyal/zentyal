@@ -136,7 +136,8 @@ msgstr ""
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr "Érvénytelen preferenciaszám. Az engedélyezett tartomány: ({min}, {max})"
+msgstr ""
+"Érvénytelen preferenciaszám. Az engedélyezett tartomány: ({min}, {max})"
 
 #: src/EBox/Model/MailExchanger.pm:96
 #, perl-brace-format
@@ -154,8 +155,7 @@ msgstr "A tartomány csak olvasható. Nem adhat hozzá levelezőkiszolgálókat.
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:134
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
-"Az „Egyéni” kiválasztásakor teljes képzésű tartománynévnek (FQDN) kell "
-"lennie"
+"Az „Egyéni” kiválasztásakor teljes képzésű tartománynévnek (FQDN) kell lennie"
 
 #: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:140
 msgid "This domain"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:43+0000\n"
+"POT-Creation-Date: 2010-02-22 10:53+0100\n"
 "PO-Revision-Date: 2010-02-09 10:44+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -86,12 +86,12 @@ msgstr "Hálózati csatoló"
 msgid "traffic balance"
 msgstr "forgalom kiegyenlítés"
 
-#: src/EBox/Event/Watcher/Gateways.pm:144
+#: src/EBox/Event/Watcher/Gateways.pm:150
 #, perl-brace-format
 msgid "Gateway {gw} connected"
 msgstr "A {gw} átjáró csatlakoztatva."
 
-#: src/EBox/Event/Watcher/Gateways.pm:261
+#: src/EBox/Event/Watcher/Gateways.pm:285
 #, perl-brace-format
 msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
@@ -100,12 +100,12 @@ msgstr ""
 "A {gw} átjáró nincs csatlakozva ({failRatio}% of '{type}' tests to host "
 "'{host}' failed, max={maxFailRatio}%)"
 
-#: src/EBox/Event/Watcher/Gateways.pm:322
+#: src/EBox/Event/Watcher/Gateways.pm:346
 #: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3055
 msgid "WAN Failover"
 msgstr "WAN feladatátvétel"
 
-#: src/EBox/Event/Watcher/Gateways.pm:338
+#: src/EBox/Event/Watcher/Gateways.pm:362
 msgid "Check if gateways are connected or disconnected."
 msgstr "Ellenőrzi az átjáró állapotát (csatlakozott-e vagy sem)."
 
@@ -702,7 +702,7 @@ msgstr ""
 msgid "WAN Failover is only available for static interfaces"
 msgstr "A WAN Failover szolgáltatás csak statikus csatolók számára elérhető"
 
-#: src/EBox/Model/WANFailoverRules.pm:196
+#: src/EBox/Model/WANFailoverRules.pm:198
 msgid "Invalid value for Host"
 msgstr "Érvénytelen Host érték"
 

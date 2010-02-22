@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.3.12Report-Msgid-Bugs-To: "
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 20:53+0100\n"
+"POT-Creation-Date: 2010-02-22 10:54+0100\n"
 "PO-Revision-Date: 2010-01-09 16:11+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -122,6 +122,20 @@ msgstr ""
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr ""
 
+#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
+msgid "It must be a valid domain name"
+msgstr ""
+
+#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
+#, perl-brace-format
+msgid "It cannot contain \"{char}\" character"
+msgstr ""
+
+#: src/EBox/RemoteServices/Types/EBoxCommonName.pm:61
+#, perl-brace-format
+msgid "It cannot be greater than {n} characters"
+msgstr ""
+
 #: src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
 msgstr ""
@@ -139,89 +153,89 @@ msgstr ""
 msgid "No domain key found for this service"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:150
+#: src/EBox/RemoteServices/Model/Subscription.pm:130
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:153
+#: src/EBox/RemoteServices/Model/Subscription.pm:133
 msgid "Subscription data retrieved correctly."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:155
+#: src/EBox/RemoteServices/Model/Subscription.pm:135
 msgid "Please, save changes"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:180
+#: src/EBox/RemoteServices/Model/Subscription.pm:160
 msgid "Done"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:258
+#: src/EBox/RemoteServices/Model/Subscription.pm:238
 msgid ""
 "Subscribing an eBox will configure OpenVPN module and its dependencies by "
 "running these actions and modifying these files: "
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:262
+#: src/EBox/RemoteServices/Model/Subscription.pm:242
 msgid ""
 "Subscribing an eBox will enable the OpenVPN module and its dependencies."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:265
+#: src/EBox/RemoteServices/Model/Subscription.pm:245
 msgid ""
 "Take into account that subscribing an eBox could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:301
+#: src/EBox/RemoteServices/Model/Subscription.pm:281
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:321
+#: src/EBox/RemoteServices/Model/Subscription.pm:301
 msgid "User Name or Email Address"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:329
+#: src/EBox/RemoteServices/Model/Subscription.pm:309
 msgid "eBox Name"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:334
+#: src/EBox/RemoteServices/Model/Subscription.pm:314
 msgid "Choose a name for your eBox which is a valid domain name"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:341
+#: src/EBox/RemoteServices/Model/Subscription.pm:321
 msgid "Password"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:349
+#: src/EBox/RemoteServices/Model/Subscription.pm:329
 msgid "eBox subscription details"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:350
+#: src/EBox/RemoteServices/Model/Subscription.pm:330
 msgid "Delete data"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:353
+#: src/EBox/RemoteServices/Model/Subscription.pm:333
 msgid "Subscription to eBox Control Center"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:354
+#: src/EBox/RemoteServices/Model/Subscription.pm:334
 msgid "Subscribe"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:433
+#: src/EBox/RemoteServices/Model/Subscription.pm:413
 msgid "Action"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:434
-#: src/EBox/RemoteServices/Model/Subscription.pm:455
+#: src/EBox/RemoteServices/Model/Subscription.pm:414
+#: src/EBox/RemoteServices/Model/Subscription.pm:435
 msgid "Reason"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:454
+#: src/EBox/RemoteServices/Model/Subscription.pm:434
 msgid "File"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-02-08 06:47+0000\n"
+"POT-Creation-Date: 2010-02-22 10:58+0100\n"
 "PO-Revision-Date: 2010-02-16 09:24+0100\n"
 "Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: none\n"
@@ -278,7 +278,8 @@ msgstr "Mail-Konfiguration"
 
 #: ebox-package-installer:108
 msgid "Enter default virtual mail domain:"
-msgstr "Geben Sie einen Namen für die standardmäßige virtuelle Mail-Domäne ein:"
+msgstr ""
+"Geben Sie einen Namen für die standardmäßige virtuelle Mail-Domäne ein:"
 
 #: ebox-package-installer:109
 msgid "Installation finished"
@@ -335,7 +336,8 @@ msgid "Passwords don't match"
 msgstr "Passwörter stimmen nicht"
 
 #: ebox-package-installer:387
-msgid "The username 'ebox' is reserved. Please choose another."
+#, fuzzy, perl-brace-format
+msgid "The username '{user}' is reserved. Please choose another."
 msgstr ""
 "Der Benutzername 'ebox' ist reserviert. Bitte wählen Sie einen anderen."
 

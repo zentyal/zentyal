@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:28+0000\n"
+"POT-Creation-Date: 2010-02-22 10:51+0100\n"
 "PO-Revision-Date: 2008-01-08 15:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -33,7 +33,7 @@ msgstr "CAパスフレーズが一致しません"
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "CAパスフレーズは最低でも {length} 文字必要です"
 
-#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:95
+#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:96
 #: src/EBox/CGI/IssueCertificate.pm:133
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
@@ -48,15 +48,15 @@ msgstr "認証局を作成時に問題が発生しました"
 msgid "The certificate has NOT been revoked."
 msgstr "証明書は無効化されませんでした"
 
-#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
+#: src/EBox/CGI/RevokeCertificate.pm:71 src/EBox/CGI/RenewCertificate.pm:69
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "CA証明書を示すブーリアン"
 
-#: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:57
+#: src/EBox/CGI/RevokeCertificate.pm:72 src/templates/formRevoke.mas:57
 msgid "Reason"
 msgstr "理由"
 
-#: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:74
+#: src/EBox/CGI/RevokeCertificate.pm:77 src/EBox/CGI/RenewCertificate.pm:75
 #: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/ShowForm.pm:64
 #: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:748 src/EBox/CA.pm:911
 #: src/EBox/CA.pm:1248 src/EBox/CA.pm:1290 src/EBox/CA.pm:1384
@@ -67,7 +67,7 @@ msgstr "理由"
 msgid "Common Name"
 msgstr "共通名"
 
-#: src/EBox/CGI/RevokeCertificate.pm:80 src/EBox/CGI/RenewCertificate.pm:78
+#: src/EBox/CGI/RevokeCertificate.pm:81 src/EBox/CGI/RenewCertificate.pm:79
 #: src/EBox/CGI/IssueCertificate.pm:140 src/EBox/CGI/ShowForm.pm:68
 #, fuzzy
 msgid ""
@@ -77,11 +77,11 @@ msgstr ""
 "入力に無効な文字が含まれています。半角英数字、半角スペース、そして次の記号の"
 "み使用できます: .?&+:\\@"
 
-#: src/EBox/CGI/RevokeCertificate.pm:138
+#: src/EBox/CGI/RevokeCertificate.pm:139
 msgid "The certificate has been revoked"
 msgstr "証明書は無効化されました"
 
-#: src/EBox/CGI/RevokeCertificate.pm:139
+#: src/EBox/CGI/RevokeCertificate.pm:140
 msgid "The CA certificate has been revoked"
 msgstr "CA証明書は無効化されました"
 
@@ -89,20 +89,20 @@ msgstr "CA証明書は無効化されました"
 msgid "The certificate has NOT been renewed"
 msgstr "証明書は更新されませんでした"
 
-#: src/EBox/CGI/RenewCertificate.pm:69 src/templates/formRenew.mas:13
+#: src/EBox/CGI/RenewCertificate.pm:70 src/templates/formRenew.mas:13
 #: src/templates/index.mas:52 src/templates/createCA.mas:19
 msgid "Days to expire"
 msgstr "有効日数"
 
-#: src/EBox/CGI/RenewCertificate.pm:142
+#: src/EBox/CGI/RenewCertificate.pm:143
 msgid "The certificate CANNOT be renewed"
 msgstr "証明書を更新することができません"
 
-#: src/EBox/CGI/RenewCertificate.pm:144
+#: src/EBox/CGI/RenewCertificate.pm:145
 msgid "The certificate has been renewed"
 msgstr "証明書は更新されました"
 
-#: src/EBox/CGI/RenewCertificate.pm:145
+#: src/EBox/CGI/RenewCertificate.pm:146
 msgid "The new CA certificate has been renewed"
 msgstr "新しいCA証明書は更新されました"
 

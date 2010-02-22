@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:43+0000\n"
+"POT-Creation-Date: 2010-02-22 10:53+0100\n"
 "PO-Revision-Date: 2009-07-19 13:51+0200\n"
 "Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
@@ -90,24 +90,24 @@ msgstr "Nätverksgränssnitt"
 msgid "traffic balance"
 msgstr "trafikbalans"
 
-#: src/EBox/Event/Watcher/Gateways.pm:144
+#: src/EBox/Event/Watcher/Gateways.pm:150
 #, fuzzy, perl-brace-format
 msgid "Gateway {gw} connected"
 msgstr "Gateway {gw} är inte nåbar"
 
-#: src/EBox/Event/Watcher/Gateways.pm:261
+#: src/EBox/Event/Watcher/Gateways.pm:285
 #, perl-brace-format
 msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
 "failed, max={maxFailRatio}%)"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Gateways.pm:322
+#: src/EBox/Event/Watcher/Gateways.pm:346
 #: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3055
 msgid "WAN Failover"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Gateways.pm:338
+#: src/EBox/Event/Watcher/Gateways.pm:362
 msgid "Check if gateways are connected or disconnected."
 msgstr ""
 
@@ -718,7 +718,7 @@ msgstr ""
 msgid "WAN Failover is only available for static interfaces"
 msgstr ""
 
-#: src/EBox/Model/WANFailoverRules.pm:196
+#: src/EBox/Model/WANFailoverRules.pm:198
 msgid "Invalid value for Host"
 msgstr ""
 

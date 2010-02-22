@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-02-08 06:47+0000\n"
+"POT-Creation-Date: 2010-02-22 10:58+0100\n"
 "PO-Revision-Date: 2010-02-04 21:39+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
@@ -333,7 +333,8 @@ msgid "Passwords don't match"
 msgstr "Le password non corrispondono"
 
 #: ebox-package-installer:387
-msgid "The username 'ebox' is reserved. Please choose another."
+#, fuzzy, perl-brace-format
+msgid "The username '{user}' is reserved. Please choose another."
 msgstr "L'username 'ebox' è riservato. Scegline un'altro."
 
 #: ebox-package-installer:421

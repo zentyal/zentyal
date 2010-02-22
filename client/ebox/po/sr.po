@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 1.3.14Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:42+0000\n"
+"POT-Creation-Date: 2010-02-22 10:52+0100\n"
 "PO-Revision-Date: 2010-02-12 10:21+0100\n"
 "Last-Translator: Zoran <zoran@atlantisti.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 # Total ticks of what ?
@@ -157,41 +157,41 @@ msgstr "Konfiguriši disk (free-space-watcher)"
 msgid "Free Disk Space Watcher"
 msgstr "Free Disk Space Watcher"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr "Ime"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
 #: src/templates/backup.mas:44 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:36
 msgid "Description"
 msgstr "Opis"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
 msgstr "Konfiguracija"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr "Nijedan"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:309
 msgid "Configure Events"
 msgstr "Konfiguriši (Events-servis)"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:317
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
 msgstr "Događaj (Event)"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
 msgid "Enable/Disable each event watcher monitoring"
 msgstr "Omogući/Onemogući svaki (event-watcher) monitoring"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:506
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
@@ -203,7 +203,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4528
+#: src/EBox/Model/DataTable.pm:4531
 msgid "Enabled"
 msgstr "Omogućen"
 
@@ -274,8 +274,7 @@ msgstr "Podpiši"
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
 msgstr ""
-"Obeležite ovu opciju ako želite da napravite nalog iznad korisnika na "
-"eBoks-u"
+"Obeležite ovu opciju ako želite da napravite nalog iznad korisnika na eBoks-u"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:233
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:300
@@ -429,7 +428,7 @@ msgstr "Dispečer {name} je isključen te ne možete da šaljete event-logove"
 msgid "Password changed"
 msgstr "Lozinka promenjena"
 
-#: src/EBox/CGI/ClientRawBase.pm:209
+#: src/EBox/CGI/ClientRawBase.pm:211
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -1276,7 +1275,7 @@ msgstr ""
 
 #: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2128
+#: src/EBox/Model/DataTable.pm:2131
 msgid "Action"
 msgstr "Akcija"
 
@@ -1363,48 +1362,48 @@ msgstr "u"
 msgid "field"
 msgstr "polje"
 
-#: src/EBox/Model/DataTable.pm:1465
+#: src/EBox/Model/DataTable.pm:1468
 msgid "page"
 msgstr "strana"
 
-#: src/EBox/Model/DataTable.pm:1468
+#: src/EBox/Model/DataTable.pm:1471
 msgid "Page must be a number equal or greater than zero"
 msgstr "Broj strana mora biti jednak ili veći od nule"
 
-#: src/EBox/Model/DataTable.pm:2830
+#: src/EBox/Model/DataTable.pm:2833
 #, fuzzy, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Ukloni {num} red-a-ova {rowName} od {model}{br}"
 
-#: src/EBox/Model/DataTable.pm:2901
+#: src/EBox/Model/DataTable.pm:2904
 msgid "Page size"
 msgstr "Veličina strane"
 
-#: src/EBox/Model/DataTable.pm:2904
+#: src/EBox/Model/DataTable.pm:2907
 msgid "Must be either a positive number or zero"
 msgstr "Mora biti 0 ili pozitivan broj"
 
-#: src/EBox/Model/DataTable.pm:3211
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} dodaj"
 
-#: src/EBox/Model/DataTable.pm:3212
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} obriši"
 
-#: src/EBox/Model/DataTable.pm:3213
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} ažuriraj"
 
-#: src/EBox/Model/DataTable.pm:3214
+#: src/EBox/Model/DataTable.pm:3217
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} pomeren gore"
 
-#: src/EBox/Model/DataTable.pm:3215
+#: src/EBox/Model/DataTable.pm:3218
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} pomeren dole"

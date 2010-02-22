@@ -8,8 +8,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:17+0000\n"
 "PO-Revision-Date: 2010-02-08 14:39+0100\n"
-"Last-Translator: Carlos Assis Brito de Oliveira Filho "
-"<cassisfilho@gmail.com>\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho <cassisfilho@gmail."
+"com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -418,7 +418,8 @@ msgstr "Redes publicadas"
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
 msgid ""
 "The advertised network address could not be the same than the VPN address"
-msgstr "O endereço de rede publicada não pode ser o mesmo que o endereço da VPN"
+msgstr ""
+"O endereço de rede publicada não pode ser o mesmo que o endereço da VPN"
 
 #: src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
 #, perl-brace-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:43+0000\n"
+"POT-Creation-Date: 2010-02-22 10:53+0100\n"
 "PO-Revision-Date: 2010-01-18 11:12+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -86,12 +86,12 @@ msgstr "Interfaces réseaux"
 msgid "traffic balance"
 msgstr "équilibrage du trafic"
 
-#: src/EBox/Event/Watcher/Gateways.pm:144
+#: src/EBox/Event/Watcher/Gateways.pm:150
 #, perl-brace-format
 msgid "Gateway {gw} connected"
 msgstr "Passerelle {gw} connectée"
 
-#: src/EBox/Event/Watcher/Gateways.pm:261
+#: src/EBox/Event/Watcher/Gateways.pm:285
 #, perl-brace-format
 msgid ""
 "Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' "
@@ -100,12 +100,12 @@ msgstr ""
 "Passerelle {gw} déconnectée({failRatio}% de '{type}' tests sur l'hôte "
 "'{host}' échou, max={maxFailRatio}%)"
 
-#: src/EBox/Event/Watcher/Gateways.pm:322
+#: src/EBox/Event/Watcher/Gateways.pm:346
 #: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3055
 msgid "WAN Failover"
 msgstr "Basculement (Failover) WAN"
 
-#: src/EBox/Event/Watcher/Gateways.pm:338
+#: src/EBox/Event/Watcher/Gateways.pm:362
 msgid "Check if gateways are connected or disconnected."
 msgstr "Vérifier si les passerelles sont connectées ou déconnectées."
 
@@ -716,7 +716,7 @@ msgstr ""
 msgid "WAN Failover is only available for static interfaces"
 msgstr ""
 
-#: src/EBox/Model/WANFailoverRules.pm:196
+#: src/EBox/Model/WANFailoverRules.pm:198
 msgid "Invalid value for Host"
 msgstr "Valeur invalide pour l'hôte"
 

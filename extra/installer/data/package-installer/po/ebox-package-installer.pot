@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-package-installer 1.4\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-02-08 07:02+0000\n"
+"POT-Creation-Date: 2010-02-22 10:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -313,7 +313,8 @@ msgid "Passwords don't match"
 msgstr ""
 
 #: ebox-package-installer:387
-msgid "The username 'ebox' is reserved. Please choose another."
+#, perl-brace-format
+msgid "The username '{user}' is reserved. Please choose another."
 msgstr ""
 
 #: ebox-package-installer:421

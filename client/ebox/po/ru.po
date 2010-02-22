@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:42+0000\n"
+"POT-Creation-Date: 2010-02-22 10:52+0100\n"
 "PO-Revision-Date: 2010-01-28 17:48+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
@@ -154,41 +154,41 @@ msgstr "Конфигурация наблюдателя свободного д�
 msgid "Free Disk Space Watcher"
 msgstr "Наблюдатель свободного дискового пространства"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr "Имя"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
 #: src/templates/backup.mas:44 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:36
 msgid "Description"
 msgstr "Описание"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
 msgstr "Конфигурация"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr "Ничего"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:309
 msgid "Configure Events"
 msgstr "Настроить события"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:317
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
 msgstr "событие"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
 msgid "Enable/Disable each event watcher monitoring"
 msgstr "Ключ для службы прокси не найден"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:506
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
@@ -199,7 +199,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4528
+#: src/EBox/Model/DataTable.pm:4531
 msgid "Enabled"
 msgstr "Включено"
 
@@ -421,7 +421,7 @@ msgstr "Диспетчер {name} отключен, поэтому невозм�
 msgid "Password changed"
 msgstr "Пароль изменен"
 
-#: src/EBox/CGI/ClientRawBase.pm:209
+#: src/EBox/CGI/ClientRawBase.pm:211
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -1276,7 +1276,7 @@ msgstr "Адрес Клиента"
 
 #: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2128
+#: src/EBox/Model/DataTable.pm:2131
 msgid "Action"
 msgstr "Действие"
 
@@ -1363,48 +1363,48 @@ msgstr "около"
 msgid "field"
 msgstr "поле"
 
-#: src/EBox/Model/DataTable.pm:1465
+#: src/EBox/Model/DataTable.pm:1468
 msgid "page"
 msgstr "страница"
 
-#: src/EBox/Model/DataTable.pm:1468
+#: src/EBox/Model/DataTable.pm:1471
 msgid "Page must be a number equal or greater than zero"
 msgstr "Число страниц должно быть большим или равным 0"
 
-#: src/EBox/Model/DataTable.pm:2830
+#: src/EBox/Model/DataTable.pm:2833
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Удалить {num} строк {rowName} из {model}{br}"
 
-#: src/EBox/Model/DataTable.pm:2901
+#: src/EBox/Model/DataTable.pm:2904
 msgid "Page size"
 msgstr "Размер страницы"
 
-#: src/EBox/Model/DataTable.pm:2904
+#: src/EBox/Model/DataTable.pm:2907
 msgid "Must be either a positive number or zero"
 msgstr "Должно быть положительным числом или 0"
 
-#: src/EBox/Model/DataTable.pm:3211
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} добавленно"
 
-#: src/EBox/Model/DataTable.pm:3212
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} удаленно"
 
-#: src/EBox/Model/DataTable.pm:3213
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} обновлено "
 
-#: src/EBox/Model/DataTable.pm:3214
+#: src/EBox/Model/DataTable.pm:3217
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} перемещено вверх"
 
-#: src/EBox/Model/DataTable.pm:3215
+#: src/EBox/Model/DataTable.pm:3218
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} перемещено вниз"

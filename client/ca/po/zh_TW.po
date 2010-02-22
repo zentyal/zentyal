@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-29 23:28+0000\n"
+"POT-Creation-Date: 2010-02-22 10:51+0100\n"
 "PO-Revision-Date: 2009-08-04 00:26+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -32,7 +32,7 @@ msgstr "CA 密語不符"
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "CA 密語最少應該有 {length} 個字元"
 
-#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:95
+#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:96
 #: src/EBox/CGI/IssueCertificate.pm:133
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
@@ -46,15 +46,15 @@ msgstr "建立憑證機構時發生問題"
 msgid "The certificate has NOT been revoked."
 msgstr "該憑證尚未註銷。"
 
-#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
+#: src/EBox/CGI/RevokeCertificate.pm:71 src/EBox/CGI/RenewCertificate.pm:69
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "代表憑證機構憑證之布林值"
 
-#: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:57
+#: src/EBox/CGI/RevokeCertificate.pm:72 src/templates/formRevoke.mas:57
 msgid "Reason"
 msgstr "原因"
 
-#: src/EBox/CGI/RevokeCertificate.pm:76 src/EBox/CGI/RenewCertificate.pm:74
+#: src/EBox/CGI/RevokeCertificate.pm:77 src/EBox/CGI/RenewCertificate.pm:75
 #: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/ShowForm.pm:64
 #: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:748 src/EBox/CA.pm:911
 #: src/EBox/CA.pm:1248 src/EBox/CA.pm:1290 src/EBox/CA.pm:1384
@@ -65,7 +65,7 @@ msgstr "原因"
 msgid "Common Name"
 msgstr "一般名稱"
 
-#: src/EBox/CGI/RevokeCertificate.pm:80 src/EBox/CGI/RenewCertificate.pm:78
+#: src/EBox/CGI/RevokeCertificate.pm:81 src/EBox/CGI/RenewCertificate.pm:79
 #: src/EBox/CGI/IssueCertificate.pm:140 src/EBox/CGI/ShowForm.pm:68
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
@@ -74,11 +74,11 @@ msgstr ""
 "輸入包含無效的字元。只能使用所有的英文字母與數字，和這些非字母與數字的字"
 "元：.?&+:-@* 和空白。"
 
-#: src/EBox/CGI/RevokeCertificate.pm:138
+#: src/EBox/CGI/RevokeCertificate.pm:139
 msgid "The certificate has been revoked"
 msgstr "該憑證已經註銷"
 
-#: src/EBox/CGI/RevokeCertificate.pm:139
+#: src/EBox/CGI/RevokeCertificate.pm:140
 msgid "The CA certificate has been revoked"
 msgstr "該 CA 憑證已經註銷"
 
@@ -86,20 +86,20 @@ msgstr "該 CA 憑證已經註銷"
 msgid "The certificate has NOT been renewed"
 msgstr "該憑證尚未換新"
 
-#: src/EBox/CGI/RenewCertificate.pm:69 src/templates/formRenew.mas:13
+#: src/EBox/CGI/RenewCertificate.pm:70 src/templates/formRenew.mas:13
 #: src/templates/index.mas:52 src/templates/createCA.mas:19
 msgid "Days to expire"
 msgstr "將到期日數"
 
-#: src/EBox/CGI/RenewCertificate.pm:142
+#: src/EBox/CGI/RenewCertificate.pm:143
 msgid "The certificate CANNOT be renewed"
 msgstr "該憑證不能被換新"
 
-#: src/EBox/CGI/RenewCertificate.pm:144
+#: src/EBox/CGI/RenewCertificate.pm:145
 msgid "The certificate has been renewed"
 msgstr "該憑證已經換新"
 
-#: src/EBox/CGI/RenewCertificate.pm:145
+#: src/EBox/CGI/RenewCertificate.pm:146
 msgid "The new CA certificate has been renewed"
 msgstr "新的 CA 憑證已經換新"
 

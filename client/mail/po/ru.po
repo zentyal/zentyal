@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:43+0000\n"
+"POT-Creation-Date: 2010-02-22 10:52+0100\n"
 "PO-Revision-Date: 2010-02-03 21:06+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
@@ -143,7 +143,7 @@ msgid "maildrop"
 msgstr "maildrop"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1551
+#: src/EBox/Mail.pm:1552
 msgid "Queue Management"
 msgstr "Управление очередью"
 
@@ -152,7 +152,7 @@ msgid "Admin mail recipient"
 msgstr "Получатель почты администратора"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1468 src/EBox/Mail.pm:1620
+#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1469 src/EBox/Mail.pm:1621
 msgid "Mail"
 msgstr "Почта"
 
@@ -221,6 +221,8 @@ msgid "The mail domain is appended automatically"
 msgstr "Почтовый домен добавляется автоматически"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:63
+#: src/EBox/Mail/Model/ExternalAccounts.pm:87
+#: src/EBox/Mail/Model/ExternalAccounts.pm:270
 msgid "External account"
 msgstr "Внешний аккаунт"
 
@@ -317,51 +319,57 @@ msgstr "ничего"
 msgid "custom"
 msgstr "пользовательский"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:65
-#: src/EBox/Mail/Model/ExternalAccounts.pm:117
+#: src/EBox/Mail/Model/ExternalAccounts.pm:68
+#: src/EBox/Mail/Model/ExternalAccounts.pm:120
 msgid "External mail accounts"
 msgstr "Внешние почтовые ящики"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:84
-msgid "External mail address"
-msgstr "Внешний почтовый адрес"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:91
+#: src/EBox/Mail/Model/ExternalAccounts.pm:94
 #: src/EBox/Mail/Model/SMTPOptions.pm:107
 msgid "Password"
 msgstr "Пароль"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:98
+#: src/EBox/Mail/Model/ExternalAccounts.pm:101
 #: src/EBox/Mail/Composite/General.pm:78
 msgid "Mail server"
 msgstr "Почтовый сервер"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:118
+#: src/EBox/Mail/Model/ExternalAccounts.pm:121
 msgid "external mail account"
 msgstr "Внешние почтовые ящики"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:124
+#: src/EBox/Mail/Model/ExternalAccounts.pm:127
 msgid "Fetching mail is done every 10 minutes"
 msgstr "Получение почты проходит каждые 10 минут"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:141
+#: src/EBox/Mail/Model/ExternalAccounts.pm:144
 msgid "Secure POP3"
 msgstr "Защищённый POP3"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:149
+#: src/EBox/Mail/Model/ExternalAccounts.pm:152
 msgid "Secure IMAP"
 msgstr "Защищённый IMAP"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:281
+#: src/EBox/Mail/Model/ExternalAccounts.pm:276
+#: src/EBox/Mail/Model/ExternalAccounts.pm:283
+#, fuzzy
+msgid "External account username"
+msgstr "Внешний аккаунт добавлен"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:278
+msgid "No spaces allowed"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"
 msgstr "Внешний аккаунт добавлен"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:305
+#: src/EBox/Mail/Model/ExternalAccounts.pm:341
 #, perl-brace-format
 msgid "External account {ac} removed"
 msgstr "Внешний аккаунт {ac} удалён"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:401
+#: src/EBox/Mail/Model/ExternalAccounts.pm:439
 msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
@@ -721,7 +729,7 @@ msgstr "Тема"
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] событие произошло на {hostName}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1589
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1590
 msgid "To"
 msgstr "Кому"
 
@@ -763,7 +771,7 @@ msgstr "Полученные сообщения"
 msgid "Rejected messages"
 msgstr "Отклоненные сообщения"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1586
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1587
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Дата"
@@ -870,7 +878,7 @@ msgstr "Настроить dovecot для аутентификации чере�
 msgid "To configure smart host authentication"
 msgstr "Настроить узел проверки подлиности"
 
-#: src/EBox/Mail.pm:681
+#: src/EBox/Mail.pm:682
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -878,30 +886,30 @@ msgstr ""
 "НЕ возможно использовать имя хоста как имя почтового сервера, так как оно не "
 "подходит. Пожалуста определите вручную имя почтового сервера"
 
-#: src/EBox/Mail.pm:686
+#: src/EBox/Mail.pm:687
 msgid "The mail name must be a fully qualified name"
 msgstr "Имя почтового сервера должно быть подходящим"
 
-#: src/EBox/Mail.pm:691 src/EBox/Mail.pm:702 src/EBox/Mail.pm:711
+#: src/EBox/Mail.pm:692 src/EBox/Mail.pm:703 src/EBox/Mail.pm:712
 msgid "Host mail name"
 msgstr "Имя почтового сервера"
 
-#: src/EBox/Mail.pm:705
+#: src/EBox/Mail.pm:706
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "Имя почтового сервера и имя виртуального домена одинаковые"
 
-#: src/EBox/Mail.pm:974
+#: src/EBox/Mail.pm:975
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "Невозможно изменить данный параметр для не пользовательских фильтров"
 
-#: src/EBox/Mail.pm:990 src/EBox/Mail.pm:1010
+#: src/EBox/Mail.pm:991 src/EBox/Mail.pm:1011
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 "Почтовый фильтр не существует. Пожалуйста установите другой почтовый фильтр "
 "или отключите это."
 
-#: src/EBox/Mail.pm:1017
+#: src/EBox/Mail.pm:1018
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
@@ -909,151 +917,151 @@ msgstr ""
 "Почтовый фильтр $name отключен. Пожалуйста установите другой фильтр или "
 "отключите его"
 
-#: src/EBox/Mail.pm:1414
+#: src/EBox/Mail.pm:1415
 msgid "SMTP service"
 msgstr "Служба SMTP"
 
-#: src/EBox/Mail.pm:1421
+#: src/EBox/Mail.pm:1422
 msgid "POP3 service"
 msgstr "Служба POP3"
 
-#: src/EBox/Mail.pm:1427
+#: src/EBox/Mail.pm:1428
 msgid "POP3S service"
 msgstr "Служба POP3S"
 
-#: src/EBox/Mail.pm:1433
+#: src/EBox/Mail.pm:1434
 msgid "IMAP service"
 msgstr "Служба IMAP"
 
-#: src/EBox/Mail.pm:1439
+#: src/EBox/Mail.pm:1440
 msgid "IMAPS service"
 msgstr "Служба IMAPS"
 
-#: src/EBox/Mail.pm:1482
+#: src/EBox/Mail.pm:1483
 msgid "enabled"
 msgstr "включен"
 
-#: src/EBox/Mail.pm:1482
+#: src/EBox/Mail.pm:1483
 msgid "disabled"
 msgstr "отключен"
 
-#: src/EBox/Mail.pm:1484 src/EBox/Mail.pm:1595 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1485 src/EBox/Mail.pm:1596 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr "Состояние"
 
-#: src/EBox/Mail.pm:1487
+#: src/EBox/Mail.pm:1488
 msgid "Mail server's filter"
 msgstr "Фильтр почтовых серверов"
 
-#: src/EBox/Mail.pm:1496 src/EBox/Mail.pm:1503
+#: src/EBox/Mail.pm:1497 src/EBox/Mail.pm:1504
 msgid "Filter type"
 msgstr "Тип фильтра"
 
-#: src/EBox/Mail.pm:1497
+#: src/EBox/Mail.pm:1498
 msgid "Custom"
 msgstr "Пользовательский"
 
-#: src/EBox/Mail.pm:1499
+#: src/EBox/Mail.pm:1500
 msgid "Address"
 msgstr "Адрес"
 
-#: src/EBox/Mail.pm:1532
+#: src/EBox/Mail.pm:1533
 msgid "General"
 msgstr "Общие"
 
-#: src/EBox/Mail.pm:1539
+#: src/EBox/Mail.pm:1540
 msgid "Virtual Mail Domains"
 msgstr "Виртуальные почтовые домены"
 
-#: src/EBox/Mail.pm:1545
+#: src/EBox/Mail.pm:1546
 msgid "Greylist"
 msgstr "Серый список"
 
-#: src/EBox/Mail.pm:1578
+#: src/EBox/Mail.pm:1579
 msgid "Mail retrieval from external accounts"
 msgstr "Почта получаемая с внешних почтовых аккаунтов"
 
-#: src/EBox/Mail.pm:1587
+#: src/EBox/Mail.pm:1588
 msgid "Message ID"
 msgstr "ID сообщения"
 
-#: src/EBox/Mail.pm:1588
+#: src/EBox/Mail.pm:1589
 msgid "From"
 msgstr "От"
 
-#: src/EBox/Mail.pm:1590
+#: src/EBox/Mail.pm:1591
 msgid "From hostname"
 msgstr "От узла (имя)"
 
-#: src/EBox/Mail.pm:1591
+#: src/EBox/Mail.pm:1592
 msgid "From host ip"
 msgstr "От узла (IP)"
 
-#: src/EBox/Mail.pm:1592 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1593 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Размер (байт)"
 
-#: src/EBox/Mail.pm:1593
+#: src/EBox/Mail.pm:1594
 msgid "Relay"
 msgstr "Пересылка"
 
-#: src/EBox/Mail.pm:1594
+#: src/EBox/Mail.pm:1595
 msgid "Message type"
 msgstr "Тип сообщения"
 
-#: src/EBox/Mail.pm:1596
+#: src/EBox/Mail.pm:1597
 msgid "Event"
 msgstr "Событие"
 
-#: src/EBox/Mail.pm:1597
+#: src/EBox/Mail.pm:1598
 msgid "Additional Info"
 msgstr "Дополнительная информация"
 
-#: src/EBox/Mail.pm:1608
+#: src/EBox/Mail.pm:1609
 msgid "Successful messages"
 msgstr "Успешное сообщение"
 
-#: src/EBox/Mail.pm:1609
+#: src/EBox/Mail.pm:1610
 msgid "Maximum message size exceeded"
 msgstr "Превышен макс. размер сообщения"
 
-#: src/EBox/Mail.pm:1610
+#: src/EBox/Mail.pm:1611
 msgid "User quote exceeded"
 msgstr "Превышена квота пользователя"
 
-#: src/EBox/Mail.pm:1611
+#: src/EBox/Mail.pm:1612
 msgid "Relay access denied"
 msgstr "Доступ к пересылке отклонен"
 
-#: src/EBox/Mail.pm:1612
+#: src/EBox/Mail.pm:1613
 msgid "Account does not exist"
 msgstr "Учетная запись не существует"
 
-#: src/EBox/Mail.pm:1613
+#: src/EBox/Mail.pm:1614
 msgid "Host unreachable"
 msgstr "Узел недоступен"
 
-#: src/EBox/Mail.pm:1614
+#: src/EBox/Mail.pm:1615
 msgid "Authentication error"
 msgstr "Ошибка аутентификации"
 
-#: src/EBox/Mail.pm:1615
+#: src/EBox/Mail.pm:1616
 msgid "Greylisted"
 msgstr "Серый список"
 
-#: src/EBox/Mail.pm:1616
+#: src/EBox/Mail.pm:1617
 msgid "Other events"
 msgstr "Другие события"
 
-#: src/EBox/Mail.pm:1803
+#: src/EBox/Mail.pm:1804
 msgid "Mailboxes"
 msgstr "Почтовые ящики"
 
-#: src/EBox/Mail.pm:1831
+#: src/EBox/Mail.pm:1832
 msgid "Mail SMTP server"
 msgstr "Почтовый SMTP сервер"
 
-#: src/EBox/Mail.pm:1838
+#: src/EBox/Mail.pm:1839
 msgid "Mail POP/IMAP server"
 msgstr "Почтовый POP/IMAP сервер"
 
@@ -1227,6 +1235,9 @@ msgstr ""
 #: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
 msgid "Change"
 msgstr "Изменить"
+
+#~ msgid "External mail address"
+#~ msgstr "Внешний почтовый адрес"
 
 #~ msgid "size in Mb"
 #~ msgstr "размер в Mb"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:42+0000\n"
+"POT-Creation-Date: 2010-02-22 10:52+0100\n"
 "PO-Revision-Date: 2010-02-19 16:35+0100\n"
 "Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
@@ -155,41 +155,41 @@ msgstr "Configurar monitor do espaço livre no disco"
 msgid "Free Disk Space Watcher"
 msgstr "Espaço Livre em Disco para o Monitor"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr "Nome"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
 #: src/templates/backup.mas:44 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:36
 msgid "Description"
 msgstr "Descrição"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
 msgstr "Configuração"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr "Nenhum"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:309
 msgid "Configure Events"
 msgstr "Configurar eventos"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:317
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
 msgstr "evento"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
 msgid "Enable/Disable each event watcher monitoring"
 msgstr "Ativar/desativar cada monitor de eventos"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:506
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
@@ -201,7 +201,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4528
+#: src/EBox/Model/DataTable.pm:4531
 msgid "Enabled"
 msgstr "Ativado"
 
@@ -428,7 +428,7 @@ msgstr ""
 msgid "Password changed"
 msgstr "Senha alterada"
 
-#: src/EBox/CGI/ClientRawBase.pm:209
+#: src/EBox/CGI/ClientRawBase.pm:211
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -531,7 +531,8 @@ msgstr "Backup da configuração"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Por favor, confirme que você quer deletar o seguinte arquivo de backup:"
+msgstr ""
+"Por favor, confirme que você quer deletar o seguinte arquivo de backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
 #: src/templates/backup.mas:173
@@ -920,7 +921,8 @@ msgstr "de reserva"
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "Os seguintes módulos não estão em execução mas estão habilitados: {modules}\n"
+msgstr ""
+"Os seguintes módulos não estão em execução mas estão habilitados: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
@@ -1288,7 +1290,7 @@ msgstr "Endereço do cliente"
 
 #: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2128
+#: src/EBox/Model/DataTable.pm:2131
 msgid "Action"
 msgstr "Ação"
 
@@ -1375,48 +1377,48 @@ msgstr "na"
 msgid "field"
 msgstr "campo"
 
-#: src/EBox/Model/DataTable.pm:1465
+#: src/EBox/Model/DataTable.pm:1468
 msgid "page"
 msgstr "página"
 
-#: src/EBox/Model/DataTable.pm:1468
+#: src/EBox/Model/DataTable.pm:1471
 msgid "Page must be a number equal or greater than zero"
 msgstr "A página deve ter um número igual ou superior a zero"
 
-#: src/EBox/Model/DataTable.pm:2830
+#: src/EBox/Model/DataTable.pm:2833
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Remover {num} filas de {rowName} de {model}{br}"
 
-#: src/EBox/Model/DataTable.pm:2901
+#: src/EBox/Model/DataTable.pm:2904
 msgid "Page size"
 msgstr "Tamanho da página"
 
-#: src/EBox/Model/DataTable.pm:2904
+#: src/EBox/Model/DataTable.pm:2907
 msgid "Must be either a positive number or zero"
 msgstr "Deve ser um número positivo ou zero"
 
-#: src/EBox/Model/DataTable.pm:3211
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} adicionada"
 
-#: src/EBox/Model/DataTable.pm:3212
+#: src/EBox/Model/DataTable.pm:3215
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} deletada"
 
-#: src/EBox/Model/DataTable.pm:3213
+#: src/EBox/Model/DataTable.pm:3216
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} atualizada"
 
-#: src/EBox/Model/DataTable.pm:3214
+#: src/EBox/Model/DataTable.pm:3217
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} movida para cima"
 
-#: src/EBox/Model/DataTable.pm:3215
+#: src/EBox/Model/DataTable.pm:3218
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} movida para baixo"
@@ -1525,8 +1527,7 @@ msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr ""
-"Dependência não resolvida do módulo {topModule}: {modName} não está "
-"instalado"
+"Dependência não resolvida do módulo {topModule}: {modName} não está instalado"
 
 #: src/EBox/Backup.pm:1333
 msgid "Backup's archives"

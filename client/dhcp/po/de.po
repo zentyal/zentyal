@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:41+0000\n"
+"POT-Creation-Date: 2010-02-22 10:51+0100\n"
 "PO-Revision-Date: 2010-02-11 13:49+0100\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -272,7 +272,8 @@ msgstr "Die Domain {domain} wurde schon manuell im Bereich DNS definiert"
 
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
-msgstr "Das DNS-Modul muß konfiguriert werden um mit dieser Option zu arbeiten."
+msgstr ""
+"Das DNS-Modul muß konfiguriert werden um mit dieser Option zu arbeiten."
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format
@@ -283,8 +284,8 @@ msgstr "{pkg} muß installiert sein um diese Option zu nutzen"
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
-"Domains werden automatisch im Abschnitt DNS im Nur-Lesen-Modus "
-"angelegt/gesetzt."
+"Domains werden automatisch im Abschnitt DNS im Nur-Lesen-Modus angelegt/"
+"gesetzt."
 
 #: src/EBox/Model/DynamicDNS.pm:268
 msgid "DNS module must be enabled to make this feature work. "
@@ -463,8 +464,8 @@ msgid ""
 "If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
 "DHCP clients"
 msgstr ""
-"Wenn \"eBox Samba\" vorhanden und ausgewählt ist, stellt eBox für DHCP-Clients "
-"als WINS-Server zur Verfügung"
+"Wenn \"eBox Samba\" vorhanden und ausgewählt ist, stellt eBox für DHCP-"
+"Clients als WINS-Server zur Verfügung"
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"

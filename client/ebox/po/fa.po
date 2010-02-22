@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:42+0000\n"
+"POT-Creation-Date: 2010-02-22 10:52+0100\n"
 "PO-Revision-Date: 2009-02-11 09:39+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -150,45 +150,45 @@ msgstr "پیکربندی مشاهده‌گر فضای خالی دیسک"
 msgid "Free Disk Space Watcher"
 msgstr "پیکربندی مشاهده‌گر فضای خالی دیسک"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
 #: src/templates/backup.mas:44 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:36
 #, fuzzy
 msgid "Description"
 msgstr "صفحه اشتراک"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 #, fuzzy
 msgid "Configuration"
 msgstr "فقط پیکربندی"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:309
 #, fuzzy
 msgid "Configure Events"
 msgstr "پیکربندی ابزارک‌ها"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:317
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
 #, fuzzy
 msgid "event"
 msgstr "رویداد"
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
 msgid "Enable/Disable each event watcher monitoring"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:506
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
@@ -197,7 +197,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4528
+#: src/EBox/Model/DataTable.pm:4531
 #, fuzzy
 msgid "Enabled"
 msgstr "غیرفعال"
@@ -421,7 +421,7 @@ msgstr ""
 msgid "Password changed"
 msgstr "لغو تغییرات"
 
-#: src/EBox/CGI/ClientRawBase.pm:209
+#: src/EBox/CGI/ClientRawBase.pm:211
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -1265,7 +1265,7 @@ msgstr "نشانی کلاینت"
 
 #: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
-#: src/EBox/Model/DataTable.pm:2128
+#: src/EBox/Model/DataTable.pm:2131
 #, fuzzy
 msgid "Action"
 msgstr "اقدامات"
@@ -1353,51 +1353,51 @@ msgstr "تاریخ"
 msgid "field"
 msgstr "ناموفق"
 
-#: src/EBox/Model/DataTable.pm:1465
+#: src/EBox/Model/DataTable.pm:1468
 #, fuzzy
 msgid "page"
 msgstr "یدکی"
 
-#: src/EBox/Model/DataTable.pm:1468
+#: src/EBox/Model/DataTable.pm:1471
 #, fuzzy
 msgid "Page must be a number equal or greater than zero"
 msgstr "بایستی بزرگتر از صفر باشد"
 
-#: src/EBox/Model/DataTable.pm:2830
+#: src/EBox/Model/DataTable.pm:2833
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2901
+#: src/EBox/Model/DataTable.pm:2904
 msgid "Page size"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2904
+#: src/EBox/Model/DataTable.pm:2907
 #, fuzzy
 msgid "Must be either a positive number or zero"
 msgstr "آن بایستی یک عدد مثبت غیرصفر باشد"
 
-#: src/EBox/Model/DataTable.pm:3211
+#: src/EBox/Model/DataTable.pm:3214
 #, perl-brace-format
 msgid "{row} added"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:3212
+#: src/EBox/Model/DataTable.pm:3215
 #, fuzzy, perl-brace-format
 msgid "{row} deleted"
 msgstr "حذف"
 
-#: src/EBox/Model/DataTable.pm:3213
+#: src/EBox/Model/DataTable.pm:3216
 #, fuzzy, perl-brace-format
 msgid "{row} updated"
 msgstr "از تاریخ:"
 
-#: src/EBox/Model/DataTable.pm:3214
+#: src/EBox/Model/DataTable.pm:3217
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:3215
+#: src/EBox/Model/DataTable.pm:3218
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr ""
