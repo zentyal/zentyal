@@ -7,8 +7,9 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-03 19:21+0000\n"
-"PO-Revision-Date: 2009-01-23 23:12+0000\n"
-"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
+"PO-Revision-Date: 2010-02-08 14:34+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -124,7 +125,7 @@ msgstr "Diretório não encontrado: {d}"
 
 #: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
-msgstr ""
+msgstr "Precisa ser um número entre 1 e 4096"
 
 #: src/EBox/Validate.pm:700
 #, perl-brace-format
@@ -180,46 +181,46 @@ msgstr "Remover"
 
 #: src/templates/ajax/tableBody.mas:117
 msgid "Add new"
-msgstr ""
+msgstr "Adicionar novo"
 
 #: src/templates/ajax/tableBody.mas:128
 #, perl-brace-format
 msgid "Adding a new {row}"
-msgstr ""
+msgstr "Adicionando uma nova {row}"
 
 #: src/templates/ajax/tableBody.mas:134
 #, perl-brace-format
 msgid "Editing {row}"
-msgstr ""
+msgstr "Editando {row}"
 
 #: src/templates/ajax/tableBody.mas:190
 msgid "Search"
-msgstr ""
+msgstr "Pesquisar"
 
 #: src/templates/ajax/tableBody.mas:336
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: src/templates/ajax/tableBody.mas:360
 #, fuzzy
 msgid "Cancel"
-msgstr "Alterar"
+msgstr "Cancelar"
 
 #: src/templates/ajax/tableBody.mas:440
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: src/templates/ajax/tableBody.mas:442
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: src/templates/ajax/tableBody.mas:447
 msgid "Read-only row: edit disabled"
-msgstr ""
+msgstr "Linha somente leitura: edição desabilitada"
 
 #: src/templates/ajax/tableBody.mas:448
 msgid "Read-only row: delete disabled"
-msgstr ""
+msgstr "Linha somente leitura: remoção desabilitada"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -257,7 +258,7 @@ msgstr "Alterar"
 
 #: src/templates/ajax/tablePager.mas:47
 msgid "of"
-msgstr ""
+msgstr "de"
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
