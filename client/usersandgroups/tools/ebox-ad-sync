@@ -59,7 +59,11 @@ foreach my $username (@usersToAdd) {
     # we still don't have the good one, we generate a random one
     $user->{password} = randomPassword();
 
-    $usersMod->addUser($user);
+    try {
+        $usersMod->addUser($user);
+    } catch Error with {
+        EBox::warn("[ad-sync] Error adding user '$username'.");
+    };
 }
 
 foreach my $username (@usersToModify) {
@@ -76,7 +80,11 @@ foreach my $groupname (@groupsToDel) {
 foreach my $groupname (@groupsToAdd) {
     my $group = $newGroups{$groupname};
     EBox::debug("[ad-sync] Adding new group $groupname");
-    $usersMod->addGroup($groupname, $group->{comment}, 0);
+    try {
+        $usersMod->addGroup($groupname, $group->{comment}, 0);
+    } catch Error with {
+        EBox::warn("[ad-sync] Error adding group '$groupname'.");
+    };
     foreach my $member (@{$group->{members}}) {
         # Sometimes it tries to add non-existent users
         # so we handle that gracefully
@@ -94,17 +102,16 @@ foreach my $groupname (@groupsToAdd) {
 foreach my $groupname (@groupsToModify) {
     my $group = $newGroups{$groupname};
     my $usersInGroup = $usersMod->usersInGroup($groupname);
-    my %newMembers = map { $_ => 1 } @{$group->{members}};
+    my %newMembers = map { getPrincipalName($_) => 1 } @{$group->{members}};
     my %currentMembers = map { $_ => 1 } @{$usersInGroup};
     my @membersToAdd = grep { not exists $currentMembers{$_} } keys %newMembers;
     my @membersToDel = grep { not exists $newMembers{$_} } keys %currentMembers;
 
     foreach my $member (@membersToAdd) {
         try {
-            my $user = getPrincipalName($member);
-            next unless $user;
-            EBox::debug("[ad-sync] Adding user $user to existing group $groupname");
-            $usersMod->addUserToGroup($user, $groupname);
+            next unless $member;
+            EBox::debug("[ad-sync] Adding user $member to existing group $groupname");
+            $usersMod->addUserToGroup($member, $groupname);
         } catch Error with {
             EBox::warn("[ad-sync] can't add user $user to group $groupname.");
         };
@@ -282,7 +289,7 @@ sub getPrincipalName # (dn)
     my %attrs = (
                  base => $dn,
                  filter => '(objectclass=user)',
-                 scope => 'one',
+                 scope => 'sub',
                  attrs => ['userPrincipalName']
                 );
 

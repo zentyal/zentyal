@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: some problems with the AD synchronization solved
 1.5
 	+ Bug fix: don't try to contact slaves from within a slave when groups
 	  are updated
