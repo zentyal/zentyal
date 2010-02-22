@@ -257,16 +257,48 @@ sub createDirs
         my $pathType =  $row->elementByName('path');
         next unless ( $pathType->selectedType() eq 'ebox');
         my $path = EBOX_SHARE_DIR . $pathType->value();
-        next if ( -d $path );
-        try {
-            EBox::Sudo::root("mkdir -p $path");
-            EBox::Sudo::root('chmod ' . DEFAULT_MASK . " $path");
-            EBox::Sudo::root('chown ' . DEFAULT_USER . ':'
-                             .  DEFAULT_GROUP . " $path");
-        } otherwise {
-            EBox::debug("Couldn't create dir $path");
-        };
+        unless ( -d $path ) {
+            try {
+                EBox::Sudo::root("mkdir -p $path");
+                EBox::Sudo::root('chmod ' . DEFAULT_MASK . " $path");
+                EBox::Sudo::root('chown ' . DEFAULT_USER . ':'
+                        .  DEFAULT_GROUP . " $path");
+            } otherwise {
+                EBox::debug("Couldn't create dir $path");
+            };
+        }
+        # ACLs
+        my @perms;
+        for my $subId (@{$row->subModel('access')->ids()}) {
+            my $subRow = $row->subModel('access')->row($subId);
+            my $permissions = $subRow->elementByName('permissions');
+            next if ($permissions->value() eq 'administrator');
+            my $userType = $subRow->elementByName('user_group');
+            my $perm;
+            if ($userType->selectedType() eq 'group') {
+                $perm = 'g:';
+            } elsif ($userType->selectedType() eq 'user') {
+                $perm = 'u:';
+            }
+            $perm .= $userType->printableValue() . ':';
 
+
+            if ($permissions->value() eq 'readOnly') {
+                $perm .= 'rx';
+            } elsif ($permissions->value() eq 'readWrite') {
+                $perm .= 'rwx';
+            }
+            push (@perms, $perm);
+        }
+        my $cmd = 'setfacl -m ' . join(',', @perms) . " $path";
+        my $defaultCmd = 'setfacl -m d:' . join(',d:', @perms) ." $path";
+        EBox::debug("$cmd and $defaultCmd");
+        try {
+            EBox::Sudo::root($cmd);
+            EBox::Sudo::root($defaultCmd);
+        } otherwise {
+            EBox::debug("Couldn't enable ACLs for $path")
+        };
     }
 }
 

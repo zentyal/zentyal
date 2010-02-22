@@ -1,3 +1,6 @@
+HEAD
+	+ Add support for file system ACLs. Modify /etc/fstab
+	  accordingly. Add dependency on acl. 
 1.4.2
 	+ Add missing samba_virus_report table
 1.4.1

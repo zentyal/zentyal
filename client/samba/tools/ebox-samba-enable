@@ -68,7 +68,7 @@ if ($line) {
         exit 0;
     } else {
         my $t = $fields[3];
-        $fstab[$line] =~ s/$t/$t,usrquota,grpquota/;
+        $fstab[$line] =~ s/$t/$t,usrquota,grpquota,acl/;
     }
 } else {
     print "Could not find / or /home mounting points";
