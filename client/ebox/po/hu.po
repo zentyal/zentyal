@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:42+0000\n"
-"PO-Revision-Date: 2010-02-03 15:22+0100\n"
+"PO-Revision-Date: 2010-02-09 12:01+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
-msgstr "összes jelölés"
+msgstr "Összes jelölés"
 
 #: src/EBox/ProgressIndicator.pm:43
 msgid "It must be a non-zero positive number"
@@ -37,7 +37,7 @@ msgstr "A folyamatjelző nem találja ezt: {id}"
 
 #: src/EBox/ProgressIndicator.pm:139
 msgid "Number of ticks to notify"
-msgstr "megjelölt megjegyzések száma"
+msgstr "Megjelölt megjegyzések száma"
 
 #: src/EBox/ProgressIndicator.pm:141
 msgid "must be greater than zero"
@@ -45,19 +45,19 @@ msgstr "nullánál nagyobbnak kell lennie"
 
 #: src/EBox/ProgressIndicator.pm:147
 msgid "Executable has not been run"
-msgstr "végrehajtás nem futtatható"
+msgstr "A végrehajtás nem futtatható"
 
 #: src/EBox/ProgressIndicator.pm:264
 msgid "The executable has not run"
-msgstr "végrehajtás nem fut"
+msgstr "A végrehajtás nem fut"
 
 #: src/EBox/ProgressIndicator.pm:395
 msgid "The executable has already been started"
-msgstr "végrehajtás már elindult"
+msgstr "A végrehajtás elindult"
 
 #: src/EBox/ProgressIndicator.pm:399
 msgid "The executable has already finished"
-msgstr "végrehajtás már véget ért"
+msgstr "A végrehajtás leállt"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:215
 #: src/EBox/Events/Model/Watcher/Log.pm:239
@@ -72,19 +72,19 @@ msgstr ""
 #: src/EBox/Logs/Model/SelectLog.pm:143
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
 msgid "Domain"
-msgstr "domain"
+msgstr "Tartomány"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:268
 msgid "Filtering"
-msgstr "szűrés"
+msgstr "Szűrés"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:276
 msgid "Configure log watchers"
-msgstr "napló figyelő beállítása"
+msgstr "Napló figyelő beállítása"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:278
 msgid "Log watcher"
-msgstr "napló figyelő"
+msgstr "Napló figyelő"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:386
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:212
@@ -175,11 +175,11 @@ msgstr "Beállítás"
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
-msgstr "nincs"
+msgstr "Nincs"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
 msgid "Configure Events"
-msgstr "események beállítása"
+msgstr "Események beállítása"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
@@ -207,11 +207,11 @@ msgstr "bekapcsolva"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Receiver"
-msgstr "vevő"
+msgstr "Vevő"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 msgid "Configure Dispatchers"
-msgstr "jelentések beállítása"
+msgstr "Jelentések beállítása"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
 msgid "dispatcher"
@@ -262,7 +262,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
 msgid "User password"
-msgstr "felhasználói jelszó"
+msgstr "Felhasználói jelszó"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid "Subscribe"
@@ -312,7 +312,7 @@ msgstr "Kövesse a mintát: 'felhasználó@tartomány[/erőforrás]'"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:150
 msgid "Nobody"
-msgstr "senki"
+msgstr "Senki"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:154
 msgid "IP address"
@@ -320,19 +320,19 @@ msgstr "IP cím"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:161
 msgid "Object"
-msgstr "objektum"
+msgstr "Objektum"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:170
 msgid "Public"
-msgstr "nyilvános"
+msgstr "Nyilvános"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:177
 msgid "Channel link"
-msgstr "csatorna hivatkozás"
+msgstr "Csatorna hivatkozás"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:184
 msgid "Allowed readers"
-msgstr "engedélyezett olvasók"
+msgstr "Engedélyezett olvasók"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:187
 msgid "Use this field to set the access control for the channel"
@@ -384,13 +384,13 @@ msgstr "Figyelmeztetés"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:88
 #: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:817
 msgid "Error"
-msgstr "Hiba!"
+msgstr "Hiba"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:54
 #: src/EBox/Events/Model/Report/EventsDetails.pm:92
 #: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
 msgid "Fatal error"
-msgstr "Végzetes hiba!"
+msgstr "Végzetes hiba"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
 #: src/templates/finish.mas:116 src/templates/backup.mas:128
@@ -427,7 +427,7 @@ msgstr ""
 
 #: src/EBox/Auth.pm:155
 msgid "Password changed"
-msgstr "jelszó megváltozott"
+msgstr "A jelszó megváltozott"
 
 #: src/EBox/CGI/ClientRawBase.pm:209
 msgid ""
@@ -505,7 +505,7 @@ msgstr "eBox újra fog indulni"
 
 #: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:49
 msgid "Password"
-msgstr "jelszó"
+msgstr "Jelszó"
 
 #: src/EBox/CGI/EBox/Password.pm:52
 msgid "Incorrect password."
@@ -1566,9 +1566,8 @@ msgid "Process List"
 msgstr "Folyamatlista"
 
 #: src/EBox/SysInfo.pm.in:167
-#, fuzzy
 msgid "Resources & Services"
-msgstr "Támogatás és szolgáltatások"
+msgstr "Erőforrások és szolgáltatások"
 
 #: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
@@ -1670,7 +1669,7 @@ msgstr "Elfogad"
 
 #: src/templates/dashboard/index.mas:21 src/templates/dashboard/status.mas:18
 msgid "Running"
-msgstr "Futtatás"
+msgstr "Fut"
 
 #: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
 msgid "The service is enabled and running"
@@ -2152,7 +2151,7 @@ msgstr "kilépés"
 
 #: src/templates/password.mas:4
 msgid "Change Password"
-msgstr "jelszócsere"
+msgstr "Jelszócsere"
 
 #: src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
@@ -2160,15 +2159,15 @@ msgstr "A jelszó minimális hossza 6 karakter!"
 
 #: src/templates/password.mas:11
 msgid "Current password"
-msgstr "jelenlegi jelszó"
+msgstr "Jelenlegi jelszó"
 
 #: src/templates/password.mas:25
 msgid "New password"
-msgstr "új jelszó"
+msgstr "Új jelszó"
 
 #: src/templates/password.mas:39
 msgid "Confirm password"
-msgstr "jelszó megerősítése"
+msgstr "Jelszó megerősítése"
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"

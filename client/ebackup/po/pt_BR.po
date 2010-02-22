@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:37+0000\n"
-"PO-Revision-Date: 2010-02-04 17:29+0100\n"
-"Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
+"PO-Revision-Date: 2010-02-08 14:47+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -161,6 +162,9 @@ msgid ""
 "keep on your eBox servers. Purchase the backup storage space you need at the "
 "{ohref}eBox on-line store{chref}."
 msgstr ""
+"{oi}{brand}{ci} é um local remoto rápido e seguro para armazenar os dados "
+"que você quiser dos seus servidores eBox. Compre espaço de armazenamento de "
+"backup que você precisa na {ohref}loja on-line eBox{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:406
 msgid "Destination must be a relative directory"
@@ -203,6 +207,8 @@ msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
+"Como deve ser 'other.host[:port]/relative_path' ou "
+"'other.host[:port]/absolute_path'"
 
 #: src/EBox/Model/RemoteSettings.pm:512
 msgid "absolute directory"
@@ -216,6 +222,8 @@ msgstr "Diretório relativo"
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
+"O método do sistema de arquivo precisa que o parâmetro seja o caminho de um "
+"diretório"
 
 #: src/EBox/Model/RemoteSettings.pm:536 src/EBox/Model/RemoteSettings.pm:540
 msgid "Directory for backup"
@@ -227,16 +235,18 @@ msgstr "Existe um arquivo e não um diretório"
 
 #: src/EBox/Model/RemoteSettings.pm:564
 msgid "Full backup cannot be more frequent than incremental backup"
-msgstr ""
+msgstr "O Full Backup não pode ser mais incremental com frequência"
 
 #: src/EBox/Model/RemoteSettings.pm:576
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
+"Configuração geral do servidor de backup atualizado. O método de SCP "
+"selecionou; <em>remember</em> para adicionar seu host à lista de host "
+"conhecidos por SSH"
 
 #: src/EBox/Model/RemoteExcludes.pm:82
-#, fuzzy
 msgid "Exclude or Include"
 msgstr "Excluir ou incluir"
 
@@ -253,7 +263,6 @@ msgid "Exclude path"
 msgstr "Excluir caminho"
 
 #: src/EBox/Model/RemoteExcludes.pm:117
-#, fuzzy
 msgid "Exclude regexp"
 msgstr "Excluir regexp"
 
@@ -262,7 +271,6 @@ msgid "Include Path"
 msgstr "Incluir Caminho"
 
 #: src/EBox/Model/RemoteExcludes.pm:143
-#, fuzzy
 msgid "exclude path"
 msgstr "Excluir caminho"
 

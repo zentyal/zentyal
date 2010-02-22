@@ -1,3 +1,17 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-08 14:24+0200\n"
+"PO-Revision-Date: 2010-02-08 14:26+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"X-Generator: Pootle 1.1.0\n"
+
 # Portuguese translations for ebox-trafficshaping package.
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
@@ -245,16 +259,16 @@ msgstr "{iface} (interface externa)"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:99
 msgid "Upload"
-msgstr ""
+msgstr "Upload"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
 msgid "Upload rate in Kbits/s through this interface"
-msgstr ""
+msgstr "Taxa de Upload em Kbits/s através dessa interface"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:118
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:119
@@ -264,11 +278,11 @@ msgstr "{iface} (interface externa)"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:126
 msgid "rate"
-msgstr ""
+msgstr "taxa"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:151
 msgid "You need at least one internal interface and one external interface"
-msgstr ""
+msgstr "Você precisa de ao menos uma interface interna e uma interface externa"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:85
 #, perl-brace-format
@@ -335,7 +349,7 @@ msgstr "Para implementar regras de traffic shaping"
 #: src/EBox/TrafficShaping.pm:383
 #, fuzzy
 msgid "Rules"
-msgstr "regra"
+msgstr "Regras"
 
 #: src/EBox/TrafficShaping.pm:385
 #, fuzzy

@@ -7,8 +7,9 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:43+0000\n"
-"PO-Revision-Date: 2009-08-16 11:21+0200\n"
-"Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
+"PO-Revision-Date: 2010-02-08 14:31+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +56,7 @@ msgstr "Modelo"
 #: src/EBox/CGI/Model.pm:53
 #, perl-brace-format
 msgid "Printer {printer} has no available drivers"
-msgstr ""
+msgstr "A Impressora {printer} não tem drivers disponíveis"
 
 #: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:30
 #: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
@@ -350,7 +351,7 @@ msgstr "Paralela"
 
 #: src/templates/addprinter.mas:29
 msgid "AppSocket"
-msgstr ""
+msgstr "AppSocket"
 
 #: src/templates/addprinter.mas:30
 msgid "Samba"
@@ -358,11 +359,11 @@ msgstr "Samba"
 
 #: src/templates/addprinter.mas:31
 msgid "IPP: Internet printing protocol"
-msgstr ""
+msgstr "IPP: Internet printing protocol (Protocolo de Impressão de Internet)"
 
 #: src/templates/addprinter.mas:32
 msgid "LPD: Line Printer Daemon"
-msgstr ""
+msgstr "LPD: Line Printer Daemon"
 
 #: src/templates/manufacturer.mas:12
 msgid "Choose manufacturer"
@@ -421,7 +422,7 @@ msgstr "Esta impressora não tem trabalho pendente no momento"
 
 #: src/templates/printer.mas:179
 msgid "You need to save changes in order to print a test page"
-msgstr ""
+msgstr "Você precisa salvar as alterações para imprimir uma página de teste"
 
 #: src/templates/printer.mas:184 src/templates/printer.mas:185
 #, fuzzy

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:37+0000\n"
-"PO-Revision-Date: 2010-01-29 12:51+0100\n"
+"PO-Revision-Date: 2010-02-15 06:35+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -317,12 +317,11 @@ msgstr "Generell Asterisk server konfigurasjon oppdatert."
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "Egendefinert"
 
 #: src/EBox/Model/Provider.pm:89
-#, fuzzy
 msgid "Provider"
-msgstr "SIP leverandør"
+msgstr "Leverandør"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
@@ -330,7 +329,7 @@ msgstr "Navn"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "VoIP tjeneste leverandør navn."
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
@@ -345,9 +344,8 @@ msgid "Recipient of incoming calls"
 msgstr "Mottager av innkommende samtaler"
 
 #: src/EBox/Model/Provider.pm:130
-#, fuzzy
 msgid "Extension recipient of incoming calls through the provider."
-msgstr "Mottager av innkommende samtaler"
+msgstr "Kortnummer mottager av innkommende samtaler gjennom leveradøren."
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
@@ -368,6 +366,9 @@ msgid ""
 "directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
+"eBox VoIP Kreditt: gjør lav-kostnads VoIP samtaler til mobiler og landlinjer "
+"direkte med eBox. Kjøp VoIP kreditten du trenger direkte på {ohref}eBox on-"
+"line store{chref}! "
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"

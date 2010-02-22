@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:43+0000\n"
-"PO-Revision-Date: 2009-08-16 11:45+0200\n"
-"Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
+"PO-Revision-Date: 2010-02-20 13:54+0100\n"
+"Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,11 +18,11 @@ msgstr ""
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
 msgid "protocol for editing SIEVE filters"
-msgstr ""
+msgstr "protocolo para editar filtros da PENEIRA"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
-msgstr "Sistema de Correio do eBox"
+msgstr "Sistema de Correio eBox"
 
 #: src/EBox/MailUserLdap.pm:83 src/EBox/MailUserLdap.pm:88
 #: src/EBox/MailAliasLdap.pm:105 src/EBox/MailAliasLdap.pm:135
@@ -31,7 +31,7 @@ msgstr "conta de correio"
 
 #: src/EBox/MailUserLdap.pm:430
 msgid "This group has a mail alias"
-msgstr "Este grupo tem um alias de Email"
+msgstr "Este grupo tem um apelido de Email"
 
 #: src/EBox/MailUserLdap.pm:457
 msgid "This user has a mail account"
@@ -40,41 +40,40 @@ msgstr "Este usuário tem uma conta de e-mail"
 #: src/EBox/MailUserLdap.pm:811
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
+"A quota pode somente ser um número positivo ou um zero para quota ilimitada"
 
 #: src/EBox/MailAliasLdap.pm:62
 #, perl-brace-format
 msgid "{ac} is not a internal account"
-msgstr ""
+msgstr "{ac} não é um cliente interno"
 
 #: src/EBox/MailAliasLdap.pm:79
 #, perl-brace-format
 msgid "{ac} is not a external account"
-msgstr ""
+msgstr "{ac} não é um cliente externo"
 
 #: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
-msgstr "alias de email"
+msgstr "apelido de email"
 
 #: src/EBox/MailAliasLdap.pm:113
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
-msgstr ""
+msgstr "{ac} é um apelido de correio. O apelido dos apelidos não é permitido"
 
 #: src/EBox/MailAliasLdap.pm:132
-#, fuzzy
 msgid "group alias"
-msgstr "alias de grupo de e-mail"
+msgstr "apelido de grupo"
 
 #: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
-#, fuzzy
 msgid "Domain alias"
 msgstr "Apelido de domínio"
 
 #: src/EBox/MailAliasLdap.pm:176 src/EBox/MailAliasLdap.pm:215
 #: src/EBox/MailAliasLdap.pm:242
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Mail domain {d} does not exists"
-msgstr "Essa conta não existe"
+msgstr "Domínio de correio {d} não existe"
 
 #: src/EBox/MailAliasLdap.pm:183
 #, perl-brace-format
@@ -82,11 +81,13 @@ msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
+"Não pode usar {d} como o apelido para um domínio do correio porque um "
+"domínio com este nome já existe"
 
 #: src/EBox/MailAliasLdap.pm:325 src/EBox/MailAliasLdap.pm:354
 #: src/EBox/MailAliasLdap.pm:389
 msgid "mail alias account"
-msgstr "conta de apelido de correio"
+msgstr "apelido de conta de correio"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:17
@@ -113,47 +114,46 @@ msgstr "usuário"
 
 #: src/EBox/CGI/DelAccount.pm:46
 msgid "user mail"
-msgstr "e-mail do usuário"
+msgstr "correio do usuário"
 
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
-msgstr ""
+msgstr "A quota deve ser uma quantidade de MB maior que zero"
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
 #: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:101
 msgid "virtual domain"
-msgstr "domínio Virtual"
+msgstr "domínio virtual"
 
 #: src/EBox/CGI/CreateAccount.pm:50
 msgid "Mail address"
 msgstr "Endereço de Email"
 
 #: src/EBox/CGI/DelGroupAlias.pm:45
-#, fuzzy
 msgid "alias"
-msgstr "alias de email"
+msgstr "apelido"
 
 #: src/EBox/CGI/DelGroupAlias.pm:50
 msgid "group alias mail"
-msgstr "alias de grupo de e-mail"
+msgstr "apelido de grupo de correio"
 
 #: src/EBox/CGI/CreateAlias.pm:48
 msgid "maildrop"
-msgstr "descartar e-mail"
+msgstr "correio descartado"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
 #: src/EBox/Mail.pm:1551
 msgid "Queue Management"
-msgstr ""
+msgstr "Gerência da fila"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
-msgstr "Recipiente de e-mail do adiministrador"
+msgstr "Recipiente de correio do adiministrador"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
 #: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1468 src/EBox/Mail.pm:1620
 msgid "Mail"
-msgstr "Mail"
+msgstr "Correio"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
@@ -168,12 +168,10 @@ msgstr ""
 "através do SMTP"
 
 #: src/EBox/Mail/Greylist.pm:55
-#, fuzzy
 msgid "To configure whitelist for greylisting"
 msgstr "Configurar  lista branca para lista cinza"
 
 #: src/EBox/Mail/Greylist.pm:279
-#, fuzzy
 msgid "Greylist service"
 msgstr "Incluído na lista cinza"
 
@@ -186,7 +184,6 @@ msgid "Allow relay"
 msgstr "Permitir encaminhamento"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:99
-#, fuzzy
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
@@ -212,6 +209,8 @@ msgid ""
 "There are not network objects in the system. You can create them in the "
 "{openurl}Object's page{closeurl}"
 msgstr ""
+"Não há objetos de rede neste sistema. Você tem que criá-los em "
+"{openurl}Página de objetos{closeurl}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 #, fuzzy

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:44+0000\n"
-"PO-Revision-Date: 2010-02-03 15:39+0100\n"
+"PO-Revision-Date: 2010-02-09 11:41+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -96,51 +96,51 @@ msgstr "Itt kell megadni a cache_mem változó értékét az eBox beállító f�
 
 #: src/EBox/Squid.pm:942
 msgid "Enabled"
-msgstr "bekapcsolt"
+msgstr "Bekapcsolt"
 
 #: src/EBox/Squid.pm:944 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
-msgstr "kikapcsolt"
+msgstr "Kikapcsolt"
 
 #: src/EBox/Squid.pm:946
 msgid "Transparent proxy"
-msgstr "transzparens proxy"
+msgstr "Transzparens proxy"
 
 #: src/EBox/Squid.pm:949 src/EBox/Squid/Model/MIMEFilterBase.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:93
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:100
 msgid "Allow"
-msgstr "engedélyezés"
+msgstr "Engedélyez"
 
 #: src/EBox/Squid.pm:951 src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Deny"
-msgstr "tiltás"
+msgstr "Tilt"
 
 #: src/EBox/Squid.pm:953 src/EBox/Squid/Types/DomainPolicy.pm:35
 #: src/EBox/Squid/Types/Policy.pm:65
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
-msgstr "szűrő"
+msgstr "Szűrő"
 
 #: src/EBox/Squid.pm:956
 msgid "Global policy"
-msgstr "globális házirend"
+msgstr "Globális házirend"
 
 #: src/EBox/Squid.pm:958
 msgid "Listening port"
-msgstr "hallgatózó (figyelő) port"
+msgstr "Figyelő port"
 
 #: src/EBox/Squid.pm:990
 msgid "General"
-msgstr "általános"
+msgstr "Általános"
 
 #: src/EBox/Squid.pm:994
 msgid "Objects' Policy"
-msgstr "objektumok házirendje"
+msgstr "Objektumok házirendje"
 
 #: src/EBox/Squid.pm:997
 msgid "Groups' Policy"
-msgstr "csoportok házirendje"
+msgstr "Csoportok házirendje"
 
 #: src/EBox/Squid.pm:1000
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
@@ -148,20 +148,20 @@ msgstr "csoportok házirendje"
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
 #: src/EBox/Squid/Composite/FilterSettings.pm:93
 msgid "Filter Profiles"
-msgstr "szűrőprofilok"
+msgstr "Szűrőprofilok"
 
 #: src/EBox/Squid.pm:1031 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
-msgstr "dátum"
+msgstr "Dátum"
 
 #: src/EBox/Squid.pm:1032
 msgid "Host"
-msgstr "kiszolgáló"
+msgstr "Gép"
 
 #: src/EBox/Squid.pm:1033 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
-msgstr "felhasználó"
+msgstr "Felhasználó"
 
 #: src/EBox/Squid.pm:1034
 msgid "URL"
@@ -169,7 +169,7 @@ msgstr "URL"
 
 #: src/EBox/Squid.pm:1035
 msgid "Bytes"
-msgstr "bájt"
+msgstr "Bájt"
 
 #: src/EBox/Squid.pm:1036
 msgid "Mime/type"
@@ -177,19 +177,19 @@ msgstr "MIME típus"
 
 #: src/EBox/Squid.pm:1037
 msgid "Event"
-msgstr "esemény"
+msgstr "Esemény"
 
 #: src/EBox/Squid.pm:1042
 msgid "Accepted"
-msgstr "elfogadás"
+msgstr "Elfogadott"
 
 #: src/EBox/Squid.pm:1043
 msgid "Denied"
-msgstr "tiltás (visszautasítás)"
+msgstr "Tiltott"
 
 #: src/EBox/Squid.pm:1044
 msgid "Filtered"
-msgstr "szűrés"
+msgstr "Szűrt"
 
 #: src/EBox/Squid.pm:1121
 msgid "HTTP Proxy's cache files"
@@ -197,23 +197,23 @@ msgstr "HTTP proxy gyorsítótár állományai"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
-msgstr "nagyon megengedő"
+msgstr "Nagyon megengedő"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:57
 msgid "Permissive"
-msgstr "megengedő"
+msgstr "Megengedő"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:58
 msgid "Medium"
-msgstr "közepes (semleges)"
+msgstr "Közepes"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:59
 msgid "Strict"
-msgstr "szigorú"
+msgstr "Szigorú"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:60
 msgid "Very strict"
-msgstr "nagyon szigorú"
+msgstr "Nagyon szigorú"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
@@ -222,28 +222,28 @@ msgstr "Itt adhatjuk meg a tartalomszűrő érzékenységét."
 #: src/EBox/Squid/Types/DomainPolicy.pm:34 src/EBox/Squid/Types/Policy.pm:64
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:103
 msgid "Always allow"
-msgstr "mindent engedélyez"
+msgstr "Mindig engedélyez"
 
 #: src/EBox/Squid/Types/DomainPolicy.pm:36 src/EBox/Squid/Types/Policy.pm:66
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:105
 msgid "Always deny"
-msgstr "mindent tilt"
+msgstr "Mindig tilt"
 
 #: src/EBox/Squid/Types/DomainPolicy.pm:56
 msgid "Squid's domain policy"
-msgstr "Squid domain házirend"
+msgstr "Squid tartomány házirend"
 
 #: src/EBox/Squid/Types/Policy.pm:67
 msgid "Authorize and allow"
-msgstr "azonosít és engedélyez"
+msgstr "Azonosít és engedélyez"
 
 #: src/EBox/Squid/Types/Policy.pm:68
 msgid "Authorize and filter"
-msgstr "azonosít és szűr"
+msgstr "Azonosít és szűr"
 
 #: src/EBox/Squid/Types/Policy.pm:69
 msgid "Authorize and deny"
-msgstr "azonosít és tilt"
+msgstr "Azonosít és tilt"
 
 #: src/EBox/Squid/Types/Policy.pm:89
 msgid "Squid's policy"
@@ -279,51 +279,51 @@ msgstr "V"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:36
 msgid "Monday"
-msgstr "hétfő"
+msgstr "Hétfő"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:37
 msgid "Tuesday"
-msgstr "kedd"
+msgstr "Kedd"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:38
 msgid "Wednesday"
-msgstr "szerda"
+msgstr "Szerda"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:39
 msgid "Thursday"
-msgstr "csütörtök"
+msgstr "Csütörtök"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:40
 msgid "Friday"
-msgstr "péntek"
+msgstr "Péntek"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:41
 msgid "Saturday"
-msgstr "szombat"
+msgstr "Szombat"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:42
 msgid "Sunday"
-msgstr "vasárnap"
+msgstr "Vasárnap"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:117
 msgid "All time"
-msgstr "bármikor"
+msgstr "Bármikor"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:199
 msgid "All week"
-msgstr "minden héten"
+msgstr "Egész héten"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:207
 msgid "Weekend"
-msgstr "hétvége"
+msgstr "Hétvége"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:212
 msgid "Work days"
-msgstr "munkanap"
+msgstr "Munkanap"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:468
 msgid "From hour.."
-msgstr "órától"
+msgstr "Órától"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:471
 msgid "to hour.."
@@ -378,17 +378,17 @@ msgstr "Itt tölthető fel a tartományok listája"
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
 msgid "Domain list added"
-msgstr "domain lista hozzáadva"
+msgstr "Tartománylista hozzáadva"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:101
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
 msgid "Domain list removed"
-msgstr "domain lista törölve"
+msgstr "Tartománylista törölve"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:102
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:96
 msgid "Domain list updated"
-msgstr "domain lista frissítve"
+msgstr "Tartománylista frissítve"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:68
 msgid "Use default profile threshold"
@@ -402,12 +402,12 @@ msgstr "Határérték"
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:81
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:78
 msgid "Content filter threshold"
-msgstr "tartalomszűrő határérték"
+msgstr "Tartalomszűrő határérték"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:87
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:84
 msgid "Content filter threshold changed"
-msgstr "tartalomszűrő határértékének módosítása"
+msgstr "Tartalomszűrő határértékének módosítása"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:76
@@ -603,18 +603,18 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:78
 msgid "Object"
-msgstr "objektum"
+msgstr "Objektum"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:85
 #: src/EBox/Squid/Model/DomainFilterBase.pm:43
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:88
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:81
 msgid "Policy"
-msgstr "házirend"
+msgstr "Házirend"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Allowed time period"
-msgstr "idő intervallum engedélyezve"
+msgstr "Engedélyezett idő intervallum"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:90
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:120
@@ -626,15 +626,15 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:97
 msgid "Group policy"
-msgstr "csoport házirend"
+msgstr "Csoport házirend"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:109
 msgid "Object Policies"
-msgstr "objektum házirendek"
+msgstr "Objektum házirendek"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:110
 msgid "List of objects"
-msgstr "objektumok listája"
+msgstr "Objektumok listája"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:125
 msgid "object's policy"
@@ -800,26 +800,26 @@ msgstr ""
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:51
 #: src/EBox/Squid/Model/ExtensionFilter.pm:66
 msgid "File extension"
-msgstr "fájl kiterjesztés"
+msgstr "Fájl kiterjesztés"
 
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:93
 msgid "Extension"
-msgstr "kiterjesztés"
+msgstr "Kiterjesztés"
 
 #: src/EBox/Squid/Model/DomainFilterSettings.pm:71
 #: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:54
 msgid "Domain filter settings"
-msgstr "domain szűrő beállítások"
+msgstr "Tartományszűrő beállítások"
 
 #: src/EBox/Squid/Model/DomainFilterSettings.pm:78
 #: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:61
 msgid "Filtering settings changed"
-msgstr "szűrő beállítások módosítása"
+msgstr "Szűrő beállítások módosítva"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:52
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:48
 msgid "Configure allowed MIME types"
-msgstr "engedélyezett MIME típusok beállítása"
+msgstr "Engedélyezett MIME típusok beállítása"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:64
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
@@ -891,31 +891,31 @@ msgstr ""
 #: src/EBox/Squid/Model/ExtensionFilter.pm:128
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:71
 msgid "Extension added"
-msgstr "kiterjesztés hozzáadva"
+msgstr "Kiterjesztés hozzáadva"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:129
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:72
 msgid "Extension removed"
-msgstr "kiterjesztés eltávolítva"
+msgstr "Kiterjesztés eltávolítva"
 
 #: src/EBox/Squid/Model/ExtensionFilter.pm:130
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:73
 msgid "Extension updated"
-msgstr "kiterjesztés frissítve"
+msgstr "Kiterjesztés frissítve"
 
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:106
 msgid "Ignore"
-msgstr "mellőzés"
+msgstr "Mellőzés"
 
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:120
 msgid "This list has not categories"
-msgstr "Ez a lista nincs kategorizálva."
+msgstr "Ez a lista nincs kategorizálva"
 
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:87
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:94
 #: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:83
 msgid "Using default profile configuration"
-msgstr "alapértelmezett profil beállítása"
+msgstr "Alapértelmezett profilbeállítás használata"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #: src/EBox/Squid/Model/DomainFilter.pm:65
@@ -953,48 +953,48 @@ msgstr "Tartomány vagy hivatkozás frissítve"
 #: src/EBox/Squid/Model/FilterGroupAntiVirus.pm:61
 #: src/EBox/Squid/Model/DefaultAntiVirus.pm:61
 msgid "Filter virus"
-msgstr "vírusszűrő"
+msgstr "Vírus szűrése"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:70
 msgid "Filter profiles"
-msgstr "szűrő profil"
+msgstr "Szűrőprofilok"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:71
 msgid "List of profiles"
-msgstr "profilok listája"
+msgstr "Profilok listája"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:83
 msgid "filter profile"
-msgstr "profil szűrő"
+msgstr "szűrőprofil"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:86
 msgid "Added filter profile"
-msgstr "profil szűrő hozzáadva"
+msgstr "Szűrőprofil hozzáadva"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:87
 msgid "Removed filter profile"
-msgstr "profil szűrő eltávolítva"
+msgstr "Szűrőprofil eltávolítva"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:88
 msgid "Updated filter profile"
-msgstr "profil szűrő frissítve"
+msgstr "Szűrőprofil frissítve"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:103
 #: src/EBox/Squid/Model/FilterGroup.pm:147
 msgid "Filter group"
-msgstr "csoport szűrő"
+msgstr "Csoportszűrő"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:108
 msgid "Configuration"
-msgstr "beállítás"
+msgstr "Beállítás"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:154
 msgid "Filter group policy"
-msgstr "csoport szűrő házirend"
+msgstr "Csoportszűrő házirend"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:201
 msgid "Maximum number of filter groups reached"
-msgstr "A csoportszűrő kiterjedésének (hatókörének?) maximális értéke (száma)."
+msgstr "A csoportszűrő hatókörének maximális értéke"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:78
 msgid "Domains lists files for filter group"
@@ -1067,23 +1067,23 @@ msgstr "Squid forgalom méretének grafikonja"
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:58
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 msgid "Accepted traffic size (Kb)"
-msgstr "elfogadott forgalom mérete (kB)"
+msgstr "Engedélyezett forgalom mérete (kB)"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:67
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:124
 msgid "Denied traffic size (Kb)"
-msgstr "tiltott forgalom mérete (kB)"
+msgstr "Tiltott forgalom mérete (kB)"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:76
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:135
 msgid "Filtered traffic size (Kb))"
-msgstr "(meg)szűrt forgalom mérete (kB)"
+msgstr "Szűrt forgalom mérete (kB)"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 msgid "Traffic size"
-msgstr "forgalom mérete"
+msgstr "Forgalom mérete"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:48
 msgid "Squid traffic requests graph"
@@ -1093,33 +1093,33 @@ msgstr "Squid forgalom kérések grafikonja"
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:48
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:103
 msgid "Requests"
-msgstr "kérések"
+msgstr "Kérések"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:62
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:54
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:108
 msgid "Accepted requests"
-msgstr "elfogadott kérések"
+msgstr "Elfogadott kérések"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:69
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:63
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:119
 msgid "Denied requests"
-msgstr "tiltott kérések"
+msgstr "Tiltott kérések"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:74
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:72
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:130
 msgid "Filtered requests"
-msgstr "(meg)szűrt kérések"
+msgstr "Szűrt kérések"
 
 #: src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
-msgstr "hozzáférési kérések"
+msgstr "Hozzáférési kérések"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:144
 msgid "Web traffic details"
-msgstr "web forgalom részletei"
+msgstr "Webforgalom részletei"
 
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 msgid "traffic"
@@ -1127,16 +1127,16 @@ msgstr "forgalom"
 
 #: src/EBox/Squid/Composite/Domains.pm:92
 msgid "Domains filtering"
-msgstr "domain szűrés"
+msgstr "Tartományok szűrése"
 
 #: src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: src/EBox/Squid/Composite/Extensions.pm:91
 msgid "File extensions filtering"
-msgstr "fájl kiterjesztések szűrése"
+msgstr "Fájlkiterjesztések szűrése"
 
 #: src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
-msgstr "domain szűrés csoportszűrőnek"
+msgstr "Tartományok szűrése csoportszűrőnek"
 
 #: src/EBox/Squid/Composite/MIME.pm:91
 #: src/EBox/Squid/Composite/FilterGroupMIME.pm:92
@@ -1145,7 +1145,7 @@ msgstr "MIME típus szűrés"
 
 #: src/EBox/Squid/Composite/FilterSettings.pm:77
 msgid "Filter settings"
-msgstr "szűrő beállítások"
+msgstr "Szűrő beállítások"
 
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 #: src/EBox/Squid/Composite/Report/TrafficReport.pm:71
@@ -1154,7 +1154,7 @@ msgstr "HTTP proxxy forgalom riport (jelentés)"
 
 #: src/templates/ajax/setter/timePeriod.mas:16
 msgid "From"
-msgstr "-ból/-ből"
+msgstr "-tól/-től"
 
 #: src/templates/ajax/setter/timePeriod.mas:21
 msgid "To"
@@ -1162,7 +1162,7 @@ msgstr "-ba/-be"
 
 #: src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
-msgstr "hét napjai"
+msgstr "A hét napjai"
 
 #~ msgid "Threshold a"
 #~ msgstr "Határértéke"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:37+0000\n"
-"PO-Revision-Date: 2009-08-21 00:36+0200\n"
+"PO-Revision-Date: 2010-02-09 00:40+0100\n"
 "Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "eBox VoIP systeem"
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:732
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
-msgstr ""
+msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
@@ -66,12 +66,10 @@ msgid "To configure the conferences."
 msgstr "Om conferenties te configureren."
 
 #: src/EBox/Asterisk.pm:174
-#, fuzzy
 msgid "To configure the music on hold."
-msgstr "Om het antwoordapparaat in te stellen"
+msgstr "Om de wachtmuziek in te stellen"
 
 #: src/EBox/Asterisk.pm:178
-#, fuzzy
 msgid "To configure DTMF behaviour."
 msgstr "Om het antwoordapparaat in te stellen"
 
@@ -88,101 +86,95 @@ msgid "Voicemail"
 msgstr "Antwoordapparaat"
 
 #: src/EBox/Asterisk.pm:533 src/EBox/Asterisk.pm:642
-#, fuzzy
 msgid "User"
-msgstr "Gebruikersnaam"
+msgstr "Gebruiker"
 
 #: src/EBox/Asterisk.pm:533
-#, fuzzy
 msgid "Address"
-msgstr "E-mail Adress"
+msgstr "Adress"
 
 #: src/EBox/Asterisk.pm:533
 msgid "NAT"
-msgstr ""
+msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:533
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/EBox/Asterisk.pm:547 src/EBox/Asterisk.pm:651
 msgid "No users connected."
-msgstr ""
+msgstr "Geen Gebruikers verbonden."
 
 #: src/EBox/Asterisk.pm:639
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr ""
+msgstr "Zaal {name} aktief sinds {rtime}"
 
 #: src/EBox/Asterisk.pm:642
 msgid "Time Connected"
-msgstr ""
+msgstr "Tijd Verbonden"
 
 #: src/EBox/Asterisk.pm:672
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "VoIP Gebruikers Online"
 
 #: src/EBox/Asterisk.pm:677
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "VoIP Gebruikers in Vergadering"
 
 #: src/EBox/Asterisk.pm:709
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: src/EBox/Asterisk.pm:710
 msgid "From"
-msgstr ""
+msgstr "Van"
 
 #: src/EBox/Asterisk.pm:711
 msgid "To"
-msgstr ""
+msgstr "Naar"
 
 #: src/EBox/Asterisk.pm:712
-#, fuzzy
 msgid "Duration"
-msgstr "Omschrijving"
+msgstr "Duur"
 
 #: src/EBox/Asterisk.pm:713
-#, fuzzy
 msgid "Channel"
-msgstr "Wijzig"
+msgstr "Kanaal"
 
 #: src/EBox/Asterisk.pm:714
 msgid "Destination Channel"
-msgstr ""
+msgstr "Bestemmings Kanaal"
 
 #: src/EBox/Asterisk.pm:715
 msgid "Application"
-msgstr ""
+msgstr "Toepassing"
 
 #: src/EBox/Asterisk.pm:716
 msgid "Application Data"
-msgstr ""
+msgstr "Toepassings gegevens"
 
 #: src/EBox/Asterisk.pm:717
 msgid "Event"
-msgstr ""
+msgstr "Gebeurtenis"
 
 #: src/EBox/Asterisk.pm:725
 msgid "Answered"
-msgstr ""
+msgstr "Beantwoord"
 
 #: src/EBox/Asterisk.pm:726
 msgid "No Answer"
-msgstr ""
+msgstr "Niet Beantwoord"
 
 #: src/EBox/Asterisk.pm:727
 msgid "Busy"
-msgstr ""
+msgstr "Bezet"
 
 #: src/EBox/Asterisk.pm:728
-#, fuzzy
 msgid "Failed"
-msgstr "Ingeschakeld"
+msgstr "Mislukt"
 
 #: src/EBox/Asterisk/Extensions.pm:230
-#, fuzzy
 msgid "User extension"
 msgstr "Gebruikers nummer"
 
@@ -194,9 +186,8 @@ msgstr "Toestel"
 
 # very fuzzy as toestel also means device as in hardware
 #: src/EBox/Asterisk/Extensions.pm:642
-#, fuzzy
 msgid "Queue extension"
-msgstr "Toestel"
+msgstr "Wachtlijst Toestel"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
@@ -208,7 +199,6 @@ msgstr "gebruikersnaam"
 
 # meetings = vergaderingen but most dutch/flemish teens also use meetings
 #: src/EBox/Model/Meetings.pm:91
-#, fuzzy
 msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
 msgstr ""
 "U dient dahdi-linux en dahdi-tools paketten te instaleren om Vergaderingen "
@@ -221,7 +211,7 @@ msgid "extension"
 msgstr "Toestel"
 
 #: src/EBox/Model/Meetings.pm:149
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "Een nummer tussen {min} en {max}"
 
@@ -234,9 +224,8 @@ msgid "Description"
 msgstr "Omschrijving"
 
 #: src/EBox/Model/Meetings.pm:184
-#, fuzzy
 msgid "List of Meetings"
-msgstr "Vergaderingen"
+msgstr "Vergaderingen lijst"
 
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
@@ -272,9 +261,8 @@ msgid "Delete sent messages"
 msgstr "Verwijder verzonden berichten"
 
 #: src/EBox/Model/Voicemail.pm:126
-#, fuzzy
 msgid "Change your Voicemail settings"
-msgstr "Antwoordapparaat instellingen"
+msgstr "Wijzig uw Antwoordapparaat instellingen"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
@@ -283,6 +271,8 @@ msgstr "Instellingen bewaard"
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
+"U hebt geen VoIP rekening. Misschien is VoIP niet ingeschakeld op deze "
+"server"
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -290,6 +280,9 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
+"Netwerken direct verbonden met interne interfacen, zoals {net}, worden "
+"altijd beschouwd als lokale netwerken en deze hoeven niet toegevoegd te "
+"worden."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
@@ -329,18 +322,16 @@ msgid "General Asterisk server configuration"
 msgstr "Algemene Asterisk server configuratie"
 
 #: src/EBox/Model/Settings.pm:151
-#, fuzzy
 msgid "General Asterisk server configuration updated."
 msgstr "Algemene Asterisk server configuratie opgeslagen"
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "Op maat"
 
 #: src/EBox/Model/Provider.pm:89
-#, fuzzy
 msgid "Provider"
-msgstr "SIP leverancier"
+msgstr "Leverancier"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
@@ -348,7 +339,7 @@ msgstr "Naam"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "Naam VoIP leverancier"
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
@@ -388,6 +379,9 @@ msgid ""
 "directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
+"eBox VoIP Krediet: maak goedkope VoIP gesprekken naar vaste en mobiele "
+"telefoons met eBox. Koop uw beltegoed direkt biin de {ohref}eBox on-line "
+"winkel{chref}!"
 
 #: src/EBox/Model/NAT.pm:96
 #, fuzzy
@@ -425,10 +419,12 @@ msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
+"Er zijn geen gebruikers in deze groep of de gebruikers hebben geen asterisk "
+"rekening, de wachtrij kan niet gekreëerd worden."
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "Groep wachtrij"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29

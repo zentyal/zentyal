@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:41+0000\n"
-"PO-Revision-Date: 2009-11-11 18:48+0100\n"
-"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
+"PO-Revision-Date: 2010-02-10 19:14+0100\n"
+"Last-Translator: Daniel Correia Leal <danueli@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -253,25 +253,28 @@ msgstr "endereço fixo"
 #: src/EBox/Model/DynamicDNS.pm:387
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr ""
+msgstr "O Domínio {domain} já está definido manualmente na secção DNS"
 
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "O módulo DNS deve ser configurado para trabalhar com este recurso"
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
+msgstr "{pkg} deverá ser instalado para usar este recurso"
 
 #: src/EBox/Model/DynamicDNS.pm:266
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
+"Os Domínios deverão ser adicionados/definidos automaticamente na secção de "
+"DNS em modo só de leitura."
 
 #: src/EBox/Model/DynamicDNS.pm:268
+#, fuzzy
 msgid "DNS module must be enabled to make this feature work. "
-msgstr ""
+msgstr "O módulo DNS deve estar habilitado para fazer este recurso funcionar."
 
 #: src/EBox/Model/DynamicDNS.pm:332
 #, fuzzy
@@ -285,9 +288,8 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Model/DynamicDNS.pm:339
-#, fuzzy
 msgid "Static domain"
-msgstr "Procurar domínio"
+msgstr "Domínio estático"
 
 #: src/EBox/Model/DynamicDNS.pm:341
 msgid ""
@@ -296,8 +298,9 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Model/DynamicDNS.pm:346
+#, fuzzy
 msgid "Same as Dynamic Domain"
-msgstr ""
+msgstr "Igual a Domínio automático "
 
 #: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:371
 #: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
@@ -307,21 +310,23 @@ msgstr "Personalizado"
 
 #: src/EBox/Model/DynamicDNS.pm:358
 msgid "Dynamic DNS Options"
-msgstr ""
+msgstr "Opções de DNS Dinâmico"
 
 #: src/EBox/Model/DynamicDNS.pm:363
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
+"Os domínios deverão ser adicionados automaticamente no modulo de DNS em modo "
+"só de leitura"
 
 #: src/EBox/Model/DynamicDNS.pm:395
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
-msgstr ""
+msgstr "Domínio \"{domain}\" adicionado na secção DNS"
 
 #: src/EBox/Model/DynamicDNS.pm:406
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
-msgstr ""
+msgstr "Domínio \"{domain}\" removido da secção DNS"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
@@ -333,7 +338,7 @@ msgstr "Sub-rede"
 
 #: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
-msgstr "Ambito disponível"
+msgstr "Âmbito disponível"
 
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
@@ -356,15 +361,15 @@ msgstr ""
 #, fuzzy
 msgid "NTP module must be enabled to be able to select eBox as NTP server"
 msgstr ""
-"O serviço DNS deve estar activado como servidor de nomes primário no "
-"servidor DNS eBox"
+"O modulo NTP deve estar activado para estar apto a seleccionar eBox como "
+"servidor NTP"
 
 #: src/EBox/Model/Options.pm:190
 #, fuzzy
 msgid "Samba module must be enabled to be able to select eBox as WINS server"
 msgstr ""
-"O serviço DNS deve estar activado como servidor de nomes primário no "
-"servidor DNS eBox"
+"O modulo Samba deve estar activado para estar apto a seleccionar eBox como "
+"servidor WINS"
 
 #: src/EBox/Model/Options.pm:379
 msgid "eBox's domain"
@@ -375,14 +380,13 @@ msgid "local eBox DNS"
 msgstr "DNS local eBox"
 
 #: src/EBox/Model/Options.pm:414
-#, fuzzy
 msgid "local eBox NTP"
-msgstr "DNS local eBox"
+msgstr "NTP local eBox"
 
 #: src/EBox/Model/Options.pm:428
 #, fuzzy
 msgid "local eBox"
-msgstr "DNS local eBox"
+msgstr "eBox local"
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:36+0000\n"
-"PO-Revision-Date: 2010-02-05 11:05+0100\n"
+"PO-Revision-Date: 2010-02-10 09:56+0100\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -82,17 +82,16 @@ msgid "Password"
 msgstr "Heslo"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:137
-#, fuzzy
 msgid "Manage sieve enabled in IMAP server"
 msgstr "Spravovať filtrovanie povolené na IMAP servery"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:142
 msgid "Manage sieve port"
-msgstr "Spravovať sieťový port"
+msgstr "Spravovať sieve port"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:149
 msgid "Manage sieve connection uses TLS"
-msgstr "Spravovať sieťové spojenie použitím TLS"
+msgstr "Spravovať sieve spojenie použitím TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:159
 msgid "External server connection"
@@ -166,11 +165,11 @@ msgstr "V tejto databáze budú uložené dáta pre potreby Roundcube."
 
 #: src/EBox/WebMail.pm:312
 msgid "Add webmail link to www data directory."
-msgstr ""
+msgstr "Pridať linku na webmail do www dátového priečinka"
 
 #: src/EBox/WebMail.pm:313
 msgid "Webmail will be accesible at http://ip/webmail/."
-msgstr ""
+msgstr "Webmail bude dostupný na http://ip/webmail/."
 
 #: src/EBox/WebMail.pm:336
 #, perl-brace-format
@@ -178,9 +177,13 @@ msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
+"Webmail modul potrebuje povolený IMAP alebo IMAPS servis ak používa eBox "
+"poštovú službu. Môžete ju povoliť v {openurl}Mail -> General{closeurl}."
 
 #: src/EBox/WebMail.pm:394
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
 msgstr ""
+"Nemôžete zakázať obe služby IMAP a IMAPS, pretože sú používané Webmail "
+"modulom."

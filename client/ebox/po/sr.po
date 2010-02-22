@@ -8,57 +8,58 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.3.14Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:42+0000\n"
-"PO-Revision-Date: 2010-01-25 20:49+0100\n"
+"PO-Revision-Date: 2010-02-12 10:21+0100\n"
 "Last-Translator: Zoran <zoran@atlantisti.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+# Total ticks of what ?
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
-msgstr ""
+msgstr "Ukupno obeleženih"
 
 #: src/EBox/ProgressIndicator.pm:43
 msgid "It must be a non-zero positive number"
-msgstr ""
+msgstr "Broj mora biti pozitivan ne sme biti 0"
 
 #: src/EBox/ProgressIndicator.pm:51
 #, perl-brace-format
 msgid "Cannot execute {exe}"
-msgstr ""
+msgstr "Ne mogu da izvršim {exe}"
 
 #: src/EBox/ProgressIndicator.pm:101
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
-msgstr ""
+msgstr "Progres indikator sa id-em {id} nije nađen"
 
 #: src/EBox/ProgressIndicator.pm:139
 msgid "Number of ticks to notify"
-msgstr ""
+msgstr "Obaveštenje o broju obeleženih"
 
 #: src/EBox/ProgressIndicator.pm:141
 msgid "must be greater than zero"
-msgstr ""
+msgstr "mora biti veće od 0"
 
 #: src/EBox/ProgressIndicator.pm:147
 msgid "Executable has not been run"
-msgstr ""
+msgstr "(Executable) nije bio pokrenut"
 
 #: src/EBox/ProgressIndicator.pm:264
 msgid "The executable has not run"
-msgstr ""
+msgstr "(Executable) nije pokrenut"
 
 #: src/EBox/ProgressIndicator.pm:395
 msgid "The executable has already been started"
-msgstr ""
+msgstr "(Executable) je pokrenut i radi"
 
 #: src/EBox/ProgressIndicator.pm:399
 msgid "The executable has already finished"
-msgstr ""
+msgstr "(Executable) je završio sa radom"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:215
 #: src/EBox/Events/Model/Watcher/Log.pm:239
@@ -66,24 +67,25 @@ msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr ""
+"Upozorenje! (log-watcher) nije pokrenut. Pokrenite ga da bi pratili logove."
 
 #: src/EBox/Events/Model/Watcher/Log.pm:263
 #: src/EBox/Logs/Model/SelectLog.pm:143
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
 msgid "Domain"
-msgstr ""
+msgstr "Domain"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:268
 msgid "Filtering"
-msgstr ""
+msgstr "Filtracija"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:276
 msgid "Configure log watchers"
-msgstr ""
+msgstr "Konfiguriši (log-watcher)e"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:278
 msgid "Log watcher"
-msgstr ""
+msgstr "(Log-watcher)"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:386
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:212
@@ -94,18 +96,17 @@ msgstr ""
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:325 src/EBox/Events.pm:96
 #: src/EBox/Events.pm:823
 msgid "Events"
-msgstr ""
+msgstr "Događaji"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:390
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
-#, fuzzy
 msgid "Log Observer Watcher"
-msgstr "Pratilac log-ova"
+msgstr "Log-Observer-Watcher"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
 msgid "Log domain {logDomain}"
-msgstr ""
+msgstr "Log domain-a {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
@@ -116,74 +117,79 @@ msgstr "Svaki"
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
 #: src/templates/logs/index.mas:183
 msgid "Event"
-msgstr ""
+msgstr "Događaj"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
 #, perl-brace-format
 msgid "Filters to apply to notify logs from {logDomain}"
-msgstr ""
+msgstr "Filteri koje primenjujete za upis u log-ove za {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
 msgid ""
 "Every filter added is cumulative.Then every log line which matches with any "
 "filter given will be notified"
 msgstr ""
+"Svaki dodati filter je kumulativ.Pa će biti upisan svaki red log koji se "
+"poklapa sa bilo kojim filterom"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
 msgid "filter"
-msgstr ""
+msgstr "filter"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:101
 msgid "Minimum free disk space per filesystem"
-msgstr ""
+msgstr "Minimalni prostor slobodan na disku"
 
+# what event is triggered ? expl.
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:106
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr ""
+"Kada je procenat slobodnog prostora manji od dozvoljene vrednosti log će "
+"zabeležiti."
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
 msgid "Configure disk free space watcher"
-msgstr ""
+msgstr "Konfiguriši disk (free-space-watcher)"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
 msgid "Free Disk Space Watcher"
-msgstr ""
+msgstr "Free Disk Space Watcher"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:263
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
-msgstr ""
+msgstr "Ime"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:271
 #: src/templates/backup.mas:44 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:36
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:280
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguracija"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:296
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
-msgstr ""
+msgstr "Nijedan"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:305
 msgid "Configure Events"
-msgstr ""
+msgstr "Konfiguriši (Events-servis)"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:313
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
-msgstr ""
+msgstr "Događaj (Event)"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:314
 msgid "Enable/Disable each event watcher monitoring"
-msgstr ""
+msgstr "Omogući/Onemogući svaki (event-watcher) monitoring"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:502
 msgid ""
@@ -191,6 +197,9 @@ msgid ""
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
+"Upozorenje! (log domain watcher) nije pokrenut. Molimo vas, da odete na "
+"konfiguraciju i pokrenete barem jedan, da bi mogli da pratite logove i "
+"dešavanja sa tog domain-a."
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
@@ -200,70 +209,78 @@ msgstr "Omogućen"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Receiver"
-msgstr ""
+msgstr "Prijemnik"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 msgid "Configure Dispatchers"
-msgstr ""
+msgstr "Konfiguriši Dispečere"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
 msgid "dispatcher"
-msgstr ""
+msgstr "Dispečer"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
 msgid "Enable/Disable each event dispatcher"
-msgstr ""
+msgstr "Omogući/Onemogući dispečer svakog događaja"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
 msgstr ""
+"Da bi se omogućio konfigurabilan dispečer događaja, potrebno je da ga "
+"konfigurišete"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:80
 msgid ""
 "Events module configures eBox to help informing you about events that happen"
 msgstr ""
+"(Events module) se konfiguriše da bi vam pomogao u praćenju dešavanja na "
+"eBox-u"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
 msgid "Jabber server name"
-msgstr ""
+msgstr "Ime Jabber server-a"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:196
 msgid "Jabber server to send the messages"
-msgstr ""
+msgstr "Jabber server za slanje poruka"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:200
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:207
 msgid "Jabber user name"
-msgstr ""
+msgstr "Jabber korisničko ime"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
 msgstr ""
+"Jabber ID nalog koji će poslati poruke. Savet: nemojte kucati @domain, samo "
+"korisniko ime"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
 msgid "User password"
-msgstr ""
+msgstr "Korisnička šifra"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid "Subscribe"
-msgstr ""
+msgstr "Podpiši"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
 msgstr ""
+"Obeležite ovu opciju ako želite da napravite nalog iznad korisnika na "
+"eBoks-u"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:233
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:300
 msgid "Administrator Jabber Identifier"
-msgstr ""
+msgstr "Identifikator Jabber Administratora"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
 msgid ""
@@ -271,346 +288,354 @@ msgid ""
 "admin. Note that you need to register this  account manually in any jabber "
 "server"
 msgstr ""
+"Odredište Jabber ID poruke generisan od eBoks-a, tJ: ti kao eBoks "
+"administrator.VAŽNO:Morate registrovati ovaj nalog ručno na bilo koji Jabber "
+"server"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:245
 msgid "Configure Jabber dispatcher"
-msgstr ""
+msgstr "Konfiguriši Jabber dispečer"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:250
 msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
+msgstr "Ovaj dispečer ce slati event-logove na Jabber nalog"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:253
 msgid "Jabber dispatcher configuration updated"
-msgstr ""
+msgstr "Jabber dispečer konfiguracija ažurirana"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
 msgid "Jabber Dispatcher"
-msgstr ""
+msgstr "Jabber Dispečer"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
 msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr ""
+msgstr "Treba da isprati sledeću putanju 'user@domain[/resource]'"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:150
 msgid "Nobody"
-msgstr ""
+msgstr "Niko"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:154
 msgid "IP address"
-msgstr ""
+msgstr "IP adresa"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:161
 msgid "Object"
-msgstr ""
+msgstr "Objekat"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:170
 msgid "Public"
-msgstr ""
+msgstr "Javno"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:177
 msgid "Channel link"
-msgstr ""
+msgstr "Link kanal"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:184
 msgid "Allowed readers"
-msgstr ""
+msgstr "Dozvoljeno čitalaca"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:187
 msgid "Use this field to set the access control for the channel"
-msgstr ""
+msgstr "Koristite ovo polje da biste podesili kontrolu pristupa na kanal"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:192
 msgid "Syndicate this RSS"
-msgstr ""
+msgstr "Podeli svima ovaj RSS"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:202
 msgid "Configure RSS dispatcher"
-msgstr ""
+msgstr "Konfiguriši RSS dispečer"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:207
 msgid ""
 "The channel link is the link which is used to syndicate the content to your "
 "favourite RSS. "
 msgstr ""
+"Kanal link je link koji koristite da distribuirali sadržaj vaših omiljenih "
+"RSS Feed-ova."
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:210
 msgid "RSS dispatcher configuration updated"
-msgstr ""
+msgstr "RSS dispečer konfiguracija ažurirana"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:329
-#, fuzzy
 msgid "RSS Dispatcher"
-msgstr "RSS datoteka: {path}"
+msgstr "RSS Dispečer"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:50
 #: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:808
-#, fuzzy
 msgid "Source"
-msgstr "Servis"
+msgstr "Izvor (Source)"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:51
 #: src/EBox/Events/Model/Report/EventsDetails.pm:80
 #: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:815
 msgid "Informative"
-msgstr ""
+msgstr "Informativan"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
 #: src/templates/finish.mas:83
 msgid "Warning"
-msgstr ""
+msgstr "Upozorenje"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:53
 #: src/EBox/Events/Model/Report/EventsDetails.pm:88
 #: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:817
 msgid "Error"
-msgstr ""
+msgstr "Greška (Error)"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:54
 #: src/EBox/Events/Model/Report/EventsDetails.pm:92
 #: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
 msgid "Fatal error"
-msgstr ""
+msgstr "Fatalna greška (Fatal error)"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
 #: src/templates/finish.mas:116 src/templates/backup.mas:128
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
-msgstr "Trebalo bi da bude jedna od sledećih vrednosti: {values}"
+msgstr "Datum"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:101
 msgid "Events details"
-msgstr "Radnje koje preduzimate dozvoljene su za: {view} i {cView}"
+msgstr "Detalji događaja"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:60
 msgid "Events summarized chart"
-msgstr "Izabrati jedno od:"
+msgstr "Rezimirans mapa događaja"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:77
 msgid "Events summarized graph"
-msgstr "Sistem backup"
+msgstr "Rezimirani grafikon događaja"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:70
 msgid "Events reports"
-msgstr "Nepoznati backup mode: {mode}"
+msgstr "Izveštaji o događajima"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:71
 msgid "Events report"
-msgstr "Unos sadrži nevažeće karaktere"
+msgstr "Izveštaj o događajima"
 
 #: src/EBox/EventDaemon.pm:451
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
-msgstr "Nepoznat restore mode: {name}"
+msgstr "Dispečer {name} je isključen te ne možete da šaljete event-logove"
 
 #: src/EBox/Auth.pm:155
 msgid "Password changed"
-msgstr "Backing up"
+msgstr "Lozinka promenjena"
 
 #: src/EBox/CGI/ClientRawBase.pm:209
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
-msgstr "Backing up moduli"
+msgstr ""
+"Pojavila se greska u (template)u.Informacije o ovom bug-u možete naći u "
+"logovima."
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58
 msgid "Logs"
-msgstr "Operacija"
+msgstr "Logovi"
 
 #: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:691
 msgid "Query Logs"
-msgstr "operacija ostalo do završetka backup-a"
+msgstr "Pretraga logova"
 
 #: src/EBox/CGI/Logs/Index.pm:329
 msgid "Full Reports"
-msgstr "Backup uspešan"
+msgstr "Detaljni izveštaji"
 
 #: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:238
 msgid "Dashboard"
-msgstr ""
+msgstr "Kotrolna tabla"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:79
 msgid "Configure Widgets"
-msgstr "Restoring backup"
+msgstr "Konfiguriši (Widget)e"
 
 #: src/EBox/CGI/Login/Index.pm:62
 msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
-msgstr "Restoring module"
+msgstr ""
+"Na eBoks-u postoiji pokrenuta skripta koja radi u exluziv modu . Molimo za "
+"strpljenje, sačekajte dok se ne završi."
 
 #: src/EBox/CGI/Login/Index.pm:66
 msgid "Incorrect password"
-msgstr "Modul"
+msgstr "Pogrešna lozinka"
 
 #: src/EBox/CGI/Login/Index.pm:69
 msgid "For security reasons your session has expired due to inactivity"
-msgstr "modula ostalo za restore"
+msgstr "Iz bezbednosnih razloga vaša sesija je istekla usled neaktivnosti"
 
 #: src/EBox/CGI/Login/Index.pm:72
 msgid "You have been logged out because a new session has been opened"
-msgstr "Restore uspešan"
+msgstr "Trenutno ste razlogovani zbog otvorene nove sesije"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
 msgid "Module Status Configuration"
-msgstr "ime modula"
+msgstr "Konfiguracija Status Modula"
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"
-msgstr "Modul je ispravno restartovan."
+msgstr "Odjava"
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General Configuration"
-msgstr "Nadgrađujem"
+msgstr "Opšta konfiguracija"
 
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or Reboot"
-msgstr ""
+msgstr "Zaustavi ili Restartuj"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
 msgid "eBox is going down for halt"
-msgstr ""
+msgstr "eBoks ide dole za zaustavljanje"
 
 #: src/EBox/CGI/EBox/Halt.pm:46
 msgid "eBox is going down for reboot"
-msgstr ""
+msgstr "eBoks ide dole za restartovanje"
 
 #: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:49
 msgid "Password"
-msgstr ""
+msgstr "Lozinka"
 
 #: src/EBox/CGI/EBox/Password.pm:52
 msgid "Incorrect password."
-msgstr ""
+msgstr "Pogršna Lozinka"
 
 #: src/EBox/CGI/EBox/Password.pm:57
 msgid "New passwords do not match."
-msgstr ""
+msgstr "Nova lozinka se ne poklapa"
 
 #: src/EBox/CGI/EBox/Password.pm:62
 msgid "The password must be at least 6 characters long"
-msgstr ""
+msgstr "Lozinka mora biti od najmanje 6 karaktera"
 
 #: src/EBox/CGI/EBox/Password.pm:66
 msgid "The password was changed successfully."
-msgstr ""
+msgstr "Lozinka je uspešno promenjena"
 
 #: src/EBox/CGI/EBox/Bug.pm:29
 msgid "Bug report"
-msgstr ""
+msgstr "Izveštaj o Bug-ovima"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 msgid "Configuration Backup"
-msgstr ""
+msgstr "Backup Konfiguracije"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
-msgstr ""
+msgstr "Molim da potvrdite brisanje ovog (backup file)a:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
 #: src/templates/backup.mas:173
 msgid "Delete"
-msgstr ""
+msgstr "Obriši"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:114
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:130
 msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
+msgstr "Molim da potvrdite (restore) korišćenjem ovog (backup file)a:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
 msgid "Restore"
-msgstr ""
+msgstr "Restore"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
 #: src/EBox/Backup.pm:1311
 msgid "The input contains invalid characters"
-msgstr ""
+msgstr "Unos sadrži pogrešne karaktere"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:176
 msgid "Configuration backup"
-msgstr ""
+msgstr "Backup Konfiguracije"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:179
 msgid "Full data and configuration backup"
-msgstr ""
+msgstr "Potpuni backup koniguracije i podataka"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:182
 msgid "Bug-report configuration dump"
-msgstr ""
+msgstr "(Bug-Report) i (dump) konfiguracije "
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
-msgstr ""
+msgstr "Ime Modula"
 
 #: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
-msgstr ""
+msgstr "Modul je korektno restartovan."
 
 #: src/EBox/CGI/EBox/CurrentProgress.pm:36
 msgid "Upgrading"
-msgstr ""
+msgstr "Nadogradnja-Usavršavanje"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
 #: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:64
 msgid "Backup"
-msgstr ""
+msgstr "Backup"
 
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
-msgstr ""
+msgstr "Nepoznat backup mode: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
 msgid "Unknown restore mode: {mode}"
-msgstr ""
+msgstr "Nepoznat restore mode: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:239
 msgid "Backing up"
-msgstr ""
+msgstr "(Backup)ujem"
 
 #: src/EBox/CGI/EBox/Backup.pm:240
 msgid "Backing up modules"
-msgstr ""
+msgstr "(Backup) moduli"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
 msgid "Operation"
-msgstr ""
+msgstr "Operacija"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "Operacija ostavljena da završi (backup)"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
 msgid "Backup successful"
-msgstr ""
+msgstr "(Backup) uspešan"
 
 #: src/EBox/CGI/EBox/Backup.pm:254
 msgid "Restoring backup"
-msgstr ""
+msgstr "(Restor)ujem backup"
 
 #: src/EBox/CGI/EBox/Backup.pm:255
 msgid "Restoring modules"
-msgstr ""
+msgstr "(Restor)ujem Module"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
-msgstr ""
+msgstr "Modul"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
 msgid "modules left to restore"
-msgstr ""
+msgstr "Modula ostalo za (restore)"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
-msgstr ""
+msgstr "(Restore) uspešan"
 
+# redundant array of independent disks
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
 #: src/EBox/SysInfo.pm.in:260
 msgid "RAID"
@@ -618,31 +643,31 @@ msgstr "RAID"
 
 #: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:256
 msgid "Disk Usage"
-msgstr ""
+msgstr "Disk upotreba"
 
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
-msgstr ""
+msgstr "Sačuvaj konfiguraciju"
 
 #: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes"
-msgstr ""
+msgstr "Sačuvaj promene"
 
 #: src/EBox/CGI/Finish.pm:78
 msgid "Saving changes in modules"
-msgstr ""
+msgstr "Sačuvaj promene u modulima"
 
 #: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
 msgid "Current operation"
-msgstr ""
+msgstr "Trenutne operacije"
 
 #: src/EBox/CGI/Finish.pm:80
 msgid "operations performed"
-msgstr ""
+msgstr "Obavljene Operacije"
 
 #: src/EBox/CGI/Finish.pm:81
 msgid "Changes saved"
-msgstr ""
+msgstr "Promene Sačuvane"
 
 #: src/EBox/CGI/Finish.pm:82
 #, perl-brace-format
@@ -2091,19 +2116,19 @@ msgstr ""
 
 #: src/templates/password.mas:11
 msgid "Current password"
-msgstr ""
+msgstr "Trenutna Lozinka"
 
 #: src/templates/password.mas:25
 msgid "New password"
-msgstr ""
+msgstr "Nova Lozinka"
 
 #: src/templates/password.mas:39
 msgid "Confirm password"
-msgstr ""
+msgstr "Potvrdi Lozinku"
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Upozorenje: (Caps Lock) je uklučen"
 
 #: src/templates/login/index.mas:43
 #, perl-brace-format
@@ -2111,6 +2136,8 @@ msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on eBox. "
 "Please use {url} instead."
 msgstr ""
+"Upozorenje: Nažalost Internet Explorer trenutno nije podržan od  eBox-a. "
+"Molimo vas upotrebite ovaj link {url}."
 
 #: src/templates/login/index.mas:46
 #, perl-brace-format
@@ -2119,30 +2146,33 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on eBox UI."
 msgstr ""
+"Upozorenje: Koristite nekomatibilan web-pretraživač koji nije {url}, "
+"zvanično podržan. Molimo vas da uzmete u obzir da će te se suočiti sa "
+"problemima pri radu na eBox UI-u(korisničkom panelu)"
 
 #: src/templates/login/index.mas:58
 msgid "Enter"
-msgstr ""
+msgstr "Uđi"
 
 #: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
 msgid "Cancel"
-msgstr ""
+msgstr "Odkaži"
 
 #: src/templates/confirm-backup.mas:110
 msgid "Full Restore"
-msgstr ""
+msgstr "Potpun (Restore)"
 
 #: src/templates/confirm-backup.mas:111
 msgid "Configuration Restore"
-msgstr ""
+msgstr "(Restore) Konfiguracije"
 
 #: src/templates/confirm-backup.mas:116
 msgid "Restore mode"
-msgstr ""
+msgstr "(Restore) mod"
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
-msgstr ""
+msgstr "Administratorski (Interface)  TCP Portova"
 
 #~ msgid "Control panel"
 #~ msgstr "Kontrolna tabla"

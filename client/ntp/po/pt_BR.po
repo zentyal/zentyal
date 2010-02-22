@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-12-03 13:01+0000\n"
-"PO-Revision-Date: 2009-08-16 11:35+0200\n"
-"Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
+"PO-Revision-Date: 2010-02-08 14:21+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,7 +75,7 @@ msgstr "Configurações de data e hora"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Time Zone Configuration"
-msgstr ""
+msgstr "Configurações do Fuso-Horário"
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"

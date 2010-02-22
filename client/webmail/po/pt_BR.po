@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:36+0000\n"
-"PO-Revision-Date: 2010-01-21 18:01+0100\n"
-"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
+"PO-Revision-Date: 2010-02-08 04:26+0100\n"
+"Last-Translator: Ronie B. Camilo <roniecamilo@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,6 @@ msgid "Operation mode"
 msgstr "Modo de operação"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:87
-#, fuzzy
 msgid "eBox mail service"
 msgstr "Serviço de correio eBox"
 
@@ -127,64 +126,53 @@ msgid "eBox webmail"
 msgstr "eBox webmail"
 
 #: src/EBox/WebMail/Model/Options.pm:51
-#, fuzzy
 msgid ""
 "The name of the webmail will be used in the login screen and page titles."
 msgstr "O nome do webmail será utilizado na tela de login e de títulos"
 
 #: src/EBox/WebMail/Model/Options.pm:57
-#, fuzzy
 msgid "General configuration"
-msgstr "Configuração"
+msgstr "Configuração geral"
 
 #: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:66
-#, fuzzy
 msgid "Webmail"
 msgstr "Correio Web"
 
 #: src/EBox/WebMail/Composite/Backend.pm:64
-#, fuzzy
 msgid "WebMail backend"
 msgstr "WebMail backend"
 
 #: src/EBox/WebMail.pm:172
-#, fuzzy
 msgid "Neither IMAP nor IMAPS service enabled."
 msgstr "Nem o serviço IMAP nem IMAP estão habilitados"
 
 #: src/EBox/WebMail.pm:284
-#, fuzzy
 msgid "To configure Roundcube webmail."
-msgstr "Para configurar o roundcube"
+msgstr "Para configurar o roundcube webmail"
 
 #: src/EBox/WebMail.pm:289
-#, fuzzy
 msgid "To configure managesieve Roundcube webmail plugin."
 msgstr "Para configurar o plugin managesieve"
 
 #: src/EBox/WebMail.pm:307
-#, fuzzy
 msgid "Create PostgreSQL Roundcube webmail database."
 msgstr "Criar um banco de dados PostgreSQL webmail"
 
 #: src/EBox/WebMail.pm:308
-#, fuzzy
 msgid "This database will store the data needed by Roundcube."
 msgstr ""
 "Este banco de dados irá armazenar os dados necessários pora o Roundcube"
 
 #: src/EBox/WebMail.pm:312
-#, fuzzy
 msgid "Add webmail link to www data directory."
 msgstr "Adicionar link de webmail para o diretório de dados www"
 
 #: src/EBox/WebMail.pm:313
-#, fuzzy
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "Webmail será acessível em http://ip/webmail"
 
 #: src/EBox/WebMail.pm:336
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
@@ -194,7 +182,6 @@ msgstr ""
 "> Geral{closeurl}"
 
 #: src/EBox/WebMail.pm:394
-#, fuzzy
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."

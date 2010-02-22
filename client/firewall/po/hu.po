@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:42+0000\n"
-"PO-Revision-Date: 2010-02-03 15:09+0100\n"
+"PO-Revision-Date: 2010-02-09 10:47+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -222,9 +222,8 @@ msgid "List of forwarded ports"
 msgstr "A továbbított portok listája"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:363
-#, fuzzy
 msgid "forwarding"
-msgstr "Port átirányítás"
+msgstr "átirányítás"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"

@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:41+0000\n"
-"PO-Revision-Date: 2010-02-04 08:47+0100\n"
-"Last-Translator: Daniel F <sek@daniel2k.de>\n"
+"PO-Revision-Date: 2010-02-11 13:49+0100\n"
+"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -254,7 +254,7 @@ msgstr "Sie können keine IP-Addresse verwende, welche im oberen Bereich liegt."
 
 #: src/EBox/Model/FixedAddressTable.pm:232
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: src/EBox/Model/FixedAddressTable.pm:240 src/templates/fixed.mas:5
 msgid "Fixed addresses"
@@ -268,30 +268,31 @@ msgstr "Feste Adresse"
 #: src/EBox/Model/DynamicDNS.pm:387
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr ""
+msgstr "Die Domain {domain} wurde schon manuell im Bereich DNS definiert"
 
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "Das DNS-Modul muß konfiguriert werden um mit dieser Option zu arbeiten."
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
+msgstr "{pkg} muß installiert sein um diese Option zu nutzen"
 
 #: src/EBox/Model/DynamicDNS.pm:266
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
+"Domains werden automatisch im Abschnitt DNS im Nur-Lesen-Modus "
+"angelegt/gesetzt."
 
 #: src/EBox/Model/DynamicDNS.pm:268
 msgid "DNS module must be enabled to make this feature work. "
-msgstr ""
+msgstr "Das Modul DNS muß aktiviert werden um diese Option zu verwenden."
 
 #: src/EBox/Model/DynamicDNS.pm:332
-#, fuzzy
 msgid "Dynamic domain"
-msgstr "Suche in Domäne"
+msgstr "Dynamische Domain"
 
 #: src/EBox/Model/DynamicDNS.pm:334
 msgid ""
@@ -300,9 +301,8 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Model/DynamicDNS.pm:339
-#, fuzzy
 msgid "Static domain"
-msgstr "Suche in Domäne"
+msgstr "Statische Domain"
 
 #: src/EBox/Model/DynamicDNS.pm:341
 msgid ""
@@ -312,7 +312,7 @@ msgstr ""
 
 #: src/EBox/Model/DynamicDNS.pm:346
 msgid "Same as Dynamic Domain"
-msgstr ""
+msgstr "Gleich wie Dynamische Domain"
 
 #: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:371
 #: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
@@ -322,21 +322,22 @@ msgstr "Benutzerdefiniert"
 
 #: src/EBox/Model/DynamicDNS.pm:358
 msgid "Dynamic DNS Options"
-msgstr ""
+msgstr "Optionen Dynamischer DNS"
 
 #: src/EBox/Model/DynamicDNS.pm:363
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
+"Die Domains werden automatisch zum Modul DNS im Nur-Lesen-Modus hinzugefügt"
 
 #: src/EBox/Model/DynamicDNS.pm:395
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
-msgstr ""
+msgstr "Domain \"{domain}\" wurde zum DNS hinzugefügt"
 
 #: src/EBox/Model/DynamicDNS.pm:406
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
-msgstr ""
+msgstr "Domain \"{domain}\" wurde vom DNS entfernt"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
@@ -360,25 +361,22 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} liegt nicht im aktuellen Netzwerk"
 
 #: src/EBox/Model/Options.pm:169
-#, fuzzy
 msgid ""
 "DNS module must be enabled to be able to select eBox as primary DNS server"
 msgstr ""
-"Der DNS-Dienst muss aktiv sein, damit Sie als primären DNS-Server diese eBox "
-"wählen können"
+"Der DNS-Dienst muss aktiviert sein, damit Sie diese eBox als primären DNS-"
+"Server wählen können"
 
 #: src/EBox/Model/Options.pm:179
-#, fuzzy
 msgid "NTP module must be enabled to be able to select eBox as NTP server"
 msgstr ""
-"Der DNS-Dienst muss aktiv sein, damit Sie als primären DNS-Server diese eBox "
-"wählen können"
+"Das NTP-Dienst muss aktiv sein, damit Sie diese eBox als NTP-Server wählen "
+"können"
 
 #: src/EBox/Model/Options.pm:190
-#, fuzzy
 msgid "Samba module must be enabled to be able to select eBox as WINS server"
 msgstr ""
-"Der DNS-Dienst muss aktiv sein, damit Sie als primären DNS-Server diese eBox "
+"Der Samba-Dienst muss aktiv sein, damit Sie diese eBox als Samba-Server "
 "wählen können"
 
 #: src/EBox/Model/Options.pm:379
@@ -390,14 +388,12 @@ msgid "local eBox DNS"
 msgstr "Lokale eBox DNS"
 
 #: src/EBox/Model/Options.pm:414
-#, fuzzy
 msgid "local eBox NTP"
-msgstr "Lokale eBox DNS"
+msgstr "Lokaler eBox NTP"
 
 #: src/EBox/Model/Options.pm:428
-#, fuzzy
 msgid "local eBox"
-msgstr "Lokale eBox DNS"
+msgstr "Lokale eBox"
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
@@ -424,12 +420,11 @@ msgid "Search domain"
 msgstr "Suche in Domäne"
 
 #: src/EBox/Model/Options.pm:475
-#, fuzzy
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
-"Die ausgewählte Domäne wird nicht voll qualifizierte DNS-Anfragen "
+"Die ausgewählte Domäne wird 'nicht voll qualifizierte DNS'-Anfragen "
 "vervollständigen"
 
 #: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
@@ -448,30 +443,28 @@ msgid "Secondary nameserver"
 msgstr "Zweiter Nameserver"
 
 #: src/EBox/Model/Options.pm:494
-#, fuzzy
 msgid "NTP server"
-msgstr "Nächster Server"
+msgstr "NTP Server"
 
 #: src/EBox/Model/Options.pm:497
-#, fuzzy
 msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
 msgstr ""
-"Wenn \"eBox DNS\" aktiviert ist, arbeitet der eBox Server als DNS-Cache"
+"Wenn \"eBox NTP\" vorhanden und ausgewählt ist, stellt eBox für DHCP-Clients "
+"als NTP-Server zur Verfügung"
 
 #: src/EBox/Model/Options.pm:502
-#, fuzzy
 msgid "WINS server"
-msgstr "Nächster Server"
+msgstr "WINS Server"
 
 #: src/EBox/Model/Options.pm:505
-#, fuzzy
 msgid ""
 "If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
 "DHCP clients"
 msgstr ""
-"Wenn \"eBox DNS\" aktiviert ist, arbeitet der eBox Server als DNS-Cache"
+"Wenn \"eBox Samba\" vorhanden und ausgewählt ist, stellt eBox für DHCP-Clients "
+"als WINS-Server zur Verfügung"
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"

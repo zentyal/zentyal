@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:37+0000\n"
-"PO-Revision-Date: 2010-01-27 18:45+0100\n"
-"Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
+"PO-Revision-Date: 2010-02-09 15:52+0100\n"
+"Last-Translator: Oleg <oleg@ele-ele.ru>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
@@ -176,17 +176,17 @@ msgstr "Ошибка"
 
 #: src/EBox/Asterisk/Extensions.pm:230
 msgid "User extension"
-msgstr "Пользовательские расширения"
+msgstr "Внутренний номер абонента"
 
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
 #: src/EBox/Model/Meetings.pm:145 src/EBox/Model/Settings.pm:92
 #: src/templates/group.mas:41 src/templates/user.mas:38
 msgid "Extension"
-msgstr "Расширение"
+msgstr "Внутренний номер"
 
 #: src/EBox/Asterisk/Extensions.pm:642
 msgid "Queue extension"
-msgstr "Очередь расширения"
+msgstr "Внутренний номер очереди"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
@@ -205,7 +205,7 @@ msgstr ""
 #: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
 #: src/EBox/Model/Settings.pm:84
 msgid "extension"
-msgstr "расширение"
+msgstr "внутренний номер"
 
 #: src/EBox/Model/Meetings.pm:149
 #, perl-brace-format
@@ -222,7 +222,7 @@ msgstr "Описание"
 
 #: src/EBox/Model/Meetings.pm:184
 msgid "List of Meetings"
-msgstr "Список конференции"
+msgstr "Список конференций"
 
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
@@ -230,7 +230,7 @@ msgstr "конференция"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
-msgstr "Аккаунт Asterisk"
+msgstr "Учетная запись Asterisk"
 
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
@@ -250,7 +250,7 @@ msgstr "Почтовый адрес"
 
 #: src/EBox/Model/Voicemail.pm:108
 msgid "Attach messages"
-msgstr "Прикрепленные сообщения"
+msgstr "Прикрепить сообщения"
 
 #: src/EBox/Model/Voicemail.pm:114
 msgid "Delete sent messages"
@@ -262,11 +262,11 @@ msgstr "Изменить настройки вашей голосовой поч
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
-msgstr "Настройки обновлены успешно"
+msgstr "Настройки успешно обновлены"
 
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
-msgstr "Вы не имеете аккаунта VoIP. Возможно VoIP не включен на этом сервере."
+msgstr "Не обнаружен аккаунт VoIP. Возможно, VoIP не включен на этом сервере."
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -274,8 +274,8 @@ msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
-"Сети подключенные к внутреннему интерфейсу, подобных {net} и так считаются "
-"внутренними сетями и поэтому нет необходимости добавлять их."
+"Сети, подключенные к внутреннему интерфейсу, такие как {net}, считаются "
+"внутренними сетями, поэтому нет необходимости добавлять их."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
@@ -291,7 +291,7 @@ msgstr "локальная сеть"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
-msgstr "Включить демонстрационные расширения"
+msgstr "Включить демонстрационные внутренние номера"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
@@ -299,7 +299,7 @@ msgstr "Разрешить исходящие вызовы"
 
 #: src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
-msgstr "Расширение голосовой почты"
+msgstr "Внутренний номер голосовой почты"
 
 #: src/EBox/Model/Settings.pm:136
 msgid "VoIP domain"
@@ -319,12 +319,11 @@ msgstr "Общие параметры сервера Asterisk обновлены
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "Особые"
 
 #: src/EBox/Model/Provider.pm:89
-#, fuzzy
 msgid "Provider"
-msgstr "Провайдер SIP"
+msgstr "Провайдер"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
@@ -332,7 +331,7 @@ msgstr "Имя"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "Название провайдера услуг VoIP"
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
@@ -347,9 +346,8 @@ msgid "Recipient of incoming calls"
 msgstr "Получатель входящих вызовов"
 
 #: src/EBox/Model/Provider.pm:130
-#, fuzzy
 msgid "Extension recipient of incoming calls through the provider."
-msgstr "Получатель входящих вызовов"
+msgstr "Внутренний номер для входящих вызовов от провайдера"
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
@@ -383,9 +381,10 @@ msgstr "Нет"
 msgid "NAT configuration"
 msgstr "Настройки NAT"
 
+# mistyped as Astreisk
 #: src/EBox/Model/NAT.pm:124
 msgid "NAT Asterisk server configuration"
-msgstr "Настройки NAT сервера Astreisk"
+msgstr "Настройки NAT сервера Asterisk"
 
 #: src/EBox/Model/NAT.pm:126
 msgid "NAT Asterisk server configuration updated."
@@ -397,19 +396,19 @@ msgstr "Модуль Asterisk"
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
-msgstr "Очередь групп Asterisk"
+msgstr "Групповая очередь Asterisk"
 
 #: src/templates/group.mas:12
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
-"Нет пользователей в группе или пользователи не имеют аккаунтов Asterisk, "
-"поэтому не возможно создать очередь."
+"Невозможно создать очередь: нет пользователей в группе, либо пользователи не "
+"имеют учетной записи Asterisk."
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr "Очередь групп"
+msgstr "Групповая очередь"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
@@ -435,7 +434,7 @@ msgstr ""
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
-msgstr "Аккаунт Asterisk"
+msgstr "Учетная запись Asterisk"
 
 #: src/templates/user.mas:10
 msgid "Password for Asterisk service is the user password"
@@ -443,7 +442,7 @@ msgstr "Пароль для службы Asterisk это пароль польз
 
 #: src/templates/user.mas:21
 msgid "User account"
-msgstr "Аккаунт пользователя"
+msgstr "Учетная запись пользователя"
 
 #~ msgid "Administrator password"
 #~ msgstr "Пароль администратора"

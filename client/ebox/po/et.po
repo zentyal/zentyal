@@ -5,166 +5,181 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 1.4.1"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-ebox 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2009-01-22 10:47+0100\n"
-"PO-Revision-Date: 2009-01-22 10:47+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-02-22 09:58+0100\n"
+"Last-Translator: Marmo Luik <marmoluik@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:166
 msgid "Admin Jabber account"
-msgstr ""
+msgstr "Jabberi konto haldamine"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
 msgstr ""
+"Jabberi server {serverName} ei ole töökorras või ühendus sellega ei ole "
+"lubatud"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
-msgstr ""
+msgstr "Tellimispäring nurjus: {message}"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
-msgstr ""
+msgstr "Autentimine nurjus: {result} - {message}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "RSSi fail: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
-msgstr ""
+msgstr "eBoxi häiretekanal {hostname} jaoks"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
 msgstr ""
+"See kanal jälgib selle eBoxi masinaga kogu aja jooksul tehtud toiminguid"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in eBox {hostname} from {source}"
-msgstr ""
+msgstr "See sündmus juhtus eBoxis {hostname}, mille lähteallikaks on {source}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
-msgstr ""
+msgstr "Selleks, et vaadata selle olekut, mine {url}"
 
 #: src/EBox/Event/Dispatcher/Log.pm:116
 msgid "Log file"
-msgstr ""
+msgstr "Logifail"
 
 #: src/EBox/Event/Dispatcher/Log.pm:129
 msgid "Log"
-msgstr ""
+msgstr "Logi"
 
 #: src/EBox/Event/Dispatcher/Abstract.pm:141
 #, perl-brace-format
+#, fuzzy
 msgid "Dispatcher {name} is not configured to be enabled"
-msgstr ""
+msgstr "Lähetaja {name} ei ole seadistatud aktiivseks"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
-msgstr ""
+msgstr "Juhtpaneel"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:161
 msgid "Control center"
-msgstr ""
+msgstr "Juhtimiskeskus"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
+#, fuzzy
 msgid "The file system {fs}, mounted on {mp}, has no space left"
 msgstr ""
+"{fs} failisüsteemil, mille ühenduskohaks on {mp}, ei ole piisavalt vaba "
+"ruumi saadaval"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr ""
+msgstr "Vaba salvestusruum"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
 msgstr ""
+"Kontrolli, kas mõnele kettapartitsioonile on järele jäänud vaba "
+"salvestusruumi"
 
 #: src/EBox/Event/Watcher/RAID.pm:182
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
+#, fuzzy
 msgid "Check if any event has happened in RAID subsystem"
-msgstr ""
+msgstr "Kontrolli RAID alamsüsteemiga tehtud toiminguid"
 
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
+#, fuzzy
 msgid "New array RAID device {devName} information:"
-msgstr ""
+msgstr "Uue {devName} RAID seadme massiivi informatsioon:"
 
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
-msgstr ""
+msgstr "Olek: {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
-msgstr ""
+msgstr "Tüüp: {type}"
 
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
-msgstr ""
+msgstr "Vajalikud aktiivsed seadmed: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
-msgstr ""
+msgstr "Aktiivsed seadmed: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
-msgstr ""
+msgstr "Operatsiooni edenemine: {operation}"
 
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
 msgid "Completed operation percentage: {per}"
-msgstr ""
+msgstr "Lõpetatud operatsioone protsentides: {per}"
 
 #: src/EBox/Event/Watcher/RAID.pm:276
 #, perl-brace-format
 msgid "Operation estimated finish time: {time}"
-msgstr ""
+msgstr "Operatsiooni hinnanguline kestus lõpuni: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:280
 #, perl-brace-format
 msgid "Raid component {nb}: device {device} state {state}"
-msgstr ""
+msgstr "Raid komponent {nb}: seade {device} olek {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:335
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "RAID device {name} has dissappeared: A RAID array which previously was "
 "configured appears to no longer be configured"
 msgstr ""
+"RAID seade {name} näib olevat kadunud: Varem seadistatud RAID massiiv ei ole "
+"enam seadistatud"
 
 #: src/EBox/Event/Watcher/RAID.pm:355
 #, perl-brace-format
+#, fuzzy
 msgid "RAID device {name} has changed its state from {oldState} to {newState}"
-msgstr ""
+msgstr "RAID seadme {name} {oldState} olek muutus järgmiseks: {newState}"
 
 #: src/EBox/Event/Watcher/RAID.pm:375
 #, perl-brace-format
@@ -172,51 +187,60 @@ msgid ""
 "RAID device {name} has changed its number of active components from {oldNum} "
 "to {newNum}"
 msgstr ""
+"RAID seadme {name} aktiivsete komponentide arv {oldNum} asendus {newNum}ga"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
 #, perl-brace-format
 msgid "RAID device {name} has started operation {opName}"
-msgstr ""
+msgstr "RAID seade {name} alustas järgnevat operatsiooni: {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:405
 #, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted"
-msgstr ""
+msgstr "RAID seade {name} lõpetas või katkestas järgmise operatsiooni: {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:411
 #, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started {newOpName}"
 msgstr ""
+"RAID seade {name} lõpetas operatsiooni {oldOpName} ning alustas uut "
+"operatsiooni {newOpName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:421
 #, perl-brace-format
 msgid "RAID device {name} is performing operation {opName}"
-msgstr ""
+msgstr "RAID seade {name} teostab operatsiooni: {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:430
 #, perl-brace-format
 msgid "Status: {percentage} completed"
-msgstr ""
+msgstr "Olek: {percentage} valmis"
 
 #: src/EBox/Event/Watcher/RAID.pm:432
 #, perl-brace-format
 msgid "Estimated finish time: {time}"
-msgstr ""
+msgstr "Hinnanguline kestus lõpuni: {time}"
 
 #: src/EBox/Event/Watcher/RAID.pm:463
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Active component {compName} from RAID array {arrayName} has been marked as "
 "faulty"
 msgstr ""
+"Aktiivne komponent {compName}, RAID massiivist {arrayName}, on märgitud "
+"vigaseks"
 
 #: src/EBox/Event/Watcher/RAID.pm:472
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Spare component {compName} from RAID array {arrayName} which was being "
 "rebuilt to replace a faulty device has failed"
 msgstr ""
+"Varukomponent {compName} RAID massiivist {arrayName}, mis proovis asendada "
+"vigast seadet, nurjus"
 
 #: src/EBox/Event/Watcher/RAID.pm:482
 #, perl-brace-format
@@ -225,6 +249,8 @@ msgid ""
 "rebuilt to replace a faulty device has been successfully rebuilt and has "
 "been made active"
 msgstr ""
+"Varukomponent {compName} RAID massiivist {arrayName}, mis loodi asendamaks "
+"vigast seadet, on nüüd edukalt uuesti loodud ning aktiivne"
 
 #: src/EBox/Event/Watcher/RAID.pm:495
 #, perl-brace-format
@@ -232,341 +258,362 @@ msgid ""
 "A new component {compName} has been hot added to RAID device {arrayName} "
 "with status {status}"
 msgstr ""
+"Uus {compName} komponent ei ole lisatud {arrayName} RAID seadmesse järgneval "
+"põhjusel: {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:508
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "A component {compName} has been hot removed from RAID array {arrayName} when "
 "its status was {status}"
 msgstr ""
+"Komponent {compName} ei ole eemaldatud {arrayName} RAID seadmest, kuna selle "
+"staatus oli {status}"
 
 #: src/EBox/Event/Watcher/RAID.pm:534 src/EBox/Event/Watcher/RAID.pm:575
 #: src/templates/report/raid.mas:101
 msgid "active"
-msgstr ""
+msgstr "aktiivne"
 
 #: src/EBox/Event/Watcher/RAID.pm:536 src/templates/report/raid.mas:103
 msgid "degraded"
-msgstr ""
+msgstr "alandatud"
 
 #: src/EBox/Event/Watcher/RAID.pm:538 src/templates/report/raid.mas:105
 msgid "recovering"
-msgstr ""
+msgstr "taastamine"
 
 #: src/EBox/Event/Watcher/RAID.pm:540 src/templates/report/raid.mas:107
+#, fuzzy
 msgid "resyncing"
-msgstr ""
+msgstr "taassünkroniseerimine"
 
 #: src/EBox/Event/Watcher/RAID.pm:542 src/templates/report/raid.mas:111
 msgid "rebuilding"
-msgstr ""
+msgstr "rekonstrueerimine"
 
 #: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:109
 msgid "reshaping"
-msgstr ""
+msgstr "ümberkujundamine"
 
 #: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:113
 msgid "failed"
-msgstr ""
+msgstr "nurjus"
 
 #: src/EBox/Event/Watcher/RAID.pm:558
+#, fuzzy
 msgid "resync"
-msgstr ""
+msgstr "taassünkroniseeri"
 
 #: src/EBox/Event/Watcher/RAID.pm:560
 msgid "rebuild"
-msgstr ""
+msgstr "rekonstrueeri"
 
 #: src/EBox/Event/Watcher/RAID.pm:562
 msgid "reshape"
-msgstr ""
+msgstr "kujunda ümber"
 
 #: src/EBox/Event/Watcher/RAID.pm:564
 msgid "recovery"
-msgstr ""
+msgstr "taasta"
 
 #: src/EBox/Event/Watcher/RAID.pm:577
 msgid "faulty"
-msgstr ""
+msgstr "vigane"
 
 #: src/EBox/Event/Watcher/RAID.pm:579 src/templates/report/raid.mas:223
 msgid "spare"
-msgstr ""
+msgstr "varu"
 
 #: src/EBox/Event/Watcher/State.pm:126
 msgid "eBox is up and running"
-msgstr ""
+msgstr "eBox on käivitunud"
 
 #: src/EBox/Event/Watcher/State.pm:132
 msgid "eBox is critically down"
-msgstr ""
+msgstr "eBox ei ole töökorras"
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:216
 msgid "State"
-msgstr ""
+msgstr "Olek"
 
 #: src/EBox/Event/Watcher/State.pm:174
 msgid "Check if eBox is currently up or down"
-msgstr ""
+msgstr "Kontrolli, kas eBox on töökorras või mitte"
 
 #: src/EBox/Event/Watcher/Log.pm:203
+#, fuzzy
 msgid "Log observer"
-msgstr ""
+msgstr "Logi jälgija"
 
 #: src/EBox/Event/Watcher/Log.pm:230
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
-msgstr ""
+msgstr "Teata, kui logija ({loggers}) on midagi loginud"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running: {modules}\n"
-msgstr ""
+msgstr "Järgnevad moodulid ei tööta: {modules}"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
-msgstr ""
+msgstr "Teenus"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
+#, fuzzy
 msgid "Check if any eBox service is not running when it should"
-msgstr ""
+msgstr "Kontrolli kas mõni vajalik Eboxi teenus ei tööta"
 
 #: src/EBox/Event/Watcher/Runit.pm:229
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
+"Teenus {service} on taaskäivitunud {restart} korda {time} sekundi jooksul "
+"ning on seisatud"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
-msgstr ""
+msgstr "Teenus lubatud"
 
 #: src/EBox/Common/Model/EnableForm.pm:102
 msgid "Service disabled"
-msgstr ""
+msgstr "Teenus keelatud"
 
 #: src/EBox/Common/Model/EnableForm.pm:146
 msgid "Enable service"
-msgstr ""
+msgstr "Luba teenus"
 
 #: src/EBox/Types/Select.pm:260
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
-msgstr ""
+msgstr "Vali mingi väärtus järgmiste väärtuste seast: {set}"
 
 #: src/EBox/Types/Int.pm:155
 msgid "Enter an integer number"
-msgstr ""
+msgstr "Sisesta täisarv"
 
 #: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:105
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
-msgstr ""
+msgstr "Väärtus ei tohiks olla suurem kui {m}"
 
 #: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:114
 #, perl-brace-format
 msgid "The value shouldn't be less than {m}"
-msgstr ""
+msgstr "Väärtus ei tohiks olla väiksem kui {m}"
 
 #: src/EBox/Types/Service.pm:212 src/EBox/Types/PortRange.pm:289
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/templates/logs/index.mas:185
 msgid "Any"
-msgstr ""
+msgstr "Suvaline"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
-msgstr ""
+msgstr "suvaline"
 
 #: src/EBox/Types/PortRange.pm:398
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr ""
+msgstr "\"Alates\" {from} peab olema suurem kui \"Kuni\" {to}"
 
 #: src/EBox/Types/Password.pm:132
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
-msgstr ""
+msgstr "Parool peab olema vähemalt {minLength} tähemärki pikk"
 
 #: src/EBox/Types/Password.pm:142
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
-msgstr ""
+msgstr "Parool võib olla kõige rohkem {maxLength} tähemärki pikk"
 
 #: src/EBox/Types/Float.pm:97
 msgid "Enter a float number"
-msgstr ""
+msgstr "Sisesta murdarv"
 
 #: src/EBox/Model/DataTable.pm:322
 #, perl-brace-format
+#, fuzzy
 msgid "{model} in {module} module"
-msgstr ""
+msgstr "{model} {module} moodulis"
 
 #: src/EBox/Model/DataTable.pm:326
+#, fuzzy
 msgid "at"
-msgstr ""
+msgstr "asukoht"
 
 #: src/EBox/Model/DataTable.pm:547
 msgid "field"
-msgstr ""
+msgstr "väli"
 
 #: src/EBox/Model/DataTable.pm:1442
 msgid "page"
-msgstr ""
+msgstr "lehekülg"
 
 #: src/EBox/Model/DataTable.pm:1445
 msgid "Page must be a number equal or greater than zero"
-msgstr ""
+msgstr "Lehekülje number peab olema suurem või võrdne nullist"
 
 #: src/EBox/Model/DataTable.pm:1963 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:623 src/EBox/Model/Composite.pm:638
 #: src/EBox/Logs.pm:641
 msgid "Action"
-msgstr ""
+msgstr "Toiming"
 
 #: src/EBox/Model/DataTable.pm:2622
 #, perl-brace-format
+#, fuzzy
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
+msgstr "Eemalda {num} rida {rowName}(i)st kuni {model}{br}"
 
 #: src/EBox/Model/DataTable.pm:2693
 msgid "Page size"
-msgstr ""
+msgstr "Lehekülje suurus"
 
 #: src/EBox/Model/DataTable.pm:2696
 msgid "Must be either a positive number or zero"
-msgstr ""
+msgstr "Number peab olema kas positiivne või null"
 
 #: src/EBox/Model/DataTable.pm:2937
 #, perl-brace-format
 msgid "{row} added"
-msgstr ""
+msgstr "{row} lisatud"
 
 #: src/EBox/Model/DataTable.pm:2938
 #, perl-brace-format
 msgid "{row} deleted"
-msgstr ""
+msgstr "{row} kustutatud"
 
 #: src/EBox/Model/DataTable.pm:2939
 #, perl-brace-format
 msgid "{row} updated"
-msgstr ""
+msgstr "{row} uuendatud"
 
 #: src/EBox/Model/DataTable.pm:2940
 #, perl-brace-format
 msgid "{row} moved up"
-msgstr ""
+msgstr "{row} üles liigutatud"
 
 #: src/EBox/Model/DataTable.pm:2941
 #, perl-brace-format
 msgid "{row} moved down"
-msgstr ""
+msgstr "{row} alla liigutatud"
 
 #: src/EBox/Model/DataTable.pm:4222
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:365
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Enabled"
-msgstr ""
+msgstr "Lubatud"
 
 #: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
 msgid "Provided object with index {i} does not exist"
-msgstr ""
+msgstr "Pakutud objekti indeksiga {i} ei ole olemas"
 
 #: src/EBox/Model/ModelManager.pm:466
+#, fuzzy
 msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
+"Andmed, mida proovisid eemaldada, on kasutusel\n"
+"                     poolt järgnevates sektsioonides:"
 
 #: src/EBox/Model/ModelManager.pm:513
+#, fuzzy
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
+"Andmed, mida proovisid muuta, on kasutusel\n"
+"\t poolt järgnevates sektsioonides:"
 
 #: src/EBox/Model/DataForm.pm:544
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
-msgstr ""
+msgstr "Eemalda {model}{br}(i)st andmed"
 
 #: src/EBox/Model/DataForm.pm:594 src/templates/password.mas:53
 #: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
 #: src/templates/port.mas:14
 msgid "Change"
-msgstr ""
+msgstr "Muuda"
 
 #: src/EBox/Model/DataForm.pm:699
 #: src/EBox/RemoteServices/Model/Subscription.pm:171
 #: src/templates/progress.mas:22
 msgid "Done"
-msgstr ""
+msgstr "Valmis"
 
 #: src/EBox/Model/Composite.pm:322
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
-msgstr ""
+msgstr "See peaks olema mõni järgnevatest väärtustest: {values}"
 
 #: src/EBox/Model/Composite.pm:625
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr ""
+msgstr "Lubatud toimingud on: {view} ja {cView}"
 
 #: src/EBox/Model/Composite.pm:748
 msgid "Choose one of the following:"
-msgstr ""
+msgstr "Vali üks järgnevatest:"
 
 #: src/EBox/CGI/EBox/Backup.pm:34
 msgid "System backups"
-msgstr ""
+msgstr "Süsteemi varundamised"
 
 #: src/EBox/CGI/EBox/Backup.pm:160
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
-msgstr ""
+msgstr "Tundmatu varundamisrežiim: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:192 src/EBox/CGI/EBox/Backup.pm:273
 #: src/EBox/CGI/EBox/Backup.pm:286 src/EBox/CGI/EBox/ConfirmBackup.pm:147
 #: src/EBox/Backup.pm:1323
 msgid "The input contains invalid characters"
-msgstr ""
+msgstr "Sisend sisaldab vigaseid tähemärke"
 
 #: src/EBox/CGI/EBox/Backup.pm:226
 #, perl-brace-format
 msgid "Unknown restore mode: {mode}"
-msgstr ""
+msgstr "Tundmatu taastamisrežiim: {mode}"
 
 #: src/EBox/CGI/EBox/Backup.pm:239
 msgid "Backing up"
-msgstr ""
+msgstr "Varundamine"
 
 #: src/EBox/CGI/EBox/Backup.pm:240
 msgid "Backing up modules"
-msgstr ""
+msgstr "Moodulite varundamine"
 
 #: src/EBox/CGI/EBox/Backup.pm:241
 #: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:72
 msgid "Operation"
-msgstr ""
+msgstr "Operatsioon"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 #: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:73
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "varundamise lõpuni jäänud operatsioone"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
 #: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:74
 msgid "Backup successful"
-msgstr ""
+msgstr "Varundamine edukalt lõpetatud"
 
 #: src/EBox/CGI/EBox/Backup.pm:254
 msgid "Restoring backup"
-msgstr ""
+msgstr "Varunduse taastamine"
 
 #: src/EBox/CGI/EBox/Backup.pm:255
 msgid "Restoring modules"
-msgstr ""
+msgstr "Moodulite taastamine"
 
 #: src/EBox/CGI/EBox/Backup.pm:256
 #: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:74
@@ -574,89 +621,92 @@ msgstr ""
 #: src/EBox/Logs.pm:640 src/templates/moduleStatusTable.mas:58
 #: src/templates/finish.mas:106
 msgid "Module"
-msgstr ""
+msgstr "Moodul"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
 #: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:75
 #: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:84
 msgid "modules left to restore"
-msgstr ""
+msgstr "taastada jäänud mooduleid"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 #: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:76
 #: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:85
 msgid "Restore successful"
-msgstr ""
+msgstr "Taastamine edukalt lõpetatud"
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
-msgstr ""
+msgstr "mooduli nimetus"
 
 #: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
-msgstr ""
+msgstr "Moodul taaskäivitus korrektselt"
 
 #: src/EBox/CGI/EBox/CurrentProgress.pm:36
 msgid "Upgrading"
-msgstr ""
+msgstr "Uuendamine"
 
 #: src/EBox/CGI/EBox/Halt.pm:30
+#, fuzzy
 msgid "Halt or reboot"
-msgstr ""
+msgstr "Seiskamine või taaskäivitamine"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
+#, fuzzy
 msgid "eBox is going down for halt"
-msgstr ""
+msgstr "eBox valmistub seiskamiseks"
 
 #: src/EBox/CGI/EBox/Halt.pm:46
+#, fuzzy
 msgid "eBox is going down for reboot"
-msgstr ""
+msgstr "eBox valmistub taaskäivitumiseks"
 
 #: src/EBox/CGI/EBox/Bug.pm:29
 msgid "Bug report"
-msgstr ""
+msgstr "Veaaruanne"
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General configuration"
-msgstr ""
+msgstr "Üldine seadistamine"
 
 #: src/EBox/CGI/EBox/Password.pm:49
 msgid "Incorrect password."
-msgstr ""
+msgstr "Vigane parool."
 
 #: src/EBox/CGI/EBox/Password.pm:54
 msgid "New passwords do not match."
-msgstr ""
+msgstr "Uued paroolid ei kattu."
 
 #: src/EBox/CGI/EBox/Password.pm:58
 msgid "The password must be at least 6 characters long"
-msgstr ""
+msgstr "Parool peab olema vähemalt 6 tähemärki pikk"
 
 #: src/EBox/CGI/EBox/Password.pm:62
 msgid "The password was changed successfully."
-msgstr ""
+msgstr "Parool edukalt muudetud."
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:176
 #: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:35
 msgid "Configuration backup"
-msgstr ""
+msgstr "Varundamise seadistamine"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:105
 msgid "Please confirm that you want to delete the following backup file:"
-msgstr ""
+msgstr "Palun kinnita, et oled kindel järgneva varundusfaili kustutamises:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107
 #: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:125
 #: src/templates/backup.mas:172 src/templates/backup.mas:173
 #: src/templates/RemoteServices/Backup/index.mas:96
 msgid "Delete"
-msgstr ""
+msgstr "Kustuta"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:114
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:130
 msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
+msgstr "Palun kinnita, et oled kindel järgneva varundusfaili taastamises:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132
@@ -666,150 +716,165 @@ msgstr ""
 #: src/templates/RemoteServices/Backup/proxy.mas:76
 #: src/templates/RemoteServices/Backup/index.mas:85
 msgid "Restore"
-msgstr ""
+msgstr "Taasta"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:179
 msgid "Full data and configuration backup"
-msgstr ""
+msgstr "Kõikide andmete ja seadistuste varundamine"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:182
+#, fuzzy
 msgid "Bug-report configuration dump"
-msgstr ""
+msgstr "Vearaporti seadistuste tõmmis"
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:619
 msgid "Logs"
-msgstr ""
+msgstr "Logid"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
 msgid "Module status configuration"
-msgstr ""
+msgstr "Mooduli oleku seadistamine"
 
 #: src/EBox/CGI/Login/Index.pm:61
+#, fuzzy
 msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
-msgstr ""
+msgstr "Skript käivitas üksnes eBoxi. Palun oota kuni see saab valmis"
 
 #: src/EBox/CGI/Login/Index.pm:65
 msgid "Incorrect password"
-msgstr ""
+msgstr "Vale parool"
 
 #: src/EBox/CGI/Login/Index.pm:68
 msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
+msgstr "Turvalisusega seotud põhjustel aegus sinu seanss tegevusetuse tõttu"
 
 #: src/EBox/CGI/Login/Index.pm:71
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "Sind logiti välja, kuna avatud on uus sessioon"
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"
-msgstr ""
+msgstr "Logi välja"
 
 #: src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
-msgstr ""
+msgstr "Kettakasutus"
 
 #: src/EBox/CGI/Report/RAID.pm:30
 msgid "RAID report"
-msgstr ""
+msgstr "RAID aruanne"
 
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
-msgstr ""
+msgstr "Salvesta seadistused"
 
 #: src/EBox/CGI/Finish.pm:76
 msgid "Saving changes"
-msgstr ""
+msgstr "Muudatuste salvestamine"
 
 #: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes in modules"
-msgstr ""
+msgstr "Muudatuste salvestamine moodulites"
 
 #: src/EBox/CGI/Finish.pm:78 src/templates/report/raid.mas:203
 msgid "Current operation"
-msgstr ""
+msgstr "Aktiivne operatsioon"
 
 #: src/EBox/CGI/Finish.pm:79
 msgid "operations performed"
-msgstr ""
+msgstr "sooritatud operatsioone"
 
 #: src/EBox/CGI/Finish.pm:80
 msgid "Changes saved"
-msgstr ""
+msgstr "Muudatused salvestatud"
 
 #: src/EBox/CGI/Finish.pm:81
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
 msgstr ""
+"Mõningad moodulid teavitasid salvestamise käigus tekkinud veast. Rohkema "
+"informatsiooni saamiseks vaata logisid siit: {dir}"
 
 #: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
-msgstr ""
+msgstr "Muudatuste tühistamine"
 
 #: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
-msgstr ""
+msgstr "Muudatuste moodulitest tühistamine"
 
 #: src/EBox/CGI/Finish.pm:103
 msgid "Current module"
-msgstr ""
+msgstr "Aktiivne moodul"
 
 #: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
-msgstr ""
+msgstr "moodulid tühistatud"
 
 #: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
-msgstr ""
+msgstr "muudatused tühistatud"
 
 #: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
 msgstr ""
+"Mõningad moodulid teavitasid muudatuste eemaldamise käigus veast. Rohkema "
+"informatsiooni saamiseks vaata logisid siit: {dir}"
 
 #: src/EBox/CGI/ClientRawBase.pm:191
+#, fuzzy
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Ilmnes sisemine viga. Selle vea kohta käiva informatsiooni leiad logidest."
 
 #: src/EBox/CGI/ClientRawBase.pm:201
+#, fuzzy
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
+"Ilmnes malliga seotud sisemine viga. Selle vea kohta käiva informatsiooni "
+"leiad logidest."
 
 #: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm:201
+#, fuzzy
 msgid "Dashboard"
-msgstr ""
+msgstr "Laud"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:52 src/templates/dashboard/index.mas:87
 msgid "Configure widgets"
-msgstr ""
+msgstr "Vidinate seadistamine"
 
 #: src/EBox/CGI/RemoteServices/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
-msgstr ""
+msgstr "Varundus kustutatud"
 
 #: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:72
 #: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:81
 msgid "Restoring remote backup"
-msgstr ""
+msgstr "Kaugvarunduse taastamine"
 
 #: src/EBox/CGI/RemoteServices/Backup/RestoreRemoteBackup.pm:73
 #: src/EBox/CGI/RemoteServices/Backup/RestoreProxyRemoteBackup.pm:82
 msgid "Restoring modules from remote backup"
-msgstr ""
+msgstr "Kaugvarunduse moodulite taastamine"
 
 #: src/EBox/CGI/RemoteServices/Backup/Index.pm:36
+#, fuzzy
 msgid "Remote system backups"
-msgstr ""
+msgstr "Kaugsüsteemi varundused"
 
 #: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:92
 #: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:105
@@ -817,324 +882,350 @@ msgid ""
 "Please confirm that you want to restore the configuraction using the "
 "following remote backup:"
 msgstr ""
+"Palun kinnita, et sa tõesti tahad seadistusi taastada kasutades järgnevat "
+"kaugvarundust:"
 
 #: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:119
 msgid "Please confirm that you want to delete the following remote backup:"
-msgstr ""
+msgstr "Palun kinnita, et sa tõesti tahad kustutada järgnevat kaugvarundust:"
 
 #: src/EBox/CGI/RemoteServices/Backup/Confirm.pm:173
 #, perl-brace-format
 msgid "Inexistent action: {a}"
-msgstr ""
+msgstr "Olematu toiming: {a}"
 
 #: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
-msgstr ""
+msgstr "Kaugvarunduse tegemine"
 
 #: src/EBox/CGI/RemoteServices/Backup/MakeRemoteBackup.pm:71
 msgid "Backing up modules "
-msgstr ""
+msgstr "Moodulite varundamine"
 
 #: src/EBox/CGI/RemoteServices/Backup/Proxy.pm:35
+#, fuzzy
 msgid "Remote system backups proxy"
-msgstr ""
+msgstr "Kaugsüsteemi puhverserveri varundamised"
 
 #: src/EBox/CGI/RemoteServices/NoConnection.pm:31
 msgid "Connection error"
-msgstr ""
+msgstr "Ühenduse viga"
 
 #: src/EBox/Logs/Model/Report/Details.pm:197
 #: src/EBox/Logs/Model/Report/Details.pm:230
 msgid "All"
-msgstr ""
+msgstr "Kõik"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
-msgstr ""
+msgstr "tund"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:41
 msgid "day"
-msgstr ""
+msgstr "päev"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:42
 msgid "week"
-msgstr ""
+msgstr "nädal"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:43
 msgid "month"
-msgstr ""
+msgstr "kuu"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
-msgstr ""
+msgstr "Aruande ajaperiood"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
-msgstr ""
+msgstr "Aruande valikud"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:254
 msgid "never purge"
-msgstr ""
+msgstr "ära kunagi puhasta"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:258
 #: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
-msgstr ""
+msgstr "üks tund"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:262
 #: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
-msgstr ""
+msgstr "kaksteist tundi"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:266
 #: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
-msgstr ""
+msgstr "üks päev"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:270
 #: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
-msgstr ""
+msgstr "kolm päeva"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:274
 #: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
-msgstr ""
+msgstr "üks nädal"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:278
 #: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
-msgstr ""
+msgstr "viisteist päeva"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:282
 #: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
-msgstr ""
+msgstr "kolmkümmend päeva"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:286
 #: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
-msgstr ""
+msgstr "üheksakümmend päeva"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:357
 #: src/EBox/Logs/Model/SelectLog.pm:121
 #: src/EBox/Events/Model/Watcher/Log.pm:216
 msgid "Domain"
-msgstr ""
+msgstr "Domeen"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:372
 #: src/EBox/Logs/Model/ForcePurge.pm:100
 msgid "Purge logs older than"
-msgstr ""
+msgstr "Puhasta logid, mis on vanemad kui"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:389
 msgid "Current configuration"
-msgstr ""
+msgstr "Aktiivsed seadistused"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:390
 msgid "Logs configuration"
-msgstr ""
+msgstr "Logide seadistused"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:396
+#, fuzzy
 msgid "Enable/disable logging per-module basis"
-msgstr ""
+msgstr "Luba/keela mooduli alusel logimine"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:398
 #: src/EBox/Logs/Model/SelectLog.pm:153 src/EBox/Logs.pm:58
 msgid "logs"
-msgstr ""
+msgstr "logid"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:109
+#, fuzzy
 msgid "Force log purge"
-msgstr ""
+msgstr "Sundlogi puhastamine"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:112
+#, fuzzy
 msgid "Purge"
-msgstr ""
+msgstr "Puhasta"
 
 #: src/EBox/Logs/Model/SelectLog.pm:129
 msgid "Full report"
-msgstr ""
+msgstr "Täielik aruanne"
 
 #: src/EBox/Logs/Model/SelectLog.pm:135
 msgid "Summarized report"
-msgstr ""
+msgstr "Kokkuvõttev aruanne"
 
 #: src/EBox/Logs/Model/SelectLog.pm:146
 msgid "Select report"
-msgstr ""
+msgstr "Vali aruanne"
 
 #: src/EBox/Logs/Report.pm:68
 msgid "Day"
-msgstr ""
+msgstr "Päev"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
 msgid "Jabber server name"
-msgstr ""
+msgstr "Jabberi serveri nimi"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:194
 msgid "Jabber server to send the messages"
-msgstr ""
+msgstr "Jabberi server teadete saatmiseks"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:198
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:205
 msgid "Jabber user name"
-msgstr ""
+msgstr "Jabberi kasutajanimi"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:208
+#, fuzzy
 msgid ""
 "Jabber ID of the account that will send the messages. Hint: do not introduce "
 "@domain, only the user name"
 msgstr ""
+"Jabberi konto ID saadab sõnumeid. Vihje: Esita ainult kasutajanimi, mitte "
+"@domeen"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:214
 msgid "User password"
-msgstr ""
+msgstr "Kasutaja parool"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:222
 #: src/EBox/RemoteServices/Model/Subscription.pm:276
 msgid "Subscribe"
-msgstr ""
+msgstr "Telli"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid ""
 "Tick this option if you want eBox to create an account for the above user"
-msgstr ""
+msgstr "Märgi see valik, kui sa soovid, et eBox looks konto sellele kasutajale"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:273
+#, fuzzy
 msgid "Administrator Jabber Identifier"
-msgstr ""
+msgstr "Jabberi administraatori identifitseerimine"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:234
+#, fuzzy
 msgid ""
 "Destination Jabber ID of the messages generated by eBox,  i.e: you, the eBox "
 "admin. Note that you need to register this  account manually in any jabber "
 "server"
 msgstr ""
+"Sinu Jabberi ID kohta saadi eBoxi poolt järgmine teade: Sina kui eBoxi "
+"administraator, pead registreerima selle konto käsitsi igas jabberi serveris"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:243
 msgid "Configure Jabber dispatcher"
-msgstr ""
+msgstr "Seadista Jabberi lähetaja"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:248
 msgid "This dispatcher will send events to an Jabber account"
-msgstr ""
+msgstr "Lähetaja saadab sündmuseid Jabberi kontole"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:251
 msgid "Jabber dispatcher configuration updated"
-msgstr ""
+msgstr "Jabberi lähetaja seadistused on uuendatud"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:275
+#, fuzzy
 msgid "It should follow the pattern 'user@domain[/resource]'"
-msgstr ""
+msgstr "See peaks välja nägema selline: 'kasutaja@domeen[/resource]'"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:148
 msgid "Nobody"
-msgstr ""
+msgstr "Mitte keegi"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:152
 msgid "IP address"
-msgstr ""
+msgstr "IP aadress"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:159
 msgid "Object"
-msgstr ""
+msgstr "Objekt"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:168
 msgid "Public"
-msgstr ""
+msgstr "Avalik"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:175
 msgid "Channel link"
-msgstr ""
+msgstr "Kanali link"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:182
 msgid "Allowed readers"
-msgstr ""
+msgstr "Lubatud lugejad"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:185
 msgid "Use this field to set the access control for the channel"
-msgstr ""
+msgstr "Seda välja kasuta kanalile ligipääsu määramiseks"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:190
+#, fuzzy
 msgid "Syndicate this RSS"
-msgstr ""
+msgstr "Liitu selle RSSiga"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:200
 msgid "Configure RSS dispatcher"
-msgstr ""
+msgstr "Seadista RSSi lähetaja"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:205
+#, fuzzy
 msgid ""
 "The channel link is the link which is used to syndicate the content to your "
 "favourite RSS. "
-msgstr ""
+msgstr "Selle kanali link on selleks, et liituda sinu lemmik RSSi sisuga"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:208
 msgid "RSS dispatcher configuration updated"
-msgstr ""
+msgstr "RSSi lähetaja seadistused uuendatud"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
 msgid "Log domain {logDomain}"
-msgstr ""
+msgstr "Logi domeeni {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
 #: src/templates/logs/index.mas:183
 msgid "Event"
-msgstr ""
+msgstr "Sündmus"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
 #, perl-brace-format
+#, fuzzy
 msgid "Filters to apply to notify logs from {logDomain}"
-msgstr ""
+msgstr "Filtrid teatamislogide rakendamiseks saadaval siit: {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
+#, fuzzy
 msgid ""
 "Every filter added is cumulative.Then every log line which matches with any "
 "filter given will be notified"
 msgstr ""
+"Iga lisatud filter on kumulatiivne. Seetõttu tehakse teatavaks iga logi "
+"rida, mis sobib iga antud filtriga"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
 msgid "filter"
-msgstr ""
+msgstr "filter"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
 msgid "Minimum free disk space per filesystem"
-msgstr ""
+msgstr "Failisüsteemi kohta minimaalne vaba kettaruum"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:104
+#, fuzzy
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr ""
+"Kui vaba ruumi protsent mõnel kettapartitsioonil on alla seda väärtust, "
+"kutsutakse see sündmus esile"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:111
 msgid "Configure disk free space watcher"
-msgstr ""
+msgstr "Seadista vaba kettaruumi jälgija"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:168
 #: src/EBox/Events/Model/Watcher/Log.pm:192
+#, fuzzy
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr ""
+"Hoiatus! Logijälgija pole lubatud. See tuleks lubada, et olla logidest "
+"teavitatud."
 
 #: src/EBox/Events/Model/Watcher/Log.pm:221
 msgid "Filtering"
-msgstr ""
+msgstr "Filtreerimine"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:229
 msgid "Configure log watchers"
-msgstr ""
+msgstr "Logivaatlejate seadistamine"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:231
 msgid "Log watcher"
-msgstr ""
+msgstr "Logivaatleja"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:250
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
@@ -1143,7 +1234,7 @@ msgstr ""
 #: src/templates/RemoteServices/Backup/index.mas:67
 #: src/templates/RemoteServices/Backup/confirm.mas:24
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:258
 #: src/templates/confirm-backup.mas:36 src/templates/backup.mas:44
@@ -1153,134 +1244,149 @@ msgstr ""
 #: src/templates/RemoteServices/Backup/index.mas:69
 #: src/templates/RemoteServices/Backup/confirm.mas:40
 msgid "Description"
-msgstr ""
+msgstr "Kirjeldus"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:285
 msgid "Configuration"
-msgstr ""
+msgstr "Seadistamine"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:283
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:305
+#, fuzzy
 msgid "None"
-msgstr ""
+msgstr "Puudub"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:292
 msgid "Configure events"
-msgstr ""
+msgstr "Sündmuste seadistamine"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
 msgid "event"
-msgstr ""
+msgstr "sündmus"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:301
+#, fuzzy
 msgid "Enable/Disable each event watcher monitoring"
-msgstr ""
+msgstr "Luba/Keela iga sündmuse vaatleja monitooring"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:488
+#, fuzzy
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
+"Hoiatus! Domeeni jälgimise logi ei ole lubatud. Palun mine 'Seadistamine' "
+"ning luba vähemalt üks logi, et jäädvustada sündmusi selle domeeniga."
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:273
 msgid "Receiver"
-msgstr ""
+msgstr "Vastuvõtja"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:328
 msgid "Configure dispatchers"
-msgstr ""
+msgstr "Seadista lähetajaid"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:337
 msgid "dispatcher"
-msgstr ""
+msgstr "lähetaja"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:338
 msgid "Enable/Disable each event dispatcher"
-msgstr ""
+msgstr "Luba/Keela iga sündmuse lähetaja"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:526
+#, fuzzy
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
 msgstr ""
+"Selleks, et lubada seadistatav sündmuse lähetaja, tuleb see esmalt "
+"seadistada"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:160
 msgid "Events"
-msgstr ""
+msgstr "Sündmused"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:78
 msgid ""
 "Events module configures eBox to help informing you about events that happen"
 msgstr ""
+"Sündmuste moodul seadistab eBoxi, et teavitada sind toimuvatest sündmustest"
 
 #: src/EBox/Report/DiskUsage.pm:61
 #, perl-brace-format
+#, fuzzy
 msgid "No usage data for {d}. Are you sure is a valid disk?"
 msgstr ""
+"Kasutatavad andmed puuduvad siit: {d}. Oled sa kindel, et tegemist on sobiva "
+"kettaga?"
 
 #: src/EBox/Report/DiskUsage.pm:210
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Invalid file system: {f}. Only regular and no removable media file systems "
 "are accepted"
 msgstr ""
+"Vigane failisüsteem: {f}. Lubatud on ainult tavalised ja mitte-eemaldatavad "
+"andmekandja failisüsteemid"
 
 #: src/EBox/Report/DiskUsage.pm:320
 msgid "Free space"
-msgstr ""
+msgstr "Vaba ruum"
 
 #: src/EBox/Report/DiskUsage.pm:323 src/EBox/SysInfo.pm:210
 msgid "System"
-msgstr ""
+msgstr "Süsteem"
 
 #: src/EBox/Apache.pm:248 src/EBox/Apache.pm:257
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Global.pm:369 src/EBox/Global.pm:390
 #, perl-brace-format
 msgid "Saving {modName} module"
-msgstr ""
+msgstr "{modName} mooduli salvestamine"
 
 #: src/EBox/Global.pm:816
 #, perl-brace-format
 msgid "running {scriptName} script"
-msgstr ""
+msgstr "{scriptName} skripti töötamine"
 
 #: src/EBox/Events.pm:90
 msgid "events"
-msgstr ""
+msgstr "sündmused"
 
 #: src/EBox/Events.pm:595
 msgid "Event service status"
-msgstr ""
+msgstr "Sündmuse teenuse olek"
 
 #: src/EBox/Html.pm:39
 msgid "Save changes"
-msgstr ""
+msgstr "Muudatuste salvestamine"
 
 #: src/EBox/Logs.pm:74
 msgid "Create logs database"
-msgstr ""
+msgstr "Logide andmebaasi loomine"
 
 #: src/EBox/Logs.pm:75
 msgid "eBox store its logs in the database"
-msgstr ""
+msgstr "eBoxi logide salvestamine andmebaasi"
 
 #: src/EBox/Logs.pm:425
 #, perl-brace-format
 msgid "Table {table} does not exist"
-msgstr ""
+msgstr "Tabel {table} puudub"
 
 #: src/EBox/Logs.pm:622
 msgid "Query logs"
-msgstr ""
+msgstr "Logide päring"
 
 #: src/EBox/Logs.pm:625
 msgid "Configure logs"
-msgstr ""
+msgstr "Seadista logid"
 
 #: src/EBox/Logs.pm:638 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:128 src/templates/finish.mas:105
@@ -1288,108 +1394,122 @@ msgstr ""
 #: src/templates/RemoteServices/Backup/index.mas:68
 #: src/templates/RemoteServices/Backup/confirm.mas:32
 msgid "Date"
-msgstr ""
+msgstr "Kuupäev"
 
 #: src/EBox/Logs.pm:639
 msgid "Client Address"
-msgstr ""
+msgstr "Kliendi Aadress"
 
 #: src/EBox/Logs.pm:642
 msgid "Params"
-msgstr ""
+msgstr "Parameetrid"
 
 #: src/EBox/Logs.pm:643
 msgid "Committed"
-msgstr ""
+msgstr "Sisse kantud"
 
 #: src/EBox/Logs.pm:648
 msgid "Admin"
-msgstr ""
+msgstr "Halda"
 
 #: src/EBox/Logs.pm:742
 msgid "Log messages"
-msgstr ""
+msgstr "Logi teated"
 
 #: src/EBox/Logs.pm:769
+#, fuzzy
 msgid "Lifetime parameter must be a positive number of hours"
-msgstr ""
+msgstr "Eluaegne parameeter peab olema positiivne number tundides"
 
 #: src/EBox/EventDaemon.pm:473
 #, perl-brace-format
+#, fuzzy
 msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr ""
+"Lähetaja {name} on keelatud alates sellest, kui see ei olnud enam suuteline "
+"saatma sündmuseid"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
-msgstr ""
+msgstr "Varundamise arhiivi loomine"
 
 #: src/EBox/Backup.pm:142
 #, perl-brace-format
+#, fuzzy
 msgid "Dumping configuration of module {m}"
-msgstr ""
+msgstr "Moodulite seadistuste tõmmis {m}"
 
 #: src/EBox/Backup.pm:302
 msgid "Could not create backup archive"
-msgstr ""
+msgstr "Varundamise arhiivi ei olnud võimalik luua"
 
 #: src/EBox/Backup.pm:309
 msgid "Could not append data to backup archive"
-msgstr ""
+msgstr "Varundamise arhiivi ei olnud võimalik andmeid lisada"
 
 #: src/EBox/Backup.pm:423
 msgid "Unknown"
-msgstr ""
+msgstr "Tundmatu"
 
 #: src/EBox/Backup.pm:476
 #, perl-brace-format
+#, fuzzy
 msgid "Could not extract the requested backup files: {files}"
-msgstr ""
+msgstr "Järgmisi päritud varundusfaile ei olnud võimalik lahti pakkida: {files}"
 
 #: src/EBox/Backup.pm:479 src/EBox/Backup.pm:1121
 msgid "Could not unpack the backup"
-msgstr ""
+msgstr "Varundust ei olnud võimalik lahti pakkida"
 
 #: src/EBox/Backup.pm:704 src/EBox/SysInfo.pm:227
 msgid "Backup"
-msgstr ""
+msgstr "Varundamine"
 
 #: src/EBox/Backup.pm:740
 msgid "Writing backup file to hard disk"
-msgstr ""
+msgstr "Varundusfaili kirjutamine kõvakettale"
 
 #: src/EBox/Backup.pm:765
+#, fuzzy
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
 msgstr ""
+"Mõningad moodulid ei salvestanud muudatusi. Enne varunduse tegemist pead sa "
+"need salvestama või loobuma"
 
 #: src/EBox/Backup.pm:820
 msgid "Incorrect or corrupt backup file"
-msgstr ""
+msgstr "Vigane varundusfail"
 
 #: src/EBox/Backup.pm:849
 msgid "The backup file is corrupt: could not open archive"
-msgstr ""
+msgstr "Varundusfail on vigane: arhiivi ei ole võimalik avada"
 
 #: src/EBox/Backup.pm:861
 msgid "The backup file is corrupt: could not open backup checksum"
-msgstr ""
+msgstr "Varundusfail on vigane: varunduse kontrollsummat ei ole võimalik avada"
 
 #: src/EBox/Backup.pm:868
 msgid "The backup file is corrupt."
-msgstr ""
+msgstr "Varundusfail on vigane."
 
 #: src/EBox/Backup.pm:886
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr ""
+"Varunduse arhiiv on vigane. Võimalik, et fail ise on vigane või sa kasutad "
+"ühildumatut eBoxi versiooni"
 
 #: src/EBox/Backup.pm:892
+#, fuzzy
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
+"Arhiiv ei sisalda täieliku varundust, mis teeb taastamise võimatuks. "
+"Seadistuse taastamine võib olla võimalik"
 
 #: src/EBox/Backup.pm:927
 #, perl-brace-format
@@ -1397,15 +1517,17 @@ msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
+"Kõvakettal pole piisavalt vaba ruumi, et lõpetada taastamisprotsessi. Nõutud "
+"on {size} Kb ruumi. Palun vabasta see ruum ning proovi uuesti"
 
 #: src/EBox/Backup.pm:1208
 #, perl-brace-format
 msgid "No module {m} found in backup"
-msgstr ""
+msgstr "Moodulit {m} varundusest ei leitud"
 
 #: src/EBox/Backup.pm:1237
 msgid "No modules to restore"
-msgstr ""
+msgstr "Taastamiseks mooduleid ei leitud"
 
 #: src/EBox/Backup.pm:1302
 #, perl-brace-format

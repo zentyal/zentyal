@@ -7,8 +7,9 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 16:32+0000\n"
-"PO-Revision-Date: 2009-08-18 05:19+0200\n"
-"Last-Translator: Fernando Machado <dartv8er@gmail.com>\n"
+"PO-Revision-Date: 2010-02-08 15:35+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,16 +50,18 @@ msgstr ""
 
 #: src/EBox/MailFilter.pm:90
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Adicionar spam e ignorar usuários do sistema"
 
 #: src/EBox/MailFilter.pm:92
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Esses usuários são para as contas de e-mail usadas para treinar o filtro "
+"baiesiano"
 
 #: src/EBox/MailFilter.pm:97
 msgid "Update LDAP"
-msgstr "Atualiza LDAP"
+msgstr "Atualizar LDAP"
 
 #: src/EBox/MailFilter.pm:98
 msgid "Add amavis specific classes and fields"
@@ -358,7 +361,7 @@ msgstr "endereço de e-mail"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
 #, perl-brace-format
@@ -388,7 +391,7 @@ msgstr "Servidor de e-mail externo"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:71
 msgid "IP address of the server"
-msgstr ""
+msgstr "Endereço IP do servidor"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:75
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:76
@@ -609,7 +612,7 @@ msgstr "Aprendido das mensagens"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:83
 msgid "Train"
-msgstr ""
+msgstr "Treinar"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:98
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
@@ -649,13 +652,15 @@ msgstr "coeficiente personalizadao"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:114
 msgid "Learn from accounts' Spam IMAP folders"
-msgstr ""
+msgstr "Aprender a partir das pastas Spam das contas IMAP"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:116
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
 msgstr ""
+"Toda vez que um e-mail é movido para dentro ou fora de uma pasta spam de uma "
+"conta IMAP, o filtro será testado"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:123
 msgid "Learning ham account"
@@ -699,6 +704,8 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"Não existem domínios virtuais gerenciados por este servidor. Você pode criar "
+"alguns na {openA}página de domínios virtuais de e-mail{closeA}."
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
 msgid "Mail filter graph"
@@ -835,7 +842,7 @@ msgstr ""
 #: src/EBox/MailFilter/SpamAssassin.pm:404
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
-msgstr ""
+msgstr "As contas do domínio {d} não podem tratar o filtro bayesian"
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
 msgid "External connections"

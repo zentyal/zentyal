@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:05+0000\n"
-"PO-Revision-Date: 2009-01-23 22:57+0000\n"
-"Last-Translator: Jose Carlos N Medeiros <jose@psabs.com.br>\n"
+"PO-Revision-Date: 2010-02-08 14:59+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -374,6 +375,8 @@ msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
 "Status{closehref} section."
 msgstr ""
+"Você precisa habilitar o módulo de monitoramento para ver os gráficos na "
+"seção {openhref}Status dos Módulos{closehref}."
 
 #: src/EBox/CGI/Index.pm:98
 #, perl-brace-format
@@ -382,6 +385,10 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
+"Você precisa salvar as alterações nos Status dos Módulos para visualizar na "
+"seção {openhref}Salvar alterações{closehref}. No caso de já habilitado, você "
+"precisa aguardar alguns segundos para que o monitor colete os primeiros "
+"dados"
 
 #: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
 #: src/EBox/Monitor.pm:166

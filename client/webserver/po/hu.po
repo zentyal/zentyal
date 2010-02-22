@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:08+0100\n"
-"PO-Revision-Date: 2010-01-27 11:31+0100\n"
+"PO-Revision-Date: 2010-02-09 11:22+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -23,11 +23,11 @@ msgstr "HyperText Transport Protocol (HTTP)"
 
 #: src/EBox/WebServer.pm:77 src/EBox/WebServer/Composite/General.pm:81
 msgid "Web Server"
-msgstr "webszerver"
+msgstr "Webszerver"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
-msgstr "beállítja a webszerver figyelő (hallgatózási) portját"
+msgstr "Beállítja a webszerver figyelő portját"
 
 #: src/EBox/WebServer.pm:101
 msgid "To configure the per-user public HTML directory"
