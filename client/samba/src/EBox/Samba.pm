@@ -1042,8 +1042,11 @@ sub _addGroupsToPrinter # (printer, groups)
                 'value' => $printer);
     }
 
-    for my $groupname (@{$groups}) {
-        _checkGroupExists($groupname);
+    my $groupmod = EBox::Global->modInstance('users');
+
+    my @existingGroups;
+    for my $group (@{$groups}) {
+        push (@existingGroups, $group) if ($groupmod->groupExists($group));
     }
 
     $self->set_list("printers/$printer/groups", "string", $groups);
