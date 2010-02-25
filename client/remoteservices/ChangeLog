@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: Found a lost method makes the monitorization work again
 	+ Allow read-only script sessions
 1.4.2
 	+ Bugfix: Not allow "." character in common name

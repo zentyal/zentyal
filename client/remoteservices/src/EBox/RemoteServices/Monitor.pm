@@ -142,4 +142,52 @@ sub _serviceHostNameKey
     return 'managementProxy';
 }
 
+# Group: Private methods
+
+# Send a large file using Out-of-bound communication
+sub _uploadLargeFile
+{
+    my ($self, $filePath, $kind) = @_;
+
+    my @wsParams = (kind => $kind);
+
+    my $digestName = $self->soapCall('uploadLargeFile', @wsParams);
+
+    # Using FTP over SSL send the file
+    $self->_sendFile($filePath, $digestName);
+
+    my $digester = new Digest::SHA(256);
+    $digester->addfile($filePath);
+
+    @wsParams = (filename => $digestName,
+                 digest => $digester->hexdigest());
+
+    return $self->soapCall('integrityCheck', @wsParams);
+
+}
+
+# Send the file using FTP over SSL
+sub _sendFile # (origPath, destPath)
+{
+    my ($self, $origPath, $destPath) = @_;
+
+    my ($caCert, $certFile, $keyFile) = ($self->{caCertificate},
+                                         $self->{certificate},
+                                         $self->{certificateKey});
+
+    my $ftpHost = EBox::Config::configkeyFromFile(STORAGE_HOST_KEY,
+                                                  $self->_confFile());
+
+    my $ftpIPAddr = $self->_queryServicesNameserver($ftpHost);
+
+    my $cmd = "/usr/bin/curl --ftp-method nocwd --upload-file $origPath "
+      . '--ftp-ssl-control --insecure '
+      . "--cacert $caCert --cert $certFile --key $keyFile "
+      . 'ftp://anonymous@' . $ftpIPAddr . "/incoming/$destPath";
+
+    EBox::Sudo::command($cmd);
+
+}
+
+
 1;
