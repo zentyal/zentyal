@@ -59,18 +59,21 @@ especificar que protocolo se usa para conectarse al servidor remoto.
 
 
 :guilabel:`Método`:
-  Los distintos métodos que son soportados actualmente son
-  *eBox Backup Storage*, *FTP*, *SCP* y *Sistema de ficheros*. Debemos tener en
-  cuenta que dependiendo del método que seleccione deberemos
-  proporcionar más o menos información: dirección del servidor remoto,
-  usuario o contraseña. Todos los métodos salvo *Sistema de ficheros*
-  acceden servicios remotos. Ésto significa que proporcionaremos los
-  credenciales adecuados para conectar con el servidor.  Puedes crear
-  una cuenta en nuestra tienda [#]_ para los métodos *eBox Backup
-  Storage*, emplea este servicio para disfrutar de una ubicación
-  segura remota donde almacenar tus datos. Por otro lado, si
-  se selecciona *FTP* o *SCP* tendremos que introducir la
-  dirección del servidor remoto.
+  Los distintos métodos que son soportados actualmente son *eBox
+  Backup Storage (EU)*, *eBox Backup Storage (US Denver)*, *eBox
+  Backup Storage (US West Coast)*, *FTP*, *SCP* y *Sistema de
+  ficheros*. Debemos tener en cuenta que dependiendo del método que
+  seleccione deberemos proporcionar más o menos información: dirección
+  del servidor remoto, usuario o contraseña. Todos los métodos salvo
+  *Sistema de ficheros* acceden servicios remotos. Ésto significa que
+  proporcionaremos los credenciales adecuados para conectar con el
+  servidor.  Puedes crear una cuenta en nuestra tienda [#]_ para los
+  métodos *eBox Backup Storage*, emplea este servicio para disfrutar
+  de una ubicación segura remota donde almacenar tus datos. Además no
+  necesitarás incluir la dirección del servidor remoto ya que eBox lo
+  tendrá configurado automáticamente. Por otro lado, si se selecciona
+  *FTP* o *SCP* tendremos que introducir la dirección del servidor
+  remoto.
 
 .. [#] Tienda de eBox Technologies en https://store.ebox-technologies.com
 
@@ -81,10 +84,12 @@ especificar que protocolo se usa para conectarse al servidor remoto.
     esta operación, la copia de respaldo no podrá ser realizada ya que
     fallará la conexión con el servidor.
 
-:guilabel:`Servidor o destino`: Para *FTP*, y *SCP* tenemos que
-  proporcionar el nombre del servidor remoto o su dirección IP. En
-  caso de usar *Sistema de ficheros*, introduciremos la ruta de un
-  directorio local.
+:guilabel:`Servidor o destino`:
+   Para *FTP*, y *SCP* tenemos que proporcionar el nombre del servidor
+  remoto o su dirección IP. En caso de usar *Sistema de ficheros*,
+  introduciremos la ruta de un directorio local. Si se usa cualquiera
+  de los métodos de *eBox Backup Storage*, entonces sólo se requiere
+  introducir una ruta relativa.
 
 :guilabel:`Usuario`:
   Nombre de usuario para autenticarse en la máquina remota.

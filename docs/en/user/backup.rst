@@ -53,18 +53,19 @@ be used to connect to the remote server.
 
 :guilabel:`Method`:
   The current supported methods are *eBox Backup Storage (EU)*, *eBox
-  Backup Storage (US West Coast)*, *FTP*, *SCP* and *File
-  System*. Note that depending on the method you select you will have
-  to provide more or less information such as the remote host address
-  or user and password. All methods except *File System* are used to
-  access remote servers. This means you will have to provide proper
-  credentials to connect to the server. You may create an account in
-  our store [#]_ for *eBox Backup Storage* methods, use this service
-  to have a quick and safe remote location to store your data. If you
-  use any of *eBox Backup Storage* options you will not need to
-  introduce the remote server address as eBox will have it configured
-  automatically. On the other hand, if you select , *FTP* or *SCP* you
-  will need to provide the remote server address.
+  Backup Storage (US Denver)*, *eBox Backup Storage (US West Coast)*,
+  *FTP*, *SCP* and *File System*. Note that depending on the method
+  you select you will have to provide more or less information such as
+  the remote host address or user and password. All methods except
+  *File System* are used to access remote servers. This means you will
+  have to provide proper credentials to connect to the server. You may
+  create an account in our store [#]_ for *eBox Backup Storage*
+  methods, use this service to have a quick and safe remote location
+  to store your data. If you use any of *eBox Backup Storage* methods
+  you will not need to introduce the remote server address as eBox
+  will have it configured automatically. On the other hand, if you
+  select, *FTP* or *SCP* you will need to provide the remote server
+  address.
 
 .. [#] eBox Technologies store at https://store.ebox-technologies.com
 
@@ -77,7 +78,8 @@ be used to connect to the remote server.
 :guilabel:`Host or Destination`:
   For *FTP* and *SCP* you will need to provide the remote host name or IP
   address to connect. In case of using *File System*, introduce a local file
-  system path.
+  system path. If you use a *eBox Backup Storage* method, then only the
+  relative path is required.
 
 :guilabel:`User`:
   User name to authenticate in the remote host.
