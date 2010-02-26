@@ -729,6 +729,11 @@ sub addUser # (user, system)
                                          __x("Username must not be longer than {maxuserlength} characters",
                            maxuserlength => MAXUSERLENGTH));
     }
+    if (getpwnam($user->{'user'})) {
+        throw EBox::Exceptions::External(
+            __("Username already exists on the system")
+        );
+    }
     unless (_checkName($user->{'user'})) {
         throw EBox::Exceptions::InvalidData(
                                             'data' => __('user name'),
