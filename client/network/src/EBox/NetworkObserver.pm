@@ -81,6 +81,22 @@ sub ifaceMethodChanged # (iface, oldmethod, newmethod)
         return undef;
 }
 
+# Method: ifaceMethodChangeDone
+#
+#   Invoked when a method configuration change has taken place.
+#
+#   Note that it will be called after freeIface and ifaceMethodChanged
+#   when the configuration changes have already commited
+#
+#   Parameteres:
+#
+#   iface - interface name
+#
+sub ifaceMethodChangeDone # (iface)
+{
+        # default empty implementation. Subclasses should override this as
+        # needed.
+}
 #
 # Method: ifaceExternalChanged
 #
@@ -192,6 +208,8 @@ sub freeIface # (iface)
         # default empty implementation. Subclasses should override this as
         # needed.
 }
+
+
 
 #
 # Method: freeViface

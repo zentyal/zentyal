@@ -1064,16 +1064,13 @@ sub setIfaceDHCP # (interface, external, force)
       }
     }
     if ($oldm ne 'dhcp') {
-        # Tell observers the method interface has changed
-        foreach my $obs (@observers) {
-            if ($obs->ifaceMethodChanged($name, $oldm, 'dhcp')) {
-                if ($force) {
-                    $obs->freeIface($name);
-                } else {
-                    throw EBox::Exceptions::DataInUse();
-                }
-            }
-        }
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'dhcp',
+            action => 'prechange',
+	    force  => $force,
+        );
     } else {
         my $oldm = $self->ifaceIsExternal($name);
 
@@ -1087,7 +1084,18 @@ sub setIfaceDHCP # (interface, external, force)
     $self->unset("interfaces/$name/netmask");
     $self->set_string("interfaces/$name/method", 'dhcp');
     $self->set_bool("interfaces/$name/changed", 'true');
+
+    if ($oldm ne 'dhcp') {
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'dhcp',
+            action => 'postchange'
+        );
+    }
 }
+
+
 
 # Method: setIfaceStatic
 #
@@ -1164,15 +1172,13 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
     }
 
     if ($oldm ne 'static') {
-        foreach my $obs (@observers) {
-            if ($obs->ifaceMethodChanged($name, $oldm, 'static')) {
-                if ($force) {
-                    $obs->freeIface($name);
-                } else {
-                    throw EBox::Exceptions::DataInUse();
-                }
-            }
-        }
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'static',
+            action => 'prechange',
+	    force => $force
+        );
     } else {
         foreach my $obs (@observers) {
             if ($obs->staticIfaceAddressChanged($name,
@@ -1195,6 +1201,14 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
     $self->set_string("interfaces/$name/netmask", $netmask);
     $self->set_bool("interfaces/$name/changed", 'true');
 
+    if ($oldm ne 'static') {
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'static',
+            action => 'postchange'
+        );
+    }
     #logAdminDeferred('network',"set_iface_static","iface=$name,external=$ext,address=$address,netmask=$netmask");
 }
 
@@ -1282,15 +1296,13 @@ sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
     }
 
     if ($oldm ne 'ppp') {
-        foreach my $obs (@observers) {
-            if ($obs->ifaceMethodChanged($name, $oldm, 'ppp')) {
-                if ($force) {
-                    $obs->freeIface($name);
-                } else {
-                    throw EBox::Exceptions::DataInUse();
-                }
-            }
-        }
+            $self->_notifyChangedIface(
+                name => $name,
+                oldMethod => $oldm,
+                newMethod => 'ppp',
+                action => 'prechange',
+		force => $force,
+            );
     }
 
     $self->set_bool("interfaces/$name/external", $ext);
@@ -1298,6 +1310,15 @@ sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
     $self->set_string("interfaces/$name/ppp_user", $ppp_user);
     $self->set_string("interfaces/$name/ppp_pass", $ppp_pass);
     $self->set_bool("interfaces/$name/changed", 'true');
+
+    if ($oldm ne 'ppp') {
+            $self->_notifyChangedIface(
+                name => $name,
+                oldMethod => $oldm,
+                newMethod => 'ppp',
+                action => 'postchange'
+            );
+    }
 
     #logAdminDeferred('network',"set_iface_ppp","iface=$name,external=$ext,address=$address,netmask=$netmask");
 }
@@ -1339,23 +1360,28 @@ sub setIfaceTrunk # (iface, force)
     }
 
     if ($oldm ne 'notset') {
-        my $global = EBox::Global->getInstance();
-        my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
-        foreach my $mod (@mods) {
-            if ($mod->ifaceMethodChanged($name, $oldm, 'notset')) {
-                if ($force) {
-                    $mod->freeIface($name);
-                } else {
-                    throw EBox::Exceptions::DataInUse();
-                }
-            }
-        }
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'notset',
+            action => 'prechange',
+	    force => $force,
+        );
     }
 
     $self->unset("interfaces/$name/address");
     $self->unset("interfaces/$name/netmask");
     $self->set_string("interfaces/$name/method", 'trunk');
     $self->set_bool("interfaces/$name/changed", 'true');
+
+    if ($oldm ne 'notset') {
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'notset',
+            action => 'postchange'
+        );
+    }
 }
 
 # returns true if the given interface is in trunk mode an has at least one vlan
@@ -1537,23 +1563,30 @@ sub unsetIface # (interface, force)
     }
 
     if ($oldm ne 'notset') {
-        my $global = EBox::Global->getInstance();
-        my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
-        foreach my $mod (@mods) {
-            if ($mod->ifaceMethodChanged($name, $oldm, 'notset')) {
-                if ($force) {
-                    $mod->freeIface($name);
-                } else {
-                    throw EBox::Exceptions::DataInUse();
-                }
-            }
-        }
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'notset',
+            action => 'prechange',
+	    force  => $force,
+        );
     }
 
     $self->unset("interfaces/$name/address");
     $self->unset("interfaces/$name/netmask");
     $self->set_string("interfaces/$name/method",'notset');
     $self->set_bool("interfaces/$name/changed", 'true');
+
+    if ($oldm ne 'notset') {
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'notset',
+            action => 'postchange',
+	    force  => $force,
+        );
+    }
+
 }
 
 # Method: ifaceAddress
@@ -3282,6 +3315,44 @@ sub _multipathCommand
         return $cmd;
     } else {
         return undef;
+    }
+}
+
+# Method: _notifyChangedIface
+#
+#   Notify network observers the change of a interface has taken place
+#
+# Parameters:
+#   (Named)
+#
+#   name - interface's name
+#   oldMethod - old method
+#   newMethod - new method
+#   force - force
+#   action - 'prechange' or 'postchange'
+sub _notifyChangedIface
+{
+    my ($self, %args) = @_;
+    my $name = $args{name};
+    my $oldMethod = $args{oldMethod};
+    my $newMethod = $args{newMethod};
+    my $force = $args{force};
+    my $action = $args{action};
+
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+    foreach my $objs (@observers) {
+            if ($action eq 'prechange') {
+                if ($objs->ifaceMethodChanged($name, $oldMethod, $newMethod)) {
+                    if ($force) {
+                        $objs->freeIface($name);
+                    } else {
+                        throw EBox::Exceptions::DataInUse();
+                    }
+                }
+            } else {
+                $objs->ifaceMethodChangeDone($name);
+            }
     }
 }
 

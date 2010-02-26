@@ -246,7 +246,6 @@ sub models
         push ( @currentModels, $self->ruleModel($iface));
     }
 
-    $self->_deleteUndefModels(\@availableIfaces);
 
     return \@currentModels;
 
@@ -716,6 +715,23 @@ sub ifaceMethodChanged
 
   }
 
+# Method: ifaceMethodChangeDone
+#
+# Implements:
+#
+#     <EBox::NetworkObserver::ifaceMethodChangeDone>
+#
+sub ifaceMethodChangeDone
+{
+    my ($self) = @_;
+    my $manager = EBox::Model::ModelManager->instance();
+    # Mark manager as changed and force a resetup of the
+    # models by asking for InterfaceRate
+    $manager->markAsChanged();
+    $manager->model('trafficshaping/InterfaceRate');
+}
+
+
 # Method: ifaceExternalChanged
 #
 # Implements:
@@ -785,6 +801,7 @@ sub freeIface # (iface)
 
     my ($self, $iface) = @_;
 
+    $self->_deleteIface($iface);
     my $manager = EBox::Model::ModelManager->instance();
     $manager->markAsChanged();
     $manager = EBox::Model::CompositeManager->Instance();
@@ -946,21 +963,19 @@ sub _createRuleModels
   }
 
 # Delete those models which are not used
-sub _deleteUndefModels # (usedIfaces)
+sub _deleteIface # (usedIfaces)
 {
-    my ($self, $usedIfaces) = @_;
+    my ($self, $iface) = @_;
 
-    foreach my $iface (keys %{$self->{ruleModels}}) {
-        # Not in the current ifaces
-        if ( none(@{$usedIfaces}) eq $iface ) {
-            my $model = $self->{ruleModels}->{$iface};
-            if ( defined ( $model )) {
-                $model->removeAll(1);
-                $self->{ruleModels}->{$iface} = undef;
-            }
-        }
+    my $rateModel = $self->interfaceRateModel();
+    my $row = $rateModel->findRow(interface => $iface);
+    $rateModel->removeRow($row->id(), 1) if ($row);
+
+    my $model = $self->{ruleModels}->{$iface};
+    if ( defined ( $model )) {
+        $model->removeAll(1);
+        $self->{ruleModels}->{$iface} = undef;
     }
-
 }
 
 ###
@@ -982,9 +997,13 @@ sub _checkInterface # (iface)
 
     # If the interface doesn't exist, launch an DataNotFound exception
     if ( not $network->ifaceExists( $iface )) {
-      throw EBox::Exceptions::DataNotFound( data => __('Interface'),
-					    value => $iface
-					  );
+        throw EBox::Exceptions::DataNotFound( data => __('Interface'),
+                value => $iface
+                );
+    }
+
+    if ($network->ifaceMethod($iface) eq 'notset') {
+        throw EBox::Exceptions::External("Iface not configured $iface");
     }
 
   }

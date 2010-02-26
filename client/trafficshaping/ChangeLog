@@ -1,3 +1,8 @@
+HEAD
+	+ Bug fix: implement interfaceChangeDone to handle
+	  transitions from static -> nonset. Remove relevant
+	  entries from InterfaceRate and TS models and mark
+	  modelManager as changed.
 1.4
 	+ Minor UI adjustments in titles for new release
 1.3.13

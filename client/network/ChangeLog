@@ -3,6 +3,11 @@ HEAD
 	  in Failover watcher
 	+ Bug fix: do not run failover probes when all are disabled because
 	  they enable a disabled gateway.
+	+ Add and use EBox::NetworkObserver::ifaceMethodChangeDone to tell
+	  observers that a configuration method change has been carried out.
+	  So far observers were only notified right before the change takes place.
+	+ Add _notifyChangedIface() to factor code that calls observer to
+	  notify ifaceMethodChanged and ifaceMethodChangeDone
 1.4.2
 	+ Restart squid when failover events are produced to avoid problems
 	+ Do not check host when adding a ping to gateway rule in WAN Failover
