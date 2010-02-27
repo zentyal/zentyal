@@ -1,4 +1,4 @@
-HEAD
+1.5.1
 	+ Add support for file system ACLs. Modify /etc/fstab
 	  accordingly. Add dependency on acl.
 	+ Bug fix: check if a group has been deleted when configurer printers,
