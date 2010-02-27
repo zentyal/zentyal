@@ -9,7 +9,8 @@
 
 
 # stop samba 
-invoke-rc.d samba stop
+stop smbd
+stop nmbd 
 
 # restart users
 /etc/init.d/ebox users restart
@@ -98,7 +99,8 @@ chown root.__USERS__  $QUARANTINE_DIR || true
 
 invoke-rc.d quota restart 
 
-invoke-rc.d ebox samba restart
+start nmbd
+start smbd
 
 /usr/share/ebox-samba/ebox-samba-group-sync
 cp /usr/share/ebox-samba/ebox-samba-group-sync /etc/cron.hourly/

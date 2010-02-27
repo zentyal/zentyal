@@ -4,6 +4,8 @@ HEAD
 	+ Bug fix: check if a group has been deleted when configurer printers,
 	  otherwise users end up with a blank screen when granting printer
 	  permissions
+	+ Use the new upstart scripts that the Ubuntu samba packages ships
+	  in Lucid
 1.4.2
 	+ Add missing samba_virus_report table
 1.4.1
