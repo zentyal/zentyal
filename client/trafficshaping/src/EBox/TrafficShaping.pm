@@ -1179,6 +1179,9 @@ sub _createBuilders
 
     my ($self, %params) = @_;
 
+    # Don't do anything if there aren't enough ifaces
+    return unless ($self->enoughInterfaces());
+
     my $regenConfig = $params{regenConfig};
 
     my $global = EBox::Global->getInstance();
