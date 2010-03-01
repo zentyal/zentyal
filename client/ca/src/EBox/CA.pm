@@ -24,11 +24,13 @@ use warnings;
 # Perl6::Junction package
 # Date::Calc::Object  (which has as a dependency Carp::Clan and Bit::Vector)
 # File::Copy::Recursive
+# File::Temp
 ####################################
 use File::Slurp;
 use Perl6::Junction qw(any);
 use Date::Calc::Object qw(:all);
 use File::Copy::Recursive qw(dircopy fcopy);
+use File::Temp;
 
 use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Module::Service);
 
@@ -44,6 +46,7 @@ use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataInUse;
 use EBox;
 use EBox::CA::Certificates;
+use EBox::Validate;
 
 use constant TEMPDIR     => EBox::Config->tmp(); # "/tmp/";
 use constant OPENSSLPATH => "/usr/bin/openssl";
@@ -724,6 +727,16 @@ sub CAPublicKey {
 #                    (Optional)
 #       certFile - path to store the new certificate file (Optional)
 #
+#       subjAltNames - Array ref containing the subject alternative
+#                      names in a hash ref with the following keys:
+#
+#                      type  - String the type must be one of these: DNS, IP or email
+#
+#                      value - String the value following these
+#                              constraints:
+#                         DNS   - Domain name
+#                         IP    - IPv4 address
+#                         email - email address
 #
 # Returns:
 #
@@ -814,6 +827,10 @@ sub issueCertificate
   $dn->attribute("commonName", $args{commonName})
     if (defined($args{commonName}));
 
+  if (defined($args{subjAltNames})) {
+      $self->_checkSubjAltNames($args{subjAltNames});
+  }
+
   # Create the certificate request
   my $genKey = 1;
   if ( defined($args{privateKeyFile} )) {
@@ -845,6 +862,7 @@ sub issueCertificate
                                  userCertFile => $certFile,
 				 selfsigned   => $selfSigned,
 				 endDate      => $userExpDay,
+                                 subjAltNames => $args{subjAltNames},
 			       );
 
   # Check if something goes wrong
@@ -1048,6 +1066,10 @@ sub generateCRL
 #       - isCACert   - boolean indicating that it is the valid CA certificate
 #       - path       - certificate path
 #       - serialNumber - serial number within CA
+#       - subjAltNames - array ref the subject alternative names containing hash ref
+#                         with the following valid types:
+#                        type  => 'DNS', 'IP' and 'email'
+#                        value => the subject alternative name
 #
 # Exceptions:
 #
@@ -1103,6 +1125,9 @@ sub listCertificates
 	$element{'path'} = CERTSDIR . $line[SERIAL_IDX] . ".pem";
       }
 
+      # Setting the subject alternative names
+      $element{'subjAltNames'} = $self->_obtain( $element{'path'}, 'subjAltNames' );
+
       push (@out, \%element);
 
     }
@@ -1149,6 +1174,10 @@ sub listCertificates
 #       - reason     - reason to revoke if state is revoked
 #       - path       - certificate path
 #       - serialNumber - serial number within CA
+#       - subjAltNames - array ref the subject alternative names containing hash ref
+#                         with the following valid types:
+#                        type  => 'DNS', 'IP' and 'email'
+#                        value => the subject alternative name
 #
 # Exceptions:
 #
@@ -1462,6 +1491,8 @@ sub renewCertificate
       $newCertFile = $userCertFile;
     }
 
+    my $subjAltNames = $self->_obtain($userCertFile, 'subjAltNames');
+
     if (-f $userReq) {
       # If the request exists, we can renew the certificate without
       # having the private key
@@ -1499,6 +1530,7 @@ sub renewCertificate
 					createSerial => 0,
 # Not in OpenSSL 0.9.7			newSubject   => $newSubject,
 					endDate      => $userExpDay,
+                                        subjAltNames => $subjAltNames,
 				      );
 
       if (defined($output) ) {
@@ -1523,7 +1555,9 @@ sub renewCertificate
 			       privateKeyFile => $privKeyFile,
 			       requestFile    => $userReq,
 			       certFile       => $newCertFile,
-			       endDate        => $args{endDate});
+			       endDate        => $userExpDay,
+                               subjAltNames   => $subjAltNames,
+                              );
     }
 
     if (not defined($newCertFile) ) {
@@ -1820,6 +1854,49 @@ sub addModuleStatus
 
 }
 
+# Method: report
+#
+# Returns:
+#    ref hash with the following fields:
+#    CAState: state of the CA certificate. It will be ono of this states:
+#       - R - Revoked
+#       - E - Expired
+#       - V - Valid
+#       - ! - Inexistent
+#
+#    nValidCertificates: number of valid active certificates
+#    nRevokedCertificates: number of revoked certificates
+#    nExpiredCertificates: number of expired certifcates
+#
+# Overrides:
+#
+#   <EBox::Module::Base::report>
+#
+sub report
+{
+    my ($self) = @_;
+    my $currentCA = $self->currentCACertificateState();
+
+    my ($nValid, $nRevoked, $nExpired) = (0, 0, 0);
+    if ($currentCA ne '!') {
+        $nValid = @{ $self->listCertificates(state => 'V', excludeCA => 1) };
+        $nRevoked = @{ $self->listCertificates(state => 'R', excludeCA => 1) };
+        $nExpired = @{ $self->listCertificates(state => 'E', excludeCA => 1) };
+
+    }
+
+    return {
+            CAState => $currentCA,
+
+            nValidCertifcates     => $nValid,
+            nRevokedCertificates  => $nRevoked,
+            nExpiredCertificates  => $nExpired,
+           };
+}
+
+
+# Group: Protected methods
+
 # Method: _supportActions
 #
 #   Overrides <EBox::Module::ServiceBase>
@@ -1832,8 +1909,6 @@ sub _supportActions
     return undef;
 }
 
-# Group: Private methods
-
 # Method: _setConf # # Overrides: # # <EBox::Module::Service::_setConf> #
 sub _setConf {
 
@@ -1841,6 +1916,8 @@ sub _setConf {
 
     EBox::CA::Certificates->genCerts();
 }
+
+# Group: Private methods
 
 # Obtain the public key given the private key
 #
@@ -1968,7 +2045,7 @@ sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn, needPass?)
 # return the output error if any error occurr, nothing otherwise
 # ? Optional Parameter
 sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
-                 # newSubject?, endDate?)
+                 # newSubject?, endDate?, subjAltNames?)
   {
 
     my ($self, %args) = @_;
@@ -2014,7 +2091,13 @@ sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
     $cmd .= "-outdir " . CERTSDIR . " ";
     $cmd .= "-out \'$args{userCertFile}\' " if defined($args{userCertFile});
     $cmd .= '-extensions v3_ca ' if ( EXTENSIONS_V3 and $args{selfsigned});
-    $cmd .= '-extensions usr_cert ' if ( EXTENSIONS_V3 and not $args{selfsigned});
+    my $tmpFileName;
+    if ( defined($args{subjAltNames}) ) {
+        $tmpFileName = $self->_generateExtFile($args{subjAltNames});
+        $cmd .= "-extfile '$tmpFileName' ";
+    } else {
+        $cmd .= '-extensions usr_cert ' if ( EXTENSIONS_V3 and not $args{selfsigned});
+    }
     # Only available in OpenSSL 0.9.8
     $cmd .= "-selfsign " if ($args{selfsigned});
     $cmd .= "-policy $policy ";
@@ -2031,6 +2114,9 @@ sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
       if(defined($self->{caKeyPassword}));
     my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
     delete ( $ENV{'PASS'} );
+
+    # Remove ext file if exists
+    # unlink( $tmpFileName ) if ( -e $tmpFileName );
 
     return $self->_filterErrorFromOpenSSL($output) if ($retVal eq "ERROR");
     return undef;
@@ -2101,6 +2187,8 @@ sub _commonArgs # (cmd, args)
 # attribute => 'serial' return => String containing the serial number
 # attribute =>'endDate' return => Date::Calc::Object with the date
 # attribute => 'days' return => number of days from today to expire
+# attribute => 'subjAltNames' return => Array ref containing hash ref with key type of certificate
+#                                       and value the value for the subject alt name
 # undef => if certification file does NOT exist
 
 sub _obtain # (certFile, attribute)
@@ -2120,6 +2208,8 @@ sub _obtain # (certFile, attribute)
     } elsif ($attribute eq 'endDate'
 	    or $attribute eq 'days') {
       $arg = "-enddate";
+    } elsif ($attribute eq 'subjAltNames' ) {
+        $arg = '-text -certopt -no_header,no_version,no_serial,no_signame,no_validity,no_subject';
     }
     my $cmd = "x509 " . $arg . " -in \'$certFile\' -noout";
 
@@ -2154,6 +2244,21 @@ sub _obtain # (certFile, attribute)
       my $certDate = $self->_parseDate($output);
       my $diffDate = $certDate - Date::Calc->Today();
       return $diffDate->day();
+    } elsif ($attribute eq 'subjAltNames') {
+        my ($altNameStr) = $output =~ m/X509v3 Subject Alternative Name:\s+(.*)\s+X509v3 Au/s;
+        return [] if not defined($altNameStr);
+        $altNameStr =~ s/\s+//g;
+        my @retValue = ();
+        my @subjAltNames = split(/,/, $altNameStr);
+        foreach my $subAlt (@subjAltNames) {
+            my ($type, $value) = split(/:/, $subAlt);
+            if ( $type eq 'IPAddress' ) {
+                push(@retValue, { type => 'IP', value => $value });
+            } else {
+                push(@retValue, { type => $type, value => $value });
+            }
+        }
+        return \@retValue;
     }
 
   }
@@ -2437,44 +2542,47 @@ sub _isLaterThanCA # (date)
 
 }
 
-
-# Method: report
-#
-# Returns:
-#    ref hash with the following fields:
-#    CAState: state of the CA certificate. It will be ono of this states:
-#       - R - Revoked
-#       - E - Expired
-#       - V - Valid
-#       - ! - Inexistent
-#
-#    nValidCertificates: number of valid active certificates
-#    nRevokedCertificates: number of revoked certificates
-#    nExpiredCertificates: number of expired certifcates
-#
-
-# Overrides: 
-#   <EBox::Module::Base::report>
-sub report
+# Check the given subject alternative names are correct
+sub _checkSubjAltNames
 {
-    my ($self) = @_;
-    my $currentCA = $self->currentCACertificateState();
+    my ($self, $subjAltNames) = @_;
 
-    my ($nValid, $nRevoked, $nExpired) = (0, 0, 0);
-    if ($currentCA ne '!') {
-        $nValid = @{ $self->listCertificates(state => 'V', excludeCA => 1) };
-        $nRevoked = @{ $self->listCertificates(state => 'R', excludeCA => 1) };
-        $nExpired = @{ $self->listCertificates(state => 'E', excludeCA => 1) };
-
+    foreach my $subjAlt (@{$subjAltNames}) {
+        if ( $subjAlt->{type} eq 'DNS' ) {
+            EBox::Validate::checkDomainName($subjAlt->{value}, 'DNS value');
+        } elsif ( $subjAlt->{type} eq 'IP' ) {
+            EBox::Validate::checkIP($subjAlt->{value}, 'IP value');
+        } elsif ( $subjAlt->{type} eq 'email' ) {
+            # copy is an special value to get the email value from CN subject
+            if ( $subjAlt->{value} ne 'copy' ) {
+                EBox::Validate::checkEmailAddress($subjAlt->{value}, 'email value');
+            }
+        } else {
+            throw EBox::Exceptions::InvalidData(
+                data   => 'type',
+                value  => $subjAlt->{type},
+                advice => __x('Only {dns}, {ip} and {email} are valid subject alternative '
+                                . 'name types', dns => 'DNS', ip => 'IP', email => 'email'),
+               );
+        }
     }
 
-    return {
-            CAState => $currentCA,
+}
 
-            nValidCertifcates     => $nValid,
-            nRevokedCertificates  => $nRevoked,
-            nExpiredCertificates  => $nExpired,
-           };
+# Generate the v3 extension conf file to write the subj alt names
+# the results is the temporary file path to write onto
+sub _generateExtFile
+{
+    my ($self, $subjAltNames) = @_;
+
+    my $tmpFile = new File::Temp(DIR => EBox::Config::tmp());
+    $tmpFile->unlink_on_destroy(0);
+    EBox::Module::Base::writeConfFileNoCheck($tmpFile->filename(),
+                                             'ca/v3_ext.mas',
+                                             [ 'subjAltNames' => $subjAltNames ],
+                                            );
+    return $tmpFile->filename();
+
 }
 
 ## OpenSSL execution environment provided by OpenCA::OpenSSL

@@ -52,6 +52,21 @@ use EBox::CA::DN;
 	              printableName => __('Days to expire'),
 		      size => 5, input => 'text' ]);
 
+  unless ( $caNeeded ) {
+      push( @issueTable, [ name => 'subjectAltName', input => 'text',
+                           printableName => __('Subject Alternative Names'),
+                           help => __x('Multi-value separated by '
+                                      . 'commas, only valid types are: '
+                                      . '{dns}, {ip} and {email}. For '
+                                      . 'instance, {example}',
+                                      dns     => 'DNS',
+                                      ip      => 'IP',
+                                      email   => 'email',
+                                      example => 'DNS:host.domain.com,IP:10.2.2.2'
+                                      ),
+                           optional => 1 ]);
+  }
+
 
   push ( @issueTable, [ name => 'certificate',
 			value => __('Issue'),
@@ -91,7 +106,12 @@ use EBox::CA::DN;
 %     if ( $cert->{'isCACert'} and $cert->{'state'} eq 'V' ) {
        <tr class="highlight">
 %     }
-	 <td class="tleft">
+	 <td class="tleft"
+%     if ( defined($cert->{'subjAltNames'}) and @{$cert->{'subjAltNames'}} > 0 ) {
+%            my $subjAltNamesStr = join(', ', map { qq{$_->{type}: $_->{value}} } @{$cert->{'subjAltNames'}});
+             title="<% $subjAltNamesStr %>"
+% }
+         >
 %     if ( $cert->{'isCACert'} ) {
 	    <% $cert->{'dn'}->attribute('commonName') %>
 	    <% __('from') %>
@@ -112,7 +132,11 @@ use EBox::CA::DN;
      $stateStr = __("Revoked");
    }
 </%perl>
-      <td class="tcenter">
+      <td class="tcenter"
+%     if ( $cert->{"state"} eq 'R' ) {
+          title="<% __x('Reason: {reason}', reason => $cert->{'reason'}) %>"
+%     } 
+        >
         <% $stateStr %>
       </td>
       <td>

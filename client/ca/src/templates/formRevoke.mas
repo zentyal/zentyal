@@ -40,6 +40,16 @@ use EBox::Gettext;
   %>
   </span>
 </div>
+% if ( exists $metaDataCert->{'subjAltNames'} ) {
+<div>
+  <br>
+  <span class="ftitle"><% __('Subject Alternative Names') %>: </span>
+  <span class="ftitle">
+%     my $subjAltNamesStr = join(', ', map { "$_->{type}:$_->{value}" } @{$metaDataCert->{'subjAltNames'}});
+     <% $subjAltNamesStr %>
+  </span>
+</div>
+% }
 <br>
 <%perl>
   my @selectOptions;

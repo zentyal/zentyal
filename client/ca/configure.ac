@@ -63,6 +63,7 @@ src/EBox/t/Makefile
 src/libexec/Makefile
 src/templates/Makefile
 schemas/Makefile
+stubs/Makefile
 Makefile
 ])
 

@@ -21,9 +21,12 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Validate;
 use Error qw(:try);
 
 # Constants:
@@ -74,7 +77,8 @@ sub requiredParameters
 sub optionalParameters
 {
     return ['caNeeded', 'caPassphrase', 'reCAPassphrase',
-            'countryName', 'stateName', 'localityName'];
+            'countryName', 'stateName', 'localityName',
+            'subjectAltName'];
 }
 
 # Method: actuate
@@ -84,9 +88,8 @@ sub optionalParameters
 #     <EBox::CGI::Base::actuate>
 #
 sub actuate
-  {
-
-    my $self = shift;
+{
+    my ($self) = @_;
 
     my $ca = EBox::Global->modInstance('ca');
 
@@ -102,6 +105,7 @@ sub actuate
         }
     }
     my $days = $self->param('expiryDays');
+    my $subjAltName = $self->unsafeParam('subjectAltName');
     my $countryName = $self->param('countryName');
     my $localityName = $self->param('localityName');
     my $stateName = $self->param('stateName');
@@ -143,6 +147,43 @@ sub actuate
 					  'and spaces are allowed.'));
     }
 
+    # Only validate the following format for subjectAltName
+    # <type>:<value>,<type>:value
+    # type = DNS, IP, email
+    # value = DNS   -> DomainName
+    #         IP    -> IP address
+    #         email -> email address
+    my @subjAltNamesParam;
+    if ( $subjAltName ) {
+        my @subjAltNames = split(/,/, $subjAltName);
+        if ( @subjAltNames > 0) {
+            foreach my $subAlt (@subjAltNames) {
+                my ($type, $value) = split(/:/, $subAlt);
+                if ( $type eq 'DNS' ) {
+                    EBox::Validate::checkDomainName($value, 'DNS value');
+                } elsif ( $type eq 'IP' ) {
+                    EBox::Validate::checkIP($value, 'IP value');
+                } elsif ( $type eq 'email' ) {
+                    # copy is an special value to get the email value from CN subject
+                    if ( $value ne 'copy' ) {
+                        EBox::Validate::checkEmailAddress($value, 'email value');
+                    }
+                } else {
+                    throw EBox::Exceptions::InvalidData(
+                        data   => 'type',
+                        value  => $type,
+                        advice => __x('Only {dns}, {ip} and {email} are valid subject alternative '
+                                      . 'name types', dns => 'DNS', ip => 'IP', email => 'email'),
+                        );
+                }
+                push(@subjAltNamesParam, { type => $type, value => $value });
+            }
+        } else {
+            throw EBox::Exceptions::External(__('The Subject Alternative Name parameter '
+                                                . 'must follow this pattern: type:value, type:value'));
+        }
+    }
+
     my $retValue;
     if ($issueCA) {
       $retValue = $ca->issueCACertificate( orgName       => $name,
@@ -156,6 +197,7 @@ sub actuate
       $retValue = $ca->issueCertificate( commonName    => $name,
 					 days          => $days,
                                          caKeyPassword => $caPass,
+                                         subjAltNames  => \@subjAltNamesParam,
                                        );
     }
 

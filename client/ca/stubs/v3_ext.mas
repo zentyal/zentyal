@@ -1,0 +1,44 @@
+<%doc>
+  This stub file write down specific V3 extensions issuing a
+  certificate. These extensions are applicable as well as default
+  ones.
+
+  Parameters:
+    subjAltNames - Array indicating the subject alternative names. The
+                   elements are the following:
+                   type - String indicating the type of subject Alt Name
+                   value - String the value for that subject Alt Name
+</%doc>
+<%args>
+  @subjAltNames
+</%args>
+<%init>
+  my $subjAltNameStr = join(',', map { $_->{type} . ':' . $_->{value} } @subjAltNames);
+  my $dnsPresent = grep { $_->{type} eq 'DNS' } @subjAltNames;
+  my $emailPresent = grep { $_->{type} eq 'email' } @subjAltNames;
+  my $extendedUsage = '';
+  if ( $dnsPresent ) {
+     $extendedUsage = 'serverAuth,clientAuth,';
+  }
+  if ( $emailPresent ) {
+     $extendedUsage .= 'emailProtection';
+  }
+  # Remove trailing comma, if available
+  $extendedUsage =~ s/,$//;
+</%init>
+% if (@subjAltNames > 0) {
+%    if ( $extendedUsage ) {
+extendedKeyUsage = <% extendedUsage %>
+%    }
+subjectAltName= <% $subjAltNameStr %>
+% }
+
+# PKIX recommendations harmless if included in all certificates.
+authorityKeyIdentifier=keyid,issuer
+subjectKeyIdentifier = hash
+
+# This will be displayed in Netscape's comment listbox.
+nsComment			= "OpenSSL Generated Certificate"
+# This goes against PKIX guidelines but some CAs do it and some software
+# requires this to avoid interpreting an end user certificate as a CA.
+basicConstraints=CA:FALSE

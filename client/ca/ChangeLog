@@ -1,4 +1,7 @@
 HEAD
+	+ Give support for subject alternative names: the available types
+	  are DNS, IP address and email address
+	+ Add revokation reason listing certificates
 	+ Fix enconding for CA HTML templates
 	+ Cancel button works again when revoking and renewing a certificate
 1.3.14
