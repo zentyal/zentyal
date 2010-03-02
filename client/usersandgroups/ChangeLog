@@ -1,7 +1,9 @@
 HEAD
 	+ Bug fix: some problems with the AD synchronization solved
 	+ Bug fix: userscorner title icon
-	+ Bug fix: addUser() now checks if the user already exists as a system user
+	+ Bug fix: addUser() now checks if the user already exists as a
+	system user
+	+ Removed deprecated executable 'import-from-ldif'
 1.5
 	+ Bug fix: don't try to contact slaves from within a slave when groups
 	  are updated

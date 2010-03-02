@@ -1579,7 +1579,7 @@ sub delGroup # (group)
     my ($self, $group) = @_;
 
     unless ($self->groupExists($group)) {
-        throw EBox::Exceptions::DataNotFoud('data' => __('group name'),
+        throw EBox::Exceptions::DataNotFound('data' => __('group name'),
                                             'value' => $group);
     }
 
@@ -1616,7 +1616,7 @@ sub delGroupSlave # (group)
 #
 # Returns:
 #
-#       hash ref - holding the keys: 'groupname' and 'description'
+#       hash ref - holding the keys: 'groupname', 'comment' and 'gid'
 sub groupInfo # (group)
 {
     my ($self, $group) = @_;
