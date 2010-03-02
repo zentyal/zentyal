@@ -53,10 +53,6 @@ use EBox::View::Customizer;
 # Core modules
 use Error qw(:try);
 
-# Constants
-use constant {
-    MAX_LENGTH => 20,
-};
 
 # Group: Public methods
 
@@ -312,7 +308,7 @@ sub _table
                              acquirer       => \&_acquireFromGConfState,
                              storer         => \&_storeInGConfState,
                              help           => __('Choose a name for your eBox which is '
-                                                  . 'a valid domain name'),
+                                                  . 'a valid subdomain name'),
                             ),
       );
 

@@ -24,7 +24,7 @@ use EBox::Validate;
 
 # Constants
 use constant {
-    MAX_LENGTH => 20,
+    MAX_LENGTH => 32,
 };
 
 # Constructor: new
@@ -53,7 +53,7 @@ sub _paramIsValid
     my $advice = '';
     # Check if this does not contain underscores neither dots
     unless ( EBox::Validate::checkDomainName($value) ) {
-        $advice = __('It must be a valid domain name');
+        $advice = __('It must be a valid subdomain name');
     } elsif ( $value =~ m/\./g ) {
         $advice = __x('It cannot contain "{char}" character',
                       char => '.');
