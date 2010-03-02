@@ -4,6 +4,8 @@
 	+ Fixed typo in regualr expression that checks external accounts names
 	+ Plain usernames without mail domain now are allowed for mail
 	retrieval from external accounts 
+	+ Bugfix, hard-coding mailname in main.cf smtp_helo_name because
+	$myorigin variable was not correclty resolved
 1.4.1
 	+ Bugfix, fix incorrect alias dn breaking aliases in postfix
 	+ Bugfix, when create a maildir if a leftover maildir already

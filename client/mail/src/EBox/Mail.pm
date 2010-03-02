@@ -375,6 +375,7 @@ sub _setMailConf
     }
 
     push (@array, 'hostname' , $self->_fqdn());
+    push (@array, 'mailname' , $self->mailname());
     unless ($users->mode() eq 'slave') {
         push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
     } else {
