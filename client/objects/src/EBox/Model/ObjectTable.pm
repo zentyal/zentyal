@@ -125,6 +125,16 @@ sub validateRow()
     my $action = shift;
 }
 
+
+sub validateTypedRow
+{
+    my ($self, $action, $newValues) = @_;
+    if ($action eq 'add') {
+        $self->_checkName($newValues->{name}->value())
+    }
+}
+
+
 # Method: addObject
 #
 #   Add object to the objects table. Note this method must exist
@@ -163,6 +173,8 @@ sub addObject
         throw EBox::Exceptions::MissingArgument('name');
     }
 
+    $self->_checkName($name);
+
    my $id = $self->addRow('name' => $name, 'id' => $params{'id'});
    unless (defined($id)) {
        throw EBox::Exceptions::Internal("Couldn't add object's name: $name");
@@ -186,6 +198,30 @@ sub _objectHelp
               'which can be used in other modules. Any change on an object ' .
               'is automatically synched in all the modules using it');
 }
+
+
+sub _checkName
+{
+    my ($self, $name) = @_;
+    if (uc $name eq 'ANY') {
+        throw EBox::Exceptions::External(
+__(q{'Any' is a reserved word that could not be used as object name to avoid confusions})
+                                        );
+    }
+
+    if ($name =~ m/^\d+\.\d+\.\d+\.\d+$/) {
+        throw EBox::Exceptions::External(
+         'A object could not be named like a IP address'
+                                        );
+    }
+
+    if ($name =~ m{^\d+\.\d+\.\d+\.\d+/\d+$}) {
+        throw EBox::Exceptions::External(
+         'A object could not be named like a IP address with netmask'
+                                        );
+    }
+}
+
 
 1;
 
