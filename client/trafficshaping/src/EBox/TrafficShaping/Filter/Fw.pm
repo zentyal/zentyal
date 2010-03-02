@@ -376,7 +376,7 @@ sub dumpIptablesCommands
       } elsif ($self->{service}->selectedType() eq 'service_port') {
          my $iface = $self->{parent}->getInterface();
          my $network = EBox::Global->modInstance('network');
-         if ($network->ifaceIsExternal($iface)) {
+         if ($network->ifaceIsExternal($network->etherIface($iface))) {
            $ipTablesRule->setService($self->{service}->value());
          } else {
            $ipTablesRule->setReverseService($self->{service}->value());
@@ -414,7 +414,7 @@ sub _extraL7Commands
     my  $network = EBox::Global->modInstance('network');
     my $iface = $self->{parent}->getInterface();
     my @ifaces;
-    if ($network->ifaceIsExternal($iface)) {
+    if ($network->ifaceIsExternal($network->etherIface($iface))) {
         @ifaces = @{$network->InternalIfaces()};
     } else {
         @ifaces = @{$network->ExternalIfaces()};

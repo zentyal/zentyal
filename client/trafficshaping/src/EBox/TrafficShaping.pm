@@ -205,7 +205,7 @@ sub _resetInterfacesChains
         # due to app protocols we must reset all chains bz a rule with app protocol
         # requires ruels in all interfaces
          my $network = EBox::Global->modInstance('network');
-        $interfaces = $network->ifaces();
+        $interfaces = $self->_realIfaces();
     } else {
       $interfaces =  $self->_configuredInterfaces();
     }
@@ -243,7 +243,7 @@ sub models
     push( @availableIfaces, @intIfaces);
 
     foreach my $iface ( @availableIfaces ) {
-        push ( @currentModels, $self->ruleModel($iface));
+        push ( @currentModels, $self->ruleModel($netMod->realIface($iface)));
     }
 
 
@@ -830,7 +830,9 @@ sub uploadRate # (iface)
     my ($self, $iface) = @_;
 
     my $rates = $self->interfaceRateModel();
-    my $row = $rates->findRow(interface => $iface);
+    my $row = $rates->findRow(
+        interface => $self->{network}->etherIface($iface)
+    );
     return $row->valueByName('upload');
 }
 
@@ -950,7 +952,7 @@ sub _createRuleModels
     my $global = EBox::Global->getInstance();
     my $network = $self->{'network'};
 
-    my $ifaces_ref = $network->ifaces();
+    my $ifaces_ref = $self->_realIfaces();
     foreach my $iface (@{$ifaces_ref}) {
       $self->{ruleModels}->{$iface} = new EBox::TrafficShaping::Model::RuleTable(
 				    'gconfmodule' => $self,
@@ -992,6 +994,7 @@ sub _checkInterface # (iface)
 
     my $global = EBox::Global->getInstance();
     my $network = $self->{'network'};
+    $iface = $network->etherIface($iface);
 
     # Now shaping can be done at internal interfaces to egress traffic
 
@@ -1187,7 +1190,7 @@ sub _createBuilders
     my $global = EBox::Global->getInstance();
     my $network = $self->{'network'};
 
-    my @ifaces = @{$network->ifaces()};
+    my @ifaces = @{$self->_realIfaces()};
 
     foreach my $iface (@ifaces) {
       $self->{builders}->{$iface} = {};
@@ -1772,6 +1775,13 @@ sub _configuredInterfaces
     return \@ifaces;
 }
 
+# For all those ppp ifaces fetch its  ethernet iface
+sub _realIfaces
+{
+    my ($self) = @_;
+    my $network = $self->{'network'};
+    return [map {$network->realIface($_)} @{$network->ifaces()}];
+}
 
 # Method: l7FilterEnabled
 #

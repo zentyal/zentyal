@@ -1708,6 +1708,35 @@ sub realIface # (name)
     return $name;
 }
 
+# Method: etherIface
+#
+#   Returns the associated Ethernet interface in case of a ppp
+#   interface configured for PPPoE, or the same value in any other case.
+#
+#   This is somehow the inverse function of <EBox::Network::realIface>
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For ppp interfaces: the associated Ethernet interface, if it is up
+#   - For the rest: the unaltered name
+#
+sub etherIface # (name)
+{
+    my ($self, $name) = @_;
+
+    for my $iface (@{$self->allIfaces()}) {
+        if ($self->ifaceMethod($iface) eq 'ppp') {
+            my $ppp_iface = $self->st_get_string("interfaces/$iface/ppp_iface");
+            return $iface if ($ppp_iface eq $name);
+      }
+    }
+    return $name;
+}
+
 # Method: ifaceNetmask
 #
 #   Returns the configured network mask for a real interface

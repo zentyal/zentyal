@@ -111,7 +111,9 @@ sub buildRoot # (defaultClass, rate)
     # There are different ways to implement depending on if the
     # interface is internal or external
     my $netMod = EBox::Global->modInstance('network');
-    my $external = $netMod->ifaceIsExternal($self->getInterface());
+    my $external = $netMod->ifaceIsExternal(
+            $netMod->etherIface($self->getInterface())
+    );
 
     # Set maximum rate for the root class
     my $maxRate;
@@ -781,7 +783,11 @@ sub _isIfaceInternal
 
     my ($self) = @_;
 
-    return ! ($self->{'trafficShaping'}->{'network'}->ifaceIsExternal($self->getInterface()));
+    my $network = $self->{'trafficShaping'}->{'network'};
+    return ! (
+        $network->ifaceIsExternal(
+            $network->etherIface($self->getInterface()))
+    );
 
 }
 

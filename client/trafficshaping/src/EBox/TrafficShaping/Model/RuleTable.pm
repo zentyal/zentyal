@@ -80,7 +80,7 @@ sub new
     $self->{interface} = $params{interface};
     $self->{ts} = $params{gconfmodule};
     my $netMod = EBox::Global->modInstance('network');
-    if ( $netMod->ifaceIsExternal($self->{interface}) ) {
+    if ($netMod->ifaceIsExternal($netMod->etherIface($self->{interface})) ) {
         $self->{interfaceType} = 'external';
         $self->_setStateRate($self->{ts}->uploadRate($self->{interface}));
     } else {
@@ -181,12 +181,13 @@ sub printableIndex
 
     my ($self) = @_;
 
+    my $netMod = EBox::Global->modInstance('network');
     if ( $self->{interfaceType} eq 'internal' ) {
         return __x('{iface} (internal interface)',
-                iface => $self->{interface});
+                iface => $netMod->etherIface($self->{interface}));
     } else {
         return __x('{iface} (external interface)',
-                iface => $self->{interface});
+                iface => $netMod->etherIface($self->{interface}));
     }
 
 }
