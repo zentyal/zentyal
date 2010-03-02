@@ -1,0 +1,125 @@
+# The regexp are disabled by eBox due to the great number of false positives
+# If you want to enable them uncomment the appropiates lines in
+# /usr/share/ebox/stubs/squid/bannedregexpurllist.mas and restart the proxy
+# module with the command '/etc/init.d/ebox/squid restart'
+#
+#Banned URLs based on Regular Expressions
+#
+# E.g. 'sex' would block sex.com and middlesex.com etc
+
+#listcategory: "Banned Regular Expression URLs"
+
+#Banned URLs based on Regular Expressions
+
+
+######################################################
+# Pornography, Modelling and Adult Sites
+######################################################
+
+# The following two lines may work better than the above - Philip Pearce 9/11/2004
+#(big|cyber|hard|huge|mega|small|soft|super|tiny|bare|naked|nude|anal|oral|topp?les|sex|phone)+.*(anal|babe|bharath|boob|breast|busen|busty|clit|cum|cunt|dick|fetish|fuck|girl|hooter|lez|lust|naked|nude|oral|orgy|penis|porn|porno|pupper|pussy|rotten|sex|shit|smutpump|teen|tit|topp?les|xxx)s?
+#(anal|babe|bharath|boob|breast|busen|busty|clit|cum|cunt|dick|fetish|fuck|girl|hooter|lez|lust|naked|nude|oral|orgy|penis|porn|porno|pupper|pussy|rotten|sex|shit|smutpump|teen|tit|topp?les|xxx)+.*(big|cyber|hard|huge|mega|small|soft|super|tiny|bare|naked|nude|anal|oral|topp?les|sex)+
+
+#HardCore phrases
+#(adultsight|adultsite|adultsonly|adultweb|blowjob|bondage|centerfold|cumshot|cyberlust|cybercore|hardcore|masturbat)
+(bangbros|pussylip|playmate|pornstar|sexdream|showgirl|softcore|striptease)
+
+#SoftCore phrases - more likely to overblock - possibly on news sites
+#(incest|obscene|pedophil|pedofil)
+
+#Photo Modeling - supplied by David Burkholder
+#(male|m[ae]n|boy|girl|beaut|agen[ct]|glam)+.*(model|talent)
+
+# The following will help to block explicit media files (images and video)
+#(sex|fuck|boob|cunt|fetish|tits|anal|hooter|asses|shemale|submission|porn|xxx|busty|knockers|slut|nude|naked|pussy)+.*(\.jpg|\.wmv|\.mpg|\.mpeg|\.gif|\.mov)
+#(girls|babes|bikini|model)+.*(\.jpg|\.wmv|\.mpg|\.mpeg|\.gif|\.mov)
+
+#Block Naturism and Nudist sites
+#(naturism|naturist|nude|nudist|nudism|nekkid|nakt|naakt)
+
+
+######################################################
+# Search Engine and Related
+######################################################
+
+#Block unfiltered options on various search engines
+#(^|[\?+=&/])(.*\.google\..*/.*\?.*safe=off)([\?+=&/]|$)
+#(^|[\?+=&/])(.*\.alltheweb.com/customize\?.*copt_offensive=off)([\?+=&/]|$)
+
+#Block images and video on altavista, alltheweb, yahoo etc - as they are anonomised
+#(yahoo.com\/image\/)
+#(yimg.com\/image\/)
+#(altavista.com\/image\/)
+#(altavista.com\/video\/)
+#(picsearch.com\/is)
+
+#Block images and video on google
+#(images.google)+.*(\.jpg|\.wmv|\.mpg|\.mpeg|\.gif|\.mov) 
+#(google.com\/video) #block all video
+#(google.com\/ThumbnailServer) #block video thumbnails
+#(google.com\/videoplay) #block only playing the video
+
+
+######################################################
+# Proxy Sites
+######################################################
+
+#Block Cgiproxy, Poxy, PHProxy and other Web-based proxies
+(cecid.php|nph-webpr|nph-pro|/dmirror|cgiproxy|phpwebproxy|__proxy_url|proxy.php)
+
+#Block websites containing proxy lists
+(anonymizer|proxify|megaproxy)
+
+#AGRESSIVE blocking of all URLs containing proxy - WARNING - this WILL overblock!!
+#(proxy)
+
+
+######################################################
+# Gambling - supplied by David Burkholder
+######################################################
+#(casino|bet(ting|s)|lott(ery|o)|gam(e[rs]|ing|bl(e|ing))|sweepstake|poker)
+
+
+######################################################
+# Sport - supplied by David Burkholder
+######################################################
+#(bowling|badminton|box(e[dr]|ing)|skat(e[rs]|ing)|hockey|soccer|nascar|wrest|rugby|tennis|sports|cheerlead|rodeo|cricket|badminton|stadium|derby)
+#((paint|volley|bas(e|ket)|foot|quet)ball|/players[/\.]?|(carn|fest)ival)
+
+#Racing - supplied by David Burkholder
+#(speed(st|wa|y)|corvette|rac[eiy]|wrest|harley|motorcycle|nascar)
+
+
+######################################################
+# News sites - supplied by David Burkholder
+######################################################
+#(news(watch|pap|cast)|herald|sentinel|courier|gazet|tribune|chronicle|daily|ning)news)
+
+
+######################################################
+# Dating Sites - supplied by David Burkholder
+######################################################
+#(meet|hook|mailord|latin|(asi|mexic|dominic|russi|kore|colombi|balk)an|brazil|filip|french|chinese|ukrain|thai|tour|foreign|date)+.*(dar?[lt]ing|(sing|coup)le|m[ae]n|girl|boy|guy|mat(e|ing)|l[ou]ve?|partner|meet)
+#(marr(y|i[ae])|roman(ce|tic)|fiance|bachelo|dating|affair|personals)
+
+
+######################################################
+# Miscellaneous - Productivity etc.
+######################################################
+
+#Use this to block web counters:
+#(adlog.php|cnt.cgi|count.cgi|count.dat|count.jsp|count.pl|count.php|counter.cgi|counter.js|counter.pl|countlink.cgi|fpcount.exe|logitpro.cgi|rcounter.dll|track.pl|w_counter.js)
+#Contributed by proxy@barendse.to
+
+#Free stuff - supplied by David Burkholder
+#(free|phone|mobile)+.*(love|music|movie|dvd|video|stuff|site|arcade|wallpaper|mp3)
+#((ring|real)tone)
+
+#Music - supplied by David Burkholder
+#(rock|pop|jazz|rap|punk)+.*(cult|roll|geek|drum|music|history|band)
+
+# WARNING: This is part of the URL for the dansguardian.org sample virus archive.
+# You probably don't want to go there unintentionally.
+(Variants/AVTest)
+
+

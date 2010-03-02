@@ -1,5 +1,6 @@
 HEAD
 	+ Bugfix: trim URL string as DB stores it as a varchar(1024) (Log)
+	+ Disabled ban URL regexes
 1.3.14
 	+ Bugfix: in restartService we assure that all files are in place
 	before restarting the daemons

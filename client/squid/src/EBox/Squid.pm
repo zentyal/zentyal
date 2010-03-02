@@ -700,7 +700,7 @@ sub _writeDgConf
                          ]
                         );
 
-  # disable banned and exception phraes lists and PICS ratings
+  # disable banned, exception phrases lists, regex URLs and PICS ratings
   $self->writeConfFile(DGLISTSDIR . '/bannedphraselist',
                        'squid/bannedphraselist.mas',
                        []
@@ -711,6 +711,10 @@ sub _writeDgConf
                       );
   $self->writeConfFile(DGLISTSDIR . '/pics',
                        'squid/pics.mas',
+                       []
+                      );
+  $self->writeConfFile(DGLISTSDIR . '/bannedregexpurllist',
+                       'squid/bannedregexpurllist.mas',
                        []
                       );
 
