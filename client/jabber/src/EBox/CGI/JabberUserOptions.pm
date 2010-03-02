@@ -38,7 +38,6 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
-	my $jabber = EBox::Global->modInstance('jabber');
 	my $jabberldap = new EBox::JabberLdapUser;
 
 	$self->_requireParam('username', __('username'));
