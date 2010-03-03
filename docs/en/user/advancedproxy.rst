@@ -7,6 +7,35 @@ HTTP Proxy advanced configuration
                    Enrique J. Hernández <ejhernandez@ebox-technologies.com>,
                    Javier Uruen Val <juruen@ebox-technologies.com>,
 
+Filter profiles configuration
+=============================
+
+You can configure filter profiles in
+:menuselection:`Proxy HTTP --> Filter Profiles`.
+
+.. image:: images/proxy/filter-profiles.png
+   :align: center
+   :scale: 80
+
+
+You can configure and create new profiles that could be used by user groups or network objects.
+
+The configuration options are
+exactly the same as the ones we explained for the default profile. There is
+just one thing that you have to take into account: it is possible to use
+the default profile values in other profiles. To do so, you only need to
+click on :guilabel:`Use default configuration`.
+
+
+Filter profile per object
+==========================
+You can select a filter profile for a source object. The requests coming from
+this source will use the chosen profile instead of the default profile.
+
+To do so you should go to  :menuselection:`HTTP Proxy --> Objects policy` and
+change the filter profile in the object's row. This option requires the object's policy is set to **Filter**.
+
+
 Group based filtering
 =====================
 
@@ -65,22 +94,7 @@ filtering profile that is set in its group global policy.
    :align: center
    :scale: 80
 
-Filter profiles configuration
-=============================
 
-You can configure filter profiles in
-:menuselection:`Proxy HTTP --> Filter Profiles`.
-
-.. image:: images/proxy/filter-profiles.png
-   :align: center
-   :scale: 80
-
-
-You can configure and create new profiles. The configuration options are
-exactly the same as the ones we explained for the default profile. There is
-just one thing that you have to take into account: it is possible to use
-the default profile values in other profiles. To do so, you only need to
-click on :guilabel:`Use default configuration`.
 
 Practical Example
 ^^^^^^^^^^^^^^^^^

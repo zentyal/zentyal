@@ -44,8 +44,10 @@ Una vez que eBox se haya sincronizado como cliente NTP [#]_, el propio eBox podr
 actuar también como servidor NTP, con una hora sincronizada
 mundialmente.
 
-.. [#] eBox usa como cliente NTP **ntpdate**
-   http://www.ece.udel.edu/~mills/ntp/html/ntpdate.html.
+.. [#] eBox usa  **ntpdate** para sincronizarse por primera vez, una vez
+   sincronizado usa **ntpd** para mantener la sincronía.
+   http://www.ece.udel.edu/~mills/ntp/html/
+
 
 Ejemplo práctico
 ^^^^^^^^^^^^^^^^

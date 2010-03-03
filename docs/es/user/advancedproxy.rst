@@ -6,6 +6,39 @@ Configuración Avanzada para el proxy HTTP
 .. sectionauthor:: Javier Amor García <javier.amor.garcia@ebox-platform.com>,
                    Enrique J. Hernández <ejhernandez@ebox-platform.com>,
 
+Configuración de perfiles de filtrado
+=====================================
+
+La configuración de perfiles de filtrado se realiza en la sección
+:menuselection:`Proxy HTTP --> Perfiles de Filtrado`.
+
+.. image:: images/proxy/filter-profiles.png
+   :align: center
+   :scale: 80
+
+Se pueden crear y configurar nuevos perfiles de filtrado para su uso por grupos
+de usuarios u objetos de red.
+
+Las
+opciones de configuración son idénticas a las explicadas en la
+configuración del perfil por defecto, con una importante salvedad: es
+posible usar la misma configuración del perfil por defecto en las
+distintas áreas de configuración. Para ello basta con marcar la
+opción :guilabel:`Usar configuración por defecto`.
+
+
+Perfil de filtrado por objeto
+==============================
+Se puede seleccionar un perfil de filtrado para un objeto origen. Las peticiones
+que procedan de este objeto usaran el perfil seleccionado en vez del perfil por
+defecto.
+
+Para ello, hay que acceder a la sección :menuselection:`Proxy HTTP --> Política
+de objetos` y cambiar el perfil de filtrado en la linea correspondiente al
+objeto. Esta opción requiere que la política del objeto este establecida a **Filtrar**.
+
+
+
 Filtrado basado en grupos de usuarios
 =====================================
 
@@ -74,22 +107,6 @@ red desde el que se acceda al *proxy*.
    :align: center
    :scale: 80
 
-Configuración de perfiles de filtrado
-=====================================
-
-La configuración de perfiles de filtrado se realiza en la sección
-:menuselection:`Proxy HTTP --> Perfiles de Filtrado`.
-
-.. image:: images/proxy/filter-profiles.png
-   :align: center
-   :scale: 80
-
-Se pueden crear nuevos perfiles de filtrado y configurarlos.  Las
-opciones de configuración son idénticas a las explicadas en la
-configuración del perfil por defecto, con una importante salvedad: es
-posible usar la misma configuración del perfil por defecto en las
-distintas áreas de configuración. Para ello basta con marcar la
-opción :guilabel:`Usar configuración por defecto`.
 
 Ejemplo práctico
 ^^^^^^^^^^^^^^^^

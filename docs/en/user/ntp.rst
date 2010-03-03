@@ -43,8 +43,10 @@ relatively precise time over the Internet.
 Once eBox has been synchronized as an NTP client [#]_, eBox can also
 act as an NTP server with a globally synchronized time.
 
-.. [#] eBox uses **ntpdate** as its NTP client.
-   http://www.ece.udel.edu/~mills/ntp/html/ntpdate.html.
+.. [#] eBox uses **ntpdate** to set the date the first time, once the date is
+   set  it uses **ntpd** to remain synchronized.
+   http://www.ece.udel.edu/~mills/ntp/html/
+
 
 Practical example
 ^^^^^^^^^^^^^^^^^
