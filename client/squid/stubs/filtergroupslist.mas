@@ -25,4 +25,3 @@ my $lastReservedNumber = 1;
 <% $user %>=filter<% $number %>
 %    }
 % }
-192.168.100.0/24=filter2 
