@@ -1,3 +1,5 @@
+HEAD
+        + Enforce uniqueness of 'user/group' filed in shares permissions
 1.5.1
 	+ Add support for file system ACLs. Modify /etc/fstab
 	  accordingly. Add dependency on acl.

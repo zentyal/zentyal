@@ -130,7 +130,8 @@ sub _table
                                         printableName => __('Group'),
                                         populate => \&populateGroup,
                                         editable => 1)
-                                ]
+                                ],
+                                unique => 1,
                               ),
        new EBox::Types::Select(
                                fieldName     => 'permissions',
@@ -152,6 +153,7 @@ sub _table
                      help               => '',
                      printableRowName   => __('ACL'),
                      insertPosition     => 'back',
+
                     };
 
       return $dataTable;
@@ -202,5 +204,33 @@ sub _permissionsHelp
     return __('Be careful if you grant <i>administrator</i> privileges.' .
               'User will be able to read and write any file in the share');
 }
+
+
+sub validateTypedRow
+{
+    my ($self, $action, $params) = @_;
+    # we check that user_group is unique here bz union does nto seem to work
+    my $user_group = $params->{user_group};
+    if (not defined $user_group) {
+        return;
+    }
+
+    my $selected = $user_group->selectedType();
+    my $value    = $user_group->value();
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $rowUserGroup  =$row->elementByName('user_group');
+        if ($value ne $rowUserGroup->value()) {
+            next;
+        }
+        if ($selected eq $rowUserGroup->selectedType()) {
+            throw EBox::Exceptions::DataExists(
+                'data'  =>  __('User/Group'),
+                'value' => "$selected/$value",
+               );
+        }
+    }
+}
+
 
 1;
