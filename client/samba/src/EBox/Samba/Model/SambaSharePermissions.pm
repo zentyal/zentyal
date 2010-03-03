@@ -29,8 +29,10 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Samba::Types::Select;
+use EBox::Exceptions::DataExists;
 
 # Dependencies
+use Error qw(:try);
 
 # Group: Public methods
 
