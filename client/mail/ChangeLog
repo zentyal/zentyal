@@ -1,9 +1,12 @@
+HEAD
+	+ Bugfix, hard-coding mailname in main.cf smtp_helo_name because
+	$myorigin variable was not correctly resolved
 1.4.2
 	+ Bugfix, mail to local accounts is delivered correctly, changed
 	some parameters to take in account myorigin
-	+ Fixed typo in regualr expression that checks external accounts names
+	+ Fixed typo in regular expression that checks external accounts names
 	+ Plain usernames without mail domain now are allowed for mail
-	retrieval from external accounts 
+	retrieval from external accounts
 	+ Bugfix, hard-coding mailname in main.cf smtp_helo_name because
 	$myorigin variable was not correclty resolved
 1.4.1
