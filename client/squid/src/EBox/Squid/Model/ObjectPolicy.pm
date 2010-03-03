@@ -91,8 +91,7 @@ sub _table
                            editable => 1,
                           ),
 
-     new EBox::Types::HasMany
-     (
+     new EBox::Types::HasMany (
       'fieldName' => 'groupPolicy',
       'printableName' => __('Group policy'),
       'foreignModel' => 'ObjectGroupPolicy',
@@ -100,7 +99,16 @@ sub _table
       'backView' => '/ebox/Squid/View/ObjectGroupPolicy',
       'size' => '1',
      ),
+     new EBox::Types::Select(
+                             fieldName => 'filterGroup',
+                             printableName => __('Filter profile'),
 
+                             foreignModel  => \&filterGroupModel,
+                             foreignField  => 'name',
+                             
+                             defaultValue  => 'default',
+                             editable      => 1,
+                            ),
     );
 
   my $dataTable =
@@ -139,6 +147,13 @@ sub objectModel
     return $objects->{'objectModel'};
 }
 
+sub filterGroupModel
+{
+    my ($self) = @_;
+    my $sq = EBox::Global->modInstance('squid');
+    return $sq->model('FilterGroup');
+}
+
 
 sub name
 {
@@ -151,6 +166,7 @@ sub validateTypedRow
   $self->_checkPolicyWithTransProxy($params_r, $actual_r);
   $self->_checkPolicyWithTimePeriod($params_r, $actual_r);
   $self->_checkPolicyWithGroupsPolicy($params_r, $actual_r);
+  $self->_checkFilterProfile($params_r, $actual_r);
 }
 
 
@@ -225,6 +241,33 @@ sub _checkPolicyWithGroupsPolicy
 
 }
 
+
+sub _checkFilterProfile
+{
+  my ($self, $params_r, $actual_r) = @_;
+
+  my $filterGroup = exists $params_r->{filterGroup} ?
+                     $params_r->{filterGroup} :
+                     $actual_r->{filterGroup} ;
+  if ($filterGroup->value() eq 'default') {
+      # default group is ocmpatible with all policies
+      return;
+  }
+  
+  my $policyElement = exists $params_r->{policy} ?
+                     $params_r->{policy} :
+                     $actual_r->{policy} ;
+
+  my $policy = $policyElement->value();
+  if ($policy ne 'filter') {
+      throw EBox::Exceptions::External(
+   __(q{You can only use a custom profile with the 'Filter' policy})
+                                      );
+  }
+
+}
+
+
 sub objectsPolicies
 {
   my ($self) = @_;
@@ -277,6 +320,48 @@ sub objectsPolicies
 
   return \@obsPol;
 }
+
+
+
+
+sub objectsFilterGroups
+{
+    my ($self) = @_;
+
+  my %filterGroupIdByRowId = %{ $self->filterGroupModel->idByRowId() };
+
+    my $objectMod = EBox::Global->modInstance('objects');
+
+    my @filterGroups;
+    # object polices have priority by position in table
+    foreach my $id (@{ $self->ids()  }) {
+        my $row = $self->row($id);
+        my $filterGroup = $row->valueByName('filterGroup');
+        if ($filterGroup eq 'default') {
+            next;
+        }
+        if ($row->valueByName('policy') ne 'filter') {
+            EBox::debug(
+"Object row with id $id has a custom filter group and a policy that is not 'filter'"
+                       );
+            next;
+        }
+
+        my $obj           = $row->valueByName('object');
+        my @addresses = @{ $objectMod->objectAddresses($obj)  };
+        foreach my $address (@addresses) {
+            # remove /32 netmask froms hosts addresses
+            $address =~ s{/32$}{};
+            push @filterGroups, { 
+                                 address=> $address, 
+                                 group  => $filterGroupIdByRowId{$filterGroup}  
+                                };
+        }
+    }
+
+    return \@filterGroups;
+}
+
 
 sub existsAuthObjects
 {

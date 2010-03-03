@@ -11,6 +11,7 @@ nobase_Stub_DATA = squid.conf.mas  \
 	bannedphraselist.mas exceptionphraselist.mas \
 	clamdscan.conf.mas \
 	pics.mas \
+        ipgroups.mas \
 	dansguardian.logrotate
 
 

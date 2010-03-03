@@ -276,7 +276,11 @@ sub usedFiles
                 'module' => 'squid',
              'reason' => __(q{Dansguardian's antivirus scanner configuration}),
             },
-
+            {
+              'file' =>    DGLISTSDIR . '/authplugins/ipgroups',
+              'module' => 'squid',
+              'reason' => __('Filter groups per IP'),
+             },
            ];
 }
 # Method: enableActions
@@ -718,6 +722,8 @@ sub _writeDgConf
                        []
                       );
 
+  $self->_writeDgIpGroups();
+
   if ($antivirus) {
       my $avMod = EBox::Global->modInstance('antivirus');
       $self->writeConfFile(CLAMD_SCANNER_CONF_FILE,
@@ -762,11 +768,24 @@ sub _writeDgConf
   }
 
 
-
-
   $self->_writeDgLogrotate();
 }
 
+
+sub _writeDgIpGroups
+{
+    my ($self) = @_;
+
+    my $objects = $self->model('ObjectPolicy');
+
+    $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
+                       'squid/ipgroups.mas',
+                       [
+                        filterGroups =>
+                           $objects->objectsFilterGroups()
+                       ]);
+
+}
 
 sub _writeDgLogrotate
 {

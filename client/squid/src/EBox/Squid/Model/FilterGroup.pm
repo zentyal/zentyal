@@ -204,7 +204,22 @@ sub validateTypedRow
 }
 
 
+# Method: idByRowId
+#
+#  Returns:
+#  hash with row IDs as key and the filter group id number as value
+sub idByRowId
+{
+    my ($self) = @_;
+    my %idByRowId;
+    my $id = 0;
+    foreach my $rowId (@{ $self->ids()  }) {
+        $id += 1;
+        $idByRowId{$rowId} = $id;
+    }
 
+    return \%idByRowId;
+}
 
 
 

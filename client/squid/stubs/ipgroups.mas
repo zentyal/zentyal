@@ -1,0 +1,16 @@
+<%args>
+@filterGroups
+</%args>
+# IP-Group list
+# Used by the IP-based auth plugin to assign IP addresses to filter groups.
+#
+# Examples:
+# Straight IP matching:
+#192.168.0.1 = filter1
+# Subnet matching:
+#192.168.1.0/255.255.255.0 = filter1
+# Range matching:
+#192.168.1.0-192.168.1.255 = filter1
+% foreach my $fGroup (@filterGroups) {
+<% $fGroup->{address} %>=filter<% $fGroup->{group} %>
+% }
