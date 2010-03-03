@@ -30,7 +30,7 @@ use EBox::Gettext;
 use EBox::Types::File;
 use EBox::Types::Select;
 use EBox::Config;
-
+use EBox::Sudo;
 
 # eBox exceptions used
 use EBox::Exceptions::External;
@@ -134,7 +134,13 @@ sub formSubmitted
                                         );
     }
 
+    # file must be readable by EBox::MailFilter::SpamAssassin::DB_USER
+    my $user     =  $antispam->confUser();
+    my $chownCmd = "chown $user.$user $mailboxFile";
+    EBox::Sudo::root($chownCmd);
+
     $antispam->learn(
+                     username => 'eboxAministrationInterface',
                      isSpam => $isSpam,
                      format => 'mbox',
                      input  => $mailboxFile,
