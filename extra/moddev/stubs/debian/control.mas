@@ -10,8 +10,8 @@ Standards-Version: 3.7.3
 
 Package: ebox-<% $module %>
 Architecture: all
-Depends: ebox (>= 1.0), ebox (<< 1.4), ${misc:Depends}
-Description: eBox - module  
+Depends: ebox (>= 1.2), ${misc:Depends}
+Description: eBox - module
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
