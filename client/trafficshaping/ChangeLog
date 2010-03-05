@@ -6,6 +6,7 @@ HEAD
 	+ Bug fix: don't create builders when there aren't
 	  enough interfaces
 	+ Add support for ppp configured interfaces
+	+ Disable MAC filter based rules
 1.4
 	+ Minor UI adjustments in titles for new release
 1.3.13

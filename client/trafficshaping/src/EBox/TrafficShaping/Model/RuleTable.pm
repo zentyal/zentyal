@@ -419,11 +419,13 @@ sub _table
                      printableName => __('Source IP'),
                      editable      => 1,
                      ),
-                 new EBox::Types::MACAddr(
-                     fieldName     => 'source_macaddr',
-                     printableName => __('Source MAC'),
-                     editable      => 1,
-                     ),
+# XXX: Disable MAC filter until we redesign the
+#      way we add rules to iptables
+#                 new EBox::Types::MACAddr(
+#                     fieldName     => 'source_macaddr',
+#                     printableName => __('Source MAC'),
+#                     editable      => 1,
+#                     ),
                  new EBox::Types::Select(
                      fieldName     => 'source_object',
                      printableName => __('Source object'),
