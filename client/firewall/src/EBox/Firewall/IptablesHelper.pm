@@ -239,7 +239,7 @@ sub _addOrigAddressToRule
 
         my $extaddr;
         my $method = $netModule->ifaceMethod($iface);
-        if ($method eq 'dhcp') {
+        if (($method eq 'dhcp') or ($method eq 'ppp')) {
             $extaddr = $netModule->DHCPAddress($iface);
         } elsif ($method eq 'static'){
             $extaddr =  $netModule->ifaceAddress($iface);

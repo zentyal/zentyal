@@ -63,6 +63,9 @@ sub strings
     my $state = $self->state();
     my $modulesConf = $self->modulesConf();
     my $iface = $self->interface();
+    my $netModule = EBox::Global->modInstance('network');
+    $iface = $netModule->realIface($iface);
+
     # Iptables needs to use the real interface
     $iface =~ s/:.*$//;
 
