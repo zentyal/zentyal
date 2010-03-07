@@ -1,5 +1,6 @@
 HEAD
 	+ Bugfix: Escape some files to allow spaces in server names
+	+ Make initializeInterfaces() public
 1.5
 	+ Make changes to work with /etc/init upstart
 1.3.15

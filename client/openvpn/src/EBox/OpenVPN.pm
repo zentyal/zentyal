@@ -122,7 +122,7 @@ sub _enforceServiceState
 
     $self->_cleanupDeletedDaemons();
 
-    $self->_initializeInterfaces();
+    $self->initializeInterfaces();
 
     $self->_writeConfFiles();
     $self->_prepareLogFiles();
@@ -130,7 +130,10 @@ sub _enforceServiceState
     $self->_doDaemon();
 }
 
-sub _initializeInterfaces
+# Method: initializeInterfaces
+#
+#   Set interface number if has not been set
+sub initializeInterfaces
 {
     my ($self) = @_;
 
@@ -828,7 +831,7 @@ sub firewallHelper
 
     # Initialize interfaces before setting fw rules
     if ($enabled and EBox::Global->getInstance()->modIsChanged('openvpn')) {
-        $self->_initializeInterfaces();
+        $self->initializeInterfaces();
     }
 
     my @ifaces = map {$_->iface() } $self->activeDaemons();

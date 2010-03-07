@@ -628,6 +628,12 @@ sub _iexternalCheckInit
             pf("-A iexternal -i $if -j RETURN"),
         );
     }
+    foreach my $if (@{_vpnIfaces()}) {
+        push(@commands,
+            pf("-A iexternalmodules -i $if -j RETURN"),
+            pf("-A iexternal -i $if -j RETURN"),
+        );
+    }
     return \@commands;
 }
 
@@ -831,6 +837,21 @@ sub _natEnabled
         return undef;
     } else {
         return 1;
+    }
+}
+
+# Method: _vpnIfaces
+#
+#   Fetch vpn interfaces
+sub _vpnIfaces
+{
+    my $gl = EBox::Global->getInstance();
+    if ($gl->modExists('openvpn')) {
+        my $vpn = $gl->modInstance('openvpn');
+        $vpn->initializeInterfaces();
+        return [map {$_->iface() } $vpn->activeDaemons()];
+    } else {
+        return [];
     }
 }
 
