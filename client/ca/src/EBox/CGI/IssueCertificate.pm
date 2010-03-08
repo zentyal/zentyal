@@ -131,7 +131,7 @@ sub actuate
 
     }
 
-    $caPass = undef if ( $caPass eq '' );
+    $caPass = undef if ( (not defined($caPass)) or $caPass eq '' );
 
     unless ( $days > 0) {
         throw EBox::Exceptions::External(__x('Days to expire ({days}) must be '

@@ -28,7 +28,7 @@
 </%init>
 % if (@subjAltNames > 0) {
 %    if ( $extendedUsage ) {
-extendedKeyUsage = <% extendedUsage %>
+extendedKeyUsage = <% $extendedUsage %>
 %    }
 subjectAltName= <% $subjAltNameStr %>
 % }

@@ -152,7 +152,20 @@ para Expirar`. Este último dato está limitado por el hecho de que ningún
 certificado puede ser válido durante más tiempo que la *CA*. En el caso de
 que estemos usando estos certificados para un servicio como podría ser
 un servidor web o un servidor de correo, el :guilabel:`Nombre Común` deberá
-coincidir con el nombre de dominio del servidor.
+coincidir con el nombre de dominio del servidor. De todas maneras, se
+puede poner cualquier número de :guilabel:`Nombres alternativos para
+el sujeto` [#]_ para el certificado para, por ejemplo, establecer otro
+nombre común a un dominio virtual HTTP [#]_ o una dirección IP o
+incluso una dirección de correo para firmar los mensajes de correo
+electrónico.
+
+.. [#] Para tener más información sobre los nombres alternativos para
+       un sujeto, visita 
+       http://www.openssl.org/docs/apps/x509v3_config.html#Subject_Alternative_Name
+
+.. [#] Para más información sobre los dominios virtuales en HTTP,
+       investiga en la sección :ref:`vhost-ref` para obtener más
+       detalles.
 
 Una vez el certificado haya sido creado, aparecerá en la lista de
 certificados y estará disponible para los módulos de eBox que usen

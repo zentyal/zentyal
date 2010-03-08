@@ -134,13 +134,24 @@ also these optional fields to the CA certificate:
 
 Once the CA has been created, you will be able to issue certificates
 signed by the CA. To do this, use the form now available at
-:menuselection:`Certification Authority --> General`. The required data are the
-:guilabel:`Common Name` of the certificate and the :guilabel:`Days to
-expire`. This last field sets the number of days that the certificate will
-remain valid and the duration cannot surpass the duration of the CA.
-In case we are using the certificate for a service server like it could be a
-web server or mail server, the :guilabel:`Common Name` of the certificate should
-match the hostname or domain name of that server.
+:menuselection:`Certification Authority --> General`. The required
+data are the :guilabel:`Common Name` of the certificate and the
+:guilabel:`Days to expire`. This last field sets the number of days
+that the certificate will remain valid and the duration cannot surpass
+the duration of the CA.  In case we are using the certificate for a
+service server like it could be a web server or mail server, the
+:guilabel:`Common Name` of the certificate should match the hostname
+or domain name of that server. Anyway, you could set any
+:guilabel:`Alternative Subject Names` [#]_ for the certificate in
+order to, for example, set any other common name for HTTP virtual
+hosts [#]_ or an IP address or even a mail address to sign e-mail
+messages.
+
+.. [#] For more information about subject alternative names, visit
+       http://www.openssl.org/docs/apps/x509v3_config.html#Subject_Alternative_Name
+
+.. [#] For more information about HTTP virtual hosts, check out
+       :ref:`vhost-ref` section for details
 
 When the certificate is issued, it will appear in the list of certificates and
 it will be available to eBox services that use certificates and to external
