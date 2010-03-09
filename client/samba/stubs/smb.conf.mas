@@ -35,10 +35,9 @@ use EBox::Gettext;
  syslog = 0
  log file = /var/log/samba/%m
  max log size = 50
-# FIXME: Removed for samba 3.4.3, add again when a new version fixes it
-# vfs objects = full_audit
-# full_audit:success = connect opendir open disconnect unlink mkdir rmdir rename
-# full_audit:failure = none
+ vfs objects = full_audit
+ full_audit:success = connect opendir open disconnect unlink mkdir rmdir rename
+ full_audit:failure = none
  smb ports = 137 138 139 445
  name resolve order = wins bcast hosts
  time server = Yes
@@ -108,9 +107,7 @@ use EBox::Gettext;
  browseable = No
 % my $av = ($antivirus xor defined($antivirus_exceptions{'users'}));
 % my $rb = ($recycle xor defined($recycle_exceptions{'users'}));
-# FIXME: Removed for samba 3.4.3, add again when a new version fixes it
-#% my $objects = 'full_audit';
-% my $objects = '';
+% my $objects = 'full_audit';
 % if ($av) {
 %   $objects .= ' vscan-clamav';
 % }
@@ -141,9 +138,7 @@ use EBox::Gettext;
  browseable = Yes
 % my $av = ($antivirus xor defined($antivirus_exceptions{'group'}->{$group->{'sharename'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions{'group'}->{$group->{'sharename'}}));
-# FIXME: Removed for samba 3.4.3, add again when a new version fixes it
-#% my $objects = 'full_audit';
-% my $objects = '';
+% my $objects = 'full_audit';
 % if ($av) {
 %   $objects .= ' vscan-clamav';
 % }
@@ -189,9 +184,7 @@ use EBox::Gettext;
  force directory mode = 0660
 % my $av = ($antivirus xor defined($antivirus_exceptions{'share'}->{$share->{'share'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions{'share'}->{$share->{'share'}}));
-# FIXME: Removed for samba 3.4.3, add again when a new version fixes it
-#% my $objects = 'full_audit';
-% my $objects = '';
+% my $objects = 'full_audit';
 % if ($av) {
 %   $objects .= ' vscan-clamav';
 % }

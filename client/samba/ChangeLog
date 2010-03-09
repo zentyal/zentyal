@@ -1,5 +1,6 @@
 HEAD
 	+ Enforce uniqueness of 'user/group' filed in shares permissions
+	+ Enable full audit feature as it's working again in samba 3.4.6
 1.5.1
 	+ Add support for file system ACLs. Modify /etc/fstab
 	  accordingly. Add dependency on acl.
