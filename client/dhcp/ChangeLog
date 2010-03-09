@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: Fixed address names must be valid domain names to enable
+	  dynamic DNS feature.
 1.4
 	+ Bug fix: i18n
 1.3.13

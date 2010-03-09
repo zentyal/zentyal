@@ -1,5 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
-# Copyright (C) 2009 eBox Technologies S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,10 +29,12 @@ package EBox::DHCP::Model::FixedAddressTable;
 use strict;
 use warnings;
 
+use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Model::ModelProvider;
 use EBox::NetWrappers;
+use EBox::Types::DomainName;
 use EBox::Types::HostIP;
 use EBox::Types::MACAddr;
 use EBox::Types::Text;
@@ -156,12 +158,6 @@ sub validateTypedRow
         }
     }
     if ( exists ( $changedFields->{name} )) {
-        # Check the given name does not contain spaces
-        my $newName = $changedFields->{name}->value();
-        if ( $newName =~ m:\s: ) {
-            throw EBox::Exceptions::External(__x('{name} cannot contain spaces',
-                                                 name => $changedFields->{name}->printableName()));
-        }
         # Check remainder FixedAddressTable models uniqueness since
         # the dhcpd.conf may confuse those name repetition
         my @fixedAddressTables = @{EBox::Model::ModelManager->instance()->model(
@@ -207,12 +203,12 @@ sub _table
 
     my @tableDesc =
       (
-       new EBox::Types::Text(
-                             fieldName     => 'name',
-                             printableName => __('Name'),
-                             unique        => 1,
-                             editable      => 1,
-                             ),
+       new EBox::Types::DomainName(
+                                   fieldName     => 'name',
+                                   printableName => __('Name'),
+                                   unique        => 1,
+                                   editable      => 1,
+                                  ),
        new EBox::Types::MACAddr(
                                 fieldName     => 'mac',
                                 printableName => __('MAC address'),
