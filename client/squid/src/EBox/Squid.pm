@@ -1203,19 +1203,46 @@ sub report
 
     my $db = EBox::DBEngineFactory::DBEngine();
 
-    $report->{'summarized_traffic'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'event, SUM(bytes) AS bytes, SUM(hits) AS hits',
-        'from' => 'squid_access_report',
-        'group' => "event"
-    }, { 'key' => 'event' });
-
-    $report->{'top_domains'} = $self->runQuery($beg, $end, {
-        'select' => 'domain, SUM(bytes) AS traffic_bytes, SUM(hits) AS hits',
+    my $traffic = $self->runMonthlyQuery($beg, $end, {
+        'select' => "CASE WHEN code ~ 'HIT' THEN 'hit' ELSE 'miss' END" .
+            " AS main_code, SUM(bytes) AS bytes, SUM(hits) AS hits",
         'from' => 'squid_access_report',
         'where' => "event = 'accepted'",
-        'group' => 'domain',
+        'group' => "main_code"
+    }, { 'key' => 'main_code' });
+
+    my $newtraffic;
+    for my $fk (keys(%{$traffic})) {
+        for my $sk (keys(%{$traffic->{$fk}})) {
+            if(!defined($newtraffic->{$sk})) {
+                $newtraffic->{$sk} = {};
+            }
+            $newtraffic->{$sk}->{$fk} = $traffic->{$fk}->{$sk};
+        }
+    }
+
+    $report->{'summarized_traffic'} = $newtraffic;
+
+    $report->{'top_domains'} = $self->runQuery($beg, $end, {
+        'select' => 'domain, COALESCE(hit_bytes,0) AS hit_bytes, ' .
+                    'COALESCE(miss_bytes,0) AS miss_bytes, ' .
+                    'COALESCE(hit_bytes,0) + COALESCE(miss_bytes,0) ' .
+                    'AS traffic_bytes, ' .
+                    'COALESCE (hit_hits,0) + COALESCE(miss_hits,0) AS hits',
+        'from' =>
+            "(SELECT domain, SUM(bytes) AS hit_bytes, SUM(hits) AS hit_hits " .
+            "FROM squid_access_report WHERE code ~ 'HIT' AND _date_ " .
+            "GROUP BY domain) AS h " .
+            "FULL OUTER JOIN " .
+            "(SELECT domain, SUM(bytes) AS miss_bytes, SUM(hits) AS miss_hits " .
+            "FROM squid_access_report WHERE code ~ 'MISS' AND _date_ " .
+            "GROUP BY domain) AS m " .
+            "USING (domain)",
         'limit' => $options->{'max_top_domains'},
-        'order' => 'traffic_bytes DESC'
+        'order' => 'traffic_bytes DESC',
+        'options' => {
+            'no_date_in_where' => 1
+        }
     });
 
     $report->{'top_blocked_domains'} = $self->runQuery($beg, $end, {
@@ -1227,13 +1254,61 @@ sub report
         'order' => 'hits DESC'
     });
 
-    $report->{'top_ips'} = $self->runQuery($beg, $end, {
-        'select' => 'ip, SUM(bytes) AS traffic_bytes, SUM(hits) AS hits',
+    $report->{'top_subnets'} = $self->runQuery($beg, $end, {
+        'select' => 'subnet, COALESCE(hit_bytes,0) AS hit_bytes, ' .
+                    'COALESCE(miss_bytes,0) AS miss_bytes, ' .
+                    'COALESCE(hit_bytes,0) + COALESCE(miss_bytes,0) ' .
+                    'AS traffic_bytes, ' .
+                    'COALESCE (hit_hits,0) + COALESCE(miss_hits,0) AS hits',
+        'from' =>
+            "(SELECT network(inet(ip || '/24')) AS subnet, " .
+            "SUM(bytes) AS hit_bytes, SUM(hits) AS hit_hits " .
+            "FROM squid_access_report WHERE code ~ 'HIT' AND _date_ " .
+            "GROUP BY subnet) AS h " .
+            "FULL OUTER JOIN " .
+            "(SELECT network(inet(ip || '/24')) AS subnet, " .
+            "SUM(bytes) AS miss_bytes, SUM(hits) AS miss_hits " .
+            "FROM squid_access_report WHERE code ~ 'MISS' AND _date_ " .
+            "GROUP BY subnet) AS m " .
+            "USING (subnet)",
+        'limit' => $options->{'max_top_subnets'},
+        'order' => 'traffic_bytes DESC',
+        'options' => {
+            'no_date_in_where' => 1
+        }
+    });
+
+    $report->{'top_blocked_subnets'} = $self->runQuery($beg, $end, {
+        'select' => "network(inet(ip || '/24')) AS subnet, SUM(hits) AS hits",
         'from' => 'squid_access_report',
-        'where' => "event = 'accepted'",
-        'group' => 'ip',
+        'where' => "event = 'denied' OR event = 'filtered'",
+        'group' => 'subnet',
+        'limit' => $options->{'max_top_blocked_subnets'},
+        'order' => 'hits DESC'
+    });
+
+    $report->{'top_ips'} = $self->runQuery($beg, $end, {
+        'select' => 'ip, COALESCE(hit_bytes,0) AS hit_bytes, ' .
+                    'COALESCE(miss_bytes,0) AS miss_bytes, ' .
+                    'COALESCE(hit_bytes,0) + COALESCE(miss_bytes,0) ' .
+                    'AS traffic_bytes, ' .
+                    'COALESCE (hit_hits,0) + COALESCE(miss_hits,0) AS hits',
+        'from' =>
+            "(SELECT ip, " .
+            "SUM(bytes) AS hit_bytes, SUM(hits) AS hit_hits " .
+            "FROM squid_access_report WHERE code ~ 'HIT' AND _date_ " .
+            "GROUP BY ip) AS h " .
+            "FULL OUTER JOIN " .
+            "(SELECT ip, " .
+            "SUM(bytes) AS miss_bytes, SUM(hits) AS miss_hits " .
+            "FROM squid_access_report WHERE code ~ 'MISS' AND _date_ " .
+            "GROUP BY ip) AS m " .
+            "USING (ip)",
         'limit' => $options->{'max_top_ips'},
-        'order' => 'traffic_bytes DESC'
+        'order' => 'traffic_bytes DESC',
+        'options' => {
+            'no_date_in_where' => 1
+        }
     });
 
     $report->{'top_blocked_ips'} = $self->runQuery($beg, $end, {
@@ -1291,9 +1366,9 @@ sub consolidateReportQueries
         {
             'target_table' => 'squid_access_report',
             'query' => {
-                'select' => 'rfc931 AS username, remotehost AS ip, domain_from_url(url) AS domain, event, SUM(bytes) AS bytes, COUNT(event) AS hits',
+                'select' => 'rfc931 AS username, remotehost AS ip, domain_from_url(url) AS domain, event, code, SUM(bytes) AS bytes, COUNT(event) AS hits',
                 'from' => 'squid_access',
-                'group' => 'username, ip, domain, event'
+                'group' => 'username, ip, domain, event, code'
             }
         }
     ];

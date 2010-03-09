@@ -4,6 +4,7 @@ CREATE TABLE squid_access_report (
        username VARCHAR(255),
        domain VARCHAR(255),
        event VARCHAR(10),
+       code VARCHAR(32),
        bytes BIGINT,
        hits INT
 );

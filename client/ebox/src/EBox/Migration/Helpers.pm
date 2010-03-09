@@ -31,8 +31,8 @@ sub renameTable
         "DROP TABLE $newTable" . "_new"
     );
 
-    runQuery($exists_query);
-    if ($? == 0) {
+    my $res = runQuery($exists_query);
+    if ($res == 0) {
         for my $q (@queries) {
             runQuery($q);
         }
@@ -84,19 +84,19 @@ sub dropIndex
 sub addColumn
 {
     my ($table, $column, $columnData) = @_;
-    my $exists_query = "SELECT $column FROM $table LIMIT 1";
-    my $exists = runQuery($exists_query) == 0;
-    if ($exists) {
-        return;
+    my $exists_query = "SELECT COUNT(*) FROM $table";
+    my $res = runQuery($exists_query);
+    if ($res == 0) {
+        $exists_query = "SELECT $column FROM $table LIMIT 1";
+        my $exists = runQuery($exists_query) == 0;
+        if ($exists) {
+            return;
+        }
+        my $addColumnQuery = "ALTER TABLE $table " .
+                             "ADD COLUMN $column " .
+                             "$columnData";
+        runQuery($addColumnQuery);
     }
-
-
-    my $addColumnQuery = "ALTER TABLE $table " .
-                         "ADD COLUMN $column " .
-                         "$columnData";
-    runQuery($addColumnQuery);
-        
 }
-
 
 1;

@@ -1086,12 +1086,17 @@ sub runQuery
     my $date_where = "date >= '$begyear-$begmonth-01 00:00:00' AND " .
                 "date < date '$endyear-$endmonth-01 00:00:00' + interval '1 month'";
     my $new_where;
-    if (defined($orig_where)) {
-        $new_where = "$orig_where AND $date_where";
-    } else {
-        $new_where = "$date_where";
+    unless (defined($query->{'options'}) and
+            defined($query->{'options'}->{'no_date_in_where'}) and
+            $query->{'options'}->{'no_date_in_where'}) {
+        if (defined($orig_where)) {
+            $new_where = "$orig_where AND $date_where";
+        } else {
+            $new_where = "$date_where";
+        }
+        $query->{'where'} = $new_where;
     }
-    $query->{'where'} = $new_where;
+    $query->{'from'} =~s/_date_/$date_where/g;
 
     my $results = $db->query_hash($query);
     if (@{$results}) {

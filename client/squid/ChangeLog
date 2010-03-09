@@ -5,6 +5,7 @@ HEAD
 	+ Bugfix, breadcrumbs triggered old problem with parent method in
 	DomainFilterCategories model, so we enable again the old
 	workaround to avoid this error
+	+ Add new information about saved bandwidth to the reports
 1.3.14
 	+ Bugfix: in restartService we assure that all files are in place
 	before restarting the daemons
