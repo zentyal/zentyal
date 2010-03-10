@@ -139,12 +139,14 @@ sub actuate
                                              days => $days));
     }
 
+    # XXX: We have set a workaround until UTF-8 are allowed in OpenSSL
     # Only valid chars minus '/' plus '*' --> security risk
-    unless ( $name =~ m{^[\w .?&+:\-\@\*]*$} ) {
-      throw EBox::Exceptions::External(__('The input contains invalid ' .
-					  'characters. All alphanumeric characters, ' .
+    unless ( $name =~ m{^[A-Za-z0-9 .?&+:\-\@\*]*$} ) {
+      throw EBox::Exceptions::External(__x('The input contains invalid ' .
+					  'characters. All {ascii} alphanumeric characters, ' .
 					  'plus these non alphanumeric chars: .?&+:-@* ' .
-					  'and spaces are allowed.'));
+					  'and spaces are allowed.',
+                                          ascii => 'ASCII'));
     }
 
     # Only validate the following format for subjectAltName

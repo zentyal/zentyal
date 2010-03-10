@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: Only ASCII alphanumeric characters are allowed in common
+	  name to workaround the yet not fixed issue with UTF-8 and OpenSSL
 	+ Give support for subject alternative names: the available types
 	  are DNS, IP address and email address
 	+ Add revokation reason listing certificates
