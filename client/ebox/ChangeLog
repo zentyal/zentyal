@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: Do not check in row uniqueness for optional fields that
+	are not passed as parameters
 	+ Improve the output of ebox module status, to be consistent with the one
 	  shown in the interface
 	+ Add options to the report generation to allow queries to be more

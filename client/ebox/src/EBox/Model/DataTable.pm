@@ -3354,9 +3354,18 @@ sub _checkRowIsUnique # (rowId, row_ref)
         my $row = $self->row($id);
         # Compare if the row identifier is different
         next if ( defined($rowId) and $row->{'id'} eq $rowId);
-        my $nEqual = grep
-          { $row_ref->{$_}->isEqualTo($row->elementByName($_)) }
-            @{$fields};
+        my $nEqual = 0;
+        foreach my $fieldName (@{$fields}) {
+            if ( defined($row_ref->{$fieldName}) ) {
+                if ( $row_ref->{$fieldName}->isEqualTo($row->elementByName($fieldName)) ) {
+                    $nEqual++;
+                }
+            }
+            # If not defined, then the field is optional and the comparation here is useless
+            else {
+                $nEqual++;
+            }
+        }
         next unless ( $nEqual == scalar(@{$fields}) );
         throw EBox::Exceptions::DataExists(
                                            'data'  => $self->printableRowName(),
