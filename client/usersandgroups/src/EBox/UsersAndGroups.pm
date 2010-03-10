@@ -754,6 +754,9 @@ sub addUser # (user, system)
     my $gid = $self->groupGid(DEFAULTGROUP);
 
     my $passwd = $user->{'password'};
+    if (not $passwd) {
+        throw EBox::Exceptions::MissingArgument(__('Password'));
+    }
     if (not isHashed($passwd)) {
         $passwd =  defaultPasswordHash($passwd);
     }

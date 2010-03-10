@@ -4,6 +4,7 @@ HEAD
 	+ Bug fix: addUser() now checks if the user already exists as a
 	system user
 	+ Removed deprecated executable 'import-from-ldif'
+	+ bug fix: addUser() now checks for password argument
 1.5
 	+ Bug fix: don't try to contact slaves from within a slave when groups
 	  are updated
