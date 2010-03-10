@@ -158,6 +158,7 @@ sub validateTypedRow
         }
     }
     if ( exists ( $changedFields->{name} )) {
+        my $newName = $changedFields->{name}->value();
         # Check remainder FixedAddressTable models uniqueness since
         # the dhcpd.conf may confuse those name repetition
         my @fixedAddressTables = @{EBox::Model::ModelManager->instance()->model(
