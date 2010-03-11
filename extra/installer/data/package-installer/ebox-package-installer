@@ -150,7 +150,7 @@ $CNF_password = askPassword();
 
 # Set the new user and password
 my $cryptpass = crypt ($CNF_password, substr($CNF_password, 0, 2));
-system ("$INSTALL_FILES/ebox-set-admin-password $CNF_user $cryptpass >> $LOG 2>&1");
+system ("$INSTALL_FILES/ebox-set-admin-password '$CNF_user' '$cryptpass' >> $LOG 2>&1");
 
 # Package selection
 my @packages = selectPackagesMenu();
@@ -387,7 +387,7 @@ sub askAdminUser # returns string
     do {
         $user = showInputDialog($USERNAME_TITLE, $USERNAME_MSG);
 
-        if (($user eq 'root') or ($user eq 'ebox')) {
+        if (($user eq 'root') or ($user eq 'ebox') or (getpwnam $user)) {
             showDialog(__('Error'), __x("The username '{user}' is reserved. Please choose another.", user => $user));
             $user = undef;
         }
@@ -502,13 +502,13 @@ sub preconfiguration
     #system('ebox-software');
 
     # eBox initial setup
-    system ("$INSTALL_FILES/ebox-set-password $CNF_password >> $LOG 2>&1");
+    system ("$INSTALL_FILES/ebox-set-password '$CNF_password' >> $LOG 2>&1");
 
     print $PROGRESS "100\n";
 
     # X11 setup
     if ($CNF_x11) {
-        EBox::Sudo::root("$INSTALL_FILES/ebox-x11-setup $CNF_user >> $LOG 2>&1");
+        EBox::Sudo::root("$INSTALL_FILES/ebox-x11-setup '$CNF_user' >> $LOG 2>&1");
     }
 
     close ($PROGRESS);

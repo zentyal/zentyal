@@ -1,5 +1,9 @@
 HEAD
-    + Do not allow to enter 'root' as admin user to avoid conflicts
+    + Added console-cyrillic package
+    + Install l7-protocols if trafficshaping is selected in advanced mode
+    + Quote passwords to avoid problems with strange characters
+    + Do not allow to enter 'root' or any other existing system user
+      as admin user to avoid conflicts
 1.4
     + Included blackbox and firefox to show the eBox UI after the install
     + Added firefox bookmarks to eBox webpages
