@@ -11,7 +11,7 @@ d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
 # install ssh, bc and custom eBox kernel
-d-i pkgsel/include string ssh bc linux-image-2.6.24-26-ebox
+d-i pkgsel/include string ssh bc linux-image-2.6.24-27-ebox
 
 ##
 ## partitioning
