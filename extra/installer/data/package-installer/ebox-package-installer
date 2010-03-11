@@ -19,6 +19,7 @@ use strict;
 
 use EBox::Gettext;
 use EBox::Sudo;
+use EBox::Validate;
 use Error qw(:try);
 
 EBox::Gettext::settextdomain('ebox-package-installer');
@@ -249,6 +250,9 @@ sub installPackages # (packages)
     if ($output =~ /ebox-samba/s) {
         $packageList .= ' samba-vscan';
     }
+    if ($output =~ /ebox-trafficshaping/s) {
+        $packageList .= ' ebox-l7-protocols';
+    }
     if ($output =~ /ebox-asterisk/s) {
         $packageList .= " $ASTERISK_EXTRAS";
     }
@@ -410,7 +414,9 @@ sub askMailDomain # returns string
     do {
         $domain = showInputDialog($MAIL_TITLE, $MAIL_MESSAGE);
 
-        # TODO: domain validation?
+        unless (EBox::Validate::_checkDomainName($domain)) {
+            $domain = undef;
+        }
     } until ($domain);
 
     return $domain;
