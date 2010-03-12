@@ -40,17 +40,17 @@ $TTL 3D
 			4W		;expiration
 			1D )		;
 ;
+% if($domain{'ipaddr'}) {	
+@		A	<% $domain{'ipaddr'} %>
+% }
 % if ( @{$domain{'nameServers'}} == 0 ) {
-                NS	<% $firstNS %>	;nameserver
+@               NS	<% $firstNS %>	;nameserver
 ;
 <% $firstNS %>		A	127.0.0.1
 % } else {
 %   foreach my $ns (@{$domain{'nameServers'}}) {
-                NS      <% $ns %>
+@               NS      <% $ns %>
 %   }
-% }
-% if($domain{'ipaddr'}) {	
-		A	<% $domain{'ipaddr'} %>
 % }
 <%perl>
 	if(@hosts != 0) {
