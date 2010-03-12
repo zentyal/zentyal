@@ -1,0 +1,10 @@
+[begin] (eBox Window Manager)
+  [exec] (eBox Administration Interface) {firefox https://localhost}
+  [exec] (Administrator \(root\) Console) {gksudo xterm}
+  [exec] (Non-privileged User Console) {xterm}
+  [sep]
+  [config] (Configure Window Manager)
+  [restart] (Restart Window Manager)
+  [sep]
+  [exit] (Exit and Logout)
+[end]

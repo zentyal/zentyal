@@ -1,4 +1,5 @@
 HEAD
+    + X11 UI tweaks (thanks to Kamilion)
     + Added console-cyrillic package
     + Install l7-protocols if trafficshaping is selected in advanced mode
     + Quote passwords to avoid problems with strange characters

@@ -73,8 +73,8 @@ installed_ok() {
     sed -i "s/^deb file:.*$//" /etc/apt/sources.list
     # Restore original rc.local
     mv /var/tmp/rc.local /etc/rc.local
-    # Restart gdm
-    /etc/init.d/gdm restart
+    # Restart gdm if installed
+    [ -x /etc/init.d/gdm ] && /etc/init.d/gdm restart
     exit 0
 }
 

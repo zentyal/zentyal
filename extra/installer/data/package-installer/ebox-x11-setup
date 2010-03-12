@@ -8,12 +8,16 @@ sed -i "s/AutomaticLogin=.*/AutomaticLogin=$USER_NAME/" /etc/gdm/gdm.conf
 
 echo "#!/bin/bash" > $DIR/.xsession
 echo "firefox https://localhost &" >> $DIR/.xsession
+echo "xset s off" >> $DIR/.xsession
+echo "xset -dpms" >> $DIR/.xsession
+echo "xset s noblank" >> $DIR/.xsession
 echo "exec blackbox" >> $DIR/.xsession
 chmod +x $DIR/.xsession
 chown $USER_NAME:eboxadmin $DIR/.xsession
 
 mkdir $DIR/.mozilla
 cp -r /var/tmp/ebox-firefox-profile $DIR/.mozilla/firefox
+cp /var/tmp/ebox-blackbox-menu /etc/X11/blackbox/blackbox-menu
 chown -R $USER_NAME:eboxadmin $DIR/.mozilla
 chmod -R +w $DIR/.mozilla
 
