@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: Escape some files to make download client bundle work
+	  again if the server name has spaces
 	+ Bugfix: Escape some files to allow spaces in server names
 	+ Make initializeInterfaces() public
 1.5

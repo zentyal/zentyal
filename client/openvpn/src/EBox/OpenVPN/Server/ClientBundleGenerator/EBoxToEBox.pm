@@ -21,7 +21,7 @@ sub createBundleCmds
 {
     my ($class, $bundleFile, $tmpDir) = @_;
 
-    my @filesInTmpDir = `ls $tmpDir`;
+    my @filesInTmpDir = `ls '$tmpDir'`;
     chomp @filesInTmpDir;
 
     return ("tar czf '$bundleFile' -C '$tmpDir' "
@@ -109,7 +109,7 @@ sub initParamsFromBundle
     system "rm -rf $tmpDir";
     EBox::FileSystem::makePrivateDir($tmpDir);
 
-    my $extractCmd = "tar xzf  $bundleFile -C $tmpDir";
+    my $extractCmd = "tar xzf '$bundleFile' -C '$tmpDir'";
     EBox::Sudo::root($extractCmd);
 
     my @initParams;
@@ -125,7 +125,7 @@ sub initParamsFromBundle
     }
     otherwise {
         my $ex = shift @_;
-        system "rm -rf $tmpDir";
+        system "rm -rf '$tmpDir'";
         $ex->throw();
 
     };

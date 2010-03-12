@@ -32,7 +32,7 @@ sub createBundleCmds
 {
     my ($class, $bundleFile, $tmpDir) = @_;
 
-    my @filesInTmpDir = `ls $tmpDir`;
+    my @filesInTmpDir = `ls '$tmpDir'`;
     chomp @filesInTmpDir;
 
     return ("tar czf '$bundleFile' -C '$tmpDir' "
