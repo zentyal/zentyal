@@ -72,13 +72,13 @@ were created. [#]_
    :alt: Public key encryption
    :scale: 40
 
-   *GRAPHIC: Public key encryption*
+   Public key encryption
 
 .. figure:: images/vpn/public-key-signing.png
    :alt: Public key signature
    :scale: 40
 
-   *GRAPHIC: Public key signature*
+   Public key signature
 
 The *certificates* use another **PKI** feature: the possibility of signing
 files. The *private key* is used to sign a file. The signature can be checked
@@ -90,7 +90,7 @@ used to verify identities and is called **Certification Authority** (CA).
    :scale: 60
    :alt: Diagram to issue a certificate
 
-   *GRAPHIC: Diagram to issue a certificate*
+   Diagram to issue a certificate
 
 
 Certification Authority configuration with eBox
@@ -523,7 +523,7 @@ clients. This situation is better explained with the following figure:
    :alt: VPN connection from a client to the LAN using NAT with VPN
    :scale: 80
 
-   *GRAPHIC: VPN connection from a client to the LAN using NAT with VPN*
+   VPN connection from a client to the LAN using NAT with VPN
 
 
 Secure interconnection between local networks
@@ -598,7 +598,7 @@ networks can connect with each other.
        * Enable :guilabel:`Allow eBox-to-eBox tunnels`. This is the option
          indicating that it will be a tunnel server.
        * Enter a :guilabel:`eBox-to-eBox tunnel password`.
-       * Finally, from the :guilabel:`Interface to listen on` select 
+       * Finally, from the :guilabel:`Interface to listen on` select
          choose the external interface that the eBox client will
          connect to.
 

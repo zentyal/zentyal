@@ -28,7 +28,7 @@ quite powerful and flexible.
    :scale: 80
    :alt: eBox's mail filter schema
 
-   *GRAPHIC: eBox's mail filter schema*
+   eBox's mail filter schema
 
 In the figure, we can observe the different steps that a message follows before
 tagging it. First, the email server sends it to the greylisting policies
@@ -66,7 +66,7 @@ spam messages.
    :scale: 80
    :alt: Schematic operation of a greylist
 
-   *GRAPHIC: Schematic operation of a greylist*
+   Schematic operation of a greylist
 
 Greylisting is configured from :menuselection:`Mail --> Greylist`
 with the following options:
@@ -148,7 +148,7 @@ The spam scanner uses the following techniques to assign scores:
  - Sender Policy Framework (SPF): RFC: `4408`.
  - DomainKeys Identified Mail (DKIM)
  - Bayesian filter
- - Static rules 
+ - Static rules
  - Other tests [#]_
 
 Among this techniques the *Bayesian filter* should be further

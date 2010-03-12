@@ -81,13 +81,13 @@ problema, se crearon los **certificados**. [#]_
    :alt: Cifrado con clave pública
    :scale: 40
 
-   *GRAPHIC: Cifrado con clave pública*
+   Cifrado con clave pública
 
 .. figure:: images/vpn/public-key-signing.png
    :alt: Firmado con clave pública
    :scale: 40
 
-   *GRAPHIC: Firmado con clave pública*
+   Firmado con clave pública
 
 Los **certificados** aprovechan otra capacidad de la **PKI**: la
 posibilidad de firmar ficheros. Para firmar ficheros se usa la propia
@@ -100,9 +100,9 @@ identidades se le denomina **autoridad de certificación**
 
 .. figure:: images/vpn/public-key-certificate.png
    :scale: 60
-   :alt: Diagram to issue a certificate
+   :alt: Expedición de un certificado
 
-   *GRAPHIC: Diagram to issue a certificate*
+   Expedición de un certificado
 
 Configuración de una Autoridad de Certificación con eBox
 ========================================================
@@ -160,7 +160,7 @@ incluso una dirección de correo para firmar los mensajes de correo
 electrónico.
 
 .. [#] Para tener más información sobre los nombres alternativos para
-       un sujeto, visita 
+       un sujeto, visita
        http://www.openssl.org/docs/apps/x509v3_config.html#Subject_Alternative_Name
 
 .. [#] Para más información sobre los dominios virtuales en HTTP,
@@ -193,10 +193,10 @@ la razón para revocarlo:
 :guilabel:`keyCompromise`
   La clave privada ha sido comprometida
 
-:guilabel:`CACompromise` 
+:guilabel:`CACompromise`
   La clave privada de la autoridad de certificación ha sido comprometida
 
-:guilabel:`affilliationChanged` 
+:guilabel:`affilliationChanged`
   Se ha producido un cambio en la afiliación de la clave pública
   firmada hacia otra organización.
 
@@ -233,7 +233,7 @@ Certificados de Servicios
    :align: center
    :scale: 80
 
-En :menuselection:`Autoridad de Certificación --> Certificados de Servicios` 
+En :menuselection:`Autoridad de Certificación --> Certificados de Servicios`
 podemos encontrar la lista de módulos de eBox usando certificados para sus
 servicios. Por omisión estos son generados por cada módulo, pero si estamos
 usando la *CA* podemos remplazar estos certificados auto firmados por uno
@@ -418,7 +418,7 @@ donde las nuevas redes anunciadas se han añadido al interfaz virtual
 Los usuarios conectados actualmente al servicio VPN se muestran en el
 :guilabel:`Dashboard` de eBox.
 
-.. FIXME: VPN dashboard image 
+.. FIXME: VPN dashboard image
 
 .. _vpn-example-b-ref:
 
@@ -549,7 +549,7 @@ clientes. Esta situación se explica mejor con el siguiente gráfico:
    :alt: Conexión desde un cliente VPN a la LAN con VPN usando NAT
    :scale: 80
 
-   *GRAPHIC: Conexión desde un cliente VPN a la LAN con VPN usando NAT*
+   Conexión desde un cliente VPN a la LAN con VPN usando NAT
 
 Interconexión segura entre redes locales
 ----------------------------------------

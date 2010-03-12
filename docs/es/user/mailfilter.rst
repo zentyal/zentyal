@@ -29,7 +29,7 @@ correo bastante potente y flexible.
    :scale: 80
    :alt: Esquema del filtrado de correo en eBox
 
-   *GRAPHIC: Esquema del filtrado de correo en eBox*
+   Esquema del filtrado de correo en eBox
 
 En la figura se observan los diferentes pasos que sigue un correo antes
 de determinar si es válido o no. En primer lugar, el servidor
@@ -75,7 +75,7 @@ no reenviarán el correo. Así habríamos evitado los mensajes de *Spam*.
    :scale: 80
    :alt: Esquema del funcionamiento de una lista gris
 
-   *GRAPHIC: Esquema del funcionamiento de una lista gris*
+   Esquema del funcionamiento de una lista gris
 
 
 El *Greylist* se configura desde :menuselection:`Correo --> Lista gris`

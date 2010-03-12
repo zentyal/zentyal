@@ -110,7 +110,7 @@ siguiente gráfico:
    :alt: Tipos de reglas de filtrado
    :scale: 80
 
-   *GRAPHIC: Tipos de reglas de filtrado*
+   Tipos de reglas de filtrado
 
 eBox provee una forma sencilla de controlar el acceso a sus servicios y los
 del exterior desde una interfaz interna (donde se encuentra la *Intranet*) e

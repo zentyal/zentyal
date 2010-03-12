@@ -29,7 +29,7 @@ configuración.
    :align: center
    :alt: Representación de objetos de red
 
-   *GRAPHIC:  Representación de objetos de red*
+   Representación de objetos de red
 
 
 Gestión de los objetos de red con eBox
@@ -79,7 +79,7 @@ nombre del protocolo de nivel 7 o aplicación que usa esos puertos).
 .. figure:: images/abstractions/services-schema.png
    :alt: Conexión de un cliente a un servidor
 
-   *GRAPHIC: Conexión de un cliente a un servidor*
+   Conexión de un cliente a un servidor
 
 Gestión de los servicios de red con eBox
 ----------------------------------------

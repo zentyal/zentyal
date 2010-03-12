@@ -29,7 +29,7 @@ configuration.
    :align: center
    :alt: representation of network objects
 
-   *GRAPHIC:  representation of network objects*
+   Representation of network objects
 
 
 Management of network objects with eBox
@@ -79,7 +79,7 @@ name of the level-7 protocol or application using these ports).
 .. figure:: images/abstractions/services-schema.png
    :alt: client connection to a server
 
-   *GRAPHIC: client connection to a server*
+   Client connection to a server
 
 Management of network services with eBox
 ----------------------------------------

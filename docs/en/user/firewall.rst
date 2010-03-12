@@ -110,7 +110,7 @@ following graphic:
    :alt: types of filtering rules
    :scale: 80
 
-   *GRAPHIC: types of filtering rules*
+   Types of filtering rules
 
 eBox provides a simple way to control access to its services and to external
 services from an internal interface (where the *intranet* is located) and the
