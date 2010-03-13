@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# TODO: Move this to a .conf file
+DIST=lucid
+
+mkdir -p work/chroot
+cd work
+sudo debootstrap --arch=i386 $DIST chroot
+cd -
