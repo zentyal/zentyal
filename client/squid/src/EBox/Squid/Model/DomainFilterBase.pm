@@ -73,7 +73,9 @@ sub _validateUrl
     my ($domain, $dir) = split '/', $url, 2;
     $dir = '/' . $dir;
 
-    EBox::Validate::checkDomainName($domain, __('Domain or IP address'));
+    EBox::Validate::checkDomainName($domain, 
+                                    __('Domain or IP address part of URL')
+                                   );
 }
 
 sub _validateDomain
