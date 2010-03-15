@@ -13,8 +13,8 @@ cd image/.disk
 touch base_installable
 echo "full_cd/single" > cd_type
 # FIXME: Modify this
-echo 'Ubuntu 9.10 "Karmic Koala Remix" - i386 (20090429)' > info
-echo "http//ubuntu-rescue-remix.org" > release_notes_url
+echo 'eBox Platform 1.5 - Alpha i386 (20090315)' > info
+echo "http://trac.ebox-platform.com/wiki/Document/Announcement/1.5" > release_notes_url
 
 cd ..
 
