@@ -45,8 +45,9 @@ System load
 -----------
 
 The **system load** tries to measure the rate of pending work over the
-completed work.
-This value is computed using the number of active process in the CPU.
+completed work.  This value is defined as the number of runnable tasks
+in the run-queue and is provided by many operating systems as a one,
+five or fifteen minutes average.
 
 This metric is the capacity of the used CPU over a given time. This means that a
 load of 1 represents a CPU working at full capacity. A load of 0.5 means that
@@ -150,6 +151,24 @@ user to filter based on the event severity. You can use the option
 :guilabel:`reverse:` to swap the values that are considered right and wrong.
 Other important option is :guilabel:`persistent:`. Depending on the metric we
 can also set other parameters.
+
+Each measure has a metric that it is described as follows:
+
+System load:
+  The values must be set in **average number of runnable tasks in the
+  run-queue**.
+
+CPU usage:
+  The values to set must be **jiffies** or units of scheduling.
+
+Physical memory usage:
+  The values to set must be **bytes**.
+
+File system:
+  The values must be set in **bytes**.
+
+Temperature:
+  The values to set must be **grades**.
 
 Once you have configured and enabled the event you will need to configure, at
 least, one observer. The observer configuration is the same as the

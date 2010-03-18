@@ -49,7 +49,9 @@ Carga del sistema
 
 La **carga del sistema** trata de medir la relación entre la demanda
 de trabajo y el realizado por el computador. Esta métrica se calcula
-usando la variación en el número de proceso activos en la CPU.
+usando el número de tareas ejecutables en la cola de ejecución y es
+ofrecida por muchos sistemas operativos en forma de media de uno,
+cinco y quince minutos.
 
 La interpretación de esta métrica es la capacidad de la CPU usada en
 el periodo elegido. Así, una carga de 1 significaría que esta operando
@@ -173,6 +175,25 @@ fallos y a la inversa. Otra opción importante es la de
 podremos elegir otros parámetros relacionados con esta, por ejemplo
 para el disco duro podemos recibir alertas sobre el espacio libre, o
 para la carga puede ser útil la carga a corto plazo, etc.
+
+Cada medida tiene una métrica que se describe como sigue:
+
+Carga del sistema:
+  Los valores deben ser en **número de tareas ejecutables media en la
+  cola de ejecución**.
+
+Uso de la CPU:
+  Los valores se deben disponer en **jiffies** o unidades de
+  *scheduling*.
+
+Uso de la memoria física:
+  Los valores deben establecerse en **bytes**.
+
+Sistema de ficheros:
+  Los valores deben establecerse en **bytes**.
+
+Temperatura:
+  Los valores a establecer debe establecer en **grados**.
 
 Una vez configurado y activado el evento deberemos configurar al menos un
 observador para recibir las alertas. La configuración de los observadores es
