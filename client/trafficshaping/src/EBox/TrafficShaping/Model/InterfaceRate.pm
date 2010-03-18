@@ -108,7 +108,7 @@ sub _table
                 editable => 1,
                 size => '4',
                 trailingText => 'Kb/s',
-                help => __('Upload rate in Kbits/s through this interface')
+                help => __('Download rate in Kbits/s through this interface')
             )
      );
 
