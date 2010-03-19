@@ -1,6 +1,6 @@
 HEAD
-	+ Bugfix, hard-coding mailname in main.cf smtp_helo_name because
-	$myorigin variable was not correctly resolved
+	+ Bugfix, using standard default smtp banner to avoid breaking
+	banner checks. Thanks to ivo@housesbg.com for pointing this
 1.4.2
 	+ Bugfix, mail to local accounts is delivered correctly, changed
 	some parameters to take in account myorigin

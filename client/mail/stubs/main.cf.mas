@@ -69,7 +69,6 @@ smtpd_helo_required = yes
 strict_rfc821_envelopes = yes
 disable_vrfy_command = yes
 
-smtpd_banner = eBox ESMTP
 biff = no
 
 append_dot_mydomain = no
