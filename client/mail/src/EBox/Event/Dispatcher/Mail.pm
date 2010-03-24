@@ -31,6 +31,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Model::ModelManager;
+use EBox::Global;
 
 ################
 # Dependencies
@@ -40,7 +41,6 @@ use Net::SMTP;
 ####################
 # Core Dependencies
 ####################
-use Sys::Hostname;
 use Error qw(:try);
 
 # Group: Public methods
@@ -226,6 +226,8 @@ sub _sendMail
 
     my $mailer = $self->_getMailer();
 
+    my $mailname = EBox::Global->modInstance('mail')->mailname();
+
     if ( not defined ( $mailer )) {
         throw EBox::Exceptions::External(__x('Cannot connect to the server {hostname} '
                                              . 'to send the event through SMTP',
@@ -233,12 +235,12 @@ sub _sendMail
     }
 
     # Construct the message
-    $mailer->mail('ebox-noreply@' . hostname());
+    $mailer->mail('ebox-noreply@' . $mailname);
     $mailer->to($self->{to});
 
     $mailer->data();
     $mailer->datasend('Subject: ' . $self->{subject} . "\n");
-    $mailer->datasend('From: ebox-noreply@' . hostname() . "\n");
+    $mailer->datasend('From: ebox-noreply@' . $mailname . "\n");
     $mailer->datasend('To: ' . $self->{to} . "\n");
     $mailer->datasend("\n");
     $mailer->datasend($event->level() . ' : '
