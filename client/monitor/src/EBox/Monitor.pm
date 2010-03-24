@@ -55,9 +55,10 @@ use EBox::Monitor::Measure::Manager;
 use Error qw(:try);
 
 # Constants
-use constant COLLECTD_SERVICE    => 'ebox.collectd';
-use constant COLLECTD_CONF_FILE  => '/etc/collectd/collectd.conf';
+use constant COLLECTD_SERVICE     => 'ebox.collectd';
+use constant COLLECTD_CONF_FILE   => '/etc/collectd/collectd.conf';
 use constant THRESHOLDS_CONF_FILE => '/etc/collectd/thresholds.conf';
+use constant SERVICE_STOPPED_FILE => EBox::Config::tmp() . 'monitor_stopped';
 
 # Method: _create
 #
@@ -371,6 +372,20 @@ sub thresholdConfigured
 
 }
 
+# Method: stoppedServiceFilePath
+#
+#     Path to the file to indicate the monitor service was stopped on
+#     purpose. The action is done by creating the file
+#
+# Returns:
+#
+#     String - the path to the file
+#
+sub stoppedServiceFilePath
+{
+    return SERVICE_STOPPED_FILE;
+}
+
 # Group: Protected methods
 
 # Method: _setConf
@@ -402,7 +417,8 @@ sub _daemons
 {
     return [
         {
-            name => COLLECTD_SERVICE,
+            name         => COLLECTD_SERVICE,
+            precondition => \&_notStoppedOnPurpose,
         },
     ];
 }
@@ -561,6 +577,14 @@ sub _mountPointsToMonitor
     my $dfMeasure = $self->{measureManager}->measure('Df');
     my @printableTypeInstances = map { $dfMeasure->printableTypeInstance($_) } @{$dfMeasure->typeInstances()};
     return \@printableTypeInstances;
+}
+
+# Check if the monitor service has been stopped on purpose in order
+# not to check if the service must be running
+sub _notStoppedOnPurpose
+{
+    # Check if someone has written the file in the eBox tmp dir
+    return not (-e SERVICE_STOPPED_FILE);
 }
 
 1;

@@ -38,7 +38,8 @@ use File::Temp;
 use Getopt::Long;
 use Pod::Usage;
 
-use constant MON_CRON_INTERVAL => 15 * 60;
+# Constants
+use constant MON_CRON_INTERVAL   => 15 * 60;
 
 my @fileList = ();
 my ($usage, $force) = (0,0);
@@ -70,6 +71,7 @@ unless ( $mon->isEnabled() ) {
 my $rrdDir = EBox::Monitor::Configuration::RRDBaseDirPath();
 
 # Stop collectd prior to creating the tar
+open(my $fd, '>', $mon->stoppedServiceFilePath());close($fd);
 $mon->stopService();
 my $currentTar = new File::Temp(DIR => EBox::Config::tmp());
 my $tempDir = File::Temp->newdir(DIR => EBox::Config::tmp());
@@ -82,6 +84,7 @@ try {
     EBox::error($exc);
 };
 $mon->restartService();
+unlink($mon->stoppedServiceFilePath());
 
 my $monSrv = new EBox::RemoteServices::Monitor();
 my $retValue = 1;

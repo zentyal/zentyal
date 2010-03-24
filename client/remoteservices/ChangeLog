@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: Set monitor service as stopped on purpose to notify
+	  monitor stats to eBox Control Center
 	+ Set maximum number for eBox common name to 32
 	+ Bugfix: Found a lost method makes the monitorization work again
 	+ Allow read-only script sessions
