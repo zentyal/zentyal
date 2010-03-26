@@ -153,7 +153,18 @@ sub _run
     try {
         chomp($jobDir);
         my ($jobId) = $jobDir =~ m:^.*/(.*?)$:g;
-        system( "xargs -a $jobDir/args $jobDir/script > $jobDir/stdout 2> $jobDir/stderr");
+
+        my $dataFile = "$jobDir/dataFile";
+        my $call;
+
+        if (-r $dataFile) {
+            $call = "xargs -a $jobDir/args $jobDir/script --data-file $dataFile";
+        } else {
+            $call = "xargs -a $jobDir/args $jobDir/script";            
+        }
+
+
+        system( "$call > $jobDir/stdout 2> $jobDir/stderr");
         my $retValue = $?;
         open (my $returnedFile,  '>', "$jobDir/exitValue")
           or throw EBox::Exceptions::External( "Cannot open file:$jobDir/exitValue: $!");

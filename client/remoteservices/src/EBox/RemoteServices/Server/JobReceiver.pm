@@ -73,8 +73,8 @@ use constant INCOMING_DIR => JOBS_DIR . 'incoming/';
 sub runJob
 {
     my $class = shift(@_);
-    my ($jobId, $script, $arguments) =
-      @{$class->_gatherParams([ qw(jobId script arguments) ], @_)};
+    my ($jobId, $script, $arguments, $dataFile) =
+      @{$class->_gatherParams([ qw(jobId script arguments dataFile) ], @_)};
 
     unless (defined($jobId)) {
         throw EBox::Exceptions::MissingArgument('jobId');
@@ -104,7 +104,16 @@ sub runJob
     # Dump the script and set as executable
     File::Slurp::write_file( "$jobDirPath/script", $script);
     chmod(0700, "$jobDirPath/script");
+    # write the arguments file
     File::Slurp::write_file( "$jobDirPath/args", $arguments);
+    # Dump the data file if is supplied, if otherwise create the noDataFile
+    # file as mark
+    if ($dataFile) {
+        File::Slurp::write_file( "$jobDirPath/dataFile", $dataFile);        
+    } else {
+        File::Slurp::write_file( "$jobDirPath/noDataFile", '');                
+    }
+
     # Create the symlink to incoming directory to make it notify to
     # the ebox-runnerd
     symlink( $jobDirPath, INCOMING_DIR . $jobId);
