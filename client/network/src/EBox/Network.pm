@@ -2547,6 +2547,8 @@ sub _enforceServiceState
     $self->_multigwRoutes();
     $self->_cleanupVlanIfaces();
 
+    EBox::Sudo::root('/sbin/ip route flush cache');
+
     $self->SUPER::_enforceServiceState();
 
     # XXX uncomment when DynLoader bug with locales is fixed
@@ -3286,6 +3288,9 @@ sub regenGateways
         EBox::error('Something bad happened reseting default gateways');
     };
     $self->_multigwRoutes();
+
+    EBox::Sudo::root('/sbin/ip route flush cache');
+
     $global->modRestarted('network');
 
     EBox::Util::Lock::unlock('network');
