@@ -5,6 +5,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
+my $enableTitle = __('Perform automatic security updates');
 </%init>
-<& enable.mas, title => __('Perform automatic security updates'), 
-				active => $automatic &>
+<& enable.mas, title => $enableTitle, active => $automatic &>
