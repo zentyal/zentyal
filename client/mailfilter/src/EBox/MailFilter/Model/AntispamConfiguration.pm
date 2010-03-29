@@ -75,7 +75,7 @@ sub _table
                                ),
          new EBox::Types::Boolean (
                                 fieldName => 'bayes',
-                                printableName => __('Use bayesian classifier'),
+                                printableName => __('Use Bayesian classifier'),
                                 editable => 1,
                                 defaultValue => 1,
                                ),
