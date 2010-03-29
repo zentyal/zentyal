@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-02-22 10:58+0100\n"
-"PO-Revision-Date: 2010-02-09 11:08+0100\n"
+"PO-Revision-Date: 2010-03-09 11:02+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -334,9 +334,9 @@ msgid "Passwords don't match"
 msgstr "A jelszavak nem egyeznek"
 
 #: ebox-package-installer:387
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The username '{user}' is reserved. Please choose another."
-msgstr "Az eBox felhasználói név már foglalt, kérem válasszon másikat!"
+msgstr "A(z) '{user}' felhasználói név már foglalt, kérem válasszon másikat."
 
 #: ebox-package-installer:421
 msgid "Preconfiguring eBox packages..."

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-02-22 10:58+0100\n"
-"PO-Revision-Date: 2010-02-03 22:43+0100\n"
-"Last-Translator: Enrique José Hernández Blasco <quique@warp.es>\n"
+"PO-Revision-Date: 2010-03-05 01:12+0100\n"
+"Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -332,9 +332,9 @@ msgid "Passwords don't match"
 msgstr "Las contraseñas no coinciden"
 
 #: ebox-package-installer:387
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The username '{user}' is reserved. Please choose another."
-msgstr "El nombre de usuario 'ebox' está reservado. Por favor, elija otro."
+msgstr "El nombre de usuario '{user}' está reservado. Por favor, elija otro."
 
 #: ebox-package-installer:421
 msgid "Preconfiguring eBox packages..."

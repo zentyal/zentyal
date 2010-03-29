@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-02-22 10:58+0100\n"
-"PO-Revision-Date: 2010-02-03 15:44+0100\n"
+"PO-Revision-Date: 2010-03-10 10:47+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -334,9 +334,9 @@ msgid "Passwords don't match"
 msgstr "Passorene stemmer ikke"
 
 #: ebox-package-installer:387
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The username '{user}' is reserved. Please choose another."
-msgstr "Brukernavnet 'eBox' er reservert. Vennligst velg et annet."
+msgstr "Brukernavnet '{user}' er reservert. Vennligst velg et annet."
 
 #: ebox-package-installer:421
 msgid "Preconfiguring eBox packages..."
