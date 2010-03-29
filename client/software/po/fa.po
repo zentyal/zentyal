@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.100Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:54+0100\n"
+"POT-Creation-Date: 2010-03-29 16:55+0200\n"
 "PO-Revision-Date: 2009-02-10 18:49+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -215,6 +215,11 @@ msgstr "صحیح"
 #: src/templates/del.mas:33
 msgid "Cancel"
 msgstr "لغو"
+
+#: src/templates/config.mas:8
+#, fuzzy
+msgid "Perform automatic security updates"
+msgstr "به‌روزرسانی‌های خودکار نرم‌افزار"
 
 #: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"

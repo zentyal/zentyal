@@ -379,8 +379,8 @@ msgid ""
 "eBox on-line store{chref}! "
 msgstr ""
 "eBox VoIP krediit: helista eBoxi VoIP-i kasutades odavalt mobiil- ja "
-"tavatelefonidele. Vajadusel osta VoIP krediiti otse {ohref}eBoxi "
-"veebipoest{chref}! "
+"tavatelefonidele. Vajadusel osta VoIP krediiti otse {ohref}eBoxi veebipoest"
+"{chref}! "
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
@@ -442,8 +442,7 @@ msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
-"Järgnevad seadistused rakenduvad ainult siis, kui Asterisk moodul on "
-"lubatud."
+"Järgnevad seadistused rakenduvad ainult siis, kui Asterisk moodul on lubatud."
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"

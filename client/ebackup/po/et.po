@@ -219,8 +219,8 @@ msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
-"Peab olema kujul 'teine.masin[:port]/suhteline_asukoht' või "
-"'teine.masin[:port]/absoluutne_asukoht'"
+"Peab olema kujul 'teine.masin[:port]/suhteline_asukoht' või 'teine.masin[:"
+"port]/absoluutne_asukoht'"
 
 # või "absoluutkataloog"?
 #: src/EBox/Model/RemoteSettings.pm:521

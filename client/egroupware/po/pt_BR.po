@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 16:31+0000\n"
+"POT-Creation-Date: 2010-03-29 16:10+0200\n"
 "PO-Revision-Date: 2010-02-24 17:40+0100\n"
-"Last-Translator: Carlos Assis Brito de Oliveira Filho "
-"<cassisfilho@gmail.com>\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho <cassisfilho@gmail."
+"com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -163,6 +163,37 @@ msgstr ""
 #: src/EBox/Composite/General.pm:89
 msgid "EGroupware"
 msgstr "EGroupware"
+
+#: src/templates/egroupware.mas:9
+#, fuzzy
+msgid "eGroupware account"
+msgstr "eGroupware"
+
+#: src/templates/egroupware.mas:10
+msgid "Password for eGroupware service is the user password"
+msgstr ""
+
+#: src/templates/egroupware.mas:12
+#, fuzzy
+msgid "eGroupware group"
+msgstr "eGroupware"
+
+#: src/templates/egroupware.mas:28
+#, fuzzy
+msgid "Permissions template"
+msgstr "Permissão de Modelos Definidos de Usuário"
+
+#: src/templates/egroupware.mas:39
+msgid "Default"
+msgstr ""
+
+#: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
+msgid "Change"
+msgstr ""
+
+#: src/templates/egroupware.mas:85
+msgid "Click here to select a virtual domain"
+msgstr ""
 
 #~ msgid "DefaultApplications"
 #~ msgstr "Aplicações padrão"

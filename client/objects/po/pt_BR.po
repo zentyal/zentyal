@@ -6,10 +6,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:53+0100\n"
+"POT-Creation-Date: 2010-03-29 16:54+0200\n"
 "PO-Revision-Date: 2010-02-24 17:42+0100\n"
-"Last-Translator: Carlos Assis Brito de Oliveira Filho "
-"<cassisfilho@gmail.com>\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho <cassisfilho@gmail."
+"com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,7 +71,7 @@ msgstr "objeto"
 msgid "This object is being used by another module"
 msgstr "O objeto esta sendo utilizado por outro módulo"
 
-#: src/EBox/Model/ObjectTable.pm:185
+#: src/EBox/Model/ObjectTable.pm:197
 msgid ""
 "Objects are an abstraction of machines and network addresses which can be "
 "used in other modules. Any change on an object is automatically synched in "
@@ -80,6 +80,12 @@ msgstr ""
 "Objetos são uma abstração de máquinas e endereços de rede que podem ser "
 "utilizados em outros módulos. Qualquer alteração em um objeto é "
 "automaticamente sincronizada em todos os módulos que usam-no"
+
+#: src/EBox/Model/ObjectTable.pm:208
+msgid ""
+"'Any' is a reserved word that could not be used as object name to avoid "
+"confusions"
+msgstr ""
 
 #: src/EBox/Model/MemberTable.pm:70
 msgid "IP address"

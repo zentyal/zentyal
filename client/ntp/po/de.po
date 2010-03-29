@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:01+0000\n"
+"POT-Creation-Date: 2010-03-29 16:02+0200\n"
 "PO-Revision-Date: 2010-02-03 19:55+0100\n"
 "Last-Translator: MOSAiX Europe <info@mosaix-europe.eu>\n"
 "Language-Team: none\n"
@@ -153,6 +153,20 @@ msgstr ""
 msgid "Change"
 msgstr "Ändern"
 
+#: src/templates/datetime.mas:8
+#, fuzzy
+msgid "Time Synchronization with NTP Servers"
+msgstr "Zeitsynchronisation mit NTP-Servern"
+
+#: src/templates/datetime.mas:9
+#, fuzzy
+msgid "External NTP Servers"
+msgstr "Externe NTP-Server"
+
+#: src/templates/datetime.mas:10
+msgid "Change Date and Time"
+msgstr "Datum und Zeit ändern"
+
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
 msgstr "Deaktiviert"
@@ -246,12 +260,3 @@ msgstr "Zeit"
 
 #~ msgid "NTP server status"
 #~ msgstr "Status des NTP-Servers"
-
-#~ msgid "Time synchronization with NTP servers"
-#~ msgstr "Zeitsynchronisation mit NTP-Servern"
-
-#~ msgid "External NTP servers"
-#~ msgstr "Externe NTP-Server"
-
-#~ msgid "Change Date and Time"
-#~ msgstr "Datum und Zeit ändern"

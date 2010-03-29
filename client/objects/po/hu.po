@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:53+0100\n"
+"POT-Creation-Date: 2010-03-29 16:54+0200\n"
 "PO-Revision-Date: 2010-01-16 14:16+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
@@ -71,7 +71,7 @@ msgstr "objektum"
 msgid "This object is being used by another module"
 msgstr "Ezt az objektumot másik modul használja"
 
-#: src/EBox/Model/ObjectTable.pm:185
+#: src/EBox/Model/ObjectTable.pm:197
 msgid ""
 "Objects are an abstraction of machines and network addresses which can be "
 "used in other modules. Any change on an object is automatically synched in "
@@ -80,6 +80,12 @@ msgstr ""
 "Az objektumok gépeket és hálózati címeket csoportosító tárolók, amelyeket "
 "más modulokban lehet használni. Az objektumok bármely módosítása "
 "automatikusan szinkronizálásra kerül az azt használó összes modulba"
+
+#: src/EBox/Model/ObjectTable.pm:208
+msgid ""
+"'Any' is a reserved word that could not be used as object name to avoid "
+"confusions"
+msgstr ""
 
 #: src/EBox/Model/MemberTable.pm:70
 msgid "IP address"

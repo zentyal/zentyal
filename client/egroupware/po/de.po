@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 16:31+0000\n"
+"POT-Creation-Date: 2010-03-29 16:10+0200\n"
 "PO-Revision-Date: 2009-06-21 19:11+0200\n"
 "Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
 "Language-Team: none\n"
@@ -165,6 +165,37 @@ msgstr ""
 msgid "EGroupware"
 msgstr "eGroupware"
 
+#: src/templates/egroupware.mas:9
+#, fuzzy
+msgid "eGroupware account"
+msgstr "eGroupware"
+
+#: src/templates/egroupware.mas:10
+msgid "Password for eGroupware service is the user password"
+msgstr ""
+
+#: src/templates/egroupware.mas:12
+#, fuzzy
+msgid "eGroupware group"
+msgstr "eGroupware"
+
+#: src/templates/egroupware.mas:28
+#, fuzzy
+msgid "Permissions template"
+msgstr "Zugriffsberechtigungs Vorlagen festgelegt vom Benutzer"
+
+#: src/templates/egroupware.mas:39
+msgid "Default"
+msgstr ""
+
+#: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
+msgid "Change"
+msgstr ""
+
+#: src/templates/egroupware.mas:85
+msgid "Click here to select a virtual domain"
+msgstr ""
+
 #~ msgid "DefaultApplications"
 #~ msgstr "Standartanwendungen"
 
@@ -180,9 +211,6 @@ msgstr "eGroupware"
 
 #~ msgid "To add a new schema"
 #~ msgstr "Um ein neues Schema hinzu zufügen"
-
-#~ msgid "Permission templates defined by the user"
-#~ msgstr "Zugriffsberechtigungs Vorlagen festgelegt vom Benutzer"
 
 #~ msgid "Default applications"
 #~ msgstr "Standart Anwendungen"

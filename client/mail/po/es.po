@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:52+0100\n"
+"POT-Creation-Date: 2010-03-29 16:53+0200\n"
 "PO-Revision-Date: 2010-03-05 01:13+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <es@li.org>\n"
@@ -150,7 +150,7 @@ msgid "maildrop"
 msgstr "maildrop"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1552
+#: src/EBox/Mail.pm:1553
 msgid "Queue Management"
 msgstr "Gestión de cola"
 
@@ -159,7 +159,7 @@ msgid "Admin mail recipient"
 msgstr "Cuenta de correo para Admin"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1469 src/EBox/Mail.pm:1621
+#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1470 src/EBox/Mail.pm:1622
 msgid "Mail"
 msgstr "Correo"
 
@@ -168,7 +168,7 @@ msgstr "Correo"
 msgid "Cannot connect to {smtp} mail server"
 msgstr "El servidor {smtp} no puede ser contactado"
 
-#: src/EBox/Event/Dispatcher/Mail.pm:230
+#: src/EBox/Event/Dispatcher/Mail.pm:232
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
@@ -284,6 +284,15 @@ msgid ""
 msgstr ""
 "Debes habilitar el módulo de correo en la sección de Estado de módulo para "
 "usarlos"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:67
+msgid "TLS for SMTP server"
+msgstr "TLS para el servidor SMTP"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:73
+#, fuzzy
+msgid "Require authentication"
+msgstr "Autenticación"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:76
 msgid ""
@@ -741,7 +750,7 @@ msgstr "Asunto"
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] Ha ocurrido un evento en {hostName}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1590
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1591
 msgid "To"
 msgstr "Para"
 
@@ -783,7 +792,7 @@ msgstr "Mensajes recibidos"
 msgid "Rejected messages"
 msgstr "Mensajes rechazados"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1587
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1588
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Fecha"
@@ -890,7 +899,7 @@ msgstr "Configura dovecot para que valide los usuarios a través de LDAP"
 msgid "To configure smart host authentication"
 msgstr "Configurar la autenticación del smarthost"
 
-#: src/EBox/Mail.pm:682
+#: src/EBox/Mail.pm:683
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -898,30 +907,30 @@ msgstr ""
 "No pudes usar el nombre de la máquina como nombre de correo porque no es un  "
 "nombre cualificado. Por favor, define otro nombre para el servidor de correo"
 
-#: src/EBox/Mail.pm:687
+#: src/EBox/Mail.pm:688
 msgid "The mail name must be a fully qualified name"
 msgstr "El nombre de correo debe ser un nombre cualificado"
 
-#: src/EBox/Mail.pm:692 src/EBox/Mail.pm:703 src/EBox/Mail.pm:712
+#: src/EBox/Mail.pm:693 src/EBox/Mail.pm:704 src/EBox/Mail.pm:713
 msgid "Host mail name"
 msgstr "Nombre de la máquina de correo"
 
-#: src/EBox/Mail.pm:706
+#: src/EBox/Mail.pm:707
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "El nombre de correo el dominio virtual de correo son iguales"
 
-#: src/EBox/Mail.pm:975
+#: src/EBox/Mail.pm:976
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "No puede cambiar este parámetro para un filtro no personalizado"
 
-#: src/EBox/Mail.pm:991 src/EBox/Mail.pm:1011
+#: src/EBox/Mail.pm:992 src/EBox/Mail.pm:1012
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 "El filtro de correo no existe. Por favor, establece otro filtro de correo o "
 "deshabilítalo"
 
-#: src/EBox/Mail.pm:1018
+#: src/EBox/Mail.pm:1019
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
@@ -929,151 +938,151 @@ msgstr ""
 "El filtro de correo $name no está activo. Por favor, establece otro filtro "
 "de correo o deshabilítalo"
 
-#: src/EBox/Mail.pm:1415
+#: src/EBox/Mail.pm:1416
 msgid "SMTP service"
 msgstr "servicio SMTP"
 
-#: src/EBox/Mail.pm:1422
+#: src/EBox/Mail.pm:1423
 msgid "POP3 service"
 msgstr "servicio POP3"
 
-#: src/EBox/Mail.pm:1428
+#: src/EBox/Mail.pm:1429
 msgid "POP3S service"
 msgstr "servicio POP3S"
 
-#: src/EBox/Mail.pm:1434
+#: src/EBox/Mail.pm:1435
 msgid "IMAP service"
 msgstr "servicio IMAP"
 
-#: src/EBox/Mail.pm:1440
+#: src/EBox/Mail.pm:1441
 msgid "IMAPS service"
 msgstr "servicio IMAPS"
 
-#: src/EBox/Mail.pm:1483
+#: src/EBox/Mail.pm:1484
 msgid "enabled"
 msgstr "habilitado"
 
-#: src/EBox/Mail.pm:1483
+#: src/EBox/Mail.pm:1484
 msgid "disabled"
 msgstr "deshabilitado"
 
-#: src/EBox/Mail.pm:1485 src/EBox/Mail.pm:1596 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1486 src/EBox/Mail.pm:1597 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr "Estado"
 
-#: src/EBox/Mail.pm:1488
+#: src/EBox/Mail.pm:1489
 msgid "Mail server's filter"
 msgstr "Filtro del servidor de correo"
 
-#: src/EBox/Mail.pm:1497 src/EBox/Mail.pm:1504
+#: src/EBox/Mail.pm:1498 src/EBox/Mail.pm:1505
 msgid "Filter type"
 msgstr "Tipo de filtro"
 
-#: src/EBox/Mail.pm:1498
+#: src/EBox/Mail.pm:1499
 msgid "Custom"
 msgstr "Personalizado"
 
-#: src/EBox/Mail.pm:1500
+#: src/EBox/Mail.pm:1501
 msgid "Address"
 msgstr "Dirección"
 
-#: src/EBox/Mail.pm:1533
+#: src/EBox/Mail.pm:1534
 msgid "General"
 msgstr "General"
 
-#: src/EBox/Mail.pm:1540
+#: src/EBox/Mail.pm:1541
 msgid "Virtual Mail Domains"
 msgstr "Dominios virtuales de correo"
 
-#: src/EBox/Mail.pm:1546
+#: src/EBox/Mail.pm:1547
 msgid "Greylist"
 msgstr "Lista gris"
 
-#: src/EBox/Mail.pm:1579
+#: src/EBox/Mail.pm:1580
 msgid "Mail retrieval from external accounts"
 msgstr "Recuperación de correo de cuentas externas"
 
-#: src/EBox/Mail.pm:1588
+#: src/EBox/Mail.pm:1589
 msgid "Message ID"
 msgstr "ID del mensaje"
 
-#: src/EBox/Mail.pm:1589
+#: src/EBox/Mail.pm:1590
 msgid "From"
 msgstr "De"
 
-#: src/EBox/Mail.pm:1591
+#: src/EBox/Mail.pm:1592
 msgid "From hostname"
 msgstr "Desde nombre de máquina"
 
-#: src/EBox/Mail.pm:1592
+#: src/EBox/Mail.pm:1593
 msgid "From host ip"
 msgstr "Desde ip de la máquina"
 
-#: src/EBox/Mail.pm:1593 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1594 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Tamaños (bytes)"
 
-#: src/EBox/Mail.pm:1594
+#: src/EBox/Mail.pm:1595
 msgid "Relay"
 msgstr "Retransmisión"
 
-#: src/EBox/Mail.pm:1595
+#: src/EBox/Mail.pm:1596
 msgid "Message type"
 msgstr "Tipo del mensaje"
 
-#: src/EBox/Mail.pm:1597
+#: src/EBox/Mail.pm:1598
 msgid "Event"
 msgstr "Evento"
 
-#: src/EBox/Mail.pm:1598
+#: src/EBox/Mail.pm:1599
 msgid "Additional Info"
 msgstr "Información adicional"
 
-#: src/EBox/Mail.pm:1609
+#: src/EBox/Mail.pm:1610
 msgid "Successful messages"
 msgstr "Mensajes exitosos"
 
-#: src/EBox/Mail.pm:1610
+#: src/EBox/Mail.pm:1611
 msgid "Maximum message size exceeded"
 msgstr "Tamaño máximo de mensaje excedido"
 
-#: src/EBox/Mail.pm:1611
+#: src/EBox/Mail.pm:1612
 msgid "User quote exceeded"
 msgstr "Cuota de usuario excedida"
 
-#: src/EBox/Mail.pm:1612
+#: src/EBox/Mail.pm:1613
 msgid "Relay access denied"
 msgstr "Acceso de retransmisión denegado"
 
-#: src/EBox/Mail.pm:1613
+#: src/EBox/Mail.pm:1614
 msgid "Account does not exist"
 msgstr "La cuenta no existe"
 
-#: src/EBox/Mail.pm:1614
+#: src/EBox/Mail.pm:1615
 msgid "Host unreachable"
 msgstr "Máquina inalcanzable"
 
-#: src/EBox/Mail.pm:1615
+#: src/EBox/Mail.pm:1616
 msgid "Authentication error"
 msgstr "Error de autenticación"
 
-#: src/EBox/Mail.pm:1616
+#: src/EBox/Mail.pm:1617
 msgid "Greylisted"
 msgstr "Incorporado a la lista gris"
 
-#: src/EBox/Mail.pm:1617
+#: src/EBox/Mail.pm:1618
 msgid "Other events"
 msgstr "Otros eventos"
 
-#: src/EBox/Mail.pm:1804
+#: src/EBox/Mail.pm:1805
 msgid "Mailboxes"
 msgstr "Buzones de correo"
 
-#: src/EBox/Mail.pm:1832
+#: src/EBox/Mail.pm:1833
 msgid "Mail SMTP server"
 msgstr "Servidor de correo SMTP"
 
-#: src/EBox/Mail.pm:1839
+#: src/EBox/Mail.pm:1840
 msgid "Mail POP/IMAP server"
 msgstr "Servidor de correo POP/IMAP"
 
@@ -1483,9 +1492,6 @@ msgstr "Cambiar"
 
 #~ msgid "There are no users in the group or the users do not "
 #~ msgstr "No hay usuarios en el grupo"
-
-#~ msgid "TLS for SMTP server"
-#~ msgstr "TLS para el servidor SMTP"
 
 #~ msgid "POP3"
 #~ msgstr "POP3"

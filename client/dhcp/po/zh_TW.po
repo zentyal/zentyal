@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:51+0100\n"
+"POT-Creation-Date: 2010-03-29 16:52+0200\n"
 "PO-Revision-Date: 2009-08-04 01:53+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -37,19 +37,19 @@ msgstr "模組狀態"
 msgid "Interface"
 msgstr "介面"
 
-#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:218
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:215
 #: src/EBox/DHCP.pm:1265 src/EBox/DHCP.pm:1333 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC 位址"
 
 #: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:242
-#: src/EBox/Model/FixedAddressTable.pm:224 src/EBox/DHCP.pm:1333
+#: src/EBox/Model/FixedAddressTable.pm:221 src/EBox/DHCP.pm:1333
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "IP 位址"
 
 #: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
-#: src/EBox/Model/FixedAddressTable.pm:212 src/EBox/Model/RangeTable.pm:213
+#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/Model/RangeTable.pm:213
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
 msgstr "名稱"
@@ -69,7 +69,7 @@ msgid "module status"
 msgstr "模組狀態"
 
 #: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
-#: src/EBox/Model/FixedAddressTable.pm:96 src/EBox/Model/DynamicDNS.pm:111
+#: src/EBox/Model/FixedAddressTable.pm:98 src/EBox/Model/DynamicDNS.pm:111
 #: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/Options.pm:119
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/OptionsTab.pm:87
 #: src/EBox/Composite/InterfaceConfiguration.pm:87
@@ -183,54 +183,49 @@ msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr "租用時間是由 DHCP 伺服器給有效的 IP 位址一個時間"
 
-#: src/EBox/Model/FixedAddressTable.pm:122
+#: src/EBox/Model/FixedAddressTable.pm:124
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
 msgstr "IP 位址 {ip} 不是屬於 {net} 網路"
 
-#: src/EBox/Model/FixedAddressTable.pm:133
+#: src/EBox/Model/FixedAddressTable.pm:135
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
 msgstr "已選擇的 IP 是介面的 IP 位址: {ifaceIP}"
 
-#: src/EBox/Model/FixedAddressTable.pm:150
+#: src/EBox/Model/FixedAddressTable.pm:152
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "IP 位址 {ip} 是在範圍 '{range}': {from}-{to}"
 
-#: src/EBox/Model/FixedAddressTable.pm:162
-#, perl-brace-format
-msgid "{name} cannot contain spaces"
-msgstr "{name} 不可以空白"
-
-#: src/EBox/Model/FixedAddressTable.pm:180
+#: src/EBox/Model/FixedAddressTable.pm:177
 msgid "update"
 msgstr "更新"
 
-#: src/EBox/Model/FixedAddressTable.pm:182
+#: src/EBox/Model/FixedAddressTable.pm:179
 msgid "add"
 msgstr "新增"
 
-#: src/EBox/Model/FixedAddressTable.pm:184
+#: src/EBox/Model/FixedAddressTable.pm:181
 #, perl-brace-format
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr "您不可以 {action} 將已經使用在其他的位址表用在這個名稱的固定位址上"
 
-#: src/EBox/Model/FixedAddressTable.pm:227
+#: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr "您不可以在上述範圍使用這個 IP 位址"
 
-#: src/EBox/Model/FixedAddressTable.pm:232
+#: src/EBox/Model/FixedAddressTable.pm:229
 msgid "Description"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:240 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:237 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "固定位址"
 
-#: src/EBox/Model/FixedAddressTable.pm:247
+#: src/EBox/Model/FixedAddressTable.pm:244
 msgid "fixed address"
 msgstr "固定位址"
 
@@ -478,6 +473,11 @@ msgstr "範圍"
 msgid "range"
 msgstr "範圍"
 
+#: src/EBox/DHCP.pm:119
+#, fuzzy, perl-brace-format
+msgid "{server} configuration file"
+msgstr "服務設置"
+
 #: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
 #: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708
 #: src/EBox/DHCP.pm:823 src/EBox/DHCP.pm:879
@@ -618,6 +618,9 @@ msgstr "您可以在預設閘道的欄位上留空白然後使用 eBox 預設閘
 #: src/templates/options.mas:64
 msgid "Apply"
 msgstr "套用"
+
+#~ msgid "{name} cannot contain spaces"
+#~ msgstr "{name} 不可以空白"
 
 #~ msgid "Infrastructure"
 #~ msgstr "基礎建設"

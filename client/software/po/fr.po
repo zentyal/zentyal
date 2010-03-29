@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:54+0100\n"
+"POT-Creation-Date: 2010-03-29 16:55+0200\n"
 "PO-Revision-Date: 2009-09-30 15:26+0200\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -224,6 +224,10 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Annuler"
 
+#: src/templates/config.mas:8
+msgid "Perform automatic security updates"
+msgstr "Exécutez les mises-à-jour de sécurité automatiques"
+
 #: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"
 msgstr ""
@@ -415,9 +419,6 @@ msgstr ""
 
 #~ msgid "Starting..."
 #~ msgstr "Démarrage ..."
-
-#~ msgid "Perform automatic security updates"
-#~ msgstr "Exécutez les mises-à-jour de sécurité automatiques"
 
 #~ msgid "Software updates configuration"
 #~ msgstr "Configuration des actualisations"

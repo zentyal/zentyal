@@ -181,8 +181,8 @@ msgid ""
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
 "Модулът за уеб поща изисква услугата IMAP или IMAPS да е са разрешени ако се "
-"използва пощенската услуга на eBox. Можете да я разрешите от {openurl}Mail "
-"-> General{closeurl}."
+"използва пощенската услуга на eBox. Можете да я разрешите от {openurl}Mail -"
+"> General{closeurl}."
 
 #: src/EBox/WebMail.pm:394
 #, fuzzy

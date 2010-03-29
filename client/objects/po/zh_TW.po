@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:53+0100\n"
+"POT-Creation-Date: 2010-03-29 16:54+0200\n"
 "PO-Revision-Date: 2009-08-04 07:26+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -70,7 +70,7 @@ msgstr "單位"
 msgid "This object is being used by another module"
 msgstr "這個單位已被其他模組使用"
 
-#: src/EBox/Model/ObjectTable.pm:185
+#: src/EBox/Model/ObjectTable.pm:197
 msgid ""
 "Objects are an abstraction of machines and network addresses which can be "
 "used in other modules. Any change on an object is automatically synched in "
@@ -78,6 +78,12 @@ msgid ""
 msgstr ""
 "單位在機器中是抽象的而且裡面的網路位址可以被其他模組使用.任何在單位中的改變會"
 "自動同步到所有有使用的模組上"
+
+#: src/EBox/Model/ObjectTable.pm:208
+msgid ""
+"'Any' is a reserved word that could not be used as object name to avoid "
+"confusions"
+msgstr ""
 
 #: src/EBox/Model/MemberTable.pm:70
 msgid "IP address"

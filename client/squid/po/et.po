@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:54+0100\n"
+"POT-Creation-Date: 2010-03-29 16:55+0200\n"
 "PO-Revision-Date: 2010-03-26 12:22+0100\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:970 src/EBox/Squid.pm:1046
+#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:993 src/EBox/Squid.pm:1069
 #: src/EBox/Squid/Composite/General.pm:76
 msgid "HTTP Proxy"
 msgstr "HTTP puhverserver"
@@ -90,110 +90,115 @@ msgstr "Dansguardiani logirotatsiooni seadistamine"
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr "Dansguardiani viirusetõrje skaneerimise seadistamine"
 
-#: src/EBox/Squid.pm:313
+#: src/EBox/Squid.pm:282
+#, fuzzy
+msgid "Filter groups per IP"
+msgstr "Filtri grupp"
+
+#: src/EBox/Squid.pm:317
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr "Sa pead eboxi seadistustefailis määrama cache_mem muutuja"
 
-#: src/EBox/Squid.pm:942
+#: src/EBox/Squid.pm:965
 msgid "Enabled"
 msgstr "Lubatud"
 
-#: src/EBox/Squid.pm:944 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+#: src/EBox/Squid.pm:967 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
 msgstr "Keelatud"
 
-#: src/EBox/Squid.pm:946
+#: src/EBox/Squid.pm:969
 msgid "Transparent proxy"
 msgstr "Läbipaistev puhverserver"
 
-#: src/EBox/Squid.pm:949 src/EBox/Squid/Model/MIMEFilterBase.pm:60
+#: src/EBox/Squid.pm:972 src/EBox/Squid/Model/MIMEFilterBase.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:93
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:100
 msgid "Allow"
 msgstr "Luba"
 
-#: src/EBox/Squid.pm:951 src/EBox/Squid/Model/GroupPolicyBase.pm:97
+#: src/EBox/Squid.pm:974 src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Deny"
 msgstr "Keela"
 
-#: src/EBox/Squid.pm:953 src/EBox/Squid/Types/DomainPolicy.pm:35
+#: src/EBox/Squid.pm:976 src/EBox/Squid/Types/DomainPolicy.pm:35
 #: src/EBox/Squid/Types/Policy.pm:65
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
 msgstr "Filter"
 
-#: src/EBox/Squid.pm:956
+#: src/EBox/Squid.pm:979
 msgid "Global policy"
 msgstr "Globaalne reegel"
 
-#: src/EBox/Squid.pm:958
+#: src/EBox/Squid.pm:981
 msgid "Listening port"
 msgstr "Kuulatav port"
 
-#: src/EBox/Squid.pm:990
+#: src/EBox/Squid.pm:1013
 msgid "General"
 msgstr "Üldine"
 
-#: src/EBox/Squid.pm:994
+#: src/EBox/Squid.pm:1017
 msgid "Objects' Policy"
 msgstr "Objektide reegel"
 
-#: src/EBox/Squid.pm:997
+#: src/EBox/Squid.pm:1020
 msgid "Groups' Policy"
 msgstr "Gruppide reegel"
 
-#: src/EBox/Squid.pm:1000
+#: src/EBox/Squid.pm:1023
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
-#: src/EBox/Squid/Model/DomainFilterCategories.pm:113
+#: src/EBox/Squid/Model/DomainFilterCategories.pm:111
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
 #: src/EBox/Squid/Composite/FilterSettings.pm:93
 msgid "Filter Profiles"
 msgstr "Filtrite profiilid"
 
-#: src/EBox/Squid.pm:1031 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+#: src/EBox/Squid.pm:1054 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
 msgstr "Kuupäev"
 
-#: src/EBox/Squid.pm:1032
+#: src/EBox/Squid.pm:1055
 msgid "Host"
 msgstr "Masin"
 
-#: src/EBox/Squid.pm:1033 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Squid.pm:1056 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
 msgstr "Kasutaja"
 
-#: src/EBox/Squid.pm:1034
+#: src/EBox/Squid.pm:1057
 msgid "URL"
 msgstr "URL"
 
 # või baidid?
-#: src/EBox/Squid.pm:1035
+#: src/EBox/Squid.pm:1058
 #, fuzzy
 msgid "Bytes"
 msgstr "Baiti"
 
-#: src/EBox/Squid.pm:1036
+#: src/EBox/Squid.pm:1059
 msgid "Mime/type"
 msgstr "Mime/tüüp"
 
-#: src/EBox/Squid.pm:1037
+#: src/EBox/Squid.pm:1060
 msgid "Event"
 msgstr "Sündmus"
 
-#: src/EBox/Squid.pm:1042
+#: src/EBox/Squid.pm:1065
 msgid "Accepted"
 msgstr "Aktsepteeritud"
 
-#: src/EBox/Squid.pm:1043
+#: src/EBox/Squid.pm:1066
 msgid "Denied"
 msgstr "Tagasi lükatud"
 
-#: src/EBox/Squid.pm:1044
+#: src/EBox/Squid.pm:1067
 msgid "Filtered"
 msgstr "Filtreeritud"
 
-#: src/EBox/Squid.pm:1121
+#: src/EBox/Squid.pm:1144
 #, fuzzy
 msgid "HTTP Proxy's cache files"
 msgstr "HTTP puhverserveri puhvri failid"
@@ -519,8 +524,7 @@ msgid ""
 "below will be forbidden."
 msgstr ""
 "Kui väli on määratud, siis iga domeen või URL, mida ei ole: <i>Domeeni ja "
-"URLi reeglite</i> ega <i>Domeeniloendi failide</i> sektsioonides, "
-"keelatakse."
+"URLi reeglite</i> ega <i>Domeeniloendi failide</i> sektsioonides, keelatakse."
 
 #: src/EBox/Squid/Model/DomainFilterSettingsBase.pm:52
 msgid "Block sites specified only as IP"
@@ -578,8 +582,7 @@ msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
 msgstr ""
-"Läbipaistev puhverserver ei ühildu mõne leitud objekti "
-"autoriseerimisreegliga"
+"Läbipaistev puhverserver ei ühildu mõne leitud objekti autoriseerimisreegliga"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:185
 msgid ""
@@ -626,54 +629,65 @@ msgid ""
 msgstr ""
 "Ajaperiood, millal ligipääs on lubatud. Seda ignoreeritakse keelamisreegliga"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:97
+#: src/EBox/Squid/Model/ObjectPolicy.pm:96
 msgid "Group policy"
 msgstr "Grupi reegel"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:109
+# või profiili filtreerimine?
+#: src/EBox/Squid/Model/ObjectPolicy.pm:104
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:114
+#, fuzzy
+msgid "Filter profile"
+msgstr "Filtri profiil"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:117
 msgid "Object Policies"
 msgstr "Objekti reeglid"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:110
+#: src/EBox/Squid/Model/ObjectPolicy.pm:118
 msgid "List of objects"
 msgstr "Objektide loend"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:125
+#: src/EBox/Squid/Model/ObjectPolicy.pm:133
 msgid "object's policy"
 msgstr "objektide reegel"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:126
+#: src/EBox/Squid/Model/ObjectPolicy.pm:134
 msgid "Here you can establish a custom policy per network object"
 msgstr "Siin saad igale võrguobjektile määrata kohandatud reegli"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:128
+#: src/EBox/Squid/Model/ObjectPolicy.pm:136
 msgid "Added object's policy"
 msgstr "Objektide reegel lisatud"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:129
+#: src/EBox/Squid/Model/ObjectPolicy.pm:137
 msgid "Removed object's policy"
 msgstr "Objektide reegel eemaldatud"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:130
+#: src/EBox/Squid/Model/ObjectPolicy.pm:138
 msgid "Updated object's policy"
 msgstr "Objektide reegel uuendatud"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:173
+#: src/EBox/Squid/Model/ObjectPolicy.pm:189
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr "Autoriseerimisreegel ei ühildu läbipaistva puhverserveri režiimiga"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:196
+#: src/EBox/Squid/Model/ObjectPolicy.pm:212
 msgid "Filter policies are incompatible with restricted time periods"
 msgstr "Filtrireeglid ei ühildu piiratud ajaperioodidega"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:222
+#: src/EBox/Squid/Model/ObjectPolicy.pm:238
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr ""
 "Kui kasutusel on suvaline grupireegel, ei saa ilma autoriseerimata reeglit "
 "valida"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:442
+#: src/EBox/Squid/Model/ObjectPolicy.pm:264
+msgid "You can only use a custom profile with the 'Filter' policy"
+msgstr ""
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:527
 #, perl-brace-format
 msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
@@ -696,18 +710,22 @@ msgstr "Reegli määramine kõikidele MIME tüüpidele"
 msgid "Domain or URL"
 msgstr "Domeen või URL"
 
-#: src/EBox/Squid/Model/DomainFilterBase.pm:76
-#: src/EBox/Squid/Model/DomainFilterBase.pm:91
-msgid "Domain or IP address"
+#: src/EBox/Squid/Model/DomainFilterBase.pm:77
+#, fuzzy
+msgid "Domain or IP address part of URL"
 msgstr "Domeen või IP aadress"
 
-#: src/EBox/Squid/Model/DomainFilterBase.pm:85
+#: src/EBox/Squid/Model/DomainFilterBase.pm:87
 msgid "Domain"
 msgstr "Domeen"
 
-#: src/EBox/Squid/Model/DomainFilterBase.pm:87
+#: src/EBox/Squid/Model/DomainFilterBase.pm:89
 msgid "You must not prefix the domain with www."
 msgstr "Domeenile eesliite www lisamine ei ole lubatud"
+
+#: src/EBox/Squid/Model/DomainFilterBase.pm:93
+msgid "Domain or IP address"
+msgstr "Domeen või IP aadress"
 
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:107
 msgid "Time period"
@@ -784,12 +802,6 @@ msgstr "Gruppide reegel eemaldatud"
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:95
 msgid "Updated group's policy"
 msgstr "Gruppide reegel uuendatud"
-
-# või profiili filtreerimine?
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:114
-#, fuzzy
-msgid "Filter profile"
-msgstr "Filtri profiil"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:162
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:130

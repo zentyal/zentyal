@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-03 19:21+0000\n"
+"POT-Creation-Date: 2010-03-29 16:58+0200\n"
 "PO-Revision-Date: 2010-01-18 14:15+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: \n"
@@ -252,7 +252,7 @@ msgstr "De"
 msgid "To"
 msgstr "à"
 
-#: src/templates/ajax/modelViewer.mas:256
+#: src/templates/ajax/modelViewer.mas:256 src/templates/formTable.mas:85
 msgid "Optional"
 msgstr "Optionnel"
 

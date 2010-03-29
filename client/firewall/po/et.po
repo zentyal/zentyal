@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:52+0100\n"
+"POT-Creation-Date: 2010-03-29 16:53+0200\n"
 "PO-Revision-Date: 2010-03-25 17:47+0100\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Iptables.pm:763 src/EBox/Iptables.pm:800
+#: src/EBox/Iptables.pm:769 src/EBox/Iptables.pm:806
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr "Sa pead määrama iptables_log_limit muutuja eBoxi seadistustefailis"
 
-#: src/EBox/Iptables.pm:769 src/EBox/Iptables.pm:806
+#: src/EBox/Iptables.pm:775 src/EBox/Iptables.pm:812
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr "Sa pead määrama iptables_log_burst muutuja eBoxi seadistustefailis"

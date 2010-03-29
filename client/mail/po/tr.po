@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:52+0100\n"
+"POT-Creation-Date: 2010-03-29 16:53+0200\n"
 "PO-Revision-Date: 2007-05-12 23:21+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -144,7 +144,7 @@ msgid "maildrop"
 msgstr "İletileri sil"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1552
+#: src/EBox/Mail.pm:1553
 msgid "Queue Management"
 msgstr "Sıra Yönetimi"
 
@@ -153,7 +153,7 @@ msgid "Admin mail recipient"
 msgstr ""
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1469 src/EBox/Mail.pm:1621
+#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1470 src/EBox/Mail.pm:1622
 msgid "Mail"
 msgstr "Posta"
 
@@ -162,7 +162,7 @@ msgstr "Posta"
 msgid "Cannot connect to {smtp} mail server"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Mail.pm:230
+#: src/EBox/Event/Dispatcher/Mail.pm:232
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
@@ -270,6 +270,15 @@ msgstr ""
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:67
+msgid "TLS for SMTP server"
+msgstr "SMTP sunucusu için TLS"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:73
+#, fuzzy
+msgid "Require authentication"
+msgstr "Doğrulama hatası"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:76
 msgid ""
@@ -735,7 +744,7 @@ msgstr ""
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1590
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1591
 msgid "To"
 msgstr "Alıcı"
 
@@ -779,7 +788,7 @@ msgstr "İleti başarılı gönderildi mesajları"
 msgid "Rejected messages"
 msgstr "İleti başarılı gönderildi mesajları"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1587
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1588
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Tarih"
@@ -896,37 +905,37 @@ msgstr "Kimlik doğrulama gerekli"
 msgid "To configure smart host authentication"
 msgstr "Kimlik doğrulama gerekli"
 
-#: src/EBox/Mail.pm:682
+#: src/EBox/Mail.pm:683
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
 
-#: src/EBox/Mail.pm:687
+#: src/EBox/Mail.pm:688
 msgid "The mail name must be a fully qualified name"
 msgstr ""
 
-#: src/EBox/Mail.pm:692 src/EBox/Mail.pm:703 src/EBox/Mail.pm:712
+#: src/EBox/Mail.pm:693 src/EBox/Mail.pm:704 src/EBox/Mail.pm:713
 #, fuzzy
 msgid "Host mail name"
 msgstr "Alan adı"
 
-#: src/EBox/Mail.pm:706
+#: src/EBox/Mail.pm:707
 msgid "The mail name and virtual mail domain name are equal"
 msgstr ""
 
-#: src/EBox/Mail.pm:975
+#: src/EBox/Mail.pm:976
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "Özel olmayan süzgeçler için bu parametre değiştirilemez "
 
-#: src/EBox/Mail.pm:991 src/EBox/Mail.pm:1011
+#: src/EBox/Mail.pm:992 src/EBox/Mail.pm:1012
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 "Bu posta süzgeci mevcut değil. Lütfen farklı bir süzgeç seçin veya bunu "
 "etkisiz hale getirin"
 
-#: src/EBox/Mail.pm:1018
+#: src/EBox/Mail.pm:1019
 #, fuzzy
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
@@ -935,164 +944,164 @@ msgstr ""
 "Bu posta süzgeci mevcut değil. Lütfen farklı bir süzgeç seçin veya bunu "
 "etkisiz hale getirin"
 
-#: src/EBox/Mail.pm:1415
+#: src/EBox/Mail.pm:1416
 #, fuzzy
 msgid "SMTP service"
 msgstr "IMAP hizmeti"
 
-#: src/EBox/Mail.pm:1422
+#: src/EBox/Mail.pm:1423
 msgid "POP3 service"
 msgstr "POP3 hizmeti"
 
-#: src/EBox/Mail.pm:1428
+#: src/EBox/Mail.pm:1429
 #, fuzzy
 msgid "POP3S service"
 msgstr "POP3 hizmeti"
 
-#: src/EBox/Mail.pm:1434
+#: src/EBox/Mail.pm:1435
 msgid "IMAP service"
 msgstr "IMAP hizmeti"
 
-#: src/EBox/Mail.pm:1440
+#: src/EBox/Mail.pm:1441
 #, fuzzy
 msgid "IMAPS service"
 msgstr "IMAP hizmeti"
 
-#: src/EBox/Mail.pm:1483
+#: src/EBox/Mail.pm:1484
 msgid "enabled"
 msgstr "Etkinleşti"
 
-#: src/EBox/Mail.pm:1483
+#: src/EBox/Mail.pm:1484
 msgid "disabled"
 msgstr "Etkisizleşti"
 
-#: src/EBox/Mail.pm:1485 src/EBox/Mail.pm:1596 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1486 src/EBox/Mail.pm:1597 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr "Durum"
 
-#: src/EBox/Mail.pm:1488
+#: src/EBox/Mail.pm:1489
 #, fuzzy
 msgid "Mail server's filter"
 msgstr "Posta servis ayarları"
 
-#: src/EBox/Mail.pm:1497 src/EBox/Mail.pm:1504
+#: src/EBox/Mail.pm:1498 src/EBox/Mail.pm:1505
 #, fuzzy
 msgid "Filter type"
 msgstr "Süzgeç"
 
-#: src/EBox/Mail.pm:1498
+#: src/EBox/Mail.pm:1499
 msgid "Custom"
 msgstr "Özel"
 
-#: src/EBox/Mail.pm:1500
+#: src/EBox/Mail.pm:1501
 msgid "Address"
 msgstr "Adres"
 
-#: src/EBox/Mail.pm:1533
+#: src/EBox/Mail.pm:1534
 msgid "General"
 msgstr "Genel"
 
-#: src/EBox/Mail.pm:1540
+#: src/EBox/Mail.pm:1541
 #, fuzzy
 msgid "Virtual Mail Domains"
 msgstr "Sanal alan adları"
 
-#: src/EBox/Mail.pm:1546
+#: src/EBox/Mail.pm:1547
 msgid "Greylist"
 msgstr ""
 
-#: src/EBox/Mail.pm:1579
+#: src/EBox/Mail.pm:1580
 #, fuzzy
 msgid "Mail retrieval from external accounts"
 msgstr "Posta servisleri"
 
-#: src/EBox/Mail.pm:1588
+#: src/EBox/Mail.pm:1589
 msgid "Message ID"
 msgstr "İleti Kimliği"
 
-#: src/EBox/Mail.pm:1589
+#: src/EBox/Mail.pm:1590
 msgid "From"
 msgstr "Gönderen"
 
-#: src/EBox/Mail.pm:1591
+#: src/EBox/Mail.pm:1592
 msgid "From hostname"
 msgstr "Gönderen ana makine"
 
-#: src/EBox/Mail.pm:1592
+#: src/EBox/Mail.pm:1593
 msgid "From host ip"
 msgstr "Gönderen ana makine IP numarası"
 
-#: src/EBox/Mail.pm:1593 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1594 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Boyut (bayt)"
 
-#: src/EBox/Mail.pm:1594
+#: src/EBox/Mail.pm:1595
 msgid "Relay"
 msgstr "İlet"
 
-#: src/EBox/Mail.pm:1595
+#: src/EBox/Mail.pm:1596
 #, fuzzy
 msgid "Message type"
 msgstr "Mesaj"
 
-#: src/EBox/Mail.pm:1597
+#: src/EBox/Mail.pm:1598
 msgid "Event"
 msgstr "Olay"
 
-#: src/EBox/Mail.pm:1598
+#: src/EBox/Mail.pm:1599
 #, fuzzy
 msgid "Additional Info"
 msgstr "Ek Bilgi"
 
-#: src/EBox/Mail.pm:1609
+#: src/EBox/Mail.pm:1610
 msgid "Successful messages"
 msgstr "İleti başarılı gönderildi mesajları"
 
-#: src/EBox/Mail.pm:1610
+#: src/EBox/Mail.pm:1611
 msgid "Maximum message size exceeded"
 msgstr "İleti boyutu üst sınırı aşıldı"
 
-#: src/EBox/Mail.pm:1611
+#: src/EBox/Mail.pm:1612
 msgid "User quote exceeded"
 msgstr "Kullanıcı payı aşıldı"
 
-#: src/EBox/Mail.pm:1612
+#: src/EBox/Mail.pm:1613
 msgid "Relay access denied"
 msgstr "Posta iletme erişimi engellendi"
 
-#: src/EBox/Mail.pm:1613
+#: src/EBox/Mail.pm:1614
 #, fuzzy
 msgid "Account does not exist"
 msgstr "Hesap yok"
 
-#: src/EBox/Mail.pm:1614
+#: src/EBox/Mail.pm:1615
 msgid "Host unreachable"
 msgstr "Ana makine ulaşılamaz durumda"
 
-#: src/EBox/Mail.pm:1615
+#: src/EBox/Mail.pm:1616
 msgid "Authentication error"
 msgstr "Doğrulama hatası"
 
-#: src/EBox/Mail.pm:1616
+#: src/EBox/Mail.pm:1617
 #, fuzzy
 msgid "Greylisted"
 msgstr "Posta servisleri"
 
-#: src/EBox/Mail.pm:1617
+#: src/EBox/Mail.pm:1618
 msgid "Other events"
 msgstr "Diğer olaylar"
 
-#: src/EBox/Mail.pm:1804
+#: src/EBox/Mail.pm:1805
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Posta"
 
-#: src/EBox/Mail.pm:1832
+#: src/EBox/Mail.pm:1833
 #, fuzzy
 msgid "Mail SMTP server"
 msgstr "Posta servisleri"
 
-#: src/EBox/Mail.pm:1839
+#: src/EBox/Mail.pm:1840
 #, fuzzy
 msgid "Mail POP/IMAP server"
 msgstr "Posta servisleri"
@@ -1459,9 +1468,6 @@ msgstr "Değiştir"
 
 #~ msgid "There are no users in the group or the users do not "
 #~ msgstr "Bu grubun içinde kullanıcı mevcut değil veya kullanıcı yok"
-
-#~ msgid "TLS for SMTP server"
-#~ msgstr "SMTP sunucusu için TLS"
 
 #~ msgid "POP3"
 #~ msgstr "POP3"

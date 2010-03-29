@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:51+0100\n"
+"POT-Creation-Date: 2010-03-29 16:52+0200\n"
 "PO-Revision-Date: 2010-01-20 11:45+0100\n"
 "Last-Translator: Jesper Lindeberg <jlindeberg@gmail.com>\n"
 "Language-Team: none\n"
@@ -38,19 +38,19 @@ msgstr "Modul Status"
 msgid "Interface"
 msgstr "Interface"
 
-#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:218
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:215
 #: src/EBox/DHCP.pm:1265 src/EBox/DHCP.pm:1333 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC adresse"
 
 #: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:242
-#: src/EBox/Model/FixedAddressTable.pm:224 src/EBox/DHCP.pm:1333
+#: src/EBox/Model/FixedAddressTable.pm:221 src/EBox/DHCP.pm:1333
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "IP adresse"
 
 #: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
-#: src/EBox/Model/FixedAddressTable.pm:212 src/EBox/Model/RangeTable.pm:213
+#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/Model/RangeTable.pm:213
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
 msgstr "Navn"
@@ -70,7 +70,7 @@ msgid "module status"
 msgstr "modul status"
 
 #: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
-#: src/EBox/Model/FixedAddressTable.pm:96 src/EBox/Model/DynamicDNS.pm:111
+#: src/EBox/Model/FixedAddressTable.pm:98 src/EBox/Model/DynamicDNS.pm:111
 #: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/Options.pm:119
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/OptionsTab.pm:87
 #: src/EBox/Composite/InterfaceConfiguration.pm:87
@@ -192,35 +192,30 @@ msgid ""
 msgstr ""
 "Tildelt tid er den tid som en given IP adresse er gyldig på DHCP serveren"
 
-#: src/EBox/Model/FixedAddressTable.pm:122
+#: src/EBox/Model/FixedAddressTable.pm:124
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
 msgstr "Ip adresse {ip} er ikke i netværket {net}"
 
-#: src/EBox/Model/FixedAddressTable.pm:133
+#: src/EBox/Model/FixedAddressTable.pm:135
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
 msgstr "Den valgte IP er interface IP adressen: {ifaceIP}"
 
-#: src/EBox/Model/FixedAddressTable.pm:150
+#: src/EBox/Model/FixedAddressTable.pm:152
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "IP adressen {ip} er i området '{range}': {from}-{to}"
 
-#: src/EBox/Model/FixedAddressTable.pm:162
-#, perl-brace-format
-msgid "{name} cannot contain spaces"
-msgstr "{name} må ikke indeholde mellemrum"
-
-#: src/EBox/Model/FixedAddressTable.pm:180
+#: src/EBox/Model/FixedAddressTable.pm:177
 msgid "update"
 msgstr "opdater"
 
-#: src/EBox/Model/FixedAddressTable.pm:182
+#: src/EBox/Model/FixedAddressTable.pm:179
 msgid "add"
 msgstr "tilføj"
 
-#: src/EBox/Model/FixedAddressTable.pm:184
+#: src/EBox/Model/FixedAddressTable.pm:181
 #, perl-brace-format
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
@@ -229,19 +224,19 @@ msgstr ""
 "Du kan ikke {action}e en fast adresse med et navn, der allerede er brugt til "
 "en anden fast adresse"
 
-#: src/EBox/Model/FixedAddressTable.pm:227
+#: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr "Du kan ikke bruge en IP adresse i det overstående område"
 
-#: src/EBox/Model/FixedAddressTable.pm:232
+#: src/EBox/Model/FixedAddressTable.pm:229
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: src/EBox/Model/FixedAddressTable.pm:240 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:237 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Faste adresser"
 
-#: src/EBox/Model/FixedAddressTable.pm:247
+#: src/EBox/Model/FixedAddressTable.pm:244
 msgid "fixed address"
 msgstr "fast adresse"
 
@@ -498,6 +493,11 @@ msgstr "Ranges/områder"
 msgid "range"
 msgstr "range/område"
 
+#: src/EBox/DHCP.pm:119
+#, fuzzy, perl-brace-format
+msgid "{server} configuration file"
+msgstr "Service konfiguration"
+
 #: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
 #: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708
 #: src/EBox/DHCP.pm:823 src/EBox/DHCP.pm:879
@@ -647,6 +647,9 @@ msgstr ""
 #: src/templates/options.mas:64
 msgid "Apply"
 msgstr "Anvende"
+
+#~ msgid "{name} cannot contain spaces"
+#~ msgstr "{name} må ikke indeholde mellemrum"
 
 #~ msgid "DHCP service status"
 #~ msgstr "DHCP service status"

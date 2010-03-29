@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:42+0000\n"
+"POT-Creation-Date: 2010-03-29 16:53+0200\n"
 "PO-Revision-Date: 2009-11-05 00:51+0100\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -60,7 +60,7 @@ msgstr "estado do módulo"
 msgid "Jabber"
 msgstr "Jabber"
 
-#: src/EBox/CGI/JabberUserOptions.pm:44
+#: src/EBox/CGI/JabberUserOptions.pm:43
 msgid "username"
 msgstr "nome de utilizador"
 

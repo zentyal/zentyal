@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:54+0100\n"
+"POT-Creation-Date: 2010-03-29 16:55+0200\n"
 "PO-Revision-Date: 2010-01-30 08:12+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:970 src/EBox/Squid.pm:1046
+#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:993 src/EBox/Squid.pm:1069
 #: src/EBox/Squid/Composite/General.pm:76
 msgid "HTTP Proxy"
 msgstr "Proxy HTTP"
@@ -102,109 +102,114 @@ msgstr "Configurazione della rotazione dei log con Dansguardian"
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr "Configurazione della rotazione dei log con Dansguardian"
 
-#: src/EBox/Squid.pm:313
+#: src/EBox/Squid.pm:282
+#, fuzzy
+msgid "Filter groups per IP"
+msgstr "Filtro per il gruppo"
+
+#: src/EBox/Squid.pm:317
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr ""
 "Devi impostare la variabile cache_mem nel file di configurazione di ebox"
 
-#: src/EBox/Squid.pm:942
+#: src/EBox/Squid.pm:965
 msgid "Enabled"
 msgstr "Attivo"
 
-#: src/EBox/Squid.pm:944 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+#: src/EBox/Squid.pm:967 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
 msgstr "Inattiva"
 
-#: src/EBox/Squid.pm:946
+#: src/EBox/Squid.pm:969
 msgid "Transparent proxy"
 msgstr "Proxy trasparente"
 
-#: src/EBox/Squid.pm:949 src/EBox/Squid/Model/MIMEFilterBase.pm:60
+#: src/EBox/Squid.pm:972 src/EBox/Squid/Model/MIMEFilterBase.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:93
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:100
 msgid "Allow"
 msgstr "Permetti"
 
-#: src/EBox/Squid.pm:951 src/EBox/Squid/Model/GroupPolicyBase.pm:97
+#: src/EBox/Squid.pm:974 src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Deny"
 msgstr "Blocca"
 
-#: src/EBox/Squid.pm:953 src/EBox/Squid/Types/DomainPolicy.pm:35
+#: src/EBox/Squid.pm:976 src/EBox/Squid/Types/DomainPolicy.pm:35
 #: src/EBox/Squid/Types/Policy.pm:65
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
 msgstr "Filtra"
 
-#: src/EBox/Squid.pm:956
+#: src/EBox/Squid.pm:979
 msgid "Global policy"
 msgstr "Politica Globale"
 
-#: src/EBox/Squid.pm:958
+#: src/EBox/Squid.pm:981
 msgid "Listening port"
 msgstr "Porta di ascolto"
 
-#: src/EBox/Squid.pm:990
+#: src/EBox/Squid.pm:1013
 msgid "General"
 msgstr "Generale"
 
-#: src/EBox/Squid.pm:994
+#: src/EBox/Squid.pm:1017
 msgid "Objects' Policy"
 msgstr "Politica Oggetti"
 
-#: src/EBox/Squid.pm:997
+#: src/EBox/Squid.pm:1020
 msgid "Groups' Policy"
 msgstr "Politica per i gruppi"
 
-#: src/EBox/Squid.pm:1000
+#: src/EBox/Squid.pm:1023
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
-#: src/EBox/Squid/Model/DomainFilterCategories.pm:113
+#: src/EBox/Squid/Model/DomainFilterCategories.pm:111
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
 #: src/EBox/Squid/Composite/FilterSettings.pm:93
 msgid "Filter Profiles"
 msgstr "Profili dei filtri"
 
-#: src/EBox/Squid.pm:1031 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+#: src/EBox/Squid.pm:1054 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
 msgstr "Data"
 
-#: src/EBox/Squid.pm:1032
+#: src/EBox/Squid.pm:1055
 msgid "Host"
 msgstr "Host"
 
-#: src/EBox/Squid.pm:1033 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Squid.pm:1056 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
 msgstr "Utente"
 
-#: src/EBox/Squid.pm:1034
+#: src/EBox/Squid.pm:1057
 msgid "URL"
 msgstr "URL"
 
-#: src/EBox/Squid.pm:1035
+#: src/EBox/Squid.pm:1058
 msgid "Bytes"
 msgstr "Byte"
 
-#: src/EBox/Squid.pm:1036
+#: src/EBox/Squid.pm:1059
 msgid "Mime/type"
 msgstr "Tipo MIME"
 
-#: src/EBox/Squid.pm:1037
+#: src/EBox/Squid.pm:1060
 msgid "Event"
 msgstr "Evento"
 
-#: src/EBox/Squid.pm:1042
+#: src/EBox/Squid.pm:1065
 msgid "Accepted"
 msgstr "Accettato"
 
-#: src/EBox/Squid.pm:1043
+#: src/EBox/Squid.pm:1066
 msgid "Denied"
 msgstr "Bloccato"
 
-#: src/EBox/Squid.pm:1044
+#: src/EBox/Squid.pm:1067
 msgid "Filtered"
 msgstr "Filtrato"
 
-#: src/EBox/Squid.pm:1121
+#: src/EBox/Squid.pm:1144
 msgid "HTTP Proxy's cache files"
 msgstr "File di cache Proxy HTTP"
 
@@ -655,58 +660,67 @@ msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
 msgstr "Periodo di tempo quando l'accesso è consentito"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:97
+#: src/EBox/Squid/Model/ObjectPolicy.pm:96
 msgid "Group policy"
 msgstr "Politica per il gruppo"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:109
+#: src/EBox/Squid/Model/ObjectPolicy.pm:104
+#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:114
+msgid "Filter profile"
+msgstr "Profilo per il filtro"
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:117
 #, fuzzy
 msgid "Object Policies"
 msgstr "Politica Oggetti"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:110
+#: src/EBox/Squid/Model/ObjectPolicy.pm:118
 msgid "List of objects"
 msgstr "Lista oggetti"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:125
+#: src/EBox/Squid/Model/ObjectPolicy.pm:133
 msgid "object's policy"
 msgstr "politica oggetto"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:126
+#: src/EBox/Squid/Model/ObjectPolicy.pm:134
 msgid "Here you can establish a custom policy per network object"
 msgstr "Qui puoi impostare una politica personalizzata per oggetto di rete"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:128
+#: src/EBox/Squid/Model/ObjectPolicy.pm:136
 msgid "Added object's policy"
 msgstr "Aggiunta politica oggetto"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:129
+#: src/EBox/Squid/Model/ObjectPolicy.pm:137
 msgid "Removed object's policy"
 msgstr "Eliminata politica oggetto"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:130
+#: src/EBox/Squid/Model/ObjectPolicy.pm:138
 msgid "Updated object's policy"
 msgstr "Aggiornata politica oggetto"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:173
+#: src/EBox/Squid/Model/ObjectPolicy.pm:189
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr ""
 "Una politica con autorizzazione non è compatibile con un proxy trasparente"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:196
+#: src/EBox/Squid/Model/ObjectPolicy.pm:212
 msgid "Filter policies are incompatible with restricted time periods"
 msgstr ""
 "Le politiche con i filtri sono incompatibili con le politiche aventi "
 "restrizioni sui tempi"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:222
+#: src/EBox/Squid/Model/ObjectPolicy.pm:238
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr ""
 "Non puoi scegliere una politica senza autorizzazione se hai delle politiche "
 "per i gruppi"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:442
+#: src/EBox/Squid/Model/ObjectPolicy.pm:264
+msgid "You can only use a custom profile with the 'Filter' policy"
+msgstr ""
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:527
 #, perl-brace-format
 msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
@@ -730,18 +744,22 @@ msgstr "Imposta politica per tutti i tipi MIME"
 msgid "Domain or URL"
 msgstr "Dominio"
 
-#: src/EBox/Squid/Model/DomainFilterBase.pm:76
-#: src/EBox/Squid/Model/DomainFilterBase.pm:91
-msgid "Domain or IP address"
+#: src/EBox/Squid/Model/DomainFilterBase.pm:77
+#, fuzzy
+msgid "Domain or IP address part of URL"
 msgstr "Dominio o indirizzo IP"
 
-#: src/EBox/Squid/Model/DomainFilterBase.pm:85
+#: src/EBox/Squid/Model/DomainFilterBase.pm:87
 msgid "Domain"
 msgstr "Dominio"
 
-#: src/EBox/Squid/Model/DomainFilterBase.pm:87
+#: src/EBox/Squid/Model/DomainFilterBase.pm:89
 msgid "You must not prefix the domain with www."
 msgstr "Non devi aggiungere il prefisso www al dominio."
+
+#: src/EBox/Squid/Model/DomainFilterBase.pm:93
+msgid "Domain or IP address"
+msgstr "Dominio o indirizzo IP"
 
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:107
 msgid "Time period"
@@ -821,10 +839,6 @@ msgstr "Politica per il gruppo rimossa"
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:95
 msgid "Updated group's policy"
 msgstr "Politica per il gruppo aggiornata"
-
-#: src/EBox/Squid/Model/GlobalGroupPolicy.pm:114
-msgid "Filter profile"
-msgstr "Profilo per il filtro"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:162
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:130

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-03 19:21+0000\n"
+"POT-Creation-Date: 2010-03-29 16:58+0200\n"
 "PO-Revision-Date: 2010-03-26 11:44+0100\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -85,7 +85,8 @@ msgstr "Sinu päringut ei töödeldud, kuna see sisaldas vigaseid parameetreid"
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
-msgstr "Sinu päringut ei töödeldud, kuna seal puudusid mõned nõutud parameetrid"
+msgstr ""
+"Sinu päringut ei töödeldud, kuna seal puudusid mõned nõutud parameetrid"
 
 #: src/EBox/CGI/Base.pm:829
 msgid "Invalid uploaded file."
@@ -246,7 +247,7 @@ msgid "To"
 msgstr "Kuni"
 
 # või "valikuline"
-#: src/templates/ajax/modelViewer.mas:256
+#: src/templates/ajax/modelViewer.mas:256 src/templates/formTable.mas:85
 msgid "Optional"
 msgstr "Valikuline"
 

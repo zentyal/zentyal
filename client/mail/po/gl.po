@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:52+0100\n"
+"POT-Creation-Date: 2010-03-29 16:53+0200\n"
 "PO-Revision-Date: 2008-09-01 08:32+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -138,7 +138,7 @@ msgid "maildrop"
 msgstr ""
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1552
+#: src/EBox/Mail.pm:1553
 msgid "Queue Management"
 msgstr ""
 
@@ -147,7 +147,7 @@ msgid "Admin mail recipient"
 msgstr ""
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1469 src/EBox/Mail.pm:1621
+#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1470 src/EBox/Mail.pm:1622
 msgid "Mail"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Cannot connect to {smtp} mail server"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Mail.pm:230
+#: src/EBox/Event/Dispatcher/Mail.pm:232
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
@@ -254,6 +254,14 @@ msgstr ""
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""
 "You must enable the mail module in module status section in order to use it."
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:67
+msgid "TLS for SMTP server"
+msgstr ""
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:73
+msgid "Require authentication"
 msgstr ""
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:76
@@ -681,7 +689,7 @@ msgstr ""
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1590
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1591
 msgid "To"
 msgstr ""
 
@@ -721,7 +729,7 @@ msgstr ""
 msgid "Rejected messages"
 msgstr ""
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1587
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1588
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr ""
@@ -826,184 +834,184 @@ msgstr ""
 msgid "To configure smart host authentication"
 msgstr ""
 
-#: src/EBox/Mail.pm:682
+#: src/EBox/Mail.pm:683
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
 
-#: src/EBox/Mail.pm:687
+#: src/EBox/Mail.pm:688
 msgid "The mail name must be a fully qualified name"
 msgstr ""
 
-#: src/EBox/Mail.pm:692 src/EBox/Mail.pm:703 src/EBox/Mail.pm:712
+#: src/EBox/Mail.pm:693 src/EBox/Mail.pm:704 src/EBox/Mail.pm:713
 msgid "Host mail name"
 msgstr ""
 
-#: src/EBox/Mail.pm:706
+#: src/EBox/Mail.pm:707
 msgid "The mail name and virtual mail domain name are equal"
 msgstr ""
 
-#: src/EBox/Mail.pm:975
+#: src/EBox/Mail.pm:976
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:991 src/EBox/Mail.pm:1011
+#: src/EBox/Mail.pm:992 src/EBox/Mail.pm:1012
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:1018
+#: src/EBox/Mail.pm:1019
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:1415
+#: src/EBox/Mail.pm:1416
 msgid "SMTP service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1422
+#: src/EBox/Mail.pm:1423
 msgid "POP3 service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1428
+#: src/EBox/Mail.pm:1429
 msgid "POP3S service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1434
+#: src/EBox/Mail.pm:1435
 msgid "IMAP service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1440
+#: src/EBox/Mail.pm:1441
 msgid "IMAPS service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1483
+#: src/EBox/Mail.pm:1484
 msgid "enabled"
 msgstr ""
 
-#: src/EBox/Mail.pm:1483
+#: src/EBox/Mail.pm:1484
 msgid "disabled"
 msgstr ""
 
-#: src/EBox/Mail.pm:1485 src/EBox/Mail.pm:1596 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1486 src/EBox/Mail.pm:1597 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Mail.pm:1488
+#: src/EBox/Mail.pm:1489
 msgid "Mail server's filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:1497 src/EBox/Mail.pm:1504
+#: src/EBox/Mail.pm:1498 src/EBox/Mail.pm:1505
 msgid "Filter type"
 msgstr ""
 
-#: src/EBox/Mail.pm:1498
+#: src/EBox/Mail.pm:1499
 msgid "Custom"
 msgstr ""
 
-#: src/EBox/Mail.pm:1500
+#: src/EBox/Mail.pm:1501
 msgid "Address"
 msgstr ""
 
-#: src/EBox/Mail.pm:1533
+#: src/EBox/Mail.pm:1534
 msgid "General"
 msgstr ""
 
-#: src/EBox/Mail.pm:1540
+#: src/EBox/Mail.pm:1541
 msgid "Virtual Mail Domains"
 msgstr ""
 
-#: src/EBox/Mail.pm:1546
+#: src/EBox/Mail.pm:1547
 msgid "Greylist"
 msgstr ""
 
-#: src/EBox/Mail.pm:1579
+#: src/EBox/Mail.pm:1580
 msgid "Mail retrieval from external accounts"
 msgstr ""
 
-#: src/EBox/Mail.pm:1588
+#: src/EBox/Mail.pm:1589
 msgid "Message ID"
 msgstr ""
 
-#: src/EBox/Mail.pm:1589
+#: src/EBox/Mail.pm:1590
 msgid "From"
 msgstr ""
 
-#: src/EBox/Mail.pm:1591
+#: src/EBox/Mail.pm:1592
 msgid "From hostname"
 msgstr ""
 
-#: src/EBox/Mail.pm:1592
+#: src/EBox/Mail.pm:1593
 msgid "From host ip"
 msgstr ""
 
-#: src/EBox/Mail.pm:1593 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1594 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr ""
 
-#: src/EBox/Mail.pm:1594
+#: src/EBox/Mail.pm:1595
 msgid "Relay"
 msgstr ""
 
-#: src/EBox/Mail.pm:1595
+#: src/EBox/Mail.pm:1596
 msgid "Message type"
 msgstr ""
 
-#: src/EBox/Mail.pm:1597
+#: src/EBox/Mail.pm:1598
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Mail.pm:1598
+#: src/EBox/Mail.pm:1599
 msgid "Additional Info"
 msgstr ""
 
-#: src/EBox/Mail.pm:1609
+#: src/EBox/Mail.pm:1610
 msgid "Successful messages"
 msgstr ""
 
-#: src/EBox/Mail.pm:1610
+#: src/EBox/Mail.pm:1611
 msgid "Maximum message size exceeded"
 msgstr ""
 
-#: src/EBox/Mail.pm:1611
+#: src/EBox/Mail.pm:1612
 msgid "User quote exceeded"
 msgstr ""
 
-#: src/EBox/Mail.pm:1612
+#: src/EBox/Mail.pm:1613
 msgid "Relay access denied"
 msgstr ""
 
-#: src/EBox/Mail.pm:1613
+#: src/EBox/Mail.pm:1614
 msgid "Account does not exist"
 msgstr ""
 
-#: src/EBox/Mail.pm:1614
+#: src/EBox/Mail.pm:1615
 msgid "Host unreachable"
 msgstr ""
 
-#: src/EBox/Mail.pm:1615
+#: src/EBox/Mail.pm:1616
 msgid "Authentication error"
 msgstr ""
 
-#: src/EBox/Mail.pm:1616
+#: src/EBox/Mail.pm:1617
 msgid "Greylisted"
 msgstr ""
 
-#: src/EBox/Mail.pm:1617
+#: src/EBox/Mail.pm:1618
 msgid "Other events"
 msgstr ""
 
-#: src/EBox/Mail.pm:1804
+#: src/EBox/Mail.pm:1805
 msgid "Mailboxes"
 msgstr ""
 
-#: src/EBox/Mail.pm:1832
+#: src/EBox/Mail.pm:1833
 msgid "Mail SMTP server"
 msgstr ""
 
-#: src/EBox/Mail.pm:1839
+#: src/EBox/Mail.pm:1840
 msgid "Mail POP/IMAP server"
 msgstr ""
 

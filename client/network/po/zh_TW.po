@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:53+0100\n"
+"POT-Creation-Date: 2010-03-29 16:54+0200\n"
 "PO-Revision-Date: 2009-08-04 07:12+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -43,7 +43,7 @@ msgstr "使用者名稱"
 msgid "password"
 msgstr "密碼"
 
-#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1397 src/EBox/Network.pm:1426
+#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1423 src/EBox/Network.pm:1452
 #: src/templates/ifaces.mas:195
 msgid "VLAN Id"
 msgstr "VLAN Id"
@@ -53,9 +53,9 @@ msgid "virtual interface action"
 msgstr "虛擬介面動作"
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:807 src/EBox/Network.pm:812
-#: src/EBox/Network.pm:1115 src/EBox/Network.pm:1136 src/EBox/Network.pm:2673
-#: src/EBox/Network.pm:2689 src/EBox/Network.pm:2715 src/EBox/Network.pm:2846
-#: src/EBox/Network.pm:2985 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Network.pm:1123 src/EBox/Network.pm:1144 src/EBox/Network.pm:2737
+#: src/EBox/Network.pm:2753 src/EBox/Network.pm:2779 src/EBox/Network.pm:2910
+#: src/EBox/Network.pm:3049 src/EBox/Model/GatewayTable.pm:198
 #: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:106
 #: src/templates/ifaces.mas:253
 msgid "IP address"
@@ -75,11 +75,11 @@ msgstr "網路診斷工具"
 msgid "Host"
 msgstr "主機"
 
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2929
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2993
 msgid "host name"
 msgstr "主機名稱"
 
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3022
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3086
 msgid "Network Interfaces"
 msgstr "網路介面"
 
@@ -100,7 +100,7 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Event/Watcher/Gateways.pm:346
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3055
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3119
 msgid "WAN Failover"
 msgstr ""
 
@@ -129,7 +129,7 @@ msgstr ""
 msgid "Domain Name Server Resolver"
 msgstr "名稱伺服器解析"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3053
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3117
 msgid "Balance Traffic"
 msgstr "平衡流量"
 
@@ -142,7 +142,7 @@ msgstr ""
 "要能使用這個功能，您需要至少兩個通訊閘。您可以先在<a href=\"/ebox/Network/"
 "View/GatewayTable\">這裡</a>加入它們。"
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2974
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3038
 msgid "Status"
 msgstr "狀態"
 
@@ -230,7 +230,7 @@ msgstr "{service} 的總流量"
 msgid "Traffic rate from {src} for {service}"
 msgstr "{src} 到 {service} 的總流量"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3038
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3102
 #: src/EBox/Model/StaticRoute.pm:153
 msgid "Network"
 msgstr "網路"
@@ -285,29 +285,29 @@ msgstr "eBox 會設定您的 DNS 組態"
 msgid "Virtual interface name"
 msgstr "虛擬介面名稱"
 
-#: src/EBox/Network.pm:807 src/EBox/Network.pm:1115 src/EBox/Network.pm:2673
+#: src/EBox/Network.pm:807 src/EBox/Network.pm:1123 src/EBox/Network.pm:2737
 #: src/templates/ifaces.mas:119 src/templates/ifaces.mas:254
 msgid "Netmask"
 msgstr "子網路遮罩"
 
 #: src/EBox/Network.pm:900 src/EBox/Network.pm:932 src/EBox/Network.pm:977
-#: src/EBox/Network.pm:1012 src/EBox/Network.pm:1037 src/EBox/Network.pm:1111
-#: src/EBox/Network.pm:1240 src/EBox/Network.pm:1321 src/EBox/Network.pm:1521
-#: src/EBox/Network.pm:1581 src/EBox/Network.pm:1611 src/EBox/Network.pm:1638
-#: src/EBox/Network.pm:1666 src/EBox/Network.pm:1699 src/EBox/Network.pm:1734
-#: src/EBox/Network.pm:1767 src/EBox/Network.pm:2671 src/EBox/Network.pm:2691
-#: src/EBox/Network.pm:2711 src/EBox/Network.pm:2732 src/EBox/Network.pm:2781
-#: src/EBox/Network.pm:2802 src/EBox/Network.pm:2822 src/EBox/Network.pm:2843
-#: src/EBox/Network.pm:2866 src/EBox/Model/MultiGwRulesDataTable.pm:101
+#: src/EBox/Network.pm:1012 src/EBox/Network.pm:1037 src/EBox/Network.pm:1119
+#: src/EBox/Network.pm:1254 src/EBox/Network.pm:1342 src/EBox/Network.pm:1547
+#: src/EBox/Network.pm:1614 src/EBox/Network.pm:1644 src/EBox/Network.pm:1671
+#: src/EBox/Network.pm:1699 src/EBox/Network.pm:1761 src/EBox/Network.pm:1796
+#: src/EBox/Network.pm:1829 src/EBox/Network.pm:2735 src/EBox/Network.pm:2755
+#: src/EBox/Network.pm:2775 src/EBox/Network.pm:2796 src/EBox/Network.pm:2845
+#: src/EBox/Network.pm:2866 src/EBox/Network.pm:2886 src/EBox/Network.pm:2907
+#: src/EBox/Network.pm:2930 src/EBox/Model/MultiGwRulesDataTable.pm:101
 #: src/EBox/Model/GatewayTable.pm:205
 msgid "Interface"
 msgstr "介面"
 
-#: src/EBox/Network.pm:1326
+#: src/EBox/Network.pm:1347
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr "這個介面不能放在 trunk 模式中，它是一個 vlan 介面。"
 
-#: src/EBox/Network.pm:1373
+#: src/EBox/Network.pm:1399
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -315,12 +315,12 @@ msgstr ""
 "這個介面處於 trunk 模式，在改變其組態模式前您應該先解除這個 trunk 中所有的 "
 "vlan 介面的設定。"
 
-#: src/EBox/Network.pm:1406
+#: src/EBox/Network.pm:1432
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr "在將 vlan 加入網路介面前需要先把它們設為 trunk 模式。"
 
-#: src/EBox/Network.pm:2563
+#: src/EBox/Network.pm:2627
 #, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
@@ -329,63 +329,63 @@ msgstr ""
 "這個要求的操作會造成已設定的\n"
 "路由之一變得無法使用。如果您真的想要進行這項變更請先將它移除。"
 
-#: src/EBox/Network.pm:2628 src/EBox/NetworkUtil.pm:55
+#: src/EBox/Network.pm:2692 src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "通訊閘 {gw} 不能連線"
 
-#: src/EBox/Network.pm:2631
+#: src/EBox/Network.pm:2695
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
 "reachable by {iface} which is not static"
 msgstr "通訊閘 {gw} 無法以靜態介面連接。目前可連接它的 {iface} 不是靜態介面"
 
-#: src/EBox/Network.pm:2888 src/EBox/Network.pm:2909
+#: src/EBox/Network.pm:2952 src/EBox/Network.pm:2973
 msgid "Host name"
 msgstr "主機名稱"
 
-#: src/EBox/Network.pm:2959
+#: src/EBox/Network.pm:3023
 msgid "down"
 msgstr "下"
 
-#: src/EBox/Network.pm:2965
+#: src/EBox/Network.pm:3029
 msgid "up"
 msgstr "上"
 
-#: src/EBox/Network.pm:2969
+#: src/EBox/Network.pm:3033
 msgid "link ok"
 msgstr "連線正常"
 
-#: src/EBox/Network.pm:2971
+#: src/EBox/Network.pm:3035
 msgid "no link"
 msgstr "沒有連線"
 
-#: src/EBox/Network.pm:2979
+#: src/EBox/Network.pm:3043
 msgid "MAC address"
 msgstr "MAC 位址"
 
-#: src/EBox/Network.pm:2996
+#: src/EBox/Network.pm:3060
 msgid "Tx bytes"
 msgstr "Tx 位元組"
 
-#: src/EBox/Network.pm:3005
+#: src/EBox/Network.pm:3069
 msgid "Rx bytes"
 msgstr "Rx 位元組"
 
-#: src/EBox/Network.pm:3043
+#: src/EBox/Network.pm:3107
 msgid "Interfaces"
 msgstr "介面"
 
-#: src/EBox/Network.pm:3049 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3113 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "通訊閘"
 
-#: src/EBox/Network.pm:3051 src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:3115 src/EBox/Model/StaticRoute.pm:177
 msgid "Static Routes"
 msgstr "靜態路由"
 
-#: src/EBox/Network.pm:3057
+#: src/EBox/Network.pm:3121
 msgid "Diagnostic Tools"
 msgstr "診斷工具"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-.\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-02-22 10:58+0100\n"
+"POT-Creation-Date: 2010-03-29 17:00+0200\n"
 "PO-Revision-Date: 2010-02-16 09:24+0100\n"
 "Last-Translator: J. Schwieder <j.schwieder@gmx.de>\n"
 "Language-Team: none\n"
@@ -17,175 +17,175 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: ebox-package-installer:31
+#: ebox-package-installer:32
 msgid "Firewall, HTTP proxy, traffic shaping, etc."
 msgstr "Firewall, HTTP-Proxy, Bandbreitenmanagement, etc."
 
-#: ebox-package-installer:32
+#: ebox-package-installer:33
 msgid "Firewall, IDS, AV, VPN, content & mail filter, etc."
 msgstr "Firewall, IDS, AV, VPN, Inhalts- & Mailfilter, etc."
 
-#: ebox-package-installer:33
+#: ebox-package-installer:34
 msgid "DHCP, DNS, NTP, HTTP server, etc."
 msgstr "DHCP, DNS, NTP, HTTP Server, etc."
 
-#: ebox-package-installer:34
+#: ebox-package-installer:35
 msgid "File sharing and printing, groupware, etc."
 msgstr "Datei- und Druckerfreigabe, Groupware, etc."
 
-#: ebox-package-installer:35
+#: ebox-package-installer:36
 msgid "Mail, Jabber/XMPP, VoIP, etc."
 msgstr "Mail, Jabber/XMPP, VoIP, etc."
 
-#: ebox-package-installer:39
+#: ebox-package-installer:40
 msgid "Window system with local browser"
 msgstr "Windows System mit lokalem Browser"
 
-#: ebox-package-installer:40
+#: ebox-package-installer:41
 msgid "Networking"
 msgstr "Netzwerkverbindungen"
 
-#: ebox-package-installer:41
+#: ebox-package-installer:42
 msgid "Firewall and redirections"
 msgstr "Firewall und Umleitungen"
 
-#: ebox-package-installer:42
+#: ebox-package-installer:43
 msgid "Traffic shaping"
 msgstr "Bandbreitenmanagement"
 
-#: ebox-package-installer:43
+#: ebox-package-installer:44
 msgid "File sharing server and Windows PDC"
 msgstr "Datei-Server und Windows PDC"
 
-#: ebox-package-installer:44
+#: ebox-package-installer:45
 msgid "DNS server"
 msgstr "DNS-Server"
 
-#: ebox-package-installer:45
+#: ebox-package-installer:46
 msgid "DHCP server"
 msgstr "DCHP-Server"
 
-#: ebox-package-installer:46
+#: ebox-package-installer:47
 msgid "RADIUS server"
 msgstr "RADIUS-Server"
 
-#: ebox-package-installer:47
+#: ebox-package-installer:48
 msgid "HTTP proxy and content filter"
 msgstr "HTTP-Proxy und Inhaltsfilter"
 
-#: ebox-package-installer:48
+#: ebox-package-installer:49
 msgid "LDAP users and groups management"
 msgstr "LDAP Benutzer- und Gruppenverwaltung"
 
-#: ebox-package-installer:49
+#: ebox-package-installer:50
 msgid "System monitor with graphs and alerts"
 msgstr "Systemüberwachung mit Graphen und Alarmen"
 
-#: ebox-package-installer:50
+#: ebox-package-installer:51
 msgid "System and eBox package management"
 msgstr "System und eBox Paket-Management"
 
-#: ebox-package-installer:51
+#: ebox-package-installer:52
 msgid "Remote or local Backup"
 msgstr "Remote oder Lokale Datensicherung"
 
-#: ebox-package-installer:52
+#: ebox-package-installer:53
 msgid "NTP server"
 msgstr "NTP-Server"
 
-#: ebox-package-installer:53
+#: ebox-package-installer:54
 msgid "Printing server"
 msgstr "Druck-Server"
 
-#: ebox-package-installer:54
+#: ebox-package-installer:55
 msgid "Jabber/XMPP server"
 msgstr "Jabber/XMPP-Server"
 
-#: ebox-package-installer:55
+#: ebox-package-installer:56
 msgid "VPN server"
 msgstr "VPN-Server"
 
-#: ebox-package-installer:56
+#: ebox-package-installer:57
 msgid "HTTP server"
 msgstr "HTTP-Server"
 
-#: ebox-package-installer:57
+#: ebox-package-installer:58
 msgid "Mail system: SMTP, POP3, IMAP4"
 msgstr "Mailsystem: SMTP, POP3, IMAP4"
 
-#: ebox-package-installer:58
+#: ebox-package-installer:59
 msgid "WWW Mail Client"
 msgstr "WWW Mail-Client"
 
-#: ebox-package-installer:59
+#: ebox-package-installer:60
 msgid "Antispam, antivirus, transparent POP3 proxy"
 msgstr "Antispam, Antivirus, Transparenter POP3-Proxy"
 
-#: ebox-package-installer:60
+#: ebox-package-installer:61
 msgid "Antivirus"
 msgstr "Antivirus"
 
-#: ebox-package-installer:61
+#: ebox-package-installer:62
 msgid "Shared calendar and address book, webmail, etc"
 msgstr "Freigegebene Kalender und Adressbücher, Webmail, etc"
 
-#: ebox-package-installer:62
+#: ebox-package-installer:63
 msgid "Intrusion Detection System"
 msgstr "System zur Erkennung von Eindringlingen"
 
-#: ebox-package-installer:64
+#: ebox-package-installer:65
 msgid "VoIP PBX"
 msgstr "VoIP PBX"
 
-#: ebox-package-installer:77
+#: ebox-package-installer:78
 msgid "eBox Platform Installer"
 msgstr "eBox Platform Installer"
 
-#: ebox-package-installer:78
+#: ebox-package-installer:79
 msgid "Choose package selection method"
 msgstr "Paket-Auswahl-Methode"
 
-#: ebox-package-installer:79
+#: ebox-package-installer:80
 msgid "Select the method that better fits your needs."
 msgstr "Wählen Sie die Methode, welche besser Ihren Anforderungen entspricht."
 
-#: ebox-package-installer:80
+#: ebox-package-installer:81
 msgid "simple"
 msgstr "einfach"
 
-#: ebox-package-installer:81
+#: ebox-package-installer:82
 msgid "Select packages by task"
 msgstr "Pakete per Task auswählen"
 
-#: ebox-package-installer:82 ebox-package-installer:93
+#: ebox-package-installer:83 ebox-package-installer:94
 msgid "advanced"
 msgstr "fortgeschritten"
 
-#: ebox-package-installer:83
+#: ebox-package-installer:84
 msgid "Select packages manually"
 msgstr "Pakete manuell auswählen"
 
-#: ebox-package-installer:84
+#: ebox-package-installer:85
 msgid "Select eBox tasks to install"
 msgstr "eBox-Aufgaben zum Installieren auswählen"
 
-#: ebox-package-installer:85
+#: ebox-package-installer:86
 msgid "Select one or more tasks:"
 msgstr "Wählen Sie eine oder mehrere Aufgaben"
 
-#: ebox-package-installer:86
+#: ebox-package-installer:87
 msgid "Select eBox packages to install"
 msgstr "Wählen Sie die zu installierenden eBox-Pakete"
 
-#: ebox-package-installer:87
+#: ebox-package-installer:88
 msgid "Select the desired packages:"
 msgstr "Wählen Sie die gewünschten Pakete aus:"
 
-#: ebox-package-installer:88
+#: ebox-package-installer:89
 msgid "Select the type of the server"
 msgstr "Wählen Sie die Art des Servers"
 
-#: ebox-package-installer:89
+#: ebox-package-installer:90
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
@@ -193,23 +193,23 @@ msgstr ""
 "Wählen sie 'Standalone', außer Sie wollen eine LDAP-Replikation oder eine "
 "Synchronisation mit einem Active Directory durchführen."
 
-#: ebox-package-installer:90
+#: ebox-package-installer:91
 msgid "Standalone server"
 msgstr "Standalone Server"
 
-#: ebox-package-installer:91
+#: ebox-package-installer:92
 msgid "Advanced configuration (Master/Slave/AD Sync)"
 msgstr "Erweiterte Konfiguration (Master/Slave/AD Sync)"
 
-#: ebox-package-installer:92
+#: ebox-package-installer:93
 msgid "standalone"
 msgstr "standalone"
 
-#: ebox-package-installer:94
+#: ebox-package-installer:95
 msgid "Advanced configuration modes"
 msgstr "Erweiterte Konfigurationseinstellungen"
 
-#: ebox-package-installer:95
+#: ebox-package-installer:96
 #, perl-brace-format
 msgid ""
 "If you need the advanced features you have to configure them manually. You "
@@ -220,11 +220,11 @@ msgstr ""
 "konfigurieren. Weitere Information dazu finden sie hier:\n"
 "{url}"
 
-#: ebox-package-installer:98
+#: ebox-package-installer:99
 msgid "Select External (WAN) interfaces"
 msgstr "Wählen Sie die Externe Schnittstelle (WAN)"
 
-#: ebox-package-installer:99
+#: ebox-package-installer:100
 msgid ""
 "WARNING: By default you will not be able to access the web interface through "
 "them."
@@ -232,7 +232,7 @@ msgstr ""
 "WARNUNG: Standardmäßig wird es nicht möglich sein über sie auf die eBox-"
 "Oberfläche zuzugreifen."
 
-#: ebox-package-installer:100
+#: ebox-package-installer:101
 msgid ""
 "You have installed a gateway profile. It needs at least two network "
 "interfaces and your machine has only one. You can still enjoy the rest of "
@@ -244,11 +244,11 @@ msgstr ""
 "anderen Features der eBox nutzen, aber sie wird nicht als Gateway fungieren "
 "bis Sie eine zweite Netzwerkkarte hinzufügen."
 
-#: ebox-package-installer:101
+#: ebox-package-installer:102
 msgid "Enter administration user"
 msgstr "Geben Sie einen Benutzername für den Administrator ein."
 
-#: ebox-package-installer:102
+#: ebox-package-installer:103
 msgid ""
 "You will need this username to log into the local console or access remotely "
 "by SSH:"
@@ -256,11 +256,11 @@ msgstr ""
 "Sie benötigen diesen Benutzernamen um sich in der lokale Konsole anzumelden "
 "oder Zugriff per SSH zu bekommen:"
 
-#: ebox-package-installer:103
+#: ebox-package-installer:104
 msgid "Enter administration password"
 msgstr "Geben Sie das Administrations-Passwort ein"
 
-#: ebox-package-installer:104
+#: ebox-package-installer:105
 msgid ""
 "You will need to use this password to log into the eBox interface or in the "
 "console with the username that you have just entered:"
@@ -268,24 +268,24 @@ msgstr ""
 "Sie benötigen dieses Passwort um sich auf der eBox-Oberfläche anzumelden "
 "oder auf der Konsole mit dem Benutzernamen, den Sie gerade eingegeben haben:"
 
-#: ebox-package-installer:105
+#: ebox-package-installer:106
 msgid "Confirm administration password"
 msgstr "Bestätigen Sie das Administrations-Passwort"
 
-#: ebox-package-installer:107
+#: ebox-package-installer:108
 msgid "Mail configuration"
 msgstr "Mail-Konfiguration"
 
-#: ebox-package-installer:108
+#: ebox-package-installer:109
 msgid "Enter default virtual mail domain:"
 msgstr ""
 "Geben Sie einen Namen für die standardmäßige virtuelle Mail-Domäne ein:"
 
-#: ebox-package-installer:109
+#: ebox-package-installer:110
 msgid "Installation finished"
 msgstr "Installation abgeschlossen"
 
-#: ebox-package-installer:110
+#: ebox-package-installer:111
 msgid ""
 "Now you can access the eBox interface browsing the following address from "
 "any computer in your network: "
@@ -294,7 +294,7 @@ msgstr ""
 "beliebigen Computer in Ihrem Netzwerk folgende Adresse in Ihrem Browser "
 "aufrufen:"
 
-#: ebox-package-installer:111
+#: ebox-package-installer:112
 msgid ""
 "The size of your root filesystem is less than 2GB. This is not enough for a "
 "typical setup. If you really know what you are doing you can install in "
@@ -304,43 +304,43 @@ msgstr ""
 "für eine typische Installation. Wenn Sie sich sicher sind, was Sie machen "
 "können Sie im Experten-Modus Ihr eigenes Partitions-Layout definieren."
 
-#: ebox-package-installer:141 ebox-package-installer:277
-#: ebox-package-installer:321 ebox-package-installer:373
-#: ebox-package-installer:387
+#: ebox-package-installer:142 ebox-package-installer:281
+#: ebox-package-installer:325 ebox-package-installer:377
+#: ebox-package-installer:391
 msgid "Error"
 msgstr "Fehler"
 
-#: ebox-package-installer:261
+#: ebox-package-installer:265
 msgid "Installing eBox packages..."
 msgstr "Installiere eBox Pakete..."
 
-#: ebox-package-installer:277
+#: ebox-package-installer:281
 msgid "Installation failed."
 msgstr "Installation fehlgeschlagen."
 
-#: ebox-package-installer:278
+#: ebox-package-installer:282
 #, perl-brace-format
 msgid "Check {logfile} content to see what happened"
 msgstr "Überprüfen Sie {logfile}, um zu sehen, was passiert ist"
 
-#: ebox-package-installer:322
+#: ebox-package-installer:326
 msgid "You must select at least one package."
 msgstr "Sie müssen mindestens ein Paket auswählen."
 
-#: ebox-package-installer:346
+#: ebox-package-installer:350
 msgid "Warning"
 msgstr "Warnung"
 
-#: ebox-package-installer:373
+#: ebox-package-installer:377
 msgid "Passwords don't match"
 msgstr "Passwörter stimmen nicht"
 
-#: ebox-package-installer:387
+#: ebox-package-installer:391
 #, fuzzy, perl-brace-format
 msgid "The username '{user}' is reserved. Please choose another."
 msgstr ""
 "Der Benutzername 'ebox' ist reserviert. Bitte wählen Sie einen anderen."
 
-#: ebox-package-installer:421
+#: ebox-package-installer:427
 msgid "Preconfiguring eBox packages..."
 msgstr "eBox Pakete werden vorkonfiguriert..."

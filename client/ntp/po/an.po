@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:01+0000\n"
+"POT-Creation-Date: 2010-03-29 16:02+0200\n"
 "PO-Revision-Date: 2006-11-16 13:25+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -150,6 +150,20 @@ msgstr ""
 msgid "Change"
 msgstr "Cambear"
 
+#: src/templates/datetime.mas:8
+#, fuzzy
+msgid "Time Synchronization with NTP Servers"
+msgstr "Sincronizar-se con serbidors NTP esternos"
+
+#: src/templates/datetime.mas:9
+#, fuzzy
+msgid "External NTP Servers"
+msgstr "Serbidors NTP esternos"
+
+#: src/templates/datetime.mas:10
+msgid "Change Date and Time"
+msgstr "Cambear a calendata e ora"
+
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
 msgstr "Desautibato"
@@ -244,12 +258,3 @@ msgstr "Ora"
 
 #~ msgid "NTP server status"
 #~ msgstr "Estato d'o serbidor NTP"
-
-#~ msgid "Time synchronization with NTP servers"
-#~ msgstr "Sincronizar-se con serbidors NTP esternos"
-
-#~ msgid "External NTP servers"
-#~ msgstr "Serbidors NTP esternos"
-
-#~ msgid "Change Date and Time"
-#~ msgstr "Cambear a calendata e ora"

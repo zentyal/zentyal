@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:52+0100\n"
+"POT-Creation-Date: 2010-03-29 16:53+0200\n"
 "PO-Revision-Date: 2009-08-04 05:57+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -156,7 +156,7 @@ msgid "Name"
 msgstr "名稱"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
-#: src/templates/backup.mas:44 src/templates/backup.mas:126
+#: src/templates/backup.mas:42 src/templates/backup.mas:124
 #: src/templates/confirm-backup.mas:36
 msgid "Description"
 msgstr "說明"
@@ -194,7 +194,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4531
+#: src/EBox/Model/DataTable.pm:4540
 msgid "Enabled"
 msgstr "已啟用"
 
@@ -379,7 +379,7 @@ msgid "Fatal error"
 msgstr ""
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
-#: src/templates/finish.mas:116 src/templates/backup.mas:128
+#: src/templates/finish.mas:116 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "日期"
@@ -520,8 +520,8 @@ msgstr "組態備份"
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr "請確認您想要刪除下列備份檔："
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
-#: src/templates/backup.mas:173
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:170
+#: src/templates/backup.mas:171
 msgid "Delete"
 msgstr "刪除"
 
@@ -531,7 +531,7 @@ msgid "Please confirm that you want to restore using this backup file:"
 msgstr "請確認您想要使用這個備份檔來還原："
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:93
 msgid "Restore"
 msgstr "還原"
 
@@ -566,7 +566,7 @@ msgid "Upgrading"
 msgstr "正在更新"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:64
+#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:62
 msgid "Backup"
 msgstr "備份"
 
@@ -1051,6 +1051,16 @@ msgstr "IP 位址不允許"
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
 msgstr "任何"
+
+#: src/EBox/Types/PortRange.pm:293
+#, fuzzy
+msgid "Single port"
+msgstr "選擇報告"
+
+#: src/EBox/Types/PortRange.pm:297
+#, fuzzy
+msgid "Port range"
+msgstr "密碼已變更"
 
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
@@ -1724,7 +1734,7 @@ msgid "right-symmetric"
 msgstr ""
 
 #: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
-#: src/templates/backup.mas:127 src/templates/confirm-backup.mas:44
+#: src/templates/backup.mas:125 src/templates/confirm-backup.mas:44
 msgid "Type"
 msgstr "類型"
 
@@ -1998,21 +2008,34 @@ msgstr ""
 msgid "Backup the Current State"
 msgstr "備份目前的狀態"
 
-#: src/templates/backup.mas:35
+#: src/templates/backup.mas:28
+msgid ""
+"Backups will be stored in eBox and then you will be able to download them to "
+"your hard disk."
+msgstr ""
+
+#: src/templates/backup.mas:29
+msgid ""
+"If you have the file sharing module configured, all users having "
+"administration rights will be able to access the backup directory as a "
+"shared resource."
+msgstr ""
+
+#: src/templates/backup.mas:33
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
 msgstr "由於尚有未儲存的組態變更，備份已被停用。請儲存或放棄它們才能備份組態"
 
-#: src/templates/backup.mas:52
+#: src/templates/backup.mas:50
 msgid "Backup mode"
 msgstr "備份模式"
 
-#: src/templates/backup.mas:74
+#: src/templates/backup.mas:72
 msgid "Restore Backup from File"
 msgstr "從檔案還原備份"
 
-#: src/templates/backup.mas:76
+#: src/templates/backup.mas:74
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
@@ -2020,55 +2043,55 @@ msgstr ""
 "您可以從您的電腦上傳備份檔案。在上傳檔案時您應該注意某些瀏覽器不能處理大型檔"
 "案 (>= 1 Gb)。"
 
-#: src/templates/backup.mas:84
+#: src/templates/backup.mas:82
 msgid "Backup file"
 msgstr "備份檔案"
 
-#: src/templates/backup.mas:114
+#: src/templates/backup.mas:112
 msgid "Full"
 msgstr "完整"
 
-#: src/templates/backup.mas:115
+#: src/templates/backup.mas:113
 msgid "Configuration only"
 msgstr "只有組態"
 
-#: src/templates/backup.mas:116
+#: src/templates/backup.mas:114
 msgid "Unknown type"
 msgstr "未知的類型"
 
-#: src/templates/backup.mas:122
+#: src/templates/backup.mas:120
 msgid "Backups' list"
 msgstr "備份的清單"
 
-#: src/templates/backup.mas:129 src/templates/confirm-backup.mas:53
+#: src/templates/backup.mas:127 src/templates/confirm-backup.mas:53
 msgid "Archive size"
 msgstr "壓縮檔大小"
 
-#: src/templates/backup.mas:130
+#: src/templates/backup.mas:128
 msgid "Actions"
 msgstr "動作"
 
-#: src/templates/backup.mas:160
+#: src/templates/backup.mas:158
 msgid "Restore configuration using this file"
 msgstr "使用這個檔案還原組態"
 
-#: src/templates/backup.mas:161
+#: src/templates/backup.mas:159
 msgid "Restore from backup"
 msgstr "從備份還原"
 
-#: src/templates/backup.mas:166 src/templates/backup.mas:167
+#: src/templates/backup.mas:164 src/templates/backup.mas:165
 msgid "Download"
 msgstr "下載"
 
-#: src/templates/backup.mas:186
+#: src/templates/backup.mas:184
 msgid "download"
 msgstr "下載"
 
-#: src/templates/backup.mas:188
+#: src/templates/backup.mas:186
 msgid "restore"
 msgstr "還原"
 
-#: src/templates/backup.mas:190
+#: src/templates/backup.mas:188
 msgid "delete"
 msgstr "刪除"
 

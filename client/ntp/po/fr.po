@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:01+0000\n"
+"POT-Creation-Date: 2010-03-29 16:02+0200\n"
 "PO-Revision-Date: 2009-07-28 04:49+0200\n"
 "Last-Translator: David Ande <david@andeprasfamily.ath.cx>\n"
 "Language-Team: <es@li.org>\n"
@@ -150,6 +150,20 @@ msgstr ""
 msgid "Change"
 msgstr "Changer"
 
+#: src/templates/datetime.mas:8
+#, fuzzy
+msgid "Time Synchronization with NTP Servers"
+msgstr "Synchronisation horaire avec les serveurs NTP"
+
+#: src/templates/datetime.mas:9
+#, fuzzy
+msgid "External NTP Servers"
+msgstr "Serveurs NTP externes"
+
+#: src/templates/datetime.mas:10
+msgid "Change Date and Time"
+msgstr "Changer date et heure"
+
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
 msgstr "Désactivé"
@@ -243,15 +257,6 @@ msgstr "Heure"
 
 #~ msgid "NTP server status"
 #~ msgstr "Statut du serveur NTP"
-
-#~ msgid "Time synchronization with NTP servers"
-#~ msgstr "Synchronisation horaire avec les serveurs NTP"
-
-#~ msgid "External NTP servers"
-#~ msgstr "Serveurs NTP externes"
-
-#~ msgid "Change Date and Time"
-#~ msgstr "Changer date et heure"
 
 #~ msgid "primary server IP address"
 #~ msgstr "adresse IP du serveur primaire"

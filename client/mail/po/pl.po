@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:52+0100\n"
+"POT-Creation-Date: 2010-03-29 16:53+0200\n"
 "PO-Revision-Date: 2007-04-05 20:25+0000\n"
 "Last-Translator: Mariusz Gruszka <golden@interia.pl>\n"
 "Language-Team: none\n"
@@ -145,7 +145,7 @@ msgid "maildrop"
 msgstr "maile odrzucone"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1552
+#: src/EBox/Mail.pm:1553
 msgid "Queue Management"
 msgstr "Kolejka zarządzania"
 
@@ -154,7 +154,7 @@ msgid "Admin mail recipient"
 msgstr ""
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1469 src/EBox/Mail.pm:1621
+#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1470 src/EBox/Mail.pm:1622
 msgid "Mail"
 msgstr "Mail"
 
@@ -163,7 +163,7 @@ msgstr "Mail"
 msgid "Cannot connect to {smtp} mail server"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Mail.pm:230
+#: src/EBox/Event/Dispatcher/Mail.pm:232
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
@@ -271,6 +271,15 @@ msgstr ""
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:67
+msgid "TLS for SMTP server"
+msgstr "TLS dla serwera SMTP"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:73
+#, fuzzy
+msgid "Require authentication"
+msgstr "Błąd autentykacji"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:76
 msgid ""
@@ -734,7 +743,7 @@ msgstr ""
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1590
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1591
 msgid "To"
 msgstr "Do"
 
@@ -778,7 +787,7 @@ msgstr "Wiadomości wysłane poprawnie"
 msgid "Rejected messages"
 msgstr "Wiadomości wysłane poprawnie"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1587
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1588
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Data"
@@ -893,200 +902,200 @@ msgstr "Wymagana autentykacja"
 msgid "To configure smart host authentication"
 msgstr "Wymagana autentykacja"
 
-#: src/EBox/Mail.pm:682
+#: src/EBox/Mail.pm:683
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
 
-#: src/EBox/Mail.pm:687
+#: src/EBox/Mail.pm:688
 msgid "The mail name must be a fully qualified name"
 msgstr ""
 
-#: src/EBox/Mail.pm:692 src/EBox/Mail.pm:703 src/EBox/Mail.pm:712
+#: src/EBox/Mail.pm:693 src/EBox/Mail.pm:704 src/EBox/Mail.pm:713
 #, fuzzy
 msgid "Host mail name"
 msgstr "nazwa domeny"
 
-#: src/EBox/Mail.pm:706
+#: src/EBox/Mail.pm:707
 msgid "The mail name and virtual mail domain name are equal"
 msgstr ""
 
-#: src/EBox/Mail.pm:975
+#: src/EBox/Mail.pm:976
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:991 src/EBox/Mail.pm:1011
+#: src/EBox/Mail.pm:992 src/EBox/Mail.pm:1012
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:1018
+#: src/EBox/Mail.pm:1019
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:1415
+#: src/EBox/Mail.pm:1416
 #, fuzzy
 msgid "SMTP service"
 msgstr "usługa IMAP"
 
-#: src/EBox/Mail.pm:1422
+#: src/EBox/Mail.pm:1423
 msgid "POP3 service"
 msgstr "usługa POP3"
 
-#: src/EBox/Mail.pm:1428
+#: src/EBox/Mail.pm:1429
 #, fuzzy
 msgid "POP3S service"
 msgstr "usługa POP3"
 
-#: src/EBox/Mail.pm:1434
+#: src/EBox/Mail.pm:1435
 msgid "IMAP service"
 msgstr "usługa IMAP"
 
-#: src/EBox/Mail.pm:1440
+#: src/EBox/Mail.pm:1441
 #, fuzzy
 msgid "IMAPS service"
 msgstr "usługa IMAP"
 
-#: src/EBox/Mail.pm:1483
+#: src/EBox/Mail.pm:1484
 #, fuzzy
 msgid "enabled"
 msgstr "Uruchom"
 
-#: src/EBox/Mail.pm:1483
+#: src/EBox/Mail.pm:1484
 #, fuzzy
 msgid "disabled"
 msgstr "Wyłącz"
 
-#: src/EBox/Mail.pm:1485 src/EBox/Mail.pm:1596 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1486 src/EBox/Mail.pm:1597 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr "Status"
 
-#: src/EBox/Mail.pm:1488
+#: src/EBox/Mail.pm:1489
 #, fuzzy
 msgid "Mail server's filter"
 msgstr "Ustawienia usługi mail"
 
-#: src/EBox/Mail.pm:1497 src/EBox/Mail.pm:1504
+#: src/EBox/Mail.pm:1498 src/EBox/Mail.pm:1505
 msgid "Filter type"
 msgstr ""
 
-#: src/EBox/Mail.pm:1498
+#: src/EBox/Mail.pm:1499
 msgid "Custom"
 msgstr ""
 
-#: src/EBox/Mail.pm:1500
+#: src/EBox/Mail.pm:1501
 #, fuzzy
 msgid "Address"
 msgstr "Adres e-mail"
 
-#: src/EBox/Mail.pm:1533
+#: src/EBox/Mail.pm:1534
 msgid "General"
 msgstr "Ogólne"
 
-#: src/EBox/Mail.pm:1540
+#: src/EBox/Mail.pm:1541
 #, fuzzy
 msgid "Virtual Mail Domains"
 msgstr "Domeny wirtualne"
 
-#: src/EBox/Mail.pm:1546
+#: src/EBox/Mail.pm:1547
 msgid "Greylist"
 msgstr ""
 
-#: src/EBox/Mail.pm:1579
+#: src/EBox/Mail.pm:1580
 #, fuzzy
 msgid "Mail retrieval from external accounts"
 msgstr "Ustawienia usługi mail"
 
-#: src/EBox/Mail.pm:1588
+#: src/EBox/Mail.pm:1589
 msgid "Message ID"
 msgstr "ID wiadomości"
 
-#: src/EBox/Mail.pm:1589
+#: src/EBox/Mail.pm:1590
 msgid "From"
 msgstr "Od"
 
-#: src/EBox/Mail.pm:1591
+#: src/EBox/Mail.pm:1592
 msgid "From hostname"
 msgstr "Od hosta"
 
-#: src/EBox/Mail.pm:1592
+#: src/EBox/Mail.pm:1593
 msgid "From host ip"
 msgstr "Z adresu IP"
 
-#: src/EBox/Mail.pm:1593 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1594 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Rozmiar (bajty)"
 
-#: src/EBox/Mail.pm:1594
+#: src/EBox/Mail.pm:1595
 msgid "Relay"
 msgstr "Przekazanie"
 
-#: src/EBox/Mail.pm:1595
+#: src/EBox/Mail.pm:1596
 #, fuzzy
 msgid "Message type"
 msgstr "Wiadomość"
 
-#: src/EBox/Mail.pm:1597
+#: src/EBox/Mail.pm:1598
 msgid "Event"
 msgstr "Zdarzenie"
 
-#: src/EBox/Mail.pm:1598
+#: src/EBox/Mail.pm:1599
 #, fuzzy
 msgid "Additional Info"
 msgstr "Dodatkowe informacje"
 
-#: src/EBox/Mail.pm:1609
+#: src/EBox/Mail.pm:1610
 msgid "Successful messages"
 msgstr "Wiadomości wysłane poprawnie"
 
-#: src/EBox/Mail.pm:1610
+#: src/EBox/Mail.pm:1611
 msgid "Maximum message size exceeded"
 msgstr "Rozmiar wiadomości przekroczony"
 
-#: src/EBox/Mail.pm:1611
+#: src/EBox/Mail.pm:1612
 msgid "User quote exceeded"
 msgstr "quota użytkownika przekroczona"
 
-#: src/EBox/Mail.pm:1612
+#: src/EBox/Mail.pm:1613
 msgid "Relay access denied"
 msgstr "Przekierowanie odrzucone"
 
-#: src/EBox/Mail.pm:1613
+#: src/EBox/Mail.pm:1614
 #, fuzzy
 msgid "Account does not exist"
 msgstr "Konto nie istnieje"
 
-#: src/EBox/Mail.pm:1614
+#: src/EBox/Mail.pm:1615
 msgid "Host unreachable"
 msgstr "Host nieosiągalny"
 
-#: src/EBox/Mail.pm:1615
+#: src/EBox/Mail.pm:1616
 msgid "Authentication error"
 msgstr "Błąd autentykacji"
 
-#: src/EBox/Mail.pm:1616
+#: src/EBox/Mail.pm:1617
 #, fuzzy
 msgid "Greylisted"
 msgstr "Ustawienia usługi mail"
 
-#: src/EBox/Mail.pm:1617
+#: src/EBox/Mail.pm:1618
 msgid "Other events"
 msgstr "Inne zdarzenia"
 
-#: src/EBox/Mail.pm:1804
+#: src/EBox/Mail.pm:1805
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Mail"
 
-#: src/EBox/Mail.pm:1832
+#: src/EBox/Mail.pm:1833
 #, fuzzy
 msgid "Mail SMTP server"
 msgstr "Ustawienia usługi mail"
 
-#: src/EBox/Mail.pm:1839
+#: src/EBox/Mail.pm:1840
 #, fuzzy
 msgid "Mail POP/IMAP server"
 msgstr "Ustawienia usługi mail"
@@ -1449,9 +1458,6 @@ msgstr "Zmień"
 
 #~ msgid "There are no users in the group or the users do not "
 #~ msgstr "Nie ma użytkowników w grupie "
-
-#~ msgid "TLS for SMTP server"
-#~ msgstr "TLS dla serwera SMTP"
 
 #~ msgid "POP3"
 #~ msgstr "POP3"

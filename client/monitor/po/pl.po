@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-monitor 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:05+0000\n"
+"POT-Creation-Date: 2010-03-29 16:53+0200\n"
 "PO-Revision-Date: 2009-04-17 11:26+0200\n"
 "Last-Translator: Marcin Roszkowski <marcin@bsndm.pl>\n"
 "Language-Team: none\n"
@@ -360,8 +360,8 @@ msgid ""
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
-#: src/EBox/Monitor.pm:166
+#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:73
+#: src/EBox/Monitor.pm:167
 msgid "Monitor"
 msgstr "Monitor"
 
@@ -389,12 +389,12 @@ msgstr ""
 msgid "That is below the {severity} threshold of {bound}."
 msgstr ""
 
-#: src/EBox/Monitor.pm:133
+#: src/EBox/Monitor.pm:134
 #, fuzzy, perl-brace-format
 msgid "{daemon} main configuration file"
 msgstr "Złączony główny plik konfiguracyjny"
 
-#: src/EBox/Monitor.pm:138
+#: src/EBox/Monitor.pm:139
 #, fuzzy, perl-brace-format
 msgid "{daemon} thresholds configuration file"
 msgstr "Złączony główny plik konfiguracyjny"

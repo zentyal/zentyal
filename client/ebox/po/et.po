@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:52+0100\n"
+"POT-Creation-Date: 2010-03-29 16:53+0200\n"
 "PO-Revision-Date: 2010-03-26 14:09+0100\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -170,7 +170,7 @@ msgid "Name"
 msgstr "Nimi"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
-#: src/templates/backup.mas:44 src/templates/backup.mas:126
+#: src/templates/backup.mas:42 src/templates/backup.mas:124
 #: src/templates/confirm-backup.mas:36
 msgid "Description"
 msgstr "Kirjeldus"
@@ -210,7 +210,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
-#: src/EBox/Model/DataTable.pm:4531
+#: src/EBox/Model/DataTable.pm:4540
 msgid "Enabled"
 msgstr "Lubatud"
 
@@ -403,7 +403,7 @@ msgid "Fatal error"
 msgstr "Saatuslik viga"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
-#: src/templates/finish.mas:116 src/templates/backup.mas:128
+#: src/templates/finish.mas:116 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
 msgstr "Kuupäev"
@@ -546,8 +546,8 @@ msgstr "Seadistuste varundamine"
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr "Palun kinnita, et oled kindel järgneva varundusfaili kustutamises:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
-#: src/templates/backup.mas:173
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:170
+#: src/templates/backup.mas:171
 msgid "Delete"
 msgstr "Kustuta"
 
@@ -559,7 +559,7 @@ msgstr ""
 "kindel:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:93
 msgid "Restore"
 msgstr "Taasta"
 
@@ -594,7 +594,7 @@ msgid "Upgrading"
 msgstr "Uuendamine"
 
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:64
+#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:62
 msgid "Backup"
 msgstr "Varundamine"
 
@@ -1110,6 +1110,16 @@ msgstr "IP aadressid ei ole lubatud"
 msgid "any"
 msgstr "suvaline"
 
+#: src/EBox/Types/PortRange.pm:293
+#, fuzzy
+msgid "Single port"
+msgstr "Aruande valimine"
+
+#: src/EBox/Types/PortRange.pm:297
+#, fuzzy
+msgid "Port range"
+msgstr "Parool muudetud"
+
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
@@ -1366,8 +1376,7 @@ msgstr "See peaks olema mõni järgnevatest väärtustest: {values}"
 
 # Lubatud toimingud on: {view} ja {cView}
 #: src/EBox/Model/Composite.pm:655
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr "Toimingud mis on lubatud: {view} ja {cView}"
 
@@ -1447,15 +1456,13 @@ msgstr "{row} uuendatud"
 
 # nihutatud
 #: src/EBox/Model/DataTable.pm:3217
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} ülespoole paigutatud"
 
 # nihutatud
 #: src/EBox/Model/DataTable.pm:3218
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} allapoole paigutatud"
 
@@ -1469,8 +1476,7 @@ msgstr "Varundusarhiivi loomine"
 
 # Tõmmise tegemine mooduli {m} seadistustest
 #: src/EBox/Backup.pm:140
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "Dumping configuration of module {m}"
 msgstr "Tõmmiste tegemise seadistamine moodulist {m}"
 
@@ -1646,8 +1652,7 @@ msgstr "Skripti {scriptName} käivitamine"
 
 # {d} kasutusandmed puuduvad. Kas oled kindel, et tegemist on sobiva kettaga?
 #: src/EBox/Report/DiskUsage.pm:61
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "No usage data for {d}. Are you sure is a valid disk?"
 msgstr ""
 "Kasutusandmed {d} kohta puuduvad. Kas oled kindel, et tegemist on sobiva "
@@ -1823,7 +1828,7 @@ msgstr "parem-sümmeetriline"
 
 # tähendab ka "trükkimine" , kuid siin ilmselt "tüüp"
 #: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
-#: src/templates/backup.mas:127 src/templates/confirm-backup.mas:44
+#: src/templates/backup.mas:125 src/templates/confirm-backup.mas:44
 msgid "Type"
 msgstr "Tüüp"
 
@@ -2106,8 +2111,7 @@ msgstr "Täisvarundamine"
 
 # Neid mooduleid, mida ei ole {openref}Mooduli Oleku{closeref} sektsioonis esimesel korral lubatud, eiratakse varundamis- ja taastamistoimingute poolt.
 #: src/templates/backup.mas:24
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "Module Status{closeref} section will be ignored in both backup and restore "
@@ -2123,7 +2127,20 @@ msgstr ""
 msgid "Backup the Current State"
 msgstr "Aktiivse oleku varundamine"
 
-#: src/templates/backup.mas:35
+#: src/templates/backup.mas:28
+msgid ""
+"Backups will be stored in eBox and then you will be able to download them to "
+"your hard disk."
+msgstr ""
+
+#: src/templates/backup.mas:29
+msgid ""
+"If you have the file sharing module configured, all users having "
+"administration rights will be able to access the backup directory as a "
+"shared resource."
+msgstr ""
+
+#: src/templates/backup.mas:33
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -2131,15 +2148,15 @@ msgstr ""
 "Varundamine on keelatud, kuna seadistuste muudatused on salvestamata. Palun "
 "salvesta või tühista need muudatused seadistuste varundamiseks."
 
-#: src/templates/backup.mas:52
+#: src/templates/backup.mas:50
 msgid "Backup mode"
 msgstr "Varundamise režiim"
 
-#: src/templates/backup.mas:74
+#: src/templates/backup.mas:72
 msgid "Restore Backup from File"
 msgstr "Taastamine varundusfailist"
 
-#: src/templates/backup.mas:76
+#: src/templates/backup.mas:74
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
@@ -2148,58 +2165,58 @@ msgstr ""
 "arvestama, et mõned veebilehitsejad ei suuda väga suuri faile käsitleda (>= "
 "1Gb)."
 
-#: src/templates/backup.mas:84
+#: src/templates/backup.mas:82
 msgid "Backup file"
 msgstr "Varundusfail"
 
 # Täielik
-#: src/templates/backup.mas:114
+#: src/templates/backup.mas:112
 #, fuzzy
 msgid "Full"
 msgstr "Täis"
 
 # siin mõeldakse seadistuste varundamist
-#: src/templates/backup.mas:115
+#: src/templates/backup.mas:113
 msgid "Configuration only"
 msgstr "Ainult seadistused"
 
-#: src/templates/backup.mas:116
+#: src/templates/backup.mas:114
 msgid "Unknown type"
 msgstr "Tundmatu tüüp"
 
-#: src/templates/backup.mas:122
+#: src/templates/backup.mas:120
 msgid "Backups' list"
 msgstr "Varunduste loend"
 
-#: src/templates/backup.mas:129 src/templates/confirm-backup.mas:53
+#: src/templates/backup.mas:127 src/templates/confirm-backup.mas:53
 msgid "Archive size"
 msgstr "Arhiivi suurus"
 
-#: src/templates/backup.mas:130
+#: src/templates/backup.mas:128
 msgid "Actions"
 msgstr "Toimingud"
 
-#: src/templates/backup.mas:160
+#: src/templates/backup.mas:158
 msgid "Restore configuration using this file"
 msgstr "Seadistuste taastamine kasutades seda faili"
 
-#: src/templates/backup.mas:161
+#: src/templates/backup.mas:159
 msgid "Restore from backup"
 msgstr "Taastamine varundusest"
 
-#: src/templates/backup.mas:166 src/templates/backup.mas:167
+#: src/templates/backup.mas:164 src/templates/backup.mas:165
 msgid "Download"
 msgstr "Laadi alla"
 
-#: src/templates/backup.mas:186
+#: src/templates/backup.mas:184
 msgid "download"
 msgstr "allalaadimine"
 
-#: src/templates/backup.mas:188
+#: src/templates/backup.mas:186
 msgid "restore"
 msgstr "taastamine"
 
-#: src/templates/backup.mas:190
+#: src/templates/backup.mas:188
 msgid "delete"
 msgstr "kustutamine"
 

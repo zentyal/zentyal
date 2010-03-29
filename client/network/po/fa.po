@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:53+0100\n"
+"POT-Creation-Date: 2010-03-29 16:54+0200\n"
 "PO-Revision-Date: 2009-02-24 16:17+0330\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -41,7 +41,7 @@ msgstr "نام میزبان"
 msgid "password"
 msgstr ""
 
-#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1397 src/EBox/Network.pm:1426
+#: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1423 src/EBox/Network.pm:1452
 #: src/templates/ifaces.mas:195
 msgid "VLAN Id"
 msgstr "شناسه VLAN"
@@ -51,9 +51,9 @@ msgid "virtual interface action"
 msgstr "فعالیت واسط مجازی"
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:807 src/EBox/Network.pm:812
-#: src/EBox/Network.pm:1115 src/EBox/Network.pm:1136 src/EBox/Network.pm:2673
-#: src/EBox/Network.pm:2689 src/EBox/Network.pm:2715 src/EBox/Network.pm:2846
-#: src/EBox/Network.pm:2985 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Network.pm:1123 src/EBox/Network.pm:1144 src/EBox/Network.pm:2737
+#: src/EBox/Network.pm:2753 src/EBox/Network.pm:2779 src/EBox/Network.pm:2910
+#: src/EBox/Network.pm:3049 src/EBox/Model/GatewayTable.pm:198
 #: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:106
 #: src/templates/ifaces.mas:253
 msgid "IP address"
@@ -74,11 +74,11 @@ msgstr "عیب یابی شبکه"
 msgid "Host"
 msgstr "میزبان"
 
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2929
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2993
 msgid "host name"
 msgstr "نام میزبان"
 
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3022
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3086
 #, fuzzy
 msgid "Network Interfaces"
 msgstr "واسط های شبکه"
@@ -100,7 +100,7 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Event/Watcher/Gateways.pm:346
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3055
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3119
 msgid "WAN Failover"
 msgstr ""
 
@@ -130,7 +130,7 @@ msgstr ""
 msgid "Domain Name Server Resolver"
 msgstr "تحلیل گر سرویس دهنده نام"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3053
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3117
 #, fuzzy
 msgid "Balance Traffic"
 msgstr "تراز ترافیک"
@@ -141,7 +141,7 @@ msgid ""
 "can add them <a href=\"/ebox/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:2974
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3038
 msgid "Status"
 msgstr "وضعیت"
 
@@ -229,7 +229,7 @@ msgstr "مجموع نرخ ترافیک برای {service}"
 msgid "Traffic rate from {src} for {service}"
 msgstr "نرخ ترافیک از {src} برای {service}"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3038
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3102
 #: src/EBox/Model/StaticRoute.pm:153
 msgid "Network"
 msgstr "شبکه"
@@ -290,29 +290,29 @@ msgstr "eBox پیکربندی شبکه شما را تنظیم خواهد کرد 
 msgid "Virtual interface name"
 msgstr "نام واسط مجازی"
 
-#: src/EBox/Network.pm:807 src/EBox/Network.pm:1115 src/EBox/Network.pm:2673
+#: src/EBox/Network.pm:807 src/EBox/Network.pm:1123 src/EBox/Network.pm:2737
 #: src/templates/ifaces.mas:119 src/templates/ifaces.mas:254
 msgid "Netmask"
 msgstr "ماسک شبکه"
 
 #: src/EBox/Network.pm:900 src/EBox/Network.pm:932 src/EBox/Network.pm:977
-#: src/EBox/Network.pm:1012 src/EBox/Network.pm:1037 src/EBox/Network.pm:1111
-#: src/EBox/Network.pm:1240 src/EBox/Network.pm:1321 src/EBox/Network.pm:1521
-#: src/EBox/Network.pm:1581 src/EBox/Network.pm:1611 src/EBox/Network.pm:1638
-#: src/EBox/Network.pm:1666 src/EBox/Network.pm:1699 src/EBox/Network.pm:1734
-#: src/EBox/Network.pm:1767 src/EBox/Network.pm:2671 src/EBox/Network.pm:2691
-#: src/EBox/Network.pm:2711 src/EBox/Network.pm:2732 src/EBox/Network.pm:2781
-#: src/EBox/Network.pm:2802 src/EBox/Network.pm:2822 src/EBox/Network.pm:2843
-#: src/EBox/Network.pm:2866 src/EBox/Model/MultiGwRulesDataTable.pm:101
+#: src/EBox/Network.pm:1012 src/EBox/Network.pm:1037 src/EBox/Network.pm:1119
+#: src/EBox/Network.pm:1254 src/EBox/Network.pm:1342 src/EBox/Network.pm:1547
+#: src/EBox/Network.pm:1614 src/EBox/Network.pm:1644 src/EBox/Network.pm:1671
+#: src/EBox/Network.pm:1699 src/EBox/Network.pm:1761 src/EBox/Network.pm:1796
+#: src/EBox/Network.pm:1829 src/EBox/Network.pm:2735 src/EBox/Network.pm:2755
+#: src/EBox/Network.pm:2775 src/EBox/Network.pm:2796 src/EBox/Network.pm:2845
+#: src/EBox/Network.pm:2866 src/EBox/Network.pm:2886 src/EBox/Network.pm:2907
+#: src/EBox/Network.pm:2930 src/EBox/Model/MultiGwRulesDataTable.pm:101
 #: src/EBox/Model/GatewayTable.pm:205
 msgid "Interface"
 msgstr "واسط"
 
-#: src/EBox/Network.pm:1326
+#: src/EBox/Network.pm:1347
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr "واسط نمی تواند در وضعیت ترانک قرار داده شود، زیرا یک واسط vlan می باشد"
 
-#: src/EBox/Network.pm:1373
+#: src/EBox/Network.pm:1399
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -320,14 +320,14 @@ msgstr ""
 "واسط در وضعیت ترانک می باشد، شما باید قبل از تغییر وضعیت پیکربندی آن، تمام "
 "واسط های vlan  در این ترانک را از حالت پیکربندی خارج کنید"
 
-#: src/EBox/Network.pm:1406
+#: src/EBox/Network.pm:1432
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 "واسط های شبکه نیاز دارند که قبل از اینکه vlan ها به آنها اضافه شوند در وضعیت "
 "ترانک باشند"
 
-#: src/EBox/Network.pm:2563
+#: src/EBox/Network.pm:2627
 #, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
@@ -337,12 +337,12 @@ msgstr ""
 "دسترس شود. اگر واقعا می خواهید این تغییر را انجام دهید، لطفا ابتدا آن را حذف "
 "کنید"
 
-#: src/EBox/Network.pm:2628 src/EBox/NetworkUtil.pm:55
+#: src/EBox/Network.pm:2692 src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "گذرگاه {gw} غیر قابل دسترس می باشد"
 
-#: src/EBox/Network.pm:2631
+#: src/EBox/Network.pm:2695
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
@@ -351,52 +351,52 @@ msgstr ""
 "گذرگاه {gw} باید توسط یک واسط ایستا قابل دسترس باشد. در حال حاضر توسط "
 "{iface} که ایستا نمی باشد، قابل دسترس است"
 
-#: src/EBox/Network.pm:2888 src/EBox/Network.pm:2909
+#: src/EBox/Network.pm:2952 src/EBox/Network.pm:2973
 msgid "Host name"
 msgstr "نام میزبان"
 
-#: src/EBox/Network.pm:2959
+#: src/EBox/Network.pm:3023
 msgid "down"
 msgstr "از کار افتاده"
 
-#: src/EBox/Network.pm:2965
+#: src/EBox/Network.pm:3029
 msgid "up"
 msgstr "در حال کار"
 
-#: src/EBox/Network.pm:2969
+#: src/EBox/Network.pm:3033
 msgid "link ok"
 msgstr "پیوند صحیح است"
 
-#: src/EBox/Network.pm:2971
+#: src/EBox/Network.pm:3035
 msgid "no link"
 msgstr "بدون پیوند"
 
-#: src/EBox/Network.pm:2979
+#: src/EBox/Network.pm:3043
 msgid "MAC address"
 msgstr "آدرس MAC"
 
-#: src/EBox/Network.pm:2996
+#: src/EBox/Network.pm:3060
 msgid "Tx bytes"
 msgstr "بایت های Tx"
 
-#: src/EBox/Network.pm:3005
+#: src/EBox/Network.pm:3069
 msgid "Rx bytes"
 msgstr "بایت های Rx"
 
-#: src/EBox/Network.pm:3043
+#: src/EBox/Network.pm:3107
 msgid "Interfaces"
 msgstr "واسط ها"
 
-#: src/EBox/Network.pm:3049 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3113 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "گذرگاه ها"
 
-#: src/EBox/Network.pm:3051 src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:3115 src/EBox/Model/StaticRoute.pm:177
 #, fuzzy
 msgid "Static Routes"
 msgstr "مسیرهای ایستا"
 
-#: src/EBox/Network.pm:3057
+#: src/EBox/Network.pm:3121
 #, fuzzy
 msgid "Diagnostic Tools"
 msgstr "عیب یابی"

@@ -135,8 +135,7 @@ msgstr "Der Webmail-Name wird im Loginbildschirm und Seitentiteln genutzt."
 msgid "General configuration"
 msgstr "Konfiguration"
 
-#: src/EBox/WebMail/Model/Options.pm:58
-#: src/EBox/WebMail.pm:66
+#: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:66
 msgid "Webmail"
 msgstr "Webmail"
 

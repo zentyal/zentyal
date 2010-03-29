@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-12-03 13:01+0000\n"
+"POT-Creation-Date: 2010-03-29 16:02+0200\n"
 "PO-Revision-Date: 2009-08-28 12:20+0200\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -147,6 +147,19 @@ msgstr ""
 #: src/templates/date.mas:97
 msgid "Change"
 msgstr "Endre"
+
+#: src/templates/datetime.mas:8
+msgid "Time Synchronization with NTP Servers"
+msgstr ""
+
+#: src/templates/datetime.mas:9
+#, fuzzy
+msgid "External NTP Servers"
+msgstr "NTP servere"
+
+#: src/templates/datetime.mas:10
+msgid "Change Date and Time"
+msgstr ""
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"

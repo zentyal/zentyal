@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:51+0100\n"
+"POT-Creation-Date: 2010-03-29 16:52+0200\n"
 "PO-Revision-Date: 2010-01-13 22:15+0100\n"
 "Last-Translator: Тони Стоев <ebox@tonistoev.info>\n"
 "Language-Team: none\n"
@@ -37,19 +37,19 @@ msgstr "Състояние на модула"
 msgid "Interface"
 msgstr "Интерфейс"
 
-#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:218
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:215
 #: src/EBox/DHCP.pm:1265 src/EBox/DHCP.pm:1333 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC адрес"
 
 #: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:242
-#: src/EBox/Model/FixedAddressTable.pm:224 src/EBox/DHCP.pm:1333
+#: src/EBox/Model/FixedAddressTable.pm:221 src/EBox/DHCP.pm:1333
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "IP адрес"
 
 #: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
-#: src/EBox/Model/FixedAddressTable.pm:212 src/EBox/Model/RangeTable.pm:213
+#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/Model/RangeTable.pm:213
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
 msgstr "Име"
@@ -69,7 +69,7 @@ msgid "module status"
 msgstr "състояние на модула"
 
 #: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
-#: src/EBox/Model/FixedAddressTable.pm:96 src/EBox/Model/DynamicDNS.pm:111
+#: src/EBox/Model/FixedAddressTable.pm:98 src/EBox/Model/DynamicDNS.pm:111
 #: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/Options.pm:119
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/OptionsTab.pm:87
 #: src/EBox/Composite/InterfaceConfiguration.pm:87
@@ -195,35 +195,30 @@ msgstr ""
 "Време на заемане е времето, през което даден IP адрес е валиден според DHCP "
 "сървъра."
 
-#: src/EBox/Model/FixedAddressTable.pm:122
+#: src/EBox/Model/FixedAddressTable.pm:124
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
 msgstr "IP адресът {ip} не е в мрежа {net}."
 
-#: src/EBox/Model/FixedAddressTable.pm:133
+#: src/EBox/Model/FixedAddressTable.pm:135
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
 msgstr "Избраното IP е IP адресът на интерфейса: {ifaceIP}"
 
-#: src/EBox/Model/FixedAddressTable.pm:150
+#: src/EBox/Model/FixedAddressTable.pm:152
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "IP адресът {ip} е в обхват '{range}': {from} - {to}"
 
-#: src/EBox/Model/FixedAddressTable.pm:162
-#, perl-brace-format
-msgid "{name} cannot contain spaces"
-msgstr "{name} не може да съдържа интервали."
-
-#: src/EBox/Model/FixedAddressTable.pm:180
+#: src/EBox/Model/FixedAddressTable.pm:177
 msgid "update"
 msgstr "обновяване"
 
-#: src/EBox/Model/FixedAddressTable.pm:182
+#: src/EBox/Model/FixedAddressTable.pm:179
 msgid "add"
 msgstr "добавяне"
 
-#: src/EBox/Model/FixedAddressTable.pm:184
+#: src/EBox/Model/FixedAddressTable.pm:181
 #, perl-brace-format
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
@@ -232,19 +227,19 @@ msgstr ""
 "Не можете да извършите действие {action} за фиксиран адрес с име, което вече "
 "се ползва в друга таблица на фиксирани адреси."
 
-#: src/EBox/Model/FixedAddressTable.pm:227
+#: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr "Не можете да използвате IP адрес, съдържан в горните обхвати."
 
-#: src/EBox/Model/FixedAddressTable.pm:232
+#: src/EBox/Model/FixedAddressTable.pm:229
 msgid "Description"
 msgstr "Описание"
 
-#: src/EBox/Model/FixedAddressTable.pm:240 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:237 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Постоянни адреси"
 
-#: src/EBox/Model/FixedAddressTable.pm:247
+#: src/EBox/Model/FixedAddressTable.pm:244
 msgid "fixed address"
 msgstr "Постоянен адрес"
 
@@ -515,6 +510,11 @@ msgstr "Обхвати"
 msgid "range"
 msgstr "обхват"
 
+#: src/EBox/DHCP.pm:119
+#, fuzzy, perl-brace-format
+msgid "{server} configuration file"
+msgstr "Настройки на услуги"
+
 #: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
 #: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708
 #: src/EBox/DHCP.pm:823 src/EBox/DHCP.pm:879
@@ -664,6 +664,9 @@ msgstr ""
 #: src/templates/options.mas:64
 msgid "Apply"
 msgstr "Прилагане"
+
+#~ msgid "{name} cannot contain spaces"
+#~ msgstr "{name} не може да съдържа интервали."
 
 #~ msgid "Infrastructure"
 #~ msgstr "Инфраструктура"

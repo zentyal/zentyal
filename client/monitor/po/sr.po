@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-monitor 1.3.12Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:05+0000\n"
+"POT-Creation-Date: 2010-03-29 16:53+0200\n"
 "PO-Revision-Date: 2009-12-03 12:58+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -359,8 +359,8 @@ msgid ""
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
-#: src/EBox/Monitor.pm:166
+#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:73
+#: src/EBox/Monitor.pm:167
 msgid "Monitor"
 msgstr ""
 
@@ -388,12 +388,12 @@ msgstr ""
 msgid "That is below the {severity} threshold of {bound}."
 msgstr ""
 
-#: src/EBox/Monitor.pm:133
+#: src/EBox/Monitor.pm:134
 #, perl-brace-format
 msgid "{daemon} main configuration file"
 msgstr ""
 
-#: src/EBox/Monitor.pm:138
+#: src/EBox/Monitor.pm:139
 #, perl-brace-format
 msgid "{daemon} thresholds configuration file"
 msgstr ""

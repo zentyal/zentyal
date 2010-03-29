@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-egroupware 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 16:31+0000\n"
+"POT-Creation-Date: 2010-03-29 16:10+0200\n"
 "PO-Revision-Date: 2010-03-26 10:44+0100\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -106,7 +106,8 @@ msgstr "mall"
 msgid ""
 "Edit the permission templates with the allowed applications that can be "
 "assigned to users or groups."
-msgstr "Õiguste mallis saab muuta kasutajatele ja gruppidele lubatud rakendusi."
+msgstr ""
+"Õiguste mallis saab muuta kasutajatele ja gruppidele lubatud rakendusi."
 
 #: src/EBox/Model/VMailDomain.pm:54
 msgid "No domain selected"
@@ -127,8 +128,8 @@ msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
-"Lubatud peab olema IMAP teenus. Selle lubamiseks mine sektsiooni "
-"{ohref}üldine e-posti seadistamine{chref}."
+"Lubatud peab olema IMAP teenus. Selle lubamiseks mine sektsiooni {ohref}"
+"üldine e-posti seadistamine{chref}."
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
@@ -166,3 +167,35 @@ msgstr ""
 #: src/EBox/Composite/General.pm:89
 msgid "EGroupware"
 msgstr "eRühmavara"
+
+#: src/templates/egroupware.mas:9
+#, fuzzy
+msgid "eGroupware account"
+msgstr "eRühmavara"
+
+#: src/templates/egroupware.mas:10
+msgid "Password for eGroupware service is the user password"
+msgstr ""
+
+#: src/templates/egroupware.mas:12
+#, fuzzy
+msgid "eGroupware group"
+msgstr "eRühmavara"
+
+# või "lubade mallid"
+#: src/templates/egroupware.mas:28
+#, fuzzy
+msgid "Permissions template"
+msgstr "Määratud õiguste mallid"
+
+#: src/templates/egroupware.mas:39
+msgid "Default"
+msgstr ""
+
+#: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
+msgid "Change"
+msgstr ""
+
+#: src/templates/egroupware.mas:85
+msgid "Click here to select a virtual domain"
+msgstr ""

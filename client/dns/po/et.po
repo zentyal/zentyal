@@ -44,8 +44,7 @@ msgstr "{zone} tsooni seadistusfail"
 
 # mina kasutaks sõna 'resolvimis'
 #: src/EBox/DNS.pm.in:560
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "Tagurpidi lahendamise tsooni {zone} seadistusfail"
 
@@ -66,7 +65,8 @@ msgstr "Bind deemoni dünaamilise uuendamise lubamine"
 msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
-msgstr "Samas domeenis on juba masinal \"{hostname}\" samasugune alias \"{name}\""
+msgstr ""
+"Samas domeenis on juba masinal \"{hostname}\" samasugune alias \"{name}\""
 
 #: src/EBox/Model/HostnameTable.pm:169
 msgid "The domain is set as read only. You cannot add host names"
@@ -146,8 +146,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
-"Antud masinanimi ei sobi täielikuks domeeninimeks (FQDN). Kas mõtlesid "
-"mx.{name}?"
+"Antud masinanimi ei sobi täielikuks domeeninimeks (FQDN). Kas mõtlesid mx."
+"{name}?"
 
 # "mail exchanger" vaste?
 #: src/EBox/Model/MailExchanger.pm:132
@@ -156,7 +156,8 @@ msgstr "Domeen on kirjutuskaitstega. Sa ei saa meilivahendajaid lisada"
 
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:134
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
-msgstr "Kui sa valid \"Kohandatud\", peaks see olema täielik domeeninimi (FQDN)"
+msgstr ""
+"Kui sa valid \"Kohandatud\", peaks see olema täielik domeeninimi (FQDN)"
 
 #: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:140
 msgid "This domain"
@@ -200,7 +201,8 @@ msgstr "Meilivahendaja kirje"
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
-"Aliaseks ei saa olla nimeserveri nimi \"{ns}\". Kasuta selle asemel masinanime"
+"Aliaseks ei saa olla nimeserveri nimi \"{ns}\". Kasuta selle asemel "
+"masinanime"
 
 # paremat sõnastust äkki?
 #: src/EBox/Model/AliasTable.pm:93
@@ -215,8 +217,8 @@ msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
 msgstr ""
-"Samas domeenis on juba olemas alias nimega \"{name}\" mis kuulub masinanimele "
-"{hostname}"
+"Samas domeenis on juba olemas alias nimega \"{name}\" mis kuulub "
+"masinanimele {hostname}"
 
 #: src/EBox/Model/AliasTable.pm:147
 msgid "alias"
@@ -229,8 +231,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "ns.{name}?"
 msgstr ""
-"Antud masina nimi ei sobi täielikuks domeeninimeks (FQDN). Kas mõtlesid "
-"ns.{name}?"
+"Antud masina nimi ei sobi täielikuks domeeninimeks (FQDN). Kas mõtlesid ns."
+"{name}?"
 
 #: src/EBox/Model/NameServer.pm:112
 msgid "The domain is set as read only. You cannot add name servers"

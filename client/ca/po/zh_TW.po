@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:51+0100\n"
+"POT-Creation-Date: 2010-03-29 16:52+0200\n"
 "PO-Revision-Date: 2009-08-04 00:26+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -17,23 +17,23 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:46
+#: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:49
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:116
+#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:119
 msgid "Certification Authority"
 msgstr "憑證機構"
 
-#: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:115
+#: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:119
 msgid "CA passphrases do NOT match"
 msgstr "CA 密語不符"
 
-#: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:123
+#: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:127
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "CA 密語最少應該有 {length} 個字元"
 
 #: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:96
-#: src/EBox/CGI/IssueCertificate.pm:133
+#: src/EBox/CGI/IssueCertificate.pm:137
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
 msgstr "到期日({days}) 必須為正數"
@@ -50,14 +50,14 @@ msgstr "該憑證尚未註銷。"
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "代表憑證機構憑證之布林值"
 
-#: src/EBox/CGI/RevokeCertificate.pm:72 src/templates/formRevoke.mas:57
+#: src/EBox/CGI/RevokeCertificate.pm:72 src/templates/formRevoke.mas:67
 msgid "Reason"
 msgstr "原因"
 
 #: src/EBox/CGI/RevokeCertificate.pm:77 src/EBox/CGI/RenewCertificate.pm:75
-#: src/EBox/CGI/IssueCertificate.pm:101 src/EBox/CGI/ShowForm.pm:64
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:748 src/EBox/CA.pm:911
-#: src/EBox/CA.pm:1248 src/EBox/CA.pm:1290 src/EBox/CA.pm:1384
+#: src/EBox/CGI/IssueCertificate.pm:104 src/EBox/CGI/ShowForm.pm:64
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:761 src/EBox/CA.pm:929
+#: src/EBox/CA.pm:1277 src/EBox/CA.pm:1319 src/EBox/CA.pm:1413
 #: src/EBox/Model/Certificates.pm:235 src/EBox/CA/TestStub.pm:438
 #: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
 #: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
@@ -66,7 +66,7 @@ msgid "Common Name"
 msgstr "一般名稱"
 
 #: src/EBox/CGI/RevokeCertificate.pm:81 src/EBox/CGI/RenewCertificate.pm:79
-#: src/EBox/CGI/IssueCertificate.pm:140 src/EBox/CGI/ShowForm.pm:68
+#: src/EBox/CGI/ShowForm.pm:68
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -103,18 +103,38 @@ msgstr "該憑證已經換新"
 msgid "The new CA certificate has been renewed"
 msgstr "新的 CA 憑證已經換新"
 
-#: src/EBox/CGI/IssueCertificate.pm:99 src/EBox/CA.pm:253 src/EBox/CA.pm:530
+#: src/EBox/CGI/IssueCertificate.pm:102 src/EBox/CA.pm:256 src/EBox/CA.pm:533
 #: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
 #: src/templates/formRenew.mas:37 src/templates/formRevoke.mas:22
 #: src/templates/index.mas:22 src/templates/createCA.mas:7
 msgid "Organization Name"
 msgstr "組織名稱"
 
-#: src/EBox/CGI/IssueCertificate.pm:162
+#: src/EBox/CGI/IssueCertificate.pm:145
+#, fuzzy, perl-brace-format
+msgid ""
+"The input contains invalid characters. All {ascii} alphanumeric characters, "
+"plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
+msgstr ""
+"輸入包含無效的字元。只能使用所有的英文字母與數字，和這些非字母與數字的字"
+"元：.?&+:-@* 和空白。"
+
+#: src/EBox/CGI/IssueCertificate.pm:177 src/EBox/CA.pm:2564
+#, perl-brace-format
+msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
+msgstr ""
+
+#: src/EBox/CGI/IssueCertificate.pm:184
+msgid ""
+"The Subject Alternative Name parameter must follow this pattern: type:value, "
+"type:value"
+msgstr ""
+
+#: src/EBox/CGI/IssueCertificate.pm:206
 msgid "The certificate has been issued."
 msgstr "該憑證已經簽發。"
 
-#: src/EBox/CGI/IssueCertificate.pm:163
+#: src/EBox/CGI/IssueCertificate.pm:207
 msgid "The new CA certificate has been issued."
 msgstr "新的 CA 憑證已經簽發。"
 
@@ -135,27 +155,27 @@ msgstr "一般名稱：{cn} 不存在於資料庫中"
 msgid "Error creating file"
 msgstr "建立檔案時發生錯誤"
 
-#: src/EBox/CA.pm:294 src/EBox/CA.pm:765 src/EBox/CA.pm:1363
+#: src/EBox/CA.pm:297 src/EBox/CA.pm:778 src/EBox/CA.pm:1392
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "日期允許最大的設定值 {days}: Year 2038 Bug"
 
-#: src/EBox/CA.pm:389
+#: src/EBox/CA.pm:392
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "移除操作無法完成.原因是: "
 
-#: src/EBox/CA.pm:544 src/EBox/CA/TestStub.pm:259
+#: src/EBox/CA.pm:547 src/EBox/CA/TestStub.pm:259
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr "CA 憑證應該撤銷或是在發出新的憑證前已過期"
 
-#: src/EBox/CA.pm:924 src/EBox/CA.pm:1259
+#: src/EBox/CA.pm:942 src/EBox/CA.pm:1288
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "憑證具有一般名稱{cn} 的並不存在"
 
-#: src/EBox/CA.pm:928
+#: src/EBox/CA.pm:946
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -164,140 +184,140 @@ msgstr ""
 "原因 {reason} 並非合適的理由。\n"
 "選項："
 
-#: src/EBox/CA.pm:1071
+#: src/EBox/CA.pm:1093
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 
-#: src/EBox/CA.pm:1163
+#: src/EBox/CA.pm:1192
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "一般名稱、易記名稱或序號之一已通過"
 
-#: src/EBox/CA.pm:1385
+#: src/EBox/CA.pm:1414
 msgid "or"
 msgstr "或"
 
-#: src/EBox/CA.pm:1386
+#: src/EBox/CA.pm:1415
 msgid "Certificate file"
 msgstr "憑證檔案"
 
-#: src/EBox/CA.pm:1408
+#: src/EBox/CA.pm:1437
 msgid "The certificate to renew does NOT exist"
 msgstr "要換新的憑證不存在"
 
-#: src/EBox/CA.pm:1448
+#: src/EBox/CA.pm:1477
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "憑證有一般名稱{cn}的並不在這個 CA 中"
 
-#: src/EBox/CA.pm:1476
+#: src/EBox/CA.pm:1507
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
 msgstr ""
 "建立新的申請需要私密金鑰密語。沒有做任何換新的動作。使用新的金鑰簽發新的憑證"
 
-#: src/EBox/CA.pm:1718
+#: src/EBox/CA.pm:1752
 msgid "General"
 msgstr "一般"
 
-#: src/EBox/CA.pm:1721 src/EBox/Model/Certificates.pm:251
+#: src/EBox/CA.pm:1755 src/EBox/Model/Certificates.pm:251
 msgid "Services Certificates"
 msgstr "服務憑證"
 
-#: src/EBox/CA.pm:1808
+#: src/EBox/CA.pm:1842
 msgid "Not created"
 msgstr ""
 
-#: src/EBox/CA.pm:1810
+#: src/EBox/CA.pm:1844
 msgid "Available"
 msgstr ""
 
-#: src/EBox/CA.pm:1812
+#: src/EBox/CA.pm:1846
 msgid "Created but not available"
 msgstr ""
 
-#: src/EBox/CA.pm:2307
+#: src/EBox/CA.pm:2412
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr "無法簽署。CA 密語錯誤或是遺失 CA 私密金鑰？"
 
-#: src/EBox/CA.pm:2309
+#: src/EBox/CA.pm:2414
 msgid "Database corruption"
 msgstr "資料庫損壞"
 
-#: src/EBox/CA.pm:2311
+#: src/EBox/CA.pm:2416
 msgid "Identifier duplicated in Database"
 msgstr "資料庫中的識別符重複"
 
-#: src/EBox/CA.pm:2313
+#: src/EBox/CA.pm:2418
 msgid "Certificate already revoked"
 msgstr "憑證已經註銷"
 
-#: src/EBox/CA.pm:2316
+#: src/EBox/CA.pm:2421
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 欄位長度太長。最大的大小為："
 
-#: src/EBox/CA.pm:2318
+#: src/EBox/CA.pm:2423
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "不明的錯誤。顯示 OpenSSL 輸出："
 
-#: src/EBox/CA.pm:2393
+#: src/EBox/CA.pm:2498
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
 "validity for {days} days"
 msgstr "已建立組織名稱為 {orgName} 且有效期限為 {days} 天的憑證機構"
 
-#: src/EBox/CA.pm:2395
+#: src/EBox/CA.pm:2500
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "已銷毀組織名稱為 {orgName} 的憑證機構"
 
-#: src/EBox/CA.pm:2397
+#: src/EBox/CA.pm:2502
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "已註銷 CA 憑證原因為 {reason} 強制：{force}"
 
-#: src/EBox/CA.pm:2399
+#: src/EBox/CA.pm:2504
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr "已簽發組織名稱為 {orgName} 且有效期限為 {days} 天的 CA 憑證"
 
-#: src/EBox/CA.pm:2401
+#: src/EBox/CA.pm:2506
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr "已換新組織名稱為 {orgName} 且有效期限為 {days} 天的 CA 憑證"
 
-#: src/EBox/CA.pm:2403
+#: src/EBox/CA.pm:2508
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr "已簽發一般名稱為 {cn} 且有效期限為 {days} 天的憑證"
 
-#: src/EBox/CA.pm:2405
+#: src/EBox/CA.pm:2510
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
 msgstr "已註銷一般名稱為 {cn} 的憑證原因為 {reason} 強制：{force}"
 
-#: src/EBox/CA.pm:2407
+#: src/EBox/CA.pm:2512
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr "已換新一般名稱為 {cn} 且有效期限為 {days} 天的憑證"
 
-#: src/EBox/CA.pm:2409
+#: src/EBox/CA.pm:2514
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr "已更新憑證資料庫。 {number} 個憑證已過期"
 
-#: src/EBox/CA.pm:2429 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:2534 src/EBox/CA/TestStub.pm:729
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "到期日晚於 CA 憑證到期日"
 
-#: src/EBox/CA.pm:2556
+#: src/EBox/CA.pm:2664
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "不能啟動 OpenSSL 系統殼。 ({errval})"
@@ -344,12 +364,12 @@ msgstr "使用者{commonName} 不存在"
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "日期設定為允許的最大值：2038 年問題"
 
-#: src/templates/formRenew.mas:17 src/templates/formRevoke.mas:65
+#: src/templates/formRenew.mas:17 src/templates/formRevoke.mas:75
 msgid "CA Passphrase"
 msgstr "CA 密語"
 
-#: src/templates/formRenew.mas:23 src/templates/index.mas:160
-#: src/templates/index.mas:177 src/templates/forceRenew.mas:27
+#: src/templates/formRenew.mas:23 src/templates/index.mas:184
+#: src/templates/index.mas:201 src/templates/forceRenew.mas:27
 msgid "Renew"
 msgstr "換新"
 
@@ -361,6 +381,11 @@ msgstr "換新憑證"
 msgid "Expiration Date"
 msgstr "到期日"
 
+#: src/templates/formRenew.mas:61 src/templates/formRevoke.mas:46
+#: src/templates/index.mas:57
+msgid "Subject Alternative Names"
+msgstr ""
+
 #: src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"
 msgstr "註銷憑證"
@@ -369,8 +394,8 @@ msgstr "註銷憑證"
 msgid "Revoke the selected certificate"
 msgstr "註銷選取的憑證"
 
-#: src/templates/formRevoke.mas:71 src/templates/index.mas:141
-#: src/templates/index.mas:173 src/templates/forceRevoke.mas:42
+#: src/templates/formRevoke.mas:81 src/templates/index.mas:165
+#: src/templates/index.mas:197 src/templates/forceRevoke.mas:42
 msgid "Revoke"
 msgstr "註銷"
 
@@ -382,70 +407,82 @@ msgstr "國碼"
 msgid "City"
 msgstr "市"
 
-#: src/templates/index.mas:47 src/templates/index.mas:84
+#: src/templates/index.mas:47 src/templates/index.mas:99
 #: src/templates/createCA.mas:16
 msgid "State"
 msgstr "州"
 
-#: src/templates/index.mas:57
+#: src/templates/index.mas:58
+#, perl-brace-format
+msgid ""
+"Multi-value separated by commas, only valid types are: {dns}, {ip} and "
+"{email}. For instance, {example}"
+msgstr ""
+
+#: src/templates/index.mas:72
 msgid "Issue"
 msgstr "簽發"
 
-#: src/templates/index.mas:62
+#: src/templates/index.mas:77
 msgid "Certificate changes will take effect immediately"
 msgstr "憑證的變更將主即生效"
 
-#: src/templates/index.mas:64
+#: src/templates/index.mas:79
 msgid "The CA passphrase is optional"
 msgstr "CA 密語是選擇性的"
 
-#: src/templates/index.mas:68
+#: src/templates/index.mas:83
 msgid "Issue the Certification Authority Certificate"
 msgstr "簽發憑證管理中心的憑證"
 
-#: src/templates/index.mas:70
+#: src/templates/index.mas:85
 msgid "Issue a New Certificate"
 msgstr "簽發新的憑證"
 
-#: src/templates/index.mas:77
+#: src/templates/index.mas:92
 msgid "Current Certificate List"
 msgstr "目前的憑證清單"
 
-#: src/templates/index.mas:79
+#: src/templates/index.mas:94
 msgid ""
 "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
 "Revoked certificates respectively"
 msgstr "日期分別參照到效力/到期中的到期日和已註銷憑證中的註銷日期"
 
-#: src/templates/index.mas:83
+#: src/templates/index.mas:98
 msgid "Name"
 msgstr "名稱"
 
-#: src/templates/index.mas:85
+#: src/templates/index.mas:100
 msgid "Date"
 msgstr "日期"
 
-#: src/templates/index.mas:86
+#: src/templates/index.mas:101
 msgid "Actions"
 msgstr "動作"
 
-#: src/templates/index.mas:97
+#: src/templates/index.mas:117
 msgid "from"
 msgstr "從"
 
-#: src/templates/index.mas:108
+#: src/templates/index.mas:128
 msgid "Valid"
 msgstr "有效的"
 
-#: src/templates/index.mas:110
+#: src/templates/index.mas:130
 msgid "Expired"
 msgstr "已逾期"
 
-#: src/templates/index.mas:112
+#: src/templates/index.mas:132
 msgid "Revoked"
 msgstr "已註銷"
 
-#: src/templates/index.mas:150 src/templates/index.mas:175
+#: src/templates/index.mas:137
+#, perl-brace-format
+msgid "Reason: {reason}"
+msgstr ""
+
+#: src/templates/index.mas:174 src/templates/index.mas:199
 msgid "Download Key(s) and Certificate"
 msgstr "下載金鑰與憑證"
 

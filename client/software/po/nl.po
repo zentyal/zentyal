@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-22 10:54+0100\n"
+"POT-Creation-Date: 2010-03-29 16:55+0200\n"
 "PO-Revision-Date: 2009-10-05 23:20+0200\n"
 "Last-Translator: Marco Luken <marcoluken@kabelfoon.net>\n"
 "Language-Team: none\n"
@@ -206,6 +206,11 @@ msgstr ""
 #: src/templates/del.mas:33
 msgid "Cancel"
 msgstr ""
+
+#: src/templates/config.mas:8
+#, fuzzy
+msgid "Perform automatic security updates"
+msgstr "Automatische software updates"
 
 #: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"

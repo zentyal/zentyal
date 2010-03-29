@@ -17,8 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:70
-#: src/EBox/Event/Watcher/EBackup.pm:124
+#: src/EBox/EBackup.pm:70 src/EBox/Event/Watcher/EBackup.pm:124
 #: src/EBox/Composite/Remote.pm:64
 msgid "Backup"
 msgstr "Sicherung"
@@ -69,8 +68,7 @@ msgstr ""
 msgid "There is no information about the backuped files yet"
 msgstr "Keine Information über bereits gesicherte Dateien vorhanden"
 
-#: src/EBox/Model/RemoteStatus.pm:136
-#: src/EBox/Model/RemoteExcludes.pm:76
+#: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
 msgstr "Typ"
 
@@ -113,8 +111,7 @@ msgstr "Passwort"
 msgid "Encryption"
 msgstr "Verschlüsselung"
 
-#: src/EBox/Model/RemoteSettings.pm:171
-#: src/EBox/Model/RemoteSettings.pm:260
+#: src/EBox/Model/RemoteSettings.pm:171 src/EBox/Model/RemoteSettings.pm:260
 #: src/EBox/Model/RemoteSettings.pm:374
 msgid "Disabled"
 msgstr "deaktiviert"
@@ -178,8 +175,8 @@ msgid ""
 "{ohref}eBox on-line store{chref}."
 msgstr ""
 "{oi}{brand}{ci} ist ein sicherer und einfacher Fernspeicherplatz um Ihre "
-"Daten vom eBox Server. Kaufen Sie sich Sicherungs-Speicherplatz im "
-"{ohref}eBox Online Shop{chref}."
+"Daten vom eBox Server. Kaufen Sie sich Sicherungs-Speicherplatz im {ohref}"
+"eBox Online Shop{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:415
 msgid "Destination must be a relative directory"
@@ -190,8 +187,7 @@ msgid "The target parameter that must be like 'other.host[:port]/some_dir"
 msgstr ""
 "Der Ziel Parameter muss 'anderer.host[:port]/ein_verzeichnis' entsprechen"
 
-#: src/EBox/Model/RemoteSettings.pm:472
-#: src/EBox/Model/RemoteSettings.pm:506
+#: src/EBox/Model/RemoteSettings.pm:472 src/EBox/Model/RemoteSettings.pm:506
 msgid "target"
 msgstr "Ziel"
 
@@ -199,13 +195,11 @@ msgstr "Ziel"
 msgid "Must be a like 'other.host[:port]/some_dir'"
 msgstr "Muss 'anderer.host[:port]/ein_verzeichnis' entsprechen"
 
-#: src/EBox/Model/RemoteSettings.pm:481
-#: src/EBox/Model/RemoteSettings.pm:516
+#: src/EBox/Model/RemoteSettings.pm:481 src/EBox/Model/RemoteSettings.pm:516
 msgid "host"
 msgstr "Host"
 
-#: src/EBox/Model/RemoteSettings.pm:483
-#: src/EBox/Model/RemoteSettings.pm:518
+#: src/EBox/Model/RemoteSettings.pm:483 src/EBox/Model/RemoteSettings.pm:518
 msgid "port"
 msgstr "Port"
 
@@ -243,8 +237,7 @@ msgid ""
 msgstr ""
 "Die Dateisystem-Methode benötigt einen Verzeichnis-Pfad als Ziel-Parameter"
 
-#: src/EBox/Model/RemoteSettings.pm:545
-#: src/EBox/Model/RemoteSettings.pm:549
+#: src/EBox/Model/RemoteSettings.pm:545 src/EBox/Model/RemoteSettings.pm:549
 msgid "Directory for backup"
 msgstr "Verzeichnis für Sicherung"
 

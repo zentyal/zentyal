@@ -71,8 +71,7 @@ msgid ""
 "configured. To configure it enable it at least one time"
 msgstr ""
 "HTML kataloogide lubamiseks kasutajatele on vajalik, et failijagamise moodul "
-"oleks seadistatud. Selle seadistamiseks pead sa ta vähemalt ühe korra "
-"lubama."
+"oleks seadistatud. Selle seadistamiseks pead sa ta vähemalt ühe korra lubama."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
@@ -201,8 +200,7 @@ msgstr "virtuaalhost"
 
 # ei osanud hästi "The added mapping" tõlkida
 #: src/EBox/WebServer/Model/VHostTable.pm:283
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"

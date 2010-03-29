@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 16:31+0000\n"
+"POT-Creation-Date: 2010-03-29 16:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,4 +148,32 @@ msgstr ""
 
 #: src/EBox/Composite/General.pm:89
 msgid "EGroupware"
+msgstr ""
+
+#: src/templates/egroupware.mas:9
+msgid "eGroupware account"
+msgstr ""
+
+#: src/templates/egroupware.mas:10
+msgid "Password for eGroupware service is the user password"
+msgstr ""
+
+#: src/templates/egroupware.mas:12
+msgid "eGroupware group"
+msgstr ""
+
+#: src/templates/egroupware.mas:28
+msgid "Permissions template"
+msgstr ""
+
+#: src/templates/egroupware.mas:39
+msgid "Default"
+msgstr ""
+
+#: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
+msgid "Change"
+msgstr ""
+
+#: src/templates/egroupware.mas:85
+msgid "Click here to select a virtual domain"
 msgstr ""
