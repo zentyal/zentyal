@@ -25,10 +25,8 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 </div>
 <h3><% __('Backup the Current State') %></h3>
 <div class='help'>
-	<% __("Backups will be stored in eBox and then you will be able to
-  download them to your hard disk.") %><br/>
-        <% __("If you have the file sharing module configured, all users having
-  administration rights will be able to access the backup directory as a shared resource.") %>
+	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk.") %><br/>
+        <% __("If you have the file sharing module configured, all users having administration rights will be able to access the backup directory as a shared resource.") %>
 </div>	
 % if ($modulesChanged) {
   <div class='warning'>

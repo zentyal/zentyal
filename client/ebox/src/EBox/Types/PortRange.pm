@@ -290,11 +290,11 @@ sub rangeTypes
                       },
                       {
                        value => 'single',
-                       printableValue => 'Single port',
+                       printableValue => __('Single port'),
                       },
                       {
                        value => 'range',
-                       printableValue => 'Port range',
+                       printableValue => __('Port range'),
                       },
                      );
 
