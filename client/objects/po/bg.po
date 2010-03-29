@@ -8,32 +8,33 @@ msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:53+0100\n"
-"PO-Revision-Date: 2008-07-04 08:18+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-03-13 21:55+0100\n"
+"Last-Translator: Blagovest Petrov <blagovest@petrovs.info>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
 #: src/EBox/Model/MemberTable.pm:93
 msgid "Objects"
-msgstr ""
+msgstr "Обекти"
 
 #: src/EBox/Objects.pm:44
 #, perl-brace-format
 msgid "Added object {object}"
-msgstr ""
+msgstr "Добавен обект {object}"
 
 #: src/EBox/Objects.pm:46
 #, perl-brace-format
 msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr ""
+msgstr "Добавен {nname} ({ip}/{mask} [{mac}]) към обект {object}"
 
 #: src/EBox/Objects.pm:47
 #, perl-brace-format
 msgid "Removed object {object}"
-msgstr ""
+msgstr "Премахнат е обект {object}"
 
 #: src/EBox/Objects.pm:49
 #, perl-brace-format
@@ -43,31 +44,31 @@ msgstr ""
 #: src/EBox/Objects.pm:51
 #, perl-brace-format
 msgid "Removed {nname} from object {object}"
-msgstr ""
+msgstr "Премахнат е {nname}от обект {object}"
 
 #: src/EBox/Objects.pm:270
 msgid "Object"
-msgstr ""
+msgstr "Обект"
 
 #: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
 msgid "Name"
-msgstr ""
+msgstr "Име"
 
 #: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
 msgid "Members"
-msgstr ""
+msgstr "Членове"
 
 #: src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
-msgstr ""
+msgstr "Лист от обести"
 
 #: src/EBox/Model/ObjectTable.pm:91
 msgid "object"
-msgstr ""
+msgstr "обект"
 
 #: src/EBox/Model/ObjectTable.pm:113
 msgid "This object is being used by another module"
-msgstr ""
+msgstr "Този обект е използван от друг модул"
 
 #: src/EBox/Model/ObjectTable.pm:185
 msgid ""
@@ -78,15 +79,15 @@ msgstr ""
 
 #: src/EBox/Model/MemberTable.pm:70
 msgid "IP address"
-msgstr ""
+msgstr "IP адрес"
 
 #: src/EBox/Model/MemberTable.pm:76
 msgid "MAC address"
-msgstr ""
+msgstr "MAC адрес"
 
 #: src/EBox/Model/MemberTable.pm:94
 msgid "member"
-msgstr ""
+msgstr "член"
 
 #: src/EBox/Model/MemberTable.pm:116
 msgid "You can only use MAC addresses with hosts"
@@ -94,9 +95,10 @@ msgstr ""
 
 #: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
 msgid "network address"
-msgstr ""
+msgstr "адрес на мрежа"
 
 #: src/EBox/Model/MemberTable.pm:126
 #, perl-brace-format
+#, fuzzy
 msgid "{ip} overlaps with the address or another object's member"
-msgstr ""
+msgstr "{ip} се застъпва с адреса или с друг член на обекта"

@@ -8,87 +8,91 @@ msgstr ""
 "Project-Id-Version: ebox-radius 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:17+0000\n"
-"PO-Revision-Date: 2010-02-02 17:17+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-03-25 15:02+0100\n"
+"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox RADIUS system"
-msgstr ""
+msgstr "eBox RADIUS süsteem"
 
 #: src/EBox/Model/Auth.pm:103
 msgid "All users"
-msgstr ""
+msgstr "Kõik kasutajad"
 
+# Autentimiseks lubatud grupp
 #: src/EBox/Model/Auth.pm:128
 msgid "Group allowed to authenticate"
-msgstr ""
+msgstr "Grupp millel lubatakse autentimine"
 
 #: src/EBox/Model/Auth.pm:138
 msgid "General configuration"
-msgstr ""
+msgstr "Üldine seadistamine"
 
 #: src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
-msgstr ""
+msgstr "RADIUS serveri seadistamine"
 
 #: src/EBox/Model/Auth.pm:144
 msgid "RADIUS server configuration updated"
-msgstr ""
+msgstr "RADIUS serveri seadistused uuendatud"
 
 #: src/EBox/Model/Clients.pm:112
 msgid "Client"
-msgstr ""
+msgstr "Klient"
 
 #: src/EBox/Model/Clients.pm:119
 msgid "IP Address"
-msgstr ""
+msgstr "IP aadress"
 
 #: src/EBox/Model/Clients.pm:125
+#, fuzzy
 msgid "Shared Secret"
-msgstr ""
+msgstr "Jagatud saladus"
 
 #: src/EBox/Model/Clients.pm:133
 msgid "RADIUS Clients"
-msgstr ""
+msgstr "RADIUS kliendid"
 
 #: src/EBox/Model/Clients.pm:134
 msgid "client"
-msgstr ""
+msgstr "klient"
 
 #: src/EBox/Radius.pm:99
 msgid "Create RADIUS certificates for TTLS"
-msgstr ""
+msgstr "RADIUS sertifikaadi loomine TTLSi jaoks"
 
 #: src/EBox/Radius.pm:100
 msgid ""
 "eBox will create the needed certificates for TTLS in /etc/freeradius/certs/."
 msgstr ""
+"eBox loob vajalikud sertifikaadid TTLSi jaoks siin: /etc/freeradius/certs/"
 
 #: src/EBox/Radius.pm:120
 msgid "To configure allowed LDAP group."
-msgstr ""
+msgstr "LDAP lubatud grupi seadistamiseks."
 
 #: src/EBox/Radius.pm:124
 msgid "To configure RADIUS LDAP module."
-msgstr ""
+msgstr "RADIUS LDAP mooduli seadistamiseks."
 
 #: src/EBox/Radius.pm:128
 msgid "To configure RADIUS clients."
-msgstr ""
+msgstr "RADIUS klientide seadistamiseks."
 
 #: src/EBox/Radius.pm:132
 msgid "To configure default RADIUS vhost."
-msgstr ""
+msgstr "Vaikimisi RADIUS vhosti seadistamiseks."
 
 #: src/EBox/Radius.pm:136
 msgid "To configure RADIUS inner-tunnel vhost."
-msgstr ""
+msgstr "RADIUS inner-tunnel vhosti seadistamiseks."
 
 #: src/EBox/Radius.pm:276 src/EBox/Composite/General.pm:64
 msgid "RADIUS"
-msgstr ""
+msgstr "RADIUS"

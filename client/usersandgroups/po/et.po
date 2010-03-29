@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 1.4.1Report-Msgid-Bugs-To: "
 "bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:45+0000\n"
-"PO-Revision-Date: 2010-02-18 14:36+0100\n"
+"PO-Revision-Date: 2010-03-25 19:40+0100\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,9 +19,8 @@ msgstr ""
 
 # user corner - sisuliselt kasutaja iseteenindusteenus, võib tõlkida ka kuidagi teisiti n. kasutaja iseteenindus(teenus). Antud kontekstis tegemist teenuse 'description'iga.
 #: migration/0001_usercorner_add_webserver_service.pl:54
-#, fuzzy
 msgid "User Corner Web Server"
-msgstr "Kasutajanurga veebiserveri teenus"
+msgstr "Veebiserveri kasutaja nurgake"
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
@@ -81,7 +80,7 @@ msgstr "kommentaar"
 #: src/EBox/UsersAndGroups.pm:1619 src/EBox/UsersAndGroups.pm:1720
 #: src/EBox/UsersAndGroups.pm:1754 src/EBox/UsersAndGroups.pm:1825
 msgid "user name"
-msgstr "kasutaja nimi"
+msgstr "kasutajanimi"
 
 #: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
 msgid "last name"
@@ -110,47 +109,43 @@ msgstr "objekti tüüp"
 
 #: src/EBox/CGI/Del.pm:90
 msgid "User removed successfully"
-msgstr "Kasutaja eemaldamine õnnestus"
+msgstr "Kasutaja eemaldatud"
 
 #: src/EBox/CGI/Del.pm:94
 msgid "Group removed successfully"
-msgstr "Grupi eemaldamine õnnestus"
+msgstr "Grupp eemaldatud"
 
 # vt User Corner Web Server
 #: src/EBox/UserCornerWebServer.pm:37
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
-#, fuzzy
 msgid "User Corner"
-msgstr "Kasutajanurk"
+msgstr "Kasutaja nurgake"
 
 # vbla üleviimine
 #: src/EBox/UserCornerWebServer.pm:63
 msgid "Migrate configured modules"
 msgstr "Seadistatud moodulite ülekanne"
 
-# vbla Vajalik teenuse ligipääsuks seadistatud moodulitele. usercorner siin vist teenusena?
+#  
 #: src/EBox/UserCornerWebServer.pm:64
-#, fuzzy
 msgid "Required for usercorner access to configured modules"
-msgstr "Nõutav kasutajanurga ligipääsuks seadistatud moodulitele."
+msgstr "Nõutav kasutaja nurgakese ligipääsuks seadistatud moodulitele"
 
 # vt esimene string UCWS. Antud kontekstis teenuse nimi.
 #: src/EBox/UserCornerWebServer.pm:171
-#, fuzzy
 msgid "User Corner web server"
-msgstr "Kasutajanurga veebiserver"
+msgstr "Kasutaja nurgakese veebiserver"
 
-# sekundaarne, teisene, sulane. Ei saa kontekstist aru 100%.
+# sekundaarne, teisene, sulane
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:72
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:55
-#, fuzzy
 msgid "Slave"
-msgstr "Alluv"
+msgstr "Alam"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:64
 msgid "Operation"
-msgstr "Tegevus"
+msgstr "Operatsioon"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:69
 msgid "Parameter"
@@ -158,34 +153,31 @@ msgstr "Parameeter"
 
 # vt alam tõlge
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:78
-#, fuzzy
 msgid "List of pending operations on slaves"
-msgstr "Loend alluvate ootel olevatest tegevustest"
+msgstr "Loend alamate ootel olevatest operatsioonidest"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:85
-#, fuzzy
 msgid ""
 "This is a list those operations that need to be run by the slaves because "
 "the master failed to contact them."
 msgstr ""
-"See on loend tegevustest, mille peavad teostama alluvad, kuna ülematel "
+"See on loend operatsioonidest, mille peavad teostama alamad, kuna ülematel "
 "ebaõnnestus nendega kontakteerumine."
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
 msgid "operation"
-msgstr "tegevus"
+msgstr "operatsioon"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:129
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:118
-#, fuzzy
 msgid "You must enable the module Users in master mode."
-msgstr "Kasutajad mooduli peab lubama ülemrežiimis."
+msgstr "Sa pead mooduli kasutajad lubama ülemrežiimis."
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:131
 msgid "There are no pending operations at the moment."
-msgstr "Ootel tegevusi hetkel ei ole."
+msgstr "Ootel operatsioone hetkel ei ole."
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
 msgid "AD user"
@@ -193,9 +185,8 @@ msgstr "AD kasutaja"
 
 # Kasutajanimi sidumiseks Windowsi kataloogiteenusega (kasutaja peab olema loodud ADs)
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:68
-#, fuzzy
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
-msgstr "Kasutajanimi sidumiseks Windowsi ADga (kasutaja peab olema loodud ADs)"
+msgstr "Kasutajanimi sidumiseks Windows ADga (kasutaja peab olema loodud ADs)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
 msgid "AD password"
@@ -203,9 +194,8 @@ msgstr "AD parool"
 
 # koodis: help AD password'ile
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:74
-#, fuzzy
 msgid "Password for the above user"
-msgstr "Ülevalpool oleva kasutaja parool"
+msgstr "Ülalmainitud kasutaja parool"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:78
 msgid "Listen port"
@@ -214,7 +204,7 @@ msgstr "Kuulatav port"
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
 msgid "Port for listening password sync notifications from Windows"
 msgstr ""
-"Port mida kuulatakse parooli sünkroniseerimis teavituste tarbeks Windowsilt"
+"Port mida kuulatakse Windowsi parooli sünkroniseerimis teavituste tarbeks"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
 msgid "AD Secret Key"
@@ -222,13 +212,12 @@ msgstr "AD salajane võti"
 
 # char - märk, sümbol, tähemärk ?
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
-#, fuzzy
 msgid "Secret key to be shared between Windows and eBox (16 chars)"
-msgstr "Windowsi ja eBoxi jagatav salajane võti (pikkus 16 märki)"
+msgstr "Windowsi ja eBoxi vahel jagatav salajane võti (pikkus 16 märki)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
 msgid "Windows AD Sync Settings"
-msgstr "Windowsi AD sünkroniseerimise seaded"
+msgstr "Windowsi AD sünkroniseerimise seadistused"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:114
 msgid "The secret key needs to have 16 characters."
@@ -240,15 +229,13 @@ msgstr "Režiim"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Mode.pm:71
-#, fuzzy
 msgid "Master"
 msgstr "Ülem"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Mode.pm:73
-#, fuzzy
 msgid "Windows AD Slave"
-msgstr "Windows AD alluv"
+msgstr "Windows AD alam"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:80
 msgid "LDAP DN"
@@ -256,9 +243,8 @@ msgstr "LDAP DN"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Mode.pm:85
-#, fuzzy
 msgid "Only for master and AD slave configuration"
-msgstr "Ainult ülema ja AD alluva seadistamiseks"
+msgstr "Ainult ülema ja AD alama seadistamiseks"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
@@ -268,9 +254,8 @@ msgstr "Ülem masin"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Mode.pm:91
-#, fuzzy
 msgid "Only for slave configuration: IP of the master eBox or Windows AD"
-msgstr "Ainult alluva seadistamiseks: ülema eBoxi või Windowsi AD IP aadress"
+msgstr "Ainult alama seadistamiseks: ülema eBoxi või Windowsi AD IP aadress"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:95
 msgid "LDAP password"
@@ -278,13 +263,11 @@ msgstr "LDAP parool"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Mode.pm:97
-#, fuzzy
 msgid "Master eBox LDAP password"
-msgstr "Ülema eBoxi LDAP parool"
+msgstr "Ülem eBoxi LDAP parool"
 
 # koodis: printableTableName  => __('Configuration'),
 #: src/EBox/UsersAndGroups/Model/Mode.pm:103
-#, fuzzy
 msgid "Configuration"
 msgstr "Seadistamine"
 
@@ -306,49 +289,45 @@ msgstr "Kirjeldus"
 msgid "Edit"
 msgstr "Redigeerimine"
 
-# veidi segane lause, äkki peaks mooduli nime ära jätma
+#  
 #: src/EBox/UsersAndGroups/Model/Groups.pm:130
 #: src/EBox/UsersAndGroups/Model/Users.pm:129
-#, fuzzy
 msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
-"Selleks, et moodulit kasutajad saaks kasutada, peab see olema lubatud "
-"moodulite oleku sektsioonis."
+"Kasutajad mooduliga töötamiseks, pead sa selle mooduli oleku sektsioonis "
+"lubama."
 
 # vbla Gruppe hetkel ei ole
 #: src/EBox/UsersAndGroups/Model/Groups.pm:136
-#, fuzzy
 msgid "There are no groups at the moment"
-msgstr "Gruppe hetkel ei eksisteeri"
+msgstr "Gruppe hetkel ei ole"
 
-# kas see master siin on URLis?
+#  
 #: src/EBox/UsersAndGroups/Model/Groups.pm:139
 #, perl-brace-format
-#, fuzzy
 msgid ""
 "This eBox is configured as slave and there are no groups at the moment. You "
 "may want to add some in the {openhref}master{closehref}."
 msgstr ""
-"eBox on seadistatud alluvana ning gruppe hetkel ei eksisteeri. Soovi korral "
-"võid neid lisada {openhref}master{closehref}."
+"eBox on seadistatud alamana ning gruppe hetkel ei ole. Soovi korral võid "
+"neid lisada siin:{openhref}ülem{closehref}."
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Groups.pm:143
-#, fuzzy
 msgid ""
 "This eBox is configured as Windows AD slave and there are no groups at the "
 "moment. If there are groups in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
-"eBox on seadistatud Windowsi AD alluvana ning gruppe hetkel ei eksisteeri. "
-"Kui sinu domeenikontrolleris on grupid olemas siis on võimalik, et "
-"sünkronisatsiooniprotsess ebaõnnestus või ei ole veel lõppenud."
+"eBox on seadistatud Windows AD alamana ning gruppe hetkel ei eksisteeri. Kui "
+"sinu domeenikontrolleris on grupid olemas, siis on võimalik, et "
+"sünkronisatsiooniprotsess nurjus või ei ole veel lõppenud."
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
-msgstr "Paroolide haldamine"
+msgstr "Parooli haldamine"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:59
 msgid "New password"
@@ -356,7 +335,7 @@ msgstr "Uus parool"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:66
 msgid "Re-type new password"
-msgstr "Parooli kordamine"
+msgstr "Uue parooli kordus"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:75
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:73
@@ -371,25 +350,23 @@ msgstr "Parooli uuendamine õnnestus"
 
 # vbla Sunnitud .. v Sünkroniseerimise sundimine v Jõuga sünkroniseerimine
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:91
-#, fuzzy
 msgid "Force sync"
-msgstr "Kohustuslik sünkroniseerimine"
+msgstr "Sünkroniseerimise sundimine"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:93
 msgid "on slaves"
-msgstr "alluvatel"
+msgstr "alamatel"
 
 # vt force sync
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:99
-#, fuzzy
 msgid "Force sync of pending operations"
 msgstr "Ootel tegevuste sunnitud sünkroniseerimine"
 
 # nupp
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:102
 msgid "Sync now"
-msgstr "Sünkroniseeri"
+msgstr "Sünkroniseeri kohe"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:67
 msgid "Base DN"
@@ -416,7 +393,7 @@ msgstr "LDAP informatsioon"
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information"
 msgstr ""
-"Ligipääsuks LDAP informatsioonile peab kasutajate ja gruppide moodul olema "
+"LDAP informatsioonile ligipääsuks peab kasutajate ja gruppide moodul olema "
 "lubatud"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:66
@@ -425,18 +402,17 @@ msgstr "Täielik nimi"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:135
 msgid "There are no users at the moment"
-msgstr "Kasutajaid hetkel ei eksisteeri"
+msgstr "Kasutajaid hetkel ei ole"
 
-# kas see master siin on URLis?
+#  
 #: src/EBox/UsersAndGroups/Model/Users.pm:138
 #, perl-brace-format
-#, fuzzy
 msgid ""
 "This eBox is configured as slave and there are no users at the moment. You "
 "may want to add some in the {openhref}master{closehref}."
 msgstr ""
-"eBox on seadistatud alluvana ning kasutajaid hetkel ei eksisteeri. Soovi "
-"korral võid neid lisada {openhref}master{closehref}."
+"See eBox on seadistatud alamana ning kasutajaid hetkel ei ole. Soovi korral "
+"võid neid lisada siin:{openhref}ülem{closehref}."
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Users.pm:142
@@ -445,9 +421,9 @@ msgid ""
 "moment. If there are users in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
-"eBox on seadistatud Windowsi AD alluvana ning kasutajaid hetkel ei "
-"eksisteeri. Kui sinu domeenikontrolleris on kasutajad olemas siis on "
-"võimalik, et sünkronisatsiooniprotsess ebaõnnestus või ei ole veel lõppenud."
+"eBox on seadistatud Windowsi AD alamana ning kasutajaid hetkel ei ole. Kui "
+"sinu domeenikontrolleris on kasutajad olemas, siis on võimalik, et "
+"sünkronisatsiooniprotsess nurjus või ei ole veel lõppenud."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:60
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
@@ -457,35 +433,32 @@ msgstr "Port"
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:67
 msgid "List of slaves"
-msgstr "Alluvate loend"
+msgstr "Alamate loend"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:74
-#, fuzzy
 msgid "This is a list of those eBox slaves which are subscribed to this eBox."
-msgstr "eBoxi tellinud alluvate loend."
+msgstr "eBoxi tellinud alamate loend."
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:75
 msgid "slave"
-msgstr "alluv"
+msgstr "alam"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:120
-#, fuzzy
 msgid "There are no slaves at the moment."
-msgstr "Alluvaid hetkel ei eksisteeri."
+msgstr "Alamaid hetkel ei ole."
 
 # vt alam/ülem, vbla seisund
 #: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:74
-#, fuzzy
 msgid "Slave status"
-msgstr "Alluva olek"
+msgstr "Alama olek"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:66
 msgid ""
 "These configuration options are used when a new user account is created."
-msgstr "Seadistamisvalikud mida kasutatakse uue kasutajakonto loomisel."
+msgstr "Seadistamisvalikud, mida kasutatakse uue kasutajakonto loomisel."
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:80
 msgid "There isn't any configurable option"
@@ -494,7 +467,6 @@ msgstr "Seadistatavad valikud puuduvad"
 # vbla Kasutaja vaikemall
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
 #: src/EBox/UsersAndGroups.pm:2277 src/EBox/UsersAndGroups.pm:2286
-#, fuzzy
 msgid "Default User Template"
 msgstr "Vaikimisi kasutaja mall"
 
@@ -502,31 +474,28 @@ msgstr "Vaikimisi kasutaja mall"
 msgid "Users and Groups"
 msgstr "Kasutajad ja grupid"
 
-# kas on ikka nii?? v (kui tegevus siis) Allüksuste põhiandmete kirjutamine (sinu) openLDAP andmebaasi.
+#  
 #: src/EBox/UsersAndGroups.pm:96
-#, fuzzy
 msgid ""
 "Your openLDAP database will be populated with some basic organizational units"
-msgstr "Sinu openLDAP andmebaasi kirjutatakse allüksuste põhiandmed."
+msgstr "Allüksuste põhiandmete kirjutamine sinu openLDAP andmebaasi"
 
 # eBox vajab allüksuseid, et sinna lisada kasutajaid ja gruppe
 #: src/EBox/UsersAndGroups.pm:97
-#, fuzzy
 msgid "eBox needs this organizational units to add users and groups into them"
 msgstr "eBox vajab allüksuseid kasutajate ja gruppide lisamiseks"
 
 #: src/EBox/UsersAndGroups.pm:101
 msgid "Create directories for slave's journals"
-msgstr "Kataloogide loomine alluvate päevikute jaoks"
+msgstr "Alamate päevikute jaoks kataloogide loomine"
 
 #: src/EBox/UsersAndGroups.pm:102
-#, fuzzy
 msgid "eBox needs the directories to record pending slave's actions"
-msgstr "eBox vajab katalooge ootel olevate alluvate toimingute salvestamiseks"
+msgstr "eBox vajab katalooge ootel olevate alamate toimingute salvestamiseks"
 
 #: src/EBox/UsersAndGroups.pm:109
 msgid "Your eBox will be registered as a slave in the eBox master specified"
-msgstr "Sinu eBoxi registreerimine alluvana, määratud ülem eBoxis"
+msgstr "Sinu eBoxi alamana registreerimine määratud ülem eBoxis"
 
 #: src/EBox/UsersAndGroups.pm:110
 msgid "This eBox needs to have remote access to the users in the eBox master"
@@ -538,9 +507,8 @@ msgstr "Apparmori profiili keelamine"
 
 # vbla ... stand-alone LDAP deemoniga
 #: src/EBox/UsersAndGroups.pm:117
-#, fuzzy
 msgid "It is not ready to work with more than one slapd"
-msgstr "Ei ole valmis töötama rohkem kui ühe slapd-ga"
+msgstr "Ei ole valmis töötama rohkem kui ühe slapdiga"
 
 #: src/EBox/UsersAndGroups.pm:125
 msgid "Install /etc/cron.d/ebox-ad-sync."
@@ -550,9 +518,9 @@ msgstr "/etc/cron.d/ebox-ad-sync paigaldamine"
 msgid "eBox will run a script each 5 minutes to sync with Windows AD."
 msgstr ""
 "Windowsi ADga sünkroniseerimiseks käivitatakse skript eBoxis iga 5 minuti "
-"järel."
+"järel"
 
-# kas paneme on hea?
+#  
 #: src/EBox/UsersAndGroups.pm:146
 msgid "To make openLDAP listen on TCP and Unix sockets"
 msgstr "Et openLDAP kuulaks TCP ja Unixi sokleid"
@@ -563,8 +531,8 @@ msgid ""
 "To copy LDAP admin password generated by  eBox and allow other modules to "
 "access LDAP"
 msgstr ""
-"Kopeerime eBoxi poolt genereeritud LDAP administraatori parooli ja lubame "
-"teistele moodulitele ligipääsu LDAPi"
+"eBoxi poolt genereeritud LDAP administraatori parooli kopeerimiseks ja "
+"teistele moodulitele LDAP ligipääsu lubamiseks"
 
 #: src/EBox/UsersAndGroups.pm:729
 #, perl-brace-format
@@ -573,7 +541,7 @@ msgstr "Kasutajanimi ei tohi olla pikem kui {maxuserlength} märki"
 
 #: src/EBox/UsersAndGroups.pm:827 src/EBox/UsersAndGroups.pm:1443
 msgid "Maximum number of system users reached"
-msgstr "Maksimum arv süsteemi kasutajaid on juba täis"
+msgstr "Lubatud maksimaalne arv süsteemi kasutajaid on juba täis"
 
 #: src/EBox/UsersAndGroups.pm:844
 #, perl-brace-format
@@ -594,7 +562,7 @@ msgstr "Grupi nimi ei tohi olla pikem kui {maxGroupLength} märki"
 
 #: src/EBox/UsersAndGroups.pm:1373
 msgid "The group name is not valid because it is used internally"
-msgstr "Grupi nimi ei ole sobiv, kuna on juba vaikimisi kasutusel"
+msgstr "Grupi nimi ei ole sobiv, kuna see on juba sisemiselt kasutusel"
 
 #: src/EBox/UsersAndGroups.pm:1460
 #, perl-brace-format
@@ -614,7 +582,7 @@ msgstr "Parool ei tohi olla pikem kui {maxPwdLength} märki"
 
 #: src/EBox/UsersAndGroups.pm:2296
 msgid "Slave Status"
-msgstr "Alluva olek"
+msgstr "Alama olek"
 
 #: src/EBox/UsersAndGroups.pm:2300
 msgid "AD Sync Settings"
@@ -630,7 +598,7 @@ msgstr "Ühenduse loomine ülem eBoxiga {remote} ei õnnestu"
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr ""
-"Pakutud LDAP parooliga ei õnnestu ühenduse loomine ülem eBoxiga {remote}"
+"Pakutud LDAP parooliga ei õnnestu ülem eBoxiga {remote} ühenduse loomine"
 
 #: src/EBox/UsersAndGroups.pm:2560
 #, perl-brace-format
@@ -639,19 +607,20 @@ msgstr "Masin nimega {host} on juba selles eBoxis registreeritud"
 
 #: src/EBox/UsersAndGroups.pm:2682
 msgid "Replication failed"
-msgstr "Kopeerimine ebaõnnestus"
+msgstr "Kopeerimine nurjus"
 
 #: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
 msgid "User"
 msgstr "Kasutaja"
 
-# vbla eBoxis on käivitatud teisi tegevusi välistav skript, palun oota kuni (see/töö/) on lõppenud
+#  
 #: src/EBox/UserCorner/CGI/Login/Index.pm:62
-#, fuzzy
 msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
-msgstr "eBoxis on käivitatud skript, palun oota kuni toimingud on lõppenud"
+msgstr ""
+"eBoxis on käivitatud teisi tegevusi välistav skript, palun oota kuni see on "
+"lõpetanud"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:66
 msgid "Incorrect password"
@@ -659,15 +628,12 @@ msgstr "Vigane parool"
 
 # vbla Sinu sessioon on turvakaalutlustel aegunud tegevusetuse tõttu v ....ei ole toimunud tegevusi
 #: src/EBox/UserCorner/CGI/Login/Index.pm:69
-#, fuzzy
 msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
-"Sinu sessioon on turvakaalutlustel aegunud, kuna ei ole toimunud ühtegi "
-"tegevust"
+msgstr "Turvalisusega seotud põhjustel aegus sinu seanss tegevusetuse tõttu"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:72
 msgid "You have been logged out because a new session has been opened"
-msgstr "Sind logiti välja, sest avati uus sessioon"
+msgstr "Sind logiti välja, kuna avati uus sessioon"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:75
 msgid "You are not logged in"
@@ -687,12 +653,11 @@ msgstr "Lisa uus"
 
 # kasutaja - kes v mis ?
 #: src/templates/del.mas:15
-#, fuzzy
 msgid ""
 "The user you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
 msgstr ""
-"Sa proovisid kustutada kasutajat, kellel on andmeid järgnevates moodulites. "
+"Sa proovid kustutada kasutajat, kellel on andmeid järgnevates moodulites. "
 "Palun kinnita, kas soovid kasutajat ja temaga seotud andmeid kustutada"
 
 #: src/templates/del.mas:20
@@ -700,8 +665,8 @@ msgid ""
 "The group you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
 msgstr ""
-"Sa proovisid kustutada gruppi, millel on andmeid järgnevates moodulites. "
-"Palun kinnita, kas soovid gruppi ja sellega seotud andmeid kustutada"
+"Sa proovid kustutada gruppi, millel on andmeid järgnevates moodulites. Palun "
+"kinnita, kas soovid gruppi ja sellega seotud andmeid kustutada"
 
 #: src/templates/del.mas:43
 msgid "Delete"
@@ -713,7 +678,7 @@ msgstr "Loobu"
 
 #: src/templates/groups.mas:10
 msgid "Add Group"
-msgstr "Lisa grupp"
+msgstr "Grupi lisamine"
 
 #: src/templates/groups.mas:16
 msgid "Group name"
@@ -726,9 +691,8 @@ msgstr "Kommentaar"
 
 # vbla Valikväärtused
 #: src/templates/groups.mas:31
-#, fuzzy
 msgid "Optional value"
-msgstr "Valikulised väärtused"
+msgstr "Valikväärtus"
 
 #: src/templates/groups.mas:38 src/templates/groups.mas:39
 #: src/templates/users.mas:73 src/templates/users.mas:74
@@ -746,7 +710,7 @@ msgstr "Kasutaja lisamine"
 
 #: src/templates/users.mas:17 src/templates/usercorner/login/index.mas:29
 msgid "User name"
-msgstr "Kasutaja nimi"
+msgstr "Kasutajanimi"
 
 #: src/templates/users.mas:25 src/templates/user.mas:21
 msgid "First name"
@@ -766,7 +730,6 @@ msgstr "Grupp"
 
 # vbla Grupi haldamiseks vajad sa vähemalt ühte kasutajat, kuid hetkel kasutajaid ei eksisteeri.
 #: src/templates/group.mas:14
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
@@ -781,7 +744,6 @@ msgstr "Muuda"
 
 # ei saa päris täpselt aru mida seal kuvatakse, kui arvandmeid siis: Kasutajaid grupis
 #: src/templates/group.mas:33
-#, fuzzy
 msgid "Users in group"
 msgstr "Kasutajad grupis"
 
@@ -821,7 +783,7 @@ msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
-"See tegevus kustutab grupi ja sellega seotud andmed nagu jagatud kataloogid "
+"See tegevus kustutab grupi ja sellega seotud andmed, nagu jagatud kataloogid "
 "jne"
 
 #: src/templates/user.mas:88
@@ -830,7 +792,7 @@ msgstr "Kasutaja grupid"
 
 #: src/templates/user.mas:90
 msgid "Other groups"
-msgstr "Teised grupid"
+msgstr "Muud grupid"
 
 #: src/templates/user.mas:117
 msgid "Remove groups from user"
@@ -855,7 +817,7 @@ msgstr "Logi välja"
 
 #: src/templates/usercorner/login/index.mas:26
 msgid "Warning: Caps Lock is enabled"
-msgstr "Hoiatus: Caps Lock on sisselülitatud"
+msgstr "Hoiatus: Suurtähed on sisselülitatud"
 
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"

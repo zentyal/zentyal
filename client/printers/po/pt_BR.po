@@ -7,9 +7,9 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:53+0100\n"
-"PO-Revision-Date: 2010-02-08 14:31+0100\n"
-"Last-Translator: Carlos Assis Brito de Oliveira Filho <cassisfilho@gmail."
-"com>\n"
+"PO-Revision-Date: 2010-02-24 17:47+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -214,7 +214,6 @@ msgid "Add a new printer (I)"
 msgstr "Adicionar uma nova impressora (I)"
 
 #: src/EBox/Printers.pm:57
-#, fuzzy
 msgid "Printer Sharing"
 msgstr "Compartilhamento de impressora"
 
@@ -254,9 +253,8 @@ msgid "To enable standalone cupsd listen on internal interfaces"
 msgstr "Para ligar o serviço cupsd nas interfaces internas"
 
 #: src/EBox/Printers.pm:291
-#, fuzzy
 msgid "Add Printer"
-msgstr "Adicionar impressora"
+msgstr "Adicionar Impressora"
 
 #: src/EBox/Printers.pm:488
 msgid ""
@@ -425,9 +423,8 @@ msgid "You need to save changes in order to print a test page"
 msgstr "Você precisa salvar as alterações para imprimir uma página de teste"
 
 #: src/templates/printer.mas:184 src/templates/printer.mas:185
-#, fuzzy
 msgid "Print Test Page"
-msgstr "Nome da impressora"
+msgstr "Página de Teste de Impressão"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"
@@ -489,9 +486,8 @@ msgid "Remote printer configuration"
 msgstr "Configuração de impressora remota"
 
 #: src/templates/network.mas:16
-#, fuzzy
 msgid "Configure AppSocket printer"
-msgstr "Configurar impressora remota"
+msgstr "Configurar impressora AppSocket"
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:51+0100\n"
-"PO-Revision-Date: 2010-02-15 06:43+0100\n"
+"PO-Revision-Date: 2010-03-10 10:42+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,6 @@ msgid "Backup"
 msgstr "Sikkerhetskopi"
 
 #: src/EBox/Event/Watcher/EBackup.pm:142
-#, fuzzy
 msgid "Check if eBox backup was not successful."
 msgstr "Kontroller om eBox sikkerhetskopi feilet."
 
@@ -92,7 +91,7 @@ msgstr "Vert eller destinasjon"
 #: src/EBox/Model/RemoteSettings.pm:151
 #, perl-brace-format
 msgid "If the selected method is {brand}, only set the target directory"
-msgstr ""
+msgstr "Hvis valgt metode er {brand}, velg bare mål mappe"
 
 #: src/EBox/Model/RemoteSettings.pm:156
 msgid "User"
@@ -145,6 +144,8 @@ msgid ""
 "If you choose {brand} or file system methods , then the destination field "
 "may be the target directory in the backup server"
 msgstr ""
+"Hvis du velger {brand} eller fil system metoder, vil mål feltet bli mål "
+"mappe på sikkerhetskopi serveren"
 
 #: src/EBox/Model/RemoteSettings.pm:229
 msgid "General backup server configuration updated"

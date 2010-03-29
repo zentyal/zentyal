@@ -7,9 +7,9 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:54+0100\n"
-"PO-Revision-Date: 2010-02-08 15:19+0100\n"
-"Last-Translator: Carlos Assis Brito de Oliveira Filho <cassisfilho@gmail."
-"com>\n"
+"PO-Revision-Date: 2010-02-27 17:16+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -252,7 +252,7 @@ msgstr "Políticas do Squid"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:26
 msgid "M"
-msgstr "M"
+msgstr "S"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:27
 msgid "T"
@@ -260,23 +260,23 @@ msgstr "T"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:28
 msgid "W"
-msgstr "W"
+msgstr "Q"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:29
 msgid "H"
-msgstr "H"
+msgstr "Q"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:30
 msgid "F"
-msgstr "F"
+msgstr "S"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:31
 msgid "A"
-msgstr "A"
+msgstr "S"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:32
 msgid "S"
-msgstr "S"
+msgstr "D"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:36
 msgid "Monday"
@@ -308,7 +308,7 @@ msgstr "Domingo"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:117
 msgid "All time"
-msgstr "Todas as horas"
+msgstr "Tempo Integral"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:199
 msgid "All week"
@@ -696,9 +696,8 @@ msgid "Set policy for all MIME types"
 msgstr "Definir política para todos os tipos MIME"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:36
-#, fuzzy
 msgid "Domain or URL"
-msgstr "Domínio"
+msgstr "Domínio ou URL"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:76
 #: src/EBox/Squid/Model/DomainFilterBase.pm:91
@@ -752,9 +751,8 @@ msgstr ""
 "listas negras reservadas"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
-#, fuzzy
 msgid "Group policies"
-msgstr "Política de grupo"
+msgstr "Políticas de grupo"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:79
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:76
@@ -767,14 +765,12 @@ msgid "group's policy"
 msgstr "políticas do grupo"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:94
-#, fuzzy
 msgid ""
 "Here you can globally block or allow access by user group. Filter options "
 "will be by global policy or by object policy"
 msgstr ""
-"Aqui você pode bloquear ou permitir globalmente acesso por grupo de "
-"usuários. Opções do filtro serão por política global ou por política de "
-"objeto"
+"Aqui você pode bloquear ou permitir globalmente acesso por grupo. Opções do "
+"filtro serão por política global ou por política de objeto"
 
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
@@ -837,7 +833,6 @@ msgstr "Tipo MIME"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:65
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:61
-#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given MIME types. MIME "
 "types not listed here are allowed.\n"
@@ -845,7 +840,7 @@ msgid ""
 msgstr ""
 "Permite/Nega o tráfego HTTP dos arquivos com estes tipos MIME. Tipos MIME "
 "não listados aqui são permitidos.\n"
-"O _ _ filtro uma política de 'filtro' para ter efeito"
+"O filtro uma política de 'filtro' para ter efeito"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:68
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
@@ -928,40 +923,35 @@ msgstr "Usando configuração de perfil padrão"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #: src/EBox/Squid/Model/DomainFilter.pm:65
-#, fuzzy
 msgid "Domains and URL rules"
-msgstr "Regras de domínios"
+msgstr "Regras de Domínios e URL"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 #: src/EBox/Squid/Model/DomainFilter.pm:78
-#, fuzzy
 msgid "internet domain or URL"
-msgstr "domínio da internet"
+msgstr "domínio da internet ou URL"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #: src/EBox/Squid/Model/DomainFilter.pm:79
-#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
-msgstr "Permite/Nega o tráfego HTTP de/para os domínios da internet listados."
+msgstr ""
+"Permite/Nega o tráfego HTTP de/para os domínios da internet e URL listados."
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 #: src/EBox/Squid/Model/DomainFilter.pm:81
-#, fuzzy
 msgid "Domain or URL added"
-msgstr "Domínio adicionado"
+msgstr "Domínio ou URL adicionado"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 #: src/EBox/Squid/Model/DomainFilter.pm:82
-#, fuzzy
 msgid "Domain or URL removed"
-msgstr "Domínio removido"
+msgstr "Domínio ou URL removido"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 #: src/EBox/Squid/Model/DomainFilter.pm:83
-#, fuzzy
 msgid "Domain or URL updated"
-msgstr "Domínio atualizado"
+msgstr "Domínio ou URL atualizado"
 
 #: src/EBox/Squid/Model/FilterGroupAntiVirus.pm:61
 #: src/EBox/Squid/Model/DefaultAntiVirus.pm:61
@@ -973,9 +963,8 @@ msgid "Filter profiles"
 msgstr "Perfis de filtro"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:71
-#, fuzzy
 msgid "List of profiles"
-msgstr "Lista de grupos"
+msgstr "Lista de perfis"
 
 #: src/EBox/Squid/Model/FilterGroup.pm:83
 msgid "filter profile"
@@ -1015,9 +1004,8 @@ msgid "Domains lists files for filter group"
 msgstr "Arquivos de listas de domínios para filtro de grupo"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
-#, fuzzy
 msgid "You can upload files whith lists of domains"
-msgstr "Você pode enviar arquivos com a lista de domínios"
+msgstr "Você pode enviar arquivos com as listas de domínios"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:91
 msgid ""
@@ -1028,7 +1016,6 @@ msgstr ""
 "filtragem ocorrerá se a política do objeto requiser"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:148
-#, fuzzy
 msgid ""
 "The object needs to be set to a policy with authorization in order to to use "
 "group policies"

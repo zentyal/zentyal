@@ -8,350 +8,368 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:37+0000\n"
-"PO-Revision-Date: 2010-02-08 06:37+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-03-25 19:05+0100\n"
+"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox VoIP system"
-msgstr ""
+msgstr "eBoxi VoIP süsteem"
 
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:732
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
-msgstr ""
+msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
-msgstr ""
+msgstr "Moodulite lubamise ja keelamise seadistamiseks."
 
+# see Realtime tundub nagu mingi nimi olevat
 #: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
-msgstr ""
+msgstr "Realtime liidese seadistamiseks."
 
+# vt eelmine
 #: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
-msgstr ""
+msgstr "LDAP Realtime draiveri seadistamiseks."
 
 #: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
-msgstr ""
+msgstr "Tavaliste SIP ja IAX kasutajate seadistamiseks."
 
+#  
 #: src/EBox/Asterisk.pm:150
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
+"SIP magistraali seadistamiseks kohalikele kasutajatele ja välistele "
+"pakkujatele."
 
 #: src/EBox/Asterisk.pm:155
 msgid "To configure the RTP port ranges."
-msgstr ""
+msgstr "RTP pordivahemike seadistamiseks."
 
 #: src/EBox/Asterisk.pm:160
 msgid "To configure the dialplan."
-msgstr ""
+msgstr "Dialplani seadistamiseks."
 
 #: src/EBox/Asterisk.pm:165
 msgid "To configure the voicemail."
-msgstr ""
+msgstr "Kõneposti seadistamiseks."
 
 #: src/EBox/Asterisk.pm:170
 msgid "To configure the conferences."
-msgstr ""
+msgstr "Konverentskõne seadistamiseks."
 
+# ?
 #: src/EBox/Asterisk.pm:174
 msgid "To configure the music on hold."
-msgstr ""
+msgstr "Ootemuusika seadistamiseks."
 
 #: src/EBox/Asterisk.pm:178
 msgid "To configure DTMF behaviour."
-msgstr ""
+msgstr "DTMFi käitumise seadistamiseks."
 
 #: src/EBox/Asterisk.pm:502
 msgid "General"
-msgstr ""
+msgstr "Üldine"
 
 #: src/EBox/Asterisk.pm:506 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
-msgstr ""
+msgstr "Koosolekud"
 
 #: src/EBox/Asterisk.pm:523
 msgid "Voicemail"
-msgstr ""
+msgstr "Kõnepost"
 
 #: src/EBox/Asterisk.pm:533 src/EBox/Asterisk.pm:642
 msgid "User"
-msgstr ""
+msgstr "Kasutaja"
 
 #: src/EBox/Asterisk.pm:533
 msgid "Address"
-msgstr ""
+msgstr "Aadress"
 
 #: src/EBox/Asterisk.pm:533
 msgid "NAT"
-msgstr ""
+msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:533
 msgid "Status"
-msgstr ""
+msgstr "Olek"
 
 #: src/EBox/Asterisk.pm:547 src/EBox/Asterisk.pm:651
 msgid "No users connected."
-msgstr ""
+msgstr "Ühendatud kasutajad puuduvad."
 
 #: src/EBox/Asterisk.pm:639
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr ""
+msgstr "Ruum {name} aktiivne {rtime} jaoks"
 
 #: src/EBox/Asterisk.pm:642
 msgid "Time Connected"
-msgstr ""
+msgstr "Ühenduse aeg"
 
 #: src/EBox/Asterisk.pm:672
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "VoIP kasutajaid võrgus"
 
 #: src/EBox/Asterisk.pm:677
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "VoIP kasutajaid koosolekutel"
 
 #: src/EBox/Asterisk.pm:709
 msgid "Date"
-msgstr ""
+msgstr "Kuupäev"
 
 #: src/EBox/Asterisk.pm:710
 msgid "From"
-msgstr ""
+msgstr "Alates"
 
 #: src/EBox/Asterisk.pm:711
 msgid "To"
-msgstr ""
+msgstr "Kuni"
 
 #: src/EBox/Asterisk.pm:712
 msgid "Duration"
-msgstr ""
+msgstr "Kestus"
 
 #: src/EBox/Asterisk.pm:713
 msgid "Channel"
-msgstr ""
+msgstr "Kanal"
 
 #: src/EBox/Asterisk.pm:714
 msgid "Destination Channel"
-msgstr ""
+msgstr "Adressaadi kanal"
 
 #: src/EBox/Asterisk.pm:715
 msgid "Application"
-msgstr ""
+msgstr "Rakendus"
 
 #: src/EBox/Asterisk.pm:716
 msgid "Application Data"
-msgstr ""
+msgstr "Rakenduse andmed"
 
 #: src/EBox/Asterisk.pm:717
 msgid "Event"
-msgstr ""
+msgstr "Sündmus"
 
 #: src/EBox/Asterisk.pm:725
 msgid "Answered"
-msgstr ""
+msgstr "Vastuvõetud"
 
 #: src/EBox/Asterisk.pm:726
 msgid "No Answer"
-msgstr ""
+msgstr "Vastamata"
 
 #: src/EBox/Asterisk.pm:727
 msgid "Busy"
-msgstr ""
+msgstr "Hõivatud"
 
 #: src/EBox/Asterisk.pm:728
 msgid "Failed"
-msgstr ""
+msgstr "Ebaõnnestunud"
 
+# või "laiend"
 #: src/EBox/Asterisk/Extensions.pm:230
 msgid "User extension"
-msgstr ""
+msgstr "Kasutaja laiend"
 
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
 #: src/EBox/Model/Meetings.pm:145 src/EBox/Model/Settings.pm:92
 #: src/templates/group.mas:41 src/templates/user.mas:38
 msgid "Extension"
-msgstr ""
+msgstr "Laiend"
 
 #: src/EBox/Asterisk/Extensions.pm:642
 msgid "Queue extension"
-msgstr ""
+msgstr "Järjekorra laiend"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "grupp"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
-msgstr ""
+msgstr "kasutajanimi"
 
 #: src/EBox/Model/Meetings.pm:91
 msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
 msgstr ""
+"Sa pead koosolekute kasutamiseks paigaldama paketid dahdi ja dahdi-modules-"
+"ebox."
 
 #: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
 #: src/EBox/Model/Settings.pm:84
 msgid "extension"
-msgstr ""
+msgstr "laiend"
 
 #: src/EBox/Model/Meetings.pm:149
 #, perl-brace-format
 msgid "A number between {min} and {max}."
-msgstr ""
+msgstr "Arv {min} ja {max} vahel."
 
 #: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:111
 msgid "Password"
-msgstr ""
+msgstr "Parool"
 
 #: src/EBox/Model/Meetings.pm:173 src/EBox/Model/Localnets.pm:119
 msgid "Description"
-msgstr ""
+msgstr "Kirjeldus"
 
 #: src/EBox/Model/Meetings.pm:184
 msgid "List of Meetings"
-msgstr ""
+msgstr "Koosolekute loend"
 
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
-msgstr ""
+msgstr "koosolek"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
-msgstr ""
+msgstr "Asteriski konto"
 
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
-msgstr ""
+msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
-msgstr ""
+msgstr "Kõneposti seadistused"
 
 #: src/EBox/Model/Voicemail.pm:94
 msgid "New password"
-msgstr ""
+msgstr "Uus parool"
 
 #: src/EBox/Model/Voicemail.pm:101
 msgid "Mail address"
-msgstr ""
+msgstr "Meiliaadress"
 
+# sõnumid?
 #: src/EBox/Model/Voicemail.pm:108
 msgid "Attach messages"
-msgstr ""
+msgstr "Sõnumite lisamine"
 
+# või sõnumid?
 #: src/EBox/Model/Voicemail.pm:114
 msgid "Delete sent messages"
-msgstr ""
+msgstr "Saadetud sõnumite kustutamine"
 
 #: src/EBox/Model/Voicemail.pm:126
 msgid "Change your Voicemail settings"
-msgstr ""
+msgstr "Kõneposti seadistuste muutmine"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
-msgstr ""
+msgstr "Seadistused edukalt uuendatud"
 
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
+"Sul ei ole VoIP kontot. Võimalik, et VoIP ei ole selles serveris lubatud"
 
+#  
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
 msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
 msgstr ""
+"Sisemiste liidestega ühendatud võrke, nagu {net}, peetakse alati "
+"kohtvõrkudeks seega ei ole nende lisamine vajalik."
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
-msgstr ""
+msgstr "Kohtvõrk"
 
 #: src/EBox/Model/Localnets.pm:130
 msgid "Local networks"
-msgstr ""
+msgstr "Kohtvõrgud"
 
 #: src/EBox/Model/Localnets.pm:131
 msgid "local network"
-msgstr ""
+msgstr "kohtvõrk"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
-msgstr ""
+msgstr "Demo laiendite lubamine"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
-msgstr ""
+msgstr "Väljuvate kõnede lubamine"
 
 #: src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
-msgstr ""
+msgstr "Kõneposti laiend"
 
 #: src/EBox/Model/Settings.pm:136
 msgid "VoIP domain"
-msgstr ""
+msgstr "VoIP domeen"
 
 #: src/EBox/Model/Settings.pm:145
 msgid "General configuration"
-msgstr ""
+msgstr "Üldine seadistamine"
 
 #: src/EBox/Model/Settings.pm:149
 msgid "General Asterisk server configuration"
-msgstr ""
+msgstr "Asterisk serveri üldine seadistamine"
 
 #: src/EBox/Model/Settings.pm:151
 msgid "General Asterisk server configuration updated."
-msgstr ""
+msgstr "Asterisk serveri üldine seadistus uuendatud."
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "Kohandatud"
 
 #: src/EBox/Model/Provider.pm:89
 msgid "Provider"
-msgstr ""
+msgstr "Pakkuja"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "VoIP teenusepakkuja nimi"
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
-msgstr ""
+msgstr "Kasutajanimi"
 
 #: src/EBox/Model/Provider.pm:118
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: src/EBox/Model/Provider.pm:126
 msgid "Recipient of incoming calls"
-msgstr ""
+msgstr "Saabuvate kõnede vastuvõtja"
 
+# Läbi pakkuja saabuvate kõnede laiendi vastuvõtja.
 #: src/EBox/Model/Provider.pm:130
+#, fuzzy
 msgid "Extension recipient of incoming calls through the provider."
-msgstr ""
+msgstr "Läbi pakkuja saabuvate kõnede vastuvõtja laiend."
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
-msgstr ""
+msgstr "SIP pakkuja"
 
 #: src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
-msgstr ""
+msgstr "SIP pakkuja väljaminevate kõnede seadistamiseks."
 
 #: src/EBox/Model/Provider.pm:143
 msgid "SIP provider configuration updated."
-msgstr ""
+msgstr "SIP pakkuja seadistused on uuendatud"
 
 #: src/EBox/Model/Provider.pm:195
 #, perl-brace-format
@@ -360,74 +378,81 @@ msgid ""
 "directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
+"eBox VoIP krediit: helista eBoxi VoIP-i kasutades odavalt mobiil- ja "
+"tavatelefonidele. Vajadusel osta VoIP krediiti otse {ohref}eBoxi "
+"veebipoest{chref}! "
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
-msgstr ""
+msgstr "eBox on NATi taga"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
 #: src/EBox/Model/NAT.pm:120
 msgid "NAT configuration"
-msgstr ""
+msgstr "NATi seadistamine"
 
 #: src/EBox/Model/NAT.pm:124
 msgid "NAT Asterisk server configuration"
-msgstr ""
+msgstr "NAT Asterisk serveri seadistamine"
 
 #: src/EBox/Model/NAT.pm:126
 msgid "NAT Asterisk server configuration updated."
-msgstr ""
+msgstr "NAT Asterisk serveri seadistused uuendatud."
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
-msgstr ""
+msgstr "Asterisk moodul"
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
-msgstr ""
+msgstr "Asterisk grupi järjekord"
 
 #: src/templates/group.mas:12
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
+"Järjekorda ei loodud, kuna selles grupis kasutajad puuduvad või ei ole neil "
+"Asteriski kontosid."
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "Grupi järjekord"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
 msgid "Disabled"
-msgstr ""
+msgstr "Keelatud"
 
 #: src/templates/group.mas:30 src/templates/group.mas:33
 #: src/templates/user.mas:27 src/templates/user.mas:30
 msgid "Enabled"
-msgstr ""
+msgstr "Lubatud"
 
 #: src/templates/group.mas:52 src/templates/group.mas:53
 #: src/templates/user.mas:49 src/templates/user.mas:50
 msgid "Change"
-msgstr ""
+msgstr "Muuda"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
+"Järgnevad seadistused rakenduvad ainult siis, kui Asterisk moodul on "
+"lubatud."
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
-msgstr ""
+msgstr "Asteriski konto"
 
 #: src/templates/user.mas:10
 msgid "Password for Asterisk service is the user password"
-msgstr ""
+msgstr "Asteriski teenuse parool on kasutaja parool"
 
 #: src/templates/user.mas:21
 msgid "User account"
-msgstr ""
+msgstr "Kasutajakonto"

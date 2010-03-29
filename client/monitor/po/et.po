@@ -8,52 +8,59 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:05+0000\n"
-"PO-Revision-Date: 2010-01-28 13:05+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-03-25 17:29+0100\n"
+"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:133
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:147
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:157
 msgid "not applicable"
-msgstr ""
+msgstr "ei ole rakendatav"
 
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:135
 #: src/EBox/Monitor/Types/MeasureAttribute.pm:145
 msgid "any"
-msgstr ""
+msgstr "suvaline"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr ""
+msgstr "Määratud peab olema vähemalt lävi (maksimum või miinimum)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 msgid "This threshold rule will override the current ones"
-msgstr ""
+msgstr "See läve reegel tühistab olemasolevad"
 
+# (seas, hulgas )vahet tegemist, eraldamist
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:156
 msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr ""
+"Praeguse jälgimistööriista versioon ei toeta andmeallikate seas eristamist"
 
+# Tõrke miinimum
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:221
+#, fuzzy
 msgid "Failure minimum"
-msgstr ""
+msgstr "Tõrgete miinumum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:224
 msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr ""
+"Määra vastuvõetavate väärtuste alumine piir. Kui määramata, on see vaikimisi "
+"negatiivne lõpmatus."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:229
 msgid "Warning minimum"
-msgstr ""
+msgstr "Hoiatuste miinimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
 #, perl-brace-format
@@ -61,15 +68,17 @@ msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
+"Kui väärtus on hoiatuste miinimumist väiksem või suurem kui {fmin}, "
+"saadetakse sündmuse kohta hoiatus"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:234
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
 msgid "failure minimum"
-msgstr ""
+msgstr "tõrgete miinimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
 msgid "Warning maximum"
-msgstr ""
+msgstr "Hoiatuste maksimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
 #, perl-brace-format
@@ -77,25 +86,31 @@ msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr ""
+"Kui väärtus on hoiatuste maksimumist suurem või väiksem kui {fmax}, "
+"saadetakse sündmuse kohta hoiatus"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
 msgid "failure maximum"
-msgstr ""
+msgstr "tõrgete maksimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:247
 msgid "Failure maximum"
-msgstr ""
+msgstr "Tõrgete maksimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:250
 msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
 msgstr ""
+"Määra vastuvõetavate väärtuste ülemine piir. Kui määramata, on see vaikimisi "
+"positiivne lõpmatus."
 
+# Pööramine
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
+#, fuzzy
 msgid "Invert"
-msgstr ""
+msgstr "Inverteerimine"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #, perl-brace-format
@@ -103,55 +118,69 @@ msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
 msgstr ""
+"Kui see on määratud tõeseks, siis vastuvõetavate väärtuste vahemik on ümber "
+"pööratud, st väärtused vahemikes {fmin} ja {fmax} ({wmin} ja {wmax}) ei ole "
+"vastuvõetavad."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning minimum"
-msgstr ""
+msgstr "hoiatuste miinimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "warning maximum"
-msgstr ""
+msgstr "hoiatuste maksimum"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:265
 msgid "Persistent"
-msgstr ""
+msgstr "Püsiv"
 
+# kole pikk
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:268
 msgid ""
 "If set to true, an event will be dispatched for each value that is out of "
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
 msgstr ""
+"Kui see on määratud tõeseks, siis saadetakse sündmus iga väärtuse kohta mis "
+"on väljapool vastuvõetavat vahemikku. Kui aga see on määratud vääraks, siis "
+"teavitatakse ainult vastuvõetavate väärtuste muutumisest vastuvõtmatuteks."
 
+# see isend muidugi eriti ei sobi sinna: instants äkki
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
+#, fuzzy
 msgid "Measure instance"
-msgstr ""
+msgstr "Mõõdetav isend"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
 msgid "Type"
-msgstr ""
+msgstr "Tüüp"
 
+# Andmete saatja
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:287
 msgid "Data Source"
-msgstr ""
+msgstr "Andmeallikas"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
 msgid "Threshold configuration"
-msgstr ""
+msgstr "Läve seadistamine"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
 msgid "Threshold's list"
-msgstr ""
+msgstr "Läve loend"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:298
 msgid "Threshold"
-msgstr ""
+msgstr "Lävi"
 
+# see ei ole küll otsene tõlge aga koodist paistab nii
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:302
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
 msgstr ""
+"Kõik kontrollimised teostatakse suurima võimaliku sagedusega: {nSec} "
+"sekundit"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:304
 #, perl-brace-format
@@ -159,122 +188,133 @@ msgid ""
 "Take into account this configuration will be only applied if monitor "
 "{openhref}event watcher is enabled{closehref}"
 msgstr ""
+"Seadistused rakendatakse ainult siis, kui {openhref}sündmusejälgija on "
+"lubatud{closehref}"
 
+# ei ole see ka vist päris õige
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:122
+#, fuzzy
 msgid "Measure"
-msgstr ""
+msgstr "Mõõdik"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:129
 msgid "Thresholds"
-msgstr ""
+msgstr "Läved"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:138
+#, fuzzy
 msgid "Configure monitor watchers"
-msgstr ""
+msgstr "Monitooringu jälgija seadistamine"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:139
+#, fuzzy
 msgid "measure"
-msgstr ""
+msgstr "mõõdik"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:144
 msgid "Every measure may have several thresholds to monitor"
-msgstr ""
+msgstr "Iga mõõtmisel võib olla jälgimise jaoks mitu läve"
 
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
-msgstr ""
+msgstr "Viimane tund"
 
 #: src/EBox/Monitor/Configuration.pm:127
 msgid "Last day"
-msgstr ""
+msgstr "Viimane päev"
 
 #: src/EBox/Monitor/Configuration.pm:133
 msgid "Last month"
-msgstr ""
+msgstr "Viimane kuu"
 
 #: src/EBox/Monitor/Configuration.pm:139
 msgid "Last year"
-msgstr ""
+msgstr "Viimane aasta"
 
 #: src/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
-msgstr ""
+msgstr "Süsteemi koormus"
 
 #: src/EBox/Monitor/Measure/Load.pm:56
 msgid "Collect the system load that gives a rough overview of the system usage"
 msgstr ""
+"Süsteemi koormuse andmete kogumine, mis annab esialgse ülevaate süsteemi "
+"kasutusest"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "short term"
-msgstr ""
+msgstr "lühike periood"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "mid term"
-msgstr ""
+msgstr "keskmine periood"
 
 #: src/EBox/Monitor/Measure/Load.pm:59
 msgid "long term"
-msgstr ""
+msgstr "pikk periood"
 
 #: src/EBox/Monitor/Measure/Df.pm:76
 #, perl-brace-format
 msgid "used in {partition}"
-msgstr ""
+msgstr "kasutusel partitsioonis {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:78
 #, perl-brace-format
 msgid "free in {partition}"
-msgstr ""
+msgstr "vaba partitsioonis {partition}"
 
 #: src/EBox/Monitor/Measure/Df.pm:83
 msgid "File system usage"
-msgstr ""
+msgstr "Failisüsteemi kasutus"
 
 #: src/EBox/Monitor/Measure/Df.pm:84
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
-msgstr ""
+msgstr "Ühendatud failisüsteemi kasutusinfo kogumine, nagu käsk \"df\""
 
 #: src/EBox/Monitor/Measure/Thermal.pm:111
 #: src/EBox/Monitor/Measure/Thermal.pm:117
 msgid "temperature"
-msgstr ""
+msgstr "temperatuur"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:129
 msgid "cooling device"
-msgstr ""
+msgstr "jahutusseade"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:131
 msgid "sensor"
-msgstr ""
+msgstr "sensor"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:133
 #, perl-brace-format
 msgid "Temperature for {what}"
-msgstr ""
+msgstr "{what} temperatuur"
 
+# Soojusteave; soojavärk :)
 #: src/EBox/Monitor/Measure/Thermal.pm:139
 msgid "Thermal"
-msgstr ""
+msgstr "Temperatuurid"
 
 #: src/EBox/Monitor/Measure/Thermal.pm:140
 #, perl-brace-format
 msgid ""
 "Collect thermal information (CPU sensors temperature) if possible from {dir}"
 msgstr ""
+"Soojusteabe (CPU sensori temperatuuri) kogumine, kui võimalik siis {dir} "
+"kohta"
 
 #: src/EBox/Monitor/Measure/Base.pm:621
 msgid "value"
-msgstr ""
+msgstr "väärtus"
 
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
 msgid "CPU {no} usage"
-msgstr ""
+msgstr "Protsessori {no} koormus"
 
 #: src/EBox/Monitor/Measure/CPU.pm:65
 msgid "CPU usage"
-msgstr ""
+msgstr "Protsessori koormus"
 
 #: src/EBox/Monitor/Measure/CPU.pm:66
 msgid ""
@@ -282,66 +322,72 @@ msgid ""
 "executing user code, executing system code, waiting for IO operations and "
 "being idle"
 msgstr ""
+"Protsessori erinevate olekute ajakulu kogumine. Palju aega on kulutatud "
+"kasutaja käske täites, süsteemi käske täites, oodates IO operatsioonide "
+"järel ja kui suur on olnud jõudeaeg."
 
 #: src/EBox/Monitor/Measure/CPU.pm:73 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "idle"
-msgstr ""
+msgstr "jõude"
 
 #: src/EBox/Monitor/Measure/CPU.pm:74 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "user"
-msgstr ""
+msgstr "kasutaja"
 
 #: src/EBox/Monitor/Measure/CPU.pm:75 src/EBox/Monitor/Measure/CPU.pm:82
 msgid "interrupt"
-msgstr ""
+msgstr "katkestused"
 
+# :)
 #: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
+#, fuzzy
 msgid "nice"
-msgstr ""
+msgstr "kena"
 
 #: src/EBox/Monitor/Measure/CPU.pm:77 src/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
-msgstr ""
+msgstr "tarkvara katkestused"
 
 #: src/EBox/Monitor/Measure/CPU.pm:78 src/EBox/Monitor/Measure/CPU.pm:83
+#, fuzzy
 msgid "steal"
-msgstr ""
+msgstr "varastatud"
 
 #: src/EBox/Monitor/Measure/CPU.pm:79 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
-msgstr ""
+msgstr "süsteem"
 
 #: src/EBox/Monitor/Measure/CPU.pm:80 src/EBox/Monitor/Measure/CPU.pm:84
 msgid "wait"
-msgstr ""
+msgstr "ootamine"
 
 #: src/EBox/Monitor/Measure/Memory.pm:55
 msgid "Physical memory usage"
-msgstr ""
+msgstr "Füüsilise mälu kasutus"
 
 #: src/EBox/Monitor/Measure/Memory.pm:56
 msgid "Collect the physical memory usage"
-msgstr ""
+msgstr "Füüsilise mälu kasutuse kogumine"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "free"
-msgstr ""
+msgstr "vaba"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
-msgstr ""
+msgstr "lehekülje puhver"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "buffer cache"
-msgstr ""
+msgstr "ketta puhver"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
-msgstr ""
+msgstr "kasutatud"
 
 #: src/EBox/CGI/Index.pm:44
 msgid "Monitoring"
-msgstr ""
+msgstr "Monitooring"
 
 #: src/EBox/CGI/Index.pm:70
 #, perl-brace-format
@@ -349,50 +395,64 @@ msgid ""
 "You must enable monitor module to see monitor graphs in {openhref}Module "
 "Status{closehref} section."
 msgstr ""
+"Monitooringu graafikute nägemiseks pead sa monitooringu mooduli lubama "
+"{openhref}mooduli staatuse{closehref} sektsioonis."
 
+# mina ei usu et sektsioonis 'Save Changes' on mingid graafikud st algkirje viga
 #: src/EBox/CGI/Index.pm:98
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "You must save the changes in module status to see monitor graphs in the "
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
+"Monitooringu graafikute nägemiseks mooduli staatuses pead sa muudatused "
+"salvestama {openhref}muudatuste salvestamise{closehref} sektsioonis. Juhul "
+"kui sa oled seda juba teinud, siis oota paar sekundit, et jõutaks koguda "
+"esimesed jälgimisandmed."
 
 #: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:72
 #: src/EBox/Monitor.pm:166
+#, fuzzy
 msgid "Monitor"
-msgstr ""
+msgstr "Jälgimine"
 
 #: src/EBox/Event/Watcher/Monitor.pm:162
+#, fuzzy
 msgid "Notify when a certain value has reached a certain threshold"
-msgstr ""
+msgstr "Teata kui mõni väärtus on saavutanud määratud läve"
 
 #: src/EBox/Event/Watcher/Monitor.pm:302
 #, perl-brace-format
+#, fuzzy
 msgid "{what} \"{dS}\" is currently {value}."
-msgstr ""
+msgstr "{what} \"{dS}\" on hetkel {value}."
 
 #: src/EBox/Event/Watcher/Monitor.pm:308
 #, perl-brace-format
+#, fuzzy
 msgid "That is within the {severity} region of {minBound} and {maxBound}."
-msgstr ""
+msgstr "See on {severity} piires, piirkonnas {minBound} kuni {maxBound}"
 
 #: src/EBox/Event/Watcher/Monitor.pm:315
 #, perl-brace-format
+#, fuzzy
 msgid "That is above the {severity} threshold of {bound}."
-msgstr ""
+msgstr "See on üle {severity} {bound} läve"
 
 #: src/EBox/Event/Watcher/Monitor.pm:318
 #, perl-brace-format
+#, fuzzy
 msgid "That is below the {severity} threshold of {bound}."
-msgstr ""
+msgstr "See on alla {severity} {bound} läve"
 
 #: src/EBox/Monitor.pm:133
 #, perl-brace-format
 msgid "{daemon} main configuration file"
-msgstr ""
+msgstr "{daemon} peamine seadistustefail"
 
 #: src/EBox/Monitor.pm:138
 #, perl-brace-format
 msgid "{daemon} thresholds configuration file"
-msgstr ""
+msgstr "{daemon} läve seadistustefail"

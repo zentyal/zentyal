@@ -5,308 +5,328 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-remoteservices 1.4Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-remoteservices 1.4Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:54+0100\n"
-"PO-Revision-Date: 2010-01-25 20:53+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-03-25 17:28+0100\n"
+"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
-msgstr ""
+msgstr "Varundus kustutatud"
 
+# Kaugvarundamise tegemine
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
-msgstr ""
+msgstr "Kaugvarundamine"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
 msgid "Backing up modules "
-msgstr ""
+msgstr "Moodulite varundamine"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
 msgid "Operation"
-msgstr ""
+msgstr "Operatsioon"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "Varundamise lõpuni jäänud operatsioone"
 
 #: src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
 msgid "Backup successful"
-msgstr ""
+msgstr "Varundamine edukalt lõpuni viidud"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
 msgid "Restoring remote backup"
-msgstr ""
+msgstr "Taastamine kaugvarundusest"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
 msgid "Restoring modules from remote backup"
-msgstr ""
+msgstr "Moodulite taastamine kaugvarundusest"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
 msgid "Module"
-msgstr ""
+msgstr "Moodul"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
 msgid "modules left to restore"
-msgstr ""
+msgstr "taastada jäänud mooduleid"
 
 #: src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
 #: src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
 msgid "Restore successful"
-msgstr ""
+msgstr "Taastamine edukalt lõpuni viidud"
 
 #: src/EBox/CGI/Backup/Index.pm:36
 msgid "Remote system backups"
-msgstr ""
+msgstr "Kaugsüsteemi varundused"
 
+#  
 #: src/EBox/CGI/Backup/Confirm.pm:35
 msgid "Configuration backup"
-msgstr ""
+msgstr "Seadistuste varundamine"
 
 #: src/EBox/CGI/Backup/Confirm.pm:92 src/EBox/CGI/Backup/Confirm.pm:105
 msgid ""
 "Please confirm that you want to restore the configuraction using the "
 "following remote backup:"
 msgstr ""
+"Palun kinnita, et sa tõesti tahad taastada seadistused kasutades järgnevat "
+"kaugvarundust:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:98 src/EBox/CGI/Backup/Confirm.pm:111
 msgid "Restore"
-msgstr ""
+msgstr "Taasta"
 
 #: src/EBox/CGI/Backup/Confirm.pm:119
 msgid "Please confirm that you want to delete the following remote backup:"
-msgstr ""
+msgstr "Palun kinnita, et sa tõesti tahad kustutada järgneva kaugvarunduse:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:125
 msgid "Delete"
-msgstr ""
+msgstr "Kustuta"
 
 #: src/EBox/CGI/Backup/Confirm.pm:173
 #, perl-brace-format
 msgid "Inexistent action: {a}"
-msgstr ""
+msgstr "Olematu tegevus: {a}"
 
 #: src/EBox/CGI/Backup/Proxy.pm:35
 msgid "Remote system backups proxy"
-msgstr ""
+msgstr "Kaugsüsteemi varunduste puhverserver"
 
 #: src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
-msgstr ""
+msgstr "Ühenduse viga"
 
 #: src/EBox/RemoteServices/Auth.pm:125
 msgid "Key for service URN not found"
-msgstr ""
+msgstr "URN teenuse võtit ei leitud"
 
 #: src/EBox/RemoteServices/Auth.pm:161
 #, perl-brace-format
 msgid "Value for key {k} not found"
-msgstr ""
+msgstr "Võtme {k} väärtust ei leitud"
 
 #: src/EBox/RemoteServices/Subscription.pm:109
 msgid "Key for web subscription service not found"
-msgstr ""
+msgstr "Veebitellimuse teenuse võtit ei leitud"
 
 #: src/EBox/RemoteServices/Subscription.pm:312
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
-msgstr ""
+msgstr "Masinaga {host} ei saa ühendust. Kontrolli oma internetiühendust"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
 msgid "It must be a valid domain name"
-msgstr ""
+msgstr "Peab olema kehtiv domeeninimi"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 #, perl-brace-format
 msgid "It cannot contain \"{char}\" character"
-msgstr ""
+msgstr "See ei tohi sisaldada \"{char}\" märki"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:61
 #, perl-brace-format
 msgid "It cannot be greater than {n} characters"
-msgstr ""
+msgstr "See ei tohi olla pikem kui {n} märki"
 
 #: src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
-msgstr ""
+msgstr "Ebox-teenuste DNS võtit ei leitud"
 
 #: src/EBox/RemoteServices/Base.pm:259
 #, perl-brace-format
 msgid "Server {s} not found via DNS server {d}"
-msgstr ""
+msgstr "Serverit {s} ei leitud DNS serveri {d} kaudu"
 
 #: src/EBox/RemoteServices/Base.pm:367
 msgid "Cannot create SOAP connection"
-msgstr ""
+msgstr "SOAP ühendust ei ole võimalik luua"
 
 #: src/EBox/RemoteServices/Base.pm:381
 msgid "No domain key found for this service"
-msgstr ""
+msgstr "Selle teenuse jaoks domeenivõtit ei leitud"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:130
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system."
 msgstr ""
+"Tellimus oli korrektne. Palun oota mõni minut, et tellimus leviks kogu "
+"süsteemis."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:133
 msgid "Subscription data retrieved correctly."
-msgstr ""
+msgstr "Tellimuse andmed edukalt hangitud."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:135
 msgid "Please, save changes"
-msgstr ""
+msgstr "Palun salvesta muudatused"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:160
 msgid "Done"
-msgstr ""
+msgstr "Valmis"
 
+# Kas eBox tellis või eBoxi telliti?
 #: src/EBox/RemoteServices/Model/Subscription.pm:238
 msgid ""
 "Subscribing an eBox will configure OpenVPN module and its dependencies by "
 "running these actions and modifying these files: "
 msgstr ""
+"eBoxi tellimisel seadistatakse OpenVPN moodul ja selle sõltuvused. Selle "
+"käigus käivitatakse järgmised toimingud ning muudetakse järgnevaid faile: "
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:242
 msgid ""
 "Subscribing an eBox will enable the OpenVPN module and its dependencies."
-msgstr ""
+msgstr "eBoxi tellimisel lubatakse OpenVPN moodul ja selle sõltuvused."
 
+# Lause mõte arusaamatu
 #: src/EBox/RemoteServices/Model/Subscription.pm:245
 msgid ""
 "Take into account that subscribing an eBox could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
+"Pea meeles, et juhtimiskeskuse tellimine võib võtta mõne minuti. Palun ära "
+"puutu midagi kuni tellimine on lõppenud."
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:281
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
+"Enne kaugteenuste tellimist, salvesta või tühista muudatused OpenVPNi "
+"moodulis"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:301
 msgid "User Name or Email Address"
-msgstr ""
+msgstr "Kasutajanimi või meiliaadress"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:309
 msgid "eBox Name"
-msgstr ""
+msgstr "eBoxi nimi"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:314
 msgid "Choose a name for your eBox which is a valid domain name"
-msgstr ""
+msgstr "Vali eBoxi jaoks nimi, mis on ka sobiv domeeninimi"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:321
 msgid "Password"
-msgstr ""
+msgstr "Parool"
 
+# või "tellimuse üksikasjad" ?
 #: src/EBox/RemoteServices/Model/Subscription.pm:329
 msgid "eBox subscription details"
-msgstr ""
+msgstr "eBoxi tellimuse üksikasjad"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:330
 msgid "Delete data"
-msgstr ""
+msgstr "Kustuta andmed"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:333
 msgid "Subscription to eBox Control Center"
-msgstr ""
+msgstr "eBoxi juhtimiskeskuse tellimine"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:334
 msgid "Subscribe"
-msgstr ""
+msgstr "Telli"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:413
 msgid "Action"
-msgstr ""
+msgstr "Toiming"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:414
 #: src/EBox/RemoteServices/Model/Subscription.pm:435
 msgid "Reason"
-msgstr ""
+msgstr "Põhjus"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:434
 msgid "File"
-msgstr ""
+msgstr "Fail"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
+#, fuzzy
 msgid "Access from control panel without password"
-msgstr ""
+msgstr "Ligipääs juhtpaneelist ilma paroolita"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
-msgstr ""
+msgstr "Ligipääsu seadistused"
 
 #: src/EBox/RemoteServices/Backup.pm:260
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
-msgstr ""
+msgstr "Olematu varundus: {n}"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
-msgstr ""
+msgstr "Varundused serveris selle masina kohta puuduvad: {h}"
 
 #: src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
-msgstr ""
+msgstr "Puhverserveri varundusteenuse võtit ei leitud"
 
 #: src/EBox/RemoteServices/Composite/General.pm:70
 msgid "eBox Control Center"
-msgstr ""
+msgstr "eBoxi juhtimiskeskus"
 
+#  
 #: src/EBox/RemoteServices/Composite/General.pm:83
 #, perl-brace-format
 msgid ""
 " {openhref}Subscribing{closehref} your eBox to the Control Center lets you "
 "have automatic configuration backup and much more"
 msgstr ""
+"Sinu eBoxi juhtimiskeskuse {openhref}tellimine{closehref} võimaldab "
+"automaatse seadistuste varundamise ja palju muud"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:148
 msgid "Control panel"
-msgstr ""
+msgstr "Juhtpaneel"
 
 #: src/EBox/Event/Dispatcher/ControlCenter.pm:161
 msgid "Control center"
-msgstr ""
+msgstr "Juhtimiskeskus"
 
 #: src/EBox/RemoteServices.pm:76
 msgid "Control Center Client"
-msgstr ""
+msgstr "Juhtimiskeskuse klient"
 
 #: src/EBox/RemoteServices.pm:160
 msgid "Not subscribed"
-msgstr ""
+msgstr "Ei ole tellitud"
 
 #: src/EBox/RemoteServices.pm:162
 msgid "Subscribed"
-msgstr ""
+msgstr "Tellitud"
 
 #: src/EBox/RemoteServices.pm:194 src/EBox/RemoteServices.pm:584
 msgid "Control Center"
-msgstr ""
+msgstr "Juhtimiskeskus"
 
 #: src/EBox/RemoteServices.pm:245
 msgid "eBox Control Center Connection"
-msgstr ""
+msgstr "eBoxi juhtimiskeskuse ühendus"
 
 #: src/EBox/RemoteServices.pm:577
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
-msgstr ""
+msgstr "Ühendus puudub. Palun vaata VPN logisid: {path}"
 
 #: src/EBox/RemoteServices.pm:581
 msgid "Connected"
-msgstr ""
+msgstr "Ühendatud"

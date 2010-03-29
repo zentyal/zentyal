@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:52+0100\n"
-"PO-Revision-Date: 2010-02-19 16:35+0100\n"
-"Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
+"PO-Revision-Date: 2010-02-24 17:55+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1550,9 +1551,8 @@ msgid "Hostname"
 msgstr "Hostname"
 
 #: src/EBox/SysInfo.pm.in:102
-#, fuzzy
 msgid "Core version"
-msgstr "Versão do EBox"
+msgstr "Versão do núcleo"
 
 #: src/EBox/SysInfo.pm.in:104
 msgid "System load"
@@ -1647,9 +1647,8 @@ msgid "Remote Backup"
 msgstr "Backup remoto"
 
 #: src/templates/backupTabs.mas:23
-#, fuzzy
 msgid "Remote Backup from Other Subscribed Hosts"
-msgstr "Backup remoto de outros hosts inscritos"
+msgstr "Backup remoto a partir de outros hosts inscritos"
 
 #: src/templates/configureView.mas:16
 msgid ""
@@ -1735,9 +1734,8 @@ msgid "Reboot"
 msgstr "Reiniciar"
 
 #: src/templates/moduleStatusTable.mas:59
-#, fuzzy
 msgid "Depends"
-msgstr "Dependências"
+msgstr "Depende"
 
 #: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
 msgid "Status"

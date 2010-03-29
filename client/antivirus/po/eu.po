@@ -8,57 +8,58 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:28+0000\n"
-"PO-Revision-Date: 2009-02-20 11:10+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-02-26 13:02+0100\n"
+"Last-Translator: Pedro Ugartemendia <pedro@ugartemendia.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:395
 #: src/EBox/AntiVirus.pm:400 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
 msgid "Antivirus"
-msgstr ""
+msgstr "Antibirusa"
 
 #: src/EBox/AntiVirus.pm:212
 msgid " To configure clamd daemon"
-msgstr ""
+msgstr "Clamd zerbitzua konfiguratzeko"
 
 #: src/EBox/AntiVirus.pm:217
 msgid "To configure freshclam updater"
-msgstr ""
+msgstr "Freshclam eguneratze zerbitzua konfiguratzeko"
 
 #: src/EBox/AntiVirus.pm:222
 msgid "To schedule the launch of the updater"
-msgstr ""
+msgstr "Eguneratze zerbitzua abiaratzea programatzeko"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
-msgstr ""
+msgstr "Egoera"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
 msgid "Date"
-msgstr ""
+msgstr "Eguna"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 msgid "Database Update Status"
-msgstr ""
+msgstr "Datubase eguneratze egoera"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
-msgstr ""
+msgstr "Antibirus datubasea ez da eguneratu modulua gaitu zenetik."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
 msgid "The last update failed."
-msgstr ""
+msgstr "Azkeneko eguneratzeak kale egin zuen."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:136
 msgid "Last update successful."
-msgstr ""
+msgstr "Azkeneko eguneratzea behar bezela egina."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:139
 #, perl-brace-format
 msgid "Unknown event {event}."
-msgstr ""
+msgstr "Gertaera ezezaguna {event}."

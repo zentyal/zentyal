@@ -1,3 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-04 12:29+0200\n"
+"PO-Revision-Date: 2010-03-25 13:06+0100\n"
+"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"X-Generator: Pootle 1.1.0\n"
+
 # Estonian translations for ebox-trafficshaping package.
 # Copyright (C) 2010 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
@@ -21,7 +34,7 @@ msgstr ""
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr ""
+msgstr "Tagatud kiirus ületab lubatud kiiruseväärtuse: {rate} kbit/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:225
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:410
@@ -29,6 +42,8 @@ msgstr ""
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
+"Tagatud kiirus peab olema sellises vahemikus: ( {minRate}, {maxRate} ) "
+"kbit/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:237
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:422
@@ -36,6 +51,8 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
+"Limiteeritud kiirus {lR} kbit/s peab olema suurem kui tagatud kiirus "
+"{gR}kbit/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:244
 #, perl-brace-format
@@ -44,11 +61,14 @@ msgid ""
 "increase maximum upload traffic to the gateways associated to this external "
 "interface"
 msgstr ""
+"Limiteeritud kiirus {lR} kbit/s peaks olema väiksem kui {maxLR}kbit/s või sa "
+"pead suurendama lüüsi maksimaalset üleslaadimise liiklust, mis on seotud "
+"selle välise liidesega"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:401
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr ""
+msgstr "Tagatud kiirus ületas lubatud kiirust: {rate}"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:430
 #, perl-brace-format
@@ -56,32 +76,36 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
+"Limiteeritud kiirus {lR} kbit/s peaks olema väiksem kui {maxLR} või sa peaks "
+"suurendama lubatud liikluse maksimumi"
 
+# leaf?
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
+#, fuzzy
 msgid "Leaf class identifier"
-msgstr ""
+msgstr "Lehe klassi identifikaator"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Address"
-msgstr ""
+msgstr "Aadress"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:185
 #, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr ""
+msgstr "{iface} (sisemine liides)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:188
 #, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr ""
+msgstr "{iface} (väline liides)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:215
 msgid "Guaranteed rate"
-msgstr ""
+msgstr "Tagatud kiirus"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:220
 msgid "Limited rate"
-msgstr ""
+msgstr "Limiteeritud kiirus"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:231
 #, perl-brace-format
@@ -89,114 +113,128 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
+"Objektil {object} ei ole liikmeid. Palun lisa vähemalt üks, et lisada "
+"reeglid mis seda objekti kasutavad"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
 msgid "If service is any, some source or destination should be provided"
 msgstr ""
+"Kui teenus on suvaline, siis mõned saatjad või saajad peaksid olema pakutud"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:393
 msgid "Service"
-msgstr ""
+msgstr "Teenus"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:398
 msgid "Port based service"
-msgstr ""
+msgstr "Pordil baseeruv teenus"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:410
 msgid "Source"
-msgstr ""
+msgstr "Saatja"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:415
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:443
 msgid "Any"
-msgstr ""
+msgstr "Suvaline"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:418
 msgid "Source IP"
-msgstr ""
+msgstr "Saatja IP"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:423
 msgid "Source MAC"
-msgstr ""
+msgstr "Saatja MAC"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:428
 msgid "Source object"
-msgstr ""
+msgstr "Saatja objekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:438
 msgid "Destination"
-msgstr ""
+msgstr "Saaja"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:446
 msgid "Destination IP"
-msgstr ""
+msgstr "Saaja IP"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:451
 msgid "Destination object"
-msgstr ""
+msgstr "Saaja objekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:461
 #: src/EBox/TrafficShaping.pm:1563
 msgid "Priority"
-msgstr ""
+msgstr "Prioriteet"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:465
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr ""
+msgstr "Madalaim prioriteet: 7 Kõrgeim prioriteet: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:469
 #: src/EBox/TrafficShaping.pm:1561
 msgid "Guaranteed Rate"
-msgstr ""
+msgstr "Tagatud kiirus"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:472
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:486
 msgid "Kbit/s"
-msgstr ""
+msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:474
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
+"Pane tähele, et kõikide tagatud kiiruste summa ei saa ületada sinu kogu "
+"ribalaiust. 0 tähendab kiirust, mida ei saa tagada."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:481
 #: src/EBox/TrafficShaping.pm:1562
 msgid "Limited Rate"
-msgstr ""
+msgstr "Limiteeritud kiirus"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:488
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
-msgstr ""
+msgstr "Liiklus ei ületa seda kiirust. 0 tähendab piiramatut kiirust"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:495
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr ""
+msgstr "Reeglite loend {printableIndex} jaoks"
 
+# "other way around" tõlkes pole kindel
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:504
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
+"Pea meeles, et sisemise liidese puhul tuleb liiklusvoog Internetist "
+"sissepoole ja välimise liidese puhul on olukord vastupidi"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:509
 msgid "rule"
-msgstr ""
+msgstr "reegel"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:570
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
-msgstr ""
+msgstr "Eemalda {num} reeglit {modelName}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:617
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
 "{limitRate}, {guaranNum} rules have normalized its guaranteed rate to "
 "maintain the same proportion that it has previously and {removeNum} have "
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
+"Kiiruse normaliseerimine: {limitNum} reeglid on vähendanud limiteeritud "
+"kiirust {limitRate}, {guaranNum} reeglid on normaliseerinud oma tagatud "
+"kiirust sama proportsiooni säilitamiseks, mis oli eelnevalt ning {removeNum} "
+"on kustutatud sellepärast, et selle tagatud kiirus oli väiksem kui lubatud "
+"miinimum"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:674
 msgid ""
@@ -204,46 +242,50 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
+"Pordil baseeruvad protokollid kasutavad pordi numbrit, et sobitada teenust. "
+"Samaaegselt on aga rakendusel baseeruvad protokollid aeglased, kuid selle "
+"tõttu ka efektiivsemad, kuna need vaatavad iga paketi sisu, et sobitada seda "
+"teenusega."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:690
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:707
 msgid "Application based service"
-msgstr ""
+msgstr "Rakendusel baseeruv teenus"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:698
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:714
 msgid "Application based service group"
-msgstr ""
+msgstr "Rakendusel baseeruv teenuse grupp"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
 msgid "External Interface"
-msgstr ""
+msgstr "Väline liides"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:99
 msgid "Upload"
-msgstr ""
+msgstr "Laadi üles"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
 msgid "Upload rate in Kbits/s through this interface"
-msgstr ""
+msgstr "Üleslaadimise kiirus (Kbits/s) läbi selle liidese"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 msgid "Download"
-msgstr ""
+msgstr "Laadi alla"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:118
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:119
 msgid "External Interface Rates"
-msgstr ""
+msgstr "Välise liidese kiirused"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:126
 msgid "rate"
-msgstr ""
+msgstr "kiirus"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:151
 msgid "You need at least one internal interface and one external interface"
-msgstr ""
+msgstr "Sul läheb vaja vähemalt ühte sisemist ja ühte välist liidest"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:85
 #, perl-brace-format
@@ -252,7 +294,11 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
+"Liikluse kujundamist rakendatakse siis, kui eBox käitub lüüsina. Selle jaoks "
+"vajad sa vähemalt ühte sisemist ja välist liidest. Oma liideste seadistusi "
+"saad üle vaadata siin {openhref}Võrk->Liidesed{closehref}"
 
+# "setting as interface an external one" liides väliseks?
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:94
 #, perl-brace-format
 msgid ""
@@ -261,64 +307,75 @@ msgid ""
 "gateway at {openhref}Network->Gateways{closehref} setting as interface an "
 "external one."
 msgstr ""
+"Liikluse kujundamist rakendatakse ainult siis, kui on olemas määratud "
+"üleslaadimise kiirusega lüüs, mis seotud välise liidesega. Lüüsi loomiseks "
+"mine {openhref}Võrk->Lüüsid{closehref} ning seadista liides ka väliseks."
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:117
 msgid "Rules list per interface"
-msgstr ""
+msgstr "Liidese reeglite loend"
 
+# "ingress shaping" eestikeelne vaste?
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:128
+#, fuzzy
 msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
 msgstr ""
+"Vali liides, et lisada liikluse kujundamise reeglid. Pea meeles, et kui sa "
+"kujundad välist liidest, siis sa kujundad sissepääsu"
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:130
 msgid "Choose an interface to shape"
-msgstr ""
+msgstr "Vali liides kujundamiseks"
 
 #: src/EBox/TrafficShaping.pm:94
 msgid "Traffic Shaping"
-msgstr ""
+msgstr "Liikluse kujundamine"
 
 #: src/EBox/TrafficShaping.pm:132
 msgid "Add iptables rules to mangle table"
-msgstr ""
+msgstr "Lisa iptables reeglid mangle tabelile"
 
 #: src/EBox/TrafficShaping.pm:133
 msgid "To mark packets with different priorities and rates"
-msgstr ""
+msgstr "Pakettidele erinevate prioriteetide ja kiiruste märkimiseks"
 
 #: src/EBox/TrafficShaping.pm:137
 msgid "Add tc rules"
-msgstr ""
+msgstr "Lisa tc reeglid"
 
 #: src/EBox/TrafficShaping.pm:138
 msgid "To implement the traffic shaping rules"
-msgstr ""
+msgstr "Liikluse kujundamise reeglite ellu viimiseks"
 
 #: src/EBox/TrafficShaping.pm:383
 msgid "Rules"
-msgstr ""
+msgstr "Reeglid"
 
 #: src/EBox/TrafficShaping.pm:385
 msgid "Interface Rates"
-msgstr ""
+msgstr "Liidese kiirused"
 
 #: src/EBox/TrafficShaping.pm:440 src/EBox/TrafficShaping.pm:591
 #: src/EBox/TrafficShaping.pm:985 src/EBox/TC.pm:107
 msgid "Interface"
-msgstr ""
+msgstr "Liides"
 
+# "rule account "
 #: src/EBox/TrafficShaping.pm:453
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
+"Maksimaalse reegli konto {max} on saavutatud, palun kustuta vähemalt üks, et "
+"lisada uus"
 
 #: src/EBox/TrafficShaping.pm:1071
 msgid "type"
-msgstr ""
+msgstr "tüüp"
 
 #: src/EBox/TrafficShaping.pm:1094
 #, perl-brace-format
@@ -326,15 +383,17 @@ msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
+"Liidesel {iface} peaks olema maksimum ribalaiuse kiirus, et kujundada "
+"liiklust"
 
 #: src/EBox/TrafficShaping.pm:1559
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoll"
 
 #: src/EBox/TrafficShaping.pm:1560
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/TC.pm:69
 msgid "options"
-msgstr ""
+msgstr "valikud"

@@ -8,237 +8,270 @@ msgstr ""
 "Project-Id-Version: ebox-software 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:54+0100\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-03-24 20:48+0100\n"
+"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "HTTP tarkvara"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "tarkvarateenus apt abil pakettide uuendamiseks"
 
+#  
 #: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
-msgstr ""
+msgstr "reegel apt uuenduste lubamiseks"
 
 #: src/EBox/Software.pm:53
 msgid "Software Management"
-msgstr ""
+msgstr "Tarkvara haldamine"
 
 #: src/EBox/Software.pm:78 src/EBox/Software.pm:84
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr ""
+"eBoxi tarkvara laeb alla saadavad uuendused, sinu poolt seadistatud apt "
+"allikatest"
 
 #: src/EBox/Software.pm:83
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "Luba cron skript uuenduste allalaadimiseks"
 
 #: src/EBox/Software.pm:168 src/EBox/Software.pm:401
 msgid ""
 "The software management module must be enabled to be able to install packages"
-msgstr ""
+msgstr "Pakettide paigaldamiseks peab olema lubatud tarkvara haldamise moodul"
 
 #: src/EBox/Software.pm:212 src/EBox/Software.pm:435
 msgid ""
 "The software management module must be enabled to be able to remove packages"
-msgstr ""
+msgstr "Pakettide eemaldamiseks peab olema lubatud tarkvara haldamise moodul"
 
 #: src/EBox/Software.pm:545
 msgid "eBox Components"
-msgstr ""
+msgstr "eBoxi komponendid"
 
 #: src/EBox/Software.pm:547
 msgid "System Updates"
-msgstr ""
+msgstr "Süsteemiuuendused"
 
 #: src/EBox/Software.pm:549
 msgid "Automatic Updates"
-msgstr ""
+msgstr "Automaatne uuendamine"
 
 #: src/EBox/Software.pm:640
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"Tarkvara haldamine on hetkel {locker} poolt lukustatud. Palun proovi hiljem "
+"uuesti"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Tarkvara automaatne uuendamine"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "Automaatse uuendamise seadistamine"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
-msgstr ""
+msgstr "eBoxi komponendid"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
-msgstr ""
+msgstr "Süsteemiuuendused"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "Tarkvarauuendusi käsitletakse automaatselt"
 
+# "up to date" võib olla ka "värsked"
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system components are up to date."
-msgstr ""
+msgstr "Süsteemi komponendid ei vaja uuendamist."
 
+# open tran annab vasteks "uuendamine", kuid minu meelest on sellel veidi teine tähendus
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
+#, fuzzy
 msgid "Upgrading"
-msgstr ""
+msgstr "Uuendamine"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
-msgstr ""
+msgstr "Uuendamiseks pakette ei leitud"
 
+# vt. "upgrading"
 #: src/EBox/CGI/InstallPkgs.pm:149
+#, fuzzy
 msgid "Upgrading packages"
-msgstr ""
+msgstr "Pakettide uuendamine"
 
 #: src/EBox/CGI/InstallPkgs.pm:150 src/EBox/CGI/InstallPkgs.pm:170
 msgid "Current package"
-msgstr ""
+msgstr "Aktiivne pakett"
 
 #: src/EBox/CGI/InstallPkgs.pm:151
 msgid "packages left to install"
-msgstr ""
+msgstr "paigaldada jäänud pakette"
 
+# kui keegi leiab"unresponsive" parema vaste, võib täiendada
 #: src/EBox/CGI/InstallPkgs.pm:152
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully restarted"
 msgstr ""
+"Pakettide paigaldamine on edukalt lõpetatud. Haldamise liides võib olla "
+"mõned sekundid mitteaktiivne. Palun oota kuni süsteem on täielikult "
+"taaskäivitunud."
 
 #: src/EBox/CGI/InstallPkgs.pm:156
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"Pakettide paigaldamine ei ole edukalt lõpetatud. Rohkem informatsiooni leiad "
+"logidest"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "Removing package"
-msgstr ""
+msgstr "Paketi eemaldamine"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Valitud ning sellest sõltuvate pakettide eemaldamine"
 
 #: src/EBox/CGI/InstallPkgs.pm:171
 msgid "packages left to remove"
-msgstr ""
+msgstr "eemaldada jäänud pakette"
 
+# " unresponsive " vastet
 #: src/EBox/CGI/InstallPkgs.pm:172
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"Pakettide eemaldamine on edukalt lõpetatud. Haldamise liides võib olla mõned "
+"sekundid mitteaktiivne. Palun oota kuni süsteem on täielikult "
+"taaskäivitunud."
 
 #: src/EBox/CGI/InstallPkgs.pm:176
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"Pakettide eemaldamine ei ole edukalt lõpetatud. Rohkem informatsiooni leiad "
+"logidest"
 
 #: src/templates/ebox.mas:16 src/templates/updates.mas:20
 msgid "Component"
-msgstr ""
+msgstr "Komponent"
 
 #: src/templates/ebox.mas:17
 msgid "Installed version "
-msgstr ""
+msgstr "Paigaldatud versioon"
 
+# "Uusim versioon" võib samuti olla
 #: src/templates/ebox.mas:18
 msgid "Latest version"
-msgstr ""
+msgstr "Uusim versioon"
 
 #: src/templates/ebox.mas:19
 msgid "Actions"
-msgstr ""
+msgstr "Toimingud"
 
 #: src/templates/ebox.mas:30 src/templates/updates.mas:23
 msgid "Update"
-msgstr ""
+msgstr "Uuenda"
 
 #: src/templates/ebox.mas:36
 msgid "Install"
-msgstr ""
+msgstr "Paigalda"
 
 #: src/templates/ebox.mas:38
 msgid "none"
-msgstr ""
+msgstr "puudub"
 
 #: src/templates/ebox.mas:60
 msgid "Remove"
-msgstr ""
+msgstr "Eemalda"
 
 #: src/templates/ebox.mas:77 src/templates/updates.mas:57
 msgid "Update all packages"
-msgstr ""
+msgstr "Kõikide pakettide uuendamine"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Järgmiste pakettide paigaldamine"
 
 #: src/templates/del.mas:16
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Järgmiste pakettide eemaldamine"
 
 #: src/templates/del.mas:32
+#, fuzzy
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/templates/del.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "Loobu"
 
 #: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Uuendused on saadaval järgmiste süsteemi komponentide jaoks"
 
 #: src/templates/updates.mas:21
 msgid "Description"
-msgstr ""
+msgstr "Kirjeldus"
 
 #: src/templates/updates.mas:22
 msgid "Version"
-msgstr ""
+msgstr "Versioon"
 
 #: src/templates/updates.mas:68
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"See toiming võib võtta natuke aega, ära muretse kui eBox näib peale uuenduse "
+"nupu vajutamist mõnda aega mitteaktiivne."
 
 #: src/templates/updates.mas:71
 msgid "Upgrade"
-msgstr ""
+msgstr "Uuenda"
 
 #: src/templates/updateNote.mas:7
 msgid ""
 "Please wait, the update of the software available list is in process right "
 "now"
 msgstr ""
+"Palun oota, saadaval olevate tarkvarauuenduste loend on hetkel töötluses"
 
+# 'ebox-software' tohib tõlkida või mitte?
 #: src/templates/updateNote.mas:10
 msgid ""
 "The component list was never succefully downloaded so the information shown "
 "is probably outdated. The list is updated each night or you can force the "
 "update with the console command 'ebox-software'"
 msgstr ""
+"Komponentide loendi laadimine ebaõnnestus. Seega on kuvatud informatsioon "
+"ilmselt vananenud. Loendit uuendatakse igal ööl, kuid sunnitud uuendamine on "
+"võimalik käsureale 'ebox-software' sisestades"
 
+# 'ebox-software' tohib tõlkida või mitte?
 #: src/templates/updateNote.mas:20
 #, perl-brace-format
 msgid ""
@@ -246,3 +279,6 @@ msgid ""
 "be updated again at night or you can force the update with the console "
 "command 'ebox-software'"
 msgstr ""
+"Komponentide loendit uuendati viimati {mday}/{mon}/{year}{hour}:{min}. "
+"Loendit uuendatakse igal ööl, kuid sunnitud uuendamine on võimalik käsureale "
+"'ebox-software' sisestades"

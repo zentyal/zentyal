@@ -8,164 +8,176 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:36+0000\n"
-"PO-Revision-Date: 2010-01-29 23:36+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-03-26 13:50+0100\n"
+"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:50
 msgid "Mode"
-msgstr ""
+msgstr "Režiim"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:59
 msgid "Operation mode"
-msgstr ""
+msgstr "Töörežiim"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:87
 msgid "eBox mail service"
-msgstr ""
+msgstr "eBoxi meiliteenus"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:98
 msgid "Remote server"
-msgstr ""
+msgstr "Kaugserver"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:57
 msgid "IMAP Server"
-msgstr ""
+msgstr "IMAP server"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:63
 msgid "IMAP connection type"
-msgstr ""
+msgstr "IMAP ühenduse tüüp"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:70
 msgid "IMAP server port"
-msgstr ""
+msgstr "IMAP serveri port"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:76
 msgid "SMTP Server"
-msgstr ""
+msgstr "SMTP server"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:82
 msgid "SMTP connection type"
-msgstr ""
+msgstr "SMTP ühenduse tüüp"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:89
 msgid "SMTP server port"
-msgstr ""
+msgstr "SMTP serveri port"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:96
 msgid "SMTP authentication"
-msgstr ""
+msgstr "SMTP autentimine"
 
+#  
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:104
 msgid "None"
-msgstr ""
+msgstr "Puudub"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:108
 msgid "Same user and password than IMAP"
-msgstr ""
+msgstr "Sama kasutaja ja parool, mis IMAPis"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:112
 msgid "User and password"
-msgstr ""
+msgstr "Kasutaja ja parool"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:118
 msgid "User"
-msgstr ""
+msgstr "Kasutaja"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:124
 msgid "Password"
-msgstr ""
+msgstr "Parool"
 
+# ManageSieve on protokoll
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:137
 msgid "Manage sieve enabled in IMAP server"
-msgstr ""
+msgstr "ManageSieve lubamine IMAP serveris"
 
+# ManageSieve on protokoll
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:142
 msgid "Manage sieve port"
-msgstr ""
+msgstr "ManageSieve port"
 
+# ManageSieve on protokoll
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:149
 msgid "Manage sieve connection uses TLS"
-msgstr ""
+msgstr "TLSi kasutamine ManageSieve ühenduses"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:159
 msgid "External server connection"
-msgstr ""
+msgstr "Välise serveri ühendus"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:177
 msgid "unencrypted"
-msgstr ""
+msgstr "krüptimata"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:181
 msgid "SSL"
-msgstr ""
+msgstr "SSL"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:185
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: src/EBox/WebMail/Model/RemoteServerConfiguration.pm:294
 msgid ""
 "No need to configure the connection to a remote server beacuse WebMail is "
 "configured to use eBox's mail service'"
 msgstr ""
+"Kaugserveri ühenduse seadistamine ei ole vajalik, kuna WebMail on "
+"seadistatud kasutama eBoxi meiliteenust"
 
 #: src/EBox/WebMail/Model/Options.pm:47
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: src/EBox/WebMail/Model/Options.pm:49
 msgid "eBox webmail"
-msgstr ""
+msgstr "eBoxi webmail"
 
 #: src/EBox/WebMail/Model/Options.pm:51
 msgid ""
 "The name of the webmail will be used in the login screen and page titles."
 msgstr ""
+"Webmaili nime kasutatakse sisselogimise vaates ning lehekülje pealkirjades"
 
 #: src/EBox/WebMail/Model/Options.pm:57
 msgid "General configuration"
-msgstr ""
+msgstr "Üldine seadistamine"
 
 #: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:66
 msgid "Webmail"
-msgstr ""
+msgstr "Webmail"
 
 #: src/EBox/WebMail/Composite/Backend.pm:64
 msgid "WebMail backend"
-msgstr ""
+msgstr "Webmaili taustaprogramm"
 
 #: src/EBox/WebMail.pm:172
 msgid "Neither IMAP nor IMAPS service enabled."
-msgstr ""
+msgstr "Nii IMAP kui IMAPS teenus ei ole lubatud."
 
+# otsetõlkes kõlaks "seadistamiseks" , kuid ilmselt on mõeldud seadistamist.
 #: src/EBox/WebMail.pm:284
 msgid "To configure Roundcube webmail."
-msgstr ""
+msgstr "Roundcube webmaili seadistamiseks."
 
+# otsetõlkes kõlaks "seadistamiseks" , kuid ilmselt on mõeldud seadistamist. "managesieve" mõiste tähendust ei tea
 #: src/EBox/WebMail.pm:289
+#, fuzzy
 msgid "To configure managesieve Roundcube webmail plugin."
-msgstr ""
+msgstr "Roundcube managesieve webmaili plugina seadistamiseks."
 
 #: src/EBox/WebMail.pm:307
 msgid "Create PostgreSQL Roundcube webmail database."
-msgstr ""
+msgstr "PostgreSQL Roundcube'i webmaili andmebaasi loomine"
 
 #: src/EBox/WebMail.pm:308
 msgid "This database will store the data needed by Roundcube."
-msgstr ""
+msgstr "Selles andmebaasis hoitakse Roundcube'i jaoks vajalikke andmeid."
 
 #: src/EBox/WebMail.pm:312
 msgid "Add webmail link to www data directory."
-msgstr ""
+msgstr "www andmete kataloogile webmaili lingi lisamine."
 
+# ei tea kas "webmail" on vaja aadressis tõlkida või mitte
 #: src/EBox/WebMail.pm:313
 msgid "Webmail will be accesible at http://ip/webmail/."
-msgstr ""
+msgstr "Webmail on kättesaadaval aadressil http://ip/webmail/"
 
 #: src/EBox/WebMail.pm:336
 #, perl-brace-format
@@ -173,9 +185,14 @@ msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
+"Kui kasutad eBoxi meiliteenust, peab webmaili mooduli IMAP või IMAPS teenus "
+"olema lubatud. Seda on võimalik lubada, minnes {openurl}Meil -> "
+"Üldine{closeurl}."
 
 #: src/EBox/WebMail.pm:394
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
 msgstr ""
+"Sa ei saa keelata mõlemat IMAP ja IMAPS teenust, kuna need on kasutusel "
+"webmaili mooduli poolt."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:53+0100\n"
-"PO-Revision-Date: 2010-02-19 20:29+0100\n"
+"PO-Revision-Date: 2010-03-26 10:29+0100\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr "Mudel"
 #: src/EBox/CGI/Model.pm:53
 #, perl-brace-format
 msgid "Printer {printer} has no available drivers"
-msgstr ""
+msgstr "Printerile {printer} ei ole saadaval draivereid"
 
 #  
 #: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:30
@@ -84,7 +84,7 @@ msgstr "Järgmine"
 #: src/templates/lpd.mas:23 src/templates/printerback.mas:182
 #: src/templates/network.mas:23
 msgid "IP"
-msgstr "IP aadress"
+msgstr "IP"
 
 #: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/CGI/LPDPrinter.pm:43
 #: src/EBox/CGI/IPPPrinter.pm:44 src/EBox/Printers.pm:660
@@ -98,13 +98,13 @@ msgstr "Port"
 #: src/EBox/CGI/GeneralSettings.pm:90
 #, fuzzy
 msgid "Standalone cups enabled"
-msgstr "Autonoomne cups teenus on lubatud"
+msgstr "Eraldiseisev cups teenus on lubatud"
 
 # vt eelmine
 #: src/EBox/CGI/GeneralSettings.pm:92
 #, fuzzy
 msgid "Standalone cups disabled"
-msgstr "Autonoomne cups teenus on keelatud"
+msgstr "Eraldiseisev cups teenus on keelatud"
 
 #: src/EBox/CGI/DrvoptsUI.pm:30
 msgid "Add a new printer (VI)"
@@ -144,13 +144,11 @@ msgstr "Printeri haldamine"
 
 # vbla Printeri lisainfo v info > valiku all kuvatakse tootja, mudel, driver
 #: src/EBox/CGI/ManagePrinterUI.pm:58
-#, fuzzy
 msgid "Printer details"
-msgstr "Printeri detailid"
+msgstr "Printeri üksikasjad"
 
 # vbla Driveri seaded
 #: src/EBox/CGI/ManagePrinterUI.pm:59
-#, fuzzy
 msgid "Driver Options"
 msgstr "Draiveri valikud"
 
@@ -224,9 +222,8 @@ msgid "Add a new printer (I)"
 msgstr "Uue printeri lisamine (I)"
 
 #: src/EBox/Printers.pm:57
-#, fuzzy
 msgid "Printer Sharing"
-msgstr "Printeri jagamine"
+msgstr "Printerite jagamine"
 
 #: src/EBox/Printers.pm:72
 msgid "Create spool directory for printers"
@@ -234,13 +231,12 @@ msgstr "Printeritele puhverkataloogi loomine"
 
 # kole kordus ja segane lause. vbla eBox loob kataloogi /var/spool/samba alla puhverkataloogi v eBox loob asukohta /var/spool/samba puhverkataloogi
 #: src/EBox/Printers.pm:73
-#, fuzzy
 msgid "eBox will create a spool directory under /var/spool/samba"
-msgstr "eBox loob kataloogi /var/spool/samba puhverkataloogi"
+msgstr "eBox loob puhverkataloogi /var/spool/samba alla"
 
 #: src/EBox/Printers.pm:78
 msgid "Add user ebox to lpadmin group"
-msgstr "Kasutaja lisamine gruppi lpadmin"
+msgstr "Kasutaja lisamine lpadmin gruppi"
 
 #: src/EBox/Printers.pm:79
 msgid "In order to manage printers and queues from the eBox web interface"
@@ -248,31 +244,27 @@ msgstr "Printerite ja tööjärjekordade haldamiseks eBoxi veebiliidesest"
 
 # vbla Logide tabeli loomine
 #: src/EBox/Printers.pm:84
-#, fuzzy
 msgid "Create log table"
 msgstr "Logitabeli loomine"
 
 # vbla eBox loob oma logide andmebaasi uue tabeli printerite logide salvestamiseks
 #: src/EBox/Printers.pm:85
-#, fuzzy
 msgid ""
 "eBox will create a new table into its log database to store printers logs"
 msgstr ""
-"eBox loob, printerite logide salvestamiseks, uue tabeli oma logide andmebaasi"
+"eBox loob uue tabeli oma logide andmebaasi, et salvestada printeri logisid"
 
 #: src/EBox/Printers.pm:101
-#, fuzzy
 msgid "To add and manage printers"
-msgstr "Et lisada ja hallata printereid"
+msgstr "Printerite lisamiseks ning halduseks"
 
 # vbla ... cupsd-l kuulata ...
 #: src/EBox/Printers.pm:106
 #, fuzzy
 msgid "To enable standalone cupsd listen on internal interfaces"
-msgstr "Et lubada autonoomsel cups deemonil kuulata sisemisi liideseid"
+msgstr "Eraldiseisva cups deemoni sisemiste liideste kuulamiseks"
 
 #: src/EBox/Printers.pm:291
-#, fuzzy
 msgid "Add Printer"
 msgstr "Printeri lisamine"
 
@@ -314,14 +306,12 @@ msgid "It is not a samba printer"
 msgstr "See ei ole samba printer"
 
 #: src/EBox/Printers.pm:727
-#, fuzzy
 msgid "It is not a IPP printer"
-msgstr "See ei ole usb printer"
+msgstr "See ei ole IPP printer"
 
 #: src/EBox/Printers.pm:755
-#, fuzzy
 msgid "It is not a LPD printer"
-msgstr "See ei ole usb printer"
+msgstr "See ei ole LPD printer"
 
 # koodis: $opt . " " . __('is not a valid option'))
 #: src/EBox/Printers.pm:986 src/EBox/Printers.pm:1012
@@ -343,7 +333,6 @@ msgstr "Omanik"
 
 # vbla Järjekorda pandud
 #: src/EBox/Printers.pm:1287
-#, fuzzy
 msgid "Queued at"
 msgstr "Järjekorda lisatud"
 
@@ -353,13 +342,12 @@ msgstr "Sündmus"
 
 # KDE kaudiocreator: Järjekorda pandud
 #: src/EBox/Printers.pm:1291
-#, fuzzy
 msgid "Queued"
 msgstr "Järjekorras"
 
 #: src/EBox/Printers.pm:1291
 msgid "Canceled"
-msgstr "Katkestatud"
+msgstr "Loobutud"
 
 #: src/EBox/Printers.pm:1294
 msgid "Printers"
@@ -367,19 +355,17 @@ msgstr "Printerid"
 
 # vbla nimetamine ja meetodi valimine
 #: src/templates/addprinter.mas:10
-#, fuzzy
 msgid "Set printer name and method"
-msgstr "Nime määramine printerile ja ühendusviisi valimine"
+msgstr "Printeri nime ja ühendusviisi määramine"
 
 # vbla Paralleelühendus v Paralleelport
 #: src/templates/addprinter.mas:28
-#, fuzzy
 msgid "Parallel"
 msgstr "Paralleelne"
 
 #: src/templates/addprinter.mas:29
 msgid "AppSocket"
-msgstr ""
+msgstr "AppSocket"
 
 #: src/templates/addprinter.mas:30
 msgid "Samba"
@@ -387,11 +373,11 @@ msgstr "Samba"
 
 #: src/templates/addprinter.mas:31
 msgid "IPP: Internet printing protocol"
-msgstr ""
+msgstr "IPP: Interneti prindiprotokoll"
 
 #: src/templates/addprinter.mas:32
 msgid "LPD: Line Printer Daemon"
-msgstr ""
+msgstr "LPD: Reaprinteriprotokoll"
 
 #: src/templates/manufacturer.mas:12
 msgid "Choose manufacturer"
@@ -446,7 +432,7 @@ msgstr "Loomise aeg"
 
 #: src/templates/printer.mas:82
 msgid "Action"
-msgstr "Tegevus"
+msgstr "Toiming"
 
 #: src/templates/printer.mas:131
 msgid "This printer has no pending job in queue at the moment"
@@ -454,12 +440,11 @@ msgstr "Sellel printeril ei ole hetkel ootel töid järjekorras"
 
 #: src/templates/printer.mas:179
 msgid "You need to save changes in order to print a test page"
-msgstr ""
+msgstr "Testlehekülje printimiseks pead muudatused salvestama"
 
 #: src/templates/printer.mas:184 src/templates/printer.mas:185
-#, fuzzy
 msgid "Print Test Page"
-msgstr "Printeri nimi"
+msgstr "Prindi testlehekülg"
 
 # vbla Draiveri seaded
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
@@ -471,18 +456,16 @@ msgid "Choose a printer model"
 msgstr "Printeri mudeli valimine"
 
 #: src/templates/ipp.mas:16
-#, fuzzy
 msgid "Configure IPP printer"
-msgstr "Võrguprinteri seadistamine"
+msgstr "IPP (võrguprinteri) seadistamine"
 
 #: src/templates/driver.mas:12
 msgid "Choose a driver for the printer"
 msgstr "Printeri draiveri valimine"
 
 #: src/templates/lpd.mas:16
-#, fuzzy
 msgid "Configure LPD printer"
-msgstr "Võrguprinteri seadistamine"
+msgstr "LPD (võrguprinteri) seadistamine"
 
 #: src/templates/drivers.mas:13
 msgid "Choose a dirver for the printer"
@@ -499,7 +482,6 @@ msgstr "Liigu"
 
 # vbla Läbi samba jagatud printeri seadistamine
 #: src/templates/printerback.mas:106
-#, fuzzy
 msgid "Samba shared printer configurationr"
 msgstr "Samba jagatud printeri seadistamine"
 
@@ -529,9 +511,8 @@ msgid "Remote printer configuration"
 msgstr "Võrguprinteri seadistamine"
 
 #: src/templates/network.mas:16
-#, fuzzy
 msgid "Configure AppSocket printer"
-msgstr "Võrguprinteri seadistamine"
+msgstr "AppSocket võrguprinteri seadistamine"
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"
@@ -539,9 +520,8 @@ msgstr "Samba jagatud printeri seadistamine"
 
 # mõnes kohas on CUPS, mõnes cups???
 #: src/templates/printers.mas:13
-#, fuzzy
 msgid "Enable standalone CUPS"
-msgstr "Autonoomse CUPSi lubamine"
+msgstr "Luba eraldiseisev CUPS"
 
 #: src/templates/printers.mas:25
 msgid "General settings"

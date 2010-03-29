@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:52+0100\n"
-"PO-Revision-Date: 2010-01-31 17:56+0100\n"
+"PO-Revision-Date: 2010-03-05 01:16+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1573,9 +1573,8 @@ msgid "Process List"
 msgstr "Lista de procesos"
 
 #: src/EBox/SysInfo.pm.in:167
-#, fuzzy
 msgid "Resources & Services"
-msgstr "Estado del servicio Eventos"
+msgstr "Recursos y Servicios"
 
 #: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
 msgid "System"

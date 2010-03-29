@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:52+0100\n"
-"PO-Revision-Date: 2010-02-09 12:01+0100\n"
+"PO-Revision-Date: 2010-03-17 14:13+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -203,7 +203,7 @@ msgstr ""
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
 #: src/EBox/Model/DataTable.pm:4531
 msgid "Enabled"
-msgstr "bekapcsolva"
+msgstr "Bekapcsolva"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Receiver"
@@ -266,7 +266,7 @@ msgstr "Felhasználói jelszó"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid "Subscribe"
-msgstr "aláírás"
+msgstr "Feliratkozom"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
 msgid ""
@@ -539,7 +539,7 @@ msgstr ""
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:172
 #: src/templates/backup.mas:173
 msgid "Delete"
-msgstr "Törlés"
+msgstr "Töröl"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:114
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:130
@@ -551,7 +551,7 @@ msgstr ""
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:95
 msgid "Restore"
-msgstr "Visszaállítás"
+msgstr "Visszaállít"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
@@ -1089,7 +1089,7 @@ msgstr "Az IP címek nincsenek engedélyezve!"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
-msgstr "bármi (valami)"
+msgstr "akármi"
 
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
@@ -1535,7 +1535,7 @@ msgstr "Rendszerinformáció"
 
 #: src/EBox/SysInfo.pm.in:95
 msgid "available"
-msgstr "elérhető (szabad)"
+msgstr "elérhető"
 
 #: src/EBox/SysInfo.pm.in:100
 msgid "Time"
@@ -1543,15 +1543,15 @@ msgstr "Idő"
 
 #: src/EBox/SysInfo.pm.in:101
 msgid "Hostname"
-msgstr "kiszolgálónév"
+msgstr "Kiszolgálónév"
 
 #: src/EBox/SysInfo.pm.in:102
 msgid "Core version"
-msgstr "eBox verzió"
+msgstr "Alapverzió"
 
 #: src/EBox/SysInfo.pm.in:104
 msgid "System load"
-msgstr "rendszerterhelés"
+msgstr "Rendszerterhelés"
 
 #: src/EBox/SysInfo.pm.in:150 src/EBox/SysInfo.pm.in:243
 msgid "Module Status"
@@ -1615,7 +1615,7 @@ msgstr ""
 
 #: src/EBox/Report/DiskUsage.pm:333
 msgid "Free space"
-msgstr "szabad hely"
+msgstr "Szabad hely"
 
 #: src/templates/configurationFiles.mas:28
 msgid "Do you wish to overwrite these files?"
@@ -1627,19 +1627,19 @@ msgstr "Az aktuális fájl megtartása."
 
 #: src/templates/configurationFiles.mas:39
 msgid "Modify"
-msgstr "módosítás"
+msgstr "Módosítás"
 
 #: src/templates/headTitle.mas:20
 msgid "Remote services control panel"
-msgstr "távoli szolgáltatások vezérlőpultja"
+msgstr "Távoli szolgáltatások vezérlőpultja"
 
 #: src/templates/backupTabs.mas:13
 msgid "Local Backup"
-msgstr "helyi biztonsági mentés"
+msgstr "Helyi biztonsági mentés"
 
 #: src/templates/backupTabs.mas:18
 msgid "Remote Backup"
-msgstr "távoli biztonsági mentés"
+msgstr "Távoli biztonsági mentés"
 
 #: src/templates/backupTabs.mas:23
 msgid "Remote Backup from Other Subscribed Hosts"
@@ -1848,7 +1848,7 @@ msgstr "Szabad RAID tömbök"
 
 #: src/templates/report/diskUsage.mas:29
 msgid "Mounted on"
-msgstr "Csatoltak"
+msgstr "Felcsatolva"
 
 #: src/templates/report/diskUsage.mas:31
 msgid "Options"
@@ -2081,23 +2081,23 @@ msgstr "Teljes"
 
 #: src/templates/backup.mas:115
 msgid "Configuration only"
-msgstr "csak beállítások"
+msgstr "Csak beállítások"
 
 #: src/templates/backup.mas:116
 msgid "Unknown type"
-msgstr "ismeretlen típus"
+msgstr "Ismeretlen típus"
 
 #: src/templates/backup.mas:122
 msgid "Backups' list"
-msgstr "mentések listája"
+msgstr "Mentések listája"
 
 #: src/templates/backup.mas:129 src/templates/confirm-backup.mas:53
 msgid "Archive size"
-msgstr "mentés mérete"
+msgstr "Archívum mérete"
 
 #: src/templates/backup.mas:130
 msgid "Actions"
-msgstr "műveletek"
+msgstr "Műveletek"
 
 #: src/templates/backup.mas:160
 msgid "Restore configuration using this file"
@@ -2105,11 +2105,11 @@ msgstr "Ez a fájl állítja be a visszaállítás tulajdonságait."
 
 #: src/templates/backup.mas:161
 msgid "Restore from backup"
-msgstr "mentésből történő visszaállítás"
+msgstr "Mentésből történő visszaállítás"
 
 #: src/templates/backup.mas:166 src/templates/backup.mas:167
 msgid "Download"
-msgstr "letöltés"
+msgstr "Letöltés"
 
 #: src/templates/backup.mas:186
 msgid "download"
@@ -2117,11 +2117,11 @@ msgstr "letöltés"
 
 #: src/templates/backup.mas:188
 msgid "restore"
-msgstr "visszaállítás"
+msgstr "visszaállít"
 
 #: src/templates/backup.mas:190
 msgid "delete"
-msgstr "törlés"
+msgstr "töröl"
 
 #: src/templates/bug.mas:9
 msgid ""
@@ -2147,7 +2147,7 @@ msgstr "Ebben a munkamenetben nem mentett módosítások vannak!"
 
 #: src/templates/logout/index.mas:19
 msgid "Exit"
-msgstr "kilépés"
+msgstr "Kilép"
 
 #: src/templates/password.mas:4
 msgid "Change Password"

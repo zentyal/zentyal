@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:37+0000\n"
-"PO-Revision-Date: 2010-01-27 01:25+0100\n"
+"PO-Revision-Date: 2010-03-05 01:20+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -322,12 +322,11 @@ msgstr "Configuración general del servidor Asterisk actualizada"
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "Personalizado"
 
 #: src/EBox/Model/Provider.pm:89
-#, fuzzy
 msgid "Provider"
-msgstr "Proveedor SIP"
+msgstr "Proveedor"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
@@ -335,7 +334,7 @@ msgstr "Nombre"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "Nombre del proveedor del servicio VoIP"
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
@@ -350,9 +349,8 @@ msgid "Recipient of incoming calls"
 msgstr "Receptor de llamadas entrantes"
 
 #: src/EBox/Model/Provider.pm:130
-#, fuzzy
 msgid "Extension recipient of incoming calls through the provider."
-msgstr "Receptor de llamadas entrantes"
+msgstr "Extensión receptora de llamadas entrantes a través del proveedor."
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
@@ -373,6 +371,9 @@ msgid ""
 "directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
+"Créditos VoIP eBox: realiza llamadas VoIP de bajo coste a fijos y móviles "
+"directamente con eBox. Compra los créditos de VoIP que necesites "
+"directamente en la {ohref}Tienda on-line de eBox{chref}!"
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"

@@ -1,3 +1,17 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-27 16:54+0200\n"
+"PO-Revision-Date: 2010-02-27 17:02+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"X-Generator: Pootle 1.1.0\n"
+
 # Portuguese translations for ebox-trafficshaping package.
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
@@ -100,9 +114,8 @@ msgstr ""
 "adicionar regras usando este objeto"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
-#, fuzzy
 msgid "If service is any, some source or destination should be provided"
-msgstr "Se o serviço é qualquer um, deve ser disponibilizado um destino"
+msgstr "Se o serviço é qualquer um, alguma origem ou destino deve ser fornecida"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:393
 msgid "Service"
@@ -123,7 +136,7 @@ msgstr "Qualquer"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:418
 msgid "Source IP"
-msgstr "IP fonte"
+msgstr "IP de origem"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:423
 msgid "Source MAC"
@@ -131,7 +144,7 @@ msgstr "MAC fonte"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:428
 msgid "Source object"
-msgstr "Objeto fonte"
+msgstr "Objeto de origem"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:438
 msgid "Destination"
@@ -139,11 +152,11 @@ msgstr "Destino"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:446
 msgid "Destination IP"
-msgstr "IP destino"
+msgstr "IP de destino"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:451
 msgid "Destination object"
-msgstr "Objeto destino"
+msgstr "Objeto de destino"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:461
 #: src/EBox/TrafficShaping.pm:1563
@@ -165,18 +178,17 @@ msgid "Kbit/s"
 msgstr "Kbit/s"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:474
-#, fuzzy
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
-"Veja que a soma de todas as taxas garantidas não podem exceder  a largura de "
-"banda total. 0 indica taxa ilimitada"
+"Veja que a soma de todas as taxas garantidas não podem exceder a sua largura "
+"de banda total. 0 indica taxa não-garantida."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:481
 #: src/EBox/TrafficShaping.pm:1562
 msgid "Limited Rate"
-msgstr "Taxa limitada"
+msgstr "Taxa Limitada"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:488
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
@@ -239,9 +251,8 @@ msgid "Application based service group"
 msgstr "Grupo de serviço baseado em aplicação"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:94
-#, fuzzy
 msgid "External Interface"
-msgstr "{iface} (interface externa)"
+msgstr "Interface Externa"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:99
 msgid "Upload"
@@ -258,9 +269,8 @@ msgstr "Download"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:118
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:119
-#, fuzzy
 msgid "External Interface Rates"
-msgstr "{iface} (interface externa)"
+msgstr "Taxas da Interface Externa"
 
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:126
 msgid "rate"
@@ -333,14 +343,12 @@ msgid "To implement the traffic shaping rules"
 msgstr "Para implementar regras de traffic shaping"
 
 #: src/EBox/TrafficShaping.pm:383
-#, fuzzy
 msgid "Rules"
 msgstr "Regras"
 
 #: src/EBox/TrafficShaping.pm:385
-#, fuzzy
 msgid "Interface Rates"
-msgstr "Interface"
+msgstr "Taxas da Interface"
 
 #: src/EBox/TrafficShaping.pm:440 src/EBox/TrafficShaping.pm:591
 #: src/EBox/TrafficShaping.pm:985 src/EBox/TC.pm:107

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:51+0100\n"
-"PO-Revision-Date: 2010-02-20 13:24+0100\n"
+"PO-Revision-Date: 2010-03-26 13:38+0100\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -17,17 +17,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+# TFTP
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
-msgstr ""
+msgstr "Triviaalne failiedastusprotokoll"
 
 #: migration/0002_add_services.pl:126
 msgid "Dynamic Host Configuration Protocol"
-msgstr ""
+msgstr "Dünaamilise hostikonfiguratsiooni protokoll"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
-msgstr ""
+msgstr "Mooduli olek"
 
 #: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -36,18 +37,18 @@ msgstr ""
 #: src/EBox/DHCP.pm:604 src/EBox/DHCP.pm:702 src/EBox/DHCP.pm:756
 #: src/EBox/DHCP.pm:817 src/EBox/DHCP.pm:873 src/EBox/DHCP.pm:1264
 msgid "Interface"
-msgstr ""
+msgstr "Liides"
 
 #: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:218
 #: src/EBox/DHCP.pm:1265 src/EBox/DHCP.pm:1333 src/templates/fixed.mas:9
 msgid "MAC address"
-msgstr ""
+msgstr "MAC aadress"
 
 #: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:242
 #: src/EBox/Model/FixedAddressTable.pm:224 src/EBox/DHCP.pm:1333
 #: src/templates/fixed.mas:10
 msgid "IP address"
-msgstr ""
+msgstr "IP aadress"
 
 #: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
 #: src/EBox/Model/FixedAddressTable.pm:212 src/EBox/Model/RangeTable.pm:213
@@ -67,7 +68,7 @@ msgstr "Kuni"
 
 #: src/EBox/CGI/Enable.pm:39
 msgid "module status"
-msgstr ""
+msgstr "mooduli olek"
 
 #: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
 #: src/EBox/Model/FixedAddressTable.pm:96 src/EBox/Model/DynamicDNS.pm:111
@@ -79,34 +80,51 @@ msgstr ""
 msgid "interface {iface}"
 msgstr "liides {iface}"
 
+# "next server" = kõrvalserver?
 #: src/EBox/Model/ThinClientOptions.pm:139
+#, fuzzy
 msgid "You need to upload a boot image to eBox if you set it as next server"
 msgstr ""
+"Kui sa soovid seda määrata kõrvalserveriks, pead üles laadima "
+"alglaadimistõmmise"
 
+# "next server" = kõrvalserver?
 #: src/EBox/Model/ThinClientOptions.pm:146
+#, fuzzy
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
 msgstr ""
+"Selleks, et eBoxi üles laadida alglaadimistõmmist, pead sa määrama eBoxi "
+"kõrvalserveriks"
 
+# Sa pead määrama alglaadimistõmmise asukoha kaugserveris
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
-msgstr ""
+msgstr "Sa pead määrama alglaadimistõmmise asukoha võrguserveris"
 
+# "next server" = kõrvalserver?
 #: src/EBox/Model/ThinClientOptions.pm:158
+#, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
 msgstr ""
+"Sa saad määrata ainult failinime, kui sul on kõrvalserver ja see ei ole eBox"
 
+# Jabur lause
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
+"Eelnevalt üleslaaditud alglaadimistõmmise eemaldamine, kuna kõrvalserveri "
+"eelmiseks valikuks olnud eBox on muudetud {option}"
 
+# sellist sõna küll eesti keeles ei ole, aga midagi paremat ka ei oska pakkuda
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
-msgstr ""
+msgstr "Kõrvalserver"
 
 #: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:394
 #: src/EBox/Model/Options.pm:405 src/EBox/Model/Options.pm:409
@@ -120,48 +138,51 @@ msgstr "eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:246
 msgid "name"
-msgstr ""
+msgstr "nimi"
 
 #: src/EBox/Model/ThinClientOptions.pm:252
 msgid "File name"
-msgstr ""
+msgstr "Failinimi"
 
 #: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
-msgstr ""
+msgstr "Faili asukoht kõrvalserveris"
 
+# vallaste annab vasteks "kõhn klient" open-tran "peen klient"
 #: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
-msgstr ""
+msgstr "Õhuke klient"
 
+# vallaste annab "thin client" vasteks "kõhn klient" open-tran "peen klient"
 #: src/EBox/Model/ThinClientOptions.pm:274
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
+"Võib olla soovid sa kohandada oma õhukese kliendi valikuid. Et seda teha, "
+"pead sa kaasama kõik failid mida vajad kataloogi {path}"
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
 msgstr "Vaikimisi rendiaeg peab olema suurem kui 0 sekundit"
 
-# vbla suurim lubatud {max}
+#  
 #: src/EBox/Model/LeaseTimes.pm:138
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
-"Vaikimisi rendiaeg {default} peab olema väiksem, kui maksimaalselt lubatud "
+"Vaikimisi rendiaeg {default} peab olema väiksem, kui maksimaalne lubatud "
 "{max}"
 
 # vbla Suurim võimalik
 #: src/EBox/Model/LeaseTimes.pm:150
-#, fuzzy
 msgid "Maximum leased time must be higher than 0 seconds"
 msgstr "Maksimaalne rendiaeg peab olema suurem kui 0 sekundit"
 
 # vt eelmine
 #: src/EBox/Model/LeaseTimes.pm:156
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
 "Maksimaalne rendiaeg {max} peab olema suurem, kui vaikimisi rendiaeg "
@@ -169,7 +190,6 @@ msgstr ""
 
 # vbla Rendiaeg vaikimisi v Rendiaja vaikeväärtus. vaata siis üle kõik 'Default leased time' asjad
 #: src/EBox/Model/LeaseTimes.pm:200
-#, fuzzy
 msgid "Default leased time"
 msgstr "Vaikimisi rendiaeg"
 
@@ -179,7 +199,6 @@ msgstr "sekundit"
 
 # mulle see maksimaalne väga ei meeldi, äkki hoopis suurim võimalik, aga siis vaata üle kõik kus 'max leased time' esineb
 #: src/EBox/Model/LeaseTimes.pm:207
-#, fuzzy
 msgid "Maximum leased time"
 msgstr "Maksimaalne rendiaeg"
 
@@ -190,134 +209,149 @@ msgstr "Rendiajad"
 #: src/EBox/Model/LeaseTimes.pm:221
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr "Rendiaeg on DHCP serveri poolt antud IP aadressi kehtivusaeg"
+msgstr "Rendiaeg on DHCP serveri poolt jagatud IP aadressi kehtivusaeg"
 
 #: src/EBox/Model/FixedAddressTable.pm:122
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
-msgstr ""
+msgstr "IP aadress {ip} ei asu {net} võrgus"
 
 #: src/EBox/Model/FixedAddressTable.pm:133
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr ""
+msgstr "Valitud IP on võrguliidese IP aadress: {ifaceIP}"
 
 #: src/EBox/Model/FixedAddressTable.pm:150
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr ""
+msgstr "IP aadress {ip} on vahemikus '{range}': {from}-{to}"
 
 #: src/EBox/Model/FixedAddressTable.pm:162
 #, perl-brace-format
 msgid "{name} cannot contain spaces"
-msgstr ""
+msgstr "{name} ei tohi sisaldada tühikuid"
 
+# läheb 'action' muutujana ülejärgmisse lausesse
 #: src/EBox/Model/FixedAddressTable.pm:180
 msgid "update"
-msgstr ""
+msgstr "uuendada"
 
+# läheb 'action' muutujana järgmisse lausesse
 #: src/EBox/Model/FixedAddressTable.pm:182
 msgid "add"
-msgstr ""
+msgstr "lisada"
 
+#  
 #: src/EBox/Model/FixedAddressTable.pm:184
 #, perl-brace-format
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr ""
+"Sa ei saa {action} fikseeritud aadressi nimega mis on juba kasutusel teises "
+"fikseeritud aadresside tabelis"
 
 #: src/EBox/Model/FixedAddressTable.pm:227
 msgid "You cannot use an IP address contained in the above ranges."
 msgstr ""
+"Sa ei saa kasutada IP aadressi, mis sisaldab eelpool mainitud vahemikke."
 
 #: src/EBox/Model/FixedAddressTable.pm:232
 msgid "Description"
-msgstr ""
+msgstr "Kirjeldus"
 
 #: src/EBox/Model/FixedAddressTable.pm:240 src/templates/fixed.mas:5
 msgid "Fixed addresses"
-msgstr ""
+msgstr "Fikseeritud aadressid"
 
 #: src/EBox/Model/FixedAddressTable.pm:247
 msgid "fixed address"
-msgstr ""
+msgstr "fikseeritud aadress"
 
 #: src/EBox/Model/DynamicDNS.pm:132 src/EBox/Model/DynamicDNS.pm:140
 #: src/EBox/Model/DynamicDNS.pm:387
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr ""
+msgstr "Domeen {domain} on juba DNS sektsioonis käsitsi defineeritud"
 
+# "feature" tähendus selles kontkestis jääb arusaamatuks
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "DNS moodul peab selle funktsiooni toimimiseks olema seadistatud"
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
+msgstr "{pkg} peab olema selle funktsiooni kasutamiseks paigaldatud"
 
 #: src/EBox/Model/DynamicDNS.pm:266
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
+"Domeene lisatakse/määratakse DNS sektsioonis kirjutuskaitse režiimis "
+"automaatselt"
 
 #: src/EBox/Model/DynamicDNS.pm:268
 msgid "DNS module must be enabled to make this feature work. "
-msgstr ""
+msgstr "Selle funktsiooni toimimiseks peab olema DNS moodul lubatud "
 
 #: src/EBox/Model/DynamicDNS.pm:332
-#, fuzzy
 msgid "Dynamic domain"
-msgstr "Otsingudomeen"
+msgstr "Dünaamiline domeen"
 
+# See pole küll otsene tõlge, kuid nii vist peaks see asi olema
 #: src/EBox/Model/DynamicDNS.pm:334
+#, fuzzy
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
+"Masinanimele lisatud domeeninimi nende klientide jaoks kes rendivad IP "
+"aadresse"
 
 #: src/EBox/Model/DynamicDNS.pm:339
-#, fuzzy
 msgid "Static domain"
-msgstr "Otsingudomeen"
+msgstr "Staatiline domeen"
 
+# See pole küll otsene tõlge, kuid nii vist peaks see asi olema
 #: src/EBox/Model/DynamicDNS.pm:341
+#, fuzzy
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
 msgstr ""
+"Masinanimele lisatud domeeninimi nende klientide jaoks kes kasutavad "
+"fikseeritud aadresse"
 
 #: src/EBox/Model/DynamicDNS.pm:346
 msgid "Same as Dynamic Domain"
-msgstr ""
+msgstr "Sama kui dünaamiline domeen"
 
 # mulle see kohandatud ei meeldi eriti, kui muudad vaata üle ka teised 'custom' asjad
 #: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:371
 #: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
 #: src/EBox/Model/Options.pm:432
-#, fuzzy
 msgid "Custom"
 msgstr "Kohandatud"
 
 #: src/EBox/Model/DynamicDNS.pm:358
 msgid "Dynamic DNS Options"
-msgstr ""
+msgstr "Dünaamilised DNS valikud"
 
 #: src/EBox/Model/DynamicDNS.pm:363
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
+"Kirjutuskaitstega režiimis lisatakse DNS moodulile domeenid automaatselt"
 
 #: src/EBox/Model/DynamicDNS.pm:395
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
-msgstr ""
+msgstr "Domeen \"{domain}\" on DNS sektsiooni lisatud"
 
 #: src/EBox/Model/DynamicDNS.pm:406
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
-msgstr ""
+msgstr "Domeen \"{domain}\" on DNS sektsioonist eemaldatud"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
@@ -328,7 +362,6 @@ msgid "Subnet"
 msgstr "Alamvõrk"
 
 #: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
-#, fuzzy
 msgid "Available range"
 msgstr "Saadaval olev vahemik"
 
@@ -336,24 +369,24 @@ msgstr "Saadaval olev vahemik"
 msgid "DHCP ranges"
 msgstr "DHCP vahemikud"
 
-# vbla ...ei asu hetkel aktiivses võrgupiirkonnas v ...ei asu praeguses/kehtivas võrgupiirkonnas
+# vbla ...ei asu hetkel aktiivses võrgupiirkonnas
 #: src/EBox/Model/Options.pm:157
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{gateway} is not in the current network"
 msgstr "{gateway} ei asu võrgupiirkonnas"
 
 #: src/EBox/Model/Options.pm:169
 msgid ""
 "DNS module must be enabled to be able to select eBox as primary DNS server"
-msgstr ""
+msgstr "eBoxi primaarseks DNS serveriks valimisel peab olema DNS moodul lubatud"
 
 #: src/EBox/Model/Options.pm:179
 msgid "NTP module must be enabled to be able to select eBox as NTP server"
-msgstr ""
+msgstr "eBoxi NTP serveriks valimisel peab olema NTP moodul lubatud"
 
 #: src/EBox/Model/Options.pm:190
 msgid "Samba module must be enabled to be able to select eBox as WINS server"
-msgstr ""
+msgstr "eBoxi WINS serveriks valimisel peab olema Samba moodul lubatud"
 
 #: src/EBox/Model/Options.pm:379
 msgid "eBox's domain"
@@ -364,14 +397,12 @@ msgid "local eBox DNS"
 msgstr "kohaliku eBoxi DNS"
 
 #: src/EBox/Model/Options.pm:414
-#, fuzzy
 msgid "local eBox NTP"
-msgstr "kohaliku eBoxi DNS"
+msgstr "kohaliku eBoxi NTP"
 
 #: src/EBox/Model/Options.pm:428
-#, fuzzy
 msgid "local eBox"
-msgstr "kohaliku eBoxi DNS"
+msgstr "kohalik eBox"
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
@@ -379,77 +410,90 @@ msgstr "Vaikelüüs"
 
 # vt Custom
 #: src/EBox/Model/Options.pm:450
-#, fuzzy
 msgid "Custom IP address"
 msgstr "Kohandatud IP aadress"
 
 # vbla Juba seadistatud
 #: src/EBox/Model/Options.pm:460
-#, fuzzy
 msgid "Configured ones"
-msgstr "Seadistatud"
+msgstr "Juba seadistatud"
 
 #: src/EBox/Model/Options.pm:466
 msgid ""
 "Setting \"eBox\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
+"eBoxi seadistamisel vaikelüüsiks määratakse võrguliidese IP aadress lüüsiks"
 
 #: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
 msgid "Search domain"
 msgstr "Otsingudomeen"
 
+#  
 #: src/EBox/Model/Options.pm:475
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
+"Valitud domeen viib lõpuni klientide need DNS päringud, mis ei ole "
+"täielikult kvalifitseeruvad"
 
 #: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
 msgid "Primary nameserver"
-msgstr ""
+msgstr "Primaarne nimeserver"
 
+# pole küll otsene tõlge kuid sisu peaks ok olema
 #: src/EBox/Model/Options.pm:483
 msgid ""
 "If \"eBox DNS\" is present and selected, the eBox server will act as cache "
 "DNS server"
 msgstr ""
+"Kui eBoxi DNS on lubatud ja valitud, siis eBox server käitub DNS puhvrina"
 
 #: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
 msgid "Secondary nameserver"
-msgstr ""
+msgstr "Sekundaarne nimeserver"
 
 #: src/EBox/Model/Options.pm:494
 msgid "NTP server"
-msgstr ""
+msgstr "NTP server"
 
 #: src/EBox/Model/Options.pm:497
 msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
 msgstr ""
+"Kui eBoxi NTP on lubatud ja valitud, siis eBox on DHCP klientidele NTP "
+"serveriks"
 
 #: src/EBox/Model/Options.pm:502
 msgid "WINS server"
-msgstr ""
+msgstr "WINS server"
 
 #: src/EBox/Model/Options.pm:505
 msgid ""
 "If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
 "DHCP clients"
 msgstr ""
+"Kui eBox Samba on lubatud ja valitud, siis on eBox DHCP klientidele WINS "
+"serveriks"
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"
-msgstr ""
+msgstr "Üldised valikud"
 
+# viimane lause on tabamatu
 #: src/EBox/Model/Options.pm:517
+#, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
 "domains on eBox might be chosen. All fields are optionals setting its value "
 "as \"None\" or leaving blank."
 msgstr ""
+"Kui sa määrad vaikelüüsi väärtuseks \"juba seadistatud\", võid valida ühe "
+"seadistatud lüüsi. \"Otsingudomeeni\" väärtuseks võid valida ühe seadistatud "
+"DNS domeenidest eBoxis."
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
@@ -473,15 +517,14 @@ msgid ""
 msgstr ""
 "Vahemik {newFrom}-{newTo} kattub vahemikuga '{range}': {oldFrom}-{oldTo}"
 
-# vbla.. manuaalselt (käsitsi) määratud '{name}': {fixedIP} aadressi
+#  
 #: src/EBox/Model/RangeTable.pm:182
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr "Vahemik {from}-{to} sisaldab fikseeritud '{name}': {fixedIP} aadressi"
+msgstr "Vahemik {from}-{to} sisaldab fikseeritud aadressi '{name}': {fixedIP}"
 
 # vbla Aadressivahemikud
 #: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
-#, fuzzy
 msgid "Ranges"
 msgstr "Vahemikud"
 
@@ -494,64 +537,74 @@ msgstr "vahemik"
 #: src/EBox/DHCP.pm:823 src/EBox/DHCP.pm:879
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr ""
+msgstr "{iface} ei ole staatiline"
 
+#  
 #: src/EBox/DHCP.pm:694
 msgid "Not a valid action: add, set and del are available"
-msgstr ""
+msgstr "Ei ole sobiv toiming: lubatud on lisamine, määramine ja kustutamine"
 
 #: src/EBox/DHCP.pm:809
 msgid "No valid action. Available ones are: add, set and del"
-msgstr ""
+msgstr "Ei ole sobiv toiming: lubatud on lisamine, määramine ja kustutamine"
 
 #: src/EBox/DHCP.pm:1048
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
 "used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
 "it before trying to add a virtual interface using it."
 msgstr ""
+"Sa proovid lisada virtuaalset liidest IP aadressiga mis on juba kasutusel "
+"DHCP vahemikus '{range}' oleva liidese '{iface}' poolt. Palun eemalda see "
+"liides enne, kui soovid sellise aadressiga virtuaalset liidest lisada."
 
 #: src/EBox/DHCP.pm:1067
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
 "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
 "remove it before trying to add a virtual interface using it."
 msgstr ""
+"Sa proovid lisada virtuaalset liidest IP aadressiga mis on juba kasutusel "
+"DHCP fikseeritud aadresside hulgas '{fixed}' oleva liidese '{iface}' poolt. "
+"Palun eemalda see liides enne, kui soovid sellise aadressiga virtuaalset "
+"liidest lisada."
 
 #: src/EBox/DHCP.pm:1263
 msgid "Date"
-msgstr ""
+msgstr "Kuupäev"
 
 #: src/EBox/DHCP.pm:1266
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/DHCP.pm:1267
 msgid "Event"
-msgstr ""
+msgstr "Sündmus"
 
 #: src/EBox/DHCP.pm:1270
 msgid "Leased"
-msgstr ""
+msgstr "Renditud"
 
+#  
 #: src/EBox/DHCP.pm:1270
 msgid "Released"
-msgstr ""
+msgstr "Vabastatud"
 
 #: src/EBox/DHCP.pm:1273
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1333
 msgid "Host name"
-msgstr ""
+msgstr "Masinanimi"
 
 #: src/EBox/DHCP.pm:1360
-#, fuzzy
 msgid "DHCP leases"
-msgstr "DHCP vahemikud"
+msgstr "DHCP rendid"
 
 #: src/EBox/Composite/General.pm:79
 #, perl-brace-format
@@ -559,20 +612,24 @@ msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
+"Liidesele DHCP teenuse seadistamiseks peab see olema määratud staatiliseks. "
+"Et seda teha, muuda võrgumoodulis {openhref}liideste seadistusi{closehref}"
 
 #: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
-msgstr ""
+msgstr "Vali seadistamiseks staatiline liides:"
 
 #: src/EBox/Composite/Interfaces.pm:109
 msgid "Service configuration"
-msgstr ""
+msgstr "Teenuse seadistamine"
 
 #: src/EBox/Composite/Interfaces.pm:110
 msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
 msgstr ""
+"Liideses IP aadresside pakkumiseks on vaja määrata aadressivahemik või "
+"fikseeritud aadress."
 
 #: src/EBox/Composite/InterfaceConfiguration.pm:112
 #, perl-brace-format
@@ -580,45 +637,51 @@ msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
 msgstr ""
+"Välises liideses IP aadresside pakkumiseks on vaja avada teenus "
+"{openhref}tulemüüri moodulis{closehref}"
 
+#  
 #: src/EBox/Composite/AdvancedOptions.pm:133
 msgid "Advanced options"
-msgstr ""
+msgstr "Täpsemad valikud"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
-msgstr ""
+msgstr "Toiming"
 
 #: src/templates/fixed.mas:34 src/templates/fixed.mas:37
 #: src/templates/fixed.mas:38 src/templates/ranges.mas:74
 #: src/templates/ranges.mas:75 src/templates/ranges.mas:76
 msgid "Add"
-msgstr ""
+msgstr "Lisa"
 
 #: src/templates/fixed.mas:51 src/templates/fixed.mas:53
 #: src/templates/fixed.mas:54
 msgid "Remove"
-msgstr ""
+msgstr "Eemalda"
 
+#  
 #: src/templates/ranges.mas:30
 msgid "Subnet netmask"
-msgstr ""
+msgstr "Alamvõrgu mask"
 
 #: src/templates/ranges.mas:91 src/templates/ranges.mas:92
 #: src/templates/ranges.mas:93
 msgid "Delete"
-msgstr ""
+msgstr "Kustuta"
 
 #: src/templates/options.mas:8
 msgid "Options"
-msgstr ""
+msgstr "Valikud"
 
 #: src/templates/options.mas:10
 msgid ""
 "You can leave empty the Default Gateway field to use eBox as default gateway "
 "for this subnet"
 msgstr ""
+"Võid jätta vaikelüüsi välja tühjaks, et selle alamvõrgu jaoks eBoxi "
+"vaikelüüsina kasutada"
 
 #: src/templates/options.mas:64
 msgid "Apply"
-msgstr ""
+msgstr "Rakenda"

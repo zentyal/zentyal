@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-remoteservices 1.1Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-remoteservices 1.1Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:54+0100\n"
-"PO-Revision-Date: 2010-01-27 11:39+0100\n"
+"PO-Revision-Date: 2010-03-09 11:04+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +93,7 @@ msgstr "Biztos ki akarja törölni a következő távoli mentést:"
 
 #: src/EBox/CGI/Backup/Confirm.pm:125
 msgid "Delete"
-msgstr "Törlöl"
+msgstr "Töröl"
 
 #: src/EBox/CGI/Backup/Confirm.pm:173
 #, perl-brace-format
@@ -128,17 +128,17 @@ msgstr "A {host} nem elérhető. Ellenőrizze az internetkapcsolatát"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
 msgid "It must be a valid domain name"
-msgstr ""
+msgstr "Egy érvényes tartománynév kell legyen"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 #, perl-brace-format
 msgid "It cannot contain \"{char}\" character"
-msgstr ""
+msgstr "Nem tartalmazhatja a \"{char}\" karaktert"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:61
 #, perl-brace-format
 msgid "It cannot be greater than {n} characters"
-msgstr ""
+msgstr "Nem lehet hosszabb {n} karakternél"
 
 #: src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:52+0100\n"
-"PO-Revision-Date: 2010-02-03 15:47+0100\n"
+"PO-Revision-Date: 2010-03-10 10:44+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -346,13 +346,12 @@ msgstr "Sikker IMAP"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:276
 #: src/EBox/Mail/Model/ExternalAccounts.pm:283
-#, fuzzy
 msgid "External account username"
-msgstr "Ekstern konto lagt til"
+msgstr "Ekstern konto brukernavn"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:278
 msgid "No spaces allowed"
-msgstr ""
+msgstr "Mellomrom ikke tillatt"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"

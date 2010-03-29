@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:51+0100\n"
-"PO-Revision-Date: 2010-02-09 11:50+0100\n"
+"PO-Revision-Date: 2010-03-09 11:01+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,6 @@ msgid "Backup"
 msgstr "Biztonsági mentés"
 
 #: src/EBox/Event/Watcher/EBackup.pm:142
-#, fuzzy
 msgid "Check if eBox backup was not successful."
 msgstr "Ellenőrizze, hogy az eBox biztonsági mentés hibás-e."
 
@@ -92,7 +91,7 @@ msgstr "Biztonsági mentés kiszolgálója vagy célja"
 #: src/EBox/Model/RemoteSettings.pm:151
 #, perl-brace-format
 msgid "If the selected method is {brand}, only set the target directory"
-msgstr ""
+msgstr "Ha a kiválasztott metódus a {brand}, csak a célmappát adja meg"
 
 #: src/EBox/Model/RemoteSettings.pm:156
 msgid "User"
@@ -145,6 +144,8 @@ msgid ""
 "If you choose {brand} or file system methods , then the destination field "
 "may be the target directory in the backup server"
 msgstr ""
+"Ha a {brand} vagy a fájlrendszer módot választotta, a célmappa a mentő "
+"szerver egy mappája kell legyen"
 
 #: src/EBox/Model/RemoteSettings.pm:229
 msgid "General backup server configuration updated"

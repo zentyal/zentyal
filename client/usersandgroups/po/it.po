@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:45+0000\n"
-"PO-Revision-Date: 2010-02-04 22:14+0100\n"
-"Last-Translator: andrea biasi <info@andreabiasi.it>\n"
+"PO-Revision-Date: 2010-03-04 01:35+0100\n"
+"Last-Translator: Marcello Teodori <marcello.teodori@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,9 +17,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_usercorner_add_webserver_service.pl:54
-#, fuzzy
 msgid "User Corner Web Server"
-msgstr "Server web per l'angolo utente"
+msgstr "Server web area utente"
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
@@ -117,22 +116,19 @@ msgstr "Gruppo eliminato correttamente"
 #: src/EBox/UserCornerWebServer.pm:37
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User Corner"
-msgstr "Angolo utente"
+msgstr "Area utente"
 
 #: src/EBox/UserCornerWebServer.pm:63
-#, fuzzy
 msgid "Migrate configured modules"
 msgstr "Migra i moduli configurati"
 
 #: src/EBox/UserCornerWebServer.pm:64
-#, fuzzy
 msgid "Required for usercorner access to configured modules"
-msgstr "Richiesto per l'accesso dall'angolo utente ai moduli configurati"
+msgstr "Richiesto per l'accesso dall'area utente ai moduli configurati"
 
 #: src/EBox/UserCornerWebServer.pm:171
-#, fuzzy
 msgid "User Corner web server"
-msgstr "Server web per l'angolo utente"
+msgstr "Server web per area utente"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:72
@@ -153,70 +149,61 @@ msgid "List of pending operations on slaves"
 msgstr "Lista delle operazioni in sospeso sugli slaves"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:85
-#, fuzzy
 msgid ""
 "This is a list those operations that need to be run by the slaves because "
 "the master failed to contact them."
 msgstr ""
-"Questa è una lista delle operazioni che hanno bisogno di essere effettuate "
-"dagli slaves perchè il master ha fallito."
+"Questo è un elenco di operazioni che devono essere effettuate dagli slave in "
+"quanto il master non è riuscito a contattarli."
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:87
 msgid "operation"
-msgstr "Operazione"
+msgstr "operazione"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:129
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:118
-#, fuzzy
 msgid "You must enable the module Users in master mode."
-msgstr ""
-"Devi abilitare il modulo Utenti nella sezione stato dei moduli per poterlo "
-"utilizzare."
+msgstr "Devi abilitare il modulo Utenti in modalità master."
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:131
-#, fuzzy
 msgid "There are no pending operations at the moment."
 msgstr "Non ci sono operazioni in sospeso al momento."
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
-#, fuzzy
 msgid "AD user"
-msgstr "Aggiungi utente"
+msgstr "Utente AD"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:68
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
-msgstr ""
+msgstr "Nome utente per il binding su Windows AD (deve essere creato in AD)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
-#, fuzzy
 msgid "AD password"
-msgstr "password"
+msgstr "Password AD"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:74
-#, fuzzy
 msgid "Password for the above user"
-msgstr "Password per l'utente soprastante"
+msgstr "Password per l'utente sopra"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:78
-#, fuzzy
 msgid "Listen port"
-msgstr "Porta in ascolto"
+msgstr "Porta di ascolto"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
 msgid "Port for listening password sync notifications from Windows"
-msgstr ""
+msgstr "Porta di ascolto notifiche di sincronizzazione password da Windows"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
 msgid "AD Secret Key"
-msgstr "AD Chiave segreta"
+msgstr "Chiave segreta AD"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
 msgid "Secret key to be shared between Windows and eBox (16 chars)"
-msgstr "Chiave segreta da condividere tra Windows e eBox (16 caratteri)"
+msgstr "Chiave segreta da condividere tra Windows ed eBox (16 caratteri)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
 msgid "Windows AD Sync Settings"
-msgstr ""
+msgstr "Impostazioni sincronizzazione Windows AD"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:114
 msgid "The secret key needs to have 16 characters."
@@ -232,42 +219,39 @@ msgstr "Master"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:73
 msgid "Windows AD Slave"
-msgstr ""
+msgstr "Slave Windows AD"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:80
 msgid "LDAP DN"
-msgstr ""
+msgstr "DN LDAP"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:85
 msgid "Only for master and AD slave configuration"
-msgstr ""
+msgstr "Solo per configurazione master e slave AD"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
-#, fuzzy
 msgid "Master host"
-msgstr "Master"
+msgstr "Host master"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:91
-#, fuzzy
 msgid "Only for slave configuration: IP of the master eBox or Windows AD"
-msgstr "Solo per la configurazione dello slave: IP dell'eBox master"
+msgstr "Solo per configurazione slave: IP eBox master o Windows AD"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:95
 msgid "LDAP password"
-msgstr "LDAP password"
+msgstr "Password LDAP"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:97
 msgid "Master eBox LDAP password"
-msgstr "Master eBox LDAP password"
+msgstr "Password LDAP dell'eBox master"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:103
 msgid "Configuration"
 msgstr "Configurazione"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:104
-#, fuzzy
 msgid "eBox Users Mode"
-msgstr "modalità utente di ebox"
+msgstr "Modalità utenti eBox"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:59
 #: src/EBox/UsersAndGroups/Model/Users.pm:61
@@ -289,22 +273,21 @@ msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
 msgstr ""
-"Devi abilitare il modulo Utenti nella sezione stato dei moduli per poterlo "
+"Devi abilitare il modulo Utenti nella sezione stato moduli per poterlo "
 "utilizzare."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:136
-#, fuzzy
 msgid "There are no groups at the moment"
-msgstr "Non ci sono slaves al momento."
+msgstr "Non ci sono gruppi al momento."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:139
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "This eBox is configured as slave and there are no groups at the moment. You "
 "may want to add some in the {openhref}master{closehref}."
 msgstr ""
-"Non ci sono gruppi al momento. Puoi aggiungerne in {openhref} Aggiungi "
-"gruppo sezione {closehref}"
+"Questo eBox è configurato come slave e non ci sono gruppi al momento. Puoi "
+"aggiungerne sul {openhref}master{closehref}."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:143
 msgid ""
@@ -312,6 +295,9 @@ msgid ""
 "moment. If there are groups in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
+"Questo eBox è configurato come slave Windows AD e non ci sono gruppi al "
+"momento. Se ci sono gruppi sul tuo controller di dominio, forse il processo "
+"di sincronizzazione non ha funzionato o non è ancora terminato."
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
@@ -341,9 +327,8 @@ msgid "Force sync"
 msgstr "Forza la sincronizzazione"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:93
-#, fuzzy
 msgid "on slaves"
-msgstr "sugli slaves"
+msgstr "sugli slave"
 
 #: src/EBox/UsersAndGroups/Model/ForceSync.pm:99
 msgid "Force sync of pending operations"
@@ -355,52 +340,47 @@ msgstr "Sincronizza adesso"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:67
 msgid "Base DN"
-msgstr ""
+msgstr "DN base"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:79
-#, fuzzy
 msgid "Users DN"
-msgstr "Utenti"
+msgstr "DN utenti"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:85
-#, fuzzy
 msgid "Groups DN"
-msgstr "Gruppi"
+msgstr "DN gruppi"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
 #: src/EBox/UsersAndGroups.pm:2291
 msgid "LDAP Info"
-msgstr ""
+msgstr "Info LDAP"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:94
 msgid "LDAP Information"
-msgstr ""
+msgstr "Informazioni LDAP"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:149
-#, fuzzy
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information"
 msgstr ""
-"Devi abilitare il modulo Utenti nella sezione stato dei moduli per poterlo "
-"utilizzare."
+"Devi abilitare il modulo Utenti e Gruppi per accedere alle informazioni LDAP"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:66
 msgid "Full name"
 msgstr "Nome completo"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:135
-#, fuzzy
 msgid "There are no users at the moment"
-msgstr "Non ci sono slaves al momento."
+msgstr "Non ci sono utenti al momento"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:138
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "This eBox is configured as slave and there are no users at the moment. You "
 "may want to add some in the {openhref}master{closehref}."
 msgstr ""
-"Non ci sono utenti al momento. Puoi aggiungerne in {openhref}Aggiungi utente "
-"sezione{closehref}"
+"Questo eBox è configurato come slave e non ci sono utenti al momento. Puoi "
+"aggiungerne sul {openhref}master{closehref}."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:142
 msgid ""
@@ -408,6 +388,9 @@ msgid ""
 "moment. If there are users in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
+"Questo eBox è configurato come slave Windows AD e non ci sono utenti al "
+"momento. Se non ci sono utenti sul controller di dominio, forse il processo "
+"di sincronizzazione non ha funzionato o non è ancora terminato."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:60
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
@@ -415,42 +398,40 @@ msgid "Port"
 msgstr "Porta"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:67
-#, fuzzy
 msgid "List of slaves"
-msgstr "lista degli slaves"
+msgstr "Elenco slave"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:74
-#, fuzzy
 msgid "This is a list of those eBox slaves which are subscribed to this eBox."
-msgstr "Questa è una lista degli eBox slaves che sono correlati a questo eBox"
+msgstr "Questo è un elenco degli slave eBox che sono collegati a questo eBox."
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:75
 msgid "slave"
 msgstr "slave"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:120
-#, fuzzy
 msgid "There are no slaves at the moment."
-msgstr "Non ci sono slaves al momento."
+msgstr "Non ci sono slave al momento."
 
 #: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:74
-#, fuzzy
 msgid "Slave status"
-msgstr "Stato dello slave"
+msgstr "Stato slave"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:66
 msgid ""
 "These configuration options are used when a new user account is created."
 msgstr ""
+"Queste opzioni di configurazione sono usate quando viene creato un nuovo "
+"account utente."
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:80
 msgid "There isn't any configurable option"
-msgstr ""
+msgstr "Non ci sono opzioni configurabili"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
 #: src/EBox/UsersAndGroups.pm:2277 src/EBox/UsersAndGroups.pm:2286
 msgid "Default User Template"
-msgstr ""
+msgstr "Modello utente predefinito"
 
 #: src/EBox/UsersAndGroups.pm:77
 msgid "Users and Groups"
@@ -466,29 +447,25 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:97
 msgid "eBox needs this organizational units to add users and groups into them"
 msgstr ""
-"eBox necessita di queste unità organizzative per aggiungere utenti e "
-"gruppialle stesse"
+"eBox necessita di queste unità organizzative per aggiungervi utenti e gruppi"
 
 #: src/EBox/UsersAndGroups.pm:101
-#, fuzzy
 msgid "Create directories for slave's journals"
-msgstr "Crea le directory per i log dello slave"
+msgstr "Crea le directory per i journal dello slave"
 
 #: src/EBox/UsersAndGroups.pm:102
-#, fuzzy
 msgid "eBox needs the directories to record pending slave's actions"
 msgstr ""
-"eBox necessita delle directory dove registrare le azioni in sospeso dello "
+"eBox necessita di queste directory per registrare le azioni in sospeso sullo "
 "slave"
 
 #: src/EBox/UsersAndGroups.pm:109
 msgid "Your eBox will be registered as a slave in the eBox master specified"
-msgstr "Il tuo eBox sarà registrato come slave nell'eBox master specificato"
+msgstr "Il tuo eBox sarà registrato come slave sul master eBox specificato"
 
 #: src/EBox/UsersAndGroups.pm:110
 msgid "This eBox needs to have remote access to the users in the eBox master"
-msgstr ""
-"Questo eBox necessita di avere accesso remoto agli utenti nell'eBox primario"
+msgstr "Questo eBox deve poter accedere remotamente agli utenti nel master eBox"
 
 #: src/EBox/UsersAndGroups.pm:116
 msgid "Apparmor profile will be disabled"
@@ -496,20 +473,21 @@ msgstr "Il profilo apparmor sarà disabilitato"
 
 #: src/EBox/UsersAndGroups.pm:117
 msgid "It is not ready to work with more than one slapd"
-msgstr "Non è possibile che funzioni con più di un server ldap"
+msgstr "Non è pronto per funzionare con più di uno slapd"
 
 #: src/EBox/UsersAndGroups.pm:125
 msgid "Install /etc/cron.d/ebox-ad-sync."
-msgstr "Installare /etc/cron.d/ebox-ad-sync."
+msgstr "Installa /etc/cron.d/ebox-ad-sync."
 
 #: src/EBox/UsersAndGroups.pm:126
 msgid "eBox will run a script each 5 minutes to sync with Windows AD."
 msgstr ""
-"eBox farà partire uno script ogni 5 minuti per sincronizzarsi con Windows AD."
+"eBox eseguirà uno script ogni 5 minuti per la sincronizzazione con Windows "
+"AD."
 
 #: src/EBox/UsersAndGroups.pm:146
 msgid "To make openLDAP listen on TCP and Unix sockets"
-msgstr "Per permettere a openLDAP di ascoltare su TCP e Socket Unix"
+msgstr "Per fare in modo che openLDAP ascolti su socket TCP e Unix"
 
 #: src/EBox/UsersAndGroups.pm:151
 msgid ""
@@ -517,7 +495,7 @@ msgid ""
 "access LDAP"
 msgstr ""
 "Per copiare la password di amministratore di LDAP generata da eBox e "
-"permettere agli altri moduli di accedere a LDAP"
+"permettere agli altri moduli di accedere ad LDAP"
 
 #: src/EBox/UsersAndGroups.pm:729
 #, perl-brace-format
@@ -570,13 +548,12 @@ msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "La password non deve essere più lunga di {maxPwdLength} caratteri"
 
 #: src/EBox/UsersAndGroups.pm:2296
-#, fuzzy
 msgid "Slave Status"
-msgstr "Stato dello Slave"
+msgstr "Stato slave"
 
 #: src/EBox/UsersAndGroups.pm:2300
 msgid "AD Sync Settings"
-msgstr ""
+msgstr "Impostazione sincronizzazione AD"
 
 #: src/EBox/UsersAndGroups.pm:2534
 #, perl-brace-format
@@ -597,22 +574,20 @@ msgid "A host with the name {host} is already registered in this eBox"
 msgstr "Una macchina di nome {host} è già registrata su questo eBox"
 
 #: src/EBox/UsersAndGroups.pm:2682
-#, fuzzy
 msgid "Replication failed"
-msgstr "copia fallita"
+msgstr "Replica fallita"
 
 #: src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
 msgid "User"
 msgstr "Utente"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:62
-#, fuzzy
 msgid ""
 "There is a script which has asked to run in eBox exclusively. Please, wait "
 "patiently until it is done"
 msgstr ""
-"C'è uno script che sta lavorando in eBox. Per favore, aspetta finchè ha "
-"terminato"
+"C'è uno script che ha richiesto di eseguire su eBox in modo esclusivo. Per "
+"favore, attendi con pazienza finché non ha terminato"
 
 #: src/EBox/UserCorner/CGI/Login/Index.pm:66
 msgid "Incorrect password"
@@ -632,9 +607,8 @@ msgid "You are not logged in"
 msgstr "Non sei autenticato"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:63
-#, fuzzy
 msgid "General configuration"
-msgstr "Configurazione"
+msgstr "Configurazione generale"
 
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:97
 msgid "listening port"
@@ -692,9 +666,8 @@ msgstr "Aggiungi e modifica"
 
 #: src/templates/groups.mas:41 src/templates/groups.mas:42
 #: src/templates/users.mas:69 src/templates/users.mas:70
-#, fuzzy
 msgid "Add"
-msgstr "Aggiungi nuovo"
+msgstr "Aggiungi"
 
 #: src/templates/users.mas:12
 msgid "Add User"
@@ -721,13 +694,12 @@ msgid "Group"
 msgstr "Gruppo"
 
 #: src/templates/group.mas:14
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
 msgstr ""
 "Non ci sono utenti al momento. Hai bisogno almeno di un utente per gestire "
-"questo gruppo adeguatamente"
+"questo gruppo correttamente."
 
 #: src/templates/group.mas:25 src/templates/group.mas:26
 #: src/templates/user.mas:74 src/templates/user.mas:75
@@ -766,13 +738,12 @@ msgid "Delete group"
 msgstr "Elimina gruppo"
 
 #: src/templates/group.mas:110
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
-"Questa operazione causerà l'eliminazione dell'utente e di tutte le sue "
-"dipendenze; come ad esempio l'account di mail, i dati utente..."
+"Questa operazione causerà l'eliminazione dell'utente e di tutti i dati "
+"correlati come la directory condivisa, ecc."
 
 #: src/templates/user.mas:88
 msgid "User groups"
@@ -783,9 +754,8 @@ msgid "Other groups"
 msgstr "Altri gruppi"
 
 #: src/templates/user.mas:117
-#, fuzzy
 msgid "Remove groups from user"
-msgstr "Rimuovi i gruppi "
+msgstr "Rimuovi gruppi da utente"
 
 #: src/templates/user.mas:159 src/templates/user.mas:167
 #: src/templates/user.mas:168
@@ -793,13 +763,12 @@ msgid "Delete user"
 msgstr "Elimina utente"
 
 #: src/templates/user.mas:161
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
 "such as mail accounts, user files, etc."
 msgstr ""
-"Questa operazione causerà l'eliminazione dell'utente e di tutte le sue "
-"dipendenze; come ad esempio l'account di mail, i dati utente..."
+"Questa operazione causerà l'eliminazione dell'utente e di tutti i dati "
+"correlati come account di mail, file personali, ecc."
 
 #: src/templates/usercorner/headTitle.mas:11
 msgid "Logout"
@@ -810,7 +779,6 @@ msgid "Warning: Caps Lock is enabled"
 msgstr "Attenzione: Caps Lock è abilitato"
 
 #: src/templates/usercorner/login/index.mas:41
-#, fuzzy
 msgid "Enter"
 msgstr "Entra"
 

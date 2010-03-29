@@ -7,8 +7,9 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:52+0100\n"
-"PO-Revision-Date: 2010-02-20 13:54+0100\n"
-"Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
+"PO-Revision-Date: 2010-02-27 18:53+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -169,7 +170,7 @@ msgstr ""
 
 #: src/EBox/Mail/Greylist.pm:55
 msgid "To configure whitelist for greylisting"
-msgstr "Configurar  lista branca para lista cinza"
+msgstr "Configurar lista branca para lista cinza"
 
 #: src/EBox/Mail/Greylist.pm:279
 msgid "Greylist service"
@@ -213,37 +214,32 @@ msgstr ""
 "Página de objetos{closeurl}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
-#, fuzzy
 msgid "Alias"
-msgstr "último"
+msgstr "Apelido"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:59
 msgid "The mail domain is appended automatically"
-msgstr ""
+msgstr "O domínio de e-mail é preenchido automaticamente"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:63
 #: src/EBox/Mail/Model/ExternalAccounts.pm:87
 #: src/EBox/Mail/Model/ExternalAccounts.pm:270
-#, fuzzy
 msgid "External account"
-msgstr "conta de correio"
+msgstr "Conta externa"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
-#, fuzzy
 msgid "External Aliases"
-msgstr "Configurações de contas de e-mail"
+msgstr "Apelidos externos"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
-#, fuzzy
 msgid "External account alias"
-msgstr "Configurações de contas de e-mail"
+msgstr "Apelido da conta externa"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:86
-#, fuzzy
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
-"Domínio virtual adicionado. Você precisa salvar as mudanças para usar este "
-"domínio"
+"Apelido de conta externa adicionado. Você precisa salvar as mudanças para "
+"usar este apelido"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:126
 #, perl-brace-format
@@ -252,6 +248,9 @@ msgid ""
 "virtual domain aliases are not supported. Please add the alias belonging to "
 "a real domain"
 msgstr ""
+"Não posso adicionar esse apelido porque o domínio {vd} é um apelido e "
+"apelidos pertencentes à apelidos de domínios virtuais não são suportados, "
+"por favor adicione um apelido pertencente à um domínio real"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:133
 #, perl-brace-format
@@ -259,12 +258,16 @@ msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
 "server"
 msgstr ""
+"Não posso adicionar o apelido porque o domínio {vd} não é um domínio virtual "
+"gerenciado por este servidor"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:151
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
 msgstr ""
+"O apelido da conta precisa ser inserido sem a porção do "
+"domínio(@domínio.com). Ela será inserida automaticamente"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:229
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
@@ -321,9 +324,8 @@ msgstr "personalizado"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:68
 #: src/EBox/Mail/Model/ExternalAccounts.pm:120
-#, fuzzy
 msgid "External mail accounts"
-msgstr "Criar conta de e-mail"
+msgstr "Contas de e-mail externas"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:94
 #: src/EBox/Mail/Model/SMTPOptions.pm:107
@@ -332,67 +334,64 @@ msgstr "Senha"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:101
 #: src/EBox/Mail/Composite/General.pm:78
-#, fuzzy
 msgid "Mail server"
-msgstr "Servidor SMTP de correio"
+msgstr "Servidor de e-mail"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:121
-#, fuzzy
 msgid "external mail account"
-msgstr "Criar conta de e-mail"
+msgstr "conta de e-mail externa"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:127
 msgid "Fetching mail is done every 10 minutes"
-msgstr ""
+msgstr "Verificação de e-mail é feita a cada 10 minutos"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:144
 msgid "Secure POP3"
-msgstr ""
+msgstr "POP3 seguro"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:152
-#, fuzzy
 msgid "Secure IMAP"
-msgstr "Configurar IMAP"
+msgstr "IMAP seguro"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:276
 #: src/EBox/Mail/Model/ExternalAccounts.pm:283
-#, fuzzy
 msgid "External account username"
-msgstr "conta de correio"
+msgstr "Nome da conta externa"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:278
 msgid "No spaces allowed"
-msgstr ""
+msgstr "Não é permitido espaços"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"
-msgstr ""
+msgstr "Conta externa adicionada"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:341
 #, perl-brace-format
 msgid "External account {ac} removed"
-msgstr ""
+msgstr "Conta externa {ac} removida"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:439
 msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
 msgstr ""
+"Não posso recuperar mensagem de contas externas porque você não  tem uma "
+"conta de e-mail em um domínio local"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:57
 msgid "Aliases"
-msgstr ""
+msgstr "Apelidos"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
 msgid "List of Aliases"
-msgstr ""
+msgstr "Lista de apelidos"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:78
 msgid "virtual domain alias"
 msgstr "apelidos do domínio virtual"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:80
-#, fuzzy
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr ""
 "Domínio virtual adicionado. Você precisa salvar as mudanças para usar este "
@@ -404,6 +403,8 @@ msgid ""
 "Cannot add {al} alias because there is already a virtual domain with the "
 "same name"
 msgstr ""
+"Não posso adicionar o apelido {al} porque já existe um domínio virtual com o "
+"mesmo nome"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:108
 #, perl-brace-format
@@ -411,6 +412,8 @@ msgid ""
 "Cannot add alias {al} because it is already an identical alias for another "
 "virtual domain"
 msgstr ""
+"Não posso adicionar o apelido {al} porque ele já é um apelido idêntico a "
+"outro domínio virtual"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "Smarthost to send mail"
@@ -419,6 +422,8 @@ msgstr "Endereço IP do Smarthost para enviar o Email"
 #: src/EBox/Mail/Model/SMTPOptions.pm:77
 msgid "The format is host[:port] being port set to 25 if none is supplied"
 msgstr ""
+"O formato é host[:port] e será usada a porta 25 por padrão se outra não for "
+"fornecida"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:83
 msgid "Smarthost authentication"
@@ -438,42 +443,39 @@ msgstr "Usuário"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:120
 msgid "Server mailname"
-msgstr ""
+msgstr "Nome do servidor de e-mail"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:124
-#, fuzzy
 msgid "FQDN hostname"
-msgstr "Do servidor"
+msgstr "Nome do servidor FQDN"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:136
-#, fuzzy
 msgid "Postmaster address"
-msgstr "IP smarthost"
+msgstr "Endereço do Postmaster"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:138
 msgid "Address used to report mail problems"
-msgstr ""
+msgstr "Endereço usado para reportar problemas com e-mail"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:142
-#, fuzzy
 msgid "Local root account"
-msgstr "conta de correio"
+msgstr "Conta local root"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:146
-#, fuzzy
 msgid "Custom address"
-msgstr "Filtro personalizado de endereço IP"
+msgstr "Endereço personalizado"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:154
-#, fuzzy
 msgid "Maximum mailbox size allowed"
-msgstr "Tamanho máximo da conta de Email"
+msgstr "Tamanho máximo da conta de e-mail permitido"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:156
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
+"Quando uma caixa alcança este tamanho as próximas mensagens podem ser "
+"rejeitadas."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
 #: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:78
@@ -482,9 +484,8 @@ msgstr "Tamanho ilimitado"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:164
 #: src/EBox/Mail/Model/SMTPOptions.pm:183
-#, fuzzy
 msgid "limited to"
-msgstr "Tamanho Ilimitado"
+msgstr "limitado a"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:175
 msgid "Maximum message size accepted"
@@ -492,26 +493,26 @@ msgstr "Tamanho máximo de mensagem"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:195
 msgid "Expiration period for deleted mails"
-msgstr ""
+msgstr "Período de expiração para e-mails deletados"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:199
 #: src/EBox/Mail/Model/SMTPOptions.pm:218
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:203
 #: src/EBox/Mail/Model/SMTPOptions.pm:222
 msgid "expired in"
-msgstr ""
+msgstr "expirado em"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:204
 #: src/EBox/Mail/Model/SMTPOptions.pm:223
 msgid "days"
-msgstr ""
+msgstr "dias"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:214
 msgid "Expiration period for spam mails"
-msgstr ""
+msgstr "Período de expiração para os spams"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:235
 msgid "Options"
@@ -519,38 +520,42 @@ msgstr "Opções"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:342
 #: src/EBox/Mail/Model/SMTPOptions.pm:346
-#, fuzzy
 msgid "Smarthost's address"
-msgstr "IP smarthost"
+msgstr "Endereço do Smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:343
-#, fuzzy
 msgid "Smarthost's port"
-msgstr "IP smarthost"
+msgstr "Porta do Smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:421
 msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
 msgstr ""
+"O nome de correio é definido como nome do servidor e o nome da máquina não é "
+"totalmente qualificado. "
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:425
 msgid "The selected mailname is not a fully qualified hostname. "
 msgstr ""
+"O nome de correio selecionado não é um nome de host totalmente qualificado. "
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:429
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
 msgstr ""
+"Não ter um nome de host totalmente qualificado poderia levar a alguns "
+"servidores de correio a rejeitar o e-mail e endereços de resposta incorretos "
+"dos usuários do sistema"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "Send a copy of all mail domains"
-msgstr ""
+msgstr "Enviar uma cópia de todos os domínios de correio"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:60
 msgid "The mail will be a Blind Carbon Copy (BCC)."
-msgstr ""
+msgstr "O correio será uma Cópia Carbono Oculta (CCO)."
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:64
 msgid "Disabled"
@@ -558,37 +563,31 @@ msgstr "Desabilitado"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:68
 msgid "Address to sent the copy"
-msgstr ""
+msgstr "Endereço para envio de cópia"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:79
-#, fuzzy
 msgid "Virtual domain settings"
-msgstr "Nome do Domínio Virtual"
+msgstr "Configurações do Domínio Virtual"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:66
-#, fuzzy
 msgid "POP3 service enabled"
-msgstr "Serviço POP3"
+msgstr "Serviço POP3 habilitado"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:72
-#, fuzzy
 msgid "Secure POP3S service enabled"
-msgstr "Serviço POP3S"
+msgstr "Serviço POP3S Seguro habilitado"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:78
-#, fuzzy
 msgid "IMAP service enabled"
-msgstr "Serviço IMAP"
+msgstr "Serviço IMAP habilitado"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:84
-#, fuzzy
 msgid "Secure IMAPS service enabled"
-msgstr "Serviço IMAPS"
+msgstr "Serviço IMAPS Seguro habilitado"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:90
-#, fuzzy
 msgid "Retrieve mail for external accounts"
-msgstr "Criar alias de email para a conta"
+msgstr "Recuperar e-mails de contas externas"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:92
 msgid ""
@@ -596,44 +595,45 @@ msgid ""
 "delivered to their local account. External account can be configured in the "
 "user's corner."
 msgstr ""
+"Isto permite aos usuários recuperar e-mails para as contas externas, o "
+"correio seria entregue à sua conta local. Contas externas podem ser "
+"configuradas no espaço do usuário."
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:97
 msgid "Manage Sieve scripts"
-msgstr ""
+msgstr "Gerenciar scripts Sieve"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:99
 msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
 msgstr ""
+"Este serviço permite a um usuário gerenciar seus scripts Sieve de filtragem "
+"de correio de um cliente local, que fala o protocolo ManageSieve"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:107
 msgid "Mail retrieval services"
 msgstr "Serviço de recuperação de e-mail"
 
 #: src/EBox/Mail/Model/MailUser.pm:52
-#, fuzzy
 msgid "Mail Account"
-msgstr "Conta de e-mail"
+msgstr "Conta de Correio"
 
 #: src/EBox/Mail/Model/MailUser.pm:55
-#, fuzzy
 msgid "Create mail account user@domain"
-msgstr "Criar conta de e-mail"
+msgstr "Criar conta de correio usuario@dominio"
 
 #: src/EBox/Mail/Model/MailUser.pm:59
-#, fuzzy
 msgid "Default Domain"
-msgstr "Tamanho da cota"
+msgstr "Domínio Padrão"
 
 #: src/EBox/Mail/Model/MailUser.pm:97
-#, fuzzy
 msgid "You haven't create a mail domain yet"
-msgstr "Adicionar um novo domínio virtual"
+msgstr "Você não criou um domínio de correio ainda"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:77
 msgid "Enabled"
-msgstr "Ativo"
+msgstr "Habilitado"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:83
 msgid "Greylist duration (seconds)"
@@ -641,59 +641,53 @@ msgstr "Duração da lista cinza (segundos)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:84
 msgid "During this interval, the mail sender is deferred"
-msgstr ""
+msgstr "Durante este intervalo, o remetente é adiado"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:92
 msgid "Retry window (hours)"
 msgstr "Janela de nova tentativa (horas)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:93
-#, fuzzy
 msgid ""
 "Time that mail sender has to retry to be added before it will be greylisted "
 "again"
 msgstr ""
-"Tempo em que o remetente deverá tentar novamente antes que seja colocado "
-"novamente na lista cinza"
+"Tempo que o remetente tem que repetir para ser adicionado antes de ser "
+"novamente incluído na lista cinza"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:102
 msgid "Entries time to live (days)"
 msgstr "Tempo máximo das mensagens (dias)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:103
-#, fuzzy
 msgid "Period till unseen entries will be deleted"
-msgstr "Período em que as mensagens sem confirmação deverão ser apagadas"
+msgstr "Período qual entradas não-visualizadas serão excluídas"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:111
 msgid "Greylist configuration"
-msgstr "Configuração da Lista Cinza(Greylist)"
+msgstr "Configuração da lista cinza"
 
 #: src/EBox/Mail/Model/VDomains.pm:57
 msgid "Name"
 msgstr "Nome"
 
 #: src/EBox/Mail/Model/VDomains.pm:64
-#, fuzzy
 msgid "Virtual domain aliases"
-msgstr "apelidos do domínio virtual"
+msgstr "Apelidos do domínio virtual"
 
 #: src/EBox/Mail/Model/VDomains.pm:71
-#, fuzzy
 msgid "External accounts aliases"
-msgstr "Configurações de contas de e-mail"
+msgstr "Apelidos das contas externas"
 
 #: src/EBox/Mail/Model/VDomains.pm:78
 msgid "Settings"
 msgstr "Configurações"
 
 #: src/EBox/Mail/Model/VDomains.pm:90
-#, fuzzy
 msgid "List of Domains"
-msgstr "Domínios de e-mail virtuais"
+msgstr "Listagem de domínios"
 
 #: src/EBox/Mail/Model/VDomains.pm:91
-#, fuzzy
 msgid "Virtual Domains"
 msgstr "Domínios Virtuais"
 
@@ -709,19 +703,21 @@ msgid ""
 "Cannot add virtual domain {vd} because is a virtual domain alias with the "
 "same name"
 msgstr ""
+"Não foi possível adicionar o domínio virtual {vd} por que já existe um "
+"apelido de domínio virtual com o mesmo nome"
 
 #: src/EBox/Mail/Model/VDomains.pm:204
 msgid "'sieve' is a reserved name in this context, please choose another name"
 msgstr ""
+"'Sieve' é um nome reservador neste contexto, por favor escolha outro nome"
 
 #: src/EBox/Mail/Model/VDomains.pm:211
-#, fuzzy
 msgid "Mail virtual domain"
-msgstr "Domínios de e-mail virtuais"
+msgstr "Domínios de correio virtuais"
 
 #: src/EBox/Mail/Model/VDomains.pm:214
 msgid "The virtual domain name cannot be equal to the mailname"
-msgstr ""
+msgstr "O nome de domínio virtual não pode ser igual ao nome do e-mail"
 
 #: src/EBox/Mail/Model/VDomains.pm:255
 #, perl-brace-format
@@ -729,6 +725,8 @@ msgid ""
 "Cannot add virtual domain {vd} because it appears as external domain in the "
 "account referenced by the alias {al}"
 msgstr ""
+"Não foi possível adicionar o domínio virtual {vd} porque ele aparece como "
+"domínio externo na conta referenciado pelo apelido {al}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
@@ -761,57 +759,50 @@ msgstr "Configuração do expedidor de e-mail atualizada"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:48
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:68
-#, fuzzy
 msgid "Virtual domain"
-msgstr "Domínios Virtuais"
+msgstr "Domínio Virtual"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:49
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:51
-#, fuzzy
 msgid "Sent messsages"
-msgstr "Mensagens com sucesso"
+msgstr "Mensagens enviadas"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:50
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:78
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:52
-#, fuzzy
 msgid "Received messages"
-msgstr "Mensagens com sucesso"
+msgstr "Mensagens recebidas"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:82
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:53
-#, fuzzy
 msgid "Rejected messages"
-msgstr "Mensagens com sucesso"
+msgstr "Mensagens rejeitadas"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1587
 #: src/templates/qmanager.mas:19
 msgid "Date"
-msgstr "Criar"
+msgstr "Data"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:74
-#, fuzzy
 msgid "Sent messages"
-msgstr "Mensagens com sucesso"
+msgstr "Mensagens enviadas"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:91
-#, fuzzy
 msgid "Mail traffic details"
-msgstr "tŕáfego Email"
+msgstr "Detalhes de tráfego de correio"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:99
-#, fuzzy
 msgid "traffic"
-msgstr "tŕáfego Email"
+msgstr "Tráfego"
 
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:62
 msgid "Traffic summary chart"
-msgstr ""
+msgstr "Gráfico de sumário de tráfego"
 
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:84
 msgid "Traffic summary graph"
-msgstr ""
+msgstr "Gráfico de sumário de tráfego"
 
 #: src/EBox/Mail/Composite/General.pm:77
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
@@ -819,85 +810,78 @@ msgid "Mail server options"
 msgstr "Opções do servidor de e-mail"
 
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:70
-#, fuzzy
 msgid "Mail traffic reports"
-msgstr "tŕáfego Email"
+msgstr "Relatórios de tráfego de correio"
 
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:71
-#, fuzzy
 msgid "Mail traffic report"
-msgstr "tŕáfego Email"
+msgstr "Relatório de tráfego de correio"
 
 #: src/EBox/Mail/FetchmailLdap.pm:347
-#, fuzzy
 msgid "External retrieval service"
-msgstr "Serviço de recuperação de e-mail"
+msgstr "Serviço de recuperação externo"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"
-msgstr "Criar aliases de e-mail"
+msgstr "Criar apelidos de e-mail"
 
 #: src/EBox/Mail.pm:141
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
-msgstr "eBox vai executar {cmd}"
+msgstr "eBox irá executar {cmd}"
 
 #: src/EBox/Mail.pm:146
 msgid "Add LDAP schemas"
 msgstr "Adicionar esquemas LDAP"
 
 #: src/EBox/Mail.pm:148
-#, fuzzy
 msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr "eBox vai adicionar dois esquemas LDAP: {schema1} e {schema2}."
+msgstr "eBox vai adicionar dois esquemas LDAP: authldap.ldif e eboximail.ldif."
 
 #: src/EBox/Mail.pm:154
-#, fuzzy
 msgid "Create certificates"
-msgstr "Criar Aliases de e-mail"
+msgstr "Criar certificados"
 
 #: src/EBox/Mail.pm:156
 msgid "eBox will create certificates to use in mail services"
-msgstr ""
+msgstr "O eBox irá criar certificados para serem usados nos serviços de correio"
 
 #: src/EBox/Mail.pm:161
 msgid "Add fetchmail update cron job"
-msgstr ""
+msgstr "Adicionar trarefa de atualização de busca de correio no CRON"
 
 #: src/EBox/Mail.pm:163
 msgid ""
 "eBox will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
+"O eBox irá agendar uma tarefa no CRON para atualizar a configuração de "
+"correio quando o usuário adicionar contas externas"
 
 #: src/EBox/Mail.pm:184
 msgid "To configure postfix"
-msgstr "Configurar postfix"
+msgstr "Para configurar o postfix"
 
 #: src/EBox/Mail.pm:190
 msgid "To define how client programs connect to services in  postfix"
 msgstr ""
-"Configurar quantos programas clientes vão conectar com serviços no postfix "
+"Configurar quantos programas clientes vão conectar com serviços no  postfix"
 
 #: src/EBox/Mail.pm:197
-#, fuzzy
 msgid "To configure host mail name"
-msgstr "Configurar postfix"
+msgstr "Configurar nome do servidor de e-mail"
 
 #: src/EBox/Mail.pm:202
-#, fuzzy
 msgid "To configure postfix aliases"
-msgstr "Configurar postfix"
+msgstr "Configurar apelidos postfix"
 
 #: src/EBox/Mail.pm:209
-#, fuzzy
 msgid "To configure dovecot"
-msgstr "Configurar postfix"
+msgstr "Para configurar dovecot"
 
 #: src/EBox/Mail.pm:214
-#, fuzzy
 msgid "To configure dovecot to authenticate against LDAP"
-msgstr "Configurar courier para autenticar no LDAP"
+msgstr "Para configurar o dovecot para autenticar no LDAP"
 
 #: src/EBox/Mail.pm:219
 msgid "To configure smart host authentication"
@@ -908,19 +892,21 @@ msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
+"Não posso usar o nome do servidor como um nome de e-mail porque ele não é "
+"totalmente qualificado. por favor, defina um nome personalizado para o "
+"servidor de e-mail"
 
 #: src/EBox/Mail.pm:687
 msgid "The mail name must be a fully qualified name"
-msgstr ""
+msgstr "O nome de e-mail precisa ser um nome totalmente qualificado"
 
 #: src/EBox/Mail.pm:692 src/EBox/Mail.pm:703 src/EBox/Mail.pm:712
-#, fuzzy
 msgid "Host mail name"
-msgstr "nome do domínio"
+msgstr "Nome do servidor de e-mail"
 
 #: src/EBox/Mail.pm:706
 msgid "The mail name and virtual mail domain name are equal"
-msgstr ""
+msgstr "O nome de e-mail e o nome do domínio virtual de e-mail são idênticos"
 
 #: src/EBox/Mail.pm:975
 msgid "Cannot change this parameter for a non-custom filter"
@@ -934,7 +920,6 @@ msgstr ""
 "desabilite-o"
 
 #: src/EBox/Mail.pm:1018
-#, fuzzy
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
@@ -995,7 +980,6 @@ msgid "General"
 msgstr "Geral"
 
 #: src/EBox/Mail.pm:1540
-#, fuzzy
 msgid "Virtual Mail Domains"
 msgstr "Domínios de e-mail virtuais"
 
@@ -1004,9 +988,8 @@ msgid "Greylist"
 msgstr "Lista cinza"
 
 #: src/EBox/Mail.pm:1579
-#, fuzzy
 msgid "Mail retrieval from external accounts"
-msgstr "Serviço de recuperação de e-mail"
+msgstr "Recuperação de e-mail de contas externas"
 
 #: src/EBox/Mail.pm:1588
 msgid "Message ID"
@@ -1033,16 +1016,14 @@ msgid "Relay"
 msgstr "Encaminhamento"
 
 #: src/EBox/Mail.pm:1595
-#, fuzzy
 msgid "Message type"
-msgstr "Mensagem"
+msgstr "Tipo de mensagem"
 
 #: src/EBox/Mail.pm:1597
 msgid "Event"
 msgstr "Evento"
 
 #: src/EBox/Mail.pm:1598
-#, fuzzy
 msgid "Additional Info"
 msgstr "Informação adicional"
 
@@ -1075,9 +1056,8 @@ msgid "Authentication error"
 msgstr "Erro de autenticação"
 
 #: src/EBox/Mail.pm:1616
-#, fuzzy
 msgid "Greylisted"
-msgstr "Lista cinza"
+msgstr "Adicionado na lista cinza"
 
 #: src/EBox/Mail.pm:1617
 msgid "Other events"
@@ -1092,13 +1072,12 @@ msgid "Mail SMTP server"
 msgstr "Servidor SMTP de correio"
 
 #: src/EBox/Mail.pm:1839
-#, fuzzy
 msgid "Mail POP/IMAP server"
-msgstr "Servidor SMTP de correio"
+msgstr "Servidor de e-mail tipo POP/IMAP"
 
 #: src/EBox/MailQueue.pm:79
 msgid "This message is being delivered"
-msgstr ""
+msgstr "Esta mensagem está sendo entregue"
 
 #: src/templates/groupalias.mas:8
 msgid "Mail alias settings"
@@ -1161,12 +1140,11 @@ msgstr "Esconder Informação"
 
 #: src/templates/qmanager.mas:82
 msgid "Attempt to deliver all queued mail"
-msgstr ""
+msgstr "Tentativa de entregar todas as mensagens da fila"
 
 #: src/templates/qmanager.mas:89
-#, fuzzy
 msgid "Remove all messages"
-msgstr "Mensagens com sucesso"
+msgstr "Remover todas as mensagens"
 
 #: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "first"
@@ -1213,29 +1191,24 @@ msgid "Create mail aliases"
 msgstr "Criar Aliases de e-mail"
 
 #: src/templates/alias.mas:124
-#, fuzzy
 msgid "No quota"
-msgstr "Tamanho da cota"
+msgstr "Sem cota"
 
 #: src/templates/alias.mas:125
-#, fuzzy
 msgid "Default quota"
-msgstr "Tamanho da cota"
+msgstr "Cota padrão"
 
 #: src/templates/alias.mas:126
-#, fuzzy
 msgid "Custom quota"
-msgstr "Personalizado"
+msgstr "Cota personalizada"
 
 #: src/templates/alias.mas:133
-#, fuzzy
 msgid "Quota type"
-msgstr "Tipo de filtro"
+msgstr "Tipo de cota"
 
 #: src/templates/alias.mas:146
-#, fuzzy
 msgid "Maximum mailbox size in MB"
-msgstr "Tamanho máximo da conta de Email"
+msgstr "Tamanho máximo da conta de Email em MB"
 
 #: src/templates/alias.mas:162 src/templates/alias.mas:163
 msgid "Modify"
@@ -1246,9 +1219,8 @@ msgid "Mail account"
 msgstr "Conta de e-mail"
 
 #: src/templates/account.mas:26
-#, fuzzy
 msgid "Click here to create a new mail virtual domain"
-msgstr "Adicionar um novo domínio virtual"
+msgstr "Clique aqui para adicionar um novo domínio virtual de e-mail"
 
 #: src/templates/warnvd.mas:14
 msgid ""

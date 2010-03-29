@@ -7,9 +7,9 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:54+0100\n"
-"PO-Revision-Date: 2010-02-19 15:31+0100\n"
-"Last-Translator: Carlos Assis Brito de Oliveira Filho <cassisfilho@gmail."
-"com>\n"
+"PO-Revision-Date: 2010-02-27 16:51+0100\n"
+"Last-Translator: Carlos Assis Brito de Oliveira Filho "
+"<cassisfilho@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,9 +30,8 @@ msgid "rule to allow apt updates"
 msgstr "regra para permitir atualizações do apt"
 
 #: src/EBox/Software.pm:53
-#, fuzzy
 msgid "Software Management"
-msgstr "Gerenciamento do programa"
+msgstr "Gerenciamento de software"
 
 #: src/EBox/Software.pm:78 src/EBox/Software.pm:84
 msgid ""
@@ -61,35 +60,32 @@ msgstr ""
 "capaz de remover pacotes"
 
 #: src/EBox/Software.pm:545
-#, fuzzy
 msgid "eBox Components"
 msgstr "Componentes do eBox"
 
 #: src/EBox/Software.pm:547
-#, fuzzy
 msgid "System Updates"
-msgstr "Atualizações do sistema"
+msgstr "Atualizações do Sistema"
 
 #: src/EBox/Software.pm:549
-#, fuzzy
 msgid "Automatic Updates"
-msgstr "Atualizações automáticas"
+msgstr "Atualizações Automáticas"
 
 #: src/EBox/Software.pm:640
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
-"O gerenciador do programa está atualmente  bloqueado por {locker}. Favor "
-"tentar novamente mais tarde"
+"O gerenciador do programa está atualmente bloqueado por {locker}. Favor "
+"tente novamente mais tarde"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr "Atualização automática do sistema"
+msgstr "Atualização automática de software"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr "configuração da atualização automática"
+msgstr "configuração das atualizações automáticas"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
@@ -104,7 +100,6 @@ msgid "Software updates are being handled automatically"
 msgstr "As atualizações do sistema estão sendo gerenciadas automaticamente"
 
 #: src/EBox/CGI/Updates.pm:52
-#, fuzzy
 msgid "The system components are up to date."
 msgstr "Os componentes do sistema estão atualizados."
 

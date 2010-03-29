@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:08+0100\n"
-"PO-Revision-Date: 2007-12-04 10:03+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-03-27 22:22+0100\n"
+"Last-Translator: Pedro Ugartemendia <pedro@ugartemendia.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"es\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: src/EBox/WebServer.pm:77 src/EBox/WebServer/Composite/General.pm:81
 msgid "Web Server"
-msgstr ""
+msgstr "Web zerbitzaria"
 
 #: src/EBox/WebServer.pm:96
 msgid "To set webserver listening port"
@@ -34,7 +34,7 @@ msgstr ""
 
 #: src/EBox/WebServer.pm:128
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "Gaitu apache LDAP erabiltzaile moduloa"
 
 #: src/EBox/WebServer.pm:130
 msgid "To fetch home directories from LDAP"

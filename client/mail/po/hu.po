@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:52+0100\n"
-"PO-Revision-Date: 2010-02-03 15:18+0100\n"
+"PO-Revision-Date: 2010-03-09 11:03+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -354,13 +354,12 @@ msgstr "Titkosított IMAP"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:276
 #: src/EBox/Mail/Model/ExternalAccounts.pm:283
-#, fuzzy
 msgid "External account username"
-msgstr "Külső fiók hozzáadva"
+msgstr "Külső fiók felhasználóneve"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:278
 msgid "No spaces allowed"
-msgstr ""
+msgstr "Szünetek nincsenek megengedve"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"

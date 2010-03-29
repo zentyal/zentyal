@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:52+0100\n"
-"PO-Revision-Date: 2010-02-02 23:52+0100\n"
+"PO-Revision-Date: 2010-03-05 01:13+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -362,13 +362,12 @@ msgstr "IMAP seguro"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:276
 #: src/EBox/Mail/Model/ExternalAccounts.pm:283
-#, fuzzy
 msgid "External account username"
-msgstr "Cuenta externa añadida"
+msgstr "Nombre de usuario de cuenta externa"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:278
 msgid "No spaces allowed"
-msgstr ""
+msgstr "No se permiten espacios"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"

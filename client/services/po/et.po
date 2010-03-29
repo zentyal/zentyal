@@ -8,21 +8,22 @@ msgstr ""
 "Project-Id-Version: ebox-services 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:15+0000\n"
-"PO-Revision-Date: 2010-01-28 13:15+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-03-26 14:11+0100\n"
+"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_import_services_from_firewall.pl:69
 msgid "any"
-msgstr ""
+msgstr "suvaline"
 
 #: migration/0001_import_services_from_firewall.pl:70
 msgid "any protocol and port"
-msgstr ""
+msgstr "suvaline protokoll ja port"
 
 #: migration/0001_import_services_from_firewall.pl:71
 #: migration/0001_import_services_from_firewall.pl:82
@@ -31,107 +32,114 @@ msgstr ""
 #: migration/0001_import_services_from_firewall.pl:125
 #: src/EBox/Services.pm:337
 msgid "ebox-services"
-msgstr ""
+msgstr "ebox-teenused"
 
 #: migration/0001_import_services_from_firewall.pl:80
 msgid "any UDP"
-msgstr ""
+msgstr "suvaline UDP"
 
 #: migration/0001_import_services_from_firewall.pl:81
 msgid "any UDP port"
-msgstr ""
+msgstr "suvaline UDP port"
 
 #: migration/0001_import_services_from_firewall.pl:92
 msgid "any TCP"
-msgstr ""
+msgstr "suvaline TCP"
 
 #: migration/0001_import_services_from_firewall.pl:93
 msgid "any TCP port"
-msgstr ""
+msgstr "suvaline TCP port"
 
+# "administreerimine" ei tundunud nii hea variant
 #: migration/0001_import_services_from_firewall.pl:108
 #: src/EBox/Services.pm:335
 msgid "eBox administration"
-msgstr ""
+msgstr "eBoxi haldus"
 
 #: migration/0001_import_services_from_firewall.pl:109
 msgid "eBox Administration Web Server"
-msgstr ""
+msgstr "eBoxi haldamise veebiserver"
 
 #: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:153
 msgid "Services"
-msgstr ""
+msgstr "Teenused"
 
 #: src/EBox/Services.pm:333
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Services.pm:336
 msgid "eBox Administration port"
-msgstr ""
+msgstr "eBoxi haldamise port"
 
 #: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
-msgstr ""
+msgstr "Domeen"
 
 #: src/EBox/Model/ServiceTable.pm:114
 msgid "Service name"
-msgstr ""
+msgstr "Teenuse nimi"
 
 #: src/EBox/Model/ServiceTable.pm:122
 msgid "Description"
-msgstr ""
+msgstr "Kirjeldus"
 
 #: src/EBox/Model/ServiceTable.pm:129
 msgid "Internal"
-msgstr ""
+msgstr "Sisemine"
 
+# Pole päris kindel tõlgitud lause õigsuses
 #: src/EBox/Model/ServiceTable.pm:131
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
 "ports configured for this service. This helps eBox to know what ports are "
 "already busy"
 msgstr ""
+"Märgi see väli, kui masinas on tegelikult teenus mis talle seadistatud porte "
+"kasutab. See aitab eBoxil aru saada mis pordid on juba kasutusel."
 
 #: src/EBox/Model/ServiceTable.pm:140
 msgid "Configuration"
-msgstr ""
+msgstr "Seadistamine"
 
 #: src/EBox/Model/ServiceTable.pm:152
 msgid "List of services"
-msgstr ""
+msgstr "Teenuste loend"
 
 #: src/EBox/Model/ServiceTable.pm:163
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
 msgid "service"
-msgstr ""
+msgstr "teenus"
 
+#  
 #: src/EBox/Model/ServiceTable.pm:544
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
 msgstr ""
+"Teenus on ühe või mitme võrguprotokolli abstraktsioon, mida kasutatakse ka "
+"teistes moodulites nagu: tulemüür, liikluse kujundamine..."
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:139
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoll"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:145
 msgid "Source port"
-msgstr ""
+msgstr "Saatja port"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:147
 msgid "This field is usually set to any"
-msgstr ""
+msgstr "See väli on tavaliselt määratud suvaliseks"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:151
 msgid "Destination port"
-msgstr ""
+msgstr "Saaja port"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:161
 msgid "Service configuration"
-msgstr ""
+msgstr "Teenuse seadistamine"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:195
 msgid "This protocol does not use ports"
-msgstr ""
+msgstr "See protokoll ei kasuta porte"

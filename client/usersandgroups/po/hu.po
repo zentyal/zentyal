@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:45+0000\n"
-"PO-Revision-Date: 2010-02-03 15:41+0100\n"
+"PO-Revision-Date: 2010-03-17 14:14+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -118,7 +118,7 @@ msgstr "Csoport sikeresen eltávolítva"
 #: src/EBox/UserCornerWebServer.pm:37
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:45
 msgid "User Corner"
-msgstr "Felhasználó sarok"
+msgstr "Felhasználói sarok"
 
 #: src/EBox/UserCornerWebServer.pm:63
 msgid "Migrate configured modules"
@@ -130,7 +130,7 @@ msgstr "Szükséges a felhasználói (?) hozzáférés a beállító modulokhoz.
 
 #: src/EBox/UserCornerWebServer.pm:171
 msgid "User Corner web server"
-msgstr "Felhasználó sarok webkiszolgáló"
+msgstr "Felhasználói sarok webkiszolgáló"
 
 #: src/EBox/UsersAndGroups/Model/PendingSync.pm:59
 #: src/EBox/UsersAndGroups/Model/Mode.pm:72
