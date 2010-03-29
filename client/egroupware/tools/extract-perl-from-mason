@@ -3,6 +3,7 @@
 # This script is intended to check Perl code within Mason templates or
 # just dump it
 # extract-perl--from-mason
+#
 
 usage() {
 
