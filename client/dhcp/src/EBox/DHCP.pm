@@ -116,7 +116,7 @@ sub usedFiles
 		{
 		 'file' => DHCPCONFFILE,
 		 'module' => 'dhcp',
-         'reason' => 'dhcpd configuration file'
+                 'reason' => __x('{server} configuration file', server => 'dhcpd'),
 		}
 	       ];
 }
