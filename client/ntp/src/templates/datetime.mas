@@ -1,5 +1,3 @@
-<!-- vim: ts=4 sw=4 filetype=mason
--->
 <%args>
 	$synchronized
 	@servers
@@ -7,18 +5,20 @@
 </%args>
 <%init>
 use EBox::Gettext;
+my $syncTitle    = __('Time Synchronization with NTP Servers');
+my $serversTitle = __('External NTP Servers');
+my $dateTitle    = __('Change Date and Time');
 </%init>
 
 <div class='ntpnew'>
-<& /ntp/synch.mas, title => __('Time Synchronization with NTP Servers'),
-synchronized => $synchronized &>
+<& /ntp/synch.mas, title => $syncTitle, synchronized => $synchronized &>
 
 % if ($synchronized eq 'yes') {
-<& /ntp/servers.mas, title => __('External NTP Servers'), servers => \@servers &>
+<& /ntp/servers.mas, title => $serversTitle, servers => \@servers &>
 % }
 
 % if ($synchronized eq 'no') {
-<& /ntp/date.mas, title => __('Change Date and Time'), date => \@date &>
+<& /ntp/date.mas, title => $dateTitle , date => \@date &>
 % }
 </div>
 </div>
