@@ -2,6 +2,8 @@ HEAD
 	+ Enable backup event watcher by default
 	+ Improve help message for configuration
 	+ Added eBox Storage from Denver (US)
+	+ Added '/tmp' to default excludes
+	+ Fixed element text in excludes/includes
 1.4
 	+ Bug fix: do not duplicate includes with exclude-regexp
 	+ Add eBox Backup Storage strings

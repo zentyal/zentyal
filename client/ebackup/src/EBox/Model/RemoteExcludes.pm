@@ -91,7 +91,7 @@ sub _table
     {
         tableName          => 'RemoteExcludes',
         printableTableName => __('Includes and Excludes'),
-        printableRowName   => __('exclude'),
+        printableRowName   => __('exclude or include'),
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',

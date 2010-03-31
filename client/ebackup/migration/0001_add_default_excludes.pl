@@ -21,7 +21,7 @@ sub runGConf
 {
     my ($self) = @_;
 
-    my @defaultExcludes = ('/dev', '/proc', '/sys', '/mnt', '/media');
+    my @defaultExcludes = ('/dev', '/proc', '/sys', '/mnt', '/media', '/tmp');
     my @defaultIncludes = ('/');
     my $model = $self->{gconfmodule}->model('RemoteExcludes');
     for my $exclude (@defaultExcludes) {
