@@ -4,6 +4,8 @@ HEAD
 	+ Added eBox Storage from Denver (US)
 	+ Added '/tmp' to default excludes
 	+ Fixed element text in excludes/includes
+	+ Includes/Excludes fixed
+	+ Antichronological order used in versions
 1.4
 	+ Bug fix: do not duplicate includes with exclude-regexp
 	+ Add eBox Backup Storage strings

@@ -232,6 +232,9 @@ sub _backupVersion
                 printableValue => $id->{'date'}
         });
     }
+
+    # reverse for antichrnological order
+    @versions = reverse  @versions;
     return \@versions;
 }
 

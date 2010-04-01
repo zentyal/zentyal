@@ -34,4 +34,11 @@ $ENV{FTP_PASSWORD} = $password;
 $ENV{RSYNC_PASSWORD} = $password;
 $ENV{PASSPHRASE} = $symmPassword;
 
-exec "/usr/bin/duplicity @ARGV";
+# commented out because hardy's duplicity dont support log-file!
+# uncomment for newer versions and add to the exec line
+# my $logFile =  EBox::Config::log() . 'ebackup.log';
+# my $logFileArg = "--log-file $logFile";
+
+
+
+exec "/usr/bin/duplicity  @ARGV";

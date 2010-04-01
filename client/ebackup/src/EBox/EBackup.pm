@@ -26,6 +26,7 @@ use base qw(EBox::Module::Service EBox::Model::ModelProvider
 use strict;
 use warnings;
 
+use EBox;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
@@ -181,32 +182,44 @@ sub remoteArguments
 {
     my ($self, $type) = @_;
 
+    my $fileArgs = $self->remoteFileSelectionArguments();
+    my $cmd =  DUPLICITY_WRAPPER .  " $type " . "$fileArgs " .
+            " / " . $self->_remoteUrl();
+    return $cmd;
+}
+
+sub remoteFileSelectionArguments
+{
+    my ($self) = @_;
+
     my $model = $self->model('RemoteExcludes');
-    my $excludes = '';
-    my $includes = '';
-    my $regexps = '';
-    my $directory;
+    my $args = '';
+    # Include configuration backup
+    $args .= ' --include=/var/lib/ebox/conf/backups/confbackup.tar ';
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $type = $row->valueByName('type');
         if ($type eq 'exclude_path') {
             my $path = shell_quote($row->valueByName('target'));
-            $excludes .= "--exclude=$path ";
+            $args .= "--exclude=$path ";
         } elsif ($type eq 'include_path') {
             my $path = shell_quote($row->valueByName('target'));
-            next if ($path eq '/');
-            $includes .= "--include=$path ";
+            if ($path eq '/') {
+                EBox::warn(
+  q{Not neccesary to include '/' directory in ebakcup. Ignoring}
+                   );
+                next;
+            }
+            $args .= "--include=$path ";
         } elsif ($type eq 'exclude_regexp') {
-            my $regexp = $row->valueByName('target');
-            $regexps .= "--exclude-regexp $regexp " ;
+            my $regexp = shell_quote($row->valueByName('target'));
+            $args .= "--exclude-regexp $regexp " ;
         }
     }
-    # Include configuration backup
-    $includes .= ' --include=/var/lib/ebox/conf/backups/confbackup.tar ';
 
-    return DUPLICITY_WRAPPER .  " $type "
-           . "$includes $excludes $regexps / " . $self->_remoteUrl();
+    return $args;
 }
+
 
 # Method: remoteDelOldArguments
 #
