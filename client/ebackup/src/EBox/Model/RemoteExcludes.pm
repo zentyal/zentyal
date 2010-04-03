@@ -98,6 +98,9 @@ sub _table
         class              => 'dataTable',
         modelDomain        => 'EBackup',
         defaultEnabledValue => 1,
+        help => __(
+'A file or directory is included or excluded according the first match. A directory match is applied to all it contents. Files not explicitly excluded or included are included'
+           ),
     };
 
     return $dataTable;
@@ -168,6 +171,14 @@ sub _validate_exclude_regexp
 sub _validate_include_path
 {
     my ($self, $target) = @_;
+
+    if ($target eq '/') {
+        throw EBox::Exceptions::External(
+q{'/' is a invalid value for includes. Files in '/' are included if they are not excluded first.}
+           );
+    }
+
+
     EBox::Validate::checkAbsoluteFilePath($target,
                                           __('include path')
                                           );
