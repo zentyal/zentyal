@@ -531,36 +531,15 @@ sub start
 
     push(@commands, @{_startIPForward()});
 
-    my $global = EBox::Global->getInstance();
-    my @modNames = @{$global->modNames};
-    my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
-    my @modRules;
-    foreach my $mod (@mods) {
-        my $helper = $mod->firewallHelper();
-        ($helper) or next;
-        # push chain creation directly to commands so they take precedence
-        push(@commands, map { pf("-N $_") } @{$helper->chains()});
-        push(@modRules,
-                @{$self->_doRuleset('nat', 'premodules', $helper->prerouting())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset('nat', 'postmodules', $helper->postrouting())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset('filter', 'fmodules', $helper->forward())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset('filter', 'iexternalmodules', $helper->externalInput())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset('filter', 'imodules', $helper->input())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset('filter', 'omodules', $helper->output())}
-            );
-    }
+    my @modRules = @{$self->moduleRules()};
+
+    my $model = $self->{firewall}->{'EBoxServicesRuleTable'};
+    my %enabledRules =
+        map { $model->row($_)->valueByName('rule') => 1 } @{$model->enabledRows()};
+
     my @sortedRules = sort { $a->{'priority'} <=> $b->{'priority'} } @modRules;
-    push(@commands, map { pf($_->{'rule'}) } @sortedRules);
+    push(@commands, map { my $r = $_->{'rule'};
+                          pf($r) if $enabledRules{$r} } @sortedRules);
 
     # Special rule for PPPoE interfaces to avoid problems with large packets
     foreach my $if (@{$self->{net}->pppIfaces()}) {
@@ -574,6 +553,48 @@ sub start
     root(@commands);
 }
 
+# Method: moduleRules
+#
+#       Get the rules added by the eBox modules through FirewallObserver
+#
+# Returns:
+#
+#      Reference to array of hashrefs { module, priority, rule }
+#
+sub moduleRules
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my @modNames = @{$global->modNames};
+    my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
+    my @modRules;
+    foreach my $mod (@mods) {
+        my $helper = $mod->firewallHelper();
+        ($helper) or next;
+        push(@modRules,
+                @{$self->_doRuleset($mod, 'nat', 'premodules', $helper->prerouting())}
+            );
+        push(@modRules,
+                @{$self->_doRuleset($mod, 'nat', 'postmodules', $helper->postrouting())}
+            );
+        push(@modRules,
+                @{$self->_doRuleset($mod, 'filter', 'fmodules', $helper->forward())}
+            );
+        push(@modRules,
+                @{$self->_doRuleset($mod, 'filter', 'iexternalmodules', $helper->externalInput())}
+            );
+        push(@modRules,
+                @{$self->_doRuleset($mod, 'filter', 'imodules', $helper->input())}
+            );
+        push(@modRules,
+                @{$self->_doRuleset($mod, 'filter', 'omodules', $helper->output())}
+            );
+    }
+
+    return \@modRules;
+}
+
 sub _loadIptModules
 {
     my @commands;
@@ -583,9 +604,9 @@ sub _loadIptModules
     return \@commands;
 }
 
-sub _doRuleset # (table, chain, \@rules)
+sub _doRuleset # (module, table, chain, \@rules)
 {
-    my ($self, $table, $chain, $rules) = @_;
+    my ($self, $module, $table, $chain, $rules) = @_;
 
     my @commands;
     foreach my $r (@{$rules}) {
@@ -604,7 +625,7 @@ sub _doRuleset # (table, chain, \@rules)
             $pfrule = $r;
         }
         $pfrule = "-t $table -A $pfchain $pfrule";
-        my $r = { 'priority' => $priority, 'rule' => $pfrule };
+        my $r = { 'module' => $module, 'priority' => $priority, 'rule' => $pfrule };
         push(@commands, $r);
     }
     return \@commands;

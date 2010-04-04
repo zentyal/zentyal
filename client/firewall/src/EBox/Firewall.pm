@@ -37,6 +37,7 @@ use EBox::Firewall::Model::InternalToEBoxRuleTable;
 use EBox::Firewall::Model::ExternalToEBoxRuleTable;
 use EBox::Firewall::Model::EBoxOutputRuleTable;
 use EBox::Firewall::Model::ExternalToInternalRuleTable;
+use EBox::Firewall::Model::EBoxServicesRuleTable;
 use EBox::Firewall::Model::RedirectsTable;
 
 use EBox::Firewall::Model::Report::PacketTrafficDetails;
@@ -84,6 +85,11 @@ sub _create
                                                                'gconfmodule' => $self,
                                                                'directory' => 'ExternalToInternalRuleTable',
                                                               );
+    $self->{'EBoxServicesRuleTable'} =
+        new EBox::Firewall::Model::EBoxServicesRuleTable(
+                                                       'gconfmodule' => $self,
+                                                       'directory' => 'EBoxServicesRuleTable',
+                                                      );
     $self->{'RedirectsTable'} =
         new EBox::Firewall::Model::RedirectsTable(
                                                      'gconfmodule' => $self,
@@ -105,10 +111,6 @@ sub _create
                                                                                                            'gconfmodule' => $self,
                                                                                                            'directory' => 'PacketTrafficReportOptions',
                                                                                                           );
-
-
-
-
 
     bless($self, $class);
     return $self;
@@ -154,6 +156,7 @@ sub models
             $self->{'ExternalToEBoxRuleModel'},
             $self->{'EBoxOutputRuleModel'},
             $self->{'ExternalToInternalRuleTable'},
+            $self->{'EBoxServicesRuleTable'},
             $self->{'RedirectsTable'},
 
             $self->{'PacketTrafficDetails'},
@@ -161,8 +164,6 @@ sub models
             $self->{'PacketTrafficReportOptions'},
            ];
 }
-
-
 
 
 sub compositeClasses

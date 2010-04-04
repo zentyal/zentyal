@@ -9,7 +9,7 @@ use EBox::Gettext;
 	<p>
 		<a href="/ebox/Firewall/View/InternalToEBoxRuleTable"><% __('Configure rules') %></a>
 	</p>
- 
+
 <h3><% __('Filtering rules for internal networks') %></h3>
 <div class=''>
 	<% __('These rules allow you to control access from internal networks to the Internet and traffic between internal networks. If you wish to provide access to your eBox services, you must use the above section.') %>
@@ -25,7 +25,7 @@ use EBox::Gettext;
 	<p>
 		<a href="/ebox/Firewall/View/EBoxOutputRuleTable"><% __('Configure rules') %></a>
 	</p>
- 
+
 <h3><% __('Filtering rules from external networks to eBox') %></h3>
 <div class=''>
 	<% __('These rules allow you to control access from external networks to sevices running on your eBox machine.') %>
@@ -36,7 +36,7 @@ use EBox::Gettext;
 	<p>
 		<a href="/ebox/Firewall/View/ExternalToEBoxRuleTable"><% __('Configure rules') %></a>
 	</p>
- 
+
 <h3><% __('Filtering rules from external networks to internal networks') %></h3>
 <div class=''>
 	<% __('These rules allow you to control access from external networks to internal networks.') %>
@@ -46,4 +46,15 @@ use EBox::Gettext;
 </div>
 	<p>
 		<a href="/ebox/Firewall/View/ExternalToInternalRuleTable"><% __('Configure rules') %></a>
-	</p>  
+	</p>
+
+<h3><% __('Rules added by eBox services (Advanced)') %></h3>
+<div class=''>
+	<% __('These rules are automatically added by the eBox services.') %>
+</div>
+<div class='warning'>
+	<% __('You can disable these rules, but make sure you know what you are doing or otherwise some services could stop working.') %>
+</div>
+	<p>
+		<a href="/ebox/Firewall/View/EBoxServicesRuleTable"><% __('Configure rules') %></a>
+	</p>

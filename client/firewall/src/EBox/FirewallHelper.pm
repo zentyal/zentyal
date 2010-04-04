@@ -28,19 +28,6 @@ sub new
 	return $self;
 }
 
-# Method: chains
-#
-# 	The chains specified here are created.
-#
-# Returns:
-#
-#	array ref - containing chain names
-sub chains
-{
-	return [];
-}
-
-
 # Method: prerouting
 #
 # 	Rules returned by this method are added to the PREROUTING chain in

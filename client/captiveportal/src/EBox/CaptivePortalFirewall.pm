@@ -34,6 +34,7 @@ sub new
         return $self;
 }
 
+# FIXME: This method has been deprecated, reimplement it in other way
 sub chains
 {
     return [ 'icaptive', 'fcaptive' ];
