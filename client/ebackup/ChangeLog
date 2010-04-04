@@ -10,6 +10,7 @@ HEAD
 	+ Added automatic exclude of backup directory for file system
 	method
 	+ Better treatment of errors while restoring files form the UI
+	+ Added argument check to ebox-remote-ebackup script
 1.4
 	+ Bug fix: do not duplicate includes with exclude-regexp
 	+ Add eBox Backup Storage strings

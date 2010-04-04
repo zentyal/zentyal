@@ -82,9 +82,18 @@ unless ($ebackup->lock()) {
 
 my $type = 'full';
 
-if ($ARGV[0] and $ARGV[0] eq '--incremental') {
-    $type = 'incremental';
+if ($ARGV[0]) {
+    if ($ARGV[0] eq '--incremental') {
+        $type = 'incremental';
+    } elsif ($ARGV[0] eq '--full') {
+        $type = 'full';
+    } else {
+        die "Invalid argument: " . $ARGV[0];
+    }
 }
+
+
+
 if ($type eq 'full') {
     my $removeArguments = $ebackup->remoteDelOldArguments();
     EBox::Sudo::root($removeArguments);
