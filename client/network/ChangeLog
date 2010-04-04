@@ -10,6 +10,8 @@ HEAD
 	+ Add _notifyChangedIface() to factor code that calls observer to
 	  notify ifaceMethodChanged and ifaceMethodChangeDone
 	+ Add etherIface to fetch the ethernet interface from a  ppp interface
+	+ Bug fix: do not mess with ebox's apache packets in failover test
+	+ Make failover test more robust
 1.4.2
 	+ Restart squid when failover events are produced to avoid problems
 	+ Do not check host when adding a ping to gateway rule in WAN Failover
