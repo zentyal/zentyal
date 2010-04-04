@@ -257,6 +257,19 @@ sub remoteListFileArguments
     return DUPLICITY_WRAPPER . " list-current-files " . $self->_remoteUrl();
 }
 
+#  Method: remoteGenerateListFile
+#
+#  Warning: it will raise exception if there isnt at least one backup yet
+sub remoteGenerateListFile
+{
+    my ($self) = @_;
+    my $collection = $self->remoteListFileArguments();
+    my $tmpFile = $self->tmpFileList();
+    EBox::Sudo::root("$collection > $tmpFile");
+    EBox::Sudo::root("chown ebox:ebox $tmpFile");
+}
+
+
 # Method: remoteStatus
 #
 #  Return the status of the remote backup.
@@ -317,9 +330,18 @@ sub remoteGenerateStatusCache
     my $file = tmpCurrentStatus();
     my $remoteUrl = $self->_remoteUrl();
     my $cmd = DUPLICITY_WRAPPER . " collection-status $remoteUrl";
+    my $status = undef;
     try {
-        File::Slurp::write_file($file, @{EBox::Sudo::root($cmd)});
+        $status =  EBox::Sudo::root($cmd);
+
     } otherwise {};
+
+    if (defined $status) {
+        File::Slurp::write_file($file, $status);
+    } else {
+        ( -e $file) and
+            unlink $file;
+    }
 }
 
 # Method: tmpFileList
@@ -416,8 +438,47 @@ sub _setConf
             $symPass, { uid => 'ebox', gid => 'ebox', mode => '0600'}
     );
     $self->setRemoteBackupCrontab();
+
+    $self->_syncRemoteCaches();
+
 }
 
+
+sub _syncRemoteCaches
+{
+    my ($self) = @_;
+
+    my @oldRemoteStatus = @{ $self->remoteStatus() };
+    $self->remoteGenerateStatusCache();
+    my @newRemoteStatus = @{ $self->remoteStatus() };
+    
+    my $genListFiles = 0;
+    if (@newRemoteStatus == 0) {
+        # no needed to make nay file list, bz there aren't files
+        $genListFiles = 0;
+    } elsif (@oldRemoteStatus != @newRemoteStatus) {
+        $genListFiles =1;
+    } else {
+        while (@oldRemoteStatus) {
+            my $old = shift @oldRemoteStatus;
+            my $new = shift @newRemoteStatus;
+            foreach my $attr (keys %{ $new }) {
+                if ((not exists $old->{$attr}) or
+                    ($old->{$attr} ne $new->{$attr})
+                   ) {
+                    $genListFiles = 1;
+                    last;
+                } 
+            }
+            
+        }
+    }
+
+    if ($genListFiles) {
+        $self->remoteGenerateListFile();
+    }
+
+}
 
 # Method: menu
 #

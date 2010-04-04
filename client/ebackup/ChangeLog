@@ -6,6 +6,7 @@ HEAD
 	+ Fixed element text in excludes/includes
 	+ Includes/Excludes fixed
 	+ Antichronological order used in versions
+	+ Cache lists regenerated on module restart
 1.4
 	+ Bug fix: do not duplicate includes with exclude-regexp
 	+ Add eBox Backup Storage strings

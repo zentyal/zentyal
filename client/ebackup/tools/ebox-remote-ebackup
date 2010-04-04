@@ -118,10 +118,7 @@ _sendEvent($success, '');
 $ebackup->remoteGenerateStatusCache();
 
 # Create file list
-my $collection = $ebackup->remoteListFileArguments();
-my $tmpFile = $ebackup->tmpFileList();
-EBox::Sudo::root("$collection > $tmpFile");
-EBox::Sudo::root("chown ebox:ebox $tmpFile");
+$ebackup->remoteGenerateListFile();
 
 $ebackup->unlock();
 

@@ -140,7 +140,7 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __('There is no information about backuped files yet');
+    return __('There are not backuped files yet');
 }
 
 
