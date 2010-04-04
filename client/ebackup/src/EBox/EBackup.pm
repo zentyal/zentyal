@@ -163,7 +163,30 @@ sub restoreFile
     $rFile =~ s:^.::;
     my $cmd = DUPLICITY_WRAPPER .  " --force -t $time --file-to-restore $rFile $url $file";
 
-    EBox::Sudo::root($cmd);
+    try {
+        EBox::Sudo::root($cmd);
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $ex = shift;
+        my $error = join "\n", @{  $ex->error() };
+        if ($error =~ m/not found in archive, no files restored/) {
+            throw EBox::Exceptions::External(
+                __x(
+                    'File {f} not found in backup for {d}, try a later date',
+                    f => $file,
+                    d => $date,
+                   )
+               );
+        } elsif ($error =~ m/No backup chains found/) {
+            throw EBox::Exceptions::External(
+__(q{No backup archives found. Maybe they were deleted?.} .
+   q{ Run '/etc/init.d/ebox ebackup restart' to refresh backup's information.}
+       )
+               );
+        } else {
+            ex->throw();
+        }
+            
+    };
 }
 
 
@@ -188,6 +211,7 @@ sub remoteArguments
     return $cmd;
 }
 
+
 sub remoteFileSelectionArguments
 {
     my ($self) = @_;
@@ -196,6 +220,9 @@ sub remoteFileSelectionArguments
     my $args = '';
     # Include configuration backup
     $args .= ' --include=/var/lib/ebox/conf/backups/confbackup.tar ';
+
+    $args .= $self->_autoExcludesArguments();
+
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $type = $row->valueByName('type');
@@ -220,6 +247,21 @@ sub remoteFileSelectionArguments
     return $args;
 }
 
+
+sub _autoExcludesArguments
+{
+    my ($self) = @_;
+
+    # exclude backup directory if we are using 'filesystem' mode
+    my $settings = $self->model('RemoteSettings');
+    my $row = $settings->row();
+    if ($row->valueByName('method') ne 'file') {
+        return '';
+    }
+
+    my $dir = $row->valueByName('target');
+    return  "--exclude=$dir ";
+}
 
 # Method: remoteDelOldArguments
 #
