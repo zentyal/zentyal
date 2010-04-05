@@ -149,8 +149,8 @@ borrar ficheros de cualquier otro usuario dentro de dicho directorio.
 
 También se puede crear un directorio compartido para un grupo desde
 :menuselection:`Usuarios y Grupos --> Grupos`. Todos los miembros del
-grupo tendrán acceso a ese directorio y podrán leer o escribir los
-ficheros y directorios dentro de dicho directorio compartido.
+grupo tendrán acceso, podrán escribir sus propios ficheros y
+leer todos los ficheros en el directorio.
 
 Si se quieren almacenar los ficheros borrados dentro de un directorio
 especial llamado `RecycleBin`, se puede marcar

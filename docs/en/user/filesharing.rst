@@ -86,7 +86,7 @@ accessed  by the user.
 
 Going to :menuselection:`Groups --> Edit Group` a shared directory for
 a group can also be created. Every member of this group will have
-access to this directory, being able to read and write all the files.
+access to this directory, being able to write his own files and read all the files.
 
 .. image:: images/filesharing/06-sharing.png
    :scale: 80
