@@ -33,7 +33,7 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Squid::Types::Policy;
 use EBox::Squid::Types::TimePeriod;
-
+use EBox::NetWrappers;
 
 # Group: Public methods
 
@@ -349,9 +349,10 @@ sub objectsFilterGroups
 
         my $obj           = $row->valueByName('object');
         my @addresses = @{ $objectMod->objectAddresses($obj)  };
-        foreach my $address (@addresses) {
-            # remove /32 netmask froms hosts addresses
-            $address =~ s{/32$}{};
+        foreach my $cidrAddress (@addresses) {
+            my ($addr, $netmask) = 
+                EBox::NetWrappers::to_network_without_mask($cidrAddress);
+            my $address = $addr . '/' . $netmask;;
             push @filterGroups, { 
                                  address=> $address, 
                                  group  => $filterGroupIdByRowId{$filterGroup}  

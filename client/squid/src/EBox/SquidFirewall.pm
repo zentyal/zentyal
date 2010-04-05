@@ -267,7 +267,6 @@ sub output
 {
     my ($self) = @_;
 
-    my $sq = EBox::Global->modInstance('squid');
     my @rules = ();
     push(@rules, "-m state --state NEW -p tcp --dport 80 -j ACCEPT");
     push(@rules, "-m state --state NEW -p tcp --dport 443 -j ACCEPT");
