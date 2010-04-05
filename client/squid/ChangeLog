@@ -1,4 +1,5 @@
 HEAD
+	+ New bandwith throttling support with delay pools
 	+ Bugfix: trim URL string as DB stores it as a varchar(1024) (Log)
 	+ Disabled ban URL regexes
 	+ Added filter profile per object

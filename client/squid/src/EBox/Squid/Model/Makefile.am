@@ -19,7 +19,8 @@ nobase_perl_DATA = GeneralSettings.pm \
     UseDefaultExtensionFilter.pm  UseDefaultMIMEFilter.pm \
     FilterGroupExtensionFilter.pm  FilterGroupMIMEFilter.pm \
     FilterGroupApplyAllowToAllExtensions.pm  FilterGroupApplyAllowToAllMIME.pm \
-    AntiVirusBase.pm DefaultAntiVirus.pm FilterGroupAntiVirus.pm
+    AntiVirusBase.pm DefaultAntiVirus.pm FilterGroupAntiVirus.pm \
+    DelayPools1.pm DelayPools2.pm
 
 
 DISTCLEANFILES =

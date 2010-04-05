@@ -133,6 +133,8 @@ sub modelClasses
           'EBox::Squid::Model::DefaultAntiVirus',
           'EBox::Squid::Model::FilterGroupAntiVirus',
 
+          'EBox::Squid::Model::DelayPools1',
+          'EBox::Squid::Model::DelayPools2',
 
           # Report clases
            'EBox::Squid::Model::Report::RequestsGraph',
@@ -165,6 +167,8 @@ sub compositeClasses
          'EBox::Squid::Composite::FilterGroupExtensions',
          'EBox::Squid::Composite::FilterGroupMIME',
          'EBox::Squid::Composite::FilterGroupDomains',
+
+         'EBox::Squid::Composite::DelayPools',
 
          'EBox::Squid::Composite::Report::TrafficReport',
         ];
@@ -636,6 +640,7 @@ sub notifyAntivirusEnabled
     $self->setAsChanged();
 }
 
+
 sub _writeSquidConf
 {
   my ($self) = @_;
@@ -655,6 +660,7 @@ sub _writeSquidConf
   push @writeParam, ('allowAll'  => $self->globalPolicyUsesAllowAll);
   push @writeParam, ('groupsPolicies' => $groupsPolicies);
   push @writeParam, ('objectsPolicies' => $objectsPolicies);
+  push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
   push @writeParam, ('memory' => $self->_cache_mem);
   push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
   push @writeParam, ('cacheDirSize'     => $cacheDirSize);
@@ -668,6 +674,20 @@ sub _writeSquidConf
   $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
 }
 
+
+sub _objectsDelayPools
+{
+  my ($self) = @_;
+
+  my @delayPools1 = @{$self->model('DelayPools1')->delayPools1()};
+  my @delayPools2 = @{$self->model('DelayPools2')->delayPools2()};
+
+  my @delayPools;
+  push (@delayPools, @delayPools1);
+  push (@delayPools, @delayPools2);
+
+  return \@delayPools;
+}
 
 
 sub _writeDgConf
@@ -1012,9 +1032,11 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/General',
                                       'text' => __('General')));
 
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/DelayPools',
+                                      'text' => __(q{Bandwidth Throttling})));
 
-        $folder->add(new EBox::Menu::Item('url' => 'Squid/View/ObjectPolicy',
-                                          'text' => __(q{Objects' Policy})));
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/ObjectPolicy',
+                                      'text' => __(q{Objects' Policy})));
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/GlobalGroupPolicy',
                                       'text' => __(q{Groups' Policy})));
@@ -1024,7 +1046,6 @@ sub menu
 
 #     $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/FilterSettings',
 #                                       'text' => __('Filter Settings')));
-
 
     $root->add($folder);
 }

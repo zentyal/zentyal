@@ -4,6 +4,7 @@
     $authNeeded
     $allowAll
     @objectsPolicies
+    @objectsDelayPools
     @groupsPolicies
     @notCachedDomains
     $memory
@@ -73,6 +74,8 @@ acl authorized  proxy_auth required
 
 <& .objectsACLs, objectsPolicies => \@objectsPolicies &>
 
+<& .objectsACLs, objectsPolicies => \@objectsDelayPools &>
+
 # no cache domains acl
 % foreach my  $domain (@notCachedDomains) {
 acl noCached dstdomain <% $domain %>
@@ -113,8 +116,13 @@ http_access deny !Safe_ports
 http_access deny CONNECT !SSL_ports
 http_reply_access allow all
  
+# <EBOX> TAG_DELAYPOOLS #
 
+<& .delayPools, 
+                  objectsDelayPools => \@objectsDelayPools, 
+&>
 
+# END_TAG
 
 # <EBOX> TAG_HTTP_ACCESS #
 
@@ -300,12 +308,31 @@ my $id = join '_', @ids;
 % if ($policy->{timeDays}) {
 acl <% 'timeDays_' . $id %> time <% $policy->{timeDays} %>
 % }
-
 % if ($policy->{timeHours}) {
 acl <% 'timeHours_' . $id %> time <% $policy->{timeHours} %>
 % }
-
-
 </%def>
 
 
+<%def .delayPools>
+<%args>
+@objectsDelayPools
+</%args>
+% if ( @objectsDelayPools ) {
+%     my $pools = @objectsDelayPools;
+delay_pools <% $pools %>
+% }
+% my $id = 0;
+% foreach my $objPool (@objectsDelayPools) {
+%     $id++;
+delay_class <% $id %> <% $objPool->{class} %>
+%     if ( $objPool->{class} eq '1' ) {
+delay_parameters <% $id %> <% $objPool->{rate} %>/<% $objPool->{size} %>
+%     } elsif ( $objPool->{class} eq '2' ) {
+delay_parameters <% $id %> <% $objPool->{rate} %>/<% $objPool->{size} %> <% $objPool->{clt_rate} %>/<% $objPool->{clt_size} %>
+%     }
+delay_initial_bucket_level 90
+delay_access <% $id %> allow <% $objPool->{object} %>
+delay_access <% $id %> deny all
+% }
+</%def>

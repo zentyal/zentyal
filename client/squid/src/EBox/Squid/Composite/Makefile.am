@@ -7,7 +7,8 @@ nobase_perl_DATA =  General.pm \
 	 FilterTabs.pm FilterSettings.pm  \
          Extensions.pm MIME.pm Domains.pm \
          FilterGroupSettings.pm FilterGroupTabs.pm \
-	 FilterGroupExtensions.pm FilterGroupMIME.pm  FilterGroupDomains.pm
+	 FilterGroupExtensions.pm FilterGroupMIME.pm  FilterGroupDomains.pm \
+         DelayPools.pm
 
 
 DISTCLEANFILES =
