@@ -1,4 +1,7 @@
 HEAD
+	+ Bugfix: Make some checks in delay pools to avoid
+	  misconfiguration, do not write the disabled rules and set the
+	  proper labels and more detailed explanation
 	+ New bandwith throttling support with delay pools
 	+ Bugfix: trim URL string as DB stores it as a varchar(1024) (Log)
 	+ Disabled ban URL regexes

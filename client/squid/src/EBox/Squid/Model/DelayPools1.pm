@@ -74,29 +74,46 @@ sub new
 #
 sub validateTypedRow
 {
-    my ($self, $action, $params) = @_;
+    my ($self, $action, $params, $allFields) = @_;
 
-    #if ( defined ( $params->{guaranteed_rate} )) {
-    #    $self->_checkRate( $params->{guaranteed_rate},
-    #            __('Guaranteed rate'));
-    #}
-
-    #if ( defined ( $params->{limited_rate} )) {
-    #    $self->_checkRate( $params->{limited_rate},
-    #            __('Limited rate'));
-    #}
-
-    # check objects have members
-    my $objects = EBox::Global->modInstance('objects');
     if ( defined ( $params->{acl_object} ) ) {
+        # check objects have members
         my $srcObjId = $params->{acl_object}->value();
+        my $objects = EBox::Global->modInstance('objects');
         unless ( @{$objects->objectAddresses($srcObjId)} > 0 ) {
             throw EBox::Exceptions::External(
                     __x('Object {object} has no members. Please add at ' .
                         'least one to add rules using this object.',
                         object => $params->{acl_object}->printableValue()));
         }
+        # Check the same object is not used in second delay pool table
+        my $squidMod = $self->parentModule();
+        my $delayPools2 = $squidMod->model('DelayPools2');
+        if ( defined($delayPools2->findValue('acl_object' => $srcObjId)) ) {
+            throw EBox::Exceptions::External(
+                __x('Object {object} already appears in {table}. Delete it first '
+                    . 'from there to add it here',
+                    object => $params->{acl_object}->printableValue(),
+                    table  => $delayPools2->printableName()));
+        }
     }
+
+    # Check the rate/size are set both if unlimited
+    my @allParams = ( [qw(size rate)], [qw(rate size)] );
+
+    foreach my $paramNames (@allParams) {
+        if ( defined( $params->{$paramNames->[0]} ) ) {
+            # Check the size is unlimited and the rate is unlimited
+            if ( $params->{$paramNames->[0]}->value() == -1
+                 and $allFields->{$paramNames->[1]}->value() != -1) {
+                throw EBox::Exceptions::External(__x('If {first} is set unlimited, '
+                                                     . 'then {second} must be set to unlimited as well',
+                                                     first => $params->{$paramNames->[0]}->printableName(),
+                                                     second => $allFields->{$paramNames->[1]}->printableName()));
+            }
+        }
+    }
+
 }
 
 
@@ -126,20 +143,20 @@ sub _table
                  printableName => __('Network Rate'),
                  size          => 3,
                  editable      => 1,
-                 trailingText  => __('Kbit/s'),
+                 trailingText  => __('Bytes/s'),
                  defaultValue  => 0,
                  min           => -1,
-                 help => __('Maximun download bandwith rate for this network. Use -1 to disable this option.')
+                 help => __('Maximum download bandwidth rate for this network. Use -1 to disable this option.')
              ),
          new EBox::Types::Int(
                  fieldName     => 'size',
-                 printableName => __('Network Max Size'),
+                 printableName => __('Network Maximum Size'),
                  size          => 3,
                  editable      => 1,
-                 trailingText  => __('Kbit'),
+                 trailingText  => __('Bytes'),
                  defaultValue  => 0,
                  min           => -1,
-                 help => __('Maximun unthrottled download size for this network. Use -1 to disable this option.')
+                 help => __('Maximum unthrottled download size for this network. Use -1 to disable this option.')
              ),
       );
 
@@ -152,9 +169,11 @@ sub _table
         'class'              => 'dataTable',
         # Priority field set the ordering through _order function
         'order'              => 1,
-        'help'               => __('Once the request exceds the Max size then the '.
+        'help'               => __x('Once the request exceeds the {max} then the '.
                                    'HTTP Proxy will throttle the download bandwidth to '.
-                                   'the given Rate.'),
+                                   'the given {rate}.',
+                                    max  => $tableHead[2]->printableName(),
+                                    rate => $tableHead[1]->printableName()),
         'rowUnique'          => 1,
         'printableRowName'   => __('pool'),
         'automaticRemove'    => 1,
@@ -182,7 +201,7 @@ sub delayPools1
 
     my @pools;
 
-    foreach my $pool (@{$self->ids()}) {
+    foreach my $pool (@{$self->enabledRows()}) {
 
         my $row = $self->row($pool);
         my $rate = $row->valueByName('rate');

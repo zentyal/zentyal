@@ -29,12 +29,12 @@ use EBox::Gettext;
 
 # Constructor: new
 #
-#         Constructor for the general events composite
+#       Constructor for the delay pools composite
 #
 # Returns:
 #
-#       <EBox::Squid::Model::GeneralComposite> - a
-#       general events composite
+#       <EBox::Squid::Composite::DelayPools> - a
+#       delay pools composite
 #
 sub new
 {
@@ -68,8 +68,11 @@ sub _description
          name            => 'DelayPools',
          pageTitle       => __('Bandwidth Throttling'),
          compositeDomain => 'Squid',
-         help            => __('Class 1 pools allow to restrict the bandwidth rate for large downloads whereas '
-                              .'Class 2 pools allow to set the bandwidth usage to a sustained rate.'),
+         help            => __('Class 1 pools allow you to restrict the bandwidth rate for large downloads whereas '
+                              . 'class 2 pools allow you to set the bandwidth usage to a sustained rate. '
+                              . 'The class 1 pools have more priority than class 2 ones and the first '
+                              . 'match from the source is done. If a network object does not match '
+                              . 'any rule, then no bandwidth throttling is done to it'),
         };
 
     return $description;
