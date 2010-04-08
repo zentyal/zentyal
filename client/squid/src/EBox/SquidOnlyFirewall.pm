@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -45,12 +46,14 @@ sub _trans_prerouting
     my @ifaces = @{$net->InternalIfaces()};
     my $pol = $sq->globalPolicy();
     foreach my $ifc (@ifaces) {
-        my $addr = $net->ifaceAddress($ifc);
-        (defined($addr) && $addr ne "") or next;
+        my $addrs = $net->ifaceAddresses($ifc);
+        foreach my $addr (map { $_->{address} } @{$addrs}) {
+            (defined($addr) && $addr ne "") or next;
 
-        my $r = "-i $ifc -d ! $addr -p tcp " .
-            "--dport 80 -j REDIRECT --to-ports $sqport";
-        push(@rules, $r);
+            my $r = "-i $ifc -d ! $addr -p tcp " .
+              "--dport 80 -j REDIRECT --to-ports $sqport";
+            push(@rules, $r);
+        }
     }
 
     return \@rules;

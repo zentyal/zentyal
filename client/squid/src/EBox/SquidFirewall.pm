@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -59,19 +60,20 @@ sub _normal_prerouting
     my @objsPolicies = @{ $self->_objectsPolicies() };
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
-        my $addr = $net->ifaceAddress($ifc);
-        (defined($addr) && $addr ne "") or next;
+        my $addrs = $net->ifaceAddresses($ifc);
+        foreach my $addr (map { $_->{address} } @{$addrs}) {
+            (defined($addr) && $addr ne "") or next;
 
-        foreach my $obPolicy (@objsPolicies) {
-            push @rules,
-                @{ $self->_normal_prerouting_object_rules($obPolicy, $ifc, $addr) };
-        }
+            foreach my $obPolicy (@objsPolicies) {
+                push @rules,
+                  @{ $self->_normal_prerouting_object_rules($obPolicy, $ifc, $addr) };
+            }
 
-
-        if ($sq->globalPolicyUsesFilter()) {
-            my $r = "-i $ifc -d $addr -p tcp --dport $sqport ".
-                "-j REDIRECT --to-ports $dgport";
-            push @rules, $r;
+            if ($sq->globalPolicyUsesFilter()) {
+                my $r = "-i $ifc -d $addr -p tcp --dport $sqport ".
+                  "-j REDIRECT --to-ports $dgport";
+                push @rules, $r;
+            }
         }
 
     }
@@ -122,26 +124,28 @@ sub _trans_prerouting
 
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
-        my $addr = $net->ifaceAddress($ifc);
-        (defined($addr) && $addr ne "") or next;
+        my $addrs = $net->ifaceAddresses($ifc);
+        foreach my $addr (map { $_->{address} } @{$addrs}) {
+            (defined($addr) && $addr ne "") or next;
 
-        foreach my $obPolicy (@objsPolicies) {
-            push @rules,
-                @{ $self->_normal_trans_prerouting_object_rules(
-                                                               $obPolicy,
-                                                               $ifc,
-                                                               $addr
-                                                              ) };
-        }
+            foreach my $obPolicy (@objsPolicies) {
+                push @rules,
+                  @{ $self->_normal_trans_prerouting_object_rules(
+                                                                  $obPolicy,
+                                                                  $ifc,
+                                                                  $addr
+                                                                 ) };
+            }
 
-        if ($sq->globalPolicyUsesFilter()) {
-            my $r = "-i $ifc -d ! $addr -p tcp --dport 80 ".
-                "-j REDIRECT --to-ports $dgport";
-                        push(@rules, $r);
-        } else {
-            my $r = "-i $ifc -d ! $addr -p tcp --dport 80 ".
-                "-j REDIRECT --to-ports $sqport";
-            push(@rules, $r);
+            if ($sq->globalPolicyUsesFilter()) {
+                my $r = "-i $ifc -d ! $addr -p tcp --dport 80 "
+                        . "-j REDIRECT --to-ports $dgport";
+                push(@rules, $r);
+            } else {
+                my $r = "-i $ifc -d ! $addr -p tcp --dport 80 "
+                        . "-j REDIRECT --to-ports $sqport";
+                push(@rules, $r);
+            }
         }
     }
     return \@rules;

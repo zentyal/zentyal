@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: Get virtual interfaces as well to set firewall rules
 	+ Bugfix: Make some checks in delay pools to avoid
 	  misconfiguration, do not write the disabled rules and set the
 	  proper labels and more detailed explanation
