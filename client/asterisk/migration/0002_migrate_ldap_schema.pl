@@ -22,6 +22,9 @@ sub runGConf
 {
     my ($self) = @_;
 
+    my $asteriskMod = $self->{gconfmodule};
+    return unless ($asteriskMod->configured());
+
     EBox::Migration::LdapHelpers::updateSchema('asterisk', 'asterisk',
         ['AstAccountVMPassword'],
         {

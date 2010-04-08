@@ -45,6 +45,59 @@ sub _deleteAcls
     }
 }
 
+# Procedure: updateSchema
+#
+#     Update the LDAP schema for a given module
+#
+# Parameters:
+#
+#     module      - String the module name
+#     schemaname  - String the schema name to update
+#
+#     oldACLAttrs - Array ref containing the ACL attributes from the
+#                   previous schema to delete
+#
+#     map - Hash ref containing the modifications to be performed. The
+#           key is the object class to update and the value are hash
+#           refs that may contain the following key and values:
+#
+#             'add' - new attributes for that object class. The value
+#                     is a hash ref containing as key the new
+#                     attribute name and the value the attribute type
+#
+#             'mod' - attributes to modify its name. The value is a
+#                     hash ref containing as key the old attribute name and
+#                     as value the new attribute name
+#
+# Example:
+#
+# EBox::Migration::LdapHelpers::updateSchema('asterisk', 'asterisk',
+#        ['AstAccountVMPassword'],
+#        {
+#            'AsteriskVoicemail' => {
+#                'add' => {
+#                    'AstContext' => 'users',
+#                },
+#                'mod' => {
+#                    'AstAccountMailbox' => 'AstVoicemailMailbox',
+#                    'AstAccountVMPassword' => 'AstVoicemailPassword',
+#                    'AstAccountVMMail' => 'AstVoicemailEmail',
+#                    'AstAccountVMAttach' => 'AstVoicemailAttach',
+#                    'AstAccountVMDelete' => 'AstVoicemailDelete',
+#                }
+#            },
+#            'AsteriskSIPUser' => {
+#                'add' => {
+#                    'AstAccountDTMFMode' => 'rfc2833',
+#                    'AstAccountInsecure' => 'port',
+#                },
+#                'mod' => {
+#                    'AstAccountLastms' => 'AstAccountLastQualifyMilliseconds'
+#                }
+#            }
+#        }
+#    );
+#
 sub updateSchema
 {
     my ($module, $schemaname, $oldaclattrs, $map) = @_;
@@ -56,13 +109,19 @@ sub updateSchema
     my $password = $users->ldap->getPassword();
     $ldap->bind($rootdn, password => $password);
 
-    #1: delete ACLs that use attributes that are going to be removed
-    #   this can be done either automatically or manually
-    _deleteAcls($ldap, $oldaclattrs);
-
-    #2: get schema schema number
+    #1: get schema number
     my $schemas = $users->listSchemas($ldap);
     my $schema = (grep { /^{\d+}$schemaname$/} @{$schemas})[0];
+
+    unless ( defined($schema) ) {
+        # The module has never been configured
+        EBox::info("$module has never been configured because $schemaname schema does not exist");
+        return;
+    }
+
+    #2: delete ACLs that use attributes that are going to be removed
+    #   this can be done either automatically or manually
+    _deleteAcls($ldap, $oldaclattrs);
 
     my $filters = join('', map { "(objectClass=$_)" } keys(%{$map}));
     my %args = (
@@ -107,6 +166,9 @@ sub updateSchema
     EBox::Sudo::root("rm -f /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
     EBox::Sudo::root("cp /usr/share/ebox-$module/$schemaname.ldif /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
     EBox::Sudo::root("sed -i -e 's/,cn=schema,cn=config//' /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
+    # Set proper permissions and owner
+    EBox::Sudo::root("chown openldap:openldap /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
+    EBox::Sudo::root("chmod go-r /etc/ldap/slapd.d/cn=config/cn=schema/cn=$schema.ldif");
 
     #5: start slapd
     EBox::Sudo::root('/etc/init.d/slapd start');

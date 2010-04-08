@@ -1,3 +1,6 @@
+HEAD
+	+ Bug fix: Migration script 0002_migrate_ldap_schema is not run
+	  unless the module is configured
 1.4
 	+ Bug fix: do not crash if asterisk is not available to fetch info
 1.3.17

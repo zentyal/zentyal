@@ -82,7 +82,7 @@ sub masterLdap
     return $ldap;
 }
 
-#   Method: _loadSchema
+# Method: _loadSchema
 #
 #      loads an LDAP schema from an LDIF file
 #
@@ -139,10 +139,10 @@ sub _loadSchemaDirectory
             'attrs' => ['objectClass']
         );
         my $result = $ldap->search(%args);
-        if ($result->entries eq 0) {
+        if ($result->entries() == 0) {
             $result = $ldap->add($entry);
             if ($result->is_error()) {
-                EBox::debug($result->error());
+                EBox::error($result->error());
             }
         }
     }

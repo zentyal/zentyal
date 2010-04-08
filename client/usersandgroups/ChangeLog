@@ -1,4 +1,7 @@
 HEAD
+	+ Bug fix: updateSchema() returns unless the schema to update is
+	  available
+	+ Bug fix: Set proper owner and permissions when updating a schema
 	+ Bug fix: some problems with the AD synchronization solved
 	+ Bug fix: userscorner title icon
 	+ Bug fix: addUser() now checks if the user already exists as a
