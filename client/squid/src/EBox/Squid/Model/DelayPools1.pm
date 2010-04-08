@@ -86,15 +86,22 @@ sub validateTypedRow
                         'least one to add rules using this object.',
                         object => $params->{acl_object}->printableValue()));
         }
+    }
+
+    # Check if the row to edit/add is enabled prior to check this
+    if ( defined ( $params->{enabled} ) and $params->{enabled}->value() ) {
         # Check the same object is not used in second delay pool table
+        my $srcObjId = $allFields->{acl_object}->value();
         my $squidMod = $self->parentModule();
         my $delayPools2 = $squidMod->model('DelayPools2');
-        if ( defined($delayPools2->findValue('acl_object' => $srcObjId)) ) {
+        my $row = $delayPools2->findRow('acl_object' => $srcObjId);
+        if ( defined($row) and $row->valueByName('enabled') ) {
             throw EBox::Exceptions::External(
-                __x('Object {object} already appears in {table}. Delete it first '
+                __x('Object {object} has an enabled {row} in {table}. Delete it first '
                     . 'from there to add it here',
-                    object => $params->{acl_object}->printableValue(),
-                    table  => $delayPools2->printableName()));
+                    object => $allFields->{acl_object}->printableValue(),
+                    table  => $delayPools2->printableName(),
+                    row    => $delayPools2->printableRowName()));
         }
     }
 
@@ -137,6 +144,7 @@ sub _table
                  foreignModel  => \&_objectModel,
                  foreignField  => 'name',
                  editable      => 1,
+                 unique        => 1,
              ),
          new EBox::Types::Int(
                  fieldName     => 'rate',

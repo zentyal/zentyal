@@ -35,6 +35,8 @@ use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Model::ModelManager;
 
+use Math::BigInt;
+
 # Group: Public methods
 
 # Constructor: new
@@ -86,14 +88,21 @@ sub validateTypedRow
                         'least one to add rules using this object.',
                         object => $params->{acl_object}->printableValue()));
         }
+    }
+
+    # Check if the row to edit/add is enabled prior to check this
+    if ( defined( $params->{enabled} ) and $params->{enabled}->value() ) {
         # Check the same object is not used in first delay pool table
+        my $srcObjId = $allFields->{acl_object}->value();
         my $squidMod = $self->parentModule();
         my $delayPools1 = $squidMod->model('DelayPools1');
-        if ( defined($delayPools1->findValue('acl_object' => $srcObjId)) ) {
+        my $row = $delayPools1->findRow('acl_object' => $srcObjId);
+        if ( defined($row) and $row->valueByName('enabled') ) {
             throw EBox::Exceptions::External(
-                __x('Object {object} already appears in {table}. Delete it first '
+                __x('Object {object} has an enabled {row} in {table}. Delete it first '
                     . 'from there to add it here',
-                    object => $params->{acl_object}->printableValue(),
+                    object => $allFields->{acl_object}->printableValue(),
+                    row    => $delayPools1->printableRowName(),
                     table  => $delayPools1->printableName()));
         }
     }
@@ -112,6 +121,19 @@ sub validateTypedRow
                                                      first => $params->{$paramNames->[0]}->printableName(),
                                                      second => $allFields->{$paramNames->[1]}->printableName()));
             }
+        }
+    }
+
+    # Check the clt_rate is always lower than rate (network)
+    if ( defined( $params->{rate} ) or defined( $params->{clt_rate} )) {
+        my $netRate = $allFields->{rate}->value();
+        $netRate = Math::BigInt->binf() if ($netRate == -1);
+        my $cltRate = $allFields->{clt_rate}->value();
+        $cltRate = Math::BigInt->binf() if ($cltRate == -1);
+        if ( $cltRate > $netRate ) {
+            throw EBox::Exceptions::External(__x('{clt_rate} is greater than {net_rate}',
+                                                 clt_rate => $allFields->{clt_rate}->printableName(),
+                                                 net_rate => $allFields->{rate}->printableName()));
         }
     }
 
@@ -138,6 +160,7 @@ sub _table
                  foreignModel  => \&_objectModel,
                  foreignField  => 'name',
                  editable      => 1,
+                 unique        => 1,
              ),
          new EBox::Types::Int(
                  fieldName     => 'rate',
