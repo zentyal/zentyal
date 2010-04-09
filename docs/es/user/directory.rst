@@ -56,9 +56,13 @@ usuarios entre las diferentes eBoxes.
 
 Por defecto y a no ser que se indique lo contrario en el menú
 :menuselection:`Usuarios y Grupos --> Modo`, el módulo se configurará
-como un directorio LDAP maestro y el Nombre Distinguido (DN) del directorio
+como un directorio LDAP maestro y el **Nombre Distinguido** (DN) [#]_ del directorio
 se establecerá de acuerdo al nombre de la máquina. Si se desea configurar
 un DN diferente, se puede hacer en la entrada de texto :guilabel:`LDAP DN`.
+
+.. [#] Cada entrada en un directorio LDAP tiene un identificador único
+       llamado **nombre distinguido** que tiene similitudes con el
+       concepto de ruta completa de fichero en un sistema de ficheros.
 
 .. image:: images/directory/users-mode.png
    :scale: 80
@@ -117,7 +121,7 @@ periódicamente. El usuario puede comprobar también el estado de los esclavos e
 :menuselection:`Usuarios y Grupos --> Estado de Esclavo` y forzar el reintento de las
 acciones manualmente. Desde esta sección también es posible borrar un esclavo.
 
-Hay una importante limitación en la arquitectura maestro/esclavo actual. El
+Hay una importante *limitación* en la arquitectura maestro/esclavo actual. El
 maestro eBox no puede tener instalados módulos que dependan de
 **usuarios y grupos**, como por ejemplo **compartición de ficheros** o **correo**. Si el maestro
 tiene alguno de estos módulos instalados, deben ser desinstalados antes de

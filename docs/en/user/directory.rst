@@ -53,9 +53,13 @@ architecture to share users between different eBoxes.
 
 By default, and unless indicated otherwise in the
 :menuselection:`Users and Groups --> Mode` menu entry, the module will set up
-a master LDAP directory. By default, the Distinguished Name (DN) of
+a master LDAP directory. By default, the **Distinguished Name** (DN) [#]_ of
 the directory is set according to the current hostname, if a different one is
 desired, it can be set in the :guilabel:`LDAP DN` text entry.
+
+.. [#] Each LDAP directory entry has a unique identifier called
+       **distinguished name** which has similarities to the concept of
+       full file path in a file system.
 
 .. image:: images/directory/users-mode.png
    :scale: 80
@@ -109,7 +113,7 @@ periodically. The user can also check the status of the slaves in
 :menuselection:`Users and Groups --> Slave Status` and force a retry
 manually.  A slave can be deleted in this section as well.
 
-There is an important limitation in the current master/slave architecture. The
+There is an important *limitation* in the current master/slave architecture. The
 master eBox cannot have any module depending on **users and groups**
 installed, for example, **samba** or **mail** among others. If the master has
 any of these modules installed, they have to be uninstalled before trying to
