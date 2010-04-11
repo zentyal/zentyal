@@ -3,6 +3,8 @@ HEAD
 	  again if the server name has spaces
 	+ Bugfix: Escape some files to allow spaces in server names
 	+ Make initializeInterfaces() public
+	+ Bugfix: ebox itself addresses are not accepted in VPN clients as
+	  server addresses
 1.5
 	+ Make changes to work with /etc/init upstart
 1.3.15

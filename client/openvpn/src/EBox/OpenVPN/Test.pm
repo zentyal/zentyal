@@ -376,19 +376,19 @@ sub _clientCertificates
 
 sub fakeInterfaces
 {
-
-    # set fake interfaces
-    EBox::NetWrappers::TestStub::fake();
-    EBox::NetWrappers::TestStub::setFakeIfaces(
-          {
-            eth0 =>
+    my %fakeIfaces = (
+           eth0 =>
               { up => 1, address => { '192.168.0.100' => '255.255.255.0' } },
             ppp0 =>
               { up => 1, address => { '192.168.45.233' => '255.255.255.0' } },
             eth1 =>
               {up  => 1, address => { '192.168.0.233' => '255.255.255.0' }},
-          }
-    );
+
+       );
+
+    # set fake interfaces
+    EBox::NetWrappers::TestStub::fake();
+    EBox::NetWrappers::TestStub::setFakeIfaces(\%fakeIfaces);
 
     # fake network module..
     my @externalIfaces = qw(eth0 ppp0 eth1);
@@ -415,6 +415,18 @@ sub fakeInterfaces
                             ifaceExists     => $ifaceExistsSub_r,
                             ExternalIfaces  => sub { return \@externalIfaces },
                             InternalIfaces  => sub { return \@internalIfaces },
+                            ifaceAddresses  => sub {
+                                my ($self, $ifaceName) = @_;
+                                my %addresses = %{  $fakeIfaces{$ifaceName}->{address} };
+                                my @output;
+                                while (my ($addr, $netmask) = each %addresses) {
+                                    push @output, {
+                                        address => $addr,
+                                        netmask => $netmask
+                                       }
+                                }
+                                return \@output,
+                            },
                    ],
     );
 

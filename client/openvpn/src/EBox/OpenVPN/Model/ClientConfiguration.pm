@@ -220,6 +220,10 @@ sub validateTypedRow
         }
     }
 
+    if (exists $params_r->{server}) {
+        EBox::OpenVPN::Client->checkServer($params_r->{server}->value());
+    }
+
     $self->_validateManualParams($action, $params_r, $actual_r);
     $self->_validateCerts($action, $params_r, $actual_r);
 }
@@ -333,16 +337,6 @@ sub _bundlePath
 }
 
 
-sub addedRowNotify
-{
-    my ($self, $row) = @_;
-
-    die 'ADDED';
-
-    $self->updatedRowNotify($row);
-
-}
-
 sub updatedRowNotify
 {
     my ($self, $row) = @_;
@@ -373,40 +367,6 @@ sub updatedRowNotify
 }
 
 
- sub formSubmitted
- {
-     my ($self, $row) = @_;
-     die 'SUBMITTED';
-
-}
-
-# sub formSubmitted
-# {
-#     my ($self, $row) = @_;
-
-
-#     my $bundleField  = $row->elementByName('configurationBundle');
-#     $bundleField or
-#         return;
-
-#     my $bundle = $bundleField->value();
-#     ( -r $bundle) or
-#           return;
-
-#     my $clientName = __PACKAGE__->_clientName($row);
-#     $clientName or
-#         return;
-
-#     my $openvpn = EBox::Global->modInstance('openvpn');
-#     try {
-#         $openvpn->setClientConfFromBundle($clientName, $bundle);
-#     }
-#     finally {
-#         if (-f $bundle) {
-#             unlink $bundle;
-#         }
-#     };
-# }
 
 # Method: pageTitle
 #

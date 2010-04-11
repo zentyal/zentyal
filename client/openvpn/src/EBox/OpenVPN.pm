@@ -1240,6 +1240,13 @@ sub changeIfaceExternalProperty # (iface, external)
     return $self->_invokeOnDaemons('changeIfaceExternalProperty', @params);
 }
 
+sub staticIfaceAddressChanged 
+{
+    my ($self, @params) = @_;
+    return $self->_anyDaemonReturnsTrue('staticIfaceAddressChanged', @params);
+}
+
+
 # common listeners helpers..
 
 sub _invokeOnServers
@@ -1396,6 +1403,7 @@ sub _setClientConf
     # unroll servers parameter
     my $server     = $params{servers}->[0]->[0];
     my $serverPort = $params{servers}->[0]->[1];
+    EBox::OpenVPN::Client->checkServer($server);
 
     my $serverPortAndProtocol = "$serverPort/" . $params{proto};
 

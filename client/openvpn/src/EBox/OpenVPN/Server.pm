@@ -607,6 +607,13 @@ sub ifaceMethodChanged
     return undef;
 }
 
+sub staticIfaceAddressChanged 
+{
+    my ($self) = @_;
+    # shoudd do nothing
+    return undef;
+}
+
 sub vifaceDelete
 {
     my ($self, $iface, $viface) = @_;

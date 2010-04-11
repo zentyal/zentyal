@@ -217,9 +217,46 @@ sub limitRespawn
     }
 }
 
+sub checkServer
+{
+    my ($self, $server) = @_;
+
+    if (($server eq '127.0.0.1') or ($server eq 'localhost')) {
+                throw EBox::Exceptions::External(
+                    __x(
+'VPN client should not be configured to connect to the address {addr} because is a address of the localhost itsef',
+                       addr => $server
+                       )
+                   );
+
+    }
+    
+
+    my $net = EBox::Global->modInstance('network');
+
+    my @ifaces = @{$net->ifaces()};
+    foreach my $ifc (@ifaces) {
+        my $addrs = $net->ifaceAddresses($ifc);
+        foreach my $addr_r (@{  $addrs}) {
+            my $address = $addr_r->{address};
+            if ($server eq $address) {
+                throw EBox::Exceptions::External(
+                    __x(
+'VPN client should not be configured to connect to the address {addr} because is a address of a local network interface',
+                       addr => $server
+                       )
+                   );
+            }
+        }
+
+    }
+}
+
+
+
 # Method: servers
 #
-#   Get the servers to which the client will try to connecet
+#   Get the servers to which the client will try to connect
 #
 # Returns:
 #
@@ -299,9 +336,28 @@ sub changeIfaceExternalProperty # (iface, external)
     my ($self, $iface, $external) = @_;
 
    # no effect for openvpn clients. Except that the server may not be reacheable
-   # anymore but we don't check this in any moment..
+   # anymore but we don't check
+   # this in any moment..
     return;
 }
+
+sub staticIfaceAddressChanged 
+{
+    my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
+    my @servers = @{ $self->servers() };
+    foreach my $server (@servers) {
+        my ($addr, $port) = @{ $server };
+        defined $addr or
+            next;
+        if ($addr eq $newaddr) {
+            # trouble !
+            return 1;
+        }
+    }
+
+    return undef;
+}
+
 
 sub _availableIfaces
 {
