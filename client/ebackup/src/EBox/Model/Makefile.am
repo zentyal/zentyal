@@ -3,7 +3,8 @@
 perldir = @PERLPATH@/EBox/EBackup/Model
 
 nobase_perl_DATA = RemoteSettings.pm RemoteExcludes.pm \
-	RemoteStatus.pm RemoteFileList.pm
+	RemoteStatus.pm RemoteFileList.pm \
+	RemoteRestoreLogs.pm RemoteRestoreConf.pm
 
 DISTCLEANFILES =
 

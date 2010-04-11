@@ -13,8 +13,6 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use EBox::Gettext;
-use Socket;
 
 
 sub runGConf
@@ -40,3 +38,5 @@ my $migration = new EBox::Migration(
     'version' => 1,
 );
 $migration->execute();
+
+1;

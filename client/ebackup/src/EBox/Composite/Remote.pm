@@ -58,6 +58,7 @@ sub _description
         components      => [
                                'ebackup/RemoteGeneral',
                                'ebackup/RemoteFileList',
+                               'ebackup/ServicesRestore',
                            ],
         layout          => 'tabbed',
         name            => __PACKAGE__->nameFromClass,

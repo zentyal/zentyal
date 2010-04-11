@@ -100,7 +100,7 @@ sub _loggerdPrecondition
 # Method: enableService
 #
 #   Used to enable a service. Overriddien to notify all LogObserver of the
-#   changes. 
+#   changes.
 #
 # Parameters:
 #
@@ -129,7 +129,7 @@ sub _notifyLogEnable
     foreach my $module (@{ $modules }) {
         $module->enableLog($status);
     }
-    
+
 }
 
 # Method: isRunning
@@ -370,6 +370,17 @@ sub extendedRestore
   $dbengine->restoreDB($dumpFile);
 }
 
+
+sub dumpExtraBackupData
+{
+    my ($self, $dir) = @_;
+
+    my $dbengine = EBox::DBEngineFactory::DBEngine();
+    my $dumpFile = "$dir/eboxlogs.sql";
+
+    $dbengine->dumpDB($dumpFile);
+}
+
 sub _checkValidDate # (date)
 {
     my ($datestr) = @_;
@@ -530,10 +541,10 @@ sub totalRecords
 #     table - consolidated table. The suffix '_daily' is added automaticallu
 #     date  - date in format yyyy-mm-dd
 #
-#  Returns: 
+#  Returns:
 #      array reference. Each row will be a hash reference with
 #      column/values as key/values. Remember that it will be always a 'date'
-#      field. 
+#      field.
 #      If there is not data it will return a empty array
 sub consolidatedLogForDay
 {
@@ -542,7 +553,7 @@ sub consolidatedLogForDay
         throw EBox::Exceptions::MissingArgument('date');
     $table or
         throw EBox::Exceptions::MissingArgument('table');
-    
+
     # put the standard 00:00:00  hour
     ($date) = split '\s', $date;
     $date .= ' 00:00:00';
@@ -553,7 +564,7 @@ sub consolidatedLogForDay
     my $dbengine = EBox::DBEngineFactory::DBEngine();
 
     my $sql = "SELECT * FROM $table WHERE date='$date'";
-    
+
     my @results = @{  $dbengine->query($sql) };
     return \@results;
 }
@@ -561,7 +572,7 @@ sub consolidatedLogForDay
 # Method: yesterdayDate
 #
 #  Returns:
-#    the yesterday date in string format so it can used in SQL queries and 
+#    the yesterday date in string format so it can used in SQL queries and
 #    i nthe consolidatedLogForDay method
 sub yesterdayDate
 {

@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/EBackup/Composite
 
-nobase_perl_DATA = RemoteGeneral.pm Remote.pm
+nobase_perl_DATA = RemoteGeneral.pm Remote.pm ServicesRestore.pm
 
 DISTCLEANFILES =
 

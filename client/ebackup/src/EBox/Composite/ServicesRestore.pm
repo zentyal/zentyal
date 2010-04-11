@@ -1,4 +1,4 @@
-# Copyright (C) 2009 eBox Technologies S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU RemoteGeneral Public License, version 2, as
@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::EBackup::Composite::RemoteGeneral;
+package EBox::EBackup::Composite::ServicesRestore;
 
 use base 'EBox::Model::Composite';
 
@@ -56,13 +56,12 @@ sub _description
     my $description =
     {
         components      => [
-                               'ebackup/RemoteSettings',
-                               'ebackup/RemoteStatus',
-                               'ebackup/RemoteExcludes',
+                              'ebackup/RemoteRestoreConf', 
+                               'ebackup/RemoteRestoreLogs',
                            ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
-        printableName   => __('Configuration and Status'),
+        printableName   => __('Services restore'),
         compositeDomain => 'EBackup',
     };
 

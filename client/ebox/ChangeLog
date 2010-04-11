@@ -1,4 +1,6 @@
 HEAD
+	+ Added method in logs module to dump database in belhalf of
+	ebackup module
 	+ Bugfix: Do not check in row uniqueness for optional fields that
 	are not passed as parameters
 	+ Improve the output of ebox module status, to be consistent with the one

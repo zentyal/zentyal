@@ -72,8 +72,8 @@ sub new
 #
 #	Hash ref:
 #
-#		full => scheduling crontab line for full backup
-#		incremental => scheduling crontab line for incremental backup
+#		full => scheduling crontab lines for full backup
+#		incremental => scheduling crontab lines for incremental backup
 #
 #	Note that, it only returns the scheduling part '30 1 * * * *' and not
 #	the command
@@ -83,17 +83,34 @@ sub crontabStrings
     my ($self) = @_;
 
     my $time = $self->row()->valueByName('start');
-    my $fullFreq = $self->row()->valueByName('full');
-    my $full = _crontabStringFull($time, $fullFreq);
-    my $incrValue = $self->row()->valueByName('incremental');
+    my ($fullFreq, $fullStartsOn) = $self->_frequencyAndStartsOn('full');
+    my ($incrFreq, $incrStartsOn) = $self->_frequencyAndStartsOn('incremental');
+
+    my $full = _crontabStringFull($time, $fullFreq, $fullStartsOn);
+
     my $incr = undef;
-    unless ($incrValue eq 'disabled') {
-        $incr =  _crontabStringIncr($time, $fullFreq,
-                $self->row()->valueByName('incremental')
-                );
+    unless ($incrFreq eq 'disabled') {
+        $incr =  _crontabStringIncr($time, $fullFreq, $fullStartsOn,
+                                    $incrFreq, $incrStartsOn                
+                                   );
     }
+
+
     return ({ full => $full, incremental => $incr });
 }
+
+
+sub _frequencyAndStartsOn
+{
+    my ($self, $elementName) = @_;
+    my $element = $self->row()->elementByName($elementName);
+    my $freq = $element->selectedType();
+    my $selectedTypePrefix= $elementName . '_';
+    $freq =~ s/^$selectedTypePrefix//; # standarize freq
+    my $startsOn = $element->value();
+    return ($freq, $startsOn);
+}
+
 
 # Method: viewCustomizer
 #
@@ -187,25 +204,81 @@ sub _table
             'unique' => 1,
             'editable' => 1,
             ),
-       new EBox::Types::Select(
-           fieldName     => 'full',
-           printableName => __('Full Backup Frequency'),
-           editable      => 1,
-           populate      => \&_fullFrequency,
-       ),
-       new EBox::Types::Select(
-           fieldName     => 'full_copies_to_keep',
-           printableName => __('Number of full copies to keep'),
-           editable      => 1,
-           populate      => \&_fullCopies,
-       ),
-
-       new EBox::Types::Select(
-           fieldName     => 'incremental',
-           printableName => __('Incremental Backup Frequency'),
-           editable      => 1,
-           populate      => \&_incrFrequency,
-       ),
+        new EBox::Types::Union(
+            'fieldName' => 'full',
+            'printableName' => __('Full Backup Frequency'),
+            'subtypes' =>
+                [
+                new EBox::Types::Union::Text(
+                    'fieldName' => 'full_daily',
+                    'printableName' => __('Daily'),
+                    'optional' => 1
+                ),
+                new EBox::Types::Select(
+                    'fieldName' => 'full_weekly',
+                    'printableName' => __('Weekly'),
+                    'editable'=> 1,
+                    populate => \&_weekDays,
+                ),
+                new EBox::Types::Select(
+                    fieldName     => 'full_monthly',
+                    printableName => __('Monthly'),
+                    editable      => 1,
+                    populate      => \&_monthDays,
+                ),
+                ],
+            'unique' => 1,
+            'editable' => 1,
+            ),
+        new EBox::Types::Union(
+            'fieldName' => 'full_copies_to_keep',
+            'printableName' => __('Keep previous full copies'),
+            'subtypes' =>
+                [
+                new EBox::Types::Int(
+                    'fieldName' => 'full_copies_to_keep_number',
+                    'printableName' => __('maximum number'),
+                                     
+                    'editable'=> 1,
+                    'default' => 1,
+                    'min'     => 1,
+                    'max'     => 1000,
+                ),
+                new EBox::Types::Select(
+                    fieldName     => 'full_copies_to_keep_deadline',
+                    printableName => __('no older than'),
+                    editable      => 1,
+                    populate      => \&_deadline,
+                ),
+                ],
+            'unique' => 1,
+            'editable' => 1,
+            ),
+        new EBox::Types::Union(
+            'fieldName' => 'incremental',
+            'printableName' => __('Incremental Backup Frequency'),
+            'subtypes' =>
+                [
+                new EBox::Types::Union::Text(
+                    'fieldName' => 'incremental_disabled',
+                    'printableName' => __('Disabled'),
+                    'optional' => 1
+                ),
+                new EBox::Types::Union::Text(
+                    'fieldName' => 'incremental_daily',
+                    'printableName' => __('Daily'),
+                    'optional' => 1
+                ),
+                new EBox::Types::Select(
+                    'fieldName' => 'incremental_weekly',
+                    'printableName' => __('Weekly'),
+                    'editable'=> 1,
+                    populate => \&_weekDays,
+                ),
+                ],
+            'unique' => 1,
+            'editable' => 1,
+            ),
        new EBox::Types::Select(
            fieldName     => 'start',
            printableName => __('Backup process starts at'),
@@ -235,35 +308,43 @@ sub _table
 
 }
 
-sub _fullFrequency
-{
-    return ([
-        {
-            value => 'daily',
-            printableValue => __('Daily'),
-        },
-        {
-            value => 'weekly',
-            printableValue => __('Weekly'),
-        },
-        {
-            value => 'monthly',
-            printableValue => __('Monthly'),
-        }]
-    );
-}
 
-sub _incrFrequency
+sub _weekDays
 {
-    return ([{
-            value => 'disabled',
-            printableValue => __('Disabled'),
-           },
-           @{_fullFrequency()}]
-    );
+    return [
+             { printableValue => __('on Monday') ,value => 1},
+             { printableValue => __('on Tuesday'), value => 2},
+             { printableValue => __('on Wednesday'), value => 3},
+             { printableValue => __('on Thursday'), value =>  4},
+             { printableValue => __('on Friday'), value =>  5},
+             { printableValue => __('on Saturday'), value =>  6},
+             { printableValue => __('on Sunday'), value => 0},
+            ];
+
 }
 
 
+sub _monthDays
+{
+    my @days = map {
+        my $mday = $_;
+        { 
+            value => $mday, 
+            printableValue => __x(
+                                  'on the {mday}th',
+                                  mday => $mday,
+                                 )
+            }
+            
+    } (1 .. 28);
+    push @days, {
+                 value => 31,
+                 printableValue => __('on the last day'),
+                };
+        
+
+    return \@days;
+}
 
 sub _startingTime
 {
@@ -284,39 +365,79 @@ sub _startingTime
 
 sub _crontabStringFull
 {
-    my ($time, $freq) = @_;
+    my ($hour, $freq, $startsOn) = @_;
 
     my $weekDay = '*';
     my $monthDay = '*';
     my $month = '*';
     if ( $freq eq 'weekly' ) {
-        $weekDay = '0';
+        $weekDay = $startsOn;
     } elsif ( $freq eq 'monthly' ) {
-        $monthDay = '1';
+        if ($startsOn <= 28) {
+            $monthDay = $startsOn,
+        } else {
+            return _crontabStringLastDayMonth($hour);
+        }
     }
 
-    return "0 $time $monthDay $month $weekDay";
+    return ["0 $hour $monthDay $month $weekDay"];
 }
 
+
+
+
+
+# Warning: is assumed that full and inc frequencies and startOn values are
+# enforced as coherent vlaues by the interface
 sub _crontabStringIncr
 {
-    my ($time, $fullFreq, $freq) = @_;
-
+    my ($hour, $fullFreq, $fullStartsOn, $freq, $startsOn) = @_;
     my $weekDay = '*';
     my $monthDay = '*';
     my $month = '*';
-    if ( $freq eq 'weekly' ) {
-        $weekDay = '0';
-    } elsif ( $freq eq 'monthly' ) {
-        $monthDay = '1';
-    }
-    if ( $fullFreq eq 'monthly' ) {
-        $monthDay = '2-31';
-    } elsif ( $fullFreq eq 'weekly') {
-        $weekDay = '1-6';
+
+    if ($fullFreq eq 'weekly') {
+        my @daysWeek =  grep { $_ ne $fullStartsOn }  (0 .. 6);
+        $weekDay = join ',', @daysWeek;
+        return ["0 $hour $monthDay $month $weekDay"];
+    } elsif ($fullFreq eq 'monthly') {
+        if ($freq eq 'weekly') {
+            $weekDay = $startsOn;
+        }
+
+        my @daysMonth;
+        if ($fullStartsOn <= 28) {
+            my @daysMonth = grep { $_ ne $fullStartsOn }  (1 .. 31);
+            my $monthDay = join ',', @daysMonth;
+            return ["0 $hour $monthDay $month $weekDay"];
+        } else {
+            # every day except last day
+            my @strings;
+            push @strings, "0 $hour 1-30 1,3,5,7,8,10,12 $weekDay";
+            # we dont use 29th days every 4 years
+            push @strings, "0 $hour 1-27 2 $weekDay"; 
+            push @strings, "0 $hour 1-29 4,6,9,11 $weekDay";
+            return \@strings;
+        }
+        
     }
 
-    return "0 $time $monthDay $month $weekDay";
+
+}
+
+
+
+sub _crontabStringLastDayMonth
+{
+    my ($hour) = @_;
+    my $weekDay = '*';
+
+    my @strings;
+    push @strings, "0 $hour 31 1,3,5,7,8,10,12 $weekDay";
+    # we dont use 29th days every 4 years
+    push @strings, "0 $hour 28 2 $weekDay"; 
+    push @strings, "0 $hour 30 4,6,9,11 $weekDay";
+    return \@strings;
 }
 
 sub _method
@@ -353,21 +474,6 @@ sub _method
     ]);
 }
 
-sub _fullCopies
-{
-    my @copies;
-
-    for my $number (1 .. 42) {
-        push (@copies,
-            {
-                value => $number,
-                printableValue => $number,
-            }
-        );
-    }
-
-    return \@copies;
-}
 
 sub _gpgKeys
 {
@@ -401,6 +507,79 @@ sub _message
 }
 
 
+sub _deadline
+{
+    return [
+            {
+             printableValue => __('1 week'),
+             value => '1W',
+            },
+            {
+             printableValue => __('2 weeks'),
+             value => '2W',
+            },
+            {
+             printableValue => __('3 weeks'),
+             value => '3W',
+            },
+            {
+             printableValue => __('1 month'),
+             value => '1M',
+            },
+            {
+             printableValue => __('2 months'),
+             value => '2M',
+            },
+            {
+             printableValue => __('3 months'),
+             value => '3M',
+            },
+            {
+             printableValue => __('4 months'),
+             value => '4M',
+            },
+            {
+             printableValue => __('6 months'),
+             value => '6M',
+            },
+            {
+             printableValue => __('9 months'),
+             value => '9M',
+            },
+            {
+             printableValue => __('1 year'),
+             value => '1Y',
+            },
+            {
+             printableValue => __('1 year and half'),
+             value => '18M',
+            },
+            {
+             printableValue => __('2 years'),
+             value => '2Y',
+            },
+            {
+             printableValue => __('3 years'),
+             value => '3Y',
+            },
+           ];
+}
+
+
+sub removeArguments
+{
+    my ($self) = @_;
+    my $keep =  $self->row()->elementByName('full_copies_to_keep');
+    my $keepSelected = $keep->selectedType();
+    my $keepValue = $keep->value();
+    if ($keepSelected eq 'full_copies_to_keep_number') {
+        return "remove-all-but-n-full $keepValue";
+    } elsif ($keepSelected eq 'full_copies_to_keep_deadline') {
+        return "remove-older-than $keepValue";
+    }
+}
+
+
 sub validateTypedRow
 {
     my ($self, $action, $paramsRef, $allFieldsRef) = @_;
@@ -427,10 +606,19 @@ sub validateTypedRow
         $self->$checkMethod($target);
     }
 
-    my $incrementalFreq = $actualValues->{incremental}->value();
-    if ($incrementalFreq ne 'disable') {
-        my $fullFreq = $actualValues->{full}->value();
-        $self->_validateFrequencies($fullFreq, $incrementalFreq);
+    my $incrementalFreq = $actualValues->{incremental}->selectedType();
+    if ($incrementalFreq ne 'incremental_disabled') {
+        my $fullFreq = $actualValues->{full}->selectedType();
+        my $fullStart = $actualValues->{'full'}->value();
+        my $incStart  = $actualValues->{'incremental'}->value();
+
+        $fullFreq =~ s{full_}{};
+        $incrementalFreq =~ s{incremental_}{};
+
+
+        $self->_validateFrequencies($fullFreq, $incrementalFreq,
+                                    $fullStart, $incStart
+                                   );
     }
 
 
@@ -559,7 +747,7 @@ __('File system method needs a target parameter that should be a directory path'
 
 sub _validateFrequencies
 {
-    my ($self, $full, $partial) = @_;
+    my ($self, $full, $partial, $fullStartAt, $partialStartAt) = @_;
 
     return if ($partial eq 'disabled');
     my %values = (
@@ -568,11 +756,11 @@ sub _validateFrequencies
                   monthly => 1,
                  );
 
-    if ($values{$full} > $values{$partial}) {
+    if ($values{$full} >= $values{$partial}) {
         throw EBox::Exceptions::External(
-    __('Full backup cannot be more frequent than incremental backup')
+    __('Incremental backup must be more frequent than full backup')
                                         );
-    }
+    } 
 }
 
 

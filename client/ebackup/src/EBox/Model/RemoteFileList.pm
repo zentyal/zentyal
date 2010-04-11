@@ -126,7 +126,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    my @status = @{$self->{gconfmodule}->remoteListFiles()};
+    my @status = @{$self->{gconfmodule}->remoteStatus()};
     return (scalar(@status));
 }
 

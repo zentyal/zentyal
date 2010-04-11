@@ -11,6 +11,11 @@ HEAD
 	method
 	+ Better treatment of errors while restoring files form the UI
 	+ Added argument check to ebox-remote-ebackup script
+	+ Improved frequency options
+	+ Improved keep options
+	+ Added backup and restore of logs
+	+ Added restore configuration from backup action
+	+ VolSize option can be changed through configuration file
 1.4
 	+ Bug fix: do not duplicate includes with exclude-regexp
 	+ Add eBox Backup Storage strings

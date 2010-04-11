@@ -30,6 +30,7 @@ use EBox;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Backup;
 use EBox::Sudo;
 use File::Slurp;
 
@@ -90,6 +91,8 @@ sub modelClasses
         'EBox::EBackup::Model::RemoteExcludes',
         'EBox::EBackup::Model::RemoteStatus',
         'EBox::EBackup::Model::RemoteFileList',
+        'EBox::EBackup::Model::RemoteRestoreLogs',     
+        'EBox::EBackup::Model::RemoteRestoreConf',     
     ];
 }
 
@@ -105,6 +108,7 @@ sub compositeClasses
     return [
         'EBox::EBackup::Composite::RemoteGeneral',
         'EBox::EBackup::Composite::Remote',
+        'EBox::EBackup::Composite::ServicesRestore',
     ];
 }
 
@@ -142,10 +146,11 @@ sub addModuleStatus
 #
 #   file - strings containing the file name to restore
 #   date - string containing a date that can be parsed by Date::Parse
+#   destination - path to restore in place of the previous path (optional)
 #
 sub restoreFile
 {
-    my ($self, $file, $date) = @_;
+    my ($self, $file, $date, $destination) = @_;
 
     unless (defined($file)) {
         throw EBox::Exceptions::MissingArgument('file');
@@ -155,13 +160,18 @@ sub restoreFile
         throw EBox::Exceptions::MissingArgument('date');
     }
 
+    $destination or
+        $destination = $file;
+
+
     my $time = Date::Parse::str2time($date);
 
     my $model = $self->model('RemoteSettings');
     my $url = $self->_remoteUrl();
     my $rFile = $file;
     $rFile =~ s:^.::;
-    my $cmd = DUPLICITY_WRAPPER .  " --force -t $time --file-to-restore $rFile $url $file";
+
+    my $cmd = DUPLICITY_WRAPPER .  " --force -t $time --file-to-restore $rFile $url $destination";
 
     try {
         EBox::Sudo::root($cmd);
@@ -205,10 +215,60 @@ sub remoteArguments
 {
     my ($self, $type) = @_;
 
+    my $volSize = $self->_volSize();
     my $fileArgs = $self->remoteFileSelectionArguments();
-    my $cmd =  DUPLICITY_WRAPPER .  " $type " . "$fileArgs " .
+    my $cmd =  DUPLICITY_WRAPPER .  " $type " . 
+            "--volsize $volSize " .
+            "$fileArgs " .
             " / " . $self->_remoteUrl();
     return $cmd;
+}
+
+
+sub extraDataDir
+{
+    return EBox::Config::home() . 'extra-backup-data';
+}
+
+sub dumpExtraData
+{
+    my ($self) = @_;
+
+    my $extraDataDir = $self->extraDataDir();
+    system "rm -rf $extraDataDir";
+    system "mkdir -p $extraDataDir";
+    if (not -w $extraDataDir) {
+        EBox::error("Cannot write in extra backup data directory $extraDataDir");
+        return;
+    }
+
+    my $global = EBox::Global->getInstance();
+    
+    # Backup configuration
+    my $bakCmd = EBox::Config::pkgdata() .
+        '/ebox-make-backup --destination confbackup.tar';
+    
+    try {
+        EBox::Sudo::root($bakCmd);
+        # XXX Some modules such as events are marked as changed after
+        #     running ebox-make-backup.
+        #     This is a temporary workaround
+        $global->revokeAllModules();
+        my $bakFile = EBox::Backup::backupDir() . '/confbackup.tar';
+        system "mv $bakFile $extraDataDir";
+    } otherwise {
+        EBox::debug("ebox-make-backup failed");
+    };
+
+
+    foreach my $mod (@{ $global->modInstances() }) {
+        if ($mod->can('dumpExtraBackupData')) {
+            my $dir = $extraDataDir . '/' . $mod->name();
+            mkdir $dir;
+            $mod->dumpExtraBackupData($dir);
+        }
+    }
+
 }
 
 
@@ -219,7 +279,7 @@ sub remoteFileSelectionArguments
     my $model = $self->model('RemoteExcludes');
     my $args = '';
     # Include configuration backup
-    $args .= ' --include=/var/lib/ebox/conf/backups/confbackup.tar ';
+    $args .= ' --include=' . $self->extraDataDir . ' ';
 
     $args .= $self->_autoExcludesArguments();
 
@@ -275,11 +335,9 @@ sub remoteDelOldArguments
     my ($self, $type) = @_;
 
     my $model = $self->model('RemoteSettings');
-    my $toKeep = $model->row()->valueByName('full_copies_to_keep');
-    my $freq = $model->row()->valueByName('full');
-    my $time = uc(substr($freq, 0, 1));
+    my $removeArgs = $model->removeArguments();
 
-    return DUPLICITY_WRAPPER . " remove-older-than ${toKeep}${time} --force " . $self->_remoteUrl();
+    return DUPLICITY_WRAPPER . " $removeArgs --force " . $self->_remoteUrl();
 }
 
 # Method: remoteListFileArguments
@@ -438,13 +496,20 @@ sub setRemoteBackupCrontab
 
     my @lines;
     my $strings = $self->model('RemoteSettings')->crontabStrings();
-    my $full = $strings->{full};
-    my $incr = $strings->{incremental};
+
     my $script = EBox::Config::share() . 'ebox-ebackup/ebox-remote-ebackup';
-    push (@lines, "$full $script --full");
-    if ($incr) {
-        push (@lines, "$incr $script --incremental");
+    foreach my $full (@{ $strings->{full} }) {
+        push (@lines, "$full $script --full");
     }
+
+
+    my $incrList = $strings->{incremental};
+    if ($incrList) {
+        foreach my $incr (@{ $incrList }) {
+            push (@lines, "$incr $script --incremental");
+        }
+    }
+    
     my $tmpFile = EBox::Config::tmp() . 'crontab';
     open(my $tmp, '>' .  EBox::Config::tmp() . 'crontab');
     if ($self->isEnabled()) {
@@ -496,7 +561,12 @@ sub _syncRemoteCaches
     
     my $genListFiles = 0;
     if (@newRemoteStatus == 0) {
-        # no needed to make nay file list, bz there aren't files
+        # no files, clear fileList archive if it exists
+        my $fileList = tmpFileList();
+        (-e $fileList) and
+            unlink $fileList;
+
+        # no needed to make any file list, bz there aren't files
         $genListFiles = 0;
     } elsif (@oldRemoteStatus != @newRemoteStatus) {
         $genListFiles =1;
@@ -620,5 +690,17 @@ sub _remoteUrl
 
     return $url;
 }
+
+sub _volSize
+{
+
+    my $volSize = EBox::Config::configkeyFromFile('volume_size',
+                                                  EBACKUP_CONF_FILE);
+    if (not $volSize) {
+        $volSize = 600;
+    }
+    return $volSize;
+}
+
 
 1;

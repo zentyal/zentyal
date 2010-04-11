@@ -21,10 +21,10 @@
 #
 # It takes one argument that can be:
 #
-#   --full
+#   --full (default)
 #   --incremental
 #
-#   --full default
+
 
 use strict;
 use warnings;
@@ -94,24 +94,32 @@ if ($ARGV[0]) {
 
 
 
+if ($type eq 'incremental') {
+    my $existsFull = 0;
+    my $status = $ebackup->remoteStatus();
+    foreach my $st (@{ $status }) {
+        if ($st->{type} eq 'Full') {
+            $existsFull = 1;
+            last;
+        }
+    }
+
+    if (not $existsFull) {
+        EBox::warn('Incremental backup requested but there are not full backups. Switching to full backup mode');
+        $type = 'full';
+
+    }
+}
+
+
+
 if ($type eq 'full') {
     my $removeArguments = $ebackup->remoteDelOldArguments();
     EBox::Sudo::root($removeArguments);
 }
 
-# Backup configuration
-my $bakCmd = EBox::Config::pkgdata() .
-    '/ebox-make-backup --destination confbackup.tar';
 
-try {
-    EBox::Sudo::root($bakCmd);
-    # XXX Some modules such as events are marked as changed after
-    #     running ebox-make-backup.
-    #     This is a temporary workaround
-    EBox::Global->getInstance()->revokeAllModules();
-} otherwise {
-    EBox::debug("ebox-make-backup failed");
-};
+$ebackup->dumpExtraData();
 
 my $arguments = $ebackup->remoteArguments($type);
 my $success = 1;
