@@ -25,6 +25,7 @@ use base qw(EBox::Module::Service
 
 use EBox::Objects;
 use EBox::Gettext;
+use EBox::Config;
 use EBox::Service;
 use EBox::Menu::Item;
 use EBox::Sudo qw( :all );
@@ -43,6 +44,9 @@ use constant BIND9INIT     => "@BIND9_INIT@";
 use constant PIDFILE       => "/var/run/bind/run/named.pid";
 use constant NAMESERVER_HOST => 'ns';
 use constant KEYSFILE => BIND9CONFDIR . '/keys';
+
+use constant DNS_CONF_FILE => EBox::Config::etc() . '80dns.conf';
+use constant DNS_INTNETS => 'intnets';
 
 sub _create
 {
@@ -633,6 +637,7 @@ sub _setConf
     $self->writeConfFile(BIND9CONFFILE,
             "dns/named.conf.mas",
             \@array);
+
     $self->writeConfFile(BIND9CONFOPTIONSFILE, 
             "dns/named.conf.options.mas",
             \@array);
@@ -677,9 +682,12 @@ sub _setConf
     }
 
     my @domains = @{$self->domains()};
+    my @intnets = @{$self->_intnets()};
 
+    @array = ();
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
+    push(@array, 'intnets' => \@intnets);
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
             \@array);
@@ -687,6 +695,21 @@ sub _setConf
     @array = ( 'keys' => \%keys );
     $self->writeConfFile(KEYSFILE, 'dns/keys.mas', \@array);
 
+}
+
+sub _intnets
+{
+    my ($self) = @_;
+
+    my $intnets_string = EBox::Config::configkeyFromFile(DNS_INTNETS,
+                                                         DNS_CONF_FILE);
+    my @intnets = ();
+
+    if (defined($intnets_string)) {
+        @intnets = split(',', $intnets_string);
+    }
+
+    return \@intnets;
 }
 
 sub configureFirewall

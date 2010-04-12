@@ -1,6 +1,7 @@
 <%args>
 	@domains
 	@inaddrs
+	@intnets
 </%args>
 //
 // Do any local configuration here
@@ -9,6 +10,16 @@
 // Consider adding the 1918 zones here, if they are not used in your
 // organization
 //include "/etc/bind/zones.rfc1918";
+
+acl "trusted" {
+%	if (@intnets != 0) {
+%		foreach my $intnet (@intnets) {
+	<% $intnet %>;
+%		}
+%	}
+	localhost;
+	localnets;
+};
 
 %	if(@domains != 0) {
 %		foreach my $dom (@domains) {
