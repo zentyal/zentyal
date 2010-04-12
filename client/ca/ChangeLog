@@ -6,6 +6,8 @@ HEAD
 	+ Add revokation reason listing certificates
 	+ Fix enconding for CA HTML templates
 	+ Cancel button works again when revoking and renewing a certificate
+	+ Bugfix: DIRMODE changed to 0750 and migration script to fix existing
+	  deployments
 1.3.14
 	+ Add custom module status section
 1.3.13
