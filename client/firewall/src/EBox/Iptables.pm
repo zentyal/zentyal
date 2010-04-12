@@ -158,13 +158,12 @@ sub _setStructure
 
     # state rules
     push(@commands,
+            pf('-A OUTPUT -m state --state INVALID -j DROP'),
             pf('-A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT'),
+            pf('-A INPUT -m state --state INVALID -j DROP'),
             pf('-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT'),
+            pf('-A FORWARD -m state --state INVALID -j DROP'),
             pf('-A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT'),
-
-            pf('-A OUTPUT -p icmp ! -f -j ACCEPT'),
-            pf('-A INPUT -p icmp ! -f -j ACCEPT'),
-            pf('-A FORWARD -p icmp ! -f -j ACCEPT'),
 
             pf('-t nat -N premodules'),
 
@@ -212,6 +211,12 @@ sub _setStructure
             pf('-A FORWARD -j fdns'),
             pf('-A FORWARD -j fobjects'),
             pf('-A FORWARD -j fglobal'),
+            pf('-A FORWARD -p icmp --icmp-type echo-request ! -f -j ACCEPT'), # accept ping requests
+            pf('-A FORWARD -p icmp --icmp-type echo-reply ! -f -j ACCEPT'), # accept ping responses
+            pf('-A FORWARD -p icmp --icmp-type destination-unreachable ! -f -j ACCEPT'), # accept notifications of unreachable hosts
+            pf('-A FORWARD -p icmp --icmp-type source-quench ! -f -j ACCEPT'), # accept notifications to reduce sending speed
+            pf('-A FORWARD -p icmp --icmp-type time-exceeded ! -f -j ACCEPT'), # accept notifications of lost packets
+            pf('-A FORWARD -p icmp --icmp-type parameter-problem ! -f -j ACCEPT'), # accept notifications of protocol problems
             pf('-A FORWARD -j fdrop'),
 
             pf('-A INPUT -j inospoof'),
@@ -221,11 +226,23 @@ sub _setStructure
             pf('-A INPUT -j imodules'),
             pf('-A INPUT -j iintservs'),
             pf('-A INPUT -j iglobal'),
+            pf('-A INPUT -p icmp --icmp-type echo-request ! -f -j ACCEPT'), # accept ping requests
+            pf('-A INPUT -p icmp --icmp-type echo-reply ! -f -j ACCEPT'), # accept ping responses
+            pf('-A INPUT -p icmp --icmp-type destination-unreachable ! -f -j ACCEPT'), # accept notifications of unreachable hosts
+            pf('-A INPUT -p icmp --icmp-type source-quench ! -f -j ACCEPT'), # accept notifications to reduce sending speed
+            pf('-A INPUT -p icmp --icmp-type time-exceeded ! -f -j ACCEPT'), # accept notifications of lost packets
+            pf('-A INPUT -p icmp --icmp-type parameter-problem ! -f -j ACCEPT'), # accept notifications of protocol problems
             pf('-A INPUT -j idrop'),
 
             pf('-A OUTPUT -j ointernal'),
             pf('-A OUTPUT -j omodules'),
             pf('-A OUTPUT -j oglobal'),
+            pf('-A OUTPUT -p icmp --icmp-type echo-request ! -f -j ACCEPT'), # accept ping requests
+            pf('-A OUTPUT -p icmp --icmp-type echo-reply ! -f -j ACCEPT'), # accept ping responses
+            pf('-A OUTPUT -p icmp --icmp-type destination-unreachable ! -f -j ACCEPT'), # accept notifications of unreachable hosts
+            pf('-A OUTPUT -p icmp --icmp-type source-quench ! -f -j ACCEPT'), # accept notifications to reduce sending speed
+            pf('-A OUTPUT -p icmp --icmp-type time-exceeded ! -f -j ACCEPT'), # accept notifications of lost packets
+            pf('-A OUTPUT -p icmp --icmp-type parameter-problem ! -f -j ACCEPT'), # accept notifications of protocol problems
             pf('-A OUTPUT -j odrop'),
 
             pf("-A idrop -j drop"),

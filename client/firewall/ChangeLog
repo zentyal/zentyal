@@ -3,6 +3,8 @@ HEAD
 	+ Bug fix: port forwarding now works with PPPoE
 	+ Bug fix: openVPN interfaces are added as internal interfaces to
 	  iexternal and iexternalmodules (Closes #1758)
+	+ Bug fix: allow only safe ICMP types and insert the rules after user rules
+	  so these override the default ones. Drop INVALID packets first too
 1.4.2
 	+ Add a config option to disable the logging of dropped packets in firewall
 1.4
