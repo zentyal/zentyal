@@ -10,12 +10,6 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use EBox::Gettext;
-
-
-
-use Error qw(:try);
-
 
 
 sub runGConf
@@ -47,7 +41,7 @@ sub _fix
     my ($self, $selectedType,  $unlimitedGoodType, $sizeGoodType)= @_;
 
     my $mail = $self->{gconfmodule};
-    my $dir       = 'SMTPOptions';    
+    my $dir  = 'SMTPOptions';    
     
 
     my $selectedTypeKey = "$dir/$selectedType";
@@ -72,8 +66,9 @@ sub _fix
     my $badSizeKey = "$dir/$selectedValue";
     my $sizeValue = $mail->get_int($badSizeKey);
     # fix values
-    $mail->set_string($selectedTypeKey, $sizeGoodType);
     $mail->set_int($goodSizeKey, $sizeValue);
+    $mail->set_string($selectedTypeKey, $sizeGoodType);
+    # remove deprecated key
     $mail->unset($badSizeKey)
 }
 

@@ -37,7 +37,7 @@ sub _updateSchemas
     my @output = EBox::Sudo::root($ldapCat);
     foreach my $line (@output) {
         if ($line =~ m{cn=\{\d+\}eboxfetchmail,cn=schema,cn=config}) {
-            # fetchamil schema is present, nothing to do
+            # fetchmail schema is present, nothing to do
             return;            
         }
     }

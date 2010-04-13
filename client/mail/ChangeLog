@@ -3,6 +3,8 @@ HEAD
 	banner checks. Thanks to ivo@housesbg.com for pointing this
 	+ Now event's mail dispatcher uses configured mailname instead of
 	non-qualified hostname
+	+ Firewall default policy allows mail system from external
+	networks because is the expected and usual thing
 1.4.2
 	+ Bugfix, mail to local accounts is delivered correctly, changed
 	some parameters to take in account myorigin
