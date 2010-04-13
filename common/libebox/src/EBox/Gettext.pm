@@ -154,6 +154,7 @@ $langs->{'bg_BG.UTF-8'} = 'Български';
 $langs->{'es_ES.UTF-8'} = 'Español';
 $langs->{'et_EE.UTF-8'} = 'Eesti';
 $langs->{'ca_ES.UTF-8'} = 'Català';
+$langs->{'cs_CZ.UTF-8'} = 'Czech';
 $langs->{'da_DK.UTF-8'} = 'Dansk';
 $langs->{'de_DE.UTF-8'} = 'Deutsch';
 $langs->{'C'} = 'English';
