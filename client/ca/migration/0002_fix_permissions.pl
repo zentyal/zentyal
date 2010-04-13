@@ -26,7 +26,8 @@ use EBox::CA;
 
 use base 'EBox::Migration::Base';
 
-use constant DIRMODE => '0750';
+use constant DIRMODE        => '0750';
+use constant PRIVATEDIRMODE => '0700';
 
 # Constructor: new
 #
@@ -69,6 +70,8 @@ sub runGConf
     EBox::Sudo::root($cmd) if (-d EBox::CA::KEYSDIR);
     $cmd = 'chmod ' . DIRMODE . ' ' . EBox::CA::REQDIR;
     EBox::Sudo::root($cmd) if (-d EBox::CA::REQDIR);
+    $cmd = 'chmod ' . PRIVATEDIRMODE . ' ' . EBox::CA::PRIVDIR;
+    EBox::Sudo::root($cmd) if (-d EBox::CA::PRIVDIR);
 }
 
 EBox::init();
