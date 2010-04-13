@@ -1,4 +1,8 @@
 HEAD
+	+ Bug fix: Return if changed if it really happens any change in
+	  the model for Interface Rate
+	+ Bug fix: Return 0 if the interface is an internal one from
+	  TrafficShaping::uploadRate method
 	+ Bug fix: implement interfaceChangeDone to handle
 	  transitions from static -> nonset. Remove relevant
 	  entries from InterfaceRate and TS models and mark

@@ -122,8 +122,7 @@ sub priority
 
 # Method: notifyForeignModelAction
 #
-#      Called whenever an action is performed on a gateway whose
-#      interface is the one we are shaping
+#      Called whenever an action is performed on the interface rate model
 #
 # Overrides:
 #
@@ -651,7 +650,7 @@ sub _checkRate # (rate, printableName)
 
 }
 
-# Get the rate stored by state in order to work when gateway changes
+# Get the rate stored by state in order to work when interface rate changes
 # are produced
 sub _stateRate
 {
@@ -661,7 +660,7 @@ sub _stateRate
 
 }
 
-# Set the rate into GConf state in order to work when gateway changes
+# Set the rate into GConf state in order to work when interface rate changes
 # are produced
 sub _setStateRate
 {

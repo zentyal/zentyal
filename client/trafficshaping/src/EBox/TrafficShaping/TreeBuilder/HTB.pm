@@ -245,8 +245,8 @@ sub buildRule
     if (not $self->_canSupportLimitedRate( $args{limitedRate} )) {
       throw EBox::Exceptions::External(__x('Limited Rate {lR} kbit/s should be ' .
 					   'lower than {maxLR}kbit/s or you should increase ' .
-					   'maximum upload traffic to the gateways associated ' .
-					   'to this external interface',
+					   'maximum upload traffic associated to ' .
+                                           'external interfaces',
 					  lR    => $args{limitedRate},
 					  maxLR => $self->_allowedLimitedRate()));
     }

@@ -260,7 +260,7 @@ sub models
 sub reloadModelsOnChange
 {
 
-    return [ 'GatewayTable' ];
+    return [ 'InterfaceRate' ];
 
 }
 
@@ -325,7 +325,7 @@ sub compositeClasses
 sub reloadCompositesOnChange
 {
 
-    return [ 'GatewayTable' ];
+    return [ 'InterfaceRate' ];
 
 }
 
@@ -825,6 +825,8 @@ sub freeIface # (iface)
 #
 #    Int - the upload rate in kilobits per second
 #
+#    0 - if the interface is an internal one
+#
 sub uploadRate # (iface)
 {
     my ($self, $iface) = @_;
@@ -833,6 +835,9 @@ sub uploadRate # (iface)
     my $row = $rates->findRow(
         interface => $self->{network}->etherIface($iface)
     );
+
+    return 0 unless defined($row);
+
     return $row->valueByName('upload');
 }
 
@@ -1103,9 +1108,9 @@ sub _createTree # (interface, type)
       $self->{builders}->{$iface} = EBox::TrafficShaping::TreeBuilder::HTB->new($iface, $self);
       # Build it
 
-      # Check if interface is internal or external to set a maximum rate
-      # The maximum rate for an internal interface is the sum of the gateways associated
-      # to the external interfaces
+      # Check if interface is internal or external to set a maximum
+      # rate The maximum rate for an internal interface is the sum of
+      # the download rate associated to the external interfaces
 
       # Get the rate from Network
       my $linkRate;

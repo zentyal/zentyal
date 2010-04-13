@@ -40,7 +40,12 @@ sub new
     return $self;
 }
 
-
+# Method: syncRows
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::syncRows>
+#
 sub syncRows
 {
     my ($self, $currentIds) = @_;
@@ -74,7 +79,7 @@ sub syncRows
         }
     }
 
-    return 1;
+    return $anyChange;
 }
 
 # Method: headTitle
