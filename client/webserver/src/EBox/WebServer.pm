@@ -57,6 +57,8 @@ use constant LDAP_USERDIR_CONF_FILE => 'ldap_userdir.conf';
 use constant SITES_AVAILABLE_DIR   => CONF_DIR . '/sites-available/';
 use constant SITES_ENABLED_DIR   => CONF_DIR . '/sites-enabled/';
 
+use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . 'default';
+
 # Constructor: _create
 #
 #        Create the web server module
@@ -96,6 +98,11 @@ sub usedFiles
         'reason' => __('To set webserver listening port')
     },
     {
+        'file' => VHOST_DFLT_FILE,
+        'module' => 'webserver',
+        'reason' => __('To configure default Virtual Host')
+    },
+    {
         'file' => AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
         'module' => 'webserver',
         'reason' => __('To configure the per-user public HTML directory')
@@ -110,8 +117,8 @@ sub usedFiles
         my $vHostName = $vHost->valueByName('name');
 
         my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
-       push @{$files}, { 'file' => $destFile, 'module' => 'webserver' ,
-                         'reason' => 'To configure every virtual host'};
+        push @{$files}, { 'file' => $destFile, 'module' => 'webserver' ,
+                          'reason' => "To configure $vHostName Virtual Host"};
     }
 
     return $files;
@@ -311,6 +318,7 @@ sub _setConf
 
     $self->_setPort();
     $self->_setUserDir();
+    $self->_setDfltVhost();
     $self->_setVHosts();
 
 }
@@ -328,8 +336,27 @@ sub _setPort
     $self->writeConfFile(PORTS_FILE,
                          "webserver/ports.conf.mas",
                          [ portNumber => $generalConf->portValue() ],
-                        )
+                        );
 
+}
+
+# Set up default vhost
+sub _setDfltVhost
+{
+
+    my ($self) = @_;
+
+    # We can assume the listening port is ready available
+    my $generalConf = $self->model('GeneralSettings');
+
+    # Overwrite the default vhost file
+    $self->writeConfFile(VHOST_DFLT_FILE,
+                         "webserver/default.mas",
+                         [
+                             portNumber => $generalConf->portValue(),
+                             hostname => $self->_fqdn(),
+                         ],
+                        );
 }
 
 # Set up the user directory by enable/disable the feature
@@ -419,6 +446,8 @@ sub _setVHosts
 
     my $vHostModel = $self->model('VHostTable');
 
+    my $generalConf = $self->model('GeneralSettings');
+
     # Remove every available site using our vhost pattern ebox-*
     my $vHostPattern = VHOST_PREFIX . '*';
     EBox::Sudo::root('rm -f ' . SITES_ENABLED_DIR . "$vHostPattern");
@@ -432,7 +461,11 @@ sub _setVHosts
         delete $sitesToRemove{$destFile};
         $self->writeConfFile( $destFile,
                               "webserver/vhost.mas",
-                              [ vHostName => $vHostName ],
+                              [
+                                  vHostName => $vHostName,
+                                  portNumber => $generalConf->portValue(),
+                                  hostname => $self->_fqdn(),
+                              ],
                             );
 
         # Create the subdir if required
@@ -475,6 +508,17 @@ sub _availableSites
     };
     my %dirs = map  {chop($_); $_ => 1} @dirs;
     return \%dirs;
+}
+
+# return fqdn
+sub _fqdn
+{
+    my $fqdn = `hostname --fqdn`;
+    if ($? != 0) {
+        $fqdn = 'ebox.localdomain';
+    }
+    chomp $fqdn;
+    return $fqdn;
 }
 
 1;

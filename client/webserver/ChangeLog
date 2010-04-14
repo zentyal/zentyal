@@ -1,3 +1,8 @@
+HEAD
+	+ Bugfix: NameVirtualHost directive in ports.conf and not in every vhost.
+	+ Vhosts ServerAdmin now is root@fqdn.
+	+ Handle default vhost for port, ServerAdmin values and including the
+	  ServerName directive.
 1.3.12
 	+ Don't allow to enable public_html directories if samba modules
 	is not configured because in this situation there aren't user home directories

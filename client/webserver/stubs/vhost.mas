@@ -8,6 +8,8 @@
 </%doc>
 <%args>
   $vHostName
+  $hostname
+  $portNumber
 </%args>
 <%init>
   use EBox::WebServer;
@@ -15,9 +17,8 @@
   my $vHostPrefix = EBox::WebServer::VHostPrefix();
   my $docRoot = EBox::WebServer::PlatformPath::DocumentRoot();
 </%init>
-NameVirtualHost *
-<VirtualHost *>
-        ServerAdmin webmaster@localhost
+<VirtualHost *:<% $portNumber %>>
+        ServerAdmin webmaster@<% $hostname %>
 
         ServerName <% $vHostName %>
         DocumentRoot <% $docRoot %>/<% $vHostName %>
