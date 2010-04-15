@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: DHCP log works now if the dhcp client sends a host name as
+	  suggested
 	+ Bugfix: Fixed address names must be valid domain names to enable
 	  dynamic DNS feature.
 1.4
