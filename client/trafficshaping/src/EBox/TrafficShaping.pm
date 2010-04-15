@@ -72,8 +72,9 @@ use EBox::TrafficShaping::Model::InterfaceRate;
 use EBox::Model::ModelManager;
 use EBox::Model::CompositeManager;
 
-# To do try and catch
+# Dependencies
 use Error qw(:try);
+use List::Util;
 use Perl6::Junction qw(none);
 
 # Using the brand new eBox types
@@ -83,6 +84,7 @@ use EBox::Types::MACAddr;
 # We set rule identifiers among 0100 and FF00
 use constant MIN_ID_VALUE => 256; # 0x100
 use constant MAX_ID_VALUE => 65280; # 0xFF00
+use constant MAX_RULE_NUM => 256; # FF rules
 use constant DEFAULT_CLASS_ID => 21;
 
 # Constructor for traffic shaping module
@@ -445,13 +447,14 @@ sub checkRule
     $ruleParams{limitedRate} = 0 unless defined ( $ruleParams{limitedRate} );
     $ruleParams{limitedRate} = 0 if $ruleParams{limitedRate} eq '';
 
-    # Check rule avalaibility
-    if ( ($self->_nextMap(undef, 'test') == MAX_ID_VALUE) and
-         (not defined ($ruleParams{ruleId}))) {
+    # Check rule availability
+    my @ruleModels = grep {$_->name() eq 'tsTable' } @{$self->models()};
+    my $nRules     = List::Util::sum(map { scalar(@{$_->ids()}) } @ruleModels);
+    if ( $nRules >= MAX_RULE_NUM and (not defined ($ruleParams{ruleId}))) {
       throw EBox::Exceptions::External(
             __x('The maximum rule account {max} is reached, ' .
 		'please delete at least one in order to to add a new one',
-		max => MAX_ID_VALUE));
+		max => MAX_RULE_NUM));
     }
 
     unless ( defined ( $ruleParams{priority} )) {
