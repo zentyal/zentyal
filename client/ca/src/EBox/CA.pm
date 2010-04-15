@@ -64,6 +64,8 @@ use constant NEWCERTSDIR => CATOPDIR . "newcerts/";
 use constant CERTSDIR    => CATOPDIR . "certs/";
 # Place to put the public keys
 use constant KEYSDIR      => CATOPDIR . "keys/";
+# Place to put the P12 keystore
+use constant P12DIR       => CATOPDIR . "p12/";
 use constant CAREQ        => REQDIR   . "careq.pem";
 use constant CACERT       => CATOPDIR . "cacert.pem";
 use constant INDEXFILE    => CATOPDIR . "index.txt";
@@ -266,6 +268,7 @@ sub createCA {
     mkdir (KEYSDIR, DIRMODE);
     mkdir (PRIVDIR, PRIVATEDIRMODE);
     mkdir (REQDIR, DIRMODE);
+    mkdir (P12DIR, PRIVATEDIRMODE);
     # Create index and crl number
     open ( my $OUT, ">" . INDEXFILE);
     close ($OUT);
@@ -878,6 +881,11 @@ sub issueCertificate
 				   $args{keyPassword});
   }
 
+  # Generate the P12 key store
+  unless ( $selfSigned ) {
+      $self->_generateP12Store($privKey, $self->getCertificateMetadata(cn => $args{commonName}), $args{keyPassword});
+  }
+
   # Logging the action
 #  logAdminNow($self->name, "issueCertificate",
 #		"cn=" . $args{commonName} . ",days=" . $args{days}
@@ -1292,6 +1300,36 @@ sub getKeys {
   # Remove private key when the CGI has sent the private key
   # DONE in removePrivateKey method
   return \%keys;
+
+}
+
+# Method: getP12KeyStore
+#
+#       Given the common name, it returns the PKCS12 keystore file path.
+#
+#       The PKCS12 is a common format used by web browser to store
+#       certificates and private keys.
+#
+# Parameters:
+#
+#       commonName - String the common name
+#
+# Returns:
+#
+#       String - the PKCS 12 key store path
+#
+sub getP12KeyStore
+{
+    my ($self, $commonName) = @_;
+
+    my $target = P12DIR . "${commonName}.p12";
+    if (-f $target) {
+        return $target;
+    } else {
+        my $privKey = $self->getKeys($commonName)->{privateKey};
+        my $certMetadata = $self->getCertificateMetadata(cn => $commonName);
+        return $self->_generateP12Store($privKey, $certMetadata);
+    }
 
 }
 
@@ -1950,6 +1988,33 @@ sub _getPubKey # (privKeyFile, pubKeyFile, password?)
     return $pubKeyFile;
 
   }
+
+# Generate the pkcs12 key store with password if required
+sub _generateP12Store
+{
+    my ($self, $privKeyFile, $certMetadata, $password) = @_;
+
+    my $certFile = $certMetadata->{path};
+    my $cn       = $certMetadata->{dn}->attribute('commonName');
+    my $target   = P12DIR . "${cn}.p12";
+
+    my $cmd = 'pkcs12 -export ';
+    $cmd .= '-in '    . $certFile . ' ';
+    $cmd .= '-inkey ' . $privKeyFile . ' ';
+    $cmd .= '-name '  . $cn . ' ';
+    $cmd .= '-out '   . $target . ' ';
+    $password = '' unless (defined($password));
+    $cmd .= "-passout pass:$password ";
+
+    $ENV{'PASS'} = $password
+      if (defined($password));
+    my ($retVal) = $self->_executeCommand(COMMAND => $cmd);
+    delete( $ENV{'PASS'} );
+
+    return undef if ($retVal eq "ERROR");
+
+    return $target;
+}
 
 # Given a serial number, it returns the file path
 sub _certFile {

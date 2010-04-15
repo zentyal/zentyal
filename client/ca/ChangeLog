@@ -1,4 +1,6 @@
 HEAD
+	+ Generate PKCS12 keystore with private key and certificate using
+	  empty export password and add it to download archive
 	+ Bugfix: Only ASCII alphanumeric characters are allowed in common
 	  name to workaround the yet not fixed issue with UTF-8 and OpenSSL
 	+ Give support for subject alternative names: the available types

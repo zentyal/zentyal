@@ -88,6 +88,7 @@ sub _process
     } else {
       $files = $self->{ca}->getKeys($self->{cn});
       $files->{certificate} = $self->{ca}->getCertificateMetadata(cn => $self->{cn})->{path};
+      $files->{p12}         = $self->{ca}->getP12KeyStore($self->{cn});
     }
 
     my $zipfile;
@@ -99,7 +100,7 @@ sub _process
 
     unlink($zipfile);
     # We make symbolic links in order to make dir-plained tar file
-    my ($linkPrivate, $linkPublic, $linkCert);
+    my ($linkPrivate, $linkPublic, $linkCert, $linkP12);
     if ( $metaDataCert->{"isCACert"} ) {
       $linkPublic = "ca-public-key.pem";
       $linkCert = "ca-cert.pem";
@@ -107,22 +108,27 @@ sub _process
       $linkPrivate = $self->{cn} . "-private-key.pem";
       $linkPublic  = $self->{cn} . "-public-key.pem";
       $linkCert    = $self->{cn} . "-cert.pem";
+      $linkP12     = $self->{cn} . ".p12";
     }
 
     link($files->{privateKey}, EBox::Config->tmp() . $linkPrivate)
-      if (EBox::Config->tmp() . $linkPrivate);
+      if ($linkPrivate);
     link($files->{publicKey}, EBox::Config->tmp() . $linkPublic);
     link($files->{certificate}, EBox::Config->tmp() . $linkCert);
+    link($files->{p12}, EBox::Config->tmp() . $linkP12)
+      if ($linkP12);
 
     my $tarArgs = qq{'$zipfile' };
     $tarArgs .= qq{'$linkPrivate' } if ( $linkPrivate );
     $tarArgs .= qq{'$linkPublic' '$linkCert'};
+    $tarArgs .= qq{ '$linkP12'} if ( $linkP12 );
     # -h to dump what links point to
     my $ret = system('tar -C ' . EBox::Config->tmp() . ' -czhf ' . $tarArgs);
 
     unlink(EBox::Config->tmp() . $linkPrivate) if ($linkPrivate);
     unlink(EBox::Config->tmp() . $linkPublic);
     unlink(EBox::Config->tmp() . $linkCert);
+    unlink(EBox::Config->tmp() . $linkP12) if ($linkP12);
     if ($ret != 0) {
       throw EBox::Exceptions::External(__("Error creating file") . ": $!");
     }
