@@ -97,11 +97,16 @@ sub generalWidget
            " (<a target='_blank' href='$url'>$lastVersion $available</a>)";
     }
 
+    my $uptime_output=`uptime`;
+    my ($uptime, $users, $la1, $la2, $la3) = $uptime_output =~ /.*up  *(.*),  (.*)users?,  load average: (.*), (.*), (.*)/;
+
     $section->add(new EBox::Dashboard::Value(__("Time"), $time));
     $section->add(new EBox::Dashboard::Value(__("Hostname"), hostname));
     $section->add(new EBox::Dashboard::Value(__("Core version"), $version));
     $section->add(new EBox::Dashboard::Value(
         __("System load"), join(', ', Sys::CpuLoad::load)));
+    $section->add(new EBox::Dashboard::Value(__("Uptime"), $uptime));
+    $section->add(new EBox::Dashboard::Value(__("Users"), $users));
 }
 
 sub processesWidget

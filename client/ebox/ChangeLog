@@ -20,6 +20,7 @@ HEAD
 	+ Loggerd: if we don't have any file to watch we just sleep otherwise the process
 	  will finish and upstart will try to start it over again and again.
 	+ Make /etc/init.d/ebox depend on $network virtual facility
+	+ Show uptime and users on General Information widget. 
 1.4.2
 	+ Start services in the appropriate order (by dependencies) to fix a problem
 	  when running /etc/init.d/ebox start in slaves (mail and other modules
