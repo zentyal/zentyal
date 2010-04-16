@@ -231,30 +231,6 @@ sub _table
             'editable' => 1,
             ),
         new EBox::Types::Union(
-            'fieldName' => 'full_copies_to_keep',
-            'printableName' => __('Keep previous full copies'),
-            'subtypes' =>
-                [
-                new EBox::Types::Int(
-                    'fieldName' => 'full_copies_to_keep_number',
-                    'printableName' => __('maximum number'),
-                                     
-                    'editable'=> 1,
-                    'default' => 1,
-                    'min'     => 1,
-                    'max'     => 1000,
-                ),
-                new EBox::Types::Select(
-                    fieldName     => 'full_copies_to_keep_deadline',
-                    printableName => __('no older than'),
-                    editable      => 1,
-                    populate      => \&_deadline,
-                ),
-                ],
-            'unique' => 1,
-            'editable' => 1,
-            ),
-        new EBox::Types::Union(
             'fieldName' => 'incremental',
             'printableName' => __('Incremental Backup Frequency'),
             'subtypes' =>
@@ -279,12 +255,38 @@ sub _table
             'unique' => 1,
             'editable' => 1,
             ),
+
        new EBox::Types::Select(
            fieldName     => 'start',
            printableName => __('Backup process starts at'),
            editable      => 1,
            populate      => \&_startingTime,
        ),
+        new EBox::Types::Union(
+            'fieldName' => 'full_copies_to_keep',
+            'printableName' => __('Keep previous full copies'),
+            'subtypes' =>
+                [
+                new EBox::Types::Int(
+                    'fieldName' => 'full_copies_to_keep_number',
+                    'printableName' => __('maximum number'),
+                                     
+                    'editable'=> 1,
+                    'default' => 1,
+                    'min'     => 1,
+                    'max'     => 1000,
+                ),
+                new EBox::Types::Select(
+                    fieldName     => 'full_copies_to_keep_deadline',
+                    printableName => __('no older than'),
+                    editable      => 1,
+                    populate      => \&_deadline,
+                ),
+                ],
+            'unique' => 1,
+            'editable' => 1,
+            ),
+
     );
 
     my $dataTable =

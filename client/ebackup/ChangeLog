@@ -16,6 +16,7 @@ HEAD
 	+ Added backup and restore of logs
 	+ Added restore configuration from backup action
 	+ VolSize option can be changed through configuration file
+	+ Better order of General configuration options
 1.4
 	+ Bug fix: do not duplicate includes with exclude-regexp
 	+ Add eBox Backup Storage strings
