@@ -94,47 +94,72 @@ be used to connect to the remote server.
 
 :guilabel:`Full Backup Frequency`:
   This is used to tell the module how often a full backup is carried out. Values
-  are: *Daily*, *Weekly*, *Monthly*.
+  are: *Daily*, *Weekly*, *Monthly*. If you select *Weekly* or *Monthly*
+  frequencies, you will show a second selection where you could choose the exact
+  day of the week or month the backup is carried out.
 
-:guilabel:`Number of full copies to keep`:
-  This value is used to limit the number of full copies that are stored. This is
-  an important value and you should understand what actually means. It is
-  related to the *Full Backup Frequency*. If you set the frequency to *Weekly*, and
-  the number of full copies to 2, your oldest backup copy will be two weeks old.
-  Similarly, if you set it to *Monthly* and 4, your oldest backup copy will be 4
-  months old. Set this value according to how long you wish to store backups and
-  how much disk space you have.
+
 
 :guilabel:`Incremental Backup Frequency`:
-  This value is also related to *Number of full copies to keep*. A
-  normal backup setting might consist of taking incremental copies
-  between full copies. Incremental copies should be done more
-  frequently than full copies. This means that if you make weekly full
-  copies, incremental copies should be set to daily, but it does not
-  make sense to set it to same frequency as the full copies. To
-  understand better this field let's see an example:
+  This option signals either the frequency of the incremental backups or whether
+  the incremental backup is disabled. 
 
-  :guilabel:`Full Backup Frequency` is set to
-  weekly. :guilabel:`Number of full copies to keep` is set
-  to 4. :guilabel:`Incremental Backup Frequency` to daily. This means
-  that you will end up having 4 weekly full backups, and between every
-  weekly backup you will have daily backups. That is a month worth of
-  backed up data. And it also means that you could restore any
-  arbitrary day of that month.
+  If the incremental backup is to be enabled we can choose a *Daily* or *Weekly*
+  frequency, in the last case also a week day should be chosen. However the
+  frequency must be higher than the full backup frequency. 
+
+  In the days on which a full backup is done, any scheduled incremental backup
+  will be skipped.
+
 
 :guilabel:`Backup process starts at`:
-  This field is used to set the time at when the backup process starts. It is
+  This field is used to set the time at when the backup process, both full and incremental, starts. It is
   a good idea to set it to times when nobody is in the office as it can consume a
   lot of upload bandwidth.
+
+
+:guilabel:`Keep previous full copies`:
+  This setting is used to limit the number of full copies that are stored. You
+  can choose either to limit by number or limit by date.
+
+  If you limit by number, only the choose number of previous backups will be
+  kept, the number excludes the actual full backup.
+  In case you limit by date, full backups older than the selected period will
+  be removed. 
+
+  When a full backup is removed all of its incremental backups are also removed.
+
+
 
 Configuring what directories and files are backed up
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The default configuration will backup the whole file system. This means that in
-the event of a disaster you will be able to restore the machine completely. It is
-a good idea not change this configuration unless the space on your remote server
-is very limited. A full backup of an eBox machine with all its modules takes
-around 300 MB.
+The backup will archive all the file system except directories or files
+explicitly excluded. However, if we are using the *File system* method, the
+target directory and all its contents will be automatically excluded.
+
+You can explicitly set path excludes and regular expression excludes. The regular
+expression excludes will exclude any path that matches. Any directory excluded
+will be excluded also all its contents.
+
+To refine further the contents of the backup you could also define *includes*,
+when a path matches a include before matching a exclude, it will be included.
+
+The order to apply the includes and excludes could be changed using the arrows
+in the list.
+
+.. note
+You can  exclude files by extension using a regular expression exclude. For
+example, if you want to skip *AVI* files from the backup, you can select
+*Exclude regexp* and add `\.avi$`.
+
+
+The default configuration has the following directories excluded: `/mnt`,
+`/dev`, `/media`, `/sys`, `\tmp`, `/var/cache` and `/proc`. It is usually a bad
+idea to include those directories, and in some cases, the backup process will fail.
+
+A full backup of an eBox machine with all its modules and without user's data
+takes around 300 MB.
 
 .. figure:: images/backup/ebox_ebackup_03.png
    :scale: 80
@@ -143,15 +168,8 @@ around 300 MB.
 
    Include and exclude list
 
-The default list of excluded directories is: `/mnt`, `/dev`, `/media`, `/sys`,
-and `/proc`. It is usually a bad idea to include those directories, and in some
-cases, the backup process will fail.
 
-The default list of included directories is: `/`.
 
-You can also exclude file extension using shell characters. For example, if you
-want to skip *AVI* files from the backup, you can select *Exclude regexp*
-and add `*.avi`.
 
 Checking backup status
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -159,6 +177,12 @@ Checking backup status
 You can check the status of your backup under the section *Remote Backup
 Status*. In that table, you will see the type of backup, full or
 incremental, and the date when it was taken.
+
+.. note
+If for whatever reason you remove manually the backup files, you can force to regenerate
+this list with the command::
+     # /etc/init.d/ebox ebackup restart
+
 
 .. figure:: images/backup/ebox_ebackup_02.png
    :scale: 80
@@ -186,9 +210,25 @@ There are two ways of restoring a file. It depends on the size and type of the
 file or directory that you need to restore.
 
 It is possible to restore files directly from the eBox interface. In the section
-:menuselection:`Backup --> Restore Files` you have access to the list of all the remote files and
-directories, and also the available dates to be restored. Use this method with
-small data files, if they are too big it will take too long and you won't be
+:menuselection:`Backup --> Restore Files` you have access to the list of all the
+backuped paths and to the available dates to be restored. 
+
+If the path is a directory all its contents will be restored, subdirectories
+included.
+
+The file will be restored as it was when the date selected, if the file was not
+present in this date the most recent earlier version will be restored; in case
+does not exist a earlier version a error message will be shown.
+
+.. warning
+The files shown are the files present in the last backups. Files that are stored
+in any previous backup except the last one are not displayed, but they could be
+restored.
+ 
+
+
+Use this method with
+small files and directories, if they are too big it will take too long and you won't be
 able to use the web interface during the process of the operation. You must be
 very careful with the type of file you are restoring. It is usually safe to
 restore data files that are not used by applications at the moment of the
@@ -332,6 +372,21 @@ clean up the temporal directories.::
 
 
 The restoring proccess has finished and you can reboot now.
+
+
+
+Restoring special services
+--------------------------
+
+With the files some special-prepared backup data are stored. This is:
+ * backup of the eBox configuration
+ * backup of eBox's logs
+
+In the 'Services restore' tab both can be restored for the selected date. 
+
+You must be careful in case of the eBox configuration backup becasuse all the
+configuration and LDAP data will be replaced. However, for the non-LDAP
+configuration you must click 'Save changes' to enforce the data.
 
 .. _conf-backup-ref:
 
