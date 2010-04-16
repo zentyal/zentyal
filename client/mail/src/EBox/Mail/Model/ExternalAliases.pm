@@ -55,8 +55,9 @@ sub _table
                                        'size' => '30',
                                        'editable' => 1,
                                        'unique' => 1,
+                                       'filter' => \&_fullAlias,
                                        'help' =>
-        __('The mail domain is appended automatically')
+        __('The mail domain is appended automatically'),
                                       ),
           new EBox::Types::MailAddress(
                                        'fieldName' => 'externalAccount',
@@ -99,6 +100,7 @@ sub validateTypedRow
     if (exists $changedFields->{alias}) {
         my $alias = $changedFields->{alias}->value();
         $alias = $self->_completeAliasAddress($alias);
+        $self->_checkAliasIsNotAccount($alias);
         $self->_checkAliasIsInternal($alias);
     }
 
@@ -133,6 +135,21 @@ __x('Cannot add alias because domain {vd} is a alias and aliases belonging to vi
 __x('Cannot add alias because domain {vd} is not a virtual domain managed by this server',
    vd => $vdomain)
 );
+}
+
+
+sub _checkAliasIsNotAccount
+{
+    my ($self, $alias) = @_;
+    my $mailAlias = EBox::Global->modInstance('mail')->{malias};
+    if ($mailAlias->accountExists($alias)) {
+        throw EBox::Exceptions::External(
+      __x('They already exists an account or alias called {al}',
+          al => $alias
+         )
+                                        );
+    }
+
 }
 
 
@@ -243,6 +260,24 @@ sub pageTitle
     return $self->parentRow()->printableValueByName('vdomain');
 
 }
+
+sub _fullAlias
+{
+    my ($type) = @_;
+    my $value = $type->value();
+    my $row = $type->row();
+    if (not $row) {
+        return $value;
+    }
+
+    my $model = $row->model();
+    my $domain = $model->_vdomain();
+
+    return $value . '@' . $domain;
+    
+
+}
+
 
 1;
 
