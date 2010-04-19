@@ -4,7 +4,7 @@ ROOTDN=$1
 PASSWORD=$2
 USERSDN=$3
 GROUPSDN=$4
-HOST="127.0.0.1"
+HOST=$5
 
 EGROUPWARE_DB_PASS=/var/lib/ebox/conf/ebox-egroupware.passwd
 

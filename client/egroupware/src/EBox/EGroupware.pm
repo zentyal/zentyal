@@ -237,9 +237,15 @@ sub _setAuth
     my $password = $ldap->getPassword();
     my $usersdn = $users->usersDn();
     my $groupsdn = $users->groupsDn();
+    my $ldapHost = '127.0.0.1:';
+    unless ($users->mode() eq 'slave') {
+        $ldapHost .= $ldap->ldapConf->{'port'};
+    } else {
+        $ldapHost .= $ldap->ldapConf->{'translucentport'};
+    }
 
     my $path = EBox::Config::share() . '/ebox-egroupware';
-    EBox::Sudo::root("$path/ebox-egroupware-set-auth '$rootdn' '$password' '$usersdn' '$groupsdn'");
+    EBox::Sudo::root("$path/ebox-egroupware-set-auth '$rootdn' '$password' '$usersdn' '$groupsdn' '$ldapHost'");
 }
 
 sub _configVDomain

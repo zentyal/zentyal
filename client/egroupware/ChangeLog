@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: LDAP port on slave was not properly set everywhere
 1.4
 	+ Added breadcrumbs to allowed applications in User Defined
  	  Permission Templates
