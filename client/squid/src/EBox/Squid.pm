@@ -203,7 +203,7 @@ sub usedFiles
             {
              'file' => DGDIR . '/dansguardian.conf',
              'module' => 'squid',
-                 'reason' => __('Content filter configuration file')
+             'reason' => __('Content filter configuration file')
             },
             {
              'file' => DGDIR . '/dansguardianf1.conf',
@@ -212,7 +212,7 @@ sub usedFiles
             },
             {
              'file' => DGLISTSDIR . '/filtergroupslist',
-                 'module' => 'squid',
+             'module' => 'squid',
              'reason' => __('Filter groups membership')
             },
             {
@@ -222,7 +222,7 @@ sub usedFiles
             },
             {
              'file' => DGLISTSDIR . '/bannedmimetypelist',
-                 'module' => 'squid',
+             'module' => 'squid',
              'reason' => __('Content filter banned mime type list')
             },
             {
@@ -238,7 +238,7 @@ sub usedFiles
             {
              'file' => DGLISTSDIR . '/bannedsitelist',
              'module' => 'squid',
-                 'reason' => __('Content filter banned site list')
+             'reason' => __('Content filter banned site list')
             },
             {
              'file' => DGLISTSDIR . '/exceptionurllist',
@@ -253,40 +253,61 @@ sub usedFiles
             {
              'file' => DGLISTSDIR . '/bannedurllist',
              'module' => 'squid',
-                 'reason' => __('Content filter banned URL list')
+             'reason' => __('Content filter banned URL list')
             },
             {
-              'file' =>    DGLISTSDIR . '/bannedphraselist',
-              'module' => 'squid',
-              'reason' => __('Forbidden phrases list'),
-             },
+             'file' =>    DGLISTSDIR . '/bannedphraselist',
+             'module' => 'squid',
+             'reason' => __('Forbidden phrases list'),
+            },
             {
-              'file' =>    DGLISTSDIR . '/exceptionphraselist',
-              'module' => 'squid',
-              'reason' => __('Exception phrases list'),
-             },
+             'file' =>    DGLISTSDIR . '/exceptionphraselist',
+             'module' => 'squid',
+             'reason' => __('Exception phrases list'),
+            },
             {
-              'file' =>    DGLISTSDIR . '/pics',
-              'module' => 'squid',
-              'reason' => __('PICS ratings configuration'),
-             },
+             'file' =>    DGLISTSDIR . '/pics',
+             'module' => 'squid',
+             'reason' => __('PICS ratings configuration'),
+            },
             {
              'file' => DG_LOGROTATE_CONF,
              'module' => 'squid',
              'reason' => __(q{Dansguardian's log rotation configuration}),
             },
             {
-                'file' => CLAMD_SCANNER_CONF_FILE,
-                'module' => 'squid',
+             'file' => CLAMD_SCANNER_CONF_FILE,
+             'module' => 'squid',
              'reason' => __(q{Dansguardian's antivirus scanner configuration}),
             },
             {
-              'file' =>    DGLISTSDIR . '/authplugins/ipgroups',
-              'module' => 'squid',
-              'reason' => __('Filter groups per IP'),
-             },
+             'file' =>    DGLISTSDIR . '/authplugins/ipgroups',
+             'module' => 'squid',
+             'reason' => __('Filter groups per IP'),
+            },
            ];
 }
+
+
+# Method: actions
+#
+#       Override EBox::Module::Service::actions
+#
+sub actions
+{
+
+    return [
+            {
+            'action' => __('Overwrite blocked page templates'),
+            'reason' => __('Dansguardian blocked page templates will be overwritten with eBox'
+                          . ' customized templates.'),
+            'module' => 'squid'
+            }
+        ];
+
+}
+
+
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
@@ -787,6 +808,7 @@ sub _writeDgConf
       $self->_writeDgDomainsConf($group);
   }
 
+  $self->_writeDgTemplates();
 
   $self->_writeDgLogrotate();
 }
@@ -806,6 +828,21 @@ sub _writeDgIpGroups
                        ]);
 
 }
+
+
+sub _writeDgTemplates
+{
+    my ($self) = @_;
+
+    my $lang = $self->_DGLang();
+    my $file = DGDIR . '/languages/' . $lang . '/template.html';
+
+    EBox::Module::Base::writeConfFileNoCheck($file,
+                                             'squid/template.html.mas',
+                                             []
+                                            );
+}
+
 
 sub _writeDgLogrotate
 {

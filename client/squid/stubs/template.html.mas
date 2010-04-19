@@ -1,0 +1,70 @@
+<%init>
+use EBox::Gettext;
+</%init>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>
+      eBox Platform - <% __d('Access Denied', 'squid') %>
+    </title>
+    <style type="text/css" media="screen">
+    body {background: #fff url(http://static.ebox-platform.com/img/ebox-bg.png) repeat-x top left; font-family: Helvetica, Arial, sans-serif; color: #222;}
+    h1 {height: 65px; line-height: 65px; margin: 0; vertical-align: middle;}
+    a {color: #578427;}
+    #content {border-top: 1px solid #FFE7BA; padding: 0;}
+    #main {border-top: 1px solid #FFF3DF; padding: 10px 25px; font-family: Georgia, serif; font-size: 1.2em;}
+    .blockedurl {font-size: 1.5em; color: #B64C18; padding: 0 0.5em; font-weight: bold; text-decoration: none;}
+    .reason, .categories {background: #eee; margin: 1em; padding: 1em;}
+    .head {padding-bottom: 15px;}
+    .foot {font-size: 0.8em; width: 700px; text-align: right; border-top: 1px solid #eee; padding-top: 5px; color: #666;}
+    table, .foot {margin: 0 auto;}
+    </style>
+  </head>
+  <body>
+      <table border="0" cellspacing="0" cellpadding="2" width="700">
+        <tr>
+          <td align="center" class="head">
+            <img src="http://static.ebox-platform.com/img/ebox.png" align="left" alt="eBox Platform" />
+            <h1>
+              <% __d('Access has been Denied', 'squid') %>
+            </h1>
+          </td>
+        </tr>
+        <tr>
+          <td width="550" bgcolor="#FFFFFF" align="left" valign="top" id="content">
+            <div id="main">
+              <p><% __dx("Access to the page: {page} has been denied for the following reason", 'squid', page => '<a href=\"-URL-\" class=\"blockedurl\">-URL-</a>') %>:</p>
+              <p class="reason">-REASONGIVEN-</p>
+              <p><% __d('Categories', 'squid') %>:</p>
+              <p class="categories">-CATEGORIES-</p>
+              <p><% __d('You are seeing this error because what you attempted to access appears to contain, or is labeled as containing, material that has been deemed inappropriate.', 'squid') %></p>
+              <p><% __d('If you have any queries contact your ICT Coordinator or Network Manager.', 'squid') %></p>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div class="foot"><% __d('Powered by', 'squid') %> <a href="http://www.ebox-platform.com/">eBox Platform</a></div>
+      
+<!--
+The available variables are as follows:
+- URL- gives the URL the user was trying to get to.
+- REASONGIVEN- gives the nice reason (i.e. not quoting the banned phrase).
+- REASONLOGGED- gives the reason that gets logged including full details.
+- USER- gives the username if known.
+- IP- gives the originating IP.
+- HOST- gives the originating hostname if known.
+- RAWFILTERGROUP- gives the group number.
+- FILTERGROUP- gives the group name.
+- SERVERIP- gives the IP address on which the filter is running (correct for multiple filterip lines, but not if filterip option is blank).
+- BYPASS- gives URL which allows temporary bypass of denied page
+- CATEGORIES- gives the categories assigned to the banned content
+
+You need to remove the space between the - and the variable to use them
+in your HTML.  They are there above so extra processing is not required.
+
+More example templates are likely to be found on the DansGuardian web site
+on the Extras page.
+-->
+  </body>
+</html>

@@ -12,6 +12,7 @@ HEAD
 	workaround to avoid this error
 	+ Add new information about saved bandwidth to the reports
 	+ Fixed bug in filter profile by object with network addresses
+	+ Customized Dansguardian blocked page template
 1.3.14
 	+ Bugfix: in restartService we assure that all files are in place
 	before restarting the daemons
