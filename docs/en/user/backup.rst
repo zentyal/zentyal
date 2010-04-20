@@ -253,7 +253,7 @@ In any case, you must know how the underneath used software works. **duplicity**
 is tool used by eBox. The process to restore a file or directory is actually
 very simple. You must run the following command::
   
-  duplicity restore --file-to-restore -t 3D <file or dir to restore> <remote url and args> <destination>
+  duplicity restore --file-to-restore -t 3D <path to restore> <remote url and arguments> <destination>
 
 .. [#] *duplicity*: Encrypted bandwidth-efficient backup using the
        rsync algorithm <http://duplicity.nongnu.org/>.
@@ -384,6 +384,10 @@ With the files some special-prepared backup data are stored. This is:
 
 In the 'Services restore' tab both can be restored for the selected date. 
 
+The eBox conifugration's backup stores  the
+configuration of all modules that have been enabled at some point, as well as
+the LDAP users and any other additional files required by each of these modules.
+
 You must be careful in case of the eBox configuration backup becasuse all the
 configuration and LDAP data will be replaced. However, for the non-LDAP
 configuration you must click 'Save changes' to enforce the data.
@@ -393,10 +397,8 @@ configuration you must click 'Save changes' to enforce the data.
 Configuration backups
 ---------------------
 
-In addition, eBox Platform has another way to make configuration backups
-and restore them from the interface itself. This method backs up the
-configuration of all modules that have been enabled at some point, as well as
-the LDAP users and any other additional files required by each of these modules.
+In addition, eBox Platform has another way to make a configuration backups
+and restore them from the interface itself. 
 
 The backup can also include the data stored by these modules
 (home directories, voicemail, etc.) but from 1.2 onwards this way
