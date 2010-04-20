@@ -121,7 +121,7 @@ sub listEBoxPkgs
 
 	my $eboxlist = [];
 
-	my $file = $self->_packageListFile();
+	my $file = $self->_packageListFile(1);
 
 	if(defined($clear) and $clear == 1){
 		if ( -f "$file" ) {
@@ -299,7 +299,13 @@ sub fetchAllPkgs
 
 sub _packageListFile
 {
-    my $file = EBox::Config::tmp . "packagelist";
+    my ($self, $ebox) = @_;
+
+    my $filename = 'packagelist';
+    if ($ebox) {
+        $filename .= '-ebox';
+    }
+    my $file = EBox::Config::tmp . $filename;
     return $file;
 }
 
@@ -332,7 +338,7 @@ sub listUpgradablePkgs
 
 	my $upgrade = [];
 
-	my $file = $self->_packageListFile();
+	my $file = $self->_packageListFile(0);
 
 	if(defined($clear) and $clear == 1){
 		if ( -f "$file" ) {
@@ -367,7 +373,7 @@ sub _excludeEBoxPackages
     my ($self, $list) = @_;
     my @withoutEBox = grep {
         my $name = $_->{'name'};
-        ($name ne 'libebox') and 
+        ($name ne 'libebox') and
          ($name ne 'ebox')    and
           not ($name =~ /^ebox-/)
       } @{ $list };
@@ -650,13 +656,17 @@ sub _isModLocked
 #
 #  Return the status of the package list
 #
+#  Parameter:
+#   ebox - 1 if ebox components, 0 if system upates
+#
 #  Returns:
 #  -1 if currently updating
 #   0 if never successfully updated
 #   otherwise tiemstamp of the last update
 sub updateStatus
 {
-    my ($self) = @_;
+    my ($self, $ebox) = @_;
+
     my $lockedBy = $self->st_get_string(LOCKED_BY_KEY);
     if (defined $lockedBy) {
         if ($lockedBy eq 'ebox-software') {
@@ -664,7 +674,7 @@ sub updateStatus
         }
     }
 
-    my $file = $self->_packageListFile();
+    my $file = $self->_packageListFile($ebox);
     if (not -f $file) {
         return 0;
     }

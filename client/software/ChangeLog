@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: system updates work properly now
 1.4.1
 	+ Fixed error when installed some packages (missing --force-yes option)
 	+ Fixed template error in system updates when automatic updates are enabled
