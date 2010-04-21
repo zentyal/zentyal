@@ -85,7 +85,7 @@ especificar que protocolo se usa para conectarse al servidor remoto.
     fallará la conexión con el servidor.
 
 :guilabel:`Servidor o destino`:
-   Para *FTP*, y *SCP* tenemos que proporcionar el nombre del servidor
+  Para *FTP*, y *SCP* tenemos que proporcionar el nombre del servidor
   remoto o su dirección IP. En caso de usar *Sistema de ficheros*,
   introduciremos la ruta de un directorio local. Si se usa cualquiera
   de los métodos de *eBox Backup Storage*, entonces sólo se requiere
@@ -235,7 +235,7 @@ anteriores pero no en la ultima no se muestran, pero pueden ser restaurados a
 través de la linea de comandos.
 
 
- Podemos usar este método con
+Podemos usar este método con
 ficheros pequeños. Con ficheros grandes, el proceso es costoso en
 tiempo y no se podrá usar el interfaz *Web* de eBox mientras la
 operación está en curso. Debemos ser especialmente cautos con el tipo
@@ -409,6 +409,14 @@ Debes tener cuidado al restaurar la configuración de eBox ya que toda la
 configuración y los datos de LDAP serán remplazados. Sin embargo, en el caso de
 la configuración no almacenad en LDAP deberás pulsar en "Guardar cambios" para
 que se ponga en vigor.
+
+.. figure:: images/backup/ebox_ebackup_restore_services.png
+   :scale: 80
+   :alt: Restaurar servicios
+   :align: center
+
+   Restaurar servicios
+
 
 .. _conf-backup-ref:
 

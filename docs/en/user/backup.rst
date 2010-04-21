@@ -392,6 +392,13 @@ You must be careful in case of the eBox configuration restore becasuse all the
 configuration and LDAP data will be replaced. However, for the non-LDAP
 configuration you must click 'Save changes' to enforce the data.
 
+.. figure:: images/backup/ebox_ebackup_restore_services.png
+   :scale: 80
+   :alt: Services restore
+   :align: center
+
+   Services restore
+
 .. _conf-backup-ref:
 
 Configuration backups
