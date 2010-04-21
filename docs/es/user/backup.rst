@@ -105,50 +105,69 @@ especificar que protocolo se usa para conectarse al servidor remoto.
 :guilabel:`Frecuencia de copia de seguridad completa`:
   Este parámetro se usa para determinar la frecuencia con la que las copias de
   seguridad completas se llevan a cabo. Los valores son: *Diario*, *Semanal* y
-  *Mensual*.
-
-:guilabel:`Número de copias totales almacenadas`:
-  Este valor se usa para limitar el número de copias totales que están
-  almacenadas. Es importante y debemos familiarizarnos con lo que
-  significa.  Tiene relación directa con *Frecuencia de copia de
-  seguridad completa*. Si seleccionamos una frecuencia *Semanal* y el
-  número de copias almacenadas a 2, la copia de respaldando más antigua
-  será de dos semanas. De forma similar, seleccionando *Mensual* y 4,
-  la copia de respaldo más antigua será de 4 meses.  Deberemos
-  seleccionar un valor acorde a el periodo que queramos almacenar de
-  las copias de respaldo y el espacio en disco que tengamos.
+  *Mensual*. Si seleccionas *Semanal* o *Mensual*, aparecerá un segundo control
+  para poder seleccionar el día exacto de la semana o del mes en el que se 
+  realizara la copia.
 
 :guilabel:`Frecuencia de copia incremental`:
-  Este valor también está relacionado con *Frecuencia de copia de
-  seguridad completa*. Una configuración típica de copias de respaldo
-  consiste en realizar copias incrementales entre las copias
-  completas. Estas copias deben hacerse con más frecuencia que las
-  completas. Esto significa que si tenemos copias completas semanales,
-  las copias incrementales se harán diarias. Por el contrario, no
-  tiene sentido hacer copias incrementales con las misma frecuencia
-  que las completas.  Para entender ésto mejor veamos un ejemplo:
+  Este valor selecciona la frecuencia de la copia incremental o la deshabilita.
 
-  El valor de :guilabel:`Frecuencia de copia completa` es semanal. El
-  :guilabel:`Numero de copias totales a almacenar` es 4. Con esta
-  configuración tendremos cuatro copias de seguridad completas de
-  cuatro semanas, y entre cada copia completa tendremos copias
-  incrementales. Es decir, un mes entero de copias. Lo que significa
-  que podemos restaurar cualquier día arbitrario del mes.
+  Si la copia incremental esta activa podemos seleccionar una frecuencia *Diaria*
+  o *Semanal*. La frecuencia seleccionada debe ser mayor que la frecuencia de
+  copia completa.
+
+  En los días en que se realice una copia completa, se saltara cualquier copia
+  incremental programada.
 
 :guilabel:`Comienzo de copia de respaldo`:
   Este campo es usado para indicar cuando comienza el proceso de la toma de la
-  copia de respaldo. Es una buena idea establecerlo a horas cuando no haya nadie
+  copia de respaldo, tanto el completo como el incremental. Es una buena idea establecerlo a horas cuando no haya nadie
   en la oficina ya que puede consumir bastante ancho de banda de subida.
+
+:guilabel:`Número de copias totales almacenadas`:
+  Este valor se usa para limitar el número de copias totales que están
+  almacenadas. Puedes elegir limitar por numero o por antigüedad.
+
+  Si limitas por numero, solo el numero indicados de copias sera guardado; la
+  ultima copia completa no se cuenta.
+  En el caso que limites por antigüedad, sol ose guardaran las copias completas
+  que sean mas recientes que el periodo indicado.
+
+  Cuando una copia completa se borra, todas las copias incrementales realizadas
+  a partir de ella también son borradas.
+
 
 Configuración de los directorios y ficheros que son respaldados
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 La configuración por defecto efectuará una copia de todo el sistema de
-ficheros.  Esto significa que ante un eventual desastre seremos
-capaces de restaurar la máquina completamente. Es un buena idea no
-cambiar esta configuración al menos que tengas problemas de
-espacio. Una copia completa de una máquina eBox con todos sus módulos
-ocupa alrededor de 300 MB.
+ficheros excepto los ficheros o directorios explícitamente excluidos.   En el
+caso que usemos el método *Sistema de ficheros*, el directorio objetivo y todo
+su contenido es automáticamente excluido.
+
+Puedes establecer exclusiones de rutas y exclusiones por expresión regular. Las
+exclusiones por expresión regular excluirán cualquier ruta que coincida con
+ella. Cualquier directorio excluido, excluirá también todo su contenido.
+
+Para refinar aun mas el contenido de la copia de seguridad también puedes
+definir  *inclusiones* , cuando un ruta coincide con una inclusión antes de
+coincidir con alguna exclusión, sera incluida en el backup.
+
+El orden en que se aplican las inclusiones y exclusiones se puede alterar
+usando los iconos de flechas.
+
+.. note
+Puedes excluir archivos por su extensión usando una exclusión con expresión
+regular.  Por ejemplo si quieres que los archivos *AVI no figuren en la copia de
+respaldo, puedes seleccionar *Exclusión por expresión regular* y añadir `\.avi$`.
+
+La lista por defecto de directorios excluidos es: `/mnt`, `/dev`,
+`/media`, `/sys`, `/tmp`, `/var/cache` y `/proc`. Es una mala idea incluir alguno de estos
+directorios ya que como resultado el proceso de copia de respaldo
+podría fallar.
+
+Una copia completa de un servidor eBox con todos sus módulos pero sin datos de
+usuario ocupa unos 300 MB.
 
 .. figure:: images/backup/ebox_ebackup_03.png
    :scale: 80
@@ -157,24 +176,17 @@ ocupa alrededor de 300 MB.
 
    Lista de inclusión y exclusión
 
-La lista por defecto de directorios excluidos es: `/mnt`, `/dev`,
-`/media`, `/sys`, y `/proc`. Es una mala idea incluir alguno de estos
-directorios ya que como resultado el proceso de copia de respaldo
-podría fallar.
-
-La lista por defecto de directorios incluidos es: `/`.
-
-Podemos excluir extensiones de fichero utilizando caracteres de
-*shell*. Por ejemplo, si quieres saltarte ficheros de vídeo *AVI* de
-tu copia de seguridad, puedes seleccionar *Excluir expresión regular*
-y añadir `*.avi`.
-
 Comprobando el estado de las copias
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Podemos comprobar el estado de las copias de respaldo en la sección *Estado de
 las copias remotas*. En esta tabla podemos ver el tipo de copia, completa o
 incremental, y la fecha de cuando fue tomada.
+
+.. note
+  Si por cualquier razón borras manualmente los archivos del backup, puedes
+  forzar a regenerar este listado con el comando::
+  # /etc/init.d/ebox ebackup restart
 
 .. figure:: images/backup/ebox_ebackup_02.png
    :scale: 80
@@ -183,7 +195,7 @@ incremental, y la fecha de cuando fue tomada.
 
    Estado de las copias
 
-Cómo comenzar un proceso de copia de respaldo manualmente
+Cómo iniciar un proceso de copia de respaldo manualmente
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 El proceso de copia de respaldo se inicia automáticamente a la hora configurada.
@@ -205,8 +217,25 @@ directorio que deseemos restaurar.
 Es posible restaurar ficheros directamente desde el panel de control
 de eBox. En la sección :menuselection:`Copia de seguridad -->
 Restaurar ficheros` tenemos acceso a la lista de todos los ficheros y
-directorios que contiene la copia remota, así como las distintas
-fechas o versiones de los mismos. Podemos usar este método con
+directorios que contiene la copia remota, así como las fecha de las distintas
+versiones que podemos restaurar.
+
+Si la ruta a restaurar es un directorio todos sus contenidos se restauraran,
+incluyendo subdirectorios.
+
+El archivo se restaurar con sus contenidos en la fecha seleccionada, si el
+archivo no esta presente en la copia de respaldo en esa fecha se restaurara la
+primera versión que se encuentre en las copias anteriores a la indicada; si no
+existen versiones anteriores se notificara con un mensaje de error.
+
+.. warning
+Los archivos mostrados en la interfaz son aquellos que están presentes en la
+ultima copia de seguridad. Los archivos que están almacenados en copias
+anteriores pero no en la ultima no se muestran, pero pueden ser restaurados a
+través de la linea de comandos.
+
+
+ Podemos usar este método con
 ficheros pequeños. Con ficheros grandes, el proceso es costoso en
 tiempo y no se podrá usar el interfaz *Web* de eBox mientras la
 operación está en curso. Debemos ser especialmente cautos con el tipo
@@ -359,6 +388,28 @@ respaldo así como limpiar los directorios temporales::
 El proceso de restauración ha finalizado y podemos reiniciar el sistema
 original.
 
+
+Restaurando servicios
+----------------------
+
+Además de los archivos se almacenan datos para facilitar la restauración directa
+de algunos servicios. Estos datos son:
+ * copia de seguridad de la configuración de eBox.
+ * copia de seguridad de la base de datos de registros de eBox
+
+En la pestaña *Restauración de servicios* ambos pueden ser restauraros para una
+fecha dada.
+
+La copia de seguridad de la configuración de eBox guarda la configuración de
+todos los módulos que hayan sido 
+habilitados por primera vez en algún momento, los datos del LDAP y
+cualquier otro fichero adicional para el funcionamiento de cada módulo.
+
+Debes tener cuidado al restaurar la configuración de eBox ya que toda la
+configuración y los datos de LDAP serán remplazados. Sin embargo, en el caso de
+la configuración no almacenad en LDAP deberás pulsar en "Guardar cambios" para
+que se ponga en vigor.
+
 .. _conf-backup-ref:
 
 Copias de seguridad de la configuración
@@ -366,9 +417,7 @@ Copias de seguridad de la configuración
 
 eBox Platform dispone adicionalmente de otro método para realizar copias
 de seguridad de la configuración y restaurarlas desde la propia interfaz.
-Este método guarda la configuración de todos los módulos que hayan sido
-habilitados por primera vez en algún momento, los usuarios del LDAP y
-cualquier otro fichero adicional para el funcionamiento de cada módulo.
+
 
 También permite realizar copia de seguridad de los datos que almacena
 cada módulo (directorios de usuarios, buzones de voz, etc.). Sin

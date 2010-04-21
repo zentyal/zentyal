@@ -123,7 +123,7 @@ be used to connect to the remote server.
   can choose either to limit by number or limit by date.
 
   If you limit by number, only the choose number of previous backups will be
-  kept, the number excludes the actual full backup.
+  kept; the actual full backup is not included in the count.
   In case you limit by date, full backups older than the selected period will
   be removed. 
 
@@ -138,7 +138,7 @@ The backup will archive all the file system except directories or files
 explicitly excluded. However, if we are using the *File system* method, the
 target directory and all its contents will be automatically excluded.
 
-You can explicitly set path excludes and regular expression excludes. The regular
+You can set path *excludes* and *regular expression excludes*. The regular
 expression excludes will exclude any path that matches. Any directory excluded
 will be excluded also all its contents.
 
@@ -146,7 +146,7 @@ To refine further the contents of the backup you could also define *includes*,
 when a path matches a include before matching a exclude, it will be included.
 
 The order to apply the includes and excludes could be changed using the arrows
-in the list.
+icons in the list.
 
 .. note
 You can  exclude files by extension using a regular expression exclude. For
@@ -223,7 +223,7 @@ does not exist a earlier version a error message will be shown.
 .. warning
 The files shown are the files present in the last backups. Files that are stored
 in any previous backup except the last one are not displayed, but they could be
-restored.
+restored using the command line.
  
 
 
@@ -375,20 +375,20 @@ The restoring proccess has finished and you can reboot now.
 
 
 
-Restoring special services
+Restoring services
 --------------------------
 
-With the files some special-prepared backup data are stored. This is:
- * backup of the eBox configuration
- * backup of eBox's logs
+With the files  special-prepared backup data to ease the restore of some services. This is:
+ * backup of the eBox configuration.
+ * backup of eBox's logs database.
 
 In the 'Services restore' tab both can be restored for the selected date. 
 
-The eBox conifugration's backup stores  the
+The eBox configuration's backup stores  the
 configuration of all modules that have been enabled at some point, as well as
-the LDAP users and any other additional files required by each of these modules.
+the LDAP data and any other additional files required by each of these modules.
 
-You must be careful in case of the eBox configuration backup becasuse all the
+You must be careful in case of the eBox configuration restore becasuse all the
 configuration and LDAP data will be replaced. However, for the non-LDAP
 configuration you must click 'Save changes' to enforce the data.
 
