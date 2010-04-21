@@ -3,7 +3,7 @@ HEAD
 	+ Bugfix: Make some checks in delay pools to avoid
 	  misconfiguration, do not write the disabled rules and set the
 	  proper labels and more detailed explanation
-	+ New bandwith throttling support with delay pools
+	+ New bandwidth throttling support with delay pools
 	+ Bugfix: trim URL string as DB stores it as a varchar(1024) (Log)
 	+ Disabled ban URL regexes
 	+ Added filter profile per object
@@ -13,6 +13,7 @@ HEAD
 	+ Add new information about saved bandwidth to the reports
 	+ Fixed bug in filter profile by object with network addresses
 	+ Customized Dansguardian blocked page template
+	+ Exclude localnetworks from bandwidth throttling
 1.3.14
 	+ Bugfix: in restartService we assure that all files are in place
 	before restarting the daemons

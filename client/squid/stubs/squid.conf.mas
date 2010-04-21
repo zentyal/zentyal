@@ -3,6 +3,7 @@
     $transparent
     $authNeeded
     $allowAll
+    @localnets
     @objectsPolicies
     @objectsDelayPools
     @groupsPolicies
@@ -13,7 +14,7 @@
     $dn
     $ldapport
 
-    
+
 </%args>
 <%perl>
 sub _timeAclsInPolicy
@@ -39,7 +40,7 @@ sub _timeAclsInPolicy
 </%perl>
 # <EBOX> TAG_HTTPORT #
 % my $transKey = '';
-% if ($transparent eq 'yes') { 
+% if ($transparent eq 'yes') {
 %   $transKey = 'transparent';
 % }
 http_port <% $port %> <% $transKey %>
@@ -67,7 +68,7 @@ auth_param basic realm eBox HTTP proxy
 auth_param basic program /usr/lib/squid/ldap_auth -v 3 -b  ou=Users,<% $dn %>  -u uid  -h ldap://127.0.0.1:<% $ldapport %>
 acl authorized  proxy_auth required
 
-<& .groupsACLs, 
+<& .groupsACLs,
     groupsPolicies => \@groupsPolicies,
     objectsPolicies => \@objectsPolicies,
  &>
@@ -105,21 +106,25 @@ acl Safe_ports port 901		# SWAT
 acl purge method PURGE
 acl CONNECT method CONNECT
 
-follow_x_forwarded_for allow localhost 
+follow_x_forwarded_for allow localhost
 log_uses_indirect_client off
 
-http_access allow localhost 
+http_access allow localhost
 
 http_access deny manager
 http_access deny purge
 http_access deny !Safe_ports
 http_access deny CONNECT !SSL_ports
 http_reply_access allow all
- 
+
 # <EBOX> TAG_DELAYPOOLS #
 
-<& .delayPools, 
-                  objectsDelayPools => \@objectsDelayPools, 
+<& .localnetsACLs,
+                  localnets => \@localnets,
+&>
+
+<& .delayPools,
+                  objectsDelayPools => \@objectsDelayPools,
 &>
 
 # END_TAG
@@ -132,12 +137,12 @@ cache deny noCached
 % }
 
 
-<& .objectsAccess, 
-                  objectsPolicies => \@objectsPolicies, 
+<& .objectsAccess,
+                  objectsPolicies => \@objectsPolicies,
 &>
 
-<& .globalGroupsAccess, 
-                groupsPolicies => \@groupsPolicies, 
+<& .globalGroupsAccess,
+                groupsPolicies => \@groupsPolicies,
 &>
 
 
@@ -151,7 +156,7 @@ cache deny noCached
 %#      which dont need auth
 http_access allow authorized all
 %#     }
-% } 
+% }
 % if ($allowAll) {
 http_access allow all
 % } else {
@@ -181,9 +186,9 @@ http_access allow authorized all
 %   my $acls     = "$timeAcls $group";
 %   my $allowPolicy = $groupPol->{'allow'};
 %   if ($allowPolicy) {
-http_access allow  <% $timeAcls %> <% $group %> 
-%    } 
- 
+http_access allow  <% $timeAcls %> <% $group %>
+%    }
+
 %   if ((not $allowPolicy) or $timeAcls ) {
 #   in case of allow + time acl we have to deny otherwise
 #   outsde of the time period we will slip to defualt policy
@@ -196,7 +201,7 @@ http_access deny <% $group %> all
 <%def .objectGroupsAccess>
 <%args>
 @groupsPolicies
-$object 
+$object
 </%args>
 % foreach my $groupPol (@groupsPolicies) {
 %   my $group = $groupPol->{'group'};
@@ -204,7 +209,7 @@ $object
 %   my $allow = $groupPol->{'allow'};
 
 %   if ($allow) {
-http_access allow <% $timeAcls %> <% $group %> <% $object %> 
+http_access allow <% $timeAcls %> <% $group %> <% $object %>
 %    }
 
 %  if ((not $allow) or $timeAcls ) {
@@ -227,21 +232,21 @@ http_access deny  <% $group %> <% $object %>
 
 %   my $object = $objPol->{'object'};
 
-  <& .objectGroupsAccess, 
+  <& .objectGroupsAccess,
            groupsPolicies =>  $objPol->{groupsPolicies},
            object => $object,
    &>
 
 
 %   if ($objPol->{'auth'}) {
-  http_access allow  <% $object %>  authorized 
-%   } 
+  http_access allow  <% $object %>  authorized
+%   }
 
 % if ($objPol->{'allowAll'}) {
 %   my $timeAcls = _timeAclsInPolicy($objPol, $object);
 http_access allow <% $object %> <% $timeAcls %>
 %     if ($timeAcls) {
-%     # to assure we dont slip to default configuration when we have a time acl       
+%     # to assure we dont slip to default configuration when we have a time acl
 http_access deny <% $object %>
 %     }
 % } else {
@@ -280,7 +285,15 @@ acl <% $group %> proxy_auth <% join ' ', @{ $users } %>
      <& .timeACLs, policy => $groupPol, ids => [$groupPol->{group}] &>
 % }
 </%def>
- 
+
+
+<%def .localnetsACLs>
+<%args>
+@localnets
+</%args>
+acl eboxlocalnets dst <% join ' ', @localnets %>
+</%def>
+
 
 <%def .objectsACLs>
 <%args>
@@ -293,7 +306,7 @@ acl <% $object %> src <% join ' ', @{ $objPol->{addresses} } %>
 %   foreach my $groupPol (@{ $objPol->{groupsPolicies} }) {
      <& .timeACLs, policy => $groupPol, ids => [$object, $groupPol->{group}] &>
 %  }
-% }  
+% }
 </%def>
 
 
@@ -320,9 +333,12 @@ acl <% 'timeHours_' . $id %> time <% $policy->{timeHours} %>
 </%args>
 % if ( @objectsDelayPools ) {
 %     my $pools = @objectsDelayPools;
-delay_pools <% $pools %>
+delay_pools <% $pools + 1%>
+delay_class 1 2
+delay_parameters 1 -1/-1 -1/-1
+delay_access 1 allow eboxlocalnets
 % }
-% my $id = 0;
+% my $id = 1;
 % foreach my $objPool (@objectsDelayPools) {
 %     $id++;
 delay_class <% $id %> <% $objPool->{class} %>

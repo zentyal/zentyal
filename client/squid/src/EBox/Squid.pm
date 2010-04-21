@@ -50,7 +50,7 @@ use EBox;
 use Error qw(:try);
 use HTML::Mason;
 
-
+use EBox::NetWrappers qw(to_network_with_mask);
 
 #Module local conf stuff
 use constant SQUIDCONFFILE => '/etc/squid/squid.conf';
@@ -679,6 +679,7 @@ sub _writeSquidConf
   push @writeParam, ('transparent'  => $trans);
   push @writeParam, ('authNeeded'  => $self->globalPolicyUsesAuth);
   push @writeParam, ('allowAll'  => $self->globalPolicyUsesAllowAll);
+  push @writeParam, ('localnets' => $self->_localnets());
   push @writeParam, ('groupsPolicies' => $groupsPolicies);
   push @writeParam, ('objectsPolicies' => $objectsPolicies);
   push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
@@ -708,6 +709,22 @@ sub _objectsDelayPools
   push (@delayPools, @delayPools2);
 
   return \@delayPools;
+}
+
+
+sub _localnets
+{
+  my ($self) = @_;
+
+  my $network = EBox::Global->modInstance('network');
+  my $ifaces = $network->InternalIfaces();
+  my @localnets= ();
+  for my $iface (@{$ifaces}) {
+    my $net = to_network_with_mask( $network->ifaceNetwork($iface), $network->ifaceNetmask($iface) );
+    push(@localnets, $net);
+  }
+
+  return \@localnets;
 }
 
 
