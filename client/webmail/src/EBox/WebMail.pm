@@ -404,7 +404,7 @@ sub _generateDesKeyFile
     # length of 24 chars
     my @chars = ('a' .. 'z', 'A' .. 'Z', 0 .. 9, 
                  '(', ')', ',', '#',
-                 qw([ ] . : " ! @ $ % ^ & * < > ~ + \ /)
+                 qw([ ] . : " ! @ $ % ^ & * < > ~ + /)
                 );
     my $sizeChars = scalar @chars;
 
