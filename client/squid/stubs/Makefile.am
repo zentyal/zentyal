@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/squid
 
-nobase_Stub_DATA = squid.conf.mas  \
+nobase_Stub_DATA = ebox.squid.upstart.mas squid.conf.mas  \
 	dansguardian.conf.mas dansguardianfN.conf.mas filtergroupslist.mas\
         exceptionsitelist.mas  bannedsitelist.mas  greysitelist.mas \
         bannedurllist.mas exceptionurllist.mas greyurllist.mas \

@@ -1,0 +1,25 @@
+<%args>
+$maxFD
+</%args>
+
+pre-start script
+    invoke-rc.d squid stop || true
+
+% if (defined $maxFD) {
+[ -f /proc/sys/fs/file-max ]||  return 0 
+
+global_file_max=`cat /proc/sys/fs/file-max`
+minimal_file_max=$((<% $maxFD %> + 4096)) 
+
+if [ "$global_file_max" -lt $minimal_file_max ] 
+then
+ echo $minimal_file_max > /proc/sys/fs/file-max
+fi 
+
+ulimit -n <% $maxFD %> 
+% }
+
+end script
+
+exec /usr/sbin/squid -D -sYC -N
+respawn

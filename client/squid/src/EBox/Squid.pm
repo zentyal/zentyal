@@ -612,6 +612,7 @@ sub restartService
 sub _setConf
 {
   my ($self) = @_;
+  $self->_writeSquidUpstart();
   $self->_writeSquidConf();
 
   if ($self->_dgNeeded()) {
@@ -659,6 +660,23 @@ sub notifyAntivirusEnabled
         return;
 
     $self->setAsChanged();
+}
+
+
+sub _writeSquidUpstart
+{
+    my ($self) = @_;
+    my $maxFD = EBox::Config::configkey('max_fd');
+    EBox::Module::Base::writeConfFileNoCheck(
+                         '/etc/event.d/ebox.squid',
+                         'squid/ebox.squid.upstart.mas',
+                         [  maxFD => $maxFD],
+                         {
+                          uid => 0,
+                          gid => 0,
+                          mode => '0644',
+                         }
+                        );
 }
 
 

@@ -14,6 +14,8 @@ HEAD
 	+ Fixed bug in filter profile by object with network addresses
 	+ Customized Dansguardian blocked page template
 	+ Exclude localnetworks from bandwidth throttling
+	+ Added maximum file descriptor option in config file. In the
+	future this have to be integrated in a ebox-wide option.
 1.3.14
 	+ Bugfix: in restartService we assure that all files are in place
 	before restarting the daemons
