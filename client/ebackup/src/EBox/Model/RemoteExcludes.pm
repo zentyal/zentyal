@@ -118,7 +118,7 @@ sub _types
         },
         {
             value => 'exclude_regexp',
-            printableValue => __('Exclude regexp')
+            printableValue => __('Exclude by regular expression')
         },
         {
             value => 'include_path',
