@@ -5,8 +5,10 @@ HEAD
 	non-qualified hostname
 	+ Firewall default policy allows mail system from external
 	networks because is the expected and usual thing
-	+ Bugfix: is not longer allowed a external alias with the same address than
-	a existent account
+	+ Bugfix, is not longer allowed a external alias with the same address
+	than a existent account
+	+ Bugfix, addColumn message_type on mail_message table which should
+	have been added on migration 6
 1.4.2
 	+ Bugfix, mail to local accounts is delivered correctly, changed
 	some parameters to take in account myorigin
