@@ -336,6 +336,8 @@ sub _populateMIMETypes
                     video/x-msvideo video/msvideo application/gzip
                     application/x-gzip application/zip application/compress
                    application/x-compress application/java-vm
+                   application/x-shockwave-flash application/x-shockwave-flash2-preview
+                   application/futuresplash image/vnd.rn-realflash
                   );
 
 
