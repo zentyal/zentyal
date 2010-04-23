@@ -6,6 +6,7 @@ use warnings;
 
 use base qw(EBox::OpenVPN::Daemon);
 
+use EBox::Global;
 use EBox::CA;
 use EBox::FileSystem;
 use EBox::Gettext;
@@ -132,6 +133,9 @@ sub local
     # gconf does not store undef values, with a undef key it returns ''
     if ($iface eq  '_ALL') {
         $iface = undef;
+    } else {
+        my $network = EBox::Global->modInstance('network');
+        $iface = $network->realIface($iface);
     }
 
     return $iface;
@@ -367,6 +371,7 @@ sub localAddress
 
         # translate local iface to a local ip
         my $network = EBox::Global->modInstance('network');
+        $localIface = $network->etherIface($localIface);
         my $ifaceAddresses_r = $network->ifaceAddresses($localIface);
         my @addresses = @{$ifaceAddresses_r};
         if (@addresses == 0) {
@@ -607,7 +612,7 @@ sub ifaceMethodChanged
     return undef;
 }
 
-sub staticIfaceAddressChanged 
+sub staticIfaceAddressChanged
 {
     my ($self) = @_;
     # shoudd do nothing

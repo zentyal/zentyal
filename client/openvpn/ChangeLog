@@ -1,4 +1,5 @@
 HEAD
+	+ Added support for OpenVPN servers to listen only on a PPPoE iface
 	+ Bugfix: Escape some files to make download client bundle work
 	  again if the server name has spaces
 	+ Bugfix: Escape some files to allow spaces in server names
