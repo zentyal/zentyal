@@ -23,6 +23,7 @@ mount -t sysfs none /sys
 mount -t devpts none /dev/pts
 export HOME=/root
 export LC_ALL=C
+export DEBIAN_FRONTEND=noninteractive
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $KEY_ID
 apt-get update
 apt-get install --yes dbus
@@ -39,8 +40,9 @@ apt-get install --yes linux-generic
 #apt-get install --no-install-recommends network-manager
 
 # TODO: Install custom packages here
+apt-get install --yes xorg blackbox firefox gdm
 
-apt-get install ubiquity-frontend-gtk
+apt-get install --yes ubiquity-frontend-gtk
 
 rm /var/lib/dbus/machine-id
 
