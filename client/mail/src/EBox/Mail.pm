@@ -555,7 +555,7 @@ sub _setDovecotConf
     @params = ();
     my $users = EBox::Global->modInstance('users');
 
-    if ($users->mode() eq 'master') {
+    unless ($users->mode() eq 'slave') {
         push(@params, 'ldapport', $self->ldap->ldapConf->{'port'});
     } else {
         push(@params, 'ldapport', $self->ldap->ldapConf->{'translucentport'});
@@ -684,7 +684,7 @@ sub checkMailname
 ' qualified name. Please, define a custom server mailname'
                         );
         } else {
-            $advice = 
+            $advice =
                 __('The mail name must be a fully qualified name');
         }
 
@@ -703,7 +703,7 @@ sub checkMailname
             throw EBox::Exceptions::InvalidData(
                                             data => __('Host mail name'),
                                             value => $mailname,
-                                            advice => 
+                                            advice =>
 __('The mail name and virtual mail domain name are equal')
                                            );
         }

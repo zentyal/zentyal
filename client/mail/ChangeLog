@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix, dovecot ldap auth now works when using AD Sync
 	+ Bugfix, using standard default smtp banner to avoid breaking
 	banner checks. Thanks to ivo@housesbg.com for pointing this
 	+ Now event's mail dispatcher uses configured mailname instead of
