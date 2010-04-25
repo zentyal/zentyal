@@ -9,6 +9,7 @@
     @groupsPolicies
     @notCachedDomains
     $memory
+    $max_object_size
 
     $cacheDirSize
     $dn
@@ -57,11 +58,23 @@ coredump_dir /var/spool/squid
 cache_effective_user proxy
 cache_effective_group proxy
 cache_mem <% $memory %> MB
+maximum_object_size <% $max_object_size %> MB 
 access_log /var/log/squid/access.log squid
 
 cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
 
-
+range_offset_limit -1;
+# windows updates
+refresh_pattern http://.*\.windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://.*\.update\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://download\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://office\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://w?xpsp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://w2ksp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
+# linux updates
+refresh_pattern http://.*\.archive\.ubuntu\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://(ftp|http)[0-9]*\.[a-z]+\.debian\.org/ 0 80% 20160 reload-into-ims
 
 # <EBOX> TAG_ACL #
 auth_param basic realm eBox HTTP proxy

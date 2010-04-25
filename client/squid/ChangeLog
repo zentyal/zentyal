@@ -17,6 +17,10 @@ HEAD
 	+ Added maximum file descriptor option in config file. In the
 	future this have to be integrated in a ebox-wide option.
 	+ Added flash MIME types to default MIME types
+	+ Squid default cache_mem set to 128 MB
+	+ New option to configure maximum_object_size which defaults to 300 MB
+	+ Add refresh_pattern options for Microsoft Windows, Debian and Ubuntu
+	updates
 1.3.14
 	+ Bugfix: in restartService we assure that all files are in place
 	before restarting the daemons

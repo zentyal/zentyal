@@ -344,6 +344,15 @@ sub _cache_mem
     return $cache_mem;
 }
 
+sub _max_object_size
+{
+    my $max_object_size = EBox::Config::configkey('maximum_object_size');
+    ($max_object_size) or
+        throw EBox::Exceptions::External(__('You must set the '.
+                        'max_object_size variable in the ebox configuration file'));
+    return $max_object_size;
+}
+
 # Method: setService
 #
 #       Enable/Disable the proxy service
@@ -702,6 +711,7 @@ sub _writeSquidConf
   push @writeParam, ('objectsPolicies' => $objectsPolicies);
   push @writeParam, ('objectsDelayPools' => $self->_objectsDelayPools);
   push @writeParam, ('memory' => $self->_cache_mem);
+  push @writeParam, ('max_object_size' => $self->_max_object_size);
   push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
   push @writeParam, ('cacheDirSize'     => $cacheDirSize);
   push @writeParam, ('dn'     => $users->ldap()->dn());
