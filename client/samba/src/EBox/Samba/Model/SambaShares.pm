@@ -33,6 +33,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Text;
 use EBox::Types::Union;
+use EBox::Types::Boolean;
 use EBox::Model::ModelManager;
 use EBox::Exceptions::DataInUse;
 use EBox::SambaLdapUser;
@@ -124,6 +125,12 @@ sub _table
                                printableName => __('Comment'),
                                editable      => 1,
                               ),
+       new EBox::Types::Boolean(
+                                   fieldName     => 'guest',
+                                   printableName => __('Guest access'),
+                                   editable      => 1,
+                                   defaultValue  => 0,
+                                   ),
        new EBox::Types::HasMany(
                                fieldName     => 'access',
                                printableName => __('Access control'),

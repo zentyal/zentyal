@@ -253,6 +253,8 @@ sub shares
         }
         $shareConf->{'path'} .= $path->value();
 
+        $shareConf->{'guest'} = $row->elementByName('guest')->value();
+
         for my $subId (@{$row->subModel('access')->ids()}) {
             my $subRow = $row->subModel('access')->row($subId);
             my $userType = $subRow->elementByName('user_group');
@@ -273,7 +275,8 @@ sub shares
             }
         }
 
-        next unless (@readOnly or @readWrite or @administrators);
+        next unless (@readOnly or @readWrite or @administrators
+                     or $shareConf->{'guest'});
 
         $shareConf->{'readOnly'} = join (', ', @readOnly);
         $shareConf->{'readWrite'} = join (', ', @readWrite);

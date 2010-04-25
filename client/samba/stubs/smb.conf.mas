@@ -174,10 +174,15 @@ use EBox::Gettext;
 [<% $share->{share} %>]
  comment = <% $share->{comment} %>
  path = <% $share->{path} %>
+% if ($share->{guest}) {
+ guest only = yes
+ guest ok = yes
+% } else {
  valid users = <% $share->{validUsers} %>
  read list = <% $share->{readOnly} %>
  write list = <% $share->{readWrite} %>
  admin users = <% $share->{administrators} %>
+% }
  read only = No
  browseable = Yes
  force create mode = 0660
