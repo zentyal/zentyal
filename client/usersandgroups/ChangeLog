@@ -1,4 +1,5 @@
 HEAD
+	+ Bug fix: ebox-usersandgroups-reinstall now unconfigures all ldap modules
 	+ Bug fix: updateSchema() returns unless the schema to update is
 	  available
 	+ Bug fix: Set proper owner and permissions when updating a schema

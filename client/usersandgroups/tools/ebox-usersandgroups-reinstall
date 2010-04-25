@@ -7,7 +7,15 @@ read
 
 INSTALLED_MODULES=`dpkg -l | grep 'ebox-' | grep ^ii | cut -d' ' -f3| xargs`
 
-sudo /usr/share/ebox/ebox-unconfigure-module users
+UNCONFIGURE_MODULES="asterisk egroupware jabber mail samba squid webmail users"
+
+for mod in $UNCONFIGURE_MODULES
+do
+    (echo $INSTALLED_MODULES | grep -q $mod) || continue
+    echo "Unconfiguring module $mod..."
+    sudo /usr/share/ebox/ebox-unconfigure-module $mod
+done
+
 sudo apt-get -y --force-yes remove --purge slapd
 sudo rm -rf /var/lib/ldap* /etc/ldap/*
 
