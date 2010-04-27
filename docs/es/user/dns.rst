@@ -198,6 +198,19 @@ cliente para resolver nombres, pero el servidor DNS no los utiliza de ningún
 modo. Si queremos que eBox resuelva nombres utilizando su propio DNS
 debemos configurar 127.0.0.1 como servidor DNS primario en dicha sección.
 
+En el caso que el servidor DNS cache tenga que ser consultado por redes internas
+no configuradas directamente en eBox pero conectadas a través de una regla estática,
+podremos añadirlasen /etc/ebox/80dns.conf::
+
+	# Internal networks allowed to do recursive queries
+	# to eBox DNS caching server. Localnetworks are already
+	# allowed and this settings is intended to allow networks
+	# reachable through static routes.
+	# Example: intnets = 192.168.99.0/24,192.168.98.0/24
+	intnets =
+
+Y reiniciar el módulo DNS para aplicar los cambios.
+
 .. _dns-exercise-ref:
 
 Ejemplo práctico B

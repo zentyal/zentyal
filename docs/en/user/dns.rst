@@ -199,6 +199,19 @@ resolve names, but are not used in any way by the DNS server. If you want
 eBox to resolve names using its own DNS server, you have to set up
 127.0.0.1 as primary DNS server in the aforementioned section.
 
+In case your DNS caching server needs to be reached from internal networks
+not configured directly in eBox but connected through a static rule, you
+can add these network on /etc/ebox/80dns.conf::
+
+	# Internal networks allowed to do recursive queries
+	# to eBox DNS caching server. Localnetworks are already
+	# allowed and this settings is intended to allow networks
+	# reachable through static routes.
+	# Example: intnets = 192.168.99.0/24,192.168.98.0/24
+	intnets =
+
+And restart DNS module to apply changes.
+
 .. _dns-exercise-ref:
 
 Practical example B
