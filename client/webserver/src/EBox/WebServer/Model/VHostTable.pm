@@ -92,25 +92,7 @@ sub validateTypedRow
                                       $vhost,
                                       __(q{Virtual host's name})
                                      );
-      my @parts = split /\./, $vhost;
-      if (@parts  == 1) {
-          throw EBox::Exceptions::InvalidData(
-              data => __(q{Virtual host's name}),
-              value => $vhost,
-              advice => __('The virtual host name supplied is a top domain name')
-             );
-      } elsif (@parts == 2) {
-          throw EBox::Exceptions::InvalidData(
-              data => __(q{Virtual host's name}),
-              value => $vhost,
-              advice => __x(
-'The virtual host name supplied is a domain name' .
-' (Maybe you want instead {url}?).',
-                            url => "www.$vhost")
-             );
-      }
   }
-
 }
 
 # Method: addedRowNotify
@@ -136,25 +118,40 @@ sub addedRowNotify
 
     my $dns = $gl->modInstance('dns');
 
+    my $hostName;
+    my $domain;
     my $vHostName = $row->valueByName('name');
-    my ($hostName, $domain) = ( $vHostName =~ m/^(.*?)\.(.*)/g );
+    my @parts = split(/\./, $vHostName);
+    if (@parts == 1) { # if no dots, only a domain = hostname
+        $hostName = $vHostName;
+        $domain = $vHostName;
+    } else { # if we have dots, last two parts for the domain, rest hostname
+        my $tld = pop(@parts);
+        my $topdomain = pop(@parts);
+        $domain = "$topdomain.$tld";
+        $hostName = join('.', @parts);
+        $hostName = $domain unless $hostName; # if hostName is empty, then = domain
+    }
 
-    return unless (defined($hostName) or ($domain));
+    return unless ($hostName or $domain);
 
     # We try to guess the IP address
     my $ip = $self->_guessWebIPAddr();
     if ( $ip ) {
         if ( none(map { $_->{name} } @{$dns->domains()}) eq $domain ) {
             # The domain does not exist, add domain with hostname-ip mapping
-            my $domainData = {
-                              domain_name => $domain,
-                              hostnames => [
-                                            {
-                                             hostname => $hostName,
-                                             ip       => $ip,
-                                            },
-                                           ],
-                             };
+            my $domainData;
+            if ($hostName eq $domain) {
+                $domainData = {
+                               domain_name => $domain,
+                               ipaddr => $ip,
+                              };
+            } else {
+                $domainData = {
+                               domain_name => $domain,
+                               hostnames => [ { hostname => $hostName, ip => $ip,}, ],
+                              };
+            }
             $dns->addDomain($domainData);
 
             my $noDnsWarning = $self->_dnsNoActiveWarning();
