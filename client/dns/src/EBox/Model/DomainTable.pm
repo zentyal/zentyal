@@ -71,6 +71,7 @@ sub new
 #
 #   (NAMED)
 #   domain_name - String domain's name
+#   ipaddr      - String domain's IP address *(Optional)* Default value: undef
 #   hostnames  - array ref containing the following hash ref in each value:
 #
 #                name        - host's name
