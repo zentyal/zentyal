@@ -99,22 +99,29 @@ sub addDomain
         throw EBox::Exceptions::MissingArgument('name');
     }
 
-   my $id = $self->addRow('domain' => $name);
+    my $id;
+    my $address = delete $params->{'ipaddr'};
 
-   unless (defined($id)) {
-       throw EBox::Exceptions::Internal("Couldn't add domain's name: $name");
-   }
+    if (defined($address)) {
+        $id = $self->addRow('domain' => $name, 'ipaddr' => $address);
+    } else {
+        $id = $self->addRow('domain' => $name);
+    }
 
-   my $hostnames = delete $params->{'hostnames'};
-   return unless (defined($hostnames) and @{$hostnames} > 0);
+    unless (defined($id)) {
+        throw EBox::Exceptions::Internal("Couldn't add domain's name: $name");
+    }
 
-   my $hostnameModel =
+    my $hostnames = delete $params->{'hostnames'};
+    return unless (defined($hostnames) and @{$hostnames} > 0);
+
+    my $hostnameModel =
    		EBox::Model::ModelManager::instance()->model('HostnameTable');
 
-   $hostnameModel->setDirectory($self->{'directory'} . "/$id/hostnames");
-   foreach my $hostname (@{$hostnames}) {
-       $hostnameModel->addHostname(%{$hostname});
-   }
+    $hostnameModel->setDirectory($self->{'directory'} . "/$id/hostnames");
+    foreach my $hostname (@{$hostnames}) {
+        $hostnameModel->addHostname(%{$hostname});
+    }
 }
 
 # Method: addedRowNotify

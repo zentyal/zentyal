@@ -3,6 +3,7 @@ HEAD
 	  regarding to order in the configuration file
 	+ Added support for internal networks allowed to recurse
 	  the caching server.
+	+ Add support for topdomain record in addDomain method.
 1.3.14
 	+ Added migration script for configured modules
 	+ Remove migration scripts 0001_import_to_data_table_model.pl
