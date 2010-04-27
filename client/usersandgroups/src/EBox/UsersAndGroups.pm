@@ -2360,10 +2360,14 @@ sub restoreConfig
 {
     my ($self, $dir) = @_;
 
+
+
+
     unless (mode() eq 'slave') {
         EBox::Sudo::root('/etc/init.d/slapd stop');
         $self->ldap->restoreLdapMaster($dir);
         EBox::Sudo::root('/etc/init.d/slapd start');
+        $self->ldap->clearDNCachedValue();
         for my $user ($self->users()) {
             $self->initUser($user->{'username'});
         }
@@ -2372,6 +2376,7 @@ sub restoreConfig
         $self->ldap->restoreLdapReplica($dir);
         $self->ldap->restoreLdapTranslucent($dir);
         $self->ldap->restoreLdapFrontend($dir);
+        $self->ldap->clearDNCachedValue();
         $self->_manageService('start');
         $self->waitSync();
         for my $user ($self->users()) {

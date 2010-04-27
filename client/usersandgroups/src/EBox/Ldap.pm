@@ -257,6 +257,13 @@ sub dn
     return $self->{dn};
 }
 
+
+sub clearDNCachedValue
+{
+    my ($self) = @_;
+    delete $self->{dn};
+}
+
 # Method: rootDn
 #
 #       Returns the dn of the priviliged user
