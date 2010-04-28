@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: Log exception hits in dansguardian so whitelisted
+	  domains are now logged properly
 	+ Bugfix: Get virtual interfaces as well to set firewall rules
 	+ Bugfix: Make some checks in delay pools to avoid
 	  misconfiguration, do not write the disabled rules and set the

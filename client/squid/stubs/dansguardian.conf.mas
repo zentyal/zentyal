@@ -17,7 +17,7 @@ language = <% $lang %>
 
 loglevel = 3
 
-logexceptionhits = on
+logexceptionhits = 1
 
 # Log File Format
 # 1 = DansGuardian format        2 = CSV-style format
