@@ -296,7 +296,7 @@ sub  _bugreportAction
   my $backup = EBox::Backup->new();
   $self->{errorchain} = "EBox/Bug";
   $self->{downfile} = $backup->makeBugReport();
-  $self->{downfilename} = 'eboxbugreport.tar';
+  $self->{downfilename} = 'ebox-configuration-report.tar';
 }
 
 1;

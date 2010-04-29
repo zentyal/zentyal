@@ -343,12 +343,28 @@ sub _bug # (dir)
         root("/sbin/iptables -t nat -nvL > $dir/iptables-nat");
     } catch EBox::Exceptions::Base with {};
 
-    copy(EBox::Config::logfile, "$dir/ebox.log");
-    copy(EBox::Config::log . "/error.log", "$dir/error.log");
+
+    my $eboxLogDir = EBox::Config::log();
+    # copy files form ebox logs directories...
+    my @dirs = `find $eboxLogDir -maxdepth 1 -type d`;
+    foreach my $subdir (@dirs) {
+        chomp $subdir;
+
+        my $newSubDir = $dir .'/' . basename($subdir) . '.log.d';
+        (-d $newSubDir) or
+            mkdir $newSubDir;
+
+        system "cp -r $subdir/*.log $newSubDir";
+    }
+
+
     copy("/var/log/syslog", "$dir/syslog");
     copy("/var/log/messages", "$dir/messages");
     copy("/var/log/daemon.log", "$dir/daemon.log");
     copy("/var/log/auth.log", "$dir/auth.log");
+    copy("/var/log/mail.log", "$dir/mail.log");
+
+    copy("/etc/apt/sources.list", "$dir/sources.list");
 }
 
 #
@@ -1201,9 +1217,7 @@ sub _modInstancesForRestore
 
   my $anyModuleInBackup = any( @{ $self->_modulesInBackup($archive) } );
 
-
   my @modules =  @{ $self->_configuredModInstances };
-
 
   # if we have a module list we check it and only keep those modules
   if (exists $options{modsToRestore}) {
@@ -1253,6 +1267,9 @@ sub _modInstancesForRestore
                                              );
   return $sortedModules;
 }
+
+
+
 
 sub _modulesInBackup
 {

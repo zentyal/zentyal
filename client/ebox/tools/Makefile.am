@@ -8,7 +8,7 @@ pkgdata_SCRIPTS = ebox-apache2ctl ebox-apache-restart ebox-migrate \
  ebox-set-locale ebox-global-action ebox-unconfigure-module \
  ebox-dbus-launch ebox-update-file-digest ebox-dbus-check \
  ebox-consolidate-reportinfo ebox-gather-reportinfo \
- ebox-purge-logs
+ ebox-purge-logs ebox-configuration-report
 
 MAINTAINERCLEANFILES = Makefile.in
 

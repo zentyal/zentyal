@@ -6,11 +6,18 @@
 use EBox::Gettext;
 </%init>
 <div class='note'>
-	<% __("This page lets you generate a file with information about the state of your system. The file will be useful if you want to report a bug in eBox.")%>
+	<% __("This page lets you generate a file with information about the
+        state of your system. The file will be useful if you want to report a
+        problem or seek support." )%>
 </div>
 <p>
+<div class='warning'>
+	<% __("It may take several minutes to generate the report. Plese be patient." )%>
+</div>
+<p>
+
 <form action='Backup' method='POST'>
 		<input class='inputButton' type='submit' name='bugreport'
-			   value="<% __('Download bug report file') %>" />
+			   value="<% __('Download configuration report file') %>" />
 </form>
 </p>
