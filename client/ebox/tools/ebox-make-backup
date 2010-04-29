@@ -32,7 +32,8 @@ my $optionsOk = GetOptions(
                            'progress-id:i'   => \$progressId,
                            'config-backup'   => \$configBackup,
                            'full-backup'     => \$fullBackup,
-                           'bug-report'      => \$bugReport,
+                           'bug-report|configuration-report'
+                                        => \$bugReport,
                            'description=s'   => \$description,
                            'destination=s'   => \$destination,
                            'remote-backup=s' => \$remoteBackupName,
@@ -130,7 +131,7 @@ sub usage
   Options:
     --config-backup (default backup mode)
     --full-backup
-    --bug-report
+    --configuration-report --bug-report
 
     --description <description>
     --remote-backup <name>
