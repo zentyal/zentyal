@@ -10,6 +10,8 @@ HEAD
 	than a existent account
 	+ Bugfix, addColumn message_type on mail_message table which should
 	have been added on migration 6
+	+ Bugfix: changed location of default sieve script to a directory
+	writable by LDA
 1.4.2
 	+ Bugfix, mail to local accounts is delivered correctly, changed
 	some parameters to take in account myorigin

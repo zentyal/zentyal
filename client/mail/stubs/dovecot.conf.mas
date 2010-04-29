@@ -11,6 +11,10 @@
 
     $antispamPlugin 
 </%args>
+<%init>
+my $sieveDir = "$mailboxesDir/sieve";
+
+</%init>
 ## Dovecot configuration file
 
 # If you're in a hurry, see http://wiki.dovecot.org/QuickConfiguration
@@ -966,8 +970,8 @@ protocol managesieve {
     mail_executable = /usr/lib/dovecot/managesieve
     managesieve_max_line_length = 65536
     managesieve_implementation_string = dovecot
-    sieve = /var/vmail/sieve/%d/%u/sieve-script
-    sieve_storage = /var/vmail/sieve/%d/%u
+    sieve = <% $sieveDir %>/%d/%u/sieve-script
+    sieve_storage = <% $sieveDir %>/%d/%u
 #    mail_debug=yes # uncomment to debug sieve 
 }
 
@@ -1052,11 +1056,11 @@ plugin {
   autosubscribe4 = Drafts
 
   # sieve script location
-  sieve = /var/vmail/sieve/%d/%u/sieve-script
+  sieve = <% $sieveDir %>/%d/%u/sieve-script
   # Path to a global sieve script file, which gets executed ONLY if
   # user's private Sieve script doesn't exist. (e.g. /etc/dovecot/default.sieve)
   # (v1.0.1 and older called this setting "global_script_path")
-  sieve_global_path = /etc/dovecot/default.sieve
+  sieve_global_path = <% $sieveDir %>/default.sieve
 
   # Directory for :global include scripts (for v1.1 include extension)
   #sieve_global_dir =
