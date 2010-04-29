@@ -716,64 +716,6 @@ sub _backupFilterFilesArchive
     return "$dir/filterFiles.tar.gz";
 }
 
-sub dumpConfig
-{
-    my ($self, $dir) = @_;
-
-    if ($self->size() == 0) {
-        # nothing to backup then
-        return;
-    }
-
-    my $toBackupList = EBox::Config::tmp() . 'ebox.domainfilesfilter';
-    open my $fh, ">$toBackupList" or
-        throw EBox::Exceptions::Internal("$!");
-
-    foreach my $id (@{ $self->ids() } ) {
-        my $fileField = $self->row($id)->elementByName('fileList');
-        $fileField->exist() or
-            next;
-        print $fh $fileField->path() . "\n";
-    }
-
-    close $fh or
-         throw EBox::Exceptions::Internal("$!");
-
-
-
-    my $archiveFile = $self->_backupFilterFilesArchive($dir);
-
-    my $tarCmd;
-    if (not -e $archiveFile) {
-        $tarCmd = "tar -C '/' -cf $archiveFile --files-from '$toBackupList'";
-    }else {
-        $tarCmd = "tar -C '/' -rf $archiveFile --files-from '$toBackupList'";
-    }
-
-    EBox::Sudo::root($tarCmd);
-}
-
-
-# this must be only called one time
-sub restoreConfig
-{
-    my ($class, $dir)  = @_;
-
-    my $archiveFile = $class->_backupFilterFilesArchive($dir);
-
-    if (not -r $archiveFile) {
-        return;
-    }
-
-    my $tarCmd = "tar --preserve -C'/' -xf '$archiveFile'";
-    EBox::Sudo::root($tarCmd);
-
-    # a little awkward, to call forth-and-back but we must asuuse that all fitler
-    # profiles files are in order
-    my $squid = EBox::Global->modInstance('squid');
-    $squid->_cleanDomainFilterFiles(orphanedCheck => 1);
-}
-
 
 
 # this two methods ar empty until automatic files backup/restore is fixed

@@ -474,28 +474,7 @@ sub antivirusNeeded
 }
 
 
-sub dumpConfig
-{
-    my ($self, $dir) = @_;
 
-    my $defaultGroup = 1;
-    foreach my $rowId ( @{ $self->ids() } ) {
-      my $row = $self->row($rowId);
-      my $componentName;
-
-      if ($defaultGroup) {
-          $componentName = 'DomainFilterFiles';
-          $defaultGroup = 0;
-      } else {
-          $componentName = 'FilterGroupDomainFilterFiles';
-      }
-
-
-      my $policy = $row->elementByName('filterPolicy')->foreignModelInstance();
-      my $domainFilterFiles = $policy->componentByName($componentName, 1);
-      $domainFilterFiles->dumpConfig($dir);
-  }
-}
 
 # this must be only called one time
 sub restoreConfig

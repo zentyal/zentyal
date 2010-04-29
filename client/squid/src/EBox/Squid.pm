@@ -1281,12 +1281,6 @@ sub _DGLang
 }
 
 
-sub dumpConfig
-{
-    my ($self, $dir) = @_;
-    my $filterGroups = $self->model('FilterGroup');
-    $filterGroups->dumpConfig($dir);
-}
 
 
 
@@ -1294,8 +1288,8 @@ sub dumpConfig
 sub restoreConfig
 {
     my ($self, $dir) = @_;
-    my $filterGroups = $self->model('FilterGroup');
-    $filterGroups->restoreConfig($dir);
+    # to regenerate categorized domain files
+    $self->_cleanDomainFilterFiles(orphanedCheck => 1);
 }
 
 sub report
