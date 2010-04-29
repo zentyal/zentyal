@@ -1282,7 +1282,21 @@ sub _DGLang
 
 
 
+sub aroundDumpConfig
+{
+    my ($self, $dir, %options) = @_;
+    my $bugReport = $options{bug};
+    if (not $bugReport) {
+        $self->SUPER::aroundDumpConfig($dir, %options);
+        return
+    }
 
+    # for bug report we dont save archive files
+    $self->_dump_to_file($dir);
+
+
+    $self->dumpConfig($dir, %options);
+}
 
 
 sub restoreConfig
