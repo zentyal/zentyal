@@ -718,11 +718,4 @@ sub _backupFilterFilesArchive
 
 
 
-# this two methods ar empty until automatic files backup/restore is fixed
-# until then we wil l use the custom dumpConfig and restoreConfig methods
-sub backupFiles
-{}
-
-sub restoreFiles
-{}
 1;
