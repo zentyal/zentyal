@@ -5,11 +5,12 @@ scriptsdir = @DATADIR@/ebox
 scripts_SCRIPTS = ebox-automatic-conf-backup ebox-cronjob-runner ebox-get-cronjobs \
 		  ebox-finish-script-session ebox-notify-job \
 		  ebox-notify-mon-stats ebox-runnerd ebox-start-script-session \
-	          ebox-unsubscribe
+	          ebox-unsubscribe 
+
 
 helperscriptsdir = @DATADIR@/ebox-remoteservices
 
-helperscripts_SCRIPTS = rrd-dumper
+helperscripts_SCRIPTS = rrd-dumper remote-support.keys
 
 MAINTAINERCLEANFILES = Makefile.in
 

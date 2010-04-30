@@ -42,6 +42,7 @@ use EBox::Global;
 use EBox::Service;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Subscription;
+use EBox::RemoteServices::SupportAccess;
 use EBox::Sudo;
 
 # Constants
@@ -111,6 +112,9 @@ sub _setConf
       $self->_establishVPNConnection();
       $self->_startupTasks();
 
+      my $supportAccess = 
+          $self->model('RemoteSupportAccess')->allowRemoteValue();
+      EBox::RemoteServices::SupportAccess->setEnabled($supportAccess);
 }
 
 # Method: _daemons
@@ -192,9 +196,22 @@ sub menu
     $root->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
                                     'name' => 'Subscription',
                                     'text' => __('Control Center'),
-                                    'order' => 80,
+                                    'order' => 800,
                                    )
               );
+
+    
+
+    my $remoteSupportItem = new EBox::Menu::Item(
+              'url'  => 'RemoteServices/View/RemoteSupportAccess',
+              'name' => 'RemoteSupportAccess',
+              'text' => __('Remote support access'),
+                                                );
+        my $folder = new EBox::Menu::Folder('name' => 'EBox',
+                                            'text' => __('System'));
+
+        $folder->add($remoteSupportItem);
+        $root->add($folder);
 }
 
 # Method: modelClasses
@@ -213,6 +230,7 @@ sub modelClasses
     return [
         'EBox::RemoteServices::Model::Subscription',
         'EBox::RemoteServices::Model::AccessSettings',
+        'EBox::RemoteServices::Model::RemoteSupportAccess',
        ];
 
 }
@@ -513,6 +531,8 @@ sub _startupTasks
         $self->st_set_bool('just_subscribed', 0);
     }
 }
+
+
 
 # Return the allowed client CNs regexp
 sub _allowedClientCNRegexp
