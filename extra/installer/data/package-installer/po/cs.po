@@ -8,203 +8,206 @@ msgstr ""
 "Project-Id-Version: ebox-package-installer 1.4\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-04-10 00:29+0200\n"
-"PO-Revision-Date: 2010-04-10 00:29+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-11 10:44+0200\n"
+"Last-Translator: tomas volse <tomas.volse@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: ebox-package-installer:32
 msgid "Firewall, HTTP proxy, traffic shaping, etc."
-msgstr ""
+msgstr "Firewall, HTTP proxy, traffic shaping, etc."
 
 #: ebox-package-installer:33
 msgid "Firewall, IDS, AV, VPN, content & mail filter, etc."
-msgstr ""
+msgstr "Firewall, IDS, AV, VPN, content & mail filter, etc."
 
 #: ebox-package-installer:34
 msgid "DHCP, DNS, NTP, HTTP server, etc."
-msgstr ""
+msgstr "DHCP, DNS, NTP, HTTP server, etc."
 
 #: ebox-package-installer:35
 msgid "File sharing and printing, groupware, etc."
-msgstr ""
+msgstr "Sdílení souborů a tiskáren, groupware, etc."
 
 #: ebox-package-installer:36
 msgid "Mail, Jabber/XMPP, VoIP, etc."
-msgstr ""
+msgstr "Mail, Jabber/XMPP, VoIP, etc."
 
 #: ebox-package-installer:40
 msgid "Window system with local browser"
-msgstr ""
+msgstr "Window system with local browser"
 
 #: ebox-package-installer:41
 msgid "Networking"
-msgstr ""
+msgstr "Sítě"
 
 #: ebox-package-installer:42
 msgid "Firewall and redirections"
-msgstr ""
+msgstr "Firewall a přesměrování"
 
 #: ebox-package-installer:43
 msgid "Traffic shaping"
-msgstr ""
+msgstr "Traffic shaping"
 
 #: ebox-package-installer:44
 msgid "File sharing server and Windows PDC"
-msgstr ""
+msgstr "Server pro sdílení souborů a Windows PDC"
 
 #: ebox-package-installer:45
 msgid "DNS server"
-msgstr ""
+msgstr "DNS server"
 
 #: ebox-package-installer:46
 msgid "DHCP server"
-msgstr ""
+msgstr "DHCP server"
 
 #: ebox-package-installer:47
 msgid "RADIUS server"
-msgstr ""
+msgstr "RADIUS server"
 
 #: ebox-package-installer:48
 msgid "HTTP proxy and content filter"
-msgstr ""
+msgstr "HTTP proxy a filtr obsahu"
 
 #: ebox-package-installer:49
 msgid "LDAP users and groups management"
-msgstr ""
+msgstr "LDAP management uživatelů a skupin"
 
 #: ebox-package-installer:50
 msgid "System monitor with graphs and alerts"
-msgstr ""
+msgstr "Systémový monitor s grafy a upozorněním"
 
 #: ebox-package-installer:51
 msgid "System and eBox package management"
-msgstr ""
+msgstr "Systém a eBox správce balíčků"
 
 #: ebox-package-installer:52
 msgid "Remote or local Backup"
-msgstr ""
+msgstr "Vzdálené nebo místní zálohování"
 
 #: ebox-package-installer:53
 msgid "NTP server"
-msgstr ""
+msgstr "NTP server"
 
 #: ebox-package-installer:54
 msgid "Printing server"
-msgstr ""
+msgstr "Tiskový server"
 
 #: ebox-package-installer:55
 msgid "Jabber/XMPP server"
-msgstr ""
+msgstr "Jabber/XMPP server"
 
 #: ebox-package-installer:56
 msgid "VPN server"
-msgstr ""
+msgstr "VPN server"
 
 #: ebox-package-installer:57
 msgid "HTTP server"
-msgstr ""
+msgstr "HTTP server"
 
 #: ebox-package-installer:58
 msgid "Mail system: SMTP, POP3, IMAP4"
-msgstr ""
+msgstr "Mail systém: SMTP, POP3, IMAP4"
 
 #: ebox-package-installer:59
 msgid "WWW Mail Client"
-msgstr ""
+msgstr "WWW Mail klient"
 
 #: ebox-package-installer:60
 msgid "Antispam, antivirus, transparent POP3 proxy"
-msgstr ""
+msgstr "Antispam, antivirus, transparentní proxy POP3"
 
 #: ebox-package-installer:61
 msgid "Antivirus"
-msgstr ""
+msgstr "Antivirus"
 
 #: ebox-package-installer:62
 msgid "Shared calendar and address book, webmail, etc"
-msgstr ""
+msgstr "Sdílený kalendář a adresář, webmail, atd."
 
 #: ebox-package-installer:63
 msgid "Intrusion Detection System"
-msgstr ""
+msgstr "Intrusion Detection System"
 
 #: ebox-package-installer:65
 msgid "VoIP PBX"
-msgstr ""
+msgstr "VoIP PBX"
 
 #: ebox-package-installer:78
 msgid "eBox Platform Installer"
-msgstr ""
+msgstr "eBox platform instalátor"
 
 #: ebox-package-installer:79
 msgid "Choose package selection method"
-msgstr ""
+msgstr "Vyberte si metodu výběru balíčků"
 
 #: ebox-package-installer:80
 msgid "Select the method that better fits your needs."
-msgstr ""
+msgstr "Vyberte si způsob, který lépe vyhovuje vašim potřebám."
 
 #: ebox-package-installer:81
 msgid "simple"
-msgstr ""
+msgstr "jednoduchý"
 
 #: ebox-package-installer:82
 msgid "Select packages by task"
-msgstr ""
+msgstr "Vybrat balíky podle úkolu"
 
 #: ebox-package-installer:83 ebox-package-installer:94
 msgid "advanced"
-msgstr ""
+msgstr "pokročilý"
 
 #: ebox-package-installer:84
 msgid "Select packages manually"
-msgstr ""
+msgstr "Vybrat balíky ručně"
 
 #: ebox-package-installer:85
 msgid "Select eBox tasks to install"
-msgstr ""
+msgstr "Zvolte eBoxové úkoly k instalaci"
 
 #: ebox-package-installer:86
 msgid "Select one or more tasks:"
-msgstr ""
+msgstr "Vybrat jeden nebo více úkolů:"
 
 #: ebox-package-installer:87
 msgid "Select eBox packages to install"
-msgstr ""
+msgstr "Zvolte eBox balíčky pro instalaci"
 
 #: ebox-package-installer:88
 msgid "Select the desired packages:"
-msgstr ""
+msgstr "Vyberte požadované balíčky:"
 
 #: ebox-package-installer:89
 msgid "Select the type of the server"
-msgstr ""
+msgstr "Vyberte typ serveru"
 
 #: ebox-package-installer:90
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
+"Vyberte si samostatný pokud chcete LDAP replikaci nebo synchronizaci s "
+"Active Directory."
 
 #: ebox-package-installer:91
 msgid "Standalone server"
-msgstr ""
+msgstr "Samostatný server"
 
 #: ebox-package-installer:92
 msgid "Advanced configuration (Master/Slave/AD Sync)"
-msgstr ""
+msgstr "Pokročilé nastavení (Master/Slave/AD Sync)"
 
 #: ebox-package-installer:93
 msgid "standalone"
-msgstr ""
+msgstr "samostatný"
 
 #: ebox-package-installer:95
 msgid "Advanced configuration modes"
-msgstr ""
+msgstr "Pokročilé režimy nastavení"
 
 #: ebox-package-installer:96
 #, perl-brace-format
@@ -213,16 +216,20 @@ msgid ""
 "can find all the information here:\n"
 "{url}"
 msgstr ""
+"Pokud potřebujete pokročilé funkce musíte je nastavit ručně. Zde najdete "
+"všechny informace:\n"
+"{url}"
 
 #: ebox-package-installer:99
 msgid "Select External (WAN) interfaces"
-msgstr ""
+msgstr "Vyberte externí (WAN) rozhraní"
 
 #: ebox-package-installer:100
 msgid ""
 "WARNING: By default you will not be able to access the web interface through "
 "them."
 msgstr ""
+"UPOZORNĚNÍ: Ve výchozím nastavení nebudete mít přístup k webovému rozhraní."
 
 #: ebox-package-installer:101
 msgid ""
@@ -231,48 +238,58 @@ msgid ""
 "the eBox features but it will not act as a gateway unless you add another "
 "network card."
 msgstr ""
+"Nainstalovali jste profil brány. Je ale potřeba mít alespoň dvě síťová "
+"rozhraní a váš počítač má pouze jedno. Stále si můžete vychutnat zbytek eBox "
+"funkcí, ale počítač nebude fungovat jako brána, dokud nepřidáte další "
+"síťovou kartu."
 
 #: ebox-package-installer:102
 msgid "Enter administration user"
-msgstr ""
+msgstr "Zadejte administrátorského uživatele"
 
 #: ebox-package-installer:103
 msgid ""
 "You will need this username to log into the local console or access remotely "
 "by SSH:"
 msgstr ""
+"Budete potřebovat uživatelské jméno k přihlášení do lokální konzole nebo "
+"přístup vzdáleně pomocí SSH:"
 
 #: ebox-package-installer:104
 msgid "Enter administration password"
-msgstr ""
+msgstr "Zadejte administrátorské heslo"
 
 #: ebox-package-installer:105
 msgid ""
 "You will need to use this password to log into the eBox interface or in the "
 "console with the username that you have just entered:"
 msgstr ""
+"Budete muset použít toto heslo pro přihlášení do eBoxového rozhraní nebo do "
+"konzole pomocí uživatelského jména, které jste právě zadali:"
 
 #: ebox-package-installer:106
 msgid "Confirm administration password"
-msgstr ""
+msgstr "Potvrdit administrátorské heslo"
 
 #: ebox-package-installer:108
 msgid "Mail configuration"
-msgstr ""
+msgstr "Mail nastavení"
 
 #: ebox-package-installer:109
 msgid "Enter default virtual mail domain:"
-msgstr ""
+msgstr "Zadejte výchozí virtuální emailovou doménu:"
 
 #: ebox-package-installer:110
 msgid "Installation finished"
-msgstr ""
+msgstr "Instalace dokončena"
 
 #: ebox-package-installer:111
 msgid ""
 "Now you can access the eBox interface browsing the following address from "
 "any computer in your network: "
 msgstr ""
+"Nyní máte přístup k eBoxovému rozhraní přes jeho adresu z jakéhokoliv "
+"počítače v síti:"
 
 #: ebox-package-installer:112
 msgid ""
@@ -280,43 +297,46 @@ msgid ""
 "typical setup. If you really know what you are doing you can install in "
 "expert mode and define your own partition layout."
 msgstr ""
+"Velikost kořenového souborového systému je méně než 2 GB. To není dost pro "
+"typické nastavení. Pokud opravdu víte, co děláte, můžete instalovat v "
+"expertním režimu a definovat svůj vlastní diskový oddíl."
 
 #: ebox-package-installer:142 ebox-package-installer:281
 #: ebox-package-installer:325 ebox-package-installer:377
 #: ebox-package-installer:391
 msgid "Error"
-msgstr ""
+msgstr "Chyba"
 
 #: ebox-package-installer:265
 msgid "Installing eBox packages..."
-msgstr ""
+msgstr "Instaluji eBox balíčky ..."
 
 #: ebox-package-installer:281
 msgid "Installation failed."
-msgstr ""
+msgstr "Instalace se nezdařila."
 
 #: ebox-package-installer:282
 #, perl-brace-format
 msgid "Check {logfile} content to see what happened"
-msgstr ""
+msgstr "Zkontrolujte obsah {logfile} zda je vidět, co se stalo"
 
 #: ebox-package-installer:326
 msgid "You must select at least one package."
-msgstr ""
+msgstr "Musíte vybrat alespoň jeden balíček"
 
 #: ebox-package-installer:350
 msgid "Warning"
-msgstr ""
+msgstr "Varování"
 
 #: ebox-package-installer:377
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Hesla se neshodují"
 
 #: ebox-package-installer:391
 #, perl-brace-format
 msgid "The username '{user}' is reserved. Please choose another."
-msgstr ""
+msgstr "Toto uživatelské jméno '{user}' je vyhrazeno. Prosím, vyberte si jiné."
 
 #: ebox-package-installer:427
 msgid "Preconfiguring eBox packages..."
-msgstr ""
+msgstr "Přednastavuji eBoxové balíčky ..."

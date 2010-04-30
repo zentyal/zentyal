@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-package-installer 1.4\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-03-29 17:00+0200\n"
-"PO-Revision-Date: 2010-03-25 17:29+0100\n"
+"PO-Revision-Date: 2010-04-27 15:54+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,6 @@ msgstr "Aknasüsteem kohaliku veebilehitsejaga"
 
 #  
 #: ebox-package-installer:41
-#, fuzzy
 msgid "Networking"
 msgstr "Võrk"
 
@@ -84,9 +83,8 @@ msgstr "LDAP kasutajate ja gruppide haldamine"
 
 # vbla Süsteemi monitooring graafikute ja hoiatustega, või lihtsalt Süsteemi graafiline monitooring
 #: ebox-package-installer:50
-#, fuzzy
 msgid "System monitor with graphs and alerts"
-msgstr "Graafikute ja hoiatustega süsteemi jälgija"
+msgstr "Süsteemi monitooring graafikute ja hoiatustega"
 
 #: ebox-package-installer:51
 msgid "System and eBox package management"
@@ -153,7 +151,6 @@ msgstr "eBoxi platvormi paigaldaja"
 
 # Määra meetod pakettide valikuks
 #: ebox-package-installer:79
-#, fuzzy
 msgid "Choose package selection method"
 msgstr "Määra paketivaliku meetod"
 
@@ -181,11 +178,11 @@ msgstr "Vali paketid käsitsi"
 # ? tööülesanded
 #: ebox-package-installer:85
 msgid "Select eBox tasks to install"
-msgstr "Vali paigaldamiseks eBoxi ülesanded"
+msgstr "Vali paigaldamiseks eBoxi tööülesanded"
 
 #: ebox-package-installer:86
 msgid "Select one or more tasks:"
-msgstr "Vali üks või rohkem ülesandeid:"
+msgstr "Vali üks või rohkem tööülesandeid:"
 
 #: ebox-package-installer:87
 msgid "Select eBox packages to install"
@@ -201,13 +198,12 @@ msgstr "Vali serveri tüüp"
 
 # Vali eraldiseisev, kui sa ei soovi kasutada LDAP dubleerimist või Active Directory sünkroniseerimist.
 #: ebox-package-installer:90
-#, fuzzy
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
-"Vali eraldiseisev, kui sa ei soovi LDAP dubleerimist või Active Directory "
-"sünkroniseerimist."
+"Vali eraldiseisev, kui ei soovi LDAP dubleerimist või Active Directory "
+"sünkroniseerimist kasutada."
 
 #: ebox-package-installer:91
 msgid "Standalone server"
