@@ -458,7 +458,7 @@ sub tmpFileList
 
 # Method: remoteListFiles
 #
-#  Return the list of the remote backuped files
+#  Return the list of the remote backed up files
 #
 # Returns:
 #
