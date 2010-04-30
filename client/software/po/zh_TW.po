@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:55+0200\n"
+"POT-Creation-Date: 2010-04-30 12:57+0200\n"
 "PO-Revision-Date: 2009-08-04 08:15+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -42,29 +42,29 @@ msgstr "從您設置的 apt 來源下載可用的 eBox 軟體"
 msgid "Enable cron script to download updates"
 msgstr "啟用排程 script 來下載更新"
 
-#: src/EBox/Software.pm:168 src/EBox/Software.pm:401
+#: src/EBox/Software.pm:168 src/EBox/Software.pm:407
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr ""
 
-#: src/EBox/Software.pm:212 src/EBox/Software.pm:435
+#: src/EBox/Software.pm:212 src/EBox/Software.pm:441
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
 
-#: src/EBox/Software.pm:545
+#: src/EBox/Software.pm:551
 msgid "eBox Components"
 msgstr "eBox 元件"
 
-#: src/EBox/Software.pm:547
+#: src/EBox/Software.pm:553
 msgid "System Updates"
 msgstr "系統更新"
 
-#: src/EBox/Software.pm:549
+#: src/EBox/Software.pm:555
 msgid "Automatic Updates"
 msgstr "自動更新"
 
-#: src/EBox/Software.pm:640
+#: src/EBox/Software.pm:646
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"

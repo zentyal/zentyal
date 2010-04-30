@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"POT-Creation-Date: 2010-04-30 12:43+0200\n"
 "PO-Revision-Date: 2010-01-31 18:01+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: \n"
@@ -78,7 +78,7 @@ msgstr "Se debe proporcionar un nombre para el directorio compartido"
 msgid "sharing resource"
 msgstr "recurso compartido"
 
-#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1213 src/EBox/Samba.pm:1245
+#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248
 msgid "group"
 msgstr "grupo"
 
@@ -112,7 +112,7 @@ msgid "path"
 msgstr "ruta"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
-#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/SambaShares.pm:154
 msgid "share"
 msgstr "recurso compartido"
 
@@ -191,48 +191,52 @@ msgstr "En esta página puedes establecer la configuración general de Samba"
 msgid "All users"
 msgstr "Todos los usuarios"
 
-#: src/EBox/Samba/Model/SambaShares.pm:98
+#: src/EBox/Samba/Model/SambaShares.pm:99
 msgid "Share name"
 msgstr "Nombre del recurso compartido"
 
-#: src/EBox/Samba/Model/SambaShares.pm:104
+#: src/EBox/Samba/Model/SambaShares.pm:105
 msgid "Share path"
 msgstr "Ruta del recurso compartido"
 
-#: src/EBox/Samba/Model/SambaShares.pm:110
+#: src/EBox/Samba/Model/SambaShares.pm:111
 msgid "Directory under eBox"
 msgstr "Directorio bajo eBox"
 
-#: src/EBox/Samba/Model/SambaShares.pm:116
+#: src/EBox/Samba/Model/SambaShares.pm:117
 msgid "File system path"
 msgstr "Ruta del sistema de ficheros"
 
-#: src/EBox/Samba/Model/SambaShares.pm:124
+#: src/EBox/Samba/Model/SambaShares.pm:125
 msgid "Comment"
 msgstr "Comentario"
 
-#: src/EBox/Samba/Model/SambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:130
+msgid "Guest access"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:136
 msgid "Access control"
 msgstr "Control de acceso"
 
-#: src/EBox/Samba/Model/SambaShares.pm:139
+#: src/EBox/Samba/Model/SambaShares.pm:146
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:190
 msgid "Shares"
 msgstr "Directorios compartidos"
 
-#: src/EBox/Samba/Model/SambaShares.pm:177
+#: src/EBox/Samba/Model/SambaShares.pm:184
 msgid "Path not allowed"
 msgstr "Ruta no permitida"
 
-#: src/EBox/Samba/Model/SambaShares.pm:185
+#: src/EBox/Samba/Model/SambaShares.pm:192
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr "Sólo se permiten caracteres alfanúmericos y para una ruta"
 
-#: src/EBox/Samba/Model/SambaShares.pm:219
+#: src/EBox/Samba/Model/SambaShares.pm:226
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "El directorio no está vacío. ¿Estás seguro que quieres borrarlo?"
 
-#: src/EBox/Samba/Model/SambaShares.pm:309
+#: src/EBox/Samba/Model/SambaShares.pm:316
 #, perl-brace-format
 msgid ""
 "{openit}Directory under eBox{closeit} will automatically create the share."
@@ -244,7 +248,7 @@ msgstr ""
 "{closeit} permitirá compartir un directorio existente en su sistema de "
 "archivos"
 
-#: src/EBox/Samba/Model/SambaShares.pm:322
+#: src/EBox/Samba/Model/SambaShares.pm:329
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
@@ -269,8 +273,8 @@ msgstr "Administrador"
 msgid "User/Group"
 msgstr "Usuario/Grupo"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:127 src/EBox/Samba.pm:644
-#: src/EBox/Samba.pm:1659 src/templates/ajax/viewer/shareViewer.mas:8
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:127 src/EBox/Samba.pm:647
+#: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
 msgstr "Usuario"
 
@@ -356,7 +360,7 @@ msgid "User homes"
 msgstr "Directorios personales de usuario"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
-#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:623
+#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:626
 #: src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "Recurso"
@@ -475,123 +479,123 @@ msgstr "Para añadir soporte de quota a la partición /home"
 msgid "To set the antivirus settings for Samba"
 msgstr "Para modificar las opciones de antivirus para Samba"
 
-#: src/EBox/Samba.pm:623 src/EBox/Samba.pm:644
+#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Source machine"
 msgstr "Máquina origen"
 
-#: src/EBox/Samba.pm:623 src/EBox/Samba.pm:644
+#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Connected since"
 msgstr "Conectado desde"
 
-#: src/EBox/Samba.pm:664
+#: src/EBox/Samba.pm:667
 msgid "Shares by user"
 msgstr "Directorios compartidos por usuario"
 
-#: src/EBox/Samba.pm:669
+#: src/EBox/Samba.pm:672
 msgid "Users by share"
 msgstr "Usuarios por directorio compartido"
 
-#: src/EBox/Samba.pm:1209 src/EBox/Samba.pm:1231
+#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
 msgid "user"
 msgstr "usuario"
 
-#: src/EBox/Samba.pm:1218
+#: src/EBox/Samba.pm:1221
 msgid "printer"
 msgstr "impresora"
 
-#: src/EBox/Samba.pm:1326
+#: src/EBox/Samba.pm:1329
 msgid "quota"
 msgstr "cuota"
 
-#: src/EBox/Samba.pm:1639
+#: src/EBox/Samba.pm:1642
 msgid "User's files"
 msgstr "Ficheros del usuario"
 
-#: src/EBox/Samba.pm:1641
+#: src/EBox/Samba.pm:1644
 msgid "Group's files"
 msgstr "Ficheros del grupo"
 
-#: src/EBox/Samba.pm:1657 src/EBox/Samba.pm:1677 src/EBox/Samba.pm:1687
+#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
 msgid "Date"
 msgstr "Fecha"
 
-#: src/EBox/Samba.pm:1658 src/EBox/Samba.pm:1678
+#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
 msgid "Client address"
 msgstr "Dirección del cliente"
 
-#: src/EBox/Samba.pm:1660
+#: src/EBox/Samba.pm:1663
 msgid "Action"
 msgstr "Acción"
 
-#: src/EBox/Samba.pm:1661
+#: src/EBox/Samba.pm:1664
 msgid "Resource"
 msgstr "Recurso"
 
-#: src/EBox/Samba.pm:1665
+#: src/EBox/Samba.pm:1668
 msgid "Connect"
 msgstr "Conexión"
 
-#: src/EBox/Samba.pm:1666
+#: src/EBox/Samba.pm:1669
 msgid "Access to directory"
 msgstr "Acceso a directorio"
 
-#: src/EBox/Samba.pm:1667
+#: src/EBox/Samba.pm:1670
 msgid "Read file"
 msgstr "Lectura de fichero"
 
-#: src/EBox/Samba.pm:1668
+#: src/EBox/Samba.pm:1671
 msgid "Write file"
 msgstr "Escritura de fichero"
 
-#: src/EBox/Samba.pm:1669
+#: src/EBox/Samba.pm:1672
 msgid "Disconnect"
 msgstr "Desconexión"
 
-#: src/EBox/Samba.pm:1670
+#: src/EBox/Samba.pm:1673
 msgid "Remove"
 msgstr "Borrar"
 
-#: src/EBox/Samba.pm:1671
+#: src/EBox/Samba.pm:1674
 msgid "Create directory"
 msgstr "Crear directorio"
 
-#: src/EBox/Samba.pm:1672
+#: src/EBox/Samba.pm:1675
 msgid "Remove directory"
 msgstr "Borrar directorio"
 
-#: src/EBox/Samba.pm:1673
+#: src/EBox/Samba.pm:1676
 msgid "Rename"
 msgstr "Renombrar"
 
-#: src/EBox/Samba.pm:1679 src/EBox/Samba.pm:1688
+#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
 msgid "File name"
 msgstr "Fichero"
 
-#: src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1684
+#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
 msgid "Virus"
 msgstr "Virus"
 
-#: src/EBox/Samba.pm:1681
+#: src/EBox/Samba.pm:1684
 msgid "Type"
 msgstr "Tipo"
 
-#: src/EBox/Samba.pm:1689
+#: src/EBox/Samba.pm:1692
 msgid "Quarantined file name"
 msgstr "Fichero en cuarentena"
 
-#: src/EBox/Samba.pm:1690 src/EBox/Samba.pm:1693
+#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
 msgid "Quarantine"
 msgstr "Cuarentena"
 
-#: src/EBox/Samba.pm:1696
+#: src/EBox/Samba.pm:1699
 msgid "Samba access"
 msgstr "Accesos a Samba"
 
-#: src/EBox/Samba.pm:1707
+#: src/EBox/Samba.pm:1710
 msgid "Samba virus"
 msgstr "Virus en Samba"
 
-#: src/EBox/Samba.pm:1718
+#: src/EBox/Samba.pm:1721
 msgid "Samba quarantine"
 msgstr "Cuarentena de Samba"
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"POT-Creation-Date: 2010-04-30 12:56+0200\n"
 "PO-Revision-Date: 2010-01-30 08:39+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
@@ -55,7 +55,7 @@ msgstr "azione su interfaccia virtuale"
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:807 src/EBox/Network.pm:812
 #: src/EBox/Network.pm:1123 src/EBox/Network.pm:1144 src/EBox/Network.pm:2737
 #: src/EBox/Network.pm:2753 src/EBox/Network.pm:2779 src/EBox/Network.pm:2910
-#: src/EBox/Network.pm:3049 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Network.pm:3048 src/EBox/Model/GatewayTable.pm:198
 #: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:106
 #: src/templates/ifaces.mas:253
 msgid "IP address"
@@ -76,11 +76,11 @@ msgstr "Diagnosi rete"
 msgid "Host"
 msgstr "Host"
 
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2993
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2992
 msgid "host name"
 msgstr "nome host"
 
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3086
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3085
 msgid "Network Interfaces"
 msgstr "Interfacce di rete"
 
@@ -100,12 +100,12 @@ msgid ""
 "failed, max={maxFailRatio}%)"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Gateways.pm:346
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3119
+#: src/EBox/Event/Watcher/Gateways.pm:366
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3118
 msgid "WAN Failover"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Gateways.pm:362
+#: src/EBox/Event/Watcher/Gateways.pm:382
 msgid "Check if gateways are connected or disconnected."
 msgstr "Controlla se i gateway sono connessi"
 
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Domain Name Server Resolver"
 msgstr "Name server resolver"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3117
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3116
 #, fuzzy
 msgid "Balance Traffic"
 msgstr "Bilancia traffico"
@@ -150,7 +150,7 @@ msgstr ""
 "aggiungerli da <a href=\"/ebox/Network/View/GatewayDataTable\">qui</"
 "a>all'inizio"
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3038
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3037
 msgid "Status"
 msgstr "Stato"
 
@@ -238,7 +238,7 @@ msgstr "Traffico totale per {service}"
 msgid "Traffic rate from {src} for {service}"
 msgstr "Traffico totale da {src} per {service}"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3102
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3101
 #: src/EBox/Model/StaticRoute.pm:153
 msgid "Network"
 msgstr "Rete"
@@ -365,47 +365,47 @@ msgstr ""
 msgid "Host name"
 msgstr "Nome host"
 
-#: src/EBox/Network.pm:3023
+#: src/EBox/Network.pm:3022
 msgid "down"
 msgstr "giù"
 
-#: src/EBox/Network.pm:3029
+#: src/EBox/Network.pm:3028
 msgid "up"
 msgstr "su"
 
-#: src/EBox/Network.pm:3033
+#: src/EBox/Network.pm:3032
 msgid "link ok"
 msgstr "collegamento ok"
 
-#: src/EBox/Network.pm:3035
+#: src/EBox/Network.pm:3034
 msgid "no link"
 msgstr "nessun collegamento"
 
-#: src/EBox/Network.pm:3043
+#: src/EBox/Network.pm:3042
 msgid "MAC address"
 msgstr "indirizzo MAC"
 
-#: src/EBox/Network.pm:3060
+#: src/EBox/Network.pm:3059
 msgid "Tx bytes"
 msgstr "Tx bytes"
 
-#: src/EBox/Network.pm:3069
+#: src/EBox/Network.pm:3068
 msgid "Rx bytes"
 msgstr "Rx bytes"
 
-#: src/EBox/Network.pm:3107
+#: src/EBox/Network.pm:3106
 msgid "Interfaces"
 msgstr "Interfacce"
 
-#: src/EBox/Network.pm:3113 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3112 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "Gateway"
 
-#: src/EBox/Network.pm:3115 src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:3114 src/EBox/Model/StaticRoute.pm:177
 msgid "Static Routes"
 msgstr "Route statiche"
 
-#: src/EBox/Network.pm:3121
+#: src/EBox/Network.pm:3120
 #, fuzzy
 msgid "Diagnostic Tools"
 msgstr "Diagnosi"

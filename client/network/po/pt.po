@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"POT-Creation-Date: 2010-04-30 12:56+0200\n"
 "PO-Revision-Date: 2010-04-16 18:28+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -54,7 +54,7 @@ msgstr "Acção do interface virtual"
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:807 src/EBox/Network.pm:812
 #: src/EBox/Network.pm:1123 src/EBox/Network.pm:1144 src/EBox/Network.pm:2737
 #: src/EBox/Network.pm:2753 src/EBox/Network.pm:2779 src/EBox/Network.pm:2910
-#: src/EBox/Network.pm:3049 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Network.pm:3048 src/EBox/Model/GatewayTable.pm:198
 #: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:106
 #: src/templates/ifaces.mas:253
 msgid "IP address"
@@ -74,11 +74,11 @@ msgstr "Ferramentas de diagnóstico de rede"
 msgid "Host"
 msgstr "Hospedeiro"
 
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2993
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2992
 msgid "host name"
 msgstr "nome do hospedeiro"
 
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3086
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3085
 msgid "Network Interfaces"
 msgstr "Interfaces de rede"
 
@@ -100,12 +100,12 @@ msgstr ""
 "Gateway {gw} desligada. ({failRatio}% of '{type}' teste para o hospedeiro "
 "'{host}' falharam, max={maxFailRatio}%)"
 
-#: src/EBox/Event/Watcher/Gateways.pm:346
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3119
+#: src/EBox/Event/Watcher/Gateways.pm:366
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3118
 msgid "WAN Failover"
 msgstr "Ligação à WAN inexistente"
 
-#: src/EBox/Event/Watcher/Gateways.pm:362
+#: src/EBox/Event/Watcher/Gateways.pm:382
 msgid "Check if gateways are connected or disconnected."
 msgstr "Verifica se as gateways estão ligadas ou desligadas"
 
@@ -133,7 +133,7 @@ msgstr ""
 msgid "Domain Name Server Resolver"
 msgstr "Servidor de resolução de nomes"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3117
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3116
 msgid "Balance Traffic"
 msgstr "Equilíbrio de tráfego"
 
@@ -146,7 +146,7 @@ msgstr ""
 "Pode adicioná-las em <a href=\"/ebox/Network/View/GatewayTable\">aqui</"
 "a>primeiro"
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3038
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3037
 msgid "Status"
 msgstr "Estado"
 
@@ -234,7 +234,7 @@ msgstr "Taxa total de tráfego para {service}"
 msgid "Traffic rate from {src} for {service}"
 msgstr "Taxa de tráfego de {src} para {service}"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3102
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3101
 #: src/EBox/Model/StaticRoute.pm:153
 msgid "Network"
 msgstr "Rede"
@@ -355,47 +355,47 @@ msgstr ""
 msgid "Host name"
 msgstr "Nome do hospedeiro"
 
-#: src/EBox/Network.pm:3023
+#: src/EBox/Network.pm:3022
 msgid "down"
 msgstr "para baixo"
 
-#: src/EBox/Network.pm:3029
+#: src/EBox/Network.pm:3028
 msgid "up"
 msgstr "para cima"
 
-#: src/EBox/Network.pm:3033
+#: src/EBox/Network.pm:3032
 msgid "link ok"
 msgstr "ligação correcta"
 
-#: src/EBox/Network.pm:3035
+#: src/EBox/Network.pm:3034
 msgid "no link"
 msgstr "sem ligação"
 
-#: src/EBox/Network.pm:3043
+#: src/EBox/Network.pm:3042
 msgid "MAC address"
 msgstr "Endereço MAC"
 
-#: src/EBox/Network.pm:3060
+#: src/EBox/Network.pm:3059
 msgid "Tx bytes"
 msgstr "Transmissão bytes"
 
-#: src/EBox/Network.pm:3069
+#: src/EBox/Network.pm:3068
 msgid "Rx bytes"
 msgstr "Recepção Bytes"
 
-#: src/EBox/Network.pm:3107
+#: src/EBox/Network.pm:3106
 msgid "Interfaces"
 msgstr "Interfaces"
 
-#: src/EBox/Network.pm:3113 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3112 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "Gateways"
 
-#: src/EBox/Network.pm:3115 src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:3114 src/EBox/Model/StaticRoute.pm:177
 msgid "Static Routes"
 msgstr "Rotas estáticas"
 
-#: src/EBox/Network.pm:3121
+#: src/EBox/Network.pm:3120
 msgid "Diagnostic Tools"
 msgstr "Ferramentas de diagnostico"
 
@@ -774,7 +774,8 @@ msgstr ""
 
 #: src/EBox/Model/GatewayTable.pm:344
 msgid "Automatically added gateways can not be manually deleted"
-msgstr "Gateways adicionadas automaticamente não podem ser apagadas manualmente"
+msgstr ""
+"Gateways adicionadas automaticamente não podem ser apagadas manualmente"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:55+0200\n"
+"POT-Creation-Date: 2010-04-30 12:57+0200\n"
 "PO-Revision-Date: 2010-03-24 20:48+0100\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -46,29 +46,29 @@ msgstr ""
 msgid "Enable cron script to download updates"
 msgstr "Luba cron skript uuenduste allalaadimiseks"
 
-#: src/EBox/Software.pm:168 src/EBox/Software.pm:401
+#: src/EBox/Software.pm:168 src/EBox/Software.pm:407
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr "Pakettide paigaldamiseks peab olema lubatud tarkvara haldamise moodul"
 
-#: src/EBox/Software.pm:212 src/EBox/Software.pm:435
+#: src/EBox/Software.pm:212 src/EBox/Software.pm:441
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr "Pakettide eemaldamiseks peab olema lubatud tarkvara haldamise moodul"
 
-#: src/EBox/Software.pm:545
+#: src/EBox/Software.pm:551
 msgid "eBox Components"
 msgstr "eBoxi komponendid"
 
-#: src/EBox/Software.pm:547
+#: src/EBox/Software.pm:553
 msgid "System Updates"
 msgstr "Süsteemiuuendused"
 
-#: src/EBox/Software.pm:549
+#: src/EBox/Software.pm:555
 msgid "Automatic Updates"
 msgstr "Automaatne uuendamine"
 
-#: src/EBox/Software.pm:640
+#: src/EBox/Software.pm:646
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"

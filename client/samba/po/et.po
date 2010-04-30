@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"POT-Creation-Date: 2010-04-30 12:43+0200\n"
 "PO-Revision-Date: 2010-04-22 20:05+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -75,7 +75,7 @@ msgstr "Jagamiseks peab olema määratud nimi"
 msgid "sharing resource"
 msgstr "jagatav ressurss"
 
-#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1213 src/EBox/Samba.pm:1245
+#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248
 msgid "group"
 msgstr "grupp"
 
@@ -109,7 +109,7 @@ msgid "path"
 msgstr "asukoht"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
-#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/SambaShares.pm:154
 #, fuzzy
 msgid "share"
 msgstr "jagatav ressurss"
@@ -195,49 +195,53 @@ msgstr "Sellel leheküljel saad määrata erinevaid üldiseid Samba seadistusi"
 msgid "All users"
 msgstr "Kõik kasutajad"
 
-#: src/EBox/Samba/Model/SambaShares.pm:98
+#: src/EBox/Samba/Model/SambaShares.pm:99
 #, fuzzy
 msgid "Share name"
 msgstr "Jagamise nimi"
 
-#: src/EBox/Samba/Model/SambaShares.pm:104
+#: src/EBox/Samba/Model/SambaShares.pm:105
 msgid "Share path"
 msgstr "Jagamise asukoht"
 
-#: src/EBox/Samba/Model/SambaShares.pm:110
+#: src/EBox/Samba/Model/SambaShares.pm:111
 msgid "Directory under eBox"
 msgstr "eBoxi all olev kataloog"
 
-#: src/EBox/Samba/Model/SambaShares.pm:116
+#: src/EBox/Samba/Model/SambaShares.pm:117
 msgid "File system path"
 msgstr "Failisüsteemi asukoht"
 
-#: src/EBox/Samba/Model/SambaShares.pm:124
+#: src/EBox/Samba/Model/SambaShares.pm:125
 msgid "Comment"
 msgstr "Kommentaar"
 
-#: src/EBox/Samba/Model/SambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:130
+msgid "Guest access"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:136
 msgid "Access control"
 msgstr "Ligipääsu kontroll"
 
-#: src/EBox/Samba/Model/SambaShares.pm:139
+#: src/EBox/Samba/Model/SambaShares.pm:146
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:190
 msgid "Shares"
 msgstr "Jagamised"
 
-#: src/EBox/Samba/Model/SambaShares.pm:177
+#: src/EBox/Samba/Model/SambaShares.pm:184
 msgid "Path not allowed"
 msgstr "Asukoht ei ole lubatud"
 
-#: src/EBox/Samba/Model/SambaShares.pm:185
+#: src/EBox/Samba/Model/SambaShares.pm:192
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr "Ainult tähted, numbrid ja _ on asukoha jaoks lubatud"
 
-#: src/EBox/Samba/Model/SambaShares.pm:219
+#: src/EBox/Samba/Model/SambaShares.pm:226
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "Kataloog ei ole tühi. Oled sa kindel, et tahad seda eemaldada?"
 
-#: src/EBox/Samba/Model/SambaShares.pm:309
+#: src/EBox/Samba/Model/SambaShares.pm:316
 #, fuzzy, perl-brace-format
 msgid ""
 "{openit}Directory under eBox{closeit} will automatically create the share."
@@ -249,7 +253,7 @@ msgstr ""
 "sul jagada olemasolevat kataloogi failisüsteemi piires."
 
 # "fine-grained" ?
-#: src/EBox/Samba/Model/SambaShares.pm:322
+#: src/EBox/Samba/Model/SambaShares.pm:329
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
@@ -275,8 +279,8 @@ msgstr "Administraator"
 msgid "User/Group"
 msgstr "Kasutaja/grupp"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:127 src/EBox/Samba.pm:644
-#: src/EBox/Samba.pm:1659 src/templates/ajax/viewer/shareViewer.mas:8
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:127 src/EBox/Samba.pm:647
+#: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
 msgstr "Kasutaja"
 
@@ -363,7 +367,7 @@ msgid "User homes"
 msgstr "Kasutajate kodukataloogid"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
-#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:623
+#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:626
 #: src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "Jagamine"
@@ -484,123 +488,123 @@ msgstr "Kvoodi toe lisamiseks /home partitsioonile"
 msgid "To set the antivirus settings for Samba"
 msgstr "Samba viirusetõrje seadistuste määramiseks"
 
-#: src/EBox/Samba.pm:623 src/EBox/Samba.pm:644
+#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Source machine"
 msgstr "Saatja masin"
 
-#: src/EBox/Samba.pm:623 src/EBox/Samba.pm:644
+#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Connected since"
 msgstr "Ühendatud alates"
 
-#: src/EBox/Samba.pm:664
+#: src/EBox/Samba.pm:667
 msgid "Shares by user"
 msgstr "Jagamisi kasutaja järgi"
 
-#: src/EBox/Samba.pm:669
+#: src/EBox/Samba.pm:672
 msgid "Users by share"
 msgstr "Kasutajaid jagamiste järgi"
 
-#: src/EBox/Samba.pm:1209 src/EBox/Samba.pm:1231
+#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
 msgid "user"
 msgstr "kasutaja"
 
-#: src/EBox/Samba.pm:1218
+#: src/EBox/Samba.pm:1221
 msgid "printer"
 msgstr "printer"
 
-#: src/EBox/Samba.pm:1326
+#: src/EBox/Samba.pm:1329
 msgid "quota"
 msgstr "kvoot"
 
-#: src/EBox/Samba.pm:1639
+#: src/EBox/Samba.pm:1642
 msgid "User's files"
 msgstr "Kasutajate failid"
 
-#: src/EBox/Samba.pm:1641
+#: src/EBox/Samba.pm:1644
 msgid "Group's files"
 msgstr "Gruppide failid"
 
-#: src/EBox/Samba.pm:1657 src/EBox/Samba.pm:1677 src/EBox/Samba.pm:1687
+#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
 msgid "Date"
 msgstr "Kuupäev"
 
-#: src/EBox/Samba.pm:1658 src/EBox/Samba.pm:1678
+#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
 msgid "Client address"
 msgstr "Kliendi aadress"
 
-#: src/EBox/Samba.pm:1660
+#: src/EBox/Samba.pm:1663
 msgid "Action"
 msgstr "Toiming"
 
-#: src/EBox/Samba.pm:1661
+#: src/EBox/Samba.pm:1664
 msgid "Resource"
 msgstr "Ressurss"
 
-#: src/EBox/Samba.pm:1665
+#: src/EBox/Samba.pm:1668
 msgid "Connect"
 msgstr "Ühenda"
 
-#: src/EBox/Samba.pm:1666
+#: src/EBox/Samba.pm:1669
 msgid "Access to directory"
 msgstr "Kataloogile ligipääs"
 
-#: src/EBox/Samba.pm:1667
+#: src/EBox/Samba.pm:1670
 msgid "Read file"
 msgstr "Loe faili"
 
-#: src/EBox/Samba.pm:1668
+#: src/EBox/Samba.pm:1671
 msgid "Write file"
 msgstr "Kirjuta faili"
 
-#: src/EBox/Samba.pm:1669
+#: src/EBox/Samba.pm:1672
 msgid "Disconnect"
 msgstr "Katkesta ühendus"
 
-#: src/EBox/Samba.pm:1670
+#: src/EBox/Samba.pm:1673
 msgid "Remove"
 msgstr "Eemalda"
 
-#: src/EBox/Samba.pm:1671
+#: src/EBox/Samba.pm:1674
 msgid "Create directory"
 msgstr "Loo kataloog"
 
-#: src/EBox/Samba.pm:1672
+#: src/EBox/Samba.pm:1675
 msgid "Remove directory"
 msgstr "Eemalda kataloog"
 
-#: src/EBox/Samba.pm:1673
+#: src/EBox/Samba.pm:1676
 msgid "Rename"
 msgstr "Muuda nime"
 
-#: src/EBox/Samba.pm:1679 src/EBox/Samba.pm:1688
+#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
 msgid "File name"
 msgstr "Faili nimi"
 
-#: src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1684
+#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
 msgid "Virus"
 msgstr "Viirus"
 
-#: src/EBox/Samba.pm:1681
+#: src/EBox/Samba.pm:1684
 msgid "Type"
 msgstr "Tüüp"
 
-#: src/EBox/Samba.pm:1689
+#: src/EBox/Samba.pm:1692
 msgid "Quarantined file name"
 msgstr "Karantiinis oleva faili nimi"
 
-#: src/EBox/Samba.pm:1690 src/EBox/Samba.pm:1693
+#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
 msgid "Quarantine"
 msgstr "Karantiin"
 
-#: src/EBox/Samba.pm:1696
+#: src/EBox/Samba.pm:1699
 msgid "Samba access"
 msgstr "Samba ligipääs"
 
-#: src/EBox/Samba.pm:1707
+#: src/EBox/Samba.pm:1710
 msgid "Samba virus"
 msgstr "Samba viirus"
 
-#: src/EBox/Samba.pm:1718
+#: src/EBox/Samba.pm:1721
 msgid "Samba quarantine"
 msgstr "Samba karantiin"
 

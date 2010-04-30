@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 21:08+0100\n"
+"POT-Creation-Date: 2010-04-30 12:59+0200\n"
 "PO-Revision-Date: 2010-04-11 12:54+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -21,33 +21,37 @@ msgstr ""
 msgid "HyperText Transport Protocol"
 msgstr "Hüperteksti edastusprotokoll (HTTP)"
 
-#: src/EBox/WebServer.pm:77 src/EBox/WebServer/Composite/General.pm:81
+#: src/EBox/WebServer.pm:79 src/EBox/WebServer/Composite/General.pm:81
 msgid "Web Server"
 msgstr "Veebiserver"
 
 #  
-#: src/EBox/WebServer.pm:96
+#: src/EBox/WebServer.pm:98
 msgid "To set webserver listening port"
 msgstr "Veebiserveri portide kuulamiseks"
 
+#: src/EBox/WebServer.pm:103
+msgid "To configure default Virtual Host"
+msgstr ""
+
 # "per-user" ?
-#: src/EBox/WebServer.pm:101
+#: src/EBox/WebServer.pm:108
 msgid "To configure the per-user public HTML directory"
 msgstr "Kasutajate avalike HTML kataloogide seadistamiseks"
 
-#: src/EBox/WebServer.pm:128
+#: src/EBox/WebServer.pm:135
 msgid "Enable apache LDAP user module"
 msgstr "Apache LDAP kasutaja mooduli lubamine"
 
-#: src/EBox/WebServer.pm:130
+#: src/EBox/WebServer.pm:137
 msgid "To fetch home directories from LDAP"
 msgstr "Kodukataloogide LDAPist hankimiseks"
 
-#: src/EBox/WebServer.pm:171
+#: src/EBox/WebServer.pm:178
 msgid "Web service status"
 msgstr "Veebiserveri olek"
 
-#: src/EBox/WebServer.pm:348
+#: src/EBox/WebServer.pm:375
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr "{userDirConfFile} on kadunud! Palun taasta see"
@@ -114,26 +118,10 @@ msgid "General Web server configuration settings updated"
 msgstr "Veebiserveri üldised seadistused on uuendatud"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
-#: src/EBox/WebServer/Model/VHostTable.pm:98
-#: src/EBox/WebServer/Model/VHostTable.pm:104
 msgid "Virtual host's name"
 msgstr "Virtuaalhosti nimi"
 
-# vbla ka "ülemine domeeninimi"
-#: src/EBox/WebServer/Model/VHostTable.pm:100
-msgid "The virtual host name supplied is a top domain name"
-msgstr "Pakutud virtuaalhosti nimi on tippdomeeni nimi"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:107
-#, perl-brace-format
-msgid ""
-"The virtual host name supplied is a domain name (Maybe you want instead "
-"{url}?)."
-msgstr ""
-"Pakutud virtuaalhosti nimi on domeeninimi (võib-olla soovid selle asemel "
-"kasutada {url}?)."
-
-#: src/EBox/WebServer/Model/VHostTable.pm:162
+#: src/EBox/WebServer/Model/VHostTable.pm:159
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
@@ -142,7 +130,7 @@ msgstr ""
 "Virtuaalhost {vhost} on lisatud. Loodud domeen {domain} on seotud nimega "
 "{name} - IP aadressiga {ip}. {noDnsWarning} "
 
-#: src/EBox/WebServer/Model/VHostTable.pm:181
+#: src/EBox/WebServer/Model/VHostTable.pm:178
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
@@ -151,32 +139,32 @@ msgstr ""
 "Virtuaalhost {vhost} on lisatud. Seotud nimi {name} - IP aadressiga {ip} on "
 "lisatud {domain} domeeni"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:195
+#: src/EBox/WebServer/Model/VHostTable.pm:192
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr "Virtuaalhost {vhost} on lisatud aliasena {alias} masinasse {hostname}"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:201
-#: src/EBox/WebServer/Model/VHostTable.pm:206
+#: src/EBox/WebServer/Model/VHostTable.pm:198
+#: src/EBox/WebServer/Model/VHostTable.pm:203
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
 msgstr "Virtuaalhost {vhost} lisatud"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:211
+#: src/EBox/WebServer/Model/VHostTable.pm:208
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr "Sisemine staatiline liides veebiserveri IP aadressi määramiseks puudub"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:237
+#: src/EBox/WebServer/Model/VHostTable.pm:234
 msgid "Name"
 msgstr "Nimi"
 
 # Virtuaalhosting
-#: src/EBox/WebServer/Model/VHostTable.pm:247
+#: src/EBox/WebServer/Model/VHostTable.pm:244
 msgid "Virtual hosts"
 msgstr "Virtuaalhostid"
 
 # pole päris sõna sõnalt tõlge, aga mõte peaks olema edasi antud
-#: src/EBox/WebServer/Model/VHostTable.pm:251
+#: src/EBox/WebServer/Model/VHostTable.pm:248
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -192,12 +180,12 @@ msgstr ""
 "lisada mingeid erilisi seadistusi, siis need tuleks paigutada {userConf} "
 "kataloogi."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:261
+#: src/EBox/WebServer/Model/VHostTable.pm:258
 msgid "virtual host"
 msgstr "virtuaalhost"
 
 # mapping - teisendus, transleerimine
-#: src/EBox/WebServer/Model/VHostTable.pm:283
+#: src/EBox/WebServer/Model/VHostTable.pm:280
 #, fuzzy, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
@@ -219,3 +207,14 @@ msgid ""
 msgstr ""
 "eBoxi veebiteenus lubab sul majutada veebilehti HTML avatekstis erinevates "
 "virtuaalhostides"
+
+# vbla ka "ülemine domeeninimi"
+#~ msgid "The virtual host name supplied is a top domain name"
+#~ msgstr "Pakutud virtuaalhosti nimi on tippdomeeni nimi"
+
+#~ msgid ""
+#~ "The virtual host name supplied is a domain name (Maybe you want instead "
+#~ "{url}?)."
+#~ msgstr ""
+#~ "Pakutud virtuaalhosti nimi on domeeninimi (võib-olla soovid selle asemel "
+#~ "kasutada {url}?)."

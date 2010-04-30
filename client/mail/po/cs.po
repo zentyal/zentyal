@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 1.4.2Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-28 13:28+0000\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2010-04-30 12:56+0200\n"
 "PO-Revision-Date: 2010-04-12 08:53+0200\n"
 "Last-Translator: tomas volse <tomas.volse@gmail.com>\n"
 "Language-Team: none\n"
@@ -37,7 +38,7 @@ msgstr "Tato skupina má mailový alias"
 msgid "This user has a mail account"
 msgstr "Tento uživatel má mailový účet"
 
-#: src/EBox/MailUserLdap.pm:809
+#: src/EBox/MailUserLdap.pm:811
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr "Kvóta může být pouze kladné číslo nebo nula pro neomezené kvóty"
 
@@ -141,7 +142,7 @@ msgid "maildrop"
 msgstr "maildrop"
 
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1549
+#: src/EBox/Mail.pm:1553
 msgid "Queue Management"
 msgstr "Management Fronty"
 
@@ -150,7 +151,7 @@ msgid "Admin mail recipient"
 msgstr "Příjemce admin emailu"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1466 src/EBox/Mail.pm:1618
+#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1470 src/EBox/Mail.pm:1622
 msgid "Mail"
 msgstr "Mail"
 
@@ -159,12 +160,11 @@ msgstr "Mail"
 msgid "Cannot connect to {smtp} mail server"
 msgstr "Nelze se připojit k {smtp} mail serveru"
 
-#: src/EBox/Event/Dispatcher/Mail.pm:230
+#: src/EBox/Event/Dispatcher/Mail.pm:232
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
-"Nelze se připojit k serveru {hostname} a odeslat událost prostřednictvím "
-"SMTP"
+"Nelze se připojit k serveru {hostname} a odeslat událost prostřednictvím SMTP"
 
 #: src/EBox/Mail/Greylist.pm:55
 msgid "To configure whitelist for greylisting"
@@ -208,37 +208,39 @@ msgid ""
 "There are not network objects in the system. You can create them in the "
 "{openurl}Object's page{closeurl}"
 msgstr ""
-"Nejsou žádné síťové objekty v systému. Můžete je vytvořit v "
-"{openurl}Objektová stránka{closeurl}"
+"Nejsou žádné síťové objekty v systému. Můžete je vytvořit v {openurl}"
+"Objektová stránka{closeurl}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:59
+#: src/EBox/Mail/Model/ExternalAliases.pm:60
 msgid "The mail domain is appended automatically"
 msgstr "Mail doména je připojena automaticky"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:63
+#: src/EBox/Mail/Model/ExternalAliases.pm:64
+#: src/EBox/Mail/Model/ExternalAccounts.pm:87
+#: src/EBox/Mail/Model/ExternalAccounts.pm:270
 msgid "External account"
 msgstr "Externí účet"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:75
-#: src/EBox/Mail/Model/VDomainAliases.pm:57
-msgid "Aliases"
-msgstr "Aliasy"
+#: src/EBox/Mail/Model/ExternalAliases.pm:76
+#, fuzzy
+msgid "External Aliases"
+msgstr "Aliasy externích účtů"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:84
+#: src/EBox/Mail/Model/ExternalAliases.pm:85
 msgid "External account alias"
 msgstr "Aliasy externích účtů"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:86
+#: src/EBox/Mail/Model/ExternalAliases.pm:87
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
 "Alias na externí účet byl přidán. Musíte změny uložit a poté budete moc "
 "použít tento alias"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:126
+#: src/EBox/Mail/Model/ExternalAliases.pm:128
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -249,7 +251,7 @@ msgstr ""
 "virtuálních aliasů domény nejsou podporovány. Prosím, přidejte alias patřící "
 "do skutečné domény"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:133
+#: src/EBox/Mail/Model/ExternalAliases.pm:135
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
@@ -258,18 +260,34 @@ msgstr ""
 "Nelze přidat alias, protože doména {vd} není virtuální doména spravovaná "
 "tímto serverem"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:151
+#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#, perl-brace-format
+msgid "They already exists an account or alias called {al}"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:168
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
-msgstr "Alias účtu by měl být bez doménové části. Ta bude připojena automaticky"
+msgstr ""
+"Alias účtu by měl být bez doménové části. Ta bude připojena automaticky"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:229
+#: src/EBox/Mail/Model/ExternalAliases.pm:246
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr "Musíte povolit mail modul v sekci modulů, aby jste ho mohli používat."
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:67
+#, fuzzy
+msgid "TLS for SMTP server"
+msgstr "Mailový SMTP server"
+
+#: src/EBox/Mail/Model/SMTPAuth.pm:73
+#, fuzzy
+msgid "Require authentication"
+msgstr "Autorizace"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:76
 msgid ""
@@ -315,53 +333,67 @@ msgstr "žádný"
 msgid "custom"
 msgstr "uživatelský"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:65
-#: src/EBox/Mail/Model/ExternalAccounts.pm:117
+#: src/EBox/Mail/Model/ExternalAccounts.pm:68
+#: src/EBox/Mail/Model/ExternalAccounts.pm:120
 msgid "External mail accounts"
 msgstr "Externí mailové účty"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:84
-msgid "External mail address"
-msgstr "Externí emailové adresy"
-
-#: src/EBox/Mail/Model/ExternalAccounts.pm:91
+#: src/EBox/Mail/Model/ExternalAccounts.pm:94
 #: src/EBox/Mail/Model/SMTPOptions.pm:107
 msgid "Password"
 msgstr "Heslo"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:98
+#: src/EBox/Mail/Model/ExternalAccounts.pm:101
 #: src/EBox/Mail/Composite/General.pm:78
 msgid "Mail server"
 msgstr "Mail server"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:118
+#: src/EBox/Mail/Model/ExternalAccounts.pm:121
 msgid "external mail account"
 msgstr "externí poštovní účet"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:141
+#: src/EBox/Mail/Model/ExternalAccounts.pm:127
+msgid "Fetching mail is done every 10 minutes"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:144
 msgid "Secure POP3"
 msgstr "Bezpečná POP3"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:149
+#: src/EBox/Mail/Model/ExternalAccounts.pm:152
 msgid "Secure IMAP"
 msgstr "Bezpečný IMAP"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:281
+#: src/EBox/Mail/Model/ExternalAccounts.pm:276
+#: src/EBox/Mail/Model/ExternalAccounts.pm:283
+#, fuzzy
+msgid "External account username"
+msgstr "Externí účet přidán"
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:278
+msgid "No spaces allowed"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"
 msgstr "Externí účet přidán"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:305
+#: src/EBox/Mail/Model/ExternalAccounts.pm:341
 #, perl-brace-format
 msgid "External account {ac} removed"
 msgstr "Externí účet {ac} odstraněn"
 
-#: src/EBox/Mail/Model/ExternalAccounts.pm:401
+#: src/EBox/Mail/Model/ExternalAccounts.pm:439
 msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
 msgstr ""
 "Nelze načíst poštu z externího účtu, protože nemáte e-mailový účet v lokální "
 "poštovní doméně"
+
+#: src/EBox/Mail/Model/VDomainAliases.pm:57
+msgid "Aliases"
+msgstr "Aliasy"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
 msgid "List of Aliases"
@@ -378,10 +410,10 @@ msgstr ""
 "použít pro tuto doménu"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:101
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"Cannot add alias {al} because it is already a virtual domain with the same "
-"name"
+"Cannot add {al} alias because there is already a virtual domain with the "
+"same name"
 msgstr ""
 "Nelze přidat alias {al} protože je již ve virtuální doméně se stejným názvem"
 
@@ -708,7 +740,7 @@ msgstr "Předmět"
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[EBox-event] událost se stala na {hostName}"
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1587
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1591
 msgid "To"
 msgstr "Adresát"
 
@@ -750,7 +782,7 @@ msgstr "Přijaté zprávy"
 msgid "Rejected messages"
 msgstr "Odmítnuté zprávy"
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1584
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1588
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Datum"
@@ -787,6 +819,11 @@ msgstr "Zprávy mailového provozu"
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:71
 msgid "Mail traffic report"
 msgstr "Zpráva mailového provozu"
+
+#: src/EBox/Mail/FetchmailLdap.pm:347
+#, fuzzy
+msgid "External retrieval service"
+msgstr "Mail získávací služby"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"
@@ -832,8 +869,7 @@ msgstr "Konfigurace postfixu"
 #: src/EBox/Mail.pm:190
 msgid "To define how client programs connect to services in  postfix"
 msgstr ""
-"Chcete-li definovat, jaké klientské programy se připojí ke službám v "
-"postfixu"
+"Chcete-li definovat, jaké klientské programy se připojí ke službám v postfixu"
 
 #: src/EBox/Mail.pm:197
 msgid "To configure host mail name"
@@ -855,7 +891,7 @@ msgstr "Chcete-li nakonfigurovat dovecot aby se ověřoval proti LDAP"
 msgid "To configure smart host authentication"
 msgstr "Chcete-li konfigurovat smart host autentizaci"
 
-#: src/EBox/Mail.pm:681
+#: src/EBox/Mail.pm:683
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -863,29 +899,29 @@ msgstr ""
 "Nelze použít jako hostname mailname, protože to není plně kvalifikované "
 "jméno. Prosím, definujte vlastní server mailname"
 
-#: src/EBox/Mail.pm:686
+#: src/EBox/Mail.pm:688
 msgid "The mail name must be a fully qualified name"
 msgstr "Mail name musí být plně kvalifikovaný název"
 
-#: src/EBox/Mail.pm:691 src/EBox/Mail.pm:702 src/EBox/Mail.pm:711
+#: src/EBox/Mail.pm:693 src/EBox/Mail.pm:704 src/EBox/Mail.pm:713
 msgid "Host mail name"
 msgstr "Host mail name"
 
-#: src/EBox/Mail.pm:705
+#: src/EBox/Mail.pm:707
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "Mail name a virtuální mail doménové jméno jsou si rovni"
 
-#: src/EBox/Mail.pm:974
+#: src/EBox/Mail.pm:976
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr "Nelze změnit tento parametr pro non-custom filtr"
 
-#: src/EBox/Mail.pm:990 src/EBox/Mail.pm:1010
+#: src/EBox/Mail.pm:992 src/EBox/Mail.pm:1012
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 "Mail Filtr neexistuje. Prosím nastavte další poštovní filtr nebo ho zakažte"
 
-#: src/EBox/Mail.pm:1017
+#: src/EBox/Mail.pm:1019
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
@@ -893,151 +929,151 @@ msgstr ""
 "Mail Filtr $name není aktivní. Prosím nastavte další poštovní filtr nebo ho "
 "zakažte"
 
-#: src/EBox/Mail.pm:1414
+#: src/EBox/Mail.pm:1416
 msgid "SMTP service"
 msgstr "SMTP služba"
 
-#: src/EBox/Mail.pm:1421
+#: src/EBox/Mail.pm:1423
 msgid "POP3 service"
 msgstr "POP3 služba"
 
-#: src/EBox/Mail.pm:1427
+#: src/EBox/Mail.pm:1429
 msgid "POP3S service"
 msgstr "POP3S služba"
 
-#: src/EBox/Mail.pm:1433
+#: src/EBox/Mail.pm:1435
 msgid "IMAP service"
 msgstr "IMAP služba"
 
-#: src/EBox/Mail.pm:1439
+#: src/EBox/Mail.pm:1441
 msgid "IMAPS service"
 msgstr "IMAPS služba"
 
-#: src/EBox/Mail.pm:1480
+#: src/EBox/Mail.pm:1484
 msgid "enabled"
 msgstr "povolena"
 
-#: src/EBox/Mail.pm:1480
+#: src/EBox/Mail.pm:1484
 msgid "disabled"
 msgstr "zakázaný"
 
-#: src/EBox/Mail.pm:1482 src/EBox/Mail.pm:1593 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1486 src/EBox/Mail.pm:1597 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr "Stav"
 
-#: src/EBox/Mail.pm:1485
+#: src/EBox/Mail.pm:1489
 msgid "Mail server's filter"
 msgstr "Filtry Mail serveru"
 
-#: src/EBox/Mail.pm:1494 src/EBox/Mail.pm:1501
+#: src/EBox/Mail.pm:1498 src/EBox/Mail.pm:1505
 msgid "Filter type"
 msgstr "Typ filtru"
 
-#: src/EBox/Mail.pm:1495
+#: src/EBox/Mail.pm:1499
 msgid "Custom"
 msgstr "Uživatelský"
 
-#: src/EBox/Mail.pm:1497
+#: src/EBox/Mail.pm:1501
 msgid "Address"
 msgstr "Adresa"
 
-#: src/EBox/Mail.pm:1530
+#: src/EBox/Mail.pm:1534
 msgid "General"
 msgstr "Obecný"
 
-#: src/EBox/Mail.pm:1537
+#: src/EBox/Mail.pm:1541
 msgid "Virtual Mail Domains"
 msgstr "Virtuální mailové domény"
 
-#: src/EBox/Mail.pm:1543
+#: src/EBox/Mail.pm:1547
 msgid "Greylist"
 msgstr "Greylist"
 
-#: src/EBox/Mail.pm:1576
+#: src/EBox/Mail.pm:1580
 msgid "Mail retrieval from external accounts"
 msgstr "Získávání mailů z externích účtů"
 
-#: src/EBox/Mail.pm:1585
+#: src/EBox/Mail.pm:1589
 msgid "Message ID"
 msgstr "ID Zprávy"
 
-#: src/EBox/Mail.pm:1586
+#: src/EBox/Mail.pm:1590
 msgid "From"
 msgstr "Od"
 
-#: src/EBox/Mail.pm:1588
+#: src/EBox/Mail.pm:1592
 msgid "From hostname"
 msgstr "Od hostname"
 
-#: src/EBox/Mail.pm:1589
+#: src/EBox/Mail.pm:1593
 msgid "From host ip"
 msgstr "Od hostitelské ip"
 
-#: src/EBox/Mail.pm:1590 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1594 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Velikost (bajtů)"
 
-#: src/EBox/Mail.pm:1591
+#: src/EBox/Mail.pm:1595
 msgid "Relay"
 msgstr "Relay"
 
-#: src/EBox/Mail.pm:1592
+#: src/EBox/Mail.pm:1596
 msgid "Message type"
 msgstr "Typ zprávy"
 
-#: src/EBox/Mail.pm:1594
+#: src/EBox/Mail.pm:1598
 msgid "Event"
 msgstr "Událost"
 
-#: src/EBox/Mail.pm:1595
+#: src/EBox/Mail.pm:1599
 msgid "Additional Info"
 msgstr "Další informace"
 
-#: src/EBox/Mail.pm:1606
+#: src/EBox/Mail.pm:1610
 msgid "Successful messages"
 msgstr "Úspěšné zprávy"
 
-#: src/EBox/Mail.pm:1607
+#: src/EBox/Mail.pm:1611
 msgid "Maximum message size exceeded"
 msgstr "Maximální velikost zprávy překročena"
 
-#: src/EBox/Mail.pm:1608
+#: src/EBox/Mail.pm:1612
 msgid "User quote exceeded"
 msgstr "Uživatelská kvóta překročena"
 
-#: src/EBox/Mail.pm:1609
+#: src/EBox/Mail.pm:1613
 msgid "Relay access denied"
 msgstr "Relay access zakázán"
 
-#: src/EBox/Mail.pm:1610
+#: src/EBox/Mail.pm:1614
 msgid "Account does not exist"
 msgstr "Účet neexistuje"
 
-#: src/EBox/Mail.pm:1611
+#: src/EBox/Mail.pm:1615
 msgid "Host unreachable"
 msgstr "Host nedosažitelný"
 
-#: src/EBox/Mail.pm:1612
+#: src/EBox/Mail.pm:1616
 msgid "Authentication error"
 msgstr "Chyba při ověřování"
 
-#: src/EBox/Mail.pm:1613
+#: src/EBox/Mail.pm:1617
 msgid "Greylisted"
 msgstr "Greylisted"
 
-#: src/EBox/Mail.pm:1614
+#: src/EBox/Mail.pm:1618
 msgid "Other events"
 msgstr "Další události"
 
-#: src/EBox/Mail.pm:1801
+#: src/EBox/Mail.pm:1805
 msgid "Mailboxes"
 msgstr "Schránky"
 
-#: src/EBox/Mail.pm:1829
+#: src/EBox/Mail.pm:1833
 msgid "Mail SMTP server"
 msgstr "Mailový SMTP server"
 
-#: src/EBox/Mail.pm:1836
+#: src/EBox/Mail.pm:1840
 msgid "Mail POP/IMAP server"
 msgstr "Mailový POP / IMAP server"
 
@@ -1211,3 +1247,6 @@ msgstr ""
 #: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
 msgid "Change"
 msgstr "Změna"
+
+#~ msgid "External mail address"
+#~ msgstr "Externí emailové adresy"

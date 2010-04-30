@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"POT-Creation-Date: 2010-04-30 12:56+0200\n"
 "PO-Revision-Date: 2010-04-27 15:56+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -54,7 +54,7 @@ msgstr "virtuaalse liidese toiming"
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:807 src/EBox/Network.pm:812
 #: src/EBox/Network.pm:1123 src/EBox/Network.pm:1144 src/EBox/Network.pm:2737
 #: src/EBox/Network.pm:2753 src/EBox/Network.pm:2779 src/EBox/Network.pm:2910
-#: src/EBox/Network.pm:3049 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Network.pm:3048 src/EBox/Model/GatewayTable.pm:198
 #: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:106
 #: src/templates/ifaces.mas:253
 msgid "IP address"
@@ -74,11 +74,11 @@ msgstr "Võrgudiagnostika tööriistad"
 msgid "Host"
 msgstr "Masin"
 
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2993
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2992
 msgid "host name"
 msgstr "masinanimi"
 
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3086
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3085
 msgid "Network Interfaces"
 msgstr "Võrguliidesed"
 
@@ -100,12 +100,12 @@ msgstr ""
 "Lüüs {gw} on ühendamata. ({failRatio}% '{type}' testidest masinasse '{host}' "
 "nurjusid, max={maxFailRatio}%)"
 
-#: src/EBox/Event/Watcher/Gateways.pm:346
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3119
+#: src/EBox/Event/Watcher/Gateways.pm:366
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3118
 msgid "WAN Failover"
 msgstr "WAN tõrkesiire"
 
-#: src/EBox/Event/Watcher/Gateways.pm:362
+#: src/EBox/Event/Watcher/Gateways.pm:382
 msgid "Check if gateways are connected or disconnected."
 msgstr "Kontrolli kas lüüsid on ühendatud või mitte."
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Domain Name Server Resolver"
 msgstr "Nimeserveri nimelahendaja"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3117
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3116
 msgid "Balance Traffic"
 msgstr "Liikluse tasakaalustamine"
 
@@ -147,7 +147,7 @@ msgstr ""
 "lüüsi. Sa saad neid lisada <a href=\"/ebox/Network/View/GatewayTable\">siin</"
 "a>."
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3038
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3037
 msgid "Status"
 msgstr "Olek"
 
@@ -239,7 +239,7 @@ msgstr "Liikluskiirus kokku {service} jaoks"
 msgid "Traffic rate from {src} for {service}"
 msgstr "{src} liikluskiirus {service} jaoks"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3102
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3101
 #: src/EBox/Model/StaticRoute.pm:153
 msgid "Network"
 msgstr "Võrk"
@@ -359,52 +359,52 @@ msgstr ""
 msgid "Host name"
 msgstr "Masinanimi"
 
-#: src/EBox/Network.pm:3023
+#: src/EBox/Network.pm:3022
 msgid "down"
 msgstr "ei tööta"
 
-#: src/EBox/Network.pm:3029
+#: src/EBox/Network.pm:3028
 msgid "up"
 msgstr "töötab"
 
 # või "link korras" ?
-#: src/EBox/Network.pm:3033
+#: src/EBox/Network.pm:3032
 msgid "link ok"
 msgstr "link on korras"
 
-#: src/EBox/Network.pm:3035
+#: src/EBox/Network.pm:3034
 msgid "no link"
 msgstr "link ei ole korras"
 
-#: src/EBox/Network.pm:3043
+#: src/EBox/Network.pm:3042
 msgid "MAC address"
 msgstr "MAC aadress"
 
 # Tx baiti v Tx baite
-#: src/EBox/Network.pm:3060
+#: src/EBox/Network.pm:3059
 #, fuzzy
 msgid "Tx bytes"
 msgstr "Tx baidid"
 
 # Rx baiti v Rx baite
-#: src/EBox/Network.pm:3069
+#: src/EBox/Network.pm:3068
 #, fuzzy
 msgid "Rx bytes"
 msgstr "Rx baidid"
 
-#: src/EBox/Network.pm:3107
+#: src/EBox/Network.pm:3106
 msgid "Interfaces"
 msgstr "Liidesed"
 
-#: src/EBox/Network.pm:3113 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3112 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "Lüüsid"
 
-#: src/EBox/Network.pm:3115 src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:3114 src/EBox/Model/StaticRoute.pm:177
 msgid "Static Routes"
 msgstr "Staatilised marsruudid"
 
-#: src/EBox/Network.pm:3121
+#: src/EBox/Network.pm:3120
 msgid "Diagnostic Tools"
 msgstr "Diagnostika tööriistad"
 
@@ -590,8 +590,8 @@ msgid ""
 "that these settings may be overriden if you have any network interface "
 "configured via DHCP</p>"
 msgstr ""
-"<p>Siin saad sa lisada nimeserveri nimelahendajaid, mida eBox "
-"kasutab.</p><p>Pea meeles, et need seadistused tühistatakse, kui sul on mõni "
+"<p>Siin saad sa lisada nimeserveri nimelahendajaid, mida eBox kasutab.</"
+"p><p>Pea meeles, et need seadistused tühistatakse, kui sul on mõni "
 "võrguliides DHCP kaudu seadistatud</p>"
 
 #: src/EBox/Model/ByteRateSettings.pm:80

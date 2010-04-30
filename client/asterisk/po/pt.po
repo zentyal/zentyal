@@ -391,7 +391,8 @@ msgstr "Definições gerais de configuração NAT do servidor Asterisk"
 
 #: src/EBox/Model/NAT.pm:126
 msgid "NAT Asterisk server configuration updated."
-msgstr "Definições gerais da configuração NAT do servidor Asterisk actualizadas"
+msgstr ""
+"Definições gerais da configuração NAT do servidor Asterisk actualizadas"
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
@@ -433,8 +434,7 @@ msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
-"As definições seguintes só terão efeito quando o módulo Asterisk for "
-"activado"
+"As definições seguintes só terão efeito quando o módulo Asterisk for activado"
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"

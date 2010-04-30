@@ -6,6 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:36+0000\n"
 "PO-Revision-Date: 2010-04-16 09:16+0200\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
@@ -176,8 +177,8 @@ msgid ""
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
 "Webmail modul potřebuje mít IMAP nebo IMAPS službu povolenou, pokud "
-"používáte eBox poštovní službu. Můžete ji povolit na {openurl}Mail -> "
-"Obecný{closeurl}."
+"používáte eBox poštovní službu. Můžete ji povolit na {openurl}Mail -> Obecný"
+"{closeurl}."
 
 #: src/EBox/WebMail.pm:394
 msgid ""

@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: "
-"bugs@warp.es\n"
+"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: bugs@warp."
+"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:57+0200\n"
+"POT-Creation-Date: 2010-04-30 12:59+0200\n"
 "PO-Revision-Date: 2010-04-06 16:32+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -566,24 +566,24 @@ msgstr "Slave Status"
 msgid "AD Sync Settings"
 msgstr "AD Sync beállítások"
 
-#: src/EBox/UsersAndGroups.pm:2544
+#: src/EBox/UsersAndGroups.pm:2549
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr "Nem tud csatlakozni a master eBox-hoz a {remote}"
 
-#: src/EBox/UsersAndGroups.pm:2551
+#: src/EBox/UsersAndGroups.pm:2556
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr ""
 "Nem tud csatlakozni a master eBox-hoz a {remote} a megadott LDAP jelszóval"
 
-#: src/EBox/UsersAndGroups.pm:2570
+#: src/EBox/UsersAndGroups.pm:2575
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr "A {host} nevű gép már regisztrálva van az eBoxban"
 
-#: src/EBox/UsersAndGroups.pm:2692
+#: src/EBox/UsersAndGroups.pm:2697
 msgid "Replication failed"
 msgstr "A replikáció meghiúsult"
 

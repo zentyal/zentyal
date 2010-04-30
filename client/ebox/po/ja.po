@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"POT-Creation-Date: 2010-04-30 12:55+0200\n"
 "PO-Revision-Date: 2008-01-08 15:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -397,7 +397,7 @@ msgstr "エラー"
 msgid "Fatal error"
 msgstr ""
 
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:718
 #: src/templates/finish.mas:116 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
@@ -450,7 +450,7 @@ msgstr ""
 msgid "Logs"
 msgstr "ログ"
 
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:691
+#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:702
 #, fuzzy
 msgid "Query Logs"
 msgstr "クエリログ"
@@ -460,7 +460,7 @@ msgstr "クエリログ"
 msgid "Full Reports"
 msgstr "バグ報告"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:238
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:243
 msgid "Dashboard"
 msgstr ""
 
@@ -536,10 +536,6 @@ msgstr "パスワードは最低でも6文字必要です"
 msgid "The password was changed successfully."
 msgstr "パスワードは変更されました"
 
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "バグ報告"
-
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 msgid "Configuration Backup"
 msgstr "設定をバックアップ"
@@ -565,7 +561,7 @@ msgstr "リストア"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
-#: src/EBox/Backup.pm:1311
+#: src/EBox/Backup.pm:1328
 msgid "The input contains invalid characters"
 msgstr "入力は無効な文字を含んでいます"
 
@@ -593,8 +589,8 @@ msgstr "モジュールは正しく再起動されました。"
 msgid "Upgrading"
 msgstr "アップグレード中"
 
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:62
+#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:722
+#: src/EBox/SysInfo.pm.in:270 src/templates/backup.mas:62
 msgid "Backup"
 msgstr "バックアップ"
 
@@ -636,7 +632,7 @@ msgstr "バックアップからリストアしています"
 msgid "Restoring modules"
 msgstr "バックアップからモジュールをリストアしています"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:720
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
 msgstr "モジュール"
@@ -649,12 +645,17 @@ msgstr "残りのリストアするモジュール"
 msgid "Restore successful"
 msgstr "リストア完了"
 
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29 src/EBox/SysInfo.pm.in:276
+#, fuzzy
+msgid "Configuration report"
+msgstr "設定を復元"
+
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:260
+#: src/EBox/SysInfo.pm.in:265
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:256
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:261
 msgid "Disk Usage"
 msgstr "ディスクの状況"
 
@@ -1302,43 +1303,43 @@ msgstr "イベント"
 msgid "Message"
 msgstr "メッセージ"
 
-#: src/EBox/Logs.pm:440
+#: src/EBox/Logs.pm:451
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "テーブル {table} は存在しません"
 
-#: src/EBox/Logs.pm:694
+#: src/EBox/Logs.pm:705
 #, fuzzy
 msgid "Configure Logs"
 msgstr "設定ログ"
 
-#: src/EBox/Logs.pm:708
+#: src/EBox/Logs.pm:719
 msgid "Client Address"
 msgstr "クライアントのアドレス"
 
-#: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
+#: src/EBox/Logs.pm:721 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/DataTable.pm:2131
 msgid "Action"
 msgstr "アクション"
 
-#: src/EBox/Logs.pm:711
+#: src/EBox/Logs.pm:722
 msgid "Params"
 msgstr "パラメタ"
 
-#: src/EBox/Logs.pm:712
+#: src/EBox/Logs.pm:723
 msgid "Committed"
 msgstr "コミット"
 
-#: src/EBox/Logs.pm:717
+#: src/EBox/Logs.pm:728
 msgid "Admin"
 msgstr "管理者"
 
-#: src/EBox/Logs.pm:811
+#: src/EBox/Logs.pm:822
 msgid "Log messages"
 msgstr "ログメッセージ"
 
-#: src/EBox/Logs.pm:838
+#: src/EBox/Logs.pm:849
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "ライフタイムパラメタは正の数で表される時間でなくてはなりません"
 
@@ -1473,25 +1474,25 @@ msgstr "バックアップのアーカイブを作成できませんでした"
 msgid "Could not append data to backup archive"
 msgstr "バックアップのアーカイブにデータを追加できませんでした"
 
-#: src/EBox/Backup.pm:421
+#: src/EBox/Backup.pm:437
 msgid "Unknown"
 msgstr "不明"
 
-#: src/EBox/Backup.pm:474
+#: src/EBox/Backup.pm:490
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "リクエストされたバックアップファイルを展開できませんでした: {files}"
 
-#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1128
+#: src/EBox/Backup.pm:493 src/EBox/Backup.pm:1144
 msgid "Could not unpack the backup"
 msgstr "バックアップを展開できませんでした"
 
-#: src/EBox/Backup.pm:743
+#: src/EBox/Backup.pm:759
 #, fuzzy
 msgid "Writing backup file to hard disk"
 msgstr "バックアップをハードディスクに書き込んでいます"
 
-#: src/EBox/Backup.pm:769
+#: src/EBox/Backup.pm:785
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
@@ -1499,25 +1500,25 @@ msgstr ""
 "いくつかのモジュールは保存されていません。バックアップする前に保存するか、変"
 "更を破棄してください"
 
-#: src/EBox/Backup.pm:827
+#: src/EBox/Backup.pm:843
 msgid "Incorrect or corrupt backup file"
 msgstr "バックアップファイルが正しくないか破損しています"
 
-#: src/EBox/Backup.pm:856
+#: src/EBox/Backup.pm:872
 msgid "The backup file is corrupt: could not open archive"
 msgstr "バックアップファイルが破損しています: アーカイブを開けませんでした"
 
-#: src/EBox/Backup.pm:868
+#: src/EBox/Backup.pm:884
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr ""
 "バックアップファイルが破損しています: バックアップチェックサムを開けませんで"
 "した"
 
-#: src/EBox/Backup.pm:875
+#: src/EBox/Backup.pm:891
 msgid "The backup file is corrupt."
 msgstr "バックアップファイルが破損しています。"
 
-#: src/EBox/Backup.pm:893
+#: src/EBox/Backup.pm:909
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
@@ -1525,7 +1526,7 @@ msgstr ""
 "バックアップアーカイブが無効な形式です。ファイルが破損しているか、互換性のな"
 "いバージョンのeBoxで作成されています"
 
-#: src/EBox/Backup.pm:899
+#: src/EBox/Backup.pm:915
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
@@ -1533,7 +1534,7 @@ msgstr ""
 "アーカイブが完全なバックアップを含んでいないため、完全な復元は不可能です。設"
 "定の修復は可能かもしれません。"
 
-#: src/EBox/Backup.pm:934
+#: src/EBox/Backup.pm:950
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -1542,16 +1543,16 @@ msgstr ""
 "復元のために十分なハードディスクの空き容量がありません。{size} Kbが必要です。"
 "十分なディスク容量を準備してから再度行ってください"
 
-#: src/EBox/Backup.pm:1215
+#: src/EBox/Backup.pm:1229
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "モジュール{m}がバックアップから見つかりません"
 
-#: src/EBox/Backup.pm:1238
+#: src/EBox/Backup.pm:1252
 msgid "No modules to restore"
 msgstr "復元するモジュールはありません"
 
-#: src/EBox/Backup.pm:1290
+#: src/EBox/Backup.pm:1307
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -1560,7 +1561,7 @@ msgstr ""
 "モジュール {topModule} の依存関係が復元できません: {modName} がインストールさ"
 "れていません"
 
-#: src/EBox/Backup.pm:1333
+#: src/EBox/Backup.pm:1350
 msgid "Backup's archives"
 msgstr "バックアップアーカイブ"
 
@@ -1573,53 +1574,62 @@ msgstr "システム情報"
 msgid "available"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:103
 msgid "Time"
 msgstr "時間"
 
-#: src/EBox/SysInfo.pm.in:101
+#: src/EBox/SysInfo.pm.in:104
 #, fuzzy
 msgid "Hostname"
 msgstr "ホスト名"
 
-#: src/EBox/SysInfo.pm.in:102
+#: src/EBox/SysInfo.pm.in:105
 #, fuzzy
 msgid "Core version"
 msgstr "eBox バージョン"
 
-#: src/EBox/SysInfo.pm.in:104
+#: src/EBox/SysInfo.pm.in:107
 msgid "System load"
 msgstr "システム負荷"
 
-#: src/EBox/SysInfo.pm.in:150 src/EBox/SysInfo.pm.in:243
+#: src/EBox/SysInfo.pm.in:108
+#, fuzzy
+msgid "Uptime"
+msgstr "時間"
+
+#: src/EBox/SysInfo.pm.in:109
+msgid "Users"
+msgstr ""
+
+#: src/EBox/SysInfo.pm.in:155 src/EBox/SysInfo.pm.in:248
 #, fuzzy
 msgid "Module Status"
 msgstr "モジュール状態"
 
-#: src/EBox/SysInfo.pm.in:155
+#: src/EBox/SysInfo.pm.in:160
 #, fuzzy
 msgid "General Information"
 msgstr "一般的な情報"
 
-#: src/EBox/SysInfo.pm.in:160
+#: src/EBox/SysInfo.pm.in:165
 #, fuzzy
 msgid "Process List"
 msgstr "バックアップ一覧"
 
-#: src/EBox/SysInfo.pm.in:167
+#: src/EBox/SysInfo.pm.in:172
 #, fuzzy
 msgid "Resources & Services"
 msgstr "イベントサービス状態"
 
-#: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:254 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "システム"
 
-#: src/EBox/SysInfo.pm.in:253
+#: src/EBox/SysInfo.pm.in:258
 msgid "General"
 msgstr "一般的"
 
-#: src/EBox/SysInfo.pm.in:268
+#: src/EBox/SysInfo.pm.in:273
 msgid "Halt/Reboot"
 msgstr "停止/再起動"
 
@@ -2186,15 +2196,22 @@ msgid "delete"
 msgstr "削除"
 
 #: src/templates/bug.mas:9
+#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a bug in eBox."
+"system. The file will be useful if you want to report a problem or seek "
+"support."
 msgstr ""
 "このページからシステムの状態に関する情報をファイルに出力できます。このファイ"
 "ルはeBoxのバグを報告するときに有用です。"
 
-#: src/templates/bug.mas:14
-msgid "Download bug report file"
+#: src/templates/bug.mas:13
+msgid "It may take several minutes to generate the report. Please be patient."
+msgstr ""
+
+#: src/templates/bug.mas:19
+#, fuzzy
+msgid "Download configuration report file"
 msgstr "バグ報告ファイルをダウンロード"
 
 #: src/templates/logout/index.mas:11
@@ -2273,6 +2290,9 @@ msgstr "復元モード"
 #, fuzzy
 msgid "Administration Interface TCP Port"
 msgstr "管理インタフェースのTCPポート"
+
+#~ msgid "Bug report"
+#~ msgstr "バグ報告"
 
 #, fuzzy
 #~ msgid "Support & Services"

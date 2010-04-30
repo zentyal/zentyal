@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"POT-Creation-Date: 2010-04-30 12:56+0200\n"
 "PO-Revision-Date: 2009-07-19 12:15+0200\n"
 "Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
@@ -220,35 +220,35 @@ msgstr ""
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:59
+#: src/EBox/Mail/Model/ExternalAliases.pm:60
 msgid "The mail domain is appended automatically"
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:63
+#: src/EBox/Mail/Model/ExternalAliases.pm:64
 #: src/EBox/Mail/Model/ExternalAccounts.pm:87
 #: src/EBox/Mail/Model/ExternalAccounts.pm:270
 #, fuzzy
 msgid "External account"
 msgstr "mailkonto"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:75
+#: src/EBox/Mail/Model/ExternalAliases.pm:76
 #, fuzzy
 msgid "External Aliases"
 msgstr "Inställningar för e-postkonto"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:84
+#: src/EBox/Mail/Model/ExternalAliases.pm:85
 #, fuzzy
 msgid "External account alias"
 msgstr "Inställningar för e-postkonto"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:86
+#: src/EBox/Mail/Model/ExternalAliases.pm:87
 #, fuzzy
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
 "Virtuell domän tillagd. Du måste spara ändringarna för att använda denna "
 "domän."
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:126
+#: src/EBox/Mail/Model/ExternalAliases.pm:128
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -256,20 +256,25 @@ msgid ""
 "a real domain"
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:133
+#: src/EBox/Mail/Model/ExternalAliases.pm:135
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
 "server"
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:151
+#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#, perl-brace-format
+msgid "They already exists an account or alias called {al}"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:168
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:229
+#: src/EBox/Mail/Model/ExternalAliases.pm:246
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 21:08+0100\n"
+"POT-Creation-Date: 2010-04-30 12:59+0200\n"
 "PO-Revision-Date: 2010-02-09 11:22+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -21,31 +21,35 @@ msgstr ""
 msgid "HyperText Transport Protocol"
 msgstr "HyperText Transport Protocol (HTTP)"
 
-#: src/EBox/WebServer.pm:77 src/EBox/WebServer/Composite/General.pm:81
+#: src/EBox/WebServer.pm:79 src/EBox/WebServer/Composite/General.pm:81
 msgid "Web Server"
 msgstr "Webszerver"
 
-#: src/EBox/WebServer.pm:96
+#: src/EBox/WebServer.pm:98
 msgid "To set webserver listening port"
 msgstr "Beállítja a webszerver figyelő portját"
 
-#: src/EBox/WebServer.pm:101
+#: src/EBox/WebServer.pm:103
+msgid "To configure default Virtual Host"
+msgstr ""
+
+#: src/EBox/WebServer.pm:108
 msgid "To configure the per-user public HTML directory"
 msgstr "beállítja a nyilvános HTML könyvtárat"
 
-#: src/EBox/WebServer.pm:128
+#: src/EBox/WebServer.pm:135
 msgid "Enable apache LDAP user module"
 msgstr "bekapcsolja az Apache LDAP felhasználói modulját"
 
-#: src/EBox/WebServer.pm:130
+#: src/EBox/WebServer.pm:137
 msgid "To fetch home directories from LDAP"
 msgstr "Hogy összevesse a saját mappákat az LDAPpal"
 
-#: src/EBox/WebServer.pm:171
+#: src/EBox/WebServer.pm:178
 msgid "Web service status"
 msgstr "web szolgáltatás állapota"
 
-#: src/EBox/WebServer.pm:348
+#: src/EBox/WebServer.pm:375
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr "A {userDirConfFile} hiányzik! Kérem visszaállítani!"
@@ -110,25 +114,10 @@ msgid "General Web server configuration settings updated"
 msgstr "Általános webszerver konfigurációs beállítások frissítése."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
-#: src/EBox/WebServer/Model/VHostTable.pm:98
-#: src/EBox/WebServer/Model/VHostTable.pm:104
 msgid "Virtual host's name"
 msgstr "virtuális kiszolgáló neve"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:100
-msgid "The virtual host name supplied is a top domain name"
-msgstr "A virtuális kiszolgáló név támogatva a top domain névben."
-
-#: src/EBox/WebServer/Model/VHostTable.pm:107
-#, perl-brace-format
-msgid ""
-"The virtual host name supplied is a domain name (Maybe you want instead "
-"{url}?)."
-msgstr ""
-"A virtuális kiszolgáló név támogatva a domain névben. (Talán az {url} "
-"helyett akarod?)"
-
-#: src/EBox/WebServer/Model/VHostTable.pm:162
+#: src/EBox/WebServer/Model/VHostTable.pm:159
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
@@ -137,7 +126,7 @@ msgstr ""
 "A {vhost} virtuális név hozzáadva. A {domain} tartomány létre lett hozva "
 "{name} néven - IP címe: {ip}. {noDnsWarning}  "
 
-#: src/EBox/WebServer/Model/VHostTable.pm:181
+#: src/EBox/WebServer/Model/VHostTable.pm:178
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
@@ -146,34 +135,34 @@ msgstr ""
 "Virtuális kiszolgáló {vhost} hozzáadva. A felismert név {name} és IP cím "
 "{ip} hozzáadva a(z) {domain} domainhez."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:195
+#: src/EBox/WebServer/Model/VHostTable.pm:192
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
 "Virtuális kiszolgáló {vhost} hozzáadva aliasként {alias} kiszolgálóhoz "
 "{hostname}."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:201
-#: src/EBox/WebServer/Model/VHostTable.pm:206
+#: src/EBox/WebServer/Model/VHostTable.pm:198
+#: src/EBox/WebServer/Model/VHostTable.pm:203
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
 msgstr "virtuális kiszolgáló {vhost} hozzáadva"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:211
+#: src/EBox/WebServer/Model/VHostTable.pm:208
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
 "Ez nem egy belső statikus csatoló (interface) webkiszolgáló IP címének "
 "beállítására szolgál."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:237
+#: src/EBox/WebServer/Model/VHostTable.pm:234
 msgid "Name"
 msgstr "Név"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:247
+#: src/EBox/WebServer/Model/VHostTable.pm:244
 msgid "Virtual hosts"
 msgstr "Virtuális kiszolgálók"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:251
+#: src/EBox/WebServer/Model/VHostTable.pm:248
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -189,11 +178,11 @@ msgstr ""
 "ha ez lehetséges. A tartalmat a {docRoot} mappa alá kell helyezni. Bármely "
 "egyéni beállítást a {userConf} mappába kell helyezni"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:261
+#: src/EBox/WebServer/Model/VHostTable.pm:258
 msgid "virtual host"
 msgstr "virtuális kiszolgáló"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:283
+#: src/EBox/WebServer/Model/VHostTable.pm:280
 #, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
@@ -213,3 +202,13 @@ msgid ""
 msgstr ""
 "Az eBox webszolgáltatása megengedi a weblapok sima HTML-ben tárolását "
 "virtuális nevek nélkül"
+
+#~ msgid "The virtual host name supplied is a top domain name"
+#~ msgstr "A virtuális kiszolgáló név támogatva a top domain névben."
+
+#~ msgid ""
+#~ "The virtual host name supplied is a domain name (Maybe you want instead "
+#~ "{url}?)."
+#~ msgstr ""
+#~ "A virtuális kiszolgáló név támogatva a domain névben. (Talán az {url} "
+#~ "helyett akarod?)"

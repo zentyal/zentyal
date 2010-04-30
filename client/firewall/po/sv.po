@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"POT-Creation-Date: 2010-04-30 12:55+0200\n"
 "PO-Revision-Date: 2009-07-19 12:17+0200\n"
 "Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
 "Language-Team: none\n"
@@ -17,25 +17,25 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Iptables.pm:769 src/EBox/Iptables.pm:806
+#: src/EBox/Iptables.pm:808 src/EBox/Iptables.pm:845
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr "Du måste sätta iptables_log_limit variabeln i eBox konfigurationsfil"
 
-#: src/EBox/Iptables.pm:775 src/EBox/Iptables.pm:812
+#: src/EBox/Iptables.pm:814 src/EBox/Iptables.pm:851
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr "Du måste sätta iptables_log_burst variabeln i eBox konfigurationsfil"
 
-#: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:855
+#: src/EBox/Firewall.pm:58 src/EBox/Firewall.pm:856
 msgid "Firewall"
 msgstr "Brandvägg"
 
-#: src/EBox/Firewall.pm:125
+#: src/EBox/Firewall.pm:127
 msgid "Flush previous firewall rules"
 msgstr "Spola föregående brandväggsregler"
 
-#: src/EBox/Firewall.pm:126
+#: src/EBox/Firewall.pm:128
 msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
@@ -43,11 +43,11 @@ msgstr ""
 "eBox brandvägg kommer att spola alla föregående brandväggsregler som har "
 "lagts till manuellt eller med annat verktyg "
 
-#: src/EBox/Firewall.pm:131
+#: src/EBox/Firewall.pm:133
 msgid "Secure by default"
 msgstr "Säker per standard"
 
-#: src/EBox/Firewall.pm:132
+#: src/EBox/Firewall.pm:134
 msgid ""
 "Just a few connections are allowed by default. Make sure you add the proper "
 "incoming and outcoming rules to make your system work as expected. Usually, "
@@ -59,75 +59,77 @@ msgstr ""
 "fungera som tänkt. Alla utgående anslutningar vägras som standard och bara "
 "SSH och HTTPS ingående släpps in."
 
-#: src/EBox/Firewall.pm:311
+#: src/EBox/Firewall.pm:312
 msgid "action"
 msgstr "åtgärd"
 
-#: src/EBox/Firewall.pm:432 src/EBox/Firewall.pm:477 src/EBox/Firewall.pm:501
+#: src/EBox/Firewall.pm:433 src/EBox/Firewall.pm:478 src/EBox/Firewall.pm:502
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "Namnet \"{name}\" är ogiltigt"
 
-#: src/EBox/Firewall.pm:433 src/EBox/Firewall.pm:612 src/EBox/Firewall.pm:637
+#: src/EBox/Firewall.pm:434 src/EBox/Firewall.pm:613 src/EBox/Firewall.pm:638
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Firewall.pm:611 src/EBox/Firewall.pm:636
+#: src/EBox/Firewall.pm:612 src/EBox/Firewall.pm:637
 msgid "protocol"
 msgstr "protokoll"
 
-#: src/EBox/Firewall.pm:825 src/EBox/CGI/Filter.pm:28
+#: src/EBox/Firewall.pm:826 src/EBox/CGI/Filter.pm:28
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:213
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
 msgid "Packet Filter"
 msgstr "Paketfilter"
 
-#: src/EBox/Firewall.pm:828 src/EBox/Firewall/Model/RedirectsTable.pm:355
+#: src/EBox/Firewall.pm:829 src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "Port Forwarding"
 msgstr ""
 
-#: src/EBox/Firewall.pm:839
+#: src/EBox/Firewall.pm:840
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/Firewall.pm:840
+#: src/EBox/Firewall.pm:841
 msgid "Input interface"
 msgstr "Gränssnitt för ingående data"
 
-#: src/EBox/Firewall.pm:841
+#: src/EBox/Firewall.pm:842
 msgid "Output interface"
 msgstr "Gränssnitt för utgående data"
 
-#: src/EBox/Firewall.pm:842 src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall.pm:843 src/EBox/Firewall/Model/RedirectsTable.pm:292
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:121
 msgid "Source"
 msgstr "Källa"
 
-#: src/EBox/Firewall.pm:843 src/EBox/Firewall/Model/BaseRuleTable.pm:147
+#: src/EBox/Firewall.pm:844 src/EBox/Firewall/Model/BaseRuleTable.pm:147
 msgid "Destination"
 msgstr "Destination"
 
-#: src/EBox/Firewall.pm:844 src/EBox/Firewall/Model/RedirectsTable.pm:285
+#: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
 msgstr "Protokoll"
 
-#: src/EBox/Firewall.pm:845
+#: src/EBox/Firewall.pm:846
 msgid "Source port"
 msgstr "Källport"
 
-#: src/EBox/Firewall.pm:846
+#: src/EBox/Firewall.pm:847
 msgid "Destination port"
 msgstr "Destinationsport"
 
-#: src/EBox/Firewall.pm:847 src/EBox/Firewall/Model/BaseRuleTable.pm:112
+#: src/EBox/Firewall.pm:848 src/EBox/Firewall/Model/BaseRuleTable.pm:112
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
 msgid "Decision"
 msgstr "Beslut"
 
-#: src/EBox/Firewall.pm:852
+#: src/EBox/Firewall.pm:853
 msgid "DROP"
 msgstr "SLÄPP"
 
-#: src/EBox/Firewall.pm:852 src/EBox/Firewall/Model/BaseRuleTable.pm:70
+#: src/EBox/Firewall.pm:853 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
 msgstr "LOGGA"
 
@@ -140,6 +142,7 @@ msgstr "Filterregler för trafik som går ut från eBox"
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
 msgid "rule"
 msgstr "regel"
@@ -250,6 +253,7 @@ msgstr ""
 "matcha denna regel"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
 #, fuzzy
 msgid "Configure Rules"
 msgstr "Konfigurera regler"
@@ -263,6 +267,58 @@ msgstr "Filterregler från externa nätverk till eBox"
 #, fuzzy
 msgid "Internal networks to eBox"
 msgstr "Filterregler från interna nätverk till eBox"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
+msgid "Input"
+msgstr ""
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
+#, fuzzy
+msgid "External Input"
+msgstr "extern port"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
+msgid "Output"
+msgstr ""
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
+msgid "Forward"
+msgstr ""
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
+msgid "NAT prerouting"
+msgstr ""
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
+msgid "NAT postrouting"
+msgstr ""
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
+#, fuzzy
+msgid "Rule"
+msgstr "Regler"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
+msgid "Enabled"
+msgstr "Aktiverad"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
+msgid "Type"
+msgstr ""
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
+#, fuzzy
+msgid "Module"
+msgstr "regel"
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
+msgid "Condition"
+msgstr ""
+
+#: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
+#: src/templates/filter.mas:51
+msgid "Rules added by eBox services (Advanced)"
+msgstr ""
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 #, fuzzy
@@ -317,7 +373,7 @@ msgstr ""
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
-#: src/templates/filter.mas:48
+#: src/templates/filter.mas:48 src/templates/filter.mas:59
 msgid "Configure rules"
 msgstr "Konfigurera regler"
 
@@ -382,6 +438,16 @@ msgstr ""
 "De här reglerna låter dig kontrollera access från externa nätverk till "
 "interna nätverk"
 
+#: src/templates/filter.mas:53
+msgid "These rules are automatically added by the eBox services."
+msgstr ""
+
+#: src/templates/filter.mas:56
+msgid ""
+"You can disable these rules, but make sure you know what you are doing or "
+"otherwise some services could stop working."
+msgstr ""
+
 #~ msgid "redirect"
 #~ msgstr "omdirigera"
 
@@ -413,9 +479,6 @@ msgstr ""
 #~ msgid "Edit rule"
 #~ msgstr "Redigera regel"
 
-#~ msgid "Rules"
-#~ msgstr "Regler"
-
 #~ msgid "Global firewall configuration"
 #~ msgstr "Allmän brandväggskonfiguration"
 
@@ -430,9 +493,6 @@ msgstr ""
 
 #~ msgid "network interface"
 #~ msgstr "nätverksgränssnitt"
-
-#~ msgid "external port"
-#~ msgstr "extern port"
 
 #~ msgid "destination address"
 #~ msgstr "destinationsadress"
@@ -520,9 +580,6 @@ msgstr ""
 
 #~ msgid "Policy"
 #~ msgstr "Policy"
-
-#~ msgid "Enabled"
-#~ msgstr "Aktiverad"
 
 #~ msgid "Active"
 #~ msgstr "Aktiv"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"POT-Creation-Date: 2010-04-30 12:56+0200\n"
 "PO-Revision-Date: 2010-04-22 12:00+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -225,30 +225,30 @@ msgstr ""
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:59
+#: src/EBox/Mail/Model/ExternalAliases.pm:60
 msgid "The mail domain is appended automatically"
 msgstr "Meilidomeen on automaatselt lisatud"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:63
+#: src/EBox/Mail/Model/ExternalAliases.pm:64
 #: src/EBox/Mail/Model/ExternalAccounts.pm:87
 #: src/EBox/Mail/Model/ExternalAccounts.pm:270
 msgid "External account"
 msgstr "Väliskonto"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:75
+#: src/EBox/Mail/Model/ExternalAliases.pm:76
 msgid "External Aliases"
 msgstr "Välised aliased"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:84
+#: src/EBox/Mail/Model/ExternalAliases.pm:85
 msgid "External account alias"
 msgstr "Väliskonto alias"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:86
+#: src/EBox/Mail/Model/ExternalAliases.pm:87
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
 "Väliskonto alias on lisatud. Aliase kasutamiseks pead muudatused salvestama."
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:126
+#: src/EBox/Mail/Model/ExternalAliases.pm:128
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -259,7 +259,7 @@ msgstr ""
 "kuuluvad virtuaaldomeeni aliastele, ei ole toetatud. Palun lisa alias, mis "
 "kuulub reaalsele domeenile"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:133
+#: src/EBox/Mail/Model/ExternalAliases.pm:135
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
@@ -268,7 +268,12 @@ msgstr ""
 "Aliast ei olnud võimalik lisada, kuna domeen {vd} ei ole selle serveri poolt "
 "hallatav virtuaaldomeen"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:151
+#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#, perl-brace-format
+msgid "They already exists an account or alias called {al}"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:168
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
@@ -276,7 +281,7 @@ msgstr ""
 "Aliase konto peab olema määratud ilma domeeni osata. See lisatakse "
 "automaatselt."
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:229
+#: src/EBox/Mail/Model/ExternalAliases.pm:246
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""

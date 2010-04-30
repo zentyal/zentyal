@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"POT-Creation-Date: 2010-04-30 12:56+0200\n"
 "PO-Revision-Date: 2010-03-05 01:13+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: <es@li.org>\n"
@@ -224,31 +224,31 @@ msgstr ""
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:59
+#: src/EBox/Mail/Model/ExternalAliases.pm:60
 msgid "The mail domain is appended automatically"
 msgstr "El dominio de correo se añade automáticamente"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:63
+#: src/EBox/Mail/Model/ExternalAliases.pm:64
 #: src/EBox/Mail/Model/ExternalAccounts.pm:87
 #: src/EBox/Mail/Model/ExternalAccounts.pm:270
 msgid "External account"
 msgstr "Cuenta externa"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:75
+#: src/EBox/Mail/Model/ExternalAliases.pm:76
 msgid "External Aliases"
 msgstr "Alias de cuentas externas"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:84
+#: src/EBox/Mail/Model/ExternalAliases.pm:85
 msgid "External account alias"
 msgstr "Alias de cuenta de correo externa"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:86
+#: src/EBox/Mail/Model/ExternalAliases.pm:87
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
 "Alias de cuenta externa añadida. Debe guardar los cambios para usar este "
 "alias."
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:126
+#: src/EBox/Mail/Model/ExternalAliases.pm:128
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -259,7 +259,7 @@ msgstr ""
 "alias pertenecientes a dominios virtuales no están soportados. Por favor, "
 "añada el alias perteneciente a un dominio real"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:133
+#: src/EBox/Mail/Model/ExternalAliases.pm:135
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
@@ -268,7 +268,12 @@ msgstr ""
 "No puede añadirse el alias porque el dominio {vd} no es un dominio virtual "
 "gestionado por este servidor"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:151
+#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#, perl-brace-format
+msgid "They already exists an account or alias called {al}"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:168
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
@@ -276,7 +281,7 @@ msgstr ""
 "La cuenta de alias debería ser proporcionada sin porción de dominio. Será "
 "añadida automáticamente"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:229
+#: src/EBox/Mail/Model/ExternalAliases.pm:246
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""

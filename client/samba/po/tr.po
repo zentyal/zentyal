@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"POT-Creation-Date: 2010-04-30 12:43+0200\n"
 "PO-Revision-Date: 2010-04-23 21:32+0200\n"
 "Last-Translator: Haluk <khaluk@yahoo.com>\n"
 "Language-Team: none\n"
@@ -76,7 +76,7 @@ msgstr "Bu paylaşım için bir isim verilmesi gerekli"
 msgid "sharing resource"
 msgstr "Paylaşım kaynağı"
 
-#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1213 src/EBox/Samba.pm:1245
+#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248
 msgid "group"
 msgstr "Grup"
 
@@ -113,7 +113,7 @@ msgid "path"
 msgstr "path"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
-#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/SambaShares.pm:154
 msgid "share"
 msgstr "paylaşım"
 
@@ -199,50 +199,54 @@ msgstr "Bu sayfada farklı genel samba ayarlarını belirleyebilirsiniz."
 msgid "All users"
 msgstr "Tüm kullanıcılar"
 
-#: src/EBox/Samba/Model/SambaShares.pm:98
+#: src/EBox/Samba/Model/SambaShares.pm:99
 #, fuzzy
 msgid "Share name"
 msgstr "Paylaşım ismi"
 
-#: src/EBox/Samba/Model/SambaShares.pm:104
+#: src/EBox/Samba/Model/SambaShares.pm:105
 msgid "Share path"
 msgstr "Paylaşım Yolu"
 
-#: src/EBox/Samba/Model/SambaShares.pm:110
+#: src/EBox/Samba/Model/SambaShares.pm:111
 #, fuzzy
 msgid "Directory under eBox"
 msgstr "eBox altındaki dizin ismi"
 
-#: src/EBox/Samba/Model/SambaShares.pm:116
+#: src/EBox/Samba/Model/SambaShares.pm:117
 msgid "File system path"
 msgstr "Dosya sistemi yolu"
 
-#: src/EBox/Samba/Model/SambaShares.pm:124
+#: src/EBox/Samba/Model/SambaShares.pm:125
 msgid "Comment"
 msgstr "Açıklama"
 
-#: src/EBox/Samba/Model/SambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:130
+msgid "Guest access"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:136
 msgid "Access control"
 msgstr "Erişim Kontrolü"
 
-#: src/EBox/Samba/Model/SambaShares.pm:139
+#: src/EBox/Samba/Model/SambaShares.pm:146
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:190
 msgid "Shares"
 msgstr "Paylaşımlar"
 
-#: src/EBox/Samba/Model/SambaShares.pm:177
+#: src/EBox/Samba/Model/SambaShares.pm:184
 msgid "Path not allowed"
 msgstr "Yol müsade edilmedi"
 
-#: src/EBox/Samba/Model/SambaShares.pm:185
+#: src/EBox/Samba/Model/SambaShares.pm:192
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr "yol için sadece alfa nümerik karakterler ve _ karakteri geçerlidir"
 
-#: src/EBox/Samba/Model/SambaShares.pm:219
+#: src/EBox/Samba/Model/SambaShares.pm:226
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "Klasör boş değil. Silmek istediğinizden emin misiniz?"
 
-#: src/EBox/Samba/Model/SambaShares.pm:309
+#: src/EBox/Samba/Model/SambaShares.pm:316
 #, perl-brace-format
 msgid ""
 "{openit}Directory under eBox{closeit} will automatically create the share."
@@ -250,7 +254,7 @@ msgid ""
 "allow you to share an existing directory within your file system"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaShares.pm:322
+#: src/EBox/Samba/Model/SambaShares.pm:329
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
@@ -274,8 +278,8 @@ msgstr "Yönetici hakları"
 msgid "User/Group"
 msgstr "Kullanıcı/Grup"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:127 src/EBox/Samba.pm:644
-#: src/EBox/Samba.pm:1659 src/templates/ajax/viewer/shareViewer.mas:8
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:127 src/EBox/Samba.pm:647
+#: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
 #, fuzzy
 msgid "User"
 msgstr "Kullanıcı"
@@ -365,7 +369,7 @@ msgid "User homes"
 msgstr "Kullanıcı ev dizini"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
-#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:623
+#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:626
 #: src/templates/ajax/viewer/shareViewer.mas:12
 #, fuzzy
 msgid "Share"
@@ -492,127 +496,127 @@ msgstr "/home disk bölümüne kota desteği eklemek için"
 msgid "To set the antivirus settings for Samba"
 msgstr "Samba da antivirüs ayarları belirlemek için"
 
-#: src/EBox/Samba.pm:623 src/EBox/Samba.pm:644
+#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Source machine"
 msgstr "Kaynak Makine"
 
-#: src/EBox/Samba.pm:623 src/EBox/Samba.pm:644
+#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Connected since"
 msgstr "Bağlı olduğu süre"
 
-#: src/EBox/Samba.pm:664
+#: src/EBox/Samba.pm:667
 msgid "Shares by user"
 msgstr "Kullanıcılara göre paylaşımlar"
 
-#: src/EBox/Samba.pm:669
+#: src/EBox/Samba.pm:672
 msgid "Users by share"
 msgstr "Paylaşımlara göre kullanıcılar"
 
-#: src/EBox/Samba.pm:1209 src/EBox/Samba.pm:1231
+#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
 msgid "user"
 msgstr "Kullanıcı"
 
-#: src/EBox/Samba.pm:1218
+#: src/EBox/Samba.pm:1221
 msgid "printer"
 msgstr "Yazıcı"
 
-#: src/EBox/Samba.pm:1326
+#: src/EBox/Samba.pm:1329
 msgid "quota"
 msgstr "Kota"
 
-#: src/EBox/Samba.pm:1639
+#: src/EBox/Samba.pm:1642
 msgid "User's files"
 msgstr "Kullanıcı dosyaları"
 
-#: src/EBox/Samba.pm:1641
+#: src/EBox/Samba.pm:1644
 msgid "Group's files"
 msgstr "Grup dosyaları"
 
-#: src/EBox/Samba.pm:1657 src/EBox/Samba.pm:1677 src/EBox/Samba.pm:1687
+#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
 #, fuzzy
 msgid "Date"
 msgstr "Tarih"
 
-#: src/EBox/Samba.pm:1658 src/EBox/Samba.pm:1678
+#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
 msgid "Client address"
 msgstr "İstemci IP adresi"
 
-#: src/EBox/Samba.pm:1660
+#: src/EBox/Samba.pm:1663
 msgid "Action"
 msgstr ""
 
-#: src/EBox/Samba.pm:1661
+#: src/EBox/Samba.pm:1664
 msgid "Resource"
 msgstr "Kaynak"
 
-#: src/EBox/Samba.pm:1665
+#: src/EBox/Samba.pm:1668
 msgid "Connect"
 msgstr "Bağlan"
 
-#: src/EBox/Samba.pm:1666
+#: src/EBox/Samba.pm:1669
 msgid "Access to directory"
 msgstr ""
 
-#: src/EBox/Samba.pm:1667
+#: src/EBox/Samba.pm:1670
 msgid "Read file"
 msgstr ""
 
-#: src/EBox/Samba.pm:1668
+#: src/EBox/Samba.pm:1671
 msgid "Write file"
 msgstr ""
 
-#: src/EBox/Samba.pm:1669
+#: src/EBox/Samba.pm:1672
 msgid "Disconnect"
 msgstr "Bağlantıyı kes"
 
-#: src/EBox/Samba.pm:1670
+#: src/EBox/Samba.pm:1673
 msgid "Remove"
 msgstr ""
 
-#: src/EBox/Samba.pm:1671
+#: src/EBox/Samba.pm:1674
 msgid "Create directory"
 msgstr "Klasör Oluştur"
 
-#: src/EBox/Samba.pm:1672
+#: src/EBox/Samba.pm:1675
 #, fuzzy
 msgid "Remove directory"
 msgstr "Klasör Sil"
 
-#: src/EBox/Samba.pm:1673
+#: src/EBox/Samba.pm:1676
 #, fuzzy
 msgid "Rename"
 msgstr "İsmini değiştir"
 
-#: src/EBox/Samba.pm:1679 src/EBox/Samba.pm:1688
+#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
 #, fuzzy
 msgid "File name"
 msgstr "Dosya Adı"
 
-#: src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1684
+#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
 msgid "Virus"
 msgstr "Virüs"
 
-#: src/EBox/Samba.pm:1681
+#: src/EBox/Samba.pm:1684
 msgid "Type"
 msgstr "Tipi"
 
-#: src/EBox/Samba.pm:1689
+#: src/EBox/Samba.pm:1692
 msgid "Quarantined file name"
 msgstr "Karantinaya alınan dosya adı"
 
-#: src/EBox/Samba.pm:1690 src/EBox/Samba.pm:1693
+#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
 msgid "Quarantine"
 msgstr "Karantina"
 
-#: src/EBox/Samba.pm:1696
+#: src/EBox/Samba.pm:1699
 msgid "Samba access"
 msgstr "Samba Erişimi"
 
-#: src/EBox/Samba.pm:1707
+#: src/EBox/Samba.pm:1710
 msgid "Samba virus"
 msgstr "Samba Virüs"
 
-#: src/EBox/Samba.pm:1718
+#: src/EBox/Samba.pm:1721
 msgid "Samba quarantine"
 msgstr "Samba Karantina"
 

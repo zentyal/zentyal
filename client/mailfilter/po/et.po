@@ -45,7 +45,8 @@ msgstr "Clamav kasutaja p3scan gruppi lisamine"
 
 #: src/EBox/MailFilter.pm:86
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
-msgstr "Clamav vajab POP puhverserveris skaneerimiseks ligipääsu p3scan grupile"
+msgstr ""
+"Clamav vajab POP puhverserveris skaneerimiseks ligipääsu p3scan grupile"
 
 #: src/EBox/MailFilter.pm:90
 msgid "Add spam and ham system users"
@@ -701,8 +702,7 @@ msgid ""
 "filter"
 msgstr ""
 "Selle domeeni jaoks luuakse aadress: spam@domeen. Rämpsposti, mis on valesti "
-"liigitatud väärtpostiks, saab suunata filtri õpetamiseks sellele "
-"aadressile."
+"liigitatud väärtpostiks, saab suunata filtri õpetamiseks sellele aadressile."
 
 # Spämmitõrje saatja reeglid
 #: src/EBox/MailFilter/Model/VDomains.pm:147

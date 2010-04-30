@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-01-25 21:08+0100\n"
+"POT-Creation-Date: 2010-04-30 12:59+0200\n"
 "PO-Revision-Date: 2009-01-14 21:09+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -19,32 +19,36 @@ msgstr ""
 msgid "HyperText Transport Protocol"
 msgstr "پروتکل انتقال فرامتن (وب)"
 
-#: src/EBox/WebServer.pm:77 src/EBox/WebServer/Composite/General.pm:81
+#: src/EBox/WebServer.pm:79 src/EBox/WebServer/Composite/General.pm:81
 #, fuzzy
 msgid "Web Server"
 msgstr "سرویس وب"
 
-#: src/EBox/WebServer.pm:96
+#: src/EBox/WebServer.pm:98
 msgid "To set webserver listening port"
 msgstr "تنظیم پورت در حال شنود سرور وب"
 
-#: src/EBox/WebServer.pm:101
+#: src/EBox/WebServer.pm:103
+msgid "To configure default Virtual Host"
+msgstr ""
+
+#: src/EBox/WebServer.pm:108
 msgid "To configure the per-user public HTML directory"
 msgstr "پیکربندی پوشه HTML عمومی برای هر کاربر"
 
-#: src/EBox/WebServer.pm:128
+#: src/EBox/WebServer.pm:135
 msgid "Enable apache LDAP user module"
 msgstr "فعال‌سازی ماجول کاربر LDAP آپاچی"
 
-#: src/EBox/WebServer.pm:130
+#: src/EBox/WebServer.pm:137
 msgid "To fetch home directories from LDAP"
 msgstr "دریافت پوشه‌های خانه از LDAP"
 
-#: src/EBox/WebServer.pm:171
+#: src/EBox/WebServer.pm:178
 msgid "Web service status"
 msgstr "وضعیت سرویس وب"
 
-#: src/EBox/WebServer.pm:348
+#: src/EBox/WebServer.pm:375
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr "{userDirConfFile} وجود ندارد! لطفا آنرا بازیابی نمایید"
@@ -103,23 +107,10 @@ msgid "General Web server configuration settings updated"
 msgstr "تنظیمات عمومی پیکربندی سرور وب به‌روز رسانی شد"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
-#: src/EBox/WebServer/Model/VHostTable.pm:98
-#: src/EBox/WebServer/Model/VHostTable.pm:104
 msgid "Virtual host's name"
 msgstr "نام میزبان مجازی"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:100
-msgid "The virtual host name supplied is a top domain name"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:107
-#, perl-brace-format
-msgid ""
-"The virtual host name supplied is a domain name (Maybe you want instead "
-"{url}?)."
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:162
+#: src/EBox/WebServer/Model/VHostTable.pm:159
 #, fuzzy, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
@@ -128,7 +119,7 @@ msgstr ""
 "میزبان مجازی {vhost} افزوده شد. یک دامنه {domain} با نگاشت نام {name} - "
 "نشانی آی‌پی {ip} ایجاد شده است"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:181
+#: src/EBox/WebServer/Model/VHostTable.pm:178
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
@@ -137,32 +128,32 @@ msgstr ""
 "میزبان مجازی {vhost} افزوده شد. یک نگاشت نام {name} - نشانی آی‌پی {ip} به "
 "دامنه {domain} افزوده شده است"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:195
+#: src/EBox/WebServer/Model/VHostTable.pm:192
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
 "میزبان مجازی {vhost} به عنوان یک مستعار {alias} به میزبان {hostname} افزوده "
 "شد"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:201
-#: src/EBox/WebServer/Model/VHostTable.pm:206
+#: src/EBox/WebServer/Model/VHostTable.pm:198
+#: src/EBox/WebServer/Model/VHostTable.pm:203
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
 msgstr "میزبان مجازی {vhost} افزوده شد"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:211
+#: src/EBox/WebServer/Model/VHostTable.pm:208
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr "رابط داخلی استاتیک برای تنظیم نشانی آی‌پی سرور وب وجود ندارد"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:237
+#: src/EBox/WebServer/Model/VHostTable.pm:234
 msgid "Name"
 msgstr "نام"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:247
+#: src/EBox/WebServer/Model/VHostTable.pm:244
 msgid "Virtual hosts"
 msgstr "میزبان‌های مجازی"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:251
+#: src/EBox/WebServer/Model/VHostTable.pm:248
 #, fuzzy, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -177,11 +168,11 @@ msgstr ""
 "می‌کنند. ورودی DNS به طور خودکار در صورت امکان ایجاد خواهد شد. محتوا بایستی "
 "در پوشه {docRoot}/vHostName قرار گیرد"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:261
+#: src/EBox/WebServer/Model/VHostTable.pm:258
 msgid "virtual host"
 msgstr "میزبان مجازی"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:283
+#: src/EBox/WebServer/Model/VHostTable.pm:280
 #, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "

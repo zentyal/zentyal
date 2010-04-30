@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"POT-Creation-Date: 2010-04-30 12:43+0200\n"
 "PO-Revision-Date: 2009-02-11 09:39+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "sharing resource"
 msgstr "اشتراک‌گذاری منابع"
 
-#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1213 src/EBox/Samba.pm:1245
+#: src/EBox/SambaLdapUser.pm:871 src/EBox/Samba.pm:1216 src/EBox/Samba.pm:1248
 msgid "group"
 msgstr "گروه"
 
@@ -107,7 +107,7 @@ msgid "path"
 msgstr "مسیر"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
-#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/SambaShares.pm:154
 msgid "share"
 msgstr "اشتراک‌گذاری"
 
@@ -190,48 +190,52 @@ msgstr ""
 msgid "All users"
 msgstr "کاربر"
 
-#: src/EBox/Samba/Model/SambaShares.pm:98
+#: src/EBox/Samba/Model/SambaShares.pm:99
 msgid "Share name"
 msgstr "نام اشتراک‌گذاری"
 
-#: src/EBox/Samba/Model/SambaShares.pm:104
+#: src/EBox/Samba/Model/SambaShares.pm:105
 msgid "Share path"
 msgstr "مسیر اشتراک‌گذاری"
 
-#: src/EBox/Samba/Model/SambaShares.pm:110
+#: src/EBox/Samba/Model/SambaShares.pm:111
 msgid "Directory under eBox"
 msgstr "پوشه در زیر ای‌باکس"
 
-#: src/EBox/Samba/Model/SambaShares.pm:116
+#: src/EBox/Samba/Model/SambaShares.pm:117
 msgid "File system path"
 msgstr "مسیر فایل‌سیستم"
 
-#: src/EBox/Samba/Model/SambaShares.pm:124
+#: src/EBox/Samba/Model/SambaShares.pm:125
 msgid "Comment"
 msgstr "توضیح"
 
-#: src/EBox/Samba/Model/SambaShares.pm:129
+#: src/EBox/Samba/Model/SambaShares.pm:130
+msgid "Guest access"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:136
 msgid "Access control"
 msgstr "کنترل دسترسی"
 
-#: src/EBox/Samba/Model/SambaShares.pm:139
+#: src/EBox/Samba/Model/SambaShares.pm:146
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:190
 msgid "Shares"
 msgstr "اشتراک‌ها"
 
-#: src/EBox/Samba/Model/SambaShares.pm:177
+#: src/EBox/Samba/Model/SambaShares.pm:184
 msgid "Path not allowed"
 msgstr "مسیر اجازه داده نشده‌ است"
 
-#: src/EBox/Samba/Model/SambaShares.pm:185
+#: src/EBox/Samba/Model/SambaShares.pm:192
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaShares.pm:219
+#: src/EBox/Samba/Model/SambaShares.pm:226
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaShares.pm:309
+#: src/EBox/Samba/Model/SambaShares.pm:316
 #, perl-brace-format
 msgid ""
 "{openit}Directory under eBox{closeit} will automatically create the share."
@@ -239,7 +243,7 @@ msgid ""
 "allow you to share an existing directory within your file system"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaShares.pm:322
+#: src/EBox/Samba/Model/SambaShares.pm:329
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
@@ -262,8 +266,8 @@ msgstr "مدیر"
 msgid "User/Group"
 msgstr "کاربر/گروه"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:127 src/EBox/Samba.pm:644
-#: src/EBox/Samba.pm:1659 src/templates/ajax/viewer/shareViewer.mas:8
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:127 src/EBox/Samba.pm:647
+#: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
 msgstr "کاربر"
 
@@ -352,7 +356,7 @@ msgid "User homes"
 msgstr "فایل‌های کاربر"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:110
-#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:623
+#: src/EBox/Samba/Model/RecycleExceptions.pm:110 src/EBox/Samba.pm:626
 #: src/templates/ajax/viewer/shareViewer.mas:12
 msgid "Share"
 msgstr "اشتراک"
@@ -473,133 +477,133 @@ msgstr ""
 msgid "To set the antivirus settings for Samba"
 msgstr ""
 
-#: src/EBox/Samba.pm:623 src/EBox/Samba.pm:644
+#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Source machine"
 msgstr "ماشین مبدا"
 
-#: src/EBox/Samba.pm:623 src/EBox/Samba.pm:644
+#: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Connected since"
 msgstr "متصل تاکنون"
 
-#: src/EBox/Samba.pm:664
+#: src/EBox/Samba.pm:667
 msgid "Shares by user"
 msgstr "اشتراک‌گذاشته توسط کاربر"
 
-#: src/EBox/Samba.pm:669
+#: src/EBox/Samba.pm:672
 msgid "Users by share"
 msgstr "کاربران توسط اشتراک"
 
-#: src/EBox/Samba.pm:1209 src/EBox/Samba.pm:1231
+#: src/EBox/Samba.pm:1212 src/EBox/Samba.pm:1234
 msgid "user"
 msgstr "کاربر"
 
-#: src/EBox/Samba.pm:1218
+#: src/EBox/Samba.pm:1221
 msgid "printer"
 msgstr "چاپگر"
 
-#: src/EBox/Samba.pm:1326
+#: src/EBox/Samba.pm:1329
 msgid "quota"
 msgstr "سهمیه"
 
-#: src/EBox/Samba.pm:1639
+#: src/EBox/Samba.pm:1642
 msgid "User's files"
 msgstr "فایل‌های کاربر"
 
-#: src/EBox/Samba.pm:1641
+#: src/EBox/Samba.pm:1644
 msgid "Group's files"
 msgstr "فایل‌های گروه"
 
-#: src/EBox/Samba.pm:1657 src/EBox/Samba.pm:1677 src/EBox/Samba.pm:1687
+#: src/EBox/Samba.pm:1660 src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1690
 #, fuzzy
 msgid "Date"
 msgstr "فعال"
 
-#: src/EBox/Samba.pm:1658 src/EBox/Samba.pm:1678
+#: src/EBox/Samba.pm:1661 src/EBox/Samba.pm:1681
 msgid "Client address"
 msgstr ""
 
-#: src/EBox/Samba.pm:1660
+#: src/EBox/Samba.pm:1663
 msgid "Action"
 msgstr ""
 
-#: src/EBox/Samba.pm:1661
+#: src/EBox/Samba.pm:1664
 msgid "Resource"
 msgstr ""
 
-#: src/EBox/Samba.pm:1665
+#: src/EBox/Samba.pm:1668
 #, fuzzy
 msgid "Connect"
 msgstr "متصل تاکنون"
 
-#: src/EBox/Samba.pm:1666
+#: src/EBox/Samba.pm:1669
 #, fuzzy
 msgid "Access to directory"
 msgstr "کنترل دسترسی"
 
-#: src/EBox/Samba.pm:1667
+#: src/EBox/Samba.pm:1670
 #, fuzzy
 msgid "Read file"
 msgstr "فقط خواندنی"
 
-#: src/EBox/Samba.pm:1668
+#: src/EBox/Samba.pm:1671
 msgid "Write file"
 msgstr ""
 
-#: src/EBox/Samba.pm:1669
+#: src/EBox/Samba.pm:1672
 msgid "Disconnect"
 msgstr ""
 
-#: src/EBox/Samba.pm:1670
+#: src/EBox/Samba.pm:1673
 msgid "Remove"
 msgstr ""
 
-#: src/EBox/Samba.pm:1671
+#: src/EBox/Samba.pm:1674
 #, fuzzy
 msgid "Create directory"
 msgstr "پوشه اشتراک‌گذاری {group}"
 
-#: src/EBox/Samba.pm:1672
+#: src/EBox/Samba.pm:1675
 #, fuzzy
 msgid "Remove directory"
 msgstr "پوشه‌های خانه"
 
-#: src/EBox/Samba.pm:1673
+#: src/EBox/Samba.pm:1676
 #, fuzzy
 msgid "Rename"
 msgstr "نام‌کاربری"
 
-#: src/EBox/Samba.pm:1679 src/EBox/Samba.pm:1688
+#: src/EBox/Samba.pm:1682 src/EBox/Samba.pm:1691
 #, fuzzy
 msgid "File name"
 msgstr "نام‌کاربری"
 
-#: src/EBox/Samba.pm:1680 src/EBox/Samba.pm:1684
+#: src/EBox/Samba.pm:1683 src/EBox/Samba.pm:1687
 msgid "Virus"
 msgstr ""
 
-#: src/EBox/Samba.pm:1681
+#: src/EBox/Samba.pm:1684
 msgid "Type"
 msgstr ""
 
-#: src/EBox/Samba.pm:1689
+#: src/EBox/Samba.pm:1692
 msgid "Quarantined file name"
 msgstr ""
 
-#: src/EBox/Samba.pm:1690 src/EBox/Samba.pm:1693
+#: src/EBox/Samba.pm:1693 src/EBox/Samba.pm:1696
 msgid "Quarantine"
 msgstr ""
 
-#: src/EBox/Samba.pm:1696
+#: src/EBox/Samba.pm:1699
 #, fuzzy
 msgid "Samba access"
 msgstr "اشتراک‌گذاری‌های سامبا"
 
-#: src/EBox/Samba.pm:1707
+#: src/EBox/Samba.pm:1710
 #, fuzzy
 msgid "Samba virus"
 msgstr "اشتراک‌گذاری‌های سامبا"
 
-#: src/EBox/Samba.pm:1718
+#: src/EBox/Samba.pm:1721
 #, fuzzy
 msgid "Samba quarantine"
 msgstr "اشتراک‌گذاری‌های سامبا"

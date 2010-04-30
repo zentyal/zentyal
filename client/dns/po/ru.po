@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-04-30 12:29+0200\n"
 "PO-Revision-Date: 2010-01-17 11:26+0100\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -18,42 +18,42 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:240
+#: src/EBox/DNS.pm.in:263 src/EBox/Model/DomainTable.pm:248
 msgid "domain"
 msgstr "домен"
 
-#: src/EBox/DNS.pm.in:512
+#: src/EBox/DNS.pm.in:516
 msgid "main bind9 configuration file"
 msgstr "Основной файл конфигурации bind9"
 
-#: src/EBox/DNS.pm.in:517
+#: src/EBox/DNS.pm.in:521
 msgid "bind9 options configuration file"
 msgstr "Файл конфигурации настроек bind9"
 
-#: src/EBox/DNS.pm.in:522
+#: src/EBox/DNS.pm.in:526
 msgid "local bind9 configuration file"
 msgstr "локальный файл конфигурации bind9"
 
-#: src/EBox/DNS.pm.in:527
+#: src/EBox/DNS.pm.in:531
 msgid "Keys configuration file"
 msgstr "Файл конфигурации ключей"
 
-#: src/EBox/DNS.pm.in:544
+#: src/EBox/DNS.pm.in:548
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "файл конфигурации для зоны {zone}"
 
-#: src/EBox/DNS.pm.in:560
+#: src/EBox/DNS.pm.in:564
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "файл конфигурации для обратной зоны {zone}"
 
-#: src/EBox/DNS.pm.in:578
+#: src/EBox/DNS.pm.in:582
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr "Поменяйте права доступа к {dir} разрешив запись для группы bind"
 
-#: src/EBox/DNS.pm.in:580
+#: src/EBox/DNS.pm.in:584
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "Разрешить демону bind автоматическ обновляться"
 
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Host name"
 msgstr "Имя узла"
 
-#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:202
+#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:210
 msgid "IP Address"
 msgstr "IP-адрес"
 
@@ -88,7 +88,7 @@ msgstr "Псевдоним"
 msgid "Host names"
 msgstr "Имена узлов"
 
-#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:177
+#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:185
 msgid "Hostnames"
 msgstr "Имена узлов"
 
@@ -96,31 +96,31 @@ msgstr "Имена узлов"
 msgid "host name"
 msgstr "имя узла"
 
-#: src/EBox/Model/DomainTable.pm:169
+#: src/EBox/Model/DomainTable.pm:177
 msgid "Domain"
 msgstr "Домен"
 
-#: src/EBox/Model/DomainTable.pm:186
+#: src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
 msgstr "Почтовый обменник"
 
-#: src/EBox/Model/DomainTable.pm:194
+#: src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
 msgstr "Сервера имен"
 
-#: src/EBox/Model/DomainTable.pm:210
+#: src/EBox/Model/DomainTable.pm:218
 msgid "Dynamic"
 msgstr "Динамический"
 
-#: src/EBox/Model/DomainTable.pm:214
+#: src/EBox/Model/DomainTable.pm:222
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Домен является динамическим, когда сервер DHCP обновляет домен"
 
-#: src/EBox/Model/DomainTable.pm:232
+#: src/EBox/Model/DomainTable.pm:240
 msgid "List of Domains"
 msgstr "Список доменов"
 
-#: src/EBox/Model/DomainTable.pm:233 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/Model/DomainTable.pm:241 src/EBox/Model/DNSComposite.pm:75
 #: src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"

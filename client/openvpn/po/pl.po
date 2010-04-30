@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"POT-Creation-Date: 2010-04-30 12:36+0200\n"
 "PO-Revision-Date: 2007-04-12 07:43+0000\n"
 "Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,32 +18,32 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/OpenVPN/Server.pm:84
+#: src/EBox/OpenVPN/Server.pm:85
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:180
+#: src/EBox/OpenVPN/Server.pm:184
 #, perl-brace-format
 msgid "The certificate {cn} does not exist"
 msgstr "Certyfikat {cn} nie istnieje."
 
-#: src/EBox/OpenVPN/Server.pm:183
+#: src/EBox/OpenVPN/Server.pm:187
 #, perl-brace-format
 msgid "The certificate {cn} has expired"
 msgstr "Certyfikat {cn} wygasł."
 
-#: src/EBox/OpenVPN/Server.pm:186
+#: src/EBox/OpenVPN/Server.pm:190
 #, perl-brace-format
 msgid "The certificate {cn} has been revoked"
 msgstr "Certyfikat {cn} został odwołany."
 
-#: src/EBox/OpenVPN/Server.pm:204
+#: src/EBox/OpenVPN/Server.pm:208
 #, perl-brace-format
 msgid "The server {name} does not have certificate assigned"
 msgstr "Serwer {name} nie ma przypisanego certyfikatu."
 
-#: src/EBox/OpenVPN/Server.pm:225
+#: src/EBox/OpenVPN/Server.pm:229
 #, perl-brace-format
 msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
@@ -52,78 +52,78 @@ msgstr ""
 "Nie mogę pobrać klucza serwera {name} ponieważ nie ma on przypisanego "
 "certyfikatu."
 
-#: src/EBox/OpenVPN/Server.pm:375
+#: src/EBox/OpenVPN/Server.pm:380
 #, perl-brace-format
 msgid "No IP address found for interface {iface}"
 msgstr "Nie znaleziono adresu IP na interfejsie {iface}"
 
-#: src/EBox/OpenVPN/Server.pm:480
+#: src/EBox/OpenVPN/Server.pm:485
 msgid "OpenVPN servers cannot be used for internal services"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:504
+#: src/EBox/OpenVPN/Server.pm:509
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:693
+#: src/EBox/OpenVPN/Server.pm:705
 #, perl-brace-format
 msgid "Server {name}"
 msgstr "Serwer {name}"
 
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:330
+#: src/EBox/OpenVPN/Server.pm:707 src/EBox/OpenVPN/Client.pm:386
 #: src/EBox/OpenVPN/Model/Servers.pm:68
 msgid "Enabled"
 msgstr "Włączony"
 
-#: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:330
+#: src/EBox/OpenVPN/Server.pm:707 src/EBox/OpenVPN/Client.pm:386
 msgid "Disabled"
 msgstr "Wyłączony"
 
-#: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:331
+#: src/EBox/OpenVPN/Server.pm:708 src/EBox/OpenVPN/Client.pm:387
 msgid "Service"
 msgstr "Usługa"
 
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:333
+#: src/EBox/OpenVPN/Server.pm:710 src/EBox/OpenVPN/Client.pm:389
 msgid "Running"
 msgstr "Uruchomiony"
 
-#: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:333
+#: src/EBox/OpenVPN/Server.pm:710 src/EBox/OpenVPN/Client.pm:389
 msgid "Stopped"
 msgstr "Zatrzymany"
 
-#: src/EBox/OpenVPN/Server.pm:699 src/EBox/OpenVPN/Client.pm:334
+#: src/EBox/OpenVPN/Server.pm:711 src/EBox/OpenVPN/Client.pm:390
 msgid "Daemon status"
 msgstr "Status deamon'a"
 
-#: src/EBox/OpenVPN/Server.pm:702
+#: src/EBox/OpenVPN/Server.pm:714
 msgid "All external interfaces"
 msgstr "Wszystkie zewnętrzne interfejsy"
 
-#: src/EBox/OpenVPN/Server.pm:703
+#: src/EBox/OpenVPN/Server.pm:715
 msgid "Local address"
 msgstr "Adres lokalny"
 
-#: src/EBox/OpenVPN/Server.pm:708
+#: src/EBox/OpenVPN/Server.pm:720
 msgid "Port"
 msgstr "Port"
 
-#: src/EBox/OpenVPN/Server.pm:711
+#: src/EBox/OpenVPN/Server.pm:723
 msgid "VPN subnet"
 msgstr "podsieć VPN"
 
-#: src/EBox/OpenVPN/Server.pm:714
+#: src/EBox/OpenVPN/Server.pm:726
 #, fuzzy
 msgid "VPN network interface"
 msgstr "maska podsieci prywatnej"
 
-#: src/EBox/OpenVPN/Server.pm:718 src/EBox/OpenVPN/Server.pm:720
-#: src/EBox/OpenVPN/Client.pm:346 src/EBox/OpenVPN/Client.pm:348
+#: src/EBox/OpenVPN/Server.pm:730 src/EBox/OpenVPN/Server.pm:732
+#: src/EBox/OpenVPN/Client.pm:402 src/EBox/OpenVPN/Client.pm:404
 #, fuzzy
 msgid "VPN interface address"
 msgstr "adres sieciowy"
 
-#: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:348
+#: src/EBox/OpenVPN/Server.pm:732 src/EBox/OpenVPN/Client.pm:404
 #, fuzzy
 msgid "No active"
 msgstr "Atywny"
@@ -171,12 +171,26 @@ msgstr ""
 msgid "disabled"
 msgstr "wyłączony"
 
-#: src/EBox/OpenVPN/Client.pm:328
+#: src/EBox/OpenVPN/Client.pm:227
+#, perl-brace-format
+msgid ""
+"VPN client should not be configured to connect to the address {addr} because "
+"is a address of the localhost itsef"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:245
+#, perl-brace-format
+msgid ""
+"VPN client should not be configured to connect to the address {addr} because "
+"is a address of a local network interface"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:384
 #, perl-brace-format
 msgid "Client {name}"
 msgstr "Klient {name}"
 
-#: src/EBox/OpenVPN/Client.pm:342
+#: src/EBox/OpenVPN/Client.pm:398
 msgid "Connection target"
 msgstr "Cel połączenia"
 
@@ -467,7 +481,7 @@ msgstr "Konfiguracja klienta {name}"
 msgid "client"
 msgstr "Klient"
 
-#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:276
+#: src/EBox/OpenVPN/Model/ClientConfiguration.pm:280
 #, perl-brace-format
 msgid "No file supplied or already set for {f}"
 msgstr ""
@@ -646,105 +660,105 @@ msgid ""
 "the prefix {pf}"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1448
+#: src/EBox/OpenVPN.pm:1456
 #, fuzzy, perl-brace-format
 msgid "Client {c} does not exists"
 msgstr "Certyfikat {cn} nie istnieje."
 
-#: src/EBox/OpenVPN.pm:1476
+#: src/EBox/OpenVPN.pm:1484
 msgid "Servers"
 msgstr "Serwery"
 
-#: src/EBox/OpenVPN.pm:1482
+#: src/EBox/OpenVPN.pm:1490
 msgid "Clients"
 msgstr "Klienty"
 
-#: src/EBox/OpenVPN.pm:1495
+#: src/EBox/OpenVPN.pm:1503
 #, fuzzy
 msgid "Common name"
 msgstr "Nazwa klienta"
 
-#: src/EBox/OpenVPN.pm:1495
+#: src/EBox/OpenVPN.pm:1503
 #, fuzzy
 msgid "Address"
 msgstr "Adres sieciowy"
 
-#: src/EBox/OpenVPN.pm:1495
+#: src/EBox/OpenVPN.pm:1503
 #, fuzzy
 msgid "Connected since"
 msgstr "Cel połączenia"
 
-#: src/EBox/OpenVPN.pm:1522
+#: src/EBox/OpenVPN.pm:1530
 msgid "No users connected to the VPN"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1563
+#: src/EBox/OpenVPN.pm:1571
 msgid "OpenVPN daemons"
 msgstr "demony OpenVPN"
 
-#: src/EBox/OpenVPN.pm:1625
+#: src/EBox/OpenVPN.pm:1633
 #, fuzzy
 msgid "Date"
 msgstr "Stwórz"
 
-#: src/EBox/OpenVPN.pm:1626
+#: src/EBox/OpenVPN.pm:1634
 msgid "Event"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1628
+#: src/EBox/OpenVPN.pm:1636
 msgid "Type"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1629
+#: src/EBox/OpenVPN.pm:1637
 msgid "Remote IP"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1630
+#: src/EBox/OpenVPN.pm:1638
 #, fuzzy
 msgid "Remote Certificate"
 msgstr "Certyfikat"
 
-#: src/EBox/OpenVPN.pm:1635
+#: src/EBox/OpenVPN.pm:1643
 msgid "Initialization sequence completed"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1637
+#: src/EBox/OpenVPN.pm:1645
 msgid "Certificate issuer not authorized"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1638
+#: src/EBox/OpenVPN.pm:1646
 msgid "Certificate common name not authorized"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1639
+#: src/EBox/OpenVPN.pm:1647
 msgid "Certificate verification failed"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1641
+#: src/EBox/OpenVPN.pm:1649
 #, fuzzy
 msgid "Client connection initiated"
 msgstr "Certyfikat klienta"
 
-#: src/EBox/OpenVPN.pm:1642
+#: src/EBox/OpenVPN.pm:1650
 #, fuzzy
 msgid "Client connection terminated"
 msgstr "Certyfikat klienta"
 
-#: src/EBox/OpenVPN.pm:1644
+#: src/EBox/OpenVPN.pm:1652
 #, fuzzy
 msgid "Connection to server initiated"
 msgstr "Cel połączenia"
 
-#: src/EBox/OpenVPN.pm:1645
+#: src/EBox/OpenVPN.pm:1653
 #, fuzzy
 msgid "Server connection terminated"
 msgstr "Konfiguracja serwera {name} zaktualizowana."
 
-#: src/EBox/OpenVPN.pm:1649
+#: src/EBox/OpenVPN.pm:1657
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
-#: src/EBox/OpenVPN.pm:1674
+#: src/EBox/OpenVPN.pm:1682
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr ""
 

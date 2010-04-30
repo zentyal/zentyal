@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:57+0200\n"
+"POT-Creation-Date: 2010-04-30 12:59+0200\n"
 "PO-Revision-Date: 2010-03-04 01:35+0100\n"
 "Last-Translator: Marcello Teodori <marcello.teodori@gmail.com>\n"
 "Language-Team: none\n"
@@ -560,12 +560,12 @@ msgstr "Stato slave"
 msgid "AD Sync Settings"
 msgstr "Impostazione sincronizzazione AD"
 
-#: src/EBox/UsersAndGroups.pm:2544
+#: src/EBox/UsersAndGroups.pm:2549
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr "Non è possibile la connessione con l'eBox master a {remote}"
 
-#: src/EBox/UsersAndGroups.pm:2551
+#: src/EBox/UsersAndGroups.pm:2556
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
@@ -573,12 +573,12 @@ msgstr ""
 "Non è possibile la connessione con l'eBox master a {remote} con la password "
 "LDAP fornita"
 
-#: src/EBox/UsersAndGroups.pm:2570
+#: src/EBox/UsersAndGroups.pm:2575
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr "Una macchina di nome {host} è già registrata su questo eBox"
 
-#: src/EBox/UsersAndGroups.pm:2692
+#: src/EBox/UsersAndGroups.pm:2697
 msgid "Replication failed"
 msgstr "Replica fallita"
 

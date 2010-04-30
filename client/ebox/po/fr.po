@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"POT-Creation-Date: 2010-04-30 12:55+0200\n"
 "PO-Revision-Date: 2010-01-18 13:58+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -391,7 +391,7 @@ msgstr "Erreur"
 msgid "Fatal error"
 msgstr "Erreur fatale"
 
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:718
 #: src/templates/finish.mas:116 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
@@ -440,7 +440,7 @@ msgstr ""
 msgid "Logs"
 msgstr "Journaux"
 
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:691
+#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:702
 msgid "Query Logs"
 msgstr "Journaux de requêtes"
 
@@ -448,7 +448,7 @@ msgstr "Journaux de requêtes"
 msgid "Full Reports"
 msgstr "Rapports complets"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:238
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:243
 msgid "Dashboard"
 msgstr "Panneau de contrôle"
 
@@ -522,10 +522,6 @@ msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
 msgid "The password was changed successfully."
 msgstr "Le mot de passe a été modifié avec succès"
 
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "Rapport de bug"
-
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 msgid "Configuration Backup"
 msgstr "Configuration des sauvegardes"
@@ -555,7 +551,7 @@ msgstr "Restaurer"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
-#: src/EBox/Backup.pm:1311
+#: src/EBox/Backup.pm:1328
 msgid "The input contains invalid characters"
 msgstr "L'entrée contient des caractères invalides"
 
@@ -583,8 +579,8 @@ msgstr "Le module a redémarré correctement"
 msgid "Upgrading"
 msgstr "Mise-à-jour"
 
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:62
+#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:722
+#: src/EBox/SysInfo.pm.in:270 src/templates/backup.mas:62
 msgid "Backup"
 msgstr "Sauvegarde"
 
@@ -626,7 +622,7 @@ msgstr "Restauration à partir de la sauvegarde"
 msgid "Restoring modules"
 msgstr "Restauration des modules"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:720
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
 msgstr "Module"
@@ -639,12 +635,17 @@ msgstr "modules restant à restaurer"
 msgid "Restore successful"
 msgstr "Restauration réussie"
 
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29 src/EBox/SysInfo.pm.in:276
+#, fuzzy
+msgid "Configuration report"
+msgstr "Configuraton de la restauration"
+
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:260
+#: src/EBox/SysInfo.pm.in:265
 msgid "RAID"
 msgstr "RAID"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:256
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:261
 msgid "Disk Usage"
 msgstr "Utilisation du disque"
 
@@ -1281,42 +1282,42 @@ msgstr "Niveau"
 msgid "Message"
 msgstr "Message"
 
-#: src/EBox/Logs.pm:440
+#: src/EBox/Logs.pm:451
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "Tableau {table} n'existe pas"
 
-#: src/EBox/Logs.pm:694
+#: src/EBox/Logs.pm:705
 msgid "Configure Logs"
 msgstr "Configurer les journaux d'activité"
 
-#: src/EBox/Logs.pm:708
+#: src/EBox/Logs.pm:719
 msgid "Client Address"
 msgstr "Adresse du client"
 
-#: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
+#: src/EBox/Logs.pm:721 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/DataTable.pm:2131
 msgid "Action"
 msgstr "Action"
 
-#: src/EBox/Logs.pm:711
+#: src/EBox/Logs.pm:722
 msgid "Params"
 msgstr "Paramètres"
 
-#: src/EBox/Logs.pm:712
+#: src/EBox/Logs.pm:723
 msgid "Committed"
 msgstr "Effectué"
 
-#: src/EBox/Logs.pm:717
+#: src/EBox/Logs.pm:728
 msgid "Admin"
 msgstr "Admin"
 
-#: src/EBox/Logs.pm:811
+#: src/EBox/Logs.pm:822
 msgid "Log messages"
 msgstr "Messages du journal"
 
-#: src/EBox/Logs.pm:838
+#: src/EBox/Logs.pm:849
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Le paramètre de durée de vie doit être une nombre positif d'heures"
 
@@ -1450,24 +1451,24 @@ msgstr "Impossible de créer l'archive de la sauvegarde"
 msgid "Could not append data to backup archive"
 msgstr "Impossible d'ajouter les données à l'archive de la sauvegarde"
 
-#: src/EBox/Backup.pm:421
+#: src/EBox/Backup.pm:437
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: src/EBox/Backup.pm:474
+#: src/EBox/Backup.pm:490
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "Impossible d'extraire les fichiers :{files}"
 
-#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1128
+#: src/EBox/Backup.pm:493 src/EBox/Backup.pm:1144
 msgid "Could not unpack the backup"
 msgstr "Impossible de désarchiver la sauvegarde"
 
-#: src/EBox/Backup.pm:743
+#: src/EBox/Backup.pm:759
 msgid "Writing backup file to hard disk"
 msgstr "Ecriture du fichier de sauvegarde sur le disque"
 
-#: src/EBox/Backup.pm:769
+#: src/EBox/Backup.pm:785
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
@@ -1475,23 +1476,23 @@ msgstr ""
 "Certains modules n'ont pas été modifiés. Avant de créer la sauvegarde, vous "
 "devez sauver ou annuler vos modifications"
 
-#: src/EBox/Backup.pm:827
+#: src/EBox/Backup.pm:843
 msgid "Incorrect or corrupt backup file"
 msgstr "La sauvegarde est incorrecte ou corrompue"
 
-#: src/EBox/Backup.pm:856
+#: src/EBox/Backup.pm:872
 msgid "The backup file is corrupt: could not open archive"
 msgstr "Le fichier de sauvegarde est corrompu : impossible d'ouvrir l'archive"
 
-#: src/EBox/Backup.pm:868
+#: src/EBox/Backup.pm:884
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "Le fichier de sauvegarde est corrompu : mauvais checksum"
 
-#: src/EBox/Backup.pm:875
+#: src/EBox/Backup.pm:891
 msgid "The backup file is corrupt."
 msgstr "La sauvegarde est corrompue."
 
-#: src/EBox/Backup.pm:893
+#: src/EBox/Backup.pm:909
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
@@ -1499,7 +1500,7 @@ msgstr ""
 "L'archive de sauvegarde est d'un type invalide. Fichier corrompu ou version "
 "incompatible d'eBox"
 
-#: src/EBox/Backup.pm:899
+#: src/EBox/Backup.pm:915
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
@@ -1508,7 +1509,7 @@ msgstr ""
 "restauration intégrale impossible. Une restauration de la configuration "
 "reste possible"
 
-#: src/EBox/Backup.pm:934
+#: src/EBox/Backup.pm:950
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -1516,16 +1517,16 @@ msgid ""
 msgstr ""
 "Espace disque insuffisant pour effectuer la restauration. {size} Kb manquant"
 
-#: src/EBox/Backup.pm:1215
+#: src/EBox/Backup.pm:1229
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "Aucun module {m} trouvé dans la sauvegarde"
 
-#: src/EBox/Backup.pm:1238
+#: src/EBox/Backup.pm:1252
 msgid "No modules to restore"
 msgstr "Aucun module à restaurer"
 
-#: src/EBox/Backup.pm:1290
+#: src/EBox/Backup.pm:1307
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -1533,7 +1534,7 @@ msgid ""
 msgstr ""
 "Dépendance du module {topModule} incomplète. {modName} n'est pas installé"
 
-#: src/EBox/Backup.pm:1333
+#: src/EBox/Backup.pm:1350
 msgid "Backup's archives"
 msgstr "Archives des sauvegardes"
 
@@ -1545,49 +1546,59 @@ msgstr "Information système"
 msgid "available"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:103
 msgid "Time"
 msgstr "Heure"
 
-#: src/EBox/SysInfo.pm.in:101
+#: src/EBox/SysInfo.pm.in:104
 msgid "Hostname"
 msgstr "Nom de l'hôte"
 
-#: src/EBox/SysInfo.pm.in:102
+#: src/EBox/SysInfo.pm.in:105
 #, fuzzy
 msgid "Core version"
 msgstr "Version de l'eBox"
 
-#: src/EBox/SysInfo.pm.in:104
+#: src/EBox/SysInfo.pm.in:107
 msgid "System load"
 msgstr "Charge du système"
 
-#: src/EBox/SysInfo.pm.in:150 src/EBox/SysInfo.pm.in:243
+#: src/EBox/SysInfo.pm.in:108
+#, fuzzy
+msgid "Uptime"
+msgstr "Heure"
+
+#: src/EBox/SysInfo.pm.in:109
+#, fuzzy
+msgid "Users"
+msgstr "Nom de l'hôte"
+
+#: src/EBox/SysInfo.pm.in:155 src/EBox/SysInfo.pm.in:248
 msgid "Module Status"
 msgstr "Statut des modules"
 
-#: src/EBox/SysInfo.pm.in:155
+#: src/EBox/SysInfo.pm.in:160
 msgid "General Information"
 msgstr "Information générale"
 
-#: src/EBox/SysInfo.pm.in:160
+#: src/EBox/SysInfo.pm.in:165
 msgid "Process List"
 msgstr "Liste des processus"
 
-#: src/EBox/SysInfo.pm.in:167
+#: src/EBox/SysInfo.pm.in:172
 #, fuzzy
 msgid "Resources & Services"
 msgstr "service"
 
-#: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:254 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "Système"
 
-#: src/EBox/SysInfo.pm.in:253
+#: src/EBox/SysInfo.pm.in:258
 msgid "General"
 msgstr "Général"
 
-#: src/EBox/SysInfo.pm.in:268
+#: src/EBox/SysInfo.pm.in:273
 msgid "Halt/Reboot"
 msgstr "Arrêt/Redémarrage"
 
@@ -2153,16 +2164,23 @@ msgid "delete"
 msgstr "Effacer"
 
 #: src/templates/bug.mas:9
+#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a bug in eBox."
+"system. The file will be useful if you want to report a problem or seek "
+"support."
 msgstr ""
 "Cette page vous permet de générer un fichier avec les informations "
 "concernant l'état de votre système. Le fichier vous sera utile si vous "
 "souhaitez rapporter un bug de l'eBox"
 
-#: src/templates/bug.mas:14
-msgid "Download bug report file"
+#: src/templates/bug.mas:13
+msgid "It may take several minutes to generate the report. Please be patient."
+msgstr ""
+
+#: src/templates/bug.mas:19
+#, fuzzy
+msgid "Download configuration report file"
 msgstr "Télécharger un rapport de bug"
 
 #: src/templates/logout/index.mas:11
@@ -2246,6 +2264,9 @@ msgstr "Mode de restauraton"
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "Port TCP de l'interface d'administration"
+
+#~ msgid "Bug report"
+#~ msgstr "Rapport de bug"
 
 #~ msgid "Support & Services"
 #~ msgstr "Support et services"
@@ -2373,10 +2394,6 @@ msgstr "Port TCP de l'interface d'administration"
 
 #~ msgid "No RAID devices present"
 #~ msgstr "Aucun périphérique RAID présent"
-
-#, fuzzy
-#~ msgid "User"
-#~ msgstr "Nom de l'hôte"
 
 #, fuzzy
 #~ msgid "Enter user and password"

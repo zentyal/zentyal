@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-04-30 12:29+0200\n"
 "PO-Revision-Date: 2010-04-22 17:24+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,42 +17,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:240
+#: src/EBox/DNS.pm.in:263 src/EBox/Model/DomainTable.pm:248
 msgid "domain"
 msgstr "domínio"
 
-#: src/EBox/DNS.pm.in:512
+#: src/EBox/DNS.pm.in:516
 msgid "main bind9 configuration file"
 msgstr "Ficheiro de configuração principal do bind9"
 
-#: src/EBox/DNS.pm.in:517
+#: src/EBox/DNS.pm.in:521
 msgid "bind9 options configuration file"
 msgstr "Ficheiro de configuração das opções do bind9"
 
-#: src/EBox/DNS.pm.in:522
+#: src/EBox/DNS.pm.in:526
 msgid "local bind9 configuration file"
 msgstr "Ficheiro de configuração local do bind9"
 
-#: src/EBox/DNS.pm.in:527
+#: src/EBox/DNS.pm.in:531
 msgid "Keys configuration file"
 msgstr "Ficheiro de configuração das chaves"
 
-#: src/EBox/DNS.pm.in:544
+#: src/EBox/DNS.pm.in:548
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "Ficheiro de configuração para a zona {zone}"
 
-#: src/EBox/DNS.pm.in:560
+#: src/EBox/DNS.pm.in:564
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "Ficheiro de configuração para a resolução reversa da zona {zone}"
 
-#: src/EBox/DNS.pm.in:578
+#: src/EBox/DNS.pm.in:582
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr "Alterar as permissões para {dir} para permitir a escrita no grupo bind"
 
-#: src/EBox/DNS.pm.in:580
+#: src/EBox/DNS.pm.in:584
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "Permitir que a rotina bind seja actualizada dinamicamente"
 
@@ -76,7 +76,7 @@ msgstr ""
 msgid "Host name"
 msgstr "Nome da máquina"
 
-#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:202
+#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:210
 msgid "IP Address"
 msgstr "Endereço IP"
 
@@ -90,7 +90,7 @@ msgstr "Pseudónimo"
 msgid "Host names"
 msgstr "Nomes da máquina"
 
-#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:177
+#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:185
 msgid "Hostnames"
 msgstr "Nomes da máquina"
 
@@ -98,31 +98,31 @@ msgstr "Nomes da máquina"
 msgid "host name"
 msgstr "nome da máquina"
 
-#: src/EBox/Model/DomainTable.pm:169
+#: src/EBox/Model/DomainTable.pm:177
 msgid "Domain"
 msgstr "Domínio"
 
-#: src/EBox/Model/DomainTable.pm:186
+#: src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
 msgstr "Fornecedores de correio"
 
-#: src/EBox/Model/DomainTable.pm:194
+#: src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
 msgstr "Servidores de Nomes"
 
-#: src/EBox/Model/DomainTable.pm:210
+#: src/EBox/Model/DomainTable.pm:218
 msgid "Dynamic"
 msgstr "Dinâmico "
 
-#: src/EBox/Model/DomainTable.pm:214
+#: src/EBox/Model/DomainTable.pm:222
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Um domínio é dinâmico quando o servidor DHCP actualiza o domínio"
 
-#: src/EBox/Model/DomainTable.pm:232
+#: src/EBox/Model/DomainTable.pm:240
 msgid "List of Domains"
 msgstr "Lista de Domínios"
 
-#: src/EBox/Model/DomainTable.pm:233 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/Model/DomainTable.pm:241 src/EBox/Model/DNSComposite.pm:75
 #: src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"
@@ -153,7 +153,8 @@ msgstr ""
 
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:134
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
-msgstr "Se escolher \"Personalizado\", deverá ser um nome de domínio qualificado"
+msgstr ""
+"Se escolher \"Personalizado\", deverá ser um nome de domínio qualificado"
 
 #: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:140
 msgid "This domain"
@@ -219,8 +220,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "ns.{name}?"
 msgstr ""
-"O nome de máquna fornecido não é um nome qualificado (FQDN). Quer dizer "
-"ns.{name}?"
+"O nome de máquna fornecido não é um nome qualificado (FQDN). Quer dizer ns."
+"{name}?"
 
 #: src/EBox/Model/NameServer.pm:112
 msgid "The domain is set as read only. You cannot add name servers"

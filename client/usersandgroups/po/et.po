@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 1.4.1Report-Msgid-Bugs-To: "
-"bugs@warp.es\n"
+"Project-Id-Version: ebox-usersandgroups 1.4.1Report-Msgid-Bugs-To: bugs@warp."
+"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:57+0200\n"
+"POT-Creation-Date: 2010-04-30 12:59+0200\n"
 "PO-Revision-Date: 2010-03-29 20:12+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -593,24 +593,24 @@ msgstr "Alama olek"
 msgid "AD Sync Settings"
 msgstr "AD sünkroniseerimise seadistused"
 
-#: src/EBox/UsersAndGroups.pm:2544
+#: src/EBox/UsersAndGroups.pm:2549
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr "Ühenduse loomine ülem eBoxiga {remote} ei õnnestu"
 
-#: src/EBox/UsersAndGroups.pm:2551
+#: src/EBox/UsersAndGroups.pm:2556
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr ""
 "Pakutud LDAP parooliga ei õnnestu ülem eBoxiga {remote} ühenduse loomine"
 
-#: src/EBox/UsersAndGroups.pm:2570
+#: src/EBox/UsersAndGroups.pm:2575
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr "Masin nimega {host} on juba selles eBoxis registreeritud"
 
-#: src/EBox/UsersAndGroups.pm:2692
+#: src/EBox/UsersAndGroups.pm:2697
 msgid "Replication failed"
 msgstr "Kopeerimine nurjus"
 

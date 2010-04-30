@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:52+0200\n"
+"POT-Creation-Date: 2010-04-30 12:54+0200\n"
 "PO-Revision-Date: 2010-04-30 11:48+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -107,7 +107,8 @@ msgstr "Sa pead määrama alglaadimistõmmise asukoha võrguserveris"
 #, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
-msgstr "Kui sul on kõrvalserver, mis ei ole eBox, saad määrata ainult failinime"
+msgstr ""
+"Kui sul on kõrvalserver, mis ei ole eBox, saad määrata ainult failinime"
 
 #  
 #: src/EBox/Model/ThinClientOptions.pm:209
@@ -457,8 +458,7 @@ msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
 msgstr ""
-"Kui valitud on kohalik eBoxi NTP, siis eBox on DHCP klientidele NTP "
-"serveriks"
+"Kui valitud on kohalik eBoxi NTP, siis eBox on DHCP klientidele NTP serveriks"
 
 #: src/EBox/Model/Options.pm:502
 msgid "WINS server"

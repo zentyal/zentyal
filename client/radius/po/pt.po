@@ -69,8 +69,7 @@ msgstr "Criar certificados RADIUS para TTLS"
 msgid ""
 "eBox will create the needed certificates for TTLS in /etc/freeradius/certs/."
 msgstr ""
-"A eBox criará os certificados necessários para TTLS em "
-"/etc/freeradius/certs/"
+"A eBox criará os certificados necessários para TTLS em /etc/freeradius/certs/"
 
 #: src/EBox/Radius.pm:120
 msgid "To configure allowed LDAP group."

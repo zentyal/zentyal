@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"POT-Creation-Date: 2010-04-30 12:55+0200\n"
 "PO-Revision-Date: 2009-11-29 22:32+0100\n"
 "Last-Translator: Sergio Vergara Ruiz <svruiz@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
@@ -395,7 +395,7 @@ msgstr ""
 msgid "Fatal error"
 msgstr ""
 
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:718
 #: src/templates/finish.mas:116 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
@@ -447,7 +447,7 @@ msgstr ""
 msgid "Logs"
 msgstr "Surt"
 
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:691
+#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:702
 msgid "Query Logs"
 msgstr ""
 
@@ -456,7 +456,7 @@ msgstr ""
 msgid "Full Reports"
 msgstr "Informe d'error"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:238
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:243
 msgid "Dashboard"
 msgstr ""
 
@@ -532,10 +532,6 @@ msgstr "La contrasenya ha de tenir almenys 6 caràcters"
 msgid "The password was changed successfully."
 msgstr "S'ha canviat la contrasenya amb èxit."
 
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "Informe d'error"
-
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 #, fuzzy
 msgid "Configuration Backup"
@@ -565,7 +561,7 @@ msgstr "Restaura"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
-#: src/EBox/Backup.pm:1311
+#: src/EBox/Backup.pm:1328
 msgid "The input contains invalid characters"
 msgstr "L'entrada conté caràcters invàlids"
 
@@ -597,8 +593,8 @@ msgstr ""
 msgid "Upgrading"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:62
+#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:722
+#: src/EBox/SysInfo.pm.in:270 src/templates/backup.mas:62
 msgid "Backup"
 msgstr "Còpia de seguretat"
 
@@ -646,7 +642,7 @@ msgstr "Restaura des de la còpia de seguretat"
 msgid "Restoring modules"
 msgstr "Restaura"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:720
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 #, fuzzy
 msgid "Module"
@@ -661,12 +657,17 @@ msgstr ""
 msgid "Restore successful"
 msgstr "Restaura"
 
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29 src/EBox/SysInfo.pm.in:276
+#, fuzzy
+msgid "Configuration report"
+msgstr "Desa la configuració"
+
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:260
+#: src/EBox/SysInfo.pm.in:265
 msgid "RAID"
 msgstr ""
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:256
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:261
 msgid "Disk Usage"
 msgstr ""
 
@@ -1302,44 +1303,44 @@ msgstr "Extern"
 msgid "Message"
 msgstr ""
 
-#: src/EBox/Logs.pm:440
+#: src/EBox/Logs.pm:451
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "Tabla {table} no existeix."
 
-#: src/EBox/Logs.pm:694
+#: src/EBox/Logs.pm:705
 #, fuzzy
 msgid "Configure Logs"
 msgstr "Desa la configuració"
 
-#: src/EBox/Logs.pm:708
+#: src/EBox/Logs.pm:719
 #, fuzzy
 msgid "Client Address"
 msgstr "adreça ip"
 
-#: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
+#: src/EBox/Logs.pm:721 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/DataTable.pm:2131
 msgid "Action"
 msgstr "Acció"
 
-#: src/EBox/Logs.pm:711
+#: src/EBox/Logs.pm:722
 msgid "Params"
 msgstr ""
 
-#: src/EBox/Logs.pm:712
+#: src/EBox/Logs.pm:723
 msgid "Committed"
 msgstr ""
 
-#: src/EBox/Logs.pm:717
+#: src/EBox/Logs.pm:728
 msgid "Admin"
 msgstr ""
 
-#: src/EBox/Logs.pm:811
+#: src/EBox/Logs.pm:822
 msgid "Log messages"
 msgstr ""
 
-#: src/EBox/Logs.pm:838
+#: src/EBox/Logs.pm:849
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr ""
 
@@ -1477,83 +1478,83 @@ msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
 msgid "Could not append data to backup archive"
 msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
 
-#: src/EBox/Backup.pm:421
+#: src/EBox/Backup.pm:437
 msgid "Unknown"
 msgstr ""
 
-#: src/EBox/Backup.pm:474
+#: src/EBox/Backup.pm:490
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr ""
 
-#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1128
+#: src/EBox/Backup.pm:493 src/EBox/Backup.pm:1144
 msgid "Could not unpack the backup"
 msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
 
-#: src/EBox/Backup.pm:743
+#: src/EBox/Backup.pm:759
 msgid "Writing backup file to hard disk"
 msgstr ""
 
-#: src/EBox/Backup.pm:769
+#: src/EBox/Backup.pm:785
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
 msgstr ""
 
-#: src/EBox/Backup.pm:827
+#: src/EBox/Backup.pm:843
 msgid "Incorrect or corrupt backup file"
 msgstr "El fitxer de còpia de seguretat és incorrecte o corromput"
 
-#: src/EBox/Backup.pm:856
+#: src/EBox/Backup.pm:872
 #, fuzzy
 msgid "The backup file is corrupt: could not open archive"
 msgstr "El fitxer de còpia de seguretat és corrupte."
 
-#: src/EBox/Backup.pm:868
+#: src/EBox/Backup.pm:884
 #, fuzzy
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "El fitxer de còpia de seguretat és corrupte."
 
-#: src/EBox/Backup.pm:875
+#: src/EBox/Backup.pm:891
 msgid "The backup file is corrupt."
 msgstr "El fitxer de còpia de seguretat és corrupte."
 
-#: src/EBox/Backup.pm:893
+#: src/EBox/Backup.pm:909
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr ""
 
-#: src/EBox/Backup.pm:899
+#: src/EBox/Backup.pm:915
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
 
-#: src/EBox/Backup.pm:934
+#: src/EBox/Backup.pm:950
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
 
-#: src/EBox/Backup.pm:1215
+#: src/EBox/Backup.pm:1229
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr ""
 
-#: src/EBox/Backup.pm:1238
+#: src/EBox/Backup.pm:1252
 msgid "No modules to restore"
 msgstr ""
 
-#: src/EBox/Backup.pm:1290
+#: src/EBox/Backup.pm:1307
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr ""
 
-#: src/EBox/Backup.pm:1333
+#: src/EBox/Backup.pm:1350
 #, fuzzy
 msgid "Backup's archives"
 msgstr "Còpia de seguretat"
@@ -1567,54 +1568,63 @@ msgstr "Informació general"
 msgid "available"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:103
 msgid "Time"
 msgstr "Temps"
 
-#: src/EBox/SysInfo.pm.in:101
+#: src/EBox/SysInfo.pm.in:104
 #, fuzzy
 msgid "Hostname"
 msgstr "Nom del servidor"
 
-#: src/EBox/SysInfo.pm.in:102
+#: src/EBox/SysInfo.pm.in:105
 #, fuzzy
 msgid "Core version"
 msgstr "Versió d'Ebox"
 
-#: src/EBox/SysInfo.pm.in:104
+#: src/EBox/SysInfo.pm.in:107
 msgid "System load"
 msgstr "Càrrega del sistema"
 
-#: src/EBox/SysInfo.pm.in:150 src/EBox/SysInfo.pm.in:243
+#: src/EBox/SysInfo.pm.in:108
+#, fuzzy
+msgid "Uptime"
+msgstr "Temps"
+
+#: src/EBox/SysInfo.pm.in:109
+msgid "Users"
+msgstr ""
+
+#: src/EBox/SysInfo.pm.in:155 src/EBox/SysInfo.pm.in:248
 #, fuzzy
 msgid "Module Status"
 msgstr "Coses de ModuleName"
 
-#: src/EBox/SysInfo.pm.in:155
+#: src/EBox/SysInfo.pm.in:160
 #, fuzzy
 msgid "General Information"
 msgstr "Informació general"
 
-#: src/EBox/SysInfo.pm.in:160
+#: src/EBox/SysInfo.pm.in:165
 #, fuzzy
 msgid "Process List"
 msgstr "Còpia de seguretat"
 
-#: src/EBox/SysInfo.pm.in:167
+#: src/EBox/SysInfo.pm.in:172
 #, fuzzy
 msgid "Resources & Services"
 msgstr "Serveis"
 
-#: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:254 src/EBox/Report/DiskUsage.pm:336
 #, fuzzy
 msgid "System"
 msgstr "Càrrega del sistema"
 
-#: src/EBox/SysInfo.pm.in:253
+#: src/EBox/SysInfo.pm.in:258
 msgid "General"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:268
+#: src/EBox/SysInfo.pm.in:273
 msgid "Halt/Reboot"
 msgstr ""
 
@@ -2187,14 +2197,20 @@ msgstr "Elimina"
 #, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a bug in eBox."
+"system. The file will be useful if you want to report a problem or seek "
+"support."
 msgstr ""
 "Aquesta pàgina vos permet generar un fitxer amb la informació sobre l'estat "
 "del vostre sistema. El fitxer serà útil si voleu informar d'una errada en "
 "EBox."
 
-#: src/templates/bug.mas:14
-msgid "Download bug report file"
+#: src/templates/bug.mas:13
+msgid "It may take several minutes to generate the report. Please be patient."
+msgstr ""
+
+#: src/templates/bug.mas:19
+#, fuzzy
+msgid "Download configuration report file"
 msgstr "Descarrega un fitxer d'informe d'error"
 
 #: src/templates/logout/index.mas:11
@@ -2280,6 +2296,9 @@ msgstr "Restaura"
 #, fuzzy
 msgid "Administration Interface TCP Port"
 msgstr "Port TCP per a la interfície d'administració"
+
+#~ msgid "Bug report"
+#~ msgstr "Informe d'error"
 
 #, fuzzy
 #~ msgid "Monitoring"

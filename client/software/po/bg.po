@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:55+0200\n"
+"POT-Creation-Date: 2010-04-30 12:57+0200\n"
 "PO-Revision-Date: 2008-07-04 08:19+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -42,29 +42,29 @@ msgstr ""
 msgid "Enable cron script to download updates"
 msgstr ""
 
-#: src/EBox/Software.pm:168 src/EBox/Software.pm:401
+#: src/EBox/Software.pm:168 src/EBox/Software.pm:407
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr ""
 
-#: src/EBox/Software.pm:212 src/EBox/Software.pm:435
+#: src/EBox/Software.pm:212 src/EBox/Software.pm:441
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
 
-#: src/EBox/Software.pm:545
+#: src/EBox/Software.pm:551
 msgid "eBox Components"
 msgstr ""
 
-#: src/EBox/Software.pm:547
+#: src/EBox/Software.pm:553
 msgid "System Updates"
 msgstr ""
 
-#: src/EBox/Software.pm:549
+#: src/EBox/Software.pm:555
 msgid "Automatic Updates"
 msgstr ""
 
-#: src/EBox/Software.pm:640
+#: src/EBox/Software.pm:646
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"

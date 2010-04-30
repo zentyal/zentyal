@@ -6,6 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 1.4.2Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 16:32+0000\n"
 "PO-Revision-Date: 2010-04-16 12:38+0200\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
@@ -54,8 +55,7 @@ msgstr "Přidat spam a ham systémové uživatele"
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
-"Tyto uživatelé jsou pro e-mailové účty používané pro výcvik bayesovský "
-"filtrů"
+"Tyto uživatelé jsou pro e-mailové účty používané pro výcvik bayesovský filtrů"
 
 #: src/EBox/MailFilter.pm:97
 msgid "Update LDAP"
@@ -217,8 +217,7 @@ msgid ""
 "The sender ought be either an email address or a domain name prefixed with "
 "'@'"
 msgstr ""
-"Odesílatel by měl mít buď e-mailovou adresu nebo název domény s předponou "
-"'@'"
+"Odesílatel by měl mít buď e-mailovou adresu nebo název domény s předponou '@'"
 
 #: src/EBox/MailFilter/Types/Policy.pm:30
 msgid "Pass"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 1.3.12Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:55+0200\n"
+"POT-Creation-Date: 2010-04-30 12:57+0200\n"
 "PO-Revision-Date: 2009-09-26 19:39+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,136 +15,155 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:993 src/EBox/Squid.pm:1069
+#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:1095 src/EBox/Squid.pm:1172
 #: src/EBox/Squid/Composite/General.pm:76
 msgid "HTTP Proxy"
 msgstr ""
 
-#: src/EBox/Squid.pm:197
+#: src/EBox/Squid.pm:201
 msgid "HTTP Proxy configuration file"
 msgstr ""
 
-#: src/EBox/Squid.pm:202
+#: src/EBox/Squid.pm:206
 msgid "Content filter configuration file"
 msgstr ""
 
-#: src/EBox/Squid.pm:207
+#: src/EBox/Squid.pm:211
 msgid "Default filter group configuration"
 msgstr ""
 
-#: src/EBox/Squid.pm:212
+#: src/EBox/Squid.pm:216
 msgid "Filter groups membership"
 msgstr ""
 
-#: src/EBox/Squid.pm:217
+#: src/EBox/Squid.pm:221
 msgid "Content filter banned extension list"
 msgstr ""
 
-#: src/EBox/Squid.pm:222
+#: src/EBox/Squid.pm:226
 msgid "Content filter banned mime type list"
 msgstr ""
 
-#: src/EBox/Squid.pm:227
+#: src/EBox/Squid.pm:231
 msgid "Content filter exception site list"
 msgstr ""
 
-#: src/EBox/Squid.pm:232
+#: src/EBox/Squid.pm:236
 msgid "Content filter grey site list"
 msgstr ""
 
-#: src/EBox/Squid.pm:237
+#: src/EBox/Squid.pm:241
 msgid "Content filter banned site list"
 msgstr ""
 
-#: src/EBox/Squid.pm:242
+#: src/EBox/Squid.pm:246
 msgid "Content filter exception URL list"
 msgstr ""
 
-#: src/EBox/Squid.pm:247
+#: src/EBox/Squid.pm:251
 msgid "Content filter grey URL list"
 msgstr ""
 
-#: src/EBox/Squid.pm:252
+#: src/EBox/Squid.pm:256
 msgid "Content filter banned URL list"
 msgstr ""
 
-#: src/EBox/Squid.pm:257
+#: src/EBox/Squid.pm:261
 msgid "Forbidden phrases list"
 msgstr ""
 
-#: src/EBox/Squid.pm:262
+#: src/EBox/Squid.pm:266
 msgid "Exception phrases list"
 msgstr ""
 
-#: src/EBox/Squid.pm:267
+#: src/EBox/Squid.pm:271
 msgid "PICS ratings configuration"
 msgstr ""
 
-#: src/EBox/Squid.pm:272
+#: src/EBox/Squid.pm:276
 msgid "Dansguardian's log rotation configuration"
 msgstr ""
 
-#: src/EBox/Squid.pm:277
+#: src/EBox/Squid.pm:281
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr ""
 
-#: src/EBox/Squid.pm:282
+#: src/EBox/Squid.pm:286
 msgid "Filter groups per IP"
 msgstr ""
 
-#: src/EBox/Squid.pm:317
+#: src/EBox/Squid.pm:301
+msgid "Overwrite blocked page templates"
+msgstr ""
+
+#: src/EBox/Squid.pm:302
+msgid ""
+"Dansguardian blocked page templates will be overwritten with eBox customized "
+"templates."
+msgstr ""
+
+#: src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/Squid.pm:965
+#: src/EBox/Squid.pm:351
+msgid ""
+"You must set the max_object_size variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/Squid.pm:1067
 msgid "Enabled"
 msgstr ""
 
-#: src/EBox/Squid.pm:967 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+#: src/EBox/Squid.pm:1069 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/Squid.pm:969
+#: src/EBox/Squid.pm:1071
 msgid "Transparent proxy"
 msgstr ""
 
-#: src/EBox/Squid.pm:972 src/EBox/Squid/Model/MIMEFilterBase.pm:60
+#: src/EBox/Squid.pm:1074 src/EBox/Squid/Model/MIMEFilterBase.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:93
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:100
 msgid "Allow"
 msgstr ""
 
-#: src/EBox/Squid.pm:974 src/EBox/Squid/Model/GroupPolicyBase.pm:97
+#: src/EBox/Squid.pm:1076 src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Deny"
 msgstr ""
 
-#: src/EBox/Squid.pm:976 src/EBox/Squid/Types/DomainPolicy.pm:35
+#: src/EBox/Squid.pm:1078 src/EBox/Squid/Types/DomainPolicy.pm:35
 #: src/EBox/Squid/Types/Policy.pm:65
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
 msgstr ""
 
-#: src/EBox/Squid.pm:979
+#: src/EBox/Squid.pm:1081
 msgid "Global policy"
 msgstr ""
 
-#: src/EBox/Squid.pm:981
+#: src/EBox/Squid.pm:1083
 msgid "Listening port"
 msgstr ""
 
-#: src/EBox/Squid.pm:1013
+#: src/EBox/Squid.pm:1115
 msgid "General"
 msgstr ""
 
-#: src/EBox/Squid.pm:1017
+#: src/EBox/Squid.pm:1118 src/EBox/Squid/Composite/DelayPools.pm:69
+msgid "Bandwidth Throttling"
+msgstr ""
+
+#: src/EBox/Squid.pm:1121
 msgid "Objects' Policy"
 msgstr ""
 
-#: src/EBox/Squid.pm:1020
+#: src/EBox/Squid.pm:1124
 msgid "Groups' Policy"
 msgstr ""
 
-#: src/EBox/Squid.pm:1023
+#: src/EBox/Squid.pm:1127
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
 #: src/EBox/Squid/Model/DomainFilterCategories.pm:111
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
@@ -152,48 +171,50 @@ msgstr ""
 msgid "Filter Profiles"
 msgstr ""
 
-#: src/EBox/Squid.pm:1054 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+#: src/EBox/Squid.pm:1157 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
 msgstr ""
 
-#: src/EBox/Squid.pm:1055
+#: src/EBox/Squid.pm:1158
 msgid "Host"
 msgstr ""
 
-#: src/EBox/Squid.pm:1056 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Squid.pm:1159 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
 msgstr ""
 
-#: src/EBox/Squid.pm:1057
+#: src/EBox/Squid.pm:1160
 msgid "URL"
 msgstr ""
 
-#: src/EBox/Squid.pm:1058
+#: src/EBox/Squid.pm:1161 src/EBox/Squid/Model/DelayPools2.pm:180
+#: src/EBox/Squid/Model/DelayPools2.pm:200
+#: src/EBox/Squid/Model/DelayPools1.pm:164
 msgid "Bytes"
 msgstr ""
 
-#: src/EBox/Squid.pm:1059
+#: src/EBox/Squid.pm:1162
 msgid "Mime/type"
 msgstr ""
 
-#: src/EBox/Squid.pm:1060
+#: src/EBox/Squid.pm:1163
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Squid.pm:1065
+#: src/EBox/Squid.pm:1168
 msgid "Accepted"
 msgstr ""
 
-#: src/EBox/Squid.pm:1066
+#: src/EBox/Squid.pm:1169
 msgid "Denied"
 msgstr ""
 
-#: src/EBox/Squid.pm:1067
+#: src/EBox/Squid.pm:1170
 msgid "Filtered"
 msgstr ""
 
-#: src/EBox/Squid.pm:1144
+#: src/EBox/Squid.pm:1247
 msgid "HTTP Proxy's cache files"
 msgstr ""
 
@@ -460,6 +481,120 @@ msgstr ""
 msgid "Address updated"
 msgstr ""
 
+#: src/EBox/Squid/Model/DelayPools2.pm:87
+#: src/EBox/Squid/Model/DelayPools1.pm:85
+#, perl-brace-format
+msgid ""
+"Object {object} has no members. Please add at least one to add rules using "
+"this object."
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:102
+#: src/EBox/Squid/Model/DelayPools1.pm:100
+#, perl-brace-format
+msgid ""
+"Object {object} has an enabled {row} in {table}. Delete it first from there "
+"to add it here"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:119
+#: src/EBox/Squid/Model/DelayPools1.pm:116
+#, perl-brace-format
+msgid ""
+"If {first} is set unlimited, then {second} must be set to unlimited as well"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:134
+#, perl-brace-format
+msgid "{clt_rate} is greater than {net_rate}"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:159
+#: src/EBox/Squid/Model/DelayPools1.pm:143
+msgid "Network object"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:167
+msgid "Rate"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:170
+#: src/EBox/Squid/Model/DelayPools2.pm:190
+#: src/EBox/Squid/Model/DelayPools1.pm:154
+msgid "Bytes/s"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:173
+#: src/EBox/Squid/Model/DelayPools1.pm:157
+msgid ""
+"Maximum download bandwidth rate for this network. Use -1 to disable this "
+"option."
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:177
+msgid "Maximum Size"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:183
+#: src/EBox/Squid/Model/DelayPools1.pm:167
+msgid ""
+"Maximum unthrottled download size for this network. Use -1 to disable this "
+"option."
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:187
+msgid "Client Rate"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:193
+msgid ""
+"Maximum download bandwidth rate per client. Use -1 to disable this option."
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:197
+msgid "Client Maximum Size"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:203
+msgid ""
+"Maximum unthrottled download size per client. Use -1 to disable this option."
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:209
+msgid "Delay Pools Class 2"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:216
+#, perl-brace-format
+msgid ""
+"Once the request exceeds the {max} then the HTTP Proxy will throttle the "
+"download bandwidth to the given {rate}. The client number is limited to 256."
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools2.pm:222
+#: src/EBox/Squid/Model/DelayPools1.pm:186
+msgid "pool"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools1.pm:151
+msgid "Network Rate"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools1.pm:161
+msgid "Network Maximum Size"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools1.pm:173
+msgid "Delay Pools Class 1"
+msgstr ""
+
+#: src/EBox/Squid/Model/DelayPools1.pm:180
+#, perl-brace-format
+msgid ""
+"Once the request exceeds the {max} then the HTTP Proxy will throttle the "
+"download bandwidth to the given {rate}."
+msgstr ""
+
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
 #: src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:57
@@ -665,7 +800,7 @@ msgstr ""
 msgid "You can only use a custom profile with the 'Filter' policy"
 msgstr ""
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:527
+#: src/EBox/Squid/Model/ObjectPolicy.pm:528
 #, perl-brace-format
 msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
@@ -714,7 +849,7 @@ msgid ""
 "group  if you want to set a group policy"
 msgstr ""
 
-#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:61
+#: src/EBox/Squid/Model/DomainFilterFilesBase.pm:61 stubs/template.html.mas:39
 msgid "Categories"
 msgstr ""
 
@@ -1096,6 +1231,15 @@ msgstr ""
 msgid "File extensions filtering"
 msgstr ""
 
+#: src/EBox/Squid/Composite/DelayPools.pm:71
+msgid ""
+"Class 1 pools allow you to restrict the bandwidth rate for large downloads "
+"whereas class 2 pools allow you to set the bandwidth usage to a sustained "
+"rate. The class 1 pools have more priority than class 2 ones and the first "
+"match from the source is done. If a network object does not match any rule, "
+"then no bandwidth throttling is done to it"
+msgstr ""
+
 #: src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
 msgstr ""
@@ -1124,4 +1268,33 @@ msgstr ""
 
 #: src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
+msgstr ""
+
+#: stubs/template.html.mas:9
+msgid "Access Denied"
+msgstr ""
+
+#: stubs/template.html.mas:30
+msgid "Access has been Denied"
+msgstr ""
+
+#: stubs/template.html.mas:37
+#, perl-brace-format
+msgid "Access to the page: {page} has been denied for the following reason"
+msgstr ""
+
+#: stubs/template.html.mas:41
+msgid ""
+"You are seeing this error because what you attempted to access appears to "
+"contain, or is labeled as containing, material that has been deemed "
+"inappropriate."
+msgstr ""
+
+#: stubs/template.html.mas:42
+msgid ""
+"If you have any queries contact your ICT Coordinator or Network Manager."
+msgstr ""
+
+#: stubs/template.html.mas:47
+msgid "Powered by"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 17:15+0000\n"
+"POT-Creation-Date: 2010-04-30 12:29+0200\n"
 "PO-Revision-Date: 2010-02-14 01:33+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: none\n"
@@ -17,44 +17,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:259 src/EBox/Model/DomainTable.pm:240
+#: src/EBox/DNS.pm.in:263 src/EBox/Model/DomainTable.pm:248
 msgid "domain"
 msgstr "tartomány"
 
-#: src/EBox/DNS.pm.in:512
+#: src/EBox/DNS.pm.in:516
 msgid "main bind9 configuration file"
 msgstr "elsődleges bind9 konfigurációs fájl"
 
-#: src/EBox/DNS.pm.in:517
+#: src/EBox/DNS.pm.in:521
 msgid "bind9 options configuration file"
 msgstr "bind9 beállítások konfigurációs fájlja"
 
-#: src/EBox/DNS.pm.in:522
+#: src/EBox/DNS.pm.in:526
 msgid "local bind9 configuration file"
 msgstr "helyi bind9 konfigurációs fájl"
 
-#: src/EBox/DNS.pm.in:527
+#: src/EBox/DNS.pm.in:531
 msgid "Keys configuration file"
 msgstr "Kulcsok konfigurációs fájlja"
 
-#: src/EBox/DNS.pm.in:544
+#: src/EBox/DNS.pm.in:548
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "konfigurációs fájl a(z) {zone} zónának"
 
-#: src/EBox/DNS.pm.in:560
+#: src/EBox/DNS.pm.in:564
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "a(z) {zone} fordított feloldási zóna konfigurációs fájlja"
 
-#: src/EBox/DNS.pm.in:578
+#: src/EBox/DNS.pm.in:582
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr ""
 "Módosítsa a(z) {dir} könyvtár írási jogosultságát a bind csoportba írás "
 "engedélyezéséhez"
 
-#: src/EBox/DNS.pm.in:580
+#: src/EBox/DNS.pm.in:584
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "A bind démon dinamikus frissítésének engedélyezése"
 
@@ -76,7 +76,7 @@ msgstr "A tartomány csak olvasható. Nem adhat hozzá gépneveket"
 msgid "Host name"
 msgstr "Gépnév"
 
-#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:202
+#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:210
 msgid "IP Address"
 msgstr "IP-cím"
 
@@ -90,7 +90,7 @@ msgstr "Álnév"
 msgid "Host names"
 msgstr "Gépnevek"
 
-#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:177
+#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:185
 msgid "Hostnames"
 msgstr "Gépnevek"
 
@@ -98,31 +98,31 @@ msgstr "Gépnevek"
 msgid "host name"
 msgstr "gépnév"
 
-#: src/EBox/Model/DomainTable.pm:169
+#: src/EBox/Model/DomainTable.pm:177
 msgid "Domain"
 msgstr "Tartomány"
 
-#: src/EBox/Model/DomainTable.pm:186
+#: src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
 msgstr "Levelezőkiszolgálók"
 
-#: src/EBox/Model/DomainTable.pm:194
+#: src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
 msgstr "DNS-kiszolgálók"
 
-#: src/EBox/Model/DomainTable.pm:210
+#: src/EBox/Model/DomainTable.pm:218
 msgid "Dynamic"
 msgstr "Dinamikus"
 
-#: src/EBox/Model/DomainTable.pm:214
+#: src/EBox/Model/DomainTable.pm:222
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "A tartomány dinamikus, ha DHCP-kiszolgáló frissíti azt."
 
-#: src/EBox/Model/DomainTable.pm:232
+#: src/EBox/Model/DomainTable.pm:240
 msgid "List of Domains"
 msgstr "Tartományok listája"
 
-#: src/EBox/Model/DomainTable.pm:233 src/EBox/Model/DNSComposite.pm:75
+#: src/EBox/Model/DomainTable.pm:241 src/EBox/Model/DNSComposite.pm:75
 #: src/EBox/Model/DNSComposite.pm:76
 msgid "DNS"
 msgstr "DNS"

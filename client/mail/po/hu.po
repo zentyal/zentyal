@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"POT-Creation-Date: 2010-04-30 12:56+0200\n"
 "PO-Revision-Date: 2010-04-06 16:33+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -218,31 +218,31 @@ msgstr ""
 msgid "Alias"
 msgstr "Álnév"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:59
+#: src/EBox/Mail/Model/ExternalAliases.pm:60
 msgid "The mail domain is appended automatically"
 msgstr "A levelező tartomány automatikusan hozzácsatolódik"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:63
+#: src/EBox/Mail/Model/ExternalAliases.pm:64
 #: src/EBox/Mail/Model/ExternalAccounts.pm:87
 #: src/EBox/Mail/Model/ExternalAccounts.pm:270
 msgid "External account"
 msgstr "Külső postafiók"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:75
+#: src/EBox/Mail/Model/ExternalAliases.pm:76
 msgid "External Aliases"
 msgstr "Külső fiókok álnevei"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:84
+#: src/EBox/Mail/Model/ExternalAliases.pm:85
 msgid "External account alias"
 msgstr "Külső postafiók álneve"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:86
+#: src/EBox/Mail/Model/ExternalAliases.pm:87
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
 "Külső postafiók álneve hozzáadva. El kell mentenie a beállításokat az álnév "
 "használatához"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:126
+#: src/EBox/Mail/Model/ExternalAliases.pm:128
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -253,7 +253,7 @@ msgstr ""
 "álnév és a virtuális tartomány álneveihez nem lehet további álneveket "
 "rendelni. Kérem egy valós tartományhoz rendelje az álnevet"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:133
+#: src/EBox/Mail/Model/ExternalAliases.pm:135
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
@@ -262,7 +262,12 @@ msgstr ""
 "Az álnév nem rendelhető hozzá a {vd} tartományhoz, mivel az nem a szerver "
 "által kezelt virtuális tartomány"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:151
+#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#, perl-brace-format
+msgid "They already exists an account or alias called {al}"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:168
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
@@ -270,7 +275,7 @@ msgstr ""
 "Az állfiók tartománynév nélkül lett megadva. Ez automatikusan hozzá lesz "
 "rendelve "
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:229
+#: src/EBox/Mail/Model/ExternalAliases.pm:246
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""

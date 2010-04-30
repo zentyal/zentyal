@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"POT-Creation-Date: 2010-04-30 12:55+0200\n"
 "PO-Revision-Date: 2009-08-04 05:57+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -378,7 +378,7 @@ msgstr "錯誤"
 msgid "Fatal error"
 msgstr ""
 
-#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
+#: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:718
 #: src/templates/finish.mas:116 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
@@ -428,7 +428,7 @@ msgstr "有關於內部範本有錯誤.這是 bug,有關資訊可以在日誌上
 msgid "Logs"
 msgstr "紀錄檔"
 
-#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:691
+#: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:702
 msgid "Query Logs"
 msgstr "查詢日誌"
 
@@ -437,7 +437,7 @@ msgstr "查詢日誌"
 msgid "Full Reports"
 msgstr "完整報告"
 
-#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:238
+#: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:243
 msgid "Dashboard"
 msgstr "儀表板"
 
@@ -508,10 +508,6 @@ msgstr "密碼長度必須至少有 6 個字元"
 msgid "The password was changed successfully."
 msgstr "密碼已經成功的改變。"
 
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "錯誤回報"
-
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 msgid "Configuration Backup"
 msgstr "組態備份"
@@ -537,7 +533,7 @@ msgstr "還原"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
-#: src/EBox/Backup.pm:1311
+#: src/EBox/Backup.pm:1328
 msgid "The input contains invalid characters"
 msgstr "輸入包含無效的字元"
 
@@ -565,8 +561,8 @@ msgstr "該模組已正確的還原。"
 msgid "Upgrading"
 msgstr "正在更新"
 
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:706
-#: src/EBox/SysInfo.pm.in:265 src/templates/backup.mas:62
+#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:722
+#: src/EBox/SysInfo.pm.in:270 src/templates/backup.mas:62
 msgid "Backup"
 msgstr "備份"
 
@@ -608,7 +604,7 @@ msgstr "正在還原備份"
 msgid "Restoring modules"
 msgstr "正在還原模組"
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:709
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:720
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
 msgstr "模組"
@@ -621,12 +617,17 @@ msgstr "剩下要還原的模組"
 msgid "Restore successful"
 msgstr "還原成功"
 
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29 src/EBox/SysInfo.pm.in:276
+#, fuzzy
+msgid "Configuration report"
+msgstr "組態還原"
+
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
-#: src/EBox/SysInfo.pm.in:260
+#: src/EBox/SysInfo.pm.in:265
 msgid "RAID"
 msgstr "磁碟陣列"
 
-#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:256
+#: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:261
 msgid "Disk Usage"
 msgstr "磁碟使用量"
 
@@ -1247,42 +1248,42 @@ msgstr "事件"
 msgid "Message"
 msgstr "訊息"
 
-#: src/EBox/Logs.pm:440
+#: src/EBox/Logs.pm:451
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "Table {table} 不存在"
 
-#: src/EBox/Logs.pm:694
+#: src/EBox/Logs.pm:705
 msgid "Configure Logs"
 msgstr "設定日誌"
 
-#: src/EBox/Logs.pm:708
+#: src/EBox/Logs.pm:719
 msgid "Client Address"
 msgstr "客戶端位址"
 
-#: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
+#: src/EBox/Logs.pm:721 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/DataTable.pm:2131
 msgid "Action"
 msgstr "動作"
 
-#: src/EBox/Logs.pm:711
+#: src/EBox/Logs.pm:722
 msgid "Params"
 msgstr "參數"
 
-#: src/EBox/Logs.pm:712
+#: src/EBox/Logs.pm:723
 msgid "Committed"
 msgstr "Committed"
 
-#: src/EBox/Logs.pm:717
+#: src/EBox/Logs.pm:728
 msgid "Admin"
 msgstr "管理"
 
-#: src/EBox/Logs.pm:811
+#: src/EBox/Logs.pm:822
 msgid "Log messages"
 msgstr "日誌訊息"
 
-#: src/EBox/Logs.pm:838
+#: src/EBox/Logs.pm:849
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "上線參數必須是小時的整數"
 
@@ -1416,58 +1417,58 @@ msgstr "可能不能建立備份壓縮"
 msgid "Could not append data to backup archive"
 msgstr "可能不能附加資料到備份壓縮"
 
-#: src/EBox/Backup.pm:421
+#: src/EBox/Backup.pm:437
 msgid "Unknown"
 msgstr "不明"
 
-#: src/EBox/Backup.pm:474
+#: src/EBox/Backup.pm:490
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "可能不能解開必須的備份檔: {files}"
 
-#: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1128
+#: src/EBox/Backup.pm:493 src/EBox/Backup.pm:1144
 msgid "Could not unpack the backup"
 msgstr "可能不能解壓縮備份"
 
-#: src/EBox/Backup.pm:743
+#: src/EBox/Backup.pm:759
 msgid "Writing backup file to hard disk"
 msgstr "正把備份檔寫到硬碟"
 
-#: src/EBox/Backup.pm:769
+#: src/EBox/Backup.pm:785
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
 msgstr "一些模組沒有儲存變更.之前做的備份您必須儲存或是放棄他們"
 
-#: src/EBox/Backup.pm:827
+#: src/EBox/Backup.pm:843
 msgid "Incorrect or corrupt backup file"
 msgstr "不正確或損毀的備份檔"
 
-#: src/EBox/Backup.pm:856
+#: src/EBox/Backup.pm:872
 msgid "The backup file is corrupt: could not open archive"
 msgstr "此備份檔是損毀的:可能不能開啟壓縮"
 
-#: src/EBox/Backup.pm:868
+#: src/EBox/Backup.pm:884
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "此備份檔是損毀的:可能不能開啟備份檢查碼"
 
-#: src/EBox/Backup.pm:875
+#: src/EBox/Backup.pm:891
 msgid "The backup file is corrupt."
 msgstr "此備份檔是損毀的."
 
-#: src/EBox/Backup.pm:893
+#: src/EBox/Backup.pm:909
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr "此備份壓縮是無效的類型.可能檔案已損毀或是您使用不相容的 eBox 版本"
 
-#: src/EBox/Backup.pm:899
+#: src/EBox/Backup.pm:915
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr "此壓縮檔不包括完整備份,是不可能完整還原.可能要設置回復."
 
-#: src/EBox/Backup.pm:934
+#: src/EBox/Backup.pm:950
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -1476,23 +1477,23 @@ msgstr ""
 "這裡的硬碟沒有足夠的空間來完成還原執行. {size} Kb 是必要的.有足夠的空間再試一"
 "次"
 
-#: src/EBox/Backup.pm:1215
+#: src/EBox/Backup.pm:1229
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "在備份中找不到模組 {m}"
 
-#: src/EBox/Backup.pm:1238
+#: src/EBox/Backup.pm:1252
 msgid "No modules to restore"
 msgstr "沒有要還原的模組"
 
-#: src/EBox/Backup.pm:1290
+#: src/EBox/Backup.pm:1307
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr "模組 {topModule} 有未解決的還原相依性問題：{modName} 並未安裝"
 
-#: src/EBox/Backup.pm:1333
+#: src/EBox/Backup.pm:1350
 msgid "Backup's archives"
 msgstr "備份的壓縮檔"
 
@@ -1504,49 +1505,59 @@ msgstr "系統資訊"
 msgid "available"
 msgstr ""
 
-#: src/EBox/SysInfo.pm.in:100
+#: src/EBox/SysInfo.pm.in:103
 msgid "Time"
 msgstr "時刻"
 
-#: src/EBox/SysInfo.pm.in:101
+#: src/EBox/SysInfo.pm.in:104
 msgid "Hostname"
 msgstr "主機名稱"
 
-#: src/EBox/SysInfo.pm.in:102
+#: src/EBox/SysInfo.pm.in:105
 #, fuzzy
 msgid "Core version"
 msgstr "eBox 版本"
 
-#: src/EBox/SysInfo.pm.in:104
+#: src/EBox/SysInfo.pm.in:107
 msgid "System load"
 msgstr "系統負載"
 
-#: src/EBox/SysInfo.pm.in:150 src/EBox/SysInfo.pm.in:243
+#: src/EBox/SysInfo.pm.in:108
+#, fuzzy
+msgid "Uptime"
+msgstr "時刻"
+
+#: src/EBox/SysInfo.pm.in:109
+#, fuzzy
+msgid "Users"
+msgstr "使用者"
+
+#: src/EBox/SysInfo.pm.in:155 src/EBox/SysInfo.pm.in:248
 msgid "Module Status"
 msgstr "模組狀態"
 
-#: src/EBox/SysInfo.pm.in:155
+#: src/EBox/SysInfo.pm.in:160
 msgid "General Information"
 msgstr "一般資訊"
 
-#: src/EBox/SysInfo.pm.in:160
+#: src/EBox/SysInfo.pm.in:165
 msgid "Process List"
 msgstr "程序清單"
 
-#: src/EBox/SysInfo.pm.in:167
+#: src/EBox/SysInfo.pm.in:172
 #, fuzzy
 msgid "Resources & Services"
 msgstr "遠端服務"
 
-#: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
+#: src/EBox/SysInfo.pm.in:254 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
 msgstr "系統"
 
-#: src/EBox/SysInfo.pm.in:253
+#: src/EBox/SysInfo.pm.in:258
 msgid "General"
 msgstr "一般"
 
-#: src/EBox/SysInfo.pm.in:268
+#: src/EBox/SysInfo.pm.in:273
 msgid "Halt/Reboot"
 msgstr "關機/重新開機"
 
@@ -2096,15 +2107,22 @@ msgid "delete"
 msgstr "刪除"
 
 #: src/templates/bug.mas:9
+#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a bug in eBox."
+"system. The file will be useful if you want to report a problem or seek "
+"support."
 msgstr ""
 "這個頁面讓您產生一份關於您的系統狀態資訊的檔案。如果您要回報 eBox 的錯誤這個"
 "檔案會很有用。"
 
-#: src/templates/bug.mas:14
-msgid "Download bug report file"
+#: src/templates/bug.mas:13
+msgid "It may take several minutes to generate the report. Please be patient."
+msgstr ""
+
+#: src/templates/bug.mas:19
+#, fuzzy
+msgid "Download configuration report file"
 msgstr "下載錯誤回報檔案"
 
 #: src/templates/logout/index.mas:11
@@ -2181,6 +2199,9 @@ msgstr "還原模式"
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "管理介面 TCP 連接埠"
+
+#~ msgid "Bug report"
+#~ msgstr "錯誤回報"
 
 #, fuzzy
 #~ msgid "Support & Services"
@@ -2359,9 +2380,6 @@ msgstr "管理介面 TCP 連接埠"
 
 #~ msgid "eBox host"
 #~ msgstr "eBox 主機"
-
-#~ msgid "User"
-#~ msgstr "使用者"
 
 #~ msgid "Submit"
 #~ msgstr "送出"

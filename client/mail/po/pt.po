@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"POT-Creation-Date: 2010-04-30 12:56+0200\n"
 "PO-Revision-Date: 2010-04-22 19:29+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -218,31 +218,31 @@ msgstr ""
 msgid "Alias"
 msgstr "Pseudónimo"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:59
+#: src/EBox/Mail/Model/ExternalAliases.pm:60
 msgid "The mail domain is appended automatically"
 msgstr "O domínio de correio electrónico é adicionado automáticamente"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:63
+#: src/EBox/Mail/Model/ExternalAliases.pm:64
 #: src/EBox/Mail/Model/ExternalAccounts.pm:87
 #: src/EBox/Mail/Model/ExternalAccounts.pm:270
 msgid "External account"
 msgstr "Conta externa"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:75
+#: src/EBox/Mail/Model/ExternalAliases.pm:76
 msgid "External Aliases"
 msgstr "Pseudónimo externo"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:84
+#: src/EBox/Mail/Model/ExternalAliases.pm:85
 msgid "External account alias"
 msgstr "Pseudónimo da conta externa"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:86
+#: src/EBox/Mail/Model/ExternalAliases.pm:87
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
 "Foi adicionado um pseudónimo de conta externa. Deve guardar as alterações "
 "para usar este pseudónimo"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:126
+#: src/EBox/Mail/Model/ExternalAliases.pm:128
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -253,7 +253,7 @@ msgstr ""
 "pseudónimos pertencentes a um domínio virtual não são suportados. Adicione "
 "um pseudónimo pertencente a um domínio real"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:133
+#: src/EBox/Mail/Model/ExternalAliases.pm:135
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
@@ -262,7 +262,12 @@ msgstr ""
 "Não pde adicionar o pseudónimo porque o domínio {vd} não é um domínio "
 "virtual gerido por este servidor"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:151
+#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#, perl-brace-format
+msgid "They already exists an account or alias called {al}"
+msgstr ""
+
+#: src/EBox/Mail/Model/ExternalAliases.pm:168
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
@@ -270,7 +275,7 @@ msgstr ""
 "O pseudónimo da conta deve ser fornecido sem o domínio. O domínio é "
 "adicionado automaticamente "
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:229
+#: src/EBox/Mail/Model/ExternalAliases.pm:246
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""
@@ -547,8 +552,7 @@ msgstr ""
 #: src/EBox/Mail/Model/SMTPOptions.pm:425
 msgid "The selected mailname is not a fully qualified hostname. "
 msgstr ""
-"O nome da maquina de correio electrónico não é um nome de máquina "
-"qualificado"
+"O nome da maquina de correio electrónico não é um nome de máquina qualificado"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:429
 msgid ""

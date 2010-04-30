@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ids 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2009-03-08 15:17+0000\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2010-04-30 12:55+0200\n"
 "PO-Revision-Date: 2010-04-10 12:37+0200\n"
 "Last-Translator: tomas volse <tomas.volse@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,18 +17,116 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Model/Model.pm:73
-msgid "table title"
-msgstr "Název tabulky"
+#: src/EBox/IDS.pm:62 src/EBox/IDS.pm:169 src/EBox/IDS.pm:311
+msgid "IDS"
+msgstr ""
 
-#: src/EBox/Model/Model.pm:77
-msgid "row"
-msgstr "řádek"
+#: src/EBox/IDS.pm:299 src/EBox/Model/Report/AlertDetails.pm:52
+msgid "Date"
+msgstr ""
 
-#: src/EBox/Model/Model.pm:78 src/EBox/Model/Composite.pm:72
+#: src/EBox/IDS.pm:300
+msgid "Priority"
+msgstr ""
+
+#: src/EBox/IDS.pm:301
+msgid "Description"
+msgstr ""
+
+#: src/EBox/IDS.pm:302
+msgid "Source"
+msgstr ""
+
+#: src/EBox/IDS.pm:303
+msgid "Destination"
+msgstr ""
+
+#: src/EBox/IDS.pm:304
+msgid "Protocol"
+msgstr ""
+
+#: src/EBox/IDS.pm:305
+msgid "Event"
+msgstr ""
+
+#: src/EBox/IDS.pm:317
+msgid "Alert"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:129
+msgid "Interface"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:134 src/EBox/Model/Rules.pm:158
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:143
+msgid "Interfaces"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:149
+msgid "interface"
+msgstr ""
+
+#: src/EBox/Model/Interfaces.pm:151
+msgid "Select in which interfaces IDS system will be enabled"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:153
+msgid "Rule Set"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:167
+msgid "Rules"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:172
+msgid "rule"
+msgstr ""
+
+#: src/EBox/Model/Rules.pm:173
 msgid "help message"
 msgstr "Pomocná zpráva"
 
-#: src/EBox/Model/Composite.pm:70
-msgid "composite title"
-msgstr "Složený název"
+#: src/EBox/Model/Report/AlertDetails.pm:41
+#: src/EBox/Model/Report/AlertGraph.pm:47
+msgid "number of alerts"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:58
+msgid "Number of alerts"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:66
+msgid "Alert details"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertDetails.pm:73
+msgid "alerts"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertGraph.pm:52
+msgid "Alerts chart"
+msgstr ""
+
+#: src/EBox/Model/Report/AlertGraph.pm:68
+msgid "Alert Graph"
+msgstr ""
+
+#: src/EBox/Composite/General.pm:71
+msgid "Intrusion Detection System"
+msgstr ""
+
+#: src/EBox/Composite/Report/AlertReport.pm:66
+msgid "IDS Alerts report"
+msgstr ""
+
+#~ msgid "table title"
+#~ msgstr "Název tabulky"
+
+#~ msgid "row"
+#~ msgstr "řádek"
+
+#~ msgid "composite title"
+#~ msgstr "Složený název"

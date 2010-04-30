@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"POT-Creation-Date: 2010-04-30 12:56+0200\n"
 "PO-Revision-Date: 2010-02-09 10:44+0100\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -54,7 +54,7 @@ msgstr "virtuális interfész művelet"
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:807 src/EBox/Network.pm:812
 #: src/EBox/Network.pm:1123 src/EBox/Network.pm:1144 src/EBox/Network.pm:2737
 #: src/EBox/Network.pm:2753 src/EBox/Network.pm:2779 src/EBox/Network.pm:2910
-#: src/EBox/Network.pm:3049 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Network.pm:3048 src/EBox/Model/GatewayTable.pm:198
 #: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:106
 #: src/templates/ifaces.mas:253
 msgid "IP address"
@@ -74,11 +74,11 @@ msgstr "Hálózati diagnosztikai eszközök"
 msgid "Host"
 msgstr "Gép"
 
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2993
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2992
 msgid "host name"
 msgstr "gép neve"
 
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3086
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3085
 msgid "Network Interfaces"
 msgstr "Hálózati csatoló"
 
@@ -100,12 +100,12 @@ msgstr ""
 "A {gw} átjáró nincs csatlakozva ({failRatio}% of '{type}' tests to host "
 "'{host}' failed, max={maxFailRatio}%)"
 
-#: src/EBox/Event/Watcher/Gateways.pm:346
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3119
+#: src/EBox/Event/Watcher/Gateways.pm:366
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3118
 msgid "WAN Failover"
 msgstr "WAN feladatátvétel"
 
-#: src/EBox/Event/Watcher/Gateways.pm:362
+#: src/EBox/Event/Watcher/Gateways.pm:382
 msgid "Check if gateways are connected or disconnected."
 msgstr "Ellenőrzi az átjáró állapotát (csatlakozott-e vagy sem)."
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Domain Name Server Resolver"
 msgstr "Domain Name Server (megoldó?) feloldó"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3117
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3116
 msgid "Balance Traffic"
 msgstr "Forgalom kiegyenlítés"
 
@@ -146,7 +146,7 @@ msgstr ""
 "A funkció használatához szükség van két beállított átjáróra. Ezt előbb <a "
 "href=\"/ebox/Network/View/GatewayTable\">itt</a> adja hozzá."
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3038
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3037
 msgid "Status"
 msgstr "Státusz"
 
@@ -235,7 +235,7 @@ msgstr "A {service} teljes forgalma"
 msgid "Traffic rate from {src} for {service}"
 msgstr "A {src}-től eredő {service} szolgáltatás teljes forgalma"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3102
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3101
 #: src/EBox/Model/StaticRoute.pm:153
 msgid "Network"
 msgstr "Hálózat"
@@ -358,47 +358,47 @@ msgstr ""
 msgid "Host name"
 msgstr "Host neve"
 
-#: src/EBox/Network.pm:3023
+#: src/EBox/Network.pm:3022
 msgid "down"
 msgstr "down"
 
-#: src/EBox/Network.pm:3029
+#: src/EBox/Network.pm:3028
 msgid "up"
 msgstr "up"
 
-#: src/EBox/Network.pm:3033
+#: src/EBox/Network.pm:3032
 msgid "link ok"
 msgstr "link ok"
 
-#: src/EBox/Network.pm:3035
+#: src/EBox/Network.pm:3034
 msgid "no link"
 msgstr "nincs link"
 
-#: src/EBox/Network.pm:3043
+#: src/EBox/Network.pm:3042
 msgid "MAC address"
 msgstr "MAC cím"
 
-#: src/EBox/Network.pm:3060
+#: src/EBox/Network.pm:3059
 msgid "Tx bytes"
 msgstr "Tx bájtok"
 
-#: src/EBox/Network.pm:3069
+#: src/EBox/Network.pm:3068
 msgid "Rx bytes"
 msgstr "Rx bájtok"
 
-#: src/EBox/Network.pm:3107
+#: src/EBox/Network.pm:3106
 msgid "Interfaces"
 msgstr "Interfészek"
 
-#: src/EBox/Network.pm:3113 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3112 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "Átjárók"
 
-#: src/EBox/Network.pm:3115 src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:3114 src/EBox/Model/StaticRoute.pm:177
 msgid "Static Routes"
 msgstr "Statikus route-ok"
 
-#: src/EBox/Network.pm:3121
+#: src/EBox/Network.pm:3120
 msgid "Diagnostic Tools"
 msgstr "Diagnosztikai eszközök"
 
