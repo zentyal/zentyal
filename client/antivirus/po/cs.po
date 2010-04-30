@@ -5,61 +5,61 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-antivirus 1.4"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-antivirus 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:28+0000\n"
-"PO-Revision-Date: 2010-01-29 23:28+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-10 12:34+0200\n"
+"Last-Translator: tomas volse <tomas.volse@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/AntiVirus.pm:69 src/EBox/AntiVirus.pm:395
 #: src/EBox/AntiVirus.pm:400 src/EBox/AntiVirus/Model/FreshclamStatus.pm:72
 msgid "Antivirus"
-msgstr ""
+msgstr "Antivirus"
 
 #: src/EBox/AntiVirus.pm:212
 msgid " To configure clamd daemon"
-msgstr ""
+msgstr "Konfigurovat clamd daemona"
 
 #: src/EBox/AntiVirus.pm:217
 msgid "To configure freshclam updater"
-msgstr ""
+msgstr "Konfigurovat freschclam updater"
 
 #: src/EBox/AntiVirus.pm:222
 msgid "To schedule the launch of the updater"
-msgstr ""
+msgstr "Naplánovat spuštění Updater"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:59
 msgid "Status"
-msgstr ""
+msgstr "Stav"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:63
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
 msgid "Database Update Status"
-msgstr ""
+msgstr "Status Aktualizace databáze"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
-msgstr ""
+msgstr "Antivirová databáze nebyla aktualizována, ikdyž modul byl povolen."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
 msgid "The last update failed."
-msgstr ""
+msgstr "Poslední aktualizace se nezdařila."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:133
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:136
 msgid "Last update successful."
-msgstr ""
+msgstr "Poslední aktualizace byla úspěšná."
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:139
 #, perl-brace-format
 msgid "Unknown event {event}."
-msgstr ""
+msgstr "Neznámá událost {event}."

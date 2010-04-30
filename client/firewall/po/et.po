@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2010-03-25 17:47+0100\n"
+"PO-Revision-Date: 2010-04-19 14:31+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgstr "Liiklus välisvõrkudest sisevõrkudesse"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
-msgstr "Leiti vastuoluline reegel. Palun eemalda see"
+msgstr "Leiti vastuoluline reegel, palun eemalda see"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:249
 msgid "Interface"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:52+0200\n"
-"PO-Revision-Date: 2010-03-26 15:18+0100\n"
+"PO-Revision-Date: 2010-04-26 11:57+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -119,19 +119,22 @@ msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"Sisendis on sobimatud märgid. Lubatud on kõik tähe- ja numbrimärgid, tühikud "
-"ja märgid: .?&+:-@*"
+"Sisendis on sobimatud märgid. Lubatud on kõik {ascii} tähe- ja numbrimärgid, "
+"tühikud ja märgid: .?&+:-@*"
 
 #: src/EBox/CGI/IssueCertificate.pm:177 src/EBox/CA.pm:2564
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr ""
+"Ainult {dns}, {ip} ja {email} on sobivad subjekti alternatiivse nime tüübid"
 
 #: src/EBox/CGI/IssueCertificate.pm:184
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
+"Subjekti alternatiivse nime parameeter peab olema kujul: tüüp:väärtus, "
+"tüüp:väärtus"
 
 #: src/EBox/CGI/IssueCertificate.pm:206
 msgid "The certificate has been issued."
@@ -251,7 +254,7 @@ msgstr "Loodud, kuid mitte saadaval"
 #: src/EBox/CA.pm:2412
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
-"Allkirjastamine nurjus. Vale SK paroolifraas või on SK privaatvõti kadunud?"
+"Signeerimine nurjus. Vale SK paroolifraas või on SK privaatvõti kadunud?"
 
 #: src/EBox/CA.pm:2414
 msgid "Database corruption"
@@ -369,7 +372,8 @@ msgstr "Lubatud"
 #: src/EBox/Model/Certificates.pm:243
 msgid "Generate the certificate using CA with the common name set above"
 msgstr ""
-"Sertifikaadi genereerimine kasutades SKd koos ülalmainitud üldise nimega (CN)"
+"Sertifitseerimiskeskuses ülalmainitud üldise nimega sertifikaadi "
+"genereerimine"
 
 #: src/EBox/Model/Certificates.pm:252
 msgid "certificate"
@@ -414,7 +418,7 @@ msgstr "Aegumise kuupäev"
 #: src/templates/formRenew.mas:61 src/templates/formRevoke.mas:46
 #: src/templates/index.mas:57
 msgid "Subject Alternative Names"
-msgstr ""
+msgstr "Subjekti alternatiivsed nimed"
 
 #: src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"
@@ -437,8 +441,10 @@ msgstr "Riigikood"
 msgid "City"
 msgstr "Linn"
 
+# koodis 2 asja, nii maakond kui olek!
 #: src/templates/index.mas:47 src/templates/index.mas:99
 #: src/templates/createCA.mas:16
+#, fuzzy
 msgid "State"
 msgstr "Olek"
 
@@ -448,6 +454,8 @@ msgid ""
 "Multi-value separated by commas, only valid types are: {dns}, {ip} and "
 "{email}. For instance, {example}"
 msgstr ""
+"Erinevad väärtused eraldatakse komadega, sobivad tüübid on: {dns}, {ip} ja "
+"{email}. Näide: {example}"
 
 #: src/templates/index.mas:72
 msgid "Issue"
@@ -480,7 +488,7 @@ msgid ""
 "Revoked certificates respectively"
 msgstr ""
 "Kuupäev viitab kehtiva või aegunud sertifikaadi juures aegumiskuupäevale ja "
-"tühistatud sertifikaadi juures tühistamis kuupäevale."
+"tühistatud sertifikaadi juures tühistamiskuupäevale."
 
 #: src/templates/index.mas:98
 msgid "Name"
@@ -495,8 +503,9 @@ msgid "Actions"
 msgstr "Toimingud"
 
 #: src/templates/index.mas:117
+#, fuzzy
 msgid "from"
-msgstr "alates"
+msgstr "kellelt:"
 
 #: src/templates/index.mas:128
 msgid "Valid"
@@ -513,7 +522,7 @@ msgstr "Tühistatud"
 #: src/templates/index.mas:137
 #, perl-brace-format
 msgid "Reason: {reason}"
-msgstr ""
+msgstr "Põhjus: {reason}"
 
 #: src/templates/index.mas:174 src/templates/index.mas:199
 msgid "Download Key(s) and Certificate"
@@ -542,7 +551,7 @@ msgid ""
 "confirm you are very sure to revoke the whole certification authority from "
 "{on} and leave the service(s) unstable or disabled"
 msgstr ""
-"See tühistamine võib mõjuda teiste moodulite funktsionaalsusele, seega palun "
+"Tühistamine võib mõjuda teiste moodulite funktsionaalsusele, seega palun "
 "kinnita, et soovid kogu sertifitseerimiskeskust {on} tühistada ja muuta "
 "teenus(ed) ebastabiilseks või keelatuks"
 

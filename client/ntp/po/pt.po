@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:02+0200\n"
-"PO-Revision-Date: 2009-11-04 23:57+0100\n"
+"PO-Revision-Date: 2010-04-15 20:12+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -150,16 +150,15 @@ msgstr "Alterar"
 
 #: src/templates/datetime.mas:8
 msgid "Time Synchronization with NTP Servers"
-msgstr ""
+msgstr "Sincronização da hora com servidores NTP"
 
 #: src/templates/datetime.mas:9
-#, fuzzy
 msgid "External NTP Servers"
-msgstr "Servidores NTP"
+msgstr "Servidores NTP externos"
 
 #: src/templates/datetime.mas:10
 msgid "Change Date and Time"
-msgstr ""
+msgstr "Alterar data e hora"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"

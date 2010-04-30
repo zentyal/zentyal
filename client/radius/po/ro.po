@@ -9,88 +9,89 @@ msgstr ""
 "Project-Id-Version: ebox-radius 1.3.10Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:17+0000\n"
-"PO-Revision-Date: 2009-12-03 13:02+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-22 11:23+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox RADIUS system"
-msgstr ""
+msgstr "sistemul RADIUS eBox"
 
 #: src/EBox/Model/Auth.pm:103
 msgid "All users"
-msgstr ""
+msgstr "Toţi utilizatorii"
 
 #: src/EBox/Model/Auth.pm:128
 msgid "Group allowed to authenticate"
-msgstr ""
+msgstr "Grup cu permisiune de autentificare"
 
 #: src/EBox/Model/Auth.pm:138
 msgid "General configuration"
-msgstr ""
+msgstr "Configurare generală"
 
 #: src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
-msgstr ""
+msgstr "Configurare server RADIUS"
 
 #: src/EBox/Model/Auth.pm:144
 msgid "RADIUS server configuration updated"
-msgstr ""
+msgstr "Configuraţia server-ului RADIUS a fost actualizată"
 
 #: src/EBox/Model/Clients.pm:112
 msgid "Client"
-msgstr ""
+msgstr "Client"
 
 #: src/EBox/Model/Clients.pm:119
 msgid "IP Address"
-msgstr ""
+msgstr "Adresă IP"
 
 #: src/EBox/Model/Clients.pm:125
 msgid "Shared Secret"
-msgstr ""
+msgstr "Secret partajat"
 
 #: src/EBox/Model/Clients.pm:133
 msgid "RADIUS Clients"
-msgstr ""
+msgstr "Clienţi RADIUS"
 
 #: src/EBox/Model/Clients.pm:134
 msgid "client"
-msgstr ""
+msgstr "client"
 
 #: src/EBox/Radius.pm:99
 msgid "Create RADIUS certificates for TTLS"
-msgstr ""
+msgstr "Create certificate RADIUS pt. TTLS"
 
 #: src/EBox/Radius.pm:100
 msgid ""
 "eBox will create the needed certificates for TTLS in /etc/freeradius/certs/."
-msgstr ""
+msgstr "eBox va crea certificatele necesare pt. TTLS în/etc/freeradius/certs/"
 
 #: src/EBox/Radius.pm:120
 msgid "To configure allowed LDAP group."
-msgstr ""
+msgstr "Pt. configurarea grupului LDAP permis"
 
 #: src/EBox/Radius.pm:124
 msgid "To configure RADIUS LDAP module."
-msgstr ""
+msgstr "Pt. configurarea modulului LDAP RADIUS"
 
 #: src/EBox/Radius.pm:128
 msgid "To configure RADIUS clients."
-msgstr ""
+msgstr "Pt. configurarea clienţilor RADIUS."
 
 #: src/EBox/Radius.pm:132
 msgid "To configure default RADIUS vhost."
-msgstr ""
+msgstr "Pt. configurarea vhost RADIUS implicit."
 
 #: src/EBox/Radius.pm:136
 msgid "To configure RADIUS inner-tunnel vhost."
-msgstr ""
+msgstr "Pt. configurarea vhost tunel intern RADIUS."
 
 #: src/EBox/Radius.pm:276 src/EBox/Composite/General.pm:64
 msgid "RADIUS"
-msgstr ""
+msgstr "RADIUS"

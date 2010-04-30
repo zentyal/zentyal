@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:52+0200\n"
-"PO-Revision-Date: 2010-03-26 13:38+0100\n"
+"PO-Revision-Date: 2010-04-30 11:48+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -107,10 +107,9 @@ msgstr "Sa pead määrama alglaadimistõmmise asukoha võrguserveris"
 #, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
-msgstr ""
-"Sa saad määrata ainult failinime, kui sul on kõrvalserver ja see ei ole eBox"
+msgstr "Kui sul on kõrvalserver, mis ei ole eBox, saad määrata ainult failinime"
 
-# Jabur lause
+#  
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, fuzzy, perl-brace-format
 msgid ""
@@ -152,7 +151,7 @@ msgstr "Faili asukoht kõrvalserveris"
 msgid "Thin client"
 msgstr "Õhuke klient"
 
-# vallaste annab "thin client" vasteks "kõhn klient" open-tran "peen klient"
+#  
 #: src/EBox/Model/ThinClientOptions.pm:274
 #, perl-brace-format
 msgid ""
@@ -357,7 +356,7 @@ msgstr "Alamvõrk"
 
 #: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
 msgid "Available range"
-msgstr "Saadaval olev vahemik"
+msgstr "Saadaolev vahemik"
 
 #: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
 msgid "DHCP ranges"
@@ -389,11 +388,11 @@ msgstr "eBoxi domeen"
 
 #: src/EBox/Model/Options.pm:387
 msgid "local eBox DNS"
-msgstr "kohaliku eBoxi DNS"
+msgstr "kohalik eBoxi DNS"
 
 #: src/EBox/Model/Options.pm:414
 msgid "local eBox NTP"
-msgstr "kohaliku eBoxi NTP"
+msgstr "kohalik eBoxi NTP"
 
 #: src/EBox/Model/Options.pm:428
 msgid "local eBox"
@@ -430,8 +429,8 @@ msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
-"Valitud domeen viib lõpuni klientide need DNS päringud, mis ei ole "
-"täielikult kvalifitseeruvad"
+"Valitud domeen lisatakse klientide DNS päringutele, mille lahendamine "
+"esimesel korral ei õnnestu"
 
 #: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
 msgid "Primary nameserver"
@@ -443,7 +442,7 @@ msgid ""
 "If \"eBox DNS\" is present and selected, the eBox server will act as cache "
 "DNS server"
 msgstr ""
-"Kui eBoxi DNS on lubatud ja valitud, siis eBox server käitub DNS puhvrina"
+"Kui valitud on kohalik eBoxi DNS, siis eBox server käitub DNS vahemäluna"
 
 #: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
 msgid "Secondary nameserver"
@@ -458,7 +457,7 @@ msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
 msgstr ""
-"Kui eBoxi NTP on lubatud ja valitud, siis eBox on DHCP klientidele NTP "
+"Kui valitud on kohalik eBoxi NTP, siis eBox on DHCP klientidele NTP "
 "serveriks"
 
 #: src/EBox/Model/Options.pm:502
@@ -470,8 +469,7 @@ msgid ""
 "If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
 "DHCP clients"
 msgstr ""
-"Kui eBox Samba on lubatud ja valitud, siis on eBox DHCP klientidele WINS "
-"serveriks"
+"Kui valitud on kohalik eBox, siis on eBox DHCP klientidele WINS serveriks"
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"
@@ -486,7 +484,7 @@ msgid ""
 "domains on eBox might be chosen. All fields are optionals setting its value "
 "as \"None\" or leaving blank."
 msgstr ""
-"Kui sa määrad vaikelüüsi väärtuseks \"juba seadistatud\", võid valida ühe "
+"Kui määrad vaikelüüsi väärtuseks \"juba seadistatud\", võid valida ühe "
 "seadistatud lüüsi. \"Otsingudomeeni\" väärtuseks võid valida ühe seadistatud "
 "DNS domeenidest eBoxis."
 
@@ -528,9 +526,9 @@ msgid "range"
 msgstr "vahemik"
 
 #: src/EBox/DHCP.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{server} configuration file"
-msgstr "Teenuse seadistamine"
+msgstr "{server} seadistuste fail"
 
 #: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
 #: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708

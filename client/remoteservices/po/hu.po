@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-remoteservices 1.1Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-remoteservices 1.1Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2010-03-09 11:04+0100\n"
+"PO-Revision-Date: 2010-04-06 16:25+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -127,9 +127,8 @@ msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "A {host} nem elérhető. Ellenőrizze az internetkapcsolatát"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
-#, fuzzy
 msgid "It must be a valid subdomain name"
-msgstr "Egy érvényes tartománynév kell legyen"
+msgstr "Érvényes tartománynév kell legyen"
 
 #: src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 #, perl-brace-format
@@ -144,7 +143,7 @@ msgstr "Nem lehet hosszabb {n} karakternél"
 #: src/EBox/RemoteServices/CSV.pm:78
 #, perl-brace-format
 msgid "Skipping bad formed line: {l}"
-msgstr ""
+msgstr "Hibás formátumú sor kihagyása: {l}"
 
 #: src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
@@ -223,7 +222,6 @@ msgid "eBox Name"
 msgstr "eBox név"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:310
-#, fuzzy
 msgid "Choose a name for your eBox which is a valid subdomain name"
 msgstr "Válasszon egy valós tartománynevet az eBoxnak"
 

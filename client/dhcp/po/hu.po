@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:52+0200\n"
-"PO-Revision-Date: 2010-03-17 13:43+0100\n"
+"PO-Revision-Date: 2010-04-06 16:27+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -508,9 +508,9 @@ msgid "range"
 msgstr "tartomány"
 
 #: src/EBox/DHCP.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{server} configuration file"
-msgstr "Szolgáltatás beállítása"
+msgstr "{server} beállító fájl"
 
 #: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
 #: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708

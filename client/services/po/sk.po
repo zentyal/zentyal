@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-services 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:15+0000\n"
-"PO-Revision-Date: 2009-11-14 19:07+0100\n"
+"PO-Revision-Date: 2010-04-19 12:06+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: migration/0001_import_services_from_firewall.pl:69
 msgid "any"
-msgstr ""
+msgstr "hocijaký"
 
 #: migration/0001_import_services_from_firewall.pl:70
 msgid "any protocol and port"
-msgstr ""
+msgstr "hocijaký protokol a port"
 
 #: migration/0001_import_services_from_firewall.pl:71
 #: migration/0001_import_services_from_firewall.pl:82
@@ -32,23 +32,23 @@ msgstr ""
 #: migration/0001_import_services_from_firewall.pl:125
 #: src/EBox/Services.pm:337
 msgid "ebox-services"
-msgstr ""
+msgstr "ebox-služby"
 
 #: migration/0001_import_services_from_firewall.pl:80
 msgid "any UDP"
-msgstr ""
+msgstr "hocijaký UDP"
 
 #: migration/0001_import_services_from_firewall.pl:81
 msgid "any UDP port"
-msgstr ""
+msgstr "hocijaký UDP port"
 
 #: migration/0001_import_services_from_firewall.pl:92
 msgid "any TCP"
-msgstr ""
+msgstr "hocijaký TCP"
 
 #: migration/0001_import_services_from_firewall.pl:93
 msgid "any TCP port"
-msgstr ""
+msgstr "hocijaký TCP port"
 
 #: migration/0001_import_services_from_firewall.pl:108
 #: src/EBox/Services.pm:335
@@ -56,9 +56,8 @@ msgid "eBox administration"
 msgstr "Správa eBox-u"
 
 #: migration/0001_import_services_from_firewall.pl:109
-#, fuzzy
 msgid "eBox Administration Web Server"
-msgstr "Správa eBox-u"
+msgstr "Web server pre správu eBox-u "
 
 #: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:153
 msgid "Services"
@@ -70,7 +69,7 @@ msgstr "port"
 
 #: src/EBox/Services.pm:336
 msgid "eBox Administration port"
-msgstr ""
+msgstr "Port správy eBox-u"
 
 #: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
@@ -94,6 +93,9 @@ msgid ""
 "ports configured for this service. This helps eBox to know what ports are "
 "already busy"
 msgstr ""
+"Označiť toto pole, ak skutočne služba na tomto zariadení pužíva porty "
+"nastavené pre túto službu. Toto napomáha eBox-u rozoznať, ktoré porty sa "
+"práve používajú."
 
 #: src/EBox/Model/ServiceTable.pm:140
 msgid "Configuration"
@@ -113,6 +115,8 @@ msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
 msgstr ""
+"Služba je pojem pre jeden alebo viac sieťových protokolov, ktoré môžu byť "
+"použité v ostatných moduloch, ako napríklad: firewall, traffic shaping..."
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:139
 msgid "Protocol"
@@ -124,7 +128,7 @@ msgstr "Východiskový port"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:147
 msgid "This field is usually set to any"
-msgstr ""
+msgstr "Toto pole je zvyčajne nastavené na hodnotu hocijaký (any)"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:151
 msgid "Destination port"

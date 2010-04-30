@@ -8,22 +8,23 @@ msgstr ""
 "Project-Id-Version: ebox-services 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:15+0000\n"
-"PO-Revision-Date: 2008-09-01 08:33+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-22 11:33+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_import_services_from_firewall.pl:69
 msgid "any"
-msgstr ""
+msgstr "orice"
 
 #: migration/0001_import_services_from_firewall.pl:70
 msgid "any protocol and port"
-msgstr ""
+msgstr "orice protocol şi port"
 
 #: migration/0001_import_services_from_firewall.pl:71
 #: migration/0001_import_services_from_firewall.pl:82
@@ -32,60 +33,60 @@ msgstr ""
 #: migration/0001_import_services_from_firewall.pl:125
 #: src/EBox/Services.pm:337
 msgid "ebox-services"
-msgstr ""
+msgstr "servicii eBox"
 
 #: migration/0001_import_services_from_firewall.pl:80
 msgid "any UDP"
-msgstr ""
+msgstr "orice UDP"
 
 #: migration/0001_import_services_from_firewall.pl:81
 msgid "any UDP port"
-msgstr ""
+msgstr "orice port UDP"
 
 #: migration/0001_import_services_from_firewall.pl:92
 msgid "any TCP"
-msgstr ""
+msgstr "orice TCP"
 
 #: migration/0001_import_services_from_firewall.pl:93
 msgid "any TCP port"
-msgstr ""
+msgstr "orice port TCP"
 
 #: migration/0001_import_services_from_firewall.pl:108
 #: src/EBox/Services.pm:335
 msgid "eBox administration"
-msgstr ""
+msgstr "administrare eBox"
 
 #: migration/0001_import_services_from_firewall.pl:109
 msgid "eBox Administration Web Server"
-msgstr ""
+msgstr "Web server pt. administrare eBox"
 
 #: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:153
 msgid "Services"
-msgstr ""
+msgstr "Servicii"
 
 #: src/EBox/Services.pm:333
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Services.pm:336
 msgid "eBox Administration port"
-msgstr ""
+msgstr "port administrare eBox"
 
 #: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
-msgstr ""
+msgstr "Domeniu"
 
 #: src/EBox/Model/ServiceTable.pm:114
 msgid "Service name"
-msgstr ""
+msgstr "Nume serviciu"
 
 #: src/EBox/Model/ServiceTable.pm:122
 msgid "Description"
-msgstr ""
+msgstr "Descriere"
 
 #: src/EBox/Model/ServiceTable.pm:129
 msgid "Internal"
-msgstr ""
+msgstr "Intern"
 
 #: src/EBox/Model/ServiceTable.pm:131
 msgid ""
@@ -93,46 +94,51 @@ msgid ""
 "ports configured for this service. This helps eBox to know what ports are "
 "already busy"
 msgstr ""
+"Bifaţi acest câmp dacă exisă un serviciu în acest calculator ce foloseşte "
+"porturile configurate pentru acel serviciu. Aceasta ajută eBox să afle "
+"porturile ocupate deja."
 
 #: src/EBox/Model/ServiceTable.pm:140
 msgid "Configuration"
-msgstr ""
+msgstr "Configurare"
 
 #: src/EBox/Model/ServiceTable.pm:152
 msgid "List of services"
-msgstr ""
+msgstr "Lista serviciilor"
 
 #: src/EBox/Model/ServiceTable.pm:163
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
 msgid "service"
-msgstr ""
+msgstr "serviciu"
 
 #: src/EBox/Model/ServiceTable.pm:544
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
 msgstr ""
+"Un serviciu este o abstractizare a unuia sau mai multor protocoale ce pot fi "
+"utilizate în alte module, precum: paravan, prioritizare trafic..."
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:139
 msgid "Protocol"
-msgstr ""
+msgstr "Protocol"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:145
 msgid "Source port"
-msgstr ""
+msgstr "Port sursă"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:147
 msgid "This field is usually set to any"
-msgstr ""
+msgstr "Acest câmp are de obicei valoarea: orice"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:151
 msgid "Destination port"
-msgstr ""
+msgstr "Port destinaţie"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:161
 msgid "Service configuration"
-msgstr ""
+msgstr "Configurare serviciu"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:195
 msgid "This protocol does not use ports"
-msgstr ""
+msgstr "Acest protocol nu foloseşte porturi"

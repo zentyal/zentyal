@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dns 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:15+0000\n"
-"PO-Revision-Date: 2009-11-13 16:07+0100\n"
+"PO-Revision-Date: 2010-04-19 12:13+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -46,12 +46,12 @@ msgstr "konfiguračný súbor zóny {zone}"
 #: src/EBox/DNS.pm.in:560
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr ""
+msgstr "konfiguračný súbor reverznej zóny {zone}"
 
 #: src/EBox/DNS.pm.in:578
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr ""
+msgstr "Zmeniť oprávnenia pre {dir} na zápis do bind skupiny"
 
 #: src/EBox/DNS.pm.in:580
 msgid "Let the bind daemon to be dynamically updated"

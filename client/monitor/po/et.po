@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2010-03-25 17:29+0100\n"
+"PO-Revision-Date: 2010-04-27 20:07+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "Määratud peab olema vähemalt lävi (maksimum või miinimum)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 msgid "This threshold rule will override the current ones"
-msgstr "See läve reegel tühistab olemasolevad"
+msgstr "See läve reegel tühistab olemasolevad reeglid"
 
 # (seas, hulgas )vahet tegemist, eraldamist
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:156
@@ -42,11 +42,11 @@ msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr ""
-"Praeguse jälgimistööriista versioon ei toeta andmeallikate seas eristamist"
+"Praeguse monitooringutööriista versioon ei toeta andmeallikate seas "
+"eristamist"
 
 # Tõrke miinimum
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:221
-#, fuzzy
 msgid "Failure minimum"
 msgstr "Tõrgete miinumum"
 
@@ -118,8 +118,8 @@ msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
 msgstr ""
-"Kui see on määratud tõeseks, siis vastuvõetavate väärtuste vahemik on ümber "
-"pööratud, st väärtused vahemikes {fmin} ja {fmax} ({wmin} ja {wmax}) ei ole "
+"Kui valik on määratud, siis vastuvõetavate väärtuste vahemik pööratakse "
+"ümber, st väärtused vahemikes {fmin} ja {fmax} ({wmin} ja {wmax}) ei ole "
 "vastuvõetavad."
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
@@ -141,15 +141,15 @@ msgid ""
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
 msgstr ""
-"Kui see on määratud tõeseks, siis saadetakse sündmus iga väärtuse kohta mis "
-"on väljapool vastuvõetavat vahemikku. Kui aga see on määratud vääraks, siis "
-"teavitatakse ainult vastuvõetavate väärtuste muutumisest vastuvõtmatuteks."
+"Kui valik on määratud, siis saadetakse sündmus iga väärtuse kohta, mis on "
+"väljapool vastuvõetavat vahemikku. Kui ei ole määratud, siis teavitatakse "
+"ainult vastuvõetavate väärtuste muutumisest vastuvõtmatuteks."
 
-# see isend muidugi eriti ei sobi sinna: instants äkki
+# eksemplar v isend eriti ei sobi, instants äkki
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 #, fuzzy
 msgid "Measure instance"
-msgstr "Mõõdetav isend"
+msgstr "Mõõdetav eksemplar"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
 msgid "Type"
@@ -186,8 +186,8 @@ msgid ""
 "Take into account this configuration will be only applied if monitor "
 "{openhref}event watcher is enabled{closehref}"
 msgstr ""
-"Seadistused rakendatakse ainult siis, kui {openhref}sündmusejälgija on "
-"lubatud{closehref}"
+"Seadistused rakendatakse ainult siis, kui monitooringu "
+"{openhref}sündmusejälgija on lubatud{closehref}"
 
 # ei ole see ka vist päris õige
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:122
@@ -200,7 +200,6 @@ msgid "Thresholds"
 msgstr "Läved"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:138
-#, fuzzy
 msgid "Configure monitor watchers"
 msgstr "Monitooringu jälgija seadistamine"
 
@@ -211,7 +210,7 @@ msgstr "mõõdik"
 
 #: src/EBox/Monitor/Model/MeasureWatchers.pm:144
 msgid "Every measure may have several thresholds to monitor"
-msgstr "Iga mõõtmisel võib olla jälgimise jaoks mitu läve"
+msgstr "Igal mõõtmisel võib olla monitooringu jaoks mitu läve"
 
 #: src/EBox/Monitor/Configuration.pm:121
 msgid "Last hour"
@@ -308,11 +307,11 @@ msgstr "väärtus"
 #: src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
 msgid "CPU {no} usage"
-msgstr "Protsessori {no} koormus"
+msgstr "Protsessori {no} kasutus"
 
 #: src/EBox/Monitor/Measure/CPU.pm:65
 msgid "CPU usage"
-msgstr "Protsessori koormus"
+msgstr "Protsessori kasutus"
 
 #: src/EBox/Monitor/Measure/CPU.pm:66
 msgid ""
@@ -373,11 +372,12 @@ msgstr "vaba"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "page cache"
-msgstr "lehekülje puhver"
+msgstr "lehekülje vahemälu"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
+#, fuzzy
 msgid "buffer cache"
-msgstr "ketta puhver"
+msgstr "ketta vahemälu"
 
 #: src/EBox/Monitor/Measure/Memory.pm:57
 msgid "used"
@@ -394,7 +394,7 @@ msgid ""
 "Status{closehref} section."
 msgstr ""
 "Monitooringu graafikute nägemiseks pead sa monitooringu mooduli lubama "
-"{openhref}mooduli staatuse{closehref} sektsioonis."
+"{openhref}mooduli oleku{closehref} sektsioonis."
 
 # mina ei usu et sektsioonis 'Save Changes' on mingid graafikud st algkirje viga
 #: src/EBox/CGI/Index.pm:98
@@ -407,13 +407,12 @@ msgstr ""
 "Monitooringu graafikute nägemiseks mooduli staatuses pead sa muudatused "
 "salvestama {openhref}muudatuste salvestamise{closehref} sektsioonis. Juhul "
 "kui sa oled seda juba teinud, siis oota paar sekundit, et jõutaks koguda "
-"esimesed jälgimisandmed."
+"esimesed monitooringuandmed."
 
 #: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:73
 #: src/EBox/Monitor.pm:167
-#, fuzzy
 msgid "Monitor"
-msgstr "Jälgimine"
+msgstr "Monitooring"
 
 #: src/EBox/Event/Watcher/Monitor.pm:162
 #, fuzzy

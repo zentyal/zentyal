@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-services 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:15+0000\n"
-"PO-Revision-Date: 2010-03-26 14:11+0100\n"
+"PO-Revision-Date: 2010-04-12 12:17+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -88,15 +88,16 @@ msgstr "Kirjeldus"
 msgid "Internal"
 msgstr "Sisemine"
 
-# Pole päris kindel tõlgitud lause õigsuses
+# Märgi see väli, kui kohalikus masinas on ka tegelikult teenus, mis talle seadistatud porte kasutab. See aitab eBoxil aru saada millised pordid on juba kasutusel.
 #: src/EBox/Model/ServiceTable.pm:131
+#, fuzzy
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
 "ports configured for this service. This helps eBox to know what ports are "
 "already busy"
 msgstr ""
-"Märgi see väli, kui masinas on tegelikult teenus mis talle seadistatud porte "
-"kasutab. See aitab eBoxil aru saada mis pordid on juba kasutusel."
+"Märgi see väli, kui teenuse jaoks seadistatud porte kasutatakse kohalikus "
+"masinas. See aitab eBoxil aru saada millised pordid on juba kasutusel."
 
 #: src/EBox/Model/ServiceTable.pm:140
 msgid "Configuration"

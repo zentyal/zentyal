@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:52+0200\n"
-"PO-Revision-Date: 2009-11-05 01:04+0100\n"
+"PO-Revision-Date: 2010-04-16 19:30+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -112,7 +112,7 @@ msgid "Organization Name"
 msgstr "Nome da Organização"
 
 #: src/EBox/CGI/IssueCertificate.pm:145
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -123,13 +123,15 @@ msgstr ""
 #: src/EBox/CGI/IssueCertificate.pm:177 src/EBox/CA.pm:2564
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
-msgstr ""
+msgstr "Só {dns}, {ip} e {email} são tios de nomes válidos"
 
 #: src/EBox/CGI/IssueCertificate.pm:184
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
+"O parâmetro nome do sujeito alternativo deve seguir esta regra tipo: valor, "
+"tipo:valor "
 
 #: src/EBox/CGI/IssueCertificate.pm:206
 msgid "The certificate has been issued."
@@ -232,15 +234,15 @@ msgstr "Serviço de certificados"
 
 #: src/EBox/CA.pm:1842
 msgid "Not created"
-msgstr ""
+msgstr "Não foi criado "
 
 #: src/EBox/CA.pm:1844
 msgid "Available"
-msgstr ""
+msgstr "Disponível"
 
 #: src/EBox/CA.pm:1846
 msgid "Created but not available"
-msgstr ""
+msgstr "Criado mas não disponível"
 
 #: src/EBox/CA.pm:2412
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -335,7 +337,7 @@ msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Não pode iniciar a shell OpenSSl . ({errval})"
 
 #: src/EBox/Model/Certificates.pm:93
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
@@ -357,7 +359,7 @@ msgstr "Activar"
 
 #: src/EBox/Model/Certificates.pm:243
 msgid "Generate the certificate using CA with the common name set above"
-msgstr ""
+msgstr "Gerar o certificado a usar CA com o nome comum definido acima"
 
 #: src/EBox/Model/Certificates.pm:252
 msgid "certificate"
@@ -368,6 +370,8 @@ msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by eBox"
 msgstr ""
+"Aqui pode definir certificados deste CA para os serviços seguros geridos "
+"pela eBox"
 
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
@@ -398,7 +402,7 @@ msgstr "Data de expiração"
 #: src/templates/formRenew.mas:61 src/templates/formRevoke.mas:46
 #: src/templates/index.mas:57
 msgid "Subject Alternative Names"
-msgstr ""
+msgstr "Nomes alternativos"
 
 #: src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"
@@ -411,7 +415,7 @@ msgstr "Revogar o certificado seleccionado"
 #: src/templates/formRevoke.mas:81 src/templates/index.mas:165
 #: src/templates/index.mas:197 src/templates/forceRevoke.mas:42
 msgid "Revoke"
-msgstr "Revoga"
+msgstr "Revogar"
 
 #: src/templates/index.mas:41 src/templates/createCA.mas:9
 msgid "Country code"
@@ -432,6 +436,8 @@ msgid ""
 "Multi-value separated by commas, only valid types are: {dns}, {ip} and "
 "{email}. For instance, {example}"
 msgstr ""
+"Valores multiplos separados por virgulas, único tipos válidos são: {dns}, "
+"{ip} and {email}. Por exemplo, {example}"
 
 #: src/templates/index.mas:72
 msgid "Issue"
@@ -496,7 +502,7 @@ msgstr "Revogado"
 #: src/templates/index.mas:137
 #, perl-brace-format
 msgid "Reason: {reason}"
-msgstr ""
+msgstr "Motivo: {reason}"
 
 #: src/templates/index.mas:174 src/templates/index.mas:199
 msgid "Download Key(s) and Certificate"
@@ -512,11 +518,11 @@ msgstr "Criar Certificado de Autoridade Certificadora"
 
 #: src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
-msgstr "Revogando certificado CA "
+msgstr "A revogar certificado CA "
 
 #: src/templates/forceRevoke.mas:15
 msgid "Revoking certificate"
-msgstr "Revogando certificado"
+msgstr "A revogar certificado"
 
 #: src/templates/forceRevoke.mas:21
 #, perl-brace-format

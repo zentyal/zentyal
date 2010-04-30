@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:55+0200\n"
-"PO-Revision-Date: 2010-03-26 12:22+0100\n"
+"PO-Revision-Date: 2010-04-23 17:34+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -91,9 +91,8 @@ msgid "Dansguardian's antivirus scanner configuration"
 msgstr "Dansguardiani viirusetõrje skaneerimise seadistamine"
 
 #: src/EBox/Squid.pm:282
-#, fuzzy
 msgid "Filter groups per IP"
-msgstr "Filtri grupp"
+msgstr "Filtri grupid IP kohta"
 
 #: src/EBox/Squid.pm:317
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -103,9 +102,10 @@ msgstr "Sa pead eboxi seadistustefailis määrama cache_mem muutuja"
 msgid "Enabled"
 msgstr "Lubatud"
 
+# kui tõlkida 'keelatud', siis tundub, et lävi on range
 #: src/EBox/Squid.pm:967 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
-msgstr "Keelatud"
+msgstr "Ei kasutata"
 
 #: src/EBox/Squid.pm:969
 msgid "Transparent proxy"
@@ -125,7 +125,7 @@ msgstr "Keela"
 #: src/EBox/Squid/Types/Policy.pm:65
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
-msgstr "Filter"
+msgstr "Filtreeri"
 
 #: src/EBox/Squid.pm:979
 msgid "Global policy"
@@ -174,7 +174,6 @@ msgstr "URL"
 
 # või baidid?
 #: src/EBox/Squid.pm:1058
-#, fuzzy
 msgid "Bytes"
 msgstr "Baiti"
 
@@ -199,9 +198,8 @@ msgid "Filtered"
 msgstr "Filtreeritud"
 
 #: src/EBox/Squid.pm:1144
-#, fuzzy
 msgid "HTTP Proxy's cache files"
-msgstr "HTTP puhverserveri puhvri failid"
+msgstr "HTTP puhverserveri vahemälu failid"
 
 #: src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
@@ -230,12 +228,12 @@ msgstr "Sisufiltri ranguse määramine"
 #: src/EBox/Squid/Types/DomainPolicy.pm:34 src/EBox/Squid/Types/Policy.pm:64
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:103
 msgid "Always allow"
-msgstr "Luba alati"
+msgstr "Luba kõik"
 
 #: src/EBox/Squid/Types/DomainPolicy.pm:36 src/EBox/Squid/Types/Policy.pm:66
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:105
 msgid "Always deny"
-msgstr "Keela alati"
+msgstr "Keela kõik"
 
 #: src/EBox/Squid/Types/DomainPolicy.pm:56
 msgid "Squid's domain policy"
@@ -383,7 +381,7 @@ msgstr "internetidomeeni loend"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
 msgid "You can upload files with lists of domains"
-msgstr "Sa saad domeeniloenditega faile üles laadida"
+msgstr "Siin saab domeeniloendi faile üles laadida"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
@@ -438,35 +436,35 @@ msgstr "grupp"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:73
 msgid "Domain Name Address"
-msgstr "Domeeninime aadress"
+msgstr "Domeen"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:80
 msgid "Exempt address from caching"
-msgstr "Puhverdamisest vabastatud aadress"
+msgstr "Vahemälust vabastatud domeen"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:89
 msgid "Cache exemptions"
-msgstr "Puhvri vabastused"
+msgstr "Vahemälu vabastused"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:102
 msgid "domain name address"
-msgstr "domeeninime aadress"
+msgstr "domeen"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:103
 msgid "You can exempt some addresses from caching"
-msgstr "Aadresside vabastamine puhverdamisest"
+msgstr "Domeenide vabastamine vahemällu salvestamisest"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address added"
-msgstr "Aadress lisatud"
+msgstr "Domeen lisatud"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:106
 msgid "Address removed"
-msgstr "Aadress eemaldatud"
+msgstr "Domeen eemaldatud"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:107
 msgid "Address updated"
-msgstr "Aadress uuendatud"
+msgstr "Domeen uuendatud"
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
@@ -553,7 +551,7 @@ msgstr "Port"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:71
 msgid "Cache files size (MB)"
-msgstr "Puhvri failide maht (MB)"
+msgstr "Vahemälu suurus (MB)"
 
 # või reeglid?
 #: src/EBox/Squid/Model/GeneralSettings.pm:79
@@ -636,7 +634,6 @@ msgstr "Grupi reegel"
 # või profiili filtreerimine?
 #: src/EBox/Squid/Model/ObjectPolicy.pm:104
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:114
-#, fuzzy
 msgid "Filter profile"
 msgstr "Filtri profiil"
 
@@ -685,7 +682,7 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:264
 msgid "You can only use a custom profile with the 'Filter' policy"
-msgstr ""
+msgstr "'Filtri' reegliga saab kasutada ainult kohandatud profiili"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:527
 #, perl-brace-format
@@ -710,10 +707,11 @@ msgstr "Reegli määramine kõikidele MIME tüüpidele"
 msgid "Domain or URL"
 msgstr "Domeen või URL"
 
+# Domeen või IP aadressi osa URL-ist
 #: src/EBox/Squid/Model/DomainFilterBase.pm:77
 #, fuzzy
 msgid "Domain or IP address part of URL"
-msgstr "Domeen või IP aadress"
+msgstr "Domeen või IP aadressi osa URList"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:87
 msgid "Domain"
@@ -750,7 +748,6 @@ msgid "File"
 msgstr "Fail"
 
 #: src/EBox/Squid/Model/DomainFilterFilesBase.pm:179
-#, fuzzy
 msgid "You must supply a domains list"
 msgstr "Sa pead pakkuma domeeniloendi"
 
@@ -843,15 +840,14 @@ msgstr "MIME tüüp"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:65
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:61
-#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given MIME types. MIME "
 "types not listed here are allowed.\n"
 "The filter needs a 'filter' policy to be in effect"
 msgstr ""
-"HTTP liikluse lubamine/keelamine MIME tüüpide põhjal. MIME tüübid, mida "
+"HTTP liikluse lubamine või keelamine MIME tüüpide põhjal. MIME tüübid, mida "
 "nimekirjas ei ole, on lubatud.\n"
-"Filtri rakendamise jaoks on vajalik \"filtri\" reegel"
+"Filtri rakendamise jaoks on vajalik 'filtri' reegel"
 
 #: src/EBox/Squid/Model/MIMEFilter.pm:68
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
@@ -899,7 +895,7 @@ msgid ""
 "Extensions not listed here are allowed.\n"
 "The extension filter needs a 'filter' policy to be in effect"
 msgstr ""
-"HTTP liikluse lubamine/keelamine faililaiendite põhjal.\n"
+"HTTP liikluse lubamine või keelamine faililaiendite põhjal.\n"
 "Laiendid, mida nimekirjas ei ole, on lubatud.\n"
 "Filtri rakendamise jaoks on vajalik 'filtri' reegel"
 
@@ -942,12 +938,14 @@ msgstr "Domeeni ja URLi reeglid"
 msgid "internet domain or URL"
 msgstr "internetidomeen või URL"
 
+# Saabuva või väljuva
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #: src/EBox/Squid/Model/DomainFilter.pm:79
+#, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
-"Saabuva ja väljuva HTTP liikluse lubamine/keelamine nimekirjas olevatele "
+"Saabuva ja väljuva HTTP liikluse lubamine või keelamine nimekirjas olevatele "
 "domeenidele ja URLidele."
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
@@ -1013,11 +1011,11 @@ msgstr "Maksimaalne filtri gruppide arv on täis"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:78
 msgid "Domains lists files for filter group"
-msgstr "Filtri gruppide domeeniloendite failid"
+msgstr "Filtri gruppide domeeniloendi failid"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:92
 msgid "You can upload files whith lists of domains"
-msgstr "Sa saad üles laadida domeeniloenditega faile"
+msgstr "Siin saab domeeniloendi faile üles laadida"
 
 #: src/EBox/Squid/Model/ObjectGroupPolicy.pm:91
 msgid ""
@@ -1152,9 +1150,8 @@ msgid "File extensions filtering"
 msgstr "Faililaiendite filtreerimine"
 
 #: src/EBox/Squid/Composite/FilterGroupDomains.pm:84
-#, fuzzy
 msgid "Domains filtering for filter group"
-msgstr "Filtri grupi poolt domeenide filtreerimine"
+msgstr "Filtri grupi jaoks domeenide filtreerimine"
 
 #: src/EBox/Squid/Composite/MIME.pm:91
 #: src/EBox/Squid/Composite/FilterGroupMIME.pm:92

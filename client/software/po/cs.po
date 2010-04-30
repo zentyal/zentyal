@@ -5,219 +5,234 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 1.4.1"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-software 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2008-09-01 08:34+0200\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-16 17:47+0200\n"
+"Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Automatické aktualizace softwaru"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:462
 msgid "System updates"
-msgstr ""
+msgstr "Aktualizace systému"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "Aktualizace softwaru jsou zpracovávány automaticky"
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "Systém je aktuální"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "automatické aktualizace konfigurace"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
-msgstr ""
+msgstr "Nebyly zjištěny žádné balíčky k aktualizaci "
 
 #: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
-msgstr ""
+msgstr "Aktualizace"
 
 #: src/EBox/CGI/InstallPkgs.pm:146
 msgid "Upgrading packages"
-msgstr ""
+msgstr "Aktualizace balíčků"
 
 #: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
 msgid "Current package"
-msgstr ""
+msgstr "Aktuální balíček"
 
 #: src/EBox/CGI/InstallPkgs.pm:148
 msgid "packages left to install"
-msgstr ""
+msgstr "zbývající balíčky k instalaci"
 
 #: src/EBox/CGI/InstallPkgs.pm:149
+#, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully restarted"
 msgstr ""
+"Instalace balíčků je úspěšně dokončena. Může se stát, že administrační "
+"rozhraní nebude několik sekund reagovat. Prosím čekejte trpělivě, než se "
+"systém plně zrestartuje."
 
 #: src/EBox/CGI/InstallPkgs.pm:153
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
-msgstr ""
+msgstr "Instalace balíčků nebyla dokončena správně. Více informací v logách"
 
 #: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Removing package"
-msgstr ""
+msgstr "Odebrání balíčku"
 
 #: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Odstranění vybraného balíčku a jeho závislostí"
 
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "packages left to remove"
-msgstr ""
+msgstr "zbývající balíčky k odstranění"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
+#, fuzzy
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"Odstranění balíčků je úspěšně dokončeno. Může se stát, že administrační "
+"rozhraní nebude několik sekund reagovat. Prosím čekejte trpělivě, než se "
+"systém plně zrestartuje."
 
 #: src/EBox/CGI/InstallPkgs.pm:173
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
-msgstr ""
+msgstr "Odstranění balíčků nebylo dokončeno správně. Více informací v logách"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
 msgid "eBox components"
-msgstr ""
+msgstr "eBox komponenty"
 
 #: src/EBox/Software.pm:85
+#, fuzzy
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "Povolit cron skript ke stažení aktualizací"
 
 #: src/EBox/Software.pm:86
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr ""
+"eBox software stáhne dostupné aktualizace z vašich nastavených APT zdrojů. "
 
 #: src/EBox/Software.pm:457
 msgid "Software management"
-msgstr ""
+msgstr "Software management"
 
 #: src/EBox/Software.pm:464
 msgid "Automatic updates"
-msgstr ""
+msgstr "Automatické aktualizace"
 
 #: src/EBox/Software.pm:555
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"Správa softwaru je nyní uzamčena {locker}. Prosím, zkuste to znovu později"
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "eBox - Certificate Authority Manager for eBox"
-msgstr ""
+msgstr "eBox - Správce certifikační autority pro eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
 msgid "eBox - DHCP server module"
-msgstr ""
+msgstr "eBox - modul DHCP server"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox - DNS server"
-msgstr ""
+msgstr "eBox - DNS server"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "the eBox platform - Base framework"
-msgstr ""
+msgstr "eBox platforma - Základní framework"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "eBox - Firewall"
-msgstr ""
+msgstr "eBox - Firewall"
 
 #: src/EBox/PackageDescriptions.pm:6
+#, fuzzy
 msgid "IPsec VPNs"
-msgstr ""
+msgstr "IPsec VPNs"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "eBox - Instant messaging (Jabber)"
-msgstr ""
+msgstr "eBox - Instant messaging (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
+#, fuzzy
 msgid "eBox - layer 7 protocols"
-msgstr ""
+msgstr "eBox - layer 7 protocols"
 
 #: src/EBox/PackageDescriptions.pm:9
 msgid "eBox - Mail server"
-msgstr ""
+msgstr "eBox - Mail server"
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "eBox - Mail filter module"
-msgstr ""
+msgstr "eBox - modul Mail filter"
 
 #: src/EBox/PackageDescriptions.pm:11
 msgid "eBox - Network configuration module"
-msgstr ""
+msgstr "eBox - modul Konfigurace sítě"
 
 #: src/EBox/PackageDescriptions.pm:12
 msgid "eBox - NTP server"
-msgstr ""
+msgstr "eBox - NTP server"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "eBox - Object management"
-msgstr ""
+msgstr "eBox - Správa objektů"
 
 #: src/EBox/PackageDescriptions.pm:14
 msgid "eBox - OpenVPN server module"
-msgstr ""
+msgstr "eBox - modul OpenVPN server"
 
 #: src/EBox/PackageDescriptions.pm:15
 msgid "eBox - Printer sharing"
-msgstr ""
+msgstr "eBox - Sdílení tiskáren"
 
 #: src/EBox/PackageDescriptions.pm:16
 msgid "eBox - File sharing"
-msgstr ""
+msgstr "eBox - Sdílení souborů "
 
 #: src/EBox/PackageDescriptions.pm:17
 msgid "eBox - Services management"
-msgstr ""
+msgstr "eBox - Správce služeb"
 
 #: src/EBox/PackageDescriptions.pm:18
+#, fuzzy
 msgid "SOAP server to communicate with eBox control center"
-msgstr ""
+msgstr "SOAP server pro komunikaci s řídicím centrem eBox"
 
 #: src/EBox/PackageDescriptions.pm:19
 msgid "eBox - Software management"
-msgstr ""
+msgstr "eBox - Správa softwaru"
 
 #: src/EBox/PackageDescriptions.pm:20
 msgid "eBox - Proxy cache and content filter"
-msgstr ""
+msgstr "eBox - Proxy cache a filtr obsahu"
 
 #: src/EBox/PackageDescriptions.pm:21
+#, fuzzy
 msgid "eBox - Traffic shaper for eBox"
-msgstr ""
+msgstr "eBox - Traffic shaper pro eBox"
 
 #: src/EBox/PackageDescriptions.pm:22
 msgid "eBox - User and Group management"
-msgstr ""
+msgstr "eBox - Správa uživatelů a skupin"
 
 #: src/EBox/PackageDescriptions.pm:23
 msgid "eBox - Web Server"
-msgstr ""
+msgstr "eBox - Web Server"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "HTTP software"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"

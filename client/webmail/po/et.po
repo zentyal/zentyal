@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:36+0000\n"
-"PO-Revision-Date: 2010-03-26 13:50+0100\n"
+"PO-Revision-Date: 2010-04-21 13:10+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -133,7 +133,8 @@ msgstr "eBoxi webmail"
 msgid ""
 "The name of the webmail will be used in the login screen and page titles."
 msgstr ""
-"Webmaili nime kasutatakse sisselogimise vaates ning lehekülje pealkirjades"
+"Nime kasutatakse Webmaili liidese sisselogimise vaatel ja lehekülgede "
+"tiitliribadel"
 
 #: src/EBox/WebMail/Model/Options.pm:57
 msgid "General configuration"
@@ -158,7 +159,6 @@ msgstr "Roundcube webmaili seadistamiseks."
 
 # otsetõlkes kõlaks "seadistamiseks" , kuid ilmselt on mõeldud seadistamist. "managesieve" mõiste tähendust ei tea
 #: src/EBox/WebMail.pm:289
-#, fuzzy
 msgid "To configure managesieve Roundcube webmail plugin."
 msgstr "Roundcube managesieve webmaili plugina seadistamiseks."
 

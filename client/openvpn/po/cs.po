@@ -5,41 +5,42 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 1.5"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-openvpn 1.5Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2010-03-29 16:54+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-30 09:36+0200\n"
+"Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/OpenVPN/Server.pm:84
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr ""
+msgstr "Port {p}/{pro} je již použit"
 
 #: src/EBox/OpenVPN/Server.pm:180
 #, perl-brace-format
 msgid "The certificate {cn} does not exist"
-msgstr ""
+msgstr "Certifikát {cn} neexistuje"
 
 #: src/EBox/OpenVPN/Server.pm:183
 #, perl-brace-format
 msgid "The certificate {cn} has expired"
-msgstr ""
+msgstr "Certifikát {cn} vypršel"
 
 #: src/EBox/OpenVPN/Server.pm:186
 #, perl-brace-format
 msgid "The certificate {cn} has been revoked"
-msgstr ""
+msgstr "Certifikát {cn} byl zrušen"
 
 #: src/EBox/OpenVPN/Server.pm:204
 #, perl-brace-format
+#, fuzzy
 msgid "The server {name} does not have certificate assigned"
-msgstr ""
+msgstr "Server {name} nemá přidělen certifikát"
 
 #: src/EBox/OpenVPN/Server.pm:225
 #, perl-brace-format
@@ -47,79 +48,84 @@ msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
+"Nelze získat klíč serveru (jméno), protože nemá žádný certifikát přidělen"
 
 #: src/EBox/OpenVPN/Server.pm:375
 #, perl-brace-format
 msgid "No IP address found for interface {iface}"
-msgstr ""
+msgstr "Nenalezena IP adresa pro rozhraní {iface}"
 
 #: src/EBox/OpenVPN/Server.pm:480
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr ""
+msgstr "OpenVPN server nelze použít pro vnitřní služby"
 
 #: src/EBox/OpenVPN/Server.pm:504
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr ""
+msgstr "Nepodporovaný typ klienta: {ct}"
 
 #: src/EBox/OpenVPN/Server.pm:693
 #, perl-brace-format
 msgid "Server {name}"
-msgstr ""
+msgstr "Server {name}"
 
 #: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:330
 #: src/EBox/OpenVPN/Model/Servers.pm:68
 msgid "Enabled"
-msgstr ""
+msgstr "Povoleno"
 
 #: src/EBox/OpenVPN/Server.pm:695 src/EBox/OpenVPN/Client.pm:330
 msgid "Disabled"
-msgstr ""
+msgstr "Zakázáno"
 
 #: src/EBox/OpenVPN/Server.pm:696 src/EBox/OpenVPN/Client.pm:331
 msgid "Service"
-msgstr ""
+msgstr "Služba"
 
 #: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:333
 msgid "Running"
-msgstr ""
+msgstr "Spuštěný"
 
 #: src/EBox/OpenVPN/Server.pm:698 src/EBox/OpenVPN/Client.pm:333
 msgid "Stopped"
-msgstr ""
+msgstr "Zastavený"
 
 #: src/EBox/OpenVPN/Server.pm:699 src/EBox/OpenVPN/Client.pm:334
 msgid "Daemon status"
-msgstr ""
+msgstr "Daemon status"
 
+# vnější/externí   ... rozhraní/síťovky/?
 #: src/EBox/OpenVPN/Server.pm:702
+#, fuzzy
 msgid "All external interfaces"
-msgstr ""
+msgstr "Všechny vnější rozhraní"
 
 #: src/EBox/OpenVPN/Server.pm:703
+#, fuzzy
 msgid "Local address"
-msgstr ""
+msgstr "Místní(local) adresa"
 
 #: src/EBox/OpenVPN/Server.pm:708
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/OpenVPN/Server.pm:711
+#, fuzzy
 msgid "VPN subnet"
-msgstr ""
+msgstr "VPN podsíť(subnet)"
 
 #: src/EBox/OpenVPN/Server.pm:714
 msgid "VPN network interface"
-msgstr ""
+msgstr "Síťové rozhraní VPN"
 
 #: src/EBox/OpenVPN/Server.pm:718 src/EBox/OpenVPN/Server.pm:720
 #: src/EBox/OpenVPN/Client.pm:346 src/EBox/OpenVPN/Client.pm:348
 msgid "VPN interface address"
-msgstr ""
+msgstr "Adresa rozhraní VPN"
 
 #: src/EBox/OpenVPN/Server.pm:720 src/EBox/OpenVPN/Client.pm:348
 msgid "No active"
-msgstr ""
+msgstr "Neaktivní"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:31
 #, perl-brace-format

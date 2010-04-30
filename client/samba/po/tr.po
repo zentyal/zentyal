@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2010-01-30 02:24+0100\n"
+"PO-Revision-Date: 2010-04-23 21:32+0200\n"
 "Last-Translator: Haluk <khaluk@yahoo.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -121,15 +121,16 @@ msgstr "paylaşım"
 msgid "Netbios and workgroup must have different names"
 msgstr "Netbios ve çalışma grubu farklı isimlerde olmalı"
 
+# Windows sistemlerinde kullanılan NETBIOS adı olduğu gibi kalmalı ve 15 karakter sınırı olduğu bilgisi kullanıcıya verilmeli
 #: src/EBox/Samba/Model/GeneralSettings.pm:78
 #, fuzzy
 msgid "Netbios name cannot be longer than 15 characters"
-msgstr "Bu kaynak ismi 12 harften fazla"
+msgstr "Netbios ismi 15 karakterden fazla olamaz"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:88
 #, fuzzy
 msgid "Enable PDC"
-msgstr "Etkin"
+msgstr "PDC aktif et"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:94
 msgid "Domain name"
@@ -196,7 +197,7 @@ msgstr "Bu sayfada farklı genel samba ayarlarını belirleyebilirsiniz."
 #: src/EBox/Samba/Model/GeneralSettings.pm:209
 #, fuzzy
 msgid "All users"
-msgstr "Kullanıcı"
+msgstr "Tüm kullanıcılar"
 
 #: src/EBox/Samba/Model/SambaShares.pm:98
 #, fuzzy
@@ -210,7 +211,7 @@ msgstr "Paylaşım Yolu"
 #: src/EBox/Samba/Model/SambaShares.pm:110
 #, fuzzy
 msgid "Directory under eBox"
-msgstr "Dizin ismi"
+msgstr "eBox altındaki dizin ismi"
 
 #: src/EBox/Samba/Model/SambaShares.pm:116
 msgid "File system path"
@@ -310,7 +311,7 @@ msgstr ""
 #: src/EBox/Samba/Model/PDC.pm:77
 #, fuzzy
 msgid "File sharing module is not enabled."
-msgstr "Dosya paylaşım"
+msgstr "Dosya paylaşım modülü aktif edilmemiş"
 
 #: src/EBox/Samba/Model/PDC.pm:78
 msgid "PDC is not enabled."
@@ -330,7 +331,7 @@ msgstr "Maksimum parola geçerlilik süresi"
 
 #: src/EBox/Samba/Model/PDC.pm:114
 msgid "days"
-msgstr "gündür"
+msgstr "gün"
 
 #: src/EBox/Samba/Model/PDC.pm:123
 msgid "Enforce password history"
@@ -338,7 +339,7 @@ msgstr "Daha önce kullanılan parolaların kullanımını engelle"
 
 #: src/EBox/Samba/Model/PDC.pm:131
 msgid "Keep history for"
-msgstr ""
+msgstr "Önceki parolaları hatırlama süresi"
 
 #: src/EBox/Samba/Model/PDC.pm:132
 msgid "passwords remebered"
@@ -350,7 +351,7 @@ msgstr "PDC"
 
 #: src/EBox/Samba/Model/PDC.pm:147
 msgid "On this page you can set different PDC related settings"
-msgstr ""
+msgstr "Bu sayfada PDC ile ilgili farklı ayarları yapabilirsiniz"
 
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:93
 #: src/EBox/Samba/Model/RecycleExceptions.pm:93

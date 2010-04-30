@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2010-03-17 14:13+0100\n"
+"PO-Revision-Date: 2010-04-06 16:19+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -1092,14 +1092,12 @@ msgid "any"
 msgstr "akármi"
 
 #: src/EBox/Types/PortRange.pm:293
-#, fuzzy
 msgid "Single port"
-msgstr "Jelentés kiválasztása"
+msgstr "Egyedi port"
 
 #: src/EBox/Types/PortRange.pm:297
-#, fuzzy
 msgid "Port range"
-msgstr "A jelszó megváltozott"
+msgstr "Port intervallum"
 
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
@@ -2061,6 +2059,8 @@ msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk."
 msgstr ""
+"A biztonsági mentések a eBoxon lesznek tárolva, és ezeket Ön le tudja "
+"tölteni a saját számítógépére."
 
 #: src/templates/backup.mas:29
 msgid ""
@@ -2068,6 +2068,9 @@ msgid ""
 "administration rights will be able to access the backup directory as a "
 "shared resource."
 msgstr ""
+"Ha a fájlmegosztó modul be  van állítva, minden adminisztrátori joggal "
+"rendelkező felhasználónak joga lesz hozzáférni a biztonsági mentések "
+"mappájához, mint megosztott erőforráshoz."
 
 #: src/templates/backup.mas:33
 msgid ""

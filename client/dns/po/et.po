@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dns 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:15+0000\n"
-"PO-Revision-Date: 2010-03-26 14:05+0100\n"
+"PO-Revision-Date: 2010-04-19 14:13+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "{zone} tsooni seadistusfail"
 #: src/EBox/DNS.pm.in:560
 #, fuzzy, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr "Tagurpidi lahendamise tsooni {zone} seadistusfail"
+msgstr "Pöördlahendamise tsooni {zone} seadistusfail"
 
 # "bind group" võib olla "sidusrühm" ? äkki "sidusgrupp" või "seotud grupp"?
 #: src/EBox/DNS.pm.in:578
@@ -89,7 +89,7 @@ msgstr "Alias"
 
 #: src/EBox/Model/HostnameTable.pm:215
 msgid "Host names"
-msgstr "Masina nimed"
+msgstr "Masinanimed"
 
 #: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:177
 msgid "Hostnames"
@@ -97,7 +97,7 @@ msgstr "Masinanimed"
 
 #: src/EBox/Model/HostnameTable.pm:223
 msgid "host name"
-msgstr "masina nimi"
+msgstr "masinanimi"
 
 #: src/EBox/Model/DomainTable.pm:169
 msgid "Domain"
@@ -132,7 +132,7 @@ msgstr "DNS"
 # "resolve names" tähendus antud kontekstis jääb veidi segaseks
 #: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
-msgstr "DNS server võimaldab sinu domeenide jaoks nimelahendamist"
+msgstr "DNS server võimaldab sinu domeenide jaoks nimelahendamise"
 
 #: src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -231,8 +231,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "ns.{name}?"
 msgstr ""
-"Antud masina nimi ei sobi täielikuks domeeninimeks (FQDN). Kas mõtlesid ns."
-"{name}?"
+"Antud masinanimi ei sobi täielikuks domeeninimeks (FQDN). Kas mõtlesid "
+"ns.{name}?"
 
 #: src/EBox/Model/NameServer.pm:112
 msgid "The domain is set as read only. You cannot add name servers"

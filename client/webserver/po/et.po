@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-25 21:08+0100\n"
-"PO-Revision-Date: 2010-03-26 12:24+0100\n"
+"PO-Revision-Date: 2010-04-11 12:54+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -88,7 +88,7 @@ msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
-"Kui sa selle välja märgid, siis on igale kasutajale lubatud veebileht, nende "
+"Kui see väli on märgitud, siis on igale kasutajale lubatud veebileht, nende "
 "kodukataloogis public_html all."
 
 # või ka lihtsalt "üldised seadistused"
@@ -107,7 +107,7 @@ msgid ""
 msgstr ""
 "Veebiserveri üldine seadistamine. Kuulatav port ei tohi olla saadud teiselt "
 "teenuselt. Kui sa lubad kasutajal avaldada oma html lehekülgi, laetakse "
-"leheküljed kataloogist {dirName} mis asub samba kodukataloogides."
+"leheküljed kataloogist {dirName} mis asub samba kodukataloogis."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"
@@ -121,9 +121,8 @@ msgstr "Virtuaalhosti nimi"
 
 # vbla ka "ülemine domeeninimi"
 #: src/EBox/WebServer/Model/VHostTable.pm:100
-#, fuzzy
 msgid "The virtual host name supplied is a top domain name"
-msgstr "Pakutud virtuaalhosti nimi on peamine domeeninimi"
+msgstr "Pakutud virtuaalhosti nimi on tippdomeeni nimi"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:107
 #, perl-brace-format
@@ -173,7 +172,6 @@ msgstr "Nimi"
 
 # Virtuaalhosting
 #: src/EBox/WebServer/Model/VHostTable.pm:247
-#, fuzzy
 msgid "Virtual hosts"
 msgstr "Virtuaalhostid"
 
@@ -188,17 +186,17 @@ msgid ""
 "particular configuration you want to add must be placed at {userConf} "
 "directory"
 msgstr ""
-"Virtuaalhosting on veebimajutuse teenuse liik, kus paljude erinevate "
-"domeeninimedega leheküljed on majutatud ühes füüsilises serveris. Kui see on "
-"võimalik, luuakse DNS sissekanne automaatselt. Sisu peaks hoidma {docRoot} "
-"kataloogis. Kui soovid lisada mingeid erilisi seadistusi, siis need tuleks "
-"paigutada {userConf} kataloogi."
+"Virtuaalhosting on veebimajutuse teenuse liik, kus erinimelised leheküljed "
+"on majutatud ühte füüsilisse serverisse. Kui see on võimalik, luuakse DNS "
+"sissekanne automaatselt. Sisu peaks hoidma {docRoot} kataloogis. Kui soovid "
+"lisada mingeid erilisi seadistusi, siis need tuleks paigutada {userConf} "
+"kataloogi."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:261
 msgid "virtual host"
 msgstr "virtuaalhost"
 
-# ei osanud hästi "The added mapping" tõlkida
+# mapping - teisendus, transleerimine
 #: src/EBox/WebServer/Model/VHostTable.pm:283
 #, fuzzy, perl-brace-format
 msgid ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2009-11-11 20:56+0100\n"
+"PO-Revision-Date: 2010-04-16 20:19+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,6 @@ msgstr "Eventos"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:390
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
-#, fuzzy
 msgid "Log Observer Watcher"
 msgstr "Monitor de registo"
 
@@ -153,9 +152,8 @@ msgid "Configure disk free space watcher"
 msgstr "Configurar monitor do espaço livre no disco"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
-#, fuzzy
 msgid "Free Disk Space Watcher"
-msgstr "Configurar monitor do espaço livre no disco"
+msgstr "Monitor do espaço livre no disco"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
@@ -176,7 +174,7 @@ msgstr "Configuração"
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
-msgstr "Nome"
+msgstr "Nenhum"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:309
 msgid "Configure Events"
@@ -303,9 +301,8 @@ msgid "Jabber dispatcher configuration updated"
 msgstr "A configuração do expedidor Jabber foi actualizada"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:277
-#, fuzzy
 msgid "Jabber Dispatcher"
-msgstr "Configurar expedidor Jabber "
+msgstr "Expedidor Jabber "
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:302
 msgid "It should follow the pattern 'user@domain[/resource]'"
@@ -360,29 +357,26 @@ msgid "RSS dispatcher configuration updated"
 msgstr "A configuração do expedidor RSS foi actualizada"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:329
-#, fuzzy
 msgid "RSS Dispatcher"
-msgstr "expedidor"
+msgstr "Expedidor RSS"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:50
 #: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:808
-#, fuzzy
 msgid "Source"
-msgstr "Serviço"
+msgstr "Origem"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:51
 #: src/EBox/Events/Model/Report/EventsDetails.pm:80
 #: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:815
-#, fuzzy
 msgid "Informative"
-msgstr "Informação do RAID"
+msgstr "Informativo"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
 #: src/templates/finish.mas:83
 msgid "Warning"
-msgstr "Cuidado"
+msgstr "Aviso"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:53
 #: src/EBox/Events/Model/Report/EventsDetails.pm:88
@@ -394,7 +388,7 @@ msgstr "Erro"
 #: src/EBox/Events/Model/Report/EventsDetails.pm:92
 #: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
 msgid "Fatal error"
-msgstr ""
+msgstr "Erro fatal"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:707
 #: src/templates/finish.mas:116 src/templates/backup.mas:126
@@ -403,29 +397,24 @@ msgid "Date"
 msgstr "Data"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:101
-#, fuzzy
 msgid "Events details"
-msgstr "Eventos"
+msgstr "Detalhes do evento"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:60
-#, fuzzy
 msgid "Events summarized chart"
-msgstr "Estado do serviço de eventos"
+msgstr "Sumário da tabela de eventos"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:77
-#, fuzzy
 msgid "Events summarized graph"
-msgstr "Sumário"
+msgstr "Sumário gráfico dos eventos"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:70
-#, fuzzy
 msgid "Events reports"
-msgstr "Seleccionar relatório"
+msgstr "Relatórios de eventos"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:71
-#, fuzzy
 msgid "Events report"
-msgstr "Seleccionar relatório"
+msgstr "Relatório de eventos"
 
 #: src/EBox/EventDaemon.pm:451
 #, perl-brace-format
@@ -436,7 +425,7 @@ msgstr ""
 
 #: src/EBox/Auth.pm:155
 msgid "Password changed"
-msgstr "Palavra-passe alterada"
+msgstr "Palavra-passe foi alterada"
 
 #: src/EBox/CGI/ClientRawBase.pm:211
 msgid ""
@@ -455,9 +444,8 @@ msgid "Query Logs"
 msgstr "Consultar registos"
 
 #: src/EBox/CGI/Logs/Index.pm:329
-#, fuzzy
 msgid "Full Reports"
-msgstr "Relatório completo"
+msgstr "Relatórios completos"
 
 #: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:238
 msgid "Dashboard"
@@ -521,7 +509,7 @@ msgstr "Palavra-passe incorrecta."
 
 #: src/EBox/CGI/EBox/Password.pm:57
 msgid "New passwords do not match."
-msgstr "Nova palavra-passe não coincide."
+msgstr "As novas palavras-passe não coincidem."
 
 #: src/EBox/CGI/EBox/Password.pm:62
 msgid "The password must be at least 6 characters long"
@@ -922,16 +910,15 @@ msgid "spare"
 msgstr "sobresselente"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "Os seguintes módulos não estão a correr: {modules}\n"
+msgstr "Os seguintes módulos não estão a correr mas estão activos: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
 msgstr "Serviço"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
-#, fuzzy
 msgid "Check if any eBox service is not running when it is enabled"
 msgstr "Verifique se há algum serviço eBox que não está a correr quando devia"
 
@@ -1099,13 +1086,12 @@ msgid "any"
 msgstr "qualquer"
 
 #: src/EBox/Types/PortRange.pm:293
-#, fuzzy
 msgid "Single port"
-msgstr "Seleccionar relatório"
+msgstr "Porto único"
 
 #: src/EBox/Types/PortRange.pm:297
 msgid "Port range"
-msgstr "Intervalo de portos"
+msgstr "Âmbito de portos"
 
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
@@ -1250,45 +1236,36 @@ msgid "Enable service"
 msgstr "Activar serviço"
 
 #: src/EBox/Events.pm:200
-#, fuzzy
 msgid "Initialize event dispatchers table"
-msgstr "Activar/desactivar cada expedidor de eventos"
+msgstr "Inicializar a tabela de expedidores de eventos"
 
 #: src/EBox/Events.pm:201
-#, fuzzy
 msgid "Enable default log dispatcher"
-msgstr "Activar/desactivar cada expedidor de eventos"
+msgstr "Activar o registo do expedidor"
 
 #: src/EBox/Events.pm:499
-#, fuzzy
 msgid "The events module is not enabled to send events"
-msgstr ""
-"O expedidor {name} está desactivado, uma vez que não é possível enviar "
-"eventos"
+msgstr "O expedidor {name} está desactivado para enviar eventos"
 
 #: src/EBox/Events.pm:732
 msgid "Event service status"
 msgstr "Estado do serviço de eventos"
 
 #: src/EBox/Events.pm:804
-#, fuzzy
 msgid "Date of first event"
-msgstr "Guardar como evento"
+msgstr "Data do primeiro evento"
 
 #: src/EBox/Events.pm:805
-#, fuzzy
 msgid "Date of last event"
-msgstr "Guardar como evento"
+msgstr "Data do último evento"
 
 #: src/EBox/Events.pm:806
-#, fuzzy
 msgid "Repetitions"
-msgstr "Opções do relatório"
+msgstr "Repetições"
 
 #: src/EBox/Events.pm:807
-#, fuzzy
 msgid "Level"
-msgstr "evento"
+msgstr "Nível"
 
 #: src/EBox/Events.pm:809 src/templates/finish.mas:118
 msgid "Message"
@@ -1560,7 +1537,7 @@ msgstr "Informação do sistema"
 
 #: src/EBox/SysInfo.pm.in:95
 msgid "available"
-msgstr ""
+msgstr "disponível"
 
 #: src/EBox/SysInfo.pm.in:100
 msgid "Time"
@@ -1568,12 +1545,11 @@ msgstr "Hora"
 
 #: src/EBox/SysInfo.pm.in:101
 msgid "Hostname"
-msgstr "Nome do hospedeiro"
+msgstr "Nome da máquina"
 
 #: src/EBox/SysInfo.pm.in:102
-#, fuzzy
 msgid "Core version"
-msgstr "Versão da eBox"
+msgstr "Versão do núcleo da eBox"
 
 #: src/EBox/SysInfo.pm.in:104
 msgid "System load"
@@ -1592,9 +1568,8 @@ msgid "Process List"
 msgstr "Lista de processos"
 
 #: src/EBox/SysInfo.pm.in:167
-#, fuzzy
 msgid "Resources & Services"
-msgstr "Estado do serviço de eventos"
+msgstr "Recursos e serviços"
 
 #: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
@@ -1613,9 +1588,8 @@ msgid "port"
 msgstr "porto"
 
 #: src/EBox/Apache.pm:591
-#, fuzzy
 msgid "eBox web server"
-msgstr "Servidor Web interno eBox"
+msgstr "Servidor Web eBox"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
 #, perl-brace-format
@@ -1859,7 +1833,7 @@ msgstr "Dispositivo"
 
 #: src/templates/report/raid.mas:231
 msgid "up"
-msgstr "para cima"
+msgstr "em cima"
 
 #: src/templates/report/raid.mas:232
 msgid "failure"
@@ -1902,9 +1876,8 @@ msgid "Starting..."
 msgstr "A iniciar..."
 
 #: src/templates/logs/index.mas:20
-#, fuzzy
 msgid "Log Domain"
-msgstr "Domínio"
+msgstr "Domínio dos registos"
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
@@ -1921,7 +1894,7 @@ msgstr "Ver"
 
 #: src/templates/logs/index.mas:44
 msgid "Custom query"
-msgstr "Definir consulta"
+msgstr "Consulta personalizada"
 
 #: src/templates/logs/index.mas:50
 msgid "From date:"
@@ -2021,6 +1994,9 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
+"Os seguintes módulos têm alerações que não foram gravadas mas estão "
+"<b>desactivados</b>. Se necessita de os activar vá a openref}Estado dos "
+"Módulos{closeref}"
 
 #: src/templates/finish.mas:106
 msgid ""
@@ -2076,6 +2052,8 @@ msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk."
 msgstr ""
+"As cópias de segurança serão armazenadas nas eBox e poderá descarregá-las "
+"para o seu disco rígido"
 
 #: src/templates/backup.mas:29
 msgid ""
@@ -2083,6 +2061,9 @@ msgid ""
 "administration rights will be able to access the backup directory as a "
 "shared resource."
 msgstr ""
+"Se o módulo de partilha de ficheiros estiver configurado todos os "
+"utilizadores com direitos de administração poderão aceder ao directório de "
+"armazenamento de cópias de segurança como recurso partilhado"
 
 #: src/templates/backup.mas:33
 msgid ""
@@ -2111,7 +2092,7 @@ msgstr ""
 
 #: src/templates/backup.mas:82
 msgid "Backup file"
-msgstr "Cópia de segurança"
+msgstr "Ficheiro de cópia de segurança"
 
 #: src/templates/backup.mas:112
 msgid "Full"
@@ -2215,6 +2196,8 @@ msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on eBox. "
 "Please use {url} instead."
 msgstr ""
+"Cuidado: Infelizmente o Internet Explorer ainda não é suportado na eBox. Por "
+"favor, em alternativa use {url}"
 
 #: src/templates/login/index.mas:46
 #, perl-brace-format
@@ -2223,6 +2206,9 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on eBox UI."
 msgstr ""
+"Cuidado: está a usar um navegador que não é {url}, o único suportado "
+"oficialmente. Tome em consideração que pode ter problemas durante a "
+"navegação no interface gráfico da eBox"
 
 #: src/templates/login/index.mas:58
 msgid "Enter"
@@ -2238,7 +2224,7 @@ msgstr "Restauração completa"
 
 #: src/templates/confirm-backup.mas:111
 msgid "Configuration Restore"
-msgstr "Restaurar configuração"
+msgstr "Restauração configuração"
 
 #: src/templates/confirm-backup.mas:116
 msgid "Restore mode"

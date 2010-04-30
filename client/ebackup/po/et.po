@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:51+0100\n"
-"PO-Revision-Date: 2010-03-26 14:03+0100\n"
+"PO-Revision-Date: 2010-04-28 19:49+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Fail edukalt taastatud"
 #: src/EBox/Model/RemoteFileList.pm:266
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
-msgstr "Kaug URL, mis on käsitsi taastamise dubleerimiseks: {url}"
+msgstr "URL, mida kasutada manuaalseks taastamiseks duplicityga: {url}"
 
 #: src/EBox/Model/RemoteStatus.pm:117
 msgid "There is no information about the backuped files yet"
@@ -144,8 +144,8 @@ msgid ""
 "If you choose {brand} or file system methods , then the destination field "
 "may be the target directory in the backup server"
 msgstr ""
-"Kui sa valid {brand} või failisüsteemi meetodid, siis sihtkoha väli võib "
-"olla varundusserveri sihtkataloog"
+"Kui valid {brand} või failisüsteemi meetodi, siis võib sihtkoha väli olla "
+"varundusserveri sihtkataloog"
 
 #: src/EBox/Model/RemoteSettings.pm:229
 msgid "General backup server configuration updated"

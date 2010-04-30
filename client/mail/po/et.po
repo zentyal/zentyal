@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2010-03-26 13:27+0100\n"
+"PO-Revision-Date: 2010-04-22 12:00+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -202,11 +202,11 @@ msgstr ""
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:108
 msgid "Relay policy for network objects"
-msgstr "Edastamise reegel võrguobjektidele"
+msgstr "Kirjade edastamise reeglid võrguobjektidele"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:120
 msgid "object's relay policy"
-msgstr "objektide edastamise reegel"
+msgstr "edastamise reegel objekti jaoks"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:121
 msgid "You may allow mail relay per network object"
@@ -285,14 +285,12 @@ msgstr ""
 "Sa pead meilimooduli kasutamiseks selle lubama moodulite oleku sektsioonis."
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:67
-#, fuzzy
 msgid "TLS for SMTP server"
-msgstr "SMTP server"
+msgstr "TLS SMTP serveri jaoks"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:73
-#, fuzzy
 msgid "Require authentication"
-msgstr "Autentimine"
+msgstr "Autentimise nõudmine"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:76
 msgid ""
@@ -488,16 +486,16 @@ msgstr "Kohandatud aadress"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:154
 msgid "Maximum mailbox size allowed"
-msgstr "Maksimaalne postkasti lubatud suurus"
+msgstr "Postkasti maksimaalne lubatud suurus"
 
-# viimasest lausest ei saa täpselt aru
+#  
 #: src/EBox/Mail/Model/SMTPOptions.pm:156
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
-"Kui postkast on täitunud maksimaalse lubatud suuruseni, siis edasised "
-"saabunud kirjad lükatakse tagasi. Seda saab iga konto jaoks eraldi muuta."
+"Kõik kirjad, mis ületavad ettenähtud limiidi, lükatakse tagasi. Postkasti "
+"suurust on võimalik iga konto jaoks eraldi muuta kasutajate redigeerimisel."
 
 # Piiramatu suurus
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
@@ -512,7 +510,7 @@ msgstr "limiteeritud kuni"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:175
 msgid "Maximum message size accepted"
-msgstr "Maksimaalne kirja lubatud suurus"
+msgstr "Kirja maksimaalne lubatud suurus"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:195
 msgid "Expiration period for deleted mails"
@@ -563,7 +561,7 @@ msgstr ""
 msgid "The selected mailname is not a fully qualified hostname. "
 msgstr "Valitud meilinimi ei ole täielikult kvalifitseeruv masinanimi."
 
-#  kole lause
+#  
 #: src/EBox/Mail/Model/SMTPOptions.pm:429
 #, fuzzy
 msgid ""
@@ -574,13 +572,14 @@ msgstr ""
 "meiliserveri poolt kirjade tagasilükkamise ja süsteemi kasutajate kirjade "
 "saajatel, vale vastamise aadressi kuvamise."
 
+# vt juhend
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "Send a copy of all mail domains"
-msgstr "Koopia saatmine kõikidele meilidomeenidele"
+msgstr "Meilidomeeni kõigist kirjadest koopiate saatmine"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:60
 msgid "The mail will be a Blind Carbon Copy (BCC)."
-msgstr "Kiri saadetakse pimekoopiana (BCC)"
+msgstr "Kirjad saadetakse pimekoopiana (BCC)"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:64
 msgid "Disabled"
@@ -588,7 +587,7 @@ msgstr "Keelatud"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:68
 msgid "Address to sent the copy"
-msgstr "Aadress koopia saatmiseks"
+msgstr "Aadress koopiate saatmiseks"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:79
 msgid "Virtual domain settings"
@@ -666,10 +665,10 @@ msgstr "Lubatud"
 msgid "Greylist duration (seconds)"
 msgstr "Greylisti kestus (sekundites)"
 
-# Selle intervalli ajal on kirja saatja edasi lükatud
+# Periood, mille jooksul lükatakse kirjade saatmine edasi
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:84
 msgid "During this interval, the mail sender is deferred"
-msgstr "Selle perioodi ajal lükatakse saatja kirjad tagasi"
+msgstr "Periood, mille jooksul lükatakse saatja kirjad tagasi"
 
 # Uuesti proovimise intervall (tundides)
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:92
@@ -681,8 +680,8 @@ msgid ""
 "Time that mail sender has to retry to be added before it will be greylisted "
 "again"
 msgstr ""
-"Periood, mille jooksul peab adressaat kirja uuesti saatma, et välistada "
-"graylisti sattumine"
+"Periood, mille jooksul saab server kirju saata. Kui selle aja jooksul kiri "
+"saadetakse, toimub edaspidi saatmine segamatult."
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:102
 msgid "Entries time to live (days)"

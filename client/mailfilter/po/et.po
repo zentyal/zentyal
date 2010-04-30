@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 16:32+0000\n"
-"PO-Revision-Date: 2010-03-26 12:38+0100\n"
+"PO-Revision-Date: 2010-04-23 14:40+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -45,9 +45,7 @@ msgstr "Clamav kasutaja p3scan gruppi lisamine"
 
 #: src/EBox/MailFilter.pm:86
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
-msgstr ""
-"Clamav vajab ligipääsu p3scan grupile, et POP puhverserveris korrektselt "
-"skaneerida"
+msgstr "Clamav vajab POP puhverserveris skaneerimiseks ligipääsu p3scan grupile"
 
 #: src/EBox/MailFilter.pm:90
 msgid "Add spam and ham system users"
@@ -189,7 +187,7 @@ msgstr "Spämmitõrje"
 
 #: src/EBox/MailFilter.pm:726
 msgid "Files ACL"
-msgstr "ACL failid "
+msgstr "Failide pääsuloend"
 
 #: src/EBox/MailFilter/POPProxy.pm:47
 msgid " To configure p3scan"
@@ -308,7 +306,7 @@ msgstr "blacklist"
 #: src/EBox/MailFilter/Model/AntispamACL.pm:100
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:100
 msgid "process"
-msgstr "protsess"
+msgstr "läbib filtri"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:165
 #: src/EBox/MailFilter/Model/VDomains.pm:158
@@ -355,7 +353,7 @@ msgstr "Teenuse port"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:91
 msgid "Notify of non-spam problematic messages"
-msgstr "Teavitamine muudest probleemsetest sõnumitest, mis ei ole spämm"
+msgstr "Teavitamine probleemsest väärtpostist"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:95
 msgid "Disabled"
@@ -365,9 +363,10 @@ msgstr "Keelatud"
 msgid "mail address"
 msgstr "meiliaadress"
 
+# vt kasutajaliidest
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
 msgid "General"
-msgstr "Üldine"
+msgstr "Üldine seadistamine"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
 #, perl-brace-format
@@ -439,7 +438,7 @@ msgstr "Läve hinne kirjade spämmina märgistamiseks"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:71
 msgid "Spam subject tag"
-msgstr "Spämmi teema silt"
+msgstr "Spämmkirja teema silt"
 
 # Silt, mis lisatakse rämpsposti kirja teema väljale
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:74
@@ -450,7 +449,7 @@ msgstr "Silt, mis lisatakse rämpsposti kirja teema lahtrisse"
 # Bayesian (liigitaja, sorteerija,) kasutamine
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
 msgid "Use Bayesian classifier"
-msgstr "Bayesian klassifikaatori kasutamine"
+msgstr "Bayesian filtri kasutamine"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:84
 msgid "Auto-whitelist"
@@ -459,7 +458,7 @@ msgstr "Automaatne whitelist"
 # Muuda kirjade (punktisummat, skoori) saatja ajaloo järgi
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:87
 msgid "Change the score of mail according to the sender history"
-msgstr "Muuda kirjade hinnet saatja ajaloo järgi"
+msgstr "Kirjade hindamisel saatja ajalooga arvestamine"
 
 # Automaatne õppimine
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:91
@@ -560,16 +559,14 @@ msgstr "Spämmi filtreerimine"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:82
 msgid "ISP spam subject"
-msgstr "ISPi spämmi teema"
+msgstr "ISPi spämmisilt"
 
-# See valik lubab sul määrata kirja teemaks stringi,\n mida sinu ISP spämmkirjade töötlemisel kasutab
+#  
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:86
 msgid ""
 "This option allows you to set the string your ISP uses if\n"
 "it processes your email for SPAM."
-msgstr ""
-"See valik lubab sul määrata kirja teemaks stringi,\n"
-"mida sinu ISP spämmkirjade töötlemisel kasutab"
+msgstr "String, mida sinu ISP spämmi märgistamiseks kasutab."
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:94
 msgid "Configuration"
@@ -599,10 +596,10 @@ msgstr "Spämmi reegel"
 msgid "Banned files policy"
 msgstr "Keelatud failide reegel"
 
-# reegel
+#  
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:81
 msgid "Bad header policy"
-msgstr "Halbade päiste reegel"
+msgstr "Vigaste päiste reegel"
 
 # reegel
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
@@ -667,11 +664,10 @@ msgstr "vaikimisi"
 msgid "custom threshold"
 msgstr "kohandatud lävi"
 
-# äkki kõik need õppimised siin: Õppimine .... abil
+#  
 #: src/EBox/MailFilter/Model/VDomains.pm:114
-#, fuzzy
 msgid "Learn from accounts' Spam IMAP folders"
-msgstr "Õppimine IMAP rämpsposti kataloogidest"
+msgstr "Õppimine IMAP rämpsposti kataloogide abil"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:116
 msgid ""
@@ -683,7 +679,7 @@ msgstr ""
 
 #: src/EBox/MailFilter/Model/VDomains.pm:123
 msgid "Learning ham account"
-msgstr "Õppimine väärtposti kontost"
+msgstr "Õppimine väärtposti konto abil"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:124
 msgid ""
@@ -691,12 +687,12 @@ msgid ""
 "incorrectly classified as spam may be forwarded to this addres to train the "
 "filter"
 msgstr ""
-"Selle domeeni jaoks luuakse aadress (ham@domeen). Väärtposti, mis on valesti "
+"Selle domeeni jaoks luuakse aadress: ham@domeen. Väärtposti, mis on valesti "
 "liigitatud rämpspostiks, saab suunata filtri õpetamiseks sellele aadressile."
 
 #: src/EBox/MailFilter/Model/VDomains.pm:135
 msgid "Learning spam account"
-msgstr "Õppimine spämmi kontost"
+msgstr "Õppimine spämmi konto abil"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:136
 msgid ""
@@ -704,8 +700,8 @@ msgid ""
 "incorrectly classified as ham may be forwarded to this addres to train the "
 "filter"
 msgstr ""
-"Selle domeeni jaoks luuakse aadress (spam@domeen). Rämpsposti, mis on "
-"valesti liigitatud väärtpostiks, saab suunata filtri õpetamiseks sellele "
+"Selle domeeni jaoks luuakse aadress: spam@domeen. Rämpsposti, mis on valesti "
+"liigitatud väärtpostiks, saab suunata filtri õpetamiseks sellele "
 "aadressile."
 
 # Spämmitõrje saatja reeglid
@@ -723,8 +719,8 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
-"Sellel serveril ei ole hallatavaid virtuaaldomeene. Sa võid neid luua {openA}"
-"virtuaaldomeenide meili leheküljel{closeA}."
+"Sellel serveril ei ole hallatavaid virtuaaldomeene. Neid saab luua "
+"sektsioonis {openA}Meil -> Virtuaalsed meilidomeenid{closeA}."
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
 msgid "Mail filter graph"

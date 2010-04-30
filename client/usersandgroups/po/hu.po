@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:57+0200\n"
-"PO-Revision-Date: 2010-03-17 14:14+0100\n"
+"PO-Revision-Date: 2010-04-06 16:32+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -508,7 +508,7 @@ msgstr "A felhasználónév nem lehet hosszabb {maxuserlength} karakternél!"
 
 #: src/EBox/UsersAndGroups.pm:734
 msgid "Username already exists on the system"
-msgstr ""
+msgstr "A felhasználónév már létezik a rendszerben"
 
 #: src/EBox/UsersAndGroups.pm:835 src/EBox/UsersAndGroups.pm:1451
 msgid "Maximum number of system users reached"

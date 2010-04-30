@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2009-11-12 17:16+0100\n"
+"PO-Revision-Date: 2010-04-16 18:28+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -35,14 +35,12 @@ msgid "netmask"
 msgstr "máscara de rede"
 
 #: src/EBox/CGI/Iface.pm:95
-#, fuzzy
 msgid "user name"
-msgstr "Utilizador"
+msgstr "utilizador"
 
 #: src/EBox/CGI/Iface.pm:96
-#, fuzzy
 msgid "password"
-msgstr "Palavra-passe"
+msgstr "palavra-passe"
 
 #: src/EBox/CGI/Vlan.pm:43 src/EBox/Network.pm:1423 src/EBox/Network.pm:1452
 #: src/templates/ifaces.mas:195
@@ -274,9 +272,8 @@ msgid "eBox will set your DNS configuration"
 msgstr "A eBox definirá a sua configuração de DNS"
 
 #: src/EBox/Network.pm:135
-#, fuzzy
 msgid "eBox will set your DHCP client configuration"
-msgstr "A eBox definirá a sua configuração ddclient"
+msgstr "A eBox definirá a configuração do cliente DHCP"
 
 #: src/EBox/Network.pm:140 src/EBox/Network.pm:145
 msgid "eBox will set your ddclient configuration"
@@ -284,12 +281,11 @@ msgstr "A eBox definirá a sua configuração ddclient"
 
 #: src/EBox/Network.pm:150 src/EBox/Network.pm:155
 msgid "eBox will store your PPPoE passwords"
-msgstr ""
+msgstr "A eBox armazenará as suas palavras-passe PPPoE"
 
 #: src/EBox/Network.pm:162
-#, fuzzy
 msgid "eBox will add a DSL provider configuration for PPPoE"
-msgstr "A eBox definirá a sua configuração de DNS"
+msgstr "A eBox adicionará a configuração do fornecedor DSL para PPoE"
 
 #: src/EBox/Network.pm:804 src/EBox/Network.pm:808
 msgid "Virtual interface name"
@@ -334,7 +330,6 @@ msgstr ""
 "possível adicionar mais vlans"
 
 #: src/EBox/Network.pm:2627
-#, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -629,7 +624,7 @@ msgstr "Nome do hospedeiro"
 
 #: src/EBox/Model/DynDNS.pm:116
 msgid "Configuration"
-msgstr ""
+msgstr "Configuração"
 
 #: src/EBox/Model/DynDNS.pm:120
 msgid ""
@@ -700,7 +695,7 @@ msgstr ""
 
 #: src/EBox/Model/WANFailoverRules.pm:192
 msgid "WAN Failover is only available for static interfaces"
-msgstr ""
+msgstr "A falha WAN só está disponível para interfaces estáticos"
 
 #: src/EBox/Model/WANFailoverRules.pm:198
 msgid "Invalid value for Host"
@@ -723,9 +718,8 @@ msgid "These options affect to all the tests."
 msgstr "Estas opções afectarão todos os testes"
 
 #: src/EBox/Model/GatewayTable.pm:185
-#, fuzzy
 msgid "Auto"
-msgstr "Acção"
+msgstr "Auto"
 
 #: src/EBox/Model/GatewayTable.pm:191 src/templates/ifaces.mas:33
 #: src/templates/ifaces.mas:252
@@ -757,7 +751,6 @@ msgid "Gateways List"
 msgstr "Lista de gateways"
 
 #: src/EBox/Model/GatewayTable.pm:250
-#, fuzzy
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your Internet traffic through several links. Note that if you "
@@ -765,7 +758,9 @@ msgid ""
 "automatically."
 msgstr ""
 "Pode adicionar as gateways que quiser. É útil se quiser distribuir o tráfego "
-"de Internet por várias ligações"
+"de Internet por várias ligações. Tenha em atenção que se configurar "
+"interfaces como DHCP ou PPoE as suas gateways serão adicionadas "
+"automaticamente "
 
 #: src/EBox/Model/GatewayTable.pm:252
 msgid "gateway"
@@ -774,10 +769,12 @@ msgstr "gateway"
 #: src/EBox/Model/GatewayTable.pm:285
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
 msgstr ""
+"Não é possível adicionar manualmente uma gateway para interfaces DHCP ou "
+"PPPoE"
 
 #: src/EBox/Model/GatewayTable.pm:344
 msgid "Automatically added gateways can not be manually deleted"
-msgstr ""
+msgstr "Gateways adicionadas automaticamente não podem ser apagadas manualmente"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
@@ -801,7 +798,7 @@ msgstr "Tipo de gráfico"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:85
 msgid "All active traffic by source"
-msgstr "Todo o tráfego activo por fonte"
+msgstr "Todo o tráfego activo por origem"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:89
 msgid "All active traffic by service"
@@ -882,18 +879,18 @@ msgid "Not set"
 msgstr "Não está definido"
 
 #: src/templates/ifaces.mas:87
-#, fuzzy
 msgid "External (WAN)"
-msgstr "Exterior"
+msgstr "Externa (WAN)"
 
 #: src/templates/ifaces.mas:99
 msgid ""
 "Check this if you are using eBox as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
+"Marque esta caixa se está a usar a eBox como uma gateway e este interface "
+"está ligado ao seu router internet"
 
 #: src/templates/ifaces.mas:155
-#, fuzzy
 msgid "User name"
 msgstr "Utilizador"
 

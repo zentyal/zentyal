@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2010-03-26 14:09+0100\n"
+"PO-Revision-Date: 2010-04-28 23:38+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,8 @@ msgstr "Käivitatav on juba lõpetanud"
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
-msgstr "Hoiatus! Logijälgija ei ole lubatud. Teavituste saamiseks luba see. "
+msgstr ""
+"Hoiatus! Logijälgija ei ole lubatud. Teavituste saamiseks tuleb see lubada. "
 
 #: src/EBox/Events/Model/Watcher/Log.pm:263
 #: src/EBox/Logs/Model/SelectLog.pm:143
@@ -146,14 +147,14 @@ msgstr "filter"
 msgid "Minimum free disk space per filesystem"
 msgstr "Minimaalne vaba kettaruum failisüsteemi kohta"
 
-# Pole päris kindel, kas lõpus oleks õigem "tõstetakse see sündmus esile" või "kutsutakse see sündmus esile"
+#  
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:106
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr ""
-"Kui mõne kettapartisiooni kasutusprotsent on üle selle väärtuse, kutsutakse "
-"sündmus esile."
+"Kui mõne partitsiooni vaba kettaruumi protsent on sellest väärtusest "
+"väiksem, kutsutakse esile sündmus."
 
 # Kettakasutuse jälgija seadistamine
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
@@ -194,9 +195,10 @@ msgstr "Sündmuste seadistamine"
 msgid "event"
 msgstr "sündmus"
 
+# Iga sündmusejälgija monitooringu lubamine/keelamine
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
 msgid "Enable/Disable each event watcher monitoring"
-msgstr "Iga sündmusejälgija monitooringu lubamine/keelamine"
+msgstr "Sündmustejälgija monitooringu lubamine või keelamine"
 
 # Ei olnud päris kindel kas 'Configuration' on lubatud tõlkida või mitte
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:506
@@ -206,7 +208,7 @@ msgid ""
 "domain happens. "
 msgstr ""
 "Hoiatus! Domeeni logijälgija ei ole lubatud. Selleks, et domeeni logimist "
-"jälgida, mine valikusse 'Seadistamine' ja luba vähemalt üks logi."
+"jälgida, liigu sektsiooni 'Seadistamine' ja luba vähemalt üks logi."
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
@@ -229,7 +231,7 @@ msgstr "edastaja"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
 msgid "Enable/Disable each event dispatcher"
-msgstr "Iga sündmuse edastaja lubamine/keelamine"
+msgstr "Sündmuse edastaja lubamine või keelamine"
 
 # Kõlab võib-olla natuke veidralt, kuid paremat tõlket ei osanud leida
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
@@ -444,8 +446,8 @@ msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
-"Ilmnes malliga seotud sisemine viga. Selle vea kohta käiva informatsiooni "
-"leiad logidest."
+"Tekkis malliga seotud sisemine viga. Täpsemat teavet vea kohta leiad "
+"logidest."
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58
 msgid "Logs"
@@ -672,7 +674,7 @@ msgstr "Muudatuste salvestamine moodulites"
 
 #: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
 msgid "Current operation"
-msgstr "Aktiivne operatsioon"
+msgstr "Toimuv operatsioon"
 
 #: src/EBox/CGI/Finish.pm:80
 msgid "operations performed"
@@ -697,7 +699,7 @@ msgstr "Muudatuste tühistamine"
 
 #: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
-msgstr "Muudatuste tühistamine moodulitest"
+msgstr "Muudatuste tühistamine moodulites"
 
 #: src/EBox/CGI/Finish.pm:103
 msgid "Current module"
@@ -970,11 +972,11 @@ msgstr "Olek"
 msgid "Check if eBox is currently up or down"
 msgstr "Kontrolli, kas eBox on töökorras või mitte"
 
-# Ei suutnud koodist välja lugeda, millega päriselt tegemist on
+#  
 #: src/EBox/Event/Watcher/Log.pm:203
 #, fuzzy
 msgid "Log observer"
-msgstr "Logivaatleja"
+msgstr "Logijälgija"
 
 #: src/EBox/Event/Watcher/Log.pm:241
 #, perl-brace-format
@@ -991,7 +993,7 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr "Vaba salvestusruum"
+msgstr "Kettakasutuse jälgija"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
@@ -1016,8 +1018,10 @@ msgstr ""
 msgid "Subscription failed: {message}"
 msgstr "Tellimispäring nurjus: {message}"
 
+# peaks olema mitte autoriseerimine vaid autentimine
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
+#, fuzzy
 msgid "Authorization failed: {result} - {message}"
 msgstr "Autentimine nurjus: {result} - {message}"
 
@@ -1111,14 +1115,12 @@ msgid "any"
 msgstr "suvaline"
 
 #: src/EBox/Types/PortRange.pm:293
-#, fuzzy
 msgid "Single port"
-msgstr "Aruande valimine"
+msgstr "Port"
 
 #: src/EBox/Types/PortRange.pm:297
-#, fuzzy
 msgid "Port range"
-msgstr "Parool muudetud"
+msgstr "Pordivahemik"
 
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
@@ -1211,7 +1213,7 @@ msgstr "Logide seadistamine"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:373
 msgid "Enable/disable logging per-module basis"
-msgstr "Mooduli alusel logimise lubamine/keelamine"
+msgstr "Mooduli alusel logimise lubamine või keelamine"
 
 #  
 #: src/EBox/Logs/Model/ForcePurge.pm:109
@@ -1454,15 +1456,15 @@ msgstr "{row} kustutatud"
 msgid "{row} updated"
 msgstr "{row} uuendatud"
 
-# nihutatud
+#  
 #: src/EBox/Model/DataTable.pm:3217
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} ülespoole paigutatud"
 
-# nihutatud
+#  
 #: src/EBox/Model/DataTable.pm:3218
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} allapoole paigutatud"
 
@@ -1572,7 +1574,7 @@ msgid ""
 "installed"
 msgstr ""
 "Moodulis {topModule} on lahendamata taastamiseks vajalikud sõltuvused. "
-"Paigaldatud ei ole {modName}"
+"{modName} ei ole paigaldatud."
 
 #: src/EBox/Backup.pm:1333
 msgid "Backup's archives"
@@ -1630,7 +1632,7 @@ msgstr "Üldine"
 
 #: src/EBox/SysInfo.pm.in:268
 msgid "Halt/Reboot"
-msgstr "Seiskamine/Taaskäivitamine"
+msgstr "Seiskamine/taaskäivitamine"
 
 #: src/EBox/Apache.pm:268 src/EBox/Apache.pm:277
 msgid "port"
@@ -1696,7 +1698,7 @@ msgstr "Kohalik varundamine"
 msgid "Remote Backup"
 msgstr "Kaugvarundamine"
 
-# open-tran annab "host" vasteks "masin" , vbla peaks jätma "host" samale kujule
+#  
 #: src/templates/backupTabs.mas:23
 #, fuzzy
 msgid "Remote Backup from Other Subscribed Hosts"
@@ -1740,11 +1742,10 @@ msgstr "Peatatud"
 msgid "The service is enabled, but not running"
 msgstr "Teenus on lubatud, kuid ei ole käivitatud"
 
-# Käivitatud haldamata
+# Haldamata käivitatud
 #: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
-#, fuzzy
 msgid "Running unmanaged"
-msgstr "Haldamata käivitatud"
+msgstr "Käivitatud haldamata"
 
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
 msgid "The service is running, but not enabled in eBox"
@@ -1942,7 +1943,7 @@ msgstr "elemente järgi"
 # eBoxis juhtus mingi viga: 
 #: src/templates/progress.mas:23
 msgid "Some error has happened in eBox: "
-msgstr "eBoxis toimus mingi viga: "
+msgstr "eBoxis tekkis mingi viga: "
 
 # Algamine... v Käivitumine...
 #: src/templates/progress.mas:38
@@ -1957,9 +1958,9 @@ msgstr "Domeeni logimine"
 #  
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
-msgstr "Viimaste tundide logisid näidatakse siis, kui valite komponendi"
+msgstr "Viimaste tundide logisid näidatakse siis, kui valitud on komponent"
 
-# Pole päris kindel tõlgitud lause õigsuses
+#  
 #: src/templates/logs/index.mas:23
 msgid "Select available full reports"
 msgstr "Vali täielik aruanne"
@@ -2072,8 +2073,8 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
-"Järgnevates <b>keelatud</b> moodulites on salvestamata muudatusi. Kui soovid "
-"neid lubada mine menüüs {openref}Mooduli olekusse{closeref}."
+"Järgnevates <b>keelatud</b> moodulites on salvestamata muudatusi. Mooduli "
+"lubamiseks, liigu menüüs sektsiooni {openref}Mooduli olek{closeref}."
 
 #: src/templates/finish.mas:106
 msgid ""
@@ -2109,17 +2110,16 @@ msgstr "Salvestamata muudatused puuduvad."
 msgid "Full Backup"
 msgstr "Täisvarundamine"
 
-# Neid mooduleid, mida ei ole {openref}Mooduli Oleku{closeref} sektsioonis esimesel korral lubatud, eiratakse varundamis- ja taastamistoimingute poolt.
+#  
 #: src/templates/backup.mas:24
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
 "Module Status{closeref} section will be ignored in both backup and restore "
 "operations."
 msgstr ""
 "Neid mooduleid, mida ei ole {openref}Mooduli oleku{closeref} sektsioonis "
-"esimesel korral lubatud, eiratakse taastamis- ja mõlema varundustoimingu "
-"poolt."
+"kunagi lubatud, eiratakse taastamis- ja varundustoimingute poolt."
 
 # Hetkeseisu varundamine
 #: src/templates/backup.mas:26
@@ -2132,6 +2132,8 @@ msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk."
 msgstr ""
+"Varundused salvestatakse eBoxi, peale seda on võimalik need oma kõvakettale "
+"laadida."
 
 #: src/templates/backup.mas:29
 msgid ""
@@ -2139,14 +2141,17 @@ msgid ""
 "administration rights will be able to access the backup directory as a "
 "shared resource."
 msgstr ""
+"Kui failide jagamise moodul on seadistatud, siis on kõigil "
+"administraatoriõigustes kasutajatel tagatud ligipääs varundamise "
+"kataloogile, kui jagatud ressursile"
 
 #: src/templates/backup.mas:33
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
 msgstr ""
-"Varundamine on keelatud, kuna seadistuste muudatused on salvestamata. Palun "
-"salvesta või tühista need muudatused seadistuste varundamiseks."
+"Varundamine on keelatud, kuna seadistuste muudatused on salvestamata. "
+"Seadistuste varundamiseks salvesta muudatused või loobu neist."
 
 #: src/templates/backup.mas:50
 msgid "Backup mode"
@@ -2287,9 +2292,9 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on eBox UI."
 msgstr ""
-"Hoiatus: sa kasutad lehitsejat, mis ei ole ainuke ametlikult toetatav "
-"lehitseja {url}. Palun võta teadmiseks, et eBoxi kasutajaliideses liikumine "
-"võib olla problemaatiline."
+"Hoiatus: sa kasutad lehitsejat, mis ei ole ametlikult toetatud {url}. Pea "
+"meeles, et eBoxi kasutajaliideses liikumine võib selle lehitsejaga olla "
+"problemaatiline."
 
 #: src/templates/login/index.mas:58
 msgid "Enter"

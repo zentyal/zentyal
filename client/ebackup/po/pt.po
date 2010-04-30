@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-22 10:51+0100\n"
-"PO-Revision-Date: 2010-02-10 19:21+0100\n"
-"Last-Translator: Daniel Correia Leal <danueli@hotmail.com>\n"
+"PO-Revision-Date: 2010-04-22 17:54+0200\n"
+"Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,6 @@ msgid "Backup"
 msgstr "Cópia de Segurança"
 
 #: src/EBox/Event/Watcher/EBackup.pm:142
-#, fuzzy
 msgid "Check if eBox backup was not successful."
 msgstr "Marque se a cópia de segurança eBox não foi efectuada com sucesso"
 
@@ -45,7 +44,7 @@ msgstr "Recuperar Ficheiros"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "Operação de restauração de ficheiros"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue the current will be deleted"
@@ -59,14 +58,13 @@ msgstr "Arquivo restaurado com sucesso"
 #: src/EBox/Model/RemoteFileList.pm:266
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
-msgstr ""
+msgstr "URL remoto usado em duplicação para restauração manual: {url}"
 
 #: src/EBox/Model/RemoteStatus.pm:117
 msgid "There is no information about the backuped files yet"
-msgstr ""
+msgstr "Ainda não existe informação acerca das cópias de segurança"
 
 #: src/EBox/Model/RemoteStatus.pm:136 src/EBox/Model/RemoteExcludes.pm:76
-#, fuzzy
 msgid "Type"
 msgstr "Tipo"
 
@@ -80,21 +78,22 @@ msgstr "Estado da Cópia de Segurança Remota"
 
 #: src/EBox/Model/RemoteStatus.pm:148
 msgid "backup"
-msgstr "Cópia de Segurança"
+msgstr "cópia de Segurança"
 
 #: src/EBox/Model/RemoteSettings.pm:143
 msgid "Method"
-msgstr ""
+msgstr "Método"
 
 #: src/EBox/Model/RemoteSettings.pm:149
-#, fuzzy
 msgid "Host or destination"
-msgstr "Destino da cópia de segurança"
+msgstr "Máquina ou destino"
 
 #: src/EBox/Model/RemoteSettings.pm:151
 #, perl-brace-format
 msgid "If the selected method is {brand}, only set the target directory"
 msgstr ""
+"Se o método seleccionado é {brand}, seleccione somente o directório de "
+"destino"
 
 #: src/EBox/Model/RemoteSettings.pm:156
 msgid "User"
@@ -105,41 +104,37 @@ msgid "Password"
 msgstr "Palavra-Chave"
 
 #: src/EBox/Model/RemoteSettings.pm:166
-#, fuzzy
 msgid "Encryption"
-msgstr "Encriptação"
+msgstr "Cifra"
 
 #: src/EBox/Model/RemoteSettings.pm:171 src/EBox/Model/RemoteSettings.pm:260
 #: src/EBox/Model/RemoteSettings.pm:374
 msgid "Disabled"
-msgstr "Desabilitado"
+msgstr "Desactivado"
 
 #: src/EBox/Model/RemoteSettings.pm:176
 msgid "Symmetric Key"
-msgstr ""
+msgstr "Chave simétrica "
 
 #: src/EBox/Model/RemoteSettings.pm:181
-#, fuzzy
 msgid "GPG Key"
 msgstr "Chave GPG"
 
 #: src/EBox/Model/RemoteSettings.pm:192
-#, fuzzy
 msgid "Full Backup Frequency"
 msgstr "Frequência da Cópia de Segurança Completa"
 
 #: src/EBox/Model/RemoteSettings.pm:198
-#, fuzzy
 msgid "Number of full copies to keep"
-msgstr "Numero de Cópias de Segurança a manter"
+msgstr "Numero de Cópias de Segurança completas a manter"
 
 #: src/EBox/Model/RemoteSettings.pm:205
 msgid "Incremental Backup Frequency"
-msgstr ""
+msgstr "Frequência da cópia de segurança incremental"
 
 #: src/EBox/Model/RemoteSettings.pm:211
 msgid "Backup process starts at"
-msgstr ""
+msgstr "A cópia de segurança começa em"
 
 #: src/EBox/Model/RemoteSettings.pm:220
 msgid "General Configuration"
@@ -151,22 +146,24 @@ msgid ""
 "If you choose {brand} or file system methods , then the destination field "
 "may be the target directory in the backup server"
 msgstr ""
+"Se escolher os métodos {brand} ou sistema de ficheiros, o campo do destino "
+"poderá ser o objectivo no servidor de cópias de segurança"
 
 #: src/EBox/Model/RemoteSettings.pm:229
 msgid "General backup server configuration updated"
-msgstr "Configuração do servidor de cópia de segurança foi actualizada"
+msgstr "A configuração do servidor de cópia de segurança foi actualizada"
 
 #: src/EBox/Model/RemoteSettings.pm:243
 msgid "Daily"
-msgstr ""
+msgstr "Diariamente"
 
 #: src/EBox/Model/RemoteSettings.pm:247
 msgid "Weekly"
-msgstr ""
+msgstr "Semanalmente"
 
 #: src/EBox/Model/RemoteSettings.pm:251
 msgid "Monthly"
-msgstr ""
+msgstr "Mendalmente"
 
 #: src/EBox/Model/RemoteSettings.pm:391
 #, perl-brace-format
@@ -175,121 +172,135 @@ msgid ""
 "keep on your eBox servers. Purchase the backup storage space you need at the "
 "{ohref}eBox on-line store{chref}."
 msgstr ""
+"{oi}{brand}{ci} é uma localização rápida e segura para armazenar os dados "
+"que mantém nos seus servidores eBox. Adquira espaço de armazenamento que "
+"necessita na {ohref}loja on-line eBox {cref}"
 
 #: src/EBox/Model/RemoteSettings.pm:415
 msgid "Destination must be a relative directory"
-msgstr ""
+msgstr "O destino necessita de ser um directório"
 
 #: src/EBox/Model/RemoteSettings.pm:461
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr ""
+msgstr "O parametro do objectivo deve ser como 'other.host[:port]/some_dir'"
 
 #: src/EBox/Model/RemoteSettings.pm:472 src/EBox/Model/RemoteSettings.pm:506
 msgid "target"
-msgstr ""
+msgstr "objectivo"
 
 #: src/EBox/Model/RemoteSettings.pm:474
 msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr ""
+msgstr "Deve ser como 'other.host[:port]/some_dir'"
 
 #: src/EBox/Model/RemoteSettings.pm:481 src/EBox/Model/RemoteSettings.pm:516
 msgid "host"
-msgstr "hospedeiro"
+msgstr "máquina"
 
 #: src/EBox/Model/RemoteSettings.pm:483 src/EBox/Model/RemoteSettings.pm:518
 msgid "port"
-msgstr ""
+msgstr "porto"
 
 #: src/EBox/Model/RemoteSettings.pm:485
 msgid "directory"
-msgstr ""
+msgstr "directório"
 
 #: src/EBox/Model/RemoteSettings.pm:495
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
+"O objectivo objectivo RSYNC deve ser como 'other.host[:port]/relative_path' "
+"ou 'other.host[:port]/absolute_path'"
 
 #: src/EBox/Model/RemoteSettings.pm:509
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
+"Deve ser 'other.host[:port]/relative_path' ou "
+"'other.host[:port]/absolute_path'"
 
 #: src/EBox/Model/RemoteSettings.pm:521
 msgid "absolute directory"
-msgstr ""
+msgstr "directório absoluto"
 
 #: src/EBox/Model/RemoteSettings.pm:523
 msgid "relative directory"
-msgstr ""
+msgstr "directório relativo"
 
 #: src/EBox/Model/RemoteSettings.pm:540
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
+"O método sistema de ficheiros necessita de um parâmetro de objectivo que "
+"seja um caminho para um directório"
 
 #: src/EBox/Model/RemoteSettings.pm:545 src/EBox/Model/RemoteSettings.pm:549
 msgid "Directory for backup"
-msgstr ""
+msgstr "Directório para cópia de segurança"
 
 #: src/EBox/Model/RemoteSettings.pm:552
 msgid "File exists and it is not a directory"
-msgstr ""
+msgstr "O ficheiro existe e não é um directório"
 
 #: src/EBox/Model/RemoteSettings.pm:573
 msgid "Full backup cannot be more frequent than incremental backup"
 msgstr ""
+"Uma cópia de segurança completa não pode ser mais frequente que uma "
+"incremental"
 
 #: src/EBox/Model/RemoteSettings.pm:585
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
+"A configuração do servidor de cópias de segurança foi actulizada. O método "
+"SCP seleccionado; <em>lembre-se</em> para adicionar a máquina de destino à "
+"lista de máquinas conhecidas através de SSH"
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
-msgstr ""
+msgstr "Excluir ou incluir"
 
 #: src/EBox/Model/RemoteExcludes.pm:93
 msgid "Includes and Excludes"
-msgstr ""
+msgstr "Inclusões ou exclusões"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
 msgid "exclude"
-msgstr ""
+msgstr "Excluir"
 
 #: src/EBox/Model/RemoteExcludes.pm:113
 msgid "Exclude path"
-msgstr ""
+msgstr "Caminho da exclusão"
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude regexp"
-msgstr ""
+msgstr "Excluir regexp"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
 msgid "Include Path"
-msgstr ""
+msgstr "Caminho da inclusão"
 
 #: src/EBox/Model/RemoteExcludes.pm:143
 msgid "exclude path"
-msgstr ""
+msgstr "caminho da exclusão"
 
 #: src/EBox/Model/RemoteExcludes.pm:156
 msgid "exclude path regular expression"
-msgstr ""
+msgstr "Caminho da expressão regular da exclusão"
 
 #: src/EBox/Model/RemoteExcludes.pm:158
 msgid "Incorrect regular expression"
-msgstr ""
+msgstr "Expressão regular incorrecta"
 
 #: src/EBox/Model/RemoteExcludes.pm:171
 msgid "include path"
-msgstr ""
+msgstr "caminho da inclusão"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
-msgstr ""
+msgstr "Configuração e estado"
 
 #, fuzzy
 #~ msgid "General remote backup server configuration"

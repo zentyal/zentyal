@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:10+0200\n"
-"PO-Revision-Date: 2010-03-26 10:44+0100\n"
+"PO-Revision-Date: 2010-04-20 12:18+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -73,15 +73,15 @@ msgstr "rakendus"
 
 #: src/EBox/Model/DefaultApplications.pm:50
 msgid "Default Applications"
-msgstr "Vaikimisi rakendused"
+msgstr "Vaikimisi õigused rakendustele"
 
-# JABUR LAUSE!
+#  
 #: src/EBox/Model/DefaultApplications.pm:51
 msgid ""
 "These are the default application permissions that are given to the new "
 "created users or existing ones before enabling eGroupware module."
 msgstr ""
-"Need on vaikimisi rakenduste õigused, mis antakse uutele või juba loodud "
+"Need on vaikimisi õigused rakendustele, mis määratakse uutele või loodud "
 "kasutajatele, enne eRühmavara mooduli lubamist."
 
 #: src/EBox/Model/PermissionTemplates.pm:66
@@ -95,19 +95,20 @@ msgstr "Lubatud rakendused"
 # või "lubade mallid"
 #: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
-msgstr "Määratud õiguste mallid"
+msgstr "Kohandatud õiguste mallid"
 
 #: src/EBox/Model/PermissionTemplates.pm:85
 msgid "template"
 msgstr "mall"
 
-# Muuda õiguste mallis lubatud rakendusi, mille kasutamist saab määrata kasutajatele ja gruppidele.
+#  
 #: src/EBox/Model/PermissionTemplates.pm:86
 msgid ""
 "Edit the permission templates with the allowed applications that can be "
 "assigned to users or groups."
 msgstr ""
-"Õiguste mallis saab muuta kasutajatele ja gruppidele lubatud rakendusi."
+"Kohandatud õiguste mallis saab muuta kasutajatele ja gruppidele lubatud "
+"rakendusi."
 
 #: src/EBox/Model/VMailDomain.pm:54
 msgid "No domain selected"
@@ -169,18 +170,16 @@ msgid "EGroupware"
 msgstr "eRühmavara"
 
 #: src/templates/egroupware.mas:9
-#, fuzzy
 msgid "eGroupware account"
-msgstr "eRühmavara"
+msgstr "eRühmavara konto"
 
 #: src/templates/egroupware.mas:10
 msgid "Password for eGroupware service is the user password"
-msgstr ""
+msgstr "eRühmavara teenuse parool on sama kui kasutaja parool"
 
 #: src/templates/egroupware.mas:12
-#, fuzzy
 msgid "eGroupware group"
-msgstr "eRühmavara"
+msgstr "eRühmavara grupp"
 
 # või "lubade mallid"
 #: src/templates/egroupware.mas:28
@@ -190,12 +189,12 @@ msgstr "Määratud õiguste mallid"
 
 #: src/templates/egroupware.mas:39
 msgid "Default"
-msgstr ""
+msgstr "Vaikimisi"
 
 #: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
 msgid "Change"
-msgstr ""
+msgstr "Muuda"
 
 #: src/templates/egroupware.mas:85
 msgid "Click here to select a virtual domain"
-msgstr ""
+msgstr "Virtuaaldomeeni valimiseks klõpsa siia"

@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 1.4.1Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-usersandgroups 1.4.1Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:57+0200\n"
-"PO-Revision-Date: 2010-03-25 19:40+0100\n"
+"PO-Revision-Date: 2010-03-29 20:12+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -249,7 +249,6 @@ msgstr "Ainult ülema ja AD alama seadistamiseks"
 
 # vt alam/ülem
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
-#, fuzzy
 msgid "Master host"
 msgstr "Ülem masin"
 
@@ -542,7 +541,7 @@ msgstr "Kasutajanimi ei tohi olla pikem kui {maxuserlength} märki"
 
 #: src/EBox/UsersAndGroups.pm:734
 msgid "Username already exists on the system"
-msgstr ""
+msgstr "Kasutajanimi on süsteemis juba olemas"
 
 #: src/EBox/UsersAndGroups.pm:835 src/EBox/UsersAndGroups.pm:1451
 msgid "Maximum number of system users reached"
@@ -755,7 +754,6 @@ msgstr "Kasutajad grupis"
 
 # vt eelmine
 #: src/templates/group.mas:35
-#, fuzzy
 msgid "Users not in group"
 msgstr "Kasutajad kes ei ole grupis"
 
@@ -775,7 +773,6 @@ msgstr "Kasutajate grupist eemaldamine"
 # see on nii title kui value
 #: src/templates/group.mas:75 src/templates/group.mas:78
 #: src/templates/user.mas:125 src/templates/user.mas:128
-#, fuzzy
 msgid "Add users to group"
 msgstr "Kasutajate gruppi lisamine"
 

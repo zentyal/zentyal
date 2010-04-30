@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:55+0200\n"
-"PO-Revision-Date: 2009-11-05 00:42+0100\n"
+"PO-Revision-Date: 2010-04-16 19:43+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -99,9 +99,8 @@ msgid "Software updates are being handled automatically"
 msgstr "As actualizações de software estão a ser processadas automáticamente"
 
 #: src/EBox/CGI/Updates.pm:52
-#, fuzzy
 msgid "The system components are up to date."
-msgstr "O sistema está actualizado"
+msgstr "Os componentes do sistema estão actualizados"
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
 msgid "Upgrading"
@@ -147,7 +146,7 @@ msgstr "A remover pacote"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid "Removing the selected package and its dependent packages"
-msgstr "Removendo o pacote seleccionado e suas dependências"
+msgstr "A remover o pacote seleccionado e suas dependências"
 
 #: src/EBox/CGI/InstallPkgs.pm:171
 msgid "packages left to remove"
@@ -224,9 +223,8 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: src/templates/config.mas:8
-#, fuzzy
 msgid "Perform automatic security updates"
-msgstr "Actualizações automáticas de software"
+msgstr "Faça actualizações automáticas de segurança"
 
 #: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"
@@ -258,6 +256,7 @@ msgid ""
 "Please wait, the update of the software available list is in process right "
 "now"
 msgstr ""
+"Espere, a actualização da lista de software disponível está a ser processada"
 
 #: src/templates/updateNote.mas:10
 msgid ""
@@ -265,6 +264,8 @@ msgid ""
 "is probably outdated. The list is updated each night or you can force the "
 "update with the console command 'ebox-software'"
 msgstr ""
+"A lista de componentes nunca foi descarregada com sucesso pelo que a "
+"informação mostrada provavelmente está desactualizada"
 
 #: src/templates/updateNote.mas:20
 #, perl-brace-format
@@ -273,6 +274,9 @@ msgid ""
 "be updated again at night or you can force the update with the console "
 "command 'ebox-software'"
 msgstr ""
+"A lista de componentes foi actualizada em {mon}/{mday}/{year} {hour}:{min}. "
+"Será actualizada novamente à noita ou pode forçar a actulização com o "
+"comando de consola \"eBox-software\""
 
 #~ msgid "eBox - Backup"
 #~ msgstr "eBox - Backup"

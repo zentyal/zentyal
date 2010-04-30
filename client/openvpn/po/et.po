@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2010-03-26 12:40+0100\n"
+"PO-Revision-Date: 2010-04-26 19:35+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -197,9 +197,8 @@ msgstr "Kasuta võrguaadressi, mis ei ole kasutusel selle masina poolt"
 msgid "Server certificate"
 msgstr "Serveri sertifikaat"
 
-# või "tavalise nimena" ?
+#  
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:94
-#, fuzzy
 msgid "Client authorization by common name"
 msgstr "Kliendi üldise nimega autoriseerimine"
 
@@ -210,8 +209,9 @@ msgid ""
 "When enabled only certificates whose common name begins with this value "
 "could connect."
 msgstr ""
-"Kui keelatud, siis võivad ühenduda kõik eBoxi poolt genereeritud "
-"sertifikaatidega kliendid"
+"Kui valik on keelatud, siis võivad ühenduse luua kõik eBoxi poolt "
+"genereeritud sertifikaatidega kliendid. Kui lubatud, siis ainult kliendid "
+"mille üldine nimi algab selle väärtusega."
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Network Address Translation"
@@ -219,7 +219,7 @@ msgstr "Võrguaadressi ümbernimetamine (NAT)"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:107
 msgid "Enable it if you only have one network interface"
-msgstr "Luba see, kui sul on ainult üks võrguliides"
+msgstr "Luba valik, kui sul on ainult üks võrguliides"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Allow client-to-client connections"
@@ -227,19 +227,19 @@ msgstr "Luba kliendilt-kliendile ühendused"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:114
 msgid "Enable it to allow client machines of this VPN to see each other"
-msgstr "Luba see, et kliendi masinad saaksid selle VPNiga teinetest näha"
+msgstr "Luba valik, et kliendi masinad saaksid selle VPNiga teinetest näha"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:119
 msgid "Allow eBox-to-eBox tunnels"
-msgstr "Luba eBoxilt-eBoxile tunnelid"
+msgstr "Luba tunnel eBoxist-eBoxi"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:122
 msgid "Enable it if this VPN is used to connect to another eBox"
-msgstr "Luba see, kui see VPN on kasutusel selleks, et ühenduda teise eBoxiga"
+msgstr "Luba valik, kui see VPN on kasutusel selleks, et ühenduda teise eBoxiga"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:127
 msgid "eBox-to-eBox tunnel password"
-msgstr "eBoxilt-eBoxile tunneli parool"
+msgstr "eBoxist-eBoxi tunneli parool"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid "Interface to listen on"
@@ -260,7 +260,7 @@ msgstr "Kõik võrguliidesed"
 
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:258
 msgid "eBox to eBox tunel option requieres a RIP password"
-msgstr "eBoxilt-eBoxile tunneli valik nõuab RIP parooli"
+msgstr "eBoxist-eBoxi tunneli valik nõuab RIP parooli"
 
 # ...kuulutavatest võrkudest
 #: src/EBox/OpenVPN/Model/ServerConfiguration.pm:278
@@ -347,13 +347,14 @@ msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
 msgstr ""
-"See on aadress, mida kasutavad sinu kliendid serveriga ühenduse loomiseks. "
-"Tavaliselt on see avalik IP või masinanimi"
+"Aadress, mida kliendid kasutavad serveriga ühenduse loomiseks. Tavaliselt on "
+"see avalik IP või masinanimi"
 
+# vt kasutajaliides
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:89
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:95
 msgid "Additional server address (optional)"
-msgstr "Täiendav serveri aadress (valikuline)"
+msgstr "Täiendav serveri aadress"
 
 # bundle?
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:104
@@ -362,14 +363,14 @@ msgstr "Laadi kliendi komplekt alla"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:141
 msgid "eBox to eBox tunnel"
-msgstr "eBoxilt-eBoxile tunnel"
+msgstr "tunnel eBoxist-eBoxi"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
-"Komplekti ei tehtud, kuna server ei ole täielikult seadistatud; palun "
+"Komplekti ei loodud, kuna server ei ole täielikult seadistatud; palun "
 "redigeeri seadistusi ja proovi uuesti"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:190
@@ -378,12 +379,11 @@ msgstr "Komplekti jaoks ei saa serveri sertifikaati kasutada"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:210
 msgid "Invalid client type: the server does not allow eBox-to-eBox tunnels"
-msgstr "Vigane kliendi tüüp: server ei luba eBoxilt-eBoxile tunneleid"
+msgstr "Vigane kliendi tüüp: server ei luba tunneleid eBoxist-eBoxi"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:219
 msgid "Invalid client type: the server is intended for eBox-to-eBox tunnels"
-msgstr ""
-"Vigane kliendi tüüp: server on määratud eBoxilt-eBoxile tunnelite jaoks"
+msgstr "Vigane kliendi tüüp: server on määratud eBoxist-eBoxi tunneli jaoks"
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:247
 msgid "Installer is only available for Windows clients"
@@ -393,16 +393,14 @@ msgstr "Paigaldaja on saadaval ainult Windowsi klientide jaoks"
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
-msgstr ""
-"Kliendi komplekt on fail sisaldab kohe kasutatavat seadistust sinu klientide "
-"jaoks."
+msgstr "Kliendi komplekt on fail mis sisaldab juba seadistatud klienti."
 
 #: src/EBox/OpenVPN/Model/DownloadClientBundle.pm:345
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
-"Komplekti ei suudetud teha, kuna server ei ole täielikult seadistatud; palun "
+"Komplekti ei suudetud luua, kuna server ei ole täielikult seadistatud; palun "
 "lõpeta seadistamine ja proovi uuesti"
 
 # Kuulutatav võrk v Reklaamitav võrk
@@ -429,9 +427,9 @@ msgid ""
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
 "access to your LAN by advertising its network address here{closepar}"
 msgstr ""
-"{openpar}Siia on võimalik lisada võrgud, mida soovid kättesaadavaks muuta "
-"VPNi klientidele.{closepar}{openpar}Tavaliselt saad sa lubada ligipääsu oma "
-"LANile, propageerides selle võrguaadresse siin{closepar}"
+"{openpar}Siin on võimalik VPN serveri klientide jaoks lisada kättesaadavaid "
+"võrke.{closepar}{openpar}Tavaliselt lubatakse ligipääs LANile propageerides "
+"selle võrguaadressi siin.{closepar}"
 
 #: src/EBox/OpenVPN/Model/ClientConfiguration.pm:64
 #: src/EBox/OpenVPN/Model/Clients.pm:75 src/EBox/OpenVPN/Model/Servers.pm:84
@@ -580,13 +578,14 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
-"{openpar}OpenVPN servereid saab seadistada lihtsa ühenduse loomiseks kaugete "
-"kontorite või kasutajatega.{closepar}{openpar}Kliki {openit}seadistamisele"
-"{closeit}, et määrata VPN parameetreid.{closepar}{openpar}{openit}"
-"Propageeritud võrgud{closeit} lubavad sul seadistada seda milliseid võrke "
-"tahad teha kaugkasutajatele kättesaadavaks.{openpar}Kui sa oled seadistamise "
-"lõpetanud, saad sa alla laadida failikomplekti oma operatsioonisüsteemi "
-"jaoks, mida saad klientides kasutada."
+"{openpar}OpenVPN servereid saab seadistada lihtsa ühenduse loomiseks "
+"kontorite või kasutajatega.{closepar}{openpar}Klõpsa "
+"{openit}seadistamisele{closeit}, et määrata VPN "
+"parameetreid.{closepar}{openpar}{openit}Propageeritud võrgud{closeit} "
+"lubavad sul seadistada seda milliseid võrke tahad teha kaugkasutajatele "
+"kättesaadavaks.{openpar}Kui seadistamine on lõppenud, saad oma "
+"operatsioonisüsteemi jaoks alla laadida failikomplekti, mida klientides "
+"kasutada."
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"
@@ -758,4 +757,4 @@ msgstr "OpenVPN"
 #: src/EBox/OpenVPN.pm:1674
 #, fuzzy
 msgid "You must set insecure_rip_conf to yes or no"
-msgstr "Sa pead määrama insecure_rip_conf jah või ei"
+msgstr "insecure_rip_conf väärtuseks peab määrama 'yes' või 'no'"

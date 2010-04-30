@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2010-03-25 19:26+0100\n"
+"PO-Revision-Date: 2010-04-21 14:35+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr ""
 #: src/EBox/Jabber.pm:72
 #, fuzzy
 msgid "Add Jabber LDAP schema"
-msgstr "Jabberi LDAP skeemile lisamine"
+msgstr "Jabberi lisamine LDAP skeemi"
 
 #: src/EBox/Jabber.pm:73
 msgid "eBox will need this schema to store jabber users"
@@ -101,7 +101,7 @@ msgstr "SSLi tugi"
 #: src/templates/index.mas:62 src/templates/index.mas:66
 #: src/templates/index.mas:70
 msgid "No"
-msgstr "Ei"
+msgstr "Ei kasutata"
 
 #: src/templates/index.mas:63 src/templates/index.mas:67
 #: src/templates/index.mas:71
@@ -120,7 +120,7 @@ msgstr "Muuda"
 
 #: src/templates/jabber.mas:9
 msgid "Password for Jabber service is the user password."
-msgstr "Jabberi teenuse parool on sama kui kasutaja parool."
+msgstr "Jabberi teenuse parool on sama kui kasutaja parool"
 
 #: src/templates/jabber.mas:18
 msgid "User account"

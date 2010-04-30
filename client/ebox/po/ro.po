@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2008-09-01 08:31+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-22 14:04+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/ProgressIndicator.pm:41
 msgid "Total ticks"
@@ -452,51 +453,51 @@ msgstr ""
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
 msgid "Module Status Configuration"
-msgstr ""
+msgstr "Stare configurare module"
 
 #: src/EBox/CGI/Logout/Index.pm:29 src/EBox/Html.pm:40
 msgid "Logout"
-msgstr ""
+msgstr "Logout"
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General Configuration"
-msgstr ""
+msgstr "Configurare generală"
 
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or Reboot"
-msgstr ""
+msgstr "Oprire sau repornire calculator"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
 msgid "eBox is going down for halt"
-msgstr ""
+msgstr "eBox se va opri"
 
 #: src/EBox/CGI/EBox/Halt.pm:46
 msgid "eBox is going down for reboot"
-msgstr ""
+msgstr "Ebox va reporni"
 
 #: src/EBox/CGI/EBox/Password.pm:43 src/templates/login/index.mas:49
 msgid "Password"
-msgstr ""
+msgstr "Parola"
 
 #: src/EBox/CGI/EBox/Password.pm:52
 msgid "Incorrect password."
-msgstr ""
+msgstr "Parolă incorectă"
 
 #: src/EBox/CGI/EBox/Password.pm:57
 msgid "New passwords do not match."
-msgstr ""
+msgstr "Parolele sunt diferite"
 
 #: src/EBox/CGI/EBox/Password.pm:62
 msgid "The password must be at least 6 characters long"
-msgstr ""
+msgstr "Parola trebuie să conţină minim 6 caractere"
 
 #: src/EBox/CGI/EBox/Password.pm:66
 msgid "The password was changed successfully."
-msgstr ""
+msgstr "Scnimbarea parolei a reuşit."
 
 #: src/EBox/CGI/EBox/Bug.pm:29
 msgid "Bug report"
-msgstr ""
+msgstr "Raport erori"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:33 src/templates/backup.mas:18
 msgid "Configuration Backup"
@@ -509,7 +510,7 @@ msgstr ""
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:107 src/templates/backup.mas:170
 #: src/templates/backup.mas:171
 msgid "Delete"
-msgstr ""
+msgstr "Ştergere"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:114
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:130
@@ -519,7 +520,7 @@ msgstr ""
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132 src/templates/backup.mas:93
 msgid "Restore"
-msgstr ""
+msgstr "Restaurare"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
@@ -545,7 +546,7 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
-msgstr ""
+msgstr "Modulul a fost repornit corect."
 
 #: src/EBox/CGI/EBox/CurrentProgress.pm:36
 msgid "Upgrading"
@@ -605,20 +606,20 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
-msgstr ""
+msgstr "Restaurare reuşită"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
 #: src/EBox/SysInfo.pm.in:260
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: src/EBox/CGI/Report/DiskUsage.pm:31 src/EBox/SysInfo.pm.in:256
 msgid "Disk Usage"
-msgstr ""
+msgstr "Utilizare discuri"
 
 #: src/EBox/CGI/Finish.pm:32
 msgid "Save configuration"
-msgstr ""
+msgstr "Înregistrare configuraţie"
 
 #: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes"
@@ -630,7 +631,7 @@ msgstr ""
 
 #: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
 msgid "Current operation"
-msgstr ""
+msgstr "Operaţiunea curentă"
 
 #: src/EBox/CGI/Finish.pm:80
 msgid "operations performed"
@@ -638,7 +639,7 @@ msgstr ""
 
 #: src/EBox/CGI/Finish.pm:81
 msgid "Changes saved"
-msgstr ""
+msgstr "Modificările au fost înregistrate"
 
 #: src/EBox/CGI/Finish.pm:82
 #, perl-brace-format
@@ -910,11 +911,11 @@ msgstr ""
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
-msgstr ""
+msgstr "Sistemul de fişiere {fs}, montat pe {mp}, nu mai are spaţiu liber"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
-msgstr ""
+msgstr "Spaţiu de stocare liber"
 
 #: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition has no storage space left"
@@ -959,11 +960,11 @@ msgstr ""
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
 msgid "RSS file: {path}"
-msgstr ""
+msgstr "Fişier RSS: {path}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:233
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
@@ -1364,7 +1365,7 @@ msgstr ""
 
 #: src/EBox/Html.pm:39
 msgid "Save changes"
-msgstr ""
+msgstr "Înregistrare modificări"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
@@ -1479,7 +1480,7 @@ msgstr ""
 
 #: src/EBox/SysInfo.pm.in:102
 msgid "Core version"
-msgstr ""
+msgstr "Versiune nucleu"
 
 #: src/EBox/SysInfo.pm.in:104
 msgid "System load"
@@ -1888,7 +1889,7 @@ msgstr ""
 
 #: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
 msgid "Save as event"
-msgstr ""
+msgstr "Înregistrează ca eveniment"
 
 #: src/templates/logs/index.mas:235
 msgid "No logs matching current criterion"
@@ -1900,19 +1901,19 @@ msgstr ""
 
 #: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
 msgid "first"
-msgstr ""
+msgstr "primul"
 
 #: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
 msgid "prev"
-msgstr ""
+msgstr "anterior"
 
 #: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
 msgid "next"
-msgstr ""
+msgstr "următor"
 
 #: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
 msgid "last"
-msgstr ""
+msgstr "ultim"
 
 #: src/templates/finish.mas:99
 #, perl-brace-format

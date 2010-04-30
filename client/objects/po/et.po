@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-objects 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2010-03-18 17:54+0100\n"
+"PO-Revision-Date: 2010-04-19 18:23+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -82,11 +82,15 @@ msgstr ""
 "moodulites kasutada. Igal objektil tehtud muudatus on automaatselt "
 "sünkroniseeritud teistes seda kasutavates moodulites"
 
+# kas ei saa any v suvaline?
 #: src/EBox/Model/ObjectTable.pm:208
+#, fuzzy
 msgid ""
 "'Any' is a reserved word that could not be used as object name to avoid "
 "confusions"
 msgstr ""
+"Segaduste vältimiseks ei saa reserveeritud sõna 'any' objekti nimena "
+"kasutada"
 
 #: src/EBox/Model/MemberTable.pm:70
 msgid "IP address"
@@ -100,10 +104,10 @@ msgstr "MAC aadress"
 msgid "member"
 msgstr "liige"
 
-# või "hostidega"
+#  
 #: src/EBox/Model/MemberTable.pm:116
 msgid "You can only use MAC addresses with hosts"
-msgstr "Sa saad kasutada ainult masinate MAC aadresse"
+msgstr "MAC aadresse saab kasutada ainult masinatega"
 
 #: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
 msgid "network address"

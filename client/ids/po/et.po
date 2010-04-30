@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ids 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2010-03-25 15:55+0100\n"
+"PO-Revision-Date: 2010-04-27 10:47+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -72,7 +72,7 @@ msgstr "liides"
 
 #: src/EBox/Model/Interfaces.pm:151
 msgid "Select in which interfaces IDS system will be enabled"
-msgstr "Vali millises liideses sissetungi tuvastuse süsteem(IDS) lubatakse"
+msgstr "Vali milliseid liideseid sissetungi tuvastuse süsteem (IDS) kuulab"
 
 # Reeglite komplekt
 #: src/EBox/Model/Rules.pm:153

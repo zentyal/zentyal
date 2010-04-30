@@ -5,90 +5,92 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-radius 1.4"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-radius 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:17+0000\n"
-"PO-Revision-Date: 2010-02-02 17:17+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-16 17:00+0200\n"
+"Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox RADIUS system"
-msgstr ""
+msgstr "eBox RADIUS systém"
 
 #: src/EBox/Model/Auth.pm:103
 msgid "All users"
-msgstr ""
+msgstr "Všichni uživatelé"
 
 #: src/EBox/Model/Auth.pm:128
 msgid "Group allowed to authenticate"
-msgstr ""
+msgstr "Skupina nemá právo ověřovat"
 
 #: src/EBox/Model/Auth.pm:138
 msgid "General configuration"
-msgstr ""
+msgstr "Obecné nastavení"
 
 #: src/EBox/Model/Auth.pm:142
 msgid "RADIUS server configuration"
-msgstr ""
+msgstr "Nastavení RADIUS serveru"
 
 #: src/EBox/Model/Auth.pm:144
 msgid "RADIUS server configuration updated"
-msgstr ""
+msgstr "Aktualizováno nastavení RADIUS serveru"
 
 #: src/EBox/Model/Clients.pm:112
 msgid "Client"
-msgstr ""
+msgstr "Klient"
 
 #: src/EBox/Model/Clients.pm:119
 msgid "IP Address"
-msgstr ""
+msgstr "IP adresa"
 
 #: src/EBox/Model/Clients.pm:125
+#, fuzzy
 msgid "Shared Secret"
-msgstr ""
+msgstr "Shared Secret"
 
 #: src/EBox/Model/Clients.pm:133
 msgid "RADIUS Clients"
-msgstr ""
+msgstr "RADIUS klienti"
 
 #: src/EBox/Model/Clients.pm:134
 msgid "client"
-msgstr ""
+msgstr "klient"
 
 #: src/EBox/Radius.pm:99
 msgid "Create RADIUS certificates for TTLS"
-msgstr ""
+msgstr "Vytvořit RADIUS certifikáty pro TTLS"
 
 #: src/EBox/Radius.pm:100
 msgid ""
 "eBox will create the needed certificates for TTLS in /etc/freeradius/certs/."
-msgstr ""
+msgstr "eBox vytvoří potřebné certifikáty pro TTLS v /etc/freeradius/certs/."
 
 #: src/EBox/Radius.pm:120
+#, fuzzy
 msgid "To configure allowed LDAP group."
-msgstr ""
+msgstr "Konfigurovat povolenou LDAP skupinu"
 
 #: src/EBox/Radius.pm:124
 msgid "To configure RADIUS LDAP module."
-msgstr ""
+msgstr "Konfigurovat modul RADIUS LDAP"
 
 #: src/EBox/Radius.pm:128
 msgid "To configure RADIUS clients."
-msgstr ""
+msgstr "Konfigurovat RADIUS klienty"
 
 #: src/EBox/Radius.pm:132
 msgid "To configure default RADIUS vhost."
-msgstr ""
+msgstr "Konfigurovat výchozí RADIUS vhost"
 
 #: src/EBox/Radius.pm:136
 msgid "To configure RADIUS inner-tunnel vhost."
-msgstr ""
+msgstr "Konfigurovat RADIUS vhost vnitřní-tunel"
 
 #: src/EBox/Radius.pm:276 src/EBox/Composite/General.pm:64
 msgid "RADIUS"
-msgstr ""
+msgstr "RADIUS"

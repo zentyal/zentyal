@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.3.14Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2010-02-12 10:21+0100\n"
+"PO-Revision-Date: 2010-04-29 14:28+0200\n"
 "Last-Translator: Zoran <zoran@atlantisti.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 # Total ticks of what ?
@@ -674,26 +674,28 @@ msgid ""
 "Some modules reported error when saving changes . More information on the "
 "logs in {dir}"
 msgstr ""
+"Neki moduli su prijavili grešku prilikom upisivanja promena.Više informacija "
+"se nalayi u logdirektorijumu{dir}"
 
 #: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
-msgstr ""
+msgstr "Opoziv promena"
 
 #: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
-msgstr ""
+msgstr "Opoziv promena u modulima"
 
 #: src/EBox/CGI/Finish.pm:103
 msgid "Current module"
-msgstr ""
+msgstr "Trenutni modul"
 
 #: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
-msgstr ""
+msgstr "moduli opozvani"
 
 #: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
-msgstr ""
+msgstr "promene opozvane"
 
 #: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
@@ -701,6 +703,8 @@ msgid ""
 "Some modules reported error when discarding changes . More information on "
 "the logs in {dir}"
 msgstr ""
+"određeni moduli su prijavili grešku pri vraćanju u predhodno stanje . Više "
+"inormacija u logdirektorijumu{dir}"
 
 #: src/EBox/Event/Watcher/RAID.pm:199
 msgid "Check if any event has happened in RAID subsystem"
@@ -709,7 +713,7 @@ msgstr "Proveri da li se nešto desilo na RAID podsistemu"
 #: src/EBox/Event/Watcher/RAID.pm:265
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr "Informacija o novom nizu  RAID uređaja {devName} :"
+msgstr "Informacija o novom nizu RAID uređaja {devName} :"
 
 # State of what
 #: src/EBox/Event/Watcher/RAID.pm:267
@@ -776,17 +780,17 @@ msgstr ""
 "{newNum}"
 
 #: src/EBox/Event/Watcher/RAID.pm:399
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has started operation {opName}."
 msgstr "RAID uređaj {name} je odpočeo operaciju {opName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:405
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID device {name} has finished operation {opName} or it was aborted."
 msgstr "RAID uređaj {name} je završio operaciju {opName} ili je otkazao istu"
 
 #: src/EBox/Event/Watcher/RAID.pm:411
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "RAID device {name} has finished operation {oldOpName} and started "
 "{newOpName}."
@@ -794,12 +798,12 @@ msgstr ""
 "RAID uređaj {name} je završio operaciju {oldOpName} i odpočeo {newOpName}"
 
 #: src/EBox/Event/Watcher/RAID.pm:436
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Status: {percentage} completed."
 msgstr "Stanje: {percentage} kompletirano"
 
 #: src/EBox/Event/Watcher/RAID.pm:439
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Estimated finish time: {time}."
 msgstr "Očekivano vreme završetka: {time}"
 
@@ -896,20 +900,19 @@ msgstr "oporavak"
 
 #: src/EBox/Event/Watcher/RAID.pm:574
 msgid "check"
-msgstr ""
+msgstr "proveri"
 
 # pogrešan
 #: src/EBox/Event/Watcher/RAID.pm:588
-#, fuzzy
 msgid "faulty"
-msgstr "neipravan"
+msgstr "neispravan"
 
 #: src/EBox/Event/Watcher/RAID.pm:590 src/templates/report/raid.mas:233
 msgid "spare"
 msgstr "rezervni"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
 msgstr "Moduli koji ne rade su: {modules}\n"
 
@@ -918,7 +921,6 @@ msgid "Service"
 msgstr "Servis"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
-#, fuzzy
 msgid "Check if any eBox service is not running when it is enabled"
 msgstr "Proverite da li ijedan  eBox servis ne radi a trebalo bi da radi"
 
@@ -1037,17 +1039,17 @@ msgstr "Idi na svoju {url} da bi proverio status."
 #: src/EBox/PgDBEngine.pm:77
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr ""
+msgstr "Morate podesiti sledeće {variable} u ebox varijabla konfiguraciji"
 
 #: src/EBox/PgDBEngine.pm:359
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
-msgstr ""
+msgstr "Greška pri dampiranju postgresql data-baze {name}"
 
 #: src/EBox/PgDBEngine.pm:377
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
-msgstr ""
+msgstr "DB dump datoteka {file} nije čitljiva"
 
 #: src/EBox/Types/Int.pm:155
 msgid "Enter an integer number"
@@ -1075,7 +1077,7 @@ msgstr "Lozinka bi najviše trebalo da ima {maxLength} karaktera"
 
 #: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "IP adrese nisu dozvoljene"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
@@ -1083,12 +1085,11 @@ msgstr "svaki"
 
 #: src/EBox/Types/PortRange.pm:293
 msgid "Single port"
-msgstr ""
+msgstr "Jedan port"
 
 #: src/EBox/Types/PortRange.pm:297
-#, fuzzy
 msgid "Port range"
-msgstr "Lozinka promenjena"
+msgstr "Opseg portova"
 
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
@@ -1096,7 +1097,6 @@ msgid "\"From\" {from} must be greater than \"To\" {to}"
 msgstr "\"Od\" {from} mora biti veći \"Do\" {to}"
 
 #: src/EBox/Types/Float.pm:113
-#, fuzzy
 msgid "Enter a float number"
 msgstr "Unesite floating-point broj"
 
@@ -1107,119 +1107,119 @@ msgstr "Izaberi vrednosti iz liste: {set}"
 
 #: src/EBox/Logs/Model/SelectLog.pm:151
 msgid "Full report"
-msgstr ""
+msgstr "Detaljan izveštaj"
 
 #: src/EBox/Logs/Model/SelectLog.pm:157
 msgid "Summarized report"
-msgstr ""
+msgstr "Sažeti izveštaj"
 
 #: src/EBox/Logs/Model/SelectLog.pm:168
 msgid "Select report"
-msgstr ""
+msgstr "Izaberite izveštaj"
 
 #: src/EBox/Logs/Model/SelectLog.pm:175
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:375
 msgid "logs"
-msgstr ""
+msgstr "logovi"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:230
 msgid "never purge"
-msgstr ""
+msgstr "nesme se čistiti"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:234
 #: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
-msgstr ""
+msgstr "1 sat"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:238
 #: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
-msgstr ""
+msgstr "12 sati"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:242
 #: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
-msgstr ""
+msgstr "1 dan"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:246
 #: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
-msgstr ""
+msgstr "3 dana"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:250
 #: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
-msgstr ""
+msgstr "1 nedelja"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:254
 #: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
-msgstr ""
+msgstr "15 dana"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:258
 #: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
-msgstr ""
+msgstr "30 dana"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:262
 #: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
-msgstr ""
+msgstr "90 dana"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:349
 #: src/EBox/Logs/Model/ForcePurge.pm:100
 msgid "Purge logs older than"
-msgstr ""
+msgstr "Počisti logove starije od"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:366
 msgid "Current configuration"
-msgstr ""
+msgstr "Trenutna konfiguracija"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:367
 msgid "Logs configuration"
-msgstr ""
+msgstr "konfiguracija logova"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:373
 msgid "Enable/disable logging per-module basis"
-msgstr ""
+msgstr "Enable/disable logovanje po modulu pojedinačno"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:109
 msgid "Force log purge"
-msgstr ""
+msgstr "Explicitno čišćenje loga"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:112
 msgid "Purge"
-msgstr ""
+msgstr "Očisti"
 
 #: src/EBox/Logs/Model/Report/Details.pm:226
 #: src/EBox/Logs/Model/Report/Details.pm:234
 #: src/EBox/Logs/Model/Report/Details.pm:269
 msgid "All"
-msgstr ""
+msgstr "Sve"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
-msgstr ""
+msgstr "Sat"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:41
 msgid "day"
-msgstr ""
+msgstr "Dan"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:42
 msgid "week"
-msgstr ""
+msgstr "Nedelja"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:43
 msgid "month"
-msgstr ""
+msgstr "Mesec"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
-msgstr ""
+msgstr "Izveštaj vremenski za period"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
-msgstr ""
+msgstr "Opcije izveštaja"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -1235,52 +1235,52 @@ msgstr "Podigni servis"
 
 #: src/EBox/Events.pm:200
 msgid "Initialize event dispatchers table"
-msgstr ""
+msgstr "Inicijalizovati dispečer tabelu događaja"
 
 #: src/EBox/Events.pm:201
 msgid "Enable default log dispatcher"
-msgstr ""
+msgstr "Omogući (default) log dispečer"
 
 #: src/EBox/Events.pm:499
 msgid "The events module is not enabled to send events"
-msgstr ""
+msgstr "(events module) nije podignut te ne šalje događaje"
 
 #: src/EBox/Events.pm:732
 msgid "Event service status"
-msgstr ""
+msgstr "Status (Event) servisa"
 
 #: src/EBox/Events.pm:804
 msgid "Date of first event"
-msgstr ""
+msgstr "Datum prvog događaja"
 
 #: src/EBox/Events.pm:805
 msgid "Date of last event"
-msgstr ""
+msgstr "Datum poslednjeg događaja"
 
 #: src/EBox/Events.pm:806
 msgid "Repetitions"
-msgstr ""
+msgstr "Ponavljanja"
 
 #: src/EBox/Events.pm:807
 msgid "Level"
-msgstr ""
+msgstr "Nivo"
 
 #: src/EBox/Events.pm:809 src/templates/finish.mas:118
 msgid "Message"
-msgstr ""
+msgstr "Poruka"
 
 #: src/EBox/Logs.pm:440
 #, perl-brace-format
 msgid "Table {table} does not exist"
-msgstr ""
+msgstr "Tabela {table} nepostoji"
 
 #: src/EBox/Logs.pm:694
 msgid "Configure Logs"
-msgstr ""
+msgstr "Konfigurisanje logova"
 
 #: src/EBox/Logs.pm:708
 msgid "Client Address"
-msgstr ""
+msgstr "Adresa klijenta"
 
 #: src/EBox/Logs.pm:710 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
@@ -1290,23 +1290,23 @@ msgstr "Akcija"
 
 #: src/EBox/Logs.pm:711
 msgid "Params"
-msgstr ""
+msgstr "Params"
 
 #: src/EBox/Logs.pm:712
 msgid "Committed"
-msgstr ""
+msgstr "Počinio"
 
 #: src/EBox/Logs.pm:717
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: src/EBox/Logs.pm:811
 msgid "Log messages"
-msgstr ""
+msgstr "Loguj poruke"
 
 #: src/EBox/Logs.pm:838
 msgid "Lifetime parameter must be a positive number of hours"
-msgstr ""
+msgstr "Lifetime parametar mora biti pozitivan broj"
 
 #: src/EBox/Model/ProviderBase.pm:246
 #, perl-brace-format
@@ -1331,16 +1331,16 @@ msgstr "Gotovo"
 #: src/EBox/Model/Composite.pm:371
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
-msgstr ""
+msgstr "Trebalo bi da glasi jedna od sledećih vrednosti: {values}"
 
 #: src/EBox/Model/Composite.pm:655
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr ""
+msgstr "Dozvoljene akcije koje treba preduzeti: {view} i {cView}"
 
 #: src/EBox/Model/Composite.pm:778
 msgid "Choose one of the following:"
-msgstr ""
+msgstr "Izabrati jednu od ponuđenih:"
 
 #: src/EBox/Model/ModelManager.pm:468
 msgid ""
@@ -1359,7 +1359,7 @@ msgstr ""
 "\t\t\tu sledećim delovima:"
 
 #: src/EBox/Model/DataTable.pm:327
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{model} in {module} module"
 msgstr "{model} u {module} modul"
 
@@ -1380,7 +1380,7 @@ msgid "Page must be a number equal or greater than zero"
 msgstr "Broj strana mora biti jednak ili veći od nule"
 
 #: src/EBox/Model/DataTable.pm:2833
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Ukloni {num} red-a-ova {rowName} od {model}{br}"
 
@@ -1419,75 +1419,81 @@ msgstr "{row} pomeren dole"
 
 #: src/EBox/Html.pm:39
 msgid "Save changes"
-msgstr ""
+msgstr "Sačuvaj promene"
 
 #: src/EBox/Backup.pm:96
 msgid "Creating backup archive"
-msgstr ""
+msgstr "Kreiraj (backup) arhivu"
 
 #: src/EBox/Backup.pm:140
 #, perl-brace-format
 msgid "Dumping configuration of module {m}"
-msgstr ""
+msgstr "Dumpirati configuraciju modula {m}"
 
 #: src/EBox/Backup.pm:299
 msgid "Could not create backup archive"
-msgstr ""
+msgstr "Nemoguće kreirati (backup) arhivu"
 
 #: src/EBox/Backup.pm:306
 msgid "Could not append data to backup archive"
-msgstr ""
+msgstr "Nemoguće dodati podatke u (backup) arhivu"
 
 #: src/EBox/Backup.pm:421
 msgid "Unknown"
-msgstr ""
+msgstr "Nepoznato"
 
 #: src/EBox/Backup.pm:474
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
-msgstr ""
+msgstr "Nemoguće iyvući tražene podatke iz (backup)a: {files}"
 
 #: src/EBox/Backup.pm:477 src/EBox/Backup.pm:1128
 msgid "Could not unpack the backup"
-msgstr ""
+msgstr "Nemoguće raspakovati (backup)"
 
 #: src/EBox/Backup.pm:743
 msgid "Writing backup file to hard disk"
-msgstr ""
+msgstr "Upisuje se (backup) na HDD"
 
 #: src/EBox/Backup.pm:769
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
 msgstr ""
+"Neki moduli nisu sačuvali promene. Pre nego što napravite (backup) morate da "
+"sačuvate ili odbacite promene"
 
 #: src/EBox/Backup.pm:827
 msgid "Incorrect or corrupt backup file"
-msgstr ""
+msgstr "Neispravana ili netačna (backup) datoteka"
 
 #: src/EBox/Backup.pm:856
 msgid "The backup file is corrupt: could not open archive"
-msgstr ""
+msgstr "Backup datoteka je neispravana: nemoguće je otvoriti arhivu"
 
 #: src/EBox/Backup.pm:868
 msgid "The backup file is corrupt: could not open backup checksum"
-msgstr ""
+msgstr "Backup datoteka je neispravana: nemoguće je otvoriti (backup checksum)"
 
 #: src/EBox/Backup.pm:875
 msgid "The backup file is corrupt."
-msgstr ""
+msgstr "Backup datoteka je neispravana."
 
 #: src/EBox/Backup.pm:893
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr ""
+"Neispravan tip (backup) arhive. Možda je datoteka pokvarena ili koristite "
+"nekompatibilnu verziju eBox-a"
 
 #: src/EBox/Backup.pm:899
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
+"Arhiva nije (backup)ovana u potpunosti , te je povratak podataka "
+"nemoguć.Možda je moguće povratiti konfiguracione podatke"
 
 #: src/EBox/Backup.pm:934
 #, perl-brace-format
@@ -1495,15 +1501,17 @@ msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
+"Nema dovoljno prostora na HDD-u da biste dovršili proces oporavka. {size} Kb "
+"potrebno.Oslobodite prostor na HDD-u i ponovite proces"
 
 #: src/EBox/Backup.pm:1215
 #, perl-brace-format
 msgid "No module {m} found in backup"
-msgstr ""
+msgstr "Nema modula {m} pronađenih u (backup)u"
 
 #: src/EBox/Backup.pm:1238
 msgid "No modules to restore"
-msgstr ""
+msgstr "Nema modula za oporavak"
 
 #: src/EBox/Backup.pm:1290
 #, perl-brace-format
@@ -1514,56 +1522,55 @@ msgstr ""
 
 #: src/EBox/Backup.pm:1333
 msgid "Backup's archives"
-msgstr ""
+msgstr "(Backup)ovane arhive"
 
 #: src/EBox/SysInfo.pm.in:50
 msgid "System Information"
-msgstr ""
+msgstr "Sistemske Informacije"
 
 #: src/EBox/SysInfo.pm.in:95
 msgid "available"
-msgstr ""
+msgstr "dostupan"
 
 #: src/EBox/SysInfo.pm.in:100
 msgid "Time"
-msgstr ""
+msgstr "Vreme"
 
 #: src/EBox/SysInfo.pm.in:101
 msgid "Hostname"
-msgstr ""
+msgstr "Hostname"
 
 #: src/EBox/SysInfo.pm.in:102
-#, fuzzy
 msgid "Core version"
-msgstr "oporavlja"
+msgstr "verzija jezgra"
 
 #: src/EBox/SysInfo.pm.in:104
 msgid "System load"
-msgstr ""
+msgstr "Sistem podignut"
 
 #: src/EBox/SysInfo.pm.in:150 src/EBox/SysInfo.pm.in:243
 msgid "Module Status"
-msgstr ""
+msgstr "Status modula"
 
 #: src/EBox/SysInfo.pm.in:155
 msgid "General Information"
-msgstr ""
+msgstr "Generalne Informacije"
 
 #: src/EBox/SysInfo.pm.in:160
 msgid "Process List"
-msgstr ""
+msgstr "Lista procesa"
 
 #: src/EBox/SysInfo.pm.in:167
 msgid "Resources & Services"
-msgstr ""
+msgstr "Resursi & Servisi"
 
 #: src/EBox/SysInfo.pm.in:249 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: src/EBox/SysInfo.pm.in:253
 msgid "General"
-msgstr ""
+msgstr "Generalni"
 
 #: src/EBox/SysInfo.pm.in:268
 msgid "Halt/Reboot"
@@ -1574,9 +1581,8 @@ msgid "port"
 msgstr ""
 
 #: src/EBox/Apache.pm:591
-#, fuzzy
 msgid "eBox web server"
-msgstr "Pratilac log-ova"
+msgstr "eBox web server"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
 #, perl-brace-format
@@ -1656,13 +1662,12 @@ msgid "Running"
 msgstr ""
 
 #: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
-#, fuzzy
 msgid "The service is enabled and running"
-msgstr "eBox je podignut i radi"
+msgstr "Servis je podignut i radi"
 
 #: src/templates/dashboard/index.mas:26 src/templates/dashboard/status.mas:22
 msgid "Stopped"
-msgstr ""
+msgstr "Stopiran"
 
 #: src/templates/dashboard/index.mas:27 src/templates/dashboard/status.mas:23
 msgid "The service is enabled, but not running"
@@ -1678,7 +1683,7 @@ msgstr ""
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
-msgstr ""
+msgstr "Onemogućen"
 
 #: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
 msgid "The service is not enabled in eBox"
@@ -1686,11 +1691,11 @@ msgstr ""
 
 #: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: src/templates/dashboard/index.mas:43 src/templates/dashboard/status.mas:12
 msgid "Restart"
-msgstr ""
+msgstr "Restart"
 
 #: src/templates/dashboard/index.mas:115
 msgid "Configure widgets"
@@ -1706,19 +1711,19 @@ msgstr ""
 
 #: src/templates/halt.mas:14
 msgid "Halt"
-msgstr ""
+msgstr "Zaustavi"
 
 #: src/templates/halt.mas:16
 msgid "Reboot"
-msgstr ""
+msgstr "Reboot"
 
 #: src/templates/moduleStatusTable.mas:59
 msgid "Depends"
-msgstr ""
+msgstr "Zavisi"
 
 #: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
@@ -1753,7 +1758,7 @@ msgstr ""
 #: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
 #: src/templates/backup.mas:125 src/templates/confirm-backup.mas:44
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #: src/templates/report/raid.mas:142
 msgid "Active RAID devices"
@@ -1797,7 +1802,7 @@ msgstr ""
 
 #: src/templates/report/raid.mas:207
 msgid "Percentage completed"
-msgstr ""
+msgstr "Procenata gotovo"
 
 #: src/templates/report/raid.mas:209
 msgid "Estimated time left"
@@ -1817,7 +1822,7 @@ msgstr ""
 
 #: src/templates/report/raid.mas:231
 msgid "up"
-msgstr ""
+msgstr "gore"
 
 #: src/templates/report/raid.mas:232
 msgid "failure"
@@ -1837,7 +1842,7 @@ msgstr ""
 
 #: src/templates/report/diskUsage.mas:31
 msgid "Options"
-msgstr ""
+msgstr "Opcije"
 
 #: src/templates/report/diskUsage.mas:34
 msgid "Partition Properties"
@@ -1874,7 +1879,7 @@ msgstr ""
 #: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
 #: src/templates/logs/index.mas:37
 msgid "View"
-msgstr ""
+msgstr "Pogled"
 
 #: src/templates/logs/index.mas:44
 msgid "Custom query"
@@ -1882,67 +1887,67 @@ msgstr ""
 
 #: src/templates/logs/index.mas:50
 msgid "From date:"
-msgstr ""
+msgstr "Od datuma:"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "January"
-msgstr ""
+msgstr "Januar"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "February"
-msgstr ""
+msgstr "Februar"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "March"
-msgstr ""
+msgstr "Mart"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "April"
-msgstr ""
+msgstr "April"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "May"
-msgstr ""
+msgstr "Maj"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "June"
-msgstr ""
+msgstr "Jun"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "July"
-msgstr ""
+msgstr "Juli"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "August"
-msgstr ""
+msgstr "August"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "September"
-msgstr ""
+msgstr "Septembar"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "October"
-msgstr ""
+msgstr "Oktobar"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "November"
-msgstr ""
+msgstr "Novembar"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "December"
-msgstr ""
+msgstr "Decembar"
 
 #: src/templates/logs/index.mas:108
 msgid "Refresh logs"
-msgstr ""
+msgstr "Osveži logove"
 
 #: src/templates/logs/index.mas:116
 msgid "To date:"
-msgstr ""
+msgstr "Do datuma:"
 
 #: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
 msgid "Search"
-msgstr ""
+msgstr "Traži"
 
 #: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
 msgid "Save as event"
@@ -1958,19 +1963,19 @@ msgstr ""
 
 #: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
 msgid "first"
-msgstr ""
+msgstr "prvo"
 
 #: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
 msgid "prev"
-msgstr ""
+msgstr "pred"
 
 #: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
 msgid "next"
-msgstr ""
+msgstr "sled"
 
 #: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
 msgid "last"
-msgstr ""
+msgstr "zadnje"
 
 #: src/templates/finish.mas:99
 #, perl-brace-format
@@ -2091,19 +2096,19 @@ msgstr ""
 
 #: src/templates/backup.mas:164 src/templates/backup.mas:165
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: src/templates/backup.mas:184
 msgid "download"
-msgstr ""
+msgstr "download"
 
 #: src/templates/backup.mas:186
 msgid "restore"
-msgstr ""
+msgstr "Povrati"
 
 #: src/templates/backup.mas:188
 msgid "delete"
-msgstr ""
+msgstr "Obriši"
 
 #: src/templates/bug.mas:9
 msgid ""
@@ -2125,15 +2130,15 @@ msgstr ""
 
 #: src/templates/logout/index.mas:19
 msgid "Exit"
-msgstr ""
+msgstr "Izlaz"
 
 #: src/templates/password.mas:4
 msgid "Change Password"
-msgstr ""
+msgstr "Promeni Lozinku"
 
 #: src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
-msgstr ""
+msgstr "Vaša lozinka mora sadržati najmanje 6 karaktera"
 
 #: src/templates/password.mas:11
 msgid "Current password"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2009-03-25 12:34+0000\n"
-"Last-Translator: Marinescu Dragos <marinescu_dragos@live.com>\n"
+"PO-Revision-Date: 2010-04-22 12:25+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,29 +22,35 @@ msgstr ""
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
+"Trebuie să configuraţi variabila iptables_log_limit în fişierul de "
+"configurare ebox"
 
 #: src/EBox/Iptables.pm:775 src/EBox/Iptables.pm:812
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
+"Trebuie să configuraţi variabila iptables_log_burst în fişierul de "
+"configurare ebox"
 
 #: src/EBox/Firewall.pm:57 src/EBox/Firewall.pm:855
 msgid "Firewall"
-msgstr ""
+msgstr "Paravan"
 
 #: src/EBox/Firewall.pm:125
 msgid "Flush previous firewall rules"
-msgstr ""
+msgstr "Şterge reguli anterioare pt. paravan"
 
 #: src/EBox/Firewall.pm:126
 msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
+"Se vor şterge orice reguli tip paravan ce au fost adăugate manual sau cu "
+"altă unealtă."
 
 #: src/EBox/Firewall.pm:131
 msgid "Secure by default"
-msgstr ""
+msgstr "Securizat din start"
 
 #: src/EBox/Firewall.pm:132
 msgid ""
@@ -53,32 +59,36 @@ msgid ""
 "all outcoming connections are denied by default, and only SSH and HTTPS "
 "incoming connections are allowed."
 msgstr ""
+"Implicit sunt permise doar câteva conexiuni. Pentru a asigura funcţionarea "
+"corectă a sistemului, adăugaţi regulile necesare pentru intrări şi ieşiri. "
+"Toate conexiunile către exterior nu sunt permise, iar dinspre exterior sunt "
+"permise doar conexiunile către SSH şi HTTPS.   "
 
 #: src/EBox/Firewall.pm:311
 msgid "action"
-msgstr ""
+msgstr "acţiune"
 
 #: src/EBox/Firewall.pm:432 src/EBox/Firewall.pm:477 src/EBox/Firewall.pm:501
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
-msgstr ""
+msgstr "Numele '{name}' este incorect"
 
 #: src/EBox/Firewall.pm:433 src/EBox/Firewall.pm:612 src/EBox/Firewall.pm:637
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Firewall.pm:611 src/EBox/Firewall.pm:636
 msgid "protocol"
-msgstr ""
+msgstr "protocol"
 
 #: src/EBox/Firewall.pm:825 src/EBox/CGI/Filter.pm:28
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:213
 msgid "Packet Filter"
-msgstr ""
+msgstr "Filtru pachete"
 
 #: src/EBox/Firewall.pm:828 src/EBox/Firewall/Model/RedirectsTable.pm:355
 msgid "Port Forwarding"
-msgstr ""
+msgstr "Port Forwarding"
 
 #: src/EBox/Firewall.pm:839
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -87,11 +97,11 @@ msgstr "Data"
 
 #: src/EBox/Firewall.pm:840
 msgid "Input interface"
-msgstr ""
+msgstr "Interfaţa de intrare"
 
 #: src/EBox/Firewall.pm:841
 msgid "Output interface"
-msgstr ""
+msgstr "Interfaţa de ieşire"
 
 #: src/EBox/Firewall.pm:842 src/EBox/Firewall/Model/RedirectsTable.pm:292
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:121
@@ -100,7 +110,7 @@ msgstr "Sursa"
 
 #: src/EBox/Firewall.pm:843 src/EBox/Firewall/Model/BaseRuleTable.pm:147
 msgid "Destination"
-msgstr ""
+msgstr "Destinaţie"
 
 #: src/EBox/Firewall.pm:844 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
@@ -108,26 +118,25 @@ msgstr "Protocol"
 
 #: src/EBox/Firewall.pm:845
 msgid "Source port"
-msgstr ""
+msgstr "Port sursă"
 
 #: src/EBox/Firewall.pm:846
 msgid "Destination port"
-msgstr ""
+msgstr "Port destinaţie"
 
 #: src/EBox/Firewall.pm:847 src/EBox/Firewall/Model/BaseRuleTable.pm:112
 msgid "Decision"
-msgstr ""
+msgstr "Decizie"
 
 #: src/EBox/Firewall.pm:852
 msgid "DROP"
-msgstr ""
+msgstr "DROP"
 
 #: src/EBox/Firewall.pm:852 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
-msgstr ""
+msgstr "LOG"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#, fuzzy
 msgid "Traffic coming out from eBox"
 msgstr "Reguli de filtrare pentru traficul care iese din eBox"
 
@@ -140,37 +149,36 @@ msgid "rule"
 msgstr "regula"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#, fuzzy
 msgid "External networks to internal networks"
-msgstr "Reguli de filtrare pentru retele interne"
+msgstr "Reţele externe către reţele interne"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
-msgstr "Regula contradictorie gasita. Indepartati-o mai intai"
+msgstr "Regulă contradictorie găsită. Trebuie ştearsă."
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:249
 msgid "Interface"
-msgstr "Interfata"
+msgstr "Interfaţă"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:256
 msgid "Original destination"
-msgstr ""
+msgstr "Destinaţie iniţială"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:261
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
 msgid "IP Address"
-msgstr ""
+msgstr "Adresa IP"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:268
 msgid "Object"
-msgstr ""
+msgstr "Obiect"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
 msgid "Original destination port"
-msgstr ""
+msgstr "Port destinaţie iniţial"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:297
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:126
@@ -181,17 +189,17 @@ msgstr "Orice"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:300
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:129
 msgid "Source IP"
-msgstr "IP-ul Sursa"
+msgstr "IP sursă"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:304
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:133
 msgid "Source object"
-msgstr "Obiectu-l sursa"
+msgstr "Obiect sursă"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:315
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:155
 msgid "Destination IP"
-msgstr "IP-ul destinatar"
+msgstr "IP destinaţie"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"
@@ -199,7 +207,7 @@ msgstr "Port"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:326
 msgid "Same"
-msgstr "Lafel"
+msgstr "Identic"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:329
 msgid "Other"
@@ -208,65 +216,64 @@ msgstr "Altceva"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:337
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
 msgid "Description"
-msgstr ""
+msgstr "Descriere"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:354
 msgid "List of forwarded ports"
-msgstr ""
+msgstr "Listă porturi transferate"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:363
 msgid "forwarding"
-msgstr ""
+msgstr "transferare"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
-msgstr ""
+msgstr "ACCEPT"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:68
 msgid "DENY"
-msgstr ""
+msgstr "DENY"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:160
 msgid "Destination object"
-msgstr ""
+msgstr "Obiect destinaţie"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:175
 msgid "Service"
-msgstr ""
+msgstr "Serviciu"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:179
 msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
+"Dacă se bifează potrivirea inversă, regula va selecta potrivirea tuturor "
+"serviciilor cu excepţia celui selectat."
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:227
 msgid "Configure Rules"
-msgstr ""
+msgstr "Configurare reguli"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "External networks to eBox"
-msgstr "Reguli de filtrare din retele externe catre eBox"
+msgstr "Reguli de filtrare din reţele externe către eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "Internal networks to eBox"
-msgstr "Reguli de filtrare din retele interne catre eBox"
+msgstr "Reguli de filtrare din reţele interne către eBox"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#, fuzzy
 msgid "Internal networks"
-msgstr "Port extern"
+msgstr "Reţele interne"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 msgid "packets dropped"
-msgstr "pachete aruncate"
+msgstr "pachete aruncate (DROP)"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 msgid "Firewall packet traffic chart"
-msgstr "Tabla traficului de pachete a firewallului"
+msgstr "Tabla traficului de pachete a paravanului"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
 msgid "Packet traffic"
@@ -278,7 +285,7 @@ msgstr "Pachete aruncate"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 msgid "Packet traffic details"
-msgstr "Detali traficului de pachete"
+msgstr "Detaliile traficului de pachete"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
 msgid "traffic"
@@ -286,31 +293,33 @@ msgstr "trafic"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Packet traffic report"
-msgstr ""
+msgstr "Raport trafic de pachete"
 
 #: src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:71
 msgid "Firewall packet traffic report"
-msgstr ""
+msgstr "Raport trafic de pachete prin paravan"
 
 #: src/templates/filter.mas:6
 msgid "Filtering rules from internal networks to eBox"
-msgstr "Reguli de filtrare din retele interne catre eBox"
+msgstr "Reguli de filtrare din reţelele interne către eBox"
 
 #: src/templates/filter.mas:8
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your eBox machine."
 msgstr ""
+"Aceste reguli permit controlul accesului din reţelele interne către "
+"serviciile ce rulează pe acest calculator eBox."
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
 #: src/templates/filter.mas:48
 msgid "Configure rules"
-msgstr ""
+msgstr "Configurare reguli"
 
 #: src/templates/filter.mas:13
 msgid "Filtering rules for internal networks"
-msgstr "Reguli de filtrare pentru retele interne"
+msgstr "Reguli de filtrare pentru reţelele interne"
 
 #: src/templates/filter.mas:15
 msgid ""
@@ -318,6 +327,9 @@ msgid ""
 "Internet and traffic between internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section."
 msgstr ""
+"Aceste reguli permit controlul accesului din reţelele interne către Internet "
+"şi traficul între reţelele interne. Pentru a permite accesul la serviciile "
+"eBox, utilizaţi secţiunea anterioară."
 
 #: src/templates/filter.mas:21
 msgid "Filtering rules for traffic coming out from eBox"
@@ -327,16 +339,20 @@ msgstr "Reguli de filtrare pentru traficul care iese din eBox"
 msgid ""
 "These rules allow you to control access from your eBox to external services."
 msgstr ""
+"Aceste reguli permit controlul accesului din eBox-ul dvs către serviciile "
+"externe."
 
 #: src/templates/filter.mas:29
 msgid "Filtering rules from external networks to eBox"
-msgstr ""
+msgstr "Reguli de filtrare din reţele externe către eBox."
 
 #: src/templates/filter.mas:31
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your eBox machine."
 msgstr ""
+"Aceste reguli permit controlul accesului din reţelele EXTERNE către "
+"serviciile ce rulează pe acest calculator eBox."
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
 msgid ""
@@ -344,16 +360,21 @@ msgid ""
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing."
 msgstr ""
+"Prin adăugarea de reguli în această secţiune puteţi compromite securitatea "
+"reţelei dvs. prin permiterea accesului din reţele externe.Nu faceţi asta "
+"dacă nu e absolut necesar!"
 
 #: src/templates/filter.mas:40
 msgid "Filtering rules from external networks to internal networks"
-msgstr ""
+msgstr "Reguli de filtrare din reţele externe către reţelele interne."
 
 #: src/templates/filter.mas:42
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
+"Aceste reguli permit controlul accesului din reţelele externe către reţelele "
+"interne."
 
 #~ msgid "redirect"
 #~ msgstr "redirectare"

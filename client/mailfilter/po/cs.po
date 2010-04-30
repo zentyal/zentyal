@@ -5,440 +5,454 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 1.4.2"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-mailfilter 1.4.2Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 16:32+0000\n"
-"PO-Revision-Date: 2010-02-02 16:32+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-16 12:38+0200\n"
+"Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0004_add_firewall_services.pl:32
 msgid "POP transparent proxy"
-msgstr ""
+msgstr "POP transparentní proxy"
 
 #: migration/0004_add_firewall_services.pl:50
 msgid "POP3 protocol"
-msgstr ""
+msgstr "POP3 protokol"
 
 #: src/EBox/MailFilter.pm:62
 msgid "Mail Filter"
-msgstr ""
+msgstr "Mail Filter"
 
 #: src/EBox/MailFilter.pm:80
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "Přidat ClamAV uživatele do skupiny amavis"
 
 #: src/EBox/MailFilter.pm:81
 msgid "Clamav need access to amavis fields to properly scan mail"
-msgstr ""
+msgstr "ClamAV potřebuje mít přístup k amavis, aby mohl řádně scanovat emaily"
 
 #: src/EBox/MailFilter.pm:85
 msgid "Add clamav user to p3scan group"
-msgstr ""
+msgstr "Přidat ClamAV uživatele do skupiny p3scan"
 
 #: src/EBox/MailFilter.pm:86
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
+"ClamAV potřebuje mít přístup k p3scan skupině, aby mohl řádně skenovat v POP "
+"Proxy"
 
 #: src/EBox/MailFilter.pm:90
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Přidat spam a ham systémové uživatele"
 
 #: src/EBox/MailFilter.pm:92
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Tyto uživatelé jsou pro e-mailové účty používané pro výcvik bayesovský "
+"filtrů"
 
 #: src/EBox/MailFilter.pm:97
 msgid "Update LDAP"
-msgstr ""
+msgstr "Update LDAP"
 
 #: src/EBox/MailFilter.pm:98
 msgid "Add amavis specific classes and fields"
-msgstr ""
+msgstr "Přidat amavis specifické třídy a pole"
 
 #: src/EBox/MailFilter.pm:357
 msgid "Cannot proceed because the filter is in use"
-msgstr ""
+msgstr "Nemůžu pokračovat, protože filtr je v provozu"
 
 #: src/EBox/MailFilter.pm:512
 msgid "Mail filter"
-msgstr ""
+msgstr "Mail filtr"
 
 #: src/EBox/MailFilter.pm:533 src/EBox/MailFilter.pm:579
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: src/EBox/MailFilter.pm:535
 msgid "Action"
-msgstr ""
+msgstr "Akce"
 
 #: src/EBox/MailFilter.pm:536 src/EBox/MailFilter.pm:583
 msgid "Event"
-msgstr ""
+msgstr "Událost"
 
 #: src/EBox/MailFilter.pm:538
 msgid "Sender address"
-msgstr ""
+msgstr "Adresa odesílatele"
 
 #: src/EBox/MailFilter.pm:539
 msgid "Recipient address"
-msgstr ""
+msgstr "Adresa příjemce"
 
 #: src/EBox/MailFilter.pm:541
 msgid "Spam hits"
-msgstr ""
+msgstr "Spam body"
 
 #: src/EBox/MailFilter.pm:546
 msgid "Bad header found"
-msgstr ""
+msgstr "nalezena špatná hlavička"
 
 #: src/EBox/MailFilter.pm:547
 msgid "Spam found"
-msgstr ""
+msgstr "Spam nalezen"
 
 #: src/EBox/MailFilter.pm:548
 msgid "Forbidden attached file  found"
-msgstr ""
+msgstr "Nalezen zakázaný přiložený soubor"
 
 #: src/EBox/MailFilter.pm:549
 msgid "Address in blacklist found"
-msgstr ""
+msgstr "Nalezena adresa na blacklistu"
 
 #: src/EBox/MailFilter.pm:550
 msgid "Virus found"
-msgstr ""
+msgstr "Nalezen virus"
 
 #: src/EBox/MailFilter.pm:551
 msgid "Clean message"
-msgstr ""
+msgstr "Čistá zpráva"
 
 #: src/EBox/MailFilter.pm:561
 msgid "SMTP filter"
-msgstr ""
+msgstr "SMTP filtr"
 
 #: src/EBox/MailFilter.pm:581
 msgid "Account"
-msgstr ""
+msgstr "Účet"
 
 #: src/EBox/MailFilter.pm:582
 msgid "Client's address"
-msgstr ""
+msgstr "Adresa klienta"
 
 #: src/EBox/MailFilter.pm:585
 msgid "Total messages"
-msgstr ""
+msgstr "Celkový počet zpráv"
 
 #: src/EBox/MailFilter.pm:586
 msgid "Clean messages"
-msgstr ""
+msgstr "Čisté zprávy"
 
 #: src/EBox/MailFilter.pm:587
 msgid "Virus messages"
-msgstr ""
+msgstr "Zavirované zprávy"
 
 #: src/EBox/MailFilter.pm:588
 msgid "Spam messages"
-msgstr ""
+msgstr "Spamy"
 
 #: src/EBox/MailFilter.pm:595
 msgid "POP3 transmission complete"
-msgstr ""
+msgstr "POP3 přenos kompletní"
 
 #: src/EBox/MailFilter.pm:597
 msgid "POP3 transmission aborted"
-msgstr ""
+msgstr "POP3 přenos přerušen"
 
 #: src/EBox/MailFilter.pm:605
 msgid "POP3 proxy"
-msgstr ""
+msgstr "POP3 proxy"
 
 #: src/EBox/MailFilter.pm:704 src/EBox/MailFilter/Composite/Amavis.pm:61
 msgid "SMTP Mail Filter"
-msgstr ""
+msgstr "SMTP Mail Filter"
 
 #: src/EBox/MailFilter.pm:711
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 msgid "POP Transparent Proxy"
-msgstr ""
+msgstr "POP transparentní proxy"
 
 #: src/EBox/MailFilter.pm:719 src/EBox/MailFilter/POPProxy.pm:350
 #: src/EBox/MailFilter/Amavis.pm:468
 #: src/EBox/MailFilter/Composite/Antispam.pm:63
 #: src/EBox/MailFilter/Composite/Antispam.pm:64
 msgid "Antispam"
-msgstr ""
+msgstr "Antispam"
 
 #: src/EBox/MailFilter.pm:726
 msgid "Files ACL"
-msgstr ""
+msgstr "Soubory ACL"
 
 #: src/EBox/MailFilter/POPProxy.pm:47
 msgid " To configure p3scan"
-msgstr ""
+msgstr "Chcete-li nakonfigurovat p3scan"
 
 #: src/EBox/MailFilter/POPProxy.pm:52
 msgid "To configure renattach"
-msgstr ""
+msgstr "Chcete-li nakonfigurovat renattach"
 
 #: src/EBox/MailFilter/POPProxy.pm:323
 msgid "Transparent POP Proxy"
-msgstr ""
+msgstr "Transparentní POP Proxy"
 
 #: src/EBox/MailFilter/POPProxy.pm:329 src/EBox/MailFilter/Amavis.pm:452
 msgid "Status"
-msgstr ""
+msgstr "Stav"
 
 #: src/EBox/MailFilter/Types/FileExtension.pm:59
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:94
 msgid "file extension"
-msgstr ""
+msgstr "přípona souborů"
 
 #: src/EBox/MailFilter/Types/AmavisSender.pm:79
 msgid "domain name"
-msgstr ""
+msgstr "doménové jméno"
 
 #: src/EBox/MailFilter/Types/AmavisSender.pm:83
 msgid "email address"
-msgstr ""
+msgstr "e-mailová adresa"
 
 #: src/EBox/MailFilter/Types/AmavisSender.pm:87
 msgid ""
 "The sender ought be either an email address or a domain name prefixed with "
 "'@'"
 msgstr ""
+"Odesílatel by měl mít buď e-mailovou adresu nebo název domény s předponou "
+"'@'"
 
 #: src/EBox/MailFilter/Types/Policy.pm:30
 msgid "Pass"
-msgstr ""
+msgstr "Pass"
 
 #: src/EBox/MailFilter/Types/Policy.pm:31
 msgid "Reject"
-msgstr ""
+msgstr "Odmítnout"
 
 #: src/EBox/MailFilter/Types/Policy.pm:32
 msgid "Bounce"
-msgstr ""
+msgstr "Bounce"
 
 #: src/EBox/MailFilter/Types/Policy.pm:33
 msgid "Discard"
-msgstr ""
+msgstr "Zahodit"
 
 #: src/EBox/MailFilter/Types/Policy.pm:53
 msgid "Mailfilter's policy"
-msgstr ""
+msgstr "Mailfilter zásady"
 
 #: src/EBox/MailFilter/Types/MIMEType.pm:61
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:94
 msgid "MIME type"
-msgstr ""
+msgstr "MIME typ"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:136
 msgid "Write down a decimal number"
-msgstr ""
+msgstr "Napište desetinné číslo"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:141
 msgid "Only non-zero positive numbers are allowed"
-msgstr ""
+msgstr "Pouze ne nulová kladná čísla jsou povolena"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:150
 #, perl-brace-format
 msgid "Write down a number lesser than {m}"
-msgstr ""
+msgstr "Zapište číslo menší než {m}"
 
 #: src/EBox/MailFilter/Types/AntispamThreshold.pm:157
 #, perl-brace-format
 msgid "Write down a number greater  than {m}"
-msgstr ""
+msgstr "Zapište číslo větší než {m}"
 
 #: src/EBox/MailFilter/VDomainsLdap.pm:604
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
-msgstr ""
+msgstr "Virtuální poštovní doména {vd} neexistuje"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:62
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:62
 msgid "Mail sender"
-msgstr ""
+msgstr "Mail odesílatel"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:68
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:68
+#, fuzzy
 msgid "Policy"
-msgstr ""
+msgstr "Zásady"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:77
+#, fuzzy
 msgid "Sender policy"
-msgstr ""
+msgstr "Zásady odesílatele"
 
+# zásada/zásady ?
 #: src/EBox/MailFilter/Model/AntispamACL.pm:89
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:89
+#, fuzzy
 msgid "sender policy"
-msgstr ""
+msgstr "zásada odesílatele"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:98
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
 msgid "whitelist"
-msgstr ""
+msgstr "whitelist"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:99
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:99
 msgid "blacklist"
-msgstr ""
+msgstr "blacklist"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:100
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:100
 msgid "process"
-msgstr ""
+msgstr "proces"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:165
 #: src/EBox/MailFilter/Model/VDomains.pm:158
 msgid "Virtual Domains"
-msgstr ""
+msgstr "Virtuální domény"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
 msgid "MIME Type"
-msgstr ""
+msgstr "MIME typ"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:74
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:74
 msgid "Allow"
-msgstr ""
+msgstr "Povolit"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:82
 msgid "MIME types"
-msgstr ""
+msgstr "MIME typy"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:95
 msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
 msgstr ""
+"MIME typy, které nejsou uvedeny níže, jsou povoleny. MIME typy jsou "
+"používány v POP transparentní proxy"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:65
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:58
 msgid "Enabled"
-msgstr ""
+msgstr "Povoleno"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:71
 msgid "Antivirus enabled"
-msgstr ""
+msgstr "Antivirus povolen"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:77
 msgid "Antispam enabled"
-msgstr ""
+msgstr "Antispam povolen"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:84
 msgid "Service's port"
-msgstr ""
+msgstr "Service port"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:91
 msgid "Notify of non-spam problematic messages"
-msgstr ""
+msgstr "Informujte ne spamové problematické zprávy"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:95
 msgid "Disabled"
-msgstr ""
+msgstr "Zakázaný"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 msgid "mail address"
-msgstr ""
+msgstr "mailová adresa"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:110
 msgid "General"
-msgstr ""
+msgstr "Obecný"
 
 #: src/EBox/MailFilter/Model/AmavisConfiguration.pm:141
 #, perl-brace-format
 msgid "The port {port} is already used by module {mod}"
-msgstr ""
+msgstr "Port {port} se již používá v modulu {mod}"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:77
 msgid "Sender policy for virtual domain"
-msgstr ""
+msgstr "Zásady odesílatele pro virtuální doménu"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
 msgid "File extension"
-msgstr ""
+msgstr "Přípona souboru"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:82
 msgid "File extensions"
-msgstr ""
+msgstr "Přípony souborů"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:95
 msgid "Extensions which are not listed below are allowed"
-msgstr ""
+msgstr "Přípony, které nejsou uvedeny níže jsou povoleny"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:68
 msgid "External mail server"
-msgstr ""
+msgstr "Externí mail server"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:71
 msgid "IP address of the server"
-msgstr ""
+msgstr "IP adresa serveru"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:75
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:76
 msgid "Allow connection"
-msgstr ""
+msgstr "Povolit připojení"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:83
 msgid "External mail servers"
-msgstr ""
+msgstr "Externí mail servery"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:95
 msgid "external mail server"
-msgstr ""
+msgstr "externí mail server"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:96
 msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
+"Zde můžete určit, které externí poštovní servery se mohou připojit k mail "
+"filtru"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:143
 #, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
-msgstr ""
+msgstr "Neplatné externí MTA {mta}. Lokální síťové adresy nejsou povoleny"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63
 #: src/EBox/MailFilter/Model/VDomains.pm:91
 #: src/EBox/MailFilter/SpamAssassin.pm:336
 msgid "Spam threshold"
-msgstr ""
+msgstr "Limit spamu"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:67
 msgid "The score threshold to mark a message as spam"
-msgstr ""
+msgstr "Score limit pro označení zprávy jako spam"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:71
 msgid "Spam subject tag"
-msgstr ""
+msgstr "Spam označení do předmětu zprávy"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:74
 msgid "Tag which will be added to the spam mail subject"
-msgstr ""
+msgstr "Tag, který se připojí k předmětu spamové zprávy"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
 msgid "Use Bayesian classifier"
-msgstr ""
+msgstr "Použití Bayesovského klasifikátoru"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:84
 msgid "Auto-whitelist"
-msgstr ""
+msgstr "Auto-whitelist"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:87
 msgid "Change the score of mail according to the sender history"
-msgstr ""
+msgstr "Změna skóre pošty podle historie odesílatele"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:91
 msgid "Auto-learn"
-msgstr ""
+msgstr "Auto-learn"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
 msgid "Feedback the learning system with messages that reach the threshold"
@@ -453,6 +467,8 @@ msgid ""
 "Spam messages with a score equal or greater than this threshold will be "
 "added to the learning system "
 msgstr ""
+"Spamy které mají skóre rovný nebo vyšší než je tento práh budou přidány do "
+"learning systému"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:107
 msgid "Autolearn ham threshold"
@@ -466,7 +482,7 @@ msgstr ""
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:116
 msgid "Antispam configuration"
-msgstr ""
+msgstr "Antispam konfigurace"
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:168
 msgid ""

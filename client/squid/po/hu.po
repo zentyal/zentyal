@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:55+0200\n"
-"PO-Revision-Date: 2010-02-09 11:41+0100\n"
+"PO-Revision-Date: 2010-04-09 13:41+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -28,35 +28,35 @@ msgstr "HTTP Proxy beállító fájl"
 
 #: src/EBox/Squid.pm:202
 msgid "Content filter configuration file"
-msgstr "tartalomszűrő beállító fájl"
+msgstr "Tartalomszűrő beállító fájl"
 
 #: src/EBox/Squid.pm:207
 msgid "Default filter group configuration"
-msgstr "alapértelmezett csoportra vonatkozó szűrő beállítások"
+msgstr "Alapértelmezett csoportra vonatkozó szűrő beállítások"
 
 #: src/EBox/Squid.pm:212
 msgid "Filter groups membership"
-msgstr "csoporttagság szűrő"
+msgstr "Csoporttagság szűrő"
 
 #: src/EBox/Squid.pm:217
 msgid "Content filter banned extension list"
-msgstr "letiltott kiterjesztéslista a tartalomszűrőhöz"
+msgstr "Letiltott kiterjesztéslista a tartalomszűrőhöz"
 
 #: src/EBox/Squid.pm:222
 msgid "Content filter banned mime type list"
-msgstr "letiltott MIME lista a tartalomszűrőhöz"
+msgstr "Letiltott MIME lista a tartalomszűrőhöz"
 
 #: src/EBox/Squid.pm:227
 msgid "Content filter exception site list"
-msgstr "honlap kivétel lista a tartalomszűrőhöz"
+msgstr "Honlap kivétel lista a tartalomszűrőhöz"
 
 #: src/EBox/Squid.pm:232
 msgid "Content filter grey site list"
-msgstr "honlap (szürke) kivétel lista a tartalomszűrőhöz"
+msgstr "Honlap (szürke) kivétel lista a tartalomszűrőhöz"
 
 #: src/EBox/Squid.pm:237
 msgid "Content filter banned site list"
-msgstr "letiltott honlap lista a tartalomszűrőhöz"
+msgstr "Letiltott honlap lista a tartalomszűrőhöz"
 
 #: src/EBox/Squid.pm:242
 msgid "Content filter exception URL list"
@@ -68,11 +68,11 @@ msgstr "URL (szürke) kivétel lista a tartalomszűrőhöz"
 
 #: src/EBox/Squid.pm:252
 msgid "Content filter banned URL list"
-msgstr "letiltott URL lista a tartalomszűrőhöz"
+msgstr "Letiltott URL lista a tartalomszűrőhöz"
 
 #: src/EBox/Squid.pm:257
 msgid "Forbidden phrases list"
-msgstr "tiltott kifejezések (szavak, mondatok) listája"
+msgstr "Liltott kifejezések (szavak, mondatok) listája"
 
 #: src/EBox/Squid.pm:262
 msgid "Exception phrases list"
@@ -91,9 +91,8 @@ msgid "Dansguardian's antivirus scanner configuration"
 msgstr "A DansGuardian vírusirtó beállítása"
 
 #: src/EBox/Squid.pm:282
-#, fuzzy
 msgid "Filter groups per IP"
-msgstr "Csoportszűrő"
+msgstr "IP alapú csoportszűrés"
 
 #: src/EBox/Squid.pm:317
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -684,7 +683,7 @@ msgstr ""
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:264
 msgid "You can only use a custom profile with the 'Filter' policy"
-msgstr ""
+msgstr "Ön csak saját profilt használhat a 'Szűrő' házirenddel"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:527
 #, perl-brace-format
@@ -710,9 +709,8 @@ msgid "Domain or URL"
 msgstr "Tartomány vagy hivatkozás"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:77
-#, fuzzy
 msgid "Domain or IP address part of URL"
-msgstr "Tartomány vagy IP cím"
+msgstr "URL-ben található tartomány vagy IP cím"
 
 #: src/EBox/Squid/Model/DomainFilterBase.pm:87
 msgid "Domain"
@@ -728,7 +726,7 @@ msgstr "Tartomány vagy IP cím"
 
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:107
 msgid "Time period"
-msgstr "idő intervallum"
+msgstr "Idő intervallum"
 
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:248
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:255

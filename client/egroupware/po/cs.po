@@ -5,104 +5,108 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-egroupware 1.4"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-egroupware 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:10+0200\n"
-"PO-Revision-Date: 2010-03-29 16:10+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-10 14:05+0200\n"
+"Last-Translator: tomas volse <tomas.volse@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EGroupware.pm:49
 msgid "Groupware"
-msgstr ""
+msgstr "Groupware"
 
 #: src/EBox/EGroupware.pm:97
 msgid "Create PostgreSQL user egroupware"
-msgstr ""
+msgstr "Vytvoření PostgreSQL uživatele eGroupWare"
 
 #: src/EBox/EGroupware.pm:98
 msgid "This user will be the owner of the egroupware database"
-msgstr ""
+msgstr "Tento uživatel bude vlastníkem databáze eGroupWare"
 
 #: src/EBox/EGroupware.pm:102
 msgid "Create PostgreSQL egroupware database"
-msgstr ""
+msgstr "Vytvoření PostgreSQL databáze eGroupWare"
 
 #: src/EBox/EGroupware.pm:103
 msgid "This database will store the data needed by eGroupware"
-msgstr ""
+msgstr "Tato databáze bude uchovávat data potřebná pro eGroupware"
 
 #: src/EBox/EGroupware.pm:120
 msgid "To configure eGroupware access settings"
-msgstr ""
+msgstr "Chcete-li nakonfigurovat eGroupware nastavení přístupu"
 
 #: src/EBox/EGroupware.pm:125
 msgid "To allow local access to egroupware database"
-msgstr ""
+msgstr "Chcete-li povolit přístup k místní eGroupWare databázi"
 
 #: src/EBox/CGI/EGroupwareUserOptions.pm:43
 msgid "username"
-msgstr ""
+msgstr "uživatelské jméno"
 
 #: src/EBox/CGI/EGroupwareGroupOptions.pm:43
 msgid "groupname"
-msgstr ""
+msgstr "jméno skupiny"
 
 #: src/EBox/Model/Applications.pm:139
 msgid "Application"
-msgstr ""
+msgstr "Aplikace"
 
 #: src/EBox/Model/Applications.pm:145
 msgid "Enabled"
-msgstr ""
+msgstr "Povoleno"
 
 #: src/EBox/Model/Applications.pm:152
 msgid "Applications"
-msgstr ""
+msgstr "Aplikace"
 
 #: src/EBox/Model/Applications.pm:153
 msgid "application"
-msgstr ""
+msgstr "aplikace"
 
 #: src/EBox/Model/DefaultApplications.pm:50
 msgid "Default Applications"
-msgstr ""
+msgstr "Výchozí aplikace"
 
 #: src/EBox/Model/DefaultApplications.pm:51
 msgid ""
 "These are the default application permissions that are given to the new "
 "created users or existing ones before enabling eGroupware module."
 msgstr ""
+"Jedná se o oprávnění výchozí aplikace, které jsou uvedeny na nově "
+"vytvořeného uživatele či stávajícího před zapnutím eGroupware modulu."
 
 #: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
-msgstr ""
+msgstr "Jméno"
 
 #: src/EBox/Model/PermissionTemplates.pm:72
 msgid "Allowed Applications"
-msgstr ""
+msgstr "Povolené aplikace"
 
 #: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
-msgstr ""
+msgstr "Uživatelem definované šablony oprávnění"
 
 #: src/EBox/Model/PermissionTemplates.pm:85
 msgid "template"
-msgstr ""
+msgstr "šablona"
 
 #: src/EBox/Model/PermissionTemplates.pm:86
 msgid ""
 "Edit the permission templates with the allowed applications that can be "
 "assigned to users or groups."
 msgstr ""
+"Upravit oprávnění šablony s povoleným aplikací, které lze přiřadit k "
+"uživatelům nebo skupinám."
 
 #: src/EBox/Model/VMailDomain.pm:54
 msgid "No domain selected"
-msgstr ""
+msgstr "Žádná doména nebyla vybrána"
 
 #: src/EBox/Model/VMailDomain.pm:100
 #, perl-brace-format
@@ -110,6 +114,8 @@ msgid ""
 "You must have at least one virtual mail domain defined. You can define the "
 "at {ohref}Virtual Domains section{chref}"
 msgstr ""
+"Musíte mít alespoň jeden virtuální mail definované domény. Můžete ho "
+"definovat na {ohref} sekce Virtuální Domény{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
 #, perl-brace-format
@@ -117,63 +123,70 @@ msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
+"Musíte mít IMAP službu povolenou. Můžete ji povolit na {ohref} Mail Obecné "
+"nastavení{chref}."
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
 "The deleted virtual domain was selected for eGroupware. Maybe you want to "
 "select another one now."
 msgstr ""
+"Smazaná virtuální doména byla vybrána pro eGroupware. Možná chcete zvolit "
+"jinou."
 
 #: src/EBox/Model/VMailDomain.pm:152
 msgid "Virtual Domain"
-msgstr ""
+msgstr "Virtuální doména"
 
 #: src/EBox/Model/VMailDomain.pm:161
 msgid "Virtual Mail Domain"
-msgstr ""
+msgstr "Virtuální poštovní doména"
 
 #: src/EBox/Model/VMailDomain.pm:166
 msgid "Select the virtual mail domain to be used for eGroupware"
-msgstr ""
+msgstr "Vyberte virtuální poštovní doménu, která má být použita k eGroupware"
 
 #: src/EBox/Composite/General.pm:76
 msgid "eGroupware"
-msgstr ""
+msgstr "eGroupware"
 
 #: src/EBox/Composite/General.pm:78
 msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+"Jakmile je modul povolen, a pokud jste si vytvořili uživatelský účet, můžete "
+"přistupovat k eGroupware přes webové rozhraní na adrese http:// <ebox_ip> / "
+"eGroupWare"
 
 #: src/EBox/Composite/General.pm:89
 msgid "EGroupware"
-msgstr ""
+msgstr "EGroupware"
 
 #: src/templates/egroupware.mas:9
 msgid "eGroupware account"
-msgstr ""
+msgstr "eGroupware účet"
 
 #: src/templates/egroupware.mas:10
 msgid "Password for eGroupware service is the user password"
-msgstr ""
+msgstr "Heslo pro eGroupware službu je uživatelské heslo"
 
 #: src/templates/egroupware.mas:12
 msgid "eGroupware group"
-msgstr ""
+msgstr "eGroupware skupina"
 
 #: src/templates/egroupware.mas:28
 msgid "Permissions template"
-msgstr ""
+msgstr "Oprávnění šablony"
 
 #: src/templates/egroupware.mas:39
 msgid "Default"
-msgstr ""
+msgstr "Standardní"
 
 #: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
 msgid "Change"
-msgstr ""
+msgstr "Změna"
 
 #: src/templates/egroupware.mas:85
 msgid "Click here to select a virtual domain"
-msgstr ""
+msgstr "Klikněte zde pro zvolení virtuální domény"

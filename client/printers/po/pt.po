@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2009-11-12 17:19+0100\n"
+"PO-Revision-Date: 2010-04-16 18:17+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr "Modelo"
 #: src/EBox/CGI/Model.pm:53
 #, perl-brace-format
 msgid "Printer {printer} has no available drivers"
-msgstr ""
+msgstr "Não estão disponíveis controladores para a impressora {printer}"
 
 #: src/EBox/CGI/LPDPrinterUI.pm:30 src/EBox/CGI/SambaPrinterUI.pm:30
 #: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
@@ -361,7 +361,7 @@ msgstr "IPP: Protocolo de impressão internet"
 
 #: src/templates/addprinter.mas:32
 msgid "LPD: Line Printer Daemon"
-msgstr ""
+msgstr "LPD: Line Printer Daemon"
 
 #: src/templates/manufacturer.mas:12
 msgid "Choose manufacturer"
@@ -421,11 +421,11 @@ msgstr "Esta impressora não tem qualquer trabalho pendente neste momento"
 #: src/templates/printer.mas:179
 msgid "You need to save changes in order to print a test page"
 msgstr ""
+"Necessita de gravar as alterações para poder imprimir uma página de teste"
 
 #: src/templates/printer.mas:184 src/templates/printer.mas:185
-#, fuzzy
 msgid "Print Test Page"
-msgstr "Nome da impressora"
+msgstr "Imprimir página de teste"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:56
 msgid "Driver options"

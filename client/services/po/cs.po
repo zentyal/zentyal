@@ -5,24 +5,24 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-services 1.5"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-services 1.5Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:15+0000\n"
-"PO-Revision-Date: 2010-01-28 13:15+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-10 14:30+0200\n"
+"Last-Translator: tomas volse <tomas.volse@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_import_services_from_firewall.pl:69
 msgid "any"
-msgstr ""
+msgstr "jakýkoli"
 
 #: migration/0001_import_services_from_firewall.pl:70
 msgid "any protocol and port"
-msgstr ""
+msgstr "jakýkoliv protokol a port"
 
 #: migration/0001_import_services_from_firewall.pl:71
 #: migration/0001_import_services_from_firewall.pl:82
@@ -31,60 +31,60 @@ msgstr ""
 #: migration/0001_import_services_from_firewall.pl:125
 #: src/EBox/Services.pm:337
 msgid "ebox-services"
-msgstr ""
+msgstr "ebox-služby"
 
 #: migration/0001_import_services_from_firewall.pl:80
 msgid "any UDP"
-msgstr ""
+msgstr "jakýkoli UDP"
 
 #: migration/0001_import_services_from_firewall.pl:81
 msgid "any UDP port"
-msgstr ""
+msgstr "libovolný UDP port"
 
 #: migration/0001_import_services_from_firewall.pl:92
 msgid "any TCP"
-msgstr ""
+msgstr "jakýkoli TCP"
 
 #: migration/0001_import_services_from_firewall.pl:93
 msgid "any TCP port"
-msgstr ""
+msgstr "každý TCP port"
 
 #: migration/0001_import_services_from_firewall.pl:108
 #: src/EBox/Services.pm:335
 msgid "eBox administration"
-msgstr ""
+msgstr "eBox administrace"
 
 #: migration/0001_import_services_from_firewall.pl:109
 msgid "eBox Administration Web Server"
-msgstr ""
+msgstr "eBox Správa webového serveru"
 
 #: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:153
 msgid "Services"
-msgstr ""
+msgstr "Služby"
 
 #: src/EBox/Services.pm:333
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Services.pm:336
 msgid "eBox Administration port"
-msgstr ""
+msgstr "eBox Administrační port"
 
 #: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
-msgstr ""
+msgstr "Doména"
 
 #: src/EBox/Model/ServiceTable.pm:114
 msgid "Service name"
-msgstr ""
+msgstr "Název služby"
 
 #: src/EBox/Model/ServiceTable.pm:122
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 #: src/EBox/Model/ServiceTable.pm:129
 msgid "Internal"
-msgstr ""
+msgstr "Interní"
 
 #: src/EBox/Model/ServiceTable.pm:131
 msgid ""
@@ -92,46 +92,50 @@ msgid ""
 "ports configured for this service. This helps eBox to know what ports are "
 "already busy"
 msgstr ""
+"Zaškrtněte toto pole, pokud je skutečně služba na počítači nakonfigurována k "
+"použití těchto portů. To pomáhá eBoxu vědět, jaké porty jsou již obsazeny"
 
 #: src/EBox/Model/ServiceTable.pm:140
 msgid "Configuration"
-msgstr ""
+msgstr "Konfigurace"
 
 #: src/EBox/Model/ServiceTable.pm:152
 msgid "List of services"
-msgstr ""
+msgstr "Seznam služeb"
 
 #: src/EBox/Model/ServiceTable.pm:163
 #: src/EBox/Model/ServiceConfigurationTable.pm:172
 msgid "service"
-msgstr ""
+msgstr "služba"
 
 #: src/EBox/Model/ServiceTable.pm:544
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
 msgstr ""
+"Služba je abstrakce jednoho nebo více síťových protokolů, které mohou být "
+"použity v jiných modulech, jako jsou: firewall, traffic shaping ..."
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:139
 msgid "Protocol"
-msgstr ""
+msgstr "Protokol"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:145
 msgid "Source port"
-msgstr ""
+msgstr "Zdrojový port"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:147
 msgid "This field is usually set to any"
-msgstr ""
+msgstr "Toto pole se obvykle nastavuje na jakékoliv"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:151
 msgid "Destination port"
-msgstr ""
+msgstr "Cílový port"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:161
 msgid "Service configuration"
-msgstr ""
+msgstr "Servisní nastavení"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:195
 msgid "This protocol does not use ports"
-msgstr ""
+msgstr "Tento protokol nepoužívá porty"

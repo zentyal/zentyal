@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:10+0200\n"
-"PO-Revision-Date: 2010-02-05 01:57+0100\n"
-"Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
+"PO-Revision-Date: 2010-04-06 16:21+0200\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -165,35 +165,32 @@ msgid "EGroupware"
 msgstr "EGroupware"
 
 #: src/templates/egroupware.mas:9
-#, fuzzy
 msgid "eGroupware account"
-msgstr "eGroupware"
+msgstr "eGroupware fiók"
 
 #: src/templates/egroupware.mas:10
 msgid "Password for eGroupware service is the user password"
-msgstr ""
+msgstr "Az eGroupware szolgáltatás jelszava a felhasználói jelszó"
 
 #: src/templates/egroupware.mas:12
-#, fuzzy
 msgid "eGroupware group"
-msgstr "eGroupware"
+msgstr "eGroupware csoport"
 
 #: src/templates/egroupware.mas:28
-#, fuzzy
 msgid "Permissions template"
-msgstr "Felhasználói jogosultságsablonok"
+msgstr "Felhasználói jogosultságsablon"
 
 #: src/templates/egroupware.mas:39
 msgid "Default"
-msgstr ""
+msgstr "Alapértelmezett"
 
 #: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
 msgid "Change"
-msgstr ""
+msgstr "Változtat"
 
 #: src/templates/egroupware.mas:85
 msgid "Click here to select a virtual domain"
-msgstr ""
+msgstr "Kattintson ide egy virtuális tartomány kiválasztásához"
 
 #~ msgid "DefaultApplications"
 #~ msgstr "AlapértelmezettAlkalmazások"

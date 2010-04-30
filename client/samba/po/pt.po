@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2009-11-11 19:25+0100\n"
+"PO-Revision-Date: 2010-04-16 18:42+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -51,9 +51,8 @@ msgid "Group {g} is not a samba group"
 msgstr "O grupo {g} não é um grupo samba"
 
 #: src/EBox/SambaLdapUser.pm:437
-#, fuzzy
 msgid "This group has a sharing directory associated that contains data"
-msgstr "este grupo tem um directório associado que contém dados"
+msgstr "Este grupo está associado a um directório que contém dados"
 
 #: src/EBox/SambaLdapUser.pm:641
 #, perl-brace-format
@@ -95,9 +94,8 @@ msgid "Disk quota limit"
 msgstr "Limite de quota do disco"
 
 #: src/EBox/Samba/Model/SambaUser.pm:50
-#, fuzzy
 msgid "File Sharing Account"
-msgstr "Conta de partilha PDC/Ficheiro"
+msgstr "Conta da partilha de ficheiros"
 
 #: src/EBox/Samba/Model/SambaUser.pm:58 src/EBox/Samba/Composite/General.pm:68
 #: src/EBox/Samba.pm:74
@@ -118,9 +116,8 @@ msgid "Netbios and workgroup must have different names"
 msgstr "O grupo de trabalho e o netbios devem ter nomes diferentes"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:78
-#, fuzzy
 msgid "Netbios name cannot be longer than 15 characters"
-msgstr "Este nome tem mais que 12 caracteres"
+msgstr "O nome Netbios não pode ter mais que 15 caractéres"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:88
 msgid "Enable PDC"
@@ -231,15 +228,16 @@ msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "O directório não está vazio. Tem a certeza que o deseja remover?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:309
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under eBox{closeit} will automatically create the share."
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"<i>O directório na eBox</i> criará a partilha automáticamente.O directório "
-"em /home/samba/shares <br><i>O caminho do sistema de ficheiros</i> permite-"
-"lhe partilhar um directório existente no seu sistema de ficheiros."
+"O directório{openit} na {closeit}eBox criará a partilha automaticamente. O "
+"directório em /home/samba/shares {br}{openit}caminho do sistema de "
+"ficheiros{closeit} permitirá que partilhe um directório existente no seu "
+"sistema de ficheiros"
 
 #: src/EBox/Samba/Model/SambaShares.pm:322
 msgid ""
@@ -284,13 +282,12 @@ msgid "Permissions"
 msgstr "Permissões"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:149
-#, fuzzy
 msgid "Access Control"
 msgstr "Controle de acesso"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:156
 msgid "ACL"
-msgstr ""
+msgstr "ACL"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:206
 msgid ""
@@ -375,14 +372,12 @@ msgid "exception"
 msgstr "excepção"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:121
-#, fuzzy
 msgid "Samba shares Recycle Bin exceptions"
-msgstr "Excepções de anti-vírus nas partilhas Samba"
+msgstr "Excepções de anti-vírus na reciclagem das partilhas Samba"
 
 #: src/EBox/Samba/Model/RecycleExceptions.pm:126
-#, fuzzy
 msgid "Add exceptions to the default Recycle Bin settings"
-msgstr "Adicionar excepções às definições do anti-vírus"
+msgstr "Adicionar excepções às definições da reciclagem"
 
 #: src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
@@ -393,22 +388,20 @@ msgid "Antivirus default settings"
 msgstr "Definições gerais do Anti-vírus"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:45
-#, fuzzy
 msgid "Recycle default settings"
-msgstr "Definições gerais do Anti-vírus"
+msgstr "Definições gerais da reciclagem"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:55
 msgid "Enable Recycle Bin"
-msgstr ""
+msgstr "Activar Reciclagem"
 
 #: src/EBox/Samba/Model/RecycleDefault.pm:63
-#, fuzzy
 msgid "Recycle Bin default settings"
-msgstr "Definições gerais do Anti-vírus"
+msgstr "Definições gerais da reciclagem"
 
 #: src/EBox/Samba/Composite/RecycleBin.pm:64
 msgid "Recycle Bin"
-msgstr ""
+msgstr "Reciclagem"
 
 #: src/EBox/Samba/Composite/General.pm:69
 msgid "File sharing options"

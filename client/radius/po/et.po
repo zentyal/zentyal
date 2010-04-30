@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-radius 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-02 17:17+0000\n"
-"PO-Revision-Date: 2010-03-25 15:02+0100\n"
+"PO-Revision-Date: 2010-04-14 10:22+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -27,8 +27,9 @@ msgstr "Kõik kasutajad"
 
 # Autentimiseks lubatud grupp
 #: src/EBox/Model/Auth.pm:128
+#, fuzzy
 msgid "Group allowed to authenticate"
-msgstr "Grupp millel lubatakse autentimine"
+msgstr "Grupp millele lubatakse autentimisega juurdepääs"
 
 #: src/EBox/Model/Auth.pm:138
 msgid "General configuration"

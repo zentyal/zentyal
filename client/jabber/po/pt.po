@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2009-11-05 00:51+0100\n"
+"PO-Revision-Date: 2010-04-15 20:02+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/JabberLdapUser.pm:262
-#, fuzzy
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
@@ -47,9 +46,8 @@ msgid "domain"
 msgstr "domínio"
 
 #: src/EBox/Jabber.pm:394
-#, fuzzy
 msgid "Jabber server"
-msgstr "Certificado do Servidor Jabber"
+msgstr "Servidor Jabber"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
@@ -62,7 +60,7 @@ msgstr "Jabber"
 
 #: src/EBox/CGI/JabberUserOptions.pm:43
 msgid "username"
-msgstr "nome de utilizador"
+msgstr "nome do utilizador"
 
 #: src/EBox/Jabber/Model/JabberUser.pm:50 src/templates/jabber.mas:8
 msgid "Jabber Account"
@@ -109,7 +107,7 @@ msgstr "Opcional"
 #: src/templates/index.mas:64 src/templates/index.mas:68
 #: src/templates/index.mas:72
 msgid "Required"
-msgstr "Requerido"
+msgstr "Obrigatório"
 
 #: src/templates/index.mas:81 src/templates/index.mas:82
 #: src/templates/jabber.mas:48 src/templates/jabber.mas:49
@@ -118,7 +116,7 @@ msgstr "Modificar"
 
 #: src/templates/jabber.mas:9
 msgid "Password for Jabber service is the user password."
-msgstr "A palavra-passe para o serviço Jabber é a palavra-passe de utilizador"
+msgstr "A palavra-passe para o serviço Jabber é a palavra-passe do utilizador"
 
 #: src/templates/jabber.mas:18
 msgid "User account"
@@ -134,7 +132,7 @@ msgstr "Activado"
 
 #: src/templates/jabber.mas:34
 msgid "Administration rights"
-msgstr "Direitos administrativos"
+msgstr "Direitos de administração"
 
 #~ msgid "Copy jabber ldap schema to /etc/ldap/schemas"
 #~ msgstr "Copiar esquema ldap Jabber para /etc/ldap/schemas"

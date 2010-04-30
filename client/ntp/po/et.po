@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ntp 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:02+0200\n"
-"PO-Revision-Date: 2010-03-18 17:51+0100\n"
+"PO-Revision-Date: 2010-04-23 19:42+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -141,8 +141,7 @@ msgstr "NTP serverid"
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
-msgstr ""
-"Selleks, et sünkroniseerimine toimiks õigesti, peaksid määrama oma ajavööndi."
+msgstr "Sünkroniseerimise õigesti toimimiseks, peab olema määratud ajavöönd"
 
 #: src/templates/servers.mas:50 src/templates/timezone.mas:33
 #: src/templates/timezone.mas:34 src/templates/synch.mas:19
@@ -153,15 +152,15 @@ msgstr "Muuda"
 
 #: src/templates/datetime.mas:8
 msgid "Time Synchronization with NTP Servers"
-msgstr ""
+msgstr "Kellaaja sünkroniseerimine NTP serverites"
 
 #: src/templates/datetime.mas:9
 msgid "External NTP Servers"
-msgstr ""
+msgstr "Välised NTP serverid"
 
 #: src/templates/datetime.mas:10
 msgid "Change Date and Time"
-msgstr ""
+msgstr "Muuda kuupäeva ja kellaaega"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"

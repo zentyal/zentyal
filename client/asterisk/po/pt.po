@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:37+0000\n"
-"PO-Revision-Date: 2009-11-12 00:15+0100\n"
+"PO-Revision-Date: 2010-04-16 19:21+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -66,14 +66,12 @@ msgid "To configure the conferences."
 msgstr "Para configurar as conferencias"
 
 #: src/EBox/Asterisk.pm:174
-#, fuzzy
 msgid "To configure the music on hold."
-msgstr "Para configurar o correio de voz"
+msgstr "Para configurar a música quando em espera"
 
 #: src/EBox/Asterisk.pm:178
-#, fuzzy
 msgid "To configure DTMF behaviour."
-msgstr "Para configurar o correio de voz"
+msgstr "Para configurar o comportamento do DTMF"
 
 #: src/EBox/Asterisk.pm:502
 msgid "General"
@@ -126,61 +124,57 @@ msgstr "Utilizadores VoIP em reuniões"
 
 #: src/EBox/Asterisk.pm:709
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/Asterisk.pm:710
 msgid "From"
-msgstr ""
+msgstr "De"
 
 #: src/EBox/Asterisk.pm:711
 msgid "To"
-msgstr ""
+msgstr "Para"
 
 #: src/EBox/Asterisk.pm:712
-#, fuzzy
 msgid "Duration"
-msgstr "Descrição"
+msgstr "Duração"
 
 #: src/EBox/Asterisk.pm:713
-#, fuzzy
 msgid "Channel"
-msgstr "Alterar"
+msgstr "Canal"
 
 #: src/EBox/Asterisk.pm:714
 msgid "Destination Channel"
-msgstr ""
+msgstr "Canal de destino"
 
 #: src/EBox/Asterisk.pm:715
 msgid "Application"
-msgstr ""
+msgstr "Aplicação"
 
 #: src/EBox/Asterisk.pm:716
 msgid "Application Data"
-msgstr ""
+msgstr "Dados da aplicação"
 
 #: src/EBox/Asterisk.pm:717
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 #: src/EBox/Asterisk.pm:725
 msgid "Answered"
-msgstr ""
+msgstr "Respondido"
 
 #: src/EBox/Asterisk.pm:726
 msgid "No Answer"
-msgstr ""
+msgstr "Sem resposta"
 
 #: src/EBox/Asterisk.pm:727
 msgid "Busy"
-msgstr ""
+msgstr "Ocupado"
 
 #: src/EBox/Asterisk.pm:728
-#, fuzzy
 msgid "Failed"
-msgstr "Activo"
+msgstr "Falhada"
 
 #: src/EBox/Asterisk/Extensions.pm:230
-#, fuzzy
 msgid "User extension"
 msgstr "Extensão do utilizador"
 
@@ -191,22 +185,22 @@ msgid "Extension"
 msgstr "Extensão"
 
 #: src/EBox/Asterisk/Extensions.pm:642
-#, fuzzy
 msgid "Queue extension"
-msgstr "extensão"
+msgstr "Colocar extensão em fila"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "grupo"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
 msgstr "Utilizador"
 
 #: src/EBox/Model/Meetings.pm:91
-#, fuzzy
 msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
-msgstr "Deve instalar os pacotres dahdi-linux e dahdi-tools para usar Reuniões"
+msgstr ""
+"Deve instalar os pacotes dahdi e dahdi-modules-ebox para usar a função "
+"Reuniões"
 
 #: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
 #: src/EBox/Model/Settings.pm:84
@@ -214,29 +208,27 @@ msgid "extension"
 msgstr "extensão"
 
 #: src/EBox/Model/Meetings.pm:149
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "Um número entre {min} e {max}"
 
 #: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:111
 msgid "Password"
-msgstr "Palavra passe"
+msgstr "Palavra-passe"
 
 #: src/EBox/Model/Meetings.pm:173 src/EBox/Model/Localnets.pm:119
 msgid "Description"
 msgstr "Descrição"
 
 #: src/EBox/Model/Meetings.pm:184
-#, fuzzy
 msgid "List of Meetings"
-msgstr "Reuniões"
+msgstr "Lista de reuniões"
 
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
 msgstr "reunião"
 
 #: src/EBox/Model/AsteriskUser.pm:50
-#, fuzzy
 msgid "Asterisk Account"
 msgstr "Conta Asterisk"
 
@@ -265,9 +257,8 @@ msgid "Delete sent messages"
 msgstr "Apagar mensagens enviadas"
 
 #: src/EBox/Model/Voicemail.pm:126
-#, fuzzy
 msgid "Change your Voicemail settings"
-msgstr "Definições do correio de voz"
+msgstr "Alterar as definições do seu correio de voz"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
@@ -276,9 +267,10 @@ msgstr "Definições actualizadas com sucesso"
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
 msgstr ""
+"Não tem um conta VoIP. O módulo VoIP pode não estar activo neste servidor"
 
 #: src/EBox/Model/Localnets.pm:88
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Networks attached directly to internal interfaces, like {net}, are always "
 "considered local networks so it is not neccessary to add them."
@@ -300,7 +292,7 @@ msgstr "rede local"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
-msgstr "Activar extensões de demonstação"
+msgstr "Activar extensões de demonstração"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
@@ -323,18 +315,16 @@ msgid "General Asterisk server configuration"
 msgstr "Definições gerais de configuração do servidor Asterisk"
 
 #: src/EBox/Model/Settings.pm:151
-#, fuzzy
 msgid "General Asterisk server configuration updated."
 msgstr "Definições gerais de configuração do servidor Asterisk actualizadas"
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "Personalizado"
 
 #: src/EBox/Model/Provider.pm:89
-#, fuzzy
 msgid "Provider"
-msgstr "Fornecedor SIP"
+msgstr "Fornecedor"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
@@ -342,11 +332,11 @@ msgstr "Nome"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "Nome do fornecedor do serviço VoIP"
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
-msgstr "Nome de utilizador"
+msgstr "Utilizador"
 
 #: src/EBox/Model/Provider.pm:118
 msgid "Server"
@@ -357,21 +347,18 @@ msgid "Recipient of incoming calls"
 msgstr "Recipiente de entrada de chamadas "
 
 #: src/EBox/Model/Provider.pm:130
-#, fuzzy
 msgid "Extension recipient of incoming calls through the provider."
-msgstr "Recipiente de entrada de chamadas "
+msgstr "Extensão do recipiente de chamadas recebidas pelo fornecedor"
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
 msgstr "Fornecedor SIP"
 
 #: src/EBox/Model/Provider.pm:141
-#, fuzzy
 msgid "SIP provider for outgoing calls configuration."
-msgstr "Configuração de chamadas de saída do Fornecedor SIP"
+msgstr "Fornecedor SIP para a configuração de chamas efectuadas"
 
 #: src/EBox/Model/Provider.pm:143
-#, fuzzy
 msgid "SIP provider configuration updated."
 msgstr "Definições do Fornecedor SIP Actualizadas"
 
@@ -382,6 +369,9 @@ msgid ""
 "directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
+"Crédito VoIP Ebox: faça chamadas VoIP de baixo custo para telefones móveis e "
+"linhas fixas directamente da eBox. Compre crédito VoIP de que necessita "
+"directamente em {ohref}Loja on-line eBox{chref}! "
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
@@ -400,29 +390,28 @@ msgid "NAT Asterisk server configuration"
 msgstr "Definições gerais de configuração NAT do servidor Asterisk"
 
 #: src/EBox/Model/NAT.pm:126
-#, fuzzy
 msgid "NAT Asterisk server configuration updated."
-msgstr ""
-"Definições gerais de configuração NAT do servidor Asterisk actualizadas"
+msgstr "Definições gerais da configuração NAT do servidor Asterisk actualizadas"
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
 msgstr "Modulo Asterisk"
 
 #: src/templates/group.mas:8
-#, fuzzy
 msgid "Asterisk group queue"
-msgstr "Modulo Asterisk"
+msgstr "Fila de grupo Asterisk"
 
 #: src/templates/group.mas:12
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
 msgstr ""
+"Não existem utilizadores neste grupo ou os utilizadores não têm uma conta "
+"asterisk. A fila não pode ser criada"
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "Fila do grupo"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
@@ -444,6 +433,8 @@ msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
+"As definições seguintes só terão efeito quando o módulo Asterisk for "
+"activado"
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2010-03-26 10:18+0100\n"
+"PO-Revision-Date: 2010-04-22 20:05+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -297,7 +297,7 @@ msgstr "Ligipääsu kontroll"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:156
 msgid "ACL"
-msgstr "ACL"
+msgstr "Pääsuloend"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:206
 msgid ""
@@ -333,7 +333,6 @@ msgid "days"
 msgstr "päeva"
 
 #: src/EBox/Samba/Model/PDC.pm:123
-#, fuzzy
 msgid "Enforce password history"
 msgstr "Kohustuslik parooli ajalugu"
 
@@ -447,9 +446,8 @@ msgid "Set Samba LDAP admin dn password"
 msgstr "Samba LDAP admin dn parooli määramine"
 
 #: src/EBox/Samba.pm:102
-#, fuzzy
 msgid "eBox will configure Samba to use the LDAP admin dn password."
-msgstr "eBox seadistab Samba, et kasutada LDAP admin dn parooli."
+msgstr "eBoxi poolt Samba seadistamine, LDAP admin dn parooli kasutamiseks"
 
 #: src/EBox/Samba.pm:118
 msgid "To set up Samba according to your configuration"
@@ -587,12 +585,10 @@ msgid "Type"
 msgstr "Tüüp"
 
 #: src/EBox/Samba.pm:1689
-#, fuzzy
 msgid "Quarantined file name"
-msgstr "Karantiinis faili nimi"
+msgstr "Karantiinis oleva faili nimi"
 
 #: src/EBox/Samba.pm:1690 src/EBox/Samba.pm:1693
-#, fuzzy
 msgid "Quarantine"
 msgstr "Karantiin"
 
@@ -605,7 +601,6 @@ msgid "Samba virus"
 msgstr "Samba viirus"
 
 #: src/EBox/Samba.pm:1718
-#, fuzzy
 msgid "Samba quarantine"
 msgstr "Samba karantiin"
 
@@ -664,9 +659,9 @@ msgid ""
 "that Microsoft Windows 98 and Millenium will not be able to see names longer "
 "than 12 characters"
 msgstr ""
-"Sa saad määrata grupi jaoks jagatud kataloogi, kuid pea meeles, et Microsoft "
-"Windows 98 ja Millenium ei ole võimelised nägema nimesid, mis on pikemad kui "
-"12 märki"
+"Siin saad määrata grupi jaoks jagatud kataloogi, kuid pea meeles, et "
+"Microsoft Windows 98 ja Millenium ei ole võimelised nägema nimesid, mis on "
+"pikemad kui 12 märki"
 
 #: src/templates/samba.mas:76
 msgid "This resource name is longer than 12 characters."

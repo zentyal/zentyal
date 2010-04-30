@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:10+0200\n"
-"PO-Revision-Date: 2009-11-11 19:35+0100\n"
+"PO-Revision-Date: 2010-04-16 19:51+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -86,9 +86,8 @@ msgid "Name"
 msgstr "Nome"
 
 #: src/EBox/Model/PermissionTemplates.pm:72
-#, fuzzy
 msgid "Allowed Applications"
-msgstr "Aplicações"
+msgstr "Aplicações permitidas"
 
 #: src/EBox/Model/PermissionTemplates.pm:81
 msgid "User Defined Permission Templates"
@@ -111,11 +110,13 @@ msgid "No domain selected"
 msgstr "Não foi seleccionado um domínio"
 
 #: src/EBox/Model/VMailDomain.pm:100
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must have at least one virtual mail domain defined. You can define the "
 "at {ohref}Virtual Domains section{chref}"
-msgstr "Tem que estar pelo menos um domínio de correio virtual definido."
+msgstr ""
+"Tem que estar pelo menos um domínio de correio virtual definido. Pode "
+"definir em {ohref}Secção dominíos virtuais{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
 #, perl-brace-format
@@ -123,6 +124,8 @@ msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
+"O serviço IMAP necessita de estar activo. Pode activa-lo em {ohref} "
+"Configuração geral de correio{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
@@ -146,7 +149,6 @@ msgstr ""
 "Seleccionar o domínio virtual de correio para ser usado pelo eGroupware"
 
 #: src/EBox/Composite/General.pm:76
-#, fuzzy
 msgid "eGroupware"
 msgstr "eGroupware"
 
@@ -155,42 +157,41 @@ msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+"Logo que o módulo esteja activo e que tenha criado uma conta de utilizador, "
+"poderá aceder ao interface web do eGroupware em http://<ebox_ip>/egroupware"
 
 #: src/EBox/Composite/General.pm:89
-#, fuzzy
 msgid "EGroupware"
-msgstr "eGroupware"
+msgstr "EGroupware"
 
 #: src/templates/egroupware.mas:9
-#, fuzzy
 msgid "eGroupware account"
-msgstr "eGroupware"
+msgstr "Conta eGroupware"
 
 #: src/templates/egroupware.mas:10
 msgid "Password for eGroupware service is the user password"
 msgstr ""
+"A palavra-passe para o serviço egroupware é a palavra-passe do utilizador"
 
 #: src/templates/egroupware.mas:12
-#, fuzzy
 msgid "eGroupware group"
-msgstr "eGroupware"
+msgstr "Grupo eGroupware"
 
 #: src/templates/egroupware.mas:28
-#, fuzzy
 msgid "Permissions template"
-msgstr "Modelos de permissão definidas para o utilizador"
+msgstr "Modelos de permissão"
 
 #: src/templates/egroupware.mas:39
 msgid "Default"
-msgstr ""
+msgstr "Omissão"
 
 #: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
 msgid "Change"
-msgstr ""
+msgstr "Alteração"
 
 #: src/templates/egroupware.mas:85
 msgid "Click here to select a virtual domain"
-msgstr ""
+msgstr "Clique aqui para seleccionar um domínio virtual"
 
 #~ msgid "DefaultApplications"
 #~ msgstr "Aplicações pré-definidas"

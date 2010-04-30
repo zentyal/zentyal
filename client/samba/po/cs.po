@@ -5,64 +5,64 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 1.5.1"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-samba 1.5.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2010-03-29 16:54+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-04-18 09:34+0200\n"
+"Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_samba_service.pl:113
 msgid "File sharing (Samba) protocol"
-msgstr ""
+msgstr "Protokol pro sdílení souborů (Samba)"
 
 #: src/EBox/SambaLdapUser.pm:304
 msgid "This user has a sharing directory associated which contains data"
-msgstr ""
+msgstr "Tento uživatel má sdílení adresář, který obsahuje data"
 
 #: src/EBox/SambaLdapUser.pm:367 src/EBox/SambaLdapUser.pm:386
 #, perl-brace-format
 msgid "Incorrect SID: {s}"
-msgstr ""
+msgstr "Nesprávné SID: {s}"
 
 #: src/EBox/SambaLdapUser.pm:371
 #, perl-brace-format
 msgid "User {u} does not exists"
-msgstr ""
+msgstr "Uživatel {u} neexistuje"
 
 #: src/EBox/SambaLdapUser.pm:375
 #, perl-brace-format
 msgid "User {u} is not a samba user"
-msgstr ""
+msgstr "Uživatel {u} není uživatelem samby"
 
 #: src/EBox/SambaLdapUser.pm:390
 #, perl-brace-format
 msgid "Group {g} does not exists"
-msgstr ""
+msgstr "Skupina {g} neexistuje"
 
 #: src/EBox/SambaLdapUser.pm:394
 #, perl-brace-format
 msgid "Group {g} is not a samba group"
-msgstr ""
+msgstr "Skupina {u} není skupinou samby"
 
 #: src/EBox/SambaLdapUser.pm:437
 msgid "This group has a sharing directory associated that contains data"
-msgstr ""
+msgstr "Tato skupina má sdílenou složku, která obsahuje data"
 
 #: src/EBox/SambaLdapUser.pm:641
 #, perl-brace-format
 msgid "{g} group does not exist"
-msgstr ""
+msgstr "{g} skupina neexistuje"
 
 #: src/EBox/SambaLdapUser.pm:725 src/EBox/SambaLdapUser.pm:754
 #: src/EBox/SambaLdapUser.pm:805 src/EBox/CGI/ActivePrinting.pm:48
 #: src/EBox/CGI/ActiveSharing.pm:44
 msgid "group name"
-msgstr ""
+msgstr "jméno skupiny"
 
 #: src/EBox/SambaLdapUser.pm:759
 msgid "A name should be provided for the share"

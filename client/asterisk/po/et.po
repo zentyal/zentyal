@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:37+0000\n"
-"PO-Revision-Date: 2010-03-25 19:05+0100\n"
+"PO-Revision-Date: 2010-04-21 16:04+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -299,7 +299,7 @@ msgstr "kohtvõrk"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
-msgstr "Demo laiendite lubamine"
+msgstr "Demolaiendite lubamine"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
@@ -357,15 +357,16 @@ msgstr "Saabuvate kõnede vastuvõtja"
 #: src/EBox/Model/Provider.pm:130
 #, fuzzy
 msgid "Extension recipient of incoming calls through the provider."
-msgstr "Läbi pakkuja saabuvate kõnede vastuvõtja laiend."
+msgstr "Läbi pakkuja saabuvate kõnede vastuvõtja laiend"
 
+# vt kasutajaliidest
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
-msgstr "SIP pakkuja"
+msgstr "SIP pakkuja seadistamine"
 
 #: src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
-msgstr "SIP pakkuja väljaminevate kõnede seadistamiseks."
+msgstr "Väljuvate kõnede jaoks SIP pakkuja seadistamine"
 
 #: src/EBox/Model/Provider.pm:143
 msgid "SIP provider configuration updated."
@@ -450,7 +451,7 @@ msgstr "Asteriski konto"
 
 #: src/templates/user.mas:10
 msgid "Password for Asterisk service is the user password"
-msgstr "Asteriski teenuse parool on kasutaja parool"
+msgstr "Asteriski teenuse parool on sama kui kasutaja parool"
 
 #: src/templates/user.mas:21
 msgid "User account"
