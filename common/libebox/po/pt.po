@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:58+0200\n"
-"PO-Revision-Date: 2009-11-11 19:03+0100\n"
+"PO-Revision-Date: 2010-04-15 20:09+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgstr ""
 
 #: src/EBox/CGI/Base.pm:576
 msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr "Acabou de atingir um bug na eBox. Procure suporte técnico"
+msgstr "Acabou de encontrar um bug na eBox. Procure suporte técnico"
 
 #: src/EBox/CGI/Base.pm:663
 msgid ""
@@ -181,42 +181,40 @@ msgstr "Adicionar novo"
 #: src/templates/ajax/tableBody.mas:128
 #, perl-brace-format
 msgid "Adding a new {row}"
-msgstr ""
+msgstr "A adicionar um novo {row}"
 
 #: src/templates/ajax/tableBody.mas:134
 #, perl-brace-format
 msgid "Editing {row}"
-msgstr ""
+msgstr "A editar {row}"
 
 #: src/templates/ajax/tableBody.mas:190
 msgid "Search"
-msgstr ""
+msgstr "Busca"
 
 #: src/templates/ajax/tableBody.mas:336
-#, fuzzy
 msgid "Add"
-msgstr "Adicionar novo"
+msgstr "Adicionar"
 
 #: src/templates/ajax/tableBody.mas:360
-#, fuzzy
 msgid "Cancel"
-msgstr "Alterar"
+msgstr "Cancelar"
 
 #: src/templates/ajax/tableBody.mas:440
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: src/templates/ajax/tableBody.mas:442
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: src/templates/ajax/tableBody.mas:447
 msgid "Read-only row: edit disabled"
-msgstr ""
+msgstr "Célula de leitura: Edição desactivada"
 
 #: src/templates/ajax/tableBody.mas:448
 msgid "Read-only row: delete disabled"
-msgstr ""
+msgstr "Célula de leitura: Apagar desactivado"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -248,13 +246,12 @@ msgid "Optional"
 msgstr "Opcional"
 
 #: src/templates/ajax/tablePager.mas:46
-#, fuzzy
 msgid "Page"
-msgstr "Alterar"
+msgstr "Página"
 
 #: src/templates/ajax/tablePager.mas:47
 msgid "of"
-msgstr ""
+msgstr "de"
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
@@ -296,8 +293,8 @@ msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
 "mailing lists"
 msgstr ""
-"Se necessitar de mais ajuda pode visitar {homepage} para\n"
-" documentação e listas de correio"
+"Se necessitar de mais ajuda pode visitar {homepage} para documentação e "
+"listas de correio"
 
 #: src/templates/ebox/pageNotFound.mas:12
 msgid "we're sorry"

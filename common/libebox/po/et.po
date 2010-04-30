@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:58+0200\n"
-"PO-Revision-Date: 2010-03-26 11:44+0100\n"
+"PO-Revision-Date: 2010-04-19 12:09+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -139,13 +139,12 @@ msgstr "Kataloog {dir} ei ole privaatne; kuna see kuulub teisele kasutajale"
 
 #  
 #: src/EBox/Validate.pm:780
-#, fuzzy
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
-"Pakutud faili asukoht on vigane. (Hetkel ei toetata kõiki tegelikult "
-"lubatuid märke)"
+"Pakutud faili asukoht on vigane. (Hetkel ei toetata kahjuks kõiki failinimes "
+"lubatud märke)"
 
 #: src/EBox/Validate.pm:808
 msgid "The file path must be absolute"
@@ -183,7 +182,7 @@ msgstr "Lisa uus"
 #: src/templates/ajax/tableBody.mas:128
 #, perl-brace-format
 msgid "Adding a new {row}"
-msgstr "Uue {row} lisamine"
+msgstr "Uus {row} lisatud"
 
 #: src/templates/ajax/tableBody.mas:134
 #, perl-brace-format
@@ -218,11 +217,10 @@ msgstr "Kirjutuskaitsega rida: redigeerimine keelatud"
 msgid "Read-only row: delete disabled"
 msgstr "Kirjutuskaitsega rida: kustutamine keelatud"
 
-# Vali üks valik, et kuvataks sellega seotud tabelit
+# Määra üks valik, et kuvataks sellega seotud tabel
 #: src/templates/ajax/tableSelector.mas:14
-#, fuzzy
 msgid "Choose one of the options to show the associated table"
-msgstr "Vali näitamiseks üks valikuga seotud tabel"
+msgstr "Määra valik tabeli kuvamiseks"
 
 #: src/templates/ajax/tableSelector.mas:32
 msgid "Choose one..."
@@ -281,9 +279,10 @@ msgstr "viimane"
 msgid "eBox's homepage"
 msgstr "eBoxi kodulehekülg"
 
+# Kontrolli palun URLi, kui see on käsitsi sisestatud
 #: src/templates/ebox/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
-msgstr "Kui sa kirjutasid URLi käsitsi, kontrolli see palun üle"
+msgstr "Kui kirjutasid URLi käsitsi, palun kontrolli seda"
 
 # kuvatakse kui 'page not found'
 #: src/templates/ebox/pageNotFound.mas:8
