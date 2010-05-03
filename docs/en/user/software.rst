@@ -49,7 +49,7 @@ remove eBox modules.
 
 The component manager is a module, and like any other eBox module
 must be enabled before being used. To manage eBox components you must access
-:menuselection: `Software Management -> eBox components`.
+:menuselection:`Software Management -> eBox components`.
 
 .. image:: images/software/software-ebox-components.png
    :scale: 80
