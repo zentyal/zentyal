@@ -19,7 +19,7 @@ dispatchers:
    (:ref:`mail-service-ref`).
 
 Before enabling any event watcher you have to make sure that the events module
-is enabled. Go to :menuselection `Module status` and check the
+is enabled. Go to :menuselection:`Module status` and check the
 :guilabel:`events` module.
 
 Unlike in the Logs module, where all services are enabled by default except
@@ -27,7 +27,7 @@ the **firewall**, you have to enable those events that might be of your interest
 
 To enable any events, you have to click on the menu entry
 :menuselection:`Events --> Configure Events`. You can edit an event state by
-clicking on the pencil icon. Tick the :guilabel: `Enabled` box and click on
+clicking on the pencil icon. Tick the :guilabel:`Enabled` box and click on
 the :guilabel:`Change` button.
 
 
