@@ -162,14 +162,23 @@ sub restoreFile
 
     $destination or
         $destination = $file;
+    my $rFile = $file;
+    $rFile =~ s:^/::; # file must be realtive
+
+
+    # shell quote does not work well for espaces with duplicity...
+    $rFile =~ s:\ :\\\ :g;
+    $destination =~ s:\ :\\\ :g;
+
+    $rFile = shell_quote($rFile);
+    $destination = shell_quote($destination);
 
 
     my $time = Date::Parse::str2time($date);
 
     my $model = $self->model('RemoteSettings');
     my $url = $self->_remoteUrl();
-    my $rFile = $file;
-    $rFile =~ s:^.::;
+
 
     my $cmd = DUPLICITY_WRAPPER .  " --force -t $time --file-to-restore $rFile $url $destination";
 
@@ -193,7 +202,7 @@ __(q{No backup archives found. Maybe they were deleted?.} .
        )
                );
         } else {
-            ex->throw();
+            $ex->throw();
         }
             
     };
