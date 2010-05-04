@@ -26,10 +26,11 @@ use strict;
 use warnings;
 
 # eBox uses
+use EBox::Exceptions::DataExists;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Samba::Types::Select;
-use EBox::Exceptions::DataExists;
+use EBox::View::Customizer;
 
 # Dependencies
 use Error qw(:try);
@@ -103,6 +104,85 @@ sub populatePermissions
            ];
 }
 
+sub validateTypedRow
+{
+    my ($self, $action, $params) = @_;
+    # we check that user_group is unique here bz union does nto seem to work
+    my $user_group = $params->{user_group};
+    if (not defined $user_group) {
+        return;
+    }
+
+    my $selected = $user_group->selectedType();
+    my $value    = $user_group->value();
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $rowUserGroup  =$row->elementByName('user_group');
+        if ($value ne $rowUserGroup->value()) {
+            next;
+        }
+        if ($selected eq $rowUserGroup->selectedType()) {
+            throw EBox::Exceptions::DataExists(
+                'data'  =>  __('User/Group'),
+                'value' => "$selected/$value",
+               );
+        }
+    }
+}
+
+sub syncRows
+{
+    my ($self, $currentIds) = @_;
+
+    my $anyChange = undef;
+    for my $id (@{$currentIds}) {
+        my $userGroup = $self->row($id)->printableValueByName('user_group');
+        unless(defined($userGroup) and length ($userGroup) > 0) {
+            $self->removeRow($id, 1);
+            $anyChange = 1;
+        }
+    }
+    return $anyChange;
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to provide a
+#   custom HTML title with breadcrumbs and to warn the user about the
+#   usage of this is only useful if the share does not allow guest
+#   access
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+        my ($self) = @_;
+
+        my $custom =  $self->SUPER::viewCustomizer();
+        $custom->setHTMLTitle([
+                {
+                title => __('Shares'),
+                link  => '/ebox/Samba/Composite/General#SambaShares',
+                },
+                {
+                title => $self->parentRow()->valueByName('share'),
+                link  => ''
+                }
+        ]);
+        if ($self->parentRow()->valueByName('guest')) {
+            $custom->setPermanentMessage(
+                __('Any access control is disabled if the guest access is allowed')
+               );
+        } else {
+            $custom->setPermanentMessage('');
+        }
+
+        return $custom;
+}
+
+
 # Group: Protected methods
 
 # Method: _table
@@ -161,43 +241,6 @@ sub _table
       return $dataTable;
 }
 
-sub syncRows
-{
-    my ($self, $currentIds) = @_;
-
-    my $anyChange = undef;
-    for my $id (@{$currentIds}) {
-        my $userGroup = $self->row($id)->printableValueByName('user_group');
-        unless(defined($userGroup) and length ($userGroup) > 0) {
-            $self->removeRow($id, 1);
-            $anyChange = 1;
-        }
-    }
-    return $anyChange;
-}
-# Method: viewCustomizer
-#
-#   Overrides <EBox::Model::DataTable::viewCustomizer> to
-#   provide a custom HTML title with breadcrumbs
-#
-sub viewCustomizer
-{
-        my ($self) = @_;
-
-        my $custom =  $self->SUPER::viewCustomizer();
-        $custom->setHTMLTitle([
-                {
-                title => __('Shares'),
-                link  => '/ebox/Samba/Composite/General#SambaShares',
-                },
-                {
-                title => $self->parentRow()->valueByName('share'),
-                link  => ''
-                }
-        ]);
-
-        return $custom;
-}
 
 
 # Private methods
@@ -206,33 +249,5 @@ sub _permissionsHelp
     return __('Be careful if you grant <i>administrator</i> privileges.' .
               'User will be able to read and write any file in the share');
 }
-
-
-sub validateTypedRow
-{
-    my ($self, $action, $params) = @_;
-    # we check that user_group is unique here bz union does nto seem to work
-    my $user_group = $params->{user_group};
-    if (not defined $user_group) {
-        return;
-    }
-
-    my $selected = $user_group->selectedType();
-    my $value    = $user_group->value();
-    foreach my $id (@{ $self->ids() }) {
-        my $row = $self->row($id);
-        my $rowUserGroup  =$row->elementByName('user_group');
-        if ($value ne $rowUserGroup->value()) {
-            next;
-        }
-        if ($selected eq $rowUserGroup->selectedType()) {
-            throw EBox::Exceptions::DataExists(
-                'data'  =>  __('User/Group'),
-                'value' => "$selected/$value",
-               );
-        }
-    }
-}
-
 
 1;
