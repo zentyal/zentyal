@@ -21,6 +21,7 @@ package EBox::Module::Service;
 use base qw(EBox::GConfModule);
 
 use EBox::Config;
+use EBox::Exceptions::Internal;
 use EBox::Global;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Sudo;
@@ -273,7 +274,14 @@ sub _isDaemonRunning
         return 1;
     }
     if(daemon_type($daemon) eq 'upstart') {
-        return EBox::Service::running($dname);
+        my $running = 0;
+        try {
+            $running = EBox::Service::running($dname);
+        } catch EBox::Exceptions::Internal with {
+            # If the daemon does not exist, then return false
+            ;
+        };
+        return $running;
     } elsif(daemon_type($daemon) eq 'init.d') {
         my $output;
         my $notOk;

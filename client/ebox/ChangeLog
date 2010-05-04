@@ -1,5 +1,7 @@
 HEAD
-	+ Added method in logs module to dump database in belhalf of
+	+ Bugfix: Catch exception when upstart daemon does not exist and
+	  return a stopped status
+	+ Added method in logs module to dump database in behalf of
 	ebackup module
 	+ Bugfix: Do not check in row uniqueness for optional fields that
 	are not passed as parameters
