@@ -54,6 +54,40 @@ sub new
 
 }
 
+# Method: validateTypedRow
+#
+#     Override to check the user to provide support exists
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $actions, $params) = @_;
+    if (exists $params->{allowRemote}) {
+        if ($params->{allowRemote}->value()) {
+            EBox::RemoteServices::SupportAccess->userCheck();
+        }
+    }
+}
+
+# Method: viewCustomizer
+#
+#     Override to set the message to log in the screen session
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setPermanentMessage(_message());
+    return $customizer;
+}
 
 # Group: Protected methods
 
@@ -79,47 +113,39 @@ sub _table
 
     my $dataForm = {
                     tableName          => 'RemoteSupportAccess',
-                    printableTableName => __('Remote support accesss'),
+                    printableTableName => __('Remote support access configuration'),
                     modelDomain        => 'RemoteServices',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
                     class              => 'dataForm',
+                    help               => _help(),
+                    pageTitle          => __('Remote Support Access'),
                 };
 
       return $dataForm;
 
   }
 
+# Group: Private methods
 
-sub validateTypedRow
+sub _help
 {
-    my ($self, $actions, $params) = @_;
-    if (exists $params->{allowRemote}) {
-        if ($params->{allowRemote}->value()) {
-            EBox::RemoteServices::SupportAccess->userCheck();
-        }
-    }
+    return __x('eBox Technologies provides support for eBox Platform through our '
+               . '{openhref}store{closehref}',
+               openhref => '<a href="http://store.ebox-technologies.com?utm_source=ebox&utm_medium=ebox&utm_content=remoteaccess&utm_campaign=access"'
+                           . ' target="_blank">',
+               closehref => '</a>');
 }
-
 
 sub _message
 {
     my $msg =  __x(
- q[To join the remote session, login in the shell as a user belonging to the 'adm' group and use the command '{cmd}'.],
+ q[To join the remote session, login in the shell as a user belonging to the '{group}' group and use the command '{cmd}'.],
+   group => 'adm',
    cmd => 'screen -x ebox-remote-support/'
     );
     return $msg;
 }
-
-sub viewCustomizer
-{
-    my ($self) = @_;
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-    $customizer->setPermanentMessage(_message());
-    return $customizer;
-}
-
 
 
 1;
