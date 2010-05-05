@@ -266,7 +266,9 @@ sub _setDNS # (dns)
 
     my @commands = (
             pf("-A ointernal $new -p udp --dport 53 -d $dns -j ACCEPT"),
+            pf("-A ointernal $new -p tcp --dport 53 -d $dns -j ACCEPT"),
             pf("-A fdns $new -p udp --dport 53 -d $dns -j ACCEPT"),
+            pf("-A fdns $new -p tcp --dport 53 -d $dns -j ACCEPT"),
             );
     return \@commands;
 }
@@ -326,7 +328,8 @@ sub _setRemoteServices
                );
             # We are assuming just one name server
             push(@commands,
-                pf("-A ointernal $new -p udp -d $dnsServer --dport 53 -j ACCEPT")
+                pf("-A ointernal $new -p udp -d $dnsServer --dport 53 -j ACCEPT"),
+
             );
             # Public WWW servers to connect to
             for my $no ( 1 .. $mirrorCount ) {
