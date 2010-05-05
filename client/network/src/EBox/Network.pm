@@ -3019,21 +3019,37 @@ sub interfacesWidget
     }
     foreach my $iface (@{$ifaces}) {
         iface_exists($iface) or next;
-        my $status = __("down");
+        my $upStr = __("down");
         my $section = new EBox::Dashboard::Section($self->ifaceAlias($iface),
             $self->ifaceAlias($iface));
         $widget->add($section);
 
         if (iface_is_up($iface)) {
-            $status = __("up");
+            $upStr = __("up");
         }
+
+        my $externalStr;
+        if ($self->ifaceIsExternal($iface)) {
+            $externalStr = __('external');
+        } else {
+            $externalStr = __('internal');
+        }
+
+
+        my $linkStatusStr;   
         if(defined($linkstatus->{$iface})){
             if($linkstatus->{$iface}){
-                $status .= ", " . __("link ok");
+                $linkStatusStr =  __("link ok");
             }else{
-                $status .= ", " . __("no link");
+                $linkStatusStr =  __("no link");
             }
         }
+        my $status = __x('{up}, {ext}, {link}',
+                         up =>$upStr,
+                         ext => $externalStr,
+                         link => $linkStatusStr
+                        );
+
         $section->add(new EBox::Dashboard::Value (__("Status"), $status));
 
         my $ether = iface_mac_address($iface);
