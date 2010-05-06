@@ -97,6 +97,7 @@ eBox Core
    backup
    software
    controlcenter
+   supporttools
 
 .. endno_elearning
 
