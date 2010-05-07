@@ -329,8 +329,12 @@ sub _bug # (dir)
 
     system "/bin/ps aux > $dir/processes";
     system "/bin/df -k > $dir/disks";
-    system "/sbin/route -n  > $dir/routes";
-    system "/bin/netstat -n -a --inet > $dir/sockets";
+    system "ip link show  > $dir/links";
+    system "ip route list table all  > $dir/routes";
+
+    my $sockets = EBox::Sudo::root("/bin/netstat -n -a --inet -p" );
+    File::Slurp::write_file("$dir/sockets", $sockets);
+
     system "/sbin/ifconfig -a > $dir/interfaces";
     system "cp /etc/resolv.conf  $dir/resolv.conf";
     system "dpkg -l > $dir/debpackages";
