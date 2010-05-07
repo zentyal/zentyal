@@ -227,4 +227,24 @@ sub headTitle
     return __d('Configure Rules', 'ebox-firewall');
 }
 
+
+sub validateTypedRow
+{
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+    if ($params_r->{service}) {
+        my $service = $params_r->{service};
+        # don't allow inverse match of any service
+        
+        if ($service->inverseMatch()) {
+            if ($service->printableValue eq '! any') {
+                throw EBox::Exceptions::External(
+__(q{'any service' cannot have a inverse march})
+                                                );
+            }
+        }
+    }
+}
+
+
 1;

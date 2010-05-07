@@ -7,6 +7,7 @@ HEAD
 	  so these override the default ones. Drop INVALID packets first
 	  too
 	+ Added TCP/53 to DNS rules in fdns and ointernal chains
+	+ Inverse match is not longer allowed for service 'any'
 1.4.2
 	+ Add a config option to disable the logging of dropped packets in firewall
 1.4
