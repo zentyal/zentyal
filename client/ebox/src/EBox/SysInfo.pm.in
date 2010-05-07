@@ -234,7 +234,7 @@ sub toggledElements()
 #   - EBox/General
 #   - EBox/Backup
 #   - EBox/Halt
-#   - EBox/Bug
+#   - EBox/ConfigurationReport
 sub menu
 {
     my ($self, $root) = @_;
@@ -269,12 +269,11 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'EBox/Backup',
                       'text' => __('Backup')));
 
+    $folder->add(new EBox::Menu::Item('url' => 'EBox/ConfigurationReport',
+                      'text' => __('Configuration Report')));
+
     $folder->add(new EBox::Menu::Item('url' => 'EBox/Halt',
                       'text' => __('Halt/Reboot')));
-
-   $folder->add(new EBox::Menu::Item('url' => 'EBox/ConfigurationReport',
-                     'text' => __('Configuration report')));
-
 
 
     $root->add($folder);

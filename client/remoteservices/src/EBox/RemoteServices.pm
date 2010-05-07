@@ -200,18 +200,16 @@ sub menu
                                    )
               );
 
-    
-
     my $remoteSupportItem = new EBox::Menu::Item(
               'url'  => 'RemoteServices/View/RemoteSupportAccess',
               'name' => 'RemoteSupportAccess',
-              'text' => __('Remote support access'),
+              'text' => __('Remote Support Access'),
                                                 );
-        my $folder = new EBox::Menu::Folder('name' => 'EBox',
-                                            'text' => __('System'));
+    my $folder = new EBox::Menu::Folder('name' => 'EBox',
+                                        'text' => __('System'));
 
-        $folder->add($remoteSupportItem);
-        $root->add($folder);
+    $folder->add($remoteSupportItem);
+    $root->add($folder);
 }
 
 # Method: modelClasses
