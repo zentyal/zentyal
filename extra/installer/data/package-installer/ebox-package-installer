@@ -430,13 +430,25 @@ sub preconfiguration
     open ($PROGRESS, '|-', $whipCmd);
 
     if ($network) {
-        setExternal(@CNF_selectedIfaces);
+        try {
+            setExternal(@CNF_selectedIfaces);
+        } otherwise {
+            my ($ex) = @_;
+            my $err = $ex->text();
+            system ("echo 'Error setting external ifaces: $err' >> $LOG");
+        };
     }
 
     print $PROGRESS "3\n";
 
     if (defined $CNF_domain) {
-        setMailDomain($CNF_domain);
+        try {
+            setMailDomain($CNF_domain);
+        } otherwise {
+            my ($ex) = @_;
+            my $err = $ex->text();
+            system ("echo 'Error setting mail domain: $err' >> $LOG");
+        };
     }
 
     print $PROGRESS "6\n";
@@ -493,7 +505,13 @@ sub preconfiguration
 
     print $PROGRESS "94\n";
 
-    system ("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
+    try {
+        system ("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
+    } otherwise {
+        my ($ex) = @_;
+        my $err = $ex->text();
+        system ("echo 'Error setting locale $LANG: $err' >> $LOG");
+    };
 
     print $PROGRESS "98\n";
 
