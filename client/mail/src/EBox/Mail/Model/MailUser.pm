@@ -81,7 +81,8 @@ sub domains
     my @options;
 
    for my $domain ( EBox::Global->modInstance('mail')->{vdomains}->vdomains()) {
-        push (@options, { value => $domain, printableValue => $domain });
+       my $printableValue = '@' . $domain;
+        push (@options, { value => $domain, printableValue => $printableValue });
     }
 
     return \@options;
