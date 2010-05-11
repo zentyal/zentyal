@@ -78,7 +78,8 @@ use constant CAPRIVKEY   => PRIVDIR . "cakey.pem";
 use constant CAPUBKEY    => KEYSDIR . "capubkey.pem";
 
 # Directory mode to allow only owner and readable from others
-use constant DIRMODE        => 00750;
+# Others means openvpn user (nobody)
+use constant DIRMODE        => 00751;
 use constant PRIVATEDIRMODE => 00700;
 
 # Use Certification Version 3

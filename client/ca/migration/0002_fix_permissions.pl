@@ -26,7 +26,7 @@ use EBox::CA;
 
 use base 'EBox::Migration::Base';
 
-use constant DIRMODE        => '0750';
+use constant DIRMODE        => '0751';
 use constant PRIVATEDIRMODE => '0700';
 
 # Constructor: new
