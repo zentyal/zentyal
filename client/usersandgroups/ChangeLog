@@ -1,4 +1,5 @@
 HEAD
+	+ Bug fix: do not call processDir if there are no slaves in slave-sync
 	+ Bug fix: ebox-usersandgroups-reinstall now unconfigures all ldap modules
 	+ Bug fix: updateSchema() returns unless the schema to update is
 	  available

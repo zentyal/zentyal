@@ -22,6 +22,8 @@ $users->configured() or
     exit 0;
 ($users->mode() eq 'master') or
     exit 0;
+@{$users->listSlaves()} or
+    exit 0;
 
 processDir(EBox::Config::conf() . "userjournal/");
 processDir(EBox::UserCorner::usercornerdir() . "userjournal/");
