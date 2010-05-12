@@ -1,4 +1,4 @@
-HEAD
+1.5.1
 	+ BP: Set @ to all domain-wide records (A, NS) to avoid issues
 	  regarding to order in the configuration file
 	+ Added support for internal networks allowed to recurse

@@ -1,4 +1,4 @@
-HEAD
+1.5.1
 	+ Fixed nasty bug of traceroute in Diagnostic Tools with invalid host
 	+ Flush cache when regenerating routes
 	+ Bug fix: use '>='  and not '>' to check if a test exceeds $maxRatio

@@ -1,4 +1,4 @@
-HEAD
+1.5.1
 	+ Bug fix: fixed nasty bug with the last version of openldap in lucid
 	+ Bug fix: do not call processDir if there are no slaves in slave-sync
 	+ Bug fix: ebox-usersandgroups-reinstall now unconfigures all ldap modules

@@ -1,4 +1,4 @@
-HEAD
+1.5.1
 	+ New firewall table containing rules added by eBox services
 	+ Bug fix: port forwarding now works with PPPoE
 	+ Bug fix: openVPN interfaces are added as internal interfaces to

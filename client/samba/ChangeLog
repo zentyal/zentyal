@@ -1,4 +1,4 @@
-HEAD
+1.5.2
 	+ Enforce uniqueness of 'user/group' filed in shares permissions
 	+ Enable full audit feature as it's working again in samba 3.4.6
 	+ Allow guest shares
