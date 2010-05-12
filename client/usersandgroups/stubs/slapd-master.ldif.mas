@@ -2,24 +2,6 @@
 $dn
 $password
 </%args>
-dn: cn=config
-changetype: modify
-add: olcTLSCACertificateFile
-olcTLSCACertificateFile: /etc/ldap/ssl/ssl.cert
--
-add: olcTLSCertificateFile
-olcTLSCertificateFile: /etc/ldap/ssl/ssl.cert
--
-add: olcTLSCertificateKeyFile
-olcTLSCertificateKeyFile: /etc/ldap/ssl/ssl.key
-
-# Allow querying the root DSE
-dn: olcDatabase={-1}frontend,cn=config
-changetype: modify
-add: olcAccess
-olcAccess: to dn.base="" by * read
-olcAccess: to dn.base="cn=subschema" by * read
-
 # Load syncprov module
 dn: cn=module{0},cn=config
 objectClass: olcModuleList
@@ -43,7 +25,7 @@ olcDbConfig: {0}set_cachesize 0 2097152 0
 olcDbConfig: {1}set_lk_max_objects 1500
 olcDbConfig: {2}set_lk_max_locks 1500
 olcDbConfig: {3}set_lk_max_lockers 1500
-olcAccess: {0}to * by dn.exact=cn=localroot,cn=config manage by * break
+olcAccess: {0}to * by dn.exact=gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth manage by * break
 olcAccess: {1}to attrs=userPassword,shadowLastChange by dn="cn=ebox,<% $dn %>" write by anonymous auth by self write by * none
 olcAccess: {2}to dn.base="" by * read
 olcAccess: {3}to *  by dn="cn=ebox,<% $dn %>" write by * read
