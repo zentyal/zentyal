@@ -590,7 +590,7 @@ sub validateTypedRow
     my $method = $actualValues->{method}->value();
     my $target = $actualValues->{target}->value();
 
-    if ($method =~ /^ebo/) {
+    if ($method =~ /^ebox/) {
         my $target = $actualValues->{target}->value();
         if (defined($target)) {
             my $excepTxt = __('Destination must be a relative directory');
@@ -791,6 +791,41 @@ sub _actualValues
 }
 
 
+# we check that we have the target/user/password complete if eBox storage is selected
+# bz is the defualt configuration and it is not complete. The validation methods
+# avoids that the configuration is incomplete in other cases so we must only
+# check this
+sub configurationIsComplete
+{
+    my ($self) = @_;
+
+    my $row = $self->row();
+    my $method = $row->valueByName('method');
+    if (not $method =~ /^ebox/) {
+        # only we could get a incomplete configuration with the default value
+        # (ebox denver) so other methods are always complete
+        return 1;
+    }
+
+
+    my $target = $row->valueByName('target');
+    if (not $target) {
+        return 0;
+    }
+
+    my $user = $row->valueByName('user');
+    if (not $user) {
+        return 0;
+    }
+    
+    my $password = $row->valueByName('password');
+    if (not $password) {
+        return 0;
+    }
+
+
+    return 1;
+}
 
 
 1;

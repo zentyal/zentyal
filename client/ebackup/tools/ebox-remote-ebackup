@@ -74,6 +74,11 @@ unless ($ebackup->isEnabled() ) {
     print "Backup module is disabled\n";
     exit 0;
 }
+unless ($ebackup->configurationIsComplete()) {
+    print "Backup module configuration is not completed. Configure it and retry\n";
+    exit 0;
+
+}
 unless ($ebackup->lock()) {
      print "There's other backup process taking place";
      _sendEvent(0, " couldn't get lock");

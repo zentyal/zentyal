@@ -712,4 +712,11 @@ sub _volSize
 }
 
 
+sub configurationIsComplete
+{
+    my ($self) = @_;
+    my $model = $self->model('RemoteSettings');
+    return $model->configurationIsComplete();
+}
+
 1;
