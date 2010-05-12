@@ -18,7 +18,7 @@ HEAD
 	+ VolSize option can be changed through configuration file
 	+ Better order of General configuration options
 	+ Bugfix: fixed problem when restoring path with spaces
-	+ Bugfix: ebox-remote-ebackup does nothing with
+	+ Bugfix: all features using duplicity does nothing with
 	default configuration because is incomplete
 1.4
 	+ Bug fix: do not duplicate includes with exclude-regexp

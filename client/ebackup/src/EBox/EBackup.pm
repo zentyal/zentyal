@@ -152,6 +152,10 @@ sub restoreFile
 {
     my ($self, $file, $date, $destination) = @_;
 
+    if (not $self->configurationIsComplete()) {
+        return;
+    }
+
     unless (defined($file)) {
         throw EBox::Exceptions::MissingArgument('file');
     }
@@ -436,6 +440,10 @@ sub remoteGenerateStatusCache
 {
     my ($self) = @_;
 
+    if (not $self->configurationIsComplete()) {
+        return;
+    }
+
     my $file = tmpCurrentStatus();
     my $remoteUrl = $self->_remoteUrl();
     my $cmd = DUPLICITY_WRAPPER . " collection-status $remoteUrl";
@@ -539,6 +547,11 @@ sub setRemoteBackupCrontab
 sub _setConf
 {
     my ($self) = @_;
+
+    if (not $self->configurationIsComplete) {
+        return;
+    }
+
     # Store password
     my $model = $self->model('RemoteSettings');
     my $pass = $model->row()->valueByName('password');
@@ -563,6 +576,11 @@ sub _setConf
 sub _syncRemoteCaches
 {
     my ($self) = @_;
+
+    if ($self->configurationIsComplete()) {
+        return;
+    }
+
 
     my @oldRemoteStatus = @{ $self->remoteStatus() };
     $self->remoteGenerateStatusCache();
