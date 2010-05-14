@@ -13,6 +13,7 @@ HEAD
 	+ Bugfix: changed location of default sieve script to a directory
 	writable by LDA
 	+ Added '@' character to virtual domain select control labels
+	+ Bugfix: allow multiple alias to the same external account
 1.4.2
 	+ Bugfix, mail to local accounts is delivered correctly, changed
 	some parameters to take in account myorigin
