@@ -64,7 +64,6 @@ sub _table
                                        'printableName' => __('External account'),
                                        'size' => '30',
                                        'editable' => 1,
-#                                       'unique' => 1,
                                       ),
 
 
