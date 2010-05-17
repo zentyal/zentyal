@@ -1,3 +1,9 @@
+esofttool (0.5.4ubuntu1) lucid; urgency=low
+
+  * lucid package
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Tue, 18 May 2010 01:58:40 +0200
+
 esofttool (0.5.4) hardy; urgency=low
 
   * Bugfix: Add first dependency when managing ORed depends and not all of
