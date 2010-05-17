@@ -1,4 +1,4 @@
-AC_INIT([EBox-egroupware], [1.4])
+AC_INIT([EBox-egroupware], [1.5])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/EGroupware.pm])
