@@ -1,4 +1,4 @@
-HEAD
+1.5
 	+ Bugfix: NameVirtualHost directive in ports.conf and not in every vhost.
 	+ Vhosts ServerAdmin now is root@fqdn.
 	+ Handle default vhost for port, ServerAdmin values and including the
