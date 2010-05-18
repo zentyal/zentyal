@@ -4,30 +4,62 @@ $maxThreads   => 12
 $strictMode   => 0
 </%args>
 
-
-Foreground false
 LocalSocket <% $localSocket %>
 FixStaleSocket true
-User root 
 AllowSupplementaryGroups  true
+# TemporaryDirectory is not set to its default /tmp here to make overriding
+# the default with environment variables TMPDIR/TMP/TEMP possible
+User root
+AllowSupplementaryGroups true
+ScanMail true
+ScanArchive true
+ArchiveBlockEncrypted false
+MaxDirectoryRecursion 15
+FollowDirectorySymlinks false
+FollowFileSymlinks false
 ReadTimeout 180
 MaxThreads <% $maxThreads %>
 MaxConnectionQueueLength 15
-LogFile /var/log/clamav/clamav.log
-LogTime true
+StreamMaxLength 10M
 LogFileMaxSize 0
-LogVerbose  true
+LogSyslog false
+LogFacility LOG_LOCAL6
+LogClean false
+LogVerbose true
 PidFile /var/run/clamav/clamd.pid
 DatabaseDirectory /var/lib/clamav
 SelfCheck 3600
-
+Foreground false
+Debug false
+ScanPE true
 ScanOLE2 true
-ScanPE    true
-ScanELF   true
-ScanMail  true
-DetectBrokenExecutables  true
-ScanHTML  true
-
+ScanHTML true
+DetectBrokenExecutables false
+ExitOnOOM false
+LeaveTemporaryFiles false
+AlgorithmicDetection true
+ScanELF true
+IdleTimeout 30
+PhishingSignatures true
+PhishingScanURLs true
+PhishingAlwaysBlockSSLMismatch false
+PhishingAlwaysBlockCloak false
+DetectPUA false
+ScanPartialMessages false
+HeuristicScanPrecedence false
+StructuredDataDetection false
+CommandReadTimeout 5
+SendBufTimeout 200
+MaxQueue 100
+LogFile /var/log/clamav/clamav.log
+LogTime true
+LogFileUnlock false
+LogFileMaxSize 0
+Bytecode true
+BytecodeSecurity TrustSigned
+BytecodeTimeout 60000
+OfficialDatabaseOnly false
+CrossFilesystems true
 ScanArchive true
 % if ($strictMode) {
 ArchiveBlockMax true
