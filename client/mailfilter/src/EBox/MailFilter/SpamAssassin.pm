@@ -564,16 +564,19 @@ sub trustedNetworks
   my @internalIfaces = @{ $network->InternalIfaces()  };
   my @ifacesAddresses = map {  @{ $network->ifaceAddresses($_) } } @internalIfaces;
 
-
-  my @trustedNetworks = map {
-      my $address = $_->{address};
-      my $netmask = $_->{netmask};
+  my %seen;
+  my @trustedNetworks;
+  foreach my $ifAddr (@ifacesAddresses) {
+      my $address = $ifAddr->{address};
+      my $netmask = $ifAddr->{netmask};
       my $networkAddress = EBox::NetWrappers::ip_network($address, $netmask);
 
       my $cidrNetwork = EBox::NetWrappers::to_network_with_mask($networkAddress, $netmask);
-
-    } @ifacesAddresses;
-
+      if (not exists $seen{$cidrNetwork}) {
+          push @trustedNetworks, $cidrNetwork;
+          $seen{$cidrNetwork} = 1;
+      }
+  }
 
   return \@trustedNetworks
 }
