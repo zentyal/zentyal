@@ -332,6 +332,13 @@ sub _fieldDescription
             'editable' => 1);
     push (@tableHead, $dport);
 
+    my $plog = new EBox::Types::Boolean(
+            'fieldName' => 'log',
+            'printableName' => __('Log'),
+            'editable' => 1,
+            'help' => __('Log new forwarded connections'));
+    push (@tableHead, $plog);
+
     my $desc = new EBox::Types::Text(
             'fieldName' => 'description',
             'printableName' => __('Description'),

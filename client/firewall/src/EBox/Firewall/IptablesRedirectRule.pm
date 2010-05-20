@@ -42,6 +42,8 @@ sub new
     my $class = shift;
     my %opts = @_;
     my $self = $class->SUPER::new(@_);
+    $self->{'log'} = 0;
+    $self->{'log_level'} = 7;
     $self->{service} = [];
     bless($self, $class);
     return $self;
@@ -69,20 +71,47 @@ sub strings
     # Iptables needs to use the real interface
     $iface =~ s/:.*$//;
 
+    my $limit = EBox::Config::configkey('iptables_log_limit');
+    my $burst = EBox::Config::configkey('iptables_log_burst');
+
+    unless (defined($limit) and $limit =~ /^\d+$/) {
+         throw EBox::Exceptions::External(__('You must set the ' .
+             'iptables_log_limit variable in the ebox configuration file'));
+    }
+
+    unless (defined($burst) and $burst =~ /^\d+$/) {
+         throw EBox::Exceptions::External(__('You must set the ' .
+             'iptables_log_burst variable in the ebox configuration file'));
+    }
+
     foreach my $src (@{$self->{'source'}}) {
-    	foreach my $origDst (@{$self->{'destination'}}) {
-        my ($dst, $toDst) = @{$self->{'destinationNAT'}};
-        foreach my $service (@{$self->{'service'}}) {
-            my ($natSvc, $filterSvc) = @{$service};
-            my $natRule = "-t nat -A PREROUTING $modulesConf " .
-                "-i $iface $src $natSvc $origDst -j DNAT $toDst";
+        foreach my $origDst (@{$self->{'destination'}}) {
+            my ($dst, $toDst) = @{$self->{'destinationNAT'}};
 
-            my $filterRule = "-A fredirects $state $modulesConf " .
-                "-i $iface $src $filterSvc $dst -j ACCEPT";
+            foreach my $service (@{$self->{'service'}}) {
+                my ($natSvc, $filterSvc) = @{$service};
+                my $natRule = "-t nat -A PREROUTING $modulesConf " .
+                    "-i $iface $src $natSvc $origDst -j DNAT $toDst";
 
-            push (@rules, $natRule, $filterRule);
+                my $filterRule = "-A fredirects $state $modulesConf " .
+                    "-i $iface $src $filterSvc $dst -j ACCEPT";
+
+                # Add log rule if it's activated
+                if ( $self->{'log'} ) {
+                    my $logRule = "-A fredirects $state $modulesConf " .
+                        "-i $iface $src $filterSvc $dst -j LOG -m limit ".
+                        "--limit $limit/min ".
+                        "--limit-burst $burst " .
+                        '--log-level ' . $self->{'log_level'} . ' ' .
+                        '--log-prefix "ebox-firewall redirect "';
+
+                    push (@rules, $logRule);
+                }
+
+                push (@rules, $natRule);
+                push (@rules, $filterRule);
+            }
         }
-	}
     }
 
     return \@rules;
@@ -198,6 +227,42 @@ sub setCustomService
         my $iptables = " -p $protocol";
         push (@{$self->{'service'}}, [$iptables, $iptables]);
     }
+}
+
+
+# Method: setLog
+#
+#   Set log flag for rules
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#
+#   log - 1 to activate logging
+#
+sub setLog
+{
+    my ($self, $log) = @_;
+
+    $self->{'log'} = $log;
+}
+
+
+# Method: setLogLevel
+#
+#   Sets syslog level por log rule
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#
+#   level - log level
+#
+sub setLogLevel
+{
+    my ($self, $level) = @_;
+
+    $self->{'log_level'} = $level;
 }
 
 

@@ -15,12 +15,12 @@
 
 # Class: EBox::Firewall::IptablesHelper
 #
-#	This class is used to build iptables rules based on the data
-#	stored in the firewall models, namely:
+#   This class is used to build iptables rules based on the data
+#   stored in the firewall models, namely:
 #
-#	<EBox::Firewall::Model::ToInternetRule>
+#   <EBox::Firewall::Model::ToInternetRule>
 #
-#	It uses <EBox::Firewall::IptablesRule> to assit with rules creation
+#   It uses <EBox::Firewall::IptablesRule> to assit with rules creation
 #
 
 package EBox::Firewall::IptablesHelper;
@@ -40,6 +40,7 @@ sub new
     my %opts = @_;
     my $self = {};
     $self->{'manager'} = EBox::Model::ModelManager->instance();
+    $self->{firewall} = EBox::Global->modInstance('firewall');
     bless($self, $class);
     return $self;
 }
@@ -220,6 +221,7 @@ sub RedirectsRuleTable
         $self->_addCustomServiceToRule($rule, $row);
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addDestinationToRule($rule, $row);
+        $self->_addLoggingToRule($rule, $row);
         push (@rules, @{$rule->strings()});
     }
 
@@ -371,6 +373,16 @@ sub _addDecisionToRule
         $rule->setDecision('log');
     }
 
+}
+
+# Logging for redirect rules
+sub _addLoggingToRule
+{
+    my ($self, $rule, $row) = @_;
+
+    my $log = $row->valueByName('log');
+    $rule->setLog( $self->{firewall}->logging() && $log );
+    $rule->setLogLevel( EBox::Iptables->SYSLOG_LEVEL );
 }
 
 1;

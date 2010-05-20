@@ -1,3 +1,5 @@
+HEAD
+	+ New logging feature for port forwarding rules
 1.5.1
 	+ New firewall table containing rules added by eBox services
 	+ Bug fix: port forwarding now works with PPPoE

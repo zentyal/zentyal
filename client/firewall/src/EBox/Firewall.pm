@@ -850,7 +850,7 @@ sub tableInfo
 
     my @order = qw(timestamp fw_in fw_out fw_src fw_dst fw_proto fw_spt fw_dpt event);
 
-    my $events = { 'drop' => __('DROP'), 'log' => __('LOG') };
+    my $events = { 'drop' => __('DROP'), 'log' => __('LOG'), 'redirect' => __('REDIRECT'), };
 
     return [{
             'name' => __('Firewall'),
