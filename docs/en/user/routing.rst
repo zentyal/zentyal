@@ -14,18 +14,18 @@ table with a set of rules to make this decision.
 
 Each of these rules has different fields, although the three most
 important ones are: :guilabel:`destination address`,
-:guilabel:`interface` and :guilabel:`router`. These must be read as
+:guilabel:`interface` and :guilabel:`gateway`. These must be read as
 follows: to reach a certain :guilabel:`destination address`,
-the packet must be directed through a :guilabel:`router`,
+the packet must be directed through a :guilabel:`gateway`,
 which is accessible through a certain :guilabel:`interface`.
 
 When the message arrives, its destination address is compared to the entries in
 the table and is sent through the interface indicated in the rule that matches.
 The best match is considered the most specific rule. For example, if a rule is
-specified indicating that to reach network A (10.15.0.0/16), *router* A must be
+specified indicating that to reach network A (10.15.0.0/16), gateway A must be
 used and another rule indicates that to reach network B (10.15.23.0/24), which
-is a subnet of A, *router* B must be used. If a packet arrives with destination
-10.15.23.23/32, then the operating system will decide to send it to *router B*,
+is a subnet of A, gateway B must be used. If a packet arrives with destination
+10.15.23.23/32, then the operating system will decide to send it to gateway B,
 as there is a more specific rule.
 
 All hosts have at least one routing rule for the *loopback* interface, or local
@@ -245,7 +245,7 @@ To do so:
    Access the eBox interface, enter :menuselection:`Network --> Routes` and
    delete the route created during the previous exercise.
 
-   Enter :menuselection:`Network --> Routers` and select
+   Enter :menuselection:`Network --> Gateways` and select
    :guilabel:`Add new`. Complete with the following data:
 
    :Name:     Default Gateway
@@ -285,63 +285,64 @@ To do so:
 
 .. _multigw-section-ref:
 
-Multirouter rules and load balancing
-====================================
+Multigateway rules and load balancing
+=====================================
 
-**Multirouter rules** are a tool that enables PCs in a network to use several
+**Multigateway rules** are a tool that enables PCs in a network to use several
 *Internet* connections transparently. This is useful if, for example, an office
 has several ADSL connections and the entire bandwidth available is to be used
 without having to worry about distributing the work of the hosts manually
-between both *routers*, so that the load is shared automatically between them.
+between both gateways, so that the load is shared automatically between them.
 
 Basic **load balancing** evenly distributes the packets transferred from
 eBox to the *Internet*. The simplest form of configuration involves establishing
-different **weights** for each *router* so that, if the connections available
+different **weights** for each gateway so that, if the connections available
 have different capacities, they can be used optimally.
 
-*Multirouter* rules allow for certain traffic types to be sent permanently by
-the same *router*, where required. Common examples include sending emails
-through a certain *router* or ensuring that a certain subnet is always routed
-from the Internet through the same *router*.
+Multigateway rules allow for certain traffic types to be sent permanently by
+the same gateway, where required. Common examples include sending emails
+through a certain gateway or ensuring that a certain subnet is always routed
+from the Internet through the same gateway.
 
 eBox uses the **iproute2** and **iptables** tools for the configuration required
-for the *multirouter* function. **iproute2** informs the *kernel* of the
-availability of several *routers*. For *multirouter* rules, **iptables** is used
+for the multigateway function. **iproute2** informs the *kernel* of the
+availability of several gateways. For multigateway rules, **iptables** is used
 to mark the packets of interest. These marks can be used from **iproute2** to
-determine the *router* through which a packet must be sent.
+determine the gateway through which a packet must be sent.
 
 There are several possible problems that must be considered. Firstly, the
 connection concept does not exist in **iproute2**. Therefore, with no other
 type of configuration, the packets belonging to the same connection could
-end up being sent by different *routers*, making communications impossible.
+end up being sent by different gateways, making communications impossible.
 To solve this, **iptables** is used to identify the different connections and
-ensure that all the packets of a connection are sent via the same *router*.
+ensure that all the packets of a connection are sent via the same gateway.
 
 The same applies to any incoming connections established. All response
-packets for a connection must be sent using the same *router* through which
+packets for a connection must be sent using the same gateway through which
 that connection was received.
 
-To establish a *multirouter* configuration with load balancing in eBox, as many
-*routers* as required must be defined in :menuselection:`Network --> Routers`.
-Using the :guilabel:`weight` parameter when configuring a *router*, it is
+To establish a multigateway configuration with load balancing in eBox, as many
+gateways as required must be defined in :menuselection:`Network --> Gateways`.
+Using the :guilabel:`weight` parameter when configuring a gateway, it is
 possible to determine the proportion of packets that each one will send. Where
-two *routers* are available and weights of 5 and 10, respectively, are
-established, 5 of every 15 packets will be sent through the first router,
+two gateways are available and weights of 5 and 10, respectively, are
+established, 5 of every 15 packets will be sent through the first gateway,
 while the the remaining 10 will be sent via the second.
 
 .. image:: images/routing/01-gateways.png
    :scale: 80
    :align: center
 
-*Multirouter* rules and traffic balancing are established in the
-:menuselection:`Network --> Traffic balancing` section. In this section,
+Multigateway rules and traffic balancing are established in the
+:menuselection:`Network --> Balance Traffic` section. In this section,
 it is possible to add rules to send certain packets to a specific
-*router*, depending on the input :guilabel:`interface`, the
+gateway, depending on the input :guilabel:`interface`, the
 :guilabel:`source` (this could be an IP address, an object, eBox or
 any), the :guilabel:`destination` (an IP address or a network
 object), the :guilabel:`service` with which this rule is to be associated and
-via which :guilabel:`routers` the traffic type specified is to be
-directed.
+via which :guilabel:`gateway` the traffic type specified is to be
+directed. In order to enable load balancing, just enable
+:guilabel:`Traffic balancing` checkbox.
 
 .. image:: images/routing/02-gateway-rules.png
    :scale: 80
@@ -350,7 +351,7 @@ directed.
 Practical example D
 -------------------
 
-Configure a *multirouter* scenario with several *routers* with different weights
+Configure a multigateway scenario with several gateways with different weights
 and check that it works using the **traceroute** tool.
 
 To do so:
@@ -358,7 +359,7 @@ To do so:
 #. **Action:**
    In pairs, leave one eBox with the current configuration and add
    a new *gateway* in the other, accessing
-   :menuselection:`Network --> Routers` via the interface and clicking on
+   :menuselection:`Network --> Gateways` via the interface and clicking on
    :guilabel:`Add new`, with the following data:
 
    :Name:         Gateway 2
@@ -387,17 +388,17 @@ To do so:
 
    Effect:
      The result of running **traceroute** shows the
-     different *routers* through which a packet passes to reach its
-     destination. On running it in a host with *multirouter*
-     configuration, the result of the first leaps between *routers*
-     should be different depending on the *router* chosen.
+     different gateways through which a packet passes to reach its
+     destination. On running it in a host with multigateway
+     configuration, the result of the first leaps between gateways
+     should be different depending on the gateway chosen.
 
 WAN Failover
 ============
-
+       
 If you are balancing traffic among two or more gateways, this feature is
 really useful. In a standard scenario without failover, imagine you are
-balancing the traffic between two routers and one of them goes down.
+balancing the traffic between two gateways and one of them goes down.
 Assuming both gateways have the same weight, half of the traffic will keep
 going through the downed gateway, causing connectivity problems to all the
 clients in the network.
