@@ -31,7 +31,7 @@
 #
 #  Setting "Auth-Type = LDAP" is ALMOST ALWAYS WRONG.  We
 #  really can't emphasize this enough.
-#	
+#
 ldap {
 	#
 	#  Note that this needs to match the name in the LDAP
@@ -138,6 +138,15 @@ ldap {
 	# compare_check_items = yes
 	# do_xlat = yes
 	# access_attr_used_for_allow = yes
+
+	#
+	#  The following two configuration items are for Active Directory
+	#  compatibility.  If you see the helpful "operations error"
+	#  being returned to the LDAP module, uncomment the next
+	#  two lines.
+	#
+	# chase_referrals = yes
+	# rebind = yes
 
 	#
 	#  By default, if the packet contains a User-Password,
