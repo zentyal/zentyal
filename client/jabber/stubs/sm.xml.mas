@@ -571,6 +571,17 @@
 
     <auto-create/>
 
+    <!-- Define maximum size in bytes of fields of vcards.
+         There is a recommendation that the avatar picture SHOULD NOT
+         be larger than 16 KiB. -->
+    <!--
+    <vcard>
+        <max-field-size>
+            <default>16384</default>
+            <avatar>16384</avatar>
+        </max-field-size>
+    </vcard>
+    -->
 
     <!-- Templates. If defined, the contents of these files will be
          stored in the users data store when they are created. -->

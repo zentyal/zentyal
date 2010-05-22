@@ -8,7 +8,7 @@ USER=jabber
 GROUP=jabber
 
 # run muc
-%       if (!($muc eq 'no')) {
+% if (!($muc eq 'no')) {
 MUC_RUN=1
 % } else {
 MUC_RUN=0

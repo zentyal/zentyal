@@ -10,11 +10,14 @@ GROUP=jabber
 # run router
 ROUTER_RUN=1
 
+# run resolver
+RESOLVER_RUN=1
+
 # run sm
 SM_RUN=1
 
 # run s2s
-%       if (!($external eq 'no')) {
+% if (!($external eq 'no')) {
 S2S_RUN=1
 % } else {
 S2S_RUN=0
