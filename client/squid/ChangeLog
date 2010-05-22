@@ -1,4 +1,5 @@
 1.5.1
+	+ Maximum file descriptor option in now set in /etc/default/squid
 	+ Bugfix: Log exception hits in dansguardian so whitelisted
 	  domains are now logged properly
 	+ Bugfix: Get virtual interfaces as well to set firewall rules
@@ -16,8 +17,6 @@
 	+ Fixed bug in filter profile by object with network addresses
 	+ Customized Dansguardian blocked page template
 	+ Exclude localnetworks from bandwidth throttling
-	+ Added maximum file descriptor option in config file. In the
-	future this have to be integrated in a ebox-wide option.
 	+ Added flash MIME types to default MIME types
 	+ Squid default cache_mem set to 128 MB
 	+ New option to configure maximum_object_size which defaults to 300 MB

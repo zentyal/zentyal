@@ -1,4 +1,5 @@
 # Copyright (C) 2005  Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2009-2010  eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -621,7 +622,6 @@ sub restartService
 sub _setConf
 {
   my ($self) = @_;
-  $self->_writeSquidUpstart();
   $self->_writeSquidConf();
 
   if ($self->_dgNeeded()) {
@@ -669,23 +669,6 @@ sub notifyAntivirusEnabled
         return;
 
     $self->setAsChanged();
-}
-
-
-sub _writeSquidUpstart
-{
-    my ($self) = @_;
-    my $maxFD = EBox::Config::configkey('max_fd');
-    EBox::Module::Base::writeConfFileNoCheck(
-                         '/etc/event.d/ebox.squid',
-                         'squid/ebox.squid.upstart.mas',
-                         [  maxFD => $maxFD],
-                         {
-                          uid => 0,
-                          gid => 0,
-                          mode => '0644',
-                         }
-                        );
 }
 
 
