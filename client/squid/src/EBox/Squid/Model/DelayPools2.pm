@@ -207,7 +207,7 @@ sub _table
     my $dataTable = {
         'tableName'          => 'DelayPools2',
         'printableTableName' => __x('Delay Pools Class 2'),
-        'defaultActions'     => [ 'add', 'del', 'editField', 'changeView' ],
+        'defaultActions'     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
         'modelDomain'        => 'Squid',
         'tableDescription'   => \@tableHead,
         'class'              => 'dataTable',
