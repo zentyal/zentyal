@@ -1,3 +1,5 @@
+1.5.2
+	+ Bugfix: use default squid init script instead of old missing ebox.squid
 1.5.1
 	+ Maximum file descriptor option in now set in /etc/default/squid
 	+ Bugfix: Log exception hits in dansguardian so whitelisted

@@ -178,7 +178,7 @@ sub compositeClasses
 
 sub isRunning
 {
-  return EBox::Service::running('ebox.squid');
+  return EBox::Service::running('squid');
 }
 
 
@@ -1124,7 +1124,7 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.squid'
+            'name' => 'squid'
         },
         {
             'name' => 'ebox.dansguardian',
