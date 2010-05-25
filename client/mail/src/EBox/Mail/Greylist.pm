@@ -157,7 +157,7 @@ sub writeUpstartFile
 
 sub upstartFile
 {
-    return UPSTART_DIR . '/' . GREYLIST_SERVICE;
+    return UPSTART_DIR . '/' . GREYLIST_SERVICE . '.conf';
 }
 
 
