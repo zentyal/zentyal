@@ -12,6 +12,8 @@ use EBox::Gettext;
 # Postfix master process configuration file.  For details on the format
 # of the file, see the master(5) manual page (command: "man 5 master").
 #
+# Do not forget to execute "postfix reload" after editing this file.
+#
 # ==========================================================================
 # service type  private unpriv  chroot  wakeup  maxproc command + args
 #               (yes)   (yes)   (yes)   (never) (100)
@@ -29,8 +31,6 @@ pickup    fifo  n       -       -       60      1       pickup
 cleanup   unix  n       -       -       -       0       cleanup
 qmgr      fifo  n       -       n       300     1       qmgr
 #qmgr     fifo  n       -       -       300     1       oqmgr
-
-
 rewrite   unix  -       -       -       -       -       trivial-rewrite
 bounce    unix  -       -       -       -       0       bounce
 defer     unix  -       -       -       -       0       bounce
@@ -38,6 +38,7 @@ trace     unix  -       -       -       -       0       bounce
 verify    unix  -       -       -       -       1       verify
 flush     unix  n       -       -       1000?   0       flush
 proxymap  unix  -       -       n       -       -       proxymap
+proxywrite unix -       -       n       -       1       proxymap
 smtp      unix  -       -       -       -       -       smtp
 # When relaying mail as backup MX, disable fallback_relay to avoid MX loops
 relay     unix  -       -       -       -       -       smtp
@@ -71,6 +72,33 @@ dovecot unix    -       n       n       -       -       pipe
 #
 maildrop  unix  -       n       n       -       -       pipe
   flags=DRhu user=vmail argv=/usr/bin/maildrop -d ${recipient}
+#
+# ====================================================================
+#
+# Recent Cyrus versions can use the existing "lmtp" master.cf entry.
+#
+# Specify in cyrus.conf:
+#   lmtp    cmd="lmtpd -a" listen="localhost:lmtp" proto=tcp4
+#
+# Specify in main.cf one or more of the following:
+#  mailbox_transport = lmtp:inet:localhost
+#  virtual_transport = lmtp:inet:localhost
+#
+# ====================================================================
+#
+# Cyrus 2.1.5 (Amos Gouaux)
+# Also specify in main.cf: cyrus_destination_recipient_limit=1
+#
+#cyrus     unix  -       n       n       -       -       pipe
+#  user=cyrus argv=/cyrus/bin/deliver -e -r ${sender} -m ${extension} ${user}
+#
+# ====================================================================
+# Old example of delivery via Cyrus.
+#
+#old-cyrus unix  -       n       n       -       -       pipe
+#  flags=R user=cyrus argv=/cyrus/bin/deliver -e -m ${extension} ${user}
+#
+# ====================================================================
 #
 # See the Postfix UUCP_README file for configuration details.
 #

@@ -1,4 +1,5 @@
-HEAD
+1.5
+	+ Update configuration templates with the newest versions from lucid
 	+ Bugfix, dovecot ldap auth now works when using AD Sync
 	+ Bugfix, using standard default smtp banner to avoid breaking
 	banner checks. Thanks to ivo@housesbg.com for pointing this

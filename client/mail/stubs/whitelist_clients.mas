@@ -15,8 +15,6 @@ spi-inc.org
 
 # greylisting.org: Southwest Airlines (unique sender, no retry)
 southwest.com
-# greylisting.org: Yahoo Groups servers (no retry)
-scd.yahoo.com
 # greylisting.org: isp.belgacom.be (wierd retry pattern)
 isp.belgacom.be
 # greylisting.org: Ameritrade (no retry)
@@ -161,6 +159,8 @@ berlin.ptb.de
 registrarmail.net
 # google.com (big pool, reported by Matthias Dyer)
 /^.*-out-.*\.google\.com$/
+# see Debian #504382 (Marcin Owsiany)
+/^mail.*\.google\.com$/
 # orange.fr (big pool, reported by Loïc Le Loarer)
 /^smtp\d+\.orange\.fr$/
 # citigroup.com (slow retry, reported by Michael Monnerie)
@@ -188,7 +188,22 @@ lists.sourceforge.net
 polytec.de
 # 2007-09-06: qualiflow.com (no retry, reported by Alex Beckert)
 /^mail\d+\.msg\.oleane\.net$/
-
+# 2007-09-07: nrl.navy.mil (no retry, reported by Axel Beckert)
+nrl.navy.mil
+# 2007-10-18: aliplast.com (long retry, reported by Johannes Feigl)
+mail.aliplast.com
+# 2007-10-18: inode.at (long retry, reported by Johannes Feigl)
+/^mx\d+\..*\.inode\.at$/
+# 2008-02-01: bol.com (no retry, reported by Frank Breedijk)
+/^.*?.server.arvato-systems.de$/
+# 2008-06-05: registeredsite.com (no retry, reported by Fred Kilbourn)
+/^(?:mail|fallback-mx)\d+.atl.registeredsite.com$/
+# 2008-07-17: mahidol.ac.th (no retry, reported by Alex Beckert)
+saturn.mahidol.ac.th
+# 2008-07-18: ebay.com (big pool, reported by Peter Samuelson)
+ebay.com
+# 2008-07-22: yahoo.com (big pool, reported by Juan Alonso)
+yahoo.com
 % foreach my $client (@whitelist) {
 <% $client %>
 % }

@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Warp Networks S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,8 +16,6 @@
 
 package EBox::Mail::Greylist;
 
-#
-
 use strict;
 use warnings;
 
@@ -30,7 +29,7 @@ use EBox::Global;
 use EBox::Dashboard::ModuleStatus;
 
 use constant {
-    EVENTD_DIR       => '/etc/event.d',
+    UPSTART_DIR       => '/etc/init',
     GREYLIST_SERVICE => 'ebox.postgrey',
     WHITELIST_CLIENTS_FILE => '/etc/postgrey/whitelist_clients',
 };
@@ -158,7 +157,7 @@ sub writeUpstartFile
 
 sub upstartFile
 {
-    return EVENTD_DIR . '/' . GREYLIST_SERVICE;
+    return UPSTART_DIR . '/' . GREYLIST_SERVICE;
 }
 
 
