@@ -37,9 +37,9 @@ use File::Slurp;
 use constant {
     MAIN_INC_FILE => '/etc/roundcube/main.inc.php',
     DES_KEY_FILE  => EBox::Config::conf() . 'roundcube.key',
-    SIEVE_PLUGIN_INC_USR_FILE => 
+    SIEVE_PLUGIN_INC_USR_FILE =>
            '/usr/share/roundcube/plugins/managesieve/config.inc.php',
-    SIEVE_PLUGIN_INC_ETC_FILE => 
+    SIEVE_PLUGIN_INC_ETC_FILE =>
            '/etc/roundcube/managesieve-config.inc.php',
 };
 
@@ -92,7 +92,7 @@ sub _setConf
     my $managesieve = $self->_managesieveEnabled();
 
     my $options = $self->model('Options');
-    push @{ $params }, 
+    push @{ $params },
         (
          managesieve => $managesieve,
          productName => $options->productName,
@@ -134,7 +134,7 @@ sub _setManageSievePluginConf
                    tls  => 0,
                   ]
     } else {
-        $params = 
+        $params =
             $self->model('RemoteServerConfiguration')->getSieveConfiguration();
     }
 
@@ -146,7 +146,7 @@ sub _setManageSievePluginConf
                         );
     # removing /usr file  and creatign a link to avoid package upgrades troubles
     EBox::Sudo::root('rm -f ' . SIEVE_PLUGIN_INC_USR_FILE);
-    EBox::Sudo::root('ln -s ' . SIEVE_PLUGIN_INC_ETC_FILE . ' ' . 
+    EBox::Sudo::root('ln -s ' . SIEVE_PLUGIN_INC_ETC_FILE . ' ' .
                                 SIEVE_PLUGIN_INC_USR_FILE);
 
 }
@@ -402,7 +402,7 @@ sub _generateDesKeyFile
     my $desKey = '';
     my $keyLength = 24;
     # length of 24 chars
-    my @chars = ('a' .. 'z', 'A' .. 'Z', 0 .. 9, 
+    my @chars = ('a' .. 'z', 'A' .. 'Z', 0 .. 9,
                  '(', ')', ',', '#',
                  qw([ ] . : " ! @ $ % ^ & * < > ~ + /)
                 );
@@ -414,7 +414,7 @@ sub _generateDesKeyFile
     }
 
     EBox::Sudo::root('rm -f ' . DES_KEY_FILE);
-    
+
     EBox::Sudo::command('touch ' . DES_KEY_FILE);
     EBox::Sudo::command('chmod og-rwx ' . DES_KEY_FILE);
     File::Slurp::write_file(DES_KEY_FILE, $desKey);

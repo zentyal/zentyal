@@ -38,7 +38,7 @@ $rcmail_config['managesieve_replace_delimiter'] = '';
 // spamtest, spamtestplus, subaddress, vacation, variables, virustest, etc.
 // Note: not all extensions are implemented
 
-// I have disabled all extensions not suupported by CMU sieve. If you are using 
+// I have disabled all extensions not supported by CMU sieve. If you are using
 // a  external server maybe you will want to enable some of them
 $rcmail_config['managesieve_disabled_extensions'] = array('date', 'encoded-character', 'environment', 'imap4flags', 'enotifiy', 'mailbox' );
 
