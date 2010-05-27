@@ -1,3 +1,6 @@
+HEAD
+	+ Using iptables statistic module instead of route for better traffic
+	  balancing
 1.5.1
 	+ Fixed nasty bug of traceroute in Diagnostic Tools with invalid host
 	+ Flush cache when regenerating routes
