@@ -19,6 +19,8 @@ $tlsRemote      => undef
 $logFile
 $statusLogFile
 
+$ippFile
+
 @advertisedNets => ()
 </%args>
 # EBox OpenVPN 2.0 config file for  server <% $name %>
@@ -62,7 +64,7 @@ server <% $subnet %> <% $subnetNetmask %>
 
 # Maintain a record of client <-> virtual IP address
 # associations in this file.  
-ifconfig-pool-persist ipp.txt
+ifconfig-pool-persist <% $ippFile %>
 
 
 # If enabled, this directive will configure

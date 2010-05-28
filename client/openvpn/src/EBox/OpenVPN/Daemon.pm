@@ -320,7 +320,7 @@ sub writeConfFile
 
     my $confFilePath   = $self->confFile($confDir);
     my $templatePath   = $self->confFileTemplate();
-    my $templateParams = $self->confFileParams();
+    my $templateParams = $self->confFileParams(confDir => $confDir);
 
     push @{$templateParams},
       (

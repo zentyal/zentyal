@@ -1,3 +1,6 @@
+HEAD
+        + Use a different persistent connection file for each daemon
+	instead of sharing a common one
 1.5.1
 	+ Added support for OpenVPN servers to listen only on a PPPoE iface
 	+ Bugfix: Escape some files to make download client bundle work

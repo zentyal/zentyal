@@ -330,9 +330,27 @@ sub confFileTemplate
     return "openvpn/openvpn.conf.mas";
 }
 
+
+# Method: ippFile
+#
+#  Parameters:
+#   confDir (named) - configuration dir for the server
+#
+#  returns the ipp file path
+sub ippFile
+{
+    my ($self, $confDir) = @_;
+    return $confDir . '/' .  $self->name() . '-ipp.txt';
+}
+
+
 sub confFileParams
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
+    my $confDir = $params{confDir};
+    defined $confDir or
+        throw EBox::Exceptions::MissingArgument('confDir');
+
     my @templateParams;
 
     push @templateParams, (dev => $self->iface());
@@ -346,6 +364,9 @@ sub confFileParams
         defined $value or next;
         push @templateParams, ($param => $value);
     }
+
+    
+    push @templateParams, (ippFile => $self->ippFile($confDir));
 
     # local parameter needs special mapping from iface -> ip
     push @templateParams, $self->_confFileLocalParam();
