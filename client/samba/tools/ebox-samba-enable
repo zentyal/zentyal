@@ -44,7 +44,7 @@ chmod 600 /etc/ldap.secret
 
 perl -e '
 open(FD, "/etc/fstab") or die "Could not open /etc/fstab";
-my @fstab = <FD>; 
+my @fstab = <FD>;
 close(FD);
 my $home = undef;
 my $root = undef;
@@ -62,14 +62,19 @@ for $line (@fstab) {
 my $line = $home ? $home : $root;
 my $mount;
 if ($line) {
-    my @fields = split(/[\t\s]+/, $fstab[$line]);	
+    my @fields = split(/[\t\s]+/, $fstab[$line]);
     $mount = $fields[1];
     if ($fstab[$line] =~ /usrquota/) {
         print "Fstab already set up to use quotas\n";
         exit 0;
     } else {
+        my $type = $fields[2];
         my $t = $fields[3];
-        $fstab[$line] =~ s/$t/$t,usrquota,grpquota,acl/;
+        my $attrs = "usrquota,grpquota";
+        unless ($type eq "xfs") {
+            $attrs .= ",acl";
+        }
+        $fstab[$line] =~ s/$t/$t,$attrs/;
     }
 } else {
     print "Could not find / or /home mounting points";
