@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -88,7 +89,7 @@ sub actions
             },
             {
              'action' => __('Add spam and ham system users'),
-             'reason' => 
+             'reason' =>
 __('This users are for the email accounts used for training the bayesian filter'),
              'module' => 'mailfilter',
             },
@@ -485,14 +486,14 @@ sub dovecotAntispamPluginConf
     }
 
 
-    my $conf = { 
+    my $conf = {
                 enabled => $enabled,
                 mailtrain => SA_LEARN_SCRIPT,
                 args       => '%u@%d',
                 spamArgs  => '1',
                 hamArgs   => '0',
                };
-    
+
     return $conf;
 }
 
@@ -779,7 +780,7 @@ sub report
     }, { 'key' => 'event'});
 
     $report->{'pop'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'SUM(clean) AS clean, SUM(spam) AS spam,' . 
+        'select' => 'SUM(clean) AS clean, SUM(spam) AS spam,' .
             'SUM(virus) AS virus',
         'from' => 'mailfilter_pop_report',
         'where' => "event = 'pop3_fetch_ok'"
