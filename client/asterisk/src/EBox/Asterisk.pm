@@ -46,7 +46,6 @@ use constant EXTCONFIGCONFFILE    => '/etc/asterisk/extconfig.conf';
 use constant RESLDAPCONFFILE      => '/etc/asterisk/res_ldap.conf';
 use constant USERSCONFFILE        => '/etc/asterisk/users.conf';
 use constant SIPCONFFILE          => '/etc/asterisk/sip.conf';
-use constant RTPCONFFILE          => '/etc/asterisk/rtp.conf';
 use constant EXTNCONFFILE         => '/etc/asterisk/extensions.conf';
 use constant MEETMECONFFILE       => '/etc/asterisk/meetme.conf';
 use constant VOICEMAILCONFFILE    => '/etc/asterisk/voicemail.conf';
@@ -150,11 +149,6 @@ sub usedFiles
                         'reason' => __('To configure the SIP trunk for local users and external providers.')
                       });
 
-    push (@usedFiles, { 'file' => RTPCONFFILE,
-                        'module' => 'asterisk',
-                        'reason' => __('To configure the RTP port ranges.')
-                      });
-
     push (@usedFiles, { 'file' => EXTNCONFFILE,
                         'module' => 'asterisk',
                         'reason' => __('To configure the dialplan.')
@@ -196,7 +190,7 @@ sub enableActions
     EBox::Sudo::root(EBox::Config::share() .
                      '/ebox-asterisk/ebox-asterisk-enable');
 }
- 
+
 
 # Method: _daemons
 #
@@ -343,7 +337,7 @@ sub _setExtensions
 sub _setVoicemail
 {
     my ($self) = @_;
-    
+
     my $model = $self->model('Settings');
     my $vmextn = $model->voicemailExtnValue();
 
