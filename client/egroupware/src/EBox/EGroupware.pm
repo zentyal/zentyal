@@ -120,7 +120,7 @@ sub usedFiles
                         'reason' => __('To configure eGroupware access settings')
                       });
 
-    push (@usedFiles, { 'file' => '/etc/postgresql/8.3/main/pg_hba.conf',
+    push (@usedFiles, { 'file' => '/etc/postgresql/8.4/main/pg_hba.conf',
                         'module' => 'egroupware',
                         'reason' => __('To allow local access to egroupware database')
                       });
