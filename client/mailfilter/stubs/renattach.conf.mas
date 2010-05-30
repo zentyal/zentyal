@@ -136,10 +136,10 @@ search_zip = yes
 # but the act of inserting arbitrary text into an email can cause
 # new problems. Use with caution.
 #
- warning_text =	*******************
- warning_text =	MAIL SYSTEM WARNING
- warning_text =	Attachments removed
- warning_text =	*******************
+warning_text =	*******************
+warning_text =	MAIL SYSTEM WARNING
+warning_text =	Attachments removed
+warning_text =	*******************
 
 
 # Inserts a warning message into HTML portions of the email when

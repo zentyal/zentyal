@@ -8,10 +8,10 @@ $port         => 10024
 
 @allowedExternalMTAs => ()
 
-$ldapBase 
-$ldapQueryFilter 
-$ldapBindDn 
-$ldapBindPasswd 
+$ldapBase
+$ldapQueryFilter
+$ldapBindDn
+$ldapBindPasswd
 
 $antivirusActive => 1
 $clamdSocket   => undef
@@ -22,7 +22,7 @@ $antispamActive     => 1
 $spamPolicy         => 'D_PASS'
 
 $spamThreshold    => 5
-$spamSubject         
+$spamSubject
 
 $antispamLocalTestsOnly => 0
 $antispamAutoWhitelist  => 1
@@ -57,9 +57,9 @@ bindPasswd => $ldapBindPasswd,
 &>
 <& logging, debug => $debug &>
 <& notificationsAndDestiny,
-  virusPolicy  => $virusPolicy, 
-  spamPolicy   => $spamPolicy, 
-  bannedPolicy => $bannedPolicy, 
+  virusPolicy  => $virusPolicy,
+  spamPolicy   => $spamPolicy,
+  bannedPolicy => $bannedPolicy,
   bheadPolicy  => $bheadPolicy ,
   adminAddress => $adminAddress,
 &>
@@ -68,8 +68,8 @@ bindPasswd => $ldapBindPasswd,
 <& resourcesLimits &>
 <& externalPrograms &>
 <& antivirus, active =>$antivirusActive,  clamdSocket => $clamdSocket &>
-<& spamAssassin, 
-  active => $antispamActive, 
+<& spamAssassin,
+  active => $antispamActive,
 
   spamThreshold  => $spamThreshold,
   spamSubject    => $spamSubject,
@@ -98,7 +98,7 @@ bindPasswd => $ldapBindPasswd,
 <%def essentialSettings>
 <%args>
 $myhostname
-$mydomain  
+$mydomain
 @localDomains
 
 $maxServers  => 2
@@ -1160,7 +1160,7 @@ $spamSubject
 @whitelist    => ()
 @blacklist    => ()
 </%args>
-% if (not $active) { 
+% if (not $active) {
 # anti-spam disabled
   @bypass_spam_checks_acl  = qw( . );  # DISABLE anti-spam code
 %  return ;

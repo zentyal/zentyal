@@ -1,4 +1,5 @@
-HEAD
+1.5
+	+ Update configuration templates with the configuration files from lucid
 	+ Bugfix: fixed training with uploaded files
 	+ Bugfix: removed duplicates from spamassasin trusted_networks variable
 1.4.2
