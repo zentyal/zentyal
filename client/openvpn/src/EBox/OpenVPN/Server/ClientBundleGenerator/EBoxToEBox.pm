@@ -1,11 +1,11 @@
 package EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
 use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
 
-# package:
 use strict;
 use warnings;
 
 use EBox::Config;
+use EBox::Gettext;
 use File::Copy;
 use File::Slurp qw(write_file read_file);
 
@@ -109,8 +109,17 @@ sub initParamsFromBundle
     system "rm -rf $tmpDir";
     EBox::FileSystem::makePrivateDir($tmpDir);
 
-    my $extractCmd = "tar xzf '$bundleFile' -C '$tmpDir'";
-    EBox::Sudo::root($extractCmd);
+    try {
+        my $extractCmd = "tar xzf '$bundleFile' -C '$tmpDir'";
+        EBox::Sudo::root($extractCmd);
+    } otherwise {
+        throw EBox::Exceptions::External(
+__('This bundle is not a valid eBox-to-eBox configuration bundle. (Cannot unpack it)')
+                                         );
+    };
+
+    $class->_checkBundleContents($tmpDir);
+
 
     my @initParams;
     try {
@@ -133,10 +142,47 @@ sub initParamsFromBundle
     return @initParams;
 }
 
+
+sub _checkBundleContents
+{
+    my ($class, $tmpDir) = @_;
+
+    my $serverConfFile = $class->serverConfigurationFile($tmpDir);
+    if (not -r $serverConfFile) {
+        throw EBox::Exceptions::External(
+__('This bundle is not a valid eBox-to-eBox configuration bundle. (Missing server configuration file)')
+                                        );
+    }
+
+    my $caCertificate = $class->caFile($tmpDir);
+    if (not -r $caCertificate) {
+        throw EBox::Exceptions::External(
+__('This bundle is not a valid eBox-to-eBox configuration bundle. (Missing CA certificate file)')
+                                        );
+    }
+
+    my $certificate   = $class->certFile($tmpDir);
+    if (not -r $certificate) {
+        throw EBox::Exceptions::External(
+__('This bundle is not a valid eBox-to-eBox configuration bundle. (Missing certificate file)')
+                                        );
+    }
+
+    my $certificateKey = $class->privateKeyFile($tmpDir);
+    if (not -r $certificateKey) {
+        throw EBox::Exceptions::External(
+__('This bundle is not a valid eBox-to-eBox configuration bundle. (Missing certificate private key file)')
+                                        );
+    }
+
+    
+}
+
 sub _serverConfigurationFromFile
 {
     my ($class, $tmpDir) = @_;
     my $file = $class->serverConfigurationFile($tmpDir);
+
 
     my $contents = read_file($file);
     my %conf = split ',', $contents;
