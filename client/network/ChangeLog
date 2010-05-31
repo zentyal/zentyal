@@ -1,4 +1,5 @@
 HEAD
+	+ Traceroute works again in network diagnostic tools
 	+ Using iptables statistic module instead of route for better traffic
 	  balancing
 1.5.1

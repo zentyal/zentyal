@@ -3010,7 +3010,8 @@ sub traceroute # (host)
     (checkIP($host) or checkDomainName($host)) or
         throw EBox::Exceptions::InvalidData
             ('data' => __('Host name'), 'value' => $host);
-    return `traceroute -I -n $host 2>&1`;
+    my $out = EBox::Sudo::rootWithoutException("traceroute -I -n $host 2>&1");
+    return join("\n", @{$out});
 }
 
 # Method: resolv
