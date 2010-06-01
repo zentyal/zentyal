@@ -738,6 +738,42 @@ protocol pop3 {
 }
 
 ##
+## ManageSieve specific settings
+##
+
+protocol managesieve {
+  # Login executable location.
+  login_executable = /usr/lib/dovecot/managesieve-login
+
+  # ManageSieve executable location. See IMAP's mail_executable above for 
+  # examples how this could be changed.
+  mail_executable = /usr/lib/dovecot/managesieve
+
+  # Maximum ManageSieve command line length in bytes. This setting is 
+  # directly borrowed from IMAP. But, since long command lines are very
+  # unlikely with ManageSieve, changing this will not be very useful.  
+  managesieve_max_line_length = 65536
+
+  # ManageSieve logout format string:
+  #  %i - total number of bytes read from client
+  #  %o - total number of bytes sent to client
+  #managesieve_logout_format = bytes=%i/%o
+
+  # To fool ManageSieve clients that are focused on timesieved you can
+  # specify the IMPLEMENTATION capability that the dovecot reports to clients 
+  # (default: "dovecot").
+  managesieve_implementation_string = dovecot
+
+  # The ManageSieve service also uses the sieve and sieve_dir settings
+  # of the Sieve plugin. These are configured in the plugin {} section of
+  # this config file.
+
+  # uncomment to debug sieve
+  # mail_debug=yes
+
+  listen = *:4190
+}
+
 ## LDA specific settings
 ##
 
@@ -783,7 +819,7 @@ protocol lda {
 
   # Enabling Sieve plugin for server-side mail filtering and quota for quota
   # support
-  mail_plugins = cmusieve quota
+  mail_plugins = sieve quota
 }
 
 ##
@@ -1016,8 +1052,6 @@ auth default {
     #args =
   #}
 
-
-
   #
   # User database specifies where mails are located and what user/group IDs
   # own them. For single-UID configuration use "static".
@@ -1174,17 +1208,6 @@ dict {
 # Path to Berkeley DB's configuration file. See doc/dovecot-db-example.conf
 #dict_db_config =
 
-protocol managesieve {
-    listen = *:4190
-    login_executable = /usr/lib/dovecot/managesieve-login
-    mail_executable = /usr/lib/dovecot/managesieve
-    managesieve_max_line_length = 65536
-    managesieve_implementation_string = dovecot
-    sieve = <% $sieveDir %>/%d/%u/sieve-script
-    sieve_storage = <% $sieveDir %>/%d/%u
-#   mail_debug=yes # uncomment to debug sieve
-}
-
 ##
 ## Plugin settings
 ##
@@ -1282,6 +1305,16 @@ plugin {
   # size and vsize are available only for expunge and copy events.
   #mail_log_fields = uid box msgid size
 
+  # Sieve plugin (http://wiki.dovecot.org/LDA/Sieve) and ManageSieve service
+  # 
+  # Location of the active script. When ManageSieve is used this is actually 
+  # a symlink pointing to the active script in the sieve storage directory. 
+  sieve = <% $sieveDir %>/%d/%u/sieve-script
+
+  sieve_global_path = <% $sieveDir %>/default.sieve
+
+  sieve_storage = <% $sieveDir %>/%d/%u
+
   # autocreate plugin http://wiki.dovecot.org/Plugins/Autocreate
   autocreate = Trash
   autocreate2 = Spam
@@ -1291,16 +1324,6 @@ plugin {
   autosubscribe2 = Spam
   autosubscribe3 = Sent
   autosubscribe4 = Drafts
-
-  # sieve script location
-  sieve = <% $sieveDir %>/%d/%u/sieve-script
-  # Path to a global sieve script file, which gets executed ONLY if
-  # user's private Sieve script doesn't exist. (e.g. /etc/dovecot/default.sieve)
-  # (v1.0.1 and older called this setting "global_script_path")
-  sieve_global_path = <% $sieveDir %>/default.sieve
-
-  # Directory for :global include scripts (for v1.1 include extension)
-  #sieve_global_dir =
 
 % if ($antispamPlugin->{enabled} ) {
   <& .antispamPlugin, %{ $antispamPlugin } &>
