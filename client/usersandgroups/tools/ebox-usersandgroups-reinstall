@@ -17,7 +17,7 @@ do
 done
 
 sudo apt-get -y --force-yes remove --purge slapd
-sudo rm -rf /var/lib/ldap* /etc/ldap/*
+sudo rm -rf /var/lib/ldap* /etc/ldap*
 
 echo "Removal complete. Reinstalling the removed eBox modules..."
 

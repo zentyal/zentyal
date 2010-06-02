@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Don't do anything if egroupware database doesn't exists
+# Don't do anything if egroupware database doesn't exist
 if ! su postgres -c 'psql egroupware -c "" 2>/dev/null'
 then
     exit 0
