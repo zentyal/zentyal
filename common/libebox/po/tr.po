@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:58+0200\n"
-"PO-Revision-Date: 2009-07-06 12:07+0200\n"
-"Last-Translator: Akin Sagbilge <akinsagbilge@crypttech.com>\n"
+"PO-Revision-Date: 2010-04-30 14:01+0200\n"
+"Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,7 +59,6 @@ msgstr ""
 "dosyalarında bulunabilir."
 
 #: src/EBox/CGI/Base.pm:564
-#, fuzzy
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -68,7 +67,6 @@ msgstr ""
 "dosyalarında bulunabilir."
 
 #: src/EBox/CGI/Base.pm:570
-#, fuzzy
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -124,7 +122,7 @@ msgstr "Dizin bulunamadı: {d}"
 
 #: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
-msgstr ""
+msgstr "Sayı 1 ile 4096 arasında olmalıdır"
 
 #: src/EBox/Validate.pm:700
 #, perl-brace-format
@@ -192,33 +190,31 @@ msgstr "{row} düzenleniyor"
 
 #: src/templates/ajax/tableBody.mas:190
 msgid "Search"
-msgstr ""
+msgstr "Ara"
 
 #: src/templates/ajax/tableBody.mas:336
-#, fuzzy
 msgid "Add"
-msgstr "Yeni ekle"
+msgstr "Ekle"
 
 #: src/templates/ajax/tableBody.mas:360
-#, fuzzy
 msgid "Cancel"
-msgstr "Değiştir"
+msgstr "Vazgeç"
 
 #: src/templates/ajax/tableBody.mas:440
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: src/templates/ajax/tableBody.mas:442
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: src/templates/ajax/tableBody.mas:447
 msgid "Read-only row: edit disabled"
-msgstr ""
+msgstr "Salt-okunur satır: Düzenleme yapılamaz"
 
 #: src/templates/ajax/tableBody.mas:448
 msgid "Read-only row: delete disabled"
-msgstr ""
+msgstr "Salt-okunur satır: Silinemez."
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -250,13 +246,12 @@ msgid "Optional"
 msgstr "Opsiyonel"
 
 #: src/templates/ajax/tablePager.mas:46
-#, fuzzy
 msgid "Page"
-msgstr "Değiştir"
+msgstr "Sayfa"
 
 #: src/templates/ajax/tablePager.mas:47
 msgid "of"
-msgstr ""
+msgstr "  "
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
@@ -293,7 +288,7 @@ msgstr ""
 "dolayı istenen sayfa mevcut olmayabilir."
 
 #: src/templates/ebox/pageNotFound.mas:9
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
 "mailing lists"
@@ -306,7 +301,6 @@ msgid "we're sorry"
 msgstr "Çok üzgünüz"
 
 #: src/templates/ebox/pageNotFound.mas:13
-#, fuzzy
 msgid "The page cannot be found"
 msgstr "Sayfa bulunamadı"
 
@@ -319,7 +313,6 @@ msgid "hide help"
 msgstr "Yardımları gizle"
 
 #: src/templates/language.mas:10
-#, fuzzy
 msgid "Language Selection"
 msgstr "Dil seçimi"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:58+0200\n"
-"PO-Revision-Date: 2010-04-19 12:09+0200\n"
+"PO-Revision-Date: 2010-05-06 16:37+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -103,11 +103,11 @@ msgstr "Lehekülge ei leitud"
 #: src/EBox/Config.pm.in:75
 #, perl-brace-format
 msgid "Could not open the config file {file}."
-msgstr "Seadistustefaili {file} avamine nurjus"
+msgstr "Seadistusfaili {file} avamine nurjus"
 
 #: src/EBox/Config.pm.in:170
 msgid "The ebox user has not been set in the config file."
-msgstr "Eboxi kasutajat ei ole seadistustefailis määratud."
+msgstr "Eboxi kasutajat ei ole seadistusfailis määratud."
 
 #: src/EBox/Sudo.pm:268
 #, perl-brace-format
@@ -293,7 +293,7 @@ msgstr ""
 "Võimalik, et eBoxi seadistuste või tarkvara muutmise tõttu ei ole küsitud "
 "lehekülg enam saadaval"
 
-# mis see mailing list siin täpsemalt on?
+#  
 #: src/templates/ebox/pageNotFound.mas:9
 #, perl-brace-format
 msgid ""
@@ -301,7 +301,7 @@ msgid ""
 "mailing lists"
 msgstr ""
 "Kui vajad rohkem abi võid tutvuda dokumentatsiooniga kodulehel {homepage} "
-"või külastada meililisti."
+"või külastada e-posti listi."
 
 #: src/templates/ebox/pageNotFound.mas:12
 msgid "we're sorry"
