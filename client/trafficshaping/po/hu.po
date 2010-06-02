@@ -1,3 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-27 16:19+0200\n"
+"PO-Revision-Date: 2010-05-27 16:19+0200\n"
+"Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"X-Generator: Pootle 1.1.0\n"
+
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:130
 msgid ""
 msgstr ""
@@ -41,14 +54,14 @@ msgstr ""
 "sebességnek {gR}."
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
 "increase maximum upload traffic associated to external interfaces"
 msgstr ""
-"A limitált sebesség {lR} kbit/sec kisebb kell legyen mint {maxLR}kbit/s vagy "
-"növelje meg a maximális feltöltési sebességet az ehhez a külső interfészhez "
-"tartozó átjárónál"
+"A korlátozott sebesség {lR} kbit/sec kisebb kell legyen mint {maxLR} kbit/s "
+"vagy növelje meg a maximális feltöltési sebességet az ehhez a külső "
+"interfészhez tartozó átjárónál"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
 #, perl-brace-format

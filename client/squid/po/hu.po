@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:57+0200\n"
-"PO-Revision-Date: 2010-04-09 13:41+0200\n"
+"PO-Revision-Date: 2010-06-01 14:11+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -96,23 +96,25 @@ msgstr "IP alapú csoportszűrés"
 
 #: src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
-msgstr ""
+msgstr "Blokkolt lapok sablonjának felülírása"
 
 #: src/EBox/Squid.pm:302
 msgid ""
 "Dansguardian blocked page templates will be overwritten with eBox customized "
 "templates."
 msgstr ""
+"A Dansguardian blokkolt lapok sablonja felül lesz írva az eBox "
+"személyreszabott sablonjával"
 
 #: src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr "Itt kell megadni a cache_mem változó értékét az eBox beállító fájlhoz."
 
 #: src/EBox/Squid.pm:351
-#, fuzzy
 msgid ""
 "You must set the max_object_size variable in the ebox configuration file"
-msgstr "Itt kell megadni a cache_mem változó értékét az eBox beállító fájlhoz."
+msgstr ""
+"Be kell állítania a max_obiect_size változót az eBox konfigurációs fájljában"
 
 #: src/EBox/Squid.pm:1067
 msgid "Enabled"
@@ -156,7 +158,7 @@ msgstr "Általános"
 
 #: src/EBox/Squid.pm:1118 src/EBox/Squid/Composite/DelayPools.pm:69
 msgid "Bandwidth Throttling"
-msgstr ""
+msgstr "Sávszélesség gyorsítása"
 
 #: src/EBox/Squid.pm:1121
 msgid "Objects' Policy"
@@ -491,6 +493,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
+"A(z) {object} üres. Kérem adjon hozzá legalább egy tagot, hogy használhassa "
+"az objektumot."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:102
 #: src/EBox/Squid/Model/DelayPools1.pm:100
@@ -499,6 +503,8 @@ msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
+"A(z) {object} objektum használatban van: {table}. Ahhoz, hogy itt hozzáadja, "
+"előbb ki kell ott törölnie"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:119
 #: src/EBox/Squid/Model/DelayPools1.pm:116
@@ -506,29 +512,28 @@ msgstr ""
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
+"Ha {first} korlátlanra van állítva, akkor a {second} is korlátlan kell "
+"legyen"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
 msgid "{clt_rate} is greater than {net_rate}"
-msgstr ""
+msgstr "{clt_rate} nagyobb mint {net_rate}"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:159
 #: src/EBox/Squid/Model/DelayPools1.pm:143
-#, fuzzy
 msgid "Network object"
-msgstr "Objektumok listája"
+msgstr "Hálózati objektum"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:167
-#, fuzzy
 msgid "Rate"
-msgstr "Dátum"
+msgstr "Átvitel"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:170
 #: src/EBox/Squid/Model/DelayPools2.pm:190
 #: src/EBox/Squid/Model/DelayPools1.pm:154
-#, fuzzy
 msgid "Bytes/s"
-msgstr "Bájt"
+msgstr "Bájt/s"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:173
 #: src/EBox/Squid/Model/DelayPools1.pm:157
@@ -536,10 +541,11 @@ msgid ""
 "Maximum download bandwidth rate for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"A hálózat maximális átviteli sebessége. Írjon -1-et ha nem szeretné megadni."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:177
 msgid "Maximum Size"
-msgstr ""
+msgstr "Maximális méret"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:183
 #: src/EBox/Squid/Model/DelayPools1.pm:167
@@ -547,28 +553,34 @@ msgid ""
 "Maximum unthrottled download size for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Maximális letöltési sebesség ezen a hálózaton. Írjon -1-et ha ki szeretné "
+"kapcsolni az opciót."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:187
 msgid "Client Rate"
-msgstr ""
+msgstr "Felhasználói sebesség"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:193
 msgid ""
 "Maximum download bandwidth rate per client. Use -1 to disable this option."
 msgstr ""
+"Felhasználónkénti maximális letöltési sebesség. Írjon -1-et ha ki szeretné "
+"kapcsolni az opciót."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:197
 msgid "Client Maximum Size"
-msgstr ""
+msgstr "Felhasználónkénti maximális méret"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:203
 msgid ""
 "Maximum unthrottled download size per client. Use -1 to disable this option."
 msgstr ""
+"Felhasználónkénti maximális letöltési sebesség. Írjon -1-et ha ki szeretné "
+"kapcsolni az opciót."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:209
 msgid "Delay Pools Class 2"
-msgstr ""
+msgstr "Class 2 osztályú késleltetési szabály"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:216
 #, perl-brace-format
@@ -576,23 +588,26 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}. The client number is limited to 256."
 msgstr ""
+"Ha a kérések száma túllépi a {max} számot, a HTTP proxy a megadott {rate} "
+"értékre fogja korlátozni a sávszélességet. A felhasználók maximális száma "
+"256 lehet."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:222
 #: src/EBox/Squid/Model/DelayPools1.pm:186
 msgid "pool"
-msgstr ""
+msgstr "pool"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:151
 msgid "Network Rate"
-msgstr ""
+msgstr "Hálózati átvitel"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:161
 msgid "Network Maximum Size"
-msgstr ""
+msgstr "Hálózat maximális mérete"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:173
 msgid "Delay Pools Class 1"
-msgstr ""
+msgstr "Class 1 osztályú késleltetési szabály"
 
 #: src/EBox/Squid/Model/DelayPools1.pm:180
 #, perl-brace-format
@@ -600,6 +615,8 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}."
 msgstr ""
+"Ha a kérések száma túllépi a {max} számot, a HTTP proxy a megadott {rate} "
+"értékre fogja korlátozni letöltési sebességet."
 
 #: src/EBox/Squid/Model/UseDefaultDomainFilter.pm:58
 #: src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:57
@@ -1056,7 +1073,7 @@ msgstr "Kiterjesztés frissítve"
 
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:106
 msgid "Ignore"
-msgstr "Mellőzés"
+msgstr "Mellőz"
 
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:120
 msgid "This list has not categories"
@@ -1293,6 +1310,11 @@ msgid ""
 "match from the source is done. If a network object does not match any rule, "
 "then no bandwidth throttling is done to it"
 msgstr ""
+"A Class 1 típusú szabályok lehetővé teszik a nagy méretű letöltések "
+"korlátozását addig a Class 2 típusúakkal a tartós korlátozásokat lehet "
+"beállítani. A Class 1 szabályoknak nagyobb a prioritásuk mint a Class 2-nek "
+"és az első egyező szabály lesz alkalmazva. Ha nincs egyező szabály, akkor "
+"nem lesz korlátozva a kapcsolat"
 
 #: src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
@@ -1325,18 +1347,17 @@ msgid "Days of the week"
 msgstr "A hét napjai"
 
 #: stubs/template.html.mas:9
-#, fuzzy
 msgid "Access Denied"
-msgstr "Hozzáférési kérések"
+msgstr "Hozzáférés megtagadva"
 
 #: stubs/template.html.mas:30
 msgid "Access has been Denied"
-msgstr ""
+msgstr "A hozzáférés meg lett tagadva"
 
 #: stubs/template.html.mas:37
 #, perl-brace-format
 msgid "Access to the page: {page} has been denied for the following reason"
-msgstr ""
+msgstr "A(z) {page} oldalhoz a hozzáférés meg lett tagadva a következő okból"
 
 #: stubs/template.html.mas:41
 msgid ""
@@ -1344,15 +1365,19 @@ msgid ""
 "contain, or is labeled as containing, material that has been deemed "
 "inappropriate."
 msgstr ""
+"Ön azért tátja ezt a figyelmeztetést, mivel a kért tartalom vagy annak "
+"részei nem megfelelő részeket tartalmaznak."
 
 #: stubs/template.html.mas:42
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
 msgstr ""
+"Ha bármilyen kérdése lenne kérem vegye fel a kapcsolatot a rendszergazdával "
+"vagy a hálózat felelősével."
 
 #: stubs/template.html.mas:47
 msgid "Powered by"
-msgstr ""
+msgstr "Powered by"
 
 #~ msgid "Threshold a"
 #~ msgstr "Határértéke"

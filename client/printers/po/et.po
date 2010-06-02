@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-printers 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:56+0200\n"
-"PO-Revision-Date: 2010-03-26 10:29+0100\n"
+"PO-Revision-Date: 2010-05-06 17:29+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -260,7 +260,6 @@ msgstr "Printerite lisamiseks ning halduseks"
 
 # vbla ... cupsd-l kuulata ...
 #: src/EBox/Printers.pm:106
-#, fuzzy
 msgid "To enable standalone cupsd listen on internal interfaces"
 msgstr "Eraldiseisva cups deemoni sisemiste liideste kuulamiseks"
 

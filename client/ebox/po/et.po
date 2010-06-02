@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:55+0200\n"
-"PO-Revision-Date: 2010-04-28 23:38+0200\n"
+"PO-Revision-Date: 2010-05-07 19:36+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -44,13 +44,13 @@ msgstr "Linnukeste arv teatamiseks"
 msgid "must be greater than zero"
 msgstr "peab olema suurem kui null"
 
-# Koodist ei loe välja ning vaja rohkem täpsemat tausta uurida
+# Käivitatav ei tööta
 #: src/EBox/ProgressIndicator.pm:147
 #, fuzzy
 msgid "Executable has not been run"
 msgstr "Käivitatav ei ole käivitatud"
 
-# Koodist ei loe välja ning vaja rohkem täpsemat tausta uurida
+# Käivitatav ei tööta
 #: src/EBox/ProgressIndicator.pm:264
 #, fuzzy
 msgid "The executable has not run"
@@ -58,6 +58,7 @@ msgstr "Käivitatavat ei käivitatud"
 
 # Koodist ei loe välja ning vaja rohkem täpsemat tausta uurida
 #: src/EBox/ProgressIndicator.pm:395
+#, fuzzy
 msgid "The executable has already been started"
 msgstr "Käivitatav on juba käivitunud"
 
@@ -208,7 +209,7 @@ msgid ""
 "domain happens. "
 msgstr ""
 "Hoiatus! Domeeni logijälgija ei ole lubatud. Selleks, et domeeni logimist "
-"jälgida, liigu sektsiooni 'Seadistamine' ja luba vähemalt üks logi."
+"jälgida, liigu leheküljele 'Seadistamine' ja luba vähemalt üks logi."
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
@@ -647,10 +648,10 @@ msgstr "taastada jäänud mooduleid"
 msgid "Restore successful"
 msgstr "Taastamine edukalt lõpetatud"
 
+# Seadistamise aruanne
 #: src/EBox/CGI/EBox/ConfigurationReport.pm:29 src/EBox/SysInfo.pm.in:276
-#, fuzzy
 msgid "Configuration report"
-msgstr "Seadistuste taastamine"
+msgstr "Seadistuste aruanne"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
 #: src/EBox/SysInfo.pm.in:265
@@ -937,7 +938,7 @@ msgstr "varu"
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr "Järgnevad moodulid on lubatud, kuid ei ole käivitatud: {modules}\n"
+msgstr "Järgnevad moodulid on lubatud, kuid ei tööta: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
@@ -955,11 +956,11 @@ msgid ""
 "and it has been stopped"
 msgstr ""
 "Teenus {service} on taaskäivitunud {restart} korda {time} sekundi jooksul "
-"ning on nüüdseks seisatud"
+"ning on nüüdseks peatatud"
 
 #: src/EBox/Event/Watcher/State.pm:126
 msgid "eBox is up and running"
-msgstr "eBox on käivitunud"
+msgstr "eBox töötab"
 
 #: src/EBox/Event/Watcher/State.pm:132
 msgid "eBox is critically down"
@@ -975,7 +976,6 @@ msgstr "Kontrolli, kas eBox on töökorras või mitte"
 
 #  
 #: src/EBox/Event/Watcher/Log.pm:203
-#, fuzzy
 msgid "Log observer"
 msgstr "Logijälgija"
 
@@ -1021,7 +1021,7 @@ msgstr "Tellimispäring nurjus: {message}"
 
 # peaks olema mitte autoriseerimine vaid autentimine
 #: src/EBox/Event/Dispatcher/Jabber.pm:266
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
 msgstr "Autentimine nurjus: {result} - {message}"
 
@@ -1070,7 +1070,7 @@ msgstr "Selle oleku tuvastamiseks vaata {url}"
 #: src/EBox/PgDBEngine.pm:77
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
-msgstr "Sa pead eBoxi seadistustefailis määrama muutuja {variable}"
+msgstr "Sa pead eBoxi seadistusfailis määrama muutuja {variable}"
 
 #: src/EBox/PgDBEngine.pm:359
 #, perl-brace-format
@@ -1329,15 +1329,13 @@ msgstr "Toiming"
 msgid "Params"
 msgstr "Parameetrid"
 
-# Sisse kantud
+# vt liides
 #: src/EBox/Logs.pm:723
-#, fuzzy
 msgid "Committed"
 msgstr "Sissekanded"
 
 # Haldur
 #: src/EBox/Logs.pm:728
-#, fuzzy
 msgid "Admin"
 msgstr "Administraator"
 
@@ -1345,9 +1343,8 @@ msgstr "Administraator"
 msgid "Log messages"
 msgstr "Logi sõnumid"
 
-# kas eluaegne parameeter on sobilik või mitte?
+#  
 #: src/EBox/Logs.pm:849
-#, fuzzy
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Eluaegne parameeter peab olema positiivne arv tundides"
 
@@ -1378,9 +1375,9 @@ msgstr "See peaks olema mõni järgnevatest väärtustest: {values}"
 
 # Lubatud toimingud on: {view} ja {cView}
 #: src/EBox/Model/Composite.pm:655
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
-msgstr "Toimingud mis on lubatud: {view} ja {cView}"
+msgstr "Lubatud toimingud on: {view} ja {cView}"
 
 #: src/EBox/Model/Composite.pm:778
 msgid "Choose one of the following:"
@@ -1394,9 +1391,8 @@ msgstr ""
 "Andmeid, mida proovid eemaldada, kasutatakse\n"
 "järgnevates sektsioonides:"
 
-# tekkis kahtlus originaalteksti õigsuses
+#  
 #: src/EBox/Model/ModelManager.pm:515
-#, fuzzy
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
@@ -1606,14 +1602,15 @@ msgstr "Tuuma versioon"
 msgid "System load"
 msgstr "Süsteemi koormus"
 
+# Tööaeg
 #: src/EBox/SysInfo.pm.in:108
 #, fuzzy
 msgid "Uptime"
-msgstr "Aeg"
+msgstr "Töövõimeaeg"
 
 #: src/EBox/SysInfo.pm.in:109
 msgid "Users"
-msgstr ""
+msgstr "Kasutajad"
 
 #: src/EBox/SysInfo.pm.in:155 src/EBox/SysInfo.pm.in:248
 msgid "Module Status"
@@ -1663,7 +1660,7 @@ msgstr "Skripti {scriptName} käivitamine"
 
 # {d} kasutusandmed puuduvad. Kas oled kindel, et tegemist on sobiva kettaga?
 #: src/EBox/Report/DiskUsage.pm:61
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No usage data for {d}. Are you sure is a valid disk?"
 msgstr ""
 "Kasutusandmed {d} kohta puuduvad. Kas oled kindel, et tegemist on sobiva "
@@ -1709,7 +1706,6 @@ msgstr "Kaugvarundamine"
 
 #  
 #: src/templates/backupTabs.mas:23
-#, fuzzy
 msgid "Remote Backup from Other Subscribed Hosts"
 msgstr "Teiste tellitud masinate kaugvarundus"
 
@@ -1734,31 +1730,31 @@ msgstr "eBoxi poolt muudetavad failid"
 msgid "Accept"
 msgstr "Nõustu"
 
-#  
+# Käivitatud, käivitunud
 #: src/templates/dashboard/index.mas:21 src/templates/dashboard/status.mas:18
 msgid "Running"
-msgstr "Käivitatud"
+msgstr "Töötab"
 
 #: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
 msgid "The service is enabled and running"
-msgstr "Teenus on lubatud ja käivitatud"
+msgstr "Teenus on lubatud ja töötab"
 
 #: src/templates/dashboard/index.mas:26 src/templates/dashboard/status.mas:22
 msgid "Stopped"
-msgstr "Peatatud"
+msgstr "Peatunud"
 
 #: src/templates/dashboard/index.mas:27 src/templates/dashboard/status.mas:23
 msgid "The service is enabled, but not running"
-msgstr "Teenus on lubatud, kuid ei ole käivitatud"
+msgstr "Teenus on lubatud, kuid ei tööta"
 
-# Haldamata käivitatud
+# Käivitatud haldamata
 #: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
 msgid "Running unmanaged"
-msgstr "Käivitatud haldamata"
+msgstr "Töötab haldamata"
 
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
 msgid "The service is running, but not enabled in eBox"
-msgstr "Teenus on käivitatud, kuid ei ole eBoxis lubatud"
+msgstr "Teenus töötab, kuid ei ole eBoxis lubatud"
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
@@ -1888,7 +1884,6 @@ msgstr "Operatsiooni tüüp"
 
 # või "lõpetamiseni protsente jäänud"
 #: src/templates/report/raid.mas:207
-#, fuzzy
 msgid "Percentage completed"
 msgstr "Edenemine protsentides"
 
@@ -2083,7 +2078,7 @@ msgid ""
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
 "Järgnevates <b>keelatud</b> moodulites on salvestamata muudatusi. Mooduli "
-"lubamiseks, liigu menüüs sektsiooni {openref}Mooduli olek{closeref}."
+"lubamiseks, liigu menüüs leheküljele {openref}Mooduli olek{closeref}."
 
 #: src/templates/finish.mas:106
 msgid ""
@@ -2127,7 +2122,7 @@ msgid ""
 "Module Status{closeref} section will be ignored in both backup and restore "
 "operations."
 msgstr ""
-"Neid mooduleid, mida ei ole {openref}Mooduli oleku{closeref} sektsioonis "
+"Neid mooduleid, mida ei ole {openref}Mooduli oleku{closeref} leheküljel "
 "kunagi lubatud, eiratakse taastamis- ja varundustoimingute poolt."
 
 # Hetkeseisu varundamine
@@ -2183,11 +2178,10 @@ msgstr ""
 msgid "Backup file"
 msgstr "Varundusfail"
 
-# Täielik
+#  
 #: src/templates/backup.mas:112
-#, fuzzy
 msgid "Full"
-msgstr "Täis"
+msgstr "Täiskoopia"
 
 # siin mõeldakse seadistuste varundamist
 #: src/templates/backup.mas:113
@@ -2235,23 +2229,21 @@ msgid "delete"
 msgstr "kustutamine"
 
 #: src/templates/bug.mas:9
-#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
-"Sellel lehel on sul võimalus oma süsteemi oleku teabest fail genereerida. "
-"See fail on kasulik juhul kui soovid teavitada eBoxi veast."
+"Sellel lehel on võimalik genereerida süsteemi olekust aruandefail, mis võib "
+"olla kasulik juhul, kui soovid koostada eBoxi veaaruannet."
 
 #: src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."
-msgstr ""
+msgstr "Aruande genereerimine võib mõned minutid aega võtta, palun oota."
 
 #: src/templates/bug.mas:19
-#, fuzzy
 msgid "Download configuration report file"
-msgstr "Laadi alla veaaruande fail"
+msgstr "Laadi seadistuste aruandefail alla"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."

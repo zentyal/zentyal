@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:56+0200\n"
-"PO-Revision-Date: 2010-04-22 12:00+0200\n"
+"PO-Revision-Date: 2010-05-14 14:50+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -23,21 +23,21 @@ msgstr "SIEVE filtrite redigeerimise protokoll"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
-msgstr "eBoxi meilisüsteem"
+msgstr "eBoxi e-posti süsteem"
 
 #: src/EBox/MailUserLdap.pm:83 src/EBox/MailUserLdap.pm:88
 #: src/EBox/MailAliasLdap.pm:105 src/EBox/MailAliasLdap.pm:135
 msgid "mail account"
-msgstr "meilikonto"
+msgstr "e-posti konto"
 
-# või "meili teisik"
+# või "e-posti teisik"
 #: src/EBox/MailUserLdap.pm:430
 msgid "This group has a mail alias"
-msgstr "Sellel grupil on meilialias"
+msgstr "Sellel grupil on e-posti alias"
 
 #: src/EBox/MailUserLdap.pm:457
 msgid "This user has a mail account"
-msgstr "Sellel kasutajal on meilikonto"
+msgstr "Sellel kasutajal on e-posti konto"
 
 #: src/EBox/MailUserLdap.pm:811
 msgid "Quota can only be a positive number or zero for unlimited quota"
@@ -58,12 +58,12 @@ msgstr "{ac} ei ole väliskonto"
 
 #: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
-msgstr "meilialias"
+msgstr "e-posti alias"
 
 #: src/EBox/MailAliasLdap.pm:113
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
-msgstr "{ac} on meilialias. Aliaste alias ei ole lubatud"
+msgstr "{ac} on e-posti alias. Aliaste alias ei ole lubatud"
 
 #: src/EBox/MailAliasLdap.pm:132
 msgid "group alias"
@@ -77,7 +77,7 @@ msgstr "Domeeni alias"
 #: src/EBox/MailAliasLdap.pm:242
 #, perl-brace-format
 msgid "Mail domain {d} does not exists"
-msgstr "Meilidomeeni {d} ei ole olemas"
+msgstr "E-posti domeeni {d} ei ole olemas"
 
 #: src/EBox/MailAliasLdap.pm:183
 #, perl-brace-format
@@ -85,13 +85,13 @@ msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
-"Meilidomeeni jaoks ei saa kasutada aliast {d} kuna selle nimega domeen on "
+"E-posti domeeni jaoks ei saa kasutada aliast {d} kuna selle nimega domeen on "
 "juba olemas"
 
 #: src/EBox/MailAliasLdap.pm:325 src/EBox/MailAliasLdap.pm:354
 #: src/EBox/MailAliasLdap.pm:389
 msgid "mail alias account"
-msgstr "meilialiase konto"
+msgstr "e-posti aliase konto"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:17
@@ -118,7 +118,7 @@ msgstr "kasutajanimi"
 
 #: src/EBox/CGI/DelAccount.pm:46
 msgid "user mail"
-msgstr "kasutaja meil"
+msgstr "kasutaja e-post"
 
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
@@ -131,7 +131,7 @@ msgstr "virtuaaldomeen"
 
 #: src/EBox/CGI/CreateAccount.pm:50
 msgid "Mail address"
-msgstr "Meiliaadress"
+msgstr "E-posti aadress"
 
 #: src/EBox/CGI/DelGroupAlias.pm:45
 msgid "alias"
@@ -139,7 +139,7 @@ msgstr "alias"
 
 #: src/EBox/CGI/DelGroupAlias.pm:50
 msgid "group alias mail"
-msgstr "grupi aliase meil"
+msgstr "grupi aliase e-post"
 
 # meiliväljastusagent
 #: src/EBox/CGI/CreateAlias.pm:48
@@ -155,17 +155,17 @@ msgstr "Järjekorra haldamine"
 # Haldamismeili saaja
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
-msgstr "Administreerimismeili saaja"
+msgstr "Administreerimiskirjade saaja"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
 #: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1470 src/EBox/Mail.pm:1622
 msgid "Mail"
-msgstr "Meil"
+msgstr "E-post"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
-msgstr "Meiliserveriga {smtp} ei saa ühendust"
+msgstr "E-posti serveriga {smtp} ei saa ühendust"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:232
 #, perl-brace-format
@@ -174,9 +174,8 @@ msgstr "Serveriga {hostname} ei saa ühendust, et saata sündmus läbi SMTP"
 
 #  
 #: src/EBox/Mail/Greylist.pm:55
-#, fuzzy
 msgid "To configure whitelist for greylisting"
-msgstr "Whitelisti seadistamine greylisti loomise jaoks"
+msgstr "Whitelisti seadistamine greylisti jaoks"
 
 # "greylist" vajaks mõnda head eestikeelset terminit
 #: src/EBox/Mail/Greylist.pm:279
@@ -227,7 +226,7 @@ msgstr "Alias"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:60
 msgid "The mail domain is appended automatically"
-msgstr "Meilidomeen on automaatselt lisatud"
+msgstr "E-posti domeen on automaatselt lisatud"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:64
 #: src/EBox/Mail/Model/ExternalAccounts.pm:87
@@ -271,14 +270,14 @@ msgstr ""
 #: src/EBox/Mail/Model/ExternalAliases.pm:147
 #, perl-brace-format
 msgid "They already exists an account or alias called {al}"
-msgstr ""
+msgstr "Need eksisteerivad juba kontol või aliasel nimega {al}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:168
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
 msgstr ""
-"Aliase konto peab olema määratud ilma domeeni osata. See lisatakse "
+"Aliase konto peab olema määratud ilma domeeni osata, mis lisatakse "
 "automaatselt."
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:246
@@ -287,7 +286,7 @@ msgstr ""
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
-"Sa pead meilimooduli kasutamiseks selle lubama moodulite oleku sektsioonis."
+"E-posti mooduli kasutamiseks, peab selle lubama leheküljel Mooduli olek."
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:67
 msgid "TLS for SMTP server"
@@ -330,7 +329,7 @@ msgstr "Kohandatud filtrite port"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:118
 msgid "Mail filter options"
-msgstr "Meilifiltri valikud"
+msgstr "E-posti filtri valikud"
 
 #: src/EBox/Mail/Model/ExternalFilter.pm:161
 msgid "none"
@@ -345,7 +344,7 @@ msgstr "kohandatud"
 #: src/EBox/Mail/Model/ExternalAccounts.pm:68
 #: src/EBox/Mail/Model/ExternalAccounts.pm:120
 msgid "External mail accounts"
-msgstr "Välised meilikontod"
+msgstr "Välised e-posti kontod"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:94
 #: src/EBox/Mail/Model/SMTPOptions.pm:107
@@ -355,11 +354,11 @@ msgstr "Parool"
 #: src/EBox/Mail/Model/ExternalAccounts.pm:101
 #: src/EBox/Mail/Composite/General.pm:78
 msgid "Mail server"
-msgstr "Meiliserver"
+msgstr "E-posti server"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:121
 msgid "external mail account"
-msgstr "väline meilikonto"
+msgstr "väline e-posti konto"
 
 # Meili hangitakse iga 10 minuti järel
 #: src/EBox/Mail/Model/ExternalAccounts.pm:127
@@ -397,8 +396,8 @@ msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
 msgstr ""
-"Kirju ei ole võimalik väliskontolt hankida, kuna sul ei ole meilikontot "
-"kohalikus meilidomeenis"
+"Kirju ei ole võimalik väliskontolt hankida, kuna sul ei ole e-posti kontot "
+"kohalikus e-posti domeenis"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:57
 msgid "Aliases"
@@ -466,20 +465,19 @@ msgstr "Kasutajanimi"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:120
 msgid "Server mailname"
-msgstr "Serveri meilinimi"
+msgstr "Serveri e-posti nimi"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:124
 msgid "FQDN hostname"
 msgstr "FQDN masinanimi"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:136
-#, fuzzy
 msgid "Postmaster address"
 msgstr "Postmasteri aadress"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:138
 msgid "Address used to report mail problems"
-msgstr "Aadress mida kasutatakse meiliga seotud probleemide teavitamiseks"
+msgstr "Aadress, mida kasutatakse e-postiga seotud probleemidest teavitamiseks"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:142
 msgid "Local root account"
@@ -499,8 +497,9 @@ msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
-"Kõik kirjad, mis ületavad ettenähtud limiidi, lükatakse tagasi. Postkasti "
-"suurust on võimalik iga konto jaoks eraldi muuta kasutajate redigeerimisel."
+"Postkasti täitumise korral lükatakse kõik saabuvad kirjad koos teavitusega "
+"saatjale tagasi. Seda valikut saab üle kirjutada leheküljel 'Kasutajad ja "
+"grupid' kasutajat redigeerides."
 
 # Piiramatu suurus
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
@@ -559,28 +558,27 @@ msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
 msgstr ""
-"Meilinimi on määratud serveri masinanimeks ning see ei ole täielikult "
+"E-posti nimi on määratud serveri masinanimeks ning see ei ole täielikult "
 "kvalifitseeruv. "
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:425
 msgid "The selected mailname is not a fully qualified hostname. "
-msgstr "Valitud meilinimi ei ole täielikult kvalifitseeruv masinanimi."
+msgstr "Valitud e-posti nimi ei ole täielikult kvalifitseeruv masinanimi."
 
 #  
 #: src/EBox/Mail/Model/SMTPOptions.pm:429
-#, fuzzy
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
 msgstr ""
-"Täielikult kvalifitseeruva masinanime puudumine võib põhjustada mõne "
-"meiliserveri poolt kirjade tagasilükkamise ja süsteemi kasutajate kirjade "
+"Täielikult kvalifitseeruva masinanime puudumine võib põhjustada mõne e-posti "
+"serveri poolt kirjade tagasilükkamise ja süsteemi kasutajate kirjade "
 "saajatel, vale vastamise aadressi kuvamise."
 
 # vt juhend
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "Send a copy of all mail domains"
-msgstr "Meilidomeeni kõigist kirjadest koopiate saatmine"
+msgstr "E-posti domeeni kõikidest kirjadest koopiate saatmine"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:60
 msgid "The mail will be a Blind Carbon Copy (BCC)."
@@ -625,9 +623,9 @@ msgid ""
 "delivered to their local account. External account can be configured in the "
 "user's corner."
 msgstr ""
-"See lubab kasutajatel kirju saada väliskontodelt, kirjad saadetakse nende "
-"kohalikule kontole. Väliskontosid saab seadistada kasutaja nurgakese "
-"sektsioonis"
+"Valiku lubamisel hangitakse väliskontode kirjad kasutaja kohalikule kontole. "
+"Väliskonto seadistusi saab määrata kasutaja oma 'Kasutaja nurgakese' "
+"leheküljel."
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:97
 msgid "Manage Sieve scripts"
@@ -638,21 +636,21 @@ msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
 msgstr ""
-"See teenus lubab kasutajal hallata oma Sieve meilifiltri skripte kohalikus "
-"kliendis, mis suhtleb ManageSieve protokolli abil"
+"Valiku lubamisel saab kasutaja oma kohalikus kliendis hallata Sieve e-posti "
+"filtreerimise skripte."
 
 # Meili hankimise teenused
 #: src/EBox/Mail/Model/RetrievalServices.pm:107
 msgid "Mail retrieval services"
-msgstr "Meilihanke teenused"
+msgstr "E-posti hanketeenused"
 
 #: src/EBox/Mail/Model/MailUser.pm:52
 msgid "Mail Account"
-msgstr "Meilikonto"
+msgstr "E-posti konto"
 
 #: src/EBox/Mail/Model/MailUser.pm:55
 msgid "Create mail account user@domain"
-msgstr "Loodava meilikonto kuju: kasutaja@domeen"
+msgstr "Loodava e-posti konto kuju: kasutaja@domeen"
 
 #: src/EBox/Mail/Model/MailUser.pm:59
 msgid "Default Domain"
@@ -660,7 +658,7 @@ msgstr "Vaikimisi domeen"
 
 #: src/EBox/Mail/Model/MailUser.pm:97
 msgid "You haven't create a mail domain yet"
-msgstr "Sa ei ole veel meilidomeeni loonud"
+msgstr "Sa ei ole veel e-posti domeeni loonud"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:77
 msgid "Enabled"
@@ -746,11 +744,11 @@ msgstr ""
 # Virtuaalne meilidomeen?
 #: src/EBox/Mail/Model/VDomains.pm:211
 msgid "Mail virtual domain"
-msgstr "Meili virtuaaldomeen"
+msgstr "E-posti virtuaaldomeen"
 
 #: src/EBox/Mail/Model/VDomains.pm:214
 msgid "The virtual domain name cannot be equal to the mailname"
-msgstr "Virtuaaldomeeni nimi ei saa olla sama kui meilinimi"
+msgstr "Virtuaaldomeeni nimi ei saa olla sama kui e-posti nimi"
 
 #: src/EBox/Mail/Model/VDomains.pm:255
 #, perl-brace-format
@@ -772,7 +770,6 @@ msgid "[EBox-event] An event has happened at {hostName}"
 msgstr "[eBoxi sündmus] Masinas {hostName} on toimunud sündmus"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1591
-#, fuzzy
 msgid "To"
 msgstr "Kellele"
 
@@ -785,8 +782,8 @@ msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from eBox"
 msgstr ""
-"Selleks, et seadistada e-posti sündmuste edastajat, on nõutud meiliteenuse "
-"lubamine eBoxis"
+"Selleks, et seadistada e-posti sündmuste edastajat, on nõutud e-posti "
+"teenuse lubamine eBoxis"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
 msgid "Mail dispatcher configuration updated"
@@ -826,7 +823,7 @@ msgstr "Saadetud sõnumid"
 # või üksikasjad
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:91
 msgid "Mail traffic details"
-msgstr "Meililiikluse üksikasjad"
+msgstr "E-posti liikluse üksikasjad"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:99
 msgid "traffic"
@@ -843,15 +840,15 @@ msgstr "Liikluse kokkuvõtlik graafik"
 #: src/EBox/Mail/Composite/General.pm:77
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
 msgid "Mail server options"
-msgstr "Meiliserveri valikud"
+msgstr "E-posti serveri valikud"
 
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:70
 msgid "Mail traffic reports"
-msgstr "Meililiikluse aruanded"
+msgstr "E-posti liikluse aruanded"
 
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:71
 msgid "Mail traffic report"
-msgstr "Meililiikluse aruanne"
+msgstr "E-posti liikluse aruanne"
 
 #  
 #: src/EBox/Mail/FetchmailLdap.pm:347
@@ -860,7 +857,7 @@ msgstr "Väline hankimise teenus"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"
-msgstr "Meilialiaste genereerimine"
+msgstr "E-posti aliaste genereerimine"
 
 #: src/EBox/Mail.pm:141
 #, perl-brace-format
@@ -881,7 +878,7 @@ msgstr "Sertifikaatide loomine"
 
 #: src/EBox/Mail.pm:156
 msgid "eBox will create certificates to use in mail services"
-msgstr "eBox loob sertifikaadid mida kasutatakse meiliteenuste poolt"
+msgstr "eBox loob sertifikaadid, mida kasutatakse e-posti teenuste poolt"
 
 #: src/EBox/Mail.pm:161
 msgid "Add fetchmail update cron job"
@@ -905,7 +902,7 @@ msgstr "Klientprogrammide postfixi teenustega ühendamise defineerimiseks"
 
 #: src/EBox/Mail.pm:197
 msgid "To configure host mail name"
-msgstr "Masina meilinime seadistamiseks"
+msgstr "Masina e-posti nime seadistamiseks"
 
 #: src/EBox/Mail.pm:202
 msgid "To configure postfix aliases"
@@ -928,20 +925,20 @@ msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
-"Masinanime ei saa meilinimena kasutada, kuna see ei ole täielikult "
-"kvalifitseeruv nimi. Palun defineeri kohandatud serveri meilinimi"
+"Masinanime ei saa e-posti nimena kasutada, kuna see ei ole täielikult "
+"kvalifitseeruv nimi. Palun defineeri kohandatud serveri e-posti nimi"
 
 #: src/EBox/Mail.pm:688
 msgid "The mail name must be a fully qualified name"
-msgstr "Meilinimi peab olema täielikult kvalifitseeruv nimi"
+msgstr "E-posti nimi peab olema täielikult kvalifitseeruv nimi"
 
 #: src/EBox/Mail.pm:693 src/EBox/Mail.pm:704 src/EBox/Mail.pm:713
 msgid "Host mail name"
-msgstr "Masina meilinimi"
+msgstr "Masina e-posti nimi"
 
 #: src/EBox/Mail.pm:707
 msgid "The mail name and virtual mail domain name are equal"
-msgstr "Meilinimi ja virtuaalse meilidomeeni nimi on võrdsed"
+msgstr "E-posti nimi ja virtuaalse e-posti domeeni nimi on võrdsed"
 
 #: src/EBox/Mail.pm:976
 msgid "Cannot change this parameter for a non-custom filter"
@@ -951,15 +948,16 @@ msgstr "Seda parameetrit ei ole võimalik mitte-kohandatud filtri jaoks muuta"
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
-"Meilifiltrit ei ole olemas. Palun määra teine meilifilter või keela see"
+"E-posti filtrit ei ole olemas. Palun määra teine e-posti filter või keela "
+"see"
 
 #: src/EBox/Mail.pm:1019
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
-"Meilifilter $name ei ole aktiivne. Palun määra teine meilifilter või keela "
-"see"
+"E-posti filter $name ei ole aktiivne. Palun määra teine e-posti filter või "
+"keela see"
 
 #: src/EBox/Mail.pm:1416
 msgid "SMTP service"
@@ -995,7 +993,7 @@ msgstr "Olek"
 
 #: src/EBox/Mail.pm:1489
 msgid "Mail server's filter"
-msgstr "Meiliserveri filter"
+msgstr "E-posti serveri filter"
 
 #: src/EBox/Mail.pm:1498 src/EBox/Mail.pm:1505
 msgid "Filter type"
@@ -1015,7 +1013,7 @@ msgstr "Üldine"
 
 #: src/EBox/Mail.pm:1541
 msgid "Virtual Mail Domains"
-msgstr "Virtuaalsed meilidomeenid"
+msgstr "Virtuaalsed e-posti domeenid"
 
 #: src/EBox/Mail.pm:1547
 msgid "Greylist"
@@ -1063,7 +1061,6 @@ msgstr "Lisainfo"
 
 # koodis 'msgsent'
 #: src/EBox/Mail.pm:1610
-#, fuzzy
 msgid "Successful messages"
 msgstr "Edukalt saadetud sõnumid"
 
@@ -1119,19 +1116,19 @@ msgstr "Seda sõnumit toimetakse kohale"
 
 #: src/templates/groupalias.mas:8
 msgid "Mail alias settings"
-msgstr "Meilialiase seadistused"
+msgstr "E-posti aliase seadistused"
 
 #: src/templates/groupalias.mas:13
 msgid ""
 "There are no users in the group or the users do not have a mail account, so "
 "an alias account cannot be created"
 msgstr ""
-"Selles grupis kasutajad puuduvad või ei ole neil meilikontosid. Seega aliase "
-"kontot ei loodud."
+"Selles grupis kasutajad puuduvad või ei ole neil e-posti kontosid. Seega "
+"aliase kontot ei loodud."
 
 #: src/templates/groupalias.mas:23 src/templates/alias.mas:38
 msgid "Mail alias"
-msgstr "Meilialias"
+msgstr "E-posti alias"
 
 #: src/templates/groupalias.mas:26 src/templates/qmanager.mas:23
 #: src/templates/alias.mas:41
@@ -1208,7 +1205,7 @@ msgstr "Järjekorras sõnumid puuduvad või teenus on peatunud"
 
 #: src/templates/createaccount.mas:15
 msgid "Create mail account"
-msgstr "Meilikonto loomine"
+msgstr "E-posti konto loomine"
 
 #: src/templates/createaccount.mas:23
 msgid "Account name"
@@ -1219,17 +1216,16 @@ msgid "Domain name"
 msgstr "Domeeninimi"
 
 #: src/templates/createaccount.mas:62
-#, fuzzy
 msgid "Maildir size"
 msgstr "Maildir suurus"
 
 #: src/templates/alias.mas:10
 msgid "Mail account settings"
-msgstr "Meilikonto seadistused"
+msgstr "E-posti konto seadistused"
 
 #: src/templates/alias.mas:33
 msgid "Create mail aliases"
-msgstr "Meilialiaste loomine"
+msgstr "E-posti aliaste loomine"
 
 #: src/templates/alias.mas:124
 msgid "No quota"
@@ -1257,7 +1253,7 @@ msgstr "Muuda"
 
 #: src/templates/account.mas:22
 msgid "Mail account"
-msgstr "Meilikonto"
+msgstr "E-posti konto"
 
 #: src/templates/account.mas:26
 msgid "Click here to create a new mail virtual domain"
@@ -1280,7 +1276,7 @@ msgstr "Loobu"
 #: src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
-msgstr "Järgnevad seadistused jõustuvad siis, kui meilimoodul on lubatud"
+msgstr "Järgnevad seadistused jõustuvad siis, kui e-posti moodul on lubatud"
 
 #: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
 msgid "Change"

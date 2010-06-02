@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:56+0200\n"
-"PO-Revision-Date: 2010-02-11 15:04+0100\n"
-"Last-Translator: stefan gerstl <ebox@gerstl.cc>\n"
+"PO-Revision-Date: 2010-05-10 22:18+0200\n"
+"Last-Translator: Michael Korte <miko71@arcor.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -291,9 +291,8 @@ msgid "TLS for SMTP server"
 msgstr "TLS (Transport Layer Security) für SMTP-Server"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:73
-#, fuzzy
 msgid "Require authentication"
-msgstr "Authentifizierung"
+msgstr "Authentifizierung erforderlich "
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:76
 msgid ""
@@ -377,7 +376,7 @@ msgstr "Externes Konto hinzugefügt"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:278
 msgid "No spaces allowed"
-msgstr ""
+msgstr "Keine Leerzeichen erlaubt"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"
@@ -487,10 +486,13 @@ msgid "Maximum mailbox size allowed"
 msgstr "Maximale Grösse des Postfachs"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:156
+#, fuzzy
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
+"Wenn ein Postfach diese grösse erreicht, werden weitere Mails nicht mehr "
+"angenommen. Dies kann in den Kontoeinstellungen überschrieben werden."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
 #: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:78
@@ -501,7 +503,7 @@ msgstr "Uneingeschränkt"
 #: src/EBox/Mail/Model/SMTPOptions.pm:183
 #, fuzzy
 msgid "limited to"
-msgstr "Uneingeschränkt"
+msgstr "Begrenzt auf"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:175
 msgid "Maximum message size accepted"
@@ -514,7 +516,7 @@ msgstr ""
 #: src/EBox/Mail/Model/SMTPOptions.pm:199
 #: src/EBox/Mail/Model/SMTPOptions.pm:218
 msgid "Never"
-msgstr ""
+msgstr "niemals"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:203
 #: src/EBox/Mail/Model/SMTPOptions.pm:222
@@ -524,7 +526,7 @@ msgstr ""
 #: src/EBox/Mail/Model/SMTPOptions.pm:204
 #: src/EBox/Mail/Model/SMTPOptions.pm:223
 msgid "days"
-msgstr ""
+msgstr "Tage"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:214
 msgid "Expiration period for spam mails"
@@ -538,12 +540,12 @@ msgstr "Optionen"
 #: src/EBox/Mail/Model/SMTPOptions.pm:346
 #, fuzzy
 msgid "Smarthost's address"
-msgstr "P des Smarthost"
+msgstr "Adresse des Smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:343
 #, fuzzy
 msgid "Smarthost's port"
-msgstr "P des Smarthost"
+msgstr "Port des Smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:421
 msgid ""
@@ -963,7 +965,7 @@ msgstr ""
 #: src/EBox/Mail.pm:1416
 #, fuzzy
 msgid "SMTP service"
-msgstr "IMAP-Dienst"
+msgstr "SMTP-Dienst"
 
 #: src/EBox/Mail.pm:1423
 msgid "POP3 service"
@@ -1113,12 +1115,12 @@ msgstr "Postfächer"
 #: src/EBox/Mail.pm:1833
 #, fuzzy
 msgid "Mail SMTP server"
-msgstr "E-Mail-Dienste"
+msgstr "Mail SMTP server"
 
 #: src/EBox/Mail.pm:1840
 #, fuzzy
 msgid "Mail POP/IMAP server"
-msgstr "E-Mail-Dienste"
+msgstr "Mail POP/IMAP server"
 
 #: src/EBox/MailQueue.pm:79
 #, fuzzy
@@ -1240,22 +1242,22 @@ msgstr "Neues E-Mail Alias"
 #: src/templates/alias.mas:124
 #, fuzzy
 msgid "No quota"
-msgstr "Größenbeschränkung"
+msgstr "Keine Größenbeschränkung"
 
 #: src/templates/alias.mas:125
 #, fuzzy
 msgid "Default quota"
-msgstr "Größenbeschränkung"
+msgstr "Voreingestellte Größenbeschränkung "
 
 #: src/templates/alias.mas:126
 #, fuzzy
 msgid "Custom quota"
-msgstr "Benutzerdefiniert"
+msgstr "Benutzerdefinierte Größenbeschränkung "
 
 #: src/templates/alias.mas:133
 #, fuzzy
 msgid "Quota type"
-msgstr "Filter-Art"
+msgstr "Art der Größenbeschränkung "
 
 #: src/templates/alias.mas:146
 #, fuzzy

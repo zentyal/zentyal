@@ -8,21 +8,20 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:56+0200\n"
-"PO-Revision-Date: 2007-05-12 23:21+0000\n"
-"Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
+"PO-Revision-Date: 2010-05-11 15:51+0200\n"
+"Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
 msgid "protocol for editing SIEVE filters"
-msgstr ""
+msgstr "SIEVE süzgecini düzenlemek için protokol"
 
 #: migration/0001_add_firewall_services.pl:30
-#, fuzzy
 msgid "eBox Mail System"
 msgstr "Posta sistemi"
 
@@ -42,16 +41,18 @@ msgstr "Bu kullanıcının bir posta hesabı var"
 #: src/EBox/MailUserLdap.pm:811
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
+"Kullanıcı kotlarını düzenlerken limitsiz için sıfır (0) veya limit kadar "
+"pozitif bir sayı giriniz"
 
 #: src/EBox/MailAliasLdap.pm:62
 #, perl-brace-format
 msgid "{ac} is not a internal account"
-msgstr ""
+msgstr "{ac} bir iç hesap adı değildir"
 
 #: src/EBox/MailAliasLdap.pm:79
 #, perl-brace-format
 msgid "{ac} is not a external account"
-msgstr ""
+msgstr "{ac} bir dış hesap adı değildir"
 
 #: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
@@ -61,29 +62,29 @@ msgstr "Takma posta ismi"
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
 msgstr ""
+"{ac} bir takma isimdir. Takma isimler için takma isimler kabul "
+"edilmemektedir."
 
 #: src/EBox/MailAliasLdap.pm:132
-#, fuzzy
 msgid "group alias"
-msgstr "Grup takma adı postası"
+msgstr "Grup takma adı"
 
 #: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
-#, fuzzy
 msgid "Domain alias"
-msgstr "Takma posta ismi"
+msgstr "Takma alan adı"
 
 #: src/EBox/MailAliasLdap.pm:176 src/EBox/MailAliasLdap.pm:215
 #: src/EBox/MailAliasLdap.pm:242
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Mail domain {d} does not exists"
-msgstr "Hesap yok"
+msgstr "{d} alan adı yok."
 
 #: src/EBox/MailAliasLdap.pm:183
 #, perl-brace-format
 msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
-msgstr ""
+msgstr "Aynı isimde bir kayıt olduğundan {d} takma isim olarak kullanılamıyor."
 
 #: src/EBox/MailAliasLdap.pm:325 src/EBox/MailAliasLdap.pm:354
 #: src/EBox/MailAliasLdap.pm:389
@@ -93,7 +94,7 @@ msgstr "Posta takma adı hesabı"
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:17
 msgid "Queue ID"
-msgstr "Sıra Kimliği"
+msgstr "Sıra No"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:43 src/EBox/CGI/DelGroupAlias.pm:42
 msgid "group"
@@ -119,7 +120,7 @@ msgstr "kullanıcı postası"
 
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
-msgstr ""
+msgstr "Kota MB cinsinden olmalıdır."
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
 #: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:101
@@ -131,13 +132,12 @@ msgid "Mail address"
 msgstr "Posta adresi"
 
 #: src/EBox/CGI/DelGroupAlias.pm:45
-#, fuzzy
 msgid "alias"
-msgstr "Takma posta ismi"
+msgstr "Takma ad"
 
 #: src/EBox/CGI/DelGroupAlias.pm:50
 msgid "group alias mail"
-msgstr "Grup takma adı postası"
+msgstr "Grup takma adı"
 
 #: src/EBox/CGI/CreateAlias.pm:48
 msgid "maildrop"
@@ -146,11 +146,11 @@ msgstr "İletileri sil"
 #: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
 #: src/EBox/Mail.pm:1553
 msgid "Queue Management"
-msgstr "Sıra Yönetimi"
+msgstr "Kuyruk Yönetimi"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
-msgstr ""
+msgstr "Admin mail alıcısı"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
 #: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1470 src/EBox/Mail.pm:1622
@@ -160,29 +160,26 @@ msgstr "Posta"
 #: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
-msgstr ""
+msgstr "{smtp} sunucusuna bağlanılamadı"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:232
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
-msgstr ""
+msgstr "SMTP isteği göndermek için {hostname} sunucusuna bağlanılamadı"
 
 #: src/EBox/Mail/Greylist.pm:55
-#, fuzzy
 msgid "To configure whitelist for greylisting"
-msgstr "Kimlik doğrulama gerekli"
+msgstr "Geçici reddedilen postalar için kabul listesi ayarla"
 
 #: src/EBox/Mail/Greylist.pm:279
-#, fuzzy
 msgid "Greylist service"
-msgstr "Posta servisleri"
+msgstr "Geçici reddetme servisi"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:90
 msgid "Object"
-msgstr ""
+msgstr "Nesne"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:96
-#, fuzzy
 msgid "Allow relay"
 msgstr "İzinli"
 

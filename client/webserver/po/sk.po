@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:59+0200\n"
-"PO-Revision-Date: 2009-11-13 23:32+0100\n"
+"PO-Revision-Date: 2010-05-26 15:35+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: migration/0001_add_service_and_port.pl:147
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "HyperTextový Transportný Protokol"
 
 #: src/EBox/WebServer.pm:79 src/EBox/WebServer/Composite/General.pm:81
 msgid "Web Server"
@@ -31,63 +31,69 @@ msgstr "Nastavenie portu webservera"
 
 #: src/EBox/WebServer.pm:103
 msgid "To configure default Virtual Host"
-msgstr ""
+msgstr "Nastavenie východzieho Virtuálneho hostiteľa"
 
 #: src/EBox/WebServer.pm:108
 msgid "To configure the per-user public HTML directory"
-msgstr ""
+msgstr "Nastavenie per-user verejnej HTML zložky"
 
 #: src/EBox/WebServer.pm:135
 msgid "Enable apache LDAP user module"
-msgstr ""
+msgstr "Povoliť Apache LDAP užívateľský modul"
 
 #: src/EBox/WebServer.pm:137
 msgid "To fetch home directories from LDAP"
-msgstr ""
+msgstr "Vybrať domáce zložky z LDAP"
 
 #: src/EBox/WebServer.pm:178
 msgid "Web service status"
-msgstr ""
+msgstr "Stav Web služby"
 
 #: src/EBox/WebServer.pm:375
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "Chýba {userDirConfFile}! Obnovte ho!"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
+msgstr "načúvací port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:101
 msgid ""
 "To allow HTML directories for users is needed that the file sharing module "
 "is installed and configured"
 msgstr ""
+"Na povolenie HTML priečinkov pre užívateľov je potrebné, aby bol "
+"nainštalovaný a nastavený modul zdieľania súborov"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:107
 msgid ""
 "To allow HTML directories for user is needed to have the file sharing module "
 "configured. To configure it enable it at least one time"
 msgstr ""
+"Na povolenie HTML priečinkov pre užívateľov je potrebné, aby bol nastavený "
+"modul zdieľania súborov. "
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
-msgstr ""
+msgstr "Načúvací port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:175
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Povoliť podľa užívateľa {dirName}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:179
 msgid ""
 "If you tick this field, each user is permitted to have a website in their "
 "home directory under public_html"
 msgstr ""
+"Ak zvolíte túto položku, každý užívateľ má povolené mať web sídlo v jeho "
+"domácom priečinku pod public_html"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:189
 msgid "General configuration settings"
-msgstr ""
+msgstr "Hlavné konfiguračné nastavenia"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:193
 #, perl-brace-format
@@ -97,14 +103,18 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"Hlavné konfiguračné nastavenia Web servera. Načúvací port nesmie byť použitý "
+"z existujúcich služieb. Ak povolíte užívateľom publikovať ich vlastné html "
+"stránky, tak stránky budú sťahované z priečinka {dirName} v ich domácich "
+"priečinkoch."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "Hlavné konfiguračné nastavenia Web servera aktualizované"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:93
 msgid "Virtual host's name"
-msgstr ""
+msgstr "Mená virtuálnych hostiteľov"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:159
 #, perl-brace-format
@@ -112,6 +122,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip}. {noDnsWarning} "
 msgstr ""
+"Virtuálny hostiteľ {vhost} pridaný. Doména {domain} bola vytvorená s menom "
+"{name} - IP adresou {ip}. {noDnsWarning} "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:178
 #, perl-brace-format
@@ -119,29 +131,33 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
+"Virtuálny hostiteľ {vhost} pridaný. Meno {name} - IP adresa {ip} boli "
+"pridané do {domain} domény"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:192
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
+"Virtuálny hostiteľ {vhost} pridaný ako alias {alias} k hostiteľskému menu "
+"{hostname}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:198
 #: src/EBox/WebServer/Model/VHostTable.pm:203
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
-msgstr ""
+msgstr "Virtuálny hostiteľ {vhost} pridaný"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:208
 msgid "There is no static internal interface to set the Web server IP address"
-msgstr ""
+msgstr "Neexistuje statický interný adaptér na nastavenie IP adresy Web servera"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:234
 msgid "Name"
-msgstr ""
+msgstr "Meno"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:244
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Virtuálny hostiteľ"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:248
 #, perl-brace-format
@@ -153,10 +169,15 @@ msgid ""
 "particular configuration you want to add must be placed at {userConf} "
 "directory"
 msgstr ""
+"Virtuálny hostiteľ je forma hosťovania webových stránok, kde na viac "
+"webových sídiel je použitý fyzicky jeden server. Rôzne mená hostiteľov "
+"ukazujú na ten istý server. Ak je to možné, DNS záznam sa vytvorí "
+"automaticky. Obsah web sídla musí byť uložený v {docRoot} priečinku. "
+"Príslušná konfigurácia musí byť uložená v {userConf} priečinku"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:258
 msgid "virtual host"
-msgstr ""
+msgstr "virtuálny hostiteľ"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:280
 #, perl-brace-format
@@ -164,13 +185,17 @@ msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"
 msgstr ""
+"DNS modul je zakázaný. Pokiaľ nebude povolený, neprejavia sa zmeny v "
+"pridanom mapovaní alebo v doménach."
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Configuration"
-msgstr ""
+msgstr "Konfigurácia"
 
 #: src/EBox/WebServer/Composite/General.pm:83
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
+"eBox web služba vám umožňuje hosťovať webové stránky v obyčajnom HTML medzi "
+"rôznymi virtuálnymi hostiteľmi."

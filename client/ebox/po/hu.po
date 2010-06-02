@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:55+0200\n"
-"PO-Revision-Date: 2010-04-06 16:19+0200\n"
+"PO-Revision-Date: 2010-05-27 16:17+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -636,9 +636,8 @@ msgid "Restore successful"
 msgstr "Visszaállítás sikeresen befejeződött"
 
 #: src/EBox/CGI/EBox/ConfigurationReport.pm:29 src/EBox/SysInfo.pm.in:276
-#, fuzzy
 msgid "Configuration report"
-msgstr "Visszaállítás beállításai"
+msgstr "Jelentés a beállításokról"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
 #: src/EBox/SysInfo.pm.in:265
@@ -1563,13 +1562,12 @@ msgid "System load"
 msgstr "Rendszerterhelés"
 
 #: src/EBox/SysInfo.pm.in:108
-#, fuzzy
 msgid "Uptime"
-msgstr "Idő"
+msgstr "Rendszeridő"
 
 #: src/EBox/SysInfo.pm.in:109
 msgid "Users"
-msgstr ""
+msgstr "Felhasználók"
 
 #: src/EBox/SysInfo.pm.in:155 src/EBox/SysInfo.pm.in:248
 msgid "Module Status"
@@ -2160,24 +2158,21 @@ msgid "delete"
 msgstr "töröl"
 
 #: src/templates/bug.mas:9
-#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
-"Ez az oldal állítja elő és tárolja a rendszerinformációkat egy fájlba. Ez a "
-"fájl szükséges az eBox hibakeresési riportok küldéséhez (a közreműködés "
-"önkéntes alapon történik)."
+"Ez az oldal előállít egy rendszerinformációkat tartalmazó fájlt. Ez a fájl "
+"hasznos lehet az eBox hibakeresési jelentések küldésénél."
 
 #: src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."
-msgstr ""
+msgstr "Pár percbe telhet a fájl legenerálása. Kérem várjon türelemmel."
 
 #: src/templates/bug.mas:19
-#, fuzzy
 msgid "Download configuration report file"
-msgstr "hibajelentési fájl letöltése"
+msgstr "Hibajelentési fájl letöltése"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."

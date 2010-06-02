@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:55+0200\n"
-"PO-Revision-Date: 2010-04-22 12:25+0200\n"
+"PO-Revision-Date: 2010-05-04 11:11+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -268,55 +268,52 @@ msgstr "Reguli de filtrare din reţele interne către eBox"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
-msgstr ""
+msgstr "Intrare"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
 msgid "External Input"
-msgstr ""
+msgstr "Intrare externă"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
 msgid "Output"
-msgstr ""
+msgstr "Ieșire"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
-#, fuzzy
 msgid "Forward"
-msgstr "transferare"
+msgstr "Transferare"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
 msgid "NAT prerouting"
-msgstr ""
+msgstr "pre-rutare NAT"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
 msgid "NAT postrouting"
-msgstr ""
+msgstr "post-rutare NAT"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
-#, fuzzy
 msgid "Rule"
-msgstr "regula"
+msgstr "Regula"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
 msgid "Enabled"
-msgstr ""
+msgstr "Activat"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
-#, fuzzy
 msgid "Module"
-msgstr "regula"
+msgstr "Module"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
 msgid "Condition"
-msgstr ""
+msgstr "Condiţie"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
 msgid "Rules added by eBox services (Advanced)"
-msgstr ""
+msgstr "Reguli adăugate de către serviciile eBox (Avansat)"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 msgid "Internal networks"
@@ -434,13 +431,15 @@ msgstr ""
 
 #: src/templates/filter.mas:53
 msgid "These rules are automatically added by the eBox services."
-msgstr ""
+msgstr "Aceste reguli sunt adăugate automat de către serviciile eBox."
 
 #: src/templates/filter.mas:56
 msgid ""
 "You can disable these rules, but make sure you know what you are doing or "
 "otherwise some services could stop working."
 msgstr ""
+"Puteți dezactiva aceste reguli, dar asigurați-vă că știți ce faceți, altfel "
+"unele servicii vor putea deveni nefuncționale."
 
 #~ msgid "redirect"
 #~ msgstr "redirectare"

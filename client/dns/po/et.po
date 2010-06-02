@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dns 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:29+0200\n"
-"PO-Revision-Date: 2010-04-19 14:13+0200\n"
+"PO-Revision-Date: 2010-05-08 19:24+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -42,9 +42,9 @@ msgstr "Võtmete seadistusfail"
 msgid "configuration file for zone {zone}"
 msgstr "{zone} tsooni seadistusfail"
 
-# mina kasutaks sõna 'resolvimis'
+#  
 #: src/EBox/DNS.pm.in:564
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "Pöördlahendamise tsooni {zone} seadistusfail"
 
@@ -106,7 +106,7 @@ msgstr "Domeen"
 #  
 #: src/EBox/Model/DomainTable.pm:194
 msgid "Mail Exchangers"
-msgstr "Meilivahendajad"
+msgstr "E-posti vahendajad"
 
 #: src/EBox/Model/DomainTable.pm:202
 msgid "Name Servers"
@@ -129,7 +129,7 @@ msgstr "Domeenide loend"
 msgid "DNS"
 msgstr "DNS"
 
-# "resolve names" tähendus antud kontekstis jääb veidi segaseks
+#  
 #: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "DNS server võimaldab sinu domeenide jaoks nimelahendamise"
@@ -152,7 +152,7 @@ msgstr ""
 # "mail exchanger" vaste?
 #: src/EBox/Model/MailExchanger.pm:132
 msgid "The domain is set as read only. You cannot add mail exchangers"
-msgstr "Domeen on kirjutuskaitstega. Sa ei saa meilivahendajaid lisada"
+msgstr "Domeen on kirjutuskaitstega. Sa ei saa e-posti vahendajaid lisada"
 
 #: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:134
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
@@ -174,7 +174,7 @@ msgstr "Eelistused"
 # vajaks mingit paremat mõistet äkki?
 #: src/EBox/Model/MailExchanger.pm:185
 msgid "Mail exchangers"
-msgstr "Meilivahendajad"
+msgstr "E-posti vahendajad"
 
 #  
 #: src/EBox/Model/MailExchanger.pm:191
@@ -186,14 +186,14 @@ msgid ""
 "({min}, {max})"
 msgstr ""
 "Kõige väiksemal eelistusnumbril on kõrgeim prioriteet ja seda omavat "
-"serverit päritakse esimesena, kui kaugklient (tavaliselt teine meiliserver) "
-"sooritab domeeninimele MX otsingut. Eelistusnumbrite lubatud intervall on = "
-"({min}, {max})"
+"serverit päritakse esimesena, kui kaugklient (tavaliselt teine e-posti "
+"server) sooritab domeeninimele MX otsingut. Eelistusnumbrite lubatud "
+"intervall on = ({min}, {max})"
 
 # vajaks mingit paremat mõistet äkki?
 #: src/EBox/Model/MailExchanger.pm:197
 msgid "Mail exchanger record"
-msgstr "Meilivahendaja kirje"
+msgstr "E-posti vahendaja kirje"
 
 # masinanimi ja masina nimi ?
 #: src/EBox/Model/AliasTable.pm:80

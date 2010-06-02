@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-antivirus 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:28+0000\n"
-"PO-Revision-Date: 2009-08-03 15:19+0200\n"
+"PO-Revision-Date: 2010-05-03 05:11+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -43,15 +43,13 @@ msgid "Date"
 msgstr "日期"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:71
-#, fuzzy
 msgid "Database Update Status"
-msgstr "防毒資料庫更新狀態"
+msgstr "資料庫更新狀態"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:127
-#, fuzzy
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
-msgstr "防毒資料庫至從 eBox 的郵件過濾模組安裝後都沒有更新。"
+msgstr "防毒資料庫從這個模組啟用後都沒有更新。"
 
 #: src/EBox/AntiVirus/Model/FreshclamStatus.pm:130
 msgid "The last update failed."

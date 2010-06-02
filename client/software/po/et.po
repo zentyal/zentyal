@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-software 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:57+0200\n"
-"PO-Revision-Date: 2010-03-24 20:48+0100\n"
+"PO-Revision-Date: 2010-05-06 17:51+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -101,9 +101,8 @@ msgstr "Tarkvarauuendusi käsitletakse automaatselt"
 msgid "The system components are up to date."
 msgstr "Süsteemi komponendid ei vaja uuendamist."
 
-# open tran annab vasteks "uuendamine", kuid minu meelest on sellel veidi teine tähendus
+#  
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
-#, fuzzy
 msgid "Upgrading"
 msgstr "Uuendamine"
 
@@ -111,9 +110,8 @@ msgstr "Uuendamine"
 msgid "There were no packages to update"
 msgstr "Uuendamiseks pakette ei leitud"
 
-# vt. "upgrading"
+#  
 #: src/EBox/CGI/InstallPkgs.pm:149
-#, fuzzy
 msgid "Upgrading packages"
 msgstr "Pakettide uuendamine"
 
@@ -220,7 +218,6 @@ msgid "The following packages will be removed"
 msgstr "Järgmiste pakettide eemaldamine"
 
 #: src/templates/del.mas:32
-#, fuzzy
 msgid "Ok"
 msgstr "Ok"
 
@@ -229,7 +226,6 @@ msgid "Cancel"
 msgstr "Loobu"
 
 #: src/templates/config.mas:8
-#, fuzzy
 msgid "Perform automatic security updates"
 msgstr "Tarkvara automaatne uuendamine"
 

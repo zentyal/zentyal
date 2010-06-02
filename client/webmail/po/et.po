@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-29 23:36+0000\n"
-"PO-Revision-Date: 2010-04-21 13:10+0200\n"
+"PO-Revision-Date: 2010-05-06 21:47+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "Töörežiim"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:87
 msgid "eBox mail service"
-msgstr "eBoxi meiliteenus"
+msgstr "eBoxi e-posti teenus"
 
 #: src/EBox/WebMail/Model/OperationMode.pm:98
 msgid "Remote server"
@@ -119,7 +119,7 @@ msgid ""
 "configured to use eBox's mail service'"
 msgstr ""
 "Kaugserveri ühenduse seadistamine ei ole vajalik, kuna WebMail on "
-"seadistatud kasutama eBoxi meiliteenust"
+"seadistatud kasutama eBoxi e-posti teenust"
 
 #: src/EBox/WebMail/Model/Options.pm:47
 msgid "Name"
@@ -177,7 +177,7 @@ msgstr "www andmete kataloogile webmaili lingi lisamine."
 # ei tea kas "webmail" on vaja aadressis tõlkida või mitte
 #: src/EBox/WebMail.pm:313
 msgid "Webmail will be accesible at http://ip/webmail/."
-msgstr "Webmail on kättesaadaval aadressil http://ip/webmail/"
+msgstr "Webmail on kättesaadav aadressil http://ip/webmail/"
 
 #: src/EBox/WebMail.pm:336
 #, perl-brace-format
@@ -185,14 +185,14 @@ msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
-"Kui kasutad eBoxi meiliteenust, peab webmaili mooduli IMAP või IMAPS teenus "
-"olema lubatud. Seda on võimalik lubada, minnes {openurl}Meil -> Üldine"
-"{closeurl}."
+"Kui kasutad eBoxi e-posti teenust, peab webmaili mooduli IMAP või IMAPS "
+"teenus olema lubatud. Seda on võimalik lubada, minnes {openurl}E-post -> "
+"Üldine{closeurl}."
 
 #: src/EBox/WebMail.pm:394
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
 msgstr ""
-"Sa ei saa keelata mõlemat IMAP ja IMAPS teenust, kuna need on kasutusel "
+"Keelata ei saa mõlemat, IMAP ja IMAPS teenust, kuna need on kasutusel "
 "webmaili mooduli poolt."

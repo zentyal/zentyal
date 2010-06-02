@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-monitor 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2010-04-27 20:07+0200\n"
+"PO-Revision-Date: 2010-05-06 17:07+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "suvaline"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
 msgid "At least a threshold (maximum or minimum) must be set"
-msgstr "Määratud peab olema vähemalt lävi (maksimum või miinimum)"
+msgstr "Määratud peab olema vähemalt üks lävi (maksimum või miinimum)"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
 msgid "This threshold rule will override the current ones"
@@ -106,11 +106,10 @@ msgstr ""
 "Määra vastuvõetavate väärtuste ülemine piir. Kui määramata, on see vaikimisi "
 "positiivne lõpmatus."
 
-# Pööramine
+# Inverteerimine
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
-#, fuzzy
 msgid "Invert"
-msgstr "Inverteerimine"
+msgstr "Pööramine"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
 #, perl-brace-format
@@ -174,7 +173,7 @@ msgstr "Lävi"
 
 # see ei ole küll otsene tõlge aga koodist paistab nii
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:302
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
 msgstr ""
@@ -337,7 +336,6 @@ msgstr "katkestused"
 
 # :)
 #: src/EBox/Monitor/Measure/CPU.pm:76 src/EBox/Monitor/Measure/CPU.pm:83
-#, fuzzy
 msgid "nice"
 msgstr "kena"
 
@@ -394,9 +392,9 @@ msgid ""
 "Status{closehref} section."
 msgstr ""
 "Monitooringu graafikute nägemiseks pead sa monitooringu mooduli lubama "
-"{openhref}mooduli oleku{closehref} sektsioonis."
+"{openhref}mooduli oleku{closehref} leheküljel."
 
-# mina ei usu et sektsioonis 'Save Changes' on mingid graafikud st algkirje viga
+#  
 #: src/EBox/CGI/Index.pm:98
 #, fuzzy, perl-brace-format
 msgid ""
@@ -404,10 +402,9 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
-"Monitooringu graafikute nägemiseks mooduli staatuses pead sa muudatused "
-"salvestama {openhref}muudatuste salvestamise{closehref} sektsioonis. Juhul "
-"kui sa oled seda juba teinud, siis oota paar sekundit, et jõutaks koguda "
-"esimesed monitooringuandmed."
+"Monitooringu graafikute nägemiseks peab {openhref}muudatused "
+"salvestama{closehref}. Juhul kui oled seda juba teinud, oota paar sekundit, "
+"et jõutaks koguda esimesed monitooringuandmed."
 
 #: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:73
 #: src/EBox/Monitor.pm:167
@@ -415,7 +412,6 @@ msgid "Monitor"
 msgstr "Monitooring"
 
 #: src/EBox/Event/Watcher/Monitor.pm:162
-#, fuzzy
 msgid "Notify when a certain value has reached a certain threshold"
 msgstr "Teata kui mõni väärtus on saavutanud määratud läve"
 
@@ -442,9 +438,9 @@ msgstr "See on alla {severity} {bound} läve"
 #: src/EBox/Monitor.pm:134
 #, perl-brace-format
 msgid "{daemon} main configuration file"
-msgstr "{daemon} peamine seadistustefail"
+msgstr "{daemon} peamine seadistusfail"
 
 #: src/EBox/Monitor.pm:139
 #, perl-brace-format
 msgid "{daemon} thresholds configuration file"
-msgstr "{daemon} läve seadistustefail"
+msgstr "{daemon} lävede seadistusfail"

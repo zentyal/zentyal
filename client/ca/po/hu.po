@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:26+0200\n"
-"PO-Revision-Date: 2010-04-30 12:27+0200\n"
+"PO-Revision-Date: 2010-05-27 15:58+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgid "Organization Name"
 msgstr "Szervezet neve"
 
 #: src/EBox/CGI/IssueCertificate.pm:145
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."

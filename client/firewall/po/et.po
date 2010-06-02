@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:55+0200\n"
-"PO-Revision-Date: 2010-04-19 14:31+0200\n"
+"PO-Revision-Date: 2010-05-09 00:37+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,12 @@ msgstr ""
 #: src/EBox/Iptables.pm:808 src/EBox/Iptables.pm:845
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
-msgstr "Sa pead määrama iptables_log_limit muutuja eBoxi seadistustefailis"
+msgstr "eBoxi seadistusfailis peab määrama iptables_log_limit muutuja"
 
 #: src/EBox/Iptables.pm:814 src/EBox/Iptables.pm:851
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
-msgstr "Sa pead määrama iptables_log_burst muutuja eBoxi seadistustefailis"
+msgstr "eBoxi seadistusfailis peab määrama iptables_log_burst muutuja"
 
 #: src/EBox/Firewall.pm:58 src/EBox/Firewall.pm:856
 msgid "Firewall"
@@ -106,11 +106,11 @@ msgstr "Väljundliides"
 #: src/EBox/Firewall.pm:843 src/EBox/Firewall/Model/RedirectsTable.pm:292
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:121
 msgid "Source"
-msgstr "Saatja"
+msgstr "Lähtekoht"
 
 #: src/EBox/Firewall.pm:844 src/EBox/Firewall/Model/BaseRuleTable.pm:147
 msgid "Destination"
-msgstr "Saaja"
+msgstr "Sihtkoht"
 
 #: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
@@ -118,11 +118,11 @@ msgstr "Protokoll"
 
 #: src/EBox/Firewall.pm:846
 msgid "Source port"
-msgstr "Saatja port"
+msgstr "Lähteport"
 
 #: src/EBox/Firewall.pm:847
 msgid "Destination port"
-msgstr "Saaja port"
+msgstr "Sihtport"
 
 #: src/EBox/Firewall.pm:848 src/EBox/Firewall/Model/BaseRuleTable.pm:112
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
@@ -167,7 +167,7 @@ msgstr "Liides"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:256
 msgid "Original destination"
-msgstr "Algne saaja"
+msgstr "Algne sihtkoht"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:261
 msgid "eBox"
@@ -183,7 +183,7 @@ msgstr "Objekt"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
 msgid "Original destination port"
-msgstr "Algne saaja port"
+msgstr "Algne sihtport"
 
 # funktsionaalsust silmas pidades sobiks: Kõik. Tegelikult on see any siin kontekstis 'ükskõik milline'
 #: src/EBox/Firewall/Model/RedirectsTable.pm:297
@@ -196,17 +196,17 @@ msgstr "Suvaline"
 #: src/EBox/Firewall/Model/RedirectsTable.pm:300
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:129
 msgid "Source IP"
-msgstr "Saatja IP"
+msgstr "IP lähteaadress"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:304
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:133
 msgid "Source object"
-msgstr "Saatja objekt"
+msgstr "Lähteobjekt"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:315
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:155
 msgid "Destination IP"
-msgstr "Saaja IP"
+msgstr "IP sihtaadress"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:321
 msgid "Port"
@@ -243,21 +243,19 @@ msgstr "KEELDU"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:160
 msgid "Destination object"
-msgstr "Saaja objekt"
+msgstr "Sihtobjekt"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:175
 msgid "Service"
 msgstr "Teenus"
 
-# see on segane lause
+#  
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:179
-#, fuzzy
 msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
-"Kui vastupidine sobivus on määratud, siis kõik teenused peale valitu, on "
-"reegliga vastavuses."
+"Vastupidise sobivuse määramisel sobivad reegliga kõik teenused peale valitu"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:227
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
@@ -276,55 +274,54 @@ msgstr "Liiklus sisevõrkudest eBoxi"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
-msgstr ""
+msgstr "Sisend"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
 msgid "External Input"
-msgstr ""
+msgstr "Väline sisend"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
 msgid "Output"
-msgstr ""
+msgstr "Väljund"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
-#, fuzzy
 msgid "Forward"
-msgstr "suunamine"
+msgstr "Suunamine"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
 msgid "NAT prerouting"
-msgstr ""
+msgstr "NAT enne marsruutimist"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
 msgid "NAT postrouting"
-msgstr ""
+msgstr "NAT pärast marsruutimist"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
-#, fuzzy
 msgid "Rule"
-msgstr "reegel"
+msgstr "Reegel"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
 msgid "Enabled"
-msgstr ""
+msgstr "Lubatud"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
 msgid "Type"
-msgstr ""
+msgstr "Tüüp"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
-#, fuzzy
 msgid "Module"
-msgstr "reegel"
+msgstr "Moodul"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
 msgid "Condition"
-msgstr ""
+msgstr "Tingimus"
 
+# kas see Täpsemad sobib?
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
+#, fuzzy
 msgid "Rules added by eBox services (Advanced)"
-msgstr ""
+msgstr "eBoxi teenuste poolt lisatud reeglid (Täpsemad)"
 
 # Sisemised võrgud
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
@@ -402,8 +399,8 @@ msgid ""
 "access to your eBox services, you must use the above section."
 msgstr ""
 "Need reeglid lubavad sul kontrollida sisevõrkude ligipääsu internetti ja "
-"liiklust sisevõrkudes. Kui sa soovid ligipääsetavaks muuta eBoxi teenuseid, "
-"siis peaksid kasutama sektsiooni ülalpool."
+"liiklust sisevõrkudes. Kui soovid ligipääsetavaks muuta eBoxi teenuseid, "
+"siis peaksid kasutama ülalpool olevat jaotust."
 
 #: src/templates/filter.mas:21
 msgid "Filtering rules for traffic coming out from eBox"
@@ -436,7 +433,7 @@ msgid ""
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing."
 msgstr ""
-"Soovitus: reeglite lisamine selles sektsioonis võib ohustada sinu võrgu "
+"Soovitus: reeglite lisamine selles jaotuses võib ohustada sinu võrgu "
 "turvalisust, kuna saad lubada ligipääsu ebausaldusväärsetest võrkudest. Ära "
 "palun kasuta seda kui sa ei tea täpselt mida teed."
 
@@ -455,10 +452,12 @@ msgstr ""
 
 #: src/templates/filter.mas:53
 msgid "These rules are automatically added by the eBox services."
-msgstr ""
+msgstr "Need reeglid on automaatselt eBoxi teenuste poolt lisatud."
 
 #: src/templates/filter.mas:56
 msgid ""
 "You can disable these rules, but make sure you know what you are doing or "
 "otherwise some services could stop working."
 msgstr ""
+"Neid reegleid saab ka keelata, kuid sel juhul peaksid täpselt teadma, mida "
+"teed, kuna teenuste töötamine võib seiskuda."

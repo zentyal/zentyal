@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:37+0000\n"
-"PO-Revision-Date: 2009-08-04 00:13+0200\n"
+"PO-Revision-Date: 2010-05-03 05:24+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "eBox VoIP 系統"
 #: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:732
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
-msgstr ""
+msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
@@ -70,14 +70,12 @@ msgid "To configure the conferences."
 msgstr "設定會議。"
 
 #: src/EBox/Asterisk.pm:174
-#, fuzzy
 msgid "To configure the music on hold."
-msgstr "設定語音郵件。"
+msgstr "設定保留電話的音樂。"
 
 #: src/EBox/Asterisk.pm:178
-#, fuzzy
 msgid "To configure DTMF behaviour."
-msgstr "設定語音郵件。"
+msgstr "設定 DTMF 行為。"
 
 #: src/EBox/Asterisk.pm:502
 msgid "General"
@@ -92,26 +90,24 @@ msgid "Voicemail"
 msgstr "語音郵件"
 
 #: src/EBox/Asterisk.pm:533 src/EBox/Asterisk.pm:642
-#, fuzzy
 msgid "User"
-msgstr "帳號"
+msgstr "使用者"
 
 #: src/EBox/Asterisk.pm:533
-#, fuzzy
 msgid "Address"
-msgstr "郵件位址"
+msgstr "位址"
 
 #: src/EBox/Asterisk.pm:533
 msgid "NAT"
-msgstr ""
+msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:533
 msgid "Status"
-msgstr ""
+msgstr "狀態"
 
 #: src/EBox/Asterisk.pm:547 src/EBox/Asterisk.pm:651
 msgid "No users connected."
-msgstr ""
+msgstr "沒有已連線的使用者。"
 
 #: src/EBox/Asterisk.pm:639
 #, perl-brace-format
@@ -120,41 +116,39 @@ msgstr ""
 
 #: src/EBox/Asterisk.pm:642
 msgid "Time Connected"
-msgstr ""
+msgstr "連線時間"
 
 #: src/EBox/Asterisk.pm:672
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "VoIP 線上使用者"
 
 #: src/EBox/Asterisk.pm:677
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "會議中的 VoIP 使用者"
 
 #: src/EBox/Asterisk.pm:709
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: src/EBox/Asterisk.pm:710
 msgid "From"
-msgstr ""
+msgstr "從"
 
 #: src/EBox/Asterisk.pm:711
 msgid "To"
-msgstr ""
+msgstr "到"
 
 #: src/EBox/Asterisk.pm:712
-#, fuzzy
 msgid "Duration"
-msgstr "描述"
+msgstr "持續時間"
 
 #: src/EBox/Asterisk.pm:713
-#, fuzzy
 msgid "Channel"
-msgstr "修改"
+msgstr "頻道"
 
 #: src/EBox/Asterisk.pm:714
 msgid "Destination Channel"
-msgstr ""
+msgstr "目的頻道"
 
 #: src/EBox/Asterisk.pm:715
 msgid "Application"
@@ -166,27 +160,25 @@ msgstr ""
 
 #: src/EBox/Asterisk.pm:717
 msgid "Event"
-msgstr ""
+msgstr "事件"
 
 #: src/EBox/Asterisk.pm:725
 msgid "Answered"
-msgstr ""
+msgstr "已接聽"
 
 #: src/EBox/Asterisk.pm:726
 msgid "No Answer"
-msgstr ""
+msgstr "未接聽"
 
 #: src/EBox/Asterisk.pm:727
 msgid "Busy"
-msgstr ""
+msgstr "忙線"
 
 #: src/EBox/Asterisk.pm:728
-#, fuzzy
 msgid "Failed"
-msgstr "啟動"
+msgstr "失敗"
 
 #: src/EBox/Asterisk/Extensions.pm:230
-#, fuzzy
 msgid "User extension"
 msgstr "使用者延伸功能"
 
@@ -197,13 +189,12 @@ msgid "Extension"
 msgstr "延伸功能"
 
 #: src/EBox/Asterisk/Extensions.pm:642
-#, fuzzy
 msgid "Queue extension"
-msgstr "延伸功能"
+msgstr "佇列延伸功能"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "群組"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"

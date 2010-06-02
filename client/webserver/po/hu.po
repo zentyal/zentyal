@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:59+0200\n"
-"PO-Revision-Date: 2010-02-09 11:22+0100\n"
+"PO-Revision-Date: 2010-05-27 16:20+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Beállítja a webszerver figyelő portját"
 
 #: src/EBox/WebServer.pm:103
 msgid "To configure default Virtual Host"
-msgstr ""
+msgstr "Hogy beállítsa az alapértelmezett Virtuális tartományt"
 
 #: src/EBox/WebServer.pm:108
 msgid "To configure the per-user public HTML directory"

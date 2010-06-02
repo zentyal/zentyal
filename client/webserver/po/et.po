@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:59+0200\n"
-"PO-Revision-Date: 2010-04-11 12:54+0200\n"
+"PO-Revision-Date: 2010-05-06 21:50+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -32,9 +32,9 @@ msgstr "Veebiserveri portide kuulamiseks"
 
 #: src/EBox/WebServer.pm:103
 msgid "To configure default Virtual Host"
-msgstr ""
+msgstr "Vaikimisi virtuaalhosti seadistamiseks"
 
-# "per-user" ?
+#  
 #: src/EBox/WebServer.pm:108
 msgid "To configure the per-user public HTML directory"
 msgstr "Kasutajate avalike HTML kataloogide seadistamiseks"
@@ -75,7 +75,7 @@ msgid ""
 "configured. To configure it enable it at least one time"
 msgstr ""
 "HTML kataloogide lubamiseks kasutajatele on vajalik, et failijagamise moodul "
-"oleks seadistatud. Selle seadistamiseks pead sa ta vähemalt ühe korra lubama."
+"oleks seadistatud. Selle seadistamiseks pead ta vähemalt ühe korra lubama."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:169
 msgid "Listening port"
@@ -110,8 +110,8 @@ msgid ""
 "directories"
 msgstr ""
 "Veebiserveri üldine seadistamine. Kuulatav port ei tohi olla saadud teiselt "
-"teenuselt. Kui sa lubad kasutajal avaldada oma html lehekülgi, laetakse "
-"leheküljed kataloogist {dirName} mis asub samba kodukataloogis."
+"teenuselt. Kui lubad kasutajatel avaldada oma html lehekülgi, laetakse "
+"leheküljed kataloogist {dirName}, mis asub samba kodukataloogis."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:199
 msgid "General Web server configuration settings updated"

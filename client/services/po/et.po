@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-services 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-01-28 13:15+0000\n"
-"PO-Revision-Date: 2010-04-12 12:17+0200\n"
+"PO-Revision-Date: 2010-05-09 00:38+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -127,7 +127,7 @@ msgstr "Protokoll"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:145
 msgid "Source port"
-msgstr "Saatja port"
+msgstr "Lähteport"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:147
 msgid "This field is usually set to any"
@@ -135,7 +135,7 @@ msgstr "See väli on tavaliselt määratud suvaliseks"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:151
 msgid "Destination port"
-msgstr "Saaja port"
+msgstr "Sihtport"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:161
 msgid "Service configuration"

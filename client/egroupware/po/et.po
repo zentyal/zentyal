@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:10+0200\n"
-"PO-Revision-Date: 2010-04-20 12:18+0200\n"
+"PO-Revision-Date: 2010-05-06 16:33+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -24,28 +24,28 @@ msgstr "Rühmavara"
 
 #: src/EBox/EGroupware.pm:97
 msgid "Create PostgreSQL user egroupware"
-msgstr "PostgreSQL kasutaja eRühmavara loomine"
+msgstr "PostgreSQL kasutaja egroupware loomine"
 
 #: src/EBox/EGroupware.pm:98
 msgid "This user will be the owner of the egroupware database"
-msgstr "See kasutaja saab eRühmavara andmebaasi omanikuks"
+msgstr "See kasutaja saab eGroupware andmebaasi omanikuks"
 
 #: src/EBox/EGroupware.pm:102
 msgid "Create PostgreSQL egroupware database"
-msgstr "PostgreSQL eRühmavara andmebaasi loomine"
+msgstr "PostgreSQL eGroupware andmebaasi loomine"
 
 #: src/EBox/EGroupware.pm:103
 msgid "This database will store the data needed by eGroupware"
-msgstr "Selles andmebaasis hoitakse eRühmavara jaoks vajalikke andmeid"
+msgstr "Selles andmebaasis hoitakse eGroupware jaoks vajalikke andmeid"
 
 # eRühmavara juurdepääsu seadete seadistamiseks
 #: src/EBox/EGroupware.pm:120
 msgid "To configure eGroupware access settings"
-msgstr "eRühmavara juurdepääsu seadistamiseks"
+msgstr "eGroupware juurdepääsu seadistamiseks"
 
 #: src/EBox/EGroupware.pm:125
 msgid "To allow local access to egroupware database"
-msgstr "eRühmavara andmebaasi kohaliku juurdepääsu lubamiseks"
+msgstr "eGroupware andmebaasi kohaliku juurdepääsu lubamiseks"
 
 #: src/EBox/CGI/EGroupwareUserOptions.pm:43
 msgid "username"
@@ -82,7 +82,7 @@ msgid ""
 "created users or existing ones before enabling eGroupware module."
 msgstr ""
 "Need on vaikimisi õigused rakendustele, mis määratakse uutele või loodud "
-"kasutajatele, enne eRühmavara mooduli lubamist."
+"kasutajatele, enne eGroupware mooduli lubamist."
 
 #: src/EBox/Model/PermissionTemplates.pm:66
 msgid "Name"
@@ -120,8 +120,8 @@ msgid ""
 "You must have at least one virtual mail domain defined. You can define the "
 "at {ohref}Virtual Domains section{chref}"
 msgstr ""
-"Määratud peab olema vähemalt üks virtuaaldomeen. Selle määramiseks mine "
-"{ohref}virtuaaldomeenide sektsiooni{chref}"
+"Määratud peab olema vähemalt üks virtuaaldomeen. Selle määramiseks liigu "
+"{ohref}virtuaaldomeenide leheküljele{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
 #, perl-brace-format
@@ -129,16 +129,16 @@ msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
-"Lubatud peab olema IMAP teenus. Selle lubamiseks mine sektsiooni {ohref}"
-"üldine e-posti seadistamine{chref}."
+"Lubatud peab olema IMAP teenus. Selle lubamiseks liigu leheküljele "
+"{ohref}üldine e-posti seadistamine{chref}."
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
 "The deleted virtual domain was selected for eGroupware. Maybe you want to "
 "select another one now."
 msgstr ""
-"Kustutatud virtuaaldomeen oli välja valitud eRühmavara jaoks. Võib olla "
-"soovid sa kohe valida uue virtuaaldomeeni."
+"Kustutatud virtuaaldomeen oli välja valitud eGroupware jaoks. Võib olla "
+"soovid kohe valida uue virtuaaldomeeni."
 
 #: src/EBox/Model/VMailDomain.pm:152
 msgid "Virtual Domain"
@@ -146,15 +146,15 @@ msgstr "Virtuaaldomeen"
 
 #: src/EBox/Model/VMailDomain.pm:161
 msgid "Virtual Mail Domain"
-msgstr "Virtuaalne meilidomeen"
+msgstr "Virtuaalne e-posti domeen"
 
 #: src/EBox/Model/VMailDomain.pm:166
 msgid "Select the virtual mail domain to be used for eGroupware"
-msgstr "Vali virtuaalne meilidomeen, mida eRühmavara poolt kasutatakse"
+msgstr "Vali virtuaalne e-posti domeen, mida eGroupware poolt kasutatakse"
 
 #: src/EBox/Composite/General.pm:76
 msgid "eGroupware"
-msgstr "eRühmavara"
+msgstr "eGroupware"
 
 #  
 #: src/EBox/Composite/General.pm:78
@@ -162,30 +162,29 @@ msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
-"Peale mooduli lubamist ja kasutajakonto loomist, saab eRühmavara "
+"Peale mooduli lubamist ja kasutajakonto loomist, saab eGroupware "
 "veebiliidesse siseneda aadresilt http://<ebox_ip_aadress>/egroupware"
 
 #: src/EBox/Composite/General.pm:89
 msgid "EGroupware"
-msgstr "eRühmavara"
+msgstr "eGroupware"
 
 #: src/templates/egroupware.mas:9
 msgid "eGroupware account"
-msgstr "eRühmavara konto"
+msgstr "eGroupware konto"
 
 #: src/templates/egroupware.mas:10
 msgid "Password for eGroupware service is the user password"
-msgstr "eRühmavara teenuse parool on sama kui kasutaja parool"
+msgstr "eGroupware teenuse parool on sama kui kasutaja parool"
 
 #: src/templates/egroupware.mas:12
 msgid "eGroupware group"
-msgstr "eRühmavara grupp"
+msgstr "eGroupware grupp"
 
-# või "lubade mallid"
+#  
 #: src/templates/egroupware.mas:28
-#, fuzzy
 msgid "Permissions template"
-msgstr "Määratud õiguste mallid"
+msgstr "Kohandatud õiguste mallid"
 
 #: src/templates/egroupware.mas:39
 msgid "Default"

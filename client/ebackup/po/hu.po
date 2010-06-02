@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:29+0200\n"
-"PO-Revision-Date: 2010-03-09 11:01+0100\n"
+"PO-Revision-Date: 2010-05-27 16:11+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -26,12 +26,15 @@ msgstr "Biztonsági mentés"
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
 msgstr ""
+"A(z) {f} fájl nem található a {d} mentésben, próbálja későbbi időponttal"
 
 #: src/EBox/EBackup.pm:191
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
+"Nem találhatók biztonsági mentések. Talán törölve lettek? Esetleg próbálja "
+"újraindítani a szolgáltatást: /etc/init.d/ebox ebackup restart"
 
 #: src/EBox/Event/Watcher/EBackup.pm:142
 msgid "Check if eBox backup was not successful."
@@ -43,13 +46,13 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
+"A mentés adatai nem találhatók a {d} mentésben. Talán próbálja más dátumon."
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
 #: src/EBox/Model/RemoteRestoreConf.pm:74
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
-#, fuzzy
 msgid "There are not backed up files yet"
-msgstr "Nincs információ az eddig mentett állományokról."
+msgstr "Jelenleg nincsenek mentett fájlok"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -162,15 +165,15 @@ msgstr "Visszaállító folyamat indul:"
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "Tartsa meg az előző teljes mentéseket"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "maximális szám"
 
 #: src/EBox/Model/RemoteSettings.pm:281
 msgid "no older than"
-msgstr ""
+msgstr "nem régebbi mint"
 
 #: src/EBox/Model/RemoteSettings.pm:295
 msgid "General Configuration"
@@ -191,40 +194,40 @@ msgstr "Általános biztonsági mentés szerver beállítások frissültek"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Monday"
-msgstr ""
+msgstr "Hétfőn"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Tuesday"
-msgstr ""
+msgstr "Kedden"
 
 #: src/EBox/Model/RemoteSettings.pm:319
 msgid "on Wednesday"
-msgstr ""
+msgstr "Szerdán"
 
 #: src/EBox/Model/RemoteSettings.pm:320
 msgid "on Thursday"
-msgstr ""
+msgstr "Csütörtökön"
 
 #: src/EBox/Model/RemoteSettings.pm:321
 msgid "on Friday"
-msgstr ""
+msgstr "Pénteken"
 
 #: src/EBox/Model/RemoteSettings.pm:322
 msgid "on Saturday"
-msgstr ""
+msgstr "Szombaton"
 
 #: src/EBox/Model/RemoteSettings.pm:323
 msgid "on Sunday"
-msgstr ""
+msgstr "Vasárnap"
 
 #: src/EBox/Model/RemoteSettings.pm:336
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "{mday}. napon"
 
 #: src/EBox/Model/RemoteSettings.pm:344
 msgid "on the last day"
-msgstr ""
+msgstr "az utolsó napon"
 
 #: src/EBox/Model/RemoteSettings.pm:499
 #, perl-brace-format
@@ -239,55 +242,55 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:516
 msgid "1 week"
-msgstr ""
+msgstr "1 hét"
 
 #: src/EBox/Model/RemoteSettings.pm:520
 msgid "2 weeks"
-msgstr ""
+msgstr "2 hét"
 
 #: src/EBox/Model/RemoteSettings.pm:524
 msgid "3 weeks"
-msgstr ""
+msgstr "3 hét"
 
 #: src/EBox/Model/RemoteSettings.pm:528
 msgid "1 month"
-msgstr ""
+msgstr "1 hónap"
 
 #: src/EBox/Model/RemoteSettings.pm:532
 msgid "2 months"
-msgstr ""
+msgstr "2 hónap"
 
 #: src/EBox/Model/RemoteSettings.pm:536
 msgid "3 months"
-msgstr ""
+msgstr "3 hónap"
 
 #: src/EBox/Model/RemoteSettings.pm:540
 msgid "4 months"
-msgstr ""
+msgstr "4 hónap"
 
 #: src/EBox/Model/RemoteSettings.pm:544
 msgid "6 months"
-msgstr ""
+msgstr "6 hónap"
 
 #: src/EBox/Model/RemoteSettings.pm:548
 msgid "9 months"
-msgstr ""
+msgstr "9 hónap"
 
 #: src/EBox/Model/RemoteSettings.pm:552
 msgid "1 year"
-msgstr ""
+msgstr "1 év"
 
 #: src/EBox/Model/RemoteSettings.pm:556
 msgid "1 year and half"
-msgstr ""
+msgstr "Másfél év"
 
 #: src/EBox/Model/RemoteSettings.pm:560
 msgid "2 years"
-msgstr ""
+msgstr "2 év"
 
 #: src/EBox/Model/RemoteSettings.pm:564
 msgid "3 years"
-msgstr ""
+msgstr "3 év"
 
 #: src/EBox/Model/RemoteSettings.pm:596
 msgid "Destination must be a relative directory"
@@ -357,7 +360,6 @@ msgid "File exists and it is not a directory"
 msgstr "A fájl létezik és nem egy mappa"
 
 #: src/EBox/Model/RemoteSettings.pm:763
-#, fuzzy
 msgid "Incremental backup must be more frequent than full backup"
 msgstr "A teljes mentés nem lehet sűrűbb mint a különbözeti mentés"
 
@@ -379,9 +381,8 @@ msgid "Includes and Excludes"
 msgstr "Beleértve vagy kizárva"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
-#, fuzzy
 msgid "exclude or include"
-msgstr "Kizárva vagy beleértve"
+msgstr "kizárva vagy beleértve"
 
 #: src/EBox/Model/RemoteExcludes.pm:102
 msgid ""
@@ -389,15 +390,17 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
+"A fájlok vagy mappák beleértése vagy kizárása az első találattól függ. "
+"Mappák esetén a teljes tartalmára vonatkozik a szabály. A fájlok "
+"alapértelmezetten nincsenek kizárva vagy beleértve a mentésbe"
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
-msgstr "kizárási útvonal"
+msgstr "Kizárási útvonal"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
-#, fuzzy
 msgid "Exclude by regular expression"
-msgstr "reguláris kifejezések kizárási útvonala"
+msgstr "Kizárás reguláris kifejezéssel"
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
@@ -421,15 +424,15 @@ msgstr "mentésbe foglalt útvonal"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore eBox configuration from backup"
-msgstr ""
+msgstr "eBox beállítások visszaállítása mentésből"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
-msgstr ""
+msgstr "A mentésben található beállítások betöltése"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "Kérem várjon..."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
@@ -437,18 +440,20 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
+"A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
+"dátumot."
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Naplóadatbázisok visszaállítása"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the eBox logs found in the selected backup"
-msgstr ""
+msgstr "eBox naplózások visszaállítása a kiválasztott mentésből"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Szolgáltatások visszaállítása"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"

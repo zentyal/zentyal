@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:43+0200\n"
-"PO-Revision-Date: 2010-02-09 12:00+0100\n"
+"PO-Revision-Date: 2010-05-27 16:19+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -210,7 +210,7 @@ msgstr "Megjegyzés"
 
 #: src/EBox/Samba/Model/SambaShares.pm:130
 msgid "Guest access"
-msgstr ""
+msgstr "Vendég hozzáférés"
 
 #: src/EBox/Samba/Model/SambaShares.pm:136
 msgid "Access control"

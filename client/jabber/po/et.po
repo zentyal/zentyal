@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-jabber 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:53+0200\n"
-"PO-Revision-Date: 2010-04-21 14:35+0200\n"
+"PO-Revision-Date: 2010-05-06 16:48+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,6 @@ msgstr ""
 
 # Jabberi LDAP skeemi lisamine
 #: src/EBox/Jabber.pm:72
-#, fuzzy
 msgid "Add Jabber LDAP schema"
 msgstr "Jabberi lisamine LDAP skeemi"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ids 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:55+0200\n"
-"PO-Revision-Date: 2010-04-27 10:47+0200\n"
+"PO-Revision-Date: 2010-05-09 00:37+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -35,11 +35,11 @@ msgstr "Kirjeldus"
 
 #: src/EBox/IDS.pm:302
 msgid "Source"
-msgstr "Saatja"
+msgstr "Lähtekoht"
 
 #: src/EBox/IDS.pm:303
 msgid "Destination"
-msgstr "Saaja"
+msgstr "Sihtkoht"
 
 #: src/EBox/IDS.pm:304
 msgid "Protocol"

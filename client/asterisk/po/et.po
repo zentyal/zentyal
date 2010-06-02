@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-02-08 06:37+0000\n"
-"PO-Revision-Date: 2010-04-21 16:04+0200\n"
+"PO-Revision-Date: 2010-05-14 18:43+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -145,6 +145,7 @@ msgstr "Kestus"
 msgid "Channel"
 msgstr "Kanal"
 
+# Sihtkoha kanal
 #: src/EBox/Asterisk.pm:714
 msgid "Destination Channel"
 msgstr "Adressaadi kanal"
@@ -250,7 +251,7 @@ msgstr "Uus parool"
 
 #: src/EBox/Model/Voicemail.pm:101
 msgid "Mail address"
-msgstr "Meiliaadress"
+msgstr "E-posti aadress"
 
 # sõnumid?
 #: src/EBox/Model/Voicemail.pm:108
@@ -353,11 +354,11 @@ msgstr "Server"
 msgid "Recipient of incoming calls"
 msgstr "Saabuvate kõnede vastuvõtja"
 
-# Läbi pakkuja saabuvate kõnede laiendi vastuvõtja.
+#  
 #: src/EBox/Model/Provider.pm:130
-#, fuzzy
 msgid "Extension recipient of incoming calls through the provider."
-msgstr "Läbi pakkuja saabuvate kõnede vastuvõtja laiend"
+msgstr ""
+"Sisemine eBoxi laiend kuhu suunatakse kõik väliselt pakkujalt saabuvad kõned"
 
 # vt kasutajaliidest
 #: src/EBox/Model/Provider.pm:137

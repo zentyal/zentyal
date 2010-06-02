@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:54+0200\n"
-"PO-Revision-Date: 2010-04-21 14:22+0200\n"
-"Last-Translator: Önder ARSLAN <arslanonder@gmail.com>\n"
+"PO-Revision-Date: 2010-05-11 09:47+0200\n"
+"Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr "Gezici Dosya Aktarım Protokolü"
 
 #: migration/0002_add_services.pl:126
 msgid "Dynamic Host Configuration Protocol"
-msgstr ""
+msgstr "DHCP"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
@@ -75,27 +75,29 @@ msgstr "Modul durumu"
 #: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/OptionsTab.pm:87
 #: src/EBox/Composite/InterfaceConfiguration.pm:87
 #: src/EBox/Composite/AdvancedOptions.pm:88
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "interface {iface}"
-msgstr "Ağ kartı"
+msgstr "arayüz {iface}"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
 msgid "You need to upload a boot image to eBox if you set it as next server"
-msgstr ""
+msgstr "ince istemciler için boot imajını yüklemeniz gerekiyor."
 
 #: src/EBox/Model/ThinClientOptions.pm:146
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
-msgstr ""
+msgstr "ince istemciler için boot imajını yüklemeniz gerekiyor."
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
-msgstr ""
+msgstr "ince istemciler için boot imajınının sunucu adresini yazmalısınız"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
 msgstr ""
+"eBox üzerinde olmayan boot imajları için sadece bir dosya adı "
+"belirtebilirsiniz."
 
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, perl-brace-format
@@ -103,37 +105,38 @@ msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
+"eBox tan {option} 'a değişiklik yaptığınızda önceden yüklenen boot imajı "
+"silinir."
 
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
-msgstr ""
+msgstr "boot imaj sunucusu"
 
 #: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:394
 #: src/EBox/Model/Options.pm:405 src/EBox/Model/Options.pm:409
 #: src/EBox/Model/Options.pm:423 src/EBox/Model/Options.pm:456
 msgid "None"
-msgstr ""
+msgstr "Yok"
 
 #: src/EBox/Model/ThinClientOptions.pm:239 src/EBox/Model/Options.pm:446
 msgid "eBox"
-msgstr ""
+msgstr "eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:246
-#, fuzzy
 msgid "name"
 msgstr "İsim"
 
 #: src/EBox/Model/ThinClientOptions.pm:252
 msgid "File name"
-msgstr ""
+msgstr "Dosya adı"
 
 #: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
-msgstr ""
+msgstr "boot imaj dosyası yolu"
 
 #: src/EBox/Model/ThinClientOptions.pm:269
 msgid "Thin client"
-msgstr ""
+msgstr "İnce İstemci"
 
 #: src/EBox/Model/ThinClientOptions.pm:274
 #, perl-brace-format
@@ -141,6 +144,8 @@ msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
+"İnce İstemcinizde değişiklik yapmak için {path} dizinine gerekli tüm "
+"dosyaları kopyalayınız"
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
@@ -150,38 +155,40 @@ msgstr "Varsayılan kira süresi 0 saniyeden daha fazla olmalıdır"
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
+"Öntanımlı kiralama süresi ( {default} ) en büyük kira süresinden ( {max} ) "
+"küçük olmalıdır."
 
 #: src/EBox/Model/LeaseTimes.pm:150
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "En uzun kiralam süresi 0 dan büyük olmalıdır"
 
 #: src/EBox/Model/LeaseTimes.pm:156
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr ""
+msgstr "En uzun kira süresi ön tanımlı kira süresinden küçük olamaz"
 
 #: src/EBox/Model/LeaseTimes.pm:200
-#, fuzzy
 msgid "Default leased time"
-msgstr "Varsayılan ağ geçidi"
+msgstr "Öntanımlı kira süresi"
 
 #: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
 msgid "seconds"
-msgstr ""
+msgstr "saniye"
 
 #: src/EBox/Model/LeaseTimes.pm:207
 msgid "Maximum leased time"
-msgstr ""
+msgstr "En uzun kiralama süresi"
 
 #: src/EBox/Model/LeaseTimes.pm:216
-#, fuzzy
 msgid "Lease times"
-msgstr "Varsayılan ağ geçidi"
+msgstr "Kiralama Süreleri"
 
 #: src/EBox/Model/LeaseTimes.pm:221
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
+"Kiralama süresi, DHCP sunucu tarafından verilen IP adresinin geçerlilik "
+"süresidir."
 
 #: src/EBox/Model/FixedAddressTable.pm:124
 #, perl-brace-format
@@ -189,22 +196,20 @@ msgid "IP address {ip} is not in network {net}"
 msgstr "{ip} adresi {net} ağı içinde değil"
 
 #: src/EBox/Model/FixedAddressTable.pm:135
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
 msgstr "Seçilen IP adresi ağ kartının IP adresidir: {iface_ip}"
 
 #: src/EBox/Model/FixedAddressTable.pm:152
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
-msgstr "{ip} adresi {range} aralığındadır: {old_from}-{old_to}"
+msgstr "IP adres {ip} aralığı '{range}': {from}-{to}"
 
 #: src/EBox/Model/FixedAddressTable.pm:177
-#, fuzzy
 msgid "update"
-msgstr "Tarih"
+msgstr "güncel"
 
 #: src/EBox/Model/FixedAddressTable.pm:179
-#, fuzzy
 msgid "add"
 msgstr "Ekle"
 
@@ -213,101 +218,99 @@ msgstr "Ekle"
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
-msgstr ""
+msgstr "{action} daha önce kayıtlı bir sabit adresi bir daha tanımlayamazsınız"
 
 #: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
+msgstr "Aralık sınırları dışında IP adresi tanımlayamazsınız"
 
 #: src/EBox/Model/FixedAddressTable.pm:229
 msgid "Description"
-msgstr ""
+msgstr "Tanımlama"
 
 #: src/EBox/Model/FixedAddressTable.pm:237 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Sabit adresler"
 
 #: src/EBox/Model/FixedAddressTable.pm:244
-#, fuzzy
 msgid "fixed address"
-msgstr "Sabit adresler"
+msgstr "Sabit adres"
 
 #: src/EBox/Model/DynamicDNS.pm:132 src/EBox/Model/DynamicDNS.pm:140
 #: src/EBox/Model/DynamicDNS.pm:387
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr ""
+msgstr "{domain} adresi DNS bölümünde tanımlanmıştır"
 
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "DNS modülü bu özellik ile birlikte çalışacak biçimde ayarlanmalıdır"
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
+msgstr "{pkg} paketi bu özelliğin kullanılabilmesi için şarttır"
 
 #: src/EBox/Model/DynamicDNS.pm:266
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
+"Alan adları DNS bölümü salt okunur modda iken otomatik olarak eklenecekler"
 
 #: src/EBox/Model/DynamicDNS.pm:268
 msgid "DNS module must be enabled to make this feature work. "
-msgstr ""
+msgstr "Bu özelliğin çalışması için DNS modülü aktif olmalıdır"
 
 #: src/EBox/Model/DynamicDNS.pm:332
-#, fuzzy
 msgid "Dynamic domain"
-msgstr "Alan isminde ara"
+msgstr "Dinamik Alan adı"
 
 #: src/EBox/Model/DynamicDNS.pm:334
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
-msgstr ""
+msgstr "Aralıktan IP alan istemciler için alan adı eklendi"
 
 #: src/EBox/Model/DynamicDNS.pm:339
-#, fuzzy
 msgid "Static domain"
-msgstr "Alan isminde ara"
+msgstr "Sabit Alan Adı"
 
 #: src/EBox/Model/DynamicDNS.pm:341
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
-msgstr ""
+msgstr "Sabit IP adresi olan istemciler için alan adı eklendi"
 
 #: src/EBox/Model/DynamicDNS.pm:346
 msgid "Same as Dynamic Domain"
-msgstr ""
+msgstr "Dinamik alan adı ile aynı"
 
 #: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:371
 #: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
 #: src/EBox/Model/Options.pm:432
 msgid "Custom"
-msgstr ""
+msgstr "Özel"
 
 #: src/EBox/Model/DynamicDNS.pm:358
 msgid "Dynamic DNS Options"
-msgstr ""
+msgstr "Dinamik DNS Seçenekleri"
 
 #: src/EBox/Model/DynamicDNS.pm:363
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
+"Alan adları DNS modülü salt okunur durumdayke otomatik olarak eklenecekller"
 
 #: src/EBox/Model/DynamicDNS.pm:395
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
-msgstr ""
+msgstr "\"{domain}\"  alan adı DNS bölümüne eklendi"
 
 #: src/EBox/Model/DynamicDNS.pm:406
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
-msgstr ""
+msgstr "\"{domain}\" alan adı DNS bölümünden silindi"
 
 #: src/EBox/Model/RangeInfo.pm:143
-#, fuzzy
 msgid "Interface IP address"
 msgstr "Ağ geçidi IP adresi"
 
@@ -332,50 +335,56 @@ msgstr "{gateway} kendi ağınızda değil"
 msgid ""
 "DNS module must be enabled to be able to select eBox as primary DNS server"
 msgstr ""
+"eBox birincil DNS sunucusu olarak ayarlamak için DNS modülünün aktif olması "
+"zorunludur"
 
 #: src/EBox/Model/Options.pm:179
 msgid "NTP module must be enabled to be able to select eBox as NTP server"
 msgstr ""
+"eBox 'ı NTP sunucusu olarak ayarlamak için NTP modülünün aktif olması "
+"zorunludur"
 
 #: src/EBox/Model/Options.pm:190
 msgid "Samba module must be enabled to be able to select eBox as WINS server"
 msgstr ""
+"eBox 'ı WINS sunucusu olarak ayarlamak için Samba modülünün aktif olması "
+"zorunludur"
 
 #: src/EBox/Model/Options.pm:379
-#, fuzzy
 msgid "eBox's domain"
-msgstr "Alan isminde ara"
+msgstr "eBox alan adı"
 
 #: src/EBox/Model/Options.pm:387
 msgid "local eBox DNS"
-msgstr ""
+msgstr "Yerel eBox DNS"
 
 #: src/EBox/Model/Options.pm:414
 msgid "local eBox NTP"
-msgstr ""
+msgstr "Yerel eBox Zaman Sunucusu"
 
 #: src/EBox/Model/Options.pm:428
 msgid "local eBox"
-msgstr ""
+msgstr "Yerel eBox"
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
 msgstr "Varsayılan ağ geçidi"
 
 #: src/EBox/Model/Options.pm:450
-#, fuzzy
 msgid "Custom IP address"
-msgstr "\"Burdan\" bölümünden IP adresi"
+msgstr "Özel IP adresi"
 
 #: src/EBox/Model/Options.pm:460
 msgid "Configured ones"
-msgstr ""
+msgstr "Ayarlanmış olanlar"
 
 #: src/EBox/Model/Options.pm:466
 msgid ""
 "Setting \"eBox\" as default gateway will set the interface IP address as "
 "gateway"
 msgstr ""
+"eBox öntanımlı ağ geçidi olarak ayarlandığında arayüz IP adresi ağ geçidi "
+"olarak tanımlanacaktır"
 
 #: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
 msgid "Search domain"
@@ -386,6 +395,8 @@ msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
+"DNS sorgulaması için belirttiğiniz alan adı kurallara uygun olarak "
+"yazılmamış"
 
 #: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
 msgid "Primary nameserver"
@@ -396,6 +407,8 @@ msgid ""
 "If \"eBox DNS\" is present and selected, the eBox server will act as cache "
 "DNS server"
 msgstr ""
+"eBox DNS hazır ve seçili durumda ise, eBox sunucusu cache DNS sunucusu "
+"olarak çalışacaktır"
 
 #: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
 msgid "Secondary nameserver"
@@ -403,27 +416,31 @@ msgstr "İkinci ad sunucusu"
 
 #: src/EBox/Model/Options.pm:494
 msgid "NTP server"
-msgstr ""
+msgstr "NTP sunucu"
 
 #: src/EBox/Model/Options.pm:497
 msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
 msgstr ""
+"eBox NTP sunucusu olarak seçildiğinde DHCP'den ip alan istemciler için zaman "
+"sunucusu olarak çalışacaktır"
 
 #: src/EBox/Model/Options.pm:502
 msgid "WINS server"
-msgstr ""
+msgstr "WINS sunucu"
 
 #: src/EBox/Model/Options.pm:505
 msgid ""
 "If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
 "DHCP clients"
 msgstr ""
+"eBox Samba sunucusu olarak seçildiğinde DHCP'den ip alan istemciler için "
+"WINS sunucusu olarak çalışacaktır"
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"
-msgstr ""
+msgstr "Ortak seçenekler"
 
 #: src/EBox/Model/Options.pm:517
 msgid ""
@@ -444,13 +461,13 @@ msgid "Range {from}-{to} is not in network {net}"
 msgstr "{from}-{to} aralıkları {net} ağının içinde değil"
 
 #: src/EBox/Model/RangeTable.pm:141
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
 msgstr ""
 "{new_from}-{new_to} aralığı bir ağ kartının IP adresini içeriyor: {iface_ip}"
 
 #: src/EBox/Model/RangeTable.pm:164
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
@@ -458,25 +475,24 @@ msgstr ""
 "{old_from}-{old_to}"
 
 #: src/EBox/Model/RangeTable.pm:182
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr ""
-"{new_from}-{new_to} aralığı '{name}' aygıtının sabit IP numarasını "
-"tanımlıyor: {fixed_ip}"
+"{new_from}-{new_to} aralığı '{name}' aygıtının sabit IP numarasını içeriyor: "
+"{fixed_ip}"
 
 #: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
 msgid "Ranges"
 msgstr "Aralıklar"
 
 #: src/EBox/Model/RangeTable.pm:240
-#, fuzzy
 msgid "range"
-msgstr "Aralıklar"
+msgstr "Aralık"
 
 #: src/EBox/DHCP.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{server} configuration file"
-msgstr "Hizmet yapılandırması"
+msgstr "{server} yapılandırma dosyası"
 
 #: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
 #: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708
@@ -487,14 +503,14 @@ msgstr "{iface} sabit IP olarak tanımlı değil"
 
 #: src/EBox/DHCP.pm:694
 msgid "Not a valid action: add, set and del are available"
-msgstr ""
+msgstr "Geçersiz işlem: Ekle,Düzenle ve Sil kullanılabilir"
 
 #: src/EBox/DHCP.pm:809
 msgid "No valid action. Available ones are: add, set and del"
-msgstr ""
+msgstr "Geçersiz işlem: Ekle,Düzenle ve Sil işlemlerinden biri kullanılabilir"
 
 #: src/EBox/DHCP.pm:1048
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
 "used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
@@ -505,7 +521,7 @@ msgstr ""
 "sonra sanal ağ kartı ilave edin"
 
 #: src/EBox/DHCP.pm:1067
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
 "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
@@ -540,14 +556,12 @@ msgid "DHCP"
 msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1333
-#, fuzzy
 msgid "Host name"
-msgstr "İsim"
+msgstr "Bilgisayar Adı"
 
 #: src/EBox/DHCP.pm:1360
-#, fuzzy
 msgid "DHCP leases"
-msgstr "DHCP aralığı"
+msgstr "DHCP İstemcileri"
 
 #: src/EBox/Composite/General.pm:79
 #, perl-brace-format
@@ -555,6 +569,9 @@ msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
+"DHCP sunucusu için bir arayüzün sabit ip ile ayarlanması "
+"gereklidir.{openhref}Arayüz Ayarları{closehref} kısmında değişiklik "
+"yapabilirsiniz."
 
 #: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"
@@ -578,11 +595,12 @@ msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
 msgstr ""
+"Dış ağ arayüzünü ip adreslerinin dağıtılacağı arayüz olarak seçtiğinizde "
+"{openhref}firewall modülünde{closehref} gerekli ayarları yapmalısınız."
 
 #: src/EBox/Composite/AdvancedOptions.pm:133
-#, fuzzy
 msgid "Advanced options"
-msgstr "Seçenekler"
+msgstr "Gelişmiş Seçenekler"
 
 #: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"

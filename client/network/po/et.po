@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:56+0200\n"
-"PO-Revision-Date: 2010-04-27 15:56+0200\n"
+"PO-Revision-Date: 2010-05-25 15:35+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -127,8 +127,8 @@ msgid ""
 "WAN Failover event is not enabled. You have to enable it in order to use "
 "this feature"
 msgstr ""
-"WAN tõrkesiire ei ole hetkel lubatud. Selle kasutamiseks pead ta eelnevalt "
-"lubama."
+"WAN tõrkesiire ei ole hetkel lubatud. Tõrkesiirde kasutamiseks peab see "
+"olema eelnevalt lubatud sündmuste moodulis."
 
 #: src/EBox/Network/Composite/DNS.pm:61
 msgid "Domain Name Server Resolver"
@@ -162,7 +162,7 @@ msgstr "baiti/sekundis"
 #: src/EBox/Network/Report/ByteRate.pm:823
 #: src/EBox/Network/Report/ByteRate.pm:929
 msgid "Traffic data for source"
-msgstr "Liikluse andmed saatja jaoks"
+msgstr "Liikluse andmed lähtekoha jaoks"
 
 #: src/EBox/Network/Report/ByteRate.pm:843
 #, perl-brace-format
@@ -184,17 +184,17 @@ msgstr "Liikluse andmed teenuse jaoks"
 
 #: src/EBox/Network/Report/ByteRate.pm:946
 msgid "Traffic data not found for source and service pair"
-msgstr "Liikluse andmeid saatja ja teenuse paari jaoks ei leitud"
+msgstr "Liikluse andmeid lähtekoha ja teenuse paari jaoks ei leitud"
 
 #: src/EBox/Network/Report/ByteRate.pm:948
 #, perl-brace-format
 msgid "source {src} and service {service}"
-msgstr "saatja {src} ja teenus {service}"
+msgstr "lähtekoht {src} ja teenus {service}"
 
 #: src/EBox/Network/Report/ByteRate.pm:962
 #, perl-brace-format
 msgid "Network traffic from source {src} and for service {service}"
-msgstr "Võrguliiklus {src} saatjast ja {service} teenuse jaoks"
+msgstr "Võrguliiklus lähtekohast {src} ja teenuse {service} jaoks"
 
 #: src/EBox/Network/Report/ByteRate.pm:989
 msgid "All active services"
@@ -212,7 +212,7 @@ msgstr "kõikide teenuste kohta"
 
 #: src/EBox/Network/Report/ByteRate.pm:1040
 msgid "All active sources"
-msgstr "Kõik aktiivsed saatjad"
+msgstr "Kõik aktiivsed lähtekohad"
 
 # vt koodi
 #: src/EBox/Network/Report/ByteRate.pm:1045
@@ -222,10 +222,10 @@ msgstr "Liikluse andmed"
 # vt koodi
 #: src/EBox/Network/Report/ByteRate.pm:1046
 msgid "all sources"
-msgstr "kõikide saatjate kohta"
+msgstr "kõikide allikate kohta"
 
 #: src/EBox/Network/Report/ByteRate.pm:1084
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Total traffic rate from {src}"
 msgstr "{src} liikluskiirus kokku"
 
@@ -258,7 +258,6 @@ msgstr ""
 "marsruutide loendi kuvamiseks pead sa käivitama: "
 
 #: src/EBox/Network.pm:106
-#, fuzzy
 msgid "Enable eBox DHCP hook"
 msgstr "Luba eBoxi DHCP haakimine"
 
@@ -382,13 +381,11 @@ msgstr "MAC aadress"
 
 # Tx baiti v Tx baite
 #: src/EBox/Network.pm:3059
-#, fuzzy
 msgid "Tx bytes"
 msgstr "Tx baidid"
 
 # Rx baiti v Rx baite
 #: src/EBox/Network.pm:3068
-#, fuzzy
 msgid "Rx bytes"
 msgstr "Rx baidid"
 
@@ -450,7 +447,6 @@ msgstr "Otsingudomeen"
 
 #  
 #: src/EBox/Model/SearchDomain.pm:84
-#, fuzzy
 msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
@@ -506,7 +502,7 @@ msgstr ""
 #: src/EBox/Model/MultiGwRulesDataTable.pm:110
 #: src/EBox/Model/ByteRateGraphControl.pm:111
 msgid "Source"
-msgstr "Saatja"
+msgstr "Lähtekoht"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:115
 #: src/EBox/Model/MultiGwRulesDataTable.pm:142
@@ -515,11 +511,11 @@ msgstr "Suvaline"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:118
 msgid "Source IP"
-msgstr "Saatja IP"
+msgstr "IP lähteaadress"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:123
 msgid "Source object"
-msgstr "Saatja objekt"
+msgstr "Lähteobjekt"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:129
 msgid "eBox"
@@ -527,15 +523,15 @@ msgstr "eBox"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Destination"
-msgstr "Saaja"
+msgstr "Sihtkoht"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:145
 msgid "Destination IP"
-msgstr "Saaja IP"
+msgstr "IP sihtaadress"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:150
 msgid "Destination object"
-msgstr "Saaja objekt"
+msgstr "Sihtobjekt"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:161 src/EBox/Model/DynDNS.pm:92
 #: src/EBox/Model/ByteRateGraphControl.pm:117
@@ -553,7 +549,6 @@ msgstr "Mitme lüüsi reeglid"
 
 #  
 #: src/EBox/Model/MultiGwRulesDataTable.pm:193
-#, fuzzy
 msgid ""
 "You can decide what kind of traffic goes out by each gateway. This way, you "
 "can force a subnet, service, destination and so forth  to use the router you "
@@ -561,8 +556,8 @@ msgid ""
 "to bottom, you can reorder them once they are added. If you do not set a "
 "port or an IP address, then the rule will match all of them"
 msgstr ""
-"Siin saab valida erinevate liiklustüüpide jaoks kindla lüüsi. Nõnda sunnid "
-"mingit kindlat alamvõrku, teenust, saajat jne kasutama eelnevalt valitud "
+"Siin saab erinevate liiklustüüpide jaoks valida kindla lüüsi. Nõnda sunnid "
+"mingit kindlat alamvõrku, teenust, sihtkohta jne kasutama eelnevalt valitud "
 "lüüsi. Palun pea meeles, et reegleid rakendatakse järjekorras ülevalt alla. "
 "Lisatud reegleid võib ka ümber järjestada. Kui port või IP aadress ei ole "
 "määratud, kehtib reegel kõigi jaoks."
@@ -664,7 +659,6 @@ msgstr "Liikluskiiruse monitooringu peatamine"
 
 # Liikluskiiruse jälgija on start/stop nõudmisel ilma vajaduseta muudatusi salvestada
 #: src/EBox/Model/ByteRateEnableForm.pm:87
-#, fuzzy
 msgid ""
 "The traffic rate monitor is start/stop on demand without requiring to save "
 "changes first"
@@ -728,7 +722,6 @@ msgstr "Testide intervall"
 
 # või sekundid?
 #: src/EBox/Model/WANFailoverOptions.pm:73
-#, fuzzy
 msgid "seconds"
 msgstr "sekundit"
 
@@ -751,7 +744,7 @@ msgstr "Nimi"
 
 #: src/EBox/Model/GatewayTable.pm:208
 msgid "Interface connected to this gateway"
-msgstr "Liides selle lüüsiga ühendatud"
+msgstr "Selle lüüsiga ühendatud liides"
 
 #: src/EBox/Model/GatewayTable.pm:212
 msgid "Weight"
@@ -762,8 +755,8 @@ msgid ""
 "This field is only useful if you have more than one router and  the balance "
 "traffic feature is enabled."
 msgstr ""
-"See väli on kasulik sel juhul, kui sul on rohkem kui üks marsruuter ja "
-"liikluse tasakaalustamine on lubatud."
+"See väli on kasulik juhul, kui kasutuses on rohkem kui üks lüüs ja liikluse "
+"tasakaalustamine on lubatud."
 
 #: src/EBox/Model/GatewayTable.pm:223
 msgid "Default"
@@ -820,7 +813,7 @@ msgstr "Graafiku tüüp"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:85
 msgid "All active traffic by source"
-msgstr "Aktiivne liiklus kokku, saatja järgi"
+msgstr "Aktiivne liiklus kokku, lähtekoha järgi"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:89
 msgid "All active traffic by service"
@@ -828,7 +821,7 @@ msgstr "Aktiivne liiklus kokku, teenuse järgi"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:93
 msgid "Traffic by selected source"
-msgstr "Valitud saatja liiklus"
+msgstr "Valitud lähtekoha liiklus"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:99
 msgid "Traffic by selected service"
@@ -836,7 +829,7 @@ msgstr "Valitud teenuse liiklus"
 
 #: src/EBox/Model/ByteRateGraphControl.pm:105
 msgid "Traffic by source and service"
-msgstr "Saatja ja teenuse liiklus"
+msgstr "Lähtekoha ja teenuse liiklus"
 
 #: src/templates/confirmremove.mas:11 src/templates/confirm.mas:16
 msgid ""
@@ -858,7 +851,6 @@ msgstr ""
 
 #: src/templates/confirmremove.mas:24 src/templates/confirmVlanDel.mas:22
 #: src/templates/confirm.mas:35
-#, fuzzy
 msgid "Ok"
 msgstr "Ok"
 
@@ -910,7 +902,7 @@ msgid ""
 "Check this if you are using eBox as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
-"Märgi see väli, kui sa kasutad eBoxi lüüsina ja see liides on ühendatud sinu "
+"Märgi väli juhul, kui kasutad eBoxi lüüsina ja see liides on ühendatud sinu "
 "Interneti marsruuteriga."
 
 #: src/templates/ifaces.mas:155

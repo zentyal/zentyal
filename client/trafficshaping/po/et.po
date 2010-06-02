@@ -1,3 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-06 13:22+0200\n"
+"PO-Revision-Date: 2010-05-09 16:08+0200\n"
+"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"X-Generator: Pootle 1.1.0\n"
+
 #: src/EBox/TrafficShaping/Model/InterfaceRate.pm:130
 msgid ""
 msgstr ""
@@ -35,7 +48,7 @@ msgstr ""
 "kbit/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
 "increase maximum upload traffic associated to external interfaces"
@@ -96,7 +109,7 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:258
 msgid "If service is any, some source or destination should be provided"
-msgstr "Kui teenus on suvaline, siis peab olema pakutud mõni saatja või saaja"
+msgstr "Kui teenus on suvaline, siis peab olema pakutud lähtekoht või sihtkoht"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:393
 msgid "Service"
@@ -108,7 +121,7 @@ msgstr "Pordil põhinev teenus"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:410
 msgid "Source"
-msgstr "Saatja"
+msgstr "Lähtekoht"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:415
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:445
@@ -117,23 +130,23 @@ msgstr "Suvaline"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:418
 msgid "Source IP"
-msgstr "Saatja IP"
+msgstr "IP lähteaadress"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:430
 msgid "Source object"
-msgstr "Saatja objekt"
+msgstr "Lähteobjekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:440
 msgid "Destination"
-msgstr "Saaja"
+msgstr "Sihtkoht"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:448
 msgid "Destination IP"
-msgstr "Saaja IP"
+msgstr "IP sihtaadress"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:453
 msgid "Destination object"
-msgstr "Saaja objekt"
+msgstr "Sihtobjekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:463
 #: src/EBox/TrafficShaping.pm:1596
@@ -159,8 +172,8 @@ msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
-"Pea meeles, et kõikide tagatud kiiruste summa ei saa ületada sinu "
-"läbilaskevõimet kokku. 0 tähendab kiirust, mida ei saa tagada."
+"Pea meeles, et kõikide tagatud kiiruste summa ei saa ületada kogu "
+"läbilaskevõimet. 0 tähendab tagamatut kiirust."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:483
 #: src/EBox/TrafficShaping.pm:1595
@@ -270,7 +283,7 @@ msgid ""
 msgstr ""
 "Liikluse kujundamist rakendatakse siis, kui eBox käitub lüüsina. Selle jaoks "
 "vajad sa vähemalt ühte sisemist ja välist liidest. Oma liideste seadistusi "
-"saad üle vaadata sektsioonis {openhref}Võrk->Liidesed{closehref}"
+"saad üle vaadata leheküljel {openhref}Võrk->Liidesed{closehref}"
 
 # "setting as interface an external one" liides väliseks?
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:94
@@ -283,14 +296,14 @@ msgid ""
 msgstr ""
 "Liikluse kujundamist rakendatakse ainult siis, kui on olemas määratud "
 "üleslaadimise kiirusega lüüs, mis seotud välise liidesega. Lüüsi loomiseks "
-"liigu sektsiooni {openhref}Võrk->Lüüsid{closehref} ning seadista liides "
+"liigu leheküljele {openhref}Võrk->Lüüsid{closehref} ning seadista liides "
 "väliseks."
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:117
 msgid "Rules list per interface"
 msgstr "Liidese reeglite loend"
 
-# "ingress shaping" eestikeelne vaste?
+#  
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:128
 #, fuzzy
 msgid ""

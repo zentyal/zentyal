@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:26+0200\n"
-"PO-Revision-Date: 2010-04-26 11:57+0200\n"
+"PO-Revision-Date: 2010-05-06 15:59+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -502,8 +502,8 @@ msgstr "Kuupäev"
 msgid "Actions"
 msgstr "Toimingud"
 
+# vt kasutajaliides
 #: src/templates/index.mas:117
-#, fuzzy
 msgid "from"
 msgstr "kellelt:"
 

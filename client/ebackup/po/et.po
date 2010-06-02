@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:29+0200\n"
-"PO-Revision-Date: 2010-04-28 19:49+0200\n"
+"PO-Revision-Date: 2010-05-09 00:40+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -25,13 +25,15 @@ msgstr "Varundamine"
 #: src/EBox/EBackup.pm:184
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
+msgstr "Faili {f} ei leitud varukoopiast {d}, proovi hilisemat kuupäeva"
 
 #: src/EBox/EBackup.pm:191
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
+"Varundusarhiive ei leitud, varundusinfo värskendamiseks käivita käsureal "
+"'/etc/init.d/ebox ebackup restart'"
 
 #: src/EBox/Event/Watcher/EBackup.pm:142
 msgid "Check if eBox backup was not successful."
@@ -43,13 +45,14 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
+"Logide taastamiseks vajalikke andmeid ei leitud varukoopiast {d} jaoks. Võib "
+"olla proovid mõnda teist kuupäeva?"
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
 #: src/EBox/Model/RemoteRestoreConf.pm:74
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
-#, fuzzy
 msgid "There are not backed up files yet"
-msgstr "Teavet varundatud failide kohta veel ei ole."
+msgstr "Varundatud faile ei ole veel"
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -162,15 +165,15 @@ msgstr "Varundamine algab kell"
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "Eelmiste täiskoopiate säilitamine"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "suurim arv"
 
 #: src/EBox/Model/RemoteSettings.pm:281
 msgid "no older than"
-msgstr ""
+msgstr "mitte vanemad kui"
 
 #: src/EBox/Model/RemoteSettings.pm:295
 msgid "General Configuration"
@@ -191,40 +194,40 @@ msgstr "Varundusserveri üldised seadistused on uuendatud"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Monday"
-msgstr ""
+msgstr "esmaspäeval"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Tuesday"
-msgstr ""
+msgstr "teisipäeval"
 
 #: src/EBox/Model/RemoteSettings.pm:319
 msgid "on Wednesday"
-msgstr ""
+msgstr "kolmapäeval"
 
 #: src/EBox/Model/RemoteSettings.pm:320
 msgid "on Thursday"
-msgstr ""
+msgstr "neljapäeval"
 
 #: src/EBox/Model/RemoteSettings.pm:321
 msgid "on Friday"
-msgstr ""
+msgstr "reedel"
 
 #: src/EBox/Model/RemoteSettings.pm:322
 msgid "on Saturday"
-msgstr ""
+msgstr "laupäeval"
 
 #: src/EBox/Model/RemoteSettings.pm:323
 msgid "on Sunday"
-msgstr ""
+msgstr "pühapäeval"
 
 #: src/EBox/Model/RemoteSettings.pm:336
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "kuu {mday}. päeval"
 
 #: src/EBox/Model/RemoteSettings.pm:344
 msgid "on the last day"
-msgstr ""
+msgstr "viimasel päeval"
 
 #: src/EBox/Model/RemoteSettings.pm:499
 #, perl-brace-format
@@ -239,57 +242,57 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:516
 msgid "1 week"
-msgstr ""
+msgstr "1 nädal"
 
 #: src/EBox/Model/RemoteSettings.pm:520
 msgid "2 weeks"
-msgstr ""
+msgstr "2 nädalat"
 
 #: src/EBox/Model/RemoteSettings.pm:524
 msgid "3 weeks"
-msgstr ""
+msgstr "3 nädalat"
 
 #: src/EBox/Model/RemoteSettings.pm:528
 msgid "1 month"
-msgstr ""
+msgstr "1 kuu"
 
 #: src/EBox/Model/RemoteSettings.pm:532
 msgid "2 months"
-msgstr ""
+msgstr "2 kuud"
 
 #: src/EBox/Model/RemoteSettings.pm:536
 msgid "3 months"
-msgstr ""
+msgstr "3 kuud"
 
 #: src/EBox/Model/RemoteSettings.pm:540
 msgid "4 months"
-msgstr ""
+msgstr "4 kuud"
 
 #: src/EBox/Model/RemoteSettings.pm:544
 msgid "6 months"
-msgstr ""
+msgstr "6 kuud"
 
 #: src/EBox/Model/RemoteSettings.pm:548
 msgid "9 months"
-msgstr ""
+msgstr "9 kuud"
 
 #: src/EBox/Model/RemoteSettings.pm:552
 msgid "1 year"
-msgstr ""
+msgstr "1 aasta"
 
 #: src/EBox/Model/RemoteSettings.pm:556
 msgid "1 year and half"
-msgstr ""
+msgstr "1 aasta ja 6 kuud"
 
 #: src/EBox/Model/RemoteSettings.pm:560
 msgid "2 years"
-msgstr ""
+msgstr "2 aastat"
 
 #: src/EBox/Model/RemoteSettings.pm:564
 msgid "3 years"
-msgstr ""
+msgstr "3 aastat"
 
-# äkki "siduskataloog" või "relatiivne kataloog"?
+#  
 #: src/EBox/Model/RemoteSettings.pm:596
 msgid "Destination must be a relative directory"
 msgstr "Sihtkoht peab olema suhteline kataloog"
@@ -361,11 +364,10 @@ msgstr "Kataloog varundamiseks"
 msgid "File exists and it is not a directory"
 msgstr "Fail on olemas ja see ei ole kataloog"
 
-# incremental backup?
+#  
 #: src/EBox/Model/RemoteSettings.pm:763
-#, fuzzy
 msgid "Incremental backup must be more frequent than full backup"
-msgstr "Täisvarundamine ei saa olla suurema sagedusega kui muutvarundamine"
+msgstr "Muutvarundamine peab olema sagedam kui täisvarundamine"
 
 # suht segane lause ning "target host " vaste?
 #: src/EBox/Model/RemoteSettings.pm:775
@@ -385,9 +387,8 @@ msgstr "Välja jätmine või kaasamine"
 msgid "Includes and Excludes"
 msgstr "Kaasatud või välja jäetud"
 
-# Kõrvaldamine või kaasamine
+#  
 #: src/EBox/Model/RemoteExcludes.pm:94
-#, fuzzy
 msgid "exclude or include"
 msgstr "Välja jätmine või kaasamine"
 
@@ -397,6 +398,9 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
+"Faili või kataloogi kaasamine või välja jätmine toimub esimese sobivuse "
+"järgi. Kataloogi sobivus rakendub rekursiivselt. Failid mille välja jätmine "
+"või kaasamine ei ole täpsustatud, kaasatakse vaikimisi."
 
 # Välja jäetav asukoht
 #: src/EBox/Model/RemoteExcludes.pm:117
@@ -405,9 +409,8 @@ msgstr "Asukoht välja jätmiseks"
 
 #  
 #: src/EBox/Model/RemoteExcludes.pm:121
-#, fuzzy
 msgid "Exclude by regular expression"
-msgstr "regulaaravaldis asukoha välja jätmiseks"
+msgstr "regulaaravaldis välja jätmise jaoks"
 
 # Kaasatav asukoht
 #: src/EBox/Model/RemoteExcludes.pm:125
@@ -435,15 +438,15 @@ msgstr "asukoht kaasamiseks"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore eBox configuration from backup"
-msgstr ""
+msgstr "eBoxi seadistuste taastamine varukoopiast"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
-msgstr ""
+msgstr "Varukoopiast leitud seadistuste laadimine"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "Palun oota..."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
@@ -451,18 +454,20 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
+"Seadistuste varundust ei leitud varukoopiast {d} jaoks. Võib olla proovid "
+"mõnda teist kuupäeva?"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Logide andmebaasi taastamine"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the eBox logs found in the selected backup"
-msgstr ""
+msgstr "Valitud varukoopias leiduvate eBoxi logide taastamine"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Teenuste taastamine"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"

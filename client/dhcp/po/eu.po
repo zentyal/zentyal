@@ -7,18 +7,18 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:54+0200\n"
-"PO-Revision-Date: 2007-02-02 19:14+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-05-13 23:40+0200\n"
+"Last-Translator: Pedro Ugartemendia <pedro@ugartemendia.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
-msgstr ""
+msgstr "Oinarrizko Fitxategi Transferentzi Protokoloa"
 
 #: migration/0002_add_services.pl:126
 msgid "Dynamic Host Configuration Protocol"

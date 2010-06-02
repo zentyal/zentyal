@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:26+0200\n"
-"PO-Revision-Date: 2010-04-22 23:42+0200\n"
+"PO-Revision-Date: 2010-05-06 22:58+0200\n"
 "Last-Translator: Pedro Ugartemendia <pedro@ugartemendia.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -452,89 +452,93 @@ msgid ""
 "Multi-value separated by commas, only valid types are: {dns}, {ip} and "
 "{email}. For instance, {example}"
 msgstr ""
+"Balio anitzak kakotxek banaduta, onartutako motak hautxek dira: {dns}, {ip} "
+"eta {email}. Adibidez, {example}"
 
 #: src/templates/index.mas:72
 msgid "Issue"
-msgstr ""
+msgstr "Arazoa"
 
 #: src/templates/index.mas:77
 msgid "Certificate changes will take effect immediately"
-msgstr ""
+msgstr "Ziurtagiriaren aldaketak oraintxe sartuko dira indarrean"
 
 #: src/templates/index.mas:79
 msgid "The CA passphrase is optional"
-msgstr ""
+msgstr "ZA pasahitza aukerazkoa da"
 
 #: src/templates/index.mas:83
 msgid "Issue the Certification Authority Certificate"
-msgstr ""
+msgstr "Sortu Ziurtagiri Autoritatearen Ziurtagiria"
 
 #: src/templates/index.mas:85
 msgid "Issue a New Certificate"
-msgstr ""
+msgstr "Sortu Ziurtagiri berri bat"
 
 #: src/templates/index.mas:92
 msgid "Current Certificate List"
-msgstr ""
+msgstr "Indarrean dauden Ziurtagirien zerrenda"
 
 #: src/templates/index.mas:94
 msgid ""
 "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
 "Revoked certificates respectively"
 msgstr ""
+"Eguna zerari dagokio: Iraungitze data Indarrean/Iraungitakoetan eta "
+"Ezabatutako data Ezabatutako ziurtagirietan"
 
 #: src/templates/index.mas:98
 msgid "Name"
-msgstr ""
+msgstr "Izena"
 
 #: src/templates/index.mas:100
 msgid "Date"
-msgstr ""
+msgstr "Eguna"
 
 #: src/templates/index.mas:101
 msgid "Actions"
-msgstr ""
+msgstr "Ekintzak"
 
 #: src/templates/index.mas:117
 msgid "from"
-msgstr ""
+msgstr "Bidaltzailea"
 
 #: src/templates/index.mas:128
 msgid "Valid"
-msgstr ""
+msgstr "Indarrean"
 
 #: src/templates/index.mas:130
 msgid "Expired"
-msgstr ""
+msgstr "Iraungita"
 
 #: src/templates/index.mas:132
 msgid "Revoked"
-msgstr ""
+msgstr "Ezabatua"
 
 #: src/templates/index.mas:137
 #, perl-brace-format
 msgid "Reason: {reason}"
-msgstr ""
+msgstr "Arrazoia: {reason}"
 
 #: src/templates/index.mas:174 src/templates/index.mas:199
 msgid "Download Key(s) and Certificate"
-msgstr ""
+msgstr "Giltza(k) eta Ziurtagiria eskuratu"
 
 #: src/templates/createCA.mas:26
 msgid "Create"
-msgstr ""
+msgstr "Sortu"
 
 #: src/templates/createCA.mas:34
 msgid "Create Certification Authority Certificate"
-msgstr ""
+msgstr "Sortu Ziurtagiri Agintearen Ziurtagiria"
 
 #: src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
-msgstr ""
+msgstr "ZA ziurtagiria ezabatzen"
 
 #: src/templates/forceRevoke.mas:15
 msgid "Revoking certificate"
-msgstr ""
+msgstr "Ziurtagiria ezabatzen"
 
 #: src/templates/forceRevoke.mas:21
 #, perl-brace-format
@@ -543,6 +547,9 @@ msgid ""
 "confirm you are very sure to revoke the whole certification authority from "
 "{on} and leave the service(s) unstable or disabled"
 msgstr ""
+"Ezabapen honek arazoak sor ditzazke bestelako moduluetan, mesedez egiaztatu "
+"ziur zaudela ezabatu nahi diozula ziurtagiri aginte osoa {on}-ri eta utzi "
+"zerbitzua(k) ezegonkor edota erabilezina(k)"
 
 #: src/templates/forceRevoke.mas:24
 #, perl-brace-format
@@ -551,26 +558,33 @@ msgid ""
 "by some module, please confirm you are sure to revoke and leave the service"
 "(s) unstable or disabled"
 msgstr ""
+"{cn} izen arrunta duen ziurtagiria ezabatu nahian zabiltzana beste modulu "
+"batean erabilita dago, mesedez egiaztatu ziur zaudela ezabatu nahi duzula "
+"eta utzi zerbitzua(k) ezegonkor edota erabilezina(k)"
 
 #: src/templates/forceRevoke.mas:45
 msgid "Cancel"
-msgstr ""
+msgstr "Utzi"
 
 #: src/templates/forceRenew.mas:42
 msgid "Renewing CA certificate"
-msgstr ""
+msgstr "ZA ziurtagiria berritzen"
 
 #: src/templates/forceRenew.mas:44
 msgid "Renewing certificate"
-msgstr ""
+msgstr "Ziurtagiria berritzen"
 
 #: src/templates/forceRenew.mas:50
 #, perl-brace-format
+#, fuzzy
 msgid ""
 "This renewal can affect the functionality from other modules, please confirm "
 "you are very sure to renew the whole certification authority from {on} and "
 "leave the service(s) unstable or disabled"
 msgstr ""
+"Berriztapen honek arazoak sor ditzake bestelako moduluetan, mesedez "
+"egiaztatu ziur zaudela berritu nahi diozula ziurtagiri aginte osoa {on}-ri "
+"eta utzi zerbitzua(k) ezegonkor edota erabilezina(k)"
 
 #: src/templates/forceRenew.mas:53
 #, perl-brace-format
@@ -579,3 +593,6 @@ msgid ""
 "by some module, please confirm you are sure to renew and leave the service"
 "(s) unstable or disabled"
 msgstr ""
+"{cn} izen arrunta duen ziurtagiria, berritutu nahian zabiltzana, beste "
+"modulu batean erabilita dago, mesedez egiaztatu ziur zaudela berritu nahi "
+"duzula eta utzi zerbitzua(k) ezegonkor edota erabilezina(k)"

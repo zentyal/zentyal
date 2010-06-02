@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:55+0200\n"
-"PO-Revision-Date: 2010-02-09 10:47+0100\n"
+"PO-Revision-Date: 2010-05-28 16:52+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -267,55 +267,52 @@ msgstr "A belső hálózatból az eBox fele haladó szűrő szabályok"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
-msgstr ""
+msgstr "Bejövet"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
 msgid "External Input"
-msgstr ""
+msgstr "Külső bejövet"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
 msgid "Output"
-msgstr ""
+msgstr "Kimenet"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
-#, fuzzy
 msgid "Forward"
-msgstr "átirányítás"
+msgstr "Átirányítás"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
 msgid "NAT prerouting"
-msgstr ""
+msgstr "NAT prerouting"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
 msgid "NAT postrouting"
-msgstr ""
+msgstr "NAT postrouting"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
-#, fuzzy
 msgid "Rule"
-msgstr "szabály"
+msgstr "Szabály"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
 msgid "Enabled"
-msgstr ""
+msgstr "Engedélyezve"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
 msgid "Type"
-msgstr ""
+msgstr "Típus"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
-#, fuzzy
 msgid "Module"
-msgstr "szabály"
+msgstr "Modul"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
 msgid "Condition"
-msgstr ""
+msgstr "Feltétel"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
 msgid "Rules added by eBox services (Advanced)"
-msgstr ""
+msgstr "Az eBox szolgáltatások által hozzáadott szabályok (Haladó)"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 msgid "Internal networks"
@@ -435,13 +432,15 @@ msgstr ""
 
 #: src/templates/filter.mas:53
 msgid "These rules are automatically added by the eBox services."
-msgstr ""
+msgstr "Ezek a szabályok automatikusan lettek hozzáadva az eBox által."
 
 #: src/templates/filter.mas:56
 msgid ""
 "You can disable these rules, but make sure you know what you are doing or "
 "otherwise some services could stop working."
 msgstr ""
+"Kikapcsolhatja ezeket a szabályokat, de győződjön meg róla, hogy mit csinál, "
+"mivel bizonyos szolgáltatások leállhatnak."
 
 #~ msgid "Port Forwading"
 #~ msgstr "Port továbbítás"

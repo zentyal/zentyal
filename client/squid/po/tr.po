@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:57+0200\n"
-"PO-Revision-Date: 2010-01-30 02:50+0100\n"
-"Last-Translator: Haluk <khaluk@yahoo.com>\n"
+"PO-Revision-Date: 2010-05-11 16:58+0200\n"
+"Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,107 +23,95 @@ msgid "HTTP Proxy"
 msgstr "HTTP vekil sunucusu"
 
 #: src/EBox/Squid.pm:201
-#, fuzzy
 msgid "HTTP Proxy configuration file"
-msgstr "HTTP vekil sunucu durumu"
+msgstr "HTTP vekil sunucu ayar dosyası"
 
 #: src/EBox/Squid.pm:206
-#, fuzzy
 msgid "Content filter configuration file"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeci ayar dosyası"
 
 #: src/EBox/Squid.pm:211
 msgid "Default filter group configuration"
-msgstr ""
+msgstr "Öntanımlı süzgeç grubu ayarları"
 
 #: src/EBox/Squid.pm:216
 msgid "Filter groups membership"
-msgstr ""
+msgstr "Süzgeç gruplarına üyelik"
 
 #: src/EBox/Squid.pm:221
-#, fuzzy
 msgid "Content filter banned extension list"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeci reddedilen uzantılar listesi"
 
 #: src/EBox/Squid.pm:226
-#, fuzzy
 msgid "Content filter banned mime type list"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeci reddedilen dosya türleri listesi"
 
 #: src/EBox/Squid.pm:231
-#, fuzzy
 msgid "Content filter exception site list"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeci kabul edilen site listesi"
 
 #: src/EBox/Squid.pm:236
-#, fuzzy
 msgid "Content filter grey site list"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeci geçici reddedilen site listesi"
 
 #: src/EBox/Squid.pm:241
-#, fuzzy
 msgid "Content filter banned site list"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeci red edilen site listesi"
 
 #: src/EBox/Squid.pm:246
-#, fuzzy
 msgid "Content filter exception URL list"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeci kabul edilen URL listesi"
 
 #: src/EBox/Squid.pm:251
-#, fuzzy
 msgid "Content filter grey URL list"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeci geçici kabul edilen site listesi"
 
 #: src/EBox/Squid.pm:256
-#, fuzzy
 msgid "Content filter banned URL list"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeci red edilen URL listesi"
 
 #: src/EBox/Squid.pm:261
 msgid "Forbidden phrases list"
-msgstr ""
+msgstr "Gizlenmiş kelimeler listesi"
 
 #: src/EBox/Squid.pm:266
 msgid "Exception phrases list"
-msgstr ""
+msgstr "Kabuledilen kelimeler listesi"
 
 #: src/EBox/Squid.pm:271
 msgid "PICS ratings configuration"
-msgstr ""
+msgstr "Resim puan ayarları"
 
 #: src/EBox/Squid.pm:276
 msgid "Dansguardian's log rotation configuration"
-msgstr ""
+msgstr "Dansguardian kayıt dosyası arşivleme ayarları"
 
 #: src/EBox/Squid.pm:281
 msgid "Dansguardian's antivirus scanner configuration"
-msgstr ""
+msgstr "Dansguardian antivirüs ayarları"
 
 #: src/EBox/Squid.pm:286
-#, fuzzy
 msgid "Filter groups per IP"
-msgstr "Süzgeç"
+msgstr "Her IP için süzgeç grubu"
 
 #: src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
-msgstr ""
+msgstr "Engellenen sayfa tasarımlarının üzerine yaz"
 
 #: src/EBox/Squid.pm:302
 msgid ""
 "Dansguardian blocked page templates will be overwritten with eBox customized "
 "templates."
-msgstr ""
+msgstr "Danguardian engellenen sayfa tasarımlarının üzerine yazacak"
 
 #: src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the ebox configuration file"
-msgstr "cache_mem değişkenini ebox ayar dosyanızda tanımlamanız gereklidir."
+msgstr "cache_mem değişkenini ayar dosyanızda tanımlamanız gereklidir."
 
 #: src/EBox/Squid.pm:351
-#, fuzzy
 msgid ""
 "You must set the max_object_size variable in the ebox configuration file"
-msgstr "cache_mem değişkenini ebox ayar dosyanızda tanımlamanız gereklidir."
+msgstr "cache_mem değişkenini ayar dosyanızda tanımlamanız gereklidir."
 
 #: src/EBox/Squid.pm:1067
 msgid "Enabled"
@@ -167,25 +155,23 @@ msgstr "Genel"
 
 #: src/EBox/Squid.pm:1118 src/EBox/Squid/Composite/DelayPools.pm:69
 msgid "Bandwidth Throttling"
-msgstr ""
+msgstr "Bandwidth Ayarlama"
 
 #: src/EBox/Squid.pm:1121
 msgid "Objects' Policy"
-msgstr ""
+msgstr "Nesne Politikası"
 
 #: src/EBox/Squid.pm:1124
-#, fuzzy
 msgid "Groups' Policy"
-msgstr "İlkeler"
+msgstr "Grup Politikası"
 
 #: src/EBox/Squid.pm:1127
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
 #: src/EBox/Squid/Model/DomainFilterCategories.pm:111
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
 #: src/EBox/Squid/Composite/FilterSettings.pm:93
-#, fuzzy
 msgid "Filter Profiles"
-msgstr "Süzgeçlenen"
+msgstr "Süzgeç Tanımları"
 
 #: src/EBox/Squid.pm:1157 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
@@ -231,7 +217,6 @@ msgid "Filtered"
 msgstr "Süzgeçlenen"
 
 #: src/EBox/Squid.pm:1247
-#, fuzzy
 msgid "HTTP Proxy's cache files"
 msgstr "HTTP vekil sunucu cache dosyaları"
 
@@ -271,16 +256,15 @@ msgstr "Herzaman Engelle"
 
 #: src/EBox/Squid/Types/DomainPolicy.pm:56
 msgid "Squid's domain policy"
-msgstr ""
+msgstr "Squid alan adı ilkesi"
 
 #: src/EBox/Squid/Types/Policy.pm:67
 msgid "Authorize and allow"
 msgstr "Yetkilendir ve izin ver"
 
 #: src/EBox/Squid/Types/Policy.pm:68
-#, fuzzy
 msgid "Authorize and filter"
-msgstr "Eklenti süzgeci"
+msgstr "Yetkilendir ve Süzgeç Uygula"
 
 #: src/EBox/Squid/Types/Policy.pm:69
 msgid "Authorize and deny"
@@ -288,35 +272,35 @@ msgstr "Yetkilendir ve engele"
 
 #: src/EBox/Squid/Types/Policy.pm:89
 msgid "Squid's policy"
-msgstr ""
+msgstr "Squid ilkesi"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:26
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:27
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:28
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:29
 msgid "H"
-msgstr ""
+msgstr "H"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:30
 msgid "F"
-msgstr ""
+msgstr "F"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:31
 msgid "A"
-msgstr ""
+msgstr "A"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:32
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:36
 msgid "Monday"
@@ -351,9 +335,8 @@ msgid "All time"
 msgstr "Tüm zamanlarda"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:199
-#, fuzzy
 msgid "All week"
-msgstr "Tüm Hafta Boyunca"
+msgstr "Tüm Hafta"
 
 #: src/EBox/Squid/Types/TimePeriod.pm:207
 msgid "Weekend"
@@ -405,58 +388,51 @@ msgid "The time period must be at least active on one day"
 msgstr "Zaman dilimi periyodu en azından bir gün için aktif olmalı"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:84
-#, fuzzy
 msgid "Domains lists files"
-msgstr "Alan ismi dosyaları"
+msgstr "Alan adları liste dosyaları"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:97
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
-#, fuzzy
 msgid "internet domain list"
-msgstr "internet alan ismi listesi"
+msgstr "internet alan adları listesi"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:98
 msgid "You can upload files with lists of domains"
-msgstr ""
+msgstr "Alan adı dosyalarınızı yükleyebilirsiniz."
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:100
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
-#, fuzzy
 msgid "Domain list added"
-msgstr "Alan ismi eklendi"
+msgstr "Alan adı listesi eklendi"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:101
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
-#, fuzzy
 msgid "Domain list removed"
-msgstr "Alan ismi silindi"
+msgstr "Alan adı listesi silindi"
 
 #: src/EBox/Squid/Model/DomainFilterFiles.pm:102
 #: src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:96
-#, fuzzy
 msgid "Domain list updated"
-msgstr "Alan ismi güncellendi"
+msgstr "Alan adı listesi güncellendi"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:68
-#, fuzzy
 msgid "Use default profile threshold"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "Öntanımlı eşik değeri kullan"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:74
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
 msgid "Threshold"
-msgstr "Kapasite"
+msgstr "Eşik Değer"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:81
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:78
 msgid "Content filter threshold"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeç eşik değeri"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:87
 #: src/EBox/Squid/Model/ContentFilterThreshold.pm:84
-#, fuzzy
 msgid "Content filter threshold changed"
-msgstr "İçerik süzgeç kapasitesi"
+msgstr "İçerik süzgeç kapasitesi değişti"
 
 #: src/EBox/Squid/Model/GroupsFilterPolicy.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:76
@@ -476,38 +452,34 @@ msgid "group"
 msgstr "grup"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:73
-#, fuzzy
 msgid "Domain Name Address"
-msgstr "Alan ismi"
+msgstr "Alan adı adresi"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:80
 msgid "Exempt address from caching"
-msgstr ""
+msgstr "Vekil sunucu kullanılmayacak adresler"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:89
 msgid "Cache exemptions"
-msgstr ""
+msgstr "Kayıt Muafiyeti"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:102
-#, fuzzy
 msgid "domain name address"
-msgstr "Alan ismi"
+msgstr "Alan adı adresi"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:103
 msgid "You can exempt some addresses from caching"
-msgstr ""
+msgstr "Vekil sunucu kullanmayacak adres ekleyebilirsiniz"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address added"
 msgstr "Adres eklendi"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:106
-#, fuzzy
 msgid "Address removed"
 msgstr "Adres silindi"
 
 #: src/EBox/Squid/Model/NoCacheDomains.pm:107
-#, fuzzy
 msgid "Address updated"
 msgstr "Adres güncellendi"
 
@@ -518,6 +490,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
+"Bu nesne için {object} üye kaydı bulunamadı. Kural uygulayabilmek için bir "
+"üye ekleyiniz"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:102
 #: src/EBox/Squid/Model/DelayPools1.pm:100
@@ -541,19 +515,16 @@ msgstr ""
 
 #: src/EBox/Squid/Model/DelayPools2.pm:159
 #: src/EBox/Squid/Model/DelayPools1.pm:143
-#, fuzzy
 msgid "Network object"
-msgstr "Nesneler"
+msgstr "Ağ Nesneleri"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:167
-#, fuzzy
 msgid "Rate"
-msgstr "Tarih"
+msgstr "Oran"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:170
 #: src/EBox/Squid/Model/DelayPools2.pm:190
 #: src/EBox/Squid/Model/DelayPools1.pm:154
-#, fuzzy
 msgid "Bytes/s"
 msgstr "Bayt"
 

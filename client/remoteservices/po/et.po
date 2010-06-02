@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-remoteservices 1.4Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-remoteservices 1.4Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-03-29 16:54+0200\n"
-"PO-Revision-Date: 2010-04-19 18:29+0200\n"
+"PO-Revision-Date: 2010-05-06 17:31+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -217,7 +217,7 @@ msgstr ""
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:297
 msgid "User Name or Email Address"
-msgstr "Kasutajanimi või meiliaadress"
+msgstr "Kasutajanimi või e-posti aadress"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:305
 msgid "eBox Name"
@@ -262,7 +262,6 @@ msgid "File"
 msgstr "Fail"
 
 #: src/EBox/RemoteServices/Model/AccessSettings.pm:79
-#, fuzzy
 msgid "Access from control panel without password"
 msgstr "Ligipääs juhtpaneelist ilma paroolita"
 

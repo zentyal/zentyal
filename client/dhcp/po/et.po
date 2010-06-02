@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:54+0200\n"
-"PO-Revision-Date: 2010-04-30 11:48+0200\n"
+"PO-Revision-Date: 2010-05-08 17:53+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -80,50 +80,46 @@ msgstr "mooduli olek"
 msgid "interface {iface}"
 msgstr "liides {iface}"
 
-# "next server" = kõrvalserver?
+#  
 #: src/EBox/Model/ThinClientOptions.pm:139
-#, fuzzy
 msgid "You need to upload a boot image to eBox if you set it as next server"
 msgstr ""
-"Kui sa soovid seda määrata kõrvalserveriks, pead üles laadima "
-"alglaadimistõmmise"
+"eBoxi PXE serveriks valimisel, peab sinna üles laadima ka alglaadimitõmmise."
 
-# "next server" = kõrvalserver?
+#  
 #: src/EBox/Model/ThinClientOptions.pm:146
-#, fuzzy
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
 msgstr ""
-"Selleks, et eBoxi üles laadida alglaadimistõmmist, pead sa määrama eBoxi "
-"kõrvalserveriks"
+"Selleks, et alglaadimistõmmist üles laadida, peab PXE serveriks valima eBoxi"
 
 # Sa pead määrama alglaadimistõmmise asukoha kaugserveris
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr "Sa pead määrama alglaadimistõmmise asukoha võrguserveris"
 
-# "next server" = kõrvalserver?
+# vt liides
 #: src/EBox/Model/ThinClientOptions.pm:158
-#, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
 msgstr ""
-"Kui sul on kõrvalserver, mis ei ole eBox, saad määrata ainult failinime"
+"Kui PXE serveriks ei ole eBox, vaid mõni muu server, saab määrata ainult "
+"faili asukoha PXE serveris"
 
 #  
 #: src/EBox/Model/ThinClientOptions.pm:209
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
 "changed from eBox to {option}"
 msgstr ""
-"Eelnevalt üleslaaditud alglaadimistõmmise eemaldamine, kuna kõrvalserveri "
-"eelmiseks valikuks olnud eBox on muudetud {option}"
+"Eelnevalt üleslaaditud alglaadimistõmmise eemaldamine, kuna PXE serveri "
+"eelmine valik eBox, on muutunud nüüd valikuks {option}"
 
-# sellist sõna küll eesti keeles ei ole, aga midagi paremat ka ei oska pakkuda
+#  
 #: src/EBox/Model/ThinClientOptions.pm:232
 msgid "Next server"
-msgstr "Kõrvalserver"
+msgstr "PXE server"
 
 #: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:394
 #: src/EBox/Model/Options.pm:405 src/EBox/Model/Options.pm:409
@@ -145,7 +141,7 @@ msgstr "Failinimi"
 
 #: src/EBox/Model/ThinClientOptions.pm:261
 msgid "File path in next server"
-msgstr "Faili asukoht kõrvalserveris"
+msgstr "Faili asukoht PXE serveris"
 
 # vallaste annab vasteks "kõhn klient" open-tran "peen klient"
 #: src/EBox/Model/ThinClientOptions.pm:269
@@ -159,8 +155,8 @@ msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
-"Võib olla soovid sa kohandada oma õhukese kliendi valikuid. Et seda teha, "
-"pead sa kaasama kõik failid mida vajad kataloogi {path}"
+"Kui soovid kohandada oma õhukese kliendi valikuid, pead paigutama kõik "
+"vajalikud failid kataloogi {path}"
 
 #: src/EBox/Model/LeaseTimes.pm:132
 msgid "Default leased time must be higher than 0 seconds"
@@ -208,7 +204,8 @@ msgstr "Rendiajad"
 #: src/EBox/Model/LeaseTimes.pm:221
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
-msgstr "Rendiaeg on DHCP serveri poolt jagatud IP aadressi kehtivusaeg"
+msgstr ""
+"Rendiaeg on DHCP serveri poolt dünaamiliselt jagatud IP aadressi kehtivusaeg"
 
 #: src/EBox/Model/FixedAddressTable.pm:124
 #, perl-brace-format
@@ -247,8 +244,7 @@ msgstr ""
 
 #: src/EBox/Model/FixedAddressTable.pm:224
 msgid "You cannot use an IP address contained in the above ranges."
-msgstr ""
-"Sa ei saa kasutada IP aadressi, mis sisaldab eelpool mainitud vahemikke."
+msgstr "IP aadress ei tohi kuuluda juba määratud vahemikku"
 
 #: src/EBox/Model/FixedAddressTable.pm:229
 msgid "Description"
@@ -266,7 +262,7 @@ msgstr "fikseeritud aadress"
 #: src/EBox/Model/DynamicDNS.pm:387
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
-msgstr "Domeen {domain} on juba DNS sektsioonis käsitsi defineeritud"
+msgstr "Domeen {domain} on juba DNS leheküljel käsitsi defineeritud"
 
 # "feature" tähendus selles kontkestis jääb arusaamatuks
 #: src/EBox/Model/DynamicDNS.pm:241
@@ -282,7 +278,7 @@ msgstr "{pkg} peab olema selle funktsiooni kasutamiseks paigaldatud"
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
-"Domeene lisatakse/määratakse DNS sektsioonis kirjutuskaitse režiimis "
+"Domeenid lisatakse/määratakse DNS leheküljel kirjutuskaitse režiimis "
 "automaatselt"
 
 #: src/EBox/Model/DynamicDNS.pm:268
@@ -295,12 +291,11 @@ msgstr "Dünaamiline domeen"
 
 # See pole küll otsene tõlge, kuid nii vist peaks see asi olema
 #: src/EBox/Model/DynamicDNS.pm:334
-#, fuzzy
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
-"Masinanimele lisatud domeeninimi nende klientide jaoks kes rendivad IP "
+"Masinanimele lisatud domeeninimi klientide jaoks, kes kasutavad renditud IP "
 "aadresse"
 
 #: src/EBox/Model/DynamicDNS.pm:339
@@ -309,13 +304,12 @@ msgstr "Staatiline domeen"
 
 # See pole küll otsene tõlge, kuid nii vist peaks see asi olema
 #: src/EBox/Model/DynamicDNS.pm:341
-#, fuzzy
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
 msgstr ""
-"Masinanimele lisatud domeeninimi nende klientide jaoks kes kasutavad "
-"fikseeritud aadresse"
+"Masinanimele lisatud domeeninimi klientide jaoks, kes kasutavad fikseeritud "
+"aadresse"
 
 #: src/EBox/Model/DynamicDNS.pm:346
 msgid "Same as Dynamic Domain"
@@ -328,14 +322,15 @@ msgstr "Sama kui dünaamiline domeen"
 msgid "Custom"
 msgstr "Kohandatud"
 
+# Dünaamilise DNSi valikud
 #: src/EBox/Model/DynamicDNS.pm:358
 msgid "Dynamic DNS Options"
-msgstr "Dünaamilised DNS valikud"
+msgstr "DNSi uuendamise valikud"
 
 #: src/EBox/Model/DynamicDNS.pm:363
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
-"Kirjutuskaitstega režiimis lisatakse DNS moodulile domeenid automaatselt"
+"Domeenid lisatakse DNS moodulile kirjutuskaitstega režiimis automaatselt"
 
 #: src/EBox/Model/DynamicDNS.pm:395
 #, perl-brace-format
@@ -547,13 +542,13 @@ msgid "No valid action. Available ones are: add, set and del"
 msgstr "Ei ole sobiv toiming: lubatud on lisamine, määramine ja kustutamine"
 
 #: src/EBox/DHCP.pm:1048
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
 "used by the DHCP range '{range}' in the interface '{iface}'. Please, remove "
 "it before trying to add a virtual interface using it."
 msgstr ""
-"Sa proovid lisada virtuaalset liidest IP aadressiga mis on juba kasutusel "
+"Sa proovid lisada virtuaalset liidest IP aadressiga, mis on juba kasutusel "
 "DHCP vahemikus '{range}' oleva liidese '{iface}' poolt. Palun eemalda see "
 "liides enne, kui soovid sellise aadressiga virtuaalset liidest lisada."
 
@@ -564,7 +559,7 @@ msgid ""
 "used by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
 "remove it before trying to add a virtual interface using it."
 msgstr ""
-"Sa proovid lisada virtuaalset liidest IP aadressiga mis on juba kasutusel "
+"Sa proovid lisada virtuaalset liidest IP aadressiga, mis on juba kasutusel "
 "DHCP fikseeritud aadresside hulgas '{fixed}' oleva liidese '{iface}' poolt. "
 "Palun eemalda see liides enne, kui soovid sellise aadressiga virtuaalset "
 "liidest lisada."

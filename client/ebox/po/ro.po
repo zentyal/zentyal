@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:55+0200\n"
-"PO-Revision-Date: 2010-04-22 14:04+0200\n"
+"PO-Revision-Date: 2010-05-18 11:15+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: src/EBox/ProgressIndicator.pm:51
 #, perl-brace-format
 msgid "Cannot execute {exe}"
-msgstr ""
+msgstr "Nu pot executa {exe}"
 
 #: src/EBox/ProgressIndicator.pm:101
 #, perl-brace-format
@@ -42,23 +42,23 @@ msgstr ""
 
 #: src/EBox/ProgressIndicator.pm:141
 msgid "must be greater than zero"
-msgstr ""
+msgstr "trebuie să fie mai mare ca zero"
 
 #: src/EBox/ProgressIndicator.pm:147
 msgid "Executable has not been run"
-msgstr ""
+msgstr "Executabilul nu a fost rulat"
 
 #: src/EBox/ProgressIndicator.pm:264
 msgid "The executable has not run"
-msgstr ""
+msgstr "Executabilul nu a rulat"
 
 #: src/EBox/ProgressIndicator.pm:395
 msgid "The executable has already been started"
-msgstr ""
+msgstr "Executabilul a fost pornit deja"
 
 #: src/EBox/ProgressIndicator.pm:399
 msgid "The executable has already finished"
-msgstr ""
+msgstr "Executabilul a terminat deja"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:215
 #: src/EBox/Events/Model/Watcher/Log.pm:239
@@ -66,24 +66,26 @@ msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen. "
 msgstr ""
+"Atenţie. Nu este activată supravegherea log-ului. Pentru a fi notificat la "
+"logări, activaţi opţiunea de supraveghere."
 
 #: src/EBox/Events/Model/Watcher/Log.pm:263
 #: src/EBox/Logs/Model/SelectLog.pm:143
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:334
 msgid "Domain"
-msgstr ""
+msgstr "Domeniu"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:268
 msgid "Filtering"
-msgstr ""
+msgstr "Filtrare"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:276
 msgid "Configure log watchers"
-msgstr ""
+msgstr "Configurare supraveghere log"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:278
 msgid "Log watcher"
-msgstr ""
+msgstr "Supraveghere log"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:386
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:212
@@ -94,91 +96,95 @@ msgstr ""
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:325 src/EBox/Events.pm:96
 #: src/EBox/Events.pm:823
 msgid "Events"
-msgstr ""
+msgstr "Evenimente"
 
 #: src/EBox/Events/Model/Watcher/Log.pm:390
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:216
 msgid "Log Observer Watcher"
-msgstr ""
+msgstr "Observare Log"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
 #, perl-brace-format
 msgid "Log domain {logDomain}"
-msgstr ""
+msgstr "Domeniu Log {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/EBox/Types/PortRange.pm:289 src/EBox/Types/Service.pm:212
 #: src/templates/logs/index.mas:185
 msgid "Any"
-msgstr ""
+msgstr "Orice"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
 #: src/templates/logs/index.mas:183
 msgid "Event"
-msgstr ""
+msgstr "Eveniment"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
 #, perl-brace-format
 msgid "Filters to apply to notify logs from {logDomain}"
-msgstr ""
+msgstr "Filtre de aplicat la notificări de la {logDomain}"
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
 msgid ""
 "Every filter added is cumulative.Then every log line which matches with any "
 "filter given will be notified"
 msgstr ""
+"Fiecare filtru adăugat este cumulativ. Astfel, liniile de log ce se "
+"potrivesc cu oricare filtru vor fi notificate."
 
 #: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
 msgid "filter"
-msgstr ""
+msgstr "filtru"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:101
 msgid "Minimum free disk space per filesystem"
-msgstr ""
+msgstr "Minimul de spaţiu liber pe disc per sistem de fişiere"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:106
 msgid ""
 "When the free space percentage of any disk partition is under this value the "
 "event is triggered."
 msgstr ""
+"Când procentul spaţiului liber al oricărei partiţii scade sub această "
+"valoare se declanşează evenimentul."
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
 msgid "Configure disk free space watcher"
-msgstr ""
+msgstr "Configurare supraveghere spaţiu liber pe discuri"
 
 #: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:141
 msgid "Free Disk Space Watcher"
-msgstr ""
+msgstr "Supraveghere spaţiu liber pe discuri"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:267
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:301
 msgid "Name"
-msgstr ""
+msgstr "Nume"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:275
 #: src/templates/backup.mas:42 src/templates/backup.mas:124
 #: src/templates/confirm-backup.mas:36
 msgid "Description"
-msgstr ""
+msgstr "Descriere"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:284
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:323
 msgid "Configuration"
-msgstr ""
+msgstr "Configuraţie"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:300
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:343
 msgid "None"
-msgstr ""
+msgstr "Nimic"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:309
 msgid "Configure Events"
-msgstr ""
+msgstr "Configurare evenimente"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:317
 #: src/EBox/Events/Model/Report/EventsDetails.pm:109
 msgid "event"
-msgstr ""
+msgstr "eveniment"
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:318
 msgid "Enable/Disable each event watcher monitoring"
@@ -195,11 +201,11 @@ msgstr ""
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:342
 #: src/EBox/Model/DataTable.pm:4540
 msgid "Enabled"
-msgstr ""
+msgstr "Activat"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Receiver"
-msgstr ""
+msgstr "Receptor"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 msgid "Configure Dispatchers"
@@ -226,19 +232,19 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:193
 msgid "Jabber server name"
-msgstr ""
+msgstr "Nume server Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:196
 msgid "Jabber server to send the messages"
-msgstr ""
+msgstr "Server Jabber pt. trimis mesaje"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:200
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:207
 msgid "Jabber user name"
-msgstr ""
+msgstr "Nume utilizator Jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
 msgid ""
@@ -248,11 +254,11 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:216
 msgid "User password"
-msgstr ""
+msgstr "Parola utilizator"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:224
 msgid "Subscribe"
-msgstr ""
+msgstr "Subscrie"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:226
 msgid ""
@@ -293,19 +299,19 @@ msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:150
 msgid "Nobody"
-msgstr ""
+msgstr "Nimeni"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:154
 msgid "IP address"
-msgstr ""
+msgstr "Adresa IP"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:161
 msgid "Object"
-msgstr ""
+msgstr "Obiect"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:170
 msgid "Public"
-msgstr ""
+msgstr "Public"
 
 #: src/EBox/Events/Model/Dispatcher/RSS.pm:177
 msgid "Channel link"
@@ -344,50 +350,50 @@ msgstr ""
 #: src/EBox/Events/Model/Report/EventsDetails.pm:50
 #: src/EBox/Events/Model/Report/EventsDetails.pm:74 src/EBox/Events.pm:808
 msgid "Source"
-msgstr ""
+msgstr "Sursa"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:51
 #: src/EBox/Events/Model/Report/EventsDetails.pm:80
 #: src/EBox/Events/Model/Report/EventsGraph.pm:51 src/EBox/Events.pm:815
 msgid "Informative"
-msgstr ""
+msgstr "Informativ"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:52
 #: src/EBox/Events/Model/Report/EventsDetails.pm:84
 #: src/EBox/Events/Model/Report/EventsGraph.pm:52 src/EBox/Events.pm:816
 #: src/templates/finish.mas:83
 msgid "Warning"
-msgstr ""
+msgstr "Avertizare"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:53
 #: src/EBox/Events/Model/Report/EventsDetails.pm:88
 #: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:817
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:54
 #: src/EBox/Events/Model/Report/EventsDetails.pm:92
 #: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
 msgid "Fatal error"
-msgstr ""
+msgstr "Eroare fatală"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:718
 #: src/templates/finish.mas:116 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:101
 msgid "Events details"
-msgstr ""
+msgstr "Detalii evenimente"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:60
 msgid "Events summarized chart"
-msgstr ""
+msgstr "Harta sumar a evenimentelor"
 
 #: src/EBox/Events/Model/Report/EventsGraph.pm:77
 msgid "Events summarized graph"
-msgstr ""
+msgstr "Grafic sumar al evenimentelor"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:70
 msgid "Events reports"
@@ -414,24 +420,24 @@ msgstr ""
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58
 msgid "Logs"
-msgstr ""
+msgstr "Jurnale"
 
 #: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:702
 msgid "Query Logs"
-msgstr ""
+msgstr "Interogare jurnale"
 
 #: src/EBox/CGI/Logs/Index.pm:329
 msgid "Full Reports"
-msgstr ""
+msgstr "Raport complet"
 
 #: src/EBox/CGI/Dashboard/Index.pm:32 src/EBox/SysInfo.pm.in:243
 msgid "Dashboard"
-msgstr ""
+msgstr "Panou principal"
 
 #: src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
 #: src/templates/dashboard/index.mas:79
 msgid "Configure Widgets"
-msgstr ""
+msgstr "Configurare Widgets"
 
 #: src/EBox/CGI/Login/Index.pm:62
 msgid ""
@@ -441,15 +447,15 @@ msgstr ""
 
 #: src/EBox/CGI/Login/Index.pm:66
 msgid "Incorrect password"
-msgstr ""
+msgstr "Parolă incorectă"
 
 #: src/EBox/CGI/Login/Index.pm:69
 msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
+msgstr "Din motive de securitate, sesiunea a expirat datorită inactivităţii"
 
 #: src/EBox/CGI/Login/Index.pm:72
 msgid "You have been logged out because a new session has been opened"
-msgstr ""
+msgstr "Aţi fost de-logat pentru că a fost deschisă o nouă sesiune"
 
 #: src/EBox/CGI/ServiceModule/StatusView.pm:39
 msgid "Module Status Configuration"
@@ -538,7 +544,7 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
-msgstr ""
+msgstr "nume modul"
 
 #: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
@@ -573,23 +579,23 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/Backup.pm:241
 msgid "Operation"
-msgstr ""
+msgstr "Operaţiune"
 
 #: src/EBox/CGI/EBox/Backup.pm:242
 msgid "operations left to finish backup"
-msgstr ""
+msgstr "operaţii până la terminarea back-up-ului"
 
 #: src/EBox/CGI/EBox/Backup.pm:243
 msgid "Backup successful"
-msgstr ""
+msgstr "Back-up reuşit"
 
 #: src/EBox/CGI/EBox/Backup.pm:254
 msgid "Restoring backup"
-msgstr ""
+msgstr "Restaurare back-up"
 
 #: src/EBox/CGI/EBox/Backup.pm:255
 msgid "Restoring modules"
-msgstr ""
+msgstr "Restaurare module"
 
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:720
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
@@ -624,11 +630,11 @@ msgstr "Înregistrare configuraţie"
 
 #: src/EBox/CGI/Finish.pm:77
 msgid "Saving changes"
-msgstr ""
+msgstr "Salvare modificări"
 
 #: src/EBox/CGI/Finish.pm:78
 msgid "Saving changes in modules"
-msgstr ""
+msgstr "Salvare module modificate"
 
 #: src/EBox/CGI/Finish.pm:79 src/templates/report/raid.mas:213
 msgid "Current operation"
@@ -636,7 +642,7 @@ msgstr "Operaţiunea curentă"
 
 #: src/EBox/CGI/Finish.pm:80
 msgid "operations performed"
-msgstr ""
+msgstr "operaţiuni efectuate"
 
 #: src/EBox/CGI/Finish.pm:81
 msgid "Changes saved"
@@ -651,23 +657,23 @@ msgstr ""
 
 #: src/EBox/CGI/Finish.pm:101
 msgid "Revoking changes"
-msgstr ""
+msgstr "Anulare modificări"
 
 #: src/EBox/CGI/Finish.pm:102
 msgid "Revoking changes in modules"
-msgstr ""
+msgstr "Anulare modificări la module"
 
 #: src/EBox/CGI/Finish.pm:103
 msgid "Current module"
-msgstr ""
+msgstr "Modul curent"
 
 #: src/EBox/CGI/Finish.pm:104
 msgid "modules revoked"
-msgstr ""
+msgstr "Morule revocate"
 
 #: src/EBox/CGI/Finish.pm:105
 msgid "Changes revoked"
-msgstr ""
+msgstr "Modificări revocate"
 
 #: src/EBox/CGI/Finish.pm:106
 #, perl-brace-format
@@ -688,27 +694,27 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:267
 #, perl-brace-format
 msgid "State: {state}"
-msgstr ""
+msgstr "Stare: {state}"
 
 #: src/EBox/Event/Watcher/RAID.pm:268
 #, perl-brace-format
 msgid "Type: {type}"
-msgstr ""
+msgstr "Tip: {type}"
 
 #: src/EBox/Event/Watcher/RAID.pm:269
 #, perl-brace-format
 msgid "Active devices needed: {nb}"
-msgstr ""
+msgstr "Dispozitive active necesare: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:270
 #, perl-brace-format
 msgid "Active devices: {nb}"
-msgstr ""
+msgstr "Dispozitive active: {nb}"
 
 #: src/EBox/Event/Watcher/RAID.pm:272
 #, perl-brace-format
 msgid "Operation in progress: {operation}"
-msgstr ""
+msgstr "Operaţiune în progres: {operation}"
 
 #: src/EBox/Event/Watcher/RAID.pm:274
 #, perl-brace-format
@@ -810,68 +816,68 @@ msgstr ""
 #: src/EBox/Event/Watcher/RAID.pm:542 src/EBox/Event/Watcher/RAID.pm:586
 #: src/templates/report/raid.mas:111
 msgid "active"
-msgstr ""
+msgstr "active"
 
 #: src/EBox/Event/Watcher/RAID.pm:544 src/templates/report/raid.mas:113
 msgid "degraded"
-msgstr ""
+msgstr "degradată"
 
 #: src/EBox/Event/Watcher/RAID.pm:546 src/templates/report/raid.mas:115
 msgid "recovering"
-msgstr ""
+msgstr "în refacere"
 
 #: src/EBox/Event/Watcher/RAID.pm:548 src/templates/report/raid.mas:117
 msgid "resyncing"
-msgstr ""
+msgstr "în resincronizare"
 
 #: src/EBox/Event/Watcher/RAID.pm:550 src/templates/report/raid.mas:121
 msgid "rebuilding"
-msgstr ""
+msgstr "în reconstruire"
 
 #: src/EBox/Event/Watcher/RAID.pm:552 src/templates/report/raid.mas:119
 msgid "reshaping"
-msgstr ""
+msgstr "în reformare"
 
 #: src/EBox/Event/Watcher/RAID.pm:554 src/templates/report/raid.mas:123
 msgid "failed"
-msgstr ""
+msgstr "eşuată"
 
 #: src/EBox/Event/Watcher/RAID.pm:566
 msgid "resync"
-msgstr ""
+msgstr "resincronizare"
 
 #: src/EBox/Event/Watcher/RAID.pm:568
 msgid "rebuild"
-msgstr ""
+msgstr "reconstruire"
 
 #: src/EBox/Event/Watcher/RAID.pm:570
 msgid "reshape"
-msgstr ""
+msgstr "reformare"
 
 #: src/EBox/Event/Watcher/RAID.pm:572
 msgid "recovery"
-msgstr ""
+msgstr "refacere"
 
 #: src/EBox/Event/Watcher/RAID.pm:574
 msgid "check"
-msgstr ""
+msgstr "verifică"
 
 #: src/EBox/Event/Watcher/RAID.pm:588
 msgid "faulty"
-msgstr ""
+msgstr "stricat"
 
 #: src/EBox/Event/Watcher/RAID.pm:590 src/templates/report/raid.mas:233
 msgid "spare"
-msgstr ""
+msgstr "de rezervă"
 
 #: src/EBox/Event/Watcher/Runit.pm:113
 #, perl-brace-format
 msgid "The following modules are not running but they are enabled: {modules}\n"
-msgstr ""
+msgstr "Următoarele module nu rulează, dar sunt activate: {modules}\n"
 
 #: src/EBox/Event/Watcher/Runit.pm:142
 msgid "Service"
-msgstr ""
+msgstr "Serviciu"
 
 #: src/EBox/Event/Watcher/Runit.pm:159
 msgid "Check if any eBox service is not running when it is enabled"
@@ -894,7 +900,7 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
-msgstr ""
+msgstr "Stare"
 
 #: src/EBox/Event/Watcher/State.pm:174
 msgid "Check if eBox is currently up or down"
@@ -928,7 +934,7 @@ msgstr ""
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:179
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
@@ -1136,33 +1142,33 @@ msgstr ""
 
 #: src/EBox/Logs/Model/ForcePurge.pm:109
 msgid "Force log purge"
-msgstr ""
+msgstr "Forţează golire jurnal"
 
 #: src/EBox/Logs/Model/ForcePurge.pm:112
 msgid "Purge"
-msgstr ""
+msgstr "Golire"
 
 #: src/EBox/Logs/Model/Report/Details.pm:226
 #: src/EBox/Logs/Model/Report/Details.pm:234
 #: src/EBox/Logs/Model/Report/Details.pm:269
 msgid "All"
-msgstr ""
+msgstr "Tot"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:40
 msgid "hour"
-msgstr ""
+msgstr "ora"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:41
 msgid "day"
-msgstr ""
+msgstr "ziua"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:42
 msgid "week"
-msgstr ""
+msgstr "săptămână"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:43
 msgid "month"
-msgstr ""
+msgstr "lună"
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:79
 msgid "Report time period"
@@ -1174,15 +1180,15 @@ msgstr ""
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
-msgstr ""
+msgstr "Serviciu activat"
 
 #: src/EBox/Common/Model/EnableForm.pm:102
 msgid "Service disabled"
-msgstr ""
+msgstr "Serviciu dezactivat"
 
 #: src/EBox/Common/Model/EnableForm.pm:146
 msgid "Enable service"
-msgstr ""
+msgstr "Activare serviciu"
 
 #: src/EBox/Events.pm:200
 msgid "Initialize event dispatchers table"
@@ -1237,7 +1243,7 @@ msgstr ""
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/DataTable.pm:2131
 msgid "Action"
-msgstr ""
+msgstr "Acţiune"
 
 #: src/EBox/Logs.pm:722
 msgid "Params"

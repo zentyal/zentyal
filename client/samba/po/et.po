@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:43+0200\n"
-"PO-Revision-Date: 2010-04-22 20:05+0200\n"
+"PO-Revision-Date: 2010-05-09 21:49+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,6 @@ msgstr "grupi nimi"
 
 # Jagatavale peab olema määratud nimi
 #: src/EBox/SambaLdapUser.pm:759
-#, fuzzy
 msgid "A name should be provided for the share"
 msgstr "Jagamiseks peab olema määratud nimi"
 
@@ -110,7 +109,6 @@ msgstr "asukoht"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
 #: src/EBox/Samba/Model/SambaShares.pm:154
-#, fuzzy
 msgid "share"
 msgstr "jagatav ressurss"
 
@@ -125,11 +123,11 @@ msgstr "Netbiosi nimi ei tohi olla pikem kui 15 märki"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:88
 msgid "Enable PDC"
-msgstr "Luba PDC"
+msgstr "PDC lubamine"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:94
 msgid "Domain name"
-msgstr "Domeeninimi"
+msgstr "Domeeni nimi"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:100
 msgid "Netbios name"
@@ -143,10 +141,9 @@ msgstr "Kirjeldus"
 msgid "Quota limit"
 msgstr "Kvoodi limiit"
 
-# või "limiteeritud kuni"
+#  
 #: src/EBox/Samba/Model/GeneralSettings.pm:116 src/EBox/Samba/Model/PDC.pm:95
 #: src/EBox/Samba/Model/PDC.pm:113
-#, fuzzy
 msgid "Limited to"
 msgstr "Limiteeritud kuni"
 
@@ -162,12 +159,10 @@ msgstr "Keelatud"
 
 # või leida "roaming"ule mingi muu termin?
 #: src/EBox/Samba/Model/GeneralSettings.pm:130
-#, fuzzy
 msgid "Enable roaming profiles"
 msgstr "Uitühenduse profiilide lubamine"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:136
-#, fuzzy
 msgid "Drive letter"
 msgstr "Ketta täht"
 
@@ -189,14 +184,13 @@ msgstr "Üldised seadistused"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:156
 msgid "On this page you can set different general settings for Samba"
-msgstr "Sellel leheküljel saad määrata erinevaid üldiseid Samba seadistusi"
+msgstr "Sellel leheküljel saab määrata üldiseid Samba seadistusi"
 
 #: src/EBox/Samba/Model/GeneralSettings.pm:209
 msgid "All users"
 msgstr "Kõik kasutajad"
 
 #: src/EBox/Samba/Model/SambaShares.pm:99
-#, fuzzy
 msgid "Share name"
 msgstr "Jagamise nimi"
 
@@ -206,7 +200,7 @@ msgstr "Jagamise asukoht"
 
 #: src/EBox/Samba/Model/SambaShares.pm:111
 msgid "Directory under eBox"
-msgstr "eBoxi all olev kataloog"
+msgstr "eBoxi samba kataloog"
 
 #: src/EBox/Samba/Model/SambaShares.pm:117
 msgid "File system path"
@@ -218,7 +212,7 @@ msgstr "Kommentaar"
 
 #: src/EBox/Samba/Model/SambaShares.pm:130
 msgid "Guest access"
-msgstr ""
+msgstr "Külalise ligipääs"
 
 #: src/EBox/Samba/Model/SambaShares.pm:136
 msgid "Access control"
@@ -242,25 +236,26 @@ msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "Kataloog ei ole tühi. Oled sa kindel, et tahad seda eemaldada?"
 
 #: src/EBox/Samba/Model/SambaShares.pm:316
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under eBox{closeit} will automatically create the share."
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"{openit}Kataloog eBoxi all{closeit} loob automaatselt jagatava kataloogi "
-"asukohta /home/samba/shares {br}{openit}Failisüsteemi asukoht{closeit} lubab "
-"sul jagada olemasolevat kataloogi failisüsteemi piires."
+"{openit}eBoxi samba kataloog{closeit} valimisel luuakse jagatav kataloogi "
+"automaatselt asukohta /home/samba/shares {br}{openit}Failisüsteemi "
+"asukoht{closeit} valimisel lubatakse jagada failisüsteemis olemasolevat "
+"kataloogi."
 
-# "fine-grained" ?
+#  
 #: src/EBox/Samba/Model/SambaShares.pm:329
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
 msgstr ""
-"Sellel leheküljel saad sa jagamisi luua koos täpse õigustekontrolli "
-"süsteemiga. Sa võid valida juba olemasoleva kataloogi või lihtsalt nime, "
-"mille puhul eBoxil loob kataloogi ise."
+"Sellel leheküljel saab jagamisi luua koos täpse õigustekontrolli süsteemiga. "
+"Valida võib juba olemasoleva kataloogi või lihtsalt nime, mille puhul "
+"eBoxil loob kataloogi ise."
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:93
 msgid "Read only"
@@ -308,9 +303,8 @@ msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"
 msgstr ""
-"Ole ettevaatlik, kui sa annad kellelegi <i>administraatori</i> õigused. See "
-"kasutaja saab lugemis- ja kirjutamisõiguse jagatud kataloogi kõikidele "
-"failidele."
+"<i>Administraatori</i> õiguste andmisega peab olema ettevaatlik. Kasutaja "
+"saab lugemis- ja kirjutamisõiguse jagatud kataloogi kõikidele failidele."
 
 #: src/EBox/Samba/Model/PDC.pm:77
 msgid "File sharing module is not enabled."
@@ -344,9 +338,10 @@ msgstr "Kohustuslik parooli ajalugu"
 msgid "Keep history for"
 msgstr "Hoia ajaloos"
 
+# vt liides
 #: src/EBox/Samba/Model/PDC.pm:132
 msgid "passwords remebered"
-msgstr "meeldejäetavat parooli"
+msgstr "parooli"
 
 #: src/EBox/Samba/Model/PDC.pm:143
 msgid "PDC"
@@ -490,7 +485,7 @@ msgstr "Samba viirusetõrje seadistuste määramiseks"
 
 #: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Source machine"
-msgstr "Saatja masin"
+msgstr "Lähtekoha masin"
 
 #: src/EBox/Samba.pm:626 src/EBox/Samba.pm:647
 msgid "Connected since"

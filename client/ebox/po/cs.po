@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.5Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2010-04-30 12:55+0200\n"
-"PO-Revision-Date: 2010-04-30 09:41+0200\n"
+"PO-Revision-Date: 2010-05-06 12:52+0200\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -23,17 +23,17 @@ msgstr ""
 
 #: src/EBox/ProgressIndicator.pm:43
 msgid "It must be a non-zero positive number"
-msgstr ""
+msgstr "Musí to být ne-nulové kladné číslo"
 
 #: src/EBox/ProgressIndicator.pm:51
 #, perl-brace-format
 msgid "Cannot execute {exe}"
-msgstr ""
+msgstr "Nelze spustit {exe}"
 
 #: src/EBox/ProgressIndicator.pm:101
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
-msgstr ""
+msgstr "Ukazatel průběhu s id {id} nebyl nalezen"
 
 #: src/EBox/ProgressIndicator.pm:139
 msgid "Number of ticks to notify"
@@ -41,11 +41,12 @@ msgstr ""
 
 #: src/EBox/ProgressIndicator.pm:141
 msgid "must be greater than zero"
-msgstr ""
+msgstr "musí být větší než nula"
 
 #: src/EBox/ProgressIndicator.pm:147
+#, fuzzy
 msgid "Executable has not been run"
-msgstr ""
+msgstr "Program nebyl spuštěn"
 
 #: src/EBox/ProgressIndicator.pm:264
 msgid "The executable has not run"
@@ -388,19 +389,19 @@ msgstr ""
 #: src/EBox/Events/Model/Report/EventsDetails.pm:88
 #: src/EBox/Events/Model/Report/EventsGraph.pm:53 src/EBox/Events.pm:817
 msgid "Error"
-msgstr ""
+msgstr "Chyba"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:54
 #: src/EBox/Events/Model/Report/EventsDetails.pm:92
 #: src/EBox/Events/Model/Report/EventsGraph.pm:54 src/EBox/Events.pm:818
 msgid "Fatal error"
-msgstr ""
+msgstr "Fatální chyba"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:68 src/EBox/Logs.pm:718
 #: src/templates/finish.mas:116 src/templates/backup.mas:126
 #: src/templates/confirm-backup.mas:28
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: src/EBox/Events/Model/Report/EventsDetails.pm:101
 #, fuzzy
