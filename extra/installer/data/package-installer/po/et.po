@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-package-installer 1.4\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-03-29 17:00+0200\n"
-"PO-Revision-Date: 2010-04-27 15:54+0200\n"
+"PO-Revision-Date: 2010-05-04 12:37+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "Tulemüür, HTTP puhverserver, võrguliikluse kujundamine jne"
 #  
 #: ebox-package-installer:33
 msgid "Firewall, IDS, AV, VPN, content & mail filter, etc."
-msgstr "Tulemüür, IDS, AV, VPN, sisu- ja meilifilter jne"
+msgstr "Tulemüür, IDS, AV, VPN, sisu- ja e-posti filter jne"
 
 #: ebox-package-installer:34
 msgid "DHCP, DNS, NTP, HTTP server, etc."
@@ -36,7 +36,7 @@ msgstr "Failide jagamine ja printimine, rühmavara jne"
 
 #: ebox-package-installer:36
 msgid "Mail, Jabber/XMPP, VoIP, etc."
-msgstr "Meil, Jabber/XMPP, VoIP jne"
+msgstr "E-post, Jabber/XMPP, VoIP jne"
 
 #  
 #: ebox-package-installer:40
@@ -118,12 +118,12 @@ msgstr "HTTP server"
 #  
 #: ebox-package-installer:58
 msgid "Mail system: SMTP, POP3, IMAP4"
-msgstr "Meilisüsteem: SMTP, POP3, IMAP4"
+msgstr "E-posti süsteem: SMTP, POP3, IMAP4"
 
-# vbla Veebipõhine meiliklient
+# vbla Veebipõhine ...
 #: ebox-package-installer:59
 msgid "WWW Mail Client"
-msgstr "WWW meiliklient"
+msgstr "WWW e-posti klient"
 
 #: ebox-package-installer:60
 msgid "Antispam, antivirus, transparent POP3 proxy"
@@ -287,11 +287,11 @@ msgstr "Kinnita administraatori parool"
 
 #: ebox-package-installer:108
 msgid "Mail configuration"
-msgstr "Meili seadistamine"
+msgstr "E-posti seadistamine"
 
 #: ebox-package-installer:109
 msgid "Enter default virtual mail domain:"
-msgstr "Sisesta vaikimisi virtuaalne meilidomeen:"
+msgstr "Sisesta vaikimisi virtuaalne e-posti domeen:"
 
 #: ebox-package-installer:110
 msgid "Installation finished"
