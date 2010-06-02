@@ -1,13 +1,13 @@
 # Estonian translations for libebox package.
-# Copyright (C) 2010 Warp S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 # This file is distributed under the same license as the libebox package.
 # Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libebox 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:58+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 21:08+0200\n"
 "PO-Revision-Date: 2010-05-06 16:37+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -114,7 +114,7 @@ msgstr "Eboxi kasutajat ei ole seadistusfailis määratud."
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Käsu '{cmd}' käivitamine kasutajana {user} nurjus"
 
-#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
+#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:268
 #, perl-brace-format
 msgid "Directory not found: {d}"
 msgstr "Kataloogi ei leitud: {d}"

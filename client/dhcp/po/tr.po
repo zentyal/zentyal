@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:54+0200\n"
-"PO-Revision-Date: 2010-05-11 09:47+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:53+0200\n"
+"PO-Revision-Date: 2010-06-02 20:28+0200\n"
 "Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -163,9 +163,10 @@ msgid "Maximum leased time must be higher than 0 seconds"
 msgstr "En uzun kiralam süresi 0 dan büyük olmalıdır"
 
 #: src/EBox/Model/LeaseTimes.pm:156
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
-msgstr "En uzun kira süresi ön tanımlı kira süresinden küçük olamaz"
+msgstr ""
+"En uzun kira süresi {max} ön tanımlı kira süresinden küçük olamaz {default}"
 
 #: src/EBox/Model/LeaseTimes.pm:200
 msgid "Default leased time"
@@ -198,7 +199,7 @@ msgstr "{ip} adresi {net} ağı içinde değil"
 #: src/EBox/Model/FixedAddressTable.pm:135
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {ifaceIP}"
-msgstr "Seçilen IP adresi ağ kartının IP adresidir: {iface_ip}"
+msgstr "Seçilen IP adresi ağ kartının IP adresidir: {ifaceIP}"
 
 #: src/EBox/Model/FixedAddressTable.pm:152
 #, perl-brace-format
@@ -395,8 +396,7 @@ msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
-"DNS sorgulaması için belirttiğiniz alan adı kurallara uygun olarak "
-"yazılmamış"
+"DNS sorgulaması için belirttiğiniz alan adı kurallara uygun olarak yazılmamış"
 
 #: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
 msgid "Primary nameserver"
@@ -463,23 +463,22 @@ msgstr "{from}-{to} aralıkları {net} ağının içinde değil"
 #: src/EBox/Model/RangeTable.pm:141
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr ""
-"{new_from}-{new_to} aralığı bir ağ kartının IP adresini içeriyor: {iface_ip}"
+msgstr "{from}-{to} aralığı bir ağ kartının IP adresini içeriyor: {ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:164
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
 msgstr ""
-"{new_from}-{new_to} aralığı ile başka bir '{range}' aralığı kesişiyor: "
-"{old_from}-{old_to}"
+"{newFrom}-{newTo} aralığı ile başka bir '{range}' aralığı kesişiyor: "
+"{oldFrom}-{oldTo}"
 
 #: src/EBox/Model/RangeTable.pm:182
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr ""
-"{new_from}-{new_to} aralığı '{name}' aygıtının sabit IP numarasını içeriyor: "
-"{fixed_ip}"
+"{from}-{to} aralığı '{name}' aygıtının sabit IP numarasını içeriyor: "
+"{fixedIP}"
 
 #: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
 msgid "Ranges"
@@ -569,9 +568,8 @@ msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
-"DHCP sunucusu için bir arayüzün sabit ip ile ayarlanması "
-"gereklidir.{openhref}Arayüz Ayarları{closehref} kısmında değişiklik "
-"yapabilirsiniz."
+"DHCP sunucusu için bir arayüzün sabit ip ile ayarlanması gereklidir."
+"{openhref}Arayüz Ayarları{closehref} kısmında değişiklik yapabilirsiniz."
 
 #: src/EBox/Composite/Interfaces.pm:108
 msgid "Choose a static interface to configure:"

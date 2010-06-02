@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:55+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:54+0200\n"
 "PO-Revision-Date: 2010-04-03 06:20+0200\n"
 "Last-Translator: Ruslan Khissamov <ruslan.khissamov@gmail.com>\n"
 "Language-Team: none\n"
@@ -542,7 +542,7 @@ msgstr "Восстановить"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
-#: src/EBox/Backup.pm:1328
+#: src/EBox/Backup.pm:1332
 msgid "The input contains invalid characters"
 msgstr "Ввод содержит неверные символы"
 
@@ -570,7 +570,7 @@ msgstr "Модуль был корректно перезапущен."
 msgid "Upgrading"
 msgstr "Модернизация"
 
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:722
+#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:726
 #: src/EBox/SysInfo.pm.in:270 src/templates/backup.mas:62
 msgid "Backup"
 msgstr "Резервная копия"
@@ -619,14 +619,15 @@ msgid "Module"
 msgstr "Модуль"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
-msgid "modules left to restore"
-msgstr "модули оставленные для восстановления"
+#, fuzzy
+msgid "modules restored"
+msgstr "модули отозваны"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
 msgstr "Восстановление успешно"
 
-#: src/EBox/CGI/EBox/ConfigurationReport.pm:29 src/EBox/SysInfo.pm.in:276
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
 #, fuzzy
 msgid "Configuration report"
 msgstr "Восстановление настроек"
@@ -1441,24 +1442,24 @@ msgstr "Невозможно создать резервный архив"
 msgid "Could not append data to backup archive"
 msgstr "Невозможно добавить данные к резервному архиву"
 
-#: src/EBox/Backup.pm:437
+#: src/EBox/Backup.pm:441
 msgid "Unknown"
 msgstr "Неизвестный"
 
-#: src/EBox/Backup.pm:490
+#: src/EBox/Backup.pm:494
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "Не могу извлечь запрошенные резервные файлы: {files}"
 
-#: src/EBox/Backup.pm:493 src/EBox/Backup.pm:1144
+#: src/EBox/Backup.pm:497 src/EBox/Backup.pm:1148
 msgid "Could not unpack the backup"
 msgstr "Не могу распаковать резервную копию"
 
-#: src/EBox/Backup.pm:759
+#: src/EBox/Backup.pm:763
 msgid "Writing backup file to hard disk"
 msgstr "Запись резервной копии файлов на жесткий диск"
 
-#: src/EBox/Backup.pm:785
+#: src/EBox/Backup.pm:789
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
@@ -1466,23 +1467,23 @@ msgstr ""
 "Некоторые модули содержат не сохраненные изменения. Перед созданием "
 "резервной копии Вы должны сохранить или отклонить их"
 
-#: src/EBox/Backup.pm:843
+#: src/EBox/Backup.pm:847
 msgid "Incorrect or corrupt backup file"
 msgstr "Неверный или поврежденный резервный файл"
 
-#: src/EBox/Backup.pm:872
+#: src/EBox/Backup.pm:876
 msgid "The backup file is corrupt: could not open archive"
 msgstr "Резервный файл поврежден: не могу открыть архив"
 
-#: src/EBox/Backup.pm:884
+#: src/EBox/Backup.pm:888
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "Резервный файл поврежден: не могу открыть контрольную сумму"
 
-#: src/EBox/Backup.pm:891
+#: src/EBox/Backup.pm:895
 msgid "The backup file is corrupt."
 msgstr "Резервный файл поврежден."
 
-#: src/EBox/Backup.pm:909
+#: src/EBox/Backup.pm:913
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
@@ -1490,7 +1491,7 @@ msgstr ""
 "Архив резервной копии недопустимого формата. Может быть архив поврежден или "
 "Вы используете несовместимую версию eBox."
 
-#: src/EBox/Backup.pm:915
+#: src/EBox/Backup.pm:919
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
@@ -1498,7 +1499,7 @@ msgstr ""
 "Архив не содержит полной резервной копии т.е. полное восстановление "
 "невозможно. Возможно доступно восстановление настроек"
 
-#: src/EBox/Backup.pm:950
+#: src/EBox/Backup.pm:954
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -1508,16 +1509,16 @@ msgstr ""
 "восстановления. Требуется {size} Кбайт. Освободите требуемое пространство и "
 "попробуйте еще раз"
 
-#: src/EBox/Backup.pm:1229
+#: src/EBox/Backup.pm:1233
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "Модуль {m} не найден в резервной копии"
 
-#: src/EBox/Backup.pm:1252
+#: src/EBox/Backup.pm:1256
 msgid "No modules to restore"
 msgstr "Нет модуля для востановления"
 
-#: src/EBox/Backup.pm:1307
+#: src/EBox/Backup.pm:1311
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -1525,7 +1526,7 @@ msgid ""
 msgstr ""
 "Неразрешенная зависимость для модуля {topModule}: {modName} не установлен"
 
-#: src/EBox/Backup.pm:1350
+#: src/EBox/Backup.pm:1354
 msgid "Backup's archives"
 msgstr "Список архивов резервных копий"
 
@@ -1588,6 +1589,11 @@ msgid "General"
 msgstr "Общее"
 
 #: src/EBox/SysInfo.pm.in:273
+#, fuzzy
+msgid "Configuration Report"
+msgstr "Восстановление настроек"
+
+#: src/EBox/SysInfo.pm.in:276
 msgid "Halt/Reboot"
 msgstr "Выключить/Перезагрузить"
 
@@ -2246,6 +2252,9 @@ msgstr "Режим восстановления"
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "TCP-порт администраторского интерфейса"
+
+#~ msgid "modules left to restore"
+#~ msgstr "модули оставленные для восстановления"
 
 #~ msgid "Bug report"
 #~ msgstr "Отчет об ошибках"

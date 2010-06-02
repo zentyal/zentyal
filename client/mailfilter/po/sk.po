@@ -1,13 +1,13 @@
 # Slovak translations for ebox-mailfilter package.
-# Copyright (C) 2009 Warp S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-mailfilter package.
 # Automatically generated, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mailfilter 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-02 16:32+0000\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:32+0200\n"
 "PO-Revision-Date: 2009-06-28 00:10+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,174 +24,174 @@ msgstr ""
 msgid "POP3 protocol"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:62
+#: src/EBox/MailFilter.pm:63
 msgid "Mail Filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:80
+#: src/EBox/MailFilter.pm:81
 msgid "Add clamav user to amavis group"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:81
+#: src/EBox/MailFilter.pm:82
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:85
+#: src/EBox/MailFilter.pm:86
 msgid "Add clamav user to p3scan group"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:86
+#: src/EBox/MailFilter.pm:87
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:90
+#: src/EBox/MailFilter.pm:91
 msgid "Add spam and ham system users"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:92
+#: src/EBox/MailFilter.pm:93
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:97
+#: src/EBox/MailFilter.pm:98
 msgid "Update LDAP"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:98
+#: src/EBox/MailFilter.pm:99
 msgid "Add amavis specific classes and fields"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:357
+#: src/EBox/MailFilter.pm:358
 msgid "Cannot proceed because the filter is in use"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:512
+#: src/EBox/MailFilter.pm:513
 msgid "Mail filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:533 src/EBox/MailFilter.pm:579
+#: src/EBox/MailFilter.pm:534 src/EBox/MailFilter.pm:580
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 msgid "Date"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:535
+#: src/EBox/MailFilter.pm:536
 msgid "Action"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:536 src/EBox/MailFilter.pm:583
+#: src/EBox/MailFilter.pm:537 src/EBox/MailFilter.pm:584
 msgid "Event"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:538
+#: src/EBox/MailFilter.pm:539
 msgid "Sender address"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:539
+#: src/EBox/MailFilter.pm:540
 msgid "Recipient address"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:541
+#: src/EBox/MailFilter.pm:542
 msgid "Spam hits"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:546
+#: src/EBox/MailFilter.pm:547
 msgid "Bad header found"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:547
+#: src/EBox/MailFilter.pm:548
 msgid "Spam found"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:548
-msgid "Forbidden attached file  found"
-msgstr ""
-
 #: src/EBox/MailFilter.pm:549
-msgid "Address in blacklist found"
+msgid "Forbidden attached file found"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:550
-msgid "Virus found"
+msgid "Address in blacklist found"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:551
+msgid "Virus found"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:552
 msgid "Clean message"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:561
+#: src/EBox/MailFilter.pm:562
 msgid "SMTP filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:581
+#: src/EBox/MailFilter.pm:582
 msgid "Account"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:582
+#: src/EBox/MailFilter.pm:583
 msgid "Client's address"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:585
+#: src/EBox/MailFilter.pm:586
 msgid "Total messages"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:586
+#: src/EBox/MailFilter.pm:587
 msgid "Clean messages"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:587
+#: src/EBox/MailFilter.pm:588
 msgid "Virus messages"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:588
+#: src/EBox/MailFilter.pm:589
 msgid "Spam messages"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:595
+#: src/EBox/MailFilter.pm:596
 msgid "POP3 transmission complete"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:597
+#: src/EBox/MailFilter.pm:598
 msgid "POP3 transmission aborted"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:605
+#: src/EBox/MailFilter.pm:606
 msgid "POP3 proxy"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:704 src/EBox/MailFilter/Composite/Amavis.pm:61
+#: src/EBox/MailFilter.pm:705 src/EBox/MailFilter/Composite/Amavis.pm:61
 msgid "SMTP Mail Filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:711
+#: src/EBox/MailFilter.pm:712
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 msgid "POP Transparent Proxy"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:719 src/EBox/MailFilter/POPProxy.pm:350
+#: src/EBox/MailFilter.pm:720 src/EBox/MailFilter/POPProxy.pm:348
 #: src/EBox/MailFilter/Amavis.pm:468
 #: src/EBox/MailFilter/Composite/Antispam.pm:63
 #: src/EBox/MailFilter/Composite/Antispam.pm:64
 msgid "Antispam"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:726
+#: src/EBox/MailFilter.pm:727
 msgid "Files ACL"
 msgstr ""
 
-#: src/EBox/MailFilter/POPProxy.pm:47
+#: src/EBox/MailFilter/POPProxy.pm:61
 msgid " To configure p3scan"
 msgstr ""
 
-#: src/EBox/MailFilter/POPProxy.pm:52
+#: src/EBox/MailFilter/POPProxy.pm:66
 msgid "To configure renattach"
 msgstr ""
 
-#: src/EBox/MailFilter/POPProxy.pm:323
+#: src/EBox/MailFilter/POPProxy.pm:322
 msgid "Transparent POP Proxy"
 msgstr ""
 
-#: src/EBox/MailFilter/POPProxy.pm:329 src/EBox/MailFilter/Amavis.pm:452
+#: src/EBox/MailFilter/POPProxy.pm:328 src/EBox/MailFilter/Amavis.pm:452
 msgid "Status"
 msgstr ""
 

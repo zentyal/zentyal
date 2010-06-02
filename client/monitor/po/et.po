@@ -1,13 +1,13 @@
 # Estonian translations for ebox-monitor package.
-# Copyright (C) 2010 Warp S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-monitor package.
 # Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-monitor 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:53+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:32+0200\n"
 "PO-Revision-Date: 2010-05-06 17:07+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -402,9 +402,9 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
-"Monitooringu graafikute nägemiseks peab {openhref}muudatused "
-"salvestama{closehref}. Juhul kui oled seda juba teinud, oota paar sekundit, "
-"et jõutaks koguda esimesed monitooringuandmed."
+"Monitooringu graafikute nägemiseks peab {openhref}muudatused salvestama"
+"{closehref}. Juhul kui oled seda juba teinud, oota paar sekundit, et jõutaks "
+"koguda esimesed monitooringuandmed."
 
 #: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:73
 #: src/EBox/Monitor.pm:167

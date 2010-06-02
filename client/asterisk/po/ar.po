@@ -1,14 +1,14 @@
 # Spanish translations for ebox-asterisk package
 # Traducciones al español para el paquete ebox-asterisk.
-# Copyright (C) 2009 Warp S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-asterisk package.
 # Automatically generated, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:37+0000\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:22+0200\n"
 "PO-Revision-Date: 2010-01-28 00:00+0100\n"
 "Last-Translator: Mostafa Salem <m@isalem.net>\n"
 "Language-Team: none\n"
@@ -23,160 +23,156 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "نظام VoIP للeBox"
 
-#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:732
+#: src/EBox/Asterisk.pm:73 src/EBox/Asterisk.pm:726
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:130
+#: src/EBox/Asterisk.pm:129
 msgid "To configure enabled and disabled modules."
 msgstr "لتفعيل أو إبطال الوحدات."
 
-#: src/EBox/Asterisk.pm:135
+#: src/EBox/Asterisk.pm:134
 msgid "To configure the Realtime interface."
 msgstr "لضبط إعدادات الوصلة البينية ذات التوقيت الحقيقي."
 
-#: src/EBox/Asterisk.pm:140
+#: src/EBox/Asterisk.pm:139
 msgid "To configure the LDAP Realtime driver."
 msgstr "لضبط سواقة ال LDAP ذات الوقت الحقيقي."
 
-#: src/EBox/Asterisk.pm:145
+#: src/EBox/Asterisk.pm:144
 msgid "To configure the common SIP and IAX users."
 msgstr "لضبط اﻹعدادات المشتركة لمستخدمي SIP و IAX."
 
-#: src/EBox/Asterisk.pm:150
+#: src/EBox/Asterisk.pm:149
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr "لضبط مسار SIP الرئيسي للمستخدمين المحليين ولمزودين الخدمة الخارجيين."
 
-#: src/EBox/Asterisk.pm:155
-msgid "To configure the RTP port ranges."
-msgstr "لضبط إعدادات منافذ RTP."
-
-#: src/EBox/Asterisk.pm:160
+#: src/EBox/Asterisk.pm:154
 msgid "To configure the dialplan."
 msgstr "لضبط إعدادات مخطط اﻹتصال."
 
-#: src/EBox/Asterisk.pm:165
+#: src/EBox/Asterisk.pm:159
 msgid "To configure the voicemail."
 msgstr "لضبط إعدادات البريد الصوتي."
 
-#: src/EBox/Asterisk.pm:170
+#: src/EBox/Asterisk.pm:164
 msgid "To configure the conferences."
 msgstr "لضبط إعدادات المحادثات الجماعية."
 
-#: src/EBox/Asterisk.pm:174
+#: src/EBox/Asterisk.pm:168
 #, fuzzy
 msgid "To configure the music on hold."
 msgstr "لضبط إعدادات البريد الصوتي."
 
-#: src/EBox/Asterisk.pm:178
+#: src/EBox/Asterisk.pm:172
 #, fuzzy
 msgid "To configure DTMF behaviour."
 msgstr "لضبط إعدادات البريد الصوتي."
 
-#: src/EBox/Asterisk.pm:502
+#: src/EBox/Asterisk.pm:496
 msgid "General"
 msgstr "عام"
 
-#: src/EBox/Asterisk.pm:506 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:500 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "اﻹجتماعات"
 
-#: src/EBox/Asterisk.pm:523
+#: src/EBox/Asterisk.pm:517
 msgid "Voicemail"
 msgstr "البريد الصوتي"
 
-#: src/EBox/Asterisk.pm:533 src/EBox/Asterisk.pm:642
+#: src/EBox/Asterisk.pm:527 src/EBox/Asterisk.pm:636
 #, fuzzy
 msgid "User"
 msgstr "إسم المستخدم"
 
-#: src/EBox/Asterisk.pm:533
+#: src/EBox/Asterisk.pm:527
 #, fuzzy
 msgid "Address"
 msgstr "عنوان البريد"
 
-#: src/EBox/Asterisk.pm:533
+#: src/EBox/Asterisk.pm:527
 msgid "NAT"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:533
+#: src/EBox/Asterisk.pm:527
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:547 src/EBox/Asterisk.pm:651
+#: src/EBox/Asterisk.pm:541 src/EBox/Asterisk.pm:645
 msgid "No users connected."
 msgstr "لا أحد متصل"
 
-#: src/EBox/Asterisk.pm:639
+#: src/EBox/Asterisk.pm:633
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr "الغرفة {name} مفعلة منذ {rtime}"
 
-#: src/EBox/Asterisk.pm:642
+#: src/EBox/Asterisk.pm:636
 #, fuzzy
 msgid "Time Connected"
 msgstr "مدة الاتصال"
 
-#: src/EBox/Asterisk.pm:672
+#: src/EBox/Asterisk.pm:666
 msgid "VoIP Online Users"
 msgstr "المستخدمين المتصلين بخدمة الصوت عبر بروتوكول الإنترنت (VoIP)."
 
-#: src/EBox/Asterisk.pm:677
+#: src/EBox/Asterisk.pm:671
 #, fuzzy
 msgid "VoIP Users in Meetings"
 msgstr "مستخدمو (VoIP) المجتمعون حاليا"
 
-#: src/EBox/Asterisk.pm:709
+#: src/EBox/Asterisk.pm:703
 msgid "Date"
 msgstr "التاريخ"
 
-#: src/EBox/Asterisk.pm:710
+#: src/EBox/Asterisk.pm:704
 msgid "From"
 msgstr "من"
 
-#: src/EBox/Asterisk.pm:711
+#: src/EBox/Asterisk.pm:705
 msgid "To"
 msgstr "الى"
 
-#: src/EBox/Asterisk.pm:712
+#: src/EBox/Asterisk.pm:706
 msgid "Duration"
 msgstr "المدة"
 
-#: src/EBox/Asterisk.pm:713
+#: src/EBox/Asterisk.pm:707
 msgid "Channel"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:714
+#: src/EBox/Asterisk.pm:708
 msgid "Destination Channel"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:715
+#: src/EBox/Asterisk.pm:709
 msgid "Application"
 msgstr "البرنامج"
 
-#: src/EBox/Asterisk.pm:716
+#: src/EBox/Asterisk.pm:710
 msgid "Application Data"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:717
+#: src/EBox/Asterisk.pm:711
 #, fuzzy
 msgid "Event"
 msgstr "الحدث"
 
-#: src/EBox/Asterisk.pm:725
+#: src/EBox/Asterisk.pm:719
 msgid "Answered"
 msgstr "تم الرد"
 
-#: src/EBox/Asterisk.pm:726
+#: src/EBox/Asterisk.pm:720
 msgid "No Answer"
 msgstr "لم يتم الرد"
 
-#: src/EBox/Asterisk.pm:727
+#: src/EBox/Asterisk.pm:721
 msgid "Busy"
 msgstr "مشغول"
 
-#: src/EBox/Asterisk.pm:728
+#: src/EBox/Asterisk.pm:722
 msgid "Failed"
 msgstr "فشلت"
 
@@ -447,6 +443,9 @@ msgstr "كلمة السر لـ Asterisk هي نفس كلمة سر المستخد
 #: src/templates/user.mas:21
 msgid "User account"
 msgstr "حساب المستخدم"
+
+#~ msgid "To configure the RTP port ranges."
+#~ msgstr "لضبط إعدادات منافذ RTP."
 
 #~ msgid "Administrator password"
 #~ msgstr "كلمة سر مسؤول النظام"

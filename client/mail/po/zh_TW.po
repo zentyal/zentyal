@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:56+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:54+0200\n"
 "PO-Revision-Date: 2009-08-04 06:23+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -164,12 +164,12 @@ msgstr "無法連線到 {smtp} 郵件伺服器"
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr "無法連線到伺服器 {hostname} 透過 SMTP 來傳送事件"
 
-#: src/EBox/Mail/Greylist.pm:55
+#: src/EBox/Mail/Greylist.pm:54
 #, fuzzy
 msgid "To configure whitelist for greylisting"
 msgstr "設定灰名單功能中的白名單"
 
-#: src/EBox/Mail/Greylist.pm:279
+#: src/EBox/Mail/Greylist.pm:278
 msgid "Greylist service"
 msgstr "灰名單服務"
 
@@ -223,22 +223,22 @@ msgstr ""
 msgid "External account"
 msgstr "郵件帳號"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:76
+#: src/EBox/Mail/Model/ExternalAliases.pm:75
 #, fuzzy
 msgid "External Aliases"
 msgstr "郵件帳號設定"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:85
+#: src/EBox/Mail/Model/ExternalAliases.pm:84
 #, fuzzy
 msgid "External account alias"
 msgstr "郵件帳號設定"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:87
+#: src/EBox/Mail/Model/ExternalAliases.pm:86
 #, fuzzy
 msgid "External account alias added. You must save changes to use this alias"
 msgstr "虛擬網域已新增。您需要儲存變更來使用這個網域"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:128
+#: src/EBox/Mail/Model/ExternalAliases.pm:127
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -246,25 +246,25 @@ msgid ""
 "a real domain"
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:135
+#: src/EBox/Mail/Model/ExternalAliases.pm:134
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
 "server"
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "They already exists an account or alias called {al}"
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:168
+#: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:246
+#: src/EBox/Mail/Model/ExternalAliases.pm:245
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""
@@ -478,7 +478,7 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
-#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:78
+#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:79
 msgid "Unlimited size"
 msgstr "不限大小"
 
@@ -626,7 +626,7 @@ msgstr "建立郵件帳號"
 msgid "Default Domain"
 msgstr "額度大小"
 
-#: src/EBox/Mail/Model/MailUser.pm:97
+#: src/EBox/Mail/Model/MailUser.pm:98
 #, fuzzy
 msgid "You haven't create a mail domain yet"
 msgstr "點擊這裡來建立新虛擬網域郵件"
@@ -1034,7 +1034,8 @@ msgid "Maximum message size exceeded"
 msgstr "超過最大郵件大小"
 
 #: src/EBox/Mail.pm:1612
-msgid "User quote exceeded"
+#, fuzzy
+msgid "User quota exceeded"
 msgstr "使用者額度已滿"
 
 #: src/EBox/Mail.pm:1613
@@ -1099,8 +1100,8 @@ msgid "Action"
 msgstr "動作"
 
 #: src/templates/groupalias.mas:66 src/templates/groupalias.mas:67
-#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:46
-#: src/templates/createaccount.mas:47 src/templates/alias.mas:62
+#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:47
+#: src/templates/createaccount.mas:48 src/templates/alias.mas:62
 #: src/templates/alias.mas:63 src/templates/alias.mas:64
 msgid "Create"
 msgstr "建立"
@@ -1177,7 +1178,7 @@ msgstr "帳號名稱"
 msgid "Domain name"
 msgstr "網域名稱"
 
-#: src/templates/createaccount.mas:62
+#: src/templates/createaccount.mas:63
 msgid "Maildir size"
 msgstr "信箱大小"
 

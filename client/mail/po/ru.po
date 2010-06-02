@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:56+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:54+0200\n"
 "PO-Revision-Date: 2010-02-03 21:06+0100\n"
 "Last-Translator: Alexander Kuzmenko <alex@engp.su>\n"
 "Language-Team: none\n"
@@ -167,11 +167,11 @@ msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
 "Невозможно соединится с сервером {hostname} , чтобы инициализировать SMTP"
 
-#: src/EBox/Mail/Greylist.pm:55
+#: src/EBox/Mail/Greylist.pm:54
 msgid "To configure whitelist for greylisting"
 msgstr "Настройка белого списка для серого списка"
 
-#: src/EBox/Mail/Greylist.pm:279
+#: src/EBox/Mail/Greylist.pm:278
 msgid "Greylist service"
 msgstr "Служба серый список"
 
@@ -226,21 +226,21 @@ msgstr "Почтовый домен добавляется автоматиче�
 msgid "External account"
 msgstr "Внешний аккаунт"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:76
+#: src/EBox/Mail/Model/ExternalAliases.pm:75
 msgid "External Aliases"
 msgstr "Внешние псевдонимы  "
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:85
+#: src/EBox/Mail/Model/ExternalAliases.pm:84
 msgid "External account alias"
 msgstr "Псевдоним внешнего аккаунта"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:87
+#: src/EBox/Mail/Model/ExternalAliases.pm:86
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
 "Внешний псевдоним добавлен. Необходимо записать изменения, чтобы "
 "использовать этот псевдоним"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:128
+#: src/EBox/Mail/Model/ExternalAliases.pm:127
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -251,7 +251,7 @@ msgstr ""
 "добавление псевдонима псевдонима. Пожалуйста, добавляйте псевдонимы для "
 "реальных доменов"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:135
+#: src/EBox/Mail/Model/ExternalAliases.pm:134
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
@@ -260,12 +260,12 @@ msgstr ""
 "Невозможно добавить псевдоним, потому-что домен {vd} не является виртуальным "
 "доменом этого сервера"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "They already exists an account or alias called {al}"
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:168
+#: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
@@ -273,7 +273,7 @@ msgstr ""
 "Псевдоним должен быть введён без доменной части. она будет добавлена "
 "автоматически"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:246
+#: src/EBox/Mail/Model/ExternalAliases.pm:245
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""
@@ -489,7 +489,7 @@ msgstr ""
 "отклоняться. Это может быть перезаписываться из настроек учетной записи"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
-#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:78
+#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:79
 msgid "Unlimited size"
 msgstr "Безлимитный размер"
 
@@ -634,7 +634,7 @@ msgstr "Создать почтовый аккаунт user@domain"
 msgid "Default Domain"
 msgstr "Домен по умолчанию"
 
-#: src/EBox/Mail/Model/MailUser.pm:97
+#: src/EBox/Mail/Model/MailUser.pm:98
 msgid "You haven't create a mail domain yet"
 msgstr "Пока вы не имеете почтовых доменов"
 
@@ -1040,7 +1040,8 @@ msgid "Maximum message size exceeded"
 msgstr "Превышен макс. размер сообщения"
 
 #: src/EBox/Mail.pm:1612
-msgid "User quote exceeded"
+#, fuzzy
+msgid "User quota exceeded"
 msgstr "Превышена квота пользователя"
 
 #: src/EBox/Mail.pm:1613
@@ -1105,8 +1106,8 @@ msgid "Action"
 msgstr "Действие"
 
 #: src/templates/groupalias.mas:66 src/templates/groupalias.mas:67
-#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:46
-#: src/templates/createaccount.mas:47 src/templates/alias.mas:62
+#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:47
+#: src/templates/createaccount.mas:48 src/templates/alias.mas:62
 #: src/templates/alias.mas:63 src/templates/alias.mas:64
 msgid "Create"
 msgstr "Создать"
@@ -1182,7 +1183,7 @@ msgstr "Имя аккаунта"
 msgid "Domain name"
 msgstr "Доменное имя"
 
-#: src/templates/createaccount.mas:62
+#: src/templates/createaccount.mas:63
 msgid "Maildir size"
 msgstr "Размер почтового каталога"
 

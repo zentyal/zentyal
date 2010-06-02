@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:55+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:54+0200\n"
 "PO-Revision-Date: 2010-04-30 12:33+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -545,7 +545,7 @@ msgstr "Restaurar"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
-#: src/EBox/Backup.pm:1328
+#: src/EBox/Backup.pm:1332
 msgid "The input contains invalid characters"
 msgstr "A entrada contém caracteres inválidos"
 
@@ -573,7 +573,7 @@ msgstr "O módulo foi reiniciado com sucesso"
 msgid "Upgrading"
 msgstr "A actualizar"
 
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:722
+#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:726
 #: src/EBox/SysInfo.pm.in:270 src/templates/backup.mas:62
 msgid "Backup"
 msgstr "Cópia de segurança"
@@ -622,14 +622,15 @@ msgid "Module"
 msgstr "Módulo"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
-msgid "modules left to restore"
-msgstr "Módulos restantes a restaurar"
+#, fuzzy
+msgid "modules restored"
+msgstr "Módulos revogados"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
 msgstr "Restauro efectuado com sucesso"
 
-#: src/EBox/CGI/EBox/ConfigurationReport.pm:29 src/EBox/SysInfo.pm.in:276
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
 #, fuzzy
 msgid "Configuration report"
 msgstr "Restauração configuração"
@@ -1441,25 +1442,25 @@ msgstr "Não pode ser criado o arquivo de cópia de segurança"
 msgid "Could not append data to backup archive"
 msgstr "Não puderam ser anexados dados ao ficheiro da cópia de segurança"
 
-#: src/EBox/Backup.pm:437
+#: src/EBox/Backup.pm:441
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: src/EBox/Backup.pm:490
+#: src/EBox/Backup.pm:494
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr ""
 "Não foi possível extrair os ficheiros de cópia de segurança pedidos: {files}"
 
-#: src/EBox/Backup.pm:493 src/EBox/Backup.pm:1144
+#: src/EBox/Backup.pm:497 src/EBox/Backup.pm:1148
 msgid "Could not unpack the backup"
 msgstr "Não foi possível descomprimir a cópia de segurança"
 
-#: src/EBox/Backup.pm:759
+#: src/EBox/Backup.pm:763
 msgid "Writing backup file to hard disk"
 msgstr "A escrever o ficheiro de cópia de segurança para o disco rígido."
 
-#: src/EBox/Backup.pm:785
+#: src/EBox/Backup.pm:789
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
@@ -1467,24 +1468,24 @@ msgstr ""
 "Alguns módulos ainda não têm as alterações guardadas. Antes de executar a "
 "cópia de segurança deve grava-los ou descarta-los"
 
-#: src/EBox/Backup.pm:843
+#: src/EBox/Backup.pm:847
 msgid "Incorrect or corrupt backup file"
 msgstr "Ficheiro de cópia de segurança incorrecto ou corrompido"
 
-#: src/EBox/Backup.pm:872
+#: src/EBox/Backup.pm:876
 msgid "The backup file is corrupt: could not open archive"
 msgstr ""
 "O ficheiro de cópia de segurança está corrompido: Não é possível abri-lo"
 
-#: src/EBox/Backup.pm:884
+#: src/EBox/Backup.pm:888
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "O ficheiro de cópia de segurança está corrompido"
 
-#: src/EBox/Backup.pm:891
+#: src/EBox/Backup.pm:895
 msgid "The backup file is corrupt."
 msgstr "O ficheiro de cópia de segurança está corrompido"
 
-#: src/EBox/Backup.pm:909
+#: src/EBox/Backup.pm:913
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
@@ -1492,7 +1493,7 @@ msgstr ""
 "O ficheiro de cópia de segurança é de tipo inválido. Pode ser por estar "
 "corrompido ou estar a utilizar uma versão incompatível da eBox "
 
-#: src/EBox/Backup.pm:915
+#: src/EBox/Backup.pm:919
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
@@ -1500,7 +1501,7 @@ msgstr ""
 "O arquivo não tem um backup completo, o que torna a restauração completa "
 "impossível. No entanto pode ser possível uma recuperação da configuração "
 
-#: src/EBox/Backup.pm:950
+#: src/EBox/Backup.pm:954
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -1510,16 +1511,16 @@ msgstr ""
 "de restauração. {size} Kb necessários. Liberte espaço suficiente e tente "
 "novamente "
 
-#: src/EBox/Backup.pm:1229
+#: src/EBox/Backup.pm:1233
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "O módulo {m} não foi encontrado na cópia de segurança"
 
-#: src/EBox/Backup.pm:1252
+#: src/EBox/Backup.pm:1256
 msgid "No modules to restore"
 msgstr "Não há módulos para restaurar"
 
-#: src/EBox/Backup.pm:1307
+#: src/EBox/Backup.pm:1311
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -1528,7 +1529,7 @@ msgstr ""
 "Não foi possível restaurar a dependência do módulo {topModule}: {modName} "
 "não foi instalado"
 
-#: src/EBox/Backup.pm:1350
+#: src/EBox/Backup.pm:1354
 msgid "Backup's archives"
 msgstr "Arquivos de cópia de segurança"
 
@@ -1590,6 +1591,11 @@ msgid "General"
 msgstr "Geral"
 
 #: src/EBox/SysInfo.pm.in:273
+#, fuzzy
+msgid "Configuration Report"
+msgstr "Restauração configuração"
+
+#: src/EBox/SysInfo.pm.in:276
 msgid "Halt/Reboot"
 msgstr "Desligar/reiniciar"
 
@@ -2250,6 +2256,9 @@ msgstr "Modo de restauro"
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "Interface de administração do porto TCP"
+
+#~ msgid "modules left to restore"
+#~ msgstr "Módulos restantes a restaurar"
 
 #~ msgid "Bug report"
 #~ msgstr "Relatório de erros"

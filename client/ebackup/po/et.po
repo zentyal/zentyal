@@ -1,13 +1,13 @@
 # Estonian translations for ebox-ebackup package.
-# Copyright (C) 2010 Warp S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-ebackup package.
 # Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:29+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:31+0200\n"
 "PO-Revision-Date: 2010-05-09 00:40+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -22,18 +22,18 @@ msgstr ""
 msgid "Backup"
 msgstr "Varundamine"
 
-#: src/EBox/EBackup.pm:184
+#: src/EBox/EBackup.pm:197
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
 msgstr "Faili {f} ei leitud varukoopiast {d}, proovi hilisemat kuupäeva"
 
-#: src/EBox/EBackup.pm:191
+#: src/EBox/EBackup.pm:204
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
-"Varundusarhiive ei leitud, varundusinfo värskendamiseks käivita käsureal "
-"'/etc/init.d/ebox ebackup restart'"
+"Varundusarhiive ei leitud, varundusinfo värskendamiseks käivita käsureal '/"
+"etc/init.d/ebox ebackup restart'"
 
 #: src/EBox/Event/Watcher/EBackup.pm:142
 msgid "Check if eBox backup was not successful."

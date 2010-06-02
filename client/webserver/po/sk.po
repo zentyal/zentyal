@@ -1,14 +1,14 @@
 # Slovak translations for ebox-webserver package.
-# Copyright (C) 2009 Warp S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-webserver package.
 # Automatically generated, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:59+0200\n"
-"PO-Revision-Date: 2010-05-26 15:35+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:56+0200\n"
+"PO-Revision-Date: 2010-06-02 21:07+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -149,7 +149,8 @@ msgstr "Virtuálny hostiteľ {vhost} pridaný"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:208
 msgid "There is no static internal interface to set the Web server IP address"
-msgstr "Neexistuje statický interný adaptér na nastavenie IP adresy Web servera"
+msgstr ""
+"Neexistuje statický interný adaptér na nastavenie IP adresy Web servera"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:234
 msgid "Name"
@@ -180,12 +181,12 @@ msgid "virtual host"
 msgstr "virtuálny hostiteľ"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:280
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"
 msgstr ""
-"DNS modul je zakázaný. Pokiaľ nebude povolený, neprejavia sa zmeny v "
+"{open}DNS modul je zakázaný. Pokiaľ nebude povolený, neprejavia sa zmeny v "
 "pridanom mapovaní alebo v doménach."
 
 #: src/EBox/WebServer/Composite/General.pm:80

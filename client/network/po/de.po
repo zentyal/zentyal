@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:56+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:55+0200\n"
 "PO-Revision-Date: 2010-02-04 13:47+0100\n"
 "Last-Translator: Daniel F <sek@daniel2k.de>\n"
 "Language-Team: none\n"
@@ -58,9 +58,9 @@ msgid "virtual interface action"
 msgstr "Aktion der virtuellen Netzwerkkarte"
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:807 src/EBox/Network.pm:812
-#: src/EBox/Network.pm:1123 src/EBox/Network.pm:1144 src/EBox/Network.pm:2737
-#: src/EBox/Network.pm:2753 src/EBox/Network.pm:2779 src/EBox/Network.pm:2910
-#: src/EBox/Network.pm:3048 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Network.pm:1123 src/EBox/Network.pm:1144 src/EBox/Network.pm:2776
+#: src/EBox/Network.pm:2792 src/EBox/Network.pm:2818 src/EBox/Network.pm:2949
+#: src/EBox/Network.pm:3104 src/EBox/Model/GatewayTable.pm:198
 #: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:106
 #: src/templates/ifaces.mas:253
 msgid "IP address"
@@ -80,11 +80,11 @@ msgstr "Netzwerkdiagnose-Werkzeuge"
 msgid "Host"
 msgstr "Host"
 
-#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:2992
+#: src/EBox/CGI/Diag.pm:65 src/EBox/Network.pm:3032
 msgid "host name"
 msgstr "Computername"
 
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3085
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:3141
 msgid "Network Interfaces"
 msgstr "Netzwerkkarten"
 
@@ -107,7 +107,7 @@ msgstr ""
 "Host '{host}' fehlgeschlagen, max={maxFailRatio}%)"
 
 #: src/EBox/Event/Watcher/Gateways.pm:366
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3118
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3174
 msgid "WAN Failover"
 msgstr "WAN Ausfallleitung"
 
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Domain Name Server Resolver"
 msgstr "Domänen-Namen-Server Auflösung"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3116
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3172
 msgid "Balance Traffic"
 msgstr "Netzverkehr verteilen"
 
@@ -154,7 +154,7 @@ msgstr ""
 "aktivierte Gateways. Sie können diese <a href=\"/ebox/Network/View/"
 "GatewayTable\">hier</a> hinzufügen"
 
-#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3037
+#: src/EBox/Network/Report/ByteRate.pm:136 src/EBox/Network.pm:3093
 msgid "Status"
 msgstr "Status"
 
@@ -242,7 +242,7 @@ msgstr "Gesamte Bandbreite für {service}"
 msgid "Traffic rate from {src} for {service}"
 msgstr "Bandbreite von {src} für {service}"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3101
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3157
 #: src/EBox/Model/StaticRoute.pm:153
 msgid "Network"
 msgstr "Netzwerk"
@@ -301,7 +301,7 @@ msgstr "eBox wird eine DSL-Provider Konfiguration für PPPoE hinzufügen"
 msgid "Virtual interface name"
 msgstr "Name der virtuellen Schnittstelle"
 
-#: src/EBox/Network.pm:807 src/EBox/Network.pm:1123 src/EBox/Network.pm:2737
+#: src/EBox/Network.pm:807 src/EBox/Network.pm:1123 src/EBox/Network.pm:2776
 #: src/templates/ifaces.mas:119 src/templates/ifaces.mas:254
 msgid "Netmask"
 msgstr "Netzmaske"
@@ -311,10 +311,10 @@ msgstr "Netzmaske"
 #: src/EBox/Network.pm:1254 src/EBox/Network.pm:1342 src/EBox/Network.pm:1547
 #: src/EBox/Network.pm:1614 src/EBox/Network.pm:1644 src/EBox/Network.pm:1671
 #: src/EBox/Network.pm:1699 src/EBox/Network.pm:1761 src/EBox/Network.pm:1796
-#: src/EBox/Network.pm:1829 src/EBox/Network.pm:2735 src/EBox/Network.pm:2755
-#: src/EBox/Network.pm:2775 src/EBox/Network.pm:2796 src/EBox/Network.pm:2845
-#: src/EBox/Network.pm:2866 src/EBox/Network.pm:2886 src/EBox/Network.pm:2907
-#: src/EBox/Network.pm:2930 src/EBox/Model/MultiGwRulesDataTable.pm:101
+#: src/EBox/Network.pm:1829 src/EBox/Network.pm:2774 src/EBox/Network.pm:2794
+#: src/EBox/Network.pm:2814 src/EBox/Network.pm:2835 src/EBox/Network.pm:2884
+#: src/EBox/Network.pm:2905 src/EBox/Network.pm:2925 src/EBox/Network.pm:2946
+#: src/EBox/Network.pm:2969 src/EBox/Model/MultiGwRulesDataTable.pm:101
 #: src/EBox/Model/GatewayTable.pm:205
 msgid "Interface"
 msgstr "Schnittstelle"
@@ -340,7 +340,7 @@ msgstr ""
 "Netzwerkkarten müssen im Trunk-Modus sein, bevor VLANs hinzugefügt werden "
 "können"
 
-#: src/EBox/Network.pm:2627
+#: src/EBox/Network.pm:2666
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -349,12 +349,12 @@ msgstr ""
 "machen. Bitte entfernen Sie den Gateway zuerst, falls Sie diese Änderung "
 "wirklich durchführen möchten"
 
-#: src/EBox/Network.pm:2692 src/EBox/NetworkUtil.pm:55
+#: src/EBox/Network.pm:2731 src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "Gateway {gw} ist nicht erreichbar"
 
-#: src/EBox/Network.pm:2695
+#: src/EBox/Network.pm:2734
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
@@ -364,51 +364,66 @@ msgstr ""
 "Netzwerkkarte {iface} erreicht zwar den Gateway, ist aber dynamisch "
 "konfiguriert"
 
-#: src/EBox/Network.pm:2952 src/EBox/Network.pm:2973
+#: src/EBox/Network.pm:2991 src/EBox/Network.pm:3012
 msgid "Host name"
 msgstr "Computername"
 
-#: src/EBox/Network.pm:3022
+#: src/EBox/Network.pm:3062
 msgid "down"
 msgstr "aus"
 
-#: src/EBox/Network.pm:3028
+#: src/EBox/Network.pm:3068
 msgid "up"
 msgstr "ein"
 
-#: src/EBox/Network.pm:3032
+#: src/EBox/Network.pm:3073
+#, fuzzy
+msgid "external"
+msgstr "Extern"
+
+#: src/EBox/Network.pm:3075
+#, fuzzy
+msgid "internal"
+msgstr "Extern"
+
+#: src/EBox/Network.pm:3082
 msgid "link ok"
 msgstr "Verbindung OK"
 
-#: src/EBox/Network.pm:3034
+#: src/EBox/Network.pm:3084
 msgid "no link"
 msgstr "Keine Verbindung"
 
-#: src/EBox/Network.pm:3042
+#: src/EBox/Network.pm:3087
+#, perl-brace-format
+msgid "{up}, {ext}, {link}"
+msgstr ""
+
+#: src/EBox/Network.pm:3098
 msgid "MAC address"
 msgstr "MAC-Adresse"
 
-#: src/EBox/Network.pm:3059
+#: src/EBox/Network.pm:3115
 msgid "Tx bytes"
 msgstr "Tx Bytes"
 
-#: src/EBox/Network.pm:3068
+#: src/EBox/Network.pm:3124
 msgid "Rx bytes"
 msgstr "Rx Bytes"
 
-#: src/EBox/Network.pm:3106
+#: src/EBox/Network.pm:3162
 msgid "Interfaces"
 msgstr "Schnittstellen"
 
-#: src/EBox/Network.pm:3112 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3168 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "Gateways"
 
-#: src/EBox/Network.pm:3114 src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:3170 src/EBox/Model/StaticRoute.pm:177
 msgid "Static Routes"
 msgstr "Statische Routen"
 
-#: src/EBox/Network.pm:3120
+#: src/EBox/Network.pm:3176
 msgid "Diagnostic Tools"
 msgstr "Diagnose-Werkzeuge"
 
@@ -1009,9 +1024,6 @@ msgstr ""
 
 #~ msgid "interface"
 #~ msgstr "Netzwerkkarte"
-
-#~ msgid "External"
-#~ msgstr "Extern"
 
 #~ msgid "Configurable interface list"
 #~ msgstr "Liste der konfigurierbaren Netzwerkkarten"

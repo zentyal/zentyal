@@ -1,13 +1,13 @@
 # Indonesian translations for ebox-asterisk package.
-# Copyright (C) 2010 Warp S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-asterisk package.
 # Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.3.12Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:37+0000\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:22+0200\n"
 "PO-Revision-Date: 2010-02-19 13:04+0100\n"
 "Last-Translator: damar <damar@damar.web.id>\n"
 "Language-Team: none\n"
@@ -20,155 +20,151 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "sistem VoIP eBox"
 
-#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:732
+#: src/EBox/Asterisk.pm:73 src/EBox/Asterisk.pm:726
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
 
-#: src/EBox/Asterisk.pm:130
+#: src/EBox/Asterisk.pm:129
 msgid "To configure enabled and disabled modules."
 msgstr "Untuk mengkonfigurasi modul diaktifkan dan dinonaktifkan."
 
-#: src/EBox/Asterisk.pm:135
+#: src/EBox/Asterisk.pm:134
 msgid "To configure the Realtime interface."
 msgstr "Untuk mengkonfigurasi antarmuka Realtime."
 
-#: src/EBox/Asterisk.pm:140
+#: src/EBox/Asterisk.pm:139
 msgid "To configure the LDAP Realtime driver."
 msgstr "Untuk mengkonfigurasi LDAP Realtime driver."
 
-#: src/EBox/Asterisk.pm:145
+#: src/EBox/Asterisk.pm:144
 msgid "To configure the common SIP and IAX users."
 msgstr "Mengkonfigurasi pengguna umum SIP dan IAX."
 
-#: src/EBox/Asterisk.pm:150
+#: src/EBox/Asterisk.pm:149
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
 "Untuk mengkonfigurasi trunk SIP untuk pengguna lokal dan penyedia layanan "
 "eksternal."
 
-#: src/EBox/Asterisk.pm:155
-msgid "To configure the RTP port ranges."
-msgstr "Untuk mengkonfigurasi rentang port RTP."
-
-#: src/EBox/Asterisk.pm:160
+#: src/EBox/Asterisk.pm:154
 msgid "To configure the dialplan."
 msgstr "Untuk mengkonfigurasi dialplan."
 
-#: src/EBox/Asterisk.pm:165
+#: src/EBox/Asterisk.pm:159
 msgid "To configure the voicemail."
 msgstr "Untuk mengkonfigurasi pesan suara."
 
-#: src/EBox/Asterisk.pm:170
+#: src/EBox/Asterisk.pm:164
 msgid "To configure the conferences."
 msgstr "Untuk mengkonfigurasi konferensi."
 
-#: src/EBox/Asterisk.pm:174
+#: src/EBox/Asterisk.pm:168
 msgid "To configure the music on hold."
 msgstr "Untuk mengkonfigurasi musik ditahan."
 
-#: src/EBox/Asterisk.pm:178
+#: src/EBox/Asterisk.pm:172
 msgid "To configure DTMF behaviour."
 msgstr "Untuk mengkonfigurasi perilaku DTMF."
 
-#: src/EBox/Asterisk.pm:502
+#: src/EBox/Asterisk.pm:496
 msgid "General"
 msgstr "Umum"
 
-#: src/EBox/Asterisk.pm:506 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:500 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "Rapat"
 
-#: src/EBox/Asterisk.pm:523
+#: src/EBox/Asterisk.pm:517
 msgid "Voicemail"
 msgstr "Voicemail"
 
-#: src/EBox/Asterisk.pm:533 src/EBox/Asterisk.pm:642
+#: src/EBox/Asterisk.pm:527 src/EBox/Asterisk.pm:636
 msgid "User"
 msgstr "Pengguna"
 
-#: src/EBox/Asterisk.pm:533
+#: src/EBox/Asterisk.pm:527
 msgid "Address"
 msgstr "Alamat"
 
-#: src/EBox/Asterisk.pm:533
+#: src/EBox/Asterisk.pm:527
 msgid "NAT"
 msgstr "NAT"
 
-#: src/EBox/Asterisk.pm:533
+#: src/EBox/Asterisk.pm:527
 msgid "Status"
 msgstr "Status"
 
-#: src/EBox/Asterisk.pm:547 src/EBox/Asterisk.pm:651
+#: src/EBox/Asterisk.pm:541 src/EBox/Asterisk.pm:645
 msgid "No users connected."
 msgstr "Tidak ada pengguna terhubung."
 
-#: src/EBox/Asterisk.pm:639
+#: src/EBox/Asterisk.pm:633
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr "Room {name} active for {rtime}"
 
-#: src/EBox/Asterisk.pm:642
+#: src/EBox/Asterisk.pm:636
 msgid "Time Connected"
 msgstr "Waktu terhubung"
 
-#: src/EBox/Asterisk.pm:672
+#: src/EBox/Asterisk.pm:666
 msgid "VoIP Online Users"
 msgstr "VoIP Online Users"
 
-#: src/EBox/Asterisk.pm:677
+#: src/EBox/Asterisk.pm:671
 msgid "VoIP Users in Meetings"
 msgstr "Pengguna VoIP dalam rapat"
 
-#: src/EBox/Asterisk.pm:709
+#: src/EBox/Asterisk.pm:703
 msgid "Date"
 msgstr "Tanggal"
 
-#: src/EBox/Asterisk.pm:710
+#: src/EBox/Asterisk.pm:704
 msgid "From"
 msgstr "Dari"
 
-#: src/EBox/Asterisk.pm:711
+#: src/EBox/Asterisk.pm:705
 msgid "To"
 msgstr "Untuk"
 
-#: src/EBox/Asterisk.pm:712
+#: src/EBox/Asterisk.pm:706
 msgid "Duration"
 msgstr "Durasi"
 
-#: src/EBox/Asterisk.pm:713
+#: src/EBox/Asterisk.pm:707
 msgid "Channel"
 msgstr "Saluran"
 
-#: src/EBox/Asterisk.pm:714
+#: src/EBox/Asterisk.pm:708
 msgid "Destination Channel"
 msgstr "Saluran tujuan"
 
-#: src/EBox/Asterisk.pm:715
+#: src/EBox/Asterisk.pm:709
 msgid "Application"
 msgstr "Aplikasi"
 
-#: src/EBox/Asterisk.pm:716
+#: src/EBox/Asterisk.pm:710
 msgid "Application Data"
 msgstr "Aplikasi data"
 
-#: src/EBox/Asterisk.pm:717
+#: src/EBox/Asterisk.pm:711
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:725
+#: src/EBox/Asterisk.pm:719
 msgid "Answered"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:726
+#: src/EBox/Asterisk.pm:720
 msgid "No Answer"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:727
+#: src/EBox/Asterisk.pm:721
 msgid "Busy"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:728
+#: src/EBox/Asterisk.pm:722
 msgid "Failed"
 msgstr ""
 
@@ -433,3 +429,6 @@ msgstr ""
 #: src/templates/user.mas:21
 msgid "User account"
 msgstr ""
+
+#~ msgid "To configure the RTP port ranges."
+#~ msgstr "Untuk mengkonfigurasi rentang port RTP."

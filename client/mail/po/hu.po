@@ -1,13 +1,13 @@
 # Hungarian translations for ebox-mail package.
-# Copyright (C) 2009 Warp S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-mail package.
 # Automatically generated, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:56+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:54+0200\n"
 "PO-Revision-Date: 2010-05-27 16:18+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -169,11 +169,11 @@ msgstr ""
 "Nem tudok csatlakozni a {hostname} szerverre, hogy elküldjek egy eseményt "
 "SMTP-n keresztül"
 
-#: src/EBox/Mail/Greylist.pm:55
+#: src/EBox/Mail/Greylist.pm:54
 msgid "To configure whitelist for greylisting"
 msgstr "Whitelistek beállítása greylist szűrésre"
 
-#: src/EBox/Mail/Greylist.pm:279
+#: src/EBox/Mail/Greylist.pm:278
 msgid "Greylist service"
 msgstr "Greylist szolgáltatás"
 
@@ -228,21 +228,21 @@ msgstr "A levelező tartomány automatikusan hozzácsatolódik"
 msgid "External account"
 msgstr "Külső postafiók"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:76
+#: src/EBox/Mail/Model/ExternalAliases.pm:75
 msgid "External Aliases"
 msgstr "Külső fiókok álnevei"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:85
+#: src/EBox/Mail/Model/ExternalAliases.pm:84
 msgid "External account alias"
 msgstr "Külső postafiók álneve"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:87
+#: src/EBox/Mail/Model/ExternalAliases.pm:86
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
 "Külső postafiók álneve hozzáadva. El kell mentenie a beállításokat az álnév "
 "használatához"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:128
+#: src/EBox/Mail/Model/ExternalAliases.pm:127
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -253,7 +253,7 @@ msgstr ""
 "álnév és a virtuális tartomány álneveihez nem lehet további álneveket "
 "rendelni. Kérem egy valós tartományhoz rendelje az álnevet"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:135
+#: src/EBox/Mail/Model/ExternalAliases.pm:134
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
@@ -262,12 +262,12 @@ msgstr ""
 "Az álnév nem rendelhető hozzá a {vd} tartományhoz, mivel az nem a szerver "
 "által kezelt virtuális tartomány"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "They already exists an account or alias called {al}"
 msgstr "Már létezik egy felhasználói fiók vagy egy álnév {al} névvel"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:168
+#: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
@@ -275,7 +275,7 @@ msgstr ""
 "Az állfiók tartománynév nélkül lett megadva. Ez automatikusan hozzá lesz "
 "rendelve "
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:246
+#: src/EBox/Mail/Model/ExternalAliases.pm:245
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""
@@ -489,7 +489,7 @@ msgstr ""
 "vetve."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
-#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:78
+#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:79
 msgid "Unlimited size"
 msgstr "Korlátlan méret"
 
@@ -639,7 +639,7 @@ msgstr "Postafiók létrehozása felhasználó@tartomány"
 msgid "Default Domain"
 msgstr "Alapértelmezett tartomány"
 
-#: src/EBox/Mail/Model/MailUser.pm:97
+#: src/EBox/Mail/Model/MailUser.pm:98
 msgid "You haven't create a mail domain yet"
 msgstr "Jelenleg nincs létrehozva levelező tartomány"
 
@@ -1045,7 +1045,8 @@ msgid "Maximum message size exceeded"
 msgstr "Túllépte a megengedett levélméretet"
 
 #: src/EBox/Mail.pm:1612
-msgid "User quote exceeded"
+#, fuzzy
+msgid "User quota exceeded"
 msgstr "Túllépte a felhasználói méretkorlátot"
 
 #: src/EBox/Mail.pm:1613
@@ -1110,8 +1111,8 @@ msgid "Action"
 msgstr "Action"
 
 #: src/templates/groupalias.mas:66 src/templates/groupalias.mas:67
-#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:46
-#: src/templates/createaccount.mas:47 src/templates/alias.mas:62
+#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:47
+#: src/templates/createaccount.mas:48 src/templates/alias.mas:62
 #: src/templates/alias.mas:63 src/templates/alias.mas:64
 msgid "Create"
 msgstr "Létrehoz"
@@ -1187,7 +1188,7 @@ msgstr "Postafiók neve"
 msgid "Domain name"
 msgstr "Tartománynév"
 
-#: src/templates/createaccount.mas:62
+#: src/templates/createaccount.mas:63
 msgid "Maildir size"
 msgstr "Maildir mérete"
 

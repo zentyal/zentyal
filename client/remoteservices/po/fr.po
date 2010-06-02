@@ -1,13 +1,13 @@
 # French translations for EBox-remoteservices package.
-# Copyright (C) 2009 Warp S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 # This file is distributed under the same license as the EBox-remoteservices package.
 # Automatically generated, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:32+0200\n"
 "PO-Revision-Date: 2010-01-18 13:06+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -163,6 +163,14 @@ msgstr "La connexion SOAP ne peut-être créée"
 msgid "No domain key found for this service"
 msgstr "La clé de domaine pour ce service n'a pas été trouvée"
 
+#: src/EBox/RemoteServices/SupportAccess.pm:91
+#, perl-brace-format
+msgid ""
+"There exists already a user {u} and it does not seem created by eBox. Until "
+"this user is renamed or removed it would be impossible to set up remote "
+"support access"
+msgstr ""
+
 #: src/EBox/RemoteServices/Model/Subscription.pm:126
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
@@ -269,6 +277,34 @@ msgstr "Accès du panneau de contrôle sans mot de passe"
 msgid "Access settings"
 msgstr "Configuration des accès"
 
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:108
+msgid "Allow remote access to eBox staff"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:116
+msgid "Remote support access configuration"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:122
+#: src/EBox/RemoteServices.pm:206
+#, fuzzy
+msgid "Remote Support Access"
+msgstr "Services distants"
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:133
+#, perl-brace-format
+msgid ""
+"eBox Technologies provides support for eBox Platform through our {openhref}"
+"store{closehref}"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:143
+#, perl-brace-format
+msgid ""
+"To join the remote session, login in the shell as a user belonging to the "
+"'{group}' group and use the command '{cmd}'."
+msgstr ""
+
 #: src/EBox/RemoteServices/Backup.pm:260
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
 #, perl-brace-format
@@ -304,32 +340,36 @@ msgstr "Panneau de contrôle"
 msgid "Control center"
 msgstr "Centre de contrôle"
 
-#: src/EBox/RemoteServices.pm:76
+#: src/EBox/RemoteServices.pm:77
 msgid "Control Center Client"
 msgstr "Centre de contrôle client"
 
-#: src/EBox/RemoteServices.pm:160
+#: src/EBox/RemoteServices.pm:164
 msgid "Not subscribed"
 msgstr "Non souscrit"
 
-#: src/EBox/RemoteServices.pm:162
+#: src/EBox/RemoteServices.pm:166
 msgid "Subscribed"
 msgstr "Souscrit"
 
-#: src/EBox/RemoteServices.pm:194 src/EBox/RemoteServices.pm:584
+#: src/EBox/RemoteServices.pm:198 src/EBox/RemoteServices.pm:602
 msgid "Control Center"
 msgstr "Centre de contrôle"
 
-#: src/EBox/RemoteServices.pm:245
+#: src/EBox/RemoteServices.pm:209
+msgid "System"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:261
 msgid "eBox Control Center Connection"
 msgstr "Centre de contrôle des connections eBox"
 
-#: src/EBox/RemoteServices.pm:577
+#: src/EBox/RemoteServices.pm:595
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
 msgstr "Pas connecté. Vérifier les journaux VPN dans {path}"
 
-#: src/EBox/RemoteServices.pm:581
+#: src/EBox/RemoteServices.pm:599
 msgid "Connected"
 msgstr "Connecté"
 
@@ -339,9 +379,6 @@ msgstr "Connecté"
 #~ msgstr ""
 #~ "En vous inscrivant au services distant d'eBox {url}. Vous aurez la "
 #~ "possibilité de faire des sauvegardes à distances et bien d'autres choses"
-
-#~ msgid "Remote services"
-#~ msgstr "Services distants"
 
 #~ msgid "eBox Control Center is paid services to enhance your eBox experience"
 #~ msgstr ""

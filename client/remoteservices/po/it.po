@@ -1,13 +1,13 @@
 # Italian translations for EBox-remoteservices package.
-# Copyright (C) 2009 Warp S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 # This file is distributed under the same license as the EBox-remoteservices package.
 # Automatically generated, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:54+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:32+0200\n"
 "PO-Revision-Date: 2010-02-04 22:03+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
@@ -161,6 +161,14 @@ msgstr ""
 msgid "No domain key found for this service"
 msgstr ""
 
+#: src/EBox/RemoteServices/SupportAccess.pm:91
+#, perl-brace-format
+msgid ""
+"There exists already a user {u} and it does not seem created by eBox. Until "
+"this user is renamed or removed it would be impossible to set up remote "
+"support access"
+msgstr ""
+
 #: src/EBox/RemoteServices/Model/Subscription.pm:126
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
@@ -257,6 +265,33 @@ msgstr ""
 msgid "Access settings"
 msgstr ""
 
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:108
+msgid "Allow remote access to eBox staff"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:116
+msgid "Remote support access configuration"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:122
+#: src/EBox/RemoteServices.pm:206
+msgid "Remote Support Access"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:133
+#, perl-brace-format
+msgid ""
+"eBox Technologies provides support for eBox Platform through our {openhref}"
+"store{closehref}"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:143
+#, perl-brace-format
+msgid ""
+"To join the remote session, login in the shell as a user belonging to the "
+"'{group}' group and use the command '{cmd}'."
+msgstr ""
+
 #: src/EBox/RemoteServices/Backup.pm:260
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
 #, perl-brace-format
@@ -291,31 +326,35 @@ msgstr ""
 msgid "Control center"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:76
+#: src/EBox/RemoteServices.pm:77
 msgid "Control Center Client"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:160
+#: src/EBox/RemoteServices.pm:164
 msgid "Not subscribed"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:162
+#: src/EBox/RemoteServices.pm:166
 msgid "Subscribed"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:194 src/EBox/RemoteServices.pm:584
+#: src/EBox/RemoteServices.pm:198 src/EBox/RemoteServices.pm:602
 msgid "Control Center"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:245
+#: src/EBox/RemoteServices.pm:209
+msgid "System"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:261
 msgid "eBox Control Center Connection"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:577
+#: src/EBox/RemoteServices.pm:595
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:581
+#: src/EBox/RemoteServices.pm:599
 msgid "Connected"
 msgstr ""

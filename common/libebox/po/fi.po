@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-03-29 16:58+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 21:08+0200\n"
 "PO-Revision-Date: 2007-04-11 16:22+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Running command '{cmd}' as {user} failed"
 msgstr ""
 
-#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
+#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:268
 #, perl-brace-format
 msgid "Directory not found: {d}"
 msgstr ""

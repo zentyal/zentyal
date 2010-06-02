@@ -1,13 +1,13 @@
 # Serbian translations for ebox-ebox package.
-# Copyright (C) 2010 Warp S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-ebox package.
 # Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 1.3.14Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:55+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:54+0200\n"
 "PO-Revision-Date: 2010-04-29 14:28+0200\n"
 "Last-Translator: Zoran <zoran@atlantisti.com>\n"
 "Language-Team: none\n"
@@ -546,7 +546,7 @@ msgstr "Restore"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:147 src/EBox/CGI/EBox/Backup.pm:192
 #: src/EBox/CGI/EBox/Backup.pm:273 src/EBox/CGI/EBox/Backup.pm:286
-#: src/EBox/Backup.pm:1328
+#: src/EBox/Backup.pm:1332
 msgid "The input contains invalid characters"
 msgstr "Unos sadrži pogrešne karaktere"
 
@@ -574,7 +574,7 @@ msgstr "Modul je korektno restartovan."
 msgid "Upgrading"
 msgstr "Nadogradnja-Usavršavanje"
 
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:722
+#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/Backup.pm:726
 #: src/EBox/SysInfo.pm.in:270 src/templates/backup.mas:62
 msgid "Backup"
 msgstr "Backup"
@@ -623,14 +623,15 @@ msgid "Module"
 msgstr "Modul"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
-msgid "modules left to restore"
-msgstr "Modula ostalo za (restore)"
+#, fuzzy
+msgid "modules restored"
+msgstr "moduli opozvani"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
 msgstr "(Restore) uspešan"
 
-#: src/EBox/CGI/EBox/ConfigurationReport.pm:29 src/EBox/SysInfo.pm.in:276
+#: src/EBox/CGI/EBox/ConfigurationReport.pm:29
 #, fuzzy
 msgid "Configuration report"
 msgstr "(Restore) Konfiguracije"
@@ -1439,24 +1440,24 @@ msgstr "Nemoguće kreirati (backup) arhivu"
 msgid "Could not append data to backup archive"
 msgstr "Nemoguće dodati podatke u (backup) arhivu"
 
-#: src/EBox/Backup.pm:437
+#: src/EBox/Backup.pm:441
 msgid "Unknown"
 msgstr "Nepoznato"
 
-#: src/EBox/Backup.pm:490
+#: src/EBox/Backup.pm:494
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "Nemoguće iyvući tražene podatke iz (backup)a: {files}"
 
-#: src/EBox/Backup.pm:493 src/EBox/Backup.pm:1144
+#: src/EBox/Backup.pm:497 src/EBox/Backup.pm:1148
 msgid "Could not unpack the backup"
 msgstr "Nemoguće raspakovati (backup)"
 
-#: src/EBox/Backup.pm:759
+#: src/EBox/Backup.pm:763
 msgid "Writing backup file to hard disk"
 msgstr "Upisuje se (backup) na HDD"
 
-#: src/EBox/Backup.pm:785
+#: src/EBox/Backup.pm:789
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
@@ -1464,23 +1465,23 @@ msgstr ""
 "Neki moduli nisu sačuvali promene. Pre nego što napravite (backup) morate da "
 "sačuvate ili odbacite promene"
 
-#: src/EBox/Backup.pm:843
+#: src/EBox/Backup.pm:847
 msgid "Incorrect or corrupt backup file"
 msgstr "Neispravana ili netačna (backup) datoteka"
 
-#: src/EBox/Backup.pm:872
+#: src/EBox/Backup.pm:876
 msgid "The backup file is corrupt: could not open archive"
 msgstr "Backup datoteka je neispravana: nemoguće je otvoriti arhivu"
 
-#: src/EBox/Backup.pm:884
+#: src/EBox/Backup.pm:888
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "Backup datoteka je neispravana: nemoguće je otvoriti (backup checksum)"
 
-#: src/EBox/Backup.pm:891
+#: src/EBox/Backup.pm:895
 msgid "The backup file is corrupt."
 msgstr "Backup datoteka je neispravana."
 
-#: src/EBox/Backup.pm:909
+#: src/EBox/Backup.pm:913
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
@@ -1488,7 +1489,7 @@ msgstr ""
 "Neispravan tip (backup) arhive. Možda je datoteka pokvarena ili koristite "
 "nekompatibilnu verziju eBox-a"
 
-#: src/EBox/Backup.pm:915
+#: src/EBox/Backup.pm:919
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
@@ -1496,7 +1497,7 @@ msgstr ""
 "Arhiva nije (backup)ovana u potpunosti , te je povratak podataka nemoguć."
 "Možda je moguće povratiti konfiguracione podatke"
 
-#: src/EBox/Backup.pm:950
+#: src/EBox/Backup.pm:954
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -1505,23 +1506,23 @@ msgstr ""
 "Nema dovoljno prostora na HDD-u da biste dovršili proces oporavka. {size} Kb "
 "potrebno.Oslobodite prostor na HDD-u i ponovite proces"
 
-#: src/EBox/Backup.pm:1229
+#: src/EBox/Backup.pm:1233
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "Nema modula {m} pronađenih u (backup)u"
 
-#: src/EBox/Backup.pm:1252
+#: src/EBox/Backup.pm:1256
 msgid "No modules to restore"
 msgstr "Nema modula za oporavak"
 
-#: src/EBox/Backup.pm:1307
+#: src/EBox/Backup.pm:1311
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr ""
 
-#: src/EBox/Backup.pm:1350
+#: src/EBox/Backup.pm:1354
 msgid "Backup's archives"
 msgstr "(Backup)ovane arhive"
 
@@ -1583,6 +1584,11 @@ msgid "General"
 msgstr "Generalni"
 
 #: src/EBox/SysInfo.pm.in:273
+#, fuzzy
+msgid "Configuration Report"
+msgstr "(Restore) Konfiguracije"
+
+#: src/EBox/SysInfo.pm.in:276
 msgid "Halt/Reboot"
 msgstr ""
 
@@ -2215,6 +2221,9 @@ msgstr "(Restore) mod"
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
 msgstr "Administratorski (Interface)  TCP Portova"
+
+#~ msgid "modules left to restore"
+#~ msgstr "Modula ostalo za (restore)"
 
 #~ msgid "Bug report"
 #~ msgstr "Izveštaj o Bug-ovima"

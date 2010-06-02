@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:56+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:54+0200\n"
 "PO-Revision-Date: 2010-02-27 18:53+0100\n"
 "Last-Translator: Carlos Assis Brito de Oliveira Filho <cassisfilho@gmail."
 "com>\n"
@@ -168,11 +168,11 @@ msgstr ""
 "Não é possível conectar com o servidor {hostname} para enviar o evento "
 "através do SMTP"
 
-#: src/EBox/Mail/Greylist.pm:55
+#: src/EBox/Mail/Greylist.pm:54
 msgid "To configure whitelist for greylisting"
 msgstr "Configurar lista branca para lista cinza"
 
-#: src/EBox/Mail/Greylist.pm:279
+#: src/EBox/Mail/Greylist.pm:278
 msgid "Greylist service"
 msgstr "Incluído na lista cinza"
 
@@ -227,21 +227,21 @@ msgstr "O domínio de e-mail é preenchido automaticamente"
 msgid "External account"
 msgstr "Conta externa"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:76
+#: src/EBox/Mail/Model/ExternalAliases.pm:75
 msgid "External Aliases"
 msgstr "Apelidos externos"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:85
+#: src/EBox/Mail/Model/ExternalAliases.pm:84
 msgid "External account alias"
 msgstr "Apelido da conta externa"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:87
+#: src/EBox/Mail/Model/ExternalAliases.pm:86
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
 "Apelido de conta externa adicionado. Você precisa salvar as mudanças para "
 "usar este apelido"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:128
+#: src/EBox/Mail/Model/ExternalAliases.pm:127
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -252,7 +252,7 @@ msgstr ""
 "apelidos pertencentes à apelidos de domínios virtuais não são suportados, "
 "por favor adicione um apelido pertencente à um domínio real"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:135
+#: src/EBox/Mail/Model/ExternalAliases.pm:134
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
@@ -261,12 +261,12 @@ msgstr ""
 "Não posso adicionar o apelido porque o domínio {vd} não é um domínio virtual "
 "gerenciado por este servidor"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "They already exists an account or alias called {al}"
 msgstr ""
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:168
+#: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
@@ -274,7 +274,7 @@ msgstr ""
 "O apelido da conta precisa ser inserido sem a porção do domínio(@domínio."
 "com). Ela será inserida automaticamente"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:246
+#: src/EBox/Mail/Model/ExternalAliases.pm:245
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""
@@ -492,7 +492,7 @@ msgstr ""
 "rejeitadas."
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
-#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:78
+#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:79
 msgid "Unlimited size"
 msgstr "Tamanho ilimitado"
 
@@ -641,7 +641,7 @@ msgstr "Criar conta de correio usuario@dominio"
 msgid "Default Domain"
 msgstr "Domínio Padrão"
 
-#: src/EBox/Mail/Model/MailUser.pm:97
+#: src/EBox/Mail/Model/MailUser.pm:98
 msgid "You haven't create a mail domain yet"
 msgstr "Você não criou um domínio de correio ainda"
 
@@ -1051,7 +1051,8 @@ msgid "Maximum message size exceeded"
 msgstr "Tamanho máximo de mensagem excedido"
 
 #: src/EBox/Mail.pm:1612
-msgid "User quote exceeded"
+#, fuzzy
+msgid "User quota exceeded"
 msgstr "Cota de usuário excedida"
 
 #: src/EBox/Mail.pm:1613
@@ -1116,8 +1117,8 @@ msgid "Action"
 msgstr "Ação"
 
 #: src/templates/groupalias.mas:66 src/templates/groupalias.mas:67
-#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:46
-#: src/templates/createaccount.mas:47 src/templates/alias.mas:62
+#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:47
+#: src/templates/createaccount.mas:48 src/templates/alias.mas:62
 #: src/templates/alias.mas:63 src/templates/alias.mas:64
 msgid "Create"
 msgstr "Criar"
@@ -1193,7 +1194,7 @@ msgstr "Nome da conta"
 msgid "Domain name"
 msgstr "Nome do domínio"
 
-#: src/templates/createaccount.mas:62
+#: src/templates/createaccount.mas:63
 msgid "Maildir size"
 msgstr "Tamanho do diretório de e-mail"
 

@@ -1,14 +1,14 @@
 # Hungarian translations for ebox-squid package.
-# Copyright (C) 2009 Warp S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-squid package.
 # Automatically generated, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:57+0200\n"
-"PO-Revision-Date: 2010-06-01 14:11+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:56+0200\n"
+"PO-Revision-Date: 2010-06-02 20:39+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -17,88 +17,88 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n !=1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:1095 src/EBox/Squid.pm:1172
+#: src/EBox/Squid.pm:71 src/EBox/Squid.pm:1078 src/EBox/Squid.pm:1155
 #: src/EBox/Squid/Composite/General.pm:76
 msgid "HTTP Proxy"
 msgstr "HTTP Proxy"
 
-#: src/EBox/Squid.pm:201
+#: src/EBox/Squid.pm:202
 msgid "HTTP Proxy configuration file"
 msgstr "HTTP Proxy beállító fájl"
 
-#: src/EBox/Squid.pm:206
+#: src/EBox/Squid.pm:207
 msgid "Content filter configuration file"
 msgstr "Tartalomszűrő beállító fájl"
 
-#: src/EBox/Squid.pm:211
+#: src/EBox/Squid.pm:212
 msgid "Default filter group configuration"
 msgstr "Alapértelmezett csoportra vonatkozó szűrő beállítások"
 
-#: src/EBox/Squid.pm:216
+#: src/EBox/Squid.pm:217
 msgid "Filter groups membership"
 msgstr "Csoporttagság szűrő"
 
-#: src/EBox/Squid.pm:221
+#: src/EBox/Squid.pm:222
 msgid "Content filter banned extension list"
 msgstr "Letiltott kiterjesztéslista a tartalomszűrőhöz"
 
-#: src/EBox/Squid.pm:226
+#: src/EBox/Squid.pm:227
 msgid "Content filter banned mime type list"
 msgstr "Letiltott MIME lista a tartalomszűrőhöz"
 
-#: src/EBox/Squid.pm:231
+#: src/EBox/Squid.pm:232
 msgid "Content filter exception site list"
 msgstr "Honlap kivétel lista a tartalomszűrőhöz"
 
-#: src/EBox/Squid.pm:236
+#: src/EBox/Squid.pm:237
 msgid "Content filter grey site list"
 msgstr "Honlap (szürke) kivétel lista a tartalomszűrőhöz"
 
-#: src/EBox/Squid.pm:241
+#: src/EBox/Squid.pm:242
 msgid "Content filter banned site list"
 msgstr "Letiltott honlap lista a tartalomszűrőhöz"
 
-#: src/EBox/Squid.pm:246
+#: src/EBox/Squid.pm:247
 msgid "Content filter exception URL list"
 msgstr "URL kivétel lista a tartalomszűrőhöz"
 
-#: src/EBox/Squid.pm:251
+#: src/EBox/Squid.pm:252
 msgid "Content filter grey URL list"
 msgstr "URL (szürke) kivétel lista a tartalomszűrőhöz"
 
-#: src/EBox/Squid.pm:256
+#: src/EBox/Squid.pm:257
 msgid "Content filter banned URL list"
 msgstr "Letiltott URL lista a tartalomszűrőhöz"
 
-#: src/EBox/Squid.pm:261
+#: src/EBox/Squid.pm:262
 msgid "Forbidden phrases list"
 msgstr "Liltott kifejezések (szavak, mondatok) listája"
 
-#: src/EBox/Squid.pm:266
+#: src/EBox/Squid.pm:267
 msgid "Exception phrases list"
 msgstr "Kivételként kezelt kifejezések (szavak, mondatok) listája"
 
-#: src/EBox/Squid.pm:271
+#: src/EBox/Squid.pm:272
 msgid "PICS ratings configuration"
 msgstr "PICS teljesítmény beállítása"
 
-#: src/EBox/Squid.pm:276
+#: src/EBox/Squid.pm:277
 msgid "Dansguardian's log rotation configuration"
 msgstr "DansGuardian naplózás forgatásának (időszakos cseréjének?) beállítása"
 
-#: src/EBox/Squid.pm:281
+#: src/EBox/Squid.pm:282
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr "A DansGuardian vírusirtó beállítása"
 
-#: src/EBox/Squid.pm:286
+#: src/EBox/Squid.pm:287
 msgid "Filter groups per IP"
 msgstr "IP alapú csoportszűrés"
 
-#: src/EBox/Squid.pm:301
+#: src/EBox/Squid.pm:302
 msgid "Overwrite blocked page templates"
 msgstr "Blokkolt lapok sablonjának felülírása"
 
-#: src/EBox/Squid.pm:302
+#: src/EBox/Squid.pm:303
 msgid ""
 "Dansguardian blocked page templates will be overwritten with eBox customized "
 "templates."
@@ -106,69 +106,69 @@ msgstr ""
 "A Dansguardian blokkolt lapok sablonja felül lesz írva az eBox "
 "személyreszabott sablonjával"
 
-#: src/EBox/Squid.pm:342
+#: src/EBox/Squid.pm:343
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr "Itt kell megadni a cache_mem változó értékét az eBox beállító fájlhoz."
 
-#: src/EBox/Squid.pm:351
+#: src/EBox/Squid.pm:352
 msgid ""
 "You must set the max_object_size variable in the ebox configuration file"
 msgstr ""
 "Be kell állítania a max_obiect_size változót az eBox konfigurációs fájljában"
 
-#: src/EBox/Squid.pm:1067
+#: src/EBox/Squid.pm:1050
 msgid "Enabled"
 msgstr "Bekapcsolt"
 
-#: src/EBox/Squid.pm:1069 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+#: src/EBox/Squid.pm:1052 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
 msgstr "Kikapcsolt"
 
-#: src/EBox/Squid.pm:1071
+#: src/EBox/Squid.pm:1054
 msgid "Transparent proxy"
 msgstr "Transzparens proxy"
 
-#: src/EBox/Squid.pm:1074 src/EBox/Squid/Model/MIMEFilterBase.pm:60
+#: src/EBox/Squid.pm:1057 src/EBox/Squid/Model/MIMEFilterBase.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:93
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:100
 msgid "Allow"
 msgstr "Engedélyez"
 
-#: src/EBox/Squid.pm:1076 src/EBox/Squid/Model/GroupPolicyBase.pm:97
+#: src/EBox/Squid.pm:1059 src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Deny"
 msgstr "Tilt"
 
-#: src/EBox/Squid.pm:1078 src/EBox/Squid/Types/DomainPolicy.pm:35
+#: src/EBox/Squid.pm:1061 src/EBox/Squid/Types/DomainPolicy.pm:35
 #: src/EBox/Squid/Types/Policy.pm:65
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
 msgstr "Szűrő"
 
-#: src/EBox/Squid.pm:1081
+#: src/EBox/Squid.pm:1064
 msgid "Global policy"
 msgstr "Globális házirend"
 
-#: src/EBox/Squid.pm:1083
+#: src/EBox/Squid.pm:1066
 msgid "Listening port"
 msgstr "Figyelő port"
 
-#: src/EBox/Squid.pm:1115
+#: src/EBox/Squid.pm:1098
 msgid "General"
 msgstr "Általános"
 
-#: src/EBox/Squid.pm:1118 src/EBox/Squid/Composite/DelayPools.pm:69
+#: src/EBox/Squid.pm:1101 src/EBox/Squid/Composite/DelayPools.pm:69
 msgid "Bandwidth Throttling"
 msgstr "Sávszélesség gyorsítása"
 
-#: src/EBox/Squid.pm:1121
+#: src/EBox/Squid.pm:1104
 msgid "Objects' Policy"
 msgstr "Objektumok házirendje"
 
-#: src/EBox/Squid.pm:1124
+#: src/EBox/Squid.pm:1107
 msgid "Groups' Policy"
 msgstr "Csoportok házirendje"
 
-#: src/EBox/Squid.pm:1127
+#: src/EBox/Squid.pm:1110
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
 #: src/EBox/Squid/Model/DomainFilterCategories.pm:111
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
@@ -176,50 +176,50 @@ msgstr "Csoportok házirendje"
 msgid "Filter Profiles"
 msgstr "Szűrőprofilok"
 
-#: src/EBox/Squid.pm:1157 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+#: src/EBox/Squid.pm:1140 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
 msgstr "Dátum"
 
-#: src/EBox/Squid.pm:1158
+#: src/EBox/Squid.pm:1141
 msgid "Host"
 msgstr "Gép"
 
-#: src/EBox/Squid.pm:1159 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Squid.pm:1142 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
 msgstr "Felhasználó"
 
-#: src/EBox/Squid.pm:1160
+#: src/EBox/Squid.pm:1143
 msgid "URL"
 msgstr "URL"
 
-#: src/EBox/Squid.pm:1161 src/EBox/Squid/Model/DelayPools2.pm:180
+#: src/EBox/Squid.pm:1144 src/EBox/Squid/Model/DelayPools2.pm:180
 #: src/EBox/Squid/Model/DelayPools2.pm:200
 #: src/EBox/Squid/Model/DelayPools1.pm:164
 msgid "Bytes"
 msgstr "Bájt"
 
-#: src/EBox/Squid.pm:1162
+#: src/EBox/Squid.pm:1145
 msgid "Mime/type"
 msgstr "MIME típus"
 
-#: src/EBox/Squid.pm:1163
+#: src/EBox/Squid.pm:1146
 msgid "Event"
 msgstr "Esemény"
 
-#: src/EBox/Squid.pm:1168
+#: src/EBox/Squid.pm:1151
 msgid "Accepted"
 msgstr "Elfogadott"
 
-#: src/EBox/Squid.pm:1169
+#: src/EBox/Squid.pm:1152
 msgid "Denied"
 msgstr "Tiltott"
 
-#: src/EBox/Squid.pm:1170
+#: src/EBox/Squid.pm:1153
 msgid "Filtered"
 msgstr "Szűrt"
 
-#: src/EBox/Squid.pm:1247
+#: src/EBox/Squid.pm:1230
 msgid "HTTP Proxy's cache files"
 msgstr "HTTP proxy gyorsítótár állományai"
 
@@ -498,13 +498,13 @@ msgstr ""
 
 #: src/EBox/Squid/Model/DelayPools2.pm:102
 #: src/EBox/Squid/Model/DelayPools1.pm:100
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
-"A(z) {object} objektum használatban van: {table}. Ahhoz, hogy itt hozzáadja, "
-"előbb ki kell ott törölnie"
+"A(z) {object} objektum használatban {row} van: {table}. Ahhoz, hogy itt "
+"hozzáadja, előbb ki kell ott törölnie"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:119
 #: src/EBox/Squid/Model/DelayPools1.pm:116
@@ -512,8 +512,7 @@ msgstr ""
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
-"Ha {first} korlátlanra van állítva, akkor a {second} is korlátlan kell "
-"legyen"
+"Ha {first} korlátlanra van állítva, akkor a {second} is korlátlan kell legyen"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format

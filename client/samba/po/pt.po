@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:43+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:33+0200\n"
 "PO-Revision-Date: 2010-04-16 18:42+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -107,7 +107,7 @@ msgid "path"
 msgstr "caminho"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
-#: src/EBox/Samba/Model/SambaShares.pm:154
+#: src/EBox/Samba/Model/SambaShares.pm:155
 msgid "share"
 msgstr "partilha"
 
@@ -210,28 +210,32 @@ msgstr "Comentário"
 msgid "Guest access"
 msgstr ""
 
-#: src/EBox/Samba/Model/SambaShares.pm:136
+#: src/EBox/Samba/Model/SambaShares.pm:133
+msgid "This share will not require authentication"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:137
 msgid "Access control"
 msgstr "Controle de acesso"
 
-#: src/EBox/Samba/Model/SambaShares.pm:146
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:190
+#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:166
 msgid "Shares"
 msgstr "Partilhas"
 
-#: src/EBox/Samba/Model/SambaShares.pm:184
+#: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Path not allowed"
 msgstr "O caminho não é permitido"
 
-#: src/EBox/Samba/Model/SambaShares.pm:192
+#: src/EBox/Samba/Model/SambaShares.pm:193
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr "Só os caracteres alfanuméricos mais _ são válidos para o caminho"
 
-#: src/EBox/Samba/Model/SambaShares.pm:226
+#: src/EBox/Samba/Model/SambaShares.pm:227
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "O directório não está vazio. Tem a certeza que o deseja remover?"
 
-#: src/EBox/Samba/Model/SambaShares.pm:316
+#: src/EBox/Samba/Model/SambaShares.pm:317
 #, perl-brace-format
 msgid ""
 "{openit}Directory under eBox{closeit} will automatically create the share."
@@ -243,7 +247,7 @@ msgstr ""
 "{closeit} permitirá que partilhe um directório existente no seu sistema de "
 "ficheiros"
 
-#: src/EBox/Samba/Model/SambaShares.pm:329
+#: src/EBox/Samba/Model/SambaShares.pm:330
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
@@ -252,48 +256,52 @@ msgstr ""
 "usar um directório existente ou escolher um nome e deixar que a eBox o crie "
 "para si."
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:94
 msgid "Read only"
 msgstr "Somente leitura"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:98
 msgid "Read and write"
 msgstr "Leitura e escrita"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:102
 msgid "Administrator"
 msgstr "Administrador"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:122
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:230
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:126
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid "User/Group"
 msgstr "Utilizador/Grupo"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:127 src/EBox/Samba.pm:647
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:176
+msgid "Any access control is disabled if the guest access is allowed"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:207 src/EBox/Samba.pm:647
 #: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
 msgstr "Utilizador"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:132
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:212
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:103
 #: src/EBox/Samba/Model/RecycleExceptions.pm:103
 #: src/templates/ajax/viewer/shareViewer.mas:10
 msgid "Group"
 msgstr "Grupo"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:140
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
 msgid "Permissions"
 msgstr "Permissões"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:149
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
 msgid "Access Control"
 msgstr "Controle de acesso"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:156
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
 msgid "ACL"
 msgstr "ACL"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:206
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"

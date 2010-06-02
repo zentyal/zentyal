@@ -1,13 +1,13 @@
 # Czech translations for ebox-firewall package.
-# Copyright (C) 2010 Warp S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-firewall package.
 # Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 1.5Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:55+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:54+0200\n"
 "PO-Revision-Date: 2010-04-10 19:12+0200\n"
 "Last-Translator: tomas volse <tomas.volse@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,13 +17,15 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Iptables.pm:808 src/EBox/Iptables.pm:845
+#: src/EBox/Iptables.pm:811 src/EBox/Iptables.pm:848
+#: src/EBox/Firewall/IptablesRedirectRule.pm:78
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
 "Musíte nastavit iptables_log_limit proměnnou v ebox konfiguračním souboru"
 
-#: src/EBox/Iptables.pm:814 src/EBox/Iptables.pm:851
+#: src/EBox/Iptables.pm:817 src/EBox/Iptables.pm:854
+#: src/EBox/Firewall/IptablesRedirectRule.pm:83
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
@@ -84,7 +86,7 @@ msgstr "protokol"
 msgid "Packet Filter"
 msgstr "Paketový filtr"
 
-#: src/EBox/Firewall.pm:829 src/EBox/Firewall/Model/RedirectsTable.pm:355
+#: src/EBox/Firewall.pm:829 src/EBox/Firewall/Model/RedirectsTable.pm:362
 msgid "Port Forwarding"
 msgstr ""
 
@@ -134,6 +136,10 @@ msgstr "ZAHODIT"
 #: src/EBox/Firewall.pm:853 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
 msgstr "LOG"
+
+#: src/EBox/Firewall.pm:853
+msgid "REDIRECT"
+msgstr ""
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 #, fuzzy
@@ -219,15 +225,23 @@ msgid "Other"
 msgstr ""
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:337
+msgid "Log"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:339
+msgid "Log new forwarded connections"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:344
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
 msgid "Description"
 msgstr "Popis"
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:354
+#: src/EBox/Firewall/Model/RedirectsTable.pm:361
 msgid "List of forwarded ports"
 msgstr ""
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+#: src/EBox/Firewall/Model/RedirectsTable.pm:370
 msgid "forwarding"
 msgstr ""
 
@@ -260,6 +274,10 @@ msgstr ""
 #, fuzzy
 msgid "Configure Rules"
 msgstr "Nastavit pravidla"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
+msgid "'any service' cannot have a inverse march"
+msgstr ""
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 #, fuzzy

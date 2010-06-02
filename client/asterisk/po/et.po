@@ -1,13 +1,13 @@
 # Estonian translations for ebox-asterisk package.
-# Copyright (C) 2010 Warp S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-asterisk package.
 # Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-02-08 06:37+0000\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:22+0200\n"
 "PO-Revision-Date: 2010-05-14 18:43+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -21,160 +21,156 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "eBoxi VoIP süsteem"
 
-#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:732
+#: src/EBox/Asterisk.pm:73 src/EBox/Asterisk.pm:726
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
 
-#: src/EBox/Asterisk.pm:130
+#: src/EBox/Asterisk.pm:129
 msgid "To configure enabled and disabled modules."
 msgstr "Moodulite lubamise ja keelamise seadistamiseks."
 
 # see Realtime tundub nagu mingi nimi olevat
-#: src/EBox/Asterisk.pm:135
+#: src/EBox/Asterisk.pm:134
 msgid "To configure the Realtime interface."
 msgstr "Realtime liidese seadistamiseks."
 
 # vt eelmine
-#: src/EBox/Asterisk.pm:140
+#: src/EBox/Asterisk.pm:139
 msgid "To configure the LDAP Realtime driver."
 msgstr "LDAP Realtime draiveri seadistamiseks."
 
-#: src/EBox/Asterisk.pm:145
+#: src/EBox/Asterisk.pm:144
 msgid "To configure the common SIP and IAX users."
 msgstr "Tavaliste SIP ja IAX kasutajate seadistamiseks."
 
 #  
-#: src/EBox/Asterisk.pm:150
+#: src/EBox/Asterisk.pm:149
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
 "SIP magistraali seadistamiseks kohalikele kasutajatele ja välistele "
 "pakkujatele."
 
-#: src/EBox/Asterisk.pm:155
-msgid "To configure the RTP port ranges."
-msgstr "RTP pordivahemike seadistamiseks."
-
-#: src/EBox/Asterisk.pm:160
+#: src/EBox/Asterisk.pm:154
 msgid "To configure the dialplan."
 msgstr "Dialplani seadistamiseks."
 
-#: src/EBox/Asterisk.pm:165
+#: src/EBox/Asterisk.pm:159
 msgid "To configure the voicemail."
 msgstr "Kõneposti seadistamiseks."
 
-#: src/EBox/Asterisk.pm:170
+#: src/EBox/Asterisk.pm:164
 msgid "To configure the conferences."
 msgstr "Konverentskõne seadistamiseks."
 
 # ?
-#: src/EBox/Asterisk.pm:174
+#: src/EBox/Asterisk.pm:168
 msgid "To configure the music on hold."
 msgstr "Ootemuusika seadistamiseks."
 
-#: src/EBox/Asterisk.pm:178
+#: src/EBox/Asterisk.pm:172
 msgid "To configure DTMF behaviour."
 msgstr "DTMFi käitumise seadistamiseks."
 
-#: src/EBox/Asterisk.pm:502
+#: src/EBox/Asterisk.pm:496
 msgid "General"
 msgstr "Üldine"
 
-#: src/EBox/Asterisk.pm:506 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:500 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
 msgstr "Koosolekud"
 
-#: src/EBox/Asterisk.pm:523
+#: src/EBox/Asterisk.pm:517
 msgid "Voicemail"
 msgstr "Kõnepost"
 
-#: src/EBox/Asterisk.pm:533 src/EBox/Asterisk.pm:642
+#: src/EBox/Asterisk.pm:527 src/EBox/Asterisk.pm:636
 msgid "User"
 msgstr "Kasutaja"
 
-#: src/EBox/Asterisk.pm:533
+#: src/EBox/Asterisk.pm:527
 msgid "Address"
 msgstr "Aadress"
 
-#: src/EBox/Asterisk.pm:533
+#: src/EBox/Asterisk.pm:527
 msgid "NAT"
 msgstr "NAT"
 
-#: src/EBox/Asterisk.pm:533
+#: src/EBox/Asterisk.pm:527
 msgid "Status"
 msgstr "Olek"
 
-#: src/EBox/Asterisk.pm:547 src/EBox/Asterisk.pm:651
+#: src/EBox/Asterisk.pm:541 src/EBox/Asterisk.pm:645
 msgid "No users connected."
 msgstr "Ühendatud kasutajad puuduvad."
 
-#: src/EBox/Asterisk.pm:639
+#: src/EBox/Asterisk.pm:633
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr "Ruum {name} aktiivne {rtime} jaoks"
 
-#: src/EBox/Asterisk.pm:642
+#: src/EBox/Asterisk.pm:636
 msgid "Time Connected"
 msgstr "Ühenduse aeg"
 
-#: src/EBox/Asterisk.pm:672
+#: src/EBox/Asterisk.pm:666
 msgid "VoIP Online Users"
 msgstr "VoIP kasutajaid võrgus"
 
-#: src/EBox/Asterisk.pm:677
+#: src/EBox/Asterisk.pm:671
 msgid "VoIP Users in Meetings"
 msgstr "VoIP kasutajaid koosolekutel"
 
-#: src/EBox/Asterisk.pm:709
+#: src/EBox/Asterisk.pm:703
 msgid "Date"
 msgstr "Kuupäev"
 
-#: src/EBox/Asterisk.pm:710
+#: src/EBox/Asterisk.pm:704
 msgid "From"
 msgstr "Alates"
 
-#: src/EBox/Asterisk.pm:711
+#: src/EBox/Asterisk.pm:705
 msgid "To"
 msgstr "Kuni"
 
-#: src/EBox/Asterisk.pm:712
+#: src/EBox/Asterisk.pm:706
 msgid "Duration"
 msgstr "Kestus"
 
-#: src/EBox/Asterisk.pm:713
+#: src/EBox/Asterisk.pm:707
 msgid "Channel"
 msgstr "Kanal"
 
 # Sihtkoha kanal
-#: src/EBox/Asterisk.pm:714
+#: src/EBox/Asterisk.pm:708
 msgid "Destination Channel"
 msgstr "Adressaadi kanal"
 
-#: src/EBox/Asterisk.pm:715
+#: src/EBox/Asterisk.pm:709
 msgid "Application"
 msgstr "Rakendus"
 
-#: src/EBox/Asterisk.pm:716
+#: src/EBox/Asterisk.pm:710
 msgid "Application Data"
 msgstr "Rakenduse andmed"
 
-#: src/EBox/Asterisk.pm:717
+#: src/EBox/Asterisk.pm:711
 msgid "Event"
 msgstr "Sündmus"
 
-#: src/EBox/Asterisk.pm:725
+#: src/EBox/Asterisk.pm:719
 msgid "Answered"
 msgstr "Vastuvõetud"
 
-#: src/EBox/Asterisk.pm:726
+#: src/EBox/Asterisk.pm:720
 msgid "No Answer"
 msgstr "Vastamata"
 
-#: src/EBox/Asterisk.pm:727
+#: src/EBox/Asterisk.pm:721
 msgid "Busy"
 msgstr "Hõivatud"
 
-#: src/EBox/Asterisk.pm:728
+#: src/EBox/Asterisk.pm:722
 msgid "Failed"
 msgstr "Ebaõnnestunud"
 
@@ -457,3 +453,6 @@ msgstr "Asteriski teenuse parool on sama kui kasutaja parool"
 #: src/templates/user.mas:21
 msgid "User account"
 msgstr "Kasutajakonto"
+
+#~ msgid "To configure the RTP port ranges."
+#~ msgstr "RTP pordivahemike seadistamiseks."

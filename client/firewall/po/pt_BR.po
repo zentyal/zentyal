@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:55+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:54+0200\n"
 "PO-Revision-Date: 2010-02-19 14:18+0100\n"
 "Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
@@ -16,14 +16,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Iptables.pm:808 src/EBox/Iptables.pm:845
+#: src/EBox/Iptables.pm:811 src/EBox/Iptables.pm:848
+#: src/EBox/Firewall/IptablesRedirectRule.pm:78
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
 "Você deve definir a variável iptables_log_limit no arquivo de configuração "
 "do eBox"
 
-#: src/EBox/Iptables.pm:814 src/EBox/Iptables.pm:851
+#: src/EBox/Iptables.pm:817 src/EBox/Iptables.pm:854
+#: src/EBox/Firewall/IptablesRedirectRule.pm:83
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
@@ -85,7 +87,7 @@ msgstr "protocolo"
 msgid "Packet Filter"
 msgstr "Filtro de Pacotes"
 
-#: src/EBox/Firewall.pm:829 src/EBox/Firewall/Model/RedirectsTable.pm:355
+#: src/EBox/Firewall.pm:829 src/EBox/Firewall/Model/RedirectsTable.pm:362
 msgid "Port Forwarding"
 msgstr "Direcionamento de porta"
 
@@ -135,6 +137,10 @@ msgstr "DROP"
 #: src/EBox/Firewall.pm:853 src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
 msgstr "LOG"
+
+#: src/EBox/Firewall.pm:853
+msgid "REDIRECT"
+msgstr ""
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 msgid "Traffic coming out from eBox"
@@ -216,15 +222,24 @@ msgid "Other"
 msgstr "Outra"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:337
+msgid "Log"
+msgstr ""
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:339
+#, fuzzy
+msgid "Log new forwarded connections"
+msgstr "Listagem das portas redirecionadas"
+
+#: src/EBox/Firewall/Model/RedirectsTable.pm:344
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
 msgid "Description"
 msgstr "Descrição"
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:354
+#: src/EBox/Firewall/Model/RedirectsTable.pm:361
 msgid "List of forwarded ports"
 msgstr "Listagem das portas redirecionadas"
 
-#: src/EBox/Firewall/Model/RedirectsTable.pm:363
+#: src/EBox/Firewall/Model/RedirectsTable.pm:370
 msgid "forwarding"
 msgstr "encaminhamento"
 
@@ -256,6 +271,10 @@ msgstr ""
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
 msgid "Configure Rules"
 msgstr "Configurar regras"
+
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
+msgid "'any service' cannot have a inverse march"
+msgstr ""
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 msgid "External networks to eBox"

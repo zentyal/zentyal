@@ -1,13 +1,13 @@
 # Estonian translations for ebox-mail package.
-# Copyright (C) 2010 Warp S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-mail package.
 # Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:56+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:54+0200\n"
 "PO-Revision-Date: 2010-05-14 14:50+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -173,12 +173,12 @@ msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr "Serveriga {hostname} ei saa ühendust, et saata sündmus läbi SMTP"
 
 #  
-#: src/EBox/Mail/Greylist.pm:55
+#: src/EBox/Mail/Greylist.pm:54
 msgid "To configure whitelist for greylisting"
 msgstr "Whitelisti seadistamine greylisti jaoks"
 
 # "greylist" vajaks mõnda head eestikeelset terminit
-#: src/EBox/Mail/Greylist.pm:279
+#: src/EBox/Mail/Greylist.pm:278
 msgid "Greylist service"
 msgstr "Greylist teenus"
 
@@ -234,20 +234,20 @@ msgstr "E-posti domeen on automaatselt lisatud"
 msgid "External account"
 msgstr "Väliskonto"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:76
+#: src/EBox/Mail/Model/ExternalAliases.pm:75
 msgid "External Aliases"
 msgstr "Välised aliased"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:85
+#: src/EBox/Mail/Model/ExternalAliases.pm:84
 msgid "External account alias"
 msgstr "Väliskonto alias"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:87
+#: src/EBox/Mail/Model/ExternalAliases.pm:86
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
 "Väliskonto alias on lisatud. Aliase kasutamiseks pead muudatused salvestama."
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:128
+#: src/EBox/Mail/Model/ExternalAliases.pm:127
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is a alias and aliases belonging to "
@@ -258,7 +258,7 @@ msgstr ""
 "kuuluvad virtuaaldomeeni aliastele, ei ole toetatud. Palun lisa alias, mis "
 "kuulub reaalsele domeenile"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:135
+#: src/EBox/Mail/Model/ExternalAliases.pm:134
 #, perl-brace-format
 msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
@@ -267,12 +267,12 @@ msgstr ""
 "Aliast ei olnud võimalik lisada, kuna domeen {vd} ei ole selle serveri poolt "
 "hallatav virtuaaldomeen"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:147
+#: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "They already exists an account or alias called {al}"
 msgstr "Need eksisteerivad juba kontol või aliasel nimega {al}"
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:168
+#: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
@@ -280,7 +280,7 @@ msgstr ""
 "Aliase konto peab olema määratud ilma domeeni osata, mis lisatakse "
 "automaatselt."
 
-#: src/EBox/Mail/Model/ExternalAliases.pm:246
+#: src/EBox/Mail/Model/ExternalAliases.pm:245
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
 #: src/EBox/Mail/Model/VDomains.pm:133
 msgid ""
@@ -503,7 +503,7 @@ msgstr ""
 
 # Piiramatu suurus
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
-#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:78
+#: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:79
 msgid "Unlimited size"
 msgstr "Limiteerimata suurus"
 
@@ -656,7 +656,7 @@ msgstr "Loodava e-posti konto kuju: kasutaja@domeen"
 msgid "Default Domain"
 msgstr "Vaikimisi domeen"
 
-#: src/EBox/Mail/Model/MailUser.pm:97
+#: src/EBox/Mail/Model/MailUser.pm:98
 msgid "You haven't create a mail domain yet"
 msgstr "Sa ei ole veel e-posti domeeni loonud"
 
@@ -948,8 +948,7 @@ msgstr "Seda parameetrit ei ole võimalik mitte-kohandatud filtri jaoks muuta"
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
-"E-posti filtrit ei ole olemas. Palun määra teine e-posti filter või keela "
-"see"
+"E-posti filtrit ei ole olemas. Palun määra teine e-posti filter või keela see"
 
 #: src/EBox/Mail.pm:1019
 msgid ""
@@ -1070,7 +1069,8 @@ msgstr "Maksimaalse suuruse ületanud sõnumid"
 
 # koodis 'maxusrsize'
 #: src/EBox/Mail.pm:1612
-msgid "User quote exceeded"
+#, fuzzy
+msgid "User quota exceeded"
 msgstr "Kasutajakvoot ületatud"
 
 # Edastamise juurdepääs keelatud
@@ -1136,8 +1136,8 @@ msgid "Action"
 msgstr "Tegevus"
 
 #: src/templates/groupalias.mas:66 src/templates/groupalias.mas:67
-#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:46
-#: src/templates/createaccount.mas:47 src/templates/alias.mas:62
+#: src/templates/groupalias.mas:68 src/templates/createaccount.mas:47
+#: src/templates/createaccount.mas:48 src/templates/alias.mas:62
 #: src/templates/alias.mas:63 src/templates/alias.mas:64
 msgid "Create"
 msgstr "Loo"
@@ -1215,7 +1215,7 @@ msgstr "Konto nimi"
 msgid "Domain name"
 msgstr "Domeeninimi"
 
-#: src/templates/createaccount.mas:62
+#: src/templates/createaccount.mas:63
 msgid "Maildir size"
 msgstr "Maildir suurus"
 

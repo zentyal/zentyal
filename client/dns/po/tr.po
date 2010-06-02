@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:29+0200\n"
-"PO-Revision-Date: 2010-05-05 08:32+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:28+0200\n"
+"PO-Revision-Date: 2010-06-02 20:30+0200\n"
 "Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -63,8 +63,7 @@ msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
 msgstr ""
-"{name}, {hostname} tanımları aynı alan adında takma isim olarak "
-"bulunmaktadır"
+"{name}, {hostname} tanımları aynı alan adında takma isim olarak bulunmaktadır"
 
 #: src/EBox/Model/HostnameTable.pm:169
 msgid "The domain is set as read only. You cannot add host names"
@@ -192,11 +191,11 @@ msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "Aynı ada sahip makine ve alan adı bulunmaktadır \"{name}\""
 
 #: src/EBox/Model/AliasTable.pm:102
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
-msgstr "Aynı ada sahip makine ve alan adı bulunmaktadır \"{name}\""
+msgstr "Aynı ada sahip makine {hostname} ve alan adı bulunmaktadır \"{name}\""
 
 #: src/EBox/Model/AliasTable.pm:147
 msgid "alias"

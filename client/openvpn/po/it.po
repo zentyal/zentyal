@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:36+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:32+0200\n"
 "PO-Revision-Date: 2010-02-22 08:13+0100\n"
 "Last-Translator: andrea biasi <info@andreabiasi.it>\n"
 "Language-Team: none\n"
@@ -50,76 +50,76 @@ msgstr ""
 "Impossibile ottenere la chiave del server {name} in quanto non ha alcun "
 "certificato assegnato"
 
-#: src/EBox/OpenVPN/Server.pm:380
+#: src/EBox/OpenVPN/Server.pm:401
 #, perl-brace-format
 msgid "No IP address found for interface {iface}"
 msgstr "Nessun indirizzo IP trovato per l'interfaccia {iface}"
 
-#: src/EBox/OpenVPN/Server.pm:485
+#: src/EBox/OpenVPN/Server.pm:506
 msgid "OpenVPN servers cannot be used for internal services"
 msgstr "I server OpenVPN non possono essere usati per i servizi interni"
 
-#: src/EBox/OpenVPN/Server.pm:509
+#: src/EBox/OpenVPN/Server.pm:530
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
 msgstr "Tipo client non supportato: {ct}"
 
-#: src/EBox/OpenVPN/Server.pm:705
+#: src/EBox/OpenVPN/Server.pm:726
 #, perl-brace-format
 msgid "Server {name}"
 msgstr "Server {name}"
 
-#: src/EBox/OpenVPN/Server.pm:707 src/EBox/OpenVPN/Client.pm:386
+#: src/EBox/OpenVPN/Server.pm:728 src/EBox/OpenVPN/Client.pm:386
 #: src/EBox/OpenVPN/Model/Servers.pm:68
 msgid "Enabled"
 msgstr "Attivo"
 
-#: src/EBox/OpenVPN/Server.pm:707 src/EBox/OpenVPN/Client.pm:386
+#: src/EBox/OpenVPN/Server.pm:728 src/EBox/OpenVPN/Client.pm:386
 msgid "Disabled"
 msgstr "Inattivo"
 
-#: src/EBox/OpenVPN/Server.pm:708 src/EBox/OpenVPN/Client.pm:387
+#: src/EBox/OpenVPN/Server.pm:729 src/EBox/OpenVPN/Client.pm:387
 msgid "Service"
 msgstr "Servizio"
 
-#: src/EBox/OpenVPN/Server.pm:710 src/EBox/OpenVPN/Client.pm:389
+#: src/EBox/OpenVPN/Server.pm:731 src/EBox/OpenVPN/Client.pm:389
 msgid "Running"
 msgstr "In esecuzione"
 
-#: src/EBox/OpenVPN/Server.pm:710 src/EBox/OpenVPN/Client.pm:389
+#: src/EBox/OpenVPN/Server.pm:731 src/EBox/OpenVPN/Client.pm:389
 msgid "Stopped"
 msgstr "Spento"
 
-#: src/EBox/OpenVPN/Server.pm:711 src/EBox/OpenVPN/Client.pm:390
+#: src/EBox/OpenVPN/Server.pm:732 src/EBox/OpenVPN/Client.pm:390
 msgid "Daemon status"
 msgstr "Stato demone"
 
-#: src/EBox/OpenVPN/Server.pm:714
+#: src/EBox/OpenVPN/Server.pm:735
 msgid "All external interfaces"
 msgstr "Tutte le interfacce esterne"
 
-#: src/EBox/OpenVPN/Server.pm:715
+#: src/EBox/OpenVPN/Server.pm:736
 msgid "Local address"
 msgstr "Indirizzo locale"
 
-#: src/EBox/OpenVPN/Server.pm:720
+#: src/EBox/OpenVPN/Server.pm:741
 msgid "Port"
 msgstr "Porta"
 
-#: src/EBox/OpenVPN/Server.pm:723
+#: src/EBox/OpenVPN/Server.pm:744
 msgid "VPN subnet"
 msgstr "Sottorete VPN"
 
-#: src/EBox/OpenVPN/Server.pm:726
+#: src/EBox/OpenVPN/Server.pm:747
 msgid "VPN network interface"
 msgstr "Interfaccia rete VPN"
 
-#: src/EBox/OpenVPN/Server.pm:730 src/EBox/OpenVPN/Server.pm:732
+#: src/EBox/OpenVPN/Server.pm:751 src/EBox/OpenVPN/Server.pm:753
 #: src/EBox/OpenVPN/Client.pm:402 src/EBox/OpenVPN/Client.pm:404
 msgid "VPN interface address"
 msgstr "Indirizzo rete VPN"
 
-#: src/EBox/OpenVPN/Server.pm:732 src/EBox/OpenVPN/Client.pm:404
+#: src/EBox/OpenVPN/Server.pm:753 src/EBox/OpenVPN/Client.pm:404
 msgid "No active"
 msgstr "Non attivo"
 
@@ -612,6 +612,36 @@ msgstr ""
 "{openpar}Puoi configurare i server openVPN per connetterli a utenti o uffici "
 "remoti.{closepar}{openpar}Clicca su {openit}Configurazione{closeit} per "
 "impostare i parametri VPN.{closepar}"
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:117
+msgid ""
+"This bundle is not a valid eBox-to-eBox configuration bundle. (Cannot unpack "
+"it)"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:153
+msgid ""
+"This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
+"server configuration file)"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:160
+msgid ""
+"This bundle is not a valid eBox-to-eBox configuration bundle. (Missing CA "
+"certificate file)"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:167
+msgid ""
+"This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
+"certificate file)"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:174
+msgid ""
+"This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
+"certificate private key file)"
+msgstr ""
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"

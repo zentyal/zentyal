@@ -1,13 +1,13 @@
 # Hungarian translations for ebox-samba package.
-# Copyright (C) 2009 Warp S.L.
+# Copyright (C) 2009 eBox Technologies S.L.
 # This file is distributed under the same license as the ebox-samba package.
 # Automatically generated, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:43+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:33+0200\n"
 "PO-Revision-Date: 2010-05-27 16:19+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -108,7 +108,7 @@ msgid "path"
 msgstr "útvonal"
 
 #: src/EBox/Samba/Model/DeletedSambaShares.pm:130
-#: src/EBox/Samba/Model/SambaShares.pm:154
+#: src/EBox/Samba/Model/SambaShares.pm:155
 msgid "share"
 msgstr "megosztás"
 
@@ -212,30 +212,34 @@ msgstr "Megjegyzés"
 msgid "Guest access"
 msgstr "Vendég hozzáférés"
 
-#: src/EBox/Samba/Model/SambaShares.pm:136
+#: src/EBox/Samba/Model/SambaShares.pm:133
+msgid "This share will not require authentication"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaShares.pm:137
 msgid "Access control"
 msgstr "Hozzáférés beállítás"
 
-#: src/EBox/Samba/Model/SambaShares.pm:146
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:190
+#: src/EBox/Samba/Model/SambaShares.pm:147
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:166
 msgid "Shares"
 msgstr "Megosztások"
 
-#: src/EBox/Samba/Model/SambaShares.pm:184
+#: src/EBox/Samba/Model/SambaShares.pm:185
 msgid "Path not allowed"
 msgstr "Az útvonal nem engedélyezett!"
 
-#: src/EBox/Samba/Model/SambaShares.pm:192
+#: src/EBox/Samba/Model/SambaShares.pm:193
 msgid "Only alphanumeric characters plus _ are valid for a path"
 msgstr ""
 "Csak az alfanumerikus karakterek, valamint az _ (aláhúzás) karakter érvényes "
 "az útvonal megadásakor."
 
-#: src/EBox/Samba/Model/SambaShares.pm:226
+#: src/EBox/Samba/Model/SambaShares.pm:227
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "A könyvtár nem üres. Biztos, hogy törölni akarod?"
 
-#: src/EBox/Samba/Model/SambaShares.pm:316
+#: src/EBox/Samba/Model/SambaShares.pm:317
 #, perl-brace-format
 msgid ""
 "{openit}Directory under eBox{closeit} will automatically create the share."
@@ -247,7 +251,7 @@ msgstr ""
 "Fájlrendszer útvonal{closeit} engedélyezi egy már létező könyvtár "
 "megosztását."
 
-#: src/EBox/Samba/Model/SambaShares.pm:329
+#: src/EBox/Samba/Model/SambaShares.pm:330
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let eBox create it for you."
@@ -256,48 +260,52 @@ msgstr ""
 "Egy már létező könyvtárat akar használni vagy kijelölni egy nevet, akkor az "
 "eBox ... (?)"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:93
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:94
 msgid "Read only"
 msgstr "Csak olvasható"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:97
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:98
 msgid "Read and write"
 msgstr "Olvasható és írható"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:101
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:102
 msgid "Administrator"
 msgstr "Rendszergazda"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:122
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:230
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:126
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:202
 msgid "User/Group"
 msgstr "Felhasználó/Csoport"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:127 src/EBox/Samba.pm:647
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:176
+msgid "Any access control is disabled if the guest access is allowed"
+msgstr ""
+
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:207 src/EBox/Samba.pm:647
 #: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
 msgid "User"
 msgstr "Felhasználó"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:132
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:212
 #: src/EBox/Samba/Model/AntivirusExceptions.pm:103
 #: src/EBox/Samba/Model/RecycleExceptions.pm:103
 #: src/templates/ajax/viewer/shareViewer.mas:10
 msgid "Group"
 msgstr "Csoport"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:140
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:220
 msgid "Permissions"
 msgstr "Engedélyek"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:149
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:229
 msgid "Access Control"
 msgstr "Hozzáférés vezérlés"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:156
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:236
 msgid "ACL"
 msgstr "ACL"
 
-#: src/EBox/Samba/Model/SambaSharePermissions.pm:206
+#: src/EBox/Samba/Model/SambaSharePermissions.pm:249
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share"

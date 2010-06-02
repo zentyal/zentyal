@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2010-04-30 12:57+0200\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"POT-Creation-Date: 2010-06-02 20:56+0200\n"
 "PO-Revision-Date: 2010-05-10 22:51+0200\n"
 "Last-Translator: Michael Korte <miko71@arcor.de>\n"
 "Language-Team: none\n"
@@ -23,100 +23,100 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:1095 src/EBox/Squid.pm:1172
+#: src/EBox/Squid.pm:71 src/EBox/Squid.pm:1078 src/EBox/Squid.pm:1155
 #: src/EBox/Squid/Composite/General.pm:76
 msgid "HTTP Proxy"
 msgstr "HTTP-Proxy"
 
-#: src/EBox/Squid.pm:201
+#: src/EBox/Squid.pm:202
 msgid "HTTP Proxy configuration file"
 msgstr "Konfigurationsdatei des HTTP-Proxy"
 
-#: src/EBox/Squid.pm:206
+#: src/EBox/Squid.pm:207
 msgid "Content filter configuration file"
 msgstr "Konfigurationsdatei für Inhaltsfilter"
 
-#: src/EBox/Squid.pm:211
+#: src/EBox/Squid.pm:212
 msgid "Default filter group configuration"
 msgstr "Standard Filtergruppen-Konfiguration"
 
-#: src/EBox/Squid.pm:216
+#: src/EBox/Squid.pm:217
 msgid "Filter groups membership"
 msgstr "Filtergruppen Mitgliedschaft"
 
-#: src/EBox/Squid.pm:221
+#: src/EBox/Squid.pm:222
 msgid "Content filter banned extension list"
 msgstr "Inhaltsfilter Liste für verbannte Erweiterungen"
 
-#: src/EBox/Squid.pm:226
+#: src/EBox/Squid.pm:227
 msgid "Content filter banned mime type list"
 msgstr "Inhaltsfilter Liste für verbannte MIME-Typen"
 
-#: src/EBox/Squid.pm:231
+#: src/EBox/Squid.pm:232
 msgid "Content filter exception site list"
 msgstr "Inhaltsfilter Liste für ausgenommene Seiten"
 
-#: src/EBox/Squid.pm:236
+#: src/EBox/Squid.pm:237
 msgid "Content filter grey site list"
 msgstr "Inhaltsfilter Liste für graue Seiten"
 
-#: src/EBox/Squid.pm:241
+#: src/EBox/Squid.pm:242
 msgid "Content filter banned site list"
 msgstr "Inhaltsfilter Liste für verbannte Seiten"
 
-#: src/EBox/Squid.pm:246
+#: src/EBox/Squid.pm:247
 msgid "Content filter exception URL list"
 msgstr "Inhaltsfilter Liste für ausgenommen URLs"
 
-#: src/EBox/Squid.pm:251
+#: src/EBox/Squid.pm:252
 msgid "Content filter grey URL list"
 msgstr "Inhaltsfilter Liste für graue URLs"
 
-#: src/EBox/Squid.pm:256
+#: src/EBox/Squid.pm:257
 msgid "Content filter banned URL list"
 msgstr "Inhaltsfilter Liste für verbannte URLs"
 
-#: src/EBox/Squid.pm:261
+#: src/EBox/Squid.pm:262
 msgid "Forbidden phrases list"
 msgstr "Liste für verbotene Begriffe"
 
-#: src/EBox/Squid.pm:266
+#: src/EBox/Squid.pm:267
 msgid "Exception phrases list"
 msgstr "Liste für ausgenommene Begriffe"
 
-#: src/EBox/Squid.pm:271
+#: src/EBox/Squid.pm:272
 msgid "PICS ratings configuration"
 msgstr "PICS Bewertungs-Einstellungen"
 
-#: src/EBox/Squid.pm:276
+#: src/EBox/Squid.pm:277
 msgid "Dansguardian's log rotation configuration"
 msgstr "Log-Rotation Einstellungen von DansGuardian"
 
-#: src/EBox/Squid.pm:281
+#: src/EBox/Squid.pm:282
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr "Antivirus-Scanner Einstellungen von DansGuardian"
 
-#: src/EBox/Squid.pm:286
+#: src/EBox/Squid.pm:287
 #, fuzzy
 msgid "Filter groups per IP"
 msgstr "Filtergruppen per IP"
 
-#: src/EBox/Squid.pm:301
+#: src/EBox/Squid.pm:302
 msgid "Overwrite blocked page templates"
 msgstr ""
 
-#: src/EBox/Squid.pm:302
+#: src/EBox/Squid.pm:303
 msgid ""
 "Dansguardian blocked page templates will be overwritten with eBox customized "
 "templates."
 msgstr ""
 
-#: src/EBox/Squid.pm:342
+#: src/EBox/Squid.pm:343
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr ""
 "Sie müssen die Variable cache_mem in der eBox-Konfigurationsdatei setzen"
 
-#: src/EBox/Squid.pm:351
+#: src/EBox/Squid.pm:352
 #, fuzzy
 msgid ""
 "You must set the max_object_size variable in the ebox configuration file"
@@ -124,60 +124,60 @@ msgstr ""
 "Sie müssen die Variable max_object_size in der eBox-Konfigurationsdatei "
 "setzen"
 
-#: src/EBox/Squid.pm:1067
+#: src/EBox/Squid.pm:1050
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: src/EBox/Squid.pm:1069 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+#: src/EBox/Squid.pm:1052 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: src/EBox/Squid.pm:1071
+#: src/EBox/Squid.pm:1054
 msgid "Transparent proxy"
 msgstr "Transparenter Proxy"
 
-#: src/EBox/Squid.pm:1074 src/EBox/Squid/Model/MIMEFilterBase.pm:60
+#: src/EBox/Squid.pm:1057 src/EBox/Squid/Model/MIMEFilterBase.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:93
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:100
 msgid "Allow"
 msgstr "Erlauben"
 
-#: src/EBox/Squid.pm:1076 src/EBox/Squid/Model/GroupPolicyBase.pm:97
+#: src/EBox/Squid.pm:1059 src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Deny"
 msgstr "Verweigern"
 
-#: src/EBox/Squid.pm:1078 src/EBox/Squid/Types/DomainPolicy.pm:35
+#: src/EBox/Squid.pm:1061 src/EBox/Squid/Types/DomainPolicy.pm:35
 #: src/EBox/Squid/Types/Policy.pm:65
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
 msgstr "Filter"
 
-#: src/EBox/Squid.pm:1081
+#: src/EBox/Squid.pm:1064
 msgid "Global policy"
 msgstr "Allgemeines Vorgehen"
 
-#: src/EBox/Squid.pm:1083
+#: src/EBox/Squid.pm:1066
 msgid "Listening port"
 msgstr "Port"
 
-#: src/EBox/Squid.pm:1115
+#: src/EBox/Squid.pm:1098
 msgid "General"
 msgstr "Allgemein"
 
-#: src/EBox/Squid.pm:1118 src/EBox/Squid/Composite/DelayPools.pm:69
+#: src/EBox/Squid.pm:1101 src/EBox/Squid/Composite/DelayPools.pm:69
 #, fuzzy
 msgid "Bandwidth Throttling"
 msgstr "Bandbreitenbegrenzung "
 
-#: src/EBox/Squid.pm:1121
+#: src/EBox/Squid.pm:1104
 msgid "Objects' Policy"
 msgstr "Regeln für Objekte"
 
-#: src/EBox/Squid.pm:1124
+#: src/EBox/Squid.pm:1107
 msgid "Groups' Policy"
 msgstr "Regeln für Gruppen"
 
-#: src/EBox/Squid.pm:1127
+#: src/EBox/Squid.pm:1110
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
 #: src/EBox/Squid/Model/DomainFilterCategories.pm:111
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
@@ -185,50 +185,50 @@ msgstr "Regeln für Gruppen"
 msgid "Filter Profiles"
 msgstr "Filter-Profile"
 
-#: src/EBox/Squid.pm:1157 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+#: src/EBox/Squid.pm:1140 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/Squid.pm:1158
+#: src/EBox/Squid.pm:1141
 msgid "Host"
 msgstr "Host"
 
-#: src/EBox/Squid.pm:1159 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Squid.pm:1142 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
 msgstr "Benutzer"
 
-#: src/EBox/Squid.pm:1160
+#: src/EBox/Squid.pm:1143
 msgid "URL"
 msgstr "URL"
 
-#: src/EBox/Squid.pm:1161 src/EBox/Squid/Model/DelayPools2.pm:180
+#: src/EBox/Squid.pm:1144 src/EBox/Squid/Model/DelayPools2.pm:180
 #: src/EBox/Squid/Model/DelayPools2.pm:200
 #: src/EBox/Squid/Model/DelayPools1.pm:164
 msgid "Bytes"
 msgstr "Bytes"
 
-#: src/EBox/Squid.pm:1162
+#: src/EBox/Squid.pm:1145
 msgid "Mime/type"
 msgstr "MIME/Typ"
 
-#: src/EBox/Squid.pm:1163
+#: src/EBox/Squid.pm:1146
 msgid "Event"
 msgstr "Ereignis"
 
-#: src/EBox/Squid.pm:1168
+#: src/EBox/Squid.pm:1151
 msgid "Accepted"
 msgstr "Akzeptiert"
 
-#: src/EBox/Squid.pm:1169
+#: src/EBox/Squid.pm:1152
 msgid "Denied"
 msgstr "Verweigert"
 
-#: src/EBox/Squid.pm:1170
+#: src/EBox/Squid.pm:1153
 msgid "Filtered"
 msgstr "Gefiltert"
 
-#: src/EBox/Squid.pm:1247
+#: src/EBox/Squid.pm:1230
 msgid "HTTP Proxy's cache files"
 msgstr "Zwischenspeicher des HTTP-Proxy-Dienstes"
 
@@ -497,8 +497,7 @@ msgstr "Adresse aktualisiert"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:87
 #: src/EBox/Squid/Model/DelayPools1.pm:85
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
