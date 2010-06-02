@@ -9,7 +9,6 @@
 
     <install method="debootstrap">
         <dist>jaunty</dist>
-        <command>/usr/sbin/debootstrap --exclude=ubuntu-minimal,libc6-i686 --no-resolve-deps</command>
     </install>
 
     <packages>

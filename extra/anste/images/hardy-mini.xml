@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <image>
-    <name>baseimage-hardy-mini</name>
+    <name>baseimage-{$dist}-mini</name>
     <desc>Ubuntu Hardy</desc>
 
     <memory>128</memory>
@@ -8,12 +8,12 @@
     <size>500</size>
 
     <install method="debootstrap">
-        <dist>hardy</dist>
+        <dist>{$dist}</dist>
         <command>/usr/sbin/debootstrap --exclude=ubuntu-minimal,libc6-i686 --no-resolve-deps</command>
     </install>
 
     <pre-install>
-        <script>write-hardy-sources.sh</script>
+        <script>write-{$dist}-sources.sh</script>
     </pre-install>
 
     <packages>

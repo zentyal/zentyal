@@ -3,13 +3,12 @@
     <name>baseimage-jaunty-mini</name>
     <desc>Ubuntu Jaunty</desc>
 
-    <memory>128</memory>
+    <memory>256</memory>
 
-    <size>500</size>
+    <size>700</size>
 
     <install method="debootstrap">
         <dist>jaunty</dist>
-        <command>/usr/sbin/debootstrap --exclude=ubuntu-minimal,libc6-i686 --no-resolve-deps</command>
     </install>
 
     <pre-install>
