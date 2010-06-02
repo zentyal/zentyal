@@ -254,7 +254,7 @@ sub _showRestoreProgress
 		      title              => __('Restoring backup'),
 		      text               =>   __('Restoring modules'),
 		      currentItemCaption =>   __('Module') ,
-		      itemsLeftMessage   =>   __('modules left to restore'),
+		      itemsLeftMessage   =>   __('modules restored'),
 		      endNote            =>   __('Restore successful'),
 		      reloadInterval     =>   4,
 );
