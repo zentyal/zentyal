@@ -1,3 +1,12 @@
-auth sufficient pam_ldap.so
-account sufficient pam_ldap.so
-password sufficient pam_ldap.so
+# Standard behaviour for ftpd(8).
+auth	required	pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succeed
+
+# Note: vsftpd handles anonymous logins on its own. Do not enable pam_ftp.so.
+
+# Standard pam includes
+@include common-account
+@include common-session
+@include common-auth
+
+# Commented by eBox as users do not have a valid shell by default
+#auth	required	pam_shells.so
