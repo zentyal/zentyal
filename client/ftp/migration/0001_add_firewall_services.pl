@@ -44,7 +44,6 @@ sub runGConf
                               ]);
    }
 
-   $firewall->setExternalService($serviceName, 'accept');
    $firewall->setInternalService($serviceName, 'accept');
    $firewall->saveConfigRecursive();
 }
