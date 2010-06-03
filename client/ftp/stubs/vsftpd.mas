@@ -1,3 +1,7 @@
+<%args>
+$enabled
+</%args>
+% if ($enabled) {
 # Standard behaviour for ftpd(8).
 auth	required	pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succeed
 
@@ -10,3 +14,4 @@ auth	required	pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succ
 
 # Commented by eBox as users do not have a valid shell by default
 #auth	required	pam_shells.so
+% }

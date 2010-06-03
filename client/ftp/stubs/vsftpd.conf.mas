@@ -1,3 +1,7 @@
+<%args>
+$anonymous
+$userHomes
+</%args>
 # Example config file /etc/vsftpd.conf
 #
 # The default compiled in settings are fairly paranoid. This sample file
@@ -20,10 +24,18 @@ listen=YES
 #listen_ipv6=YES
 #
 # Allow anonymous FTP? (Disabled by default)
+% if ($anonymous eq 'disabled') {
 anonymous_enable=NO
+% } else {
+anonymous_enable=YES
+% }
 #
 # Uncomment this to allow local users to log in.
+% if ($userHomes) {
 local_enable=YES
+% } else {
+local_enable=NO
+% }
 #
 # Uncomment this to enable any form of FTP write command.
 write_enable=YES
@@ -35,11 +47,19 @@ local_umask=022
 # Uncomment this to allow the anonymous FTP user to upload files. This only
 # has an effect if the above global write enable is activated. Also, you will
 # obviously need to create a directory writable by the FTP user.
-#anon_upload_enable=YES
+% if ($anonymous eq 'write') {
+anon_upload_enable=YES
+% } else {
+anon_upload_enable=NO
+% }
 #
 # Uncomment this if you want the anonymous FTP user to be able to create
 # new directories.
-#anon_mkdir_write_enable=YES
+% if ($anonymous eq 'write') {
+anon_mkdir_write_enable=YES
+% } else {
+anon_mkdir_write_enable=NO
+% }
 #
 # Activate directory messages - messages given to remote users when they
 # go into a certain directory.

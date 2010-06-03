@@ -1,11 +1,10 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Model
+SUBDIRS =
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/FTP/Model
 
-nobase_perl_DATA = FTP.pm
 
-DISTCLEANFILES =
+nobase_perl_DATA = Options.pm
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

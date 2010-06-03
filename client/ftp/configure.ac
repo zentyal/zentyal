@@ -56,6 +56,7 @@ migration/Makefile
 src/Makefile
 tools/Makefile
 src/EBox/Makefile
+src/EBox/Model/Makefile
 schemas/Makefile
 stubs/Makefile
 Makefile

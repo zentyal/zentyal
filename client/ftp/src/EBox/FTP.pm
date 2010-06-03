@@ -41,6 +41,23 @@ sub _create
     return $self;
 }
 
+# Method: menu
+#
+#       Add an entry to the menu with this module
+#
+# Overrides:
+#
+#       <EBox::Module::menu>
+#
+sub menu
+{
+    my ($self, $root) = @_;
+    $root->add(new EBox::Menu::Item('url' => 'FTP/View/Options',
+                                    'text'  => $self->printableName(),
+                                    'separator' => 'Infrastructure',
+                                    'order' => 435));
+}
+
 # Method: modelClasses
 #
 #       Return the model classes used by the module.
@@ -51,7 +68,7 @@ sub _create
 #
 sub modelClasses
 {
-    return [];
+    return [ 'EBox::FTP::Model::Options' ];
 }
 
 # Method: usedFiles
@@ -103,13 +120,18 @@ sub _setConf
 {
     my ($self) = @_;
 
+    my $options = $self->model('Options');
+    my $anonymous = $options->anonymous();
+    my $userHomes = $options->userHomes();
+
     $self->writeConfFile('/etc/pam.d/vsftpd',
                          '/ftp/vsftpd.mas',
-                         [ ]);
+                         [ enabled => $userHomes ]);
 
     $self->writeConfFile('/etc/vsftpd.conf',
                          '/ftp/vsftpd.conf.mas',
-                         [ ]);
+                         [ anonymous => $anonymous,
+                           userHomes => $userHomes ]);
 }
 
 sub _daemons
