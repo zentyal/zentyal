@@ -41,6 +41,19 @@ sub _create
     return $self;
 }
 
+# Method: modelClasses
+#
+#       Return the model classes used by the module.
+#
+# Overrides:
+#
+#       <EBox::Model::ModelProvider::modelClasses>
+#
+sub modelClasses
+{
+    return [];
+}
+
 # Method: usedFiles
 #
 #   Override EBox::ServiceModule::ServiceInterface::usedFiles
