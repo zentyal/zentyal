@@ -863,6 +863,82 @@ sub _consolidateTable
     return {  $table => $spec };
 }
 
+
+
+sub consolidateReportQueries
+{
+    return [
+            {
+             'target_table' => 'events_report',
+             'query' => {
+                         'select' => 'source, level, sum(nRepeated) AS nEvents',
+                         'from' => 'events',
+                         'group' => 'source,level',
+                        },
+
+            },
+           ];
+}
+
+
+
+
+# Method: report
+#
+# Overrides:
+#   <EBox::Module::Base::report>
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+
+    my $allAlertsRaw  =  $self->runMonthlyQuery($beg, $end, {
+        'select' => 'level, SUM(nEvents)',
+        'from' => 'events_report',
+        'group' => 'level',                                                              
+                                                                  },
+    { 'key' => 'level' }
+   );    
+
+
+    $report->{'all_alerts'} = {};
+
+    foreach my $key (%{ $allAlertsRaw }) {
+        my $sum = $allAlertsRaw->{$key}->{sum};
+        defined $sum or
+            next;
+        $report->{'all_alerts'}->{$key} = $sum;
+    }
+
+
+    my $alertsBySource = {};
+    foreach my $level (qw(info warn error fatal)) {
+        my $result =  $self->runMonthlyQuery($beg, $end, {
+                'select' => 'source, sum(nEvents)',
+                'from' => 'events_report',
+                'group' => 'source,level',
+                'where' => qq{level='$level'}
+                                                         },
+                { 'key' => 'source' }
+                                            );  
+        foreach my $source (keys %{$result}) {
+            if (not exists $alertsBySource->{$source}) {
+                $alertsBySource->{$source} = {};
+            }
+            $alertsBySource->{$source}->{$level} = $result->{$source}->{sum};
+        }  
+    }
+
+    $report->{alerts_by_source} = $alertsBySource;
+
+    return $report;
+}
+
+
 # Method: report
 #
 #  Returns:
