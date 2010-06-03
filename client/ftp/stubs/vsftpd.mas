@@ -1,0 +1,3 @@
+auth sufficient pam_ldap.so
+account sufficient pam_ldap.so
+password sufficient pam_ldap.so
