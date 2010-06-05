@@ -1,6 +1,5 @@
-HEAD
-	+ Updates modules.conf stuf for Lucid
 1.5
+	+ Updates modules.conf template for lucid
 	+ Bug fix: Migration script 0002_migrate_ldap_schema is not run
 	  unless the module is configured
 1.4
