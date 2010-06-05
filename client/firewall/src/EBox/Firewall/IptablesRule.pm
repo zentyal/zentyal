@@ -143,7 +143,13 @@ sub setService
                                              . $iptables);
             }
 
-        } elsif ($protocol eq any ('gre', 'icmp', 'esp')) {
+        } elsif ($protocol eq 'icmp') {
+            my @icmp_types = qw(echo-request echo-reply destination-unreachable source-quench parameter-problem);
+            foreach my $type (@icmp_types) {
+                $iptables = " -p $invProto $protocol --icmp-type $type ! -f";
+                push (@{$self->{'service'}}, $iptables);
+            }
+        } elsif ($protocol eq any ('gre', 'esp')) {
             $iptables = " -p $invProto $protocol";
             push (@{$self->{'service'}}, $iptables);
         } elsif ($protocol eq 'any') {

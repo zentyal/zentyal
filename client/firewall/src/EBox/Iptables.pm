@@ -36,7 +36,7 @@ use Error qw( :try );
 use Perl6::Junction qw( any );
 use EBox::Sudo qw( :all );
 
-my $new = " -m state --state NEW ";
+my $statenew = " -m state --state NEW ";
 
 use constant IPT_MODULES => ('ip_conntrack_ftp', 'ip_nat_ftp', 'ip_conntrack_tftp');
 use constant SYSLOG_LEVEL => 7;
@@ -211,12 +211,12 @@ sub _setStructure
             pf('-A FORWARD -j fdns'),
             pf('-A FORWARD -j fobjects'),
             pf('-A FORWARD -j fglobal'),
-            pf('-A FORWARD -p icmp --icmp-type echo-request ! -f -j ACCEPT'), # accept ping requests
-            pf('-A FORWARD -p icmp --icmp-type echo-reply ! -f -j ACCEPT'), # accept ping responses
-            pf('-A FORWARD -p icmp --icmp-type destination-unreachable ! -f -j ACCEPT'), # accept notifications of unreachable hosts
-            pf('-A FORWARD -p icmp --icmp-type source-quench ! -f -j ACCEPT'), # accept notifications to reduce sending speed
-            pf('-A FORWARD -p icmp --icmp-type time-exceeded ! -f -j ACCEPT'), # accept notifications of lost packets
-            pf('-A FORWARD -p icmp --icmp-type parameter-problem ! -f -j ACCEPT'), # accept notifications of protocol problems
+            pf("-A FORWARD -p icmp --icmp-type echo-request ! -f $statenew -j ACCEPT"), # accept ping requests
+            pf("-A FORWARD -p icmp --icmp-type echo-reply ! -f $statenew -j ACCEPT"), # accept ping responses
+            pf("-A FORWARD -p icmp --icmp-type destination-unreachable ! -f $statenew -j ACCEPT"), # accept notifications of unreachable hosts
+            pf("-A FORWARD -p icmp --icmp-type source-quench ! -f $statenew -j ACCEPT"), # accept notifications to reduce sending speed
+            pf("-A FORWARD -p icmp --icmp-type time-exceeded ! -f $statenew -j ACCEPT"), # accept notifications of lost packets
+            pf("-A FORWARD -p icmp --icmp-type parameter-problem ! -f $statenew -j ACCEPT"), # accept notifications of protocol problems
             pf('-A FORWARD -j fdrop'),
 
             pf('-A INPUT -j inospoof'),
@@ -226,23 +226,23 @@ sub _setStructure
             pf('-A INPUT -j imodules'),
             pf('-A INPUT -j iintservs'),
             pf('-A INPUT -j iglobal'),
-            pf('-A INPUT -p icmp --icmp-type echo-request ! -f -j ACCEPT'), # accept ping requests
-            pf('-A INPUT -p icmp --icmp-type echo-reply ! -f -j ACCEPT'), # accept ping responses
-            pf('-A INPUT -p icmp --icmp-type destination-unreachable ! -f -j ACCEPT'), # accept notifications of unreachable hosts
-            pf('-A INPUT -p icmp --icmp-type source-quench ! -f -j ACCEPT'), # accept notifications to reduce sending speed
-            pf('-A INPUT -p icmp --icmp-type time-exceeded ! -f -j ACCEPT'), # accept notifications of lost packets
-            pf('-A INPUT -p icmp --icmp-type parameter-problem ! -f -j ACCEPT'), # accept notifications of protocol problems
+            pf("-A INPUT -p icmp --icmp-type echo-request ! -f $statenew -j ACCEPT"), # accept ping requests
+            pf("-A INPUT -p icmp --icmp-type echo-reply ! -f $statenew -j ACCEPT"), # accept ping responses
+            pf("-A INPUT -p icmp --icmp-type destination-unreachable ! -f $statenew -j ACCEPT"), # accept notifications of unreachable hosts
+            pf("-A INPUT -p icmp --icmp-type source-quench ! -f $statenew -j ACCEPT"), # accept notifications to reduce sending speed
+            pf("-A INPUT -p icmp --icmp-type time-exceeded ! -f $statenew -j ACCEPT"), # accept notifications of lost packets
+            pf("-A INPUT -p icmp --icmp-type parameter-problem ! -f $statenew -j ACCEPT"), # accept notifications of protocol problems
             pf('-A INPUT -j idrop'),
 
             pf('-A OUTPUT -j ointernal'),
             pf('-A OUTPUT -j omodules'),
             pf('-A OUTPUT -j oglobal'),
-            pf('-A OUTPUT -p icmp --icmp-type echo-request ! -f -j ACCEPT'), # accept ping requests
-            pf('-A OUTPUT -p icmp --icmp-type echo-reply ! -f -j ACCEPT'), # accept ping responses
-            pf('-A OUTPUT -p icmp --icmp-type destination-unreachable ! -f -j ACCEPT'), # accept notifications of unreachable hosts
-            pf('-A OUTPUT -p icmp --icmp-type source-quench ! -f -j ACCEPT'), # accept notifications to reduce sending speed
-            pf('-A OUTPUT -p icmp --icmp-type time-exceeded ! -f -j ACCEPT'), # accept notifications of lost packets
-            pf('-A OUTPUT -p icmp --icmp-type parameter-problem ! -f -j ACCEPT'), # accept notifications of protocol problems
+            pf("-A OUTPUT -p icmp --icmp-type echo-request ! -f $statenew -j ACCEPT"), # accept ping requests
+            pf("-A OUTPUT -p icmp --icmp-type echo-reply ! -f $statenew -j ACCEPT"), # accept ping responses
+            pf("-A OUTPUT -p icmp --icmp-type destination-unreachable ! -f $statenew -j ACCEPT"), # accept notifications of unreachable hosts
+            pf("-A OUTPUT -p icmp --icmp-type source-quench ! -f $statenew -j ACCEPT"), # accept notifications to reduce sending speed
+            pf("-A OUTPUT -p icmp --icmp-type time-exceeded ! -f $statenew -j ACCEPT"), # accept notifications of lost packets
+            pf("-A OUTPUT -p icmp --icmp-type parameter-problem ! -f $statenew -j ACCEPT"), # accept notifications of protocol problems
             pf('-A OUTPUT -j odrop'),
 
             pf("-A idrop -j drop"),
@@ -265,10 +265,10 @@ sub _setDNS # (dns)
     my ($self, $dns) = @_;
 
     my @commands = (
-            pf("-A ointernal $new -p udp --dport 53 -d $dns -j ACCEPT"),
-            pf("-A ointernal $new -p tcp --dport 53 -d $dns -j ACCEPT"),
-            pf("-A fdns $new -p udp --dport 53 -d $dns -j ACCEPT"),
-            pf("-A fdns $new -p tcp --dport 53 -d $dns -j ACCEPT"),
+            pf("-A ointernal $statenew -p udp --dport 53 -d $dns -j ACCEPT"),
+            pf("-A ointernal $statenew -p tcp --dport 53 -d $dns -j ACCEPT"),
+            pf("-A fdns $statenew -p udp --dport 53 -d $dns -j ACCEPT"),
+            pf("-A fdns $statenew -p tcp --dport 53 -d $dns -j ACCEPT"),
             );
     return \@commands;
 }
@@ -286,7 +286,7 @@ sub _setDHCP
     my ($self, $interface) = @_;
 
     $interface = $self->{net}->realIface($interface);
-    return [ pf("-A ointernal $new -o $interface -p udp --dport 67 -j ACCEPT") ];
+    return [ pf("-A ointernal $statenew -o $interface -p udp --dport 67 -j ACCEPT") ];
 }
 
 # Method: _setRemoteServices
@@ -306,12 +306,12 @@ sub _setRemoteServices
         if ( $rsMod->eBoxSubscribed() ) {
             my $vpnIface = $rsMod->ifaceVPN();
             push(@commands,
-                pf("-A ointernal $new -o $vpnIface -j ACCEPT")
+                pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
             );
             try {
                 my %vpnSettings = %{$rsMod->vpnSettings()};
                 push(@commands,
-                     pf("-A ointernal $new -p $vpnSettings{protocol} "
+                     pf("-A ointernal $statenew -p $vpnSettings{protocol} "
                           . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j ACCEPT")
             );
             } catch EBox::Exceptions::External with {
@@ -328,7 +328,7 @@ sub _setRemoteServices
                );
             # We are assuming just one name server
             push(@commands,
-                pf("-A ointernal $new -p udp -d $dnsServer --dport 53 -j ACCEPT"),
+                pf("-A ointernal $statenew -p udp -d $dnsServer --dport 53 -j ACCEPT"),
 
             );
             # Public WWW servers to connect to
@@ -336,7 +336,7 @@ sub _setRemoteServices
                 my $site = $publicWebServer;
                 $site =~ s:\.:$no.:;
                 push(@commands,
-                    pf("-A ointernal $new -p tcp -d $site --dport 443 -j ACCEPT")
+                    pf("-A ointernal $statenew -p tcp -d $site --dport 443 -j ACCEPT")
                 );
             }
         }
@@ -501,8 +501,8 @@ sub start
         $if = $self->{net}->realIface($if);
 
         push(@commands,
-                pf("-A fnoexternal $new -i $if -j fdrop"),
-                pf("-A inoexternal $new -i $if -j idrop"),
+                pf("-A fnoexternal $statenew -i $if -j fdrop"),
+                pf("-A inoexternal $statenew -i $if -j idrop"),
                 pf("-A ftoexternalonly -o $if -j ACCEPT"),
             );
 
@@ -537,7 +537,7 @@ sub start
         my $port = $rule->{port};
         my $proto = $rule->{protocol};
         push(@commands,
-                pf("-A ointernal $new  -p $proto --dport $port -j ACCEPT")
+                pf("-A ointernal $statenew -p $proto --dport $port -j ACCEPT")
             );
     }
 

@@ -1,5 +1,6 @@
 HEAD
 	+ New logging feature for port forwarding rules
+	+ Only allow safe ICMP types everywhere
 1.5.1
 	+ New firewall table containing rules added by eBox services
 	+ Bug fix: port forwarding now works with PPPoE
