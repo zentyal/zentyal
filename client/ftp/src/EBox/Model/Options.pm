@@ -70,7 +70,7 @@ sub _table
                 populate => \&populateAnonymous,
                 editable => 1,
                 defaultValue => 'disabled',
-                help => __('Sets the permissions for the /pub directory'),
+                help => __('Sets the permissions for the /srv/ftp directory'),
                ),
          new EBox::Types::Boolean(
                 fieldName => 'userHomes',
@@ -88,7 +88,7 @@ sub _table
                 modelDomain        => 'FTP',
                 defaultActions     => [ 'editField', 'changeView' ],
                 tableDescription   => \@tableDesc,
-                help               => __('Here you can set access permissions for the FTP server'),
+                help               => __('The anonymous directory is /srv/ftp, make sure that the files you create there have read permissions for everybody (chmod o+r /srv/ftp/*). If you also want to grant write permissions you need to create a subdirectory with write permissions for everybody, for example: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming'),
     };
 
     return $dataForm;
