@@ -48,7 +48,7 @@ sub new
 
 sub domain
 {
-    return 'ebox-squid';
+    return 'ebox-openvpn';
 }
 
 # Method: logFiles

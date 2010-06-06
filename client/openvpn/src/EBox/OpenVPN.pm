@@ -1654,7 +1654,7 @@ sub tableInfo
                  };
 
     return [{
-            name => __('OpenVPN'),
+            name => $self->printableName(),
             index => 'openvpn',
             titles => $titles,
             'order' => \@order,
