@@ -41,7 +41,7 @@ Description: eBox - UTM Suite
 
 Package: ebox-infrastructure
 Architecture: all
-Depends:ebox-network, ebox-dhcp, ebox-dns, ebox-openvpn, ebox-webserver, ebox-ntp, ebox-ebackup, ebox-software, ebox-monitor, ebox-remoteservices
+Depends:ebox-network, ebox-dhcp, ebox-dns, ebox-openvpn, ebox-webserver, ebox-ftp, ebox-ntp, ebox-ebackup, ebox-software, ebox-monitor, ebox-remoteservices
 Description: eBox - Network Infrastructure Suite
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
