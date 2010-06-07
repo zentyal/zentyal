@@ -52,6 +52,7 @@ use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
 use constant SITE_HOST_KEY       => 'siteHost';
+use constant COMPANY_KEY         => 'subscribedHostname';
 
 # Group: Protected methods
 
@@ -351,6 +352,61 @@ sub subscriberUsername
     }
 
 }
+
+# Method: subscribedHostname
+#
+#        Return the hostname within the eBox Control Center cloud if
+#        the host is subscribed to eBox Control Center
+#
+# Returns:
+#
+#        String - the subscribed hostname
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to the eBox Control Center
+#
+sub subscribedHostname
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The subscribed hostname is only available if the host is subscribed to eBox Control Center')
+           );
+    }
+
+    my $hostName = EBox::RemoteServices::Auth->new()->valueFromBundle(COMPANY_KEY);
+    return $hostName;
+}
+
+# Method: monitorGathererIPAddresses
+#
+#        Return the monitor gatherer IP adresses
+#
+# Returns:
+#
+#        array ref - the monitor gatherer IP addresses to send stats to
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to eBox Control Center
+#
+sub monitorGathererIPAddresses
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The monitor gatherer IP addresses are only available if the host is subscribed to eBox Control Center'));
+    }
+
+    return EBox::RemoteServices::Auth->new()->monitorGatherers();
+
+}
+
 
 # Method: controlPanelURL
 #

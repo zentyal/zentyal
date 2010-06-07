@@ -263,7 +263,7 @@ sub _queryServicesNameserver
            )
     }
 
-    my @addresses =  map { $_->address() } (grep { $_->type() eq 'A' } $response->answer());;
+    my @addresses =  map { $_->address() } (grep { $_->type() eq 'A' } $response->answer());
 
     # Round-robin balancing
     my $n = int(rand(scalar @addresses));

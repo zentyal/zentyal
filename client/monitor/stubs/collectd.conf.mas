@@ -13,12 +13,16 @@ Parameters:
   loadPerlPlugin - Boolean indicating whether it required to load the perl
              plugin (with the interpreter) or not
              *(Optional)* Default value: false
+
+  networkServers - Array containing the collectd servers to send the stats to
+                   *(Optional)* Default value: ()
 </%doc>
 <%args>
   @mountPoints
-  $hostname => 'localhost'
-  $interval => 10
+  $hostname       => 'localhost'
+  $interval       => 10
   $loadPerlPlugin => 0
+  @networkServers => ()
 </%args>
 # Config file for collectd(1).
 #
@@ -63,7 +67,9 @@ LoadPlugin memory
 #LoadPlugin multimeter
 #LoadPlugin mysql
 #LoadPlugin netlink
-#LoadPlugin network
+% if ( @networkServers > 0 ) {
+LoadPlugin network
+% }
 #LoadPlugin nfs
 #LoadPlugin nginx
 #LoadPlugin ntpd
@@ -195,15 +201,20 @@ LoadPlugin syslog
 #       IgnoreSelected false
 #</Plugin>
 
-#<Plugin network>
+% if ( @networkServers > 0 ) {
+<Plugin network>
 #       Server "ff18::efc0:4a42" "25826"
 #       Server "239.192.74.66" "25826"
+%     foreach my $server (@networkServers) {
+        Server "<% $server %>" "25826"
+%     }
 #       Listen "ff18::efc0:4a42" "25826"
 #       Listen "239.192.74.66" "25826"
 #       TimeToLive "128"
 #       Forward false
 #       CacheFlush 1800
-#</Plugin>
+</Plugin>
+% }
 
 #<Plugin nginx>
 #       URL "http://localhost/status?auto"

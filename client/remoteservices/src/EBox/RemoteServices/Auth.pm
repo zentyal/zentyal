@@ -37,6 +37,7 @@ use IO::Socket::INET;
 
 # Constants
 use constant SERV_SUBDIR => 'remoteservices/subscription';
+use constant MON_HOSTS   => 'monitorHosts';
 
 # Group: Public methods
 
@@ -266,6 +267,27 @@ sub isConnected
     my $client  = $self->vpnClientForServices();
     return 1 if ($client->isRunning() and $client->ifaceAddress());
     return 0;
+
+}
+
+# Method: monitorGatherers
+#
+#      Return the monitor gatherer IP addresses
+#
+# Returns:
+#
+#      array ref - the monitor gatherer IP addresses to sends stats to
+#
+sub monitorGatherers
+{
+    my ($self) = @_;
+
+    my $monHosts = $self->valueFromBundle(MON_HOSTS);
+    if ( ref $monHosts ne 'ARRAY' ) {
+        $monHosts = [ $monHosts ];
+    }
+    my @monHosts = map { $self->_queryServicesNameserver($_) } @{$monHosts};
+    return \@monHosts;
 
 }
 

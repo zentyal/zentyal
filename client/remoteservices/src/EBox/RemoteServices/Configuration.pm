@@ -67,40 +67,6 @@ sub PublicWebServer
     return EBox::Config::configkey('ebox_services_www');
 }
 
-# Method: OldTarLocation
-#
-#      Get the latest tarball sent to the CC
-#
-# Returns:
-#
-#      String - the latest tarball location
-#
-sub OldTarLocation
-{
-
-    my $oldTarLocation = EBox::Config::conf() . 'remoteservices/monitor';
-    unless (-d $oldTarLocation ) {
-        mkdir($oldTarLocation);
-    }
-    return "$oldTarLocation/latest.tar";
-
-}
-
-# Method: MonTimestamp
-#
-#      Get the latest timestamp for sending monitoring stats file path
-#
-# Returns:
-#
-#      String - the latest tarball location
-#
-sub MonTimestamp
-{
-
-    return EBox::Config::conf() . 'remoteservices/monitor/monStatsSent.time';
-
-}
-
 # Method: JobsDir
 #
 #      Get where the job management is done

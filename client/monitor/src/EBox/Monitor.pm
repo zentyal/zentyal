@@ -53,6 +53,7 @@ use EBox::Monitor::Measure::Manager;
 
 # Core modules
 use Error qw(:try);
+use File::Spec;
 
 # Constants
 use constant COLLECTD_SERVICE     => 'ebox.collectd';
@@ -168,6 +169,29 @@ sub menu
          'separator' => 'Core',
          'order' => 70);
     $root->add($item);
+}
+
+# Method: depends
+#
+#      Monitor depends on Remote Services configuration only if the
+#      module exists
+#
+# Overrides:
+#
+#      <EBox::Module::Base::depends>
+#
+sub depends
+{
+    my ($self) = @_;
+
+    my $dependsList = $self->SUPER::depends();
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('remoteservices') ) {
+        push(@{$dependsList}, 'remoteservices');
+    }
+
+    return $dependsList;
+
 }
 
 # Method: measuredData
@@ -480,15 +504,34 @@ sub _setMainConf
 {
     my ($self) = @_;
 
+    my $hostname       = hostname();
+    my @networkServers = ();
+
+    # Send stats to eBox CC with the CC hostname if the host is subscribed
+    my $global = EBox::Global->getInstance(1);
+    if ( $global->modExists('remoteservices') ) {
+        my $rs = $global->modInstance('remoteservices');
+        if ( $rs->eBoxSubscribed() ) {
+            $hostname = $rs->subscribedHostname();
+            @networkServers = @{$rs->monitorGathererIPAddresses()};
+            $self->_linkRRDs($hostname);
+        } else {
+            $self->_linkRRDs();
+        }
+    }
+
     $self->writeConfFile(COLLECTD_CONF_FILE,
                          'monitor/collectd.conf.mas',
                          [
                           (interval       => EBox::Monitor::Configuration->QueryInterval()),
                           (loadPerlPlugin => 1),# $self->_thresholdConfigured()),
                           (mountPoints    => $self->_mountPointsToMonitor()),
-                          (hostname       => hostname()),
+                          (hostname       => $hostname),
+                          (networkServers => \@networkServers),
                          ]
                         );
+
+
 }
 
 # Write down the threshold configuration file
@@ -550,6 +593,38 @@ sub _setThresholdConf
                              (thresholds => \%thresholds),
                             ]
                         );
+
+}
+
+# Link to RRDs subscribed hostname to the real one created if eBox is
+# subscribed to CC in order to preserve the monitoring data prior to
+# subscribe
+sub _linkRRDs
+{
+    my ($self, $subscribedHostname) = @_;
+
+    my $rrdBaseDirPath = EBox::Monitor::Configuration::RRDBaseDirPath();
+
+    # Get the parent path
+    my @directories = File::Spec->splitdir($rrdBaseDirPath);
+    pop(@directories);
+    pop(@directories);
+    my $parentPath = File::Spec->catdir(@directories);
+
+    if ( $subscribedHostname ) {
+        my $subDirPath = "$parentPath/$subscribedHostname";
+        unless ( -e $subDirPath ) {
+            EBox::Sudo::root("ln -s $rrdBaseDirPath $subDirPath");
+        }
+    } else {
+        opendir(my $dh, $parentPath);
+        while ( defined(my $subdir = readdir($dh)) ) {
+            if ( -l "$parentPath/$subdir" ) {
+                EBox::Sudo::root("rm $parentPath/$subdir");
+            }
+        }
+        closedir($dh);
+    }
 
 }
 

@@ -36,7 +36,7 @@ use constant MAIN_VAR_RUN     => EBox::Config::var() . 'run/ebox/';
 use constant EVENTS_DIR       => MAIN_VAR_RUN . '/events/incoming/';
 use constant EVENTS_READY_DIR => EVENTS_DIR . 'ready/';
 use constant QUERY_INTERVAL   => 10;
-use constant RRD_BASE_DIR     => EBox::Config::var() . 'lib/collectd/rrd/' . hostname() . '/';
+use constant RRD_BASE_DIR     => EBox::Config::var() . 'lib/collectd/rrd/';
 
 # Group: Public class methods
 
@@ -98,7 +98,8 @@ sub QueryInterval
 #
 sub RRDBaseDirPath
 {
-    return RRD_BASE_DIR;
+    my $baseDir = RRD_BASE_DIR;
+    return "$baseDir/" . hostname() . '/';
 }
 
 # Method: TimePeriods
