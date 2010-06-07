@@ -3,8 +3,8 @@
 USER_NAME=$1
 DIR=/home/$USER_NAME
 
-sed -i 's/AutomaticLoginEnable=.*/AutomaticLoginEnable=true/' /etc/gdm/gdm.conf
-sed -i "s/AutomaticLogin=.*/AutomaticLogin=$USER_NAME/" /etc/gdm/gdm.conf
+sed -i "s/#auto_login.*/auto_login\tyes/" /etc/slim.conf
+sed -i "s/#default_user.*/default_user\t$USER_NAME/" /etc/slim.conf
 
 echo "#!/bin/bash" > $DIR/.xsession
 echo "firefox https://localhost &" >> $DIR/.xsession

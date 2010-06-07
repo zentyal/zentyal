@@ -8,11 +8,10 @@ mkdir $CHROOT
 
 sudo debootstrap --arch=$ARCH $VERSION $CHROOT
 
-echo "deb http://archive.ubuntu.com/ubuntu hardy main restricted universe multiverse" > sources.list
-echo "deb http://archive.ubuntu.com/ubuntu hardy-updates main restricted universe multiverse" >> sources.list
-echo "deb http://security.ubuntu.com/ubuntu hardy-security main restricted universe" >> sources.list
-echo "deb http://ppa.launchpad.net/ebox/1.4/ubuntu hardy main" >> sources.list
-echo "deb http://ppa.launchpad.net/ebox/1.4-proposed/ubuntu hardy main" >> sources.list
+echo "deb http://archive.ubuntu.com/ubuntu lucid main restricted universe multiverse" > sources.list
+echo "deb http://archive.ubuntu.com/ubuntu lucid-updates main restricted universe multiverse" >> sources.list
+echo "deb http://security.ubuntu.com/ubuntu lucid-security main restricted universe" >> sources.list
+echo "deb http://ppa.launchpad.net/ebox/1.5/ubuntu lucid main" >> sources.list
 sudo mv sources.list $CHROOT/etc/apt/sources.list
 
 sudo chroot $CHROOT apt-get update
