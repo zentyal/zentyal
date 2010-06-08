@@ -1,3 +1,9 @@
+esofttool (0.5.5) lucid; urgency=low
+
+  * Use parsechangelog to parse debian changelog for security updates
+
+ -- Enrique José Hernández Blasoc <ejhernandez@ebox-platform.com>  Tue, 08 Jun 2010 17:21:40 +0200
+
 esofttool (0.5.4ubuntu1) lucid; urgency=low
 
   * lucid package
