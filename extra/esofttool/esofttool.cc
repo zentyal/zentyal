@@ -315,8 +315,8 @@ std::string _changeLog(const std::string fileName, const std::string versionStr)
   
         std::string cmd("dpkg-deb --fsys-tarfile " + fileName
                         + " | tar x --wildcards *" + changelogPath + " -O | zcat "
-                        + "| /usr/lib/dpkg/parsechangelog/debian "
-                        + " - | sed -n -e /Changes/,//p | sed -n -e '4,$p'");
+                        + "| /usr/bin/parsechangelog - "
+                        + "| sed -n -e /Changes/,//p | sed -n -e '4,$p'");
         std::string outputStr("");
         FILE * output = popen(cmd.c_str(), "r");
         if ( output == NULL ) {

@@ -8,7 +8,7 @@ Standards-Version: 3.7.3
 
 Package: esofttool
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, libparse-debianchangelog-perl
 Description: ebox software tool
  This tool is used by the ebox-software modules to gather info about
  ebox packages and upgradable packages. It is used as interface to
