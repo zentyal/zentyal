@@ -7,14 +7,14 @@ TreeDefault {
 };
 
 BinDirectory "pool/main" {
-  Packages "dists/hardy/main/binary-ARCH/Packages";
-  BinOverride "INDICES/override.hardy.main";
-  ExtraOverride "INDICES/override.hardy.extra.main";
+  Packages "dists/lucid/main/binary-ARCH/Packages";
+  BinOverride "INDICES/override.lucid.main";
+  ExtraOverride "INDICES/override.lucid.extra.main";
 };
 
 BinDirectory "pool/restricted" {
- Packages "dists/hardy/restricted/binary-ARCH/Packages";
- BinOverride "INDICES/override.hardy.restricted";
+ Packages "dists/lucid/restricted/binary-ARCH/Packages";
+ BinOverride "INDICES/override.lucid.restricted";
 };
 
 Default {

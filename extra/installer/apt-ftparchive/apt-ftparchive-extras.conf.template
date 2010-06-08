@@ -7,7 +7,7 @@ TreeDefault {
 };
 
 BinDirectory "pool/extras" {
-  Packages "dists/hardy/extras/binary-ARCH/Packages";
+  Packages "dists/lucid/extras/binary-ARCH/Packages";
 };
 
 Default {
