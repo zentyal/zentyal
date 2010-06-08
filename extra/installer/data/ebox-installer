@@ -5,8 +5,8 @@
 # Define some quick variables
 export LOG=/tmp/ebox-installer.log
 SOURCES_LIST=/etc/apt/sources.list
-PPA_URL="http://ppa.launchpad.net/ebox/1.4/ubuntu"
-EBOX_SOURCES="deb $PPA_URL hardy main"
+PPA_URL="http://ppa.launchpad.net/ebox/1.5/ubuntu"
+EBOX_SOURCES="deb $PPA_URL lucid main"
 PKG_DIR=/var/tmp/ebox-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 BASE_PACKAGES="libebox"
@@ -73,8 +73,8 @@ installed_ok() {
     sed -i "s/^deb file:.*$//" /etc/apt/sources.list
     # Restore original rc.local
     mv /var/tmp/rc.local /etc/rc.local
-    # Restart gdm if installed
-    [ -x /etc/init.d/gdm ] && /etc/init.d/gdm restart
+    # Restart slim if installed
+    [ -x /etc/init.d/slim ] && /etc/init.d/slim restart
     exit 0
 }
 

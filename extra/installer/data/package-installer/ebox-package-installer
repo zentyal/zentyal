@@ -248,9 +248,10 @@ sub installPackages # (packages)
 
     my $output = `LANG=C apt-get install -s $packageList | grep ^Inst`;
 
-    if ($output =~ /ebox-samba/s) {
-        $packageList .= ' samba-vscan';
-    }
+# FIXME: add again when compiled for lucid
+#    if ($output =~ /ebox-samba/s) {
+#        $packageList .= ' samba-vscan';
+#    }
     if ($output =~ /ebox-trafficshaping/s) {
         $packageList .= ' ebox-l7-protocols';
     }
