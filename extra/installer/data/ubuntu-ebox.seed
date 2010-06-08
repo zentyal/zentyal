@@ -4,15 +4,17 @@
 ## ebox stuff
 ##
 
-# always install the server kernel
-d-i base-installer/kernel/override-image string linux-server
+# always install the pae kernel
+d-i base-installer/kernel/override-image string linux-generic-pae
 # only install basic language packs
 d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
 # install ssh, bc and custom eBox kernel
-d-i pkgsel/include string ssh bc linux-image-2.6.24-27-ebox
+d-i pkgsel/include string ssh bc
 
+# disable automatic updates, eBox will take care of that
+d-i pkgsel/update-policy select none
 ##
 ## automatic install (for testing purposes)
 ##
@@ -20,7 +22,7 @@ d-i pkgsel/include string ssh bc linux-image-2.6.24-27-ebox
 # locale sets language and country
 # this preseeding needs to be done in initrd
 #d-i debian-installer/locale string en_US
-#d-i console-setup/ask_detect boolean false
+d-i console-setup/ask_detect boolean false
 #d-i console-setup/layoutcode string us
 #d-i console-setup/variant select USA
 
@@ -40,6 +42,8 @@ d-i passwd/user-fullname string 'eBox Administrator'
 d-i passwd/username string eboxadmin
 d-i passwd/user-password password eboxadmin
 d-i passwd/user-password-again password eboxadmin
+
+d-i user-setup/encrypt-home boolean false
 
 # grub
 #d-i grub-installer/only_debian boolean true
