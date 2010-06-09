@@ -3,6 +3,7 @@ HEAD
 	+ Use a new way to push stats to eBox Control Center by using
  	  collectd directly instead of using a cron job and xdelta. Exposed
 	  the required data to monitor module to work together.
+	+ Added restriction to CC VPN to remote support feature
 1.5
 	+ Pass data-file for executing jobs
 	+ Added class for easier parsing of CSV files

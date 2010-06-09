@@ -96,6 +96,20 @@ sub domain
     return 'ebox-remoteservices';
 }
 
+# sub restartService
+# {
+#     my $self = shift;
+
+#     $self->SUPER::restartService();
+
+#     $self->_lock();
+#     try {
+#         $self->_setRemoteSupportAccessConf();
+#     } finally {
+#         $self->_unlock();
+#     };
+# }
+
 # Method: _setConf
 #
 #        Regenerate the configuration for the remote services module
@@ -106,16 +120,39 @@ sub domain
 #
 sub _setConf
 {
+    my ($self) = @_;
+      
+    if ($self->eBoxSubscribed()) {
+        $self->_confSOAPService();
+        $self->_establishVPNConnection();
+        $self->_startupTasks();
+    }
 
-      my ($self) = @_;
+    $self->_setRemoteSupportAccessConf();
+}
 
-      $self->_confSOAPService();
-      $self->_establishVPNConnection();
-      $self->_startupTasks();
 
-      my $supportAccess = 
-          $self->model('RemoteSupportAccess')->allowRemoteValue();
-      EBox::RemoteServices::SupportAccess->setEnabled($supportAccess);
+
+sub _setRemoteSupportAccessConf
+{
+    my ($self) = @_;
+
+    my $supportAccess = 
+        $self->model('RemoteSupportAccess')->allowRemoteValue();
+    my $fromAnyAddress = 
+        $self->model('RemoteSupportAccess')->fromAnyAddressValue();
+
+    
+
+
+    if ($supportAccess and (not $fromAnyAddress) and (not  $self->eBoxSubscribed() )) {
+        EBox::error('Cannot restrict access from remopte support if eBox is not suscribed');
+        return;
+    }
+
+
+    EBox::RemoteServices::SupportAccess->setEnabled($supportAccess, $fromAnyAddress);
+    EBox::Sudo::root('/usr/share/ebox/ebox-sudoers-friendly');
 }
 
 # Method: _daemons
@@ -145,9 +182,8 @@ sub _daemons
 sub isEnabled
 {
     my ($self) = @_;
-
-    return $self->eBoxSubscribed();
-
+#    return  $self->eBoxSubscribed();
+    return 1;
 }
 
 # Group: Public methods
@@ -454,9 +490,9 @@ sub ifaceVPN
 #
 # Return:
 #
-#        hash ref - containing the two following elements
+#        hash ref - containing the following elements
 #
-#             ipAddr - String the VPN IP address
+#             ipAddr - String the VPN Server IP address
 #             port   - Int the port to connect to
 #             protocol - String the protocol associated to that port
 #
@@ -658,6 +694,22 @@ sub _ccConnectionWidget
         $section->add(new EBox::Dashboard::Value(__('Control Center'), $msg, $valueType));
     }
 
+}
+
+
+sub extraSudoerUsers
+{
+    my ($self) = @_;
+    my @users;
+    my $supportAccess = 
+        $self->model('RemoteSupportAccess')->allowRemoteValue();
+    if ($supportAccess) {
+        push @users,
+            EBox::RemoteServices::SupportAccess->remoteAccessUser;
+    }
+
+
+    return @users;
 }
 
 1;

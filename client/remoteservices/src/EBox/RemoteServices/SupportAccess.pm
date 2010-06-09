@@ -23,8 +23,9 @@ use EBox::Sudo;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Module::Base;
-
-
+use EBox::NetWrappers;
+use File::Slurp;
+use EBox::Module::Base;
 
 use constant USER_NAME => 'ebox-remote-support';
 use constant USER_COMMENT => 'user for eBox remote support';
@@ -32,12 +33,17 @@ use constant USER_COMMENT => 'user for eBox remote support';
 
 sub setEnabled
 {
-    my ($self, $enable) = @_;
+    my ($self, $enable, $allowFromAnyAddress) = @_;
 
     my $user = remoteAccessUser();
     my $keysFile = EBox::Config::share() . 
                    'ebox-remoteservices/' .                  
                        'remote-support.keys';
+
+
+    # suid neccesary for multiscreen mode
+    $self->_setScreenSUID($enable);
+
 
     if (not $self->userExists($user)) {
         if (not $enable) {
@@ -53,11 +59,21 @@ sub setEnabled
     $self->userCheck();
 
     if ($enable) {
-        $self->_createSshFiles($user, $keysFile);      
+        my $restrictedAddress = undef;
+        if (not $allowFromAnyAddress) {
+            $restrictedAddress = $self->remoteAccessUserAddress();
+            if (not defined $restrictedAddress) {
+                throw EBox::Exceptions::External(
+__('Cannot ger a the estricted addresses for remote support')
+                                                );
+            }
+        }
+
+        $self->_createSshFiles($user, $keysFile, $restrictedAddress);      
         $self->_writeScreenConf($user);
     } else {
-        my $sshDir   = $self->_sshDir($user);
-        EBox::Sudo::root("rm -rf $sshDir");
+        my $rmCmd = "deluser --remove-home --quiet $user";
+        EBox::Sudo::root("$rmCmd");
     }
 
 }
@@ -66,6 +82,26 @@ sub remoteAccessUser
 {
     return USER_NAME;
 }
+
+
+sub remoteAccessUserAddress
+{
+    my $vpnInterface = EBox::Global->modInstance('remoteservices')->ifaceVPN();
+    defined $vpnInterface or
+        return undef;
+    EBox::NetWrappers::iface_exists($vpnInterface) or
+          return undef;
+    EBox::NetWrappers::iface_is_up($vpnInterface) or
+          return undef;
+    my $netmaskByAddr = EBox::NetWrappers::iface_addresses_with_netmask($vpnInterface);
+    # we assume that is only one address/netmask
+    my ($address, $netmask) = each %{ $netmaskByAddr };
+    my $network = EBox::NetWrappers::ip_network($address, $netmask);
+    $network =~ s/(\.0)+$/.*/;
+
+    return $network;
+}
+
 
 
 sub userExists
@@ -95,13 +131,21 @@ sub userCheck
 
 sub _createSshFiles
 {
-    my ($self, $user, $keyFile) = @_;
+    my ($self, $user, $keyFile, $restrictedAddress) = @_;
     my $sshDir = $self->_sshDir($user);
+    my $authKeysFile = "$sshDir/authorized_keys";
+
     EBox::Sudo::root("mkdir -p --mode=0700 $sshDir");
-    EBox::Sudo::root("cp $keyFile $sshDir/authorized_keys");
-    EBox::Sudo::root("chmod 0600 $sshDir/authorized_keys");
+    if (not $restrictedAddress) {
+        EBox::Sudo::root("cp $keyFile $authKeysFile");
+    } else {
+        my $contents = File::Slurp::read_file($keyFile);
+        $contents =~ s/^ssh-/from="$restrictedAddress" ssh-/;
+        EBox::Module::Base::writeFile($authKeysFile, $contents);
+    }
+
+    EBox::Sudo::root("chmod 0600 $authKeysFile");
     EBox::Sudo::root("chown -R $user.$user $sshDir");
-    
 }
 
 
@@ -151,12 +195,20 @@ sub _writeScreenConf
         return;
     }
 
+
+    my $logFile = $self->_homedir($user) . "/support.log";
+
     my $userStr = join ',', @users;
     $conf .= "\n";
     $conf .= qq{aclchg $userStr -w "#"\n};
     $conf .= "defwritelock on\n";
     $conf .= q{caption always 'eBox support - %H'};
     $conf .= "\n";
+    $conf .= "screen\n";
+    $conf .= "logfile $logFile\n";
+    $conf .= "log on\n";
+
+
 
     my $screenRc = $self->_screenRc($user);
     EBox::Module::Base::writeFile(
@@ -165,6 +217,20 @@ sub _writeScreenConf
                                  );
     EBox::Sudo::root("chown $user.$user $screenRc");
     EBox::Sudo::root("chsh -s /usr/bin/screen $user");
+
+}
+
+
+sub _setScreenSUID
+{
+    my ($self, $active) = @_;
+    if ($active) {
+        EBox::Sudo::root("chmod u+s /usr/bin/screen");
+        EBox::Sudo::root("chmod 755 /var/run/screen");
+    } else {
+        EBox::Sudo::root("chmod u-s /usr/bin/screen");
+        EBox::Sudo::root("chmod 775 /var/run/screen");        
+    }
 }
 
 

@@ -22,6 +22,7 @@ use warnings;
 
 use base 'EBox::Model::DataForm';
 
+use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::RemoteServices::SupportAccess;
@@ -54,40 +55,6 @@ sub new
 
 }
 
-# Method: validateTypedRow
-#
-#     Override to check the user to provide support exists
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::validateTypedRow>
-#
-sub validateTypedRow
-{
-    my ($self, $actions, $params) = @_;
-    if (exists $params->{allowRemote}) {
-        if ($params->{allowRemote}->value()) {
-            EBox::RemoteServices::SupportAccess->userCheck();
-        }
-    }
-}
-
-# Method: viewCustomizer
-#
-#     Override to set the message to log in the screen session
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-    $customizer->setPermanentMessage(_message());
-    return $customizer;
-}
 
 # Group: Protected methods
 
@@ -109,42 +76,82 @@ sub _table
                                 editable      => 1,
                                 default       => 0,
                                ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'fromAnyAddress',
+                                printableName => __('Remote access from any internet address'),
+                                editable      => 1,
+                                default       => 0,
+                                help =>
+__('By default the acces is only granted to hosts inside the Control Center private network. If you enable this option access is granted from any address. Use this option only if you could not connect to the Control Center')
+                               ),
       );
 
     my $dataForm = {
                     tableName          => 'RemoteSupportAccess',
-                    printableTableName => __('Remote support access configuration'),
+                    printableTableName => __('Remote support accesss'),
                     modelDomain        => 'RemoteServices',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
                     class              => 'dataForm',
-                    help               => _help(),
-                    pageTitle          => __('Remote Support Access'),
                 };
 
       return $dataForm;
 
   }
 
-# Group: Private methods
 
-sub _help
+sub validateTypedRow
 {
-    return __x('eBox Technologies provides support for eBox Platform through our '
-               . '{openhref}store{closehref}',
-               openhref => '<a href="http://store.ebox-technologies.com?utm_source=ebox&utm_medium=ebox&utm_content=remoteaccess&utm_campaign=access"'
-                           . ' target="_blank">',
-               closehref => '</a>');
+    my ($self, $actions, $params_r, $actual_r) = @_;
+    if (exists $params_r->{allowRemote}) {
+        if ($params_r->{allowRemote}->value()) {
+            EBox::RemoteServices::SupportAccess->userCheck();
+        }
+    }
+
+    my $access = exists $params_r->{allowRemote} ?
+                        $params_r->{allowRemote}->value() :
+                        $actual_r->{allowRemote}->value();
+    my $fromAny = exists $params_r->{fromAnyAddress} ?
+                        $params_r->{fromAnyAddress}->value() :
+                        $actual_r->{fromAnyAddress}->value();
+    if ($fromAny) {
+        if (not $access) {
+            throw EBox::Exceptions::External(
+__('Remote access from any address requires that remote access support is enabled')
+                                            );
+        }
+    } else {
+        if ($access) {
+            my $rs = EBox::Global->modInstance('remoteservices');
+            if (not $rs->eBoxSubscribed()) {
+            throw EBox::Exceptions::External(
+__('To restrict addresses you need that your eBox is subscribed to the Control Center. Either subscribe it or allow access from any addresse')
+                                            );
+            }
+        }
+    }
 }
+
 
 sub _message
 {
     my $msg =  __x(
- q[To join the remote session, login in the shell as a user belonging to the '{group}' group and use the command '{cmd}'.],
-   group => 'adm',
+ "Enabling remote support will allow staff from eBox technologies to freely access your computer.\n" .
+ "You could use screen to join their shell option. To be able to do so the SUID bit of the 'screen' program is enabled; this change is undone when this option is disabled\n".
+ q[To join the remote session, login in the shell as a user belonging to the 'adm' group and use the command '{cmd}'.],
    cmd => 'screen -x ebox-remote-support/'
     );
     return $msg;
+}
+
+sub viewCustomizer
+{
+    my ($self) = @_;
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setPermanentMessage(_message());
+    return $customizer;
 }
 
 
