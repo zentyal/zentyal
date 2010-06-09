@@ -169,6 +169,7 @@ sub run
 	}
 	else {
 	  try {
+	    $self->_validateReferer();
 	    settextdomain($self->domain());
 	    $self->_process();
 	 } catch EBox::Exceptions::DataInUse with {

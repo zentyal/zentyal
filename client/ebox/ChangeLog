@@ -1,4 +1,5 @@
 HEAD
+	+ Security [ESN-1-1]: Validate referer to avoid CSRF attacks
 	+ Added reporting structure to events module
 	+ Added new CGI to download the last lines of ebox.log
 1.5.1

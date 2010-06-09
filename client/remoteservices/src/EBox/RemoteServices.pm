@@ -110,6 +110,20 @@ sub domain
 #     };
 # }
 
+# Method: proxyDomain
+#
+#   Returns proxy's domain name or undef if service is disabled
+#
+sub proxyDomain
+{
+    my ($self) = @_;
+
+    if ( $self->eBoxSubscribed() ) {
+        return $self->_confKeys()->{domain};
+    }
+    return undef;
+}
+
 # Method: _setConf
 #
 #        Regenerate the configuration for the remote services module
@@ -121,7 +135,7 @@ sub domain
 sub _setConf
 {
     my ($self) = @_;
-      
+
     if ($self->eBoxSubscribed()) {
         $self->_confSOAPService();
         $self->_establishVPNConnection();
@@ -137,12 +151,12 @@ sub _setRemoteSupportAccessConf
 {
     my ($self) = @_;
 
-    my $supportAccess = 
+    my $supportAccess =
         $self->model('RemoteSupportAccess')->allowRemoteValue();
-    my $fromAnyAddress = 
+    my $fromAnyAddress =
         $self->model('RemoteSupportAccess')->fromAnyAddressValue();
 
-    
+
 
 
     if ($supportAccess and (not $fromAnyAddress) and (not  $self->eBoxSubscribed() )) {
@@ -701,7 +715,7 @@ sub extraSudoerUsers
 {
     my ($self) = @_;
     my @users;
-    my $supportAccess = 
+    my $supportAccess =
         $self->model('RemoteSupportAccess')->allowRemoteValue();
     if ($supportAccess) {
         push @users,

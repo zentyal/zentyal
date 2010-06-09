@@ -258,6 +258,7 @@ sub run
 	}
 	else {
 	  try {
+	    $self->_validateReferer();
 	    settextdomain($self->domain());
 	    $self->_process();
 	  }
@@ -514,7 +515,7 @@ sub _process
 
 	$self->_validateParams();
 	$self->actuate();
-      $self->{params} = $self->masonParameters();
+	$self->{params} = $self->masonParameters();
 }
 
 # Method: setMsg
@@ -651,7 +652,6 @@ sub paramsAsHash
 
 sub _validateParams
 {
-
     my ($self) = @_;
     my $params_r    = $self->params();
     $params_r       = $self->_validateRequiredParams($params_r);
@@ -664,6 +664,37 @@ sub _validateParams
     }
 
     return 1;
+}
+
+
+sub _validateReferer
+{
+    my ($self) = @_;
+
+    # Only check if the client sends params
+    if ( ! @{$self->params()} ) {
+        return;
+    }
+
+    my $referer = $ENV{HTTP_REFERER};
+    my $hostname = $ENV{HTTP_HOST};
+    my $rshostname = $ENV{HTTP_HOST};
+
+    # allow remoteservices proxy access
+    # proxy is a valid subdomain of {domain}
+    if ( EBox::Global->modExists('remoteservices') ) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+
+        if ( $rs->isConnected() ) {
+            $rshostname = $rs->proxyDomain();
+        }
+    }
+    EBox::debug("Validating referer: $referer");
+    if ( $referer =~ m/^https:\/\/$hostname(:[0-9]*)?\// or
+         $referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\// ) {
+        return; # everithing ok
+    }
+    throw EBox::Exceptions::External( __("Wrong HTTP referer detected, operation cancelled for security reasons"));
 }
 
 
