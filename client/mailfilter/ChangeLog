@@ -1,3 +1,5 @@
+HEAD
+        + Bugfix: data for CC's SMTP report was not correctly formated
 1.5
 	+ Update configuration templates with the configuration files from lucid
 	+ Bugfix: fixed training with uploaded files

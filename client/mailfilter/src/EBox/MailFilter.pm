@@ -773,11 +773,20 @@ sub report
 
     my $report;
 
-    $report->{'smtp'} = $self->runMonthlyQuery($beg, $end, {
+    my $smtpRaw = $self->runMonthlyQuery($beg, $end, {
         'select' => 'lower(event) AS event, SUM(messages) AS messages',
         'from' => 'mailfilter_smtp_report',
         'group' => "event"
     }, { 'key' => 'event'});
+
+    
+    $report->{'smtp'} = {};
+    foreach my $key (%{ $smtpRaw }) {
+        my $messages = $smtpRaw->{$key}->{messages};
+        defined $messages or
+            next;
+        $report->{'smtp'}->{$key} = $messages;
+    }
 
     $report->{'pop'} = $self->runMonthlyQuery($beg, $end, {
         'select' => 'SUM(clean) AS clean, SUM(spam) AS spam,' .
@@ -788,6 +797,7 @@ sub report
 
     return $report;
 }
+
 
 
 1;
