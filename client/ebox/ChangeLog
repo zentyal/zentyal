@@ -1,5 +1,6 @@
 HEAD
-        + Added reporting structure to events module
+	+ Added reporting structure to events module
+	+ Added new CGI to download the last lines of ebox.log
 1.5.1
 	+ Bugfix: Catch exception when upstart daemon does not exist and
 	  return a stopped status
@@ -14,7 +15,7 @@ HEAD
 	+ Events: Add possibility to enable watchers by default
 	+ Bugfix: Adding a new field to a model now uses default
 	  value instead of an empty value
-        + Added script and web interface for configuration report, added
+	+ Added script and web interface for configuration report, added
 	  more log files to the configuration report
 1.5
 	+ Use built-in authentication
