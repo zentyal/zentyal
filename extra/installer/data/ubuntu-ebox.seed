@@ -55,10 +55,15 @@ d-i user-setup/encrypt-home boolean false
 ## packages configuration preseeding
 ##
 
-# tasksel answers
+# tasksel answers (don't install standard task)
+tasksel tasksel/skip-tasks  string standard
 tasksel tasksel/first multiselect
+
 # postfix answers
 postfix postfix/main_mailer_type select No configuration
+
+# No boot splash screen.
+d-i debian-installer/splash boolean false
 
 # late command (we prepare here the ebox custom installer)
 d-i preseed/late_command string \

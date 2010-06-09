@@ -30,9 +30,6 @@ do
     cp /cdrom/pool/extras/${p}_*.deb $PKG_DIR 2> /dev/null
 done
 
-# disable splash on boot
-sed -i 's/ splash//g' /boot/grub/grub.cfg
-
 sync
 
 exit 0

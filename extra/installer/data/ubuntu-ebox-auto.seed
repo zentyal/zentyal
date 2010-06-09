@@ -24,6 +24,8 @@ d-i pkgsel/update-policy select none
 #d-i partman-auto/disk string /dev/sda
 d-i partman-auto/method string lvm
 d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-md/device_remove_md boolean true
 d-i partman-lvm/confirm boolean true
 d-i partman-auto-lvm/guided_size string max
 d-i partman-auto/choose_recipe select home
@@ -126,10 +128,15 @@ d-i grub-installer/only_debian boolean true
 ## packages configuration preseeding
 ##
 
-# tasksel answers
+# tasksel answers (don't install standard task)
+tasksel tasksel/skip-tasks  string standard
 tasksel tasksel/first multiselect
+
 # postfix answers
 postfix postfix/main_mailer_type select No configuration
+
+# No boot splash screen.
+d-i debian-installer/splash boolean false
 
 # late command (we prepare here the ebox custom installer)
 d-i preseed/late_command string \
