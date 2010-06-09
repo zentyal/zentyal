@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 eBox Technologies S.L.
+# Copyright (C) 2008-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -91,8 +91,8 @@ sub modelClasses
         'EBox::EBackup::Model::RemoteExcludes',
         'EBox::EBackup::Model::RemoteStatus',
         'EBox::EBackup::Model::RemoteFileList',
-        'EBox::EBackup::Model::RemoteRestoreLogs',     
-        'EBox::EBackup::Model::RemoteRestoreConf',     
+        'EBox::EBackup::Model::RemoteRestoreLogs',
+        'EBox::EBackup::Model::RemoteRestoreConf',
     ];
 }
 
@@ -208,7 +208,7 @@ __(q{No backup archives found. Maybe they were deleted?.} .
         } else {
             $ex->throw();
         }
-            
+
     };
 }
 
@@ -230,7 +230,7 @@ sub remoteArguments
 
     my $volSize = $self->_volSize();
     my $fileArgs = $self->remoteFileSelectionArguments();
-    my $cmd =  DUPLICITY_WRAPPER .  " $type " . 
+    my $cmd =  DUPLICITY_WRAPPER .  " $type " .
             "--volsize $volSize " .
             "$fileArgs " .
             " / " . $self->_remoteUrl();
@@ -256,11 +256,11 @@ sub dumpExtraData
     }
 
     my $global = EBox::Global->getInstance();
-    
+
     # Backup configuration
     my $bakCmd = EBox::Config::pkgdata() .
         '/ebox-make-backup --destination confbackup.tar';
-    
+
     try {
         EBox::Sudo::root($bakCmd);
         # XXX Some modules such as events are marked as changed after
@@ -526,7 +526,7 @@ sub setRemoteBackupCrontab
             push (@lines, "$incr $script --incremental");
         }
     }
-    
+
     my $tmpFile = EBox::Config::tmp() . 'crontab';
     open(my $tmp, '>' .  EBox::Config::tmp() . 'crontab');
     if ($self->isEnabled()) {
@@ -585,7 +585,7 @@ sub _syncRemoteCaches
     my @oldRemoteStatus = @{ $self->remoteStatus() };
     $self->remoteGenerateStatusCache();
     my @newRemoteStatus = @{ $self->remoteStatus() };
-    
+
     my $genListFiles = 0;
     if (@newRemoteStatus == 0) {
         # no files, clear fileList archive if it exists
@@ -607,9 +607,9 @@ sub _syncRemoteCaches
                    ) {
                     $genListFiles = 1;
                     last;
-                } 
+                }
             }
-            
+
         }
     }
 
