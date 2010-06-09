@@ -158,7 +158,7 @@ my @packages = selectPackagesMenu();
 push (@packages, 'remoteservices');
 @packages = map ("ebox-$_", @packages);
 if ($CNF_x11) {
-    push (@packages, 'firefox', 'xorg', 'slim',
+    push (@packages, 'firefox', 'xorg', 'slim', 'gksu',
                      'blackbox', 'xterm', 'libnss3-tools');
 }
 
