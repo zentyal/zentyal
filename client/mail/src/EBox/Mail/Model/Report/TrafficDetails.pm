@@ -1,4 +1,4 @@
-# Copyright (C) 2008 Warp Networks S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -71,15 +71,15 @@ sub _table
                         ),
                      new EBox::Types::Int(
                          fieldName => 'sent',
-                         printableName => __('Sent messages'), 
+                         printableName => __('Sent messages'),
                         ),
                      new EBox::Types::Int(
                          fieldName => 'received',
-                         printableName =>  __('Received messages'), 
+                         printableName =>  __('Received messages'),
                         ),
                      new EBox::Types::Int(
                          fieldName => 'rejected',
-                         printableName =>  __('Rejected messages'), 
+                         printableName =>  __('Rejected messages'),
                         ),
                     ];
 
