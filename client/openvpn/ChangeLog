@@ -1,4 +1,4 @@
-HEAD
+1.5.2
 	+ Use a different persistent connection file for each daemon
 	instead of sharing a common one
 	+ Better messages for upload bundle errors

@@ -1,4 +1,4 @@
-HEAD
+1.5.1
 	+ Depends on @remoteservices@ package if the host is subscribed to
 	  eBox Control Center to send them the stats using the appropiate IP
 	  address to send stats to

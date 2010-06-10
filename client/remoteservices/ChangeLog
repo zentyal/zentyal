@@ -1,8 +1,8 @@
-HEAD
+1.5.1
 	+ Security [ESN-1-1]: Added proxyDomain method needed for the CSRF fix
 	+ Delete no longer available cron jobs when synchronising
 	+ Use a new way to push stats to eBox Control Center by using
- 	  collectd directly instead of using a cron job and xdelta. Exposed
+	  collectd directly instead of using a cron job and xdelta. Exposed
 	  the required data to monitor module to work together.
 	+ Added restriction to CC VPN to remote support feature
 1.5

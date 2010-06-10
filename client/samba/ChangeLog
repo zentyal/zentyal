@@ -1,4 +1,4 @@
-HEAD
+1.5.3
 	+ Bug fix: do not add acl attribute in /etc/fstab when using xfs
 1.5.2
 	+ Enforce uniqueness of 'user/group' filed in shares permissions
