@@ -78,7 +78,7 @@ sub _table
                                ),
        new EBox::Types::Boolean(
                                 fieldName     => 'fromAnyAddress',
-                                printableName => __('Remote access from any internet address'),
+                                printableName => __('Allow access from any internet address'),
                                 editable      => 1,
                                 default       => 0,
                                 help =>
