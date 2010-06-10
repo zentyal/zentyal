@@ -1,4 +1,4 @@
-# Copyright (C) 2009 Warp Networks S.L.
+# Copyright (C) 2009-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -275,7 +275,7 @@ sub _setConf
     # regenerate freshclam cron hourly script
     EBox::Module::Base::writeConfFileNoCheck(FRESHCLAM_CRON_SCRIPT, "antivirus/freshclam-cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . FRESHCLAM_CRON_SCRIPT);
-    
+
   }
   else {
     # remove freshclam cron hourly entry
@@ -291,7 +291,7 @@ sub _setConf
 # Method: freshclamState
 #
 #   get the last freshclam event
-#  
+#
 #  Returns:
 #     hash ref with the following fields
 #       update - true if the last event was a succesful update
@@ -414,10 +414,10 @@ sub summary
 #                             event. This key does not exist in other events
 #      freshclamEventTimestamp - timestamp of the last event. Undef if there was not last event
 #
-# Overrides: 
+# Overrides:
 #   <EBox::Module::Base::report>
 sub report
-{    
+{
     my ($self) = @_;
     my $state = $self->freshclamState();
 
@@ -440,7 +440,7 @@ sub report
     if ($event eq 'outdated') {
         $report->{clamVersionRequested} = $eventInfo,
     }
-    
+
 
     return $report;
 }
