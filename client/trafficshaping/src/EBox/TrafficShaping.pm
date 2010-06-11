@@ -1450,11 +1450,13 @@ sub _buildObjToObj
       my $srcAddr = new EBox::Types::IPAddr(
 					    ip   => $srcMember_ref->{ip},
 					    mask => $srcMember_ref->{mask},
+                                            fieldName => 'srcAddr',
 					   );
       foreach my $dstMember_ref (@{$dstMembs_ref}) {
 	my $dstAddr = new EBox::Types::IPAddr(
 					      ip   => $dstMember_ref->{ip},
 					      mask => $dstMember_ref->{mask},
+                                              fieldName => 'dstAddr',
 					     );
 	$args{treeBuilder}->addFilter(
 				      leafClassId => $args{ruleRelated},

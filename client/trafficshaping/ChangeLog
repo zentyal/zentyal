@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: Check against objects in edit rules works again
 1.5
 	+ Bug fix: Return if changed if it really happens any change in
 	  the model for Interface Rate
