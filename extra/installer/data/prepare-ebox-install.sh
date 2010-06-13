@@ -30,6 +30,9 @@ do
     cp /cdrom/pool/extras/${p}_*.deb $PKG_DIR 2> /dev/null
 done
 
+# Disable framebuffer to avoid problems on some systems
+sed -i 's/ro quiet/ro quiet vga=normal nomodeset/g' /boot/grub/grub.cfg
+
 sync
 
 exit 0

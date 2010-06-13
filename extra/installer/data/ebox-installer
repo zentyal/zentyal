@@ -101,6 +101,9 @@ package_installer() {
     sed -i '1 d' /etc/lsb-base-logging.sh
 }
 
+# Wait until proper console font is set...
+service console-setup start
+sleep 1
 
 echo "Starting eBox installer..."
 # Main checks for re-runs. Just run the installer if we've been here before.
