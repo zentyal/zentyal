@@ -1,5 +1,6 @@
 HEAD
 	+ Javascript refreshing instead of meta tag in log pages
+	+ Updated links in dashboard widget
 1.5.2
 	+ Security [ESN-1-1]: Validate referer to avoid CSRF attacks
 	+ Added reporting structure to events module
