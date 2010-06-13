@@ -1,4 +1,5 @@
-# Copyright (C) 2009-2010 eBox Technologies S.L.
+# Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2008-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -392,8 +393,8 @@ sub learn
                                         'In order to be able to learn enable the bayesian filter and save changes')
                                     );
   }
-  
-  
+
+
   my $username =  $params{username};
   if ($username =~ m/@/) {
       # XXX and what about alias?
