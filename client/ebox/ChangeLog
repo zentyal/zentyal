@@ -1,4 +1,5 @@
 HEAD
+	+ Function _isDaemonRunning works now with snort in lucid
 	+ Javascript refreshing instead of meta tag in log pages
 	+ Updated links in dashboard widget
 1.5.2
