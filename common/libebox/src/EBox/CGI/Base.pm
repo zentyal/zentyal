@@ -690,7 +690,6 @@ sub _validateReferer
             $rshostname = $rs->proxyDomain();
         }
     }
-    EBox::debug("Validating referer: $referer");
     if ( $referer =~ m/^https:\/\/$hostname(:[0-9]*)?\// or
          $referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\// ) {
         return; # everithing ok
