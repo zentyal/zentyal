@@ -247,7 +247,7 @@ sub menu
     $root->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
                                     'name' => 'Subscription',
                                     'text' => __('Control Center'),
-                                    'order' => 800,
+                                    'order' => 105,
                                    )
               );
 

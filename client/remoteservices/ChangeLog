@@ -1,3 +1,5 @@
+HEAD
+	+ Modified order in menu, now Control Center is right after software
 1.5.1
 	+ Security [ESN-1-1]: Added proxyDomain method needed for the CSRF fix
 	+ Delete no longer available cron jobs when synchronising
