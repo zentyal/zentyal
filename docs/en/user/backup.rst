@@ -51,23 +51,15 @@ be used to connect to the remote server.
 
 .. FIXME: Update the shot with new Encryption field
 
-:guilabel:`Method`:
-  The current supported methods are *eBox Backup Storage (EU)*, *eBox
-  Backup Storage (US Denver)*, *eBox Backup Storage (US West Coast)*,
-  *FTP*, *SCP* and *File System*. Note that depending on the method
-  you select you will have to provide more or less information such as
-  the remote host address or user and password. All methods except
-  *File System* are used to access remote servers. This means you will
-  have to provide proper credentials to connect to the server. You may
-  create an account in our store [#]_ for *eBox Backup Storage*
-  methods, use this service to have a quick and safe remote location
-  to store your data. If you use any of *eBox Backup Storage* methods
-  you will not need to introduce the remote server address as eBox
-  will have it configured automatically. On the other hand, if you
-  select, *FTP* or *SCP* you will need to provide the remote server
+:guilabel:`Method`: 
+  The current supported methods are *Rsync*, *FTP*, *SCP* and *File
+  System*. Note that depending on the method you select you will have
+  to provide more or less information such as the remote host address
+  or user and password. All methods except *File System* are used to
+  access remote servers. This means you will have to provide proper
+  credentials to connect to the server. That's it, if you select
+  *FTP*, *Rsync* or *SCP* you will need to provide the remote server
   address.
-
-.. [#] eBox Technologies store at https://store.ebox-technologies.com
 
 .. warning::
       If you use *SCP*, you will need to execute `sudo ssh user@server` and
@@ -76,10 +68,9 @@ be used to connect to the remote server.
       connect to the server.
 
 :guilabel:`Host or Destination`:
-  For *FTP* and *SCP* you will need to provide the remote host name or IP
+  For *FTP*, *Rsync* and *SCP* you will need to provide the remote host name or IP
   address to connect. In case of using *File System*, introduce a local file
-  system path. If you use a *eBox Backup Storage* method, then only the
-  relative path is required.
+  system path.
 
 :guilabel:`User`:
   User name to authenticate in the remote host.
@@ -96,39 +87,34 @@ be used to connect to the remote server.
   This is used to tell the module how often a full backup is carried out. Values
   are: *Daily*, *Weekly*, *Monthly*. If you select *Weekly* or *Monthly*
   frequencies, you will show a second selection where you could choose the exact
-  day of the week or month the backup is carried out.
-
-
+  day of the week or the month the backup is carried out.
 
 :guilabel:`Incremental Backup Frequency`:
   This option signals either the frequency of the incremental backups or whether
   the incremental backup is disabled. 
 
   If the incremental backup is to be enabled we can choose a *Daily* or *Weekly*
-  frequency, in the last case also a week day should be chosen. However the
+  frequency, in the latter a week day should be chosen as well. However, the
   frequency must be higher than the full backup frequency. 
 
-  In the days on which a full backup is done, any scheduled incremental backup
+  On those days which a full backup is done, any scheduled incremental backup
   will be skipped.
 
-
 :guilabel:`Backup process starts at`:
-  This field is used to set the time at when the backup process, both full and incremental, starts. It is
-  a good idea to set it to times when nobody is in the office as it can consume a
-  lot of upload bandwidth.
-
+  This field is used to set the time when the backup process, both
+  full and incremental, starts. It is a good idea to set it while
+  nobody is in the office as it may consume a lot of upload bandwidth.
 
 :guilabel:`Keep previous full copies`:
   This setting is used to limit the number of full copies that are stored. You
   can choose either to limit by number or limit by date.
 
   If you limit by number, only the choose number of previous backups will be
-  kept; the actual full backup is not included in the count.
-  In case you limit by date, full backups older than the selected period will
+  kept; the actual full backup is not included in the count number.
+  If you limit by date, full backups older than the selected period will
   be removed. 
 
   When a full backup is removed all of its incremental backups are also removed.
-
 
 
 Configuring what directories and files are backed up
@@ -148,11 +134,11 @@ when a path matches a include before matching a exclude, it will be included.
 The order to apply the includes and excludes could be changed using the arrows
 icons in the list.
 
-.. note
-You can  exclude files by extension using a regular expression exclude. For
-example, if you want to skip *AVI* files from the backup, you can select
-*Exclude regexp* and add `\.avi$`.
+.. note::
 
+  You can  exclude files by extension using a regular expression exclude. For
+  example, if you want to skip *AVI* files from the backup, you can select
+  *Exclude regexp* and add `\.avi$`.
 
 The default configuration has the following directories excluded: `/mnt`,
 `/dev`, `/media`, `/sys`, `\tmp`, `/var/cache` and `/proc`. It is usually a bad
@@ -178,9 +164,10 @@ You can check the status of your backup under the section *Remote Backup
 Status*. In that table, you will see the type of backup, full or
 incremental, and the date when it was taken.
 
-.. note
-If for whatever reason you remove manually the backup files, you can force to regenerate
-this list with the command::
+.. note::
+  
+  If for whatever reason you remove manually the backup files, you can force to regenerate
+  this list with the command::
      # /etc/init.d/ebox ebackup restart
 
 
@@ -211,7 +198,7 @@ file or directory that you need to restore.
 
 It is possible to restore files directly from the eBox interface. In the section
 :menuselection:`Backup --> Restore Files` you have access to the list of all the
-backuped paths and to the available dates to be restored. 
+backed up paths and to the available dates to be restored. 
 
 If the path is a directory all its contents will be restored, subdirectories
 included.
@@ -220,12 +207,11 @@ The file will be restored as it was when the date selected, if the file was not
 present in this date the most recent earlier version will be restored; in case
 does not exist a earlier version a error message will be shown.
 
-.. warning
-The files shown are the files present in the last backups. Files that are stored
-in any previous backup except the last one are not displayed, but they could be
-restored using the command line.
- 
-
+.. warning::
+  
+  The files shown are the files present in the last backups. Files that are stored
+  in any previous backup except the last one are not displayed, but they could be
+  restored using the command line.
 
 Use this method with
 small files and directories, if they are too big it will take too long and you won't be
@@ -371,7 +357,7 @@ clean up the temporal directories.::
     # rm -fr /mnt/var/lock/*
 
 
-The restoring proccess has finished and you can reboot now.
+The restoring process has finished and you can reboot now.
 
 
 
@@ -388,7 +374,7 @@ The eBox configuration's backup stores  the
 configuration of all modules that have been enabled at some point, as well as
 the LDAP data and any other additional files required by each of these modules.
 
-You must be careful in case of the eBox configuration restore becasuse all the
+You must be careful in case of the eBox configuration restore because all the
 configuration and LDAP data will be replaced. However, for the non-LDAP
 configuration you must click 'Save changes' to enforce the data.
 
@@ -460,7 +446,7 @@ provides an option to extract information from the backup file. Another
 interesting feature is the possibility of making partial restorations, restoring
 only some specific modules.
 This is very useful when restoring a module from an old version or when
-restoring a module failed. You should be careful with the interdependencies
+restoring a module failed. You should be careful with the inter-dependencies
 between the modules. For example, if you restore a firewall module backup
 that uses objects and services you have to restore those first. But you still
 have the option to force the script to ignore the dependencies that you can

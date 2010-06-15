@@ -129,15 +129,16 @@ sub viewCustomizer
     $customizer->setOnChangeActions(
             { method =>
                 {
-                ebox_eu => {  enable => $userPass },
-                ebox_us_w => { enable => $userPass },
+                # ebox_eu => {  enable => $userPass },
+                # ebox_us_denver => { enable => $userPass },
+                # ebox_us_w => { enable => $userPass },
                 file => { disable => $userPass },
                 rsync => { enable => $allFields },
                 scp => { enable => $allFields },
                 ftp => { enable => $allFields },
                 }
             });
-    $customizer->setPermanentMessage(_message());
+    # $customizer->setPermanentMessage(_message());
     return $customizer;
 }
 
@@ -165,8 +166,7 @@ sub _table
            fieldName     => 'target',
            printableName => __('Host or destination'),
            editable      => 1,
-           help          => __x('If the selected method is {brand}, only set the target directory',
-                                brand => 'eBox Backup Storage'),
+           help          => __('If the selected method is file system, only set the target directory'),
        ),
        new EBox::Types::Text(
            fieldName     => 'user',
@@ -270,7 +270,6 @@ sub _table
                 new EBox::Types::Int(
                     'fieldName' => 'full_copies_to_keep_number',
                     'printableName' => __('maximum number'),
-                                     
                     'editable'=> 1,
                     'default' => 1,
                     'min'     => 1,
@@ -295,10 +294,6 @@ sub _table
         printableTableName => __('General Configuration'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
-        help               => __x('If you choose {brand} or file system methods '
-                                  . ', then the destination field '
-                                  . 'may be the target directory in the backup server',
-                                 brand => 'eBox Backup Storage'),
         messages           =>
             {
                 update => __('General backup server configuration updated'),
@@ -445,29 +440,29 @@ sub _crontabStringLastDayMonth
 sub _method
 {
     return ([
-            {
-            value => 'ebox_eu',
-            printableValue => 'eBox Backup Storage (EU)',
-            },
-            {
-            value => 'ebox_us_denver',
-            printableValue => 'eBox Backup Storage (US Denver)',
-            },
-            {
-            value => 'ebox_us_w',
-            printableValue => 'eBox Backup Storage (US West Coast)',
-            },
+            # {
+            # value => 'ebox_eu',
+            # printableValue => 'eBox Backup Storage (EU)',
+            # },
+            # {
+            # value => 'ebox_us_denver',
+            # printableValue => 'eBox Backup Storage (US Denver)',
+            # },
+            # {
+            # value => 'ebox_us_w',
+            # printableValue => 'eBox Backup Storage (US West Coast)',
+            # },
             {
             value => 'file',
             printableValue => 'File System',
             },
             {
-            value => 'rsync',
-            printableValue => 'RSYNC',
-            },
-            {
             value => 'ftp',
             printableValue => 'FTP',
+            },
+            {
+            value => 'rsync',
+            printableValue => 'RSYNC',
             },
             {
             value => 'scp',

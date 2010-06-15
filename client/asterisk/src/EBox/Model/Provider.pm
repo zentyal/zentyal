@@ -192,10 +192,13 @@ sub viewCustomizer
 sub _message
 {
     my $voipmsg =  __x(
-        'eBox VoIP Credit: make low-cost VoIP calls to mobile phones and ' .
-        'landlines directly with eBox. Purchase the VoIP credit you need directly ' .
-        'at the {ohref}eBox on-line store{chref}! ',
-         ohref => '<a href="http://store.ebox-technologies.com/">',
+        '{brand}: make low-cost VoIP calls to mobile phones and ' .
+        'landlines directly with eBox. Once you have obtained a {subs} ' .
+        ', you can purchase the VoIP credit you need. All these services ' .
+        'available for purchasing at the {ohref}eBox on-line store{chref}! ',
+         brand => 'eBox VoIP Credit',
+         subs  => 'Professional or Enterprise Server Subscription',
+         ohref => '<a href="http://store.ebox-technologies.com/?utm_source=ebox&utm_medium=ebox&utm_campaign=asterisk">',
          chref => '</a>'
     );
     return $voipmsg;

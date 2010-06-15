@@ -240,7 +240,8 @@ SIP provider, so eBox can route calls through it:
   It is the internal extension that will receive the incoming calls to the
   provider account.
 
-.. [#] You may buy **eBox VoIP credit** in our store_.
+.. [#] You may buy **eBox VoIP credit** in our store_ if you have
+       Professional or Enterprise Server Subscription.
 
 .. _store: http://store.ebox-technologies.com/?utm_source=doc
 

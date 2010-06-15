@@ -260,7 +260,8 @@ las llamadas a través de él:
   Es la extensión interna a la que se redirigen las llamadas realizadas
   a la cuenta del proveedor.
 
-.. [#] Puedes comprar **eBox VoIP credit** en nuestra tienda_.
+.. [#] Puedes comprar **eBox VoIP credit** en nuestra tienda_ si
+       tienes *Professional* o *Enterprise Server Subscriptions*.
 
 .. _tienda: http://store.ebox-technologies.com/?utm_source=doc_es
 

@@ -57,25 +57,16 @@ especificar que protocolo se usa para conectarse al servidor remoto.
 
    Configuración
 
-
 :guilabel:`Método`:
-  Los distintos métodos que son soportados actualmente son *eBox
-  Backup Storage (EU)*, *eBox Backup Storage (US Denver)*, *eBox
-  Backup Storage (US West Coast)*, *FTP*, *SCP* y *Sistema de
-  ficheros*. Debemos tener en cuenta que dependiendo del método que
-  seleccione deberemos proporcionar más o menos información: dirección
-  del servidor remoto, usuario o contraseña. Todos los métodos salvo
-  *Sistema de ficheros* acceden servicios remotos. Ésto significa que
-  proporcionaremos los credenciales adecuados para conectar con el
-  servidor.  Puedes crear una cuenta en nuestra tienda [#]_ para los
-  métodos *eBox Backup Storage*, emplea este servicio para disfrutar
-  de una ubicación segura remota donde almacenar tus datos. Además no
-  necesitarás incluir la dirección del servidor remoto ya que eBox lo
-  tendrá configurado automáticamente. Por otro lado, si se selecciona
-  *FTP* o *SCP* tendremos que introducir la dirección del servidor
-  remoto.
-
-.. [#] Tienda de eBox Technologies en https://store.ebox-technologies.com
+  Los distintos métodos que son soportados actualmente son *FTP*,
+  *Rsync*, *SCP* y *Sistema de ficheros*. Debemos tener en cuenta que
+  dependiendo del método que seleccione deberemos proporcionar más o
+  menos información: dirección del servidor remoto, usuario o
+  contraseña. Todos los métodos salvo *Sistema de ficheros* acceden
+  servicios remotos. Ésto significa que proporcionaremos los
+  credenciales adecuados para conectar con el servidor. Esto es, si se
+  selecciona *FTP*, *Rsync* o *SCP* tendremos que introducir la
+  dirección del servidor remoto.
 
 .. warning::
     Si usamos *SCP*, tendremos que ejecutar `sudo ssh
@@ -87,9 +78,7 @@ especificar que protocolo se usa para conectarse al servidor remoto.
 :guilabel:`Servidor o destino`:
   Para *FTP*, y *SCP* tenemos que proporcionar el nombre del servidor
   remoto o su dirección IP. En caso de usar *Sistema de ficheros*,
-  introduciremos la ruta de un directorio local. Si se usa cualquiera
-  de los métodos de *eBox Backup Storage*, entonces sólo se requiere
-  introducir una ruta relativa.
+  introduciremos la ruta de un directorio local.
 
 :guilabel:`Usuario`:
   Nombre de usuario para autenticarse en la máquina remota.
@@ -103,35 +92,39 @@ especificar que protocolo se usa para conectarse al servidor remoto.
   una clave GPG ya creada para dar cifrado asimétrico a tus datos.
 
 :guilabel:`Frecuencia de copia de seguridad completa`:
-  Este parámetro se usa para determinar la frecuencia con la que las copias de
-  seguridad completas se llevan a cabo. Los valores son: *Diario*, *Semanal* y
-  *Mensual*. Si seleccionas *Semanal* o *Mensual*, aparecerá un segundo control
-  para poder seleccionar el día exacto de la semana o del mes en el que se 
-  realizara la copia.
+  Este parámetro se usa para determinar la frecuencia con la que las
+  copias de seguridad completas se llevan a cabo. Los valores son:
+  *Diario*, *Semanal* y *Mensual*. Si seleccionas *Semanal* o
+  *Mensual*, aparecerá una segunda selección para poder decidir el día
+  exacto de la semana o del mes en el que se realizará la copia.
 
 :guilabel:`Frecuencia de copia incremental`:
   Este valor selecciona la frecuencia de la copia incremental o la deshabilita.
 
-  Si la copia incremental esta activa podemos seleccionar una frecuencia *Diaria*
-  o *Semanal*. La frecuencia seleccionada debe ser mayor que la frecuencia de
-  copia completa.
+  Si la copia incremental está activa podemos seleccionar una
+  frecuencia *Diaria* o *Semanal*. En el último caso, se debe decidir
+  el día de la semana.  Sin embargo, hay que tener en cuenta que la
+  frecuencia seleccionada debe ser mayor que la frecuencia de copia
+  completa.
 
-  En los días en que se realice una copia completa, se saltara cualquier copia
+  En los días en que se realice una copia completa, se saltará cualquier copia
   incremental programada.
 
 :guilabel:`Comienzo de copia de respaldo`:
-  Este campo es usado para indicar cuando comienza el proceso de la toma de la
-  copia de respaldo, tanto el completo como el incremental. Es una buena idea establecerlo a horas cuando no haya nadie
-  en la oficina ya que puede consumir bastante ancho de banda de subida.
+  Este campo es usado para indicar cuando comienza el proceso de la
+  toma de la copia de respaldo, tanto el completo como el
+  incremental. Es una buena idea establecerlo a horas cuando no haya
+  nadie en la oficina ya que puede consumir bastante ancho de banda de
+  subida.
 
 :guilabel:`Número de copias totales almacenadas`:
   Este valor se usa para limitar el número de copias totales que están
-  almacenadas. Puedes elegir limitar por numero o por antigüedad.
+  almacenadas. Puedes elegir limitar por número o por antigüedad.
 
-  Si limitas por numero, solo el numero indicados de copias sera guardado; la
-  ultima copia completa no se cuenta.
-  En el caso que limites por antigüedad, sol ose guardaran las copias completas
-  que sean mas recientes que el periodo indicado.
+  Si limitas por número, solo el número indicados de copias será guardado; la
+  última copia completa no se cuenta.
+  En el caso que límites por antigüedad, sólo se guardarán las copias completas
+  que sean más recientes que el período indicado.
 
   Cuando una copia completa se borra, todas las copias incrementales realizadas
   a partir de ella también son borradas.
@@ -156,10 +149,11 @@ coincidir con alguna exclusión, sera incluida en el backup.
 El orden en que se aplican las inclusiones y exclusiones se puede alterar
 usando los iconos de flechas.
 
-.. note
-Puedes excluir archivos por su extensión usando una exclusión con expresión
-regular.  Por ejemplo si quieres que los archivos *AVI no figuren en la copia de
-respaldo, puedes seleccionar *Exclusión por expresión regular* y añadir `\.avi$`.
+.. note::
+  
+  Puedes excluir archivos por su extensión usando una exclusión con expresión
+  regular.  Por ejemplo si quieres que los archivos *AVI* no figuren en la copia de
+  respaldo, puedes seleccionar *Exclusión por expresión regular* y añadir `\.avi$`.
 
 La lista por defecto de directorios excluidos es: `/mnt`, `/dev`,
 `/media`, `/sys`, `/tmp`, `/var/cache` y `/proc`. Es una mala idea incluir alguno de estos
@@ -183,10 +177,12 @@ Podemos comprobar el estado de las copias de respaldo en la sección *Estado de
 las copias remotas*. En esta tabla podemos ver el tipo de copia, completa o
 incremental, y la fecha de cuando fue tomada.
 
-.. note
+.. note::
+
   Si por cualquier razón borras manualmente los archivos del backup, puedes
   forzar a regenerar este listado con el comando::
-  # /etc/init.d/ebox ebackup restart
+  
+    # /etc/init.d/ebox ebackup restart
 
 .. figure:: images/backup/ebox_ebackup_02.png
    :scale: 80
@@ -228,24 +224,22 @@ archivo no esta presente en la copia de respaldo en esa fecha se restaurara la
 primera versión que se encuentre en las copias anteriores a la indicada; si no
 existen versiones anteriores se notificara con un mensaje de error.
 
-.. warning
-Los archivos mostrados en la interfaz son aquellos que están presentes en la
-ultima copia de seguridad. Los archivos que están almacenados en copias
-anteriores pero no en la ultima no se muestran, pero pueden ser restaurados a
-través de la linea de comandos.
+.. warning::
+  Los archivos mostrados en la interfaz son aquellos que están presentes en la
+  última copia de seguridad. Los archivos que están almacenados en copias
+  anteriores pero no en la última no se muestran, pero pueden ser restaurados a
+  través de la línea de comandos.
 
-
-Podemos usar este método con
-ficheros pequeños. Con ficheros grandes, el proceso es costoso en
-tiempo y no se podrá usar el interfaz *Web* de eBox mientras la
-operación está en curso. Debemos ser especialmente cautos con el tipo
-de fichero que restauramos. Normalmente, será seguro restaurar
-ficheros de datos que no estén siendo abiertos por aplicaciones en ese
-momento. Estos archivos de datos están localizados bajo el directorio
-`/home/samba`. Sin embargo, restaurar ficheros del sistema de
-directorios como `/lib`, `/var` o `/usr` mientras el sistema está en
-funcionamiento puede ser muy peligroso. **No** hagas ésto a no ser que
-sepas muy bien lo que estás haciendo.
+Podemos usar este método con ficheros pequeños. Con ficheros grandes,
+el proceso es costoso en tiempo y no se podrá usar el interfaz *Web*
+de eBox mientras la operación está en curso. Debemos ser especialmente
+cautos con el tipo de fichero que restauramos. Normalmente, será
+seguro restaurar ficheros de datos que no estén siendo abiertos por
+aplicaciones en ese momento. Estos archivos de datos están localizados
+bajo el directorio `/home/samba`. Sin embargo, restaurar ficheros del
+sistema de directorios como `/lib`, `/var` o `/usr` mientras el
+sistema está en funcionamiento puede ser muy peligroso. **No** hagas
+ésto a no ser que sepas muy bien lo que estás haciendo.
 
 .. figure:: images/backup/ebox_ebackup_04.png
    :scale: 80
