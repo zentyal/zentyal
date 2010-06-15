@@ -39,7 +39,6 @@ sub actuate
 
     $self->{downfile} = '/var/log/ebox/ebox.log';
     $self->{downfilename} = 'ebox.log';
-    $self->_print;
 }
 
 sub _print
@@ -56,6 +55,15 @@ sub _print
 
     print ($self->cgi()->header(-type=>'application/octet-stream',
                                 -attachment=>$self->{downfilename}));
+
+    print "Installed packages\n";
+    print "------------------\n\n";
+    my $output = EBox::Sudo::root("dpkg -l | grep ebox | awk '{ print " . '$2 ": " $3 ' . "}'");
+    print @ { $output };
+    print "\n\n";
+
+    print "/var/log/ebox/ebox.log\n";
+    print "----------------------\n\n";
 
     if (scalar (@log) <= 1000) {
         print @log;
