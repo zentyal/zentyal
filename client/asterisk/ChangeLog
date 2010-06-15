@@ -1,3 +1,6 @@
+HEAD
+	+ Updates migration script for adding service on read-only and
+	  with the same name that the menu item
 1.5
 	+ Updates modules.conf template for lucid
 	+ Bug fix: Migration script 0002_migrate_ldap_schema is not run

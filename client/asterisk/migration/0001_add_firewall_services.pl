@@ -23,13 +23,14 @@ sub runGConf
     my $service = EBox::Global->getInstance()->modInstance('services');
     my $firewall = EBox::Global->getInstance()->modInstance('firewall');
 
-    my $serviceName = 'Asterisk';
+    my $serviceName = 'VoIP';
     if (not $service->serviceExists(name => $serviceName)) {
         $service->addMultipleService(
                 'name' => $serviceName,
                 'description' => __d('eBox VoIP system'),
                 'translationDomain' => 'ebox-asterisk',
                 'internal' => 1,
+                'readOnly' => 1,
                 'services' => [
                                 { # sip
                                     'protocol' => 'udp',
