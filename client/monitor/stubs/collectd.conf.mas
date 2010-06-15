@@ -10,9 +10,6 @@ Parameters:
 
   interval - Int the query interval for collectd
              *(Optional)* Default value: 10s
-  loadPerlPlugin - Boolean indicating whether it required to load the perl
-             plugin (with the interpreter) or not
-             *(Optional)* Default value: false
 
   networkServers - Array containing the collectd servers to send the stats to
                    *(Optional)* Default value: ()
@@ -21,7 +18,6 @@ Parameters:
   @mountPoints
   $hostname       => 'localhost'
   $interval       => 10
-  $loadPerlPlugin => 0
   @networkServers => ()
 </%args>
 # Config file for collectd(1).
@@ -74,9 +70,7 @@ LoadPlugin network
 #LoadPlugin nginx
 #LoadPlugin ntpd
 #LoadPlugin nut
-% if ( $loadPerlPlugin ) {
-LoadPlugin perl
-% }
+#LoadPlugin perl
 #LoadPlugin ping
 LoadPlugin processes
 LoadPlugin rrdtool

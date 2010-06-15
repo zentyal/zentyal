@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/monitor
 
-nobase_Stub_DATA = collectd.conf.mas thresholds.conf.mas
+nobase_Stub_DATA = collectd.conf.mas thresholds.conf.mas collectd.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

@@ -1,3 +1,6 @@
+HEAD
+	+ Use init.d script instead of upstart to avoid errors in syslog
+	+ Removed loading of no longer used perl plugin
 1.5.1
 	+ Depends on @remoteservices@ package if the host is subscribed to
 	  eBox Control Center to send them the stats using the appropiate IP

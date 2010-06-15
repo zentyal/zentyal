@@ -56,10 +56,12 @@ use Error qw(:try);
 use File::Spec;
 
 # Constants
-use constant COLLECTD_SERVICE     => 'ebox.collectd';
+use constant COLLECTD_INIT        => 'collectd';
 use constant COLLECTD_CONF_FILE   => '/etc/collectd/collectd.conf';
 use constant THRESHOLDS_CONF_FILE => '/etc/collectd/thresholds.conf';
 use constant SERVICE_STOPPED_FILE => EBox::Config::tmp() . 'monitor_stopped';
+use constant DEFAULT_COLLECTD_FILE => '/etc/default/collectd';
+
 
 # Method: _create
 #
@@ -138,6 +140,11 @@ sub usedFiles
         { file   => THRESHOLDS_CONF_FILE,
           module => 'monitor',
           reason => __x('{daemon} thresholds configuration file',
+                       daemon => 'collectd'),
+        },
+        { file   => DEFAULT_COLLECTD_FILE
+          module => 'monitor',
+          reason => __x('{daemon} default configuration file',
                        daemon => 'collectd'),
         },
        ];
@@ -441,7 +448,8 @@ sub _daemons
 {
     return [
         {
-            name         => COLLECTD_SERVICE,
+            name         => COLLECTD_INIT,
+            type         => 'init.d',
             precondition => \&_notStoppedOnPurpose,
         },
     ];
@@ -476,8 +484,8 @@ sub _setMonitorConf
         # Order is important, don't swap procedure calls :D
         $self->_setThresholdConf();
         $self->_setMainConf();
+        $self->writeConfFile(DEFAULT_COLLECTD_FILE, 'monitor/collectd.mas', []);
     }
-
 }
 
 # Setup measures
@@ -524,7 +532,6 @@ sub _setMainConf
                          'monitor/collectd.conf.mas',
                          [
                           (interval       => EBox::Monitor::Configuration->QueryInterval()),
-                          (loadPerlPlugin => 1),# $self->_thresholdConfigured()),
                           (mountPoints    => $self->_mountPointsToMonitor()),
                           (hostname       => $hostname),
                           (networkServers => \@networkServers),

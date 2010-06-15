@@ -1,0 +1,18 @@
+# /etc/default/collectd
+
+# 0: start collectd on boot, 1: do not start collectd on boot
+# default: 0
+DISABLE=0
+
+# 0: start collectd in stand-alone mode, 1: monitor collectd using collectdmon
+# default: 1
+USE_COLLECTDMON=0
+
+# number of seconds to wait for collectd to shut down
+# default: 30
+MAXWAIT=30
+
+# 0: do not enable core-files, 1: enable core-files ... if collectd crashes
+# default: 0
+ENABLE_COREFILES=0
+
