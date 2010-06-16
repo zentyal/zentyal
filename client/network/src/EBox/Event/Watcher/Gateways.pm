@@ -164,8 +164,10 @@ sub run
         #EBox::debug("The preferred default gateway is $originalId");
         my $original = $gateways->row($originalId);
         if ($original and $original->valueByName('enabled')) {
-            $default->elementByName('default')->setValue(0);
-            $default->store();
+            if ( $default ) {
+                $default->elementByName('default')->setValue(0);
+                $default->store();
+            }
             $original->elementByName('default')->setValue(1);
             $original->store();
             #EBox::debug('The original default gateway has been restored');
@@ -175,11 +177,13 @@ sub run
             # Check if we can find another enabled to set it as default
             my $other = $gateways->findValue('enabled' => 1);
             if ($other) {
-                $default->elementByName('default')->setValue(0);
-                $default->store();
+                if ( $default ) {
+                    $default->elementByName('default')->setValue(0);
+                    $default->store();
+                }
                 $other->elementByName('default')->setValue(1);
                 $other->store();
-                my $otherName = $other->valueByName('name');
+                #my $otherName = $other->valueByName('name');
                 #EBox::debug("The gateway $otherName is now the default");
                 $needSave = 1;
             }
