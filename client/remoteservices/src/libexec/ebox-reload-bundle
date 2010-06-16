@@ -50,7 +50,8 @@ try {
         print STDOUT __('Bundle reload was not needed since it is latest available version') . "\n";
     }
 } catch EBox::Exceptions::External with {
-    EBox::warn(__('This eBox is not subscribed but the host tried to reload the bundle'));
+    # Bundle reload it is only possible with a subscribed eBox
+    ;
 };
 
 1;
