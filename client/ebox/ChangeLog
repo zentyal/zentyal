@@ -3,6 +3,7 @@ HEAD
 	+ Javascript refreshing instead of meta tag in log pages
 	+ Updated links in dashboard widget
 	+ Add package versions to downloadable ebox.log
+	+ Fixed postgresql data dir path for disk usage with pg 8.4
 1.5.2
 	+ Security [ESN-1-1]: Validate referer to avoid CSRF attacks
 	+ Added reporting structure to events module

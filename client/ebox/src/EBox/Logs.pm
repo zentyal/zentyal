@@ -44,7 +44,7 @@ use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
 use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';;
 use constant ENABLED_LOG_CONF_FILE => ENABLED_LOG_CONF_DIR . '/enabled.conf';
-use constant PG_DATA_DIR           => '/var/lib/postgres/data';
+use constant PG_DATA_DIR           => '/var/lib/postgres';
 
 
 #       EBox::Module::Service interface
