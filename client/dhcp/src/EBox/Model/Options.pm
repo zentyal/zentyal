@@ -367,6 +367,11 @@ sub _table
 
     my (@searchDomainSubtypes, @primaryNSSubtypes) = ( (), () );
     push ( @searchDomainSubtypes,
+           new EBox::Types::Union::Text(
+                                        fieldName => 'none',
+                                        printableName => __('None'),
+                                       ));
+    push ( @searchDomainSubtypes,
            new EBox::Types::DomainName(
                                        fieldName     => 'custom',
                                        printableName => __('Custom'),
@@ -389,11 +394,6 @@ sub _table
                                            ));
 
     }
-    push ( @searchDomainSubtypes,
-           new EBox::Types::Union::Text(
-                                        fieldName => 'none',
-                                        printableName => __('None'),
-                                       ));
     push ( @primaryNSSubtypes,
            new EBox::Types::HostIP(
                                    fieldName     => 'custom_ns',
