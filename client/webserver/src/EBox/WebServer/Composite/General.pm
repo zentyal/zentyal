@@ -23,7 +23,6 @@
 #    - Configuration setting within a simple form
 #    - A table with the user defined virtual hosts
 #
-
 package EBox::WebServer::Composite::General;
 
 use base 'EBox::Model::Composite';
@@ -39,23 +38,21 @@ use EBox::Global;
 
 # Constructor: new
 #
-#         Constructor for the general web service composite
+#         Constructor for the general web service composite.
 #
 # Returns:
 #
 #       <EBox::WebService::Model::GeneralComposite> - the
-#       web service general composite
+#       web service general composite.
 #
 sub new
-  {
-
+{
       my ($class) = @_;
 
       my $self = $class->SUPER::new();
 
       return $self;
-
-  }
+}
 
 # Group: Protected methods
 
@@ -83,11 +80,10 @@ sub _description
        compositeDomain => 'Web',
        help            => __('The eBox web service allows you ' .
                              'to host Web pages in plain HTML ' .
-                             'within different virtual hosts'),
+                             'within different virtual hosts.'),
       };
 
     return $description;
-
 }
 
 1;

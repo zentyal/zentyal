@@ -17,7 +17,7 @@
 # Class: EBox::WebServer::PlatformPath
 #
 #      This class stores every platform dependant path and it is
-#      exposed in static method way
+#      exposed in static method way.
 #
 package EBox::WebServer::PlatformPath;
 
@@ -26,7 +26,7 @@ use warnings;
 
 # Method: ConfDirPath
 #
-#      Get the directory path where all apache2 configuration lies
+#      Get the directory path where all apache2 configuration lies.
 #
 #      (Static method)
 #
@@ -41,8 +41,8 @@ sub ConfDirPath
 
 # Method: DocumentRoot
 #
-#      Get the document root where all virtual hosts content will be
-#      stored
+#      Get the document root where default virtual host content will be
+#      stored.
 #
 #      (Static method)
 #
@@ -55,9 +55,26 @@ sub DocumentRoot
     return "@APACHE2DOCROOT@";
 }
 
+# Method: VDocumentRoot
+#
+#      Get the document root where created virtual hosts content will be
+#      stored.
+#
+#      (Static method)
+#
+# Returns:
+#
+#      String - the platform dependant path
+#
+sub VDocumentRoot
+{
+    return "@APACHE2VDOCROOT@";
+}
+
+
 # Method: Apache2Path
 #
-#      Get the apache2 daemon program from where manage Apache2 daemon
+#      Get the apache2 daemon program from where manage Apache2 daemon.
 #
 # Returns:
 #

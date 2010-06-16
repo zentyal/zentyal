@@ -146,6 +146,36 @@ sub disableService
     }
 }
 
+# Method: setServiceRO
+#
+#       Set service as read-only.
+#
+sub setServiceRO
+{
+    my ($self, $service, $ro) = @_;
+
+    my $row = $self->find(service => $service);
+    if ($row) {
+        $row->setReadOnly($ro);
+        $row->store();
+    }
+}
+
+# Method: updateCN 
+#
+#       Updates the CN in the certificate for the given service.
+#
+sub updateCN
+{
+    my ($self, $service, $cn) = @_;
+
+    my $row = $self->find(service => $service);
+    if ($row) {
+        $row->elementByName('cn')->setValue($cn);
+        $row->store();
+    }
+}
+
 # Method: certUsedByService
 #
 #       Returns if a given certificate Common Name is used by any

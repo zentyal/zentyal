@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2010 eBox Technologies S.L.
+# Copyright (C) 2009 eBox Technologies
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,6 +32,7 @@ use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
 use EBox::Config;
+use EBox::WebServer;
 use File::Slurp;
 
 use constant {
@@ -41,6 +42,8 @@ use constant {
            '/usr/share/roundcube/plugins/managesieve/config.inc.php',
     SIEVE_PLUGIN_INC_ETC_FILE =>
            '/etc/roundcube/managesieve-config.inc.php',
+    ROUNDCUBE_DIR => '/var/lib/roundcube',
+    HTTPD_WEBMAIL_DIR => '/var/www/webmail',
 };
 
 
@@ -108,6 +111,8 @@ sub _setConf
     if ($managesieve) {
         $self->_setManageSievePluginConf();
     }
+
+    $self->_setWebServerConf();
 }
 
 sub _managesieveEnabled
@@ -278,18 +283,28 @@ sub compositeClasses
 #
 sub usedFiles
 {
-    return [
-            {
-              'file' => MAIN_INC_FILE,
-              'reason' => __('To configure Roundcube webmail.'),
-              'module' => 'webmail'
-            },
-            {
-              'file' => SIEVE_PLUGIN_INC_USR_FILE,
-              'reason' => __('To configure managesieve Roundcube webmail plugin.'),
-              'module' => 'webmail'
-            },
-           ];
+    my ($self) = @_;
+
+    my $files = [
+        {
+            'file' => MAIN_INC_FILE,
+            'reason' => __('To configure Roundcube webmail.'),
+            'module' => 'webmail'
+        },
+        {
+            'file' => SIEVE_PLUGIN_INC_USR_FILE,
+            'reason' => __('To configure managesieve Roundcube webmail plugin.'),
+            'module' => 'webmail'
+        },
+    ];
+    my $vhost = $self->model('Options')->vHostValue();
+    my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
+                   EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-webmail';
+    if ($vhost ne 'disabled') {
+        push(@{$files}, { 'file' => $destFile, 'module' => 'webmail',
+                          'reason' => "To configure the webmail on $vhost virtual host."});
+    }
+    return $files;
 }
 
 # Method: actions
@@ -424,6 +439,28 @@ sub desKey
 {
     my $desKey = File::Slurp::read_file(DES_KEY_FILE);
     return $desKey;
+}
+
+sub _setWebServerConf
+{
+    my ($self) = @_;
+
+    # Delete all possible ebox-webmail configuration
+    my $vHostPattern = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
+                       EBox::WebServer::VHOST_PREFIX. '*/ebox-webmail';
+    EBox::Sudo::root('rm -f ' . "$vHostPattern");
+
+    my $vhost = $self->model('Options')->vHostValue();
+
+    if ($vhost eq 'disabled') {
+        unless (-l HTTPD_WEBMAIL_DIR ) {
+            EBox::Sudo::root('ln -s ' . ROUNDCUBE_DIR .' '. HTTPD_WEBMAIL_DIR);
+        }
+    } else {
+        my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
+                       EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-webmail';
+        $self->writeConfFile($destFile, 'webmail/apache.mas', []);
+    }
 }
 
 1;

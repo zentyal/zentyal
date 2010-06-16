@@ -1,3 +1,10 @@
+HEAD
+	+ Adds default-ssl vhost and ssl module management.
+	+ Implements SSL integration between ebox-webserver and ebox-ca for
+	  vhosts.
+	+ Bugfix: logs are split up by vhost.
+	+ Bugfix: vhosts DocumentRoot moved to /srv/www/domain.tld to keep
+	  them separated from default vhost.
 1.5
 	+ Bugfix: NameVirtualHost directive in ports.conf and not in every vhost.
 	+ Vhosts ServerAdmin now is root@fqdn.

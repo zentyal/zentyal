@@ -19,7 +19,6 @@
 #      This eBox module is responsible for handling the web service
 #      within the local network manage by eBox.
 #
-
 package EBox::WebServer;
 
 use strict;
@@ -51,18 +50,20 @@ use constant WEB_SERVICE  => 'ebox.apache2-user';
 use constant CONF_DIR     => EBox::WebServer::PlatformPath::ConfDirPath();
 use constant PORTS_FILE   => CONF_DIR . '/ports.conf';
 use constant ENABLED_MODS_DIR   => CONF_DIR . '/mods-enabled/';
-use constant AVAILABLE_MODS_DIR   => CONF_DIR . '/mods-available/';
+use constant AVAILABLE_MODS_DIR => CONF_DIR . '/mods-available/';
 
-use constant USERDIR_CONF_FILES => ('userdir.conf', 'userdir.load');
+use constant USERDIR_CONF_FILES     => ('userdir.conf', 'userdir.load');
 use constant LDAP_USERDIR_CONF_FILE => 'ldap_userdir.conf';
-use constant SITES_AVAILABLE_DIR   => CONF_DIR . '/sites-available/';
+use constant SITES_AVAILABLE_DIR => CONF_DIR . '/sites-available/';
 use constant SITES_ENABLED_DIR   => CONF_DIR . '/sites-enabled/';
 
-use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . 'default';
+use constant VHOST_DFLT_FILE    => SITES_AVAILABLE_DIR . 'default';
+use constant VHOST_DFLTSSL_FILE => SITES_AVAILABLE_DIR . 'default-ssl';
+use constant SSL_DIR => CONF_DIR . '/ssl/';
 
 # Constructor: _create
 #
-#        Create the web server module
+#        Create the web server module.
 #
 # Overrides:
 #
@@ -70,7 +71,7 @@ use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . 'default';
 #
 # Returns:
 #
-#        <EBox::WebServer> - the recently created module
+#        <EBox::WebServer> - the recently created module.
 #
 sub _create
 {
@@ -92,34 +93,38 @@ sub _create
 sub usedFiles
 {
     my ($self) = @_;
+
     my $files = [
     {
         'file' => PORTS_FILE,
         'module' => 'webserver',
-        'reason' => __('To set webserver listening port')
+        'reason' => __('To set webserver listening port.')
     },
     {
         'file' => VHOST_DFLT_FILE,
         'module' => 'webserver',
-        'reason' => __('To configure default Virtual Host')
+        'reason' => __('To configure default virtual host.')
+    },
+    {
+        'file' => VHOST_DFLTSSL_FILE,
+        'module' => 'webserver',
+        'reason' => __('To configure default SSL virtual host.')
     },
     {
         'file' => AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
         'module' => 'webserver',
-        'reason' => __('To configure the per-user public HTML directory')
+        'reason' => __('To configure the per-user public_html directory.')
     }
-        ];
+    ];
 
-   my $vHostModel = $self->model('VHostTable');
-
+    my $vHostModel = $self->model('VHostTable');
     foreach my $id (@{$vHostModel->ids()}) {
         my $vHost = $vHostModel->row($id);
         # Access to the field values for every virtual host
         my $vHostName = $vHost->valueByName('name');
-
         my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
-        push @{$files}, { 'file' => $destFile, 'module' => 'webserver' ,
-                          'reason' => "To configure $vHostName Virtual Host"};
+        push(@{$files}, { 'file' => $destFile, 'module' => 'webserver',
+                          'reason' => "To configure $vHostName virtual host." });
     }
 
     return $files;
@@ -133,24 +138,28 @@ sub actions
 {
     return [
     {
-        'action' => __('Enable apache LDAP user module'),
+        'action' => __('Enable Apache LDAP user module'),
         'module' => 'webserver',
-        'reason' => __('To fetch home directories from LDAP')
+        'reason' => __('To fetch home directories from LDAP.')
     },
-        ];
+    {
+        'action' => __('Enable Apache SSL module'),
+        'module' => 'webserver',
+        'reason' => __('To serve pages over HTTPS.')
+    },
+    ];
 }
 
 # Method: menu
 #
-#        Show the web server menu entry
+#        Show the Web Server menu entry.
 #
 # Overrides:
 #
 #        <EBox::Module::menu>
 #
 sub menu
-  {
-
+{
       my ($self, $root) = @_;
 
       my $item = new EBox::Menu::Item(name  => 'WebServer',
@@ -159,10 +168,8 @@ sub menu
                                       url   => 'WebServer/Composite/General',
                                       order => 430
                                      );
-
       $root->add($item);
-
-  }
+}
 
 # Method: modelClasses
 #
@@ -182,11 +189,9 @@ sub modelClasses
                            ],
             },
             'EBox::WebServer::Model::GeneralSettings',
-
             'EBox::WebServer::Model::VHostTable',
            ];
 }
-
 
 # Method: compositeClasses
 #
@@ -256,33 +261,33 @@ sub _daemons
 
 # Method: virtualHosts
 #
-#       Return a list of current virtual hosts
+#       Return a list of current virtual hosts.
 #
 # Returns:
 #
-#       array ref - containing each element a hash ref with these two
-#       components
+#       array ref - containing each element a hash ref with these three
+#       components:
 #
-#       - name -  String the virtual's host name
+#       - name - String the virtual's host name
+#       - ssl - [disabled|allowssl|forcessl]
 #       - enabled - Boolean if it is currently enabled or not
 #
 sub virtualHosts
 {
-
     my ($self) = @_;
 
     my $vHostModel = $self->model('VHostTable');
     my @vHosts;
     foreach my $id (@{$vHostModel->ids()}) {
         my $rowVHost = $vHostModel->row($id);
-        push ( @vHosts, {
-                         name => $rowVHost->valueByName('name'),
-                         enabled => $rowVHost->valueByName('enabled'),
-                        });
+        push (@vHosts, {
+                        name => $rowVHost->valueByName('name'),
+                        ssl => $rowVHost->valueByName('ssl'),
+                        enabled => $rowVHost->valueByName('enabled'),
+                       });
     }
 
     return \@vHosts;
-
 }
 
 # Group: Static public methods
@@ -290,7 +295,7 @@ sub virtualHosts
 # Method: VHostPrefix
 #
 #     Get the virtual host prefix used by all virtual host created by
-#     eBox
+#     eBox.
 #
 # Returns:
 #
@@ -305,29 +310,32 @@ sub VHostPrefix
 
 # Method: _setConf
 #
-#        Regenerate the webserver configuration
+#        Regenerate the webserver configuration.
 #
 # Overrides:
 #
 #       <EBox::Module::Service::_setConf>
 #
-
 sub _setConf
 {
-
     my ($self) = @_;
 
     $self->_setPort();
     $self->_setUserDir();
     $self->_setDfltVhost();
+    $self->_setDfltSSLVhost();
+    $self->_checkCertificate();
     $self->_setVHosts();
 
+    unless (-d SSL_DIR ) {
+        my $cmd = "mkdir -m 755 " . SSL_DIR;
+        EBox::Sudo::root($cmd);
+    }
 }
 
 # Set up the listening port
 sub _setPort
 {
-
     my ($self) = @_;
 
     # We can assume the listening port is ready available
@@ -336,15 +344,15 @@ sub _setPort
     # Overwrite the listening port conf file
     $self->writeConfFile(PORTS_FILE,
                          "webserver/ports.conf.mas",
-                         [ portNumber => $generalConf->portValue() ],
+                         [ portNumber => $generalConf->portValue(),
+                           sslportNumber =>  $generalConf->sslPort(),
+                         ],
                         );
-
 }
 
 # Set up default vhost
 sub _setDfltVhost
 {
-
     my ($self) = @_;
 
     # We can assume the listening port is ready available
@@ -360,10 +368,68 @@ sub _setDfltVhost
                         );
 }
 
+# Set up default-ssl vhost
+sub _setDfltSSLVhost
+{
+    my ($self) = @_;
+
+    my $generalConf = $self->model('GeneralSettings');
+    if ($generalConf->sslPort()) {
+        # Enable the module
+        try {
+            EBox::Sudo::root('a2enmod ssl');
+        } catch EBox::Exceptions::Sudo::Command with {
+            my ($exc) = @_;
+            # Already enabled?
+            if ( $exc->exitValue() != 1 ) {
+                throw $exc;
+            }
+        };
+        # Overwrite the default vhost file
+        $self->writeConfFile(VHOST_DFLTSSL_FILE,
+                             "webserver/default-ssl.mas",
+                             [
+                                 sslportNumber => $generalConf->sslPort(),
+                                 hostname => $self->_fqdn(),
+                             ],
+                            );
+        # Enable default-ssl vhost
+        try {
+            EBox::Sudo::root('a2ensite default-ssl');
+        } catch EBox::Exceptions::Sudo::Command with {
+            my ($exc) = @_;
+            # Already enabled?
+            if ( $exc->exitValue() != 1 ) {
+                throw $exc;
+            }
+        };
+    } else {
+        # Disable the module
+        try {
+            EBox::Sudo::root('a2dissite default-ssl');
+        } catch EBox::Exceptions::Sudo::Command with {
+            my ($exc) = @_;
+            # Already enabled?
+            if ( $exc->exitValue() != 1 ) {
+                throw $exc;
+            }
+        };
+        # Disable default-ssl vhost
+        try {
+            EBox::Sudo::root('a2dismod ssl');
+        } catch EBox::Exceptions::Sudo::Command with {
+            my ($exc) = @_;
+            # Already enabled?
+            if ( $exc->exitValue() != 1 ) {
+                throw $exc;
+            }
+        };
+    }
+}
+
 # Set up the user directory by enable/disable the feature
 sub _setUserDir
 {
-
     my ($self) = @_;
 
     my $generalConf = $self->model('GeneralSettings');
@@ -374,7 +440,7 @@ sub _setUserDir
         foreach my $confFile (USERDIR_CONF_FILES) {
             unless ( -e AVAILABLE_MODS_DIR . $confFile ) {
                 throw EBox::Exceptions::External(__x('The {userDirConfFile} ' .
-                                                     'is missing! Please recover it',
+                                                     'is missing! Please recover it.',
                                                      userDirConfFile => AVAILABLE_MODS_DIR . $confFile));
             }
         }
@@ -442,12 +508,10 @@ sub _setUserDir
 # Set up the virtual hosts
 sub _setVHosts
 {
-
     my ($self) = @_;
 
-    my $vHostModel = $self->model('VHostTable');
-
     my $generalConf = $self->model('GeneralSettings');
+    my $vHostModel = $self->model('VHostTable');
 
     # Remove every available site using our vhost pattern ebox-*
     my $vHostPattern = VHOST_PREFIX . '*';
@@ -455,8 +519,9 @@ sub _setVHosts
     my %sitesToRemove = %{_availableSites()};
     foreach my $id (@{$vHostModel->ids()}) {
         my $vHost = $vHostModel->row($id);
-        # Access to the field values for every virtual host
+
         my $vHostName  = $vHost->valueByName('name');
+        my $sslSupport = $vHost->valueByName('ssl');
 
         my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
         delete $sitesToRemove{$destFile};
@@ -465,26 +530,35 @@ sub _setVHosts
                               [
                                   vHostName => $vHostName,
                                   portNumber => $generalConf->portValue(),
+                                  sslportNumber =>  $generalConf->sslPort(),
                                   hostname => $self->_fqdn(),
+                                  sslSupport => $sslSupport,
                               ],
                             );
 
         # Create the subdir if required
-        my $userConfDir = SITES_AVAILABLE_DIR . 'user-' .  VHOST_PREFIX
+        my $userConfDir = SITES_AVAILABLE_DIR . 'user-' . VHOST_PREFIX
           . $vHostName;
         unless ( -d $userConfDir ) {
-            EBox::Sudo::root("mkdir $userConfDir");
+            EBox::Sudo::root("mkdir -m 755 $userConfDir");
         }
 
         if ( $vHost->valueByName('enabled') ) {
-            # Create the symbolic link
-            EBox::Sudo::root("ln -s $destFile " . SITES_ENABLED_DIR);
+            my $vhostfile = VHOST_PREFIX . $vHostName;
+            try {
+                EBox::Sudo::root("a2ensite $vhostfile");
+            } catch EBox::Exceptions::Sudo::Command with {
+                my ($exc) = @_;
+                # Already enabled?
+                if ( $exc->exitValue() != 1 ) {
+                    throw $exc;
+                }
+            };
             # Create the directory content if it is not already
-            # created
-            my $dir = EBox::WebServer::PlatformPath::DocumentRoot()
+            my $dir = EBox::WebServer::PlatformPath::VDocumentRoot()
               . '/' . $vHostName;
             unless ( -d $dir ) {
-                EBox::Sudo::root("mkdir $dir");
+                EBox::Sudo::root("mkdir -p -m 755 $dir");
             }
         }
     }
@@ -493,10 +567,9 @@ sub _setVHosts
     for my $dir (keys %sitesToRemove) {
         EBox::Sudo::root("rm -f $dir");
     }
-
 }
 
-# return current eBox available sites from actual dir
+# Return current eBox available sites from actual dir
 sub _availableSites
 {
     my $vhostPrefixPath = SITES_AVAILABLE_DIR . VHOST_PREFIX;
@@ -511,7 +584,7 @@ sub _availableSites
     return \%dirs;
 }
 
-# return fqdn
+# Return fqdn
 sub _fqdn
 {
     my $fqdn = `hostname --fqdn`;
@@ -520,6 +593,136 @@ sub _fqdn
     }
     chomp $fqdn;
     return $fqdn;
+}
+
+# Method: certificates
+#
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issue for this service module.
+#
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+sub certificates
+{
+    my ($self) = @_;
+
+    return [
+            {
+             service =>  __('Web Server'),
+             path    =>  '/etc/apache2/ssl/apache.pem',
+             user => 'root',
+             group => 'root',
+             mode => '0400',
+            },
+           ];
+}
+
+# Get subjAltNames on the existing certificate
+sub _getCertificateSAN
+{
+    my ($self) = @_;
+
+    my $cn = $self->_fqdn();
+
+    my $ca = EBox::Global->modInstance('ca');
+    my $meta = $ca->getCertificateMetadata(cn => $cn);
+    my @san = @{$meta->{subjAltNames}};
+
+    my @vhosts;
+    foreach my $vhost (@san) {
+        push(@vhosts, $vhost->{value}) if ($vhost->{type} eq 'DNS');
+    }
+
+    return \@vhosts;
+}
+
+# Generate subjAltNames array for ebox-ca
+sub _subjAltNames
+{
+    my ($self) = @_;
+
+    my $model = $self->model('VHostTable');
+    my @subjAltNames;
+    foreach my $vhost (@{$model->getWebServerSAN()}) {
+        push(@subjAltNames, { type => 'DNS', value => $vhost });
+    }
+
+    return \@subjAltNames;
+}
+
+# Compare two arrays
+sub _checkVhostsLists
+{
+    my ($self, $vhostsTable, $vhostsCert) = @_;
+
+    my @array1 = @{$vhostsTable};
+    my @array2 = @{$vhostsCert};
+
+    my @union = ();
+    my @intersection = ();
+    my @difference = ();
+    my %count = ();
+
+    foreach my $element (@array1, @array2) { $count{$element}++ }
+    foreach my $element (keys %count) {
+        push(@union, $element);
+        push(@{ $count{$element} > 1 ? \@intersection : \@difference }, $element);
+    }
+
+    return @difference;
+}
+
+# Generate the certificate, issue a new one or renew the existing one
+sub _issueCertificate
+{
+    my ($self) = @_;
+
+    my $cn = $self->_fqdn();
+
+    my $ca = EBox::Global->modInstance('ca');
+    my $caMD = $ca->getCACertificateMetadata();
+    my $certMD = $ca->getCertificateMetadata(cn => $cn);
+
+    if ((not defined($certMD)) or ($certMD->{state} eq 'V')) {
+        $ca->renewCertificate(commonName => $cn,
+                              endDate => $caMD->{expiryDate},
+                              subjAltNames => $self->_subjAltNames());
+    } else {
+        $ca->issueCertificate(commonName => $cn,
+                              endDate => $caMD->{expiryDate},
+                              subjAltNames => $self->_subjAltNames());
+    }
+}
+
+# Check if we need to regenerate the certificate
+sub _checkCertificate
+{
+    my ($self) = @_;
+
+    my $generalConf = $self->model('GeneralSettings');
+    return unless  $generalConf->sslPort();
+
+    my $model = $self->model('VHostTable');
+    my @vhostsTable = @{$model->getWebServerSAN()};
+    my @vhostsCert = @{$self->_getCertificateSAN()};
+
+    return unless @vhostsTable;
+
+    if (@vhostsCert) {
+        if ($self->_checkVhostsLists(\@vhostsTable, \@vhostsCert)) {
+            $self->_issueCertificate();
+        }
+    } else {
+        $self->_issueCertificate();
+    }
 }
 
 1;

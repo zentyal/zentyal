@@ -74,7 +74,7 @@ use EBox::CA::DN;
        );
 </%perl>
 <div class="help">
-  <% __("Certificate changes will take effect immediately") %>
+  <% __("Certificate changes will take effect immediately.") %>
 % if ( $caNeeded ) {
   <% '.' . __('The CA passphrase is optional') %>
 % }

@@ -1,5 +1,6 @@
 # Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,7 +20,7 @@
 #   EBox::WebServer::Model::VHostTable
 #
 #   This class inherits from <EBox::Model::DataTable> and represents the
-#   virtual host table which basically contains virtual host's name
+#   virtual host table which basically contains virtual hosts information.
 #
 package EBox::WebServer::Model::VHostTable;
 
@@ -30,10 +31,12 @@ use warnings;
 
 # eBox uses
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Boolean;
 use EBox::Types::Text;
+use EBox::Types::Select;
 use EBox::Validate;
 
 ####################
@@ -46,7 +49,7 @@ use Error qw(:try);
 
 # Constructor: new
 #
-#       Create the new VHostTable model
+#       Create the new VHostTable model.
 #
 # Overrides:
 #
@@ -55,10 +58,10 @@ use Error qw(:try);
 # Returns:
 #
 #       <EBox::WebServer::Model::VHostTable> - the recently
-#       created model
+#       created model.
 #
 sub new
-  {
+{
     my $class = shift;
     my %parms = @_;
 
@@ -71,7 +74,7 @@ sub new
 # Method: validateTypedRow
 #
 #      Check the row to add or update if the name contain a valid
-#      domain
+#      domain.
 #
 # Overrides:
 #
@@ -80,31 +83,40 @@ sub new
 # Exceptions:
 #
 #      <EBox::Exceptions::InvalidData> - thrown if the name is not
-#      valid
+#      valid.
 #
-
 sub validateTypedRow
 {
-  my ($self, $action, $changedFields) = @_;
+    my ($self, $action, $changedFields) = @_;
 
-  if ( exists $changedFields->{name} ) {
-      my $vhost =  $changedFields->{name}->value();
-      EBox::Validate::checkDomainName(
-                                      $vhost,
-                                      __(q{Virtual host's name})
-                                     );
-  }
+    if ( exists $changedFields->{name} ) {
+        my $vhost =  $changedFields->{name}->value();
+        EBox::Validate::checkDomainName(
+                                       $vhost,
+                                        __(q{Virtual host name})
+                                       );
+        if ($vhost eq 'default' or $vhost eq 'default-ssl') {
+            throw EBox::Exceptions::InvalidData
+                ('data' => __('Virtual host'), 'value' => $vhost);
+        }
+        # SSL checking
+        my $settings = $self->parentModule()->model('GeneralSettings');
+        if (($changedFields->{ssl}->value() ne 'disabled') and
+            ($settings->row()->elementByName('ssl')->selectedType() eq 'ssl_disabled')) {
+            throw EBox::Exceptions::External(
+                __('SSL support is disabled. Enable it before adding a SSL virtual host.'));
+        }
+    }
 }
 
 # Method: addedRowNotify
 #
 #      Call whenever a new row is added. It adds a new domain to the
-#      DNS subsystem when a new virtual host is added
+#      DNS subsystem when a new virtual host is added.
 #
 # Overrides:
 #
 #      <EBox::Model::DataTable::addedRowNotify>
-#
 #
 sub addedRowNotify
 {
@@ -126,12 +138,12 @@ sub addedRowNotify
     if (@parts == 1) { # if no dots, only a domain = hostname
         $hostName = $vHostName;
         $domain = $vHostName;
-    } else { # if we have dots, last two parts for the domain, rest hostname
+    } else { # If we have dots, last two parts for the domain, rest hostname
         my $tld = pop(@parts);
         my $topdomain = pop(@parts);
         $domain = "$topdomain.$tld";
         $hostName = join('.', @parts);
-        $hostName = $domain unless $hostName; # if hostName is empty, then = domain
+        $hostName = $domain unless $hostName; # If hostName is empty, then = domain
     }
 
     return unless ($hostName or $domain);
@@ -178,7 +190,7 @@ sub addedRowNotify
                                        ipaddr => $ip);
                     $self->setMessage(__x('Virtual host {vhost} added. A mapping ' .
                                           'name {name} - IP address {ip} has been added ' .
-                                          'to {domain} domain',
+                                          'to {domain} domain.',
                                           vhost  => $vHostName,
                                           name   => $hostName,
                                           ip     => $ip,
@@ -191,35 +203,70 @@ sub addedRowNotify
                         $dns->addAlias( "/$domain/$oldHostName",
                                         alias => $hostName);
                         $self->setMessage(__x('Virtual host {vhost} added as an alias {alias}'
-                                              . ' to hostname {hostname}',
+                                              . ' to hostname {hostname}.',
                                               vhost    => $vHostName,
                                               alias    => $hostName,
                                               hostname => $oldHostName));
                     } catch EBox::Exceptions::DataExists with {
-                        $self->setMessage(__x('Virtual host {vhost} added',
+                        $self->setMessage(__x('Virtual host {vhost} added.',
                                               vhost => $vHostName));
                     }
                 }
             } else {
-                $self->setMessage(__x('Virtual host {vhost} added',
+                $self->setMessage(__x('Virtual host {vhost} added.',
                                       vhost => $vHostName));
             }
         }
-    } else {
+    } else { # No valid internal IP address
         $self->setMessage(__('There is no static internal interface to ' .
-                             'set the Web server IP address'));
+                             'set the Web server IP address.'));
+    }
+}
+
+# Method: getWebServerSAN
+#
+#      Get a list of virtual host that have SSL enabled.
+#
+# Returns:
+#
+#      array ref - containing the list of SSL enabled virtual hosts.
+#
+sub getWebServerSAN
+{
+    my ($self) = @_;
+
+    my @vhosts;
+    foreach my $vhost (@{$self->ids()}) {
+        my $row = $self->row($vhost);
+        if ($row->valueByName('ssl') ne 'disabled') {
+            my $vhostname = $row->valueByName('name');
+            push(@vhosts, $vhostname);
+        }
     }
 
+    return \@vhosts;
 }
 
 # Group: Protected methods
+
+sub _populateSSLsupport
+{
+    my @options = (
+                       { value => 'disabled' , printableValue => __('Disabled') },
+                       { value => 'allowssl', printableValue => __('Allow SSL')},
+                       { value => 'forcessl', printableValue => __('Force SSL')},
+                  );
+    return \@options;
+}
+
 
 # Method: _table
 #
 #       The table description which consists of a couple of fields:
 #
-#       name        - <EBox::Types::Text>
 #       enabled     - <EBox::Types::Boolean>
+#       name        - <EBox::Types::Text>
+#       ssl         - <EBox::Types::Select>
 #
 # Overrides:
 #
@@ -230,6 +277,13 @@ sub _table
 {
     my @tableHead =
         (
+         new EBox::Types::Select(
+                                fieldName     => 'ssl',
+                                printableName => __('SSL support'),
+                                editable      => 1,
+                                populate => \&_populateSSLsupport,
+                                defaultValue => 'disabled'
+                             ),
          new EBox::Types::Text(
                                 fieldName     => 'name',
                                 printableName => __('Name'),
@@ -252,11 +306,11 @@ sub _table
                                   . 'to the same web server. The DNS entry is automatically created'
                                   . ' if this is possible. The content must be placed under '
                                   . '{docRoot} directory. Any particular configuration '
-                                  . 'you want to add must be placed at {userConf} directory',
-                                 docRoot => EBox::WebServer::PlatformPath::DocumentRoot() . '/vHostName',
+                                  . 'you want to add must be placed at {userConf} directory.',
+                                 docRoot => EBox::WebServer::PlatformPath::VDocumentRoot() . '/vHostName',
                                  userConf => EBox::WebServer::PlatformPath::ConfDirPath()
                                    . '/sites-available/user-ebox-vHostName'),
-       printableRowName    => __('virtual host'),
+       printableRowName    => __('Virtual host'),
        modelDomain         => 'WebServer',
        sortedBy            => 'name',
        enableProperty      => 1,
@@ -267,7 +321,6 @@ sub _table
 }
 
 # Group: Private methods
-
 
 sub _dnsNoActiveWarning
 {
@@ -284,10 +337,13 @@ sub _dnsNoActiveWarning
         );
 }
 
-# Guess the IP address to assign in the mapping name - IP. It gets the
-# first static internal interface address if any, then check if there
-# is any static external interface to get the address. If there is no
-# static interfaces, empty string is returned
+# Method: _table
+#
+#    Guess the IP address to assign in the mapping name - IP. It gets the
+#    first static internal interface address if any, then check if there
+#    is any static external interface to get the address. If there is no
+#    static interfaces, empty string is returned.
+#
 sub _guessWebIPAddr
 {
     my ($self) = @_;
@@ -309,9 +365,6 @@ sub _guessWebIPAddr
     my @extIfaces = grep { $netMod->ifaceIsExternal($_) } @ifaces;
 
     return $netMod->ifaceAddress($extIfaces[0]);
-
-
 }
 
 1;
-

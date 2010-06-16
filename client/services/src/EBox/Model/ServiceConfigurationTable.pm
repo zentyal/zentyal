@@ -171,6 +171,7 @@ sub _table
                 'help' => '', # FIXME
                 'rowUnique' => 1,
                 'printableRowName' => __('service'),
+                'insertPosition' => 'back',
         };
 
         return $dataTable;

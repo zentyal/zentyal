@@ -3,7 +3,7 @@
 Stubdir = @STUBSPATH@/webmail
 
 
-nobase_Stub_DATA = main.inc.php.mas managesieve-config.php.inc.mas
+nobase_Stub_DATA = main.inc.php.mas managesieve-config.php.inc.mas apache.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

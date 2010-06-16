@@ -33,7 +33,6 @@ ServerName <% $hostname %>
 	LogLevel warn
 
 	CustomLog /var/log/apache2/access.log combined
-	ServerSignature On
 
     Alias /doc/ "/usr/share/doc/"
     <Directory "/usr/share/doc/">
@@ -43,5 +42,4 @@ ServerName <% $hostname %>
         Deny from all
         Allow from 127.0.0.0/255.0.0.0 ::1/128
     </Directory>
-
 </VirtualHost>

@@ -9,6 +9,10 @@
 </%doc>
 <%args>
   $portNumber
+  $sslportNumber
 </%args>
 NameVirtualHost *:<% $portNumber %>
 Listen <% $portNumber %>
+% if ($sslportNumber) {
+Listen <% $sslportNumber %>
+% }

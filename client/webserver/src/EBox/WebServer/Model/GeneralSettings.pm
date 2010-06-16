@@ -18,18 +18,21 @@ package EBox::WebServer::Model::GeneralSettings;
 
 # Class: EBox::WebServer::Model::GeneralSettings
 #
-#   Form to set the general configuration settings for the web server
+#   Form to set the general configuration settings for the web server.
 #
-
 use base 'EBox::Model::DataForm';
 
 use strict;
 use warnings;
 
 # eBox uses
+use Error qw(:try);
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
 use EBox::Types::Boolean;
 use EBox::Types::Port;
 use EBox::Validate;
@@ -41,7 +44,7 @@ use constant PUBLIC_DIR => 'public_html';
 
 # Constructor: new
 #
-#       Create the new GeneralSettings model
+#       Create the new GeneralSettings model.
 #
 # Overrides:
 #
@@ -50,7 +53,7 @@ use constant PUBLIC_DIR => 'public_html';
 # Returns:
 #
 #       <EBox::WebServer::Model::GeneralSettings> - the recently
-#       created model
+#       created model.
 #
 sub new
 {
@@ -73,44 +76,74 @@ sub new
 # Exceptions:
 #
 #       <EBox::Exceptions::DataExists> - if the port number is already
-#       in use by any ebox module
+#       in use by any ebox module.
 #
 sub validateTypedRow
 {
-
     my ($self, $action, $changedFields) = @_;
 
-    if ( exists $changedFields->{port} and $action eq 'update') {
-        my $portNumber = $changedFields->{port}->value();
+    my $global = EBox::Global->getInstance();
+    my $apache = $global->modInstance('apache');
+    my $firewall = $global->modInstance('firewall');
+    my $portNumber;
 
-        my $gl = EBox::Global->getInstance();
-        my $firewall = $gl->modInstance('firewall');
+    if (exists $changedFields->{port}) {
+        $portNumber = $changedFields->{port}->value();
 
-        unless ( $firewall->availablePort('tcp', $portNumber) ) {
+        unless ($firewall->availablePort('tcp', $portNumber)) {
             throw EBox::Exceptions::DataExists(
-                                               'data'  => __('listening port'),
-                                               'value' => $portNumber,
-                                              );
+                    'data'  => __('Listening port'),
+                    'value' => $portNumber,
+                    );
         }
     }
 
+    if (exists $changedFields->{ssl} and
+               $changedFields->{ssl}->selectedType() eq 'ssl_port') {
+        my $portNumberSSL = $changedFields->{ssl}->value();
+        if ($portNumber eq $portNumberSSL) {
+            throw EBox::Exceptions::DataExists(
+                    'data'  => __('Listening port'),
+                    'value' => $portNumberSSL,
+                    );
+        }
+        if ($apache->port() eq $portNumberSSL) {
+            throw EBox::Exceptions::External(
+                    __x('eBox Administration is running on this port, change it on {ohref}System -> General{chref}.', ohref => '<a href="/ebox/EBox/General">', chref => '</a>')
+                    );
+        }
+        unless ($firewall->availablePort('tcp', $portNumberSSL)) {
+            throw EBox::Exceptions::DataExists(
+                    'data'  => __('Listening port'),
+                    'value' => $portNumberSSL,
+                    );
+        }
+        my $ca = $global->modInstance('ca');
+        my $certificates = $ca->model('Certificates');
+        unless ($certificates->isEnabledService('Web Server')) {
+            throw EBox::Exceptions::External(
+                    __x('You need a Service Certificate for the Web Server module, enable it on {ohref}Certification Authority -> Service Certificates{chref}.', ohref => '<a href="/ebox/CA/View/Certificates">', chref => '</a>')
+                    );
+        }
+        $certificates->updateCN('Web Server', $self->parentModule()->_fqdn());
+        $certificates->setServiceRO('Web Server', 1);
+    }
+
     if (exists $changedFields->{enableDir} and
-        $changedFields->{enableDir}->value())  {
+               $changedFields->{enableDir}->value())  {
         my $samba = EBox::Global->modInstance('samba');
         if (not $samba) {
             throw EBox::Exceptions::External(
-__('To allow HTML directories for users is needed that the file sharing module is installed and configured')
-                                             );
+                    __('To allow HTML directories for users is needed to have the file sharing module is installed and configured.')
+                    );
         }
         my $configured = $samba->configured();
         if (not $configured) {
             throw EBox::Exceptions::External(
-__('To allow HTML directories for user is needed to have the file sharing module configured. To configure it enable it at least one time')
-                                             );
-
+                    __('To allow HTML directories for users is needed to have the file sharing module configured. To configure it enable it at least one time.')
+                    );
         }
     }
-
 }
 
 # Method: formSubmitted
@@ -123,11 +156,46 @@ sub formSubmitted
 {
     my ($self) = @_;
 
-    # Set the new port number in services module
-    my $portNumber = $self->portValue();
     my $servMod = EBox::Global->modInstance('services');
-    $servMod->updateDestPort( '/http/0', $portNumber);
 
+    # Delete the HTTPS port number in services module
+    try {
+        $servMod->delSrvConf('/http/1');
+    } catch EBox::Exceptions::DataNotFound with {
+    };
+
+    # Add it again if HTTPS is enabled
+    if ($self->row()->elementByName('ssl')->selectedType() eq 'ssl_port') {
+        my $sslportNumber = $self->row()->valueByName('ssl');
+        try {
+            my $id = $servMod->addSrvConf('/http', protocol => 'tcp', source => 'any', destination => $sslportNumber);
+            my $row = $servMod->srvConf('/http')->subModel('configuration')->row($id);
+            $row->setReadOnly(1);
+            $row->store();
+        } catch EBox::Exceptions::DataExists with {
+        };
+    }
+
+    # Set the new HTTP port number in services module
+    my $portNumber = $self->portValue();
+    $servMod->updateDestPort('/http/0', $portNumber);
+}
+
+# Method: sslPort
+#
+#     Returns the SSL port if enabled.
+#
+# Returns:
+#
+#     integer - the value for ssl field if enabled.
+#
+sub sslPort
+{
+    my ($self) = @_;
+
+    if ($self->sslValue() ne 'ssl_disabled') {
+        return $self->sslValue()
+    }
 }
 
 # Group: Public class static methods
@@ -135,11 +203,11 @@ sub formSubmitted
 # Method: DefaultEnableDir
 #
 #     Accessor to the default value for the enableDir field in the
-#     model
+#     model.
 #
 # Returns:
 #
-#     boolean - the default value for enableDir field
+#     boolean - the default value for enableDir field.
 #
 sub DefaultEnableDir
 {
@@ -150,15 +218,15 @@ sub DefaultEnableDir
 
 # Method: _table
 #
-#       The table description which consists of two fields:
+#       The table description which consists of three fields:
 #
 #       port        - <EBox::Types::Int>
+#       ssl         - <EBox::Types::Union>
 #       enabledDir  - <EBox::Types::Boolean>
 #
 # Overrides:
 #
 #      <EBox::Model::DataTable::_table>
-#
 #
 sub _table
 {
@@ -171,16 +239,31 @@ sub _table
                              editable      => 1,
                              defaultValue  => 80,
                             ),
+       new EBox::Types::Union(
+                             fieldName     => 'ssl',
+                             printableName => __('Listening SSL port'),
+                             subtypes => [
+                                 new EBox::Types::Union::Text(
+                                     fieldName => 'ssl_disabled',
+                                     printableName => __('Disabled'),
+                                     optional => 1,
+                                 ),
+                                 new EBox::Types::Port(
+                                     fieldName     => 'ssl_port',
+                                     printableName => __('Enabled'),
+                                     editable      => 1,
+                                     defaultValue  => '443',
+                                 ),
+                             ],
+                             ),
        new EBox::Types::Boolean(
                                 fieldName     => 'enableDir',
                                 printableName => __x('Enable per user {dirName}',
                                                      dirName => PUBLIC_DIR),
                                 editable      => 1,
                                 defaultValue  => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir(),
-                                help          => __('If you tick this field,' .
-                                    ' each user is permitted to have a website' .
-                                    ' in their home directory' .
-                                    ' under public_html')
+                                help          => __('Allow users to publish web documents' .
+                                    ' using the public_html directory on their home.')
                                ),
       );
 
@@ -194,16 +277,15 @@ sub _table
        help               => __x('General Web server configuration. The listening port '
                                  . 'must not be got from another service. If you enable '
                                  . 'user to publish their own html pages, the pages will be '
-                                 . 'loaded from {dirName} directory from their samba home directories',
+                                 . 'loaded from {dirName} directory from their samba home directories.',
                                  dirName => PUBLIC_DIR),
        messages           => {
-                              update => __('General Web server configuration settings updated'),
+                              update => __('General Web server configuration settings updated.'),
                              },
        modelDomain        => 'WebServer',
       };
 
     return $dataTable;
-
 }
 
 1;

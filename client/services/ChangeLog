@@ -1,3 +1,7 @@
+HEAD
+	+ Add 'insertPosition' => 'back' to ServiceConfigurationTable to allow
+	  _exposedMethods hacks. New exposedMethods to work with services
+	  addSrvConf, delSrvConf and srvConf
 1.3.12
 	+ Add breadcrumbs
 1.3.6

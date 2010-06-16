@@ -24,6 +24,7 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
+use EBox::Types::Select;
 
 # eBox exceptions used
 use EBox::Exceptions::External;
@@ -50,6 +51,16 @@ sub _table
                                help =>
 __('The name of the webmail will be used in the login screen and page titles.')
                               ),
+         new EBox::Types::Select(
+                               fieldName => 'vHost',
+                               printableName => __('Virtual host'),
+                               editable => 1,
+                               populate => \&_virtualHosts,
+                               disableCache => 1,
+                               defaultValue => 'disabled',
+                               help =>
+__('Virtual host where the webmail will be installed. This will disable the default /webmail url.')
+                              ),
         );
 
       my $dataForm = {
@@ -58,11 +69,54 @@ __('The name of the webmail will be used in the login screen and page titles.')
                       pageTitle          => __('Webmail'),
                       modelDomain        => 'WebMail',
                       defaultActions     => [ 'editField', 'changeView' ],
+                      notifyActions      => [ 'VHostTable' ],
                       tableDescription   => \@tableDesc,
 
                      };
 
     return $dataForm;
+}
+
+sub _virtualHosts
+{
+    my $webserver = EBox::Global->getInstance()->modInstance('webserver');
+    my @options = (
+                       { value => 'disabled' , printableValue => __('Disabled') },
+                  );
+    foreach my $vhost (@{$webserver->virtualHosts()}) {
+        if ($vhost->{'enabled'}) {
+            push(@options, { value => $vhost->{'name'} , printableValue => $vhost->{'name'} });
+        }
+    }
+    return \@options;
+}
+
+# Method: notifyForeignModelAction
+#
+#      Called whenever an action is performed on VHostTable model
+#      to check if our configured virtual host is going to disappear.
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::notifyForeignModelAction>
+#
+sub notifyForeignModelAction
+{
+
+    my ($self, $modelName, $action, $row) = @_;
+
+    if ($action eq 'del') {
+        my $vhost = $row->valueByName('name');
+        my $myRow = $self->row();
+        my $selected = $myRow->valueByName('vHost');
+        if ($vhost eq $selected) {
+            $myRow->elementByName('vHost')->setValue('disabled');
+            $myRow->store();
+            return __('The deleted virtual host was selected for ' .
+                      'Webmail. Maybe you want to select another one now.');
+        }
+    }
+    return '';
 }
 
 sub productName

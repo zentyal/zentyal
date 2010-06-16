@@ -1403,6 +1403,8 @@ sub removePrivateKey
 #       the certFile is passed *(Optional)*
 #
 #       force - this forces the revokation pass to do the renewal *(Optional)*
+#       subjAltNames - Array ref containing hash ref with key type of certificate
+#                      and value the value for the subject alt name *(Optional)*
 #
 # Returns:
 #
@@ -1485,22 +1487,22 @@ sub renewCertificate
     }
     if (defined($args{stateName})
 	and $args{stateName} ne $userDN->attribute('stateName')) {
-      $dnFieldHasChanged = "1" ;
+      $dnFieldHasChanged = "1";
       $userDN->attribute('stateName', $args{stateName});
     }
     if (defined($args{localityName})
 	and $args{localityName} ne $userDN->attribute('localityName')) {
-      $dnFieldHasChanged = "1" ;
+      $dnFieldHasChanged = "1";
       $userDN->attribute('localityName', $args{localityName});
     }
     if (defined($args{orgName})
 	and $args{orgName} ne $userDN->attribute('orgName')) {
-      $dnFieldHasChanged = "1" ;
+      $dnFieldHasChanged = "1";
       $userDN->attribute('orgName', $args{orgName});
     }
     if (defined($args{orgNameUnit})
 	and $args{orgNameUnit} ne $userDN->attribute('orgNameUnit')) {
-      $dnFieldHasChanged = "1" ;
+      $dnFieldHasChanged = "1";
       $userDN->attribute('orgNameUnit', $args{orgNameUnit});
     }
 
@@ -1531,7 +1533,13 @@ sub renewCertificate
       $newCertFile = $userCertFile;
     }
 
-    my $subjAltNames = $self->_obtain($userCertFile, 'subjAltNames');
+    my $subjAltNames;
+    if (defined($args{subjAltNames})) {
+        $subjAltNames = $args{subjAltNames};
+        $dnFieldHasChanged = "1";
+    } else {
+        $subjAltNames = $self->_obtain($userCertFile, 'subjAltNames');
+    }
 
     if (-f $userReq) {
       # If the request exists, we can renew the certificate without
@@ -1544,8 +1552,8 @@ sub renewCertificate
 	# For OpenSSL 0.9.7, we need to create the request
 	my $privKeyFile = PRIVDIR . $userDN->attribute('commonName') . ".pem";
 	$privKeyFile = $args{privateKeyFile} if ($args{privateKeyFile});
-	throw EBox::Exceptions::External(__("The private key passpharse needed to create a new request. No renewal was made. Issue a new certificate with new keys"))
-	  if ( not defined($args{keyPassword}) );
+	#throw EBox::Exceptions::External(__("The private key passpharse needed to create a new request. No renewal was made. Issue a new certificate with new keys"))
+	#  if ( not defined($args{keyPassword}) );
 
 	my $output = $self->_createRequest(reqFile     => $userReq,
 					   genKey      => 0,
