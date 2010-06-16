@@ -1,5 +1,6 @@
 #!/bin/bash -x
 
 # generate certificates
-cp /usr/share/doc/freeradius/examples/certs/* /etc/freeradius/certs/
-cd /etc/freeradius/certs/ ; ./bootstrap
+# FIXME: temporary disabled to avoid conflict with PostgreSQL
+#cp /usr/share/doc/freeradius/examples/certs/* /etc/freeradius/certs/
+#cd /etc/freeradius/certs/ ; ./bootstrap
