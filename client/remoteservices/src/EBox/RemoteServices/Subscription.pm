@@ -181,6 +181,42 @@ sub subscribeEBox
         $new = 0;
     };
 
+    my $params = $self->extractBundle($cn, $bundleContent);
+
+    my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
+    $self->_openVPNConnection(
+        $confKeys->{vpnServer},
+        $confKeys->{vpnPort},
+        $confKeys->{vpnProtocol},
+       );
+
+    $params->{new} = $new;
+    return $params;
+
+}
+
+# Class Method: extractBundle
+#
+#      Given the bundle as string data, extract the files to the
+#      proper locations
+#
+# Parameters:
+#
+#      bundleContent - String the bundle data to extract
+#
+# Returns:
+#
+#      hash ref - containing the following keys:
+#
+#          ca - String the CA certificate path
+#          cert - String the certificate path
+#          key - String the private key path
+#          confFile - String the configuration file path
+#
+sub extractBundle
+{
+    my ($class, $cn, $bundleContent) = @_;
+
     my $tmp = new File::Temp(TEMPLATE => 'servicesXXXX',
                              DIR      => EBox::Config::tmp(),
                              SUFFIX   => '.tar.gz');
@@ -218,13 +254,6 @@ sub subscribeEBox
         }
     }
 
-    my $confKeys = EBox::Config::configKeysFromFile("$dirPath/$confFile");
-    $self->_openVPNConnection(
-        $confKeys->{vpnServer},
-        $confKeys->{vpnPort},
-        $confKeys->{vpnProtocol},
-       );
-
     # Remove everything we created before
     unlink($tmp->filename());
 
@@ -233,9 +262,7 @@ sub subscribeEBox
         cert => "$dirPath/$certFile",
         key => "$dirPath/$keyFile",
         confFile => "$dirPath/$confFile",
-        new => $new,
     };
-
 }
 
 # Method: deleteData

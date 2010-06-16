@@ -1,4 +1,7 @@
 HEAD
+	+ Reload bundle while configuring the package and once a week to
+  	  support eBox CC migration automatically (new keys) to make
+	  migration process even smoother
 	+ Modified order in menu, now Control Center is right after software
 1.5.1
 	+ Security [ESN-1-1]: Added proxyDomain method needed for the CSRF fix

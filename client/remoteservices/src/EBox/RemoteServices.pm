@@ -41,6 +41,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
 use EBox::RemoteServices::Backup;
+use EBox::RemoteServices::Bundle;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::Sudo;
@@ -439,6 +440,8 @@ sub subscribedHostname
 #
 #        array ref - the monitor gatherer IP addresses to send stats to
 #
+#                    empty array if it cannot gather the IP addresses properly
+#
 # Exceptions:
 #
 #        <EBox::Exceptions::External> - thrown if the host is not
@@ -453,7 +456,13 @@ sub monitorGathererIPAddresses
             __('The monitor gatherer IP addresses are only available if the host is subscribed to eBox Control Center'));
     }
 
-    return EBox::RemoteServices::Auth->new()->monitorGatherers();
+    my $monGatherers = [];
+    try {
+        $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
+    } catch EBox::Exceptions::Base with {
+        ;
+    };
+    return $monGatherers;
 
 }
 
@@ -541,6 +550,55 @@ sub isConnected
 
     my $authRS = new EBox::RemoteServices::Backup();
     return $authRS->isConnected();
+}
+
+# Method: reloadBundle
+#
+#    Reload the bundle from eBox Control Center using the Web Service
+#    to do so.
+#
+#    This method must be called only from post-installation script
+#
+# Parameters:
+#
+#    force - Boolean indicating to reload the bundle even if you think
+#            you have the latest version *(Optional)* Default value: False
+#
+# Returns:
+#
+#    1- if the reload was done successfully
+#
+#    2 - no reload is needed (force is false)
+#
+#    0 - when subscribed, but not connected
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::External> - thrown if the eBox is not
+#    subscribed
+#
+sub reloadBundle
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless (defined($force));
+
+    if ( $self->isConnected() ) {
+        my $bundleVersion = $self->_confKeys()->{version};
+        $bundleVersion    = 0 unless defined($bundleVersion);
+        my $bundleGetter  = new EBox::RemoteServices::Bundle();
+        my $bundleContent = $bundleGetter->eBoxBundle($bundleVersion, $force);
+        if ( $bundleContent ) {
+            EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
+        } else {
+            return 2;
+        }
+    } elsif ( $self->eBoxSubscribed() ) {
+        return 0;
+    } else {
+        throw EBox::Exceptions::External(__('eBox must be subscribed to reload the bundle'));
+    }
+    return 1;
 }
 
 # Group: Private methods
