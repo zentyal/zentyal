@@ -142,7 +142,7 @@ sub usedFiles
           reason => __x('{daemon} thresholds configuration file',
                        daemon => 'collectd'),
         },
-        { file   => DEFAULT_COLLECTD_FILE
+        { file   => DEFAULT_COLLECTD_FILE,
           module => 'monitor',
           reason => __x('{daemon} default configuration file',
                        daemon => 'collectd'),
