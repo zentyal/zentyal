@@ -4,6 +4,7 @@
 	+ Updated links in dashboard widget
 	+ Add package versions to downloadable ebox.log
 	+ Fixed postgresql data dir path for disk usage with pg 8.4
+	+ GUI improvements in search box
 1.5.2
 	+ Security [ESN-1-1]: Validate referer to avoid CSRF attacks
 	+ Added reporting structure to events module
