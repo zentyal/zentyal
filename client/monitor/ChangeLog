@@ -1,4 +1,4 @@
-HEAD
+1.5.2
 	+ Use init.d script instead of upstart to avoid errors in syslog
 	+ Removed loading of no longer used perl plugin
 1.5.1

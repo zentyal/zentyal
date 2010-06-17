@@ -1,4 +1,4 @@
-HEAD
+1.5.3
 	+ Removed annoying _validateReferer debug message
 1.5.2
 	+ Security [ESN-1-1]: Added _validateReferer method needed for CSRF fix

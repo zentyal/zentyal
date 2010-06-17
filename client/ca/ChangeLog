@@ -1,4 +1,4 @@
-HEAD
+1.5.2
 	+ Adds setServiceRO and updateCN methods to Certificates
 	+ Allow new subjAltNames on renewCertificate, disabled there a
 	  broken external excepcion
