@@ -227,16 +227,14 @@ LoadPlugin syslog
 #       UPS "upsname@hostname:port"
 #</Plugin>
 
-% if ( $loadPerlPlugin ) {
-<Plugin perl>
-#      IncludeDir "/my/include/path"
-       BaseName "EBox::Collectd"
+#<Plugin perl>
+#       IncludeDir "/my/include/path"
+#       BaseName "EBox::Collectd"
 #       EnableDebugger ""
-       LoadPlugin "Notificate"
-       LoadPlugin "Thermal"
+#       LoadPlugin "Notificate"
+#       LoadPlugin "Thermal"
 #       LoadPlugin "bar"
-</Plugin>
-% }
+#</Plugin>
 
 #<Plugin ping>
 #       Host "host.foo.bar"
