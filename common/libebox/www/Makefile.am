@@ -22,7 +22,8 @@ images = images/delete.gif images/show.gif \
   images/search.gif images/non_ff.gif   images/non_f.gif \
   images/non_r.gif  images/non_rw.gif images/feed-icon.gif \
   images/spinner.gif images/widget_controls.png images/triangles.png \
-  images/edit-inactive.gif images/delete-inactive.gif
+  images/edit-inactive.gif images/delete-inactive.gif \
+  images/magnifying-glass.png
 
 js = js/base64.js js/csshover.htc js/common.js \
   js/help.js js/table-helper.js  \
