@@ -58,7 +58,7 @@ sub masonParameters
   }
 
   my @params = ();
-
+  my @bridges = ();
   my @ifaces = ();
 
   foreach (@{$tmpifaces}) {
@@ -81,6 +81,8 @@ sub masonParameters
       $iface->{'virtual'} = $net->vifacesConf($_);
     } elsif ($net->ifaceMethod($_) eq 'trunk') {
       push(@params, 'vlans' => $net->ifaceVlans($_));
+    } elsif ($net->ifaceMethod($_) eq 'bridged') {
+      $iface->{'bridge'} = $net->ifaceBridge($_);
     } elsif ($net->ifaceMethod($_) eq 'ppp') {
       $iface->{'ppp_user'} = $net->ifacePPPUser($_);
       $iface->{'ppp_pass'} = $net->ifacePPPPass($_);
@@ -90,9 +92,19 @@ sub masonParameters
   if ($net->ifaceIsExternal($ifname)) {
 	$externalWarning = _externalWarning($ifname);
   }
+
+  foreach my $bridge ( @{$net->bridges()} ) {
+    my $brinfo = {};
+    $brinfo->{'id'} = $bridge;
+    $brinfo->{'name'} = "br$bridge";
+    $brinfo->{'alias'} = $net->ifaceAlias("br$bridge");
+    push(@bridges, $brinfo);
+  }
+
   push(@params, 'externalWarning' => $externalWarning);
   push(@params, 'iface' => $iface);
   push(@params, 'ifaces' => \@ifaces);
+  push(@params, 'bridges', => \@bridges);
 
   return \@params;
 }
@@ -104,7 +116,7 @@ sub _externalWarning
 
   return 0 unless ($req);
   my $remote = $req->connection->remote_ip();
-  my $command = "/sbin/ip route get to $remote " 
+  my $command = "/sbin/ip route get to $remote "
 		. ' | head -n 1 | sed -e "s/.*dev \(\w\+\).*/\1/" ';
   my $routeIface = `$command`;
   return 0 unless ( $? == 0);

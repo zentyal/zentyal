@@ -42,82 +42,94 @@ sub new
 
 sub input
 {
-	my $self = shift;
-	my @rules = ();
+    my $self = shift;
+    my @rules = ();
 
-	my $net = EBox::Global->modInstance('network');
-	my $jabber = EBox::Global->modInstance('jabber');
-	my @ifaces = @{$net->InternalIfaces()};
+    my $net = EBox::Global->modInstance('network');
+    my $jabber = EBox::Global->modInstance('jabber');
+    my @ifaces = @{$net->InternalIfaces()};
 
-	my @jabberPorts = ();
-	if (($jabber->ssl eq 'no') || ($jabber->ssl eq 'optional')){
-	    push(@jabberPorts, JABBERPORT);
-	}
-	if (($jabber->ssl eq 'optional') || ($jabber->ssl eq 'required')){
-	    push(@jabberPorts, JABBERPORTSSL);
-	}
-	if ($jabber->externalConnection){
-	    push(@jabberPorts, JABBEREXTERNALPORT);
-	}
+    my @jabberPorts = ();
+    if (($jabber->ssl eq 'no') || ($jabber->ssl eq 'optional')){
+        push(@jabberPorts, JABBERPORT);
+    }
+    if (($jabber->ssl eq 'optional') || ($jabber->ssl eq 'required')){
+        push(@jabberPorts, JABBERPORTSSL);
+    }
+    if ($jabber->externalConnection){
+        push(@jabberPorts, JABBEREXTERNALPORT);
+    }
 
-	foreach my $port (@jabberPorts){
-	    foreach my $ifc (@ifaces) {
-		my $r = "-m state --state NEW -i $ifc  ".
-		        "-p tcp --dport $port -j ACCEPT";
-		push(@rules, $r);
-		$r = "-m state --state NEW -i $ifc  ".
-		     "-p udp --dport $port -j ACCEPT";
-		push(@rules, $r);
-	    }
-	}
+    foreach my $port (@jabberPorts){
+        foreach my $ifc (@ifaces) {
+            my $input = $self->_inputIface($ifc);
 
-	return \@rules;
+            my $r = "-m state --state NEW $input ".
+                "-p tcp --dport $port -j ACCEPT";
+
+            push(@rules, $r);
+            $r = "-m state --state NEW $input ".
+                "-p udp --dport $port -j ACCEPT";
+
+            push(@rules, $r);
+        }
+    }
+
+    return \@rules;
 }
 
 sub output
 {
-	my $self = shift;
-	my @rules = ();
+    my $self = shift;
+    my @rules = ();
 
-	my $net = EBox::Global->modInstance('network');
-	my $jabber = EBox::Global->modInstance('jabber');
-	my @ifaces = @{$net->InternalIfaces()};
+    my $net = EBox::Global->modInstance('network');
+    my $jabber = EBox::Global->modInstance('jabber');
+    my @ifaces = @{$net->InternalIfaces()};
 
-	my @jabberPorts = ();
-	if (($jabber->ssl eq 'no') || ($jabber->ssl eq 'optional')){
-	    push (@jabberPorts, JABBERPORT);
-	}
-	if (($jabber->ssl eq 'optional') || ($jabber->ssl eq 'required')){
-	    push (@jabberPorts, JABBERPORTSSL);
-	}
-	foreach my $port (@jabberPorts){
-	    foreach my $ifc (@ifaces) {
-		my $r = "-m state --state NEW -o $ifc  ".
-			"-p tcp --sport $port -j ACCEPT";
-		push(@rules, $r);
-		$r = "-m state --state NEW -o $ifc  ".
-			"-p udp --sport $port -j ACCEPT";
-		push(@rules, $r);
-	    }
-	}
+    my @jabberPorts = ();
+    if (($jabber->ssl eq 'no') || ($jabber->ssl eq 'optional')){
+        push (@jabberPorts, JABBERPORT);
+    }
+    if (($jabber->ssl eq 'optional') || ($jabber->ssl eq 'required')){
+        push (@jabberPorts, JABBERPORTSSL);
+    }
+    foreach my $port (@jabberPorts){
+        foreach my $ifc (@ifaces) {
+            my $output = $self->_outputIface($ifc);
 
-	@jabberPorts = ();
-	if ($jabber->externalConnection){
-	    push(@jabberPorts, JABBEREXTERNALPORT);
-	}
+            my $r = "-m state --state NEW $output ".
+                "-p tcp --sport $port -j ACCEPT";
 
-	foreach my $port (@jabberPorts){
-	    foreach my $ifc (@ifaces) {
-	        my $r = "-m state --state NEW -o $ifc  ".
-			"-p tcp --sport $port -j ACCEPT";
-		push(@rules, $r);
-		$r = "-m state --state NEW -o $ifc  ".
-			"-p udp --sport $port -j ACCEPT";
-		push(@rules, $r);
-	    }
-	}
+            push(@rules, $r);
 
-	return \@rules;
+            $r = "-m state --state NEW $output ".
+                "-p udp --sport $port -j ACCEPT";
+            push(@rules, $r);
+        }
+    }
+
+    @jabberPorts = ();
+    if ($jabber->externalConnection){
+        push(@jabberPorts, JABBEREXTERNALPORT);
+    }
+
+    foreach my $port (@jabberPorts){
+        foreach my $ifc (@ifaces) {
+            my $output = $self->_outputIface($ifc);
+
+            my $r = "-m state --state NEW $output  ".
+            "-p tcp --sport $port -j ACCEPT";
+
+            push(@rules, $r);
+
+            $r = "-m state --state NEW $output  ".
+                "-p udp --sport $port -j ACCEPT";
+            push(@rules, $r);
+        }
+    }
+
+    return \@rules;
 }
 
 1;

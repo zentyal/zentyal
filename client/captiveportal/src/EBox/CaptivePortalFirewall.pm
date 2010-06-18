@@ -42,114 +42,121 @@ sub chains
 
 sub prerouting
 {
-	my ($self) = @_;
-	my @rules = ();
+    my ($self) = @_;
+    my @rules = ();
 
-	my $captiveportal = EBox::Global->modInstance('captiveportal');
+    my $captiveportal = EBox::Global->modInstance('captiveportal');
     my $port = $captiveportal->port();
-	my $ifaces = $captiveportal->ifaces();
+    my $ifaces = $captiveportal->ifaces();
 
     foreach my $ifc (@{$ifaces}) {
-		my $r = "-i $ifc -p tcp --dport 80 -j REDIRECT --to-ports $port";
-		push(@rules, $r);
+        my $input = $self->_inputIface($ifc);
+        my $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
+        push(@rules, $r);
     }
-	return \@rules;
+    return \@rules;
 }
 
 sub postrouting
 {
-	my ($self) = @_;
-	my @rules = ();
+    my ($self) = @_;
+    my @rules = ();
 
-	my $net = EBox::Global->modInstance('network');
-	my $captiveportal = EBox::Global->modInstance('captiveportal');
+    my $net = EBox::Global->modInstance('network');
+    my $captiveportal = EBox::Global->modInstance('captiveportal');
     my $port = $captiveportal->port();
-	my $ifaces = $captiveportal->ifaces();
+    my $ifaces = $captiveportal->ifaces();
 
     foreach my $ifc (@{$ifaces}) {
+        my $input = $self->_inputIface($ifc);
+
         foreach my $add (@{$net->ifaceAddresses($ifc)}) {
             my $ip = $add->{'address'};
-            my $r = "-i $ifc -p tcp --sport $port -j SNAT --to-source $ip:$port";
+            my $r = "$input -p tcp --sport $port -j SNAT --to-source $ip:$port";
             push(@rules, $r);
         }
     }
 
-	return \@rules;
+    return \@rules;
 }
 
 sub input
 {
-	my ($self) = @_;
-	my @rules = ();
+    my ($self) = @_;
+    my @rules = ();
 
-	my $captiveportal = EBox::Global->modInstance('captiveportal');
+    my $captiveportal = EBox::Global->modInstance('captiveportal');
     my $port = $captiveportal->port();
-	my $ifaces = $captiveportal->ifaces();
+    my $ifaces = $captiveportal->ifaces();
 
-	my $usercorner = EBox::Global->modInstance('usercorner');
+    my $usercorner = EBox::Global->modInstance('usercorner');
     my $ucport = $usercorner->port();
 
     foreach my $ifc (@{$ifaces}) {
-		my $r;
-        $r = "-i $ifc -j icaptive";
-		push(@rules, { 'priority' => 5, 'rule' => $r });
+        my $input = $self->_inputIface($ifc);
+
+        my $r;
+        $r = "$input -j icaptive";
+        push(@rules, { 'priority' => 5, 'rule' => $r });
 
         my $users = EBox::CaptivePortalHelper::currentUsers();
         for my $user (@{$users}) {
             my $ip = $user->{'ip'};
             my $name = $user->{'user'};
             $r = "-s $ip -j RETURN -m comment --comment 'user:$name'";
-		    push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+            push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
         }
 
-        $r = "-i $ifc -p tcp --dport 53 -j ACCEPT";
-		push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
-        $r = "-i $ifc -p udp --dport 53 -j ACCEPT";
-		push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
-        $r = "-i $ifc -p tcp --dport $port -j ACCEPT";
-		push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
-        $r = "-i $ifc -p tcp --dport $ucport -j ACCEPT";
-		push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
-        $r = "-i $ifc -p tcp -j DROP";
-		push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
-        $r = "-i $ifc -p udp -j DROP";
-		push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        $r = "$input -p tcp --dport 53 -j ACCEPT";
+        push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        $r = "$input -p udp --dport 53 -j ACCEPT";
+        push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        $r = "$input -p tcp --dport $port -j ACCEPT";
+        push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        $r = "$input -p tcp --dport $ucport -j ACCEPT";
+        push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        $r = "$input -p tcp -j DROP";
+        push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        $r = "$input -p udp -j DROP";
+        push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
     }
-	return \@rules;
+    return \@rules;
 }
 
 sub forward
 {
-	my ($self) = @_;
-	my @rules = ();
+    my ($self) = @_;
+    my @rules = ();
 
-	my $captiveportal = EBox::Global->modInstance('captiveportal');
+    my $captiveportal = EBox::Global->modInstance('captiveportal');
     my $port = $captiveportal->port();
-	my $ifaces = $captiveportal->ifaces();
+    my $ifaces = $captiveportal->ifaces();
 
     foreach my $ifc (@{$ifaces}) {
-		my $r;
-        $r = "-i $ifc -j fcaptive";
-		push(@rules, { 'priority' => 5, 'rule' => $r });
+        my $input = $self->_inputIface($ifc);
+        my $r;
+
+        $r = "$input -j fcaptive";
+        push(@rules, { 'priority' => 5, 'rule' => $r });
 
         my $users = EBox::CaptivePortalHelper::currentUsers();
         for my $user (@{$users}) {
             my $ip = $user->{'ip'};
             my $name = $user->{'user'};
             $r = "-s $ip -m comment --comment 'user:$name' -j RETURN";
-		    push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+            push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
         }
 
-        $r = "-i $ifc -p tcp --dport 53 -j ACCEPT";
-		push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
-        $r = "-i $ifc -p udp --dport 53 -j ACCEPT";
-		push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
-        $r = "-i $ifc -p tcp -j DROP";
-		push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
-        $r = "-i $ifc -p udp -j DROP";
-		push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+        $r = "$input -p tcp --dport 53 -j ACCEPT";
+        push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+        $r = "$input $ifc -p udp --dport 53 -j ACCEPT";
+        push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+        $r = "$input $ifc -p tcp -j DROP";
+        push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+        $r = "$input $ifc -p udp -j DROP";
+        push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
     }
-	return \@rules;
+    return \@rules;
 }
 
 1;

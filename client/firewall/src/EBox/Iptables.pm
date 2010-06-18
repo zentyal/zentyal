@@ -480,6 +480,8 @@ sub start
 
     my @ifaces = @{$self->{net}->ifaces()};
     foreach my $ifc (@ifaces) {
+        next if ($self->{net}->ifaceMethod($ifc) eq 'bridged');
+
         if ($self->{net}->ifaceMethod($ifc) eq any('dhcp', 'ppp')) {
             push(@commands, @{$self->_setDHCP($ifc)});
             my $dnsSrvs = $self->{net}->DHCPNameservers($ifc);
@@ -502,24 +504,44 @@ sub start
         my $method = $self->{net}->ifaceMethod($if);
         $if = $self->{net}->realIface($if);
 
-        push(@commands,
-                pf("-A fnoexternal $statenew -i $if -j fdrop"),
-                pf("-A inoexternal $statenew -i $if -j idrop"),
-                pf("-A ftoexternalonly -o $if -j ACCEPT"),
+        my $input = $self->_inputIface($if);
+        my $output = $self->_outputIface($if);
+
+        unless ( $self->{net}->ifaceIsBridge($if) ) {
+            push(@commands,
+                pf("-A fnoexternal $statenew $input -j fdrop"),
+                pf("-A inoexternal $statenew $input -j idrop"),
+                pf("-A ftoexternalonly $output -j ACCEPT"),
             );
+        }
 
         next unless (_natEnabled());
 
         if ($method eq 'static') {
             my $addr = $self->{net}->ifaceAddress($if);
+            my $src = $addr;
+
+            # If it's a bridge SNAT traffic out of the network
+            if ( $self->{net}->ifaceIsBridge($if) ) {
+                my $mask = $self->{net}->ifaceNetmask($if);
+                $src = "$addr/$mask";
+            }
             push(@commands,
-                    pf("-t nat -A POSTROUTING -s ! $addr -o $if " .
-                        "-j SNAT --to $addr")
-                );
+                pf("-t nat -A POSTROUTING -s ! $src $output " .
+                   "-j SNAT --to $addr")
+            );
         } elsif (($method eq 'dhcp') or ($method eq 'ppp')) {
-            push(@commands,
-                    pf("-t nat -A POSTROUTING -o $if -j MASQUERADE")
+            if ( $self->{net}->ifaceIsBridge($if) ) {
+                push(@commands,
+                    pf("-t nat -A POSTROUTING $output -m physdev" .
+                       " ! --physdev-is-bridged -j MASQUERADE")
                 );
+            }
+            else {
+                push(@commands,
+                    pf("-t nat -A POSTROUTING $output -j MASQUERADE")
+                );
+            }
         }
     }
 
@@ -666,15 +688,19 @@ sub _iexternalCheckInit
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
         $if = $self->{net}->realIface($if);
+        my $input = $self->_inputIface($if);
+
         push(@commands,
-            pf("-A iexternalmodules -i $if -j RETURN"),
-            pf("-A iexternal -i $if -j RETURN"),
+            pf("-A iexternalmodules $input -j RETURN"),
+            pf("-A iexternal $input -j RETURN"),
         );
     }
     foreach my $if (@{_vpnIfaces()}) {
+        my $input = $self->_inputIface($if);
+
         push(@commands,
-            pf("-A iexternalmodules -i $if -j RETURN"),
-            pf("-A iexternal -i $if -j RETURN"),
+            pf("-A iexternalmodules $input -j RETURN"),
+            pf("-A iexternal $input -j RETURN"),
         );
     }
     return \@commands;
@@ -763,7 +789,9 @@ sub _ffwdrules
     my @internalIfaces = @{$self->{net}->InternalIfaces()};
     foreach my $if (@internalIfaces) {
         $if = $self->{net}->realIface($if);
-        push(@commands, pf("-A ffwdrules -i $if -j RETURN"));
+        my $input = $self->_inputIface($if);
+
+        push(@commands, pf("-A ffwdrules $input -j RETURN"));
     }
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->ExternalToInternalRuleTable()}) {
@@ -865,6 +893,49 @@ sub _log
     }
     return \@commands;
 }
+
+# Method: _outputIface
+#
+#   Returns iptables rule part for output interface selection
+#   Takes into account if the iface is part of a bridge
+#
+# Parameters:
+#
+#   Iface - Iface name
+#
+sub _outputIface # (iface)
+{
+    my ($self, $iface) = @_;
+
+    if ( $self->{net}->ifaceExists($iface) and
+         $self->{net}->ifaceMethod($iface) eq 'bridged' ) {
+        return  "-m physdev --physdev-out $iface";
+    } else {
+        return "-o $iface";
+    }
+}
+
+# Method: _inputIface
+#
+#   Returns iptables rule part for input interface selection
+#   Takes into account if the iface is part of a bridge
+#
+# Parameters:
+#
+#   Iface - Iface name
+#
+sub _inputIface # (iface)
+{
+    my ($self, $iface) = @_;
+
+    if ( $self->{net}->ifaceExists($iface) and
+         $self->{net}->ifaceMethod($iface) eq 'bridged' ) {
+        return  "-m physdev --physdev-in $iface";
+    } else {
+        return "-i $iface";
+    }
+}
+
 
 # Method: _natEnabled
 #

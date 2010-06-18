@@ -74,39 +74,45 @@ sub new
 #
 sub output
 {
-	my $self = shift;
-	my @rules = ();
+    my $self = shift;
+    my @rules = ();
 
-	my $net = EBox::Global->modInstance('network');
-	my @ifaces = @{$net->InternalIfaces()};
+    my $net = EBox::Global->modInstance('network');
+    my @ifaces = @{$net->InternalIfaces()};
 
-	my @AsteriskPorts = ();
-	push(@AsteriskPorts, SIPUDPPORT);
-	#push(@AsteriskPorts, H323UDPPORTRANGE);
-	push(@AsteriskPorts, RTPUDPPORTRANGE);
-	#push(@AsteriskPorts, IAXUDPPORT);
-	#push(@AsteriskPorts, IAX2UDPPORT);
+    my @AsteriskPorts = ();
+    push(@AsteriskPorts, SIPUDPPORT);
+    #push(@AsteriskPorts, H323UDPPORTRANGE);
+    push(@AsteriskPorts, RTPUDPPORTRANGE);
+    #push(@AsteriskPorts, IAXUDPPORT);
+    #push(@AsteriskPorts, IAX2UDPPORT);
 
-	foreach my $port (@AsteriskPorts){
-	    foreach my $ifc (@ifaces) {
-		my $r = "-m state --state NEW -o $ifc  ".
-			"-p udp --sport $port -j ACCEPT";
-		push(@rules, $r);
-	    }
-	}
+    foreach my $port (@AsteriskPorts){
+        foreach my $ifc (@ifaces) {
+            my $output = $self->_outputIface($ifc);
 
-	@AsteriskPorts = ();
-	#push(@AsteriskPorts, H323TCPPORT);
+            my $r = "-m state --state NEW $output  ".
+                "-p udp --sport $port -j ACCEPT";
 
-	foreach my $port (@AsteriskPorts){
-	    foreach my $ifc (@ifaces) {
-		my $r = "-m state --state NEW -o $ifc  ".
-			"-p tcp --sport $port -j ACCEPT";
-		push(@rules, $r);
-	    }
-	}
+            push(@rules, $r);
+        }
+    }
 
-	return \@rules;
+    @AsteriskPorts = ();
+    #push(@AsteriskPorts, H323TCPPORT);
+
+    foreach my $port (@AsteriskPorts){
+        foreach my $ifc (@ifaces) {
+            my $output = $self->_outputIface($ifc);
+
+            my $r = "-m state --state NEW $output  ".
+                "-p tcp --sport $port -j ACCEPT";
+
+            push(@rules, $r);
+        }
+    }
+
+    return \@rules;
 }
 
 1;

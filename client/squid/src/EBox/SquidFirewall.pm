@@ -62,6 +62,8 @@ sub _normal_prerouting
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
         my $addrs = $net->ifaceAddresses($ifc);
+        my $input = $self->_inputIface($ifc);
+
         foreach my $addr (map { $_->{address} } @{$addrs}) {
             (defined($addr) && $addr ne "") or next;
 
@@ -71,7 +73,7 @@ sub _normal_prerouting
             }
 
             if ($sq->globalPolicyUsesFilter()) {
-                my $r = "-i $ifc -d $addr -p tcp --dport $sqport ".
+                my $r = "$input -d $addr -p tcp --dport $sqport ".
                   "-j REDIRECT --to-ports $dgport";
                 push @rules, $r;
             }
@@ -91,19 +93,20 @@ sub _normal_prerouting_object_rules
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
+    my $input = $self->_inputIface($ifc);
 
     my @rules;
 
     if (not $obPolicy->{filter}) {
         foreach my $client ( @{ $obPolicy->{addresses}  }) {
-            my $r = "-i $ifc -d $addr -s $client -p tcp " .
+            my $r = "$input -d $addr -s $client -p tcp " .
                 "--dport $sqport -j RETURN";
             push @rules, $r;
         }
     }
     else {
         foreach my $client ( @{ $obPolicy->{addresses}  } ) {
-            my $r = "-i $ifc -d $addr -s $client -p tcp " .
+            my $r = "$input -d $addr -s $client -p tcp " .
                 "--dport $sqport -j REDIRECT --to-ports $dgport";
             push @rules, $r;
         }
@@ -126,6 +129,8 @@ sub _trans_prerouting
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
         my $addrs = $net->ifaceAddresses($ifc);
+        my $input = $self->_inputIface($ifc);
+
         foreach my $addr (map { $_->{address} } @{$addrs}) {
             (defined($addr) && $addr ne "") or next;
 
@@ -139,11 +144,11 @@ sub _trans_prerouting
             }
 
             if ($sq->globalPolicyUsesFilter()) {
-                my $r = "-i $ifc -d ! $addr -p tcp --dport 80 "
+                my $r = "$input -d ! $addr -p tcp --dport 80 "
                         . "-j REDIRECT --to-ports $dgport";
                 push(@rules, $r);
             } else {
-                my $r = "-i $ifc -d ! $addr -p tcp --dport 80 "
+                my $r = "$input -d ! $addr -p tcp --dport 80 "
                         . "-j REDIRECT --to-ports $sqport";
                 push(@rules, $r);
             }
@@ -161,20 +166,21 @@ sub _normal_trans_prerouting_object_rules
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
+    my $input = $self->_inputIface($ifc);
 
     my @rules;
 
     my $policy = $obPolicy->{policy};
     if (not $obPolicy->{filter}) {
         foreach my $client ( @{ $obPolicy->{addresses}  }) {
-            my $r = "-i $ifc -d ! $addr -s $client -p tcp " .
+            my $r = "$input -d ! $addr -s $client -p tcp " .
                 "--dport 80 -j REDIRECT --to-ports $sqport";
             push @rules, $r;
         }
     }
     else {
         foreach my $client ( @{ $obPolicy->{addresses}  } ) {
-            my $r = "-i $ifc -d ! $addr -s $client -p tcp " .
+            my $r = "$input -d ! $addr -s $client -p tcp " .
                 "--dport 80 -j REDIRECT --to-ports $dgport";
             push @rules, $r;
         }
@@ -211,13 +217,14 @@ sub input
             push @rules,
                 @{ $self->_input_object_rules($obPolicy, $ifc ) };
         }
+        my $input = $self->_inputIface($ifc);
 
         if ($sq->globalPolicyUsesFilter()) {
-            my $r = "-m state --state NEW -i $ifc ".
+            my $r = "-m state --state NEW $input ".
                 "-p tcp --dport $dgport -j ACCEPT";
             push(@rules, $r);
         } else {
-            my $r = "-m state --state NEW -i $ifc ".
+            my $r = "-m state --state NEW $input ".
                                 "-p tcp --dport $sqport -j ACCEPT";
             push(@rules, $r);
         }
@@ -235,28 +242,29 @@ sub _input_object_rules
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
+    my $input = $self->_inputIface($ifc);
 
     my @rules;
 
 
     if (not $obPolicy->{filter}) {
         foreach my $client ( @{ $obPolicy->{addresses}  } ) {
-            my $r = "-m state --state NEW -i $ifc -s $client ".
+            my $r = "-m state --state NEW $input -s $client ".
                 "-p tcp --dport $sqport -j ACCEPT";
             push @rules, $r;
 
-            $r = "-m state --state NEW -i $ifc -s $client ".
+            $r = "-m state --state NEW $input -s $client ".
                 "-p tcp --dport $dgport -j DROP";
             push @rules, $r;
         }
     }
     else {
         foreach my $client ( @{ $obPolicy->{addresses}  } ) {
-            my $r = "-m state --state NEW -i $ifc -s $client ".
+            my $r = "-m state --state NEW $input -s $client ".
                 "-p tcp --dport $dgport -j ACCEPT";
             push @rules, $r;
 
-            $r = "-m state --state NEW -i $ifc -s $client ".
+            $r = "-m state --state NEW $input -s $client ".
                 "-p tcp --dport $sqport -j DROP";
             push @rules, $r;
         }

@@ -392,8 +392,35 @@ sub ifaceIsExternal # (interface)
         my @aux = $self->_viface2array($iface);
         $iface = $aux[0];
     }
-    return  $self->get_bool("interfaces/$iface/external");
+    if ($self->ifaceIsBridge($iface)) {
+        return 1; # bridges are always processed as external
+    }
+    return $self->get_bool("interfaces/$iface/external");
 }
+
+# Method: ifaceIsBridge
+#
+#   Checks if a given iface exists and is a bridge
+#
+# Parameters:
+#
+#   interface - the name of a network interface
+#
+# Returns:
+#
+#   boolean - true, if the interface is external, otherwise false
+sub ifaceIsBridge # (interface)
+{
+    my ($self, $iface) = @_;
+    defined($iface) or return undef;
+
+    if ( $self->ifaceExists($iface) and $iface =~ /^br/ ) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 
 # Method: ifaceOnConfig
 #
@@ -482,6 +509,41 @@ sub _cleanupVlanIfaces
     }
 }
 
+# given a list of network interfaces appends to it any existing bridged interface
+# not already in the list and removes from it any bridged interface which has been
+# deleted from the configuration.
+sub _bridgedIfaceFilter # (\array)
+{
+    my ($self, $ifaces) = @_;
+    my @array = ();
+
+    foreach my $if (@{$ifaces}) {
+        unless ($if =~ /^br/) {
+            push(@array, $if);
+        }
+    }
+
+    my $bridges = $self->bridges();
+    foreach my $id (@{$bridges}) {
+        push(@array, "br$id");
+    }
+    return \@array;
+}
+
+# given a list of network interfaces appends to it any existing bridge interface
+# not already in the list
+sub _bridgedIfaceFilterWithRemoved # (\array)
+{
+    my ($self, $ifaces) = @_;
+    my $bridges = $self->bridges();
+    foreach my $id (@{$bridges}) {
+        unless (grep(/^br$id$/, @{$ifaces})) {
+            push(@{$ifaces}, "br$id");
+        }
+    }
+    return $ifaces;
+}
+
 sub _ifaces
 {
     my $self = shift;
@@ -504,7 +566,10 @@ sub _ifaces
 sub ifaces
 {
     my $self = shift;
-    return $self->_vlanIfaceFilter($self->_ifaces());
+    my $ifaces = $self->_ifaces();
+    $ifaces = $self->_vlanIfaceFilter($ifaces);
+    $ifaces = $self->_bridgedIfaceFilter($ifaces);
+    return $ifaces;
 }
 
 # Method: ifacesWithRemoved
@@ -518,7 +583,10 @@ sub ifaces
 sub ifacesWithRemoved
 {
     my $self = shift;
-    return $self->_vlanIfaceFilterWithRemoved($self->_ifaces());
+    my $ifaces = $self->_ifaces();
+    $ifaces = $self->_vlanIfaceFilterWithRemoved($ifaces);
+    $ifaces = $self->_bridgedIfaceFilterWithRemoved($ifaces);
+    return $ifaces;
 }
 
 # Method: ifaceAddresses
@@ -562,6 +630,9 @@ sub ifaceAddresses # (interface)
         if ($addr) {
             push(@array, {address=>$addr, netmask=>$mask});
         }
+    } elsif ($self->ifaceMethod($iface) eq 'bridged') {
+        my $bridge = $self->ifaceBridge($iface);
+        return $self->ifaceAddresses("br$bridge");
     }
     return \@array;
 }
@@ -998,13 +1069,14 @@ sub ifaceAlias # (iface)
 #
 # Returns:
 #
-#   string - dhcp|static|notset|trunk|ppp
+#   string - dhcp|static|notset|trunk|ppp|bridged
 #           dhcp -> the interface is configured via dhcp
 #           static -> the interface is configured with a static ip
 #           ppp -> the interface is configured via PPP
 #           notset -> the interface exists but has not been
 #                 configured yet
 #           trunk -> vlan aware interface
+#           bridged -> bridged to other interfaces
 sub ifaceMethod # (interface)
 {
     my ($self, $name) = @_;
@@ -1045,6 +1117,8 @@ sub setIfaceDHCP # (interface, external, force)
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
     }
 
     my $global = EBox::Global->getInstance();
@@ -1149,7 +1223,10 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name, $address, $netmask);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
     }
+
 
     # Calling observers
     my $global = EBox::Global->getInstance();
@@ -1273,7 +1350,10 @@ sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
         $self->DHCPCleanUp($name);
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
     }
+
 
     # Calling observers
     my $global = EBox::Global->getInstance();
@@ -1357,7 +1437,10 @@ sub setIfaceTrunk # (iface, force)
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
     }
+
 
     if ($oldm ne 'notset') {
         $self->_notifyChangedIface(
@@ -1405,6 +1488,110 @@ sub _trunkIfaceIsUsed # (iface)
     return undef;
 }
 
+
+
+# Method: setIfaceBridged
+#
+#   configures an interface in bridged mode attached to a new or
+#   defined bridge
+#
+# Parameters:
+#
+#   interface - the name of a network interface
+#   external - boolean to indicate if it's  a external interface
+#   bridge - bridge id number or -1 to create new one
+#   force - boolean to indicate if an exception should be raised when
+#   method is changed or it should be forced
+#
+sub setIfaceBridged
+{
+    my ($self, $name, $ext, $bridge, $force) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    # check if bridge exists
+    if ( $bridge >= 0 ) {
+        $self->ifaceExists("br$bridge") or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => "br$bridge");
+    }
+
+
+    my $oldm = $self->ifaceMethod($name);
+    if ($oldm eq any('dhcp', 'ppp')) {
+        $self->DHCPCleanUp($name);
+    } elsif ($oldm eq 'trunk') {
+        $self->_trunkIfaceIsUsed($name);
+    } elsif ($oldm eq 'static') {
+        $self->_routersReachableIfChange($name);
+        $self->_checkStatic($name, $force);
+    } elsif ($oldm eq 'bridged' and $self->ifaceBridge($name) ne $bridge) {
+        $self->BridgedCleanUp($name);
+    }
+
+
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+
+    if ($ext != $self->ifaceIsExternal($name) ) {
+      # Tell observers the interface way has changed
+      foreach my $obs (@observers) {
+        if ($obs->ifaceExternalChanged($name, $ext)) {
+          if ($force) {
+            $obs->changeIfaceExternalProperty($name, $ext);
+          }
+          else {
+            throw EBox::Exceptions::DataInUse();
+          }
+        }
+      }
+    }
+    if ($oldm ne 'bridged') {
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'bridged',
+            action => 'prechange',
+	        force  => $force,
+        );
+    } else {
+        my $oldm = $self->ifaceIsExternal($name);
+        my $oldbr = $self->ifaceBridge($name);
+
+        if (defined($oldm) and defined($ext) and ($oldm == $ext) and
+            defined($oldbr) and defined($bridge) and ($oldbr eq $bridge)) {
+            return;
+        }
+    }
+
+    # new bridge
+    if ( $bridge < 0 ) {
+        my @bridges = @{$self->bridges()};
+        my $last = int(pop(@bridges));
+        $bridge = $last+1;
+        $self->_createBridge($bridge);
+    }
+
+    $self->set_bool("interfaces/$name/external", $ext);
+    $self->unset("interfaces/$name/address");
+    $self->unset("interfaces/$name/netmask");
+    $self->set_string("interfaces/$name/method", 'bridged');
+    $self->set_bool("interfaces/$name/changed", 'true');
+    $self->set_string("interfaces/$name/bridge_id", $bridge);
+
+    # mark bridge as changed
+    $self->_setChanged("br$bridge");
+
+    if ($oldm ne 'bridged') {
+        $self->_notifyChangedIface(
+            name => $name,
+            oldMethod => $oldm,
+            newMethod => 'bridged',
+            action => 'postchange'
+        );
+    }
+}
 
 # Method: createVlan
 #
@@ -1531,6 +1718,115 @@ sub vlan # (vlan)
     return $self->hash_from_dir("vlans/$vlan");
 }
 
+# Method: createBridge
+#
+#   creates a new bridge interface.
+#
+# Parameters:
+#
+#   id - bridge identifier
+#
+sub _createBridge
+{
+    my ($self, $id) = @_;
+
+    if ($self->dir_exists("interfaces/br$id")) {
+        throw EBox::Exceptions::DataExists('data' => 'bridge',
+                          'value' => "$id");
+    }
+
+    $self->setIfaceAlias("br$id", "br$id");
+}
+
+# Method: removeBridge
+#
+#   Removes a bridge
+#
+# Parameters:
+#
+#   id - bridge identifier
+#
+sub _removeBridge # (id)
+{
+    my ($self, $id, $force) = @_;
+    $self->_removeIface("br$id");
+}
+
+
+# Method: _removeEmptyBridges
+#
+# Removes bridges which has no bridged interfaces
+sub _removeEmptyBridges
+{
+    my ($self) = @_;
+    my %seen;
+
+    for my $if ( @{$self->ifaces()} ) {
+        if ( $self->ifaceMethod($if) eq 'bridged' ) {
+            $seen{$self->ifaceBridge($if)}++;
+        }
+    }
+
+    # remove unseen bridges
+    for my $bridge ( @{$self->bridges()} ) {
+        next if ( $seen{$bridge} );
+        $self->_removeBridge($bridge);
+    }
+}
+
+
+# Method: bridges
+#
+#   Returns a reference to a sorted array with existing bridges ID's
+#
+# Returns:
+#
+#   an array ref - holding the bridges ID's
+sub bridges
+{
+    my $self = shift;
+    my @bridges;
+    for my $iface ( @{$self->all_dirs_base('interfaces')} ) {
+        if ($iface =~ /^br/) {
+            $iface =~ s/^br//;
+            push(@bridges, $iface);
+        }
+    }
+    @bridges = sort @bridges;
+    return \@bridges;
+}
+
+# Method: bridgeIfaces
+#
+#   Returns a reference to an array of ifaces bridged to
+#   the given bridge ifname
+#
+# Parameters:
+#
+#   bridge - Bridge ifname
+#
+# Returns:
+#
+#   an array ref - holding the iface names
+sub bridgeIfaces
+{
+    my ($self, $bridge) = @_;
+
+    # get the bridge's id
+    $bridge =~ s/^br//;
+
+    my @ifaces = ();
+    for my $iface ( @{$self->ifaces} ) {
+        if ( $self->ifaceMethod($iface) eq 'bridged' ) {
+            if ( $self->ifaceBridge($iface) eq $bridge ) {
+               push(@ifaces, $iface);
+            }
+        }
+    }
+
+    return \@ifaces;
+}
+
 # Method: unsetIface
 #
 #   Unset an interface
@@ -1560,6 +1856,8 @@ sub unsetIface # (interface, force)
     } elsif ($oldm eq 'static') {
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
+    } elsif ($oldm eq 'bridged') {
+        $self->BridgedCleanUp($name);
     }
 
     if ($oldm ne 'notset') {
@@ -1603,6 +1901,7 @@ sub unsetIface # (interface, force)
 #   - For dhcp and ppp interfaces:
 #       - the current address if the interface is up
 #       - undef if the interface is down
+#   - For bridged interfaces: its bridge ifaces address (static or dhcp)
 #   - For not-yet-configured interfaces
 #       - undef
 sub ifaceAddress # (name)
@@ -1620,6 +1919,9 @@ sub ifaceAddress # (name)
         return $self->get_string("interfaces/$name/address");
     } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
         return $self->DHCPAddress($name);
+    } elsif ($self->ifaceMethod($name) eq 'bridged') {
+        my $bridge = $self->ifaceBridge($name);
+        return $self->ifaceAddress("br$bridge");
     }
     return undef;
 }
@@ -1673,6 +1975,33 @@ sub ifacePPPPass # (name)
 
     if ($self->ifaceMethod($name) eq 'ppp') {
         return $self->get_string("interfaces/$name/ppp_pass");
+    } else {
+        return undef;
+    }
+}
+
+# Method: ifaceBridge
+#
+#   Returns the bridge id for an interface
+#
+# Parameters:
+#
+#   name - interface name
+#
+#  Returns:
+#
+#   - For bridged interfaces: the bridge id
+#   - For the rest: undef
+#
+sub ifaceBridge # (name)
+{
+    my ($self, $name) = @_;
+    $self->ifaceExists($name) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $name);
+
+    if ($self->ifaceMethod($name) eq 'bridged') {
+        return $self->get_string("interfaces/$name/bridge_id");
     } else {
         return undef;
     }
@@ -1768,7 +2097,11 @@ sub ifaceNetmask # (interface)
         return $self->get_string("interfaces/$name/netmask");
     } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
         return $self->DHCPNetmask($name);
+    } elsif ($self->ifaceMethod($name) eq 'bridged') {
+        my $bridge = $self->ifaceBridge($name);
+        return $self->ifaceNetmask("br$bridge");
     }
+
 
     return undef;
 }
@@ -2031,7 +2364,11 @@ sub _hasChanged # (interface)
     if ($self->vifaceExists($iface)) {
         ($real) = $self->_viface2array($iface);
     }
-    return $self->get_bool("interfaces/$real/changed");
+    if ( defined($self->dir_exists("interfaces/$real")) ){
+        return $self->get_bool("interfaces/$real/changed");
+    } else {
+        return 1; # deleted => has changed
+    }
 }
 
 #returns true if the interface is empty (ready to be removed)
@@ -2195,6 +2532,7 @@ sub generateInterfaces
     print IFACES "\n\niface lo inet loopback\n";
     foreach my $ifname (@{$iflist}) {
         my $method = $self->ifaceMethod($ifname);
+
         if (($method ne 'static') and
             ($method ne 'ppp') and
             ($method ne 'dhcp')) {
@@ -2230,6 +2568,19 @@ sub generateInterfaces
             print IFACES "\tpost-down /sbin/ifconfig $ifname down\n";
             print IFACES "\tprovider $name\n";
         }
+
+        if ( $self->ifaceIsBridge($ifname) ) {
+            print IFACES "\tbridge_ports";
+            my $ifaces = $self->bridgeIfaces($ifname);
+            foreach my $bridged ( @{$ifaces} ) {
+                print IFACES " $bridged";
+            }
+            print IFACES "\n";
+
+            print IFACES "\tbridge_stp off\n";
+            print IFACES "\tbridge_waitport 5\n";
+        }
+
         print IFACES "\n";
     }
     close(IFACES);
@@ -2837,6 +3188,30 @@ sub DHCPCleanUp # (interface)
 
     $self->st_delete_dir("dhcp/$iface");
     $self->st_unset("interfaces/$iface/ppp_iface");
+}
+
+# Method: BridgedCleanUp
+#
+#   Removes the bridge configuration for a given bridged interface
+#
+# Parameters:
+#
+#   interface - interface name
+#
+sub BridgedCleanUp # (interface)
+{
+    my ($self, $iface) = @_;
+    $self->ifaceExists($iface) or
+        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                             value => $iface);
+
+    my $bridge = $self->ifaceBridge($iface);
+
+    # this changes the bridge
+    $self->_setChanged("br$bridge");
+
+    $self->unset("interfaces/$iface/bridge_id");
+    $self->_removeEmptyBridges();
 }
 
 # Method: selectedDefaultGateway

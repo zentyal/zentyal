@@ -67,6 +67,7 @@ sub setIface
     my $netmask  = '';
     my $ppp_user = '';
     my $ppp_pass = '';
+    my $bridge = '';
     my $external = undef;
     if (defined($self->param('external'))) {
         $external = 1;
@@ -103,6 +104,10 @@ sub setIface
             $net->setIfaceDHCP($iface, $external, $force);
         } elsif ($method eq 'trunk') {
             $net->setIfaceTrunk($iface, $force);
+        } elsif ($method eq 'bridged') {
+            $self->_requireParam('bridge', __('bridge'));
+            $bridge = $self->param('bridge');
+            $net->setIfaceBridged($iface, $external, $bridge, $force);
         } elsif ($method eq 'notset') {
             $net->unsetIface($iface, $force);
         }
@@ -117,6 +122,7 @@ sub setIface
         push(@array, 'ppp_user' => $ppp_user);
         push(@array, 'ppp_pass' => $ppp_pass);
         push(@array, 'external' => $external);
+        push(@array, 'bridge' => $bridge);
         $self->{params} = \@array;
     };
 }

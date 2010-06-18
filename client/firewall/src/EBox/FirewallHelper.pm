@@ -24,97 +24,140 @@ use EBox::Gettext;
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    $self->{net} = EBox::Global->modInstance('network');
+    bless($self, $class);
+    return $self;
 }
 
 # Method: prerouting
 #
-# 	Rules returned by this method are added to the PREROUTING chain in
-#	the NAT table. You can use them to do NAT on the destination
-#	address of packets.
+#   Rules returned by this method are added to the PREROUTING chain in
+#   the NAT table. You can use them to do NAT on the destination
+#   address of packets.
 #
 # Returns:
 #
-#	array ref - containing prerouting rules
+#   array ref - containing prerouting rules
 sub prerouting
 {
-	return [];
+    return [];
 }
 
 # Method: postrouting
 #
-# 	Rules returned by this method are added to the POSTROUTING chain in
-#	the NAT table. You can use them to do NAT on the source
-#	address of packets.
+#   Rules returned by this method are added to the POSTROUTING chain in
+#   the NAT table. You can use them to do NAT on the source
+#   address of packets.
 #
 # Returns:
 #
-#	array ref - containing postrouting rules
+#   array ref - containing postrouting rules
 sub postrouting
 {
-	return [];
+    return [];
 }
 
 # Method: forward
 #
-# 	Rules returned by this method are added to the FORWARD chain in
-#	the filter table. You can use them to filter packets passing through
-#	the firewall.
+#   Rules returned by this method are added to the FORWARD chain in
+#   the filter table. You can use them to filter packets passing through
+#   the firewall.
 #
 # Returns:
 #
-#	array ref - containing forward rules
+#   array ref - containing forward rules
 sub forward
 {
-	return [];
+    return [];
 }
 
 # Method: input
 #
-# 	Rules returned by this method are added to the INPUT chain for INTERNAL ifaces in
-#	the filter table. You can use them to filter packets directed at
-#	the firewall itself.
+#   Rules returned by this method are added to the INPUT chain for INTERNAL ifaces in
+#   the filter table. You can use them to filter packets directed at
+#   the firewall itself.
 #
 # Returns:
 #
-#	array ref - containing input rules
+#   array ref - containing input rules
 sub input
 {
-	return [];
+    return [];
 }
 
 # Method: output
 #
-# 	Rules returned by this method are added to the OUTPUT chain in
-#	the filter table. You can use them to filter packets originated
-#	within the firewall.
+#   Rules returned by this method are added to the OUTPUT chain in
+#   the filter table. You can use them to filter packets originated
+#   within the firewall.
 #
 # Returns:
 #
-#	array ref - containing output rules
+#   array ref - containing output rules
 sub output
 {
-	return [];
+    return [];
 }
 
 
 
 # Method: externalInput
 #
-# 	Rules returned by this method are added to the INPUT for EXTERNAL interfaces chain in
-#	the filter table. You can use them to filter packets directed at
-#	the firewall itself.
+#   Rules returned by this method are added to the INPUT for EXTERNAL interfaces chain in
+#   the filter table. You can use them to filter packets directed at
+#   the firewall itself.
 #
 # Returns:
 #
-#	array ref - containing input rules
+#   array ref - containing input rules
 sub externalInput
 {
-	return [];
+    return [];
 }
 
+# Method: _outputIface
+#
+#   Returns iptables rule part for output interface selection
+#   If the interface is a bridge port it matches de whole bridge (brX)
+#
+# Parameters:
+#
+#   Iface - Iface name
+#
+sub _outputIface # (iface)
+{
+    my ($self, $iface) = @_;
+
+    if ( $self->{net}->ifaceExists($iface) and
+         $self->{net}->ifaceMethod($iface) eq 'bridged' ) {
+
+        my $br = $self->{net}->ifaceBridge($iface);
+        return  "-o br$br";
+    } else {
+        return "-o $iface";
+    }
+}
+# Method: _inputIface
+#
+#   Returns iptables rule part for input interface selection
+#   Takes into account if the iface is part of a bridge
+#
+# Parameters:
+#
+#   Iface - Iface name
+#
+sub _inputIface # (iface)
+{
+    my ($self, $iface) = @_;
+
+    if ( $self->{net}->ifaceExists($iface) and
+        $self->{net}->ifaceMethod($iface) eq 'bridged' ) {
+        return  "-m physdev --physdev-in $iface";
+    } else {
+        return "-i $iface";
+    }
+}
 
 1;

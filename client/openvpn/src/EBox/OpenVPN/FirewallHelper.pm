@@ -91,7 +91,8 @@ sub _inputRules
 
     # allow rip traffic in openvpn virtual ifaces
     foreach my $iface (@{ $self->ifaces() }) {
-        push @rules, "-i $iface -p udp --destination-port 520 -j ACCEPT";
+        my $input = $self->_inputIface($iface);
+        push @rules, "$input -p udp --destination-port 520 -j ACCEPT";
     }
 
     my @ports = grep {$_->{external} == $external} @{ $self->ports };
@@ -101,7 +102,7 @@ sub _inputRules
         my $proto  = $port_r->{proto};
         my $listen = $port_r->{listen};
 
-        my $inputIface = defined $listen ? "-i $listen" : "";
+        my $inputIface = defined $listen ? $self->_inputIface($listen) : "";
 
         my $rule =
           "--protocol $proto --destination-port $port $inputIface -j ACCEPT";
@@ -120,7 +121,8 @@ sub output
 
         # allow rip traffic in openvpn virtual ifaces
         foreach my $iface (@{ $self->ifaces() }) {
-            push @rules, "-o $iface -p udp --destination-port 520 -j ACCEPT";
+            my $output = $self->_outputIface($iface);
+            push @rules, "$output -p udp --destination-port 520 -j ACCEPT";
         }
 
         foreach my $server_r (@{ $self->serversToConnect() }) {
@@ -150,7 +152,8 @@ sub postrouting
     my @rules;
     foreach my $network (@networksToMasquerade) {
         foreach my $iface (@internalIfaces) {
-            push @rules, "-o $iface --source $network -j MASQUERADE";
+            my $output = $self->_outputIface($iface);
+            push @rules, "$output --source $network -j MASQUERADE";
         }
     }
 

@@ -2,6 +2,7 @@
     @ifaces
     $iface
     @vlans => ()
+    @bridges => () 
     $externalWarning
 </%args>
 <%init>
@@ -26,7 +27,7 @@ use EBox::NetWrappers qw(:all);
 <form action='Iface' method='post'>
     <input type="hidden" name="ifname" value="<% $iface->{"name"} %>"/>
     <table class='formTable'>
-%   if (iface_exists($iface->{'name'})) {
+%   if (iface_exists($iface->{'name'}) or $iface->{'name'} =~ /^br/) {
     <tr>
         <td class='tright'>
             <span class="ftitle">
@@ -58,17 +59,27 @@ use EBox::NetWrappers qw(:all);
                 <option value='dhcp'>DHCP</option>
 % }
 
-% if ($iface->{'method'} eq 'ppp') {
+% unless ($iface->{'name'} =~ /^br/) {
+%   if ($iface->{'method'} eq 'ppp') {
                 <option selected value='ppp'>PPPoE</option>
-% } else {
+%   } else {
                 <option value='ppp'>PPPoE</option>
+%   }
 % }
 
-% unless ($iface->{'name'} =~ /^vlan/) {
+% unless ($iface->{'name'} =~ /^(vlan|br)/) {
 %   if ($iface->{'method'} eq 'trunk') {
                 <option selected value='trunk'><%__('Trunk (802.1q)')%></option>
 %   } else {
                 <option value='trunk'><%__('Trunk (802.1q)')%></option>
+%   }
+% }
+
+% unless ($iface->{'name'} =~ /^br/) {
+%   if ($iface->{'method'} eq 'bridged') {
+                <option selected value='bridged'><% __('Bridged') %></option>
+%   } else {
+                <option value='bridged'><% __('Bridged') %></option>
 %   }
 % }
 
@@ -80,6 +91,7 @@ use EBox::NetWrappers qw(:all);
             </select>
         </td>
     </tr>
+% unless ($iface->{'name'} =~ /^br/) {
     <tr id="external">
         <td class='tright'>
             <div id="external1">
@@ -100,6 +112,7 @@ use EBox::NetWrappers qw(:all);
             </div>
         </td>
     </tr>
+% }
     <tr id="ipaddr">
         <td class='tright'>
             <div id="static1">
@@ -145,6 +158,27 @@ use EBox::NetWrappers qw(:all);
                 <option value="255.255.128.0">255.255.128.0</option>
                 <option value='255.255.0.0'>255.255.0.0</option>
                 <option value='255.0.0.0'>255.0.0.0</option>
+            </select>
+            </div>
+        </td>
+    </tr>
+    <tr id="bridged">
+        <td class='tright'>
+            <div>
+                <span class='ftitle'><% __('Bridge') %>:</span>
+            </div>
+        </td>
+        <td>
+            <div>
+            <select name="bridge" onChange="bridgeChanged(this)">
+%   foreach my $bridge ( @bridges ) {
+%       if ( $bridge->{id} == $iface->{bridge} ) {
+                <option value='<% $bridge->{id} %>' selected="true"><% $bridge->{alias} %></option>
+%       } else {
+                <option value='<% $bridge->{id} %>'><% $bridge->{alias} %></option>
+%       }
+%   }
+                <option value='-1'>New bridge</option> 
             </select>
             </div>
         </td>
@@ -340,10 +374,11 @@ use EBox::NetWrappers qw(:all);
 function methodChanged(select) {
     selected = select.options[select.selectedIndex].value;
 
-    if (selected == 'static' || selected == 'dhcp' || selected == 'ppp') {
-        $('external').show();
+    if (selected == 'static' || selected == 'dhcp' ||
+        selected == 'ppp' || selected == 'bridged') {
+        if ( $('external') ) $('external').show();
     } else {
-        $('external').hide();
+        if ( $('external') ) $('external').hide();
     }
 
     if (selected == 'static') {
@@ -362,6 +397,12 @@ function methodChanged(select) {
         $('trunk').hide();
     }
 
+    if (selected == 'bridged') {
+        $('bridged').show();
+    } else {
+        $('bridged').hide();
+    }
+
     if (selected == 'ppp') {
         $('ppp_user').show();
         $('ppp_pass').show();
@@ -374,4 +415,5 @@ function methodChanged(select) {
 var methodSelects = document.getElementsByName('method');
 for (var i = 0; i< methodSelects.length; i++)
     methodChanged(methodSelects[i]);
+
 //--></script>

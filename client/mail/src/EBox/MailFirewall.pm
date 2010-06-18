@@ -57,13 +57,14 @@ sub output
     if (($mail->service()) and ($mail->service('filter'))) {
         foreach my $ifc (@ifaces) {
             @conf = @{$net->ifaceAddresses($ifc)};
+            my $output = $self->_outputIface($ifc);
 
             foreach my $c (@conf) {
                 if(isIPInNetwork($$c{'address'},
                             $$c{'netmask'},
                             $mail->ipfilter())) {
 
-                    $r = "-d $ipfilter -m state --state NEW -o $ifc ".
+                    $r = "-d $ipfilter -m state --state NEW $output ".
                         "-p tcp --dport $port -j ACCEPT";
 
                     push(@rules, $r);

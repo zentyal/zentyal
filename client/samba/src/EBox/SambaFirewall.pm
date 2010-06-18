@@ -46,18 +46,19 @@ sub output
     my $samba = EBox::Global->modInstance('samba');
     my @ifaces = @{ $samba->sambaInterfaces() };
     foreach my $ifc (@ifaces) {
+        my $output = $self->_outputIface($ifc);
 
         foreach my $port (SMBPORTS) {
-            my $r = "-m state --state NEW -o $ifc  ".
+            my $r = "-m state --state NEW $output  ".
                 "-p tcp --sport $port -j ACCEPT";
             push(@rules, $r);
-            $r = "-m state --state NEW -o $ifc  ".
+            $r = "-m state --state NEW $output ".
                 "-p udp --sport $port -j ACCEPT";
             push(@rules, $r);
-            $r = "-m state --state NEW -o $ifc  ".
+            $r = "-m state --state NEW $output  ".
                 "-p tcp --dport $port -j ACCEPT";
             push(@rules, $r);
-            $r = "-m state --state NEW -o $ifc  ".
+            $r = "-m state --state NEW $output  ".
                 "-p udp --dport $port -j ACCEPT";
             push(@rules, $r);
         }

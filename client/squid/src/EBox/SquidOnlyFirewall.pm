@@ -48,10 +48,12 @@ sub _trans_prerouting
     my $pol = $sq->globalPolicy();
     foreach my $ifc (@ifaces) {
         my $addrs = $net->ifaceAddresses($ifc);
+        my $input = $self->_inputIface($ifc);
+
         foreach my $addr (map { $_->{address} } @{$addrs}) {
             (defined($addr) && $addr ne "") or next;
 
-            my $r = "-i $ifc -d ! $addr -p tcp " .
+            my $r = "$input -d ! $addr -p tcp " .
               "--dport 80 -j REDIRECT --to-ports $sqport";
             push(@rules, $r);
         }
@@ -82,7 +84,8 @@ sub input
     my @ifaces = @{$net->InternalIfaces()};
     my $pol = $sq->globalPolicy();
     foreach my $ifc (@ifaces) {
-        my $r = "-m state --state NEW -i $ifc -p tcp --dport $sqport ".
+        my $input = $self->_inputIface($ifc);
+        my $r = "-m state --state NEW $input -p tcp --dport $sqport ".
             "-j ACCEPT";
         push(@rules, $r);
     }
@@ -92,7 +95,6 @@ sub input
 sub output
 {
     my ($self) = @_;
-    my $sq = EBox::Global->modInstance('squid');
     my @rules = ();
     push(@rules, "-m state --state NEW -p tcp --dport 80 -j ACCEPT");
     push(@rules, "-m state --state NEW -p tcp --dport 443 -j ACCEPT");

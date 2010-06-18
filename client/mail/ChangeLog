@@ -1,3 +1,5 @@
+HEAD
+	+ Bridged mode support
 1.5
 	+ Update configuration templates with the newest versions from lucid
 	+ Bugfix, dovecot ldap auth now works when using AD Sync

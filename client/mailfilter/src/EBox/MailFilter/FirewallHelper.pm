@@ -121,13 +121,16 @@ sub prerouting
     push @addrs, '127.0.0.1';
 
     foreach my $int (@internals) {
+        my $input = $self->_inputIface($int);
+
         foreach my $addr (@addrs) {
             push (@rules,
-              "-p tcp -i $int --destination  $addr --dport $popPort -j RETURN");
+              "-p tcp $input --destination  $addr --dport $popPort -j RETURN");
         }
     }
     foreach my $int (@internals) {
-        push (@rules, "-p tcp -i $int --dport $popPort -j REDIRECT --to $port");
+        my $input = $self->_inputIface($int);
+        push (@rules, "-p tcp $input --dport $popPort -j REDIRECT --to $port");
     }
 
     return \@rules;
