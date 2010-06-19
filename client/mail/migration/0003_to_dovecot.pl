@@ -60,12 +60,7 @@ sub _dovecotMigration
     # we donot use the old ones  from courier bz
     #   courier used two distinct certificates for pops and imaps
 
-    EBox::Sudo::root('mkdir -p /etc/dovecot/ssl');
-    EBox::Sudo::root('/usr/share/ebox-mail/ebox-create-certificate /etc/dovecot/ssl');
-    EBox::Sudo::root('mv /etc/dovecot/ssl/smtp.cert  /etc/dovecot/ssl/dovecot.pem');
-    EBox::Sudo::root('mv /etc/dovecot/ssl/smtp.key /etc/dovecot/ssl/dovecot_key.pem');
-    EBox::Sudo::root('chown root:root /etc/dovecot/ssl/*');
-    EBox::Sudo::root('chmod 0400 /etc/dovecot/ssl/*');
+    EBox::Sudo::root(EBox::Config::share() . '/ebox-mail/ebox-mail-enable gen-dovecot-cert');
 }
 
 

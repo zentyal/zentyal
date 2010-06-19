@@ -1,4 +1,6 @@
 HEAD
+	+ Use ssl-cert package to create default certificates as all other
+	  eBox modules should be doing
 	+ Bridged mode support
 1.5
 	+ Update configuration templates with the newest versions from lucid

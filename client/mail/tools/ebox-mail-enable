@@ -1,23 +1,60 @@
 #!/bin/bash -x
 
-# Create certificates for smptd
+function postfix {
+# create certificate for smptd
 test -d /etc/postfix/sasl || mkdir -p /etc/postfix/sasl
-/usr/share/ebox-mail/ebox-create-certificate /etc/postfix/sasl
-cat /etc/postfix/sasl/smtp.cert  /etc/postfix/sasl/smtp.key >  /etc/postfix/sasl/postfix.pem
-rm /etc/postfix/sasl/smtp.cert  /etc/postfix/sasl/smtp.key
+if test ! -e /etc/postfix/sasl/postfix.pem
+then
+    if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
+       test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
+    then
+        make-ssl-cert generate-default-snakeoil
+    fi
 
+    cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
+        /etc/ssl/private/ssl-cert-snakeoil.key \
+        > /etc/postfix/sasl/postfix.pem
 
-# Create certificates for dovecot
+    chown root:root/etc/postfix/sasl/postfix.pem
+    chmod 400 /etc/postfix/sasl/postfix.pem
+fi
+}
+
+function dovecot {
+# create certificate for dovecot
 test -d /etc/dovecot/ssl || mkdir -p /etc/dovecot/ssl
-/usr/share/ebox-mail/ebox-create-certificate /etc/dovecot/ssl
-cat /etc/dovecot/ssl/smtp.cert  /etc/dovecot/ssl/smtp.key >  /etc/dovecot/ssl/dovecot.pem
-rm /etc/dovecot/ssl/smtp.cert  /etc/dovecot/ssl/smtp.key
-chown root:root /etc/dovecot/ssl/*
-chmod 0400 /etc/dovecot/ssl/*
+if test ! -e /etc/dovecot/ssl/dovecot.pem
+then
+    if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
+       test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
+    then
+        make-ssl-cert generate-default-snakeoil
+    fi
 
+    cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
+        /etc/ssl/private/ssl-cert-snakeoil.key \
+        > /etc/dovecot/ssl/dovecot.pem
 
+    chown root:root /etc/dovecot/ssl/dovecot.pem
+    chmod 400 /etc/dovecot/ssl/dovecot.pem
+fi
+}
 
-# Generate mail aliases
+if [ "$1" = "gen-dovecot-cert" ]; then
+    dovecot
+    exit 0
+fi
+
+if [ "$1" = "gen-postfix-cert" ]; then
+    postfix
+    exit 0
+fi
+
+# generate all certificates
+postfix
+dovecot
+
+# generate mail aliases
 touch /etc/postfix/main.cf # newaliases fails if no main.cf file is present
 newaliases
 
