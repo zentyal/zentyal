@@ -93,7 +93,7 @@ sub _table
        new EBox::Types::Text(
                                 fieldName     => 'name',
                                 printableName => __('Name'),
-                                size          => 12,
+                                size          => 22,
                                 unique        => 1,
                                 editable      => 1,
                                 defaultValue  => EBox::Asterisk->EBOX_VOIP_SRVNAME,
@@ -102,21 +102,21 @@ sub _table
        new EBox::Types::Text(
                                 fieldName     => 'username',
                                 printableName => __('Username'),
-                                size          => 12,
+                                size          => 18,
                                 unique        => 1,
                                 editable      => 1,
                                ),
        new EBox::Types::Password(
                                 fieldName     => 'password',
                                 printableName => __('Password'),
-                                size          => 12,
+                                size          => 18,
                                 unique        => 1,
                                 editable      => 1,
                                ),
        new EBox::Types::Host(
                                 fieldName     => 'server',
                                 printableName => __('Server'),
-                                size          => 12,
+                                size          => 26,
                                 unique        => 1,
                                 editable      => 1,
                                 defaultValue  => EBox::Asterisk->EBOX_SIP_SERVER,

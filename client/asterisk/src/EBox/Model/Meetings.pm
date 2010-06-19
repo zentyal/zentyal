@@ -28,6 +28,7 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Config;
 use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Password;
@@ -88,7 +89,12 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __('You must install dahdi and dahdi-modules-ebox packages to use Meetings.');
+    my @kernels = @{EBox::Sudo::root(EBox::Config::share() .
+                      '/ebox-asterisk/detect-system-kernels.pl')};
+
+    return __x("You must install dahdi and linux-headers packages to use Meetings.{br}" .
+               "Run the following command: sudo apt-get install {kernels} dahdi.",
+               br => '<br/>', kernels => @kernels);
 }
 
 

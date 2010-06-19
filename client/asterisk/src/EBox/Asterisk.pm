@@ -30,6 +30,7 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Config;
 use EBox::Ldap;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
@@ -202,7 +203,9 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.asterisk'
+            'name' => 'asterisk',
+            'type' => 'init.d',
+            'pidfiles' => ['/var/run/asterisk/asterisk.pid']
         }
     ];
 }
