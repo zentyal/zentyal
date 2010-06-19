@@ -1,6 +1,18 @@
 #!/bin/bash -x
 
 # generate certificates
-# FIXME: temporary disabled to avoid conflict with PostgreSQL
-#cp /usr/share/doc/freeradius/examples/certs/* /etc/freeradius/certs/
-#cd /etc/freeradius/certs/ ; ./bootstrap
+if test ! -e /etc/freeradius/certs/freeradius.pem
+then
+    if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
+       test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
+    then
+        make-ssl-cert generate-default-snakeoil
+    fi
+
+    cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
+        /etc/ssl/private/ssl-cert-snakeoil.key \
+        > /etc/freeradius/certs/freeradius.pem
+
+    chown root:freerad /etc/freeradius/certs/freeradius.pem
+    chmod 440 /etc/freeradius/certs/freeradius.pem
+fi

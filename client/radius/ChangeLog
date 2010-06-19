@@ -1,3 +1,7 @@
+HEAD
+	+ Adds integration with ebox-ca
+	+ Bugfix: don't use bootstrap certificate generation as breaks
+	  snakeoil certificates
 1.5.1
 	+ Disabled certificate creation until conflict with pgsql is solved
 1.5

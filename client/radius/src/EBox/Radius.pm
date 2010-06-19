@@ -34,6 +34,7 @@ use EBox::Ldap;
 use constant USERSCONFFILE => '/etc/freeradius/users';
 use constant LDAPCONFFILE => '/etc/freeradius/modules/ldap';
 use constant CLIENTSCONFFILE => '/etc/freeradius/clients.conf';
+use constant EAPCONFFILE => '/etc/freeradius/eap.conf';
 use constant DEFAULTSRVCONFFILE => '/etc/freeradius/sites-available/default';
 use constant INNERTUNNELSRVCONFFILE => '/etc/freeradius/sites-available/inner-tunnel';
 
@@ -127,6 +128,10 @@ sub usedFiles
                         'module' => 'radius',
                         'reason' => __('To configure RADIUS clients.')
                       },
+                      { 'file' => EAPCONFFILE,
+                        'module' => 'radius',
+                        'reason' => __('To configure RADIUS EAP.')
+                      },
                       { 'file' => DEFAULTSRVCONFFILE,
                         'module' => 'radius',
                         'reason' => __('To configure default RADIUS vhost.')
@@ -190,6 +195,7 @@ sub _setConf
                          undef, { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 
     $self->_setUsers();
+    $self->_setEAP();
     $self->_setLDAP();
     $self->_setClients();
 }
@@ -211,6 +217,28 @@ sub _setUsers
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 }
 
+# set up the EAP configuration
+sub _setEAP
+{
+    my ($self) = @_;
+
+    my @params = ();
+
+    if (EBox::Global->modExists('ca')) {
+        my $ca = EBox::Global->modInstance('ca');
+        my $model = $ca->model('Certificates');
+        if ($model->isEnabledService('RADIUS')) {
+            push (@params, capath => '/var/lib/ebox/CA/cacert.pem');
+        } else {
+            push (@params, capath => '${cadir}/ca.pem');
+        }
+    } else {
+        push (@params, capath => '${cadir}/ca.pem');
+    }
+
+    $self->writeConfFile(EAPCONFFILE, "radius/eap.conf.mas", \@params,
+                            { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
+}
 
 # set up the LDAP configuration
 sub _setLDAP
@@ -274,6 +302,36 @@ sub menu
             'separator' => 'Gateway',
             'order' => 225,
             'text' => __('RADIUS')));
+}
+
+# Method: certificates
+#
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issue for this service module.
+#
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+sub certificates
+{
+    my ($self) = @_;
+
+    return [
+            {
+             service =>  __('RADIUS'),
+             path    =>  '/etc/freeradius/certs/freeradius.pem',
+             user => 'root',
+             group => 'freerad',
+             mode => '0440',
+            },
+           ];
 }
 
 1;
