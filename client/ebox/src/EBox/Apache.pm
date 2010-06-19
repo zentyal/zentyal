@@ -53,7 +53,9 @@ use constant APACHE_PORT => 443;
 sub _create
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'apache',
+	my $self = $class->SUPER::_create(name   => 'apache',
+                                          domain => 'ebox',
+                                          printableName => 'apache',
                                           @_);
 	bless($self, $class);
 	return $self;
