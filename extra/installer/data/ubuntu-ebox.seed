@@ -10,8 +10,8 @@ d-i base-installer/kernel/override-image string linux-generic-pae
 d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
-# install ssh, bc and custom eBox kernel
-d-i pkgsel/include string ssh bc
+# install ssh, bc and libebox
+d-i pkgsel/include string ssh bc libebox
 
 # disable automatic updates, eBox will take care of that
 d-i pkgsel/update-policy select none

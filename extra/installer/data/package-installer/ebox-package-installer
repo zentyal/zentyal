@@ -246,7 +246,7 @@ sub installPackages # (packages)
 
     my $packageList = join (' ', @packages);
 
-    my $output = `LANG=C apt-get install -s $packageList | grep ^Inst`;
+    my $output = `LANG=C apt-get install --no-install-recommends -s $packageList | grep ^Inst`;
 
 # FIXME: add again when compiled for lucid
 #    if ($output =~ /ebox-samba/s) {
@@ -260,7 +260,7 @@ sub installPackages # (packages)
     }
 
     # Get number of packages to install
-    my $num = `LANG=C apt-get install -s $packageList | grep ^Inst | wc -l`;
+    my $num = `LANG=C apt-get install --no-install-recommends -s $packageList | grep ^Inst | wc -l`;
     chomp($num);
 
     my $aptCmd = 'LANG=C apt-get install -y --force-yes';

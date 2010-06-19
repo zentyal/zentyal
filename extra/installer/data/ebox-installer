@@ -11,17 +11,6 @@ PKG_DIR=/var/tmp/ebox-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 BASE_PACKAGES="libebox"
 
-get_base_packages() {
-    # Workaround to avoid dependency problems with our ldap version
-    apt-get remove --purge -y --force-yes apparmor-utils >> $LOG 2>&1
-    echo "Installing eBox base packages...";
-    if apt-get install -y --force-yes $BASE_PACKAGES >> $LOG 2>&1; then
-        echo "Base packages installed successfully."
-    else
-        bail_out
-    fi
-}
-
 # Generic Bailout
 bail_out() {
     echo "Installation failed. Check contents of $LOG to see what happened."
@@ -78,18 +67,6 @@ installed_ok() {
     exit 0
 }
 
-do_installer() { # Make sure we've got all our base packages
-    if [ -e /var/tmp/ebox-base-packages.installed ]; then
-        package_installer
-    else
-        get_base_packages # Get packages, including libebox if purged
-        # Mark our work complete so we don't re-do it needlessly
-        touch /var/tmp/ebox-base-packages.installed
-        # Run the main package installer
-        package_installer
-    fi
-}
-
 package_installer() {
     echo "Launching eBox package installer..."
     if /var/tmp/ebox-package-installer; then
@@ -108,7 +85,7 @@ sleep 1
 echo "Starting eBox installer..."
 # Main checks for re-runs. Just run the installer if we've been here before.
 if [ -e /var/tmp/ebox-sources-list.updated ]; then
-    do_installer
+    package_installer
 else
     create_repository # Set up local package repository
     echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
@@ -119,5 +96,5 @@ else
     update_if_network # apt-get update if we are connected to the internet
     # Mark our work complete so we don't re-do it needlessly
     touch /var/tmp/ebox-sources-list.updated
-    do_installer
+    package_installer
 fi

@@ -1,4 +1,6 @@
 1.5
+    + All base packages including libebox are installed on first stage
+    + Recommends are no longer installed
     + Added ebox-ftp
     + Changed display manager from gdm to slim
 1.4-2
