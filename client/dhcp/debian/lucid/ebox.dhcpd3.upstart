@@ -1,0 +1,5 @@
+pre-start script
+    invoke-rc.d dhcp3-server stop || true
+end script
+respawn
+exec /usr/sbin/dhcpd3 -f -q

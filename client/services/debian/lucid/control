@@ -1,0 +1,20 @@
+Source: ebox-services
+Section: web
+Priority: optional
+Maintainer: José Antonio Calvo  <jacalvo@ebox-platform.com>
+Build-Depends: debhelper (>= 5.0.0), cdbs
+Standards-Version: 3.8.2
+
+Package: ebox-services
+Architecture: all
+Depends: ebox (>= 1.5), ebox (<< 1.5.100), ${misc:Depends}
+Conflicts: ebox (<< 0.9.99)
+Replaces: ebox (<< 0.9.99)
+Description: eBox - Network Services
+ eBox Platform is an open source small business server that can act as
+ a Gateway, a Unified Threat Manager, an Office Server, an Infrastructure
+ Manager, a Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This module adds services support, allowing to create and manage services
+ which could be used by firewall rules.

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+	remove)
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        dpkg-trigger --no-await ebox
+        ;;
+	purge)
+        /usr/share/ebox/ebox-sql-table drop squid_access || true
+        /usr/share/ebox/ebox-sql-table drop squid_access_report || true
+        /usr/share/ebox/ebox-sql-table-with-time-period drop squid_traffic || true
+        ;;
+esac
+

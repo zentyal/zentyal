@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# We need to unconfigure and purge module's configuration
+# before the gconf schemas have been removed (i.e before gconf
+# debhelper has been run). That's why we do things before
+# and after gconf debhelper is run
+if [ "$1" = "purge" ]; then
+        # Purge configuration
+        /usr/share/ebox/ebox-clean-gconf remoteservices || true
+fi
+
+#DEBHELPER#
+
+case "$1" in
+    remove)
+        # Restart event daemon
+        invoke-rc.d ebox events restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+esac
+
+

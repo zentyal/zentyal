@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+	configure)
+
+        # Migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-services/migration/ || true
+
+        dpkg-trigger --no-await ebox
+     ;;
+esac
+
+
+
+exit 0

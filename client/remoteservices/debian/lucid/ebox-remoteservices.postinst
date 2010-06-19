@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # Migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-remoteservices/migration/
+
+        if [ -n "$2" ]; then
+            /usr/share/ebox/ebox-reload-bundle
+        fi
+
+        if [ ! -e /var/lib/ebox/tmp/upgrade-from-CC ]; then
+            invoke-rc.d ebox remoteservices restart
+        fi
+
+        dpkg-trigger --no-await ebox
+
+    ;;
+esac
+
+
+
+exit 0

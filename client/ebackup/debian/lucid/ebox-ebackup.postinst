@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # Migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-ebackup/migration/
+
+        # restart module
+        invoke-rc.d ebox ebackup restart
+
+        dpkg-trigger --no-await ebox
+    ;;
+esac
+
+exit 0

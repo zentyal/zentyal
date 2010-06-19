@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # create log table
+        /usr/share/ebox/ebox-sql-table add leases /usr/share/ebox/sqllog/dhcp.sql || true
+
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        # Migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-dhcp/migration/ || true
+
+        # Restart dhcp module
+        invoke-rc.d ebox dhcp restart || true
+
+        dpkg-trigger --no-await ebox
+    esac
+
+
+
+exit 0

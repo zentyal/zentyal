@@ -1,0 +1,8 @@
+Template: ebox-network/overwrite_ifaces
+Type: boolean
+Default: false
+_Description: allow eBox to overwrite /etc/network/interfaces? 
+ eBox writes the network configuration on this file, if you don't
+ allow it, you will have to enable the network module on the web
+ interface
+

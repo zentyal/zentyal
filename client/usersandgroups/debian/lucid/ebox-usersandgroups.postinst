@@ -1,0 +1,59 @@
+#!/bin/bash
+
+set -e
+#DEBHELPER#
+
+# Load debconf
+. /usr/share/debconf/confmodule
+
+
+case "$1" in
+    configure)
+        # Create slapd certificate
+        /usr/share/ebox/ebox-create-certificate /etc/ldap/ssl > /dev/null 2>&1
+        chown -R openldap:openldap /etc/ldap/ssl
+
+        #add the ebox group and user
+        if ! getent group ebox-usercorner > /dev/null 2>&1
+        then
+            addgroup --system ebox-usercorner
+        fi
+        if ! getent passwd ebox-usercorner > /dev/null 2>&1
+        then
+            adduser --system --home /var/lib/ebox-usercorner/ \
+                --disabled-password --ingroup ebox-usercorner ebox-usercorner
+        fi
+
+        CORNER_LOG="/var/log/ebox-usercorner/"
+        test -d $CORNER_LOG || mkdir $CORNER_LOG
+        chown -R ebox-usercorner:ebox-usercorner $CORNER_LOG
+
+        # create user session ids directory
+        test -d  /var/lib/ebox-usercorner/sids/ || mkdir -p /var/lib/ebox-usercorner/sids/
+        chown -R ebox-usercorner:ebox-usercorner /var/lib/ebox-usercorner
+
+        # create ebox user corner apache certificates
+        /usr/share/ebox/ebox-create-certificate /var/lib/ebox-usercorner/ssl > /dev/null 2>&1 || true
+
+        # Migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-usersandgroups/migration/ || true
+
+        # regenrate slap configuration and restart
+        #  this is needed bz it may be changes in slapd configuration
+        invoke-rc.d ebox users  restart || true
+        invoke-rc.d slapd restart || true
+
+        dpkg-trigger --no-await ebox
+    ;;
+    triggered)
+        #remove the usercorner menu cache
+        rm -f /var/lib/ebox-usercorner/menucache || true
+
+        #restart the usercorner apache
+        invoke-rc.d ebox usercorner restart || true
+    ;;
+esac
+
+
+
+exit 0

@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/autotools.mk
+include debian/cdbs/ebox.mk
+
+DEB_DH_INSTALLINIT_ARGS = --no-start
+
+install/ebox::
+	test -e debian/ebox.init || ln -s ../tools/ebox debian/ebox.init
+	install -m 644 $(CURDIR)/conf/.gconf.path $(CURDIR)/debian/ebox/var/lib/ebox/
+	rm -f $(CURDIR)/debian/ebox/var/lib/ebox/conf/ebox.passwd
+	install -m 644 $(CURDIR)/debian/ebox.cron.hourly $(CURDIR)/debian/ebox/etc/cron.hourly/ebox
+
+cleanbuilddir/ebox::
+	rm -f debian/ebox.init
+
+clean::
+	debconf-updatepo

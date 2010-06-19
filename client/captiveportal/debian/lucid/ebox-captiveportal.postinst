@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # Migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-captiveportal/migration/
+
+        # Create captive portal user directory
+        mkdir -p /var/lib/ebox-usercorner/captiveportal/
+        chown -R ebox-usercorner.ebox-usercorner \
+            /var/lib/ebox-usercorner/captiveportal
+
+        dpkg-trigger --no-await ebox
+        dpkg-trigger --no-await ebox-usercorner
+    ;;
+esac
+
+
+
+exit 0
