@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: validatedTypedRow on Meetings model failed when making empty
+	  an existing field
 1.5.2
 	+ Delete enableService method override as it's useless
 	+ Make dahdi depend optional and show a message with instructions on

@@ -121,14 +121,14 @@ sub validateTypedRow
                                         EBox::Asterisk::Extensions->MEETINGMINEXTN,
                                         EBox::Asterisk::Extensions->MEETINGMAXEXTN,
                                     );
-    }
 
-    my $extensions = new EBox::Asterisk::Extensions;
-    if ($extensions->extensionExists($changedFields->{exten}->value())) {
-        throw EBox::Exceptions::DataExists(
-                  'data'  => __('extension'),
-                  'value' => $changedFields->{exten}->value(),
-              );
+        my $extensions = new EBox::Asterisk::Extensions;
+        if ($extensions->extensionExists($changedFields->{exten}->value())) {
+            throw EBox::Exceptions::DataExists(
+                      'data'  => __('extension'),
+                      'value' => $changedFields->{exten}->value(),
+                  );
+        }
     }
 }
 
