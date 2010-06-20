@@ -90,12 +90,13 @@ sub validateTypedRow
     if (exists $changedFields->{port}) {
         $portNumber = $changedFields->{port}->value();
 
-        unless ($firewall->availablePort('tcp', $portNumber)) {
-            throw EBox::Exceptions::DataExists(
-                    'data'  => __('Listening port'),
-                    'value' => $portNumber,
-                    );
-        }
+# FIXME: commented until fixed to avoid make valid changes in the model
+#        unless ($firewall->availablePort('tcp', $portNumber)) {
+#            throw EBox::Exceptions::DataExists(
+#                    'data'  => __('Listening port'),
+#                    'value' => $portNumber,
+#                    );
+#        }
     }
 
     if (exists $changedFields->{ssl} and
