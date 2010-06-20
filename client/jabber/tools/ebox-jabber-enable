@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# stop jabberd2 if it's running as a normal service
-invoke-rc.d jabberd2 stop
-
 # update current ldap database
 /usr/share/ebox-jabber/ebox-jabber-ldap update
 

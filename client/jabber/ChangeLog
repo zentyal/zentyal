@@ -1,7 +1,9 @@
+HEAD
+	+ Completly new Jabber module using the MVC framework and ejabberd.
 1.5.1
-	+ Added bridged mode support in firewall helper
+	+ Added bridged mode support in firewall helper.
 1.5
-	+ Configuration files updated for lucid
+	+ Configuration files updated for lucid.
 1.4.1
 	+ Bug fix: only set module as changed when there's an actual change in
 	  admin permissions.

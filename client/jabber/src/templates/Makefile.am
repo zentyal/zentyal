@@ -2,7 +2,7 @@
 
 templatedir = @TEMPLATESPATH@/jabber
 
-template_DATA = index.mas jabber.mas
+template_DATA = jabber.mas
 
 EXTRA_DIST = $(template_DATA)
 

@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Jabber/Model
 
-nobase_perl_DATA = JabberUser.pm
+nobase_perl_DATA = JabberUser.pm GeneralSettings.pm
 
 DISTCLEANFILES =
 

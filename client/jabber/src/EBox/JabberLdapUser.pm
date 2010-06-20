@@ -17,19 +17,17 @@
 
 package EBox::JabberLdapUser;
 
+use base qw(EBox::LdapUserBase);
+
 use strict;
 use warnings;
 
-use EBox::Sudo qw( :all );
-use EBox::Global;
-use EBox::Ldap;
-use EBox::Network;
-use EBox::Exceptions::Internal;
-use EBox::Model::ModelManager;
 use EBox::Gettext;
+use EBox::Global;
+use EBox::Config;
+use EBox::Ldap;
 use EBox::UsersAndGroups;
-
-use base qw(EBox::LdapUserBase);
+use EBox::Model::ModelManager;
 
 sub new
 {
@@ -73,7 +71,8 @@ sub schemas
 
 sub localAttributes
 {
-	return [ 'jabberUid' ];
+        my @attrs = qw( jabberUid jabberAdmin );
+	return \@attrs;
 }
 
 sub isAdmin #($username)
@@ -235,7 +234,7 @@ sub getJabberAdmins
 	    }
 	}
 
-	return @admins;
+	return \@admins;
 }
 
 
@@ -271,10 +270,10 @@ sub _delUserWarning
 #
 #   Overrides <EBox::UsersAndGrops::LdapUserBase::defaultUserModel>
 #   to return our default user template
+#
 sub defaultUserModel
 {
     return 'jabber/JabberUser';
 }
-
 
 1;

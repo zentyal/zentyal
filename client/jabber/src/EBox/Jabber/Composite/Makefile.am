@@ -1,6 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = Model Composite
+perldir = @PERLPATH@/EBox/Jabber/Composite
+
+nobase_perl_DATA = General.pm
 
 DISTCLEANFILES =
 

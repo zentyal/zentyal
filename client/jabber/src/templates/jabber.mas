@@ -5,8 +5,7 @@
 	use EBox::Gettext;
 	settextdomain('ebox-jabber');
 </%init>
-	<h3><% __('Jabber Account') %></h3>
-	<div class="help"><%__('Password for Jabber service is the user password.')%></div>
+	<h3><% __('Jabber account') %></h3>
 
 	<& .jabberDisabledWarning, $params &>
 
@@ -52,17 +51,14 @@
 	</form>
 	</table>
 
-
 <%def .jabberDisabledWarning>
 <%init>
 my ($params) = @_;
 return if $params->{service};
-
 </%init>
-
 <div class='warning'>
 <% __(
-       q{The following settings will take effect only when the jabber module is enabled},
+       q{The following settings will take effect only when the Jabber module is enabled.},
     )
 %>
 </div>
