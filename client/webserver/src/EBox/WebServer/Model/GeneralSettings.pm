@@ -156,29 +156,18 @@ sub formSubmitted
 {
     my ($self) = @_;
 
-    my $servMod = EBox::Global->modInstance('services');
+    my @services = ();
 
-    # Delete the HTTPS port number in services module
-    try {
-        $servMod->delSrvConf('/http/1');
-    } catch EBox::Exceptions::DataNotFound with {
-    };
+    push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => $self->portValue() });
 
-    # Add it again if HTTPS is enabled
     if ($self->row()->elementByName('ssl')->selectedType() eq 'ssl_port') {
         my $sslportNumber = $self->row()->valueByName('ssl');
-        try {
-            my $id = $servMod->addSrvConf('/http', protocol => 'tcp', source => 'any', destination => $sslportNumber);
-            my $row = $servMod->srvConf('/http')->subModel('configuration')->row($id);
-            $row->setReadOnly(1);
-            $row->store();
-        } catch EBox::Exceptions::DataExists with {
-        };
+        push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => $sslportNumber });
     }
 
-    # Set the new HTTP port number in services module
-    my $portNumber = $self->portValue();
-    $servMod->updateDestPort('/http/0', $portNumber);
+    my $servMod = EBox::Global->modInstance('services');
+
+    $servMod->setMultipleService(name => 'http', services => \@services);
 }
 
 # Method: sslPort
