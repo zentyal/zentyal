@@ -5,12 +5,7 @@ use Gnome2::GConf;
 
 use constant DBUS_CMD => 'ebox-dbus-launch';
 
-my $confFile;
-if ( POSIX::getuid() == 0) {
-$confFile = EBox::Config::conf() . 'dbus-root-session.conf';
-} else {
-$confFile = EBox::Config::conf() . 'dbus-ebox-session.conf';
-}
+my $confFile = $ARGV[0];
 my ($dbusAddress, $dbusDaemonPid, $launchNew) = (0, 0, 1);
 
 if ( -r $confFile ) {

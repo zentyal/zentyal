@@ -74,7 +74,7 @@ DocumentRoot /usr/share/ebox/www/
 
 
 <Directory /usr/share/ebox/www/>
-    Options Indexes MultiViews
+    Options Indexes MultiViews FollowSymLinks
     AllowOverride None
     Order allow,deny
     Allow from all
@@ -150,6 +150,9 @@ PerlSetVar AuthCookieDebug 0
 	SetHandler perl-script
 	PerlHandler EBox::UserCorner::Auth->login
 </Files>
+
+PerlChildInitHandler EBox::dbusInit
+PassEnv DBUS_SESSION_BUS_ADDRESS
 
 <Directory /usr/share/ebox/cgi/>
     <IfModule mod_ssl.c>
