@@ -67,8 +67,6 @@ my @PACKAGES = (
 #    ['improxy', __('Instant Messaging Proxy')],
 );
 
-my $ASTERISK_EXTRAS = 'dahdi-linux dahdi';
-
 #################
 # -- constants --
 #################
@@ -254,9 +252,6 @@ sub installPackages # (packages)
 #    }
     if ($output =~ /ebox-trafficshaping/s) {
         $packageList .= ' ebox-l7-protocols';
-    }
-    if ($output =~ /ebox-asterisk/s) {
-        $packageList .= " $ASTERISK_EXTRAS";
     }
 
     # Get number of packages to install
