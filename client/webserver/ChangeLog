@@ -1,4 +1,4 @@
-HEAD
+1.5.1
 	+ Adds default-ssl vhost and ssl module management.
 	+ Implements SSL integration between ebox-webserver and ebox-ca for
 	  vhosts.
