@@ -211,20 +211,6 @@ sub _daemons
 }
 
 
-# Method: enableService
-#
-# Overrides:
-#
-#      <EBox::Module::Service::enableService>
-#
-sub enableService
-{
-    my ($self, $status) = @_;
-
-    $self->SUPER::enableService($status);
-}
-
-
 # Method: firewallHelper
 #
 # Overrides:

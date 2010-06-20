@@ -1,4 +1,5 @@
 HEAD
+	+ Delete enableService method override as it's useless
 	+ Make dahdi depend optional and show a message with instructions on
 	  how to install it
 	+ Added bridged mode support in firewall helper
