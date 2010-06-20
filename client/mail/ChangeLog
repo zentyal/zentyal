@@ -1,7 +1,7 @@
 HEAD
 	+ Use ssl-cert package to create default certificates as all other
 	  eBox modules should be doing
-	+ Bridged mode support
+	+ Added bridged mode support in firewall helper
 1.5
 	+ Update configuration templates with the newest versions from lucid
 	+ Bugfix, dovecot ldap auth now works when using AD Sync

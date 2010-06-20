@@ -1,7 +1,7 @@
 HEAD
 	+ Make dahdi depend optional and show a message with instructions on
 	  how to install it
-	+ Bridged mode support
+	+ Added bridged mode support in firewall helper
 1.5.1
 	+ Updates migration script for adding service on read-only and
 	  with the same name that the menu item
