@@ -1,4 +1,6 @@
 1.5.1
+	+ Add setMultipleService method to update changes in services with
+	  multiple ports
 	+ Add 'insertPosition' => 'back' to ServiceConfigurationTable to allow
 	  _exposedMethods hacks. New exposedMethods to work with services
 	  addSrvConf, delSrvConf and srvConf
