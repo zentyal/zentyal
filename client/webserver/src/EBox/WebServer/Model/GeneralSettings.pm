@@ -167,7 +167,7 @@ sub formSubmitted
 
     my $servMod = EBox::Global->modInstance('services');
 
-    $servMod->setMultipleService(name => 'http', services => \@services);
+    $servMod->setMultipleService(name => 'http', internal => 1, services => \@services);
 }
 
 # Method: sslPort
