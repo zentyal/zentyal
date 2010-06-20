@@ -252,7 +252,7 @@ sub getWebServerSAN
 sub _populateSSLsupport
 {
     my @options = (
-                       { value => 'disabled' , printableValue => __('Disabled') },
+                       { value => 'disabled' , printableValue => __('Disabled')},
                        { value => 'allowssl', printableValue => __('Allow SSL')},
                        { value => 'forcessl', printableValue => __('Force SSL')},
                   );
