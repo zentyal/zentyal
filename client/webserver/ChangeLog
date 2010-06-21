@@ -1,3 +1,6 @@
+HEAD
+	+ Enable the port available check using the new method
+	  from services.
 1.5.2
 	+ Bugfix: keep the service internal on port update.
 	+ Temporary disabled the listen port available check.

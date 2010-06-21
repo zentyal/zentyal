@@ -84,19 +84,22 @@ sub validateTypedRow
 
     my $global = EBox::Global->getInstance();
     my $apache = $global->modInstance('apache');
+    my $services = $global->modInstance('services');
     my $firewall = $global->modInstance('firewall');
     my $portNumber;
 
     if (exists $changedFields->{port}) {
         $portNumber = $changedFields->{port}->value();
 
-# FIXME: commented until fixed to avoid make valid changes in the model
-#        unless ($firewall->availablePort('tcp', $portNumber)) {
-#            throw EBox::Exceptions::DataExists(
-#                    'data'  => __('Listening port'),
-#                    'value' => $portNumber,
-#                    );
-#        }
+        # Only check availablePort if our port it not already in our service
+        unless ($services->serviceFromPort('tcp', $portNumber) eq 'http') {
+            unless ($firewall->availablePort('tcp', $portNumber)) {
+                throw EBox::Exceptions::DataExists(
+                        'data'  => __('Listening port'),
+                        'value' => $portNumber,
+                        );
+            }
+        }
     }
 
     if (exists $changedFields->{ssl} and

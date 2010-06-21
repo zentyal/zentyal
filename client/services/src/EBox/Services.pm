@@ -428,6 +428,26 @@ sub availablePort
     return $self->{'serviceModel'}->availablePort(%params);
 }
 
+# Method: serviceFromPort
+#
+#       Get the service name that it's using a port.
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#   protocol   - it can take one of these: tcp, udp
+#   port       - An integer from 1 to 65536 -> 22
+#
+# Returns:
+#   string - the service name, undef otherwise
+#
+sub serviceFromPort
+{
+    my ($self, %params) = @_;
+
+    return $self->{'serviceModel'}->serviceFromPort(%params);
+}
+
 # Method: removeService
 #
 #  Remove a service from the  services table

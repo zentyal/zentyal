@@ -216,6 +216,44 @@ sub availablePort
     return 1;
 }
 
+# Method: serviceFromPort
+#
+#       Get the service name that it's using a port.
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#   protocol   - it can take one of these: tcp, udp
+#   port       - An integer from 1 to 65536 -> 22
+#
+# Returns:
+#   string - the service name, undef otherwise
+#
+sub serviceFromPort
+{
+    my ($self, $protocol, $port) = @_;
+
+    unless (defined($protocol)) {
+        throw EBox::Exceptions::MissingArgument('protocol');
+    }
+
+    unless (defined($port)) {
+        throw EBox::Exceptions::MissingArgument('port');
+    }
+
+    my $internals = $self->findAll('internal' => 1);
+
+    for my $id (@{$internals}) {
+        my $service = $self->row($id);
+        my $serviceConf = $service->subModel('configuration');
+        for my $subId (@{$serviceConf->findAllValue('destination' => $port)}) {
+            my $row = $serviceConf->row($subId);
+            return $service->valueByName('name') if ($row->valueByName('protocol') eq $protocol);
+        }
+    }
+
+    return undef;
+}
 # Method: addService
 #
 #   Add service to the services table. Note this method must exist
