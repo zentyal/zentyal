@@ -8,7 +8,7 @@ Standards-Version: 3.8.2
 Package: ebox-jabber
 Architecture: all
 Depends: ebox (>= 1.5), ebox (<< 1.5.100), ebox-usersandgroups (>= 0.7.0.99), ejabberd, ${misc:Depends}
-Conflicts: ebox (<< 0.11.99)
+Conflicts: ebox (<< 0.11.99), jabberd2
 Description: eBox - Jabber (Instant Messaging)
  eBox Platform is an open source small business server that can act as
  a Gateway, a Unified Threat Manager, an Office Server, an Infrastructure
