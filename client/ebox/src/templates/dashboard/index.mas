@@ -390,7 +390,7 @@ function updateWidgets() {
         var url = '/ebox/Dashboard/WidgetJSON?module=' + parts[0] + '&widget=' + parts[1];
         new Ajax.Request(url, {
             method: "get",
-            asynchronous: false,
+            asynchronous: true,
             onSuccess: function(transport) {
                 updateWidget(transport.responseJSON);
             }
