@@ -44,6 +44,9 @@ use constant EBOX_SHARE_DIR => EBox::SambaLdapUser::basePath() . '/shares/';
 use constant DEFAULT_MASK => '0670';
 use constant DEFAULT_USER => 'ebox';
 use constant DEFAULT_GROUP => '__USERS__';
+use constant GUEST_DEFAULT_MASK => '0750';
+use constant GUEST_DEFAULT_USER => 'nobody';
+use constant GUEST_DEFAULT_GROUP => 'nogroup';
 
 
 # TODO
@@ -264,16 +267,16 @@ sub createDirs
         my $pathType =  $row->elementByName('path');
         next unless ( $pathType->selectedType() eq 'ebox');
         my $path = EBOX_SHARE_DIR . $pathType->value();
-        unless ( -d $path ) {
-            try {
-                EBox::Sudo::root("mkdir -p $path");
-                EBox::Sudo::root('chmod ' . DEFAULT_MASK . " $path");
-                EBox::Sudo::root('chown ' . DEFAULT_USER . ':'
-                        .  DEFAULT_GROUP . " $path");
-            } otherwise {
-                EBox::debug("Couldn't create dir $path");
-            };
+        my @cmds;
+        push(@cmds, "mkdir -p $path");
+        if ($row->elementByName('guest')->value()) {
+           push(@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " $path");
+           push(@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " $path");
+        } else {
+           push(@cmds, 'chmod ' . DEFAULT_MASK . " $path");
+           push(@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " $path");
         }
+        EBox::Sudo::root(@cmds);
         # ACLs
         my @perms;
         for my $subId (@{$row->subModel('access')->ids()}) {
