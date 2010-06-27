@@ -258,7 +258,7 @@ sub installPackages # (packages)
     my $num = `LANG=C apt-get install --no-install-recommends -s $packageList | grep ^Inst | wc -l`;
     chomp($num);
 
-    my $aptCmd = 'LANG=C apt-get install -y --force-yes';
+    my $aptCmd = 'LANG=C apt-get install --no-install-recommends -y --force-yes';
     my $message = __('Installing eBox packages...');
     my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$message\" 7 64 0";
     my $gaugeCmd = "$INSTALL_FILES/ebox-apt-parse $num | $whipCmd";
