@@ -16,23 +16,22 @@ case "$1" in
            /etc/init.d/apparmor restart || true
        fi
 
+       CRON_FILE=/etc/cron.hourly/freshclam
+       touch $CRON_FILE
+       chmod a+x $CRON_FILE
 
        # create directory for freshclam data
-        FRESHCLAM_DIR=$(perl -MEBox::AntiVirus -e'print EBox::AntiVirus::freshclamEBoxDir();   1;'); 
-        mkdir -p $FRESHCLAM_DIR
-        chown clamav.clamav $FRESHCLAM_DIR
+       FRESHCLAM_DIR=$(perl -MEBox::AntiVirus -e'print EBox::AntiVirus::freshclamEBoxDir(); 1;');
+       mkdir -p $FRESHCLAM_DIR
+       chown clamav.clamav $FRESHCLAM_DIR
 
-        # restart logs
-        invoke-rc.d ebox logs restart || true
+       # restart logs
+       invoke-rc.d ebox logs restart || true
 
-        # restart module
-        invoke-rc.d ebox antivirus restart
+       # restart module
+       invoke-rc.d ebox antivirus restart
 
-        dpkg-trigger --no-await ebox
+       dpkg-trigger --no-await ebox
 esac
 
-
-
 exit 0
-
-

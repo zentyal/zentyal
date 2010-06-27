@@ -269,19 +269,13 @@ sub _setConf
                         );
 
 
-  $self->writeConfFile(FRESHCLAM_CONF_FILE, "antivirus/freshclam.conf.mas", \@freshclamParams);
+  $self->writeConfFile(FRESHCLAM_CONF_FILE,
+                       "antivirus/freshclam.conf.mas", \@freshclamParams);
 
-  if ($self->isEnabled()) {
-    # regenerate freshclam cron hourly script
-    EBox::Module::Base::writeConfFileNoCheck(FRESHCLAM_CRON_SCRIPT, "antivirus/freshclam-cron.mas", []);
-    EBox::Sudo::root('chmod a+x ' . FRESHCLAM_CRON_SCRIPT);
-
-  }
-  else {
-    # remove freshclam cron hourly entry
-    my $rmCmd = 'rm -f ' . FRESHCLAM_CRON_SCRIPT;
-    EBox::Sudo::root($rmCmd);
-  }
+  # regenerate freshclam cron hourly script
+  $self->writeConfFile(FRESHCLAM_CRON_SCRIPT,
+                       "antivirus/freshclam-cron.mas",
+                       [ enabled => $self->isEnabled() ]);
 }
 
 
