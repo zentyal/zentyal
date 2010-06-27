@@ -1,4 +1,4 @@
-HEAD
+1.5.1
     + Avoid errors in ebox.log if /etc/cron.hourly/freshclam not exists
 1.5
     + New config templates from the lucid version of ClamAV
