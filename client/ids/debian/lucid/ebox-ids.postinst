@@ -6,6 +6,7 @@ case "$1" in
 	configure)
         # create log table
         /usr/share/ebox/ebox-sql-table add ids /usr/share/ebox/sqllog/ids.sql
+        /usr/share/ebox/ebox-sql-table add ids_report /usr/share/ebox/sqllog/ids_report.sql
         /usr/share/ebox/ebox-sql-table-with-time-period add ids_alert /usr/share/ebox/sqllog/ids_alert.sql
 
         # restart logs
