@@ -534,7 +534,7 @@ sub _addConsolidatedRow
     }
 
 
-        $dbengine->insert($table, $row);
+        $dbengine->unbufferedInsert($table, $row);
     }
 
 }
@@ -610,7 +610,7 @@ sub _updateLastConsolidationDate
     my $updateRes = $dbengine->do($updateSt);
     if ($updateRes == 0) {
         my $row = {  lastDate => $lastDate, consolidatedTable => $table  };
-        $dbengine->insert('consolidation', $row);
+        $dbengine->unbufferedInsert('consolidation', $row);
     }
 }
 

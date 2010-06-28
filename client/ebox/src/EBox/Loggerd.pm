@@ -22,26 +22,28 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use EBox::Config;
 use EBox::Gettext;
 use EBox::DBEngineFactory;
 use EBox::Exceptions::Internal;
 
 use Error qw(:try);
-use IO::Handle;
-use IO::File;
-use IO::Select;
-use File::Tail;
-
+use Fcntl;
+use Linux::Inotify2;
 use POSIX;
+use File::Basename;
 
-use constant BUFFER => 64000;
+use constant BUFFER_SIZE => 65536;
 
 sub new
 {
     my $class = shift;
     my $self = {};
     my %opts = @_;
-    $self->{'filetails'} = [];
+    $self->{inotify} = undef;
+    $self->{filehandlers} = {};
+    $self->{buffers} = {};
+    $self->{period} = EBox::Config::configkey('multi_insert_interval');
     bless($self, $class);
     return $self;
 }
@@ -90,32 +92,73 @@ sub _prepare # (fifo)
 {
     my ($self) = @_;
 
+    $self->{inotify} = new Linux::Inotify2
+        or EBox::error("Unable to create inotify object: $!");
+
+    $self->{inotify}->blocking(0);
+
     my @loghelpers = @{$self->{'loghelpers'}};
-    my %tailByFile;
     for my $obj (@loghelpers) {
         for my $file (@{$obj->logFiles()}) {
-            my $tail;
-            if (exists $tailByFile{$file}) {
-                $tail = $tailByFile{$file};
-            } else {
+            my $FH;
+            unless (exists $self->{filehandlers}->{$file}) {
                 my $skip = 0;
                 try {
-                    $tail = File::Tail->new(name => $file,
-                                            interval => 1, maxinterval => 5,
-                                            ignore_nonexistant => 1,
-                                            errmode => 'return');
+                    my $dir = dirname($file);
+                    $self->{inotify}->watch($dir, IN_CREATE | IN_DELETE);
+                    $self->{inotify}->watch($file, IN_MODIFY |
+                                                   IN_DELETE_SELF |
+                                                   IN_MOVE_SELF);
+                    sysopen($FH, $file, O_RDONLY);
+                    sysseek($FH, 0, SEEK_END);
                 } otherwise {
-                    EBox::warn("Error creating File::Tail on $file: $@");
+                    EBox::warn("Error creating inotify watch on $file: $!");
                     $skip = 1;
                 };
                 next if $skip;
-                
-                $tailByFile{$file} = $tail;
-                push @{$self->{'filetails'}}, $tail;
+
+                $self->{filehandlers}->{$file} = $FH;
+                $self->{buffers}->{$file} = '';
             }
 
-  
             push @{$self->{'objects'}->{$file}}, $obj;
+        }
+    }
+}
+
+sub _parseLog
+{
+    my ($self, $file) = @_;
+
+    my $buffer;
+    my $FH = $self->{filehandlers}->{$file};
+
+    return unless defined ($FH);
+
+    my $bytes = sysread($FH, $buffer, BUFFER_SIZE);
+
+    # Append the rest of the previous non-complete line
+    $buffer = $self->{buffers}->{$file} . $buffer;
+
+    if (defined ($buffer) and length ($buffer) > 0) {
+        for my $obj (@{$self->{'objects'}->{$file}}) {
+
+            my $endsInNewLine = substr ($buffer, -1, 1) eq '\n';
+
+            my @lines = split /\n/, $buffer;
+
+            # If the last line is not complete, save it for later
+            if (@lines > 1 and not $endsInNewLine) {
+                $self->{buffers}->{$file} = pop @lines;
+            }
+
+            foreach my $line (@lines) {
+                try {
+                    $obj->processLine($file, $line, $self->{'dbengine'});
+                } otherwise {
+                    EBox::warn("Error processing line $line of $file: $@");
+                };
+            }
         }
     }
 }
@@ -123,36 +166,27 @@ sub _prepare # (fifo)
 sub _mainloop
 {
     my ($self) = @_;
-    my $rin;
 
-    my @files = @{$self->{'filetails'}};
-    while (@files) {
-        my ($nfound, $timeleft, @pending) =
-            File::Tail::select(undef, undef, undef, undef, @files);
-        if ($nfound == -1) {
-            EBox::error("Error in File::Tail::select(): $!");
-            exit 1;
-        }
-        foreach my $file (@pending) {
-            my $path = $file->{'input'};
-            my $buffer = $file->read();
-            if (defined($buffer) and length ($buffer) > 0) {
-                for my $obj (@{$self->{'objects'}->{$path}}) {
-                    foreach my $line (split(/\n/, $buffer)) {
-                        try {
-                            $obj->processLine($path, $line, $self->{'dbengine'});
-                        } otherwise {
-                            EBox::warn("Error processing line $line of $path: $@");
-                        };
-                    }
-                }
+    while () {
+        my @events = $self->{inotify}->read();
+
+        foreach my $event (@events) {
+            my $file = $event->fullname();
+
+            if ($event->IN_MODIFY) {
+                $self->_parseLog($file);
+            } elsif ($event->IN_CREATE) {
+                sysopen(my $FH, $file, O_RDONLY);
+                $self->{filehandlers}->{$file} = $FH;
+            } else { # IN_DELETE || IN_MOVE
+                close($self->{filehandlers}->{$file});
+                $self->{filehandlers}->{$file} = undef;
             }
         }
-    }
 
-    # If we don't have any file to watch we just sleep otherwise the process
-    # will finish and upstart will try to start it over again and again.
-    sleep (3600);
+        $self->{'dbengine'}->multiInsert();
+        sleep $self->{period};
+    }
 }
 
 1;
