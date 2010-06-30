@@ -163,25 +163,6 @@ sub processLine
         $temp{$qid}{'relay'} = 'dovecot';
 
         $self->_insertEvent($qid, $dbengine);
-    } elsif ($line =~ m/deliver\((.*?)\): msgid=<(.*?)>: rejected: Quota exceeded \((.*?)\)/) {
-        # quta exceeded, insert maxusrsize event
-        my $to    = $1;
-        my $msgid = $2;
-        my $msg = $3; # XXX thois not works!
-        my $qid = _qidFromMessageId($msgid);
-        defined $qid or
-            return;
-        exists $temp{$qid} or
-            return;
-
-        $temp{$qid}{'to'}    = $to;
-        $temp{$qid}{'event'} = 'maxusrsize';
-        $temp{$qid}{'status'} = 'rejected';
-        $temp{$qid}{'message'} = $msg;
-        $temp{$qid}{'date'} = $self->_getDate($line);
-        $temp{$qid}{'relay'} = 'dovecot';
-
-        $self->_insertEvent($qid, $dbengine);
     } elsif ($line =~ m/warning: (.*?): queue file size limit exceeded/) {
         # mesage max sieze exceeded, insert maxmsgsize event
         my $qid = $1;
