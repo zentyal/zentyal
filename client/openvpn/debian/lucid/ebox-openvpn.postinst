@@ -26,6 +26,7 @@ case "$1" in
 
         # create log table
         /usr/share/ebox/ebox-sql-table add openvpn  /usr/share/ebox/sqllog/openvpn.sql || true
+        /usr/share/ebox/ebox-sql-table add openvpn_report /usr/share/ebox/sqllog/openvpn_report.sql
 
         # restart logs
         invoke-rc.d ebox logs restart || true

@@ -21,6 +21,9 @@ case "$1" in
 
         dpkg-trigger --no-await ebox
         ;;
+    purge)
+        /usr/share/ebox/ebox-sql-table drop openvpn || true
+        /usr/share/ebox/ebox-sql-table drop openvpn_report || true
 esac
 
 
