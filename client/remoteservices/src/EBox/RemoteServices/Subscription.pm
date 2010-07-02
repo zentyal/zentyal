@@ -171,17 +171,17 @@ sub subscribeEBox
     # Ensure firewall rules are opened
     $self->_openHTTPSConnection();
 
-    my $bundleContent;
+    my $bundleRawData;
     my $new = 0;
     try {
-        $bundleContent = $self->soapCall('subscribeEBox', canonicalName => $cn);
+        $bundleRawData = $self->soapCall('subscribeEBox', canonicalName => $cn);
         $new = 1;
     } catch EBox::Exceptions::DataExists with {
-        $bundleContent = $self->soapCall('eBoxBundle', canonicalName => $cn);
+        $bundleRawData = $self->soapCall('eBoxBundle', canonicalName => $cn);
         $new = 0;
     };
 
-    my $params = $self->extractBundle($cn, $bundleContent);
+    my $params = $self->extractBundle($cn, $bundleRawData);
 
     my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
     $self->_openVPNConnection(
@@ -190,10 +190,42 @@ sub subscribeEBox
         $confKeys->{vpnProtocol},
        );
 
+
+    $self->_setQAUpdates($params);
+
+
+
+
     $params->{new} = $new;
     return $params;
 
 }
+
+
+sub _setQAUpdates
+{
+    my ($self, $params) = @_;
+
+    my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
+    foreach my $param (@paramsNeeded) {
+        exists $params->{$param} or
+            return;
+    }
+
+    
+    $self->setQASources($params->{QASources});
+    $self->setQAAptPubKey($params->{QAAptPubKey});
+    $self->setQAAptPreferences($params->{QAAptPreferences});
+
+    my $softwareMod = EBox::Global->modInstance('software');
+    if ($softwareMod) {
+        $softwareMod->setQAUpdates(1);
+    } else {
+        EBox::info('No software moduel installed QA updates should be doen by hand');
+    }
+
+}
+
 
 # Class Method: extractBundle
 #
@@ -222,6 +254,8 @@ sub extractBundle
                              SUFFIX   => '.tar.gz');
 
     File::Slurp::write_file($tmp->filename(), $bundleContent);
+    
+#    EBox::Sudo::root('cp ' . $tmp->filename . ' /tmp/bundle.tar'); debug
 
     my $tar = new Archive::Tar($tmp->filename(), 1);
     my @files = $tar->list_files();
@@ -241,7 +275,7 @@ sub extractBundle
         mkdir($dirPath);
         chdir($dirPath);
     }
-    my ($confFile, $keyFile, $certFile);
+    my ($confFile, $keyFile, $certFile, $qaSources, $qaGpg, $qaPreferences);
     foreach my $filePath (@files) {
         $tar->extract_file($filePath)
           or throw EBox::Exceptions::Internal("Cannot extract file $filePath");
@@ -249,21 +283,44 @@ sub extractBundle
             $confFile = $filePath;
         } elsif ( $filePath =~ m:$cn: ) {
             $keyFile = $filePath;
+        } elsif ($filePath =~ /ebox-qa\.list$/) {
+            $qaSources = $filePath;
+        } elsif ($filePath =~ /ebox-qa\.pub$/) {
+            $qaGpg = $filePath;
+        } elsif ($filePath =~ /ebox-qa\.preferences$/) {
+            $qaPreferences = $filePath;
+
         } elsif ( $filePath ne 'cacert.pem' ) {
             $certFile = $filePath;
-        }
+        } 
     }
 
     # Remove everything we created before
     unlink($tmp->filename());
 
-    return {
+    my $bundle =  {
         ca => "$dirPath/cacert.pem",
         cert => "$dirPath/$certFile",
         key => "$dirPath/$keyFile",
         confFile => "$dirPath/$confFile",
     };
+
+
+    if (defined $qaSources) {
+        $bundle->{QASources} = "$dirPath/$qaSources";
+    }
+    if (defined $qaGpg) {
+        $bundle->{QAAptPubKey} = "$dirPath/$qaGpg";
+    }
+    if (defined $qaPreferences) {
+        $bundle->{QAAptPreferences} = "$dirPath/$qaPreferences";
+    }
+    
+
+
+    return $bundle;
 }
+
 
 # Method: deleteData
 #
@@ -387,5 +444,81 @@ sub _openVPNConnection #(ipaddr, port, protocol)
     }
 }
 
+
+sub setQASources
+{
+    my ($self, $qaFile) = @_;
+    my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
+#    EBox::debug("cp '$qaFile' '$destination'");
+    EBox::Sudo::root("cp '$qaFile' '$destination'");
+    my $ubuntuVersion = _ubuntuVersion();
+    my $archive = 'ebox-qa-' . $ubuntuVersion;
+    EBox::Sudo::root("sed -i 's/ebox-qa/$archive/' '$destination'");
+}
+
+
+
+sub _ubuntuVersion
+{
+    my @eboxInfo = `dpkg -s ebox`;
+    foreach my $line (@eboxInfo) {
+        if (not $line =~ m/Version:/) {
+            next;
+        }
+
+        chomp $line;
+        my ($header, $version) = split ':', $line;
+        $version =~ /^\s*(\d+\.\d+)/;
+        my $versionNumber = $1;
+        if ($versionNumber >= 1.5) {
+            return 'lucid';
+        } else {
+            return 'hardy';
+        }
+    }
+    
+
+    die 'hardy';
+    return 'hardy';
+}
+
+
+sub setQAAptPubKey
+{
+    my ($self, $keyFile) = @_;
+    my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
+#    EBox::debug("apt-key add $keyFile");
+    
+    EBox::Sudo::root("apt-key add $keyFile");
+}
+
+
+
+sub setQAAptPreferences
+{
+    my ($self, $preferencesFile) = @_;
+
+    my $exclusiveSource = EBox::Config::configkey('qa_updates_exclusive_source');
+    if (lc($exclusiveSource) ne 'true') {
+        return;
+    }
+
+
+    my $preferences = '/etc/apt/preferences';
+    my $fromCCPreferences = $preferences . '.ebox.fromcc'; # file to store CC preferences
+    my $bakFile = $preferences . '.ebox.bak';  # file to store 'old' prefrences
+    if (not -e $bakFile) {
+        if (-e $preferences) {
+            EBox::Sudo::root("mv '$preferences' '$bakFile'");
+        } else {
+            EBox::Sudo::root("touch '$bakFile'"); # create a empty preferences
+                                                  # file to make ebox-software
+                                                  # easier to revert configuration 
+        }
+    }
+
+    EBox::Sudo::root("cp '$preferencesFile' '$fromCCPreferences'");
+    EBox::Sudo::root("cp '$preferencesFile' '$preferences'");
+}
 
 1;

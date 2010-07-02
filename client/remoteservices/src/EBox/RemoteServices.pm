@@ -44,6 +44,7 @@ use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Bundle;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
+use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
 
 # Constants
@@ -352,7 +353,6 @@ sub unsubscribe
     my ($self) = @_;
 
     return $self->model('Subscription')->unsubscribe();
-
 }
 
 # Method: eBoxCommonName

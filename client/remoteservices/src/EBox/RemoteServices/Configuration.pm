@@ -113,4 +113,11 @@ sub CronJobPrefix
 
 }
 
+sub aptQASourcePath
+{
+    return '/etc/apt/sources.list.d/ebox-qa.list';
+}
+
+
+
 1;
