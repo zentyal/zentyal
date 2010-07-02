@@ -252,6 +252,38 @@ std::string _distributionId () {
 }
 
 /*
+  Function: _checkPkgType
+
+      Check if the given package file is of a determied type. The tpye is defined by the source archive for Ubuntu packages and the source site for Debian packages
+
+  Parameters:
+      pkgFile - pkgCache::PkgFileIterator the package file to check
+      ubuntuArchive - std:string . For Ubuntu packages this is the substring from the source archive name that identifies the type
+      ubuntuArchive - std:string . For Ubuntu packages this is the substring from the source archive name that identifies the type
+
+  Returns:
+  
+      bool - true if it is a package of the checked type, false otherwise
+
+ */
+bool _checkPkgType(pkgCache::PkgFileIterator pkgFile, std::string ubuntuArchive, std::string debianSite) {
+
+        std::string distroId(_distributionId());
+        bool retValue;
+
+        if ( pkgFile.Archive() == NULL ) {
+          return false;
+        }
+        if ( distroId.compare("Ubuntu") == 0 ) {
+          retValue = strstr(pkgFile.Archive(), ubuntuArchive.c_str()) != NULL; 
+        } else if ( distroId.compare("Debian") == 0 ) {
+          retValue = strstr(pkgFile.Site(),  debianSite.c_str()) != NULL;
+        }
+        return retValue;
+}
+
+
+/*
   Function: _securityUpdate
 
       Check if the given package file is a security update or not
@@ -265,21 +297,31 @@ std::string _distributionId () {
 
  */
 bool _securityUpdate(pkgCache::PkgFileIterator pkgFile) {
-
-        std::string distroId(_distributionId());
-        bool retValue;
-        /* foomatic-db-hpjs contains no archive */
-        if ( pkgFile.Archive() == NULL ) {
-          return false;
-        }
-        if ( distroId.compare("Ubuntu") == 0 ) {
-          retValue = strstr(pkgFile.Archive(), "-security") != NULL; 
-        } else if ( distroId.compare("Debian") == 0 ) {
-          retValue = strstr(pkgFile.Site(), "security.debian.org") != NULL;
-        }
-        return retValue;
- 
+  return _checkPkgType(pkgFile, std::string("-security"), std::string("security.debian.org"));
 }
+
+
+/*
+  Function: _qaUpdate
+
+      Check if the given package file is a ebox-qa update or not
+
+  Parameters:
+      pkgFile - pkgCache::PkgFileIterator the package file to check
+
+  Returns:
+  
+      bool - true if it is a ebox-qa update, false otherwise
+
+ */
+bool _qaUpdate(pkgCache::PkgFileIterator pkgFile) {
+  return _checkPkgType(pkgFile, std::string("ebox-qa"), std::string("qa.ebox-platform.com"));
+}
+
+
+
+
+
 
 /*
   Function: _changeLog
@@ -462,6 +504,7 @@ void listUpgradablePkgs() {
 		std::string name = P.Name();
 		std::string description;
                 std::string security("0");
+                std::string ebox_qa("0");
                 std::string changelog("");
 		std::string arch;
 		std::string curver = P.CurrentVer().VerStr();
@@ -501,7 +544,10 @@ void listUpgradablePkgs() {
 
                 for(pkgCache::VerFileIterator verFile = curverObject.FileList();
                     verFile.end() == false; verFile++) {
-                  if ( _securityUpdate(verFile.File()) ) {
+                  if ( _qaUpdate(verFile.File()) ) {
+                    ebox_qa.assign("1");
+                    changelog = _changeLog(filename, curver);
+                  } else if ( _securityUpdate(verFile.File()) ) {
                     security.assign("1");
                     changelog = _changeLog(filename, curver);
                   }
@@ -529,7 +575,9 @@ void listUpgradablePkgs() {
 		std::cout << "'name' => '" << name << "'," << std::endl;
 		std::cout << "'description' => '" << description << "'," << std::endl;
                 std::cout << "'version' => '" << curver << "'," << std::endl;
+                std::cout << "'ebox-qa' => '" << ebox_qa << "'," << std::endl;
                 std::cout << "'security' => '" << security << "'," << std::endl;
+
                 std::cout << "'changelog' => '" << changelog << "'" << std::endl;
 		std::cout << "}," << std::endl;
 
