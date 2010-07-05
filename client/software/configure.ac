@@ -58,7 +58,7 @@ AC_CONFIG_FILES([
 conf/Makefile
 migration/Makefile
 tools/Makefile
-tools/cron/Makefile
+stubs/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile

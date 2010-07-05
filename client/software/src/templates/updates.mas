@@ -3,10 +3,18 @@
 <%args>
 	@upgradables => ()
         $updateStatus => undef
+        $automaticUpdates
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
+% if ($automaticUpdates) {
+<div class='note'>
+<% __('Software updates are being handled automatically. They will be installed
+automatically as schenduled') %>
+</div>
+% }
+
 % if (defined $updateStatus ) {
   <& /software/updateNote.mas, status => $updateStatus &>
 % }
@@ -27,7 +35,7 @@ use EBox::Gettext;
 % 	foreach my $pkg (@upgradables) {
 			<tr class='border'>
 				<td>
-%         if ( $pkg->{security} ) {
+%         if ( $pkg->{security} or $pkg->{'ebox-qa'} ) {
                                 <img src="/data/images/add.gif" alt="more info"
 %           if ( $pkg->{changelog} ) {
                                      onclick="$('<% $pkg->{name} %>_changelog').toggle()
@@ -35,7 +43,15 @@ use EBox::Gettext;
 %           }
                                 />
 %         }
-                                <%$pkg->{name}%></td>
+                                <%$pkg->{name}%>
+%                               if ( $pkg->{security} ) {
+                                 <em><% __('Security update') %></em>
+%                                }
+%                               elsif ( $pkg->{'ebox-qa'} ) {
+                                 <em><% __('eBox QA update') %></em>
+%                                }
+
+                                </td>
 				<td><%$pkg->{description}%></td>
 				<td><%$pkg->{version}%></td>
 				<td class='tcenter'>
@@ -43,7 +59,7 @@ use EBox::Gettext;
 						name='pkg-<%$pkg->{name}%>'/>
 				</td>
 			</tr>
-%         if ( $pkg->{security} and $pkg->{changelog}) {
+%         if ( ($pkg->{security} or $pkg->{'ebox-qa'}) and $pkg->{changelog}) {
                         <tr style="display:none"></tr>
                         <tr class='trimp' id="<% $pkg->{name} %>_changelog" style="display:none">
                                 <td colspan='4'>

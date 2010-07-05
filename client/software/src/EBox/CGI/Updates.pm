@@ -42,12 +42,6 @@ sub _process($) {
 	$self->{title} = __('System updates');
 	my $software = EBox::Global->modInstance('software');
 
-	if ($software->getAutomaticUpdates()) {
-		$self->{msg} =
-			__('Software updates are being handled automatically');
-		return;
-	}
-
 	my @array = ();
 	my $upg = $software->listUpgradablePkgs(0, 1);
 	if (@{$upg} == 0) {
@@ -57,6 +51,7 @@ sub _process($) {
 	}
 	push(@array, 'upgradables' => $upg);
 	push(@array, 'updateStatus' => $software->updateStatus(0));
+        push(@array, 'automaticUpdates' => $software->getAutomaticUpdates());
 	$self->{params} = \@array;
 }
 

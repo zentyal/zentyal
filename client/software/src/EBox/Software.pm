@@ -44,6 +44,7 @@ use constant {
     LOCK_FILE     => EBox::Config::tmp() . 'ebox-software-lock',
     LOCKED_BY_KEY => 'lockedBy',
     LOCKER_PID_KEY => 'lockerPid',
+    CRON_FILE      => '/etc/cron.d/ebox-software',
 };
 
 # Group: Public methods
@@ -501,6 +502,18 @@ sub _packageDepends
 sub getAutomaticUpdates
 {
     my ($self) = @_;
+    
+    if ($self->QAUpdates) {
+        my $alwaysAutomatic = EBox::Config::configkey('qa_updates_always_automatic');
+        defined $alwaysAutomatic or $alwaysAutomatic = 'true';
+        
+        if (lc($alwaysAutomatic) eq 'true') {
+            return 1;
+        }
+
+    }
+
+
     my $auto = $self->get_bool('automatic');
     return $auto;
 }
@@ -518,6 +531,52 @@ sub setAutomaticUpdates # (auto)
 	my ($self, $auto) = @_;
 	$self->set_bool('automatic', $auto);
 }
+
+
+
+sub setAutomaticUpdatesTime
+{
+    my ($self, $time) = @_;
+
+    if (not ($time =~ m/^\d\d:\d\d$/)   ) {
+        throw EBox::Exceptions::InvalidData(
+                                            data => 'Time for automatic updates',
+                                            value => $time
+                                           );
+    }
+
+
+    my ($hour, $minute) = split ':', $time, 2;
+    if (($hour < 0) or ($hour > 23)) {
+        throw EBox::Exceptions::InvalidData(
+                                            data => 'Time for automatic updates',
+                                            value => $time,
+                                            advice => 'Bad hour!'
+                                           );
+    }
+    if (($minute < 0) or ($minute > 59)) {
+        throw EBox::Exceptions::InvalidData(
+                                            data => 'Time for automatic updates',
+                                            value => $time,
+                                            advice => 'Bad minute!'
+                                           );
+    }
+
+    $self->set_string('automatic_time', $time);
+}
+
+sub automaticUpdatesTime
+{
+    my ($self) = @_;
+    my $value = $self->get_string('automatic_time');
+    if (not $value) {
+        return '04:15';
+    }
+
+    
+    return $value;
+}
+
 
 # Method: _supportActions
 #
@@ -554,7 +613,7 @@ sub menu
         $folder->add(new EBox::Menu::Item('url' => 'Software/Updates',
                                           'text' => __('System Updates')));
         $folder->add(new EBox::Menu::Item('url' => 'Software/Config',
-                                          'text' => __('Automatic Updates')));
+                                          'text' => __('Settings')));
         $root->add($folder);
 }
 
@@ -684,5 +743,83 @@ sub updateStatus
     my $stat = File::stat::stat($file);
     return $stat->mtime;
 }
+
+
+sub setQAUpdates
+{
+    my ($self, $value) = @_;
+    $self->set_bool('qa_updates', $value);
+}
+
+sub QAUpdates
+{
+    my ($self) = @_;
+    $self->get_bool('qa_updates');
+}
+
+
+sub _setConf
+{
+    my ($self) = @_;
+    $self->_installCronFile();
+    $self->_setAptPreferences();
+}
+
+sub _setAptPreferences
+{
+    my ($self) = @_;
+
+    my $enabled;
+    if ($self->QAUpdates()) {
+        my $exclusiveSource =  EBox::Config::configkey('qa_updates_exclusive_source');
+        $enabled = lc($exclusiveSource) eq 'true';
+    } else {
+        $enabled = 0;
+    }
+
+    my $preferences =  '/etc/apt/preferences';
+    my $preferencesBak  = $preferences . '.ebox.bak';
+    my $preferencesFromCCBak = $preferences . '.ebox.fromcc';
+
+    if ($enabled ) {
+        my $existsCC = EBox::Sudo::fileTest('-e', $preferencesFromCCBak);
+        if (not $existsCC) {
+            EBox::error('Could not find apt preferences file from Control Center, letting APT preferences untouched');
+            return;
+        }
+        
+        EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferences'");        
+    } else {
+        my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
+        if ($existsOld) {
+            EBox::Sudo::root("cp '$preferencesBak' '$preferences'");
+            # remove old backup to avoid to overwritte user's modifications
+            EBox::Sudo::root("rm -f '$preferencesBak' ");
+        } 
+    }
+    
+
+}
+
+
+
+
+sub _installCronFile
+{
+    my ($self) = @_;
+    my $time = $self->automaticUpdatesTime();
+    my ($hour, $minute) = split ':', $time;
+
+    $self->writeConfFile(
+                         CRON_FILE,
+                         'software/software.cron',
+                         [
+                          hour => $hour,
+                          minute => $minute,
+                         ]
+                        );
+}
+
+
 
 1;

@@ -1,10 +1,55 @@
-<!-- vim: ts=4 sw=4 filetype=mason
--->
 <%args>
-	$automatic
+    $automatic
+    $automaticTime
+    $QAUpdates
 </%args>
 <%init>
 use EBox::Gettext;
 my $enableTitle = __('Perform automatic security updates');
+my ($hour, $minutes) = split ':', $automaticTime;
+
 </%init>
+% if ($QAUpdates) {
+<div class='warning'>
+<% __('This eBox is configured to use automatic QA updates') %>
+</div>
+% }
 <& enable.mas, title => $enableTitle, active => $automatic &>
+
+<h3><% __('Settings') %></h3>
+<form action='AutomaticOptions' method='POST'>
+<table class='formTable'>
+<thead>
+</thead>
+<tbody>
+<tr>
+<td><% __('Automatic operations start time')  %> </td>
+<td><& .timeSelect, name => 'automaticHour', value => $hour, maxValue => 23 &>:<& .timeSelect,
+name => 'automaticMinute', value => $minutes, maxValue => 59 &></td>
+</tr>
+<tr>
+<td></td>
+<td><& /input/submit.mas, name => 'submit', value => __('Change') &></td>
+</tr>
+</tbody>
+</table>
+
+<%def .timeSelect >
+<%args>
+$name
+$value
+$maxValue
+</%args>
+<%init>
+my @timeOptions = map {  
+    my $number = $_;
+    if($number < 10) {
+        $number = '0' . $number;
+    }
+    { value => $number }
+}(0 .. $maxValue);
+</%init>
+<& /input/select.mas, name => $name, value => $value, options =>
+\@timeOptions &>
+
+</%def>
