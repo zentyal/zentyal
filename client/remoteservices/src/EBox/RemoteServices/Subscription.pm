@@ -193,8 +193,7 @@ sub subscribeEBox
 
     $self->_setQAUpdates($params);
 
-
-
+    $self->_executeBundleScripts($params);
 
     $params->{new} = $new;
     return $params;
@@ -221,9 +220,28 @@ sub _setQAUpdates
     if ($softwareMod) {
         $softwareMod->setQAUpdates(1);
     } else {
-        EBox::info('No software moduel installed QA updates should be doen by hand');
+        EBox::info('No software module installed QA updates should be doen by hand');
     }
 
+}
+
+
+sub _executeBundleScripts
+{
+    my ($self, $params) = @_;
+
+    if (not exists $params->{scripts}) {
+        return;
+    }
+
+    foreach my $script (@{  $params->{scripts} }) {
+        try {
+            EBox::Sudo::root("chmod u+x '$script'");
+            EBox::Sudo::root($script);
+        } catch EBox::Exceptions::Command with {
+            # ignore script errors
+        };
+    }
 }
 
 
@@ -254,8 +272,10 @@ sub extractBundle
                              SUFFIX   => '.tar.gz');
 
     File::Slurp::write_file($tmp->filename(), $bundleContent);
-    
-#    EBox::Sudo::root('cp ' . $tmp->filename . ' /tmp/bundle.tar'); debug
+
+    # debug!!    
+ #   EBox::Sudo::root('cp ' . $tmp->filename . ' /tmp/bundle.tar'); 
+#    EBox::Sudo::root('cp /tmp/input.tar ' . $tmp->filename ); 
 
     my $tar = new Archive::Tar($tmp->filename(), 1);
     my @files = $tar->list_files();
@@ -275,7 +295,9 @@ sub extractBundle
         mkdir($dirPath);
         chdir($dirPath);
     }
+
     my ($confFile, $keyFile, $certFile, $qaSources, $qaGpg, $qaPreferences);
+    my @scripts;
     foreach my $filePath (@files) {
         $tar->extract_file($filePath)
           or throw EBox::Exceptions::Internal("Cannot extract file $filePath");
@@ -289,7 +311,8 @@ sub extractBundle
             $qaGpg = $filePath;
         } elsif ($filePath =~ /ebox-qa\.preferences$/) {
             $qaPreferences = $filePath;
-
+        } elsif ($filePath =~ m{exec\-\d+\-}) {
+            push @scripts, $filePath;
         } elsif ( $filePath ne 'cacert.pem' ) {
             $certFile = $filePath;
         } 
@@ -316,6 +339,15 @@ sub extractBundle
         $bundle->{QAAptPreferences} = "$dirPath/$qaPreferences";
     }
     
+
+
+    if (@scripts) {
+        # order by number
+        @scripts = sort @scripts;
+        @scripts = map { "$dirPath/$_" } @scripts;
+        $bundle->{scripts}  = \@scripts;
+
+    }
 
 
     return $bundle;
@@ -449,7 +481,6 @@ sub setQASources
 {
     my ($self, $qaFile) = @_;
     my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
-#    EBox::debug("cp '$qaFile' '$destination'");
     EBox::Sudo::root("cp '$qaFile' '$destination'");
     my $ubuntuVersion = _ubuntuVersion();
     my $archive = 'ebox-qa-' . $ubuntuVersion;
