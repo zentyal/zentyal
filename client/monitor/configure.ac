@@ -66,6 +66,7 @@ src/EBox/Monitor/Measure/Makefile
 src/EBox/Monitor/Measure/t/Makefile
 src/EBox/Monitor/Model/Makefile
 src/EBox/Monitor/Types/Makefile
+src/EBox/Monitor/Exceptions/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile

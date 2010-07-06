@@ -7,4 +7,4 @@ EXTRA_DIST = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 
-SUBDIRS = Measure Model Types
+SUBDIRS = Measure Model Types Exceptions

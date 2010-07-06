@@ -46,6 +46,7 @@ use base 'EBox::Model::DataTable';
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
+use EBox::Monitor::Exceptions::ThresholdOverride;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Monitor::Configuration;
@@ -116,7 +117,7 @@ sub validateTypedRow
                   or
                  ($action eq 'update' and $self->size() > 1)
                 ) {
-                throw EBox::Exceptions::External($excStr);
+                throw EBox::Monitor::Exceptions::ThresholdOverride($excStr);
             }
         }
 
@@ -131,7 +132,7 @@ sub validateTypedRow
             if ( $allFields->{typeInstance}->value() eq 'none'
                  and $row->elementByName('dataSource')->isEqualTo($allFields->{dataSource})) {
                 # There should be no more typeInstance with the same measure instance
-                throw EBox::Exceptions::External($excStr);
+                throw EBox::Monitor::Exceptions::ThresholdOverride($excStr);
             } else {
                 if ( $row->elementByName('typeInstance')->isEqualTo($allFields->{typeInstance})
                      and $row->elementByName('measureInstance')->isEqualTo($allFields->{measureInstance})
@@ -148,7 +149,7 @@ sub validateTypedRow
                            ( $allFields->{measureInstance}->value() eq 'none'
                              and $allFields->{dataSource}->value() eq 'value'))
                         ) {
-                    throw EBox::Exceptions::External($excStr);
+                    throw EBox::Monitor::Exceptions::ThresholdOverride($excStr);
                 } elsif ( $row->elementByName('typeInstance')->isEqualTo($allFields->{typeInstance})
                             and $row->elementByName('measureInstance')->isEqualTo($allFields->{measureInstance})) {
                     # TODO: with collectd 4.4 onwards this check must be removed
