@@ -133,6 +133,7 @@ sub setTypedRow
     }
     $self->_manageEvents(not $subs);
     $self->_manageMonitor(not $subs);
+    $self->_manageLogs(not $subs);
 
     # Call the parent method to store data in GConf and such
     $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
@@ -280,12 +281,9 @@ sub viewCustomizer
         my $msg = '';
         if (exists $modChanges->{configure}) {
             $msg .= __x(
- 'Subscribing an eBox will configure the {mods} and its dependencies '
-                       . 'by running these actions and modifying these files:' . 
-                       ' <br/> {actions} <br/> {files} <br/>',
+ 'Subscribing an eBox will configure the {mods} and its dependencies ',
                         mods =>  $modChanges->{configure},
-                       actions => $modChanges->{actions},
-                        files   => $modChanges->{files}
+
                       );
 
         }
@@ -320,18 +318,13 @@ sub _modulesToChange
 
     my @configure;
     my @enable;
-    my $actionsStr ='';
-    my $filesStr   = '';
 
-
-    my @mods = qw(openvpn events monitor);
+    my @mods = qw(openvpn events monitor logs);
     foreach my $modName (@mods) {
         my $mod =  EBox::Global->modInstance($modName);
         $mod or next; # better error control here by now just skipping
         if (not $mod->configured()) {
             push @configure, $mod->printableName();
-            $actionsStr .=  $self->_actionsStr($mod);
-            $filesStr   .=  $self->_filesStr($mod);
         } elsif (not $mod->isEnabled()) {
             push @enable, $mod->printableName();
         }
@@ -343,8 +336,6 @@ sub _modulesToChange
 
     if (@configure) {
         $toChange{configure} = _modListToHumanStr(\@configure);
-        $toChange{actions}   = $actionsStr;
-        $toChange{files}     = $filesStr;
     }
 
     return \%toChange;
@@ -522,11 +513,22 @@ sub _manageMonitor
 
     my $monitorMod = EBox::Global->modInstance('monitor');
     if ( $subscribing )  {
-        # monitor is always configured but we left this code just in case the
-        # module changes 
         $self->_configureAndEnable($monitorMod);
     }
 }
+
+sub _manageLogs
+{
+    my ($self, $subscribing) = @_;
+
+    my $logsMod = EBox::Global->modInstance('logs');
+    if ( $subscribing )  {
+        $self->_configureAndEnable($logsMod);
+    }
+}
+
+
+
 
 sub _configureAndEnable
 {

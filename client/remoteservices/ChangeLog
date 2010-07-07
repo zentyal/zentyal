@@ -1,7 +1,7 @@
 HEAD
 	+ Added support for ebox-qa apt sources
 	+ Added support for scripts from subscription bundle
-        + Subscription enables monitor module	
+	+ Subscription enables monitor and logs module
 1.5.2
 	+ Reload bundle while configuring the package and once a week to
 	  support eBox CC migration automatically (new keys) to make
