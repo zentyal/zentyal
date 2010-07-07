@@ -214,6 +214,7 @@ sub _table
                                         editable => 1)
                                 ],
                                 unique => 1,
+                                filter => \&filterUserGroupPrintableValue,
                               ),
        new EBox::Types::Select(
                                fieldName     => 'permissions',
@@ -249,5 +250,20 @@ sub _permissionsHelp
     return __('Be careful if you grant <i>administrator</i> privileges.' .
               'User will be able to read and write any file in the share');
 }
+
+sub filterUserGroupPrintableValue
+{
+    my ($element) = @_;
+    my $selectedType = $element->selectedType();
+    my $value = $element->value();
+    if ($selectedType eq 'user') {
+        return $value . __(' (user))')
+    } elsif ($selectedType eq 'group') {
+        return $value . __(' (group))')
+    }
+    
+    return $value;
+}
+
 
 1;

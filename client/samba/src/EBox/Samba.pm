@@ -27,7 +27,7 @@ use base qw(EBox::Module::Service EBox::LdapModule EBox::FirewallObserver
 use EBox::Sudo qw( :all );
 use EBox::Global;
 use EBox::Service;
-use EBox::SambaLdapUser qw(PROFILESPATH);
+use EBox::SambaLdapUser;
 use EBox::UsersAndGroups;
 use EBox::Network;
 use EBox::SambaFirewall;
