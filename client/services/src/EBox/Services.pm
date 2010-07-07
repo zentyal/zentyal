@@ -178,10 +178,13 @@ sub serviceNames
 #       destination - same as source
 #
 #       Example:
-#
-#            'protocol' => 'tcp',
-#            'source' => 'any',
-#       'destination' => '21:22',
+#         [
+#             {
+#              'protocol' => 'tcp',
+#               'source' => 'any',
+#               'destination' => '21:22',
+#             }
+#         ]
 sub serviceConfiguration
 {
     my ($self, $id) = @_;
