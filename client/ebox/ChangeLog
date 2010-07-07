@@ -1,3 +1,5 @@
+HEAD
+	+ Changes in sudo generation to allow sudo for remote support user
 1.5.6
 	+ Reimplementation of loggerd using inotify instead of File::Tail
 1.5.5
