@@ -22,6 +22,7 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Global;
 use EBox::Config;
 use HTML::Mason::Interp;
 
@@ -30,7 +31,20 @@ EBox::init();
 my @templateParams;
 
 my $user = EBox::Config::user();
-@templateParams = ( user => $user );
+$user or
+    die 'eBox user not set';
+
+my @extraUsers;
+my $remoteServices = EBox::Global->modInstance('remoteservices');
+if ($remoteServices->can('extraSudoersUsers')) {
+    push @extraUsers, $remoteServices->extraSudoerUsers();
+}
+
+
+
+@templateParams = ( user => $user, extraUsers => \@extraUsers );
+
+
 
 
 my $output;

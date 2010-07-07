@@ -1,5 +1,6 @@
 <%args>
 	$user => 'ebox'
+        @extraUsers => ()
 </%args>
 
 # sudoers file for ebox
@@ -7,3 +8,9 @@
 
 # Allow httpd user to execute all commands
 <% $user %>  ALL = NOPASSWD:ALL
+% if (@extraUsers) {
+# extra users granted permission by eBox
+%   foreach my $extraUser (@extraUsers) {
+<% $extraUser %>  ALL = NOPASSWD:ALL
+%   }
+% }
