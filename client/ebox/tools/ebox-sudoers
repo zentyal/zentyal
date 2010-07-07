@@ -36,8 +36,10 @@ $user or
 
 my @extraUsers;
 my $remoteServices = EBox::Global->modInstance('remoteservices');
-if ($remoteServices->can('extraSudoersUsers')) {
-    push @extraUsers, $remoteServices->extraSudoerUsers();
+if (defined $remoteServices) {
+    if ($remoteServices->can('extraSudoersUsers')) {
+        push @extraUsers, $remoteServices->extraSudoerUsers();
+    }
 }
 
 
