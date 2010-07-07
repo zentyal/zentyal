@@ -132,6 +132,7 @@ sub setTypedRow
         }
     }
     $self->_manageEvents(not $subs);
+    $self->_manageMonitor(not $subs);
 
     # Call the parent method to store data in GConf and such
     $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
@@ -275,22 +276,93 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     if ( not $self->eBoxSubscribed() ) {
-        my $vpnMod = EBox::Global->modInstance('openvpn');
+        my $modChanges = $self->_modulesToChange();
         my $msg = '';
-        if ( not $vpnMod->configured() ) {
-            $msg = __('Subscribing an eBox will configure OpenVPN module and its dependencies '
-                      . 'by running these actions and modifying these files: ') . '<br/>'
-                      . $self->_actionsStr($vpnMod) . '<br/>' . $self->_filesStr($vpnMod);
-        } elsif ( not $vpnMod->isEnabled() ) {
-            $msg = __('Subscribing an eBox will enable the OpenVPN module and its dependencies.')
+        if (exists $modChanges->{configure}) {
+            $msg .= __x(
+ 'Subscribing an eBox will configure the {mods} and its dependencies '
+                       . 'by running these actions and modifying these files:' . 
+                       ' <br/> {actions} <br/> {files} <br/>',
+                        mods =>  $modChanges->{configure},
+                       actions => $modChanges->{actions},
+                        files   => $modChanges->{files}
+                      );
+
         }
+
+
+        if (exists $modChanges->{enable}) {
+            $msg .= __x('Subscribing an eBox will enable the {mods} and its dependencies.<br/>',
+                       mods => $modChanges->{enable}
+                      );
+        }
+
+
+
         $customizer->setPermanentMessage(
-            $msg . __('Take into account that subscribing an eBox could take a '
+            $msg .= __('Take into account that subscribing an eBox could take a '
                       . 'minute. Do not touch anything until subscribing process is done.')
            );
     }
     return $customizer;
 
+}
+
+
+
+
+
+sub _modulesToChange
+{
+    my ($self) = @_;
+
+    my %toChange = ();
+
+    my @configure;
+    my @enable;
+    my $actionsStr ='';
+    my $filesStr   = '';
+
+
+    my @mods = qw(openvpn events monitor);
+    foreach my $modName (@mods) {
+        my $mod =  EBox::Global->modInstance($modName);
+        $mod or next; # better error control here by now just skipping
+        if (not $mod->configured()) {
+            push @configure, $mod->printableName();
+            $actionsStr .=  $self->_actionsStr($mod);
+            $filesStr   .=  $self->_filesStr($mod);
+        } elsif (not $mod->isEnabled()) {
+            push @enable, $mod->printableName();
+        }
+    }
+
+    if (@enable) {
+        $toChange{enable} = _modListToHumanStr(\@enable);
+    }
+
+    if (@configure) {
+        $toChange{configure} = _modListToHumanStr(\@configure);
+        $toChange{actions}   = $actionsStr;
+        $toChange{files}     = $filesStr;
+    }
+
+    return \%toChange;
+}
+
+sub _modListToHumanStr
+{
+    my ($list) = @_;
+    my @list = @{ $list };
+    if (@list == 1) {
+        return $list[0] . __( ' module');
+    }
+
+    my $str;
+    my $last = pop @list;
+    $str = join ', '. @list;
+    $str = $str . __(' and ') . $last . __(' modules');
+    return $str;
 }
 
 # Method: precondition
@@ -430,8 +502,11 @@ sub _manageEvents # (subscribing)
     my ($self, $subscribing) = @_;
 
     my $eventMod = EBox::Global->modInstance('events');
-    if ( $subscribing ) {
-        $eventMod->enableService(1);
+    if ( $subscribing )  {
+        # events is always configured but we left this code just in case the
+        #moduke  changes 
+        $self->_configureAndEnable($eventMod);
+
     }
     my $model = $eventMod->configureDispatcherModel();
     my $rowId = $model->findId( eventDispatcher => 'EBox::Event::Dispatcher::ControlCenter' );
@@ -441,7 +516,33 @@ sub _manageEvents # (subscribing)
 
 }
 
-# Dump the OpenVPN actions string
+sub _manageMonitor
+{
+    my ($self, $subscribing) = @_;
+
+    my $monitorMod = EBox::Global->modInstance('monitor');
+    if ( $subscribing )  {
+        # monitor is always configured but we left this code just in case the
+        # module changes 
+        $self->_configureAndEnable($monitorMod);
+    }
+}
+
+sub _configureAndEnable
+{
+    my ($self, $mod) = @_;
+
+    if (not $mod->configured) {
+        $mod->setConfigured(1);
+        $mod->enableActions();
+    }
+    if (not $mod->isEnabled()) {
+        $mod->enableService(1);
+    }
+}
+
+
+# Dump the module actions string
 sub _actionsStr
 {
     my ($self, $mod) = @_;
@@ -462,7 +563,7 @@ sub _actionsStr
     return $retStr;
 }
 
-# Dump the OpenVPN actions string
+# Dump the module actions string
 sub _filesStr
 {
     my ($self, $mod) = @_;
