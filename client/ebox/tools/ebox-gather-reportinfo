@@ -32,5 +32,7 @@ for my $mod (@mods) {
         $db->insert($i->{'table'}, $i->{'values'});
     }
 }
+# Perform the buffered inserts done above
+$db->multiInsert();
 
 1;

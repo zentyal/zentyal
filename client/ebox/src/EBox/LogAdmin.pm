@@ -62,7 +62,7 @@ sub _logAdmin
 	my $time = localtime();
 	my $data = { 'timestamp' => $time, 'source' => $source,
 		'module' => $module, 'action' => $action, 'params' => $params, 'committed' => $committed };
-	$dbengine->insert('admin', $data);
+	$dbengine->unbufferedInsert('admin', $data);
 }
 
 

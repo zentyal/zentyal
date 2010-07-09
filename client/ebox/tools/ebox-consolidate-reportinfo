@@ -5,11 +5,8 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Config;
-use EBox::DBEngineFactory;
 
 EBox::init();
-
-my $db = EBox::DBEngineFactory::DBEngine();
 
 my @mods = @{EBox::Global->modInstances()};
 

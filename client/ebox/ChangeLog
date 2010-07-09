@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: Called multiInsert and unbufferedInsert when necessary
+	  after the loggerd reimplementation
 	+ Bugfix: EBox::ThirdParty::Apache2::AuthCookie and
 	  EBox::ThirdParty::Apache2::AuthCookie::Util package defined just
 	  once

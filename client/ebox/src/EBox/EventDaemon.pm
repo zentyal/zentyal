@@ -556,7 +556,7 @@ sub _insertEventInLog
         message  => $event->message(),
        };
 
-    $self->{dbengine}->insert(LOG_TABLE, $values);
+    $self->{dbengine}->unbufferedInsert(LOG_TABLE, $values);
 }
 
 # Method: _logEvent

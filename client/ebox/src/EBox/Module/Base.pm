@@ -1214,7 +1214,7 @@ sub consolidateReportFromLogs
             $date = $row->{'date'} - 1;
 
             #later we call update so we need to have something inserted
-            $db->insert('report_consolidation', {
+            $db->unbufferedInsert('report_consolidation', {
                 'report_table' => $target_table,
                 'last_date' => 'epoch'
             });
@@ -1281,7 +1281,7 @@ sub consolidateReportFromLogs
                             $db->update($target_table, $new_row, \@where);
                         } else {
                             $r->{'date'} = "$year-$month-01";
-                            $db->insert($target_table, $r);
+                            $db->unbufferedInsert($target_table, $r);
                         }
                     }
                 }
@@ -1350,7 +1350,7 @@ sub consolidateReportInfo
             $date = $row->{'date'} - 1;
 
             #later we call update so we need to have something inserted
-            $db->insert('report_consolidation', {
+            $db->unbufferedInsert('report_consolidation', {
                 'report_table' => $target_table,
                 'last_date' => 'epoch'
             });
@@ -1417,7 +1417,7 @@ sub consolidateReportInfo
                                 $db->update($target_table, $new_row, \@where);
                             } else {
                                 $r->{'date'} = "$year-$month-01";
-                                $db->insert($target_table, $r);
+                                $db->unbufferedInsert($target_table, $r);
                             }
                         }
                     } else {
@@ -1436,7 +1436,7 @@ sub consolidateReportInfo
                                 $db->update($target_table, $new_row, \@where);
                             } else {
                                 $r->{'date'} = "$year-$month-01";
-                                $db->insert($target_table, $r);
+                                $db->unbufferedInsert($target_table, $r);
                             }
                         }
                     }
