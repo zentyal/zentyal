@@ -157,7 +157,7 @@ sub enable
 #
 # Returns:
 #
-#       boolean - whetheer the event has  been sent or not
+#       boolean - whether the event has been sent or not
 #
 # Exceptions:
 #

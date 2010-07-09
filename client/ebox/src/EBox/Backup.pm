@@ -785,11 +785,11 @@ sub _modulesReady
   my ($self) = @_;
 
   my $global = EBox::Global->getInstance();
-  foreach my $modName (@{ $global->modNames }) {
+  foreach my $modName (@{ $global->modNames() }) {
     if ($global->modIsChanged($modName)) {
       throw EBox::Exceptions::External(
-         __('Some modules has not saved changes. Before doing the backup you must'
-            . ' save  or discard them' ) );
+         __x('Module {mod} has not saved changes. Before doing the backup you must'
+            . ' save or discard them', mod => $modName ) );
     }
 }
 

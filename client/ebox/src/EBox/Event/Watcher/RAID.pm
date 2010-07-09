@@ -25,7 +25,7 @@ package EBox::Event::Watcher::RAID;
 #
 #   Partition events:
 #
-#    - Changing its state: active (sync, resync), faulty, spare, remove
+#    - Changing its state: active (sync, resync), faulty, spare, removed
 #
 #    - Hot additions and removals
 #
