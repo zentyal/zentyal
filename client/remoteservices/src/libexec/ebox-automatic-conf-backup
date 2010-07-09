@@ -32,7 +32,7 @@ use constant LAST_BACKUP_TIMESTAMP_FILE => EBox::Config::conf() . 'remoteservice
 # Get the cron jobs from the CC
 sub _makeConfBackup
 {
-    my $gl = EBox::Global->getInstance();
+    my $gl = EBox::Global->getInstance(1);
     my $rs = $gl->modInstance('remoteservices');
     if ( $rs->eBoxSubscribed() ) {
         my $lastBackupStamp = 0;
@@ -54,7 +54,7 @@ sub _makeConfBackup
                 my ($exc) = @_;
                 # Cannot make the backup, inform the user with an event
                 my $evtMod = $gl->modInstance('events');
-                my $msg = __x('Cannot make the automatic backup {reason}',
+                my $msg = __x('Cannot make the automatic backup. {reason}',
                               reason =>  $exc->stringify());
                 try {
                     $evtMod->sendEvent(message => $msg,
