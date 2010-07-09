@@ -28,24 +28,26 @@ use base qw(EBox::Module::Service
 use strict;
 use warnings;
 
-use Error qw(:try);
 
-# eBox uses
+use Date::Calc;
 use EBox::Config;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::Value;
+use EBox::DBEngineFactory;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
+use EBox::RemoteServices::Audit::Password;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Bundle;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
+use Error qw(:try);
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
@@ -599,6 +601,169 @@ sub reloadBundle
         throw EBox::Exceptions::External(__('eBox must be subscribed to reload the bundle'));
     }
     return 1;
+}
+
+# Group: Public methods related to reporting
+
+# Method: logReportInfo
+#
+# Overrides:
+#
+#     <EBox::Module::Base::logReportInfo>
+#
+sub logReportInfo
+{
+    my $db = EBox::DBEngineFactory::DBEngine();
+    my $ret = $db->query('SELECT date FROM remoteservices_passwd_report '
+                         . 'ORDER BY date DESC LIMIT 1');
+
+    if ( defined($ret->[0]) and defined($ret->[0]->{date}) ) {
+        my ($year, $month, $day) = $ret->[0]->{date} =~ m:([0-9]+)-([0-9]+)-([0-9]+):g;
+        if ( Date::Calc::Delta_Days($year, $month, $day,
+                                    Date::Calc::Today()) < 7 ) {
+            # Do nothing every week
+            return [];
+        }
+    }
+
+
+    my $weakPasswdUsers = EBox::RemoteServices::Audit::Password::reportUserCheck();
+
+    unless (defined($weakPasswdUsers)) {
+        # This happens when the audit is being done. Wait for next day to report
+        return [];
+    }
+
+    my @data = ();
+    foreach my $user ( @{$weakPasswdUsers} ) {
+        my $entry = {};
+        $entry->{table}  = 'remoteservices_passwd_report';
+        $entry->{values} = {};
+        $entry->{values}->{username} = $user->{username};
+        $entry->{values}->{level} = $user->{level};
+        $entry->{values}->{source} = $user->{from};
+        my @time = localtime(time());
+        $entry->{values}->{date} = ($time[5] + 1900) . '-' . ($time[4] + 1) . "-$time[3]";
+        push(@data, $entry);
+    }
+    # Store the current number of users
+    my $nUsers = EBox::RemoteServices::Audit::Password::nUsers();
+    push(@data, { table  => 'remoteservices_passwd_users',
+                  values => { nUsers => $nUsers }});
+
+    return \@data;
+
+}
+
+# Method: consolidateReportInfoQueries
+#
+# Overrides:
+#
+#     <EBox::Module::Base::consolidateReportInfoQueries>
+#
+sub consolidateReportInfoQueries
+{
+    return [
+        {
+            target_table => 'remoteservices_passwd_users_report',
+            query        => {
+                select => 'nUsers',
+                from   => 'remoteservices_passwd_users',
+                key    => 'nUsers',
+               }
+           }
+       ];
+}
+
+# Method: report
+#
+# Overrides:
+#
+#   <EBox::Module::Base::report>
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    $report->{weak_password_number} = $self->runMonthlyQuery(
+        $beg, $end,
+        {
+            select => 'COUNT(DISTINCT username) AS weak_passwords',
+            from   => 'remoteservices_passwd_report',
+            where  => "level = 'weak'",
+            group  => 'level',
+        },
+      );
+    my $averageQuery = $self->runMonthlyQuery(
+        $beg, $end,
+        {
+            select => 'COUNT(DISTINCT username) AS average_passwords',
+            from   => 'remoteservices_passwd_report',
+            where  => "level = 'average'",
+            group  => 'level',
+        },
+      );
+
+    my $nUsersQuery = $self->runMonthlyQuery(
+        $beg, $end,
+        {
+            select => 'nUsers',
+            from   => 'remoteservices_passwd_users_report',
+           },
+       );
+
+    unless (defined( $averageQuery->{average_passwords} )) {
+        $averageQuery->{average_passwords} = [];
+        push(@{$averageQuery->{average_passwords}}, 0) foreach (1 .. @{$nUsersQuery->{nusers}});
+    }
+
+    unless (defined( $report->{weak_password_number}->{weak_passwords} )) {
+        $report->{weak_password_number}->{weak_passwords} = [];
+        push(@{$report->{weak_password_number}->{weak_passwords}}, 0)
+          foreach (1 .. @{$nUsersQuery->{nusers}});
+    }
+
+
+    # Perform the union manually
+    $report->{weak_password_number}->{nusers} = $nUsersQuery->{nusers};
+    $report->{weak_password_number}->{average_passwords} = $averageQuery->{average_passwords};
+
+    # Calculate the percentages on my own
+    my @percentages;
+    for (my $i=0; $i < scalar(@{$report->{weak_password_number}->{nusers}}); $i++) {
+        my $nUsers = $report->{weak_password_number}->{nusers}->[$i];
+        my $weakUsers = $report->{weak_password_number}->{weak_passwords}->[$i];
+        if ( $nUsers == 0 ) {
+            push(@percentages, 0);
+        } else {
+            my $percentage = 100*($weakUsers/$nUsers);
+            push(@percentages, sprintf('%.2f', $percentage));
+        }
+    }
+    $report->{weak_password_number}->{percentage} = \@percentages;
+
+    $report->{weak_password_users} = $self->runQuery(
+        $beg, $end,
+        {
+            select => 'DISTINCT username, level, source',
+            from   => 'remoteservices_passwd_report',
+        },
+       );
+
+    # Get additional data to report
+    my (@fullNames, @emails);
+    for (my $i=0; $i < scalar(@{$report->{weak_password_users}->{username}}); $i++) {
+        my $username = $report->{weak_password_users}->{username}->[$i];
+        my $additionalInfo = EBox::RemoteServices::Audit::Password::additionalInfo($username);
+        push(@fullNames, $additionalInfo->{fullname});
+        push(@emails, $additionalInfo->{email});
+    }
+    $report->{weak_password_users}->{fullname} = \@fullNames;
+    $report->{weak_password_users}->{email} = \@emails;
+
+    return $report;
+
 }
 
 # Group: Private methods

@@ -62,6 +62,7 @@ src/EBox/Event/Makefile
 src/EBox/Event/Dispatcher/Makefile
 src/EBox/RemoteServices/Makefile
 src/EBox/RemoteServices/t/Makefile
+src/EBox/RemoteServices/Audit/Makefile
 src/EBox/RemoteServices/Composite/Makefile
 src/EBox/RemoteServices/Model/Makefile
 src/EBox/RemoteServices/Server/Makefile
@@ -73,6 +74,8 @@ src/templates/RemoteServices/Makefile
 src/templates/RemoteServices/Backup/Makefile
 schemas/Makefile
 stubs/Makefile
+tools/Makefile
+tools/sqllog/Makefile
 Makefile
 ])
 

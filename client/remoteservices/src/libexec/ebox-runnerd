@@ -92,7 +92,7 @@ sub _daemonise
         }
     }
 
-    # Change current working directory to roo so we won't prevent file
+    # Change current working directory to root so we won't prevent file
     # systems from being unmounted
     chdir('/') or throw EBox::Exceptions::External( "Cannot change directory to / $!" );
 
@@ -160,7 +160,7 @@ sub _run
         if (-r $dataFile) {
             $call = "xargs -a $jobDir/args $jobDir/script --data-file $dataFile";
         } else {
-            $call = "xargs -a $jobDir/args $jobDir/script";            
+            $call = "xargs -a $jobDir/args $jobDir/script";
         }
 
 

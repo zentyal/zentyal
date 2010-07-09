@@ -11,3 +11,5 @@ PATH=/usr/bin:/bin
 32 2 * * * root /usr/share/ebox/ebox-automatic-conf-backup > /dev/null 2>&1
 # Get a new bundle if available from eBox CC each week
 45 4 * * 7 root /usr/share/ebox/ebox-reload-bundle > /dev/null 2>&1
+# Perform the security audit once a week
+23 4 * * 6 root /usr/share/ebox-remoteservices/password-checker.pl > /dev/null 2>&1
