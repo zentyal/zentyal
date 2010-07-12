@@ -1,4 +1,6 @@
 HEAD
+	+ Password strength checker done every week included in report and
+	  alert generated with the result
 	+ Added support for ebox-qa apt sources
 	+ Added support for scripts from subscription bundle
 	+ Subscription enables monitor and logs module
