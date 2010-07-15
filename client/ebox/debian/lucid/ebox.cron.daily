@@ -8,3 +8,5 @@ wget --timeout $TIMEOUT $URL -O $DEST >/dev/null 2>&1
 
 # Gather reporting info
 /usr/share/ebox/ebox-gather-reportinfo
+# Consolidate this reporting info
+/usr/share/ebox/ebox-consolidate-reportinfo
