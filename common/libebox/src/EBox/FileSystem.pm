@@ -21,7 +21,6 @@ use warnings;
 
 use base 'Exporter';
 our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir dirDiskUsage dirFileSystem);
-
 use Params::Validate;
 use EBox::Validate;
 use EBox::Gettext;
