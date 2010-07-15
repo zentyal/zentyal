@@ -1,5 +1,6 @@
 HEAD
 	+ Added exception class for threshold overrides
+	+ Bugfix: solved problem when adding thresholds without using a CGI
 1.5.2
 	+ Use init.d script instead of upstart to avoid errors in syslog
 	+ Removed loading of no longer used perl plugin

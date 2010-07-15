@@ -95,10 +95,23 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    # Check at least a threshold is set
-    my $nDefined = grep { defined($_) }
-      map { $allFields->{$_}->value() } qw(warningMin failureMin warningMax failureMax);
-    unless($nDefined > 0) {
+    # Check at least one threshold is set
+    my $anyThresholdSet = 0;
+    foreach my $th (qw(warningMin failureMin warningMax failureMax)) {
+        if (exists $changedFields->{$th}) {
+            if ($changedFields->{$th}->value()) {
+                $anyThresholdSet = 1;
+                last;
+            }
+            if ($allFields->{$th}->value()) {
+                $anyThresholdSet = 1;
+                last;
+            }
+        }
+    }
+
+
+    unless($anyThresholdSet) {
         throw EBox::Exceptions::External(
             __('At least a threshold (maximum or minimum) must be set')
            );
