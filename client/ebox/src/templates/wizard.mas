@@ -1,0 +1,164 @@
+<%args>
+  @pages
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<script type="text/javascript">
+<!--
+
+var DURATION = 0.5;
+var actualPage = 0;
+var visible = 0;
+var firstLoad = true;
+var pages = new Array();
+var i=0;
+
+% for my $page ( @pages ) {
+pages[i++] = "./<% $page %>"; 
+% }
+
+
+// Load a wizard page
+function loadPage(index) {
+    if ( index < 0 || index > pages.length ) return;
+
+    // Disable more clicks
+    $('wizard-next1').disabled = true;
+    $('wizard-next2').disabled = true;
+
+    $('wizard-skip1').hide();
+    $('wizard-skip2').hide();
+
+    $('wizard_error').hide();
+
+    var hidden = visible;
+    var showed = (visible + 1) % 2;
+    if ( firstLoad ) {
+        showed = visible;
+        firstLoad = false;
+    }
+    visible = showed;
+
+    hidden = "wizardPage" + hidden;
+    showed = "wizardPage" + showed;
+
+    if ( index > 0 ) 
+        Effect.SlideUp(hidden, { duration: DURATION } );
+//        $(hidden).fade({ duration: DURATION, from: 1, to: 0 });
+
+
+
+    // Final stage?
+    if ( index == pages.length ) {
+        $('wizard-next1').hide();
+        $('wizard-next2').hide();
+        finalPage();
+        return;
+    }
+
+
+    var loaded = function() {
+//        $(showed).appear({
+//                duration: DURATION,
+//                from: 0, to: 1,
+//                queue: 'end' });
+        Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
+
+        // Configure buttons
+        $('wizard-next1').disabled = index == pages.length;
+        $('wizard-next2').disabled = index == pages.length;
+ 
+        if ( index == pages.length-1 ) {
+            $('wizard-next1').value = "<% __('Finish') %>";
+            $('wizard-next2').value = "<% __('Finish') %>";
+        } 
+    }
+
+    new Ajax.Updater(showed,
+                     pages[index],
+                     {
+                        method:'get',
+                        onComplete: loaded, 
+                        evalScripts: true
+                     });
+
+    actualPage = index;
+}
+
+// Skip this page
+function skipStep() {
+    loadPage(actualPage+1);
+}
+
+
+// Save changes and step into next page
+function nextStep() {
+    // Submit form
+    var form = $$('#wizardPage' + visible + ' form')[0];
+
+    var failed = false;
+
+    var onFail = function(response) {
+        failed = true;
+        //$('wizardPage' + visible).update(response.responseText);
+        $('wizard_error').update(response.responseText);
+        $('wizard_error').appear({
+                duration: 0.5,
+                from: 0, to: 1 });
+
+        // Show skip buttons
+        $('wizard-skip1').show();
+        $('wizard-skip2').show();
+    };
+
+    form.request({
+        asynchronous: false,
+        onFailure: onFail,
+    });
+
+    // Load next page
+    if ( !failed )
+        loadPage(actualPage+1);
+}
+
+// Shows final page
+function finalPage() {
+    actualPage = pages.length;
+    var showed = "wizardPage" + visible;
+    content = '<div style="text-align: center; padding: 40px">';
+    content += '<div><img src="/data/images/title.png" alt="title" /></div>';
+    content += '<h4><% __('Congratulations!') %></h4>';
+    content += '<div><% __('Now you are ready to save changes and start using your eBox') %></div>';
+    content += '<form action="Finish" method="POST">'; 
+    content += '<input style="margin: 20px; font-size: 1.4em" class="inputButton" type="submit" name="save" value="<% __('Save changes') %>" />';
+    content += '</form>';
+    content += '</div>';
+    $(showed).update(content);
+    Effect.SlideDown(showed, { duration: DURATION, queue: 'end' } );
+}
+
+// Load first page
+Event.observe(window, 'load', function() {
+    loadPage(0);
+});
+
+// -->
+</script>
+
+<div id="wizard_error" class="error" style="display: none; margin-bottom: 20px"></div>
+<div style="text-align: right; clear: right">
+    <input style="display: none" type="button" id="wizard-skip1" value="<% __('Skip') %>" onclick="skipStep()" />
+    <input type="button" id="wizard-next1" value="<% __('Next') %>" onclick="nextStep()" />
+</div>
+
+<div style="border-bottom: 1px solid #CCC; border-top: 1px solid #CCC; padding: 0 10px 10px 10px; margin: 5px 0">
+    <div id="wizardPage0" style="display: none"></div>
+    <div id="wizardPage1" style="display: none"></div>
+</div>
+
+<div style="text-align: right">
+    <input style="display: none" type="button" id="wizard-skip2" value="<% __('Skip') %>" onclick="skipStep()" />
+    <input type="button" id="wizard-next2" value="<% __('Next') %>" onclick="nextStep()" />
+</div>
+

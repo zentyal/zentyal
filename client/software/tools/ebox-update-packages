@@ -33,63 +33,99 @@ EBox::init();
 my $progressId          = pop @ARGV;
 my $progressIdParamName = pop @ARGV; # unused
 my @packages            = @ARGV;
-
-defined $progressId or
- die "not progress indicator parameter supplied";
-defined $progressIdParamName or
- die "not progress indicator parameter supplied";
+my $insPkgs = "";	
 
 my $progress = EBox::ProgressIndicator->retrieve($progressId);
+$progress->started() or die('progress executable not run');
 
+my $pkg;
+foreach $pkg (@packages) {
+    $insPkgs .= " $pkg";
+}
 
-$progress->started() or
-  die('progress executable not run');
-
-my $dpkgOpts = '-o DPkg::Options::="--force-confold"';
 my ($retValue, $errorMsg) = (0, '');
+
+
 try {
-  foreach my $pkg (@packages) {
-    $progress->notifyTick();
-    $progress->setMessage($pkg);
-    my $cmd ="/usr/bin/apt-get install --no-download -q --yes --force-yes $dpkgOpts";
-    EBox::Sudo::root(qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && $cmd $pkg'});
-  }
-} catch EBox::Exceptions::Sudo::Command with {
-    my ($exc) = @_;
+	my $fifo = '/var/lib/ebox/ebox-apt-update.pipe';
+	
+	#Clean fifo
+	EBox::Sudo::silentRoot ("rm $fifo");
+	EBox::Sudo::silentRoot ("mkfifo $fifo");
+
+	EBox::info("Begin packages intallation");	
+	
+	my $pid = fork();
+	if ($pid == 0) {
+		EBox::Sudo::root ("/usr/share/ebox-software/ebox-apt-update $insPkgs ");
+		exit 0;
+	}
+
+	my $break = 0;
+	my ($read, $text, $oldText);
+	do {
+		unless (open ($read, '<',  $fifo)){
+			EBox::error("Error opening fifo <$fifo> - $!");
+			throw IOException("Error opening fifo <$fifo> - $!");
+		}
+		my $firstLine = '';
+		while ($text = <$read>) {
+			if ($text eq $oldText) {
+				last;
+			}
+			unless ($firstLine) {
+				$firstLine = $text;
+			}
+			
+			if ($text eq "end") {
+				$break = 1;
+			}
+			unless ($text eq $oldText) {
+				EBox::info("Read: $text");
+				EBox::info("R OT: $oldText");
+				if ($text =~ /ins([0-9]*)/) {
+					$progress->setTotalTicks($1*2);
+				}
+				if ($text =~ /(Getting\s.*)/){
+					$progress->setMessage($text);
+				}
+				if ($text =~ /(Unpacking\s.*)/){
+					$progress->notifyTick();
+					$progress->setMessage($text);
+				}
+				if ($text =~ /(Setting up\s.*)/){
+					$progress->notifyTick();					
+					$progress->setMessage($text);
+				}
+			}
+			$oldText = $firstLine;	
+		}	
+		close $read;
+	} until($break);
+	
+	EBox::info("End packages installation");
+	my $global = EBox::Global->getInstance(1);
+	my $software = $global->modInstance('software');	
+	#causes the cache to be generated
+	$software->listUpgradablePkgs(1);
+	#call also listEBoxPkgs to regen the cache
+	$software->listEBoxPkgs(1);	
+} catch Error with {   
+   my ($exc) = @_;
     $retValue = $exc->exitValue();
     $errorMsg = $exc->stringify();
     EBox::error($errorMsg);
 } finally {
-    try {
-        EBox::Sudo::root(
-          qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes --force-yes $dpkgOpts'});
-        my $global = EBox::Global->getInstance(1);
-        my $software = $global->modInstance('software');
 
-        #causes the cache to be generated
-        $software->listUpgradablePkgs(1);
-        #call also listEBoxPkgs to regen the cache
-        $software->listEBoxPkgs(1);
+	try {
+		$progress->setAsFinished($retValue, $errorMsg);
+	} catch EBox::Exceptions::External with {
+	       # Ignore if it cannot put as finished since it's possible it
+	       # is already destroyed. Why?
+	       EBox::warn("$progressId does not exist");
+	};
 
-        my $apache = EBox::Global->modInstance('apache');
-        $apache->_daemon('restart');
-    } catch EBox::Exceptions::Sudo::Command with {
-        my ($exc) = @_;
-        $retValue = $exc->exitValue();
-        $errorMsg = $exc->stringify();
-        EBox::error($errorMsg);
-    };
-    try {
-        $progress->setAsFinished($retValue, $errorMsg);
-    } catch EBox::Exceptions::External with {
-        # Ignore if it cannot put as finished since it's possible it
-        # is already destroyed. Why?
-        EBox::warn("$progressId does not exist");
-    };
+	exit $retValue;
 };
-
-if ( $retValue > 0 ) {
-    exit $retValue;
-}
 
 1;

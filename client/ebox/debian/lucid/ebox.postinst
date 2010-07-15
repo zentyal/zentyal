@@ -11,7 +11,7 @@ set -e
 
 #DEBHELPER#
 
-create_db() 
+create_db()
 {
     db_name="eboxlogs"
     db_user="ebox"
@@ -40,6 +40,9 @@ case "$1" in
         if ! getent group ebox > /dev/null 2>&1
         then
             addgroup --system ebox
+
+            # Create the .first file only if we are on the first install
+            touch /var/lib/ebox/.first
         fi
         if ! getent passwd ebox > /dev/null 2>&1
         then
@@ -47,12 +50,12 @@ case "$1" in
                 --disabled-password --ingroup ebox ebox
             adduser ebox adm
         fi
-       
+
         chown ebox:adm /var/log/ebox
         chown -R ebox:adm /var/lib/ebox/tmp
         chown -R ebox:adm /var/lib/ebox/conf
         chown -R ebox:adm /var/lib/ebox/log
- 
+
         # Create and set permissions for ebox.sid
         EBOX_SID="/var/lib/ebox/conf/ebox.sid"
         if [ ! -e $EBOX_SID ]; then
@@ -103,20 +106,19 @@ case "$1" in
         /usr/share/ebox/ebox-sql-table add sysinfo_disk_usage /usr/share/ebox/sqllog/sysinfo_disk_usage.sql
         /usr/share/ebox/ebox-sql-table add sysinfo_disk_usage_report /usr/share/ebox/sqllog/sysinfo_disk_usage_report.sql
         /usr/share/ebox/ebox-sql-table add events /usr/share/ebox/sqllog/events.sql
-       
 
         if [ -z "$2" ]; then
             # Set eBox port only if it's the first time we install
             set_ebox_port
             invoke-rc.d ebox apache start || true
-        else 
+        else
             invoke-rc.d ebox apache stop || true
-            # Give apache some time to stop completely 
+            # Give apache some time to stop completely
             # Otherwise it will fail to start as the port is being used
             sleep 5
             invoke-rc.d ebox apache start || true
-        fi 
-        
+        fi
+
 
         # migrate log data
         /usr/share/ebox/ebox-migrate /usr/share/ebox-logs/migration

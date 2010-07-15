@@ -1,4 +1,3 @@
-
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
 # Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2010 eBox Technologies S.L.
@@ -21,7 +20,7 @@ package EBox::Software;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service);
+use base qw(EBox::GConfModule);
 
 use EBox;
 use EBox::Config;
@@ -38,6 +37,7 @@ use Digest::MD5;
 use Error qw(:try);
 use Storable qw(fd_retrieve store retrieve);
 use Fcntl qw(:flock);
+use AptPkg::Cache;
 
 # Constants
 use constant {
@@ -58,37 +58,6 @@ sub _create
 						@_);
 	bless($self, $class);
 	return $self;
-}
-
-# Method: enableActions
-#
-# 	Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    root(EBox::Config::share() . '/ebox-software/ebox-software-enable');
-}
-
-# Method: actions
-#
-# 	Override EBox::Module::Service::actions
-#
-sub actions
-{
-	return [
-	{
-		'action' => __(''),
-		'reason' => __('eBox software will download the available updates' .
-					' from your configured apt sources. '),
-		'module' => 'software'
-	},
-	{
-		'action' => __('Enable cron script to download updates'),
-		'reason' => __('eBox software will download the available updates' .
-					' from your configured apt sources. '),
-		'module' => 'software'
-	},
-	];
 }
 
 # Method: listEBoxPkgs
@@ -124,23 +93,23 @@ sub listEBoxPkgs
 
 	my $eboxlist = [];
 
-	my $file = $self->_packageListFile(1);
+#	my $file = $self->_packageListFile(1);
 
-	if(defined($clear) and $clear == 1){
-		if ( -f "$file" ) {
-			unlink($file);
-		}
-	}else{
-		if (-f "$file" ) {
-			$eboxlist = retrieve($file);
-			return $eboxlist;
-		}
-	}
+#	if(defined($clear) and $clear == 1){
+#		if ( -f "$file" ) {
+#			unlink($file);
+#		}
+#	}else{
+#		if (-f "$file" ) {
+#			$eboxlist = retrieve($file);
+#			return $eboxlist;
+#		}
+#	}
 
-        $self->_isModLocked();
+#        $self->_isModLocked();
 	$eboxlist =  _getInfoEBoxPkgs();
 
-	store($eboxlist, $file);
+#	store($eboxlist, $file);
 	return $eboxlist;
 }
 
@@ -166,18 +135,12 @@ sub installPkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
 
-        if (not $self->isEnabled()) {
-            throw EBox::Exceptions::External(
- __('The software management module must be enabled to be able to install packages')
-               );
-        }
+    $self->_isModLocked();
 
-        $self->_isModLocked();
-
-	if (not @pkgs) {
-	  EBox::info("No packages to install");
-	  return;
-	}
+    if (not @pkgs) {
+        EBox::info("No packages to install");
+        return;
+    }
 
 	my $executable = EBox::Config::share() . "/ebox-software/ebox-update-packages @pkgs";
 	my $progress = EBox::ProgressIndicator->create(
@@ -209,12 +172,6 @@ sub installPkgs # (@pkgs)
 sub removePkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
-
-        if (not $self->isEnabled()) {
-            throw EBox::Exceptions::External(
- __('The software management module must be enabled to be able to remove packages')
-               );
-        }
 
 	$self->_isModLocked();
 
@@ -267,15 +224,15 @@ sub updatePkgList
 #
 sub fetchAllPkgs
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        $self->_isModLocked();
+    $self->_isModLocked();
 
 	my @pkgs;
 
 	@pkgs = @{_getInfoEBoxPkgs()};
 
-	my $cmd ='/usr/bin/apt-get install -qq --download-only --force-yes --yes ';
+	my $cmd ='/usr/bin/apt-get install -qq --download-only --force-yes --yes --no-install-recommends';
 	foreach my $pkg (@pkgs) {
 		$cmd .= ($pkg->{name} . " ");
 		$cmd .= (join(" ", @{$pkg->{depends}}) . " ");
@@ -285,7 +242,7 @@ sub fetchAllPkgs
 	} catch EBox::Exceptions::Internal with {
 	};
 
-	$cmd ='/usr/bin/apt-get dist-upgrade -qq --download-only --force-yes --yes';
+	$cmd ='/usr/bin/apt-get dist-upgrade -qq --download-only --force-yes --yes --no-install-recommends';
 	try {
 		root($cmd);
 	} catch EBox::Exceptions::Internal with {
@@ -297,8 +254,6 @@ sub fetchAllPkgs
 	} catch EBox::Exceptions::Internal with {
 	};
 }
-
-
 
 sub _packageListFile
 {
@@ -343,11 +298,11 @@ sub listUpgradablePkgs
 
 	my $file = $self->_packageListFile(0);
 
-	if(defined($clear) and $clear == 1){
+	if (defined($clear) and $clear == 1) {
 		if ( -f "$file" ) {
 			unlink($file);
 		}
-	}else{
+	} else {
 		if (-f "$file" ) {
 			$upgrade = retrieve($file);
                         if ($excludeEBoxPackages) {
@@ -357,17 +312,17 @@ sub listUpgradablePkgs
 		}
 	}
 
-        $self->_isModLocked();
+    $self->_isModLocked();
 
-	$upgrade = _getUpgradablePkgs();
+    $upgrade = _getUpgradablePkgs();
 
-	store($upgrade, $file);
+    store($upgrade, $file);
 
-        if ($excludeEBoxPackages) {
-            return $self->_excludeEBoxPackages($upgrade);
-        }
+    if ($excludeEBoxPackages) {
+        return $self->_excludeEBoxPackages($upgrade);
+    }
 
-	return $upgrade;
+    return $upgrade;
 }
 
 
@@ -403,18 +358,11 @@ sub _excludeEBoxPackages
 #
 sub listPackageInstallDepends
 {
-	my ($self, $packages) = @_;
+    my ($self, $packages) = @_;
 
-        if (not $self->isEnabled()) {
-            throw EBox::Exceptions::External(
- __('The software management module must be enabled to be able to install packages')
-               );
-        }
+    $self->_isModLocked();
 
-        $self->_isModLocked();
-
-	return $self->_packageDepends('install', $packages);
-
+    return $self->_packageDepends('install', $packages);
 }
 
 # Method: listPackageRemoveDepends
@@ -437,37 +385,30 @@ sub listPackageInstallDepends
 #
 sub listPackageRemoveDepends
 {
-	my ($self, $packages) = @_;
+    my ($self, $packages) = @_;
 
-        if (not $self->isEnabled()) {
-            throw EBox::Exceptions::External(
- __('The software management module must be enabled to be able to remove packages')
-               );
-        }
+    $self->_isModLocked();
 
-        $self->_isModLocked();
-
-	return $self->_packageDepends('remove', $packages);
+    return $self->_packageDepends('remove', $packages);
 }
-
 
 
 sub _packageDepends
 {
     my ($self, $action, $packages) = @_;
     if (($action ne 'install') and ($action ne 'remove')) {
-	throw EBox::Exceptions::Internal("Bad action: $action");
+	    throw EBox::Exceptions::Internal("Bad action: $action");
     }
 
-    my $aptCmd = "apt-get --quiet --quiet --simulate $action " .
+    my $aptCmd = "apt-get -q --no-install-recommends --simulate $action " .
 	join ' ',  @{ $packages };
 
     my $header;
     if ($action eq 'install') {
-	$header = 'Inst';
+	    $header = 'Inst';
     }
     elsif ($action eq 'remove') {
-	$header = 'Remv'
+	    $header = 'Remv'
     }
 
 
@@ -483,9 +424,9 @@ sub _packageDepends
 
 
     @packages = map {
-	chomp $_;
-	my ($h, $p) = split '\s', $_;
-	$p;
+	    chomp $_;
+	    my ($h, $p) = split '\s', $_;
+	    $p;
     } @packages;
 
 
@@ -502,11 +443,11 @@ sub _packageDepends
 sub getAutomaticUpdates
 {
     my ($self) = @_;
-    
+
     if ($self->QAUpdates) {
         my $alwaysAutomatic = EBox::Config::configkey('qa_updates_always_automatic');
         defined $alwaysAutomatic or $alwaysAutomatic = 'true';
-        
+
         if (lc($alwaysAutomatic) eq 'true') {
             return 1;
         }
@@ -531,8 +472,6 @@ sub setAutomaticUpdates # (auto)
 	my ($self, $auto) = @_;
 	$self->set_bool('automatic', $auto);
 }
-
-
 
 sub setAutomaticUpdatesTime
 {
@@ -573,27 +512,8 @@ sub automaticUpdatesTime
         return '04:15';
     }
 
-    
+
     return $value;
-}
-
-
-# Method: _supportActions
-#
-#       Overrides EBox::ServiceModule::ServiceInterface method.
-sub _supportActions
-{
-    return undef;
-}
-
-# Method: isRunning
-#
-#       Overrides EBox::ServiceModule::ServiceInterface method.
-#
-sub isRunning
-{
-    my ($self) = @_;
-    return $self->isEnabled();
 }
 
 # Method: menu
@@ -678,21 +598,82 @@ sub unlock
 
 # Group: Private methods
 
-sub _getInfoEBoxPkgs {
-	return _getSoftToolResult("i");
+sub _getInfoEBoxPkgs
+{
+	my $cache = AptPkg::Cache->new;
+	my @list;
+	for my $pack (keys %$cache)     {
+		if ($pack =~ /^libebox$|^ebox$|^ebox-.*/) {
+			my $pkgCache = $cache->packages()->lookup($pack) or next;
+			my %data;
+			$data{'name'} = $pkgCache->{Name};
+			$data{'description'} = $pkgCache->{ShortDesc};
+			if ($pkgCache->{Name} =~ /^libebox$|^ebox$/) {
+				$data{'removable'} = 0;
+			} else {
+				$data{'removable'} = 1;
+			}
+			$data{'avail'} = $pkgCache->{VerStr};
+			if ($cache->{$pack}{CurrentVer}) {
+				$data{'version'} = $cache->{$pack}{CurrentVer}{VerStr};
+			}
+			push(@list, \%data);
+		}
+	}
+	return \@list;
 }
 
-sub _getUpgradablePkgs {
-	return _getSoftToolResult("u");
+sub _getUpgradablePkgs
+{
+	my $cache = AptPkg::Cache->new;
+	my @list;
+	for my $pack (keys %$cache)     {
+		unless ($pack =~ /^libebox$|^ebox$|^ebox-.*|.*kernel-image.*|.*linux-image.*/) {
+			my $pkgCache = $cache->packages()->lookup($pack) or next;
+			my %data;
+
+			if ($cache->{$pack}{CurrentVer}) {
+				$data{'version'} = $pkgCache->{VerStr};
+				if ($cache->{$pack}{CurrentVer}{VerStr} eq $data{version}) {
+					next;
+				}
+			} else {
+				next;
+			}
+
+			$data{'name'} = $pkgCache->{Name};
+			$data{'description'} = $pkgCache->{ShortDesc};
+
+			my @files = $cache->files($pack);
+			$data{'security'} = 0;
+			foreach my $file (@files) {
+				if (print $file->{Archive} =~ /.*security.*/) {
+					print 'sec: ' . $data{name} . "\n";
+					$data{'security'} = 1;
+					last;
+				}
+			}
+
+
+			push(@list, \%data);
+		}
+
+	}
+
+	return \@list;
 }
 
-sub _getSoftToolResult {
-	my ($command) = @_;
-	open(my $PKGS, "/usr/bin/esofttool -$command |")
-          or throw EBox::Exceptions::Internal("Cannot open esofttool with command $command");
-	my $data = join("",<$PKGS>);
-	close($PKGS);
-	return eval($data);
+sub isQA {
+	my $cache = AptPkg::Cache->new;
+	my @files = $cache->files('ebox');
+
+	foreach my $file (@files) {
+		if ($file->{Archive} =~ /.*ebox-qa.*|.*qa.ebox-platform.com.*/) {
+			EBox::info('isQA: ' .   $file->{Archive});
+			return 1;
+		}
+	}
+	return 0;
 }
 
 # Check if the module is locked or not
@@ -710,7 +691,6 @@ sub _isModLocked
                                                  locker => $lockedBy));
         }
     }
-
 }
 
 # Method: updateStatus
@@ -787,17 +767,17 @@ sub _setAptPreferences
             EBox::error('Could not find apt preferences file from Control Center, letting APT preferences untouched');
             return;
         }
-        
-        EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferences'");        
+
+        EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferences'");
     } else {
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
         if ($existsOld) {
             EBox::Sudo::root("cp '$preferencesBak' '$preferences'");
             # remove old backup to avoid to overwritte user's modifications
             EBox::Sudo::root("rm -f '$preferencesBak' ");
-        } 
+        }
     }
-    
+
 
 }
 
@@ -820,6 +800,61 @@ sub _installCronFile
                         );
 }
 
+
+# Method: firstTimeMenu
+#
+#   Prints first time menu instead of eBox default menu.
+#   This method is intended to be used by first time wizard pages
+#
+# Params:
+#   current - Current page index which means
+#       0 - Package Selection
+#       1 - Confirmation
+#       2 - Installation
+#       3 - Initial Configuration
+#
+sub firstTimeMenu
+{
+    my ($self, $current) = @_;
+
+    print "<div id='menu'><ul id='nav'>\n";
+
+    print "<li><div class='separator'>" . __('Welcome') . "</div></li>\n";
+
+    $self->_printMenuItem(__('Package Selection'), 0, $current);
+    $self->_printMenuItem(__('Confirmation'), 1, $current);
+    $self->_printMenuItem(__('Installation'), 2, $current);
+    $self->_printMenuItem(__('Initial Configuration'), 3, $current);
+    $self->_printMenuItem(__('Save Changes'), 4, $current);
+
+    print "</ul></div>\n";
+}
+
+
+# Method: _printMenuItem
+#
+#   Print a menu item for the firstTimeMenu
+#
+# Params:
+#   index - This item index inside the list
+#   current - Current item index
+#
+sub _printMenuItem
+{
+    my ($self, $text, $index, $current) = @_;
+
+    my $style = 'padding: 8px 10px 8px 20px;';
+
+    if ( $index < $current ) {
+        $style .= 'background: url("/data/images/apply.gif") left no-repeat;';
+    } elsif ( $index == $current ) {
+        $style .= 'font-weight: bold';
+    }
+    else {
+    }
+
+    print "<li><div style='$style'>$text</div></li>\n";
+}
 
 
 1;

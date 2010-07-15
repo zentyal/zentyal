@@ -1583,6 +1583,14 @@ sub userMenu
 }
 
 
+sub wizardPages
+{
+    my ($self) = @_;
+
+    return [ '/Mail/Wizard/VirtualDomain' ];
+}
+
+
 sub tableInfo
 {
     my $self = shift;

@@ -25,26 +25,51 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 
+use constant FIRST_RUN_FILE => '/var/lib/ebox/.first';
+
 ## arguments:
-## 	title [required]
+##  title [required]
 sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title'    => __('eBox components'),
-				      'template' => 'software/ebox.mas',
-				      @_);
-	$self->{domain} = 'ebox-software';
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self;
+    if (-f FIRST_RUN_FILE) {
+        $self = $class->SUPER::new('title'    => __('Choose eBox packages to install'),
+                'template' => 'software/ebox.mas',
+                @_);
+    } else {
+        $self = $class->SUPER::new('title'    => __('eBox components'),
+                'template' => 'software/ebox.mas',
+                @_);
+    }
+    $self->{domain} = 'ebox-software';
+    bless($self, $class);
+    return $self;
 }
 
 sub _process($) {
-	my $self = shift;
-	$self->{title} = __('eBox components');
-	my $software = EBox::Global->modInstance('software');
-	my @array = ();
-	push(@array, 'eboxpkgs' => $software->listEBoxPkgs());
-	push(@array, 'updateStatus' => $software->updateStatus(1));
-	$self->{params} = \@array;
+    my $self = shift;
+    my $software = EBox::Global->modInstance('software');
+    my @array = ();
+    push(@array, 'eboxpkgs' => $software->listEBoxPkgs());
+    push(@array, 'updateStatus' => $software->updateStatus(1));
+    $self->{params} = \@array;
+}
+
+sub _menu {
+    my ($self) = @_;
+    my $file = '/var/lib/ebox/.first';
+    if (-f  $file) {
+        my $software = EBox::Global->modInstance('software');
+        $software->firstTimeMenu(0);
+    } else {
+        $self->SUPER::_menu(@_);
+    }
+}
+
+sub _top
+{
+	print '<div id="top"></div><div id="header"><img src="/data/images/title.png" alt="title"/></div>';
+	return;
 }
 
 1;

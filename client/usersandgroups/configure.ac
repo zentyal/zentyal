@@ -75,10 +75,12 @@ src/EBox/UsersAndGroups/Composite/Makefile
 src/EBox/UsersAndGroups/Types/Makefile
 src/EBox/rootTests/Makefile
 src/EBox/CGI/Makefile
+src/EBox/CGI/Wizard/Makefile
 src/templates/Makefile
 src/templates/ajax/Makefile
 src/templates/usercorner/Makefile
 src/templates/usercorner/login/Makefile
+src/templates/Wizard/Makefile
 schemas/Makefile
 stubs/Makefile
 stubs/slapd.conf.mas
@@ -86,6 +88,7 @@ tools/Makefile
 tools/t/Makefile
 tools/t/testdata/Makefile
 migration/Makefile
+www/Makefile
 Makefile
 ])
 

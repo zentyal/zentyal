@@ -5,6 +5,6 @@ perldir = @PERLPATH@/EBox
 
 nobase_perl_DATA = Software.pm
 
-MAINTAINERCLEANFILES = Makefile.in PackageDescriptions.pm
+MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = $(nobase_perl_DATA)

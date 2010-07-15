@@ -81,12 +81,15 @@ src/EBox/Mail/Composite/Report/Makefile
 src/EBox/Mail/Types/Makefile
 src/EBox/t/Makefile
 src/EBox/CGI/Makefile
+src/EBox/CGI/Wizard/Makefile
 src/templates/Makefile
+src/templates/Wizard/Makefile
 conf/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile
 tools/sqllog/Makefile
+www/Makefile
 Makefile
 ])
 

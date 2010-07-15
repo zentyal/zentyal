@@ -74,6 +74,22 @@ sub _process($) {
 	}
 }
 
+sub _menu {
+    my ($self) = @_;
+    my $file = '/var/lib/ebox/.first';
+    if (-f  $file) {
+        my $software = EBox::Global->modInstance('software');
+        $software->firstTimeMenu(1);
+    } else {
+        $self->SUPER::_menu(@_);
+    }
+}
+
+sub _top
+{
+	print '<div id="top"></div><div id="header"><img src="/data/images/title.png" alt="title"/></div>';
+	return;
+}
 
 sub _packages
 {
@@ -147,17 +163,21 @@ sub showInstallProgress
   $self->showProgress(
 		      progressIndicator => $progressIndicator,
 
-		      title    => __('Upgrading'),
-		      text     => __('Upgrading packages'),
-		      currentItemCaption  =>  __("Current package"),
-		      itemsLeftMessage  => __('packages left to install'),
+		      title    => __('Installing'),
+		      text     => __('Installing packages'),
+		      currentItemCaption  =>  __("Current operation"),
+		      itemsLeftMessage  => __('packages installed'),
 		      endNote  =>  __('The packages installation has finished successfully. '
                                       . 'The administration interface may become unresponsive '
                                       . 'for a few seconds. Please wait patiently until '
-                                      . 'the system has been fully restarted'),
-                      errorNote => __('The packages installation has not finished correctly '
+                                      . 'the system has been fully configured. You will be automatically'
+                                      . 'redirected to the next step'),
+              errorNote => __('The packages installation has not finished correctly '
                                       . '. More information on the logs'),
 		      reloadInterval  => 2,
+              nextStepUrl => '/ebox/Wizard',
+              nextStepText => 'Go to initial configuration wizard',
+              nextStepTimeout => 1
 		     );
 }
 
@@ -169,7 +189,7 @@ sub showRemoveProgress
 
 		      title    => __('Removing package'),
 		      text     => __('Removing the selected package and its dependent packages'),
-		      currentItemCaption  =>  __("Current package"),
+		      currentItemCaption  =>  __("Current operation"),
 		      itemsLeftMessage  => __('packages left to remove'),
 		      endNote  =>  __('The packages removal has finished successfully. '
                                       . 'The administration interface may become unresponsive '

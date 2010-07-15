@@ -1,4 +1,4 @@
-SUBDIRS =
+SUBDIRS = Wizard
 ## Process this file with automake to produce Makefile.in
 
 perldir = @PERLPATH@/EBox/CGI/Network

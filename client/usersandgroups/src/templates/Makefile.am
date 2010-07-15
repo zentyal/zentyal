@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = ajax usercorner
+SUBDIRS = ajax usercorner Wizard
 
 templatedir = @TEMPLATESPATH@/usersandgroups
 

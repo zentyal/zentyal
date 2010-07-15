@@ -1,0 +1,65 @@
+#!/usr/bin/perl
+# Copyright (C) 2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use warnings;
+use strict;
+
+my @packages            = @ARGV;
+
+my $dpkgOpts = '-o DPkg::Options::="--force-confold"';
+my ($retValue, $errorMsg) = (0, '');
+my $insPkgs = "";	
+
+my $fifo = '/var/lib/ebox/ebox-apt-update.pipe';
+ 
+foreach my $pkg (@packages) {
+	$insPkgs .= " $pkg";
+}
+my $cmd ="/usr/bin/apt-get install -q --yes --force-yes --no-install-recommends $dpkgOpts";
+my $param = "LANG=C DEBIAN_FRONTEND=noninteractive $cmd $insPkgs";
+
+my ($pid, $read, $text, $write);
+
+open $read, "-|", $param;
+
+my $out = "";
+while ($text = <$read>){
+	
+	if ($text =~ /([0-9]+) upgraded.* ([0-9]+) .* ([0-9]+) .* ([0-9]+) .*/) {
+		$out = 'ins' . ($1+$2) . "\nrem$3\n";
+	}
+	if ($text =~ /(Unpacking\s.*)/) {
+		$out = " $1\n";
+	}
+	if ($text =~ /([0-9]+%).*/) {
+		$out = "$1\n";
+	}
+	if ($text =~ /(Setting up\s.*)/) {
+		$out = " $1\n";
+	}
+	if ($out) {		
+		open ($write, '>', $fifo);
+		print $write $out;
+		close $write;
+	}		
+}
+open ($write, '>', $fifo);
+print $write 'end';
+close $write;
+
+close $read;
+1;
+

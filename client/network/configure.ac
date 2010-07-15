@@ -72,7 +72,9 @@ src/EBox/View/Makefile
 src/EBox/Event/Makefile
 src/EBox/Event/Watcher/Makefile
 src/EBox/CGI/Makefile
+src/EBox/CGI/Wizard/Makefile
 src/templates/Makefile
+src/templates/Wizard/Makefile
 migration/Makefile
 schemas/Makefile
 src/libexec/Makefile
@@ -82,6 +84,7 @@ src/libexec/ebox-ppp-down
 conf/Makefile
 stubs/Makefile
 tools/Makefile
+www/Makefile
 Makefile
 ])
 

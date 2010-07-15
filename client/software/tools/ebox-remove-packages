@@ -20,8 +20,9 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::External;
 use EBox::Global;
-use EBox::Config;
 use EBox::ProgressIndicator;
 use EBox::Sudo;
 
@@ -32,60 +33,97 @@ EBox::init();
 my $progressId          = pop @ARGV;
 my $progressIdParamName = pop @ARGV; # unused
 my @packages            = @ARGV;
-
-defined $progressId or
- die "not progress indicator parameter supplied";
-defined $progressIdParamName or
- die "not progress indicator parameter supplied";
-@packages or
-  die "no packages to remove supplied";
+my $delPkgs = "";	
 
 my $progress = EBox::ProgressIndicator->retrieve($progressId);
+$progress->started() or die('progress executable not run');
 
-
-$progress->started() or
-  die('progress executable not run');
-
-my ($retValue, $errorMsg) = (0, '');
-try {
-  my $aptCmd = (EBox::Config::configkey('software-autoremove') eq 'yes')  ?  'autoremove' : 'remove';
-  my $removeCmd ="/usr/bin/apt-get $aptCmd  --purge --no-download -q --yes";
-
-  foreach my $pkg (@packages) {
-    $progress->notifyTick();
-    $progress->setMessage($pkg);
-    my $cmd = "$removeCmd $pkg";
-    EBox::Sudo::root(qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && $cmd'});
-  }
-} catch EBox::Exceptions::Sudo::Command with {
-    my ($exc) = @_;
-    $retValue = $exc->exitValue();
-    $errorMsg = $exc->_errorMsg();
-    EBox::error($exc->_errorMsg());
-} finally {
-    try {
-        $progress->setAsFinished($retValue, $errorMsg);
-    } catch EBox::Exceptions::External with {
-        # Ignore if it cannot put as finished since it's possible it
-        # is already destroyed. Why?
-        EBox::warn("$progressId does not exist");
-    };
-};
-
-if ( $retValue > 0 ) {
-    exit $retValue;
+my $pkg;
+foreach $pkg (@packages) {
+    $delPkgs .= " $pkg";
 }
 
+  my $auto = (EBox::Config::configkey('software-autoremove') eq 'yes')  ?  'autoremove' : 'remove';
 
-my $global = EBox::Global->getInstance(1);
-my $software = $global->modInstance('software');
+my ($retValue, $errorMsg) = (0, '');
 
-#causes the cache to be generated
-$software->listUpgradablePkgs(1);
-#call also listEBoxPkgs to regen the cache
-$software->listEBoxPkgs(1);
 
-my $apache = EBox::Global->modInstance('apache');
-$apache->_daemon('restart');
+try {
+	my $fifo = '/var/lib/ebox/ebox-apt-remove.pipe';
+	
+	#Clean fifo
+	EBox::Sudo::silentRoot ("rm $fifo");
+	EBox::Sudo::silentRoot ("mkfifo $fifo");
+
+	EBox::info("Begin packages remove");	
+	
+	my $pid = fork();
+	if ($pid == 0) {
+		EBox::Sudo::root("/usr/share/ebox-software/ebox-apt-remove $delPkgs $auto");
+		exit 0;
+	}
+
+	my $break = 0;
+	my ($read, $text, $oldText);
+	do {
+		unless (open ($read, '<',  $fifo)){
+			EBox::error("Error opening fifo <$fifo> - $!");
+			throw IOException("Error opening fifo <$fifo> - $!");
+		}
+		my $firstLine = '';
+		while ($text = <$read>) {
+			if ($text eq $oldText) {
+				last;
+			}
+			unless ($firstLine) {
+				$firstLine = $text;
+			}
+			
+			if ($text eq "end") {
+				$break = 1;
+			}
+			unless ($text eq $oldText) {
+				EBox::info("Read: $text");			
+				if ($text =~ /rem([0-9]*)/) {
+					$progress->setTotalTicks($1);
+				}
+				if ($text =~ /(Removing\s.*)/){
+					$progress->notifyTick();						
+					$progress->setMessage($text);
+				}
+				if ($text =~ /(Setting up\s.*)/){				
+					$progress->setMessage($text);
+				}
+			}
+			$oldText = $firstLine;	
+		}	
+		close $read;
+	} until($break);
+	
+} catch Error with {   
+   my ($exc) = @_;
+    $retValue = $exc->exitValue();
+    $errorMsg = $exc->stringify();
+    EBox::error($errorMsg);
+} finally {
+	try {
+		EBox::info("End packages remove");
+		my $global = EBox::Global->getInstance(1);
+		my $software = $global->modInstance('software');		
+		#causes the cache to be generated
+		$software->listUpgradablePkgs(1);
+		#call also listEBoxPkgs to regen the cache
+		$software->listEBoxPkgs(1);
+		my $apache = EBox::Global->modInstance('apache');
+		$apache->_daemon('restart');
+		$progress->setAsFinished($retValue, $errorMsg);
+	} catch EBox::Exceptions::External with {
+	       # Ignore if it cannot put as finished since it's possible it
+	       # is already destroyed. Why?
+	       EBox::warn("$progressId does not exist");
+	};
+
+	exit $retValue;
+};
 
 1;

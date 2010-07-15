@@ -59,6 +59,8 @@ conf/Makefile
 migration/Makefile
 tools/Makefile
 stubs/Makefile
+ads/Makefile
+www/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile

@@ -26,6 +26,7 @@ use Apache2::RequestUtil;
 
 use Readonly;
 Readonly::Scalar my $DEFAULT_DESTINATION => '/ebox/Dashboard/Index';
+Readonly::Scalar my $FIRSTTIME_DESTINATION => '/ebox/Software/EBox';
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -95,12 +96,17 @@ sub _requestDestination
     return _requestDestination($r->prev);
   }
 
-
   my $request = $r->the_request;
   my $method  = $r->method;
   my $protocol = $r->protocol;
 
   my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
+
+  # redirect to config page on first install
+  my $file = '/var/lib/ebox/.first';
+  if ( -f $file ) {
+     return $FIRSTTIME_DESTINATION;
+  }
 
   defined $destination or return $DEFAULT_DESTINATION;
 

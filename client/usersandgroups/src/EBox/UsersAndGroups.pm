@@ -186,6 +186,19 @@ sub enableActions
     }
 }
 
+
+# Method: wizardPages
+#
+#   Override EBox::Module::Base::wizardPages
+#
+sub wizardPages
+{
+    my ($self) = @_;
+
+    return [ '/UsersAndGroups/Wizard/Users' ];
+}
+
+
 # Method: _setConf
 #
 #       Override EBox::Module::Service::_setConf

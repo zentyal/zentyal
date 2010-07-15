@@ -269,6 +269,21 @@ sub _exposedMethods
     return \%exposedMethods;
 }
 
+
+
+# Method: wizardPages
+#
+#   Override EBox::Module::Base::wizardPages
+#
+sub wizardPages
+{
+    my ($self) = @_;
+
+    return [ '/Network/Wizard/Ifaces',
+             '/Network/Wizard/Network' ];
+}
+
+
 # Method: IPAddressExists
 #
 #   Returns true if the given IP address belongs to a statically configured

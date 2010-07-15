@@ -160,6 +160,12 @@ sub ticks
   return $self->getConfInt('ticks');
 }
 
+sub setTotalTicks
+{
+  my ($self, $nTTicks) = @_;
+  $self->setConfInt('totalTicks', $nTTicks);
+}
+
 sub totalTicks
 {
   my ($self) = @_;

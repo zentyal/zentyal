@@ -33,7 +33,7 @@ use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Password;
 use EBox::Asterisk::Extensions;
-
+use EBox::Util::SystemKernel;
 # Group: Public methods
 
 # Constructor: new
@@ -89,8 +89,7 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    my @kernels = @{EBox::Sudo::root(EBox::Config::share() .
-                      '/ebox-asterisk/detect-system-kernels.pl')};
+    my @kernels = @{EBox::Util::SystemKernel->kernels()};
 
     return __x("You must install dahdi and linux-headers packages to use Meetings.{br}" .
                "Run the following command: sudo apt-get install {kernels} dahdi.",

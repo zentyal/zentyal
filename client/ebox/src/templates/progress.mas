@@ -11,7 +11,11 @@ $itemsLeftMessage   => undef
 $endNote            => undef
 $errorNote          => undef
 $currentItemUrl => '/ebox/EBox/CurrentProgress'
-$reloadInterval  => 5;
+$reloadInterval  => 4
+$adsJson => '""'
+$nextStepUrl => '/ebox/Dashboard/Index'
+$nextStepText => 'Click here to return to the Dashboard'
+$nextStepTimeout => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -23,30 +27,136 @@ defined $endNote            or $endNote            = __('Done');
 defined $errorNote          or $errorNote = __('Some error has '
                                                . 'happened in eBox: '
                                                );
-my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
+my $progressIn = EBox::ProgressIndicator->retrieve($progressId); 
 </%init>
-<script type="text/javascript" src="/data/js/prototype.js">//</script>
+<script type="text/javascript" src="/data/js/prototype.js"></script>
 <script type="text/javascript" src="/data/js/progress.js"></script>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
 
-<script type="text/javascript">
-    createPeriodicalExecuter(<% $progressId %>, '<% $currentItemUrl %>', <% $reloadInterval %>);
-</script>
 
+<script type="text/javascript">
+	createPeriodicalExecuter(<% $progressId %>, 
+                             '<% $currentItemUrl %>', 
+                             <% $reloadInterval %>, 
+                             <% $nextStepTimeout %>,
+                             '<% $nextStepUrl %>');
+	
+	
+	
+	function porcentH(i){
+		this.value = 0;
+		this.setValue = function(v){		
+			if(v > 100)
+				v = 100;
+			if(v < 0)
+				v = 0;
+			this.value = v;
+			document.getElementById('progressValue').width= v+"%";
+			document.getElementById('percentValue').innerHTML= v+"%";
+		}	 
+		
+		this.upValue = function(v){		
+			v += this.value;
+			this.setValue(v);
+		}	
+
+		this.downValue = function(v){		
+			v = this.value - v;
+			this.setValue(v);
+		}	
+
+	}	
+	
+	
+	var ph;
+	
+	function init(){
+		ph = new porcentH('progress');
+	}
+	
+	if (document.addEventListener) {
+		document.addEventListener("DOMContentLoaded", init, false);
+	}
+	
+	var ads = <% $adsJson %>;
+	var nAds = -1;
+	
+	function showAds(){
+% unless ( $adsJson eq '""' ) { 	
+		nAds++;		
+		if (ads != null) {
+			if (nAds > ads.length)
+				nAds = 0;
+			if (ads[nAds] != null){
+				var html = "<div class='ads'>";
+				if (ads[nAds].title != null) html += "<h2>" + ads[nAds].title + "</h2>";
+				if (ads[nAds].image != null) html += "<img style='padding: 0 15px; float: right' src='" + ads[nAds].image + "'>";
+				if (ads[nAds].text != null) html += "<p>" + ads[nAds].text + "</p>";
+				if (ads[nAds].items != null) {
+					html += "<ul>";
+					for(var i = 0; i < ads[nAds].items.length; i++)
+						html += "<li>" + ads[nAds].items[i] + "</li>";
+				}
+				html += "</br>";
+				if (ads[nAds].links != null) {
+					for(var i = 0; i < ads[nAds].links.length; i++)
+						html += "<span><a href='" + ads[nAds].links[i] + "'>" + ads[nAds].links[i] + "</a></spam>";
+				}
+				html += "<div>";
+				document.getElementById('dFrame').innerHTML = html;
+			}
+		}
+% } else {
+		return;
+% } 
+		
+	}
+	
+</script>
+	
+<style>
+	
+.percent{
+	position:fixed;
+	width:400px;
+	height:400px;
+	margin-left:190px;
+	z-index : 100;
+	filter: alpha(opacity=90); 
+	-moz-opacity: 0.9;
+	KhtmlOpacity: .9;
+	opacity: .9;
+}
+
+</style>
+
+
+<div id="dFrame"></div>  
 <div id='progressing'>
 <p> <% $text %> </p>
-<% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")
-%></span></strong>
+<% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
+<br/>
+<div id="progress_bar">
+	<div class="percent" id="percentValue"></div>
+	<table id="progress" style="border-spacing: 0pt;" height="15px" width="400px"> 
+		<tr> <td style="background-color: #bbdf39 " id="progressValue" width="0%"></td> <td style="background-color: #e4f88e" id="progressValueBg" width="100%"></td> </tr>
+	</table> 
+</div>
+<br/>
 <br/>
 <span id='ticks'>-</span><% __(' of ') %><span id='totalTicks'>-</span><% ' ' . $itemsLeftMessage %>
-<br/>
+<br/>	
 </div>
 
 <br/>
 <div class ="note" id="done" style="display:none;">
-	 <p><% $endNote  %></p>
+   <p><% $endNote %></p>
+   <a href="<% $nextStepUrl %>"> <%__($nextStepText) %></a>
 </div>
 <div class="error" id="error-progress" style="display:none;">
    <p><% $errorNote %></p>
    <p id="error-progress-message"></p>
 </div>
+<script>
+	showAds();
+</script>

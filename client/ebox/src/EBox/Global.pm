@@ -490,6 +490,12 @@ sub saveAllModules
                 };
         }
 
+        # Delete first time installation file (wizard)
+        my $file = '/var/lib/ebox/.first';
+        if ( -f $file ) {
+            unlink $file;
+        }
+
         # FIXME - tell the CGI to inform the user that apache is restarting
         if ($apache) {
                 $progress->setMessage(__x("Saving {modName} module",
@@ -509,6 +515,7 @@ sub saveAllModules
             # Store a timestamp with the time of the ending
             $self->st_set_int(TIMESTAMP_KEY, time());
             $progress->setAsFinished();
+
             return;
         }
 
@@ -833,7 +840,7 @@ sub modRevDepends # (module)
 # Name: sortModulesByDependencies
 #
 #  Sort a list of modules objects by its dependencies. The dependencies are get
-# using a method that returns the names of the dependencies of each module. 
+# using a method that returns the names of the dependencies of each module.
 #
 #  Parameters:
 #        modules_r          - reference to list of modules

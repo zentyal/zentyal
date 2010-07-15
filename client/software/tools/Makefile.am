@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 pkgdata_SCRIPTS =  ebox-update-packages ebox-remove-packages \
-                   ebox-software-enable ebox-software
+                   ebox-software ebox-apt-update ebox-apt-remove
 
 MAINTAINERCLEANFILES=Makefile.in
 

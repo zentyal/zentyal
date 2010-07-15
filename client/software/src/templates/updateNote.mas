@@ -2,31 +2,20 @@
 $status
 </%args>
 <%init>
-my $msg;
-if ($status == -1) {
-   $msg = __('Please wait, the update of the software available list is in process right now');
-} elsif ($status == 0) {
-  $msg = __(
-'The component list was never succefully downloaded so the information shown is probably outdated. ' .
-q{The list is updated each night or you can force the update with the console command 'ebox-software'}
-  );     
+my $msg = "";
+my $class = "note";
+
+if (EBox::Software->isQA()) {
+    $msg = __('As you are enjoying a Commercial Server Subscription the updates are Quality Assured by the eBox Development Team.');
+    $class = 'note';
 } else {
-      my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
-            localtime($status);
-      $mon +=1;
-      $year += 1900;
-      
-      $msg = 
-__x('The component list was updated on {mon}/{mday}/{year} {hour}:{min}. ' .
-q{It will be updated again at night or you can force the update with the console command 'ebox-software'},
-    mon => $mon,
-    mday => $mday,
-    year => $year,
-    hour => $hour,
-    min  => $min,
-  );   
+    $msg =  __x("Warning: The updates are community based. You can now gain access to the Quality Assured Updates by purchasing the <a href='{proUrl}'>Professional</a>  or <a href='{entUrl}'>Enterprise</a> Server Subscription. QA Updates guarantee that all the upgrades, bugfixes and security updates are extensively tested by the eBox Development Team and you won't be introducing any regressions on your already working system.",
+            proUrl => 'http://store.ebox-technologies.com/serversubscriptions/subscription-professional.html',
+            entUrl => 'http://store.ebox-technologies.com/serversubscriptions/ebox-enterprise-subscription.html',
+            );
+	$class = 'error';
 }
 </%init>
-<div class='note'>
+<div class='<% $class %>'>
 <% $msg %>
 </div>

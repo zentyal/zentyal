@@ -1,13 +1,73 @@
 <!-- vim: ts=4 sw=4 filetype=mason
 -->
 <%args>
-	$action
-	@packages
-	@actpackages
+    $action
+    @packages
+    @actpackages
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Util::SystemKernel;
 </%init>
+
+<script>
+% my $i = 0;
+% if ($action eq 'install') {
+    var check = new Array();
+%   foreach my $pkg (@actpackages) {
+%       if ( $pkg eq 'ebox-samba' ) {
+            check[<% $i %>] = 'chksamba';
+%           $i++;
+            var Achksamba = new Array();
+            Achksamba[0] = 'samba-vscan';
+            Achksamba[1] = 'ebox-antivirus';
+%       }
+%       if ( $pkg eq 'ebox-asterisk' ) {
+            check[<% $i %>] = 'chkdadhi';
+%           $i++;
+            var Achkdadhi = new Array();
+            Achkdadhi[0] = 'dadhi';
+
+%            my @headers = @{ EBox::Util::SystemKernel::kernels() };
+%           my $h = 0;
+%           foreach my $head (@headers) {
+                Achkdadhi[<% $h %>] = '<% $head %>';
+%               $h++;
+%           }
+
+%       }
+%       if ( $pkg eq 'ebox-trafficshaping' ) {
+            check[<% $i %>] = 'chkl7protocols';
+            var Achkl7protocols = new Array();
+            Achkl7protocols[0] =  'ebox-l7-protocols';
+%           $i++;
+%       }
+%   }
+
+
+%   unless ($i) {
+        document.getElementById('recommended').hide();
+%   }
+% }
+
+
+    function sendForm() {
+        for(var i = 0; i < check.length; i++){
+            if(document.getElementById(check[i]).checked){
+                var pkgs;
+                eval('pkgs = A'+check[i]);
+                for(var p = 0; p < pkgs.length; p++) {
+                    var inputPkg = document.createElement('input');
+                    inputPkg.setAttribute('type', 'hidden');
+                    inputPkg.setAttribute('name', 'pkg-'+pkgs[i]);
+                    inputPkg.setAttribute('value', 'yes');
+                    document.formPkg.appendChild(inputPkg);
+                }
+            }
+        }
+        document.formPkg.submit();
+    }
+</script>
 
 <div class="warning">
 % if ($action eq 'install') {
@@ -16,20 +76,40 @@ use EBox::Gettext;
 <% __('The following packages will be removed') %>:
 % }
 <table>
-% 	foreach my $pkg (@actpackages) {
-			<tr class='border'>
-				<td><% $pkg %></td>
-			</tr>
-% 	}
+%   foreach my $pkg (@actpackages) {
+            <tr class='border'>
+                <td><% $pkg %></td>
+            </tr>
+%   }
 </table>
 </div>
 
-<form action='InstallPkgs' method='POST'>
-% 	foreach my $pkg (@packages) {
-<input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
-% 	}
-<input type='hidden' name='go' value='yes'/>
-<input class='inputButton' type='submit' name='ebox-<% $action %>' value="<% __('Ok') %>">
-<input class='inputButton' type='submit' name='cancel' value="<% __('Cancel') %>">
 
+<form name="formPkg" action='InstallPkgs' method='POST' >
+%   foreach my $pkg (@packages) {
+<input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
+%   }
+<input type='hidden' name='go' value='yes'/>
+<input class='inputButton' onclick='sendForm()' type='submit' name='ebox-<% $action %>' value="<% __('Ok') %>">
+<input class='inputButton' type='submit' name='cancel' value="<% __('Cancel') %>">
 </form>
+<br/>
+<br/>
+% if ($action eq 'install') {
+<div id='recommended'>
+%   if ($i) {
+<h3><% __('You may want to install also the following recommended packages:') %></h3>
+%       foreach my $pkg (@actpackages) {
+%           if ( $pkg eq 'ebox-trafficshaping' ) {
+    <input type='checkbox' id='chkl7protocols' name='ebox-l7-protocols'><% __('Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)') %><br/>
+%           }
+%           if ( $pkg eq 'ebox-samba' ) {
+    <input type='checkbox' id='chksamba' name='pkg_samba-vscan'><% __('Virus scanning for File Sharing (ebox-antivirus and samba-vscan)') %><br/>
+%           }
+%           if ( $pkg eq 'ebox-asterisk' ) {
+    <input type='checkbox' id='chkdadhi' name='pkg_dadhi'><% __('VoIP meetings support (dahdi and linux-headers)') %><br/>
+%           }
+%       }
+%   }
+</div>
+% }

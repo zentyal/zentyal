@@ -44,12 +44,16 @@ sub new
 #
 #   reloadInterval - reload interval in seconds (default 5)
 #
-#  currentItemUrl - with this you can change the CGI used to fetch the current
+#   currentItemUrl - with this you can change the CGI used to fetch the current
 #                  item data. Probably you would NOT need it
 #
 #
 #   url - URL to the progress' CGI. Most of the time you don't want to touch this
 #          default: '/Progress'
+#
+#   nextStepUrl - URL to redirect when job is done
+#
+#   nextStepText - Text to show in link to redirect when job is done
 #
 #   (other parameters) - will be passed to the CGI if they are defined
 sub showProgress

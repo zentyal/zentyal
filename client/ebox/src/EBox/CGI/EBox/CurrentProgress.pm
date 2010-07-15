@@ -48,6 +48,11 @@ sub _process($) {
 	$self->{params} = [];
 }
 
+sub _menu {
+    print "Step 2";
+    return;
+}
+
 sub _print($) {
 	my $self = shift;
 

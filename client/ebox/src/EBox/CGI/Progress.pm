@@ -31,9 +31,10 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 use Encode;
+use File::Slurp;
 
 ## arguments:
-## 	title [required]
+##	title [required]
 sub new
 {
   my $class = shift;
@@ -43,7 +44,6 @@ sub new
   bless($self, $class);
   return $self;
 }
-
 
 
 sub _process
@@ -59,7 +59,8 @@ sub _process
   }
 
   my @paramsNames = qw( text currentItemCaption itemsLeftMessage
-                        endNote errorNote reloadInterval currentItemUrl);
+                        endNote errorNote reloadInterval currentItemUrl
+                        nextStepUrl nextStepText nextStepTimeout );
   foreach my $name (@paramsNames) {
     # We use unsafeParam because these paramaters can be i18'ed.
     # Also, these parameters are only used to generate html, no command
@@ -73,20 +74,70 @@ sub _process
     push @params, ($name => $value);
   }
 
+  my $file = '/var/lib/ebox/.first';
+  if (-f  $file) {
+    my $software = EBox::Global->modInstance('software');
+     # FIXME: workaround to show ads only during installation
+     unless ( $self->{title} and
+              encode(utf8 => __('Saving changes')) eq $self->{title} ) {
+        push @params, ( adsJson => loadAds() );
+     }
+  }
+
   $self->{params} = \@params;
 }
 
 
 sub _progressId
 {
-  my ($self) = @_;
-  my $pId = $self->param('progress');
+    my ($self) = @_;
+    my $pId = $self->param('progress');
 
-  $pId or
-    throw EBox::Exceptions::Internal('No progress indicator id supplied');
-  return $pId;
+    $pId or throw EBox::Exceptions::Internal('No progress indicator id supplied');
+    return $pId;
+}
+
+sub _menu
+{
+    my ($self) = @_;
+    my $file = '/var/lib/ebox/.first';
+    if (-f  $file) {
+        my $software = EBox::Global->modInstance('software');
+        # FIXME: workaround to show distinct menu for saving changes and installation proccess
+        if ( $self->{title} and
+             encode(utf8 => __('Saving changes')) eq $self->{title} ) {
+            $software->firstTimeMenu(4);
+        } else {
+            $software->firstTimeMenu(2);
+        }
+    } else {
+        $self->SUPER::_menu(@_);
+    }
+}
+
+sub _top
+{
+	print '<div id="top"></div><div id="header"><img src="/data/images/title.png" alt="title"/></div>';
+	return;
+}
+
+sub loadAds
+{
+	my $file = '/usr/share/ebox-software/ads/ads_' + EBox::locale();
+	EBox::info("Try load ads from: $file");
+	unless (-f $file) {
+		$file =  '/usr/share/ebox-software/ads/ads_' . substr (EBox::locale(),0,2) ;
+		EBox::info("Don't exist file $file, load deafult ads");
+		unless(-f $file) {
+			$file = '/usr/share/ebox-software/ads/ads_EN_en';
+		}
+	}
+	my @ads = read_file($file) or throw EBox::Exceptions::Internal("Error opening ads: $!");
+	my $text = "";
+	foreach my $line (@ads) {
+		$text .= $line . "\n";
+	}
+	return $text;
 }
 
 1;
-
-

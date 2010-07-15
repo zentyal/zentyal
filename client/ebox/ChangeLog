@@ -5,7 +5,10 @@ HEAD
 	+ Bugfix: EBox::ThirdParty::Apache2::AuthCookie and
 	  EBox::ThirdParty::Apache2::AuthCookie::Util package defined just
 	  once
+	+ Added util SystemKernel
+	+ Improved progress indicator
 	+ Changes in sudo generation to allow sudo for remote support user
+	+ Initial setup wizards support
 1.5.6
 	+ Reimplementation of loggerd using inotify instead of File::Tail
 1.5.5

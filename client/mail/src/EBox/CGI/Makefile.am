@@ -1,4 +1,5 @@
 ## Process this file with automake to produce Makefile.in
+SUBDIRS = Wizard
 
 perldir = @PERLPATH@/EBox/CGI/Mail
 
