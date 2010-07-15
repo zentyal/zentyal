@@ -8,20 +8,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
-my $qaUpdatesText;
-if (not $QAUpdates) {
-    $qaUpdatesText =  __x("You can now gain access to the Quality Assured Updates by purchasing the <a href='{proUrl}'>Professional</a>  or <a href='{entUrl}'>Enterprise</a> Server Subscription. QA Updates guarantee that all the upgrades, bugfixes and security updates are extensively tested by the eBox Development Team and you won't be introducing any regressions on your already working system.", 
-   proUrl => 'http://store.ebox-technologies.com/serversubscriptions/subscription-professional.html',
-   entUrl => 'http://store.ebox-technologies.com/serversubscriptions/ebox-enterprise-subscription.html',
-                         );
-}
 </%init>
-% if (not $QAUpdates) {
-<div class='note'>
-<% $qaUpdatesText %>
-</div>
-% }
-
 
 % if ($automaticUpdates) {
 <div class='note'>
