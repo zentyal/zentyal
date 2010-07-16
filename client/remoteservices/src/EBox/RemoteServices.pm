@@ -586,12 +586,13 @@ sub reloadBundle
     $force = 0 unless (defined($force));
 
     if ( $self->isConnected() ) {
-        my $bundleVersion = $self->_confKeys()->{version};
-        $bundleVersion    = 0 unless defined($bundleVersion);
+        my $version       = $self->version();
+        my $bundleVersion = $self->bundleVersion();
         my $bundleGetter  = new EBox::RemoteServices::Bundle();
-        my $bundleContent = $bundleGetter->eBoxBundle($bundleVersion, $force);
+        my $bundleContent = $bundleGetter->eBoxBundle($version, $bundleVersion, $force);
         if ( $bundleContent ) {
-            EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
+            my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
+            EBox::RemoteServices::Subscription->reloadBundle($params);
         } else {
             return 2;
         }
@@ -602,6 +603,38 @@ sub reloadBundle
     }
     return 1;
 }
+
+
+
+sub bundleVersion
+{
+    my ($self) = @_;
+    my $bundleVersion = $self->_confKeys()->{version};
+    if (not defined $bundleVersion) {
+        return 0;
+    }
+
+    return $bundleVersion;
+
+}
+
+
+sub version
+{
+    my $remoteServicesVersion = 0;
+    my @output = `dpkg-query -W ebox-remoteservices`;
+    foreach my $line (@output) {
+        if ($line =~ m/^ebox-remoteservices\s+([\d.]+)\s*$/) {
+            $remoteServicesVersion = $1;
+            last;
+        }
+    }
+
+
+    return $remoteServicesVersion;
+}
+
+
 
 # Group: Public methods related to reporting
 
@@ -766,6 +799,7 @@ sub report
 
 }
 
+
 # Group: Private methods
 
 # Configure the SOAP server
@@ -874,13 +908,27 @@ sub _allowedClientCNRegexp
     return "^(${mmPrefix}$nums.${mmRem}|${wwwPrefix}$nums.${wwwRem})\$";
 }
 
+
+sub subscriptionDir
+{
+    my ($self) = @_;
+    my $cn = $self->eBoxCommonName();
+    # check if cn is udnef, commented bz iam not sure how it may affect _confKeys
+#     if (not defined $cn) {
+#         return undef;
+#     }
+
+    return  SUBS_DIR . $cn;
+}
+
+
 # Return the given configuration file from the control center
 sub _confKeys
 {
     my ($self) = @_;
 
     unless ( defined($self->{confFile}) ) {
-        my $confDir = SUBS_DIR . $self->eBoxCommonName();
+        my $confDir = $self->subscriptionDir();
         $self->{confFile} = (<$confDir/*.conf>)[0];
     }
     unless ( defined($self->{confKeys}) ) {
@@ -894,7 +942,7 @@ sub _caCertPath
 {
     my ($self) = @_;
 
-    return SUBS_DIR . $self->eBoxCommonName() . '/cacert.pem';
+    return $self->subscriptionDir() . '/cacert.pem';
 
 }
 

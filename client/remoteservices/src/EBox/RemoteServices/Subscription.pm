@@ -201,6 +201,14 @@ sub subscribeEBox
 }
 
 
+sub reloadBundle
+{
+    my ($self, $params) =  @_;
+
+    $self->_setQAUpdates($params);
+    $self->_executeBundleScripts($params);
+}
+
 sub _setQAUpdates
 {
     my ($self, $params) = @_;
@@ -529,14 +537,16 @@ sub setQAAptPreferences
 {
     my ($self, $preferencesFile) = @_;
 
+    my $preferences = '/etc/apt/preferences';
+    my $fromCCPreferences = $preferences . '.ebox.fromcc'; # file to store CC preferences
+    EBox::Sudo::root("cp '$preferencesFile' '$fromCCPreferences'");
+
     my $exclusiveSource = EBox::Config::configkey('qa_updates_exclusive_source');
     if (lc($exclusiveSource) ne 'true') {
         return;
     }
 
 
-    my $preferences = '/etc/apt/preferences';
-    my $fromCCPreferences = $preferences . '.ebox.fromcc'; # file to store CC preferences
     my $bakFile = $preferences . '.ebox.bak';  # file to store 'old' prefrences
     if (not -e $bakFile) {
         if (-e $preferences) {
@@ -548,7 +558,7 @@ sub setQAAptPreferences
         }
     }
 
-    EBox::Sudo::root("cp '$preferencesFile' '$fromCCPreferences'");
+
     EBox::Sudo::root("cp '$preferencesFile' '$preferences'");
 }
 

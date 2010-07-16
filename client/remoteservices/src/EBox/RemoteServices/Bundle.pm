@@ -51,15 +51,20 @@ sub new
 #
 # Parameters:
 #
-#     version - Int the eBox bundle version you have
+#     remoteServicesVersion
+#     bundleVersion - Int the eBox bundle version you have
 #
 #     force - Boolean indicating the bundle must be reloaded, no
 #             matter the version you set in the previous parameter
 sub eBoxBundle
 {
-    my ($self, $version, $force) = @_;
+    my ($self, $remoteServicesVersion, $bundleVersion, $force) = @_;
 
-    return $self->soapCall('eBoxBundle', version => $version, force => $force);
+    return $self->soapCall('eBoxBundle', 
+                           version => $bundleVersion, 
+                           remoteServicesVersion => $remoteServicesVersion,
+                           force => $force
+                          );
 }
 
 # Method: serviceUrn
