@@ -1,57 +1,4 @@
-#!/usr/bin/perl
-# Copyright (C) 2009-2010 eBox Technologies S.L.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License, version 2, as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-use warnings;
-use strict;
-
-use EBox::Gettext;
-use EBox::Sudo;
-use EBox::Validate;
-use Error qw(:try);
-
-EBox::Gettext::settextdomain('ebox-package-installer');
-
-#################
-# -- constants --
-#################
-
 my $INSTALL_FILES = '/var/tmp';
-
-my $NO_SPACE_MESSAGE = __('The size of your root filesystem is less than 2GB. This is not enough for a typical setup. If you really know what you are doing you can install in expert mode and define your own partition layout.');
-
-my $LOG = ($ENV{LOG} or '/tmp/ebox-installer.log');
-
-my $WHIPTAIL_ARGS = "--clear --backtitle \"$INSTALLER_TITLE\"";
-
-my $EBOX_AUTO_INSTALLER_FILE = "$INSTALL_FILES/ebox-installer.auto";
-
-############################
-# -- installation process --
-############################
-
-# Check if there is enough space before starting the installation
-# Only if we are in non-expert mode
-if (-f $EBOX_AUTO_INSTALLER_FILE) {
-    my $root_space = `df -Pm /|awk 'NR>1{ print \$2 }'`;
-    chomp($root_space);
-    if ($root_space < 2000) {
-        showDialog(__('Error'), $NO_SPACE_MESSAGE);
-        exit (1);
-    }
-}
 
 # After eBox is installed we can load its packages
 eval 'use EBox';
@@ -65,12 +12,6 @@ chdir ('/var/lib/ebox/tmp');
 
 my $global = EBox::Global->getInstance();
 failed() unless defined $global;
-
-# Apache is the most basic module, if it's not installed correctly,
-# we assume that the installation has failed
-unless ($global->modExists('apache')) {
-    failed();
-}
 
 preconfiguration();
 
@@ -115,53 +56,4 @@ sub preconfiguration
     };
 
     EBox::Sudo::root("$INSTALL_FILES/ebox-x11-setup '$CNF_user' >> $LOG 2>&1");
-}
-
-sub showDialog # (title, message)
-{
-    my ($title, $message) = @_;
-
-    my $size = 1 + int(length($message) / 70);
-    my $height = $size + 8;
-    my $width = get_dialog_width($title, $message);
-
-    my $command = "whiptail $WHIPTAIL_ARGS --title \"$title\" " .
-                  "--msgbox \"$message\" $height $width";
-
-    system ($command);
-}
-
-##############################
-# -- Helper functions --
-##############################
-
-sub arrayFromFile # (filename)
-{
-    my ($filename) = @_;
-
-    my $fh;
-    open ($fh, '<', "$INSTALL_FILES/$filename") or
-        open ($fh, '<', $filename) or
-            die "Can't read $filename file";
-    my @array = <$fh>;
-    chomp (@array);
-    close ($fh);
-
-    return @array;
-}
-
-sub get_dialog_width # (title, message) returns int
-{
-    my ($title, $message) = @_;
-
-    my $width = 7 + length($title);
-    if (length($message) > length($title)) {
-        if (length($message) < 70) {
-            $width = length($message) + 7;
-        } else {
-            $width = 70;
-        }
-    }
-
-    return $width;
 }

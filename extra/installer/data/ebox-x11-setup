@@ -1,6 +1,7 @@
 #!/bin/sh
 
-USER_NAME=$1
+#USER_NAME=$1
+USER_NAME=eboxadmin
 DIR=/home/$USER_NAME
 
 sed -i "s/#auto_login.*/auto_login\tyes/" /etc/slim.conf

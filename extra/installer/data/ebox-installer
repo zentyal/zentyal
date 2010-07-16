@@ -10,20 +10,7 @@ EBOX_SOURCES="deb $PPA_URL lucid main"
 PKG_DIR=/var/tmp/ebox-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
-# Generic Bailout
-bail_out() {
-    echo "Installation failed. Check contents of $LOG to see what happened."
-    if [ -f /var/tmp/ebox-installer.pwdchanged ]
-    then
-        echo "You may log in with the user and password you entered and re-run the installer from /etc/rc.local"
-    else
-        echo "You may log in using 'eboxadmin' as user and password and re-run the installer from /etc/rc.local"
-    fi
-    exit 1 # Indicate failure
-}
-
 create_repository() {
-    echo "Creating list of available packages..."
     cd $PKG_DIR
     apt-ftparchive packages . | gzip > Packages.gz 2>>$LOG
     cd - > /dev/null
@@ -43,10 +30,10 @@ update_if_network() {
     apt-key add /var/tmp/ebox-ppa.asc >> $LOG 2>&1
     # Check if we can connect to the PPA url
     if $(wget -T 10 -t 1 $PPA_URL >> $LOG 2>&1); then
-        echo "Updating package database from the network..."
+        echo "Updating package database from the network..." >> $LOG
         apt-get update >> $LOG 2>&1
     else
-        echo "Warning: Can't connect to $PPA_URL. Updates won't be installed."
+        echo "Warning: Can't connect to $PPA_URL. Updates won't be installed." >> $LOG
     fi
 }
 
@@ -66,11 +53,6 @@ installed_ok() {
     exit 0
 }
 
-# Wait until proper console font is set...
-service console-setup start
-sleep 1
-
-echo "Starting eBox installer..."
 # Main checks for re-runs. Just run the installer if we've been here before.
 if [ -e /var/tmp/ebox-sources-list.updated ]; then
     package_installer
@@ -85,10 +67,11 @@ else
     # Mark our work complete so we don't re-do it needlessly
     touch /var/tmp/ebox-sources-list.updated
 
+    # FIXME
     echo "Preparing eBox package installer..."
     if /var/tmp/ebox-package-installer; then
     installed_ok
     else
-        bail_out
+        exit 1
     fi
 fi
