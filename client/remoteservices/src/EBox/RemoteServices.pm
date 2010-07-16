@@ -605,26 +605,45 @@ sub reloadBundle
 }
 
 
-
+# Method: bundleVersion
+#
+# Returns:
+#
+#      Int - the bundle version if the eBox is subscribed
+#
+#      0 - otherwise
+#
 sub bundleVersion
 {
     my ($self) = @_;
-    my $bundleVersion = $self->_confKeys()->{version};
-    if (not defined $bundleVersion) {
+    if ( $self->eBoxSubscribed() ) {
+        my $bundleVersion = $self->_confKeys()->{version};
+        if (not defined $bundleVersion) {
+            return 0;
+        }
+
+        return $bundleVersion;
+    } else {
         return 0;
     }
-
-    return $bundleVersion;
 
 }
 
 
+# Method: version
+#
+# Returns:
+#
+#      String - the ebox-remoteservices package version according to dpkg-query
+#
+#      0 - otherwise
+#
 sub version
 {
     my $remoteServicesVersion = 0;
     my @output = `dpkg-query -W ebox-remoteservices`;
     foreach my $line (@output) {
-        if ($line =~ m/^ebox-remoteservices\s+([\d.]+)\s*$/) {
+        if ($line =~ m/^ebox-remoteservices\s+([\d.]+)/) {
             $remoteServicesVersion = $1;
             last;
         }
@@ -633,7 +652,6 @@ sub version
 
     return $remoteServicesVersion;
 }
-
 
 
 # Group: Public methods related to reporting
