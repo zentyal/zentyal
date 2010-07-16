@@ -55,13 +55,11 @@ gen_locales() {
 
 # replace motd
 cp /tmp/ebox/motd /etc/motd.tail
-# copy .mo files
-cp -r /tmp/ebox/locale /usr/share/
 
 # copy *.deb files from CD to hard disk
 PKG_DIR=/var/tmp/ebox-packages
 mkdir $PKG_DIR
-list=`cat /tmp/extra-packages.list`
+list=`cat /tmp/ebox/extra-packages.list`
 packages=`LANG=C apt-get install $list --simulate|grep ^Inst|cut -d' ' -f2`
 for p in $packages
 do

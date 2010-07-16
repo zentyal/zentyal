@@ -7,13 +7,9 @@ DIR=/home/$USER_NAME
 sed -i "s/#auto_login.*/auto_login\tyes/" /etc/slim.conf
 sed -i "s/#default_user.*/default_user\t$USER_NAME/" /etc/slim.conf
 
-echo "#!/bin/bash" > $DIR/.xsession
-echo "firefox https://localhost &" >> $DIR/.xsession
-echo "xset s off" >> $DIR/.xsession
-echo "xset -dpms" >> $DIR/.xsession
-echo "xset s noblank" >> $DIR/.xsession
-echo "exec blackbox" >> $DIR/.xsession
+cp /tmp/ebox/ebox-xsession $DIR/.xsession
 chmod +x $DIR/.xsession
+#FIXME: eboxadmin group??
 chown $USER_NAME:eboxadmin $DIR/.xsession
 
 mkdir $DIR/.mozilla
@@ -22,8 +18,5 @@ cp /tmp/ebox/ebox-blackbox-menu /etc/X11/blackbox/blackbox-menu
 chown -R $USER_NAME:eboxadmin $DIR/.mozilla
 chmod -R +w $DIR/.mozilla
 
-CERT=/var/lib/ebox/conf/ssl/ssl.cert
-PROFILE=$DIR/.mozilla/firefox/ebox.default
-ID='eBox Server'
-certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
-/tmp/ebox/ebox-cert-override > $PROFILE/cert_override.txt
+cp /tmp/ebox/ebox-cert-override $DIR/
+chown $USER_NAME: $DIR/ebox-cert-override
