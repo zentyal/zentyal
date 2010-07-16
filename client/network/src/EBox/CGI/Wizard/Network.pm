@@ -43,15 +43,19 @@ sub _masonParameters
 
     my $net = EBox::Global->modInstance('network');
 
-    my @ifaces = ();
+    my @exifaces = ();
+    my @inifaces = ();
     foreach my $iface ( @{$net->ifaces} ) {
         if ( $net->ifaceIsExternal($iface) ) {
-            push (@ifaces, $iface);
+            push (@exifaces, $iface);
+        } else {
+            push (@inifaces, $iface);
         }
     }
 
     my @params = ();
-    push (@params, 'ifaces' => \@ifaces);
+    push (@params, 'extifaces' => \@exifaces);
+    push (@params, 'intifaces' => \@inifaces);
     return \@params;
 }
 
@@ -63,9 +67,9 @@ sub _processWizard
     my $net = EBox::Global->modInstance('network');
 
     foreach my $iface ( @{$net->ifaces} ) {
-        if ( $net->ifaceIsExternal($iface) ) {
-            my $method = $self->param($iface . '_method');
+        my $method = $self->param($iface . '_method');
 
+        if ( $net->ifaceIsExternal($iface) ) {
             if ( $method eq 'dhcp' ) {
                 $net->setIfaceDHCP($iface, 1, 1);
             }
@@ -87,6 +91,12 @@ sub _processWizard
                 my $dnsModel = $net->model('DNSResolver');
                 $dnsModel->add(nameserver => $dns1);
                 $dnsModel->add(nameserver => $dns2);
+            }
+        } else {
+            if ( $method eq 'static' ) {
+                my $addr = $self->param($iface . '_address');
+                my $nmask = $self->param($iface . '_netmask');
+                $net->setIfaceStatic($iface, $addr, $nmask, undef, 1);
             }
         }
     }
