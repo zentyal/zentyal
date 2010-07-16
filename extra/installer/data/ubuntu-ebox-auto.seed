@@ -143,8 +143,8 @@ d-i debian-installer/splash boolean false
 
 # late command (we prepare here the ebox custom installer)
 d-i preseed/late_command string \
-    cp -r /cdrom/ebox/* /target/tmp/ || \
-    cp -r /target/cdrom/ebox/* /target/tmp/ && \
+    cp -r /cdrom/ebox /target/tmp/ || \
+    cp -r /target/cdrom/ebox /target/tmp/ && \
     touch /target/tmp/ebox-installer.auto && \
     chroot /target sh /tmp/prepare-ebox-install.sh
 
