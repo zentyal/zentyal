@@ -24,90 +24,12 @@ use Error qw(:try);
 
 EBox::Gettext::settextdomain('ebox-package-installer');
 
-#########################
-# -- eBox package data --
-#########################
-
-my @TASKS = (
-    ['gateway', __('Firewall, HTTP proxy, traffic shaping, etc.')],
-    ['security', __('Firewall, IDS, AV, VPN, content & mail filter, etc.')],
-    ['infrastructure', __('DHCP, DNS, NTP, FTP, HTTP server, etc.')],
-    ['office', __('File sharing and printing, groupware, etc.')],
-    ['communication', __('Mail, Jabber/XMPP, VoIP, etc.')],
-);
-
-my @PACKAGES = (
-    ['firefox', __('Window system with local browser')],
-#    ['network', __('Networking')],
-#    ['firewall', __('Firewall and redirections')],
-    ['trafficshaping', __('Traffic shaping')],
-    ['samba', __('File sharing server and Windows PDC')],
-    ['dns', __('DNS server')],
-    ['dhcp', __('DHCP server')],
-    ['radius', __('RADIUS server')],
-    ['squid', __('HTTP proxy and content filter')],
-    ['usersandgroups', __('LDAP users and groups management')],
-#    ['monitor', __('System monitor with graphs and alerts')],
-    ['software', __('System and eBox package management')],
-    ['ebackup', __('Remote or local Backup')],
-    ['ntp', __('NTP server')],
-    ['printers', __('Printing server')],
-    ['jabber', __('Jabber/XMPP server')],
-    ['openvpn', __('VPN server')],
-    ['webserver', __('HTTP server')],
-    ['ftp', __('FTP server')],
-    ['mail', __('Mail system: SMTP, POP3, IMAP4')],
-    ['webmail', __('WWW Mail Client')],
-    ['mailfilter', __('Antispam, antivirus, transparent POP3 proxy')],
-    ['antivirus', __('Antivirus')],
-    ['egroupware', __('Shared calendar and address book, webmail, etc')],
-    ['ids', __('Intrusion Detection System')],
-#    ['captiveportal', __('Captive Portal')],
-    ['asterisk', __('VoIP PBX')],
-#    ['improxy', __('Instant Messaging Proxy')],
-);
-
 #################
 # -- constants --
 #################
 
-my $SELECTION_FILE = 'selection';
 my $INSTALL_FILES = '/var/tmp';
 
-my $INSTALLER_TITLE = __('eBox Platform Installer');
-my $PACKAGE_MODE_TITLE = __('Choose package selection method');
-my $PACKAGE_MODE_MESSAGE = __('Select the method that better fits your needs.');
-my $SIMPLE_METHOD = __('simple');
-my $SIMPLE_DESC = __('Select packages by task');
-my $ADVANCED_METHOD = __('advanced');
-my $ADVANCED_DESC = __('Select packages manually');
-my $TASK_TITLE = __('Select eBox tasks to install');
-my $TASK_MESSAGE = __('Select one or more tasks:');
-my $PACKAGE_TITLE = __('Select eBox packages to install');
-my $PACKAGE_MESSAGE = __('Select the desired packages:');
-my $USERS_MODE_TITLE = __('Select the type of the server');
-my $USERS_MODE_MESSAGE = __('Choose standalone unless you want LDAP replication or synchronization with Active Directory.');
-my $USERS_STANDALONE_DESC = __('Standalone server');
-my $USERS_ADVANCED_DESC = __('Advanced configuration (Master/Slave/AD Sync)');
-my $USERS_STANDALONE = __('standalone');
-my $USERS_ADVANCED = __('advanced');
-my $USERS_ADVANCED_TITLE = __("Advanced configuration modes");
-my $USERS_ADVANCED_MESSAGE = __x("If you need the advanced features you have to configure them manually. You can find all the information here:
-{url}",
-url => 'http://trac.ebox-platform.com/wiki/Document/AdvancedSetup');
-my $IFACES_TITLE = __('Select External (WAN) interfaces');
-my $IFACES_MESSAGE = __('WARNING: By default you will not be able to access the web interface through them.');
-my $GATEWAY_WARNING = __('You have installed a gateway profile. It needs at least two network interfaces and your machine has only one. You can still enjoy the rest of the eBox features but it will not act as a gateway unless you add another network card.');
-my $USERNAME_TITLE = __('Enter administration user');
-my $USERNAME_MSG = __('You will need this username to log into the local console or access remotely by SSH:');
-my $PASS_TITLE = __('Enter administration password');
-my $PASS_MSG = __('You will need to use this password to log into the eBox interface or in the console with the username that you have just entered:');
-my $PASS_CONFIRM_TITLE = __('Confirm administration password');
-my $PASS_CONFIRM_MSG = '';
-my $MAIL_TITLE = __('Mail configuration');
-my $MAIL_MESSAGE = __('Enter default virtual mail domain:');
-my $FINAL_TITLE = __('Installation finished');
-my $FINAL_MESSAGE = __('Now you can access the eBox interface browsing the following address from any computer in your network: ');
 my $NO_SPACE_MESSAGE = __('The size of your root filesystem is less than 2GB. This is not enough for a typical setup. If you really know what you are doing you can install in expert mode and define your own partition layout.');
 
 my $LOG = ($ENV{LOG} or '/tmp/ebox-installer.log');
@@ -115,18 +37,6 @@ my $LOG = ($ENV{LOG} or '/tmp/ebox-installer.log');
 my $WHIPTAIL_ARGS = "--clear --backtitle \"$INSTALLER_TITLE\"";
 
 my $EBOX_AUTO_INSTALLER_FILE = "$INSTALL_FILES/ebox-installer.auto";
-
-########################
-# -- global variables --
-########################
-
-my $CNF_user;
-my $CNF_password;
-my $CNF_users = '';
-my $CNF_ldap_pass;
-my @CNF_selectedIfaces;
-my $CNF_domain = undef;
-my $CNF_x11 = 0;
 
 ############################
 # -- installation process --
@@ -143,31 +53,9 @@ if (-f $EBOX_AUTO_INSTALLER_FILE) {
     }
 }
 
-# Choose administration user and password
-$CNF_user = askAdminUser();
-$CNF_password = askPassword();
-
-# Set the new user and password
-my $cryptpass = crypt ($CNF_password, substr($CNF_password, 0, 2));
-system ("$INSTALL_FILES/ebox-set-admin-password '$CNF_user' '$cryptpass' >> $LOG 2>&1");
-
-# Package selection
-my @packages = selectPackagesMenu();
-push (@packages, 'remoteservices');
-@packages = map ("ebox-$_", @packages);
-if ($CNF_x11) {
-    push (@packages, 'firefox', 'xorg', 'slim', 'gksu',
-                     'blackbox', 'xterm', 'libnss3-tools');
-}
-
-installPackages(@packages);
-
-workarounds();
-
 # After eBox is installed we can load its packages
 eval 'use EBox';
 eval 'use EBox::Global';
-eval 'use EBox::ServiceManager';
 failed() if $@;
 
 my (undef, undef, $uid, $gid) = getpwnam('ebox');
@@ -184,94 +72,13 @@ unless ($global->modExists('apache')) {
     failed();
 }
 
-my $mgr = EBox::ServiceManager->new();
-
-my $network;
-if ($global->modExists('network')) {
-    $network = $global->modInstance('network');
-}
-
-# Choose mode if users module is installed
-if ($global->modExists('users')) {
-    $CNF_users = askUsersMode();
-    if ($CNF_users eq $USERS_ADVANCED) {
-        showDialog($USERS_ADVANCED_TITLE, $USERS_ADVANCED_MESSAGE);
-    }
-}
-
-# Choose interfaces to mark as external if ebox-network is installed
-if ($network) {
-    @CNF_selectedIfaces = selectIfacesMenu();
-}
-
-# Choose mail domain if mail module is installed
-if ($global->modExists('mail')) {
-    $CNF_domain = askMailDomain();
-}
-
 preconfiguration();
 
-# If we have graphical environment, don't show final message
-# with instructions to use another browser, just start
-# firefox automagically
-if ($CNF_x11) {
-    exit 0;
-}
-
-# Fetch internal addresses
-my $haveAddress = 0;
-if ($network) {
-    for my $iface (@{$network->InternalIfaces()}) {
-        for my $address (@{$network->ifaceAddresses($iface)}) {
-            $FINAL_MESSAGE .= "https://$address->{address} ";
-            $haveAddress = 1;
-        }
-    }
-}
-unless ($haveAddress) {
-        $FINAL_MESSAGE .= "https://<your-ip-address>";
-}
-# Show instalation complete message with access instructions
-showDialog($FINAL_TITLE, $FINAL_MESSAGE);
+exit 0;
 
 ###########################
 # -- installer functions --
 ###########################
-
-sub installPackages # (packages)
-{
-    my (@packages) = @_;
-
-    my $packageList = join (' ', @packages);
-
-    my $output = `LANG=C apt-get install --no-install-recommends -s $packageList | grep ^Inst`;
-
-# FIXME: add again when compiled for lucid
-#    if ($output =~ /ebox-samba/s) {
-#        $packageList .= ' samba-vscan';
-#    }
-    if ($output =~ /ebox-trafficshaping/s) {
-        $packageList .= ' ebox-l7-protocols';
-    }
-
-    # Get number of packages to install
-    my $num = `LANG=C apt-get install --no-install-recommends -s $packageList | grep ^Inst | wc -l`;
-    chomp($num);
-
-    my $aptCmd = 'LANG=C apt-get install --no-install-recommends -y --force-yes';
-    my $message = __('Installing eBox packages...');
-    my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$message\" 7 64 0";
-    my $gaugeCmd = "$INSTALL_FILES/ebox-apt-parse $num | $whipCmd";
-
-    $ENV{DEBIAN_FRONTEND} = 'noninteractive';
-    my $ret = system ("$aptCmd $packageList 2>&1 | tee -a $LOG | $gaugeCmd");
-
-    if ($ret != 0) {
-        showDialog('Error', 'Installation failed. ' .
-                   "Check contents of $LOG to see what happened");
-        exit (1);
-    }
-}
 
 sub failed
 {
@@ -281,212 +88,12 @@ sub failed
     exit (1);
 }
 
-
-sub workarounds
-{
-    # Workaround buggy squid without FQDN
-    if (-f '/etc/squid/squid.conf') {
-        system('echo "visible_hostname localhost" >> /etc/squid/squid.conf');
-        system('/etc/init.d/squid stop > /dev/null 2>&1');
-        system('/etc/init.d/squid start > /dev/null 2>&1');
-    }
-
-    # Fixes problems with font sizes in some systems
-#   TODO: Is this needed in lucid?
-#    if (-f '/etc/gdm/gdm.conf') {
-#        system('sed -i "s/^command=\/usr\/bin\/X -br -audit 0/command=\/usr\/bin\/X -br -audit 0 -dpi 96/" /etc/gdm/gdm.conf');
-#    }
-}
-
-
-sub selectPackagesMenu # returns array
-{
-    my @selection;
-    my $option = '';
-    my $ret = 0;
-    my $arg1 = "$SIMPLE_METHOD \"$SIMPLE_DESC\"";
-    my $arg2 = "$ADVANCED_METHOD \"$ADVANCED_DESC\"";
-    do {
-        unless ($ret == -1) {
-            $option = showMenu($PACKAGE_MODE_TITLE, $PACKAGE_MODE_MESSAGE, $arg1, $arg2);
-        }
-        if ($option eq $SIMPLE_METHOD) {
-            $ret = showChecklist($TASK_TITLE, $TASK_MESSAGE, @TASKS);
-            $CNF_x11 = 1;
-        } else {
-            $ret = showChecklist($PACKAGE_TITLE, $PACKAGE_MESSAGE, @PACKAGES);
-        }
-        if ($ret == 0) {
-            @selection = arrayFromFile($SELECTION_FILE);
-            unlink ($SELECTION_FILE);
-            if (scalar (@selection) == 0) {
-                showDialog(__('Error'),
-                           __('You must select at least one package.'));
-                $ret = -1;
-            }
-        }
-    } while ($ret != 0);
-
-    if ($selection[0] eq 'firefox') {
-        shift @selection;
-        $CNF_x11 = 1;
-    }
-
-    return @selection;
-}
-
-sub selectIfacesMenu # returns array
-{
-    my @ifaces = @{$network->ifaces()};
-    my @ifacePairs = map ( [ $_, '' ] , @ifaces);
-
-    my $gateway = grep /gateway/, @packages;
-
-    return () unless $gateway;
-
-    if (scalar (@ifaces) < 2) {
-        showDialog(__('Warning'), $GATEWAY_WARNING);
-        return ();
-    }
-
-    my @selection;
-    my $option = '';
-    my $ret = 0;
-    do {
-        $ret = showChecklist($IFACES_TITLE, $IFACES_MESSAGE, @ifacePairs);
-        if ($ret == 0) {
-            @selection = arrayFromFile($SELECTION_FILE);
-            unlink ($SELECTION_FILE);
-        }
-    } while ($ret != 0);
-
-    return @selection;
-}
-
-sub askPassword # returns string
-{
-    my $password;
-    my $confirm;
-    do {
-        $password = showPasswordDialog($PASS_TITLE, $PASS_MSG);
-        $confirm = showPasswordDialog($PASS_CONFIRM_TITLE, $PASS_CONFIRM_MSG);
-
-        if ($password ne $confirm) {
-            showDialog(__('Error'), __("Passwords don't match"));
-        }
-    } until ($password eq $confirm);
-
-    return $password;
-}
-
-sub askAdminUser # returns string
-{
-    my $user;
-    do {
-        $user = showInputDialog($USERNAME_TITLE, $USERNAME_MSG);
-
-        if (($user eq 'root') or ($user eq 'ebox') or (getpwnam $user)) {
-            showDialog(__('Error'), __x("The username '{user}' is reserved. Please choose another.", user => $user));
-            $user = undef;
-        }
-    } until ($user);
-
-    return $user;
-}
-
-sub askUsersMode # returns string
-{
-    my $arg1 = "$USERS_STANDALONE \"$USERS_STANDALONE_DESC\"";
-    my $arg2 = "$USERS_ADVANCED \"$USERS_ADVANCED_DESC\"";
-    my $mode;
-    do {
-        $mode = showMenu($USERS_MODE_TITLE, $USERS_MODE_MESSAGE, $arg1, $arg2);
-    } until ($mode);
-
-    return $mode;
-}
-
-sub askMailDomain # returns string
-{
-    my $domain;
-    do {
-        $domain = showInputDialog($MAIL_TITLE, $MAIL_MESSAGE);
-
-        unless (EBox::Validate::_checkDomainName($domain)) {
-            $domain = undef;
-        }
-    } until ($domain);
-
-    return $domain;
-}
-
 sub preconfiguration
 {
-    my $message = __('Preconfiguring eBox packages...');
-    my $whipCmd = "whiptail $WHIPTAIL_ARGS --gauge \"$message\" 7 64 0";
-    my $PROGRESS;
-    open ($PROGRESS, '|-', $whipCmd);
-
-    if ($network) {
-        try {
-            setExternal(@CNF_selectedIfaces);
-        } otherwise {
-            my ($ex) = @_;
-            my $err = $ex->text();
-            system ("echo 'Error setting external ifaces: $err' >> $LOG");
-        };
-    }
-
-    print $PROGRESS "3\n";
-
-    if (defined $CNF_domain) {
-        try {
-            setMailDomain($CNF_domain);
-        } otherwise {
-            my ($ex) = @_;
-            my $err = $ex->text();
-            system ("echo 'Error setting mail domain: $err' >> $LOG");
-        };
-    }
-
-    print $PROGRESS "6\n";
-
-    my @modules = @{$mgr->_dependencyTree()};
-
-    my $numModules = scalar (@modules);
-    # Do not enable anything if advanced mode is selected
-    if (($numModules > 0) and ($CNF_users ne $USERS_ADVANCED)) {
-        my $step = 40 / $numModules;
-        my $counter = $step;
-        foreach my $module (@modules) {
-            next if ($module eq 'dhcp'); # Skip dhcp module
-            enableModule($module);
-            print $PROGRESS 10+int($counter) . "\n";
-            $counter += $step;
-        }
-
-        # save changes
-        foreach my $module (@modules) {
-            system ("echo 'Saving changes of $module...' >> $LOG");
-            my $module = $global->modInstance($module);
-            try {
-                $module->save();
-            } otherwise {
-                my ($ex) = @_;
-                my $err = $ex->text();
-                system ("echo 'Error saving $module: $err' >> $LOG");
-            };
-            print $PROGRESS int($counter) . "\n";
-            $counter += $step;
-        }
-    }
-
     # load LANG variable with default locale
     my @lines = arrayFromFile('/etc/default/locale');
     my $LANG = (split ('"', $lines[0]))[1];
     $ENV{LANG} = $LANG;
-
-    print $PROGRESS "85\n";
 
     # Append eBox support languages to generate to current supported
     # locales
@@ -496,12 +103,8 @@ sub preconfiguration
     EBox::Sudo::rootWithoutException("sort $TMP | uniq > $LOCALES_FILE");
     unlink($TMP);
 
-    print $PROGRESS "90\n";
-
     # Regenerate locales to update the new messages from eBox
     EBox::Sudo::rootWithoutException("/usr/sbin/locale-gen >> $LOG 2>&1");
-
-    print $PROGRESS "94\n";
 
     try {
         system ("/usr/share/ebox/ebox-set-locale $LANG >> $LOG 2>&1");
@@ -511,119 +114,7 @@ sub preconfiguration
         system ("echo 'Error setting locale $LANG: $err' >> $LOG");
     };
 
-    print $PROGRESS "98\n";
-
-    # Run ebox-software in order to update packages list (which is done
-    # nightly)
-    #system('ebox-software');
-
-    # eBox initial setup
-    system ("$INSTALL_FILES/ebox-set-password '$CNF_password' >> $LOG 2>&1");
-
-    print $PROGRESS "100\n";
-
-    # X11 setup
-    if ($CNF_x11) {
-        EBox::Sudo::root("$INSTALL_FILES/ebox-x11-setup '$CNF_user' >> $LOG 2>&1");
-    }
-
-    close ($PROGRESS);
-}
-
-
-#################################
-# -- whiptail helper functions --
-#################################
-
-sub showMenu
-{
-    my ($title, $message, $arg1, $arg2) = @_;
-
-    my $size = 2;
-    my $height = $size + 9;
-
-    my $max_len = max(length($arg1), length($arg2), length ($title));
-    my $width = 7 + $max_len;
-
-    my $command = "whiptail $WHIPTAIL_ARGS --nocancel --title \"$title\" " .
-                  "--menu \"$message\" $height $width $size $arg1 $arg2";
-
-    my $file = 'selected_option';
-    system ("$command 2> $file");
-    my @lines = arrayFromFile($file);
-    unlink ($file);
-
-    return $lines[0];
-}
-
-sub showChecklist # (title, message, options)
-{
-    my ($title, $message, @options) = @_;
-
-    my $size = scalar (@options);
-    if ($size > 14) {
-        $size = 14;
-    }
-    my $height = $size + 7;
-
-    my $option_args;
-    my $max_len = 0;
-    foreach my $optionPair (@options) {
-        my $option = $optionPair->[0];
-        my $description = $optionPair->[1];
-        my $arg = "$option \"$description\"";
-        my $this_len = length ($arg) + 8;
-        if ($this_len > $max_len) {
-            $max_len = $this_len;
-        }
-        $option_args .= "$arg 0 ";
-    }
-    my $width = max(get_dialog_width($title, $message), $max_len + 10);
-    my $max_chars = max(length($title), length($message), $max_len);
-    if ($max_chars > 70) {
-        $height += int($max_chars / 70);
-    }
-
-    my $command = "whiptail $WHIPTAIL_ARGS --separate-output " .
-                  "--title \"$title\" " .
-                  "--checklist \"$message\" $height $width $size $option_args";
-
-    system ("$command 2> $SELECTION_FILE");
-}
-
-sub showInputDialog # (title, message)
-{
-    my ($title, $message) = @_;
-
-    showGenericInputDialog('inputbox', $title, $message);
-}
-
-sub showPasswordDialog # (title, message)
-{
-    my ($title, $message) = @_;
-
-    showGenericInputDialog('passwordbox', $title, $message);
-}
-
-sub showGenericInputDialog # (type, title, message) returns input string
-{
-    my ($type, $title, $message) = @_;
-
-    my $height = 9;
-    my $width = get_dialog_width($title, $message);
-
-    my $command = "whiptail $WHIPTAIL_ARGS --separate-output " .
-                  "--title \"$title\" " .
-                  "--$type \"$message\" $height $width";
-
-    my @selection;
-    do {
-        system ("$command 2> $SELECTION_FILE");
-        @selection = arrayFromFile($SELECTION_FILE);
-        unlink ($SELECTION_FILE);
-    } until (scalar(@selection) > 0);
-
-    return $selection[0];
+    EBox::Sudo::root("$INSTALL_FILES/ebox-x11-setup '$CNF_user' >> $LOG 2>&1");
 }
 
 sub showDialog # (title, message)
@@ -640,67 +131,8 @@ sub showDialog # (title, message)
     system ($command);
 }
 
-#############################
-# -- eBox helper functions --
-#############################
-
-sub enableModule # (name)
-{
-    my ($name) = @_;
-
-    system ("echo 'Enabling module $name...' >> $LOG");
-    my $module = $global->modInstance($name);
-    $module->setConfigured(1);
-    $module->enableService(1);
-    try {
-        $module->enableActions();
-    } otherwise {
-        my ($ex) = @_;
-        my $err = $ex->text();
-        $module->setConfigured(0);
-        $module->enableService(0);
-        system ("echo 'Failed to enable module $name: $err' >> $LOG");
-    };
-}
-
-sub setExternal # (@ifaces)
-{
-    my (@ifaces) = @_;
-
-    foreach my $iface (@ifaces) {
-        if ($network->ifaceExists($iface)) {
-            $network->set_bool("interfaces/$iface/external", 1);
-        }
-    }
-
-    #EBox::Global->getInstance()->saveAllModules();
-}
-
-sub setMailDomain # (domain)
-{
-    my ($domain) = @_;
-
-    my $mail = $global->modInstance('mail');
-    my $model = $mail->model('VDomains');
-
-    $model->addRow(vdomain => $domain, aliases => []);
-
-    #$mail->save();
-
-    if ($global->modExists('egroupware')) {
-        my $egw = $global->modInstance('egroupware');
-        my $model = $egw->model('VMailDomain');
-
-        my $row = $model->row();
-        $row->elementByName('vdomain')->setValue($domain);
-        $row->store();
-
-        #$egw->save();
-    }
-}
-
 ##############################
-# -- other helper functions --
+# -- Helper functions --
 ##############################
 
 sub arrayFromFile # (filename)
@@ -733,11 +165,3 @@ sub get_dialog_width # (title, message) returns int
 
     return $width;
 }
-
-sub max # (val1, val2, ...) returns value
-{
-    my $max = 0;
-    map { $max = $_ if ($_ > $max) } @_;
-    return $max;
-}
-

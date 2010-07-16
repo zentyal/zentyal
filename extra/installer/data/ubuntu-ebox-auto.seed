@@ -10,8 +10,8 @@ d-i base-installer/kernel/override-image string linux-generic-pae
 d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
-# install ssh, bc and libebox
-d-i pkgsel/include string ssh bc libebox
+# install ssh, bc, ebox and X environment
+d-i pkgsel/include string ssh bc ebox xorg firefox slim blackbox gksu libnss3-tools
 
 # disable automatic updates, eBox will take care of that
 d-i pkgsel/update-policy select none
@@ -136,7 +136,7 @@ tasksel tasksel/first multiselect
 postfix postfix/main_mailer_type select No configuration
 
 # eBox answers
-#d-i ebox/port string 443
+ebox ebox/port string 443
 
 # No boot splash screen.
 d-i debian-installer/splash boolean false

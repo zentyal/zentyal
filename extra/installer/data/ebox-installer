@@ -9,7 +9,6 @@ PPA_URL="http://ppa.launchpad.net/ebox/1.5/ubuntu"
 EBOX_SOURCES="deb $PPA_URL lucid main"
 PKG_DIR=/var/tmp/ebox-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
-BASE_PACKAGES="libebox"
 
 # Generic Bailout
 bail_out() {
@@ -67,17 +66,6 @@ installed_ok() {
     exit 0
 }
 
-package_installer() {
-    echo "Launching eBox package installer..."
-    if /var/tmp/ebox-package-installer; then
-        installed_ok
-    else
-        bail_out
-    fi
-    # Restore noisy logging
-    sed -i '1 d' /etc/lsb-base-logging.sh
-}
-
 # Wait until proper console font is set...
 service console-setup start
 sleep 1
@@ -96,5 +84,11 @@ else
     update_if_network # apt-get update if we are connected to the internet
     # Mark our work complete so we don't re-do it needlessly
     touch /var/tmp/ebox-sources-list.updated
-    package_installer
+
+    echo "Preparing eBox package installer..."
+    if /var/tmp/ebox-package-installer; then
+    installed_ok
+    else
+        bail_out
+    fi
 fi

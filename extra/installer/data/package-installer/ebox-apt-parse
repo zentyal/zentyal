@@ -1,7 +1,0 @@
-#!/bin/sh
-
-NUM=$1 # Number of packages to install
-
-echo 0
-grep --line-buffered -e "^Unpacking\|^Setting" | sed -u -n '=' |
-    sed -u -n "s/.*/&\*50\/$NUM/p" | bc
