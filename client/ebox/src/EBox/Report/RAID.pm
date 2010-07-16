@@ -92,7 +92,7 @@ sub enabled
 sub info
 {
   my @mdstat = @{  _mdstatContents() };
-  @mdstat or
+  (@mdstat and (scalar @mdstat > 2)) or
     return undef;
 
   my %info;
@@ -101,6 +101,7 @@ sub info
                                    # the real last section
   my $currentSection;
   my @currentSectionData;
+
   foreach my $line (@mdstat) {
     chomp $line;
     $line =~ s/^\s*//;
