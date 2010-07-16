@@ -592,7 +592,7 @@ sub reloadBundle
         my $bundleContent = $bundleGetter->eBoxBundle($version, $bundleVersion, $force);
         if ( $bundleContent ) {
             my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
-            EBox::RemoteServices::Subscription->reloadBundle($params);
+            EBox::RemoteServices::Subscription->executeBundle($params);
         } else {
             return 2;
         }

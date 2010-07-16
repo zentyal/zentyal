@@ -191,9 +191,7 @@ sub subscribeEBox
        );
 
 
-    $self->_setQAUpdates($params);
-
-    $self->_executeBundleScripts($params);
+    $self->executeBundle($params);
 
     $params->{new} = $new;
     return $params;
@@ -201,7 +199,7 @@ sub subscribeEBox
 }
 
 
-sub reloadBundle
+sub executeBundle
 {
     my ($self, $params) =  @_;
 
