@@ -8,7 +8,7 @@ use EBox::Gettext;
         <div><% __('Choose standalone unless you want LDAP replication or synchronization with Active Directory.') %></div>
         <div style="margin: 20px auto; width: 40%; text-align: left">
             <div><input type="radio" name="standalone" id="standalone" value="1" checked="true" /><label for="standalone"><% __('Standalone server') %></label></div>
-            <div><input type="radio" name="standalone" id="advanced" value="1" /><label for="advanced"><% __('Advanced configuration (Master/Slave/AD Sync)') %></label></div>
+            <div><input type="radio" name="standalone" id="advanced" value="0" /><label for="advanced"><% __('Advanced configuration (Master/Slave/AD Sync)') %></label></div>
         </div>
 </form>
 

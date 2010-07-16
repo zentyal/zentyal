@@ -41,7 +41,31 @@ sub _processWizard
 {
     my ($self) = @_;
 
-    #TODO fill this with actions
+# FIXME: this process is too long, better to do it in other place
+
+#    if ( $self->param('standalone') ) {
+#        EBox::info('enabling modules');
+#        my $mgr = EBox::ServiceManager->new();
+#        my $global = EBox::Global->getInstance();
+#
+#        my @modules = @{$mgr->_dependencyTree()};
+#        foreach my $name (@modules) {
+#            next if ($name eq 'dhcp'); # Skip dhcp module
+#
+#            my $module = $global->modInstance($name);
+#            $module->setConfigured(1);
+#            $module->enableService(1);
+#            try {
+#                $module->enableActions();
+#            } otherwise {
+#                my ($ex) = @_;
+#                my $err = $ex->text();
+#                $module->setConfigured(0);
+#                $module->enableService(0);
+#                EBox::debug("Failed to enable module $name: $err");
+#            };
+#        }
+#    }
 }
 
 1;
