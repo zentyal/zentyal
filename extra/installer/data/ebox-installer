@@ -37,41 +37,36 @@ update_if_network() {
     fi
 }
 
-installed_ok() {
-    echo "Installation Complete. Cleaning up eBox package installer files..."
-    rm -f /var/tmp/locale.gen
-    rm -fr /var/tmp/ebox-*
-    rm -fr /var/tmp/po
-    apt-get clean
-    # Disable cdrom and delete file from apt sources
-    sed -i "s/^deb cdrom/#deb cdrom/" /etc/apt/sources.list
-    sed -i "s/^deb file:.*$//" /etc/apt/sources.list
-    # Restore original rc.local
-    mv /var/tmp/rc.local /etc/rc.local
-    # Restart slim if installed
-    [ -x /etc/init.d/slim ] && /etc/init.d/slim restart
-    exit 0
+gen_locales() {
+    # load LANG variable with default locale
+    . /etc/default/locale
+
+    # Append eBox support languages to generate to current supported
+    # locales
+    LOCALES_FILE=/var/lib/locales/supported.d/local
+    TMP=/tmp/local.tmp
+    cat /var/tmp/locale.gen $LOCALES_FILE > $TMP
+    sort $TMP | uniq > $LOCALES_FILE
+    rm -f $TMP
+
+    # Regenerate locales to update the new messages from eBox
+    /usr/sbin/locale-gen
+
+    /usr/share/ebox/ebox-set-locale $LANG > /dev/null 2>&1
 }
 
-# Main checks for re-runs. Just run the installer if we've been here before.
-if [ -e /var/tmp/ebox-sources-list.updated ]; then
-    package_installer
-else
-    create_repository # Set up local package repository
-    echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
-    echo ${EBOX_SOURCES} >> ${SOURCES_LIST} # add ppa sources
-    export HOME=/root  # Needed for ssl-cert postinst
-    source /etc/default/locale; export LANG; # Set up locale
-    sed -i '1 i QUIET=yes' /etc/lsb-base-logging.sh  # initjobs are noisy.
-    update_if_network # apt-get update if we are connected to the internet
-    # Mark our work complete so we don't re-do it needlessly
-    touch /var/tmp/ebox-sources-list.updated
+create_repository # Set up local package repository
 
-    # FIXME
-    echo "Preparing eBox package installer..."
-    if /var/tmp/ebox-package-installer; then
-    installed_ok
-    else
-        exit 1
-    fi
-fi
+echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
+echo ${EBOX_SOURCES} >> ${SOURCES_LIST} # add ppa sources
+
+update_if_network # apt-get update if we are connected to the internet
+
+gen_locales
+
+/var/tmp/ebox-x11-setup
+
+rm -f /var/tmp/locale.gen
+rm -fr /var/tmp/ebox-*
+
+exit 0
