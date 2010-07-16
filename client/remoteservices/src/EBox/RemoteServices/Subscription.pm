@@ -544,20 +544,26 @@ sub setQAAptPreferences
         return;
     }
 
-
-    my $bakFile = $preferences . '.ebox.bak';  # file to store 'old' prefrences
-    if (not -e $bakFile) {
-        if (-e $preferences) {
-            EBox::Sudo::root("mv '$preferences' '$bakFile'");
-        } else {
-            EBox::Sudo::root("touch '$bakFile'"); # create a empty preferences
-                                                  # file to make ebox-software
-                                                  # easier to revert configuration 
-        }
-    }
+    # LUCID version
+    my $preferencesDirFile = '/etc/apt/preferences.d/01ebox';
+    EBox::Sudo::root("cp '$fromCCPreferences' '$preferencesDirFile'");
 
 
-    EBox::Sudo::root("cp '$preferencesFile' '$preferences'");
+
+# HARDY version
+#     my $bakFile = $preferences . '.ebox.bak';  # file to store 'old' prefrences
+#     if (not -e $bakFile) {
+#         if (-e $preferences) {
+#             EBox::Sudo::root("mv '$preferences' '$bakFile'");
+#         } else {
+#             EBox::Sudo::root("touch '$bakFile'"); # create a empty preferences
+#                                                   # file to make ebox-software
+#                                                   # easier to revert configuration 
+#         }
+#     }
+
+
+#     EBox::Sudo::root("cp '$preferencesFile' '$preferences'");
 }
 
 1;

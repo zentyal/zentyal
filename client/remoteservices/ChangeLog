@@ -7,6 +7,7 @@ HEAD
 	+ Bundle action occurs now when reloading the bundle (before only
 	when subscribing), adapted to remoteservices version requirement
 	for bundle
+	+ Adapted to use preferences.d directory for QA's apt configuration
 1.5.2
 	+ Reload bundle while configuring the package and once a week to
 	  support eBox CC migration automatically (new keys) to make
