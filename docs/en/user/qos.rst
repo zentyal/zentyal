@@ -39,8 +39,8 @@ Differentiated services (*DiffServ*):
   requirements. This approach is currently widely accepted.
 
 In addition to these systems, *bandwidth management* mechanisms may be
-used to further improve performance such as  **traffic shaping**, **Scheduling
-algorithms** o **congestion avoidance**.
+used to further improve performance such as  **traffic shaping**, **scheduling
+algorithms**, or **congestion avoidance**.
 
 Regarding traffic shaping, there are two predominant methods:
 
@@ -108,8 +108,8 @@ a :guilabel:`source` and/or a :guilabel:`destination`.
 
    Traffic shaping rules
 
-Practise example
-^^^^^^^^^^^^^^^^
+Practical example
+^^^^^^^^*^^^^^^^^
 
 Set up a rule to shape incoming HTTP traffic by limiting it to 20KB/s. Check if
 it works properly.
