@@ -41,6 +41,7 @@ use Cwd;
 use Error qw(:try);
 use File::Slurp;
 use File::Temp;
+use HTML::Mason;
 
 # Constants
 use constant {
@@ -198,59 +199,6 @@ sub subscribeEBox
 
 }
 
-
-sub executeBundle
-{
-    my ($self, $params) =  @_;
-
-    $self->_setQAUpdates($params);
-    $self->_executeBundleScripts($params);
-}
-
-sub _setQAUpdates
-{
-    my ($self, $params) = @_;
-
-    my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
-    foreach my $param (@paramsNeeded) {
-        exists $params->{$param} or
-            return;
-    }
-
-    
-    $self->setQASources($params->{QASources});
-    $self->setQAAptPubKey($params->{QAAptPubKey});
-    $self->setQAAptPreferences($params->{QAAptPreferences});
-
-    my $softwareMod = EBox::Global->modInstance('software');
-    if ($softwareMod) {
-        $softwareMod->setQAUpdates(1);
-    } else {
-        EBox::info('No software module installed QA updates should be doen by hand');
-    }
-
-}
-
-
-sub _executeBundleScripts
-{
-    my ($self, $params) = @_;
-
-    if (not exists $params->{scripts}) {
-        return;
-    }
-
-    foreach my $script (@{  $params->{scripts} }) {
-        try {
-            EBox::Sudo::root("chmod u+x '$script'");
-            EBox::Sudo::root($script);
-        } catch EBox::Exceptions::Command with {
-            # ignore script errors
-        };
-    }
-}
-
-
 # Class Method: extractBundle
 #
 #      Given the bundle as string data, extract the files to the
@@ -268,6 +216,10 @@ sub _executeBundleScripts
 #          cert - String the certificate path
 #          key - String the private key path
 #          confFile - String the configuration file path
+#          QASources - String path to the QA source list mason template
+#          QAAptPubKey - String path to the QA apt repository public key
+#          QAAptPreferences - String path to the QA preferences file
+#          scripts - Array ref containing the scripts to run after extracting the bundle
 #
 sub extractBundle
 {
@@ -311,7 +263,7 @@ sub extractBundle
             $confFile = $filePath;
         } elsif ( $filePath =~ m:$cn: ) {
             $keyFile = $filePath;
-        } elsif ($filePath =~ /ebox-qa\.list$/) {
+        } elsif ($filePath =~ /ebox-qa\.list\.mas$/) {
             $qaSources = $filePath;
         } elsif ($filePath =~ /ebox-qa\.pub$/) {
             $qaGpg = $filePath;
@@ -321,7 +273,7 @@ sub extractBundle
             push @scripts, $filePath;
         } elsif ( $filePath ne 'cacert.pem' ) {
             $certFile = $filePath;
-        } 
+        }
     }
 
     # Remove everything we created before
@@ -344,8 +296,6 @@ sub extractBundle
     if (defined $qaPreferences) {
         $bundle->{QAAptPreferences} = "$dirPath/$qaPreferences";
     }
-    
-
 
     if (@scripts) {
         # order by number
@@ -355,10 +305,29 @@ sub extractBundle
 
     }
 
-
     return $bundle;
 }
 
+# Method: executeBundle
+#
+#     Perform actions after extracting the bundle
+#
+#     Current actions:
+#
+#        - Set QA updates (QA repository and its preferences)
+#        - Execute bundle scripts (Alert autoconfiguration)
+#
+# Parameters:
+#
+#     What is returned from <extractBundle> procedure
+#
+sub executeBundle
+{
+    my ($self, $params) =  @_;
+
+    $self->_setQAUpdates($params);
+    $self->_executeBundleScripts($params);
+}
 
 # Method: deleteData
 #
@@ -482,56 +451,98 @@ sub _openVPNConnection #(ipaddr, port, protocol)
     }
 }
 
+sub _setQAUpdates
+{
+    my ($self, $params) = @_;
 
-sub setQASources
+    my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
+    foreach my $param (@paramsNeeded) {
+        exists $params->{$param} or
+            return;
+    }
+
+    $self->_setQASources($params->{QASources});
+    $self->_setQAAptPubKey($params->{QAAptPubKey});
+    $self->_setQAAptPreferences($params->{QAAptPreferences});
+
+    my $softwareMod = EBox::Global->modInstance('software');
+    if ($softwareMod) {
+        $softwareMod->setQAUpdates(1);
+    } else {
+        EBox::info('No software module installed QA updates should be done by hand');
+    }
+
+}
+
+
+sub _executeBundleScripts
+{
+    my ($self, $params) = @_;
+
+    if (not exists $params->{scripts}) {
+        return;
+    }
+
+    foreach my $script (@{  $params->{scripts} }) {
+        try {
+            EBox::Sudo::root("chmod u+x '$script'");
+            EBox::Sudo::root($script);
+        } catch EBox::Exceptions::Command with {
+            # ignore script errors
+        };
+    }
+}
+
+# Set the QA source list
+sub _setQASources
 {
     my ($self, $qaFile) = @_;
-    my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
-    EBox::Sudo::root("cp '$qaFile' '$destination'");
+
     my $ubuntuVersion = _ubuntuVersion();
     my $archive = 'ebox-qa-' . $ubuntuVersion;
-    EBox::Sudo::root("sed -i 's/ebox-qa/$archive/' '$destination'");
+    my $repositoryAddr = $self->_repositoryAddr();
+
+    # Perform the mason template manually since it is not stored in stubs directory
+    my $output;
+    my $interp = new HTML::Mason::Interp(out_method => \$output);
+    my $comp   = $interp->make_component(comp_file  => $qaFile);
+    $interp->exec($comp, ( (repositoryIPAddr => $repositoryAddr),
+                           (archive          => $archive)) );
+
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    my $tmpFile = $fh->filename();
+    File::Slurp::write_file($tmpFile, $output);
+    my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
+    EBox::Sudo::root("cp '$tmpFile' '$destination'");
+
 }
 
-
-
+# Get the ubuntu version
 sub _ubuntuVersion
 {
-    my @eboxInfo = `dpkg -s ebox`;
-    foreach my $line (@eboxInfo) {
-        if (not $line =~ m/Version:/) {
-            next;
-        }
-
+    my @releaseInfo = File::Slurp::read_file('/etc/lsb-release');
+    foreach my $line (@releaseInfo) {
+        next unless ($line =~ m/^DISTRIB_CODENAME=/ );
         chomp $line;
-        my ($header, $version) = split ':', $line;
-        $version =~ /^\s*(\d+\.\d+)/;
-        my $versionNumber = $1;
-        if ($versionNumber >= 1.5) {
-            return 'lucid';
-        } else {
-            return 'hardy';
-        }
+        my ($key, $version) = split '=', $line;
+        return $version;
     }
-    
 
-    die 'hardy';
-    return 'hardy';
 }
 
-
-sub setQAAptPubKey
+# Set the QA apt repository public key
+sub _setQAAptPubKey
 {
     my ($self, $keyFile) = @_;
     my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
 #    EBox::debug("apt-key add $keyFile");
-    
+
     EBox::Sudo::root("apt-key add $keyFile");
 }
 
 
 
-sub setQAAptPreferences
+sub _setQAAptPreferences
 {
     my ($self, $preferencesFile) = @_;
 
@@ -564,6 +575,16 @@ sub setQAAptPreferences
 
 
 #     EBox::Sudo::root("cp '$preferencesFile' '$preferences'");
+}
+
+# Get the repository IP address
+sub _repositoryAddr
+{
+    my ($self) = @_;
+
+    my $auth = new EBox::RemoteServices::Auth();
+    my $repoHost = $auth->valueFromBundle('repositoryHost');
+    return $self->_queryServicesNameserver($repoHost, [$auth->valueFromBundle('dnsServer')]);
 }
 
 1;
