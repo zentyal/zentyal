@@ -171,7 +171,7 @@ sub saveConfig
     try {
       my $global = EBox::Global->getInstance();
       my $log = EBox::logger;
-      $log->info("Restarting service for module: " . $self->name);
+      $log->info("Saving config for module: " . $self->name);
       $self->_saveConfig();
     }
     finally {
