@@ -3,6 +3,9 @@ var percent = 0;
 var oldPercent = 0;
 var time = 0;
 
+var ticks = 0;
+var totalTicks = 0;
+	
 // Update the page  
 function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
     var rawResponse = xmlHttp.responseText;
@@ -24,17 +27,21 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
 		 if (('message' in response) && response.message.length > 0 ) {
 			$('currentItem').innerHTML = response.message;
 		}
-	    
+
+    
 		 if ( ('ticks' in response) && (response.ticks >= 0)) {
 			$('ticks').innerHTML = response.ticks;
-			var ticks = response.ticks;
+			ticks = response.ticks;
 		}	    
 		if ( ('totalTicks' in response) && (response.totalTicks > 0)) {
 			$('totalTicks').innerHTML = response.totalTicks;
-			var totalTicks = response.totalTicks;
+			totalTicks = response.totalTicks;
 		}
-		percent = Math.ceil((ticks/totalTicks)*100);
-		ph.setValue(percent);
+
+        if ( totalTicks > 0 ) {
+    		percent = Math.ceil((ticks/totalTicks)*100);
+		    ph.setValue(percent);
+        }
 	}
     
        else if (response.state == 'done') {
