@@ -51,7 +51,7 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 			if(v < 0)
 				v = 0;
 			this.value = v;
-			document.getElementById('progressValue').width= v+"%";
+			$('progressValue').morph('width: ' + v + '%', { duration: 0.5 });
 			document.getElementById('percentValue').innerHTML= v+"%";
 		}	 
 		
@@ -117,9 +117,11 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 <style>
 	
 .percent{
-	position:fixed;
+	position:relative;
+    float: left;
+    line-height: 20px;
 	width:780px;
-	height:400px;
+	height:20px;
 	margin-left:380px;
 	z-index : 100;
 	filter: alpha(opacity=90); 
@@ -138,11 +140,10 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 <br/>
 <div id="progress_bar">
 	<div class="percent" id="percentValue"></div>
-	<table id="progress" style="border-spacing: 0pt;" height="15px" width="780px"> 
-		<tr> <td style="background-color: #bbdf39 " id="progressValue" width="0%"></td> <td style="background-color: #e4f88e" id="progressValueBg" width="100%"></td> </tr>
-	</table> 
+    <div style="height: 20px; width: 780px; margin: 5px 0; background-color: #e4f88e; -moz-border-radius: 5px; border-radius: 5px">
+        <div id="progressValue" style="height: 20px; width: 0; background-color: #bbdf39; -moz-border-radius: 5px 0 0 5px; border-radius: 5px 0 0 5px"></div>
+    </div>
 </div>
-<br/>
 <br/>
 <span id='ticks'>-</span><% __(' of ') %><span id='totalTicks'>-</span><% ' ' . $itemsLeftMessage %>
 <br/>	
