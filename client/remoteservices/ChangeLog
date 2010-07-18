@@ -5,8 +5,8 @@ HEAD
 	+ Added support for scripts from subscription bundle
 	+ Subscription enables monitor and logs module
 	+ Bundle action occurs now when reloading the bundle (before only
-	when subscribing), adapted to remoteservices version requirement
-	for bundle
+	  when subscribing), adapted to remoteservices version requirement
+	  for bundle
 	+ Adapted to use preferences.d directory for QA's apt configuration
 1.5.2
 	+ Reload bundle while configuring the package and once a week to

@@ -22,7 +22,7 @@ sub runGConf
     my ($self) = @_;
 
     my $rs = $self->{gconfmodule};
-    if (not $rs->eBoxSubscribed) {
+    if (not $rs->eBoxSubscribed()) {
         # not subscibed nothing to do..
         return;
     }
