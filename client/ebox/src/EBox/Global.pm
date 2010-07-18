@@ -415,6 +415,11 @@ sub prepareSaveAllModules
     my $totalTicks = scalar @{$self->modifiedModules('save')}
       + $self->_nScripts(PRESAVE_SUBDIR, POSTSAVE_SUBDIR);
 
+    my $file = '/var/lib/ebox/.first';
+    if ( -f $file ) {
+        $totalTicks += scalar @{$self->modNames};
+    }
+
     return $self->_prepareActionScript('saveAllModules', $totalTicks);
 }
 
@@ -464,6 +469,36 @@ sub saveAllModules
 
         $log->info($msg);
 
+
+        # First instalation modules enable
+        my $file = '/var/lib/ebox/.first';
+        if ( -f $file ) {
+            my $mgr = EBox::ServiceManager->new();
+            my @modules = @{$mgr->_dependencyTree()};
+
+            foreach my $name (@modules) {
+                $progress->setMessage(__x("Enabling {modName} module",
+                                          modName => $name));
+                $progress->notifyTick();
+
+                next if ($name eq 'dhcp'); # Skip dhcp module
+                next if ($name eq 'usersandgroups'); # Skip usersandgroups
+
+                my $module = $self->modInstance($name);
+                $module->setConfigured(1);
+                $module->enableService(1);
+                try {
+                    $module->enableActions();
+                } otherwise {
+                    my ($ex) = @_;
+                    my $err = $ex->text();
+                    $module->setConfigured(0);
+                    $module->enableService(0);
+                    EBox::debug("Failed to enable module $name: $err");
+                };
+            }
+        }
+
         my $apache = 0;
         foreach my $name (@mods) {
                 if ($name eq 'apache') {
@@ -491,7 +526,6 @@ sub saveAllModules
         }
 
         # Delete first time installation file (wizard)
-        my $file = '/var/lib/ebox/.first';
         if ( -f $file ) {
             unlink $file;
         }
