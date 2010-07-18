@@ -15,8 +15,3 @@ rm -rf $CD_EBOX_DIR/*
 
 cp -r $DATA_DIR/* $CD_EBOX_DIR/
 find $CD_EBOX_DIR/ -type d -name .svn -exec rm -fr \{\} \; 2>&1 >/dev/null
-
-# generate mo files
-pushd $DATA_DIR/package-installer/po
-./generate-mo-files.sh $CD_EBOX_DIR/
-popd

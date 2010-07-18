@@ -4,19 +4,29 @@
 USER_NAME=eboxadmin
 DIR=/home/$USER_NAME
 
+/etc/init.d/slim stop
+
 sed -i "s/#auto_login.*/auto_login\tyes/" /etc/slim.conf
 sed -i "s/#default_user.*/default_user\t$USER_NAME/" /etc/slim.conf
 
-cp /tmp/ebox/ebox-xsession $DIR/.xsession
+cp /var/tmp/ebox/ebox-xsession $DIR/.xsession
 chmod +x $DIR/.xsession
 #FIXME: eboxadmin group??
 chown $USER_NAME:eboxadmin $DIR/.xsession
 
 mkdir $DIR/.mozilla
-cp -r /tmp/ebox/ebox-firefox-profile $DIR/.mozilla/firefox
-cp /tmp/ebox/ebox-blackbox-menu /etc/X11/blackbox/blackbox-menu
+cp -r /var/tmp/ebox/ebox-firefox-profile $DIR/.mozilla/firefox
+cp /var/tmp/ebox/ebox-blackbox-menu /etc/X11/blackbox/blackbox-menu
 chown -R $USER_NAME:eboxadmin $DIR/.mozilla
 chmod -R +w $DIR/.mozilla
 
-cp /tmp/ebox/ebox-cert-override $DIR/
-chown $USER_NAME: $DIR/ebox-cert-override
+PROFILE=$DIR/.mozilla/firefox/ebox.default
+CERT=/var/lib/ebox/conf/ssl/ssl.cert
+ID='eBox Server'
+certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
+/var/tmp/ebox/ebox-cert-override > $PROFILE/cert_override.txt
+
+mv /var/tmp/rc.local /etc/rc.local
+rm -rf /var/tmp/ebox
+
+/etc/init.d/slim start

@@ -1,16 +1,5 @@
 #!/bin/bash
 
-PROFILE=~/.mozilla/firefox/ebox.default
-
-if ! [ -f $PROFILE/cert_override.txt ]
-then
-    CERT=/var/lib/ebox/conf/ssl/ssl.cert
-    ID='eBox Server'
-    certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
-    ~/ebox-cert-override > $PROFILE/cert_override.txt
-    rm ~/ebox-cert-override
-fi
-
 firefox https://localhost &
 
 xset s off

@@ -77,9 +77,9 @@ update_if_network # apt-get update if we are connected to the internet
 
 gen_locales
 
-/tmp/ebox/ebox-x11-setup
-
-rm -rf /tmp/ebox
+mv /tmp/ebox /var/tmp
+mv /etc/rc.local /var/tmp/ebox
+mv /var/tmp/ebox/ebox-x11-setup /etc/rc.local
 
 sync
 
