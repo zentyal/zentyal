@@ -11,9 +11,10 @@ use EBox::Util::SystemKernel;
 </%init>
 
 <script>
+var check = new Array();
+
 % my $i = 0;
 % if ($action eq 'install') {
-    var check = new Array();
 %   foreach my $pkg (@actpackages) {
 %       if ( $pkg eq 'ebox-samba' ) {
             check[<% $i %>] = 'chksamba';
@@ -61,11 +62,11 @@ use EBox::Util::SystemKernel;
                     inputPkg.setAttribute('type', 'hidden');
                     inputPkg.setAttribute('name', 'pkg-'+pkgs[p]);
                     inputPkg.setAttribute('value', 'yes');
-                    document.formPkg.appendChild(inputPkg);
+                    $('formPkg').appendChild(inputPkg);
                 }
             }
         }
-        document.formPkg.submit();
+        $('formPkg').submit();
     }
 </script>
 
@@ -119,13 +120,14 @@ use EBox::Util::SystemKernel;
 </div>
 
 
-<form name="formPkg" action='InstallPkgs' method='POST' >
+<form name="formPkg" id="formPkg" action='InstallPkgs' method='POST' >
 %   foreach my $pkg (@packages) {
 <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
 %   }
 <input type='hidden' name='go' value='yes'/>
-<input class='inputButton' onclick='sendForm()' type='submit' name='ebox-<% $action %>' value="<% __('Ok') %>">
-<input class='inputButton' type='submit' name='cancel' value="<% __('Cancel') %>">
+<input type='hidden' name='ebox-<% $action %>' value="1" />
+<input class='inputButton' onclick='sendForm()' type='button' value="<% __('Ok') %>" />
+<input class='inputButton' type='submit' name='cancel' value="<% __('Cancel') %>" />
 </form>
 <br/>
 <br/>
