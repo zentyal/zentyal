@@ -51,7 +51,11 @@ sub _modulesWizardPages
     my $global = EBox::Global->getInstance();
     my @pages = ();
 
-    foreach my $module ( @{$global->modInstances()} ) {
+    my $mgr = EBox::ServiceManager->new();
+    my @modules = @{$mgr->_dependencyTree()};
+
+    foreach my $name ( @modules ) {
+        my $module = $global->modInstance($name);
         push (@pages, @{$module->wizardPages()});
     }
 
