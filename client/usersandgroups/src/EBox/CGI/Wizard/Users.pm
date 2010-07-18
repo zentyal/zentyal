@@ -46,7 +46,7 @@ sub _processWizard
         my $mgr = EBox::ServiceManager->new();
         my $global = EBox::Global->getInstance();
 
-        my $module = $global->modInstance('usersandgroups');
+        my $module = $global->modInstance('users');
         $module->setConfigured(1);
         $module->enableService(1);
         try {
@@ -56,7 +56,7 @@ sub _processWizard
             my $err = $ex->text();
             $module->setConfigured(0);
             $module->enableService(0);
-            EBox::debug("Failed to enable module $name: $err");
+            EBox::debug("Failed to enable module usersandgroups: $err");
         };
     }
 }

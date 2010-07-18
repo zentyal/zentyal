@@ -482,7 +482,7 @@ sub saveAllModules
                 $progress->notifyTick();
 
                 next if ($name eq 'dhcp'); # Skip dhcp module
-                next if ($name eq 'usersandgroups'); # Skip usersandgroups
+                next if ($name eq 'users'); # Skip usersandgroups
 
                 my $module = $self->modInstance($name);
                 $module->setConfigured(1);
