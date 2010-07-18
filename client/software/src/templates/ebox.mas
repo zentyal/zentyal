@@ -99,6 +99,7 @@ my $upgpkgs = 0;
 	-moz-opacity: 0.5;
 	KhtmlOpacity: .5;
 	opacity: .5;
+    cursor: pointer;
 }
 
 
@@ -161,9 +162,10 @@ var pkgTable = new Array(
 % unless (-f $file) {	
 <& /software/updateNote.mas, status => $updateStatus, qa => $QAUpdates &>
 % }
+<div style="padding: 15px 0">
 <div id="basic">
-    <a href='#' onclick="Effect.BlindUp('basic');Effect.BlindDown('advanced')"><%__('View advanced mode')%></a>
-	<div>
+    <a href='#' onclick="Effect.Fade('basic', { duration: 0.3 }); Effect.Appear('advanced', { duration: 0.3, queue: 'end' })"><%__('View advanced mode')%></a>
+	<div style="margin-top: 10px">
 		<div id="Gateway_head">
 			<div class="image" id="Gateway_image" onclick="tick('Gateway')">
 				<img src="/data/software/images/icon_gw.png" alt="eBox Gateway"/>
@@ -476,8 +478,8 @@ var pkgTable = new Array(
 </div>
 
 <div id="advanced">
-	<a href='#' onclick="Effect.BlindUp('advanced');Effect.BlindDown('basic')"><%__('View basic mode')%></a>	
-	<div id="tabs">
+	<a href='#' onclick="Effect.Fade('advanced', { duration: 0.3 }); Effect.Appear('basic', { duration: 0.3, queue: 'end' })"><%__('View basic mode')%></a>	
+	<div style="margin-top: 10px" id="tabs">
 		<ul id="tabMenu_ConfigurationComposite" class="tabs">
 			<li>
 			    <a id="installTab" href="#" class="current" onclick="tab1()"> Install </a>
@@ -525,6 +527,7 @@ var pkgTable = new Array(
 		</div>
 		<form name="formPkg" action='InstallPkgs' method='post' style="display: none"></form>
 	</div>
+</div>
 </div>
 
 <script>
