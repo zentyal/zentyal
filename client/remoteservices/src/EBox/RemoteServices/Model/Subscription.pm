@@ -116,7 +116,6 @@ sub setTypedRow
             # Desubscribing
             EBox::RemoteServices::Backup->new()->cleanDaemons();
             $subsServ->deleteData($paramsRef->{eboxCommonName}->value());
-            $self->_removeQAUpdates();
         } else {
             # Subscribing
             my $subsData = $subsServ->subscribeEBox($paramsRef->{eboxCommonName}->value());
@@ -168,22 +167,6 @@ sub setTypedRow
 
 }
 
-
-
-sub _removeQAUpdates
-{
-    my ($self) = @_;
-
-    $self->_removeAptQASources();
-    $self->_removeAptPubKey();
-    $self->_removeAptQAPreferences();
-
-    my $softwareMod = EBox::Global->modInstance('software');
-    if ($softwareMod) {
-        $softwareMod->setQAUpdates(0);
-    }
-}
-
 # Method: eBoxSubscribed
 #
 #      Check if the current eBox is subscribed or not
@@ -230,36 +213,6 @@ sub unsubscribe
     }
 
 }
-
-sub _removeAptQASources
-{
-    my $path = EBox::RemoteServices::Configuration::aptQASourcePath();
-    EBox::Sudo::root("rm -f '$path'");
-}
-
-sub _removeAptPubKey
-{
-    my $id = 'ebox-qa';
-    try {
-        EBox::Sudo::root("apt-key del $id");
-    } otherwise {
-        EBox::error("Removal of apt-key $id failed. Check it and if it exists remove it manually");
-    }
-
-}
-
-sub _removeAptQAPreferences
-{
-    my $path = '/etc/apt/preferences';
-    my $back = $path . 'ebox.bak';
-    EBox::Sudo::root("rm -f '$path'");
-    if (-e $back) {
-        EBox::Sudo::root("mv '$back' '$path'");
-    }
-}
-
-
-
 
 # Method: viewCustomizer
 #

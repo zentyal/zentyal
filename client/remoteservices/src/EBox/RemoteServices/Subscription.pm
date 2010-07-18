@@ -192,7 +192,7 @@ sub subscribeEBox
        );
 
 
-    $self->executeBundle($params);
+    $self->executeBundle($params, $confKeys);
 
     $params->{new} = $new;
     return $params;
@@ -319,14 +319,15 @@ sub extractBundle
 #
 # Parameters:
 #
-#     What is returned from <extractBundle> procedure
+#     params - Hash ref What is returned from <extractBundle> procedure
+#     confKeys - Hash ref the configuration keys stored in client configuration
 #
 sub executeBundle
 {
-    my ($self, $params) =  @_;
+    my ($self, $params, $confKeys) =  @_;
 
-    $self->_setQAUpdates($params);
-    $self->_executeBundleScripts($params);
+    $self->_setQAUpdates($params, $confKeys);
+    $self->_executeBundleScripts($params, $confKeys);
 }
 
 # Method: deleteData
@@ -369,6 +370,13 @@ sub deleteData
     }
     closedir($dir);
     rmdir($dirPath);
+
+    # Remove QA updates configuration
+    $self->_removeQAUpdates();
+    # Remove alert autoconfiguration
+    # FIXME: Do by alertAutoconfiguration script?
+    my $events = EBox::Global->modInstance('events');
+    $events->unset('alert_autoconfiguration');
 
 }
 
@@ -453,7 +461,7 @@ sub _openVPNConnection #(ipaddr, port, protocol)
 
 sub _setQAUpdates
 {
-    my ($self, $params) = @_;
+    my ($self, $params, $confKeys) = @_;
 
     my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
     foreach my $param (@paramsNeeded) {
@@ -461,13 +469,15 @@ sub _setQAUpdates
             return;
     }
 
-    $self->_setQASources($params->{QASources});
+    $self->_setQASources($params->{QASources}, $confKeys);
     $self->_setQAAptPubKey($params->{QAAptPubKey});
     $self->_setQAAptPreferences($params->{QAAptPreferences});
 
     my $softwareMod = EBox::Global->modInstance('software');
     if ($softwareMod) {
-        $softwareMod->setQAUpdates(1);
+        if ( $softwareMod->can('setQAUpdates') ) {
+            $softwareMod->setQAUpdates(1);
+        }
     } else {
         EBox::info('No software module installed QA updates should be done by hand');
     }
@@ -496,11 +506,11 @@ sub _executeBundleScripts
 # Set the QA source list
 sub _setQASources
 {
-    my ($self, $qaFile) = @_;
+    my ($self, $qaFile, $confKeys) = @_;
 
     my $ubuntuVersion = _ubuntuVersion();
     my $archive = 'ebox-qa-' . $ubuntuVersion;
-    my $repositoryAddr = $self->_repositoryAddr();
+    my $repositoryAddr = $self->_repositoryAddr($confKeys);
 
     # Perform the mason template manually since it is not stored in stubs directory
     my $output;
@@ -580,11 +590,62 @@ sub _setQAAptPreferences
 # Get the repository IP address
 sub _repositoryAddr
 {
+    my ($self, $confKeys) = @_;
+
+    my $retVal = '';
+    try {
+        $retVal = $self->_queryServicesNameserver($confKeys->{repositoryHost},
+                                                  [$confKeys->{'dnsServer'}]);
+    } catch EBox::Exceptions::External with {
+        $retVal = $confKeys->{repositoryAddress};
+    };
+
+    return $retVal;
+}
+
+# Remove QA updates
+sub _removeQAUpdates
+{
     my ($self) = @_;
 
-    my $auth = new EBox::RemoteServices::Auth();
-    my $repoHost = $auth->valueFromBundle('repositoryHost');
-    return $self->_queryServicesNameserver($repoHost, [$auth->valueFromBundle('dnsServer')]);
+    $self->_removeAptQASources();
+    $self->_removeAptPubKey();
+    $self->_removeAptQAPreferences();
+
+    my $softwareMod = EBox::Global->modInstance('software');
+    if ($softwareMod) {
+        if ( $softwareMod->can('setQAUpdates') ) {
+            $softwareMod->setQAUpdates(0);
+        }
+    }
 }
+
+sub _removeAptQASources
+{
+    my $path = EBox::RemoteServices::Configuration::aptQASourcePath();
+    EBox::Sudo::root("rm -f '$path'");
+}
+
+sub _removeAptPubKey
+{
+    my $id = 'ebox-qa';
+    try {
+        EBox::Sudo::root("apt-key del $id");
+    } otherwise {
+        EBox::error("Removal of apt-key $id failed. Check it and if it exists remove it manually");
+    }
+
+}
+
+sub _removeAptQAPreferences
+{
+    my $path = '/etc/apt/preferences';
+    my $back = $path . 'ebox.bak';
+    EBox::Sudo::root("rm -f '$path'");
+    if (-e $back) {
+        EBox::Sudo::root("mv '$back' '$path'");
+    }
+}
+
 
 1;
