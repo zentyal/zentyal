@@ -1,7 +1,6 @@
 #!/bin/sh
 
-#USER_NAME=$1
-USER_NAME=eboxadmin
+USER_NAME=`getent passwd uid 1000 | cut -d: -f1`
 DIR=/home/$USER_NAME
 
 /etc/init.d/slim stop
@@ -11,13 +10,12 @@ sed -i "s/#default_user.*/default_user\t$USER_NAME/" /etc/slim.conf
 
 cp /var/tmp/ebox/ebox-xsession $DIR/.xsession
 chmod +x $DIR/.xsession
-#FIXME: eboxadmin group??
-chown $USER_NAME:eboxadmin $DIR/.xsession
+chown $USER_NAME:$USER_NAME $DIR/.xsession
 
 mkdir $DIR/.mozilla
 cp -r /var/tmp/ebox/ebox-firefox-profile $DIR/.mozilla/firefox
 cp /var/tmp/ebox/ebox-blackbox-menu /etc/X11/blackbox/blackbox-menu
-chown -R $USER_NAME:eboxadmin $DIR/.mozilla
+chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
 chmod -R +w $DIR/.mozilla
 
 PROFILE=$DIR/.mozilla/firefox/ebox.default
