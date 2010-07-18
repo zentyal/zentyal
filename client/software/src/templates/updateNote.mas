@@ -1,11 +1,12 @@
 <%args>
 $status
+$qa
 </%args>
 <%init>
 my $msg = "";
 my $class = "note";
 
-if (EBox::Software->isQA()) {
+if ($qa) {
     $msg = __('As you are enjoying a Commercial Server Subscription the updates are Quality Assured by the eBox Development Team.');
     $class = 'note';
 } else {

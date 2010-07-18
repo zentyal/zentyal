@@ -10,7 +10,7 @@ my ($hour, $minutes) = split ':', $automaticTime;
 
 </%init>
 % if ($QAUpdates) {
-<div class='warning'>
+<div class='note'>
 <% __('This eBox is configured to use automatic QA updates') %>
 </div>
 % }

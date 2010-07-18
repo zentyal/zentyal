@@ -50,8 +50,9 @@ sub _process($) {
     my $self = shift;
     my $software = EBox::Global->modInstance('software');
     my @array = ();
-    push(@array, 'eboxpkgs' => $software->listEBoxPkgs());
+    push(@array, 'eboxpkgs'     => $software->listEBoxPkgs());
     push(@array, 'updateStatus' => $software->updateStatus(1));
+    push(@array, 'QAUpdates'    => $software->QAUpdates());
     $self->{params} = \@array;
 }
 

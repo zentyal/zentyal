@@ -1,8 +1,7 @@
-<!-- vim: ts=4 sw=4 filetype=mason
--->
 <%args>
     @eboxpkgs => ()
     $updateStatus
+    $QAUpdates
 </%args>
 <%init>
 use EBox::Gettext;
@@ -160,7 +159,7 @@ var pkgTable = new Array(
 
 % my $file = '/var/lib/ebox/.first';
 % unless (-f $file) {	
-<& /software/updateNote.mas, status => $updateStatus &>
+<& /software/updateNote.mas, status => $updateStatus, qa => $QAUpdates &>
 % }
 <div id="basic">
     <a href='#' onclick="Effect.BlindUp('basic');Effect.BlindDown('advanced')"><%__('View advanced mode')%></a>

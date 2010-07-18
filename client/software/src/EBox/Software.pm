@@ -30,6 +30,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
+use EBox::Module::Base;
 use EBox::ProgressIndicator;
 use EBox::Sudo qw( :all );
 
@@ -437,6 +438,9 @@ sub _packageDepends
 #
 #	Returns if the automatic update mode is enabled
 #
+#       Check if there are automatic updates from QA, if so, then
+#       return always true.
+#
 # Returns:
 #
 #	boolean - true if it's enabled, otherwise false
@@ -444,7 +448,7 @@ sub getAutomaticUpdates
 {
     my ($self) = @_;
 
-    if ($self->QAUpdates) {
+    if ($self->QAUpdates()) {
         my $alwaysAutomatic = EBox::Config::configkey('qa_updates_always_automatic');
         defined $alwaysAutomatic or $alwaysAutomatic = 'true';
 
@@ -454,23 +458,38 @@ sub getAutomaticUpdates
 
     }
 
-
     my $auto = $self->get_bool('automatic');
     return $auto;
 }
 
 # Method: setAutomaticUpdates
 #
-#	Sets the automatic update mode. If it's enabled the system will
+#	Set the automatic update mode. If it's enabled the system will
 #	fetch all the updates silently and automatically.
+#
+#       If the software is QA updated, then you cannot change this parameter.
 #
 # Parameters:
 #
 #	auto  - true to enable it, false to disable it
 sub setAutomaticUpdates # (auto)
 {
-	my ($self, $auto) = @_;
-	$self->set_bool('automatic', $auto);
+    my ($self, $auto) = @_;
+
+    if ( $self->QAUpdates() ) {
+        my $key = 'qa_updates_always_automatic';
+        my $alwaysAutomatic = EBox::Config::configkey($key);
+        defined $alwaysAutomatic or $alwaysAutomatic = 'true';
+
+        if (lc($alwaysAutomatic) eq 'true') {
+            throw EBox::Exceptions::External(
+                __x('You cannot modify the automatic update using QA updates from Web UI. '
+                      . 'To disable automatic updates, edit {conf} and disable {key} key.',
+                    conf => EBox::Config::etc() . '78remoteservices.conf',
+                    key  => $key));
+        }
+    }
+    $self->set_bool('automatic', $auto);
 }
 
 sub setAutomaticUpdatesTime
@@ -663,19 +682,6 @@ sub _getUpgradablePkgs
 	return \@list;
 }
 
-sub isQA {
-	my $cache = AptPkg::Cache->new;
-	my @files = $cache->files('ebox');
-
-	foreach my $file (@files) {
-		if ($file->{Archive} =~ /.*ebox-qa.*|.*qa.ebox-platform.com.*/) {
-			EBox::info('isQA: ' .   $file->{Archive});
-			return 1;
-		}
-	}
-	return 0;
-}
-
 # Check if the module is locked or not
 sub _isModLocked
 {
@@ -773,7 +779,7 @@ sub _setAptPreferences
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
         if ($existsOld) {
             EBox::Sudo::root("cp '$preferencesBak' '$preferences'");
-            # remove old backup to avoid to overwritte user's modifications
+            # remove old backup to avoid to overwrite user's modifications
             EBox::Sudo::root("rm -f '$preferencesBak' ");
         }
     }
@@ -790,14 +796,17 @@ sub _installCronFile
     my $time = $self->automaticUpdatesTime();
     my ($hour, $minute) = split ':', $time;
 
-    $self->writeConfFile(
-                         CRON_FILE,
-                         'software/software.cron',
-                         [
-                          hour => $hour,
-                          minute => $minute,
-                         ]
-                        );
+    # We cannot call writeConfFile since we are not
+    # EBox::Module::Service, we are not updating the digests
+    # but ebox-software script is not from other package
+    EBox::Module::Base::writeConfFileNoCheck(
+        CRON_FILE,
+        'software/software.cron',
+        [
+            hour => $hour,
+            minute => $minute,
+        ]
+       );
 }
 
 
