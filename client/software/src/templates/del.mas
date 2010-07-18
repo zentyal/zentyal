@@ -14,6 +14,11 @@ use EBox::Util::SystemKernel;
 var check = new Array();
 
 % my $i = 0;
+% my $packages_auto = '';
+% my $file = '/var/lib/ebox/.first';
+% if (-f $file) {
+%   $packages_auto = EBox::Config::configkey('auto_select_packages');
+% }
 % if ($action eq 'install') {
 %   foreach my $pkg (@actpackages) {
 %       if ( $pkg eq 'ebox-samba' ) {
@@ -122,12 +127,18 @@ var check = new Array();
 
 <form name="formPkg" id="formPkg" action='InstallPkgs' method='POST' >
 %   foreach my $pkg (@packages) {
-<input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
+    <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
 %   }
-<input type='hidden' name='go' value='yes'/>
-<input type='hidden' name='ebox-<% $action %>' value="1" />
-<input class='inputButton' onclick='sendForm()' type='button' value="<% __('Ok') %>" />
-<input class='inputButton' type='submit' name='cancel' value="<% __('Cancel') %>" />
+%   if ($packages_auto) {
+%       my @pkg_auto = split(' ', $packages_auto);
+%       for my $pkg (@pkg_auto) {
+    <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
+%       }    
+%   }
+    <input type='hidden' name='go' value='yes'/>
+    <input type='hidden' name='ebox-<% $action %>' value="1" />
+    <input class='inputButton' onclick='sendForm()' type='button' value="<% __('Ok') %>" />
+    <input class='inputButton' type='submit' name='cancel' value="<% __('Cancel') %>" />
 </form>
 <br/>
 <br/>
