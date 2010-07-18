@@ -59,7 +59,7 @@ use EBox::Util::SystemKernel;
                 for(var p = 0; p < pkgs.length; p++) {
                     var inputPkg = document.createElement('input');
                     inputPkg.setAttribute('type', 'hidden');
-                    inputPkg.setAttribute('name', 'pkg-'+pkgs[i]);
+                    inputPkg.setAttribute('name', 'pkg-'+pkgs[p]);
                     inputPkg.setAttribute('value', 'yes');
                     document.formPkg.appendChild(inputPkg);
                 }
@@ -69,19 +69,53 @@ use EBox::Util::SystemKernel;
     }
 </script>
 
+<style>
+#row0{
+   width: 270px;   
+   float:right;
+}
+
+#row1{
+    padding: 4 4 4 4px;
+    margin-right: 270px;
+} 
+
+
+</style>
+
+
 <div class="warning">
 % if ($action eq 'install') {
 <% __('The following packages will be installed') %>:
 % } else {
 <% __('The following packages will be removed') %>:
 % }
-<table>
-%   foreach my $pkg (@actpackages) {
-            <tr class='border'>
-                <td><% $pkg %></td>
-            </tr>
-%   }
-</table>
+
+%       my $r = 0;
+%       my $row0 = '';
+%       my $row1 = '';
+%       foreach my $pkg (@actpackages) {
+%           if ($r) {
+%               $row0 .= "       <tr class='border'><td>$pkg</td></tr>\n";
+%               $r = 0;
+%           } else {
+%               $row1 .= "       <tr class='border'><td>$pkg</td></tr>\n"; 
+%               $r = 1;
+%           }
+%       }
+
+    <div>
+        <div id='row0'>
+        <table>
+            <% $row0 %>
+        </table>
+        </div>
+        <div id='row1'>
+        <table>
+            <% $row1 %>
+        </table>
+        </div>
+    </div>
 </div>
 
 
@@ -101,7 +135,7 @@ use EBox::Util::SystemKernel;
 <h3><% __('You may want to install also the following recommended packages:') %></h3>
 %       foreach my $pkg (@actpackages) {
 %           if ( $pkg eq 'ebox-trafficshaping' ) {
-    <input type='checkbox' id='chkl7protocols' name='ebox-l7-protocols'><% __('Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)') %><br/>
+    <input type='checkbox' id='chkl7protocols' name='pkg_ebox-l7-protocols'><% __('Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)') %><br/>
 %           }
 %           if ( $pkg eq 'ebox-samba' ) {
     <input type='checkbox' id='chksamba' name='pkg_samba-vscan'><% __('Virus scanning for File Sharing (ebox-antivirus and samba-vscan)') %><br/>

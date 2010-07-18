@@ -118,9 +118,9 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 	
 .percent{
 	position:fixed;
-	width:400px;
+	width:780px;
 	height:400px;
-	margin-left:190px;
+	margin-left:380px;
 	z-index : 100;
 	filter: alpha(opacity=90); 
 	-moz-opacity: 0.9;
@@ -138,7 +138,7 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 <br/>
 <div id="progress_bar">
 	<div class="percent" id="percentValue"></div>
-	<table id="progress" style="border-spacing: 0pt;" height="15px" width="400px"> 
+	<table id="progress" style="border-spacing: 0pt;" height="15px" width="780px"> 
 		<tr> <td style="background-color: #bbdf39 " id="progressValue" width="0%"></td> <td style="background-color: #e4f88e" id="progressValueBg" width="100%"></td> </tr>
 	</table> 
 </div>

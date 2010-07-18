@@ -556,12 +556,14 @@ var pkgTable = new Array(
 			insTable[insTable.length] = obj;
 		}else{
 			if(pkgTable[i]['Removable'] == "1"){
-				obj = new Object();
-				obj['Component'] = pkgTable[i]['Component'];		
-				obj['Installed Version'] = pkgTable[i]['Latest Version'];
-				obj['Select'] = "<center><input type='checkbox' id="+'del_'+pkgTable[i]['Name']+"></center>";
-				delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
-				delTable[delTable.length] = obj;
+                if (pkgTable[i]['Name'] != 'ebox-software'){
+                    obj = new Object();
+                    obj['Component'] = pkgTable[i]['Component'];		
+                    obj['Installed Version'] = pkgTable[i]['Latest Version'];
+                    obj['Select'] = "<center><input type='checkbox' id="+'del_'+pkgTable[i]['Name']+"></center>";
+                    delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
+                    delTable[delTable.length] = obj;
+                }    
 			}
 			if((pkgTable[i]['Latest Version'] != "")&&(pkgTable[i]['Latest Version'] != pkgTable[i]['Installed Version'])){
 				obj = new Object();
