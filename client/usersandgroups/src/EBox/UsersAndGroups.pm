@@ -60,10 +60,11 @@ use constant SYSMINUID      => 1900;
 use constant SYSMINGID      => 1900;
 use constant MINUID         => 2000;
 use constant MINGID         => 2000;
-use constant HOMEPATH       => '/nonexistent';
+use constant HOMEPATH       => '/home';
 use constant MAXUSERLENGTH  => 32;
 use constant MAXGROUPLENGTH => 32;
 use constant MAXPWDLENGTH   => 512;
+use constant LIBNSSLDAPFILE => '/etc/ldap.conf';
 use constant SECRETFILE     => '/etc/ldap.secret';
 use constant LDAPCONFDIR    => '/etc/ldap/';
 use constant DEFAULTGROUP   => '__USERS__';
@@ -71,6 +72,8 @@ use constant CONFLDIF       => '/etc/ldap/eboxldap.ldif';
 use constant CA_DIR         => EBox::Config::conf() . 'ssl-ca/';
 use constant SSL_DIR        => EBox::Config::conf() . 'ssl/';
 use constant CERT           => SSL_DIR . 'master.cert';
+use constant DEFAULT_SHELL  => '/bin/false';
+use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 
 sub _create
 {
@@ -90,47 +93,61 @@ sub _create
 #
 sub actions
 {
+    my ($self) = @_;
+
     my $mode = mode();
+    my @actions;
 
     if ($mode eq 'master') {
-        return [
+        push(@actions,
                 {
-                 'action' => __('Your openLDAP database will be populated with some basic organizational units'),
-                 'reason' => __('eBox needs this organizational units to add users and groups into them'),
+                 'action' => __('Your LDAP database will be populated with some basic organizational units'),
+                 'reason' => __('eBox needs this organizational units to add users and groups into them.'),
                  'module' => 'users'
-            },
-           {
-            'action' => __(q{Create directories for slave's journals}),
-            'reason' => __(q{eBox needs the directories to record pending slave's actions}),
-            'module' => 'users'
-            }
-        ];
-    } elsif ($mode eq 'slave') {
-        my @actions = (
+                },
                 {
-                 'action' => __('Your eBox will be registered as a slave in the eBox master specified'),
-                 'reason' => __('This eBox needs to have remote access to the users in the eBox master'),
-                 'module' => 'users'
-            }
-        );
-        if ( -f '/etc/init.d/apparmor' ) {
-            push (@actions, {
-               'action' => __('Apparmor profile will be disabled'),
-               'reason' => __('It is not ready to work with more than one slapd'),
-               'module' => 'users'
-            });
-        }
-        return \@actions;
-    } elsif ($mode eq 'ad-slave') {
-        return [
-                {
-                 'action' => __('Install /etc/cron.d/ebox-ad-sync.'),
-                 'reason' => __('eBox will run a script each 5 minutes to sync with Windows AD.'),
+                 'action' => __('Create directories for slave journals'),
+                 'reason' => __('eBox needs the directories to record pending slave actions.'),
                  'module' => 'users'
                 }
-        ];
+        );
+    } elsif ($mode eq 'slave') {
+        push(@actions,
+                {
+                 'action' => __('Your eBox will be registered as a slave in the eBox master specified'),
+                 'reason' => __('This eBox needs to have remote access to the users in the eBox master.'),
+                 'module' => 'users'
+                }
+        );
+        if ( -f '/etc/init.d/apparmor' ) {
+            push(@actions,
+                    {
+                     'action' => __('Apparmor profile will be disabled'),
+                     'reason' => __('It is not ready to work with more than one slapd.'),
+                     'module' => 'users'
+                    }
+            );
+        }
+    } elsif ($mode eq 'ad-slave') {
+        push(@actions,
+                {
+                 'action' => __('Install /etc/cron.d/ebox-ad-sync.'),
+                 'reason' => __('eBox will run a script every 5 minutes to sync with Windows AD.'),
+                 'module' => 'users'
+                }
+        );
 
     }
+    if ($self->model('PAM')->enable_pamValue()) {
+        push(@actions,
+                {
+                 'action' => __('Configure PAM.'),
+                 'reason' => __('eBox will give LDAP users system account.'),
+                 'module' => 'users'
+                }
+        );
+    }
+    return \@actions;
 }
 
 # Method: usedFiles
@@ -139,25 +156,40 @@ sub actions
 #
 sub usedFiles
 {
+    my @files = ();
     my $mode = mode();
 
+    push(@files,
+            {
+             'file' => '/etc/nsswitch.conf',
+             'reason' => __('To make NSS use LDAP resolution for user and group '.
+                 'accounts. Needed for Samba PDC configuration.'),
+             'module' => 'samba'
+            },
+            {
+             'file' => LIBNSSLDAPFILE,
+             'reason' => __('To let NSS know how to access LDAP accounts.'),
+             'module' => 'samba'
+            },
+    );
+
     if ($mode ne 'slave') {
-        return [
+        push(@files,
                 {
                  'file' => '/etc/default/slapd',
-                 'reason' => __('To make openLDAP listen on TCP and Unix sockets'),
+                 'reason' => __('To make LDAP listen on TCP and Unix sockets.'),
                  'module' => 'users'
                 },
                 {
-                    'file' => '/etc/ldap.secret',
+                    'file' => SECRETFILE,
                     'reason' => __('To copy LDAP admin password generated by ' .
-                        ' eBox and allow other modules to access LDAP'),
+                        'eBox and allow other modules to access LDAP.'),
                     'module' => 'users'
                 },
-        ];
-    } else {
-        return [];
+        );
     }
+    
+    return \@files;
 }
 
 # Method: enableActions
@@ -184,6 +216,7 @@ sub enableActions
 
         $self->performLDAPActions();
     }
+    root(EBox::Config::share() . '/ebox-usersandgroups/ebox-usersandgroups-enable');
 }
 
 
@@ -229,6 +262,21 @@ sub _setConf
         my $cronFile = EBox::Config::share() . '/ebox-usersandgroups/ebox-ad-sync.cron';
         EBox::Sudo::root("install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
     }
+
+    my $ldapconf = $ldap->ldapConf();
+    my @array = ();
+    push(@array, 'basedc'    => $ldapconf->{'dn'});
+    push(@array, 'ldap'     => $ldapconf->{'ldapi'});
+    push(@array, 'binddn'     => $ldapconf->{'rootdn'});
+    push(@array, 'bindpw'    => $ldap->getPassword());
+    push(@array, 'usersdn'   => $self->usersDn);
+    push(@array, 'groupsdn'  => $self->groupsDn);
+    push(@array, 'computersdn' => 'ou=Computers,' . $ldapconf->{'dn'});
+
+    $self->writeConfFile(LIBNSSLDAPFILE, "usersandgroups/ldap.conf.mas",
+            \@array);
+
+    $self->_setupNSSPAM();
 }
 
 # Method: _daemons
@@ -319,9 +367,10 @@ sub modelClasses
         'EBox::UsersAndGroups::Model::Groups',
         'EBox::UsersAndGroups::Model::Password',
         'EBox::UsersAndGroups::Model::Slaves',
-        'EBox::UsersAndGroups::Model::LdapInfo',
         'EBox::UsersAndGroups::Model::PendingSync',
         'EBox::UsersAndGroups::Model::ForceSync',
+        'EBox::UsersAndGroups::Model::LdapInfo',
+        'EBox::UsersAndGroups::Model::PAM',
         'EBox::UsersAndGroups::Model::ADSyncSettings',
     ];
 }
@@ -333,6 +382,7 @@ sub modelClasses
 sub compositeClasses
 {
     return [
+        'EBox::UsersAndGroups::Composite::Settings',
         'EBox::UsersAndGroups::Composite::SlaveInfo',
         'EBox::UsersAndGroups::Composite::UserTemplate',
     ];
@@ -648,6 +698,18 @@ sub initUser
 {
     my ($self, $user, $password) = @_;
 
+    my $home = $self->userInfo($user)->{'homeDirectory'};
+    my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
+    my $perms = sprintf("%#o", 00777 &~ $dir_umask);
+
+    unless (-e $home) {
+      my @cmds = ();
+      push(@cmds, "cp -dR --preserve=mode /etc/skel $home");
+      push(@cmds, "chown -R $user:" .DEFAULTGROUP. " $home");
+      push(@cmds, "chmod $perms $home");
+      EBox::Sudo::root(@cmds);
+    }
+
     # Tell modules depending on users and groups
     # a new new user is created
     my @mods = @{$self->_modsLdapUserBase()};
@@ -808,15 +870,14 @@ sub addUser # (user, system)
         'cn'            => $user->{'fullname'},
         'uid'           => $user->{'user'},
         'sn'            => $user->{'surname'},
+        'loginShell'    => _loginShell(),
         'uidNumber'     => $uid,
         'gidNumber'     => $gid,
-        'homeDirectory' => HOMEPATH,
+        'homeDirectory' => _homeDirectory($user->{'user'}),
         'userPassword'  => $passwd,
         'objectclass'   => ['inetOrgPerson', 'posixAccount', 'passwordHolder'],
         @additionalPasswords
     );
-
-
 
     my %args = ( attr => \@attr );
 
@@ -2299,21 +2360,21 @@ sub menu
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
                                               'text' => __('Groups')));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
-                                              'text' => __('Default User Template')));
+                                              'text' => __('User Template')));
         } else {
             $folder->add(new EBox::Menu::Item(
-                        'url' => '/Users/View/Users',
+                        'url' => 'Users/View/Users',
                         'text' => __('Users')));
             $folder->add(new EBox::Menu::Item(
-                        'url' => '/Users/View/Groups',
+                        'url' => 'Users/View/Groups',
                         'text' => __('Groups')));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
-                                              'text' => __('Default User Template')));
+                                              'text' => __('User Template')));
         }
         if (($mode eq 'master') or ($mode eq 'ad-slave')) {
             $folder->add(new EBox::Menu::Item(
-                'url' => '/Users/View/LdapInfo',
-                'text' => __('LDAP Info')));
+                'url' => 'Users/Composite/Settings',
+                'text' => __('LDAP Settings')));
         }
         if ($mode eq 'master') {
             $folder->add(new EBox::Menu::Item(
@@ -2370,13 +2431,9 @@ sub dumpConfig
     }
 }
 
-
 sub restoreConfig
 {
     my ($self, $dir) = @_;
-
-
-
 
     unless (mode() eq 'slave') {
         EBox::Sudo::root('/etc/init.d/slapd stop');
@@ -2979,6 +3036,47 @@ sub baseDn
     my $dn = $entry->get_value($attr);
 
     return $dn;
+}
+
+sub _loginShell
+{
+    my $shell = EBox::Config::configkey('login_shell');
+
+    if (defined($shell)) {
+        return $shell;
+    } else {
+        return DEFAULT_SHELL;
+    }
+}
+
+sub _homeDirectory
+{
+    my ($username) = @_;
+
+    my $home = HOMEPATH . '/' . $username;
+    return $home;
+}
+
+sub _setupNSSPAM
+{
+    my ($self) = @_;
+
+    my @array = ();
+    my $umask = EBox::Config::configkey('dir_umask');
+    push(@array, 'umask' => $umask);
+
+    $self->writeConfFile(AUTHCONFIGTMPL, 'usersandgroups/acc-ebox.mas',
+               \@array);
+
+    EBox::Sudo::root('auth-client-config -t nss -p ebox');
+
+    if ($self->model('PAM')->enable_pamValue()) {
+        EBox::Sudo::root('auth-client-config -t pam-password pam-auth pam-session pam-account -p ebox');
+    } else {
+        try {
+            EBox::Sudo::root('auth-client-config -t pam-password pam-auth pam-session pam-account -p ebox -r');
+        } otherwise {};
+    }
 }
 
 1;

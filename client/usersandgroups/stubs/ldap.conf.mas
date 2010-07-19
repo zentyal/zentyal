@@ -1,17 +1,36 @@
-#
-# LDAP Defaults
-#
+<%args>
+	$basedc
+	$ldap
+	$binddn
+	$bindpw
+	$usersdn
+	$computersdn
+	$groupsdn
+</%args>
 
-# See ldap.conf(5) for details
-# This file should be world readable but not world writable.
+# network or connect timeouts (see bind_timelimit).
+# host 127.0.0.1
 
-#BASE   dc=example,dc=com
-#URI    ldap://ldap.example.com ldap://ldap-master.example.com:666
+# The distinguished name of the search base.
+base <% $basedc %>
 
-#SIZELIMIT      12
-#TIMELIMIT      15
-#DEREF          never
+# Another way to specify your LDAP server is to provide an
+# uri with the server name. This allows to use
+# Unix Domain Sockets to connect to a local LDAP Server.
+uri <% $ldap %>
 
-TLS_CACERT /etc/ldap/ssl/masterldapca.pem
-TLS_REQCERT never
-TLS_CRLCHECK none
+# The LDAP version to use (defaults to 3
+# if supported by client library)
+ldap_version 3
+
+bind_policy soft
+
+# The distinguished name to bind to the server with
+# if the effective user ID is root. Password is
+# stored in /etc/ldap.secret (mode 600)
+rootbinddn <% $binddn %>
+
+nss_base_passwd	        <% $usersdn %>?one
+nss_base_passwd	        <% $computersdn %>?one
+nss_base_shadow	        <% $usersdn %>?one
+nss_base_group		<% $groupsdn %>?one

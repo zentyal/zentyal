@@ -1,5 +1,7 @@
 HEAD
-        + Shares permissions model now states if the ACL is for a user or a group
+	+ Move NSS from ebox-samba to ebox-usersandgroups
+	+ Home directories are under /home now
+	+ Shares permissions model now states if the ACL is for a user or a group
 1.5.5
 	+ Bug fix: set proper permissions on guest shares
 	+ Bug fix: avoid parse of non-word characters in vscan log entries

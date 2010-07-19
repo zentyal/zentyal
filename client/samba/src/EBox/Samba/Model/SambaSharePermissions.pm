@@ -173,7 +173,7 @@ sub viewCustomizer
         ]);
         if ($self->parentRow()->valueByName('guest')) {
             $custom->setPermanentMessage(
-                __('Any access control is disabled if the guest access is allowed')
+                __('Any access control is disabled if the guest access is allowed.')
                );
         } else {
             $custom->setPermanentMessage('');
@@ -248,7 +248,7 @@ sub _table
 sub _permissionsHelp
 {
     return __('Be careful if you grant <i>administrator</i> privileges.' .
-              'User will be able to read and write any file in the share');
+              'User will be able to read and write any file in the share.');
 }
 
 sub filterUserGroupPrintableValue

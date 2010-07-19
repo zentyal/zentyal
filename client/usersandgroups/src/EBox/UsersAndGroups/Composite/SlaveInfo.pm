@@ -71,7 +71,7 @@ sub _description
 
 sub pageTitle
 {
-    return __('Slave status');
+    return __('Slave Status');
 }
 
 sub menuFolder

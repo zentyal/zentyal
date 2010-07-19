@@ -1,4 +1,7 @@
 HEAD
+	+ Move NSS from ebox-samba to ebox-usersandgroups
+	+ Home directories are under /home now
+	+ New options to configure shell and home directory umask
 	+ New setup wizard
 1.5.2
 	+ Bug fix: fixed dbus init for usercorner

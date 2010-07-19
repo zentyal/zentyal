@@ -69,6 +69,12 @@ sub _table
             acquirer => \&_acquirer
         ),
         new EBox::Types::Text (
+            fieldName => 'rootDn',
+            printableName => __('Root DN'),
+            volatile => 1,
+            acquirer => \&_acquirer
+        ),
+        new EBox::Types::Text (
             fieldName => 'password',
             printableName => __('Password'),
             volatile => 1,
@@ -90,8 +96,7 @@ sub _table
 
     my $dataForm = {
         tableName           => 'LdapInfo',
-        printableTableName  => __('LDAP Info'),
-        pageTitle           => __('LDAP Information'),
+        printableTableName  => __('LDAP information'),
         defaultActions      => [ 'editField', 'changeView' ],
         tableDescription    => \@tableDesc,
         modelDomain         => 'Users',
@@ -114,6 +119,8 @@ sub _acquirer
 
     if ($type->fieldName() eq 'dn') {
         return $model->{'users'}->ldap()->dn();
+    } elsif ($type->fieldName() eq 'rootDn') {
+        return $model->{'users'}->ldap()->rootDn();
     } elsif ($type->fieldName() eq 'password') {
         return $model->{'users'}->ldap()->getPassword();
     } elsif ($type->fieldName() eq 'usersDn') {
@@ -146,7 +153,7 @@ sub precondition
 #
 sub preconditionFailMsg
 {
-    return __('You must enable the Users and Groups module to access the LDAP information');
+    return __('You must enable the Users and Groups module to access the LDAP information.');
 }
 
 1;

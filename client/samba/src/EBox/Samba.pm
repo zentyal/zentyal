@@ -52,7 +52,6 @@ use Sys::Hostname;
 
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
 use constant CLAMAVSMBCONFFILE    => '/etc/samba/vscan-clamav.conf';
-use constant LIBNSSLDAPFILE       => '/etc/ldap.conf';
 use constant SMBLDAPTOOLBINDFILE  => '/etc/smbldap-tools/smbldap_bind.conf';
 use constant SMBLDAPTOOLBINDFILE_MASK => '0600';
 use constant SMBLDAPTOOLBINDFILE_UID => '0';
@@ -88,9 +87,9 @@ sub actions
 {
     return [
     {
-        'action' => __('Create Samba home directory for users and groups'),
-        'reason' => __('eBox will create the home directories for Samba ' .
-            'users and groups under /home/samba.'),
+        'action' => __('Create Samba home directory for shares and groups'),
+        'reason' => __('eBox will create the directories for Samba ' .
+            'shares and groups under /home/samba.'),
         'module' => 'samba'
     },
     {
@@ -116,41 +115,30 @@ sub usedFiles
 {
     return [
     {
-        'file' => '/etc/samba/smb.conf',
-            'reason' => __('To set up Samba according to your configuration'),
+        'file' => SMBCONFFILE,
+            'reason' => __('To set up Samba according to your configuration.'),
         'module' => 'samba'
     },
     {
-        'file' => '/etc/smbldap-tools/smbldap.conf',
+        'file' => SMBLDAPTOOLCONFFILE,
         'reason' => __('To set up smbldap-tools according to your' .
-            ' configuration'),
+            ' configuration.'),
         'module' => 'samba'
     },
     {
-        'file' => '/etc/smbldap-tools/smbldap_bind.conf',
+        'file' => SMBLDAPTOOLBINDFILE,
         'reason' => __('To set up smbldap-tools according to your LDAP' .
-            ' configuration'),
-        'module' => 'samba'
-    },
-    {
-        'file' => '/etc/nsswitch.conf',
-        'reason' => __('To make NSS use LDAP resolution for user and group '.
-            'accounts. Needed for Samba PDC configuration.'),
-        'module' => 'samba'
-    },
-    {
-        'file' => '/etc/ldap.conf',
-        'reason' => __('To let NSS know how to access LDAP accounts'),
+            ' configuration.'),
         'module' => 'samba'
     },
     {
         'file' => '/etc/fstab',
-        'reason' => __('To add quota support to /home partition'),
+        'reason' => __('To add quota support to /home partition.'),
         'module' => 'samba'
     },
     {
-        'file' => '/etc/samba/vscan-clamav.conf',
-        'reason' => __('To set the antivirus settings for Samba'),
+        'file' => CLAMAVSMBCONFFILE,
+        'reason' => __('To set the antivirus settings for Samba.'),
         'module' => 'samba'
     },
     ];
@@ -493,7 +481,6 @@ sub _setConf
     push(@array, 'recycle_exceptions' => $self->recycleExceptions());
     push(@array, 'recycle_config' => $self->recycleConfig());
 
-
     $self->writeConfFile(SMBCONFFILE, "samba/smb.conf.mas", \@array);
 
     $self->writeConfFile(CLAMAVSMBCONFFILE, "samba/vscan-clamav.conf.mas", \@array);
@@ -501,18 +488,6 @@ sub _setConf
     root(EBox::Config::share() . '/ebox-samba/ebox-setadmin-pass');
 
     my $users = EBox::Global->modInstance('users');
-
-    @array = ();
-    push(@array, 'basedc'    => $ldapconf->{'dn'});
-    push(@array, 'ldap'     => $ldapconf->{'ldapi'});
-    push(@array, 'binddn'     => $ldapconf->{'rootdn'});
-    push(@array, 'bindpw'    => $ldap->getPassword());
-    push(@array, 'usersdn'   => $users->usersDn);
-    push(@array, 'groupsdn'  => $users->groupsDn);
-    push(@array, 'computersdn' => 'ou=Computers,' . $ldapconf->{'dn'});
-
-    $self->writeConfFile(LIBNSSLDAPFILE, "samba/ldap.conf.mas",
-            \@array);
 
     $self->setSambaLdapToolsConf();
 

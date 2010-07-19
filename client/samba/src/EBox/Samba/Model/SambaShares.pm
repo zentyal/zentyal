@@ -132,7 +132,7 @@ sub _table
                                    printableName => __('Guest access'),
                                    editable      => 1,
                                    defaultValue  => 0,
-                                   help          => __('This share will not require authentication'),
+                                   help          => __('This share will not require authentication.'),
                                    ),
        new EBox::Types::HasMany(
                                fieldName     => 'access',

@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/UsersAndGroups/Composite
 
-nobase_perl_DATA = SlaveInfo.pm UserTemplate.pm
+nobase_perl_DATA = SlaveInfo.pm UserTemplate.pm Settings.pm
 
 DISTCLEANFILES =
 

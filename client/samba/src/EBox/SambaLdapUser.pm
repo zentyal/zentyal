@@ -34,7 +34,6 @@ use EBox::Gettext;
 use Perl6::Junction qw(any all);
 use Error qw(:try);
 
-
 use Crypt::SmbHash qw(nthash ntlmgen);
 
 # Default values for samba user
@@ -46,15 +45,12 @@ use constant SMBPWDMUSTCHANGE   => '2147483647';
 use constant SMBGROUP           => '513';
 use constant SMBACCTFLAGS       => '[U]';
 use constant SMBACCTFLAGSDISABLED       => '[UD]';
-use constant GECOS              => 'Ebox file sharing user ';
 use constant USERGROUP          => 513;
-use constant DEFAULT_SHELL      => '/bin/false';
 # Home path for users and groups
 use constant BASEPATH           => '/home/samba';
-use constant USERSPATH          => BASEPATH . '/users';
+use constant USERSPATH          => '/home';
 use constant GROUPSPATH         => BASEPATH . '/groups';
 use constant PROFILESPATH       => BASEPATH . '/profiles';
-
 
 BEGIN
 {
@@ -66,7 +62,6 @@ BEGIN
     %EXPORT_TAGS = ( DEFAULT => \@EXPORT );
     @EXPORT_OK = qw();
     $VERSION = EBox::Config::version;
-
 }
 
 use base qw(EBox::LdapUserBase);
@@ -80,7 +75,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub _smbHomes
 {
@@ -111,7 +105,6 @@ sub _domainUser
     return undef;
 }
 
-
 sub _userCommonLdapAttrs
 {
     my ($self) = @_;
@@ -136,8 +129,6 @@ sub _userCommonLdapAttrs
         sambaPwdLastSet      => time(),
 
         sambaAcctFlags       => $defaultFlags,
-
-        loginShell            => _loginShell(),
     };
 
     return $attrs;
@@ -180,12 +171,7 @@ sub _addUserLdapAttrs
                         sambaNTPassword      => $nt,
 
                         sambaSID             => $sambaSID,
-
-                        # gecos              => GECOS
                     ],
-                    replace => [
-                        homeDirectory => BASEPATH . "/users/$user",
-                    ]
             ]
         );
 
@@ -193,7 +179,7 @@ sub _addUserLdapAttrs
     }
     else {
         # upgrade from previous versions
-        # XXX currentl only the user common attributes are upgraded
+        # XXX currently only the user common attributes are upgraded
         my %searchParams = (base => $dn,
                             attrs => [keys %userCommonAttrs],
                             filter => "(objectclass=*)",
@@ -219,7 +205,6 @@ sub _addUserLdapAttrs
     }
 }
 
-
 # Implements LdapUserBase interface
 sub _addUser
 {
@@ -239,7 +224,6 @@ sub _addUser
     }
 
     my  $samba = EBox::Global->modInstance('samba');
-    $self->_createDir(USERSPATH . "/$user", $unixuid, USERGROUP, '0701');
     $self->_createDir(PROFILESPATH . "/$user", $unixuid, USERGROUP, '0700');
     $self->_createDir(PROFILESPATH . "/$user.V2", $unixuid, USERGROUP, '0700');
     $self->{samba}->setUserQuota($unixuid, $samba->defaultUserQuota());
@@ -279,9 +263,6 @@ sub _delUser($$)
 
     return unless ($self->{samba}->configured());
 
-    if ( -d BASEPATH . "/users/$user") {
-        root ("rm -rf \'" .  BASEPATH . "/users/$user\'");
-    }
     if ( -d BASEPATH . "/profiles/$user") {
         root ("rm -rf \'" .  BASEPATH . "/profiles/$user\'");
     }
@@ -304,7 +285,7 @@ sub _delUserWarning
 
     settextdomain('ebox-samba');
     my $txt = __('This user has a sharing directory associated ' .
-                               'which contains data');
+                 'which contains data.');
     settextdomain('ebox-usersandgroups');
     unless ($self->_directoryEmpty($path)) {
         return ($txt);
@@ -320,8 +301,6 @@ sub _addGroup
 
     $self->addGroupLdapAttrs($group);
 }
-
-
 
 sub addGroupLdapAttrs
 {
@@ -359,8 +338,6 @@ sub addGroupLdapAttrs
     }
 }
 
-
-
 sub setUserSID
 {
     my ($self, $user, $sid) = @_;
@@ -379,7 +356,6 @@ sub setUserSID
     $self->_setSID($dn, $sid);
 }
 
-
 sub setGroupSID
 {
     my ($self, $group, $sid) = @_;
@@ -397,7 +373,6 @@ sub setGroupSID
 
     $self->_setSID($dn, $sid);
 }
-
 
 sub _setSID
 {
@@ -437,7 +412,7 @@ sub _delGroupWarning
     my $path = BASEPATH . "/groups/$group";
     settextdomain('ebox-samba');
     my $txt = __('This group has a sharing directory associated ' .
-                 'that contains data');
+                 'that contains data.');
     settextdomain('ebox-usersandgroups');
 
     unless ($self->_directoryEmpty($path)) {
@@ -454,8 +429,8 @@ sub _userAddOns
     return unless ($self->{samba}->configured());
 
     my $users = EBox::Global->modInstance('users');
-
     my $samba = EBox::Global->modInstance('samba');
+
     my $uid = $users->userInfo($username)->{'uid'};
     my @args;
     my $share = $self->_userSharing($username) ? "yes" : "no";
@@ -482,7 +457,6 @@ sub _groupAddOns
 
     my $samba = EBox::Global->modInstance('samba');
 
-    use Data::Dumper;
     my @args;
     my $share = $self->_groupSharing($groupname) ? "yes" : "no";
     my $printers = $samba->_printersForGroup($groupname);
@@ -525,7 +499,6 @@ sub _directoryEmpty
     return ($#ent == 1);
 }
 
-
 sub migrateUsers
 {
     my ($self) = @_;
@@ -562,7 +535,6 @@ sub migrateUsers
     }
 }
 
-
 sub checkDomainSID
 {
     my ($sid) = @_;
@@ -576,7 +548,6 @@ sub checkDomainSID
 
     return 1;
 }
-
 
 sub checkSID
 {
@@ -597,6 +568,7 @@ sub getSID
 
     my $domain = $samba->workgroup();
 
+    # FIXME wtf
     my $res = `sudo net getlocalsid $domain 2>&1 `;
     if ($? != 0) {
         # return undef;
@@ -617,7 +589,6 @@ sub getSID
     return $sid;
 }
 
-
 sub alwaysGetSID
 {
     my $sid;
@@ -629,10 +600,8 @@ sub alwaysGetSID
 sub generateSID
 {
     # FIXME: Hardcore SID for testing purposes
-    #
     return 'S-1-5-21-3818554400-921237426-3143208535';
 }
-
 
 sub getGroupSID
 {
@@ -686,7 +655,7 @@ sub _sharingResourceExists
     return ($result->count == 1)
 }
 
-# TODO Find another name more self-explanatory, this one is  crap
+# TODO Find another name more self-explanatory, this one is crap
 sub groupShareDirectories
 {
     my ($self) = @_;
@@ -732,7 +701,7 @@ sub sharingName
     my %attrs = (
             base   => $dn,
             filter => "(objectclass=eboxGroup)",
-            attrs  => [ 'displayResource'],
+            attrs  => ['displayResource'],
             scope  => 'base'
             );
 
@@ -743,7 +712,6 @@ sub sharingName
 
     return $value ? $value : "";
 }
-
 
 # Sets the name for a sharing resource in a group
 sub setSharingName
@@ -758,7 +726,7 @@ sub setSharingName
     }
 
     if ((not defined $name) or ( $name =~ /^\s*$/)) {
-        throw EBox::Exceptions::External(__("A name should be provided for the share"));
+        throw EBox::Exceptions::External(__("A name should be provided for the share."));
     }
 
     my $oldname = $self->sharingName($group);
@@ -795,8 +763,6 @@ sub setSharingName
     }
 }
 
-
-
 sub removeSharingName
 {
     my ($self, $group) = @_;
@@ -819,8 +785,6 @@ sub removeSharingName
     $global->modChange('samba');
 }
 
-
-
 sub _pwdChanged
 {
     my ($self, $entry, $newPassword) = @_;
@@ -829,7 +793,6 @@ sub _pwdChanged
 
     return ($ntpwd ne nthash($newPassword));
 }
-
 
 sub _getAccountFlags
 {
@@ -916,7 +879,6 @@ sub sambaDomainName
     }
 }
 
-
 # Method: setSambaDomainName
 #
 #   Set the samba domain name. The entry is created if it does not
@@ -953,8 +915,8 @@ sub setSambaDomainName
             ]
         );
 
-	my $dn = "sambaDomainName=$domain," . $ldap->dn();
-	$ldap->add($dn, \%attrs);
+    my $dn = "sambaDomainName=$domain," . $ldap->dn();
+    $ldap->add($dn, \%attrs);
 }
 
 sub _fetchDomainAttrs
@@ -1027,7 +989,6 @@ sub deleteSambaDomainNameAttrs
 #   }
 }
 
-
 sub deleteSambaDomains
 {
     my ($self) = @_;
@@ -1045,7 +1006,6 @@ sub deleteSambaDomains
     }
 }
 
-
 # Method: setSambaDomain
 #
 #   Set the samba domain name. The entry is created if it does not
@@ -1061,9 +1021,6 @@ sub deleteSambaDomains
 # sub setSambaDomains
 # {
 #   my ($self) = @_;
-
-
-
 #   my $users = EBox::Global->modInstance('users');
 #   my $lastUid = $users->lastUid;
 #   my $lastGid = $users->lastGid;
@@ -1073,24 +1030,18 @@ sub deleteSambaDomains
 #                   gidNumber => $lastGid,
 #                      },
 #              };
-
 #   my $ldap = $self->{ldap};
 #   my %attrs = (
 #               base => $ldap->dn,
 #               filter => "objectClass=sambaDomain",
 #               scope => "sub"
 #           );
-
-
 #   my @sambaDomains = $ldap->search(\%attrs)->entries();
 #   if (not @sambaDomains) {
 #     return 0;
 #   }
-
-
 #   foreach my $entry (@sambaDomains) {
 #     my $dn = $entry->dn;
-
 #     if (not $ldap->isObjectClass($dn, 'sambaUnixIdPool')) {
 #       $ldap->modify($dn,
 #             { add => {
@@ -1099,21 +1050,14 @@ sub deleteSambaDomains
 #                   gidNumber => $lastGid,
 #                  }
 #             }
-
 #            );
 #     }
 #     else {
 #       $ldap->modify($dn, $modifyParams);
 #     }
-
-
 #   }
-
 #   return 1;
 # }
-
-
-
 
 # Method: updateNetbiosName
 #
@@ -1163,7 +1107,6 @@ sub updateNetbiosName
 #       Check and correct if there's any user or group with a wrong SID. Note
 #       that depending on when the user/group is created the SID might change.
 #       This method should be run in regenConfig
-#
 #
 sub updateSIDEntries
 {
@@ -1221,7 +1164,6 @@ sub updateSIDEntries
     }
 }
 
-
 sub _isSambaObject
 {
     my ($self, $object, $dn) = @_;
@@ -1265,7 +1207,6 @@ sub sharedDirectories
     return \@dirs;
 }
 
-
 sub basePath
 {
     return BASEPATH;
@@ -1276,21 +1217,9 @@ sub  usersPath
     return USERSPATH;
 }
 
-
 sub groupsPath
 {
     return GROUPSPATH;
-}
-
-sub _loginShell
-{
-    my $shell = EBox::Config::configkey('login_shell');
-
-    if (defined($shell)) {
-        return $shell;
-    } else {
-        return DEFAULT_SHELL;
-    }
 }
 
 sub schemas

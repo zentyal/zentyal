@@ -17,14 +17,9 @@ stop nmbd
 
 # create home directories
 test -d /home/samba || mkdir /home/samba
-test -d /home/samba/users || mkdir /home/samba/users
 test -d /home/samba/groups || mkdir /home/samba/groups
 test -d /home/samba/profiles || mkdir /home/samba/profiles
 test -d /home/samba/netlogon || mkdir /home/samba/netlogon
-
-# Copy ldap.secret
-cp /var/lib/ebox/conf/ebox-ldap.passwd /etc/ldap.secret
-chmod 600 /etc/ldap.secret
 
 # add mandatory items to domain database
 /usr/share/ebox-samba/ebox-samba-ldap populate-ldap
@@ -91,22 +86,8 @@ exit 0;
 
 /usr/share/ebox-samba/ebox-samba-ldap fix-sids
 
-# Change nsswitch.conf to use ldap
-for i in passwd group shadow; do
-   if ! grep "^$i:.* ldap" /etc/nsswitch.conf >/dev/null; then
-       sed  -i -e "s/^\($i:.*\)/\1 ldap/" /etc/nsswitch.conf;
-   fi	
-done       
-
 # change group ownership of quarantine_dir to __USERS__
 QUARANTINE_DIR=/var/lib/ebox/quarantine/
 chown root.__USERS__  $QUARANTINE_DIR || true 
 
 invoke-rc.d quota restart 
-
-start nmbd
-start smbd
-
-/usr/share/ebox-samba/ebox-samba-group-sync
-cp /usr/share/ebox-samba/ebox-samba-group-sync /etc/cron.hourly/
-

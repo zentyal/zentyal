@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::UsersAndGroups::Composite::UserTemplate
+# Class: EBox::UsersAndGroups::Composite::Settings
 
-package EBox::UsersAndGroups::Composite::UserTemplate;
+package EBox::UsersAndGroups::Composite::Settings;
 
 use base 'EBox::Model::Composite';
 
@@ -30,7 +30,7 @@ use EBox::Global;
 
 # Constructor: new
 #
-#         Constructor for the default user template 
+#         Constructor for the Settings composite
 #
 sub new
 {
@@ -55,58 +55,25 @@ sub _description
 
       my $description =
         {
-         components      => [ _userModels() ],
+         components      => [ 'LdapInfo', 'PAM' ],
          layout          => 'top-bottom',
-         name            => 'UserTemplate',
+         name            => 'Settings',
          compositeDomain => 'Users',
          help =>
-             __('These configuration options are used when a new user account is created.')
+             __('')
         };
 
       return $description;
 }
 
-sub precondition
-{
-    return (scalar(_userModels()) > 0);
-}
-
-sub preconditionFailMsg
-{
-    return __("There isn't any configurable option.");
-}
-
-sub _userModels
-{
-      my $users = EBox::Global->modInstance('users');
-      return @{$users->defaultUserModels()};
-}
-
 sub pageTitle
 {
-    return __('User Template');
+    return __('LDAP Settings');
 }
 
 sub menuFolder
 {
     return 'UsersAndGroups';
-}
-
-# Method: components
-#
-#   Overrides <EBox::Model::Composite::components> as a workaround to
-#   avoid the components being cached.
-#
-#   We need to skip that cache as some ldap modules can be unconfigured the
-#   first time this composite is called. Without this workaround components are
-#   called just once, that is during the life time of an apache process a given
-#   ldap module is enabled it won't  show up until we restart apache
-#
-sub components
-{
-    my ($self) = @_;
-    $self->_setDescription($self->_description());
-    return $self->SUPER::components();
 }
 
 1;
