@@ -15,12 +15,7 @@ in the 'build_cd.conf.local' file.
 
 You must put all extra .deb archives in the directory pointed by the key
 EXTRAS_DIR (in build_cd.conf).  Today the extra packages needed are all
-eBox packages and its dependencies not already provided by the base CD.  Tip: A
-way to get dependencies is to put in extras the stuff, install the CD and scan
-the install log to see what pacakges are downlaoded from the mirror. Another way
-is to have a list of packages and use the packagesNotInCd script to see which
-aren't included, anyway check the log ater the installation to find any missing
-package/.
+eBox packages and its dependencies not already provided by the base CD.
 
 You can put the packages you want included in the installer in the
 'extra-packages.list' file and then use 'generate_extras.sh' script to get them
@@ -33,29 +28,18 @@ somewhere, run dpkg-buildpackage and then add them to the EXTRAS_DIR
 directory. If they are already uploaded to a repository you can simply
 add their names to the 'extra-packages.list' file.
 
-
-3) Change if needed eBox's server files
-
-In the director pointed by DATA_DIR there are some files that either are used
-in the install process (preseed, install scripts) or installed verbatim
-(inittab, ..).  If you need it you can edit them.
-
-4) Download ubuntu-keyring tar
-
-Download the tar source of this package, be sure this file is correctly
-referenced by the UBUNTU_KEYRING_TAR key.  Remember that the YOURKEYID must be
-the gpg ID of the key you will use to sign the CD. You can dget its .dsc from
-http://packages.ubuntu.com/source/karmic/ubuntu-keyring.
-
-5) Download the ubuntu server iso and setup the build directory
+3) Download the ubuntu server iso and setup the build directory
 
 You need to download the ISO file to remaster.  After download it, execute the
 setup_build_dir.sh command.
 
-6) Make sure you have the latest version of the EBox::Gettext perl package in
-your perl path. You can get it from the sources or from the libebox package.
+You can also use an already built eBox installer ISO to remaster. Just edit the
+build.cd.conf file to change the name of the .iso file.
 
-7) Execute the build CD script
+4) Make sure you have installed the libebox and mkisofs packages in the system
+you want to use to create the image.
+
+5) Execute the build CD script
 
 Execute the ./build_cd.sh script, it will ask you about your gpg passphrase a
 few times. If the build was sucessful you'll have your ISO written to the file
