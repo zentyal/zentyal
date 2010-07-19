@@ -14,4 +14,4 @@ test -d $CD_EBOX_DIR || mkdir -p $CD_EBOX_DIR
 rm -rf $CD_EBOX_DIR/*
 
 cp -r $DATA_DIR/* $CD_EBOX_DIR/
-find $CD_EBOX_DIR/ -type d -name .svn -exec rm -fr \{\} \; 2>&1 >/dev/null
+#FIXME: find $CD_EBOX_DIR/ -type d -name .svn -exec rm -fr \{\} \; 2>&1 >/dev/null
