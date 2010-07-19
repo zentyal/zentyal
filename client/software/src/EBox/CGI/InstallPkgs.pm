@@ -170,7 +170,7 @@ sub showInstallProgress
 		      endNote  =>  __('The packages installation has finished successfully. '
                                       . 'The administration interface may become unresponsive '
                                       . 'for a few seconds. Please wait patiently until '
-                                      . 'the system has been fully configured. You will be automatically'
+                                      . 'the system has been fully configured. You will be automatically '
                                       . 'redirected to the next step'),
               errorNote => __('The packages installation has not finished correctly '
                                       . '. More information on the logs'),
