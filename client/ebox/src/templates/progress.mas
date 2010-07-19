@@ -141,7 +141,7 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 <div id="progress_bar">
 	<div class="percent" id="percentValue"></div>
     <div style="height: 20px; width: 780px; margin: 5px 0; background-color: #e4f88e; -moz-border-radius: 5px; border-radius: 5px">
-        <div id="progressValue" style="height: 20px; width: 0; background-color: #bbdf39; -moz-border-radius: 5px 0 0 5px; border-radius: 5px 0 0 5px"></div>
+        <div id="progressValue" style="height: 20px; width: 0; background-color: #bbdf39; -moz-border-radius: 5px; border-radius: 5px"></div>
     </div>
 </div>
 <br/>
