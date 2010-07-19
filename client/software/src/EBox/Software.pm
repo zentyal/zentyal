@@ -274,8 +274,9 @@ sub _packageListFile
 #
 # Parameters:
 #
-# 	clear - if set to 1, forces the cache to be cleared excludeEBoxPackages
-#       - not return ebox packages (but they are saved in the cahce anyway)
+# 	clear - if set to 1, forces the cache to be cleared
+#
+#       excludeEBoxPackages - not return ebox packages (but they are saved in the cache anyway)
 #
 # Returns:
 #
@@ -644,7 +645,7 @@ sub _getInfoEBoxPkgs
 
 sub _getUpgradablePkgs
 {
-	my $cache = AptPkg::Cache->new;
+	my $cache = AptPkg::Cache->new();
 	my @list;
 	for my $pack (keys %$cache)     {
 		unless ($pack =~ /^libebox$|^ebox$|^ebox-.*|.*kernel-image.*|.*linux-image.*/) {
@@ -667,7 +668,7 @@ sub _getUpgradablePkgs
 			$data{'security'} = 0;
 			foreach my $file (@files) {
 				if (print $file->{Archive} =~ /.*security.*/) {
-					print 'sec: ' . $data{name} . "\n";
+                                        # print 'sec: ' . $data{name} . "\n";
 					$data{'security'} = 1;
 					last;
 				}
