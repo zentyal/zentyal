@@ -524,6 +524,7 @@ sub _setQASources
     File::Slurp::write_file($tmpFile, $output);
     my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
     EBox::Sudo::root("cp '$tmpFile' '$destination'");
+    EBox::Sudo::root("chmod 0644 '$destination'");
 
 }
 
