@@ -3,8 +3,6 @@
 USER_NAME=`getent passwd uid 1000 | cut -d: -f1`
 DIR=/home/$USER_NAME
 
-/etc/init.d/slim stop
-
 sed -i "s/#auto_login.*/auto_login\tyes/" /etc/slim.conf
 sed -i "s/#default_user.*/default_user\t$USER_NAME/" /etc/slim.conf
 
@@ -24,7 +22,7 @@ ID='eBox Server'
 certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
 /var/tmp/ebox/ebox-cert-override > $PROFILE/cert_override.txt
 
-mv /var/tmp/rc.local /etc/rc.local
+mv /var/tmp/ebox/rc.local /etc/rc.local
 rm -rf /var/tmp/ebox
 
-/etc/init.d/slim start
+exit 0
