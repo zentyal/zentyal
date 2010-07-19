@@ -63,7 +63,6 @@ access_log /var/log/squid/access.log squid
 
 cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
 
-range_offset_limit -1;
 # windows updates
 refresh_pattern http://.*\.windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
 refresh_pattern http://.*\.update\.microsoft\.com/ 0 80% 20160 reload-into-ims
