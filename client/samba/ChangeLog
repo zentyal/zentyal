@@ -1,4 +1,4 @@
-HEAD
+1.5.6
 	+ Move NSS from ebox-samba to ebox-usersandgroups
 	+ Home directories are under /home now
 	+ Shares permissions model now states if the ACL is for a user or a group

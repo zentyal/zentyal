@@ -1,4 +1,4 @@
-HEAD
+1.5.7
 	+ Bugfix: Avoid error when RAID is not present
 	+ Bugfix: Add ebox-consolidate-reportinfo call in daily cron script
 	+ Bugfix: Called multiInsert and unbufferedInsert when necessary

@@ -1,4 +1,4 @@
-AC_INIT([EBox-mail], [1.5.1])
+AC_INIT([EBox-mail], [1.5.2])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Mail.pm])
@@ -52,7 +52,7 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 
 
 if test "$MD_QUOTA" = "yes"; then
-	postfix_deps="postfix (>= 1:2.1.5.1-1warp.es), postfix-tls (>= 1:2.1.5-1warp.es), postfix-ldap (>= 1:2.1.5-1warp.es)"
+	postfix_deps="postfix (>= 1:2.1.5.2-1warp.es), postfix-tls (>= 1:2.1.5-1warp.es), postfix-ldap (>= 1:2.1.5-1warp.es)"
 	md_quota="yes"
 
 else

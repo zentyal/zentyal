@@ -1,4 +1,4 @@
-HEAD
+1.5.3
 	+ Move NSS from ebox-samba to ebox-usersandgroups
 	+ Home directories are under /home now
 	+ New options to configure shell and home directory umask

@@ -1,4 +1,4 @@
-HEAD
+1.5.5
 	+ Revert range_offset_limit option to default value because was causing
 	  troubles with streaming sites.
 1.5.4
