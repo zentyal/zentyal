@@ -584,7 +584,11 @@ var pkgTable = new Array(
 	new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['Select']});
 
 	document.getElementById('updNumber').innerHTML = '(' +updTable.length +')';	
-	document.getElementById('advanced').hide();
+% if (-f $file) {
+    document.getElementById('advanced').hide();
+% } else {
+    document.getElementById('basic').hide();
+% }
 	document.getElementById('updateBox').hide();	
 	document.getElementById('deleteBox').hide();
 	

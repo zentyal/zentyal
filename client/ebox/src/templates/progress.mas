@@ -11,7 +11,7 @@ $itemsLeftMessage   => undef
 $endNote            => undef
 $errorNote          => undef
 $currentItemUrl => '/ebox/EBox/CurrentProgress'
-$reloadInterval  => 4
+$reloadInterval  => 2
 $adsJson => '""'
 $nextStepUrl => '/ebox/Dashboard/Index'
 $nextStepText => 'Click here to return to the Dashboard'
@@ -100,7 +100,7 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 				html += "</br>";
 				if (ads[nAds].links != null) {
 					for(var i = 0; i < ads[nAds].links.length; i++)
-						html += "<span><a href='" + ads[nAds].links[i] + "'>" + ads[nAds].links[i] + "</a></spam>";
+						html += "<span><a onclick='window.open(" + '"' + ads[nAds].links[i] + '"' + ")'>" + ads[nAds].links[i] + "</a></spam>";
 				}
 				html += "<div>";
 				document.getElementById('dFrame').innerHTML = html;

@@ -83,7 +83,7 @@ function callServer(progressId, url, nextStepTimeout, nextStepUrl) {
 			 }
 		    );
   time++;
-  if ((time >= 9) & ((percent-oldPercent) > 8)) {
+  if ((time >= 18) & ((percent-oldPercent) > 7)) {
 	  time = 0;
 	  oldPercent = percent;
 	  showAds();

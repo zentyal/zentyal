@@ -8,6 +8,7 @@
 <%init>
 use EBox::Gettext;
 use EBox::Util::SystemKernel;
+use EBox::Config;
 </%init>
 
 <script>
