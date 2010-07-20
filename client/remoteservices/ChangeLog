@@ -1,3 +1,6 @@
+HEAD
+	+ Fix bug to pass conf keys to the execute procedures after extracting
+	  the bundle
 1.5.3
 	+ Password strength checker done every week included in report and
 	  alert generated with the result
