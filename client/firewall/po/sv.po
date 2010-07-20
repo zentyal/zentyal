@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:54+0200\n"
-"PO-Revision-Date: 2009-07-19 12:17+0200\n"
-"Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
+"PO-Revision-Date: 2010-07-19 09:18+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -86,7 +86,7 @@ msgstr "Paketfilter"
 
 #: src/EBox/Firewall.pm:829 src/EBox/Firewall/Model/RedirectsTable.pm:362
 msgid "Port Forwarding"
-msgstr ""
+msgstr "Vidarebefordring av port"
 
 #: src/EBox/Firewall.pm:840
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
@@ -137,12 +137,11 @@ msgstr "LOGGA"
 
 #: src/EBox/Firewall.pm:853
 msgid "REDIRECT"
-msgstr ""
+msgstr "OMDIRIGERA"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
-#, fuzzy
 msgid "Traffic coming out from eBox"
-msgstr "Filterregler för trafik som går ut från eBox"
+msgstr "Trafik som går ut från eBox"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
@@ -154,9 +153,8 @@ msgid "rule"
 msgstr "regel"
 
 #: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
-#, fuzzy
 msgid "External networks to internal networks"
-msgstr "Filterregler från externa till interna nätverk"
+msgstr "Externa nätverk till interna nätverk"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:145
 msgid "Contradictory rule found. Remove it first"
@@ -175,7 +173,6 @@ msgid "eBox"
 msgstr "eBox"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:264
-#, fuzzy
 msgid "IP Address"
 msgstr "IP-adress"
 
@@ -184,7 +181,6 @@ msgid "Object"
 msgstr "Objekt"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:279
-#, fuzzy
 msgid "Original destination port"
 msgstr "Ursprunglig destinationsport"
 
@@ -223,11 +219,11 @@ msgstr "Annan"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:337
 msgid "Log"
-msgstr ""
+msgstr "Logg"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:339
 msgid "Log new forwarded connections"
-msgstr ""
+msgstr "Logga vidarebefordrade anslutningar"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:344
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
@@ -236,11 +232,11 @@ msgstr "Beskrivning"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:361
 msgid "List of forwarded ports"
-msgstr ""
+msgstr "Lista över vidarebefordrade portar"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:370
 msgid "forwarding"
-msgstr ""
+msgstr "vidarebefordring"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
@@ -268,53 +264,48 @@ msgstr ""
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:227
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
-#, fuzzy
 msgid "Configure Rules"
 msgstr "Konfigurera regler"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:242
 msgid "'any service' cannot have a inverse march"
-msgstr ""
+msgstr "\"alla tjänster\" kan inte ha en inverterad träff"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "External networks to eBox"
-msgstr "Filterregler från externa nätverk till eBox"
+msgstr "Externa nätverk till eBox"
 
 #: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
-#, fuzzy
 msgid "Internal networks to eBox"
-msgstr "Filterregler från interna nätverk till eBox"
+msgstr "Interna nätverk till eBox"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
-msgstr ""
+msgstr "Inkommande"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
-#, fuzzy
 msgid "External Input"
-msgstr "extern port"
+msgstr "Externt inkommande"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
 msgid "Output"
-msgstr ""
+msgstr "Utgående"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
 msgid "Forward"
-msgstr ""
+msgstr "Vidarebefordring"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
 msgid "NAT prerouting"
-msgstr ""
+msgstr "NAT före routing"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
 msgid "NAT postrouting"
-msgstr ""
+msgstr "NAT efter routing"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
-#, fuzzy
 msgid "Rule"
-msgstr "Regler"
+msgstr "Regel"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
 msgid "Enabled"
@@ -322,26 +313,24 @@ msgstr "Aktiverad"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
-#, fuzzy
 msgid "Module"
-msgstr "regel"
+msgstr "Modul"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
 msgid "Condition"
-msgstr ""
+msgstr "Villkor"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
 msgid "Rules added by eBox services (Advanced)"
-msgstr ""
+msgstr "Regler tillagda av eBox tjänster (Avancerat)"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
-#, fuzzy
 msgid "Internal networks"
-msgstr "Extern port"
+msgstr "Interna nätverk"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
@@ -381,12 +370,11 @@ msgid "Filtering rules from internal networks to eBox"
 msgstr "Filterregler från interna nätverk till eBox"
 
 #: src/templates/filter.mas:8
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your eBox machine."
 msgstr ""
-"De här reglerna tillåter dig att kontrollera acces från externa nätverk till "
+"De här reglerna tillåter dig att kontrollera acces från interna nätverk till "
 "tjänster som körs på din eBox maskin"
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
@@ -400,7 +388,6 @@ msgid "Filtering rules for internal networks"
 msgstr "Filterregler för interna nätverk"
 
 #: src/templates/filter.mas:15
-#, fuzzy
 msgid ""
 "These rules allow you to control access from internal networks to the "
 "Internet and traffic between internal networks. If you wish to provide "
@@ -415,7 +402,6 @@ msgid "Filtering rules for traffic coming out from eBox"
 msgstr "Filterregler för trafik som går ut från eBox"
 
 #: src/templates/filter.mas:23
-#, fuzzy
 msgid ""
 "These rules allow you to control access from your eBox to external services."
 msgstr ""
@@ -434,7 +420,6 @@ msgstr ""
 "tjänster som körs på din eBox maskin"
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
-#, fuzzy
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
@@ -458,13 +443,15 @@ msgstr ""
 
 #: src/templates/filter.mas:53
 msgid "These rules are automatically added by the eBox services."
-msgstr ""
+msgstr "Dessa regler är automatiskt tillagda av eBox tjänster."
 
 #: src/templates/filter.mas:56
 msgid ""
 "You can disable these rules, but make sure you know what you are doing or "
 "otherwise some services could stop working."
 msgstr ""
+"Du kan deaktivera dessa regler men var uppmärksam på att vissa tjänster kan "
+"sluta att fungera om du inte vet vad du gör."
 
 #~ msgid "redirect"
 #~ msgstr "omdirigera"

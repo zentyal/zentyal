@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:54+0200\n"
-"PO-Revision-Date: 2010-04-22 19:29+0200\n"
+"PO-Revision-Date: 2010-06-11 13:00+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -1015,11 +1015,11 @@ msgstr "De"
 
 #: src/EBox/Mail.pm:1592
 msgid "From hostname"
-msgstr "Do hospedeiro"
+msgstr "Da máquina"
 
 #: src/EBox/Mail.pm:1593
 msgid "From host ip"
-msgstr "De IP do hospedeiro"
+msgstr "De IP da máquina"
 
 #: src/EBox/Mail.pm:1594 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
@@ -1050,7 +1050,6 @@ msgid "Maximum message size exceeded"
 msgstr "Tamanho máximo da mensagem excedido"
 
 #: src/EBox/Mail.pm:1612
-#, fuzzy
 msgid "User quota exceeded"
 msgstr "Quota de utilizador excedida"
 
@@ -1064,7 +1063,7 @@ msgstr "A conta não existe"
 
 #: src/EBox/Mail.pm:1615
 msgid "Host unreachable"
-msgstr "Não é possível alcançar o hospedeiro"
+msgstr "Não é possível alcançar a máquina"
 
 #: src/EBox/Mail.pm:1616
 msgid "Authentication error"

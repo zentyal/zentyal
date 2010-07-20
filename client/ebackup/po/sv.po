@@ -8,33 +8,37 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:31+0200\n"
-"PO-Revision-Date: 2009-07-31 13:14+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-16 12:20+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:124
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
-msgstr ""
+msgstr "Säkerhetskopiera"
 
 #: src/EBox/EBackup.pm:197
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
-msgstr ""
+msgstr "Filen {f} fanns inte i säkerhetskopian {d}, prova ett senare datum."
 
 #: src/EBox/EBackup.pm:204
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
+"Kunde inte hitta några säkerhetsarkiv. Har någon raderat dem? Kör "
+"\"/etc/init.d/ebox ebackup restart\" för att uppdatera informationen för "
+"säkerhetskopieringen."
 
 #: src/EBox/Event/Watcher/EBackup.pm:142
 msgid "Check if eBox backup was not successful."
-msgstr ""
+msgstr "Kontrollera om eBox backup inte var lyckad"
 
 #: src/EBox/EBackup/DBRestore.pm:46
 #, perl-brace-format
@@ -42,136 +46,138 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
+"Loggens säkerhetskopiedata kunde inte hittas i säkerhetskopia för {d}. "
+"Kanske kan du prova ett annat datum?"
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
 #: src/EBox/Model/RemoteRestoreConf.pm:74
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
 msgid "There are not backed up files yet"
-msgstr ""
+msgstr "Det finns inga säkerhetskopierade filer ännu."
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: src/EBox/Model/RemoteFileList.pm:166 src/EBox/Model/RemoteRestoreConf.pm:93
 #: src/EBox/Model/RemoteRestoreLogs.pm:107
 msgid "Backup Date"
-msgstr ""
+msgstr "Datum för säkerhetskopia"
 
 #: src/EBox/Model/RemoteFileList.pm:177
 msgid "Restore Files"
-msgstr ""
+msgstr "Återställ filer"
 
 #: src/EBox/Model/RemoteFileList.pm:178
 msgid "file restore operation"
-msgstr ""
+msgstr "filåterställning"
 
 #: src/EBox/Model/RemoteFileList.pm:204
 msgid "File already exists if you continue the current will be deleted"
-msgstr ""
+msgstr "Fil finns redan, om du fortsätter kommer den nuvarande att raderas."
 
 #: src/EBox/Model/RemoteFileList.pm:220
 msgid "File restored successfully"
-msgstr ""
+msgstr "Lyckad återställning av filer."
 
 #: src/EBox/Model/RemoteFileList.pm:269
 #, perl-brace-format
 msgid "Remote URL to be used with duplicity for manual restores: {url}"
-msgstr ""
+msgstr "Fjärr URL att användas med duplicity för manuell återställning: {url}"
 
 #: src/EBox/Model/RemoteStatus.pm:138 src/EBox/Model/RemoteExcludes.pm:76
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: src/EBox/Model/RemoteStatus.pm:142
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: src/EBox/Model/RemoteStatus.pm:149
 msgid "Remote Backup Status"
-msgstr ""
+msgstr "Status på extern säkerhetskopia "
 
 #: src/EBox/Model/RemoteStatus.pm:150
 msgid "backup"
-msgstr ""
+msgstr "säkerhetskopia"
 
 #: src/EBox/Model/RemoteSettings.pm:160
 msgid "Method"
-msgstr ""
+msgstr "Metod"
 
 #: src/EBox/Model/RemoteSettings.pm:166
 msgid "Host or destination"
-msgstr ""
+msgstr "Värd eller destination"
 
 #: src/EBox/Model/RemoteSettings.pm:168
 #, perl-brace-format
 msgid "If the selected method is {brand}, only set the target directory"
-msgstr ""
+msgstr "Om den valda metoden är {brand} välj endast målbiblioteket"
 
 #: src/EBox/Model/RemoteSettings.pm:173
 msgid "User"
-msgstr ""
+msgstr "Användare"
 
 #: src/EBox/Model/RemoteSettings.pm:178
 msgid "Password"
-msgstr ""
+msgstr "Lösenord"
 
 #: src/EBox/Model/RemoteSettings.pm:183
 msgid "Encryption"
-msgstr ""
+msgstr "Kryptering"
 
 #: src/EBox/Model/RemoteSettings.pm:188 src/EBox/Model/RemoteSettings.pm:240
 #: src/EBox/Model/RemoteSettings.pm:482
 msgid "Disabled"
-msgstr ""
+msgstr "Inaktiverad"
 
 #: src/EBox/Model/RemoteSettings.pm:193
 msgid "Symmetric Key"
-msgstr ""
+msgstr "Symmetrisk nyckel"
 
 #: src/EBox/Model/RemoteSettings.pm:198
 msgid "GPG Key"
-msgstr ""
+msgstr "GPG nyckel"
 
 #: src/EBox/Model/RemoteSettings.pm:209
 msgid "Full Backup Frequency"
-msgstr ""
+msgstr "Intervall för full säkerhetskopia"
 
 #: src/EBox/Model/RemoteSettings.pm:214 src/EBox/Model/RemoteSettings.pm:245
 msgid "Daily"
-msgstr ""
+msgstr "Daglig"
 
 #: src/EBox/Model/RemoteSettings.pm:219 src/EBox/Model/RemoteSettings.pm:250
 msgid "Weekly"
-msgstr ""
+msgstr "Veckovis"
 
 #: src/EBox/Model/RemoteSettings.pm:225
 msgid "Monthly"
-msgstr ""
+msgstr "Månadsvis"
 
 #: src/EBox/Model/RemoteSettings.pm:235
 msgid "Incremental Backup Frequency"
-msgstr ""
+msgstr "Intervall för inkrementell säkerhetskopia"
 
 #: src/EBox/Model/RemoteSettings.pm:261
 msgid "Backup process starts at"
-msgstr ""
+msgstr "Säkerhetskopiering startar "
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "Behåll föregående fullständiga säkerhetskopior"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "maximalt antal"
 
 #: src/EBox/Model/RemoteSettings.pm:281
 msgid "no older than"
-msgstr ""
+msgstr "inte äldre än"
 
 #: src/EBox/Model/RemoteSettings.pm:295
 msgid "General Configuration"
-msgstr ""
+msgstr "Generell konfiguration"
 
 #: src/EBox/Model/RemoteSettings.pm:298
 #, perl-brace-format
@@ -179,47 +185,49 @@ msgid ""
 "If you choose {brand} or file system methods , then the destination field "
 "may be the target directory in the backup server"
 msgstr ""
+"Om du väljer {brand} eller lagring på filsystem så kan målet vara ett "
+"bibliotek på servern för säkerhetskopiering"
 
 #: src/EBox/Model/RemoteSettings.pm:304
 msgid "General backup server configuration updated"
-msgstr ""
+msgstr "Generell konfiguration för säkerhetskopiering uppdaterad"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Monday"
-msgstr ""
+msgstr "på Måndag"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Tuesday"
-msgstr ""
+msgstr "på Tisdag"
 
 #: src/EBox/Model/RemoteSettings.pm:319
 msgid "on Wednesday"
-msgstr ""
+msgstr "på Onsdag"
 
 #: src/EBox/Model/RemoteSettings.pm:320
 msgid "on Thursday"
-msgstr ""
+msgstr "På Torsdag"
 
 #: src/EBox/Model/RemoteSettings.pm:321
 msgid "on Friday"
-msgstr ""
+msgstr "på Fredag"
 
 #: src/EBox/Model/RemoteSettings.pm:322
 msgid "on Saturday"
-msgstr ""
+msgstr "på Lördag"
 
 #: src/EBox/Model/RemoteSettings.pm:323
 msgid "on Sunday"
-msgstr ""
+msgstr "på Söndag"
 
 #: src/EBox/Model/RemoteSettings.pm:336
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "den {mday}e"
 
 #: src/EBox/Model/RemoteSettings.pm:344
 msgid "on the last day"
-msgstr ""
+msgstr "på den sista dagen"
 
 #: src/EBox/Model/RemoteSettings.pm:499
 #, perl-brace-format
@@ -228,141 +236,152 @@ msgid ""
 "keep on your eBox servers. Purchase the backup storage space you need at the "
 "{ohref}eBox on-line store{chref}."
 msgstr ""
+"{oi}{brand}{ci} är en snabb och säker plats att lagra den data du lagrar på "
+"eBox servrar. Köp plats för säkerhetskopiering du behöver på {ohref}eBox on-"
+"line store{chref}."
 
 #: src/EBox/Model/RemoteSettings.pm:516
 msgid "1 week"
-msgstr ""
+msgstr "1 vecka"
 
 #: src/EBox/Model/RemoteSettings.pm:520
 msgid "2 weeks"
-msgstr ""
+msgstr "2 veckor"
 
 #: src/EBox/Model/RemoteSettings.pm:524
 msgid "3 weeks"
-msgstr ""
+msgstr "3 veckor"
 
 #: src/EBox/Model/RemoteSettings.pm:528
 msgid "1 month"
-msgstr ""
+msgstr "1 månad"
 
 #: src/EBox/Model/RemoteSettings.pm:532
 msgid "2 months"
-msgstr ""
+msgstr "2 månader"
 
 #: src/EBox/Model/RemoteSettings.pm:536
 msgid "3 months"
-msgstr ""
+msgstr "3 månader"
 
 #: src/EBox/Model/RemoteSettings.pm:540
 msgid "4 months"
-msgstr ""
+msgstr "4 månader"
 
 #: src/EBox/Model/RemoteSettings.pm:544
 msgid "6 months"
-msgstr ""
+msgstr "6 månader"
 
 #: src/EBox/Model/RemoteSettings.pm:548
 msgid "9 months"
-msgstr ""
+msgstr "9 månader"
 
 #: src/EBox/Model/RemoteSettings.pm:552
 msgid "1 year"
-msgstr ""
+msgstr "1 år"
 
 #: src/EBox/Model/RemoteSettings.pm:556
 msgid "1 year and half"
-msgstr ""
+msgstr "1 och 1/2 år"
 
 #: src/EBox/Model/RemoteSettings.pm:560
 msgid "2 years"
-msgstr ""
+msgstr "2 år"
 
 #: src/EBox/Model/RemoteSettings.pm:564
 msgid "3 years"
-msgstr ""
+msgstr "3 år"
 
 #: src/EBox/Model/RemoteSettings.pm:596
 msgid "Destination must be a relative directory"
-msgstr ""
+msgstr "Målet måste vara en relativ sökväg"
 
 #: src/EBox/Model/RemoteSettings.pm:651
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr ""
+msgstr "Målet måste vara formaterat som \"annan.värd[:port]/sökväg\""
 
 #: src/EBox/Model/RemoteSettings.pm:662 src/EBox/Model/RemoteSettings.pm:696
 msgid "target"
-msgstr ""
+msgstr "mål"
 
 #: src/EBox/Model/RemoteSettings.pm:664
 msgid "Must be a like 'other.host[:port]/some_dir'"
-msgstr ""
+msgstr "Måste vara som  \"annan.värd[:port]/sökväg\""
 
 #: src/EBox/Model/RemoteSettings.pm:671 src/EBox/Model/RemoteSettings.pm:706
 msgid "host"
-msgstr ""
+msgstr "värd"
 
 #: src/EBox/Model/RemoteSettings.pm:673 src/EBox/Model/RemoteSettings.pm:708
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Model/RemoteSettings.pm:675
 msgid "directory"
-msgstr ""
+msgstr "sökväg"
 
 #: src/EBox/Model/RemoteSettings.pm:685
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
+"Målet för RSYNC måste vara som \"annan.värd[:port]/relativ_sökväg\" eller "
+"\"annan.värd[:port]/absolut_sökväg\" "
 
 #: src/EBox/Model/RemoteSettings.pm:699
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
+"Måste vara som \"annan.värd[:port]/relativ_sökväg\" eller "
+"\"annan.värd[:port]/absolut_sökväg\""
 
 #: src/EBox/Model/RemoteSettings.pm:711
 msgid "absolute directory"
-msgstr ""
+msgstr "absolut sökväg"
 
 #: src/EBox/Model/RemoteSettings.pm:713
 msgid "relative directory"
-msgstr ""
+msgstr "relativ sökväg"
 
 #: src/EBox/Model/RemoteSettings.pm:730
 msgid ""
 "File system method needs a target parameter that should be a directory path"
-msgstr ""
+msgstr "Metod för filsystem behöver ett mål som är en sökväg"
 
 #: src/EBox/Model/RemoteSettings.pm:735 src/EBox/Model/RemoteSettings.pm:739
 msgid "Directory for backup"
-msgstr ""
+msgstr "Sökväg för säkehretskopiering"
 
 #: src/EBox/Model/RemoteSettings.pm:742
 msgid "File exists and it is not a directory"
-msgstr ""
+msgstr "Filen finns och är inte en sökväg"
 
 #: src/EBox/Model/RemoteSettings.pm:763
 msgid "Incremental backup must be more frequent than full backup"
 msgstr ""
+"Inkrementell säkerhetskopiering måste schemaläggas oftare än full "
+"säkerhetskopiering."
 
 #: src/EBox/Model/RemoteSettings.pm:775
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
 msgstr ""
+"Generell säkerhetskopierings konfiguration uppdaterad. SCP metod vald. "
+"<em>Kom ihåg</em> att lägga till ditt mål till kända värdar i SSH."
 
 #: src/EBox/Model/RemoteExcludes.pm:82
 msgid "Exclude or Include"
-msgstr ""
+msgstr "Exkludera eller inkludera"
 
 #: src/EBox/Model/RemoteExcludes.pm:93
 msgid "Includes and Excludes"
-msgstr ""
+msgstr "Inkluderar eller exkluderar"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
 msgid "exclude or include"
-msgstr ""
+msgstr "exkludera eller inkludera"
 
 #: src/EBox/Model/RemoteExcludes.pm:102
 msgid ""
@@ -370,46 +389,49 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
+"En fil eller en sökväg är inkluderad eller exkluderad anligt första träffen. "
+"En träff på sökvägen appliceras på allt i densamma. Filer som inte explicit "
+"inkluderats eller exkluderats kommer att följa med."
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
-msgstr ""
+msgstr "Exkludera sökväg"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
 msgid "Exclude by regular expression"
-msgstr ""
+msgstr "Exkludera efter regulärt uttryck."
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
-msgstr ""
+msgstr "Inkludera sökväg"
 
 #: src/EBox/Model/RemoteExcludes.pm:147
 msgid "exclude path"
-msgstr ""
+msgstr "exkludera sökväg"
 
 #: src/EBox/Model/RemoteExcludes.pm:160
 msgid "exclude path regular expression"
-msgstr ""
+msgstr "reguljärt uttryck för exkludering av sökväg"
 
 #: src/EBox/Model/RemoteExcludes.pm:162
 msgid "Incorrect regular expression"
-msgstr ""
+msgstr "Felaktigt reguljärt uttryck"
 
 #: src/EBox/Model/RemoteExcludes.pm:183
 msgid "include path"
-msgstr ""
+msgstr "Inkludera sökväg"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore eBox configuration from backup"
-msgstr ""
+msgstr "Återställ eBox konfiguration från säkerhetskopia."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
-msgstr ""
+msgstr "Laddar konfigurationen funnen i säkerhetskopia"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "Var vänlig vänta..."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
@@ -417,19 +439,21 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
+"Säkerhetskopia på konfigurationen hittas ej i säkerhetskopia för  {d}. "
+"Kanske kan du prova ett annat datum?"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Återställ databas för loggar"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the eBox logs found in the selected backup"
-msgstr ""
+msgstr "Återställ loggar för eBox funna i den valda säkerhetskopian."
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Återställ tjänster"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"
-msgstr ""
+msgstr "Konfiguration och status"

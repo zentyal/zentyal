@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:54+0200\n"
-"PO-Revision-Date: 2010-02-19 14:18+0100\n"
-"Last-Translator: Maximus Sales <net.maximus@gmail.com>\n"
+"PO-Revision-Date: 2010-06-14 13:10+0200\n"
+"Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,7 +140,7 @@ msgstr "LOG"
 
 #: src/EBox/Firewall.pm:853
 msgid "REDIRECT"
-msgstr ""
+msgstr "REDIRECIONAR"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 msgid "Traffic coming out from eBox"
@@ -223,12 +223,11 @@ msgstr "Outra"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:337
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:339
-#, fuzzy
 msgid "Log new forwarded connections"
-msgstr "Listagem das portas redirecionadas"
+msgstr "Log novas conexões enviado"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:344
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
@@ -274,7 +273,7 @@ msgstr "Configurar regras"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:242
 msgid "'any service' cannot have a inverse march"
-msgstr ""
+msgstr "\"Qualquer serviço\" 'any service' não pode ter uma marcha inversa"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 msgid "External networks to eBox"
@@ -286,34 +285,31 @@ msgstr "Redes internas para o eBox"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
-msgstr ""
+msgstr "Alimentar"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
-#, fuzzy
 msgid "External Input"
-msgstr "porta externa"
+msgstr "Alimentação Externa"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
 msgid "Output"
-msgstr ""
+msgstr "Saída"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
-#, fuzzy
 msgid "Forward"
-msgstr "encaminhamento"
+msgstr "Encaminhar"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
 msgid "NAT prerouting"
-msgstr ""
+msgstr "NAT pré-roteamento"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
 msgid "NAT postrouting"
-msgstr ""
+msgstr "NAT pós-roteamento"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:118
-#, fuzzy
 msgid "Rule"
-msgstr "Regras"
+msgstr "Regra"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:123
 msgid "Enabled"
@@ -321,25 +317,24 @@ msgstr "Habilitado"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:129
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:134
-#, fuzzy
 msgid "Module"
-msgstr "regra"
+msgstr "Módulo"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:139
 msgid "Condition"
-msgstr ""
+msgstr "Condição"
 
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:153
 #: src/templates/filter.mas:51
 msgid "Rules added by eBox services (Advanced)"
-msgstr ""
+msgstr "Regras adicionadas pelos serviços eBox (Avançado)"
 
 #: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
 msgid "Internal networks"
-msgstr "Redes externas"
+msgstr "Redes internas"
 
 #: src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
@@ -452,13 +447,15 @@ msgstr ""
 
 #: src/templates/filter.mas:53
 msgid "These rules are automatically added by the eBox services."
-msgstr ""
+msgstr "Essas regras são automaticamente adicionadas pelos serviços eBox."
 
 #: src/templates/filter.mas:56
 msgid ""
 "You can disable these rules, but make sure you know what you are doing or "
 "otherwise some services could stop working."
 msgstr ""
+"Você pode desativar essas regras, mas tenha certeza do que você está fazendo "
+"ou alguns serviços podem parar de funcionar."
 
 #, fuzzy
 #~ msgid "Port Forwading"

@@ -9,50 +9,51 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:22+0200\n"
-"PO-Revision-Date: 2009-03-08 15:16+0000\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-12 08:06+0200\n"
+"Last-Translator: zhoumeng <zhourimeng@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox VoIP system"
-msgstr ""
+msgstr "eBox VoIP 系统"
 
 #: src/EBox/Asterisk.pm:73 src/EBox/Asterisk.pm:726
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
-msgstr ""
+msgstr "VoIP"
 
 #: src/EBox/Asterisk.pm:129
 msgid "To configure enabled and disabled modules."
-msgstr ""
+msgstr "启用/禁用模块"
 
 #: src/EBox/Asterisk.pm:134
 msgid "To configure the Realtime interface."
-msgstr ""
+msgstr "配置实时接口"
 
 #: src/EBox/Asterisk.pm:139
 msgid "To configure the LDAP Realtime driver."
-msgstr ""
+msgstr "配置LDAP实时驱动"
 
 #: src/EBox/Asterisk.pm:144
 msgid "To configure the common SIP and IAX users."
-msgstr ""
+msgstr "配置公共SIP/IAX用户"
 
 #: src/EBox/Asterisk.pm:149
 msgid "To configure the SIP trunk for local users and external providers."
-msgstr ""
+msgstr "配置本地用户同外部供应商的中继"
 
 #: src/EBox/Asterisk.pm:154
 msgid "To configure the dialplan."
-msgstr ""
+msgstr "配置拨号规则"
 
 #: src/EBox/Asterisk.pm:159
 msgid "To configure the voicemail."
-msgstr ""
+msgstr "配置语音邮件"
 
 #: src/EBox/Asterisk.pm:164
 msgid "To configure the conferences."
@@ -60,43 +61,43 @@ msgstr ""
 
 #: src/EBox/Asterisk.pm:168
 msgid "To configure the music on hold."
-msgstr ""
+msgstr "配置通话保留音乐"
 
 #: src/EBox/Asterisk.pm:172
 msgid "To configure DTMF behaviour."
-msgstr ""
+msgstr "配置DTMF行为"
 
 #: src/EBox/Asterisk.pm:496
 msgid "General"
-msgstr ""
+msgstr "常用"
 
 #: src/EBox/Asterisk.pm:500 src/EBox/Model/Meetings.pm:185
 msgid "Meetings"
-msgstr ""
+msgstr "会议"
 
 #: src/EBox/Asterisk.pm:517
 msgid "Voicemail"
-msgstr ""
+msgstr "语音邮件"
 
 #: src/EBox/Asterisk.pm:527 src/EBox/Asterisk.pm:636
 msgid "User"
-msgstr ""
+msgstr "用户"
 
 #: src/EBox/Asterisk.pm:527
 msgid "Address"
-msgstr ""
+msgstr "地址"
 
 #: src/EBox/Asterisk.pm:527
 msgid "NAT"
-msgstr ""
+msgstr "NAT"
 
 #: src/EBox/Asterisk.pm:527
 msgid "Status"
-msgstr ""
+msgstr "状态"
 
 #: src/EBox/Asterisk.pm:541 src/EBox/Asterisk.pm:645
 msgid "No users connected."
-msgstr ""
+msgstr "无用户连接"
 
 #: src/EBox/Asterisk.pm:633
 #, perl-brace-format
@@ -105,159 +106,159 @@ msgstr ""
 
 #: src/EBox/Asterisk.pm:636
 msgid "Time Connected"
-msgstr ""
+msgstr "连接时间"
 
 #: src/EBox/Asterisk.pm:666
 msgid "VoIP Online Users"
-msgstr ""
+msgstr "VoIP 在线用户"
 
 #: src/EBox/Asterisk.pm:671
 msgid "VoIP Users in Meetings"
-msgstr ""
+msgstr "会议中的VoIP用户"
 
 #: src/EBox/Asterisk.pm:703
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: src/EBox/Asterisk.pm:704
 msgid "From"
-msgstr ""
+msgstr "从"
 
 #: src/EBox/Asterisk.pm:705
 msgid "To"
-msgstr ""
+msgstr "到"
 
 #: src/EBox/Asterisk.pm:706
 msgid "Duration"
-msgstr ""
+msgstr "持续"
 
 #: src/EBox/Asterisk.pm:707
 msgid "Channel"
-msgstr ""
+msgstr "通道"
 
 #: src/EBox/Asterisk.pm:708
 msgid "Destination Channel"
-msgstr ""
+msgstr "目标通道"
 
 #: src/EBox/Asterisk.pm:709
 msgid "Application"
-msgstr ""
+msgstr "应用程序"
 
 #: src/EBox/Asterisk.pm:710
 msgid "Application Data"
-msgstr ""
+msgstr "应用程序数据"
 
 #: src/EBox/Asterisk.pm:711
 msgid "Event"
-msgstr ""
+msgstr "事件"
 
 #: src/EBox/Asterisk.pm:719
 msgid "Answered"
-msgstr ""
+msgstr "响应"
 
 #: src/EBox/Asterisk.pm:720
 msgid "No Answer"
-msgstr ""
+msgstr "无应答"
 
 #: src/EBox/Asterisk.pm:721
 msgid "Busy"
-msgstr ""
+msgstr "忙"
 
 #: src/EBox/Asterisk.pm:722
 msgid "Failed"
-msgstr ""
+msgstr "失败"
 
 #: src/EBox/Asterisk/Extensions.pm:230
 msgid "User extension"
-msgstr ""
+msgstr "用户扩展"
 
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
 #: src/EBox/Model/Meetings.pm:145 src/EBox/Model/Settings.pm:92
 #: src/templates/group.mas:41 src/templates/user.mas:38
 msgid "Extension"
-msgstr ""
+msgstr "扩展"
 
 #: src/EBox/Asterisk/Extensions.pm:642
 msgid "Queue extension"
-msgstr ""
+msgstr "队列扩展"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "组"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
-msgstr ""
+msgstr "用户名"
 
 #: src/EBox/Model/Meetings.pm:91
 msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
-msgstr ""
+msgstr "使用会议功能您必须安装dahdi和dahdi-modules-ebox软件包"
 
 #: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
 #: src/EBox/Model/Settings.pm:84
 msgid "extension"
-msgstr ""
+msgstr "扩展"
 
 #: src/EBox/Model/Meetings.pm:149
 #, perl-brace-format
 msgid "A number between {min} and {max}."
-msgstr ""
+msgstr "{min} 和 {max}之间的数"
 
 #: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:111
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 #: src/EBox/Model/Meetings.pm:173 src/EBox/Model/Localnets.pm:119
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: src/EBox/Model/Meetings.pm:184
 msgid "List of Meetings"
-msgstr ""
+msgstr "会议列表"
 
 #: src/EBox/Model/Meetings.pm:186
 msgid "meeting"
-msgstr ""
+msgstr "会议"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 msgid "Asterisk Account"
-msgstr ""
+msgstr "Asterisk 帐号"
 
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
-msgstr ""
+msgstr "Asterisk"
 
 #: src/EBox/Model/Voicemail.pm:75 src/EBox/Model/Voicemail.pm:122
 msgid "Voicemail settings"
-msgstr ""
+msgstr "语音邮件设定"
 
 #: src/EBox/Model/Voicemail.pm:94
 msgid "New password"
-msgstr ""
+msgstr "新密码"
 
 #: src/EBox/Model/Voicemail.pm:101
 msgid "Mail address"
-msgstr ""
+msgstr "邮件地址"
 
 #: src/EBox/Model/Voicemail.pm:108
 msgid "Attach messages"
-msgstr ""
+msgstr "附加消息"
 
 #: src/EBox/Model/Voicemail.pm:114
 msgid "Delete sent messages"
-msgstr ""
+msgstr "删除发送消息"
 
 #: src/EBox/Model/Voicemail.pm:126
 msgid "Change your Voicemail settings"
-msgstr ""
+msgstr "变更您的语音邮件设定"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
-msgstr ""
+msgstr "设定更新成功"
 
 #: src/EBox/Model/Voicemail.pm:222
 msgid "You have not an VoIP account. Maybe VoIP is not enabled in this server"
-msgstr ""
+msgstr "您没有VoIP帐号。或许是服务器没有启用VoIP功能"
 
 #: src/EBox/Model/Localnets.pm:88
 #, perl-brace-format
@@ -268,87 +269,87 @@ msgstr ""
 
 #: src/EBox/Model/Localnets.pm:113
 msgid "Local network"
-msgstr ""
+msgstr "本地网络"
 
 #: src/EBox/Model/Localnets.pm:130
 msgid "Local networks"
-msgstr ""
+msgstr "本地网络"
 
 #: src/EBox/Model/Localnets.pm:131
 msgid "local network"
-msgstr ""
+msgstr "本地网络"
 
 #: src/EBox/Model/Settings.pm:117
 msgid "Enable demo extensions"
-msgstr ""
+msgstr "启动demo扩展"
 
 #: src/EBox/Model/Settings.pm:123
 msgid "Enable outgoing calls"
-msgstr ""
+msgstr "启动呼出通话"
 
 #: src/EBox/Model/Settings.pm:129
 msgid "Voicemail extension"
-msgstr ""
+msgstr "语音邮件扩展"
 
 #: src/EBox/Model/Settings.pm:136
 msgid "VoIP domain"
-msgstr ""
+msgstr "VoIP 域"
 
 #: src/EBox/Model/Settings.pm:145
 msgid "General configuration"
-msgstr ""
+msgstr "常用配置"
 
 #: src/EBox/Model/Settings.pm:149
 msgid "General Asterisk server configuration"
-msgstr ""
+msgstr "常用Asterisk服务器配置"
 
 #: src/EBox/Model/Settings.pm:151
 msgid "General Asterisk server configuration updated."
-msgstr ""
+msgstr "常用Asterisk服务器配置已更新。"
 
 #: src/EBox/Model/Provider.pm:68
 msgid "Custom"
-msgstr ""
+msgstr "定制"
 
 #: src/EBox/Model/Provider.pm:89
 msgid "Provider"
-msgstr ""
+msgstr "运营商"
 
 #: src/EBox/Model/Provider.pm:95
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: src/EBox/Model/Provider.pm:100
 msgid "VoIP service provider name."
-msgstr ""
+msgstr "VoIP 服务运营商名."
 
 #: src/EBox/Model/Provider.pm:104
 msgid "Username"
-msgstr ""
+msgstr "用户名"
 
 #: src/EBox/Model/Provider.pm:118
 msgid "Server"
-msgstr ""
+msgstr "服务器"
 
 #: src/EBox/Model/Provider.pm:126
 msgid "Recipient of incoming calls"
-msgstr ""
+msgstr "收件人"
 
 #: src/EBox/Model/Provider.pm:130
 msgid "Extension recipient of incoming calls through the provider."
-msgstr ""
+msgstr "通过运营商的来电的扩展收件人"
 
 #: src/EBox/Model/Provider.pm:137
 msgid "SIP provider"
-msgstr ""
+msgstr "SIP 提供商"
 
 #: src/EBox/Model/Provider.pm:141
 msgid "SIP provider for outgoing calls configuration."
-msgstr ""
+msgstr "呼出通话配置的SIP提供商"
 
 #: src/EBox/Model/Provider.pm:143
 msgid "SIP provider configuration updated."
-msgstr ""
+msgstr "SIP提供商配置已更新"
 
 #: src/EBox/Model/Provider.pm:195
 #, perl-brace-format
@@ -360,71 +361,71 @@ msgstr ""
 
 #: src/EBox/Model/NAT.pm:96
 msgid "eBox is behind NAT"
-msgstr ""
+msgstr "eBox处于NAT网络模式下"
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: src/EBox/Model/NAT.pm:120
 msgid "NAT configuration"
-msgstr ""
+msgstr "NAT配置"
 
 #: src/EBox/Model/NAT.pm:124
 msgid "NAT Asterisk server configuration"
-msgstr ""
+msgstr "NAT Asterisk 服务器配置"
 
 #: src/EBox/Model/NAT.pm:126
 msgid "NAT Asterisk server configuration updated."
-msgstr ""
+msgstr "NAT Asterisk 服务器配置已更新"
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
-msgstr ""
+msgstr "Asterisk 模块"
 
 #: src/templates/group.mas:8
 msgid "Asterisk group queue"
-msgstr ""
+msgstr "Asterisk 组队列"
 
 #: src/templates/group.mas:12
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
-msgstr ""
+msgstr "队列不能创建，因为该组中没有用户或用户没有Asterisk帐号。 "
 
 #: src/templates/group.mas:24
 msgid "Group queue"
-msgstr ""
+msgstr "组队列"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
 msgid "Disabled"
-msgstr ""
+msgstr "禁用"
 
 #: src/templates/group.mas:30 src/templates/group.mas:33
 #: src/templates/user.mas:27 src/templates/user.mas:30
 msgid "Enabled"
-msgstr ""
+msgstr "启用"
 
 #: src/templates/group.mas:52 src/templates/group.mas:53
 #: src/templates/user.mas:49 src/templates/user.mas:50
 msgid "Change"
-msgstr ""
+msgstr "变更"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
-msgstr ""
+msgstr "以下设定仅在Asterisk module启动时有效"
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"
-msgstr ""
+msgstr "Asterisk 帐号"
 
 #: src/templates/user.mas:10
 msgid "Password for Asterisk service is the user password"
-msgstr ""
+msgstr "Asterisk服务密码是用户密码"
 
 #: src/templates/user.mas:21
 msgid "User account"
-msgstr ""
+msgstr "用户帐号"

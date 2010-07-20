@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mail 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:54+0200\n"
-"PO-Revision-Date: 2010-05-27 16:18+0200\n"
+"PO-Revision-Date: 2010-06-10 21:20+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -1045,7 +1045,6 @@ msgid "Maximum message size exceeded"
 msgstr "Túllépte a megengedett levélméretet"
 
 #: src/EBox/Mail.pm:1612
-#, fuzzy
 msgid "User quota exceeded"
 msgstr "Túllépte a felhasználói méretkorlátot"
 

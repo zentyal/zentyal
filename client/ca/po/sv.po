@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:22+0200\n"
-"PO-Revision-Date: 2009-07-19 11:43+0200\n"
-"Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
+"PO-Revision-Date: 2010-07-13 15:48+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,9 +21,8 @@ msgstr ""
 #: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:49
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
 #: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:122
-#, fuzzy
 msgid "Certification Authority"
-msgstr "Hantering av certifikatutfärdare"
+msgstr "Certifikatutfärdare"
 
 #: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:119
 msgid "CA passphrases do NOT match"
@@ -45,9 +44,8 @@ msgid "Problems creating Certification Authority has happened"
 msgstr "Problem med att skapa Certifikatutfärdare har inträffat"
 
 #: src/EBox/CGI/RevokeCertificate.pm:64
-#, fuzzy
 msgid "The certificate has NOT been revoked."
-msgstr "Certifikatet har INTE spärrats"
+msgstr "Certifikatet har INTE tagits tillbaka"
 
 #: src/EBox/CGI/RevokeCertificate.pm:71 src/EBox/CGI/RenewCertificate.pm:69
 msgid "Boolean indicating Certification Authority Certificate"
@@ -70,7 +68,6 @@ msgstr "Namn"
 
 #: src/EBox/CGI/RevokeCertificate.pm:81 src/EBox/CGI/RenewCertificate.pm:79
 #: src/EBox/CGI/ShowForm.pm:68
-#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -115,38 +112,38 @@ msgid "Organization Name"
 msgstr "Organisationsnamn"
 
 #: src/EBox/CGI/IssueCertificate.pm:145
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"Inmatningen innehåller ogiltiga tecken. Alla alfanumeriska tecken plus dessa "
-"icke-alfanumeriska tecknen: .?&+:\\@ och blanksteg tillåts."
+"Inmatningen innehåller ogiltiga tecken. Alla {ascii}  alfanumeriska tecken "
+"plus dessa icke-alfanumeriska tecknen: .?&+:\\@ och blanksteg tillåts."
 
 #: src/EBox/CGI/IssueCertificate.pm:177 src/EBox/CA.pm:2630
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
-msgstr ""
+msgstr "Endast {dns}, {ip} och {email} är giltiga namntyper för subjektet."
 
 #: src/EBox/CGI/IssueCertificate.pm:184
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
+"Det alternativa namnet för subjekt måste ha detta mönster: type:value, "
+"type:value"
 
 #: src/EBox/CGI/IssueCertificate.pm:206
-#, fuzzy
 msgid "The certificate has been issued."
 msgstr "Certifikatet har utfärdats"
 
 #: src/EBox/CGI/IssueCertificate.pm:207
-#, fuzzy
 msgid "The new CA certificate has been issued."
 msgstr "Nytt CA-certifikat har utfärdats"
 
 #: src/EBox/CGI/ShowForm.pm:74
 msgid "Action"
-msgstr "Aktion"
+msgstr "Åtgärd"
 
 #: src/EBox/CGI/ShowForm.pm:83
 msgid "Only revoke and renew actions are performed"
@@ -197,6 +194,8 @@ msgstr ""
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
+"Infrastrukturen för Certifikatsutfärdaren (CA) är inte färdig än, skapa "
+"denna först."
 
 #: src/EBox/CA.pm:1201
 msgid "Either common name, distinguished name or serial number has been passed"
@@ -228,26 +227,24 @@ msgstr ""
 "förnyelse gjordes. Utfärda ett nytt certifikat med nya nycklar"
 
 #: src/EBox/CA.pm:1791
-#, fuzzy
 msgid "General"
 msgstr "Allmän"
 
 #: src/EBox/CA.pm:1794 src/EBox/Model/Certificates.pm:251
-#, fuzzy
 msgid "Services Certificates"
-msgstr "Spärrar certifikat"
+msgstr "Certifikat för services"
 
 #: src/EBox/CA.pm:1881
 msgid "Not created"
-msgstr ""
+msgstr "Inte skapad"
 
 #: src/EBox/CA.pm:1883
 msgid "Available"
-msgstr ""
+msgstr "Tillgänglig"
 
 #: src/EBox/CA.pm:1885
 msgid "Created but not available"
-msgstr ""
+msgstr "Skapad men ej tillgänglig"
 
 #: src/EBox/CA.pm:2478
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -349,9 +346,10 @@ msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
+"Du måste skapa en Certifikatsutfärdare först. Gå till "
+"{openhref}Certification Authority{closehref} för att göra detta."
 
 #: src/EBox/Model/Certificates.pm:217
-#, fuzzy
 msgid "Module"
 msgstr "Modul"
 
@@ -365,18 +363,19 @@ msgstr "Aktivera"
 
 #: src/EBox/Model/Certificates.pm:243
 msgid "Generate the certificate using CA with the common name set above"
-msgstr ""
+msgstr "Generera certifikatet genom CA med common name satt ovan."
 
 #: src/EBox/Model/Certificates.pm:252
-#, fuzzy
 msgid "certificate"
-msgstr "Certifikatfil"
+msgstr "Certifikat"
 
 #: src/EBox/Model/Certificates.pm:258
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by eBox"
 msgstr ""
+"Här kan du ställa in certifikat från denna CA för de säkra tjänsterna "
+"hanterade av eBox."
 
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
@@ -407,10 +406,9 @@ msgstr "Utgångsdatum"
 #: src/templates/formRenew.mas:61 src/templates/formRevoke.mas:46
 #: src/templates/index.mas:57
 msgid "Subject Alternative Names"
-msgstr ""
+msgstr "Alternativa subjekt namn"
 
 #: src/templates/formRevoke.mas:10
-#, fuzzy
 msgid "Revoke a Certificate"
 msgstr "Spärra ett certifikat"
 
@@ -442,6 +440,8 @@ msgid ""
 "Multi-value separated by commas, only valid types are: {dns}, {ip} and "
 "{email}. For instance, {example}"
 msgstr ""
+"Flera värden separerade med komma, giltiga typer är: {dns}, {ip} och "
+"{email}. Till exempel, {example}"
 
 #: src/templates/index.mas:72
 msgid "Issue"
@@ -460,7 +460,6 @@ msgid "Issue the Certification Authority Certificate"
 msgstr "Utfärda certifikat för certifikatutfärdare"
 
 #: src/templates/index.mas:85
-#, fuzzy
 msgid "Issue a New Certificate"
 msgstr "Utfärda ett nytt certifikat"
 
@@ -507,7 +506,7 @@ msgstr "Spärrat"
 #: src/templates/index.mas:137
 #, perl-brace-format
 msgid "Reason: {reason}"
-msgstr ""
+msgstr "Anledning: {reason}"
 
 #: src/templates/index.mas:174 src/templates/index.mas:199
 msgid "Download Key(s) and Certificate"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:56+0200\n"
-"PO-Revision-Date: 2010-06-02 20:39+0200\n"
+"PO-Revision-Date: 2010-06-10 21:30+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -498,12 +498,12 @@ msgstr ""
 
 #: src/EBox/Squid/Model/DelayPools2.pm:102
 #: src/EBox/Squid/Model/DelayPools1.pm:100
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
-"A(z) {object} objektum használatban {row} van: {table}. Ahhoz, hogy itt "
+"A(z) {object} objektum használatban van: {row}, {table}. Ahhoz, hogy itt "
 "hozzáadja, előbb ki kell ott törölnie"
 
 #: src/EBox/Squid/Model/DelayPools2.pm:119

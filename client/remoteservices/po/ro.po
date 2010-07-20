@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:32+0200\n"
-"PO-Revision-Date: 2009-02-19 16:28+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-14 13:48+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
@@ -183,7 +184,7 @@ msgstr ""
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:156
 msgid "Done"
-msgstr ""
+msgstr "Terminat"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:234
 msgid ""
@@ -353,4 +354,4 @@ msgstr ""
 
 #: src/EBox/RemoteServices.pm:599
 msgid "Connected"
-msgstr ""
+msgstr "Conectat"

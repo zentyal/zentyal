@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:54+0200\n"
-"PO-Revision-Date: 2010-05-27 16:17+0200\n"
+"PO-Revision-Date: 2010-06-10 21:16+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -628,9 +628,8 @@ msgid "Module"
 msgstr "Modul"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
-#, fuzzy
 msgid "modules restored"
-msgstr "modulok visszavonva"
+msgstr "modulok visszaállítva"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
@@ -1595,9 +1594,8 @@ msgid "General"
 msgstr "Általános"
 
 #: src/EBox/SysInfo.pm.in:273
-#, fuzzy
 msgid "Configuration Report"
-msgstr "Visszaállítás beállításai"
+msgstr "Beállítások kivonata"
 
 #: src/EBox/SysInfo.pm.in:276
 msgid "Halt/Reboot"

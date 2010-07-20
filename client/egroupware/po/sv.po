@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-egroupware 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:31+0200\n"
-"PO-Revision-Date: 2009-07-19 11:59+0200\n"
-"Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
+"PO-Revision-Date: 2010-07-16 14:08+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,9 +18,8 @@ msgstr ""
 "X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/EGroupware.pm:49
-#, fuzzy
 msgid "Groupware"
-msgstr "eGroupware"
+msgstr "Groupware"
 
 #: src/EBox/EGroupware.pm:97
 msgid "Create PostgreSQL user egroupware"
@@ -87,12 +86,10 @@ msgid "Name"
 msgstr "Namn"
 
 #: src/EBox/Model/PermissionTemplates.pm:72
-#, fuzzy
 msgid "Allowed Applications"
-msgstr "Applikationer"
+msgstr "Tillåtna Applikationer"
 
 #: src/EBox/Model/PermissionTemplates.pm:81
-#, fuzzy
 msgid "User Defined Permission Templates"
 msgstr "Användardefinerade rättighetsmallar"
 
@@ -113,11 +110,13 @@ msgid "No domain selected"
 msgstr "Ingen domän vald"
 
 #: src/EBox/Model/VMailDomain.pm:100
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must have at least one virtual mail domain defined. You can define the "
 "at {ohref}Virtual Domains section{chref}"
-msgstr "Du måste ha minst en virtuell maildomän definierad."
+msgstr ""
+"Du måste ha minst en virtuell maildomän definierad. Du kan definiera en på "
+"{ohref}Virtual Domains section{chref}"
 
 #: src/EBox/Model/VMailDomain.pm:109
 #, perl-brace-format
@@ -125,6 +124,8 @@ msgid ""
 "You must have IMAP service enabled. You can enable it at {ohref} Mail "
 "General Configuration{chref}."
 msgstr ""
+"Du måste ha IMAP tjänsten aktiverad. Du kan aktivera den på {ohref} Mail "
+"General Configuration{chref}."
 
 #: src/EBox/Model/VMailDomain.pm:137
 msgid ""
@@ -147,7 +148,6 @@ msgid "Select the virtual mail domain to be used for eGroupware"
 msgstr "Välj den virtuella epost-domänen att användas med eGroupware"
 
 #: src/EBox/Composite/General.pm:76
-#, fuzzy
 msgid "eGroupware"
 msgstr "eGroupware"
 
@@ -156,42 +156,40 @@ msgid ""
 "Once the module is enabled and you have created a user account, you can "
 "access the eGroupware web interface at http://<ebox_ip>/egroupware"
 msgstr ""
+"När modulen är aktiverad och du har skapat ett konto kan du komma åt "
+"eGroupware webbgränssnitt genom http://<ebox_ip>/egroupware"
 
 #: src/EBox/Composite/General.pm:89
-#, fuzzy
 msgid "EGroupware"
 msgstr "eGroupware"
 
 #: src/templates/egroupware.mas:9
-#, fuzzy
 msgid "eGroupware account"
-msgstr "eGroupware"
+msgstr "eGroupware konto"
 
 #: src/templates/egroupware.mas:10
 msgid "Password for eGroupware service is the user password"
-msgstr ""
+msgstr "Lösenord för eGroupware tjänsten är användarens lösenord"
 
 #: src/templates/egroupware.mas:12
-#, fuzzy
 msgid "eGroupware group"
-msgstr "eGroupware"
+msgstr "eGroupware grupp"
 
 #: src/templates/egroupware.mas:28
-#, fuzzy
 msgid "Permissions template"
-msgstr "Användardefinerade rättighetsmallar"
+msgstr "Rättighetsmallar"
 
 #: src/templates/egroupware.mas:39
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: src/templates/egroupware.mas:52 src/templates/egroupware.mas:53
 msgid "Change"
-msgstr ""
+msgstr "Ändring"
 
 #: src/templates/egroupware.mas:85
 msgid "Click here to select a virtual domain"
-msgstr ""
+msgstr "Klicka här för att välja en virtuell domän"
 
 #~ msgid "DefaultApplications"
 #~ msgstr "Standardapplikationer"

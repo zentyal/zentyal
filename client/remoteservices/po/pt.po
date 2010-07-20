@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:32+0200\n"
-"PO-Revision-Date: 2010-04-22 20:08+0200\n"
+"PO-Revision-Date: 2010-06-15 23:55+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -168,6 +168,9 @@ msgid ""
 "this user is renamed or removed it would be impossible to set up remote "
 "support access"
 msgstr ""
+"Já existe um utilizador {u} e não parece ter sido criado pela eBox. Até este "
+"utilizador ser renomeado ou removido será impossível definir um acesso "
+"remoto de suporte "
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:126
 msgid ""
@@ -183,11 +186,11 @@ msgstr "Os dados da subscrição foram recebidos correctamente"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:131
 msgid "Please, save changes"
-msgstr ""
+msgstr "Por favor, grave as alterações"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:156
 msgid "Done"
-msgstr "Grave as alterações"
+msgstr "Concluído"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:234
 msgid ""
@@ -273,17 +276,16 @@ msgstr "Definições de acesso"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:108
 msgid "Allow remote access to eBox staff"
-msgstr ""
+msgstr "Permitir acesso remoto ao colaboradores eBox"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:116
 msgid "Remote support access configuration"
-msgstr ""
+msgstr "Configuração do acesso de suporte remoto"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:122
 #: src/EBox/RemoteServices.pm:206
-#, fuzzy
 msgid "Remote Support Access"
-msgstr "Serviços Remotos"
+msgstr "Acesso de suporte remoto"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:133
 #, perl-brace-format
@@ -291,6 +293,8 @@ msgid ""
 "eBox Technologies provides support for eBox Platform through our {openhref}"
 "store{closehref}"
 msgstr ""
+"As tecnologias eBox providenciam suporte através da nossa "
+"{openhref}loja{closehref}"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:143
 #, perl-brace-format
@@ -298,6 +302,8 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'{group}' group and use the command '{cmd}'."
 msgstr ""
+"Para aceder à sessão remota entre como utilizador pertencente ao groupo "
+"'{group}' e use o comando '{cmd}'"
 
 #: src/EBox/RemoteServices/Backup.pm:260
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
@@ -354,7 +360,7 @@ msgstr "Centro de controle"
 
 #: src/EBox/RemoteServices.pm:209
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: src/EBox/RemoteServices.pm:261
 msgid "eBox Control Center Connection"

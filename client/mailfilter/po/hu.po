@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:32+0200\n"
-"PO-Revision-Date: 2010-02-09 11:08+0100\n"
+"PO-Revision-Date: 2010-06-10 21:21+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -109,7 +109,6 @@ msgid "Spam found"
 msgstr "Spamtalálat"
 
 #: src/EBox/MailFilter.pm:549
-#, fuzzy
 msgid "Forbidden attached file found"
 msgstr "Tiltott csatolt fájl"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:55+0200\n"
-"PO-Revision-Date: 2010-02-09 10:44+0100\n"
+"PO-Revision-Date: 2010-06-10 21:21+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -367,14 +367,12 @@ msgid "up"
 msgstr "up"
 
 #: src/EBox/Network.pm:3073
-#, fuzzy
 msgid "external"
-msgstr "Külső"
+msgstr "külső"
 
 #: src/EBox/Network.pm:3075
-#, fuzzy
 msgid "internal"
-msgstr "Külső"
+msgstr "belső"
 
 #: src/EBox/Network.pm:3082
 msgid "link ok"
@@ -387,7 +385,7 @@ msgstr "nincs link"
 #: src/EBox/Network.pm:3087
 #, perl-brace-format
 msgid "{up}, {ext}, {link}"
-msgstr ""
+msgstr "{up}, {ext}, {link}"
 
 #: src/EBox/Network.pm:3098
 msgid "MAC address"

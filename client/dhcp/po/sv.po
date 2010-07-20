@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:53+0200\n"
-"PO-Revision-Date: 2009-07-19 11:28+0200\n"
-"Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
+"PO-Revision-Date: 2010-07-15 12:21+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -97,12 +97,11 @@ msgid "You need to specify a path to the boot image in the remote server"
 msgstr "Du behöver ställa in en sökväg till en boot image på fjärrservern"
 
 #: src/EBox/Model/ThinClientOptions.pm:158
-#, fuzzy
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
 msgstr ""
-"Du kan bara specificera ett filnamn om du har en nästa server och det inte "
-"är en eBox"
+"Du kan bara specificera ett filnamn om du har en sekundär server och det "
+"inte är en eBox"
 
 #: src/EBox/Model/ThinClientOptions.pm:209
 #, perl-brace-format
@@ -230,7 +229,7 @@ msgstr "Du kan inte använda en ip-adress i ovanstående intervall."
 
 #: src/EBox/Model/FixedAddressTable.pm:229
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #: src/EBox/Model/FixedAddressTable.pm:237 src/templates/fixed.mas:5
 msgid "Fixed addresses"
@@ -245,50 +244,55 @@ msgstr "fasta adresser"
 #, perl-brace-format
 msgid "Domain {domain} has already been defined manually in DNS section"
 msgstr ""
+"Domänen {domain} har redan blivit specificerad manuellt i DNS sektionen."
 
 #: src/EBox/Model/DynamicDNS.pm:241
 msgid "DNS module must be configured to work with this feature"
-msgstr ""
+msgstr "DNS modulen måste vara konfigurerad för att fungera med denna funktion."
 
 #: src/EBox/Model/DynamicDNS.pm:244
 #, perl-brace-format
 msgid "{pkg} must be installed to use this feature"
-msgstr ""
+msgstr "{pkg} måste vara installerat för att använda denna funktion."
 
 #: src/EBox/Model/DynamicDNS.pm:266
 msgid ""
 "Domains will be added/set automatically in DNS section in read-only mode."
 msgstr ""
+"Domäner kommer att läggas till automatiskt i DNS sektionen i endast läsbart "
+"läge."
 
 #: src/EBox/Model/DynamicDNS.pm:268
 msgid "DNS module must be enabled to make this feature work. "
-msgstr ""
+msgstr "DNS modulen måste vara aktiverad för att denna funktion skall fungera."
 
 #: src/EBox/Model/DynamicDNS.pm:332
-#, fuzzy
 msgid "Dynamic domain"
-msgstr "Sökdomän"
+msgstr "Dynamisk domän"
 
 #: src/EBox/Model/DynamicDNS.pm:334
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
+"Domännamn att läggas till värdnamnet för de klienter som kommer från ett "
+"intervall av ip-adresser."
 
 #: src/EBox/Model/DynamicDNS.pm:339
-#, fuzzy
 msgid "Static domain"
-msgstr "Sökdomän"
+msgstr "Statisk domän"
 
 #: src/EBox/Model/DynamicDNS.pm:341
 msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
 msgstr ""
+"Domännamn som läggs till värdnamnet för de klienter som har en fast ip "
+"adress."
 
 #: src/EBox/Model/DynamicDNS.pm:346
 msgid "Same as Dynamic Domain"
-msgstr ""
+msgstr "Samma som dynamisk domän"
 
 #: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:371
 #: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
@@ -298,21 +302,23 @@ msgstr "Anpassad"
 
 #: src/EBox/Model/DynamicDNS.pm:358
 msgid "Dynamic DNS Options"
-msgstr ""
+msgstr "Alternativ för dynamisk DNS"
 
 #: src/EBox/Model/DynamicDNS.pm:363
 msgid "The domains will be added automatically to DNS module in read-only mode"
 msgstr ""
+"Domänerna kommer att läggas till automatiskt till DNS modulen i endast "
+"läsbart läge."
 
 #: src/EBox/Model/DynamicDNS.pm:395
 #, perl-brace-format
 msgid "Domain \"{domain}\" added to DNS section"
-msgstr ""
+msgstr "Domän \"{domain}\" tillagd i DNS sektionen"
 
 #: src/EBox/Model/DynamicDNS.pm:406
 #, perl-brace-format
 msgid "Domain \"{domain}\" removed from DNS section"
-msgstr ""
+msgstr "Domän \"{domain}\" borttagen ur DNS sektionen"
 
 #: src/EBox/Model/RangeInfo.pm:143
 msgid "Interface IP address"
@@ -336,26 +342,21 @@ msgid "{gateway} is not in the current network"
 msgstr "{gateway} finns inte på det aktuella nätverket"
 
 #: src/EBox/Model/Options.pm:169
-#, fuzzy
 msgid ""
 "DNS module must be enabled to be able to select eBox as primary DNS server"
 msgstr ""
-"DNS servicen måste vara aktiverad som primär namnserver på den lokala eBox-"
-"servern"
+"DNS servicen måste vara aktiverad för att kunna välja eBox som primär DNS "
+"namnserver"
 
 #: src/EBox/Model/Options.pm:179
-#, fuzzy
 msgid "NTP module must be enabled to be able to select eBox as NTP server"
 msgstr ""
-"DNS servicen måste vara aktiverad som primär namnserver på den lokala eBox-"
-"servern"
+"NTP modulen måste vara aktiverad för att kunna välja eBox som NTP server"
 
 #: src/EBox/Model/Options.pm:190
-#, fuzzy
 msgid "Samba module must be enabled to be able to select eBox as WINS server"
 msgstr ""
-"DNS servicen måste vara aktiverad som primär namnserver på den lokala eBox-"
-"servern"
+"Samba modulen måste vara aktiverad för att kunna välja eBox som WINS server"
 
 #: src/EBox/Model/Options.pm:379
 msgid "eBox's domain"
@@ -366,14 +367,12 @@ msgid "local eBox DNS"
 msgstr "lokal eBox DNS"
 
 #: src/EBox/Model/Options.pm:414
-#, fuzzy
 msgid "local eBox NTP"
-msgstr "lokal eBox DNS"
+msgstr "lokal eBox NTP"
 
 #: src/EBox/Model/Options.pm:428
-#, fuzzy
 msgid "local eBox"
-msgstr "lokal eBox DNS"
+msgstr "lokal eBox "
 
 #: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
 msgid "Default gateway"
@@ -424,51 +423,45 @@ msgid "Secondary nameserver"
 msgstr "Sekundär namnserver"
 
 #: src/EBox/Model/Options.pm:494
-#, fuzzy
 msgid "NTP server"
-msgstr "Nästa server"
+msgstr "NTP server"
 
 #: src/EBox/Model/Options.pm:497
-#, fuzzy
 msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
 msgstr ""
-"Om \"eBox DNS\" är tillgänglig och aktiverad kommer eBox-servern agera som "
-"cache för DNS-sökningar"
+"Om \"eBox NTP\" är tillgänglig och aktiverad kommer eBox-servern agera NTP "
+"server för DHCP klienter."
 
 #: src/EBox/Model/Options.pm:502
-#, fuzzy
 msgid "WINS server"
-msgstr "Nästa server"
+msgstr "WINS server"
 
 #: src/EBox/Model/Options.pm:505
-#, fuzzy
 msgid ""
 "If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
 "DHCP clients"
 msgstr ""
-"Om \"eBox DNS\" är tillgänglig och aktiverad kommer eBox-servern agera som "
-"cache för DNS-sökningar"
+"Om \"eBox Samba\" är tillgänglig och aktiverad kommer eBox-servern agera WINS "
+"server för DHCP klienter."
 
 #: src/EBox/Model/Options.pm:512
 msgid "Common options"
 msgstr "Gemensamma alternativ"
 
 #: src/EBox/Model/Options.pm:517
-#, fuzzy
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
 "domains on eBox might be chosen. All fields are optionals setting its value "
 "as \"None\" or leaving blank."
 msgstr ""
-"Ställa in \"eBox\" som default gateway kommer att sätta gränssnittets adress "
-"som default gateway. Om du ställer in \"namn\" kan du välja en av de "
-"konfigurerade gateway. Som sökdomän kan du välja en av de konfigurerade DNS "
-"domänerna på eBox. Om du ställer in \"eBox DNS\" som primär namnserver om "
-"installerad kan eBox servern agera cachande DNS server. Alla värden är "
-"valfria."
+"Om du väljer konfigurerade som default gateway kan du välja en av de "
+"konfigurerade gateways som finns. Som sökdomän kan du välja en av de "
+"konfigurerade DNS domänerna på eBox. Om du ställer in \"eBox DNS\" som primär "
+"namnserver om installerad kan eBox servern agera cachande DNS server. Alla "
+"värden är valfria."
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
@@ -510,9 +503,9 @@ msgid "range"
 msgstr "intervall"
 
 #: src/EBox/DHCP.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{server} configuration file"
-msgstr "Inställningar för tjänsten"
+msgstr "{server} fil med inställningar"
 
 #: src/EBox/DHCP.pm:432 src/EBox/DHCP.pm:468 src/EBox/DHCP.pm:518
 #: src/EBox/DHCP.pm:564 src/EBox/DHCP.pm:610 src/EBox/DHCP.pm:708

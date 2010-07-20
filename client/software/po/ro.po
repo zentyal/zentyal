@@ -8,112 +8,118 @@ msgstr ""
 "Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:55+0200\n"
-"PO-Revision-Date: 2008-09-01 08:34+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-05 11:07+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
-msgstr ""
+msgstr "Software HTTP"
 
 #: migration/0001_add_http_software_rule.pl:26
 msgid "software service to update packages via apt"
-msgstr ""
+msgstr "serviciu software de actualizare a pachetelor cu apt"
 
 #: migration/0001_add_http_software_rule.pl:45
 msgid "rule to allow apt updates"
-msgstr ""
+msgstr "regulă pentru a permite actualizările prin apt"
 
 #: src/EBox/Software.pm:53
 msgid "Software Management"
-msgstr ""
+msgstr "Administrare Software"
 
 #: src/EBox/Software.pm:78 src/EBox/Software.pm:84
 msgid ""
 "eBox software will download the available updates from your configured apt "
 "sources. "
 msgstr ""
+"eBox va descărca actualizările disponibile de la sursele apt configurate."
 
 #: src/EBox/Software.pm:83
 msgid "Enable cron script to download updates"
-msgstr ""
+msgstr "Activare script cron pt. descărcarea actualizărilor"
 
 #: src/EBox/Software.pm:168 src/EBox/Software.pm:407
 msgid ""
 "The software management module must be enabled to be able to install packages"
 msgstr ""
+"Modulul administrare software trebuie activat pentru a instala pachetele"
 
 #: src/EBox/Software.pm:212 src/EBox/Software.pm:441
 msgid ""
 "The software management module must be enabled to be able to remove packages"
 msgstr ""
+"Modulul administrare software trebuie activat pentru a dezinstala pachetele"
 
 #: src/EBox/Software.pm:551
 msgid "eBox Components"
-msgstr ""
+msgstr "Componente eBox"
 
 #: src/EBox/Software.pm:553
 msgid "System Updates"
-msgstr ""
+msgstr "Actualizări sistem"
 
 #: src/EBox/Software.pm:555
 msgid "Automatic Updates"
-msgstr ""
+msgstr "Actualizări automate"
 
 #: src/EBox/Software.pm:646
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"Actualizarea software este blocată de  {locker}. Încercaţi din nou mai "
+"târziu"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Actualizări automate ale software-ului"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "configurarea actualizărilor automate"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
-msgstr ""
+msgstr "componente eBox"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 msgid "System updates"
-msgstr ""
+msgstr "Actualizări sistem"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "Actualizările software-ului se produc automat"
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system components are up to date."
-msgstr ""
+msgstr "Componentele sistemului sunt la zi."
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
 msgid "Upgrading"
-msgstr ""
+msgstr "In curs de actualizare"
 
 #: src/EBox/CGI/InstallPkgs.pm:84
 msgid "There were no packages to update"
-msgstr ""
+msgstr "Nu au fost pachete de actualizat"
 
 #: src/EBox/CGI/InstallPkgs.pm:149
 msgid "Upgrading packages"
-msgstr ""
+msgstr "Actualizare pachete"
 
 #: src/EBox/CGI/InstallPkgs.pm:150 src/EBox/CGI/InstallPkgs.pm:170
 msgid "Current package"
-msgstr ""
+msgstr "Pachet curent"
 
 #: src/EBox/CGI/InstallPkgs.pm:151
 msgid "packages left to install"
-msgstr ""
+msgstr "pachete rămase de instalat"
 
 #: src/EBox/CGI/InstallPkgs.pm:152
 msgid ""
@@ -121,24 +127,27 @@ msgid ""
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully restarted"
 msgstr ""
+"Instalarea pachetelor s-a finalizat cu succes. Interfaţa de administrare "
+"poate părea blocată pentru câteva secunde.Aşteptaţi cu răbdare finalizarea  "
+"restartării sistemului."
 
 #: src/EBox/CGI/InstallPkgs.pm:156
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
-msgstr ""
+msgstr "Instalarea pachetelor nu a reuşit. Detalii în jurnal."
 
 #: src/EBox/CGI/InstallPkgs.pm:168
 msgid "Removing package"
-msgstr ""
+msgstr "Dezinstalare pachet"
 
 #: src/EBox/CGI/InstallPkgs.pm:169
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Dezinstalare pachet şi pachete dependente"
 
 #: src/EBox/CGI/InstallPkgs.pm:171
 msgid "packages left to remove"
-msgstr ""
+msgstr "pachete rămase de dezinstalat"
 
 #: src/EBox/CGI/InstallPkgs.pm:172
 msgid ""
@@ -146,96 +155,101 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"Dezinstalarea pachetelor s-a finalizat cu succes. Interfaţa de administrare "
+"poate părea blocată pentru câteva secunde.Aşteptaţi cu răbdare finalizarea "
+"restartării sistemului."
 
 #: src/EBox/CGI/InstallPkgs.pm:176
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
-msgstr ""
+msgstr "Dezinstalarea pachetelor nu a reuşit. Detalii în jurnal."
 
 #: src/templates/ebox.mas:16 src/templates/updates.mas:20
 msgid "Component"
-msgstr ""
+msgstr "Componentă"
 
 #: src/templates/ebox.mas:17
 msgid "Installed version "
-msgstr ""
+msgstr "Versiune instalată"
 
 #: src/templates/ebox.mas:18
 msgid "Latest version"
-msgstr ""
+msgstr "Cea mai nouă versiune"
 
 #: src/templates/ebox.mas:19
 msgid "Actions"
-msgstr ""
+msgstr "Acţiuni"
 
 #: src/templates/ebox.mas:30 src/templates/updates.mas:23
 msgid "Update"
-msgstr ""
+msgstr "Actualizare"
 
 #: src/templates/ebox.mas:36
 msgid "Install"
-msgstr ""
+msgstr "Instalare"
 
 #: src/templates/ebox.mas:38
 msgid "none"
-msgstr ""
+msgstr "nimic"
 
 #: src/templates/ebox.mas:60
 msgid "Remove"
-msgstr ""
+msgstr "Dezinstalare"
 
 #: src/templates/ebox.mas:77 src/templates/updates.mas:57
 msgid "Update all packages"
-msgstr ""
+msgstr "Actualizarea tuturor pachetelor"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Următoarele pachete vor fi instalate"
 
 #: src/templates/del.mas:16
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Următoarele pachete vor fi DEZinstalate"
 
 #: src/templates/del.mas:32
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/templates/del.mas:33
 msgid "Cancel"
-msgstr ""
+msgstr "Anulare"
 
 #: src/templates/config.mas:8
 msgid "Perform automatic security updates"
-msgstr ""
+msgstr "Execută actualizări de securitate automate "
 
 #: src/templates/updates.mas:15
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Există actualizări pentru următoarele componente de sistem"
 
 #: src/templates/updates.mas:21
 msgid "Description"
-msgstr ""
+msgstr "Descriere"
 
 #: src/templates/updates.mas:22
 msgid "Version"
-msgstr ""
+msgstr "Versiune"
 
 #: src/templates/updates.mas:68
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"Această operaţiune poate dura, nu vă îngrijoraţi dacă eBox pare blocat după "
+"apăsarea butonului Actualizare."
 
 #: src/templates/updates.mas:71
 msgid "Upgrade"
-msgstr ""
+msgstr "Actualizare"
 
 #: src/templates/updateNote.mas:7
 msgid ""
 "Please wait, the update of the software available list is in process right "
 "now"
-msgstr ""
+msgstr "Aşteptaţi, se procesează lista software-ului disponibil de actualizat"
 
 #: src/templates/updateNote.mas:10
 msgid ""
@@ -243,6 +257,9 @@ msgid ""
 "is probably outdated. The list is updated each night or you can force the "
 "update with the console command 'ebox-software'"
 msgstr ""
+"Lista componentelor nu a fost descărcată cu succes niciodată.Lista este "
+"actualizată în fiecare noapte sau poate fi actualizată manual prin comanda "
+"în consolă 'ebox-software'"
 
 #: src/templates/updateNote.mas:20
 #, perl-brace-format
@@ -251,3 +268,6 @@ msgid ""
 "be updated again at night or you can force the update with the console "
 "command 'ebox-software'"
 msgstr ""
+"Lista componentelor a fost actualizată în {mon}/{mday}/{year} {hour}:{min}. "
+"Va fi actualizată din nou la noapte sau poate fi actualizată manual prin "
+"comanda în consolă 'ebox-software'"

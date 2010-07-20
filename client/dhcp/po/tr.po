@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:53+0200\n"
-"PO-Revision-Date: 2010-06-02 20:28+0200\n"
+"PO-Revision-Date: 2010-07-12 11:18+0200\n"
 "Last-Translator: Bulent SENER <bulent.sener@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -163,7 +163,7 @@ msgid "Maximum leased time must be higher than 0 seconds"
 msgstr "En uzun kiralam süresi 0 dan büyük olmalıdır"
 
 #: src/EBox/Model/LeaseTimes.pm:156
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
 "En uzun kira süresi {max} ön tanımlı kira süresinden küçük olamaz {default}"
@@ -449,6 +449,10 @@ msgid ""
 "domains on eBox might be chosen. All fields are optionals setting its value "
 "as \"None\" or leaving blank."
 msgstr ""
+"Eğer ön tanımlı ağ geçidi tanımladıysanız, ağ geçidini ayalamayı "
+"seçebilirsiniz. Aramaların yapılacağı alan adı için eBox üzerinde tanılı DNS "
+"sunucularından birini seçin. Tüm alanlar boş olabilir ya da bir değer "
+"atanabilir."
 
 #: src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format

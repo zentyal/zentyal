@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-remoteservices 1.1Report-Msgid-Bugs-To: bugs@warp."
-"es\n"
+"Project-Id-Version: ebox-remoteservices 1.1Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:32+0200\n"
-"PO-Revision-Date: 2010-04-06 16:25+0200\n"
+"PO-Revision-Date: 2010-06-10 21:28+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -169,6 +169,9 @@ msgid ""
 "this user is renamed or removed it would be impossible to set up remote "
 "support access"
 msgstr ""
+"Már létezik egy {u} felhasználó és nem lehet még egyet létrehozni. Mielőtt "
+"átnevezné vagy törölné a felhasználót lehetetlen beállítani a távoli "
+"hozzáférést"
 
 #: src/EBox/RemoteServices/Model/Subscription.pm:126
 msgid ""
@@ -276,17 +279,16 @@ msgstr "Hozzáférési beállítások"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:108
 msgid "Allow remote access to eBox staff"
-msgstr ""
+msgstr "Távoli elérés engedélyezése az eBoxhoz"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:116
 msgid "Remote support access configuration"
-msgstr ""
+msgstr "Távoli támogatás elérésének beállítása"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:122
 #: src/EBox/RemoteServices.pm:206
-#, fuzzy
 msgid "Remote Support Access"
-msgstr "Távoli szolgáltatás"
+msgstr "Távoli támogatás"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:133
 #, perl-brace-format
@@ -294,6 +296,8 @@ msgid ""
 "eBox Technologies provides support for eBox Platform through our {openhref}"
 "store{closehref}"
 msgstr ""
+"Az eBox Technologies a {openhref}store{closehref}-on keresztül, támogatást "
+"nyújt az eBox Platformhoz"
 
 #: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:143
 #, perl-brace-format
@@ -301,6 +305,9 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'{group}' group and use the command '{cmd}'."
 msgstr ""
+"A távoli munkamenethez való csatlakozáshoz, lépjen be a konzolba egy a(z) "
+"'{group}' csoporthoz tartozó felhasználóval és futtassa a(z) '{cmd}' "
+"parancsot."
 
 #: src/EBox/RemoteServices/Backup.pm:260
 #: src/EBox/RemoteServices/ProxyBackup.pm:208
@@ -356,7 +363,7 @@ msgstr "Vezérlőközpont"
 
 #: src/EBox/RemoteServices.pm:209
 msgid "System"
-msgstr ""
+msgstr "Rendszer"
 
 #: src/EBox/RemoteServices.pm:261
 msgid "eBox Control Center Connection"

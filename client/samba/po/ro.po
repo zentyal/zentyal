@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:33+0200\n"
-"PO-Revision-Date: 2008-09-01 08:33+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-14 14:51+0200\n"
+"Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_samba_service.pl:113
 msgid "File sharing (Samba) protocol"
@@ -597,11 +598,11 @@ msgstr ""
 #: src/templates/delete.mas:18 src/templates/samba.mas:89
 #: src/templates/samba.mas:90
 msgid "Delete"
-msgstr ""
+msgstr "Ştergere"
 
 #: src/templates/delete.mas:21
 msgid "Cancel"
-msgstr ""
+msgstr "Anulare"
 
 #: src/templates/samba.mas:9
 msgid "PDC/File sharing account"

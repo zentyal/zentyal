@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:54+0200\n"
-"PO-Revision-Date: 2010-05-28 16:52+0200\n"
+"PO-Revision-Date: 2010-06-10 21:19+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -141,7 +141,7 @@ msgstr "LOG"
 
 #: src/EBox/Firewall.pm:853
 msgid "REDIRECT"
-msgstr ""
+msgstr "REDIRECT"
 
 #: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
 msgid "Traffic coming out from eBox"
@@ -223,12 +223,11 @@ msgstr "Másik"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:337
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:339
-#, fuzzy
 msgid "Log new forwarded connections"
-msgstr "A továbbított portok listája"
+msgstr "Az új, továbbított kapcsolatok naplózása"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:344
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:185
@@ -274,7 +273,7 @@ msgstr "Szabályok beállítása"
 
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:242
 msgid "'any service' cannot have a inverse march"
-msgstr ""
+msgstr "a 'bármely szolgáltatás'-nak nem lehet inverze"
 
 #: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
 msgid "External networks to eBox"

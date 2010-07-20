@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:32+0200\n"
-"PO-Revision-Date: 2010-04-16 18:11+0200\n"
+"PO-Revision-Date: 2010-06-11 13:09+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -73,7 +73,7 @@ msgstr "Servidor {name}"
 #: src/EBox/OpenVPN/Server.pm:728 src/EBox/OpenVPN/Client.pm:386
 #: src/EBox/OpenVPN/Model/Servers.pm:68
 msgid "Enabled"
-msgstr "Ligado"
+msgstr "Activo"
 
 # e
 #: src/EBox/OpenVPN/Server.pm:728 src/EBox/OpenVPN/Client.pm:386
@@ -177,6 +177,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
+"O cliente VPN não deve ser configurado para ligar ao endereço {addr} porque "
+"é um endereço da máquina local"
 
 #: src/EBox/OpenVPN/Client.pm:245
 #, perl-brace-format
@@ -184,6 +186,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
+"O cliente VPN não deve ser configurado para ligar ao endereço {addr} porque "
+"é um endereço do interface de rede local"
 
 #: src/EBox/OpenVPN/Client.pm:384
 #, perl-brace-format
@@ -598,30 +602,39 @@ msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Cannot unpack "
 "it)"
 msgstr ""
+"Esta configuração eBox-para-eBox não é válida. (Não é possível descarregar)"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:153
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
+"Esta configuração eBox-para-eBox não é válida. (Não foi encontrado o "
+"ficheiro de configuração do servidor)"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:160
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing CA "
 "certificate file)"
 msgstr ""
+"Esta configuração eBox-para-eBox não é válida. (Não foi encontrado o "
+"certificado CA)"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:167
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
+"Esta configuração eBox-para-eBox não é válida. (Não foi encontrado o "
+"certificado)"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:174
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
+"Esta configuração eBox-para-eBox não é válida. (Não foi encontrado o "
+"certificado da chave privada)"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"

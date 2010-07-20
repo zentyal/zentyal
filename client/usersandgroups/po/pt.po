@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:56+0200\n"
-"PO-Revision-Date: 2009-11-11 20:53+0100\n"
+"PO-Revision-Date: 2010-06-29 18:57+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -128,7 +128,6 @@ msgid "Required for usercorner access to configured modules"
 msgstr "Obrigatório para acesso ao módulos configurados na área do utilizador"
 
 #: src/EBox/UserCornerWebServer.pm:171
-#, fuzzy
 msgid "User Corner web server"
 msgstr "Servidor Web da área do utilizador"
 
@@ -172,47 +171,45 @@ msgid "There are no pending operations at the moment."
 msgstr "Actualmente não há operações pendentes"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:65
-#, fuzzy
 msgid "AD user"
-msgstr "Adicionar utilizador"
+msgstr "Utilizador do Active Directory"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:68
+#, fuzzy
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
-msgstr ""
+msgstr "Nome de Utilizador para"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:72
-#, fuzzy
 msgid "AD password"
-msgstr "palavra-passe"
+msgstr "Palavra-passe do Active Directory"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:74
 msgid "Password for the above user"
-msgstr ""
+msgstr "Palavra-passe para o utilizador acima"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:78
-#, fuzzy
 msgid "Listen port"
-msgstr "porto a ser escutado"
+msgstr "Porto a ser escutado"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
 msgid "Port for listening password sync notifications from Windows"
-msgstr ""
+msgstr "Porto para escuta das notificações de sincronização do Windows"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
 msgid "AD Secret Key"
-msgstr ""
+msgstr "Chave do Active Directory"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:87
 msgid "Secret key to be shared between Windows and eBox (16 chars)"
-msgstr ""
+msgstr "Chave para ser partilhada entre Windows e eBox (16 caracteres)"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:93
 msgid "Windows AD Sync Settings"
-msgstr ""
+msgstr "Definições de sincronização do Active Directory do Windows"
 
 #: src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:114
 msgid "The secret key needs to have 16 characters."
-msgstr ""
+msgstr "A chave deve ter 16 caracteres"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2316
 msgid "Mode"
@@ -224,42 +221,39 @@ msgstr "Principal"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:73
 msgid "Windows AD Slave"
-msgstr ""
+msgstr "Cliente Windows Active Directory"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:80
 msgid "LDAP DN"
-msgstr ""
+msgstr "LDAP DN"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:85
 msgid "Only for master and AD slave configuration"
-msgstr ""
+msgstr "Somente para a configuração cliente/server do Active Directory"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:89
-#, fuzzy
 msgid "Master host"
-msgstr "Principal"
+msgstr "Máquina principal"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:91
-#, fuzzy
 msgid "Only for slave configuration: IP of the master eBox or Windows AD"
-msgstr "Somente para configuração cliente: IP da eBox principal"
+msgstr ""
+"Somente para configuração cliente: IP da eBox principal ou Windows Active "
+"Directory"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:95
-#, fuzzy
 msgid "LDAP password"
-msgstr "palavra-passe"
+msgstr "Palavra-passe LDAP"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:97
 msgid "Master eBox LDAP password"
-msgstr ""
+msgstr "Palavra-passe LDAP da eBox principal"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:103
-#, fuzzy
 msgid "Configuration"
-msgstr "operação"
+msgstr "Configuração"
 
 #: src/EBox/UsersAndGroups/Model/Mode.pm:104
-#, fuzzy
 msgid "eBox Users Mode"
 msgstr "Modo de utilizadores eBox"
 
@@ -287,18 +281,17 @@ msgstr ""
 "poder usar"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:136
-#, fuzzy
 msgid "There are no groups at the moment"
-msgstr "Actualmente não há clientes"
+msgstr "Actualmente não há grupos"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:139
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "This eBox is configured as slave and there are no groups at the moment. You "
 "may want to add some in the {openhref}master{closehref}."
 msgstr ""
-"Actualmente não existem grupos. Pode adicionar um em {openhref}Add group "
-"section{closehref}."
+"Esta eBox está configurada como cliente e actualmente não existem grupos. "
+"Pode adicionar  em {openhref}Secção Adicionar Grupo{closehref}."
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:143
 msgid ""
@@ -306,10 +299,13 @@ msgid ""
 "moment. If there are groups in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
+"Esta eBox está configurada como cliente do Windows Active Directory e não "
+"tem grupos actualmente. Se existem grupos no seu domínio talvez a "
+"sincronização tenha falhado ou não tenha acabado"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
-msgstr "Gestão de palavra-passe"
+msgstr "Gestão de palavras-passe"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:59
 msgid "New password"
@@ -348,52 +344,46 @@ msgstr "Sincronizar agora"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:67
 msgid "Base DN"
-msgstr ""
+msgstr "DN base"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:79
-#, fuzzy
 msgid "Users DN"
-msgstr "Utilizadores"
+msgstr "Utilizadores DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:85
-#, fuzzy
 msgid "Groups DN"
-msgstr "Grupos"
+msgstr "Grupos DN"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
 #: src/EBox/UsersAndGroups.pm:2301
 msgid "LDAP Info"
-msgstr ""
+msgstr "Informação LDAP"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:94
 msgid "LDAP Information"
-msgstr ""
+msgstr "Informação LDAP"
 
 #: src/EBox/UsersAndGroups/Model/LdapInfo.pm:149
-#, fuzzy
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information"
-msgstr ""
-"Deve activar o módulo de utilizadores na secção de status do módulo para o "
-"poder usar"
+msgstr "Deve activar o módulo de utilizadores para aceder à informação LDAP"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:66
 msgid "Full name"
 msgstr "Nome completo"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:135
-#, fuzzy
 msgid "There are no users at the moment"
-msgstr "Actualmente não há clientes"
+msgstr "Actualmente não há utilizadores"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:138
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "This eBox is configured as slave and there are no users at the moment. You "
 "may want to add some in the {openhref}master{closehref}."
 msgstr ""
-"Actualmente não existem utilizadores. Adicione um em {openhref}Add user "
-"section{closehref}."
+"Esta eBox está configurada como cliente e não existem utilizadores "
+"actualmente . Adicione um em {openhref}principal{closehref}."
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:142
 msgid ""
@@ -401,6 +391,9 @@ msgid ""
 "moment. If there are users in your Domain Controller, maybe the "
 "synchronization process has failed or has not finished yet."
 msgstr ""
+"Esta eBodx está configurada como cliente do Windows Active Directory e não "
+"existem utilizadores actualmente. Se existirem utilizadores no seu domínio "
+"talvez a sincronização tenha falhado o não tenha terminado"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:60
 #: src/EBox/UserCornerWebServer/Model/Settings.pm:55
@@ -412,7 +405,6 @@ msgid "List of slaves"
 msgstr "Lista de clientes"
 
 #: src/EBox/UsersAndGroups/Model/Slaves.pm:74
-#, fuzzy
 msgid "This is a list of those eBox slaves which are subscribed to this eBox."
 msgstr "Esta é uma lista dos clientes eBox que foram subscritos por esta eBox"
 
@@ -432,10 +424,12 @@ msgstr "Estado do cliente"
 msgid ""
 "These configuration options are used when a new user account is created."
 msgstr ""
+"Estas opções de configuração são usadas quando um nova conta de utilizador é "
+"criada"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:80
 msgid "There isn't any configurable option"
-msgstr ""
+msgstr "Esta não é uma opção configurável"
 
 #: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
 #: src/EBox/UsersAndGroups.pm:2287 src/EBox/UsersAndGroups.pm:2296
@@ -444,7 +438,7 @@ msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:77
 msgid "Users and Groups"
-msgstr "utilizadores e grupos"
+msgstr "Utilizadores e grupos"
 
 #: src/EBox/UsersAndGroups.pm:96
 msgid ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-openvpn 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:32+0200\n"
-"PO-Revision-Date: 2010-05-28 16:54+0200\n"
+"PO-Revision-Date: 2010-06-10 21:35+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -599,30 +599,40 @@ msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Cannot unpack "
 "it)"
 msgstr ""
+"Ez a csomag nem egy érvényes eBox-to-eBox beállítócsomag. (Nem lehet "
+"kicsomagolni)"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:153
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
+"Ez a csomag nem egy érvényes eBox-to-eBox beállítócsomag. (Hiányzó szerver-"
+"beállító fájlok)"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:160
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing CA "
 "certificate file)"
 msgstr ""
+"Ez a csomag nem egy érvényes eBox-to-eBox beállítócsomag. (Hiányzó CA "
+"tanúsítvány)"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:167
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
+"Ez a csomag nem egy érvényes eBox-to-eBox beállítócsomag. (Hiányzó "
+"tanúsítvány)"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:174
 msgid ""
 "This bundle is not a valid eBox-to-eBox configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
+"Ez a csomag nem egy érvényes eBox-to-eBox beállítócsomag. (Hiányzik a "
+"tanúsítvány személyes kulcsa)"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:33
 msgid "Server's address"

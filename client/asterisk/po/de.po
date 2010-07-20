@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:22+0200\n"
-"PO-Revision-Date: 2010-05-23 21:22+0200\n"
+"PO-Revision-Date: 2010-06-11 10:51+0200\n"
 "Last-Translator: Marco Falger <mfalger@aon.at>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -129,7 +129,6 @@ msgid "To"
 msgstr "An"
 
 #: src/EBox/Asterisk.pm:706
-#, fuzzy
 msgid "Duration"
 msgstr "Dauer"
 
@@ -163,7 +162,7 @@ msgstr "Keine Antwort"
 
 #: src/EBox/Asterisk.pm:721
 msgid "Busy"
-msgstr "Besetzt "
+msgstr "Besetzt"
 
 #: src/EBox/Asterisk.pm:722
 #, fuzzy
@@ -179,7 +178,7 @@ msgstr "Benutzer Rufnummer"
 #: src/EBox/Model/Meetings.pm:145 src/EBox/Model/Settings.pm:92
 #: src/templates/group.mas:41 src/templates/user.mas:38
 msgid "Extension"
-msgstr ""
+msgstr "Durchwahl"
 
 #: src/EBox/Asterisk/Extensions.pm:642
 #, fuzzy
@@ -188,7 +187,7 @@ msgstr "Warteschlangen Rufnummer"
 
 #: src/EBox/CGI/AsteriskGroupOptions.pm:42
 msgid "group"
-msgstr ""
+msgstr "Gruppe"
 
 #: src/EBox/CGI/AsteriskUserOptions.pm:43
 msgid "username"
@@ -206,7 +205,7 @@ msgstr "Rufnummer"
 #: src/EBox/Model/Meetings.pm:149
 #, perl-brace-format
 msgid "A number between {min} and {max}."
-msgstr ""
+msgstr "Eine Nummer zwischen {min} und {max}."
 
 #: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:111
 msgid "Password"
@@ -219,16 +218,17 @@ msgstr "Beschreibung"
 #: src/EBox/Model/Meetings.pm:184
 #, fuzzy
 msgid "List of Meetings"
-msgstr "Telefonkonferenz"
+msgstr "Liste der Telefonkonferenzen"
 
 #: src/EBox/Model/Meetings.pm:186
+#, fuzzy
 msgid "meeting"
-msgstr ""
+msgstr "Telefonkonferenz"
 
 #: src/EBox/Model/AsteriskUser.pm:50
 #, fuzzy
 msgid "Asterisk Account"
-msgstr "Asterisk Account"
+msgstr "Asterisk Konto"
 
 #: src/EBox/Model/AsteriskUser.pm:58
 msgid "Asterisk"
@@ -248,7 +248,7 @@ msgstr "E-Mail Adresse"
 
 #: src/EBox/Model/Voicemail.pm:108
 msgid "Attach messages"
-msgstr "Anhang"
+msgstr "Nachrichten anhängen"
 
 #: src/EBox/Model/Voicemail.pm:114
 msgid "Delete sent messages"
@@ -257,7 +257,7 @@ msgstr "Gesendete Nachrichten löschen"
 #: src/EBox/Model/Voicemail.pm:126
 #, fuzzy
 msgid "Change your Voicemail settings"
-msgstr "Sprachnachrichten Einstellungen"
+msgstr "Sprachnachrichten Einstellungen ändern"
 
 #: src/EBox/Model/Voicemail.pm:204
 msgid "Settings successfully updated"
@@ -324,8 +324,9 @@ msgstr ""
 "Allgemeine Asterisk Serverkonfigurations Einstellungen wurden aktualisiert."
 
 #: src/EBox/Model/Provider.pm:68
+#, fuzzy
 msgid "Custom"
-msgstr ""
+msgstr "Benutzerdefiniert"
 
 #: src/EBox/Model/Provider.pm:89
 #, fuzzy
@@ -365,12 +366,12 @@ msgstr "SIP - Provider"
 #: src/EBox/Model/Provider.pm:141
 #, fuzzy
 msgid "SIP provider for outgoing calls configuration."
-msgstr "SIP - Provider Konfiguration"
+msgstr "SIP - Provider Konfiguration für ausgehende Anrufe."
 
 #: src/EBox/Model/Provider.pm:143
 #, fuzzy
 msgid "SIP provider configuration updated."
-msgstr "SIP - Provider Konfiguration wurde geändert"
+msgstr "SIP - Provider Konfiguration wurde geändert."
 
 #: src/EBox/Model/Provider.pm:195
 #, perl-brace-format
@@ -386,26 +387,26 @@ msgstr ""
 
 #: src/EBox/Model/NAT.pm:101
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: src/EBox/Model/NAT.pm:120
 #, fuzzy
 msgid "NAT configuration"
-msgstr "SIP - Provider Konfiguration"
+msgstr "NAT Konfiguration"
 
 #: src/EBox/Model/NAT.pm:124
 #, fuzzy
 msgid "NAT Asterisk server configuration"
-msgstr "Generelle Asterisk - Server konfiguration"
+msgstr "NAT Asterisk - Server konfiguration"
 
 #: src/EBox/Model/NAT.pm:126
 #, fuzzy
 msgid "NAT Asterisk server configuration updated."
-msgstr "Generelle Asterisk Server Konfiguration Einstellungs Update"
+msgstr "NAT Asterisk Server Konfiguration Einstellungs Update"
 
 #: src/EBox/Composite/General.pm:66
 msgid "Asterisk module"
-msgstr "Asterisk - Modul"
+msgstr "Asterisk - Module"
 
 #: src/templates/group.mas:8
 #, fuzzy
@@ -422,8 +423,9 @@ msgstr ""
 "Konto, weshalb eine Warteschlange nicht angelegt werden kann."
 
 #: src/templates/group.mas:24
+#, fuzzy
 msgid "Group queue"
-msgstr ""
+msgstr "Gruppen Warteschlange"
 
 #: src/templates/group.mas:29 src/templates/group.mas:32
 #: src/templates/user.mas:26 src/templates/user.mas:29
@@ -441,10 +443,13 @@ msgid "Change"
 msgstr "Ändern"
 
 #: src/templates/moduleDisabled.mas:5
+#, fuzzy
 msgid ""
 "The following settings only will take effect when the Asterisk module is "
 "enabled."
 msgstr ""
+"Die folgenden Änderungen werden nur übernommen wenn das Asterisk Modul "
+"aktiviert ist."
 
 #: src/templates/user.mas:8
 msgid "Asterisk account"

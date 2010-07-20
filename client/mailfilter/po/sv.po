@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:32+0200\n"
-"PO-Revision-Date: 2009-07-19 12:17+0200\n"
-"Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
+"PO-Revision-Date: 2010-07-19 21:27+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,12 +48,13 @@ msgstr ""
 
 #: src/EBox/MailFilter.pm:91
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Lägg till spam och ham systemanvändare"
 
 #: src/EBox/MailFilter.pm:93
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Användarna för detta epostkonto används för att träna det bayesiska filtret"
 
 #: src/EBox/MailFilter.pm:98
 msgid "Update LDAP"
@@ -106,7 +107,6 @@ msgid "Spam found"
 msgstr "Skräppost funnet"
 
 #: src/EBox/MailFilter.pm:549
-#, fuzzy
 msgid "Forbidden attached file found"
 msgstr "Förbjuden bifogad fil funnen"
 
@@ -163,13 +163,11 @@ msgid "POP3 proxy"
 msgstr "POP3 proxy"
 
 #: src/EBox/MailFilter.pm:705 src/EBox/MailFilter/Composite/Amavis.pm:61
-#, fuzzy
 msgid "SMTP Mail Filter"
 msgstr "SMTP e-postfilter"
 
 #: src/EBox/MailFilter.pm:712
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
-#, fuzzy
 msgid "POP Transparent Proxy"
 msgstr "Transparent POP proxy"
 
@@ -304,9 +302,8 @@ msgstr "process"
 
 #: src/EBox/MailFilter/Model/AntispamACL.pm:165
 #: src/EBox/MailFilter/Model/VDomains.pm:158
-#, fuzzy
 msgid "Virtual Domains"
-msgstr "virtuell domän"
+msgstr "virtuella domäner"
 
 #: src/EBox/MailFilter/Model/MIMETypeACL.pm:68
 msgid "MIME Type"
@@ -368,9 +365,8 @@ msgid "The port {port} is already used by module {mod}"
 msgstr "Porten {port} används redan av modulen {mod}"
 
 #: src/EBox/MailFilter/Model/AntispamVDomainACL.pm:77
-#, fuzzy
 msgid "Sender policy for virtual domain"
-msgstr "virtuell domän"
+msgstr "Sändpolicy för virtuell domän"
 
 #: src/EBox/MailFilter/Model/FileExtensionACL.pm:68
 msgid "File extension"
@@ -390,7 +386,7 @@ msgstr "Extern e-postserver"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:71
 msgid "IP address of the server"
-msgstr ""
+msgstr "Ip adressen för servern"
 
 #: src/EBox/MailFilter/Model/ExternalMTA.pm:75
 #: src/EBox/MailFilter/Model/ExternalDomain.pm:76
@@ -437,7 +433,6 @@ msgid "Tag which will be added to the spam mail subject"
 msgstr "Märking som kommer att adderas till skräppost ärenderad."
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:78
-#, fuzzy
 msgid "Use Bayesian classifier"
 msgstr "Använd bayesian klassificering"
 
@@ -558,9 +553,8 @@ msgstr ""
 "filtrerar din e-post efter skräppost "
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:94
-#, fuzzy
 msgid "Configuration"
-msgstr "Antiskräppost konfiguration"
+msgstr "Konfiguration"
 
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:114
 msgid ""
@@ -588,9 +582,8 @@ msgid "Bad header policy"
 msgstr "Felaktig e-posthuvudpolicy"
 
 #: src/EBox/MailFilter/Model/AmavisPolicy.pm:91
-#, fuzzy
 msgid "Filter Policies"
-msgstr "SMTP filterpolicy"
+msgstr "Filterpolicy"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:60
 msgid "Mailbox"
@@ -610,7 +603,7 @@ msgstr "Lärde från meddelanden"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:83
 msgid "Train"
-msgstr ""
+msgstr "Träna"
 
 #: src/EBox/MailFilter/Model/AntispamTraining.pm:98
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:64
@@ -650,13 +643,15 @@ msgstr "anpassat tröskelvärde"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:114
 msgid "Learn from accounts' Spam IMAP folders"
-msgstr ""
+msgstr "Lär från kontons Spam IMAP mappar"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:116
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
 msgstr ""
+"Varje gång epost flyttas in eller ut från IMAP Spam mappen kommer filtret "
+"att tränas med dem"
 
 #: src/EBox/MailFilter/Model/VDomains.pm:123
 msgid "Learning ham account"
@@ -697,6 +692,8 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"Det finns inga virtuella domäner som hanteras av denna server. Du kan skapa "
+"några i {openA}virtual domains mail page{closeA}. "
 
 #: src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
 msgid "Mail filter graph"
@@ -832,14 +829,13 @@ msgstr ""
 #: src/EBox/MailFilter/SpamAssassin.pm:404
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
-msgstr ""
+msgstr "Konton från domänen {d} kan inte träna det bayesiska filtret"
 
 #: src/EBox/MailFilter/Composite/ExternalConnections.pm:60
 msgid "External connections"
 msgstr "Externa anslutningar"
 
 #: src/EBox/MailFilter/Composite/FileFilter.pm:59
-#, fuzzy
 msgid "Attached Files Filter"
 msgstr "Filter för bifogade filer"
 

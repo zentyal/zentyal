@@ -8,25 +8,26 @@ msgstr ""
 "Project-Id-Version: ebox-dhcp 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:53+0200\n"
-"PO-Revision-Date: 2008-09-01 08:30+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-06-21 11:27+0200\n"
+"Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: migration/0002_add_services.pl:117
 msgid "Trivial File Transfer Protocol"
-msgstr ""
+msgstr "Trivial File Transfer Protocol (TFTP)"
 
 #: migration/0002_add_services.pl:126
 msgid "Dynamic Host Configuration Protocol"
-msgstr ""
+msgstr "Dynamic Host Configuration Protocol (DHCP)"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
-msgstr ""
+msgstr "Stav Modulu"
 
 #: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -35,38 +36,38 @@ msgstr ""
 #: src/EBox/DHCP.pm:604 src/EBox/DHCP.pm:702 src/EBox/DHCP.pm:756
 #: src/EBox/DHCP.pm:817 src/EBox/DHCP.pm:873 src/EBox/DHCP.pm:1264
 msgid "Interface"
-msgstr ""
+msgstr "Rozhranie"
 
 #: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:215
 #: src/EBox/DHCP.pm:1265 src/EBox/DHCP.pm:1333 src/templates/fixed.mas:9
 msgid "MAC address"
-msgstr ""
+msgstr "MAC adresa"
 
 #: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:242
 #: src/EBox/Model/FixedAddressTable.pm:221 src/EBox/DHCP.pm:1333
 #: src/templates/fixed.mas:10
 msgid "IP address"
-msgstr ""
+msgstr "IP adresa"
 
 #: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
 #: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/Model/RangeTable.pm:213
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
-msgstr ""
+msgstr "Meno"
 
 #: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
 #: src/templates/ranges.mas:54
 msgid "From"
-msgstr ""
+msgstr "Od"
 
 #: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
 #: src/templates/ranges.mas:55
 msgid "To"
-msgstr ""
+msgstr "Do"
 
 #: src/EBox/CGI/Enable.pm:39
 msgid "module status"
-msgstr ""
+msgstr "stav modulu"
 
 #: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
 #: src/EBox/Model/FixedAddressTable.pm:98 src/EBox/Model/DynamicDNS.pm:111
@@ -76,16 +77,19 @@ msgstr ""
 #: src/EBox/Composite/AdvancedOptions.pm:88
 #, perl-brace-format
 msgid "interface {iface}"
-msgstr ""
+msgstr "rozhranie {iface}"
 
 #: src/EBox/Model/ThinClientOptions.pm:139
 msgid "You need to upload a boot image to eBox if you set it as next server"
 msgstr ""
+"Potrebujete nahrať štartovací obraz do eBox-u, ak ho chcete nastaviť ako "
+"ďalší server"
 
 #: src/EBox/Model/ThinClientOptions.pm:146
+#, fuzzy
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
-msgstr ""
+msgstr "Aby bol nahratý "
 
 #: src/EBox/Model/ThinClientOptions.pm:153
 msgid "You need to specify a path to the boot image in the remote server"

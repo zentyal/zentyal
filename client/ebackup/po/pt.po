@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:31+0200\n"
-"PO-Revision-Date: 2010-04-30 12:29+0200\n"
+"PO-Revision-Date: 2010-06-11 13:49+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -26,12 +26,17 @@ msgstr "Cópia de Segurança"
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
 msgstr ""
+"O ficheiro {f} não foi encontrado na cópia de segurança de {d}, tente uma "
+"data posterior"
 
 #: src/EBox/EBackup.pm:204
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
+"Não foram encontrados ficheiros de cópia de segurança. Poderão ter sido "
+"apagados? Corra '/etc/init.d/ebox ebackup restart' para actualizar a "
+"informação das cópias de segurança"
 
 #: src/EBox/Event/Watcher/EBackup.pm:142
 msgid "Check if eBox backup was not successful."
@@ -43,13 +48,14 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
+"Os dados de registo das cópias de segurança não foram encontrados na cópia "
+"de segurança {d}. Quer tentar outra data?"
 
 #: src/EBox/Model/RemoteFileList.pm:143 src/EBox/Model/RemoteStatus.pm:119
 #: src/EBox/Model/RemoteRestoreConf.pm:74
 #: src/EBox/Model/RemoteRestoreLogs.pm:88
-#, fuzzy
 msgid "There are not backed up files yet"
-msgstr "Ainda não existe informação sobre ficheiros salvaguardados."
+msgstr "Ainda não existem ficheiros de cópia de segurança."
 
 #: src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
@@ -164,15 +170,15 @@ msgstr "A cópia de segurança começa em"
 
 #: src/EBox/Model/RemoteSettings.pm:267
 msgid "Keep previous full copies"
-msgstr ""
+msgstr "Guardar cópias completas anteriores"
 
 #: src/EBox/Model/RemoteSettings.pm:272
 msgid "maximum number"
-msgstr ""
+msgstr "número máximo"
 
 #: src/EBox/Model/RemoteSettings.pm:281
 msgid "no older than"
-msgstr ""
+msgstr "nenhum outro que"
 
 #: src/EBox/Model/RemoteSettings.pm:295
 msgid "General Configuration"
@@ -193,40 +199,40 @@ msgstr "A configuração do servidor de cópia de segurança foi actualizada"
 
 #: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Monday"
-msgstr ""
+msgstr "na segunda-feira"
 
 #: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Tuesday"
-msgstr ""
+msgstr "na terça-feira"
 
 #: src/EBox/Model/RemoteSettings.pm:319
 msgid "on Wednesday"
-msgstr ""
+msgstr "na quarta-feira"
 
 #: src/EBox/Model/RemoteSettings.pm:320
 msgid "on Thursday"
-msgstr ""
+msgstr "na quinta-feira"
 
 #: src/EBox/Model/RemoteSettings.pm:321
 msgid "on Friday"
-msgstr ""
+msgstr "na sexta-feira"
 
 #: src/EBox/Model/RemoteSettings.pm:322
 msgid "on Saturday"
-msgstr ""
+msgstr "no sábado"
 
 #: src/EBox/Model/RemoteSettings.pm:323
 msgid "on Sunday"
-msgstr ""
+msgstr "no domingo"
 
 #: src/EBox/Model/RemoteSettings.pm:336
 #, perl-brace-format
 msgid "on the {mday}th"
-msgstr ""
+msgstr "no {mday}º"
 
 #: src/EBox/Model/RemoteSettings.pm:344
 msgid "on the last day"
-msgstr ""
+msgstr "no ultimo dia"
 
 #: src/EBox/Model/RemoteSettings.pm:499
 #, perl-brace-format
@@ -241,63 +247,63 @@ msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:516
 msgid "1 week"
-msgstr ""
+msgstr "1 semana"
 
 #: src/EBox/Model/RemoteSettings.pm:520
 msgid "2 weeks"
-msgstr ""
+msgstr "2 semanas"
 
 #: src/EBox/Model/RemoteSettings.pm:524
 msgid "3 weeks"
-msgstr ""
+msgstr "3 semanas"
 
 #: src/EBox/Model/RemoteSettings.pm:528
 msgid "1 month"
-msgstr ""
+msgstr "1 mês"
 
 #: src/EBox/Model/RemoteSettings.pm:532
 msgid "2 months"
-msgstr ""
+msgstr "2 meses"
 
 #: src/EBox/Model/RemoteSettings.pm:536
 msgid "3 months"
-msgstr ""
+msgstr "3 meses"
 
 #: src/EBox/Model/RemoteSettings.pm:540
 msgid "4 months"
-msgstr ""
+msgstr "4 meses"
 
 #: src/EBox/Model/RemoteSettings.pm:544
 msgid "6 months"
-msgstr ""
+msgstr "6 meses"
 
 #: src/EBox/Model/RemoteSettings.pm:548
 msgid "9 months"
-msgstr ""
+msgstr "9 meses"
 
 #: src/EBox/Model/RemoteSettings.pm:552
 msgid "1 year"
-msgstr ""
+msgstr "1 ano"
 
 #: src/EBox/Model/RemoteSettings.pm:556
 msgid "1 year and half"
-msgstr ""
+msgstr "1 ano e meio"
 
 #: src/EBox/Model/RemoteSettings.pm:560
 msgid "2 years"
-msgstr ""
+msgstr "2 anos"
 
 #: src/EBox/Model/RemoteSettings.pm:564
 msgid "3 years"
-msgstr ""
+msgstr "3 anos"
 
 #: src/EBox/Model/RemoteSettings.pm:596
 msgid "Destination must be a relative directory"
-msgstr "O destino necessita de ser um directório"
+msgstr "O destino deve ser um directório"
 
 #: src/EBox/Model/RemoteSettings.pm:651
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr "O parametro do objectivo deve ser como 'other.host[:port]/some_dir'"
+msgstr "O parâmetro do objectivo deve ser como 'other.host[:port]/some_dir'"
 
 #: src/EBox/Model/RemoteSettings.pm:662 src/EBox/Model/RemoteSettings.pm:696
 msgid "target"
@@ -359,11 +365,9 @@ msgid "File exists and it is not a directory"
 msgstr "O ficheiro existe e não é um directório"
 
 #: src/EBox/Model/RemoteSettings.pm:763
-#, fuzzy
 msgid "Incremental backup must be more frequent than full backup"
 msgstr ""
-"Uma cópia de segurança completa não pode ser mais frequente que uma "
-"incremental"
+"Uma cópia de segurança incremental deve ser mais frequente que uma completa"
 
 #: src/EBox/Model/RemoteSettings.pm:775
 msgid ""
@@ -383,9 +387,8 @@ msgid "Includes and Excludes"
 msgstr "Inclusões ou exclusões"
 
 #: src/EBox/Model/RemoteExcludes.pm:94
-#, fuzzy
 msgid "exclude or include"
-msgstr "Excluir ou incluir"
+msgstr "excluir ou incluir"
 
 #: src/EBox/Model/RemoteExcludes.pm:102
 msgid ""
@@ -393,15 +396,18 @@ msgid ""
 "directory match is applied to all it contents. Files not explicitly excluded "
 "or included are included"
 msgstr ""
+"Um ficheiro ou directório está incluído ou excluído de acordo com a primeira "
+"correspondência. uma correspondência de um directório é aplicada a todos os "
+"dados contidos. Ficheiros que não sejam excluído ou incluídos "
+"explicitamente são incluídos"
 
 #: src/EBox/Model/RemoteExcludes.pm:117
 msgid "Exclude path"
 msgstr "Caminho da exclusão"
 
 #: src/EBox/Model/RemoteExcludes.pm:121
-#, fuzzy
 msgid "Exclude by regular expression"
-msgstr "Caminho da expressão regular da exclusão"
+msgstr "Exclusão por expressão regular"
 
 #: src/EBox/Model/RemoteExcludes.pm:125
 msgid "Include Path"
@@ -425,15 +431,15 @@ msgstr "caminho da inclusão"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:104
 msgid "Restore eBox configuration from backup"
-msgstr ""
+msgstr "Restaurar configuração da eBox a partir de uma cópia de segurança"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:111
 msgid "Loads the configuration found in the backup"
-msgstr ""
+msgstr "Carrega a configuração encontrada na cópia de segurança"
 
 #: src/EBox/Model/RemoteRestoreConf.pm:113
 msgid "Please wait..."
-msgstr ""
+msgstr "Por favor, espere..."
 
 #: src/EBox/Model/RemoteRestoreConf.pm:169
 #, perl-brace-format
@@ -441,18 +447,21 @@ msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
 "another date?"
 msgstr ""
+"O ficheiro de configuração não foi encontrado na cópia de segurança para "
+"{d}. Quer tentar encontrar noutra data?"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:118
 msgid "Restore logs database"
-msgstr ""
+msgstr "Restaurar base de dados de registo"
 
 #: src/EBox/Model/RemoteRestoreLogs.pm:125
 msgid "Restores the eBox logs found in the selected backup"
 msgstr ""
+"Restaura os registos eBox encontrados na cópia de segurança seleccionada"
 
 #: src/EBox/Composite/ServicesRestore.pm:64
 msgid "Services restore"
-msgstr ""
+msgstr "Restauro de serviços"
 
 #: src/EBox/Composite/RemoteGeneral.pm:65
 msgid "Configuration and Status"

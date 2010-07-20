@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:55+0200\n"
-"PO-Revision-Date: 2010-04-16 18:28+0200\n"
+"PO-Revision-Date: 2010-06-11 13:13+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -364,14 +364,12 @@ msgid "up"
 msgstr "para cima"
 
 #: src/EBox/Network.pm:3073
-#, fuzzy
 msgid "external"
-msgstr "Exterior"
+msgstr "externo"
 
 #: src/EBox/Network.pm:3075
-#, fuzzy
 msgid "internal"
-msgstr "Exterior"
+msgstr "interno"
 
 #: src/EBox/Network.pm:3082
 msgid "link ok"
@@ -384,7 +382,7 @@ msgstr "sem ligação"
 #: src/EBox/Network.pm:3087
 #, perl-brace-format
 msgid "{up}, {ext}, {link}"
-msgstr ""
+msgstr "{up}, {ext}, {link}"
 
 #: src/EBox/Network.pm:3098
 msgid "MAC address"

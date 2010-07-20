@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:54+0200\n"
-"PO-Revision-Date: 2010-05-18 11:15+0200\n"
+"PO-Revision-Date: 2010-07-20 13:07+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -209,15 +209,15 @@ msgstr "Receptor"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:352
 msgid "Configure Dispatchers"
-msgstr ""
+msgstr "Configurare dispeceri"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:361
 msgid "dispatcher"
-msgstr ""
+msgstr "dispecer"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:362
 msgid "Enable/Disable each event dispatcher"
-msgstr ""
+msgstr "Activare/Dezactivare fiecare dispecer de eveniment"
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:551
 msgid ""
@@ -397,26 +397,28 @@ msgstr "Grafic sumar al evenimentelor"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:70
 msgid "Events reports"
-msgstr ""
+msgstr "Rapoarte cu evenimente"
 
 #: src/EBox/Events/Composite/Report/EventsReport.pm:71
 msgid "Events report"
-msgstr ""
+msgstr "Raport evenimente"
 
 #: src/EBox/EventDaemon.pm:451
 #, perl-brace-format
 msgid "Dispatcher {name} disabled since it is not able to send events"
-msgstr ""
+msgstr "Dispecerul {name} deyactivat pt. că nu poate trimite evenimente"
 
 #: src/EBox/Auth.pm:155
 msgid "Password changed"
-msgstr ""
+msgstr "Parola a fost modificată"
 
 #: src/EBox/CGI/ClientRawBase.pm:211
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
+"A apărut o eroare la o matriţă. Acesta este un gândac (bug :-), informaţii "
+"relevante sunt în jurnal."
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58
 msgid "Logs"
@@ -600,20 +602,19 @@ msgstr "Restaurare module"
 #: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:720
 #: src/templates/moduleStatusTable.mas:58 src/templates/finish.mas:117
 msgid "Module"
-msgstr ""
+msgstr "Module"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
 msgid "modules restored"
-msgstr ""
+msgstr "module restaurare"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
 msgstr "Restaurare reuşită"
 
 #: src/EBox/CGI/EBox/ConfigurationReport.pm:29
-#, fuzzy
 msgid "Configuration report"
-msgstr "Configurare generală"
+msgstr "Raport de configurare"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
 #: src/EBox/SysInfo.pm.in:265
@@ -892,11 +893,11 @@ msgstr ""
 
 #: src/EBox/Event/Watcher/State.pm:126
 msgid "eBox is up and running"
-msgstr ""
+msgstr "eBox a pornit şi rulează"
 
 #: src/EBox/Event/Watcher/State.pm:132
 msgid "eBox is critically down"
-msgstr ""
+msgstr "ebox e în stare critică"
 
 #: src/EBox/Event/Watcher/State.pm:157 src/templates/report/raid.mas:226
 msgid "State"
@@ -958,11 +959,11 @@ msgstr ""
 
 #: src/EBox/Event/Dispatcher/Log.pm:136
 msgid "Log file"
-msgstr ""
+msgstr "Fişier jurnal"
 
 #: src/EBox/Event/Dispatcher/Log.pm:149
 msgid "Log"
-msgstr ""
+msgstr "Jurnal"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:219
 #, perl-brace-format
@@ -976,7 +977,7 @@ msgstr "RSS"
 #: src/EBox/Event/Dispatcher/RSS.pm:290
 #, perl-brace-format
 msgid "eBox alerts channel for {hostname}"
-msgstr ""
+msgstr "canal alerte eBox pentru {hostname}"
 
 #: src/EBox/Event/Dispatcher/RSS.pm:293
 msgid "This channel tracks what happens on this eBox machine along the time"
@@ -1001,140 +1002,140 @@ msgstr ""
 #: src/EBox/PgDBEngine.pm:359
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
-msgstr ""
+msgstr "Eroare la bascularea bazei de date postgresql {name}"
 
 #: src/EBox/PgDBEngine.pm:377
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
-msgstr ""
+msgstr "Fişierul basculat DB {file} nu poate fi citit"
 
 #: src/EBox/Types/Int.pm:155
 msgid "Enter an integer number"
-msgstr ""
+msgstr "Introduceţi un număr întreg"
 
 #: src/EBox/Types/Int.pm:162 src/EBox/Types/Float.pm:121
 #, perl-brace-format
 msgid "The value shouldn't be greater than {m}"
-msgstr ""
+msgstr "Valoarea ar trebui să fie mai mică de {m}"
 
 #: src/EBox/Types/Int.pm:172 src/EBox/Types/Float.pm:130
 #, perl-brace-format
 msgid "The value shouldn't be less than {m}"
-msgstr ""
+msgstr "Valoarea ar trebui să fie mai mare de {m}"
 
 #: src/EBox/Types/Password.pm:134
 #, perl-brace-format
 msgid "The password should have at least {minLength} characters"
-msgstr ""
+msgstr "Parola ar trebui să aibă minim {minLength} caractere"
 
 #: src/EBox/Types/Password.pm:145
 #, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
-msgstr ""
+msgstr "Parola ar trebui să aibă maxim {maxLength} caractere"
 
 #: src/EBox/Types/DomainName.pm:118
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "Nu sunt permise adrese IP"
 
 #: src/EBox/Types/PortRange.pm:138
 msgid "any"
-msgstr ""
+msgstr "orice"
 
 #: src/EBox/Types/PortRange.pm:293
 msgid "Single port"
-msgstr ""
+msgstr "Port unic"
 
 #: src/EBox/Types/PortRange.pm:297
 msgid "Port range"
-msgstr ""
+msgstr "Interval de porturi"
 
 #: src/EBox/Types/PortRange.pm:414
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr ""
+msgstr "\"De la\" {from} trebuie să fie mai mare decât \"La\" {to}"
 
 #: src/EBox/Types/Float.pm:113
 msgid "Enter a float number"
-msgstr ""
+msgstr "Introduceţi un număr cu virgulă (float)"
 
 #: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
-msgstr ""
+msgstr "Alegeţi o valoare dintre: {set}"
 
 #: src/EBox/Logs/Model/SelectLog.pm:151
 msgid "Full report"
-msgstr ""
+msgstr "Raport complet"
 
 #: src/EBox/Logs/Model/SelectLog.pm:157
 msgid "Summarized report"
-msgstr ""
+msgstr "Raport sumar"
 
 #: src/EBox/Logs/Model/SelectLog.pm:168
 msgid "Select report"
-msgstr ""
+msgstr "Selectare raport"
 
 #: src/EBox/Logs/Model/SelectLog.pm:175
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:375
 msgid "logs"
-msgstr ""
+msgstr "jurnale"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:230
 msgid "never purge"
-msgstr ""
+msgstr "fără golire"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:234
 #: src/EBox/Logs/Model/ForcePurge.pm:126
 msgid "one hour"
-msgstr ""
+msgstr "o oră"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:238
 #: src/EBox/Logs/Model/ForcePurge.pm:130
 msgid "twelve hours"
-msgstr ""
+msgstr "12 ore"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:242
 #: src/EBox/Logs/Model/ForcePurge.pm:134
 msgid "one day"
-msgstr ""
+msgstr "o zi"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:246
 #: src/EBox/Logs/Model/ForcePurge.pm:138
 msgid "three days"
-msgstr ""
+msgstr "trei zile"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:250
 #: src/EBox/Logs/Model/ForcePurge.pm:142
 msgid "one week"
-msgstr ""
+msgstr "o săptămână"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:254
 #: src/EBox/Logs/Model/ForcePurge.pm:146
 msgid "fifteeen days"
-msgstr ""
+msgstr "15 zile"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:258
 #: src/EBox/Logs/Model/ForcePurge.pm:150
 msgid "thirty days"
-msgstr ""
+msgstr "30 zile"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:262
 #: src/EBox/Logs/Model/ForcePurge.pm:154
 msgid "ninety days"
-msgstr ""
+msgstr "90 zile"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:349
 #: src/EBox/Logs/Model/ForcePurge.pm:100
 msgid "Purge logs older than"
-msgstr ""
+msgstr "Golire jurnale mai vechi de"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:366
 msgid "Current configuration"
-msgstr ""
+msgstr "Configuraţie curentă"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:367
 msgid "Logs configuration"
-msgstr ""
+msgstr "Configurare jurnale"
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:373
 msgid "Enable/disable logging per-module basis"
@@ -1176,7 +1177,7 @@ msgstr ""
 
 #: src/EBox/Logs/Model/Report/OptionsBase.pm:101
 msgid "Report options"
-msgstr ""
+msgstr "Opţiuni rapoarte"
 
 #: src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -1192,7 +1193,7 @@ msgstr "Activare serviciu"
 
 #: src/EBox/Events.pm:200
 msgid "Initialize event dispatchers table"
-msgstr ""
+msgstr "Iniţializare tabel dispeceri de evenimente"
 
 #: src/EBox/Events.pm:201
 msgid "Enable default log dispatcher"
@@ -1208,36 +1209,36 @@ msgstr ""
 
 #: src/EBox/Events.pm:804
 msgid "Date of first event"
-msgstr ""
+msgstr "Data primului eveniment"
 
 #: src/EBox/Events.pm:805
 msgid "Date of last event"
-msgstr ""
+msgstr "Data ultimului eveniment"
 
 #: src/EBox/Events.pm:806
 msgid "Repetitions"
-msgstr ""
+msgstr "Repetări"
 
 #: src/EBox/Events.pm:807
 msgid "Level"
-msgstr ""
+msgstr "Nivel"
 
 #: src/EBox/Events.pm:809 src/templates/finish.mas:118
 msgid "Message"
-msgstr ""
+msgstr "Mesaj"
 
 #: src/EBox/Logs.pm:451
 #, perl-brace-format
 msgid "Table {table} does not exist"
-msgstr ""
+msgstr "Nu există tabelul {table}"
 
 #: src/EBox/Logs.pm:705
 msgid "Configure Logs"
-msgstr ""
+msgstr "Configurare jurnale"
 
 #: src/EBox/Logs.pm:719
 msgid "Client Address"
-msgstr ""
+msgstr "Adresa client"
 
 #: src/EBox/Logs.pm:721 src/EBox/Model/Composite.pm:653
 #: src/EBox/Model/Composite.pm:668 src/EBox/Model/DataMultiTable.pm:168
@@ -1247,19 +1248,19 @@ msgstr "Acţiune"
 
 #: src/EBox/Logs.pm:722
 msgid "Params"
-msgstr ""
+msgstr "Parametri"
 
 #: src/EBox/Logs.pm:723
 msgid "Committed"
-msgstr ""
+msgstr "Aplicat"
 
 #: src/EBox/Logs.pm:728
 msgid "Admin"
-msgstr ""
+msgstr "Administrator"
 
 #: src/EBox/Logs.pm:822
 msgid "Log messages"
-msgstr ""
+msgstr "Mesaje jurnalizate"
 
 #: src/EBox/Logs.pm:849
 msgid "Lifetime parameter must be a positive number of hours"
@@ -1483,7 +1484,7 @@ msgstr ""
 
 #: src/EBox/SysInfo.pm.in:104
 msgid "Hostname"
-msgstr ""
+msgstr "Hostname"
 
 #: src/EBox/SysInfo.pm.in:105
 msgid "Core version"
@@ -1491,66 +1492,66 @@ msgstr "Versiune nucleu"
 
 #: src/EBox/SysInfo.pm.in:107
 msgid "System load"
-msgstr ""
+msgstr "Încărcare sistem"
 
 #: src/EBox/SysInfo.pm.in:108
 msgid "Uptime"
-msgstr ""
+msgstr "Timp de funcţionare"
 
 #: src/EBox/SysInfo.pm.in:109
 msgid "Users"
-msgstr ""
+msgstr "Utilizatori"
 
 #: src/EBox/SysInfo.pm.in:155 src/EBox/SysInfo.pm.in:248
 msgid "Module Status"
-msgstr ""
+msgstr "Stare module"
 
 #: src/EBox/SysInfo.pm.in:160
 msgid "General Information"
-msgstr ""
+msgstr "Informaţii generale"
 
 #: src/EBox/SysInfo.pm.in:165
 msgid "Process List"
-msgstr ""
+msgstr "Lista proceselor"
 
 #: src/EBox/SysInfo.pm.in:172
 msgid "Resources & Services"
-msgstr ""
+msgstr "Resurse şi servicii"
 
 #: src/EBox/SysInfo.pm.in:254 src/EBox/Report/DiskUsage.pm:336
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: src/EBox/SysInfo.pm.in:258
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: src/EBox/SysInfo.pm.in:273
 #, fuzzy
 msgid "Configuration Report"
-msgstr "Configurare generală"
+msgstr "Raport de configurare"
 
 #: src/EBox/SysInfo.pm.in:276
 msgid "Halt/Reboot"
-msgstr ""
+msgstr "Oprire/Repornire"
 
 #: src/EBox/Apache.pm:268 src/EBox/Apache.pm:277
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Apache.pm:591
 msgid "eBox web server"
-msgstr ""
+msgstr "Web server eBox"
 
 #: src/EBox/Global.pm:472 src/EBox/Global.pm:493
 #, perl-brace-format
 msgid "Saving {modName} module"
-msgstr ""
+msgstr "Înregistrez modulul {modName}"
 
 #: src/EBox/Global.pm:1009
 #, perl-brace-format
 msgid "running {scriptName} script"
-msgstr ""
+msgstr "execut scriptul {scriptName}"
 
 #: src/EBox/Report/DiskUsage.pm:61
 #, perl-brace-format
@@ -1566,35 +1567,35 @@ msgstr ""
 
 #: src/EBox/Report/DiskUsage.pm:333
 msgid "Free space"
-msgstr ""
+msgstr "Spaţiu liber"
 
 #: src/templates/configurationFiles.mas:28
 msgid "Do you wish to overwrite these files?"
-msgstr ""
+msgstr "Doriţi suprascrierea acestor fişiere?"
 
 #: src/templates/configurationFiles.mas:35
 msgid "Keep current file"
-msgstr ""
+msgstr "Păstrează fişierul curent"
 
 #: src/templates/configurationFiles.mas:39
 msgid "Modify"
-msgstr ""
+msgstr "Modifică"
 
 #: src/templates/headTitle.mas:20
 msgid "Remote services control panel"
-msgstr ""
+msgstr "Panou de control servicii de acces de la distanţă"
 
 #: src/templates/backupTabs.mas:13
 msgid "Local Backup"
-msgstr ""
+msgstr "Back-up local"
 
 #: src/templates/backupTabs.mas:18
 msgid "Remote Backup"
-msgstr ""
+msgstr "Back-up la distanţă"
 
 #: src/templates/backupTabs.mas:23
 msgid "Remote Backup from Other Subscribed Hosts"
-msgstr ""
+msgstr "Back-up la distanţă de la alţi clienţi abonaţi"
 
 #: src/templates/configureView.mas:16
 msgid ""
@@ -1613,178 +1614,178 @@ msgstr ""
 
 #: src/templates/configureView.mas:54
 msgid "Accept"
-msgstr ""
+msgstr "Accept"
 
 #: src/templates/dashboard/index.mas:21 src/templates/dashboard/status.mas:18
 msgid "Running"
-msgstr ""
+msgstr "Rulează"
 
 #: src/templates/dashboard/index.mas:22 src/templates/dashboard/status.mas:19
 msgid "The service is enabled and running"
-msgstr ""
+msgstr "Serviciul este activat şi rulează"
 
 #: src/templates/dashboard/index.mas:26 src/templates/dashboard/status.mas:22
 msgid "Stopped"
-msgstr ""
+msgstr "Oprit"
 
 #: src/templates/dashboard/index.mas:27 src/templates/dashboard/status.mas:23
 msgid "The service is enabled, but not running"
-msgstr ""
+msgstr "Serviciul este activat dar NU rulează"
 
 #: src/templates/dashboard/index.mas:31 src/templates/dashboard/status.mas:27
 msgid "Running unmanaged"
-msgstr ""
+msgstr "Rulează fără control"
 
 #: src/templates/dashboard/index.mas:32 src/templates/dashboard/status.mas:28
 msgid "The service is running, but not enabled in eBox"
-msgstr ""
+msgstr "Serviciul rulează, dar nu este activat de eBox"
 
 #: src/templates/dashboard/index.mas:36 src/templates/dashboard/status.mas:31
 msgid "Disabled"
-msgstr ""
+msgstr "Dezactivat"
 
 #: src/templates/dashboard/index.mas:37 src/templates/dashboard/status.mas:32
 msgid "The service is not enabled in eBox"
-msgstr ""
+msgstr "Serviciul nu este activat de eBox"
 
 #: src/templates/dashboard/index.mas:42 src/templates/dashboard/status.mas:25
 msgid "Start"
-msgstr ""
+msgstr "Pornire"
 
 #: src/templates/dashboard/index.mas:43 src/templates/dashboard/status.mas:12
 msgid "Restart"
-msgstr ""
+msgstr "Repornire"
 
 #: src/templates/dashboard/index.mas:115
 msgid "Configure widgets"
-msgstr ""
+msgstr "Configurare widgets"
 
 #: src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
-msgstr ""
+msgstr "Nu sunt elemente în această listă"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
+msgstr "Puteţi pierde conectarea la Internet dacă opriţi acest calculator."
 
 #: src/templates/halt.mas:14
 msgid "Halt"
-msgstr ""
+msgstr "Oprire"
 
 #: src/templates/halt.mas:16
 msgid "Reboot"
-msgstr ""
+msgstr "Repornire"
 
 #: src/templates/moduleStatusTable.mas:59
 msgid "Depends"
-msgstr ""
+msgstr "Depinde de"
 
 #: src/templates/moduleStatusTable.mas:60 src/templates/report/raid.mas:104
 msgid "Status"
-msgstr ""
+msgstr "Stare"
 
 #: src/templates/moduleStatusTable.mas:85
 #, perl-brace-format
 msgid "Configure module: {module}"
-msgstr ""
+msgstr "Configurare modul: {module}"
 
 #: src/templates/report/raid.mas:20
 #, perl-brace-format
 msgid "Inexistent RAID array {a}"
-msgstr ""
+msgstr "Matrice RAID inexistentă {a}"
 
 #: src/templates/report/raid.mas:42
 msgid "RAID is not enabled in this system."
-msgstr ""
+msgstr "RAID nu este activat în acest sistem."
 
 #: src/templates/report/raid.mas:94
 msgid "left-asymmetric"
-msgstr ""
+msgstr "asimetric-stânga"
 
 #: src/templates/report/raid.mas:95
 msgid "right-asymmetric"
-msgstr ""
+msgstr "asimetric-dreapta"
 
 #: src/templates/report/raid.mas:96
 msgid "left-symmetric"
-msgstr ""
+msgstr "simetric-stânga"
 
 #: src/templates/report/raid.mas:97
 msgid "right-symmetric"
-msgstr ""
+msgstr "simetric-dreapta"
 
 #: src/templates/report/raid.mas:131 src/templates/report/diskUsage.mas:30
 #: src/templates/backup.mas:125 src/templates/confirm-backup.mas:44
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #: src/templates/report/raid.mas:142
 msgid "Active RAID devices"
-msgstr ""
+msgstr "Dispozitive RAID active"
 
 #: src/templates/report/raid.mas:143
 msgid "Active RAID devices needed"
-msgstr ""
+msgstr "Dispozitive RAID active necesare"
 
 #: src/templates/report/raid.mas:144
 msgid "Size in blocks"
-msgstr ""
+msgstr "Dimensiune în blocuri"
 
 #: src/templates/report/raid.mas:145
 msgid "Chunk size"
-msgstr ""
+msgstr "Dimensiune chunk"
 
 #: src/templates/report/raid.mas:148
 msgid "Parity algorithm"
-msgstr ""
+msgstr "Algoritm de paritate"
 
 #: src/templates/report/raid.mas:180
 msgid "Array properties"
-msgstr ""
+msgstr "Proprietăţi matrice"
 
 #: src/templates/report/raid.mas:195
 msgid "Resyncing array"
-msgstr ""
+msgstr "Resincronizare matrice"
 
 #: src/templates/report/raid.mas:196
 msgid "Rebuild array"
-msgstr ""
+msgstr "Reconstrucţie matrice"
 
 #: src/templates/report/raid.mas:197
 msgid "Reshape array"
-msgstr ""
+msgstr "Remodelare matrice"
 
 #: src/templates/report/raid.mas:205
 msgid "Operation type"
-msgstr ""
+msgstr "Tip operaţiune"
 
 #: src/templates/report/raid.mas:207
 msgid "Percentage completed"
-msgstr ""
+msgstr "Procent terminat"
 
 #: src/templates/report/raid.mas:209
 msgid "Estimated time left"
-msgstr ""
+msgstr "Timp rămas estimat"
 
 #: src/templates/report/raid.mas:211
 msgid "Operation speed"
-msgstr ""
+msgstr "Viteză operaţiuni"
 
 #: src/templates/report/raid.mas:224
 msgid "RAID device number"
-msgstr ""
+msgstr "număr dispozitiv RAID"
 
 #: src/templates/report/raid.mas:225
 msgid "Device"
-msgstr ""
+msgstr "Dispozitiv"
 
 #: src/templates/report/raid.mas:231
 msgid "up"
-msgstr ""
+msgstr "sus"
 
 #: src/templates/report/raid.mas:232
 msgid "failure"
-msgstr ""
+msgstr "eşuat"
 
 #: src/templates/report/raid.mas:261
 msgid "No unused RAID devices"
@@ -1796,15 +1797,15 @@ msgstr ""
 
 #: src/templates/report/diskUsage.mas:29
 msgid "Mounted on"
-msgstr ""
+msgstr "Montat la"
 
 #: src/templates/report/diskUsage.mas:31
 msgid "Options"
-msgstr ""
+msgstr "Opţiuni"
 
 #: src/templates/report/diskUsage.mas:34
 msgid "Partition Properties"
-msgstr ""
+msgstr "Proprietăţi partiţii"
 
 #: src/templates/progress.mas:20
 msgid "Item"
@@ -1820,7 +1821,7 @@ msgstr ""
 
 #: src/templates/progress.mas:38
 msgid "Starting..."
-msgstr ""
+msgstr "Pornire..."
 
 #: src/templates/logs/index.mas:20
 msgid "Log Domain"
@@ -1837,7 +1838,7 @@ msgstr ""
 #: src/templates/logs/index.mas:35 src/templates/logs/index.mas:36
 #: src/templates/logs/index.mas:37
 msgid "View"
-msgstr ""
+msgstr "Vizualizare"
 
 #: src/templates/logs/index.mas:44
 msgid "Custom query"
@@ -1845,67 +1846,67 @@ msgstr ""
 
 #: src/templates/logs/index.mas:50
 msgid "From date:"
-msgstr ""
+msgstr "De la data:"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "January"
-msgstr ""
+msgstr "Ianuarie"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "February"
-msgstr ""
+msgstr "Februarie"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "March"
-msgstr ""
+msgstr "Martie"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "April"
-msgstr ""
+msgstr "Aprilie"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "May"
-msgstr ""
+msgstr "Mai"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "June"
-msgstr ""
+msgstr "Iunie"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "July"
-msgstr ""
+msgstr "Iulie"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "August"
-msgstr ""
+msgstr "August"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "September"
-msgstr ""
+msgstr "Septembrie"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "October"
-msgstr ""
+msgstr "Octombrie"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "November"
-msgstr ""
+msgstr "Noiembrie"
 
 #: src/templates/logs/index.mas:62 src/templates/logs/index.mas:128
 msgid "December"
-msgstr ""
+msgstr "Decembrie"
 
 #: src/templates/logs/index.mas:108
 msgid "Refresh logs"
-msgstr ""
+msgstr "Actualizare jurnale"
 
 #: src/templates/logs/index.mas:116
 msgid "To date:"
-msgstr ""
+msgstr "La data:"
 
 #: src/templates/logs/index.mas:203 src/templates/logs/index.mas:204
 msgid "Search"
-msgstr ""
+msgstr "Caută"
 
 #: src/templates/logs/index.mas:208 src/templates/logs/index.mas:209
 msgid "Save as event"
@@ -1941,12 +1942,16 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
+"Următoarele module au modificări neînregistrate dar sunt <b>dezactivate</b>. "
+"Dacă doriţi activarea lor mergeţi la {openref}Stare module{closeref}."
 
 #: src/templates/finish.mas:106
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
 msgstr ""
+"Există modificări neînregistrate în unul sau mai multe module. Puteţi "
+"înregistra sau renunţa la aceste modificări."
 
 #: src/templates/finish.mas:110
 msgid ""
@@ -1954,18 +1959,21 @@ msgid ""
 "you may need to manually rewrite the url in order to access this "
 "administration interface again."
 msgstr ""
+"Dacă aţi modificat interfaţa de reţea sau portul de administrare, va trebui "
+"să modificaţi manual url-ul în fereastra browser-ului dvs. pentru a accesa "
+"din nou această interfaţă de administrare."
 
 #: src/templates/finish.mas:134
 msgid "Save"
-msgstr ""
+msgstr "Înregistrare modificări"
 
 #: src/templates/finish.mas:136
 msgid "Discard changes"
-msgstr ""
+msgstr "Renunţă la modificări"
 
 #: src/templates/finish.mas:141
 msgid "There are no unsaved changes."
-msgstr ""
+msgstr "Nu sunt modificări neînregistrate."
 
 #: src/templates/backup.mas:17
 msgid "Full Backup"
@@ -2022,11 +2030,11 @@ msgstr ""
 
 #: src/templates/backup.mas:112
 msgid "Full"
-msgstr ""
+msgstr "Complet"
 
 #: src/templates/backup.mas:113
 msgid "Configuration only"
-msgstr ""
+msgstr "Numai configurarea"
 
 #: src/templates/backup.mas:114
 msgid "Unknown type"
@@ -2038,11 +2046,11 @@ msgstr ""
 
 #: src/templates/backup.mas:127 src/templates/confirm-backup.mas:53
 msgid "Archive size"
-msgstr ""
+msgstr "Dimensiune arhivă"
 
 #: src/templates/backup.mas:128
 msgid "Actions"
-msgstr ""
+msgstr "Acţiuni"
 
 #: src/templates/backup.mas:158
 msgid "Restore configuration using this file"
@@ -2054,19 +2062,19 @@ msgstr ""
 
 #: src/templates/backup.mas:164 src/templates/backup.mas:165
 msgid "Download"
-msgstr ""
+msgstr "Descărcare"
 
 #: src/templates/backup.mas:184
 msgid "download"
-msgstr ""
+msgstr "descărcare"
 
 #: src/templates/backup.mas:186
 msgid "restore"
-msgstr ""
+msgstr "restaurare"
 
 #: src/templates/backup.mas:188
 msgid "delete"
-msgstr ""
+msgstr "ştergere"
 
 #: src/templates/bug.mas:9
 msgid ""
@@ -2089,35 +2097,35 @@ msgstr ""
 
 #: src/templates/logout/index.mas:15
 msgid "There are no unsaved changes in this session."
-msgstr ""
+msgstr "Nu sunt modificări neînregistrate în această sesiune."
 
 #: src/templates/logout/index.mas:19
 msgid "Exit"
-msgstr ""
+msgstr "Ieşire"
 
 #: src/templates/password.mas:4
 msgid "Change Password"
-msgstr ""
+msgstr "Modificare parolă"
 
 #: src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
-msgstr ""
+msgstr "Parola trebuie să aibă minim 6 caractere."
 
 #: src/templates/password.mas:11
 msgid "Current password"
-msgstr ""
+msgstr "Parola curentă"
 
 #: src/templates/password.mas:25
 msgid "New password"
-msgstr ""
+msgstr "Parola nouă"
 
 #: src/templates/password.mas:39
 msgid "Confirm password"
-msgstr ""
+msgstr "Confirmare parolă"
 
 #: src/templates/login/index.mas:40
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Atenţie: Caps Lock este activ"
 
 #: src/templates/login/index.mas:43
 #, perl-brace-format
@@ -2125,6 +2133,8 @@ msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on eBox. "
 "Please use {url} instead."
 msgstr ""
+"Atenţie: Din (ne)fericire Internet Explorer nu poate fi utilizat pentru a "
+"accesa eBox. Puteţi folosi în schimb {url}."
 
 #: src/templates/login/index.mas:46
 #, perl-brace-format
@@ -2133,14 +2143,16 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on eBox UI."
 msgstr ""
+"Atenţie: Folosiţi un browser diferit de {url}, singurul cu suport oficial. "
+"Pot apare probleme când navigaţi prin interfaţa eBox."
 
 #: src/templates/login/index.mas:58
 msgid "Enter"
-msgstr ""
+msgstr "Intrare"
 
 #: src/templates/dataInUse.mas:41 src/templates/confirm-backup.mas:74
 msgid "Cancel"
-msgstr ""
+msgstr "Anulare"
 
 #: src/templates/confirm-backup.mas:110
 msgid "Full Restore"
@@ -2156,7 +2168,7 @@ msgstr ""
 
 #: src/templates/port.mas:9
 msgid "Administration Interface TCP Port"
-msgstr ""
+msgstr "Port TCP pt. interfaţa de administrare"
 
 #~ msgid "Bug report"
 #~ msgstr "Raport erori"

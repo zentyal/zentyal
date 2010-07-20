@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:33+0200\n"
-"PO-Revision-Date: 2010-05-27 16:19+0200\n"
+"PO-Revision-Date: 2010-06-10 21:31+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -214,7 +214,7 @@ msgstr "Vendég hozzáférés"
 
 #: src/EBox/Samba/Model/SambaShares.pm:133
 msgid "This share will not require authentication"
-msgstr ""
+msgstr "Ez a megosztás nem igényel hitelesítést"
 
 #: src/EBox/Samba/Model/SambaShares.pm:137
 msgid "Access control"
@@ -280,6 +280,8 @@ msgstr "Felhasználó/Csoport"
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:176
 msgid "Any access control is disabled if the guest access is allowed"
 msgstr ""
+"Az összese hozzáférési szabály érvényét veszti ha a vendég hozzáférés "
+"engedélyezett"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:207 src/EBox/Samba.pm:647
 #: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8

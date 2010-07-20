@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:54+0200\n"
-"PO-Revision-Date: 2009-07-19 12:15+0200\n"
-"Last-Translator: Gabriel Lindeborg <gabriel@lindeborg.org>\n"
+"PO-Revision-Date: 2010-07-19 15:48+0200\n"
+"Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: migration/0005_add_managesieve_firewall_services.pl:28
 msgid "protocol for editing SIEVE filters"
-msgstr ""
+msgstr "protokoll för att redigera SIEVE filter"
 
 #: migration/0001_add_firewall_services.pl:30
 msgid "eBox Mail System"
@@ -40,17 +40,17 @@ msgstr "Denna användare har ett mailkonto"
 
 #: src/EBox/MailUserLdap.pm:811
 msgid "Quota can only be a positive number or zero for unlimited quota"
-msgstr ""
+msgstr "Kvot kan bara vara ett positivt nummer eller noll för oändlig kvot"
 
 #: src/EBox/MailAliasLdap.pm:62
 #, perl-brace-format
 msgid "{ac} is not a internal account"
-msgstr ""
+msgstr "{ac} är inte ett intern konto"
 
 #: src/EBox/MailAliasLdap.pm:79
 #, perl-brace-format
 msgid "{ac} is not a external account"
-msgstr ""
+msgstr "{ac} är inte ett externt konto"
 
 #: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
@@ -59,26 +59,24 @@ msgstr "e-postalias"
 #: src/EBox/MailAliasLdap.pm:113
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
-msgstr ""
+msgstr "{ac} är ett epost alias. Alias av alias är inte tillåtna"
 
 #: src/EBox/MailAliasLdap.pm:132
-#, fuzzy
 msgid "group alias"
-msgstr "gruppalias e-post"
+msgstr "grupp alias"
 
 #: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
-#, fuzzy
 msgid "Domain alias"
-msgstr "Domänalias"
+msgstr "Domän alias"
 
 #: src/EBox/MailAliasLdap.pm:176 src/EBox/MailAliasLdap.pm:215
 #: src/EBox/MailAliasLdap.pm:242
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Mail domain {d} does not exists"
 msgstr "Epost-domänen {d} existerar inte"
 
 #: src/EBox/MailAliasLdap.pm:183
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
@@ -120,7 +118,7 @@ msgstr "användar e-post"
 
 #: src/EBox/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
-msgstr ""
+msgstr "Kvot måste vara antal MB större än noll"
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
 #: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:101
@@ -132,9 +130,8 @@ msgid "Mail address"
 msgstr "E-postadress"
 
 #: src/EBox/CGI/DelGroupAlias.pm:45
-#, fuzzy
 msgid "alias"
-msgstr "e-postalias"
+msgstr "alias"
 
 #: src/EBox/CGI/DelGroupAlias.pm:50
 msgid "group alias mail"
@@ -170,12 +167,10 @@ msgstr ""
 "Kan inte ansluta till server {hostname} för att skicka händelsen via SMTP"
 
 #: src/EBox/Mail/Greylist.pm:54
-#, fuzzy
 msgid "To configure whitelist for greylisting"
 msgstr "För att konfigurera vitlistor för grålistning"
 
 #: src/EBox/Mail/Greylist.pm:278
-#, fuzzy
 msgid "Greylist service"
 msgstr "Tjänst för grålistning"
 
@@ -188,13 +183,12 @@ msgid "Allow relay"
 msgstr "Tillåt relä"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:99
-#, fuzzy
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
 msgstr ""
-"Markera detta för att tillåta ovanför objektet att sända e-post genom denna "
-"server"
+"Markera detta för att tillåta maskiner i objektet ovan att sända e-post "
+"genom denna server"
 
 #: src/EBox/Mail/Model/ObjectPolicy.pm:108
 msgid "Relay policy for network objects"
@@ -214,39 +208,36 @@ msgid ""
 "There are not network objects in the system. You can create them in the "
 "{openurl}Object's page{closeurl}"
 msgstr ""
+"Det finns inga nätverksobjekt i detta system. Du kan skapa dem i "
+"{openurl}Object's page{closeurl}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:54
-#, fuzzy
 msgid "Alias"
 msgstr "Alias"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:60
 msgid "The mail domain is appended automatically"
-msgstr ""
+msgstr "E-post domänen läggs till automatiskt"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:64
 #: src/EBox/Mail/Model/ExternalAccounts.pm:87
 #: src/EBox/Mail/Model/ExternalAccounts.pm:270
-#, fuzzy
 msgid "External account"
-msgstr "mailkonto"
+msgstr "Externt konto"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:75
-#, fuzzy
 msgid "External Aliases"
-msgstr "Inställningar för e-postkonto"
+msgstr "Externt alias"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:84
-#, fuzzy
 msgid "External account alias"
-msgstr "Inställningar för e-postkonto"
+msgstr "Externt alias för konto"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:86
-#, fuzzy
 msgid "External account alias added. You must save changes to use this alias"
 msgstr ""
-"Virtuell domän tillagd. Du måste spara ändringarna för att använda denna "
-"domän."
+"Externt alias för konto tillagt. Du måste spara ändringarna för att använda "
+"detta alias"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:127
 #, perl-brace-format
@@ -255,6 +246,9 @@ msgid ""
 "virtual domain aliases are not supported. Please add the alias belonging to "
 "a real domain"
 msgstr ""
+"Kan inte lägga till alias eftersom domänen {vd} är ett alias och sådana "
+"tillhörande virtuella domän alias är inte supporterade. Vänligen lägg till "
+"ett alias tillhörande en riktig domän."
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:134
 #, perl-brace-format
@@ -262,17 +256,21 @@ msgid ""
 "Cannot add alias because domain {vd} is not a virtual domain managed by this "
 "server"
 msgstr ""
+"Kan inte lägga till alias eftersom domänen {vd} inte är en virtuell domän "
+"hanterad av denna server"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:146
 #, perl-brace-format
 msgid "They already exists an account or alias called {al}"
-msgstr ""
+msgstr "Det finns redan ett konto eller ett alias som heter {al}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:167
 msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
 msgstr ""
+"Alias kontot bör vara specificerat utan domänen. Den blir tillagd "
+"automatiskt."
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:245
 #: src/EBox/Mail/Model/VDomainAliases.pm:137
@@ -283,14 +281,12 @@ msgstr ""
 "Du måste aktivera e-postmodulen i modulstatussektionen för att använda den."
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:67
-#, fuzzy
 msgid "TLS for SMTP server"
-msgstr "SMTP-server för utgående epost."
+msgstr "TLS för SMTP server"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:73
-#, fuzzy
 msgid "Require authentication"
-msgstr "Autentisering"
+msgstr "Kräv autentisering"
 
 #: src/EBox/Mail/Model/SMTPAuth.pm:76
 msgid ""
@@ -337,9 +333,8 @@ msgstr "anpassad"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:68
 #: src/EBox/Mail/Model/ExternalAccounts.pm:120
-#, fuzzy
 msgid "External mail accounts"
-msgstr "Skapa e-postkonto"
+msgstr "Externa epost konton"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:94
 #: src/EBox/Mail/Model/SMTPOptions.pm:107
@@ -348,73 +343,68 @@ msgstr "Lösenord"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:101
 #: src/EBox/Mail/Composite/General.pm:78
-#, fuzzy
 msgid "Mail server"
-msgstr "SMTP-server för utgående epost."
+msgstr "Epost server"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:121
-#, fuzzy
 msgid "external mail account"
-msgstr "Skapa e-postkonto"
+msgstr "Externt epost-konto"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:127
 msgid "Fetching mail is done every 10 minutes"
-msgstr ""
+msgstr "Hämtande av epost sker var tionde minut."
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:144
 msgid "Secure POP3"
-msgstr ""
+msgstr "Säker POP3"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:152
-#, fuzzy
 msgid "Secure IMAP"
-msgstr "För att konfigurera IMAP"
+msgstr "Säker IMAP"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:276
 #: src/EBox/Mail/Model/ExternalAccounts.pm:283
-#, fuzzy
 msgid "External account username"
-msgstr "mailkonto"
+msgstr "Externt användarnamn"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:278
 msgid "No spaces allowed"
-msgstr ""
+msgstr "Inga mellanslag tillåtna"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:317
 msgid "External account added"
-msgstr ""
+msgstr "Externt konto adderat"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:341
 #, perl-brace-format
 msgid "External account {ac} removed"
-msgstr ""
+msgstr "Externt konto {ac} removed"
 
 #: src/EBox/Mail/Model/ExternalAccounts.pm:439
 msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
 msgstr ""
+"Kan inte hämta epost från externa konton eftersom du har ett epost-konto i "
+"en lokal e-post domän"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:57
 msgid "Aliases"
 msgstr "Alias"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:69
-#, fuzzy
 msgid "List of Aliases"
 msgstr "Alias"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:78
-#, fuzzy
 msgid "virtual domain alias"
 msgstr "virtuell domän-alias"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:80
-#, fuzzy
 msgid "Virtual domain alias added. You must save changes to use this domain"
 msgstr ""
-"Virtuell domän tillagd. Du måste spara ändringarna för att använda denna "
-"domän."
+"Virtuell domän alias tillagdt. Du måste spara ändringarna för att använda "
+"denna domän."
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:101
 #, perl-brace-format
@@ -422,6 +412,8 @@ msgid ""
 "Cannot add {al} alias because there is already a virtual domain with the "
 "same name"
 msgstr ""
+"Kan inte lägga till {al} alias eftersom det redan finns en virtuell domän "
+"med samma namn"
 
 #: src/EBox/Mail/Model/VDomainAliases.pm:108
 #, perl-brace-format
@@ -429,6 +421,8 @@ msgid ""
 "Cannot add alias {al} because it is already an identical alias for another "
 "virtual domain"
 msgstr ""
+"Kan inte lägga till alias {al} eftersom det redan finns ett identiskt alias "
+"för en annan virtuell domän"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "Smarthost to send mail"
@@ -436,7 +430,7 @@ msgstr "Smarthost för att sända e-post"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:77
 msgid "The format is host[:port] being port set to 25 if none is supplied"
-msgstr ""
+msgstr "Formatet är värd:[:port] där port 25 används om inget annat anges"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:83
 msgid "Smarthost authentication"
@@ -456,42 +450,39 @@ msgstr "Användare"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:120
 msgid "Server mailname"
-msgstr ""
+msgstr "Server epost-namn"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:124
-#, fuzzy
 msgid "FQDN hostname"
-msgstr "Från värdnamn"
+msgstr "FQDN värdnamn"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:136
-#, fuzzy
 msgid "Postmaster address"
-msgstr "IP-adress för anpassat filter"
+msgstr "Postmaster adress"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:138
 msgid "Address used to report mail problems"
-msgstr ""
+msgstr "Adress att rapportera problem med e-posten till"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:142
-#, fuzzy
 msgid "Local root account"
-msgstr "mailkonto"
+msgstr "Lokalt root konto"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:146
-#, fuzzy
 msgid "Custom address"
-msgstr "IP-adress för anpassat filter"
+msgstr "Anpassad adress"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:154
-#, fuzzy
 msgid "Maximum mailbox size allowed"
-msgstr "Max meddelandestorlek som accepteras"
+msgstr "Max storlek för epost-bibliotek"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:156
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
+"När ett epost-bibliotek når denna storlek kommer efterföljande epost att "
+"avvisas. Detta kan åsidosättas av konto"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:160
 #: src/EBox/Mail/Model/SMTPOptions.pm:179 src/templates/createaccount.mas:79
@@ -500,9 +491,8 @@ msgstr "Obegränsad storlek"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:164
 #: src/EBox/Mail/Model/SMTPOptions.pm:183
-#, fuzzy
 msgid "limited to"
-msgstr "Obegränsad storlek"
+msgstr "begränsad till"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:175
 msgid "Maximum message size accepted"
@@ -510,26 +500,26 @@ msgstr "Max meddelandestorlek som accepteras"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:195
 msgid "Expiration period for deleted mails"
-msgstr ""
+msgstr "Utgångsperiod för raderad epost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:199
 #: src/EBox/Mail/Model/SMTPOptions.pm:218
 msgid "Never"
-msgstr ""
+msgstr "Aldrig"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:203
 #: src/EBox/Mail/Model/SMTPOptions.pm:222
 msgid "expired in"
-msgstr ""
+msgstr "utgår om"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:204
 #: src/EBox/Mail/Model/SMTPOptions.pm:223
 msgid "days"
-msgstr ""
+msgstr "dagar"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:214
 msgid "Expiration period for spam mails"
-msgstr ""
+msgstr "Utgångsperiod för skräppost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:235
 msgid "Options"
@@ -538,73 +528,71 @@ msgstr "Inställningar"
 #: src/EBox/Mail/Model/SMTPOptions.pm:342
 #: src/EBox/Mail/Model/SMTPOptions.pm:346
 msgid "Smarthost's address"
-msgstr ""
+msgstr "Adress för smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:343
 msgid "Smarthost's port"
-msgstr ""
+msgstr "Port för smarthost"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:421
 msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
 msgstr ""
+"Epostnamnet är satt till serverns hostnamn och detta är inte fullständigt"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:425
 msgid "The selected mailname is not a fully qualified hostname. "
-msgstr ""
+msgstr "Det valda epostnamnet är inte ett fullständigt hostnamn"
 
 #: src/EBox/Mail/Model/SMTPOptions.pm:429
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
 msgstr ""
+"Att inte ha ett fullständigt hostnamn kan leda till att vissa epost servers "
+"vägrar ta emot epost och att retur adresser blir felaktiga för "
+"systemanvändare"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:58
 msgid "Send a copy of all mail domains"
-msgstr ""
+msgstr "Skicka en kopia av alla epost domäner"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:60
 msgid "The mail will be a Blind Carbon Copy (BCC)."
-msgstr ""
+msgstr "Eposten blir en dold kopia (BCC)"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:64
-#, fuzzy
 msgid "Disabled"
-msgstr "inaktiv"
+msgstr "Inaktiverad"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:68
 msgid "Address to sent the copy"
-msgstr ""
+msgstr "Adress att skicka kopian till"
 
 #: src/EBox/Mail/Model/VDomainSettings.pm:79
-#, fuzzy
 msgid "Virtual domain settings"
-msgstr "Virtuella domäner"
+msgstr "Virtuella domän inställningar"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:66
-#, fuzzy
 msgid "POP3 service enabled"
-msgstr "POP3-tjänst"
+msgstr "POP3-tjänst aktiverad"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:72
-#, fuzzy
 msgid "Secure POP3S service enabled"
-msgstr "POP3S-tjänst"
+msgstr "POP3S-tjänst aktiverad"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:78
-#, fuzzy
 msgid "IMAP service enabled"
-msgstr "IMAP-tjänst"
+msgstr "IMAP-tjänst aktiverad"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:84
-#, fuzzy
 msgid "Secure IMAPS service enabled"
-msgstr "IMAPS-tjänst"
+msgstr "IMAPS-tjänst aktiverad"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:90
 msgid "Retrieve mail for external accounts"
-msgstr ""
+msgstr "Ta emot epost för externa konton"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:92
 msgid ""
@@ -612,40 +600,41 @@ msgid ""
 "delivered to their local account. External account can be configured in the "
 "user's corner."
 msgstr ""
+"För att tillåta användare att ta emot epost för externa konton blir eposten "
+"levererad till deras lokala konton. Externa konton kan konfigureras i "
+"användarhörnan."
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:97
 msgid "Manage Sieve scripts"
-msgstr ""
+msgstr "Managera SIEVE skript"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:99
 msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
 msgstr ""
+"Den här tjänsten tillåter en användare att managera sitt SIEVE skript för "
+"epostfiltrering från en lokal klient som pratar ManageSieve protokollet"
 
 #: src/EBox/Mail/Model/RetrievalServices.pm:107
 msgid "Mail retrieval services"
 msgstr "E-post hämtningstjänster"
 
 #: src/EBox/Mail/Model/MailUser.pm:52
-#, fuzzy
 msgid "Mail Account"
 msgstr "E-postkonto"
 
 #: src/EBox/Mail/Model/MailUser.pm:55
-#, fuzzy
 msgid "Create mail account user@domain"
-msgstr "Skapa e-postkonto"
+msgstr "Skapa e-postkonto användare@domän"
 
 #: src/EBox/Mail/Model/MailUser.pm:59
-#, fuzzy
 msgid "Default Domain"
-msgstr "Storlekskvot"
+msgstr "Standard domän"
 
 #: src/EBox/Mail/Model/MailUser.pm:98
-#, fuzzy
 msgid "You haven't create a mail domain yet"
-msgstr "Klicka här för att lägga till en ny virtuell e-postdomän"
+msgstr "Du har inte skapat en epost domän ännu"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:77
 msgid "Enabled"
@@ -656,7 +645,6 @@ msgid "Greylist duration (seconds)"
 msgstr "Grålistans tidsgräns (sekunder)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:84
-#, fuzzy
 msgid "During this interval, the mail sender is deferred"
 msgstr "Under denna tidsrymd undertrycks sändning av epost."
 
@@ -665,7 +653,6 @@ msgid "Retry window (hours)"
 msgstr "Tidsfönster för återförsök (timmar)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:93
-#, fuzzy
 msgid ""
 "Time that mail sender has to retry to be added before it will be greylisted "
 "again"
@@ -676,7 +663,6 @@ msgid "Entries time to live (days)"
 msgstr "Tid poster ligger kvar (dagar)"
 
 #: src/EBox/Mail/Model/GreylistConfiguration.pm:103
-#, fuzzy
 msgid "Period till unseen entries will be deleted"
 msgstr "Tid innan osedda inlägg raderas"
 
@@ -689,26 +675,22 @@ msgid "Name"
 msgstr "Namn"
 
 #: src/EBox/Mail/Model/VDomains.pm:64
-#, fuzzy
 msgid "Virtual domain aliases"
-msgstr "virtuell domän-alias"
+msgstr "Virtuella domän-alias"
 
 #: src/EBox/Mail/Model/VDomains.pm:71
-#, fuzzy
 msgid "External accounts aliases"
-msgstr "Inställningar för e-postkonto"
+msgstr "Externa konto-alias"
 
 #: src/EBox/Mail/Model/VDomains.pm:78
 msgid "Settings"
 msgstr "Inställningar"
 
 #: src/EBox/Mail/Model/VDomains.pm:90
-#, fuzzy
 msgid "List of Domains"
-msgstr "Virtuella e-postdomäner"
+msgstr "Lista över domäner"
 
 #: src/EBox/Mail/Model/VDomains.pm:91
-#, fuzzy
 msgid "Virtual Domains"
 msgstr "Virtuella domäner"
 
@@ -724,19 +706,21 @@ msgid ""
 "Cannot add virtual domain {vd} because is a virtual domain alias with the "
 "same name"
 msgstr ""
+"Kan inte lägga till virtuell domän {vd} eftersom det finns ett virtuellt "
+"domän alias med samma namn"
 
 #: src/EBox/Mail/Model/VDomains.pm:204
 msgid "'sieve' is a reserved name in this context, please choose another name"
 msgstr ""
+"\"sieve\" är ett reserverat namn i denna kontext, vänligen välj ett annat namn"
 
 #: src/EBox/Mail/Model/VDomains.pm:211
-#, fuzzy
 msgid "Mail virtual domain"
-msgstr "virtuell domän för e-post"
+msgstr "Virtuell domän för e-post"
 
 #: src/EBox/Mail/Model/VDomains.pm:214
 msgid "The virtual domain name cannot be equal to the mailname"
-msgstr ""
+msgstr "Det virtuella domän namnet kan inte vara samma som epostnamnet"
 
 #: src/EBox/Mail/Model/VDomains.pm:255
 #, perl-brace-format
@@ -744,6 +728,8 @@ msgid ""
 "Cannot add virtual domain {vd} because it appears as external domain in the "
 "account referenced by the alias {al}"
 msgstr ""
+"Kan inte lägga till virtuella domänen {vd} eftersom det finns som extern "
+"domän i kontot som hänvisas av  detta alias {al}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
@@ -775,29 +761,25 @@ msgstr "E-post förmedlarens konfiguration är uppdaterad"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:48
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:68
-#, fuzzy
 msgid "Virtual domain"
-msgstr "Virtuella domäner"
+msgstr "Virtuell domän"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:49
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:51
-#, fuzzy
 msgid "Sent messsages"
-msgstr "Lyckade meddelanden"
+msgstr "Skickade meddelanden"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:50
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:78
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:52
-#, fuzzy
 msgid "Received messages"
-msgstr "Lyckade meddelanden"
+msgstr "Mottagna meddelanden"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:82
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:53
-#, fuzzy
 msgid "Rejected messages"
-msgstr "Lyckade meddelanden"
+msgstr "Avvisade meddelanden"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1588
 #: src/templates/qmanager.mas:19
@@ -805,26 +787,24 @@ msgid "Date"
 msgstr "Datum"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:74
-#, fuzzy
 msgid "Sent messages"
-msgstr "Lyckade meddelanden"
+msgstr "Skickade meddelanden"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:91
-#, fuzzy
 msgid "Mail traffic details"
-msgstr "Inställningar för e-posttjänst"
+msgstr "Detaljer om trafiken för eposten"
 
 #: src/EBox/Mail/Model/Report/TrafficDetails.pm:99
 msgid "traffic"
-msgstr ""
+msgstr "trafik"
 
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:62
 msgid "Traffic summary chart"
-msgstr ""
+msgstr "Summerad tabell över trafiken"
 
 #: src/EBox/Mail/Model/Report/TrafficGraph.pm:84
 msgid "Traffic summary graph"
-msgstr ""
+msgstr "Summerat diagram över trafiken"
 
 #: src/EBox/Mail/Composite/General.pm:77
 #: src/EBox/Mail/Composite/ServiceConfiguration.pm:88
@@ -833,16 +813,15 @@ msgstr "Inställningar för e-posttjänst"
 
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:70
 msgid "Mail traffic reports"
-msgstr ""
+msgstr "Rapporter över epost-trafiken"
 
 #: src/EBox/Mail/Composite/Report/TrafficReport.pm:71
 msgid "Mail traffic report"
-msgstr ""
+msgstr "Rapport över epost-trafiken"
 
 #: src/EBox/Mail/FetchmailLdap.pm:347
-#, fuzzy
 msgid "External retrieval service"
-msgstr "E-post hämtningstjänster"
+msgstr "E-post hämtningstjänst"
 
 #: src/EBox/Mail.pm:139
 msgid "Generate mail aliases"
@@ -858,12 +837,11 @@ msgid "Add LDAP schemas"
 msgstr "Lägg till LDAP scheman"
 
 #: src/EBox/Mail.pm:148
-#, fuzzy
 msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
-msgstr "eBox kommer lägga till två LDAP-scheman: {schema1} och {schema2}."
+msgstr ""
+"eBox kommer lägga till två LDAP-scheman: authldap.ldif and eboximail.ldif."
 
 #: src/EBox/Mail.pm:154
-#, fuzzy
 msgid "Create certificates"
 msgstr "Skapa certifikat"
 
@@ -873,13 +851,15 @@ msgstr "eBox kommer att skapa certifikat för epost-tjänsten."
 
 #: src/EBox/Mail.pm:161
 msgid "Add fetchmail update cron job"
-msgstr ""
+msgstr "Lägg till jobb för att uppdatera fetchmail i cron."
 
 #: src/EBox/Mail.pm:163
 msgid ""
 "eBox will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
+"eBox kommer att schemalägga ett jobb för att uppdatera fetchmail "
+"konfigurationen när användaren lägger till externa konton"
 
 #: src/EBox/Mail.pm:184
 msgid "To configure postfix"
@@ -890,22 +870,18 @@ msgid "To define how client programs connect to services in  postfix"
 msgstr "För att definiera hur klientprogram kontaktar tjänster i postfix"
 
 #: src/EBox/Mail.pm:197
-#, fuzzy
 msgid "To configure host mail name"
-msgstr "För att konfigurera postfix"
+msgstr "För att konfigurera värdens epostnamn"
 
 #: src/EBox/Mail.pm:202
-#, fuzzy
 msgid "To configure postfix aliases"
-msgstr "För att konfigurera postfix"
+msgstr "För att konfigurera postfix alias"
 
 #: src/EBox/Mail.pm:209
-#, fuzzy
 msgid "To configure dovecot"
 msgstr "För att konfigurera dovecot"
 
 #: src/EBox/Mail.pm:214
-#, fuzzy
 msgid "To configure dovecot to authenticate against LDAP"
 msgstr "För att konfigurera LDAP-autentisering för dovecot."
 
@@ -918,19 +894,20 @@ msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
+"Kan inte använda värdnamnet som epostnamn eftersom det inte är ett "
+"fullständigt värdnamn. Vänligen ställ in ett manuellt server epostnamn"
 
 #: src/EBox/Mail.pm:688
 msgid "The mail name must be a fully qualified name"
-msgstr ""
+msgstr "Epostnamnet måste vara ett fullständigt värdnamn"
 
 #: src/EBox/Mail.pm:693 src/EBox/Mail.pm:704 src/EBox/Mail.pm:713
-#, fuzzy
 msgid "Host mail name"
-msgstr "domännamn"
+msgstr "Epostnamn för värden"
 
 #: src/EBox/Mail.pm:707
 msgid "The mail name and virtual mail domain name are equal"
-msgstr ""
+msgstr "Epostnamnet och en virtuell domän är identiska"
 
 #: src/EBox/Mail.pm:976
 msgid "Cannot change this parameter for a non-custom filter"
@@ -943,13 +920,12 @@ msgstr ""
 "E-post filtret finns inte. Välj ett annat e-postfilter eller avaktivera det"
 
 #: src/EBox/Mail.pm:1019
-#, fuzzy
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
-"E-post filtret {name} är inte aktivt. Vänligen välj ett annat e-postfilter "
-"eller aktivera {name}."
+"Epostfiltret $name är inte aktivt. Välj ett annat filter eller inaktivera "
+"det."
 
 #: src/EBox/Mail.pm:1416
 msgid "SMTP service"
@@ -960,7 +936,6 @@ msgid "POP3 service"
 msgstr "POP3-tjänst"
 
 #: src/EBox/Mail.pm:1429
-#, fuzzy
 msgid "POP3S service"
 msgstr "POP3S-tjänst"
 
@@ -1005,7 +980,6 @@ msgid "General"
 msgstr "Allmän"
 
 #: src/EBox/Mail.pm:1541
-#, fuzzy
 msgid "Virtual Mail Domains"
 msgstr "Virtuella e-postdomäner"
 
@@ -1014,9 +988,8 @@ msgid "Greylist"
 msgstr "Grålista"
 
 #: src/EBox/Mail.pm:1580
-#, fuzzy
 msgid "Mail retrieval from external accounts"
-msgstr "E-post hämtningstjänster"
+msgstr "Hämta epost från externa konton"
 
 #: src/EBox/Mail.pm:1589
 msgid "Message ID"
@@ -1043,16 +1016,14 @@ msgid "Relay"
 msgstr "Relä"
 
 #: src/EBox/Mail.pm:1596
-#, fuzzy
 msgid "Message type"
-msgstr "Meddelande"
+msgstr "Meddelandetyp"
 
 #: src/EBox/Mail.pm:1598
 msgid "Event"
 msgstr "Händelse"
 
 #: src/EBox/Mail.pm:1599
-#, fuzzy
 msgid "Additional Info"
 msgstr "Extra information"
 
@@ -1065,9 +1036,8 @@ msgid "Maximum message size exceeded"
 msgstr "Maximal meddelandestorlek överskriden"
 
 #: src/EBox/Mail.pm:1612
-#, fuzzy
 msgid "User quota exceeded"
-msgstr "Användaquota överstigen"
+msgstr "Användarkvot överstigen"
 
 #: src/EBox/Mail.pm:1613
 msgid "Relay access denied"
@@ -1086,9 +1056,8 @@ msgid "Authentication error"
 msgstr "Autentiseringsfel"
 
 #: src/EBox/Mail.pm:1617
-#, fuzzy
 msgid "Greylisted"
-msgstr "Grålista"
+msgstr "Grålistad"
 
 #: src/EBox/Mail.pm:1618
 msgid "Other events"
@@ -1099,18 +1068,16 @@ msgid "Mailboxes"
 msgstr "E-postbrevlådor"
 
 #: src/EBox/Mail.pm:1833
-#, fuzzy
 msgid "Mail SMTP server"
-msgstr "SMTP-server för utgående epost."
+msgstr "SMTP-server för epost."
 
 #: src/EBox/Mail.pm:1840
-#, fuzzy
 msgid "Mail POP/IMAP server"
-msgstr "SMTP-server för utgående epost."
+msgstr "Epostserver POP/IMAP"
 
 #: src/EBox/MailQueue.pm:79
 msgid "This message is being delivered"
-msgstr ""
+msgstr "Detta meddelande skickas"
 
 #: src/templates/groupalias.mas:8
 msgid "Mail alias settings"
@@ -1173,12 +1140,11 @@ msgstr "Dölj info"
 
 #: src/templates/qmanager.mas:82
 msgid "Attempt to deliver all queued mail"
-msgstr ""
+msgstr "Försök leverera all epost i kö"
 
 #: src/templates/qmanager.mas:89
-#, fuzzy
 msgid "Remove all messages"
-msgstr "Lyckade meddelanden"
+msgstr "Radera alla meddelanden"
 
 #: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "first"
@@ -1225,28 +1191,24 @@ msgid "Create mail aliases"
 msgstr "Skapa e-postalias"
 
 #: src/templates/alias.mas:124
-#, fuzzy
 msgid "No quota"
-msgstr "Storlekskvot"
+msgstr "Ingen kvot"
 
 #: src/templates/alias.mas:125
-#, fuzzy
 msgid "Default quota"
-msgstr "Storlekskvot"
+msgstr "Standard kvot"
 
 #: src/templates/alias.mas:126
-#, fuzzy
 msgid "Custom quota"
-msgstr "Anpassat"
+msgstr "Anpassad kvot"
 
 #: src/templates/alias.mas:133
-#, fuzzy
 msgid "Quota type"
-msgstr "Typ av filter"
+msgstr "Typ av kvot"
 
 #: src/templates/alias.mas:146
 msgid "Maximum mailbox size in MB"
-msgstr ""
+msgstr "Max storlek för epostbibliotek i MB"
 
 #: src/templates/alias.mas:162 src/templates/alias.mas:163
 msgid "Modify"

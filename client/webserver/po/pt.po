@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:56+0200\n"
-"PO-Revision-Date: 2010-04-16 17:54+0200\n"
+"PO-Revision-Date: 2010-06-11 13:31+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Para definir o porto de escuta do servidor web"
 
 #: src/EBox/WebServer.pm:103
 msgid "To configure default Virtual Host"
-msgstr ""
+msgstr "Para configurar o site virtual por omissão"
 
 #: src/EBox/WebServer.pm:108
 msgid "To configure the per-user public HTML directory"
@@ -193,7 +193,7 @@ msgstr ""
 
 #: src/EBox/WebServer/Composite/General.pm:80
 msgid "Configuration"
-msgstr ""
+msgstr "Configuração"
 
 #: src/EBox/WebServer/Composite/General.pm:83
 msgid ""

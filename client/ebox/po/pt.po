@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:54+0200\n"
-"PO-Revision-Date: 2010-04-30 12:33+0200\n"
+"PO-Revision-Date: 2010-06-11 13:29+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -437,11 +437,11 @@ msgstr ""
 
 #: src/EBox/CGI/Logs/Index.pm:35 src/EBox/Logs.pm:58
 msgid "Logs"
-msgstr "Registos"
+msgstr "Registo"
 
 #: src/EBox/CGI/Logs/Index.pm:326 src/EBox/Logs.pm:702
 msgid "Query Logs"
-msgstr "Consultar registos"
+msgstr "Consultar registo"
 
 #: src/EBox/CGI/Logs/Index.pm:329
 msgid "Full Reports"
@@ -622,18 +622,16 @@ msgid "Module"
 msgstr "Módulo"
 
 #: src/EBox/CGI/EBox/Backup.pm:257
-#, fuzzy
 msgid "modules restored"
-msgstr "Módulos revogados"
+msgstr "Módulos restaurados"
 
 #: src/EBox/CGI/EBox/Backup.pm:258
 msgid "Restore successful"
 msgstr "Restauro efectuado com sucesso"
 
 #: src/EBox/CGI/EBox/ConfigurationReport.pm:29
-#, fuzzy
 msgid "Configuration report"
-msgstr "Restauração configuração"
+msgstr "Relatório da configuração"
 
 #: src/EBox/CGI/Report/RAID.pm:30 src/EBox/Event/Watcher/RAID.pm:182
 #: src/EBox/SysInfo.pm.in:265
@@ -1551,20 +1549,19 @@ msgstr "Nome da máquina"
 
 #: src/EBox/SysInfo.pm.in:105
 msgid "Core version"
-msgstr "Versão do núcleo da eBox"
+msgstr "Versão da eBox"
 
 #: src/EBox/SysInfo.pm.in:107
 msgid "System load"
 msgstr "Carga do sistema"
 
 #: src/EBox/SysInfo.pm.in:108
-#, fuzzy
 msgid "Uptime"
-msgstr "Hora"
+msgstr "Ligado à"
 
 #: src/EBox/SysInfo.pm.in:109
 msgid "Users"
-msgstr ""
+msgstr "Utilizadores"
 
 #: src/EBox/SysInfo.pm.in:155 src/EBox/SysInfo.pm.in:248
 msgid "Module Status"
@@ -1591,9 +1588,8 @@ msgid "General"
 msgstr "Geral"
 
 #: src/EBox/SysInfo.pm.in:273
-#, fuzzy
 msgid "Configuration Report"
-msgstr "Restauração configuração"
+msgstr "Relatório da configuração"
 
 #: src/EBox/SysInfo.pm.in:276
 msgid "Halt/Reboot"
@@ -1829,7 +1825,7 @@ msgstr "Tipo de operação"
 
 #: src/templates/report/raid.mas:207
 msgid "Percentage completed"
-msgstr "Percentagem completa"
+msgstr "Percentagem completada"
 
 #: src/templates/report/raid.mas:209
 msgid "Estimated time left"
@@ -1893,7 +1889,7 @@ msgstr "A iniciar..."
 
 #: src/templates/logs/index.mas:20
 msgid "Log Domain"
-msgstr "Domínio dos registos"
+msgstr "Domínio do registo"
 
 #: src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
@@ -2159,23 +2155,21 @@ msgid "delete"
 msgstr "eliminar"
 
 #: src/templates/bug.mas:9
-#, fuzzy
 msgid ""
 "This page lets you generate a file with information about the state of your "
 "system. The file will be useful if you want to report a problem or seek "
 "support."
 msgstr ""
 "Esta página permite criar um ficheiro com a informação do estado do seu "
-"sistema. Este pode ser útil para submeter um erro da eBox."
+"sistema. Pode ser útil para submeter um problema ou pedir suporte técnico."
 
 #: src/templates/bug.mas:13
 msgid "It may take several minutes to generate the report. Please be patient."
-msgstr ""
+msgstr "O relatório pode levar vários minutos a ser gerado"
 
 #: src/templates/bug.mas:19
-#, fuzzy
 msgid "Download configuration report file"
-msgstr "Descarregar o ficheiro de registo de erros"
+msgstr "Descarregar o relatório de configuração"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."

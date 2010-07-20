@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:54+0200\n"
-"PO-Revision-Date: 2004-11-01 23:09+0100\n"
-"Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
+"PO-Revision-Date: 2010-07-18 02:06+0200\n"
+"Last-Translator: josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: Catalan\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Iptables.pm:811 src/EBox/Iptables.pm:848
 #: src/EBox/Firewall/IptablesRedirectRule.pm:78
@@ -195,7 +195,7 @@ msgstr "port de destinació"
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:126
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:152
 msgid "Any"
-msgstr ""
+msgstr "Qualsevol"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:300
 #: src/EBox/Firewall/Model/BaseRuleTable.pm:129
@@ -383,16 +383,19 @@ msgstr ""
 msgid "Firewall packet traffic report"
 msgstr ""
 
+# filtratge o filtrat?
 #: src/templates/filter.mas:6
 #, fuzzy
 msgid "Filtering rules from internal networks to eBox"
-msgstr "Configura les regles predeterminades"
+msgstr "Regles de filtratge des de les xarxes internes a eBox"
 
 #: src/templates/filter.mas:8
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your eBox machine."
 msgstr ""
+"Aquestes regles et permeten controlar l'accés des de xarxes internes a "
+"serveis que corren en  l teva màquina eBox."
 
 #: src/templates/filter.mas:10 src/templates/filter.mas:18
 #: src/templates/filter.mas:26 src/templates/filter.mas:37
@@ -421,17 +424,21 @@ msgstr ""
 msgid ""
 "These rules allow you to control access from your eBox to external services."
 msgstr ""
+"Aquestes regles et permeten controlar l'accés des de la teva eBox a serveis "
+"externs."
 
 #: src/templates/filter.mas:29
 #, fuzzy
 msgid "Filtering rules from external networks to eBox"
-msgstr "Configura les regles predeterminades"
+msgstr "Regles de filtratge des de les xarxes externes a eBox"
 
 #: src/templates/filter.mas:31
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your eBox machine."
 msgstr ""
+"Aquestes regles et permeten controlar l'accés des de xarxes externes a "
+"serveis que corren en la teva màquina eBox."
 
 #: src/templates/filter.mas:34 src/templates/filter.mas:45
 msgid ""

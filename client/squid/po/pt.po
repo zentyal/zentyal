@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:56+0200\n"
-"PO-Revision-Date: 2009-03-10 22:37+0000\n"
+"PO-Revision-Date: 2010-06-15 23:57+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -23,18 +23,16 @@ msgid "HTTP Proxy"
 msgstr "Proxy HTTP"
 
 #: src/EBox/Squid.pm:202
-#, fuzzy
 msgid "HTTP Proxy configuration file"
-msgstr "Ficheiros de cache do proxy HTTP"
+msgstr "Ficheiros de configuração do proxy HTTP"
 
 #: src/EBox/Squid.pm:207
-#, fuzzy
 msgid "Content filter configuration file"
-msgstr "Entrada do filtro de conteúdos"
+msgstr "Ficheiro de configuração do filtro de conteúdos"
 
 #: src/EBox/Squid.pm:212
 msgid "Default filter group configuration"
-msgstr ""
+msgstr "Configuração base do grupo de filtros"
 
 #: src/EBox/Squid.pm:217
 msgid "Filter groups membership"

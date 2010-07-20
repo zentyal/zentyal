@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-webmail 1.3\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:56+0200\n"
-"PO-Revision-Date: 2010-04-27 10:02+0200\n"
+"PO-Revision-Date: 2010-07-05 11:10+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -146,7 +146,7 @@ msgstr ""
 
 #: src/EBox/WebMail.pm:172
 msgid "Neither IMAP nor IMAPS service enabled."
-msgstr ""
+msgstr "Nu sunt activate nici IMAP nici IMAPS"
 
 #: src/EBox/WebMail.pm:284
 msgid "To configure Roundcube webmail."
@@ -166,11 +166,11 @@ msgstr ""
 
 #: src/EBox/WebMail.pm:312
 msgid "Add webmail link to www data directory."
-msgstr ""
+msgstr "Adaugă link webmail la directorul data www"
 
 #: src/EBox/WebMail.pm:313
 msgid "Webmail will be accesible at http://ip/webmail/."
-msgstr ""
+msgstr "Webmail va fi accesibil la http://ip/webmail/."
 
 #: src/EBox/WebMail.pm:336
 #, perl-brace-format

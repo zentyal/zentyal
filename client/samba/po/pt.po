@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-samba 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 20:33+0200\n"
-"PO-Revision-Date: 2010-04-16 18:42+0200\n"
+"PO-Revision-Date: 2010-06-11 13:11+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -208,11 +208,11 @@ msgstr "Comentário"
 
 #: src/EBox/Samba/Model/SambaShares.pm:130
 msgid "Guest access"
-msgstr ""
+msgstr "Acesso de convidado"
 
 #: src/EBox/Samba/Model/SambaShares.pm:133
 msgid "This share will not require authentication"
-msgstr ""
+msgstr "Esta partilha não necessita de autenticação"
 
 #: src/EBox/Samba/Model/SambaShares.pm:137
 msgid "Access control"
@@ -276,6 +276,8 @@ msgstr "Utilizador/Grupo"
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:176
 msgid "Any access control is disabled if the guest access is allowed"
 msgstr ""
+"Se o acesso de convidado estiver activo todos os controles de acesso serão "
+"desactivados"
 
 #: src/EBox/Samba/Model/SambaSharePermissions.pm:207 src/EBox/Samba.pm:647
 #: src/EBox/Samba.pm:1662 src/templates/ajax/viewer/shareViewer.mas:8
