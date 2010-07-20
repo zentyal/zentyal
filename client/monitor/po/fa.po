@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-monitor 0.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:32+0200\n"
+"POT-Creation-Date: 2010-07-21 00:34+0200\n"
 "PO-Revision-Date: 2009-02-05 07:40+0000\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -27,26 +27,26 @@ msgstr "غیر قابل اجرا"
 msgid "any"
 msgstr "هیچ"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:116
 msgid "At least a threshold (maximum or minimum) must be set"
 msgstr "حداقل یک سطح آستانه (حداکثر یا حداقل) باید تنظیم شود "
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:121
 msgid "This threshold rule will override the current ones"
 msgstr "این قانون سطح آستانه قوانین جاری را لغو خواهد کرد"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:156
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:170
 msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr ""
 "ورژن ابزار مانیتورینگ جاری تشخیص تفاوت میان مبدأ های داده را پشتیبانی نمی کند"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:221
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:235
 msgid "Failure minimum"
 msgstr "عدم موفقیت برای مقدار حداقل"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:224
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
 msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
@@ -54,11 +54,11 @@ msgstr ""
 "حداقل محدوده مقادیر قابل قبول را تنظیم کن. اگر تنظیم نشده باشد مقدار پیش فرض "
 "منفی بینهایت می باشد"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:229
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
 msgid "Warning minimum"
 msgstr "اخطار برای مقدار حداقل"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:246
 #, perl-brace-format
 msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
@@ -67,16 +67,16 @@ msgstr ""
 "اگر مقدار مورد نظر کمتر از این مقدار و بیشتر از {fmin} باشد یک رویداد هشدار "
 "ارسال شود"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:234
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:248
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:274
 msgid "failure minimum"
 msgstr "عدم موفقیت برای مقدار حداقل"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:252
 msgid "Warning maximum"
 msgstr "اخطار برای مقدار حداکثر"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
 #, perl-brace-format
 msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
@@ -85,16 +85,16 @@ msgstr ""
 "اگر مقدار مورد نظر بیشتر از این مقدار و کمتر از {fmax} باشد یک رویداد هشدار "
 "ارسال شود"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:257
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:274
 msgid "failure maximum"
 msgstr "عدم موفقیت برای مقدار حداکثر"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:247
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "Failure maximum"
 msgstr "عدم موفقیت برای مقدار حداکثر"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:250
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:264
 msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
@@ -102,11 +102,11 @@ msgstr ""
 "حداکثر محدوده مقادیر قابل قبول را تنظیم کن. اگر تنظیم نشده باشد مقدار پیش "
 "فرض مثبت بینهایت می باشد"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:269
 msgid "Invert"
 msgstr "معکوس کردن"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:272
 #, perl-brace-format
 msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
@@ -115,19 +115,19 @@ msgstr ""
 "اگر به عنوان صحیح تنظیم شود، محدوده مقادیر قابل قبول معکوس می شود، یعنی "
 "مقادیر میان {fmin} و {fmax} ) {wmin} و {wmax} ) پذیرفته نمی شوند"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "warning minimum"
 msgstr "اخطار برای مقدار حداقل"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "warning maximum"
 msgstr "اخطار برای مقدار حداکثر"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:265
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 msgid "Persistent"
 msgstr "ماندگار"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:268
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:282
 msgid ""
 "If set to true, an event will be dispatched for each value that is out of "
 "the acceptable range. If set to false, only a change from an acceptable "
@@ -137,37 +137,37 @@ msgstr ""
 "قبول می باشد، فرستاده خواهد شد. اگر به عنوان ناصحیح تنظیم شود، تنها یک تغییر "
 "از یک مقدار قابل قبول تا یک مقدار غیرقابل قبول فرستاده خواهد شد"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:289
 msgid "Measure instance"
 msgstr "نمونه اندازه گیری"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
 msgid "Type"
 msgstr "نوع"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:287
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:301
 msgid "Data Source"
 msgstr "منبع داده"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:309
 msgid "Threshold configuration"
 msgstr "پیکربندی سطح آستانه"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:310
 msgid "Threshold's list"
 msgstr "لیست سطح آستانه"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:298
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:312
 msgid "Threshold"
 msgstr "سطح آستانه"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:302
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:316
 #, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
 msgstr "هر گونه بررسی با بالاترین دقت ممکن انجام شده است: {nSec} ثانیه"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:304
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:318
 #, perl-brace-format
 msgid ""
 "Take into account this configuration will be only applied if monitor "
@@ -195,19 +195,19 @@ msgid "Every measure may have several thresholds to monitor"
 msgstr ""
 "هر اندازه گیری ای ممکن است سطوح آستانه مختلقی برای مانیتور کردن داشته باشد"
 
-#: src/EBox/Monitor/Configuration.pm:121
+#: src/EBox/Monitor/Configuration.pm:122
 msgid "Last hour"
 msgstr "ساعت قبل"
 
-#: src/EBox/Monitor/Configuration.pm:127
+#: src/EBox/Monitor/Configuration.pm:128
 msgid "Last day"
 msgstr "روز قبل"
 
-#: src/EBox/Monitor/Configuration.pm:133
+#: src/EBox/Monitor/Configuration.pm:134
 msgid "Last month"
 msgstr "ماه قبل"
 
-#: src/EBox/Monitor/Configuration.pm:139
+#: src/EBox/Monitor/Configuration.pm:140
 msgid "Last year"
 msgstr "سال قبل"
 
@@ -381,8 +381,8 @@ msgid ""
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:73
-#: src/EBox/Monitor.pm:167
+#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:76
+#: src/EBox/Monitor.pm:175
 msgid "Monitor"
 msgstr "مانیتور"
 
@@ -410,12 +410,17 @@ msgstr "آن بالای سطح آستانه {severity} از {bound} می باش�
 msgid "That is below the {severity} threshold of {bound}."
 msgstr "آن زیر سطح آستانه {severity} از {bound} می باشد"
 
-#: src/EBox/Monitor.pm:134
+#: src/EBox/Monitor.pm:137
 #, fuzzy, perl-brace-format
 msgid "{daemon} main configuration file"
 msgstr "فایل پیکربندی اصلی را جمع آوری کن"
 
-#: src/EBox/Monitor.pm:139
+#: src/EBox/Monitor.pm:142
 #, fuzzy, perl-brace-format
 msgid "{daemon} thresholds configuration file"
 msgstr "فایل پیکربندی سطح آستانه را جمع آوری کن"
+
+#: src/EBox/Monitor.pm:147
+#, fuzzy, perl-brace-format
+msgid "{daemon} default configuration file"
+msgstr "فایل پیکربندی اصلی را جمع آوری کن"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:22+0200\n"
+"POT-Creation-Date: 2010-07-21 00:28+0200\n"
 "PO-Revision-Date: 2010-02-09 00:40+0100\n"
 "Last-Translator: Michel Daggelinckx <michel@allmarketingmaroc.com>\n"
 "Language-Team: none\n"
@@ -22,151 +22,151 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "eBox VoIP systeem"
 
-#: src/EBox/Asterisk.pm:73 src/EBox/Asterisk.pm:726
+#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
 
-#: src/EBox/Asterisk.pm:129
+#: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
 msgstr "Om in en uitgeschakelde modules te beheren"
 
-#: src/EBox/Asterisk.pm:134
+#: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
 msgstr "Om de Realtime Interface te configureren"
 
-#: src/EBox/Asterisk.pm:139
+#: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
 msgstr "Om de LDAP Realtime driver te beheren."
 
-#: src/EBox/Asterisk.pm:144
+#: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
 msgstr "Om de gewone SIP en IAX gebruikers te configureren."
 
-#: src/EBox/Asterisk.pm:149
+#: src/EBox/Asterisk.pm:150
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr ""
 "Om de SIP trunk voor lokale gebruikers en externe leveranciers te "
 "configureren."
 
-#: src/EBox/Asterisk.pm:154
+#: src/EBox/Asterisk.pm:155
 msgid "To configure the dialplan."
 msgstr "Om het belplan te configureren."
 
-#: src/EBox/Asterisk.pm:159
+#: src/EBox/Asterisk.pm:160
 msgid "To configure the voicemail."
 msgstr "Om het antwoordapparaat in te stellen"
 
-#: src/EBox/Asterisk.pm:164
+#: src/EBox/Asterisk.pm:165
 msgid "To configure the conferences."
 msgstr "Om conferenties te configureren."
 
-#: src/EBox/Asterisk.pm:168
+#: src/EBox/Asterisk.pm:169
 msgid "To configure the music on hold."
 msgstr "Om de wachtmuziek in te stellen"
 
-#: src/EBox/Asterisk.pm:172
+#: src/EBox/Asterisk.pm:173
 msgid "To configure DTMF behaviour."
 msgstr "Om het antwoordapparaat in te stellen"
 
-#: src/EBox/Asterisk.pm:496
+#: src/EBox/Asterisk.pm:485
 msgid "General"
 msgstr "Algemeen"
 
-#: src/EBox/Asterisk.pm:500 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:190
 msgid "Meetings"
 msgstr "Vergaderingen"
 
-#: src/EBox/Asterisk.pm:517
+#: src/EBox/Asterisk.pm:506
 msgid "Voicemail"
 msgstr "Antwoordapparaat"
 
-#: src/EBox/Asterisk.pm:527 src/EBox/Asterisk.pm:636
+#: src/EBox/Asterisk.pm:516 src/EBox/Asterisk.pm:625
 msgid "User"
 msgstr "Gebruiker"
 
-#: src/EBox/Asterisk.pm:527
+#: src/EBox/Asterisk.pm:516
 msgid "Address"
 msgstr "Adress"
 
-#: src/EBox/Asterisk.pm:527
+#: src/EBox/Asterisk.pm:516
 msgid "NAT"
 msgstr "NAT"
 
-#: src/EBox/Asterisk.pm:527
+#: src/EBox/Asterisk.pm:516
 msgid "Status"
 msgstr "Status"
 
-#: src/EBox/Asterisk.pm:541 src/EBox/Asterisk.pm:645
+#: src/EBox/Asterisk.pm:530 src/EBox/Asterisk.pm:634
 msgid "No users connected."
 msgstr "Geen Gebruikers verbonden."
 
-#: src/EBox/Asterisk.pm:633
+#: src/EBox/Asterisk.pm:622
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr "Zaal {name} aktief sinds {rtime}"
 
-#: src/EBox/Asterisk.pm:636
+#: src/EBox/Asterisk.pm:625
 msgid "Time Connected"
 msgstr "Tijd Verbonden"
 
-#: src/EBox/Asterisk.pm:666
+#: src/EBox/Asterisk.pm:655
 msgid "VoIP Online Users"
 msgstr "VoIP Gebruikers Online"
 
-#: src/EBox/Asterisk.pm:671
+#: src/EBox/Asterisk.pm:660
 msgid "VoIP Users in Meetings"
 msgstr "VoIP Gebruikers in Vergadering"
 
-#: src/EBox/Asterisk.pm:703
+#: src/EBox/Asterisk.pm:692
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/Asterisk.pm:704
+#: src/EBox/Asterisk.pm:693
 msgid "From"
 msgstr "Van"
 
-#: src/EBox/Asterisk.pm:705
+#: src/EBox/Asterisk.pm:694
 msgid "To"
 msgstr "Naar"
 
-#: src/EBox/Asterisk.pm:706
+#: src/EBox/Asterisk.pm:695
 msgid "Duration"
 msgstr "Duur"
 
-#: src/EBox/Asterisk.pm:707
+#: src/EBox/Asterisk.pm:696
 msgid "Channel"
 msgstr "Kanaal"
 
-#: src/EBox/Asterisk.pm:708
+#: src/EBox/Asterisk.pm:697
 msgid "Destination Channel"
 msgstr "Bestemmings Kanaal"
 
-#: src/EBox/Asterisk.pm:709
+#: src/EBox/Asterisk.pm:698
 msgid "Application"
 msgstr "Toepassing"
 
-#: src/EBox/Asterisk.pm:710
+#: src/EBox/Asterisk.pm:699
 msgid "Application Data"
 msgstr "Toepassings gegevens"
 
-#: src/EBox/Asterisk.pm:711
+#: src/EBox/Asterisk.pm:700
 msgid "Event"
 msgstr "Gebeurtenis"
 
-#: src/EBox/Asterisk.pm:719
+#: src/EBox/Asterisk.pm:708
 msgid "Answered"
 msgstr "Beantwoord"
 
-#: src/EBox/Asterisk.pm:720
+#: src/EBox/Asterisk.pm:709
 msgid "No Answer"
 msgstr "Niet Beantwoord"
 
-#: src/EBox/Asterisk.pm:721
+#: src/EBox/Asterisk.pm:710
 msgid "Busy"
 msgstr "Bezet"
 
-#: src/EBox/Asterisk.pm:722
+#: src/EBox/Asterisk.pm:711
 msgid "Failed"
 msgstr "Mislukt"
 
@@ -175,7 +175,7 @@ msgid "User extension"
 msgstr "Gebruikers nummer"
 
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/EBox/Model/Meetings.pm:145 src/EBox/Model/Settings.pm:92
+#: src/EBox/Model/Meetings.pm:150 src/EBox/Model/Settings.pm:92
 #: src/templates/group.mas:41 src/templates/user.mas:38
 msgid "Extension"
 msgstr "Toestel"
@@ -193,37 +193,37 @@ msgstr ""
 msgid "username"
 msgstr "gebruikersnaam"
 
-# meetings = vergaderingen but most dutch/flemish teens also use meetings
-#: src/EBox/Model/Meetings.pm:91
-msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
+#: src/EBox/Model/Meetings.pm:94
+#, perl-brace-format
+msgid ""
+"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
+"the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
-"U dient dahdi-linux en dahdi-tools paketten te instaleren om Vergaderingen "
-"te gebruiken."
 
 # very fuzzy as toestel also means device as in hardware
-#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
+#: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
 msgid "extension"
 msgstr "Toestel"
 
-#: src/EBox/Model/Meetings.pm:149
+#: src/EBox/Model/Meetings.pm:154
 #, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "Een nummer tussen {min} en {max}"
 
-#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:111
+#: src/EBox/Model/Meetings.pm:170 src/EBox/Model/Provider.pm:111
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: src/EBox/Model/Meetings.pm:173 src/EBox/Model/Localnets.pm:119
+#: src/EBox/Model/Meetings.pm:178 src/EBox/Model/Localnets.pm:119
 msgid "Description"
 msgstr "Omschrijving"
 
-#: src/EBox/Model/Meetings.pm:184
+#: src/EBox/Model/Meetings.pm:189
 msgid "List of Meetings"
 msgstr "Vergaderingen lijst"
 
-#: src/EBox/Model/Meetings.pm:186
+#: src/EBox/Model/Meetings.pm:191
 msgid "meeting"
 msgstr "vergadering"
 
@@ -368,10 +368,11 @@ msgid "SIP provider configuration updated."
 msgstr "SIP leverancier configuratie aangepast"
 
 #: src/EBox/Model/Provider.pm:195
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"eBox VoIP Credit: make low-cost VoIP calls to mobile phones and landlines "
-"directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
+"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
+"with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
+"credit you need. All these services available for purchasing at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
 "eBox VoIP Krediet: maak goedkope VoIP gesprekken naar vaste en mobiele "
@@ -455,6 +456,13 @@ msgstr "Wachtwoord voor Asterisk dienst is het gebruiker wachtwoord"
 #, fuzzy
 msgid "User account"
 msgstr "Gebruiker rekening"
+
+# meetings = vergaderingen but most dutch/flemish teens also use meetings
+#~ msgid ""
+#~ "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
+#~ msgstr ""
+#~ "U dient dahdi-linux en dahdi-tools paketten te instaleren om "
+#~ "Vergaderingen te gebruiken."
 
 #~ msgid "To configure the RTP port ranges."
 #~ msgstr "Om het RTP poort bereik te configureren."

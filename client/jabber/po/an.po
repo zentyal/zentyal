@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:31+0200\n"
+"POT-Creation-Date: 2010-07-21 00:33+0200\n"
 "PO-Revision-Date: 2007-04-06 21:22+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -16,130 +16,140 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/JabberLdapUser.pm:262
+#: migration/0001_add_firewall_services.pl:30 src/EBox/Jabber.pm:221
+#, fuzzy
+msgid "Jabber Server"
+msgstr "Serbizio Jabber"
+
+#: src/EBox/JabberLdapUser.pm:263
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
 msgstr ""
 
-#: src/EBox/Jabber.pm:72
+#: src/EBox/Jabber.pm:56
 msgid "Add Jabber LDAP schema"
 msgstr ""
 
+#: src/EBox/Jabber.pm:57
+msgid "eBox will need this schema to store Jabber users."
+msgstr ""
+
 #: src/EBox/Jabber.pm:73
-msgid "eBox will need this schema to store jabber users"
+msgid "To properly configure ejabberd."
 msgstr ""
 
-#: src/EBox/Jabber.pm:90 src/EBox/Jabber.pm:95 src/EBox/Jabber.pm:100
-msgid "To properly configure jabberd2"
-msgstr ""
-
-#: src/EBox/Jabber.pm:105 src/EBox/Jabber.pm:110
-msgid "To properly configure jabberd2 muc"
-msgstr ""
-
-#: src/EBox/Jabber.pm:280 src/EBox/CGI/JabberConf.pm:42
-msgid "domain"
-msgstr "dominio"
-
-#: src/EBox/Jabber.pm:394
-#, fuzzy
-msgid "Jabber server"
-msgstr "Serbizio Jabber"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "estato d'o modulo"
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
-#: src/EBox/Jabber/Model/JabberUser.pm:58
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/CGI/JabberUserOptions.pm:43
+#: src/EBox/CGI/JabberUserOptions.pm:45
 msgid "username"
 msgstr "nombre d'usuario"
 
-#: src/EBox/Jabber/Model/JabberUser.pm:50 src/templates/jabber.mas:8
+#: src/EBox/Jabber/Model/GeneralSettings.pm:92 src/templates/jabber.mas:22
+#: src/templates/jabber.mas:25
+msgid "Disabled"
+msgstr "Desautibato"
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:93
+msgid "Allow SSL"
+msgstr ""
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:94
+msgid "Force SSL"
+msgstr ""
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:113
 #, fuzzy
-msgid "Jabber Account"
+msgid "Jabber domain"
 msgstr "Cuenta Jabber"
 
-#: src/templates/index.mas:17
-msgid "General Configuration"
-msgstr ""
-
-#: src/templates/index.mas:19
-msgid ""
-"Domain name should be available on the network. Otherwise, you may not be "
-"able to use this service. This applies for internal and external connections."
-msgstr ""
-"O nombre d'o dominio debe estar disponible en o rete. D'atra traza, es "
-"posible que no se pueda emplegar. Isto se aplica tanto ta las coneusions "
-"internas como ta las esternas."
-
-#: src/templates/index.mas:25
-msgid "Domain name"
-msgstr "Nombre de dominio"
-
-#: src/templates/index.mas:33
-#, fuzzy
-msgid "Connect to other servers"
-msgstr "Coneutar á lo rete Jabber global"
-
-#: src/templates/index.mas:45
-msgid "Enable MUC (Multi User Chat)"
-msgstr ""
-
-#: src/templates/index.mas:57
+#: src/EBox/Jabber/Model/GeneralSettings.pm:119
 #, fuzzy
 msgid "SSL support"
 msgstr "Tarabidau SSL"
 
-#: src/templates/index.mas:62 src/templates/index.mas:66
-#: src/templates/index.mas:70
-msgid "No"
-msgstr "No"
-
-#: src/templates/index.mas:63 src/templates/index.mas:67
-#: src/templates/index.mas:71
-msgid "Optional"
-msgstr "Ozional"
-
-#: src/templates/index.mas:64 src/templates/index.mas:68
-#: src/templates/index.mas:72
-msgid "Required"
-msgstr "Requerito"
-
-#: src/templates/index.mas:81 src/templates/index.mas:82
-#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
-msgid "Change"
-msgstr "Cambear"
-
-#: src/templates/jabber.mas:9
+#: src/EBox/Jabber/Model/GeneralSettings.pm:126
 #, fuzzy
-msgid "Password for Jabber service is the user password."
-msgstr ""
-"A parabra de paso ta o serbizio Jabber ye a parabra de paso de l'usuario"
+msgid "Connect to other servers"
+msgstr "Coneutar á lo rete Jabber global"
 
-#: src/templates/jabber.mas:18
+#: src/EBox/Jabber/Model/GeneralSettings.pm:132
+msgid "Enable MUC (Multi User Chat)"
+msgstr ""
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:141
+#, fuzzy
+msgid "General configuration settings"
+msgstr "Confegurazión cheneral"
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:146
+msgid "General Jabber server configuration settings updated."
+msgstr ""
+
+#: src/EBox/Jabber/Model/JabberUser.pm:50
+#, fuzzy
+msgid "Jabber Account"
+msgstr "Cuenta Jabber"
+
+#: src/EBox/Jabber/Model/JabberUser.pm:58
+#: src/EBox/Jabber/Composite/General.pm:67
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Jabber/Composite/General.pm:66
+msgid "Configuration"
+msgstr ""
+
+#: src/templates/jabber.mas:8
+#, fuzzy
+msgid "Jabber account"
+msgstr "Cuenta Jabber"
+
+#: src/templates/jabber.mas:17
 msgid "User account"
 msgstr "Cuenta d'usuario"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:26
-msgid "Disabled"
-msgstr "Desautibato"
-
-#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
 msgid "Enabled"
 msgstr "Autibato"
 
-#: src/templates/jabber.mas:34
+#: src/templates/jabber.mas:33
 msgid "Administration rights"
 msgstr "Pribilechios d'almenistrador"
 
-#~ msgid "General Settings"
-#~ msgstr "Confegurazión cheneral"
+#: src/templates/jabber.mas:47 src/templates/jabber.mas:48
+msgid "Change"
+msgstr "Cambear"
+
+#~ msgid "domain"
+#~ msgstr "dominio"
+
+#~ msgid "module status"
+#~ msgstr "estato d'o modulo"
+
+#~ msgid ""
+#~ "Domain name should be available on the network. Otherwise, you may not be "
+#~ "able to use this service. This applies for internal and external "
+#~ "connections."
+#~ msgstr ""
+#~ "O nombre d'o dominio debe estar disponible en o rete. D'atra traza, es "
+#~ "posible que no se pueda emplegar. Isto se aplica tanto ta las coneusions "
+#~ "internas como ta las esternas."
+
+#~ msgid "Domain name"
+#~ msgstr "Nombre de dominio"
+
+#~ msgid "No"
+#~ msgstr "No"
+
+#~ msgid "Optional"
+#~ msgstr "Ozional"
+
+#~ msgid "Required"
+#~ msgstr "Requerito"
+
+#, fuzzy
+#~ msgid "Password for Jabber service is the user password."
+#~ msgstr ""
+#~ "A parabra de paso ta o serbizio Jabber ye a parabra de paso de l'usuario"
 
 #~ msgid "Apply Changes"
 #~ msgstr "Aplicar Cambeos"

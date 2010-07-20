@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-radius 1.3.10\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:32+0200\n"
+"POT-Creation-Date: 2010-07-21 00:42+0200\n"
 "PO-Revision-Date: 2010-01-25 11:01+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
@@ -62,36 +62,42 @@ msgstr "Clientes RADIUS"
 msgid "client"
 msgstr "cliente"
 
-#: src/EBox/Radius.pm:99
+#: src/EBox/Radius.pm:100
 msgid "Create RADIUS certificates for TTLS"
 msgstr "Crear certificados de RADIUS para TTLS"
 
-#: src/EBox/Radius.pm:100
+#: src/EBox/Radius.pm:101
 msgid ""
 "eBox will create the needed certificates for TTLS in /etc/freeradius/certs/."
 msgstr ""
 "eBox creará los certificados necesarios para TTLS en /etc/freeradius/certs/."
 
-#: src/EBox/Radius.pm:120
+#: src/EBox/Radius.pm:121
 msgid "To configure allowed LDAP group."
 msgstr "Para configurar el grupo LDAP permitido."
 
-#: src/EBox/Radius.pm:124
+#: src/EBox/Radius.pm:125
 msgid "To configure RADIUS LDAP module."
 msgstr "Para configurar el módulo LDAP de RADIUS."
 
-#: src/EBox/Radius.pm:128
+#: src/EBox/Radius.pm:129
 msgid "To configure RADIUS clients."
 msgstr "Para configurar los clientes RADIUS."
 
-#: src/EBox/Radius.pm:132
+#: src/EBox/Radius.pm:133
+#, fuzzy
+msgid "To configure RADIUS EAP."
+msgstr "Para configurar el módulo LDAP de RADIUS."
+
+#: src/EBox/Radius.pm:137
 msgid "To configure default RADIUS vhost."
 msgstr "Para configurar el vhost por defecto de RADIUS."
 
-#: src/EBox/Radius.pm:136
+#: src/EBox/Radius.pm:141
 msgid "To configure RADIUS inner-tunnel vhost."
 msgstr "Para configurar el vhost del túnel interno de RADIUS."
 
-#: src/EBox/Radius.pm:276 src/EBox/Composite/General.pm:64
+#: src/EBox/Radius.pm:304 src/EBox/Radius.pm:328
+#: src/EBox/Composite/General.pm:64
 msgid "RADIUS"
 msgstr "RADIUS"

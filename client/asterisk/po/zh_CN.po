@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:22+0200\n"
+"POT-Creation-Date: 2010-07-21 00:28+0200\n"
 "PO-Revision-Date: 2010-07-12 08:06+0200\n"
 "Last-Translator: zhoumeng <zhourimeng@gmail.com>\n"
 "Language-Team: none\n"
@@ -22,149 +22,149 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "eBox VoIP 系统"
 
-#: src/EBox/Asterisk.pm:73 src/EBox/Asterisk.pm:726
+#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr "VoIP"
 
-#: src/EBox/Asterisk.pm:129
+#: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
 msgstr "启用/禁用模块"
 
-#: src/EBox/Asterisk.pm:134
+#: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
 msgstr "配置实时接口"
 
-#: src/EBox/Asterisk.pm:139
+#: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
 msgstr "配置LDAP实时驱动"
 
-#: src/EBox/Asterisk.pm:144
+#: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
 msgstr "配置公共SIP/IAX用户"
 
-#: src/EBox/Asterisk.pm:149
+#: src/EBox/Asterisk.pm:150
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr "配置本地用户同外部供应商的中继"
 
-#: src/EBox/Asterisk.pm:154
+#: src/EBox/Asterisk.pm:155
 msgid "To configure the dialplan."
 msgstr "配置拨号规则"
 
-#: src/EBox/Asterisk.pm:159
+#: src/EBox/Asterisk.pm:160
 msgid "To configure the voicemail."
 msgstr "配置语音邮件"
 
-#: src/EBox/Asterisk.pm:164
+#: src/EBox/Asterisk.pm:165
 msgid "To configure the conferences."
 msgstr ""
 
-#: src/EBox/Asterisk.pm:168
+#: src/EBox/Asterisk.pm:169
 msgid "To configure the music on hold."
 msgstr "配置通话保留音乐"
 
-#: src/EBox/Asterisk.pm:172
+#: src/EBox/Asterisk.pm:173
 msgid "To configure DTMF behaviour."
 msgstr "配置DTMF行为"
 
-#: src/EBox/Asterisk.pm:496
+#: src/EBox/Asterisk.pm:485
 msgid "General"
 msgstr "常用"
 
-#: src/EBox/Asterisk.pm:500 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:190
 msgid "Meetings"
 msgstr "会议"
 
-#: src/EBox/Asterisk.pm:517
+#: src/EBox/Asterisk.pm:506
 msgid "Voicemail"
 msgstr "语音邮件"
 
-#: src/EBox/Asterisk.pm:527 src/EBox/Asterisk.pm:636
+#: src/EBox/Asterisk.pm:516 src/EBox/Asterisk.pm:625
 msgid "User"
 msgstr "用户"
 
-#: src/EBox/Asterisk.pm:527
+#: src/EBox/Asterisk.pm:516
 msgid "Address"
 msgstr "地址"
 
-#: src/EBox/Asterisk.pm:527
+#: src/EBox/Asterisk.pm:516
 msgid "NAT"
 msgstr "NAT"
 
-#: src/EBox/Asterisk.pm:527
+#: src/EBox/Asterisk.pm:516
 msgid "Status"
 msgstr "状态"
 
-#: src/EBox/Asterisk.pm:541 src/EBox/Asterisk.pm:645
+#: src/EBox/Asterisk.pm:530 src/EBox/Asterisk.pm:634
 msgid "No users connected."
 msgstr "无用户连接"
 
-#: src/EBox/Asterisk.pm:633
+#: src/EBox/Asterisk.pm:622
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:636
+#: src/EBox/Asterisk.pm:625
 msgid "Time Connected"
 msgstr "连接时间"
 
-#: src/EBox/Asterisk.pm:666
+#: src/EBox/Asterisk.pm:655
 msgid "VoIP Online Users"
 msgstr "VoIP 在线用户"
 
-#: src/EBox/Asterisk.pm:671
+#: src/EBox/Asterisk.pm:660
 msgid "VoIP Users in Meetings"
 msgstr "会议中的VoIP用户"
 
-#: src/EBox/Asterisk.pm:703
+#: src/EBox/Asterisk.pm:692
 msgid "Date"
 msgstr "日期"
 
-#: src/EBox/Asterisk.pm:704
+#: src/EBox/Asterisk.pm:693
 msgid "From"
 msgstr "从"
 
-#: src/EBox/Asterisk.pm:705
+#: src/EBox/Asterisk.pm:694
 msgid "To"
 msgstr "到"
 
-#: src/EBox/Asterisk.pm:706
+#: src/EBox/Asterisk.pm:695
 msgid "Duration"
 msgstr "持续"
 
-#: src/EBox/Asterisk.pm:707
+#: src/EBox/Asterisk.pm:696
 msgid "Channel"
 msgstr "通道"
 
-#: src/EBox/Asterisk.pm:708
+#: src/EBox/Asterisk.pm:697
 msgid "Destination Channel"
 msgstr "目标通道"
 
-#: src/EBox/Asterisk.pm:709
+#: src/EBox/Asterisk.pm:698
 msgid "Application"
 msgstr "应用程序"
 
-#: src/EBox/Asterisk.pm:710
+#: src/EBox/Asterisk.pm:699
 msgid "Application Data"
 msgstr "应用程序数据"
 
-#: src/EBox/Asterisk.pm:711
+#: src/EBox/Asterisk.pm:700
 msgid "Event"
 msgstr "事件"
 
-#: src/EBox/Asterisk.pm:719
+#: src/EBox/Asterisk.pm:708
 msgid "Answered"
 msgstr "响应"
 
-#: src/EBox/Asterisk.pm:720
+#: src/EBox/Asterisk.pm:709
 msgid "No Answer"
 msgstr "无应答"
 
-#: src/EBox/Asterisk.pm:721
+#: src/EBox/Asterisk.pm:710
 msgid "Busy"
 msgstr "忙"
 
-#: src/EBox/Asterisk.pm:722
+#: src/EBox/Asterisk.pm:711
 msgid "Failed"
 msgstr "失败"
 
@@ -173,7 +173,7 @@ msgid "User extension"
 msgstr "用户扩展"
 
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/EBox/Model/Meetings.pm:145 src/EBox/Model/Settings.pm:92
+#: src/EBox/Model/Meetings.pm:150 src/EBox/Model/Settings.pm:92
 #: src/templates/group.mas:41 src/templates/user.mas:38
 msgid "Extension"
 msgstr "扩展"
@@ -190,33 +190,36 @@ msgstr "组"
 msgid "username"
 msgstr "用户名"
 
-#: src/EBox/Model/Meetings.pm:91
-msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
-msgstr "使用会议功能您必须安装dahdi和dahdi-modules-ebox软件包"
+#: src/EBox/Model/Meetings.pm:94
+#, perl-brace-format
+msgid ""
+"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
+"the following command: sudo apt-get install {kernels} dahdi."
+msgstr ""
 
-#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
+#: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
 msgid "extension"
 msgstr "扩展"
 
-#: src/EBox/Model/Meetings.pm:149
+#: src/EBox/Model/Meetings.pm:154
 #, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "{min} 和 {max}之间的数"
 
-#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:111
+#: src/EBox/Model/Meetings.pm:170 src/EBox/Model/Provider.pm:111
 msgid "Password"
 msgstr "密码"
 
-#: src/EBox/Model/Meetings.pm:173 src/EBox/Model/Localnets.pm:119
+#: src/EBox/Model/Meetings.pm:178 src/EBox/Model/Localnets.pm:119
 msgid "Description"
 msgstr "描述"
 
-#: src/EBox/Model/Meetings.pm:184
+#: src/EBox/Model/Meetings.pm:189
 msgid "List of Meetings"
 msgstr "会议列表"
 
-#: src/EBox/Model/Meetings.pm:186
+#: src/EBox/Model/Meetings.pm:191
 msgid "meeting"
 msgstr "会议"
 
@@ -354,8 +357,9 @@ msgstr "SIP提供商配置已更新"
 #: src/EBox/Model/Provider.pm:195
 #, perl-brace-format
 msgid ""
-"eBox VoIP Credit: make low-cost VoIP calls to mobile phones and landlines "
-"directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
+"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
+"with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
+"credit you need. All these services available for purchasing at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
 
@@ -429,3 +433,7 @@ msgstr "Asterisk服务密码是用户密码"
 #: src/templates/user.mas:21
 msgid "User account"
 msgstr "用户帐号"
+
+#~ msgid ""
+#~ "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
+#~ msgstr "使用会议功能您必须安装dahdi和dahdi-modules-ebox软件包"

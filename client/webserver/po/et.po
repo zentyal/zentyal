@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:56+0200\n"
+"POT-Creation-Date: 2010-07-21 00:52+0200\n"
 "PO-Revision-Date: 2010-05-06 21:50+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -21,107 +21,167 @@ msgstr ""
 msgid "HyperText Transport Protocol"
 msgstr "Hüperteksti edastusprotokoll (HTTP)"
 
-#: src/EBox/WebServer.pm:79 src/EBox/WebServer/Composite/General.pm:81
+#: src/EBox/WebServer.pm:81 src/EBox/WebServer.pm:619
+#: src/EBox/WebServer/Composite/General.pm:79
 msgid "Web Server"
 msgstr "Veebiserver"
 
 #  
-#: src/EBox/WebServer.pm:98
-msgid "To set webserver listening port"
+#: src/EBox/WebServer.pm:101
+#, fuzzy
+msgid "To set webserver listening port."
 msgstr "Veebiserveri portide kuulamiseks"
 
-#: src/EBox/WebServer.pm:103
-msgid "To configure default Virtual Host"
+#: src/EBox/WebServer.pm:106
+#, fuzzy
+msgid "To configure default virtual host."
+msgstr "Vaikimisi virtuaalhosti seadistamiseks"
+
+#: src/EBox/WebServer.pm:111
+#, fuzzy
+msgid "To configure default SSL virtual host."
 msgstr "Vaikimisi virtuaalhosti seadistamiseks"
 
 #  
-#: src/EBox/WebServer.pm:108
-msgid "To configure the per-user public HTML directory"
+#: src/EBox/WebServer.pm:116
+#, fuzzy
+msgid "To configure the per-user public_html directory."
 msgstr "Kasutajate avalike HTML kataloogide seadistamiseks"
 
-#: src/EBox/WebServer.pm:135
-msgid "Enable apache LDAP user module"
+#: src/EBox/WebServer.pm:141
+#, fuzzy
+msgid "Enable Apache LDAP user module"
 msgstr "Apache LDAP kasutaja mooduli lubamine"
 
-#: src/EBox/WebServer.pm:137
-msgid "To fetch home directories from LDAP"
+#: src/EBox/WebServer.pm:143
+#, fuzzy
+msgid "To fetch home directories from LDAP."
 msgstr "Kodukataloogide LDAPist hankimiseks"
 
-#: src/EBox/WebServer.pm:178
+#: src/EBox/WebServer.pm:146
+#, fuzzy
+msgid "Enable Apache SSL module"
+msgstr "Apache LDAP kasutaja mooduli lubamine"
+
+#: src/EBox/WebServer.pm:148
+msgid "To serve pages over HTTPS."
+msgstr ""
+
+#: src/EBox/WebServer.pm:186
 msgid "Web service status"
 msgstr "Veebiserveri olek"
 
-#: src/EBox/WebServer.pm:375
-#, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it"
+#: src/EBox/WebServer.pm:442
+#, fuzzy, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it."
 msgstr "{userDirConfFile} on kadunud! Palun taasta see"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:90
-msgid "listening port"
-msgstr "pordi kuulamine"
+#: src/EBox/WebServer/Model/GeneralSettings.pm:98
+#: src/EBox/WebServer/Model/GeneralSettings.pm:110
+#: src/EBox/WebServer/Model/GeneralSettings.pm:121
+#: src/EBox/WebServer/Model/GeneralSettings.pm:231
+msgid "Listening port"
+msgstr "Kuulatav port"
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:116
+#, perl-brace-format
+msgid ""
+"eBox Administration is running on this port, change it on {ohref}System -> "
+"General{chref}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:129
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
 
 #  
-#: src/EBox/WebServer/Model/GeneralSettings.pm:101
+#: src/EBox/WebServer/Model/GeneralSettings.pm:141
+#, fuzzy
 msgid ""
-"To allow HTML directories for users is needed that the file sharing module "
-"is installed and configured"
+"To allow HTML directories for users is needed to have the file sharing "
+"module is installed and configured."
 msgstr ""
 "HTML kataloogide lubamiseks kasutajatele on vajalik, et failijagamise moodul "
 "oleks paigaldatud ja seadistatud."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:107
+#: src/EBox/WebServer/Model/GeneralSettings.pm:147
+#, fuzzy
 msgid ""
-"To allow HTML directories for user is needed to have the file sharing module "
-"configured. To configure it enable it at least one time"
+"To allow HTML directories for users is needed to have the file sharing "
+"module configured. To configure it enable it at least one time."
 msgstr ""
 "HTML kataloogide lubamiseks kasutajatele on vajalik, et failijagamise moodul "
 "oleks seadistatud. Selle seadistamiseks pead ta vähemalt ühe korra lubama."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:169
-msgid "Listening port"
+#: src/EBox/WebServer/Model/GeneralSettings.pm:237
+#, fuzzy
+msgid "Listening SSL port"
 msgstr "Kuulatav port"
 
+#: src/EBox/WebServer/Model/GeneralSettings.pm:241
+#: src/EBox/WebServer/Model/VHostTable.pm:254
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:246
+msgid "Enabled"
+msgstr ""
+
 # ei osanud "per-user" tõlkida
-#: src/EBox/WebServer/Model/GeneralSettings.pm:175
+#: src/EBox/WebServer/Model/GeneralSettings.pm:254
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "Luba kasutajatele {dirName}"
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:179
+#: src/EBox/WebServer/Model/GeneralSettings.pm:258
 msgid ""
-"If you tick this field, each user is permitted to have a website in their "
-"home directory under public_html"
+"Allow users to publish web documents using the public_html directory on "
+"their home."
 msgstr ""
-"Kui see väli on märgitud, siis on igale kasutajale lubatud veebileht, nende "
-"kodukataloogis public_html all."
 
 # või ka lihtsalt "üldised seadistused"
-#: src/EBox/WebServer/Model/GeneralSettings.pm:189
+#: src/EBox/WebServer/Model/GeneralSettings.pm:266
 msgid "General configuration settings"
 msgstr "Üldised seadistused"
 
 #  
-#: src/EBox/WebServer/Model/GeneralSettings.pm:193
-#, perl-brace-format
+#: src/EBox/WebServer/Model/GeneralSettings.pm:270
+#, fuzzy, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
 "another service. If you enable user to publish their own html pages, the "
 "pages will be loaded from {dirName} directory from their samba home "
-"directories"
+"directories."
 msgstr ""
 "Veebiserveri üldine seadistamine. Kuulatav port ei tohi olla saadud teiselt "
 "teenuselt. Kui lubad kasutajatel avaldada oma html lehekülgi, laetakse "
 "leheküljed kataloogist {dirName}, mis asub samba kodukataloogis."
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:199
-msgid "General Web server configuration settings updated"
+#: src/EBox/WebServer/Model/GeneralSettings.pm:276
+#, fuzzy
+msgid "General Web server configuration settings updated."
 msgstr "Veebiserveri üldised seadistused on uuendatud"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:93
-msgid "Virtual host's name"
+#: src/EBox/WebServer/Model/VHostTable.pm:95
+#, fuzzy
+msgid "Virtual host name"
 msgstr "Virtuaalhosti nimi"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:159
+# Virtuaalhosting
+#: src/EBox/WebServer/Model/VHostTable.pm:99
+#: src/EBox/WebServer/Model/VHostTable.pm:312
+#, fuzzy
+msgid "Virtual host"
+msgstr "Virtuaalhostid"
+
+#: src/EBox/WebServer/Model/VHostTable.pm:106
+msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:171
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
@@ -130,49 +190,62 @@ msgstr ""
 "Virtuaalhost {vhost} on lisatud. Loodud domeen {domain} on seotud nimega "
 "{name} - IP aadressiga {ip}. {noDnsWarning} "
 
-#: src/EBox/WebServer/Model/VHostTable.pm:178
-#, perl-brace-format
+#: src/EBox/WebServer/Model/VHostTable.pm:190
+#, fuzzy, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
-"added to {domain} domain"
+"added to {domain} domain."
 msgstr ""
 "Virtuaalhost {vhost} on lisatud. Seotud nimi {name} - IP aadressiga {ip} on "
 "lisatud {domain} domeeni"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:192
-#, perl-brace-format
-msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
+#: src/EBox/WebServer/Model/VHostTable.pm:204
+#, fuzzy, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
 msgstr "Virtuaalhost {vhost} on lisatud aliasena {alias} masinasse {hostname}"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:198
-#: src/EBox/WebServer/Model/VHostTable.pm:203
-#, perl-brace-format
-msgid "Virtual host {vhost} added"
+#: src/EBox/WebServer/Model/VHostTable.pm:210
+#: src/EBox/WebServer/Model/VHostTable.pm:215
+#, fuzzy, perl-brace-format
+msgid "Virtual host {vhost} added."
 msgstr "Virtuaalhost {vhost} lisatud"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:208
-msgid "There is no static internal interface to set the Web server IP address"
+#: src/EBox/WebServer/Model/VHostTable.pm:220
+#, fuzzy
+msgid "There is no static internal interface to set the Web server IP address."
 msgstr "Sisemine staatiline liides veebiserveri IP aadressi määramiseks puudub"
 
-#: src/EBox/WebServer/Model/VHostTable.pm:234
+#: src/EBox/WebServer/Model/VHostTable.pm:255
+msgid "Allow SSL"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:256
+msgid "Force SSL"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:281
+msgid "SSL support"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:288
 msgid "Name"
 msgstr "Nimi"
 
 # Virtuaalhosting
-#: src/EBox/WebServer/Model/VHostTable.pm:244
+#: src/EBox/WebServer/Model/VHostTable.pm:298
 msgid "Virtual hosts"
 msgstr "Virtuaalhostid"
 
 # pole päris sõna sõnalt tõlge, aga mõte peaks olema edasi antud
-#: src/EBox/WebServer/Model/VHostTable.pm:248
-#, perl-brace-format
+#: src/EBox/WebServer/Model/VHostTable.pm:302
+#, fuzzy, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
 "same web server is hosted on a single physical server. Different host names "
 "will point to the same web server. The DNS entry is automatically created if "
 "this is possible. The content must be placed under {docRoot} directory. Any "
 "particular configuration you want to add must be placed at {userConf} "
-"directory"
+"directory."
 msgstr ""
 "Virtuaalhosting on veebimajutuse teenuse liik, kus erinimelised leheküljed "
 "on majutatud ühte füüsilisse serverisse. Kui see on võimalik, luuakse DNS "
@@ -180,12 +253,8 @@ msgstr ""
 "lisada mingeid erilisi seadistusi, siis need tuleks paigutada {userConf} "
 "kataloogi."
 
-#: src/EBox/WebServer/Model/VHostTable.pm:258
-msgid "virtual host"
-msgstr "virtuaalhost"
-
 # mapping - teisendus, transleerimine
-#: src/EBox/WebServer/Model/VHostTable.pm:280
+#: src/EBox/WebServer/Model/VHostTable.pm:333
 #, fuzzy, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
@@ -194,19 +263,32 @@ msgstr ""
 "{open} DNS moodul on keelatud. Lisatud vastendus või domeenid ei tööta enne, "
 "kui sa lubad need"
 
-#: src/EBox/WebServer/Composite/General.pm:80
+#: src/EBox/WebServer/Composite/General.pm:78
 msgid "Configuration"
 msgstr "Seadistamine"
 
 # lihttekstis, vormindamata tekstis
-#: src/EBox/WebServer/Composite/General.pm:83
+#: src/EBox/WebServer/Composite/General.pm:81
 #, fuzzy
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
-"different virtual hosts"
+"different virtual hosts."
 msgstr ""
 "eBoxi veebiteenus lubab sul majutada veebilehti HTML avatekstis erinevates "
 "virtuaalhostides"
+
+#~ msgid "listening port"
+#~ msgstr "pordi kuulamine"
+
+#~ msgid ""
+#~ "If you tick this field, each user is permitted to have a website in their "
+#~ "home directory under public_html"
+#~ msgstr ""
+#~ "Kui see väli on märgitud, siis on igale kasutajale lubatud veebileht, "
+#~ "nende kodukataloogis public_html all."
+
+#~ msgid "virtual host"
+#~ msgstr "virtuaalhost"
 
 # vbla ka "ülemine domeeninimi"
 #~ msgid "The virtual host name supplied is a top domain name"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:56+0200\n"
+"POT-Creation-Date: 2010-07-21 00:47+0200\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,220 +16,220 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/Squid.pm:71 src/EBox/Squid.pm:1078 src/EBox/Squid.pm:1155
-#: src/EBox/Squid/Composite/General.pm:76
+#: src/EBox/Squid.pm:70 src/EBox/Squid.pm:1077 src/EBox/Squid.pm:1154
+#: src/EBox/Squid/Composite/General.pm:77
 msgid "HTTP Proxy"
 msgstr "HTTPプロキシ"
 
-#: src/EBox/Squid.pm:202
+#: src/EBox/Squid.pm:201
 #, fuzzy
 msgid "HTTP Proxy configuration file"
 msgstr "HTTPプロキシのキャッシュファイル"
 
-#: src/EBox/Squid.pm:207
+#: src/EBox/Squid.pm:206
 #, fuzzy
 msgid "Content filter configuration file"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid.pm:212
+#: src/EBox/Squid.pm:211
 msgid "Default filter group configuration"
 msgstr ""
 
-#: src/EBox/Squid.pm:217
+#: src/EBox/Squid.pm:216
 msgid "Filter groups membership"
 msgstr ""
 
-#: src/EBox/Squid.pm:222
+#: src/EBox/Squid.pm:221
 #, fuzzy
 msgid "Content filter banned extension list"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid.pm:227
+#: src/EBox/Squid.pm:226
 #, fuzzy
 msgid "Content filter banned mime type list"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid.pm:232
+#: src/EBox/Squid.pm:231
 #, fuzzy
 msgid "Content filter exception site list"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid.pm:237
+#: src/EBox/Squid.pm:236
 #, fuzzy
 msgid "Content filter grey site list"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid.pm:242
+#: src/EBox/Squid.pm:241
 #, fuzzy
 msgid "Content filter banned site list"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid.pm:247
+#: src/EBox/Squid.pm:246
 #, fuzzy
 msgid "Content filter exception URL list"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid.pm:252
+#: src/EBox/Squid.pm:251
 #, fuzzy
 msgid "Content filter grey URL list"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid.pm:257
+#: src/EBox/Squid.pm:256
 #, fuzzy
 msgid "Content filter banned URL list"
 msgstr "コンテンツフィルタのしきい値"
 
-#: src/EBox/Squid.pm:262
+#: src/EBox/Squid.pm:261
 msgid "Forbidden phrases list"
 msgstr ""
 
-#: src/EBox/Squid.pm:267
+#: src/EBox/Squid.pm:266
 msgid "Exception phrases list"
 msgstr ""
 
-#: src/EBox/Squid.pm:272
+#: src/EBox/Squid.pm:271
 msgid "PICS ratings configuration"
 msgstr ""
 
-#: src/EBox/Squid.pm:277
+#: src/EBox/Squid.pm:276
 msgid "Dansguardian's log rotation configuration"
 msgstr ""
 
-#: src/EBox/Squid.pm:282
+#: src/EBox/Squid.pm:281
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr ""
 
-#: src/EBox/Squid.pm:287
+#: src/EBox/Squid.pm:286
 #, fuzzy
 msgid "Filter groups per IP"
 msgstr "フィルタ"
 
-#: src/EBox/Squid.pm:302
+#: src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
 msgstr ""
 
-#: src/EBox/Squid.pm:303
+#: src/EBox/Squid.pm:302
 msgid ""
 "Dansguardian blocked page templates will be overwritten with eBox customized "
 "templates."
 msgstr ""
 
-#: src/EBox/Squid.pm:343
+#: src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr "eBox設定ファイルの cache_mem 変数を設定する必要があります"
 
-#: src/EBox/Squid.pm:352
+#: src/EBox/Squid.pm:351
 #, fuzzy
 msgid ""
 "You must set the max_object_size variable in the ebox configuration file"
 msgstr "eBox設定ファイルの cache_mem 変数を設定する必要があります"
 
-#: src/EBox/Squid.pm:1050
+#: src/EBox/Squid.pm:1049
 msgid "Enabled"
 msgstr "有効"
 
-#: src/EBox/Squid.pm:1052 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+#: src/EBox/Squid.pm:1051 src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 msgid "Disabled"
 msgstr "無効"
 
-#: src/EBox/Squid.pm:1054
+#: src/EBox/Squid.pm:1053
 msgid "Transparent proxy"
 msgstr "透過プロキシ"
 
-#: src/EBox/Squid.pm:1057 src/EBox/Squid/Model/MIMEFilterBase.pm:60
+#: src/EBox/Squid.pm:1056 src/EBox/Squid/Model/MIMEFilterBase.pm:60
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:93
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:100
 msgid "Allow"
 msgstr "許可"
 
-#: src/EBox/Squid.pm:1059 src/EBox/Squid/Model/GroupPolicyBase.pm:97
+#: src/EBox/Squid.pm:1058 src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Deny"
 msgstr "拒否"
 
-#: src/EBox/Squid.pm:1061 src/EBox/Squid/Types/DomainPolicy.pm:35
-#: src/EBox/Squid/Types/Policy.pm:65
+#: src/EBox/Squid.pm:1060 src/EBox/Squid/Types/DomainPolicy.pm:51
+#: src/EBox/Squid/Types/Policy.pm:81
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:104
 msgid "Filter"
 msgstr "フィルタ"
 
-#: src/EBox/Squid.pm:1064
+#: src/EBox/Squid.pm:1063
 msgid "Global policy"
 msgstr "グローバルポリシー"
 
-#: src/EBox/Squid.pm:1066
+#: src/EBox/Squid.pm:1065
 msgid "Listening port"
 msgstr "受信ポート"
 
-#: src/EBox/Squid.pm:1098
+#: src/EBox/Squid.pm:1097
 msgid "General"
 msgstr "全体"
 
-#: src/EBox/Squid.pm:1101 src/EBox/Squid/Composite/DelayPools.pm:69
+#: src/EBox/Squid.pm:1100 src/EBox/Squid/Composite/DelayPools.pm:69
 msgid "Bandwidth Throttling"
 msgstr ""
 
-#: src/EBox/Squid.pm:1104
+#: src/EBox/Squid.pm:1103
 msgid "Objects' Policy"
 msgstr "オブジェクトのポリシー"
 
-#: src/EBox/Squid.pm:1107
+#: src/EBox/Squid.pm:1106
 #, fuzzy
 msgid "Groups' Policy"
 msgstr "オブジェクトのポリシー"
 
-#: src/EBox/Squid.pm:1110
+#: src/EBox/Squid.pm:1109
 #: src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
 #: src/EBox/Squid/Model/DomainFilterCategories.pm:111
 #: src/EBox/Squid/Composite/FilterGroupSettings.pm:95
-#: src/EBox/Squid/Composite/FilterSettings.pm:93
+#: src/EBox/Squid/Composite/FilterSettings.pm:94
 #, fuzzy
 msgid "Filter Profiles"
 msgstr "フィルタされました"
 
-#: src/EBox/Squid.pm:1140 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+#: src/EBox/Squid.pm:1139 src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 msgid "Date"
 msgstr "日付"
 
-#: src/EBox/Squid.pm:1141
+#: src/EBox/Squid.pm:1140
 msgid "Host"
 msgstr "ホスト"
 
-#: src/EBox/Squid.pm:1142 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: src/EBox/Squid.pm:1141 src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 msgid "User"
 msgstr ""
 
-#: src/EBox/Squid.pm:1143
+#: src/EBox/Squid.pm:1142
 msgid "URL"
 msgstr "URL"
 
-#: src/EBox/Squid.pm:1144 src/EBox/Squid/Model/DelayPools2.pm:180
+#: src/EBox/Squid.pm:1143 src/EBox/Squid/Model/DelayPools2.pm:180
 #: src/EBox/Squid/Model/DelayPools2.pm:200
 #: src/EBox/Squid/Model/DelayPools1.pm:164
 msgid "Bytes"
 msgstr "バイト"
 
-#: src/EBox/Squid.pm:1145
+#: src/EBox/Squid.pm:1144
 msgid "Mime/type"
 msgstr "MIME/タイプ"
 
-#: src/EBox/Squid.pm:1146
+#: src/EBox/Squid.pm:1145
 msgid "Event"
 msgstr "イベント"
 
-#: src/EBox/Squid.pm:1151
+#: src/EBox/Squid.pm:1150
 msgid "Accepted"
 msgstr "許可されました"
 
-#: src/EBox/Squid.pm:1152
+#: src/EBox/Squid.pm:1151
 msgid "Denied"
 msgstr "拒否されました"
 
-#: src/EBox/Squid.pm:1153
+#: src/EBox/Squid.pm:1152
 msgid "Filtered"
 msgstr "フィルタされました"
 
-#: src/EBox/Squid.pm:1230
+#: src/EBox/Squid.pm:1229
 msgid "HTTP Proxy's cache files"
 msgstr "HTTPプロキシのキャッシュファイル"
 
@@ -257,148 +257,148 @@ msgstr "大きく制限"
 msgid "This specifies how strict the content filter is."
 msgstr ""
 
-#: src/EBox/Squid/Types/DomainPolicy.pm:34 src/EBox/Squid/Types/Policy.pm:64
+#: src/EBox/Squid/Types/DomainPolicy.pm:50 src/EBox/Squid/Types/Policy.pm:80
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:103
 msgid "Always allow"
 msgstr "常に許可"
 
-#: src/EBox/Squid/Types/DomainPolicy.pm:36 src/EBox/Squid/Types/Policy.pm:66
+#: src/EBox/Squid/Types/DomainPolicy.pm:52 src/EBox/Squid/Types/Policy.pm:82
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:105
 msgid "Always deny"
 msgstr "常に拒否"
 
-#: src/EBox/Squid/Types/DomainPolicy.pm:56
+#: src/EBox/Squid/Types/DomainPolicy.pm:72
 #, fuzzy
 msgid "Squid's domain policy"
 msgstr "Squidのポリシー"
 
-#: src/EBox/Squid/Types/Policy.pm:67
+#: src/EBox/Squid/Types/Policy.pm:83
 msgid "Authorize and allow"
 msgstr ""
 
-#: src/EBox/Squid/Types/Policy.pm:68
+#: src/EBox/Squid/Types/Policy.pm:84
 msgid "Authorize and filter"
 msgstr ""
 
-#: src/EBox/Squid/Types/Policy.pm:69
+#: src/EBox/Squid/Types/Policy.pm:85
 msgid "Authorize and deny"
 msgstr ""
 
-#: src/EBox/Squid/Types/Policy.pm:89
+#: src/EBox/Squid/Types/Policy.pm:105
 msgid "Squid's policy"
 msgstr "Squidのポリシー"
 
-#: src/EBox/Squid/Types/TimePeriod.pm:26
+#: src/EBox/Squid/Types/TimePeriod.pm:41
 msgid "M"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:27
+#: src/EBox/Squid/Types/TimePeriod.pm:42
 msgid "T"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:28
+#: src/EBox/Squid/Types/TimePeriod.pm:43
 msgid "W"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:29
+#: src/EBox/Squid/Types/TimePeriod.pm:44
 msgid "H"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:30
+#: src/EBox/Squid/Types/TimePeriod.pm:45
 msgid "F"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:31
+#: src/EBox/Squid/Types/TimePeriod.pm:46
 msgid "A"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:32
+#: src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "S"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:36
+#: src/EBox/Squid/Types/TimePeriod.pm:51
 msgid "Monday"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:37
+#: src/EBox/Squid/Types/TimePeriod.pm:52
 msgid "Tuesday"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:38
+#: src/EBox/Squid/Types/TimePeriod.pm:53
 msgid "Wednesday"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:39
+#: src/EBox/Squid/Types/TimePeriod.pm:54
 msgid "Thursday"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:40
+#: src/EBox/Squid/Types/TimePeriod.pm:55
 msgid "Friday"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:41
+#: src/EBox/Squid/Types/TimePeriod.pm:56
 msgid "Saturday"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:42
+#: src/EBox/Squid/Types/TimePeriod.pm:57
 msgid "Sunday"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:117
+#: src/EBox/Squid/Types/TimePeriod.pm:132
 msgid "All time"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:199
+#: src/EBox/Squid/Types/TimePeriod.pm:214
 #, fuzzy
 msgid "All week"
 msgstr "許可"
 
-#: src/EBox/Squid/Types/TimePeriod.pm:207
+#: src/EBox/Squid/Types/TimePeriod.pm:222
 msgid "Weekend"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:212
+#: src/EBox/Squid/Types/TimePeriod.pm:227
 msgid "Work days"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:468
+#: src/EBox/Squid/Types/TimePeriod.pm:483
 msgid "From hour.."
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:471
+#: src/EBox/Squid/Types/TimePeriod.pm:486
 msgid "to hour.."
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:475
+#: src/EBox/Squid/Types/TimePeriod.pm:490
 msgid "You must specify two diffrent hours to the range"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:492
+#: src/EBox/Squid/Types/TimePeriod.pm:507
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:498
+#: src/EBox/Squid/Types/TimePeriod.pm:513
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:505
+#: src/EBox/Squid/Types/TimePeriod.pm:520
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:511
+#: src/EBox/Squid/Types/TimePeriod.pm:526
 #, perl-brace-format
 msgid "Bad minutes  format: {mi}"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:524
-#: src/EBox/Squid/Types/TimePeriod.pm:530
+#: src/EBox/Squid/Types/TimePeriod.pm:539
+#: src/EBox/Squid/Types/TimePeriod.pm:545
 msgid "The end of the range is greater than the begin"
 msgstr ""
 
-#: src/EBox/Squid/Types/TimePeriod.pm:554
+#: src/EBox/Squid/Types/TimePeriod.pm:569
 msgid "The time period must be at least active on one day"
 msgstr ""
 
@@ -441,17 +441,17 @@ msgid "Use default profile threshold"
 msgstr "コンテンツフィルタのしきい値"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:74
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:69
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:70
 msgid "Threshold"
 msgstr "しきい値"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:81
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:78
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:79
 msgid "Content filter threshold"
 msgstr "コンテンツフィルタのしきい値"
 
 #: src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:87
-#: src/EBox/Squid/Model/ContentFilterThreshold.pm:84
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:85
 msgid "Content filter threshold changed"
 msgstr "コンテンツフィルタのしきい値が変更されました"
 
@@ -656,12 +656,12 @@ msgstr "{type} は有効なIANAタイプではありません"
 msgid "{t} subtype has a wrong syntax"
 msgstr "{t} サブタイプの文法が誤っています"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:26
+#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:42
 #: src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
 msgid "extensions"
 msgstr "拡張子"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:33
+#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:49
 #: src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
 msgid "Set policy for all extensions"
 msgstr "全ての拡張子にポリシーを設定"
@@ -686,168 +686,168 @@ msgstr ""
 msgid "Block sites specified only as IP"
 msgstr "IPとしてしか特定されないサイトをブロック"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:56
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:72
 msgid "elements"
 msgstr "要素"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:64
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:80
 #, perl-brace-format
 msgid "Allow all {elements}"
 msgstr "全ての {elements} を許可"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:74
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:90
 msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:58
+#: src/EBox/Squid/Model/GeneralSettings.pm:59
 msgid "Transparent Proxy"
 msgstr "透過プロキシ"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:65
+#: src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Port"
 msgstr "ポート"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:71
+#: src/EBox/Squid/Model/GeneralSettings.pm:72
 msgid "Cache files size (MB)"
 msgstr ""
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:79
+#: src/EBox/Squid/Model/GeneralSettings.pm:80
 msgid "Default policy"
 msgstr "デフォルトポリシー"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:87
+#: src/EBox/Squid/Model/GeneralSettings.pm:88
 msgid "General Settings "
 msgstr "全般的設定"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:92
+#: src/EBox/Squid/Model/GeneralSettings.pm:93
 msgid "Settings changed"
 msgstr "設定が変更されました"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:133
+#: src/EBox/Squid/Model/GeneralSettings.pm:134
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
 msgstr "{port} はすでに使われています。他のポートを選んでください"
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:160
+#: src/EBox/Squid/Model/GeneralSettings.pm:161
 msgid "Transparent proxy option is not compatible with authorization policy"
 msgstr ""
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:167
+#: src/EBox/Squid/Model/GeneralSettings.pm:168
 msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
 msgstr ""
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:185
+#: src/EBox/Squid/Model/GeneralSettings.pm:186
 msgid ""
 "An authorization policy is required because you are using global group "
 "policies"
 msgstr ""
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:194
+#: src/EBox/Squid/Model/GeneralSettings.pm:195
 msgid ""
 "<i>Filter</i> means that HTTP requests will go through the content filter "
 "and they might be rejected if the content is not considered valid."
 msgstr ""
 
-#: src/EBox/Squid/Model/GeneralSettings.pm:201
+#: src/EBox/Squid/Model/GeneralSettings.pm:202
 msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:78
+#: src/EBox/Squid/Model/ObjectPolicy.pm:79
 msgid "Object"
 msgstr "オブジェクト"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:85
+#: src/EBox/Squid/Model/ObjectPolicy.pm:86
 #: src/EBox/Squid/Model/DomainFilterBase.pm:43
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:88
 #: src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:81
 msgid "Policy"
 msgstr "ポリシー"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:89
+#: src/EBox/Squid/Model/ObjectPolicy.pm:90
 msgid "Allowed time period"
 msgstr ""
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:90
+#: src/EBox/Squid/Model/ObjectPolicy.pm:91
 #: src/EBox/Squid/Model/GroupPolicyBase.pm:120
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
 msgstr ""
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:96
+#: src/EBox/Squid/Model/ObjectPolicy.pm:97
 #, fuzzy
 msgid "Group policy"
 msgstr "グローバルポリシー"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:104
+#: src/EBox/Squid/Model/ObjectPolicy.pm:105
 #: src/EBox/Squid/Model/GlobalGroupPolicy.pm:114
 #, fuzzy
 msgid "Filter profile"
 msgstr "フィルタされました"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:117
+#: src/EBox/Squid/Model/ObjectPolicy.pm:118
 #, fuzzy
 msgid "Object Policies"
 msgstr "オブジェクトのポリシー"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:118
+#: src/EBox/Squid/Model/ObjectPolicy.pm:119
 msgid "List of objects"
 msgstr ""
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:133
+#: src/EBox/Squid/Model/ObjectPolicy.pm:134
 msgid "object's policy"
 msgstr "オブジェクトのポリシー"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:134
+#: src/EBox/Squid/Model/ObjectPolicy.pm:135
 msgid "Here you can establish a custom policy per network object"
 msgstr ""
 "ここでネットワークオブジェクト毎にカスタマイズされたポリシーを設定できます"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:136
+#: src/EBox/Squid/Model/ObjectPolicy.pm:137
 msgid "Added object's policy"
 msgstr "オブジェクトのポリシーが追加されました"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:137
+#: src/EBox/Squid/Model/ObjectPolicy.pm:138
 msgid "Removed object's policy"
 msgstr "オブジェクトのポリシーが削除されました"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:138
+#: src/EBox/Squid/Model/ObjectPolicy.pm:139
 msgid "Updated object's policy"
 msgstr "オブジェクトのポリシーが更新されました"
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:189
+#: src/EBox/Squid/Model/ObjectPolicy.pm:190
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr ""
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:212
+#: src/EBox/Squid/Model/ObjectPolicy.pm:213
 msgid "Filter policies are incompatible with restricted time periods"
 msgstr ""
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:238
+#: src/EBox/Squid/Model/ObjectPolicy.pm:239
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr ""
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:264
+#: src/EBox/Squid/Model/ObjectPolicy.pm:265
 msgid "You can only use a custom profile with the 'Filter' policy"
 msgstr ""
 
-#: src/EBox/Squid/Model/ObjectPolicy.pm:528
+#: src/EBox/Squid/Model/ObjectPolicy.pm:529
 #, perl-brace-format
 msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
 "object if you want to set a object policy"
 msgstr ""
 
-#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
+#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:42
 #: src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
 msgid "MIME types"
 msgstr "MIMEタイプ"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:33
+#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:49
 #: src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
 msgid "Set policy for all MIME types"
 msgstr "全てのMIMEタイプにポリシーを設定"
@@ -961,7 +961,7 @@ msgid "Global group policy need a global policy with authentication"
 msgstr ""
 
 #: src/EBox/Squid/Model/ExtensionFilterBase.pm:51
-#: src/EBox/Squid/Model/ExtensionFilter.pm:66
+#: src/EBox/Squid/Model/ExtensionFilter.pm:67
 msgid "File extension"
 msgstr "ファイル拡張子"
 
@@ -969,27 +969,27 @@ msgstr "ファイル拡張子"
 msgid "Extension"
 msgstr "拡張子"
 
-#: src/EBox/Squid/Model/DomainFilterSettings.pm:71
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:72
 #: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:54
 msgid "Domain filter settings"
 msgstr "ドメインフィルタ設定"
 
-#: src/EBox/Squid/Model/DomainFilterSettings.pm:78
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:79
 #: src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:61
 msgid "Filtering settings changed"
 msgstr "フィルタ設定が変更されました"
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:52
+#: src/EBox/Squid/Model/MIMEFilter.pm:53
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:48
 msgid "Configure allowed MIME types"
 msgstr "許可するMIMEタイプを設定"
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:64
+#: src/EBox/Squid/Model/MIMEFilter.pm:65
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
 msgid "MIME type"
 msgstr "MIMEタイプ"
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:65
+#: src/EBox/Squid/Model/MIMEFilter.pm:66
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:61
 #, fuzzy
 msgid ""
@@ -1001,17 +1001,17 @@ msgstr ""
 "含まれないMIMEタイプが許可されています。フィルタを使うには'filter'ポリシーを"
 "有効にする必要があります"
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:68
+#: src/EBox/Squid/Model/MIMEFilter.pm:69
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
 msgid "MIME type added"
 msgstr "MIMEタイプが追加されました"
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:69
+#: src/EBox/Squid/Model/MIMEFilter.pm:70
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:65
 msgid "MIME type removed"
 msgstr "MIMEタイプが削除されました"
 
-#: src/EBox/Squid/Model/MIMEFilter.pm:70
+#: src/EBox/Squid/Model/MIMEFilter.pm:71
 #: src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:66
 msgid "MIME type updated"
 msgstr "MIMEタイプが更新されました"
@@ -1032,17 +1032,17 @@ msgstr "ドメイン一覧"
 msgid "category"
 msgstr ""
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:111
+#: src/EBox/Squid/Model/ExtensionFilter.pm:112
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:54
 msgid "Configure allowed file extensions"
 msgstr "許可するファイル拡張子を設定"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:124
+#: src/EBox/Squid/Model/ExtensionFilter.pm:125
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:67
 msgid "extension"
 msgstr "拡張子"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:125
+#: src/EBox/Squid/Model/ExtensionFilter.pm:126
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:68
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given extensions.\n"
@@ -1053,17 +1053,17 @@ msgstr ""
 "れない拡張子が許可されています。拡張子フィルタを使うには'filter'ポリシーを有"
 "効にする必要があります"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:128
+#: src/EBox/Squid/Model/ExtensionFilter.pm:129
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:71
 msgid "Extension added"
 msgstr "拡張子が追加されました"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:129
+#: src/EBox/Squid/Model/ExtensionFilter.pm:130
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:72
 msgid "Extension removed"
 msgstr "拡張子が削除されました"
 
-#: src/EBox/Squid/Model/ExtensionFilter.pm:130
+#: src/EBox/Squid/Model/ExtensionFilter.pm:131
 #: src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:73
 msgid "Extension updated"
 msgstr "拡張子が更新されました"
@@ -1083,38 +1083,38 @@ msgid "Using default profile configuration"
 msgstr ""
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
-#: src/EBox/Squid/Model/DomainFilter.pm:65
+#: src/EBox/Squid/Model/DomainFilter.pm:66
 #, fuzzy
 msgid "Domains and URL rules"
 msgstr "ドメイン一覧"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
-#: src/EBox/Squid/Model/DomainFilter.pm:78
+#: src/EBox/Squid/Model/DomainFilter.pm:79
 #, fuzzy
 msgid "internet domain or URL"
 msgstr "インターネットドメイン"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
-#: src/EBox/Squid/Model/DomainFilter.pm:79
+#: src/EBox/Squid/Model/DomainFilter.pm:80
 #, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr "一覧に含まれるインターネットドメインとのHTTPトラフィックを許可/拒否"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
-#: src/EBox/Squid/Model/DomainFilter.pm:81
+#: src/EBox/Squid/Model/DomainFilter.pm:82
 #, fuzzy
 msgid "Domain or URL added"
 msgstr "ドメインが追加されました"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
-#: src/EBox/Squid/Model/DomainFilter.pm:82
+#: src/EBox/Squid/Model/DomainFilter.pm:83
 #, fuzzy
 msgid "Domain or URL removed"
 msgstr "ドメインが削除されました"
 
 #: src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
-#: src/EBox/Squid/Model/DomainFilter.pm:83
+#: src/EBox/Squid/Model/DomainFilter.pm:84
 #, fuzzy
 msgid "Domain or URL updated"
 msgstr "ドメインが更新されました"
@@ -1289,12 +1289,12 @@ msgstr ""
 msgid "traffic"
 msgstr "制限"
 
-#: src/EBox/Squid/Composite/Domains.pm:92
+#: src/EBox/Squid/Composite/Domains.pm:93
 msgid "Domains filtering"
 msgstr "ドメインフィルタ"
 
 #: src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
-#: src/EBox/Squid/Composite/Extensions.pm:91
+#: src/EBox/Squid/Composite/Extensions.pm:92
 msgid "File extensions filtering"
 msgstr "ファイル拡張子フィルタ"
 
@@ -1312,12 +1312,12 @@ msgstr ""
 msgid "Domains filtering for filter group"
 msgstr "ドメインフィルタ"
 
-#: src/EBox/Squid/Composite/MIME.pm:91
+#: src/EBox/Squid/Composite/MIME.pm:92
 #: src/EBox/Squid/Composite/FilterGroupMIME.pm:92
 msgid "MIME types filtering"
 msgstr "MIMEタイプフィルタ"
 
-#: src/EBox/Squid/Composite/FilterSettings.pm:77
+#: src/EBox/Squid/Composite/FilterSettings.pm:78
 msgid "Filter settings"
 msgstr "フィルタ設定"
 

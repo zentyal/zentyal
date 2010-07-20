@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-asterisk 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:22+0200\n"
+"POT-Creation-Date: 2010-07-21 00:28+0200\n"
 "PO-Revision-Date: 2010-01-28 00:00+0100\n"
 "Last-Translator: Mostafa Salem <m@isalem.net>\n"
 "Language-Team: none\n"
@@ -23,156 +23,156 @@ msgstr ""
 msgid "eBox VoIP system"
 msgstr "نظام VoIP للeBox"
 
-#: src/EBox/Asterisk.pm:73 src/EBox/Asterisk.pm:726
+#: src/EBox/Asterisk.pm:74 src/EBox/Asterisk.pm:715
 #: src/EBox/Composite/General.pm:67
 msgid "VoIP"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:129
+#: src/EBox/Asterisk.pm:130
 msgid "To configure enabled and disabled modules."
 msgstr "لتفعيل أو إبطال الوحدات."
 
-#: src/EBox/Asterisk.pm:134
+#: src/EBox/Asterisk.pm:135
 msgid "To configure the Realtime interface."
 msgstr "لضبط إعدادات الوصلة البينية ذات التوقيت الحقيقي."
 
-#: src/EBox/Asterisk.pm:139
+#: src/EBox/Asterisk.pm:140
 msgid "To configure the LDAP Realtime driver."
 msgstr "لضبط سواقة ال LDAP ذات الوقت الحقيقي."
 
-#: src/EBox/Asterisk.pm:144
+#: src/EBox/Asterisk.pm:145
 msgid "To configure the common SIP and IAX users."
 msgstr "لضبط اﻹعدادات المشتركة لمستخدمي SIP و IAX."
 
-#: src/EBox/Asterisk.pm:149
+#: src/EBox/Asterisk.pm:150
 msgid "To configure the SIP trunk for local users and external providers."
 msgstr "لضبط مسار SIP الرئيسي للمستخدمين المحليين ولمزودين الخدمة الخارجيين."
 
-#: src/EBox/Asterisk.pm:154
+#: src/EBox/Asterisk.pm:155
 msgid "To configure the dialplan."
 msgstr "لضبط إعدادات مخطط اﻹتصال."
 
-#: src/EBox/Asterisk.pm:159
+#: src/EBox/Asterisk.pm:160
 msgid "To configure the voicemail."
 msgstr "لضبط إعدادات البريد الصوتي."
 
-#: src/EBox/Asterisk.pm:164
+#: src/EBox/Asterisk.pm:165
 msgid "To configure the conferences."
 msgstr "لضبط إعدادات المحادثات الجماعية."
 
-#: src/EBox/Asterisk.pm:168
+#: src/EBox/Asterisk.pm:169
 #, fuzzy
 msgid "To configure the music on hold."
 msgstr "لضبط إعدادات البريد الصوتي."
 
-#: src/EBox/Asterisk.pm:172
+#: src/EBox/Asterisk.pm:173
 #, fuzzy
 msgid "To configure DTMF behaviour."
 msgstr "لضبط إعدادات البريد الصوتي."
 
-#: src/EBox/Asterisk.pm:496
+#: src/EBox/Asterisk.pm:485
 msgid "General"
 msgstr "عام"
 
-#: src/EBox/Asterisk.pm:500 src/EBox/Model/Meetings.pm:185
+#: src/EBox/Asterisk.pm:489 src/EBox/Model/Meetings.pm:190
 msgid "Meetings"
 msgstr "اﻹجتماعات"
 
-#: src/EBox/Asterisk.pm:517
+#: src/EBox/Asterisk.pm:506
 msgid "Voicemail"
 msgstr "البريد الصوتي"
 
-#: src/EBox/Asterisk.pm:527 src/EBox/Asterisk.pm:636
+#: src/EBox/Asterisk.pm:516 src/EBox/Asterisk.pm:625
 #, fuzzy
 msgid "User"
 msgstr "إسم المستخدم"
 
-#: src/EBox/Asterisk.pm:527
+#: src/EBox/Asterisk.pm:516
 #, fuzzy
 msgid "Address"
 msgstr "عنوان البريد"
 
-#: src/EBox/Asterisk.pm:527
+#: src/EBox/Asterisk.pm:516
 msgid "NAT"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:527
+#: src/EBox/Asterisk.pm:516
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:541 src/EBox/Asterisk.pm:645
+#: src/EBox/Asterisk.pm:530 src/EBox/Asterisk.pm:634
 msgid "No users connected."
 msgstr "لا أحد متصل"
 
-#: src/EBox/Asterisk.pm:633
+#: src/EBox/Asterisk.pm:622
 #, perl-brace-format
 msgid "Room {name} active for {rtime}"
 msgstr "الغرفة {name} مفعلة منذ {rtime}"
 
-#: src/EBox/Asterisk.pm:636
+#: src/EBox/Asterisk.pm:625
 #, fuzzy
 msgid "Time Connected"
 msgstr "مدة الاتصال"
 
-#: src/EBox/Asterisk.pm:666
+#: src/EBox/Asterisk.pm:655
 msgid "VoIP Online Users"
 msgstr "المستخدمين المتصلين بخدمة الصوت عبر بروتوكول الإنترنت (VoIP)."
 
-#: src/EBox/Asterisk.pm:671
+#: src/EBox/Asterisk.pm:660
 #, fuzzy
 msgid "VoIP Users in Meetings"
 msgstr "مستخدمو (VoIP) المجتمعون حاليا"
 
-#: src/EBox/Asterisk.pm:703
+#: src/EBox/Asterisk.pm:692
 msgid "Date"
 msgstr "التاريخ"
 
-#: src/EBox/Asterisk.pm:704
+#: src/EBox/Asterisk.pm:693
 msgid "From"
 msgstr "من"
 
-#: src/EBox/Asterisk.pm:705
+#: src/EBox/Asterisk.pm:694
 msgid "To"
 msgstr "الى"
 
-#: src/EBox/Asterisk.pm:706
+#: src/EBox/Asterisk.pm:695
 msgid "Duration"
 msgstr "المدة"
 
-#: src/EBox/Asterisk.pm:707
+#: src/EBox/Asterisk.pm:696
 msgid "Channel"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:708
+#: src/EBox/Asterisk.pm:697
 msgid "Destination Channel"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:709
+#: src/EBox/Asterisk.pm:698
 msgid "Application"
 msgstr "البرنامج"
 
-#: src/EBox/Asterisk.pm:710
+#: src/EBox/Asterisk.pm:699
 msgid "Application Data"
 msgstr ""
 
-#: src/EBox/Asterisk.pm:711
+#: src/EBox/Asterisk.pm:700
 #, fuzzy
 msgid "Event"
 msgstr "الحدث"
 
-#: src/EBox/Asterisk.pm:719
+#: src/EBox/Asterisk.pm:708
 msgid "Answered"
 msgstr "تم الرد"
 
-#: src/EBox/Asterisk.pm:720
+#: src/EBox/Asterisk.pm:709
 msgid "No Answer"
 msgstr "لم يتم الرد"
 
-#: src/EBox/Asterisk.pm:721
+#: src/EBox/Asterisk.pm:710
 msgid "Busy"
 msgstr "مشغول"
 
-#: src/EBox/Asterisk.pm:722
+#: src/EBox/Asterisk.pm:711
 msgid "Failed"
 msgstr "فشلت"
 
@@ -181,7 +181,7 @@ msgid "User extension"
 msgstr "رقم تحويلة المستخدم"
 
 #: src/EBox/Asterisk/Extensions.pm:323 src/EBox/Asterisk/Extensions.pm:718
-#: src/EBox/Model/Meetings.pm:145 src/EBox/Model/Settings.pm:92
+#: src/EBox/Model/Meetings.pm:150 src/EBox/Model/Settings.pm:92
 #: src/templates/group.mas:41 src/templates/user.mas:38
 msgid "Extension"
 msgstr "التحويلة"
@@ -198,35 +198,36 @@ msgstr "المجموعة"
 msgid "username"
 msgstr "إسم المستخدم"
 
-#: src/EBox/Model/Meetings.pm:91
-msgid "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
+#: src/EBox/Model/Meetings.pm:94
+#, perl-brace-format
+msgid ""
+"You must install dahdi and linux-headers packages to use Meetings.{br}Run "
+"the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
-"لكي تستخدم ميزة الاجتماعات، يجب عليك تنصيب البرامج: (dahdi) و (dahdi-modules-"
-"ebox)."
 
-#: src/EBox/Model/Meetings.pm:114 src/EBox/Model/Meetings.pm:123
+#: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84
 msgid "extension"
 msgstr "التحويلة"
 
-#: src/EBox/Model/Meetings.pm:149
+#: src/EBox/Model/Meetings.pm:154
 #, perl-brace-format
 msgid "A number between {min} and {max}."
 msgstr "رقم بين {min} و {max}"
 
-#: src/EBox/Model/Meetings.pm:165 src/EBox/Model/Provider.pm:111
+#: src/EBox/Model/Meetings.pm:170 src/EBox/Model/Provider.pm:111
 msgid "Password"
 msgstr "كلمة السر"
 
-#: src/EBox/Model/Meetings.pm:173 src/EBox/Model/Localnets.pm:119
+#: src/EBox/Model/Meetings.pm:178 src/EBox/Model/Localnets.pm:119
 msgid "Description"
 msgstr "الوصف"
 
-#: src/EBox/Model/Meetings.pm:184
+#: src/EBox/Model/Meetings.pm:189
 msgid "List of Meetings"
 msgstr "لائحة اﻹجتماعات"
 
-#: src/EBox/Model/Meetings.pm:186
+#: src/EBox/Model/Meetings.pm:191
 msgid "meeting"
 msgstr "إجتماع"
 
@@ -366,8 +367,9 @@ msgstr "تم تحديث إعدادات مزود خدمة SIP بنجاح"
 #: src/EBox/Model/Provider.pm:195
 #, perl-brace-format
 msgid ""
-"eBox VoIP Credit: make low-cost VoIP calls to mobile phones and landlines "
-"directly with eBox. Purchase the VoIP credit you need directly at the {ohref}"
+"{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
+"with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
+"credit you need. All these services available for purchasing at the {ohref}"
 "eBox on-line store{chref}! "
 msgstr ""
 
@@ -443,6 +445,12 @@ msgstr "كلمة السر لـ Asterisk هي نفس كلمة سر المستخد
 #: src/templates/user.mas:21
 msgid "User account"
 msgstr "حساب المستخدم"
+
+#~ msgid ""
+#~ "You must install dahdi and dahdi-modules-ebox packages to use Meetings."
+#~ msgstr ""
+#~ "لكي تستخدم ميزة الاجتماعات، يجب عليك تنصيب البرامج: (dahdi) و (dahdi-"
+#~ "modules-ebox)."
 
 #~ msgid "To configure the RTP port ranges."
 #~ msgstr "لضبط إعدادات منافذ RTP."

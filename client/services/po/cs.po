@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 1.5Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:33+0200\n"
+"POT-Creation-Date: 2010-07-21 00:43+0200\n"
 "PO-Revision-Date: 2010-04-10 14:30+0200\n"
 "Last-Translator: tomas volse <tomas.volse@gmail.com>\n"
 "Language-Team: none\n"
@@ -30,7 +30,7 @@ msgstr "jakýkoliv protokol a port"
 #: migration/0001_import_services_from_firewall.pl:94
 #: migration/0001_import_services_from_firewall.pl:110
 #: migration/0001_import_services_from_firewall.pl:125
-#: src/EBox/Services.pm:337
+#: src/EBox/Services.pm:404
 msgid "ebox-services"
 msgstr "ebox-služby"
 
@@ -51,7 +51,7 @@ msgid "any TCP port"
 msgstr "každý TCP port"
 
 #: migration/0001_import_services_from_firewall.pl:108
-#: src/EBox/Services.pm:335
+#: src/EBox/Services.pm:402
 msgid "eBox administration"
 msgstr "eBox administrace"
 
@@ -59,35 +59,35 @@ msgstr "eBox administrace"
 msgid "eBox Administration Web Server"
 msgstr "eBox Správa webového serveru"
 
-#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:153
+#: src/EBox/Services.pm:48 src/EBox/Model/ServiceTable.pm:145
 msgid "Services"
 msgstr "Služby"
 
-#: src/EBox/Services.pm:333
+#: src/EBox/Services.pm:400
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Services.pm:336
+#: src/EBox/Services.pm:403
 msgid "eBox Administration port"
 msgstr "eBox Administrační port"
 
-#: src/EBox/Model/ServiceTable.pm:107
+#: src/EBox/Model/ServiceTable.pm:103
 msgid "Domain"
 msgstr "Doména"
 
-#: src/EBox/Model/ServiceTable.pm:114
+#: src/EBox/Model/ServiceTable.pm:110
 msgid "Service name"
 msgstr "Název služby"
 
-#: src/EBox/Model/ServiceTable.pm:122
+#: src/EBox/Model/ServiceTable.pm:118
 msgid "Description"
 msgstr "Popis"
 
-#: src/EBox/Model/ServiceTable.pm:129
+#: src/EBox/Model/ServiceTable.pm:125
 msgid "Internal"
 msgstr "Interní"
 
-#: src/EBox/Model/ServiceTable.pm:131
+#: src/EBox/Model/ServiceTable.pm:127
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
 "ports configured for this service. This helps eBox to know what ports are "
@@ -96,20 +96,20 @@ msgstr ""
 "Zaškrtněte toto pole, pokud je skutečně služba na počítači nakonfigurována k "
 "použití těchto portů. To pomáhá eBoxu vědět, jaké porty jsou již obsazeny"
 
-#: src/EBox/Model/ServiceTable.pm:140
+#: src/EBox/Model/ServiceTable.pm:134
 msgid "Configuration"
 msgstr "Konfigurace"
 
-#: src/EBox/Model/ServiceTable.pm:152
+#: src/EBox/Model/ServiceTable.pm:144
 msgid "List of services"
 msgstr "Seznam služeb"
 
-#: src/EBox/Model/ServiceTable.pm:163
-#: src/EBox/Model/ServiceConfigurationTable.pm:172
+#: src/EBox/Model/ServiceTable.pm:155
+#: src/EBox/Model/ServiceConfigurationTable.pm:173
 msgid "service"
 msgstr "služba"
 
-#: src/EBox/Model/ServiceTable.pm:544
+#: src/EBox/Model/ServiceTable.pm:653
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
@@ -117,26 +117,26 @@ msgstr ""
 "Služba je abstrakce jednoho nebo více síťových protokolů, které mohou být "
 "použity v jiných modulech, jako jsou: firewall, traffic shaping ..."
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:139
+#: src/EBox/Model/ServiceConfigurationTable.pm:140
 msgid "Protocol"
 msgstr "Protokol"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:145
+#: src/EBox/Model/ServiceConfigurationTable.pm:146
 msgid "Source port"
 msgstr "Zdrojový port"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:147
+#: src/EBox/Model/ServiceConfigurationTable.pm:148
 msgid "This field is usually set to any"
 msgstr "Toto pole se obvykle nastavuje na jakékoliv"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:151
+#: src/EBox/Model/ServiceConfigurationTable.pm:152
 msgid "Destination port"
 msgstr "Cílový port"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:161
+#: src/EBox/Model/ServiceConfigurationTable.pm:162
 msgid "Service configuration"
 msgstr "Servisní nastavení"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:195
+#: src/EBox/Model/ServiceConfigurationTable.pm:197
 msgid "This protocol does not use ports"
 msgstr "Tento protokol nepoužívá porty"

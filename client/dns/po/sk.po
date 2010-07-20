@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:28+0200\n"
+"POT-Creation-Date: 2010-07-21 00:32+0200\n"
 "PO-Revision-Date: 2010-05-26 12:51+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
@@ -17,46 +17,46 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:263 src/EBox/Model/DomainTable.pm:248
+#: src/EBox/DNS.pm.in:265 src/EBox/Model/DomainTable.pm:249
 msgid "domain"
 msgstr "doména"
 
-#: src/EBox/DNS.pm.in:516
+#: src/EBox/DNS.pm.in:518
 msgid "main bind9 configuration file"
 msgstr "hlavný bind9 konfiguračný súbor"
 
-#: src/EBox/DNS.pm.in:521
+#: src/EBox/DNS.pm.in:523
 msgid "bind9 options configuration file"
 msgstr "bind9 možnosti - konfiguračný súbor"
 
-#: src/EBox/DNS.pm.in:526
+#: src/EBox/DNS.pm.in:528
 msgid "local bind9 configuration file"
 msgstr "lokálny bind9 konfiguračný súbor"
 
-#: src/EBox/DNS.pm.in:531
+#: src/EBox/DNS.pm.in:533
 msgid "Keys configuration file"
 msgstr "kľúčový konfiguračný súbor"
 
-#: src/EBox/DNS.pm.in:548
+#: src/EBox/DNS.pm.in:550
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "konfiguračný súbor zóny {zone}"
 
-#: src/EBox/DNS.pm.in:564
+#: src/EBox/DNS.pm.in:566
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "konfiguračný súbor reverznej zóny {zone}"
 
-#: src/EBox/DNS.pm.in:582
+#: src/EBox/DNS.pm.in:584
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr "Zmeniť oprávnenia pre {dir} na zápis do bind skupiny"
 
-#: src/EBox/DNS.pm.in:584
+#: src/EBox/DNS.pm.in:586
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "Nechať službu bind dynamicky aktualizovanú"
 
-#: src/EBox/Model/HostnameTable.pm:135
+#: src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format
 msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
@@ -65,69 +65,69 @@ msgstr ""
 "Je tu alias s takým istým menom \"{name}\" ako \"{hostname}\" v rovnakej "
 "doméne"
 
-#: src/EBox/Model/HostnameTable.pm:169
+#: src/EBox/Model/HostnameTable.pm:170
 msgid "The domain is set as read only. You cannot add host names"
 msgstr ""
 "Doména je nastavená len na čítanie. Nemožno pridávať hostiteľské mená "
 "(hostnames)"
 
-#: src/EBox/Model/HostnameTable.pm:187 src/EBox/Model/MailExchanger.pm:151
-#: src/EBox/Model/NameServer.pm:131 src/templates/edit.mas:20
+#: src/EBox/Model/HostnameTable.pm:188 src/EBox/Model/MailExchanger.pm:151
+#: src/EBox/Model/NameServer.pm:130 src/templates/edit.mas:20
 msgid "Host name"
 msgstr "Meno hostiteľa"
 
-#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:210
+#: src/EBox/Model/HostnameTable.pm:196 src/EBox/Model/DomainTable.pm:211
 msgid "IP Address"
 msgstr "IP adresa"
 
-#: src/EBox/Model/HostnameTable.pm:203 src/EBox/Model/AliasTable.pm:130
-#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
+#: src/EBox/Model/HostnameTable.pm:204 src/EBox/Model/AliasTable.pm:131
+#: src/EBox/Model/AliasTable.pm:141 src/EBox/Model/AliasTable.pm:147
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/Model/HostnameTable.pm:215
+#: src/EBox/Model/HostnameTable.pm:216
 msgid "Host names"
 msgstr "Mená hostiteľa"
 
-#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:185
+#: src/EBox/Model/HostnameTable.pm:223 src/EBox/Model/DomainTable.pm:186
 msgid "Hostnames"
 msgstr "Hostnames"
 
-#: src/EBox/Model/HostnameTable.pm:223
+#: src/EBox/Model/HostnameTable.pm:224
 msgid "host name"
 msgstr "Meno hostiteľa"
 
-#: src/EBox/Model/DomainTable.pm:177
+#: src/EBox/Model/DomainTable.pm:178
 msgid "Domain"
 msgstr "Doména"
 
-#: src/EBox/Model/DomainTable.pm:194
+#: src/EBox/Model/DomainTable.pm:195
 msgid "Mail Exchangers"
 msgstr "Mail Exchangers"
 
-#: src/EBox/Model/DomainTable.pm:202
+#: src/EBox/Model/DomainTable.pm:203
 msgid "Name Servers"
 msgstr "Menné servery"
 
-#: src/EBox/Model/DomainTable.pm:218
+#: src/EBox/Model/DomainTable.pm:219
 msgid "Dynamic"
 msgstr "Dynamický"
 
-#: src/EBox/Model/DomainTable.pm:222
+#: src/EBox/Model/DomainTable.pm:223
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Doména je dynamická keď DHCP server aktualizuje doménu"
 
-#: src/EBox/Model/DomainTable.pm:240
+#: src/EBox/Model/DomainTable.pm:241
 msgid "List of Domains"
 msgstr "Zoznam domén"
 
-#: src/EBox/Model/DomainTable.pm:241 src/EBox/Model/DNSComposite.pm:75
-#: src/EBox/Model/DNSComposite.pm:76
+#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:76
+#: src/EBox/Model/DNSComposite.pm:77
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DNSComposite.pm:78
+#: src/EBox/Model/DNSComposite.pm:79
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "DNS server dovoľuje rozlišovať mená pre vaše vlastné domény."
 
@@ -149,16 +149,16 @@ msgstr ""
 msgid "The domain is set as read only. You cannot add mail exchangers"
 msgstr "Doména je nastavená len na čítanie. Nemôžete pridať MX záznamy"
 
-#: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:134
+#: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:133
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
 "Ak zvolíte \"Vlastné\", malo by ísť o plne kvalifikované doménové meno (FQDN)"
 
-#: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:140
+#: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:139
 msgid "This domain"
 msgstr "Táto doména"
 
-#: src/EBox/Model/MailExchanger.pm:168 src/EBox/Model/NameServer.pm:148
+#: src/EBox/Model/MailExchanger.pm:168 src/EBox/Model/NameServer.pm:147
 msgid "Custom"
 msgstr "Vlastné"
 
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "Záznam pre Mail exchanger"
 
-#: src/EBox/Model/AliasTable.pm:80
+#: src/EBox/Model/AliasTable.pm:81
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
@@ -194,13 +194,13 @@ msgstr ""
 "Alias nemôže byť hostiteľské meno pre menný server \"{ns}\". Miesto toho "
 "použite hostname."
 
-#: src/EBox/Model/AliasTable.pm:93
+#: src/EBox/Model/AliasTable.pm:94
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr ""
 "Už je tu meno hostiteľa s rovnakým menom \"{name}\" v tej istej doméne "
 
-#: src/EBox/Model/AliasTable.pm:102
+#: src/EBox/Model/AliasTable.pm:103
 #, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
@@ -208,11 +208,11 @@ msgid ""
 msgstr ""
 "Je tu alias pre {hostname} s rovnakým menom \"{name}\" v tej istej doméne"
 
-#: src/EBox/Model/AliasTable.pm:147
+#: src/EBox/Model/AliasTable.pm:148
 msgid "alias"
 msgstr "alias"
 
-#: src/EBox/Model/NameServer.pm:77
+#: src/EBox/Model/NameServer.pm:76
 #, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
@@ -221,19 +221,19 @@ msgstr ""
 "Dané meno hostiteľa nieje plne kvalifikované doménové meno (FQDN). Mali ste "
 "na mysli ns.{name}?"
 
-#: src/EBox/Model/NameServer.pm:112
+#: src/EBox/Model/NameServer.pm:111
 msgid "The domain is set as read only. You cannot add name servers"
 msgstr "Doména je nastavená len na čítanie. Nemôžete pridávať menné servery"
 
-#: src/EBox/Model/NameServer.pm:159
+#: src/EBox/Model/NameServer.pm:158
 msgid "Name servers"
 msgstr "Menné servery"
 
-#: src/EBox/Model/NameServer.pm:165
+#: src/EBox/Model/NameServer.pm:164
 msgid "It manages the name server (NS) records for this domain"
 msgstr "Ovláda záznamy menného servera (NS) pre túto doménu."
 
-#: src/EBox/Model/NameServer.pm:166
+#: src/EBox/Model/NameServer.pm:165
 msgid "name server record"
 msgstr "záznam menného servera"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-remoteservices 1.3.12Report-Msgid-Bugs-To: "
 "bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:32+0200\n"
+"POT-Creation-Date: 2010-07-21 00:42+0200\n"
 "PO-Revision-Date: 2010-01-09 16:11+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Key for web subscription service not found"
 msgstr ""
 
-#: src/EBox/RemoteServices/Subscription.pm:312
+#: src/EBox/RemoteServices/Subscription.pm:410
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr ""
@@ -158,7 +158,33 @@ msgstr ""
 msgid "No domain key found for this service"
 msgstr ""
 
-#: src/EBox/RemoteServices/SupportAccess.pm:91
+#: src/EBox/RemoteServices/Audit/Password.pm:224
+msgid "system"
+msgstr ""
+
+#: src/EBox/RemoteServices/Audit/Password.pm:290
+msgid "average"
+msgstr ""
+
+#: src/EBox/RemoteServices/Audit/Password.pm:294
+msgid "weak"
+msgstr ""
+
+#: src/EBox/RemoteServices/Audit/Password.pm:397
+#, perl-brace-format
+msgid "No {level} passwords were found in users"
+msgstr ""
+
+#: src/EBox/RemoteServices/Audit/Password.pm:402
+#, perl-brace-format
+msgid "The following users have {level} passwords: {users}."
+msgstr ""
+
+#: src/EBox/RemoteServices/SupportAccess.pm:67
+msgid "Cannot ger a the estricted addresses for remote support"
+msgstr ""
+
+#: src/EBox/RemoteServices/SupportAccess.pm:127
 #, perl-brace-format
 msgid ""
 "There exists already a user {u} and it does not seem created by eBox. Until "
@@ -166,17 +192,17 @@ msgid ""
 "support access"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:126
+#: src/EBox/RemoteServices/Model/Subscription.pm:124
 msgid ""
 "Subscription was done correctly. Wait a minute to let the subscription be "
 "propagated throughout the system."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:129
+#: src/EBox/RemoteServices/Model/Subscription.pm:127
 msgid "Subscription data retrieved correctly."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:131
+#: src/EBox/RemoteServices/Model/Subscription.pm:129
 msgid "Please, save changes"
 msgstr ""
 
@@ -184,71 +210,82 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:234
-msgid ""
-"Subscribing an eBox will configure OpenVPN module and its dependencies by "
-"running these actions and modifying these files: "
+#: src/EBox/RemoteServices/Model/Subscription.pm:237
+#, perl-brace-format
+msgid "Subscribing an eBox will configure the {mods} and its dependencies "
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:238
-msgid ""
-"Subscribing an eBox will enable the OpenVPN module and its dependencies."
+#: src/EBox/RemoteServices/Model/Subscription.pm:246
+#, perl-brace-format
+msgid "Subscribing an eBox will enable the {mods} and its dependencies.<br/>"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:241
+#: src/EBox/RemoteServices/Model/Subscription.pm:254
 msgid ""
 "Take into account that subscribing an eBox could take a minute. Do not touch "
 "anything until subscribing process is done."
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:277
+#: src/EBox/RemoteServices/Model/Subscription.pm:302
+msgid " module"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:308
+msgid " and "
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:308
+msgid " modules"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/Subscription.pm:340
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:297
+#: src/EBox/RemoteServices/Model/Subscription.pm:360
 msgid "User Name or Email Address"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:305
+#: src/EBox/RemoteServices/Model/Subscription.pm:368
 msgid "eBox Name"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:310
+#: src/EBox/RemoteServices/Model/Subscription.pm:373
 msgid "Choose a name for your eBox which is a valid subdomain name"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:317
+#: src/EBox/RemoteServices/Model/Subscription.pm:380
 msgid "Password"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:325
+#: src/EBox/RemoteServices/Model/Subscription.pm:388
 msgid "eBox subscription details"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:326
+#: src/EBox/RemoteServices/Model/Subscription.pm:389
 msgid "Delete data"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:329
+#: src/EBox/RemoteServices/Model/Subscription.pm:392
 msgid "Subscription to eBox Control Center"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:330
+#: src/EBox/RemoteServices/Model/Subscription.pm:393
 msgid "Subscribe"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:409
+#: src/EBox/RemoteServices/Model/Subscription.pm:512
 msgid "Action"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:410
-#: src/EBox/RemoteServices/Model/Subscription.pm:431
+#: src/EBox/RemoteServices/Model/Subscription.pm:513
+#: src/EBox/RemoteServices/Model/Subscription.pm:534
 msgid "Reason"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/Subscription.pm:430
+#: src/EBox/RemoteServices/Model/Subscription.pm:533
 msgid "File"
 msgstr ""
 
@@ -260,31 +297,46 @@ msgstr ""
 msgid "Access settings"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:108
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
 msgid "Allow remote access to eBox staff"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:116
-msgid "Remote support access configuration"
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
+msgid "Allow access from any internet address"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:122
-#: src/EBox/RemoteServices.pm:206
-msgid "Remote Support Access"
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:85
+msgid ""
+"By default the acces is only granted to hosts inside the Control Center "
+"private network. If you enable this option access is granted from any "
+"address. Use this option only if you could not connect to the Control Center"
 msgstr ""
 
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:133
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:91
+msgid "Remote support accesss"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:121
+msgid ""
+"Remote access from any address requires that remote access support is enabled"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:129
+msgid ""
+"To restrict addresses you need that your eBox is subscribed to the Control "
+"Center. Either subscribe it or allow access from any addresse"
+msgstr ""
+
+#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:140
 #, perl-brace-format
 msgid ""
-"eBox Technologies provides support for eBox Platform through our {openhref}"
-"store{closehref}"
-msgstr ""
-
-#: src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:143
-#, perl-brace-format
-msgid ""
+"Enabling remote support will allow staff from eBox technologies to freely "
+"access your computer.\n"
+"You could use screen to join their shell option. To be able to do so the "
+"SUID bit of the 'screen' program is enabled; this change is undone when this "
+"option is disabled\n"
 "To join the remote session, login in the shell as a user belonging to the "
-"'{group}' group and use the command '{cmd}'."
+"'adm' group and use the command '{cmd}'."
 msgstr ""
 
 #: src/EBox/RemoteServices/Backup.pm:260
@@ -321,35 +373,55 @@ msgstr ""
 msgid "Control center"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:77
+#: src/EBox/RemoteServices.pm:82
 msgid "Control Center Client"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:164
+#: src/EBox/RemoteServices.pm:219
 msgid "Not subscribed"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:166
+#: src/EBox/RemoteServices.pm:221
 msgid "Subscribed"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:198 src/EBox/RemoteServices.pm:602
+#: src/EBox/RemoteServices.pm:253 src/EBox/RemoteServices.pm:998
 msgid "Control Center"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:209
+#: src/EBox/RemoteServices.pm:261
+msgid "Remote Support Access"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:264
 msgid "System"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:261
+#: src/EBox/RemoteServices.pm:316
 msgid "eBox Control Center Connection"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:595
+#: src/EBox/RemoteServices.pm:429
+msgid ""
+"The subscribed hostname is only available if the host is subscribed to eBox "
+"Control Center"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:458
+msgid ""
+"The monitor gatherer IP addresses are only available if the host is "
+"subscribed to eBox Control Center"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:603
+msgid "eBox must be subscribed to reload the bundle"
+msgstr ""
+
+#: src/EBox/RemoteServices.pm:991
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
 msgstr ""
 
-#: src/EBox/RemoteServices.pm:599
+#: src/EBox/RemoteServices.pm:995
 msgid "Connected"
 msgstr ""

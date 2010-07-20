@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-usersandgroups 1.1Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:56+0200\n"
+"POT-Creation-Date: 2010-07-21 00:52+0200\n"
 "PO-Revision-Date: 2010-04-06 16:32+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -22,96 +22,96 @@ msgstr ""
 msgid "User Corner Web Server"
 msgstr "Felhasználói sarok web kiszolgáló"
 
-#: src/EBox/LdapUserImplementation.pm:42
+#: src/EBox/LdapUserImplementation.pm:44
 msgid "This group contains users"
 msgstr "Ez a csoport tartalmaz felhasználókat"
 
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/User.pm:62 src/EBox/CGI/Groups.pm:52
-#: src/EBox/CGI/Users.pm:31 src/EBox/CGI/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:79 src/EBox/UsersAndGroups.pm:2283
-#: src/EBox/UsersAndGroups.pm:2291
+#: src/EBox/CGI/User.pm:44 src/EBox/CGI/User.pm:64 src/EBox/CGI/Groups.pm:54
+#: src/EBox/CGI/Users.pm:33 src/EBox/CGI/Users.pm:58
+#: src/EBox/UsersAndGroups/Model/Users.pm:78 src/EBox/UsersAndGroups.pm:2359
+#: src/EBox/UsersAndGroups.pm:2367
 msgid "Users"
 msgstr "Felhasználók"
 
-#: src/EBox/CGI/User.pm:46
+#: src/EBox/CGI/User.pm:48
 msgid "username"
 msgstr "felhasználónév"
 
-#: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:49
-#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/DelGroupFromUser.pm:45
-#: src/EBox/UsersAndGroups/Model/Users.pm:86
+#: src/EBox/CGI/AddGroupToUser.pm:45 src/EBox/CGI/AddUserToGroup.pm:51
+#: src/EBox/CGI/DelUserFromGroup.pm:52 src/EBox/CGI/DelGroupFromUser.pm:45
+#: src/EBox/UsersAndGroups/Model/Users.pm:85
 msgid "user"
 msgstr "felhasználó"
 
-#: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/Group.pm:45
-#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/DelUserFromGroup.pm:45
+#: src/EBox/CGI/AddGroupToUser.pm:50 src/EBox/CGI/Group.pm:47
+#: src/EBox/CGI/AddUserToGroup.pm:46 src/EBox/CGI/DelUserFromGroup.pm:47
 #: src/EBox/CGI/DelGroupFromUser.pm:50
 #: src/EBox/UsersAndGroups/Model/Groups.pm:85
 msgid "group"
 msgstr "csoport"
 
-#: src/EBox/CGI/Group.pm:30
+#: src/EBox/CGI/Group.pm:32
 msgid "Edit group"
 msgstr "Csoport szerkesztése"
 
-#: src/EBox/CGI/Group.pm:61 src/EBox/CGI/Groups.pm:43
-#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2285
-#: src/EBox/UsersAndGroups.pm:2294
+#: src/EBox/CGI/Group.pm:63 src/EBox/CGI/Groups.pm:45
+#: src/EBox/UsersAndGroups/Model/Groups.pm:77 src/EBox/UsersAndGroups.pm:2361
+#: src/EBox/UsersAndGroups.pm:2370
 msgid "Groups"
 msgstr "Csoportok"
 
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:1387 src/EBox/UsersAndGroups.pm:1392
-#: src/EBox/UsersAndGroups.pm:1585 src/EBox/UsersAndGroups.pm:1735
-#: src/EBox/UsersAndGroups.pm:1769 src/EBox/UsersAndGroups.pm:1886
-#: src/EBox/UsersAndGroups.pm:1989
+#: src/EBox/CGI/ModifyGroup.pm:42 src/EBox/CGI/AddGroup.pm:47
+#: src/EBox/UsersAndGroups.pm:1463 src/EBox/UsersAndGroups.pm:1468
+#: src/EBox/UsersAndGroups.pm:1661 src/EBox/UsersAndGroups.pm:1811
+#: src/EBox/UsersAndGroups.pm:1845 src/EBox/UsersAndGroups.pm:1962
+#: src/EBox/UsersAndGroups.pm:2065
 msgid "group name"
 msgstr "csoportnév"
 
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:47
+#: src/EBox/CGI/ModifyGroup.pm:49 src/EBox/CGI/ModifyUser.pm:50
+#: src/EBox/CGI/AddUser.pm:49
 msgid "comment"
 msgstr "megjegyzés"
 
-#: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:739 src/EBox/UsersAndGroups.pm:745
-#: src/EBox/UsersAndGroups.pm:988 src/EBox/UsersAndGroups.pm:1038
-#: src/EBox/UsersAndGroups.pm:1090 src/EBox/UsersAndGroups.pm:1551
-#: src/EBox/UsersAndGroups.pm:1629 src/EBox/UsersAndGroups.pm:1730
-#: src/EBox/UsersAndGroups.pm:1764 src/EBox/UsersAndGroups.pm:1835
+#: src/EBox/CGI/ModifyUser.pm:44 src/EBox/CGI/AddUser.pm:47
+#: src/EBox/UsersAndGroups.pm:816 src/EBox/UsersAndGroups.pm:822
+#: src/EBox/UsersAndGroups.pm:1064 src/EBox/UsersAndGroups.pm:1114
+#: src/EBox/UsersAndGroups.pm:1166 src/EBox/UsersAndGroups.pm:1627
+#: src/EBox/UsersAndGroups.pm:1705 src/EBox/UsersAndGroups.pm:1806
+#: src/EBox/UsersAndGroups.pm:1840 src/EBox/UsersAndGroups.pm:1911
 msgid "user name"
 msgstr "felhasználónév"
 
-#: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
+#: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:48
 msgid "last name"
 msgstr "vezetéknév"
 
-#: src/EBox/CGI/ModifyUser.pm:49
+#: src/EBox/CGI/ModifyUser.pm:51
 msgid "password"
 msgstr "jelszó"
 
-#: src/EBox/CGI/ModifyUser.pm:50
+#: src/EBox/CGI/ModifyUser.pm:52
 msgid "confirm password"
 msgstr "jelszó megerősítés"
 
-#: src/EBox/CGI/ModifyUser.pm:76 src/EBox/CGI/AddUser.pm:73
+#: src/EBox/CGI/ModifyUser.pm:78 src/EBox/CGI/AddUser.pm:75
 #: src/EBox/UsersAndGroups/Model/Password.pm:98
 msgid "Passwords do not match."
 msgstr "Nem egyeznek a jelszavak."
 
-#: src/EBox/CGI/Del.pm:65
+#: src/EBox/CGI/Del.pm:67
 msgid "object name"
 msgstr "objektum név"
 
-#: src/EBox/CGI/Del.pm:70
+#: src/EBox/CGI/Del.pm:72
 msgid "object type"
 msgstr "objektum típus"
 
-#: src/EBox/CGI/Del.pm:90
+#: src/EBox/CGI/Del.pm:92
 msgid "User removed successfully"
 msgstr "Felhasználó sikeresen eltávolítva"
 
-#: src/EBox/CGI/Del.pm:94
+#: src/EBox/CGI/Del.pm:96
 msgid "Group removed successfully"
 msgstr "Csoport sikeresen eltávolítva"
 
@@ -212,7 +212,7 @@ msgstr "Windows AD szinkronizálási beállítások"
 msgid "The secret key needs to have 16 characters."
 msgstr "A titkos kulcshoz 16 karakter szükséges."
 
-#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2316
+#: src/EBox/UsersAndGroups/Model/Mode.pm:69 src/EBox/UsersAndGroups.pm:2392
 msgid "Mode"
 msgstr "Mód"
 
@@ -257,7 +257,7 @@ msgid "eBox Users Mode"
 msgstr "eBox felhasználói (üzem)mód"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:59
-#: src/EBox/UsersAndGroups/Model/Users.pm:61
+#: src/EBox/UsersAndGroups/Model/Users.pm:60
 msgid "Name"
 msgstr "Név"
 
@@ -266,12 +266,12 @@ msgid "Description"
 msgstr "Leírás"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:69
-#: src/EBox/UsersAndGroups/Model/Users.pm:71
+#: src/EBox/UsersAndGroups/Model/Users.pm:70
 msgid "Edit"
 msgstr "Szerkesztés"
 
 #: src/EBox/UsersAndGroups/Model/Groups.pm:130
-#: src/EBox/UsersAndGroups/Model/Users.pm:129
+#: src/EBox/UsersAndGroups/Model/Users.pm:128
 msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
@@ -302,6 +302,19 @@ msgstr ""
 "létrehozva. Ha vannak csoportok a tartományvezérlőben, talán a "
 "szinkronizációs eljárás meghiúsult vagy még nem ért véget."
 
+#: src/EBox/UsersAndGroups/Model/PAM.pm:61
+msgid "Enable PAM"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:64
+msgid "Make LDAP users have system account."
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/PAM.pm:70
+#, fuzzy
+msgid "PAM settings"
+msgstr "AD Sync beállítások"
+
 #: src/EBox/UsersAndGroups/Model/Password.pm:49
 msgid "Password management"
 msgstr "Jelszó kezelés"
@@ -315,8 +328,8 @@ msgid "Re-type new password"
 msgstr "Új jelszó megerősítése"
 
 #: src/EBox/UsersAndGroups/Model/Password.pm:75
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:73 src/EBox/UsersAndGroups.pm:758
-#: src/EBox/UsersAndGroups.pm:2330 src/templates/users.mas:49
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:79 src/EBox/UsersAndGroups.pm:835
+#: src/EBox/UsersAndGroups.pm:2406 src/templates/users.mas:49
 #: src/templates/user.mas:52 src/templates/usercorner/login/index.mas:34
 msgid "Password"
 msgstr "Jelszó"
@@ -345,39 +358,40 @@ msgstr "Szinkronizálás most"
 msgid "Base DN"
 msgstr "Base DN"
 
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:79
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:73
+msgid "Root DN"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:85
 msgid "Users DN"
 msgstr "Users DN"
 
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:85
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:91
 msgid "Groups DN"
 msgstr "Groups DN"
 
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:93
-#: src/EBox/UsersAndGroups.pm:2301
-msgid "LDAP Info"
-msgstr "LDAP Infó"
-
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:94
-msgid "LDAP Information"
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:99
+#, fuzzy
+msgid "LDAP information"
 msgstr "LDAP információk"
 
-#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:149
+#: src/EBox/UsersAndGroups/Model/LdapInfo.pm:156
+#, fuzzy
 msgid ""
-"You must enable the Users and Groups module to access the LDAP information"
+"You must enable the Users and Groups module to access the LDAP information."
 msgstr ""
 "Aktiválnia kell a Felhasználók és Csoportok modult az LDAP információk "
 "megtekintéséhez"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:66
+#: src/EBox/UsersAndGroups/Model/Users.pm:65
 msgid "Full name"
 msgstr "Teljes név"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:135
+#: src/EBox/UsersAndGroups/Model/Users.pm:134
 msgid "There are no users at the moment"
 msgstr "Jelenleg nincsenek felhasználók"
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:138
+#: src/EBox/UsersAndGroups/Model/Users.pm:137
 #, perl-brace-format
 msgid ""
 "This eBox is configured as slave and there are no users at the moment. You "
@@ -387,7 +401,7 @@ msgstr ""
 "létrehozva. Talán hozzá szeretne adni néhányat a {openhref}master{closehref}-"
 "en."
 
-#: src/EBox/UsersAndGroups/Model/Users.pm:142
+#: src/EBox/UsersAndGroups/Model/Users.pm:141
 msgid ""
 "This eBox is configured as Windows AD slave and there are no users at the "
 "moment. If there are users in your Domain Controller, maybe the "
@@ -421,100 +435,136 @@ msgid "There are no slaves at the moment."
 msgstr "Jelenleg nincsenek slave-ek."
 
 #: src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:74
-msgid "Slave status"
-msgstr "Slave-ek helyzete"
+#: src/EBox/UsersAndGroups.pm:2382
+msgid "Slave Status"
+msgstr "Slave Status"
 
-#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:66
+#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:63
 msgid ""
 "These configuration options are used when a new user account is created."
 msgstr ""
 "Ezek a beállítások új felhasználók létrehozása esetén lesznek alkalmazva."
 
-#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:80
-msgid "There isn't any configurable option"
+#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:76
+#, fuzzy
+msgid "There isn't any configurable option."
 msgstr "Nincsenek változtatható beállítások"
 
-#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:91
-#: src/EBox/UsersAndGroups.pm:2287 src/EBox/UsersAndGroups.pm:2296
-msgid "Default User Template"
+#: src/EBox/UsersAndGroups/Composite/UserTemplate.pm:87
+#: src/EBox/UsersAndGroups.pm:2363 src/EBox/UsersAndGroups.pm:2372
+#, fuzzy
+msgid "User Template"
 msgstr "Alapértelmezett felhasználói sablon"
 
-#: src/EBox/UsersAndGroups.pm:77
+#: src/EBox/UsersAndGroups/Composite/Settings.pm:71
+#: src/EBox/UsersAndGroups.pm:2377
+#, fuzzy
+msgid "LDAP Settings"
+msgstr "AD Sync beállítások"
+
+#: src/EBox/UsersAndGroups.pm:82 src/templates/Wizard/users.mas:4
 msgid "Users and Groups"
 msgstr "Felhasználók és Csoportok"
 
-#: src/EBox/UsersAndGroups.pm:96
+#: src/EBox/UsersAndGroups.pm:104
+#, fuzzy
 msgid ""
-"Your openLDAP database will be populated with some basic organizational units"
+"Your LDAP database will be populated with some basic organizational units"
 msgstr ""
 "Az ön openLDAP adatbázisa néhány alap organizational unit-al rendelkezik"
 
-#: src/EBox/UsersAndGroups.pm:97
-msgid "eBox needs this organizational units to add users and groups into them"
+#: src/EBox/UsersAndGroups.pm:105
+#, fuzzy
+msgid "eBox needs this organizational units to add users and groups into them."
 msgstr ""
 "Az eBoxnak szüksége van ezekre a szerkezeti elemekre a felhasználók és "
 "csoportok hozzáadásához"
 
-#: src/EBox/UsersAndGroups.pm:101
-msgid "Create directories for slave's journals"
+#: src/EBox/UsersAndGroups.pm:109
+#, fuzzy
+msgid "Create directories for slave journals"
 msgstr "Mappák létrehozása a slave jelentések számára"
 
-#: src/EBox/UsersAndGroups.pm:102
-msgid "eBox needs the directories to record pending slave's actions"
+#: src/EBox/UsersAndGroups.pm:110
+#, fuzzy
+msgid "eBox needs the directories to record pending slave actions."
 msgstr "Az eBoxnak szüksége van egy mappára a slave műveleteinek tárolására"
 
-#: src/EBox/UsersAndGroups.pm:109
+#: src/EBox/UsersAndGroups.pm:117
 msgid "Your eBox will be registered as a slave in the eBox master specified"
 msgstr "Ez az eBox be van jegyezve mint slave az eBox master szerveren"
 
-#: src/EBox/UsersAndGroups.pm:110
-msgid "This eBox needs to have remote access to the users in the eBox master"
+#: src/EBox/UsersAndGroups.pm:118
+#, fuzzy
+msgid "This eBox needs to have remote access to the users in the eBox master."
 msgstr "Az eBoxnak elérésre van szüksége a master eBox felhasználói adataihoz"
 
-#: src/EBox/UsersAndGroups.pm:116
+#: src/EBox/UsersAndGroups.pm:125
 msgid "Apparmor profile will be disabled"
 msgstr "Az apparmor profil kikapcsolva"
 
-#: src/EBox/UsersAndGroups.pm:117
-msgid "It is not ready to work with more than one slapd"
+#: src/EBox/UsersAndGroups.pm:126
+#, fuzzy
+msgid "It is not ready to work with more than one slapd."
 msgstr "Nem áll készen több mint egy slapd kapcsolatra"
 
-#: src/EBox/UsersAndGroups.pm:125
+#: src/EBox/UsersAndGroups.pm:134
 msgid "Install /etc/cron.d/ebox-ad-sync."
 msgstr "Telepítse: /etc/cron.d/ebox-ad-sync."
 
-#: src/EBox/UsersAndGroups.pm:126
-msgid "eBox will run a script each 5 minutes to sync with Windows AD."
+#: src/EBox/UsersAndGroups.pm:135
+#, fuzzy
+msgid "eBox will run a script every 5 minutes to sync with Windows AD."
 msgstr ""
 "Az eBox minden 5 percben lefuttat egy szkriptet amely szinkronizál a Windows "
 "AD-vel."
 
-#: src/EBox/UsersAndGroups.pm:146
-msgid "To make openLDAP listen on TCP and Unix sockets"
+#: src/EBox/UsersAndGroups.pm:144
+msgid "Configure PAM."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:145
+msgid "eBox will give LDAP users system account."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:165
+msgid ""
+"To make NSS use LDAP resolution for user and group accounts. Needed for "
+"Samba PDC configuration."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:171
+msgid "To let NSS know how to access LDAP accounts."
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:180
+#, fuzzy
+msgid "To make LDAP listen on TCP and Unix sockets."
 msgstr "Hogy az openLDAP figyeljen TCP és Unix socketeken"
 
-#: src/EBox/UsersAndGroups.pm:151
+#: src/EBox/UsersAndGroups.pm:185
+#, fuzzy
 msgid ""
-"To copy LDAP admin password generated by  eBox and allow other modules to "
-"access LDAP"
+"To copy LDAP admin password generated by eBox and allow other modules to "
+"access LDAP."
 msgstr ""
 "Hogy lemásolja az LDAP eBox által generált admin jelszavát más modulok LDAP "
 "eléréséhez"
 
-#: src/EBox/UsersAndGroups.pm:729
+#: src/EBox/UsersAndGroups.pm:806
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "A felhasználónév nem lehet hosszabb {maxuserlength} karakternél!"
 
-#: src/EBox/UsersAndGroups.pm:734
+#: src/EBox/UsersAndGroups.pm:811
 msgid "Username already exists on the system"
 msgstr "A felhasználónév már létezik a rendszerben"
 
-#: src/EBox/UsersAndGroups.pm:835 src/EBox/UsersAndGroups.pm:1451
+#: src/EBox/UsersAndGroups.pm:911 src/EBox/UsersAndGroups.pm:1527
 msgid "Maximum number of system users reached"
 msgstr "rendszergazdák maximális száma"
 
-#: src/EBox/UsersAndGroups.pm:852
+#: src/EBox/UsersAndGroups.pm:928
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -522,23 +572,23 @@ msgstr ""
 "Érvénytelen felhasználói UID: {uid}.\n"
 "Ennek az értéknek egyenlőnek vagy nagyobbnak kell lenni mint {min}."
 
-#: src/EBox/UsersAndGroups.pm:863
+#: src/EBox/UsersAndGroups.pm:939
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Érvénytelen rendszergazdai UID: {uid}.\n"
 "Ennek az értéknek kisebbnek kell lenni mint {max}."
 
-#: src/EBox/UsersAndGroups.pm:1375
+#: src/EBox/UsersAndGroups.pm:1451
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "A csoportnév nem lehet hosszabb {maxGroupLength} karakternél!"
 
-#: src/EBox/UsersAndGroups.pm:1381
+#: src/EBox/UsersAndGroups.pm:1457
 msgid "The group name is not valid because it is used internally"
 msgstr "Csoportnév érvénytelen, mert már belső használatban van!"
 
-#: src/EBox/UsersAndGroups.pm:1468
+#: src/EBox/UsersAndGroups.pm:1544
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
@@ -546,44 +596,40 @@ msgstr ""
 "Érvénytelen csoport GID: {gid}.\n"
 "Ennek az értéknek egyenlőnek vagy nagyobbnak kell lenni mint {min}."
 
-#: src/EBox/UsersAndGroups.pm:1478
+#: src/EBox/UsersAndGroups.pm:1554
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Érvénytelen rendszer csoporti GID: {gid}.\n"
 "Ennek az értéknek kisebbnek kell lenni mint {max}."
 
-#: src/EBox/UsersAndGroups.pm:2065
+#: src/EBox/UsersAndGroups.pm:2141
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "A jelszó nem lehet hosszabb {maxPwdLength} karakternél!"
 
-#: src/EBox/UsersAndGroups.pm:2306
-msgid "Slave Status"
-msgstr "Slave Status"
-
-#: src/EBox/UsersAndGroups.pm:2310
+#: src/EBox/UsersAndGroups.pm:2386
 msgid "AD Sync Settings"
 msgstr "AD Sync beállítások"
 
-#: src/EBox/UsersAndGroups.pm:2549
+#: src/EBox/UsersAndGroups.pm:2621
 #, perl-brace-format
 msgid "Can't connect to master eBox at {remote}"
 msgstr "Nem tud csatlakozni a master eBox-hoz a {remote}"
 
-#: src/EBox/UsersAndGroups.pm:2556
+#: src/EBox/UsersAndGroups.pm:2628
 #, perl-brace-format
 msgid ""
 "Can't connect to master eBox at {remote} with the provided LDAP password"
 msgstr ""
 "Nem tud csatlakozni a master eBox-hoz a {remote} a megadott LDAP jelszóval"
 
-#: src/EBox/UsersAndGroups.pm:2575
+#: src/EBox/UsersAndGroups.pm:2647
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this eBox"
 msgstr "A {host} nevű gép már regisztrálva van az eBoxban"
 
-#: src/EBox/UsersAndGroups.pm:2697
+#: src/EBox/UsersAndGroups.pm:2769
 msgid "Replication failed"
 msgstr "A replikáció meghiúsult"
 
@@ -650,6 +696,24 @@ msgstr "Töröl"
 #: src/templates/del.mas:46
 msgid "Cancel"
 msgstr "Mégsem"
+
+#: src/templates/Wizard/users.mas:7
+msgid "Select the type of the server"
+msgstr ""
+
+#: src/templates/Wizard/users.mas:8
+msgid ""
+"Choose standalone unless you want LDAP replication or synchronization with "
+"Active Directory."
+msgstr ""
+
+#: src/templates/Wizard/users.mas:10
+msgid "Standalone server"
+msgstr ""
+
+#: src/templates/Wizard/users.mas:11
+msgid "Advanced configuration (Master/Slave/AD Sync)"
+msgstr ""
 
 #: src/templates/groups.mas:10
 msgid "Add Group"
@@ -790,6 +854,12 @@ msgstr "Figyelem: a Caps Lock bekapcsolva!"
 #: src/templates/usercorner/login/index.mas:41
 msgid "Enter"
 msgstr "Enter"
+
+#~ msgid "LDAP Info"
+#~ msgstr "LDAP Infó"
+
+#~ msgid "Slave status"
+#~ msgstr "Slave-ek helyzete"
 
 #~ msgid "User corner"
 #~ msgstr "Felhasználói sarok"

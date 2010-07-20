@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webmail 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:56+0200\n"
+"POT-Creation-Date: 2010-07-21 00:52+0200\n"
 "PO-Revision-Date: 2010-04-16 09:16+0200\n"
 "Last-Translator: Michal Formánek <formi@seznam.cz>\n"
 "Language-Team: none\n"
@@ -117,60 +117,80 @@ msgstr ""
 "Není potřeba nakonfigurovat připojení ke vzdálenému serveru, protože WebMail "
 "je konfigurován pro použití eBox poštovní služby"
 
-#: src/EBox/WebMail/Model/Options.pm:47
+#: src/EBox/WebMail/Model/Options.pm:48
 msgid "Name"
 msgstr "Jméno"
 
-#: src/EBox/WebMail/Model/Options.pm:49
+#: src/EBox/WebMail/Model/Options.pm:50
 msgid "eBox webmail"
 msgstr "eBox webmail"
 
-#: src/EBox/WebMail/Model/Options.pm:51
+#: src/EBox/WebMail/Model/Options.pm:52
 msgid ""
 "The name of the webmail will be used in the login screen and page titles."
 msgstr "Název webmail bude použit v přihlašovací obrazovce a názvech stránek."
 
-#: src/EBox/WebMail/Model/Options.pm:57
+#: src/EBox/WebMail/Model/Options.pm:56
+msgid "Virtual host"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:62
+msgid ""
+"Virtual host where the webmail will be installed. This will disable the "
+"default /webmail url."
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:68
 msgid "General configuration"
 msgstr "Obecné nastavení"
 
-#: src/EBox/WebMail/Model/Options.pm:58 src/EBox/WebMail.pm:66
+#: src/EBox/WebMail/Model/Options.pm:69 src/EBox/WebMail.pm:69
 msgid "Webmail"
 msgstr "Webmail"
+
+#: src/EBox/WebMail/Model/Options.pm:84
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/WebMail/Model/Options.pm:115
+msgid ""
+"The deleted virtual host was selected for Webmail. Maybe you want to select "
+"another one now."
+msgstr ""
 
 #: src/EBox/WebMail/Composite/Backend.pm:64
 msgid "WebMail backend"
 msgstr "WebMail backend"
 
-#: src/EBox/WebMail.pm:172
+#: src/EBox/WebMail.pm:177
 msgid "Neither IMAP nor IMAPS service enabled."
 msgstr "IMAP ani IMAPS služba povolena."
 
-#: src/EBox/WebMail.pm:284
+#: src/EBox/WebMail.pm:291
 msgid "To configure Roundcube webmail."
 msgstr "Chcete-li nakonfigurovat RoundCube webmail."
 
-#: src/EBox/WebMail.pm:289
+#: src/EBox/WebMail.pm:296
 msgid "To configure managesieve Roundcube webmail plugin."
 msgstr "Chcete-li nakonfigurovat managesieve RoundCube webmail plugin."
 
-#: src/EBox/WebMail.pm:307
+#: src/EBox/WebMail.pm:322
 msgid "Create PostgreSQL Roundcube webmail database."
 msgstr "Vytvoření PostgreSQL RoundCube webmail databáze."
 
-#: src/EBox/WebMail.pm:308
+#: src/EBox/WebMail.pm:323
 msgid "This database will store the data needed by Roundcube."
 msgstr "Tato databáze bude ukládat data potřebné pro RoundCube."
 
-#: src/EBox/WebMail.pm:312
+#: src/EBox/WebMail.pm:327
 msgid "Add webmail link to www data directory."
 msgstr "Přidat odkaz na www webmail data adresáře."
 
-#: src/EBox/WebMail.pm:313
+#: src/EBox/WebMail.pm:328
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "Webmail bude dostupný na http://ip/webmail/."
 
-#: src/EBox/WebMail.pm:336
+#: src/EBox/WebMail.pm:351
 #, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using eBox mail "
@@ -180,7 +200,7 @@ msgstr ""
 "používáte eBox poštovní službu. Můžete ji povolit na {openurl}Mail -> Obecný"
 "{closeurl}."
 
-#: src/EBox/WebMail.pm:394
+#: src/EBox/WebMail.pm:409
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."

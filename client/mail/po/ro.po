@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:54+0200\n"
+"POT-Creation-Date: 2010-07-21 00:37+0200\n"
 "PO-Revision-Date: 2010-07-14 15:28+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
@@ -26,92 +26,100 @@ msgstr ""
 msgid "eBox Mail System"
 msgstr ""
 
-#: src/EBox/MailUserLdap.pm:83 src/EBox/MailUserLdap.pm:88
-#: src/EBox/MailAliasLdap.pm:105 src/EBox/MailAliasLdap.pm:135
+#: src/EBox/MailUserLdap.pm:85 src/EBox/MailUserLdap.pm:90
+#: src/EBox/MailAliasLdap.pm:107 src/EBox/MailAliasLdap.pm:137
 msgid "mail account"
 msgstr ""
 
-#: src/EBox/MailUserLdap.pm:430
+#: src/EBox/MailUserLdap.pm:432
 msgid "This group has a mail alias"
 msgstr ""
 
-#: src/EBox/MailUserLdap.pm:457
+#: src/EBox/MailUserLdap.pm:459
 msgid "This user has a mail account"
 msgstr ""
 
-#: src/EBox/MailUserLdap.pm:811
+#: src/EBox/MailUserLdap.pm:813
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:62
+#: src/EBox/MailAliasLdap.pm:64
 #, perl-brace-format
 msgid "{ac} is not a internal account"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:79
+#: src/EBox/MailAliasLdap.pm:81
 #, perl-brace-format
 msgid "{ac} is not a external account"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:101 src/EBox/CGI/DelAlias.pm:46
+#: src/EBox/MailAliasLdap.pm:103 src/EBox/CGI/DelAlias.pm:48
 msgid "mail alias"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:113
+#: src/EBox/MailAliasLdap.pm:115
 #, perl-brace-format
 msgid "{ac} is a mail alias. Alias of aliases are not allowed"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:132
+#: src/EBox/MailAliasLdap.pm:134
 msgid "group alias"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:171 src/EBox/MailAliasLdap.pm:191
+#: src/EBox/MailAliasLdap.pm:173 src/EBox/MailAliasLdap.pm:193
 msgid "Domain alias"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:176 src/EBox/MailAliasLdap.pm:215
-#: src/EBox/MailAliasLdap.pm:242
+#: src/EBox/MailAliasLdap.pm:178 src/EBox/MailAliasLdap.pm:217
+#: src/EBox/MailAliasLdap.pm:244
 #, perl-brace-format
 msgid "Mail domain {d} does not exists"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:183
+#: src/EBox/MailAliasLdap.pm:185
 #, perl-brace-format
 msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr ""
 
-#: src/EBox/MailAliasLdap.pm:325 src/EBox/MailAliasLdap.pm:354
-#: src/EBox/MailAliasLdap.pm:389
+#: src/EBox/MailAliasLdap.pm:327 src/EBox/MailAliasLdap.pm:356
+#: src/EBox/MailAliasLdap.pm:391
 msgid "mail alias account"
 msgstr ""
 
-#: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
+#: src/EBox/CGI/MQRequeue.pm:44 src/EBox/CGI/MQRemove.pm:44
 #: src/templates/qmanager.mas:17
 msgid "Queue ID"
 msgstr ""
 
-#: src/EBox/CGI/CreateGroupAlias.pm:43 src/EBox/CGI/DelGroupAlias.pm:42
+#: src/EBox/CGI/CreateGroupAlias.pm:45 src/EBox/CGI/DelGroupAlias.pm:44
 msgid "group"
 msgstr ""
 
-#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:49
+#: src/EBox/CGI/CreateGroupAlias.pm:51 src/EBox/CGI/CreateAlias.pm:51
 msgid "account name"
 msgstr ""
 
-#: src/EBox/CGI/CreateGroupAlias.pm:50 src/EBox/CGI/CreateAlias.pm:50
+#: src/EBox/CGI/CreateGroupAlias.pm:52 src/EBox/CGI/CreateAlias.pm:52
 msgid "domain name"
 msgstr ""
 
-#: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/DelAccount.pm:42
-#: src/EBox/CGI/SetAccountMaildirQuota.pm:41 src/EBox/CGI/CreateAccount.pm:42
-#: src/EBox/CGI/CreateAlias.pm:42
+#: src/EBox/CGI/DelAlias.pm:44 src/EBox/CGI/DelAccount.pm:44
+#: src/EBox/CGI/SetAccountMaildirQuota.pm:41 src/EBox/CGI/CreateAccount.pm:44
+#: src/EBox/CGI/CreateAlias.pm:44
 msgid "username"
 msgstr ""
 
-#: src/EBox/CGI/DelAccount.pm:46
+#: src/EBox/CGI/Wizard/VirtualDomain.pm:43 src/EBox/Mail/Model/VDomains.pm:211
+msgid "Mail virtual domain"
+msgstr ""
+
+#: src/EBox/CGI/Wizard/VirtualDomain.pm:47
+msgid "Invalid virtual mail domain"
+msgstr ""
+
+#: src/EBox/CGI/DelAccount.pm:48
 msgid "user mail"
 msgstr ""
 
@@ -119,56 +127,56 @@ msgstr ""
 msgid "Quota must be a amount of MB greter than zero"
 msgstr ""
 
-#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:64
-#: src/EBox/MailVDomainsLdap.pm:117 src/EBox/Mail/Model/VDomains.pm:101
+#: src/EBox/CGI/CreateAccount.pm:50 src/EBox/MailVDomainsLdap.pm:66
+#: src/EBox/MailVDomainsLdap.pm:119 src/EBox/Mail/Model/VDomains.pm:101
 msgid "virtual domain"
 msgstr ""
 
-#: src/EBox/CGI/CreateAccount.pm:50
+#: src/EBox/CGI/CreateAccount.pm:52
 msgid "Mail address"
 msgstr ""
 
-#: src/EBox/CGI/DelGroupAlias.pm:45
+#: src/EBox/CGI/DelGroupAlias.pm:47
 msgid "alias"
 msgstr ""
 
-#: src/EBox/CGI/DelGroupAlias.pm:50
+#: src/EBox/CGI/DelGroupAlias.pm:52
 msgid "group alias mail"
 msgstr ""
 
-#: src/EBox/CGI/CreateAlias.pm:48
+#: src/EBox/CGI/CreateAlias.pm:50
 msgid "maildrop"
 msgstr ""
 
-#: src/EBox/CGI/QueueManager.pm:34 src/EBox/CGI/QueueManager.pm:52
-#: src/EBox/Mail.pm:1553
+#: src/EBox/CGI/QueueManager.pm:36 src/EBox/CGI/QueueManager.pm:54
+#: src/EBox/Mail.pm:1555
 msgid "Queue Management"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Mail.pm:155
+#: src/EBox/Event/Dispatcher/Mail.pm:156
 msgid "Admin mail recipient"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/Mail/Model/MailUser.pm:68
-#: src/EBox/Mail.pm:92 src/EBox/Mail.pm:1470 src/EBox/Mail.pm:1622
+#: src/EBox/Event/Dispatcher/Mail.pm:169 src/EBox/Mail/Model/MailUser.pm:68
+#: src/EBox/Mail.pm:94 src/EBox/Mail.pm:1472 src/EBox/Mail.pm:1632
 msgid "Mail"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Mail.pm:189
+#: src/EBox/Event/Dispatcher/Mail.pm:190
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Mail.pm:232
+#: src/EBox/Event/Dispatcher/Mail.pm:233
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
 
-#: src/EBox/Mail/Greylist.pm:54
+#: src/EBox/Mail/Greylist.pm:53
 msgid "To configure whitelist for greylisting"
 msgstr ""
 
-#: src/EBox/Mail/Greylist.pm:278
+#: src/EBox/Mail/Greylist.pm:277
 msgid "Greylist service"
 msgstr ""
 
@@ -675,10 +683,6 @@ msgstr ""
 msgid "'sieve' is a reserved name in this context, please choose another name"
 msgstr ""
 
-#: src/EBox/Mail/Model/VDomains.pm:211
-msgid "Mail virtual domain"
-msgstr ""
-
 #: src/EBox/Mail/Model/VDomains.pm:214
 msgid "The virtual domain name cannot be equal to the mailname"
 msgstr ""
@@ -690,30 +694,30 @@ msgid ""
 "account referenced by the alias {al}"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:127
 msgid "Subject"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:129
 #, perl-brace-format
 msgid "[EBox-event] An event has happened at {hostName}"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1591
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:136 src/EBox/Mail.pm:1601
 msgid "To"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:143
 msgid "Configure mail dispatcher"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:148
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from eBox"
 msgstr ""
 
-#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:151
 msgid "Mail dispatcher configuration updated"
 msgstr ""
 
@@ -739,7 +743,7 @@ msgstr ""
 msgid "Rejected messages"
 msgstr ""
 
-#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1588
+#: src/EBox/Mail/Model/Report/TrafficDetails.pm:62 src/EBox/Mail.pm:1598
 #: src/templates/qmanager.mas:19
 msgid "Date"
 msgstr ""
@@ -781,251 +785,251 @@ msgstr ""
 msgid "External retrieval service"
 msgstr ""
 
-#: src/EBox/Mail.pm:139
+#: src/EBox/Mail.pm:141
 msgid "Generate mail aliases"
 msgstr ""
 
-#: src/EBox/Mail.pm:141
+#: src/EBox/Mail.pm:143
 #, perl-brace-format
 msgid "eBox will execute {cmd}"
 msgstr ""
 
-#: src/EBox/Mail.pm:146
+#: src/EBox/Mail.pm:148
 msgid "Add LDAP schemas"
 msgstr ""
 
-#: src/EBox/Mail.pm:148
+#: src/EBox/Mail.pm:150
 msgid "eBox will add two LDAP schemas: authldap.ldif and eboximail.ldif."
 msgstr ""
 
-#: src/EBox/Mail.pm:154
+#: src/EBox/Mail.pm:156
 msgid "Create certificates"
 msgstr ""
 
-#: src/EBox/Mail.pm:156
+#: src/EBox/Mail.pm:158
 msgid "eBox will create certificates to use in mail services"
 msgstr ""
 
-#: src/EBox/Mail.pm:161
+#: src/EBox/Mail.pm:163
 msgid "Add fetchmail update cron job"
 msgstr ""
 
-#: src/EBox/Mail.pm:163
+#: src/EBox/Mail.pm:165
 msgid ""
 "eBox will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
 msgstr ""
 
-#: src/EBox/Mail.pm:184
+#: src/EBox/Mail.pm:186
 msgid "To configure postfix"
 msgstr ""
 
-#: src/EBox/Mail.pm:190
+#: src/EBox/Mail.pm:192
 msgid "To define how client programs connect to services in  postfix"
 msgstr ""
 
-#: src/EBox/Mail.pm:197
+#: src/EBox/Mail.pm:199
 msgid "To configure host mail name"
 msgstr ""
 
-#: src/EBox/Mail.pm:202
+#: src/EBox/Mail.pm:204
 msgid "To configure postfix aliases"
 msgstr ""
 
-#: src/EBox/Mail.pm:209
+#: src/EBox/Mail.pm:211
 msgid "To configure dovecot"
 msgstr ""
 
-#: src/EBox/Mail.pm:214
+#: src/EBox/Mail.pm:216
 msgid "To configure dovecot to authenticate against LDAP"
 msgstr ""
 
-#: src/EBox/Mail.pm:219
+#: src/EBox/Mail.pm:221
 msgid "To configure smart host authentication"
 msgstr ""
 
-#: src/EBox/Mail.pm:683
+#: src/EBox/Mail.pm:685
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
 
-#: src/EBox/Mail.pm:688
+#: src/EBox/Mail.pm:690
 msgid "The mail name must be a fully qualified name"
 msgstr ""
 
-#: src/EBox/Mail.pm:693 src/EBox/Mail.pm:704 src/EBox/Mail.pm:713
+#: src/EBox/Mail.pm:695 src/EBox/Mail.pm:706 src/EBox/Mail.pm:715
 msgid "Host mail name"
 msgstr ""
 
-#: src/EBox/Mail.pm:707
+#: src/EBox/Mail.pm:709
 msgid "The mail name and virtual mail domain name are equal"
 msgstr ""
 
-#: src/EBox/Mail.pm:976
+#: src/EBox/Mail.pm:978
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:992 src/EBox/Mail.pm:1012
+#: src/EBox/Mail.pm:994 src/EBox/Mail.pm:1014
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:1019
+#: src/EBox/Mail.pm:1021
 msgid ""
 "The mail filter $name is not active. Please set another mail filter or "
 "disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:1416
+#: src/EBox/Mail.pm:1418
 msgid "SMTP service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1423
+#: src/EBox/Mail.pm:1425
 msgid "POP3 service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1429
+#: src/EBox/Mail.pm:1431
 msgid "POP3S service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1435
+#: src/EBox/Mail.pm:1437
 msgid "IMAP service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1441
+#: src/EBox/Mail.pm:1443
 msgid "IMAPS service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1484
+#: src/EBox/Mail.pm:1486
 msgid "enabled"
 msgstr ""
 
-#: src/EBox/Mail.pm:1484
+#: src/EBox/Mail.pm:1486
 msgid "disabled"
 msgstr ""
 
-#: src/EBox/Mail.pm:1486 src/EBox/Mail.pm:1597 src/templates/qmanager.mas:22
+#: src/EBox/Mail.pm:1488 src/EBox/Mail.pm:1607 src/templates/qmanager.mas:22
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Mail.pm:1489
+#: src/EBox/Mail.pm:1491
 msgid "Mail server's filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:1498 src/EBox/Mail.pm:1505
+#: src/EBox/Mail.pm:1500 src/EBox/Mail.pm:1507
 msgid "Filter type"
 msgstr ""
 
-#: src/EBox/Mail.pm:1499
+#: src/EBox/Mail.pm:1501
 msgid "Custom"
 msgstr ""
 
-#: src/EBox/Mail.pm:1501
+#: src/EBox/Mail.pm:1503
 msgid "Address"
 msgstr ""
 
-#: src/EBox/Mail.pm:1534
+#: src/EBox/Mail.pm:1536
 msgid "General"
 msgstr ""
 
-#: src/EBox/Mail.pm:1541
+#: src/EBox/Mail.pm:1543
 msgid "Virtual Mail Domains"
 msgstr ""
 
-#: src/EBox/Mail.pm:1547
+#: src/EBox/Mail.pm:1549
 msgid "Greylist"
 msgstr ""
 
-#: src/EBox/Mail.pm:1580
+#: src/EBox/Mail.pm:1582
 msgid "Mail retrieval from external accounts"
 msgstr ""
 
-#: src/EBox/Mail.pm:1589
+#: src/EBox/Mail.pm:1599
 msgid "Message ID"
 msgstr ""
 
-#: src/EBox/Mail.pm:1590
+#: src/EBox/Mail.pm:1600
 msgid "From"
 msgstr ""
 
-#: src/EBox/Mail.pm:1592
+#: src/EBox/Mail.pm:1602
 msgid "From hostname"
 msgstr ""
 
-#: src/EBox/Mail.pm:1593
+#: src/EBox/Mail.pm:1603
 msgid "From host ip"
 msgstr ""
 
-#: src/EBox/Mail.pm:1594 src/templates/qmanager.mas:18
+#: src/EBox/Mail.pm:1604 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr ""
 
-#: src/EBox/Mail.pm:1595
+#: src/EBox/Mail.pm:1605
 msgid "Relay"
 msgstr ""
 
-#: src/EBox/Mail.pm:1596
+#: src/EBox/Mail.pm:1606
 msgid "Message type"
 msgstr ""
 
-#: src/EBox/Mail.pm:1598
+#: src/EBox/Mail.pm:1608
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Mail.pm:1599
+#: src/EBox/Mail.pm:1609
 msgid "Additional Info"
 msgstr ""
 
-#: src/EBox/Mail.pm:1610
+#: src/EBox/Mail.pm:1620
 msgid "Successful messages"
 msgstr ""
 
-#: src/EBox/Mail.pm:1611
+#: src/EBox/Mail.pm:1621
 msgid "Maximum message size exceeded"
 msgstr ""
 
-#: src/EBox/Mail.pm:1612
+#: src/EBox/Mail.pm:1622
 msgid "User quota exceeded"
 msgstr ""
 
-#: src/EBox/Mail.pm:1613
+#: src/EBox/Mail.pm:1623
 msgid "Relay access denied"
 msgstr ""
 
-#: src/EBox/Mail.pm:1614
+#: src/EBox/Mail.pm:1624
 msgid "Account does not exist"
 msgstr ""
 
-#: src/EBox/Mail.pm:1615
+#: src/EBox/Mail.pm:1625
 msgid "Host unreachable"
 msgstr ""
 
-#: src/EBox/Mail.pm:1616
+#: src/EBox/Mail.pm:1626
 msgid "Authentication error"
 msgstr ""
 
-#: src/EBox/Mail.pm:1617
+#: src/EBox/Mail.pm:1627
 msgid "Greylisted"
 msgstr ""
 
-#: src/EBox/Mail.pm:1618
+#: src/EBox/Mail.pm:1628
 msgid "Other events"
 msgstr ""
 
-#: src/EBox/Mail.pm:1805
+#: src/EBox/Mail.pm:1815
 msgid "Mailboxes"
 msgstr ""
 
-#: src/EBox/Mail.pm:1833
+#: src/EBox/Mail.pm:1843
 msgid "Mail SMTP server"
 msgstr ""
 
-#: src/EBox/Mail.pm:1840
+#: src/EBox/Mail.pm:1850
 msgid "Mail POP/IMAP server"
 msgstr ""
 
-#: src/EBox/MailQueue.pm:79
+#: src/EBox/MailQueue.pm:81
 msgid "This message is being delivered"
 msgstr ""
 
@@ -1060,6 +1064,18 @@ msgstr ""
 #: src/templates/alias.mas:23 src/templates/alias.mas:75
 #: src/templates/alias.mas:76 src/templates/warnvd.mas:29
 msgid "Delete"
+msgstr ""
+
+#: src/templates/Wizard/virtualdomain.mas:4
+msgid "Virtual mail domain"
+msgstr ""
+
+#: src/templates/Wizard/virtualdomain.mas:7
+msgid "Set up the default virtual mail domain"
+msgstr ""
+
+#: src/templates/Wizard/virtualdomain.mas:8
+msgid "This will be the domain for your mail accounts"
 msgstr ""
 
 #: src/templates/qmanager.mas:20

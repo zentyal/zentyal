@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-monitor 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:32+0200\n"
+"POT-Creation-Date: 2010-07-21 00:34+0200\n"
 "PO-Revision-Date: 2010-03-29 16:53+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -27,133 +27,133 @@ msgstr ""
 msgid "any"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:116
 msgid "At least a threshold (maximum or minimum) must be set"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:121
 msgid "This threshold rule will override the current ones"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:156
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:170
 msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:221
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:235
 msgid "Failure minimum"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:224
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
 msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:229
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
 msgid "Warning minimum"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:246
 #, perl-brace-format
 msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:234
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:248
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:274
 msgid "failure minimum"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:252
 msgid "Warning maximum"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
 #, perl-brace-format
 msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:257
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:274
 msgid "failure maximum"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:247
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "Failure maximum"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:250
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:264
 msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:269
 msgid "Invert"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:272
 #, perl-brace-format
 msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
 "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "warning minimum"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "warning maximum"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:265
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 msgid "Persistent"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:268
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:282
 msgid ""
 "If set to true, an event will be dispatched for each value that is out of "
 "the acceptable range. If set to false, only a change from an acceptable "
 "value to an unacceptable one will be dispatched"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:289
 msgid "Measure instance"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
 msgid "Type"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:287
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:301
 msgid "Data Source"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:309
 msgid "Threshold configuration"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:310
 msgid "Threshold's list"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:298
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:312
 msgid "Threshold"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:302
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:316
 #, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
 msgstr ""
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:304
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:318
 #, perl-brace-format
 msgid ""
 "Take into account this configuration will be only applied if monitor "
@@ -180,19 +180,19 @@ msgstr ""
 msgid "Every measure may have several thresholds to monitor"
 msgstr ""
 
-#: src/EBox/Monitor/Configuration.pm:121
+#: src/EBox/Monitor/Configuration.pm:122
 msgid "Last hour"
 msgstr ""
 
-#: src/EBox/Monitor/Configuration.pm:127
+#: src/EBox/Monitor/Configuration.pm:128
 msgid "Last day"
 msgstr ""
 
-#: src/EBox/Monitor/Configuration.pm:133
+#: src/EBox/Monitor/Configuration.pm:134
 msgid "Last month"
 msgstr ""
 
-#: src/EBox/Monitor/Configuration.pm:139
+#: src/EBox/Monitor/Configuration.pm:140
 msgid "Last year"
 msgstr ""
 
@@ -358,8 +358,8 @@ msgid ""
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:73
-#: src/EBox/Monitor.pm:167
+#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:76
+#: src/EBox/Monitor.pm:175
 msgid "Monitor"
 msgstr ""
 
@@ -387,12 +387,17 @@ msgstr ""
 msgid "That is below the {severity} threshold of {bound}."
 msgstr ""
 
-#: src/EBox/Monitor.pm:134
+#: src/EBox/Monitor.pm:137
 #, perl-brace-format
 msgid "{daemon} main configuration file"
 msgstr ""
 
-#: src/EBox/Monitor.pm:139
+#: src/EBox/Monitor.pm:142
 #, perl-brace-format
 msgid "{daemon} thresholds configuration file"
+msgstr ""
+
+#: src/EBox/Monitor.pm:147
+#, perl-brace-format
+msgid "{daemon} default configuration file"
 msgstr ""

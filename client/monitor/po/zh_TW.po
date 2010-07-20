@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:32+0200\n"
+"POT-Creation-Date: 2010-07-21 00:34+0200\n"
 "PO-Revision-Date: 2009-08-04 06:32+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -27,77 +27,77 @@ msgstr "不適用"
 msgid "any"
 msgstr "任何"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:102
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:116
 msgid "At least a threshold (maximum or minimum) must be set"
 msgstr "至少必須設定一個界限值（最大值或最小值）"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:107
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:121
 msgid "This threshold rule will override the current ones"
 msgstr "這個界限值規則會覆蓋目前的規則"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:156
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:170
 msgid ""
 "Current monitoring tool version does not support distinction among data "
 "sources"
 msgstr "目前的監控工具版本不支援不同的資料來源"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:221
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:235
 msgid "Failure minimum"
 msgstr "系統錯誤最小值"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:224
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
 msgid ""
 "Set the lower bound of acceptable values. If unset defaults to negative "
 "infinity."
 msgstr "設定可接受數值的下限。如果不設定，預設會設為負無限大。"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:229
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
 msgid "Warning minimum"
 msgstr "警示最小值"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:232
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:246
 #, perl-brace-format
 msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr "如果數值小於這個數值並且大於 {fmin}，就會送出警示事件"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:234
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:248
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:274
 msgid "failure minimum"
 msgstr "系統錯誤最小值"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:238
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:252
 msgid "Warning maximum"
 msgstr "警示最大值"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:241
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
 #, perl-brace-format
 msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr "如果數值大於這個數值並且小於 {fmax}，就會送出警示事件"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:243
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:260
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:257
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:274
 msgid "failure maximum"
 msgstr "系統錯誤最大值"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:247
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "Failure maximum"
 msgstr "系統錯誤最大值"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:250
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:264
 msgid ""
 "Set the upper bound of acceptable values. If unset defaults to positive "
 "infinity."
 msgstr "設定可接受數值的上限。如果不設定預設會設為正無限大。"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:255
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:269
 msgid "Invert"
 msgstr "反轉"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:258
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:272
 #, fuzzy, perl-brace-format
 msgid ""
 "If set to true, the range of acceptable values is inverted, i.e. values "
@@ -106,19 +106,19 @@ msgstr ""
 "如果設為 true，可接受數值的範圍會被反轉，例如 {fmin} 和 {fmax} 之間的數值 "
 "({wmin} 和 {wmax}) 。"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "warning minimum"
 msgstr "警示最小值"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
 msgid "warning maximum"
 msgstr "警示最大值"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:265
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:279
 msgid "Persistent"
 msgstr "持續的"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:268
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:282
 msgid ""
 "If set to true, an event will be dispatched for each value that is out of "
 "the acceptable range. If set to false, only a change from an acceptable "
@@ -127,37 +127,37 @@ msgstr ""
 "如果設為 true，事件的每個數值超出可接受範圍時會被調整。如果設為 false，只有將"
 "可接受的數值改變為不可接受的數值時才會調整它"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:275
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:289
 msgid "Measure instance"
 msgstr "測量實體"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
 msgid "Type"
 msgstr "類型"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:287
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:301
 msgid "Data Source"
 msgstr "資料來源"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:309
 msgid "Threshold configuration"
 msgstr "界限組態"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:296
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:310
 msgid "Threshold's list"
 msgstr "界限清單"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:298
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:312
 msgid "Threshold"
 msgstr "界限"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:302
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:316
 #, perl-brace-format
 msgid ""
 "Every check is done with the highest possible resolution: {nSec} seconds"
 msgstr "每項檢查都以最高可能的解析度完成：{nSec} 秒"
 
-#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:304
+#: src/EBox/Monitor/Model/ThresholdConfiguration.pm:318
 #, perl-brace-format
 msgid ""
 "Take into account this configuration will be only applied if monitor "
@@ -184,19 +184,19 @@ msgstr "測量"
 msgid "Every measure may have several thresholds to monitor"
 msgstr "每個測量項目可能會有多個監視器界限"
 
-#: src/EBox/Monitor/Configuration.pm:121
+#: src/EBox/Monitor/Configuration.pm:122
 msgid "Last hour"
 msgstr "前一小時"
 
-#: src/EBox/Monitor/Configuration.pm:127
+#: src/EBox/Monitor/Configuration.pm:128
 msgid "Last day"
 msgstr "前一天"
 
-#: src/EBox/Monitor/Configuration.pm:133
+#: src/EBox/Monitor/Configuration.pm:134
 msgid "Last month"
 msgstr "前一個月"
 
-#: src/EBox/Monitor/Configuration.pm:139
+#: src/EBox/Monitor/Configuration.pm:140
 msgid "Last year"
 msgstr "前一年"
 
@@ -364,8 +364,8 @@ msgid ""
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:73
-#: src/EBox/Monitor.pm:167
+#: src/EBox/Event/Watcher/Monitor.pm:145 src/EBox/Monitor.pm:76
+#: src/EBox/Monitor.pm:175
 msgid "Monitor"
 msgstr "監視器"
 
@@ -393,12 +393,17 @@ msgstr "超過 {bound} 的 {severity} 界限。"
 msgid "That is below the {severity} threshold of {bound}."
 msgstr "低於 {bound} 的 {severity} 界限。"
 
-#: src/EBox/Monitor.pm:134
+#: src/EBox/Monitor.pm:137
 #, fuzzy, perl-brace-format
 msgid "{daemon} main configuration file"
 msgstr "收集的主要組態檔案"
 
-#: src/EBox/Monitor.pm:139
+#: src/EBox/Monitor.pm:142
 #, fuzzy, perl-brace-format
 msgid "{daemon} thresholds configuration file"
 msgstr "收集的界限組態檔案"
+
+#: src/EBox/Monitor.pm:147
+#, fuzzy, perl-brace-format
+msgid "{daemon} default configuration file"
+msgstr "收集的主要組態檔案"

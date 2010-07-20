@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:55+0200\n"
+"POT-Creation-Date: 2010-07-21 00:42+0200\n"
 "PO-Revision-Date: 2009-07-17 14:23+0200\n"
 "Last-Translator: Vadim Glyshkov <plusv@yandex.ru>\n"
 "Language-Team: none\n"
@@ -18,61 +18,61 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Model/MemberTable.pm:93
+#: src/EBox/Objects.pm:41 src/EBox/Model/ObjectTable.pm:83
+#: src/EBox/Model/MemberTable.pm:94
 msgid "Objects"
 msgstr "Объекты"
 
-#: src/EBox/Objects.pm:44
+#: src/EBox/Objects.pm:46
 #, perl-brace-format
 msgid "Added object {object}"
 msgstr "Добавленный объект {object}"
 
-#: src/EBox/Objects.pm:46
+#: src/EBox/Objects.pm:48
 #, perl-brace-format
 msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
 msgstr "Добавлен {nname} ({ip}/{mask} [{mac}]) к объекту {object}"
 
-#: src/EBox/Objects.pm:47
+#: src/EBox/Objects.pm:49
 #, perl-brace-format
 msgid "Removed object {object}"
 msgstr "Удаленный объект {object}"
 
-#: src/EBox/Objects.pm:49
+#: src/EBox/Objects.pm:51
 #, perl-brace-format
 msgid "Forcefully removed object {object}"
 msgstr "Полностью удаленный объект {object}"
 
-#: src/EBox/Objects.pm:51
+#: src/EBox/Objects.pm:53
 #, perl-brace-format
 msgid "Removed {nname} from object {object}"
 msgstr "Удален {nname} из объекта {object}"
 
-#: src/EBox/Objects.pm:270
+#: src/EBox/Objects.pm:272
 msgid "Object"
 msgstr "Объект"
 
-#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+#: src/EBox/Model/ObjectTable.pm:64 src/EBox/Model/MemberTable.pm:64
 msgid "Name"
 msgstr "Имя"
 
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+#: src/EBox/Model/ObjectTable.pm:72 src/EBox/Model/MemberTable.pm:88
 msgid "Members"
 msgstr "Члены"
 
-#: src/EBox/Model/ObjectTable.pm:83
+#: src/EBox/Model/ObjectTable.pm:84
 msgid "Objects List"
 msgstr "Список объектов"
 
-#: src/EBox/Model/ObjectTable.pm:91
+#: src/EBox/Model/ObjectTable.pm:92
 msgid "object"
 msgstr "объект"
 
-#: src/EBox/Model/ObjectTable.pm:113
+#: src/EBox/Model/ObjectTable.pm:114
 msgid "This object is being used by another module"
 msgstr "В настоящее время объект используется в другом модуле"
 
-#: src/EBox/Model/ObjectTable.pm:197
+#: src/EBox/Model/ObjectTable.pm:198
 msgid ""
 "Objects are an abstraction of machines and network addresses which can be "
 "used in other modules. Any change on an object is automatically synched in "
@@ -82,33 +82,33 @@ msgstr ""
 "других модулях. Любое изменение на объекте автоматически синхронизируется во "
 "всех модулях использующих их"
 
-#: src/EBox/Model/ObjectTable.pm:208
+#: src/EBox/Model/ObjectTable.pm:209
 msgid ""
 "'Any' is a reserved word that could not be used as object name to avoid "
 "confusions"
 msgstr ""
 
-#: src/EBox/Model/MemberTable.pm:70
+#: src/EBox/Model/MemberTable.pm:71
 msgid "IP address"
 msgstr "IP-адрес"
 
-#: src/EBox/Model/MemberTable.pm:76
+#: src/EBox/Model/MemberTable.pm:77
 msgid "MAC address"
 msgstr "MAC-адрес"
 
-#: src/EBox/Model/MemberTable.pm:94
+#: src/EBox/Model/MemberTable.pm:95
 msgid "member"
 msgstr "член"
 
-#: src/EBox/Model/MemberTable.pm:116
+#: src/EBox/Model/MemberTable.pm:117
 msgid "You can only use MAC addresses with hosts"
 msgstr "Вы можете использовать только MAC адреса с хостами"
 
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+#: src/EBox/Model/MemberTable.pm:120 src/EBox/Model/MemberTable.pm:121
 msgid "network address"
 msgstr "сетевой адрес"
 
-#: src/EBox/Model/MemberTable.pm:126
+#: src/EBox/Model/MemberTable.pm:127
 #, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
 msgstr "{ip} совпадает с другим адресом или членом других объектов"

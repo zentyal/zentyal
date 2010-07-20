@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:53+0200\n"
+"POT-Creation-Date: 2010-07-21 00:36+0200\n"
 "PO-Revision-Date: 2010-04-06 16:27+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -25,86 +25,86 @@ msgstr "Triviális fájlátviteli protokoll"
 msgid "Dynamic Host Configuration Protocol"
 msgstr "DHCP"
 
-#: src/EBox/CGI/Status.pm:42
+#: src/EBox/CGI/Status.pm:44
 msgid "Module Status"
 msgstr "Modul állapota"
 
-#: src/EBox/CGI/AddFixed.pm:39 src/EBox/CGI/RemoveRange.pm:39
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:426
+#: src/EBox/CGI/AddFixed.pm:41 src/EBox/CGI/RemoveRange.pm:41
+#: src/EBox/CGI/AddRange.pm:41 src/EBox/CGI/RemoveFixed.pm:41
+#: src/EBox/CGI/SetIfaceOptions.pm:41 src/EBox/DHCP.pm:426
 #: src/EBox/DHCP.pm:462 src/EBox/DHCP.pm:512 src/EBox/DHCP.pm:558
 #: src/EBox/DHCP.pm:604 src/EBox/DHCP.pm:702 src/EBox/DHCP.pm:756
 #: src/EBox/DHCP.pm:817 src/EBox/DHCP.pm:873 src/EBox/DHCP.pm:1264
 msgid "Interface"
 msgstr "Csatoló"
 
-#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:215
+#: src/EBox/CGI/AddFixed.pm:45 src/EBox/Model/FixedAddressTable.pm:215
 #: src/EBox/DHCP.pm:1265 src/EBox/DHCP.pm:1333 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC-cím"
 
-#: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/ThinClientOptions.pm:242
+#: src/EBox/CGI/AddFixed.pm:46 src/EBox/Model/ThinClientOptions.pm:243
 #: src/EBox/Model/FixedAddressTable.pm:221 src/EBox/DHCP.pm:1333
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "IP-cím"
 
-#: src/EBox/CGI/AddFixed.pm:45 src/EBox/CGI/AddRange.pm:43
-#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/Model/RangeTable.pm:213
+#: src/EBox/CGI/AddFixed.pm:47 src/EBox/CGI/AddRange.pm:45
+#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/Model/RangeTable.pm:214
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
 msgstr "Név"
 
-#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:219
+#: src/EBox/CGI/AddRange.pm:46 src/EBox/Model/RangeTable.pm:220
 #: src/templates/ranges.mas:54
 msgid "From"
 msgstr "Innen:"
 
-#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:225
+#: src/EBox/CGI/AddRange.pm:47 src/EBox/Model/RangeTable.pm:226
 #: src/templates/ranges.mas:55
 msgid "To"
 msgstr "Ide:"
 
-#: src/EBox/CGI/Enable.pm:39
+#: src/EBox/CGI/Enable.pm:41
 msgid "module status"
 msgstr "modul állapota"
 
-#: src/EBox/Model/ThinClientOptions.pm:118 src/EBox/Model/LeaseTimes.pm:112
+#: src/EBox/Model/ThinClientOptions.pm:119 src/EBox/Model/LeaseTimes.pm:113
 #: src/EBox/Model/FixedAddressTable.pm:98 src/EBox/Model/DynamicDNS.pm:111
-#: src/EBox/Model/RangeInfo.pm:108 src/EBox/Model/Options.pm:119
-#: src/EBox/Model/RangeTable.pm:95 src/EBox/Composite/OptionsTab.pm:87
-#: src/EBox/Composite/InterfaceConfiguration.pm:87
-#: src/EBox/Composite/AdvancedOptions.pm:88
+#: src/EBox/Model/RangeInfo.pm:109 src/EBox/Model/Options.pm:120
+#: src/EBox/Model/RangeTable.pm:96 src/EBox/Composite/OptionsTab.pm:88
+#: src/EBox/Composite/InterfaceConfiguration.pm:88
+#: src/EBox/Composite/AdvancedOptions.pm:89
 #, perl-brace-format
 msgid "interface {iface}"
 msgstr "{iface} csatoló"
 
-#: src/EBox/Model/ThinClientOptions.pm:139
+#: src/EBox/Model/ThinClientOptions.pm:140
 msgid "You need to upload a boot image to eBox if you set it as next server"
 msgstr ""
 "Fel kell töltenie egy rendszerindító lemezképet az eBoxnak, ha következő "
 "kiszolgálónak állítja be"
 
-#: src/EBox/Model/ThinClientOptions.pm:146
+#: src/EBox/Model/ThinClientOptions.pm:147
 msgid ""
 "In order to upload a boot image to eBox, you need to set eBox as next server"
 msgstr ""
 "Rendszerindító lemezkép feltöltéséhez az eBoxot következő kiszolgálónak kell "
 "beállítania"
 
-#: src/EBox/Model/ThinClientOptions.pm:153
+#: src/EBox/Model/ThinClientOptions.pm:154
 msgid "You need to specify a path to the boot image in the remote server"
 msgstr ""
 "Meg kell adnia a rendszerindító lemezkép elérési útvonalát a távoli szerveren"
 
-#: src/EBox/Model/ThinClientOptions.pm:158
+#: src/EBox/Model/ThinClientOptions.pm:159
 msgid ""
 "You can only specify a file name if you have a next server and it is not eBox"
 msgstr ""
 "Csak fájlnevet adhat meg ha van egy következő kiszolgálója, és az nem egy "
 "eBox"
 
-#: src/EBox/Model/ThinClientOptions.pm:209
+#: src/EBox/Model/ThinClientOptions.pm:210
 #, perl-brace-format
 msgid ""
 "Removing previously uploaded boot image since next server option has been "
@@ -113,37 +113,37 @@ msgstr ""
 "Az előzőleg feltöltött rendszerindító lemezkép törlése, mivel a következő "
 "kiszolgáló beállítása módosult eBox-ról a következőre: {option}"
 
-#: src/EBox/Model/ThinClientOptions.pm:232
+#: src/EBox/Model/ThinClientOptions.pm:233
 msgid "Next server"
 msgstr "Következő kiszolgáló"
 
-#: src/EBox/Model/ThinClientOptions.pm:236 src/EBox/Model/Options.pm:394
-#: src/EBox/Model/Options.pm:405 src/EBox/Model/Options.pm:409
-#: src/EBox/Model/Options.pm:423 src/EBox/Model/Options.pm:456
+#: src/EBox/Model/ThinClientOptions.pm:237 src/EBox/Model/Options.pm:372
+#: src/EBox/Model/Options.pm:406 src/EBox/Model/Options.pm:410
+#: src/EBox/Model/Options.pm:424 src/EBox/Model/Options.pm:457
 msgid "None"
 msgstr "Nincs"
 
-#: src/EBox/Model/ThinClientOptions.pm:239 src/EBox/Model/Options.pm:446
+#: src/EBox/Model/ThinClientOptions.pm:240 src/EBox/Model/Options.pm:447
 msgid "eBox"
 msgstr "eBox"
 
-#: src/EBox/Model/ThinClientOptions.pm:246
+#: src/EBox/Model/ThinClientOptions.pm:247
 msgid "name"
 msgstr "név"
 
-#: src/EBox/Model/ThinClientOptions.pm:252
+#: src/EBox/Model/ThinClientOptions.pm:253
 msgid "File name"
 msgstr "Fájlnév"
 
-#: src/EBox/Model/ThinClientOptions.pm:261
+#: src/EBox/Model/ThinClientOptions.pm:262
 msgid "File path in next server"
 msgstr "A fájl elérési útvonala a következő kiszolgálón"
 
-#: src/EBox/Model/ThinClientOptions.pm:269
+#: src/EBox/Model/ThinClientOptions.pm:270
 msgid "Thin client"
 msgstr "Vékonykliens"
 
-#: src/EBox/Model/ThinClientOptions.pm:274
+#: src/EBox/Model/ThinClientOptions.pm:275
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
@@ -152,46 +152,46 @@ msgstr ""
 "Ha személyre szeretné szabni a vékonykliens beállításait, akkor minden ehhez "
 "szükséges fájlt másoljon be a(z) {path} mappába"
 
-#: src/EBox/Model/LeaseTimes.pm:132
+#: src/EBox/Model/LeaseTimes.pm:133
 msgid "Default leased time must be higher than 0 seconds"
 msgstr ""
 "Az alapértelmezett IP-bérleti időnek többnek kell lennie 0 másodpercnél"
 
-#: src/EBox/Model/LeaseTimes.pm:138
+#: src/EBox/Model/LeaseTimes.pm:139
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
 "Az alapértelmezett IP-bérleti időnek ({default}) kisebbnek kell lennie, mint "
 "{max}"
 
-#: src/EBox/Model/LeaseTimes.pm:150
+#: src/EBox/Model/LeaseTimes.pm:151
 msgid "Maximum leased time must be higher than 0 seconds"
 msgstr "A maximális IP-bérleti időnek többnek kell lennie, mint 0 másodperc"
 
-#: src/EBox/Model/LeaseTimes.pm:156
+#: src/EBox/Model/LeaseTimes.pm:157
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
 "A maximális IP-bérleti időnek ({max}) magasabbnak kell lennie, mint az "
 "alapértelmezett {default}"
 
-#: src/EBox/Model/LeaseTimes.pm:200
+#: src/EBox/Model/LeaseTimes.pm:201
 msgid "Default leased time"
 msgstr "Alapértelmezett IP-bérleti idő"
 
-#: src/EBox/Model/LeaseTimes.pm:203 src/EBox/Model/LeaseTimes.pm:210
+#: src/EBox/Model/LeaseTimes.pm:204 src/EBox/Model/LeaseTimes.pm:211
 msgid "seconds"
 msgstr "másodperc"
 
-#: src/EBox/Model/LeaseTimes.pm:207
+#: src/EBox/Model/LeaseTimes.pm:208
 msgid "Maximum leased time"
 msgstr "Maximális IP-bérleti idő"
 
-#: src/EBox/Model/LeaseTimes.pm:216
+#: src/EBox/Model/LeaseTimes.pm:217
 msgid "Lease times"
 msgstr "Bérleti idők"
 
-#: src/EBox/Model/LeaseTimes.pm:221
+#: src/EBox/Model/LeaseTimes.pm:222
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
@@ -301,9 +301,9 @@ msgstr ""
 msgid "Same as Dynamic Domain"
 msgstr "Egyezik a dinamikus tartománnyal"
 
-#: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:371
-#: src/EBox/Model/Options.pm:399 src/EBox/Model/Options.pm:418
-#: src/EBox/Model/Options.pm:432
+#: src/EBox/Model/DynamicDNS.pm:350 src/EBox/Model/Options.pm:377
+#: src/EBox/Model/Options.pm:400 src/EBox/Model/Options.pm:419
+#: src/EBox/Model/Options.pm:433
 msgid "Custom"
 msgstr "Egyéni"
 
@@ -327,75 +327,75 @@ msgstr "A(z) „{domain}” tartomány hozzáadva a DNS szakaszhoz"
 msgid "Domain \"{domain}\" removed from DNS section"
 msgstr "A(z) „{domain}” tartomány törölve a DNS szakaszból"
 
-#: src/EBox/Model/RangeInfo.pm:143
+#: src/EBox/Model/RangeInfo.pm:144
 msgid "Interface IP address"
 msgstr "Csatoló IP-címe"
 
-#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
+#: src/EBox/Model/RangeInfo.pm:148 src/templates/ranges.mas:20
 msgid "Subnet"
 msgstr "Alhálózat"
 
-#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
+#: src/EBox/Model/RangeInfo.pm:152 src/templates/ranges.mas:40
 msgid "Available range"
 msgstr "Elérhető tartomány"
 
-#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
+#: src/EBox/Model/RangeInfo.pm:158 src/templates/ranges.mas:15
 msgid "DHCP ranges"
 msgstr "DHCP tartományok"
 
-#: src/EBox/Model/Options.pm:157
+#: src/EBox/Model/Options.pm:158
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
 msgstr "A(z) {gateway} nem az aktuális hálózat része"
 
-#: src/EBox/Model/Options.pm:169
+#: src/EBox/Model/Options.pm:170
 msgid ""
 "DNS module must be enabled to be able to select eBox as primary DNS server"
 msgstr ""
 "A DNS modulnak aktívnak kell lennie, ha az eBoxot elsődleges DNS "
 "kiszolgálóként szeretné használni"
 
-#: src/EBox/Model/Options.pm:179
+#: src/EBox/Model/Options.pm:180
 msgid "NTP module must be enabled to be able to select eBox as NTP server"
 msgstr ""
 "Az NTP modulnak aktívnak kell lennie, ha az eBoxot NTP kiszogálóként "
 "szeretné használni"
 
-#: src/EBox/Model/Options.pm:190
+#: src/EBox/Model/Options.pm:191
 msgid "Samba module must be enabled to be able to select eBox as WINS server"
 msgstr ""
 "A Samba modulnak aktívnak kell lennie, ha az eBoxot WINS kiszolgálóként "
 "szeretné használni"
 
-#: src/EBox/Model/Options.pm:379
+#: src/EBox/Model/Options.pm:385
 msgid "eBox's domain"
 msgstr "Az eBox tartománya"
 
-#: src/EBox/Model/Options.pm:387
+#: src/EBox/Model/Options.pm:393
 msgid "local eBox DNS"
 msgstr "helyi eBox DNS"
 
-#: src/EBox/Model/Options.pm:414
+#: src/EBox/Model/Options.pm:415
 msgid "local eBox NTP"
 msgstr "helyi eBox NTP"
 
-#: src/EBox/Model/Options.pm:428
+#: src/EBox/Model/Options.pm:429
 msgid "local eBox"
 msgstr "helyi eBox"
 
-#: src/EBox/Model/Options.pm:440 src/templates/options.mas:18
+#: src/EBox/Model/Options.pm:441 src/templates/options.mas:18
 msgid "Default gateway"
 msgstr "Alapértelmezett átjáró"
 
-#: src/EBox/Model/Options.pm:450
+#: src/EBox/Model/Options.pm:451
 msgid "Custom IP address"
 msgstr "Egyéni IP-cím"
 
-#: src/EBox/Model/Options.pm:460
+#: src/EBox/Model/Options.pm:461
 msgid "Configured ones"
 msgstr "Beállítottak"
 
-#: src/EBox/Model/Options.pm:466
+#: src/EBox/Model/Options.pm:467
 msgid ""
 "Setting \"eBox\" as default gateway will set the interface IP address as "
 "gateway"
@@ -403,11 +403,11 @@ msgstr ""
 "Az „eBox” alapértelmezett átjáróként való beállításakor a csatoló IP-címe "
 "lesz beállítva átjárócímként"
 
-#: src/EBox/Model/Options.pm:472 src/templates/options.mas:29
+#: src/EBox/Model/Options.pm:473 src/templates/options.mas:29
 msgid "Search domain"
 msgstr "Keresési tartomány"
 
-#: src/EBox/Model/Options.pm:475
+#: src/EBox/Model/Options.pm:476
 msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
@@ -415,11 +415,11 @@ msgstr ""
 "A kiválasztott tartomány kiegészíti a kliensgépek nem teljes képzésű DNS-"
 "lekérdezéseit"
 
-#: src/EBox/Model/Options.pm:480 src/templates/options.mas:41
+#: src/EBox/Model/Options.pm:481 src/templates/options.mas:41
 msgid "Primary nameserver"
 msgstr "Elsődleges névkiszolgáló"
 
-#: src/EBox/Model/Options.pm:483
+#: src/EBox/Model/Options.pm:484
 msgid ""
 "If \"eBox DNS\" is present and selected, the eBox server will act as cache "
 "DNS server"
@@ -427,15 +427,15 @@ msgstr ""
 "Ha az „eBox DNS” létezik és be van jelölve, akkor az eBox kiszolgáló DNS-"
 "gyorsítótár kiszolgálóként fog működni"
 
-#: src/EBox/Model/Options.pm:488 src/templates/options.mas:52
+#: src/EBox/Model/Options.pm:489 src/templates/options.mas:52
 msgid "Secondary nameserver"
 msgstr "Másodlagos névkiszolgáló"
 
-#: src/EBox/Model/Options.pm:494
+#: src/EBox/Model/Options.pm:495
 msgid "NTP server"
 msgstr "NTP kiszolgáló"
 
-#: src/EBox/Model/Options.pm:497
+#: src/EBox/Model/Options.pm:498
 msgid ""
 "If \"eBox NTP\" is present and selected, eBox will be the NTP server for "
 "DHCP clients"
@@ -443,11 +443,11 @@ msgstr ""
 "Ha az „eBox NTP” létezik és be van jelölve, akkor az eBox kiszolgáló a DHCP-"
 "kliensek NTP kiszolgálója lesz"
 
-#: src/EBox/Model/Options.pm:502
+#: src/EBox/Model/Options.pm:503
 msgid "WINS server"
 msgstr "WINS kiszolgáló"
 
-#: src/EBox/Model/Options.pm:505
+#: src/EBox/Model/Options.pm:506
 msgid ""
 "If \"eBox Samba\" is present and selected, eBox will be the WINS server for "
 "DHCP clients"
@@ -455,11 +455,11 @@ msgstr ""
 "Ha az „eBox Samba” létezik és be van jelölve, akkor az eBox kiszolgáló a "
 "DHCP-kliensek WINS kiszolgálója lesz"
 
-#: src/EBox/Model/Options.pm:512
+#: src/EBox/Model/Options.pm:513
 msgid "Common options"
 msgstr "Általános beállítások"
 
-#: src/EBox/Model/Options.pm:517
+#: src/EBox/Model/Options.pm:518
 msgid ""
 "If you set a \"configured ones\" as default gateway, you may choose one the "
 "configured gateways. As \"search domain\" value, one of the configured DNS "
@@ -471,22 +471,22 @@ msgstr ""
 "értékéül az eBox egyik DNS tartományát választhatja. Az összes mező "
 "opcionális, ha az érték „None”, vagy üresen hagyja."
 
-#: src/EBox/Model/RangeTable.pm:117
+#: src/EBox/Model/RangeTable.pm:118
 #, perl-brace-format
 msgid "{from} - {to} is an invalid range"
 msgstr "Érvénytelen IP-tartomány: {from} - {to}"
 
-#: src/EBox/Model/RangeTable.pm:128
+#: src/EBox/Model/RangeTable.pm:129
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
 msgstr "A(z) {from}-{to} IP-tartomány nincs a(z) {net} hálózatban"
 
-#: src/EBox/Model/RangeTable.pm:141
+#: src/EBox/Model/RangeTable.pm:142
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
 msgstr "A(z) {from}-{to} IP-tartomány tartalmaz egy {ifaceIP} IP-című csatolót"
 
-#: src/EBox/Model/RangeTable.pm:164
+#: src/EBox/Model/RangeTable.pm:165
 #, perl-brace-format
 msgid ""
 "Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
@@ -494,16 +494,16 @@ msgstr ""
 "A(z) {newFrom}-{newTo} IP-tartomány átfedi a(z) „{range}” tartományt: "
 "{oldFrom}-{oldTo}"
 
-#: src/EBox/Model/RangeTable.pm:182
+#: src/EBox/Model/RangeTable.pm:183
 #, perl-brace-format
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr "A(z) {from}-{to} a(z) „{name}” fix IP-címet tartalmazza: {fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:233 src/templates/ranges.mas:49
+#: src/EBox/Model/RangeTable.pm:234 src/templates/ranges.mas:49
 msgid "Ranges"
 msgstr "Tartományok"
 
-#: src/EBox/Model/RangeTable.pm:240
+#: src/EBox/Model/RangeTable.pm:241
 msgid "range"
 msgstr "tartomány"
 
@@ -581,7 +581,7 @@ msgstr "Gépnév"
 msgid "DHCP leases"
 msgstr "DHCP-bérlések"
 
-#: src/EBox/Composite/General.pm:79
+#: src/EBox/Composite/General.pm:80
 #, perl-brace-format
 msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
@@ -591,15 +591,15 @@ msgstr ""
 "szolgáltatás futtatható legyen rajta. Ehhez változtassa meg a {openhref}"
 "csatolók beállításait{closehref} a hálózat modulban."
 
-#: src/EBox/Composite/Interfaces.pm:108
+#: src/EBox/Composite/Interfaces.pm:109
 msgid "Choose a static interface to configure:"
 msgstr "Válassza ki a beállítandó statikus csatolót:"
 
-#: src/EBox/Composite/Interfaces.pm:109
+#: src/EBox/Composite/Interfaces.pm:110
 msgid "Service configuration"
 msgstr "Szolgáltatás beállítása"
 
-#: src/EBox/Composite/Interfaces.pm:110
+#: src/EBox/Composite/Interfaces.pm:111
 msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
@@ -607,7 +607,7 @@ msgstr ""
 "Létre kell hozni legalább egy tartományt vagy egy statikus címet az IP-címek "
 "szolgáltatásához a csatolón."
 
-#: src/EBox/Composite/InterfaceConfiguration.pm:112
+#: src/EBox/Composite/InterfaceConfiguration.pm:113
 #, perl-brace-format
 msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
@@ -616,7 +616,7 @@ msgstr ""
 "Ahhoz, hogy a külső csatolón IP-címeket tudjon szolgáltatni, meg kell "
 "nyitnia a szolgáltatást a {openhref}tűzfal modulban{closehref}."
 
-#: src/EBox/Composite/AdvancedOptions.pm:133
+#: src/EBox/Composite/AdvancedOptions.pm:134
 msgid "Advanced options"
 msgstr "Speciális beállítások"
 

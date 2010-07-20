@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:33+0200\n"
+"POT-Creation-Date: 2010-07-21 00:43+0200\n"
 "PO-Revision-Date: 2010-01-31 18:00+0100\n"
 "Last-Translator: José Antonio Calvo <jacalvo@ebox-platform.com>\n"
 "Language-Team: none\n"
@@ -30,7 +30,7 @@ msgstr "cualquier protocolo y puerto"
 #: migration/0001_import_services_from_firewall.pl:94
 #: migration/0001_import_services_from_firewall.pl:110
 #: migration/0001_import_services_from_firewall.pl:125
-#: src/EBox/Services.pm:337
+#: src/EBox/Services.pm:404
 msgid "ebox-services"
 msgstr "ebox-services"
 
@@ -51,7 +51,7 @@ msgid "any TCP port"
 msgstr "cualquier puerto TCP"
 
 #: migration/0001_import_services_from_firewall.pl:108
-#: src/EBox/Services.pm:335
+#: src/EBox/Services.pm:402
 msgid "eBox administration"
 msgstr "Administración eBox"
 
@@ -59,35 +59,35 @@ msgstr "Administración eBox"
 msgid "eBox Administration Web Server"
 msgstr "Servidor Web de administración de eBox"
 
-#: src/EBox/Services.pm:47 src/EBox/Model/ServiceTable.pm:153
+#: src/EBox/Services.pm:48 src/EBox/Model/ServiceTable.pm:145
 msgid "Services"
 msgstr "Servicios"
 
-#: src/EBox/Services.pm:333
+#: src/EBox/Services.pm:400
 msgid "port"
 msgstr "puerto"
 
-#: src/EBox/Services.pm:336
+#: src/EBox/Services.pm:403
 msgid "eBox Administration port"
 msgstr "Puerto administración eBox"
 
-#: src/EBox/Model/ServiceTable.pm:107
+#: src/EBox/Model/ServiceTable.pm:103
 msgid "Domain"
 msgstr "Dominio"
 
-#: src/EBox/Model/ServiceTable.pm:114
+#: src/EBox/Model/ServiceTable.pm:110
 msgid "Service name"
 msgstr "Nombre del servicio"
 
-#: src/EBox/Model/ServiceTable.pm:122
+#: src/EBox/Model/ServiceTable.pm:118
 msgid "Description"
 msgstr "Descripción"
 
-#: src/EBox/Model/ServiceTable.pm:129
+#: src/EBox/Model/ServiceTable.pm:125
 msgid "Internal"
 msgstr "Interno"
 
-#: src/EBox/Model/ServiceTable.pm:131
+#: src/EBox/Model/ServiceTable.pm:127
 msgid ""
 "Tick this field if there is actually a service on the machine using the "
 "ports configured for this service. This helps eBox to know what ports are "
@@ -97,20 +97,20 @@ msgstr ""
 "utilizando estos puertos. Esto ayuda a eBox a conocer que puertos están "
 "ocupados previamente"
 
-#: src/EBox/Model/ServiceTable.pm:140
+#: src/EBox/Model/ServiceTable.pm:134
 msgid "Configuration"
 msgstr "Configuración"
 
-#: src/EBox/Model/ServiceTable.pm:152
+#: src/EBox/Model/ServiceTable.pm:144
 msgid "List of services"
 msgstr "Lista de servicios"
 
-#: src/EBox/Model/ServiceTable.pm:163
-#: src/EBox/Model/ServiceConfigurationTable.pm:172
+#: src/EBox/Model/ServiceTable.pm:155
+#: src/EBox/Model/ServiceConfigurationTable.pm:173
 msgid "service"
 msgstr "servicio"
 
-#: src/EBox/Model/ServiceTable.pm:544
+#: src/EBox/Model/ServiceTable.pm:653
 msgid ""
 "A service is an abstraction of one or more network protocols which can be "
 "used in other modules such as: firewall, traffic shaping..."
@@ -118,26 +118,26 @@ msgstr ""
 "Un servicio es una abstracción para uno o más protocolos de red que puede "
 "ser usado en otros módulos como: cortafuegos, moldeado de tráfico..."
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:139
+#: src/EBox/Model/ServiceConfigurationTable.pm:140
 msgid "Protocol"
 msgstr "Protocolo"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:145
+#: src/EBox/Model/ServiceConfigurationTable.pm:146
 msgid "Source port"
 msgstr "Puerto origen"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:147
+#: src/EBox/Model/ServiceConfigurationTable.pm:148
 msgid "This field is usually set to any"
 msgstr "La opción más común para este campo es \"cualquiera\""
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:151
+#: src/EBox/Model/ServiceConfigurationTable.pm:152
 msgid "Destination port"
 msgstr "Puerto destino"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:161
+#: src/EBox/Model/ServiceConfigurationTable.pm:162
 msgid "Service configuration"
 msgstr "Configuración de servicio"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:195
+#: src/EBox/Model/ServiceConfigurationTable.pm:197
 msgid "This protocol does not use ports"
 msgstr "Este protocolo no utiliza puertos"

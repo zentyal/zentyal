@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:28+0200\n"
+"POT-Creation-Date: 2010-07-21 00:32+0200\n"
 "PO-Revision-Date: 2010-04-22 17:24+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,46 +17,46 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/DNS.pm.in:263 src/EBox/Model/DomainTable.pm:248
+#: src/EBox/DNS.pm.in:265 src/EBox/Model/DomainTable.pm:249
 msgid "domain"
 msgstr "domínio"
 
-#: src/EBox/DNS.pm.in:516
+#: src/EBox/DNS.pm.in:518
 msgid "main bind9 configuration file"
 msgstr "Ficheiro de configuração principal do bind9"
 
-#: src/EBox/DNS.pm.in:521
+#: src/EBox/DNS.pm.in:523
 msgid "bind9 options configuration file"
 msgstr "Ficheiro de configuração das opções do bind9"
 
-#: src/EBox/DNS.pm.in:526
+#: src/EBox/DNS.pm.in:528
 msgid "local bind9 configuration file"
 msgstr "Ficheiro de configuração local do bind9"
 
-#: src/EBox/DNS.pm.in:531
+#: src/EBox/DNS.pm.in:533
 msgid "Keys configuration file"
 msgstr "Ficheiro de configuração das chaves"
 
-#: src/EBox/DNS.pm.in:548
+#: src/EBox/DNS.pm.in:550
 #, perl-brace-format
 msgid "configuration file for zone {zone}"
 msgstr "Ficheiro de configuração para a zona {zone}"
 
-#: src/EBox/DNS.pm.in:564
+#: src/EBox/DNS.pm.in:566
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
 msgstr "Ficheiro de configuração para a resolução reversa da zona {zone}"
 
-#: src/EBox/DNS.pm.in:582
+#: src/EBox/DNS.pm.in:584
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr "Alterar as permissões para {dir} para permitir a escrita no grupo bind"
 
-#: src/EBox/DNS.pm.in:584
+#: src/EBox/DNS.pm.in:586
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "Permitir que a rotina bind seja actualizada dinamicamente"
 
-#: src/EBox/Model/HostnameTable.pm:135
+#: src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format
 msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
@@ -65,69 +65,69 @@ msgstr ""
 "Existe um pseudónimo com o mesmo nome \"{name}\" para \"{hostname}\" no "
 "mesmo domínio"
 
-#: src/EBox/Model/HostnameTable.pm:169
+#: src/EBox/Model/HostnameTable.pm:170
 msgid "The domain is set as read only. You cannot add host names"
 msgstr ""
 "Este domínio está definido como somente leitura. Não é possível adicionar "
 "nomes de máquinas"
 
-#: src/EBox/Model/HostnameTable.pm:187 src/EBox/Model/MailExchanger.pm:151
-#: src/EBox/Model/NameServer.pm:131 src/templates/edit.mas:20
+#: src/EBox/Model/HostnameTable.pm:188 src/EBox/Model/MailExchanger.pm:151
+#: src/EBox/Model/NameServer.pm:130 src/templates/edit.mas:20
 msgid "Host name"
 msgstr "Nome da máquina"
 
-#: src/EBox/Model/HostnameTable.pm:195 src/EBox/Model/DomainTable.pm:210
+#: src/EBox/Model/HostnameTable.pm:196 src/EBox/Model/DomainTable.pm:211
 msgid "IP Address"
 msgstr "Endereço IP"
 
-#: src/EBox/Model/HostnameTable.pm:203 src/EBox/Model/AliasTable.pm:130
-#: src/EBox/Model/AliasTable.pm:140 src/EBox/Model/AliasTable.pm:146
+#: src/EBox/Model/HostnameTable.pm:204 src/EBox/Model/AliasTable.pm:131
+#: src/EBox/Model/AliasTable.pm:141 src/EBox/Model/AliasTable.pm:147
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
 msgstr "Pseudónimo"
 
-#: src/EBox/Model/HostnameTable.pm:215
+#: src/EBox/Model/HostnameTable.pm:216
 msgid "Host names"
 msgstr "Nomes da máquina"
 
-#: src/EBox/Model/HostnameTable.pm:222 src/EBox/Model/DomainTable.pm:185
+#: src/EBox/Model/HostnameTable.pm:223 src/EBox/Model/DomainTable.pm:186
 msgid "Hostnames"
 msgstr "Nomes da máquina"
 
-#: src/EBox/Model/HostnameTable.pm:223
+#: src/EBox/Model/HostnameTable.pm:224
 msgid "host name"
 msgstr "nome da máquina"
 
-#: src/EBox/Model/DomainTable.pm:177
+#: src/EBox/Model/DomainTable.pm:178
 msgid "Domain"
 msgstr "Domínio"
 
-#: src/EBox/Model/DomainTable.pm:194
+#: src/EBox/Model/DomainTable.pm:195
 msgid "Mail Exchangers"
 msgstr "Fornecedores de correio"
 
-#: src/EBox/Model/DomainTable.pm:202
+#: src/EBox/Model/DomainTable.pm:203
 msgid "Name Servers"
 msgstr "Servidores de Nomes"
 
-#: src/EBox/Model/DomainTable.pm:218
+#: src/EBox/Model/DomainTable.pm:219
 msgid "Dynamic"
 msgstr "Dinâmico "
 
-#: src/EBox/Model/DomainTable.pm:222
+#: src/EBox/Model/DomainTable.pm:223
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Um domínio é dinâmico quando o servidor DHCP actualiza o domínio"
 
-#: src/EBox/Model/DomainTable.pm:240
+#: src/EBox/Model/DomainTable.pm:241
 msgid "List of Domains"
 msgstr "Lista de Domínios"
 
-#: src/EBox/Model/DomainTable.pm:241 src/EBox/Model/DNSComposite.pm:75
-#: src/EBox/Model/DNSComposite.pm:76
+#: src/EBox/Model/DomainTable.pm:242 src/EBox/Model/DNSComposite.pm:76
+#: src/EBox/Model/DNSComposite.pm:77
 msgid "DNS"
 msgstr "DNS"
 
-#: src/EBox/Model/DNSComposite.pm:78
+#: src/EBox/Model/DNSComposite.pm:79
 msgid "The DNS server allows you to resolve names for your own domains."
 msgstr "O servidor DNS permite resolver nomes dos seus próprios domínios"
 
@@ -151,16 +151,16 @@ msgstr ""
 "O domínio está definido como só de leitura. Não pode adicionar fornecedores "
 "de correio electrónico"
 
-#: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:134
+#: src/EBox/Model/MailExchanger.pm:154 src/EBox/Model/NameServer.pm:133
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
 "Se escolher \"Personalizado\", deverá ser um nome de domínio qualificado"
 
-#: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:140
+#: src/EBox/Model/MailExchanger.pm:160 src/EBox/Model/NameServer.pm:139
 msgid "This domain"
 msgstr "Este domínio"
 
-#: src/EBox/Model/MailExchanger.pm:168 src/EBox/Model/NameServer.pm:148
+#: src/EBox/Model/MailExchanger.pm:168 src/EBox/Model/NameServer.pm:147
 msgid "Custom"
 msgstr "Personalizado"
 
@@ -188,7 +188,7 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr "Registo do fornecedor de correio electrónico"
 
-#: src/EBox/Model/AliasTable.pm:80
+#: src/EBox/Model/AliasTable.pm:81
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
@@ -196,12 +196,12 @@ msgstr ""
 "O pseudónimo não pode ser o nome do hospedeiro do servidor de nomes \"{ns}"
 "\". Em vez disso use outro nome"
 
-#: src/EBox/Model/AliasTable.pm:93
+#: src/EBox/Model/AliasTable.pm:94
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "Existe um nome de hospede com o mesmo nome \"{name}\" no mesmo domínio"
 
-#: src/EBox/Model/AliasTable.pm:102
+#: src/EBox/Model/AliasTable.pm:103
 #, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
@@ -210,11 +210,11 @@ msgstr ""
 "Existe um nome de hospedeiro {hostname} com o mesmo nome \"{name}\" no mesmo "
 "domínio"
 
-#: src/EBox/Model/AliasTable.pm:147
+#: src/EBox/Model/AliasTable.pm:148
 msgid "alias"
 msgstr "pseudónimo"
 
-#: src/EBox/Model/NameServer.pm:77
+#: src/EBox/Model/NameServer.pm:76
 #, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
@@ -223,21 +223,21 @@ msgstr ""
 "O nome de máquna fornecido não é um nome qualificado (FQDN). Quer dizer ns."
 "{name}?"
 
-#: src/EBox/Model/NameServer.pm:112
+#: src/EBox/Model/NameServer.pm:111
 msgid "The domain is set as read only. You cannot add name servers"
 msgstr ""
 "O domínio está definido como só de leitura. Não pode adicionar servidores de "
 "nomes"
 
-#: src/EBox/Model/NameServer.pm:159
+#: src/EBox/Model/NameServer.pm:158
 msgid "Name servers"
 msgstr "Servidor de nomes"
 
-#: src/EBox/Model/NameServer.pm:165
+#: src/EBox/Model/NameServer.pm:164
 msgid "It manages the name server (NS) records for this domain"
 msgstr "Gere os registos do servidor de nomes (NS) para este domínio"
 
-#: src/EBox/Model/NameServer.pm:166
+#: src/EBox/Model/NameServer.pm:165
 msgid "name server record"
 msgstr "Registo do fornecedor de correio correio electrónico"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:54+0200\n"
+"POT-Creation-Date: 2010-07-21 00:37+0200\n"
 "PO-Revision-Date: 2010-07-14 13:04+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,7 +18,7 @@ msgstr ""
 "20)) ? 1 : 2);;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Iptables.pm:811 src/EBox/Iptables.pm:848
+#: src/EBox/Iptables.pm:840 src/EBox/Iptables.pm:877
 #: src/EBox/Firewall/IptablesRedirectRule.pm:78
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
@@ -26,7 +26,7 @@ msgstr ""
 "Trebuie să configuraţi variabila iptables_log_limit în fişierul de "
 "configurare ebox"
 
-#: src/EBox/Iptables.pm:817 src/EBox/Iptables.pm:854
+#: src/EBox/Iptables.pm:846 src/EBox/Iptables.pm:883
 #: src/EBox/Firewall/IptablesRedirectRule.pm:83
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
@@ -34,15 +34,15 @@ msgstr ""
 "Trebuie să configuraţi variabila iptables_log_burst în fişierul de "
 "configurare ebox"
 
-#: src/EBox/Firewall.pm:58 src/EBox/Firewall.pm:856
+#: src/EBox/Firewall.pm:60 src/EBox/Firewall.pm:858
 msgid "Firewall"
 msgstr "Firewall"
 
-#: src/EBox/Firewall.pm:127
+#: src/EBox/Firewall.pm:129
 msgid "Flush previous firewall rules"
 msgstr "Şterge reguli anterioare pt. firewall"
 
-#: src/EBox/Firewall.pm:128
+#: src/EBox/Firewall.pm:130
 msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
@@ -50,11 +50,11 @@ msgstr ""
 "Se vor şterge orice reguli tip firewall ce au fost adăugate manual sau cu "
 "altă unealtă."
 
-#: src/EBox/Firewall.pm:133
+#: src/EBox/Firewall.pm:135
 msgid "Secure by default"
 msgstr "Securizat din start"
 
-#: src/EBox/Firewall.pm:134
+#: src/EBox/Firewall.pm:136
 msgid ""
 "Just a few connections are allowed by default. Make sure you add the proper "
 "incoming and outcoming rules to make your system work as expected. Usually, "
@@ -66,98 +66,98 @@ msgstr ""
 "Toate conexiunile către exterior nu sunt permise, iar dinspre exterior sunt "
 "permise doar conexiunile către SSH şi HTTPS.   "
 
-#: src/EBox/Firewall.pm:312
+#: src/EBox/Firewall.pm:314
 msgid "action"
 msgstr "acţiune"
 
-#: src/EBox/Firewall.pm:433 src/EBox/Firewall.pm:478 src/EBox/Firewall.pm:502
+#: src/EBox/Firewall.pm:435 src/EBox/Firewall.pm:480 src/EBox/Firewall.pm:504
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "Numele '{name}' este incorect"
 
-#: src/EBox/Firewall.pm:434 src/EBox/Firewall.pm:613 src/EBox/Firewall.pm:638
+#: src/EBox/Firewall.pm:436 src/EBox/Firewall.pm:615 src/EBox/Firewall.pm:640
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Firewall.pm:612 src/EBox/Firewall.pm:637
+#: src/EBox/Firewall.pm:614 src/EBox/Firewall.pm:639
 msgid "protocol"
 msgstr "protocol"
 
-#: src/EBox/Firewall.pm:826 src/EBox/CGI/Filter.pm:28
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
+#: src/EBox/Firewall.pm:828 src/EBox/CGI/Filter.pm:30
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:214
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
 msgid "Packet Filter"
 msgstr "Filtru pachete"
 
-#: src/EBox/Firewall.pm:829 src/EBox/Firewall/Model/RedirectsTable.pm:362
+#: src/EBox/Firewall.pm:831 src/EBox/Firewall/Model/RedirectsTable.pm:362
 msgid "Port Forwarding"
 msgstr "Port Forwarding"
 
-#: src/EBox/Firewall.pm:840
+#: src/EBox/Firewall.pm:842
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 msgid "Date"
 msgstr "Data"
 
-#: src/EBox/Firewall.pm:841
+#: src/EBox/Firewall.pm:843
 msgid "Input interface"
 msgstr "Interfaţa de intrare"
 
-#: src/EBox/Firewall.pm:842
+#: src/EBox/Firewall.pm:844
 msgid "Output interface"
 msgstr "Interfaţa de ieşire"
 
-#: src/EBox/Firewall.pm:843 src/EBox/Firewall/Model/RedirectsTable.pm:292
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
+#: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:122
 msgid "Source"
 msgstr "Sursa"
 
-#: src/EBox/Firewall.pm:844 src/EBox/Firewall/Model/BaseRuleTable.pm:147
+#: src/EBox/Firewall.pm:846 src/EBox/Firewall/Model/BaseRuleTable.pm:148
 msgid "Destination"
 msgstr "Destinaţie"
 
-#: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/RedirectsTable.pm:285
+#: src/EBox/Firewall.pm:847 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
 msgstr "Protocol"
 
-#: src/EBox/Firewall.pm:846
+#: src/EBox/Firewall.pm:848
 msgid "Source port"
 msgstr "Port sursă"
 
-#: src/EBox/Firewall.pm:847
+#: src/EBox/Firewall.pm:849
 msgid "Destination port"
 msgstr "Port destinaţie"
 
-#: src/EBox/Firewall.pm:848 src/EBox/Firewall/Model/BaseRuleTable.pm:112
+#: src/EBox/Firewall.pm:850 src/EBox/Firewall/Model/BaseRuleTable.pm:113
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
 msgid "Decision"
 msgstr "Decizie"
 
-#: src/EBox/Firewall.pm:853
+#: src/EBox/Firewall.pm:855
 msgid "DROP"
 msgstr "DROP"
 
-#: src/EBox/Firewall.pm:853 src/EBox/Firewall/Model/BaseRuleTable.pm:70
+#: src/EBox/Firewall.pm:855 src/EBox/Firewall/Model/BaseRuleTable.pm:71
 msgid "LOG"
 msgstr "LOG"
 
-#: src/EBox/Firewall.pm:853
+#: src/EBox/Firewall.pm:855
 msgid "REDIRECT"
 msgstr "REDIRECT"
 
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:69
 msgid "Traffic coming out from eBox"
 msgstr "Reguli de filtrare pentru traficul care iese din eBox"
 
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
 msgid "rule"
 msgstr "regula"
 
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:69
 msgid "External networks to internal networks"
 msgstr "Reţele externe către reţele interne"
 
@@ -190,23 +190,23 @@ msgid "Original destination port"
 msgstr "Port destinaţie iniţial"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:297
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:127
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:153
 msgid "Any"
 msgstr "Orice"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:300
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:130
 msgid "Source IP"
 msgstr "IP sursă"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:304
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:134
 msgid "Source object"
 msgstr "Obiect sursă"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:315
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:156
 msgid "Destination IP"
 msgstr "IP destinaţie"
 
@@ -231,7 +231,7 @@ msgid "Log new forwarded connections"
 msgstr "Jurnalizare conexiuni noi transferate"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:344
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:186
 msgid "Description"
 msgstr "Descriere"
 
@@ -243,23 +243,23 @@ msgstr "Listă porturi transferate"
 msgid "forwarding"
 msgstr "transferare"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:67
 msgid "ACCEPT"
 msgstr "ACCEPT"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:69
 msgid "DENY"
 msgstr "DENY"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:161
 msgid "Destination object"
 msgstr "Obiect destinaţie"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:176
 msgid "Service"
 msgstr "Serviciu"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:180
 msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
@@ -267,20 +267,20 @@ msgstr ""
 "Dacă se bifează potrivirea inversă, regula va selecta potrivirea tuturor "
 "serviciilor cu excepţia celui selectat."
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:228
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
 msgid "Configure Rules"
 msgstr "Configurare reguli"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:243
 msgid "'any service' cannot have a inverse march"
 msgstr "'orice serviciu' nu poate avea potrivire inversă"
 
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:69
 msgid "External networks to eBox"
 msgstr "Reguli de filtrare din reţele externe către eBox"
 
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:69
 msgid "Internal networks to eBox"
 msgstr "Reguli de filtrare din reţele interne către eBox"
 
@@ -333,7 +333,7 @@ msgstr "Condiţie"
 msgid "Rules added by eBox services (Advanced)"
 msgstr "Reguli adăugate de către serviciile eBox (Avansat)"
 
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:66
 msgid "Internal networks"
 msgstr "Reţele interne"
 

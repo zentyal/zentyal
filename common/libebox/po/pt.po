@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 21:08+0200\n"
+"POT-Creation-Date: 2010-07-21 00:53+0200\n"
 "PO-Revision-Date: 2010-04-15 20:09+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,32 +17,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/Exceptions/InvalidData.pm:37
+#: src/EBox/Exceptions/InvalidData.pm:39
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "Valor inválido para {data}: {value}."
 
-#: src/EBox/Exceptions/DataMissing.pm:36
+#: src/EBox/Exceptions/DataMissing.pm:38
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "{data} está vazio"
 
-#: src/EBox/Exceptions/DataExists.pm:36
+#: src/EBox/Exceptions/DataExists.pm:38
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr "Já existe {data} {value}"
 
-#: src/EBox/Exceptions/DataNotFound.pm:35
+#: src/EBox/Exceptions/DataNotFound.pm:37
 #, perl-brace-format
 msgid "{data} {value} does not exist."
 msgstr "{data} {value} não existe"
 
-#: src/EBox/NetWrappers.pm:105 src/EBox/NetWrappers.pm:134
-#: src/EBox/NetWrappers.pm:165 src/EBox/NetWrappers.pm:267
+#: src/EBox/NetWrappers.pm:107 src/EBox/NetWrappers.pm:136
+#: src/EBox/NetWrappers.pm:167 src/EBox/NetWrappers.pm:269
 msgid "Interface"
 msgstr "Interface"
 
-#: src/EBox/CGI/Base.pm:197
+#: src/EBox/CGI/Base.pm:198
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -50,7 +50,7 @@ msgstr ""
 "A entrada contém caracteres inválidos. Todos os caracteres alfanuméricos "
 "mais os seguintes são permitidos: /.?&+:-@ e espaços"
 
-#: src/EBox/CGI/Base.pm:347
+#: src/EBox/CGI/Base.pm:349
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -58,7 +58,7 @@ msgstr ""
 "Ocorreu um erro interno relacionado com o modelo. É provavelmente um bug, a "
 "informação relevante poderá ser encontrada nos registos"
 
-#: src/EBox/CGI/Base.pm:564
+#: src/EBox/CGI/Base.pm:566
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -66,7 +66,7 @@ msgstr ""
 "Ocorreu um erro interno. É provavelmente um bug, a informação relevante "
 "poderá ser encontrada nos registos"
 
-#: src/EBox/CGI/Base.pm:570
+#: src/EBox/CGI/Base.pm:572
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -74,57 +74,61 @@ msgstr ""
 "Ocorreu um erro interno inesperado.É provavelmente um bug, a informação "
 "relevante poderá ser encontrada nos registos"
 
-#: src/EBox/CGI/Base.pm:576
+#: src/EBox/CGI/Base.pm:578
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr "Acabou de encontrar um bug na eBox. Procure suporte técnico"
 
-#: src/EBox/CGI/Base.pm:663
+#: src/EBox/CGI/Base.pm:664
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr "O seu pedido não pode ser processado porque tem parâmetros incorrectos"
 
-#: src/EBox/CGI/Base.pm:678
+#: src/EBox/CGI/Base.pm:697
+msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
+msgstr ""
+
+#: src/EBox/CGI/Base.pm:709
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr "O seu pedido não pode ser processado porque faltam alguns parâmetros"
 
-#: src/EBox/CGI/Base.pm:829
+#: src/EBox/CGI/Base.pm:860
 msgid "Invalid uploaded file."
 msgstr "O ficheiro carregado é inválido"
 
-#: src/EBox/CGI/Base.pm:835
+#: src/EBox/CGI/Base.pm:866
 msgid "Cannot create a temporally file for the upload"
 msgstr "Não é possível criar um ficheiro temporário para a carga"
 
-#: src/EBox/CGI/EBox/PageNotFound.pm:12
+#: src/EBox/CGI/EBox/PageNotFound.pm:28
 msgid "Page not found"
 msgstr "Não foi encontrada a página"
 
-#: src/EBox/Config.pm.in:75
+#: src/EBox/Config.pm.in:76
 #, perl-brace-format
 msgid "Could not open the config file {file}."
 msgstr "Não é possível abrir o ficheiro de configuração {file}"
 
-#: src/EBox/Config.pm.in:170
+#: src/EBox/Config.pm.in:171
 msgid "The ebox user has not been set in the config file."
 msgstr "O utilizador eBox não foi definido no ficheiro de configuração"
 
-#: src/EBox/Sudo.pm:268
+#: src/EBox/Sudo.pm:269
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "O comando '{cmd}' como {user} falhou"
 
-#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:268
+#: src/EBox/FileSystem.pm:191 src/EBox/FileSystem.pm:283
 #, perl-brace-format
 msgid "Directory not found: {d}"
 msgstr "O directório não foi encontrado: {d}"
 
-#: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
+#: src/EBox/Validate.pm:398 src/EBox/Validate.pm:412
 msgid "Must be a number between 1 and 4096"
 msgstr "Deve ser um número entre 1 e 4096"
 
-#: src/EBox/Validate.pm:700
+#: src/EBox/Validate.pm:702
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -133,19 +137,19 @@ msgstr ""
 "Não é possível encontrar: {dir}. Isto quer dizer que o directório não existe "
 "ou as permissões não permitem acede-lo"
 
-#: src/EBox/Validate.pm:705
+#: src/EBox/Validate.pm:707
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "O directório {dir} não é privado porque existe outro utilizador que é o dono"
 
-#: src/EBox/Validate.pm:780
+#: src/EBox/Validate.pm:782
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr "O caminho do ficheiro fornecido não é válido."
 
-#: src/EBox/Validate.pm:808
+#: src/EBox/Validate.pm:810
 msgid "The file path must be absolute"
 msgstr "O caminho do ficheiro deve ser absoluto"
 

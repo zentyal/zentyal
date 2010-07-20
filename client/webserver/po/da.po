@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:56+0200\n"
+"POT-Creation-Date: 2010-07-21 00:52+0200\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -21,129 +21,189 @@ msgstr ""
 msgid "HyperText Transport Protocol"
 msgstr ""
 
-#: src/EBox/WebServer.pm:79 src/EBox/WebServer/Composite/General.pm:81
+#: src/EBox/WebServer.pm:81 src/EBox/WebServer.pm:619
+#: src/EBox/WebServer/Composite/General.pm:79
 msgid "Web Server"
 msgstr ""
 
-#: src/EBox/WebServer.pm:98
-msgid "To set webserver listening port"
+#: src/EBox/WebServer.pm:101
+msgid "To set webserver listening port."
 msgstr ""
 
-#: src/EBox/WebServer.pm:103
-msgid "To configure default Virtual Host"
+#: src/EBox/WebServer.pm:106
+msgid "To configure default virtual host."
 msgstr ""
 
-#: src/EBox/WebServer.pm:108
-msgid "To configure the per-user public HTML directory"
+#: src/EBox/WebServer.pm:111
+msgid "To configure default SSL virtual host."
 msgstr ""
 
-#: src/EBox/WebServer.pm:135
-msgid "Enable apache LDAP user module"
+#: src/EBox/WebServer.pm:116
+msgid "To configure the per-user public_html directory."
 msgstr ""
 
-#: src/EBox/WebServer.pm:137
-msgid "To fetch home directories from LDAP"
+#: src/EBox/WebServer.pm:141
+msgid "Enable Apache LDAP user module"
 msgstr ""
 
-#: src/EBox/WebServer.pm:178
+#: src/EBox/WebServer.pm:143
+msgid "To fetch home directories from LDAP."
+msgstr ""
+
+#: src/EBox/WebServer.pm:146
+msgid "Enable Apache SSL module"
+msgstr ""
+
+#: src/EBox/WebServer.pm:148
+msgid "To serve pages over HTTPS."
+msgstr ""
+
+#: src/EBox/WebServer.pm:186
 msgid "Web service status"
 msgstr ""
 
-#: src/EBox/WebServer.pm:375
+#: src/EBox/WebServer.pm:442
 #, perl-brace-format
-msgid "The {userDirConfFile} is missing! Please recover it"
+msgid "The {userDirConfFile} is missing! Please recover it."
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:90
-msgid "listening port"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:101
-msgid ""
-"To allow HTML directories for users is needed that the file sharing module "
-"is installed and configured"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:107
-msgid ""
-"To allow HTML directories for user is needed to have the file sharing module "
-"configured. To configure it enable it at least one time"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:169
+#: src/EBox/WebServer/Model/GeneralSettings.pm:98
+#: src/EBox/WebServer/Model/GeneralSettings.pm:110
+#: src/EBox/WebServer/Model/GeneralSettings.pm:121
+#: src/EBox/WebServer/Model/GeneralSettings.pm:231
 msgid "Listening port"
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:175
+#: src/EBox/WebServer/Model/GeneralSettings.pm:116
+#, perl-brace-format
+msgid ""
+"eBox Administration is running on this port, change it on {ohref}System -> "
+"General{chref}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:129
+#, perl-brace-format
+msgid ""
+"You need a Service Certificate for the Web Server module, enable it on "
+"{ohref}Certification Authority -> Service Certificates{chref}."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:141
+msgid ""
+"To allow HTML directories for users is needed to have the file sharing "
+"module is installed and configured."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:147
+msgid ""
+"To allow HTML directories for users is needed to have the file sharing "
+"module configured. To configure it enable it at least one time."
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:237
+msgid "Listening SSL port"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:241
+#: src/EBox/WebServer/Model/VHostTable.pm:254
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:246
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:254
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:179
+#: src/EBox/WebServer/Model/GeneralSettings.pm:258
 msgid ""
-"If you tick this field, each user is permitted to have a website in their "
-"home directory under public_html"
+"Allow users to publish web documents using the public_html directory on "
+"their home."
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:189
+#: src/EBox/WebServer/Model/GeneralSettings.pm:266
 msgid "General configuration settings"
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:193
+#: src/EBox/WebServer/Model/GeneralSettings.pm:270
 #, perl-brace-format
 msgid ""
 "General Web server configuration. The listening port must not be got from "
 "another service. If you enable user to publish their own html pages, the "
 "pages will be loaded from {dirName} directory from their samba home "
-"directories"
+"directories."
 msgstr ""
 
-#: src/EBox/WebServer/Model/GeneralSettings.pm:199
-msgid "General Web server configuration settings updated"
+#: src/EBox/WebServer/Model/GeneralSettings.pm:276
+msgid "General Web server configuration settings updated."
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:93
-msgid "Virtual host's name"
+#: src/EBox/WebServer/Model/VHostTable.pm:95
+msgid "Virtual host name"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:159
+#: src/EBox/WebServer/Model/VHostTable.pm:99
+#: src/EBox/WebServer/Model/VHostTable.pm:312
+msgid "Virtual host"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:106
+msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:171
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip}. {noDnsWarning} "
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:178
+#: src/EBox/WebServer/Model/VHostTable.pm:190
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
-"added to {domain} domain"
+"added to {domain} domain."
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:192
+#: src/EBox/WebServer/Model/VHostTable.pm:204
 #, perl-brace-format
-msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}."
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:198
-#: src/EBox/WebServer/Model/VHostTable.pm:203
+#: src/EBox/WebServer/Model/VHostTable.pm:210
+#: src/EBox/WebServer/Model/VHostTable.pm:215
 #, perl-brace-format
-msgid "Virtual host {vhost} added"
+msgid "Virtual host {vhost} added."
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:208
-msgid "There is no static internal interface to set the Web server IP address"
+#: src/EBox/WebServer/Model/VHostTable.pm:220
+msgid "There is no static internal interface to set the Web server IP address."
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:234
+#: src/EBox/WebServer/Model/VHostTable.pm:255
+msgid "Allow SSL"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:256
+msgid "Force SSL"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:281
+msgid "SSL support"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:288
 msgid "Name"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:244
+#: src/EBox/WebServer/Model/VHostTable.pm:298
 msgid "Virtual hosts"
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:248
+#: src/EBox/WebServer/Model/VHostTable.pm:302
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -151,26 +211,22 @@ msgid ""
 "will point to the same web server. The DNS entry is automatically created if "
 "this is possible. The content must be placed under {docRoot} directory. Any "
 "particular configuration you want to add must be placed at {userConf} "
-"directory"
+"directory."
 msgstr ""
 
-#: src/EBox/WebServer/Model/VHostTable.pm:258
-msgid "virtual host"
-msgstr ""
-
-#: src/EBox/WebServer/Model/VHostTable.pm:280
+#: src/EBox/WebServer/Model/VHostTable.pm:333
 #, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it"
 msgstr ""
 
-#: src/EBox/WebServer/Composite/General.pm:80
+#: src/EBox/WebServer/Composite/General.pm:78
 msgid "Configuration"
 msgstr ""
 
-#: src/EBox/WebServer/Composite/General.pm:83
+#: src/EBox/WebServer/Composite/General.pm:81
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
-"different virtual hosts"
+"different virtual hosts."
 msgstr ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-mailfilter 0.12.99Report-Msgid-Bugs-To: bugs@warp."
 "es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:32+0200\n"
+"POT-Creation-Date: 2010-07-21 00:33+0200\n"
 "PO-Revision-Date: 2008-09-01 08:32+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -26,174 +26,174 @@ msgstr ""
 msgid "POP3 protocol"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:63
+#: src/EBox/MailFilter.pm:64
 msgid "Mail Filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:81
+#: src/EBox/MailFilter.pm:82
 msgid "Add clamav user to amavis group"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:82
+#: src/EBox/MailFilter.pm:83
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:86
+#: src/EBox/MailFilter.pm:87
 msgid "Add clamav user to p3scan group"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:87
+#: src/EBox/MailFilter.pm:88
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:91
+#: src/EBox/MailFilter.pm:92
 msgid "Add spam and ham system users"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:93
+#: src/EBox/MailFilter.pm:94
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:98
+#: src/EBox/MailFilter.pm:99
 msgid "Update LDAP"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:99
+#: src/EBox/MailFilter.pm:100
 msgid "Add amavis specific classes and fields"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:358
+#: src/EBox/MailFilter.pm:359
 msgid "Cannot proceed because the filter is in use"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:513
+#: src/EBox/MailFilter.pm:514
 msgid "Mail filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:534 src/EBox/MailFilter.pm:580
+#: src/EBox/MailFilter.pm:535 src/EBox/MailFilter.pm:581
 #: src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 #: src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
 msgid "Date"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:536
+#: src/EBox/MailFilter.pm:537
 msgid "Action"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:537 src/EBox/MailFilter.pm:584
+#: src/EBox/MailFilter.pm:538 src/EBox/MailFilter.pm:585
 msgid "Event"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:539
+#: src/EBox/MailFilter.pm:540
 msgid "Sender address"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:540
+#: src/EBox/MailFilter.pm:541
 msgid "Recipient address"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:542
+#: src/EBox/MailFilter.pm:543
 msgid "Spam hits"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:547
+#: src/EBox/MailFilter.pm:548
 msgid "Bad header found"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:548
+#: src/EBox/MailFilter.pm:549
 msgid "Spam found"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:549
+#: src/EBox/MailFilter.pm:550
 msgid "Forbidden attached file found"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:550
+#: src/EBox/MailFilter.pm:551
 msgid "Address in blacklist found"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:551
+#: src/EBox/MailFilter.pm:552
 msgid "Virus found"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:552
+#: src/EBox/MailFilter.pm:553
 msgid "Clean message"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:562
+#: src/EBox/MailFilter.pm:563
 msgid "SMTP filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:582
+#: src/EBox/MailFilter.pm:583
 msgid "Account"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:583
+#: src/EBox/MailFilter.pm:584
 msgid "Client's address"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:586
+#: src/EBox/MailFilter.pm:587
 msgid "Total messages"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:587
+#: src/EBox/MailFilter.pm:588
 msgid "Clean messages"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:588
+#: src/EBox/MailFilter.pm:589
 msgid "Virus messages"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:589
+#: src/EBox/MailFilter.pm:590
 msgid "Spam messages"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:596
+#: src/EBox/MailFilter.pm:597
 msgid "POP3 transmission complete"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:598
+#: src/EBox/MailFilter.pm:599
 msgid "POP3 transmission aborted"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:606
+#: src/EBox/MailFilter.pm:607
 msgid "POP3 proxy"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:705 src/EBox/MailFilter/Composite/Amavis.pm:61
+#: src/EBox/MailFilter.pm:706 src/EBox/MailFilter/Composite/Amavis.pm:61
 msgid "SMTP Mail Filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:712
+#: src/EBox/MailFilter.pm:713
 #: src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 msgid "POP Transparent Proxy"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:720 src/EBox/MailFilter/POPProxy.pm:348
-#: src/EBox/MailFilter/Amavis.pm:468
+#: src/EBox/MailFilter.pm:721 src/EBox/MailFilter/POPProxy.pm:347
+#: src/EBox/MailFilter/Amavis.pm:483
 #: src/EBox/MailFilter/Composite/Antispam.pm:63
 #: src/EBox/MailFilter/Composite/Antispam.pm:64
 msgid "Antispam"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:727
+#: src/EBox/MailFilter.pm:728
 msgid "Files ACL"
 msgstr ""
 
-#: src/EBox/MailFilter/POPProxy.pm:61
+#: src/EBox/MailFilter/POPProxy.pm:60
 msgid " To configure p3scan"
 msgstr ""
 
-#: src/EBox/MailFilter/POPProxy.pm:66
+#: src/EBox/MailFilter/POPProxy.pm:65
 msgid "To configure renattach"
 msgstr ""
 
-#: src/EBox/MailFilter/POPProxy.pm:322
+#: src/EBox/MailFilter/POPProxy.pm:321
 msgid "Transparent POP Proxy"
 msgstr ""
 
-#: src/EBox/MailFilter/POPProxy.pm:328 src/EBox/MailFilter/Amavis.pm:452
+#: src/EBox/MailFilter/POPProxy.pm:327 src/EBox/MailFilter/Amavis.pm:467
 msgid "Status"
 msgstr ""
 
@@ -216,23 +216,23 @@ msgid ""
 "'@'"
 msgstr ""
 
-#: src/EBox/MailFilter/Types/Policy.pm:30
+#: src/EBox/MailFilter/Types/Policy.pm:45
 msgid "Pass"
 msgstr ""
 
-#: src/EBox/MailFilter/Types/Policy.pm:31
+#: src/EBox/MailFilter/Types/Policy.pm:46
 msgid "Reject"
 msgstr ""
 
-#: src/EBox/MailFilter/Types/Policy.pm:32
+#: src/EBox/MailFilter/Types/Policy.pm:47
 msgid "Bounce"
 msgstr ""
 
-#: src/EBox/MailFilter/Types/Policy.pm:33
+#: src/EBox/MailFilter/Types/Policy.pm:48
 msgid "Discard"
 msgstr ""
 
-#: src/EBox/MailFilter/Types/Policy.pm:53
+#: src/EBox/MailFilter/Types/Policy.pm:68
 msgid "Mailfilter's policy"
 msgstr ""
 
@@ -259,7 +259,7 @@ msgstr ""
 msgid "Write down a number greater  than {m}"
 msgstr ""
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:604
+#: src/EBox/MailFilter/VDomainsLdap.pm:605
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
 msgstr ""
@@ -410,7 +410,7 @@ msgstr ""
 
 #: src/EBox/MailFilter/Model/AntispamConfiguration.pm:63
 #: src/EBox/MailFilter/Model/VDomains.pm:91
-#: src/EBox/MailFilter/SpamAssassin.pm:336
+#: src/EBox/MailFilter/SpamAssassin.pm:337
 msgid "Spam threshold"
 msgstr ""
 
@@ -754,44 +754,44 @@ msgstr ""
 msgid "Transparent POP proxy traffic"
 msgstr ""
 
-#: src/EBox/MailFilter/Amavis.pm:48
+#: src/EBox/MailFilter/Amavis.pm:63
 msgid "To configure amavis"
 msgstr ""
 
-#: src/EBox/MailFilter/Amavis.pm:432
+#: src/EBox/MailFilter/Amavis.pm:447
 msgid "eBox internal mail filter"
 msgstr ""
 
-#: src/EBox/MailFilter/Amavis.pm:446
+#: src/EBox/MailFilter/Amavis.pm:461
 msgid "SMTP filter proxy"
 msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:58
+#: src/EBox/MailFilter/SpamAssassin.pm:59
 msgid " To configure spamassassin daemon"
 msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:336
+#: src/EBox/MailFilter/SpamAssassin.pm:337
 msgid "It must be a number(decimal point allowed)"
 msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:346
+#: src/EBox/MailFilter/SpamAssassin.pm:347
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
 msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:350
+#: src/EBox/MailFilter/SpamAssassin.pm:351
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
 msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:390
+#: src/EBox/MailFilter/SpamAssassin.pm:391
 msgid ""
 "Cannot learn because bayesian filter is disabled in the current "
 "configuration. In order to be able to learn enable the bayesian filter and "
 "save changes"
 msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:404
+#: src/EBox/MailFilter/SpamAssassin.pm:405
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
 msgstr ""

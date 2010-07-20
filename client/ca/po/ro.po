@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:22+0200\n"
+"POT-Creation-Date: 2010-07-21 00:29+0200\n"
 "PO-Revision-Date: 2010-05-04 12:25+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,24 +18,24 @@ msgstr ""
 "20)) ? 1 : 2);;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:49
-#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:122
+#: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:43
+#: src/EBox/CGI/RenewCertificate.pm:43 src/EBox/CGI/IssueCertificate.pm:50
+#: src/EBox/CGI/ShowForm.pm:42 src/EBox/CGI/Index.pm:40
+#: src/EBox/CGI/DownloadFiles.pm:43 src/EBox/CA.pm:123
 msgid "Certification Authority"
 msgstr "Autoritate de certificare"
 
-#: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:119
+#: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:120
 msgid "CA passphrases do NOT match"
 msgstr "Parolele CA nu se potrivesc"
 
-#: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:127
+#: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:128
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "Parola CA trebie să fie de minim {length} caractere"
 
-#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:96
-#: src/EBox/CGI/IssueCertificate.pm:137
+#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:97
+#: src/EBox/CGI/IssueCertificate.pm:138
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
 msgstr ""
@@ -45,31 +45,31 @@ msgstr ""
 msgid "Problems creating Certification Authority has happened"
 msgstr "Au apărut probleme la crearea autorității de certificare"
 
-#: src/EBox/CGI/RevokeCertificate.pm:64
+#: src/EBox/CGI/RevokeCertificate.pm:65
 msgid "The certificate has NOT been revoked."
 msgstr "Certificatul NU a fost revocat."
 
-#: src/EBox/CGI/RevokeCertificate.pm:71 src/EBox/CGI/RenewCertificate.pm:69
+#: src/EBox/CGI/RevokeCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:70
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "Indicator boolen al certificatului autorității de certificare"
 
-#: src/EBox/CGI/RevokeCertificate.pm:72 src/templates/formRevoke.mas:67
+#: src/EBox/CGI/RevokeCertificate.pm:73 src/templates/formRevoke.mas:67
 msgid "Reason"
 msgstr "Motiv"
 
-#: src/EBox/CGI/RevokeCertificate.pm:77 src/EBox/CGI/RenewCertificate.pm:75
-#: src/EBox/CGI/IssueCertificate.pm:104 src/EBox/CGI/ShowForm.pm:64
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:765 src/EBox/CA.pm:938
-#: src/EBox/CA.pm:1286 src/EBox/CA.pm:1358 src/EBox/CA.pm:1452
-#: src/EBox/Model/Certificates.pm:235 src/EBox/CA/TestStub.pm:438
-#: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
+#: src/EBox/CGI/RevokeCertificate.pm:78 src/EBox/CGI/RenewCertificate.pm:76
+#: src/EBox/CGI/IssueCertificate.pm:105 src/EBox/CGI/ShowForm.pm:65
+#: src/EBox/CGI/DownloadFiles.pm:70 src/EBox/CA.pm:766 src/EBox/CA.pm:939
+#: src/EBox/CA.pm:1287 src/EBox/CA.pm:1359 src/EBox/CA.pm:1455
+#: src/EBox/Model/Certificates.pm:264 src/EBox/CA/TestStub.pm:439
+#: src/EBox/CA/TestStub.pm:517 src/EBox/CA/TestStub.pm:643
 #: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
 #: src/templates/index.mas:23
 msgid "Common Name"
 msgstr "Nume comun"
 
-#: src/EBox/CGI/RevokeCertificate.pm:81 src/EBox/CGI/RenewCertificate.pm:79
-#: src/EBox/CGI/ShowForm.pm:68
+#: src/EBox/CGI/RevokeCertificate.pm:82 src/EBox/CGI/RenewCertificate.pm:80
+#: src/EBox/CGI/ShowForm.pm:69
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -77,43 +77,43 @@ msgstr ""
 "Ați introdus caractere nepermise. Sunt permise toate caracterele "
 "alfanumerice, spațiile și caracterele .?&+:-@*"
 
-#: src/EBox/CGI/RevokeCertificate.pm:139
+#: src/EBox/CGI/RevokeCertificate.pm:140
 msgid "The certificate has been revoked"
 msgstr "Certificatul a fost revocat"
 
-#: src/EBox/CGI/RevokeCertificate.pm:140
+#: src/EBox/CGI/RevokeCertificate.pm:141
 msgid "The CA certificate has been revoked"
 msgstr "Certificatul autorității de certificare a fost revocat"
 
-#: src/EBox/CGI/RenewCertificate.pm:64
+#: src/EBox/CGI/RenewCertificate.pm:65
 msgid "The certificate has NOT been renewed"
 msgstr "Certificatul NU a fost reînnoit"
 
-#: src/EBox/CGI/RenewCertificate.pm:70 src/templates/formRenew.mas:13
+#: src/EBox/CGI/RenewCertificate.pm:71 src/templates/formRenew.mas:13
 #: src/templates/index.mas:52 src/templates/createCA.mas:19
 msgid "Days to expire"
 msgstr "Zile de valabilitate"
 
-#: src/EBox/CGI/RenewCertificate.pm:143
+#: src/EBox/CGI/RenewCertificate.pm:144
 msgid "The certificate CANNOT be renewed"
 msgstr "Certificatul NU poate fi reînnoit"
 
-#: src/EBox/CGI/RenewCertificate.pm:145
+#: src/EBox/CGI/RenewCertificate.pm:146
 msgid "The certificate has been renewed"
 msgstr "  Certificatul a fost reînnoit"
 
-#: src/EBox/CGI/RenewCertificate.pm:146
+#: src/EBox/CGI/RenewCertificate.pm:147
 msgid "The new CA certificate has been renewed"
 msgstr "Noul certificat al autorității de certificare a fost reînnoit"
 
-#: src/EBox/CGI/IssueCertificate.pm:102 src/EBox/CA.pm:259 src/EBox/CA.pm:537
-#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
+#: src/EBox/CGI/IssueCertificate.pm:103 src/EBox/CA.pm:260 src/EBox/CA.pm:538
+#: src/EBox/CA/TestStub.pm:155 src/EBox/CA/TestStub.pm:255
 #: src/templates/formRenew.mas:37 src/templates/formRevoke.mas:22
 #: src/templates/index.mas:22 src/templates/createCA.mas:7
 msgid "Organization Name"
 msgstr "Nume organizație"
 
-#: src/EBox/CGI/IssueCertificate.pm:145
+#: src/EBox/CGI/IssueCertificate.pm:146
 #, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
@@ -122,54 +122,54 @@ msgstr ""
 "Ați introdus caractere nepermise. Sunt permise toate caracterele ASCII "
 "{ascii}, spațiile și caracterele: .?&+:-@*"
 
-#: src/EBox/CGI/IssueCertificate.pm:177 src/EBox/CA.pm:2630
+#: src/EBox/CGI/IssueCertificate.pm:178 src/EBox/CA.pm:2639
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr ""
 "Numai {dns}, {ip} și {email} sunt tipuri valide alternative de nume pt. "
 "subiect"
 
-#: src/EBox/CGI/IssueCertificate.pm:184
+#: src/EBox/CGI/IssueCertificate.pm:185
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr "Numele alternativ de subiect va fi de forma: tip:valoare,tip:valoare"
 
-#: src/EBox/CGI/IssueCertificate.pm:206
+#: src/EBox/CGI/IssueCertificate.pm:207
 msgid "The certificate has been issued."
 msgstr "Certificatul a fost emis."
 
-#: src/EBox/CGI/IssueCertificate.pm:207
+#: src/EBox/CGI/IssueCertificate.pm:208
 msgid "The new CA certificate has been issued."
 msgstr "Noul certificat al autorității de certificare a fost emis."
 
-#: src/EBox/CGI/ShowForm.pm:74
+#: src/EBox/CGI/ShowForm.pm:75
 msgid "Action"
 msgstr "Acțiune"
 
-#: src/EBox/CGI/ShowForm.pm:83
+#: src/EBox/CGI/ShowForm.pm:84
 msgid "Only revoke and renew actions are performed"
 msgstr "Se efectuează doar acțiuni de revocare și reînnoire"
 
-#: src/EBox/CGI/ShowForm.pm:91 src/EBox/CGI/DownloadFiles.pm:79
+#: src/EBox/CGI/ShowForm.pm:92 src/EBox/CGI/DownloadFiles.pm:80
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
 msgstr "Numele comun: {cn} NU există în baza de date"
 
-#: src/EBox/CGI/DownloadFiles.pm:133
+#: src/EBox/CGI/DownloadFiles.pm:134
 msgid "Error creating file"
 msgstr "Eroare la crearea fișierului"
 
-#: src/EBox/CA.pm:301 src/EBox/CA.pm:782 src/EBox/CA.pm:1431
+#: src/EBox/CA.pm:302 src/EBox/CA.pm:783 src/EBox/CA.pm:1434
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Zile setate la maximul permis: {days}: Bug-ul anului 2038"
 
-#: src/EBox/CA.pm:396
+#: src/EBox/CA.pm:397
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Operațiunea de ștergere nu s-a finalizat. Motiv:"
 
-#: src/EBox/CA.pm:551 src/EBox/CA/TestStub.pm:259
+#: src/EBox/CA.pm:552 src/EBox/CA/TestStub.pm:260
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -177,12 +177,12 @@ msgstr ""
 "Certificatele CA trebuie revocate sau să fie expirate înainte de emiterea "
 "unui nou certificat"
 
-#: src/EBox/CA.pm:951 src/EBox/CA.pm:1297
+#: src/EBox/CA.pm:952 src/EBox/CA.pm:1298
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "NU există certificat pentru numele comun {cn}"
 
-#: src/EBox/CA.pm:955
+#: src/EBox/CA.pm:956
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -191,89 +191,81 @@ msgstr ""
 "Motivul {reason} NU este acceptabil.\n"
 "Opțiuni:"
 
-#: src/EBox/CA.pm:1102
+#: src/EBox/CA.pm:1103
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 "Intrastructura autorității de certificare nu este disponibilă, trebuie întâi "
 "creată"
 
-#: src/EBox/CA.pm:1201
+#: src/EBox/CA.pm:1202
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "Au fost transmise numele comun, numele oficial sau numărul de serie"
 
-#: src/EBox/CA.pm:1453
+#: src/EBox/CA.pm:1456
 msgid "or"
 msgstr "sau"
 
-#: src/EBox/CA.pm:1454
+#: src/EBox/CA.pm:1457
 msgid "Certificate file"
 msgstr "Fișierul certificatului"
 
-#: src/EBox/CA.pm:1476
+#: src/EBox/CA.pm:1479
 msgid "The certificate to renew does NOT exist"
 msgstr "Certificatul de reînnoit NU există"
 
-#: src/EBox/CA.pm:1516
+#: src/EBox/CA.pm:1519
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr ""
 "Certificatul cu numele comun {cn} NU există în această autoritate de "
 "certificare."
 
-#: src/EBox/CA.pm:1546
-msgid ""
-"The private key passpharse needed to create a new request. No renewal was "
-"made. Issue a new certificate with new keys"
-msgstr ""
-"Parola cheii private este necesară pentru a crea o cerere nouă. Nu s-a făcut "
-"reînnoirea. Certificatul se va emite cu noile chei."
-
-#: src/EBox/CA.pm:1791
+#: src/EBox/CA.pm:1800
 msgid "General"
 msgstr "General"
 
-#: src/EBox/CA.pm:1794 src/EBox/Model/Certificates.pm:251
+#: src/EBox/CA.pm:1803 src/EBox/Model/Certificates.pm:280
 msgid "Services Certificates"
 msgstr "Servicii pt. certificate"
 
-#: src/EBox/CA.pm:1881
+#: src/EBox/CA.pm:1890
 msgid "Not created"
 msgstr "Nu e creat"
 
-#: src/EBox/CA.pm:1883
+#: src/EBox/CA.pm:1892
 msgid "Available"
 msgstr "Disponibil"
 
-#: src/EBox/CA.pm:1885
+#: src/EBox/CA.pm:1894
 msgid "Created but not available"
 msgstr "Creat dar indisponibil"
 
-#: src/EBox/CA.pm:2478
+#: src/EBox/CA.pm:2487
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr "Nu pot semna. Parola CA este greșită sau a dispărut parola CA."
 
-#: src/EBox/CA.pm:2480
+#: src/EBox/CA.pm:2489
 msgid "Database corruption"
 msgstr "Baza de date este coruptă"
 
-#: src/EBox/CA.pm:2482
+#: src/EBox/CA.pm:2491
 msgid "Identifier duplicated in Database"
 msgstr "Identificator duplicat în baza de date"
 
-#: src/EBox/CA.pm:2484
+#: src/EBox/CA.pm:2493
 msgid "Certificate already revoked"
 msgstr "Certificatul este revocat deja"
 
-#: src/EBox/CA.pm:2487
+#: src/EBox/CA.pm:2496
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "Lungime câmp ASN prea mare. Dimensiune maximă:"
 
-#: src/EBox/CA.pm:2489
+#: src/EBox/CA.pm:2498
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Eroare necunoscută. OpenSSL spune:"
 
-#: src/EBox/CA.pm:2564
+#: src/EBox/CA.pm:2573
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -282,18 +274,18 @@ msgstr ""
 "A fost creată autoritatea de certificare pentru organizația {orgName} cu "
 "valabilitate de {days} zile"
 
-#: src/EBox/CA.pm:2566
+#: src/EBox/CA.pm:2575
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr ""
 "A fost distrusă autoritatea de certificare pentru organizația {orgName} "
 
-#: src/EBox/CA.pm:2568
+#: src/EBox/CA.pm:2577
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "A fost revocat certificatul CA datorită : {reason} forțat de : {force}"
 
-#: src/EBox/CA.pm:2570
+#: src/EBox/CA.pm:2579
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -302,7 +294,7 @@ msgstr ""
 "A fost emis certificatul CA cu numele organizației {orgName} cu valabilitate "
 "de {days} zile"
 
-#: src/EBox/CA.pm:2572
+#: src/EBox/CA.pm:2581
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -311,13 +303,13 @@ msgstr ""
 "A fost reînnoit certificatul CA cu numele organizației {orgName} cu "
 "valabilitate de {days} zile"
 
-#: src/EBox/CA.pm:2574
+#: src/EBox/CA.pm:2583
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "A fost emis certificatul cu numele comun {cn} cu valabilitate de {days} zile"
 
-#: src/EBox/CA.pm:2576
+#: src/EBox/CA.pm:2585
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -325,30 +317,30 @@ msgstr ""
 "A fost revocat certificatul cu numele comun {cn} datorită : {reason} forțat "
 "de: {force}"
 
-#: src/EBox/CA.pm:2578
+#: src/EBox/CA.pm:2587
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 "A fost reînnoit certificatul cu numele comun {cn} cu valabilitate de {days} "
 "zile"
 
-#: src/EBox/CA.pm:2580
+#: src/EBox/CA.pm:2589
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "Baza de date de certificate a fost actualizată. Au expirat {number} "
 "certificate"
 
-#: src/EBox/CA.pm:2600 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:2609 src/EBox/CA/TestStub.pm:730
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "Data expirării este după data exirării certificatului CA"
 
-#: src/EBox/CA.pm:2730
+#: src/EBox/CA.pm:2739
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Nu pot porni consola OpenSSL ({errval})"
 
-#: src/EBox/Model/Certificates.pm:93
+#: src/EBox/Model/Certificates.pm:92
 #, perl-brace-format
 msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
@@ -357,29 +349,29 @@ msgstr ""
 "Întâi creați o autoritate de certificare. Pentru asta mergeți la {openhref}"
 "Autoritate de certificare{closehref} "
 
-#: src/EBox/Model/Certificates.pm:217
+#: src/EBox/Model/Certificates.pm:246
 msgid "Module"
 msgstr "Module"
 
-#: src/EBox/Model/Certificates.pm:229
+#: src/EBox/Model/Certificates.pm:258
 msgid "Service"
 msgstr "Serviciu"
 
-#: src/EBox/Model/Certificates.pm:241
+#: src/EBox/Model/Certificates.pm:270
 msgid "Enable"
 msgstr "Activare"
 
-#: src/EBox/Model/Certificates.pm:243
+#: src/EBox/Model/Certificates.pm:272
 msgid "Generate the certificate using CA with the common name set above"
 msgstr ""
 "Generează certificatul folosind autoritatea de certificare cu numele comun "
 "de mai sus"
 
-#: src/EBox/Model/Certificates.pm:252
+#: src/EBox/Model/Certificates.pm:281
 msgid "certificate"
 msgstr "certificat(e)"
 
-#: src/EBox/Model/Certificates.pm:258
+#: src/EBox/Model/Certificates.pm:287
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by eBox"
@@ -387,12 +379,12 @@ msgstr ""
 "Aici puteți accesa certificatele de la această autoritate de certificare "
 "pentru serviciile sigure ale acestui eBox"
 
-#: src/EBox/CA/TestStub.pm:654
+#: src/EBox/CA/TestStub.pm:655
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
 msgstr "Nu există utilizatorul cu numele comun {commonName}"
 
-#: src/EBox/CA/TestStub.pm:720
+#: src/EBox/CA/TestStub.pm:721
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "Numărul zilelor de valabilitate pus la maxim: Bug-ul anului 2038"
 
@@ -458,7 +450,8 @@ msgid "Issue"
 msgstr "Emitere"
 
 #: src/templates/index.mas:77
-msgid "Certificate changes will take effect immediately"
+#, fuzzy
+msgid "Certificate changes will take effect immediately."
 msgstr "Modificările certificatelor vor avea efect imediat"
 
 #: src/templates/index.mas:79
@@ -593,3 +586,10 @@ msgstr ""
 "Reînnoirea certificatului cu  numele comun {cn} poate afecta funcționarea "
 "altor module. Sunteți sigur că doriți reînnoirea lui  și afectarea "
 "serviciilor (instabile sau dezafectate)?"
+
+#~ msgid ""
+#~ "The private key passpharse needed to create a new request. No renewal was "
+#~ "made. Issue a new certificate with new keys"
+#~ msgstr ""
+#~ "Parola cheii private este necesară pentru a crea o cerere nouă. Nu s-a "
+#~ "făcut reînnoirea. Certificatul se va emite cu noile chei."

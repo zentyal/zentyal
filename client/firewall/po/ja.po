@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:54+0200\n"
+"POT-Creation-Date: 2010-07-21 00:37+0200\n"
 "PO-Revision-Date: 2008-01-08 15:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,38 +16,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/Iptables.pm:811 src/EBox/Iptables.pm:848
+#: src/EBox/Iptables.pm:840 src/EBox/Iptables.pm:877
 #: src/EBox/Firewall/IptablesRedirectRule.pm:78
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr "eBox設定ファイルの iptables_log_limit 変数を設定する必要があります"
 
-#: src/EBox/Iptables.pm:817 src/EBox/Iptables.pm:854
+#: src/EBox/Iptables.pm:846 src/EBox/Iptables.pm:883
 #: src/EBox/Firewall/IptablesRedirectRule.pm:83
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr "eBox設定ファイルの iptables_log_burst 変数を設定する必要があります"
 
-#: src/EBox/Firewall.pm:58 src/EBox/Firewall.pm:856
+#: src/EBox/Firewall.pm:60 src/EBox/Firewall.pm:858
 msgid "Firewall"
 msgstr "ファイアウォール"
 
-#: src/EBox/Firewall.pm:127
+#: src/EBox/Firewall.pm:129
 msgid "Flush previous firewall rules"
 msgstr "以前のファイアウォールルールを削除"
 
-#: src/EBox/Firewall.pm:128
+#: src/EBox/Firewall.pm:130
 msgid ""
 "The eBox firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
 "eBoxファイアウォールは別のツールや手動で追加した以前のルールを削除します"
 
-#: src/EBox/Firewall.pm:133
+#: src/EBox/Firewall.pm:135
 msgid "Secure by default"
 msgstr "デフォルト"
 
-#: src/EBox/Firewall.pm:134
+#: src/EBox/Firewall.pm:136
 msgid ""
 "Just a few connections are allowed by default. Make sure you add the proper "
 "incoming and outcoming rules to make your system work as expected. Usually, "
@@ -59,99 +59,99 @@ msgstr ""
 "フォルトでは通常、すべての外向きの接続は拒否され、内向きのSSHとHTTPSのみが許"
 "可されています。"
 
-#: src/EBox/Firewall.pm:312
+#: src/EBox/Firewall.pm:314
 msgid "action"
 msgstr "アクション"
 
-#: src/EBox/Firewall.pm:433 src/EBox/Firewall.pm:478 src/EBox/Firewall.pm:502
+#: src/EBox/Firewall.pm:435 src/EBox/Firewall.pm:480 src/EBox/Firewall.pm:504
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "名前 '{name}' は無効です"
 
-#: src/EBox/Firewall.pm:434 src/EBox/Firewall.pm:613 src/EBox/Firewall.pm:638
+#: src/EBox/Firewall.pm:436 src/EBox/Firewall.pm:615 src/EBox/Firewall.pm:640
 msgid "port"
 msgstr "ポート"
 
-#: src/EBox/Firewall.pm:612 src/EBox/Firewall.pm:637
+#: src/EBox/Firewall.pm:614 src/EBox/Firewall.pm:639
 msgid "protocol"
 msgstr "プロトコル"
 
-#: src/EBox/Firewall.pm:826 src/EBox/CGI/Filter.pm:28
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:213
+#: src/EBox/Firewall.pm:828 src/EBox/CGI/Filter.pm:30
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:214
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:180
 msgid "Packet Filter"
 msgstr "パケットフィルタ"
 
-#: src/EBox/Firewall.pm:829 src/EBox/Firewall/Model/RedirectsTable.pm:362
+#: src/EBox/Firewall.pm:831 src/EBox/Firewall/Model/RedirectsTable.pm:362
 msgid "Port Forwarding"
 msgstr ""
 
-#: src/EBox/Firewall.pm:840
+#: src/EBox/Firewall.pm:842
 #: src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 msgid "Date"
 msgstr "日付"
 
-#: src/EBox/Firewall.pm:841
+#: src/EBox/Firewall.pm:843
 msgid "Input interface"
 msgstr "入力インタフェース"
 
-#: src/EBox/Firewall.pm:842
+#: src/EBox/Firewall.pm:844
 msgid "Output interface"
 msgstr "出力インタフェース"
 
-#: src/EBox/Firewall.pm:843 src/EBox/Firewall/Model/RedirectsTable.pm:292
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:121
+#: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/RedirectsTable.pm:292
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:122
 msgid "Source"
 msgstr "送信元"
 
-#: src/EBox/Firewall.pm:844 src/EBox/Firewall/Model/BaseRuleTable.pm:147
+#: src/EBox/Firewall.pm:846 src/EBox/Firewall/Model/BaseRuleTable.pm:148
 msgid "Destination"
 msgstr "送信先"
 
-#: src/EBox/Firewall.pm:845 src/EBox/Firewall/Model/RedirectsTable.pm:285
+#: src/EBox/Firewall.pm:847 src/EBox/Firewall/Model/RedirectsTable.pm:285
 msgid "Protocol"
 msgstr "プロトコル"
 
-#: src/EBox/Firewall.pm:846
+#: src/EBox/Firewall.pm:848
 msgid "Source port"
 msgstr "送信元ポート"
 
-#: src/EBox/Firewall.pm:847
+#: src/EBox/Firewall.pm:849
 msgid "Destination port"
 msgstr "送信先ポート"
 
-#: src/EBox/Firewall.pm:848 src/EBox/Firewall/Model/BaseRuleTable.pm:112
+#: src/EBox/Firewall.pm:850 src/EBox/Firewall/Model/BaseRuleTable.pm:113
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:144
 msgid "Decision"
 msgstr "決定"
 
-#: src/EBox/Firewall.pm:853
+#: src/EBox/Firewall.pm:855
 msgid "DROP"
 msgstr "ドロップ"
 
-#: src/EBox/Firewall.pm:853 src/EBox/Firewall/Model/BaseRuleTable.pm:70
+#: src/EBox/Firewall.pm:855 src/EBox/Firewall/Model/BaseRuleTable.pm:71
 msgid "LOG"
 msgstr ""
 
-#: src/EBox/Firewall.pm:853
+#: src/EBox/Firewall.pm:855
 msgid "REDIRECT"
 msgstr ""
 
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:68
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:69
 #, fuzzy
 msgid "Traffic coming out from eBox"
 msgstr "eBoxからのトラフィックへのフィルタルール"
 
-#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:77
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:80
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:79
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:77
+#: src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:78
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:81
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:80
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:78
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:161
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:77
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:78
 msgid "rule"
 msgstr "ルール"
 
-#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:68
+#: src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:69
 #, fuzzy
 msgid "External networks to internal networks"
 msgstr "外部ネットワークから内部ネットワークへのフィルタルール"
@@ -188,23 +188,23 @@ msgid "Original destination port"
 msgstr "送信先ポート"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:297
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:126
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:152
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:127
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:153
 msgid "Any"
 msgstr "全て"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:300
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:129
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:130
 msgid "Source IP"
 msgstr "送信元IP"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:304
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:133
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:134
 msgid "Source object"
 msgstr "送信元オブジェクト"
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:315
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:155
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:156
 msgid "Destination IP"
 msgstr "送信先IP"
 
@@ -229,7 +229,7 @@ msgid "Log new forwarded connections"
 msgstr ""
 
 #: src/EBox/Firewall/Model/RedirectsTable.pm:344
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:185
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:186
 msgid "Description"
 msgstr "内容"
 
@@ -241,44 +241,44 @@ msgstr ""
 msgid "forwarding"
 msgstr ""
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:66
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:67
 msgid "ACCEPT"
 msgstr "許可"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:68
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:69
 msgid "DENY"
 msgstr "拒否"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:160
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:161
 msgid "Destination object"
 msgstr "送信先オブジェクト"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:175
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:176
 msgid "Service"
 msgstr "サービス"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:179
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:180
 msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:227
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:228
 #: src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:194
 #, fuzzy
 msgid "Configure Rules"
 msgstr "ルールを設定"
 
-#: src/EBox/Firewall/Model/BaseRuleTable.pm:242
+#: src/EBox/Firewall/Model/BaseRuleTable.pm:243
 msgid "'any service' cannot have a inverse march"
 msgstr ""
 
-#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:68
+#: src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:69
 #, fuzzy
 msgid "External networks to eBox"
 msgstr "外部ネットワークからeBoxへのフィルタルール"
 
-#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:68
+#: src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:69
 #, fuzzy
 msgid "Internal networks to eBox"
 msgstr "内部ネットワークからeBoxへのフィルタルール"
@@ -335,7 +335,7 @@ msgstr ""
 msgid "Rules added by eBox services (Advanced)"
 msgstr ""
 
-#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:65
+#: src/EBox/Firewall/Model/ToInternetRuleTable.pm:66
 #, fuzzy
 msgid "Internal networks"
 msgstr "外部ポート"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 1.4.1Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:31+0200\n"
+"POT-Creation-Date: 2010-07-21 00:33+0200\n"
 "PO-Revision-Date: 2010-05-06 16:48+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,8 +17,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
+#: migration/0001_add_firewall_services.pl:30 src/EBox/Jabber.pm:221
+#, fuzzy
+msgid "Jabber Server"
+msgstr "Jabberi server"
+
 # segane lause, siin peaks olema autentimine mitte autoriseerimine
-#: src/EBox/JabberLdapUser.pm:262
+#: src/EBox/JabberLdapUser.pm:263
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
@@ -27,113 +32,129 @@ msgstr ""
 "ühendust ei katkestata enne, kui on nõutav jabberi autentimine."
 
 # Jabberi LDAP skeemi lisamine
-#: src/EBox/Jabber.pm:72
+#: src/EBox/Jabber.pm:56
 msgid "Add Jabber LDAP schema"
 msgstr "Jabberi lisamine LDAP skeemi"
 
-#: src/EBox/Jabber.pm:73
-msgid "eBox will need this schema to store jabber users"
+#: src/EBox/Jabber.pm:57
+#, fuzzy
+msgid "eBox will need this schema to store Jabber users."
 msgstr "eBoxi vajab seda skeemi jabberi kasutajate hoidmiseks"
 
-#: src/EBox/Jabber.pm:90 src/EBox/Jabber.pm:95 src/EBox/Jabber.pm:100
-msgid "To properly configure jabberd2"
+#: src/EBox/Jabber.pm:73
+#, fuzzy
+msgid "To properly configure ejabberd."
 msgstr "jabberd2 korrektselt seadistamiseks"
 
-#: src/EBox/Jabber.pm:105 src/EBox/Jabber.pm:110
-msgid "To properly configure jabberd2 muc"
-msgstr "jabberd2 muc korrektselt seadistamiseks"
-
-#: src/EBox/Jabber.pm:280 src/EBox/CGI/JabberConf.pm:42
-msgid "domain"
-msgstr "domeen"
-
-#: src/EBox/Jabber.pm:394
-msgid "Jabber server"
-msgstr "Jabberi server"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "mooduli olek"
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
-#: src/EBox/Jabber/Model/JabberUser.pm:58
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/CGI/JabberUserOptions.pm:43
+#: src/EBox/CGI/JabberUserOptions.pm:45
 msgid "username"
 msgstr "kasutajanimi"
 
-#: src/EBox/Jabber/Model/JabberUser.pm:50 src/templates/jabber.mas:8
-msgid "Jabber Account"
+#: src/EBox/Jabber/Model/GeneralSettings.pm:92 src/templates/jabber.mas:22
+#: src/templates/jabber.mas:25
+msgid "Disabled"
+msgstr "Keelatud"
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:93
+msgid "Allow SSL"
+msgstr ""
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:94
+msgid "Force SSL"
+msgstr ""
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:113
+#, fuzzy
+msgid "Jabber domain"
 msgstr "Jabberi konto"
 
-#: src/templates/index.mas:17
-msgid "General Configuration"
-msgstr "Üldine seadistamine"
+#: src/EBox/Jabber/Model/GeneralSettings.pm:119
+msgid "SSL support"
+msgstr "SSLi tugi"
 
-#: src/templates/index.mas:19
-msgid ""
-"Domain name should be available on the network. Otherwise, you may not be "
-"able to use this service. This applies for internal and external connections."
-msgstr ""
-"Domeeninimi peab olema võrgus avalik. Vastasel juhul ei pruugi sul teenuse "
-"kasutamine õnnestuda. See kehtib nii sise- kui välisühenduste kohta."
-
-#: src/templates/index.mas:25
-msgid "Domain name"
-msgstr "Domeeninimi"
-
-#: src/templates/index.mas:33
+#: src/EBox/Jabber/Model/GeneralSettings.pm:126
 msgid "Connect to other servers"
 msgstr "Ühenduse loomine teiste serveritega"
 
 # grupivestlus, rühmavestlus
-#: src/templates/index.mas:45
+#: src/EBox/Jabber/Model/GeneralSettings.pm:132
 msgid "Enable MUC (Multi User Chat)"
 msgstr "Luba MUC (konverentsvestlus)"
 
-#: src/templates/index.mas:57
-msgid "SSL support"
-msgstr "SSLi tugi"
+#: src/EBox/Jabber/Model/GeneralSettings.pm:141
+#, fuzzy
+msgid "General configuration settings"
+msgstr "Üldine seadistamine"
 
-#: src/templates/index.mas:62 src/templates/index.mas:66
-#: src/templates/index.mas:70
-msgid "No"
-msgstr "Ei kasutata"
+#: src/EBox/Jabber/Model/GeneralSettings.pm:146
+msgid "General Jabber server configuration settings updated."
+msgstr ""
 
-#: src/templates/index.mas:63 src/templates/index.mas:67
-#: src/templates/index.mas:71
-msgid "Optional"
-msgstr "Valikuline"
+#: src/EBox/Jabber/Model/JabberUser.pm:50
+msgid "Jabber Account"
+msgstr "Jabberi konto"
 
-#: src/templates/index.mas:64 src/templates/index.mas:68
-#: src/templates/index.mas:72
-msgid "Required"
-msgstr "Nõutav"
+#: src/EBox/Jabber/Model/JabberUser.pm:58
+#: src/EBox/Jabber/Composite/General.pm:67
+msgid "Jabber"
+msgstr "Jabber"
 
-#: src/templates/index.mas:81 src/templates/index.mas:82
-#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
-msgid "Change"
-msgstr "Muuda"
+#: src/EBox/Jabber/Composite/General.pm:66
+#, fuzzy
+msgid "Configuration"
+msgstr "Üldine seadistamine"
 
-#: src/templates/jabber.mas:9
-msgid "Password for Jabber service is the user password."
-msgstr "Jabberi teenuse parool on sama kui kasutaja parool"
+#: src/templates/jabber.mas:8
+#, fuzzy
+msgid "Jabber account"
+msgstr "Jabberi konto"
 
-#: src/templates/jabber.mas:18
+#: src/templates/jabber.mas:17
 msgid "User account"
 msgstr "Kasutajakonto"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:26
-msgid "Disabled"
-msgstr "Keelatud"
-
-#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
 msgid "Enabled"
 msgstr "Lubatud"
 
 # Administreerimisõigused
-#: src/templates/jabber.mas:34
+#: src/templates/jabber.mas:33
 msgid "Administration rights"
 msgstr "Administreerimise õigused"
+
+#: src/templates/jabber.mas:47 src/templates/jabber.mas:48
+msgid "Change"
+msgstr "Muuda"
+
+#~ msgid "To properly configure jabberd2 muc"
+#~ msgstr "jabberd2 muc korrektselt seadistamiseks"
+
+#~ msgid "domain"
+#~ msgstr "domeen"
+
+#~ msgid "module status"
+#~ msgstr "mooduli olek"
+
+#~ msgid ""
+#~ "Domain name should be available on the network. Otherwise, you may not be "
+#~ "able to use this service. This applies for internal and external "
+#~ "connections."
+#~ msgstr ""
+#~ "Domeeninimi peab olema võrgus avalik. Vastasel juhul ei pruugi sul "
+#~ "teenuse kasutamine õnnestuda. See kehtib nii sise- kui välisühenduste "
+#~ "kohta."
+
+#~ msgid "Domain name"
+#~ msgstr "Domeeninimi"
+
+#~ msgid "No"
+#~ msgstr "Ei kasutata"
+
+#~ msgid "Optional"
+#~ msgstr "Valikuline"
+
+#~ msgid "Required"
+#~ msgstr "Nõutav"
+
+#~ msgid "Password for Jabber service is the user password."
+#~ msgstr "Jabberi teenuse parool on sama kui kasutaja parool"

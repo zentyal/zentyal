@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:31+0200\n"
+"POT-Creation-Date: 2010-07-21 00:33+0200\n"
 "PO-Revision-Date: 2010-02-03 16:03+0100\n"
 "Last-Translator: Ronny Gonzales <gonzito@online.no>\n"
 "Language-Team: none\n"
@@ -17,7 +17,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/JabberLdapUser.pm:262
+#: migration/0001_add_firewall_services.pl:30 src/EBox/Jabber.pm:221
+#, fuzzy
+msgid "Jabber Server"
+msgstr "Jabber server"
+
+#: src/EBox/JabberLdapUser.pm:263
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
@@ -25,115 +30,130 @@ msgstr ""
 "Denne brukeren har en jabber konto. Hvis brukeren er tilkoblet vil den "
 "fortsette tilkoblet inntil jabber autoriseringen trengs igjen."
 
-#: src/EBox/Jabber.pm:72
+#: src/EBox/Jabber.pm:56
 msgid "Add Jabber LDAP schema"
 msgstr "Legg til Jabber LDAP skjema"
 
-#: src/EBox/Jabber.pm:73
-msgid "eBox will need this schema to store jabber users"
+#: src/EBox/Jabber.pm:57
+#, fuzzy
+msgid "eBox will need this schema to store Jabber users."
 msgstr "eBox vil trenge dette skjemaet til å lagre jabber brukere"
 
-#: src/EBox/Jabber.pm:90 src/EBox/Jabber.pm:95 src/EBox/Jabber.pm:100
-msgid "To properly configure jabberd2"
+#: src/EBox/Jabber.pm:73
+#, fuzzy
+msgid "To properly configure ejabberd."
 msgstr "For å konfigurere jabberd2 korrekt"
 
-#: src/EBox/Jabber.pm:105 src/EBox/Jabber.pm:110
-msgid "To properly configure jabberd2 muc"
-msgstr "For å konfigurere jabberd2 muc korrekt"
-
-#: src/EBox/Jabber.pm:280 src/EBox/CGI/JabberConf.pm:42
-msgid "domain"
-msgstr "domene"
-
-#: src/EBox/Jabber.pm:394
-msgid "Jabber server"
-msgstr "Jabber server"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "modul status"
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
-#: src/EBox/Jabber/Model/JabberUser.pm:58
-msgid "Jabber"
-msgstr "Jabber"
-
-#: src/EBox/CGI/JabberUserOptions.pm:43
+#: src/EBox/CGI/JabberUserOptions.pm:45
 msgid "username"
 msgstr "brukernavn"
 
-#: src/EBox/Jabber/Model/JabberUser.pm:50 src/templates/jabber.mas:8
-msgid "Jabber Account"
+#: src/EBox/Jabber/Model/GeneralSettings.pm:92 src/templates/jabber.mas:22
+#: src/templates/jabber.mas:25
+msgid "Disabled"
+msgstr "Deaktivert"
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:93
+msgid "Allow SSL"
+msgstr ""
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:94
+msgid "Force SSL"
+msgstr ""
+
+#: src/EBox/Jabber/Model/GeneralSettings.pm:113
+#, fuzzy
+msgid "Jabber domain"
 msgstr "Jabber Konto"
 
-#: src/templates/index.mas:17
-msgid "General Configuration"
-msgstr "Generell konfigurasjon"
-
-#: src/templates/index.mas:19
-msgid ""
-"Domain name should be available on the network. Otherwise, you may not be "
-"able to use this service. This applies for internal and external connections."
-msgstr ""
-"Domene navn må være tilgjengelig på nettverket. Eller, kan det hende at du "
-"ikke får brukt denne tjenesten. Dette gjelder for interne og eksterne "
-"tilkoblinger."
-
-#: src/templates/index.mas:25
-msgid "Domain name"
-msgstr "Domene navn"
-
-#: src/templates/index.mas:33
-msgid "Connect to other servers"
-msgstr "Koble til andre servere"
-
-#: src/templates/index.mas:45
-msgid "Enable MUC (Multi User Chat)"
-msgstr "Aktiver MUC (Multi User Chat)"
-
-#: src/templates/index.mas:57
+#: src/EBox/Jabber/Model/GeneralSettings.pm:119
 msgid "SSL support"
 msgstr "SSL støtte"
 
-#: src/templates/index.mas:62 src/templates/index.mas:66
-#: src/templates/index.mas:70
-msgid "No"
-msgstr "Nei"
+#: src/EBox/Jabber/Model/GeneralSettings.pm:126
+msgid "Connect to other servers"
+msgstr "Koble til andre servere"
 
-#: src/templates/index.mas:63 src/templates/index.mas:67
-#: src/templates/index.mas:71
-msgid "Optional"
-msgstr "Valgfri"
+#: src/EBox/Jabber/Model/GeneralSettings.pm:132
+msgid "Enable MUC (Multi User Chat)"
+msgstr "Aktiver MUC (Multi User Chat)"
 
-#: src/templates/index.mas:64 src/templates/index.mas:68
-#: src/templates/index.mas:72
-msgid "Required"
-msgstr "Påkrevd"
+#: src/EBox/Jabber/Model/GeneralSettings.pm:141
+#, fuzzy
+msgid "General configuration settings"
+msgstr "Generell konfigurasjon"
 
-#: src/templates/index.mas:81 src/templates/index.mas:82
-#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
-msgid "Change"
-msgstr "Endre"
+#: src/EBox/Jabber/Model/GeneralSettings.pm:146
+msgid "General Jabber server configuration settings updated."
+msgstr ""
 
-#: src/templates/jabber.mas:9
-msgid "Password for Jabber service is the user password."
-msgstr "Passord for Jabber tjeneste er bruker passordet."
+#: src/EBox/Jabber/Model/JabberUser.pm:50
+msgid "Jabber Account"
+msgstr "Jabber Konto"
 
-#: src/templates/jabber.mas:18
+#: src/EBox/Jabber/Model/JabberUser.pm:58
+#: src/EBox/Jabber/Composite/General.pm:67
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Jabber/Composite/General.pm:66
+#, fuzzy
+msgid "Configuration"
+msgstr "Generell konfigurasjon"
+
+#: src/templates/jabber.mas:8
+#, fuzzy
+msgid "Jabber account"
+msgstr "Jabber Konto"
+
+#: src/templates/jabber.mas:17
 msgid "User account"
 msgstr "Bruker konto"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:26
-msgid "Disabled"
-msgstr "Deaktivert"
-
-#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
 msgid "Enabled"
 msgstr "Aktivert"
 
-#: src/templates/jabber.mas:34
+#: src/templates/jabber.mas:33
 msgid "Administration rights"
 msgstr "Administrasjons rettigheter"
+
+#: src/templates/jabber.mas:47 src/templates/jabber.mas:48
+msgid "Change"
+msgstr "Endre"
+
+#~ msgid "To properly configure jabberd2 muc"
+#~ msgstr "For å konfigurere jabberd2 muc korrekt"
+
+#~ msgid "domain"
+#~ msgstr "domene"
+
+#~ msgid "module status"
+#~ msgstr "modul status"
+
+#~ msgid ""
+#~ "Domain name should be available on the network. Otherwise, you may not be "
+#~ "able to use this service. This applies for internal and external "
+#~ "connections."
+#~ msgstr ""
+#~ "Domene navn må være tilgjengelig på nettverket. Eller, kan det hende at "
+#~ "du ikke får brukt denne tjenesten. Dette gjelder for interne og eksterne "
+#~ "tilkoblinger."
+
+#~ msgid "Domain name"
+#~ msgstr "Domene navn"
+
+#~ msgid "No"
+#~ msgstr "Nei"
+
+#~ msgid "Optional"
+#~ msgstr "Valgfri"
+
+#~ msgid "Required"
+#~ msgstr "Påkrevd"
+
+#~ msgid "Password for Jabber service is the user password."
+#~ msgstr "Passord for Jabber tjeneste er bruker passordet."
 
 #~ msgid "Copy jabber ldap schema to /etc/ldap/schemas"
 #~ msgstr "Kopier jabber ldap skjema til /etc/ldap/schemas"

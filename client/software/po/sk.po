@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:55+0200\n"
+"POT-Creation-Date: 2010-07-21 00:47+0200\n"
 "PO-Revision-Date: 2010-06-02 20:35+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: none\n"
@@ -29,230 +29,303 @@ msgstr "software služba aktualizuje balíčky prostredníctvom apt"
 msgid "rule to allow apt updates"
 msgstr "pravidlá na povolenie apt aktualizácii"
 
-#: src/EBox/Software.pm:53
+#: src/EBox/Software.pm:57
 msgid "Software Management"
 msgstr "Správa Software"
 
-#: src/EBox/Software.pm:78 src/EBox/Software.pm:84
+#: src/EBox/Software.pm:487
+#, perl-brace-format
 msgid ""
-"eBox software will download the available updates from your configured apt "
-"sources. "
+"You cannot modify the automatic update using QA updates from Web UI. To "
+"disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
-"eBox software stiahne dostupné aktualizácie z vami zadefinovaných zdrojov."
 
-#: src/EBox/Software.pm:83
-msgid "Enable cron script to download updates"
-msgstr "Na sťahovanie aktualizácií povoliť cron skript"
-
-#: src/EBox/Software.pm:168 src/EBox/Software.pm:407
-msgid ""
-"The software management module must be enabled to be able to install packages"
-msgstr ""
-"Modul správy software musí byť povolený, aby bolo možné inštalovať balíčky"
-
-#: src/EBox/Software.pm:212 src/EBox/Software.pm:441
-msgid ""
-"The software management module must be enabled to be able to remove packages"
-msgstr ""
-"Modul správy software musí byť povolený, aby bolo možné odinštalovať balíčky"
-
-#: src/EBox/Software.pm:551
+#: src/EBox/Software.pm:552
 msgid "eBox Components"
 msgstr "eBox komponenty"
 
-#: src/EBox/Software.pm:553
+#: src/EBox/Software.pm:554
 msgid "System Updates"
 msgstr "Systémové aktualizácie"
 
-#: src/EBox/Software.pm:555
-msgid "Automatic Updates"
-msgstr "Automatické aktualizácie"
+#: src/EBox/Software.pm:556 src/templates/config.mas:19
+msgid "Settings"
+msgstr ""
 
-#: src/EBox/Software.pm:646
+#: src/EBox/Software.pm:695
 #, fuzzy, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr "Správa software je práve uzamknutá {locker}. Skúste neskôr, prosím."
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+#: src/EBox/Software.pm:832
+msgid "Welcome"
+msgstr ""
+
+#: src/EBox/Software.pm:834
+msgid "Package Selection"
+msgstr ""
+
+#: src/EBox/Software.pm:835
+msgid "Confirmation"
+msgstr ""
+
+#: src/EBox/Software.pm:836
+msgid "Installation"
+msgstr ""
+
+#: src/EBox/Software.pm:837
+#, fuzzy
+msgid "Initial Configuration"
+msgstr "konfigurácia automatických aktualizácií"
+
+#: src/EBox/Software.pm:838
+msgid "Save Changes"
+msgstr ""
+
+#: src/EBox/CGI/Config.pm:33
+#, fuzzy
+msgid "Software management settings"
+msgstr "Správa Software"
+
+#: src/EBox/CGI/Config.pm:43
 msgid "Automatic software updates"
 msgstr "Automatické aktualizácie software"
 
-#: src/EBox/CGI/Enable.pm:41
+#: src/EBox/CGI/Enable.pm:43
 msgid "automatic updates configuration"
 msgstr "konfigurácia automatických aktualizácií"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40
+#: src/EBox/CGI/EBox.pm:36
+#, fuzzy
+msgid "Choose eBox packages to install"
+msgstr "balíček vynechaný z inštalácie"
+
+#: src/EBox/CGI/EBox.pm:40
 msgid "eBox components"
 msgstr "eBox komponenty"
 
-#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
+#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:42
 msgid "System updates"
 msgstr "Systémové aktualizácie"
 
-#: src/EBox/CGI/Updates.pm:45
-msgid "Software updates are being handled automatically"
-msgstr "Aktualizácia software bude riadená automaticky"
-
-#: src/EBox/CGI/Updates.pm:52
+#: src/EBox/CGI/Updates.pm:48
 msgid "The system components are up to date."
 msgstr "Systémové komponenty sú aktualizované."
 
-#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/InstallPkgs.pm:148
+#: src/EBox/CGI/CurrentPackage.pm:32
 msgid "Upgrading"
 msgstr "Aktualizuje sa"
 
-#: src/EBox/CGI/InstallPkgs.pm:84
+#: src/EBox/CGI/InstallPkgs.pm:102
 msgid "There were no packages to update"
 msgstr "Žiadne balíčky k aktualizácii"
 
-#: src/EBox/CGI/InstallPkgs.pm:149
-msgid "Upgrading packages"
+#: src/EBox/CGI/InstallPkgs.pm:166
+msgid "Installing"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:167
+#, fuzzy
+msgid "Installing packages"
 msgstr "Aktualizujú sa balíčky"
 
-#: src/EBox/CGI/InstallPkgs.pm:150 src/EBox/CGI/InstallPkgs.pm:170
-msgid "Current package"
+#: src/EBox/CGI/InstallPkgs.pm:168 src/EBox/CGI/InstallPkgs.pm:192
+#, fuzzy
+msgid "Current operation"
 msgstr "Súčasný balíček"
 
-#: src/EBox/CGI/InstallPkgs.pm:151
-msgid "packages left to install"
+#: src/EBox/CGI/InstallPkgs.pm:169
+#, fuzzy
+msgid "packages installed"
 msgstr "balíček vynechaný z inštalácie"
 
-#: src/EBox/CGI/InstallPkgs.pm:152
+#: src/EBox/CGI/InstallPkgs.pm:170
+#, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
-"until the system has been fully restarted"
+"until the system has been fully configured. You will be automatically "
+"redirected to the next step"
 msgstr ""
 "Inštalácia balíčkov prebehla úspešne. Administračné rozhranie bude dostupné "
 "o pár sekúnd. Prosím, buďte trpezlivý, pokiaľ sa systém nereštartuje."
 
-#: src/EBox/CGI/InstallPkgs.pm:156
+#: src/EBox/CGI/InstallPkgs.pm:175
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "Inštalácia balíčkov bola neúspešná. Viac informácií v záznamoch"
 
-#: src/EBox/CGI/InstallPkgs.pm:168
+#: src/EBox/CGI/InstallPkgs.pm:190
 msgid "Removing package"
 msgstr "Odstraňujem balíček"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:191
 msgid "Removing the selected package and its dependent packages"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:171
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid "packages left to remove"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:172
+#: src/EBox/CGI/InstallPkgs.pm:194
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:176
+#: src/EBox/CGI/InstallPkgs.pm:198
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
 
-#: src/templates/ebox.mas:16 src/templates/updates.mas:20
-msgid "Component"
-msgstr ""
-
-#: src/templates/ebox.mas:17
-msgid "Installed version "
-msgstr ""
-
-#: src/templates/ebox.mas:18
-msgid "Latest version"
-msgstr ""
-
-#: src/templates/ebox.mas:19
-msgid "Actions"
-msgstr ""
-
-#: src/templates/ebox.mas:30 src/templates/updates.mas:23
+#: src/templates/ebox.mas:139 src/templates/updates.mas:35
 msgid "Update"
 msgstr ""
 
-#: src/templates/ebox.mas:36
+#: src/templates/ebox.mas:145
 msgid "Install"
 msgstr ""
 
-#: src/templates/ebox.mas:38
-msgid "none"
+#: src/templates/ebox.mas:167
+msgid "View advanced mode"
 msgstr ""
 
-#: src/templates/ebox.mas:60
-msgid "Remove"
+#: src/templates/ebox.mas:481
+msgid "View basic mode"
 msgstr ""
 
-#: src/templates/ebox.mas:77 src/templates/updates.mas:57
-msgid "Update all packages"
-msgstr ""
-
-#: src/templates/del.mas:14
+#: src/templates/del.mas:96
 msgid "The following packages will be installed"
 msgstr ""
 
-#: src/templates/del.mas:16
+#: src/templates/del.mas:98
 msgid "The following packages will be removed"
 msgstr ""
 
-#: src/templates/del.mas:32
+#: src/templates/del.mas:141
 msgid "Ok"
 msgstr ""
 
-#: src/templates/del.mas:33
+#: src/templates/del.mas:142
 msgid "Cancel"
+msgstr ""
+
+#: src/templates/del.mas:149
+msgid "You may want to install also the following recommended packages:"
+msgstr ""
+
+#: src/templates/del.mas:152
+msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
+msgstr ""
+
+#: src/templates/del.mas:155
+msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
+msgstr ""
+
+#: src/templates/del.mas:158
+msgid "VoIP meetings support (dahdi and linux-headers)"
 msgstr ""
 
 #: src/templates/config.mas:8
 msgid "Perform automatic security updates"
 msgstr ""
 
-#: src/templates/updates.mas:15
+#: src/templates/config.mas:14
+msgid "This eBox is configured to use automatic QA updates"
+msgstr ""
+
+#: src/templates/config.mas:26
+msgid "Automatic operations start time"
+msgstr ""
+
+#: src/templates/updates.mas:24
 msgid "Updates are available for the following system components"
 msgstr ""
 
-#: src/templates/updates.mas:21
+#: src/templates/updates.mas:26
+msgid "Community updates are available for the following system components"
+msgstr ""
+
+#: src/templates/updates.mas:32
+msgid "Component"
+msgstr ""
+
+#: src/templates/updates.mas:33
 msgid "Description"
 msgstr ""
 
-#: src/templates/updates.mas:22
+#: src/templates/updates.mas:34
 msgid "Version"
 msgstr ""
 
-#: src/templates/updates.mas:68
+#: src/templates/updates.mas:52
+#, fuzzy
+msgid "Security update"
+msgstr "Systémové aktualizácie"
+
+#: src/templates/updates.mas:55
+msgid "eBox QA update"
+msgstr ""
+
+#: src/templates/updates.mas:77
+msgid "Update all packages"
+msgstr ""
+
+#: src/templates/updates.mas:88
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
 
-#: src/templates/updates.mas:71
+#: src/templates/updates.mas:91
 msgid "Upgrade"
-msgstr ""
-
-#: src/templates/updateNote.mas:7
-msgid ""
-"Please wait, the update of the software available list is in process right "
-"now"
 msgstr ""
 
 #: src/templates/updateNote.mas:10
 msgid ""
-"The component list was never succefully downloaded so the information shown "
-"is probably outdated. The list is updated each night or you can force the "
-"update with the console command 'ebox-software'"
+"As you are enjoying a Commercial Server Subscription the updates are Quality "
+"Assured by the eBox Development Team."
 msgstr ""
 
-#: src/templates/updateNote.mas:20
+#: src/templates/updateNote.mas:13
 #, perl-brace-format
 msgid ""
-"The component list was updated on {mon}/{mday}/{year} {hour}:{min}. It will "
-"be updated again at night or you can force the update with the console "
-"command 'ebox-software'"
+"Warning: The updates are community based. You can now gain access to the "
+"Quality Assured Updates by purchasing the <a href='{proUrl}'>Professional</"
+"a>  or <a href='{entUrl}'>Enterprise</a> Server Subscription. QA Updates "
+"guarantee that all the upgrades, bugfixes and security updates are "
+"extensively tested by the eBox Development Team and you won't be introducing "
+"any regressions on your already working system."
 msgstr ""
+
+#~ msgid ""
+#~ "eBox software will download the available updates from your configured "
+#~ "apt sources. "
+#~ msgstr ""
+#~ "eBox software stiahne dostupné aktualizácie z vami zadefinovaných zdrojov."
+
+#~ msgid "Enable cron script to download updates"
+#~ msgstr "Na sťahovanie aktualizácií povoliť cron skript"
+
+#~ msgid ""
+#~ "The software management module must be enabled to be able to install "
+#~ "packages"
+#~ msgstr ""
+#~ "Modul správy software musí byť povolený, aby bolo možné inštalovať balíčky"
+
+#~ msgid ""
+#~ "The software management module must be enabled to be able to remove "
+#~ "packages"
+#~ msgstr ""
+#~ "Modul správy software musí byť povolený, aby bolo možné odinštalovať "
+#~ "balíčky"
+
+#~ msgid "Automatic Updates"
+#~ msgstr "Automatické aktualizácie"
+
+#~ msgid "Software updates are being handled automatically"
+#~ msgstr "Aktualizácia software bude riadená automaticky"

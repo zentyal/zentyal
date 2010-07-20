@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:22+0200\n"
+"POT-Creation-Date: 2010-07-21 00:29+0200\n"
 "PO-Revision-Date: 2009-08-08 15:00+0200\n"
 "Last-Translator: Mustafa M. EL-Sebaie <mustsebaie@hotmail.com>\n"
 "Language-Team: none\n"
@@ -17,24 +17,24 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:49
-#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/Index.pm:39
-#: src/EBox/CGI/DownloadFiles.pm:42 src/EBox/CA.pm:122
+#: src/EBox/CGI/CreateCA.pm:44 src/EBox/CGI/RevokeCertificate.pm:43
+#: src/EBox/CGI/RenewCertificate.pm:43 src/EBox/CGI/IssueCertificate.pm:50
+#: src/EBox/CGI/ShowForm.pm:42 src/EBox/CGI/Index.pm:40
+#: src/EBox/CGI/DownloadFiles.pm:43 src/EBox/CA.pm:123
 msgid "Certification Authority"
 msgstr "هيئة التوثيق"
 
-#: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:119
+#: src/EBox/CGI/CreateCA.pm:111 src/EBox/CGI/IssueCertificate.pm:120
 msgid "CA passphrases do NOT match"
 msgstr "توثيق كلمة سر الCA غير متوافق"
 
-#: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:127
+#: src/EBox/CGI/CreateCA.pm:121 src/EBox/CGI/IssueCertificate.pm:128
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "كلمة سر الCA يجب أن تكون مكونة على اﻷقل من {length} حروف."
 
-#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:96
-#: src/EBox/CGI/IssueCertificate.pm:137
+#: src/EBox/CGI/CreateCA.pm:126 src/EBox/CGI/RenewCertificate.pm:97
+#: src/EBox/CGI/IssueCertificate.pm:138
 #, perl-brace-format
 msgid "Days to expire ({days}) must be a positive number"
 msgstr "عدد أﻷيام قبل نهاية الصلاحية ({days}) يجب أن يكون عدداً موجباً."
@@ -43,31 +43,31 @@ msgstr "عدد أﻷيام قبل نهاية الصلاحية ({days}) يجب أ
 msgid "Problems creating Certification Authority has happened"
 msgstr "لقد حدثت أخطاء أثناء عملية إنشاء هيئة التوثيق."
 
-#: src/EBox/CGI/RevokeCertificate.pm:64
+#: src/EBox/CGI/RevokeCertificate.pm:65
 msgid "The certificate has NOT been revoked."
 msgstr "لم يتم فسخ شهادة التوثيق."
 
-#: src/EBox/CGI/RevokeCertificate.pm:71 src/EBox/CGI/RenewCertificate.pm:69
+#: src/EBox/CGI/RevokeCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:70
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "رمز قبول أونفي يعبر عن شهادة هيئة التوثيق."
 
-#: src/EBox/CGI/RevokeCertificate.pm:72 src/templates/formRevoke.mas:67
+#: src/EBox/CGI/RevokeCertificate.pm:73 src/templates/formRevoke.mas:67
 msgid "Reason"
 msgstr "السبب"
 
-#: src/EBox/CGI/RevokeCertificate.pm:77 src/EBox/CGI/RenewCertificate.pm:75
-#: src/EBox/CGI/IssueCertificate.pm:104 src/EBox/CGI/ShowForm.pm:64
-#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CA.pm:765 src/EBox/CA.pm:938
-#: src/EBox/CA.pm:1286 src/EBox/CA.pm:1358 src/EBox/CA.pm:1452
-#: src/EBox/Model/Certificates.pm:235 src/EBox/CA/TestStub.pm:438
-#: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
+#: src/EBox/CGI/RevokeCertificate.pm:78 src/EBox/CGI/RenewCertificate.pm:76
+#: src/EBox/CGI/IssueCertificate.pm:105 src/EBox/CGI/ShowForm.pm:65
+#: src/EBox/CGI/DownloadFiles.pm:70 src/EBox/CA.pm:766 src/EBox/CA.pm:939
+#: src/EBox/CA.pm:1287 src/EBox/CA.pm:1359 src/EBox/CA.pm:1455
+#: src/EBox/Model/Certificates.pm:264 src/EBox/CA/TestStub.pm:439
+#: src/EBox/CA/TestStub.pm:517 src/EBox/CA/TestStub.pm:643
 #: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:28
 #: src/templates/index.mas:23
 msgid "Common Name"
 msgstr "اﻹسم اﻹعتيادي"
 
-#: src/EBox/CGI/RevokeCertificate.pm:81 src/EBox/CGI/RenewCertificate.pm:79
-#: src/EBox/CGI/ShowForm.pm:68
+#: src/EBox/CGI/RevokeCertificate.pm:82 src/EBox/CGI/RenewCertificate.pm:80
+#: src/EBox/CGI/ShowForm.pm:69
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -75,43 +75,43 @@ msgstr ""
 "المدخلات تحتوي على حروف غير صحيحة. جميع الحروف واﻷرقام وهذه العلامات:.?&+:-"
 "@* والفراغات جميعها مسموحة."
 
-#: src/EBox/CGI/RevokeCertificate.pm:139
+#: src/EBox/CGI/RevokeCertificate.pm:140
 msgid "The certificate has been revoked"
 msgstr "تم فسخ شهادة التوثيق."
 
-#: src/EBox/CGI/RevokeCertificate.pm:140
+#: src/EBox/CGI/RevokeCertificate.pm:141
 msgid "The CA certificate has been revoked"
 msgstr "تم فسخ شهادة توثيق CA"
 
-#: src/EBox/CGI/RenewCertificate.pm:64
+#: src/EBox/CGI/RenewCertificate.pm:65
 msgid "The certificate has NOT been renewed"
 msgstr "لم يتم تجديد شهادة التوثيق"
 
-#: src/EBox/CGI/RenewCertificate.pm:70 src/templates/formRenew.mas:13
+#: src/EBox/CGI/RenewCertificate.pm:71 src/templates/formRenew.mas:13
 #: src/templates/index.mas:52 src/templates/createCA.mas:19
 msgid "Days to expire"
 msgstr "عدد اﻷيام قبل إنتهاء الصلاحية"
 
-#: src/EBox/CGI/RenewCertificate.pm:143
+#: src/EBox/CGI/RenewCertificate.pm:144
 msgid "The certificate CANNOT be renewed"
 msgstr "ﻻ يمكن تجديد شهادة التوثيق"
 
-#: src/EBox/CGI/RenewCertificate.pm:145
+#: src/EBox/CGI/RenewCertificate.pm:146
 msgid "The certificate has been renewed"
 msgstr "تم تجديد شهادة التوثيق"
 
-#: src/EBox/CGI/RenewCertificate.pm:146
+#: src/EBox/CGI/RenewCertificate.pm:147
 msgid "The new CA certificate has been renewed"
 msgstr "تم تجديد شهادة التوثيق CA الجديدة"
 
-#: src/EBox/CGI/IssueCertificate.pm:102 src/EBox/CA.pm:259 src/EBox/CA.pm:537
-#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
+#: src/EBox/CGI/IssueCertificate.pm:103 src/EBox/CA.pm:260 src/EBox/CA.pm:538
+#: src/EBox/CA/TestStub.pm:155 src/EBox/CA/TestStub.pm:255
 #: src/templates/formRenew.mas:37 src/templates/formRevoke.mas:22
 #: src/templates/index.mas:22 src/templates/createCA.mas:7
 msgid "Organization Name"
 msgstr "إسم الجهة"
 
-#: src/EBox/CGI/IssueCertificate.pm:145
+#: src/EBox/CGI/IssueCertificate.pm:146
 #, fuzzy, perl-brace-format
 msgid ""
 "The input contains invalid characters. All {ascii} alphanumeric characters, "
@@ -120,52 +120,52 @@ msgstr ""
 "المدخلات تحتوي على حروف غير صحيحة. جميع الحروف واﻷرقام وهذه العلامات:.?&+:-"
 "@* والفراغات جميعها مسموحة."
 
-#: src/EBox/CGI/IssueCertificate.pm:177 src/EBox/CA.pm:2630
+#: src/EBox/CGI/IssueCertificate.pm:178 src/EBox/CA.pm:2639
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr ""
 
-#: src/EBox/CGI/IssueCertificate.pm:184
+#: src/EBox/CGI/IssueCertificate.pm:185
 msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
 
-#: src/EBox/CGI/IssueCertificate.pm:206
+#: src/EBox/CGI/IssueCertificate.pm:207
 msgid "The certificate has been issued."
 msgstr "تم إصدار شهادة التوثيق."
 
-#: src/EBox/CGI/IssueCertificate.pm:207
+#: src/EBox/CGI/IssueCertificate.pm:208
 msgid "The new CA certificate has been issued."
 msgstr "تم إصدار شهادة توثيق CA جديدة."
 
-#: src/EBox/CGI/ShowForm.pm:74
+#: src/EBox/CGI/ShowForm.pm:75
 msgid "Action"
 msgstr "إجراء"
 
-#: src/EBox/CGI/ShowForm.pm:83
+#: src/EBox/CGI/ShowForm.pm:84
 msgid "Only revoke and renew actions are performed"
 msgstr "إجراءات الفسخ والتجديد مسموحة اﻷداء فقط."
 
-#: src/EBox/CGI/ShowForm.pm:91 src/EBox/CGI/DownloadFiles.pm:79
+#: src/EBox/CGI/ShowForm.pm:92 src/EBox/CGI/DownloadFiles.pm:80
 #, perl-brace-format
 msgid "Common name: {cn} does NOT exist in database"
 msgstr "اﻹسم اﻹعتيادي: {cn} غير موجود بقاعدة البيانات."
 
-#: src/EBox/CGI/DownloadFiles.pm:133
+#: src/EBox/CGI/DownloadFiles.pm:134
 msgid "Error creating file"
 msgstr "خطأ في إنشاء الملف"
 
-#: src/EBox/CA.pm:301 src/EBox/CA.pm:782 src/EBox/CA.pm:1431
+#: src/EBox/CA.pm:302 src/EBox/CA.pm:783 src/EBox/CA.pm:1434
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "تم ضبط عدد اﻷيام ﻷعلى قيمة مسموحة {days}: خطأ سنة 2038"
 
-#: src/EBox/CA.pm:396
+#: src/EBox/CA.pm:397
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "لم تتمكن عملية اﻹزالة من اﻹنتهاء. السبب: _"
 
-#: src/EBox/CA.pm:551 src/EBox/CA/TestStub.pm:259
+#: src/EBox/CA.pm:552 src/EBox/CA/TestStub.pm:260
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -173,12 +173,12 @@ msgstr ""
 "يجب فسخ شهادات التوثيق CA _ _ أوأنها إنتهت صلاحيتها قبل إصدار شهادة توثيق "
 "جديدة."
 
-#: src/EBox/CA.pm:951 src/EBox/CA.pm:1297
+#: src/EBox/CA.pm:952 src/EBox/CA.pm:1298
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "شهادة التوثيق مع اﻹسم المشترك {cn} غير معرًًفة"
 
-#: src/EBox/CA.pm:955
+#: src/EBox/CA.pm:956
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -187,88 +187,80 @@ msgstr ""
 "يعتبر السبب {reason} سبباً غير مطبق.\n"
 "الخيارات:"
 
-#: src/EBox/CA.pm:1102
+#: src/EBox/CA.pm:1103
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 
-#: src/EBox/CA.pm:1201
+#: src/EBox/CA.pm:1202
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "إما اﻹسم المشترك و اﻹسم المميز أو الرقم التسلسلي قد نجح "
 
-#: src/EBox/CA.pm:1453
+#: src/EBox/CA.pm:1456
 msgid "or"
 msgstr "أو"
 
-#: src/EBox/CA.pm:1454
+#: src/EBox/CA.pm:1457
 msgid "Certificate file"
 msgstr "ملف شهادة التوثيق"
 
-#: src/EBox/CA.pm:1476
+#: src/EBox/CA.pm:1479
 msgid "The certificate to renew does NOT exist"
 msgstr "شهادة التوثيق المراد تجديدها غير معرفة"
 
-#: src/EBox/CA.pm:1516
+#: src/EBox/CA.pm:1519
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr ""
 "شهادة التوثيق مع اﻹسم المشترك {cn} هي غير معرفة في هيئة التوثيق الحالية"
 
-#: src/EBox/CA.pm:1546
-msgid ""
-"The private key passpharse needed to create a new request. No renewal was "
-"made. Issue a new certificate with new keys"
-msgstr ""
-"لقد إحتاجت كلمة سر المفتاح الخاص إلى طلب جديد. لم يتم أي تحديث. قم بإصدار "
-"شهادة توثيق بمفاتيح جديدة"
-
-#: src/EBox/CA.pm:1791
+#: src/EBox/CA.pm:1800
 msgid "General"
 msgstr "عام"
 
-#: src/EBox/CA.pm:1794 src/EBox/Model/Certificates.pm:251
+#: src/EBox/CA.pm:1803 src/EBox/Model/Certificates.pm:280
 msgid "Services Certificates"
 msgstr "شهادات توثيق الخدمات"
 
-#: src/EBox/CA.pm:1881
+#: src/EBox/CA.pm:1890
 msgid "Not created"
 msgstr ""
 
-#: src/EBox/CA.pm:1883
+#: src/EBox/CA.pm:1892
 msgid "Available"
 msgstr ""
 
-#: src/EBox/CA.pm:1885
+#: src/EBox/CA.pm:1894
 msgid "Created but not available"
 msgstr ""
 
-#: src/EBox/CA.pm:2478
+#: src/EBox/CA.pm:2487
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "ﻻ يمكن توقيع التوثيق. إما بسبب كلمة سر خاطئة لهيئة التوثيق أو إختفاء المفتاح "
 "الخاص بها؟"
 
-#: src/EBox/CA.pm:2480
+#: src/EBox/CA.pm:2489
 msgid "Database corruption"
 msgstr "قاعدة بيانات معطوبة"
 
-#: src/EBox/CA.pm:2482
+#: src/EBox/CA.pm:2491
 msgid "Identifier duplicated in Database"
 msgstr "معرِِف متكرر في قاعدة البيانات"
 
-#: src/EBox/CA.pm:2484
+#: src/EBox/CA.pm:2493
 msgid "Certificate already revoked"
 msgstr "شهادة التوثيق مفسوخة مسبقاً"
 
-#: src/EBox/CA.pm:2487
+#: src/EBox/CA.pm:2496
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "الحقل ASN1 طويل جداً. الحجم اﻷعلى:"
 
-#: src/EBox/CA.pm:2489
+#: src/EBox/CA.pm:2498
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "خطأ غير معروف. مخرجات OpenSSL تعطي:"
 
-#: src/EBox/CA.pm:2564
+#: src/EBox/CA.pm:2573
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -276,99 +268,99 @@ msgid ""
 msgstr ""
 "تم إنشاء هيئة توثيق جديدة بإسم المنشأة {orgName} وبصلاحية لعدد {days} يوم"
 
-#: src/EBox/CA.pm:2566
+#: src/EBox/CA.pm:2575
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr "تم هدم هيئة التوثيق الخاصة بإسم المنشأة {orgName}"
 
-#: src/EBox/CA.pm:2568
+#: src/EBox/CA.pm:2577
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr "تم فسخ شهادة هيئة التوثيق بسبب {reason} وتم نفاذ: {force}"
 
-#: src/EBox/CA.pm:2570
+#: src/EBox/CA.pm:2579
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
 
-#: src/EBox/CA.pm:2572
+#: src/EBox/CA.pm:2581
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
 
-#: src/EBox/CA.pm:2574
+#: src/EBox/CA.pm:2583
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
 
-#: src/EBox/CA.pm:2576
+#: src/EBox/CA.pm:2585
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
 msgstr ""
 
-#: src/EBox/CA.pm:2578
+#: src/EBox/CA.pm:2587
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
 
-#: src/EBox/CA.pm:2580
+#: src/EBox/CA.pm:2589
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 
-#: src/EBox/CA.pm:2600 src/EBox/CA/TestStub.pm:729
+#: src/EBox/CA.pm:2609 src/EBox/CA/TestStub.pm:730
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "تاريخ نفاذ الصلاحية بعد تاريخ نفاد صلاحية شهادة التوثيق CA"
 
-#: src/EBox/CA.pm:2730
+#: src/EBox/CA.pm:2739
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr ""
 
-#: src/EBox/Model/Certificates.pm:93
+#: src/EBox/Model/Certificates.pm:92
 #, perl-brace-format
 msgid ""
 "You must create a Certification Authority first. Go to {openhref}"
 "Certification Authority{closehref} to do so"
 msgstr ""
 
-#: src/EBox/Model/Certificates.pm:217
+#: src/EBox/Model/Certificates.pm:246
 msgid "Module"
 msgstr "نسق"
 
-#: src/EBox/Model/Certificates.pm:229
+#: src/EBox/Model/Certificates.pm:258
 msgid "Service"
 msgstr "خدمة"
 
-#: src/EBox/Model/Certificates.pm:241
+#: src/EBox/Model/Certificates.pm:270
 msgid "Enable"
 msgstr "تفعيل"
 
-#: src/EBox/Model/Certificates.pm:243
+#: src/EBox/Model/Certificates.pm:272
 msgid "Generate the certificate using CA with the common name set above"
 msgstr ""
 
-#: src/EBox/Model/Certificates.pm:252
+#: src/EBox/Model/Certificates.pm:281
 msgid "certificate"
 msgstr "شهادة توثيق"
 
-#: src/EBox/Model/Certificates.pm:258
+#: src/EBox/Model/Certificates.pm:287
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by eBox"
 msgstr ""
 
-#: src/EBox/CA/TestStub.pm:654
+#: src/EBox/CA/TestStub.pm:655
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
 msgstr "المستخدم {commonName} غير معرف."
 
-#: src/EBox/CA/TestStub.pm:720
+#: src/EBox/CA/TestStub.pm:721
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "تم ضبط اﻷيام الى أعلى حد: خطأ سنة 2038"
 
@@ -432,7 +424,7 @@ msgid "Issue"
 msgstr ""
 
 #: src/templates/index.mas:77
-msgid "Certificate changes will take effect immediately"
+msgid "Certificate changes will take effect immediately."
 msgstr ""
 
 #: src/templates/index.mas:79
@@ -553,6 +545,13 @@ msgid ""
 "by some module, please confirm you are sure to renew and leave the service"
 "(s) unstable or disabled"
 msgstr ""
+
+#~ msgid ""
+#~ "The private key passpharse needed to create a new request. No renewal was "
+#~ "made. Issue a new certificate with new keys"
+#~ msgstr ""
+#~ "لقد إحتاجت كلمة سر المفتاح الخاص إلى طلب جديد. لم يتم أي تحديث. قم بإصدار "
+#~ "شهادة توثيق بمفاتيح جديدة"
 
 #~ msgid "You must create a Certification Authority."
 #~ msgstr "يجب أن تقوم بإنشاء هيئة توثيق."

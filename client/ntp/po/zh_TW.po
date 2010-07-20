@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:32+0200\n"
+"POT-Creation-Date: 2010-07-21 00:38+0200\n"
 "PO-Revision-Date: 2009-08-04 07:16+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -16,115 +16,115 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/CGI/AddServers.pm:42
+#: src/EBox/CGI/AddServers.pm:44
 msgid "first ntp server"
 msgstr "第一個 NTP 伺服器"
 
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:221
+#: src/EBox/CGI/AddServers.pm:47 src/EBox/NTP.pm:223
 #: src/templates/servers.mas:16
 msgid "Primary server"
 msgstr "主要伺服器"
 
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:235
+#: src/EBox/CGI/AddServers.pm:53 src/EBox/NTP.pm:237
 #: src/templates/servers.mas:27
 msgid "Secondary server"
 msgstr "次要伺服器"
 
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
+#: src/EBox/CGI/AddServers.pm:57 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "第三伺服器"
 
-#: src/EBox/CGI/ChangeDate.pm:41
+#: src/EBox/CGI/ChangeDate.pm:43
 msgid "Day"
 msgstr "日"
 
-#: src/EBox/CGI/ChangeDate.pm:42
+#: src/EBox/CGI/ChangeDate.pm:44
 msgid "Month"
 msgstr "月"
 
-#: src/EBox/CGI/ChangeDate.pm:43
+#: src/EBox/CGI/ChangeDate.pm:45
 msgid "Year"
 msgstr "年"
 
-#: src/EBox/CGI/ChangeDate.pm:44
+#: src/EBox/CGI/ChangeDate.pm:46
 msgid "Hour"
 msgstr "時"
 
-#: src/EBox/CGI/ChangeDate.pm:45
+#: src/EBox/CGI/ChangeDate.pm:47
 msgid "Minutes"
 msgstr "分"
 
-#: src/EBox/CGI/ChangeDate.pm:46
+#: src/EBox/CGI/ChangeDate.pm:48
 msgid "Seconds"
 msgstr "秒"
 
-#: src/EBox/CGI/ChangeTimeZone.pm:41
+#: src/EBox/CGI/ChangeTimeZone.pm:43
 msgid "country"
 msgstr "國家/地區"
 
-#: src/EBox/CGI/ChangeTimeZone.pm:42
+#: src/EBox/CGI/ChangeTimeZone.pm:44
 msgid "continent"
 msgstr "大陸"
 
-#: src/EBox/CGI/Datetime.pm:30
+#: src/EBox/CGI/Datetime.pm:32
 msgid "Date and Time Configuration"
 msgstr "日期和時刻組態"
 
-#: src/EBox/CGI/Timezone.pm:30
+#: src/EBox/CGI/Timezone.pm:32
 msgid "Time Zone Configuration"
 msgstr "時區組態"
 
-#: src/EBox/CGI/Synch.pm:41
+#: src/EBox/CGI/Synch.pm:43
 msgid "external synchronize status"
 msgstr "外部同步狀態"
 
-#: src/EBox/NTP.pm:67
+#: src/EBox/NTP.pm:69
 msgid "Remove ntp init script links"
 msgstr "移除 ntp init script 連結"
 
-#: src/EBox/NTP.pm:68
+#: src/EBox/NTP.pm:70
 msgid "eBox will take care of starting and stopping the services."
 msgstr "eBox 會注意服務的啟動和停止"
 
-#: src/EBox/NTP.pm:223
+#: src/EBox/NTP.pm:225
 msgid "primary server"
 msgstr "主要伺服器"
 
-#: src/EBox/NTP.pm:228 src/EBox/NTP.pm:247
+#: src/EBox/NTP.pm:230 src/EBox/NTP.pm:249
 msgid "Primary and secondary server must be different"
 msgstr "主要跟次要的伺服器必須是不同的"
 
-#: src/EBox/NTP.pm:231
+#: src/EBox/NTP.pm:233
 msgid "secondary server"
 msgstr "次要伺服器"
 
-#: src/EBox/NTP.pm:244
+#: src/EBox/NTP.pm:246
 msgid "Primary and tertiary server must be different"
 msgstr "主要跟第三的伺服器必須是不同的"
 
-#: src/EBox/NTP.pm:250
+#: src/EBox/NTP.pm:252
 msgid "tertiary server"
 msgstr "第三伺服器"
 
-#: src/EBox/NTP.pm:266
+#: src/EBox/NTP.pm:268
 #, perl-brace-format
 msgid "{name} IP address"
 msgstr "{name} IP 位址"
 
-#: src/EBox/NTP.pm:269
+#: src/EBox/NTP.pm:271
 #, perl-brace-format
 msgid "{name} host name"
 msgstr "{name} 主機名稱"
 
-#: src/EBox/NTP.pm:399
+#: src/EBox/NTP.pm:401
 msgid "System"
 msgstr "系統"
 
-#: src/EBox/NTP.pm:402
+#: src/EBox/NTP.pm:404
 msgid "Date/Time"
 msgstr "日期/時刻"
 
-#: src/EBox/NTP.pm:405
+#: src/EBox/NTP.pm:407
 msgid "Time Zone"
 msgstr "時區"
 

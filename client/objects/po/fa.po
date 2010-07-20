@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.12.100Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:55+0200\n"
+"POT-Creation-Date: 2010-07-21 00:42+0200\n"
 "PO-Revision-Date: 2009-02-14 16:40+0330\n"
 "Last-Translator: Zahra Khani <belendax@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,62 +15,62 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Objects.pm:39 src/EBox/Model/ObjectTable.pm:82
-#: src/EBox/Model/MemberTable.pm:93
+#: src/EBox/Objects.pm:41 src/EBox/Model/ObjectTable.pm:83
+#: src/EBox/Model/MemberTable.pm:94
 msgid "Objects"
 msgstr "اشیاء"
 
-#: src/EBox/Objects.pm:44
+#: src/EBox/Objects.pm:46
 #, perl-brace-format
 msgid "Added object {object}"
 msgstr "شیء {object} اضافه شد"
 
-#: src/EBox/Objects.pm:46
+#: src/EBox/Objects.pm:48
 #, perl-brace-format
 msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
 msgstr "{nname} ({ip}/{mask} [{mac}]) به شیء {object} اضافه شد"
 
-#: src/EBox/Objects.pm:47
+#: src/EBox/Objects.pm:49
 #, perl-brace-format
 msgid "Removed object {object}"
 msgstr "شیء {object} حذف شد"
 
-#: src/EBox/Objects.pm:49
+#: src/EBox/Objects.pm:51
 #, perl-brace-format
 msgid "Forcefully removed object {object}"
 msgstr "شیء {object} به اجبار حذف شد"
 
-#: src/EBox/Objects.pm:51
+#: src/EBox/Objects.pm:53
 #, perl-brace-format
 msgid "Removed {nname} from object {object}"
 msgstr "{nname} از شیء {object} حذف شد"
 
-#: src/EBox/Objects.pm:270
+#: src/EBox/Objects.pm:272
 msgid "Object"
 msgstr "شیء"
 
-#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
+#: src/EBox/Model/ObjectTable.pm:64 src/EBox/Model/MemberTable.pm:64
 msgid "Name"
 msgstr "نام"
 
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
+#: src/EBox/Model/ObjectTable.pm:72 src/EBox/Model/MemberTable.pm:88
 msgid "Members"
 msgstr "اعضا"
 
-#: src/EBox/Model/ObjectTable.pm:83
+#: src/EBox/Model/ObjectTable.pm:84
 #, fuzzy
 msgid "Objects List"
 msgstr "لیست شیء"
 
-#: src/EBox/Model/ObjectTable.pm:91
+#: src/EBox/Model/ObjectTable.pm:92
 msgid "object"
 msgstr "شیء"
 
-#: src/EBox/Model/ObjectTable.pm:113
+#: src/EBox/Model/ObjectTable.pm:114
 msgid "This object is being used by another module"
 msgstr "این شیء توسط ماژول دیگری استفاده شده"
 
-#: src/EBox/Model/ObjectTable.pm:197
+#: src/EBox/Model/ObjectTable.pm:198
 msgid ""
 "Objects are an abstraction of machines and network addresses which can be "
 "used in other modules. Any change on an object is automatically synched in "
@@ -80,35 +80,35 @@ msgstr ""
 "های دیگر مورد استفاده قرار گیرند. هر تغییری روی یک شیء به طور اتوماتیک در "
 "تمام ماژول هایی که از آن استفاده می کنند، همگام می شود"
 
-#: src/EBox/Model/ObjectTable.pm:208
+#: src/EBox/Model/ObjectTable.pm:209
 msgid ""
 "'Any' is a reserved word that could not be used as object name to avoid "
 "confusions"
 msgstr ""
 
-#: src/EBox/Model/MemberTable.pm:70
+#: src/EBox/Model/MemberTable.pm:71
 #, fuzzy
 msgid "IP address"
 msgstr "آدرس آي‌پی"
 
-#: src/EBox/Model/MemberTable.pm:76
+#: src/EBox/Model/MemberTable.pm:77
 #, fuzzy
 msgid "MAC address"
 msgstr "آدرس MAC"
 
-#: src/EBox/Model/MemberTable.pm:94
+#: src/EBox/Model/MemberTable.pm:95
 msgid "member"
 msgstr "عضو"
 
-#: src/EBox/Model/MemberTable.pm:116
+#: src/EBox/Model/MemberTable.pm:117
 msgid "You can only use MAC addresses with hosts"
 msgstr "شما می توانید تنها از آدرس های MAC با میزبان ها استفاد کنید"
 
-#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+#: src/EBox/Model/MemberTable.pm:120 src/EBox/Model/MemberTable.pm:121
 msgid "network address"
 msgstr "آدرس شبکه"
 
-#: src/EBox/Model/MemberTable.pm:126
+#: src/EBox/Model/MemberTable.pm:127
 #, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
 msgstr ""

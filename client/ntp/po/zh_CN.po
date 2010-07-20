@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:32+0200\n"
+"POT-Creation-Date: 2010-07-21 00:38+0200\n"
 "PO-Revision-Date: 2005-11-11 13:15+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,115 +16,115 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/AddServers.pm:42
+#: src/EBox/CGI/AddServers.pm:44
 msgid "first ntp server"
 msgstr ""
 
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:221
+#: src/EBox/CGI/AddServers.pm:47 src/EBox/NTP.pm:223
 #: src/templates/servers.mas:16
 msgid "Primary server"
 msgstr ""
 
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:235
+#: src/EBox/CGI/AddServers.pm:53 src/EBox/NTP.pm:237
 #: src/templates/servers.mas:27
 msgid "Secondary server"
 msgstr ""
 
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
+#: src/EBox/CGI/AddServers.pm:57 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr ""
 
-#: src/EBox/CGI/ChangeDate.pm:41
+#: src/EBox/CGI/ChangeDate.pm:43
 msgid "Day"
 msgstr ""
 
-#: src/EBox/CGI/ChangeDate.pm:42
+#: src/EBox/CGI/ChangeDate.pm:44
 msgid "Month"
 msgstr ""
 
-#: src/EBox/CGI/ChangeDate.pm:43
+#: src/EBox/CGI/ChangeDate.pm:45
 msgid "Year"
 msgstr ""
 
-#: src/EBox/CGI/ChangeDate.pm:44
+#: src/EBox/CGI/ChangeDate.pm:46
 msgid "Hour"
 msgstr ""
 
-#: src/EBox/CGI/ChangeDate.pm:45
+#: src/EBox/CGI/ChangeDate.pm:47
 msgid "Minutes"
 msgstr ""
 
-#: src/EBox/CGI/ChangeDate.pm:46
+#: src/EBox/CGI/ChangeDate.pm:48
 msgid "Seconds"
 msgstr ""
 
-#: src/EBox/CGI/ChangeTimeZone.pm:41
+#: src/EBox/CGI/ChangeTimeZone.pm:43
 msgid "country"
 msgstr ""
 
-#: src/EBox/CGI/ChangeTimeZone.pm:42
+#: src/EBox/CGI/ChangeTimeZone.pm:44
 msgid "continent"
 msgstr ""
 
-#: src/EBox/CGI/Datetime.pm:30
+#: src/EBox/CGI/Datetime.pm:32
 msgid "Date and Time Configuration"
 msgstr ""
 
-#: src/EBox/CGI/Timezone.pm:30
+#: src/EBox/CGI/Timezone.pm:32
 msgid "Time Zone Configuration"
 msgstr ""
 
-#: src/EBox/CGI/Synch.pm:41
+#: src/EBox/CGI/Synch.pm:43
 msgid "external synchronize status"
 msgstr ""
 
-#: src/EBox/NTP.pm:67
+#: src/EBox/NTP.pm:69
 msgid "Remove ntp init script links"
 msgstr ""
 
-#: src/EBox/NTP.pm:68
+#: src/EBox/NTP.pm:70
 msgid "eBox will take care of starting and stopping the services."
 msgstr ""
 
-#: src/EBox/NTP.pm:223
+#: src/EBox/NTP.pm:225
 msgid "primary server"
 msgstr ""
 
-#: src/EBox/NTP.pm:228 src/EBox/NTP.pm:247
+#: src/EBox/NTP.pm:230 src/EBox/NTP.pm:249
 msgid "Primary and secondary server must be different"
 msgstr ""
 
-#: src/EBox/NTP.pm:231
+#: src/EBox/NTP.pm:233
 msgid "secondary server"
 msgstr ""
 
-#: src/EBox/NTP.pm:244
+#: src/EBox/NTP.pm:246
 msgid "Primary and tertiary server must be different"
 msgstr ""
 
-#: src/EBox/NTP.pm:250
+#: src/EBox/NTP.pm:252
 msgid "tertiary server"
 msgstr ""
 
-#: src/EBox/NTP.pm:266
+#: src/EBox/NTP.pm:268
 #, perl-brace-format
 msgid "{name} IP address"
 msgstr ""
 
-#: src/EBox/NTP.pm:269
+#: src/EBox/NTP.pm:271
 #, perl-brace-format
 msgid "{name} host name"
 msgstr ""
 
-#: src/EBox/NTP.pm:399
+#: src/EBox/NTP.pm:401
 msgid "System"
 msgstr ""
 
-#: src/EBox/NTP.pm:402
+#: src/EBox/NTP.pm:404
 msgid "Date/Time"
 msgstr ""
 
-#: src/EBox/NTP.pm:405
+#: src/EBox/NTP.pm:407
 msgid "Time Zone"
 msgstr ""
 

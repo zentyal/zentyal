@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebackup 1.3.3Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-06-02 20:31+0200\n"
+"POT-Creation-Date: 2010-07-21 00:32+0200\n"
 "PO-Revision-Date: 2010-01-18 11:45+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-#: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:124
+#: src/EBox/EBackup.pm:72 src/EBox/Event/Watcher/EBackup.pm:123
 #: src/EBox/Composite/Remote.pm:65
 msgid "Backup"
 msgstr "Sauvegarde"
@@ -33,7 +33,7 @@ msgid ""
 "ebackup restart' to refresh backup's information."
 msgstr ""
 
-#: src/EBox/Event/Watcher/EBackup.pm:142
+#: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
 msgid "Check if eBox backup was not successful."
 msgstr "Vérifier si la sauvegarde est sans succès"
@@ -101,17 +101,16 @@ msgstr "Statut de la sauvegarde distante"
 msgid "backup"
 msgstr "Sauvegarde"
 
-#: src/EBox/Model/RemoteSettings.pm:160
+#: src/EBox/Model/RemoteSettings.pm:161
 msgid "Method"
 msgstr "Méthode"
 
-#: src/EBox/Model/RemoteSettings.pm:166
+#: src/EBox/Model/RemoteSettings.pm:167
 msgid "Host or destination"
 msgstr "Hôte ou destination"
 
-#: src/EBox/Model/RemoteSettings.pm:168
-#, perl-brace-format
-msgid "If the selected method is {brand}, only set the target directory"
+#: src/EBox/Model/RemoteSettings.pm:169
+msgid "If the selected method is file system, only set the target directory"
 msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:173
@@ -127,7 +126,7 @@ msgid "Encryption"
 msgstr ""
 
 #: src/EBox/Model/RemoteSettings.pm:188 src/EBox/Model/RemoteSettings.pm:240
-#: src/EBox/Model/RemoteSettings.pm:482
+#: src/EBox/Model/RemoteSettings.pm:477
 msgid "Disabled"
 msgstr "inactif"
 
@@ -172,63 +171,56 @@ msgstr ""
 msgid "maximum number"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:281
+#: src/EBox/Model/RemoteSettings.pm:280
 msgid "no older than"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:295
+#: src/EBox/Model/RemoteSettings.pm:294
 msgid "General Configuration"
 msgstr "Configuration Générale "
 
-#: src/EBox/Model/RemoteSettings.pm:298
-#, perl-brace-format
-msgid ""
-"If you choose {brand} or file system methods , then the destination field "
-"may be the target directory in the backup server"
-msgstr ""
-
-#: src/EBox/Model/RemoteSettings.pm:304
+#: src/EBox/Model/RemoteSettings.pm:299
 msgid "General backup server configuration updated"
 msgstr "Mise à jour de la configuration générale du serveur de sauvegarde"
 
-#: src/EBox/Model/RemoteSettings.pm:317
+#: src/EBox/Model/RemoteSettings.pm:312
 msgid "on Monday"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:318
+#: src/EBox/Model/RemoteSettings.pm:313
 msgid "on Tuesday"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:319
+#: src/EBox/Model/RemoteSettings.pm:314
 msgid "on Wednesday"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:320
+#: src/EBox/Model/RemoteSettings.pm:315
 msgid "on Thursday"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:321
+#: src/EBox/Model/RemoteSettings.pm:316
 msgid "on Friday"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:322
+#: src/EBox/Model/RemoteSettings.pm:317
 msgid "on Saturday"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:323
+#: src/EBox/Model/RemoteSettings.pm:318
 msgid "on Sunday"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:336
+#: src/EBox/Model/RemoteSettings.pm:331
 #, perl-brace-format
 msgid "on the {mday}th"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:344
+#: src/EBox/Model/RemoteSettings.pm:339
 msgid "on the last day"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:499
+#: src/EBox/Model/RemoteSettings.pm:494
 #, perl-brace-format
 msgid ""
 "{oi}{brand}{ci} is a quick and safe remote location to store the data you "
@@ -236,124 +228,124 @@ msgid ""
 "{ohref}eBox on-line store{chref}."
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:516
+#: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:520
+#: src/EBox/Model/RemoteSettings.pm:515
 msgid "2 weeks"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:524
+#: src/EBox/Model/RemoteSettings.pm:519
 msgid "3 weeks"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:528
+#: src/EBox/Model/RemoteSettings.pm:523
 msgid "1 month"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:532
+#: src/EBox/Model/RemoteSettings.pm:527
 msgid "2 months"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:536
+#: src/EBox/Model/RemoteSettings.pm:531
 msgid "3 months"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:540
+#: src/EBox/Model/RemoteSettings.pm:535
 msgid "4 months"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:544
+#: src/EBox/Model/RemoteSettings.pm:539
 msgid "6 months"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:548
+#: src/EBox/Model/RemoteSettings.pm:543
 msgid "9 months"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:552
+#: src/EBox/Model/RemoteSettings.pm:547
 msgid "1 year"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:556
+#: src/EBox/Model/RemoteSettings.pm:551
 msgid "1 year and half"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:560
+#: src/EBox/Model/RemoteSettings.pm:555
 msgid "2 years"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:564
+#: src/EBox/Model/RemoteSettings.pm:559
 msgid "3 years"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:596
+#: src/EBox/Model/RemoteSettings.pm:591
 msgid "Destination must be a relative directory"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:651
+#: src/EBox/Model/RemoteSettings.pm:646
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:662 src/EBox/Model/RemoteSettings.pm:696
+#: src/EBox/Model/RemoteSettings.pm:657 src/EBox/Model/RemoteSettings.pm:691
 msgid "target"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:664
+#: src/EBox/Model/RemoteSettings.pm:659
 msgid "Must be a like 'other.host[:port]/some_dir'"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:671 src/EBox/Model/RemoteSettings.pm:706
+#: src/EBox/Model/RemoteSettings.pm:666 src/EBox/Model/RemoteSettings.pm:701
 msgid "host"
 msgstr "hôte"
 
-#: src/EBox/Model/RemoteSettings.pm:673 src/EBox/Model/RemoteSettings.pm:708
+#: src/EBox/Model/RemoteSettings.pm:668 src/EBox/Model/RemoteSettings.pm:703
 msgid "port"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:675
+#: src/EBox/Model/RemoteSettings.pm:670
 msgid "directory"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:685
+#: src/EBox/Model/RemoteSettings.pm:680
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:699
+#: src/EBox/Model/RemoteSettings.pm:694
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:711
+#: src/EBox/Model/RemoteSettings.pm:706
 msgid "absolute directory"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:713
+#: src/EBox/Model/RemoteSettings.pm:708
 msgid "relative directory"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:730
+#: src/EBox/Model/RemoteSettings.pm:725
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:735 src/EBox/Model/RemoteSettings.pm:739
+#: src/EBox/Model/RemoteSettings.pm:730 src/EBox/Model/RemoteSettings.pm:734
 msgid "Directory for backup"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:742
+#: src/EBox/Model/RemoteSettings.pm:737
 msgid "File exists and it is not a directory"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:763
+#: src/EBox/Model/RemoteSettings.pm:758
 msgid "Incremental backup must be more frequent than full backup"
 msgstr ""
 
-#: src/EBox/Model/RemoteSettings.pm:775
+#: src/EBox/Model/RemoteSettings.pm:770
 msgid ""
 "General backup server configuration updated. SCP method selected; "
 "<em>remember</em> to add your target host to the list of known hosts by SSH"
