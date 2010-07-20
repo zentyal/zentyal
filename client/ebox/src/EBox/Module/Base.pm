@@ -983,7 +983,7 @@ sub report
     return undef;
 }
 
-# Method: runMontlyQuery
+# Method: runMonthlyQuery
 #
 #   Runs a query in the database for all the months in t erange,
 #   organizing the data for its use in the report
@@ -1006,9 +1006,17 @@ sub runMonthlyQuery
     my ($self, $beg, $end, $query, $options) = @_;
 
     defined($options) or $options = {};
+    my $key = $options->{'key'};
 
-    my $data = {};
     my $db = EBox::DBEngineFactory::DBEngine();
+
+    my @fields = @{ $self->_monthlyQueryDataFields($db, $query, $key) };
+    my $data = $self->_emptyMonthlyQueryData($db, $beg, $end, $query, $options, \@fields);
+
+#    use Data::Dumper;
+#    print "EMPTY DATA " . Dumper($data) . "\n";
+
+#    return $data;
 
     my ($begyear, $begmonth) = split('-', $beg);
     my ($endyear, $endmonth) = split('-', $end);
@@ -1018,9 +1026,9 @@ sub runMonthlyQuery
 
     my $orig_where = $query->{'where'};
 
-    my $skipped = 0;
+    my $nMonth = 0;
 
-    my $key = $options->{'key'};
+
 
     while (
         ($year < $endyear) or
@@ -1038,47 +1046,37 @@ sub runMonthlyQuery
 
         my $results = $db->query_hash($query);
         if (@{$results}) {
-            my @fields = keys(%{@{$results}[0]});
+
             if (defined($key)) {
                 for my $r (@{$results}) {
                     my $keyname = $r->{$key};
-                    if (not exists($data->{$keyname})) {
-                        $data->{$keyname} = {};
-                    }
                     for my $f (@fields) {
                         if ($f eq $key) {
                             next;
                         }
-                        if (not exists($data->{$keyname}->{$f})) {
-                            $data->{$keyname}->{$f} = [];
+
+                        my $val = $r->{$f};
+                        if (defined $val) {
+                            $data->{$keyname}->{$f}->[$nMonth] = $val;
                         }
-                        my $empties = $skipped;
-                        while($empties > 0) {
-                            push(@{$data->{$keyname}->{$f}}, 0);
-                            $empties--;
-                        }
-                        push(@{$data->{$keyname}->{$f}}, $r->{$f});
+
                     }
                 }
             } else {
                 for my $r (@{$results}) {
                     for my $f (@fields) {
-                        if (not exists($data->{$f})) {
-                            $data->{$f} = [];
+                        my $val = $r->{$f};
+                        if (defined $val) {
+                            $data->{$f}->[$nMonth] = $val;
                         }
-                        my $empties = $skipped;
-                        while($empties > 0) {
-                            push(@{$data->{$f}}, 0);
-                            $empties--;
-                        }
-                        push(@{$data->{$f}}, $r->{$f});
+
                     }
                 }
             }
-            $skipped = 0;
-        } else {
-            $skipped++;
-        }
+        } 
+        
+        $nMonth += 1;
+
         if($month == 12) {
             $month = 1;
             $year++;
@@ -1086,6 +1084,69 @@ sub runMonthlyQuery
             $month++;
         }
     }
+    return $data;
+}
+
+
+sub _monthlyQueryDataFields
+{
+    my ($self, $db, $query, $key) = @_;
+    my %fieldsQuery = %{ $query };
+    $fieldsQuery{limit} = 1;
+
+    my @fields;
+    my $resultFieldsQuery = $db->query_hash(\%fieldsQuery);
+    if (defined $resultFieldsQuery and (exists $resultFieldsQuery->[0])) {
+        @fields =   (%{@{$resultFieldsQuery}[0]});
+    }
+
+    if ($key) {
+        @fields = grep {  $_ ne $key} @fields;
+    }
+
+    return \@fields;
+
+}
+
+sub _emptyMonthlyQueryData
+{
+    my ($self, $db, $beg, $end, $query, $options, $fields_r) = @_;
+
+
+    my ($begyear, $begmonth) = split('-', $beg);
+    my ($endyear, $endmonth) = split('-', $end);
+
+    my $length = ($endyear - $begyear)*12 + ($endmonth - $begmonth);
+    my $makeResults_r = sub { return [ map { 0 } (0 .. $length)  ] };
+
+
+
+    my $key = $options->{'key'};
+    my @keys;
+    if ($key) {
+        my $sql = "SELECT DISTINCT $key FROM "  . $query->{from} . ";";
+        my $res = $db->query($sql);
+        @keys = map {  $_->{ $key } }  @{ $res };
+        
+    }
+
+
+    my @fields = @{ $fields_r };
+
+    my $data = {};
+    if ($key) {
+        foreach my $key (@keys) {
+            $data->{$key} = {};
+            foreach my $field (@fields) {
+                $data->{$key}->{$field} = $makeResults_r->();
+            }
+        }
+    } else {
+        foreach my $field (@fields) {
+            $data->{$field} = $makeResults_r->();
+        }        
+    }
+
     return $data;
 }
 
