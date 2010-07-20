@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 21:08+0200\n"
-"PO-Revision-Date: 2009-04-28 00:03+0200\n"
+"PO-Revision-Date: 2010-07-19 09:47+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,6 @@ msgstr ""
 "programfel. Relevant information kan hittas i loggarna."
 
 #: src/EBox/CGI/Base.pm:564
-#, fuzzy
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -68,7 +67,6 @@ msgstr ""
 "Relevant information kan hittas i loggarna."
 
 #: src/EBox/CGI/Base.pm:570
-#, fuzzy
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -127,7 +125,7 @@ msgstr "Katalogen hittades inte: {d}"
 
 #: src/EBox/Validate.pm:396 src/EBox/Validate.pm:410
 msgid "Must be a number between 1 and 4096"
-msgstr ""
+msgstr "Måste vara ett nummer mellan 1 och 4096"
 
 #: src/EBox/Validate.pm:700
 #, perl-brace-format
@@ -197,33 +195,31 @@ msgstr "Redigerar {row}"
 
 #: src/templates/ajax/tableBody.mas:190
 msgid "Search"
-msgstr ""
+msgstr "Sök"
 
 #: src/templates/ajax/tableBody.mas:336
-#, fuzzy
 msgid "Add"
-msgstr "Lägg till ny"
+msgstr "Lägg till"
 
 #: src/templates/ajax/tableBody.mas:360
-#, fuzzy
 msgid "Cancel"
-msgstr "Ändra"
+msgstr "Avbryt"
 
 #: src/templates/ajax/tableBody.mas:440
 msgid "Edit"
-msgstr ""
+msgstr "Redigera"
 
 #: src/templates/ajax/tableBody.mas:442
 msgid "Delete"
-msgstr ""
+msgstr "Radera"
 
 #: src/templates/ajax/tableBody.mas:447
 msgid "Read-only row: edit disabled"
-msgstr ""
+msgstr "Endast läsbar rad, redigering inaktiverad"
 
 #: src/templates/ajax/tableBody.mas:448
 msgid "Read-only row: delete disabled"
-msgstr ""
+msgstr "Endast läsbar rad, radering inaktiverad"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -255,13 +251,12 @@ msgid "Optional"
 msgstr "Valfri"
 
 #: src/templates/ajax/tablePager.mas:46
-#, fuzzy
 msgid "Page"
-msgstr "Ändra"
+msgstr "Sida"
 
 #: src/templates/ajax/tablePager.mas:47
 msgid "of"
-msgstr ""
+msgstr "av"
 
 #: src/templates/ajax/tablePager.mas:60 src/templates/ajax/tablePager.mas:66
 msgid "first"
@@ -298,12 +293,12 @@ msgstr ""
 "begärda sidan inte är tillgänglig längre"
 
 #: src/templates/ebox/pageNotFound.mas:9
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
 "mailing lists"
 msgstr ""
-"Om du behöver mer hjälp kan du besöka {homepage} för   dokumentation och "
+"Om du behöver mer hjälp kan du besöka {homepage} för dokumentation och "
 "sändlistor"
 
 #: src/templates/ebox/pageNotFound.mas:12
@@ -323,7 +318,6 @@ msgid "hide help"
 msgstr "dölj hjälp"
 
 #: src/templates/language.mas:10
-#, fuzzy
 msgid "Language Selection"
 msgstr "Språkval"
 

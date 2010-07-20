@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-06-02 21:08+0200\n"
-"PO-Revision-Date: 2006-11-23 16:39+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-07-06 15:57+0200\n"
+"Last-Translator: Maurice Mullenders <mmullenders@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"X-Generator: Pootle 1.1.0\n"
 
 #: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
@@ -309,11 +309,11 @@ msgstr ""
 
 #: src/templates/title.mas:25
 msgid "hide help"
-msgstr ""
+msgstr "verberg help"
 
 #: src/templates/language.mas:10
 msgid "Language Selection"
-msgstr ""
+msgstr "Taalselectie"
 
 #: src/templates/language.mas:11
 msgid ""
