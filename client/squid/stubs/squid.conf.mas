@@ -22,6 +22,7 @@ sub _timeAclsInPolicy
 {
    my ($policy, @ids) = @_;
    my $id = join '_', @ids;
+   $id = _escapeWS($id);
 
    my $acls = '';
 
@@ -37,6 +38,16 @@ sub _timeAclsInPolicy
 
    return $acls;
 }
+
+# this is needed because space scap deos nto  work in acl names
+sub _escapeWS
+{
+    my ($group) = @_;
+    $group =~ s{ }{__}g;
+    return $group;
+}
+
+
 
 </%perl>
 # <EBOX> TAG_HTTPORT #
@@ -198,13 +209,13 @@ http_access allow authorized all
 %   my $acls     = "$timeAcls $group";
 %   my $allowPolicy = $groupPol->{'allow'};
 %   if ($allowPolicy) {
-http_access allow  <% $timeAcls %> <% $group %>
+http_access allow  <% $timeAcls %> <% _escapeWS($group) %>
 %    }
 
 %   if ((not $allowPolicy) or $timeAcls ) {
 #   in case of allow + time acl we have to deny otherwise
 #   outsde of the time period we will slip to defualt policy
-http_access deny <% $group %> all
+http_access deny <% _escapeWS($group) %> all
 %   }
 
 % }
@@ -221,13 +232,13 @@ $object
 %   my $allow = $groupPol->{'allow'};
 
 %   if ($allow) {
-http_access allow <% $timeAcls %> <% $group %> <% $object %>
+http_access allow <% $timeAcls %> <% _escapeWS($group) %> <% $object %>
 %    }
 
 %  if ((not $allow) or $timeAcls ) {
 #   in case of allow + time acl we have to deny otherwise
 #   outsde of the time period we will slip to defualt policy
-http_access deny  <% $group %> <% $object %>
+http_access deny  <% _escapeWS($group) %> <% $object %>
 %   }
 
 
@@ -276,20 +287,34 @@ http_access deny <% $object %>
 @objectsPolicies
 </%args>
 <%init>
+# group ACLs from group polices
 my %groups = map {
         ($_ ->{group} => , $_->{users})
 } @groupsPolicies;
 
+
+# add group acls from object policies
 foreach my $obPol (@objectsPolicies) {
   foreach my $grPol (@{ $obPol->{groupsPolicies} } ) {
-        $groups{ $grPol->{group} } = $grPol->{users};
+      $groups{ $grPol->{group} } =  $grPol->{users};
  }
+}
+
+
+# escape user names
+foreach my $users_r (values %groups) {
+       my @users = map {
+           my $user = $_;
+           $user =~ s{ }{\\ }g;
+           $user
+       } @{ $users_r  };
+    $users_r =  \@users;
 }
 
 
 </%init>
 % while (my ($group, $users) = each %groups)  {
-acl <% $group %> proxy_auth <% join ' ', @{ $users } %>
+acl <% _escapeWS($group) %> proxy_auth <% join ' ', @{ $users } %>
 % }
 
 
@@ -329,6 +354,7 @@ $policy
 </%args>
 <%init>
 my $id = join '_', @ids;
+$id = _escapeWS($id);
 </%init>
 % if ($policy->{timeDays}) {
 acl <% 'timeDays_' . $id %> time <% $policy->{timeDays} %>
