@@ -224,6 +224,41 @@ sub setConfigured
     return $self->st_set_bool('_serviceConfigured', $status);
 }
 
+# Method: firstInstall
+#
+#   This method is used to check if the module has been recently installed
+#   and has not saved changes yet. This is useful to control which modules
+#   have been configured through wizards.
+#
+# Returns:
+#
+#   boolean
+#
+sub firstInstall
+{
+    my ($self) = @_;
+
+    if ($self->st_get_bool('_serviceInstalled')) {
+        return 0;
+    }
+
+    return 1;
+}
+
+# Method: setInstalled
+#
+#   This method is used to set if the module has been installed
+#
+#   If it's set to true it means that the module has been installed
+#   Call this method is only necessary on first install of the module.
+#
+sub setInstalled
+{
+    my ($self) = @_;
+
+    return $self->st_set_bool('_serviceInstalled', 1);
+}
+
 
 # Method: isEnabled
 #

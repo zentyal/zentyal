@@ -56,7 +56,9 @@ sub _modulesWizardPages
 
     foreach my $name ( @modules ) {
         my $module = $global->modInstance($name);
-        push (@pages, @{$module->wizardPages()});
+        if ($module->firstInstall()) {
+            push (@pages, @{$module->wizardPages()});
+        }
     }
 
     return \@pages;

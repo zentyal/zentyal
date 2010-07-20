@@ -485,6 +485,7 @@ sub saveAllModules
                 next if ($name eq 'users'); # Skip usersandgroups
 
                 my $module = $self->modInstance($name);
+                $module->setInstalled();
                 $module->setConfigured(1);
                 $module->enableService(1);
                 try {
@@ -513,6 +514,7 @@ sub saveAllModules
                 my $mod = $self->modInstance($name);
                 my $class = 'EBox::Module::Service';
                 if ($mod->isa($class) and not $mod->configured()) {
+                        $mod->setInstalled();
                         $mod->_saveConfig();
                         $self->modRestarted($name);
                         next;
