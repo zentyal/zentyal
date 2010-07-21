@@ -731,17 +731,38 @@ sub updateStatus
     return $stat->mtime;
 }
 
-
+# Method: setQAUpdates
+#
+#     Set the software management system to be updated using QA
+#     updates.
+#
+#     This method must be called from ebox-remoteservices when a
+#     subscription is done or released.
+#
+# Parameters:
+#
+#     value - boolean indicating if the QA updates are to be set or
+#             released
+#
 sub setQAUpdates
 {
     my ($self, $value) = @_;
     $self->set_bool('qa_updates', $value);
 }
 
+# Method: QAUpdates
+#
+#     Return if the management system is being updated using QA
+#     updates or not
+#
+# Returns:
+#
+#     Boolean -
+#
 sub QAUpdates
 {
     my ($self) = @_;
-    $self->get_bool('qa_updates');
+    return $self->get_bool('qa_updates');
 }
 
 
@@ -775,7 +796,12 @@ sub _setAptPreferences
             return;
         }
 
-        EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferences'");
+        # Hardy version
+        # EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferences'");
+
+        # Lucid version
+        my $preferencesDirFile = '/etc/apt/preferences.d/01ebox';
+        EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferencesDirFile'");
     } else {
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
         if ($existsOld) {
