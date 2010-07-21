@@ -1,8 +1,8 @@
 <%args>
-	@upgradables => ()
-        $updateStatus => undef
-        $automaticUpdates
-        $QAUpdates
+    @upgradables => ()
+    $updateStatus => undef
+    $automaticUpdates
+    $QAUpdates
 </%args>
 <%init>
 use EBox::Gettext;

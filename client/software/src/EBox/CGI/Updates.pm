@@ -28,32 +28,36 @@ use EBox::Gettext;
 ## arguments:
 ## 	title [required]
 sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title'    => __('System updates'),
-				      'template' => 'software/updates.mas',
-				      @_);
-	$self->{domain} = 'ebox-software';
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title'    => __('System updates'),
+            'template' => 'software/updates.mas',
+            @_);
+    $self->{domain} = 'ebox-software';
+    bless($self, $class);
+    return $self;
 }
 
 sub _process($) {
-	my $self = shift;
-	$self->{title} = __('System updates');
-	my $software = EBox::Global->modInstance('software');
+    my $self = shift;
+    $self->{title} = __('System updates');
+    my $software = EBox::Global->modInstance('software');
 
-	my @array = ();
-	my $upg = $software->listUpgradablePkgs(0, 1);
-	if (@{$upg} == 0) {
-		$self->{msg} = __('The system components are up to date.');
-                $self->{params} = [ updateStatus => $software->updateStatus(0)];
-		return;
-	}
-	push(@array, 'upgradables' => $upg);
-	push(@array, 'updateStatus' => $software->updateStatus(0));
-        push(@array, 'automaticUpdates' => $software->getAutomaticUpdates());
-        push(@array, 'QAUpdates' => $software->QAUpdates());
-	$self->{params} = \@array;
+    my @array = ();
+    my $upg = $software->listUpgradablePkgs(0, 1);
+    if (@{$upg} == 0) {
+        $self->{msg} = __('The system components are up to date.');
+        $self->{params} = [
+            updateStatus => $software->updateStatus(0),
+            automaticUpdates => 0,
+            QAUpdates => 0,
+        ];
+        return;
+    }
+    push(@array, 'upgradables' => $upg);
+    push(@array, 'updateStatus' => $software->updateStatus(0));
+    push(@array, 'automaticUpdates' => $software->getAutomaticUpdates());
+    push(@array, 'QAUpdates' => $software->QAUpdates());
+    $self->{params} = \@array;
 }
 
 1;
