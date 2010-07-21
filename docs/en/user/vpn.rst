@@ -537,13 +537,13 @@ situation:
 
 .. figure:: images/vpn/two-offices.png
    :scale: 70
-   :alt: eBox vs OpenVPN as a server. eBox OpenVPN as a client
+   :alt: One eBox as an OpenVPN server, the other as an OpenVPN client
 
-   eBox vs OpenVPN as a server. eBox OpenVPN as a client
+   One eBox as an OpenVPN server, the other as an OpenVPN client
 
-The goal is to connect the client on the LAN 1 with client 2
-on the LAN 2, as if they were in the same local network. Therefore,
-you have to configure an OpenVPN server as done in :ref:`vpn-example-b-ref`.
+The goal is to connect client 1 on LAN 1 to client 2 on LAN 2, as if
+they were in the same network; therefore, you first have to configure
+an OpenVPN server as shown in :ref:`vpn-example-b-ref`.
 
 However, you need to make two small changes. First, enable
 the :guilabel:`Allow eBox-to-eBox tunnels` option to exchange
