@@ -49,7 +49,7 @@ use EBox;
 use EBox::CA::Certificates;
 use EBox::Validate;
 
-use constant TEMPDIR     => EBox::Config->tmp(); # "/tmp/";
+use constant TEMPDIR     => "/tmp"; # EBox::Config->tmp();
 use constant OPENSSLPATH => "/usr/bin/openssl";
 
 use constant CATOPDIR => EBox::Config->home() . "CA/";
