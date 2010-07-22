@@ -1051,10 +1051,6 @@ sub runMonthlyQuery
                 for my $r (@{$results}) {
                     my $keyname = $r->{$key};
                     for my $f (@fields) {
-                        if ($f eq $key) {
-                            next;
-                        }
-
                         my $val = $r->{$f};
                         if (defined $val) {
                             $data->{$keyname}->{$f}->[$nMonth] = $val;
@@ -1097,7 +1093,7 @@ sub _monthlyQueryDataFields
     my @fields;
     my $resultFieldsQuery = $db->query_hash(\%fieldsQuery);
     if (defined $resultFieldsQuery and (exists $resultFieldsQuery->[0])) {
-        @fields =   (%{@{$resultFieldsQuery}[0]});
+        @fields =   (keys %{@{$resultFieldsQuery}[0]});
     }
 
     if ($key) {
