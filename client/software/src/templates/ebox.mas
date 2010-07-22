@@ -618,7 +618,8 @@ var pkgTable = new Array(
 	}
 	
 	function sendForm(action, htmlIds) {
-		if(!isArray(htmlIds))
+		var send = false;
+        if(!isArray(htmlIds))
 			return;
 
 		for(var i = 0; i < htmlIds.length; i++){
@@ -627,16 +628,19 @@ var pkgTable = new Array(
 				inputPkg.setAttribute('type', 'text');
 				inputPkg.setAttribute('name', 'pkg-'+htmlIds[i].substring(4));
 				inputPkg.setAttribute('value', 'yes');
-				document.formPkg.appendChild(inputPkg);				
+				document.formPkg.appendChild(inputPkg);
+                send = true;
 			}
 		}
 
-		var inputAct = document.createElement('input');
-		inputAct.setAttribute('type', 'text');
-		inputAct.setAttribute('name', 'ebox-'+action);	
-		inputAct.setAttribute('value', action);
-		document.formPkg.appendChild(inputAct);
-		document.formPkg.submit();
+		if (send) {
+            var inputAct = document.createElement('input');
+	    	inputAct.setAttribute('type', 'text');
+	    	inputAct.setAttribute('name', 'ebox-'+action);	
+	    	inputAct.setAttribute('value', action);
+	    	document.formPkg.appendChild(inputAct);
+	    	document.formPkg.submit();
+       }
 	}
 	
 	function sendFormBasic(){
