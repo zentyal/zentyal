@@ -1,9 +1,10 @@
 HEAD
-	+ Bugfix: General ebox database is now created if needed when 
+	+ Bugfix: General ebox database is now created if needed when
 	  re/starting services
 	+ Bugfix: Data to report are now uniform in number of elements per
- 	  value. This prevents errors when a value is present in a month and
+	  value. This prevents errors when a value is present in a month and
 	  not in another
+	+ Bugfix: Don't show already visited wizard pages again
 1.5.7
 	+ Bugfix: Avoid error when RAID is not present
 	+ Bugfix: Add ebox-consolidate-reportinfo call in daily cron script
