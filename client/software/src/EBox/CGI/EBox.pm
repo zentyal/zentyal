@@ -58,8 +58,7 @@ sub _process($) {
 
 sub _menu {
     my ($self) = @_;
-    my $file = '/var/lib/ebox/.first';
-    if (-f  $file) {
+    if (-f FIRST_RUN_FILE) {
         my $software = EBox::Global->modInstance('software');
         $software->firstTimeMenu(0);
     } else {
@@ -69,8 +68,12 @@ sub _menu {
 
 sub _top
 {
-	print '<div id="top"></div><div id="header"><img src="/data/images/title.png" alt="title"/></div>';
-	return;
+	my ($self) = @_;
+    if (-f  FIRST_RUN_FILE) {
+        print '<div id="top"></div><div id="header"><img src="/data/images/title.png" alt="title"/></div>';
+    } else {
+        $self->SUPER::_top(@_);
+    }
 }
 
 1;
