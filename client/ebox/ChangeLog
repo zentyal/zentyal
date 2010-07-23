@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: General ebox database is now created if needed when 
+	  re/starting services
 	+ Bugfix: Data to report are now uniform in number of elements per
  	  value. This prevents errors when a value is present in a month and
 	  not in another
