@@ -236,7 +236,6 @@ sub fetchAllPkgs
 	my $cmd ='/usr/bin/apt-get install -qq --download-only --force-yes --yes --no-install-recommends';
 	foreach my $pkg (@pkgs) {
 		$cmd .= ($pkg->{name} . " ");
-		$cmd .= (join(" ", @{$pkg->{depends}}) . " ");
 	}
 	try {
 		root($cmd);
