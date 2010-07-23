@@ -1,5 +1,5 @@
 HEAD
-        + Fixed problem with whitespaces in users/groups/objects in squid
+	+ Fixed problem with whitespaces in users/groups/objects in squid
 	configuration file
 1.5.5
 	+ Revert range_offset_limit option to default value because was causing
