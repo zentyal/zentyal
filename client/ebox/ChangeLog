@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: Save all modules on first installation
 	+ Bugfix: General ebox database is now created if needed when
 	  re/starting services
 	+ Bugfix: Data to report are now uniform in number of elements per

@@ -412,13 +412,16 @@ sub prepareSaveAllModules
 {
     my ($self) = @_;
 
-    my $totalTicks = scalar @{$self->modifiedModules('save')}
-      + $self->_nScripts(PRESAVE_SUBDIR, POSTSAVE_SUBDIR);
-
+    my $totalTicks;
     my $file = '/var/lib/ebox/.first';
     if ( -f $file ) {
-        $totalTicks += scalar @{$self->modNames};
+        # enable + save modules
+        $totalTicks = scalar @{$self->modNames} * 2;
+    } else {
+        # save changed modules
+        $totalTicks = scalar @{$self->modifiedModules('save')};
     }
+    $totalTicks += $self->_nScripts(PRESAVE_SUBDIR, POSTSAVE_SUBDIR);
 
     return $self->_prepareActionScript('saveAllModules', $totalTicks);
 }
@@ -474,9 +477,10 @@ sub saveAllModules
         my $file = '/var/lib/ebox/.first';
         if ( -f $file ) {
             my $mgr = EBox::ServiceManager->new();
-            my @modules = @{$mgr->_dependencyTree()};
+            @mods = @{$mgr->_dependencyTree()};
+            $modNames = join(' ', @mods);
 
-            foreach my $name (@modules) {
+            foreach my $name (@mods) {
                 $progress->setMessage(__x("Enabling {modName} module",
                                           modName => $name));
                 $progress->notifyTick();
