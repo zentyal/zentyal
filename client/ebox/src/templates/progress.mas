@@ -100,7 +100,7 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 				html += "</br>";
 				if (ads[nAds].links != null) {
 					for(var i = 0; i < ads[nAds].links.length; i++)
-						html += "<span><a onclick='window.open(" + '"' + ads[nAds].links[i] + '"' + ")'>" + ads[nAds].links[i] + "</a></spam>";
+						html += "<span><a onclick='window.open(" + '"' + ads[nAds].links[i] + '"' + ")'>" + ads[nAds].links[i] + "</a></span><br/>";
 				}
 				html += "<div>";
 				document.getElementById('dFrame').innerHTML = html;
