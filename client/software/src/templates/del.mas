@@ -131,7 +131,7 @@ var check = new Array();
     <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
 %   }
 %   if ($packages_auto) {
-%       my @pkg_auto = split(' ', $packages_auto);
+%       my @pkg_auto = split(',', $packages_auto);
 %       for my $pkg (@pkg_auto) {
     <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
 %       }    
