@@ -106,6 +106,12 @@ sub _top
 	print($self->{htmlblocks}->title());
 }
 
+sub _topNoAction
+{
+	my $self = shift;
+	print($self->{htmlblocks}->titleNoAction());
+}
+
 sub _menu
 {
 	my $self = shift;

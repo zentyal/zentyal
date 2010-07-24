@@ -45,6 +45,19 @@ sub title
     return EBox::Html::title();
 }
 
+# Method: titleNoAction
+#
+#	Returns the html code for the title without actions
+#
+# Returns:
+#
+#      	string - containg the html code for the title
+#
+sub titleNoAction
+{
+    return EBox::Html::titleNoAction();
+}
+
 # Method: menu
 #
 #	Returns the html code for the menu

@@ -1,4 +1,5 @@
 HEAD
+	+ Added buttonless top menu option
 	+ Bugfix: Save all modules on first installation
 	+ Bugfix: General ebox database is now created if needed when
 	  re/starting services

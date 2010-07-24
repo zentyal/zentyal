@@ -70,7 +70,7 @@ sub _top
 {
 	my ($self) = @_;
     if (-f  FIRST_RUN_FILE) {
-        print '<div id="top"></div><div id="header"><img src="/data/images/title.png" alt="title"/></div>';
+        $self->_topNoAction();
     } else {
         $self->SUPER::_top(@_);
     }

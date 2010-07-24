@@ -87,8 +87,8 @@ sub _menu {
 
 sub _top
 {
-	print '<div id="top"></div><div id="header"><img src="/data/images/title.png" alt="title"/></div>';
-	return;
+    my ($self) = @_;
+    $self->_topNoAction();
 }
 
 sub _packages

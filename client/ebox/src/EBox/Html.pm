@@ -70,6 +70,28 @@ sub title
 }
 
 #
+# Method: titleNoAction
+#
+#	Returns the html code for the title without action buttons
+#
+# Returns:
+#
+#	string - containg the html code for the title
+#
+sub titleNoAction
+{
+	my $global = EBox::Global->getInstance();
+    my $image_title = $global->theme()->{'image_title'};
+
+	my $html = makeHtml('headTitle.mas',
+                             image_title => $image_title,
+                            );
+	return $html;
+}
+
+
+
+#
 # Method: menu
 #
 #	Returns the html code for the menu
