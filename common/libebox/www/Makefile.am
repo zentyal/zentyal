@@ -31,7 +31,7 @@ js = js/base64.js js/csshover.htc js/common.js \
   js/format.js js/modalbox.js js/flotr.js js/excanvas.js \
   js/table_orderer.js
 
-css = css/modalbox.css css/tableorderer.css
+css = css/modalbox.css
 
 nobase_www_DATA =  $(images) $(js) $(css)
 
