@@ -117,7 +117,9 @@ sub _menu
 
 sub _top
 {
-	print '<div id="top"></div><div id="header"><img src="/data/images/title.png" alt="title"/></div>';
+    my $global = EBox::Global->getInstance();
+    my $img = $global->theme()->{'image_title'};
+	print "<div id='top'></div><div id='header'><img src='$img'/></div>";
 	return;
 }
 
