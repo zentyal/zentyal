@@ -169,6 +169,51 @@ sub dumpIptablesCommands
   }
 
 
+# Method: dumpProtocols
+#
+#       Dump l7 filter protocols and its iptables mark
+#
+# Returns:
+#
+#       hash ref - array containing l7 filter protocols as keys and marks as values
+#
+# Exceptions:
+#
+#         <EBox::Exceptions::Internal> - throw if buildRoot has not been called before
+#
+sub dumpProtocols
+{
+    my ( $self ) = @_;
+
+    throw EBox::Exceptions::Internal unless defined( $self->{treeRoot} );
+
+    my %protocols;
+    my @nodes = $self->{treeRoot}->traverse( $self->{treeRoot}->LEVEL_ORDER );
+
+    foreach my $node (@nodes) {
+        my $value = $node->value();
+
+        next unless
+            $value->isa( 'EBox::TrafficShaping::QDisc::Base' ) or
+            ( $value->isa( 'EBox::TrafficShaping::Class' ) and
+              defined( $value->getAttachedQDisc() ));
+
+        my %newProtocols;
+        if ( $value->isa( 'EBox::TrafficShaping::QDisc::Base' ) ) {
+            %newProtocols = %{$value->dumpProtocols()};
+        } elsif ($value->isa( 'EBox::TrafficShaping::Class' )) {
+            %newProtocols = %{$value->getAttachedQDisc()->dumpProtocols()};
+        }
+
+        foreach my $protocol ( keys %newProtocols ) {
+            $protocols{$protocol} = $newProtocols{$protocol};
+        }
+    }
+
+    return \%protocols;
+}
+
+
 # Method: getInterface
 #
 #         Accessor to the interface attached to the builder

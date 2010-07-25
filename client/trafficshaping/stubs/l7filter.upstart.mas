@@ -1,0 +1,17 @@
+<%doc>
+This stub writes each l7-filter upstart script
+
+Parameters:
+    iface - iface
+    config - l7-filter configuration file
+    mask - mask for iptables packets marks
+    queue - netfilter queue number
+</%doc>
+<%args>
+    $iface
+    $config
+    $mask
+    $queue
+</%args>
+exec /usr/bin/l7-filter -f <% $config %> -m <% $mask %> -q <% $queue %>
+respawn

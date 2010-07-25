@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: ebox-l7-protocols
 Architecture: all
-Depends: ebox (>= 1.5), ebox (<< 1.5.100), ebox-trafficshaping, l7-protocols, ${misc:Depends}
+Depends: ebox (>= 1.5), ebox (<< 1.5.100), ebox-trafficshaping, l7-protocols, l7-filter-userspace, ${misc:Depends}
 Conflicts: ebox (<< 0.9.99)
 Replaces: ebox (<< 0.9.99)
 Description: eBox - Application Protocols

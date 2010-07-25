@@ -1,0 +1,13 @@
+<%doc>
+This stub writes each l7-filter configuration file
+
+Parameters:
+    protocols - Hash containing each protocol as key and iptables mark as value
+</%doc>
+<%args>
+    %protocols
+</%args>
+% foreach my $protocol ( keys(%protocols) ) {
+<% $protocol %>    <% $protocols{$protocol} %>
+% }
+

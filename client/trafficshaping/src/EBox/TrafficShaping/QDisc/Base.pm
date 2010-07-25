@@ -281,4 +281,31 @@ sub dumpIptablesCommands
 
   }
 
+# Method: dumpProtocols
+#
+#       Dump l7 filter protocols and its iptables mark
+#
+# Returns:
+#
+#       hash ref - array containing l7 filter protocols as keys and marks as values
+#
+sub dumpProtocols
+{
+    my ( $self ) = @_;
+
+    my %protocols;
+
+    # Dump from each filter attached to the qdisc
+    foreach my $filter (@{$self->filters()}) {
+        my %newProtocols = %{$filter->dumpProtocols()};
+
+        foreach my $protocol ( keys (%newProtocols) ) {
+            $protocols{$protocol} = $newProtocols{$protocol};
+        }
+    }
+
+    return \%protocols;
+}
+
+
 1;

@@ -88,6 +88,11 @@ use constant MAX_ID_VALUE => 65280; # 0xFF00
 use constant MAX_RULE_NUM => 256; # FF rules
 use constant DEFAULT_CLASS_ID => 21;
 
+use constant L7_MODULE => 'ip_conntrack_netlink';
+
+use constant CONF_DIR => EBox::Config::conf() . 'trafficshaping/';
+use constant UPSTART_DIR => '/etc/init/';
+
 # Constructor for traffic shaping module
 sub _create
   {
@@ -110,9 +115,9 @@ sub _create
 # FIXME
 sub startUp
 {
-     my ($self) = @_;
-     # Create rule models
-     #$self->_createRuleModels();
+    my ($self) = @_;
+    # Create rule models
+    #$self->_createRuleModels();
 
     # Create wrappers
     $self->{tc} = EBox::TC->new();
@@ -156,6 +161,47 @@ sub isRunning
     return $self->isEnabled();
 }
 
+
+# Method: _setConf
+#
+#      Writes the configuration files
+#
+# Overrides:
+#
+#      <EBox::Module::Base::_setConf>
+#
+sub _setConf
+{
+    my ($self) = @_;
+
+    my $ifaces_ref = $self->_configuredInterfaces();
+
+    foreach my $iface (@{$ifaces_ref}) {
+        if ( defined ( $self->{builders}->{$iface} ) ) {
+            my $protocols = $self->{builders}->{$iface}->dumpProtocols();
+            if (scalar keys %$protocols) {
+                # Load kernel module
+                $self->_loadL7Module();
+
+                # Write l7 filter configuration
+                my @params = ();
+                push (@params, protocols => $protocols);
+                my $confFile = $self->confDir() . "l7filter-$iface.conf";
+                $self->writeConfFile($confFile, 'trafficshaping/l7filter.conf.mas', \@params);
+
+                # Write l7 filter upstart
+                @params = ();
+                push (@params, iface => $iface);
+                push (@params, config => $confFile);
+                push (@params, mask => EBox::TrafficShaping::Filter::Fw->MARK_MASK);
+                push (@params, queue => $self->ifaceUniqueId($iface));
+                $self->writeConfFile(UPSTART_DIR . "ebox.l7filter-$iface.conf", 'trafficshaping/l7filter.upstart.mas', \@params);
+            }
+        }
+    }
+}
+
+
 # Method: _enforceServiceState
 #
 # Overrides:
@@ -178,10 +224,9 @@ sub _enforceServiceState
 
     # Called every time a Save Changes is done
     my $ifaces_ref = $self->_configuredInterfaces();
+
     # Build a tree for each interface
-
     $self->_createPostroutingChain();
-
     $self->_resetInterfacesChains();
 
     foreach my $iface (@{$ifaces_ref}) {
@@ -196,6 +241,9 @@ sub _enforceServiceState
             $self->_executeIptablesCmds($ipTablesCommands_ref);
         }
     }
+
+    # Start l7 daemons
+    $self->_startService();
 }
 
 
@@ -332,6 +380,32 @@ sub reloadCompositesOnChange
 
 }
 
+# Method: _daemons
+#
+# Overrides:
+#
+#     <EBox::Module::Service::_daemons>
+#
+sub _daemons
+{
+    my ($self) = @_;
+
+    my @daemons = ();
+    my $ifaces_ref = $self->_configuredInterfaces();
+
+    # Return daemons for ifaces with configured l7 protocols
+    foreach my $iface (@{$ifaces_ref}) {
+        if ( defined ( $self->{builders}->{$iface} ) ) {
+            my $protocols = $self->{builders}->{$iface}->dumpProtocols();
+            if (scalar keys %$protocols) {
+                push(@daemons, { name => "ebox.l7filter-$iface" });
+            }
+        }
+    }
+    return \@daemons;
+}
+
+
 # Method: _stopService
 #
 #     Call every time the module is stopped
@@ -341,21 +415,24 @@ sub reloadCompositesOnChange
 #     <EBox::Module::_stopService>
 #
 sub _stopService
-  {
-    my $self = shift;
+{
+    my ($self) = @_;
 
     $self->startUp() unless ($self->{'started'});
+
+    # Stop l7 daemons
+    $self->SUPER::_stopService($self);
 
     my $ifaces_ref = $self->_configuredInterfaces();
 
     $self->_deletePostroutingChain();
     foreach my $iface (@{$ifaces_ref}) {
-      # Cleaning iptables
-      $self->_deleteChains($iface);
-      # Cleaning tc
-      $self->{tc}->reset($iface);
+        # Cleaning iptables
+        $self->_deleteChains($iface);
+        # Cleaning tc
+        $self->{tc}->reset($iface);
     }
-  }
+}
 
 
 # Method: summary
@@ -388,6 +465,25 @@ sub menu # (root)
 
     $root->add($folder);
 }
+
+
+# Method: configDir
+#
+#       Returns config dir path for this module, if it does not exists it will be created
+#
+# Returns:
+#
+#       config dir path
+#
+sub confDir
+{
+    if ( not -d CONF_DIR ) {
+        mkdir ( CONF_DIR, 0755 );
+    }
+
+    return CONF_DIR;
+}
+
 
 # Method: checkRule
 #
@@ -615,7 +711,7 @@ sub ruleModel # (iface)
 
 }
 
-# Method:   interfaceRateModel 
+# Method:   interfaceRateModel
 #
 #   Returns a <EBox::TrafficShaping::Model::InterfaceRate> model
 #
@@ -1187,12 +1283,13 @@ sub _buildGConfRules # (iface, regenConfig)
 
 # Create builders and they are stored in builders
 sub _createBuilders
-  {
-
+{
     my ($self, %params) = @_;
 
     # Don't do anything if there aren't enough ifaces
     return unless ($self->enoughInterfaces());
+
+
 
     my $regenConfig = $params{regenConfig};
 
@@ -1202,21 +1299,24 @@ sub _createBuilders
     my @ifaces = @{$self->_realIfaces()};
 
     foreach my $iface (@ifaces) {
-      $self->{builders}->{$iface} = {};
-      if ( $self->_areRulesActive($iface, not $regenConfig) ) {
-	# If there's any rule, for now use an HTBTreeBuilder
-	$self->_createTree($iface, "HTB", $regenConfig);
-	# Build every rule and stores the identifier in gconf to destroy
-	# them afterwards
-	$self->_buildGConfRules($iface, $regenConfig);
-      }
-      else {
-	# For now, if no user_rules are given, use DefaultTreeBuilder
-	$self->_createTree($iface, "default");
-      }
+        $self->{builders}->{$iface} = {};
+        if ( $self->_areRulesActive($iface, not $regenConfig) ) {
+            # If there's any rule, for now use an HTBTreeBuilder
+            $self->_createTree($iface, "HTB", $regenConfig);
+
+            # Build every rule and stores the identifier in gconf to destroy
+            # them afterwards
+            $self->_buildGConfRules($iface, $regenConfig);
+        }
+        else {
+            # For now, if no user_rules are given, use DefaultTreeBuilder
+            $self->_createTree($iface, "default");
+        }
     }
 
-  }
+    # write configuration files
+    $self->_setConf();
+}
 
 # Build a new rule to the tree
 # If not rules has been set or they're not enabled no added is made
@@ -1645,6 +1745,8 @@ sub _deleteChains # (iface)
     try {
         $self->_pf( "-t mangle -F EBOX-SHAPER-$iface" );
         $self->_pf( "-t mangle -X EBOX-SHAPER-$iface" );
+        $self->_pf( "-t mangle -F EBOX-L7SHAPER-$iface" );
+        $self->_pf( "-t mangle -X EBOX-L7SHAPER-$iface" );
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 2 or
@@ -1666,6 +1768,7 @@ sub _deletePostroutingChain # (iface)
     my $chain = "EBOX-SHAPER";
     try {
         $self->_pf("-t mangle -D POSTROUTING -j EBOX-SHAPER");
+        $self->_pf('-t mangle -D FORWARD -j EBOX-L7SHAPER');
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1676,6 +1779,7 @@ sub _deletePostroutingChain # (iface)
 
     try {
         $self->_pf("-t mangle -F EBOX-SHAPER");
+        $self->_pf('-t mangle -F EBOX-L7SHAPER');
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1686,6 +1790,7 @@ sub _deletePostroutingChain # (iface)
 
     try {
         $self->_pf("-t mangle -X EBOX-SHAPER");
+        $self->_pf('-t mangle -X EBOX-L7SHAPER');
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1703,6 +1808,7 @@ sub _createPostroutingChain # (iface)
     my $chain = "EBOX-SHAPER";
     try {
         $self->_pf("-t mangle -N  EBOX-SHAPER");
+        $self->_pf('-t mangle -N  EBOX-L7SHAPER');
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1713,6 +1819,7 @@ sub _createPostroutingChain # (iface)
 
     try {
         $self->_pf("-t mangle -I POSTROUTING -j EBOX-SHAPER");
+        $self->_pf('-t mangle -I FORWARD -j EBOX-L7SHAPER');
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
@@ -1733,12 +1840,22 @@ sub _resetChain # (iface)
     $self->_deleteChains($iface);
 
     my $chain = "EBOX-SHAPER-$iface";
+    my $chainl7 = "EBOX-L7SHAPER-$iface";
     try {
         $self->_pf("-t mangle -N $chain");
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         if ($exception->exitValue() == 1) {
             EBox::info("$chain already exists");
+        }
+    };
+
+    try {
+        $self->_pf("-t mangle -N $chainl7");
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        if ($exception->exitValue() == 1) {
+            EBox::info("$chainl7 already exists");
         }
     };
 
@@ -1749,6 +1866,18 @@ sub _resetChain # (iface)
         my $exception = shift;
         if ($exception->exitValue() == 1) {
             EBox::info($rule);
+        }
+    };
+
+    my $rule1 = "-t mangle -I EBOX-L7SHAPER -i $iface -j $chainl7";
+    my $rule2 = "-t mangle -I EBOX-L7SHAPER -o $iface -j $chainl7";
+    try {
+        $self->_pf($rule1);
+        $self->_pf($rule2);
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        if ($exception->exitValue() == 1) {
+            EBox::info($rule1);
         }
     };
   }
@@ -1794,6 +1923,14 @@ sub _realIfaces
     return [map {$network->realIface($_)} @{$network->ifaces()}];
 }
 
+
+# Load L7 userspace kernel module
+sub _loadL7Module
+{
+    EBox::Sudo::root('modprobe ' . L7_MODULE . ' || true');
+}
+
+
 # Method: l7FilterEnabled
 #
 #   return wether l7 (application layer) filtering is available or not. This
@@ -1804,8 +1941,6 @@ sub _realIfaces
 sub l7FilterEnabled
 {
     return 0 unless (EBox::Global->getInstance()->modExists('l7-protocols'));
-    my $out = `modinfo xt_layer7 2>&1`;
-    return ( $? == 0 );
 }
 
 # Method: modelsBackupFiles
@@ -1825,6 +1960,37 @@ sub modelsRestoreFiles
 {
 
 }
+
+
+# Method: ifaceUniqueId
+#
+#   Gets an unique id for the interface
+#
+# Parameters:
+#
+#   interface - the name of a network interface
+#
+# Returns:
+#
+#   integer - Unique id for the interface
+#             undef if iface does not exists
+#
+sub ifaceUniqueId
+{
+    my ($self, $iface) = @_;
+
+    my  $network = EBox::Global->modInstance('network');
+    my $id = 0;
+    foreach my $if ( @{$network->ifaces()} ) {
+        if ( $iface eq $if ) {
+            return $id;
+        }
+        $id++;
+    }
+
+    return undef;
+}
+
 
 1;
 

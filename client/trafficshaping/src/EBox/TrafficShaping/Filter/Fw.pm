@@ -29,6 +29,10 @@ use EBox::TrafficShaping;
 use Perl6::Junction qw( any );
 
 use constant MARK_MASK => '0xFF00';
+
+# Mark shift, last 8 bits
+use constant MARK_SHIFT => 8;
+
 # The highest found is 7
 use constant LOWEST_PRIORITY => 200;
 
@@ -323,25 +327,26 @@ sub dumpTcCommand
 #       array ref - array with all needed command arguments
 #
 sub dumpIptablesCommands
-  {
-
+{
     my ($self) = @_;
 
     # Getting the mask number
     my $mask = hex ( MARK_MASK );
+
     # Applying the mask
     my $mark = $self->{mark} & $mask;
     $mark = sprintf("0x%X", $mark);
-#    my $protocol = $self->{fProtocol};
+    #    my $protocol = $self->{fProtocol};
 
     # Set no port if protocol is all
     my $sport = undef;
     my $dport = undef;
-#    unless ( defined ( $protocol ) and
-#	 ($protocol eq EBox::Types::Service->AnyProtocol )) {
-#      $sport = $self->{fPort};
-#      $dport = $self->{fPort};
-#    }
+
+    # unless ( defined ( $protocol ) and
+    # ($protocol eq EBox::Types::Service->AnyProtocol )) {
+    #      $sport = $self->{fPort};
+    #      $dport = $self->{fPort};
+    # }
 
     my $srcIP = $self->{srcIP};
     my $srcMAC = $self->{srcMAC};
@@ -351,62 +356,99 @@ sub dumpIptablesCommands
 
     my $shaperChain;
     $shaperChain = 'EBOX-SHAPER-' . $self->{parent}->getInterface();
+    my $l7shaperChain = 'EBOX-L7SHAPER-' . $self->{parent}->getInterface();
 
     my @ipTablesCommands;
     my $leadingStr;
     my $mediumStr;
     if ( defined ( $self->{service} ) or defined ( $srcIP ) or defined ( $dstIP )) {
-      my $ipTablesRule = EBox::TrafficShaping::Firewall::IptablesRule->new( chain => $shaperChain );
-      # Mark the package and set the decision to MARK and the table as mangle
-      $ipTablesRule->setMark($mark, MARK_MASK);
+        my $ipTablesRule = EBox::TrafficShaping::Firewall::IptablesRule->new( chain => $shaperChain );
 
-      if ( defined ( $self->{srcAddr} )) {
-          $ipTablesRule->setSourceAddress(inverseMatch => 0,
-				      sourceAddress => $self->{srcAddr});
-      }
+        if ( defined ( $self->{srcAddr} )) {
+            $ipTablesRule->setSourceAddress(inverseMatch => 0,
+                    sourceAddress => $self->{srcAddr});
+        }
 
-      if (defined ( $self->{dstAddr} )) {
-          $ipTablesRule->setDestinationAddress( inverseMatch => 0,
-                                                destinationAddress => $self->{dstAddr} );
-      }
+        if (defined ( $self->{dstAddr} )) {
+            $ipTablesRule->setDestinationAddress( inverseMatch => 0,
+                    destinationAddress => $self->{dstAddr} );
+        }
 
-      my $l7Rule = 0;
-      if (not defined ($self->{service})) {
-        my $serviceMod = EBox::Global->modInstance('services');
-        $ipTablesRule->setService($serviceMod->serviceId('any'));
-      } elsif ($self->{service}->selectedType() eq 'service_port') {
-         my $iface = $self->{parent}->getInterface();
-         my $network = EBox::Global->modInstance('network');
-         if ($network->ifaceIsExternal($network->etherIface($iface))) {
-           $ipTablesRule->setService($self->{service}->value());
-         } else {
-           $ipTablesRule->setReverseService($self->{service}->value());
-         }
-      } elsif ($self->{service}->selectedType() eq 'service_l7Protocol') {
-        $ipTablesRule->setL7Service($self->{service}->value());
-        $l7Rule = 1;
-      } elsif ($self->{service}->selectedType() eq 'service_l7Group') {
-        $ipTablesRule->setL7GroupedService($self->{service}->value());
-        $l7Rule = 1;
-      }
-      push(@ipTablesCommands, @{$ipTablesRule->strings()});
-      if ($l7Rule) {
-        push(@ipTablesCommands, $self->_extraL7Commands($ipTablesRule));
-      }
+        my $l7Rule = 0;
+        if (not defined ($self->{service})) {
+            my $serviceMod = EBox::Global->modInstance('services');
+            $ipTablesRule->setService($serviceMod->serviceId('any'));
+
+        } elsif ($self->{service}->selectedType() eq 'service_port') {
+            my $iface = $self->{parent}->getInterface();
+            my $network = EBox::Global->modInstance('network');
+            if ($network->ifaceIsExternal($network->etherIface($iface))) {
+                $ipTablesRule->setService($self->{service}->value());
+            } else {
+                $ipTablesRule->setReverseService($self->{service}->value());
+            }
+
+        } elsif ($self->{service}->selectedType() eq 'service_l7Protocol') {
+            #$ipTablesRule->setL7Service($self->{service}->value());
+            $l7Rule = 1;
+
+        } elsif ($self->{service}->selectedType() eq 'service_l7Group') {
+            #$ipTablesRule->setL7GroupedService($self->{service}->value());
+            $l7Rule = 1;
+
+        }
+
+        if ( $l7Rule ) {
+            # Send unmarked packets to l7filter (NFQUEUE)
+            $ipTablesRule->setTable('mangle');
+            $ipTablesRule->setChain($l7shaperChain);
+            $ipTablesRule->addModule('mark', 'mark', '0/' . MARK_MASK);
+
+            my $serviceMod = EBox::Global->modInstance('services');
+            $ipTablesRule->setService($serviceMod->serviceId('any'));
+
+
+            my $iface = $self->{parent}->getInterface();
+
+            my $trafficshaping = EBox::Global->modInstance('trafficshaping');
+            my $queue = $trafficshaping->ifaceUniqueId($self->{parent}->getInterface());
+
+            $ipTablesRule->setDecision("NFQUEUE --queue $queue");
+            push(@ipTablesCommands, @{$ipTablesRule->strings()});
+
+
+            # Set final mark for l7 matched packages (remove outside mask marks)
+            push(@ipTablesCommands, "-t mangle -A $shaperChain " .
+                                    "-m mark --mark $mark/" . MARK_MASK .
+                                    " -j MARK --set-mark $mark");
+
+        } else {
+            # Mark the packet and set the decision to MARK and the table as mangle
+            $ipTablesRule->setMark($mark, MARK_MASK);
+            push(@ipTablesCommands, @{$ipTablesRule->strings()});
+        }
+
+
+
+        if ($l7Rule) {
+#            push(@ipTablesCommands, $self->_extraL7Commands($ipTablesRule));
+        }
+
+
     }
     # FIXME Comment out because it messes up with multipath marks
     #else {
-      # Set redundant mark to send to default one
+    # Set redundant mark to send to default one
 
-      # push(@ipTablesCommands,
-	#   "-t mangle -A $shaperChain -m mark --mark 0/" . MARK_MASK . ' ' .
-	#   "-j MARK --set-mark $mark"
-	#  );
+    # push(@ipTablesCommands,
+    #   "-t mangle -A $shaperChain -m mark --mark 0/" . MARK_MASK . ' ' .
+    #   "-j MARK --set-mark $mark"
+    #  );
     #}
 
     return \@ipTablesCommands;
 
-  }
+}
 
 sub _extraL7Commands
 {
@@ -424,12 +466,53 @@ sub _extraL7Commands
     my @cmds;
     for my $interface (@ifaces) {
         my $newRule = $rule->clone();
-        $rule->setChain("EBOX-SHAPER-$interface");
-        $rule->setDecision(undef);
+        $rule->setChain("EBOX-SHAPER-$interface -i $iface");
         push (@cmds, @{$rule->strings()});
     }
 
     return @cmds;
+}
+
+
+# Method: dumpProtocols
+#
+#       Dump l7 filter protocols and its iptables mark
+#
+# Returns:
+#
+#       hash ref - array containing l7 filter protocols as keys and marks as values
+#
+sub dumpProtocols
+{
+    my ( $self ) = @_;
+
+    my %protocols;
+
+    my $mark = $self->{mark} >> MARK_SHIFT;
+
+    if ( defined ( $self->{service} ) ) {
+
+        if ($self->{service}->selectedType() eq 'service_l7Protocol') {
+            $protocols{$self->{service}->value()} = $mark;
+
+        } elsif ($self->{service}->selectedType() eq 'service_l7Group') {
+
+            my $service = $self->{service}->value();
+            my $l7mod = EBox::Global->modInstance('l7-protocols')->model('Groups');
+            my $row = $l7mod->row($service);
+            unless (defined($row)) {
+                throw EBox::Exceptions::External("group $service does not exist");
+            }
+
+            for my $id (@{$row->subModel('protocols')->ids()}) {
+                my $subRow = $row->subModel('protocols')->row($id);
+                my $ser =  $subRow->valueByName('protocol');
+                $protocols{$ser} = $mark;
+            }
+        }
+    }
+
+    return \%protocols;
 }
 
 1;
