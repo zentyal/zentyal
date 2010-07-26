@@ -108,23 +108,21 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 		}
 % } else {
 		return;
-% } 
-		
+% }
+
 	}
-	
+
 </script>
-	
+
 <style>
-	
+
 .percent{
-	position:relative;
     float: left;
     line-height: 20px;
-	width:780px;
 	height:20px;
 	margin-left:380px;
 	z-index : 100;
-	filter: alpha(opacity=90); 
+	filter: alpha(opacity=90);
 	-moz-opacity: 0.9;
 	KhtmlOpacity: .9;
 	opacity: .9;
@@ -133,7 +131,7 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 </style>
 
 
-<div id="dFrame"></div>  
+<div id="dFrame"></div>
 <div id='progressing'>
 <p> <% $text %> </p>
 <% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
