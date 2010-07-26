@@ -547,7 +547,7 @@ sub _smtpFilterTableInfo
     my $events = {
                   'BAD-HEADER' => __('Bad header found'),
                   'SPAM'      => __('Spam found'),
-                  'BANNED' => __('Forbidden attached file  found'),
+                  'BANNED' => __('Forbidden attached file found'),
                   'BLACKLISTED' => __('Address in blacklist found'),
                   'INFECTED'    => __('Virus found'),
                   'CLEAN'       => __('Clean message'),
