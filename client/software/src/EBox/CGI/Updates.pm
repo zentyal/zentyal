@@ -49,7 +49,7 @@ sub _process($) {
         $self->{params} = [
             updateStatus => $software->updateStatus(0),
             automaticUpdates => 0,
-            QAUpdates => 0,
+            QAUpdates => $software->QAUpdates(),
         ];
         return;
     }
