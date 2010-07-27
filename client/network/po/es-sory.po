@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2009-01-21 10:15+0100\n"
 "PO-Revision-Date: 2009-03-16 13:22+0000\n"
 "Last-Translator: \n"
@@ -382,7 +382,7 @@ msgid ""
 "traffic feature is enabled."
 msgstr ""
 "Este campo resulta útil si tienes más de un router y si la opción de balance de tráfico "
-"está habilitada."
+"comtá habilitada."
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network/Model/GatewayTable.pm:130
 #: src/EBox/Model/GatewayTable.pm:130
@@ -813,7 +813,7 @@ msgid ""
 "configured via DHCP</p>"
 msgstr ""
 "<p>Puedes añadir aquí los servidores DNS que va a utilizar eBox.</p><p>Ten en cuenta que "
-"estas preferencias se anularán si tienes algún interfaz configurado por DHCP</p>"
+"comtas preferencias se anularán si tienes algún interfaz configurado por DHCP</p>"
 
 #: debian/ebox-network/usr/share/perl5/EBox/Network.pm:85
 #: src/EBox/Network.pm:85
@@ -987,7 +987,7 @@ msgid ""
 "their configuration. Choose \"Cancel\" if you are not sure about this."
 msgstr ""
 "Si eliges continuar, todos los módulos que usan la configuración actual de "
-"este interfaz de red borrarán las partes más relevantes de su configuración. "
+"comte interfaz de red borrarán las partes más relevantes de su configuración. "
 "Elije \"Cancelar\" si no estás seguro."
 
 #: debian/ebox-network/usr/share/ebox/templates/network/confirm.mas:31

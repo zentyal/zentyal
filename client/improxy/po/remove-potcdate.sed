@@ -1,4 +1,4 @@
-/^"POT-Creation-Date: .*"$/{
+/"POT-Creation-Date: .*"$/{
 x
 s/P/P/
 ta

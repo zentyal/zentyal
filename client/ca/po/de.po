@@ -185,7 +185,7 @@ msgid ""
 "certificate"
 msgstr ""
 "Vor dem Ausstellen eines neuen Zertifikat der Zertifizierungsstelle sollte "
-"es widerrufen werden oder zumindest abgelaufen sein"
+"com widerrufen werden oder zumindest abgelaufen sein"
 
 #: src/EBox/CA.pm:952 src/EBox/CA.pm:1298
 #, perl-brace-format

@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-monitor 1.1Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-monitor 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:34+0200\n"
 "PO-Revision-Date: 2010-02-03 15:27+0100\n"
@@ -102,7 +102,7 @@ msgid ""
 "infinity."
 msgstr ""
 "Be kell állítani a legnagyobb elfogadható értéket. Nem beállított érték "
-"esetén ez +végtelen"
+"cometén ez +végtelen"
 
 #: src/EBox/Monitor/Model/ThresholdConfiguration.pm:269
 msgid "Invert"

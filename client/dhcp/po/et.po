@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 1.4Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-dhcp 1.4Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:36+0200\n"
 "PO-Revision-Date: 2010-05-08 17:53+0200\n"
@@ -426,7 +426,7 @@ msgid ""
 "are not fully qualified"
 msgstr ""
 "Valitud domeen lisatakse klientide DNS päringutele, mille lahendamine "
-"esimesel korral ei õnnestu"
+"comimesel korral ei õnnestu"
 
 #: src/EBox/Model/Options.pm:481 src/templates/options.mas:41
 msgid "Primary nameserver"
