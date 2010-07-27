@@ -314,6 +314,7 @@ sub extractBundle
 #
 #     Current actions:
 #
+#        - Create John home directory (Security audit)
 #        - Set QA updates (QA repository and its preferences)
 #        - Execute bundle scripts (Alert autoconfiguration)
 #
@@ -326,6 +327,7 @@ sub executeBundle
 {
     my ($self, $params, $confKeys) =  @_;
 
+    $self->_setUpAuditEnvironment();
     $self->_setQAUpdates($params, $confKeys);
     $self->_executeBundleScripts($params, $confKeys);
 }
@@ -456,6 +458,14 @@ sub _openVPNConnection #(ipaddr, port, protocol)
                    )
                );
         }
+    }
+}
+
+sub _setUpAuditEnvironment
+{
+    my $johnDir = EBox::RemoteServices::Configuration::JohnHomeDirPath();
+    unless ( -d $johnDir ) {
+        mkdir($johnDir);
     }
 }
 

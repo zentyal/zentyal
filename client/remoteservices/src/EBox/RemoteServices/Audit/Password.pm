@@ -20,6 +20,7 @@ use EBox::Config;
 use EBox::Exceptions::Command;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
 use Error qw(:try);
 use File::Basename;
@@ -35,7 +36,7 @@ use constant {
     SYSTEM_SINGLE_USERS_PASS_LIST => EBox::Config::tmp() . 'ssupl.jtrf',
     DOING_CRACKING_FILE    => EBox::Config::tmp() . 'jtr.lock',
     JOHN_WRAPPER         => EBox::Config::share() . 'ebox-remoteservices/john-wrapper',
-    HOME_DIR             => EBox::Config::home() . '.john/',
+    HOME_DIR             => EBox::RemoteServices::Configuration::JohnHomeDirPath(),
 };
 
 # Procedure: reportUserCheck

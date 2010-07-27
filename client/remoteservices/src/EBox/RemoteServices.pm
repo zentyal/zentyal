@@ -765,6 +765,9 @@ sub report
            },
        );
 
+    # Return if there is no users (first consolidation)
+    return {} unless (defined($nUsersQuery->{nusers}));
+
     unless (defined( $averageQuery->{average_passwords} )) {
         $averageQuery->{average_passwords} = [];
         push(@{$averageQuery->{average_passwords}}, 0) foreach (1 .. @{$nUsersQuery->{nusers}});
@@ -803,16 +806,19 @@ sub report
         },
        );
 
-    # Get additional data to report
-    my (@fullNames, @emails);
-    for (my $i=0; $i < scalar(@{$report->{weak_password_users}->{username}}); $i++) {
-        my $username = $report->{weak_password_users}->{username}->[$i];
-        my $additionalInfo = EBox::RemoteServices::Audit::Password::additionalInfo($username);
-        push(@fullNames, $additionalInfo->{fullname});
-        push(@emails, $additionalInfo->{email});
+
+    if (defined($report->{weak_password_users})) {
+        # Get additional data to report
+        my (@fullNames, @emails);
+        for (my $i=0; $i < scalar(@{$report->{weak_password_users}->{username}}); $i++) {
+            my $username = $report->{weak_password_users}->{username}->[$i];
+            my $additionalInfo = EBox::RemoteServices::Audit::Password::additionalInfo($username);
+            push(@fullNames, $additionalInfo->{fullname});
+            push(@emails, $additionalInfo->{email});
+        }
+        $report->{weak_password_users}->{fullname} = \@fullNames;
+        $report->{weak_password_users}->{email} = \@emails;
     }
-    $report->{weak_password_users}->{fullname} = \@fullNames;
-    $report->{weak_password_users}->{email} = \@emails;
 
     return $report;
 

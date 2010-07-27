@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: Work when there is nothing to report yet
 1.5.4
 	+ Fix bug to pass conf keys to the execute procedures after extracting
 	  the bundle

@@ -113,11 +113,30 @@ sub CronJobPrefix
 
 }
 
+# Method: aptQASourcePath
+#
+#      Return the path to the QA repository source
+#
+# Returns:
+#
+#      String - the path
+#
 sub aptQASourcePath
 {
     return '/etc/apt/sources.list.d/ebox-qa.list';
 }
 
-
+# Method: JohnHomeDirPath
+#
+#      Return the path to the John the Ripper home directory
+#
+# Returns:
+#
+#      String - the path
+#
+sub JohnHomeDirPath
+{
+    return EBox::Config::home() . '.john/';
+}
 
 1;
