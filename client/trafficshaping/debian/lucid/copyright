@@ -1,12 +1,13 @@
-This package was debianized by Enrique J. Hernández <ejhernandez@warp.es> on
+This package was debianized by Enrique J. Hernández <ejhernandez@ebox-technologies.com> on
 fri oct  20 10:26:30 CEST 2006
-It's currently maintained by Javier Uruen Val <javi@ebox-technologies.com>
+It's currently maintained by José A. Calvo <jacalvo@ebox-technologies.com>
 
 It was downloaded from http://www.ebox-platform.com/
 
 Upstream Author: eBox Technologies S.L. <info@ebox-technologies.com>
 
-Copyright (C) 2006 Warp Networks S.L.
+Copyright (C) 2006-2007 Warp Networks S.L.
+Copyright (C) 2008-2010 eBox Technologies S.L.
 
 License:
 	This program is free software; you can redistribute it and/or modify
@@ -25,6 +26,7 @@ License:
 The Debian packaging is:
 
     (C) 2004, Isaac Clerencia <isaac@ebox-technologies.com>
-    (C) 2008, Javier Uruen Val <javi@ebox-technologies.com> 
-    
+    (C) 2008, Javier Uruen Val <javi@ebox-technologies.com>
+    (C) 2010, José A. Calvo <jacalvo@ebox-technologies.com>
+
 and is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
