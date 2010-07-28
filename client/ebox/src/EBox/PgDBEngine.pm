@@ -115,8 +115,13 @@ sub _disconnect
     my ($self) = @_;
 
     $self->{'sthinsert'}->finish() if ($self->{'sthinsert'});
-    $self->{'dbh'}->disconnect();
-    $self->{'dbh'} = undef;
+    if ($self->{'dbh'}) {
+        $self->{'dbh'}->disconnect();
+        $self->{'dbh'} = undef;
+    } else {
+        throw EBox::Exceptions::Internal(
+            'There wasn\'t a database connection, check if database exists\n');
+    }
 }
 
 sub _prepare

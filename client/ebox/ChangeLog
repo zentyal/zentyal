@@ -1,5 +1,6 @@
 HEAD
 	+ Fixed progress bar width problems
+	+ Improved error message when disconnecting a not connected database
 1.5.8
 	+ Added template tableorderer.css.mas
 	+ Added buttonless top menu option
