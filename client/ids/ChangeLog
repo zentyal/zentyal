@@ -1,6 +1,7 @@
-1.5
+HEAD
 	+ Bugfix: Snort doesn't fail to start when monitoring multiple interfaces
 	+ Home nets list is hardcoded to default now
+1.5
 	+ Include snort.conf from the snort lucid package (2.8.5.2)
 1.4
 	+ Remove headTitle from models
