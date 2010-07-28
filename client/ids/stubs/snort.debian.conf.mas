@@ -6,13 +6,7 @@
 # You have to use "dpkg-reconfigure snort" to change them.
 
 % my $net_list = '';
-% my $iface_list = '';
-% foreach my $iface (@ifaces) {
-%   $net_list .= '$' . $iface . '_ADDRESS,';
-%   $iface_list .= "$iface ";
-% }
-% $net_list = substr ($net_list, 0, -1);
-% $iface_list = substr ($iface_list, 0, -1);
+% my $iface_list = join (' ', @ifaces);
 
 DEBIAN_SNORT_STARTUP="boot"
 DEBIAN_SNORT_HOME_NET="<% $net_list %>"
