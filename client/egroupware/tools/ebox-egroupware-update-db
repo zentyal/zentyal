@@ -8,5 +8,4 @@ cd /usr/share/egroupware/setup
 
 ./setup-cli.php --update
 
-# Back to the previous directory
 cd -

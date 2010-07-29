@@ -17,5 +17,5 @@ LDAP_PASS=`cat /var/lib/ebox/conf/ebox-ldap.passwd`
 su postgres -c "dropdb egroupware"
 su postgres -c "createdb --encoding=utf-8 --owner egroupware egroupware"
 
-# Call setup domain script
+# Call setup script
 /usr/share/ebox-egroupware/ebox-egroupware-setup

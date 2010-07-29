@@ -19,5 +19,4 @@ cd /usr/share/egroupware/setup
     --ldap-context $USERSDN \
     --ldap-group-context $GROUPSDN
 
-# Back to the previous directory
 cd -

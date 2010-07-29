@@ -10,6 +10,4 @@ cd /usr/share/egroupware/setup
 
 ./setup-cli.php --language default,ebox,$EGW_PASS,+$EGW_LANGS
 
-# Back to the previous directory
 cd -
-

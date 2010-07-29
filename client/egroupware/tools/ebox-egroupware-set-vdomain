@@ -10,6 +10,4 @@ cd /usr/share/egroupware/setup
 
 ./setup-cli.php --config default,ebox --mailserver localhost,imap,$VDOMAIN,vmailmgr
 
-# Back to the previous directory
 cd -
-

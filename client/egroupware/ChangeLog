@@ -1,3 +1,8 @@
+HEAD
+	+ Small cleanup on management scripts on tools/
+	+ Update header.inc.php.mas template to sync latest
+	  header.inc.php.template version and use session files
+
 1.5
 	+ Support for postgresql 8.4 (lucid) instead of 8.3
 	+ Bug fix: LDAP port on slave was not properly set everywhere

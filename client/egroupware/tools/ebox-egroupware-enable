@@ -5,8 +5,6 @@ EGROUPWARE_DB_PASS=/var/lib/ebox/conf/ebox-egroupware.passwd
 PASS=`cat $EGROUPWARE_DB_PASS`
 export EGW_CLI_PASSWORD=$PASS
 
-LDAP_PASS=`cat /var/lib/ebox/conf/ebox-ldap.passwd`
-
 su postgres -c "psql -c \"CREATE ROLE egroupware UNENCRYPTED PASSWORD '$PASS' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN\""
 su postgres -c "createdb --encoding=utf-8 --owner egroupware egroupware"
 
@@ -19,6 +17,5 @@ fi
 
 /etc/init.d/postgresql-8.4 reload
 
-# Call domain setup script
+# Call setup script
 /usr/share/ebox-egroupware/ebox-egroupware-setup
-

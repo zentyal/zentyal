@@ -60,7 +60,6 @@ $GLOBALS['egw_domain']['default'] = array(
     'config_passwd' => '<% $config_passwd %>'
 );
 
-
 /*
 ** If you want to have your domains in a select box, change to True
 ** If not, users will have to login as user@domain
@@ -75,7 +74,7 @@ $GLOBALS['egw_info']['server']['db_persistent'] = false;
 ** used session handler: egw_session_files works for all build in php session handlers
 ** other handlers (like egw_session_memcache) can be enabled here
 */
-$GLOBALS['egw_info']['server']['session_handler'] = '{SESSION_HANDLER}';
+$GLOBALS['egw_info']['server']['session_handler'] = 'egw_session_files';
 
 /* Select which login template set you want, most people will use idots */
 $GLOBALS['egw_info']['login_template_set'] = 'idots';
@@ -115,7 +114,10 @@ $GLOBALS['egw_info']['server']['versions']['header'] = '1.29';
 
 if(!isset($GLOBALS['egw_info']['flags']['noapi']) || !$GLOBALS['egw_info']['flags']['noapi'])
 {
-	ob_start();	// to prevent error messages to be send before our headers
+	if (substr($_SERVER['SCRIPT_NAME'],-7) != 'dav.php')	// dont do it for webdav/groupdav, as we can not savely switch it off again
+	{
+		ob_start();	// to prevent error messages to be send before our headers
+	}
 	require_once(EGW_API_INC . '/functions.inc.php');
 }
 else

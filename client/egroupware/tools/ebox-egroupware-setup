@@ -27,18 +27,17 @@ EBox::init();
 
 my $pass = EBox::EGroupware::getPassword();
 
-chdir ('/usr/share/egroupware/setup');
+chdir('/usr/share/egroupware/setup');
 
 EBox::Sudo::root("./setup-cli.php --install default,ebox,$pass");
 
 my $configCmd = "./setup-cli.php --config default,ebox,$pass";
 my @cmds;
-push (@cmds, "$configCmd --webserver-url /egroupware");
-push (@cmds, "$configCmd --files-dir /var/lib/egroupware/default/files");
-push (@cmds, "$configCmd --backup-dir /var/lib/egroupware/default/backup");
-push (@cmds, "$configCmd --backup-dir /var/lib/egroupware/default/backup");
-push (@cmds, "$configCmd --temp-dir /tmp");
-push (@cmds, "$configCmd --smtpserver localhost --postfix yes");
+push(@cmds, "$configCmd --webserver-url /egroupware");
+push(@cmds, "$configCmd --files-dir /var/lib/egroupware/default/files");
+push(@cmds, "$configCmd --backup-dir /var/lib/egroupware/default/backup");
+push(@cmds, "$configCmd --temp-dir /tmp");
+push(@cmds, "$configCmd --smtpserver localhost --postfix yes");
 EBox::Sudo::root(@cmds);
 
 my $users = EBox::Global->modInstance('users');
@@ -75,7 +74,7 @@ $psqlCmd = "psql egroupware -c \"INSERT INTO egw_config VALUES ('phpgwapi','syst
 EBox::Sudo::sudo($psqlCmd, 'postgres');
 
 # Set default preferences (some egroupware apps doesn't work if they are not set)
-$psqlCmd = "psql egroupware -c \"INSERT INTO egw_preferences VALUES (-2, 'common', 'a:6:{s:12:\\\"template_set\\\";s:6:\\\"jerryr\\\";s:5:\\\"theme\\\";s:6:\\\"jerryr\\\";s:9:\\\"tz_offset\\\";s:1:\\\"0\\\";s:10:\\\"dateformat\\\";s:5:\\\"m/d/Y\\\";s:10:\\\"timeformat\\\";s:2:\\\"24\\\";s:11:\\\"default_app\\\";s:4:\\\"home\\\";}');\"";
-EBox::Sudo::sudo($psqlCmd, 'postgres');
+#$psqlCmd = "psql egroupware -c \"INSERT INTO egw_preferences VALUES (-2, 'common', 'a:6:{s:12:\\\"template_set\\\";s:6:\\\"jerryr\\\";s:5:\\\"theme\\\";s:6:\\\"jerryr\\\";s:9:\\\"tz_offset\\\";s:1:\\\"0\\\";s:10:\\\"dateformat\\\";s:5:\\\"m/d/Y\\\";s:10:\\\"timeformat\\\";s:2:\\\"24\\\";s:11:\\\"default_app\\\";s:4:\\\"home\\\";}');\"";
+#EBox::Sudo::sudo($psqlCmd, 'postgres');
 
 1;
