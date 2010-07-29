@@ -185,6 +185,7 @@ conf/hooks/Makefile
 conf/.gconf.path
 migration/Makefile
 migration/logs/Makefile
+migration/events/Makefile
 www/Makefile
 Makefile
 ])

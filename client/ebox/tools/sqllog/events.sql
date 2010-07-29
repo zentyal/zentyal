@@ -6,7 +6,7 @@ CREATE TABLE events(
                       nRepeated      INTEGER DEFAULT 1,
 
                       level  VARCHAR(6),
-                      source VARCHAR(20),
+                      source VARCHAR(256),
                       message VARCHAR(256)
 );
 

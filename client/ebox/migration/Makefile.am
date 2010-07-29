@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = logs
+SUBDIRS = logs events
 
-Migrationsdir = @DATADIR@/ebox-logs/migration
+Migrationsdir = @DATADIR@/ebox/migration
 
 MAINTAINERCLEANFILES = Makefile.in
 
