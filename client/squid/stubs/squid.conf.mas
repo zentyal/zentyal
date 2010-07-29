@@ -6,7 +6,7 @@
     @localnets
     @objectsPolicies
     @objectsDelayPools
-    @groupsPolicies
+    @groupsPolicies 
     @notCachedDomains
     $memory
     $max_object_size
@@ -14,25 +14,26 @@
     $cacheDirSize
     $dn
     $ldapport
-
-
 </%args>
 <%perl>
+our $maxAclNameLength = 31;
+our %longAclNames = ();
+
+
 sub _timeAclsInPolicy
 {
    my ($policy, @ids) = @_;
    my $id = join '_', @ids;
-   $id = _escapeWS($id);
 
    my $acls = '';
 
    if ($policy->{timeDays}) {
-      $acls = 'timeDays_' . $id;
+      $acls = _aclName('timeDays_' . $id);
       $acls .= ' ';
    }
 
    if ($policy->{timeHours}) {
-       $acls .= 'timeHours_' . $id;;
+       $acls .= _aclName('timeHours_' . $id);
    }
 
 
@@ -42,11 +43,28 @@ sub _timeAclsInPolicy
 # this is needed because space scap deos nto  work in acl names
 sub _escapeWS
 {
-    my ($group) = @_;
-    $group =~ s{ }{__}g;
-    return $group;
+    my ($string) = @_;
+    $string =~ s{ }{__}g;
+    return $string;
 }
 
+
+# needed to avoid log acl problems
+sub _aclName
+{
+    my ($name) = @_;
+    if (length($name) <= $maxAclNameLength) {
+        return _escapeWS($name);
+    }
+
+    if (not exists $longAclNames{$name}) {
+        my $nextId = 1 + keys %longAclNames;
+        $nextId = 'longAcl' . $nextId;
+        $longAclNames{$name} = $nextId;
+    }
+
+    return _escapeWS($longAclNames{$name});
+}
 
 
 </%perl>
@@ -205,17 +223,17 @@ http_access allow authorized all
 
 % foreach my $groupPol (@groupsPolicies) {
 %   my $group = $groupPol->{'group'};
+%   my $groupAcl = _aclName($group);
 %   my $timeAcls = _timeAclsInPolicy($groupPol, $group);
-%   my $acls     = "$timeAcls $group";
 %   my $allowPolicy = $groupPol->{'allow'};
 %   if ($allowPolicy) {
-http_access allow  <% $timeAcls %> <% _escapeWS($group) %>
+http_access allow  <% $timeAcls %> <% $groupAcl %>
 %    }
 
 %   if ((not $allowPolicy) or $timeAcls ) {
 #   in case of allow + time acl we have to deny otherwise
 #   outsde of the time period we will slip to defualt policy
-http_access deny <% _escapeWS($group) %> all
+http_access deny <% $groupAcl %> all
 %   }
 
 % }
@@ -228,17 +246,19 @@ $object
 </%args>
 % foreach my $groupPol (@groupsPolicies) {
 %   my $group = $groupPol->{'group'};
+%   my $groupAcl = _aclName($group);
+%   my $objectAcl = _aclName($object);
 %   my $timeAcls = _timeAclsInPolicy($groupPol, $object, $group);
 %   my $allow = $groupPol->{'allow'};
 
 %   if ($allow) {
-http_access allow <% $timeAcls %> <% _escapeWS($group) %> <% $object %>
+http_access allow <% $timeAcls %> <% $groupAcl %> <% $objectAcl %>
 %    }
 
 %  if ((not $allow) or $timeAcls ) {
 #   in case of allow + time acl we have to deny otherwise
 #   outsde of the time period we will slip to defualt policy
-http_access deny  <% _escapeWS($group) %> <% $object %>
+http_access deny  <% $groupAcl %> <% $objectAcl %>
 %   }
 
 
@@ -254,6 +274,7 @@ http_access deny  <% _escapeWS($group) %> <% $object %>
 % foreach my $objPol (@objectsPolicies) {
 
 %   my $object = $objPol->{'object'};
+%   my $objectAcl = _aclName($object);
 
   <& .objectGroupsAccess,
            groupsPolicies =>  $objPol->{groupsPolicies},
@@ -262,18 +283,18 @@ http_access deny  <% _escapeWS($group) %> <% $object %>
 
 
 %   if ($objPol->{'auth'}) {
-  http_access allow  <% $object %>  authorized
+  http_access allow  <% $objectAcl %>  authorized
 %   }
 
 % if ($objPol->{'allowAll'}) {
 %   my $timeAcls = _timeAclsInPolicy($objPol, $object);
-http_access allow <% $object %> <% $timeAcls %>
+http_access allow <% $objectAcl %> <% $timeAcls %>
 %     if ($timeAcls) {
 %     # to assure we dont slip to default configuration when we have a time acl
-http_access deny <% $object %>
+http_access deny <% $objectAcl %>
 %     }
 % } else {
-http_access deny <% $object %>
+http_access deny <% $objectAcl %>
 %   }
 
 % }
@@ -314,7 +335,8 @@ foreach my $users_r (values %groups) {
 
 </%init>
 % while (my ($group, $users) = each %groups)  {
-acl <% _escapeWS($group) %> proxy_auth <% join ' ', @{ $users } %>
+%   my $groupAcl = _aclName($group);
+acl <% $groupAcl %> proxy_auth <% join ' ', @{ $users } %>
 % }
 
 
@@ -338,7 +360,8 @@ acl eboxlocalnets dst <% join ' ', @localnets %>
 </%args>
 % foreach my $objPol (@objectsPolicies) {
 %   my $object = $objPol->{object};
-acl <% $object %> src <% join ' ', @{ $objPol->{addresses} } %>
+%   my $objectAcl = _aclName($object);
+acl <% $objectAcl %> src <% join ' ', @{ $objPol->{addresses} } %>
 <& .timeACLs, policy => $objPol, ids => [ $object ] &>
 %   foreach my $groupPol (@{ $objPol->{groupsPolicies} }) {
      <& .timeACLs, policy => $groupPol, ids => [$object, $groupPol->{group}] &>
@@ -354,13 +377,12 @@ $policy
 </%args>
 <%init>
 my $id = join '_', @ids;
-$id = _escapeWS($id);
 </%init>
 % if ($policy->{timeDays}) {
-acl <% 'timeDays_' . $id %> time <% $policy->{timeDays} %>
+acl <% _aclName('timeDays_' . $id) %> time <% $policy->{timeDays} %>
 % }
 % if ($policy->{timeHours}) {
-acl <% 'timeHours_' . $id %> time <% $policy->{timeHours} %>
+acl <% _aclName('timeHours_' . $id) %> time <% $policy->{timeHours} %>
 % }
 </%def>
 

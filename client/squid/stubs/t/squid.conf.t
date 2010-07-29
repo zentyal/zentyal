@@ -154,11 +154,55 @@ my @cases = (
               [],
               cacheDirSize => 1000,
              ],
+
+             # very long names
+             [
+              'port',
+              3128,
+              'transparent',
+              'no',
+              authNeeded => 0,
+              allowAll   => 1,
+              'groupsPolicies',
+              [],
+              'objectsPolicies',
+              [
+               {
+                'object' => 'obje9564gigantescoconmuchoscaracteresquesonmasde31oesoespero',
+                'addresses' => [
+                                '192.168.9.0/24',
+                                '192.168.45.0/24'
+                               ],
+                'policy' => 'allow',
+                'groupsPolicies' => [
+                                     {
+                                      'timeDays' => 'MTWHAS',
+                                      'group' => 'monos',
+                                      'policy' => 'allow',
+                                      'users' => [
+                                                  'macaco',
+                                                  'gibon'
+                                                 ]
+                                     }
+                                    ]
+               },
+              ],
+              'memory',
+              '100',
+              'notCachedDomains',
+              [],
+              cacheDirSize => 1000,
+             ], # end case
             );
 
 
 my $template = '../squid.conf.mas';
 foreach my $case (@cases) {
+    push @{ $case }, localnets => [qw(10.0.0.0 182.168.43.0)];
+    push @{ $case }, objectsDelayPools => [];
+    push @{ $case }, 'max_object_size' => 4000;
+    push @{ $case }, 'dn' => 'cn=ebox,ou=test';
+    push @{ $case }, 'ldapport' => 389;
     EBox::Test::Mason::checkTemplateExecution(
                               template => $template,
                               templateParams => $case
