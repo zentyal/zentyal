@@ -88,8 +88,12 @@ case "$1" in
             invoke-rc.d ebox apache start || true
         fi
 
-        # migrate log data
+        # migrate log module
         /usr/share/ebox/ebox-migrate /usr/share/ebox-logs/migration
+
+        # migrate events module
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-events/migration
+
 
         ;;
 	triggered)
