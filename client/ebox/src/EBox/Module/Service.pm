@@ -479,8 +479,8 @@ sub showModuleStatus
 #   name of the service and 'type' either 'upstart' or 'init.d', depending
 #   on how the module should be managed.
 #
-#   If the type is 'init.d' an extra 'pidfile' key is needed with the path
-#   to the pidfile the daemon uses. This will be used to check the status.
+#   If the type is 'init.d' an extra 'pidfiles' key is needed with the paths
+#   to the pid files the daemon uses. This will be used to check the status.
 #
 #   It can optionally contain a key 'precondition', which should be a reference
 #   to a class method which will be checked to determine if the given daemon
