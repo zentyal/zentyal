@@ -28,10 +28,10 @@ use EBox::Config;
 use EBox::ProgressIndicator;
 
 use Error qw(:try);
-
+use JSON;
 
 ## arguments:
-## 	title [required]
+##	title [required]
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title'    => __('Upgrading'),
@@ -54,27 +54,26 @@ sub _menu {
 }
 
 sub _print($) {
-	my $self = shift;
+    my $self = shift;
 
-	my $progressId = $self->param('progress');
-	my $progress = EBox::ProgressIndicator->retrieve($progressId);
+    my $progressId = $self->param('progress');
+    my $progress = EBox::ProgressIndicator->retrieve($progressId);
 
-	my $response;
-	$response .= $progress->stateAsString();
-	$response .= $self->modulesChangedStateAsString();
+    my $response = $progress->stateAsHash();
+    $response->{changed} = $self->modulesChangedStateAsHash();
 
-	print($self->cgi()->header(-charset=>'utf-8'));
-	print $response;
+    print($self->cgi()->header(-charset=>'utf-8'));
+    print to_json($response);
 }
 
 
-sub modulesChangedStateAsString
+sub modulesChangedStateAsHash
 {
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
     my $state = $global->unsaved() ? 'changed' : 'notChanged';
-    return "changed:$state";
+    return $state;
 }
 
 1;

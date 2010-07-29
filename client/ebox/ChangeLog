@@ -1,4 +1,5 @@
 HEAD
+	+ Progress bar AJAX updates are sent using JSON
 	+ Fixed progress bar width problems
 	+ Improved error message when disconnecting a not connected database
 1.5.8

@@ -340,41 +340,43 @@ sub errorMsg
     return $self->getConfString('errorMsg');
 }
 
-sub stateAsString
+sub stateAsHash
 {
   my ($self) = @_;
 
-  my $totalTicks = $self->totalTicks();
-  my $ticks      = $self->ticks();
-  my $message     = $self->message();
+  my $status;
+  my $statevars  = {};
 
-  my $state;
   if (not $self->started()) {
-    $state = 'not running';
+    $status = 'not running';
   }
   elsif ($self->finished()) {
     my $retValue = $self->retValue();
     if ($retValue == 0) {
-      $state = 'done';
+      $status = 'done';
     }
     elsif ($retValue != 0 ) {
-      $state = 'error';
-      $state .= ",retValue:$retValue";
+      $status = 'error';
+      $statevars->{retValue} = $retValue;
       my $errorMsg = $self->errorMsg();
-      if ( $errorMsg ) {
-	$state .= ",errorMsg:$errorMsg";
+      if ($errorMsg) {
+        $statevars->{errorMsg} = $errorMsg;
       }
     }
-
   }
   else {
-    $state = 'running';
+    $status = 'running';
   }
 
-  my $stString= "state:$state,message:$message,";
-  $stString .=  "ticks:$ticks,totalTicks:$totalTicks,";
+  my $state = {
+    state => $status,
+    statevars => $statevars,
+    message => $self->message(),
+    ticks => $self->ticks(),
+    totalTicks => $self->totalTicks(),
+  };
 
-  return $stString;
+  return $state;
 }
 
 sub destroy
