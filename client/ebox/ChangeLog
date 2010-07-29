@@ -1,4 +1,6 @@
 HEAD
+	+ Set event source to 256 chars in database to adjust longer event
+	  sources
 	+ Progress bar AJAX updates are sent using JSON
 	+ Fixed progress bar width problems
 	+ Improved error message when disconnecting a not connected database
