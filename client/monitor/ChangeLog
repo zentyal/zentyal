@@ -1,3 +1,8 @@
+HEAD
+	+ Add upstart script in order to workaround a packaging bug in Lucid
+	+ Make notification work again in Lucid
+	+ Bugfix: The notificate passed the classes correctly to event
+	  watcher using escaping
 1.5.3
 	+ Added exception class for threshold overrides
 	+ Bugfix: solved problem when adding thresholds without using a CGI

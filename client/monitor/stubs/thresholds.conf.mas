@@ -11,6 +11,7 @@
        instance - String the measure's instance if any *(Optional)*
        type    - String the type's name
        typeInstance - String the type instance if any *(Optional)*
+       dataSource - String the data source if any *(Optional)*
        warningMin - Float the warning minimum value *(Optional)*
        warningMax - Float the warning maximum value *(Optional)*
        failureMin - Float the failure minimum value *(Optional)*
@@ -37,6 +38,9 @@
     <Type "<% $threshold->{type} %>">
 %            if ( defined($threshold->{typeInstance}) ) {
         Instance "<% $threshold->{typeInstance} %>"
+%            }
+%            if ( defined($threshold->{dataSource}) ) {
+        DataSource "<% $threshold->{dataSource} %>"
 %            }
 %            if ( defined($threshold->{warningMin}) ) {
         WarningMin <% $threshold->{warningMin} %>

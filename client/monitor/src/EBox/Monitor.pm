@@ -57,11 +57,11 @@ use File::Spec;
 
 # Constants
 use constant COLLECTD_INIT        => 'collectd';
+use constant COLLECTD_UPSTART     => 'ebox.collectd';
 use constant COLLECTD_CONF_FILE   => '/etc/collectd/collectd.conf';
 use constant THRESHOLDS_CONF_FILE => '/etc/collectd/thresholds.conf';
 use constant SERVICE_STOPPED_FILE => EBox::Config::tmp() . 'monitor_stopped';
 use constant DEFAULT_COLLECTD_FILE => '/etc/default/collectd';
-
 
 # Method: _create
 #
@@ -122,6 +122,17 @@ sub actions
     return [];
 }
 
+# Method: enableActions
+#
+# Overrides:
+#
+#       <EBox::Module::Service::enableActions>
+#
+sub enableActions
+{
+    EBox::Sudo::root(EBox::Config::share() . '/ebox-monitor/ebox-monitor-enable');
+}
+
 
 # Method: usedFiles
 #
@@ -148,17 +159,6 @@ sub usedFiles
                        daemon => 'collectd'),
         },
        ];
-}
-
-# Method: enableActions
-#
-# Overrides:
-#
-#       <EBox::Module::Service::enableActions>
-#
-sub enableActions
-{
-    EBox::Sudo::root(EBox::Config::share() . '/ebox-monitor/ebox-monitor-enable');
 }
 
 # Method: menu
@@ -448,8 +448,8 @@ sub _daemons
 {
     return [
         {
-            name         => COLLECTD_INIT,
-            type         => 'init.d',
+            name         => COLLECTD_UPSTART,
+            type         => 'upstart',
             precondition => \&_notStoppedOnPurpose,
         },
     ];
@@ -484,7 +484,7 @@ sub _setMonitorConf
         # Order is important, don't swap procedure calls :D
         $self->_setThresholdConf();
         $self->_setMainConf();
-        $self->writeConfFile(DEFAULT_COLLECTD_FILE, 'monitor/collectd.mas', []);
+        $self->writeConfFile(DEFAULT_COLLECTD_FILE, 'monitor/collectd.default.mas', []);
     }
 }
 
@@ -535,6 +535,7 @@ sub _setMainConf
                           (mountPoints    => $self->_mountPointsToMonitor()),
                           (hostname       => $hostname),
                           (networkServers => \@networkServers),
+                          (loadPerlPlugin => $self->_thresholdConfigured()),
                          ]
                         );
 
@@ -568,6 +569,9 @@ sub _setThresholdConf
                     }
                     if ( $confRow->valueByName('typeInstance') ne 'none' ) {
                         $threshold{typeInstance} = $confRow->valueByName('typeInstance');
+                    }
+                    if ( $confRow->valueByName('dataSource') ne 'none' ) {
+                        $threshold{dataSource} = $confRow->valueByName('dataSource');
                     }
                     foreach my $bound (qw(warningMin failureMin warningMax failureMax)) {
                         my $boundValue = $confRow->valueByName($bound);
@@ -637,7 +641,6 @@ sub _linkRRDs
 
 # Check if there is threshold configuration and it is enabled or not
 # Done by <_setThresholdConf> as a side effect
-# FIXME: Until collectd 4.5.2 this code will not be used
 sub _thresholdConfigured
 {
     my ($self) = @_;

@@ -61,6 +61,7 @@ plugin_register(TYPE_NOTIF, 'notificate', 'ebox_notify');
 #         type     => 'mytype',
 #         plugin_instance => '',
 #         type_instance   => ''
+#         meta     => [ { name => <name>, value => <value> }, ... ]
 #
 sub ebox_notify
 {
@@ -89,8 +90,9 @@ sub ebox_notify
        };
 
     # Dumpered event without newline chars
+    $Data::Dumper::Indent = 0;
+    $Data::Dumper::Useqq = 1;
     my $strEvt = Dumper($evt);
-    $strEvt =~ s:\n::g;
     $strEvt .= "\n";
     # Unbuffered I/0 (Not used for now)
 #     my $rv = sysopen(my $fifo, EVENTS_FIFO, O_NONBLOCK|O_WRONLY);

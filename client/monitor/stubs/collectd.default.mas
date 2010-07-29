@@ -2,7 +2,7 @@
 
 # 0: start collectd on boot, 1: do not start collectd on boot
 # default: 0
-DISABLE=0
+DISABLE=1
 
 # 0: start collectd in stand-alone mode, 1: monitor collectd using collectdmon
 # default: 1

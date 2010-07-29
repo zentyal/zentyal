@@ -13,12 +13,16 @@ Parameters:
 
   networkServers - Array containing the collectd servers to send the stats to
                    *(Optional)* Default value: ()
+  
+  loadPerlPlugin - Boolean indicating if the perl plugin is required to work
+                    *(Optional)* Default value: 0
 </%doc>
 <%args>
   @mountPoints
   $hostname       => 'localhost'
   $interval       => 10
   @networkServers => ()
+  $loadPerlPlugin => 0
 </%args>
 # Config file for collectd(1).
 #
@@ -70,7 +74,9 @@ LoadPlugin network
 #LoadPlugin nginx
 #LoadPlugin ntpd
 #LoadPlugin nut
-#LoadPlugin perl
+% if ( $loadPerlPlugin ) {
+LoadPlugin perl
+% }
 #LoadPlugin ping
 LoadPlugin processes
 LoadPlugin rrdtool
@@ -80,6 +86,7 @@ LoadPlugin rrdtool
 LoadPlugin swap
 LoadPlugin syslog
 #LoadPlugin tape
+LoadPlugin thermal
 #LoadPlugin tcpconns
 #LoadPlugin unixsock
 #LoadPlugin users
@@ -227,14 +234,16 @@ LoadPlugin syslog
 #       UPS "upsname@hostname:port"
 #</Plugin>
 
-#<Plugin perl>
+% if ( $loadPerlPlugin ) {
+<Plugin perl>
 #       IncludeDir "/my/include/path"
-#       BaseName "EBox::Collectd"
+       BaseName "EBox::Collectd"
 #       EnableDebugger ""
-#       LoadPlugin "Notificate"
+       LoadPlugin "Notificate"
 #       LoadPlugin "Thermal"
 #       LoadPlugin "bar"
-#</Plugin>
+</Plugin>
+% }
 
 #<Plugin ping>
 #       Host "host.foo.bar"
@@ -319,6 +328,11 @@ LoadPlugin syslog
 #       ListeningPorts false
 #       LocalPort "25"
 #       RemotePort "25"
+#</Plugin>
+
+#<Plugin thermal>
+#  Device "foo0"
+#  IgnoreSelected false
 #</Plugin>
 
 #<Plugin unixsock>
