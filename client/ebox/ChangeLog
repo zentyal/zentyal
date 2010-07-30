@@ -3,6 +3,7 @@ HEAD
 	  sources
 	+ Progress bar AJAX updates are sent using JSON
 	+ Fixed progress bar width problems
+	+ Fixed top menu on wizards
 	+ Improved error message when disconnecting a not connected database
 	+ Abort installation if 'ebox' user already exists
 1.5.8
