@@ -282,15 +282,17 @@ sub _checkServer
 #
 #	array - holding the ntp servers
 sub servers {
-	my $self = shift;
+    my $self = shift;
     my @servers = ($self->get_string('server1'),
-                     $self->get_string('server2'),
-                     $self->get_string('server3'));
-    unless(defined($servers[0])) {
-        $servers[0] = '0.pool.ntp.org';
+                   $self->get_string('server2'),
+                   $self->get_string('server3'));
+    foreach my $server (0..2) {
+        unless(defined($servers[$server])) {
+            $servers[$server] = "$server.pool.ntp.org";
+        }
     }
-	@servers = grep { defined $_ and ($_ ne '')   } @servers;
-	return @servers;
+    @servers = grep { defined $_ and ($_ ne '')   } @servers;
+    return @servers;
 }
 
 # Method: _setConf
