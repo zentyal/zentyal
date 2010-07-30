@@ -4,6 +4,7 @@ HEAD
 	+ Progress bar AJAX updates are sent using JSON
 	+ Fixed progress bar width problems
 	+ Improved error message when disconnecting a not connected database
+	+ Abort installation if 'ebox' user already exists
 1.5.8
 	+ Added template tableorderer.css.mas
 	+ Added buttonless top menu option
