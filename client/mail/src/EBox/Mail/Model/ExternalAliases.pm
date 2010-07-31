@@ -143,7 +143,7 @@ sub _checkAliasIsNotAccount
     my $mailAlias = EBox::Global->modInstance('mail')->{malias};
     if ($mailAlias->accountExists($alias)) {
         throw EBox::Exceptions::External(
-      __x('They already exists an account or alias called {al}',
+      __x('An account or alias called {al} already exists',
           al => $alias
          )
                                         );
@@ -273,8 +273,6 @@ sub _fullAlias
     my $domain = $model->_vdomain();
 
     return $value . '@' . $domain;
-    
-
 }
 
 
