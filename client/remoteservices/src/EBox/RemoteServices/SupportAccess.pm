@@ -29,7 +29,8 @@ use EBox::Module::Base;
 
 use constant USER_NAME => 'ebox-remote-support';
 use constant USER_COMMENT => 'user for eBox remote support';
-
+use constant SCREEN_BIN => '/usr/bin/screen';
+use constant SCREEN_RUN_DIR => '/var/run/screen';
 
 sub setEnabled
 {
@@ -64,7 +65,7 @@ sub setEnabled
             $restrictedAddress = $self->remoteAccessUserAddress();
             if (not defined $restrictedAddress) {
                 throw EBox::Exceptions::External(
-__('Cannot ger a the estricted addresses for remote support')
+__('Cannot get the stricted addresses for remote support')
                                                 );
             }
         }
@@ -216,7 +217,7 @@ sub _writeScreenConf
                                   $conf,
                                  );
     EBox::Sudo::root("chown $user.$user $screenRc");
-    EBox::Sudo::root("chsh -s /usr/bin/screen $user");
+    EBox::Sudo::root('chsh -s ' . SCREEN_BIN . " $user");
 
 }
 
@@ -225,11 +226,15 @@ sub _setScreenSUID
 {
     my ($self, $active) = @_;
     if ($active) {
-        EBox::Sudo::root("chmod u+s /usr/bin/screen");
-        EBox::Sudo::root("chmod 755 /var/run/screen");
+        EBox::Sudo::root('chmod u+s ' . SCREEN_BIN);
+        if ( EBox::Sudo::fileTest('-e', SCREEN_RUN_DIR) ) {
+            EBox::Sudo::root('chmod 755 ' . SCREEN_RUN_DIR);
+        }
     } else {
-        EBox::Sudo::root("chmod u-s /usr/bin/screen");
-        EBox::Sudo::root("chmod 775 /var/run/screen");        
+        EBox::Sudo::root('chmod u-s ' . SCREEN_BIN);
+        if ( EBox::Sudo::fileTest('-e', SCREEN_RUN_DIR) ) {
+            EBox::Sudo::root('chmod 775 ' . SCREEN_RUN_DIR);
+        }
     }
 }
 

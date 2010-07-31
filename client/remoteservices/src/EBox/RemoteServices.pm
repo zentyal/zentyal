@@ -161,10 +161,8 @@ sub _setRemoteSupportAccessConf
         $self->model('RemoteSupportAccess')->fromAnyAddressValue();
 
 
-
-
     if ($supportAccess and (not $fromAnyAddress) and (not  $self->eBoxSubscribed() )) {
-        EBox::error('Cannot restrict access from remopte support if eBox is not suscribed');
+        EBox::error('Cannot restrict access for remote support if eBox server is not subscribed');
         return;
     }
 
