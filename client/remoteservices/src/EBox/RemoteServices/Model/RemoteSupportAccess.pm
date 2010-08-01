@@ -88,7 +88,7 @@ __('By default the acces is only granted to hosts inside the Control Center priv
 
     my $dataForm = {
                     tableName          => 'RemoteSupportAccess',
-                    printableTableName => __('Remote support accesss'),
+                    printableTableName => __('Remote Support Access'),
                     modelDomain        => 'RemoteServices',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
@@ -126,7 +126,7 @@ __('Remote access from any address requires that remote access support is enable
             my $rs = EBox::Global->modInstance('remoteservices');
             if (not $rs->eBoxSubscribed()) {
             throw EBox::Exceptions::External(
-__('To restrict addresses you need that your eBox is subscribed to the Control Center. Either subscribe it or allow access from any addresse')
+__('To restrict addresses you need that your eBox is subscribed to the Control Center. Either subscribe it or allow access from any address')
                                             );
             }
         }
@@ -138,8 +138,8 @@ sub _message
 {
     my $msg =  __x(
  "Enabling remote support will allow staff from eBox technologies to freely access your computer.\n" .
- "You could use screen to join their shell option. To be able to do so the SUID bit of the 'screen' program is enabled; this change is undone when this option is disabled\n".
- q[To join the remote session, login in the shell as a user belonging to the 'adm' group and use the command '{cmd}'.],
+ "You could use the 'screen' command to join their shell option. To allow that, the SUID bit of the 'screen' program is enabled. This change is undone when this option is disabled\n" .
+ q[To join the remote session, login in the shell as a user belonging to the 'adm' group and use the command: '{cmd}'.],
    cmd => 'screen -x ebox-remote-support/'
     );
     return $msg;
