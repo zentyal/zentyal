@@ -1,4 +1,4 @@
-# Copyright (C) 2009 EBox Technologies S.L.
+# Copyright (C) 2010 EBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -37,8 +37,8 @@ sub setEnabled
     my ($self, $enable, $allowFromAnyAddress) = @_;
 
     my $user = remoteAccessUser();
-    my $keysFile = EBox::Config::share() . 
-                   'ebox-remoteservices/' .                  
+    my $keysFile = EBox::Config::share() .
+                   'ebox-remoteservices/' .
                        'remote-support.keys';
 
 
@@ -51,9 +51,9 @@ sub setEnabled
             return;
         } else {
             my $cmd = "useradd $user --create-home " .
-                      q{--comment '} . USER_COMMENT . q{'}; 
+                      q{--comment '} . USER_COMMENT . q{'};
             EBox::Sudo::root($cmd);
- 
+
         }
     }
 
@@ -65,12 +65,12 @@ sub setEnabled
             $restrictedAddress = $self->remoteAccessUserAddress();
             if (not defined $restrictedAddress) {
                 throw EBox::Exceptions::External(
-__('Cannot get the stricted addresses for remote support')
+__('Cannot get the restricted addresses for remote support')
                                                 );
             }
         }
 
-        $self->_createSshFiles($user, $keysFile, $restrictedAddress);      
+        $self->_createSshFiles($user, $keysFile, $restrictedAddress);
         $self->_writeScreenConf($user);
     } else {
         my $rmCmd = "deluser --remove-home --quiet $user";
@@ -187,7 +187,7 @@ sub _writeScreenConf
     my @parts = getgrnam('adm');
     my $memberStr = $parts[3];
 
-    my @users = grep { 
+    my @users = grep {
         $_ ne $eboxUser
     } split '\s', $memberStr;
 
