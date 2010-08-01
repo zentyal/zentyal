@@ -135,16 +135,16 @@ sub validateTypedRow
 
     if (exists $changedFields->{enableDir} and
                $changedFields->{enableDir}->value())  {
-        my $samba = EBox::Global->modInstance('samba');
-        if (not $samba) {
+        my $users = EBox::Global->modInstance('users');
+        if (not $users) {
             throw EBox::Exceptions::External(
-                    __('To allow HTML directories for users is needed to have the file sharing module is installed and configured.')
+                    __('Having installed and configured the Users and Groups module is required to allow HTML directories for users.')
                     );
         }
-        my $configured = $samba->configured();
+        my $configured = $users->configured();
         if (not $configured) {
             throw EBox::Exceptions::External(
-                    __('To allow HTML directories for users is needed to have the file sharing module configured. To configure it enable it at least one time.')
+                    __('A properly configured Users and Groups module is required to allow HTML directories for users. To configure it, please enable it at least one time.')
                     );
         }
     }
