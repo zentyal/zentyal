@@ -268,9 +268,9 @@ sub _table
        tableDescription   => \@tableHeader,
        class              => 'dataForm',
        help               => __x('General Web server configuration. The listening port '
-                                 . 'must not be got from another service. If you enable '
-                                 . 'user to publish their own html pages, the pages will be '
-                                 . 'loaded from {dirName} directory from their samba home directories.',
+                                 . 'must not be used by another service. If you enable '
+                                 . 'user to publish their own html pages, those should be '
+                                 . 'loaded from {dirName} directory from their home directories.',
                                  dirName => PUBLIC_DIR),
        messages           => {
                               update => __('General Web server configuration settings updated.'),

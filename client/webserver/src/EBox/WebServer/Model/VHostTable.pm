@@ -300,12 +300,12 @@ sub _table
        tableDescription    => \@tableHead,
        class               => 'dataTable',
        help                => __x('Virtual hosts are a form of web hosting service where '
-                                  . 'many instances of the same web server is hosted on a '
-                                  . 'single physical server. Different host names will point '
-                                  . 'to the same web server. The DNS entry is automatically created'
-                                  . ' if this is possible. The content must be placed under '
+                                  . 'many instances of the same web server are hosted on a '
+                                  . 'single physical server. Different host names point '
+                                  . 'to the same web server. If feasible, the DNS entry is automatically created. '
+                                  . 'The content must be placed under the '
                                   . '{docRoot} directory. Any particular configuration '
-                                  . 'you want to add must be placed at {userConf} directory.',
+                                  . 'you want to add must be placed in the {userConf} directory.',
                                  docRoot => EBox::WebServer::PlatformPath::VDocumentRoot() . '/vHostName',
                                  userConf => EBox::WebServer::PlatformPath::ConfDirPath()
                                    . '/sites-available/user-ebox-vHostName'),
