@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: adding a user name with spaces no longer fails
 1.5.3
 	+ Move NSS from ebox-samba to ebox-usersandgroups
 	+ Home directories are under /home now

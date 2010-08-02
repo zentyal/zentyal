@@ -51,6 +51,7 @@ use File::Copy;
 use File::Slurp;
 use File::Temp qw/tempfile/;
 use Perl6::Junction qw(any);
+use String::ShellQuote;
 
 use constant USERSDN        => 'ou=Users';
 use constant GROUPSDN       => 'ou=Groups';
@@ -188,7 +189,7 @@ sub usedFiles
                 },
         );
     }
-    
+
     return \@files;
 }
 
@@ -703,10 +704,12 @@ sub initUser
     my $perms = sprintf("%#o", 00777 &~ $dir_umask);
 
     unless (-e $home) {
-      my @cmds = ();
-      push(@cmds, "cp -dR --preserve=mode /etc/skel $home");
-      push(@cmds, "chown -R $user:" .DEFAULTGROUP. " $home");
-      push(@cmds, "chmod $perms $home");
+      my @cmds;
+      my $quser = shell_quote($user);
+      my $qhome = shell_quote($home);
+      push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
+      push(@cmds, "chown -R $quser:" .DEFAULTGROUP. " $qhome");
+      push(@cmds, "chmod $perms $qhome");
       EBox::Sudo::root(@cmds);
     }
 
