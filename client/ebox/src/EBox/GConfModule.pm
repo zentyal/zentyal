@@ -56,7 +56,7 @@ sub _create # (name)
         unless ($global->modIsChanged($self->name)) {
             $self->_dump_to_file;
         }
-        $self->_restore_config;
+        $self->_load_from_file;
     }
 
     return $self;
@@ -89,6 +89,8 @@ sub initChangedState
     $global->modIsChanged($self->name) and
         throw EBox::Exceptions::Internal($self->name .
                                           ' module already has changed state');
+
+    $self->_dump_to_file();
 }
 
 
@@ -108,7 +110,7 @@ sub aroundRestoreConfig
   $self->restoreConfig($dir);
 }
 
-# load config entries from a file
+# load GConf entries from a file
 sub _load_from_file # (dir?, key?)
 {
     my ($self, $dir, $key) = @_;
@@ -137,28 +139,10 @@ sub _load_from_file # (dir?, key?)
         # YAML file
         $self->{redis}->import_dir_from_yaml($file);
     }
+
+
 }
 
-
-# Restore the backed up configuration of the module
-sub _restore_config
-{
-  my ($self) = @_;
-
-  $self->_config();
-  my $key = "/ebox/modules/" . $self->name;
-  $self->{redis}->restore_dir($key, '/_backup', '');
-}
-
-# Copy current configuration to ebox-ro
-sub _copy_to_ro
-{
-  my ($self) = @_;
-
-  $self->_config();
-  my $key = "/ebox/modules/" . $self->name;
-  $self->{redis}->backup_dir($key, '/ebox-ro');
-}
 
 sub aroundDumpConfig
 {
@@ -222,7 +206,7 @@ sub revokeConfig
 
     my $ro = $self->{ro};
     $self->{ro} = undef;
-    $self->_restore_config();
+    $self->_load_from_file();
 
     $self->{ro} = $ro;
 }
@@ -250,7 +234,7 @@ sub _saveConfig
         $self->modelsSaveConfig();
     }
 
-    $self->_copy_to_ro();
+    $self->_load_from_file(undef, "/ebox-ro/modules/". $self->name());
     $self->_saveConfigFiles();
 }
 
