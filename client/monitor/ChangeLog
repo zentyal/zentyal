@@ -4,6 +4,7 @@ HEAD
 	+ Make notification work again in Lucid
 	+ Bugfix: The notificate passed the classes correctly to event
 	  watcher using escaping
+	+ Disabled collectd.log to avoid infinite growth, syslog is still used
 1.5.3
 	+ Added exception class for threshold overrides
 	+ Bugfix: solved problem when adding thresholds without using a CGI

@@ -60,7 +60,7 @@ LoadPlugin df
 #LoadPlugin irq
 #LoadPlugin libvirt
 LoadPlugin load
-LoadPlugin logfile
+#LoadPlugin logfile
 #LoadPlugin mbmon
 #LoadPlugin memcached
 LoadPlugin memory
