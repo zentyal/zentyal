@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Config::Redis;
+
+EBox::init();
+my $redis = new EBox::Config::Redis();
+$redis->import_dir_from_gconf('/var/lib/ebox/gconf.backup');
+unlink '/var/lib/ebox/gconf.backup';
+
+1;

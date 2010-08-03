@@ -1,4 +1,5 @@
 HEAD
+	+ Redis as configuration backend (instead of gconf)
 	+ Set event source to 256 chars in database to adjust longer event
 	  sources
 	+ Progress bar AJAX updates are sent using JSON

@@ -1,3 +1,5 @@
+HEAD
+	+ Redis as configuration backend (instead of gconf)
 1.5.6
 	+ Added bg.gif asc.gif desc.gif required for tableorderer
 	+ Moved tableorderer.css to talbeorderer.css.mas in the ebox package

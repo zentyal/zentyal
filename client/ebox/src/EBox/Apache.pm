@@ -128,6 +128,11 @@ sub _daemon # (action)
 
 	}
 
+    unless ($action eq 'start') {
+        # Stop redis server
+        $self->{redis}->stopRedis();
+    }
+
 	if ($fork) {
 		exit 0;
 	}

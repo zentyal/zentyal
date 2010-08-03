@@ -25,7 +25,6 @@ use EBox::Exceptions::DeprecatedMethod;
 use POSIX qw(setuid setgid setlocale LC_ALL LC_NUMERIC);
 use English;
 
-use constant CHECK_DBUS_CMD =>'ebox-dbus-check';
 use constant LOGGER_CAT => 'EBox';
 
 my $loginit = 0;
@@ -139,48 +138,10 @@ sub init
     setuid($uid) or die "Cannot change user to $user. Are you root?";
 
     EBox::initLogger('eboxlog.conf');
-    dbusInit();
 
     # Set HOME environment variable to avoid some issues calling
     # external programs
     $ENV{HOME} = EBox::Config::home();
-}
-
-# Method: dbusInit
-#
-#      Initialise a dbus daemon, if it's not already done. We store
-#      one for root and one for eBox user.
-#
-#
-sub dbusInit
-{
-    my $gconfversion = `gconftool-2 -v`;
-    $gconfversion =~ m/^(\d+)\.(\d+)\./;
-    my $minor = $2;
-    if ($minor <= 22) {
-        return;
-    }
-
-    my $ucorneruid = getpwnam("ebox-usercorner");
-
-    my $confFile;
-    if ( POSIX::getuid() == 0) {
-        $confFile = EBox::Config::conf() . 'dbus-root-session.conf';
-    } elsif ( $ucorneruid and POSIX::getuid() == $ucorneruid ) {
-        $confFile = EBox::Config->var() . 'lib/ebox-usercorner/dbus-usercorner-session.conf';
-    } else {
-        $confFile = EBox::Config::conf() . 'dbus-ebox-session.conf';
-    }
-
-
-    for my $i (1..30) {
-        # Check we actually can connect to dbus
-        system( EBox::Config::pkgdata() .  CHECK_DBUS_CMD . " $confFile");
-        last if ( $? == 0 );
-        sleep(1);
-    }
-    my $dbusAddress = EBox::Config::configkeyFromFile('DBUS_SESSION_BUS_ADDRESS', $confFile);
-    $ENV{DBUS_SESSION_BUS_ADDRESS} = $dbusAddress;
 }
 
 1;

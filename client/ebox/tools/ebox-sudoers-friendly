@@ -1,21 +1,75 @@
-#!/bin/sh
+#!/usr/bin/perl
 
-SUDOERS=/etc/sudoers
-umask 227
-cp ${SUDOERS} ${SUDOERS}.backup
-cp ${SUDOERS} ${SUDOERS}.tmp
+# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2006-2007 Warp Networks S.L.
+# Copyright (C) 2008-2010 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-sed -i -e '/\#<ebox>/,/\#<\/ebox>/ d' ${SUDOERS}.tmp
-cat >> ${SUDOERS}.tmp << EOT 
-#<ebox>
-# DO NOT MODIFY ANYTHING BETWEEN THESE MARKS.
-# EBOX WILL OVERWRITE IT. 
-EOT
-/usr/share/ebox/ebox-sudoers >> ${SUDOERS}.tmp
-echo '#</ebox>' >> ${SUDOERS}.tmp
-if visudo -f ${SUDOERS}.tmp -c > /dev/null 2>&1
-then
-	mv ${SUDOERS}.tmp ${SUDOERS} 
-else
-	rm ${SUDOERS}.tmp ${SUDOERS}.backup 
-fi
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::Config;
+use HTML::Mason::Interp;
+
+use constant SUDOERS_FILE => '/etc/sudoers.d/ebox';
+
+# Write first sudoers file before EBox::init
+# to enable EBox::Sudo
+my $user = EBox::Config::user();
+$user or die 'eBox user not set';
+write_sudoers(( user => $user ));
+
+
+# Write full sudoers file:
+EBox::init();
+my @extraUsers;
+my $remoteServices = EBox::Global->modInstance('remoteservices');
+if (defined $remoteServices) {
+    if ($remoteServices->can('extraSudoersUsers')) {
+        push @extraUsers, $remoteServices->extraSudoerUsers();
+    }
+}
+
+EBox::Module::Base::writeConfFileNoCheck(SUDOERS_FILE . '.tmp',
+             'sudo.mas',
+             [ user => $user, extraUsers => \@extraUsers ],
+             { mode => '0440', uid => 0, gid => 0 });
+
+EBox::Sudo::root('mv ' . SUDOERS_FILE . '.tmp ' . SUDOERS_FILE);
+
+
+sub write_sudoers
+{
+    my (@params) = @_;
+
+    my $output;
+    my $interp = HTML::Mason::Interp->new(out_method => \$output);
+    my $comp = $interp->make_component(comp_file =>
+				(EBox::Config::stubs . '/sudo.mas'));
+    $interp->exec($comp, @params);
+
+    my $tmpFile = SUDOERS_FILE . '.tmp';
+
+    open (my $fh, '>', $tmpFile) or die ($!);
+    print $fh $output;
+    close ($fh);
+    rename $tmpFile, SUDOERS_FILE;
+    chmod 0440, SUDOERS_FILE;
+}
+
+

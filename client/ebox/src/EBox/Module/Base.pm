@@ -1069,8 +1069,8 @@ sub runMonthlyQuery
                     }
                 }
             }
-        } 
-        
+        }
+
         $nMonth += 1;
 
         if($month == 12) {
@@ -1123,7 +1123,7 @@ sub _emptyMonthlyQueryData
         my $sql = "SELECT DISTINCT $key FROM "  . $query->{from} . ";";
         my $res = $db->query($sql);
         @keys = map {  $_->{ $key } }  @{ $res };
-        
+
     }
 
 
@@ -1140,7 +1140,7 @@ sub _emptyMonthlyQueryData
     } else {
         foreach my $field (@fields) {
             $data->{$field} = $makeResults_r->();
-        }        
+        }
     }
 
     return $data;

@@ -11,10 +11,10 @@ Presave_DATA =
 Postsavedir = $(Etcdir)/post-save
 Postsave_DATA =
 
-Passwddir = $(localstatedir)/lib/ebox/conf
-Passwd_DATA = ebox.passwd
+Confdir = $(localstatedir)/lib/ebox/conf
+Conf_DATA = ebox.passwd redis.first
 
-EXTRA_DIST = $(Passwd_DATA) $(Etc_DATA)
+EXTRA_DIST = $(Conf_DATA) $(Etc_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 

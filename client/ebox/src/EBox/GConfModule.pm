@@ -22,7 +22,6 @@ use warnings;
 
 use base 'EBox::Module::Base';
 
-use Gnome2::GConf;
 use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
@@ -31,6 +30,7 @@ use EBox::GConfState;
 use EBox::GConfConfig;
 use File::Basename;
 use EBox::Types::File;
+use EBox::Config::Redis;
 
 sub _create # (name)
 {
@@ -44,11 +44,10 @@ sub _create # (name)
         $ebox = "ebox-ro";
     }
     bless($self, $class);
-    $self->{gconf} = Gnome2::GConf::Client->get_default;
-    defined($self->{gconf}) or
-        throw EBox::Exceptions::Internal("Error getting GConf client");
-    $self->gconf->add_dir("/$ebox/modules/". $self->name, 'preload-none');
-    $self->gconf->add_dir("/$ebox/state/". $self->name, 'preload-none');
+    $self->{redis} = EBox::Config::Redis->new();
+    unless (defined($self->{redis})) {
+        throw EBox::Exceptions::Internal("Error getting Redis client");
+    }
     $self->{state} = new EBox::GConfState($self, $self->{ro});
     $self->{config} = new EBox::GConfConfig($self, $self->{ro});
     $self->{helper} = $self->{config};
@@ -57,7 +56,7 @@ sub _create # (name)
         unless ($global->modIsChanged($self->name)) {
             $self->_dump_to_file;
         }
-        $self->_load_from_file;
+        $self->_restore_config;
     }
 
     return $self;
@@ -72,7 +71,6 @@ sub _helper
 sub _config
 {
     my $self = shift;
-    $self->{gconf}->clear_cache();
     $self->{helper} = $self->{config};
 }
 
@@ -91,9 +89,6 @@ sub initChangedState
     $global->modIsChanged($self->name) and
         throw EBox::Exceptions::Internal($self->name .
                                           ' module already has changed state');
-
-
-   $self->_dump_to_file();
 }
 
 
@@ -113,38 +108,61 @@ sub aroundRestoreConfig
   $self->restoreConfig($dir);
 }
 
-
-# load GConf entries from a file
+# load config entries from a file
 sub _load_from_file # (dir?, key?)
 {
-  my ($self, $dir, $key) = @_;
-  ($dir) or $dir = EBox::Config::conf;
+    my ($self, $dir, $key) = @_;
+    ($dir) or $dir = EBox::Config::conf;
 
-  $self->_config();
+    $self->_config();
 
-  my $file =  $self->_bak_file_from_dir($dir);
-  if (not  -f $file)  {
-    EBox::error("GConf backup file missing for module " . $self->name);
-    return;
-  }
+    my $file =  $self->_bak_file_from_dir($dir);
+    if (not  -f $file)  {
+        EBox::error("Backup file missing for module " . $self->name);
+        return;
+    }
 
-  ($key) or $key = $self->_key("");
-  $self->_delete_dir_internal($key);
+    ($key) or $key = $self->_key("");
+    $self->_delete_dir_internal($key);
 
-  system "/usr/bin/gconftool-2 --load=$file $key";
-  if (not ($? == 0)) {
-    throw EBox::Exceptions::Internal("Error while restoring " .
-                                     "configuration from $file");
-  }
+    open(FILE, "< $file") or EBox::error("Can't open backup file $file: $!");
+    my $line = <FILE>;
+    close(FILE);
 
+    if ( $line =~ /^</ ) {
+        # Import from GConf
+        EBox::debug("Old gconf format detected");
+        $self->{redis}->import_dir_from_gconf($file);
+    } else {
+        # YAML file
+        $self->{redis}->import_dir_from_yaml($file);
+    }
 }
 
 
-# we override aroundDumpConfig to save gconf data before dump module config
+# Restore the backed up configuration of the module
+sub _restore_config
+{
+  my ($self) = @_;
+
+  $self->_config();
+  my $key = "/ebox/modules/" . $self->name;
+  $self->{redis}->restore_dir($key, '/_backup', '');
+}
+
+# Copy current configuration to ebox-ro
+sub _copy_to_ro
+{
+  my ($self) = @_;
+
+  $self->_config();
+  my $key = "/ebox/modules/" . $self->name;
+  $self->{redis}->backup_dir($key, '/ebox-ro');
+}
+
 sub aroundDumpConfig
 {
   my ($self, $dir, @options) = @_;
-
   $self->_dump_to_file($dir);
 
   if ($self->isa('EBox::Model::ModelProvider')) {
@@ -160,12 +178,10 @@ sub _dump_to_file # (dir?)
     my ($self, $dir) = @_;
     $self->_config();
 
-    my $key = "/ebox/modules/" . $self->name;
+    my $key = '/ebox/modules/' . $self->name;
     ($dir) or $dir = EBox::Config::conf;
     my $file = $self->_bak_file_from_dir($dir);
-    `umask 0077; /usr/bin/gconftool-2 --dump $key > $file` and
-        throw EBox::Exceptions::Internal("Error while backing up " .
-                                         "configuration on $file");
+    $self->{redis}->export_dir_to_yaml($key, $file);
 }
 
 
@@ -206,7 +222,7 @@ sub revokeConfig
 
     my $ro = $self->{ro};
     $self->{ro} = undef;
-    $self->_load_from_file();
+    $self->_restore_config();
 
     $self->{ro} = $ro;
 }
@@ -234,7 +250,7 @@ sub _saveConfig
         $self->modelsSaveConfig();
     }
 
-    $self->_load_from_file(undef, "/ebox-ro/modules/". $self->name());
+    $self->_copy_to_ro();
     $self->_saveConfigFiles();
 }
 
@@ -244,11 +260,6 @@ sub _backup
     $self->_helper->backup();
 }
 
-#
-# Method: gconf
-#
-#       Returns the current instance of gconf
-#
 # Returns:
 #
 #       Gnome2::GConf object
@@ -256,7 +267,7 @@ sub _backup
 sub gconf
 {
     my $self = shift;
-    return $self->{gconf};
+    EBox::debug("Deprecated");
 }
 
 sub _key # (key)
@@ -267,51 +278,13 @@ sub _key # (key)
 
 #############
 
-sub _gconf_wrapper # (method, @params?)
-{
-    my $self = shift;
-    my $method = shift;
-    my @parms  = @_;
-    my $scalar;
-    my @array;
-
-    my $code = $self->gconf->can($method);
-    unless ($code){
-        throw EBox::Exceptions::Internal("method $method  doesnt exists"
-                                         . " in EBox::GConfModule\n");
-    }
-
-    my $ret = wantarray;
-    eval {
-        if ($ret){
-            @array = &$code($self->gconf, @parms);
-        } else {
-            {
-                # Silent really weird warning which is likeley due to
-                # the perl version
-                no warnings;
-                $scalar = &$code($self->gconf, @parms);
-            }
-        }
-    };
-    if ($@) {
-        throw EBox::Exceptions::Internal("gconf error using function "
-                                         . "$method and params @parms"
-                                         . "\n $@");
-    }
-
-    return wantarray ? @array : $scalar;
-}
-
-
 sub _dir_exists # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
-    return $self->_gconf_wrapper("dir_exists", $key);
+    return $self->{redis}->dir_exists($key);
 }
 
-#
 # Method: dir_exists
 #
 #       Given a key referencing a directory tells you if it exists
@@ -370,7 +343,7 @@ sub st_all_dirs_base # (key)
 sub _all_entries_base # (key)
 {
     my ($self, $key) = @_;
-    my @array = $self->_all_entries($key);
+    my @array = @{$self->_all_entries($key)};
     my @names = ();
     foreach (@array) {
         push(@names, basename($_));
@@ -407,12 +380,15 @@ sub st_all_entries_base # (key)
 }
 
 #############
-
+sub redis {
+	my ($self) = @_;
+	return $self->{redis};
+}
 sub _all_dirs # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
-    my @ret = $self->_gconf_wrapper("all_dirs", $key);
+    my @ret = @{$self->redis->all_dirs($key)};
     unless (@ret) {
         @ret = ();
     }
@@ -452,9 +428,8 @@ sub _all_entries # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
-    my @entries = $self->_gconf_wrapper("all_entries", $key);
-    my @entrypaths = map { $_->{key} } @entries;
-    return @entrypaths;
+    my @entries = @{$self->redis->all_entries($key)};
+    return \@entries;
 }
 
 #
@@ -492,12 +467,8 @@ sub _get_bool # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
-    $self->gconf->suggest_sync;
-    my $value = $self->_gconf_wrapper("get", $key);
-    unless(defined($value) and ($value->{type} eq 'bool')) {
-        return undef;
-    }
-    if($value->{value}) {
+    my $value = $self->redis->get_bool($key);
+    if($value) {
         return 1;
     } else {
         return 0;
@@ -540,8 +511,7 @@ sub _set_bool # (key, value)
     my ($self, $key, $val) = @_;
     $key = $self->_key($key);
     $self->_backup;
-    $self->_gconf_wrapper("set_bool", $key, $val);
-    $self->gconf->suggest_sync;
+    $self->redis->set_bool($key, $val);
 }
 
 #
@@ -574,12 +544,8 @@ sub _get_int # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
-    $self->gconf->suggest_sync;
-    my $value = $self->_gconf_wrapper("get", $key);
-    unless(defined($value) and ($value->{type} eq 'int')) {
-        return undef;
-    }
-    return $value->{value};
+    my $value = $self->redis->get_int($key);
+    return $value;
 }
 
 #
@@ -616,8 +582,7 @@ sub _set_int # (key, value)
     my ($self, $key, $val) = @_;
     $key = $self->_key($key);
     $self->_backup;
-    $self->_gconf_wrapper("set_int", $key, $val);
-    $self->gconf->suggest_sync;
+    $self->redis->set_int($key, $val);
 }
 
 #
@@ -650,8 +615,7 @@ sub _get_string # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
-    $self->gconf->suggest_sync;
-    return $self->_gconf_wrapper("get_string", $key);
+    return $self->redis->get_string($key);
 }
 
 #
@@ -688,8 +652,7 @@ sub _set_string # (key, value)
     my ($self, $key, $val) = @_;
     $key = $self->_key($key);
     $self->_backup;
-    $self->_gconf_wrapper("set_string", $key, $val);
-    $self->gconf->suggest_sync;
+    $self->redis->set_string($key, $val);
 }
 
 #
@@ -722,8 +685,7 @@ sub _get_list # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
-    $self->gconf->suggest_sync;
-    my $list = $self->_gconf_wrapper("get_list", $key);
+    my $list = $self->redis->get_list($key);
     if ($list) {
         return $list;
     } else {
@@ -834,16 +796,14 @@ sub _get # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
-    $self->gconf->suggest_sync;
-    return $self->_gconf_wrapper("get", $key);
+    return $self->redis->get_string($key);
 }
 
 sub _set #
 {
     my ($self, $key, $value) = @_;
     $key = $self->_key($key);
-    $self->_gconf_wrapper("unset", $key);
-    return $self->_gconf_wrapper("set_string", $key, $value);
+    $self->redis->set_string($key, $value);
 }
 
 #############
@@ -853,8 +813,7 @@ sub _unset # (key)
     my ($self, $key) = @_;
     $key = $self->_key($key);
     $self->_backup;
-    $self->_gconf_wrapper("unset", $key);
-    $self->gconf->suggest_sync;
+    $self->redis->unset($key);
 }
 
 #
@@ -888,8 +847,7 @@ sub _set_list # (key, type, value)
     my ($self, $key, $type, $val) = @_;
     $key = $self->_key($key);
     $self->_backup;
-    $self->_gconf_wrapper("set_list", $key, $type, $val);
-    $self->gconf->suggest_sync;
+    $self->redis->set_list($key, $val);
 }
 
 #
@@ -926,7 +884,7 @@ sub _hash_from_dir # (key)
     my @keys = @{$self->_all_entries_base($dir)};
     foreach (@keys) {
         my $val = $self->_get("$dir/$_");
-        $hash->{$_} = $val->{value};
+        $hash->{$_} = $val;
     }
     return $hash;
 }
@@ -1011,7 +969,6 @@ sub _delete_dir # (key)
     $self->_backup;
     $dir = $self->_key($dir);
     $self->_delete_dir_internal($dir);
-	$self->gconf->suggest_sync;;
 }
 
 #
@@ -1042,16 +999,7 @@ sub st_delete_dir # (key)
 sub _delete_dir_internal # (key)
 {
     my ($self, $dir) = @_;
-    my @keys = $self->_gconf_wrapper("all_entries", $dir);
-    foreach (@keys) {
-        $self->_gconf_wrapper("unset", $_->{key});
-    }
-    @keys = $self->_gconf_wrapper("all_dirs", $dir);
-    foreach (@keys) {
-        $self->_delete_dir_internal($_);
-    }
-    $self->_gconf_wrapper("unset", $dir);
-    $self->gconf->suggest_sync;
+    $self->redis->delete_dir($dir);
 }
 
 #

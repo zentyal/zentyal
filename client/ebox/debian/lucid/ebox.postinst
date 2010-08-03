@@ -67,13 +67,31 @@ case "$1" in
         #change the /var/lib/ebox/ user
         chown  ebox:ebox /var/lib/ebox
 
+        # Set default passwd if it does not exist yet
+        if [ ! -f /var/lib/ebox/conf/ebox.passwd ]; then
+            store_password;
+        fi
+
+        # Setup random redis password
+        REDIS_PASS="/var/lib/ebox/conf/redis.passwd"
+        if [ ! -f $REDIS_PASS ]; then
+            touch $REDIS_PASS
+            chmod 0600 $REDIS_PASS
+            chown ebox:ebox $REDIS_PASS
+            tr -dc A-Za-z0-9 < /dev/urandom | head -c8 > $REDIS_PASS
+        fi
+
+        # Launch redis-server on first install (needed by EBox::init)
+        if [ -f /var/lib/ebox/.first ]; then
+            /usr/bin/sudo -u ebox /usr/bin/redis-server /var/lib/ebox/conf/redis.first
+        fi
 
         #sudo configuration
         /usr/share/ebox/ebox-sudoers-friendly
 
-        # Set default passwd if it does not exist yet
-        if [ ! -f /var/lib/ebox/conf/ebox.passwd ]; then
-            store_password;
+        # Import old gconf backup from preinst
+        if [ -f /var/lib/ebox/gconf.backup ]; then
+            /usr/share/ebox/ebox-import-gconf
         fi
 
         if [ -z "$2" ]; then
@@ -88,12 +106,17 @@ case "$1" in
             invoke-rc.d ebox apache start || true
         fi
 
-        # migrate log module
+        # migrate log data
         /usr/share/ebox/ebox-migrate /usr/share/ebox-logs/migration
 
         # migrate events module
         /usr/share/ebox/ebox-migrate /usr/share/ebox-events/migration
 
+        # remove initial redis config and stop server
+        if [ -f /var/lib/ebox/.first ]; then
+            kill -9 `cat /var/lib/ebox/redis.ebox.pid`
+        fi
+        rm /var/lib/ebox/conf/redis.first
 
         ;;
 	triggered)

@@ -262,6 +262,7 @@ sub passwd
 	return $ref->{localstatedir} . "lib/ebox/conf/ebox.passwd";
 }
 
+
 # Method: sessionid
 #
 #      Get the path where Web session identifier is stored

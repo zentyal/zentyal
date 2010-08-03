@@ -312,8 +312,7 @@ sub _restoreFromHash
     my $value;
     unless ($value = $self->_fetchFromCache()) {
         my $gconf = $self->row()->GConfModule();
-        my $gconfValue =  $gconf->get($self->_path() . '/' . $self->fieldName());
-	$value = $gconfValue->{value};
+        $value =  $gconf->get($self->_path() . '/' . $self->fieldName());
         $self->_addToCache($value);
     }
     $self->{'value'} = $value;
