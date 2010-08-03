@@ -1,4 +1,6 @@
 HEAD
+	+ New method for escaping strings in mason, fixes problems with non-latin
+	  encodings
 	+ Redis as configuration backend (instead of gconf)
 1.5.6
 	+ Added bg.gif asc.gif desc.gif required for tableorderer

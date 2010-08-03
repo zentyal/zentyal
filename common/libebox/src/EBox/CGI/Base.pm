@@ -145,22 +145,22 @@ sub _body
 
 
 MASON_INTERP: {
-  my $masonInterp;
+    my $masonInterp;
 
-  sub _masonInterp
+    sub _masonInterp
     {
-      my ($self) = @_;
+        my ($self) = @_;
 
-      return $masonInterp if defined $masonInterp;
+        return $masonInterp if defined $masonInterp;
 
-      $masonInterp = HTML::Mason::Interp->new(
-					      comp_root => EBox::Config::templates,
-#					      default_escape_flags => 'h',
-					     );
-
-      return $masonInterp;
+        $masonInterp = HTML::Mason::Interp->new(
+            comp_root => EBox::Config::templates,
+            escape_flags => {
+                h => \&HTML::Mason::Escapes::basic_html_escape,
+            },
+        );
+        return $masonInterp;
     }
-
 };
 
 sub _footer
