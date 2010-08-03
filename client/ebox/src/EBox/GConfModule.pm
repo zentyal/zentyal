@@ -106,7 +106,6 @@ sub aroundRestoreConfig
     $self->restoreFilesFromArchive($dir);
   }
 
-
   $self->restoreConfig($dir);
 }
 
@@ -125,11 +124,12 @@ sub _load_from_file # (dir?, key?)
     }
 
     ($key) or $key = $self->_key("");
-    $self->_delete_dir_internal($key);
 
     open(FILE, "< $file") or EBox::error("Can't open backup file $file: $!");
     my $line = <FILE>;
     close(FILE);
+
+    return unless (defined($line));
 
     if ( $line =~ /^</ ) {
         # Import from GConf
@@ -212,8 +212,6 @@ sub revokeConfig
 }
 
 
-
-
 sub scheduleRestart
 {
     my $self = shift;
@@ -234,8 +232,17 @@ sub _saveConfig
         $self->modelsSaveConfig();
     }
 
-    $self->_load_from_file(undef, "/ebox-ro/modules/". $self->name());
+    $self->_copy_to_ro();
     $self->_saveConfigFiles();
+}
+
+sub _copy_to_ro
+{
+    my ($self) = @_;
+
+    $self->_config();
+    my $key = "/ebox/modules/" . $self->name;
+    $self->{redis}->backup_dir($key, '/ebox-ro/modules/' . $self->name);
 }
 
 sub _backup

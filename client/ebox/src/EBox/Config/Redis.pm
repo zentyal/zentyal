@@ -229,13 +229,13 @@ sub exists
 
 # Method: backup_dir
 #
-#   Back up a given dir $key in /$dest/$key
+#   Back up a given dir $key in $dest
 #
 sub backup_dir
 {
     my ($self, $key, $dest) = @_;
 
-    $self->delete_dir($dest . $key);
+    $self->delete_dir($dest);
     $self->_backup_dir(
         key => $key,
         destination_type => 'redis',
@@ -402,7 +402,7 @@ sub _backup_dir
         my $type = $self->_redis_call('type', $entry);
         my $destKey = $entry;
         if ($destinationType eq 'redis') {
-            $destKey = $dest . $destKey;
+            $destKey = $dest . substr($destKey, length($key));
         }
         if ($type eq 'string') {
             my $value = $self->get_string($entry);
@@ -438,10 +438,15 @@ sub _backup_dir
             }
         }
     }
+
+    my $destKey = $dest;
     for my $subdir (@{$self->all_dirs($key)}) {
+        if ($destinationType eq 'redis') {
+            $destKey = $dest . substr($subdir, length($key));
+        }
         $self->_backup_dir(
             key => $subdir,
-            destination => $dest,
+            destination => $destKey,
             destination_type => $destinationType
         );
     }
