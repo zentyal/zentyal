@@ -589,7 +589,7 @@ sub start
     foreach my $if (@{$self->{net}->pppIfaces()}) {
         $if = $self->{net}->realIface($if);
         push(@commands,
-                pf("-t mangle -A FORWARD -o $if -p tcp -m tcp " .
+                pf("-t mangle -A POSTROUTING -o $if -p tcp -m tcp " .
                    "--tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu")
             );
     }
