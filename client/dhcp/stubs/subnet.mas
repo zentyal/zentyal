@@ -55,6 +55,7 @@
 % }
 % if ( defined($info{'winsServer'}) ) {
                 option netbios-name-servers <% $info{'winsServer'} %>;
+                option netbios-node-type 8;
 % }
 % if(defined($info{'defaultLeasedTime'})) {
                 default-lease-time <% $info{'defaultLeasedTime'} %>;

@@ -64,7 +64,6 @@ use EBox::DHCP::Model::RangeInfo;
 use EBox::DHCP::Model::RangeTable;
 use EBox::DHCP::Model::ThinClientOptions;
 use Net::IP;
-use HTML::Mason;
 use Error qw(:try);
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
