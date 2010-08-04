@@ -1,4 +1,4 @@
-HEAD
+1.5.9
 	+ Improved migrations speed using the same perl interpreter
 	+ Redis as configuration backend (instead of gconf)
 	+ Improved error messages in ebox-software

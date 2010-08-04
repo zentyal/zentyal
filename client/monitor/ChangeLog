@@ -1,4 +1,4 @@
-HEAD
+1.5.4
 	+ Notify when values return to normal as info event
 	+ Add upstart script in order to workaround a packaging bug in Lucid
 	+ Make notification work again in Lucid

@@ -1,4 +1,4 @@
-HEAD
+1.5.3
 	+ Bugfix: filter and order in ebox components table work properly now
 	+ Added button to update packages list
 	+ Bugfix: now ebox-apt-update throw exceptions 

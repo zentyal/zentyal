@@ -1,4 +1,4 @@
-HEAD
+1.5.5
 	+ Bugfix: Test if /var/run/screen exists before changing its
 	  permissions
 	+ Bugfix: Work when there is nothing to report yet

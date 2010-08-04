@@ -1,4 +1,4 @@
-HEAD
+1.5.7
 	+ New method for escaping strings in mason, fixes problems with non-latin
 	  encodings
 	+ Redis as configuration backend (instead of gconf)
