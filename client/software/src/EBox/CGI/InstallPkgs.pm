@@ -162,11 +162,10 @@ sub showInstallProgress
   my ($self, $progressIndicator) = @_;
   $self->showProgress(
 		      progressIndicator => $progressIndicator,
-
 		      title    => __('Installing'),
 		      text     => __('Installing packages'),
 		      currentItemCaption  =>  __("Current operation"),
-		      itemsLeftMessage  => __('packages installed'),
+		      itemsLeftMessage  => __('actions done'),
 		      endNote  =>  __('The packages installation has finished successfully. '
                                       . 'The administration interface may become unresponsive '
                                       . 'for a few seconds. Please wait patiently until '

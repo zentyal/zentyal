@@ -94,23 +94,8 @@ sub listEBoxPkgs
 
 	my $eboxlist = [];
 
-#	my $file = $self->_packageListFile(1);
+    $eboxlist =  _getInfoEBoxPkgs();
 
-#	if(defined($clear) and $clear == 1){
-#		if ( -f "$file" ) {
-#			unlink($file);
-#		}
-#	}else{
-#		if (-f "$file" ) {
-#			$eboxlist = retrieve($file);
-#			return $eboxlist;
-#		}
-#	}
-
-#        $self->_isModLocked();
-	$eboxlist =  _getInfoEBoxPkgs();
-
-#	store($eboxlist, $file);
 	return $eboxlist;
 }
 
@@ -207,7 +192,7 @@ sub updatePkgList
 
         $self->_isModLocked();
 
-	my $cmd ='/usr/bin/apt-get update -qq';
+	my $cmd ='/usr/bin/apt-get update -q';
 	try {
 		root($cmd);
 	} catch EBox::Exceptions::Internal with {
@@ -233,7 +218,7 @@ sub fetchAllPkgs
 
 	@pkgs = @{_getInfoEBoxPkgs()};
 
-	my $cmd ='/usr/bin/apt-get install -qq --download-only --force-yes --yes --no-install-recommends';
+	my $cmd ='/usr/bin/apt-get install -qq --download-only --force-yes --yes --no-install-recommends ';
 	foreach my $pkg (@pkgs) {
 		$cmd .= ($pkg->{name} . " ");
 	}
@@ -242,7 +227,7 @@ sub fetchAllPkgs
 	} catch EBox::Exceptions::Internal with {
 	};
 
-	$cmd ='/usr/bin/apt-get dist-upgrade -qq --download-only --force-yes --yes --no-install-recommends';
+	$cmd ='/usr/bin/apt-get dist-upgrade -qq --download-only --force-yes --yes --no-install-recommends ';
 	try {
 		root($cmd);
 	} catch EBox::Exceptions::Internal with {
@@ -401,7 +386,8 @@ sub _packageDepends
 	    throw EBox::Exceptions::Internal("Bad action: $action");
     }
 
-    my $aptCmd = "apt-get -q --no-install-recommends --simulate $action " .
+    my $aptCmd = "apt-get -qq --no-install-recommends --simulate $action " .
+
 	join ' ',  @{ $packages };
 
     my $header;

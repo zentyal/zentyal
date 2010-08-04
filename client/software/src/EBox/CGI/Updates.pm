@@ -21,7 +21,7 @@ use strict;
 use warnings;
 
 use base 'EBox::CGI::ClientBase';
-
+use EBox;
 use EBox::Global;
 use EBox::Gettext;
 
@@ -39,8 +39,19 @@ sub new {
 
 sub _process($) {
     my $self = shift;
-    $self->{title} = __('System updates');
+
     my $software = EBox::Global->modInstance('software');
+
+    if (defined($self->param('updatePkgs'))) {
+        EBox::info("Update packages list");
+        $software->updatePkgList();
+    }
+
+    $self->{title} = __('System updates');
+    if (defined($self->param('updatePkgs'))) {
+        EBox::info("Update packages list");
+        $software->updatePkgList();
+    }
 
     my @array = ();
     my $upg = $software->listUpgradablePkgs(0, 1);

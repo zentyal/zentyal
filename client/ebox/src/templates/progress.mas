@@ -86,7 +86,7 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 		nAds++;		
 		if (ads != null) {
 			if (nAds > ads.length)
-				nAds = 0;
+				nAds = 1;
 			if (ads[nAds] != null){
 				var html = "<div class='ads'>";
 				if (ads[nAds].title != null) html += "<h2>" + ads[nAds].title + "</h2>";

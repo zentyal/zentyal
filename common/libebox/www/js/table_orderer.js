@@ -44,10 +44,10 @@ TableOrderer.prototype = {
 		// saves tool state data for pagination, filtering and searching. 
 		this.tools = {
 			page: 1,					// for pagination
-			pages: 1,					// for pagination
+			pages: 1,				// for pagination
 			filterCol: '',				// for filtering
 			filterData: '',				// for filtering
-			searchData: ''				// for global searching
+			searchData: '',			// for global searching
 		};
 		
 		// separates text messages out 
@@ -510,7 +510,6 @@ TableOrderer.prototype = {
 				{
 					array.push(rec);
 				}
-				
 				return array;
 			});
 		}
@@ -520,7 +519,7 @@ TableOrderer.prototype = {
 			
 			dataView = dataView.inject([], function(array, value, index) {
 				searchStr = Object.values(value).inject('', function(acc, n) {
-					return acc + " " + n;
+					return acc + " " + n.replace(/<[^>]+>/g,'');
 				});
 				
 				if(searchStr.toUpperCase().include(dat)) {

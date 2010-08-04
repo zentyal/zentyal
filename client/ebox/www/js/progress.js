@@ -1,6 +1,5 @@
 // code used by progress.mas
 var percent = 0;
-var oldPercent = 0;
 var time = 0;
 
 var ticks = 0;
@@ -68,9 +67,8 @@ function callServer(progressId, url, nextStepTimeout, nextStepUrl) {
         }
     );
     time++;
-    if ((time >= 18) & ((percent-oldPercent) > 7)) {
+    if (time >= 30) {
         time = 0;
-        oldPercent = percent;
         showAds();
     }
 

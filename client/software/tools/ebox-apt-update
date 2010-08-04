@@ -50,6 +50,10 @@ while ($text = <$read>){
 	if ($text =~ /(Setting up\s.*)/) {
 		$out = " $1\n";
 	}
+ 	if ($text =~ /(^E:\s.*)/) {
+		$out = " $1\n";
+        die("$1");
+	}   
 	if ($out) {		
 		open ($write, '>', $fifo);
 		print $write $out;

@@ -2,6 +2,7 @@ HEAD
 	+ New method for escaping strings in mason, fixes problems with non-latin
 	  encodings
 	+ Redis as configuration backend (instead of gconf)
+	+ Bug fix: Error in table_orderer search and order
 1.5.6
 	+ Added bg.gif asc.gif desc.gif required for tableorderer
 	+ Moved tableorderer.css to talbeorderer.css.mas in the ebox package

@@ -46,12 +46,16 @@ sub create
   exists $params{executable} or
     throw EBox::Exceptions::MissingArgument('executable named parameter not found');
 
+  my $message = __('To solve it you can try to execute the following commands:');
+  $message .= ' sudo apt-get update &&' .
+              ' sudo dpkg --configure -a &&' .
+              ' sudo apt-get install -f';
   my ($executableWoArguments) = split '\s', $params{executable};
   (-x $executableWoArguments) or
     throw EBox::Exceptions::External(
-				     __x('Cannot execute {exe}',
-                                           exe => $params{executable}
-                                          )
+				     __x("Cannot execute {exe}",
+                         exe => "$params{executable}\n$message"
+                        )
 				    );
 
   # get unique id

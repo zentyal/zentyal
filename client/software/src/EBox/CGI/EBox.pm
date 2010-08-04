@@ -49,6 +49,11 @@ sub new {
 sub _process($) {
     my $self = shift;
     my $software = EBox::Global->modInstance('software');
+
+    if (defined($self->param('updatePkgs'))) {
+        $software->updatePkgList();
+    }
+
     my @array = ();
     push(@array, 'eboxpkgs'     => $software->listEBoxPkgs());
     push(@array, 'updateStatus' => $software->updateStatus(1));

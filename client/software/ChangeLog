@@ -1,3 +1,8 @@
+HEAD
+	+ Bugfix: filter and order in ebox components table work properly now
+	+ Added button to update packages list
+	+ Bugfix: now ebox-apt-update throw exceptions 
+	+ Bugfix: solved bug in system updates
 1.5.2
 	+ Changed css file of tableorderer 
 	+ Template based top buttonless menu

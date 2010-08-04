@@ -69,6 +69,7 @@ try {
 			throw IOException("Error opening fifo <$fifo> - $!");
 		}
 		my $firstLine = '';
+        my $lastLine = '';
 		while ($text = <$read>) {
 			if ($text eq $oldText) {
 				last;
@@ -80,7 +81,7 @@ try {
 			if ($text eq "end") {
 				$break = 1;
 			}
-			unless ($text eq $oldText) {
+			unless (($text eq $oldText) or ($text eq $lastLine)) {
 				EBox::info("Read: $text");
 				EBox::info("R OT: $oldText");
 				if ($text =~ /ins([0-9]*)/) {
@@ -98,7 +99,8 @@ try {
 					$progress->setMessage($text);
 				}
 			}
-			$oldText = $firstLine;	
+			$oldText = $firstLine;
+            $lastLine = $text;
 		}	
 		close $read;
 	} until($break);

@@ -77,6 +77,7 @@ my $upgpkgs = 0;
 		document.getElementById(id+'_check').checked = false;		
 	}
 	
+	
 </script>
 
 <style type="text/css">
@@ -551,26 +552,33 @@ var pkgTable = new Array(
 			obj = new Object();
 			obj['Component'] = pkgTable[i]['Component'];		
 			obj['Latest Version'] = pkgTable[i]['Latest Version'];
-			obj['Select'] = "<center><input type='checkbox' id="+'ins_'+pkgTable[i]['Name']+"></center>";
+% 	if (-f $file) {
+			if (pkgTable[i]['Name'] == 'ebox-remoteservices')			
+				obj['Select'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+			else
+				obj['Select'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+% 	} else {
+			obj['Select'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+%	}			
 			insHtmlId[insHtmlId.length] = 'ins_'+pkgTable[i]['Name'];
 			insTable[insTable.length] = obj;
 		}else{
 			if(pkgTable[i]['Removable'] == "1"){
-                if (pkgTable[i]['Name'] != 'ebox-software'){
-                    obj = new Object();
-                    obj['Component'] = pkgTable[i]['Component'];		
-                    obj['Installed Version'] = pkgTable[i]['Latest Version'];
-                    obj['Select'] = "<center><input type='checkbox' id="+'del_'+pkgTable[i]['Name']+"></center>";
-                    delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
-                    delTable[delTable.length] = obj;
-                }    
+				if (pkgTable[i]['Name'] != 'ebox-software'){
+					obj = new Object();
+					obj['Component'] = pkgTable[i]['Component'];		
+					obj['Installed Version'] = pkgTable[i]['Latest Version'];
+					obj['Select'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"delTableOrderer\", \""+'del_'+pkgTable[i]['Name']+"\")'></center>";                    
+					delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
+					delTable[delTable.length] = obj;
+				}    
 			}
 			if((pkgTable[i]['Latest Version'] != "")&&(pkgTable[i]['Latest Version'] != pkgTable[i]['Installed Version'])){
 				obj = new Object();
 				obj['Component'] = pkgTable[i]['Component'];
 				obj['Installed Version'] = pkgTable[i]['Installed Version'];				
 				obj['Latest Version'] = pkgTable[i]['Latest Version'];				
-				obj['Select'] = "<center><input type='checkbox' id="+'upd_'+pkgTable[i]['Name']+"></center>";
+				obj['Select'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"updTableOrderer\", \""+'upd_'+pkgTable[i]['Name']+"\")'></center>";				
 				updHtmlId[updHtmlId.length]  = 'upd_'+pkgTable[i]['Name'];
 				updTable[updTable.length] = obj;
 			}
@@ -579,10 +587,10 @@ var pkgTable = new Array(
 
 	
 	
-	new TableOrderer('installTable',{data: insTable, search:'top', unsortedColumn : ['Select']});
-	new TableOrderer('updateTable',{data: updTable, search:'top', unsortedColumn : ['Select']});
-	new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['Select']});
-
+	var insTableOrderer = new TableOrderer('installTable',{data: insTable, search:'top', unsortedColumn : ['Select']});
+	var updTableOrderer = new TableOrderer('updateTable',{data: updTable, search:'top', unsortedColumn : ['Select']});
+	var delTableOrderer = new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['Select']});
+	
 	document.getElementById('updNumber').innerHTML = '(' +updTable.length +')';	
 % if (-f $file) {
     document.getElementById('advanced').hide();
@@ -619,7 +627,7 @@ var pkgTable = new Array(
 	
 	function sendForm(action, htmlIds) {
 		var send = false;
-        if(!isArray(htmlIds))
+		if(!isArray(htmlIds))
 			return;
 
 		for(var i = 0; i < htmlIds.length; i++){
@@ -629,18 +637,18 @@ var pkgTable = new Array(
 				inputPkg.setAttribute('name', 'pkg-'+htmlIds[i].substring(4));
 				inputPkg.setAttribute('value', 'yes');
 				document.formPkg.appendChild(inputPkg);
-                send = true;
+				send = true;
 			}
 		}
 
 		if (send) {
-            var inputAct = document.createElement('input');
-	    	inputAct.setAttribute('type', 'text');
-	    	inputAct.setAttribute('name', 'ebox-'+action);	
-	    	inputAct.setAttribute('value', action);
-	    	document.formPkg.appendChild(inputAct);
-	    	document.formPkg.submit();
-       }
+			var inputAct = document.createElement('input');
+			inputAct.setAttribute('type', 'text');
+			inputAct.setAttribute('name', 'ebox-'+action);	
+			inputAct.setAttribute('value', action);
+			document.formPkg.appendChild(inputAct);
+			document.formPkg.submit();
+		}
 	}
 	
 	function sendFormBasic(){
@@ -695,6 +703,31 @@ var pkgTable = new Array(
 		}
 	}
 	
+	function changeCheck (nameList, id){
+		var indexC = -1;
+		var indexD = -1;
+		var list;
+		eval("list = "+nameList);
+		for (var i = 0; i < list.cache.length; i ++) {
+			if (list.cache[i].Select.indexOf(id) > 0) {
+				indexC = i;
+				break;
+			}
+		}
+		for (var i = 0; i < list.cache.length; i ++) {
+			if (list.data[i].Select.indexOf(id) > 0) {
+				indexD = i;
+				break;
+			}
+		}
+		if (document.getElementById(id).checked) {
+			list.cache[indexC].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+			list.data[indexD].Select = "<center><input type='checkbox' checked id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+		} else {
+			list.cache[indexC].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+			list.data[indexD].Select = "<center><input type='checkbox' id='"+id+"' onclick='changeCheck(\""+nameList+"\", \""+id+"\")'></center>";
+		}			
+	}
 	
 </script>
 
