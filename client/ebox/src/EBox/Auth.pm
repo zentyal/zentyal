@@ -177,7 +177,7 @@ sub authen_cred  # (request, password, fromCC)
     if ( not (defined($fromCC) and $fromCC) ) {
         unless ($self->checkPassword($passwd)) {
             my $log = EBox->logger();
-            my $ip  = $r->connection->remote_host();
+            my $ip  = $r->connection->remote_ip();
             $log->warn("Failed login from: $ip");
             return;
         }

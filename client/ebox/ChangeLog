@@ -8,6 +8,7 @@ HEAD
 	+ Fixed top menu on wizards
 	+ Improved error message when disconnecting a not connected database
 	+ Abort installation if 'ebox' user already exists
+	+ Bugfix: IP address is now properly registered if login fails
 1.5.8
 	+ Added template tableorderer.css.mas
 	+ Added buttonless top menu option
