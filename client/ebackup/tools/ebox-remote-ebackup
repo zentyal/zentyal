@@ -97,7 +97,9 @@ if ($ARGV[0]) {
     }
 }
 
-
+# We need an updated cache to avoid errors while checking the status if backup
+# files have been re/moved
+$ebackup->remoteGenerateStatusCache();
 
 if ($type eq 'incremental') {
     my $existsFull = 0;
@@ -131,16 +133,19 @@ my $success = 1;
 try {
     EBox::Sudo::root($arguments);
 } otherwise {
+    print "Backup failed, check ebox.log for more information";
     $success = 0;
 };
 
 _sendEvent($success, '');
 
-# Create status
-$ebackup->remoteGenerateStatusCache();
+if ($success) {
+    # Create status
+    $ebackup->remoteGenerateStatusCache();
 
-# Create file list
-$ebackup->remoteGenerateListFile();
+    # Create file list
+    $ebackup->remoteGenerateListFile();
+}
 
 $ebackup->unlock();
 

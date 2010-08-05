@@ -548,7 +548,7 @@ sub _setConf
 {
     my ($self) = @_;
 
-    if (not $self->configurationIsComplete) {
+    if (not $self->configurationIsComplete()) {
         return;
     }
 
@@ -577,14 +577,13 @@ sub _syncRemoteCaches
 {
     my ($self) = @_;
 
-    if ($self->configurationIsComplete()) {
-        return;
-    }
-
-
     my @oldRemoteStatus = @{ $self->remoteStatus() };
     $self->remoteGenerateStatusCache();
     my @newRemoteStatus = @{ $self->remoteStatus() };
+
+    if ($self->configurationIsComplete()) {
+        return;
+    }
 
     my $genListFiles = 0;
     if (@newRemoteStatus == 0) {
