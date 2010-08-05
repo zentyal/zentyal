@@ -2,7 +2,6 @@
 	+ Improved migrations speed using the same perl interpreter
 	+ Redis as configuration backend (instead of gconf)
 	+ Improved error messages in ebox-software
-1.5.9
 	+ Set event source to 256 chars in database to adjust longer event
 	  sources
 	+ Progress bar AJAX updates are sent using JSON
