@@ -376,6 +376,10 @@ sub import_dir_from_gconf
             }
             $self->set_list($key, \@list);
         } else {
+            # Convert boolean values
+            if ($type eq 'bool') {
+                $value = $value eq 'true' ? 1 : 0;
+            }
             # scalar value, save as string
             $self->set_string($key, $value);
         }
