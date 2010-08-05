@@ -1,4 +1,6 @@
 1.5.1
+	+ Target is now mandatory in any case to decide if the backup configuration
+	is complete.
 	+ Status cache is regenerated when restarting the module and before doing a
 	backup.
 	+ Removed information about obsolete eBox remote backup

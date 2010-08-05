@@ -91,7 +91,7 @@ sub crontabStrings
     my $incr = undef;
     unless ($incrFreq eq 'disabled') {
         $incr =  _crontabStringIncr($time, $fullFreq, $fullStartsOn,
-                                    $incrFreq, $incrStartsOn                
+                                    $incrFreq, $incrStartsOn
                                    );
     }
 
@@ -325,20 +325,20 @@ sub _monthDays
 {
     my @days = map {
         my $mday = $_;
-        { 
-            value => $mday, 
+        {
+            value => $mday,
             printableValue => __x(
                                   'on the {mday}th',
                                   mday => $mday,
                                  )
             }
-            
+
     } (1 .. 28);
     push @days, {
                  value => 31,
                  printableValue => __('on the last day'),
                 };
-        
+
 
     return \@days;
 }
@@ -412,11 +412,11 @@ sub _crontabStringIncr
             my @strings;
             push @strings, "0 $hour 1-30 1,3,5,7,8,10,12 $weekDay";
             # we dont use 29th days every 4 years
-            push @strings, "0 $hour 1-27 2 $weekDay"; 
+            push @strings, "0 $hour 1-27 2 $weekDay";
             push @strings, "0 $hour 1-29 4,6,9,11 $weekDay";
             return \@strings;
         }
-        
+
     }
 
 
@@ -432,7 +432,7 @@ sub _crontabStringLastDayMonth
     my @strings;
     push @strings, "0 $hour 31 1,3,5,7,8,10,12 $weekDay";
     # we dont use 29th days every 4 years
-    push @strings, "0 $hour 28 2 $weekDay"; 
+    push @strings, "0 $hour 28 2 $weekDay";
     push @strings, "0 $hour 30 4,6,9,11 $weekDay";
     return \@strings;
 }
@@ -757,7 +757,7 @@ sub _validateFrequencies
         throw EBox::Exceptions::External(
     __('Incremental backup must be more frequent than full backup')
                                         );
-    } 
+    }
 }
 
 
@@ -795,6 +795,12 @@ sub configurationIsComplete
     my ($self) = @_;
 
     my $row = $self->row();
+
+    my $target = $row->valueByName('target');
+    if (not $target) {
+        return 0;
+    }
+
     my $method = $row->valueByName('method');
     if (not $method =~ /^ebox/) {
         # only we could get a incomplete configuration with the default value
@@ -802,17 +808,11 @@ sub configurationIsComplete
         return 1;
     }
 
-
-    my $target = $row->valueByName('target');
-    if (not $target) {
-        return 0;
-    }
-
     my $user = $row->valueByName('user');
     if (not $user) {
         return 0;
     }
-    
+
     my $password = $row->valueByName('password');
     if (not $password) {
         return 0;
