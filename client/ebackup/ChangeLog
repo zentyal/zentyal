@@ -1,8 +1,9 @@
-1.5.1
+HEAD
 	+ Target is now mandatory in any case to decide if the backup configuration
 	is complete.
 	+ Status cache is regenerated when restarting the module and before doing a
 	backup.
+1.5.1
 	+ Removed information about obsolete eBox remote backup
 1.5
 	+ Enable backup event watcher by default
