@@ -29,13 +29,6 @@ use warnings;
 ## eBox uses
 use EBox::Gettext;
 
-# Constants
-use constant {
-  EBOX_SERVICES_URL => 'http://www.ebox-technologies.com/products/controlcenter/try/'
-                       . '?utm_source=ebox&utm_medium=ebox&utm_content=remoteservices'
-                       . '&utm_campaign=register',
-};
-
 # Group: Public methods
 
 # Constructor: new
@@ -80,11 +73,7 @@ sub _description
           compositeDomain => 'RemoteServices',
           printableName   => $printableName,
           pageTitle       => $printableName,
-          help            => __x(' {openhref}Subscribing{closehref} your eBox to the Control Center '
-                                 . 'lets you have automatic configuration backup and much more',
-                                 openhref  => '<a href="' . EBOX_SERVICES_URL . '" target="_blank">',
-                                 closehref => '</a>'),
-      };
+        };
 
     return $description;
 

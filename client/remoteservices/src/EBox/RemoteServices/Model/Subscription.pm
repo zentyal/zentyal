@@ -52,6 +52,12 @@ use EBox::View::Customizer;
 # Core modules
 use Error qw(:try);
 
+use constant STORE_URL => 'http://store.ebox-technologies.com/';
+use constant UTM       => '?utm_source=ebox&utm_medium=ebox&utm_content=remoteservices'
+                          . '&utm_campaign=register';
+use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;
+use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
+use constant ENTER_URL => STORE_URL . 'serversubscriptions/ebox-enterprise-solution.html' . UTM;
 
 # Group: Public methods
 
@@ -229,84 +235,46 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    if ( not $self->eBoxSubscribed() ) {
-        my $modChanges = $self->_modulesToChange();
-        my $msg = '';
-        if (exists $modChanges->{configure}) {
-            $msg .= __x(
- 'Subscribing an eBox will configure the {mods} and its dependencies ',
-                        mods =>  $modChanges->{configure},
-
-                      );
-
-        }
-
-
-        if (exists $modChanges->{enable}) {
-            $msg .= __x('Subscribing an eBox will enable the {mods} and its dependencies.<br/>',
-                       mods => $modChanges->{enable}
-                      );
-        }
-
-
-
-        $customizer->setPermanentMessage(
-            $msg .= __('Take into account that subscribing an eBox could take a '
-                      . 'minute. Do not touch anything until subscribing process is done.')
-           );
+    unless ( $self->eBoxSubscribed() ) {
+        $customizer->setPermanentMessage($self->_commercialMsg());
     }
     return $customizer;
 
 }
 
-
-
-
-
-sub _modulesToChange
+# Method: help
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::help>
+#
+sub help
 {
     my ($self) = @_;
 
-    my %toChange = ();
+    my $msg = '';
+    if ( not $self->eBoxSubscribed() ) {
+        my $modChanges = $self->_modulesToChange();
+        if (exists $modChanges->{configure}) {
+            $msg .= __x(
+                'Subscribing an eBox will configure the {mods} and its dependencies ',
+                mods =>  $modChanges->{configure},
+               );
 
-    my @configure;
-    my @enable;
-
-    my @mods = qw(openvpn events monitor logs);
-    foreach my $modName (@mods) {
-        my $mod =  EBox::Global->modInstance($modName);
-        $mod or next; # better error control here by now just skipping
-        if (not $mod->configured()) {
-            push @configure, $mod->printableName();
-        } elsif (not $mod->isEnabled()) {
-            push @enable, $mod->printableName();
         }
+
+        if (exists $modChanges->{enable}) {
+            $msg .= __x('Subscribing an eBox will enable the {mods} and its dependencies.<br/>',
+                        mods => $modChanges->{enable}
+                       );
+        }
+
+        $msg .= __('Take into account that subscribing an eBox could take a '
+                     . 'minute. Do not touch anything until subscribing process is done.');
     }
 
-    if (@enable) {
-        $toChange{enable} = _modListToHumanStr(\@enable);
-    }
+    return $msg;
 
-    if (@configure) {
-        $toChange{configure} = _modListToHumanStr(\@configure);
-    }
-
-    return \%toChange;
-}
-
-sub _modListToHumanStr
-{
-    my ($list) = @_;
-    my @list = @{ $list };
-    if (@list == 1) {
-        return $list[0] . __( ' module');
-    }
-
-    my $str;
-    my $last = pop @list;
-    $str = join ', '. @list;
-    $str = $str . __(' and ') . $last . __(' modules');
-    return $str;
 }
 
 # Method: precondition
@@ -496,6 +464,52 @@ sub _configureAndEnable
     }
 }
 
+sub _modulesToChange
+{
+    my ($self) = @_;
+
+    my %toChange = ();
+
+    my @configure;
+    my @enable;
+
+    my @mods = qw(openvpn events monitor logs);
+    foreach my $modName (@mods) {
+        my $mod =  EBox::Global->modInstance($modName);
+        $mod or next; # better error control here by now just skipping
+        if (not $mod->configured()) {
+            push @configure, $mod->printableName();
+        } elsif (not $mod->isEnabled()) {
+            push @enable, $mod->printableName();
+        }
+    }
+
+    if (@enable) {
+        $toChange{enable} = _modListToHumanStr(\@enable);
+    }
+
+    if (@configure) {
+        $toChange{configure} = _modListToHumanStr(\@configure);
+    }
+
+    return \%toChange;
+}
+
+sub _modListToHumanStr
+{
+    my ($list) = @_;
+    my @list = @{ $list };
+    if (@list == 1) {
+        return $list[0] . __( ' module');
+    }
+
+    my $str;
+    my $last = pop @list;
+    $str = join ', '. @list;
+    $str = $str . __(' and ') . $last . __(' modules');
+    return $str;
+}
+
 
 # Dump the module actions string
 sub _actionsStr
@@ -536,6 +550,22 @@ sub _filesStr
         }
     }
     return $retStr;
+}
+
+# Return the commercial message
+sub _commercialMsg
+{
+    return 'eBox Control Center services integrate Quality Assured software updates, '
+           . 'alerts and centralized monitoring and administration of your eBox '
+           . 'servers. You gain full access to these services by obtaining a '
+           . '<a href="' . PROF_URL . '" target="_blank">Professional</a> '
+           . 'or <a href="' . ENTER_URL . '" target="_blank">Enterprise Server Subscription</a>. '
+           . 'You can also have a look to these services by getting the '
+           . '<a href="' . BASIC_URL . '" target="_blank">Basic Server Subscription</a>, '
+           . 'that also allows you to store your configuration backup remotely, receive alerts '
+           . 'regarding the connectivity of your eBox server, available updates or '
+           . 'failed automatic backup.';
+
 }
 
 1;
