@@ -26,7 +26,7 @@ use EBox;
 use EBox::Util::Lock;
 use EBox::Config;
 use EBox::Global;
-use EBox::Sudo qw( :all );
+use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Gettext;
@@ -842,6 +842,68 @@ sub _regenConfig
     $self->_postSetConfHook();
 }
 
+# Method: _writeFileCreateTmpFile
+#
+#   Helper method that creates a temporary file for writeFile* methods.
+#
+sub _writeFileCreateTmpFile
+{
+    my $oldUmask = umask 0007;
+    my ($fh,$tmpfile);
+    try {
+        ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
+        unless($fh) {
+            throw EBox::Exceptions::Internal(
+                "Could not create temp file in " .
+                EBox::Config::tmp);
+        }
+    }
+    finally {
+        umask $oldUmask;
+    };
+
+    return ($fh, $tmpfile);
+}
+
+# Method: _writeFileSave
+#
+#   Helper method that permanently saves the files created by writeFile
+#   methods.
+#
+#
+# Parameters:
+#
+#   tmpfile     - file where changes are temporary stored
+#   file        - file where changes should be saved
+#   defaults    - mode, uid and gid for the final file (optional)
+#
+sub _writeFileSave # (tmpfile, file, defaults)
+{
+    my ($tmpfile, $file, $defaults) = @_;
+
+    my $mode;
+    my $uid;
+    my $gid;
+    if ((not defined($defaults)) and (-e $file) and
+            (my $st = EBox::Sudo::stat($file))) {
+        $mode= sprintf("%04o", $st->mode & 07777);
+        $uid = $st->uid;
+        $gid = $st->gid;
+
+    } else {
+        defined $defaults or $defaults = {};
+        $mode = exists $defaults->{mode} ?  $defaults->{mode}  : '0644';
+        $uid  = exists $defaults->{uid}  ?  $defaults->{uid}   : 0;
+        $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
+    }
+
+    my @commands;
+    push (@commands, "/bin/mv $tmpfile '$file'");
+    push (@commands, "/bin/chmod $mode '$file'");
+    push (@commands, "/bin/chown $uid.$gid '$file'");
+    EBox::Sudo::root(@commands);
+}
+
 # Method: writeConfFileNoCheck
 #
 #    It executes a given mason component with the passed parameters over
@@ -862,21 +924,11 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
 {
     my ($file, $compname, $params, $defaults) = @_;
 
-    my $oldUmask = umask 0007;
-    my ($fh,$tmpfile);
-    try {
-        ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
-        unless($fh) {
-            throw EBox::Exceptions::Internal(
-                                             "Could not create temp file in " . EBox::Config::tmp);
-        }
-    }
-    finally {
-        umask $oldUmask;
-    };
+    my ($fh, $tmpfile) = _writeFileCreateTmpFile();
 
-    my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::stubs,
-                                          out_method => sub { $fh->print($_[0]) });
+    my $interp = HTML::Mason::Interp->new(
+        comp_root => EBox::Config::stubs,
+        out_method => sub { $fh->print($_[0]) });
     my $comp;
 
     try {
@@ -891,32 +943,15 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
     # scare users. New mason version fixes this issue
     my $old_stderr;
     my $tmpErr = EBox::Config::tmp() . 'mason.err';
-    open($old_stderr,">&STDERR");
-    open(STDERR,">$tmpErr");
+    open($old_stderr, ">&STDERR");
+    open(STDERR, ">$tmpErr");
 
     $interp->exec($comp, @{$params});
     $fh->close();
 
-    open(STDERR,">&$old_stderr");
+    open(STDERR, ">&$old_stderr");
 
-    my $mode;
-    my $uid;
-    my $gid;
-    if ((not defined($defaults)) and (my $st = stat($file))) {
-        $mode= sprintf("%04o", $st->mode & 07777);
-        $uid = $st->uid;
-        $gid = $st->gid;
-
-    } else {
-        defined $defaults or $defaults = {};
-        $mode = exists $defaults->{mode} ?  $defaults->{mode}  : '0644';
-        $uid  = exists $defaults->{uid}  ?  $defaults->{uid}   : 0;
-        $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
-    }
-
-    EBox::Sudo::root("/bin/mv $tmpfile  '$file'");
-    EBox::Sudo::root("/bin/chmod $mode '$file'");
-    EBox::Sudo::root("/bin/chown $uid.$gid '$file'");
+    _writeFileSave($tmpfile, $file, $defaults);
 }
 
 # Method: writeFile
@@ -933,40 +968,12 @@ sub writeFile # (file, data, defaults)
 {
     my ($file, $data, $defaults) = @_;
 
-    my $oldUmask = umask 0007;
-    my ($fh,$tmpfile);
-    try {
-        ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
-        unless($fh) {
-            throw EBox::Exceptions::Internal(
-                                             "Could not create temp file in " . EBox::Config::tmp);
-        }
-    }
-    finally {
-        umask $oldUmask;
-    };
+    my ($fh, $tmpfile) = _writeFileCreateTmpFile();
 
     $fh->print($data);
     $fh->close();
 
-    my $mode;
-    my $uid;
-    my $gid;
-    if ((not defined($defaults)) and (my $st = stat($file))) {
-        $mode= sprintf("%04o", $st->mode & 07777);
-        $uid = $st->uid;
-        $gid = $st->gid;
-
-    } else {
-        defined $defaults or $defaults = {};
-        $mode = exists $defaults->{mode} ?  $defaults->{mode}  : '0644';
-        $uid  = exists $defaults->{uid}  ?  $defaults->{uid}   : 0;
-        $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
-    }
-
-    EBox::Sudo::root("/bin/mv $tmpfile  '$file'");
-    EBox::Sudo::root("/bin/chmod $mode '$file'");
-    EBox::Sudo::root("/bin/chown $uid.$gid '$file'");
+    _writeFileSave($tmpfile, $file, $defaults);
 }
 
 # Method: report
