@@ -1,4 +1,4 @@
-HEAD
+1.5.10
 	+ Fixed gconf to redis conversion for boolean values
 1.5.9
 	+ Improved migrations speed using the same perl interpreter
