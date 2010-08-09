@@ -1,3 +1,5 @@
+HEAD
+	+ Bug fix: fixed "stringify" bug when trying to connect slave
 1.5.4
 	+ Bug fix: adding a user name with spaces no longer fails
 1.5.3

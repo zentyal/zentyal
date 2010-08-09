@@ -3,7 +3,7 @@
 Stubdir = @STUBSPATH@/usersandgroups
 
 nobase_Stub_DATA = slapd.conf.mas user-apache2.conf.mas soap-slave.mas \
-    slapd-replica.ldif.mas \
+    slapd-replica.ldif.mas ldap-slave.conf.mas \
 	slapd-translucent.ldif.mas slapd-frontend.ldif.mas \
     slapd-master.ldif.mas slapd-master-db.ldif.mas \
     slapd-frontend-referrals.ldif.mas slapd-master-upgrade.ldif.mas \

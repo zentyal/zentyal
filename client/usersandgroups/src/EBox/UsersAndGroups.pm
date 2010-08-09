@@ -2697,7 +2697,7 @@ sub _getCertificates
     write_file(CA_DIR . 'masterldapca.pem', $ldapcacert);
     EBox::Sudo::root('ln -sf ' . CA_DIR . 'masterldapca.pem /etc/ldap/ssl/masterldapca.pem');
     EBox::Module::Base::writeConfFileNoCheck('/etc/ldap/ldap.conf',
-            'usersandgroups/ldap.conf.mas',
+            'usersandgroups/ldap-slave.conf.mas',
     );
 
 }
