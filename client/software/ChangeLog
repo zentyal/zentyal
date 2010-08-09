@@ -1,10 +1,12 @@
+HEAD
+	+ New slides translated to Spanish
 1.5.3
 	+ Bugfix: filter and order in ebox components table work properly now
 	+ Added button to update packages list
-	+ Bugfix: now ebox-apt-update throw exceptions 
+	+ Bugfix: now ebox-apt-update throw exceptions
 	+ Bugfix: solved bug in system updates
 1.5.2
-	+ Changed css file of tableorderer 
+	+ Changed css file of tableorderer
 	+ Template based top buttonless menu
 	+ Show top menu buttons in ebox software (except on first install)
 	+ Fixed bug in fetchAllPkgs
