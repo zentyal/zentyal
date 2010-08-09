@@ -18,6 +18,8 @@ package EBox::UsersAndGroups::Setup;
 use strict;
 use warnings;
 
+use Error qw(:try);
+
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
@@ -26,6 +28,7 @@ use EBox::Ldap;
 use EBox::Module::Base;
 use EBox::Sudo qw(:all);
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::Sudo::Command;
 use EBox::UserCorner;
 use EBox::Model::ModelManager;
 
@@ -96,60 +99,76 @@ sub GenRandom {
 # Setup a master
 sub master
 {
-    my $pass = new_pass();
-
     my $model = EBox::Model::ModelManager->instance()->model('Mode');
     my $dn = $model->dnValue();
 
-    EBox::Sudo::root("cp " . EBox::Config::share() . "/ebox-usersandgroups/slapd.default /etc/default/slapd");
+    my @commands;
+    push (@commands, 'cp ' . EBox::Config::share() .
+        '/ebox-usersandgroups/slapd.default /etc/default/slapd');
+    push (@commands, 'invoke-rc.d slapd restart');
+    EBox::Sudo::root(@commands);
 
-    EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
-        'slapd-master.ldif',
+    my $pass = new_pass();
+    my $tmp = EBox::Config::tmp();
+
+    EBox::Module::Base::writeConfFileNoCheck(
+        "$tmp/slapd-master.ldif",
         'usersandgroups/slapd-master.ldif.mas',
         [
           'dn' => $dn,
           'password' => $pass
         ]);
 
-    EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
-        'slapd-master-db.ldif',
+    EBox::Module::Base::writeConfFileNoCheck(
+        "$tmp/slapd-master-db.ldif",
         'usersandgroups/slapd-master-db.ldif.mas',
         [
           'dn' => $dn,
           'password' => $pass
         ]);
 
-    EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
-        EBox::Config::tmp() . "slapd-master.ldif");
+    @commands = ();
+    push (@commands,
+        "ldapadd -H 'ldapi://' -Y EXTERNAL -c -f $tmp/slapd-master.ldif");
+    push (@commands,
+        "ldapadd -H 'ldapi://' -Y EXTERNAL -c -f $tmp/slapd-master-db.ldif");
 
-    EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
-        EBox::Config::tmp() . "slapd-master-db.ldif");
+    try {
+        EBox::Sudo::root(@commands);
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $exception = shift;
+        EBox::warn('Trying to setup master ldap failed, exit value: ' .
+            $exception->exitValue());
+    }
 
     my $users = EBox::Global->modInstance('users');
-
-	my $defaultGroup = $users->defaultGroup();
-	$users->addGroup($defaultGroup, 'All users', 1);
-
-    EBox::Sudo::root("invoke-rc.d slapd restart");
+    my $defaultGroup = $users->defaultGroup();
+    unless ($users->groupExists($defaultGroup)) {
+        $users->addGroup($defaultGroup, 'All users', 1);
+    }
 
     createJournalsDirs();
 }
 
-# create parent dirs for slave's journals 
+# create parent dirs for slave's journals
 sub createJournalsDirs
 {
     my $users = EBox::Global->modInstance('users');
-    my $journalDirs   = $users->_journalsDir();
-    (-d $journalDirs) or EBox::Sudo::command("mkdir -p $journalDirs");
+    my $journalDirs = $users->_journalsDir();
+    my @commands;
 
-    my $usercornerDir = EBox::UserCorner::usercornerdir() .
-                        "userjournal";
-    if (not -d $usercornerDir) {
-        EBox::Sudo::root("mkdir -p $usercornerDir");
-        EBox::Sudo::root("chown ebox.ebox $usercornerDir");
+    unless (-d $journalDirs) {
+        push (@commands, "mkdir -p $journalDirs");
     }
 
+    my $usercornerDir = EBox::UserCorner::usercornerdir() . "userjournal";
+    unless (-d $usercornerDir) {
+        push (@commands, "mkdir -p $usercornerDir");
+        push (@commands, "chown ebox:ebox $usercornerDir");
+    }
+    if (@commands) {
+        EBox::Sudo::root(@commands);
+    }
 }
-
 
 1;
