@@ -63,10 +63,9 @@ sub _moveGConfDir
         my $oldEntry = $modDir . '/' . $oldDir . '/' . $entry;
         my $newEntry = $modDir . '/' . $newDir . '/' . $entry;
 
-        my $gclient = Gnome2::GConf::Client->get_default;
-        my $value = $gclient->get($oldEntry);
-        $gclient->set($newEntry, $value);
-        $gclient->unset($oldEntry);
+        my $value = $mod->get($oldEntry);
+        $mod->set($newEntry, $value);
+        $mod->unset($oldEntry);
     }
 }
 
