@@ -11,7 +11,7 @@ d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
 # install ssh, bc, ebox and X environment
-d-i pkgsel/include string ssh bc ebox xorg firefox slim blackbox gksu libnss3-tools
+d-i pkgsel/include string ssh bc ebox xorg firefox slim blackbox gksu libnss3-tools nano
 
 # disable automatic updates, eBox will take care of that
 d-i pkgsel/update-policy select none
