@@ -57,7 +57,7 @@ use constant UTM       => '?utm_source=ebox&utm_medium=ebox&utm_content=remotese
                           . '&utm_campaign=register';
 use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;
 use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
-use constant ENTER_URL => STORE_URL . 'serversubscriptions/ebox-enterprise-solution.html' . UTM;
+use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
 
 # Group: Public methods
 
@@ -416,7 +416,7 @@ sub _manageEvents # (subscribing)
     my $eventMod = EBox::Global->modInstance('events');
     if ( $subscribing )  {
         # events is always configured but we left this code just in case the
-        #moduke  changes 
+        # module changes
         $self->_configureAndEnable($eventMod);
 
     }
