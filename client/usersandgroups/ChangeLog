@@ -1,4 +1,4 @@
-HEAD
+1.5.5
 	+ LDAP master creation optimized and less error-prone
 	+ Bug fix: fixed "stringify" bug when trying to connect slave
 1.5.4
