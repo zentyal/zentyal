@@ -151,9 +151,6 @@ PerlSetVar AuthCookieDebug 0
 	PerlHandler EBox::UserCorner::Auth->login
 </Files>
 
-PerlChildInitHandler EBox::dbusInit
-PassEnv DBUS_SESSION_BUS_ADDRESS
-
 <Directory /usr/share/ebox/cgi/>
     <IfModule mod_ssl.c>
        SSLOptions +StdEnvVars

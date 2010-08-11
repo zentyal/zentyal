@@ -28,6 +28,8 @@ use base qw(EBox::Module::Service
             );
 
 use constant USERCORNER_APACHE => EBox::Config->conf() . '/user-apache2.conf';
+use constant USERCORNER_REDIS => '/var/lib/ebox-usercorner/conf/redis.conf';
+use constant USERCORNER_REDIS_PASS => '/var/lib/ebox-usercorner/conf/redis.passwd';
 
 sub _create
 {
@@ -109,6 +111,9 @@ sub _daemons
     return [
         {
             'name' => 'ebox.apache2-usercorner'
+        },
+        {
+            'name' => 'ebox.redis-usercorner'
         }
     ];
 }
@@ -129,6 +134,9 @@ sub _setConf
         "usersandgroups/user-apache2.conf.mas",
         [ port => $settings->portValue() ],
     );
+
+    # Write user corner redis file
+    $self->{redis}->writeConfigFile('ebox-usercorner');
 }
 
 # Method: menu

@@ -21,13 +21,15 @@ use warnings;
 
 use Redis;
 use EBox::Service;
+use POSIX;
 use YAML::Tiny;
 use XML::Simple;
 use File::Slurp;
 use Error qw/:try/;
 
 my $redis = undef;
-use constant REDIS_CONF => '/var/lib/ebox/conf/redis.conf';
+use constant REDIS_CONF => 'conf/redis.conf';
+use constant REDIS_PASS => 'conf/redis.passwd';
 
 sub new
 {
@@ -534,7 +536,7 @@ sub _respawn
     $self->{redis} = undef;
     $redis = undef;
 
-    my $port = EBox::Config::configkey('redis_port');
+    my $port = $self->_port();
     my $filepasswd = $self->_passwd();
 
     $redis = Redis->new(server => "127.0.0.1:$port");
@@ -552,36 +554,57 @@ sub _initRedis
     my $firstInst = ( -f '/var/lib/ebox/redis.first' );
     return if ($firstInst); # server considered running on first install
 
+    # User corner redis server is managed by service
+    return if ( $self->_user eq 'ebox-usercorner' );
+
     unless ( EBox::Service::running('ebox.redis') ) {
         EBox::info('Starting redis server');
 
         # Write redis daemon conf file
-        my $port = EBox::Config::configkey('redis_port');
-        my $filepasswd = $self->_passwd();
-
-        my @groups = @{EBox::Config::groups()};
-        my $gids = '';
-        for my $group (@groups) {
-            $gids .= getgrnam($group) . ' ';
-        }
-        my $gid = getgrnam(EBox::Config::group());
-        my $uid = getpwnam(EBox::Config::user());
-
-        my @params = ();
-        push (@params, home_dir => EBox::Config::home());
-        push (@params, port => $port);
-        push (@params, passwd => $filepasswd);
-        EBox::Module::Base::writeConfFileNoCheck(REDIS_CONF, '/redis.conf.mas' , \@params, {mode => '0600', uid => $uid, gid => $gid});
+        $self->writeConfigFile();
 
         # Launch daemon, added sleep to avoid first connection problems
         EBox::Sudo::silentRoot('start ebox.redis && sleep 1');
     }
+
+}
+
+
+# Method: writeConfigFile
+#
+#   Write redis daemon config file
+#
+sub writeConfigFile
+{
+    my ($self, $user) = @_;
+
+    defined($user) or $user = EBox::Config::user();
+
+
+    my $home = $self->_home($user);
+
+    my $confFile = $home . REDIS_CONF;
+    my $pass = $self->_passwd($home);
+    my $uid = getpwnam($user);
+    my $port = $self->_port($user);
+
+    my @params = ();
+    push (@params, user => $user);
+    push (@params, port => $port);
+    push (@params, passwd => $pass);
+    EBox::Module::Base::writeConfFileNoCheck($confFile,
+            '/redis.conf.mas',
+            \@params, {mode => '0600', uid => $uid});
 }
 
 # Stop redis server, sync changes to disk before
 sub stopRedis
 {
     my ($self) = @_;
+
+    # User corner redis server is managed by service
+    return if ( $self->_user eq 'ebox-usercorner' );
+
     $self->_redis_call('save');
     EBox::Service::manage('ebox.redis', 'stop');
 }
@@ -590,8 +613,46 @@ sub stopRedis
 # Returns redis server password
 sub _passwd
 {
-    return read_file('/var/lib/ebox/conf/redis.passwd') or
+    my ($self, $home) = @_;
+    defined($home) or $home = $self->_home();
+
+    return read_file($home . REDIS_PASS) or
         throw EBox::Exceptions::External('Could not open passwd file');
+}
+
+
+# Returns redis server port
+sub _port
+{
+    my ($self, $user) = @_;
+    defined($user) or $user = $self->_user();
+
+    if ($user eq 'ebox') {
+        return EBox::Config::configkey('redis_port');
+    } elsif ($user eq 'ebox-usercorner') {
+        return EBox::Config::configkey('redis_port_usercorner');
+    }
+
+    # Unknown user
+    return undef;
+}
+
+
+sub _home
+{
+    my ($self, $user) = @_;
+    defined($user) or $user = $self->_user();
+
+    my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
+    return $dir;
+}
+
+
+# Returns current user name
+sub _user
+{
+    my @userdata = getpwuid(POSIX::getuid());
+    return $userdata[0];
 }
 
 1;

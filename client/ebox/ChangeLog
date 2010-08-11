@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed user corner access problems with redis server
 	+ writeFile* methods reorganized
 	+ Added cron as dependency as cron.hourly was never executed with anacron
 1.5.10
