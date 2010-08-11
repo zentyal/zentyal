@@ -1,5 +1,6 @@
 HEAD
 	+ writeFile* methods reorganized
+	+ Added cron as dependency as cron.hourly was never executed with anacron
 1.5.10
 	+ Fixed gconf to redis conversion for boolean values
 1.5.9
