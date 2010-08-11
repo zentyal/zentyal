@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid antivirus scan on large files to fix read problems
 1.5.6
 	+ Move NSS from ebox-samba to ebox-usersandgroups
 	+ Home directories are under /home now

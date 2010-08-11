@@ -5,7 +5,7 @@
 
 ; do not scan files larger than X bytes. If set to 0 (default),
 ; this feature is disable (i.e. all files are scanned)
-max file size = 0
+max file size = 104857600
 
 ; log all file access (yes/no). If set to yes, every access will
 ; be logged. If set to no (default), only access to infected files
