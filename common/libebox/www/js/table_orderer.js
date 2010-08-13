@@ -156,6 +156,16 @@ TableOrderer.prototype = {
 		}.bind(this));
 	},
 	
+	orderRow : function(field, order){
+		this.orderField = field;
+		this.order = order;
+		this.orderData(this.orderField);
+		
+		if (this.order == 'desc') { this.cache = this.cache.reverse(); }
+		
+		this.updateTable();
+	},
+	
 	// thClick -- event handler for when the user clicks on the th cell of the table. It orders the table data by that column's field.
 	// param e: event that triggered handler.
 	thClick : function(e){

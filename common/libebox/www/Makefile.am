@@ -23,7 +23,8 @@ images = images/delete.gif images/show.gif \
   images/non_r.gif  images/non_rw.gif images/feed-icon.gif \
   images/spinner.gif images/widget_controls.png images/triangles.png \
   images/edit-inactive.gif images/delete-inactive.gif \
-  images/magnifying-glass.png images/managed.png
+  images/magnifying-glass.png images/managed.png \
+  images/bg.gif images/asc.gif images/desc.gif
 
 js = js/base64.js js/csshover.htc js/common.js \
   js/help.js js/table-helper.js  \

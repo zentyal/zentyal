@@ -1,5 +1,7 @@
 HEAD
 	+ Added missing CIDR values between /16 and /8
+	+ New function orderRow(field, order) added to table_order.js
+	+ Fixed problem with icons in tableorderer header
 1.5.7
 	+ New method for escaping strings in mason, fixes problems with non-latin
 	  encodings
