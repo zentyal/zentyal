@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:38+0200\n"
+"POT-Creation-Date: 2010-08-13 13:11+0200\n"
 "PO-Revision-Date: 2010-04-15 20:12+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -117,15 +117,15 @@ msgstr "{name} endereço IP"
 msgid "{name} host name"
 msgstr "{name} nome do hospedeiro"
 
-#: src/EBox/NTP.pm:401
+#: src/EBox/NTP.pm:403
 msgid "System"
 msgstr "Sistema"
 
-#: src/EBox/NTP.pm:404
+#: src/EBox/NTP.pm:406
 msgid "Date/Time"
 msgstr "Data/hora"
 
-#: src/EBox/NTP.pm:407
+#: src/EBox/NTP.pm:409
 msgid "Time Zone"
 msgstr "Zona horária"
 

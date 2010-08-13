@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:47+0200\n"
+"POT-Creation-Date: 2010-08-13 13:42+0200\n"
 "PO-Revision-Date: 2007-04-22 12:00+0000\n"
 "Last-Translator: Alper orus <alperor@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -35,58 +35,58 @@ msgstr "Otomatil sistem güncellemeleri"
 msgid "Software Management"
 msgstr "Uygulama yönetimi"
 
-#: src/EBox/Software.pm:487
+#: src/EBox/Software.pm:472
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: src/EBox/Software.pm:552
+#: src/EBox/Software.pm:537
 #, fuzzy
 msgid "eBox Components"
 msgstr "eBox bileşenleri"
 
-#: src/EBox/Software.pm:554
+#: src/EBox/Software.pm:539
 #, fuzzy
 msgid "System Updates"
 msgstr "Sistem güncellemeleri"
 
-#: src/EBox/Software.pm:556 src/templates/config.mas:19
+#: src/EBox/Software.pm:541 src/templates/config.mas:19
 #, fuzzy
 msgid "Settings"
 msgstr "Başlatılıyor..."
 
-#: src/EBox/Software.pm:695
+#: src/EBox/Software.pm:680
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 
-#: src/EBox/Software.pm:832
+#: src/EBox/Software.pm:843
 msgid "Welcome"
 msgstr ""
 
-#: src/EBox/Software.pm:834
+#: src/EBox/Software.pm:845
 msgid "Package Selection"
 msgstr ""
 
-#: src/EBox/Software.pm:835
+#: src/EBox/Software.pm:846
 #, fuzzy
 msgid "Confirmation"
 msgstr "Ayarlar"
 
-#: src/EBox/Software.pm:836
+#: src/EBox/Software.pm:847
 #, fuzzy
 msgid "Installation"
 msgstr "Kur"
 
-#: src/EBox/Software.pm:837
+#: src/EBox/Software.pm:848
 #, fuzzy
 msgid "Initial Configuration"
 msgstr "Ayarlar"
 
-#: src/EBox/Software.pm:838
+#: src/EBox/Software.pm:849
 msgid "Save Changes"
 msgstr ""
 
@@ -112,11 +112,11 @@ msgstr "Aşağıdaki paketler kurulacak"
 msgid "eBox components"
 msgstr "eBox bileşenleri"
 
-#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:42
+#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
 msgstr "Sistem güncellemeleri"
 
-#: src/EBox/CGI/Updates.pm:48
+#: src/EBox/CGI/Updates.pm:59
 #, fuzzy
 msgid "The system components are up to date."
 msgstr "Sistem güncellendi"
@@ -129,27 +129,27 @@ msgstr "Güncelleniyor"
 msgid "There were no packages to update"
 msgstr "Güncellenecek paket mevcut değil"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
+#: src/EBox/CGI/InstallPkgs.pm:165
 #, fuzzy
 msgid "Installing"
 msgstr "Kur"
 
-#: src/EBox/CGI/InstallPkgs.pm:167
+#: src/EBox/CGI/InstallPkgs.pm:166
 #, fuzzy
 msgid "Installing packages"
 msgstr "Güncelleniyor"
 
-#: src/EBox/CGI/InstallPkgs.pm:168 src/EBox/CGI/InstallPkgs.pm:192
+#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
 #, fuzzy
 msgid "Current operation"
 msgstr "Güncel paketler"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:168
 #, fuzzy
-msgid "packages installed"
-msgstr "Aşağıdaki paketler kurulacak"
+msgid "actions done"
+msgstr "İşlemler"
 
-#: src/EBox/CGI/InstallPkgs.pm:170
+#: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -157,51 +157,51 @@ msgid ""
 "redirected to the next step"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:175
+#: src/EBox/CGI/InstallPkgs.pm:174
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:190
+#: src/EBox/CGI/InstallPkgs.pm:189
 #, fuzzy
 msgid "Removing package"
 msgstr "Güncelleniyor"
 
-#: src/EBox/CGI/InstallPkgs.pm:191
+#: src/EBox/CGI/InstallPkgs.pm:190
 msgid "Removing the selected package and its dependent packages"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:192
 msgid "packages left to remove"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:194
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:198
+#: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
 
-#: src/templates/ebox.mas:139 src/templates/updates.mas:35
+#: src/templates/ebox.mas:140 src/templates/updates.mas:35
 msgid "Update"
 msgstr "Güncelle"
 
-#: src/templates/ebox.mas:145
+#: src/templates/ebox.mas:146
 msgid "Install"
 msgstr "Kur"
 
-#: src/templates/ebox.mas:167
+#: src/templates/ebox.mas:168
 msgid "View advanced mode"
 msgstr ""
 
-#: src/templates/ebox.mas:481
+#: src/templates/ebox.mas:482
 msgid "View basic mode"
 msgstr ""
 
@@ -292,8 +292,13 @@ msgstr ""
 "Bu işlem uzun sürebilir. eBox uzun bir süre size cevap vermez ise sakın "
 "heyacana kapılmayın."
 
-#: src/templates/updates.mas:91
+#: src/templates/updates.mas:95
 msgid "Upgrade"
+msgstr "Güncelle"
+
+#: src/templates/updates.mas:96
+#, fuzzy
+msgid "Update list"
 msgstr "Güncelle"
 
 #: src/templates/updateNote.mas:10
@@ -314,6 +319,10 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+#~ msgid "packages installed"
+#~ msgstr "Aşağıdaki paketler kurulacak"
+
+#, fuzzy
 #~ msgid "Automatic Updates"
 #~ msgstr "Otomatil sistem güncellemeleri"
 
@@ -325,9 +334,6 @@ msgstr ""
 
 #~ msgid "Latest version"
 #~ msgstr "Son sürüm"
-
-#~ msgid "Actions"
-#~ msgstr "İşlemler"
 
 #~ msgid "none"
 #~ msgstr "hiçbirşey"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2010-07-31 00:26+0200\n"
 "Last-Translator: Heidi Vilppola <hvilppola@ebox-technologies.com>\n"
 "Language-Team: <es@li.org>\n"
@@ -32,37 +32,42 @@ msgstr "Marcas totales"
 msgid "It must be a non-zero positive number"
 msgstr "Debe ser un número positivo distinto de cero"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Por favor, confirme que quiere borrar este fichero de backup:"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "No se puede ejecutar {exe}"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "Indicador de progreso con identificador {id} no se ha encontrado"
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr "Número de marcas a notificar"
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "debe ser mayor que cero"
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr "El ejecutable no se ha ejecutado"
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr "El ejecutable no se ha ejecutado"
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr "El ejecutable ya ha comenzado"
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "El ejecutable ya ha acabado"
 
@@ -552,7 +557,8 @@ msgstr "Borrar"
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:116
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:132
 msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Por favor, confirme que quiere restaurar usando este fichero de backup:"
+msgstr ""
+"Por favor, confirme que quiere restaurar usando este fichero de backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:118
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:134 src/templates/backup.mas:93
@@ -1061,12 +1067,12 @@ msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 "Debe establecer la variable {variable} en el fichero de configuración de ebox"
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Error volcando la base de datos postgresql {name}"
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Fichero {file} de volcado de la base de datos no se puede leer"
@@ -1120,7 +1126,7 @@ msgstr "\"Desde\" {from} debe ser mayor que \"Hasta\" {to}"
 msgid "Enter a float number"
 msgstr "Introduzca un número real"
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "Elije un valor dentro del conjunto de valores: {set}"
@@ -1613,25 +1619,25 @@ msgstr "Informe de configuración"
 msgid "Halt/Reboot"
 msgstr "Apagar o reiniciar"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "puerto"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 msgid "eBox web server"
 msgstr "servidor web de eBox"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Habilitando módulo {modName}"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Guardando módulo {modName}"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "ejecutando script {scriptName}"
@@ -1929,7 +1935,7 @@ msgstr "Ítems que quedan"
 msgid "Some error has happened in eBox: "
 msgstr "Algún error ha ocurrido en eBox:"
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "Comenzando..."
 
@@ -2375,10 +2381,6 @@ msgstr "Puerto TCP de la interfaz de administración"
 #~ msgid ""
 #~ "Please confirm that you want to restore the configuraction using the "
 #~ "following remote backup:"
-#~ msgstr "Por favor, confirme que quiere borrar este fichero de backup:"
-
-#, fuzzy
-#~ msgid "Please confirm that you want to delete the following remote backup:"
 #~ msgstr "Por favor, confirme que quiere borrar este fichero de backup:"
 
 #, fuzzy

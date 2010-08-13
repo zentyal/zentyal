@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-monitor 0.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:34+0200\n"
+"POT-Creation-Date: 2010-08-13 13:11+0200\n"
 "PO-Revision-Date: 2010-08-08 02:18+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -397,37 +397,41 @@ msgstr "Monitor"
 msgid "Notify when a certain value has reached a certain threshold"
 msgstr "Avisar quando o determinado valor atingir um certo limite"
 
-#: src/EBox/Event/Watcher/Monitor.pm:302
+#: src/EBox/Event/Watcher/Monitor.pm:264
+msgid "All data sources are within range again"
+msgstr ""
+
+#: src/EBox/Event/Watcher/Monitor.pm:274
 #, perl-brace-format
 msgid "{what} \"{dS}\" is currently {value}."
 msgstr "{what} \"{dS}\" está correntemente {value}."
 
-#: src/EBox/Event/Watcher/Monitor.pm:308
+#: src/EBox/Event/Watcher/Monitor.pm:281
 #, perl-brace-format
 msgid "That is within the {severity} region of {minBound} and {maxBound}."
 msgstr "Está na zona {severity} de {minBound} e {maxBound}."
 
-#: src/EBox/Event/Watcher/Monitor.pm:315
+#: src/EBox/Event/Watcher/Monitor.pm:288
 #, perl-brace-format
 msgid "That is above the {severity} threshold of {bound}."
 msgstr "Está acima de {severity} limite de {bound}"
 
-#: src/EBox/Event/Watcher/Monitor.pm:318
+#: src/EBox/Event/Watcher/Monitor.pm:291
 #, perl-brace-format
 msgid "That is below the {severity} threshold of {bound}."
 msgstr "Está abaixo de {severity} limite de {bound}"
 
-#: src/EBox/Monitor.pm:137
+#: src/EBox/Monitor.pm:148
 #, perl-brace-format
 msgid "{daemon} main configuration file"
 msgstr "Ficheiro de configuração principal {daemon}"
 
-#: src/EBox/Monitor.pm:142
+#: src/EBox/Monitor.pm:153
 #, perl-brace-format
 msgid "{daemon} thresholds configuration file"
 msgstr "Ficheiro de configuração de entrada {daemon}"
 
-#: src/EBox/Monitor.pm:147
+#: src/EBox/Monitor.pm:158
 #, perl-brace-format
 msgid "{daemon} default configuration file"
 msgstr "Ficheiro de configuração pré-definida {daemon}"

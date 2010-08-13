@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:47+0200\n"
-"PO-Revision-Date: 2010-07-28 10:46+0200\n"
+"POT-Creation-Date: 2010-08-13 13:45+0200\n"
+"PO-Revision-Date: 2010-08-13 13:45+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -502,8 +502,8 @@ msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
-"Objektet object} har en aktiverad  {row} i {table}. Radera det forst där och "
-"lägg till det här."
+"Objektet {object} har en aktiverad  {row} i {table}. Radera det forst där "
+"och lägg till det här."
 
 #: src/EBox/Squid/Model/DelayPools2.pm:119
 #: src/EBox/Squid/Model/DelayPools1.pm:116
@@ -692,8 +692,7 @@ msgstr "Tillåt alla {elements}"
 #: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:90
 msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
-"Använd detta fält för att ändra värdet för alla ovanstående rader på en "
-"gång."
+"Använd detta fält för att ändra värdet för alla ovanstående rader på en gång."
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:59
 msgid "Transparent Proxy"
@@ -734,8 +733,7 @@ msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
 msgstr ""
-"Transparent proxy är inte kompatibel med auktoriseringspolicyn i vissa "
-"objekt"
+"Transparent proxy är inte kompatibel med auktoriseringspolicyn i vissa objekt"
 
 #: src/EBox/Squid/Model/GeneralSettings.pm:186
 msgid ""
@@ -831,7 +829,8 @@ msgstr "Filter policies är inkompatibla med begränsade tidsperioder"
 #: src/EBox/Squid/Model/ObjectPolicy.pm:239
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
-msgstr "Du kan inte välja en policy utan auktorisation om du har en grupppolicy"
+msgstr ""
+"Du kan inte välja en policy utan auktorisation om du har en grupppolicy"
 
 #: src/EBox/Squid/Model/ObjectPolicy.pm:265
 msgid "You can only use a custom profile with the 'Filter' policy"
@@ -1205,8 +1204,8 @@ msgid ""
 "{closehref} and come back here"
 msgstr ""
 "Du kan inte aktivera antivirusfilter eftersom antivirusmodulen är "
-"inaktiverad. Om du vill filtrera virus {openhref}aktivera först "
-"modulen{closehref} och kom tillbaka hit"
+"inaktiverad. Om du vill filtrera virus {openhref}aktivera först modulen"
+"{closehref} och kom tillbaka hit"
 
 #: src/EBox/Squid/Model/AntiVirusBase.pm:99
 #, perl-brace-format
@@ -1216,8 +1215,8 @@ msgid ""
 "activate the module{closehref} and come back here"
 msgstr ""
 "Du kan inte aktivera antivirusfilter eftersom antivirusmodulen inte är "
-"installerad. Om du vill filtrera virus {openhref}installera först "
-"modulen{closehref} och kom tillbaka hit"
+"installerad. Om du vill filtrera virus {openhref}installera först modulen"
+"{closehref} och kom tillbaka hit"
 
 #: src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"

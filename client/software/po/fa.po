@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.12.100Report-Msgid-Bugs-To: info@ebox-technologies."
-"com\n"
+"Project-Id-Version: ebox-software 0.12.100Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:47+0200\n"
+"POT-Creation-Date: 2010-08-13 13:42+0200\n"
 "PO-Revision-Date: 2009-02-10 18:49+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -33,28 +33,28 @@ msgstr "قانون برای اجازه به‌روزرسانی‌های apt"
 msgid "Software Management"
 msgstr "مدیریت نرم‌افزار"
 
-#: src/EBox/Software.pm:487
+#: src/EBox/Software.pm:472
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: src/EBox/Software.pm:552
+#: src/EBox/Software.pm:537
 #, fuzzy
 msgid "eBox Components"
 msgstr "مولفه‌های ای‌باکس"
 
-#: src/EBox/Software.pm:554
+#: src/EBox/Software.pm:539
 #, fuzzy
 msgid "System Updates"
 msgstr "به‌روزرسانی‌های سامانه"
 
-#: src/EBox/Software.pm:556 src/templates/config.mas:19
+#: src/EBox/Software.pm:541 src/templates/config.mas:19
 msgid "Settings"
 msgstr ""
 
-#: src/EBox/Software.pm:695
+#: src/EBox/Software.pm:680
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -62,29 +62,29 @@ msgstr ""
 "مدیریت نرم‌افزار هم‌اکنون توسط {locker} قفل شده است. لطفا، بعدا مجددا تلاش "
 "نمایید"
 
-#: src/EBox/Software.pm:832
+#: src/EBox/Software.pm:843
 msgid "Welcome"
 msgstr ""
 
-#: src/EBox/Software.pm:834
+#: src/EBox/Software.pm:845
 msgid "Package Selection"
 msgstr ""
 
-#: src/EBox/Software.pm:835
+#: src/EBox/Software.pm:846
 msgid "Confirmation"
 msgstr ""
 
-#: src/EBox/Software.pm:836
+#: src/EBox/Software.pm:847
 #, fuzzy
 msgid "Installation"
 msgstr "نصب"
 
-#: src/EBox/Software.pm:837
+#: src/EBox/Software.pm:848
 #, fuzzy
 msgid "Initial Configuration"
 msgstr "پیکربندی به‌روزرسانی‌های خودکار"
 
-#: src/EBox/Software.pm:838
+#: src/EBox/Software.pm:849
 msgid "Save Changes"
 msgstr ""
 
@@ -110,11 +110,11 @@ msgstr "بسته‌های باقیمانده برای نصب"
 msgid "eBox components"
 msgstr "مولفه‌های ای‌باکس"
 
-#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:42
+#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
 msgstr "به‌روزرسانی‌های سامانه"
 
-#: src/EBox/CGI/Updates.pm:48
+#: src/EBox/CGI/Updates.pm:59
 #, fuzzy
 msgid "The system components are up to date."
 msgstr "سامانه به‌روز است"
@@ -127,27 +127,27 @@ msgstr "ارتقا"
 msgid "There were no packages to update"
 msgstr "بسته‌هایی برای به‌روزرسانی باقی نمانده است"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
+#: src/EBox/CGI/InstallPkgs.pm:165
 #, fuzzy
 msgid "Installing"
 msgstr "نصب"
 
-#: src/EBox/CGI/InstallPkgs.pm:167
+#: src/EBox/CGI/InstallPkgs.pm:166
 #, fuzzy
 msgid "Installing packages"
 msgstr "بسته‌های ارتقا"
 
-#: src/EBox/CGI/InstallPkgs.pm:168 src/EBox/CGI/InstallPkgs.pm:192
+#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
 #, fuzzy
 msgid "Current operation"
 msgstr "بسته کنونی"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:168
 #, fuzzy
-msgid "packages installed"
-msgstr "بسته‌های باقیمانده برای نصب"
+msgid "actions done"
+msgstr "اقدامات"
 
-#: src/EBox/CGI/InstallPkgs.pm:170
+#: src/EBox/CGI/InstallPkgs.pm:169
 #, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
@@ -158,25 +158,25 @@ msgstr ""
 "نصب بسته‌ها باموفقیت خاتمه یافت. رابط مدیریت ممکن است برای چند لحظه پاسخگو "
 "نباشد. لطفا تا زمانیکه سامانه کاملا راه‌اندازی مجدد شود صبر نمایید"
 
-#: src/EBox/CGI/InstallPkgs.pm:175
+#: src/EBox/CGI/InstallPkgs.pm:174
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "نصب بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت‌شده"
 
-#: src/EBox/CGI/InstallPkgs.pm:190
+#: src/EBox/CGI/InstallPkgs.pm:189
 msgid "Removing package"
 msgstr "حذف بسته"
 
-#: src/EBox/CGI/InstallPkgs.pm:191
+#: src/EBox/CGI/InstallPkgs.pm:190
 msgid "Removing the selected package and its dependent packages"
 msgstr "حذف بسته انتخاب شده و بسته‌های وابسته آن"
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:192
 msgid "packages left to remove"
 msgstr "بسته‌های باقیمانده برای حذف"
 
-#: src/EBox/CGI/InstallPkgs.pm:194
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -185,25 +185,25 @@ msgstr ""
 "حذف بسته‌ها باموفقیت خاتمه یافت. رابط مدیریت ممکن است برای چند لحظه پاسخگو "
 "نباشد. لطفا تا زمانیکه سامانه کاملا راه‌اندازی مجدد شود صبر نمایید"
 
-#: src/EBox/CGI/InstallPkgs.pm:198
+#: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr "حذف بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت شده"
 
-#: src/templates/ebox.mas:139 src/templates/updates.mas:35
+#: src/templates/ebox.mas:140 src/templates/updates.mas:35
 msgid "Update"
 msgstr "به‌روزرسانی"
 
-#: src/templates/ebox.mas:145
+#: src/templates/ebox.mas:146
 msgid "Install"
 msgstr "نصب"
 
-#: src/templates/ebox.mas:167
+#: src/templates/ebox.mas:168
 msgid "View advanced mode"
 msgstr ""
 
-#: src/templates/ebox.mas:481
+#: src/templates/ebox.mas:482
 msgid "View basic mode"
 msgstr ""
 
@@ -295,9 +295,14 @@ msgstr ""
 "این اقدام مقداری زمان می‌گیرد، اگر پس از فشار دادن دکمه ارتقا ای‌باکس "
 "غیرداسخگو به نظر‌ آمد نگران نباشید."
 
-#: src/templates/updates.mas:91
+#: src/templates/updates.mas:95
 msgid "Upgrade"
 msgstr "ارتقا"
+
+#: src/templates/updates.mas:96
+#, fuzzy
+msgid "Update list"
+msgstr "به‌روزرسانی"
 
 #: src/templates/updateNote.mas:10
 msgid ""
@@ -315,6 +320,10 @@ msgid ""
 "extensively tested by the eBox Development Team and you won't be introducing "
 "any regressions on your already working system."
 msgstr ""
+
+#, fuzzy
+#~ msgid "packages installed"
+#~ msgstr "بسته‌های باقیمانده برای نصب"
 
 #~ msgid ""
 #~ "eBox software will download the available updates from your configured "
@@ -337,9 +346,6 @@ msgstr ""
 
 #~ msgid "Latest version"
 #~ msgstr "آخرین نسخه"
-
-#~ msgid "Actions"
-#~ msgstr "اقدامات"
 
 #~ msgid "none"
 #~ msgstr "هیچ کدام"

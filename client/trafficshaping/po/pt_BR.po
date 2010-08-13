@@ -1,9 +1,8 @@
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:129
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:47+0200\n"
+"POT-Creation-Date: 2010-08-13 13:45+0200\n"
 "PO-Revision-Date: 2009-05-18 22:57+0200\n"
 "Last-Translator: Carlos Assis Brito de Oliveira Filho <cassisfilho@gmail."
 "com>\n"
@@ -137,7 +136,7 @@ msgid "Destination object"
 msgstr "Objeto de destino"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:464
-#: src/EBox/TrafficShaping.pm:1599
+#: src/EBox/TrafficShaping.pm:1699
 msgid "Priority"
 msgstr "Prioridade"
 
@@ -146,7 +145,7 @@ msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Mais baixa prioridade: 7 Mais alta prioridade: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:472
-#: src/EBox/TrafficShaping.pm:1597
+#: src/EBox/TrafficShaping.pm:1697
 msgid "Guaranteed Rate"
 msgstr "Taxa garantida"
 
@@ -164,7 +163,7 @@ msgstr ""
 "de banda total. 0 indica taxa não-garantida."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:484
-#: src/EBox/TrafficShaping.pm:1598
+#: src/EBox/TrafficShaping.pm:1698
 msgid "Limited Rate"
 msgstr "Taxa Limitada"
 
@@ -303,40 +302,40 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Escolha uma interface para aplicar traffic shaping"
 
-#: src/EBox/TrafficShaping.pm:97
+#: src/EBox/TrafficShaping.pm:102
 msgid "Traffic Shaping"
 msgstr "Traffic Shaping"
 
-#: src/EBox/TrafficShaping.pm:135
+#: src/EBox/TrafficShaping.pm:140
 msgid "Add iptables rules to mangle table"
 msgstr "Adicionar regras iptables à tabela mangle"
 
-#: src/EBox/TrafficShaping.pm:136
+#: src/EBox/TrafficShaping.pm:141
 msgid "To mark packets with different priorities and rates"
 msgstr "Marcar pacotes com taxas e prioridades diferentes"
 
-#: src/EBox/TrafficShaping.pm:140
+#: src/EBox/TrafficShaping.pm:145
 msgid "Add tc rules"
 msgstr "Adicionar regras tc"
 
-#: src/EBox/TrafficShaping.pm:141
+#: src/EBox/TrafficShaping.pm:146
 msgid "To implement the traffic shaping rules"
 msgstr "Para implementar regras de traffic shaping"
 
-#: src/EBox/TrafficShaping.pm:385
+#: src/EBox/TrafficShaping.pm:462
 msgid "Rules"
 msgstr "Regras"
 
-#: src/EBox/TrafficShaping.pm:387
+#: src/EBox/TrafficShaping.pm:464
 msgid "Interface Rates"
 msgstr "Taxas da Interface"
 
-#: src/EBox/TrafficShaping.pm:442 src/EBox/TrafficShaping.pm:594
-#: src/EBox/TrafficShaping.pm:1012 src/EBox/TC.pm:108
+#: src/EBox/TrafficShaping.pm:538 src/EBox/TrafficShaping.pm:690
+#: src/EBox/TrafficShaping.pm:1108 src/EBox/TC.pm:108
 msgid "Interface"
 msgstr "Interface"
 
-#: src/EBox/TrafficShaping.pm:456
+#: src/EBox/TrafficShaping.pm:552
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -345,11 +344,11 @@ msgstr ""
 "O número máximo de regras da conta {max} foi atingido, apague pelo menos uma "
 "regra para poder adicionar outra"
 
-#: src/EBox/TrafficShaping.pm:1102
+#: src/EBox/TrafficShaping.pm:1198
 msgid "type"
 msgstr "tipo"
 
-#: src/EBox/TrafficShaping.pm:1125
+#: src/EBox/TrafficShaping.pm:1221
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -358,11 +357,11 @@ msgstr ""
 "Interface {iface} deve ter uma taxa máxima de largura de banda para fazer "
 "traffic shaping"
 
-#: src/EBox/TrafficShaping.pm:1595
+#: src/EBox/TrafficShaping.pm:1695
 msgid "Protocol"
 msgstr "Protocolo"
 
-#: src/EBox/TrafficShaping.pm:1596
+#: src/EBox/TrafficShaping.pm:1696
 msgid "Port"
 msgstr "Porta"
 

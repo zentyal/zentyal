@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-network 1.1Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:38+0200\n"
+"POT-Creation-Date: 2010-08-13 13:41+0200\n"
 "PO-Revision-Date: 2010-07-22 20:02+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
@@ -58,7 +59,7 @@ msgstr "virtuális interfész művelet"
 #: src/EBox/CGI/VIface.pm:64 src/EBox/Network.pm:893 src/EBox/Network.pm:898
 #: src/EBox/Network.pm:1212 src/EBox/Network.pm:1233 src/EBox/Network.pm:3142
 #: src/EBox/Network.pm:3158 src/EBox/Network.pm:3184 src/EBox/Network.pm:3339
-#: src/EBox/Network.pm:3494 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Network.pm:3493 src/EBox/Model/GatewayTable.pm:198
 #: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:119
 #: src/templates/ifaces.mas:287 src/templates/Wizard/network.mas:37
 #: src/templates/Wizard/network.mas:92
@@ -83,7 +84,7 @@ msgstr "Gép"
 msgid "host name"
 msgstr "gép neve"
 
-#: src/EBox/CGI/Ifaces.pm:31 src/EBox/Network.pm:3531
+#: src/EBox/CGI/Ifaces.pm:31 src/EBox/Network.pm:3530
 msgid "Network Interfaces"
 msgstr "Hálózati csatoló"
 
@@ -106,7 +107,7 @@ msgstr ""
 "'{host}' failed, max={maxFailRatio}%)"
 
 #: src/EBox/Event/Watcher/Gateways.pm:370
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3564
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3563
 msgid "WAN Failover"
 msgstr "WAN feladatátvétel"
 
@@ -139,7 +140,7 @@ msgstr ""
 msgid "Domain Name Server Resolver"
 msgstr "Domain Name Server (megoldó?) feloldó"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3562
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3561
 msgid "Balance Traffic"
 msgstr "Forgalom kiegyenlítés"
 
@@ -151,7 +152,7 @@ msgstr ""
 "A funkció használatához szükség van két beállított átjáróra. Ezt előbb <a "
 "href=\"/ebox/Network/View/GatewayTable\">itt</a> adja hozzá."
 
-#: src/EBox/Network/Report/ByteRate.pm:137 src/EBox/Network.pm:3483
+#: src/EBox/Network/Report/ByteRate.pm:137 src/EBox/Network.pm:3482
 msgid "Status"
 msgstr "Státusz"
 
@@ -240,8 +241,8 @@ msgstr "A {service} teljes forgalma"
 msgid "Traffic rate from {src} for {service}"
 msgstr "A {src}-től eredő {service} szolgáltatás teljes forgalma"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3547
-#: src/EBox/Model/StaticRoute.pm:153
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3546
+#: src/EBox/Model/StaticRoute.pm:148
 msgid "Network"
 msgstr "Hálózat"
 
@@ -382,68 +383,63 @@ msgstr "külső"
 msgid "internal"
 msgstr "belső"
 
-#: src/EBox/Network.pm:3472
+#: src/EBox/Network.pm:3471
 msgid "link ok"
 msgstr "link ok"
 
-#: src/EBox/Network.pm:3474
+#: src/EBox/Network.pm:3473
 msgid "no link"
 msgstr "nincs link"
 
-#: src/EBox/Network.pm:3477
-#, perl-brace-format
-msgid "{up}, {ext}, {link}"
-msgstr "{up}, {ext}, {link}"
-
-#: src/EBox/Network.pm:3488
+#: src/EBox/Network.pm:3487
 msgid "MAC address"
 msgstr "MAC cím"
 
-#: src/EBox/Network.pm:3505
+#: src/EBox/Network.pm:3504
 msgid "Tx bytes"
 msgstr "Tx bájtok"
 
-#: src/EBox/Network.pm:3514
+#: src/EBox/Network.pm:3513
 msgid "Rx bytes"
 msgstr "Rx bájtok"
 
-#: src/EBox/Network.pm:3552
+#: src/EBox/Network.pm:3551
 msgid "Interfaces"
 msgstr "Interfészek"
 
-#: src/EBox/Network.pm:3558 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3557 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "Átjárók"
 
-#: src/EBox/Network.pm:3560 src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:3559 src/EBox/Model/StaticRoute.pm:172
 msgid "Static Routes"
 msgstr "Statikus route-ok"
 
-#: src/EBox/Network.pm:3566
+#: src/EBox/Network.pm:3565
 msgid "Diagnostic Tools"
 msgstr "Diagnosztikai eszközök"
 
-#: src/EBox/Model/StaticRoute.pm:156
+#: src/EBox/Model/StaticRoute.pm:151
 msgid "IP or network address"
 msgstr "IP vagy hálózati cím"
 
-#: src/EBox/Model/StaticRoute.pm:162
+#: src/EBox/Model/StaticRoute.pm:157
 msgid "Gateway used to reach the above network  address"
 msgstr "A fenti hálózat eléréséhez használt átjáró"
 
-#: src/EBox/Model/StaticRoute.pm:167 src/templates/ifaces.mas:230
+#: src/EBox/Model/StaticRoute.pm:162 src/templates/ifaces.mas:230
 msgid "Description"
 msgstr "Leírás"
 
-#: src/EBox/Model/StaticRoute.pm:170
+#: src/EBox/Model/StaticRoute.pm:165
 msgid "Optional description for this route"
 msgstr "A route opcionális leírása"
 
-#: src/EBox/Model/StaticRoute.pm:176
+#: src/EBox/Model/StaticRoute.pm:171
 msgid "Static Routes List"
 msgstr "Statikus route-ok listája"
 
-#: src/EBox/Model/StaticRoute.pm:182
+#: src/EBox/Model/StaticRoute.pm:177
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured."
@@ -451,7 +447,7 @@ msgstr ""
 "Minden itt feltüntetett átjáró elérhető valamelyik beállított hálózati "
 "interfészen keresztül."
 
-#: src/EBox/Model/StaticRoute.pm:185
+#: src/EBox/Model/StaticRoute.pm:180
 msgid "static route"
 msgstr "statikus route"
 
@@ -1029,6 +1025,9 @@ msgstr ""
 "Ha úgy dönt, hogy folytatja, minden modulban amely erre az interfészre "
 "hivatkozik, törlésre kerül a hivatkozott konfiguráció. Ha nem biztos a "
 "dolgában válassza a \"Mégsem\" gombot."
+
+#~ msgid "{up}, {ext}, {link}"
+#~ msgstr "{up}, {ext}, {link}"
 
 #~ msgid "Physical interface"
 #~ msgstr "Fizikai interfész"

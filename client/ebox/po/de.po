@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2010-02-04 14:05+0100\n"
 "Last-Translator: Daniel F <sek@daniel2k.de>\n"
 "Language-Team: none\n"
@@ -30,37 +30,42 @@ msgstr "Alle Häckchen"
 msgid "It must be a non-zero positive number"
 msgstr "Geben Sie eine positive Zahl ein"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Wollen Sie diese Sicherungsdatei wirklich löschen?"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "{exe} kann nicht ausgeführt werden"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "Der Fortschrittsinidikator mit der ID {id} kann nicht gefunden werden"
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr "Anzahl der ausgewählten Häkchen"
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "muss grösser als Null sein"
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr "Das Programm wurde nicht ausgeführt"
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr "Das Programm wurde nicht ausgeführt"
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr "Das Programm wurde bereits gestartet"
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "Das Programm ist bereits fertig"
 
@@ -1084,12 +1089,12 @@ msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 "Sie müssen die Variable {variable} in der eBox-Konfigurationsdatei definieren"
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Fehler beim Abbilden der PostgreSQL-Datenbank {name}"
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Datenbank Abbilddatei {file} ist nicht lesbar"
@@ -1144,7 +1149,7 @@ msgstr "\"von\" {from} muss grösser als \"bis\" {to} sein"
 msgid "Enter a float number"
 msgstr "Tragen Sie ein Zahl ein"
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "Wählen Sie einen Wert aus diesen aus: {set}"
@@ -1658,26 +1663,26 @@ msgstr "Wiederherstellen der Konfiguration"
 msgid "Halt/Reboot"
 msgstr "Ausschalten / Neustart"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "Port"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 #, fuzzy
 msgid "eBox web server"
 msgstr "interner Webserver dieser eBox"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Modul {modName} wird gesichert"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Modul {modName} wird gesichert"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "führe das Skript {scriptName} aus"
@@ -1985,7 +1990,7 @@ msgstr "verbleibende Dinge"
 msgid "Some error has happened in eBox: "
 msgstr "Es traten Fehler in eBox auf: "
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "wird gestartet"
 
@@ -2433,10 +2438,6 @@ msgstr "TCP-Port der Administrationsschnittstelle"
 #~ msgid ""
 #~ "Please confirm that you want to restore the configuraction using the "
 #~ "following remote backup:"
-#~ msgstr "Wollen Sie diese Sicherungsdatei wirklich löschen?"
-
-#, fuzzy
-#~ msgid "Please confirm that you want to delete the following remote backup:"
 #~ msgstr "Wollen Sie diese Sicherungsdatei wirklich löschen?"
 
 #, fuzzy

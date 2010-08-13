@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:47+0200\n"
+"POT-Creation-Date: 2010-08-13 13:42+0200\n"
 "PO-Revision-Date: 2008-01-08 15:51+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -33,28 +33,28 @@ msgstr "aptアップデートの許可ルール"
 msgid "Software Management"
 msgstr "ソフトウェアの管理"
 
-#: src/EBox/Software.pm:487
+#: src/EBox/Software.pm:472
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: src/EBox/Software.pm:552
+#: src/EBox/Software.pm:537
 #, fuzzy
 msgid "eBox Components"
 msgstr "eBoxコンポーネント"
 
-#: src/EBox/Software.pm:554
+#: src/EBox/Software.pm:539
 #, fuzzy
 msgid "System Updates"
 msgstr "システムアップデート"
 
-#: src/EBox/Software.pm:556 src/templates/config.mas:19
+#: src/EBox/Software.pm:541 src/templates/config.mas:19
 msgid "Settings"
 msgstr ""
 
-#: src/EBox/Software.pm:695
+#: src/EBox/Software.pm:680
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -62,30 +62,30 @@ msgstr ""
 "ソフトウェア管理は現在 {locker} によってロックされています。ロックが解除され"
 "てから試行してください"
 
-#: src/EBox/Software.pm:832
+#: src/EBox/Software.pm:843
 msgid "Welcome"
 msgstr ""
 
-#: src/EBox/Software.pm:834
+#: src/EBox/Software.pm:845
 msgid "Package Selection"
 msgstr ""
 
-#: src/EBox/Software.pm:835
+#: src/EBox/Software.pm:846
 #, fuzzy
 msgid "Confirmation"
 msgstr "ネットワーク設定"
 
-#: src/EBox/Software.pm:836
+#: src/EBox/Software.pm:847
 #, fuzzy
 msgid "Installation"
 msgstr "インストール"
 
-#: src/EBox/Software.pm:837
+#: src/EBox/Software.pm:848
 #, fuzzy
 msgid "Initial Configuration"
 msgstr "ネットワーク設定"
 
-#: src/EBox/Software.pm:838
+#: src/EBox/Software.pm:849
 msgid "Save Changes"
 msgstr ""
 
@@ -111,11 +111,11 @@ msgstr "残りのインストールパッケージ"
 msgid "eBox components"
 msgstr "eBoxコンポーネント"
 
-#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:42
+#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
 msgstr "システムアップデート"
 
-#: src/EBox/CGI/Updates.pm:48
+#: src/EBox/CGI/Updates.pm:59
 #, fuzzy
 msgid "The system components are up to date."
 msgstr "システムは最新の状態です"
@@ -128,27 +128,27 @@ msgstr "アップグレードしています"
 msgid "There were no packages to update"
 msgstr "アップデートするパッケージはありませんでした"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
+#: src/EBox/CGI/InstallPkgs.pm:165
 #, fuzzy
 msgid "Installing"
 msgstr "インストール"
 
-#: src/EBox/CGI/InstallPkgs.pm:167
+#: src/EBox/CGI/InstallPkgs.pm:166
 #, fuzzy
 msgid "Installing packages"
 msgstr "パッケージをアップグレードしています"
 
-#: src/EBox/CGI/InstallPkgs.pm:168 src/EBox/CGI/InstallPkgs.pm:192
+#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
 #, fuzzy
 msgid "Current operation"
 msgstr "現在のパッケージ"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:168
 #, fuzzy
-msgid "packages installed"
-msgstr "残りのインストールパッケージ"
+msgid "actions done"
+msgstr "アクション"
 
-#: src/EBox/CGI/InstallPkgs.pm:170
+#: src/EBox/CGI/InstallPkgs.pm:169
 #, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
@@ -159,26 +159,26 @@ msgstr ""
 "パッケージのインストールが完了しました。数秒の間、管理インタフェースが応答し"
 "ないかもしれません。システムが再起動するまでお待ちください"
 
-#: src/EBox/CGI/InstallPkgs.pm:175
+#: src/EBox/CGI/InstallPkgs.pm:174
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
 "パッケージのインストールは正常に終了しませんでした。詳細はログを見てください"
 
-#: src/EBox/CGI/InstallPkgs.pm:190
+#: src/EBox/CGI/InstallPkgs.pm:189
 msgid "Removing package"
 msgstr "パッケージを削除"
 
-#: src/EBox/CGI/InstallPkgs.pm:191
+#: src/EBox/CGI/InstallPkgs.pm:190
 msgid "Removing the selected package and its dependent packages"
 msgstr "選択したパッケージを依存パッケージとともに削除"
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:192
 msgid "packages left to remove"
 msgstr "削除予定のパッケージ"
 
-#: src/EBox/CGI/InstallPkgs.pm:194
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -187,25 +187,25 @@ msgstr ""
 "パッケージは正常に削除されました。管理インタフェースが数秒間反応しなくなりま"
 "すが、再起動が完了するまで少々お待ちください"
 
-#: src/EBox/CGI/InstallPkgs.pm:198
+#: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr "パッケージは正常に削除されませんでした。詳細はログに記録されています"
 
-#: src/templates/ebox.mas:139 src/templates/updates.mas:35
+#: src/templates/ebox.mas:140 src/templates/updates.mas:35
 msgid "Update"
 msgstr "アップデート"
 
-#: src/templates/ebox.mas:145
+#: src/templates/ebox.mas:146
 msgid "Install"
 msgstr "インストール"
 
-#: src/templates/ebox.mas:167
+#: src/templates/ebox.mas:168
 msgid "View advanced mode"
 msgstr ""
 
-#: src/templates/ebox.mas:481
+#: src/templates/ebox.mas:482
 msgid "View basic mode"
 msgstr ""
 
@@ -295,9 +295,14 @@ msgid ""
 "after pressing the Upgrade button."
 msgstr "この処理はしばらく時間がかかるかもしれません。"
 
-#: src/templates/updates.mas:91
+#: src/templates/updates.mas:95
 msgid "Upgrade"
 msgstr "アップグレード"
+
+#: src/templates/updates.mas:96
+#, fuzzy
+msgid "Update list"
+msgstr "アップデート"
 
 #: src/templates/updateNote.mas:10
 msgid ""
@@ -315,6 +320,10 @@ msgid ""
 "extensively tested by the eBox Development Team and you won't be introducing "
 "any regressions on your already working system."
 msgstr ""
+
+#, fuzzy
+#~ msgid "packages installed"
+#~ msgstr "残りのインストールパッケージ"
 
 #~ msgid ""
 #~ "eBox software will download the available updates from your configured "
@@ -336,9 +345,6 @@ msgstr ""
 
 #~ msgid "Latest version"
 #~ msgstr "最新バージョン"
-
-#~ msgid "Actions"
-#~ msgstr "アクション"
 
 #~ msgid "none"
 #~ msgstr "なし"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:52+0200\n"
+"POT-Creation-Date: 2010-08-13 13:47+0200\n"
 "PO-Revision-Date: 2010-08-08 01:40+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
@@ -89,25 +89,20 @@ msgid ""
 "You need a Service Certificate for the Web Server module, enable it on "
 "{ohref}Certification Authority -> Service Certificates{chref}."
 msgstr ""
-"Necessita de um certificado para o módulo Servidor Web, active-o em "
-"{ohref}Autoridade de certificação -> certificados de serviço{chref}"
+"Necessita de um certificado para o módulo Servidor Web, active-o em {ohref}"
+"Autoridade de certificação -> certificados de serviço{chref}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:141
 msgid ""
-"To allow HTML directories for users is needed to have the file sharing "
-"module is installed and configured."
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
 msgstr ""
-"A partilha de ficheiros necessita de estar instalada e configurada para "
-"permitir directórios HTML para os utilizadores"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:147
 msgid ""
-"To allow HTML directories for users is needed to have the file sharing "
-"module configured. To configure it enable it at least one time."
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
 msgstr ""
-"Para permitir directórios HTML dos utilizadores é necessário que o módulo de "
-"partilha de ficheiros esteja configurado. Para configurar active-o pelo "
-"menos uma vez"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:237
 msgid "Listening SSL port"
@@ -140,12 +135,11 @@ msgid "General configuration settings"
 msgstr "Definições das configurações gerais"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:270
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"General Web server configuration. The listening port must not be got from "
-"another service. If you enable user to publish their own html pages, the "
-"pages will be loaded from {dirName} directory from their samba home "
-"directories."
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
 msgstr ""
 "Configuração geral do servidor Web. O porto a ser usado não pode estar "
 "associado a outro serviço. Se permitir que o utilizador publique as suas "
@@ -168,8 +162,7 @@ msgstr "Servidores virtuais"
 #: src/EBox/WebServer/Model/VHostTable.pm:106
 msgid "SSL support is disabled. Enable it before adding a SSL virtual host."
 msgstr ""
-"O suporte SSL está desactivado. Active-o para adicionar um hospedeiro "
-"virtual"
+"O suporte SSL está desactivado. Active-o para adicionar um hospedeiro virtual"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:171
 #, perl-brace-format
@@ -229,21 +222,21 @@ msgid "Virtual hosts"
 msgstr "Servidores virtuais"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:302
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
-"same web server is hosted on a single physical server. Different host names "
-"will point to the same web server. The DNS entry is automatically created if "
-"this is possible. The content must be placed under {docRoot} directory. Any "
-"particular configuration you want to add must be placed at {userConf} "
+"same web server are hosted on a single physical server. Different host names "
+"point to the same web server. If feasible, the DNS entry is automatically "
+"created. The content must be placed under the {docRoot} directory. Any "
+"particular configuration you want to add must be placed in the {userConf} "
 "directory."
 msgstr ""
 "Hospedeiros virtuais são uma forma de hospedar várias instâncias de servidor "
-"web num único servidor físico. Nomes de hospedeiro diferentes apontarão "
-"para o mesmo servidor web. A entrada DNS é criada automáticamente sempre que "
-"possível. Os conteúdos devem ser colocados em {docRoot}/Directório "
-"vHostName.{userConf}. Qualquer configuração particular que queira adicionar "
-"deve ser colocada no directório {userConf}"
+"web num único servidor físico. Nomes de hospedeiro diferentes apontarão para "
+"o mesmo servidor web. A entrada DNS é criada automáticamente sempre que "
+"possível. Os conteúdos devem ser colocados em {docRoot}/Directório vHostName."
+"{userConf}. Qualquer configuração particular que queira adicionar deve ser "
+"colocada no directório {userConf}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:333
 #, perl-brace-format
@@ -265,6 +258,21 @@ msgid ""
 msgstr ""
 "O serviço Web eBox permite-lhe alojar sites em HTML com diferentes "
 "servidores virtuais"
+
+#~ msgid ""
+#~ "To allow HTML directories for users is needed to have the file sharing "
+#~ "module is installed and configured."
+#~ msgstr ""
+#~ "A partilha de ficheiros necessita de estar instalada e configurada para "
+#~ "permitir directórios HTML para os utilizadores"
+
+#~ msgid ""
+#~ "To allow HTML directories for users is needed to have the file sharing "
+#~ "module configured. To configure it enable it at least one time."
+#~ msgstr ""
+#~ "Para permitir directórios HTML dos utilizadores é necessário que o módulo "
+#~ "de partilha de ficheiros esteja configurado. Para configurar active-o "
+#~ "pelo menos uma vez"
 
 #~ msgid "listening port"
 #~ msgstr "Porto em escuta"

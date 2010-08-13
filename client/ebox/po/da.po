@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2007-07-24 15:21+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,37 +24,42 @@ msgstr "Totalt antal ticks"
 msgid "It must be a non-zero positive number"
 msgstr "Det skal være et positivt tal"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Bekræft venligst at du vil slette følgende backup fil:"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, fuzzy, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "Kan ikke udføre {exe}"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "Fremskridts indikator med id {id} kunne ikke findes"
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr "Antal ticks før der skal gives besked"
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "skal være større end nul"
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr "Programmet er ikke udført"
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr "Programmet er ikke udført"
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr "Programmet kører allerede"
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "Programmet er kørt færdig"
 
@@ -1051,12 +1056,12 @@ msgstr "Gå til {url} for at checke status"
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "Du skal sætte variablen {variable} i eBoxs konfigurationsfil"
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Fejl ved udlæsning af postgresql databasen {name}"
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Database dumpet {file} kan ikke læses ind"
@@ -1112,7 +1117,7 @@ msgstr "\"fra\" {from} skal være større end \"til\" {to}"
 msgid "Enter a float number"
 msgstr "Skriv et positivt tal"
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, fuzzy, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "Vælg en værdi indenfor værdierne {set}"
@@ -1633,26 +1638,26 @@ msgstr "Konfiguration restore"
 msgid "Halt/Reboot"
 msgstr "Stop/reboot"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 #, fuzzy
 msgid "eBox web server"
 msgstr "Handlings status"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Backup af moduler"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, fuzzy, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Backup af moduler"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr ""
@@ -1954,7 +1959,7 @@ msgstr "Ting tilbage"
 msgid "Some error has happened in eBox: "
 msgstr ""
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "Starter...."
 
@@ -2381,10 +2386,6 @@ msgstr "Administrations interfacets TCP port"
 #~ msgid ""
 #~ "Please confirm that you want to restore the configuraction using the "
 #~ "following remote backup:"
-#~ msgstr "Bekræft venligst at du vil slette følgende backup fil:"
-
-#, fuzzy
-#~ msgid "Please confirm that you want to delete the following remote backup:"
 #~ msgstr "Bekræft venligst at du vil slette følgende backup fil:"
 
 #, fuzzy

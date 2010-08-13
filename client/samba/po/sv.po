@@ -242,8 +242,8 @@ msgid ""
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"{openit}Katalog under eBox{closeit} kommer automatiskt skapa katalogen i "
-"/home/samba/shares {br}{openit}Sökväg {closeit} tillåter dig att dela ut en "
+"{openit}Katalog under eBox{closeit} kommer automatiskt skapa katalogen i /"
+"home/samba/shares {br}{openit}Sökväg {closeit} tillåter dig att dela ut en "
 "redan existerande katalog i ditt filsystem"
 
 #: src/EBox/Samba/Model/SambaShares.pm:332
@@ -438,8 +438,8 @@ msgid ""
 "eBox will create the directories for Samba shares and groups under /home/"
 "samba."
 msgstr ""
-"eBox kommer att skapa katalogerna för Samba utdelningar och grupper under "
-"/home/samba."
+"eBox kommer att skapa katalogerna för Samba utdelningar och grupper under /"
+"home/samba."
 
 #: src/EBox/Samba.pm:96
 msgid "Add LDAP schemas"

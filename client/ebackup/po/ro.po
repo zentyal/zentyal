@@ -36,9 +36,8 @@ msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
-"Nu au fost gasite arhive de backup. Poate au fost sterse?. Rulati "
-"'/etc/init.d/ebox ebackup restart' pentru a inprospata informatiile de "
-"backup"
+"Nu au fost gasite arhive de backup. Poate au fost sterse?. Rulati '/etc/init."
+"d/ebox ebackup restart' pentru a inprospata informatiile de backup"
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
 #, fuzzy
@@ -46,8 +45,7 @@ msgid "Check if eBox backup was not successful."
 msgstr "Verificati daca backup-ul eBox nu a fost efectuat cu success"
 
 #: src/EBox/EBackup/DBRestore.pm:46
-#, perl-brace-format
-#, fuzzy
+#, fuzzy, perl-brace-format
 msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
@@ -326,16 +324,16 @@ msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
-"Parametrul tinta RSYNC trebuie sa fie de forma "
-"'alta.gazda[:port]/cale_relativa' sau 'alta.gazda[:port]/cale_absoluta'"
+"Parametrul tinta RSYNC trebuie sa fie de forma 'alta.gazda[:port]/"
+"cale_relativa' sau 'alta.gazda[:port]/cale_absoluta'"
 
 #: src/EBox/Model/RemoteSettings.pm:694
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
-"Trebuie sa fie de forma 'alta.gazda[:port]/cale_relativa' sau "
-"'alta.gazda[:port]/cale_absoluta'"
+"Trebuie sa fie de forma 'alta.gazda[:port]/cale_relativa' sau 'alta.gazda[:"
+"port]/cale_absoluta'"
 
 #: src/EBox/Model/RemoteSettings.pm:706
 msgid "absolute directory"
@@ -349,8 +347,7 @@ msgstr "director relativ"
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
-"Metoda Sistem de fisiere, trebuie sa aiba parametru tinta, o cale de "
-"director"
+"Metoda Sistem de fisiere, trebuie sa aiba parametru tinta, o cale de director"
 
 #: src/EBox/Model/RemoteSettings.pm:730 src/EBox/Model/RemoteSettings.pm:734
 msgid "Directory for backup"

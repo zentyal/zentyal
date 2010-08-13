@@ -10,7 +10,7 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-08-11 15:40+0200\n"
+"PO-Revision-Date: 2010-08-13 12:57+0200\n"
 "Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -105,9 +105,9 @@ msgid "No users connected."
 msgstr "Nu sunt utilizatori conectati."
 
 #: src/EBox/Asterisk.pm:622
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Room {name} active for {rtime}"
-msgstr "Intalnire {nume} activa pentru {rtime}"
+msgstr "Intalnire {name} activa pentru {rtime}"
 
 #: src/EBox/Asterisk.pm:625
 msgid "Time Connected"

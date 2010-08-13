@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2010-04-03 06:20+0200\n"
 "Last-Translator: Ruslan Khissamov <ruslan.khissamov@gmail.com>\n"
 "Language-Team: none\n"
@@ -26,37 +26,42 @@ msgstr "Всего отмечено"
 msgid "It must be a non-zero positive number"
 msgstr "Должно быть положительным числом больше 0"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "Невозможно выполнить {exe}"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "Индикатор прогресса с индификатором {id} не найден"
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr "Количество отмеченных уведомлений"
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "должно быть больше 0"
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr "Исполнение не запущенно"
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr "Исполнение не запущенно"
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr "Исполнение уже запущено"
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "Исполнение уже закончило выполнение"
 
@@ -1049,12 +1054,12 @@ msgstr ""
 "Вы должны установить значение переменной {variable} в конфигурационном файле "
 "eBox"
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Ошибка сброса базы данных {name} PostgreSQL"
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Дамп-файл {file} БД не читается"
@@ -1110,7 +1115,7 @@ msgstr "\"From\" {from} должно быть больше \"To\" {to}"
 msgid "Enter a float number"
 msgstr "Введите число с плавающей запятой (float)"
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "Выберите значение из набора: {set}"
@@ -1604,25 +1609,25 @@ msgstr "Восстановление настроек"
 msgid "Halt/Reboot"
 msgstr "Выключить/Перезагрузить"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "порт"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 msgid "eBox web server"
 msgstr "Веб сервер eBox"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Сохранение {modName} модуля"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Сохранение {modName} модуля"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "запуск {scriptName} скрипта"
@@ -1919,7 +1924,7 @@ msgstr "элементы слева"
 msgid "Some error has happened in eBox: "
 msgstr "Произошли ошибки в Ebox:"
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "Запуск..."
 
@@ -2362,10 +2367,6 @@ msgstr "TCP-порт администраторского интерфейса"
 #~ msgid ""
 #~ "Please confirm that you want to restore the configuraction using the "
 #~ "following remote backup:"
-#~ msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
-
-#, fuzzy
-#~ msgid "Please confirm that you want to delete the following remote backup:"
 #~ msgstr "Пожалуйста подтвердите удаление данного файла резервной копии:"
 
 #, fuzzy

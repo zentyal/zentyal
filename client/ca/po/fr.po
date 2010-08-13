@@ -118,8 +118,8 @@ msgid ""
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
 "La saisie contient des caractères incorrects. Tous les caractères {ascii} "
-"alphanumériques, ainsi que les caractères suivants : .?&+:\\@* et les espaces "
-"sont tolérés."
+"alphanumériques, ainsi que les caractères suivants : .?&+:\\@* et les "
+"espaces sont tolérés."
 
 #: src/EBox/CGI/IssueCertificate.pm:178 src/EBox/CA.pm:2639
 #, perl-brace-format

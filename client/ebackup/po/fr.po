@@ -35,8 +35,8 @@ msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/ebox "
 "ebackup restart' to refresh backup's information."
 msgstr ""
-"Il n'y a pas d'archive de sauvegarde. Elles ont pu être effacer. Exécuter "
-"'/etc/init.d/ebox ebackup restart' pour rafraichir les informations sur les "
+"Il n'y a pas d'archive de sauvegarde. Elles ont pu être effacer. Exécuter '/"
+"etc/init.d/ebox ebackup restart' pour rafraichir les informations sur les "
 "sauvegardes."
 
 #: src/EBox/Event/Watcher/EBackup.pm:141
@@ -235,8 +235,8 @@ msgid ""
 msgstr ""
 "{oi}{brand}{ci} est un emplacement rapide et sûr pour stocker les données "
 "que vous gardez sur votre serveur eBox. Souscrivez à l'espace de stockage "
-"pour vos sauvegardes dont vous avez besoin chez {ohref}eBox on-line "
-"store{chref} ."
+"pour vos sauvegardes dont vous avez besoin chez {ohref}eBox on-line store"
+"{chref} ."
 
 #: src/EBox/Model/RemoteSettings.pm:511
 msgid "1 week"
@@ -323,16 +323,16 @@ msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
 msgstr ""
-"Le paramètre cible RSYNC doit être similaire à "
-"'other.host[:port]/relative_path' ou 'other.host[:port]/absolute_path'"
+"Le paramètre cible RSYNC doit être similaire à 'other.host[:port]/"
+"relative_path' ou 'other.host[:port]/absolute_path'"
 
 #: src/EBox/Model/RemoteSettings.pm:694
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
 msgstr ""
-"Doit être comme 'other.host[:port]/relative_path' ou "
-"'other.host[:port]/absolute_path'"
+"Doit être comme 'other.host[:port]/relative_path' ou 'other.host[:port]/"
+"absolute_path'"
 
 #: src/EBox/Model/RemoteSettings.pm:706
 msgid "absolute directory"

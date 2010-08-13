@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:47+0200\n"
+"POT-Creation-Date: 2010-08-13 13:42+0200\n"
 "PO-Revision-Date: 2010-07-27 08:32+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
@@ -33,7 +33,7 @@ msgstr "regel för att tillåta apt uppdateringar"
 msgid "Software Management"
 msgstr "Hantering av programvara"
 
-#: src/EBox/Software.pm:487
+#: src/EBox/Software.pm:472
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
@@ -43,19 +43,19 @@ msgstr ""
 "uppdateringar genom webbgränssnittet. För att inaktivera automatiska "
 "uppdateringar, redigera {conf} och inaktivera {key} nyckeln."
 
-#: src/EBox/Software.pm:552
+#: src/EBox/Software.pm:537
 msgid "eBox Components"
 msgstr "Komponenter i eBox"
 
-#: src/EBox/Software.pm:554
+#: src/EBox/Software.pm:539
 msgid "System Updates"
 msgstr "Systemuppdateringar"
 
-#: src/EBox/Software.pm:556 src/templates/config.mas:19
+#: src/EBox/Software.pm:541 src/templates/config.mas:19
 msgid "Settings"
 msgstr "Inställningar"
 
-#: src/EBox/Software.pm:695
+#: src/EBox/Software.pm:680
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -63,27 +63,27 @@ msgstr ""
 "Mjukvaruhantering är för tillfället låst av {locker}. Vänligen försök igen "
 "senare"
 
-#: src/EBox/Software.pm:832
+#: src/EBox/Software.pm:843
 msgid "Welcome"
 msgstr "Välkommen"
 
-#: src/EBox/Software.pm:834
+#: src/EBox/Software.pm:845
 msgid "Package Selection"
 msgstr "Paketval"
 
-#: src/EBox/Software.pm:835
+#: src/EBox/Software.pm:846
 msgid "Confirmation"
 msgstr "Bekräftelse"
 
-#: src/EBox/Software.pm:836
+#: src/EBox/Software.pm:847
 msgid "Installation"
 msgstr "Installation"
 
-#: src/EBox/Software.pm:837
+#: src/EBox/Software.pm:848
 msgid "Initial Configuration"
 msgstr "Initial konfiguration"
 
-#: src/EBox/Software.pm:838
+#: src/EBox/Software.pm:849
 msgid "Save Changes"
 msgstr "Spara ändringar"
 
@@ -107,11 +107,11 @@ msgstr "Välj eBox-paket att installera"
 msgid "eBox components"
 msgstr "Komponenter i eBox"
 
-#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:42
+#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
 msgstr "Systemuppdateringar"
 
-#: src/EBox/CGI/Updates.pm:48
+#: src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
 msgstr "Systemet är uppdaterat"
 
@@ -123,23 +123,24 @@ msgstr "Uppgradering"
 msgid "There were no packages to update"
 msgstr "Det fanns inga paket att uppdatera"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
+#: src/EBox/CGI/InstallPkgs.pm:165
 msgid "Installing"
 msgstr "Installerar"
 
-#: src/EBox/CGI/InstallPkgs.pm:167
+#: src/EBox/CGI/InstallPkgs.pm:166
 msgid "Installing packages"
 msgstr "Installerar paket"
 
-#: src/EBox/CGI/InstallPkgs.pm:168 src/EBox/CGI/InstallPkgs.pm:192
+#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
 msgid "Current operation"
 msgstr "Aktuell åtgärd"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
-msgid "packages installed"
-msgstr "installerade paket"
+#: src/EBox/CGI/InstallPkgs.pm:168
+#, fuzzy
+msgid "actions done"
+msgstr "Åtgärder"
 
-#: src/EBox/CGI/InstallPkgs.pm:170
+#: src/EBox/CGI/InstallPkgs.pm:169
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -151,25 +152,25 @@ msgstr ""
 "färdigkonfigurerats. Du kommer automatiskt bli vidarebefordrad till nästa "
 "steg."
 
-#: src/EBox/CGI/InstallPkgs.pm:175
+#: src/EBox/CGI/InstallPkgs.pm:174
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "Paketen installerades inte korrekt. Mer information i loggarna"
 
-#: src/EBox/CGI/InstallPkgs.pm:190
+#: src/EBox/CGI/InstallPkgs.pm:189
 msgid "Removing package"
 msgstr "Avinstallerar paket"
 
-#: src/EBox/CGI/InstallPkgs.pm:191
+#: src/EBox/CGI/InstallPkgs.pm:190
 msgid "Removing the selected package and its dependent packages"
 msgstr "Avinstallerar paket och de paket det är beroende av"
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:192
 msgid "packages left to remove"
 msgstr "paket kvar att avinstallera"
 
-#: src/EBox/CGI/InstallPkgs.pm:194
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -179,25 +180,25 @@ msgstr ""
 "kan bli svårt att nå några sekunder. Vänligen vänta tills systemet har "
 "startats om."
 
-#: src/EBox/CGI/InstallPkgs.pm:198
+#: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr "Paketen avinstallerades inte korrekt. Mer information i loggarna"
 
-#: src/templates/ebox.mas:139 src/templates/updates.mas:35
+#: src/templates/ebox.mas:140 src/templates/updates.mas:35
 msgid "Update"
 msgstr "Uppdatera"
 
-#: src/templates/ebox.mas:145
+#: src/templates/ebox.mas:146
 msgid "Install"
 msgstr "Installera"
 
-#: src/templates/ebox.mas:167
+#: src/templates/ebox.mas:168
 msgid "View advanced mode"
 msgstr "Se avancerat läge"
 
-#: src/templates/ebox.mas:481
+#: src/templates/ebox.mas:482
 msgid "View basic mode"
 msgstr "Se enkelt läge"
 
@@ -239,7 +240,8 @@ msgstr "Genomför automatiska säkerhetsuppdateringar"
 
 #: src/templates/config.mas:14
 msgid "This eBox is configured to use automatic QA updates"
-msgstr "Denna eBox är konfigurerad för att använda automatiska QA uppdateringar"
+msgstr ""
+"Denna eBox är konfigurerad för att använda automatiska QA uppdateringar"
 
 #: src/templates/config.mas:26
 msgid "Automatic operations start time"
@@ -285,9 +287,14 @@ msgstr ""
 "Den här åtgärden kan ta lite tid. Bli inte orolig om eBox ser ut att inte "
 "svara efter att du tryckt på knappen Uppgradera."
 
-#: src/templates/updates.mas:91
+#: src/templates/updates.mas:95
 msgid "Upgrade"
 msgstr "Uppgradera"
+
+#: src/templates/updates.mas:96
+#, fuzzy
+msgid "Update list"
+msgstr "Uppdatera"
 
 #: src/templates/updateNote.mas:10
 msgid ""
@@ -315,6 +322,9 @@ msgstr ""
 "Team och kommer inte att introducera några nya fel på ditt redan fungerande "
 "system."
 
+#~ msgid "packages installed"
+#~ msgstr "installerade paket"
+
 #, fuzzy
 #~ msgid "Automatic Updates"
 #~ msgstr "Automatisk uppdatering av programvara"
@@ -327,9 +337,6 @@ msgstr ""
 
 #~ msgid "Latest version"
 #~ msgstr "Senaste version"
-
-#~ msgid "Actions"
-#~ msgstr "Åtgärder"
 
 #~ msgid "none"
 #~ msgstr "ingen"

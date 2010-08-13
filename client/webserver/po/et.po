@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 1.4Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-webserver 1.4Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:52+0200\n"
+"POT-Creation-Date: 2010-08-13 13:47+0200\n"
 "PO-Revision-Date: 2010-05-06 21:50+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -97,24 +98,17 @@ msgid ""
 "{ohref}Certification Authority -> Service Certificates{chref}."
 msgstr ""
 
-#  
 #: src/EBox/WebServer/Model/GeneralSettings.pm:141
-#, fuzzy
 msgid ""
-"To allow HTML directories for users is needed to have the file sharing "
-"module is installed and configured."
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
 msgstr ""
-"HTML kataloogide lubamiseks kasutajatele on vajalik, et failijagamise moodul "
-"oleks paigaldatud ja seadistatud."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:147
-#, fuzzy
 msgid ""
-"To allow HTML directories for users is needed to have the file sharing "
-"module configured. To configure it enable it at least one time."
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
 msgstr ""
-"HTML kataloogide lubamiseks kasutajatele on vajalik, et failijagamise moodul "
-"oleks seadistatud. Selle seadistamiseks pead ta vähemalt ühe korra lubama."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:237
 #, fuzzy
@@ -151,10 +145,9 @@ msgstr "Üldised seadistused"
 #: src/EBox/WebServer/Model/GeneralSettings.pm:270
 #, fuzzy, perl-brace-format
 msgid ""
-"General Web server configuration. The listening port must not be got from "
-"another service. If you enable user to publish their own html pages, the "
-"pages will be loaded from {dirName} directory from their samba home "
-"directories."
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
 msgstr ""
 "Veebiserveri üldine seadistamine. Kuulatav port ei tohi olla saadud teiselt "
 "teenuselt. Kui lubad kasutajatel avaldada oma html lehekülgi, laetakse "
@@ -241,10 +234,10 @@ msgstr "Virtuaalhostid"
 #, fuzzy, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
-"same web server is hosted on a single physical server. Different host names "
-"will point to the same web server. The DNS entry is automatically created if "
-"this is possible. The content must be placed under {docRoot} directory. Any "
-"particular configuration you want to add must be placed at {userConf} "
+"same web server are hosted on a single physical server. Different host names "
+"point to the same web server. If feasible, the DNS entry is automatically "
+"created. The content must be placed under the {docRoot} directory. Any "
+"particular configuration you want to add must be placed in the {userConf} "
 "directory."
 msgstr ""
 "Virtuaalhosting on veebimajutuse teenuse liik, kus erinimelised leheküljed "
@@ -276,6 +269,24 @@ msgid ""
 msgstr ""
 "eBoxi veebiteenus lubab sul majutada veebilehti HTML avatekstis erinevates "
 "virtuaalhostides"
+
+#  
+#, fuzzy
+#~ msgid ""
+#~ "To allow HTML directories for users is needed to have the file sharing "
+#~ "module is installed and configured."
+#~ msgstr ""
+#~ "HTML kataloogide lubamiseks kasutajatele on vajalik, et failijagamise "
+#~ "moodul oleks paigaldatud ja seadistatud."
+
+#, fuzzy
+#~ msgid ""
+#~ "To allow HTML directories for users is needed to have the file sharing "
+#~ "module configured. To configure it enable it at least one time."
+#~ msgstr ""
+#~ "HTML kataloogide lubamiseks kasutajatele on vajalik, et failijagamise "
+#~ "moodul oleks seadistatud. Selle seadistamiseks pead ta vähemalt ühe korra "
+#~ "lubama."
 
 #~ msgid "listening port"
 #~ msgstr "pordi kuulamine"

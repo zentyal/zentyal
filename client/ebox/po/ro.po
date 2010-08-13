@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: info@ebox-"
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2010-08-11 23:12+0200\n"
 "Last-Translator: Bogdan Chirica <bogdan.chirica@gmail.com>\n"
 "Language-Team: none\n"
@@ -27,37 +27,42 @@ msgstr "Bife totale"
 msgid "It must be a non-zero positive number"
 msgstr "Trebuie sa fie un numar pozitiv diferit de zero"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Va rog confirmati ca doriti sa stergeti urmatorul fisier de backup:"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "Nu pot executa {exe}"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "Indictorul progresului cu id-ul {id} nu a fost gasit"
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr "Numarul de bife a fi notificate"
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "trebuie să fie mai mare ca zero"
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr "Executabilul nu a fost rulat"
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr "Executabilul nu a rulat"
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr "Executabilul a fost pornit deja"
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "Executabilul a terminat deja"
 
@@ -228,8 +233,7 @@ msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
 msgstr ""
-"Pentru a activa un dispecer configurabil, trebuie mai intai sa il "
-"configurati"
+"Pentru a activa un dispecer configurabil, trebuie mai intai sa il configurati"
 
 #: src/EBox/Events/Model/GeneralComposite.pm:81
 msgid ""
@@ -289,8 +293,8 @@ msgid ""
 "server"
 msgstr ""
 "Id-ul Jabber al destinatarului pentru mesajele generate de eBox, _ _ ex: tu, "
-"administratorul eBox. Atentie, trebuie sa inregistrati acest _ _ cont "
-"manual in orice server jabber"
+"administratorul eBox. Atentie, trebuie sa inregistrati acest _ _ cont manual "
+"in orice server jabber"
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:246
 msgid "Configure Jabber dispatcher"
@@ -1037,12 +1041,12 @@ msgstr ""
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Eroare la bascularea bazei de date postgresql {name}"
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Fişierul basculat DB {file} nu poate fi citit"
@@ -1096,7 +1100,7 @@ msgstr "\"De la\" {from} trebuie să fie mai mare decât \"La\" {to}"
 msgid "Enter a float number"
 msgstr "Introduceţi un număr cu virgulă (float)"
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "Alegeţi o valoare dintre: {set}"
@@ -1574,25 +1578,25 @@ msgstr "Raport de configurare"
 msgid "Halt/Reboot"
 msgstr "Oprire/Repornire"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 msgid "eBox web server"
 msgstr "Web server eBox"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Înregistrez modulul {modName}"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Înregistrez modulul {modName}"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "execut scriptul {scriptName}"
@@ -1885,7 +1889,7 @@ msgstr ""
 msgid "Some error has happened in eBox: "
 msgstr ""
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "Pornire..."
 

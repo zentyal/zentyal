@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2010-06-12 21:57+0200\n"
 "Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: <es@li.org>\n"
@@ -25,37 +25,43 @@ msgstr "Total de marcas"
 msgid "It must be a non-zero positive number"
 msgstr "Deve ser um número positivo diferente de zero"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr ""
+"Por Favor, confirme que você quer deletar os seguintes arquivos de backup:"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "Não é possível executar {exe}"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "O indicador do progresso com a identificação {id} não foi encontrado"
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr "Número de marcas para notificar"
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "deve ser maior que zero"
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr "Executável não foi executado"
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr "O executável não foi executado"
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr "O executável já foi iniciado"
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "O executável já terminou a execução"
 
@@ -1061,12 +1067,12 @@ msgstr ""
 "Você precisar definir a variável {variable} no arquivo de configuração do "
 "EBox"
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Erro ao efetuar o \"dump\" da base de dados postgresql {name}"
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "O arquivo de DB dump {file} não está acessível"
@@ -1120,7 +1126,7 @@ msgstr "\"De\" {from} deve ser superior a \"para\" {to}"
 msgid "Enter a float number"
 msgstr "Digite um número real (float)"
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "Escolha um valor dentro do intervalo estabelecido: {set}"
@@ -1612,25 +1618,25 @@ msgstr "Relatório de configuração"
 msgid "Halt/Reboot"
 msgstr "Desligar/Reiniciar"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "porta"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 msgid "eBox web server"
 msgstr "Servidor de web do eBox"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Salvando módulo {modName}"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Salvando módulo {modName}"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "executando o script {scriptName}"
@@ -1929,7 +1935,7 @@ msgstr "itens restantes"
 msgid "Some error has happened in eBox: "
 msgstr "Aconteceram alguns erros no Ebox:"
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "Iniciando..."
 
@@ -2364,11 +2370,6 @@ msgstr "Administração da Interface da Porta TCP"
 #~ msgid ""
 #~ "Please confirm that you want to restore the configuraction using the "
 #~ "following remote backup:"
-#~ msgstr ""
-#~ "Por Favor, confirme que você quer deletar os seguintes arquivos de backup:"
-
-#, fuzzy
-#~ msgid "Please confirm that you want to delete the following remote backup:"
 #~ msgstr ""
 #~ "Por Favor, confirme que você quer deletar os seguintes arquivos de backup:"
 

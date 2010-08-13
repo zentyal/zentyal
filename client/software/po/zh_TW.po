@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-software 0.12.99Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:47+0200\n"
+"POT-Creation-Date: 2010-08-13 13:42+0200\n"
 "PO-Revision-Date: 2009-08-04 08:15+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -32,54 +33,54 @@ msgstr "允許 apt 更新的規則"
 msgid "Software Management"
 msgstr "軟體管理"
 
-#: src/EBox/Software.pm:487
+#: src/EBox/Software.pm:472
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: src/EBox/Software.pm:552
+#: src/EBox/Software.pm:537
 msgid "eBox Components"
 msgstr "eBox 元件"
 
-#: src/EBox/Software.pm:554
+#: src/EBox/Software.pm:539
 msgid "System Updates"
 msgstr "系統更新"
 
-#: src/EBox/Software.pm:556 src/templates/config.mas:19
+#: src/EBox/Software.pm:541 src/templates/config.mas:19
 msgid "Settings"
 msgstr ""
 
-#: src/EBox/Software.pm:695
+#: src/EBox/Software.pm:680
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr "軟體管理目前是被 {locker} 鎖定.請稍後再試"
 
-#: src/EBox/Software.pm:832
+#: src/EBox/Software.pm:843
 msgid "Welcome"
 msgstr ""
 
-#: src/EBox/Software.pm:834
+#: src/EBox/Software.pm:845
 msgid "Package Selection"
 msgstr ""
 
-#: src/EBox/Software.pm:835
+#: src/EBox/Software.pm:846
 msgid "Confirmation"
 msgstr ""
 
-#: src/EBox/Software.pm:836
+#: src/EBox/Software.pm:847
 #, fuzzy
 msgid "Installation"
 msgstr "安裝"
 
-#: src/EBox/Software.pm:837
+#: src/EBox/Software.pm:848
 #, fuzzy
 msgid "Initial Configuration"
 msgstr "自動更新設置"
 
-#: src/EBox/Software.pm:838
+#: src/EBox/Software.pm:849
 msgid "Save Changes"
 msgstr ""
 
@@ -105,11 +106,11 @@ msgstr "套件安裝"
 msgid "eBox components"
 msgstr "eBox 元件"
 
-#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:42
+#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
 msgstr "系統更新"
 
-#: src/EBox/CGI/Updates.pm:48
+#: src/EBox/CGI/Updates.pm:59
 #, fuzzy
 msgid "The system components are up to date."
 msgstr "系統已經是最新的"
@@ -122,27 +123,27 @@ msgstr "更新中"
 msgid "There were no packages to update"
 msgstr "沒有套件需要更新"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
+#: src/EBox/CGI/InstallPkgs.pm:165
 #, fuzzy
 msgid "Installing"
 msgstr "安裝"
 
-#: src/EBox/CGI/InstallPkgs.pm:167
+#: src/EBox/CGI/InstallPkgs.pm:166
 #, fuzzy
 msgid "Installing packages"
 msgstr "更新套件中"
 
-#: src/EBox/CGI/InstallPkgs.pm:168 src/EBox/CGI/InstallPkgs.pm:192
+#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
 #, fuzzy
 msgid "Current operation"
 msgstr "目前套件"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:168
 #, fuzzy
-msgid "packages installed"
-msgstr "套件安裝"
+msgid "actions done"
+msgstr "動作"
 
-#: src/EBox/CGI/InstallPkgs.pm:170
+#: src/EBox/CGI/InstallPkgs.pm:169
 #, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
@@ -153,25 +154,25 @@ msgstr ""
 "套件安裝已成功完成.管理介面可能會幾秒鐘沒有回應.請耐心等待讓系統完全的重新啟"
 "動"
 
-#: src/EBox/CGI/InstallPkgs.pm:175
+#: src/EBox/CGI/InstallPkgs.pm:174
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "套件安裝並沒有完成.在日誌上會有更多的資訊"
 
-#: src/EBox/CGI/InstallPkgs.pm:190
+#: src/EBox/CGI/InstallPkgs.pm:189
 msgid "Removing package"
 msgstr "移除套件"
 
-#: src/EBox/CGI/InstallPkgs.pm:191
+#: src/EBox/CGI/InstallPkgs.pm:190
 msgid "Removing the selected package and its dependent packages"
 msgstr "移除所選擇的套件及相依性套件"
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:192
 msgid "packages left to remove"
 msgstr "套件移除"
 
-#: src/EBox/CGI/InstallPkgs.pm:194
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -180,25 +181,25 @@ msgstr ""
 "套件移除已經成功完成.管理介面可能會有幾秒鐘沒有回應.請耐心等待讓系統完全重新"
 "啟動"
 
-#: src/EBox/CGI/InstallPkgs.pm:198
+#: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr "套件移除沒有完成.在日誌上有更多資訊"
 
-#: src/templates/ebox.mas:139 src/templates/updates.mas:35
+#: src/templates/ebox.mas:140 src/templates/updates.mas:35
 msgid "Update"
 msgstr "更新"
 
-#: src/templates/ebox.mas:145
+#: src/templates/ebox.mas:146
 msgid "Install"
 msgstr "安裝"
 
-#: src/templates/ebox.mas:167
+#: src/templates/ebox.mas:168
 msgid "View advanced mode"
 msgstr ""
 
-#: src/templates/ebox.mas:481
+#: src/templates/ebox.mas:482
 msgid "View basic mode"
 msgstr ""
 
@@ -289,9 +290,14 @@ msgid ""
 msgstr ""
 "這個動作會花一些時間,假如 eBox 在按下升級按鈕後看起來沒有回應請不用擔心"
 
-#: src/templates/updates.mas:91
+#: src/templates/updates.mas:95
 msgid "Upgrade"
 msgstr "升級"
+
+#: src/templates/updates.mas:96
+#, fuzzy
+msgid "Update list"
+msgstr "更新"
 
 #: src/templates/updateNote.mas:10
 msgid ""
@@ -309,6 +315,10 @@ msgid ""
 "extensively tested by the eBox Development Team and you won't be introducing "
 "any regressions on your already working system."
 msgstr ""
+
+#, fuzzy
+#~ msgid "packages installed"
+#~ msgstr "套件安裝"
 
 #~ msgid ""
 #~ "eBox software will download the available updates from your configured "
@@ -329,9 +339,6 @@ msgstr ""
 
 #~ msgid "Latest version"
 #~ msgstr "最新版本"
-
-#~ msgid "Actions"
-#~ msgstr "動作"
 
 #~ msgid "none"
 #~ msgstr "沒有"

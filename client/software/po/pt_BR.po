@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:47+0200\n"
+"POT-Creation-Date: 2010-08-13 13:42+0200\n"
 "PO-Revision-Date: 2010-06-14 13:18+0200\n"
 "Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: none\n"
@@ -32,26 +32,26 @@ msgstr "regra para permitir atualizações do apt"
 msgid "Software Management"
 msgstr "Gerenciamento de software"
 
-#: src/EBox/Software.pm:487
+#: src/EBox/Software.pm:472
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: src/EBox/Software.pm:552
+#: src/EBox/Software.pm:537
 msgid "eBox Components"
 msgstr "Componentes do eBox"
 
-#: src/EBox/Software.pm:554
+#: src/EBox/Software.pm:539
 msgid "System Updates"
 msgstr "Atualizações do Sistema"
 
-#: src/EBox/Software.pm:556 src/templates/config.mas:19
+#: src/EBox/Software.pm:541 src/templates/config.mas:19
 msgid "Settings"
 msgstr ""
 
-#: src/EBox/Software.pm:695
+#: src/EBox/Software.pm:680
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -59,29 +59,29 @@ msgstr ""
 "O gerenciador do programa está atualmente bloqueado por {locker}. Favor "
 "tente novamente mais tarde"
 
-#: src/EBox/Software.pm:832
+#: src/EBox/Software.pm:843
 msgid "Welcome"
 msgstr ""
 
-#: src/EBox/Software.pm:834
+#: src/EBox/Software.pm:845
 msgid "Package Selection"
 msgstr ""
 
-#: src/EBox/Software.pm:835
+#: src/EBox/Software.pm:846
 msgid "Confirmation"
 msgstr ""
 
-#: src/EBox/Software.pm:836
+#: src/EBox/Software.pm:847
 #, fuzzy
 msgid "Installation"
 msgstr "Instalar"
 
-#: src/EBox/Software.pm:837
+#: src/EBox/Software.pm:848
 #, fuzzy
 msgid "Initial Configuration"
 msgstr "configuração das atualizações automáticas"
 
-#: src/EBox/Software.pm:838
+#: src/EBox/Software.pm:849
 msgid "Save Changes"
 msgstr ""
 
@@ -107,11 +107,11 @@ msgstr "pacotes restantes"
 msgid "eBox components"
 msgstr "componentes do eBox"
 
-#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:42
+#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
 msgid "System updates"
 msgstr "Atualizações do sistema"
 
-#: src/EBox/CGI/Updates.pm:48
+#: src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
 msgstr "Os componentes do sistema estão atualizados."
 
@@ -123,27 +123,27 @@ msgstr "Atualizando"
 msgid "There were no packages to update"
 msgstr "Não existem pacotes a serem atualizados"
 
-#: src/EBox/CGI/InstallPkgs.pm:166
+#: src/EBox/CGI/InstallPkgs.pm:165
 #, fuzzy
 msgid "Installing"
 msgstr "Instalar"
 
-#: src/EBox/CGI/InstallPkgs.pm:167
+#: src/EBox/CGI/InstallPkgs.pm:166
 #, fuzzy
 msgid "Installing packages"
 msgstr "Atualizando pacotes"
 
-#: src/EBox/CGI/InstallPkgs.pm:168 src/EBox/CGI/InstallPkgs.pm:192
+#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
 #, fuzzy
 msgid "Current operation"
 msgstr "Pacote atual"
 
-#: src/EBox/CGI/InstallPkgs.pm:169
+#: src/EBox/CGI/InstallPkgs.pm:168
 #, fuzzy
-msgid "packages installed"
-msgstr "pacotes restantes"
+msgid "actions done"
+msgstr "Ações"
 
-#: src/EBox/CGI/InstallPkgs.pm:170
+#: src/EBox/CGI/InstallPkgs.pm:169
 #, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
@@ -155,7 +155,7 @@ msgstr ""
 "administrativa pode ficar sem resposta por alguns segundos. Por favor "
 "aguarde pacientemente até que o sistema tenha sido reiniciado totalmente"
 
-#: src/EBox/CGI/InstallPkgs.pm:175
+#: src/EBox/CGI/InstallPkgs.pm:174
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
@@ -163,19 +163,19 @@ msgstr ""
 "A instalação dos pacotes não foi finalizada corretamente. Maiores "
 "informações nos registros"
 
-#: src/EBox/CGI/InstallPkgs.pm:190
+#: src/EBox/CGI/InstallPkgs.pm:189
 msgid "Removing package"
 msgstr "Removendo pacote"
 
-#: src/EBox/CGI/InstallPkgs.pm:191
+#: src/EBox/CGI/InstallPkgs.pm:190
 msgid "Removing the selected package and its dependent packages"
 msgstr "Remover o pacote selecionado e seus pacotes dependentes"
 
-#: src/EBox/CGI/InstallPkgs.pm:193
+#: src/EBox/CGI/InstallPkgs.pm:192
 msgid "packages left to remove"
 msgstr "pacotes restantes para serem removidos"
 
-#: src/EBox/CGI/InstallPkgs.pm:194
+#: src/EBox/CGI/InstallPkgs.pm:193
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -185,7 +185,7 @@ msgstr ""
 "pode ficar sem resposta por alguns segundos. Por favor aguarde pacientemente "
 "até que o sistema tenha sido reiniciado totalmente"
 
-#: src/EBox/CGI/InstallPkgs.pm:198
+#: src/EBox/CGI/InstallPkgs.pm:197
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -193,19 +193,19 @@ msgstr ""
 "A remoção dos pacotes não foi finalizada corretamente. Maiores informações "
 "nos registros"
 
-#: src/templates/ebox.mas:139 src/templates/updates.mas:35
+#: src/templates/ebox.mas:140 src/templates/updates.mas:35
 msgid "Update"
 msgstr "Atualizar"
 
-#: src/templates/ebox.mas:145
+#: src/templates/ebox.mas:146
 msgid "Install"
 msgstr "Instalar"
 
-#: src/templates/ebox.mas:167
+#: src/templates/ebox.mas:168
 msgid "View advanced mode"
 msgstr ""
 
-#: src/templates/ebox.mas:481
+#: src/templates/ebox.mas:482
 msgid "View basic mode"
 msgstr ""
 
@@ -296,8 +296,13 @@ msgstr ""
 "A operação pode levar algum tempo, não se preocupe se o eBox parecer não "
 "responder após pressionar o botão de Atualizar"
 
-#: src/templates/updates.mas:91
+#: src/templates/updates.mas:95
 msgid "Upgrade"
+msgstr "Atualizar"
+
+#: src/templates/updates.mas:96
+#, fuzzy
+msgid "Update list"
 msgstr "Atualizar"
 
 #: src/templates/updateNote.mas:10
@@ -316,6 +321,10 @@ msgid ""
 "extensively tested by the eBox Development Team and you won't be introducing "
 "any regressions on your already working system."
 msgstr ""
+
+#, fuzzy
+#~ msgid "packages installed"
+#~ msgstr "pacotes restantes"
 
 #~ msgid ""
 #~ "eBox software will download the available updates from your configured "
@@ -352,9 +361,6 @@ msgstr ""
 
 #~ msgid "Latest version"
 #~ msgstr "Última versão"
-
-#~ msgid "Actions"
-#~ msgstr "Ações"
 
 #~ msgid "none"
 #~ msgstr "nada"

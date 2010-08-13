@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-ebox 0.12.99Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2009-08-04 05:57+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: none\n"
@@ -24,37 +25,42 @@ msgstr "全部票證"
 msgid "It must be a non-zero positive number"
 msgstr "它必須為非零的正數"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "請確認您想要刪除下列遠端備份檔："
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "不能執行  {exe}"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "找不到 id 為 {id} 的程序指示器"
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr "要通知的票證數"
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "必須大於零"
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr "可執行檔尚未執行過"
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr "可執行檔尚未執行"
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr "可執行檔已經啟動"
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "可執行檔已經結束"
 
@@ -1018,12 +1024,12 @@ msgstr "到您的 {url} 來確認狀態."
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "您必須在 ebox 組態檔案中設定 {variable} 變數"
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "傾印 postgresql 資料庫 {name} 時發生錯誤"
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "DB 傾印檔案 {file} 無法讀取"
@@ -1079,7 +1085,7 @@ msgstr "\"從\" {from} 必須大於 \"到\" {to}"
 msgid "Enter a float number"
 msgstr "請輸入浮點數"
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "選擇一個值並設定: {set}"
@@ -1574,26 +1580,26 @@ msgstr "組態還原"
 msgid "Halt/Reboot"
 msgstr "關機/重新開機"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "連接埠"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 #, fuzzy
 msgid "eBox web server"
 msgstr "eBox 內部網頁伺服器"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "儲存 {modName} 模組中"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "儲存 {modName} 模組中"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "執行 {scriptName} script中"
@@ -1889,7 +1895,7 @@ msgstr "剩餘項目"
 msgid "Some error has happened in eBox: "
 msgstr "在 eBox 中發生了某些錯誤： "
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "正在啟動..."
 
@@ -2308,9 +2314,6 @@ msgstr "管理介面 TCP 連接埠"
 #~ "Please confirm that you want to restore the configuraction using the "
 #~ "following remote backup:"
 #~ msgstr "請確認您想要使用下列遠端備份檔還原組態："
-
-#~ msgid "Please confirm that you want to delete the following remote backup:"
-#~ msgstr "請確認您想要刪除下列遠端備份檔："
 
 #~ msgid "Inexistent action: {a}"
 #~ msgstr "不存在的動作：{a}"

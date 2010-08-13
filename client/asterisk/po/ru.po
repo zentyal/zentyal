@@ -10,14 +10,14 @@ msgstr ""
 "technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:28+0200\n"
-"PO-Revision-Date: 2010-08-11 13:08+0200\n"
+"PO-Revision-Date: 2010-08-13 12:58+0200\n"
 "Last-Translator: Val Budkin <valentin@ktc-ua.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 1.1.0\n"
 
 #: migration/0001_add_firewall_services.pl:30
@@ -363,7 +363,7 @@ msgid "SIP provider configuration updated."
 msgstr "Настройки провайдера SIP обновлены"
 
 #: src/EBox/Model/Provider.pm:195
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
 "with eBox. Once you have obtained a {subs} , you can purchase the VoIP "
@@ -371,7 +371,7 @@ msgid ""
 "eBox on-line store{chref}! "
 msgstr ""
 "Пополните свой счет и совершайте дешёвые VoIP звонки на мобильные и "
-"стационарные телефоны, с помощью eBox. Пополнить свой счет вы можете "
+"стационарные телефоны, с помощью eBox. {subs} Пополнить свой счет вы можете "
 "напрямую в {ohref}интернет-магазине eBox{chref}!"
 
 #: src/EBox/Model/NAT.pm:96

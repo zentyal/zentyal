@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ebox 0.12.100\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2009-02-11 09:39+0330\n"
 "Last-Translator: Saied Taghavi <s.taghavi@gmail.com>\n"
 "Language-Team: none\n"
@@ -23,37 +23,42 @@ msgstr "مجموع تیک‌ها"
 msgid "It must be a non-zero positive number"
 msgstr "آن بایستی یک عدد مثبت غیرصفر باشد"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "لطفا تایید نمایید که شما می‌خواهید فایل پشتیبان را حذف نمایید:"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "نمی‌تواند {exe} را اجرا کند"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "شاخص پیشرفت با شناسه {id} یافت نشد"
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr "تعداد تیک‌ها به جهت اعلام"
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "بایستی بزرگتر از صفر باشد"
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr "فایل اجرایی، اجرا نشده است"
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr "فایل اجرایی، اجرا نشد"
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr "فایل اجرایی، هم‌اینک راه‌اندازی شده است"
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "برنامه اجرایی، هم‌اینک تمام شده است"
 
@@ -1026,12 +1031,12 @@ msgstr "رفتن به {url} شما برای بررسی وضعیت آن."
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "فایل رونوشت پایگاه داده {file} قابل خواندن نیست"
@@ -1088,7 +1093,7 @@ msgstr "بایستی بزرگتر از صفر باشد"
 msgid "Enter a float number"
 msgstr ""
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr ""
@@ -1599,27 +1604,27 @@ msgstr "بازیابی پیکربندی"
 msgid "Halt/Reboot"
 msgstr "خاموش/راه‌اندازی مجدد"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 #, fuzzy
 msgid "port"
 msgstr "پورت"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 #, fuzzy
 msgid "eBox web server"
 msgstr "مشاهده‌گر ثبت وقایع"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "ذخیره تغییرات در ماجول"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, fuzzy, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "ذخیره تغییرات در ماجول"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr ""
@@ -1917,7 +1922,7 @@ msgstr "آیتم‌های باقیمانده"
 msgid "Some error has happened in eBox: "
 msgstr "چندین خطا در ای‌باکس اتفاق افتاده است:"
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "در حال شروع..."
 

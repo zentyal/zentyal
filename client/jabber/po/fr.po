@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:33+0200\n"
+"POT-Creation-Date: 2010-08-13 13:10+0200\n"
 "PO-Revision-Date: 2010-01-18 13:59+0100\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -116,11 +116,11 @@ msgstr "Compte d'utilisateur"
 msgid "Enabled"
 msgstr "Activé"
 
-#: src/templates/jabber.mas:33
+#: src/templates/jabber.mas:34
 msgid "Administration rights"
 msgstr "Droits d'administration"
 
-#: src/templates/jabber.mas:47 src/templates/jabber.mas:48
+#: src/templates/jabber.mas:49 src/templates/jabber.mas:50
 msgid "Change"
 msgstr "Changer"
 

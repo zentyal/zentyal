@@ -1,219 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Warp S.L.
-# This file is distributed under the same license as the ebox-software package.
+# Copyright (C) YEAR eBox Technologies S.L.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.12.1\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2008-09-01 08:34+0200\n"
+"POT-Creation-Date: 2010-08-13 13:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr ""
-
-#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:462
-msgid "System updates"
-msgstr ""
-
-#: src/EBox/CGI/Updates.pm:45
-msgid "Software updates are being handled automatically"
-msgstr ""
-
-#: src/EBox/CGI/Updates.pm:52
-msgid "The system is up to date"
-msgstr ""
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "automatic updates configuration"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:84
-msgid "There were no packages to update"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:145 src/EBox/CGI/CurrentPackage.pm:31
-msgid "Upgrading"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:146
-msgid "Upgrading packages"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:147 src/EBox/CGI/InstallPkgs.pm:167
-msgid "Current package"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:148
-msgid "packages left to install"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:149
-msgid ""
-"The packages installation has finished successfully. The administration "
-"interface may become unresponsive for a few seconds. Please wait patiently "
-"until the system has been fully restarted"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:153
-msgid ""
-"The packages installation has not finished correctly . More information on "
-"the logs"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:165
-msgid "Removing package"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:166
-msgid "Removing the selected package and its dependent packages"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:168
-msgid "packages left to remove"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:169
-msgid ""
-"The packages removal has finished successfully. The administration interface "
-"may become unresponsive for a few seconds. Please wait patiently until the "
-"system has been fully restarted"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:173
-msgid ""
-"The packages removal has not finished correctly . More information on the "
-"logs"
-msgstr ""
-
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:460
-msgid "eBox components"
-msgstr ""
-
-#: src/EBox/Software.pm:85
-msgid "Enable cron script to download updates"
-msgstr ""
-
-#: src/EBox/Software.pm:86
-msgid ""
-"eBox software will download the available updates from your configured apt "
-"sources. "
-msgstr ""
-
-#: src/EBox/Software.pm:457
-msgid "Software management"
-msgstr ""
-
-#: src/EBox/Software.pm:464
-msgid "Automatic updates"
-msgstr ""
-
-#: src/EBox/Software.pm:555
-#, perl-brace-format
-msgid ""
-"Software management is currently  locked by {locker}. Please, try again later"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:1
-msgid "eBox - Certificate Authority Manager for eBox"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:2
-msgid "eBox - DHCP server module"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:3
-msgid "eBox - DNS server"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:4
-msgid "the eBox platform - Base framework"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:5
-msgid "eBox - Firewall"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:6
-msgid "IPsec VPNs"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:7
-msgid "eBox - Instant messaging (Jabber)"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:8
-msgid "eBox - layer 7 protocols"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:9
-msgid "eBox - Mail server"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:10
-msgid "eBox - Mail filter module"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:11
-msgid "eBox - Network configuration module"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:12
-msgid "eBox - NTP server"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:13
-msgid "eBox - Object management"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:14
-msgid "eBox - OpenVPN server module"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:15
-msgid "eBox - Printer sharing"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:16
-msgid "eBox - File sharing"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:17
-msgid "eBox - Services management"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:18
-msgid "SOAP server to communicate with eBox control center"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:19
-msgid "eBox - Software management"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:20
-msgid "eBox - Proxy cache and content filter"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:21
-msgid "eBox - Traffic shaper for eBox"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:22
-msgid "eBox - User and Group management"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:23
-msgid "eBox - Web Server"
-msgstr ""
 
 #: migration/0001_add_http_software_rule.pl:24
 msgid "HTTP software"
@@ -227,72 +28,269 @@ msgstr ""
 msgid "rule to allow apt updates"
 msgstr ""
 
-#: src/templates/del.mas:14
-msgid "The following packages will be installed"
+#: src/EBox/Software.pm:57
+msgid "Software Management"
 msgstr ""
 
-#: src/templates/del.mas:16
-msgid "The following packages will be removed"
+#: src/EBox/Software.pm:472
+#, perl-brace-format
+msgid ""
+"You cannot modify the automatic update using QA updates from Web UI. To "
+"disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: src/templates/del.mas:32
-msgid "Ok"
+#: src/EBox/Software.pm:537
+msgid "eBox Components"
 msgstr ""
 
-#: src/templates/del.mas:33
-msgid "Cancel"
+#: src/EBox/Software.pm:539
+msgid "System Updates"
 msgstr ""
 
-#: src/templates/updates.mas:10
-msgid "Updates are available for the following system components"
+#: src/EBox/Software.pm:541 src/templates/config.mas:19
+msgid "Settings"
 msgstr ""
 
-#: src/templates/updates.mas:15 src/templates/ebox.mas:14
-msgid "Component"
+#: src/EBox/Software.pm:680
+#, perl-brace-format
+msgid ""
+"Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
 
-#: src/templates/updates.mas:16
-msgid "Description"
+#: src/EBox/Software.pm:843
+msgid "Welcome"
 msgstr ""
 
-#: src/templates/updates.mas:17 src/templates/ebox.mas:27
+#: src/EBox/Software.pm:845
+msgid "Package Selection"
+msgstr ""
+
+#: src/EBox/Software.pm:846
+msgid "Confirmation"
+msgstr ""
+
+#: src/EBox/Software.pm:847
+msgid "Installation"
+msgstr ""
+
+#: src/EBox/Software.pm:848
+msgid "Initial Configuration"
+msgstr ""
+
+#: src/EBox/Software.pm:849
+msgid "Save Changes"
+msgstr ""
+
+#: src/EBox/CGI/Config.pm:33
+msgid "Software management settings"
+msgstr ""
+
+#: src/EBox/CGI/Config.pm:43
+msgid "Automatic software updates"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:43
+msgid "automatic updates configuration"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:36
+msgid "Choose eBox packages to install"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:40
+msgid "eBox components"
+msgstr ""
+
+#: src/EBox/CGI/Updates.pm:32 src/EBox/CGI/Updates.pm:50
+msgid "System updates"
+msgstr ""
+
+#: src/EBox/CGI/Updates.pm:59
+msgid "The system components are up to date."
+msgstr ""
+
+#: src/EBox/CGI/CurrentPackage.pm:32
+msgid "Upgrading"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:102
+msgid "There were no packages to update"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:165
+msgid "Installing"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:166
+msgid "Installing packages"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:167 src/EBox/CGI/InstallPkgs.pm:191
+msgid "Current operation"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:168
+msgid "actions done"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:169
+msgid ""
+"The packages installation has finished successfully. The administration "
+"interface may become unresponsive for a few seconds. Please wait patiently "
+"until the system has been fully configured. You will be automatically "
+"redirected to the next step"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:174
+msgid ""
+"The packages installation has not finished correctly . More information on "
+"the logs"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:189
+msgid "Removing package"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:190
+msgid "Removing the selected package and its dependent packages"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:192
+msgid "packages left to remove"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:193
+msgid ""
+"The packages removal has finished successfully. The administration interface "
+"may become unresponsive for a few seconds. Please wait patiently until the "
+"system has been fully restarted"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:197
+msgid ""
+"The packages removal has not finished correctly . More information on the "
+"logs"
+msgstr ""
+
+#: src/templates/ebox.mas:140 src/templates/updates.mas:35
 msgid "Update"
 msgstr ""
 
-#: src/templates/updates.mas:33 src/templates/ebox.mas:74
+#: src/templates/ebox.mas:146
+msgid "Install"
+msgstr ""
+
+#: src/templates/ebox.mas:168
+msgid "View advanced mode"
+msgstr ""
+
+#: src/templates/ebox.mas:482
+msgid "View basic mode"
+msgstr ""
+
+#: src/templates/del.mas:96
+msgid "The following packages will be installed"
+msgstr ""
+
+#: src/templates/del.mas:98
+msgid "The following packages will be removed"
+msgstr ""
+
+#: src/templates/del.mas:141
+msgid "Ok"
+msgstr ""
+
+#: src/templates/del.mas:142
+msgid "Cancel"
+msgstr ""
+
+#: src/templates/del.mas:149
+msgid "You may want to install also the following recommended packages:"
+msgstr ""
+
+#: src/templates/del.mas:152
+msgid "Layer 7 filtering for Traffic Shaping (ebox-l7-protocols)"
+msgstr ""
+
+#: src/templates/del.mas:155
+msgid "Virus scanning for File Sharing (ebox-antivirus and samba-vscan)"
+msgstr ""
+
+#: src/templates/del.mas:158
+msgid "VoIP meetings support (dahdi and linux-headers)"
+msgstr ""
+
+#: src/templates/config.mas:8
+msgid "Perform automatic security updates"
+msgstr ""
+
+#: src/templates/config.mas:14
+msgid "This eBox is configured to use automatic QA updates"
+msgstr ""
+
+#: src/templates/config.mas:26
+msgid "Automatic operations start time"
+msgstr ""
+
+#: src/templates/updates.mas:24
+msgid "Updates are available for the following system components"
+msgstr ""
+
+#: src/templates/updates.mas:26
+msgid "Community updates are available for the following system components"
+msgstr ""
+
+#: src/templates/updates.mas:32
+msgid "Component"
+msgstr ""
+
+#: src/templates/updates.mas:33
+msgid "Description"
+msgstr ""
+
+#: src/templates/updates.mas:34
+msgid "Version"
+msgstr ""
+
+#: src/templates/updates.mas:52
+msgid "Security update"
+msgstr ""
+
+#: src/templates/updates.mas:55
+msgid "eBox QA update"
+msgstr ""
+
+#: src/templates/updates.mas:77
 msgid "Update all packages"
 msgstr ""
 
-#: src/templates/updates.mas:44
+#: src/templates/updates.mas:88
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
 
-#: src/templates/updates.mas:47
+#: src/templates/updates.mas:95
 msgid "Upgrade"
 msgstr ""
 
-#: src/templates/ebox.mas:15
-msgid "Installed version "
+#: src/templates/updates.mas:96
+msgid "Update list"
 msgstr ""
 
-#: src/templates/ebox.mas:16
-msgid "Latest version"
+#: src/templates/updateNote.mas:10
+msgid ""
+"As you are enjoying a Commercial Server Subscription the updates are Quality "
+"Assured by the eBox Development Team."
 msgstr ""
 
-#: src/templates/ebox.mas:17
-msgid "Actions"
-msgstr ""
-
-#: src/templates/ebox.mas:33
-msgid "Install"
-msgstr ""
-
-#: src/templates/ebox.mas:35
-msgid "none"
-msgstr ""
-
-#: src/templates/ebox.mas:57
-msgid "Remove"
+#: src/templates/updateNote.mas:13
+#, perl-brace-format
+msgid ""
+"Warning: The updates are community based. You can now gain access to the "
+"Quality Assured Updates by purchasing the <a href='{proUrl}'>Professional</"
+"a>  or <a href='{entUrl}'>Enterprise</a> Server Subscription. QA Updates "
+"guarantee that all the upgrades, bugfixes and security updates are "
+"extensively tested by the eBox Development Team and you won't be introducing "
+"any regressions on your already working system."
 msgstr ""

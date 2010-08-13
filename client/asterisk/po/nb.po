@@ -197,8 +197,8 @@ msgid ""
 "You must install dahdi and linux-headers packages to use Meetings.{br}Run "
 "the following command: sudo apt-get install {kernels} dahdi."
 msgstr ""
-"Du må installere dahdi og linux-headers pakkene for å bruke "
-"Meetings.{br}Kjør følgende kommando: sudo apt-get install {kernels} dahdi."
+"Du må installere dahdi og linux-headers pakkene for å bruke Meetings.{br}"
+"Kjør følgende kommando: sudo apt-get install {kernels} dahdi."
 
 #: src/EBox/Model/Meetings.pm:119 src/EBox/Model/Meetings.pm:127
 #: src/EBox/Model/Settings.pm:84

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2010-05-26 16:04+0200\n"
 "Last-Translator: Bokor Pavol <bokor@4enzo.net>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -25,37 +25,42 @@ msgstr "Celkom dielikov"
 msgid "It must be a non-zero positive number"
 msgstr "Musí byť kladné číslo"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Potvrďte, že chcete naozaj vymazať tento súbor so zálohou:"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "Nemožno spustiť {exe}"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "Indikátor stavu s id {id} sa nenašiel"
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "musí byť väčšie ako nula"
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr "Príkaz nebol spustený"
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr "Príkaz nespustený"
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr "Príkaz je stále spustený"
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "Prikaz bol už ukončený"
 
@@ -1048,12 +1053,12 @@ msgstr "Súčasný stav môžete skontrolovať v systéme {url}"
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr ""
@@ -1107,7 +1112,7 @@ msgstr "Hodnota \"Od\" {from} musí byť väčšia ako hodnota \"Do\" {to}"
 msgid "Enter a float number"
 msgstr "Zadajte desatinné číslo"
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "Vyberte hodnotu z množiny: {set}"
@@ -1595,26 +1600,26 @@ msgstr "Obnova konfigurácie"
 msgid "Halt/Reboot"
 msgstr "Vypnutie/reštart"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 #, fuzzy
 msgid "eBox web server"
 msgstr "Pozorovanie záznamu"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Ukladanie modulu {modName} "
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Ukladanie modulu {modName} "
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr ""
@@ -1910,7 +1915,7 @@ msgstr ""
 msgid "Some error has happened in eBox: "
 msgstr ""
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "Štartovanie..."
 

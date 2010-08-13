@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:52+0200\n"
+"POT-Creation-Date: 2010-08-13 13:47+0200\n"
 "PO-Revision-Date: 2010-08-01 13:25+0200\n"
 "Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
 "Language-Team: none\n"
@@ -80,8 +80,8 @@ msgid ""
 "eBox Administration is running on this port, change it on {ohref}System -> "
 "General{chref}."
 msgstr ""
-"La administración de eBox está corriendo en este puerto, cámbialo en "
-"{ohref}Sistema -> General{chref}"
+"La administración de eBox está corriendo en este puerto, cámbialo en {ohref}"
+"Sistema -> General{chref}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:129
 #, perl-brace-format
@@ -90,24 +90,20 @@ msgid ""
 "{ohref}Certification Authority -> Service Certificates{chref}."
 msgstr ""
 "Necesitas un certificado de servicio para el módulo de servidor web, "
-"habilítalo en {ohref}Autoridad de Certificación -> Certificados de "
-"Servicio{chref}."
+"habilítalo en {ohref}Autoridad de Certificación -> Certificados de Servicio"
+"{chref}."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:141
 msgid ""
-"To allow HTML directories for users is needed to have the file sharing "
-"module is installed and configured."
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
 msgstr ""
-"Para permitir directorios HTML personales, es necesario tener el módulo de "
-"compartición de archivos instalado y configurado."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:147
 msgid ""
-"To allow HTML directories for users is needed to have the file sharing "
-"module configured. To configure it enable it at least one time."
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
 msgstr ""
-"Para permitir directorios HTML personales necesitas el módulo de compartir "
-"ficheros configurado. Para configurarlo, actívalo al menos una vez."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:237
 msgid "Listening SSL port"
@@ -140,17 +136,16 @@ msgid "General configuration settings"
 msgstr "Elementos generales de configuración"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:270
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"General Web server configuration. The listening port must not be got from "
-"another service. If you enable user to publish their own html pages, the "
-"pages will be loaded from {dirName} directory from their samba home "
-"directories."
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
 msgstr ""
 "Configuración general del Servidor Web. El puerto de escucha no deberá ser "
 "utilizado por otro servicio. Si permites a los usuarios publicar sus propias "
-"páginas html, las páginas deberán ser cargadas desde el directrio "
-"{dirName}, de sus directorios de inicio de Samba."
+"páginas html, las páginas deberán ser cargadas desde el directrio {dirName}, "
+"de sus directorios de inicio de Samba."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:276
 msgid "General Web server configuration settings updated."
@@ -203,8 +198,7 @@ msgstr "Host Virtual {vhost} añadido."
 #: src/EBox/WebServer/Model/VHostTable.pm:220
 msgid "There is no static internal interface to set the Web server IP address."
 msgstr ""
-"No hay interfaz interno estático para poner la dirección IP del servidor "
-"Web."
+"No hay interfaz interno estático para poner la dirección IP del servidor Web."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:255
 msgid "Allow SSL"
@@ -227,21 +221,21 @@ msgid "Virtual hosts"
 msgstr "Hosts virtuales"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:302
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
-"same web server is hosted on a single physical server. Different host names "
-"will point to the same web server. The DNS entry is automatically created if "
-"this is possible. The content must be placed under {docRoot} directory. Any "
-"particular configuration you want to add must be placed at {userConf} "
+"same web server are hosted on a single physical server. Different host names "
+"point to the same web server. If feasible, the DNS entry is automatically "
+"created. The content must be placed under the {docRoot} directory. Any "
+"particular configuration you want to add must be placed in the {userConf} "
 "directory."
 msgstr ""
 "Los hosts virtuales son una forma de servicio de alojamiento web, donde "
 "muchas instancias del mismo servidor web están alojadas en un único servidor "
-"físico. Diferentes nombres de host apuntan al mismo servidor web. La "
-"entrada de DNS se crea automáticamente si es posible. El contenido debe ser "
-"situado bajo el directorio {docRoot}. Cualquier configuración específica que "
-"se quiera añadir deberá estar en el directorio {userConf}."
+"físico. Diferentes nombres de host apuntan al mismo servidor web. La entrada "
+"de DNS se crea automáticamente si es posible. El contenido debe ser situado "
+"bajo el directorio {docRoot}. Cualquier configuración específica que se "
+"quiera añadir deberá estar en el directorio {userConf}."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:333
 #, perl-brace-format
@@ -263,6 +257,21 @@ msgid ""
 msgstr ""
 "El servicio web de eBox permite hospedar páginas web en HTML dentro de "
 "diferentes hosts virtuales."
+
+#~ msgid ""
+#~ "To allow HTML directories for users is needed to have the file sharing "
+#~ "module is installed and configured."
+#~ msgstr ""
+#~ "Para permitir directorios HTML personales, es necesario tener el módulo "
+#~ "de compartición de archivos instalado y configurado."
+
+#~ msgid ""
+#~ "To allow HTML directories for users is needed to have the file sharing "
+#~ "module configured. To configure it enable it at least one time."
+#~ msgstr ""
+#~ "Para permitir directorios HTML personales necesitas el módulo de "
+#~ "compartir ficheros configurado. Para configurarlo, actívalo al menos una "
+#~ "vez."
 
 #~ msgid "listening port"
 #~ msgstr "puerto de escucha"

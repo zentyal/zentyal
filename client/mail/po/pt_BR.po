@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:40+0200\n"
 "PO-Revision-Date: 2010-06-14 13:31+0200\n"
 "Last-Translator: Flávio Veras <flaviove@gmail.com>\n"
 "Language-Team: <en@li.org>\n"
@@ -270,8 +270,8 @@ msgstr ""
 "gerenciado por este servidor"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:146
-#, perl-brace-format
-msgid "They already exists an account or alias called {al}"
+#, fuzzy, perl-brace-format
+msgid "An account or alias called {al} already exists"
 msgstr "Já existe uma conta ou apelido chamado {al}"
 
 #: src/EBox/Mail/Model/ExternalAliases.pm:167

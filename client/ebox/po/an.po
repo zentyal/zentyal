@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2007-01-27 21:44+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -24,37 +24,42 @@ msgstr ""
 msgid "It must be a non-zero positive number"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Por fabor, confirme que quiere borrar iste fichero de backup:"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 #, fuzzy
 msgid "The executable has already finished"
 msgstr "eBox ya ha estato inizializato"
@@ -1054,12 +1059,12 @@ msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 "Debe establir a bariable {variable} en o fichero de confegurazión d'ebox"
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Error bulcando a base de datos postgresql {name}"
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Fichero {file} de bulcato d'a base de datos no se puede leyer"
@@ -1116,7 +1121,7 @@ msgstr ""
 msgid "Enter a float number"
 msgstr ""
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr ""
@@ -1633,25 +1638,25 @@ msgstr "Restaurazión d'a confegurazión"
 msgid "Halt/Reboot"
 msgstr "Apagar u reiniziar"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "puerto"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 msgid "eBox web server"
 msgstr ""
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Tipo de backup"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, fuzzy, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Tipo de backup"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr ""
@@ -1952,7 +1957,7 @@ msgstr ""
 msgid "Some error has happened in eBox: "
 msgstr ""
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 #, fuzzy
 msgid "Starting..."
 msgstr "Arrancar"
@@ -2372,10 +2377,6 @@ msgstr "Puerto TCP d'a interfaz d'almenistrazión"
 #~ msgid ""
 #~ "Please confirm that you want to restore the configuraction using the "
 #~ "following remote backup:"
-#~ msgstr "Por fabor, confirme que quiere borrar iste fichero de backup:"
-
-#, fuzzy
-#~ msgid "Please confirm that you want to delete the following remote backup:"
 #~ msgstr "Por fabor, confirme que quiere borrar iste fichero de backup:"
 
 #, fuzzy

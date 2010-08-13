@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12.99Report-Msgid-Bugs-To: bugs@warp.es\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:38+0200\n"
+"POT-Creation-Date: 2010-08-13 13:41+0200\n"
 "PO-Revision-Date: 2010-07-28 14:10+0200\n"
 "Last-Translator: Harald Ersch <harald.ersch@gmail.com>\n"
 "Language-Team: none\n"
@@ -59,7 +59,7 @@ msgstr "acţiune interfaţă virtuală"
 #: src/EBox/CGI/VIface.pm:64 src/EBox/Network.pm:893 src/EBox/Network.pm:898
 #: src/EBox/Network.pm:1212 src/EBox/Network.pm:1233 src/EBox/Network.pm:3142
 #: src/EBox/Network.pm:3158 src/EBox/Network.pm:3184 src/EBox/Network.pm:3339
-#: src/EBox/Network.pm:3494 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Network.pm:3493 src/EBox/Model/GatewayTable.pm:198
 #: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:119
 #: src/templates/ifaces.mas:287 src/templates/Wizard/network.mas:37
 #: src/templates/Wizard/network.mas:92
@@ -84,7 +84,7 @@ msgstr "Host"
 msgid "host name"
 msgstr "nume host"
 
-#: src/EBox/CGI/Ifaces.pm:31 src/EBox/Network.pm:3531
+#: src/EBox/CGI/Ifaces.pm:31 src/EBox/Network.pm:3530
 msgid "Network Interfaces"
 msgstr "Interfeţe de reţea"
 
@@ -107,7 +107,7 @@ msgstr ""
 "'{host}' eşuate, max={maxFailRatio}%)"
 
 #: src/EBox/Event/Watcher/Gateways.pm:370
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3564
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3563
 msgid "WAN Failover"
 msgstr "WAN Failover"
 
@@ -140,7 +140,7 @@ msgstr ""
 msgid "Domain Name Server Resolver"
 msgstr "Rezolvare server nume domeniu (DNS)"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3562
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3561
 msgid "Balance Traffic"
 msgstr "Echilibrare trafic"
 
@@ -153,7 +153,7 @@ msgstr ""
 "uri active. Le puteţi activa <a href=\"/ebox/Network/View/GatewayTable"
 "\">AICI</a> acum."
 
-#: src/EBox/Network/Report/ByteRate.pm:137 src/EBox/Network.pm:3483
+#: src/EBox/Network/Report/ByteRate.pm:137 src/EBox/Network.pm:3482
 msgid "Status"
 msgstr "Stare"
 
@@ -241,8 +241,8 @@ msgstr "Rată total trafic pentru {service}"
 msgid "Traffic rate from {src} for {service}"
 msgstr "Rată trafic de la {src} pentru {service}"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3547
-#: src/EBox/Model/StaticRoute.pm:153
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3546
+#: src/EBox/Model/StaticRoute.pm:148
 msgid "Network"
 msgstr "Reţea"
 
@@ -383,68 +383,63 @@ msgstr "extern(ă)"
 msgid "internal"
 msgstr "intern(ă)"
 
-#: src/EBox/Network.pm:3472
+#: src/EBox/Network.pm:3471
 msgid "link ok"
 msgstr "conectat(ă)"
 
-#: src/EBox/Network.pm:3474
+#: src/EBox/Network.pm:3473
 msgid "no link"
 msgstr "deconectat(ă)"
 
-#: src/EBox/Network.pm:3477
-#, perl-brace-format
-msgid "{up}, {ext}, {link}"
-msgstr "{up}, {ext}, {link}"
-
-#: src/EBox/Network.pm:3488
+#: src/EBox/Network.pm:3487
 msgid "MAC address"
 msgstr "Adresă MAC"
 
-#: src/EBox/Network.pm:3505
+#: src/EBox/Network.pm:3504
 msgid "Tx bytes"
 msgstr "bytes Tx "
 
-#: src/EBox/Network.pm:3514
+#: src/EBox/Network.pm:3513
 msgid "Rx bytes"
 msgstr "bytes Rx"
 
-#: src/EBox/Network.pm:3552
+#: src/EBox/Network.pm:3551
 msgid "Interfaces"
 msgstr "Interfeţe"
 
-#: src/EBox/Network.pm:3558 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3557 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "Gateway-uri"
 
-#: src/EBox/Network.pm:3560 src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:3559 src/EBox/Model/StaticRoute.pm:172
 msgid "Static Routes"
 msgstr "Rute statice"
 
-#: src/EBox/Network.pm:3566
+#: src/EBox/Network.pm:3565
 msgid "Diagnostic Tools"
 msgstr "Unelte pt. diagnosticare"
 
-#: src/EBox/Model/StaticRoute.pm:156
+#: src/EBox/Model/StaticRoute.pm:151
 msgid "IP or network address"
 msgstr "Adresă reţea sau IP"
 
-#: src/EBox/Model/StaticRoute.pm:162
+#: src/EBox/Model/StaticRoute.pm:157
 msgid "Gateway used to reach the above network  address"
 msgstr "Gateway-ul folosit pentru a accesa adresa reţelei de mai sus"
 
-#: src/EBox/Model/StaticRoute.pm:167 src/templates/ifaces.mas:230
+#: src/EBox/Model/StaticRoute.pm:162 src/templates/ifaces.mas:230
 msgid "Description"
 msgstr "Descriere"
 
-#: src/EBox/Model/StaticRoute.pm:170
+#: src/EBox/Model/StaticRoute.pm:165
 msgid "Optional description for this route"
 msgstr "Descriere opţională pentru această rută"
 
-#: src/EBox/Model/StaticRoute.pm:176
+#: src/EBox/Model/StaticRoute.pm:171
 msgid "Static Routes List"
 msgstr "Lista rutelor statice"
 
-#: src/EBox/Model/StaticRoute.pm:182
+#: src/EBox/Model/StaticRoute.pm:177
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured."
@@ -452,7 +447,7 @@ msgstr ""
 "Toate gateway-urile introduse aici trebuie să fie accesibile prin una dintre "
 "interfeţele de reţea configurate curent. "
 
-#: src/EBox/Model/StaticRoute.pm:185
+#: src/EBox/Model/StaticRoute.pm:180
 msgid "static route"
 msgstr "rută statică"
 
@@ -1031,3 +1026,6 @@ msgstr ""
 "Dacă veţi continua, toate modulele ce au ca referinţă configurarea curentă a "
 "aceastei interfeţe de reţea vor şterge părţile relevante din configurarea "
 "lor. Alegeţi \"Răzgândire\" dacă nu sunteţi siguri."
+
+#~ msgid "{up}, {ext}, {link}"
+#~ msgstr "{up}, {ext}, {link}"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:38+0200\n"
+"POT-Creation-Date: 2010-08-13 13:41+0200\n"
 "PO-Revision-Date: 2010-07-31 14:07+0200\n"
 "Last-Translator: Javi Vázquez <javivazquez@ebox-technologies.com>\n"
 "Language-Team: \n"
@@ -62,7 +62,7 @@ msgstr "acción sobre la interfaz virtual"
 #: src/EBox/CGI/VIface.pm:64 src/EBox/Network.pm:893 src/EBox/Network.pm:898
 #: src/EBox/Network.pm:1212 src/EBox/Network.pm:1233 src/EBox/Network.pm:3142
 #: src/EBox/Network.pm:3158 src/EBox/Network.pm:3184 src/EBox/Network.pm:3339
-#: src/EBox/Network.pm:3494 src/EBox/Model/GatewayTable.pm:198
+#: src/EBox/Network.pm:3493 src/EBox/Model/GatewayTable.pm:198
 #: src/EBox/Model/GatewayTable.pm:274 src/templates/ifaces.mas:119
 #: src/templates/ifaces.mas:287 src/templates/Wizard/network.mas:37
 #: src/templates/Wizard/network.mas:92
@@ -87,7 +87,7 @@ msgstr "Máquina"
 msgid "host name"
 msgstr "nombre de máquina"
 
-#: src/EBox/CGI/Ifaces.pm:31 src/EBox/Network.pm:3531
+#: src/EBox/CGI/Ifaces.pm:31 src/EBox/Network.pm:3530
 msgid "Network Interfaces"
 msgstr "Interfaces de Red"
 
@@ -111,7 +111,7 @@ msgstr ""
 "máquina '{host}' fallaron, max={maxFailRatio}%)"
 
 #: src/EBox/Event/Watcher/Gateways.pm:370
-#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3564
+#: src/EBox/Network/Composite/WANFailover.pm:62 src/EBox/Network.pm:3563
 msgid "WAN Failover"
 msgstr "WAN failover"
 
@@ -146,7 +146,7 @@ msgstr ""
 msgid "Domain Name Server Resolver"
 msgstr "Traductor de Servidores de Nombres de Dominio"
 
-#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3562
+#: src/EBox/Network/Composite/MultiGw.pm:63 src/EBox/Network.pm:3561
 msgid "Balance Traffic"
 msgstr "Balanceo de tráfico"
 
@@ -159,7 +159,7 @@ msgstr ""
 "enlace habilitadas. Puedes añadirlas <a href=\"/ebox/Network/View/"
 "GatewayDataTable\">aquí</a>."
 
-#: src/EBox/Network/Report/ByteRate.pm:137 src/EBox/Network.pm:3483
+#: src/EBox/Network/Report/ByteRate.pm:137 src/EBox/Network.pm:3482
 msgid "Status"
 msgstr "Estado"
 
@@ -248,8 +248,8 @@ msgstr "Tasa total de tráfico para {service}"
 msgid "Traffic rate from {src} for {service}"
 msgstr "Tasa de tráfico desde {src} para {service}"
 
-#: src/EBox/Network.pm:81 src/EBox/Network.pm:3547
-#: src/EBox/Model/StaticRoute.pm:153
+#: src/EBox/Network.pm:81 src/EBox/Network.pm:3546
+#: src/EBox/Model/StaticRoute.pm:148
 msgid "Network"
 msgstr "Red"
 
@@ -391,70 +391,65 @@ msgstr "externo"
 msgid "internal"
 msgstr "interno"
 
-#: src/EBox/Network.pm:3472
+#: src/EBox/Network.pm:3471
 msgid "link ok"
 msgstr "enlace ok"
 
-#: src/EBox/Network.pm:3474
+#: src/EBox/Network.pm:3473
 msgid "no link"
 msgstr "sin enlace"
 
-#: src/EBox/Network.pm:3477
-#, perl-brace-format
-msgid "{up}, {ext}, {link}"
-msgstr "{up}, {ext}, {link}"
-
-#: src/EBox/Network.pm:3488
+#: src/EBox/Network.pm:3487
 msgid "MAC address"
 msgstr "Dirección MAC"
 
-#: src/EBox/Network.pm:3505
+#: src/EBox/Network.pm:3504
 msgid "Tx bytes"
 msgstr "Bytes Tx"
 
-#: src/EBox/Network.pm:3514
+#: src/EBox/Network.pm:3513
 msgid "Rx bytes"
 msgstr "Bytes Rx"
 
-#: src/EBox/Network.pm:3552
+#: src/EBox/Network.pm:3551
 msgid "Interfaces"
 msgstr "Interfaces"
 
-#: src/EBox/Network.pm:3558 src/EBox/Model/GatewayTable.pm:234
+#: src/EBox/Network.pm:3557 src/EBox/Model/GatewayTable.pm:234
 msgid "Gateways"
 msgstr "Puertas de enlace"
 
-#: src/EBox/Network.pm:3560 src/EBox/Model/StaticRoute.pm:177
+#: src/EBox/Network.pm:3559 src/EBox/Model/StaticRoute.pm:172
 msgid "Static Routes"
 msgstr "Rutas estáticas"
 
-#: src/EBox/Network.pm:3566
+#: src/EBox/Network.pm:3565
 msgid "Diagnostic Tools"
 msgstr "Herramientas de diagnóstico"
 
-#: src/EBox/Model/StaticRoute.pm:156
+#: src/EBox/Model/StaticRoute.pm:151
 msgid "IP or network address"
 msgstr "Dirección IP o dirección de red"
 
-#: src/EBox/Model/StaticRoute.pm:162
+#: src/EBox/Model/StaticRoute.pm:157
 msgid "Gateway used to reach the above network  address"
 msgstr ""
 "Puerta de enlace utilizada para llegar a la dirección de red mencionada "
 "arriba"
 
-#: src/EBox/Model/StaticRoute.pm:167 src/templates/ifaces.mas:230
+#: src/EBox/Model/StaticRoute.pm:162 src/templates/ifaces.mas:230
 msgid "Description"
 msgstr "Descripción"
 
-#: src/EBox/Model/StaticRoute.pm:170
+#: src/EBox/Model/StaticRoute.pm:165
 msgid "Optional description for this route"
 msgstr "Descripción opcional para esta ruta"
 
-#: src/EBox/Model/StaticRoute.pm:176
+#: src/EBox/Model/StaticRoute.pm:171
 msgid "Static Routes List"
 msgstr "Lista de rutas estáticas"
 
-#: src/EBox/Model/StaticRoute.pm:182
+#: src/EBox/Model/StaticRoute.pm:177
 msgid ""
 "All gateways you enter here must be reachable through one of the network "
 "interfaces currently configured."
@@ -462,7 +457,7 @@ msgstr ""
 "Todas las puertas de enlace que introduzca aquí deben ser alcanzables desde "
 "uno de las interfaces de red actualmente configurados."
 
-#: src/EBox/Model/StaticRoute.pm:185
+#: src/EBox/Model/StaticRoute.pm:180
 msgid "static route"
 msgstr "ruta estática"
 
@@ -1054,6 +1049,9 @@ msgstr ""
 "Si elige continuar, todos los módulos que usan la configuración actual de "
 "esta interfaz de red borrarán las partes mas relevantes de su configuración. "
 "Elija \"Cancelar\" si no está seguro."
+
+#~ msgid "{up}, {ext}, {link}"
+#~ msgstr "{up}, {ext}, {link}"
 
 #~ msgid "Physical interface"
 #~ msgstr "Interfaz físico"

@@ -2,13 +2,12 @@
 # Copyright (C) 2010 eBox Technologies S.L.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:129
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 1.4\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:47+0200\n"
+"POT-Creation-Date: 2010-08-13 13:45+0200\n"
 "PO-Revision-Date: 2010-02-03 21:01+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -140,7 +139,7 @@ msgid "Destination object"
 msgstr "Sihtobjekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:464
-#: src/EBox/TrafficShaping.pm:1599
+#: src/EBox/TrafficShaping.pm:1699
 msgid "Priority"
 msgstr "Prioriteet"
 
@@ -149,7 +148,7 @@ msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Madalaim prioriteet: 7; kõrgeim prioriteet: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:472
-#: src/EBox/TrafficShaping.pm:1597
+#: src/EBox/TrafficShaping.pm:1697
 msgid "Guaranteed Rate"
 msgstr "Tagatud kiirus"
 
@@ -167,7 +166,7 @@ msgstr ""
 "läbilaskevõimet. 0 tähendab tagamatut kiirust."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:484
-#: src/EBox/TrafficShaping.pm:1598
+#: src/EBox/TrafficShaping.pm:1698
 msgid "Limited Rate"
 msgstr "Limiteeritud kiirus"
 
@@ -308,41 +307,41 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Vali kujundamiseks liides"
 
-#: src/EBox/TrafficShaping.pm:97
+#: src/EBox/TrafficShaping.pm:102
 msgid "Traffic Shaping"
 msgstr "Liikluse kujundamine"
 
-#: src/EBox/TrafficShaping.pm:135
+#: src/EBox/TrafficShaping.pm:140
 msgid "Add iptables rules to mangle table"
 msgstr "Lisa iptables reeglid mangle tabelile"
 
-#: src/EBox/TrafficShaping.pm:136
+#: src/EBox/TrafficShaping.pm:141
 msgid "To mark packets with different priorities and rates"
 msgstr "Pakettidele erinevate prioriteetide ja kiiruste märkimiseks"
 
-#: src/EBox/TrafficShaping.pm:140
+#: src/EBox/TrafficShaping.pm:145
 msgid "Add tc rules"
 msgstr "Lisa tc reeglid"
 
-#: src/EBox/TrafficShaping.pm:141
+#: src/EBox/TrafficShaping.pm:146
 msgid "To implement the traffic shaping rules"
 msgstr "Liikluse kujundamise reeglite rakendamiseks"
 
-#: src/EBox/TrafficShaping.pm:385
+#: src/EBox/TrafficShaping.pm:462
 msgid "Rules"
 msgstr "Reeglid"
 
-#: src/EBox/TrafficShaping.pm:387
+#: src/EBox/TrafficShaping.pm:464
 msgid "Interface Rates"
 msgstr "Liidese kiirused"
 
-#: src/EBox/TrafficShaping.pm:442 src/EBox/TrafficShaping.pm:594
-#: src/EBox/TrafficShaping.pm:1012 src/EBox/TC.pm:108
+#: src/EBox/TrafficShaping.pm:538 src/EBox/TrafficShaping.pm:690
+#: src/EBox/TrafficShaping.pm:1108 src/EBox/TC.pm:108
 msgid "Interface"
 msgstr "Liides"
 
 # "rule account "
-#: src/EBox/TrafficShaping.pm:456
+#: src/EBox/TrafficShaping.pm:552
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -351,11 +350,11 @@ msgstr ""
 "Maksimaalne lubatud reegli kontode arv {max} on ületatud, uue lisamiseks, "
 "kustuta eelnevalt üks"
 
-#: src/EBox/TrafficShaping.pm:1102
+#: src/EBox/TrafficShaping.pm:1198
 msgid "type"
 msgstr "tüüp"
 
-#: src/EBox/TrafficShaping.pm:1125
+#: src/EBox/TrafficShaping.pm:1221
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -364,11 +363,11 @@ msgstr ""
 "Liidesel {iface} peaks olema liikluse kujundamiseks maksimaalne "
 "läbilaskevõime"
 
-#: src/EBox/TrafficShaping.pm:1595
+#: src/EBox/TrafficShaping.pm:1695
 msgid "Protocol"
 msgstr "Protokoll"
 
-#: src/EBox/TrafficShaping.pm:1596
+#: src/EBox/TrafficShaping.pm:1696
 msgid "Port"
 msgstr "Port"
 

@@ -5,10 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-ebox 1.1Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
-"PO-Revision-Date: 2010-07-21 15:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
+"PO-Revision-Date: 2010-08-13 13:08+0200\n"
 "Last-Translator: Nagy Ákos <reg@pecska.ro>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -25,37 +26,43 @@ msgstr "Összes jelölés"
 msgid "It must be a non-zero positive number"
 msgstr "Pozitív, nem nulla számnak kell lennie"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr ""
+"Kérlek erősítsd meg, hogy törölni akarod a következő biztonsági mentést:"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "Nem hajtható végre a(z) {exe}"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "A folyamatjelző nem találja ezt: {id}"
 
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr "Megjelölt megjegyzések száma"
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "nullánál nagyobbnak kell lennie"
 
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 msgid "Executable has not been run"
 msgstr "A végrehajtás nem futtatható"
 
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 msgid "The executable has not run"
 msgstr "A végrehajtás nem fut"
 
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 msgid "The executable has already been started"
 msgstr "A végrehajtás elindult"
 
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "A végrehajtás leállt"
 
@@ -1054,12 +1061,12 @@ msgstr "Menj a következő {url} címre, hogy ellenőrizd a rendszer állapotát
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "Be kell állítsa a(z) {variable} változót az ebox beállítófájljában"
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Hiba történt a(z) {name} postgesql adatbázis mentése közben"
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Az adatbázis dump fájl nem olvasható: {file}"
@@ -1113,7 +1120,7 @@ msgstr "Ennek {from} nagyobbnak kell lennie ennél {to}"
 msgid "Enter a float number"
 msgstr "Adjon meg egy tört számot!"
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "Adjon meg egy értéket ezen az értéken belül: {set}."
@@ -1476,8 +1483,8 @@ msgid ""
 "Module {mod} has not saved changes. Before doing the backup you must save or "
 "discard them"
 msgstr ""
-"Néhány modul módosítása nincs elmentve. Mielőtt hozzáfog a biztonsági mentés "
-"elkészítésének, előtte ezeket mentse vagy a változtatásokat vesse el!"
+"Néhány modul {mod} módosítása nincs elmentve. Mielőtt hozzáfog a biztonsági "
+"mentés elkészítésének, előtte ezeket mentse vagy a változtatásokat vesse el!"
 
 #: src/EBox/Backup.pm:849
 msgid "Incorrect or corrupt backup file"
@@ -1607,25 +1614,25 @@ msgstr "Beállítások kivonata"
 msgid "Halt/Reboot"
 msgstr "Leállítás/Újraindítás"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 msgid "eBox web server"
 msgstr "eBox webkiszolgáló"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "{modName} modul engedélyezése"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "{modName} modul mentése"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "{scriptName} szkript fut"
@@ -1921,7 +1928,7 @@ msgstr "hátramaradott elemek"
 msgid "Some error has happened in eBox: "
 msgstr "Hiba történt az eBoxban: "
 
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "Indul..."
 

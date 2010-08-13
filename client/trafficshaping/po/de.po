@@ -4,12 +4,11 @@
 # Automatically generated, 2007.
 #
 #
-#: src/EBox/TrafficShaping/Model/InterfaceRate.pm:129
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.12.2\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:47+0200\n"
+"POT-Creation-Date: 2010-08-13 13:45+0200\n"
 "PO-Revision-Date: 2009-04-19 17:51+0200\n"
 "Last-Translator: R. Hempel <ruben@hempelr.de>\n"
 "Language-Team: none\n"
@@ -146,7 +145,7 @@ msgid "Destination object"
 msgstr "Ziel-Objekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:464
-#: src/EBox/TrafficShaping.pm:1599
+#: src/EBox/TrafficShaping.pm:1699
 msgid "Priority"
 msgstr "Priorität"
 
@@ -155,7 +154,7 @@ msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Niedriegste Priorität: 7 Höchste Priorität: 0"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:472
-#: src/EBox/TrafficShaping.pm:1597
+#: src/EBox/TrafficShaping.pm:1697
 msgid "Guaranteed Rate"
 msgstr "Minimale Bandbreite"
 
@@ -174,7 +173,7 @@ msgstr ""
 "Gesamtbandbreite überschreiten kann. 0 bedeutet unbegrenzte Bandbreite."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:484
-#: src/EBox/TrafficShaping.pm:1598
+#: src/EBox/TrafficShaping.pm:1698
 msgid "Limited Rate"
 msgstr "Begrenzte Bandbreite"
 
@@ -318,42 +317,42 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Wählen Sie eine externe Netzwerkkarte, die Sie begrenzen möchten"
 
-#: src/EBox/TrafficShaping.pm:97
+#: src/EBox/TrafficShaping.pm:102
 msgid "Traffic Shaping"
 msgstr "Bandbreitenbegrenzung"
 
-#: src/EBox/TrafficShaping.pm:135
+#: src/EBox/TrafficShaping.pm:140
 msgid "Add iptables rules to mangle table"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:136
+#: src/EBox/TrafficShaping.pm:141
 msgid "To mark packets with different priorities and rates"
 msgstr "Um Pakete mit unterschiedlicher Priorität und Rate zu markieren"
 
-#: src/EBox/TrafficShaping.pm:140
+#: src/EBox/TrafficShaping.pm:145
 msgid "Add tc rules"
 msgstr "Füge tc Regel hinzu"
 
-#: src/EBox/TrafficShaping.pm:141
+#: src/EBox/TrafficShaping.pm:146
 msgid "To implement the traffic shaping rules"
 msgstr "Um Regeln für Bandbreitenbegrenzung einzurichten"
 
-#: src/EBox/TrafficShaping.pm:385
+#: src/EBox/TrafficShaping.pm:462
 #, fuzzy
 msgid "Rules"
 msgstr "Regel"
 
-#: src/EBox/TrafficShaping.pm:387
+#: src/EBox/TrafficShaping.pm:464
 #, fuzzy
 msgid "Interface Rates"
 msgstr "Netzwerkkarte"
 
-#: src/EBox/TrafficShaping.pm:442 src/EBox/TrafficShaping.pm:594
-#: src/EBox/TrafficShaping.pm:1012 src/EBox/TC.pm:108
+#: src/EBox/TrafficShaping.pm:538 src/EBox/TrafficShaping.pm:690
+#: src/EBox/TrafficShaping.pm:1108 src/EBox/TC.pm:108
 msgid "Interface"
 msgstr "Netzwerkkarte"
 
-#: src/EBox/TrafficShaping.pm:456
+#: src/EBox/TrafficShaping.pm:552
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -362,11 +361,11 @@ msgstr ""
 "Es können nicht mehr als {max} Regeln erstellt werden. Löschen Sie "
 "mindestens eine, bevor Sie eine neue hinzufügen"
 
-#: src/EBox/TrafficShaping.pm:1102
+#: src/EBox/TrafficShaping.pm:1198
 msgid "type"
 msgstr "Typ"
 
-#: src/EBox/TrafficShaping.pm:1125
+#: src/EBox/TrafficShaping.pm:1221
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -375,11 +374,11 @@ msgstr ""
 "Für die Netzwerkkarte {iface} sollte eine maximale Bandbreite definiert "
 "sein, damit die Bandbreitenbegrenzung überhaupt möglich ist"
 
-#: src/EBox/TrafficShaping.pm:1595
+#: src/EBox/TrafficShaping.pm:1695
 msgid "Protocol"
 msgstr "Protokoll"
 
-#: src/EBox/TrafficShaping.pm:1596
+#: src/EBox/TrafficShaping.pm:1696
 msgid "Port"
 msgstr "Port"
 

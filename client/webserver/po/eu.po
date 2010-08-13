@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.12\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:52+0200\n"
+"POT-Creation-Date: 2010-08-13 13:47+0200\n"
 "PO-Revision-Date: 2010-03-27 22:22+0100\n"
 "Last-Translator: Pedro Ugartemendia <pedro@ugartemendia.com>\n"
 "Language-Team: none\n"
@@ -91,14 +91,14 @@ msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:141
 msgid ""
-"To allow HTML directories for users is needed to have the file sharing "
-"module is installed and configured."
+"Having installed and configured the Users and Groups module is required to "
+"allow HTML directories for users."
 msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:147
 msgid ""
-"To allow HTML directories for users is needed to have the file sharing "
-"module configured. To configure it enable it at least one time."
+"A properly configured Users and Groups module is required to allow HTML "
+"directories for users. To configure it, please enable it at least one time."
 msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:237
@@ -132,10 +132,9 @@ msgstr ""
 #: src/EBox/WebServer/Model/GeneralSettings.pm:270
 #, perl-brace-format
 msgid ""
-"General Web server configuration. The listening port must not be got from "
-"another service. If you enable user to publish their own html pages, the "
-"pages will be loaded from {dirName} directory from their samba home "
-"directories."
+"General Web server configuration. The listening port must not be used by "
+"another service. If you enable user to publish their own html pages, those "
+"should be loaded from {dirName} directory from their home directories."
 msgstr ""
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:276
@@ -208,10 +207,10 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
-"same web server is hosted on a single physical server. Different host names "
-"will point to the same web server. The DNS entry is automatically created if "
-"this is possible. The content must be placed under {docRoot} directory. Any "
-"particular configuration you want to add must be placed at {userConf} "
+"same web server are hosted on a single physical server. Different host names "
+"point to the same web server. If feasible, the DNS entry is automatically "
+"created. The content must be placed under the {docRoot} directory. Any "
+"particular configuration you want to add must be placed in the {userConf} "
 "directory."
 msgstr ""
 

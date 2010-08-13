@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 1.4.1Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
+"Project-Id-Version: ebox-ebox 1.4.1Report-Msgid-Bugs-To: info@ebox-"
+"technologies.com\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
-"POT-Creation-Date: 2010-07-21 00:37+0200\n"
+"POT-Creation-Date: 2010-08-13 13:39+0200\n"
 "PO-Revision-Date: 2010-05-07 19:36+0200\n"
 "Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
 "Language-Team: none\n"
@@ -25,45 +26,50 @@ msgstr "Linnukesi kokku"
 msgid "It must be a non-zero positive number"
 msgstr "See arv peab olema nullist suurem"
 
-#: src/EBox/ProgressIndicator.pm:52
+#: src/EBox/ProgressIndicator.pm:49
+#, fuzzy
+msgid "To solve it you can try to execute the following commands:"
+msgstr "Palun kinnita, et sa tõesti tahad kustutada järgnevat kaugvarundust:"
+
+#: src/EBox/ProgressIndicator.pm:56
 #, perl-brace-format
 msgid "Cannot execute {exe}"
 msgstr "{exe} käivitamine nurjus"
 
-#: src/EBox/ProgressIndicator.pm:102
+#: src/EBox/ProgressIndicator.pm:106
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr "Edenemise indikaatorit IDga {id} ei leitud"
 
 # Lause õige sõnastamisega veidi raskusi. vbla peaks olema "linnukeste arvu teatamine"
-#: src/EBox/ProgressIndicator.pm:140
+#: src/EBox/ProgressIndicator.pm:144
 msgid "Number of ticks to notify"
 msgstr "Linnukeste arv teatamiseks"
 
-#: src/EBox/ProgressIndicator.pm:142
+#: src/EBox/ProgressIndicator.pm:146
 msgid "must be greater than zero"
 msgstr "peab olema suurem kui null"
 
 # Käivitatav ei tööta
-#: src/EBox/ProgressIndicator.pm:148
+#: src/EBox/ProgressIndicator.pm:152
 #, fuzzy
 msgid "Executable has not been run"
 msgstr "Käivitatav ei ole käivitatud"
 
 # Käivitatav ei tööta
-#: src/EBox/ProgressIndicator.pm:271
+#: src/EBox/ProgressIndicator.pm:275
 #, fuzzy
 msgid "The executable has not run"
 msgstr "Käivitatavat ei käivitatud"
 
 # Koodist ei loe välja ning vaja rohkem täpsemat tausta uurida
-#: src/EBox/ProgressIndicator.pm:402
+#: src/EBox/ProgressIndicator.pm:408
 #, fuzzy
 msgid "The executable has already been started"
 msgstr "Käivitatav on juba käivitunud"
 
 # Koodist ei loe välja ning vaja rohkem täpsemat tausta uurida
-#: src/EBox/ProgressIndicator.pm:406
+#: src/EBox/ProgressIndicator.pm:412
 msgid "The executable has already finished"
 msgstr "Käivitatav on juba lõpetanud"
 
@@ -1079,12 +1085,12 @@ msgstr "Selle oleku tuvastamiseks vaata {url}"
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "Sa pead eBoxi seadistusfailis määrama muutuja {variable}"
 
-#: src/EBox/PgDBEngine.pm:417
+#: src/EBox/PgDBEngine.pm:422
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Viga postgresql andmebaasist {name} tõmmise tegemisel"
 
-#: src/EBox/PgDBEngine.pm:435
+#: src/EBox/PgDBEngine.pm:440
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Andmebaasi tõmmisfail {file} ei ole loetav"
@@ -1139,7 +1145,7 @@ msgstr "\"Alates\" {from} peab olema suurem kui \"Kuni\" {to}"
 msgid "Enter a float number"
 msgstr "Sisesta murdarv"
 
-#: src/EBox/Types/Select.pm:343
+#: src/EBox/Types/Select.pm:342
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
 msgstr "Vali väärtus järgmiste väärtuste hulgast: {set}"
@@ -1653,25 +1659,25 @@ msgstr "Seadistuste taastamine"
 msgid "Halt/Reboot"
 msgstr "Seiskamine/taaskäivitamine"
 
-#: src/EBox/Apache.pm:272 src/EBox/Apache.pm:281
+#: src/EBox/Apache.pm:277 src/EBox/Apache.pm:286
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Apache.pm:595
+#: src/EBox/Apache.pm:600
 msgid "eBox web server"
 msgstr "eBoxi veebiserver"
 
-#: src/EBox/Global.pm:480
+#: src/EBox/Global.pm:484
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "Mooduli {modName} salvestamine"
 
-#: src/EBox/Global.pm:510 src/EBox/Global.pm:537
+#: src/EBox/Global.pm:514 src/EBox/Global.pm:541
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "Mooduli {modName} salvestamine"
 
-#: src/EBox/Global.pm:1054
+#: src/EBox/Global.pm:1058
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "Skripti {scriptName} käivitamine"
@@ -1990,7 +1996,7 @@ msgid "Some error has happened in eBox: "
 msgstr "eBoxis tekkis mingi viga: "
 
 # Algamine... v Käivitumine...
-#: src/templates/progress.mas:139
+#: src/templates/progress.mas:137
 msgid "Starting..."
 msgstr "Tegevuste alustamine..."
 
@@ -2412,10 +2418,6 @@ msgstr "Haldusliidese TCP port"
 #~ msgstr ""
 #~ "Palun kinnita, et sa tõesti tahad seadistusi taastada kasutades järgnevat "
 #~ "kaugvarundust:"
-
-#~ msgid "Please confirm that you want to delete the following remote backup:"
-#~ msgstr ""
-#~ "Palun kinnita, et sa tõesti tahad kustutada järgnevat kaugvarundust:"
 
 #~ msgid "Inexistent action: {a}"
 #~ msgstr "Olematu toiming: {a}"
