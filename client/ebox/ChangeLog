@@ -1,3 +1,5 @@
+HEAD
+	+ Show option "return to dashboard" when save changes fails.
 1.5.11
 	+ Added more tries on redis reconnection
 	+ Fixed user corner access problems with redis server

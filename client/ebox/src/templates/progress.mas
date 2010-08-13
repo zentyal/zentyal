@@ -155,7 +155,10 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 <div class="error" id="error-progress" style="display:none;">
    <p><% $errorNote %></p>
    <p id="error-progress-message"></p>
+   <a href="<% $nextStepUrl %>"> <%__($nextStepText) %></a>
 </div>
+
+
 <script>
 	showAds();
 </script>
