@@ -1,3 +1,5 @@
+HEAD
+	+ Added missing CIDR values between /16 and /8
 1.5.7
 	+ New method for escaping strings in mason, fixes problems with non-latin
 	  encodings
