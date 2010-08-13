@@ -342,7 +342,7 @@ sub _fieldDescription
     my $desc = new EBox::Types::Text(
             'fieldName' => 'description',
             'printableName' => __('Description'),
-            'size' => '15',
+            'size' => '32',
             'editable' => 1,
             'optional' => 1);
     push (@tableHead, $desc);

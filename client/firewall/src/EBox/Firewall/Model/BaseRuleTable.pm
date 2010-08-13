@@ -184,7 +184,7 @@ sub _fieldDescription
             new EBox::Types::Text(
                 'fieldName' => 'description',
                 'printableName' => __('Description'),
-                'size' => '15',
+                'size' => '32',
                 'editable' => 1,
                 'optional' => 1,
                 ),
@@ -236,7 +236,7 @@ sub validateTypedRow
     if ($params_r->{service}) {
         my $service = $params_r->{service};
         # don't allow inverse match of any service
-        
+
         if ($service->inverseMatch()) {
             if ($service->printableValue eq '! any') {
                 throw EBox::Exceptions::External(
