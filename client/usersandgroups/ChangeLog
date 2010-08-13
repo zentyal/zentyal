@@ -1,8 +1,9 @@
+HEAD
+	+ Nasty bug page replaced by the new eBox error page
 1.5.6
 	+ Fixed user corner access problems with redis server
 1.5.5
 	+ LDAP master creation optimized and less error-prone
-	+ Bug fix: fixed "stringify" bug when trying to connect slave
 1.5.4
 	+ Bug fix: adding a user name with spaces no longer fails
 1.5.3
