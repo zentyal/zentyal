@@ -1,4 +1,5 @@
 HEAD
+	+ Added more tries on redis reconnection
 	+ Fixed user corner access problems with redis server
 	+ writeFile* methods reorganized
 	+ Added cron as dependency as cron.hourly was never executed with anacron

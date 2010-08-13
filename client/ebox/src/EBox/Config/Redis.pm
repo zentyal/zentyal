@@ -497,7 +497,7 @@ sub _redis_call
     my $response;
     my @response;
     my $wantarray = wantarray;
-    for my $i (0..1) {
+    for my $i (1..5) {
         my $failure;
         try {
             if ($wantarray) {
@@ -505,7 +505,7 @@ sub _redis_call
             } else {
                 $response = $self->{redis}->$command(@args);
             }
-            $failure  = 0;
+            $failure = 0;
         } otherwise {
             # Disconnected, try to reconnect
             $self->_initRedis;
@@ -515,8 +515,8 @@ sub _redis_call
 
         last unless ($failure);
 
-        if ($failure and $i == 0) {
-            warn 'Reconnecting to redis server...'
+        if ($failure and $i < 5) {
+            warn 'Reconnecting to redis server...';
         } elsif ($failure and $i == 1) {
             die 'Cannot connect to redis server';
         }
@@ -627,10 +627,10 @@ sub _port
     my ($self, $user) = @_;
     defined($user) or $user = $self->_user();
 
-    if ($user eq 'ebox') {
-        return EBox::Config::configkey('redis_port');
-    } elsif ($user eq 'ebox-usercorner') {
+    if ($user eq 'ebox-usercorner') {
         return EBox::Config::configkey('redis_port_usercorner');
+    } else {
+        return EBox::Config::configkey('redis_port');
     }
 
     # Unknown user
