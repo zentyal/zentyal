@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:53+0200\n"
-"PO-Revision-Date: 2010-04-15 20:09+0200\n"
+"PO-Revision-Date: 2010-08-08 00:53+0200\n"
 "Last-Translator: Vasco Castelo Branco <vcbranco@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgstr ""
 
 #: src/EBox/CGI/Base.pm:578
 msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr "Acabou de encontrar um bug na eBox. Procure suporte técnico"
+msgstr "Acabou de encontrar um erro na eBox. Procure suporte técnico"
 
 #: src/EBox/CGI/Base.pm:664
 msgid ""
@@ -85,7 +85,7 @@ msgstr "O seu pedido não pode ser processado porque tem parâmetros incorrectos
 
 #: src/EBox/CGI/Base.pm:697
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
-msgstr ""
+msgstr "HTTP referer errado. Operação cancelada por razões de segurança"
 
 #: src/EBox/CGI/Base.pm:709
 msgid ""
@@ -147,7 +147,7 @@ msgstr ""
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
-msgstr "O caminho do ficheiro fornecido não é válido."
+msgstr "O caminho do ficheiro que foi fornecido não é válido."
 
 #: src/EBox/Validate.pm:810
 msgid "The file path must be absolute"

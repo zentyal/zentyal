@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libebox 0.12.1\n"
 "Report-Msgid-Bugs-To: info@ebox-technologies.com\n"
 "POT-Creation-Date: 2010-07-21 00:53+0200\n"
-"PO-Revision-Date: 2010-07-19 09:47+0200\n"
+"PO-Revision-Date: 2010-07-21 07:56+0200\n"
 "Last-Translator: Daniel Hedblom <daniel.hedblom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgstr ""
 
 #: src/EBox/CGI/Base.pm:697
 msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
-msgstr ""
+msgstr "Felaktig HTTP referer detekterad, åtgärd avbruten av säkerhhetsskäl"
 
 #: src/EBox/CGI/Base.pm:709
 msgid ""
