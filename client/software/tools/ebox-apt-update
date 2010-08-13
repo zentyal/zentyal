@@ -37,7 +37,12 @@ open $read, "-|", $param;
 
 my $out = "";
 while ($text = <$read>){
-	
+    if ($text =~ /Need to get ([0-9]*).*([0-9]*)MB of archives/){
+        $out = "down$1";
+    }
+	if ($text =~ /Get:[0-9]*\s(.*)/){
+		$out = $text;
+	}
 	if ($text =~ /([0-9]+) upgraded.* ([0-9]+) .* ([0-9]+) .* ([0-9]+) .*/) {
 		$out = 'ins' . ($1+$2) . "\nrem$3\n";
 	}
@@ -58,7 +63,7 @@ while ($text = <$read>){
 		open ($write, '>', $fifo);
 		print $write $out;
 		close $write;
-	}		
+	}
 }
 open ($write, '>', $fifo);
 print $write 'end';

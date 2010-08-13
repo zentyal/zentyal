@@ -351,6 +351,38 @@ sub listPackageInstallDepends
     return $self->_packageDepends('install', $packages);
 }
 
+
+# Method: listPackageDescription
+#
+#	Returns a list of short descriptions of each package in the list.
+#
+# Parameters:
+#
+# 	packages - an array with the names of the packages
+#
+# Returns:
+#
+#	array ref - holding the short descriptions of the packages
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the module is locked
+#       by other process
+#
+sub listPackageDescription
+{
+	my ($self, $packages) = @_;
+	my $cache = AptPkg::Cache->new;
+
+	my @list;
+	for my $pack ( @$packages) {
+		my $pkgCache = $cache->packages()->lookup($pack) or next;
+		EBox::info("desc $pkgCache->{ShortDesc}");
+		push(@list, $pkgCache->{ShortDesc});
+	}
+	return \@list;
+}
+
 # Method: listPackageRemoveDepends
 #
 #	Returns a list of those ebox packages which will be removed when
@@ -419,6 +451,36 @@ sub _packageDepends
 
    return \@packages;
 }
+
+# Method: isInstalled
+#
+#	Checks if the package is installed 
+#
+# Parameters:
+#
+# 	name - name of the package
+#
+# Returns:
+#
+#	1 is package is intalled otherwise returns 0 
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the module is locked
+#       by other process
+#
+sub isInstalled
+{
+    my ($self, $name) = @_;
+    my $cache = AptPkg::Cache->new;
+    if ($cache->{$name}{CurrentState} eq 'Installed'){
+	EBox::info("Package: $name is installed");
+        return 1;
+    }
+    EBox::info("Package: $name is not installed");
+    return 0;
+}
+
 
 # Method: getAutomaticUpdates
 #
@@ -630,6 +692,7 @@ sub _getInfoEBoxPkgs
 
 sub _getUpgradablePkgs
 {
+	my $distro = _getDistroId();
 	my $cache = AptPkg::Cache->new();
 	my @list;
 	for my $pack (keys %$cache)     {
@@ -651,14 +714,33 @@ sub _getUpgradablePkgs
 
 			my @files = $cache->files($pack);
 			$data{'security'} = 0;
+			$data{'ebox-qa'} = 0;
+			my $security = 0;
+			my $ebox_qa = 0;
 			foreach my $file (@files) {
-				if (print $file->{Archive} =~ /.*security.*/) {
-                                        # print 'sec: ' . $data{name} . "\n";
-					$data{'security'} = 1;
+				if ($file->{Archive} =~ /.*security.*/) {
+					$security = 1;
+				}
+				if ($distro eq 'Ubuntu') {
+					if ($file-> {Archive}  eq 'ebox-qa'){
+						$ebox_qa = 1;
+					}
+				} elsif ($distro eq 'Debian') {
+					if ($file->{Site} eq 'qa.ebox-platform.com'){
+						$ebox_qa = 1;
+					}
+				}
+				if ($security and $ebox_qa) {
 					last;
 				}
 			}
+			$data{'security'} = $security;
+			$data{'ebox-qa'} = $ebox_qa;
+			if ($security or $ebox_qa) {
+				EBox::info("fixme: $pack");
+				EBox::info("fixme: $cache->{$pack}{FileName}");
 
+			}
 
 			push(@list, \%data);
 		}
@@ -666,6 +748,23 @@ sub _getUpgradablePkgs
 	}
 
 	return \@list;
+}
+
+#return the distro name
+sub _getDistroId
+{
+	my $distroFile = '/etc/lsb-release';
+	open(FILE, $distroFile);
+	my $distro = <FILE>;
+	close(FILE);
+	chop($distro);
+	if ($distro =~ /.*=(.*)/) {
+		EBox::info("distro id: $1");
+		return $1;
+	} else {
+		EBox::info("distro id: unknown");
+		return '';
+	}
 }
 
 # Check if the module is locked or not

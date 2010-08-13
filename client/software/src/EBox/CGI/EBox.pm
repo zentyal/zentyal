@@ -53,11 +53,17 @@ sub _process($) {
     if (defined($self->param('updatePkgs'))) {
         $software->updatePkgList();
     }
-
+    
     my @array = ();
     push(@array, 'eboxpkgs'     => $software->listEBoxPkgs());
     push(@array, 'updateStatus' => $software->updateStatus(1));
     push(@array, 'QAUpdates'    => $software->QAUpdates());
+    push(@array, 'isOffice'    => $software->isInstalled('ebox-office'));
+    push(@array, 'isUtm'    => $software->isInstalled('ebox-infrastructure'));
+    push(@array, 'isGateway'    => $software->isInstalled('ebox-gateway'));
+    push(@array, 'isSecurity'    => $software->isInstalled('ebox-security'));
+    push(@array, 'isCommunication'    => $software->isInstalled('ebox-communication'));    
+
     $self->{params} = \@array;
 }
 

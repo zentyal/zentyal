@@ -84,11 +84,14 @@ try {
 			unless (($text eq $oldText) or ($text eq $lastLine)) {
 				EBox::info("Read: $text");
 				EBox::info("R OT: $oldText");
+                #if ($text =~ /down([0-9]*)/) {
+                #    $progress->setTotalTicks($1);
+                #}
 				if ($text =~ /ins([0-9]*)/) {
 					$progress->setTotalTicks($1*2);
 				}
-				if ($text =~ /(Getting\s.*)/){
-					$progress->setMessage($text);
+				if ($text =~ /Get:[0-9]*\s(.*)/){
+					$progress->setMessage("Downloading $1");
 				}
 				if ($text =~ /(Unpacking\s.*)/){
 					$progress->notifyTick();

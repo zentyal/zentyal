@@ -1,4 +1,12 @@
 HEAD
+	+ In basic mode of ebox components installed metapackages appear with a tick
+	+ Save changes automatically when a package is deleted
+	+ Now ebox-software tables are ordered alphabetically
+	+ Show package descriptions instead of package names in the confirmation screen
+	+ Show update list button
+	+ Skip install button
+	+ Delete big space in update system
+	+ Show information while downloading packages
 	+ New slides translated to Spanish
 1.5.3
 	+ Bugfix: filter and order in ebox components table work properly now

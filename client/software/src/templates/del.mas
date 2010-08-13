@@ -4,6 +4,7 @@
     $action
     @packages
     @actpackages
+    @descactpackages
 </%args>
 <%init>
 use EBox::Gettext;
@@ -101,7 +102,8 @@ var check = new Array();
 %       my $r = 0;
 %       my $row0 = '';
 %       my $row1 = '';
-%       foreach my $pkg (@actpackages) {
+%       foreach my $pkg (@descactpackages) {
+%           $pkg =~ s/^eBox - //;
 %           if ($r) {
 %               $row0 .= "       <tr class='border'><td>$pkg</td></tr>\n";
 %               $r = 0;

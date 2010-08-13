@@ -1,7 +1,12 @@
 <%args>
     @eboxpkgs => ()
-    $updateStatus
+    $updateStatus  
     $QAUpdates
+    $isOffice
+    $isUtm
+    $isGateway
+    $isSecurity
+    $isCommunication      
 </%args>
 <%init>
 use EBox::Gettext;
@@ -168,12 +173,18 @@ var pkgTable = new Array(
     <a href='#' onclick="Effect.Fade('basic', { duration: 0.3 }); Effect.Appear('advanced', { duration: 0.3, queue: 'end' })"><%__('View advanced mode')%></a>
 	<div style="margin-top: 10px">
 		<div id="Gateway_head">
+% unless ($isGateway) {
 			<div class="image" id="Gateway_image" onclick="tick('Gateway')">
 				<img src="/data/software/images/icon_gw.png" alt="eBox Gateway"/>
 			</div>
 			<div class="image" id="Gateway_image_tick" style="display: none" onclick="untick('Gateway')">
 				<img src="/data/software/images/icon_gw_tick.png" alt="eBox Gateway" />
 			</div>
+% } else {
+			<div class="image" id="Gateway_image_tick">
+				<img src="/data/software/images/icon_gw_tick.png" alt="eBox Gateway" />
+			</div>	
+%}
 			<div>
 				&nbsp;</br>
 				<h3>Gateway - Your access to Internet</h3>		    
@@ -229,14 +240,20 @@ var pkgTable = new Array(
 		</div>
 	</div>
 
-	<div>
+	<div>	
 		<div  id="UTM_head">
+% unless ($isUtm) {		
 			<div class="image" id="UTM_image" onclick="tick('UTM')">
 				<img src="/data/software/images/icon_utm.png" alt="eBox UTM" />
 			</div>
 			<div class="image" id="UTM_image_tick" style="display: none" onclick="untick('UTM')">
 				<img src="/data/software/images/icon_utm_tick.png" alt="eBox UTM" />
-			</div>			
+			</div>
+% } else {	
+			<div class="image" id="UTM_image_tick">
+				<img src="/data/software/images/icon_utm_tick.png" alt="eBox UTM" />
+			</div>
+% }	
 			<div>
 				&nbsp;</br>
 				<h3>UTM - Leave the bad guys out</h3>
@@ -291,12 +308,18 @@ var pkgTable = new Array(
 	
 	<div>
 		<div id="Infrastructure_head">
+% unless ($isSecurity) {		
 			<div class="image" id="Infrastructure_image" onclick="tick('Infrastructure')">
 				<img src="/data/software/images/icon_infra.png" alt="eBox Infrastructure" />
 			</div>
 			<div class="image" id="Infrastructure_image_tick" style="display: none" onclick="untick('Infrastructure')">
 				<img src="/data/software/images/icon_infra_tick.png" alt="eBox  Infrastructure" />
-			</div>			
+			</div>
+% } else {	
+			<div class="image" id="Infrastructure_image_tick">
+				<img src="/data/software/images/icon_infra_tick.png" alt="eBox  Infrastructure" />
+			</div>
+% }	
 			<div> 
 				&nbsp;</br>			
 				<h3>Infrastructure - Manage your network infrastructure</h3>		    
@@ -351,12 +374,18 @@ var pkgTable = new Array(
 	
 	<div>
 		<div id="Office_head">
+% unless (	$isOffice) {
 			<div class="image" id="Office_image" onclick="tick('Office')">
 				<img src="/data/software/images/icon_office.png" alt="eBox Office" />
 			</div>
 			<div class="image" id="Office_image_tick" style="display: none" onclick="untick('Office')">
 				<img src="/data/software/images/icon_office_tick.png" alt="eBox Office" />
-			</div>				
+			</div>
+% } else {
+			<div class="image" id="Office_image_tick">
+				<img src="/data/software/images/icon_office_tick.png" alt="eBox Office" />
+			</div>	
+% }	
 			<div> 
 				&nbsp;</br>
 				<h3>Office - Share your office resources</h3>		    
@@ -412,12 +441,18 @@ var pkgTable = new Array(
 	
 	<div>
 		<div id="Communications_head">
+% unless ($isCommunication) {		
 			<div class="image" id="Communications_image" onclick="tick('Communications')">
 				<img src="/data/software/images/icon_comm.png" alt="eBox Unified Communications" />
 			</div>
 			<div class="image" id="Communications_image_tick" style="display: none" onclick="untick('Communications')">
 				<img src="/data/software/images/icon_comm_tick.png" alt="eBox Unified Communications" />
-			</div>				
+			</div>
+% } else {
+			<div class="image" id="Communications_image_tick">
+				<img src="/data/software/images/icon_comm_tick.png" alt="eBox Unified Communications" />
+			</div>	
+%}	
 			<div>
 				&nbsp;</br>			
 				<h3>Unified Communications - Centralize all your communications</h3>		    
@@ -467,7 +502,10 @@ var pkgTable = new Array(
 		</div>
 	</div>
 	<div id="Install_head">
-		<button onclick="sendFormBasic()"><img src="/data/images/install.gif"> Install</button>
+		<button onclick="sendFormBasic()"><img src="/data/images/install.gif"> <% __('Install') %></button>
+% if (-f $file) {	
+		<button onclick="document.location.href='/ebox/Finish?save=yes'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
+% }
 	</div>
 	<div style="display: none">	
 		<input type='checkbox' id='Gateway_check'>
@@ -479,7 +517,7 @@ var pkgTable = new Array(
 </div>
 
 <div id="advanced">
-	<a href='#' onclick="Effect.Fade('advanced', { duration: 0.3 }); Effect.Appear('basic', { duration: 0.3, queue: 'end' })"><%__('View basic mode')%></a>	
+	<a href='#' onclick="Effect.Fade('advanced', { duration: 0.3 }); Effect.Appear('basic', { duration: 0.3, queue: 'end' })"><% __('View basic mode') %></a>	
 	<div style="margin-top: 10px" id="tabs">
 		<ul id="tabMenu_ConfigurationComposite" class="tabs">
 			<li>
@@ -490,14 +528,14 @@ var pkgTable = new Array(
 % } else {			   
 			<li>
 % }
-			   <a id="updateTab" href="#" onclick="tab2()"> Update <span id="updNumber">(0)</span>  </a>
+			   <a id="updateTab" href="#" onclick="tab2()"> <% __('Update') %><span id="updNumber">(0)</span>  </a>
 			</li>
 % if (-f $file) {	
 			<li style="display:none">
 % } else {			   
 			<li>
 % }	
-				<a id="deleteTab" href="#" onclick="tab3()"> Delete </a>
+				<a id="deleteTab" href="#" onclick="tab3()"><% __('Delete') %></a>
 			</li>			
 		</ul>
 	</div>
@@ -505,25 +543,30 @@ var pkgTable = new Array(
 		<div id="installBox">
 			<div id="installTable"></div>
 			<div id="installButtons"> 
-				<button onclick="sendForm('install', insHtmlId)"><img src="/data/images/install.gif"> Install</button>
-				<button style="float:right" onclick="deselectAll(insTable, insHtmlId)"><img src="/data/images/deny-active.gif"> Deselect All</button>
-				<button style="float:right" onclick="selectAll(insTable, insHtmlId)"><img src="/data/images/apply.gif"> Select All</button>				
+				<button onclick="sendForm('install', insHtmlId)"><img src="/data/images/install.gif"> <% __('Install') %></button>
+				<button onclick='document.updateList.submit()'><img src="/data/images/reload.gif"> <% __('Update list') %></button>
+				<button style="float:right" onclick="deselectAll(insTable, insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+				<button style="float:right" onclick="selectAll(insTable, insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>				
 			</div>			
 		</div>		
 		<div id="updateBox">		
 			<div id="updateTable"></div>
 			<div id="updateButtons">
-				<button onclick="sendForm('install', updHtmlId)"><img src="/data/images/install.gif"> Update</button>
-				<button style="float:right" onclick="deselectAll(updTable, updHtmlId)"><img src="/data/images/deny-active.gif"> Deselect All</button>
-				<button style="float:right" onclick="selectAll(updTable, updHtmlId)"><img src="/data/images/apply.gif"> Select All</button>
+				<button onclick="sendForm('install', updHtmlId)"><img src="/data/images/install.gif"> <% __('Update') %></button>
+				<button onclick='document.updateList.submit()'><img src="/data/images/reload.gif"> <% __('Update list') %></button>
+				<button style="float:right" onclick="deselectAll(updTable, updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+				<button style="float:right" onclick="selectAll(updTable, updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select Al') %></button>
+				<form name='updateList' action='EBox' method='post'>
+						<input type='hidden' name='updatePkgs' value="yes"/>		
+				</form>
 			</div>
 		</div>
 		<div id="deleteBox">		
 			<div id="deleteTable"></div>
 			<div id="deleteButtons">
-				<button onclick="sendForm('remove', delHtmlId)"><img src="/data/images/delete.gif"> Delete</button>
-				<button style="float:right" onclick="deselectAll(delTable, delHtmlId)"><img src="/data/images/deny-active.gif"> Deselect All</button>
-				<button style="float:right" onclick="selectAll(delTable, delHtmlId)"><img src="/data/images/apply.gif"> Select All</button>
+				<button onclick="sendForm('remove', delHtmlId)"><img src="/data/images/delete.gif"> <% __('Delete') %></button>
+				<button style="float:right" onclick="deselectAll(delTable, delHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
+				<button style="float:right" onclick="selectAll(delTable, delHtmlId)"><img src="/data/images/apply.gif"> <%  __('Select All') %></button>
 			</div>
 		</div>
 		<form name="formPkg" action='InstallPkgs' method='post' style="display: none"></form>
@@ -599,7 +642,10 @@ var pkgTable = new Array(
 % }
 	document.getElementById('updateBox').hide();	
 	document.getElementById('deleteBox').hide();
-	
+	insTableOrderer.orderRow('Component', 'asc');
+	updTableOrderer.orderRow('Component', 'asc');	
+	delTableOrderer.orderRow('Component', 'asc');
+
 	function selectAll(items, htmlIds){
 		if(!isArray(items)||!isArray(htmlIds))
 			return;

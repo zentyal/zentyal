@@ -140,10 +140,13 @@ sub showConfirmationPage
     $self->{errorchain} = 'Software/EBox';
 
     my $actpackages;
+    my $descactpackages ;
     if($action eq 'install') {
 	$actpackages = $software->listPackageInstallDepends($packages_r);
+	$descactpackages = $software->listPackageDescription($actpackages);
     } elsif ($action eq 'remove') {
 	$actpackages = $software->listPackageRemoveDepends($packages_r);
+	$descactpackages = $software->listPackageDescription($actpackages);
     }  else {
 	throw EBox::Exceptions::Internal("Bad action: $action");
     }
@@ -154,6 +157,7 @@ sub showConfirmationPage
     push(@array, 'action' => $action);
     push(@array, 'packages' => $packages_r);
     push(@array, 'actpackages' => $actpackages);
+    push(@array, 'descactpackages' => $descactpackages);
     $self->{params} = \@array;
 }
 
@@ -175,7 +179,7 @@ sub showInstallProgress
                                       . '. More information on the logs'),
 		      reloadInterval  => 2,
               nextStepUrl => '/ebox/Wizard',
-              nextStepText => 'Go to initial configuration wizard',
+              nextStepText => 'Go to save changes',
               nextStepTimeout => 1
 		     );
 }
@@ -197,6 +201,9 @@ sub showRemoveProgress
                       errorNote => __('The packages removal has not finished correctly '
                                       . '. More information on the logs'),
 		      reloadInterval  => 2,
+              nextStepUrl => '/ebox/Finish',
+              nextStepText => 'Go to initial configuration wizard',
+              nextStepTimeout => 1
 		     );
 }
 
